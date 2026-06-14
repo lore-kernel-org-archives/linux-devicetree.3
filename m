@@ -1,86 +1,284 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E052729898B;
-	Sun, 14 Jun 2026 20:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADF331E856
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781469579; cv=none; b=bMAXUaXmgtnpg1Tu0VVelCW5vdW0wDMvpqsGu1AUa9G1gImgABi8AinjflQB4k4rI9RhhqSfWN7M0pLyHUrB6wn9awRMp+qfpvUmwAGMeoyq1xm7dtKs1MRKiLDpeHC21smSfd6yT2i6QjZyOcqe5unx1RTHv7ACq4ooqWP3aOk=
+	t=1781469839; cv=none; b=AIwEXIJyCjoE3/MhO8dRb+h1v5JQpKJiMrv3UCv+2VCgIecghJjKp6H5JyvX9MVNGOleuE3AfI3lT4kYacaAm0ZpJGmFRzI7dYMCSFuoWxYCaIrAFbBlypxEwDwY58B+cCIt+043YFFf3wGzQSexXCiLAOiYpTN86lCcjiloZ40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781469579; c=relaxed/simple;
-	bh=Ko6uOwd/TisvMAgBYrzVjK1ghD9KlO9FminlvR0nz4E=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=llcjF70PGv5wp+O/JicPmGrxbi9VB85MOn2MWueWR6dtbGJjQ0WtsUc2NPhnP98ofUSSb+OQQ4sO8p2QRAeN54vxFXEyzYP5YlVvZtCfcTte7vQypRlos9okPdtlnj4vHuivIOPQ9I8kvX1kQOiBZTDEBgLbZL9pZ2Uzx6q2XrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HpU+LKD5; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781469839; c=relaxed/simple;
+	bh=D27UulZYaetxYDKjX/8/X7LYBqLyMAuGnFuaAW4GWvo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=DfwI6+V6yX1yR04RCoIYCe9p6/wSS3FQrEntiAflBxvBuUDzf+tIb6Wh5Scc7l+FcCePQXOtlVn8KBxyAVAqieiPN2/v1Li0D4RDY1p206K2tkBXaBOnlIBzFSZFBmwxUOzGbgDpIfhrYEfIj4e0K+kZ27KFuoMECACqO1f+zuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HYWhiIa4; arc=none smtp.client-ip=209.85.222.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HpU+LKD5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 65F6E1A391E;
-	Sun, 14 Jun 2026 20:39:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 26D5A60014;
-	Sun, 14 Jun 2026 20:39:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85C9B106C86AA;
-	Sun, 14 Jun 2026 22:39:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781469574;
-	h=from:subject:date:message-id:to:mime-version:content-type:in-reply-to:
-	 references; bh=/cwZEmaxV262lOCKH7K7Tt4ZA+Bva0faoaNw+ZyMjHM=;
-	b=HpU+LKD5So7GqO2NxkdY4wTVz5kQaBS/m21yAwQydCbgAAtiMC/qimPpw8cJXCnOMR9Ywj
-	74hIiPP2c8dRHoWwvlZXvkPqzHYmIlaEeYRvrn4Ffe27Xwe3WMuIs/Qt6rd5k505FsPxLV
-	HAmT0o94QSEgP1grjj6tng8PjMlsDQgYMLl6I5zfb/B9h2np8UX18F9/GcUBuk47ZKlYfZ
-	8S1gU6y9vrkJygopAolqgSpPVKXgQZz1YBP38NJqIZknYjPjHQcb+GerpyHbYwVIwjm9J4
-	TxHgJ9Vq5W8he24goCA3uAjKURpmJKb9c2sxSpmc6FJ5l8Q+0Meo/b2QtpA02g==
-Date: Sun, 14 Jun 2026 22:39:28 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, nicolas.ferre@microchip.com,
-	claudiu.beznea@tuxon.dev, linux@armlinux.org.uk,
-	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com,
-	aubin.constans@microchip.com, Ryan.Wanner@microchip.com,
-	romain.sioen@microchip.com, tytso@mit.edu,
-	cristian.birsan@microchip.com, adrian.hunter@intel.com,
-	npitre@baylibre.com, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
-	Manikandan Muralidharan <manikandan.m@microchip.com>
-Subject: Re: (subset) [PATCH v7 0/5] Add microchip sama7d65 SoC I3C support
-Message-ID: <178146955570.340851.8125558640090329050.b4-ty@b4>
-References: <20260525092405.1514213-1-manikandan.m@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HYWhiIa4"
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-963a997dea4so1882846241.2
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 13:43:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781469837; x=1782074637; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=73FE8dDRzs2A2yFSDW5KK1ljxB2vUgkxUvq5kN7HbwI=;
+        b=HYWhiIa42lb0pv7HPvRUnu/svzoLpVL07KJRWfHjlFzzO9I4ejpB41F17Nfa34hAsA
+         x3gD/Ccn0l7KPbCj5UTeslwBAqdDp4aeB7aX/0XTnKiOTl3QJ1PcyneWOR5oW1sq3kKw
+         GOVTydYLSJQ2fMOMLk/JOQX6ptxNfhI8P36ckE3kDFavp+5qrQvpuOO6+ICbz1q8L3yU
+         37kLxKBl6uwPX/qSGS20TyxsIw0oaG1tazuLk+0r8d7FWiYBaT3/MCpihrsRQeGLK00W
+         DO2sACQ3eSYmgi2HSikIs619hid/KBf60az9iFiuUda/k8BR1x7zOnVx+5xlMaJYZ3ma
+         oOWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781469837; x=1782074637;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=73FE8dDRzs2A2yFSDW5KK1ljxB2vUgkxUvq5kN7HbwI=;
+        b=cI/DzulNmy0uAnTUMXQ2TjEFpR6pXIJFjRvORmTfrYaG793kH6w6INRdPNAu7rqITe
+         zofbpDEhf+xjmoa3V+7L1QvzOfKNdZb5onTlKzkTPGl8fXuVFlVvrS9Ni7/XxQ9DweVN
+         g70rtI7bjErcbWjvBOAztsPVTXg+Juwz70/I1uy/vSee4MC/qIdcVvt7i29AcBHzfVAC
+         yCYsB2TwJVtMBKkpKKYzpe/y7GpfE79N8CrIOjsPbPvfPm7v6BGhEsGsl8lPLmaPRrio
+         CWOljTYESOKTBnMx6pKhR7vkdl/3LyPoLoN+A6vsguhRves7RVs//m7kWrCYllmyk8n7
+         Uu2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8DhyLdai7spx6cPO171lIqf+bGcN1et3qAYZunRSTJGxseibh03qhldDnbuF+QFisOy7DxEChaSIZJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLAEwg5m/CIf432R7dtdLYcM8kv/Je3Z3xIWR9YNxWlCJViRId
+	3Ruqa+nt7uibfHkw9x+rWrSyuw8WNwluz3xHO7lupSDjZrtvdPHSJGQM
+X-Gm-Gg: Acq92OEMvy9h3FgbOur6PZ9myEGhHEyzmKCWrphVnGC4nKhnuAh06lF0RpSjaMianz5
+	i/lK8EMFkqilKV1N7uhtmXVz70NOVp73GZqlPqIJ0UzwaoarFO/jZGNU8RE0LbuYb/BoXjeumaU
+	lgjq8h46IRMeCHY11/4RkOA8vlHtJljPRzLoGcrQazfL2wLIZkHKm2HJoPhag/eshYAiV8LBI3p
+	2viYPTJz5Wsxc8/ZDJaGJAZZSvxGtDhGQCXPKtR7PX86cVJitaA7LBF5X0fMs46YvSeNMb81y2f
+	28qRLC37BZaazKFg8Etb1XWD7pnt45tvQZiT21Qdk0SwPYsQncxQScdDbBgEyJQiVqRxbYBdBIT
+	IZMmFXnxIiZrRY2Nt5rtSyY1uMJoUP7SmzEHl7NthOMAFZEOw6qDxG374y+IsuS/RixY/JF/4xY
+	O9OluxNhnEx5ajRA==
+X-Received: by 2002:a05:6102:3f06:b0:64e:32c3:1458 with SMTP id ada2fe7eead31-71e88d95324mr6724172137.22.1781469836702;
+        Sun, 14 Jun 2026 13:43:56 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966a05a7da1sm1696835241.10.2026.06.14.13.43.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jun 2026 13:43:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525092405.1514213-1-manikandan.m@microchip.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 14 Jun 2026 15:43:49 -0500
+Message-Id: <DJ92CLJIJ04T.3HSUHGGSF8EPG@gmail.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "David
+ Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 5/5] iio: adc: Add ti-ads1263-adc2 driver
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+ <20260612-ads126x-v1-5-894c788d03ed@gmail.com>
+ <20260613151047.57cd074f@jic23-huawei>
+In-Reply-To: <20260613151047.57cd074f@jic23-huawei>
 
-On Mon, 25 May 2026 14:54:00 +0530, Manikandan Muralidharan wrote:
-> Add support for microchip sama7d65 SoC I3C master only IP which is
-> based on mipi-i3c-hci from synopsys implementing version 1.0
-> specification. The platform specific changes are integrated in the
-> mipi-i3c-hci driver using existing quirks.
-> 
-> I3C in master mode supports up to 12.5MHz, SDR mode data transfer in
-> mixed bus mode (I2C and I3C target devices on same i3c bus).
-> 
-> [...]
+On Sat Jun 13, 2026 at 9:10 AM -05, Jonathan Cameron wrote:
+> On Fri, 12 Jun 2026 17:46:23 -0500
+> Kurt Borja <kuurtb@gmail.com> wrote:
+>
+>> The TI ADS1263 includes an auxiliary, 24-bit, delta-sigma ADC (ADC2).
+>> ADC2 operation is independent of ADC1, with independent selections of
+>> input channel, reference voltage, sample rate, and channel gain
+>>=20
+>> Add support for this ADC as an independent IIO device, through the
+>> auxiliary bus API.
+>
+> A few things inline.
+>
+>>=20
+>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+>
+>> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+>> index b33505e7fdc7..1a4b2f934d43 100644
+>> --- a/drivers/iio/adc/ti-ads1262.c
+>> +++ b/drivers/iio/adc/ti-ads1262.c
+>
+>> +static int ads1262_aux_device_setup(struct ads1262 *st)
+>> +{
+>> +	struct device *dev =3D &st->spi->dev;
+>> +	struct ads1263_adc2_channel *chans;
+>> +	struct auxiliary_device *adev;
+>> +	struct ads1263_adc2_ctx *ctx;
+>> +	struct fwnode_handle *node;
+>> +	int id, ret;
+>> +
+>> +	node =3D device_get_named_child_node(dev, "adc");
+>> +	if (!node)
+>> +		return 0;
+>> +
+>> +	ctx =3D kzalloc_obj(*ctx);
+>> +	if (!ctx) {
+>> +		ret =3D -ENOMEM;
+>> +		goto out_node_put;
+>> +	}
+>> +
+>> +	id =3D ida_alloc(&ads1262_ida, GFP_KERNEL);
+>> +	if (id < 0) {
+>> +		ret =3D id;
+>> +		goto out_free_adc2;
+>> +	}
+>> +
+>> +	chans =3D kcalloc(st->num_channels, sizeof(*chans), GFP_KERNEL);
+>> +	if (!chans) {
+>> +		ret =3D -ENOMEM;
+>> +		goto out_free_id;
+>> +	}
+>> +
+>> +	for (unsigned int i =3D 0; i < st->num_channels; i++) {
+>> +		chans[i].negative_input =3D st->channels[i].negative_input;
+>> +		chans[i].positive_input =3D st->channels[i].positive_input;
+>> +	}
+>> +
+>> +	ctx->chip =3D st;
+>> +	ctx->num_channels =3D st->num_channels;
+>> +	ctx->channels =3D chans;
+>> +	ctx->enable =3D ads1263_adc2_enable;
+>> +	ctx->start =3D ads1263_adc2_start;
+>> +	ctx->stop =3D ads1263_adc2_stop;
+>> +	ctx->read =3D ads1263_adc2_read;
+>> +	mutex_init(&ctx->chan_lock);
+> devm_mutex_init()
 
-Applied, thanks!
+I actually call mutex_destroy() on device .release.
 
-[1/5] dt-bindings: i3c: mipi-i3c-hci: add Microchip SAMA7D65 compatible
-      https://git.kernel.org/i3c/c/9092105b87af
-[3/5] i3c: mipi-i3c-hci: add microchip sama7d65 SoC compatible with the required quirk
-      https://git.kernel.org/i3c/c/efaa912ab0f1
+I think it makes more sense that way, otherwise we would UAF?
 
-Best regards,
+[...]
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+>> +struct ads1263_adc2_ctx {
+>> +	struct auxiliary_device adev;
+>> +	struct ads1262 *chip;
+>> +	/* Protects channel state */
+>> +	struct mutex chan_lock;
+>> +	struct ads1263_adc2_channel *channels;
+>> +	unsigned int num_channels;
+>> +	int (*enable)(struct ads1263_adc2_ctx *ctx,
+>> +		      const struct ads1263_adc2_channel *chan);
+>> +	int (*start)(struct ads1263_adc2_ctx *ctx);
+>> +	int (*stop)(struct ads1263_adc2_ctx *ctx);
+>> +	int (*read)(struct ads1263_adc2_ctx *ctx, __be32 *val);
+>
+> I'm not sure I see this loose coupling as that useful. I'd just export th=
+e
+> functions from the other module and add them to this header.
+> Maybe I'm missing why you need this complexity.
+
+I'll go for the exported (NS) functions. Much cleaner that way.
+
+I don't know where did I read this callback approach was a way to handle
+auxiliary devices and I got fixated on that.
+
+[...]
+
+>> +static int ads1263_adc2_channels_setup(struct iio_dev *indio_dev)
+>> +{
+>> +	struct ads1263_adc2 *st =3D iio_priv(indio_dev);
+>> +	struct device *dev =3D &st->ctx->adev.dev;
+>> +	struct ads1263_adc2_ctx *ctx =3D st->ctx;
+>> +	struct iio_chan_spec *chns;
+>> +	unsigned int i;
+>> +
+>> +	/* Account for the timestamp channel */
+>> +	chns =3D devm_kcalloc(dev, ctx->num_channels + 1, sizeof(*chns),
+>> +			    GFP_KERNEL);
+>> +	if (!chns)
+>> +		return -ENOMEM;
+>> +
+>> +	for (i =3D 0; i < ctx->num_channels; i++) {
+>> +		guard(mutex)(&ctx->chan_lock);
+>> +
+>> +		ctx->channels[i].refmux =3D st->refmux;
+>> +
+>> +		chns[i] =3D ads1263_adc2_iio_voltage_template;
+> Rather than using a template like this I'd just set it all here using
+> a designated initializer.  Means there is one place to see all the fields=
+.
+>
+> 		chns[i] =3D (struct iio_chan_spec) {
+> 			.type =3D IIO_VOLTAGE,
+> 			.indexed =3D true,
+> 			.differential =3D true, //not sure why this wasn't in your template.
+> 			.channel =3D ctx->channels[i].positive_input;
+> 			.channel2 =3D ctx->channels[i].negative_input;
+> 			.scan_index =3D i,
+> 			.scan_type =3D {
+> 				.format =3D IIO_SCAN_FORMAT_SIGNED_INT,
+> 				.realbits =3D 24,
+> 				.storagebits =3D 32,
+> 				.shift =3D 8,
+> 				.endianness =3D IIO_BE,
+> 			},
+> 			.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> 				BIT(IIO_CHAN_INFO_SCALE) |
+> 				BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+> 				BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> 			.info_mask_shared_by_all_available =3D=20
+> 				BIT(IIO_CHAN_INFO_HARDWAREGAIN) |
+> 				BIT(IIO_CHAN_INFO_SAMP_FREQ),
+
+Sounds good to me.
+
+> 		}
+>> +		chns[i].scan_index =3D i;
+>> +		chns[i].channel =3D ctx->channels[i].positive_input;
+>> +		chns[i].channel2 =3D ctx->channels[i].negative_input;
+>> +		chns[i].differential =3D true;
+>> +	}
+>> +
+>> +	chns[i] =3D (struct iio_chan_spec)
+>> +		IIO_CHAN_SOFT_TIMESTAMP(ctx->num_channels - 1);
+> That macro has recently become a designated intializer so
+> 	chns[i] =3D IIO_CHAN_SOFT_TIMESTAMP(ctx->num_channels - 1);
+>
+>> +	chns[i].scan_index =3D i;
+>
+> Isn't this just overwriting the ctx->num_channels - 1 we just
+> passed in above?
+
+It is. Thanks!
+
+[...]
+
+>> +static const struct auxiliary_device_id ads1263_adc2_auxiliary_match[] =
+=3D {
+>> +	{ .name =3D "ti_ads1262.ads1263_adc2",
+>> +	  .driver_data =3D (kernel_ulong_t)"ads1263_adc2" },
+> 	{
+> 		.name =3D "ti_ads1262.ads1263_adc2",
+> 	  	.driver_data =3D (kernel_ulong_t)"ads1263_adc2",
+>
+> Though I really don't like forcing that cast in there and it should be ir=
+relevant
+> given there is only one entry in this table.  Should be fine to just hard=
+ code that
+> where used.  If you need this later, wrap it in a structure.
+
+You're right. I'll add a NAME macro.
+
+I don't think we'll ever add entries here.
+
+>
+> 	},
+>
+>> +	{ }
+>> +};
+>> +MODULE_DEVICE_TABLE(auxiliary, ads1263_adc2_auxiliary_match);
+
+Thanks for your feedback, Jonathan! Apologies if this version was a
+little rough... I'm a bit embarrased by the bugs found by Sashiko.
+
+--=20
+Thanks,
+ ~ Kurt
