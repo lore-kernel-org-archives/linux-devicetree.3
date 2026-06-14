@@ -1,503 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067CA311C15
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781424347; cv=none; b=NZcmob41hAtG1e9LAWJF6RU1W0GqSTFYK8+CqBW4u6aXE4thzHGEUPGXACkw5j1TqXK6Pj4o+JCvDCXJSv2p/BDnePxKMKT1K9Mwzl+IMDVB/CLc5ms/JzpJZFyzQDqFx5OcjxcT0ev9U9QiH0RXRbY0aZGvGX28BUkXz7vFDhI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781424347; c=relaxed/simple;
-	bh=5BYm3y6m4USF4Pb7mcNn2U9eJ4f6+cVQmd9I5zMj1kA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WmAVCUCSYJmTo/fH/jzVvNqffznPocQ8mB+B4q9ZDk5XAhHJ8IZ8+YHJmpPDj7t1zut9EDrg7U8gV1y80zXiMbvZ+QfXXBXYDcad1+FXGAxucSr5y+tcvyc1uxtHORrSYiXE8KeYCvXNeey1s7SQhvyiKhwMDTijGRhwIbMQOds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FyRbH+aX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dzjQK+kt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A46222597
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781424486; cv=pass; b=iLZqSudn8TBoa0WwmUcR5UmFztluuJDox/+PGYJk+F0ZhgMk6kgVRG7QOHjMcXywDXy5Bz6G3Osu/T1FusqAT9mqF/0F5jf3/iplNrSWTn95TMac/OxT2iE/oX7tPKZw3DUfhKKo7mU75plJy8ZVi1DJlHtyRG1vYuNKVHfPt1s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781424486; c=relaxed/simple;
+	bh=hqstU4KzKDYHzuU5dQ6Scbjj6wb65fKWO7OtTkr8nUs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PDikRAjBwVDd5DS8AkZRZmIrGG3mgGIn9NI/dhZfJS78cwuW/LyYVUxgw4BtGMlpT+bSQIrpC6QTV08quAzecSNElyMySU+VArKynjPm0uwYlDCt+BNPqd7Dm021i3aP0Dho3XJn2O2ZbYi9bmdXN0VCjH4diIg0cXKTo3q6xbI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkttIHHx; arc=pass smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FyRbH+aX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dzjQK+kt"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65E48aKV045448
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:05:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x+uKJsbgWZFTB8SDypIdJZhB6Q+/orfms/lo6g22tKU=; b=FyRbH+aXgK9rF1JS
-	R3BMR3ll55NKwyGPHsRVaqz1xTdHXynWhVABXBIlP14pys7UJN7MNX8D8Xe7bwgj
-	6+Nb9NyQcC4rarkKaOVm3UM77U4Wtmp41tN1I5NAZOScvTAhRguXvQdf8bsjuNc+
-	zfoMiYOn4abnY1ZDLvAWm1eDvPGHMufc9KBtGKJsQXQtDieWr51dFvApunpq23pr
-	2PP878tofTk/obpc8151i1GKZqWfbXvs+Icoes9SmJJqTNybqjkBQiEo5iFyZccD
-	1qjxSfLIOnpZJ9SGo+scv2gyLTWyNnoEorihJfRV8a8uEgVL+OJIDFgmf2L05LyW
-	sju3IA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eryybty4p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:05:45 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2bd04e4fe3dso62815115ad.3
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 01:05:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkttIHHx"
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-6c67361fa3bso2162144137.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 01:08:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781424484; cv=none;
+        d=google.com; s=arc-20240605;
+        b=dmMhzhar0VJu0NtWoGZII5Xkrf2NCZW4ApLbe3lf0jw2ye+tnnue4O9eAwmeY71FQM
+         m+MW782VQOM+zLSp0UCROdHrGi+cjlRo+itdjZb2NQxAV3brx5V0FRfGDHG0LMde0H3y
+         CuvPB15wUQeqJ4GhtGJV86dARofN4O8ZAj/zNjrO92zt8wty2P5bReGQBb+QvmEwfyaD
+         DxnSGw71IWx3Q6CdJEAV8neGcUSBQ6b1Bmvrzr8gN2xqA/RZnomUg3ruut/3QElabY3S
+         PfcO8yB19bLs380Sh/GfS/WbG1ljxU6Xk62ziNs0L86HuXmsbyToanur1qEfjUCO4WPA
+         OECA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K73UO7yVmCGXyILrJ3NzGf0OVCEiV4xp/RjyNuNRMbQ=;
+        fh=29SpYOeMYfj28z4Lk/Oh/p7DjM5TbMmdub0cstzLREo=;
+        b=WyzNzH+5iAx9+vaiI4jEUiXP22MgqnvKf7wdSh8mNS/EtaTp15pZmUOCJT5Vk0Dwd0
+         g+N4GE99Vd1OqSh3qW6betVfLJl/YI4gqfZKhnZw8j66UgBSZTLw0tVMmJlbUreR+8RM
+         plCTPS6p97UD9MfGf8Eb07D2nh00KP6ScyVDiTxVwgbgHC8PRcYz1lQFNVJqR4OvJcZp
+         wqnUDMY8PzNxXFuAulFTfSp62jH84zW1WuiAg+HuVKUnb1mF3rXIIMw0tzeW19dcToJ2
+         1Iiq619HCWVYRXl8jAE1DYNRfmykzPzRt+pKajsBgBbHZVuPNbUhzkMf3pOrKCX7uwPR
+         DDug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781424345; x=1782029145; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=x+uKJsbgWZFTB8SDypIdJZhB6Q+/orfms/lo6g22tKU=;
-        b=dzjQK+ktY3YVe+9Kjm6A0jLQUTz6U3LS29a5PELGlbz4l8+QgwD3qOkJB0l3YeM9Nn
-         SKt1vNRvvGnlCu474Q8rOBRneykPeLQyAcpBM5d3xOXqFL9ngKdkH+I3aNdktK1Qy0S8
-         wP6cCMHA+Z+Q8Sf42Wim0o+K9P/0+exoAcsF5sWNz++X+VJg/nUOfXlhq3gQZjRu+OOb
-         kb984zOffH4w584sqB9ZJ6I1zqGJQXJikSfJBHnDqnvTKzz6u9sCjDAalt/Edwx2b03w
-         kWOa2gw1IC5YeqpC35MUQrwJY5e+lthhMp7T1sLFmfueW84yDeakqCANpAHGuhvwY2Ee
-         cvXA==
+        d=gmail.com; s=20251104; t=1781424484; x=1782029284; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K73UO7yVmCGXyILrJ3NzGf0OVCEiV4xp/RjyNuNRMbQ=;
+        b=OkttIHHxSMMfh+9HqlHsi22ZgPg4OX6xUneh4E2wEslwg/CUhonfmhPazY7dvtXRPx
+         zxJHmqt3VyUbGxS1WcW5LhmbN/gQyGqGwgQz5YppllrU8Do4NW1/PtVpOSm7C1UFYLqF
+         gFlij2BADpZ93qE7NuBIyqTJoBjhFqmNbZ2JKQ649L+gpcpwsr2DAw7BrHpn0Y51xKSa
+         yLJJ1faCJdehPMZmIt41iRPqDXIA53iM/fcqmIulUBOiKaLgrjYemFQOLyRbyE2a94jI
+         ZyNsVclDcFpMQW9dgrDg+SRzxjFDxx0iURqjwgD0ojJC933OR4KyV0F/PU2QJUKU9Sp/
+         PJ4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781424345; x=1782029145;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=x+uKJsbgWZFTB8SDypIdJZhB6Q+/orfms/lo6g22tKU=;
-        b=SaG1GN8PNIsllVYaHKHZqYbyjTDJ7D7gfB7obHCsoUs22ijGvNCswSzRvQ0gAfhumy
-         oLaFF+BioZwaNUPCirJ8F35ColYvTiAPrxpzzEnHUUMe442STyYaUVs2BEqQ6tPu/AVL
-         T+ehEPYrH+Aii+mq/ycko2/kjSVhmHHuRtNqyD8UdK2PkUmksm7srPGFw6UD8Of1LvcK
-         xj6mA40opRBHyr8ink1HYvYIj4TQAevleJIZeHJ6+aFUckiXBmdfAfvoZaBmQ3Xfv3Ug
-         mZGml78zUAC9nXGY4HdUFuIOukhNfo02YXplyS6nUwf6taYR6Ou1CelaMJw5SXnWAjWT
-         48mQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9b2TFbL7wPvHJ1B54pcz5pBgaXk8YNMQ/XVJs17rsIrtW9Izlo57FSlxfrOlLL0O4U21v2RQtZb5am@vger.kernel.org
-X-Gm-Message-State: AOJu0YwpnPlghBN/zPApIBE/aBB7wUgHhAKhFBtyR3RuHQc7MCOrQ7yu
-	FjcUhafXxptRda8d7qhI9VufmsPAalE7ndXuIPV5CFb62W7e2E8mjDe/wc1y3bRECKc08p0MTJk
-	ADKTbwTsoBJzeU51oIDSNW2uZVBQCyVstoWNrxkIn9ZWiuQse6feAcEpDORIehdvld/xFCQVo
-X-Gm-Gg: Acq92OEJ+4TWhJhge4uIf4SaV2IkT6Y9JBe6fe5k4jNVYZekYSnb0WHylmOZTtNGqFn
-	hVDiIwcOnC2dLRVkoNyoGz1LhYQb0n78Iv8R0ErhRcReAAlwj9Mz4rniMnUsIf//c64B4/k62J9
-	pwTRIJDmKUvY1de8cU9DYSD8OfktmOjw2aIw4EMgW/jICcLzOmCqX43zUpiUjkhPywUgliSBW3q
-	UC0Gza138gLUqNOq+PpygOBpjd3tVJTBBUOMZIzbCIQ7q5XWVWSwExc8UmQK91LixMOKvunOX/B
-	I3Y9ccTA9UgeGs811sldSIGgzjQuBNZeG6sMcTAyBY+Pm/IZl8j1Rkbl5BlMSClVjc37N0109/V
-	g4IhpGkiCCWEs6RO0G+jNxfCBe76+khuRU9/mM12/
-X-Received: by 2002:a17:902:cf4b:b0:2c0:c262:b91f with SMTP id d9443c01a7336-2c4109ed6cemr110344025ad.8.1781424344479;
-        Sun, 14 Jun 2026 01:05:44 -0700 (PDT)
-X-Received: by 2002:a17:902:cf4b:b0:2c0:c262:b91f with SMTP id d9443c01a7336-2c4109ed6cemr110343775ad.8.1781424344060;
-        Sun, 14 Jun 2026 01:05:44 -0700 (PDT)
-Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c432c8ca31sm67309225ad.55.2026.06.14.01.05.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 01:05:43 -0700 (PDT)
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Sun, 14 Jun 2026 13:35:11 +0530
-Subject: [PATCH v2 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
+        d=1e100.net; s=20251104; t=1781424484; x=1782029284;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=K73UO7yVmCGXyILrJ3NzGf0OVCEiV4xp/RjyNuNRMbQ=;
+        b=WzA9StBaPGFh+bt+22Tpbf1gcWlFln1gdw5c1RnOs2OghTYsRVrqzMbkPMn53Z9Cjk
+         r15ReGql3rAjI77LiF5kXa6Jv9B/jb44+go8PxgjaX+znfld/U1q/ni1/irMuoHS+TmP
+         Y5RpQuMQpGYztkW+4iDPLaSrqndfB8pmAso8XnLVoRRhzhFEMhhK7hpoVvfz8JQWM/XM
+         7FPUD1hZJdQ3kMqapgGka7qcm4TGLxAPfLdydjfU9LcE6szRZCOm4544ei/exENCO7ed
+         w9JQbA67lC96HIH3xQD+T77oPXQTqLRgMIJpFphCi5IcRU8SSO3Lek4ozXcZi8+Ovz/5
+         lp7w==
+X-Forwarded-Encrypted: i=1; AFNElJ8vRtyN4H8HfMkeQ48p/v+zOS2Ef9lvdoUHMFOw2tbK3eNDw6HGR28TyauQ1pA/LIGTmQ3BED+nRpqs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx/z3kkN2eDFjC+xNPEyMvzhryWZEiLw4v1HOr6Y1xoeQ91nKq7
+	+d+bGt6JyCvNCKfpcuZvD7HbAmxjipB1FtPlO4Mz10F0vJOwG2Y0K04FLvxHNZbupKEEIm7sAbv
+	I3fWqedSkb2u4mThXEbgII0cbf0dte6I=
+X-Gm-Gg: Acq92OH0hVqRKO/NaASqyDk3p+oXeP3QAXS8zR4Wa+KpRQBVqUB4rgKQLvUcfe392oi
+	EOvo1mCgIAfyeNZZInxq/TiQaOGu6RHP2/9jTrKiAX6M7Q1r5BbLxoW5W7UXHBz/wkW4VIX2UZd
+	aKX3QOUAMLjkX3inNz2d3CuhOphQ0SKlvFR2BASyF00gBe+lEHQYJhJlfnx6urspnmaFzY6KPuv
+	+RQFhNudpiih+76dB4fv+OP6t2dxpj+ymsH5e/onrShE6ru5hBOoazGX7nc7pu9BKteSWnQK6GM
+	MHIYHnXT91wvb7FYNo0YOxR70VilVRec8l72ldE=
+X-Received: by 2002:a05:6102:3578:b0:6d0:a5a0:ba23 with SMTP id
+ ada2fe7eead31-71e64bd44fcmr3173429137.3.1781424484414; Sun, 14 Jun 2026
+ 01:08:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
-References: <20260614-adc5_gen3_dt-v2-0-32ec576c5865@oss.qualcomm.com>
-In-Reply-To: <20260614-adc5_gen3_dt-v2-0-32ec576c5865@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781424323; l=9555;
- i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=Os4byVg9k/u5AL4IttQusDpFVsFGFMPWWLUebVsWPsQ=;
- b=C7xhWEHm69os9GD0vuyJJ3jL5VKuHJpbgCYO9Qt39t2m/tN4zc8ildkI42DGIcK81YPzgG3Ra
- /H1sQN8QOgIDZGVd27A3SkE7vWuMYEPA7VYnfgVf/Mr0OfRpElNnRPN
-X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
- pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-GUID: -CSxwfwmkOufYdVdURnx9P0rZsRy3KL3
-X-Proofpoint-ORIG-GUID: -CSxwfwmkOufYdVdURnx9P0rZsRy3KL3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE0MDA3OSBTYWx0ZWRfXw53Kx9qQQKHR
- 8otBNBArfwrsGmcC6dN0Fg+2nOO4cb+dPpRbyXOxalwSuhyQWLojHbqVigtjx+E/Kj5Dcw4Qpp0
- WWhVbUKoWteRSRf/WR55pkPRRR5Rdhk=
-X-Authority-Analysis: v=2.4 cv=JLYLdcKb c=1 sm=1 tr=0 ts=6a2e60d9 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=izxvgA0RxB-DvlahdVkA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE0MDA3OSBTYWx0ZWRfX6aTX09S+1+r0
- fue3ghYtKfin2YjLVIJiSGkhzD4sbh7t9iXNkjOxma5M4Zz0aAe6mfXw9p34uyBd4gAZdYl18k8
- 9lQvfDWOkLeAZl7V+U8K7YopkVlfz7Lva+vrFAVLZmx4nBKdvcnuxBZPJdVzvg4nrjB/jDRgUe3
- a6eFqFARdegnNJDINgnLQV+G+WVBcxLxKWvXHmAOkALdW1V6jD8waYQk5W7DxgS3ErHqYeyfOH3
- iXkcaur46Dc7nXQo2b7xfXGKRcPj1rbzdvgO2vEyvZ6RXDTiAUpR24vyT8nUz4AqG+AAIRj1Ep+
- tQgp8eu1J0yi6zonD89ytWAfeRjuBja/WBevBKYkPycxcJDhaadQ4ZKC2OL3HANgFnUVdVIjXl2
- 4EUS9NYyqT2uUHzK3nHGEJYXu3mzRErLc0ZXjzxQPqdjhb0E+sRhfkCX2nV5hAp+KWpfO0GGmt3
- sWJ913pRFHWeXqDFp7Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-14_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 adultscore=0
- malwarescore=0 phishscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606140079
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+ <178040480680.1778078.1165164069560552075.b4-review@b4> <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+ <178073773007.397244.9871455646149843167.b4-reply@b4> <7ecda3d0f91b0d96bcec44ddf485ed5146788220.camel@iscas.ac.cn>
+ <178073918523.417326.15121723011916371966.b4-reply@b4> <1c33b1dd7d187b17b21b17339a4f1990e59d2f77.camel@iscas.ac.cn>
+ <CAH2e8h7y9PivdMh-h78VSqMf8i2vSR2fvVaO0P1eYBT8qgEdUA@mail.gmail.com> <bd5ad1b53eb009377d0ee492b0e007e45d36f6a1.camel@iscas.ac.cn>
+In-Reply-To: <bd5ad1b53eb009377d0ee492b0e007e45d36f6a1.camel@iscas.ac.cn>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Sun, 14 Jun 2026 16:06:44 +0800
+X-Gm-Features: AVVi8Cc396KgRR5IizLY6o5Eb_6OMt89_a8GwDneaOLTrmVdEvRxrlGjAy8TCxk
+Message-ID: <CAH2e8h4nJ=BF3Eq7xPO+ndnOMQoXkGGG0Dc14ECEoGTGg_OSVw@mail.gmail.com>
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
+ according to DSDT
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+On Sun, Jun 7, 2026 at 4:49=E2=80=AFPM Icenowy Zheng <zhengxingda@iscas.ac.=
+cn> wrote:
+>
+> =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 21:51 +0800=EF=BC=8CPengyu Luo=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > On Sat, Jun 6, 2026 at 9:21=E2=80=AFPM Icenowy Zheng
+> > <zhengxingda@iscas.ac.cn> wrote:
+> > >
+> > > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:46 +0800=EF=BC=8CPengyu Luo=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > > On 2026-06-06 17:28:35+08:00, Icenowy Zheng wrote:
+> > > > > =E5=9C=A8 2026-06-06=E5=85=AD=E7=9A=84 17:22 +0800=EF=BC=8CPengyu=
+ Luo=E5=86=99=E9=81=93=EF=BC=9A
+> > > > >
+> > > > > > On 2026-06-02 21:21:27+08:00, Icenowy Zheng wrote:
+> > > > > >
+> > > > > > The magnetic keyboard (USB HID) can't be connected somehow,
+> > > > > > others
+> > > > > > are
+> > > > > > fine, such as the spi touchscreen (not upstream yet), which
+> > > > > > utilizes
+> > > > > > DMA definitely. My config is here
+> > > > > > https://pastebin.com/SdjuyJYk
+> > > > >
+> > > > > Is this a defconfig?
+> > > > >
+> > > >
+> > > > Yes.
+> > > >
+> > > > > BTW it seems that CONFIG_ASYNC_TX_DMA needs to be selected too
+> > > > > for
+> > > > > exhibiting the problem (because there should be "public" GPI
+> > > > > DMA
+> > > > > consumers to trigger the stuck/reset).
+> > > > >
+> > > >
+> > > > Is this still necessary? I checked the fedora discussion and your
+> > > > GPI
+> > > > DMA fix. And GPI DMA is only for the QUP-supported peripherals as
+> > > > the
+> > > > binding mentioned, devicetree/bindings/dma/qcom,gpi.yaml
+> > >
+> > > The devicetree without this fix seems to be still incorrect,
+> > > because
+> > > with the device tree fix even if the GPI DMA driver misbehaves the
+> > > system won't be stuck (although it will iterate all GPI channels
+> > > and
+> > > then fail to function at all).
+> > >
+> >
+> > Back to the start. You said some GPI interfaces aren't available to
+> > HLOS, your mask is 0xb(0b1011), so I use 0x4(0b100) did a quick test,
+> > and spi6 consumed it, no stuck or reset. Could you give me a
+> > unavailable channel?
+>
+> I think channel 0b10000 of gpi_dma2 could be an example?
+>
+> It seems that 4 channels are tried on gpi_dma2 before hang on my
+> gaokun3, but as gaokun3 has no known serial access, it's possible that
+> 0b100000 or 0b1000 is problematic.
+>
+> (The reason gpi_dma2 is checked first is because it's the GPI DMA
+> controller with the smallest address)
+>
 
-Add ADC node and define channels for:
-- Die temperature for PMK8550, PM8550VE* and PMC8380* PMICs.
-- PM8550: Die temperature, VPH power, and system thermistors.
+Sad to say, I cannot test gpi_dma2, only the stylus is under qup2
+(spi20) which consumes gpi_dma2, but it is unsupported. So I have
+tested gpi_dma0 with BIT(3)/BIT(4)/BIT(5) as you mentioned. No crash.
 
-Define thermal zones 'sys-0-thermal' through 'sys-6-thermal' which
-correspond to the off-PMIC system thermistors connected via
-PM8550 AMUX/GPIO lines.
+```
+cat /sys/kernel/debug/dmaengine/summary
+dma0 (800000.dma-controller): number of channels: 24
 
-Also,add io-channels and io-channel-names properties to the
-temp_alarm nodes so that they can get temperature reading
-from the ADC die_temp channels.
+dma1 (900000.dma-controller): number of channels: 2
+dma1chan0    | 998000.spi:tx
+dma1chan1    | 998000.spi:rx
 
-Signed-off-by: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi | 250 ++++++++++++++++++++++++++++++
- 1 file changed, 250 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
-index 6a31a0adf8be..2e746ede850f 100644
---- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
-@@ -6,7 +6,9 @@
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/spmi/spmi.h>
-+#include "qcom-adc5-gen3.h"
- 
- / {
- 	thermal-zones {
-@@ -189,6 +191,90 @@ trip1 {
- 				};
- 			};
- 		};
-+
-+		sys-0-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-1-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-2-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-3-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-4-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-5-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+
-+		sys-6-thermal {
-+			polling-delay-passive = <0>;
-+			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
- 	};
- };
- 
-@@ -277,6 +363,142 @@ pmk8550_pwm: pwm {
- 
- 			status = "disabled";
- 		};
-+
-+		pmk8550_vadc: adc@9000 {
-+			compatible = "qcom,spmi-adc5-gen3";
-+			reg = <0x9000>, <0x9100>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			interrupts = <0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING>,
-+				     <0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
-+			#thermal-sensor-cells = <1>;
-+			#io-channel-cells = <1>;
-+			pinctrl-0 = <&sys_therm_0_gpio3>, <&sys_therm_1_gpio4>;
-+			pinctrl-names = "default";
-+
-+			channel@3 {
-+				reg = <ADC5_GEN3_DIE_TEMP(0)>;
-+				label = "pmk8550_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@103 {
-+				reg = <ADC5_GEN3_DIE_TEMP(1)>;
-+				label = "pm8550_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@18e {
-+				reg = <ADC5_GEN3_VPH_PWR(1)>;
-+				label = "pm8550_vph_pwr";
-+				qcom,pre-scaling = <1 3>;
-+			};
-+
-+			channel@14a {
-+				reg = <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-+				label = "pm8550_gpio_01";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@14b {
-+				reg = <ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
-+				label = "pm8550_gpio_02";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@144 {
-+				reg = <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+				label = "pm8550_therm_2";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@145 {
-+				reg = <ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+				label = "pm8550_therm_3";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@146 {
-+				reg = <ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+				label = "pm8550_therm_4";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@147 {
-+				reg = <ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+				label = "pm8550_therm_5";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@148 {
-+				reg = <ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+				label = "pm8550_therm_6";
-+				qcom,ratiometric;
-+				qcom,hw-settle-time = <200>;
-+				qcom,pre-scaling = <1 1>;
-+				qcom,adc-tm;
-+			};
-+
-+			channel@203 {
-+				reg = <ADC5_GEN3_DIE_TEMP(2)>;
-+				label = "pm8550ve_2_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@303 {
-+				reg = <ADC5_GEN3_DIE_TEMP(3)>;
-+				label = "pmc8380_3_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@403 {
-+				reg = <ADC5_GEN3_DIE_TEMP(4)>;
-+				label = "pmc8380_4_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@503 {
-+				reg = <ADC5_GEN3_DIE_TEMP(5)>;
-+				label = "pmc8380_5_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@603 {
-+				reg = <ADC5_GEN3_DIE_TEMP(6)>;
-+				label = "pmc8380_6_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@803 {
-+				reg = <ADC5_GEN3_DIE_TEMP(8)>;
-+				label = "pm8550ve_8_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+
-+			channel@903 {
-+				reg = <ADC5_GEN3_DIE_TEMP(9)>;
-+				label = "pm8550ve_9_die_temp";
-+				qcom,pre-scaling = <1 1>;
-+			};
-+		};
- 	};
- 
- 	/* PMC8380C */
-@@ -291,6 +513,8 @@ pm8550_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x1 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(1)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pm8550_gpios: gpio@8800 {
-@@ -301,6 +525,18 @@ pm8550_gpios: gpio@8800 {
- 			#gpio-cells = <2>;
- 			interrupt-controller;
- 			#interrupt-cells = <2>;
-+
-+			sys_therm_0_gpio3: sys-therm_0-gpio3-state {
-+				pins = "gpio3";
-+				function = PMIC_GPIO_FUNC_NORMAL;
-+				bias-high-impedance;
-+			};
-+
-+			sys_therm_1_gpio4: sys-therm-1-gpio4-state {
-+				pins = "gpio4";
-+				function = PMIC_GPIO_FUNC_NORMAL;
-+				bias-high-impedance;
-+			};
- 		};
- 
- 		pm8550_flash: led-controller@ee00 {
-@@ -329,6 +565,8 @@ pm8550ve_2_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x2 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(2)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pm8550ve_2_gpios: gpio@8800 {
-@@ -354,6 +592,8 @@ pmc8380_3_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x3 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(3)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pmc8380_3_gpios: gpio@8800 {
-@@ -378,6 +618,8 @@ pmc8380_4_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x4 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(4)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pmc8380_4_gpios: gpio@8800 {
-@@ -402,6 +644,8 @@ pmc8380_5_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x5 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(5)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pmc8380_5_gpios: gpio@8800 {
-@@ -426,6 +670,8 @@ pmc8380_6_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x6 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(6)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pmc8380_6_gpios: gpio@8800 {
-@@ -451,6 +697,8 @@ pm8550ve_8_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x8 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(8)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pm8550ve_8_gpios: gpio@8800 {
-@@ -476,6 +724,8 @@ pm8550ve_9_temp_alarm: temp-alarm@a00 {
- 			reg = <0xa00>;
- 			interrupts = <0x9 0xa 0x0 IRQ_TYPE_EDGE_BOTH>;
- 			#thermal-sensor-cells = <0>;
-+			io-channels = <&pmk8550_vadc ADC5_GEN3_DIE_TEMP(9)>;
-+			io-channel-names = "thermal";
- 		};
- 
- 		pm8550ve_9_gpios: gpio@8800 {
-
--- 
-2.43.0
-
+dma2 (a00000.dma-controller): number of channels: 24
+```
+Best wishes,
+Pengyu
