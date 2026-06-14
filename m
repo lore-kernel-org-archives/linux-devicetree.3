@@ -1,70 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096D533CEA5;
-	Sun, 14 Jun 2026 22:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781475892; cv=none; b=Go1aZX3mGtZGI5QvzI0wwVbFgPqC0DxwGD8WCL9+PfPjj7UuGm/OCRYv0dwHzMB+l3+ijmy/Xe2agq4vXuC5Xl0DqhSEO/sq9yD7VbwQylxrbBsqubghkrGjOU/OfflRGwirPhlUYVdhcBCHoVXX/gQeZEqpDGft1w+K9SXaL84=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781475892; c=relaxed/simple;
-	bh=wI2DlS774IqpVsg9j1PM1C1Is9UCIQcmLP8ixxv8XPU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=udN3VVisNGo525UNlwrMrZWaXqmsbgQ/+FNMVY/yoSLQUJbxHDgxrEOw8f6b5m1pm07AfQsYGz6y4v7WBk98ugeVVQK3mYVrzXPEwYdB1vkBqY1uMpVRELjId1/xDqzgTnQe/0kygpin7qMZdiPm3hfpOEdIUbl8vuOhp145LOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtEtALnf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4D226056C
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 23:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781478261; cv=pass; b=Ds7sOzCAEmwS4DZ/kutlBINgTAthK76t4gmN4BKCgcTXqDERRlppBFff5Y0YcRGeqyPiupd1NuIpZIC4h1HbVe3+puQO13JSX7skpPZdY3LWpZYH6dWm7kc24nzStxDDFYwVhjL7qRN3RYIQkIhTLRgBmV650wc+GL33z4HPPBg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781478261; c=relaxed/simple;
+	bh=rzW3LaS9K4mSg6IJCxAjz00Q7mrH4V7agp6NPZUYSYU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ob0IsHT4A+91ZgjK7G0A5gbXwMDHktrSNg+Mt5qf9oRRmFKBZcoKFkhYmoPu+DGqpF4sk5byBOFreAE1eN7iWDqFH7b+mNKXRQWvOtJoD6Pv1Kgj2+Ap2qc09DAfPYabVGnXXJcdsgVVrRXQTDTm5C9Ieqb6FD1IBwbROBe1asg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wtdnv3HF; arc=pass smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtEtALnf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1201F000E9;
-	Sun, 14 Jun 2026 22:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781475890;
-	bh=4JM9nQpWmXqoX/eAkM6+OEne4H6FBJgDy7rxA2wS4HM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CtEtALnfbZB8tN1Te+X2hEQnPLousvOYpOZBX4AjGSYcYcjWVGeeS82pomOC4+dQT
-	 2qv3QHRkPkYxU+Wh7T0kMIL0AKTiCYlutlmONQi7kH0oQ7LDp+jyWEf/BFWjp41Tk8
-	 Eqvn13Q8w8j6C49OjbDcjG7KhNDa2SED6O7+JAopyX+b6UpiIPa21GKT7DRg6bYHcP
-	 hiEWADS8aM2wR6j7/A+56eJLXuPsegheCZcZH3GRs8Fyc0ivRd9rOk+WZI0GPqcPxF
-	 icROupolpxboqBAL8XVZpM/AJ2zduVBzMf3cAX3WiyFN3hOSIQaQKjXtF67PwVo4bk
-	 RnJDUjc973C8w==
-Date: Mon, 15 Jun 2026 00:24:47 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: linux-kernel-dev@aliel.fr
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Beniamino Galvani <b.galvani@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v7 2/8] dt-bindings: i2c: amlogic: Add compatible for T7
- SOC
-Message-ID: <ai8qCJ89VzH7YaNL@zenone.zhora.eu>
-References: <20260603-add-mcu-fan-khadas-vim4-v7-0-594ba8a965d8@aliel.fr>
- <20260603-add-mcu-fan-khadas-vim4-v7-2-594ba8a965d8@aliel.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wtdnv3HF"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-13809223fd4so2764984c88.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 16:04:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781478260; cv=none;
+        d=google.com; s=arc-20240605;
+        b=M3FGbvG7VcXnBTolcc651qsVLT9hhExNd2+D8maHCfM8WJtH2zPt36cJVJoG1LQk9b
+         +jM5jzX1FyBiRJhXNDS6TESv9OebXC/W4vxvx5CTM2p9TfBWtNPqMkhhsHgBXt2RU9JA
+         uAscosOFn6ZpiDNu1A4c+YcmDQ/SjDTjW7tdXKOjCyEbT6T6NhiZpM+qf5ZTT4Lrtdkj
+         43MuhqkOPtucMEgcfLtfwQtOvEKgpgK2Kh60Myw0mtLckKy2KeKqWBIhUm5bgS2rxtEy
+         /n50kc9XVERWbpfO+VUXXG9yKDNJP1yxyXCS9F40YdT39CNcABbsBrb0ipJfOzfB2jj7
+         w89A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qQFoZgJYV1TW//O4GE6lS9bPSVNoPKLwy+jMEzoPsoY=;
+        fh=M+LtdlQFSpG9j+qYfAvxkkRxM0RKCtbhsDtoKkuvqEc=;
+        b=SrNRT9yiIZAg9P3WUl9/pOYlg2PZ/KC9SKP3Z7npXDOEdyjKlezs6YmNmUpBvP8mU+
+         99FxqvzNok/M93asAUEi1La3/QiPXqw9CA/eZ/w2JdiCVjbBABYGXnHaGI2giGkWph+0
+         4KdqhuEADWZJcY2w5P1KrlkMmVfFEj1IHrtz8/zQgow/bMHCnqlRJ24MVdolZxWpxCiR
+         VQwieixqu5kZgwHBEHPrmkZuKps3Stfry8nQrecSkHPw9tC8g7sVv4vzBef14Q4W36he
+         it8TGwhRunRbiD10gDVjncDv4FwIBwYBZRLUs9q2tEQRpiAL2CgLOiIXQAqatWJjpDvZ
+         UDUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781478260; x=1782083060; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qQFoZgJYV1TW//O4GE6lS9bPSVNoPKLwy+jMEzoPsoY=;
+        b=Wtdnv3HF1dOWaenZWZJsMUv06Wmjm5VfuKIBs7NEzsxdSUnOnLCZiMxgStk3LSOLSe
+         aU6UdoF2yPTVtwydTwAcFj8yDEnenmbw7uVJEw2HOll8/2l5ck8rQVfPBR9cjhLNBAyk
+         +sFYHDY3n8Y0UilqOjS8LgC4Cua0DEeL/llKDCF7tWJmC1+/nRJEEJU3ilbIMeG0SjG3
+         WKna0bONp5JmUHzPMtriIkmDUfegxe+17NLZ952zaAYkksTTIUH2WSxIxbRZMRj7zuAs
+         EeOlJshiQUbEAtUfB3CegGJfqtbrCWOsj6YQgh6KHqCa0dgOh+Z9soKpEbvbMbPBTsBx
+         pKsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781478260; x=1782083060;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=qQFoZgJYV1TW//O4GE6lS9bPSVNoPKLwy+jMEzoPsoY=;
+        b=F0tn2KkhyPE9tC0VFiXcSo4qw9u85DpeSsMhOanObPacMzJQq6DqvzHiOWM7ls6am6
+         Y7IDH0PAUNFMuNjU9+EgKgraHuzaluDVlJloXFbIGSwLgLZ07gsdfb0KQknQMLzPgsZx
+         nI5cE3gzU8wisqCrQ5csRYcvzcAa+88QBEAGpHWCtSBBodLliKkknIoQPZJ4yABNoPJj
+         fv21Sx3d3ir0Oa6VpKsXROHF8Iq2L0BvmD77VwISIRjoBjwEKeKYTXoTFhLU92TMh+LQ
+         5OgLr+mShN0W9bQpc/Nx2REJ+46QZ4o3aUpd4ZhVte4hX1+Er8r9EewggzAqO1iQtv8t
+         RhUg==
+X-Forwarded-Encrypted: i=1; AFNElJ9NOp1kGyF7+9Rsj8d9LEMfbhtPj4Z3Tl99CZzaOAacPPjrc8la2KfeujEdL3WliDe+628/9iZcCCFy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxemPuQA+uFKErAsGudabVAaTsQPSuEPAOagBihqKP6GVOV/i9e
+	hpmW1qK7utXCvxi1tmwx0iV6QUBboiA0hLjAq5uatojtUmin1GKulokdHoffWTw9Nb6l+tsf40J
+	6qf9lv7767ZBpacWA+TWOcLXHhFC91n0=
+X-Gm-Gg: Acq92OFJUsKQZSdRJVAOBy35wLJbw93H0E0JcCej7KZGwHGIVJV7RHO43HeI+45gXh3
+	YoNRm3/svjfwhZL3PLWMes+HgP3X13Y9X7bpqNMhajJmBUaTqFmsgcAw0zVicDZhH6Z3MXQOpe3
+	LItFWTDc0ZGuB4HITau3WuO5eiCA8U6+KeO/6KXSjdjwgJ9UsFJwwc34ScKS26yetft9SXfEKEN
+	+zRoLexaXIcJj1WVkSDoErDv2S620nvE/GvTmnhNc2JpSVIeBskSq/BUT6dPIf13AzrZ96YRXVY
+	G4uB5xk0XVhDxnsLbd3uWdUzgJuoDAw33ziDZEVpZJuf20q8/3fA7hSQhEF7Ptt55BIfSo4=
+X-Received: by 2002:a05:7301:1e8a:b0:304:3c33:7ae7 with SMTP id
+ 5a478bee46e88-3081ff40823mr6282361eec.7.1781478259594; Sun, 14 Jun 2026
+ 16:04:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603-add-mcu-fan-khadas-vim4-v7-2-594ba8a965d8@aliel.fr>
+References: <20260607234343.22109-1-kimjinseob88@gmail.com>
+ <20260607234343.22109-2-kimjinseob88@gmail.com> <20260609-glacial-colossal-38b4937ec620@spud>
+ <CALMSew+cL0_kG6W15RapxLtE+Fw2_DYdrYoRFSjENQktWw2H4Q@mail.gmail.com> <20260614185551.10ca9e0f@jic23-huawei>
+In-Reply-To: <20260614185551.10ca9e0f@jic23-huawei>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Mon, 15 Jun 2026 08:04:08 +0900
+X-Gm-Features: AVVi8Cc1I5qF5SI6k_QOccx57286vKkIyKY9ls4Qi2qkv9NyvMEQc1iX0U3ok0I
+Message-ID: <CALMSew+y_S2LJ6bBiRWyZniEaD+V21kvOiXg_=Gr9dnppUZ3mw@mail.gmail.com>
+Subject: Re: [PATCH RFC v4 1/6] dt-bindings: iio: add Open Sensor Fusion device
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, linux-iio@vger.kernel.org, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ronald,
+2026=EB=85=84 6=EC=9B=94 15=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 2:55, J=
+onathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Wed, 10 Jun 2026 18:33:54 +0900
+> Kim Jinseob <kimjinseob88@gmail.com> wrote:
 
-On Wed, Jun 03, 2026 at 08:05:24PM +0200, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> Add the T7 SOC compatible which fallback to AXG compatible.
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> When a device needs power, the regulator is required, not optional from a=
+ binding
+> point of view.  If it is always one people can use a fixed regulator to r=
+epresent it.
+>
+> Now from a driver point of view, the regulator framework in linux provide=
+s stub regulators
+> for missing ones - on assumption they are always on.  So we can just requ=
+est the
+> regulators in the driver.  Keep it simple for now and use a
+> devm_regulator_get_enable() in probe so we have power on for all the time
+> the driver is loaded. Can do fancy stuff later when you have a board wher=
+e the
+> power is controlled.
 
-Acked-by: Andi Shyti <andi.shyti@kernel.org>
+Understood, thanks.
 
-Thanks,
-Andi
+I will make vcc-supply a required property in the binding and use
+devm_regulator_get_enable() in probe in the next revision, keeping the
+power handling simple for now.
+
+Jinseob
