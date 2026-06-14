@@ -1,156 +1,236 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6C9329E44;
-	Sun, 14 Jun 2026 20:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE4F28751B;
+	Sun, 14 Jun 2026 20:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781470579; cv=none; b=PA7osv0d/aMEKIn7TKGceDuK2qmygDNjK2GsP53VfgUemfwH5kpyYZPYvs3WL1/RRIo+4UNrp3kRMDa58cTzWfzV+RoX9fRaOc+PPR+R4/g1jAmV4yCgvnBLcmzQvTNmqE5/bDz/O9MByjBl504Qx1NyV1eiSS1VlyO+IcXJgRI=
+	t=1781470613; cv=none; b=WCP5U8bUHC+KcGGj4sEXfOzBp8F6ikjm3+SMjAWOFXQvclxoUHbJj7S+3Gj9+i6rY3gvoZCVQa5fLTsNSf+6FjVo0sQWcIyAqTZXZjDGaGqsFTNX9S7FuAz9YU66VBISWyq4V7bgXoFK1rmSO2zXa2BIWWno31h/cCofbO2P2UE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781470579; c=relaxed/simple;
-	bh=k2TwFRVIGo3UAuKkEeMphcyHzyDfz5boVP642BqB7Cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eMbyAm4mZTzw6huJlVhLenF/9cxV5IrIaHgHeN+bnWltMjfRXOfjELNYA/IeD02R9G89/nYxfLLdV2iWYYulUqkijQZAei0vUXW1gcU8Dis1HzNmRn09z0DNq0N7ibrhhs027RA/ZdMtybguEZ2NZoB9FFgljGn+rZwWcNfXQNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=UtciRf7y; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781470613; c=relaxed/simple;
+	bh=pOBUDQ3EIq70FBYrbFPX3bGh/Ydeaxa7tj8ebyFy/To=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=POVgJpMdB/asyqhgxV/QLdsoO642z3Kv4uzeMS/JDb3/EhRQERLFFEtUw5JLP9s4guUh+6od+Z497ufBlhzACtI7dEinvKXmhO12RraLrIvd6zhOFlW+9GEfTa7iG4ZYdhXZ/UKmNA3F2+Qk9ELXoOUuo3FlCQb3ltuQCmd1QwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZneq3VE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="UtciRf7y"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 62D801A391E;
-	Sun, 14 Jun 2026 20:56:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D89E260014;
-	Sun, 14 Jun 2026 20:56:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7971E106C8A10;
-	Sun, 14 Jun 2026 22:56:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781470573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=1s1sT/c6GY/MY7ZVSH3SGCUIl59lEqQG0Hqj2B2xQT8=;
-	b=UtciRf7y+G/d7pfxrZk1IlUaUbXDpp2k8dQXrpLeAjNf2O8ktUpBHnQAgy52argPBpPzsK
-	ePID2nUloK8aMJsFsRJA50rAKX+xuLB3wBNvdwdZAH29K6w9cZ3ftdI0xF8TKIagm7jMhh
-	a4AaPWhm1RH3e0FyXX4DFz0KMr0AKwxFAbNhoqRqHhdNDjtye7kkmXwj3M2cD0o2CHM/WW
-	hNRn9yS0sYXHEUZepQ9eLYnfZHGllSN/7kRptBXX5ZUkvoG9gr+UJmFFEJvSqBh/9Poopm
-	acBAjonS+9lmPIlUIT4emxxr1P9x6eWxGB3JzZAsnG0UeXXqVBdQDNdh2768dg==
-Date: Sun, 14 Jun 2026 22:56:06 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Saket Dumbre <saket.dumbre@intel.com>, Len Brown <lenb@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v3 00/13] Support ACPI and SETAASA device discovery
-Message-ID: <2026061420560674ab6fb9@mail.local>
-References: <20260423085718.70762-1-akhilrajeev@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZneq3VE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675B01F000E9;
+	Sun, 14 Jun 2026 20:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781470611;
+	bh=kOpUjZxdPvUScW2Ukddlqqju+iyco1akLGq7vSPTMIk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DZneq3VEquWDvhi8PSYbDdG6woReGOJmlSoQIK4bZgE8UQfkI4hbOXdyZlxRmWsdy
+	 vVQ5l9Ecrst+3M4kX+zH9AmAkGeGLPZaB+1dxnFkQtJfZsreN9fPmevZrbp/S9gMh/
+	 Biu680LY3Lk/wBZKQtWpQ5//ZaT/G6gqC9l2P/+9cy5kT+AmNzazrEnVhzKQGgrl2u
+	 naMfIl5mXG8Epi0AZTbFprUe3DrZEerIvHD8fkYe4KlxOp7oK/ZxRoLBxhL1nwMLXu
+	 Kcz1KYh4/HpAso/nnQLuE8YFQDCkwoLI9E8jSnSGizkoKcGwGC5ff6ScihUDwbtM4H
+	 IWMfd+36hdLkg==
+Date: Sun, 14 Jun 2026 21:56:38 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux@analog.com, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Morton
+ <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Randy Dunlap
+ <rdunlap@infradead.org>
+Subject: Re: [PATCH v16 00/14] ADF41513/ADF41510 PLL frequency synthesizers
+Message-ID: <20260614215638.0be28269@jic23-huawei>
+In-Reply-To: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
+References: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260423085718.70762-1-akhilrajeev@nvidia.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Thu, 04 Jun 2026 10:58:54 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-On 23/04/2026 14:26:59+0530, Akhil R wrote:
-> This patch series adds SETAASA device discovery to the I3C subsystem,
-> enabling support for SPD5118 temperature sensors found on DDR5 memory
-> modules. The changes also add ACPI support for all existing DAA
-> methods like SETDASA, SETNEWDA as well as I2C devices on I3C bus.
+> This patch series adds support for the Analog Devices ADF41513 and ADF41510
+> ultralow noise PLL frequency synthesizers. These devices are designed for
+> implementing local oscillators (LOs) in high-frequency applications.
+> The ADF41513 covers frequencies from 1 GHz to 26.5 GHz, while the ADF41510
+> operates from 1 GHz to 10 GHz.
 > 
-> SPD5118 and similar devices on DDR5 memory modules differ from typical
-> I3C devices in their initialization. They use SETAASA broadcast CCC
-> instead of ENTDAA for address assignment, and per JEDEC specification,
-> are not required to have a Provisioned ID or implement standard device
-> information CCC commands (GETPID, GETDCR, GETBCR).
+> Key features supported by this driver:
+> - Integer-N and fractional-N operation modes
+> - High maximum PFD frequency (250 MHz integer-N, 125 MHz fractional-N)
+> - 25-bit fixed modulus or 49-bit variable modulus fractional modes
+> - Digital lock detect functionality
+> - Phase resync capability for consistent output phase
+> - Load Enable vs Reference signal syncronization
 > 
-> The series enables to describe all I3C and I2C devices on both Device
-> Tree and the ACPI table, using unified device property APIs throughout
-> the I3C core and the Synopsys DesignWare I3C master driver.
+> The series includes:
+> 1. PLL driver implementation
+> 2. Device tree bindings documentation
+> 3. IIO ABI documentation
+> 4. Parsing utils for 64-bit decimal values
 > 
-> Please note that the series modifies drivers across multiple subsystems,
-> like Device Tree bindings, ACPI, I3C and HWMON.
-> 
-> v2->v3:
->   * Fix maximum value and indent bit list for mipi-i3c-static-method.
->   * Move I3C_ADDR_METHOD_* macros to dt-bindings header.
->   * Drop ACPICA commit IDs, keep only the Link: tags.
->   * Revert the change which proceeds to register other devices if SETAASA
->     is not supported so that it aligns with the rest of the driver and to
->     avoid the issues pointed by Sashiko.
->   * Rework multiple commit messages.
-> 
-> v1->v2:
->   * Added patch to remove 16-bit addressing support for SPD5118
->   * Guard ACPI calls with #ifdef CONFIG_ACPI
->   * Remove CONFIG_OF guard for of_alias_get_highest_id()
->   * Mask mipi-i3c-static-method in the driver to select only valid values.
->   * Proceed to register other devices if SETAASA is not supported.
->   * Update commit message and links in the description of multiple commits.
-> 
-> 
-> Akhil R (13):
->   dt-bindings: i3c: Add mipi-i3c-static-method to support SETAASA
->   ACPICA: Read LVR from the I2C resource descriptor
->   i3c: master: Use unified device property interface
->   i3c: master: Support ACPI enumeration of child devices
->   i3c: master: Add support for devices using SETAASA
->   i3c: master: Add support for devices without PID
->   i3c: master: match I3C device through DT and ACPI
->   i3c: dw-i3c-master: Add SETAASA as supported CCC
->   i3c: dw-i3c-master: Add a quirk to skip clock and reset
->   i3c: dw-i3c-master: Add ACPI ID for Tegra410
->   hwmon: spd5118: Remove 16-bit addressing
->   hwmon: spd5118: Add I3C support
->   arm64: defconfig: Enable I3C and SPD5118 hwmon
-> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Applied to the testing branch of iio.git
 
-I'd really like to apply this but I would have preferred having an
-actual ack from Rob on patch 1. Also, you are going to have to rebase on
-the current i3c-next. Can you do this?
+Thanks for your persistence with this.  On a particular plus I think this
+is the largest series I've yet seen that Sashiko gave a clean bill of health
+to (so not even any false positives!) 
 
-Thanks!
+Jonathan
 
->  .../devicetree/bindings/i3c/i3c.yaml          |  31 +-
->  arch/arm64/configs/defconfig                  |   3 +
->  drivers/acpi/acpica/rsserial.c                |   6 +-
->  drivers/hwmon/Kconfig                         |   9 +-
->  drivers/hwmon/spd5118.c                       | 119 +++---
->  drivers/i3c/master.c                          | 354 +++++++++++++++---
->  drivers/i3c/master/dw-i3c-master.c            |  66 ++--
->  include/acpi/acrestyp.h                       |   1 +
->  include/dt-bindings/i3c/i3c.h                 |   3 +
->  include/linux/i3c/ccc.h                       |   1 +
->  include/linux/i3c/master.h                    |  20 +-
->  11 files changed, 463 insertions(+), 150 deletions(-)
+> ---
+> Changes in v16:
+> - Incorporate Andy's series: https://lore.kernel.org/all/20260602203706.103449-1-andriy.shevchenko@linux.intel.com
+> - Drop iio_val_s64_to_s32s() and iio_val_s64_from_s32s().
+> - Add/change comments and minor changes.
+> - Link to v15: https://lore.kernel.org/r/20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com
 > 
-> -- 
-> 2.50.1
+> Changes in v15:
+> - Set bleed value when chaging mode.
+> - Link to v14: https://lore.kernel.org/r/20260524-adf41513-iio-driver-v14-0-06824d9c15f4@analog.com
 > 
+> Changes in v14:
+> - Review include headers.
+> - Use named fields in spi device table.
+> - Address relevant sashiko's feedback.
+> - Minor tweaks to iio core changes.
+> - Link to v13: https://lore.kernel.org/r/20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com
 > 
-> -- 
-> linux-i3c mailing list
-> linux-i3c@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-i3c
+> Changes in v13:
+> - Introduce _parse_integer_limit_init()
+> - Better support for 0 and larger scales in kstrtodec64()
+> - Increase test scope for kstrtodec64()
+> - Fix LSB_P1 check at startup when going for fixed modulus mode.
+> - Clear phase adjust when setting phase (It turns out sashiko was correct).
+> - Make sure Load Enable is not selected when powering up.
+> - Address some minor comments.
+> - Link to v12: https://lore.kernel.org/r/20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com
+> 
+> Changes in v12:
+> - Contraint charge pump current.
+> - Fix division-by-zero issues.
+> - Address PM and sysfs powerdown conflicts.
+> - Program proper phase resync value in clk divider mode.
+> - Link to v11: https://lore.kernel.org/r/20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com
+> 
+> Changes in v11:
+> - Cleanup ext info attribute read/write callbacks.
+> - Adjust attribute names in the documentation.
+> - Turn s64 compose macros into static inline functions.
+> - Link to v10: https://lore.kernel.org/r/20260415-adf41513-iio-driver-v10-0-df61046d5457@analog.com
+> 
+> Changes in v10:
+> - Drop simple_strntoull() changes
+> - Create kstrtodec64() and kstrtoudec64() helpers. 
+> - Add IIO value format for 64-bit decimal values.
+> - PLL driver code implements new decimal format for frequency attr. 
+> - Link to v9: https://lore.kernel.org/r/20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com
+> 
+> Changes in v9:
+> - Expose simple_strntoull() in a safer prototype instead of new kstrntoull()
+> - Link to v8: https://lore.kernel.org/r/20260303-adf41513-iio-driver-v8-0-8dd2417cc465@analog.com
+> 
+> Changes in v8:
+> - Add new function kstrntoull() to lib/kstrtox.c and tests to lib/test-kstrtox.c.
+> - Drop custom iio u64 parser, replacing it for kstrntoull().
+> - Dedicated MAINTAINERS entry for drivers/iio/test/iio-test-fixpoint-parse.c.
+> - Link to v7: https://lore.kernel.org/r/20260216-adf41513-iio-driver-v7-0-b0ed387ab559@analog.com
+> 
+> Changes in v7:
+> - Addressed minor suggestions.
+> - frequency_resolution ABI for AD4350 removed in favor of generic one.
+> - Link to v6: https://lore.kernel.org/r/20260130-adf41513-iio-driver-v6-0-cf46239026bc@analog.com
+> 
+> Changes in v6:
+> - Drop usage of simple_strtoull().
+> - Implement better overflow checks with iio_safe_strntou64().
+> - Link to v5: https://lore.kernel.org/r/20260123-adf41513-iio-driver-v5-0-2dce812a2dda@analog.com
+> 
+> Changes in v5:
+> - Drop local parsing of 64-bit plus fractional parts
+> - Add iio_str_to_fixpoint64() to iio core with parsing tests
+> - Add DT property dependency for adi,charge-pump-resistor-ohms
+> - Add local definition for ADF41513_HZ_PER_GHZ and drop units.h patch
+> - Link to v4: https://lore.kernel.org/r/20260116-adf41513-iio-driver-v4-0-dbb7d6782217@analog.com
+> 
+> Changes in v4:
+> - Proper usage of units.h macros
+> - Simplifications to DT property parsing
+> - Adjustments to return value handling
+> - Drop of simple DT property node example
+> - Link to v3: https://lore.kernel.org/r/20260108-adf41513-iio-driver-v3-0-23d1371aef48@analog.com
+> 
+> Changes in v3:
+> - Use FIELD_MODIFY macro in driver implementation
+> - Drop refin_frequency iio attribute
+> - Drop muxout-select property from dt-bindings (and rename logic-level property)
+> - Use -mhz suffix in power-up frequency property
+> - Address documentation issues
+> - Link to v2: https://lore.kernel.org/r/20251219-adf41513-iio-driver-v2-0-be29a83d5793@analog.com
+> 
+> Changes in v2:
+> - separate driver implementation from extra features and improve commit messages
+> - use macros from units.h
+> - explanation of custom parse function: adf41513_parse_uhz
+> - reorganize driver data structures
+> - drop clock framework support for now
+> - reorganize documentation
+> - Link to v1: https://lore.kernel.org/r/20251110-adf41513-iio-driver-v1-0-2df8be0fdc6e@analog.com
+> 
+> ---
+> Andy Shevchenko (2):
+>       lib: kstrtox: Make _parse_integer() take variadic arguments
+>       lib: vsprintf: use _parse_integer() instead of _parse_integer_limit()
+> 
+> Rodrigo Alencar (12):
+>       dt-bindings: iio: frequency: add adf41513
+>       lib: kstrtox: add initial value to _parse_integer_limit()
+>       lib: kstrtox: add kstrtoudec64() and kstrtodec64()
+>       lib: test-kstrtox: tests for kstrtodec64() and kstrtoudec64()
+>       lib: math: div64: add div64_s64_rem()
+>       iio: core: add decimal value formatting into 64-bit value
+>       iio: test: iio-test-format: add test case for decimal format
+>       iio: frequency: adf41513: driver implementation
+>       iio: frequency: adf41513: handle LE synchronization feature
+>       iio: frequency: adf41513: features on frequency change
+>       docs: iio: add documentation for adf41513 driver
+>       Documentation: ABI: testing: add common ABI file for iio/frequency
+> 
+>  Documentation/ABI/testing/sysfs-bus-iio-frequency  |   11 +
+>  .../ABI/testing/sysfs-bus-iio-frequency-adf4350    |   10 -
+>  .../bindings/iio/frequency/adi,adf41513.yaml       |  227 ++++
+>  Documentation/iio/adf41513.rst                     |  199 ++++
+>  Documentation/iio/index.rst                        |    1 +
+>  MAINTAINERS                                        |    9 +
+>  drivers/iio/frequency/Kconfig                      |   10 +
+>  drivers/iio/frequency/Makefile                     |    1 +
+>  drivers/iio/frequency/adf41513.c                   | 1246 ++++++++++++++++++++
+>  drivers/iio/industrialio-core.c                    |   49 +-
+>  drivers/iio/test/iio-test-format.c                 |   97 +-
+>  include/linux/iio/types.h                          |   20 +
+>  include/linux/kstrtox.h                            |    3 +
+>  include/linux/math64.h                             |   18 +
+>  lib/kstrtox.c                                      |  114 +-
+>  lib/kstrtox.h                                      |   17 +-
+>  lib/math/div64.c                                   |   15 +
+>  lib/test-kstrtox.c                                 |  182 +++
+>  lib/vsprintf.c                                     |    2 +-
+>  19 files changed, 2178 insertions(+), 53 deletions(-)
+> ---
+> base-commit: ae696dfa47c30016cd429b9db5e70b259b8f509e
+> change-id: 20251110-adf41513-iio-driver-aaca8a7f808e
+> 
+> Best regards,
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
