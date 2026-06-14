@@ -1,145 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D017739DBF2
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 18:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D135C39EF20
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 18:20:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781461251; cv=none; b=DG9QpypciGyLcPx+TGNLpBrumY/fW1UNQS9ndNF7uHpKbayiVc66BuYhscdZ8qr/cj0OnYH1RLa4urbP2QkO2Ck2slI99mZn/rSd/U3cMcdirNZJ0BX/r4eW9yxpJ4JdXNn6Lmc3VxnMiIyo3usDT1rKCl4L+Vz2M0TiyL75d3I=
+	t=1781461252; cv=none; b=pOb2BMrqJBwXgtX52CHfDSTjmzncVoFKaVjin/juESzX1g1C+LysoGFg4zSsbsNYlWeiY0XM4cVfLdpFGE9fEDa1kyzb5z3slwNDryhI+htqNqL7Msbt8AROrzpKttDSW8ROnAWOs7Kuj7axF8oIEU8KdVfM8RuWNlvjL5YkM40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781461251; c=relaxed/simple;
-	bh=AIsLjdCsM2GoiXHc+rekibdAjQkBdwv7JuRFsYzyLUQ=;
+	s=arc-20240116; t=1781461252; c=relaxed/simple;
+	bh=9dQUtLTiaoFprClcmbTOIvZ1oMI8ydKarMtkFGRG+dw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cbDq0udCjAzlHyjA0anbN66pX+PHWpFO1G/6mLgETrGHSna0qxTPiX/SbjmYzvsA02c6hkvLrFudYNrEKYpeOdDjjrXOwqkIKchpMmNa3lLj5uU8453k1a9K5df1m6pTa4beHBtkhuwD1U2+C/3fE2IBDRUoD5NXMsaY0ecVxkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XvpfgFkT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gCRTv/H9az/Yy3Lgua5g7O3uQqKnDwoo/AZws6F/BTLUXArNq4eH50HGXY5b+QgWsusjTt/yEqNqRCawseCxZAFZle/PIiMQBHcfR5yfRfA03+a5cx/7d91iMN/fyu8t1Nj30vhNO557tY9mpw6pSDt5ot+cAFZ54rETXFDz8Mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WlEv+ZGm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XvpfgFkT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2788F1F00A3A;
-	Sun, 14 Jun 2026 18:20:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WlEv+ZGm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C771F000E9;
+	Sun, 14 Jun 2026 18:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781461249;
-	bh=BJNM7oEOww6vyIMPSDYROGmHsvSjTaIqzhcGJzq7P4o=;
+	s=k20260515; t=1781461248;
+	bh=fP5POGdbRzDrMNz5+SylWNEZzOdcB2FWXN7ZIB9Zu/0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XvpfgFkTz5MMKrmkTwQohdVodGcRtz2dZnDuV+c04xb/nUPjKTrf/cI+p1dqAEAwm
-	 zrlcU/cxVLyrRwyX1qkfjoy+7qgQR3AS3rQn20xaJN/HsFsI9yepB8N7e66Ka+oW5f
-	 DWs1wlXasERbEP7CN7B1hmVZnleQoSlxnJfLnxoQwYPDOwhUGpwPIy5cfni4FEvj/c
-	 P5ilapmmJlTulrvC69IWHOKGsOvzNTUfoJgtyRE/yVbXz8bHPjk9XHYtgEhUdwoAxp
-	 Jx+amsud6E8+KaVNSNjScy+6ZE4IWZI7Tn6qwGZkKXD8L8DDFzA9+4X960a4IcX8f6
-	 eZoMjBT2RcHqw==
+	b=WlEv+ZGmdh7GcdR6D/N5msU3BmxpA/fKghWi5Rt5KV9j3M3tlJRE1HpP2L8mBqVjI
+	 MZeDMVOuqgJ++jsRoEmIDn91h/LIB3EMAWeDoiptNfHpAtxYnO/VQIkiGVNLPc9k29
+	 kCd0rhuhp0Sn7sMcPsJNzyEgOaa2vjCVWxZkoJkFDI+4gvA8wqPDxtegL7DwQiR9vJ
+	 Up6MkYjYA7Hb0KQM8n2vCl0Va3XdhyoMv1xbltYErlVp2XCnRYQ10fuohj5Cw4dAT/
+	 +u6FD5af9x8lw5yiFLFQBbDKB5ujK8Zp84NrbgxKvM1AArUx573kxWW1KSKapr7PiC
+	 ZzguDpyPA2bow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 4/4] net: dsa: initial support for MT7628
- embedded switch
+Subject: Re: [PATCH net-next v5 2/4] net: phy: mediatek: add phy driver for
+ MT7628 built-in Fast Ethernet PHYs
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joris Vaisvila" <joey@tinyisr.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260613181845.111877-5-joey@tinyisr.com>
-References: <20260613181845.111877-5-joey@tinyisr.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260613181845.111877-3-joey@tinyisr.com>
+References: <20260613181845.111877-3-joey@tinyisr.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 18:20:48 +0000
-Message-Id: <20260614182049.2788F1F00A3A@smtp.kernel.org>
+Date: Sun, 14 Jun 2026 18:20:47 +0000
+Message-Id: <20260614182048.68C771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Using devres (devm_) memory allocation and registration inside the=
- DSA .setup callback causes a memory leak and duplicate sysfs name failure =
-upon dynamic DSA tree teardown and setup.
-- [Medium] The Kconfig entry fails to select REGMAP_MMIO and depends on HAS=
-_IOMEM, leading to runtime failures.
+- [High] The `mtk_soc_fe_phy_driver` lacks `.suspend` and `.resume` callbac=
+ks (typically assigned to `genphy_suspend` and `genphy_resume`). This cause=
+s a severe power management regression and breaks hardware initialization a=
+fter system resume. Without a `.suspend` callback, `phy_suspend()` returns =
+0 without powering down the PHY (`BMCR_PDOWN`). Furthermore, `mdio_bus_phy_=
+may_suspend()` returns false, which prevents `phydev->suspended_by_mdio_bus=
+` from being set to 1 during system suspend. During system resume, `mdio_bu=
+s_phy_resume()` checks this flag and, seeing it is false, completely skips =
+calling `phy_init_hw()`. Because `phy_init_hw()` is bypassed, the driver's =
+`.config_init` callback (`mt7628_phy_config_init`) is never executed. Since=
+ this callback sets a critical undocumented bit required for 100 Mbps links=
+, the PHY will silently fail to establish correct links if it loses power o=
+r state during suspend.
 --
 
-commit 43985d7959e86c4777c7631d696ad0d94372a424
+commit 6c0828ab418aa7d550c1020af637c9ed3e4c1236
 Author: Joris Vaisvila <joey@tinyisr.com>
 
-net: dsa: initial support for MT7628 embedded switch
+net: phy: mediatek: add phy driver for MT7628 built-in Fast Ethernet PHYs
 
-Add support for the MT7628 embedded switch. The switch has 5 built-in 100Mb=
-ps
-user ports and one 1Gbps CPU port. It uses a 16 entry VLAN table for
-forwarding.
+This commit adds support for the Fast Ethernet PHYs in the MT7628 SoCs.
+It adds the MEDIATEK_FE_SOC_PHY Kconfig option and the corresponding
+mtk-fe-soc.c driver to set an undocumented bit required for 100mbps links.
 
-> diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-> index 4ab567c5bbafc..daa1d3d4ba609 100644
-> --- a/drivers/net/dsa/Kconfig
-> +++ b/drivers/net/dsa/Kconfig
-> @@ -63,6 +63,14 @@ config NET_DSA_MT7530_MMIO
->  	  are directly mapped into the SoCs register space rather than being
->  	  accessible via MDIO.
-> =20
-> +config NET_DSA_MT7628
-> +	tristate "MediaTek MT7628 Embedded Ethernet switch support"
-> +	select NET_DSA_TAG_MT7628
-> +	select MEDIATEK_FE_SOC_PHY
-
-[Severity: Medium]
-Does this Kconfig entry need to select REGMAP_MMIO and depend on HAS_IOMEM?
-
-The driver uses devm_regmap_init_mmio(), which requires CONFIG_REGMAP_MMIO
-to be enabled. If it is disabled, the stub function will return -EINVAL and
-cause the driver probe to fail unconditionally.
-
-> +	help
-> +	  This enables support for the built-in Ethernet switch found
-> +	  in the MT7628 SoC.
-> +
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
+> diff --git a/drivers/net/phy/mediatek/mtk-fe-soc.c b/drivers/net/phy/medi=
+atek/mtk-fe-soc.c
 > new file mode 100644
-> index 0000000000000..cedf063ad749c
+> index 0000000000000..9eb4960bcaade
 > --- /dev/null
-> +++ b/drivers/net/dsa/mt7628.c
+> +++ b/drivers/net/phy/mediatek/mtk-fe-soc.c
 
 [ ... ]
 
-> +static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
-> +{
-> +	struct mt7628_esw *esw =3D ds->priv;
-> +	struct device *dev =3D ds->dev;
-> +	struct mii_bus *bus;
-> +
-> +	bus =3D devm_mdiobus_alloc(dev);
-> +	if (!bus)
-> +		return -ENOMEM;
-> +
-> +	bus->name =3D "MT7628 internal MDIO bus";
-> +	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(dev));
-> +	bus->priv =3D esw;
-> +	bus->read =3D mt7628_mii_read;
-> +	bus->write =3D mt7628_mii_write;
-> +	bus->parent =3D dev;
-> +
-> +	ds->user_mii_bus =3D bus;
-> +	bus->phy_mask =3D ~ds->phys_mii_mask;
-> +
-> +	return devm_mdiobus_register(dev, bus);
-> +}
+> +static struct phy_driver mtk_soc_fe_phy_driver[] =3D {
+> +	{
+> +		PHY_ID_MATCH_EXACT(MTK_FPHY_ID_MT7628),
+> +		.name =3D "MediaTek MT7628 PHY",
+> +		.config_init =3D mt7628_phy_config_init,
+> +		.read_page =3D mt7628_phy_read_page,
+> +		.write_page =3D mt7628_phy_write_page,
+> +	},
+> +};
 
 [Severity: High]
-Can this memory leak and fail on dynamic DSA tree setups?
+Does this driver need .suspend and .resume callbacks (like genphy_suspend
+and genphy_resume) to properly handle system power management?
 
-Since mt7628_setup_internal_mdio() is called from the DSA .setup callback
-via mt7628_setup(), it can be invoked multiple times during the device's
-lifetime (for example, if the conduit or master network device is unbound
-and later rebound).
+Without a .suspend callback, mdio_bus_phy_may_suspend() returns false,
+which prevents phydev->suspended_by_mdio_bus from being set during system
+suspend.
 
-Because the MDIO bus is allocated and registered using the devm_ variants
-tied to the physical device, won't the bus remain allocated after .teardown=
-()
-runs? If .setup() is called again, this would leak the previous allocation
-and cause devm_mdiobus_register() to fail with a sysfs name conflict.
+During resume, mdio_bus_phy_resume() checks this flag and skips calling
+phy_init_hw() entirely. Because phy_init_hw() is bypassed, the
+mt7628_phy_config_init() callback is never executed after a resume.
 
-Should the MDIO bus be allocated in the probe function instead, or use the
-non-devm variants here with explicit cleanup in .teardown()?
-
-[ ... ]
+Will this cause the PHY to silently fail to establish 100 Mbps links after
+waking up from suspend because the undocumented bit is lost?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260613181845.1118=
-77-1-joey@tinyisr.com?part=3D4
+77-1-joey@tinyisr.com?part=3D2
