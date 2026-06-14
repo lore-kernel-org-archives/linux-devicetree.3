@@ -1,131 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A57390C84
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:17:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BA22777F3
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781425066; cv=none; b=E1sPJeHATbCCACl4nW97vCthDpZ2ziyZU8D7ptQn88vzjkIs9IzwkyifQfnHMveklGPYzNs35TaEL1gThZw//GjnJyPYK4oKQgZaMOnZnoKZoDUn9TM6vW2jU/Sk6BbnowxpCl8JxRAeLGqp0h6AgktawIIUE8HiNILzKQOV0Hc=
+	t=1781426157; cv=none; b=TX/81k+5yVqnP2+tLJ1E+u2NznXeR89RIscjpSjDahOskoWix2YEUBepw+c5zJTNg2+LT89cVIEcNDLkMpB6tPXikKYMJR3HszUWsL2elh+5+MXQnNmzb0jDAT2pQeT5WZS21fuf/jqlm5DxD9km5MXKn1Sea4OUJOkhQ4gFcHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781425066; c=relaxed/simple;
-	bh=DjU70LBBiheKzrkdopJRWcXqbphQKFp/9O0QLhOYq1k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SHIaIcMe0gq8RpfIMQT9o3uPmH4dSpNFG28uhl5k+l0+t3MobMXWGd0kJjAOCZXjznFUlHwEOemomw7lsk4sKxKirH44Xe4Zghr/3CwUeOKa5Azd/rsUCesaxkD67llGiUqKp6M1Xpap0V50VV1GphoxPl6VAU0GugPEViZIXAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gK7Io623; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781426157; c=relaxed/simple;
+	bh=QvqgdZHeqgEEqc9cqofJhBAJO9XcXQK5dg3RhzWhdyg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M2giCJy4PSgBZsddNGFfaj32xPwtRGwC5LFPk0liSoXks5FHmdVJutlcBMQnL6jcmMJyv8eCdTqdnba/fY4a0KBK29OtYOIvypr+eOqvyeGLAProLVVFl7Vx0WW+69qPN9EmDcvkZA2JrERe6Xq8mHyYx3l4AcpucSMoiQKexh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4DRH9SM; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gK7Io623"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E1141F000E9;
-	Sun, 14 Jun 2026 08:17:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781425063;
-	bh=seu7f4h//VZtBm7HY5ys5hHIgTAlOXbC3bLQISGP1DU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gK7Io623LQsqsOsPrEWPQ9ALCv5FXCkivr2+6XrODo6WG6pc7D/YmowKpQzW0lzPW
-	 RndyxU/TMJmF6bxqsSDz/FpIbukl96sHuZr/ycWbG7b5E5aDNjhp8q6cN/oD5HsgpJ
-	 hRc/WzNAdAGxayGCn0+T8V4AAx+UL88M9g8fAuNyb+TUeLSiWNWJfn+RaYVXHjIk9Q
-	 VATjqCfliU1Q0srzs+5oipVcVv1abpeH8wnj8++9DAQa8akPJeSE5/ooFkj+FNLSYA
-	 epU4XROLPvwH0zcFmqW0+WSA2N+3qzvoUkdV3CzuAGNZ/EwBVkqLw2Sw/kR7AK5Gs/
-	 PKWaROZ/M57BA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: hamoa-pmics: Add ADC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
-References: <20260614-adc5_gen3_dt-v2-4-32ec576c5865@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 08:17:42 +0000
-Message-Id: <20260614081743.5E1141F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4DRH9SM"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84236f9b638so1154276b3a.2
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 01:35:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781426155; x=1782030955; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=REc377Cx8g8BwECwGCoYljt/5HARM3EnQdjrMGhJHwo=;
+        b=I4DRH9SM/IG2BWx27d95q7AB1e8qZtDnMz+O0+UJM18PK6GHT0Mt0jk7aNFCX600Y7
+         1B2THWFaBguXks37AJSnezEGfjrtOP9CA3HAqiojVDUMeQj4l5h41Nc7oimJFgQvarwQ
+         oRU8lrPUicVGst1NkOwZg+4d5xgvY0nMgVEKEeIgH70WkWDWCTyuPsxpFXULyv1hqS3f
+         tSLDcNZtsSgu/tpY44Jvzcq4at5OVFlk7RF29EMbMaMoiSt6PIw+ABYe65u0/gC3o41n
+         LaVKu67LEga+8ZbwLVYcYjojP3qCMzz1Q5dYTUJLdbA8vxHLqnWEoEaA/fRXG+O6nh/N
+         DmBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781426155; x=1782030955;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=REc377Cx8g8BwECwGCoYljt/5HARM3EnQdjrMGhJHwo=;
+        b=rfy92FCsf+nksvGpEAWLlwx5IC+QTjrzNqfm/ii49xbTs8+EvGoZPQzK1epAxh3yPV
+         qKxkz7NKGNUZNiNxmgITnF7jap7+xpCePSi/OiZkbis4kC2dIerFIIjWtSZNUfMKb8CF
+         cTj9HjmonypDtWETlbwUVbFs1NXgXs+hU0A5o43sjRVuVrp8xn7q6k/mErf3cq0MHkVE
+         T3SvB2zOCuLuiGDWLbnZ7nfQGBGkUcjPhivOFiUVt2oQDbtclIvj5vg1enkh2i5YgLcX
+         +0A4TBqW3ADwfaNZnXFf95jZNnBtWU6pctIsLSaFImJ6Nq2vWZ2VM036+Ab4V7ZrRZfc
+         LEmw==
+X-Forwarded-Encrypted: i=1; AFNElJ+T/8vcfKfLR4t07YlLvI6zsC9qZmxkU65xACyTczrNfSvXgc1EqpvQFborxEhE3FpanJAMfJYI8YLL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1oqI4U7mNBCXg+uekaXjxxmRUej81XvStnFgUvZX7Cf0TWOU5
+	d23OaGazSKurBXGy4Pq+oLuKvdYZRYa80wBD33ofk5Um0P47li05KbqN
+X-Gm-Gg: Acq92OGw6wnOTUH1QP8PSIo8yee1swftvCALJmcttwi7XcvyKotXz7vkC8CWnyQP8PC
+	dxHw9R/Q3e/T6BfMXsiTYQoEGaGoOvi1HCf1VsNvN7GxOx4upD8Oht+/tqYVqAu6bNdgQeqtuRp
+	IM6ULvCydN6NhL5kfZ8RBqo4cjbEJPKPR4PSOKFE2esHroWZTMLOVAS6gZDI/OCDsLTfUd/KZCf
+	3u8E63r90Pn7LJyX93QYkUsDrYbY1Dr8WlMBfFnSjjJVW1rWfCv7C32+gfvjY3hsqWRiKE9AqoY
+	GPoCAj5Aknz1DtCWd5akblaG2s57jkJ86/p2JrN0p5f2cnHdJrCs1dPON9l/fpEdLc+aXskiLDI
+	2+tPMihEk66iiL+MO9F9+ZRYOxZ/26gPZFgg+a+2c92PVQ6CYOuveg0WcOr2CJKdHvmPxUwbdvc
+	APepx+3m8Sxf1ZjfkaS6eX+w==
+X-Received: by 2002:a05:6a00:238c:b0:837:e9cc:d46e with SMTP id d2e1a72fcca58-844e1a2af43mr7234263b3a.21.1781426155058;
+        Sun, 14 Jun 2026 01:35:55 -0700 (PDT)
+Received: from nuvole ([2408:844f:2361:d7cd:deb7:4e0e:26d0:4076])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc8fc7sm7263053b3a.37.2026.06.14.01.35.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 01:35:54 -0700 (PDT)
+From: Pengyu Luo <mitltlatltl@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Pengyu Luo <mitltlatltl@gmail.com>
+Subject: [PATCH 1/2] spi: dt-bindings: qcom,spi-geni-qcom: Add property to force GSI mode
+Date: Sun, 14 Jun 2026 16:34:23 +0800
+Message-ID: <20260614083424.464132-1-mitltlatltl@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing Thermal Sensor Provider for VADC causing thermal zones t=
-o indefinitely defer
-- [Low] Devicetree Naming Violation: Underscore in node name
---
+Some devices (such as gaokun3) do not disable FIFO mode, causing the
+driver to fallback to FIFO mode by default. However, these platforms
+also support GSI mode, which is highly preferred for certain
+peripherals like SPI touchscreens to improve performance.
 
-commit 7b5021a0220835eeee60f0b85faf679ed9b09977
-Author: Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>
+Introduce the "qcom,force-gsi-mode" device property to hint and force
+the controller into GSI mode during initialization.
 
-arm64: dts: qcom: hamoa-pmics: Add ADC support
+Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+---
+ .../devicetree/bindings/spi/qcom,spi-geni-qcom.yaml          | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-This commit adds the ADC node and defines channels for die temperature,
-VPH power, and system thermistors for PMK8550, PM8550VE*, and PMC8380*
-PMICs. It also defines several thermal zones corresponding to the off-PMIC
-system thermistors.
+diff --git a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
+index edf399681d7a..80e394c1c715 100644
+--- a/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
++++ b/Documentation/devicetree/bindings/spi/qcom,spi-geni-qcom.yaml
+@@ -45,6 +45,11 @@ properties:
+       - const: tx
+       - const: rx
+ 
++  qcom,force-gsi-mode:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Use DMA (GSI) mode, even if FIFO mode is not disabled.
++
+   interconnects:
+     minItems: 2
+     maxItems: 3
+-- 
+2.54.0
 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi b/arch/arm64/boot/=
-dts/qcom/hamoa-pmics.dtsi
-> index 6a31a0adf8be4..2e746ede850f8 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-pmics.dtsi
-[ ... ]
-> @@ -189,6 +191,90 @@ trip1 {
->  				};
->  			};
->  		};
-> +
-> +		sys-0-thermal {
-> +			polling-delay-passive =3D <0>;
-> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-[ ... ]
-> @@ -277,6 +363,142 @@ pmk8550_pwm: pwm {
-> =20
->  			status =3D "disabled";
->  		};
-> +
-> +		pmk8550_vadc: adc@9000 {
-> +			compatible =3D "qcom,spmi-adc5-gen3";
-> +			reg =3D <0x9000>, <0x9100>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			interrupts =3D <0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING>,
-> +				     <0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
-> +			#thermal-sensor-cells =3D <1>;
-
-[Severity: Medium]
-Does the driver for pmk8550_vadc (qcom-spmi-adc5-gen3.c) actually register a
-thermal zone provider?
-
-It looks like the driver currently registers IIO channels but delegates
-thermal monitor capabilities to an auxiliary device named adc5_tm_gen3,
-which currently has no driver in the kernel to bind to it.
-
-Without a driver registering the thermal zones via
-devm_thermal_of_zone_register(), will the generic thermal framework
-indefinitely defer probing for these thermal zones, leaving the system
-thermistor monitoring uninitialized?
-
-[ ... ]
-> @@ -301,6 +525,18 @@ pm8550_gpios: gpio@8800 {
->  			#gpio-cells =3D <2>;
->  			interrupt-controller;
->  			#interrupt-cells =3D <2>;
-> +
-> +			sys_therm_0_gpio3: sys-therm_0-gpio3-state {
-
-[Severity: Low]
-This isn't a bug, but does this node name violate devicetree conventions?
-
-Devicetree specifications strongly discourage underscores in node names,
-recommending hyphens instead. While the node label (sys_therm_0_gpio3)
-can use underscores, should the node name be sys-therm-0-gpio3-state?
-
-The sibling node sys-therm-1-gpio4-state correctly uses hyphens. Leaving
-the underscore might trigger a node_name_chars warning in dtc when compiled
-with W=3D1.
-
-> +				pins =3D "gpio3";
-> +				function =3D PMIC_GPIO_FUNC_NORMAL;
-> +				bias-high-impedance;
-> +			};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-adc5_gen3_=
-dt-v2-0-32ec576c5865@oss.qualcomm.com?part=3D4
