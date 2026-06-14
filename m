@@ -1,186 +1,74 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D70630C637
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 21:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EF6292B54;
+	Sun, 14 Jun 2026 22:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781474244; cv=none; b=V9iFgSE7usbU0cz35eO0sho42Nbdl7sVkOB55L9oXutPFF85RmLmjdA6QQMztopACCrmVsMhWcNZ0yart6kxcNt5uwyAz1jKgkcON6tnlhEpNvwzMFEQACSx6fHFUFA2kO6HGfuAC4K389K8a5qL9fFSuZ7W6lIRk+i/YYXFKM8=
+	t=1781475627; cv=none; b=n2hzQDf0w5FH23aq+rqYtbTzOKZIPLCY0F85T8xlGAedBGxflsVCB1wz4GodMtSHDI+Ru1FeMREIqV3ASFRrd+ldG3G4zsUSQxRzvtm3EI5XA/6udCAsO41ixKnJ/ekffSLF0T67b3Vx32pogX65O5PIKgWu2qsksSb4n54Nd/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781474244; c=relaxed/simple;
-	bh=sGk/U72tZEkF2KYoBS0hK0weNNaNbKa7jZafhRh3xvc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=DB+v00uOvqscz1rlS4ko6Bbv0HPchxel8Ssieq+Mcq4SB8V0AdW25j+JH+KC6LHzVFsV62er1tF23eR/JiV8Nfpr8+pwk3PafLIkBBQ6QDPpU2uRAJ+bB2JKM7jhvs284nPJSCmw/f1bkXL2gjiMOz2bcU/i7czHPA5rUqsyUbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ju/bKq0M; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781475627; c=relaxed/simple;
+	bh=AolzJ5fBKCYhdZoy8bTLrjEDJd4XB/zbqN6ZB63xKyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NpPtA0nlyGckXCDD+JVm0f1BjqQzr1W7H4xWzYKxuJkVpEnGBr/xZyJMzh9TA+CXTMiOK4DQGWfskl3GEKKzvPM5o6ph/ZpKhEhJeIDKwOGVWZF7AR8twUyPc9VfrHllyIxpoePaesiF4AG1ucuEQjCj0pNoscmvWEZq+jY124Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk+PbvAQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ju/bKq0M"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-59d541955f8so946290e0c.1
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 14:57:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781474242; x=1782079042; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=slxehqDwE4bbkZOJYryV9/GE1Y8sTVTKoHQjRDCh1JI=;
-        b=Ju/bKq0MhFa19gp5dONOLYd8mG/3iCYnjUMY8795tyzVGI+KTIe9eEpQwKJnYCF2Db
-         xxJkh6znSl25lMreue0JZsWuTdAz67YQyowKquBG0keX+ij7U726SV0ZhFcrqaFydJfZ
-         GP3L7YsUZy6lgYJf9qsD4Hg0ne4MKl/rJvry5F//RWjTil3ewhELx6zk04zOOqYMnG9r
-         hui1dKm/2CjzbfLE4/Vu7EMXBGDASFzZjYo+EujfIUl9V/2/rl+UXRawFA7Rlw8GylNd
-         oOO384t7A0uoNYvXHDRm0uOS7BepVsqXXXQNflW9RQQixfsYMJQj0yHIoCtYR1Xf2qup
-         x5RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781474242; x=1782079042;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=slxehqDwE4bbkZOJYryV9/GE1Y8sTVTKoHQjRDCh1JI=;
-        b=rQhb8lqXyLOEKeK0vpdtRHc+hfU5hnxSV5GQj/IwOQ4FSahoDzCSczebv/q0hfNTLf
-         GfdiKel+PFcmxKUeyyJK7QXrBTGPNkPorm0TM93PxOPuk6CAoGcfbhtEtj0W7V8ELGGI
-         PwbLPFCAjoGTg3ES94ufdKTYwSPFI70YyQzhnR5EovhWOu4wC6bwW4XMdeIu8z5aJxFG
-         y2aRy4iLSKxgSnf6BCQEMp1RgZbTc/bTOQWKpEUGuX9wG8+b0mT1z13opDNVCQ8q+5n5
-         1IEdxj1TrXqcOn60MU8RKwkeh6078GgWI/7Js+qSFoyhU9bBMtNDHQzkhl0ttP8wrz3c
-         mWSA==
-X-Forwarded-Encrypted: i=1; AFNElJ/78rF7lVL993HnY8uUcFL1pHdzwdvAr9soTpu1OVQw/LRiH4rsdE/WxELzF2lUQK5YDgjpBPsn1w7J@vger.kernel.org
-X-Gm-Message-State: AOJu0YypUoOIQMjK2JR3pq+/F9zWgjEMjrqIELOhpyS5M44RAF0di/uJ
-	b7h1Vm6dpA/+1JI+q6oS1WowsOeAyzPSRjeLPV8UrgztEwT2yphbIbCM
-X-Gm-Gg: Acq92OEdcgE57QbnQFdsFpfq+SsYSNVwA8UhefRr3LoAuibCwSBpY/uGTRhEIzCNIZy
-	Oca08KghuM7ynnLqEpxblCtsooS+vI4q0n/PHn00Nw9Wh2ZIh21exWa2I3LZPunyZ9FN4LTz5r9
-	JBJQ547nbSkByijKNT9/EihrpNi9Uye05zZB20yLU0Ql2hFDYOWigDTx6Vlu/SDrzHSVnkiNUCo
-	ysAlXBZw1al12OtPO1ZV5lj+4ltIe2J3eirSuqSzfbof5hszbYZUO92HG7ou7VkMH6RNlbtF8v6
-	r8RqzAcEHQzOKtYdN/naeUqCb4unUNF02UYqv9g3kewGIeEkIovq9gNYDRUR46ewCJMx77tnV4D
-	VF/nzO/l/+Rq0vgzN/HiSqUElsd1L/CzIY8vq0/G1AO8bFQGcDhGtjbKd2ZCh0ZyW5wkJsUnp3U
-	48fzbXnSphJYXJPA==
-X-Received: by 2002:a05:6122:513:b0:575:24a9:78da with SMTP id 71dfb90a1353d-5bb6c0ec1b4mr5565063e0c.11.1781474242047;
-        Sun, 14 Jun 2026 14:57:22 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb8ff961e3sm2159691e0c.3.2026.06.14.14.57.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 14:57:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk+PbvAQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2474C1F000E9;
+	Sun, 14 Jun 2026 22:20:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781475626;
+	bh=7RDOpRHXsto/ZnZ2BpjuO3i0UoV7uNmp1csBtkTg2I0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Pk+PbvAQog32lrbAeLhyfFZRdotgRwJRA1rtRd9LNXuh1UGqwuW6tP6p5vMmdWJ05
+	 nAAKVx2vh77PZThJWidRzxlpmog9S3x/hpE3pRiZWSg5IYrdmMnqVuEud1HKr1xzei
+	 186KjRZjhSXxiSm05dgb1CLShHW1x/u47FAOkISaFjRjzKqGQbWND3jBADRVPwFobl
+	 my+NJDRgFV/r01dr6QLOXteOs/yDysxqNkFAqK830UUymDlUoQQVK2vtgxnefmQlBG
+	 NRrj6/Kddf4Ace8BhzhxyqeOZBooxM23swbnVklJPRA6qbpmcO9QtYTcq8g0q1icz9
+	 NJb9eKmlGjWnQ==
+Date: Mon, 15 Jun 2026 00:20:21 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] i2c: ls2x: Add clocks property parsing and adjust
+ bus speed
+Message-ID: <ai8o9vxUX6rbZNV4@zenone.zhora.eu>
+References: <20260608024533.32419-1-wanghongliang@loongson.cn>
+ <20260608024533.32419-3-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 14 Jun 2026 16:57:13 -0500
-Message-Id: <DJ93WSYC3HTT.3NXQW390CLQ82@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>, "Bartosz
- Golaszewski" <brgl@kernel.org>, =?utf-8?q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 1/5] dt-bindings: iio: adc: Add TI ADS126x ADC family
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
- <kuurtb@gmail.com>, "Krzysztof Kozlowski" <krzk@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
- <20260612-ads126x-v1-1-894c788d03ed@gmail.com>
- <20260613-loyal-azure-goldfish-cf6d54@quoll>
- <DJ92JT0CPSXJ.1113K3KLSRHH4@gmail.com>
- <f13b9c55-770e-454c-9bfb-5847ff17813b@baylibre.com>
-In-Reply-To: <f13b9c55-770e-454c-9bfb-5847ff17813b@baylibre.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608024533.32419-3-wanghongliang@loongson.cn>
 
-On Sun Jun 14, 2026 at 4:37 PM -05, David Lechner wrote:
-> On 6/14/26 3:53 PM, Kurt Borja wrote:
->
-> ...
->
->>> Not a separate device node. Fold into the parent... or explain in
->>> commit msg. You have entire commit msg to explain odd things.
->>>
->>> In that binding description you call it "independent", so it should hav=
-e
->>> its own SPI chip select? Why "independent" and part of this binding?
->>> Maybe not independent, so basically part of this device?
->>=20
->> It's independent in the sense that it is a proper subdevice on the same
->> chip. It shares the serial interface but operates completely in
->> parallel.
->>=20
->> I decided to add a subnode because other devices might request their
->> io-channels and most importantly a different voltage reference might be
->> connected to it.
->>=20
->> I'll clarify this in the commmit message on the next version. Although
->> after seeing this submitted bindings [1], I wonder if it's a better
->> approach to do something like
->>=20
->> 	spi@0 {
->> 		mydevice@0 {
->> 			...
->> 			adc@0 { ... };
->> 			adc@1 { ... };
->> 		};
->> 	};
->>=20
->> Any thoughts?
->
-> I don't see how this relates to the linked patch at all. The linked
-> patch looks just like a normal DAC binding.
+Hi Hongliang,
 
-Ah, wrong link. This is the correct one [1]. The suggestion just at the
-end.
+On Mon, Jun 08, 2026 at 10:45:33AM +0800, Hongliang Wang wrote:
+> The i2c-ls2x driver supports dts and acpi parameter passing.
+> 
+> In dts, uses clock framework, by parsing clocks property to
+> get i2c bus reference clock, and define the div of reference
+> clock by device data.
+> 
+> In acpi, by passing clocks property to describe i2c bus reference
+> clock and clock-div property to describe the div of reference clock.
+> 
+> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
+> and div, calculate the prcescale of i2c divider register. The
+> calculation formula is
+> 
+> prcescale = (clock_a*10)/(div*clock_s)-1
+> 
+> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
->
-> What is the point of the 2nd ADC in this chip? Is it just to be able
-> to do simultaneous sampling of two different measurements at the same
-> time? We have other simultaneous sampling ADC chips and just model them
-> as a single device.
+I think Huacai has not reviewed this patch, his review was only
+for patch 1. Am I right?
 
-It does simultaneous sampling of the same channel, as well as different
-channels. Also the secondary ADC is only 24 bit instead of 32 bit, has a
-different noise profile and has a different PGA configuration (goes up
-to 128 gain, instead of 32).
-
-Taken from the datasheet (Section 9.3.15):
-
-	Use ADC2 to perform main channel (ADC1) cross-checking
-	measurements (for example, diagnostics purposes and redundant
-	channel measurements), system background measurements, or
-	temperature compensation of the primary sensor (such as
-	thermocouple cold junction compensation). Using data rates of
-	10, 100, and 400 SPS for both ADCs, ADC2 performs virtual
-	parallel conversions with ADC1 on the same input channel.
-
->
-> Since everything can be muxed to either ADC at runtime, I don't see
-> any reason the devicetree should care about it. Forcing certain pins
-> to be assigned to a certain ADC seems overly restrictive.
->
-> And unless you have an application that specifically needs it, I
-> wouldn't bother trying to implement the 2nd ADC in the IIO driver.
-> I didn't see any hints in the datasheet as to when it would actually
-> make sense to use this 2nd ADC. My first thought is that it might
-> make sense to use the 2nd ADC for a 2nd buffer so that you can do
-> 2 buffered reads at the same time. But without knowing why this chip
-> was designed this way, I don't know if that is the right idea or not.
-
-I myself don't have an application for this feature. But I don't see why
-not adding support for this feature, given that I already implemented a
-driver (Patch 5) and is capable, as you said, of 2 buffered reads at the
-same time.
-
-I do believe I have to explain all this better in commit messages
-though.
-
->
->
->> Ack to the rest of comments.
->>=20
->> [1] https://lore.kernel.org/linux-iio/20260519-ad5529r-driver-v3-1-267c0=
-731aa68@analog.com/
->>=20
-
-[1] https://lore.kernel.org/linux-iio/25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3=
-ce3oqzqz56ehi@le72iqv7ye3d/
-
---=20
-Thanks,
- ~ Kurt
+Andi
