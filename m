@@ -1,45 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D780171CD;
-	Sun, 14 Jun 2026 18:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C48930EF89;
+	Sun, 14 Jun 2026 19:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781462693; cv=none; b=ZcCaLue1wl41ZqWYg6HX+9EdA6uafEva0SSnZJ86BCXLFUaMbHZrFdUJvBfVn0zrY9LKXO3FUUnbYHOBr2vIgve7lYIGIkwRNnCz28K2cekqflifXfTn2ng7R97D5Uv6svrym/hnzpMq37C3I7DHsqpx1LcgcxYdLz9G93p1KLU=
+	t=1781466309; cv=none; b=eUZVEMt56+ex9yNYKiE/8/VTXGSZzdpslHwiBRuVWgLMMFkGQ8geI82HvvE7KZzlIVw3SKqbRoDKhjfQQwrbH2lVw9tcYPk3xL5RxEfmyX41ArK1BNdVr7x9kHguWyYWJyIJWsr6tkkoXSWSoL/fpJBJsX62GWvOmsPPCzaWM7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781462693; c=relaxed/simple;
-	bh=Nv5T4ABzwDIijvGHNIC5xvGeplANBw+54noBdZJsshU=;
+	s=arc-20240116; t=1781466309; c=relaxed/simple;
+	bh=7ha0LiReNGNW/bxB6b9lPIfBwVFFY9y3NVorZGR09fo=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JsWakfcwlwAxe1EvTT4/WgNjrl1E4uF1ALCYxbTmW1Uoy9QTCftV8hluMepTp2f1mJfx4AXQ6L4vbDBvS/3WiT9NHvSansILt1lVV3pYf5GDtZpWiUKdI+b6rhSq4jHNnVfSn2sJIIOxVjUhMgmTlfbn9igMVqGIZdzDokg8cPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jAUsrqnU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QY6ntKi4wrzJ1Rn9B9DmJsNvHvM8VUdNzsgC/jRl80c2xRL2jI7z5p3cJmhRGdLO3ASnUUDPiPq/wxeZUSL/r+MgDKQcg+oDQKG6NcvfALQlDKLELWiHRCazt5Ge2YukGEl7UKo06dRVwAn4nnBb5wDRXEAbjAdR/hcrC+/7EqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kK/wwZ7a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jAUsrqnU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17D931F000E9;
-	Sun, 14 Jun 2026 18:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kK/wwZ7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97DEA1F000E9;
+	Sun, 14 Jun 2026 19:45:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781462692;
-	bh=4OCR0SR1M2Q+HlRLWIbJc+UtKvK71TYIwcxtVqxVKvg=;
+	s=k20260515; t=1781466307;
+	bh=fMUJLPXzP2s81hMzrXh6+NPZ/9tUeZuJA5qZT/vFyT8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jAUsrqnUDSmOjOoc/E3e6CJTZCRuphEfKIJRrP/9ycBmpISkmXizjUS98P9ImcgjA
-	 uvAiVYHcyIuuBbhJQhbvYQMcIz2mVJuiwVfIhGCxU2xDMKrJUXX5Adp6eq8ENck+aD
-	 WYCBe8K8UScvLBrWeusmhTCdZvi64uYoVzPd2Rx8C6rqVygQtZeWLIBM0CLv0xLEJJ
-	 rDygNCeHdMq4zHXhZaEksrE18vtLE86QzbcrXGMT1i717JaCHiAfePsl6MaHeurjGa
-	 /TanZ9GDZl+gxM6ALE5gdu6CrrcOizMrOgu9irUj8ViA4sVNPurzT79nYAp4VjYn8m
-	 iNKZ1X6p9yiGg==
-Date: Sun, 14 Jun 2026 19:44:42 +0100
+	b=kK/wwZ7abRBhC96sNjunOCOKE+Fo9AFHPZ+fO4Te+tKWtJMNNAsvsYjayjimxgQWH
+	 D9rii8prKwzUyJYCZmccnI/SzPOFLbgfZi4GANAfohSMdsZ12ikz/a/j1OH0rW+wt5
+	 uwnpbmBQBWdFOI07elXGxr42OahnBTUsPrXtSTpH6x5FRU/C0YNI/iq2T90AFqpuNE
+	 KszxD+RZgM9ApB0h/X5RaTDnbq1ueF7CHbZLQtZ+A4nC9+Wzg/wclCtoo2mPlxGOSQ
+	 ODtZ/xvFwZuaE1X+e0zY5+OGtfB2d9iFoSQCE4mF17wTpC3U0K4+96TEweEXG+uLWr
+	 HfLCL2v7zBWAw==
+Date: Sun, 14 Jun 2026 20:44:55 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: linusw@kernel.org, denis.ciocca@st.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, sanjayembeddedse@gmail.com,
- maudspierings@gocontroll.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: iio: st,st-sensors: add
- st,fullscale-mg
-Message-ID: <20260614194442.61191f68@jic23-huawei>
-In-Reply-To: <e49aba850b1f48ea00089e7142c00584541001eb.1780652883.git.github.com@herrie.org>
-References: <cover.1780652883.git.github.com@herrie.org>
-	<e49aba850b1f48ea00089e7142c00584541001eb.1780652883.git.github.com@herrie.org>
+To: Janani Sunil <jan.sun97@gmail.com>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, Janani Sunil
+ <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <20260614204455.408c4d40@jic23-huawei>
+In-Reply-To: <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
+References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
+	<20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
+	<25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3ce3oqzqz56ehi@le72iqv7ye3d>
+	<603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -50,76 +56,230 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri,  5 Jun 2026 12:08:42 +0200
-Herman van Hazendonk <github.com@herrie.org> wrote:
+On Tue, 9 Jun 2026 16:47:23 +0200
+Janani Sunil <jan.sun97@gmail.com> wrote:
 
-> Add an optional st,fullscale-mg property that selects the initial
-> full-scale range of an ST MEMS sensor at probe time, expressed in
-> milligauss for magnetometers (and analogous engineering units for
-> other ST sensor families that may grow this property in the future).
+> On 5/26/26 15:11, Rodrigo Alencar wrote:
+> > On 26/05/19 05:42PM, Janani Sunil wrote:  
+> >> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> >> buffered voltage output digital-to-analog converter (DAC) with an
+> >> integrated precision reference.  
+> > ...
+> > Probably others may comment on that, but...
+> >
+> > This parent node may support device addressing for multi-device support through
+> > those ID pins. I suppose that each device may have its own power supplies or
+> > other resources like the toggle pins or reset and enable.
+> >
+> > That way I suppose that an example would look like...
+> >  
+> >> +
+> >> +patternProperties:
+> >> +  "^channel@([0-9]|1[0-5])$":
+> >> +    type: object
+> >> +    description: Child nodes for individual channel configuration
+> >> +
+> >> +    properties:
+> >> +      reg:
+> >> +        description: Channel number.
+> >> +        minimum: 0
+> >> +        maximum: 15
+> >> +
+> >> +      adi,output-range-microvolt:
+> >> +        description: |
+> >> +          Output voltage range for this channel as [min, max] in microvolts.
+> >> +          If not specified, defaults to 0V to 5V range.
+> >> +        oneOf:
+> >> +          - items:
+> >> +              - const: 0
+> >> +              - enum: [5000000, 10000000, 20000000, 40000000]
+> >> +          - items:
+> >> +              - const: -5000000
+> >> +              - const: 5000000
+> >> +          - items:
+> >> +              - const: -10000000
+> >> +              - const: 10000000
+> >> +          - items:
+> >> +              - const: -15000000
+> >> +              - const: 15000000
+> >> +          - items:
+> >> +              - const: -20000000
+> >> +              - const: 20000000
+> >> +
+> >> +    required:
+> >> +      - reg
+> >> +
+> >> +    additionalProperties: false
+> >> +
+> >> +required:
+> >> +  - compatible
+> >> +  - reg
+> >> +  - vdd-supply
+> >> +  - avdd-supply
+> >> +  - hvdd-supply
+> >> +
+> >> +dependencies:
+> >> +  spi-cpha: [ spi-cpol ]
+> >> +  spi-cpol: [ spi-cpha ]
+> >> +
+> >> +allOf:
+> >> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> >> +
+> >> +unevaluatedProperties: false
+> >> +
+> >> +examples:
+> >> +  - |
+> >> +    #include <dt-bindings/gpio/gpio.h>
+> >> +
+> >> +    spi {
+> >> +        #address-cells = <1>;
+> >> +        #size-cells = <0>;
+> >> +
+> >> +        dac@0 {
+> >> +            compatible = "adi,ad5529r-16";
+> >> +            reg = <0>;
+> >> +            spi-max-frequency = <25000000>;
+> >> +
+> >> +            vdd-supply = <&vdd_regulator>;
+> >> +            avdd-supply = <&avdd_regulator>;
+> >> +            hvdd-supply = <&hvdd_regulator>;
+> >> +            hvss-supply = <&hvss_regulator>;
+> >> +
+> >> +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+> >> +
+> >> +            #address-cells = <1>;
+> >> +            #size-cells = <0>;
+> >> +
+> >> +            channel@0 {
+> >> +                reg = <0>;
+> >> +                adi,output-range-microvolt = <0 5000000>;
+> >> +            };
+> >> +
+> >> +            channel@1 {
+> >> +                reg = <1>;
+> >> +                adi,output-range-microvolt = <(-10000000) 10000000>;
+> >> +            };
+> >> +
+> >> +            channel@2 {
+> >> +                reg = <2>;
+> >> +                adi,output-range-microvolt = <0 40000000>;
+> >> +            };
+> >> +        };
+> >> +    };  
+> > ...
+> >
+> > 	spi {
+> > 		#address-cells = <1>;
+> > 		#size-cells = <0>;
+> >
+> > 		multi-dac@0 {
+> > 			compatible = "adi,ad5529r-16";
+> > 			reg = <0>;
+> > 			spi-max-frequency = <25000000>;
+> >
+> > 			#address-cells = <1>;
+> > 			#size-cells = <0>;
+> >
+> > 			dac@0 {
+> > 				reg = <0>;
+> > 				vdd-supply = <&vdd_regulator>;
+> > 				avdd-supply = <&avdd_regulator>;
+> > 				hvdd-supply = <&hvdd_regulator>;
+> > 				hvss-supply = <&hvss_regulator>;
+> >
+> > 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+> >
+> > 				#address-cells = <1>;
+> > 				#size-cells = <0>;
+> >
+> > 				channel@0 {
+> > 					reg = <0>;
+> > 					adi,output-range-microvolt = <0 5000000>;
+> > 				};
+> >
+> > 				channel@1 {
+> > 					reg = <1>;
+> > 					adi,output-range-microvolt = <(-10000000) 10000000>;
+> > 				};
+> >
+> > 				channel@2 {
+> > 					reg = <2>;
+> > 					adi,output-range-microvolt = <0 40000000>;
+> > 				};
+> > 			}
+> >
+> > 			dac@1 {
+> > 				reg = <1>;
+> > 				vdd-supply = <&vdd_regulator>;
+> > 				avdd-supply = <&avdd_regulator>;
+> > 				hvdd-supply = <&hvdd_regulator>;
+> > 				hvss-supply = <&hvss_regulator>;
+> >
+> > 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
+> >
+> > 				#address-cells = <1>;
+> > 				#size-cells = <0>;
+> >
+> > 				channel@0 {
+> > 					reg = <0>;
+> > 					adi,output-range-microvolt = <0 5000000>;
+> > 				};
+> >
+> > 				channel@1 {
+> > 					reg = <1>;
+> > 					adi,output-range-microvolt = <(-10000000) 10000000>;
+> > 				};
+> > 			}
+> > 		};
+> > 	};
+> >
+> > then you might need something like:
+> >
+> > 	patternProperties:
+> > 		"^dac@[0-3]$":
+> >
+> > and put most of the things under this node pattern.
+> >
+> > So the main driver that you're putting together might need to handle up to four instances.
+> > Even if your current driver cannot handle this, the dt-bindings might need cover that.
+> >
+> > Need to double check if each dac node needs a separate compatible, so you would maybe populate
+> > a platform data to be shared with the child nodes, which would be a separate driver.
+> > (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).  
 > 
-> The property is purely additive: if absent, drivers fall back to
-> their existing chip default, and if present but unsupported by the
-> specific sensor the driver warns and falls back. No existing in-tree
-> DTS is affected.
+> Hi Rodrigo,
 > 
-> The motivating case is the LSM303DLH magnetometer on the HP TouchPad
-> (apq8060 / tenderloin) where the kernel's chip-default +/-1.3 G range
-> saturates the X axis to the chip's 0xF000 overflow sentinel out of
-> probe, because the chip is mounted close to surrounding power planes
-> and picks up enough DC bias to exceed the smallest range. The driver
-> core hardcodes fs_avl[0] as the starting range, so userspace cannot
-> recover without racing the driver to write the in_magn_x_scale sysfs
-> attribute after probe. st,fullscale-mg lets the device tree declare
-> a wider initial range up-front and avoids the race entirely.
+> Thank you for looking at this.
+> 
+> For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
+> hardware/use case we have only needs one device node and the driver is written around that model as well.
+> While the device addressing pins could allow multi-device topology, we do not have an actual platform using
+> that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
+> speculatively without a validating use case.
 
-I'm trying to understand what you mean here by racing.
+Interesting feature - kind of similar to address control on a typical i2c bus device, or
+looking at it another way a kind of distributed SPI mux.
 
-If we get this overflow condition the chip is wedged until reset, or
-userspace simply has to change the range to recover?
+Challenge of a binding is we need to anticipate the future.  So I think we do need something
+like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
+That would leave the path open to supporting the addressing at a later date.
+An alternative might be to look at it like a chained device setup. In those we pretend there
+is just one device with a lot of channels etc.  The snag is that here things are more loosely
+coupled whereas for those devices it tends to be you have to read / write the same register
+in all devices in the chain as one big SPI message.
 
-I'm wondering if a UDEV rule is sufficient in theory to fix this.
-
-I'm not necessarily against having the range in DT as it is effectively
-hardware dependent but just want to make sure I fully understand the issue.
++CC Mark Brown as he may know of some precedence for this feature. For his reference..
+- Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
+value that matches that or they are ignored.  Thus a single bus + 1 chip select can
+be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
+longer term how to support it cleanly in SPI.
 
 Jonathan
 
 
-
 > 
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-> ---
->  .../devicetree/bindings/iio/st,st-sensors.yaml | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
+> Best Regards,
+> Janani Sunil
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml b/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-> index a1a958215cdb..335f38e9f78f 100644
-> --- a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-> +++ b/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-> @@ -126,6 +126,24 @@ properties:
->    mount-matrix:
->      description: an optional 3x3 mounting rotation matrix.
->  
-> +  st,fullscale-mg:
-> +    description: |
-> +      Selects the initial sensor full-scale at probe time, expressed in
-> +      milligauss for magnetometers (or analogous engineering units for
-> +      other sensor families that may grow this property in the future).
-> +      The value must match one of the sensor-specific full-scale ranges
-> +      supported by the chip; if the chip does not support the requested
-> +      range the driver falls back to its built-in default.
-> +
-> +      This is intended for boards where the magnetometer chip picks up
-> +      enough DC bias from nearby PCB structures (power planes, ferrous
-> +      shields, etc.) that the kernel's chip-default highest-sensitivity
-> +      range saturates one or more axes to the chip's overflow sentinel,
-> +      and userspace observes that axis as permanently stuck. Declaring
-> +      a wider initial range avoids the saturation at the cost of a
-> +      slightly coarser quantisation.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +
->  allOf:
->    - if:
->        properties:
+> 
 
