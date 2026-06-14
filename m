@@ -1,63 +1,63 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C57261B70
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 04:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622D625C804
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 04:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781409664; cv=none; b=tgLZo0D1k9Mg2yxFDXXYIswzWNsXaGX+O1NIPLzap8xm4VNMBI80xGZh+3U/FAjJEtea48ibZJYbsQZUx3r2n7CuawnXWBamG06IUxWh63VC/oKxMltvwt1HZ7131P+tG9IUHuxFu+wijdReBF8m2HrxZTHS7niS82oy47qREDo=
+	t=1781409670; cv=none; b=IWV/gLdlEuBPH8NP0y29Hawfqp7dp3zEvWmo2ESfacy6MmmIl3rZFULsGRG8VcVgv8eECaa+p7ivCw3CNwcxHpAwHO+0Eu6f0LJbptmUAP215IONnVaGVEdiP9bmuIxCzORtI6inh9RxgY87xIQvwrIABVXNVCl3qNtPrdKKPrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781409664; c=relaxed/simple;
-	bh=Xorc83DyKC5CVv0vRC6G/GNTsWPDQX1OaR8pahneVNc=;
+	s=arc-20240116; t=1781409670; c=relaxed/simple;
+	bh=YqZgooixA/CJnBKTcYQgsktFkPYzsrtkk+x91gr+1OM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kCdMvXmUTDtIjUdWuKDOfm10MEmah/y3EIIn0RgFo4e7UTKN6LAf41l7Oz80mtSCEdkXgLm4dcvOo+XNOiA/fEMb7Pn3+sUqrxiGI+3XWTFMc6Q1kBYjhKKPFs5NFz6cTSYH1eEVLHAEZDj26BEClojFFXExAZnmhSFsr9qbZtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=poMOWH1q; arc=none smtp.client-ip=209.85.216.49
+	 MIME-Version; b=pf7kwy5j0TTrqiGNEAlDaDZOvO34uh9MR0nfZKqdtuDlg4F8VsAFXp0Ovzmh+1AgUi5Pac+FfeLX1YRe6fEOR3o+/6e++5sLBs2ApDHrQZ41boXzAm1QDpHLR34w/m0zsFjTmYW4fZL0Jm+ZQeizvpS5Pbr1tQzvPWFIFC7+7Cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJJqyZsJ; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="poMOWH1q"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-36ba706ab46so1363037a91.1
-        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 21:01:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJJqyZsJ"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-c8587427468so828081a12.1
+        for <devicetree@vger.kernel.org>; Sat, 13 Jun 2026 21:01:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781409663; x=1782014463; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781409668; x=1782014468; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4LFlYonGJq08punhtqW4trLrplu83bZHlBhA/KZ1Aiw=;
-        b=poMOWH1qz3uvX8RXz75gweVdD7a/yweZNHruSt0JU+L1jePop/xqHgzDvQVfJ+SHCb
-         7srBlVxsfeToLODkeu0PtXX5+FMma6EKJmPdgLrwMAV75wr1ZwsAW71oMepfeVjLVf4i
-         eVHV6np7xhY5R0ZAc5aFkq/F8HUCwNUkUdwf/fk5+YiUN9i9rrn/W7JfdFZk3s/FIwPz
-         YPwFSFAY8po8xZmb04zgJ0YysGFaOdHupOdpda2BkaWMBLfoT5FjeVnqzBVQD+1pEwnl
-         ef731kpin0SQWc8hPJSt9Ij30cA6l3cwZoczGt6uF4fbbUxOS17HgmlUmOq9kOGezPNR
-         ENbw==
+        bh=OOnY6yEezyUxI5CBehQcqD9t37X66JniIBbQ/HB7HUs=;
+        b=IJJqyZsJ5cahcfrFYbsa0P/v3Ypl/QOGkkAERh3hSEPWHf4ldxpP1/UscgwcRbyfQs
+         9f49Qa9OW9+QULfr1f1/Gom0kUdbT4UCKNxVtorwJlBbJWc0d6Z3edjn5QcJ8xIA7aAY
+         EvoIC5jJpQH+6SwoanSb67TIUeH+EULvAk64XnbrhUQ28dKvAD3vfEOxKDqy9IRf3MEX
+         t1SzczKBJnidozYuqPn8ofF1e5W9jo5IWqG/tjLDWKxYVG014aKkWbBX4K34g8RkOElF
+         KjgARFpRskiFhuChJy4ZnWtWyWe6KczhPzWkjz2vhpoRBhAwYXZ83X4GqkcYE5+MkB5k
+         nLMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781409663; x=1782014463;
+        d=1e100.net; s=20251104; t=1781409668; x=1782014468;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4LFlYonGJq08punhtqW4trLrplu83bZHlBhA/KZ1Aiw=;
-        b=iYYcDVLpcCou7NOcOlhbrrXcN3LH9HEugz6o/q1agcyyyqO0E1j70NJ8EMPyEzl3ft
-         EvtUujUQcq57rKtM2m03bik7KVq156Bs7GsU6t3pwHHosY6tcCj55WFpM8OHyAgU5bnO
-         eqi8SojPsFaTOfZCmChHaRs22Cs5TSYwjbUknB90lz1V8IkHetYLgyJSGGWcyhj/ZhfC
-         lOKZGQW04aeHdkSd0DBplQCAwfQkT9UrLDihN7R0zaBb6MXlBsOfDt7BwikYLyBQBXBB
-         2rnnd2ktLjurTRC6quHe6eOkxQ3Z0iV65EnBS9/j8ALXxB4JEKF9EWrVCR/H+iSxUIpD
-         jNUA==
-X-Forwarded-Encrypted: i=1; AFNElJ85/QcY6YlkKiX5KvOFkkYMKDbjtLI6PckFGFMU0Tbm7Zss76GWgOhFfnR6zVKG15kvflzBjpElGPU9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/5P96YQccnyrLAfGTD8J7xKFZmO+mWhWjOcAWMcptKaWcst2g
-	WzoYXkHUc22v3vzrd6Yu5gBhonNRpOCM0Z8zJDFMvjrE/LiLOeGiQRmG
-X-Gm-Gg: Acq92OHOS17daNCySGucZOXJMArmjHc6iATy9nN7stkn/8TVqPrfBsB5QZIBE9KUF6U
-	XityY4w0nYGLfT+YKJ3VIiJgooPT5itJkZDmz1psIdanKVlZpqkwu07dQFZ4zwZaD7qrbZ2UYeZ
-	UPVjJYWTft4Sh9JGRBpY2uqDtaVzh5HnTSMMV95Iemt1zsQstSx9cnwDyJ4kuYaJaKMKYTaoRJ5
-	rHBZe4IVojQ7Px8XgljyCd8XJWw5KK8s3xbchAUbzeqSOqcXDs6PrT3YQL9al5JycIfnJw/7j0e
-	gxVfUj4n/jM8oObDObTXYOg/gL4gRp72U+bvnoRDZ1U0ELcYvAf5ICtujulLvygOlPvE7AhJiLf
-	TDBKrAw/Vb/6Jz++DquJ/1NwkGuMFjKtjaiuIpoRa94DjAW35nm5R25TCwMglVU2/zagM3iATUN
-	DhnrGUtmKheR6QoaJLo5iQJWgeaQLykA==
-X-Received: by 2002:a05:6300:228a:b0:3b4:895f:6ac8 with SMTP id adf61e73a8af0-3b783b220ebmr9694421637.3.1781409663062;
-        Sat, 13 Jun 2026 21:01:03 -0700 (PDT)
+        bh=OOnY6yEezyUxI5CBehQcqD9t37X66JniIBbQ/HB7HUs=;
+        b=dyk/aeOvFUsYIj7YWK1NZ9TxvNfaittteczsaeVq6w9mhb2KoZLOa4v9dYCTEhSQIN
+         GPJEQMc6TYqhuiBSOZwEKRqaDn5NJXdE1+6jxmENz4bak/CrBQyYcnZ2sON8MwFE+fvz
+         xEyYPaZTCeCaUIZcdp9lfpkK7MsR15c5ETIlprgAmpGDqbqrWaMy1UqWmaz8SUT99fcW
+         ZvZyVKjrhNAyLXtmB8KIuKsLic5RgTVGgK7Ec7pPsmLMyyE1ZXLSwwCLh5abodPweKj8
+         lnZqUEUhIxTrVVpooWrJl43cktgRzzIgl7LZCB2LSPMciaDYpTgLfHEh2Ljm4WVsvRVi
+         Y+dw==
+X-Forwarded-Encrypted: i=1; AFNElJ9gfLQdSS1Nnrv/2KSRaJfLxW5j6+QSCBGOiiv/9gHjcp0l+BkNnSVPz1fdLxBvk7Y58fIXSctXJMu9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3UbK09HUGdCVNxBYzB7c/oSVsP6OhuD3ga50MlrVIEonY1W0j
+	zJWBV2AZY1uvBArWP1fxpemuKtqKFwTnuAPAplSymgyGOFKZB2Bfx1rL
+X-Gm-Gg: Acq92OEQYG4Q9zUku4/XSk/dtnO4TrmM1CWsnBW4Xiz7GYXHVf8KKYZpto+71/PPVyL
+	aw39cY5I3yUrHI6w9OZRxDMeGuNWrPF3IZ38BE76JStqc5+Y4K3ZT/BJ4nd7JkULgnRt666evkT
+	OMNvULq1GdaQPR6czXbH6N41cXnyWxrnBnoUp7Kc8C0Tn8ATAasy5kyWGHVqS13BkygTQdTlb+P
+	XmjOZ0Wc3wc+f2Zmgday8yyYULht3vR8ofp8cOR+j34DHdW4wQEIFWPUcWQl8VJqhy72Da1cFBB
+	+EUOLnN4+6u7gPC6SqaZUnt7OBLydjuWys6PRCpbL/XaqK8LOsWZw6xpDz7EwWdYzL5scCb4lYO
+	ATpRKGsyKTxLgDsPRZSJuDJ2xMF//D25Fg050QIo52QSAih05eNw+T1x4866Dwo8+wltQeSbejV
+	7n9KUKZLbMqDAFT3IgnApup1iFl4k84Q==
+X-Received: by 2002:a05:6a20:728d:b0:398:b178:a53f with SMTP id adf61e73a8af0-3b784021a1amr10268367637.40.1781409667707;
+        Sat, 13 Jun 2026 21:01:07 -0700 (PDT)
 Received: from mincom1 ([115.4.79.42])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8661a67603sm5676983a12.0.2026.06.13.21.00.58
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8661a67603sm5676983a12.0.2026.06.13.21.01.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 13 Jun 2026 21:01:02 -0700 (PDT)
+        Sat, 13 Jun 2026 21:01:07 -0700 (PDT)
 From: Jihong Min <hurryman2212@gmail.com>
 To: netdev@vger.kernel.org,
 	Lorenzo Bianconi <lorenzo@kernel.org>
@@ -81,9 +81,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Felix Fietkau <nbd@nbd.name>,
 	linux-kernel@vger.kernel.org,
 	Jihong Min <hurryman2212@gmail.com>
-Subject: [RFC PATCH net-next 1/7] xfrm: allow packet offload drivers to own transmit
-Date: Sun, 14 Jun 2026 13:00:26 +0900
-Message-ID: <20260614040032.1567994-2-hurryman2212@gmail.com>
+Subject: [RFC PATCH net-next 2/7] dt-bindings: net: airoha: add EN7581 SOE
+Date: Sun, 14 Jun 2026 13:00:27 +0900
+Message-ID: <20260614040032.1567994-3-hurryman2212@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260614040032.1567994-1-hurryman2212@gmail.com>
 References: <20260614040032.1567994-1-hurryman2212@gmail.com>
@@ -95,57 +95,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Packet offload drivers can currently program state and validate whether an skb can be offloaded, but they cannot take ownership of a packet that needs driver-specific TX preparation before the regular XFRM output path continues.
-
-Add an optional xdo_dev_packet_xmit() callback. Drivers that implement it consume the skb and return the final TX status; all other drivers keep the existing XFRM output path.
+Document the EN7581 Secure Offload Engine register window used by the Ethernet driver for ESP packet offload, and add the new binding to the Airoha Ethernet MAINTAINERS entry.
 
 Signed-off-by: Jihong Min <hurryman2212@gmail.com>
 ---
- include/linux/netdevice.h |  8 ++++++++
- net/xfrm/xfrm_output.c    | 11 +++++++++++
- 2 files changed, 19 insertions(+)
+ .../bindings/net/airoha,en7581-soe.yaml       | 48 +++++++++++++++++++
+ MAINTAINERS                                   |  1 +
+ 2 files changed, 49 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/airoha,en7581-soe.yaml
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 7f4f0837c09f..1552eb81ddf0 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -1048,6 +1048,14 @@ struct xfrmdev_ops {
- 	int	(*xdo_dev_policy_add) (struct xfrm_policy *x, struct netlink_ext_ack *extack);
- 	void	(*xdo_dev_policy_delete) (struct xfrm_policy *x);
- 	void	(*xdo_dev_policy_free) (struct xfrm_policy *x);
-+	/* Optional packet-offload TX path for devices that need
-+	 * driver-specific transmit preparation instead of continuing through
-+	 * the regular XFRM output path, such as adding offload metadata or
-+	 * steering the packet to a private transmit queue. The driver consumes
-+	 * skb and returns the final transmit status.
-+	 */
-+	int	(*xdo_dev_packet_xmit)(struct sk_buff *skb,
-+				       struct xfrm_state *x);
- };
- #endif
- 
-diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
-index cc35c2fcbbe0..9f11559b0221 100644
---- a/net/xfrm/xfrm_output.c
-+++ b/net/xfrm/xfrm_output.c
-@@ -770,6 +770,17 @@ int xfrm_output(struct sock *sk, struct sk_buff *skb)
- 	}
- 
- 	if (x->xso.type == XFRM_DEV_OFFLOAD_PACKET) {
-+#ifdef CONFIG_XFRM_OFFLOAD
-+		const struct xfrmdev_ops *ops;
-+#endif
+diff --git a/Documentation/devicetree/bindings/net/airoha,en7581-soe.yaml b/Documentation/devicetree/bindings/net/airoha,en7581-soe.yaml
+new file mode 100644
+index 000000000000..24aecafecc70
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/airoha,en7581-soe.yaml
+@@ -0,0 +1,48 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/airoha,en7581-soe.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#ifdef CONFIG_XFRM_OFFLOAD
-+		ops = x->xso.dev->xfrmdev_ops;
-+		/* Callback validates, consumes skb and returns final TX status. */
-+		if (ops && ops->xdo_dev_packet_xmit)
-+			return ops->xdo_dev_packet_xmit(skb, x);
-+#endif
++title: Airoha EN7581 Secure Offload Engine
 +
- 		if (!xfrm_dev_offload_ok(skb, x)) {
- 			XFRM_INC_STATS(net, LINUX_MIB_XFRMOUTERROR);
- 			kfree_skb(skb);
++maintainers:
++  - Lorenzo Bianconi <lorenzo@kernel.org>
++
++description:
++  The Secure Offload Engine provides inline ESP packet offload resources used
++  by the Airoha Ethernet controller.
++
++properties:
++  compatible:
++    const: airoha,en7581-soe
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      soe@1fbfa000 {
++        compatible = "airoha,en7581-soe";
++        reg = <0 0x1fbfa000 0 0x268>;
++        interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
++      };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cc1dde0c9067..7c338e670572 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -757,6 +757,7 @@ L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
+ L:	netdev@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
++F:	Documentation/devicetree/bindings/net/airoha,en7581-soe.yaml
+ F:	drivers/net/ethernet/airoha/
+ 
+ AIROHA PCIE PHY DRIVER
 -- 
 2.53.0
 
