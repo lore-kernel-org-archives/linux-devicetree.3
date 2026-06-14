@@ -1,134 +1,124 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7EF31A55B
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A80288C0E
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 08:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781426163; cv=none; b=BBb6sus0V/GePv+DPfByAjg6PmxQ/LEdY3Af1sjjH3iKBFw8BAQ6/nNwTVG06+eFk96zi9Tbekqat4EOxGWB/UO/id6PTjnrxbQs8TLvE4J80r2Ret10NNakok6SMBkTkCiIuPCt+TOPQXa0BJoaex/TpFsp1lwZH+Qz8PX6gDI=
+	t=1781426900; cv=none; b=XI2eWtukPJw0Nz/MoiGoQWqqy/pP671ndyxoUagem3haWVd05Nf45cpN+I/jtZ8zDHykCa3VX0tEeMmdD5euLil08g2QCFp+6MUB2TsPYL55U5I1NntcCdnDrVb7+usQbQGIMUIY4FjGCOu6JnUJwbt7+/kUf3QUNLCdaHYUYnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781426163; c=relaxed/simple;
-	bh=s4L4ukk0KyujJ0HblA0DbVk6Hm5VHHVGY6UKqtf8+Zg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fg30+oy0CYPeW2qxEotI5Tb7Tyj5W4sxUNE2Cj9p6jOvnWAhHc2JhDbkwgef/yW9Bn31i6a3yKMGCPGD9bFxPvru19e4R3roDkvZY84V3eccxnD/yNmKA4EfH4al0tGZ2Fe39P0Tuv/Xlz+1um0OI/KTj/7Fw4CbyZoHhryC5JY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S3PtJMUi; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781426900; c=relaxed/simple;
+	bh=MMY8dgGmn4OwQQAVhGFVLHZHhT1MvfS8AyDz06sq0tI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ElMLioQM4bRQhj8cnVpz/Mh0vlcZylMEYKHVbENZQ0r9S2erxuVsSWvTzM9LxaGtk6Mfn60qLiK5cORIu3Rwu9sc77+s8ZpTSTH8+Ys4TJkt75ykLzAJDojroLJF3d0/Ogr2YlZPfRKd2sZ1JQklIuPwfWLr3TXWgm6EUzL5+q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0YFa103; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S3PtJMUi"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84236f9b638so1154292b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 01:36:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781426162; x=1782030962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tAITfEL9UqrO9L8OmSD1zMxFdEqiUvJMm9blfi4uSXM=;
-        b=S3PtJMUiS69D2k614mFzce4tH101RiTzfiLa6MNdtGYTKbLUH2MyZX4iRptmSwkRkq
-         Ynjs+HSRlIo3jYfkUFSAOgVCzJNIJ2PhTTaQGnNCCcWerqAvaQiWB6FhTgrySRzBqYhO
-         VuFuRecYUA2i94dScZopATd8ceW21jYU56EeOxmEFVwaFT0ML4cIZGzaMF6vclzr61w9
-         jf6PhVLQHayy5QxuNEnZzedbCnYzQQxwAtPTpttiBU2MzySW2sKbpENJG9lk8nO+JNZY
-         eTkLw/hpX2kn9fLcjaSV2BmL0rbmehs24xF3kIbpUnrA29IZ7WctWCpRD/N2uh+UT7p6
-         KleA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781426162; x=1782030962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tAITfEL9UqrO9L8OmSD1zMxFdEqiUvJMm9blfi4uSXM=;
-        b=pgqqjOmlv+kMSfpZASxFcLTGSKWwAQw9oQs1CwiQsw0vn946prphSAbKuoYnT4BWG7
-         0hDbEbCvVtOCFOh9R5z6aXTEM5pXRBNz2l8Wfz3leuJUDGDzoS9AXdEQmJjcKWCpPNMu
-         0b+jwvx7n842N4X9ZahpLY9NfsiXyjW+hUIndz7/u+SCdeODAgacEbkkhC80J3KdgSJA
-         rNJpMUO6GmGfUuwoNe4JS6EvSd3ctRzCWdWLlGuylfvgVPWnFV+1jo9EC8E+C8DkPFLh
-         O5e4asYHwFxop074I9kk+MV+hyH60mw35J+K91ugS/6oPJ4BeCveQ2AlfaoAWsnjcKwq
-         uAnA==
-X-Forwarded-Encrypted: i=1; AFNElJ9bqrh88eThgZEYnbqXXivEIMtuLQs63cMtblKxDAUDr0lKMeqlOBiJXzOWBo7TltS+SP5CzH8ST0o2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc00moO5A8UL6RrWeomKlXhfx7JN7+njjr4fUP6Jfg8d7E7yy5
-	BPf4KkICPQZI9CaoSJOMVkwPwkeQApEomnnLQHCDrMrkuStKJJ/DxHsP
-X-Gm-Gg: Acq92OHbY9Qat0Oa/3DEdPLLAR+npIlNh4npjVmaKXpo2JV2P6KYUUO/LKL69XxTCF5
-	JvfwveBK7S+u1XOK9gMxZQPtqQlP8NiJo56DbB5aG5KM7Lh1xLEhZjJL7nYqUAZBq3QwfzM4zob
-	2+vXGlocz0sM+a6+JQDTDu7Ibr/NBD/1ZdjMIgWH+RNr+GRXjJWakFqV5GAj9XmXmURxKHMhXWA
-	WtromQduq4vU8V9GltplRrvvgvWXr5pJxvuH2UfywGuH6TZisY7fJfM0unKgzuvFCQYaqMAW4l3
-	MVLZwW5Y0UKly2F0DopIIVkOBVWYHkkyYzXX43tTmzgBTKn75gh+2c97ODZeVk8zAo+VshwYA19
-	dJVGHPPoZsfSURd0zSXCkGLvAAi00NjIfbZCnJzMOOFtBei1o4GIIf5wgB8hxRJ2K1uOb6nv1M8
-	xHHd5sVlNlAMNiRdJ3lwMawA==
-X-Received: by 2002:a05:6a00:3390:b0:842:5634:3c1d with SMTP id d2e1a72fcca58-844e199926amr6606163b3a.19.1781426162161;
-        Sun, 14 Jun 2026 01:36:02 -0700 (PDT)
-Received: from nuvole ([2408:844f:2361:d7cd:deb7:4e0e:26d0:4076])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc8fc7sm7263053b3a.37.2026.06.14.01.35.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 01:36:01 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
-Date: Sun, 14 Jun 2026 16:34:24 +0800
-Message-ID: <20260614083424.464132-2-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260614083424.464132-1-mitltlatltl@gmail.com>
-References: <20260614083424.464132-1-mitltlatltl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0YFa103"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B21311F000E9;
+	Sun, 14 Jun 2026 08:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781426899;
+	bh=sDGbkSMSNDPv/TMiz2heq5B79AN0OnCOCPdDOEj1aaY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=m0YFa1039rtQtXxARfXeroS2gelvUAd1O0DdILRp770nqZbb06guXHI07DuhWYK8P
+	 9P7jld9CKLrAGtIGoKbuvDw2mUBPDeaNZ/E+5WkqXtUNt0i4rQM5AxO7O7rAMctRXA
+	 KCFm3lWd3vsKfm+svGevd9O+n7iaaa9JNbjORAU/umYcpsyE4KF5SIYR/Bt4NoniDX
+	 lbJnvmIOz/lHGIxrH+jozFI4yM4Qxn4+UDjqESkovtvpoo5VZE34qQTlckrcwSLh0L
+	 VB09RXw62316ud8jLKwmx3ltpamvCGMCgGk+TFvJvSoccPuNnEyWaIOK5ZBAMRTFfk
+	 H4nivB/qX7ugg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pengyu Luo" <mitltlatltl@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260614083424.464132-2-mitltlatltl@gmail.com>
+References: <20260614083424.464132-2-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 14 Jun 2026 08:48:18 +0000
+Message-Id: <20260614084818.B21311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Some devices (such as gaokun3) do not disable FIFO mode, causing the
-driver to fallback to FIFO mode by default. However, these platforms
-also support GSI mode, which is highly preferred for certain
-peripherals like SPI touchscreens to improve performance.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Forcing GSI mode via `qcom,force-gsi-mode` fails to update the har=
+dware configuration registers (`SE_FIFO_IF_DISABLE` and `SE_DMA_IF_EN`), le=
+aving the hardware and software in inconsistent states.
+- [Medium] The new `qcom,force-gsi-mode` property is functionally redundant=
+ and bypasses the existing `qcom,enable-gsi-dma` property, muddying the dev=
+ice tree bindings.
+--
 
-Introduce the "qcom,force-gsi-mode" device property to hint and force
-the controller into GSI mode during initialization.
+commit 7902ba1d5ce1661e61400f2f7a40e6f1185b3264
+Author: Pengyu Luo <mitltlatltl@gmail.com>
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
----
- drivers/spi/spi-geni-qcom.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+spi: qcom-geni: Add property to force GSI mode
 
-diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-index 26e723cfea61..eece7312f780 100644
---- a/drivers/spi/spi-geni-qcom.c
-+++ b/drivers/spi/spi-geni-qcom.c
-@@ -102,6 +102,7 @@ struct spi_geni_master {
- 	int irq;
- 	bool cs_flag;
- 	bool abort_failed;
-+	bool force_gsi_mode;
- 	struct dma_chan *tx;
- 	struct dma_chan *rx;
- 	int cur_xfer_mode;
-@@ -655,6 +656,9 @@ static int spi_geni_init(struct spi_geni_master *mas)
- 		mas->oversampling = 1;
- 
- 	fifo_disable = readl(se->base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
-+	if (mas->force_gsi_mode)
-+		fifo_disable = 1;
-+
- 	switch (fifo_disable) {
- 	case 1:
- 		ret = spi_geni_grab_gpi_chan(mas);
-@@ -1133,6 +1137,9 @@ static int spi_geni_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	if (device_property_read_bool(&pdev->dev, "qcom,force-gsi-mode"))
-+		mas->force_gsi_mode = true;
-+
- 	ret = spi_geni_init(mas);
- 	if (ret)
- 		return ret;
--- 
-2.54.0
+This commit introduces a "qcom,force-gsi-mode" property to force the
+controller into GSI mode during initialization for devices that do not
+disable FIFO mode by default.
 
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index 26e723cfea61e..eece7312f7805 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
+[ ... ]
+> @@ -655,6 +656,9 @@ static int spi_geni_init(struct spi_geni_master *mas)
+>  		mas->oversampling =3D 1;
+> =20
+>  	fifo_disable =3D readl(se->base + GENI_IF_DISABLE_RO) & FIFO_IF_DISABLE;
+> +	if (mas->force_gsi_mode)
+> +		fifo_disable =3D 1;
+> +
+
+[Severity: High]
+Does overriding this local variable actually configure the hardware for GSI=
+ DMA
+mode?
+
+Looking at the hardware initialization, geni_load_se_fw() is the only place
+where SE_FIFO_IF_DISABLE and SE_DMA_IF_EN are written. By just overriding
+fifo_disable here, the driver will attempt to use GENI_GPI_DMA mode while
+the hardware's core FIFO interface might still be enabled and the DMA
+interface disabled.
+
+Could this lead to DMA failures, timeouts, or lockups since the software and
+hardware states are inconsistent?
+
+>  	switch (fifo_disable) {
+>  	case 1:
+>  		ret =3D spi_geni_grab_gpi_chan(mas);
+[ ... ]
+> @@ -1133,6 +1137,9 @@ static int spi_geni_probe(struct platform_device *p=
+dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (device_property_read_bool(&pdev->dev, "qcom,force-gsi-mode"))
+> +		mas->force_gsi_mode =3D true;
+> +
+
+[Severity: Medium]
+Is this new property functionally redundant?
+
+The subsystem already supports the qcom,enable-gsi-dma device tree property
+to configure GSI DMA mode, which is parsed in geni_load_se_firmware().
+
+Would introducing qcom,force-gsi-mode create overlapping bindings for the
+same hardware configuration and pollute the device tree ABI?
+
+It seems this new property might be introduced to work around an internal
+software parsing order issue where geni_load_se_firmware() is skipped if the
+firmware is already loaded.
+
+>  	ret =3D spi_geni_init(mas);
+>  	if (ret)
+>  		return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614083424.4641=
+32-1-mitltlatltl@gmail.com?part=3D2
