@@ -1,104 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C7C282F12
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E052729898B;
+	Sun, 14 Jun 2026 20:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781469124; cv=none; b=qZzK8E40iVfLVbPYp0iPZHgXRmQOJ47WQdhrhKVx4biY5e5giDHO7W8BWyIqeqy5MFAGEoJugVHPyfHQfHbezvh7qF82ZKd+Q+JM2rUtVce8j+jB9hD7AjvB8TGd+3RpaqXvY7xSguunr1MynP2ggXpJU5newb/doE2RgM/hke0=
+	t=1781469579; cv=none; b=bMAXUaXmgtnpg1Tu0VVelCW5vdW0wDMvpqsGu1AUa9G1gImgABi8AinjflQB4k4rI9RhhqSfWN7M0pLyHUrB6wn9awRMp+qfpvUmwAGMeoyq1xm7dtKs1MRKiLDpeHC21smSfd6yT2i6QjZyOcqe5unx1RTHv7ACq4ooqWP3aOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781469124; c=relaxed/simple;
-	bh=MNap1IXmKSw7z8ZztTjn+qQCHQYJknr41JmaIROPQ1g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X2TLe1ePh6it7LDu67MqVL26unt/WuLgcX1gswUfCCuoxsRvCpunU+P5AcS6fZ3Q4vdCm9ALJ1Efx1+QIlsDlPufLZBp5EB3bLrhez4wN2YX7tWhwVfPAlyHBkr4wdK05kAlUWW3KUx6ZJNHxWJRULpQCiw4748+5p2+7kfglec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXuaUCP/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781469579; c=relaxed/simple;
+	bh=Ko6uOwd/TisvMAgBYrzVjK1ghD9KlO9FminlvR0nz4E=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=llcjF70PGv5wp+O/JicPmGrxbi9VB85MOn2MWueWR6dtbGJjQ0WtsUc2NPhnP98ofUSSb+OQQ4sO8p2QRAeN54vxFXEyzYP5YlVvZtCfcTte7vQypRlos9okPdtlnj4vHuivIOPQ9I8kvX1kQOiBZTDEBgLbZL9pZ2Uzx6q2XrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HpU+LKD5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXuaUCP/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6432A1F000E9;
-	Sun, 14 Jun 2026 20:32:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781469122;
-	bh=aWGo7AMZ5XAHV9EdUhkU5vKlHXXQxIH0Ms0JHnPMimo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RXuaUCP/+g8im57TfccoFGKXrLemaLjXU+c6ex2PKBqwSiKT3qmMmN7Sr8xsQFyD2
-	 EbFEqpfA66GB8xZO58FhmOH1miFDytoHTCbnBYtgFwKP1PkHXACcTx1ZvSiePXJ5by
-	 rQ/XJpxiSRqytxbttsEFngZtroYxQxv6YQrZbVttt4752QN8tb6naL9RJ7BBRINNK+
-	 4w0bYZf7QZSYsLW1LxdmydjsGK8r2H0CtnzTfaix+iJyYNCMmjtBkgbLUte+5DQrju
-	 Z7D7GC9xXVYUBUy0+MBSoFEKuiqTpmNBmnuJ6RCzNDoe7o4OCSo0tHiFOn2DpmVI0N
-	 /nFuxRxcqfaXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] ARM: dts: exynos: Add bluetooth support to manta
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lukas Timmermann" <linux@timmermann.space>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260614-manta-bluetooth-v2-1-52de06cabf9d@timmermann.space>
-References: <20260614-manta-bluetooth-v2-1-52de06cabf9d@timmermann.space>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 20:32:01 +0000
-Message-Id: <20260614203202.6432A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HpU+LKD5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 65F6E1A391E;
+	Sun, 14 Jun 2026 20:39:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 26D5A60014;
+	Sun, 14 Jun 2026 20:39:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 85C9B106C86AA;
+	Sun, 14 Jun 2026 22:39:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781469574;
+	h=from:subject:date:message-id:to:mime-version:content-type:in-reply-to:
+	 references; bh=/cwZEmaxV262lOCKH7K7Tt4ZA+Bva0faoaNw+ZyMjHM=;
+	b=HpU+LKD5So7GqO2NxkdY4wTVz5kQaBS/m21yAwQydCbgAAtiMC/qimPpw8cJXCnOMR9Ywj
+	74hIiPP2c8dRHoWwvlZXvkPqzHYmIlaEeYRvrn4Ffe27Xwe3WMuIs/Qt6rd5k505FsPxLV
+	HAmT0o94QSEgP1grjj6tng8PjMlsDQgYMLl6I5zfb/B9h2np8UX18F9/GcUBuk47ZKlYfZ
+	8S1gU6y9vrkJygopAolqgSpPVKXgQZz1YBP38NJqIZknYjPjHQcb+GerpyHbYwVIwjm9J4
+	TxHgJ9Vq5W8he24goCA3uAjKURpmJKb9c2sxSpmc6FJ5l8Q+0Meo/b2QtpA02g==
+Date: Sun, 14 Jun 2026 22:39:28 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Frank.Li@nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, nicolas.ferre@microchip.com,
+	claudiu.beznea@tuxon.dev, linux@armlinux.org.uk,
+	mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com,
+	aubin.constans@microchip.com, Ryan.Wanner@microchip.com,
+	romain.sioen@microchip.com, tytso@mit.edu,
+	cristian.birsan@microchip.com, adrian.hunter@intel.com,
+	npitre@baylibre.com, linux-i3c@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+	Manikandan Muralidharan <manikandan.m@microchip.com>
+Subject: Re: (subset) [PATCH v7 0/5] Add microchip sama7d65 SoC I3C support
+Message-ID: <178146955570.340851.8125558640090329050.b4-ty@b4>
+References: <20260525092405.1514213-1-manikandan.m@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525092405.1514213-1-manikandan.m@microchip.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing `max-speed` property in the Bluetooth node significantly=
- restricts UART bandwidth.
---
+On Mon, 25 May 2026 14:54:00 +0530, Manikandan Muralidharan wrote:
+> Add support for microchip sama7d65 SoC I3C master only IP which is
+> based on mipi-i3c-hci from synopsys implementing version 1.0
+> specification. The platform specific changes are integrated in the
+> mipi-i3c-hci driver using existing quirks.
+> 
+> I3C in master mode supports up to 12.5MHz, SDR mode data transfer in
+> mixed bus mode (I2C and I3C target devices on same i3c bus).
+> 
+> [...]
 
-commit 661518d39bb3c0a9a3884e1d914c3ff2bc70cf74
-Author: Lukas Timmermann <linux@timmermann.space>
+Applied, thanks!
 
-ARM: dts: exynos: Add bluetooth support to manta
+[1/5] dt-bindings: i3c: mipi-i3c-hci: add Microchip SAMA7D65 compatible
+      https://git.kernel.org/i3c/c/9092105b87af
+[3/5] i3c: mipi-i3c-hci: add microchip sama7d65 SoC compatible with the required quirk
+      https://git.kernel.org/i3c/c/efaa912ab0f1
 
-This commit enables the bcm4330-bt device for manta boards on serial0.
-It also adds the necessary pin definitions and interrupt handling for wakeu=
-p.
+Best regards,
 
-> diff --git a/arch/arm/boot/dts/samsung/exynos5250-manta.dts b/arch/arm/bo=
-ot/dts/samsung/exynos5250-manta.dts
-> index 24a27b342227b..76d3657eb22f0 100644
-> --- a/arch/arm/boot/dts/samsung/exynos5250-manta.dts
-> +++ b/arch/arm/boot/dts/samsung/exynos5250-manta.dts
-
-[ ... ]
-
-> @@ -536,7 +557,25 @@ &sd1_cmd {
-> =20
->  /* Bluetooth */
->  &serial_0 {
-> -	status =3D "disabled";
-> +	pinctrl-0 =3D <&uart0_data &uart0_fctl>;
-> +	pinctrl-names =3D "default";
-> +
-> +	bluetooth {
-> +		compatible =3D "brcm,bcm4330-bt";
-> +
-> +		pinctrl-0 =3D <&bt_reg_on &bt_wake &bt_host_wakeup>;
-
-[Severity: Medium]
-Should this node include a max-speed property to negotiate a high-speed
-UART connection?
-
-Without max-speed, the brcm,bcm4330-bt driver in drivers/bluetooth/hci_bcm.c
-leaves the oper_speed at 0 and skips negotiating a higher baud rate. This
-forces the UART to operate at its default 115200 bps.=20
-
-Operating at 115200 bps restricts the bandwidth to around 11.5 KB/s, which
-can cause high-bandwidth Bluetooth profiles like A2DP to stutter or fail.
-Other Exynos boards typically set max-speed (e.g., max-speed =3D <3000000>)
-to prevent this bottleneck.
-
-> +		pinctrl-names =3D "default";
-> +
-> +		shutdown-gpios =3D <&gph0 0 GPIO_ACTIVE_HIGH>;
-> +		device-wakeup-gpios =3D <&gph1 3 GPIO_ACTIVE_HIGH>;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-manta-blue=
-tooth-v2-1-52de06cabf9d@timmermann.space?part=3D1
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
