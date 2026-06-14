@@ -1,157 +1,97 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7792EC0A2
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 12:28:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBE030E859
+	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 12:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781440098; cv=none; b=dBYyI21OBld87UGLkJ0skzQihciCLU2W5zeQ/4D0QZ5fxrSo3dP0NZW71L8M8zYIA8xABb3LS7v8JgF6rWbmLXjT2ByiIOIAtjc72dOrekbUayusQFG8tl2V1hwO9yunMnr/iI+pfBX+eRfiO9BWbIfxMkbZJ60OkAuDSJJ5jaY=
+	t=1781440180; cv=none; b=Uf2F5rIsIPfW3jnrMfoYCjshva1jrbSceJWW3EB/na+aTsOKYCqJEwnQ/ZWE2HtadjjlSI/Lu33n8sKfm9PIR05TRgql8Drq32vC8Z1MH1Mdmdp52DgsQDcpYMfJQpzQpZDOt8kGhAZs7cNb2xZYXzUxPyDKcg5jp1u/8Hlv6t0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781440098; c=relaxed/simple;
-	bh=eGTslznVqbSVlni5BnPYmJs7RZwRp/MxKLSM0euwsC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DXE/yOcH6bh0TekX1VeGzOEKBi4UlZdRT3WCBKoblN0gTlB72F+8twt6DFNt95/rdn/taNjjLNsTO5ip2tu+Qq7AMpHa+G3w7F9tdVTRcYbyXGm8YABVsycCkDRbhZP6w009VMBqG0IZFhVFzRhsTqI59tjNBMtcDISpcoKKkt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UABDU/9r; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781440180; c=relaxed/simple;
+	bh=IQSjTyjS8hNRnK0DIocyeVZNIoUq+jWIAPq7VzDKUBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EyVzo9fnDL1FNmXsGRsh4Hlr1yJdn9iSn0QhAInOkdCcrlS4UPCbUGd8g0CwSM6PjUMVMZQdIXNqyw4MBK4QiPOmk1lY/Oj6959Q+Z1edovNdKRP2XCsu1KiqGZIES8IU8HvlTs5saWAlLgCmN1z1lA/rg9O4WEhxShGACHurEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iskren.info; spf=pass smtp.mailfrom=iskren.info; dkim=pass (2048-bit key) header.d=iskren.info header.i=@iskren.info header.b=ZSydUS+S; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=LDs6mJtg; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iskren.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iskren.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UABDU/9r"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45efb698ef2so1163067f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 05:28:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781440095; x=1782044895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UXbCcd0NTps7SDVoolImrKKnLGgAu77CT/EkLadupyI=;
-        b=UABDU/9rZ1xf/HSw5lfofRw+pEbK0MEuWd9MmjlobwZAW+3oENKUUKeveuoWt1SYbr
-         FlyUAr3AxeAUxo13GwV67UJhTe43Q2ImBkT2s66VJxaqqtxSXxBUX8vHdExKu4W3OTt5
-         5Ninr7AqZCWVpYs83R+vMic4ys4H6WLzH7ISN/WKVYP+ZdORHkBwJScUb93f4228zVpm
-         MiXM9SoxErklflO0X18SaUdq/8xQUuLF0R+14GBXU5q5dXekSlcCvDtfsm3r2BxjihDX
-         51iVi8kMIwewXq6cS3AXt2ffUiF7XbivfdcURl/a7rG6cnAkgI3jC1nwaeauPIcfQ/R+
-         3MZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781440095; x=1782044895;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=UXbCcd0NTps7SDVoolImrKKnLGgAu77CT/EkLadupyI=;
-        b=Zdp4Bh5vRz8ZzHWnYegollEVhgFAzaAHim8yuHupqaXTE6VkUBOhKtxnecC3mJDKvL
-         VZNpS+irDJYMbnRwWAhr+ZKgOfBvj0Fdg+5f5uPg/wlTkGFL0FfZeI/4BrNgBzXBSNcH
-         iQNepYB3Djfltq9MbfXJGro766plcOn2r+HLuLBW0YHTaCxW6sFgEoZEns+2uOIxHyzM
-         PepNGf6rpFFMNP0+x9hbEpgf0Lg0Kw78u6Kd4gKxOJywH39HqHHDKLa21oQXKp/A9JOh
-         XpyK9pz5eOlz+EhXEh0tBHVi/zECn8g1N9u04TC3BItTV0Az3XyZ8KnNfoEqrCw94c+7
-         H3ZQ==
-X-Gm-Message-State: AOJu0YyVjJVs7F7dAVhagWm25EzJG/c96ouEJ0D9kl84CKvXa0/GHfdr
-	EHQdnJ8FeeZgl2ZU1xHZt1eDPoHE1jwZtFHNc5PQYwrtmGGFIByFUk8T
-X-Gm-Gg: Acq92OFS4yklw2gDQB/X/LgTlOdfLT8hSUeIPVYMr730H0gLbWBeRPnKs8QYNz+mfHj
-	RetuwDKg1MhXKATJ67y8pEWUlVXUmUMLxvmBssj+IzPF+Dx5itjg7R9H360hZVjQLPhmNGSS+T6
-	npGyXDL4LK7/Gb6L8Zf6usxM/nAI7VQsupOvmKnVuHnNfpzLBCo45zCeo1U2aaYdijM2q29nl6K
-	1mwj93f2iat1AQssx/YAbqHIx53t032z+3kzH7jum9XtAHQUpTPVcjhYYbVys544b87i8LdQpf/
-	kmUB2QqVxwCx3QDLrnXxkG9LfV6KniwAN/V3kEmEc5oDojS8qLXKN5K4eUUCQ0PI/Y6V+tomV5C
-	BwL3e4jgzfik6Xz3rwgL/hIDTj1wSr2WQ8+tSkYYArpMoSL+8uWr+FtAfZkQpCr6zJHFGyT4ZQG
-	aIOLfMz7Qkrjcu4SEbJdwaa7yklvsIj8LE9o24KrfEj0fLGNDI/CYc9Dh8DPPhKP2+B+YH
-X-Received: by 2002:a05:6000:4b04:b0:460:138d:c9b3 with SMTP id ffacd0b85a97d-46074a528b0mr7750359f8f.2.1781440095104;
-        Sun, 14 Jun 2026 05:28:15 -0700 (PDT)
-Received: from mamamia.internal (a89-182-129-114.net-htp.de. [89.182.129.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f263923sm24756097f8f.2.2026.06.14.05.28.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 05:28:14 -0700 (PDT)
-From: Andre Heider <a.heider@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] riscv: dts: spacemit: k1-musepi-pro: add cpu scaling
-Date: Sun, 14 Jun 2026 14:28:11 +0200
-Message-ID: <20260614122812.2287506-1-a.heider@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
-References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
+	dkim=pass (2048-bit key) header.d=iskren.info header.i=@iskren.info header.b="ZSydUS+S";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="LDs6mJtg"
+DKIM-Signature: a=rsa-sha256; b=ZSydUS+Sxie6wgLyavL9/rY2x92XkLI3EbPlJg5Cngk1W+nE0fsSiX/N1hr3/+UkE/ben6P39PwFQqdRJZWjPjjZl4YqwSplchi6Mc0JUE42c0lrJ3uegEMuvqe3R+yDyol+PnzbtaZzK5Wku7PL4P5iWkVKVXqAWCM1onSUFUnj4tryl3y8f9EfZ16G3n1lkYPZ5Iq+uA0dvkkB1EjWlbFBGsVyxkIHuNUQJiKiFKcWH8qWMh1luf4ZAV16VmoSG0RhR/koEj3svakZBPS7s69hL+yDQUKqfVHaeJ5rb/aKQzlHocvNCgC5qzAencLqKeCkPOdl3MsRhBr8TTFZyg==; s=purelymail3; d=iskren.info; v=1; bh=IQSjTyjS8hNRnK0DIocyeVZNIoUq+jWIAPq7VzDKUBw=; h=Received:Date:Subject:To:From;
+DKIM-Signature: a=rsa-sha256; b=LDs6mJtg4ZpamSh30QeGss5dT/n2Kxd13MjMHysYnhchh/ISMmgxnS3rd69WxYLnmTIljo1+uVQuuXxQa6Nyxgk9kUcbt1rD6v832bI6n9EGSEsQ38Yypnb7ZfQkABFuYEnCYSQzt0lh0B3DV5oEkA/G41cMP2VjLoettsadc8R6wydcttNAs0HudfiVWnBvZpo+tq4U52/3WIqx3vtkzmOLBx/IL65QX5kE0iNt8lLIowkSD81iwfMmcC9aPejYXRyTZJkfB9W8nZPi4sIk+tO6ynpeMqgeM5EK1ipu28TsATz/GacRJttZQuIauoMFaNrkvEqKS0ku4VeL+erLLA==; s=purelymail3; d=purelymail.com; v=1; bh=IQSjTyjS8hNRnK0DIocyeVZNIoUq+jWIAPq7VzDKUBw=; h=Feedback-ID:Received:Date:Subject:To:From;
+Feedback-ID: 10275:2339:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1565696518;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sun, 14 Jun 2026 12:29:11 +0000 (UTC)
+Message-ID: <5b474af3-f651-4a64-a5b9-c18136e589eb@iskren.info>
+Date: Sun, 14 Jun 2026 15:29:08 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] phy: qcom-qusb2: Fix SM6115 init sequence
+To: Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260610-topic-8996_61x5_qusb2phy-v1-0-d7135980e78f@oss.qualcomm.com>
+ <20260610-topic-8996_61x5_qusb2phy-v1-2-d7135980e78f@oss.qualcomm.com>
+Content-Language: en-US
+From: Iskren Chernev <me@iskren.info>
+In-Reply-To: <20260610-topic-8996_61x5_qusb2phy-v1-2-d7135980e78f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable CPU DVFS by including the OPP table and wiring the CPU nodes to the
-CPU regulator supply.
 
-Signed-off-by: Andre Heider <a.heider@gmail.com>
----
- .../riscv/boot/dts/spacemit/k1-musepi-pro.dts | 35 ++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-index 0d809e4ad3b1..1b425011f123 100644
---- a/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts
-@@ -9,6 +9,7 @@
- 
- #include "k1.dtsi"
- #include "k1-pinctrl.dtsi"
-+#include "k1-opp.dtsi"
- 
- / {
- 	model = "SpacemiT MusePi Pro";
-@@ -99,6 +100,38 @@ &combo_phy {
- 	status = "okay";
- };
- 
-+&cpu_0 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_1 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_2 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_3 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_4 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_5 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_6 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
-+&cpu_7 {
-+	cpu-supply = <&buck1_0v9>;
-+};
-+
- &eth0 {
- 	phy-handle = <&rgmii0>;
- 	phy-mode = "rgmii-id";
-@@ -178,7 +211,7 @@ pmic@41 {
- 		dldoin2-supply = <&buck5>;
- 
- 		regulators {
--			buck1 {
-+			buck1_0v9: buck1 {
- 				regulator-min-microvolt = <500000>;
- 				regulator-max-microvolt = <3450000>;
- 				regulator-ramp-delay = <5000>;
--- 
-2.53.0
+On 6/10/26 3:04 PM, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> I don't know where the existing one came from, but it's apparently
+> wrong, according to both docs and a downstream DT [1]. Fix it up.
+
+They came from DTB extracted from a running billie2 (OnePlus Nord N100):
+[1] 
+https://mainlining.dev/wp-content/uploads/2021/02/03_dtbdump_Qualcomm_Technologies_Inc._Bengal_SoC.dts 
+
+
+The phone was bough early after launch, so it could have been 
+wrong/updated later.
+
+> The updated values also happen to match SM6125, which will allow us
+> to fix that platform too.
+> 
+> [1] https://android.googlesource.com/kernel/msm-extra/devicetree/+/refs/heads/android-msm-bramble-4.19-android11-qpr1/qcom/bengal-usb.dtsi#145
+> Fixes: 7756f1d6369e ("phy: qcom-qusb2: Add configuration for SM4250 and SM6115")
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>   drivers/phy/qualcomm/phy-qcom-qusb2.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+> index eb93015be841..c304ccd9f31f 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+> @@ -233,9 +233,9 @@ static const struct qusb2_phy_init_tbl msm8998_init_tbl[] = {
+>   
+>   static const struct qusb2_phy_init_tbl sm6115_init_tbl[] = {
+>   	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE1, 0xf8),
+> -	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE2, 0x53),
+> +	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE2, 0xb3),
+>   	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE3, 0x81),
+> -	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE4, 0x17),
+> +	QUSB2_PHY_INIT_CFG_L(QUSB2PHY_PORT_TUNE4, 0xc0),
+>   
+>   	QUSB2_PHY_INIT_CFG(QUSB2PHY_PLL_TUNE, 0x30),
+>   	QUSB2_PHY_INIT_CFG(QUSB2PHY_PLL_USER_CTL1, 0x79),
+> 
 
