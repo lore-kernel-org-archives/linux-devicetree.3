@@ -1,130 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAC93B6343
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 20:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EAC3ADB99;
+	Mon, 15 Jun 2026 20:26:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781555165; cv=none; b=RtJqJK3VA81DUaRSglTDzUAsTtZkB1GFeQ6w0FhG8uQAEuUD9fBKeUvntMBKnhIqr85pIjPQWMLV8yofJb5PQaulBByfbu5+hlGV8tdezljKBR60468uNFzI50kXcSBpO54gxnTLfI9OWgzChbWOAV1EMcI5At6ARLad7Rh2Nw4=
+	t=1781555220; cv=none; b=UvE4J8f0fGClRT/HHxpkvpaEFcBjb2WfG2GH4OcAOd9sNBm86GsfELBzh+k+NX6WniJW+2+89oGxlv0AI15K7KjEjQhiGV4289d27f3S8TWblBDCq+6qFpRbUIeLA9dy8iGtVdLvsoI5AUmDlAVVZKRoVC9AZb+oRpkU481fVOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781555165; c=relaxed/simple;
-	bh=t8a0kKk7HK8wFqHgn8NeY8MOG5mZ9lIHWiHOSp5t1Tk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DcMSY+cCe6Y4yKA2UCpyjswG9wLAaAyVR6GWSlX79MkDzqy2QmNMhwr9Ahb0zwXT7PwSAclhJRiMQ8i0vJNXALcynEeh5fuQGs6zsB0VLTXo75CYehI8GT5ce14LqeOjShAWGWS5i85l3/eAFIu5DXrLe1w0u8n7LWiHpq2DqtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvzoHkjc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781555220; c=relaxed/simple;
+	bh=ugjC0qYGCF0XOrzbJirwAKm6BcrES8QbVatGjL7h/ek=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YiNmocvjIHd6Ya2voFk42aUU623NzUBSeIOz5iRO39dyFGHl74pkQG2O6ovwkSqB8kEGOHorCdlIenWXqVfwMa4PhuY6ZtUbKSRXFrZ15vSMRs1J5/kZqutBobZLaUdk5/1sVeHI/iTUBud/9AhFBsj2M+9GedYfyO2MMOJY5Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=USoM+D61; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvzoHkjc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF491F000E9;
-	Mon, 15 Jun 2026 20:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781555162;
-	bh=hfRCyNeJHziZ7xWFG8jy/JwFJ0SllV+hNx62dt3eS2Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QvzoHkjcSbZkVL0oJe9gg1ln4z3q7BS4JURBOCuH27sO5i4uzLzmawIgsfaNmxl+h
-	 0HMlE7MdKhGv0vN9TWFGOouubtsPce9/m8J6ZLcz1eskP2akJlQp+mlBorfPYt/NjI
-	 VkXjyDGDWywnuEpUKGfmtDZCM8chITYc3umv0IpA8RW+mmOCHUa+iIIDKGdAiHA+CN
-	 f2g4W66/ahVN7Lm9VTBgHjZ+0cMTvehmkCW13EZRaPxoacBBffGD6H+9BEQUq6jdBE
-	 fg+JmjCxN0wtdFuKF7jId6KSvrnt/s6p0p8riz6BUN+SHsZe+g2yAQiZsJrLJKRUIH
-	 2PU8mwuBSkBvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] hw_random: timeriomem-rng: add configurable read
- width and data mask
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jad Keskes" <inasj268@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615201339.1264676-1-inasj268@gmail.com>
-References: <20260615201339.1264676-1-inasj268@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 20:26:01 +0000
-Message-Id: <20260615202602.2AF491F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="USoM+D61"
+Received: from mail01.disroot.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 7347026E0B;
+	Mon, 15 Jun 2026 22:26:55 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id TnxHV0sjQoxe; Mon, 15 Jun 2026 22:26:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1781555214; bh=ugjC0qYGCF0XOrzbJirwAKm6BcrES8QbVatGjL7h/ek=;
+	h=From:Subject:Date:To:Cc;
+	b=USoM+D61LQ/5jq6m3MqeBKGP8/BDUslgPX2IPr1dCFErR5KzW0owYb8pklq3BsQXe
+	 Pce1EHEwkQkZI6yUkv04K6QfuQ9CGTxJjOCPHvWnqk5EhM+zHE2ACebadrM1CgWhP+
+	 cNIXqqwVWO8c7TxgWeC3ERVPi2RH20Bu0KzX+nUnrym84/pu5jHzi4EB7kDUFIX5IU
+	 oBm90L6RVKeUbNOQrxpnOf7/uuPONcps+vb7ucBB1qGJveVTSreHfBpEOkpmGgIIL/
+	 TTy5Bm81Gw3gWzn+7+3xe/VaQd7nR2GGCyvzWm/a3y4nSdLfFDu7fQnJXiKn4L1tGW
+	 7G3KJXEcEiSyg==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Subject: [PATCH 0/3] Additional fixes for "Support for Samsung S2MU005 PMIC
+ and its sub-devices"
+Date: Tue, 16 Jun 2026 01:56:42 +0530
+Message-Id: <20260616-s2mu005-pmic-supplement-v1-0-41e84518b711@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAJgMGoC/yXMQQqDMBBA0avIrDsQAw2mVyld6DjqiElDxpSCe
+ Pem7fIt/j9AOQsr3JoDMr9E5Rkr2ksDtPRxZpSxGqyxzrjWodpQjLliCkKoJaWNA8cdOzsST95
+ 76nqodco8yft3vj/+1jKsTPt3B+f5AXv0q1V7AAAA
+X-Change-ID: 20260616-s2mu005-pmic-supplement-82dcef999c8a
+To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+This series is a result of discussions from [1] and comments spawned
+under it. When this was being discussed, a thread from v6, the v7 was
+already posted in the list. The fixes were scheduled for v8, but the
+concerned patches were already merged.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but an improper tear=
-down sequence allows a concurrent reader to restart the timer after it was =
-cancelled, leading to a Use-After-Free and potential Deadlock.
---
+And unfortunately, I as per my plans was out-of-office for vacation, so
+I couldn't follow up immediately. Sorry for that.
 
-commit f3fa66cce2c0ad3af71293c86473cf060b400645
-Author: Jad Keskes <inasj268@gmail.com>
+I understand that as the kernel is nearing the v7.1 release, and its
+following merge window for v7.2-rc1, the maintainers would be busier
+than usual. Apologies again for disrupting any normal procedures. But if
+it makes to v7.2-rc1, along with the original series, that would be
+nice.
 
-hw_random: timeriomem-rng: add configurable read width and data mask
+This series has two distinct fixes: (a) to reorder the properties, and
+(b) to remove the compatible node. The latter needs driver intervention,
+thus this is also posted to the LED maintainers (Lee, ... et al?)
 
-This commit adds support for reading 8, 16, or 32 bits from the hardware
-random number generator. It applies an optional mask to the data and
-configures these properties via device tree or platform data.
+So, the following patches can independently go through different trees:
+(a) patch #1, goes through devicetree tree
+(b) patch #2 and #3, go through leds tree
 
-> diff --git a/drivers/char/hw_random/timeriomem-rng.c b/drivers/char/hw_ra=
-ndom/timeriomem-rng.c
-> index e61f063932090..4557326618c90 100644
-> --- a/drivers/char/hw_random/timeriomem-rng.c
-> +++ b/drivers/char/hw_random/timeriomem-rng.c
+[1] https://lore.kernel.org/all/20260515-justly-recite-6028f4bfb24a@spud
 
-[ ... ]
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+---
+Kaustabh Chakraborty (3):
+      dt-bindings: mfd: s2mu005-pmic: reorder reg and interrupts properties
+      dt-bindings: mfd: s2mu005-pmic: drop compatible property for multi-led node
+      leds: rgb: s2m: use multi-led node of mfd as source node
 
-> @@ -71,11 +76,28 @@ static int timeriomem_rng_read(struct hwrng *hwrng, v=
-oid *data,
->  			usleep_range(period_us,
->  					period_us + max(1, period_us / 100));
-> =20
-> -		*(u32 *)data =3D readl(priv->io_base);
-> -		retval +=3D sizeof(u32);
-> -		data +=3D sizeof(u32);
-> -		max -=3D sizeof(u32);
-> -	} while (wait && max > sizeof(u32));
-> +		switch (priv->width) {
-> +		case 8: {
-> +			u8 val =3D readb(priv->io_base) & priv->mask;
-> +			*(u8 *)data =3D val;
-> +			break;
-> +		}
+ .../bindings/mfd/samsung,s2mu005-pmic.yaml         | 25 ++++++++--------------
+ drivers/leds/rgb/leds-s2m-rgb.c                    | 13 ++++++-----
+ 2 files changed, 15 insertions(+), 23 deletions(-)
+---
+base-commit: 8d6dbbbe3ba62de0a63e962ee004afb848c8e3ac
+change-id: 20260616-s2mu005-pmic-supplement-82dcef999c8a
 
-[ ... ]
+Best regards,
+--  
+Kaustabh Chakraborty <kauschluss@disroot.org>
 
-> +		}
-> +
-> +		retval +=3D chunk;
-> +		data +=3D chunk;
-> +		max -=3D chunk;
-> +	} while (wait && max > chunk);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the current driver
-teardown sequence allow a concurrent reader to cause a use-after-free
-or deadlock?
-
-Because the driver uses devm_hwrng_register(), the hwrng is unregistered by
-devres after timeriomem_rng_remove() completes.
-
-If timeriomem_rng_remove() calls hrtimer_cancel(&priv->timer) while a reader
-is inside timeriomem_rng_read() (for example, sleeping between reads), the
-devres cleanup will subsequently call hwrng_unregister() which blocks
-waiting for the active reader to finish.
-
-However, the reader will eventually finish its loop and unconditionally run
-the following at the end of timeriomem_rng_read():
-
-	hrtimer_forward_now(&priv->timer, priv->period);
-	hrtimer_restart(&priv->timer);
-
-Can this sequence restart the timer after it was cancelled by the remove
-function, allowing the timer to eventually fire and dereference the freed
-priv pointer?
-
-Additionally, if a reader is waiting in wait_for_completion(&priv->completi=
-on)
-when the timer is cancelled, could this prevent the timer from firing,
-leaving the reader hanging in TASK_UNINTERRUPTIBLE and causing the
-subsequent hwrng_unregister() to deadlock?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615201339.1264=
-676-1-inasj268@gmail.com?part=3D1
