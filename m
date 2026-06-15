@@ -1,108 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2179F30C17B;
-	Mon, 15 Jun 2026 10:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2556579CD;
+	Mon, 15 Jun 2026 10:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781519025; cv=none; b=FsMDF41YDtZzMyfDFq4aG+znnvheu7fnm6RwMyMS+p6Iv0VPZTd/ktITjLu1MBHWGL+y4DqZOgfYH7nWM25fAZIjJ1yABJ1rzZ7RB0TLsoyyuN7ANgeZtrHpqWPhvysiwYif8mI746cDH9p7ayWuFkZxJVGECcfkyhElICddD8s=
+	t=1781519048; cv=none; b=mSSyDvr2ZFJjcyRDLyN6ey3rWrupkZF0k9WbyHykVvtgvIUzhXlqFL02jSjGZQfRAKYxUp6+mO9BKF7fFSDC7MPFSbgLiPJ848ZKcxL8BxdGTz34EJ8++MlwwT5Lbk5Bswa1en2/2C6qR4NfB0IRYfUE9uhhkbLGmMafSv4SmAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781519025; c=relaxed/simple;
-	bh=JlxMRRzmNLl5motzE3G6Kxf7KBpQ0QeKSXmg+oxTlDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ozAFajBCznnu5U9JnUSTvk3exFo2vPKCLn6amdQfA5/0JKMKamz9k3mNmmECuiNPV6a142r9qzW7oGXbf40NLWCr5/q8cQ4K2Zr2byV9yJQUndDxBn4kcKDam2RTQEygEiGEOrGtWIFqwzPSUYU2rRFvtXNjVWVq1+4sTMZknmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cqjYFSU7; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781519048; c=relaxed/simple;
+	bh=e6FR948efBXD1kKaijtZma5Tu9CLpRPYxviWmS/WyH4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bXbxzDkOzRbCU7Dh8TB7p7wqhB5/8EgE/Bh81z4s8JKXrWxvOkSxP/GdgP9633D5aXosxatZ33MrpUTHtTFdh0+AHNhRzBfe68iS2deBGmevEVJKOmm5v8bX5x0P8PdP+JIMZ7jxBXh7LxFhuyWrMZN9Ea5cL3FzVFL71Mhjx+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ZUqOZJE9; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cqjYFSU7"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ZUqOZJE9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781519024; x=1813055024;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1781519047; x=1813055047;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=JlxMRRzmNLl5motzE3G6Kxf7KBpQ0QeKSXmg+oxTlDA=;
-  b=cqjYFSU7ombQta1JLG4IyVaCHu0SBbbUnYB/uzfIqn+am6g3AAOlXVxH
-   aA2HLFIU11q3BnaQ64iZoEH2fXQ/QJJaQtzzNX+UxKwDQXuhdHwJ3DNc6
-   zPwiFa/qSaBrh6V96Jo+uuOQsNTjSTiA8hjPxUToCVMx+hGwArzPkQ/EZ
-   KK2Y/FCI11O9IvCnFFgH7WmsBUlkENkHO6yacQO5tV1KtEGWWuRy/Hjyk
-   F6Z5MQTOELalBA6Jg8AB4Ih/CK7cmLQOLXoJwNcEsSlisdQKh1kfeGbT5
-   /ppMLFWndK4J+PNOLJhLruW6HNH0t6kBWmyaflQQX2GeTBZJ9KN9OIjBm
-   A==;
-X-CSE-ConnectionGUID: 4cxcmnKvTO2gZeUHOoVgfg==
-X-CSE-MsgGUID: MRsM3rh7Rzq2DCrZWRrrZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="82102479"
+   mime-version:in-reply-to;
+  bh=e6FR948efBXD1kKaijtZma5Tu9CLpRPYxviWmS/WyH4=;
+  b=ZUqOZJE96UxYSe0BerKLLGZAP+seWHtJ3AgE2SEdGlWqwuV3Gg/rB5rh
+   X3kAbA849/Iga626KPiNmDoGaSrBjp8Z7uE+2XQQYDNjqGgO047jc6KY9
+   FLO5loKosjMfBO2R3/Q5xgnpxzY4f4bMqpU15jXUEgAYv/eHw2Pabmztd
+   SWW9dL5d/cS2mlRRBbiQt7RP/rmQIW/Pg47a4bTnYSjHwQtof2km0HUM2
+   icgOi0Ak7i+jVSUc5bdE343CMix8QOWtSKRoKVRgM+KItBXimcVpUI323
+   dF2zP2ydkXJMoV2EshGfrrG+lgc44gqNLW81Pu7tCeEqUlozQbfCmoByW
+   Q==;
+X-CSE-ConnectionGUID: hfzY5t+0RsuQFcDb3BdrKw==
+X-CSE-MsgGUID: +ziSKTYtRoeQ8lTI5VSYig==
 X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="scan'208";a="82102479"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:23:43 -0700
-X-CSE-ConnectionGUID: 5X9uSTOYTlGXJeJgC+24mg==
-X-CSE-MsgGUID: XVYi6KlESCqG5krYV3y3qQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="scan'208";a="246544081"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:23:40 -0700
-Date: Mon, 15 Jun 2026 13:23:37 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V12 4/9] iio: imu: inv_icm42607: Add SPI For icm42607
-Message-ID: <ai_SqaTvBYI7wL79@ashevche-desk.local>
-References: <20260611202607.85376-1-macroalpha82@gmail.com>
- <20260611202607.85376-5-macroalpha82@gmail.com>
+   d="asc'?scan'208";a="58297258"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:24:06 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Mon, 15 Jun 2026 03:24:06 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex03.mchp-main.com (10.10.85.151)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Mon, 15 Jun 2026 03:24:04 -0700
+Date: Mon, 15 Jun 2026 11:23:17 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+CC: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Mark
+ Brown <broonie@kernel.org>, "linux-spi@vger.kernel.org"
+	<linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: Re: [PATCH v1 1/2] dt-bindings: spi: snps,dw-apb-ssi: Add support
+ for snps,dwc-ssi-2.00a
+Message-ID: <20260615-disallow-dosage-333752ccddc1@wendy>
+References: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
+ <20260612125856.8530-2-changhuang.liang@starfivetech.com>
+ <20260612-mute-aqueduct-029ac227314e@spud>
+ <ZQ4PR01MB1202FA8F122134F7153D26F7F2192@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="91bPSu8DoDeqQSyg"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260611202607.85376-5-macroalpha82@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <ZQ4PR01MB1202FA8F122134F7153D26F7F2192@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
-On Thu, Jun 11, 2026 at 03:26:01PM -0500, Chris Morgan wrote:
+--91bPSu8DoDeqQSyg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Add SPI driver support for InvenSense ICM-42607 devices.
+On Sat, Jun 13, 2026 at 03:38:46AM +0000, Changhuang Liang wrote:
+> Hi, Conor
+>=20
+> Thanks for the review.
+>=20
+> > On Fri, Jun 12, 2026 at 05:58:55AM -0700, Changhuang Liang wrote:
+> > > Add a new compatible string "snps,dwc-ssi-2.00a" for the Synopsys
+> > > DesignWare SSI controller version 2.00a.
+> >=20
+> > Two things. Firstly, driver patch suggests a fallback to 1.01a is possi=
+ble. Why
+> > haven't you added one?
+>=20
+> Will support fallback.
+>=20
+> > Secondly, I am going to expect that when your starfive user for this ap=
+pears in
+> > my inbox that it has a device-specific compatible, so you may as well a=
+dd that
+> > now.
+>=20
+> Our standard SPI control is completely based on the Synopsys DesignWare S=
+SI controller version 2.00a.=20
+> However, for the controller that accesses the flash, a set of modificatio=
+ns has been made based on the=20
+> Synopsys DesignWare SSI controller version 2.00a, and the driver part als=
+o requires specific adaptation.
+>=20
+> Therefore, on the JHB100 SoC, the initial device tree source I have plann=
+ed looks like this:
+>=20
+> spi0: spi@17f20000 {
+>       compatible =3D "snps,dwc-ssi-2.00a";
+>       reg =3D <0x0 0x17f20000 0x0 0x10000>;
+> };
+>=20
+> sfc0: spi@18000000 {
+>       compatible =3D "starfive,jhb100-spi";
+>       reg =3D <0x0 0x18000000 0x0 0x10000>;
+> };
+>=20
+> Thus, I plan to add a new "starfive,jhb100-spi" compatible string for the=
+ controller that accesses the flash.
+> For now, I intend to keep these as two separate series.
 
-...
+No, if you have two integrations of the designware IP with different
+programming models on the jhb100 I expect to see two different
+soc-specific compatibles used. I don't want to see bare synopsys
+compatibles on the platforms I am looking after.
 
-> +#include <linux/bitfield.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/err.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/spi/spi.h>
+Cheers,
+Conor.
 
-...
+--91bPSu8DoDeqQSyg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +static const struct spi_device_id inv_icm42607_spi_id_table[] = {
-> +	{
-> +		.name = "icm42607",
-> +		.driver_data = (kernel_ulong_t)&inv_icm42607_hw_data
-> +	}, {
-> +		.name = "icm42607p",
-> +		.driver_data = (kernel_ulong_t)&inv_icm42607p_hw_data
+-----BEGIN PGP SIGNATURE-----
 
-I believe I have commented on this already. But anyway, please leave
-a trailing comma for .driver_data assignments as well. Same for I²C
-driver.
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCai/SlAAKCRB4tDGHoIJi
+0koHAQCiPtRNw/1gwXZK/BdT6j8FL5iATsOXXHwrJLZCXolWCwEAiwpuHr/ltCBv
+LyeszfI6AUWfr17w0u0wGH7YiVPCsAo=
+=17ze
+-----END PGP SIGNATURE-----
 
-> +	},
-> +	{ }
-> +};
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--91bPSu8DoDeqQSyg--
