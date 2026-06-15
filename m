@@ -1,165 +1,128 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5D83F7875
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5063D3F8233;
+	Mon, 15 Jun 2026 14:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781533628; cv=none; b=uQmncb52wEL4nNawOqBnNm5xZQJKvMD6gThSesND3AkBoG8yAlq1X5SV9N/ZNXZFDDAh/oKSQV67Zj6OmxrlpHPhGfVKTEsQbNA+DYKxk8S5C8Edr7O7WUJj2crMCAaVWWm9JafaRIEE8zlQqVC+rHRhPTwCu5x1Sc1yJMqAgWM=
+	t=1781533703; cv=none; b=awBzFuv+yDiASmaMaVcvJcsVmsbBSPsh9enEvl+ZHCIctw35+zq5vAn5x0g6xZO8TIdW4qF2GtXdCrAnM9UMlHwtX/gZDsA4IPljek3F4OxQQmWsdVR7mnu8aZqLGfqieQAT5hb/L9s2jfxhZPyEvGrH1DH2DujAltPBmrc7xmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781533628; c=relaxed/simple;
-	bh=j7+uubWqjHwfd1F7rjwIRnsarTP5b9XzajE97ofcr2w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i7UjPrF93OZP68WSU1lc+U/kaxpI+q9EJjRhecinyor74z9vH2jB0HELxYeMa88WmjxpOYgYdTlTSoh551XvcdFW5gvOIzx+X0hO7qEmv82Z9k6BWRebqr2W0I8llCUF/QpMmM3HRZOvM6KWI6NOtoC4wOrf0432qJKZGjNdG2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ivOvFk7v; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781533703; c=relaxed/simple;
+	bh=di8Cecoe3Fmf11lnQqBNXXiNqaQdQ8D8odDym0sxE3M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qm9Ay0NWT8GTVO6b1+Yjy+UPNwGNd24mF6XYa6Lu3Sa27h+/D+g/IwwwP4EhAIkVNcggD6eDuusf6l+Y82MqHBb6U1oeZi+imaaN2RDmInPGTjX7jQPwrfHftAp/ispnkYXHFkl26ghGAw1FfL4jATneE4oQ9An/jJpyhOxQQGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DVB3J/sp; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ivOvFk7v"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-460662fcb4eso2291018f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:27:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781533626; x=1782138426; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=m4TXTtdFs/UmLl+HYnmyNiKISILvfZx2SzEmdXfYHcQ=;
-        b=ivOvFk7vOkZBbOFiKdbZF59WTRWUON7NhJvMeWXVYQYGBAojB8h32ET3YxgwrORAIE
-         jMcOp2cBOqsWe+R7alJErluOjvefaane1lGSLQb1t+J7hdRXJgKi297mhQs/nT75OlZx
-         7Dg3cjzYHgoGWBeGrHwtfcXVFzWVzE2bhVeHQ0NUWcLNPAgjYN69OKMDwmMvIcWqy8MD
-         wpoXZho3dWV9jSAYxi7TbujpSj3l8Qr4/ObmkKcf2fubdiwhBK4eMJawiEqRhBv8YeHA
-         mdIMfhLZXMvSR9z/Nfqr0ILomuuIzmnIfWnHPqpB/oh3yf+3yL8b7h7R8hK86a1u9YX9
-         HkZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781533626; x=1782138426;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m4TXTtdFs/UmLl+HYnmyNiKISILvfZx2SzEmdXfYHcQ=;
-        b=CZJcFXJi+2L/aHloRz9oKiJTfpVWZFQS8IeJWh0CR2V3EtQRcysJmtOGmRHiTL4zHU
-         nABf9Er3Bh2SFZrPTDNdqEsAu28Kaj/Jyml6lHde3QGDb+X6gPfYFgP3Y1kuzq4mvOF/
-         rcW3Smwy0buqDhzCw1nkT05BUQLsUXOe4MPZW4LrmAGgiuu3oFROQFWfNLSLRTphzJ4C
-         q5+ttdyDQ3MnjusfFKJxFgQ2U+z6L5Z169AdLkJ1zr7Ns4ifUsD42QOXKjl2FN7zJe3n
-         GWP4BEes+q7lWu3wDdzCQU9LwJIFhp4OIL6sU9LG68HEG4EtsDKoXNn/YF1HRK2RuSVm
-         1Oyw==
-X-Forwarded-Encrypted: i=1; AFNElJ/girZ43wHe/vtJsZfFl9CEM3w0yVBk4CNblCJRzwyxyIWNOXjY2N8egcFb3FZ5mDghTEdjucg7aEsj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw11edECBtYfhymrywSDpBNRLrJGTVuoGcaV6Yhcc2f9zrFMySk
-	gqxQZ02jzXsewxzD5DG296mG94TnANSOptbDdh2b+C+0ZGAAHhv6pZdJ
-X-Gm-Gg: Acq92OEaR8YjJ+kbb8v48/zQ8Eilpl0lfYcmU6Q/khaBsdgei/sm6a9STkF2nWfXXXd
-	8EGwwtp8NGzg1D63RZ29Cltt55Am/CpqGvqhenGtpdjGV7vno4YAgN0P+KGQrX9nIItbuM4w/wC
-	p4UyDu0hK8wo6l88bjxfTWUAuPkoOH/PDEZZsEi+RffH7CZutZmR3lbhI3cCElOWl5kvtwIQE9G
-	kZj0WVWh8UgRetiw15b6y+XaaJNjY+YOGRG15mwOzF924zDySrx7aMTQFvxS1LZqTDoMCPlRNde
-	o1rSF6FF97d9zjBdCZkvz9Q2YgnJDtxrxc5z0Vz8uS9bdywQx2gVmxAOWYB4yKo9siJXKx12Pat
-	r2uVZ57D420CetEFORG4U5CatxXG0yIz+WnkoP600RNJkPk8cr5iRFp34cbgGvkbE+8uN1vUqv/
-	sMidhvEbDstJZI0dfiglAkGHNycEbLvmtylyH+QPhv4xP9E7j3vRJitU3fRVk4xFdYa8Do10j0b
-	E8JMr2Ti3gLL7oX39Y=
-X-Received: by 2002:a05:6000:2dc2:b0:460:3234:4473 with SMTP id ffacd0b85a97d-4606dbe5c27mr19933766f8f.41.1781533625617;
-        Mon, 15 Jun 2026 07:27:05 -0700 (PDT)
-Received: from [10.128.10.215] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f264333sm35600275f8f.4.2026.06.15.07.27.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 07:27:05 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <90f84945-e83f-40a8-8d9e-a477c45579e9@gmail.com>
-Date: Mon, 15 Jun 2026 15:27:03 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DVB3J/sp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781533701; x=1813069701;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=di8Cecoe3Fmf11lnQqBNXXiNqaQdQ8D8odDym0sxE3M=;
+  b=DVB3J/sp1EgSIJQbYniYKS/ZOz1O6yOq6KJXqBhU/jcdvqDjN2azwHeM
+   X9Xu6OlxnaSE456iPM1mIwZTaw4bK4ZlKfjrjM88nVLm2vVlr7ZXRph/+
+   3WcMQtsTSgUPF3YSwQ/XhnoiPNE4rJnPjOYvmxkxcNU42K20MSIQewuq6
+   fjLKlK3aQzI1kQbyGjueN28Xq6eR2/5pMFDGqtiLz+2mV7KstSL1Yit7r
+   gWgNAK0InL2bG3eEFBI5RYGRDLE9iEGP8iVgp0KIyFN0/PH9/SFVViTnF
+   XYXuCbakNDGyw9ay5L3kdOS8KqGdyAdR7OJSDXTRt9W/mrXTWPl3NO83w
+   w==;
+X-CSE-ConnectionGUID: XjjfKdL+TxqG2ua+ujquuQ==
+X-CSE-MsgGUID: T+Kl8BojTk6MCdcVeWc9qw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="85908057"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="85908057"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:28:21 -0700
+X-CSE-ConnectionGUID: 5XT6GlmcQiuqI8Lnzb3iEg==
+X-CSE-MsgGUID: 8j9GxcZLSdGo5hoTjKc6Rw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="285597575"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:28:18 -0700
+Date: Mon, 15 Jun 2026 17:28:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Salih Erim <salih.erim@amd.com>
+Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
+	linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 5/5] iio: adc: versal-sysmon: add oversampling support
+Message-ID: <ajAL__3jUtSgSb7r@ashevche-desk.local>
+References: <20260614233722.2603459-1-salih.erim@amd.com>
+ <20260614233722.2603459-6-salih.erim@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-To: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew@lunn.ch>,
- Piergiorgio Beruto <pier.beruto@onsemi.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- Jerry Ray <jerry.ray@microchip.com>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
- <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260614233722.2603459-6-salih.erim@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Selvamani,
+On Mon, Jun 15, 2026 at 12:37:22AM +0100, Salih Erim wrote:
+> Add support for reading and writing the oversampling ratio through
+> the IIO oversampling_ratio attribute. The hardware supports averaging
+> 2, 4, 8, or 16 samples, plus a ratio of 1 (no averaging).
+> 
+> Temperature and supply channels share oversampling configuration at
+> the type level (all temperature channels share one ratio, all supply
+> channels share another), exposed through info_mask_shared_by_type.
+> 
+> The hardware encoding uses sample_count / 2 in a 4-bit field within
+> the CONFIG register. Per-channel averaging enable registers must also
+> be updated to activate or deactivate averaging.
 
-On 6/14/26 18:00, Selvamani Rajagopal via B4 Relay wrote:
+...
 
-> diff --git a/drivers/net/ethernet/onsemi/Kconfig b/drivers/net/ethernet/onsemi/Kconfig
-> new file mode 100644
-> index 000000000000..8d72194151ea
-> --- /dev/null
-> +++ b/drivers/net/ethernet/onsemi/Kconfig
-> @@ -0,0 +1,21 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# onsemi network device configuration
-> +#
-> +
-> +config NET_VENDOR_ONSEMI
-> +	bool "onsemi network devices"
-> +	help
-> +	  If you have a network card belonging to this class, say Y.
-> +
-> +	  Note that the answer to this question doesn't directly affect the
-> +	  kernel: saying N will just cause the configurator to skip all
-> +	  the questions about onsemi ethernet devices. If you say Y, you
-> +	  will be asked for your specific card in the following questions.
-> +
-> +if NET_VENDOR_ONSEMI
-> +
-> +source "drivers/net/ethernet/onsemi/s2500/Kconfig"
-> +
-> +endif # NET_VENDOR_ONSEMI
+> +static int sysmon_osr_write_temp(struct sysmon *sysmon, int val)
+> +{
+> +	/*
+> +	 * HW register encoding is sample_count / 2:
+> +	 * 0=none, 1=2x, 2=4x, 4=8x, 8=16x (not log2-based).
+> +	 */
+> +	int hw_val = val >> 1;
 
-When you put the 'if NET_VENDOR_ONSEMI' around the 'source', you're
-making it a dependency on every config option in that sourced Kconfig.
+If, for some reason, val happens to be a small negative number, here might be
+a surprising behaviour.
 
-> diff --git a/drivers/net/ethernet/onsemi/s2500/Kconfig b/drivers/net/ethernet/onsemi/s2500/Kconfig
-> new file mode 100644
-> index 000000000000..f2e8d5d1429d
-> --- /dev/null
-> +++ b/drivers/net/ethernet/onsemi/s2500/Kconfig
-> @@ -0,0 +1,21 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# onsemi S2500 Driver Support
-> +#
+> +	unsigned int readback;
+> +	int ret;
 > +
-> +if NET_VENDOR_ONSEMI
+> +	ret = regmap_update_bits(sysmon->regmap, SYSMON_CONFIG,
+> +				SYSMON_CONFIG_TEMP_SAT_OSR,
+> +				FIELD_PREP(SYSMON_CONFIG_TEMP_SAT_OSR, hw_val));
+> +	if (ret)
+> +		return ret;
 > +
-> +config S2500_MACPHY
-> +	tristate "S2500 support"
-> +	depends on SPI
-> +	select NCN26000_PHY
-> +	select OA_TC6
-> +	help
-> +	  Support for the onsemi TS2500 MACPHY Ethernet chip.
-> +	  It works under the framework that conform to OPEN Alliance
-> +	  10BASE-T1x Serial Interface specification.
+> +	/*
+> +	 * Readback fence: the SysMon CONFIG register resides in the
+> +	 * PMC domain behind the NoC. A posted write may not reach the
+> +	 * hardware before the next MMIO access. Reading the register
+> +	 * back forces the interconnect to complete the write, preventing
+> +	 * a bus hang on the subsequent access.
+> +	 */
+> +	regmap_read(sysmon->regmap, SYSMON_CONFIG, &readback);
 > +
-> +	  To compile this driver as a module, choose M here. The module will be
-> +	  called s2500.
-> +
-> +endif # NET_VENDOR_ONSEMI
-Which means that when you add 'if NET_VENDOR_ONSEMI' again inside the
-sourced Kconfig, it's a duplicate dependency.
+> +	return sysmon_set_avg_enable(sysmon, SYSMON_TEMP_EN_AVG_BASE,
+> +				     SYSMON_TEMP_EN_AVG_COUNT,
+> +				     hw_val ? ~0U : 0);
 
-I think putting the if-endif in either place is fine, but it's redundant
-to do it twice. You could maybe consider using a comment for the second
-instance instead.
+Is the last parameter > 32-bit? If not, drop 'U' as it might have a nice
+side-effect in case this become actually > 32-bit. Same for other cases.
+In other words, using ~0U should be quite cautious.
 
-- Julian Braha
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
