@@ -1,333 +1,477 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F532F7F0F
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781515886; cv=none; b=gfIz53uNSaNNyz/PIZ2dRxaMlbasmdsKDUIGJ65jf7EF+wmPHbp9m3V+wCMjod4a/X+MmjXFY7BaG3z93ZtfVZumvzt+KsQ0hWXkuAu69EozMaaJcwcQNn5qyt0UIxaz/xWBuELKxcrK0tD3z7Axv1VTnGutBEXXdmZRl0mL/wE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781515886; c=relaxed/simple;
-	bh=Cpago3XowY8+PVSiTBvoqVrYD1zFelIovz7BdpMNZQo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=sNgXjYNEmu0ue5SJNrQVbsAmF9kJ/u9UoRLEL3wUe/kmuI1J0r9MdvSUvieRnj9lpDJ28lfhgTarPJ5ZRTmOTWI1FeEsh9JDDjlGsyZAjpJFyE0tTB4OpjLQm5pZgDUvOqfA/afLFpK2yIjdskREdrSCMap894oXJu7sdvmryyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mvWhqZpr; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F1F3C4166
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781516017; cv=pass; b=Bc9WkEdVA1ieQUp2J3Yh3C61tRSKNaoDMPD+iVYh3C4IiKSpC3NOK0jiymm6GKzTA8GL0UyHhI+lpE6jWMFNXAtBEH51iHxyMgJHrlY2XiVBwESouOBBV1zxtDBXD3G/iA/MCpKIUADlQ31Q/IcFpU68n5XDLU3UUXED9syHqCE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781516017; c=relaxed/simple;
+	bh=yQb4i7L4fkVtRHJ4+idKS19SbRqmGMMEdBwmSWp+lmo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lD8G1/zAk3+blEqpEWJzZoHe18NnitByEkz+4woCWSTPNdu8HM/XgH6lgsPlzezgcIzlX5K8qN+M60Tze5HkAsMxvIeYee0pp1w+80VN552SLw+Q4/qlzhweWgwVFQLQ1+1NIgJJ4FjIdTqDSGBISd+TQsvWytcgkpJ3vD1jGTc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S2dbtiXl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KZbDlHZF; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mvWhqZpr"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490acbb0f89so19981805e9.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:31:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S2dbtiXl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KZbDlHZF"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F9OT4b101629
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:33:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qG8HgDUNc/nKERmMalYGQVa0Hi+SFVzgKt5xGaQIVIs=; b=S2dbtiXldx5Ql60C
+	J7+12nSh5fUda9jkhJjD1zB/MbY8XFMoMFuoTOt78NWoMxcqh72cUpHdrxV7Yktt
+	KFwL3N2eypVQk1A/hiyvis9/9GDToStZGj99eBd4eCs501gdrYCA42VZJiqISlAf
+	kimP9DEFi9+SIdGt/RszZyKLAwlr1Uy03s5P8f65WSHRCsctKGbrKS1yzf953eBW
+	BXJek1dzt3vzZAXUa5HcUvQEI8qgxSo+3ravTy2cmkag0jh1WiiB5HpNenyRpYK1
+	9jtAZyLRbdlYrfSgb+LJyM63II7SYVpS1iF5m5XNGPsAXKQKC0AIfzDDPt7F23CA
+	lVpyeg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter2012w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:33:34 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51772325a64so40955301cf.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:33:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781516014; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Wqz69mxpKtagHKIS6P/1qnKrXq6csBqXjyMmI+smE+W1nwVMLcYpD9CjrXF4HlvvQy
+         9LyqYGKpdhwatbLp3AQKv2yOWJQcaOIPbgFzY4oy1Nk8PhWUD9wZCOqo2BUl5W2HuoKo
+         tjoB7IZ7g1OURS/SVOZNjIjLqnUFMcLbSDP1Vlulcr3wCjd0tW6bCLBaMedTfflsmgC2
+         liMKSih/Mb0Bh1RXDV1OaJD04WJjGN3zawsXzPJK7HVU5+ot1ApDqRQqfYOSjSF7lK5D
+         4/Ri2IEViYh9CdvNuCLOwLIgd5B+MWih6QDQqH5nOGqMwIB4ubGVf2/wwYOVAZuGi9yK
+         X/Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qG8HgDUNc/nKERmMalYGQVa0Hi+SFVzgKt5xGaQIVIs=;
+        fh=NQvzvBVg5myEdboxp2DMmozlxcKegZDFDso9i/Ibmkg=;
+        b=iq01PQV6mgJ+KEAFfHV0+9EqEh/x8WLPXlqE49ycz6uvGhTHz5vgzbXM3/u+s/1cPI
+         LmPeOOZ9L1xljmkBkq55IMy3uro4vRPI0wty7wXoKutE2U+XOswr/0g2Rx5Lc0uZq0e8
+         4i8OFQlgDG30KFIrr/py919Wc/Gm9HvdjSFWIYZevPY6CoISyOGbhvQt0uGw6ZZuk25Q
+         ccJNcElzWJD1/7F/EBKKzbq0TsGgI807meX/LcqDXWIEDR4hEPisOUhvQIyHJWPCqHpj
+         N/oXVl0jYGEhNaQkY3qIfeS9rgi2Cw2+uWChX3l5uSuUmvIrG0vvhon15q9R+lBD8ozc
+         u5/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781515881; x=1782120681; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LVG0gqQR+AbQ5MBVwgwnI3Wb6LtNeXCB2chKJo0Ac3s=;
-        b=mvWhqZprmtxbNd+ppX7kvxUBZGzebyfHRcw+SzKPn8bC/6YN/sBxLLXaUEyQeZGAsr
-         2PEQo6TRQxw6u781cy9RQ6DQWnwAHsCAxwExTIBeLs4pL2Qou62AYH/Dg8zJSEM7KuDC
-         nF2sCr3LnIBojy6Vf0PLE71t+EZ9ERBG3VBAXN8kk6FkNiasxEPXG+BFeHoUOj0ScgDo
-         CbRtxH+8QG/XzCd8Wyt1RrTo1PhZ59R60FQUcxRjimNQvLIRP+yyNfM1S9kwaMlmBTOu
-         SaSo9XEAjNrVAS8zheIPp7+eILZJVYbxdgiHL2xZleFGI5ZyxWL+/HBRe0P9R8O7qor9
-         RMQQ==
+        d=oss.qualcomm.com; s=google; t=1781516014; x=1782120814; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qG8HgDUNc/nKERmMalYGQVa0Hi+SFVzgKt5xGaQIVIs=;
+        b=KZbDlHZF3WPK8z6uUZg+Qpt4T4MM6I93LOSGpAq2i5ykdy28IBDsWM7GWAI9WiPxs3
+         tg0Do0SBS+G4OMwfUN0CR2EwnyZKHkDR8DeICRIuDiI2jCU8hdR1oseuR37yhuu0RquP
+         aZPx55z2sCmWAFF0iFA1wSLqWw9Mk56z9Ol1b1XwXTgTXi5cOIHB3O7AJM3U+3/WC6ey
+         LPYU9iE2PmFuxXFPOr15+eW841thomXgiUG9eYl25YZr5eDLnPoEPfy8MeDM17hODaGY
+         XG7N10rDjOAqQTRI0UsX9VkJ2B9/1kxxq1BAd6CnKw4hdtq0x/DeJvwNpXan2Og1ECBI
+         hF1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781515881; x=1782120681;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LVG0gqQR+AbQ5MBVwgwnI3Wb6LtNeXCB2chKJo0Ac3s=;
-        b=dDSQe/LrAnz/HHQNH9bDqGHDc5P0+8eEj8uiLCCaFxzbEK5v2gaBGow8fFo1ayylWA
-         Bw4oIr8rYtYHv6QD/0Damsh+PdzCzTZolT0HuapNL5gdX/3H1yl7lguQAfjI8a6A5/gd
-         dcI3ROe7MkR3I8J2BwWlM/HgYm2zhv/4FrZs9r7uS9QkmjGr88mNqXCeQ8fcePjJPX5g
-         U0lkEPr/FZAB6vi3Y125hINWJjiGXXA8y+bjonNNE0Rp2cMcfmNxmHfDXKvinvm/bhif
-         Ml5hw7N2x6p11tmGjUGj28uRYSbbTN/21MmERtrs2J6YjqWv1ugGaO6I/n7oGKERw1LV
-         Oofw==
-X-Forwarded-Encrypted: i=1; AFNElJ9pZzP4UWEmktZxgyuegxy+9thBhaNBSE/mj5OyND74i4L3rgduGWpgYD6Nd8DWtQXSzvWI+4hxnALT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxmaEtllgxZrErH9QVNHAUhR99QYKPz6ozRJiuhbjV5yZSl9aV
-	wTi+ywXJNqxX1htHntNdREmw41uPz7DC5aVN2Nei8ZBHC9KmjcQwSzBf+FAJTBkbE/U=
-X-Gm-Gg: Acq92OHhsklEsDcJCozp1xk2OwNEtPHICw3jUlQJgFEfpCUqBmsuPc4O7bRnOOnbCyf
-	49Or0k1wETi1gGlUxefazBtchpVBCDDlNEmncEJLdQVRXVkjJi++zpVBHN2evl/goh6u0qXAZ7G
-	Ks+g60uxeBZcIjBlod+4edsmwoxsIcAJbA7td5K0dqO6wMOlCV2AeHQyx/RD7qFTJP0K+fgtiaU
-	RRNbc8l2f0+GTVOk9nrYP6UzBd38ANGIi41PNJ8ig5LykPzioPJLgu2Yxvj+DEm1azHjQgbEq8Z
-	RO46OPF1B6GM/X2SYFmmSz2r+kEPHrJnZ/kB9umwlH8YMiFSkqMdKUGhY/clsjREg0twGjhcvwD
-	y1TD5bbqz7OJflNSSHu7GDj3CvcU8MHHHssDdtBYqyrDWguxE6bgXnhFOIfYYarPimix8vstigH
-	EDSDBF+83aTz9snN5w/1vEj1AE4Y2cy7aiALU6CxB/89bhw9sOtHp8+oVg3vI5NjR+rDZI3WVUO
-	8vrtgk=
-X-Received: by 2002:a7b:cbd3:0:b0:492:834:24a2 with SMTP id 5b1f17b1804b1-49220095624mr77804975e9.16.1781515881269;
-        Mon, 15 Jun 2026 02:31:21 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:fdaf:c588:880d:106a? ([2a01:e0a:106d:1080:fdaf:c588:880d:106a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f264333sm33319260f8f.4.2026.06.15.02.31.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 02:31:20 -0700 (PDT)
-Message-ID: <a5a957d0-a40c-424e-9d6d-622a4f624343@linaro.org>
-Date: Mon, 15 Jun 2026 11:31:20 +0200
+        d=1e100.net; s=20251104; t=1781516014; x=1782120814;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=qG8HgDUNc/nKERmMalYGQVa0Hi+SFVzgKt5xGaQIVIs=;
+        b=Kf8xoiAcHCGkxiPSMHVCoygsUQlt/NYBKFtVF0Yq6pikCvwTNhpWBEC35qJr4IwIoq
+         1Jz59iGtpLcKYmeoE0jcCz02njNCNb0hQvZMxm6eG7zm1hGUio+bQ5+JP0SFk9rG0sMS
+         Or1BvJALzGx/AB+sudrWJkJuf/zsAIUmEPE5e5RPW/jqOh1JrMdF3S5NsFXP5vc5DzQN
+         RXnHzsa/7NcfK4AyWmERsq4PAKaseYeEGZQtBrhPBiy9KYoISVIJ/ixMVwYZGnIdaTmI
+         GhFr+oFaEv/t+DsZjecR3ZIeMfaXCsjASrokiEQ+8C1RMIhwDhpy8GDkZxr/uEvf2JaX
+         fDJw==
+X-Forwarded-Encrypted: i=1; AFNElJ9zwVPiIxFvw19bbEApJiPIeVihFCOTOputwUq8cF8Niuu2dJNxke0EnuUq/8W2DW41STV1P6vaNsG9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFL4CBzoukU4hO6cWKRUbZAioxcEXN1VU8rmOOhi3Ydlie0WGQ
+	O0Mg5jKMYJqbFy1uH7qf12iVfK8OcTuKFq/Ed8H6Wq/qmt4YvJo1yEfPO4D4qmj2lkqKGkMU7p0
+	m/gJPfBGbiTS5NN6XLPX0qlJPux1VCxBJjEDsgQXcV/KpZk18ab1whoX7VwB3C2hqL4nJDCz2c/
+	w+1XFMVyQTIRutEwj7fr6arbiJIlYr5Pf9RmHIx6w=
+X-Gm-Gg: Acq92OGeDFsZ4G8gl2TO+MEv0e8dLOr58Wfdp17rncqEEMG3Vn6hnixeMEvvRbCmLLp
+	mHc0I/HAv6ec5n9r2q7nT3jNpHEn+kttn/Z4Ar4ITF0bs4KoxHx0ulb8+8ZQ65kr0R/0ilbAbKd
+	Krp+HIRU8I/Jwu9ua4hGrU1/CUEybbuunYEP61GpXZc+5jjkrTnjSe9lCxAZdc6f+p/EJBcI40i
+	zRChIAKIVtG8kHkjDbTngT673gcfIAhOmNn47qdxApp61B2GJdPQdnPCE48wUIZKsXk1VMncVnv
+	7oJUtj332KOa4RAKd12F
+X-Received: by 2002:a05:620a:4552:b0:916:1726:4893 with SMTP id af79cd13be357-9161bbfd132mr2043633885a.16.1781516013856;
+        Mon, 15 Jun 2026 02:33:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:4552:b0:916:1726:4893 with SMTP id
+ af79cd13be357-9161bbfd132mr2043628485a.16.1781516013345; Mon, 15 Jun 2026
+ 02:33:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/4] ASoC: qcom: audioreach: compute active channel maps
- from channel_map
-To: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
- <937aed10-9ec6-4ca4-bc60-db892121a416@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <937aed10-9ec6-4ca4-bc60-db892121a416@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260612-block-as-nvmem-v5-0-95e0b30fff90@oss.qualcomm.com>
+ <20260612-block-as-nvmem-v5-5-95e0b30fff90@oss.qualcomm.com>
+ <CAMRc=McQkLnz2OS2RREAbcrsp47cL-W3bCduq8LwPBBUcVNyJw@mail.gmail.com> <CAFEp6-0qsqhcwnSjm3=bG21jsCktzn5-L5sk2pNTZcGuVXaiNA@mail.gmail.com>
+In-Reply-To: <CAFEp6-0qsqhcwnSjm3=bG21jsCktzn5-L5sk2pNTZcGuVXaiNA@mail.gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 11:33:22 +0200
+X-Gm-Features: AVVi8CfBRys-DXFI5wrB8yqdywy7X_kfmKpyDKlwYIcwcR0i_tSHWZVN9l-o_rA
+Message-ID: <CAFEp6-0oxBEdfH-fqhdM18pt4JewLwrMOON9qpQgLFh8KS0hDg@mail.gmail.com>
+Subject: Re: [PATCH v5 5/9] block: implement NVMEM provider
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
+        netdev@vger.kernel.org, daniel@makrotopia.org,
+        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Saravana Kannan <saravanak@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEwMCBTYWx0ZWRfX73HqAiS9iYd9
+ 4I8NPVM7Ni/4QPjSndn3puu4bf9A8OQnpqfwIo3Jup0aQKmHaRFuu13XQXJ//kWLFQXzpUaKBdf
+ Few4YugHvi+vLmK9MuORcJxS2mNtmwQ=
+X-Proofpoint-GUID: DaoLx98NJEoWGQ2ynscBPDQCwGEOoXba
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEwMCBTYWx0ZWRfX5oOmcPKFdcnG
+ IQwWgwPW3IBgTzDlodQ7oiQJKYSHPXP6kCB7oQ0gUxD83vf92JYmXcqN7jez0xm+cKW76XBdDg0
+ DD2Xx442DdUxgZ3ByrNgOJnHXplfssh/2GqeC4tW6x2bxGpbYEg+xGAgynXbTpyoNTV3htMm7B/
+ JA+lCwfjxgy06OWJnanWi4geOeKHvKLs3Y16aVlBvr7StIh2Iiu889UvgYC0bbb4aCv5PHvQPbk
+ 6Zk0BLosc5KawFIu2RcrMuwwrJIuP+nDlMkKhbxROkNKaPARYRrFjlmydtAbBLtSA42lHlJ6oDe
+ GVgwNc3p4FPVvaVS/zRarCVyoD+oNjWIqveMVLSjIf9pKEajgDajaVKkZ3CNWIpsg/bvokW5b1c
+ 2SjPfkFMh1svjah0bXFRzTUybH1nzlaKwWYHa6yvv/p9Z8BxlqZSSpiiaZFv4xJlFZRNijSU7oI
+ UmQKhBFuxmPaC3rHlfw==
+X-Authority-Analysis: v=2.4 cv=F4tnsKhN c=1 sm=1 tr=0 ts=6a2fc6ee cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=VT4XjZGOAAAA:8
+ a=NvFwrZXXSFNSu_oYZZQA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=6CpsfURP9XNmmWg3j1mJ:22
+X-Proofpoint-ORIG-GUID: DaoLx98NJEoWGQ2ynscBPDQCwGEOoXba
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606150100
 
-On 6/15/26 10:38, Srinivas Kandagatla wrote:
-> 
-> 
-> On 6/10/26 8:41 AM, Neil Armstrong wrote:
->> The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
->> of 2 WSA speakers connected on the WSA2 lines.
->>
->> But the Audioreach DSP only handles WSA2 in pair with the WSA
->> interface by using the upper bits of the active_channels_mask
->> for WSA2 and the lower bits for WSA:
->>
->> /-------------------------------------------------\
->> | Bits  |     3    |     2    |   1     |     0   |
->> |-------------------------------------------------|
->> | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
->> \-------------------------------------------------/
->>
-> No, this is not totally correct, if the setup only has WSA2, then
-> channel 0 and 1 should be WSA2 channels.
-> 
-> What is the backend dai id that is in DT, it should be
-> 
-> 	sound-dai = <&q6apmbedai WSA2_CODEC_DMA_RX_0>;
-> 
-> I also noticed that you are using
-> https://github.com/linux-msm/audioreach-topology/blob/main/SM8550-HDK.m4
-> which has WSA as backend dai, that is not correct, you should have WSA2.
+On Mon, Jun 15, 2026 at 11:28=E2=80=AFAM Loic Poulain
+<loic.poulain@oss.qualcomm.com> wrote:
+>
+> On Mon, Jun 15, 2026 at 10:53=E2=80=AFAM Bartosz Golaszewski <brgl@kernel=
+.org> wrote:
+> >
+> > On Fri, 12 Jun 2026 15:20:57 +0200, Loic Poulain
+> > <loic.poulain@oss.qualcomm.com> said:
+> > > From: Daniel Golle <daniel@makrotopia.org>
+> > >
+> > > On embedded devices using an eMMC it is common that one or more parti=
+tions
+> > > on the eMMC are used to store MAC addresses and Wi-Fi calibration EEP=
+ROM
+> > > data. Allow referencing the partition in device tree for the kernel a=
+nd
+> > > Wi-Fi drivers accessing it via the NVMEM layer.
+> > >
+> > > For now, NVMEM is only registered for the whole disk block device, as=
+ the
+> > > OF node is currently only associated to it.
+> > >
+> > > Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> > > Co-developed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > > ---
+> > >  block/Kconfig             |   9 ++++
+> > >  block/Makefile            |   1 +
+> > >  block/blk-nvmem.c         | 109 ++++++++++++++++++++++++++++++++++++=
+++++++++++
+> > >  block/blk.h               |   8 ++++
+> > >  block/genhd.c             |   4 ++
+> > >  include/linux/blk_types.h |   3 ++
+> > >  include/linux/blkdev.h    |   1 +
+> > >  7 files changed, 135 insertions(+)
+> > >
+> > > diff --git a/block/Kconfig b/block/Kconfig
+> > > index 15027963472d7b40e27b9097a5993c457b5b3054..0b33747e16dc334736837=
+06f75c92bdf8b648f7c 100644
+> > > --- a/block/Kconfig
+> > > +++ b/block/Kconfig
+> > > @@ -209,6 +209,15 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
+> > >         by falling back to the kernel crypto API when inline
+> > >         encryption hardware is not present.
+> > >
+> > > +config BLK_NVMEM
+> > > +     bool "Block device NVMEM provider"
+> > > +     depends on OF
+> > > +     depends on NVMEM
+> > > +     help
+> > > +       Allow block devices (or partitions) to act as NVMEM providers=
+,
+> > > +       typically used with eMMC to store MAC addresses or Wi-Fi
+> > > +       calibration data on embedded devices.
+> > > +
+> > >  source "block/partitions/Kconfig"
+> > >
+> > >  config BLK_PM
+> > > diff --git a/block/Makefile b/block/Makefile
+> > > index 7dce2e44276c4274c11a0a61121c83d9c43d6e0c..d7ac389e71902bc091a88=
+00ea266190a43b3e63d 100644
+> > > --- a/block/Makefile
+> > > +++ b/block/Makefile
+> > > @@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION) +=3D blk-crypto=
+.o blk-crypto-profile.o \
+> > >                                          blk-crypto-sysfs.o
+> > >  obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) +=3D blk-crypto-fallbac=
+k.o
+> > >  obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)        +=3D holder.o
+> > > +obj-$(CONFIG_BLK_NVMEM)                +=3D blk-nvmem.o
+> > > diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
+> > > new file mode 100644
+> > > index 0000000000000000000000000000000000000000..c005f059d9fe56242ebae=
+f9905673dff902b5686
+> > > --- /dev/null
+> > > +++ b/block/blk-nvmem.c
+> > > @@ -0,0 +1,109 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > > +/*
+> > > + * block device NVMEM provider
+> > > + *
+> > > + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
+> > > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries=
+.
+> > > + *
+> > > + * Useful on devices using a partition on an eMMC for MAC addresses =
+or
+> > > + * Wi-Fi calibration EEPROM data.
+> > > + */
+> > > +
+> > > +#include <linux/file.h>
+> > > +#include <linux/nvmem-provider.h>
+> > > +#include <linux/nvmem-consumer.h>
+> > > +#include <linux/of.h>
+> > > +#include <linux/pagemap.h>
+> > > +#include <linux/property.h>
+> > > +
+> > > +#include "blk.h"
+> > > +
+> > > +static int blk_nvmem_reg_read(void *priv, unsigned int from, void *v=
+al, size_t bytes)
+> > > +{
+> > > +     blk_mode_t mode =3D BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
+> > > +     dev_t devt =3D (dev_t)(uintptr_t)priv;
+> > > +     size_t bytes_left =3D bytes;
+> > > +     loff_t pos =3D from;
+> > > +     int ret =3D 0;
+> > > +
+> > > +     struct file *bdev_file __free(fput) =3D bdev_file_open_by_dev(d=
+evt, mode, priv, NULL);
+> > > +     if (IS_ERR(bdev_file))
+> > > +             return PTR_ERR(bdev_file);
+> > > +
+> > > +     while (bytes_left) {
+> > > +             pgoff_t f_index =3D pos >> PAGE_SHIFT;
+> > > +             struct folio *folio;
+> > > +             size_t folio_off;
+> > > +             size_t to_read;
+> > > +
+> > > +             folio =3D read_mapping_folio(bdev_file->f_mapping, f_in=
+dex, NULL);
+> > > +             if (IS_ERR(folio)) {
+> > > +                     ret =3D PTR_ERR(folio);
+> > > +                     break;
+> > > +             }
+> > > +
+> > > +             folio_off =3D offset_in_folio(folio, pos);
+> > > +             to_read =3D min(bytes_left, folio_size(folio) - folio_o=
+ff);
+> > > +             memcpy_from_folio(val, folio, folio_off, to_read);
+> > > +             pos +=3D to_read;
+> > > +             bytes_left -=3D to_read;
+> > > +             val +=3D to_read;
+> > > +             folio_put(folio);
+> > > +     }
+> > > +
+> > > +     return ret;
+> > > +}
+> > > +
+> > > +void blk_nvmem_add(struct block_device *bdev)
+> > > +{
+> > > +     struct device *dev =3D &bdev->bd_device;
+> > > +     struct nvmem_config config =3D {};
+> > > +
+> > > +     /* skip devices which do not have a device tree node */
+> > > +     if (!dev_of_node(dev))
+> > > +             return;
+> > > +
+> > > +     /* skip devices without an nvmem layout defined */
+> > > +     struct device_node *child __free(device_node) =3D
+> > > +             of_get_child_by_name(dev_of_node(dev), "nvmem-layout");
+> > > +     if (!child)
+> > > +             return;
+> > > +
+> > > +     /*
+> > > +      * skip block device too large to be represented as NVMEM devic=
+es,
+> > > +      * the NVMEM reg_read callback uses an unsigned int offset
+> > > +      */
+> > > +     if (bdev_nr_bytes(bdev) > UINT_MAX) {
+> > > +             dev_warn(dev, "block device too large to be an NVMEM pr=
+ovider\n");
+> > > +             return;
+> > > +     }
+> > > +
+> > > +     config.id =3D NVMEM_DEVID_NONE;
+> > > +     config.dev =3D dev;
+> > > +     config.name =3D dev_name(dev);
+> > > +     config.owner =3D THIS_MODULE;
+> > > +     config.priv =3D (void *)(uintptr_t)dev->devt;
+> > > +     config.reg_read =3D blk_nvmem_reg_read;
+> > > +     config.size =3D bdev_nr_bytes(bdev);
+> > > +     config.word_size =3D 1;
+> > > +     config.stride =3D 1;
+> > > +     config.read_only =3D true;
+> > > +     config.root_only =3D true;
+> > > +     config.ignore_wp =3D true;
+> > > +     config.of_node =3D to_of_node(dev->fwnode);
+> > > +
+> > > +     bdev->bd_nvmem =3D nvmem_register(&config);
+> > > +     if (IS_ERR(bdev->bd_nvmem)) {
+> > > +             dev_err_probe(dev, PTR_ERR(bdev->bd_nvmem),
+> > > +                           "Failed to register NVMEM device\n");
+> >
+> > Using dev_err_probe() only makes sense with a return value. Which makes=
+ me
+> > think: we won't retry this after a probe deferral. I think we should re=
+turn
+>
+> Yes, so here with the nvmem fixed-layout, there is no way to get a
+> deferred probe error, but better to be ready to handle this anyway.
+>
+> > int from this function just for this use-case. Also: if we *do* have
+> > a layout, shouldn't we treat a failure to register the nvmem provider a=
+s
+> > a an error and propagate it up the stack?
+>
+> From an API perspective we should indeed return the error. From block
+> core, Do we want to fail the entire disk addition just because the
+> 'companion' NVMEM provider couldn't be registered, or should we only
+> abort/return in case of EPROBE_DEFER?
 
-So I did try that, and DSP would error out when using the LPAIF_INTF_TYPE_WSA2,
-but I'm retrying from scratch right now.
+Also we cannot safely return -EPROBE_DEFER from add_disk_final()
+either. The NVMEM registration point is late in the sequence, too much
+has already happened to easily unwind. The easiest is that the NVMEM
+simply won't be available if registration fails, which looks
+acceptable?
 
-Thanks,
-Neil
-
-> 
-> 
->> Setting only the WSA2 upper bits is perfectly valid and
->> functional but the current Audioreach code builds the bitmask
->> from the channels count with:
->> 	active_channels_mask = (1 << num_channels) - 1;
->>
->> In order to enable the WSA2 bits the channel count should be 4,
->> but the lower WSA bits are then also enabled and the DSP errors
->> out when trying to play on the disabled WSA interface.
->>
->> A solution would've been to add a fake WSA2 topology element which
->> would be translated into the top bits only, but it's not clean and
->> add some special exceptions in the generic Audioreach code.
->>
->> The solution suggested by Srinivas is to use the channel mapping to
->> set this bitmask.
->>
->> This works but makes all the other calls using the channel mapping fail
->> because the DSP requires the channel_mapping table to start from index 0
->> and using num_channel length in order to apply the mapping on the
->> active_channels_mask bits in order.
->>
->> So we need to skip the empty channel mapping entries in all other
->> users of the channel_map to build valid channel_mapping tables.
->>
->> This should not break any other usecases since the default channel
->> mapping always start from index 0, and will add flexibilty to allow
->> some special non linear mapping for other interfaces as well.
->>
->> Suggested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
->>   sound/soc/qcom/qdsp6/audioreach.c | 47 ++++++++++++++++++++++++++++++---------
->>   1 file changed, 37 insertions(+), 10 deletions(-)
->>
->> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
->> index a13f753eff98..9b80cfa56e8a 100644
->> --- a/sound/soc/qcom/qdsp6/audioreach.c
->> +++ b/sound/soc/qcom/qdsp6/audioreach.c
->> @@ -703,6 +703,7 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->>   	int pm_sz = APM_HW_EP_PMODE_CFG_PSIZE;
->>   	int size = ic_sz + ep_sz + fs_sz + pm_sz;
->>   	void *p;
->> +	int i;
->>   
->>   	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(size, APM_CMD_SET_CFG, 0);
->>   	if (IS_ERR(pkt))
->> @@ -741,7 +742,12 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->>   
->>   	intf_cfg->cfg.lpaif_type = module->hw_interface_type;
->>   	intf_cfg->cfg.intf_index = module->hw_interface_idx;
->> -	intf_cfg->cfg.active_channels_mask = (1 << cfg->num_channels) - 1;
->> +	intf_cfg->cfg.active_channels_mask = 0;
->> +	/* Convert the physical channel mapping into a bit field */
->> +	for (i = 0; i < AR_PCM_MAX_NUM_CHANNEL; i++)
->> +		if (cfg->channel_map[i])
->> +			intf_cfg->cfg.active_channels_mask |= BIT(i);
->> +
-> 
-> This one looks good, this should be a bug fix patch.
-> 
->>   	p += ic_sz;
->>   
->>   	pm_cfg = p;
->> @@ -840,7 +846,7 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->>   	uint32_t num_channels = cfg->num_channels;
->>   	int payload_size = APM_MFC_CFG_PSIZE(media_format, num_channels) +
->>   				APM_MODULE_PARAM_DATA_SIZE;
->> -	int i;
->> +	int i, j;
->>   	void *p;
->>   
->>   	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0);
->> @@ -860,8 +866,12 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->>   	media_format->sample_rate = cfg->sample_rate;
->>   	media_format->bit_width = cfg->bit_width;
->>   	media_format->num_channels = cfg->num_channels;
->> -	for (i = 0; i < num_channels; i++)
->> -		media_format->channel_mapping[i] = cfg->channel_map[i];
->> +	/* Convert the physical mapping to a logical mapping of the channels */
->> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
->> +		if (!cfg->channel_map[i])
->> +			continue;
->> +		media_format->channel_mapping[j++] = cfg->channel_map[i];
-> Each element i of the channel_mapping[i] array, describes the channel i
-> inside the buffer where i is less than num_channels.  An unused channel
-> is set to 0.
-> 
-> For some reason I get impression that user is trying to set a 4 channels
-> instead of 2 channel.
-> 
-> Can you fix the backend-dai id and play it directly on WSA2 instead of WSA.
-> Or was there a reason for not doing it otherwise?
-> 
-> --srini
-> 
->> +	}
->>   
->>   	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->>   }
->> @@ -1080,6 +1090,7 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->>   	struct apm_pcm_module_media_fmt_cmd *cfg;
->>   	struct apm_module_param_data *param_data;
->>   	int payload_size;
->> +	int i, j;
->>   
->>   	if (num_channels > 4) {
->>   		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
->> @@ -1113,7 +1124,12 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->>   	media_cfg->num_channels = mcfg->num_channels;
->>   	media_cfg->q_factor = mcfg->bit_width - 1;
->>   	media_cfg->bits_per_sample = mcfg->bit_width;
->> -	memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
->> +	/* Convert the physical mapping to a logical mapping of the channels */
->> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg->num_channels; i++) {
->> +		if (!mcfg->channel_map[i])
->> +			continue;
->> +		media_cfg->channel_mapping[j++] = mcfg->channel_map[i];
->> +	}
->>   
->>   	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->>   }
->> @@ -1127,6 +1143,7 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->>   	struct payload_media_fmt_pcm *cfg;
->>   	struct media_format *header;
->>   	int rc, payload_size;
->> +	int i, j;
->>   	void *p;
->>   
->>   	if (num_channels > 4) {
->> @@ -1166,7 +1183,12 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->>   		cfg->q_factor = mcfg->bit_width - 1;
->>   		cfg->endianness = PCM_LITTLE_ENDIAN;
->>   		cfg->num_channels = mcfg->num_channels;
->> -		memcpy(cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
->> +		/* Convert the physical mapping to a logical mapping of the channels */
->> +		for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
->> +			if (!mcfg->channel_map[i])
->> +				continue;
->> +			cfg->channel_mapping[j++] = mcfg->channel_map[i];
->> +		}
->>   	} else {
->>   		rc = audioreach_set_compr_media_format(header, p, mcfg);
->>   		if (rc)
->> @@ -1243,7 +1265,7 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->>   	struct apm_module_sp_vi_ex_mode_cfg *ex_cfg;
->>   	int op_sz, cm_sz, ex_sz;
->>   	struct apm_module_param_data *param_data;
->> -	int rc, i, payload_size;
->> +	int rc, i, payload_size, j;
->>   	struct gpr_pkt *pkt;
->>   	void *p;
->>   
->> @@ -1284,14 +1306,19 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->>   	param_data->param_size = cm_sz - APM_MODULE_PARAM_DATA_SIZE;
->>   
->>   	cm_cfg->cfg.num_channels = num_channels * 2;
->> -	for (i = 0; i < num_channels; i++) {
->> +	/* Convert the physical mapping to a logical mapping of the channels */
->> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < num_channels; i++) {
->> +		if (!mcfg->channel_map[i])
->> +			continue;
->>   		/*
->>   		 * Map speakers into Vsense and then Isense of each channel.
->>   		 * E.g. for PCM_CHANNEL_FL and PCM_CHANNEL_FR to:
->>   		 * [1, 2, 3, 4]
->>   		 */
->> -		cm_cfg->cfg.channel_mapping[2 * i] = (mcfg->channel_map[i] - 1) * 2 + 1;
->> -		cm_cfg->cfg.channel_mapping[2 * i + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
->> +		cm_cfg->cfg.channel_mapping[2 * j] = (mcfg->channel_map[i] - 1) * 2 + 1;
->> +		cm_cfg->cfg.channel_mapping[2 * j + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
->> +
->> +		++j;
->>   	}
->>   
->>   	p += cm_sz;
->>
-> 
-
+>
+> >
+> > > +             bdev->bd_nvmem =3D NULL;
+> > > +     }
+> > > +}
+> > > +
+> > > +void blk_nvmem_del(struct block_device *bdev)
+> > > +{
+> > > +     if (bdev->bd_nvmem)
+> >
+> > Nvmem core already performs a NULL check.
+>
+> Ok, thanks!
+>
+>
+> >
+> > > +             nvmem_unregister(bdev->bd_nvmem);
+> > > +
+> > > +     bdev->bd_nvmem =3D NULL;
+> > > +}
+> > > diff --git a/block/blk.h b/block/blk.h
+> > > index ec4674cdf2ead4fd259ff5fc42401f591e684ee9..cd3c7ca723391c40be56f=
+1dd4810e641b7c8a2b3 100644
+> > > --- a/block/blk.h
+> > > +++ b/block/blk.h
+> > > @@ -757,4 +757,12 @@ static inline void blk_debugfs_unlock(struct req=
+uest_queue *q,
+> > >       memalloc_noio_restore(memflags);
+> > >  }
+> > >
+> > > +#ifdef CONFIG_BLK_NVMEM
+> > > +void blk_nvmem_add(struct block_device *bdev);
+> > > +void blk_nvmem_del(struct block_device *bdev);
+> > > +#else
+> > > +static inline void blk_nvmem_add(struct block_device *bdev) {}
+> > > +static inline void blk_nvmem_del(struct block_device *bdev) {}
+> > > +#endif
+> > > +
+> > >  #endif /* BLK_INTERNAL_H */
+> > > diff --git a/block/genhd.c b/block/genhd.c
+> > > index 7d6854fd28e95ae9134309679a7c6a937f5b7db8..1b2382de6fb30c1e5f60f=
+45c04dc03ed3bf5d5f2 100644
+> > > --- a/block/genhd.c
+> > > +++ b/block/genhd.c
+> > > @@ -421,6 +421,8 @@ static void add_disk_final(struct gendisk *disk)
+> > >                */
+> > >               dev_set_uevent_suppress(ddev, 0);
+> > >               disk_uevent(disk, KOBJ_ADD);
+> > > +
+> > > +             blk_nvmem_add(disk->part0);
+> > >       }
+> > >
+> > >       blk_apply_bdi_limits(disk->bdi, &disk->queue->limits);
+> > > @@ -704,6 +706,8 @@ static void __del_gendisk(struct gendisk *disk)
+> > >
+> > >       disk_del_events(disk);
+> > >
+> > > +     blk_nvmem_del(disk->part0);
+> > > +
+> > >       /*
+> > >        * Prevent new openers by unlinked the bdev inode.
+> > >        */
+> > > diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+> > > index 8808ee76e73c09e0ceaac41ba59e86fb0c4efc64..ace6f59b860d0813665b2=
+f62a1c03a1f4be94059 100644
+> > > --- a/include/linux/blk_types.h
+> > > +++ b/include/linux/blk_types.h
+> > > @@ -73,6 +73,9 @@ struct block_device {
+> > >       int                     bd_writers;
+> > >  #ifdef CONFIG_SECURITY
+> > >       void                    *bd_security;
+> > > +#endif
+> > > +#ifdef CONFIG_BLK_NVMEM
+> > > +     struct nvmem_device     *bd_nvmem;
+> > >  #endif
+> > >       /*
+> > >        * keep this out-of-line as it's both big and not needed in the=
+ fast
+> > > diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> > > index 890128cdea1ce66863c5baa36f3b336ec4550807..f15d2b5bf9e4fd2368b8a=
+70416a978e22c0d4333 100644
+> > > --- a/include/linux/blkdev.h
+> > > +++ b/include/linux/blkdev.h
+> > > @@ -30,6 +30,7 @@
+> > >
+> > >  struct module;
+> > >  struct request_queue;
+> > > +struct nvmem_device;
+> > >  struct elevator_queue;
+> > >  struct blk_trace;
+> > >  struct request;
+> > >
+> > > --
+> > > 2.34.1
+> > >
+> > >
+> >
+> > I like this approach better than the previous one.
+> >
+> > Thanks,
+> > Bartosz
