@@ -1,135 +1,187 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736D03FA5CA
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7FF3FBECE;
+	Mon, 15 Jun 2026 14:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534405; cv=none; b=YtrBFwA6EEelqDZgPOUAMZUG5rx13RrZsEvBlGePlWx+b0+GbXpk6Lai5EA39ky9E6fT/9BG9oYFC7B/8DF/vbwuOoeEwwBUEJhlYGhcbCnVV6R9+8SL+b6Iv4aeXxwK1brJQlvVu6nEFHF252H9YkEnfgZRYPi/EClsst+3R7U=
+	t=1781534607; cv=none; b=k2jBe19v8PKrmoOnTlcF1edZ7g9fyOh9h5OiUsqbA2ET2kRXFFfCK2jUXHaPO7dTODsQpSNUaP9ty8FjBgcEs5ctSDRTyxiaTwqo0Jku/0PQqGf5CMWrozZidRH7os7eUO6GneZeNrs7x5ijU9hgFHVwY+u92q6qW7V/HpGgg6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534405; c=relaxed/simple;
-	bh=m66F2sL25SNBJsCp1T2HIzM0RPg0EP/lLtzkItOGeTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KkUyDNm3gQ3L+v3TYo+LToBb5IOEXkO/6vLMrENcSDmzFEO30hwcwglr94qYIu0GhNKMgral/tz6z9TnLAWrSw7CSYq4Qu7Jkf11Btwbz2i0SJ1xQLGWl7Sbt+n8IQbhd4UYqsHURW3unNuM79dNGnSCAh1LxXyyCPa409JpQYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H9Y5BAEC; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781534607; c=relaxed/simple;
+	bh=KFhiv7ZY9NvifF6eaVaM6d2i696gChhNL8L7Sqi6BwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KxfncB+8kAvfXOkoipTe0zYJyjMvc4etlGsmLXIBVIuK9u1NnhlfeIyAVdKQ3sPHgxdLOcR+zHTRIAlF+j66E01pNJGmD7MyxFofePvsYw51ipi/VJHVpEs1YTb5sCewAxjSyIDwXzbTJBqhfDLr6IWYU2ExFrjP5j0ATnO5ZWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EjzfOp+G; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H9Y5BAEC"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49222b6e871so20594315e9.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:40:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781534403; x=1782139203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZU/52Hsil9tk4JLlHlSaydCvbsd+hTRfmIz26QTpIbs=;
-        b=H9Y5BAECGBOY2rbXHVx/Ncm+oMUbsHX6DeIkcju8psO5UMzVbfTzn0mVFtNI/M+2SM
-         fTfxRjEcRQsN/vLyEhtYhDulpBatU4M2xOUqa0GOaXy+PWt4bfcwOvPyxo9Xug3sKTe5
-         yN67/3Vy23shGqNf4+xbaJAvTKXzgaLVb3++o2z9OLvve+5Gbi3z5GtKZi8KRyQPJJP/
-         YK7NVxxBUU6JDxXEOvjt9nqwB0T+o9ZG2xOPK7O1PJgvxDaR1FJKmxlemW7cXta+bDVW
-         OxqbZ5MgMAa607Qhyl/EoWPm5cYWpF9i4sGINfc3MmSPWP5LX1QGXdV75DWvrnblHgT+
-         kcRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781534403; x=1782139203;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ZU/52Hsil9tk4JLlHlSaydCvbsd+hTRfmIz26QTpIbs=;
-        b=TTCdCZGJ+V0fiaATJ1WVEF+/rUZnoH3gPild7TL3Jio+WaflC0jFgfZCKi/ZGVXz+O
-         e1ZSt3CvJ/XJ2ewMbSqmgpFw+PTspr9DslMOcmQqCJxMyOKULReXXbT8V9wRk1VAUKEP
-         hzofhjyife+JfWBMRx1R8BLbNBgLbz+kbbTC2ZNlxSH8Y0iSZmmbkcknkhV8eDMr6R5n
-         FGYiyK/4Q/BygNIZ301CS189KNv+AnTpdBC4APHNaHTIYkoJ2wflooGVOdimrsVv9vMd
-         jKd2nn2StEixUhTJlP+ktfW7aaiFZqMXAAVq5FKpDk2mnSxny4Ee/XvoUzEeyPXr3HJD
-         VkWQ==
-X-Forwarded-Encrypted: i=1; AFNElJ92DkxC3E2D3iQk11QYEftyX4ftWtTIDFYOm8ACg5oPrDHFMtl7FyqUADhtWXB+vvj/Gd57+8tEc/yw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNZmig2pf4lxw9O3AVNva7wgHgOGxBs84JM/l15bDQlrq2PRfi
-	mG6fw17PRYJX9cBoe5VQCm76M4Q9z7PDFZVqdSmrDGwx0cHpoHeGXAIO
-X-Gm-Gg: Acq92OH4J4ylg0biH/F90jyB5pYiAyRuXpPeF9Hd875wPnAIJLSVW/V5kkGV9l4wamR
-	urTqx5jhoVZrUAvEqp4bTjHTSuPwtAQezAECjMiNYgLLn4eh4wTctyKSVeO8oOsa7UcmnTqOLj0
-	JEC/VUOzSL5ROsyjdc1g6woT0ZDGYH+Pk2IcNCNCMN2UqEHxm2qjmjF05mhGVdZzObH1twsbv+v
-	JL8iVdM0tT/Ijf4WIBoO94BAswmeqbPSBSLsiQ8zbnH5B58TOvRX/f1aVxUp3ZgmJ15pZsPAXjF
-	G5GHQHkKVIK8ZrB7aARCXcQyA8MVGMZFr/qPkYOHlOQ7a2sGYqwoop/OvGxeeWqlY8puKTWZKnI
-	tN255kSQ5Om5hlAbUGXnYRmuUJjhqwd7dfGc8kAFPPMhA9RemllsjJXAnqouaaUc+sM6OgKy0dr
-	VEADil6Vh6Hf2Dc6VCkAmbiZBHjTrH3zrxWRaLRthagcucl1mXUSuwbhqgYyKdbhMiGeV3UaGnM
-	ZzI9I/W7RGUFTOPTKgJ9xWEdov7JuzXcIqQ
-X-Received: by 2002:a05:600c:8b56:b0:490:e60b:5fb5 with SMTP id 5b1f17b1804b1-490ec527e4emr178094045e9.34.1781534402500;
-        Mon, 15 Jun 2026 07:40:02 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:1e4:992f:3ad2:4f2b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203c05ebsm256627915e9.9.2026.06.15.07.40.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 07:40:01 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 2/2] clk: renesas: r9a09g077: Add RTC clocks
-Date: Mon, 15 Jun 2026 15:39:43 +0100
-Message-ID: <20260615143943.1610095-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260615143943.1610095-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615143943.1610095-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EjzfOp+G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781534606; x=1813070606;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KFhiv7ZY9NvifF6eaVaM6d2i696gChhNL8L7Sqi6BwA=;
+  b=EjzfOp+GOSmpGfoHwX3XOZaA0mWIYVfygC8qs+AcRaiwFUHvTysPwj0g
+   eJyVzV+PSAM6wTFVGi3pnNfYLRKPkRrVL4GlsRHPiXv1u/onXNXTpRAyS
+   NqMAIeKYp/EmU4wdTg037F6tIKUHylBZQLudDMvSo79HrBggCRAvvuma1
+   eSGX+yS3iBAT5wu+d4+eSnMyBJuYEYDuQaz1da+Q78TAVohdIpIHFzf/O
+   SMlN7Wi9k6Vsot1XYGcx2D3QX8PEungTwi3TZI28ZXoUms1+304tflBok
+   olwJ5FnlRcQ2ULhdPAFUGNw0OAN8QrIhv15TtKZjMkit1DiJvSMRGt+Gf
+   Q==;
+X-CSE-ConnectionGUID: X4sMJU/8RDqIJydfw6+tIA==
+X-CSE-MsgGUID: nQsFH/B/SKy7OtY/srIlQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="99851469"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="99851469"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:43:25 -0700
+X-CSE-ConnectionGUID: DOj26RyoTMaML0W6xUW8fA==
+X-CSE-MsgGUID: HVX23VVZQb+DqeKruw/o7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="247580409"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:43:22 -0700
+Date: Mon, 15 Jun 2026 17:43:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Salih Erim <salih.erim@amd.com>
+Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
+	linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+Message-ID: <ajAPh4xKqxRyIpBe@ashevche-desk.local>
+References: <20260614233722.2603459-1-salih.erim@amd.com>
+ <20260614233722.2603459-5-salih.erim@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260614233722.2603459-5-salih.erim@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Mon, Jun 15, 2026 at 12:37:21AM +0100, Salih Erim wrote:
+> Add threshold event support for temperature and supply voltage
+> channels.
+> 
+> Temperature events:
+>   - Rising threshold with configurable value on the device
+>     temperature channel (current max across all satellites)
+>   - Per-channel hysteresis as a millicelsius value
+>   - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
+> 
+> Supply voltage events:
+>   - Rising/falling threshold per supply channel
+>   - Per-channel alarm enable via alarm configuration registers
+> 
+> The hardware supports both window and hysteresis alarm modes for
+> temperature. This driver uses hysteresis mode, where the upper
+> threshold triggers the alarm and the lower threshold clears it
+> (re-arm point). The hardware has a single ISR bit per temperature
+> channel with no indication of which threshold was crossed, so
+> hysteresis mode is the natural fit. The lower threshold register
+> is computed internally as (upper - hysteresis).
+> 
+> Hysteresis is stored in the driver as a millicelsius value,
+> initialized from the hardware registers at probe. Writing the
+> rising threshold or hysteresis recomputes the lower register.
+> ALARM_CONFIG is hard-coded to hysteresis mode during init.
+> 
+> The hardware also provides a separate over-temperature (OT)
+> threshold, but it is not exposed through IIO as it serves as a
+> hardware safety mechanism for platform shutdown. OT will be
+> exposed through the thermal framework in a follow-up series.
+> 
+> The interrupt handler masks active threshold interrupts (which are
+> level-sensitive) and schedules a delayed worker to poll for condition
+> clear before unmasking. When no hardware IRQ is available, event
+> specs are not attached and interrupt init is skipped, since the
+> I2C regmap backend cannot be called from atomic context.
+> 
+> When disabling a supply channel alarm, the group interrupt remains
+> active if any other channel in the same alarm group still has an
+> alarm enabled.
+> 
+> A devm cleanup action masks all interrupts on driver unbind to
+> prevent unhandled interrupt storms after the IRQ handler is freed.
 
-Add the core and module clock definitions for the Real-Time Clock (RTC)
-peripheral on the Renesas RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs.
+...
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- drivers/clk/renesas/r9a09g077-cpg.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
+> +{
+> +	*val = (raw_data * (int)MILLI) >> SYSMON_FRACTIONAL_SHIFT;
 
-diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9a09g077-cpg.c
-index 873c41ae5606..5640c2035e5a 100644
---- a/drivers/clk/renesas/r9a09g077-cpg.c
-+++ b/drivers/clk/renesas/r9a09g077-cpg.c
-@@ -149,7 +149,7 @@ static const struct rzv2h_pll_limits r9a09g077_cpg_pll3_limits = {
- 
- enum clk_ids {
- 	/* Core Clock Outputs exported to DT */
--	LAST_DT_CORE_CLK = R9A09G077_LCDC_CLKD,
-+	LAST_DT_CORE_CLK = R9A09G077_PCLKRTC,
- 
- 	/* External Input Clocks */
- 	CLK_EXTAL,
-@@ -337,6 +337,7 @@ static const struct cpg_core_clk r9a09g077_core_clks[] __initconst = {
- 		sel_clk_pll4d3_div10_div20, ARRAY_SIZE(sel_clk_pll4d3_div10_div20), 0),
- 	DEF_DIV_LCDC("LCDC_CLKD", R9A09G077_LCDC_CLKD, CLK_SEL_CLK_PLL3, LCDCDIVSEL,
- 		     dtable_2_32),
-+	DEF_FIXED("PCLKRTC", R9A09G077_PCLKRTC, CLK_EXTAL, 128, 1),
- };
- 
- static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst = {
-@@ -367,6 +368,7 @@ static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst = {
- 	DEF_MOD("sci5fck", 600, CLK_SCI5ASYNC),
- 	DEF_MOD("iic2", 601, R9A09G077_CLK_PCLKL),
- 	DEF_MOD("spi3", 602, CLK_SPI3ASYNC),
-+	DEF_MOD("rtc", 605, R9A09G077_CLK_PCLKL),
- 	DEF_MOD("lcdc", 1204, R9A09G077_CLK_PCLKAL),
- 	DEF_MOD("sdhi0", 1212, R9A09G077_CLK_PCLKAM),
- 	DEF_MOD("sdhi1", 1213, R9A09G077_CLK_PCLKAM),
+MILLIDEGREE_PER_DEGREE is defined as int.
+
+> +}
+> +
+> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
+> +{
+> +	*raw_data = (val << SYSMON_FRACTIONAL_SHIFT) / (int)MILLI;
+
+Ditto.
+
+> +}
+
+...
+
+> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_data)
+> +{
+> +	int exponent = FIELD_GET(SYSMON_MODE_MASK, reg_val);
+> +	int format = FIELD_GET(SYSMON_FMT_MASK, reg_val);
+> +	int scale, tmp;
+> +
+> +	scale = BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
+> +	tmp = (val * scale) / (int)MILLI;
+
+Due to agnosticism of this function, I dunno if the above can be applied here.
+
+> +	if (format)
+> +		tmp = clamp(tmp, S16_MIN, S16_MAX);
+> +	else
+> +		tmp = clamp(tmp, 0, U16_MAX);
+> +
+> +	*raw_data = (u16)tmp;
+> +}
+
+...
+
+> +static int sysmon_read_alarm_config(struct sysmon *sysmon,
+> +				    unsigned long address)
+> +{
+> +	u32 shift = address % SYSMON_ALARM_BITS_PER_REG;
+> +	u32 offset = SYSMON_ALARM_OFFSET(address);
+> +	unsigned int reg_val;
+> +	int ret;
+> +
+> +	ret = regmap_read(sysmon->regmap, offset, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return !!(reg_val & BIT(shift));
+
+regmap_test_bits()?
+
+> +}
+
+...
+
+> -static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
+> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev,
+> +			   int irq)
+
+I would leave one line (82 characters IIANM).
+
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
