@@ -1,1135 +1,178 @@
-Received: from naesa05.arrow.com (naesa05.arrow.com [216.150.161.26])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B0C3E8678;
-	Mon, 15 Jun 2026 12:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.150.161.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD53B3E558F
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781526097; cv=none; b=I1exQg3mux5pVvtqGVhxAPBW5LFsiofIw6WFUIGc1JOoIy+MaHsHb8p2tIlioK3dxDQxKyrI2KJg417D7Ip5EErDq9SsVA+v8ZVoXszyjXjkbIYTn0zM7JcMTHHXPpGSPoUvG6oOQKRM/hjunEU0Npxuc/yM6sdmBlY9z/XvWQ0=
+	t=1781526205; cv=none; b=n35crQH74ia4YFQiMDoUptQebsK9e/Lo8LK9mO/eKI7/y+8/mXJnYve+NSDOy9wfbteC5+CGhfMawJvDvD/TWQkIYIZi/VF2ALfjlQZrKrzV+WozbE7wGAgI4asYmRA1rNB41U7doggdKpIeItgqVvcLs6FXZaaMvtZh+qJgRjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781526097; c=relaxed/simple;
-	bh=u5/ru6h9rrKfnKZptOXBsNNMnbO7VkrQXDwgk4d6cuM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IfozFMREw9C4+D93uB7+YjelO9VcpC57Pjd415+mSiqhagzL0nLl+5SaaONHYbSAYXLYei3KnuZGmaUP0XCImT6ldSX0mOJMTswnXbEgf8uGIAB6THDRquKK9BD5aSxtGMExW7gtzwJStXQsGaXRydjXnoKkRZ7jiZ+ROdicF+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=EkzOP2cx; arc=none smtp.client-ip=216.150.161.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+	s=arc-20240116; t=1781526205; c=relaxed/simple;
+	bh=8PeQBj34V5c0RfITfinu1f6KT50KbVyD4JOtxTy+Nho=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DAlvHEIF5z2Dy5TF6s0ERag7I3XilrjsQE/u72pZrcSJz5wGMRz5hNL5CR63WPKLUF3TerU+DUlCZUuS1BG1hlfqC6lvFwQveYXTMNMbMunnANn+JxK+Puh3niohhLoZY4RDfcnWLI9X2v/jjzJmAR7HfCRdQaxkEOUjc+KldvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bp77X5vD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bbs7ONnv; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="EkzOP2cx"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bp77X5vD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bbs7ONnv"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FApZOM298373
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:23:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	E7sv372Yo1BuVVOPLRYh56YSH/Q4RtdRYSnzm2ofdy4=; b=bp77X5vDkcJ9TRlO
+	306T0sfA9nlwh8v+9OgMwcah6LrWn5ena05Z1+Gbh18jWOaHLsnmbNJXJKOw3mG1
+	CZ2t0VZhQ3s+MnPK0zv1ZfxsI2DbZbaP0putJQ7rdDkdIRaiC1UPSv6eH9NxdwX/
+	qplscIVCNHWxXIY5EacmiFTruZG5g7mhF/p8nNxiX0Ok1yGCHVNynp+KLrw/4MuQ
+	Ha8n6zfKWfEOSyBBEGAUFfojV9GtGMSIxihBcVLda92LtsdWhZdaY0is6uMrtPRq
+	XWecAClUyFeteVMKEHWVmoFNWEJNi/UNngE4sNGPYJ1WfgGax4hQo+e7KIhaqzrF
+	k2xwFQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter20ng1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:23:23 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9157a31ac37so483784885a.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:23:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=einfochips.com; i=@einfochips.com; l=20144;
-  q=dns/txt; s=NAESA-Selector1; t=1781526090;
-  x=1813062090;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=TGSWM9Md57ijWr6tRxxvtwfQQ6aP6n4Vv/mfrED8Bok=;
-  b=EkzOP2cxXLe3no2psNmWPLMoxmtCZzM/ztUpIDN56tk4thKFDkIQGOKO
-   DA+XfewUqbv0MQib1vhTArvSrBqyAH45zUDy7Ck5Km7h/Bx6m5rsE2R4L
-   UnQsZV3amS3OtB8bAPHl0L9RxEjb7hSf8VFpJTZd1BvsnK5g32Qqtkt/e
-   SjHtchEnBhDfaXb2t0Ufr7S5OGt+K3j19Oqjqu9bGzMFbLqbrI89PWaOM
-   Fyb9xpiMn5Np0dmWzWYRdeLnOBZQiXOZNhwlfd+hfkNweUseZY9ggGBFm
-   ukZqkATwPoIOwGDjjr7Ot9wAWxlmPRdJcFJdxjMp/bdlBKQ3sb13k2t89
-   w==;
-X-CSE-ConnectionGUID: ewL++9LOTxafob49qkGnUA==
-X-CSE-MsgGUID: NgRNJOAgSIyr0v7maYCEVQ==
-X-IronPort-AV: E=Sophos;i="6.24,206,1774332000"; 
-   d="scan'208";a="55984204"
-Received: from unknown (HELO eicahmirelay01.einfochips.com) ([10.100.49.50])
-  by naesa05out.arrow.com with ESMTP; 15 Jun 2026 06:20:22 -0600
-Received: from AHMCPU1888.ap.corp.arrow.com ([172.25.5.100]) by eicahmirelay01.einfochips.com with Microsoft SMTPSVC(10.0.20348.1);
-	 Mon, 15 Jun 2026 17:50:16 +0530
-From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Min Lin <linmin@eswincomputing.com>
-Cc: Yulin Lu <luyulin@eswincomputing.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
-	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: [PATCH 3/7] riscv: dts: eswin: eic7700: add pinctrl support
-Date: Mon, 15 Jun 2026 17:50:12 +0530
-Message-Id: <20260615122016.1110206-4-pinkesh.vaghela@einfochips.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
-References: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+        d=oss.qualcomm.com; s=google; t=1781526203; x=1782131003; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=E7sv372Yo1BuVVOPLRYh56YSH/Q4RtdRYSnzm2ofdy4=;
+        b=Bbs7ONnvzZ41NO8AQ8PLtqE9J/c4RZ8RW3JMMg8EQ3vFLGqSddEhJ7MxF9DX24nomU
+         koKChcMB2kBRsY1zQdHiEe0FzxISADuTT7YQYHCUidgWG3SlfqHgvBJ8MZenOyW95V8/
+         dSmHV759misNO6wPib13DjfrLlrowCl7xMCMyCxqbnfKOhW7hhJ1SF0F9mc9vOecWJL3
+         tfgztMqfaRjaOH+4NFdH5/Qxt+5+hMHz/oBzRDpulM0EXNJCxAxIKYJbBzs/FyHFxrwd
+         CuO+8gyZ2bVouA7c511eqb07zQ8kOLlFN212O3JYO0tqYXoN2g7ZzwbFUwzewwrOcbeQ
+         SO2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781526203; x=1782131003;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=E7sv372Yo1BuVVOPLRYh56YSH/Q4RtdRYSnzm2ofdy4=;
+        b=kT7sqFcvrKwSkk0SmHjV/nWGHGtHtGw0J1oq6PgIZRWmYxzrV+fCrmf6blmqLRhUQl
+         oJkJET+awtKIfzTVfxEzIPg939wJWaOkh7IEc+M1/Q8ZPA6LcF/lAzXoE9rlbEeKxMee
+         sVb4jjVbOUYkr24BBQ4tV8S/UvrU+v7SIPEiM7lVM7UJITTcLQ9mwnq7rJJ292oj0Bd7
+         6vmWAuR1tDuQmFntkp99dtpG0wyIpMjN0+xG6kcHVEm/so47ak1Q7b6z65f+/JSfdrOE
+         h9zrkvLo6LlyQSAWa3U9YMCh6XiBP6QJK4fqK/bTEVlEA/W48jN3eqZAqcpDM0sQ665W
+         qZ/w==
+X-Forwarded-Encrypted: i=1; AFNElJ8OYV/UU+brBUzDYYxBVj7dGobiFiAdR/SVWRJKcYDUEOjuLJN5yPwZTbQONUoRtrf5sotdUSJhBLak@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJ+5yd4UxCJ567cSlUN2N5iTU9zvleZmaiSXnSS3K3h7yhIe2v
+	W4VB8xqr1MbDImkf5cHaUMyImcUOPqbKejoal23DYwvY6f9XKsxbVfcqRwuEpmNfYFkBRa0AwpD
+	Sc7+V0tC5iGBv+aDsZDEoQNbxC4NErpK1BJvki8gRs2RQN5x598jqlDlxMpoe9xFB
+X-Gm-Gg: Acq92OHPQ4zRKcbKIO07dyYuTsFhpzd0k5wEuAlDfQoigDGJRl7GNo5Zt2UnyXGCPEp
+	YhtKzJr1sY3nLe8n/tVTB8X7jDh9hWCv35FIGwNPy3AsDhX1Kd6NTkF6pwE6T8S/7Vq2SX2dBhS
+	duyVlXHSdFoKI1SJe9DQNavJivwqtk4J0iSumAkTFpwWkev+GS6wOj6onQtAjgAvyxn4fNoiVOT
+	n3dQPDlmDgjXu3jSXdWrzrvu5H1msXt5vUWqdsZeR3wFjbcQOKDRRglDJeX/kIpHZ4wpoDczXzC
+	wl9/1H2bOXyk1vOZOXsDHYHBCNm73chg5wceNoYBWRrAbKrlSMRtXbQXK/PBh/uJsiE8CqsWwZc
+	Ld89n2eq6MhyLPks9/aAbLp+CI5uJp9KGrHVUFkyt/e5nbqowhcGRDGZP2618oi6H2k6vH9Sgpe
+	0JsZ3r6lE47CVvySOYWd1RVgI3fthvEM2zIIo=
+X-Received: by 2002:a05:620a:269e:b0:915:3d27:a816 with SMTP id af79cd13be357-9161bd388b8mr1960981585a.49.1781526202958;
+        Mon, 15 Jun 2026 05:23:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:269e:b0:915:3d27:a816 with SMTP id af79cd13be357-9161bd388b8mr1960975485a.49.1781526202441;
+        Mon, 15 Jun 2026 05:23:22 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e1b3253sm2757033e87.68.2026.06.15.05.23.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 05:23:21 -0700 (PDT)
+Date: Mon, 15 Jun 2026 15:23:19 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] spi: qcom-geni: Add property to force GSI mode
+Message-ID: <q4t5f4aiapowojbz2vh7qmcwvia56gc6ytzj3rys7ingisubid@ddlwb3qi5zdg>
+References: <20260614083424.464132-1-mitltlatltl@gmail.com>
+ <20260614083424.464132-2-mitltlatltl@gmail.com>
+ <qwbda435on6rhsbf5o4jqijakanjmnmswnc6g6qsubuqbyvbok@fuoclv6u7tq5>
+ <CAH2e8h5Swn2mWoz+t_nrSw1=hQttwi1Hx=dg=cd9S3QRnHjpSQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-OriginalArrivalTime: 15 Jun 2026 12:20:16.0910 (UTC) FILETIME=[53345AE0:01DCFCC1]
+In-Reply-To: <CAH2e8h5Swn2mWoz+t_nrSw1=hQttwi1Hx=dg=cd9S3QRnHjpSQ@mail.gmail.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEzMSBTYWx0ZWRfX1v10J7LDr3yi
+ dpUoYVXZhVy0g/R17zYog3cfiRlB2TIo09y1ZhSz0iJ4sDASXHi9qLergjskByUCtB693O643ib
+ 6H9tN2oal7alUEpYpmROTESxd8Xj5+A=
+X-Proofpoint-GUID: 21nnUdy8CBXbV_gNbbg6xE39DOLx-6Vz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEzMSBTYWx0ZWRfX6V4LvAK8tBrL
+ JibvyzXc7ELcVB0PdUEDL4E0UDxvkXcJ5r8pcPApD1a/Y2swrIv1eDKfLx2wQMZkxKufDsKhrNZ
+ fHC5mszgmJp9E67s4Qfii3y+5pBnOnv3AmlE2fO3+Fkg39OapkVlsE6pP8OQYATRsXiIZBwW61W
+ 8CYylN1hE3X+EBqdqJiidEWKFCsbWQGzunURlV3923RxJ7G4hGhGnhYXzNXeBPl7s32vzTNT2xx
+ 3GnigsMCgr5trXdFwjOw7lhp82iEBDl8J17tuWv+a0bN/cUmlNuLhewIEo9j/xJ9WJsHwG8FUfQ
+ uzuxhNgxTbJtBJRAzHZLf5rK7IJVhF4SDyWnqDe+i2qKkxT1T1JuJi5VLiDAdi3+dvBI9ujP5X9
+ XyFKz+CZG06T20O1CD5plKHLcPzi6r9+vt52jd2w4pPFoQaPNPLJLiazvXqp8cEFI6SOF9V2sxv
+ FVuqaOmm3OsaJsIxV3w==
+X-Authority-Analysis: v=2.4 cv=F4tnsKhN c=1 sm=1 tr=0 ts=6a2feebb cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=Gh1C-VzVOIyvPQshHAMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 21nnUdy8CBXbV_gNbbg6xE39DOLx-6Vz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_03,2026-06-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606150131
 
-From: Yulin Lu <luyulin@eswincomputing.com>
+On Mon, Jun 15, 2026 at 12:25:32PM +0800, Pengyu Luo wrote:
+> On Mon, Jun 15, 2026 at 5:18 AM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >
+> > On Sun, Jun 14, 2026 at 04:34:24PM +0800, Pengyu Luo wrote:
+> > > Some devices (such as gaokun3) do not disable FIFO mode, causing the
+> > > driver to fallback to FIFO mode by default. However, these platforms
+> > > also support GSI mode, which is highly preferred for certain
+> > > peripherals like SPI touchscreens to improve performance.
+> > >
+> > > Introduce the "qcom,force-gsi-mode" device property to hint and force
+> > > the controller into GSI mode during initialization.
+> >
+> > Ideally, this should be decided by the SPI controller based on the
+> > requirements. Another option would be to prefer GSI for all transfers if
+> > it is available, ignoring the FIFO even if it is not disabled.
+> >
+> 
+> I have read reviews. Can we check if the compatible
+> "qcom,sm6350-gpi-dma" is in DT? If the gpi dma controller is
+> presented, then we enable GSI mode.
 
-Add pinctrl node and related pin configuration for EIC7700 SoC
+Can we just check for the dmas property? If it is present and if we
+could get DMA channels, then GSI DMA is available.
 
-Co-developed-by: Pritesh Patel <pritesh.patel@einfochips.com>
-Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
-Signed-off-by: Yulin Lu <luyulin@eswincomputing.com>
-Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
----
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 109 +++
- .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 888 ++++++++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        |   5 +
- 3 files changed, 1002 insertions(+)
- create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
+> 
+> Best wishes,
+> Pengyu
+> 
+> > >
+> > > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> > > ---
+> > >  drivers/spi/spi-geni-qcom.c | 7 +++++++
+> > >  1 file changed, 7 insertions(+)
+> > >
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-index 1fb92f0e7c55..e7bb96e14958 100644
---- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-+++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-@@ -6,6 +6,7 @@
- /dts-v1/;
- 
- #include "eic7700.dtsi"
-+#include "eic7700-pinctrl.dtsi"
- 
- / {
- 	compatible = "sifive,hifive-premier-p550", "eswin,eic7700";
-@@ -18,6 +19,15 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	vcc_1v8: vcc1v8 {
-+		 compatible = "regulator-fixed";
-+		 regulator-name = "vcc1v8";
-+		 regulator-always-on;
-+		 regulator-boot-on;
-+		 regulator-min-microvolt = <1800000>;
-+		 regulator-max-microvolt = <1800000>;
-+	 };
- };
- 
- &xtal {
-@@ -25,6 +35,105 @@ &xtal {
- 	clock-output-names = "xtal24m";
- };
- 
-+&gpio0_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio5_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio11_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio14_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio15_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio28_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio43_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio71_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio74_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio76_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio77_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio79_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio80_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio82_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio84_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio85_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio94_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio106_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio111_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&pinctrl {
-+	vrgmii-supply = <&vcc_1v8>;
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-new file mode 100644
-index 000000000000..7293df146aa7
---- /dev/null
-+++ b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-@@ -0,0 +1,888 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2025 Beijing ESWIN Computing Technology Co., Ltd.
-+ *
-+ * ESWIN's EIC7700 SoC pin-mux and pin-config options are listed as
-+ * device tree nodes in this file.
-+ *
-+ * Authors: Yulin Lu <luyulin@eswincomputing.com>
-+ */
-+
-+&pinctrl{
-+	default-pins-grp {
-+		sata_act_led_pins: sata-act-led-pins{
-+			pins = "gpio27";
-+			function = "sata";
-+		};
-+
-+		emmc_led_ctrl_pins: emmc-led-ctrl-pins {
-+			pins = "gpio29";
-+			function = "emmc";
-+		};
-+
-+		sd0_led_ctrl_pins: sd0-led-ctrl-pins {
-+			pins = "gpio34";
-+			function = "sdio";
-+		};
-+
-+		sd1_led_ctrl_pins: sd1-led-ctrl-pins {
-+			pins = "spi1_d2";
-+			function = "sdio";
-+		};
-+
-+		i2c6_pins: i2c6-pins {
-+			pins = "uart1_cts", "uart1_rts";
-+			function = "i2c";
-+		};
-+
-+		i2c7_pins: i2c7-pins {
-+			pins = "uart2_tx", "uart2_rx";
-+			function = "i2c";
-+		};
-+
-+		i2c9_pins: i2c9-pins {
-+			pins = "spi1_d0", "spi1_d1";
-+			function = "i2c";
-+		};
-+
-+		pwm1_pins: pwm1-pins {
-+			pins = "spi1_d3";
-+			function = "pwm";
-+		};
-+
-+		pwm2_pins: pwm2-pins {
-+			pins = "spi1_cs1_n";
-+			function = "pwm";
-+		};
-+
-+		mipi_csi_xtrig0_pins: mipi-csi-xtrig0-pins {
-+			pins = "gpio92";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi_xtrig1_pins: mipi-csi-xtrig1-pins {
-+			pins = "gpio93";
-+			function = "mipi_csi";
-+		};
-+
-+		dual_spi2_pins: dual-spi2-pins {
-+			pins = "spi2_cs0_n", "jtag0_tck", "jtag0_tms", "jtag0_tdi";
-+			function = "spi";
-+		};
-+
-+		quad_spi2_pins: quad-spi2-pins {
-+			pins = "spi2_cs0_n", "spi2_cs1_n", "jtag0_tck", "jtag0_tms",
-+			       "jtag0_tdi", "jtag0_tdo", "gpio5";
-+			function = "spi";
-+		};
-+
-+		gpio1_pins: gpio1-pins {
-+			pins = "jtag0_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio2_pins: gpio2-pins {
-+			pins = "jtag0_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio3_pins: gpio3-pins {
-+			pins = "jtag0_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio4_pins: gpio4-pins {
-+			pins = "jtag0_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio6_pins: gpio6-pins {
-+			pins = "spi2_cs0_n";
-+			function = "gpio";
-+		};
-+
-+		gpio7_pins: gpio7-pins {
-+			pins = "jtag1_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio8_pins: gpio8-pins {
-+			pins = "jtag1_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio9_pins: gpio9-pins {
-+			pins = "jtag1_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio10_pins: gpio10-pins {
-+			pins = "jtag1_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio12_pins: gpio12-pins {
-+			pins = "spi2_cs1_n";
-+			function = "gpio";
-+		};
-+
-+		gpio13_pins: gpio13-pins {
-+			pins = "mode_set0";
-+			function = "gpio";
-+		};
-+
-+		gpio14_pins: gpio14-pins {
-+			pins = "mode_set1";
-+			function = "gpio";
-+		};
-+
-+		gpio15_pins: gpio15-pins {
-+			pins = "mode_set2";
-+			function = "gpio";
-+		};
-+
-+		gpio16_pins: gpio16-pins {
-+			pins = "mode_set3";
-+			function = "gpio";
-+		};
-+
-+		gpio17_pins: gpio17-pins {
-+			pins = "jtag2_trst";
-+			function = "gpio";
-+		};
-+
-+		gpio18_pins: gpio18-pins {
-+			pins = "i2s0_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio19_pins: gpio19-pins {
-+			pins = "i2s0_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio20_pins: gpio20-pins {
-+			pins = "i2s0_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio21_pins: gpio21-pins {
-+			pins = "i2s0_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio22_pins: gpio22-pins {
-+			pins = "i2s_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio23_pins: gpio23-pins {
-+			pins = "i2s2_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio24_pins: gpio24-pins {
-+			pins = "i2s2_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio25_pins: gpio25-pins {
-+			pins = "i2s2_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio26_pins: gpio26-pins {
-+			pins = "i2s2_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio29_pins: gpio29-pins {
-+			pins = "gpio29";
-+			function = "gpio";
-+		};
-+
-+		gpio30_pins: gpio30-pins {
-+			pins = "i2s1_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio31_pins: gpio31-pins {
-+			pins = "i2s1_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio32_pins: gpio32-pins {
-+			pins = "i2s1_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio33_pins: gpio33-pins {
-+			pins = "i2s1_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio34_pins: gpio34-pins {
-+			pins = "gpio34";
-+			function = "gpio";
-+		};
-+
-+		gpio35_pins: gpio35-pins {
-+			pins = "spi1_cs0_n";
-+			function = "gpio";
-+		};
-+
-+		gpio36_pins: gpio36-pins {
-+			pins = "spi1_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio37_pins: gpio37-pins {
-+			pins = "spi1_d0";
-+			function = "gpio";
-+		};
-+
-+		gpio38_pins: gpio38-pins {
-+			pins = "spi1_d1";
-+			function = "gpio";
-+		};
-+
-+		gpio39_pins: gpio39-pins {
-+			pins = "spi1_d2";
-+			function = "gpio";
-+		};
-+
-+		gpio40_pins: gpio40-pins {
-+			pins = "spi1_d3";
-+			function = "gpio";
-+		};
-+
-+		gpio41_pins: gpio41-pins {
-+			pins = "spi1_cs1_n";
-+			function = "gpio";
-+		};
-+
-+		gpio42_pins: gpio42-pins {
-+			pins = "usb0_pwren";
-+			function = "gpio";
-+		};
-+
-+		gpio43_pins: gpio43-pins {
-+			pins = "usb1_pwren";
-+			function = "gpio";
-+		};
-+
-+		gpio44_pins: gpio44-pins {
-+			pins = "i2c0_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio45_pins: gpio45-pins {
-+			pins = "i2c0_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio46_pins: gpio46-pins {
-+			pins = "i2c1_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio47_pins: gpio47-pins {
-+			pins = "i2c1_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio48_pins: gpio48-pins {
-+			pins = "i2c2_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio49_pins: gpio49-pins {
-+			pins = "i2c2_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio50_pins: gpio50-pins {
-+			pins = "i2c3_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio51_pins: gpio51-pins {
-+			pins = "i2c3_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio52_pins: gpio52-pins {
-+			pins = "i2c4_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio53_pins: gpio53-pins {
-+			pins = "i2c4_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio54_pins: gpio54-pins {
-+			pins = "i2c5_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio55_pins: gpio55-pins {
-+			pins = "i2c5_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio56_pins: gpio56-pins {
-+			pins = "uart0_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio57_pins: gpio57-pins {
-+			pins = "uart0_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio58_pins: gpio58-pins {
-+			pins = "uart1_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio59_pins: gpio59-pins {
-+			pins = "uart1_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio60_pins: gpio60-pins {
-+			pins = "uart1_cts";
-+			function = "gpio";
-+		};
-+
-+		gpio61_pins: gpio61-pins {
-+			pins = "uart1_rts";
-+			function = "gpio";
-+		};
-+
-+		gpio62_pins: gpio62-pins {
-+			pins = "uart2_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio63_pins: gpio63-pins {
-+			pins = "uart2_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio64_pins: gpio64-pins {
-+			pins = "jtag2_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio65_pins: gpio65-pins {
-+			pins = "jtag2_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio66_pins: gpio66-pins {
-+			pins = "jtag2_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio67_pins: gpio67-pins {
-+			pins = "jtag2_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio68_pins: gpio68-pins {
-+			pins = "fan_pwm";
-+			function = "gpio";
-+		};
-+
-+		gpio69_pins: gpio69-pins {
-+			pins = "fan_tach";
-+			function = "gpio";
-+		};
-+
-+		gpio70_pins: gpio70-pins {
-+			pins = "mipi_csi0_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio71_pins: gpio71-pins {
-+			pins = "mipi_csi0_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio72_pins: gpio72-pins {
-+			pins = "mipi_csi0_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio73_pins: gpio73-pins {
-+			pins = "mipi_csi1_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio74_pins: gpio74-pins {
-+			pins = "mipi_csi1_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio75_pins: gpio75-pins {
-+			pins = "mipi_csi1_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio76_pins: gpio76-pins {
-+			pins = "mipi_csi2_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio77_pins: gpio77-pins {
-+			pins = "mipi_csi2_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio78_pins: gpio78-pins {
-+			pins = "mipi_csi2_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio79_pins: gpio79-pins {
-+			pins = "mipi_csi3_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio80_pins: gpio80-pins {
-+			pins = "mipi_csi3_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio81_pins: gpio81-pins {
-+			pins = "mipi_csi3_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio82_pins: gpio82-pins {
-+			pins = "mipi_csi4_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio83_pins: gpio83-pins {
-+			pins = "mipi_csi4_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio84_pins: gpio84-pins {
-+			pins = "mipi_csi4_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio85_pins: gpio85-pins {
-+			pins = "mipi_csi5_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio86_pins: gpio86-pins {
-+			pins = "mipi_csi5_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio87_pins: gpio87-pins {
-+			pins = "mipi_csi5_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio88_pins: gpio88-pins {
-+			pins = "spi3_cs_n";
-+			function = "gpio";
-+		};
-+
-+		gpio89_pins: gpio89-pins {
-+			pins = "spi3_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio90_pins: gpio90-pins {
-+			pins = "spi3_di";
-+			function = "gpio";
-+		};
-+
-+		gpio91_pins: gpio91-pins {
-+			pins = "spi3_do";
-+			function = "gpio";
-+		};
-+
-+		gpio92_pins: gpio92-pins {
-+			pins = "gpio92";
-+			function = "gpio";
-+		};
-+
-+		gpio93_pins: gpio93-pins {
-+			pins = "gpio93";
-+			function = "gpio";
-+		};
-+
-+		gpio94_pins: gpio94-pins {
-+			pins = "s_mode";
-+			function = "gpio";
-+		};
-+
-+		gpio95_pins: gpio95-pins {
-+			pins = "gpio95";
-+			function = "gpio";
-+		};
-+
-+		gpio96_pins: gpio96-pins {
-+			pins = "spi0_cs_n";
-+			function = "gpio";
-+		};
-+
-+		gpio97_pins: gpio97-pins {
-+			pins = "spi0_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio98_pins: gpio98-pins {
-+			pins = "spi0_d0";
-+			function = "gpio";
-+		};
-+
-+		gpio99_pins: gpio99-pins {
-+			pins = "spi0_d1";
-+			function = "gpio";
-+		};
-+
-+		gpio100_pins: gpio100-pins {
-+			pins = "spi0_d2";
-+			function = "gpio";
-+		};
-+
-+		gpio101_pins: gpio101-pins {
-+			pins = "spi0_d3";
-+			function = "gpio";
-+		};
-+
-+		gpio102_pins: gpio102-pins {
-+			pins = "i2c10_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio103_pins: gpio103-pins {
-+			pins = "i2c10_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio104_pins: gpio104-pins {
-+			pins = "i2c11_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio105_pins: gpio105-pins {
-+			pins = "i2c11_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio107_pins: gpio107-pins {
-+			pins = "boot_sel0";
-+			function = "gpio";
-+		};
-+
-+		gpio108_pins: gpio108-pins {
-+			pins = "boot_sel1";
-+			function = "gpio";
-+		};
-+
-+		gpio109_pins: gpio109-pins {
-+			pins = "boot_sel2";
-+			function = "gpio";
-+		};
-+
-+		gpio110_pins: gpio110-pins {
-+			pins = "boot_sel3";
-+			function = "gpio";
-+		};
-+
-+		uart3_pins: uart3-pins {
-+			pins = "gpio92", "gpio93";
-+			function = "uart";
-+		};
-+
-+		uart4_pins: uart4-pins {
-+			pins = "spi1_d0", "spi1_d1";
-+			function = "uart";
-+		};
-+
-+		gpio0_pins: gpio0-pins {
-+			pins = "gpio0";
-+			function = "gpio";
-+		};
-+
-+		gpio5_pins: gpio5-pins {
-+			pins = "gpio5";
-+			function = "gpio";
-+		};
-+
-+		gpio11_pins: gpio11-pins {
-+			pins = "gpio11";
-+			function = "gpio";
-+		};
-+
-+		gpio27_pins: gpio27-pins {
-+			pins = "gpio27";
-+			function = "gpio";
-+		};
-+
-+		gpio28_pins: gpio28-pins {
-+			pins = "gpio28";
-+			function = "gpio";
-+		};
-+
-+		gpio106_pins: gpio106-pins {
-+			pins = "gpio106";
-+			function = "gpio";
-+		};
-+
-+		gpio111_pins: gpio111-pins {
-+			pins = "gpio111";
-+			function = "gpio";
-+		};
-+
-+		chip_mode_pins: chip-mode-pins {
-+			pins = "chip_mode";
-+			function = "chip_mode";
-+		};
-+
-+		sdio0_pins: sdio0-pins {
-+			pins = "mode_set0", "mode_set1";
-+			function = "sdio";
-+		};
-+
-+		sdio1_pins: sdio1-pins {
-+			pins = "mode_set2", "mode_set3";
-+			function = "sdio";
-+		};
-+
-+		jtag0_pins: jtag0-pins {
-+			pins = "jtag0_tck", "jtag0_tms", "jtag0_tdi", "jtag0_tdo";
-+			function = "jtag";
-+		};
-+
-+		jtag1_pins: jtag1-pins {
-+			pins = "jtag1_tck", "jtag1_tms", "jtag1_tdi", "jtag1_tdo";
-+			function = "jtag";
-+		};
-+
-+		jtag2_pins: jtag2-pins {
-+			pins = "jtag2_trst", "jtag2_tck", "jtag2_tms", "jtag2_tdi",
-+			       "jtag2_tdo";
-+			function = "jtag";
-+		};
-+
-+		pcie_pins: pcie-pins {
-+			pins = "pcie_clkreq_n", "pcie_wake_n", "pcie_perst_n";
-+			function = "pcie";
-+		};
-+
-+		hdmi_pins: hdmi-pins {
-+			pins = "hdmi_scl", "hdmi_sda", "hdmi_cec";
-+			function = "hdmi";
-+		};
-+
-+		rgmii0_pins: rgmii0-pins {
-+			pins = "rgmii0_clk_125", "rgmii0_txen", "rgmii0_txclk", "rgmii0_txd0",
-+			       "rgmii0_txd1", "rgmii0_txd2", "rgmii0_txd3", "rgmii0_rxclk",
-+			       "rgmii0_rxdv", "rgmii0_rxd0", "rgmii0_rxd1", "rgmii0_rxd2",
-+			       "rgmii0_rxd3", "rgmii0_mdc", "rgmii0_mdio", "rgmii0_intb";
-+			function = "hdmi";
-+		};
-+
-+		rgmii1_pins: rgmii1-pins {
-+			pins = "rgmii1_clk_125", "rgmii1_txen", "rgmii1_txclk", "rgmii1_txd0",
-+			       "rgmii1_txd1", "rgmii1_txd2", "rgmii1_txd3", "rgmii1_rxclk",
-+			       "rgmii1_rxdv", "rgmii1_rxd0", "rgmii1_rxd1", "rgmii1_rxd2",
-+			       "rgmii1_rxd3", "rgmii1_mdc", "rgmii1_mdio", "rgmii1_intb";
-+			function = "hdmi";
-+		};
-+
-+		i2s0_pins: i2s0-pins {
-+			pins = "i2s0_bclk", "i2s0_wclk", "i2s0_sdi", "i2s0_sdo", "i2s_mclk";
-+			function = "hdmi";
-+		};
-+
-+		i2s1_pins: i2s1-pins {
-+			pins = "i2s1_bclk", "i2s1_wclk", "i2s1_sdi", "i2s1_sdo", "i2s_mclk";
-+			function = "hdmi";
-+		};
-+
-+		i2s2_pins: i2s2-pins {
-+			pins = "i2s2_bclk", "i2s2_wclk", "i2s2_sdi", "i2s2_sdo", "i2s_mclk";
-+			function = "hdmi";
-+		};
-+
-+		usb0_pwren_pins: usb0-pwren-pins {
-+			pins = "usb0_pwren";
-+			function = "usb";
-+		};
-+
-+		usb1_pwren_pins: usb1-pwren-pins {
-+			pins = "usb1_pwren";
-+			function = "usb";
-+		};
-+
-+		i2c0_pins: i2c0-pins {
-+			pins = "i2c0_scl", "i2c0_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c1_pins: i2c1-pins {
-+			pins = "i2c1_scl", "i2c1_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c2_pins: i2c2-pins {
-+			pins = "i2c2_scl", "i2c2_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c3_pins: i2c3-pins {
-+			pins = "i2c3_scl", "i2c3_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c4_pins: i2c4-pins {
-+			pins = "i2c4_scl", "i2c4_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c5_pins: i2c5-pins {
-+			pins = "i2c5_scl", "i2c5_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c8_pins: i2c8-pins {
-+			pins = "gpio92", "gpio93";
-+			function = "i2c";
-+		};
-+
-+		i2c10_pins: i2c10-pins {
-+			pins = "i2c10_scl", "i2c10_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c11_pins: i2c11-pins {
-+			pins = "i2c11_scl", "i2c11_sda";
-+			function = "i2c";
-+		};
-+
-+		uart0_pins: uart0-pins {
-+			pins = "uart0_tx", "uart0_rx";
-+			function = "uart";
-+		};
-+
-+		uart1_pins: uart1-pins {
-+			pins = "uart1_tx", "uart1_rx", "uart1_cts", "uart1_rts";
-+			function = "uart";
-+		};
-+
-+		uart2_pins: uart2-pins {
-+			pins = "uart2_tx", "uart2_rx";
-+			function = "uart";
-+		};
-+
-+		fan_pwm_pins: fan-pwm-pins {
-+			pins = "fan_pwm";
-+			function = "pwm";
-+		};
-+
-+		fan_tach_pins: fan-tach-pins {
-+			pins = "fan_tach";
-+			function = "fan_tach";
-+		};
-+
-+		mipi_csi0_pins: mipi-csi0-pins {
-+			pins = "mipi_csi0_xvs", "mipi_csi0_xhs", "mipi_csi0_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi1_pins: mipi-csi1-pins {
-+			pins = "mipi_csi1_xvs", "mipi_csi1_xhs", "mipi_csi1_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi2_pins: mipi-csi2-pins {
-+			pins = "mipi_csi2_xvs", "mipi_csi2_xhs", "mipi_csi2_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi3_pins: mipi-csi3-pins {
-+			pins = "mipi_csi3_xvs", "mipi_csi3_xhs", "mipi_csi3_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi4_pins: mipi-csi4-pins {
-+			pins = "mipi_csi4_xvs", "mipi_csi4_xhs", "mipi_csi4_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi5_pins: mipi-csi5-pins {
-+			pins = "mipi_csi5_xvs", "mipi_csi5_xhs", "mipi_csi5_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		s_mode_pins: s-mode-pins {
-+			pins = "s_mode";
-+			function = "s_mode";
-+		};
-+
-+		boot_sel0_pins: boot-sel0-pins {
-+			pins = "boot_sel0";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel1_pins: boot-sel1-pins {
-+			pins = "boot_sel1";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel2_pins: boot-sel2-pins {
-+			pins = "boot_sel2";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel3_pins: boot-sel3-pins {
-+			pins = "boot_sel3";
-+			function = "boot_sel";
-+		};
-+
-+		ddr_ref_clk_sel_pins: ddr-ref-clk-sel-pins {
-+			pins = "gpio95";
-+			function = "ddr_ref_clk_sel";
-+		};
-+
-+		lpddr_ref_clk_pins: lpddr-ref-clk-pins {
-+			pins = "lpddr_ref_clk";
-+			function = "lpddr_ref_clk";
-+		};
-+
-+		spi0_pins: spi0-pins {
-+			pins = "spi0_cs_n", "spi0_clk", "spi0_d0", "spi0_d1", "spi0_d2",
-+			       "spi0_d3";
-+			function = "spi";
-+		};
-+
-+		dual_spi1_pins: dual-spi1-pins {
-+			pins = "spi1_cs0_n", "spi1_clk", "spi1_d0", "spi1_d1";
-+			function = "spi";
-+		};
-+
-+		quad_spi1_pins: quad-spi1-pins {
-+			pins = "spi1_cs0_n", "spi1_cs1_n", "spi1_clk", "spi1_d0", "spi1_d1",
-+			       "spi1_d2", "spi1_d3";
-+			function = "spi";
-+		};
-+
-+		spi3_pins: spi3-pins {
-+			pins = "spi3_cs_n", "spi3_clk", "spi3_di", "spi3_do";
-+			function = "spi";
-+		};
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-index a7ebb1115958..8798c50f7584 100644
---- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-+++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-@@ -349,6 +349,11 @@ gpioD: gpio-port@3 {
- 			};
- 		};
- 
-+		pinctrl: pinctrl@51600080 {
-+			compatible = "eswin,eic7700-pinctrl";
-+			reg = <0x0 0x51600080 0x0 0x1fff80>;
-+		};
-+
- 		clk: clock-controller@51828000 {
- 			compatible = "eswin,eic7700-clock";
- 			reg = <0x0 0x51828000 0x0 0x300>;
 -- 
-2.34.1
-
+With best wishes
+Dmitry
