@@ -1,123 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E6F30B535
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066443168EF
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:39:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781519898; cv=none; b=GGU7Eed+XbruGEcui9HbKtUUKDYRolKGuAqVuAQf0Bk65jzVP0lQld8smbcZGpIeg6V9rJfLeRraGZ17aWbRDVpv6Wox/Hi/05fT7/qI5bq/qZvyE6E+CbijPjBX2Ck32BZDpLxqJBQV10h28Jt8SW0jJ3VLmSx7hLifcQi7gZg=
+	t=1781519956; cv=none; b=O5m9E19g+kEVWHik4F5LqG0hJ2zXOFV2+ry9VSu8p55mgn1Ji8PDcQEc9liScNA8BIYrmmj38xiKR1SMZ5DW3hlRygcDzFFfX2Cx9Hds9NhXcGKBgfbzBQSMY+XFGQeD5TLAKfR6AE+L+DQsKKcllqPoxOoQXmkSsGNSwCqEC9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781519898; c=relaxed/simple;
-	bh=8EAq9zGqyxkMlQji2jT5t9DuN0ac+jap38+O+BZ53Js=;
+	s=arc-20240116; t=1781519956; c=relaxed/simple;
+	bh=LzhYUMusFeDGiTAeXRRg+YJR4mxUvvrUTDMk3aK2ieg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JSUEdUn8Cn+XQ+yf/AJPWh/lc4arbT7LvuyGRc92+Fd80ATvUo3X1CF54StZX/8zveffqiDOkOF02pBmg8e/CDTHSaXQ82OL9Qd3xctNI2RSGrrz/nLr+gGO9QQyZOVtZeZKwX4wjDoITlZyVFrJb5oJtWeEuM/ZC878RgUUpbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=euRR8cX0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=agAmOUEv5Vh8zS6Pb0xy49Ax7LYgzXCkyeIc89eNWtoucweIvZNY+q/a51KDQMyc7ZBUSf9vx+RKmfIA5mLmTIPd8Uw4FOdy+dh0sFvRQcBzI/nUA+Jg69ehwZnDeoD3Lk6vTfYJ3jqGqARI5q2vbUzuS1SaIkbPfq6lhXDj4n0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8Yy9ggi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="euRR8cX0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D2E1F000E9;
-	Mon, 15 Jun 2026 10:38:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8Yy9ggi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179AA1F000E9;
+	Mon, 15 Jun 2026 10:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781519897;
-	bh=0bebpC6jtPJzSoOPJBkBlyWIpJRnrZKL+UpidTuiu4U=;
+	s=k20260515; t=1781519954;
+	bh=Nw+ElU2h2wZ6pE5Ca/WZJn6vMvU25J0rbNPDhNpdE8g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=euRR8cX0H3h6wxwmf2Z4ZM9KoZ7TKOUJFAu4GvPFJhN+55Vvm0DnisWPvd7J0BZbu
-	 FyWvyZPyjTwOySv/gXG/lqJISZD8g/q4+4LUhUrbESjpEbzefFmdDZzsNXlzXsn88i
-	 2zcWewlA1flK2iGPE8i+lwb2Fsy/vbDwt6LuAZtKVCcNb28VFdAoHB/Rhz1N6cLeDt
-	 BlS81fkzp3rCTYDGQ3KaoTM1WJQoe3cUQJU16QCI9XsIEu0lXcNDPtn3fkUiyf14x9
-	 cEjhPyP0QjOI0oHsO2oQoLmcV2NLX4ibVTcVZzeO5qFBT8eKgMSQEZ7gx5JN1RgHbr
-	 fs3GJStj1vbXQ==
+	b=H8Yy9ggi+XrMv3pMv/mw/EDMaIioqQKAuOWO0MYMe8EDKRboFxL3YDGXxRobfVKHX
+	 c/ltHV8yfFMeDxVWdnWgk6X45ZOJaIpthkVIhHxIrPuB7Q5GdDHmlNpLittPQaCZqG
+	 zKun5rz0COoNeEDBNZo+1I4Om5Zy+uifWwZpVGa4jh44wTc5fHrVfBoxdMEHsb9AAz
+	 wdHRNioWBF5CUlmBO7kbJiDRiZjqkPm1VEAxhg5MpMKFPaJTPIeWRGuJPaaAFP3mfv
+	 mWBjbAMlKvmlE10jD2zpRC+crMA9GJe8KW0oxcd67RmX8G7FW2e4Ukiqe5r7aqYCTo
+	 7P3nPFULLKHsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: serial: maxim,max310x: describe
- per-channel rs485 subnodes
+Subject: Re: [PATCH v3 3/3] serial: max310x: honour rs485 properties from
+ per-channel DT subnode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615-b4-max310x-rs485-dt-v3-2-7e79f064bdd7@vaisala.com>
-References: <20260615-b4-max310x-rs485-dt-v3-2-7e79f064bdd7@vaisala.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-b4-max310x-rs485-dt-v3-3-7e79f064bdd7@vaisala.com>
+References: <20260615-b4-max310x-rs485-dt-v3-3-7e79f064bdd7@vaisala.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 10:38:16 +0000
-Message-Id: <20260615103817.43D2E1F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 10:39:13 +0000
+Message-Id: <20260615103914.179AA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Schema backward compatibility break for legacy multi-channel dev=
-ice trees by removing $refs to serial/rs485 schemas at the chip level.
+
+New issues:
+- [Medium] Temporary modification of registered device's `fwnode` creates a=
+ data race with sysfs/bus iterators.
+
+Pre-existing issues:
+- [Critical] Uninitialized port line values in `out_uart` cleanup path caus=
+e deregistration of other devices' serial ports.
+- [High] Unprotected global bitmap `max310x_lines` allows concurrent probes=
+ to allocate the same UART line, leading to state corruption.
+- [High] Missing registration ordering: UART port is exposed to userspace b=
+efore its interrupt handler is registered.
 --
 
-commit d832a7d0f42d71a0c331f81efe607eabea305da1
+commit 0bd4955b2ec9441be6e7a42bfe7ca700f31859d2
 Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-dt-bindings: serial: maxim,max310x: describe per-channel rs485 subnodes
+serial: max310x: honour rs485 properties from per-channel DT subnode
 
-This commit splits the binding for the MAX310x UART family, introducing
-per-channel child nodes for multi-channel parts while keeping single-channel
-parts as serial nodes. It removes the top-level serial and RS-485 references
-and conditionally maps them based on the compatible string.
+This commit updates the MAX310x driver to parse rs485 properties from
+per-channel device tree subnodes by temporarily retargeting the parent
+device's fwnode. It falls back to the top-level node for single-channel
+variants.
 
-> diff --git a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml =
-b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> index 889eeaca64a02..e598dda4d13f5 100644
-> --- a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> +++ b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
+> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+> --- a/drivers/tty/serial/max310x.c
+> +++ b/drivers/tty/serial/max310x.c
 [ ... ]
-> @@ -49,8 +56,55 @@ required:
+> @@ -1426,6 +1426,9 @@ static int max310x_probe(struct device *dev, const =
+struct max310x_devtype *devty
+>  #endif
 > =20
->  allOf:
->    - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> -  - $ref: /schemas/serial/serial.yaml#
-> -  - $ref: /schemas/serial/rs485.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - maxim,max3107
-> +              - maxim,max3108
-> +    then:
-> +      allOf:
-> +        - $ref: /schemas/serial/serial.yaml#
-> +        - $ref: /schemas/serial/rs485.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - maxim,max3109
-> +              - maxim,max14830
-> +    then:
-> +      properties:
+>  	for (i =3D 0; i < devtype->nr; i++) {
+> +		struct fwnode_handle *saved_fwnode =3D dev_fwnode(dev);
+> +		struct device_node *port_np =3D NULL;
+> +		struct device_node *child;
+>  		unsigned int line;
+> =20
+>  		line =3D find_first_zero_bit(max310x_lines, MAX310X_UART_NRMAX);
+
+[Severity: High]
+This is a pre-existing issue, but does this lockless read of the global
+bitmap allow concurrent probes to allocate the same UART line?
+
+Since find_first_zero_bit() is called here, but set_bit() is only called
+much later after port registration and DT parsing, multiple asynchronous
+probes could observe the same zero bit.=20
+
+Could the second thread fail in uart_add_one_port() due to a collision, jump
+to the cleanup path, and erroneously clear the bit that the first thread
+successfully registered?
+
+>  		if (line =3D=3D MAX310X_UART_NRMAX) {
+>  			ret =3D -ERANGE;
+>  			goto out_uart;
+>  		}
+>  		s->p[i].port.line =3D line;
+> =20
+> +		/* Locate the matching "serial@i" DT subnode, if any. */
+> +		for_each_available_child_of_node(dev->of_node, child) {
+[ ... ]
+> +		/*
+> +		 * Temporarily retarget dev's fwnode to the per-port subnode
+> +		 * so uart_get_rs485_mode() picks up the per-port properties.
+> +		 * For single-port variants, fall back to the chip's own
+> +		 * fwnode so legacy DTs that declare rs485 properties at the
+> +		 * top level keep working.
+> +		 */
+> +		if (port_np) {
+> +			device_set_node(dev, of_fwnode_handle(port_np));
 
 [Severity: Medium]
-The commit message notes that existing users are unaffected because the dri=
-ver
-still reads chip-level RS-485 for single-channel and legacy device trees.
+Does temporarily swapping the fwnode on a live device create a data race
+with sysfs or bus iterators?
 
-However, does this change break schema validation for legacy multi-channel
-device trees?
+Since the parent SPI/I2C device is already registered with the driver core
+and visible in sysfs at this stage, locklessly modifying dev->fwnode and
+dev->of_node could expose a torn pointer state to concurrent udev events or
+subsystem iterators.
 
-By removing the top-level references to serial.yaml and rs485.yaml for
-multi-channel parts, and because the binding uses unevaluatedProperties: fa=
-lse
-at the top level, any legacy multi-channel device trees that still declare
-serial or RS-485 properties at the chip level will now trigger unevaluated
-property validation errors during dtbs_check.
+> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
+> +			device_set_node(dev, saved_fwnode);
+> +			of_node_put(port_np);
+> +			if (ret)
+> +				goto out_uart;
+> +		} else if (devtype->nr =3D=3D 1) {
+> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
+> +			if (ret)
+> +				goto out_uart;
+> +		}
+> =20
+>  		/* Register port */
+>  		ret =3D uart_add_one_port(&max310x_uart, &s->p[i].port);
 
-Could we retain the top-level references for multi-channel parts, perhaps w=
-ith
-a deprecation note, to preserve ABI backward compatibility for existing dev=
-ice
-trees?
+[Severity: High]
+This is a pre-existing issue, but could this ordering lead to unhandled
+interrupts if the port is opened immediately?
+
+Because uart_add_one_port() makes the port available to userspace, udev or a
+getty could open it before the probe loop finishes. If the port is opened
+and powers on, the hardware might assert the IRQ line before
+devm_request_threaded_irq() is called later in max310x_probe(), potentially
+causing the IRQ core to permanently disable the shared interrupt line.
+
+>  		if (ret)
+>  			goto out_uart;
 
 [ ... ]
+
+>  out_uart:
+>  	for (i =3D 0; i < devtype->nr; i++) {
+>  		if (test_and_clear_bit(s->p[i].port.line, max310x_lines))
+>  			uart_remove_one_port(&max310x_uart, &s->p[i].port);
+>  	}
+
+[Severity: Critical]
+This is a pre-existing issue, but can this cleanup path unregister active
+ports belonging to completely different devices?
+
+During early probe failure, the allocated port structures are zeroed out,
+meaning uninitialized elements have their port.line set to 0. Since this
+loop unconditionally iterates over all devtype->nr elements, it will call
+test_and_clear_bit() on line 0.
+
+If another max310x instance has already probed and owns line 0, couldn't
+this accidentally clear the other device's bit and forcefully unregister its
+active port via uart_remove_one_port(), leading to a kernel panic or
+use-after-free?
+
+>  out_clk:
+>  	clk_disable_unprepare(s->clk);
+> =20
+>  	return ret;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-b4-max310x=
--rs485-dt-v3-0-7e79f064bdd7@vaisala.com?part=3D2
+-rs485-dt-v3-0-7e79f064bdd7@vaisala.com?part=3D3
