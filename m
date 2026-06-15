@@ -1,153 +1,149 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4F121D596
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781546226; cv=none; b=p7zKD9VoSDl0XEPkw4D7KO628acpjCzHIE7hJJmN6fyIA3SyJPjXtzoviOa7Cz/ELLi5XNTMvD7IO4a/Hm9rstLljgYMbMxn/SxNckJvr0PurBCNWDaRpUVwLpGauvE3mGvZcP0pkCv6yBsDtm4qMKFC+50x5vuX2YU2shU1g6s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781546226; c=relaxed/simple;
-	bh=rOPdLVNQAp1nTGnlUwqvlLWVZujALkOGb1Bxg9QpYI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fYvzR0//cHdX4YtB2UP3hHMx+ft964H7OXtRaNgyS3KV4Fnt+VpEBQPaohtDWgfp3N3wr5Oc49M+6kkg2lcUxgcGRxY8oZRet+XCFW9slFY4abWzAV3pWAvIUpiGp5K6E10lI4gijgvVRrzJX14DWxjRb1g42703R5pT09URYMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUe7FnGZ; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070192EB5B8
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781546387; cv=pass; b=IUnmUoVutk189ZRP6Y83e9iTredFwCvvhdZLNhpsqUpe8T5gxCo/99bWkVL4ciyvf5BEAhwXgjpOGRV2znI2wK7HKcd0PNVjgSQhCR5L7xwY8blibq1CBgrFLgcFBj5BCPY8mDeiG2PHefBMdPfhQHskNMVtMy7DqKs102L1Naw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781546387; c=relaxed/simple;
+	bh=Z04S6VNZxBeIrKrAtYyZN/BEOkXQu+9ARQV6UFG4A1I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P7pGItmaXR60iPTAtxhyHZREmgyR+oU7UvK/W88uBdIQOgnQoC5VKzq59Sv2j5HHL8tw1pjsISesOykv0wh6iN45KgzJr2CwEwCCoRgv5Zm8++XVIFuIqJaVYntM/ozev8XVmXCJWg0yCUKNTHOT1FuewZHZV25JhreYD7bAYhM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=os+ZLkda; arc=pass smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUe7FnGZ"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45ef6565cfdso1719791f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:57:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="os+ZLkda"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-660ea43107fso3712611d50.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:59:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781546385; cv=none;
+        d=google.com; s=arc-20240605;
+        b=cSne+eYWRrFx3/xCjfwYWIcjddXm7Igcb9ghtQum2NQko9yslOsl2MJXVpDqci9/91
+         D7Le9G7q74TtvZvbpJ+5wUxa5uvXM5tXGY+1IYPCtLCSTogPGSSoyyr4Sak160wz3fNs
+         0q8RurQSeF60Bitg9Og7CZ4DpogF0bRi973Cz/BP9LPihfx5dTEvBwGXxce41RzE+XWo
+         t0gWg+KgbrQ247wNy7CD00IiRmP/drOESy1oQLuZlk8Ro9IXLao28bkN5tfqqsAIN1Du
+         6HN68EEFHeiag1+EiCUJfjOv/aZ0ToO7s3XUdNMjWABcbWuCS04EowGch4Qc5iWaQRaa
+         RqNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=N7DCS1FhJDnbMeFiAtGx2JiLKTME+H3qz4ArR/Ptiac=;
+        fh=6SiOdMTc/qVmcak7FUizHBdx6P6mWOYPX9rKP5MrNU4=;
+        b=ULTyu2ZcnQ2Mi31ifr0tMfEcmW12Goryt/xD2VfmfSCVPAgMmQ18hPwml//TKMKDeX
+         Er+JKB9dTi9xmtsqZqVExUNrwI2/+O/3suoTW1RcHUjoTquRqyQ+jLaOw9CZE6ualgR1
+         8K+iE207Icm+fj3zC+cInogo9zyPEo8SIhmFqrXjznXlkgOPbqK2xXo4weo8ThstUX6m
+         N9V4QUgbvLkhmsUWVSKGAcoWA81oCVrtyc1bnWqHv5o7L2oC0G7BpVi6kPbWEdeSC/sA
+         gpzZkiyKOtyhYiFgaNoe1yHMkc410t9VNTlt0yWNTzhFoF6Ela1Vc4eh88CPiDCCAKXH
+         i23Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781546223; x=1782151023; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IObpZGW1nPLNyJWjL4oanYTX/zkpr/Wst7RNFyVlhkE=;
-        b=HUe7FnGZDafgfEGhBgBA4QplhSB1yfwOewQnV/dlLSmzUI2+3UIJUwxAH210gtYTeR
-         jS09SZdIELL/M07e4KvdLgsuQIGN1EtU4xbnBIjjVTFBf98Lh1ylIpXG5OWuVHHz9xSc
-         ZIog2RCUijrLDjGacHKl5h2kICmlJddVEx8CkZoUMKYIcg8Oosa2bHnhW88iP24Ox+7h
-         5DI3WdMzPY9mmOPe+/2myJwt3nYf1kOQ59wgexyP0D7fe76MZRz5olf5X5aNpiOH2vPY
-         +ALTmGdAZOOJUz5MJZAx9S9bP7olMhrLXQdDhR+286hpl+L0HJSo3O2YN7CYgv/Xi++Q
-         stKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781546223; x=1782151023;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781546385; x=1782151185; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IObpZGW1nPLNyJWjL4oanYTX/zkpr/Wst7RNFyVlhkE=;
-        b=KkIFeqNl0kWakpnYAOs7MijA3RBw6k1DNa0AseTjcXdZ8S1veqdxq6svPp+mRcVB9O
-         l7NjtlJOJv96Vd/rOSUmQ3qQQCoywLAOKrIZi8sQI0gSOQYXCIbo9nXvQd1RFxC00ucT
-         P2CrKPWXYAUATGnmM32iCv+VKXOw6Qwzx7ej2dbOKGN5cEZPf+NPlahMLFRNl7pR6IhW
-         I0A8cbsUDgIKHE4A/AnyE0DUVon+B1XyxLMSS2PalDC7wn+1P9C0C0TaWYY3/etp2Mux
-         1A/UjuOoQa07xNC9PHKlDeXyc/xT0kbwh4gn/gLgLcMv1NAO5eYklsVTBXMcrAOumqBx
-         s98w==
-X-Gm-Message-State: AOJu0YzHHaXCs7ISu1XjAI4hn9Onuzvb2bMFqo3HeWCM3l8CSmMusy6K
-	DS4wRNvSurNKG7MTayAskykjB5pulDrrGRdi3GSvO/jYEyR0mzfr4qwA
-X-Gm-Gg: Acq92OHj//uXaQNSfFONBmmx4vMSn2BB+UtH8GfvAJAeyG+hjbEYYnged+3RhAODAFI
-	mrRp6VfME6iT336VBX9AcBV9Nhq6XiGTF0H9JAu92ovAe6TzAXqSPudwQ6JfATucxN8WVDFthzt
-	MByBLe3nblUt3IgttiFx7v9TDqYRM5/oyOoRaLW1zhAsx9cKUY9G5vEvC4xYGOitFFD/8XPuHlk
-	9P8oRfNgYv6ltv0Hw5rKdqV7Y2SnXX+wkDvKAAsRbL3nxgd9w3oYXtNkoARDis59D4Oclazs0QC
-	nafHyJ7R9bQq3PkFpu7ukmS+bm71D4wXlr7qfXGWBqxesUTPD4Uq7xkn6AZpObSu9rrJEkGiGDt
-	nWCji5L9sfF8f2QqbYE5szHB67OsoxRvipd0jS/ROVsP7hV7mLvtX+fZx0eFylRzt7oVYVWtC7v
-	knOe6TN7qex7Bja6uxsj0q0RGpfMIr/g==
-X-Received: by 2002:adf:e001:0:20b0:460:71e6:e3b with SMTP id ffacd0b85a97d-4619f3031a6mr650368f8f.27.1781546223003;
-        Mon, 15 Jun 2026 10:57:03 -0700 (PDT)
-Received: from anthony ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26393asm38543721f8f.5.2026.06.15.10.57.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 10:57:02 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	javierm@redhat.com
-Cc: devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	airlied@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v2] dt-bindings: display: Add Solomon SSD1351 OLED controller
-Date: Mon, 15 Jun 2026 20:56:20 +0300
-Message-ID: <20260615175620.88828-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        bh=N7DCS1FhJDnbMeFiAtGx2JiLKTME+H3qz4ArR/Ptiac=;
+        b=os+ZLkdaYtfa2WOgWAELkzrRBFkGa4KMATzZC5R+cx2vHZXrKrmwKUqTzshJyElwNl
+         vsFpUireuh/LqiTShXZLhi3C/ckqIvlWEd2ne6/NLOIY9AQViYrdCFh4XLU92uUWLZai
+         WJKlm6y6XGwJjA0jaFzXaquNHP3HOttNHNYp1crN3JnNzbGxMu0ra/K2RX+JDAyQZg6m
+         NoPGyI+gUTlF+jIO1Z7vuvo/ygRIVsf0IljKQqPyrZabG2PuomEYFd0Zn9Y2NZX+zVC7
+         hjYszF/Kewb2Kb1SZmBSJedfrkNip4iTRsQq+BUg9gpPRXdtwhljsBFzyKe/ONazqC4w
+         i53w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781546385; x=1782151185;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=N7DCS1FhJDnbMeFiAtGx2JiLKTME+H3qz4ArR/Ptiac=;
+        b=rxjbWFJJM3+RHLtRxNFOZ8rn/Hcpg0i03p1vfCogF9IqENSvv1EXdspd7FRIh/78tk
+         ereDphrXgQ/aJQvFe7jCfirhxljFLteuP1yVswSVUckzty2WNV7IGKvSpWhatEhgJUJp
+         1+F+MRWHyaPocjhSkWwV0PZBaN3PFnImTZqvNw2lQzBBsqqllvmM96xNt3vXzhdXjZYp
+         cf6zDwepXkqv4O2/EEoC+P7Wpi5+zT1lK3L/IscF6uzywrytWWRPHiykqN3hTmAFQ8cf
+         jmd1eh9Fs+7XGJ3xIBJKRI66ZypuXISfE+Xyy/fGmuf6LK2pa827hN/7VnyrHL4akW7g
+         bGew==
+X-Forwarded-Encrypted: i=1; AFNElJ+v1tGKuS5Wm7k/IKYhgePnzXgDGCQGf4rHYg9IzmQzs4fmF2MWF1fnJakz5uuvjLRv2dbOBEb86Ffn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7/rC7C+twG5520RIGhlYR/ZkKgsGNG0nJhYKPKxYP1mpPBZ4G
+	jl5OT72KvwgwvwE6hoa6cQ+oA16JUU/B5f4DfRslQ9yBen7Guuj9LgNe2vqZ2YFHFES+s7gEB1H
+	SVyYUkrNg+qr5OgiLnrtCaH82Epnifds=
+X-Gm-Gg: Acq92OGUjB0vscAr0YnQK93L+77DiTEDYonaEi8WA7QLT2p80gsOy7yc8OK54NGMkS2
+	H6tM2rcD5mJO1XM3zlqJHd9V1RAARd/PdFcFg3aHZHWintZh3pukA0+TG0iKKAEBbcvzPbXxj+V
+	ub8V+YIJFjiQXIjeokrzoBh56txWXN1ZMGPmTAOkwagfhTIvPqVKvX/1q04OsqsruKk9zMJk/LV
+	2p0x3nT+ZeFkb27XLmVctRJKGPuQXGO2TZysQtLKeYqCQrUKkzIvC7K26t5zgDPOnt0SNJI3hRg
+	T8+HSLSeAsrceX8=
+X-Received: by 2002:a05:690e:124a:b0:660:5df1:f243 with SMTP id
+ 956f58d0204a3-66278346bd2mr13188710d50.50.1781546384795; Mon, 15 Jun 2026
+ 10:59:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260510171353.1406018-1-ekffu200098@gmail.com>
+ <20260510171353.1406018-3-ekffu200098@gmail.com> <20260601220346.GB54006-robh@kernel.org>
+In-Reply-To: <20260601220346.GB54006-robh@kernel.org>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Tue, 16 Jun 2026 02:59:32 +0900
+X-Gm-Features: AVVi8Ce3VjKsZhdbSUBBzYGD6PwF3j2b4jhtEgG1brsSGXPufZKHeAEi0A9pCcg
+Message-ID: <CABFDxMHRqNDg1TmuYSWFuF95rYgDX2SpThn-TvbTGMTen8kx2w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] of/fdt: make early_init_dt_scan_chosen() return void
+To: Rob Herring <robh@kernel.org>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, saravanak@kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
-RGB OLED display controller driven over a 4-wire SPI bus. The binding
-builds on the shared solomon,ssd-common.yaml properties already used by
-the other Solomon display controllers.
+Hello,
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
----
-Changes since v1:
-- Drop solomon,width / solomon,height: both are deducible from the
-  compatible and are already declared (as optional) by the referenced
-  solomon,ssd-common.yaml, so a local override is unnecessary.
-- Drop the rotation property: it has no consumer (rotation is being removed from the driver).
-- Use dt-bindings/gpio/gpio.h flag defines in the example
-  (reset-gpios active-low, dc-gpios active-high).
+On Tue, Jun 2, 2026 at 7:03=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+>
+> On Mon, May 11, 2026 at 02:13:53AM +0900, Sang-Heon Jeon wrote:
+> > Since commit 064e32dc5b03 ("of: fdt: Honor CONFIG_CMDLINE* even
+> > without /chosen node, take 2"), early_init_dt_scan_chosen() always
+> > returns 0, so the return value checks at its callers have become
+> > dead code.
+> >
+> > Drop the return value, change the function to return void, and
+> > update its declaration and callers accordingly. No functional
+> > change.
+> >
+> > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> > ---
+> > dt-test result
+> >
+> > [    0.684136] ### dt-test ### start of unittest - you will see error m=
+essages
+> > [    0.685849] ### dt-test ### EXPECT \ : Duplicate name in testcase-da=
+ta, renamed to "duplicate-name#1"
+> > [    0.685870] Duplicate name in testcase-data, renamed to "duplicate-n=
+ame#1"
+> > [    0.689496] ### dt-test ### EXPECT / : Duplicate name in testcase-da=
+ta, renamed to "duplicate-name#1"
+> >
+> > ...
+> >
+> > [    1.693384] ### dt-test ### EXPECT / : OF: resolver: overlay phandle=
+ fixup failed: -22
+> > [    1.693386] ### dt-test ### EXPECT / : OF: resolver: node label 'thi=
+s_label_does_not_exist' not found in live devicetree symbols table
+> > [    1.694968] ### dt-test ### end of unittest - 405 passed, 0 failed
+> > ---
+> >  drivers/of/fdt.c       | 10 ++--------
+> >  include/linux/of_fdt.h |  2 +-
+> >  2 files changed, 3 insertions(+), 9 deletions(-)
+>
+> Looks like this is dependent on patch 1, so I'm assuming the PPC folks
+> will take the series.
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
- .../bindings/display/solomon,ssd1351.yaml     | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+Thanks for reviewing, Rob :)
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-new file mode 100644
-index 000000000000..39622d74a41d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-@@ -0,0 +1,41 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Solomon SSD1351 OLED Display Controller
-+
-+maintainers:
-+  - Amit Barzilai <amit.barzilai22@gmail.com>
-+
-+allOf:
-+  - $ref: solomon,ssd-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - solomon,ssd1351
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        oled@0 {
-+            compatible = "solomon,ssd1351";
-+            reg = <0x0>;
-+            reset-gpios = <&gpio2 7 GPIO_ACTIVE_LOW>;
-+            dc-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
-+            spi-max-frequency = <10000000>;
-+        };
-+    };
--- 
-2.54.0
+The merge window is now open. PPC folks, could you take a look and
+pick this series up for 7.2?
 
+Best Regards,
+Sang-Heon Jeon
