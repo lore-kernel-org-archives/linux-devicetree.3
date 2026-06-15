@@ -1,175 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABDC3B2D06
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D773A7F58
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781505644; cv=none; b=Wk4MjghJ/KD8Q8YU6x6713Vs2q91pejK4iqRoZut+YU8mk6wXrVL9umN+1rPeNvmE+HRKvdTJyui6+WW7knh8CEW2rQkYlWC6CbJtVKi381F+rOweBWCRwla8s9F3mXpRRrTSs0p0Rd7vG8XA+U8wzKbj9j9MMtCPm5QbnWH7GU=
+	t=1781505659; cv=none; b=tWsDfz0KhEXfhhKzTcKX5aBHORsfhXwrRjd1SyrQvrMSXFjOUG/6Qm0C3Eun2ZzVmO1aODkGB1cUayo+kSqj0LeAk8bY8TO4lVAtkrZelWznxjIqgpInJsNAH7lZha4nYDK+7/0hLfo/UjVFj13bl6JaaiiXMJv234h0qOY4vx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781505644; c=relaxed/simple;
-	bh=qlyGeyNmGTzrC54k5kkkSWJw4ZVq3zNqkMH/l0Z8bBA=;
+	s=arc-20240116; t=1781505659; c=relaxed/simple;
+	bh=MjkUbsX3SaSD2VZkXKrsV4JjZyXRysVFfTDQQw62Yy8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qm+3zr9hJDsoFZiD36EfMyjY2VDjOhODrgXCeQVq/0acdq9PhkVaa3bH3NU7uNNUNEv/8WtV5VwBmartXNwVyIagScOQ9fSLAfn5pnVfyZM7HF4/fLW6iMkBSVOzux9qhX/fejlu0RdBJF+OPWrZXQ2h13U7rOdBj87qOGShw0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY0baVte; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IJniy/LwoyVnvKUKBRXxEORLa3AOO3aGdiRC61HZAJLGc/UvyCbk4Oe7aYfPdMQEt+NqRDX291kG7IATe0tmXa3XMkfvEm+iEANVKaWntjd5H/tyysW4CVyvXbEE/5ZagaarqQ1IdYKGRIDgD9//SeWV8fKzKQSHMB3E/cuC5/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iRqP6/B/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY0baVte"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7192E1F000E9;
-	Mon, 15 Jun 2026 06:40:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iRqP6/B/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 481A71F000E9;
+	Mon, 15 Jun 2026 06:40:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781505642;
-	bh=7yNAmv61JvbQHkwqcWNf6ZNYI3rUcJOTchHFJDRbC1s=;
+	s=k20260515; t=1781505658;
+	bh=tWnt9Ww98hhgzq9XvVcEyk8KWxVkx9x5gfaAj+61UtQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IY0baVteZOrScnI5uuLiQ+1eE5dWKF24/NSGGToEp4CkkJEOc3bvXHzSaTlIUnrGI
-	 Mx2ijSMEB0LFtbMCgjw3P+xhiMq52YB1sYDP/X8zCOkH7+t53u1SV+fwf4L6Ma89pm
-	 uV1aXZcsJftvMA8CoU6D5tx6ADtFcFYslCbxUUd8Rd7TWY17Y+6NmaqFKwStoFx1eW
-	 Cj3XLNZtT4UbLkX72Mz5F5Xck8Am8Jyhsc7Q/XBm3q5Jg+xrJO92smLB7rtyOlS0Ue
-	 AsoEvL5f3ZYaV59xXKFPEhOoYBwjwvtztzR09k7v+EUKrXjQQHeaNJ9whaIiLeydgn
-	 KZXAunq95wUfQ==
+	b=iRqP6/B/ftxNnLHcGWeD/pIMZyhxa3KjXxJilXEmi9ktJxFhlAZ3xjCL2O4hZiZw8
+	 gtizn5gpwU4WGOrtMEzUuUHEZ88OYgMIqDhtA6pUOdB8xfHehUwJH54ijtckAYjiJ+
+	 X2TfdvqMUiHxIQvPmml+8pqCgc7BrGGGFe39ZtrfMIPaBduOGWH6F43OmPBSkF43YL
+	 3GAHg9Hv21ZPRFbwGkTYr266wF2MLMlp6C2c2/7E9QrUcExRX6GhRpr5ZwilK15cuF
+	 iguPDILrYkcoGaMBkrDJB8JTyOgcHsYLL5W8QIZas2sDE9aLUF5l1oNtHjG9MwxgqA
+	 rprPDLaXngRfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/7] drm/rcar-du: dsc: Add rudimentary Renesas R-Car
- V4H DSC driver
+Subject: Re: [PATCH v4 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260615-rcar-du-dsc-v4-3-93096a1b56a3@ideasonboard.com>
-References: <20260615-rcar-du-dsc-v4-3-93096a1b56a3@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-rcar-du-dsc-v4-4-93096a1b56a3@ideasonboard.com>
+References: <20260615-rcar-du-dsc-v4-4-93096a1b56a3@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:40:42 +0000
-Message-Id: <20260615064042.7192E1F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 06:40:57 +0000
+Message-Id: <20260615064058.481A71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] `WARN_ON(pm_runtime_get_sync(dsc->dev))` incorrectly warns on succ=
-ess and mishandles errors.
-- [High] Mixing devm-managed bridge registration with manual runtime PM man=
-ipulation creates race conditions during probe and removal.
-- [Low] The driver calls `of_drm_get_bridge_by_endpoint()`, which does not =
-exist anywhere in the kernel, causing a build failure.
-- [Low] Dead Kconfig dependency prevents `DRM_RCAR_DSC` from ever compiling=
- under `COMPILE_TEST`.
+- [High] Unsafe bridge advancement leads to NULL pointer dereference and ty=
+pe confusion
 --
 
-commit 6b399ab87555498e65f4bb3171342804aa8feb3a
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+commit 1b871953b11e075ad828c5d792325efbdffe6d91
+Author: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
+drm/rcar-du: dsi: Support DSC in the pipeline
 
-The Renesas DSC Display Stream Compression is a bridge embedded in the
-Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-8k or 400 Mpixel/s. Add rudimentary driver, which currently acts as a
-pass-through bridge and allows DSI1 to be operational on R-Car V4H.
+This commit adds checks to rcar_du_crtc_atomic_enable() and disable() to
+detect the DSC via the bridge type. It skips the DSC bridge when needed so
+that the crtc correctly calls rcar_mipi_dsi_pclk_enable() on the DSI instead
+of the DSC.
 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/Kconfig b/drivers/gpu/drm/re=
-nesas/rcar-du/Kconfig
-> index 840305fdeb49a..80bd770ae0f68 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/Kconfig
-> +++ b/drivers/gpu/drm/renesas/rcar-du/Kconfig
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu=
+/drm/renesas/rcar-du/rcar_du_crtc.c
+> index 1a246ebbfc613..5679983fc4d1a 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
+> @@ -754,6 +754,15 @@ static void rcar_du_crtc_atomic_enable(struct drm_cr=
+tc *crtc,
+
 [ ... ]
-> @@ -25,6 +25,18 @@ config DRM_RCAR_CMM
->  	def_tristate DRM_RCAR_DU
->  	depends on DRM_RCAR_USE_CMM
+
+>  	if ((rcdu->info->dsi_clk_mask & BIT(rcrtc->index)) &&
+>  	    (rstate->outputs &
+>  	     (BIT(RCAR_DU_OUTPUT_DSI0) | BIT(RCAR_DU_OUTPUT_DSI1)))) {
+>  		struct drm_bridge *bridge =3D rcdu->dsi[rcrtc->index];
 > =20
-> +config DRM_RCAR_USE_DSC
-> +	bool "R-Car DU DSC Encoder Support"
-> +	depends on DRM_BRIDGE && OF
-> +	depends on DRM_RCAR_DU || COMPILE_TEST
-> +	default DRM_RCAR_DU
-> +	help
-> +	  Enable support for the R-Car Display Unit embedded DSC encoder.
+> +		/*
+> +		 * When we have a DSC block between the DU and the DSI,
+> +		 * the "bridge" points to the DSC. Detect the DSC by looking
+> +		 * at the bridge type, and skip the DSC if the bridge is not
+> +		 * the DSI bridge.
+> +		 */
+> +		if (bridge->type !=3D DRM_MODE_CONNECTOR_DSI)
+> +			bridge =3D bridge->next_bridge;
 > +
-> +config DRM_RCAR_DSC
-> +	def_tristate DRM_RCAR_DU
-> +	depends on DRM_RCAR_USE_DSC
-> +
-
-[Severity: Low]
-Will this Kconfig setup prevent compile testing?
-
-Since DRM_RCAR_USE_DSC depends on DRM_RCAR_DU || COMPILE_TEST, it can be
-enabled when DRM_RCAR_DU=3Dn. However, DRM_RCAR_DSC defaults to
-def_tristate DRM_RCAR_DU.
-
-This means when DRM_RCAR_DU=3Dn during a COMPILE_TEST, DRM_RCAR_DSC will be
-forced to 'n' and rcar_dsc.c will never actually be compiled.
-
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
-/renesas/rcar-du/rcar_dsc.c
-> new file mode 100644
-> index 0000000000000..5a2ff31491360
-> --- /dev/null
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
-[ ... ]
-> +static void rcar_dsc_atomic_enable(struct drm_bridge *bridge,
-> +				   struct drm_atomic_commit *commit)
-> +{
-> +	struct rcar_dsc *dsc =3D bridge_to_rcar_dsc(bridge);
-> +
-> +	WARN_ON(pm_runtime_get_sync(dsc->dev));
-> +}
 
 [Severity: High]
-Does this WARN_ON trigger on success?
+Could this lead to a NULL pointer dereference or type confusion if the devi=
+ce
+tree is misconfigured?
 
-pm_runtime_get_sync() returns 1 when the device is already active
-(RPM_ACTIVE). By wrapping it directly in WARN_ON(), wouldn't this trigger
-a false-positive stack trace on every successful modeset?
+If bridge->next_bridge is NULL, passing it to rcar_mipi_dsi_pclk_enable()
+would dereference a NULL pointer when it accesses bridge->encoder.
+
+Additionally, if the next bridge exists but is not an rcar_mipi_dsi bridge
+(for instance, a generic panel bridge), the container_of() cast in
+bridge_to_rcar_mipi_dsi() would result in type confusion and potential
+memory corruption.
+
+Should we verify that the new bridge is valid and is actually the expected =
+DSI
+bridge before proceeding?
+
+>  		rcar_mipi_dsi_pclk_enable(bridge, state);
+>  	}
+> =20
+> @@ -796,6 +805,15 @@ static void rcar_du_crtc_atomic_disable(struct drm_c=
+rtc *crtc,
 
 [ ... ]
-> +static int rcar_dsc_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rcar_dsc *dsc;
-> +	int ret;
-[ ... ]
-> +	dsc->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node,
-> +								1, 0);
 
-[Severity: Low]
-Does this function exist?
-
-Calling of_drm_get_bridge_by_endpoint() causes a build failure because it
-doesn't exist anywhere in the kernel. Was this intended to be
-devm_drm_of_get_bridge()?
-
-> +	if (IS_ERR(dsc->bridge.next_bridge))
-> +		return PTR_ERR(dsc->bridge.next_bridge);
+>  	if ((rcdu->info->dsi_clk_mask & BIT(rcrtc->index)) &&
+>  	    (rstate->outputs &
+>  	     (BIT(RCAR_DU_OUTPUT_DSI0) | BIT(RCAR_DU_OUTPUT_DSI1)))) {
+>  		struct drm_bridge *bridge =3D rcdu->dsi[rcrtc->index];
+> =20
+> +		/*
+> +		 * When we have a DSC block between the DU and the DSI,
+> +		 * the "bridge" points to the DSC. Detect the DSC by looking
+> +		 * at the bridge type, and skip the DSC if the bridge is not
+> +		 * the DSI bridge.
+> +		 */
+> +		if (bridge->type !=3D DRM_MODE_CONNECTOR_DSI)
+> +			bridge =3D bridge->next_bridge;
 > +
-> +	dsc->bridge.of_node =3D dev->of_node;
-> +
-> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
-> +	if (ret)
-> +		return ret;
-> +
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static void rcar_dsc_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-> +}
 
 [Severity: High]
-Can these devres and manual pm_runtime calls race?
+Would this have the same risk of a NULL pointer dereference or type confusi=
+on
+during the disable path when passed to rcar_mipi_dsi_pclk_disable()?
 
-In rcar_dsc_probe(), devm_drm_bridge_add() exposes the bridge to the DRM
-subsystem before pm_runtime_enable() is called.
-
-On teardown, rcar_dsc_remove() manually calls pm_runtime_disable(), but the
-devres-managed bridge isn't removed until devres_release_all() runs later.
-
-Doesn't this create a window where the bridge is fully accessible via DRM
-but its PM runtime is disabled, potentially causing hardware access faults
-during concurrent operations?
+>  		/*
+>  		 * Disable the DSI clock output, see
+>  		 * rcar_du_crtc_atomic_enable().
+>  		 */
+>  		rcar_mipi_dsi_pclk_disable(bridge);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
-c-v4-0-93096a1b56a3@ideasonboard.com?part=3D3
+c-v4-0-93096a1b56a3@ideasonboard.com?part=3D4
