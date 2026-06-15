@@ -1,207 +1,129 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011002.outbound.protection.outlook.com [52.101.70.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E326A2DFA3A;
-	Mon, 15 Jun 2026 06:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAB03438B0
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781504595; cv=fail; b=kV6STcXmYqghYdJj3N1uyIfQ8qx/FmnAynqrzbRfIZ4HvOQmtVaecwjDRsa6+IYf4uXzV+VHYrQWw2pc5V1hFaKN9C8KSRtWALk/eQ09NmtSJa6MxpMpVAC9aTwlZ5EYkg23cnFhWOy4obzfcVe8cKh6rS8NjkhUKXwtQffOLFE=
+	t=1781504609; cv=pass; b=MWv2zMJJf29mqtUvMOPB0JmhH1xTfcskRPWXKqqPannCPNXXZbgC7pVHDlYyLOFeSv0haicomqj/bguDz5QsP9P0x1T7IIkNk14ygkoTfpFPzlNtMOHidCwVfzhN1QeZRS9O+ZFWMHGiSNzXMohhNvMp2JytPXaVhLgokEkuwiM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781504595; c=relaxed/simple;
-	bh=kpwYwRGuGjgoFvAhZ0hahR/cdoQCA85i1XVYRJmYSjI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dgrc2Po1Cm21F/3gbwMUNHHvaLzJZC+aPNTwc8XRpJlyYsrEqg7YU0xROjGW6G3YP19Ac2tXv5MtheTcpoA6VGQZrJdushIEw/UDoAykOpxBH8anfrFzVWj1sWXDbUpHXTt1nuZBKgDEGZUqZ2wVu8eX6chKlQ3BCeSZSm27DG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=TioGeIaC; arc=fail smtp.client-ip=52.101.70.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1781504609; c=relaxed/simple;
+	bh=6RrxEbtdY1URcRhqUHuv6rRPkusZoYqTLT3CjAAQOGM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bS37sgcFHZBlIbMI4g73t4pPQfjSId9zAkFlVXgEwcA0Dhv/fYhGAV39iGUuOtgYuza1yY4F2YB08qAqaYRyyIkQ5Ud4CdQ+qGp9tvwRiwFtjfWdzhGkMFYqcJaBLERDhgMoSVfrwJPQxltj1CiYQgwvio2FdaOhXmTueGczA8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l6/470yY; arc=pass smtp.client-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="TioGeIaC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bpRiWMZlDxOeC0dAgJyzXM4pSdLVuhb32XFcNol20IQ0VbeZqcfAv2K6Sbj0HcJjZBaOauY4DH+w/DXl2wyMKvkKBlD93Xu6JDYOJt8Epug9uH6oW5p+sDw8CmtBP00wM81wBMQ1PqsVf2c8ly1Z5RUIj48THxalED1JGlvE/MGimT9crUgLIg6NvyUeJtkJUSVWKG+eVEcnUMNcw/PWq3YIowT0y5/hmUS3Tp638RBYJMSEaeAMKbClf6jXv8iGZcUAnyzqPOj6whxJDnyWZOB/G8mxm/FcxraXd+oY+Ro1oOAimqZliy4wWLT5sCTuQhxO/TXqYY8st8F5mV75ZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S1radrsCNIubQJu24Z7gmOJTjYnvlxq6ucaLgwBfT0o=;
- b=NFZJxFtg88j11NvzVyhHIUw9L6O2iWOdE3UXSjY1N7l6+0faMtT6JLQEol1e+dSBpRMU+1rYDP/rj5kuTTfdOTXi7B4CxRIDxaVwoyBIQS63yjKDS4vlh0lkx/4HYmHhGNPxrgVvZY5QMkuHorD2u9hwihpVvVYjvX49sdP4dvR9E9Sexbieqpb880GnXMjVB1I9Yiit8CQm6r1ZU65VCMSDpwqW0dxe9oe0pkdgERSzC/XfjQewwzF29k8DPs8OS2g+gNx5uObxWtwqf9S6tCd0p1DBK2e9g0dNnqY8mOia66epFFBGLGDyJFxwqRyv6bnQAOalK5hNr6gCoNkHRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S1radrsCNIubQJu24Z7gmOJTjYnvlxq6ucaLgwBfT0o=;
- b=TioGeIaCVmpBppRZ2Hlw8V3CheCv8p9qFD49lalj2rTKx6NDoS+yFGFagvRNXjJrTuG1pJWXz/EMKtFERc7EtoBGD7XuSrK10c5CTu4kYJhwB+NIB2T1/s4xHQiyMuKj+F1f6aLpeciQ+x6vAZltWPFXLB24zTEE3KYtzY5SRilg9vXG9LWYX42od53Wk8SGi7D3QufOgFkb5pLp8KNFA5WkK2vK9pddfE7qLi1SBHniG+7D91FDiv9ubXxXYfwymlPGHEnsmVQl0UNkBB7U/H67KA9hUWrnuAboKe1OD+gFSc3AcOZDAvcAxVo1Jc/ioSW2ZJS0uuFhYPQ6cXRY7A==
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
- by PA1PR04MB10442.eurprd04.prod.outlook.com (2603:10a6:102:44a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 06:23:10 +0000
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 06:23:09 +0000
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>, "alexandre.belloni@bootlin.com"
-	<alexandre.belloni@bootlin.com>, "linux-rtc@vger.kernel.org"
-	<linux-rtc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "wim@linux-watchdog.org"
-	<wim@linux-watchdog.org>, "linux@roeck-us.net" <linux@roeck-us.net>,
-	"linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>
-CC: Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain
-	<priyanka.jain@nxp.com>
-Subject: RE: [PATCH v4 3/5] rtc: pcf85363: add timestamp support with
- configurable timestamp mode
-Thread-Topic: [PATCH v4 3/5] rtc: pcf85363: add timestamp support with
- configurable timestamp mode
-Thread-Index: AQHcWuAC0fEfpvKJ+EqE1HLqhxCRU7ZAaMlQ
-Date: Mon, 15 Jun 2026 06:23:09 +0000
-Message-ID:
- <AS4PR04MB9362A6437652BED0090C665CFBE62@AS4PR04MB9362.eurprd04.prod.outlook.com>
-References: <20251121121137.3043764-1-lakshay.piplani@nxp.com>
- <20251121121137.3043764-3-lakshay.piplani@nxp.com>
-In-Reply-To: <20251121121137.3043764-3-lakshay.piplani@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|PA1PR04MB10442:EE_
-x-ms-office365-filtering-correlation-id: 63948792-6853-4344-5968-08decaa6922a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|19092799006|376014|7416014|23010399003|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003|921020|38070700021;
-x-microsoft-antispam-message-info:
- 6KvxS567OB9XbLgBC7S37ZviDp1VFmNfd+OlKWgl81uVx8GxUZ8fzvLCH9u1y0h+dmBWRjifr6kMCN65fZCZsequ4Jp+sqd4HKAdWj3g27a5DigLk1sQp+eAUL9PKLq01DpHbYfKE8wC64eEvbKg0H56Y/vCI8FfxZ9B/APQWRsE5/M+yOluktKKE4iprQKfZk3it1tBIKk2R+rSuQncExD08AmU5wtHEDyg6LaFoSeOKIfBvpv6CM7j+m3dsDiQRXB56PyAtNazCAQp77bewZNTD8SCdK34R69rsLZle71o/VmluMf+z1K922pPJy2wIesLRo2hETSREh4AtrnsOvkbVJDz0q7thaHWhBlPxK1+rk45OX8hyXoWnRXo9ysyCZ/EHb+Cdlz0n9O8/8ax/FY/cvmbneH9BXcSBEWmLlLM5GKzX7woJUKzoV5sF9J610HnJi8jhSwBPsUkyyVaGWfz49dMMSdf9PqhEPHZE1afhk7+1EWar9RDkyVnYpmYQY/BeXeoX2tB8sDqy5V6HFbPPDiDRBjq3y/nhDf7e8XQ68mXtoa3MdCgRu5GdYtmULsgCx/3ml8HJcQxKeONEMdZP0nqasEmpGVTvfSR7OHlRz2njS16qmTr6F46rnyJ5+UtvxTu3ouMqXakM1ELaDdlCN2dg8goV6epA0jnaXM7K0CR05iaS33YhJFdyf9yNrwtaKbTgAPZE7Z/bOqVKLZKfEnEE1l3EkUMwGAtP0QbaQWtsvx80ewT5KSZLtEIJIu139A72YAnX/yekvCrvw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(921020)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?10BuFzSchNC/2M4VIiAGryKQdZVtfjN3poyDGp/YQKiJic88HHPozT8mzP1M?=
- =?us-ascii?Q?/OHYNmb3Q3a41vwNETjAxgQPk6Sli35/Uh1QROFvDYoOyXnyTxxOBPqQiama?=
- =?us-ascii?Q?vYr9F782gQ2IDGiuqzWWApw3ca/pelqqF+lkAvJDGibGXizj1Xx7MiMEk0Pr?=
- =?us-ascii?Q?iEjgSyNyqbY6fYSL3lz46duo0av1jpjJhwhb3uX98RKsET2taKEsrUgUSeQe?=
- =?us-ascii?Q?bTz6iWxuzpPmTDHn/79tiKWh5TvyV6yOMwdt5JxsmBWYb3mxuLWd55MwGVsk?=
- =?us-ascii?Q?omnH1aSB8fkCixndxfQjnKBkeEGCtE/PjmhYTsDNbqbwV2RHwjagLNNvUDDJ?=
- =?us-ascii?Q?kmi32NPHKsMxzxn3EM8lK6hcztpSbZAWNxu8BJeaWm1wH05L3oYN9cxU+ooI?=
- =?us-ascii?Q?7E/s84xjplmULE4/cSUv7zlwkbd1k3+d4l7S+IeCklyy9iMic/lzhZXqkwWA?=
- =?us-ascii?Q?C2gL9AEYAFu9Cu9s6C/5xH7+bB7VxA90Dqu2ICA2ZaYOtmPzAe3tqNOtCls/?=
- =?us-ascii?Q?ZvwOGhGyIBtAxN8/VLYP0Dk+k3d70Xakho30q+W49w4hLFwEVZk8j1yTuBup?=
- =?us-ascii?Q?3PodrxNkRYzbIrGID8xCvgHuMeMeqyY1/KTMWgmfyrhfgATzNRMaegqOsLPv?=
- =?us-ascii?Q?MEDX/EK4sdlVVNnn6+ZNGwJRAqwufLCl8RS/+BisLUhJ2Ez3ZiZ6jm5M44IY?=
- =?us-ascii?Q?oMlDf9jjJi2sCdaWE3S6yvxKos5h9uPJmsFgmydlJhyGm4vMO4RxXAO1b5P8?=
- =?us-ascii?Q?N2m2g5zF3Hd4uaVpI8rkhZTBRW8LsQuStf7qdBsaBnIGeFKeT4WhkWQJ3VPi?=
- =?us-ascii?Q?vDNdima8Ipj6/u4wvTusGrhS8ppA4ZFRlVneqFp988lshZ8JpHmbTTxMpRSw?=
- =?us-ascii?Q?sMVQu0F7MqIchGPn+5cjxt2dBuTxkqDx5mmPWkvj2djpWTq3MKzLkCKkIEGE?=
- =?us-ascii?Q?DIbBK/LrHP2DugDMRT93axSBW/kmPidUtw9tIlNlz8IYCa7qeuDdJ0Ssubq4?=
- =?us-ascii?Q?WcEaCsl6LUJEt9TD6/bohQ3Vb5IRWK+381K5JBPzfmORVzm2ODR1PYn95k+E?=
- =?us-ascii?Q?0cFN5HPhsE/vt2K9pQhXTXT8il0peO1RPriT3n/m4mHLcHAMGE90wK6J4kdT?=
- =?us-ascii?Q?5nQbPBuedBrOu9Awi9WgEC1et59ISnW6xAAgSwaGGmbGieHMAFmTjvVFtQVf?=
- =?us-ascii?Q?9Bfpp2sLnhOMXVVWSbXbJZ2FLa8snNwREFyjHRg7X3q10lbiH7KUxVtoEWVP?=
- =?us-ascii?Q?SZ4A3y9xmBNzu6To1Hjgkz9vfU7Fwpcx5OmivLZCd/Gm1A/EurFub2E8mX+6?=
- =?us-ascii?Q?ZCFB5P/6mtnD+P/hNpvbq/iebjBfAOZ0YewX4fd3d6wpJusdpIcLuIlU/u55?=
- =?us-ascii?Q?AOkFiLQkQA1I9kbe33obUPdGZ4s2bbZrUM40//rmiFJQgLY1Bz06C/Cpd+u5?=
- =?us-ascii?Q?Syq8rWc8evlzHRwzjs/n+EO1XIT8l6GmKXGMMNCRY4ZH5zGQrvwSuUbrvCHK?=
- =?us-ascii?Q?Acf3IVSuRIN5eV+PiRrZh6TXxFdfi7nQjmtrgD18FKJfGzlthPDccV65YB9s?=
- =?us-ascii?Q?kdbzP+Ledo/ftzE9kglk60HWiWmWPr2HTN5cxm1U8DnlHEZxoWZGNjTnqSLI?=
- =?us-ascii?Q?GUdHWu/nQp7EaToHPUdDjuqtiVK2SR7fYMs/igsFBS+JY2j7Y+cgk9rsnEtP?=
- =?us-ascii?Q?dnCfIuRLHb5gvqirSdm0de6s7CdTN1L/Y80IeGaDiuweKwpnTE0NWtlZvLrQ?=
- =?us-ascii?Q?pTzMfiFP+w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l6/470yY"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-30749947917so453404eec.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 23:23:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781504608; cv=none;
+        d=google.com; s=arc-20240605;
+        b=J8V1FNJ16Jm2txyy1CgU+OFWBdenfOjechIFciV9RofOpPiathulJ1Dpgf03n7Gwnk
+         bQ6qPgASYo5Y+Bz/fm9v8fimhV/w74wLTq9c/uiDfRn0Mo3VTjxCjFgr/9vS8AoXfMmw
+         QVemTigK/S0PDffxFhNDiM9C1S/9xcmW40Ts+uzLt8n1FMRnljWg1TtGq3P0jRH5aTyH
+         qGCzZyHj+RRMMTb4dsg1Dk6OHOaJFKcXIbBpF0Cg24/awL3wHHSGfCbgAJ9eu2zdYKUH
+         Zv499r86wXKEgFYfnhLxM0pGChC6In+TI0bB62+eDBdJDJS66cQqpazsZvMVO8VaJ1gR
+         nOKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=76EcjshEI0S52XWKwaYtOS0vh7v35QH2XSqyWXuOjik=;
+        fh=TgCfxwShYNh8PdtdXothiFdEGxfEV1U8DhSULTFz9/0=;
+        b=lpCd8+e/q3eiNTTWRK8fqdfelq1bu4LpZvJxI3O2ar17gxuZGELU1YFgmd6tCXJJpT
+         4LmoJ/yZcsXSLWuKSnz2qH7EjnK1LEE0pUE6/Ytbh4UAdcKknmqom/BYR2GSYf7VEMET
+         uq6Mli0axv7LXSjPYF9vGlYJtZfcxXYMOWya8t2enP3xWOby7Odrx7fwFj/SRkoweWby
+         dTKTz5nQodL9NioZCqBe6nRBV+Ak5e08OuI/29+5+745yni3BTpoRQcmfrF/UbN3bd8l
+         DPR76IrIa6pwdVoGUyITGaacikvz/z4wDdzaw2jILpvYimU2geimEd5dzIqP8/UaTJt6
+         BYWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781504608; x=1782109408; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=76EcjshEI0S52XWKwaYtOS0vh7v35QH2XSqyWXuOjik=;
+        b=l6/470yYabGu6XgvM5OFyCNHNsAhvW6UJ4Siw90FNHfR3fvG+Wlux3PZPKM/ki02sS
+         WZ+rhn4nFhT9cxcq8Ymo2usB1z/IJxQGtqsxPVDNAfCnhN2NqPoyAOkxywhZRYTc2Yl6
+         aGhHgsUblQwTZzBuykJBzxWok4HF3USQ4LSvHr1cwLnrdYsp9gm1SZqV9JuLA9OhJAFS
+         THwcGloLyjqtvfUmiF5A1qqRfV2r3oPfvk2VIGyUeNUKJj38+KQK1/aiHMu1J0ekpwrs
+         7JguB3zU53LVT83ZAfLghEE8TTaB6QChcwY9tDxiqKOPG/JEeIBWRm0c/DkobKb/7Uh3
+         t85A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781504608; x=1782109408;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=76EcjshEI0S52XWKwaYtOS0vh7v35QH2XSqyWXuOjik=;
+        b=bKu4YtZW7DqsZ/9insPhReOFMbQGOtCudYwFESYTKYbMfcP++/C6aasn61u9/O9Vg0
+         7MIXKJx3rn484Zl/PX6kDq5Qp1F+fU4rFgmW051MaM7DKIIlaEU+Anf/pXsvIbccIu3j
+         DyJHfdln9qqZj9ftPn+htzngpLfxpkPkFClmxMCRKqFymP2TKkmpN9sr0Vd/AuVQYIjO
+         Xk8QfK2NTuK6k1n4qh41udBRvhvZtUrJ8wR0uJOgPIJ/qRviRbMZpxYHVzG9hXSD4lff
+         Gf+xY/rgH01WV2T55c4zeDCwKiQ9mXs7hPWZi3oEdv6bW2oOnjNMtpoAmmIRb8ve5Tfa
+         9Liw==
+X-Forwarded-Encrypted: i=1; AFNElJ+P7bxQ+EQ0D/psDUYHMF5DP7tgJ0QJpBHlNCnQJykuk7wOq8aM4XPYut00voRnqPiw7S+OigFuaUXG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCLvDyulbFkPf7ZaHtGHHSdbPP22+UtSYBXfCxBd8d5G3ax6MZ
+	55KkB4XjtJWxw41s8Qe4WIOnqRa7wWTas0K1Twp7ezNH/bXkTQnercUOk5/fwWEtVuKgBxuyVcE
+	NaT8v2Qt22q31MIJujVTD13nTB09kQOY=
+X-Gm-Gg: Acq92OFHSdWs0j1kjnh/TcBtr1PhiHBTdjgEHBnD211+iE40fnCYdcuxNn4vzsT8JMX
+	5rw+BXgUz2i7kShiUnaf6+n0oJFJv6tVeOHBC6d3wstPjs5K119ykyb+Nbut1BSkuBrh7OarFhw
+	B6JAsGn0bbmNsO7VR/mwsNoLlzkJO0wiU2u4Bj4JS/hUG6gb0SGjRGdK/kOd6x4HY+qWR2tlCAK
+	LvqdDdPrSd3ZbadxXG0YG3xCZEunc34jetKDt5UMz2lW6bodghbqT/MPsogUe8+re29gQCXARzi
+	diCIW41S
+X-Received: by 2002:a05:7300:3723:b0:2ed:e15:c922 with SMTP id
+ 5a478bee46e88-3094197a175mr4911122eec.30.1781504607592; Sun, 14 Jun 2026
+ 23:23:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63948792-6853-4344-5968-08decaa6922a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 06:23:09.7821
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4/+W+KPfYRF63jqClaiRPaU0zD/wNQQYjrYgeN+Kka0DHVIAz2QM+n3Yy6Szfi7Ev1e7ibwn6rf4m8j2FohiMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10442
+References: <20260528053203.9339-1-clamor95@gmail.com> <20260528053203.9339-5-clamor95@gmail.com>
+In-Reply-To: <20260528053203.9339-5-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 15 Jun 2026 09:23:16 +0300
+X-Gm-Features: AVVi8CfYtPBR17uEYmSCkdqsGtwveF8FuLfNiOAFFFOH2flEclU8yKRNkxPiLtw
+Message-ID: <CAPVz0n0cgb=ht+uW9+g8q9524BBQdPLNczK_9nSdrk=8kZSV7Q@mail.gmail.com>
+Subject: Re: [PATCH v8 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Ion Agorria <ion@agorria.com>, Svyatoslav Ryhel <clamor95@gmail.com>, Sebastian Reichel <sre@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Lee Jones <lee@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-> -----Original Message-----
-> From: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Sent: Friday, November 21, 2025 5:42 PM
-> To: alexandre.belloni@bootlin.com; linux-rtc@vger.kernel.org; linux-
-> kernel@vger.kernel.org; robh@kernel.org; krzk+dt@kernel.org;
-> conor+dt@kernel.org; devicetree@vger.kernel.org; wim@linux-watchdog.org;
-> linux@roeck-us.net; linux-watchdog@vger.kernel.org
-> Cc: Vikash Bansal <vikash.bansal@nxp.com>; Priyanka Jain
-> <priyanka.jain@nxp.com>; Shashank Rebbapragada
-> <shashank.rebbapragada@nxp.com>; Lakshay Piplani
-> <lakshay.piplani@nxp.com>
-> Subject: [PATCH v4 3/5] rtc: pcf85363: add timestamp support with
-> configurable timestamp mode
->=20
-> Add support for the timestamp capture registers available on PCF85263 and
-> PCF85363. The registers latch the current time when selected events occur=
-,
-> such as TS pin activation or battery switch-over.
->=20
-> The capture source can be configured via the nxp,timestamp-mode device tr=
-ee
-> property, and latched values are exported through read-only sysfs attribu=
-tes.
->=20
-> Additionally:
-> - Use rtc_add_group() instead of sysfs_create_group() to register the
->   timestamp attributes under the RTC class device (/sys/class/rtc/rtcX).
-> - Perform minor cleanups in the probe function for better readability.
->=20
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+=D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 08:3=
+2 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+>
+> Add support for multimedia top button row of ASUS Transformer's Mobile
+> Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> default which suits average Linux use better and with pressing
+> ScreenLock + AltGr function keys layout is switched to multimedia keys.
+> Since this only modifies codes sent by asus-ec-keys it doesn't affect
+> normal keyboards at all.
+>
+> Co-developed-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Ion Agorria <ion@agorria.com>
+> Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
-> V3 -> V4:
-> - No changes in v4.
-> V2 -> V3:
-> - Split into separate patches as suggested:
->   - Battery switch-over detection.
->   - Timestamp recording for TS pin and battery switch-over events.
->   - Offset calibration.
->   - Watchdog timer (to be reviewed by watchdog maintainers).
-> - Dropped Alarm2 support
-> - Switched to rtc_add_group() for sysfs attributes
-> V1 -> V2:
-> - Watchdog related changes due to removal of vendor specific properties
->   from device tree
->   * remove vendor DT knobs (enable/timeout/stepsize/repeat)
->   * use watchdog_init_timeout (with 10s default)
->   * derive clock_sel from final timeout
->   * default, repeat=3Dtrue (repeat mode)
-> - Fixed uninitalised warning on 'ret' (reported by kernel test robot)
-> - Use dev_dbg instead of dev_info for debug related print messages
-> - Minor cleanup and comments.
->=20
->  drivers/rtc/rtc-pcf85363.c | 209 +++++++++++++++++++++++++++++++------
->  1 file changed, 175 insertions(+), 34 deletions(-)
+>  drivers/input/keyboard/Kconfig                |  10 +
+>  drivers/input/keyboard/Makefile               |   1 +
+>  .../input/keyboard/asus-transformer-ec-keys.c | 286 ++++++++++++++++++
+>  3 files changed, 297 insertions(+)
+>  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+>
 
-Hi,
-
-I hope you're doing well.
-
-This is a gentle follow-up regarding the v4 patch series for the PCF85363 R=
-TC driver that I submitted in November 2025.=20
-
-I understand things can get busy, but I haven't seen any feedback on the se=
-ries yet, so I wanted to check if you've had a chance to review it.
-
-I'd be happy to make any updates if needed. Please let me know if there's a=
-nything required from my side to move this forward.
-
-Thanks in advance for your time and feedback.
-
-Best regards,
-Lakshay Piplani
+Hello Dmitry! May you please take a look and Ack it if you are fine
+this this driver or tell what I should adjust? That would be very
+helpful. Thank you.
