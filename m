@@ -1,247 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91BA3B71CC
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:11:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D096305693
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:13:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781561470; cv=none; b=markqDdiAu2AQQmP6Asz3f1Y2UGnQXiMlWuGLBBvb7Kt3i8iSywj/56HlG9oXPh0y5sHMz+kuCuZpRG++ndCXop/99l4FV/MSlYjTN9aKb8PPBUOf8vonqpgP1XRA/DZAjw2DdDBTLchMYyYnSPmq6eW3MX2/GiIJxb19/qsU7Y=
+	t=1781561599; cv=none; b=nPcPl+WWRfa9XCRvY0pxcpM1M7gPHACEbnad68JzVtbAJaWtzznwZ06ePdDPvdnWwtVIUKZtTNzMXak2DJZ3HmiznZSqk2uYtAJXuoySNUwK1bhChaDrJH5QEPiMNLXDSUbpVkJYPIuhSFdq2yJvm6zdZAzO2vWWVtLEqFRwbAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781561470; c=relaxed/simple;
-	bh=6cbcLUuijttbqVSAyYFDNAbK6N5Fzra0MFkiL2a88jM=;
+	s=arc-20240116; t=1781561599; c=relaxed/simple;
+	bh=PgKs7atGGj2sfd8aM4R1froF0ZTEicfBYbDOJVq/xt4=;
 	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P8KF4bqDIUFThjL1g3jo4j8vdJ3tvlsqMwYo7XPAJOjulfvsl8LbgJA6CG6wduRCuQl8oA2SgmA8pI8z8KvtsjDXZeyLpHAMApczKaCZ6SlJLLUyzuZCJz7CJOKLpw4ZoOnrxnjWLWAax8YmfH8W1i7xp0FMvhtKk8GxyFcrK50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVrgTP2E; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uF0uxxOMqr50aEumi9ZL5csz83LYiutDRDJOdEG5volGoFv+m2CEwqaPFIzZ4qVAwnCKFYzoBcLU/OM5nt5d56O/Cbf5WagFI4rGCs34Rrt/O5/KVM/VNeGWxqaRZiIQZTxNlsXRpzpUhF6lSEFXUZfTykyzVLIuoR5oUHuhptc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVA6CQmv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVrgTP2E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8271F00A3A;
-	Mon, 15 Jun 2026 22:11:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVA6CQmv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFDA1F000E9;
+	Mon, 15 Jun 2026 22:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781561468;
-	bh=5nr70t5MRStu4X+VR7IDEBuNpzcQz+UOhBvXJQBrllI=;
+	s=k20260515; t=1781561597;
+	bh=QrPr45EaLPj0CVwCiXU/TpFRmXtK3IiDlTRkzukQGjU=;
 	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=ZVrgTP2EEmeGm7AEbxCsalU3v9Uoi+7Io8PyMsb24l//QsieLmscU8BSQL9eHTt8o
-	 nV5BwlhV0EE+CqwIxfCeWzyrZUStZWg+11juudWJPkFGvJyKP/jZo3dTkI9GG1XeGo
-	 hjsYCofJiJFQxXPr0RrNxY0H2M7EtiRKtdtokOdYawsy9+TIzzMr/UlFnvRc4FpjV9
-	 mSXewSgHpITxHxxaQd9PAvCYfCjfKvXi07SBYe0sfX2FaUyZhvVqgA2XgDywBHtGdy
-	 jH44xMzxT7TeoJ0IrwSFVILHutPrKAIWpGw55G9JsulbRSAp7tInU0tTLTWE4haHd/
-	 Ll1xQswMDp/yA==
+	b=hVA6CQmvdV7I4Lds0qE9vUfgjcEH6fYBjQlORt2XvacQXlG3ihIN2QmQOAtMkv3sq
+	 mkx2035xNoGUg/XE6V4U07WTFHj0PpJoZ1ZqJ6KGFCHVGyhbuP0gqgvYlUxOxfwUwP
+	 Rce94g9inKQMffbHXn7bAwY3kJnc6bPFm+aMqtwEvK+G44C3Ii5u89lIHKjnNO/g+b
+	 hkKYPBN68ZeOZ2l9+gcRcZvs8Ts9vREjyY2OZtZiWzf7n45qCtjfXunu0N0mT8SqX/
+	 Lg95Ac7gLpJifJ8U+G0lLwH7mcEOGzi19y/kzUrAD7UIbxZW0lr4hpQJz4vH9XrKLs
+	 8Kld7ZmPGLCJA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] iio: adc: add ti-ads112c14 driver
+Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
-References: <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
+References: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 22:11:08 +0000
-Message-Id: <20260615221108.6E8271F00A3A@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 22:13:17 +0000
+Message-Id: <20260615221317.9FFDA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Incorrect error checking and status validation in `ads112c14_probe=
-` causes the driver to always fail probing or exit early.
-- [High] The polling timeout for data readiness is significantly shorter th=
-an the minimum conversion time, causing all reads to fail.
-- [High] Short reads from the I2C block transfer cause uninitialized kernel=
- stack memory to be exposed to userspace.
-- [Medium] Setting the `CONV_MODE` bit places the device in continuous mode=
- instead of the intended single-shot mode.
-- [Low] The driver uses floating-point literals, which is prohibited in the=
- kernel.
+
+New issues:
+- [Critical] Heap buffer overflow in `ads112c14_populate_tables` due to inc=
+orrectly incremented `data->num_measurements`.
+- [High] Incorrect error check for `devm_regulator_get_enable_read_voltage`=
+ causes valid probe successes to fail.
+- [High] Uninitialized variable dereference in `ads112c14_read_raw()` for s=
+ystem monitor channels.
+- [High] Integer overflow in `ads112c14_populate_scale_available()` breaks =
+scaling factor calculation on 32-bit platforms.
+
+Pre-existing issues:
+- [High] Probe exits early and silently fails to register the IIO device if=
+ the reset command succeeds.
+- [High] Short reads from I2C block reads leak uninitialized stack memory.
 --
 
-commit cac55fa736d39d53faf1e07aa41f7aa5d0909c7f
+commit 6b05c003c593f091ad7d3f52a3dc20d0fab7fc26
 Author: David Lechner (TI) <dlechner@baylibre.com>
-Subject: iio: adc: add ti-ads112c14 driver
 
-Adds a basic driver for TI ADS112C14/ADS122C14 ADC chips supporting
-power on/reset and system monitor channels.
+iio: adc: ti-ads112c14: add measurement channel support
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-new file mode 100644
-index 0000000000000..97097ae2a4872
---- /dev/null
-+++ b/drivers/iio/adc/ti-ads112c14.c
+This patch adds support for parsing devicetree properties to dynamically
+create measurement channels. It also adds the required algorithms and state
+to do direct reads on these channels.
+
+> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
+4.c
+> index 202a449b4234f..d1297445025f7 100644
+> --- a/drivers/iio/adc/ti-ads112c14.c
+> +++ b/drivers/iio/adc/ti-ads112c14.c
 [ ... ]
-> +struct ads112c14_data {
-> +	const struct ads112c14_chip_info *chip_info;
-> +	struct i2c_client *client;
-> +	struct regmap *regmap;
-> +};
-> +
-> +/* Maps REF_VAL to microvolts. */
-> +static const u32 ads112c14_internal_ref_uV[] =3D {
-> +	[ADS112C14_REFERENCE_CFG_REF_VAL_1_25V] =3D 1.25 * MICRO,
-> +	[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V] =3D 2.5 * MICRO,
-> +};
-
-[Severity: Low]
-Does this use floating-point literals which are prohibited in the kernel?
-
-The kernel environment does not support floating-point arithmetic, so
-using 1.25 and 2.5 could cause compilation errors or link failures on
-architectures without a hardware FPU. Could integer arithmetic be used
-instead, such as 1250000?
-
-[ ... ]
-> +static int ads112c14_single_conversion(struct ads112c14_data *data,
-> +				       const struct iio_chan_spec *chan,
-> +				       u8 *buf)
-> +{
-> +	u32 reg_val;
-> +	int ret;
-[ ... ]
-> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-> +			   ADS112C14_CONVERSION_CTRL_START);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_read_poll_timeout(data->regmap,
-> +				       ADS112C14_REG_STATUS_MSB, reg_val,
-> +				       FIELD_GET(ADS112C14_STATUS_MSB_DRDY, reg_val),
-> +				       1 * USEC_PER_MSEC, 10 * USEC_PER_MSEC);
+> @@ -383,7 +512,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
+ev,
+>  			return -EINVAL;
+>  		}
 
 [Severity: High]
-Is the 10ms timeout duration here long enough?
+This isn't a bug introduced by this patch, but can a short read from
+ads112c14_single_conversion() leak uninitialized stack memory?
 
-The ADC's data rate is left at its default value representing 20 SPS,
-which means a single conversion would take approximately 50ms. Because
-the maximum timeout here is 10ms, won't every read attempt timeout and
-fail with -ETIMEDOUT before the DRDY bit can be set?
+If i2c_smbus_read_i2c_block_data() returns fewer bytes than requested
+(e.g., 1 instead of 3), the return value is a positive integer. The check
+`if (ret < 0)` earlier in ads112c14_read_raw() passes, and extracting the
+value will read uninitialized bytes from the stack-allocated buffer.
 
-> +	if (ret)
-> +		return ret;
+> =20
+> -		*val =3D sign_extend32(*val, fsr_bits);
+> +		if (!measurement || measurement->bipolar)
+
+[Severity: High]
+Can `measurement` be uninitialized when dereferenced here?
+
+If the requested channel is a system monitor channel (`chan->channel >=3D 1=
+00`),
+the `measurement` pointer is left uninitialized at the start of
+ads112c14_read_raw(). It is then evaluated in this condition, which could
+lead to undefined behavior.
+
+> +			*val =3D sign_extend32(*val, fsr_bits);
+> =20
+>  		return IIO_VAL_INT;
+>  	}
+[ ... ]
+> @@ -519,26 +687,187 @@ static const struct iio_info ads112c14_info =3D {
+>  	.read_label =3D ads112c14_read_label,
+>  };
+> =20
+> +static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+> +				    bool *need_avdd_ref, bool *need_ext_ref)
+> +{
+[ ... ]
+> +	data->num_measurements =3D device_get_named_child_node_count(dev, "chan=
+nel");
 > +
-> +	return i2c_smbus_read_i2c_block_data(data->client, ADS112C14_CMD_RDATA,
-> +					     BITS_TO_BYTES(data->chip_info->resolution_bits),
-> +					     buf);
+> +	data->measurements =3D devm_kcalloc(dev, data->num_measurements,
+> +					  sizeof(*data->measurements), GFP_KERNEL);
+> +	if (!data->measurements)
+> +		return -ENOMEM;
+> +
+> +	data->num_measurements +=3D ARRAY_SIZE(ads112c14_sys_mon_channels);
+
+[Severity: Critical]
+Does this incorrectly inflate the measurement count?
+
+By incrementing `data->num_measurements` by the size of the system monitor
+channels here, the boundary for the measurements array becomes too large.
+Later in ads112c14_populate_tables(), looping over `data->num_measurements`
+will access `data->measurements` out-of-bounds, potentially corrupting
+adjacent heap memory.
+
+> +
+> +	channels =3D devm_kcalloc(dev, data->num_measurements +
+> +				ARRAY_SIZE(ads112c14_sys_mon_channels),
+> +				sizeof(*channels), GFP_KERNEL);
+[ ... ]
+> +static void ads112c14_populate_scale_available(int scale_avail[][2],
+> +					       u32 vref_uV, u32 fsr_bits)
+> +{
+> +	for (u32 i =3D 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
+> +		int *entry =3D scale_avail[i];
+> +		u32 gain_x10 =3D ads112c14_pga_gains_x10[i];
+> +
+> +		entry[0] =3D div_u64_rem(div64_u64((u64)(NANO * 10 /
+> +						       (MICRO / MILLI)) * vref_uV,
+
+[Severity: High]
+Does this calculation overflow on 32-bit platforms?
+
+`NANO` is defined as a 32-bit unsigned long, so multiplying it by 10 overfl=
+ows
+before the cast to `u64`. This truncates the value used to compute the scale
+factor, leading to incorrect scaling values on 32-bit architectures.
+
+> +						 (u64)gain_x10 * BIT(fsr_bits)),
+> +				       NANO, &entry[1]);
+> +	}
 > +}
 > +
-> +static int ads112c14_read_raw(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan, int *val,
-> +			      int *val2, long mask)
-> +{
-> +	struct ads112c14_data *data =3D iio_priv(indio_dev);
-> +	u32 vref_uV, fsr_bits;
+>  static void ads112c14_populate_tables(struct ads112c14_data *data)
+>  {
+>  	u32 vref_uV, fsr_bits;
+> -	int i;
 > +
-> +	/* Selecting V_REF source is not implemented yet. */
-> +	vref_uV =3D ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2=
-_5V];
-> +
-> +	/* Currently, everything is using signed data. */
-> +	fsr_bits =3D data->chip_info->resolution_bits - 1;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		u8 buf[3];
-> +		int ret;
-> +
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +
-> +		ret =3D ads112c14_single_conversion(data, chan, buf);
-> +		iio_device_release_direct(indio_dev);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		switch (data->chip_info->resolution_bits) {
-> +		case 16:
-> +			*val =3D get_unaligned_be16(buf);
+> +	for (u32 i =3D 0; i < data->num_measurements; i++) {
+> +		struct ads112c14_measurement *measurement =3D &data->measurements[i];
 
-[Severity: High]
-Can this lead to uninitialized kernel stack memory being leaked to userspac=
-e?
+[Severity: Critical]
+Does this loop cause an out-of-bounds access?
 
-In ads112c14_single_conversion(), i2c_smbus_read_i2c_block_data() returns
-the number of bytes successfully read. If a short read occurs (e.g., it
-returns 1 byte), ret will be a positive value.
-
-Since the check here only looks for ret < 0, it treats a short read as a
-success. This would cause the code to parse the partially uninitialized buf
-array using get_unaligned_be16() or get_unaligned_be24(), exposing
-uninitialized stack data.
-
-Should this check verify that the expected number of bytes were actually
-read?
+Because `data->num_measurements` was artificially inflated in
+ads112c14_parse_channels(), this loop goes past the allocated elements for
+`data->measurements`. Writing to `measurement->scale_available` further down
+in the loop will result in a heap buffer overflow.
 
 [ ... ]
-> +static int ads112c14_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	const struct ads112c14_chip_info *info;
-> +	struct iio_dev *indio_dev;
-> +	struct ads112c14_data *data;
-> +	u32 reg_val;
-> +	int ret;
-[ ... ]
-> +	/* Write magic reset value (0x16) to ensure known state.*/
-> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
-> +	/*
-> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
-> +	 * I2C ACK at the end of the message. The device still gets reset.
-> +	 */
-> +	if (ret !=3D -EREMOTEIO)
-> +		return ret;
-
-[Severity: High]
-Will this logic cause the probe to exit early with success instead of
-continuing?
-
-If the regmap_write() successfully resets the device, it returns 0. The
-condition (0 !=3D -EREMOTEIO) evaluates to true, causing the driver to
-immediately return 0 and incorrectly skip the rest of the device registrati=
-on
-entirely.
-
-> +
-> +	fsleep(ADS112C14_DELAY_RESET_us);
-> +
-> +	ret =3D regmap_read(data->regmap, ADS112C14_REG_STATUS_MSB, &reg_val);
+> @@ -560,13 +892,75 @@ static int ads112c14_probe(struct i2c_client *clien=
+t)
+>  	data->chip_info =3D info;
+>  	data->client =3D client;
+> =20
+> +	ret =3D ads112c14_parse_channels(indio_dev, &need_avdd_ref, &need_ext_r=
+ef);
 > +	if (ret)
 > +		return ret;
 > +
-> +	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
-> +		return dev_err_probe(dev, -EIO, "reset failed\n");
+>  	ret =3D devm_regulator_get_enable(&client->dev, "dvdd");
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
+> =20
+> -	ret =3D devm_regulator_get_enable(&client->dev, "avdd");
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
+> +	if (need_avdd_ref) {
+> +		ret =3D devm_regulator_get_enable_read_voltage(&client->dev, "avdd");
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to get avdd voltage\n");
 
 [Severity: High]
-Is this reset status check inverted?
+Does this incorrectly fail on success?
 
-The ADS112C14_STATUS_MSB_RESETN bit is set to 1 upon a successful power-on
-reset, which is corroborated by the subsequent comment mentioning clearing
-the reset bit. If the reset is successful, this check will actively fail
-the probe with -EIO.
+`devm_regulator_get_enable_read_voltage()` returns the voltage in microvolt=
+s on
+success, which is a positive integer. Checking `if (ret)` will evaluate to =
+true
+and abort the probe when the voltage is successfully read. This same pattern
+appears below for the 'refp' and 'refn' regulators.
 
-> +
-> +	/*
-> +	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
-> +	 * that happens on every reset.
-> +	 */
-> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_STATUS_MSB,
-> +			   ADS112C14_STATUS_MSB_RESETN |
-> +			   ADS112C14_STATUS_MSB_AVDD_UVN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Place in single-shot conversion mode to make ready for raw read. */
-> +	ret =3D regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
+[ ... ]
+>  	data->regmap =3D devm_regmap_init_i2c(client, &ads112c14_regmap_config);
+>  	if (IS_ERR(data->regmap))
 
-[Severity: Medium]
-Does this configure the device for continuous conversion mode rather than
-single-shot?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the probe fail to
+register the device if the reset command succeeds?
 
-The comment notes the intention to place the device in single-shot
-conversion mode, but setting the ADS112C14_DEVICE_CFG_CONV_MODE bit to 1
-enables continuous mode instead. The default register value of 0 is
-single-shot mode.
+Just below this context, during probe, a software reset is sent via
+regmap_write() and the return value is checked with:
+
+	if (ret !=3D -EREMOTEIO)
+		return ret;
+
+If the device acknowledges the write and regmap_write() successfully return=
+s 0,
+the check evaluates to true (`0 !=3D -EREMOTEIO`), causing the driver to
+prematurely return 0 without ever calling devm_iio_device_register(), leavi=
+ng
+the device entirely unusable.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-iio-adc-ti=
--ads122c14-v1-0-e6bdadf7cb2b@baylibre.com?part=3D2
+-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com?part=3D4
