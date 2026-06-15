@@ -1,196 +1,174 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76247404888
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD4A404BE5
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781538425; cv=none; b=L0ueKohXIeL8Dln4z70dweY2vSGRhgiqv6+1BMNA2ymxFmakEHVZ9jsaw8kzp03V0Ui+xC5d1xS/fjEgiWJ3x0QiHif6Nxj/7julk1cMWLxdEm01Dbq/yHtJzLSrSv+kOeHc2acX6XKDrOfxBJWRbmlyWk8BGvbDGqOROcUEUUo=
+	t=1781538502; cv=none; b=nC/xePA5t75qk6hir/4QlmJo1Wb83eY7g9Dd7YcLYkg1yNm5Z8lKpJ+OkYu8zY2tL6yQI+v8Ben2g3tajHwaXEXa36mQ7tV4ByogMXtyGXr+Nhw40hGD1B6yr3mT7dtuaE3zS+G/sUvcXNcRchQgFlsoFwYd/jXwTfFq1zgYbwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781538425; c=relaxed/simple;
-	bh=KjI9RSrMpeF9kl7KVlAoFqnYJfNf7P3l6mHXMFpoLdk=;
+	s=arc-20240116; t=1781538502; c=relaxed/simple;
+	bh=i0epigYQSf6nodYrIVmZxJadmqWcGELiZNYUZq0FVfc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hhq58+3VGxIVS/PK1dr7XQql8TuCZ9L68VeXrJgpIXf+W2wrOVoxeFjeXWDl3QxAtOJ/aAtGOYQUgjlmZ71alZBLjwPRU2VGY6caZanRKfrZpCK/b/ZnSFHtPoVzBOOtWgt1Vy2WDxVHKG/qr+2NAN7hSYWJZnIjfpXf5r9frIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VE3qL/sT; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=X/MCWhXDtN9E776Xbz2RflYcQTY1EOQDliUozFb6QFgIedhKT9T96F8Xs0HlWb1/XOqIWoXpZzGd3UJqJg8BjdyAmGXusQjORk9AIHVvxN6u8kpF/ZsjYtlbunuebJ4V52p1J7Hp9DMPtc3d+xtum0cC+ZafaHRaSJ0azLQGJDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oya6tk5W; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VE3qL/sT"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so2665487f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:47:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oya6tk5W"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490acbb0f89so23093535e9.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:48:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781538423; x=1782143223; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781538499; x=1782143299; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KjI9RSrMpeF9kl7KVlAoFqnYJfNf7P3l6mHXMFpoLdk=;
-        b=VE3qL/sTyjYVYjz3DMoKAAvrFpRpsmTsrI54G50fB1PuQRqsKX3Odkqc/q74zxevLu
-         RS7CXy3yzAyDHxVfCPs0KXe5XS8L/phSKddISGoLHdIuTNJrdnl4p2AmqXGtcNlZdqOS
-         AfA46WG7mzZFoa2xLVT8P438A2W6Fe28YSb1IBHfHCqn6C33Dv0LSXt0Dzt6amWV0Fhw
-         MkRq/Gp87cP6MNKM0mgfpLBxYK0QT+VN63HiIm0ezrRaGFKXeezo9v09NI4tfZR/nHmR
-         wBeyKAMH98q9zUmYLZwpx/2l2QNX0MaNcNlpATRRIDtpKmCahHit9tkPOAC8UBqd+7NX
-         DG7g==
+        bh=+6TqdYR7EjMTpHsjbl3Oaxm9i/7wwH40MmAvo6XkU6A=;
+        b=oya6tk5WPsFdMxBAzLZxTqF5CNPi25TxzEVJIPdXn1eGkjcz3LIdYSILyfV6mB8DCn
+         HqX6cX1R35+olDhoFLA+niKfwVQ8goyWH6C0s1fcbWaIlog1Si4WgaagFtLR/4PpYGu/
+         yC9O5aMx0OoXoOORnhnvM7qrDRh7DBr41jPnPGhMkI40VpKJ5sLz/c0bAHKjEjDMkpRY
+         V22YXEFYYd/z+D08CqQNpxUM1eA39H7lInADFBwwVTkGgImel6LMg/oYaesrWUIucWfL
+         iqIoUVkl6zyTgHmj4ppXpkMGTnFscrAU4FzPxMGpeRBe1jM3VnxBg5e76IyhBHjCjlkC
+         58fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781538423; x=1782143223;
+        d=1e100.net; s=20251104; t=1781538499; x=1782143299;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=KjI9RSrMpeF9kl7KVlAoFqnYJfNf7P3l6mHXMFpoLdk=;
-        b=aGOcZDU3nDMu8PCn90kjA7cq/aKy7nzYdG6mprCGCGe+rGIkBGIQT8rDhm6h1n7BCq
-         gXn7ebPU9Zr2GSkb8jcLmVzGrqylMsoEu6LknpOIETlMr0/4sWFGki1uQ/GZVVKpq95M
-         Lc9sTOzq5fXFrq5uk9+QBIL2mnOzagRETB1FTMYok4r9at9skqCxTBCpCYQJHu2Rx8qi
-         22BGSIZqrWv9EMMl09NR6nPze5VbvnxY7lcLNGQiYKijZb4fUzPDmuj0/yK1JQA5suBX
-         9kFwXWYXymAUKxjtrnvoGB/UeVaraNu7bV2N9kdoItZbeJcrJuNInA09PZ4z6rHHEfty
-         TgRQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+pgPMStyQxHc9+q+mYsC0KLb45NSnFMFqddBy6IRHR7GZDlLnDlwJzl2mDRPIzqOY3ouuE5unk5nx+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9wgLsnyhYbuKH7DrCOR+/H22Ab57A/1MPOv79WcgLjnLrlTIa
-	kY3t0C9yzb29QLkj6I/dxZiTrW3F0DWloPltwZnURnLoIhupzJU8Zwj5
-X-Gm-Gg: Acq92OFNsvz0blpGzvD4EMDUJuvrq1GYO3d4EwmoX8ujeDqiONUJSkfDj/nil9No5CL
-	RUeqraPAOtwCnVB+L/MbKIS/l4lRlMHWCdlHZJeYwYc7T7n2rgIiR5+i9EyETXR7sRY7JciR2Fh
-	xWgp65ICciVEPIRJTrYgfIvIM1DvoIjYiBx9WXMpLAPJJ5A5GhH0EDWyo9wcZ0RYTPfzZV1a6lT
-	vbZYsMclFczxuQKHN4P5FPEWMx0i4fkPhWMZQyHY1DHeLjfAlRySuy2TJovVyklOFYCQIwt29kg
-	2tW3skPWSQIdaG6zDSlUWAzd15/Pn0LyjWDJUAYXwZbLAoFKK7RbMOvLiVHLODCJqsTy4vehdn+
-	2YPducFikWsit2H++OJA4fT67DIF53zlXbrXM36EmUxSGOve0CJwSTww/Bev5xZ8HDV/mGvPTWS
-	cmrdta0C6YCLNUqGdS9T32z3zUtIpeXKZgEWytP5V87Sa51RHnIX5VoirKHC3B5dNp925ic7Lfe
-	GQaPl59KeivQn4IfNh5TW49C8niIbxGpP5QRg==
-X-Received: by 2002:a05:6000:1acb:b0:460:1bf8:c981 with SMTP id ffacd0b85a97d-4606da57c41mr20753889f8f.5.1781538422504;
-        Mon, 15 Jun 2026 08:47:02 -0700 (PDT)
-Received: from jernej-laptop.localnet (92-53-159-70.dynamic.telemach.net. [92.53.159.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2c4240sm32724851f8f.27.2026.06.15.08.47.00
+        bh=+6TqdYR7EjMTpHsjbl3Oaxm9i/7wwH40MmAvo6XkU6A=;
+        b=ldXSgj9UdILSvViaULZNV2F+d+ug5iILXL4glqUXne4hF/XN0s0PRzQDS/uNC2I7Ad
+         rJ7h7UwE5aLk+8bxp7DbaWg6r0cSKiogONoQG/kgBDZdSk/5GodosXhO0F03oxB/HHlF
+         LG/f9wRVOXq9FNLHiAoN2GzFuMfluuutj0ejjKHicGXQvouuQTjgvD+e/sfcjj//HGc9
+         nK27/re+fHkbHWRFZGw2YsSeU6jNBAIWdw5S3gvquOYpoqTcbkTcv0vWy1D/SP+Jkoqg
+         R4vGIbmoEbZCNN1ystYqUeLVC668rOGFEjRwcGVD8NQsPPAssvvD3k9zfWhUnvuYI814
+         i/tQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/Vjz9n8x2Dx3bdA08wMuzMFxVI10aZdE3iu5jPGIdUlrgQj/wXNDcidg8G/pQEM6QwWeedBh1VNc6Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpE0RsNv/sRR1F1sEy3eBKfjQw5ooKeayV/0HLoJWzDfPzPZ6w
+	eyKm9kZbxFVy616FZTA4B6d4vhXpx2EUlwhy6DHXl5waarj1SOZi3q2L
+X-Gm-Gg: Acq92OGQTuFpqUhNEh8ScP3zkOKQE6VRURfU2JY8G3WoUk3C/pBTrOeKMmfsK0STjvj
+	P+3xjCvm1Yri0sqVKaVj0Gmc68oz1KT37HD1DSGmhUICrmX9rR2kJqEZ+qSISliM27TcTlZB5xI
+	yWnCD21yVpMCWeR7t6fkyTPmT+9Rpl2xsMlf2JyvIKIKjvVbzzNk+PTspi5pc4vNF7jtDl+KEQf
+	X1ny9UhFj7HZBT9ScV4HseYb4A8hmGhRYRMtp21P+gWFUGJ/7nnBph4bnQWJmjRt5lnmfqQ4d6W
+	ZqPQ4J2U/8YudzdoZZY8pzD1CJyScOgO+lCtmEUJ4UjPsU7DegWFFaYdSYf5r8k/A3Xqakr7izV
+	gnO6GnoN2Z7fU4wMCA1oA6QeDg/Ixbi9N8yJGNqY6+TJ5LNdgDwZOP+emhDD44iU91bC72y7vRJ
+	4rR2YB4NrwDQldYvuoPS/3EP6cqDCc/p5SWGlOA6ferY4G0JGUTaX3MDIKZwtu70ycxPh9cowML
+	SP5Av6cADU1++DvUWFs2kn93KOVLQRcfHuT
+X-Received: by 2002:a05:600c:81c5:b0:490:ea88:9d4c with SMTP id 5b1f17b1804b1-4922016094fmr111312015e9.32.1781538498881;
+        Mon, 15 Jun 2026 08:48:18 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:1e4:992f:3ad2:4f2b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26434dsm36010995f8f.1.2026.06.15.08.48.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 08:47:02 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: wens@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: samuel@sholland.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org
-Subject:
- Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33 layer reg
- space
-Date: Mon, 15 Jun 2026 17:47:00 +0200
-Message-ID: <0r4us4OeRRWtJhxvps-bZw@gmail.com>
-In-Reply-To: <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
-References:
- <20260509190015.79086-1-jernej.skrabec@siol.net>
- <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
- <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+        Mon, 15 Jun 2026 08:48:18 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 01/12] dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
+Date: Mon, 15 Jun 2026 16:47:54 +0100
+Message-ID: <20260615154805.1619693-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni =C4=8Das=
- je Krzysztof Kozlowski napisal(a):
-> On 14/06/2026 16:08, Jernej =C5=A0krabec wrote:
-> > Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=8D=
-as je Krzysztof Kozlowski napisal(a):
-> >> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
-> >>> Hi,
-> >>>
-> >>> (resent from new email)
-> >>>
-> >>> On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@ker=
-nel.org> wrote:
-> >>>>
-> >>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> >>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >>>>>
-> >>>>> As it turns out, current H616 DE33 binding was written based on
-> >>>>> incomplete understanding of DE33 design. Namely, planes are shared
-> >>>>> resource and not tied to specific mixer, which was the case for pre=
-vious
-> >>>>> generations of Display Engine (DE3 and earlier).
-> >>>>>
-> >>>>> This means that current DE33 binding doesn't properly reflect HW and
-> >>>>> using it would mean that second mixer (used for second display outp=
-ut)
-> >>>>> can't be supported.
-> >>>>>
-> >>>>> Remove layer register space, which will be represented with additio=
-nal
-> >>>>> node, and replace it with phandle, which will point to that new, sh=
-ared
-> >>>>> node. That way, all mixers can share same layers.
-> >>>>>
-> >>>>> There is no user of this binding yet, so changes can be made safely,
-> >>>>> without breaking any backward compatibility.
-> >>>>
-> >>>> There is user. git grep gives me:
-> >>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
-> >>>>
-> >>>> which means this is a released ABI. As I understood, the old code was
-> >>>
-> >>> We held off on merging the DT changes so that we could rework this.
-> >>> I can't find the actual request though. It was probably over IRC.
-> >>>
-> >>>> working fine but just did not support all use cases. Why this cannot=
- be
-> >>>> kept backwards compatible?
-> >>>
-> >>> AFAIK the "planes" block is shared between two display mixers. As the
-> >>> commit message explains, this prevents using the second mixer, since
-> >>> only one of them can claim and map the register space. And on the H700
-> >>> (which is the same die as the H616 discussed here but with more expos=
-ed
-> >>> interfaces), there could actually be a use case for the second mixer.
-> >>
-> >> It explains why you want to make the changes but not why you cannot ke=
-ep
-> >> it backwards compatible.
-> >=20
-> > I guess it can be backward compatible, but I don't think it makes sense.
-> > Yes, original driver implemented original DT bindings, but there is no =
-node
-> > which uses that binding. If there is no user of that, why would driver
->=20
-> Did you check all out of tree users of the ABI? All vendor kernels,
-> forks and all of them for which the ABI was made for?
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Since when do we care about out of tree users? I understand that drivers
-must support old device tree files. Once they work, compatibility must
-be carried forward. But that's not the case here.
+Add compatible strings for the RTC block found on the Renesas RZ/T2H
+(R9A09G077) and RZ/N2H (R9A09G087) SoCs.
 
-In any case, vendor kernels have completely different DT structure. This
-was developed independently from them. Take a look at [1] how BSP DT looks
-like, specifically Display Engine node.
+These SoCs integrate a closely related variant of the RZ/N1 RTC IP.
+Unlike RZ/N1, they do not implement the RTCA0SUBU and RTCA0TCR
+registers. This is not a limitation for Linux support, as these
+registers are not used when the RTC operates in "scmp" clock mode, which
+is required on RZ/T2H and RZ/N2H due to their 195.3 kHz input clock.
 
-Of course there are some distros which grab WIP patches from mailing lists
-soon after they are available. For example, I know that Armbian carried old
-WIP patches which used old ABI. However, such distros generally don't care
-about exact solution and ditch patches as soon as proper solution is merged
-upstream or even when better WIP patches come around. DT files in such
-distros get updated alongside kernel, they are not hidden in firmware.=20
+The RZ/T2H RTC variant also supports a 1Hz output signal on the
+RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
+marked as reserved in the RZ/N1 hardware manual.
 
-Best regards,
-Jernej
+Update the binding schema to require the additional clock inputs used by
+these SoCs.
 
-[1] https://github.com/orangepi-xunlong/linux-orangepi/blob/orange-pi-4.9-s=
-un50iw9/arch/arm64/boot/dts/sunxi/sun50iw9p1.dtsi#L1315-L1339
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ .../bindings/rtc/renesas,rzn1-rtc.yaml        | 35 +++++++++++++++----
+ 1 file changed, 28 insertions(+), 7 deletions(-)
 
->=20
-> If there is no single downstream/out of tree kernel using this ABI, then
-> of course you do not need to consider it. I don't know how would you
-> prove that but I am open for suggestions.
->=20
-> > need to support it nevertheless? Supporting only actually used DT bindi=
-ng
-> > allows for better code architecture, as there is no need to support sec=
-ond,
-> > unused path. It also simplifies testing, since developer doesn't need to
-> > test both paths if code is changed in that area.
-> >=20
-> Best regards,
-> Krzysztof
->=20
-
-
-
+diff --git a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+index 1860f0e4c31a..ea7b039a91e7 100644
+--- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+@@ -9,15 +9,19 @@ title: Renesas RZ/N1 SoCs Real-Time Clock
+ maintainers:
+   - Miquel Raynal <miquel.raynal@bootlin.com>
+ 
+-allOf:
+-  - $ref: rtc.yaml#
+-
+ properties:
+   compatible:
+-    items:
+-      - enum:
+-          - renesas,r9a06g032-rtc
+-      - const: renesas,rzn1-rtc
++    oneOf:
++      - items:
++          - enum:
++              - renesas,r9a06g032-rtc
++          - const: renesas,rzn1-rtc
++
++      - const: renesas,r9a09g077-rtc
++
++      - items:
++          - const: renesas,r9a09g087-rtc
++          - const: renesas,r9a09g077-rtc
+ 
+   reg:
+     maxItems: 1
+@@ -54,6 +58,23 @@ required:
+   - clock-names
+   - power-domains
+ 
++allOf:
++  - $ref: rtc.yaml#
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - renesas,r9a09g077-rtc
++              - renesas,r9a09g087-rtc
++    then:
++      properties:
++        clocks:
++          minItems: 2
++        clock-names:
++          minItems: 2
++
+ unevaluatedProperties: false
+ 
+ examples:
+-- 
+2.54.0
 
