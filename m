@@ -1,230 +1,178 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023137.outbound.protection.outlook.com [40.107.44.137])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2138.outbound.protection.partner.outlook.cn [139.219.146.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317881339B1;
-	Mon, 15 Jun 2026 02:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D564128816;
+	Mon, 15 Jun 2026 02:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.138
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781491643; cv=fail; b=g0XrLIPfhN2WLMC7TJZtcEBR05UtjzSlmdaR6vbUFc/raXjxfC+RXasBSkaNOgRDJuH09VAEb0v45B8HVcf4rij+t5i6YFK5rFHzgDAJQeLj3DFEJb6Wby1vPdFy1WfjbNfy0BJ9acxVvOuC0/iCYQrm+UPycmFBOKq5RYEc3dM=
+	t=1781492338; cv=fail; b=rxE13VdnqIgsZ8w0551C99BNppeNu1+u6A/+CLG/feIE4GyOZwQPH0fCe3DkNGsv6bfWXKtDa4WpgcaNxG5biQc/VTx/oeClx0oWTRKpP97UY4lOulWyKFmtViZMvG31MU2AHQoqrN0bW9c8gyycd1MPiWK+vFUof0AXT4GB6F0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781491643; c=relaxed/simple;
-	bh=JxDHocdnIp1Vzfj2xe7Us1Nv6LR18u55LFh1cb8eAQ8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fpkLE33o7V+B2jvtIN0ECCZUya4/DQiFN/MUns47d0gfL5dGysFE4v1eWzzuoUtkoEXme9lXCXPqLnVH/472H3s7II6BOJ+KXn0gqfKKgW3cGXRBdiBwPzRiq1FHg3sozilBnwdUP0zCB74k0SDAcZuQG3/7pAIIfh/PdiIyp+Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=p2L3glSt; arc=fail smtp.client-ip=40.107.44.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="p2L3glSt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QQl58d4hdChqHe3JIRyB2lnK/h0hD+E/H3t0jzAwHHMyCAzdrXRVvwxCorWajHVB33eSsk8iui664zgDLuWdQEjh/gwn6jcuHR34F2X+aLjW3i3QHCDYqKD29D2OrpbaDmaffiAw8/e7770FIRD/YlAUTVkJtohPfVOVtjqpnVjM9SarLEHGBsb8JXE/B0XwmHq1uJ7Bw42lL6wjgpMw1zJnCaXC3b7CuHr4VJ9pzXdHsde8zoP5xUHgUmUzTsgTObdmhRj5P07wDUiX9KXxsdL6xpa3o4NIFFwuAiT2JkUywK5YUf/IOJ4Qqu4qMXt/Cu7ZQObAOEKZCH39DO6eDQ==
+	s=arc-20240116; t=1781492338; c=relaxed/simple;
+	bh=gvxjd+BivmwY2Q3VJ9dbTb+WM7AjgIIWTm7Um5Zsgp8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=TQR/HhzJxE4bm9B/4UI8F6ZoV8Kot2z4fsamiYt9KP3aDiJNGym/ZiPjPBdDiH1oXj7mWQsVj5GrCPxbXCoD8BmlVK2QgQaEHzMcO0NBNIJ5M4k4dWyhAGJM33vfKBzq2NFvVAk3naojRZXcG4oxZZobCljNjKpqqFhbrWvU8Ok=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M9EvC2h+1pkhXnuEgUKDpI8lftRJERpGSv0Flf5riGt3yxZvMNtKwNt3QcUVIW9hzCOma0VE0R+Bahfe3/STNJvOdNPmmd4co71TBEFlFsNKqe/X/LQ8O+H5pY78F5bxgBbH32YK+gH0fnvk72NCMar66RQ/ghZbmY3jhgGWE7eBsB/N+j760jVe1oLW/KCD0WiIYj0vCtjSgfZl5F4TnrQvlumgxpHbVbGC9PkkKHulX5blmJwRM435KELYnYfUULTikOFYLwq0DpevWJLa7LpA07EIofYZT6RBP+bl0RcOiMhWCnGyWO/TIcgcRDgHBEo2PEl83nP34s6Ay7PtKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xKz+fEQXy5AR+daBX5bEguEk2Znl7BH+JvY1VqX4VGw=;
- b=ffgcx+uBIaC5f1K8iNddKSKXjAeygiUGG3UFZrES4KY3k1ABFFccsu5SmE50ajHX5rYQiJDM2B40mBHJCZ4AB7xzpSTvHuvNJ7Lr4A1id9r6HZfxvxUO7AS3Cx5dChrPptjq559Zavu7Xzk/xFGhpMfm6r5DyOTQzGYRNFY+G5iEr7PbkEpt+03KIdcKLGui4o7v/maf26ihiFkJBiDHFoFH3t+t1L3rNczS+CW6GLvh4yQD5dYuB2VhuZfQeC6QC5W1+UbhFGmVO9hoc06cP6KqUCaCvLi8anw2zkQklv4Q8oHiUx3vVIeCfVrcK9XdRJykAyGGMO15qWdJpTYD/A==
+ bh=a/UWQP0DGSm6A8W1do7ZQEVppFyB01zLmnQNfo+bRJI=;
+ b=gEz/q+/TeUhSgjZtjgkRPtPOkvbuCnqvxR/BbqTGuIY/wdXEsdvg9kLzP5VUEdmuTtPjKMjTv/2iAkBZXiyOoDTFp+xPiRpDhtxuhb2Q6ogjRC32ctpstjPYexvOuSXDOv/bTqM1wFwb5/p4NQk+dRrl60S+AiW/3/uOOuyA6XU0ERcYkUvqrPybQVawhrIBfeADx13tCiugQ5smBhNO11UkParjUkwEGKWdXHBacCcad9wYpDwPNYlcvodZZQBK8kDbQRSNXLmdGEy4JrU6qq/dJ9pkAvuE8Ys5Xx2Vwp7RfuzwxgJCjqzOuasCnJZbXiUMARmoCJp+rcASx+UZlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xKz+fEQXy5AR+daBX5bEguEk2Znl7BH+JvY1VqX4VGw=;
- b=p2L3glStNdgmmcdtoGWxGq8ephNWNKOJBHT9q3F7iTR2Fb1Fn5w2TsNSTbpcxCy1LUQg6mTRbzhxo4bg48jpMRuzs8MC/E+p8SRcU2jQRQnkRFyNYaFyqMD9D2jAk41vbwBdcyNF9ehpiXZPGGDcoh/68co4B2b+Cj/NUbeKYzpoPsf65MWBaoSet5cKoZKMwDnwxfPq1SAGB2YIw5cg2U50NEo3fpTy1cCUbzaaH7RN0JTIugCcFlx/t+5P5Fb4LFuOCYogF42Genp/dw0b6U4z7W1Sh86umCCQXzE9wUAHLhOtY00UVnkyaT64AAwt2GctO5CPwss7I/mmrTNUmA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by KL1PR03MB8217.apcprd03.prod.outlook.com (2603:1096:820:10b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 15 Jun
- 2026 02:47:17 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0139.009; Mon, 15 Jun 2026
- 02:47:17 +0000
-Message-ID: <a79e58b5-3a11-4593-847d-ba92527549bf@amlogic.com>
-Date: Mon, 15 Jun 2026 10:47:12 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/2] dt-bindings: pinctl: amlogic,pinctrl-a4: Add gpio
- irq property
-To: Conor Dooley <conor@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
- <20260611-gpio-to-irq-v1-1-12201716f23f@amlogic.com>
- <20260611-ungloved-snowplow-522e7c0b7a51@spud>
-Content-Language: en-US
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <20260611-ungloved-snowplow-522e7c0b7a51@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0035.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:7::7)
- To TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0877.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1f::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 01:25:08 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
+ with mapi id 15.21.0113.015; Mon, 15 Jun 2026 01:25:08 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jose Abreu
+	<joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Russell
+ King <linux@armlinux.org.uk>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring
+	<robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-stm32@st-md-mailman.stormreply.com"
+	<linux-stm32@st-md-mailman.stormreply.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: Re: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if
+ NULL in NCSI case
+Thread-Topic: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if
+ NULL in NCSI case
+Thread-Index: AQHc+KotsU7CSx9q1kuYrR3iPfERvbY3dEMAgAdmAgA=
+Date: Mon, 15 Jun 2026 01:25:07 +0000
+Message-ID:
+ <SHXPR01MB086317D16524E2E0CEE46D66E6E62@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+References: <20260610072420.64699-1-minda.chen@starfivetech.com>
+ <20260610072420.64699-3-minda.chen@starfivetech.com>
+ <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
+In-Reply-To: <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0877:EE_
+x-ms-office365-filtering-correlation-id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ rcRb6qzZvhDWUvd30Hodq7nsgaLIlFgPOdXq1m/FhM3nYWeZ98PuEB3w18LbLEZGAPUICmqZVvzr0f8Gl/2KK5YWdFT2VD0HDxKLZ5HMLJH/YRi+ewSrDAW7kskoBGZIOvcjJ8obyaTSQy8rln0kD1TmpVniD8hqAGCsfC/9i3SYkIsmqucFQLZSkMvGK3kd8sZ+c3PrqKzrILRb5YdEqE3ACkjvwUNkU7KqNxXZgwgN4vxVxw7z0I1FxlbYZNmV71/IzfflQADrcNgPf+auuKY/Y56lcAIpvUoz4l3Tnw0tzkEzGoKBgx6iTXRjFxvuzuXArfG3vZXAKTEWgqp7h/hbjbLhfD9TuZZ+umzWhDJeBCm1sdsz7cS+1fOiQvpg0Cv52AaGVsyKS4mYUn3SmH3odVvu0PbDq9QrI5Er+rNBUm1nmMsF9sBhSTVBGZ9wg3WRTlQlN7U755C6IL3FbvtEKL2RkhbNBs3axNlvZvQNFE3+8zKVVGGoTswqcThoF1ToIt/+esiYKL9uVs+HUjsUrsHTnKPRefMmcwXN9WOQeMZljWN5rJz88U1f6ePl
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?hK7+qHUAvr2za3/vDTPNvZR8LreExHYL0jvADhIwYWByijrG6ZLqD0uA2ZC6?=
+ =?us-ascii?Q?rwwKZPSR1CW80j+7JnMvHnTgBUPyT1xWbVx8vtTAOi3fp+vveG6e3A6n/Ez5?=
+ =?us-ascii?Q?y5qYNst7Btudx0XEX28vG5xG5qa/5ugxp+SU5aP+W9xniz42T57ISRfFlezt?=
+ =?us-ascii?Q?AQaao/dV6YHo7v7vMXhbqaJZkWNfmsZFPiy3EB97MyRDNth8Xzz+1nRdFXmN?=
+ =?us-ascii?Q?/S94PB8dAcJPNAMQWSPoD7Dqn8xxJvwK7go/IBDzPOisMAe67x8JE/GYOGa+?=
+ =?us-ascii?Q?37K6Rzdq4tfKuV66vu6oKbAy5r5GyIR0rtBl1vdmEuJt1KPsJUWlac9uUY3t?=
+ =?us-ascii?Q?e6pV0c/nzszj/qklF/2ZmVf3NUSTeGKJZiRorhPaaeDHgkA4juIUSJbMuFLs?=
+ =?us-ascii?Q?s+KsphA2CKFCvAoI0O8y3lkZvFwUhHbgPnyhOnLuRVZZcXst0J5CVDE9Yq5Y?=
+ =?us-ascii?Q?je3gMPveonXqkXHT3+ZHIzB1sbSfNuR6ikh8KCXxVPj+UIrqzBBF1wh7oq1+?=
+ =?us-ascii?Q?I4MF+FiUz2n1m2YOMLRtlFlLByAeJ7vAjOkgzlBRfQx0xPzIqtuLvOvUAO8a?=
+ =?us-ascii?Q?8Y4VFno2YIy6E0W7wQryx845KTj3dw0fV22gp1QcG7ja3xF8V+rZBtJT1rAG?=
+ =?us-ascii?Q?7EwAbZJyZUNYRpfclf2BKfaGFd7ZVV48mgXePHZcqY8Ro8amFgCbrFRv/4kF?=
+ =?us-ascii?Q?+JwbX1ucd38C4U5dwdj80Kf7Qp/L3nULxUSM2tXnaukGo5doTfe4UjMKZ1Ak?=
+ =?us-ascii?Q?cJrzLLltHMyy+OvVaohLq5FPzvlpWrPmdE+wAyjPTBmf1/M0a9d12Ee5x5Ew?=
+ =?us-ascii?Q?tFIs4OFbVtUdebm33fgwmwc3l0lWxsURtc4SyQ/tnzc2LzrTwXZ3No+Brgb/?=
+ =?us-ascii?Q?x7xTNy/ubBWBkkT9SwI4hQALpLRna1iGrTxA9eDofBb+fROWa9zbHW5LlOwS?=
+ =?us-ascii?Q?8Zx7Nivdmw1V5BoYGibw4VJFM3S+pE3BJ/lM7UpgrIt+WYsDK1Y0or8J18Mq?=
+ =?us-ascii?Q?8b/+hbCemynot8z9GgVsXnyAhxzabfvk9fNNzv5odR605C7wmJKqGUuKbSkf?=
+ =?us-ascii?Q?a8Gje/PO76iqTE01A4fgdDSsWfheph/F7J/gyXexa2iywuOAxKOZ56Yo5hK4?=
+ =?us-ascii?Q?zuCPSSz2WXjNMNKKe4v88zTDNEVjHtI6P+//GKZc56rltj9+ieDI5mWLYcd7?=
+ =?us-ascii?Q?pApDD+fLjlh/WABNu714MWRVFX75Coa2FPmPggDzQZrpHY8305jC6nqJP8Sb?=
+ =?us-ascii?Q?CaID1BcVcYPYirKXQ76y6ISu76oOJzwsCTp4C685lkE8QifcJspivibHpZpk?=
+ =?us-ascii?Q?OEreOGZR8ZJm+QzZZ08aKcAmHRS3t2ueffXHmIT5yF805+xcltx4kpmHB1np?=
+ =?us-ascii?Q?W6b2PTpxRELUHIG4uRa5/91bJoL77t1Ui/Wl2tKMqdmUsFQc6+/o7q9wZODZ?=
+ =?us-ascii?Q?vuBttpMQiGN+8dBuKmO0pcvYrNoHCohe/JPm0r4EG2n1HA7Ej1oI2I1ZQsK/?=
+ =?us-ascii?Q?f1HFwCabzOomXBbdb0hCQlYm/dD6nfeWW4fJOcsDpEAx4kgJEZPWZ+4K5jsU?=
+ =?us-ascii?Q?PNLzqjVgXl2P2aq9To5fMP/CUb1GBqXuhmCfEFxx5sifgcJ6NoN4WhFmTsri?=
+ =?us-ascii?Q?AT8YcG7aOhOv4gLUExRfQZNRD4b64eYcF98WyIPuclbd/wi7b0t+Dj7pH0Vi?=
+ =?us-ascii?Q?OTUnhHQsVMFo67aKE+SXlu6svyzE0KENYvq4+/Fhndbck9Al7iMqG+N+C7aW?=
+ =?us-ascii?Q?g5knzyUNyg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|KL1PR03MB8217:EE_
-X-MS-Office365-Filtering-Correlation-Id: ebf27357-d1a6-4cd7-07d8-08deca8869d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|11063799006|22082099003|18002099003|4143699003|3023799007|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZM2cAWM6XnxqO8iBSR1/UEmpbbK2vbtW70sM+P8K/Lykk21Rr0cWzUBs1bQJcs4nF+VroZNuzVE3cC6qCu/sHTdoFwJK+43nGdSiVlSbQaC3k0qXHNcdbl/f1N7+AIwcthq7DZtoFx2V7AKM3W6UAZP3ivltewDdYiJcgXvWdmEC8yGDvcReqDTFVssDB4D5VJy/WGrz9j4wDoRI7Z6Kucc1Q3Wx0HaDOciddSF3qlMn4ZLP0eR0b6gnMGmJ1ZJMYlu6C4JAeGP7ia1jDNYhfgtKPAKrmH8YDW38IqP9veumm3fSe9+ZS0zMaqI9HpnN3ttVfPjF0xpdtvtBaUB+4am9UR8ftlnIJpPGkAKF0FYdSBoEJ9QUG417Q4G8RSil2PWkMHvls+GW8K09je40003+T2arUW2WZUZEe8QTuLnaVJu9L0ktbyesO9KmQfrzkHgI8TPwh3mThLYbSfaU6WhzrBX+87Vx560DsQfRTAOCHZCIBz7NPfQGfVV6NvunKeUeRlFbMvuhLDtHt9ZqUDd5U1r2NtZSZ9fjmbG1FgMZnsTKGzyoGnO8RxQ9LFViM8aY7lY+XGprp2VMjZrjIPeopHXERGFtmSsnoJ1LU4hk7g3672FdtG2txrp1/X4eaM5jSES6/AzO3hHV5ojiUyPlP8+PInYMXiduFVtidfHCNeFxng7UITFrm6hZfkZNtFKT/e4qU5ldy0xi14C7QA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(11063799006)(22082099003)(18002099003)(4143699003)(3023799007)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dnhlSFpDYTlBbXErVUEyT1Q5eGh5Vzk2cnR3M0E0cU5NV3dabFJudFdXdC91?=
- =?utf-8?B?QUsvVytaaFoxMnNvcEZMRkJsNUdybkIwMUxKdmgwVm96SSt5RzcraWRxZDhs?=
- =?utf-8?B?a29uK2lENXFsL3pkcWNlQ2QwR2lZRDR3V2V2bWJWTi9iTnZPazkvSHRVbTVF?=
- =?utf-8?B?T00xWkV0d1BkQmRKR2RUOGdZK0N0bHhHMDlXMWZMSkFEWFpMQWZZOUJlMVE4?=
- =?utf-8?B?S1UwWDFMbWR4YlJjaU5GU25xY0dPTXV0YU9HeVNHLzVsZUFKS2FnVGM3N2tj?=
- =?utf-8?B?Vi8yZU1hb1hvWU5DQ1ZKWGRPRWJlME5aTXNHeG5FQytuRnNySmhTWndqRFJ6?=
- =?utf-8?B?cDU5a3J0ZkhjTkd3SlFSRW80YTlrQ3Y5YTdqTmhJSVJ4ZzVkV0pJeEdUNVNm?=
- =?utf-8?B?QSs4bnZ0SkJCekFwUjVOMDlZTXZmNFp5SGZ6L3V6OW93VzBMcEVPdDJVTHlT?=
- =?utf-8?B?cGRLcUJqaHphSzRHcFQ1aTNNQXRnV1dmWEwyemFpMCtmd05YREluRk1mRlhh?=
- =?utf-8?B?SmdONjljVnV0UGRBaGFNMGNBNW5lQzZXVVVyYmcwbkgreWhuS003MC9zc08w?=
- =?utf-8?B?bDkwTlVtTVhIQTNzWjVDMzdzMHZxdk5GNkZ6WkZ0eXdpQm9ENHVkbVU3SzJK?=
- =?utf-8?B?cEpmd2p0U1BId1cyUnNkNkQxNkVCeWE3cHpqeDAwTzhJdXZCK0NKSkc4Yk5y?=
- =?utf-8?B?N2lPZlJvNjQwUUIrTDhJZkNmenpmdGRUeS8zRVZhR1A0ZWVGdm4ybWVpaHpX?=
- =?utf-8?B?czdyYjdnSlJlb0puOWVMRUhBK0dvc1BpTXVNUktHb2p6aWpnQjgwVXFObnVm?=
- =?utf-8?B?cmo3dTkzUitoaldSaTZBYkFjSVB1VWRuaE5UejNJaVRpV0JEeS9YMlE5U3hp?=
- =?utf-8?B?bFM5TkQvaTVkRkltdVRhWi9sMnU5cytqWTJFaHM2UWxwZlhQYVIrNGhJWXF1?=
- =?utf-8?B?MnJYT0JzZ1BObkdnaGRQbUFxSFBQaUJTWmE2MXBLNVVBRFdYSjJDSG1DVXBh?=
- =?utf-8?B?L2lmcDNqWGhzOWZEZDFmMnJmSnhSNlB2cmRsNnRySHQweTZnU2tNSFV3WDVm?=
- =?utf-8?B?T01RclFXWGc1bnFYWUwrb1d1K2pWVEdNOUJCL2h1cVlWTHFUR0I3R1M4Qzg1?=
- =?utf-8?B?cGptaFozOGd0Q25UemIyWmtNaThhK2VIdnYwYTg3NmZNZzJjZ0djYnZQOUk1?=
- =?utf-8?B?dHFmdVdLWlZ6aWloZmVaTUxEdFNXVUNuREtuNThjUWZ4RFNodlN4cENOa3Q5?=
- =?utf-8?B?WWtSRm1NblgxWG9yUG83YTgxd1VMamVibG9VREF3cDZ2SE5KeHZIeDE3dlR0?=
- =?utf-8?B?MzVKM1ZUUE1BbnZtSjZLVlh4WWc0Q3p5OEN4OUZjT1JMRDUwSXhmcjlOazZQ?=
- =?utf-8?B?Q1ZNVDV2R1EydVlwUzlIMmRMYy9zZkU4NGw3MUFpR2poS1AwL3pQZWpqYldh?=
- =?utf-8?B?em5kK3JBUVFKZnNsanV5YnZNMEZlN01sNzY4K2JhTjVpN3Y5L3NteWdJdHRt?=
- =?utf-8?B?QmgzK2VHNGM1eVp2NXh1cW8wSHFFNXhERkVBcmtGMHQxRktJbkMwL3oxRlg0?=
- =?utf-8?B?OVpFZEhXQkVWNUJ4NXFsNWxxcmFNM1MyVEJ2aWRmcWhvdEFqNmdNNjlpVXRP?=
- =?utf-8?B?NURSQkY1UlYwNlZhYk1iK0RWWmNEbjNxL2NEM3ZQUm5LNlYrWnFXTHhaejlT?=
- =?utf-8?B?UDZpVkJHejlqb1dlVUI2Q3c0d251L2ZoRUJ0VUl6Qm9SOVAxUmthZXlLdTJK?=
- =?utf-8?B?eitQTlY5NHhBeGNvOXczNmZGS1RYV3lIUzdOMEI2VmVQYnpIaXd1U1liaGRE?=
- =?utf-8?B?MnV2b0s3bzJuT0JZbmNuUEpwbmhxR1I0anA4dUtmQ1BlN1ZtWURXS2E3eUVS?=
- =?utf-8?B?dVpnQWppbHNaZ2k0TEgvV0NFV1lPYUluWk9MMDhHdXE2Y3NML2xvZDhTTkVG?=
- =?utf-8?B?akJ1NC9jRVJmYm0wWWEzNGZiaHc4eHlWRVIycW5EZW1xRWJ0ZEp5OFhHRUQw?=
- =?utf-8?B?MzlaazB4ckkvaFdaVFRkK3d2aXk3VVhYZFFyeDJBUjQwY1lTTVNPclZkZG1r?=
- =?utf-8?B?aGZ0V01mNXNDQzZpU3NHS1NmR1ArOXZRZGhFUTlTTVRnK0RXbVlTcHJSYkFL?=
- =?utf-8?B?MWp3UWNxTDdPYWlsSEs0Uk1HaDB2Ync5T1J3RXZsKzh4NG9Mazh3M1VCZWpa?=
- =?utf-8?B?VXBKeEZJUHd3M3BLVDJ3eU9wa1ArWTErZGd1ZnFUbS9PVGp2b2tTSVFSblAr?=
- =?utf-8?B?T3RUQ2l2cGJYdGdwK3c0a0xnRGtEbHYxSy8yd3RnbVVVOUlodTFBbHFsUk41?=
- =?utf-8?B?T1RZcXRueTJVcDgzY1hJWG0wWUNYV2xSVHJvWUtEam9wWWFGTy9rZz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebf27357-d1a6-4cd7-07d8-08deca8869d1
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
+X-OriginatorOrg: starfivetech.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 02:47:17.5716
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 01:25:07.8418
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mgrVLgytZs1aLsWEXIwodusZC5ocNUC9xvsKx6/ncXGhPH6JmualO4NQT4/Ys/e2q0kGsAckq1ea9fd7j0CdMBiX7AvNKB4TDrkoGCIxvNI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8217
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: IQlHREwQzw7P7T5sN26ypsVBlQtDBl6e6uIxy11gYJ82CkY3nbxySljwbqSydGctx/4h5iiBQGRaIuSgBQZ1LPs7EAL0SbsBfZBQ7Zq/HYU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0877
 
-Hi Conor,
-    Thanks for your review.
 
-On 2026/6/12 01:39, Conor Dooley wrote:
-> Subject:
-> Re: [PATCH RFC 1/2] dt-bindings: pinctl: amlogic,pinctrl-a4: Add gpio 
-> irq property
-> From:
-> Conor Dooley <conor@kernel.org>
-> Date:
-> 2026/6/12 01:39
-> 
-> To:
-> xianwei.zhao@amlogic.com
-> CC:
-> Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-> Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley 
-> <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin 
-> Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-> Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-> linux-amlogic@lists.infradead.org, linux-gpio@vger.kernel.org, 
-> devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-> linux-arm-kernel@lists.infradead.org
-> 
-> 
-> 
-> On Thu, Jun 11, 2026 at 07:54:33AM +0000, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
->>
->> Add the hw-irq property for each GPIO bank and enable interrupt-parent
->> for pinctrl so that gpiod_to_irq() can translate GPIO lines to IRQs.
-> Uhhhhh, what? Why can't you just use the normal interrupts property?
-> 
 
-The interrupt cannot be used directly because the GPIO bank only 
-provides an IRQ base, which does not have a one-to-one mapping with the 
-actual hardware interrupts.
+>=20
+> > +static inline bool stmmac_phylink_expects_phy(struct phylink *link) {
+> > +	if (link)
+> > +		return phylink_expects_phy(link);
+> > +
+> > +	return false;
+> > +}
+> > +
+> > +static inline int stmmac_phylink_pcs_pre_init(struct phylink *link,
+> > +struct phylink_pcs *pcs) {
+> > +	if (link)
+> > +		return phylink_pcs_pre_init(link, pcs);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static inline void stmmac_phylink_start(struct phylink *link) {
+> > +	if (link)
+> > +		phylink_start(link);
+> > +}
+> > +
+> > +static inline void stmmac_phylink_stop(struct phylink *link) {
+> > +	if (link)
+> > +		phylink_stop(link);
+> > +}
+>=20
+> Please take a step back and think about the Linux big picture architectur=
+e.
+>=20
+> What is stmmac specific here? If you were to add NCSI support to another =
+driver
+> which uses phylink, would it need to replicate all this?
+>=20
+> When you consider how the MAC is configured, does it need to know it is
+> connected to an NCSI? Can the MAC tell the difference between NSCI, fixed=
+-link,
+> a PHY or an SFP? Or does the MAC just need to know RGMII, the link is up,=
+ send
+> frames?
+>=20
+> Please look at adding generic support for NSCI in phylink, and see if the=
+ existing
+> phylink mac ops covers everything needed for configuring the MAC.
+>=20
+> 	Andrew
 
-On Amlogic SoCs, GPIO interrupts are handled through a mux. Multiple 
-GPIO pins are mapped to a limited number of real interrupt sources. The 
-implementation can be found here:
-
-https://github.com/torvalds/linux/blob/master/drivers/irqchip/irq-meson-gpio.c
-
-To use a GPIO interrupt, an unused hardware interrupt must first be 
-allocated, and then the corresponding mux register must be configured. 
-This allocation and mapping are already implemented in the existing driver.
-
-In that driver, the mapping is performed dynamically rather than simply 
-calculating:
-
-irq = irq_start + gpio_offset
-
-If the interrupt is used directly, only the GPIO index can be obtained. 
-The real interrupt number cannot be derived by simply adding an offset, 
-because the hardware interrupt must be allocated first. Pre-allocating 
-all interrupts during initialization would prevent later GPIOs from 
-obtaining available interrupt sources.
-
-Perhaps other names would be more appropriate here, such as "irq_start".
-
->> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
->> ---
->>   Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml b/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
->> index b69db1b95345..65ec9121300e 100644
->> --- a/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
->> +++ b/Documentation/devicetree/bindings/pinctrl/amlogic,pinctrl-a4.yaml
->> @@ -37,6 +37,8 @@ properties:
->>   
->>     ranges: true
->>   
->> +  interrupt-parent: true
->> +
->>   patternProperties:
->>     "^gpio@[0-9a-f]+$":
->>       type: object
->> @@ -65,6 +67,9 @@ patternProperties:
->>         gpio-ranges:
->>           maxItems: 1
->>   
->> +      hw-irq:
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +
->>       required:
->>         - reg
->>         - reg-names
->>
->> -- 
->> 2.52.0
+Thanks. I will try to use fix-PHY link.
