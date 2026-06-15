@@ -1,233 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C711C84D0;
-	Mon, 15 Jun 2026 00:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781484072; cv=none; b=b3wErO2zUiUGQta177qIYjq2WKWwyGYg9YM3gMIVj/oo2bOkqIPUNhJlU9qSalW3KD/fZc7olwkYoEAIzjt2DAU9R+lo6HRgZGQkH5yBN0Gxh9Azs+5NuvoUQ4ds34Y+v4z5sAAXEB6DnAn6KVV3sO1DbNEnbCjiO176iYFUhCU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781484072; c=relaxed/simple;
-	bh=rHW7iSFM1/5SccAkwiz04HAQ0dgWkBSTJyHysQPm/6E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H8aDCBFe46rfCAOhhkwE9QknPzH/HlX1UOXLBBEtHSykpMiRNVN0ddPH/Mo5VXhWx+j2TlxzHA0oko1acDf/8SHA6ViDrsdfxK258mqMc5TOzMXDsxZk9+x4xKelu0LR331V1YsDjLAu2/F94WH2v5aeW+CbbVDc0Gb9SWqS2KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDJkSnLb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D17419ABC6
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 01:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781485496; cv=pass; b=E/sQJBlgxwpBjc7oUJibKxULaN0CINnurzfvoUfaaXSD3cDkwT+V0oVfitB8b1zKl4nH8/PrEJmgVIeWkfMjAWAA1hbELTAz0PGSBmjfONL7rULQGqqWVLH56zEdsmVLwmOeDMBRvN4YTVF4LLEeGu0TZGnEuQmw/UHINZ/xSQE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781485496; c=relaxed/simple;
+	bh=R2ycl9QhnYSUjK91R3xYK2Q1tAb2Ce8h0XOfR+YQzug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PdjAwPKkXSMiqpmLVmmwf1Ub4TB0LD3dUGt2BLzDXwAmo6QnAZIX8QUu6k8ddXA0QRj6XVBh6Xt51G8NDlE7i6vZTHNE+lCQJxLYQ0lEIr2OrxPuTaMmCL0kMCGGVbKCTsW1oPwWzVE528eEdZwQb+X7pFkZYLKRcQwEUq6lxtA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQnNStKa; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDJkSnLb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3C51F000E9;
-	Mon, 15 Jun 2026 00:41:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781484071;
-	bh=wO+xhrsIY7D9Za7HFA+jcdc+uFRy9vZxo0r3ijKBOMc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BDJkSnLbAydbROsU/w2Ao1u7vkhvlnf3yIcWpGa1NWsj8v5WM9EcqfOVe4YyBmuVI
-	 4TAIi1DEyQLis8OJ2a9o0m5m/5xOttqUMDDlZMifak7lBIF0OvzDkrSn0xkPHuPy3D
-	 GDRpDK9IqkFHPoQdtRfP3Xm7F2ZokVnFtiKhx1LR0bF4rFQXVa3IQE9QKo4F1WJ9cc
-	 Q54rzjNKu05r57NAcppKGIdufMCywYyjJmCW+weODbbymyxXpkZUgA3W4snx1b7506
-	 zgp8fr53R27uqgBTo6+a+pjfv6bgiCzQ23MC5KWviAUGYoqtxE9TJnluyFbC7FGXPb
-	 iQuEX01208Vrw==
-Date: Mon, 15 Jun 2026 00:41:08 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Vincent Legoll <legoll@online.fr>
-Cc: Shuwei Wu <shuwei.wu@mailbox.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] riscv: dts: spacemit: orangepi-rv2: Add cpu scaling for
- K1, SoC
-Message-ID: <20260615004108-GKA1002079@kernel.org>
-References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
- <f031e13e-d9f5-414a-b90e-a3d5a60b8d05@online.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQnNStKa"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bec405a6ea5so368109566b.0
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 18:04:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781485492; cv=none;
+        d=google.com; s=arc-20240605;
+        b=JsxZJ0VFn3YvqlyBiw3ywmg/z11gYP9nqfTaQF7XSf3hD5HvGDCP9kDMoLAM5Nk1/C
+         uK+p28oWo9Jx4fdTtiiv7wCeKoYKBHRCtOlzao2Fr1tb6QnYAvIC3RQR06t8jwahLP0s
+         PaToLiZOtrI0O6BESu68vLCm8ePV/IUW1yDk9NSdbYIsNszPkj0yin81iUqSiTtE/WCV
+         9vCzJvSJCpl/xKmUpEVIa8jOixZ1yk1UPPZGxhjB1Dcds4Qgfe03AexlRmyQcFDriAwB
+         0BR8re8bwu8asAgc4UbfugzXEaTUNLCL0jVNxhl0Eb+fxA8RRvMMf4ayW504YK50Pz2v
+         RxLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wQSOOV+DBTiCCEtastW35rFQgcJIi8WkjbxM6bIBd6s=;
+        fh=Cj6Z64pJ+2O6tVOkYwhCoNfMszzM5R0wHxV5srV/2eg=;
+        b=QcSGgrGpopFvvK6ypcTx52Q1mTEO/mrIDgs1VtUC6P05od2MFhvkz2dP+w9tLv0nRd
+         /9OY09OOYBIzpurfxYPLFdHFnFxxcpbYo15IGUqizT5gGivn559Fj90ITv0Z9iEzsshR
+         7xazT33XmgA6Kt1JUwNmM1gakk3GXbPoaNCLbgT14DF0o1Y7ZoiLxubdGufLSdaJkvu1
+         P5PXwssXgsOt50pxyjQkWJJhFnAp//BvUd5MDP/N5YwYA/SFSkTqh/O6QX6bUmufp2Bb
+         4Fu9f9J30b97GH+Do1MZN26xThQBkIT+QKTQtg717dadgKt2PPvQyk+lSe4Ndwgnnlk0
+         88DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781485492; x=1782090292; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wQSOOV+DBTiCCEtastW35rFQgcJIi8WkjbxM6bIBd6s=;
+        b=nQnNStKat8O5PFdQJu/FdBnZU1DzxV3pE17Al6Ok8Vn8wDC3aqS5lb2u2vIe93Fonl
+         scLZ8MwMxQ0xRi/QlXFHylaqQUBmo4tFTkddDG01XekCzTxwPBGGzvdphA3oN2sVlc1L
+         arHlFGZ4kLZZWhW0deoAdVb/lDcjf80aEe3QKznASOxtQRwJnXsMH2fTi2Zd8EryzIFS
+         3N8k6VVqe6YuTTMNsZkuQ0ASu16XvxJBxiQbq/gZt0/4IxEUxTk2yhgKE79Jj2LDjgIj
+         8o+uMPiRIl6cTyMxyczBwev12eHm4tV+MqggSCAkwjG1rjFhetJ71pW1HZrFgX29vSes
+         tR+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781485492; x=1782090292;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wQSOOV+DBTiCCEtastW35rFQgcJIi8WkjbxM6bIBd6s=;
+        b=sjizcqajOiYMabuqv3Z6DlGna5Jmk1i+Px+rUVN3HO/vz/6PB7jg/dxml1srZC49GH
+         yXBcbuYs55c9wrpandXaWgDrfUtsYIQuuSbh/TxJvyx3BsVYXGkxDrXKpykspX7UjPf8
+         E1iLIisA/p2MkCgwp90Jbw7V3qcv3/ZJKvunVUD7LxDW2Jvk859KNad3tsd00BFMMAMP
+         th3K0qML5eKpNrddZvQ8M5Sk8/8x8ELKYfdBtyChkqt4EI30WUJwaOthKeQPM2/qKGg2
+         33CpDpwq4FVO3/jl0w2KjVM5Irehz6/nT6iWeN5SCUZe/hVJfkymad3sXje8UovzLDDG
+         hiEQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+eXDLC6wbine3bDIZ8mnrw7BDu1MaBZXV9gWhiwXVP9UjbUYkT5svvJH4CDVmh8QaQ8N1FxhQEAWa1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4vQDyRvhp3bpOmjHhzgL6jy/4f5VjfuuxcmZHrlvUDHwkiYW2
+	oOf8J/siYPPDAcswr4CDUOtpiBxMKU2cvw5pcd5z0BeN4QQ2dj4GkU3LlbQDNufq9U3ZGwYJe7a
+	dwsmrU6gDwTNsHQKAJl3Rn+FXQAjtEfY=
+X-Gm-Gg: Acq92OFYfnnMuqaxpetS/InSrT0hoeYTDTvMCNpChdiyql2zuEdlAqqEKNCFduZuTKr
+	Frib2xgemW9Sdg8+9v+y1Yup1eesuVWQS7D71sgWa5pBZjro3wLGYCBRvQtn6NEiJ70wDcENal0
+	hq4MqkYbHHRxcZro/EadC8dkjpzxJg2c/1DQfVghqaWOZQu6TPC1eTSLWicNKtm34mocUYn8oJp
+	crZduEJzga8s77PB9bIzVFYS5B4wM6GHbks0MRs7IK67oXoRaOzTdGrZzrdLh7MZR2xoK3NW5a0
+	tn0U5Ky+
+X-Received: by 2002:a17:907:6895:b0:bed:2a8b:3e72 with SMTP id
+ a640c23a62f3a-c006c665bf4mr175509566b.21.1781485491299; Sun, 14 Jun 2026
+ 18:04:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f031e13e-d9f5-414a-b90e-a3d5a60b8d05@online.fr>
+References: <cover.1780538113.git.zhoubinbin@loongson.cn> <c03b86a9318cffe69ecf8d5c14543fc5948ab2c7.1780538113.git.zhoubinbin@loongson.cn>
+ <20260612160134.GA1116138-robh@kernel.org>
+In-Reply-To: <20260612160134.GA1116138-robh@kernel.org>
+From: Binbin Zhou <zhoubb.aaron@gmail.com>
+Date: Mon, 15 Jun 2026 09:04:38 +0800
+X-Gm-Features: AVVi8CehLy42LEJgG2i99cMYFG50MlGhaNfJeJz81YaHZrK9mKFknfitnhAJSIc
+Message-ID: <CAMpQs4LUs2g=_QvJ14NQD1KAEwvKgjNmdj6B-3odnqJNxEUcQQ@mail.gmail.com>
+Subject: Re: [PATCH v2 6/7] ASoC: dt-bindings: loongson,ls-audio-card: Add
+ ATK-DL2K0300B compatible
+To: Rob Herring <robh@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vincent,
+Hi Rob:
 
- Please send the patch directly instead of attached file, it's more
-easy for people to review and apply, suggest to use b4, or
- "git send-email" (old way)
+Thanks for your review.
 
+On Sat, Jun 13, 2026 at 12:01=E2=80=AFAM Rob Herring <robh@kernel.org> wrot=
+e:
+>
+> On Thu, Jun 04, 2026 at 10:11:46AM +0800, Binbin Zhou wrote:
+> > Add new compatible for the ATK-DL2K0300B development board based on
+> > Loongson-2K0300.
+> >
+> > Unlike others, this board features GPIO-controlled headphone detection,
+> > headphone mute, and speaker enable.
+> >
+> > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> > ---
+> >  .../sound/loongson,ls-audio-card.yaml         | 37 +++++++++++++++++++
+> >  1 file changed, 37 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-=
+card.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.=
+yaml
+> > index 8c214e5d04b1..e9b248e8246c 100644
+> > --- a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.ya=
+ml
+> > +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.ya=
+ml
+> > @@ -23,6 +23,7 @@ properties:
+> >      enum:
+> >        - loongson,ls-audio-card  # Loongson-2K1000/Loongson-2K2000/LS7A
+> >        - loongson,ls2k0300-forever-pi-audio-card # CTCISZ Forever Pi
+> > +      - loongson,ls2k0300-dl2k0300b-audio-card # ATK-DL2K0300B
+> >
+> >    mclk-fs:
+> >      $ref: simple-card.yaml#/definitions/mclk-fs
+> > @@ -47,6 +48,18 @@ properties:
+> >      required:
+> >        - sound-dai
+> >
+> > +  loongson,spkr-en-gpios:
+> > +    maxItems: 1
+> > +    description: The GPIO that enables the speakers
+> > +
+> > +  loongson,hp-mute-gpios:
+> > +    maxItems: 1
+> > +    description: The GPIO that mutes the headphones
+> > +
+> > +  loongson,hp-det-gpios:
+> > +    maxItems: 1
+> > +    description: The GPIO that detect headphones are plugged in
+>
+> We have standard properties for at least this one. If you see multiple
+> $vendor,foo-bar properties, don't add yet another vendor foo-bar
+> property.
 
-On 08:50 Sun 14 Jun     , Vincent Legoll wrote:
-> [RESEND] as I cannot see yesterday's
-> 
-> 
-> Hello,
-> 
-> 
-> 
-> I tested (on OrangePi RV2) the attached patch applied over
-> 
-> spacemit/for-next + Shuwei Wu's V3 series.
-> 
-> 
-> This is a copy/paste of Shuwei Wu's work, so I don't know
-> 
-> if I can submit this with my SoB or if it should be done
-> 
-It's ok to add your SoB while adding support for new board
+Yes, the `hp-det-gpios` property can be found in
+`audio-graph-card2.yaml` or `audio-graph-card.yaml`, but I don't seem
+to be able to reference it directly.
+I=E2=80=99m not sure if I understood your suggestion correctly=E2=80=94to r=
+emove the
+`vendor` prefix? If so, could I use the `fsl sound card`[1] as a
+reference?
 
-> differently, please advise.
-> 
-> 
-> Anyways, you can add my:
-> 
-> Tested-by: Vincent Legoll <vincent.legoll@gmail.com> # OrangePi-RV2
-> 
-> 
-> To the relevant patches from your series, if that's useful,
-> 
-> because it looks like it is working properly:
-> 
-> 
-> On Void linux (musl libc):
-> 
-> 
-> uname -a
-> Linux opirv2 7.1.0-rc1-00043-gb860bca13be4 #14 SMP PREEMPT Sat Jun 13 
-> 11:02:13 CEST 2026 riscv64 GNU/Linux
-> 
-> awk --version | head -1
-> GNU Awk 5.3.2, API 4.0
-> 
-> echo userspace > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-> 
-> echo 1600000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-> real    0m0.300s
-> user    0m0.299s
-> sys     0m0.001s
-> 
-> echo 1228800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-> real    0m0.432s
-> user    0m0.429s
-> sys     0m0.004s
-> 
-> echo 1000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-> real    0m0.476s
-> user    0m0.476s
-> sys     0m0.001s
-> 
-> echo 819000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-> real    0m0.582s
-> user    0m0.581s
-> sys     0m0.001s
-> 
-> echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
-> real    0m0.778s
-> user    0m0.773s
-> sys     0m0.005s
-> 
-> -- 
-> 
-> Vincent Legoll
-> 
+Also, the description for `hp-mute-gpios` is inaccurate; it actually
+controls the enable state of the hp. I will rename it to
+`hp-ctl-gpios`, as follows:
 
-> From 9924789655ae5f4f98e7a5cdc3df3f34e7bfb659 Mon Sep 17 00:00:00 2001
-> From: Vincent Legoll <vincent.legoll@gmail.com>
-> Date: Sat, 13 Jun 2026 10:49:34 +0200
-> Subject: [PATCH] riscv: dts: spacemit: orangepi-rv2: Add cpu scaling for K1
->  SoC
-> 
-> Enable CPU DVFS on OrangePi RV2
-> 
-..
-> This is a copy/paste from Shuwei Wu's BPI-F3 DTS modifications
-> 
-It's quite common that people do copy/paste for additional board
-support, no need to mention it in commit message which I think it
-isn't really useful
+  spkr-en-gpios:
+    maxItems: 1
+    description: The GPIO that enables the speakers
+
+  hp-ctl-gpios:
+    maxItems: 1
+    description: The GPIO that controls the headphones
+
+  hp-det-gpios:
+    maxItems: 1
+    description: The GPIO that detects when headphones are plugged in
 
 
-> Signed-off-by: Vincent Legoll <vincent.legoll@gmail.com>
-> ---
->  .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 35 ++++++++++++++++++-
->  1 file changed, 34 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> index 7c49bce427f3..62d25f579af6 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-> @@ -8,6 +8,7 @@
->  
->  #include "k1.dtsi"
->  #include "k1-pinctrl.dtsi"
-> +#include "k1-opp.dtsi"
-keep alphabet sorted
->  
->  / {
->  	model = "OrangePi RV2";
-> @@ -80,6 +81,38 @@ &combo_phy {
->  	status = "okay";
->  };
->  
-> +&cpu_0 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_1 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_2 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_3 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_4 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_5 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_6 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_7 {
-> +       cpu-supply = <&buck1_0v9>;
-> +};
-> +
->  &emmc {
->  	bus-width = <8>;
->  	mmc-hs400-1_8v;
-> @@ -162,7 +195,7 @@ pmic@41 {
->  		dldoin2-supply = <&buck5>;
->  
->  		regulators {
-> -			buck1 {
-> +			buck1_0v9: buck1 {
->  				regulator-min-microvolt = <500000>;
->  				regulator-max-microvolt = <3450000>;
->  				regulator-ramp-delay = <5000>;
-> -- 
-> 2.54.0
-> 
+[1]: https://elixir.bootlin.com/linux/v7.0/source/Documentation/devicetree/=
+bindings/sound/fsl-asoc-card.yaml#L133
+>
+> Rob
 
-
--- 
-Yixun Lan (dlan)
+--
+Thanks.
+Binbin
