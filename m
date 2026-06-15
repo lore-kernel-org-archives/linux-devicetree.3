@@ -1,673 +1,262 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89FD36AB7C;
-	Mon, 15 Jun 2026 08:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806413CF1E9;
+	Mon, 15 Jun 2026 08:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781512675; cv=none; b=rfBbuiFoB84gTm+0GWJjiinmOwyhMh44vFCKwesctwEkv5Ge2lJTthu7JKcU0ZPQyEMF55+kWk0BySBqyBQnPw4pXi2zHfw7LRsokJLmVmIYN+RVvWXULkCIOnf7q88qM/Ya0Yp/Gu8hf1RsddG/Z5T5brRL87dmWHPFHKZ2J3U=
+	t=1781512692; cv=none; b=elo8D5APypEjw3ML6qDVW/OVwNCdydYtzrwPS15MQ0yPbf2C+8UeqZUhtKVajLU0kjENJNSdNsFWEBTHl3/cQwhrYN7Ps9REIhzPoJcF/0cfgoKl19CeOJAZAzp6viLakQ6/VELPPQPvz1BVRCGSA79Lj6m+rFtHPARLwrsWfog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781512675; c=relaxed/simple;
-	bh=2m6B53wjpNo1/xaGHfHixOLomRLf4hvhFZeeHMXgsVI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TR8Rn7lW4Zpx3S1LldZDYmelmF2M+2sITi5z/Ob7rDYqX9+US17WjZI0D27PMzyo5tnbOF06Hs3w/Hip64QRyMcbG2+puMHbCU7rBE7XV9f8Pb2GfbBNrxY5C35NbpC9CCEUz6tTcgXcNFp/Ofn0XJ3RCmT9eh5onj6reUdzWfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
-	by APP-03 (Coremail) with SMTP id rQCowACHqN_WuS9qc4jKFA--.30122S2;
-	Mon, 15 Jun 2026 16:37:43 +0800 (CST)
-Message-ID: <38d07e3b3c841d380c987800d8ef85065be94e79.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 3/6] drm/verisilicon: introduce per-variant hardware
- ops table
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 15 Jun 2026 16:37:42 +0800
-In-Reply-To: <20260615065003.76661-4-a0987203069@gmail.com>
-References: <20260615065003.76661-1-a0987203069@gmail.com>
-	 <20260615065003.76661-4-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1781512692; c=relaxed/simple;
+	bh=Yc8YgaOeckLfcWMZNEjRKbADiGdtYnCXJVORfn2GLvA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aH13bzLqaOegDe79UvAcZ1nGL+/vHMocvXIGfmAUirIicYfkQ4ZiaSaG3r9oiEUke07MrOmBHydZQCqiCYPmvhkI/xrnRfIcwsCrC5KIsMoG3R4zg8svW0uZqk+qwMSzNDxoNOqtE4RUvKXRZtODoNB5pj+t8tzeaIzqt9WRPzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m++IjaU4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m++IjaU4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432C51F000E9;
+	Mon, 15 Jun 2026 08:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781512691;
+	bh=DsGsr35sR8U0/CHU/ppJusj67EVShvd662z8K8HANtI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m++IjaU4GjR48q02/l5zqnDD4hgqRAGdHtk+2llqQI3q3kUdXzoNX/ZaJ04c7VIs3
+	 XgNrMpEjXQGfGIgOn3EH9E73PMmC3Xw3ZfWEFFMV2nV4N1npzyZA7yjOyCf6msyYav
+	 AN5u70dm5Gal2VkzPk2DScuaxD0jHXeFyBOtFLafOfhEz0Wh+8vj3c1ZUdts4HC/eO
+	 bL/F7aXtLAhFojkTnm9ldoN4zTKYuJKX/NJLeb+etXC2iX94dSIpXyUbxyxIncrgH0
+	 PHrp3KbgjyEs9O6MMu+r2mOmhYrpc6sHIoshjbsXZoZhwG/c/aIW0sX2dGJVykUSYy
+	 Ztl593nFb8rMw==
+Message-ID: <937aed10-9ec6-4ca4-bc60-db892121a416@kernel.org>
+Date: Mon, 15 Jun 2026 09:38:06 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACHqN_WuS9qc4jKFA--.30122S2
-X-Coremail-Antispam: 1UD129KBjvAXoWfuF13Zr1xuw17GrWUuFW5Awb_yoW8Zw1xZo
-	WIk3Z3G3yrXr9IkayYyw18Kw4aqF4DGws8u3yktrsIqa4jvw1UZrW7GF15uayxKryFkrnr
-	ZryIkw4vvF48XF17n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUYa7k0a2IF6w4kM7kC6x804xWl14x267AKxVW8JVW5JwAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj4
-	1l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0
-	I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU5IAp7UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] ASoC: qcom: audioreach: compute active channel maps
+ from channel_map
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
+ <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-06-15=E4=B8=80=E7=9A=84 14:50 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> The DC8200 and DCUltraLite share a broadly similar register layout
-> but
-> differ in how the bridge, CRTC, primary plane and IRQ paths are
-> driven.
-> Introduce a vs_dc_funcs vtable so each variant can supply its own
-> implementation without scattering conditionals across multiple files.
->=20
-> Add enum vs_dc_generation (VSDC_GEN_DC8000 / VSDC_GEN_DC8200) to
-> vs_hwdb.h and a generation field to struct vs_chip_identity.=C2=A0
-> Annotate
-> all four existing DC8200 HWDB entries with VSDC_GEN_DC8200.
->=20
-> Extract the DC8200-specific hardware ops into a new vs_dc8200.c:
-> =C2=A0 panel_enable_ex / panel_disable_ex - PANEL_CONFIG/START + CONFIG_E=
-X
-> commit
-> =C2=A0 enable_vblank / disable_vblank - TOP_IRQ_EN VSYNC bit
-> =C2=A0 primary_plane_enable_ex / disable_ex / update_ex - FB_CONFIG_EX
-> path
-> =C2=A0 irq_ack - reads TOP_IRQ_ACK
->=20
-> Update vs_bridge.c, vs_crtc.c, vs_primary_plane.c and vs_dc.c to
-> dispatch through dc->funcs instead of directly touching registers.
-> vs_crtc.c gains atomic_begin and atomic_flush hooks to allow variants
-> to gate per-frame commit cycles.
->=20
-> No behaviour change for existing DC8200 platforms.
->=20
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+
+
+On 6/10/26 8:41 AM, Neil Armstrong wrote:
+> The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
+> of 2 WSA speakers connected on the WSA2 lines.
+> 
+> But the Audioreach DSP only handles WSA2 in pair with the WSA
+> interface by using the upper bits of the active_channels_mask
+> for WSA2 and the lower bits for WSA:
+> 
+> /-------------------------------------------------\
+> | Bits  |     3    |     2    |   1     |     0   |
+> |-------------------------------------------------|
+> | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
+> \-------------------------------------------------/
+> 
+No, this is not totally correct, if the setup only has WSA2, then
+channel 0 and 1 should be WSA2 channels.
+
+What is the backend dai id that is in DT, it should be
+
+	sound-dai = <&q6apmbedai WSA2_CODEC_DMA_RX_0>;
+
+I also noticed that you are using
+https://github.com/linux-msm/audioreach-topology/blob/main/SM8550-HDK.m4
+which has WSA as backend dai, that is not correct, you should have WSA2.
+
+
+> Setting only the WSA2 upper bits is perfectly valid and
+> functional but the current Audioreach code builds the bitmask
+> from the channels count with:
+> 	active_channels_mask = (1 << num_channels) - 1;
+> 
+> In order to enable the WSA2 bits the channel count should be 4,
+> but the lower WSA bits are then also enabled and the DSP errors
+> out when trying to play on the disabled WSA interface.
+> 
+> A solution would've been to add a fake WSA2 topology element which
+> would be translated into the top bits only, but it's not clean and
+> add some special exceptions in the generic Audioreach code.
+> 
+> The solution suggested by Srinivas is to use the channel mapping to
+> set this bitmask.
+> 
+> This works but makes all the other calls using the channel mapping fail
+> because the DSP requires the channel_mapping table to start from index 0
+> and using num_channel length in order to apply the mapping on the
+> active_channels_mask bits in order.
+> 
+> So we need to skip the empty channel mapping entries in all other
+> users of the channel_map to build valid channel_mapping tables.
+> 
+> This should not break any other usecases since the default channel
+> mapping always start from index 0, and will add flexibilty to allow
+> some special non linear mapping for other interfaces as well.
+> 
+> Suggested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 20 +---
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 38 ++++++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 32 ++++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 107
-> ++++++++++++++++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 32 +-----
-> =C2=A09 files changed, 196 insertions(+), 51 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
->=20
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile
-> b/drivers/gpu/drm/verisilicon/Makefile
-> index 426f4bcaa834..9d4cd16452fa 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,6 +1,6 @@
-> =C2=A0# SPDX-License-Identifier: GPL-2.0-only
-> =C2=A0
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o
-> vs_hwdb.o \
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
-> vs_drm.o vs_hwdb.o \
-> =C2=A0	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> =C2=A0
-> =C2=A0obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> index 7a93049368db..6ff2ac745b15 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
-> @@ -162,15 +162,8 @@ static void vs_bridge_enable_common(struct
-> vs_crtc *crtc,
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_DE_EN |
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_DAT_EN |
-> =C2=A0			VSDC_DISP_PANEL_CONFIG_CLK_EN);
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> -			VSDC_DISP_PANEL_CONFIG_RUNNING);
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			VSDC_DISP_PANEL_START_RUNNING(output));
-> -
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> >id),
-> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>  sound/soc/qcom/qdsp6/audioreach.c | 47 ++++++++++++++++++++++++++++++---------
+>  1 file changed, 37 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
+> index a13f753eff98..9b80cfa56e8a 100644
+> --- a/sound/soc/qcom/qdsp6/audioreach.c
+> +++ b/sound/soc/qcom/qdsp6/audioreach.c
+> @@ -703,6 +703,7 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
+>  	int pm_sz = APM_HW_EP_PMODE_CFG_PSIZE;
+>  	int size = ic_sz + ep_sz + fs_sz + pm_sz;
+>  	void *p;
+> +	int i;
+>  
+>  	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(size, APM_CMD_SET_CFG, 0);
+>  	if (IS_ERR(pkt))
+> @@ -741,7 +742,12 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
+>  
+>  	intf_cfg->cfg.lpaif_type = module->hw_interface_type;
+>  	intf_cfg->cfg.intf_index = module->hw_interface_idx;
+> -	intf_cfg->cfg.active_channels_mask = (1 << cfg->num_channels) - 1;
+> +	intf_cfg->cfg.active_channels_mask = 0;
+> +	/* Convert the physical channel mapping into a bit field */
+> +	for (i = 0; i < AR_PCM_MAX_NUM_CHANNEL; i++)
+> +		if (cfg->channel_map[i])
+> +			intf_cfg->cfg.active_channels_mask |= BIT(i);
 > +
-> +	dc->funcs->panel_enable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_bridge_atomic_enable_dpi(struct drm_bridge *bridge,
-> @@ -228,14 +221,7 @@ static void vs_bridge_atomic_disable(struct
-> drm_bridge *bridge,
-> =C2=A0	struct vs_dc *dc =3D crtc->dc;
-> =C2=A0	unsigned int output =3D crtc->id;
-> =C2=A0
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> -			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> -			=C2=A0 VSDC_DISP_PANEL_START_RUNNING(output));
-> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> -			=C2=A0 VSDC_DISP_PANEL_CONFIG_RUNNING);
-> -
-> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
-> >id),
-> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +	dc->funcs->panel_disable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_bridge_funcs vs_dpi_bridge_funcs =3D {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> index 0b8a35d09cd2..679d6541ba1b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-> @@ -16,10 +16,33 @@
-> =C2=A0#include "vs_crtc_regs.h"
-> =C2=A0#include "vs_crtc.h"
-> =C2=A0#include "vs_dc.h"
-> -#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_drm.h"
-> =C2=A0#include "vs_plane.h"
-> =C2=A0
-> +static void vs_crtc_atomic_begin(struct drm_crtc *crtc,
-> +				=C2=A0 struct drm_atomic_commit *state)
-> +{
-> +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> +	struct vs_dc *dc =3D vcrtc->dc;
-> +	unsigned int output =3D vcrtc->id;
-> +
-> +	if (dc->funcs->crtc_begin)
-> +		dc->funcs->crtc_begin(dc, output);
-> +}
-> +
-> +static void vs_crtc_atomic_flush(struct drm_crtc *crtc,
-> +				=C2=A0 struct drm_atomic_commit *state)
-> +{
-> +	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> +	struct vs_dc *dc =3D vcrtc->dc;
-> +	unsigned int output =3D vcrtc->id;
-> +
-> +	if (dc->funcs->crtc_flush)
-> +		dc->funcs->crtc_flush(dc, output);
-> +
-> +	drm_crtc_vblank_atomic_flush(crtc, state);
-> +}
-> +
-> =C2=A0static void vs_crtc_atomic_disable(struct drm_crtc *crtc,
-> =C2=A0				=C2=A0=C2=A0 struct drm_atomic_commit *state)
-> =C2=A0{
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc
-> *crtc,
-> =C2=A0	drm_crtc_vblank_off(crtc);
-> =C2=A0
-> =C2=A0	clk_disable_unprepare(dc->pix_clk[output]);
-> +
-> +	if (dc->funcs->crtc_disable)
-> +		dc->funcs->crtc_disable(dc, output);
 
-Should this be `crtc_disable_ex` ? Because the clock-related operation
-is shared.
+This one looks good, this should be a bug fix patch.
 
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
-> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc
-> *crtc,
-> =C2=A0	drm_WARN_ON(&dc->drm_dev->base,
-> =C2=A0		=C2=A0=C2=A0=C2=A0 clk_prepare_enable(dc->pix_clk[output]));
-> =C2=A0
-> +	if (dc->funcs->crtc_enable)
-> +		dc->funcs->crtc_enable(dc, output);
+>  	p += ic_sz;
+>  
+>  	pm_cfg = p;
+> @@ -840,7 +846,7 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
+>  	uint32_t num_channels = cfg->num_channels;
+>  	int payload_size = APM_MFC_CFG_PSIZE(media_format, num_channels) +
+>  				APM_MODULE_PARAM_DATA_SIZE;
+> -	int i;
+> +	int i, j;
+>  	void *p;
+>  
+>  	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0);
+> @@ -860,8 +866,12 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
+>  	media_format->sample_rate = cfg->sample_rate;
+>  	media_format->bit_width = cfg->bit_width;
+>  	media_format->num_channels = cfg->num_channels;
+> -	for (i = 0; i < num_channels; i++)
+> -		media_format->channel_mapping[i] = cfg->channel_map[i];
+> +	/* Convert the physical mapping to a logical mapping of the channels */
+> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
+> +		if (!cfg->channel_map[i])
+> +			continue;
+> +		media_format->channel_mapping[j++] = cfg->channel_map[i];
+Each element i of the channel_mapping[i] array, describes the channel i
+inside the buffer where i is less than num_channels.  An unused channel
+is set to 0.
 
-Ditto for appending `_ex` .
+For some reason I get impression that user is trying to set a 4 channels
+instead of 2 channel.
 
-> +
-> =C2=A0	drm_crtc_vblank_on(crtc);
-> =C2=A0}
-> =C2=A0
-> @@ -119,7 +148,8 @@ static bool vs_crtc_mode_fixup(struct drm_crtc
-> *crtc,
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_crtc_helper_funcs vs_crtc_helper_funcs =3D =
-{
-> -	.atomic_flush	=3D drm_crtc_vblank_atomic_flush,
-> +	.atomic_begin	=3D vs_crtc_atomic_begin,
-> +	.atomic_flush	=3D vs_crtc_atomic_flush,
-> =C2=A0	.atomic_enable	=3D vs_crtc_atomic_enable,
-> =C2=A0	.atomic_disable	=3D vs_crtc_atomic_disable,
-> =C2=A0	.mode_set_nofb	=3D vs_crtc_mode_set_nofb,
-> @@ -132,7 +162,7 @@ static int vs_crtc_enable_vblank(struct drm_crtc
-> *crtc)
-> =C2=A0	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-> +	dc->funcs->enable_vblank(dc, vcrtc->id);
-> =C2=A0
-> =C2=A0	return 0;
-> =C2=A0}
-> @@ -142,7 +172,7 @@ static void vs_crtc_disable_vblank(struct
-> drm_crtc *crtc)
-> =C2=A0	struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
-> +	dc->funcs->disable_vblank(dc, vcrtc->id);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_crtc_funcs vs_crtc_funcs =3D {
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
-> b/drivers/gpu/drm/verisilicon/vs_dc.c
-> index dad9967bc10b..9729b693d360 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -8,9 +8,7 @@
-> =C2=A0#include <linux/of.h>
-> =C2=A0#include <linux/of_graph.h>
-> =C2=A0
-> -#include "vs_crtc.h"
-> =C2=A0#include "vs_dc.h"
-> -#include "vs_dc_top_regs.h"
-> =C2=A0#include "vs_drm.h"
-> =C2=A0#include "vs_hwdb.h"
-> =C2=A0
-> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void
-> *private)
-> =C2=A0	struct vs_dc *dc =3D private;
-> =C2=A0	u32 irqs;
-> =C2=A0
-> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	irqs =3D dc->funcs->irq_ack(dc);
+Can you fix the backend-dai id and play it directly on WSA2 instead of WSA.
+Or was there a reason for not doing it otherwise?
 
-The definition of bits in 0x0010 seems to be different to ones in
-0x147C, although the first 2 bits are the same. (e.g. `BIT(2)` is
-"cursor interrupt" in DC8000 0x147C but "secure reset done" in DC8200
-0x0010).
+--srini
 
-Should some kind of translation be done in `irq_ack` ? (and add a
-unified interrupt definition that aims to be the translation target).
-
-Thanks,
-Icenowy
-
-> =C2=A0
-> =C2=A0	vs_drm_handle_irq(dc, irqs);
-> =C2=A0
-> @@ -136,6 +134,8 @@ static int vs_dc_probe(struct platform_device
-> *pdev)
-> =C2=A0	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
-> >identity.model,
-> =C2=A0		 dc->identity.revision, dc->identity.customer_id);
-> =C2=A0
-> +	dc->funcs =3D &vs_dc8200_funcs;
+> +	}
+>  
+>  	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
+>  }
+> @@ -1080,6 +1090,7 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
+>  	struct apm_pcm_module_media_fmt_cmd *cfg;
+>  	struct apm_module_param_data *param_data;
+>  	int payload_size;
+> +	int i, j;
+>  
+>  	if (num_channels > 4) {
+>  		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
+> @@ -1113,7 +1124,12 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
+>  	media_cfg->num_channels = mcfg->num_channels;
+>  	media_cfg->q_factor = mcfg->bit_width - 1;
+>  	media_cfg->bits_per_sample = mcfg->bit_width;
+> -	memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
+> +	/* Convert the physical mapping to a logical mapping of the channels */
+> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg->num_channels; i++) {
+> +		if (!mcfg->channel_map[i])
+> +			continue;
+> +		media_cfg->channel_mapping[j++] = mcfg->channel_map[i];
+> +	}
+>  
+>  	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
+>  }
+> @@ -1127,6 +1143,7 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
+>  	struct payload_media_fmt_pcm *cfg;
+>  	struct media_format *header;
+>  	int rc, payload_size;
+> +	int i, j;
+>  	void *p;
+>  
+>  	if (num_channels > 4) {
+> @@ -1166,7 +1183,12 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
+>  		cfg->q_factor = mcfg->bit_width - 1;
+>  		cfg->endianness = PCM_LITTLE_ENDIAN;
+>  		cfg->num_channels = mcfg->num_channels;
+> -		memcpy(cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
+> +		/* Convert the physical mapping to a logical mapping of the channels */
+> +		for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
+> +			if (!mcfg->channel_map[i])
+> +				continue;
+> +			cfg->channel_mapping[j++] = mcfg->channel_map[i];
+> +		}
+>  	} else {
+>  		rc = audioreach_set_compr_media_format(header, p, mcfg);
+>  		if (rc)
+> @@ -1243,7 +1265,7 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
+>  	struct apm_module_sp_vi_ex_mode_cfg *ex_cfg;
+>  	int op_sz, cm_sz, ex_sz;
+>  	struct apm_module_param_data *param_data;
+> -	int rc, i, payload_size;
+> +	int rc, i, payload_size, j;
+>  	struct gpr_pkt *pkt;
+>  	void *p;
+>  
+> @@ -1284,14 +1306,19 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
+>  	param_data->param_size = cm_sz - APM_MODULE_PARAM_DATA_SIZE;
+>  
+>  	cm_cfg->cfg.num_channels = num_channels * 2;
+> -	for (i = 0; i < num_channels; i++) {
+> +	/* Convert the physical mapping to a logical mapping of the channels */
+> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < num_channels; i++) {
+> +		if (!mcfg->channel_map[i])
+> +			continue;
+>  		/*
+>  		 * Map speakers into Vsense and then Isense of each channel.
+>  		 * E.g. for PCM_CHANNEL_FL and PCM_CHANNEL_FR to:
+>  		 * [1, 2, 3, 4]
+>  		 */
+> -		cm_cfg->cfg.channel_mapping[2 * i] = (mcfg->channel_map[i] - 1) * 2 + 1;
+> -		cm_cfg->cfg.channel_mapping[2 * i + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
+> +		cm_cfg->cfg.channel_mapping[2 * j] = (mcfg->channel_map[i] - 1) * 2 + 1;
+> +		cm_cfg->cfg.channel_mapping[2 * j + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
 > +
-> =C2=A0	if (port_count > dc->identity.display_count) {
-> =C2=A0		dev_err(dev, "too many downstream ports than HW
-> capability\n");
-> =C2=A0		ret =3D -EINVAL;
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
-> b/drivers/gpu/drm/verisilicon/vs_dc.h
-> index ed1016f18758..544e1a37065b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
-> @@ -14,6 +14,7 @@
-> =C2=A0#include <linux/reset.h>
-> =C2=A0
-> =C2=A0#include <drm/drm_device.h>
-> +#include <drm/drm_plane.h>
-> =C2=A0
-> =C2=A0#include "vs_hwdb.h"
-> =C2=A0
-> @@ -22,6 +23,34 @@
-> =C2=A0
-> =C2=A0struct vs_drm_dev;
-> =C2=A0struct vs_crtc;
-> +struct vs_dc;
-> +
-> +struct vs_dc_funcs {
-> +	/* Bridge: atomic_enable, atomic_disable */
-> +	void (*panel_enable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +	void (*panel_disable_ex)(struct vs_dc *dc, unsigned int
-> output);
-> +
-> +	/* CRTC: atomic_begin, atomic_flush */
-> +	void (*crtc_begin)(struct vs_dc *dc, unsigned int output);
-> +	void (*crtc_flush)(struct vs_dc *dc, unsigned int output);
-> +
-> +	/* CRTC: atomic_enable, atomic_disable */
-> +	void (*crtc_enable)(struct vs_dc *dc, unsigned int output);
-> +	void (*crtc_disable)(struct vs_dc *dc, unsigned int output);
-> +
-> +	/* CRTC: enable_vblank, disable_vblank */
-> +	void (*enable_vblank)(struct vs_dc *dc, unsigned int
-> output);
-> +	void (*disable_vblank)(struct vs_dc *dc, unsigned int
-> output);
-> +
-> +	/* Primary plane: atomic_enable, atomic_disable,
-> atomic_update */
-> +	void (*primary_plane_enable_ex)(struct vs_dc *dc, unsigned
-> int output);
-> +	void (*primary_plane_disable_ex)(struct vs_dc *dc, unsigned
-> int output);
-> +	void (*primary_plane_update_ex)(struct vs_dc *dc, unsigned
-> int output,
-> +					struct drm_plane_state
-> *state);
-> +
-> +	/* IRQ acknowledge */
-> +	u32 (*irq_ack)(struct vs_dc *dc);
-> +};
-> =C2=A0
-> =C2=A0struct vs_dc {
-> =C2=A0	struct regmap *regs;
-> @@ -33,6 +62,9 @@ struct vs_dc {
-> =C2=A0
-> =C2=A0	struct vs_drm_dev *drm_dev;
-> =C2=A0	struct vs_chip_identity identity;
-> +	const struct vs_dc_funcs *funcs;
-> =C2=A0};
-> =C2=A0
-> +extern const struct vs_dc_funcs vs_dc8200_funcs;
-> +
-> =C2=A0#endif /* _VS_DC_H_ */
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> new file mode 100644
-> index 000000000000..800df9279e9b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-> @@ -0,0 +1,107 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
-> + */
-> +
-> +#include <linux/regmap.h>
-> +
-> +#include "vs_bridge_regs.h"
-> +#include "vs_dc.h"
-> +#include "vs_dc_top_regs.h"
-> +#include "vs_plane.h"
-> +#include "vs_primary_plane_regs.h"
-> +
-> +static void vs_dc8200_panel_enable_ex(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			VSDC_DISP_PANEL_START_RUNNING(output));
-> +
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
-> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned
-> int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			=C2=A0 VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			=C2=A0 VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> +			=C2=A0 VSDC_DISP_PANEL_START_RUNNING(output));
-> +
-> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
-> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_enable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> +			VSDC_TOP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dc8200_disable_vblank(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
-> +			=C2=A0 VSDC_TOP_IRQ_VSYNC(output));
-> +}
-> +
-> +static void vs_dc8200_plane_commit(struct vs_dc *dc, unsigned int
-> output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_COMMIT);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc,
-> unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> +			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
-> unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static void vs_dc8200_primary_plane_update_ex(struct vs_dc *dc,
-> unsigned int output,
-> +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct drm_plane_state
-> *state)
-> +{
-> +	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> >crtc_y));
-> +	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state-
-> >crtc_w,
-> +					 state->crtc_y + state-
-> >crtc_h));
-> +	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> +		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
-> +
-> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 irqs;
-> +
-> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	return irqs;
-> +}
-> +
-> +const struct vs_dc_funcs vs_dc8200_funcs =3D {
-> +	.panel_enable_ex		=3D vs_dc8200_panel_enable_ex,
-> +	.panel_disable_ex		=3D
-> vs_dc8200_panel_disable_ex,
-> +	.enable_vblank			=3D vs_dc8200_enable_vblank,
-> +	.disable_vblank			=3D
-> vs_dc8200_disable_vblank,
-> +	.primary_plane_enable_ex	=3D
-> vs_dc8200_primary_plane_enable_ex,
-> +	.primary_plane_disable_ex	=3D
-> vs_dc8200_primary_plane_disable_ex,
-> +	.primary_plane_update_ex	=3D
-> vs_dc8200_primary_plane_update_ex,
-> +	.irq_ack			=3D vs_dc8200_irq_ack,
-> +};
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> index 2a0f7c59afa3..91524d16f778 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -94,6 +94,7 @@ static struct vs_chip_identity vs_chip_identities[]
-> =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D ~0U,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> @@ -103,6 +104,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5721,
-> =C2=A0		.customer_id =3D 0x30B,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> @@ -112,6 +114,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x310,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_with_yuv444,
-> @@ -121,6 +124,7 @@ static struct vs_chip_identity
-> vs_chip_identities[] =3D {
-> =C2=A0		.revision =3D 0x5720,
-> =C2=A0		.customer_id =3D 0x311,
-> =C2=A0
-> +		.generation =3D VSDC_GEN_DC8200,
-> =C2=A0		.display_count =3D 2,
-> =C2=A0		.max_cursor_size =3D 64,
-> =C2=A0		.formats =3D &vs_formats_no_yuv444,
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> index 2065ecb73043..a15c8b565604 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
-> @@ -9,6 +9,11 @@
-> =C2=A0#include <linux/regmap.h>
-> =C2=A0#include <linux/types.h>
-> =C2=A0
-> +enum vs_dc_generation {
-> +	VSDC_GEN_DC8000,
-> +	VSDC_GEN_DC8200,
-> +};
-> +
-> =C2=A0struct vs_formats {
-> =C2=A0	const u32 *array;
-> =C2=A0	unsigned int num;
-> @@ -19,6 +24,7 @@ struct vs_chip_identity {
-> =C2=A0	u32 revision;
-> =C2=A0	u32 customer_id;
-> =C2=A0
-> +	enum vs_dc_generation generation;
-> =C2=A0	u32 display_count;
-> =C2=A0	/*
-> =C2=A0	 * The hardware only supports square cursor planes, so this
-> field
-> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> index 1f2be41ae496..f992cb277f61 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
-> @@ -53,12 +53,6 @@ static int vs_primary_plane_atomic_check(struct
-> drm_plane *plane,
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int
-> output)
-> -{
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_COMMIT);
-> -}
-> -
-> =C2=A0static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
-> =C2=A0					=C2=A0=C2=A0 struct drm_atomic_commit
-> *atomic_state)
-> =C2=A0{
-> @@ -69,13 +63,8 @@ static void vs_primary_plane_atomic_enable(struct
-> drm_plane *plane,
-> =C2=A0	unsigned int output =3D vcrtc->id;
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
-> -			=C2=A0=C2=A0 VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_enable_ex)
-> +		dc->funcs->primary_plane_enable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_primary_plane_atomic_disable(struct drm_plane *plane=
-,
-> @@ -88,10 +77,8 @@ static void vs_primary_plane_atomic_disable(struct
-> drm_plane *plane,
-> =C2=A0	unsigned int output =3D vcrtc->id;
-> =C2=A0	struct vs_dc *dc =3D vcrtc->dc;
-> =C2=A0
-> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> -			VSDC_FB_CONFIG_EX_FB_EN);
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_disable_ex)
-> +		dc->funcs->primary_plane_disable_ex(dc, output);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane *plane,
-> @@ -133,18 +120,11 @@ static void
-> vs_primary_plane_atomic_update(struct drm_plane *plane,
-> =C2=A0	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 fb->pitches[0]);
-> =C2=A0
-> -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x, state-
-> >crtc_y));
-> -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_POS(state->crtc_x + state-
-> >crtc_w,
-> -					 state->crtc_y + state-
-> >crtc_h));
-> =C2=A0	regmap_write(dc->regs, VSDC_FB_SIZE(output),
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_MAKE_PLANE_SIZE(state->crtc_w, stat=
-e-
-> >crtc_h));
-> =C2=A0
-> -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
-> -		=C2=A0=C2=A0=C2=A0=C2=A0 VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
-> -
-> -	vs_primary_plane_commit(dc, output);
-> +	if (dc->funcs->primary_plane_update_ex)
-> +		dc->funcs->primary_plane_update_ex(dc, output,
-> state);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static const struct drm_plane_helper_funcs
-> vs_primary_plane_helper_funcs =3D {
+> +		++j;
+>  	}
+>  
+>  	p += cm_sz;
+> 
 
