@@ -1,203 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F94F33C507
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9308B33E35B;
+	Mon, 15 Jun 2026 10:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781520240; cv=none; b=leJdc1K1yWtknYCxrkhCJf9msz1zLkbVsLJ94rW39ANyev03IyJg0dQQ3KpjrT1Gnn004PAwn7iXIRmbvOvhJLlME/NYoU2yjcx9a7H1xxOm4QttE6RwMeoB6uupaGlXQw5EuirCWm1jHb5ykb77L8GcQc5wMc/AFO1ofl60Csk=
+	t=1781520244; cv=none; b=amppFmIUsP2l16YXZ9QkPhm4ztxiQxNaU08hyDh5MDEXfaNfQDaNq+castPoSMYiHWldVZ5U69ihfNXGGu93uXP2D0cCXy4Jff7tsPRlblbRWl+GmEmMtsfFUA1vFNXowchoBkGPapgD4QFpQhSZg57U6uzVFyXnn35i/koxUQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781520240; c=relaxed/simple;
-	bh=DkN36UAAQ+ZPLuBwJhl7I1IRAgSyeOQdCYgB39cEdb4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OCcH/wCuLh/1srsHUyG+u1bFM4XGpKhz1MLO0WgOtNEOtDi0KW9KAK81JhqAQr4LkLV7sRr6I0oJZHUgYApTAvzGBLzMl4aZMJcvS3wOQvyycHlWHOCpTl/1yZk6LdVASwQ6yuLhBHgNA9JMLTpfYyKMVoclArsJKftdEx4E/5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OaKzhpG9; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OaKzhpG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D901F000E9;
-	Mon, 15 Jun 2026 10:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781520238;
-	bh=Ds/Ddpv44bPJ/kbTJyFf7sdmvIXZirAG2RVbf9zYkj4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OaKzhpG9YybBDGv6zVL5K9g9nnSO0UEtDXNGhg3Mz4FVvqT0lARhBuckF6bQEL4Rq
-	 LwPML7+scXVNS5t11P1gwEEpXR/Pw5T5g8iFI4tHXTPVEaVZzH5AM/TT2QvEwpqSFY
-	 I2IRttPY7XkAqSDcd5+w3WUQSB8I9E1fUcGMJZpIx1GUQBaqQTtvaKLJrAt6CAus9T
-	 7DQeOLOYpo/aDS49V155llKQ3kD2NkCoNa70C9+sw+q/z9cH2lwQC7tow8YbE+kUX3
-	 Z5pzrhr2byIevxs0bEr3OeGkXtgyVxF6He9ak5JWVX3cnlWVTNR4wtedZcZEqplK2g
-	 NSpi3ScwffyKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] serial: max310x: register GPIO controller before
- adding UART ports
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615-b4-max310x-rs485-dt-v3-1-7e79f064bdd7@vaisala.com>
-References: <20260615-b4-max310x-rs485-dt-v3-1-7e79f064bdd7@vaisala.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 10:43:57 +0000
-Message-Id: <20260615104358.A8D901F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1781520244; c=relaxed/simple;
+	bh=sSTFhO2YnsKMCD/YvKWjIpD8RLkxXQ1D4msQjuxjj3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dw9c8n1WruZfKNhtD5f5HLWsFfNhZBqJRLSv5mTktD9n+UD8F/w1NPFes+t+M/7VN+a68/b1C1YHf/noK/IDi2wrmPuOrp7IpFqUjVeC29tlKUdaAjBXvL9hHWNADAGjr9NM8kfzd+bE/rmkadtPbbMQfGAF9/rixtD7q1kkkt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1wZ4ey-0000JX-00; Mon, 15 Jun 2026 12:35:16 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 53967C068C; Mon, 15 Jun 2026 12:28:29 +0200 (CEST)
+Date: Mon, 15 Jun 2026 12:28:29 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-mips@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mips: dts: ar9132: fix wdt node name
+Message-ID: <ai_TzYPvnOU7Pgt1@alpha.franken.de>
+References: <20260608053202.12004-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608053202.12004-1-rosenp@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On Sun, Jun 07, 2026 at 10:32:02PM -0700, Rosen Penev wrote:
+> Fixes the following warning:
+> 
+> $nodename:0: 'wdt@18060008' does not match
+> '^(timer|watchdog)(@.*|-([0-9]|[1-9][0-9]+))?$'
+> from schema $id: http://devicetree.org/schemas/watchdog/qca,ar7130-wdt.yaml#
+> 
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  arch/mips/boot/dts/qca/ar9132.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/mips/boot/dts/qca/ar9132.dtsi b/arch/mips/boot/dts/qca/ar9132.dtsi
+> index 4d3c48a9f9fd..77225ed459cb 100644
+> --- a/arch/mips/boot/dts/qca/ar9132.dtsi
+> +++ b/arch/mips/boot/dts/qca/ar9132.dtsi
+> @@ -98,7 +98,7 @@ pll: pll-controller@18050000 {
+>  				clock-output-names = "cpu", "ddr", "ahb";
+>  			};
+>  
+> -			wdt: wdt@18060008 {
+> +			wdt: watchdog@18060008 {
+>  				compatible = "qca,ar7130-wdt";
+>  				reg = <0x18060008 0x8>;
+>  
+> -- 
+> 2.54.0
 
-Pre-existing issues:
-- [High] The `out_uart` error path relies on zero-initialized `port.line` v=
-alues, causing it to erroneously clear line 0 from the global bitmap.
-- [High] Concurrent allocation of UART lines using the global `max310x_line=
-s` bitmap lacks locking, leading to race conditions and probe failures.
-- [High] The shared IRQ handler is registered after the UART ports are expo=
-sed to userspace, creating an unhandled interrupt window.
-- [High] Missing `cancel_work_sync()` in the `out_uart` error path leaks sy=
-nchronously queued work items, leading to a Use-After-Free.
-- [High] The driver unconditionally powers off the device after registering=
- the port, introducing a TOCTOU race with concurrent userspace access.
-- [High] The driver accesses and modifies the `uart_port` state completely =
-outside of `port->lock`, violating fundamental serial core locking rules.
---
+applied to mips-next
 
-commit e3ed4a711cf7a4f6df5863f1c7baec8925661b6f
-Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Thomas.
 
-serial: max310x: register GPIO controller before adding UART ports
-
-The MAX310x exposes four GPIOs per UART port via an in-driver
-gpio_chip. devm_gpiochip_add_data() used to run after the per-port
-uart_add_one_port() loop, so a device-tree consumer referencing one of
-the chip's own GPIOs (for example rs485-term-gpios =3D <&max310x 0 ...>)
-could not resolve it during port registration: the GPIO provider it
-waits for is the very driver still trying to register, and the lookup
-returns -EPROBE_DEFER on its own provider, deferring probe forever.
-
-Split the per-port setup into two passes around the gpio_chip
-registration.
-
-> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-> index ac7d3f197c3a5..5cb7d01e40466 100644
-> --- a/drivers/tty/serial/max310x.c
-> +++ b/drivers/tty/serial/max310x.c
-
-[ ... ]
-
-> @@ -1434,6 +1425,27 @@ static int max310x_probe(struct device *dev, const=
- struct max310x_devtype *devty
->  		goto out_uart;
->  #endif
-> =20
-> +	for (i =3D 0; i < devtype->nr; i++) {
-> +		unsigned int line;
-> +
-> +		line =3D find_first_zero_bit(max310x_lines, MAX310X_UART_NRMAX);
-
-[Severity: High]
-This is a pre-existing issue, but does the allocation of UART lines using
-the global max310x_lines bitmap lack locking?
-
-Multiple instances of the driver probing concurrently on different buses
-could simultaneously find the same zero bit and assign the same line number.
-
-Since set_bit is deferred until after uart_add_one_port completes, the
-second instance to call uart_add_one_port would fail with -EINVAL. Could
-this cause the probe to abort and jump to the out_uart cleanup path?
-
-> +		if (line =3D=3D MAX310X_UART_NRMAX) {
-> +			ret =3D -ERANGE;
-> +			goto out_uart;
-> +		}
-> +		s->p[i].port.line =3D line;
-> +
-> +		/* Register port */
-> +		ret =3D uart_add_one_port(&max310x_uart, &s->p[i].port);
-> +		if (ret)
-> +			goto out_uart;
-> +
-> +		set_bit(line, max310x_lines);
-> +
-> +		/* Go to suspend mode */
-> +		max310x_power(&s->p[i].port, 0);
-
-[Severity: High]
-This is a pre-existing issue, but is there a race condition with userspace
-access when unconditionally powering off the device here?
-
-The port is exposed to userspace via uart_add_one_port just before this.
-If userspace opens the port in the exact window between these two calls,
-max310x_startup will properly power the device on, but then this thread
-will immediately execute the power-off sequence.
-
-Could this leave an active port unpowered and completely unresponsive?
-
-> +	}
-> +
->  	/* Setup interrupt */
->  	ret =3D devm_request_threaded_irq(dev, irq, NULL, max310x_ist,
->  					IRQF_ONESHOT | IRQF_SHARED, dev_name(dev), s);
-
-[Severity: High]
-This is a pre-existing issue, but does registering the shared IRQ handler
-after exposing the UART ports to userspace create an unhandled interrupt
-window?
-
-Userspace can immediately open the port, invoking max310x_startup, which
-synchronously enables chip-level hardware interrupts via MAX310X_IRQEN_REG.
-If the hardware asserts the IRQ line before devm_request_threaded_irq is
-called here, the kernel receives an unhandled interrupt.
-
-Since the interrupt is requested with IRQF_SHARED, could this unhandled
-interrupt trigger the spurious interrupt detector to permanently disable
-the shared interrupt line, causing the device to hang?
-
-[Severity: High]
-This is another pre-existing issue, but can the out_uart cleanup path clear
-the wrong bit in the max310x_lines bitmap?
-
-If find_first_zero_bit or devm_gpiochip_add_data fails, the code jumps
-to out_uart. Because the port structures are zero-initialized via
-devm_kzalloc, the port.line field defaults to 0.
-
-The cleanup loop iterates over all ports:
-
-out_uart:
-    for (i =3D 0; i < devtype->nr; i++) {
-        if (test_and_clear_bit(s->p[i].port.line, max310x_lines))
-            ...
-
-If another max310x device successfully claimed line 0, would its bit be
-wrongfully cleared, permanently corrupting the resource tracking for future
-allocations?
-
-[Severity: High]
-This is also a pre-existing issue, but does the out_uart error path leak
-synchronously queued work items?
-
-During port registration, uart_add_one_port invokes max310x_rs485_config
-if SER_RS485_ENABLED is set, which unconditionally schedules one->rs_work.
-
-If a subsequent initialization step fails and the probe jumps to out_uart,
-the driver structure is freed by devres. However, cancel_work_sync is not
-called for rs_work.
-
-When the workqueue scheduler later executes the pending work, will it
-dereference freed memory?
-
-[Severity: High]
-Finally, this is a pre-existing issue, but does the driver modify the
-uart_port state outside of the port->lock?
-
-In max310x_handle_tx, the transmit FIFO is modified using
-kfifo_out_linear_ptr and uart_xmit_advance is called. Similarly,
-max310x_port_irq calls uart_handle_cts_change.
-
-None of these execution paths acquire spin_lock(&port->lock). Could this
-lead to data corruption and inconsistent state when racing with concurrent
-TTY core operations, such as tty_write modifying the FIFO?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-b4-max310x=
--rs485-dt-v3-0-7e79f064bdd7@vaisala.com?part=3D1
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
