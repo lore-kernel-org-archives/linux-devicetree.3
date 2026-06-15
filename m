@@ -1,140 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A803AB27D
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4335A407578;
+	Mon, 15 Jun 2026 15:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781539079; cv=none; b=Djzz9FjtjqEWcj02yihOdAS612/Z8A2DWdeYrfgjInmlegsWXqz84QFxfRSjZkwF+bzgUARaHXRbwGRCzL/WFCJc6RKXPfH5XW+7GVobwAIZx6z4vu4PrOcztIxkUzAbDZS78/6laJrR5gFLW1gjEbRZd3DUm7yqrxx1IyN+y9Y=
+	t=1781539094; cv=none; b=k/Rd105FyhbUy+CeI/BXDuGPvdlMIOFyxwAAWPwP9UwdYlfIErLWk8ZOUPuQcVNwho0Sq7Sc0xtUkph6AjB6NyE2ihqz+dcGkaTOoAoMnddYHcbgBl6EcMv1/whkr3XeaQFzK90YwjNGu4n4zE3LQU4/FNovo/LzF9gxPkPvhhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781539079; c=relaxed/simple;
-	bh=/UZG00siKHTT8jwtIQPu6VVYGHcgEHbiZR433t8i/HQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CsjDKuYxZoJ8LJ5HctISRiT6uOaKY7MyQ3w2p7Tfafb9P6Zf8x3SSdNY7AATSQV24yl89kqj0wiq9b8tgNGqTJpithcO7TAnxyaPQNXxGqeZRgwv03oZ8FnWrVs1NYgBljOJ7qlQIP1RVZEUDA55PJGfibfWDBRg2l4JtT+HtHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYCofIoc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781539094; c=relaxed/simple;
+	bh=PSB2h5rSHd6qTZt1fRrXdcgW92HcafOHzmHkfESr/Qs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=atLfMzUh9USolkbWul97IY6JRt0hbJ4Wpfv3g5+5jzTYK3FSEu5w1g0xkLWOBS4HFCc7TWn8ERErmA3tjXAYkodTsIrJVgKwiGMijj6sKK4FeVsObLAmMLYi9jVrlMJ1FS6HYeX2l31m/GwmB0Lz5VJgxzya17Q0a+AkAwOXJD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6Ia/kFW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYCofIoc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F811F000E9;
-	Mon, 15 Jun 2026 15:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6Ia/kFW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75A01F000E9;
+	Mon, 15 Jun 2026 15:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781539077;
-	bh=2KJNyRPvTKUepdB7NhYywdPioE5Fl8BfIJqCE/Svk7E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oYCofIocb9Vo8Y1J2+i2kWv5LmhKSlHBeWg6uMT5lQULvND9IoP87uXO82S21wUe7
-	 KsY/KpUqzMtLoRPy2cZaWVVM7ts76juQTevQYU1/BSsO355WAUPW73GDhMIy31uE1u
-	 Y+0l+fQXEmVFaTnn6okPBWTJ7KK9MzvoM1nJYagn3/2rr58XHsIcNKi+JYEfblZvKR
-	 NCndtgg/FTZAZ+A4S7jdV6fmxCQi8Veg8wC2nJjbS/tUYvKJWW7wajwwSjyaMRmJqO
-	 e0udSu7+coaX9u77nwPdtk3jfdOUa2PDrOCVXPeJZuoGKiUME7EtTtbjSIUrfOAKD3
-	 8wshpnpQJAP2g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/12] rtc: rzn1: Dynamically calculate synchronization
- delay based on clock rate
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260615154805.1619693-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615154805.1619693-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 15:57:57 +0000
-Message-Id: <20260615155757.98F811F000E9@smtp.kernel.org>
+	s=k20260515; t=1781539093;
+	bh=7HLnF3JTiitZDwWB8R6gEBqf8Kfy9I65uOy1tr3paBM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U6Ia/kFWJIX2jrdh0slD0cY6ZDt2x2r8rgGHk7LL1DR3MGdh/JCLLpDX3adj1LIzP
+	 YBFIVQwXhTavlIkmV1YYP4t+O4INS/Nn3IqnMZIxzdhxP06iT8IZQngCSJOONfBrWo
+	 iyUUWq0LfLuYGwytBH3IaVBJuVf/GkntrhM9iJPDPlsd39scfNDd371tZN6CxirRvp
+	 DgvWAc1LDsSlIAgH9CRmq2u3sgC2CkJqFrfUAREcAG/QC8UBl9tqyIU20iomecGbUJ
+	 HUIFpJijbSjqLySxQMXHvNdACEPwIspcDQ/Lw/jgBG835AEBXic4ONoIYnJaJzcLew
+	 bAB7Xga+TIqng==
+Date: Mon, 15 Jun 2026 16:58:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] regulator: qcom-refgen: add support for the
+ IPQ9650 SoC
+Message-ID: <737655dd-2059-421d-a9ca-91ebd1b1209b@sirena.org.uk>
+References: <20260615-ipq9650_refgen-v3-0-5f611623629c@oss.qualcomm.com>
+ <20260615-ipq9650_refgen-v3-3-5f611623629c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cHslWt8keW0JgXiY"
+Content-Disposition: inline
+In-Reply-To: <20260615-ipq9650_refgen-v3-3-5f611623629c@oss.qualcomm.com>
+X-Cookie: To stay youthful, stay useful.
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Uninitialized `rtc->sync_time` causing infinite polling loop and m=
-issing hardware delays when optional `xtal` clock is absent.
-- [Low] Semantic unit mismatch using `NSEC_PER_MSEC` for microsecond durati=
-on calculation.
---
 
-commit 1c4e11a547342229c6e4a580cb676efaab170aba
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+--cHslWt8keW0JgXiY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-rtc: rzn1: Dynamically calculate synchronization delay based on clock rate
+On Mon, Jun 15, 2026 at 02:05:49PM +0530, Kathiravan Thirumoorthy wrote:
+> IPQ9650 SoC has 2 REFGEN blocks providing the reference current to the
+> PCIe and USB, UNIPHY PHYs. For the other SoCs, clock for this block is
+> enabled on power up but that's not the case for IPQ9650 and we have to
+> enable those clocks explicitly to bring up the PHYs properly.
 
-This commit replaces hardcoded hardware synchronization delays with a
-dynamically calculated time window derived from the runtime clock rate.
-It stores the calculated clock cycles in the driver private structure to
-adjust sleep boundaries dynamically.
-
-> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-> index 06339adae71f6..bc6af59744e48 100644
-> --- a/drivers/rtc/rtc-rzn1.c
-> +++ b/drivers/rtc/rtc-rzn1.c
-[ ... ]
-> @@ -124,8 +125,8 @@ static int rzn1_rtc_set_time(struct device *dev, stru=
-ct rtc_time *tm)
->  		/* Hold the counter if it was counting up */
->  		writel(RZN1_RTC_CTL2_WAIT, rtc->base + RZN1_RTC_CTL2);
-> =20
-> -		/* Wait for the counter to stop: two 32k clock cycles */
-> -		usleep_range(61, 100);
-> +		/* Wait for the counter to stop: two RTC_PCLK clock cycles */
-> +		usleep_range(rtc->sync_time, rtc->sync_time + 100);
-
-[Severity: High]
-If the optional xtal clock is missing, rtc->sync_time remains 0 because the
-calculation block in rzn1_rtc_probe() is skipped.
-
-Does this evaluate to usleep_range(0, 100), bypassing the hardware's
-required minimum 2-cycle synchronization wait period?
-
-[ ... ]
-> @@ -433,17 +434,25 @@ static int rzn1_rtc_probe(struct platform_device *p=
-dev)
->  			ret =3D -EOPNOTSUPP;
->  			goto dis_runtime_pm;
->  		}
-> -
->  		if (rate !=3D 32768)
->  			scmp_val =3D RZN1_RTC_CTL0_SLSB_SCMP;
+> +static int qcom_ipq9650_refgen_enable(struct regulator_dev *rdev)
+> +{
+> +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
+> +	int ret;
 > +
-> +		/*
-> +		 * The internal clock counter operates in synchronization with the
-> +		 * RTC_PCLK clock. Calculate the duration of two RTC_PCLK clock
-> +		 * cycles in microseconds required for operations to complete.
-> +		 */
-> +		rtc->sync_time =3D DIV_ROUND_UP(2 * NSEC_PER_MSEC, rate);
-
-[Severity: Low]
-This isn't a bug, but the calculation uses NSEC_PER_MSEC to compute
-microseconds. While mathematically equivalent to 1,000,000, could this
-use USEC_PER_SEC to clearly reflect a Hz-to-microseconds conversion?
-
-[Severity: High]
-The driver retrieves the xtal clock using devm_clk_get_optional() earlier
-in rzn1_rtc_probe(). If the clock is missing, the else if (xtal) block is
-skipped entirely.
-
-Does this leave rtc->sync_time uninitialized at 0 for the default internal
-clock?
-
+> +	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+> +	if (ret)
+> +		return ret;
 > +
->  	}
-> =20
->  	/* Disable controller during SUBU/SCMP setup */
->  	val =3D readl(rtc->base + RZN1_RTC_CTL0) & ~RZN1_RTC_CTL0_CE;
->  	writel(val, rtc->base + RZN1_RTC_CTL0);
-> -	/* Wait 2-4 32k clock cycles for the disabled controller */
-> +	/* Wait 2-4 RTC_PCLK clock cycles for the disabled controller to stop */
->  	ret =3D readl_poll_timeout(rtc->base + RZN1_RTC_CTL0, val,
-> -				 !(val & RZN1_RTC_CTL0_CEST), 62, 123);
-> +				 !(val & RZN1_RTC_CTL0_CEST), rtc->sync_time,
-> +				 rtc->sync_time * 2);
+> +	return 0;
+> +}
 
-[Severity: High]
-If rtc->sync_time is 0 from the missing optional clock, the timeout argument
-(rtc->sync_time * 2) evaluates to 0.
+> +static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
+> +{
+> +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
+> +
+> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> +
+> +	return 0;
+> +}
 
-Since readl_poll_timeout() treats a 0 timeout as explicitly disabling the
-timeout check, will this turn the wait into an infinite tight loop if the
-hardware fails to respond?
+> +static const struct regulator_desc ipq9650_refgen_desc = {
+> +	.enable_reg = REFGEN_REG_REFGEN_STATUS,
+> +	.enable_mask = REFGEN_STATUS_OUT_MASK,
+> +	.enable_val = REFGEN_STATUS_OUT_ENABLE,
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615154805.1619=
-693-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D8
+> +	.ops = &(const struct regulator_ops) {
+> +		.enable		= qcom_ipq9650_refgen_enable,
+> +		.disable	= qcom_ipq9650_refgen_disable,
+> +		.is_enabled	= regulator_is_enabled_regmap,
+> +	},
+
+This looks like a get_status() operation, not an enable operation?  The
+enables and disables are pure clock operations.
+
+--cHslWt8keW0JgXiY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmowIQ8ACgkQJNaLcl1U
+h9ALNQf+OyO0/dnBSWA32nOVv1PcKXQmOlHa0po0cjW4978uq0iczbQRGDCbFlZ2
+patPi1IUWeltBggyPIDxCd7y8alqRNEmcqLii9vjvagxRGcruqAhpnlCun+p6HuC
+/HkB0GmJM+PXyvizRHnBNk9W5qau0P6y38ygcRw4yo7fshRBR4tet7lbSbiTrR8s
+a25KPNs0Fv5wwe7T5qeduwrMcAaySZQRtfanInubyJMXoL4TiuyNX3ICI0rm0UP0
+E7oNr6nKPK2eC5leaQIg4BNstpUCf4nFMB6qZRgXhnXZI3N7F03EaCPmaP2ob4TH
+XXl14Vv7hJz7diUX6pWu6oeESGM/Kg==
+=jmIe
+-----END PGP SIGNATURE-----
+
+--cHslWt8keW0JgXiY--
