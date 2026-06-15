@@ -1,64 +1,64 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8003B103B
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66DD3AEB35
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781506216; cv=none; b=FS3Dk2d5Pd/HHcB2iI1nBuUoFaXjck0ssGUM18/7pY0OqACByHMSVhdHhmYWYpUM4jHYt2MoKADPQG8OlE/Eo07NbN1ZRK9fjZ5XCBIwO5+gsszDEThp9uwePPaCLBAx83oCjnegfwfRcCefHNxjEs4BJjKx2CHgvI4wBajPoZU=
+	t=1781506220; cv=none; b=cbB7ltwIV3kBxDczM6koXlmYlwEb0IsReMd02AgYzdvTft8gDVd1WBuHY8Hzon4t0ZVGF6Drw1kRR4MTq0VYX7KIQJPxV11LtxYO9iMSGkGICGCMqlpfhkIsR3IY0mlACbLuOzxxavuA/0KYZIXgWlWBJvbzS1yJtinTyWs3JLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781506216; c=relaxed/simple;
-	bh=r/bbII9aD020V2/LAtT76aUh9hHr+gLtRWgDFPIhPa4=;
+	s=arc-20240116; t=1781506220; c=relaxed/simple;
+	bh=Gh9vukGG0EkYLgIUTZAT1C0JDx5DzI9vsn6+Jijzi30=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IGmJ/ygQChJ5/rWHeKxHCjGmAFMdVBNrDwQYs+uqXc3Xgq21kNI6JHFmGuv0WMdwlCnZX9t8K2NJElDeUgFLV8MFlh9RBQZxSXqpJZTzId7CBulkX0b6iM4RL8OBWZ9pBXVk4esfYDSaBhOt/6nMJr0779fMIDGfy0vPaEdzuoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gL94Q+8B; arc=none smtp.client-ip=74.125.82.176
+	 MIME-Version; b=ifi0cKBa36FBIiVeYCOFZ8TAGYxHbn0APSASiWWfjNMfCa8x7sDD0me+HiV0vvgX454K9Kqx9A+LXtfc+IfbquescjI1wMaJKYWzyyWa/KNPdqKMNrgZI46UnyJ34Yd/T0isQpgeoTcu5+dyRsqn13TdSQpuDzCHnx7y9kBBGS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U0GXFZU7; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gL94Q+8B"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-304d8362a58so2205319eec.1
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 23:50:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U0GXFZU7"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-304d7f31215so2728173eec.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 23:50:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781506214; x=1782111014; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781506218; x=1782111018; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lenEIxoLi6+YCq/tfMwIzvmfL+sfiBY8pQSkNEn0Xhs=;
-        b=gL94Q+8BhWAgbyo1ZXlLRRQMZ1F+FQ0F7M/SrfUZXRKezKbSBuj+bLgSxcUWtqsTAj
-         mlQsk7GQnJs63bt/u+wusE0/8zIGO18OaTDw+Dgqi+8K/PYyCyORU99Grl7v5kJeLbTK
-         v837mUMEnjAxU2sNC0JVyKDoeULo5fJERmT1lIihSsjWw0LXVYKOUiVm44sVGcTOedy8
-         aUy3w96YUKVx3H0iz0965zi4J05EMesuH+2Asu2TlZtxXu7D76kbGGQMcFpvlwwrtXtE
-         d7euC481f4bxCak0kwEjPXNrpDhIULHeW5Q15moXUadueM/fK1gIinveU9x4NCvjc1SQ
-         INgg==
+        bh=VJAMcsXbQ5jLlRv6m7LlcFvxZJca/ceaoDodoBDS/Yg=;
+        b=U0GXFZU7C1LMsoJXtJThvBUv/CDyObTPL5wDMEF0h4bPwGJj0GTJl6YbZA45eWJttv
+         DV8DYtGx2gY/JW3nsVMSu/fd9MqD6WH0zG7gOm8YUimJmRs0HxvfFUVstxnLiFY9MCxB
+         K59dP+j3NljP5Q9Ji8CZvDZGO7kK6AJyvk0gyKKuqbCQh+iPt9YQo3E4G7rYyFOePzB3
+         Z7YsRFd8Uj/a4/0z955REhmou1Gbq0Zxf6Z65lqwHCoTslrKd5y8eTJuQhkfsrEqPs4q
+         jFPhxxCxVptYiDyCHjbcPEbIwm14MWzpgpOPzNZZnJoIgO03ttEixqeR4b/iXfIIFBbP
+         OgSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781506214; x=1782111014;
+        d=1e100.net; s=20251104; t=1781506218; x=1782111018;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lenEIxoLi6+YCq/tfMwIzvmfL+sfiBY8pQSkNEn0Xhs=;
-        b=g+PrNZE2n7IYt+FAo9D/OGSlf2uzZVvPMH2DzKP4BLkNxU4gd26q6wAVdQPgaMcD36
-         4M1GXFSt/TmppK8ULCR0mLGBse0yMgltlRUpATdOuvkU5tHw4N50ZIk1+bYS0k/OXb3O
-         jbAp639kDnr+Mke0K9bUoF7pwyU8YJ2jpbgi4OEYVAy8th7/35PYj4rSRqR1jwGlGV1c
-         iC6JcV+cWwi2244DYD6MhCHMd4MNJgOyZpPRnWP612pcKfCyc0OFTbLEWTuDsxB7eoBo
-         nOW4ZMuEiJSDZmXfyE7OO3a0hewNzwx8CbMrPNppxz8BxLWW1Au6C/AchHAVKTzID985
-         CMbA==
-X-Forwarded-Encrypted: i=1; AFNElJ+2y9UEWx6QpsYYCfRXJZeRsUSMfL044zJKTpnerWNhHoGaBdYN02DhYU0qpeF0nv//ZlkJ5ZQnMyut@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx5eaK+pZg+979fROkIUIi3T4XrOKkDWb/mv4c5ZB1Uo+n5TMKG
-	wCVcvIpfDLliXsgg4g31k1M50YYpjKrHmVH3C5lE78tpEO0KiedE/icl
-X-Gm-Gg: Acq92OF+Wd2K1lewpJmygIYbV5q80daAOrUkGfzRo0aFD6WiQVtn9Ulcna+0Dv8SsMw
-	Azf/W0sRh+pmdCmCc/y6OhZ/JIHcGCM38jHHQAvRWjUWQZjxQkGRHGokdqzp6lVm3GcpO4QB9PJ
-	EZeLLk/x1e5GW0KpXo1yBkDnJMvUqHmfCVn2+2sz78dKIiFFLP/p3T1pOlMRp9C+G3ubTtci+HF
-	kBPf/HB3IrjT/xyr7ZZ9dIcN8IY1IEikRU6YvI9sliWcal2PHJl7ErV7WXfDsFzVUaNjbgDmFeX
-	PvSQMkJHkseB7gmph3iSC5bC4hknX/2EpFRo6wJY5ResS9Ju/jlMwr7oZ9fV5CD6MIXIs8V8bzC
-	ZdwelHXuEHmyWL98rc8WsLsfZxkm8KAnXvi7bCyil7PjNIe8Vaboq6J505iMsL3BL54Vp0D/xc5
-	ex9c/4K2jQPpdTurSsiMYXg7ZFsGUiqiXzyMea/Ek9nCOVjZMwcwBQknyl/NUgXiZp5vn5oq6XK
-	LU88+kpH3YN
-X-Received: by 2002:a05:7300:6da4:b0:2d9:db50:c6ce with SMTP id 5a478bee46e88-30820c0a172mr6428010eec.3.1781506214227;
-        Sun, 14 Jun 2026 23:50:14 -0700 (PDT)
+        bh=VJAMcsXbQ5jLlRv6m7LlcFvxZJca/ceaoDodoBDS/Yg=;
+        b=neiAZIY0zO4pgKypAkZIyEnEXPtJdppGWnlP6SWdGA0H7klRm5y/cEtB8RhuuimiF8
+         uwks8d/8wTCoSty44tio5rt/ndAcFM8T/2W5z94gQNys/iBHB0ot7sTNQ5DW0vh4fn47
+         f9qgMlyL6cA3GzsxQ8KYOZGqzi5E00hLlkVUdMlVmlyclR62fxOBc4/jkF2xT0fhbDsc
+         dCy3KP2HaLozozic/2xmmt/B2XGzrDksG68CSzkmB/GfR+uZTPvxG/filzhrWNUOrpdQ
+         Y8/exkkONNevpGUq90a1rKsi5Gii1fkh77CGkLW39qPkryZAxXsks+qPu5mgicwxYt/6
+         91UA==
+X-Forwarded-Encrypted: i=1; AFNElJ8EkwMRtP4Psl4fB/Fl28sgSMdQejw5oKiQZzDOICXeQIoOz9wu6QTDRnrhJk0gRXadJ+IFlQiGCIuV@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWqYSq12EKTQ0OwbLToaQ12o7tOwb9Swq/WI4lV/6fjSw+40uW
+	CbUJrf+DvYBoazp7/I7hnLFF7LJrTxRbaS/2Q1xjICG5kDSitDNkUmsA
+X-Gm-Gg: Acq92OHg5B0E0We2P5SCI/Wfvumb5wv0H/eDZwTp0sWNyKASzqGhXGDeqWS6PPvZ3nK
+	CWqP9TJY6qfdt+Y4C1gbcf+oO/L5zY1TnmFUwW11sTjN9m9TSGvV+MkJAG53jT9kpbs2d+exIWT
+	aq3JLpMelo8YtVd3uQLSUwlWBRORFfvn95LpGPZU8NNRXZpynIe+DXhe0347UiMNtlQ5eT1C5rr
+	zNZ28sRDMpMrN+vJe1yvMUZ4t8WDO6WWQCHVVTX3CJUbTm96m5jvGcb65MuXcpNqo2dY6DxuhPx
+	YQkABoEssON9RB1hqfKs3jeNbWkoZS7Hsx0mbYvLjW25BSMglgrRydf5r8I/d3jY7tIN5YbAgNd
+	TSnKuGerSs/yw3ckG5OJuQKFuvDb9qBHt7tzWfV6iAuTTEh65xLYZBsu+b/RnS+saBHKZsSjgqg
+	YMK1dZtkij0xUjzrFwrw09CbdertIrH0T0XbJpel0y3kU49b1izADINilNV/poq1+Vtv/2LO2jY
+	TDRkJRHTM1p
+X-Received: by 2002:a05:7300:4348:b0:2ea:ed70:3ea8 with SMTP id 5a478bee46e88-30820098f00mr7010291eec.29.1781506217988;
+        Sun, 14 Jun 2026 23:50:17 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb9a2e7sm13516812eec.30.2026.06.14.23.50.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb9a2e7sm13516812eec.30.2026.06.14.23.50.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2026 23:50:13 -0700 (PDT)
+        Sun, 14 Jun 2026 23:50:17 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -77,9 +77,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v4 1/6] dt-bindings: display: verisilicon,dc: generalize for single-output variants
-Date: Mon, 15 Jun 2026 14:49:58 +0800
-Message-ID: <20260615065003.76661-2-a0987203069@gmail.com>
+Subject: [PATCH v4 2/6] drm/verisilicon: add register-level macros for DC8000
+Date: Mon, 15 Jun 2026 14:49:59 +0800
+Message-ID: <20260615065003.76661-3-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260615065003.76661-1-a0987203069@gmail.com>
 References: <20260615065003.76661-1-a0987203069@gmail.com>
@@ -91,159 +91,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The existing schema hard-codes the five-clock/three-reset/dual-port
-topology of the DC8200 IP block, preventing reuse for single-output
-variants such as the Verisilicon DCUltraLite used in the Nuvoton MA35D1
-SoC.
+Add register-level constants needed by the forthcoming DC8000 (DCUltraLite)
+hardware ops:
 
-Rework the schema so that variant-specific constraints are expressed via
-allOf/if blocks:
+  VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h: bit mask for per-output
+  VSYNC interrupt bits in DISP_IRQ_STA (0x147C) / DISP_IRQ_EN (0x1480),
+  which are the IRQ registers used by DCUltraLite in place of the DC8200
+  TOP_IRQ_ACK / TOP_IRQ_EN registers.
 
-- Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
-  generic verisilicon,dc fallback remains the driver-binding string.
-- Move clock and reset items descriptions into the per-variant allOf/if
-  blocks; keep only minItems/maxItems at the top level so the base schema
-  accepts all variants.
-- Restore full items lists for clock-names and reset-names at the top
-  level with minItems so the names are validated against the descriptions.
-- Keep ports in the global required list and keep additionalProperties: false.
-- Add an allOf/if block for thead,th1520-dc8200: five-clock (core, axi,
-  ahb, pix0, pix1), three-reset (core, axi, ahb), required resets.
-- Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core, pix0),
-  one-reset (core), required resets.
+  VSDC_FB_CONFIG_ENABLE (bit 0), VSDC_FB_CONFIG_VALID (bit 3) and
+  VSDC_FB_CONFIG_RESET (bit 4) in vs_primary_plane_regs.h: control bits
+  in the FB_CONFIG register used by DCUltraLite for framebuffer enable
+  and per-frame commit handshake.
+
+No behaviour change for existing DC8200 platforms.
 
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- .../bindings/display/verisilicon,dc.yaml      | 80 +++++++++++++++++--
- 1 file changed, 73 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h          | 1 +
+ drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h | 3 +++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-index 9dc35ab973f2..0c41286b8223 100644
---- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-+++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-@@ -17,6 +17,7 @@ properties:
-     items:
-       - enum:
-           - thead,th1520-dc8200
-+          - nuvoton,ma35d1-dcu
-       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
+diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
+index c7930e817635..d4da22b08cd5 100644
+--- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
++++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
+@@ -54,6 +54,7 @@
+ #define VSDC_DISP_GAMMA_DATA(n)			(0x1460 + 0x4 * (n))
  
-   reg:
-@@ -26,14 +27,12 @@ properties:
-     maxItems: 1
+ #define VSDC_DISP_IRQ_STA			0x147C
++#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
  
-   clocks:
--    items:
--      - description: DC Core clock
--      - description: DMA AXI bus clock
--      - description: Configuration AHB bus clock
--      - description: Pixel clock of output 0
--      - description: Pixel clock of output 1
-+    minItems: 2
-+    maxItems: 5
+ #define VSDC_DISP_IRQ_EN			0x1480
  
-   clock-names:
-+    minItems: 2
-+    maxItems: 5
-     items:
-       - const: core
-       - const: axi
-@@ -42,12 +41,16 @@ properties:
-       - const: pix1
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
+index cbb125c46b39..67d4b00f294e 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
+@@ -16,6 +16,9 @@
+ #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
  
-   resets:
-+    minItems: 1
-+    maxItems: 3
-     items:
-       - description: DC Core reset
-       - description: DMA AXI bus reset
-       - description: Configuration AHB bus reset
- 
-   reset-names:
-+    minItems: 1
-+    maxItems: 3
-     items:
-       - const: core
-       - const: axi
-@@ -59,7 +62,7 @@ properties:
-     properties:
-       port@0:
-         $ref: /schemas/graph.yaml#/properties/port
--        description: The first output channel , endpoint 0 should be
-+        description: The first output channel, endpoint 0 should be
-           used for DPI format output and endpoint 1 should be used
-           for DP format output.
- 
-@@ -77,6 +80,69 @@ required:
-   - clock-names
-   - ports
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: thead,th1520-dc8200
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 5
-+          maxItems: 5
-+          items:
-+            - description: DC Core clock
-+            - description: DMA AXI bus clock
-+            - description: Configuration AHB bus clock
-+            - description: Pixel clock of output 0
-+            - description: Pixel clock of output 1
-+
-+        clock-names:
-+          minItems: 5
-+          maxItems: 5
-+
-+        resets:
-+          minItems: 3
-+          maxItems: 3
-+
-+        reset-names:
-+          minItems: 3
-+          maxItems: 3
-+
-+      required:
-+        - resets
-+        - reset-names
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nuvoton,ma35d1-dcu
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+          maxItems: 2
-+          items:
-+            - description: DC Core clock
-+            - description: Pixel clock of output 0
-+
-+        clock-names:
-+          minItems: 2
-+          maxItems: 2
-+
-+        resets:
-+          minItems: 1
-+          maxItems: 1
-+
-+        reset-names:
-+          maxItems: 1
-+
-+      required:
-+        - resets
-+        - reset-names
-+
- additionalProperties: false
- 
- examples:
+ #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
++#define VSDC_FB_CONFIG_ENABLE			BIT(0)
++#define VSDC_FB_CONFIG_VALID			BIT(3)
++#define VSDC_FB_CONFIG_RESET			BIT(4)
+ #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
+ #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13, 11)
+ #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
 -- 
 2.43.0
 
