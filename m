@@ -1,168 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CE82E6116
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:50:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E780D21D596
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781545824; cv=none; b=VRiD68xEDqBkp1Z94buiK1MrMbsG1VHsJ/J2aQFnjfEnW1/zD83aNvPZzqc/FSoGdVaNQCKVGdz2fd6AU2hEQ/JTNvs16k0jzoIYAB1htWjmFFLPrm8NRnGEDhlg7iaQWn8HfAZ+z3svovARGVKRDjVQg00e2t6OkcZOM1eUp4s=
+	t=1781545892; cv=none; b=M6EgEP8qlxTXnxxdh6XTM4/pJUkJy2hcLKknfESVvaBcF6dH/O04oKiCht4Ku814IRmJx+x8Jeca5y+G7B9nNcpDSbspgin+pENWbSbfBv7m0JzJ3glV64RvsheI46WQ6zIi5ggJxiJoz/jeMigz8i1pvI7Lx2prc6WFpRFATlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781545824; c=relaxed/simple;
-	bh=XGoUcUEU4j54w0QguWzcYYqOmDeMSZBvJxrKiEDM51Q=;
+	s=arc-20240116; t=1781545892; c=relaxed/simple;
+	bh=aOGvR/6EMXxzHIz/mT4m4+9Tih1GazD+g4jiXrWaUTk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ocZHTQ8Kcnfu2KZwWEpqqXf6rjLaxChB87YvIgCTI/jLblhqczvePnY93c9JBAYQnsgzXdvDon1nfgzU0HhxuGPDjvpx4YDcb6+adsuWuHZoSwn0SlPKvTJDvf933NNVuc+XmlweJ3UoZLVi/lTYOxB41zllc/JzjTrtHrmxr/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QN5U80TT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rOxLtm22t84Jkj1hpDW11UDaVSRBAXltJf+813AbEyN+cPS1Rmna0P3IeGpDZuU0/ipwfBA7k6+EQ+qYogM1/lKM7sGWXtEhKknt4rvhtSWy/OUZ6yGuZAfHI35eJgWnh0BJB51/kPQAGcFJRmYokHKCI5+1KZa8CinPdcXQ1bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fu+gyOXz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QN5U80TT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3771F000E9;
-	Mon, 15 Jun 2026 17:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fu+gyOXz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEE41F000E9;
+	Mon, 15 Jun 2026 17:51:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781545822;
-	bh=xttoPIat5TvELpIaoc4pkxjEovch9JYfzrznzcYQrTI=;
+	s=k20260515; t=1781545890;
+	bh=kbacCHcH56fljO/cEdIVM0u0Q74/nT7xv4thcY7cGFo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QN5U80TTEFCP25v+xA+6Ety8Y7IWeTHI8zQNtoqBFFvBVlW148Q2TRjfFHzc4R2LA
-	 MZk9LXQKmlLPaRJjlnisAm8KQ6HV7e1CUMf9KC8QWW91ok+MSU6ythB/bR/nJtGETo
-	 JbsO9EIhf2Sgon52UC4V47WkysnZLCVi6ec21UQFCdjuNCvICVQe0injmUGtDS2WWd
-	 wBLdj4T2s22JZCl/KaXr8I9uHTcjM1mOQA+NCfr0jwGjPnk0ejmhPMe42t33p9Iy6P
-	 tbX3VUH8PZoR9QWuowp7O/rmyGwM5JchrSQDczg2/7385b1Q06rE0NfpkJSWfPjBcO
-	 htS0Mq39GNMVQ==
+	b=fu+gyOXzW0velKzuApERSvd2zOPgC71NyuA4GbBRFanre3eO8sCE62rsAHlCSfft/
+	 iaXDhb2FJJ8A8rEdSA6ZpDagxAvFfx6gs+Tq4dEoxETwR+Tw8nPawhFw9zWy/GPo8K
+	 pnDetalumh/vMJUf91rkY8yOIW+YXlhp3XFq1hoOTi24pXg6XqTk+/t8Dj/n0W5s2Z
+	 b+XoswGYWFMObyKySH1HHvWbZTyIg2BW/zzbU+oQA1JjGc5fhfOrUz9P6efjwbhAi0
+	 KfCarBjiokNzkWEOb4BioWxa5SRWvpfndK/kCywq0VkDgG7V2yhrOwH26lV2wf7BYd
+	 5EuA/d7A99RCQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V13 5/9] iio: imu: inv_icm42607: Add PM support for
+Subject: Re: [PATCH V13 6/9] iio: imu: inv_icm42607: Add Temp Support in
  icm42607
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615172554.160910-6-macroalpha82@gmail.com>
-References: <20260615172554.160910-6-macroalpha82@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260615172554.160910-7-macroalpha82@gmail.com>
+References: <20260615172554.160910-7-macroalpha82@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 17:50:21 +0000
-Message-Id: <20260615175022.9A3771F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 17:51:30 +0000
+Message-Id: <20260615175130.6CEE41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Missing synchronous suspend during driver unbind leaves hardware s=
-ensors powered on and leaking power.
-- [Medium] Unconditional 45ms sleep during gyro power-off injects unnecessa=
-ry delay on every suspend transition.
-- [Low] Incorrect constant used for defining the autosuspend delay.
+
+New issues:
+- [High] Prematurely mutating the temperature software state before calling=
+ the power management configuration bypasses state change detection, skippi=
+ng the mandatory startup delay and causing reads of uninitialized data.
+
+Pre-existing issues:
+- [High] The temperature sensor read fails (returns -EINVAL) when the gyros=
+cope and accelerometer are off because the device is placed in Sleep mode i=
+nstead of Idle mode, disabling the internal RC oscillator.
 --
 
-commit c053e5ed4a86d71f412c402ec80e9602b6677c2a
+commit d36f0c461ef9d5076de90b75b6238be45c35148d
 Author: Chris Morgan <macromorgan@hotmail.com>
+Subject: iio: imu: inv_icm42607: Add Temp Support in icm42607
 
-iio: imu: inv_icm42607: Add PM support for icm42607
-   =20
-Add power management support for the ICM42607 device driver.
+Add functions for reading temperature sensor data.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/im=
-u/inv_icm42607/inv_icm42607.h
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
 [ ... ]
-> @@ -334,11 +345,18 @@ struct inv_icm42607_state {
->  #define INV_ICM42607_GYRO_STOP_TIME_MS			45
->  #define INV_ICM42607_TEMP_STARTUP_TIME_MS		77
-> =20
-> +/*
-> + * Suspend delay assumed from other icm42600 series device, not
-> + * documented in datasheet.
-> + */
-> +#define INV_ICM42607_SUSPEND_DELAY_MS			(2 * USEC_PER_MSEC)
 
-[Severity: Low]
-Is this using the correct conversion macro? While (2 * USEC_PER_MSEC)
-evaluates to 2000, USEC_PER_MSEC means microseconds per millisecond. Using
-it to convert seconds to milliseconds is semantically confusing. Should thi=
-s be
-2 * MSEC_PER_SEC or just the literal 2000?
-
-> +
->  typedef int (*inv_icm42607_bus_setup)(struct inv_icm42607_state *);
-> =20
->  extern const struct regmap_config inv_icm42607_regmap_config;
 > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
 io/imu/inv_icm42607/inv_icm42607_core.c
+> index 64f5d263de4f2..644cd7f821b92 100644
 > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 [ ... ]
-> @@ -103,6 +105,63 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data =
-=3D {
->  };
->  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
+> @@ -162,6 +162,24 @@ static int inv_icm42607_set_pwr_mgmt0(struct inv_icm=
+42607_state *st,
+>  	return 0;
+>  }
 > =20
-> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
-> +				      enum inv_icm42607_sensor_mode gyro,
-> +				      enum inv_icm42607_sensor_mode accel,
-> +				      bool temp, unsigned int *sleep_ms)
+> +int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enabl=
+e,
+> +			       unsigned int *sleep_ms)
 > +{
-> +	enum inv_icm42607_sensor_mode oldaccel =3D st->conf.accel.mode;
-> +	enum inv_icm42607_sensor_mode oldgyro =3D st->conf.gyro.mode;
-> +	bool oldtemp =3D st->conf.temp_en;
-> +	unsigned int sleepval_ms;
 > +	unsigned int val;
 > +	int ret;
 > +
-> +	if (gyro =3D=3D oldgyro && accel =3D=3D oldaccel && temp =3D=3D oldtemp)
-> +		return 0;
-> +
-> +	/*
-> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
-> +	 * for a minimum of 45ms. So if we transition from an on state to an
-> +	 * off state wait 45ms to ensure a sufficient pause before power off.
-> +	 */
-> +	if (!gyro && oldgyro)
-> +		fsleep(INV_ICM42607_GYRO_STOP_TIME_MS * USEC_PER_MSEC);
-
-[Severity: Medium]
-Does this inject a 45ms delay into every runtime suspend transition?=20
-
-The code unconditionally sleeps for 45ms when turning off the gyro.
-If the datasheet requires the gyro to remain ON for a minimum of 45ms
-after power-on, wouldn't it be better to track the power-on timestamp
-instead of delaying every power-off sequence, even if the gyro has
-been active for hours?
-
-> +
-> +	val =3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
-> +	val |=3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
-[ ... ]
-> @@ -271,10 +342,78 @@ int inv_icm42607_core_probe(struct regmap *regmap,
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+> +	val =3D FIELD_PREP(INV_ICM42607_TEMP_CONFIG0_FILTER_MASK,
+> +			 INV_ICM42607_FILTER_BW_34HZ);
+> +	ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_TEMP_CONFIG0,
+> +				 INV_ICM42607_TEMP_CONFIG0_FILTER_MASK, val);
 > +	if (ret)
 > +		return ret;
 > +
-> +	pm_runtime_set_autosuspend_delay(dev, INV_ICM42607_SUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +
->  	return 0;
->  }
+> +	return inv_icm42607_set_pwr_mgmt0(st, st->conf.gyro.mode,
+> +					  st->conf.accel.mode, enable,
+> +					  sleep_ms);
 
 [Severity: High]
-Does this code leak power on unbind?=20
+This is a pre-existing issue, but will this temperature read fail with -EIN=
+VAL
+if the gyroscope and accelerometer are off?
 
-Since autosuspend is used, the device doesn't suspend synchronously when
-pm_runtime_put_sync() is called by the driver core on removal. Instead, an
-async autosuspend is queued.=20
+Looking at inv_icm42607_set_pwr_mgmt0(), it constructs the PWR_MGMT0 regist=
+er
+value using only the gyro and accel mode masks:
 
-When the devres cleanup action invokes pm_runtime_disable(), the pending
-autosuspend work is cancelled, meaning inv_icm42607_runtime_suspend() is
-never executed.
+    val =3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
+    val |=3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
+    ret =3D regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
 
-If the sensors remain fully powered on in the PWR_MGMT0 register, and the
-vddio regulator is shared with other devices, will this cause a permanent
-power leak? Would adding a driver remove callback that calls
-pm_runtime_dont_use_autosuspend() or pm_runtime_put_sync_suspend()
-ensure the device powers down synchronously?
+If both gyro and accel are off, val is 0, which places the device in Sleep =
+mode
+instead of Idle mode. The internal RC oscillator required for temperature r=
+eads
+is disabled, causing the data register to return 0x8000
+(INV_ICM42607_DATA_INVALID).
+
+Should the IDLE bit be set when temp is true and the other sensors are
+inactive?
+
+> +}
+> +
+[ ... ]
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_temp.c
+> new file mode 100644
+> index 0000000000000..9a60e1a478b08
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+[ ... ]
+> +static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *te=
+mp)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->map);
+> +	u8 raw[2];
+> +	int ret;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	st->conf.temp_en =3D true;
+> +	ret =3D inv_icm42607_set_temp_conf(st, st->conf.temp_en, NULL);
+
+[Severity: High]
+Does setting st->conf.temp_en to true before this call bypass the hardware
+configuration and startup delay?
+
+Because st->conf.temp_en is mutated before the call, when
+inv_icm42607_set_temp_conf() calls inv_icm42607_set_pwr_mgmt0(), it will
+evaluate the state transition like this:
+
+    bool oldtemp =3D st->conf.temp_en;
+    ...
+    if (gyro =3D=3D oldgyro && accel =3D=3D oldaccel && temp =3D=3D oldtemp)
+        return 0;
+
+Since temp and oldtemp are now both true, the function returns early without
+writing to the power management register or waiting for the startup delay.
+Could this lead to reading uninitialized or desynchronized data?
+
+> +	st->conf.temp_en =3D false;
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1,
+> +			       raw, sizeof(raw));
+> +	if (ret)
+> +		return ret;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615172554.1609=
-10-1-macroalpha82@gmail.com?part=3D5
+10-1-macroalpha82@gmail.com?part=3D6
