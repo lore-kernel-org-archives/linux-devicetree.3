@@ -1,171 +1,178 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E8A23A562
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31744238C0A
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781490906; cv=none; b=Qyp2UNE9gRu2EKEiCcpmS5OxC2KT/kAxVT3NOzUweZoidprQJ+xD0VO5OJpzkyBqUs/hTD3ak3fMmB5duVEreQ8Tmav1tCzgaXNK9S+TIiSwHmIrrmWIrbF45U++n4U+csBdfLd5yzvR9k9roBsdAefWMb8gb18d/D+ch+eRpyo=
+	t=1781491465; cv=none; b=qoPtZ9njWxXM+ZsU8SaKG1MDXpfAp+cjcJyDnj04FFbbBR/y5u7BPBafs6plW3Dm7hBcyoCDorqYkK/V9geac2BXP0Kw2pauIoK2qBn5lXRhSC2wqkd8usQn+m0RiCTdjr6mdPVqrtkD/v8nOaPGLtQC80iTjDAPSO5Dzq2x67o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781490906; c=relaxed/simple;
-	bh=W/7n9BTsGPXhC0kfTEI8Wgc1IM06yj89XCro17EXdkU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GL8YZxWhXkUDC4yOg3sxYsQl9GDN0kFma+behTrgJysGes8VrdJXYJsne80PKBBD3DDT+5NpgCMqy7L9MZOZngw8gfqn1u7N2pksstkWuzSAEqFWEDzdRAfys8dN9xrx9F9yiHmZAvihYubJaZfuid2ewJyhd5MfjvufHVb1myA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=djcq1xGx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hmovp1d6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781491465; c=relaxed/simple;
+	bh=3h3qFVrVCHwqA/9jJB20RsTtPzwqAaPlxKs6hDrBMFE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=urKMna8EVOEbeWSAmztl2B9KX3+CTyZh93QM1bvTlZPxZtLkxKFv/T1BJ/tsVyj+EmTwnF7B35BYMMBZRm6MnWP12irhLdecVTRUyhF4Z2SkpDNMdbsH8L6IYUXDMCfAQ+u0+X0BnJR5327+yI0IpVrmWWa1IRI5DfbPZ7bnwrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KeyPNor9; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="djcq1xGx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hmovp1d6"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F1htb32741821
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:35:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K+xrAMAdANe2IWoZAt1HoeNb1ap2Q5xfNcWHP37qP3c=; b=djcq1xGxm+uCJfKC
-	OhI0aQux9VkqjKfzDrBf/QPCU84kQmsZTVG03jWAgqQIgU2NaXuHHLblHdRmTx3c
-	D0RdjBXidrixAS9QpEOiZYlu5vU8UkK4muVbNLoRyTmjo9kqZOC2dqfQNWerzVF8
-	HsNHTKxfUYjMpKIt/w40D8ODJ2zZIQhdgyI75PxlnddmnOuOB8rJTbi+4kmsNkiV
-	6cIPjKY1R+on1GDuH+80t/GziLm7MKJ6ysRVIM7SCbLZNzN4zXNRMsFS/SK3WUD2
-	XieavoyNbDeThcgZL2DfoZjguKpPhQLpYnn60bIuhUTqQynIK7xqZCCsqyVWOv9Y
-	uVYJBQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0g8550m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:35:04 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c0c36f1cc0so50671865ad.3
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 19:35:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KeyPNor9"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c0c3546924so16821495ad.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 19:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781490903; x=1782095703; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=K+xrAMAdANe2IWoZAt1HoeNb1ap2Q5xfNcWHP37qP3c=;
-        b=hmovp1d6RBPNClxxpX9TNYZT8/R/FfPCVBT4CSm+yBCXCSlItT7v2MvYCd6WjFahu3
-         i26NkJECJn8A9esSKcco+NtCqXyAjE2Rey921YQB65FSW/wp67v+eqkbhTDXubF1C00f
-         S9ieaOfo8adje5KmjFkdVKNXNc9/g6W1Glz/drmgGNCHNspsjkGkIufko49pKLoRmQqP
-         um1Jgz+pe3aBiEoU3O1S9+Kgxu3QoLKJu9iS3kiV+3gumQn79knWoPO1gjF0hnAPLpix
-         wn8WUlCkwSFBPcsptidXGvzgfIfKcCzy4QJIrAahtGetciGSX17mUi2wADqlCVNTDsJR
-         AKdg==
+        d=gmail.com; s=20251104; t=1781491463; x=1782096263; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fQuGdM2CJQXaRNDTIGDSfZydcbPeUd8rTAur9l3mo3A=;
+        b=KeyPNor94Xq4r3tLTOIm/Fwz+YwU3pMjvRjdD9VkILBBtT3IhSgAzE1lgbw5q8ye4a
+         0jUAi9Glaq7IfDu2XJPJ7mw9xzpoNiaJjXQlPmZKUazRhQ5DKTfTqQH+Mz3ZI3ZfwUwS
+         IssTaaFFEiU2VSWj/caBhKghW6Ve+v/tn15ji9ohPi2d0S/+gGPLcSMRsrWX6qX+zrwB
+         jJKRbBdzhum2OFYknPvSNvZ9nDaLlZKzYw0aiW4T06WOymITow0lqrO+uivb4WVQKzmO
+         Op8/H0omiEhrKdwNFJy6hIjl8956Iek1sWYlVt6RB2LtrjGqVcLslfBrOrJDskQeeZNL
+         7u3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781490903; x=1782095703;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=K+xrAMAdANe2IWoZAt1HoeNb1ap2Q5xfNcWHP37qP3c=;
-        b=ptuiaCDhtDsvvhzZrBMP/FyXkzQ/IRL4RrfP1rSjZ8tneLAipfAjgWJ3WljlIUPlmv
-         rmXLl4N2r9O6zwUfM2h5a2FsLDOLzrJFqhIPYCh6X+3WTpXDN7DckTd2CvGNQbmCqFpb
-         QpBKzu7KTGZNl5H9q7UJs2es4s32f23BFsek/+GL1adp7ZC5Fs+au0eV4qBxPde/g5Hm
-         uJggvMv9lVwGo/W6umSNpbTXlKSzyj0koXzB75t6Pta6UdiUv9YL9MIxZlFSaTPwZbJs
-         BK1xrw48G5WNDhLlkgcIj7agpuoI0CQF+CMY6tWhI8H0xROJ8IOQdXpA9dPwuIuGEdl5
-         1Z2g==
-X-Forwarded-Encrypted: i=1; AFNElJ9NnvtIKe2nl80rfxfgx93z06+PssT9TplvAt1Dvff246Sbizvk20PPhS+j0Aj0ABMxhSyNVpxcEFN3@vger.kernel.org
-X-Gm-Message-State: AOJu0YypW6mlcwzZ7oMnFukMsh8sqeKDV5Skb9aQ1t0KpCR39I/OGaBE
-	aktmRUxLQQMl0wVU3+ui7HhCBYw+rkG8iVSY+Y2ghDhMEucJ0LFReGM84Qp7gagyUZJpv8KqoVQ
-	4aetxzDlBHbiVn+eF6ExTNip64B0DtUNM3vYoxSxsiKiyxpEHmrpYoLw1le7bRwPS
-X-Gm-Gg: Acq92OG9KMVYtpD3YMFjFgZsnyLZwL7dnUR+zO44wFzVK7gU4VsRCgGKSZH6guX7QIK
-	Vzl3cKJTMlRnqYXlYSsSnvVzAlI2f33zY24yb5v0EyXDlVf+hWa6GN3L9rRicmYaoULnsvC6HWm
-	wljuvpynbzID7teENK6HskQtfyr7/exi78w4q/SP0VzKIRwBpsyfE9ocJWvqxj8BuZWU5lgvfnN
-	LQ5ggTI8ykljASc0Vfle2TTZ3qcLbaGxcVLBd2DOq8hGeD20DUQgXPvAJPLg5PFMVdSN7Bb110E
-	sNUHkSX43d3SOAND0CmyKoSuBCnZY/LQyfMAQNEYB3rvTaXJUt+fd+9N2541w1U1n2V9DsFL4H7
-	oxRDSbKgehcNzVxtz9/zTJBk251516D+HihdJIA0gEncJzd7sjmoBYsvP7a6YNO6eaTBt++Ema0
-	unuIjLQtgYnrfvrGU=
-X-Received: by 2002:a17:903:1aad:b0:2c0:dd75:e834 with SMTP id d9443c01a7336-2c41050af58mr148068115ad.5.1781490903536;
-        Sun, 14 Jun 2026 19:35:03 -0700 (PDT)
-X-Received: by 2002:a17:903:1aad:b0:2c0:dd75:e834 with SMTP id d9443c01a7336-2c41050af58mr148067615ad.5.1781490903072;
-        Sun, 14 Jun 2026 19:35:03 -0700 (PDT)
-Received: from [10.133.33.21] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e52c0sm84925985ad.13.2026.06.14.19.34.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 19:35:02 -0700 (PDT)
-Message-ID: <d98e7611-4d85-4559-bc6b-79b85bf8dc23@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 10:34:58 +0800
+        d=1e100.net; s=20251104; t=1781491463; x=1782096263;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fQuGdM2CJQXaRNDTIGDSfZydcbPeUd8rTAur9l3mo3A=;
+        b=BiJo5Sge9+zIQ+4ZB9+rkBK5kI3/M3z1DRS0GFSOLkd/XZiXJs+g+RiiNtr6rrisY5
+         KJYKW8VYFlMCacOsQG+WlL2g83xKqv68NKW1KcI6sQao/CUSzKhOulEeJ1oKw234URXI
+         +1rSMUPCOOtvM+OtdrN+C9ql+g+fXnfbZ67NSs62rkMGrAcEQhx+moAWT+Cson3SABkJ
+         j6gGDYwP19MwtFKm1TM/ESTpgdYxvIWqoo3Y0VCYsZX2W4SumYX75Q3UcW4Ahn6VOFrT
+         EzPKYwaH1rL7RwAKEk2qoMcdRWzxD7gfa6nt3pmtXXyuVAnJqye5vS8KvmArSY9f0GCO
+         8VaA==
+X-Gm-Message-State: AOJu0YzYSaj2lgDtvlyzVkB+cxEmIyh4fWfYt5rE+/iWD7ww4pycWvqQ
+	24GNo1wHiNwTkIRqPaJoVeoHwrKg57PMsmvf+Khq5CUMc9JxGdWH0woN
+X-Gm-Gg: Acq92OGnyJiieFtP6rdlJX0ve76ECKuqUnm9oZ0LYSXNojeCJIinhDhjHSKVlJccbGP
+	EzHg4LRRhUh0nIO5+JohyLudxxiKRvMQoy08yo7LPVbcDvn9AmZuHidrvRYFm1iEazh2SlSRBCa
+	vB7/rHx0GDcvcY9+9voRvRpAruJyPz6Kpzxb5KUz1t34GEqKiPW1XuJCIwF0a0foPQIA4agpLjt
+	ZF2ZJhUMCu1whX9ehU0weooHGHJ80c+ls3TlXS8lReb0xLQiPib9M+PYFbZ4prgNCE5NZoTBbS4
+	Cck+qjj6CL+y4SNpAM8SbsibDX7LH8Nfo1rczdI2OkFb7A5gQ2d/kpLE/jzcsz0EN7Ji9m9oK9E
+	IZLbKQQFKDJf548vsI3EE/23YIhdyJcFIJzZHfCTCPvaMQkbz7RcbKhY9agLYaW/czOUe6ye1a/
+	jhCHc2No169TwKKILwTCAHCX5Sy2jpvB2TadZTuyH91P3NpkrobcAgTyDyaDrhGXM=
+X-Received: by 2002:a17:903:98d:b0:2bd:2de3:5181 with SMTP id d9443c01a7336-2c6641ef6a8mr105720065ad.9.1781491463515;
+        Sun, 14 Jun 2026 19:44:23 -0700 (PDT)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c866325d1d3sm7138676a12.11.2026.06.14.19.44.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 19:44:23 -0700 (PDT)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v8 0/2] Add Meta(Facebook) ventura2 BMC(AST2600)
+Date: Mon, 15 Jun 2026 10:46:01 +0800
+Message-Id: <20260615-ventura2_initial_dts-v8-0-c89f92c80447@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pinctrl: qcom: Add the tlmm driver for Maili platform
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
-        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260522-maili-pinctrl-v1-0-0a6636f5c277@oss.qualcomm.com>
- <20260522-maili-pinctrl-v1-2-0a6636f5c277@oss.qualcomm.com>
- <feea89d3-3f71-4ad3-b5ac-35ac57f2fefa@oss.qualcomm.com>
-Content-Language: en-US
-From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-In-Reply-To: <feea89d3-3f71-4ad3-b5ac-35ac57f2fefa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OOoXGyaB c=1 sm=1 tr=0 ts=6a2f64d8 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MkT9_aAdxBhyvtWCMUwA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: a6R8BREdZZ5CsV65mYr-M6pbERibVlru
-X-Proofpoint-ORIG-GUID: a6R8BREdZZ5CsV65mYr-M6pbERibVlru
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDAyNSBTYWx0ZWRfX1SEdfdVfBK+N
- l7JB3UqCJfv5g4Vfd7SAXznhVYQQoxmKjSkGdv0GP6cC/WIHifpMrgOgmlC9uv5tD2d8dsJVaI5
- KouYx5ev6beeeKk+zGVRMpRUg3CNcJS/6PYpD7k8ebZmwgJuaaf91vfY99kZFUkbPikX150bB8E
- hhXQHVoesaxuXJRtDPz0JoJtYm7jVHTRv8bUJQTgvu5+0geX99An3gDLeVdcVkfPwT1C+k1ZNau
- UowAN8atHbT2xiFoZVASonCHQaKcI2Y7N6j+r7E/PsYsm+TMHLw0e+0a6i2YW3OFEtDQOQmLmer
- I8OEqk+16ZY+cjWKdQZRNjKfM/f7DoF7QoVepd7DDy/S1SOEmhAEK4w4G46VpX9CkqYpg7HxqHQ
- G/bG9A4lZCPgQJ8Zr8rDsqc326D1JhstEsbGPTnt1H0whucsKF/8AD4UoCe/xr3ML960AFTzP2B
- v8Y/wio8jVNJbZmfhqg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDAyNSBTYWx0ZWRfX4uIPTzYhOSnP
- iaQJWDMR9DWctMUfzqngWAINw/j7u3djbOxgND/Ur0BCAXW5trspuXsymkfw8oBoaeoJkrkrGSw
- WFa2MuEaEurdCSfDI7R9uCd3X1Kibmg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150025
+X-B4-Tracking: v=1; b=H4sIAGlnL2oC/4XO22rDMAyA4Vcpvl6G5IPs9GrvMUqxY7s1tMlIs
+ tBR8u5zA6NZhtnlL9An3dkQ+hQGtt/dWR+mNKSuzWFedqw52/YUquRzMw5cIee8mkI7fvaWH1O
+ bxmQvRz8OVQ21E1xrT6RYXv3oQ0y3hX0/5D6nYez6r+XKhI/pP+CEFVQYgZCo0caKt9PVpstr0
+ 13ZA5z4GpEFhGckYi2cVV6C/oOIH4QAURQQkRHuXfSWrHJSbxH5RGTxE5kRA+QAgpUC5RZRT4T
+ AFBCVEaFDUK6JyjjaIrRCEAoILYjyJtReBxe3iF4jWEB0RiyhNzVw16hfyDzP34jjJyNWAgAA
+X-Change-ID: 20251222-ventura2_initial_dts-909b3277d665
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Kyle Hsieh <kylehsieh1995@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4257;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=3h3qFVrVCHwqA/9jJB20RsTtPzwqAaPlxKs6hDrBMFE=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBqL2drhFWW9Ip8dlj2f14cILevLO2MTyU/2m3Ei
+ PIkuV427ZyJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCai9nawAKCRClg0K3CVbE
+ gTMUB/9x5bCCP2AyO20NPdO+gjy6d7sGgdpp5kUBZUx308VpT6TYKOLoou1dllpA+RlDeokdUau
+ XP0gXKvPjTBdA5aSgBc8SZOhIaDlL+s2LS+iTf05I/445Y5v1qF5jhRBt9Sk+bGO9bWiwlZn2we
+ Ucge/Q6UdVqwYQlLI061q6artDZhH+u2Vt+AJKBCqqQpU9eY7zM3bK2gb5V2CG6bQXATIRFN29A
+ fUxmaK6R/7Ze9qpq3kUcvzkxiWFHOoS/zF1aWYf0u7IsQ8Un/CqUY0ZD+6OP1wQ7fKBJryWPXHh
+ FjvV3AydxMHniehH2Wdu7Nj3BigOeiR/z8QXaZn7HNv0vjgf
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
+Summary:
+Add linux device tree entry related to Meta(Facebook) ventura2.
+specific devices connected to BMC(AST2600) SoC.
 
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v8:
+- Addressed review comments from Andrew Lunn:
+  * Added a detailed comment to the Marvell 88E6393X EEPROM node to clarify its hardware I2C multiplexer isolation and out-of-band firmware update mechanism, explaining why there is no concurrent access or multi-master scenario.
+- Link to v7: https://lore.kernel.org/r/20260611-ventura2_initial_dts-v7-0-a61d8902bc5f@gmail.com
 
-On 6/10/2026 4:08 PM, Sneh Mankad wrote:
-> 
-> 
-> On 22-May-26 1:12 PM, Jingyi Wang wrote:
->> Add support for Maili TLMM configuration and control via the pinctrl
->> framework.
->>
->> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
->> ---
->>   drivers/pinctrl/qcom/Kconfig.msm     |   10 +
->>   drivers/pinctrl/qcom/Makefile        |    1 +
->>   drivers/pinctrl/qcom/pinctrl-maili.c | 1630 ++++++++++++++++++++++++++++++++++
->>   3 files changed, 1641 insertions(+)
->>
-<...>
-> 
-> Can you please move "MODULE_DEVICE_TABLE(of, maili_tlmm_of_match);" to immediately follow
-> the maili_tlmm_of_match[] array definition, grouping the array definition with its associated alias declaration?
-> Please refer [1].
-> 
-> [1] https://lore.kernel.org/linux-arm-msm/20260505093444.61336-2-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> Thanks,
-> Sneh
+Changes in v7:
+- Updated the commit message to include a detailed description of the Ventura2 platform's purpose and its key hardware features.
+- Fix comments from Andrew Jeffery:
+  * Ensured consistent blank lines to separate child nodes from parent properties and from each other throughout the DTS.
+  * Sorted fan nodes in ascending order.
+  * Replaced '//' comments with '/* */' block comments.
+- Fix feedback from Sashiko AI:
+  * Added 'idle-state = <6>;' to the PCA9548 mux on i2c4. 
+- Link to v6: https://lore.kernel.org/r/20260610-ventura2_initial_dts-v6-0-375d8e9d7ebf@gmail.com
 
-Will update.
+Changes in v6:
+- Addressed automated feedback from Sashiko bot:
+  * Clarified comments that io_expander0 and io_expander8 physically share the same interrupt line (Wired-OR) by hardware design.
+  * Removed leading zeros from unit addresses in DAC nodes (dac@c, dac@e, dac@f).
+  * Removed unused properties from the adc@48 node.
+- Link to v5: https://lore.kernel.org/r/20260608-ventura2_initial_dts-v5-0-37ee5bcf58b6@gmail.com
 
-Thanks,
-Jingyi
+Changes in v5:
+- Addressed review comments:
+  * Added comments explaining the necessity of 'legacy_' prefixes (hardware label collision), pre-allocated I2C aliases (future expansions), and the 'ledd1' naming convention (schematic alignment).
+  * Removed the empty `&mdio0` node to comply with upstream networking subsystem guidelines.
+  * Removed the redundant `&peci0` node.
+  * Sorted `&kcs3` and `&lpc_ctrl` nodes in strict alphabetical order.
+- Hardware/DT alignment updates:
+  * Removed unpopulated sensors (adi,adt7461, infineon,tda38640, ti,ina230, ti,ina238) to accurately reflect the current board population.
+  * Added the secondary flash node (flash@1 labeled "e810") under the &spi2 bus.
+- Link to v4: https://lore.kernel.org/r/20260424-ventura2_initial_dts-v4-0-806b00ea4314@gmail.com
+
+Changes in v4:
+- Fixed capitalization: "ventura2" -> "Ventura2".
+- Reordered I2C child nodes in ascending order of unit addresses.
+- Enable PECI, LPC control, and KCS3 interfaces for host communication.
+- Configure MCTP controller on I2C4 and enable MCTP support for specific mux channels.
+- Add Infineon TDA38640 and TI INA230 power monitor nodes.
+- GPIO and Pinmux cleanup for PVT:
+    - Aligned gpio-line-names as requested.
+    - Remove unused or non-existent GPIO line names to align with Ventura2 PVT.
+    - Update specific GPIO pins to empty strings where signals were removed or consolidated.
+- Adjust SGPIOM frequency to 200kHz and update signal line names.
+- Enable UART3 and add serial2 alias.
+- Link to v3: https://lore.kernel.org/r/20260113-ventura2_initial_dts-v3-0-2dbfda6a5b47@gmail.com
+
+Changes in v3:
+- Add annotation for marvel 88e6393x
+- Modify the gpio-line-name
+- Modify the node order alphabetically
+- Modify dt-bindings document for rmc instead of bmc
+- Move the gpio-line-names to original node
+- Link to v2: https://lore.kernel.org/r/20251224-ventura2_initial_dts-v2-0-f193ba5d4073@gmail.com
+
+Changes in v2:
+- Remove unused mdio
+- Link to v1: https://lore.kernel.org/r/20251222-ventura2_initial_dts-v1-0-1f06166c78a3@gmail.com
+
+---
+Kyle Hsieh (2):
+      dt-bindings: arm: aspeed: add Meta ventura2 board
+      ARM: dts: aspeed: ventura2: Add Meta ventura2 BMC
+
+ .../devicetree/bindings/arm/aspeed/aspeed.yaml     |    1 +
+ arch/arm/boot/dts/aspeed/Makefile                  |    1 +
+ .../dts/aspeed/aspeed-bmc-facebook-ventura2.dts    | 2903 ++++++++++++++++++++
+ 3 files changed, 2905 insertions(+)
+---
+base-commit: 9448598b22c50c8a5bb77a9103e2d49f134c9578
+change-id: 20251222-ventura2_initial_dts-909b3277d665
+
+Best regards,
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
 
