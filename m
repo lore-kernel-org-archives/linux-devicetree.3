@@ -1,45 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917142EEE68;
-	Mon, 15 Jun 2026 21:02:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FDA3321A1;
+	Mon, 15 Jun 2026 21:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781557332; cv=none; b=aAoV7MyVY82ijMVHaWXc5n1Ixt7efxA735DN+aoS0ZyjwVSIRtnkD8I4B0gDfjPt97bdC2J9w+2tBbJgb8YKC+jhWKl3wK98EHB5pziAfbPN27WP0qyudX1OIIkevKFxiEAAIIxcr1O6YR7j4JXPNB8JM2rJUfSK1Zpy8dOipa4=
+	t=1781557476; cv=none; b=O+vQaUPO1otljnAM0fZnrAjZ3ipqIP1llj/wUOgfPJBR241oNKfTYSWnpRnNX/HrXBFy/RRVSKu003SktbY4NkyElyWdvmsGmN2+/1OCR0R51y7GLb0JzuNlAcpRj4RPIjZOb5nvLbcA49kZ9UAWBNPiH0+Vdyy9X2wu9mHqNMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781557332; c=relaxed/simple;
-	bh=OlePNWR5/1nGdD1RedQ2sy3wF3TMZnM2NoOj6fHCCeM=;
+	s=arc-20240116; t=1781557476; c=relaxed/simple;
+	bh=2WymXcmDnbTlWuMxRn4kNi1soTb/3DvX56AzCNTNZjQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rNTNTKkcbGSETqxsiX8lTXFmsdNoFVgsnEn/vg53hP7OHwM/ihdfkIPICtv41e37edbTDU3oh6gswPfAECRpJ4ss8Ks6oZ5Vn4XOPugDWAebX9LJ7wFaRl6uCH8Ws4QRn4bhCsGyQqrIb2ogm8PJQQtLoKx/JzZ2KoQMWmaQ6aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqaphBUY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gckuib1xZgrxku6gtQfzPqcQH6Q5HxsMxDe2rQb4jrzAaHZIcLLLDZ6tXbwFmX1BhiwQDMvnC9re0sJr08/nxG9irvVSRwQPiPjG+yN6jdWNgAUsUoNio7Xj5GU6lIdprY+TrWDdGsviAXLd7G5l2awRTiUCvnmZRs8Vy+0fRho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2snKoPo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqaphBUY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0172A1F000E9;
-	Mon, 15 Jun 2026 21:02:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2snKoPo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728481F000E9;
+	Mon, 15 Jun 2026 21:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781557331;
-	bh=xEKp2DSh6Cy/POePnOFuqOBvNOmMnmN3Jyldv9mhR4Y=;
+	s=k20260515; t=1781557475;
+	bh=4b0Lv74/nBILk2gIMYWUm6i3SoTaSg4GpRxXNoby7dE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FqaphBUYz3K7XXL6pM9rWyHbso93NkFRu3wMlhIh4dQ8dIr1WAB9JWPMGswSSEl7V
-	 kW4h2Z7mslIo6TVKn1XGV4Ap8SNtXCGkX4YgC05y2A+0DQH+pmN4MT7z0pqMzPNvRm
-	 inM170kpZPZ9DeXxtSgEPiECnL+CUEUFe63CVl0RbKu3pBrxFL1HOZcMlUefQCsWPM
-	 boNGEJ/eHkUOIgQ0vFkWoeIY/ElIfq0ZZQxC9QthI1iBblwO89XN8LI2hqUOl7MrAD
-	 Yhkfa/ut2KQHlZ84Aab3hUbOnOG8PrJy0kzlTMBDnoZvxO9XA8oqpds4GDsLVcRisJ
-	 LhMRSluURMY7g==
-Date: Mon, 15 Jun 2026 16:02:10 -0500
+	b=f2snKoPoB7CwlS7KzqRFdoObM/38la6po2Kp5PWfB8qUzXHJ7XEvm+T0D7AOk8ofj
+	 zItneTSHyEJIJzLhdCGE9qPCSyykot/o54R3ctVUIme7V9qXDtxjb0XsTBpY/5fnIb
+	 9OkOeybaXMpaG+mfcB/ob6KHmJZu9QLZNl0Utc/DALIZZSerMOK85bUpv7VdpklzwF
+	 SAaEUCvo0iba0yAhcjRHytmxWNsqFl7o6RV055yko/bwBKbD3w6bmOFXFCIUjiOHhD
+	 qZlnmHo1y2SXxmlAl91AoR9BMuwC4ypUNB1kXUoLsxiJ0Qx7F8gpM3bBOrXal05L2J
+	 Ow0qzPJQT6s5w==
+Date: Mon, 15 Jun 2026 16:04:32 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	Fabio Estevam <festevam@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm
- PMK7750
-Message-ID: <178155731026.1668856.13949680393199336333.robh@kernel.org>
-References: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
+	Maxime Ripard <mripard@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	devicetree@vger.kernel.org, Frank Li <Frank.Li@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Ying Liu <victor.liu@nxp.com>
+Subject: Re: [PATCH v9 4/9] dt-bindings: display: imx: Add i.MX94 DCIF
+Message-ID: <178155747196.1679059.5104272619144115714.robh@kernel.org>
+References: <20260612-dcif-upstreaming-v9-0-8d0ff89aa3c5@oss.nxp.com>
+ <20260612-dcif-upstreaming-v9-4-8d0ff89aa3c5@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,28 +57,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260612-dcif-upstreaming-v9-4-8d0ff89aa3c5@oss.nxp.com>
 
 
-On Fri, 12 Jun 2026 11:04:27 +0200, Krzysztof Kozlowski wrote:
-> Document Qualcomm PMK7750 GPIO used with Eliza SoC.  PMIC is almost the
-> same as PMK8550, thus compatible with it.
+On Fri, 12 Jun 2026 14:58:35 +0300, Laurentiu Palcu wrote:
+> DCIF is the i.MX94 Display Controller Interface which is used to
+> drive a TFT LCD panel or connects to a display interface depending
+> on the chip configuration.
 > 
-> Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
+> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 > ---
-> 
-> Changes in v3:
-> 1. Drop stale pmk7750 from main enum lisrt (the big one) - leftover of
->    previous version
-> 
-> Changes in v2:
-> 1. Add fallback compatible.
-> ---
->  .../bindings/pinctrl/qcom,pmic-gpio.yaml      | 151 +++++++++---------
->  1 file changed, 78 insertions(+), 73 deletions(-)
+>  .../bindings/display/imx/nxp,imx94-dcif.yaml       | 90 ++++++++++++++++++++++
+>  1 file changed, 90 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
