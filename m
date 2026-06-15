@@ -1,374 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011053.outbound.protection.outlook.com [52.101.65.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C07366045
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503800; cv=none; b=NT2Xg7Rd60m5Pt61NLLSjc7finrtswR8+GyI6CPSr8JvxQMwkmdOe05slYzlOyMqZHr854cwOFTGMtmDldPvOky/CvezL4xwMGg04/dDvX2P6UMzboqBfj2AyULG121w1hVqtiCgqpZfGDbCBq9Z9AMFyarp92u9BqNuNszIvtU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503800; c=relaxed/simple;
-	bh=K/4d84GpQFmc0eB6x/Tbw8WPQCN3i2zINsMix9OHcq4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p1NydO9SzCP9gGjKYD8lPqNp1UKIYOvmzXRDhQG1fhOhwBRauhZsjvRk7Lh5PS9WD1TlXCSbuMlfvsPhueRcxEKqBXXBPa7en2F+1C3QhOpbdGXnyBlUIDwJ/nIhp1crtUNWO5F7D9Wv3s5E/uVLvWSr1x1x+BV0z519SiLrK7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pj8vyvhe; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BCC366045;
+	Mon, 15 Jun 2026 06:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781503828; cv=fail; b=W1sCgmmwC0BfrbCRr81PfaH+7FJX92Nu6TuZ6MLw2n9CeQ0SUt2JS4F2s5WU93L6rBfUIqjm0Lhe4oVW21iybJxk+FYpqxWLslEPAA4Hk0dXkc/8iQweltMYmutZRg5fTR1KYz24wroWox+2IEQlOmQoZmV7wmTDA12zf73gEU4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781503828; c=relaxed/simple;
+	bh=WMBb+gLQXFVNO3thznmowOnbfktLyI0sogFrWY9RD7s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=StMB8o3bUDlsmtlW8IW2INA11nyIebD+/Fu0Sunr3CsN56vz1ay2It7zdMY42gJ7SH34P+koTkPWPg6KfhqZ/jooE4c9tVhVuo388GvEkRIADt15cSp+tYuq2mibWiFRDc0YbubH9i8Ozvtbll1Ck6L9CbUhDvh7dwJtm9Mp9fs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=FbYcBBA9; arc=fail smtp.client-ip=52.101.65.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pj8vyvhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53AD21F000E9;
-	Mon, 15 Jun 2026 06:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781503798;
-	bh=rKSzHhX4bGkK9IIONBI+7MX2w9DJwgTPJsUDG5qMtFc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pj8vyvheEIFPJx4ilVQpANEvN5dcw4c0K9Zv0baBbJhVBpXWfUenzq4o7UMirqr7X
-	 dy1b2gIXb2oUhZqgowx1CyekUSWDQIIngf40EP9lslobT6MoyVuO8GWX+ZVo47jCUf
-	 46wKQgUFBDnTl8tug3+i+ouIF2XujgkbmOYIhiOUxD5q5swo5PCNAWDH0sVUDRs87/
-	 71ISSNEC9Txn2hI+LDek25v/x99W/km/vkKHV4Cv5ITgA+lIT4jHw041WhPHSYLcgo
-	 Z2Tc3Nhsx4Nn8S75Y0vXzLq8HlMci2MGA6JpSD4RV6GLWS6oxUVXfxfDiz3Vjf2iGh
-	 DEuGZrTlEN6bQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] usb: typec: ucsi: Add ITE IT885x Type-C PD
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amber Kao" <amber.kao@ite.com.tw>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615-ucsi-itepd-feature-v1-2-a826cfd0df6a@ite.com.tw>
-References: <20260615-ucsi-itepd-feature-v1-2-a826cfd0df6a@ite.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:09:57 +0000
-Message-Id: <20260615060958.53AD21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="FbYcBBA9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nvqhziYti6f2HXKYdBjT1InugzjRDqzVh6GGXf5g2nvHdhOKFRByovvc0Ute8TTs9piAYLRR3kMG4K+xYesdIe2t4joGeGVo/3SqGIjeNerdHLCjL1U5bNd5H0dkrv6E3DH9HNw/ck/n00Casto3241ipJNYHlA1NvVvlRccSanWHTTYwfcuD+UzhaYi/A/OfrtZlNannsZAHAzo7yhxeL4daK1ZwWKH7D/ABeF/u/sRh4loQ/CJmLOBJgLBdFS487MyOJtwFF34XvMtey079/KzwBGv/ZTomlkwzZSBf9cz8tazFZTlcbx8HVZizruDVwiQYmvCRMyoGUJTEFN7Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WMBb+gLQXFVNO3thznmowOnbfktLyI0sogFrWY9RD7s=;
+ b=jR8eVyeIHgKXtxaA97US6afRpGgyHpCsko9vyq73co8oi7ZY3l2C4wqDR4XuMwD/1c5S7cyAfYXM+SJ1T7j6dWmsW3E75/eyIGPwvIsZ/aw+ahEuOjaFpr1gqTnuBatH3mf2Ht9ri0UiWoI8tXnvw8j8FbtymvqzpNKQEM+Dy/47DKS8u7IvIfO2MBGBZOVZOCJTZbp7JpRds9sq2AoTQGanlVTOUxw92MDswrLsTYoMheNzKMLwNP0yaSg5tX1oF1XeDyR1Y7f3GaCw+hU7wDJ7MyTg1GXJTvYXIvC4Rl2AXmj7r2qaLIwI0l94fqw/CZbkmrivVpvaQROGi0+yBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WMBb+gLQXFVNO3thznmowOnbfktLyI0sogFrWY9RD7s=;
+ b=FbYcBBA9qX9ozxxcAyER74HbEDXAv+emRihOxiR4Wz5yJ7VXRLsTUCz7F7N8kl8+kB8Qs4reisDmEtIITrV3jjAoWGFbuTNAEFKY8ECxICM8liTbPDQkirPCPYdtwwB467dX618ZrWBqcZAiik6sd9sQ2WyEc0YmUrTRWd5jckX3lei2nbEQsV614HRausZSOmg4d5x+qp8+gohvgeOQE5iIM35jsipIvPVHnUwI+AggxrNMg3Bi/SP8d3Rwh7N+nZee71WTn/u48CCATghs1gqDmcbEy4igNJfV+1RBNIEh8VJcqrVz2rSObSP+vBkXUMY20YQr+TOIWaQT/03dYQ==
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
+ by PAWPR04MB9808.eurprd04.prod.outlook.com (2603:10a6:102:383::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 06:10:24 +0000
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 06:10:23 +0000
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>, "alexandre.belloni@bootlin.com"
+	<alexandre.belloni@bootlin.com>, "linux-rtc@vger.kernel.org"
+	<linux-rtc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+CC: Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain
+	<priyanka.jain@nxp.com>, Daniel Aguirre <daniel.aguirre@nxp.com>, Pankit Garg
+	<pankit.garg@nxp.com>
+Subject: RE: [PATCH v7 2/2] rtc: Add NXP PCF85053 driver support
+Thread-Topic: [PATCH v7 2/2] rtc: Add NXP PCF85053 driver support
+Thread-Index: AQHcX5YU5pUieeS4fkCa5+XGoZ6rvrZAW8Hw
+Date: Mon, 15 Jun 2026 06:10:23 +0000
+Message-ID:
+ <AS4PR04MB936247146477E8312D89740BFBE62@AS4PR04MB9362.eurprd04.prod.outlook.com>
+References: <20251127120456.1849177-1-lakshay.piplani@nxp.com>
+ <20251127120456.1849177-2-lakshay.piplani@nxp.com>
+In-Reply-To: <20251127120456.1849177-2-lakshay.piplani@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|PAWPR04MB9808:EE_
+x-ms-office365-filtering-correlation-id: 8e4d55c8-c4f3-4696-6bfa-08decaa4c944
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|23010399003|38070700021|3023799007|22082099003|18002099003|4143699003|11063799006|56012099006;
+x-microsoft-antispam-message-info:
+ c4sI54CfNq6QapaFALxn2c5Y4ppB8tqHLrxp977MwU6RGguUMO+IilkN0pwHIsMsNPcUDVTOqg7VIWxDbe5QYfk9q9a/gcURlJfNUNWE09mKQnxFdZBwHv7NrU81+TMJFK1UwIVf8nAmW56FGftRUu7WB9DedVqixEoz6O5y9XSwTnD0KQ6oAYIJWrs6V2Yv43VVIQYH38u0SqItbqr+aXuOedaXM5IgpGuxkzxWpLow2ITL9ZOcmEv9hT2qUxyTd91yXdLsnZ+EAa6s8067/W+/zRL9iacMXva3PDAK3g3GMQn1GmHW1sBN1r7LZOFOBGna8ekMGhkke+evPwee+EHy5Df6JvJTo+otfEkPVojPni1V5+Acokpsa5pWR+ibfCtIIsazL/ctQ38zxhVfi3/lRqZ3H5kSWhfDMcclAw21I6FoapTJr1hzR4Civ0Y0RJkXiHdGmRiV00oatuOky4uUSyjyKd3d4Go5SDRSiKGKeThNEfLyXyMepNnbJDceE0+XL18uykfPoVtaOEmco4sfreZg6zprDTjdR36a2pC3ZDmo+E961Q2Gd5N3P14Exysuys1TzVNKll7mE4f4dnpPY6BlViD9+Oohq8/iRqd+LIrgpMT2vYwT+BN1YQFRmVWnfwoAdu31rVj5Lh2CTL9U8LaVaV0mvoayjbU09DxMejL/X0orybzOcaNdHwVGjO+4/GuL6riJ1ry/1pOk87o2qO1ZMYqfklIj5dwkvvwi7XJQ+yxa5NNBBjG+Xr08
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(23010399003)(38070700021)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VjdYMVV5Nzk3ZEdjYTlhaVJseU1yTVpZRVZDQ29GYVJiTGZIUFpKbWZ0NERI?=
+ =?utf-8?B?R2ltT1pzQVhsbm5iS3o4dE1zZDM1ZnpLZnl2d1Z2NDFiNU5ET29STWd1ZVow?=
+ =?utf-8?B?ckZrZ1RDaFc4bVhzenVlaE8ybjhPQ1VOVC95V0hMc00xakozZ1l0dWE3My8v?=
+ =?utf-8?B?Ykk1cVBqdVlVNG1GcHNZV3dvV01CYnhRQy9EV0E4dXJZbWxRY09wZTZIU3dk?=
+ =?utf-8?B?bTF2RE1JZTNnMk9xQTVqTllUcFZ1V2ZaSEo2UXAyaHZjRXRZVTR2bFdaT3pp?=
+ =?utf-8?B?b3E3T280dW0ra0R3RGNUV0RMUkU5a1doaVQ5TVVBSm0xVFBTZzNPb1BtT3Vj?=
+ =?utf-8?B?Uy82ZHgrQ2pPNVowNjdEZmVTd0dGZnVybVdpTCtSTnU2V2FzbjdhbzZTbEMv?=
+ =?utf-8?B?NVo2Z05ka29oWUR6VG52MEYyTlcyaXlGayt6c1J5TEUydHQ1SitvR3NNVkNC?=
+ =?utf-8?B?VWU5Vmk1V0JXTEdnVFZ2TnRNNVhvQmlaU2ZQYUpWcEtDNUdQd1ladFlyUHNN?=
+ =?utf-8?B?RXNrQ0tjeFc5c1ZKZmMvVkI2b3JaZ3BnMmJucFo0S0FuN29qVzF3TE8yM2Ju?=
+ =?utf-8?B?ZzQrZ3ZyQ0k3ZmVyeWRrL2F4MTZCZUliWXJWOVl1UzU2QkpKRUl5QzBMczFv?=
+ =?utf-8?B?WWR4M2MwVmx0M3BxL0I4RzVEZWlSNG5RekF3MndCRnJQcWRDSXV4ODFCYUxJ?=
+ =?utf-8?B?MllWRU5Vd3FxRktTelFwVlZXRHVjeE5EUnp1MWRpR3dNbVB0eVo0MFd4d09l?=
+ =?utf-8?B?ZGcyREtOcmF3dHJ0WnU4T094MHd5NHpPT2RPaVdPUmZDYnVRLzJBQkdLQzZF?=
+ =?utf-8?B?T2owNDNMcTVlNEtUTFRGR2h6cHBmWXVic0prZk1VSkVPSGwzL3dTejBVVjhQ?=
+ =?utf-8?B?OHFlQzN0MkNzRUM1YUhlWDQ1cW41RndWN1pxRllEOFE5cUFTQ251aUlwZDRZ?=
+ =?utf-8?B?Q3RwbmNaS0E4ZnFoTkRFQ0xxU0ZabFVUT3ZhaU9UMWVZcHlCcVAxcjAyODQ2?=
+ =?utf-8?B?dk9qKzJRVHNtUDNDdUpxUFhVbFhESkMvMkxwalVqNnkvVUVORWI3Q2pzVUFt?=
+ =?utf-8?B?NzRMd0EwN09WODIxSFRuL3dpUlQxT0tIeEpPSW9talEwM1YwRXFVRTZ6bjNU?=
+ =?utf-8?B?WXZTQ1BwRXpCeHhiNkt0dWU3ZitVK2MxQ2NQWHo5ZzliL2tKL20zRzlNNzVv?=
+ =?utf-8?B?Zm00VHYzaUIyaHlzL1BXUmV6b3FJenkxMnNCY3ArRE9nU2VpUkZyYUgvQjRm?=
+ =?utf-8?B?VUhjY2dwTytYY2kzVG5tdXRDR0pkaUJYQVBEaC9QMFVJWWlOKzdJQk5YQS9a?=
+ =?utf-8?B?MXQ2a2x1Rk5oTHNIcmE1RXU0Tjk1UGRPNnd3YnpPcE5OTW5ReGoxNXh6eS9R?=
+ =?utf-8?B?R2czNmt6U1pXdER1QkVaa0pGanBZY3M0ejNRMXVGbjZ3eGltRmwvTmRmOUMr?=
+ =?utf-8?B?cklkUXlRY2N1SkEzSkR6K0lNczFqT0JSUW0rNUpqT0tWYXZPWThnQUlsdDFq?=
+ =?utf-8?B?SG4vQU04TmZmTmxFWUJCSkMzSkVMcG9qZDY2ODY1Wk52Q0ROZHE2SXpwa1p6?=
+ =?utf-8?B?bTRZRlROTDRlcS9jRFVMVWhoYkJLaUpzRllNaUpvZGRydXUxckwxcEtuaWlr?=
+ =?utf-8?B?TUxkN3k5WFoxNnpZYXVQRE5oNmdLV1YyRXZJVjY4VExmNkFMaFQ2SlhIbWtE?=
+ =?utf-8?B?OVJYN2hrTkxnUmRJREx3R3lGQ2E3cWs5YUZwcUZ0VG80RXl3SmQ2ako5L2FF?=
+ =?utf-8?B?emNzaWRYRG1YNER3RnVrK1BXbzRVSWlQVUV2MUxoSFVIaVN3RE1odklFR1hZ?=
+ =?utf-8?B?NEtSNWhnSXN3QmQ1MTBFd0hJeU9nQzRUM1dMblFmOTR5THJJWHU4aGR1U1VZ?=
+ =?utf-8?B?ejRFVXpCQzRjVVlHMDF3RGRjdGErOFAwVTNua2x5cjBwdzhuUi9nUkI5dUly?=
+ =?utf-8?B?U0RGaStWcytyMVc3T0ZLd3kyZXBUclFCUVprVVFFQTJkb3RUTkNzM01yZFZi?=
+ =?utf-8?B?Yis3Rjg1MFVXbU1BL204TDBhYXlDQnBCRlVkdWJPQ0U0M3ROckRZQWQ1RnpE?=
+ =?utf-8?B?UUFTeXh6cHFIU1laeFlQcDR4Zkh1Q3NPcTBnREVTTGdaSGdlUEJqR1Nic0V6?=
+ =?utf-8?B?VEtWMVQ2V3I0ZE41TFl1Y3crQkZiS281VDRSNDY5TGZoL0RZNzRlU0IvSmJy?=
+ =?utf-8?B?N0pPWDgvVWViQS9iREZWRWFrSUsyaXh3TGlQSFBlMjZ4bVBpRmFqZ0hwSXF2?=
+ =?utf-8?B?MURvdmc3Ymk0WFpFbFNDekRib0Q3Mm9rMko4Z1kxdGpXU1QrNUlJRkNBcnA4?=
+ =?utf-8?B?VVpWamtCNDdvQmZDQXVDblFBQXRjL2dVY3pLUlJhZ3BJaTI1a3Fndz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e4d55c8-c4f3-4696-6bfa-08decaa4c944
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 06:10:23.3214
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0ik+W1yMX7oQ2nCTv6X03Lqo+NK6vvQGERtQEhXOX3kCQ5kiF/8ytTll6UHwsY3qIorevhFAsTjLqC6mh0tvOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9808
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
-(s) to consider:
-- [High] DMA safety violation passing stack-allocated variables directly to=
- `i2c_transfer()`.
-- [High] Incorrect `devm` unwind ordering causes Use-After-Free of Type-C r=
-esources during workqueue flush.
-- [High] Race condition during driver removal causing Use-After-Free by des=
-troying the UCSI instance and workqueue before unregistering the interrupt =
-callback.
-- [High] Out-of-bounds array access due to unvalidated port index extracted=
- from UCSI commands and hardware responses.
-- [High] Race condition during probe where premature interrupt callback reg=
-istration causes a NULL pointer dereference of the `ucsi` instance.
-- [High] Uninitialized variables `ret` and `data` in `ucsi_itepd_connector_=
-change_work` lead to undefined behavior and stack data leaks.
-- [High] Missing lock protection when reading `itepd->altmode_cb` leads to =
-data races and potential TOCTOU NULL pointer dereference.
-- [High] Use of uninitialized stack memory during UCSI response parsing (`m=
-sg_in`).
-- [High] Multi-byte native types (u64, u32, u16) are copied directly to/fro=
-m I2C byte buffers, breaking on Big Endian architectures.
-- [High] A pending initial hardware interrupt is explicitly acknowledged du=
-ring probe but the event is permanently dropped.
-- [Medium] `free_irq()` is called unconditionally during cleanup, even if t=
-he IRQ was never successfully requested.
-- [Medium] Data races on `dp_en` and `con_change_processed` flags due to mi=
-ssing synchronization between workqueues.
---
-
-commit 06a7873d268be15ee101449d82fa1a3ba9e341f7
-Author: Amber Kao <amber.kao@ite.com.tw>
-
-usb: typec: ucsi: Add ITE IT885x Type-C PD controller driver
-
-Add core, UCSI, and Alternate Mode support for the ITE IT885x
-Type-C Power Delivery controller over I2C. The driver uses the
-auxiliary bus to spawn UCSI and Alternate Mode child devices from
-the main I2C core driver.
-
-> diff --git a/drivers/usb/typec/ucsi/itepd.c b/drivers/usb/typec/ucsi/itep=
-d.c
-> new file mode 100644
-> index 0000000000000..39ac1c1361572
-> --- /dev/null
-> +++ b/drivers/usb/typec/ucsi/itepd.c
-[ ... ]
-> +static int itepd_read_reg(struct itepd *itepd, u8 reg, void *data, u32 l=
-en)
-> +{
-> +	struct i2c_client *client =3D itepd->client;
-> +	struct i2c_msg msg[] =3D {
-> +		{
-> +			.addr	=3D client->addr,
-> +			.flags	=3D 0x0,
-> +			.len	=3D 1,
-> +			.buf	=3D &reg,
-> +		},
-> +		{
-> +			.addr	=3D client->addr,
-> +			.flags	=3D I2C_M_RD,
-> +			.len	=3D len,
-> +			.buf	=3D (u8 *)data,
-> +		}
-> +	};
-
-[Severity: High]
-Could this cause DMA mapping errors? The stack-allocated msg array passes
-the addresses of the local variables reg and data. The I2C subsystem
-requires all buffers passed to i2c_transfer to be DMA-safe. If the I2C
-adapter utilizes DMA, mapping stack memory can cause cache coherency issues
-or trigger a panic if CONFIG_DMA_API_DEBUG is enabled.
-
-[ ... ]
-> +static int itepd_write_reg(struct itepd *itepd, u8 reg, const void *data=
-, u32 len)
-> +{
-[ ... ]
-> +	buf[0] =3D reg;
-> +	memcpy(buf + sizeof(reg), (u8 *)data, len);
-
-[Severity: High]
-Might this break on big-endian architectures? When a multi-byte native
-type like u64 or u32 is passed into data and copied directly into the I2C
-buffer via memcpy, the most significant bytes are placed first on a big
-endian system. Should this use explicit byte-order conversions like
-cpu_to_le64 or le32_to_cpu?
-
-[ ... ]
-> +int itepd_mode(struct device *dev, u8 port, u8 mux, u32 config, u32 stat=
-us)
-> +{
-[ ... ]
-> +		itepd->altmode_data[port].dp_status =3D status;
-> +		if (itepd->altmode_cb)
-> +			itepd->altmode_cb->notify(itepd->altmode_cb->priv,
-> +						  &itepd->altmode_data[port]);
-
-[Severity: High]
-Is there a potential TOCTOU race condition here? The altmode callback point=
-er
-is checked and invoked without holding the cb_lock mutex. If
-itepd_altmode_remove unregisters the callback concurrently, altmode_cb
-could become NULL right after the check, leading to a dereference panic.
-Does itepd_hpd share this same unprotected pattern?
-
-[ ... ]
-> +static int itepd_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	desc =3D devm_gpiod_get(dev, NULL, GPIOD_IN);
-> +
-> +	if (IS_ERR(desc)) {
-> +		dev_info(dev, "get gpios from DTS failed\n");
-> +	} else {
-> +		if (gpiod_get_value(desc))
-> +			itepd_irq_process(itepd);
-> +	}
-
-[Severity: High]
-Could this manually trigger an interrupt drop? At this point in the probe
-sequence, the auxiliary devices and callbacks are not yet added. Calling
-itepd_irq_process clears the pending hardware events by writing to
-ITEPD_VENDOR_WC_INT, but since the callbacks are NULL, the event data is
-discarded without notifying the UCSI or altmode subsystems.
-
-[ ... ]
-> +out_release_altmode_aux:
-> +	if (itepd->client_mask & BIT(ITEPD_CLIENT_ALTMODE))
-> +		itepd_del_aux_device(itepd->altmode_aux);
-> +out_free_irq:
-> +	free_irq(itepd->irq, itepd);
-> +	return ret;
-> +}
-> +
-> +static void itepd_remove(struct i2c_client *client)
-> +{
-> +	struct itepd *itepd =3D i2c_get_clientdata(client);
-> +
-> +	if (itepd->client_mask & BIT(ITEPD_CLIENT_UCSI))
-> +		itepd_del_aux_device(itepd->ucsi_aux);
-> +	if (itepd->client_mask & BIT(ITEPD_CLIENT_ALTMODE))
-> +		itepd_del_aux_device(itepd->altmode_aux);
-> +	free_irq(itepd->irq, itepd);
-> +}
-
-[Severity: Medium]
-Is it safe to unconditionally call free_irq here? The probe function correc=
-tly
-checks if itepd->irq > 0 before calling request_threaded_irq, but the error
-handling and remove paths free the IRQ regardless. If the device was probed
-without a valid IRQ, wouldn't this attempt to free an unassigned IRQ line
-and trigger a warning?
-
-> diff --git a/drivers/usb/typec/ucsi/itepd_altmode.c b/drivers/usb/typec/u=
-csi/itepd_altmode.c
-> new file mode 100644
-> index 0000000000000..a88ae2fb6e798
-> --- /dev/null
-> +++ b/drivers/usb/typec/ucsi/itepd_altmode.c
-[ ... ]
-> +static int itepd_altmode_probe(struct auxiliary_device *adev,
-> +			       const struct auxiliary_device_id *id)
-> +{
-[ ... ]
-> +		alt_port->ordered_wq =3D alloc_ordered_workqueue("itepd_altmode_%u", 0=
-, port);
-> +		if (!alt_port->ordered_wq) {
-> +			fwnode_handle_put(fwnode);
-> +			return -ENOMEM;
-> +		}
-> +
-> +		ret =3D devm_add_action_or_reset(dev, itepd_altmode_destroy_wq,
-> +					       alt_port->ordered_wq);
-> +		if (ret) {
-> +			fwnode_handle_put(fwnode);
-> +			return ret;
-> +		}
-[ ... ]
-> +		alt_port->typec_mux =3D fwnode_typec_mux_get(fwnode);
-> +		if (IS_ERR(alt_port->typec_mux)) {
-
-[Severity: High]
-Does this devm initialization order create a use-after-free risk during
-device removal? The action to destroy the workqueue is added before the
-typec_mux, typec_retimer, and typec_switch are acquired and their put actio=
-ns
-registered. Since devm unwinds in LIFO order, the workqueue flush will
-execute after the Type-C resources have been freed. If a worker is pending,
-it might dereference the already freed typec resource pointers.
-
-> diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi=
-/ucsi_itepd.c
-> new file mode 100644
-> index 0000000000000..ea55ff7b866ee
-> --- /dev/null
-> +++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-[ ... ]
-> +static void ucsi_itepd_connector_change_work(struct work_struct *work)
-> +{
-> +	struct ucsi_itepd_work *worker =3D container_of(work, struct ucsi_itepd=
-_work, work);
-> +	struct ucsi_itepd *ucsi_itepd =3D worker->ucsi_itepd;
-> +	u8 data[11];
-> +	u8 num_vdos;
-> +	u32 status;
-> +	u64 cmd;
-> +	int ret;
-> +
-> +	if (ucsi_itepd->con_change_processed[worker->port])
-> +		goto out;
-> +
-> +	ucsi_itepd->con_change_processed[worker->port] =3D true;
-
-[Severity: Medium]
-Is there a data race on these array flags? The flags dp_en and
-con_change_processed are modified in ucsi_itepd_connector_status, which runs
-on the core system_long_wq, but they are read and modified here on the local
-ordered_wq. Without mutual exclusion, could this result in skipped
-evaluations or out-of-order state transitions?
-
-> +	if (ucsi_itepd->dp_en[worker->port]) {
-> +		/* UCSI_GET_ATTENTION_VDO (0x16) */
-> +		cmd =3D UCSI_COMMAND(UCSI_GET_ATTENTION_VDO) |
-> +		      UCSI_CONNECTOR_NUMBER(worker->port + 1);
-> +		ret =3D ucsi_send_command(ucsi_itepd->ucsi, cmd, data, 11);
-> +	}
-> +	if (ret < 0)
-> +		goto out;
-
-[Severity: High]
-Can this lead to uninitialized stack variable usage? If dp_en is false, the
-block that calls ucsi_send_command is skipped, leaving ret and data
-uninitialized. Depending on the garbage value of ret, it might skip the
-connector change notification or proceed to read random stack values from
-data to pass into itepd_hpd.
-
-[ ... ]
-> +static void ucsi_itepd_response_hook(struct ucsi_itepd *ucsi_itepd,
-> +				     u32 *cci, u8 *msg_in)
-> +{
-> +	u8 recipient;
-> +	u8 offset;
-> +	struct ucsi_itepd_work *worker;
-> +
-> +	if (((*cci & UCSI_CCI_COMMAND_COMPLETE) =3D=3D 0) &&
-> +	    UCSI_CCI_CONNECTOR(*cci)) {
-> +		worker =3D kmalloc_obj(*worker, GFP_KERNEL);
-> +		if (!worker) {
-> +			dev_err(ucsi_itepd->dev,
-> +				"out of memory, skip attention check\n");
-> +			ucsi_connector_change(ucsi_itepd->ucsi,
-> +					      UCSI_CCI_CONNECTOR(*cci));
-> +		} else {
-> +			worker->port =3D UCSI_CCI_CONNECTOR(*cci) - 1;
-> +			worker->ucsi_itepd =3D ucsi_itepd;
-> +			worker->cci =3D *cci;
-
-[Severity: High]
-Is the worker->port index sufficiently validated? The port index is derived
-directly from the hardware CCI register and can be up to 126. It is then
-passed to the workqueue where it indexes bounded arrays like
-con_change_processed and dp_en which are sized by ITEPD_MAX_PORTS. Would
-a faulty or unexpected hardware response cause out-of-bounds memory
-corruption here?
-
-[ ... ]
-> +		switch (UCSI_COMMAND(ucsi_itepd->cmd)) {
-> +		case UCSI_GET_CONNECTOR_STATUS:
-> +			ucsi_itepd->connected[ucsi_itepd->cmd_port] =3D
-> +				!!(msg_in[2] & BIT(3));
-> +			ucsi_itepd->orientation[ucsi_itepd->cmd_port] =3D
-> +				FIELD_GET(BIT(6), msg_in[10]);
-> +			break;
-
-[Severity: High]
-Could this read past the end of the populated response data? The driver cop=
-ies
-the I2C payload into a local msg_in buffer based on the length provided in
-the CCI register. If the hardware responds with a shorter message, reading
-msg_in[10] unconditionally evaluates uninitialized stack memory.
-
-[ ... ]
-> +static int ucsi_itepd_probe(struct auxiliary_device *adev,
-> +			    const struct auxiliary_device_id *id)
-> +{
-[ ... ]
-> +	ret =3D itepd_register_cb(dev, ITEPD_CLIENT_UCSI, ucsi_itepd_cb);
-> +	if (ret)
-> +		goto out_destroy_wq;
-> +
-> +	ucsi_itepd->ucsi =3D ucsi_create(dev, &ucsi_itepd_ops);
-
-[Severity: High]
-Does registering the callback early create a race condition? The interrupt =
-on
-the parent I2C device is already active. If an interrupt fires immediately
-after itepd_register_cb, it will invoke ucsi_itepd_notify which ultimately
-dereferences ucsi_itepd->ucsi. Since ucsi_create has not been called yet,
-could this result in a NULL pointer dereference?
-
-[ ... ]
-> +static void ucsi_itepd_remove(struct auxiliary_device *adev)
-> +{
-> +	struct ucsi_itepd *ucsi_itepd =3D dev_get_drvdata(&adev->dev);
-> +
-> +	if (ucsi_itepd->ordered_wq) {
-> +		flush_workqueue(ucsi_itepd->ordered_wq);
-> +		destroy_workqueue(ucsi_itepd->ordered_wq);
-> +	}
-> +
-> +	ucsi_unregister(ucsi_itepd->ucsi);
-> +	ucsi_destroy(ucsi_itepd->ucsi);
-> +	usleep_range(2000, 2500);
-> +	itepd_register_cb(&adev->dev, ITEPD_CLIENT_UCSI, NULL);
-> +}
-
-[Severity: High]
-Might this teardown sequence result in a use-after-free? The workqueue is
-destroyed and the ucsi instance is freed before the callback is unregistere=
-d.
-If an interrupt occurs concurrently, the handler could invoke the callback,
-attempting to queue a task on the destroyed workqueue or dereference the
-freed ucsi structure. Should the callback be cleared before resources are
-freed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-ucsi-itepd=
--feature-v1-0-a826cfd0df6a@ite.com.tw?part=3D2
+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IExha3NoYXkgUGlwbGFuaSA8
+bGFrc2hheS5waXBsYW5pQG54cC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBOb3ZlbWJlciAyNywg
+MjAyNSA1OjM1IFBNDQo+IFRvOiBhbGV4YW5kcmUuYmVsbG9uaUBib290bGluLmNvbTsgbGludXgt
+cnRjQHZnZXIua2VybmVsLm9yZzsgbGludXgtDQo+IGtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc7IHJv
+YmhAa2VybmVsLm9yZzsga3J6aytkdEBrZXJuZWwub3JnOw0KPiBjb25vcitkdEBrZXJuZWwub3Jn
+OyBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZw0KPiBDYzogVmlrYXNoIEJhbnNhbCA8dmlrYXNo
+LmJhbnNhbEBueHAuY29tPjsgUHJpeWFua2EgSmFpbg0KPiA8cHJpeWFua2EuamFpbkBueHAuY29t
+PjsgU2hhc2hhbmsgUmViYmFwcmFnYWRhDQo+IDxzaGFzaGFuay5yZWJiYXByYWdhZGFAbnhwLmNv
+bT47IExha3NoYXkgUGlwbGFuaQ0KPiA8bGFrc2hheS5waXBsYW5pQG54cC5jb20+OyBEYW5pZWwg
+QWd1aXJyZSA8ZGFuaWVsLmFndWlycmVAbnhwLmNvbT47IFBhbmtpdA0KPiBHYXJnIDxwYW5raXQu
+Z2FyZ0BueHAuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggdjcgMi8yXSBydGM6IEFkZCBOWFAgUENG
+ODUwNTMgZHJpdmVyIHN1cHBvcnQNCj4gDQo+IFBDRjg1MDUzIGlzIGkyYyBiYXNlZCBSVEMgd2hp
+Y2ggc3VwcG9ydHMgdGltZXIgYW5kIGNhbGVuZGFyIGZ1bmN0aW9uYWxpdHkuDQo+IA0KPiBGZWF0
+dXJlcyBzdXBwb3J0ZWQ6DQo+IDEuIFJlYWQvV3JpdGUgdGltZQ0KPiAyLiBHZXQvU2V0IEFsYXJt
+DQo+IDMuIFdha2V1cCBTb3VyY2UNCj4gNC4gR2VuZXJhdGUgdXAgdG8gMzI3NjhIeiBjbG9jayBv
+dXRwdXQNCj4gNS4gUHJpbWFyeS9TZWNvbmRhcnkgaTJjIGJ1cw0KPiANCj4gU2lnbmVkLW9mZi1i
+eTogRGFuaWVsIEFndWlycmUgPGRhbmllbC5hZ3VpcnJlQG54cC5jb20+DQo+IFNpZ25lZC1vZmYt
+Ynk6IFBhbmtpdCBHYXJnIDxwYW5raXQuZ2FyZ0BueHAuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBM
+YWtzaGF5IFBpcGxhbmkgPGxha3NoYXkucGlwbGFuaUBueHAuY29tPg0KPiAtLS0NCj4gVjYgLT4g
+Vjc6IC0gQWRkcmVzc2VkIG1pbm9yIGNsZWFudXBzIGZyb20gcmV2aWV3OiB1c2UNCj4gZGV2X2dl
+dF9kcnZkYXRhKCkvZGV2X3NldF9kcnZkYXRhKCkNCj4gCSAgICBjb25zaXN0ZW50bHksIGZpeCBh
+bGFybSBJUlEgZGV2X2lkIGhhbmRsaW5nLCBhbmQgc3dpdGNoIHRvDQo+IGRldm1fZGV2aWNlX2lu
+aXRfd2FrZXVwKCkuDQo+IAkgIC0gU2ltcGxpZmllZCB0aW1lL2FsYXJtIHByb2dyYW1taW5nIGJ5
+IGZvcmNpbmcgMjRoICsgYmluYXJ5IG1vZGUgaW4NCj4gaGFyZHdhcmUsDQo+IAkgICAgZHJvcHBp
+bmcgY29tcGxleCAxMmgvQkNEIGhhbmRsaW5nIGluIHNldHRlcnMuDQo+IAkgIC0gRG9jdW1lbnRl
+ZCB0aGUgMjAwMOKAkzIwOTkgc3VwcG9ydGVkIHllYXIgcmFuZ2UsIGV4cGxhaW5pbmcgaG93DQo+
+IHRoZSAwMOKAkzk5IHllYXINCj4gCSAgICByZWdpc3RlciBtYXBzIHRvIGxlYXAteWVhciBiZWhh
+dmlvciBpbiB0aGUgZGV2aWNlLg0KPiBWNSAtPiBWNjogbm8gY2hhbmdlcw0KPiBWNCAtPiBWNTog
+bm8gY2hhbmdlcw0KPiBWMyAtPiBWNDogLSBIYW5kbGUgbXVsdGktaG9zdCBvd25lcnNoaXAgZXhw
+bGljaXRseSB1c2luZyBwcmltYXJ5L3NlY29uZGFyeSBidXMNCj4gaGFkbGluZy4NCj4gICAgICAg
+ICAgIC0gUHJvYmUgbm8gbG9uZ2VyIGNoYW5nZXMgYW55IENUUkwgYml0cyB1bmNvbmRpdGlvbmFs
+bHkgYW5kIGRvIG5vdCBjbGVhcg0KPiBTVC9BRi9PRg0KPiAgICAgICAgICAgICBhdm9pZGluZyBs
+b3N0IGludGVycnVwdHMgb3Igc2lsZW50IG1vZGUgY2hhbmdlcy4NCj4gICAgICAgICAgIC0gUmVh
+ZC9TZXQgdGltZSAmIGFsYXJtIG5vdyByZXNwZWN0IEhGKDEyLzI0aCkgYW5kIERNKEJDRC9CSU4p
+DQo+IGNvbnZlcnRpbmcNCj4gICAgICAgICAgICAgaG91ciBmaWVsZHMgY29ycmVjdGx5IGZvciBh
+bGwgY29tYmluYXRpb25zLg0KPiAgICAgICAgICAgLSBNaW5vciBjaGFuZ2VzOiBkcm9wIG5vaXN5
+IHdhcm5pbmdzLCB0aWR5IGVycm9yIHBhdGhzL2NvbW1lbnRzLg0KPiBWMiAtPiBWMzogQWRkIE1B
+SU5UQUlORVJTIGZpbGUgY2hhbmdlcyB0byB0aGlzIHBhdGNoDQo+IFYxIC0+IFYyOiBubyBjaGFu
+Z2VzDQoNCkhpLA0KDQpJIHdhbnRlZCB0byBmb2xsb3cgdXAgYWdhaW4gb24gdGhlIHBhdGNoIHNl
+cmllcyBJIHN1Ym1pdHRlZCBpbiBOb3ZlbWJlciAyMDI1DQoodjcgb2YgdGhlIFBDRjg1MDUzIFJU
+QyBkcml2ZXIpLiBJIGhhdmVu4oCZdCByZWNlaXZlZCBhbnkgZmVlZGJhY2sgb24gaXQgc28gZmFy
+LA0Kc28sIEkgd2FudGVkIHRvIGNoZWNrIGlmIHlvdeKAmXZlIGhhZCBhIGNoYW5jZSB0byByZXZp
+ZXcgaXQuDQoNCkkgdW5kZXJzdGFuZCB0aGluZ3MgY2FuIGdldCBidXN5LCBidXQgSSB3b3VsZCBy
+ZWFsbHkgYXBwcmVjaWF0ZSBhbnkgZmVlZGJhY2sNCndoZW4geW91IGdldCB0aGUgdGltZS4gUGxl
+YXNlIGxldCBtZSBrbm93IGlmIGFueSBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIGlzIG5lZWRlZCBm
+cm9tIG15IHNpZGUuDQoNClRoYW5rcyBmb3IgeW91ciB0aW1lLg0KDQpCZXN0IHJlZ2FyZHMsDQpM
+YWtzaGF5IFBpcGxhbmkNCg==
