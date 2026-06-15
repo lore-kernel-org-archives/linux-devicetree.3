@@ -1,216 +1,294 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB073F8223
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCFE3F825F
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781532825; cv=pass; b=a3UjaZIEfMMD+VFHzu2IJBuVgXMGwuWzMVgrcrL6B7a851nC9b7oMMGQN7scCrYDdMIqX1cSWoajkZqwzU4GAturwUQticTAJZz6VaxscCD9P0hx4wJiMmErrhoKjkExYuQErQ0Vh8RpQYCBb4P8TlF5W25xjNMxNGhEsPZycNI=
+	t=1781532913; cv=pass; b=UsdOCXoD1fag4zqm55ZYCT+I69OB+0XhCPIanH3SrenQ2oeWxqx8vCaqcI5PRwC7N7xzJTHVneDIwGuLujiEtE6b56BTuCjtQUCNpN+EYw/tK0ujYfDkkidkFGBWmVfPDr5dyuuogHIOMur3VhjB0teneXT4BqMwnb0XRMmOepI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781532825; c=relaxed/simple;
-	bh=cVelw7fcNjmAbQTMBjtUEr4ud5VagRi5XfNiWdZvSlI=;
+	s=arc-20240116; t=1781532913; c=relaxed/simple;
+	bh=xTYJTF9WX1tkILvQ4OfNPiOZwQsAyO+hC34NdNlz0q4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DJYRuBNzCY3urdG3qve8VB+G61nKkf9ili2qYT8dESISg1oNMMs7pRNOD8gcb5cm/YDwGkhpJ5Ji9jiHEBP+VyaU3POBXn7X/gQ2SxshbGxKhRN51XN/+X8F0CAsuuOW+z6RSCO3PUbAYEfg9k7lVybXkE+RQMwWSZ3w/OWELNU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fvrG+l4L; arc=pass smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=Tov865MUsyQCiSMlSbGOTxLGcnkAX4iz9LnJnNuC/ewxhmpCrWEsRGx1N/rVfIJQfS+OrrsMZT2tdpO/n7V90wYiptAccO1lYYH7hF0k6cz/IfrgzjZ9SOQy8c0nKEWXmDR+glw7FE6jF8EgmkB0G8lisx4S9VVYrfoTjfAnJEE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rENLb8Dx; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fvrG+l4L"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-660323f7b27so3117027d50.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:13:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781532822; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rENLb8Dx"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bec3ffb95dbso497888766b.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:15:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781532911; cv=none;
         d=google.com; s=arc-20240605;
-        b=f1/L1FmIEcBxX3oS+t6BCvOthGyzdiGya4w/4ETLOIX4OrJijxRw5l+dbXQximqFVL
-         aKvLnI4IUhduZuCzJDOZbXNVNIMKDJ1SEYGw5mXJ2FVA/8rlTEkFB+AT6kEzt3Ox9eEg
-         c4mrtfMxF2xGmkP2WGRUHTXcffyboEYbV7OuHIEhZdw5adX//SCd6GtNh8l3aeKdw7AG
-         A11yxEhS8oXNUf83fXfhZs4oxJ+KU8BlHMN+YXvTOr3Ufc6W15M8agJ9NdU2sqi66tde
-         4ZdtrgAflZtPB5RdPLhvf6pI0ZjRWeCV88UU9ovhc3OTxxQxDtZ5FA8OxfUyO+0zS8qR
-         7DoQ==
+        b=M/PH1FZB3fny0mmbEFQabo+X0r7uBMdu7tI66fY0vqttYvVPvEde8aNpHYIPNTNyqh
+         N3GjefqEhiKh8b/FLKRV7Qk6tZaprubTyYLThyFIJEpeIFKpSv+eMY7rWOMHUodsgLZ5
+         gJ2hqfo3B2RFEAbObFzAnL7w9NHdi5pW5zKxjtHO+/PyC9ht+UTi7Ce+kYcJHXnJiDgw
+         geJXxF8rIrV/JEvb0OgzK+BUPrnHcv3//di44ONMV7CC8Wje2fQVcp2S48EfKNVHOvq5
+         pMLcp7sBtMhouWk/n0GfdQ1QHLrFv5n2e/WVbBbDbsVVZxBlOgLJTpAyPuYH404TFIYq
+         CfyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LgSe2jgByuUbVfHsyZ6zz3QwRmw592U5GGdlEu1FoPI=;
-        fh=U/m/JV07PZLFj+qhZoMXXOVF4+BoPW/ffEIu7xfiKok=;
-        b=dnnyrd+d0BzftogSCXdjXE8qBur8jXz3BD8FUFgM2O+Hnm5jbW8oEGW44mkGcHUsI+
-         bdHImKULQgj61qnKLGOgPSad29g/YU4OOCuLu/FzkMDgHshbCNa/IzBbAnfgy5me/ran
-         XyFk2AKLC0k8rpbQVu7fmsL59pc1SpLEJzGxXVoSdatNzInvCjjzF5GwlZPl4QKtp0ka
-         Qtr15a4tWkXLlNnze+gcOmQSVRn73Pz5zjh+Sdeel5H06qMDzuma8ivXPuHiKyX9nxvM
-         zPVMONfzWQg6XQdKYLe2Ys/XiwMU2Kk53VeyiLn4vqCbl6+s4txBdMVqKI263EdxwZsY
-         cRwA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
+        fh=ve8DxViffBHBmnj7YT03P/R9UoQYrNH25SHyz+Lfl20=;
+        b=ITtyHo1tey4rkx7bEDocD6GVAbXibfAo5pb/Q2LdkiBQHnFPbCCPxyESC6qaeP6ddL
+         wMNkkpmOxeUWw3vD1vrVZSSAUVKf6HGfhWRcLFJ/6z8sXZNbdmCRNJc8xws8gU4cWpKn
+         zmBowDYNzMLcQ+Gym4o+fQAyZUp/R+jJqFiHXBCYStQKe4cteAmaI/xrXy+mnWlk9HxV
+         t4Y7ym55WVKFDqS0c+r2NL1FyRWyGhD45fCORuHRQD1F124lj+Qi/nB7NAg0L4mSpw6c
+         QFYXfwNjXzXIBNr8ytqtkd6B5vPiIHjXsvRdKRnYfUAsP+bVT5Fga5Rll228r//3/TNI
+         tN5Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781532822; x=1782137622; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LgSe2jgByuUbVfHsyZ6zz3QwRmw592U5GGdlEu1FoPI=;
-        b=fvrG+l4LybUAP+NH2wNKvMg8Sg3NVKs1RXo59McBBmd7sJCblnUV9eBr0PVKMrz3xb
-         gwP+CtUvoQiET0OSEN2oeO9i4JoHvp5YPQS60eydxc3cEjoDm+kCNqgYfmQsxa9/2iIO
-         YeHFoSZnBLvGpLkbdAStUmIoV43eikXJFmOu22Fk5pX+W1iDioASm0ajya+kHTgb87Qk
-         y9M9sIPEaXeVW/k2dnv8fx3pFegXi41KEf9kI/TBYCgPJAm/+VNZ2D0A4uVWPKQU4eXj
-         4G6ZtS79WeJTWrTlpmouxudWoJZcFynu6TKEehRSnyF0mfjqcAJDvynEEzfXQoV7/Nw7
-         nJQg==
+        d=linaro.org; s=google; t=1781532911; x=1782137711; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
+        b=rENLb8DxHg2dzAUvz70MPXSyXBkXXW6Sf13TbnWsNM8nXkt2iBxULOAU290i187Mxu
+         B7G+0xJy7bgu4JMWJXdcp2qzInwd158sAog+xjFPHBYISoPyJIAEpTLeau0vN+VHOOWn
+         x0enV73x89V2u4TPa5CgVA/T4o2fh0b28cWzB2T6p8kXdCZlGZnY1nfGdwVan40zF9Ww
+         dF1CosTJQmUIzOTBoC7U4J1p+HrtXjIppibeo3eoJ2ByQwUEOOTOVvhmqI0VMUIU85+r
+         myA4yCXosgJAIjLa4pVqqGYv36ymZhDpPr6nAr7S/i5zzx/ylLOrE2/9w5jH9Ph6io86
+         klzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532822; x=1782137622;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LgSe2jgByuUbVfHsyZ6zz3QwRmw592U5GGdlEu1FoPI=;
-        b=h8kolzlea4Z0xbOYFUsLRUBrW2oUpC6AvaSiPwvoLB6Y9N8FOaOxkijnppM+poNFVB
-         vtn01otrx9L3oZura9o72n+Gd6HQqweMa4LQLAfoIHZKM9ylkKOmwoGlPpDfcbJGJcN4
-         yhIPxre1ekmNTA3WCTxZ/RwEqyukJX3u+4wExWyoG9FWHWaMuzyqvtpGO2yztzIY3k8x
-         PKRxp0vzzJk0d70N4uogUMk3NkQC5FDJAGP6zzlvbcrHZzcuP9TNz01ZuU4dLrjU9GtA
-         jDQ8Mwgqydd/UIp0YUraJvVw2ZOQUx1rgmsC/N4CbYQB5cCAAYyg76Pc+/bGjGWLUcU0
-         FUow==
-X-Forwarded-Encrypted: i=1; AFNElJ8WRrqyz3wL7ShdB64UO0ePw+4IiBj+RDCfdJjCWYXVIHKFFTA0nZmDXCIaLCrmnBfoFiLnXkxVXRMu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzshQiCtBkSUea/cGe3+P21NusRFKy3FT30rhvSSeyBD5r3scQb
-	gpE8H9dXZKZIOb3VfsmElcT/KB8vaPf9d+hSAJWP1chXMPAH3u4foav+UHPMl15kUX8JRmtUsFV
-	3bfwcQjyRZVrO3Er1pzBzRJ0dCXWDdn0=
-X-Gm-Gg: Acq92OFzFOnuT73SsIxsgAXQksuodROjbYd+kNp4T/LxGYRW+/0JCOX/FKrfZgsgXpu
-	02JBZd4lFDkmumdrACpFuuax1JkM3+9O1O7hTTKPkOm77fwtRsVPFLKU68bUzFf+avI0r5rr8+5
-	6RHJsQB0RZLjtydk21KRK20I+i/DvWukhjiSvc2HryPhglvPmSGdYtxPXpaYwOY0dlxyNCyRZhZ
-	VI8RccJymqBqS3loZbuYIuZp8HhcZ38ZTXGQT3roQbn+hjsQe2wN+1HHLG11OJ8o2QmOjpCOMrt
-	FhCrc7v9UQ==
-X-Received: by 2002:a05:690e:4842:b0:662:5e4d:2bd1 with SMTP id
- 956f58d0204a3-66284f1afe6mr6617333d50.23.1781532821853; Mon, 15 Jun 2026
- 07:13:41 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781532911; x=1782137711;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
+        b=Gf0i7zB2IRu6nhzU1N1PrMWsjaLq5acWCkcK6ze4pMrwCzgRj5yQJiUsCI5PUyG/UM
+         ZzUuz9uPw69FS+57OinNaxNRw2F2nrvMkSFw03z6We7zn1nzceEyx03QWBJKKk3WIp1L
+         VAHEl4YXEihEkSKao6j2wqF5bYpm7a2I67oVa10T8IwpY8nF3jnO3lCFrNhNS7lVkpdG
+         QKYAoMeTq5+N1ZSxEyCS7SwlrDOWkfGYEkPcoswPeZ3+5Tc19BwbouHzGJlBRODRPd7G
+         KaqTYNIwN518ubm7SaQk834qkJwG9Adu5jimmVwuqjbzV/uPOQHfhk/B5TuXyC9VxOdB
+         l4Jw==
+X-Forwarded-Encrypted: i=1; AFNElJ+AcMAmEpHAT+jn+Itcgrtvt3UDtGeflGfBzWbnKUMX9xh3XlxqMVi1L8rhZ9jW2+vpDt8PXhMEsYYQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9+voz0vh+oy2IH2hNVM2wEEIvE8bZcAZP1P7fg4r/DaIpr7RF
+	GJtvpsSguHD6gO0SqhzFZHVX0oY16cASQSV12H0R4NBV3xQNR8X0ytcNqlDRECLUTBzbaOzdQCp
+	iWHGOtybs9+cLAnSeu0ieBX+w3KUYUuti1JkXQa+8jg==
+X-Gm-Gg: Acq92OHtbjOCqEbw/4UNIWn9yxTOxWrdSgUxcBFS2SvEZzi1dndz4efmmNxci3tyuCC
+	Sqc7qpqdIFc0DCdkp5iYOmosj1gDcUgYfZjcRaUzH2AxagEKBAnzQCro4z01L++/aYhsxKTGKk9
+	g5JPN9eml5UrjuVDqYpCDEB7zHbOUkqZKJ+fMLt1zrnuSOgzHIm2n2UpNawPI9G4VhhULazFMet
+	YxBVwU2rNV4yBSx5OH1tOQOos05T27U33Aa2pOKV4SqRWahXTlhOfWxLZSBUV9k9f28GC9CjPqF
+	Ed0aKGOeFPbaYrWTJ18cOnqlODep521cz3MW+K0+4Q==
+X-Received: by 2002:a17:906:6312:b0:beb:a412:4597 with SMTP id
+ a640c23a62f3a-bfe289041e9mr675217466b.16.1781532910299; Mon, 15 Jun 2026
+ 07:15:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260610160816.2828713-4-tmaimon77@gmail.com> <20260610162318.E468D1F00893@smtp.kernel.org>
-In-Reply-To: <20260610162318.E468D1F00893@smtp.kernel.org>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Mon, 15 Jun 2026 17:13:30 +0300
-X-Gm-Features: AVVi8CccHflQp_WEDPFT1deDFtEHQhAGFJXoGfxTiW93gE5Hb4eEw-ozhco4FAI
-Message-ID: <CAP6Zq1g9s0JVKu0X7AT2CkK-v5xmnq3tp3UTCP8gh2Ysh7cdpw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <CGME20260615083423epcas5p3acec08339e81e2d276d7953b3c6ee51a@epcas5p3.samsung.com>
+ <20260615085252.1964423-1-alim.akhtar@samsung.com> <20260615085252.1964423-4-alim.akhtar@samsung.com>
+In-Reply-To: <20260615085252.1964423-4-alim.akhtar@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Mon, 15 Jun 2026 15:14:58 +0100
+X-Gm-Features: AVVi8CegUODrx3rDKzc3HaHPFo8dt4vcr6ypuvp0i1NB7YLXJyBmVm30dPPOny0
+Message-ID: <CADrjBPpyNymPXtYgdeOGtp1KDkdp9gTrBAEcJR89B+wwF8uUXw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] pinctrl: samsung: Add Exynos8855 pinctrl configuration
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: krzk@kernel.org, robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	hajun.sung@samsung.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi
+Hi Alim,
 
-On Wed, 10 Jun 2026 at 19:23, <sashiko-bot@kernel.org> wrote:
+Thanks for your patch. It's great to see more Exynos SoCs being supported!
+
+On Mon, 15 Jun 2026 at 09:34, Alim Akhtar <alim.akhtar@samsung.com> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] Missing `/bits/ 8` for `fan-tach-ch` and `cooling-levels` causes=
- incorrect 32-bit integer array emission, corrupting the thermal fan driver=
- state.
-> - [High] The `tip_reserved` memory node lacks the `no-map` directive, cau=
-sing speculative external aborts.
-> - [Medium] Incorrect Device Tree property name `spix-mode` prevents the F=
-IU controller from enabling SPIX mode.
+> Add pinctrl configuration for Exynos8855. The bank type
+> macros are reused from Exynos850 SoC.
+>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> ---
+>  .../pinctrl/samsung/pinctrl-exynos-arm64.c    | 123 ++++++++++++++++++
+>  drivers/pinctrl/samsung/pinctrl-samsung.c     |   2 +
+>  drivers/pinctrl/samsung/pinctrl-samsung.h     |   1 +
+>  3 files changed, 126 insertions(+)
+>
+> diff --git a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
+> index fe9f92cb037e..db120ae4d847 100644
+> --- a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
+> +++ b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
+> @@ -943,6 +943,129 @@ const struct samsung_pinctrl_of_match_data exynos850_of_data __initconst = {
+>         .num_ctrl       = ARRAY_SIZE(exynos850_pin_ctrl),
+>  };
+>
+
+Are you sure you want to use E850 pinctrl macros and not the GS101
+ones? The GS101 macros allow the fltcon offset to be specified, which
+I think is required for all Exynos9 (including e850 SoC). Youngmin
+sent a series previously
+https://lore.kernel.org/lkml/20251202093613.852109-1-youngmin.nam@samsung.com/
+fixing up some of this but it hasn't been re-spun in a while. In
+particular this patch
+https://lore.kernel.org/lkml/20251202093613.852109-4-youngmin.nam@samsung.com/.
+
+> +/* pin banks of exynos8855 pin-controller 0 (ALIVE) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks0[] __initconst = {
+> +       /* Must start with EINTG banks, ordered by EINT group number. */
+> +       EXYNOS850_PIN_BANK_EINTW(8, 0x000, "gpa0", 0x00),
+> +       EXYNOS850_PIN_BANK_EINTW(4, 0x020, "gpa1", 0x04),
+> +       EXYNOS850_PIN_BANK_EINTN(3, 0x040, "gpq0"),
+> +       EXYNOS850_PIN_BANK_EINTN(2, 0x060, "gpq1"),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x080, "gpc0", 0x10),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0a0, "gpc1", 0x14),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0c0, "gpc2", 0x18),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0e0, "gpc3", 0x1c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x100, "gpc4", 0x20),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x120, "gpc5", 0x24),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x140, "gpc6", 0x28),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x160, "gpc7", 0x2c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x180, "gpc8", 0x30),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1a0, "gpc9", 0x34),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1c0, "gpc10", 0x38),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1e0, "gpc11", 0x3c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x200, "gpc12", 0x40),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x220, "gpc13", 0x44),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x240, "gpc14", 0x48),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x260, "gpj0", 0x4c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x280, "gpj1", 0x50),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x2a0, "gpj2", 0x54),
+> +};
+> +
+> +/* pin banks of exynos8855 pin-controller 1 (CMGP) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks1[] __initconst = {
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x00,  "gpm0",  0x00),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x20,  "gpm1",  0x04),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x40,  "gpm2",  0x08),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x60,  "gpm3",  0x0c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x80,  "gpm4",  0x10),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0xa0,  "gpm5",  0x14),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0xc0,  "gpm6",  0x18),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0xe0,  "gpm7",  0x1c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x100, "gpm8",  0x20),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x120, "gpm9",  0x24),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x140, "gpm10", 0x28),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x160, "gpm11", 0x2c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x180, "gpm12", 0x30),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1a0, "gpm13", 0x34),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1c0, "gpm14", 0x38),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1e0, "gpm15", 0x3c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x200, "gpm16", 0x40),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x220, "gpm17", 0x44),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x240, "gpm18", 0x48),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x260, "gpm19", 0x4c),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x280, "gpm20", 0x50),
+> +       EXYNOS850_PIN_BANK_EINTW(1, 0x2a0, "gpm21", 0x54),
+> +};
+> +
+> +
+> +/* pin banks of exynos8855 pin-controller 2 (HSI UFS) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks2[] __initconst = {
+> +       EXYNOS850_PIN_BANK_EINTG(2, 0x0, "gpf3", 0x00),
+> +};
+> +
+> +/* pin banks of exynos8855 pin-controller 3 (PERIC) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks3[] __initconst = {
+> +       EXYNOS850_PIN_BANK_EINTG(8, 0x0,   "gpp0", 0x00),
+> +       EXYNOS850_PIN_BANK_EINTG(8, 0x20,  "gpp1", 0x04),
+> +       EXYNOS850_PIN_BANK_EINTG(6, 0x40,  "gpp2", 0x08),
+> +       EXYNOS850_PIN_BANK_EINTG(4, 0x60,  "gpg0", 0x0c),
+> +       EXYNOS850_PIN_BANK_EINTG(3, 0x80,  "gpg1", 0x10),
+> +       EXYNOS850_PIN_BANK_EINTG(6, 0xa0,  "gpb0", 0x14),
+> +       EXYNOS850_PIN_BANK_EINTG(4, 0xc0,  "gpb1", 0x18),
+> +};
+> +
+> +/* pin banks of exynos8855 pin-controller 4 (PERICMMC) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks4[] __initconst = {
+> +       EXYNOS850_PIN_BANK_EINTG(7, 0x0, "gpf2", 0x00),
+> +};
+> +
+> +/* pin banks of exynos8855 pin-controller 5 (USI) */
+> +static const struct samsung_pin_bank_data exynos8855_pin_banks5[] __initconst = {
+> +       EXYNOS850_PIN_BANK_EINTG(8, 0x00, "gpp3", 0x00),
+> +       EXYNOS850_PIN_BANK_EINTG(2, 0x20, "gpp4", 0x04),
+> +       EXYNOS850_PIN_BANK_EINTG(2, 0x40, "gpg2", 0x08),
+> +       EXYNOS850_PIN_BANK_EINTG(1, 0x60, "gpg3", 0x0c),
+> +};
+> +
+> +static const struct samsung_pin_ctrl exynos8855_pin_ctrl[] __initconst = {
+> +       {
+> +               /* pin-controller instance 0 ALIVE data */
+> +               .pin_banks      = exynos8855_pin_banks0,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks0),
+> +               .eint_wkup_init = exynos_eint_wkup_init,
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       }, {
+
+With fltcon_offset specified, you could then use
+gs101_pinctrl_suspend/gs101_pinctrl_resume callbacks here.
+
+regards,
+
+Peter.
+
+
+> +               /* pin-controller instance 1 CMGP data */
+> +               .pin_banks      = exynos8855_pin_banks1,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks1),
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       }, {
+> +               /* pin-controller instance 2 HSI UFS data */
+> +               .pin_banks      = exynos8855_pin_banks2,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks2),
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       }, {
+> +               /* pin-controller instance 3 PERIC data */
+> +               .pin_banks      = exynos8855_pin_banks3,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks3),
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       }, {
+> +               /* pin-controller instance 4 PERICMMC data */
+> +               .pin_banks      = exynos8855_pin_banks4,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks4),
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       }, {
+> +               /* pin-controller instance 5 USI data */
+> +               .pin_banks      = exynos8855_pin_banks5,
+> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks5),
+> +               .eint_gpio_init = exynos_eint_gpio_init,
+> +       },
+> +};
+> +
+> +const struct samsung_pinctrl_of_match_data exynos8855_of_data __initconst = {
+> +       .ctrl           = exynos8855_pin_ctrl,
+> +       .num_ctrl       = ARRAY_SIZE(exynos8855_pin_ctrl),
+> +};
+> +
+>  /* pin banks of exynos990 pin-controller 0 (ALIVE) */
+>  static struct samsung_pin_bank_data exynos990_pin_banks0[] = {
+>         /* Must start with EINTG banks, ordered by EINT group number. */
+> diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
+> index 5ac6f6b02327..5ecc9ed4c44d 100644
+> --- a/drivers/pinctrl/samsung/pinctrl-samsung.c
+> +++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
+> @@ -1500,6 +1500,8 @@ static const struct of_device_id samsung_pinctrl_dt_match[] = {
+>                 .data = &exynos7885_of_data },
+>         { .compatible = "samsung,exynos850-pinctrl",
+>                 .data = &exynos850_of_data },
+> +       { .compatible = "samsung,exynos8855-pinctrl",
+> +               .data = &exynos8855_of_data },
+>         { .compatible = "samsung,exynos8890-pinctrl",
+>                 .data = &exynos8890_of_data },
+>         { .compatible = "samsung,exynos8895-pinctrl",
+> diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.h b/drivers/pinctrl/samsung/pinctrl-samsung.h
+> index 937600430a6e..bb02fb49b2af 100644
+> --- a/drivers/pinctrl/samsung/pinctrl-samsung.h
+> +++ b/drivers/pinctrl/samsung/pinctrl-samsung.h
+> @@ -396,6 +396,7 @@ extern const struct samsung_pinctrl_of_match_data exynos7_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos7870_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos7885_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos850_of_data;
+> +extern const struct samsung_pinctrl_of_match_data exynos8855_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos8890_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos8895_of_data;
+>  extern const struct samsung_pinctrl_of_match_data exynos9610_of_data;
 > --
+> 2.34.1
 >
-> commit 011b4946d76e73a81f86b002033d53a6d052bd40
-> Author: Tomer Maimon <tmaimon77@gmail.com>
->
-> arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
->
-> Enable peripheral support for the NPCM845 evaluation board by wiring up
-> the SoC controller nodes to the board design.
->
-> > diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch=
-/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-> > index 5edf5d13342da..ea92888d9b9e2 100644
-> > --- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-> > +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
->
-> [ ... ]
->
-> > @@ -26,12 +62,389 @@ refclk: refclk-25mhz {
-> >               clock-frequency =3D <25000000>;
-> >               #clock-cells =3D <0>;
-> >       };
-> > +
-> > +     reserved-memory {
-> > +             #address-cells =3D <2>;
-> > +             #size-cells =3D <2>;
-> > +             ranges;
-> > +
-> > +             tip_reserved: tip@0 {
-> > +                     reg =3D <0x0 0x0 0x0 0x6200000>;
->
-> [Severity: High]
-> Does this reserved memory region need the no-map directive?
-No, the kernel shouldn't use this memory
->
-> Without no-map, the kernel establishes a direct, cacheable linear mapping
-> over this region. Since this block is isolated by hardware firewalls for =
-the
-> Trusted Information Processing firmware, could speculative execution or
-> prefetching by the CPU into this linear mapping trigger fatal synchronous
-> external aborts or SErrors?
->
-> > +             };
-> > +     };
->
-> [ ... ]
->
-> > +&fiux {
-> > +     spix-mode;
->
-> [Severity: Medium]
-> Is this property missing the vendor prefix?
-Would be changed in V5
->
-> The SPI driver for the NPCM FIU (drivers/spi/spi-npcm-fiu.c) appears to
-> check specifically for the "nuvoton,spix-mode" property. If it is only na=
-med
-> "spix-mode" here, will the driver fail to detect it and silently fall bac=
-k
-> to standard mode?
->
-> > +};
->
-> [ ... ]
->
-> > +&pwm_fan {
-> > +     status =3D "okay";
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pwm0_pins &pwm1_pins
-> > +             &pwm2_pins &pwm3_pins
-> > +             &pwm4_pins &pwm5_pins
-> > +             &pwm6_pins &pwm7_pins
-> > +             &fanin0_pins &fanin1_pins
-> > +             &fanin2_pins &fanin3_pins
-> > +             &fanin4_pins &fanin5_pins
-> > +             &fanin6_pins &fanin7_pins>;
-> > +     #address-cells =3D <1>;
-> > +     #size-cells =3D <0>;
-> > +     fan@0 {
-> > +             reg =3D <0x00>;
-> > +             fan-tach-ch =3D <0x0 0x1>;
-> > +             cooling-levels =3D <127 255>;
->
-> [Severity: High]
-> Should these arrays be explicitly sized using /bits/ 8?
-Could be used 32 bits.
->
-> The Device Tree compiler natively emits 32-bit big-endian integers for th=
-is
-> syntax. However, if the driver (npcm750-pwm-fan.c) explicitly reads both
-> properties using of_property_read_u8_array(), an 8-byte payload like
-> <127 255> would be read as 8 individual u8 elements:
-> 0, 0, 0, 127, 0, 0, 0, 255.
->
-> Does this result in registering intermediate thermal cooling states with =
-a 0
-> duty cycle, inadvertently turning the fan off during active cooling reque=
-sts?
->
-> > +     };
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260610160816.28=
-28713-1-tmaimon77@gmail.com?part=3D3
-
-Thanks,
-
-Tomer
