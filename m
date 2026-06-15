@@ -1,45 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0521C1EF39E;
-	Mon, 15 Jun 2026 06:01:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C442F83A2;
+	Mon, 15 Jun 2026 06:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503318; cv=none; b=Y3WakZ3pZxOYgS0+3i4BtH73kt0FHsq1f/M0l5wh2bk2No04HaPo5XSxqo3NyZLKyOecosEnp6fJyqBGd0vfBB1Xw19wZx6KQiBDyl/M7NfstM0W3sE4JeNAt8HXL6iK+rDhDyKZhhWL0cRIDnrNpOyRKwV+fw/Kc4PL1WjO1QM=
+	t=1781503390; cv=none; b=D2acaFv1f2NUveeiHoSLk2TwHTP9gcHDk8CsiDicV37D7qAbHU0sS5FqVxhYly5o48dT1+TArT07lHaaLNjEFtrrFricA0Hz5//whrvbOZ68auSVHd4xRXlQtpQEHwVtLM62wVpa4uKKb/J5X/x9yPAdlJQi4npwGETa1gATveg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503318; c=relaxed/simple;
-	bh=K3S/o5+3HAZtlOghGAkYz3SEwKaNJo3soPBjf3FLC8Y=;
+	s=arc-20240116; t=1781503390; c=relaxed/simple;
+	bh=Z+fkan5wigI8iAtffGnN82eGFFsPPZ5SA5LYevo1zKc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K+CCIw9o1FiDJ3QvS9yu2SWapkrsC+hzoZdOqhvBWgdIZh1Y22ZF964Iu1VkaLbPZAB+VIYGeE+fLFnUloNvY3c3WSGB06Uz9b2PGimRkk02dfgbKtzHKixxOqEPXzYUbzejBz6sAiB9ujpCXg48Z20iinC2qtdxHlKPjZ3QJ3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWRWXahb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=cO5zfEFXhgspJVf0+NWb+Rxrxw+0l0CT+Ks769hFvy/1NKK0rBVS1/koUekC38K/G01Pwg3rV7gbQEP6awa0t1I3LqGjZDx2OsMVdG6SuLWxyqxVlUdBuXAP0DjmVGX9sRdDABB/78IRblbneN55AJfMiZ2xLosgcoSp00LOnCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeSMN76Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWRWXahb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65061F000E9;
-	Mon, 15 Jun 2026 06:01:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeSMN76Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF33D1F000E9;
+	Mon, 15 Jun 2026 06:03:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781503317;
-	bh=Z4mQuAeDa3x65OGYjnjrERBHQho7AziCHYq10wuT1DM=;
+	s=k20260515; t=1781503389;
+	bh=NH91vhgtpim2mvTKLEXlcggfytTmn9NzXEfuRjaO5Q0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FWRWXahb5P0sO+kXkhOyj1JCe+dR/vqRNdVb+hHuEPyRQerFltAovN7trOXNuMtps
-	 htzKI4zkttQ80vRN/f/7I/M5JthrYIr6mPZysbJqNze3GM0mxiclYp85GsUaoR5a5Y
-	 kcMF/xoK8NETY/dQ+ZjN402IvokWs4ICpWNyle/bCY/q8yRKNX+0Wq3HgxB+xzrLjl
-	 kZoWiIuuFFeRFJ3Xd4roSDXOHivlILiFbpTTwnR0D/+K4svDKUIchKMkZRTO+zpmhP
-	 RKz87S+n1EFGGVK181ip8M/hhy7sRSjzzqvtv9YFxD53wMEv/eNixRTz8LrZIE74WE
-	 0U4Yo7S4xUF9A==
-Date: Mon, 15 Jun 2026 08:01:53 +0200
+	b=oeSMN76QlgQpFNDQ9ZPs97txznTmGvIYY10j/7nHqew76rsgUzAdF3HKX/zNtettd
+	 W96YkR/xavSqS7/9H5conjE9VOzTCZaUQN2aZhs80VnT8sj/EvHMTi716P8Q0B8x8h
+	 rk6zLDKBnSylGlM+U7txGlav+5I7I8TlSndqWzW3jLspx7NnFgODc7yxR2NlARYukm
+	 30Kfa6fhqS0jGn6tpUX94n3t6xh/FycJl1CwOJPSvWH5tU+Qm8AEzZTrRZnIfvfN1i
+	 C7K8cxTIQ77oKFV8XecAv/hdwlNGncM/5yX3uCiUfW9RNQOKRwvTQAa7OxzUTD4te+
+	 7UPX4idfRPqew==
+Date: Mon, 15 Jun 2026 08:03:05 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel J Blueman <daniel@quora.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Stephan Gerhold <stephan.gerhold@linaro.org>, 
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
- reservation memory-region
-Message-ID: <20260615-new-peridot-vicugna-cbcb61@quoll>
-References: <20260614145113.84243-1-daniel@quora.org>
+	Conor Dooley <conor+dt@kernel.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 3/3] dt-bindings: arm-smmu: Document GPU SMMU for
+ Shikra SoC
+Message-ID: <20260615-quirky-horned-chital-543dce@quoll>
+References: <20260615-shikra-gpu-v2-0-2f2d1347c3fb@oss.qualcomm.com>
+ <20260615-shikra-gpu-v2-3-2f2d1347c3fb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,21 +54,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260614145113.84243-1-daniel@quora.org>
+In-Reply-To: <20260615-shikra-gpu-v2-3-2f2d1347c3fb@oss.qualcomm.com>
 
-On Sun, Jun 14, 2026 at 10:51:11PM +0800, Daniel J Blueman wrote:
-> In addition to the firmware-loaded codec carveout, some Iris platforms
-> need to declare an IOMMU IOVA reservation (a reserved-memory node with
-> iommu-addresses) to keep DMA away from IOVA ranges that earlier
-> firmware stages have already mapped through the SMMU.
+On Mon, Jun 15, 2026 at 03:02:59AM +0530, Akhil P Oommen wrote:
+> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 > 
-> Permit a second memory-region phandle for this purpose, and describe
-> the meaning of each entry so the ordering is unambiguous.
+> Add specific compatible strings to document the GPU SMMU present
+> in the Shikra SoC.
 > 
-> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
