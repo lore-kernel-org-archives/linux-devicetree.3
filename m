@@ -1,252 +1,221 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D5C5374E57
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E3F3AEB35
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781506913; cv=none; b=IoUdqJSRrO1vk93feDjYzfNZzqu352pQFmdsO7yq+NxAvZTAsDQj2i70dLG/avu9kGiCTnaQ95pFIxeCvEMTmGPT2SAjUjYPnzfBPrJEsitpz0CYzM7FA1qcQ6Ije96AFrMOGkDZMtADs4ftCrfCo2DQjN3idB6EqAqSSzpXL7E=
+	t=1781506955; cv=none; b=IS8JO1hIXgNPsmqg5+9j6KamhxaufYL/3+GhaxnF4wxPY+LH7yXUApcfxK5ylLtI06DGLuMf8cxPtxmXShjKP8tSilT7zzlbloTkVkUd0ZpHHxPupUEYmDb6juVHhwvjgibYfYGZpCOk8EUF2v2zXA5brR0VXBV4VOJVFpDHwzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781506913; c=relaxed/simple;
-	bh=8d71gvCE26obaNdK6alpyZkm3zRLlqDQNYU/BYziUWw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=pQartKDNEDrdUBJM894I7SHj+x8SI62uUnT0HidZGhEJGXqRF1+fyZHiwpdj878X3BrFKfP6MMxeauBYN9NFhGmqYrGDp0O5IM8nOVyzxlOXdVYmj+YwZJt3sqG6tFEnRVzgHvx1cYY3eu301FmTyTx01ZhqFF0VZ7MO0Wz0q4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=nv9UbOVd; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+	s=arc-20240116; t=1781506955; c=relaxed/simple;
+	bh=jltLF83B+1XQ+fBLKCDZAqOLT5+5/d15OS21cK8Q1IM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uPP3MuS31JniB4mE7pLKdpZp9NcSEsoZ/Z0+14pORU+aV736dgI1SfFkvwxL/E1qDeqG2LQWJuV1gFzl6B6AE3vWJrTmXpxYMxe9pYmac5lK3d49Wj240WXidv5nZmD23W4BeGr3yUT4ScwrTQ3swAQytjDmDVN34BGPjY+rk0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cfc6tNOr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="nv9UbOVd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=+ksF9/VRPxakQlox57HhEm2kyt4RNoIz9
-	SuYhw4PTng=; b=nv9UbOVdAOmStamKOkljqLlZd5ra4VBq379pep3OcF4aJLdZj
-	68ujPpfSEtTv+jWvfzBDpQkvJp2BVRP0phGZp9IY1He5g9jDhrA+0/0P6dDrbVRi
-	QtYnBRD9dZ5Ts5gNLydgJ3BqdP9wtyN1YOA0hwmXZywtnnqohYcTDNw0+M=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkN5oy9qQYQKAA--.9493S2;
-	Mon, 15 Jun 2026 15:02:17 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cfc6tNOr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E115A1F00A3A;
+	Mon, 15 Jun 2026 07:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781506951;
+	bh=ROhl+H8CKmwP05tul4I5SAinWh6QnIH18Sd7+LacEz0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cfc6tNOrpqQq3jgkHsTHoXKc+pqxYdm5uas/QATVGjnJjMexN1TXRKvFcPdL2YqzX
+	 dXiTK7e0mzSYpE5t30NDuMBSz+ZcUpZLDwd1HdCwGjxH/f8OLxcmCl7BQ4VTmol2OC
+	 ZgUFPvOPtRaa/Bp6CSj+y/BzCaOzPoqnZVJyr4DcVYG2mwTnDXcTBSFcCT6zCoRXd/
+	 /iaDJJtyp41Y+xGXutxR70GA/4xxLgRj7ZhYwv8oC/RI7R1wWP4DVWCjiaFaDLZgFC
+	 wmW1x171CjGUAbqYxZuf5FV5/tHxILZp6npiZjaJDeBGMOjw1je0feISfo7AxP34TP
+	 s1R8ueQjTlX7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/6] drm/verisilicon: introduce per-variant hardware
+ ops table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260615065003.76661-4-a0987203069@gmail.com>
+References: <20260615065003.76661-4-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 07:02:30 +0000
+Message-Id: <20260615070230.E115A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 2/2] clk: ultrarisc: add DP1000 clock driver
-From: Jia Wang <wangjia@ultrarisc.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
- devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260611095617.765C81F00898@smtp.kernel.org>
-References: <20260611-ultrarisc-clock-v1-2-2d93ebb4cc13@ultrarisc.com>
- <20260611095617.765C81F00898@smtp.kernel.org>
-Date: Mon, 15 Jun 2026 15:01:41 +0800
-Message-Id: <178150690104.3055943.9789165706692446618.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781506901; l=6620;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=8d71gvCE26obaNdK6alpyZkm3zRLlqDQNYU/BYziUWw=;
- b=ArJ3st3O9mqu5Xl9BYTv1QDnYqfvvPqcZ2Dns2O5adohSOfKZf37dkWN0nNKTK1mGeRFhQjUO
- Dtk+qDGkI19C1VO5A9vpxZMaaSRD6JOT3qvvl3P6BQzsbGNjpSZUm74
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnEkN5oy9qQYQKAA--.9493S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3JFW8Xr15Cr4xKw4xKry8Krg_yoWxXryUpF
-	WkGa45Ja1DJFyruwnFqw4xZF18Aw18JFWakryrJr1Iyr90grn5tFW0g3yrCa9rursYkw12
-	v3yjv34xCwn0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	boDGrUUUUU=
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQATEWovdsoAOAABsD
 
-On 2026-06-11 09:56 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Missing clocks in `clk_data->hws` evaluate to `NULL` instead of an error pointer, creating dummy clocks.
-> - [High] Read-modify-write operations on clock control registers fail to mask the self-clearing load bit, risking spurious loads and preventing divider updates.
-> - [Low] Missing `<linux/module.h>` include.
-> --
-> 
-> commit 8cba5aa205eda7abb58c5b279348bd81f69fdc45
-> Author: Jia Wang <wangjia@ultrarisc.com>
-> 
-> clk: ultrarisc: add DP1000 clock driver
->     
-> Add a clock driver for the UltraRISC DP1000 SoC.
->     
-> The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
-> the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
-> I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
-> and SPI0-1.
-> 
-> > diff --git a/drivers/clk/ultrarisc/clk-ultrarisc.c b/drivers/clk/ultrarisc/clk-ultrarisc.c
-> > index 0000000000000..2b970565a4be8
-> > --- /dev/null
-> > +++ b/drivers/clk/ultrarisc/clk-ultrarisc.c
-> > @@ -0,0 +1,417 @@
-> [ ... ]
-> > +#include <linux/bitfield.h>
-> > +#include <linux/clk-provider.h>
-> 
-> [Severity: Low]
-> Should <linux/module.h> be explicitly included here?
-> 
-> The file uses module macros like MODULE_DESCRIPTION and EXPORT_SYMBOL_GPL(),
-> and relying on implicit inclusion can sometimes cause build failures.
->
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-Thanks. I'll add linux/module.h explicitly.
- 
-> [ ... ]
-> > +static int ultrarisc_divider_set_rate(struct clk_hw *hw, unsigned long rate,
-> > +				      unsigned long parent_rate)
-> > +{
-> [ ... ]
-> > +	scoped_guard(spinlock_irqsave, divider->lock) {
-> > +		val = readl_relaxed(divider->reg);
-> > +		val &= ~(clk_div_mask(divider->width) << divider->shift);
-> > +		val |= value << divider->shift;
-> > +		writel_relaxed(val, divider->reg);
-> 
-> [Severity: High]
-> Does this read-modify-write sequence need to mask out divider_clk->load_mask
-> from the read value before the first write?
-> 
-> If the hardware hasn't cleared the bit from a previous operation, the first
-> write could write it as 1. Then the second write (below) would also write 1,
-> failing to provide the required 0->1 transition to trigger the hardware.
->
+New issues:
+- [High] The newly introduced `crtc_disable` hardware hook is invoked after=
+ disabling the pixel clock, which will cause unclocked hardware accesses an=
+d potential bus hangs.
+- [High] The disable sequence for the display panel incorrectly swaps the o=
+rder of clearing PANEL_START and PANEL_CONFIG, violating the required rever=
+se-enable hardware sequence.
 
-The load bit is write-only and always reads as 0, so it is not affected by
-the read-modify-write sequence. The second write is intentionally used to
-trigger the hardware update after programming the divider value.
+Pre-existing issues:
+- [High] Sleepable clock control functions (`clk_prepare_enable` and `clk_d=
+isable_unprepare`) are called inside DRM atomic commit callbacks where slee=
+ping is strictly forbidden.
+- [High] The primary plane disable logic incorrectly sets the `VSDC_FB_CONF=
+IG_EX_FB_EN` bit instead of clearing it, failing to actually disable the pl=
+ane.
+- [High] Calling `regmap_read` in a hardirq handler uses a standard spinloc=
+k which maps to a sleeping `rt_mutex` on PREEMPT_RT.
+- [High] Primary plane update programs hardware registers with unclipped de=
+stination coordinates (`state->crtc_x` / `state->crtc_y`) which can be nega=
+tive.
+--
 
-I will also add a comment to clarify this behavior in the code.
+commit 7db852133467fb896e651ada4802a06233540439
+Author: Joey Lu <a0987203069@gmail.com>
+drm/verisilicon: introduce per-variant hardware ops table
 
-> > +
-> > +		if (divider_clk->load_mask) {
-> > +			/*
-> > +			 * The divider update is triggered by writing 1 to the
-> > +			 * self-clearing load bit after programming the new
-> > +			 * divider field.
-> > +			 */
-> > +			writel_relaxed(val | divider_clk->load_mask,
-> > +				       divider->reg);
-> > +		}
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> 
-> [ ... ]
-> > +static struct clk_hw *
-> > +ultrarisc_clk_register_divider(struct device *dev,
-> > +			       const struct ultrarisc_divider_desc *desc,
-> > +			       struct clk_hw *parent_hw, void __iomem *base,
-> > +			       spinlock_t *lock)
-> > +{
-> [ ... ]
-> > +	if (desc->gate_bit != ULTRARISC_CLK_NO_GATE) {
-> > +		divider->gate.reg = reg;
-> > +		divider->gate.bit_idx = desc->gate_bit;
-> > +		divider->gate.flags = desc->gate_flags;
-> > +		divider->gate.lock = lock;
-> > +		gate_hw = &divider->gate.hw;
-> > +		gate_ops = &clk_gate_ops;
-> 
-> [Severity: High]
-> Can using the standard clk_gate_ops here cause spurious loads?
-> 
-> The standard gate ops perform a generic read-modify-write. If a gate
-> operation executes while the load_mask bit is still 1, it will blindly
-> write 1 back to the load bit, potentially triggering a spurious hardware
-> reload or corrupting the update state machine.
->
+This commit introduces a hardware operations table for different variants
+of the Verisilicon display controller. It extracts DC8200-specific ops
+into a new file and updates the bridge, CRTC, and plane code to use the
+new vtable instead of direct register access.
 
-On DP1000 the load bit always reads back as 0, so a generic gate
-read-modify-write cycle cannot preserve a stale asserted load bit and
-write it back as 1.
+> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
+silicon/vs_crtc.c
+> index 0b8a35d09cd2e..679d6541ba1b9 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
 
-Because of that, clk_gate_ops does not cause a spurious reload on this
-hardware.
+[ ... ]
 
-> > +	}
-> > +
-> > +	return devm_clk_hw_register_composite_pdata(dev, desc->name, &pdata, 1,
-> > +						    NULL, NULL,
-> > +						    &divider->divider.hw,
-> > +						    &ultrarisc_divider_ops,
-> > +						    gate_hw, gate_ops,
-> > +						    CLK_GET_RATE_NOCACHE);
-> > +}
-> 
-> [ ... ]
-> > +static int ultrarisc_clk_register_fixed_factors(struct device *dev,
-> > +						struct clk_hw_onecell_data *clk_data,
-> > +						const struct ultrarisc_clk_soc_data *soc_data)
-> > +{
-> [ ... ]
-> > +		parent_hw = clk_data->hws[desc->parent_id];
-> > +		if (!parent_hw)
-> > +			return -EINVAL;
-> 
-> [Severity: High]
-> If the clk_data initialization (below) is fixed to use error pointers
-> instead of NULL, should this validation check use IS_ERR_OR_NULL() or
-> IS_ERR() to avoid dereferencing an ERR_PTR?
-> 
-> > +
-> > +		hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, desc->name,
-> > +								 parent_hw,
-> 
-> [ ... ]
-> > +int ultrarisc_clk_probe(struct platform_device *pdev,
-> > +			const struct ultrarisc_clk_soc_data *soc_data)
-> > +{
-> [ ... ]
-> > +	clk_data = devm_kzalloc(dev, struct_size(clk_data, hws,
-> > +						 soc_data->num_clks),
-> > +				GFP_KERNEL);
-> 
-> [Severity: High]
-> Since this array is zero-initialized, any unpopulated clock IDs will remain
-> NULL. Does this need to be explicitly filled with ERR_PTR(-ENOENT)?
-> 
-> When a consumer requests an invalid clock index, of_clk_hw_onecell_get()
-> returns this NULL pointer. The clock framework considers NULL a valid
-> optional dummy clock, allowing consumer drivers to silently succeed at
-> enabling the clock instead of failing. If they then access peripheral
-> registers without the clock actually being enabled, it could trigger a bus
-> fault.
-> 
+> @@ -26,10 +49,16 @@ static void vs_crtc_atomic_disable(struct drm_crtc *c=
+rtc,
+>  	struct vs_dc *dc =3D vcrtc->dc;
+>  	unsigned int output =3D vcrtc->id;
+> =20
+>  	drm_crtc_vblank_off(crtc);
+> =20
+>  	clk_disable_unprepare(dc->pix_clk[output]);
 
-For the current UltraRISC clock data, all clock IDs in the advertised
-[0, num_clks) range are populated before the provider is registered, so
-no in-range NULL entry is exposed to consumers.
+[Severity: High]
+This is a pre-existing issue, but does calling clk_disable_unprepare() here
+and clk_prepare_enable() in vs_crtc_atomic_enable() cause a sleep in atomic
+context?
 
-Within the driver, clk_data->hws[] is zero-initialized and missing
-entries are represented as NULL rather than ERR_PTR values, so the
-local parent checks only need to handle NULL. I'll add an explicit
-hws[] completeness check before provider registration in the next
-version.
+Since atomic_enable and atomic_disable callbacks execute in an atomic
+context during non-blocking commits, calling sleepable clock control
+functions could lead to deadlocks or kernel panics.
 
-> > +	if (!clk_data)
-> > +		return -ENOMEM;
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260611-ultrarisc-clock-v1-0-2d93ebb4cc13@ultrarisc.com?part=2
-> 
+> +
+> +	if (dc->funcs->crtc_disable)
+> +		dc->funcs->crtc_disable(dc, output);
+>  }
 
-Best regards,
-Jia Wang
+[Severity: High]
+Does this sequence write to hardware registers while the pixel clock is
+disabled?
 
+Calling dc->funcs->crtc_disable(dc, output) after clk_disable_unprepare()
+means we are performing register accesses without a running clock, which
+could lead to bus hangs or failed writes.
 
+Should the order be reversed to match the symmetric enable sequence?
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8200.c
+> new file mode 100644
+> index 0000000000000..800df9279e9b6
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+
+[ ... ]
+
+> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
+> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
+> +			  VSDC_DISP_PANEL_START_RUNNING(output));
+> +
+> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
+> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+> +}
+
+[Severity: High]
+Does this swap the order of clearing the panel registers compared to the
+original vs_bridge_atomic_disable() code?
+
+The original code correctly cleared VSDC_DISP_PANEL_START before
+VSDC_DISP_PANEL_CONFIG.
+
+Clearing CONFIG while the display pipeline is still actively running could
+cause an unprotected hardware state transition, leading to pipeline
+underflows or hardware hangs.
+
+[ ... ]
+
+> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc, unsigne=
+d int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +			VSDC_FB_CONFIG_EX_FB_EN);
+> +
+> +	vs_dc8200_plane_commit(dc, output);
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but does this function actually disable the
+plane?
+
+It looks like regmap_set_bits() is used on VSDC_FB_CONFIG_EX_FB_EN, which
+would keep the plane enabled in hardware.
+
+Should this use regmap_clear_bits() instead to properly clear the bit and
+disable the plane?
+
+> +static void vs_dc8200_primary_plane_update_ex(struct vs_dc *dc, unsigned=
+ int output,
+> +				       struct drm_plane_state *state)
+> +{
+> +	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
+> +		     VSDC_MAKE_PLANE_POS(state->crtc_x, state->crtc_y));
+> +	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
+> +		     VSDC_MAKE_PLANE_POS(state->crtc_x + state->crtc_w,
+> +					 state->crtc_y + state->crtc_h));
+
+[Severity: High]
+This is a pre-existing issue, but what happens if the user provides negative
+coordinates when a plane is partially off-screen?
+
+Because state->crtc_x and state->crtc_y are unclipped, a negative value
+passed to VSDC_MAKE_PLANE_POS() might be bitwise ANDed with 0x7fff,
+producing a massive positive value (for example, -10 becomes 32758).
+
+Should clipped coordinates be used here instead to avoid incorrect display
+output?
+
+[ ... ]
+
+> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+> +	return irqs;
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but could this regmap_read() cause a
+sleep-in-atomic panic on PREEMPT_RT systems?
+
+Since this is invoked from vs_dc_irq_handler() in hardirq context, and the
+regmap configuration does not seem to set use_raw_spinlock =3D true, the
+regmap infrastructure uses a standard spinlock.
+
+On PREEMPT_RT, this maps to a sleepable rt_mutex.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
+1-1-a0987203069@gmail.com?part=3D3
