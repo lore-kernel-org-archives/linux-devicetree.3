@@ -1,271 +1,240 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281963BB117
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA1A3054EF
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781507606; cv=none; b=gqwQr4DFDzBukj6/5iM9hIB4WwEGZ55HRs9sWA3n0HvZHwM/L7/ntpsPEjKFw9sBwoGlf5Vh9Sy+ItmjzUs+oNzdxXWd0CZqc2s1ARkduoI/UNOpYSQyVlumpqfv87+kQSOR7RKsxaoK0AmgHAQZOlffQRUvklXQ7OdZwip9OTA=
+	t=1781507931; cv=none; b=BAf6+tuF9K9HxjvML8pBA13ij3x+TZYvkGKAMsy9TooMMu7BwbL7Gp0TYBD+O4SMiCyEPEF1rE9rr+7klrYKVhrJyHsrTIkgXAYSleAhX/HD8Z2YUegO5wQs9u6wVIUeN+fKnVhR4czgllvOHfr+H0P3X6hIHd2ILkbGnkNSwCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781507606; c=relaxed/simple;
-	bh=E7CeGzLsAvE26qPQBzedfdcKyXCu72MrhvI0MBEY7vc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RvPVexjjGftYMss11Pok9T3O6AzLh3MuUQqUWkS0zgUc8BuBpKEgdE5DB936xFM/rW3m6GmacZjgqQvM1PjhZuxM9PUSYIvyCAK1v5+orHCpIOkf70xpXCPXSe05Y8GboHLa2gzBIcd4AreAR5J1E7Uhhyr29T64+D2p4b3desw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P87njQv5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e01lGXZc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781507931; c=relaxed/simple;
+	bh=Tp6cmU/RGc1ogH1+TBTz7hZfRd5EAUlMRrlBwPLgtGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YAOwD9JXddTTUfoCLL0oa/sb/4rXlZz7OvAg04tHt7TBjvtTPaPXpss2TiYEc/dMClRKafBYt+7mOb1ntgiXdWtT7OB6Egcs7du1THHa2iIciypHpUVa7ujd1NbGIgymwIOTneURpqrkQ000ZvrJNUQyhYWCTUaTbG1WOcXEXZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NM+29sei; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P87njQv5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e01lGXZc"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6IxvD3344539
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:13:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	O+okVD8ssr3GgTvCo7FatLeqFw/vAJdaEkp9FFWDQmE=; b=P87njQv5UEc1WKHe
-	s3z+N3dUD6NF8urUymNCpqs9uVD2rQZ0aOwAgwUXKReywS5LIl9Bi3UwZ6A5M9Ic
-	Xl4UwkhXLuXbuJScwtmkLXTE6ODQHdgg8cZF/hLfzs3h6TFFrDQkkCxvCRkCgPJk
-	baczb0d0fp4INeV6r5ZzkoYCU+mGr8Gyjm+5t3CNTq2nDr7F5L7+9JVVYFfymYYp
-	jhkJl5h4XfFDEkhALeERoIjyZs3pFRukl5Qhd/rIMJnQawcDkHVFTTqwAjQs88eI
-	hG7Ezwpd1akez6qlFa3650EmxMWsqjEJnMfCh+ry0mis0SK7AClbe1fm1VIZ0Y9o
-	c+l4Rg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery9fe4nr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:13:24 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-36bc380fbf9so3025257a91.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 00:13:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NM+29sei"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso21989865e9.1
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 00:18:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781507604; x=1782112404; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=O+okVD8ssr3GgTvCo7FatLeqFw/vAJdaEkp9FFWDQmE=;
-        b=e01lGXZcH+v08YzertelMT+/e6Xi4UoztTiBE/aYkoJy/XIDWoLa7JIZfkabBTMdrH
-         cUiCnutE2t7mP/1c+1DFs1pHPsK5oo9NTxhAVnJwK8M3QVIn2bFzqaxoO2hTmzxURO44
-         JGVoyfrR9waJUUflOVLsvxVG9CgpEEyT5S6fLkhz4bUp1D2UYPjnMgAsB2G/nXgVz0Bu
-         pTEQ+n1yGcw8v6YmWHF73Hdwknv+cZQ88C0gcqMWbNg5YzkF0VPbUyK9dK78JJddE1Sz
-         1/qHgsZsyOGDo4+rtzajdOIC3XKnbUnp7bBdZqyBWc8bbYcrvYqWp48pPaXsk40ZuC3N
-         n6Pw==
+        d=gmail.com; s=20251104; t=1781507928; x=1782112728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kB/u4VLuYTRIxSTjaGgA4kG1SxYpk8i9RP3w3UDvgAY=;
+        b=NM+29seiNbwymV1yYBHyPFSlzKBvEyxBolZKRo60z2aBQ6gvEzFT9YiQA2W1IDiLqo
+         DwQnhGqe6NJMVGX5nGpF8967fOniDTP9BVIaTbzRQdq1i5MKFbXgJa7rL3EzfWuWJCYH
+         RWbtpWB5I1YVIJGUgenFXVePiUF0l5iXvGslw0Oh67YrHquVIDu84SE81hXaUTb+6p8V
+         WV7F1hfbSIevMabejyUQ9ot2EnuTWfKThPtOTMHJ6DWukGP6XV6esxzbpo/elb/HrDk+
+         ztWl5LeMWaphmjKQ+gUGT5Y53LXMTxB8pOhlViESdUKlca+8JT7hHXCJYwHDOJbjuNNJ
+         QKaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781507604; x=1782112404;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=O+okVD8ssr3GgTvCo7FatLeqFw/vAJdaEkp9FFWDQmE=;
-        b=TR13ucHkxaHdbRPKhevpjmmeXQKYcm3S+AFKODcOQ08X/dCFNnM3NxIum+BgFzY6z5
-         uKSlhLpVDAZZSGWuGU8y9+Ie+waFGfJwDiqWzna6lCDMGu3ocmfYDcL8/WkUgiP06J2x
-         qHHB3zZ+1ACPCz+fJge2wP46gPpwA89LDWYR0DBU2rkkAm014H5XkMOKBHTBtA912W8z
-         3KpCEne7V722tRufHZZEpk6y0qkjonYQAXg+gn5JfhzZMuCBDjGSYj7/Bq4WHybuBZz8
-         cdDb7xOUnyV/BwoVhE50axbjCaIx4n7dZDVYgOHf/3gBwj+yNqWbgLziVjMzbXM5Myj0
-         wJMg==
-X-Forwarded-Encrypted: i=1; AFNElJ/YKyBA5w5puBY8iu2tba/My6T69z+97CExkJ12Ogm4SdlKKrQNbrr0arclrtpYuhG2dkvJSL5Wx7Yp@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzli10q4sPiZu/laCZugI63t0gSJqHbUxl/6YeCQc03ZwCCQyCc
-	xkQ4pNwBP0/0j10HrL43OvJx4qoNBL1vtmT42U4RJpbrjBeuYRh1wdlUAnY/0lhcY0hTHtByOJS
-	RxGMbB8W+w/Vh5rq0j4yYgX2LtViOjWMTvyWJEV1vNkkcPFrbgumxErA7vZ/C8qbYHRwZhLbK
-X-Gm-Gg: Acq92OGnK2yIUXu7NDgR+OvcQYNj+8GG2UNiQbLgAvB6YoDzuEqZwpJ3rWETaq4odEg
-	eemFndnDIw3vA/qKRVR96X1Nyvl1Q8y8ghsrvtTlUZvgtexiz4OBGUIZNBEqcL0ZNlA0Ce8ohUU
-	LmLZwe3nACrEva+CD0EMvGguQSR75NxQPOWKeV9co4pNwHQgrNQXdrgIJuWa/H6KKNOnJPyDMwG
-	+fGwkIf59Wr2on4oIJVB1Say/o2EztajT4QnOBv0zx0sHbiJYGOm7QWcWiL/Qk8Fqn9ZmYL0yHr
-	H526JjH5y7REZk47c11slq91lAIJJA83n5sksfqeDQg7SlbGIVFhfqFeLHuD9PtwMkt7LkA+jqp
-	yZBqcvfr6gkppUvhzxCMD8Rwxd65kwzwunYXAeFbHgUrc880qU10V
-X-Received: by 2002:a17:90b:5627:b0:36b:9835:cf96 with SMTP id 98e67ed59e1d1-37a01e2fbecmr13427004a91.2.1781507603850;
-        Mon, 15 Jun 2026 00:13:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:5627:b0:36b:9835:cf96 with SMTP id 98e67ed59e1d1-37a01e2fbecmr13426964a91.2.1781507603363;
-        Mon, 15 Jun 2026 00:13:23 -0700 (PDT)
-Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a2668cce5sm14867474a91.16.2026.06.15.00.13.16
+        d=1e100.net; s=20251104; t=1781507928; x=1782112728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kB/u4VLuYTRIxSTjaGgA4kG1SxYpk8i9RP3w3UDvgAY=;
+        b=XzUv6KGHfLYwfP7vEPh8WPwQ3CuTUUngpS9hbX+IN5AF7DzG7jb8nBTo7bO5BLZczV
+         5NWN+jm2vPw43ylmxun0AlVbrJ8pTpD2EujEuF5syFmVll74+cfchDGe8zB5mf4YQgXB
+         fcgj/oGBcpamcgzFemzIUu7WTh654D/fWkJ8bxw5bOiyeiDHOQZ1XoVUsjW40RSjV8jm
+         4cKiBZmfox/LeyGEG7KfLYnwlccjcwiqnF9VymDAroamuk4wsKMXISJUjVBj2aohbcCS
+         wkEyXeSwVNWiPOL+gcH+MGUEOJkrzbFOtzWPjVyXXd3XOKEa0KjBTCaCu4KoF01t7wmP
+         dfRA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Q5xq8t8QHYg92sDfDoeosJ6wpHG73UIgtgHhE8wJAASH7K7KirBkvrIbBrekgBAFiYjV5qxchOdw5@vger.kernel.org
+X-Gm-Message-State: AOJu0YzK8hn/rDgdHEvYe8XZHxJzNpL7b5O0OrRQ4lImch8Y1lfREgeT
+	U+GQEXPTzLcTVtKBaHSEcH0sXvVmnQIDQ3L4AAjW6NIijnovYo6BzRRD
+X-Gm-Gg: Acq92OHtvTqDwpufVRcG2AESN4+VUxH589ylA6KqHiU6ZT/QbTdZdP1us0D+qmZAANP
+	7uQFH0tz5OgEykqXW2K6c5fWocgdzjF/lR2wG51YLymtVA8H96AqkTPvqDrjmkjhzerL4QVZ4Kk
+	ZJY1qdtPxA3bY95HGiqdEzKBdvhxSBv2m6HjaIbnKLn3fd0XrVqDJbnpDpXXg6T+5ckeU5OyKHM
+	MhOh8RIqJhvWP9GxjovlWp5LQg96+6VE93gHryz4X6rnIQb2+i1MZPgNbiR+PmP1npnmjEC56DA
+	2jtPGaduSdp7MiLWJR74tGsxLCV4dHCXIenx7nqSTuKP5Wq5JPpjA74OhFvOFa5wbeJO0V1DMRd
+	JF+DDPpEAivW3v5u+/B797tjXvOWDan1XnuNdD5/v/UoQG1BUBC0pzuSB1ks2lM0O42U28urPcI
+	axAahfgfZVBN1v/iL6
+X-Received: by 2002:a05:600c:820c:b0:490:e913:6564 with SMTP id 5b1f17b1804b1-490ec4cc6d8mr166377465e9.3.1781507927328;
+        Mon, 15 Jun 2026 00:18:47 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203c0801sm200181015e9.10.2026.06.15.00.18.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 00:13:22 -0700 (PDT)
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 12:42:17 +0530
-Subject: [PATCH v3 6/6] arm64: dts: qcom: shikra-iqs-evk-imx577-camera: Add
- DT overlay
+        Mon, 15 Jun 2026 00:18:46 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sen Chu <sen.chu@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Macpaul Lin <macpaul.lin@mediatek.com>,
+	Lee Jones <lee@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Julien Massot <julien.massot@collabora.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	Val Packett <val@packett.cool>,
+	Fabien Parent <parent.f@gmail.com>,
+	Akari Tsuyukusa <akkun11.open@gmail.com>,
+	Chen Zhong <chen.zhong@mediatek.com>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org
+Subject: [PATCH v7 0/9] Add support for MT6392 PMIC
+Date: Mon, 15 Jun 2026 09:16:06 +0200
+Message-ID: <20260615071836.362883-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-shikra-camss-review-v3-6-8183481f48d0@oss.qualcomm.com>
-References: <20260615-shikra-camss-review-v3-0-8183481f48d0@oss.qualcomm.com>
-In-Reply-To: <20260615-shikra-camss-review-v3-0-8183481f48d0@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781507551; l=3663;
- i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=E7CeGzLsAvE26qPQBzedfdcKyXCu72MrhvI0MBEY7vc=;
- b=oKXbX4Mg1Z1NzqLOxWaXB5EB9ZWK+zefxeRcBA11wXCYJh2Mou0lDq4j8rzw55rUHdS5kfQV1
- Rkuxe7ZJBiaCyHJpuvEcVQ1DPWHtTQU0PZzr6rG8QibNPAM/OQeIPt9
-X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
- pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA3NCBTYWx0ZWRfX67zH9wGSdiMG
- lLs5oWopj5BF0l2iKO08R1Tp6mORAyYn/VypTockv1U6IIW6bNwjPLcGPqlf0M7TwiTP6EyA7AW
- 3QeQJx52k+nrAyiz+0ArF8Svobqvr/kAttkO+Z77Kvgl+a7HxDX72lw9k2PDbRx4HBuNIx1sbiS
- BElirXT+1g2VR8g6kA39Wa/LO7+wp3uh2NrYCZ3vG1hu1OcUfHF0JflOR7b8/q7IzvAJ1wVOC+x
- DFl5VC/eGcdanOfM6EuNCpOSXsR3KE6/3D3io4MUjHkJhRk9GawBsEQk8c1bKXRiyyAkHeCTf1h
- sWt1kqod4Go/Pa0pDvhh3q/fKdM8I7zzbtXKjBh8sv6aEH9+G4WFMkikcU59JtzvZLr7bDGvErE
- iC8cknzeL22Jt3M6nvoI25GYvtJxx0IGOS/lEJZmbwoIpPpNK8K9MEbER+7wvX7+0dXwA07fj9p
- hkQ2nr0qwvJRUleFn5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA3NCBTYWx0ZWRfXyc1l3zCpOiHw
- o/F8Ya7JvGH0FsMkq5WKoZElWOkCrWuZzXl3jvUIoYxQ2DD9a8lSNrlJPANQGQ8S2yaAQ96xKR5
- cBsuEWJ0hMUHuttCICMh5NAi038UJE8=
-X-Proofpoint-GUID: Yp4VBXnJclF7PILGVWnE0cQa89c9kl93
-X-Proofpoint-ORIG-GUID: Yp4VBXnJclF7PILGVWnE0cQa89c9kl93
-X-Authority-Analysis: v=2.4 cv=ULvt2ify c=1 sm=1 tr=0 ts=6a2fa614 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=OGCdAuOInqFJiNoUztwA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150074
+Content-Transfer-Encoding: 8bit
 
-Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-different CSIPHY and sensor supply rails compared to the retail boards
-(CQM and CQS) which use PM4125.
+The MediaTek MT6392 PMIC is usually found on devices powered by
+the MT8516/MT8167 SoC and is yet another MT6323/MT6397 variant.
 
-Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
+This series is mostly based around patches submitted a couple
+years ago by Fabien Parent and not merged and from Val Packett's
+submission from Jan 2025 that included extra cleanups, fixes, and a
+new dtsi file similar to ones that exist for other PMICs. Some
+comments weren't addressed and the series was ultimately not merged.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  2 +
- .../dts/qcom/shikra-iqs-evk-imx577-camera.dtso     | 79 ++++++++++++++++++++++
- 2 files changed, 81 insertions(+)
+These patches enable four functions: keys, regulator, pinctrl and RTC.
+Mono speaker amp will follow later as I need to work further on the
+audio codec.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 76b8f144983827f4905a72935e8d5291a227dc97..09f2318d1c12c4239a6a7bac4ecbca38eb65ffa2 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -340,9 +340,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
- 
- shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
- shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
-+shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-camera.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-new file mode 100644
-index 0000000000000000000000000000000000000000..d806fd9f520e9ca4b854714bbf746d049bcb7f9a
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-@@ -0,0 +1,79 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/qcom,shikra-gcc.h>
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&camss {
-+	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-+	vdd-csiphy-1p8-supply = <&pm8150_l12>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			csiphy1_ep: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&imx577_ep1>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci {
-+	status = "okay";
-+};
-+
-+&cci_i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	camera@1a {
-+		compatible = "sony,imx577";
-+		reg = <0x1a>;
-+
-+		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		/*
-+		 * avdd and dvdd are supplied by on-board regulators on the
-+		 * IMX577 module from the connector's 3.3 V rail; they are
-+		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
-+		 * level-shifter that translates CCI I2C and reset lines
-+		 * between the SoC and the connector.
-+		 */
-+		dovdd-supply = <&pm8150_l15>;
-+
-+		port {
-+			imx577_ep1: endpoint {
-+				link-frequencies = /bits/ 64 <600000000>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&csiphy1_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tlmm {
-+	cam1_reset_default: cam1-reset-default-state {
-+		pins = "gpio33";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
+I added a handful of device tree improvements to fix some dtbs_check
+errors, added support for the pinctrl device and addressed the comments
+from last year's reviews.
+
+Please note that patch 0006 and 0008 depend on patch 0005 as they need the
+registers.h file, but belong to different driver areas. I'm not sure if
+I'm supposed to squash them even if they belong to different driver
+areas of if it's fine like this. Any advice is welcome.
+
+The series has been tested on Xiaomi Mi Smart Clock X04G and on the
+Lenovo Smart Clock 2 CD-24502F.
+
+Changes in v7:
+- Removed patch 0008 dependency on patch 0003.
+- Reintroduced the regulator driver. In earlier revisions of this series,
+  it was proposed to remove the dedicated compatible for the regulator
+  device [3]. The driver does not use actually it, but it is not possible
+  at this time to remove it from the bindings since it's a required
+  property.
+
+  Making the regulator-required property conditional was NACKed in [5],
+  with the suggestion to create a separate binding altogether for devices
+  that do not require the compatible property. I tried implementing this,
+  but since the parent device needs to be declared as compatible with
+  mt6323, it leads to a warning in dt_binding_check since mt6323 would
+  be declared as a compatible in both mt6392 and mt6397.
+
+  In the end the only regulator driver from the mt6397 documentation that
+  still declares an of_match is mt6397-regulator and it does not seem
+  to be necessary, so it should be possible to remove it and make the
+  regulator compatible optional for all regulators, but that change would
+  probably deserve its own separate patch series.
+
+Changes in v6 [6]:
+- Dropped the regulators driver for the moment
+- Explained the FCHR key name origin in the commit message
+- Introduced the MFD_CELL_* macro in the sub-devices definitions.
+  A separate, independent commit introduced MFD_CELL_* to all the
+  subdevices in the mt6397-core.c file for consistency
+- Replaced of_device_get_match_data with device_get_match_data
+- Removed the mfd_match_data enum in favor of the preexisting
+  chip_id enum
+- Adjusted the error message if the device is unsupported
+
+Changes in v5 [5]:
+- Double checked regulator driver with data sheet and Android sources.
+  The data sheet I have misses a lot of register descriptions, but
+  Android sources have been helpful to fill the gaps
+- Reintroduced the required attribute for the regulator compatible
+  in the bindings
+- Fixed the missing reference to the MT6392 schema
+- Fixed casts/unused vars reported by kernel test robot
+- Removed Reviewed-by tags from the regulator patches as they have been
+  modified in this version
+
+Changes in v4 [4]:
+- Dropped usage of the regulator compatible
+- Fixed commit messages text to properly reference the target subsystem
+- Added supply rails to the regulator
+- Reworked the regulator schema and PMIC dtsi. Now all supplies are
+  documented and the schema no longer includes voltage information
+- Removed redundant ldo- / buck- prefixes
+- Renamed the pinfunc header to mediatek,mt6392-pinfunc.h
+- Modified the MFD driver to use a simple identifier in the of_match
+  data properties
+
+Changes in v3 [3]:
+- Added pinctrl device
+- Changed mt6397-rtc fallback to mt6323-rtc
+- Added schema for regulators
+- Fixed checkpatch issues
+
+Changes in v2 [2]:
+- Replaced explicit compatibles with fallbacks
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/cover.1771865014.git.l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260306120521.163654-1-l.scorcia@gmail.com/
+[3] https://lore.kernel.org/linux-mediatek/20260317184507.523060-1-l.scorcia@gmail.com/
+[4] https://lore.kernel.org/linux-mediatek/20260330083429.359819-1-l.scorcia@gmail.com/
+[5] https://lore.kernel.org/linux-mediatek/20260420213529.1645560-1-l.scorcia@gmail.com/
+[6] https://lore.kernel.org/linux-mediatek/20260612200717.361018-1-l.scorcia@gmail.com/
+
+Fabien Parent (3):
+  dt-bindings: input: mtk-pmic-keys: Add MT6392 PMIC keys
+  mfd: mt6397: Add support for MT6392 PMIC
+  regulator: Add MediaTek MT6392 regulator
+
+Luca Leonardo Scorcia (4):
+  dt-bindings: mfd: mt6397: Add MT6392 PMIC
+  regulator: dt-bindings: Add MediaTek MT6392 PMIC
+  mfd: mt6397: Use MFD_CELL_* to describe sub-devices
+  pinctrl: mediatek: mt6397: Add MediaTek MT6392
+
+Val Packett (2):
+  input: keyboard: mtk-pmic-keys: Add MT6392 support
+  arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
+
+ .../bindings/input/mediatek,pmic-keys.yaml    |   1 +
+ .../bindings/mfd/mediatek,mt6397.yaml         |   9 +
+ .../regulator/mediatek,mt6392-regulator.yaml  | 234 ++++++
+ arch/arm64/boot/dts/mediatek/mt6392.dtsi      |  75 ++
+ drivers/input/keyboard/mtk-pmic-keys.c        |  17 +
+ drivers/mfd/mt6397-core.c                     | 295 ++++---
+ drivers/mfd/mt6397-irq.c                      |   8 +
+ drivers/pinctrl/mediatek/pinctrl-mt6397.c     |  37 +-
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h |  64 ++
+ drivers/regulator/Kconfig                     |   9 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/mt6392-regulator.c          | 756 ++++++++++++++++++
+ .../regulator/mediatek,mt6392-regulator.h     |  24 +
+ include/linux/mfd/mt6392/core.h               |  43 +
+ include/linux/mfd/mt6392/registers.h          | 488 +++++++++++
+ include/linux/mfd/mt6397/core.h               |   1 +
+ include/linux/regulator/mt6392-regulator.h    |  42 +
+ 17 files changed, 1942 insertions(+), 162 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
+ create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+ create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+ create mode 100644 drivers/regulator/mt6392-regulator.c
+ create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+ create mode 100644 include/linux/mfd/mt6392/core.h
+ create mode 100644 include/linux/mfd/mt6392/registers.h
+ create mode 100644 include/linux/regulator/mt6392-regulator.h
 
 -- 
-2.34.1
+2.43.0
 
