@@ -1,179 +1,143 @@
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012038.outbound.protection.outlook.com [40.107.200.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743041991CB
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781494438; cv=none; b=XAW3Tm5m7VBfBkm65Ua204E9DQD2k4VPv5bkhjMsbt1mH+cBzGAllDh0Hb9DzzDmRHmFKBXxgAytnyDx3r3Q5iPqXBU5GYW98oJJt/e+TyajBnMdV4dlrXnRAGKRtB5qRte66a/5voHwHEIOp6tbYW+VcY424rKrmkRd2FmNASk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781494438; c=relaxed/simple;
-	bh=7CYnTAuVR8rZg2/zzNHVJX1whHtFmlFtEUUksdZQ1Ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H2RWGMXaKsi+cRlDS8o2M/vzQ/m8NS0HCY6Ltxau9t/uxVA8QdW0ltGXBdqUEd6kc5i2H4jqVjKz/Ogbn0R1QDZq4T/46dhDRtM05Fx93MrS/VUg+jTfIH/miHolrIMvykDbodeCNPUTOXqeKF4oPdHkx0bc3qyb7UzeV/fSawo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O50y6H8J; arc=none smtp.client-ip=209.85.215.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9ED277C9D;
+	Mon, 15 Jun 2026 03:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781495337; cv=fail; b=dMfBFkqy7GzQG+2Z/RfDlUx5VwWsE0HNcOQ2ukCgEK1CvkgQnCMwMHcFnCZciFoo6uJwoiyQJhXpFU4G5kgNEckMtT1Ea+e4V3n5YaGsCZaYN9UzaHIPy0R+rfaeAXt/AzoYksZ69G0nfDUHmaeGh0O9HyN7gnEFMIykFlvTMSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781495337; c=relaxed/simple;
+	bh=/RF+eQm9MMb/KxWzUIHZ2WFOPTY29s3rhDxcuPv0Xr4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Judf+mlNp/8Zy32DHSsdH3SK8d6i5lwHJtyKq4/cQjHbN8XKiq31nJH4rkfJXQuIIdDF1Y2be/dhulOFk6YeGlRREVt1if9nwXftTjlYeaWC43W511WLPYF7QPCrOSCQwIAoRQ8jCJgBvaW9c7t7YV4h2w+Xzr4h546VhkrC2Yw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4EkJWStj; arc=fail smtp.client-ip=40.107.200.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O50y6H8J"
-Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-c859a374903so682927a12.3
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:33:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781494437; x=1782099237; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4N4VN4U8dWKYBPdGLpmGB0dN8xMC6v/gON67oih3Zak=;
-        b=O50y6H8J6c4qWl6eVw1XNtHsT9ahZ0OIDDwECLSdjSt/CU1FH7WR9IH9YkyYhHHM0q
-         S/0W2JckPF9EROW8XBBpnsZzxQZ7Wevoe8Ot95rszy0pkCdA4PylTJ8EASTafppy4lSO
-         2ZwAmAgZsoGqk3HGdvEY8eJeTIlbrw7RH5vO7OR8FSUyrOUqMoRim0zgfLm6EWpeyfY+
-         p8QrKNU98vTvMmJtN+NLYYULd8fhymD7YGqnvbmZyouPdWBOZ98MSVcUTl0rAXVtwmMs
-         kynPQRD/ZSaQphYp6pya83KEjhY3VAAIFz+QLA3CYg/nMLws30qKGcOkIw8sYznVLtgd
-         j/1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781494437; x=1782099237;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=4N4VN4U8dWKYBPdGLpmGB0dN8xMC6v/gON67oih3Zak=;
-        b=fdQZe1JQzSeYgo0YWQo4Ag7GIgYm5KaPjZ7iZzeqKm68ykdrupwywgYS9UdRKpGZ5N
-         cvZWGZyzqo8wFQn45uEAnQFkBbXojykhH0KfmxBbC+ehY+A8YdK/Cxs6I/0IblUuSBtV
-         8ydPi9+gBFuzBzx0PlTsYe7JU+wRR9CqmI3NMEzeg6Pc84IQiiR0p9jYldp/C9eUfHn2
-         9yKMKaBesyq6NWvvPw1Rfz1fJQZpxgDDojw8AVnhZIwK7xg6+tWTUtIFLuMVlEqgC7lL
-         z6gleD0S2GoX8h6zM7kq9JsESdmnSP5GRH9DG38lqW5GOFGW/sJnHvdKMqEoGJstRz+6
-         00Fg==
-X-Forwarded-Encrypted: i=1; AFNElJ9j07Xez3cqrBW8LeCe4Bi7Z8212tQhRhdAz22HIufl5uffMJEhD/Dm7SC5uLFekDpczbXj+r3Ki1ku@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy3UVYpO/8wExyNzBgSFzBD+X6ZthFHpbNhdCrzhYE9z1lqzYIv
-	YdYAWoTDes2KjVuaBZh18DADf9UZz+OaC/vIJi0WUar2SwL03rtJJqkb
-X-Gm-Gg: Acq92OHeWtWFagM0Z1qnwaGY7I818l5YaaNpKQXzUPsxfeFtHX5M+sEb24DkSA2Sd1r
-	RaPZHHsoqmQS1+c/srK3zvR+KKfwcns1xNXSJTsVETSAKPOFIH3OBOWF8xnJbvju1CeMMOcNDbP
-	WC/fIfiEIxqPJa8QlBE7wfqU74Jypwgq2vbIbmgXRdTPDl1JFOkH1t0fE7Ohas10Yq3DHWtQWt6
-	TAalPJiLyxOmJn32GVXOimx3BRACVKkCr+t23TK0nlT8k6Zg714luoHTHIK63U7Tn1jiuxx6XsC
-	Yl1bqQwfLGVqp+NL15C7IWve/q+wyFd2biLHCKDVLGSUpY4egfrLjzto8/5p3GF3a8ekdKtw7GN
-	crYzuosWudrTZ9K9Y2QKQibEhP/PTjoQLudlR/vcNA29ObLzm/psNu9BZ1riAiAcfEUdavh9yUe
-	F7NyUv/RM3Quvvsd4B1KZ8YfPEF7kaGz2GRrb1xg2RnA==
-X-Received: by 2002:a05:6a21:6813:b0:3a2:d629:16a2 with SMTP id adf61e73a8af0-3b783b757e9mr14493609637.10.1781494436758;
-        Sun, 14 Jun 2026 20:33:56 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b035ce6sm8650381b3a.49.2026.06.14.20.33.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 20:33:56 -0700 (PDT)
-Message-ID: <894d7c33-8e14-4ba5-b774-14062ece39f2@gmail.com>
-Date: Mon, 15 Jun 2026 11:33:34 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4EkJWStj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d4FGKMqtgmvdQtB5SDJt2/QySeu4LPmIX64gIa/aM/dD3D+y9e+AR42kwDcNbH2POpd/4tNi4G97qWD7bmRGm4YkK0iVMAOKjLJklvXao+EYL4+WUzKHTp2EM43d1m2vR5CEpnHTzmZPpI2rUwHCrwohz6Z87/8H/RW+jGdIbThMiB3o+IK0nnefYzJz9meN9td3dRJQOk1Xe7EfI6hzaQw1OmRJ7/Vf5wW1Lp6HZQl1rKaVV+kbsAgAnV4VyefrPYBiUJZ9rkMQC8ekkRY2B/iN4jXp9KTG1tL441Yy/D56IFGVNlKv+Cu3XTdOaZs0FMPLpgUv+GbgHbOXlSAIbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eS8tGvsFjWgqv9/uwunXy/fYVakQTGJ7is3wWPlVnp0=;
+ b=aYCJoM4W8tmVzuiCBoko2gjahyK6XI6g7rr6TjEGjsGe42z/ExdfEZBfdREgkJkrXhiteqLc5gN4x3lIrS/U4zVXEHHZlyy7qJ4Zd8mtf+KobUmFeElT+p5zFzfkLWUSfDxAarmJhQmErQpbx6MSvim508sq7RWq4Uer/LPdanKj5pZgEQ2YsDYeXd3OT4G6Qa2uvJ556rY/QL5NA/Meas0QgZoQ5dnXUv72mZDtTIPNjlnBh2nc1eRlSL2e42cbW8aRcy0KHu52hvOnKBPj5sJPYVpP22Fe6+VcvRZrEKoddQo6xx+XnJb9MZZKC0pXascfZYsAbqrTr+y6Wy0wBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eS8tGvsFjWgqv9/uwunXy/fYVakQTGJ7is3wWPlVnp0=;
+ b=4EkJWStjecHL/ikvML3dHayVZaMjlvA8XOiW77HFoRnUwjMO4LZXo0k9BF6eAsD31CnLt6BXVRxOWVaMyK1BPZ5K6gVFeAZmUcZc5ZD9cs2ycWzDMJ8nyPg2CL0ljuP6nZB8aTusFRkjxiU9x3qRXTHWLsZA9UpZjYE6RdVAamU=
+Received: from PH8P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::15)
+ by CY8PR12MB7562.namprd12.prod.outlook.com (2603:10b6:930:95::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 03:48:51 +0000
+Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
+ (2603:10b6:510:2d7:cafe::39) by PH8P222CA0013.outlook.office365.com
+ (2603:10b6:510:2d7::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Mon,
+ 15 Jun 2026 03:48:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Mon, 15 Jun 2026 03:48:51 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 14 Jun
+ 2026 22:48:50 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Sun, 14 Jun 2026 22:48:46 -0500
+From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+To: <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <git@amd.com>, Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Michal Simek
+	<michal.simek@amd.com>, Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: [PATCH 0/8]  clk: clocking-wizard: Add static-config clock provider support
+Date: Mon, 15 Jun 2026 09:18:37 +0530
+Message-ID: <20260615034845.3320286-1-shubhrajyoti.datta@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/11] of: reserved_mem: split
- alloc_reserved_mem_array() from fdt_scan_reserved_mem_late()
-To: Rob Herring <robh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org,
- iommu@lists.linux.dev, zhaomeijing@lixiang.com, catalin.marinas@arm.com,
- will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com,
- quic_obabatun@quicinc.com
-References: <20260527032917.3385849-1-chenwandun1@gmail.com>
- <20260527032917.3385849-6-chenwandun1@gmail.com>
- <20260612144122.GA974326-robh@kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260612144122.GA974326-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|CY8PR12MB7562:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5037a166-0da1-49b9-a9c3-08deca91039e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|56012099006|3023799007|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	vhHiwIbGzh+ttj6IAZwPy+15acwRLpeEn3FUFEGjnmqxYC7tLrEoly5EfbpueZqPRDN6snBNtf3L9t641or7FotQDuWKqGbbTNum1R7X/1t+towWVBMwHCmT0pQzCLWExNnoCAOB43yMapuxvsw4g9uoq23ENX44etJEosFN8i/h6sLqLN5IsmT/b6+CgtHdxdP3o0bAAckhb2q1VNPUt3ApqAf2mhpUkEMhqC9SS7SecbyncMQjiaUdxYGxagepSbUEW0eXvys4Wi5TDe4qoknzpAsaR8ML3bTfuhpw+OtOb/ftLA7uYazCMpcMY8rDEEN0KovRzc+zYZe5Hmp5N56Y1mpKprmCt8FWxwwv81oGPxRh7pXT2aw/sYP/Jyi2moXe7raJCNXB+b6L4bx+63VYbQ7zH4WGeAV5VAgBsz1Jmbk6/EkN8ckC2s7SCKFvPytQh2KZ/T5bGHB4fiX4vlH7vmTdak+jhkP05JHddoI45vPrNCBNvDza+gMreouk3cpUFvbSGcJX1bzqOeZVwlHhDDUJLal7rpKaQusbJuZ/Q2HCP8EkJVhsIyfNpPQNTcBbT2+lsBf5Vds3QycM93x9MXCSyMf4qgf/CSQKwgHiTF0RYZTyFSBN4OmblwWZGa4cYPE7hY5PJRRqllv2c1LpLBxdWNOmxKMyKy0XQB2J65fREmdbYpACQY8jPz4XTnwAkt9/kGLe3460xVa3GuWTMaKpS04brb6XIv41ArI=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(3023799007)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iCnLAlU2ZH7FFWE2Lds7bOJZnQgUsVWp1hSxXlOnO64YaNysCbkgWmPu2YiAj34Z+A90GSLB5NW6NxVANYH46m97V4ZRnfr7J3CA2lwH+Yxa1wtgQ4FIeHZwnSGKEXWhanq8dikEthawUpVM/cgzcX3N53zXPF7rYxX2Aw20mgn3XhNY6vSDHHBZ2XFwUAK9enQTI89tHXSaeOtkVAmf6sVY5WcJkp70DZ3GE9VGQ2Z0KkWCDd1prY81YylToAhWtgeZVLvu6NTxHaTloG5ZX5EfXwskFJ8lkvFJpQnPGDQNo6a8oeKuw7sDoxnIVmR0j7axDiV80KqkL1/IMISzujKY5EW2zLwE4smxY9CUSUWzFoDis76EM2aN+ZK8G71EkIUkeLhhJU57nFBAODEJHH7A4heYExYL4EYKrd+vBwTruwALFDHQZxK23R4XhDsN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 03:48:51.2330
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5037a166-0da1-49b9-a9c3-08deca91039e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B1.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7562
+
+ The Xilinx clocking-wizard IP can be used in a static-config mode
+ where the hardware is pre-programmed at boot and no dynamic register
+ access is required. In that case the driver should skip ioremap,
+ read the fixed multiplier/divisor pairs from the device tree, and
+ register fixed-factor clocks derived from clk_in1.
+
+ Currently the xlnx,static-config is not functional as it doesnot
+ model the output clocks. The series fixes the same.
+
+ This series:
+   - adds the xlnx,clk-mul-div binding to carry mul/div pairs
+   - makes the reg property optional for static-config nodes
+   - skips ioremap when xlnx,static-config is present
+   - moves clk_in1 acquisition before the static-config check so it
+     is available in both code paths
+   - registers fixed-factor output clocks in static-config mode
 
 
+Shubhrajyoti Datta (8):
+  dt-bindings: clock: clocking-wizard: Add xlnx,clk-mul-div property
+  dt-bindings: clock: clocking-wizard: Make reg optional for
+    static-config
+  dt-bindings: clock: clocking-wizard: Make s_axi_aclk optional for
+    static-config
+  clk: clocking-wizard: Do not map the memory for static-config
+  clk: clocking-wizard: Move clk_in1 acquisition before static-config
+    check
+  clk: clocking-wizard: Add static-config clock provider support
+  clk: clocking-wizard: Skip s_axi_aclk for static-config
+  clk: clocking-wizard: Use dev_err_probe() when mapping registers
 
-On 6/12/26 22:41, Rob Herring wrote:
-> On Wed, May 27, 2026 at 11:29:11AM +0800, Wandun Chen wrote:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> Prepare for storing /memreserve/ entries in the reserved_mem array.
->> alloc_reserved_mem_array is skipped if the device tree lacks a
->> /reserved-memory node, pointer 'reserved_mem' continues to reference
->> the reserved_mem_array which lives in __initdata, storing
->> /memreserve/ entries into reserved_mem_array would result in metadata
->> loss, and an out-of-bounds memory access will occur if the device
->> tree contains more than MAX_RESERVED_REGIONS /memreserve/ entries.
->>
->> So split alloc_reserved_mem_array() from fdt_scan_reserved_mem_late(),
->> and call alloc_reserved_mem_array() whether or not there is a
->> /reserved-memory node.
->>
->> No functional change.
->> The actual /memreserve/ population is added in a follow-up patch.
->>
->> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->> ---
->>  drivers/of/fdt.c             | 7 +++++--
->>  drivers/of/of_private.h      | 1 +
->>  drivers/of/of_reserved_mem.c | 6 +-----
->>  3 files changed, 7 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
->> index 82f7327c59ea..83a2a474831e 100644
->> --- a/drivers/of/fdt.c
->> +++ b/drivers/of/fdt.c
->> @@ -1284,8 +1284,11 @@ void __init unflatten_device_tree(void)
->>  {
->>  	void *fdt = initial_boot_params;
->>  
->> -	/* Save the statically-placed regions in the reserved_mem array */
->> -	fdt_scan_reserved_mem_late();
->> +	/* Attempt dynamic allocation of a new reserved_mem array */
->> +	if (fdt && alloc_reserved_mem_array()) {
->> +		/* Save the statically-placed regions in the reserved_mem array */
->> +		fdt_scan_reserved_mem_late();
-> 
-> Can we make this just:
-> 
-> alloc_reserved_mem_array();
-> fdt_scan_reserved_mem_late();
-> 
-> We already check !fdt in fdt_scan_reserved_mem_late().
+ .../bindings/clock/xlnx,clocking-wizard.yaml  |  50 ++++-
+ drivers/clk/xilinx/clk-xlnx-clock-wizard.c    | 181 ++++++++++++++++--
+ 2 files changed, 205 insertions(+), 26 deletions(-)
 
-Thanks for you review, Rob.
-
-The reason I kept the fdt check is that total_reserved_mem_cnt is wrong
-when fdt is NULL, early_init_fdt_scan_reserved_mem() returns early in
-that case, so fdt_scan_reserved_mem() never runs, and
-total_reserved_mem_cnt stays at MAX_RESERVED_REGIONS. Calling
-alloc_reserved_mem_array() unconditionally would allocate unnecessarily
-memory.
-
-A better fix might be to make total_reserved_mem_cnt always correct, add
-a !fdt check at the top of fdt_scan_reserved_mem() that sets
-total_reserved_mem_cnt to 0, and let early_init_fdt_scan_reserved_mem()
-call it even when initial_boot_params is NULL. Then
-alloc_reserved_mem_array() could naturally skip allcation when that
-count is 0, and we can drop the outer fdt guard.
-
-
-There is still separate UAF issue (fixed in patch3) if we don't check
-the return value of alloc_reserved_mem_array().
-
-
-With the fdt_scan_reserved_mem() fix for total_reserved_mem_cnt, the
-call site in unflatten_device_tree() becomes:
-
-if (alloc_reserved_mem_array()) {
-        fdt_scan_reserved_mem_late();
-}
-
-How does that sound?
-
-
-Best regards,
-Wandun
-
-> 
-> Rob
+-- 
+2.34.1
 
