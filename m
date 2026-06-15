@@ -1,62 +1,64 @@
 Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3F0309DB1
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:48:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B96134214A
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:48:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781520532; cv=none; b=KavYQ5BWmIaR8veYJe35r77m7kMJ1B0AMZzrGBhH1YWNeHJ7dDktsYQmATwnLAjZOyEoElUKB/bFac2IWZmImkxJKzwy5YMlBVGoe5C/V2Mefc63E7aI9hSfc/UcAEHMRJs1oVwfi1oc4sD2352ROkiuRO+KXvd3QBn/1J2HJnA=
+	t=1781520533; cv=none; b=SJZ9oLd+cSg6Z8r3YVGsyrK3b4bsUGhzw5mIk/qr8rpfb9QdkvLd01cMU1LO+9Deeg2wBJmZk1dRRxP7uUvChM0G59cAB0nkCy8ugRZbEc9brX17n7e/Z11tcxk0bG/Yia+g5LRmr1II/Q5b99xpXESqTZ352Qj0bfdG0LwbYNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781520532; c=relaxed/simple;
-	bh=7HEj4WEED0R5EEGbwYYG+JQUNMtKiAap8Cf8DhjhpFI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nfbpm4CA0jaojgLQUvV5VTDSdhmHhpN6GMk5Oyih5Da3afWy3/LHd3sRW7B7PNShloJRXF5BK2WM9QZX8D05QBLL4i0OxDY/jkSNlVOFfI8zQNghx/aM07Uur4y1Nj6v4zR6VhOnHsQl9+NTWUbuBKvSCI8ddO1api6f9vMpj9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jbJQi97Z; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1781520533; c=relaxed/simple;
+	bh=YGpbOnzNFHtccs1nsI/f3ODNgK61VFnWrTpbiSn+Gyo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YKQ4Tnxlm1eE1ht4COtSqXMDdCyrDYaBRI/09udeNUBF3aLzNclB6SR0uAG5KpCjG8AISoiM/HgCRt8MpA2G2DwbmeQhCsAo7hBMBTDN0BXGgD8rly8WxQUkGxkPDWP8q3zQ2qBzIBLEsYYsV3f8s7TyqLhg2lP9eU7jLsRMtyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B8bsWJig; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jbJQi97Z"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b613a17bso28325075e9.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:48:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B8bsWJig"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso30820155e9.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781520529; x=1782125329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7w9hPguA1bshK09M+ZUaGXEUslA7wzRau8OxxMknDPw=;
-        b=jbJQi97Z/wF8cdoApZulzSOAU4gKSLTpGWYc1bShnxlsv5zvratsuz7CAYsJRjxkkR
-         aljX8iHBJGBAPov9ITFwn9UqJoMhvrlSkxY7pj7CZB7vusgwErt+UX3FJMCChUsXJyQ4
-         ISJbna554hm66Kp8ta/njguHbloYRfko2Ujz4t76lGlXVV+zLihIICNNeOE12+xzrs/N
-         mplDga3nhzPhkcbvbu2kfCVQbRGt8be8YTUS0LGfy6VvO0sfJWCb/BIed4zBedbYEvsD
-         HdjXkrICWxUxIzkSSX5uLT4xgIlXCK05dMYx6fU1hsfVNmJxwKQ0je9mRbzo1UVR0hZM
-         Ljxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781520529; x=1782125329;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781520530; x=1782125330; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7w9hPguA1bshK09M+ZUaGXEUslA7wzRau8OxxMknDPw=;
-        b=EL1nsgr/ogXAfgX+nZX0yME/5Wz+nJaS0ea9Iv+p2FRtX+bJ7W0SeRub2iyX6z+kwV
-         Ydivxj/qH6bH1jNo9CvmHU7n+A/99MGRRF3RVxA/IWEPpyi9MpLwq1sk7s+CtmgPpCan
-         9zJxYNClZHiWRZfg/VhBEPWYy+VSJ4OGUj5gqAImr/1akjfMA9i7XVA6NyQFqYvPfxBE
-         j92/YzcRFddoAZIddgOAFjOSlq398FuCwfP+z0pQHoWEEfokh7E+4qoV7kaDoNSwwiYr
-         5qnbpxSkTwQ5GxYQoQqsVdgPqMQOUp3YOmnSMSnLNueRjt85hKskAeuAgU8zePWE+2zJ
-         kdvQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8GhTBgDJkqHpmAc8G8YBrKF5WpmDbBN47R2N9+1Yudt6nWM6QSwb0UIG2zmPE1K8ZinRdQdE2Grda/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzW1L3ZYKqWJ5YEmBIA6Uh0+S3ZLBzcJeyxqdJb8Z2QuDx1sXyW
-	MGAE0R0TE7kGi7eyMD7WRcxpznXSoZItRThai4gDAQzrn9dbwGc3YoOn
-X-Gm-Gg: Acq92OHjTGRZ3UEqSsb3+l4dnVP7SPYqsmiWGf/3k6GLL6F8D5F1pPE5FMkcAN6VoTW
-	FtDDxBcOCEkXBMcteaiXCv/a7kJOJvgIoeBmTOe0w0tv7XQsUhOBqPv7EHRjSDHeBxwDUJilLvB
-	PkaRkpxZxPCsKyeWzGqqQiscYuL6DPzuWggwOzCoZD0u0wph3VRNaNiDc7vNYsEGIqaVwtatTb9
-	VM0OYba6Xt7vG/dV55KDPhtRZ2+Hcq8JRRpL4kzMZkdbvxu0b4fdT3K/OmpHGoM430nPHeRDhK/
-	9eWrwXeH897wnHLAKxnaqgWbnjMLVfT4a9AFRhNG5R5dz7o+rW1iWUAX67P+GTJ+pXvOeaTA8pY
-	6XbMVSJ2K1O8Csn+HMoSjdT/HS5ExdgMId6qBx9bSuqRM4lzGTtvuWj2VvpqqN/u5kPTBiD7A5m
-	hiqreUzYVjk+yDgrasKiPxci/8irlFp8aL5aO+EXqDNIniWlwmggQhDe0ditcVvEsY3/qrlvoZW
-	MTkwTXj4XhAPoepZbP6kEeZWf2DFDpzJqbMmpq/PH9mpPw=
-X-Received: by 2002:a05:600c:820c:b0:490:e913:6564 with SMTP id 5b1f17b1804b1-490ec4cc6d8mr177591485e9.3.1781520528560;
-        Mon, 15 Jun 2026 03:48:48 -0700 (PDT)
+        bh=XLeDqFqDa9KpNOsyOXrLj3mdC+7gkZq+DBsY04Jn0Wo=;
+        b=B8bsWJigtpLPwqRo2K2q9YHVka2iRo4qpphaaV/J8FJodYlKvU65Yawi0xRW+G3mlZ
+         jbhDDUI+y23rnn5jILa5d4EniLtryAIjXbgZKmUQhZ5lPjOg/X6INvdOWYXAUjLF3iKO
+         7pidSZ3I8YhLlBASXzarrPRub1jro4l3R04VbHu6kEKMZC28VbC0d8nlLVZB5F5M/7M7
+         RVv3FnMFKWcYdzgI17zcIH4dyqeu1LBEds1gRtArcX7OA8QNNkBCW759PcQKyx7zRm4I
+         rlhrBIdnnC5qeKSM+ZOgXYVeK8j/J6TOtm5RGu5GuMsMuLTnrpMWPxn2+f/+QoGrCu6Z
+         z1oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781520530; x=1782125330;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XLeDqFqDa9KpNOsyOXrLj3mdC+7gkZq+DBsY04Jn0Wo=;
+        b=eUVdCnROIahTXTCIBAjs6IUR70N+1Rr9YB0dQeYFUGtYEU4SquLF6j8EaI8QIoHSIW
+         DOkz4IuuYULxF673cAYOsXKKFJzgrWX2ODRRQw2RG5MTkDSfv8LV2rqvAYnO+qpKLw9+
+         umCt+E/xo+gj/oy8cl/9KLGUhBjtqiL79H3CnA5gDyJ0S9pl64hOfH+CVa1PnHRUB20W
+         8A7d4qvAQrqJC3ts3IIvqg/Nfja6uhJ+SVTkZxy2UVfEyZJyg2E8vZXnEOw7grT/lkiG
+         F/AqLlLU/je+P74zNNAvjjfHKMLl27qMbd1DBHcKh+5PW4GdsUEcnB6LgYcG/hKZ5jTs
+         B7dA==
+X-Forwarded-Encrypted: i=1; AFNElJ8MJ7vb18WwZiovp7GnW4NP5ELpfpmYLFvKe027kVMKu806A7+irTvXztWeBFKMIxQpe+ZkbpRjhjY2@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLYJ5vaogQBIbt0Y4M7e0kxjh7BtkpelnpKVzuN2gAkIra6Isi
+	ggjc+9r5FHVJIhsOihPtNeWijFBfEHrGSGTOzh1bto4YMZe/GGAbmAN6
+X-Gm-Gg: Acq92OF0W7Or0QhnzexYBEShVtVVpeMIVAHgA17H30+2wxZ1gYCc3IoLgkePKC8NFCG
+	8wCNktLBiVBpU2F9WZsf2i22bFYiI5pl4ybvS70x7FriYeE4PkqXgoBLxSkW5Eusn0SgHIrNgem
+	yLT1KYU00Bu0r1etUsEZqiGV+GZvQrAd0Rr4J8b46SmcbydLNPRGgRaasRxMBrVzjHq0e2150Yp
+	jfOU2Afqs45VJMz+XsJ6kwIYX8byDUXSj4jHc+1HV1wo9ICvP9RgGTWQXPviQx+c2dIxtExfemz
+	QyZTW+8VZB+SFIZPWR7By6oPd4xAwzwhIMgI8jJhtG7zkIklr9My2jufQsksSmywEB0KtY6iH35
+	hJ0obypqcAs6SHYqicVm1chmf+pQae5Y4nCkeupgcuzcPb5hYKAzYRt1ncCuoM+C5BeLccZfbzL
+	C9mCwM0QgBl6EldrY4aPIsUtX3+mAaXuR/sy+M6B4Y7AApjvo0HTuhpAdKxr3o3IJPnRni1DjMr
+	Jy1Uhvkd3nynXXyrV3FSeS1PsPgzUtKL7Gn
+X-Received: by 2002:a05:6000:2586:b0:460:684d:d565 with SMTP id ffacd0b85a97d-4606f255ab8mr16011008f8f.15.1781520530262;
+        Mon, 15 Jun 2026 03:48:50 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:1e4:992f:3ad2:4f2b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f1cdsm34812464f8f.11.2026.06.15.03.48.47
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f1cdsm34812464f8f.11.2026.06.15.03.48.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 03:48:48 -0700 (PDT)
+        Mon, 15 Jun 2026 03:48:49 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -75,10 +77,12 @@ Cc: linux-kernel@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v3 0/5] Add PLL3 and LCDC_CLKD support for RZ/T2H and RZ/N2H
-Date: Mon, 15 Jun 2026 11:48:40 +0100
-Message-ID: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v3 2/5] clk: renesas: cpg-mssr: Implement dedicated MSTP delay logic for RZ/T2H LCDC and RTC
+Date: Mon, 15 Jun 2026 11:48:42 +0100
+Message-ID: <20260615104845.4122868-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,64 +93,80 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Introduce a dedicated clock delay mechanism, cpg_rzt2h_mstp_delay(), to
+satisfy the module-stop (MSTP) state release requirements specified in
+the RZ/T2H hardware manual.
 
-This series adds support for the PLL3 and LCDC_CLKD clocks on Renesas
-RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs. These clocks are essential
-for the display pipeline, specifically feeding the LCD controller.
+Per the hardware manual, while a standard 10 us delay (satisfying 7 dummy
+reads) is sufficient for most IP blocks, the LCDC requires 100 dummy reads
+(142 us) and the RTC requires 300 dummy reads (428 us) to stabilize after
+being released from a module-stop state.
 
-Key Changes:
-  - PLL Reference Flexibility in  the RZ/V2H(P) CPG driver
-  - MSTP Dummy-Read Mechanism
-  - LCDC implementation in the RZ/T2H CPG driver.
+Implement a conditional bitmask filter helper that switches wait
+intervals based on the packaged module clock index. In
+cpg_mstp_clock_endisable(), the clock index and individual target bits are
+known, allowing an exact match. In the resume path cpg_mssr_resume_noirq(),
+where individual bits are not tracked, pass a fallback register index base
+(`reg * 32`) with bit verification masked out to match on the peripheral's
+register group block instead.
 
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
 v2->v3:
-- Added export.h include in rzv2h-cpg-lib.c.
-- In r9a09g077_cpg_lcdc_div_determine_rate() made use of 
-  clk_hw_get_parent_by_index() to ensure we retrieve pll3 as the parent.
+- No change
 
 v1->v2:
-https://lore.kernel.org/all/20260609105924.962573-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-- Dropped RZ_V2H_OSC_CLK_IN_MEGA macro in favor of direct use of the
-  input_fref field with a fallback.
-- Updated the doc to specify the default value of input_freq when it is 0.
-- Updated commit message for patch 1 and 2 to reflect the new approach.
-- Dropped using table based approach in favor of direct conditional checks
-  on the clock index.
-- Added Acked-by and Reviewed-by tags
-- Added new patch#4
-- Switched to use the new library
-- Kconfig now selects CLK_RZV2H_CPG_LIB
-- Renamed CPG_PLLEN to CPG_PLL_EN_EN
-- Renamed LCDCDIV to LCDC_CLKD
-- Changed ctr0/1 in r9a09g077_cpg_pll3_clk_recalc_rate() to use u32
+- Dropped using table based approach in favor of direct conditional checks on the clock index.
+- Updated commit message to reflect the new approach.
+---
+ drivers/clk/renesas/renesas-cpg-mssr.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-v1: https://lore.kernel.org/all/20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-Lad Prabhakar (5):
-  clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for
-    calculations
-  clk: renesas: cpg-mssr: Implement dedicated MSTP delay logic for
-    RZ/T2H LCDC and RTC
-  dt-bindings: clock: renesas,r9a09g077/87: Add LCDC_CLKD clock ID
-  clk: renesas: rzv2h-cpg: Extract PLL calculation math into a library
-  clk: renesas: r9a09g077: Add LCDC and PLL3 clock support for RZ/T2H
-    display pipeline
-
- drivers/clk/renesas/Kconfig                   |   6 +
- drivers/clk/renesas/Makefile                  |   1 +
- drivers/clk/renesas/r9a09g077-cpg.c           | 373 +++++++++++++++++-
- drivers/clk/renesas/renesas-cpg-mssr.c        |  20 +-
- drivers/clk/renesas/rzv2h-cpg-lib.c           | 217 ++++++++++
- drivers/clk/renesas/rzv2h-cpg.c               | 186 +--------
- .../clock/renesas,r9a09g077-cpg-mssr.h        |   1 +
- .../clock/renesas,r9a09g087-cpg-mssr.h        |   1 +
- include/linux/clk/renesas.h                   |  28 ++
- 9 files changed, 650 insertions(+), 183 deletions(-)
- create mode 100644 drivers/clk/renesas/rzv2h-cpg-lib.c
-
+diff --git a/drivers/clk/renesas/renesas-cpg-mssr.c b/drivers/clk/renesas/renesas-cpg-mssr.c
+index 5b84cbee030b..4ed056b18d31 100644
+--- a/drivers/clk/renesas/renesas-cpg-mssr.c
++++ b/drivers/clk/renesas/renesas-cpg-mssr.c
+@@ -253,6 +253,22 @@ static void cpg_rzt2h_mstp_write(struct cpg_mssr_priv *priv, u16 offset, u32 val
+ 	writel(value, base + RZT2H_MSTPCR_OFFSET(offset));
+ }
+ 
++static void cpg_rzt2h_mstp_delay(u32 idx, bool bit_valid)
++{
++	unsigned int mask = bit_valid ? GENMASK(31, 0) : GENMASK(31, 5);
++
++	if (idx == (MOD_CLK_PACK(1204) & mask)) {
++		/* LCDC needs 100 dummy reads, or 142us */
++		udelay(142);
++	} else if (idx == (MOD_CLK_PACK(605) & mask)) {
++		/* RTC needs 300 dummy reads, or 428us */
++		udelay(428);
++	} else {
++		/* default 7 dummy reads, or 10us */
++		udelay(10);
++	}
++}
++
+ static int cpg_mstp_clock_endisable(struct clk_hw *hw, bool enable)
+ {
+ 	struct mstp_clock *clock = to_mstp_clock(hw);
+@@ -312,7 +328,7 @@ static int cpg_mstp_clock_endisable(struct clk_hw *hw, bool enable)
+ 		 * register, we simply add a delay after the read operation.
+ 		 */
+ 		cpg_rzt2h_mstp_read(priv, priv->control_regs[reg]);
+-		udelay(10);
++		cpg_rzt2h_mstp_delay(clock->index, true);
+ 		return 0;
+ 	}
+ 
+@@ -1142,7 +1158,7 @@ static int cpg_mssr_resume_noirq(struct device *dev)
+ 			cpg_rzt2h_mstp_write(priv, priv->control_regs[reg], newval);
+ 			/* See cpg_mstp_clock_endisable() on why this is necessary. */
+ 			cpg_rzt2h_mstp_read(priv, priv->control_regs[reg]);
+-			udelay(10);
++			cpg_rzt2h_mstp_delay(reg * 32, false);
+ 			continue;
+ 		} else
+ 			writel(newval, priv->pub.base0 + priv->control_regs[reg]);
 -- 
 2.54.0
 
