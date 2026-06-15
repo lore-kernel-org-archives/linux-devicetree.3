@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B112EEE68;
-	Mon, 15 Jun 2026 21:02:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917142EEE68;
+	Mon, 15 Jun 2026 21:02:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781557323; cv=none; b=iVf2YdFOi/5oFDYtTwioSle/AP6E8Srl80K8xHmZb7x+ScGOCoWkOOK0kp7vIb2tLYNjfUyVIUGYHMwCPkKQ5SrGvsEJisjXFnZXYbqIlanmXSx7FxkIvrAIO9RS148RAIN1HcQS+wIFrsnOFiE7Dk8vgTgrjxqJT30yl7nOemU=
+	t=1781557332; cv=none; b=aAoV7MyVY82ijMVHaWXc5n1Ixt7efxA735DN+aoS0ZyjwVSIRtnkD8I4B0gDfjPt97bdC2J9w+2tBbJgb8YKC+jhWKl3wK98EHB5pziAfbPN27WP0qyudX1OIIkevKFxiEAAIIxcr1O6YR7j4JXPNB8JM2rJUfSK1Zpy8dOipa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781557323; c=relaxed/simple;
-	bh=QZw37cA5aQdC8S64W8vZ0f57k9jrcFVFXLwCGyygj2Y=;
+	s=arc-20240116; t=1781557332; c=relaxed/simple;
+	bh=OlePNWR5/1nGdD1RedQ2sy3wF3TMZnM2NoOj6fHCCeM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LOK0NxCO0/QhTzTNCvYbL+kTxonKcjdgNma29LZ5AIvKgP9tuEIk6tcOxGuKT0C33p9iunFyNM1UWJYYhfQLosZ/vn4fdzVul1TKibuCQigIh53dpOPscMaeYTBHczTxlttYNMJENGxuxiv03Lntl6kH7d9RRnWbmjle2pxIrFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hv5/iCCm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rNTNTKkcbGSETqxsiX8lTXFmsdNoFVgsnEn/vg53hP7OHwM/ihdfkIPICtv41e37edbTDU3oh6gswPfAECRpJ4ss8Ks6oZ5Vn4XOPugDWAebX9LJ7wFaRl6uCH8Ws4QRn4bhCsGyQqrIb2ogm8PJQQtLoKx/JzZ2KoQMWmaQ6aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqaphBUY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hv5/iCCm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310D71F000E9;
-	Mon, 15 Jun 2026 21:02:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqaphBUY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0172A1F000E9;
+	Mon, 15 Jun 2026 21:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781557322;
-	bh=DdygmByCDmh91zxCbmb+NyTdMRmdD4F6g3LqLyz6S+k=;
+	s=k20260515; t=1781557331;
+	bh=xEKp2DSh6Cy/POePnOFuqOBvNOmMnmN3Jyldv9mhR4Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hv5/iCCmeYJIyoPUhr8t5Sy/qfi6oGh8oN1xxfb1ecdF32sW+kJEVAqVpDxQDUiQA
-	 oJIxXI/LuI8avDsTkjf0KPubp/HkfKTd3x+9Fp6YYyhHdDexqw2INy6HS7+zOnD05Y
-	 yUIDVZ5NkDBzR5p6f5UisvxSKJPXWYy8x2YL/IScCa2WjC0A+YMkeFlCGsnMsgWOhB
-	 KjgYBG8TJPM08OrGGK7eJB4UyV580cr8o7qMMYVFXlB3rIEyHHjYTlBCIzScKECnaS
-	 hCCH6L58wxz6Are7y5pQ2YVlKTskBG6PaQLOyYBTerUXzyF3FXLDme4EN50ym3cD4S
-	 L44DyPzir7GBw==
-Date: Mon, 15 Jun 2026 16:01:55 -0500
+	b=FqaphBUYz3K7XXL6pM9rWyHbso93NkFRu3wMlhIh4dQ8dIr1WAB9JWPMGswSSEl7V
+	 kW4h2Z7mslIo6TVKn1XGV4Ap8SNtXCGkX4YgC05y2A+0DQH+pmN4MT7z0pqMzPNvRm
+	 inM170kpZPZ9DeXxtSgEPiECnL+CUEUFe63CVl0RbKu3pBrxFL1HOZcMlUefQCsWPM
+	 boNGEJ/eHkUOIgQ0vFkWoeIY/ElIfq0ZZQxC9QthI1iBblwO89XN8LI2hqUOl7MrAD
+	 Yhkfa/ut2KQHlZ84Aab3hUbOnOG8PrJy0kzlTMBDnoZvxO9XA8oqpds4GDsLVcRisJ
+	 LhMRSluURMY7g==
+Date: Mon, 15 Jun 2026 16:02:10 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: simona.toaca@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	m-chawdhry@ti.com, daniel.baluta@gmail.com,
-	Thomas Gleixner <tglx@kernel.org>, Sricharan R <r.sricharan@ti.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>, goledhruva@gmail.com
-Subject: Re: [PATCH v3] dt-bindings: interrupt-controller: ti,irq-crossbar:
- Convert to DT schema
-Message-ID: <178154975475.1640860.7016352484406221018.robh@kernel.org>
-References: <20260612-crossbar-v3-1-266747bc2e86@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] dt-bindings: pinctrl: qcom,pmic-gpio: Add Qualcomm
+ PMK7750
+Message-ID: <178155731026.1668856.13949680393199336333.robh@kernel.org>
+References: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,32 +48,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260612-crossbar-v3-1-266747bc2e86@gmail.com>
+In-Reply-To: <20260612090426.23403-2-krzysztof.kozlowski@oss.qualcomm.com>
 
 
-On Fri, 12 Jun 2026 02:42:29 +0530, Bhargav Joshi wrote:
-> Convert TI irq-crossbar binding from text format to DT schema.
+On Fri, 12 Jun 2026 11:04:27 +0200, Krzysztof Kozlowski wrote:
+> Document Qualcomm PMK7750 GPIO used with Eliza SoC.  PMIC is almost the
+> same as PMK8550, thus compatible with it.
 > 
-> As part of conversion following changes are made:
->  - Add '#interrupt-cells' as a required property which was missing in
->    text binding
->  - As irq-crossbar is interrupt-controller. Move binding from
->    bindings/arm/omap to bindings/interrupt-controller
+> Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 > ---
+> 
 > Changes in v3:
-> - Fixed typo in property description
-> - Link to v2: https://lore.kernel.org/r/20260611-crossbar-v2-1-231d4f88298e@gmail.com
+> 1. Drop stale pmk7750 from main enum lisrt (the big one) - leftover of
+>    previous version
 > 
 > Changes in v2:
-> - Dropped property name change and driver updates.
-> - Link to v1: https://lore.kernel.org/r/20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com
+> 1. Add fallback compatible.
 > ---
->  .../devicetree/bindings/arm/omap/crossbar.txt      | 55 -------------
->  .../interrupt-controller/ti,irq-crossbar.yaml      | 96 ++++++++++++++++++++++
->  2 files changed, 96 insertions(+), 55 deletions(-)
+>  .../bindings/pinctrl/qcom,pmic-gpio.yaml      | 151 +++++++++---------
+>  1 file changed, 78 insertions(+), 73 deletions(-)
 > 
 
-Applied, thanks!
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
