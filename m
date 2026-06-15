@@ -1,278 +1,152 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF89D3DA5B5;
-	Mon, 15 Jun 2026 09:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781515797; cv=fail; b=YxCrrSFwx5CVyIc60xocGwVzBZkou/QbcOarhZw1XnlvvGkDdy9bk5F42ABnk9QG2VIUHuZOgoMXdCKxBa02xnO5YiBqfU3kFenTVOR0zhox6GP+7+KDataV1g5i/ChUJH3A9FeM2/QIVWNxxW6LKjo71iYPQGfWaH/+SV5OlY0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781515797; c=relaxed/simple;
-	bh=GqVlSFGJcIEbwKj5ktMi4YASaL6Dus3Qx8hvKuGIhQg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=hwHn7IpFbZE5sJgkXXQFBxjh1ayUXkZsqFozks25P67iJTAXKcnmDHhgs9nb3Lsp5YZrRNtUs+yKmFFD0aasfX4NwlyKRFjunje6pITbi92jr4Xpk1BPbRRS0+JlqhiCG8lxbirEr43oDr9a7pMFd2TB7BlxtT6NWYPcKo3l518=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=v74CveI0; arc=fail smtp.client-ip=52.101.62.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="v74CveI0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JWc0nClJGqfu33MoBQENd+vCWgyJd3xEa4+56cl9oZrWV1zHK4LWMtWcekmAjS0toC+MpZjEM/+tIo+hGsJwzuAm0mvaHoyVFwdGbT0Q6drRrapiFXBOmFT8R3OVgtmEKDOEzQypNCLYj4/pMWGs4uDBib+oVHEdm0MUX4KWleALIQBNY590tDUP7q8IP4V6uRwOSML1B4UNH4BLgh+fSp2eF6wr2RTzLy09g3R2uo4JQRjWCWUY684VnG85jQkOswMVeJvBlZWlS1Cpn2+1wNgmK4oB6k7PLa7+r/FUrwWnL7ajLQlVgTvWpHH9XZJJP6HAS2cDyEVTODouJnTsKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t29QSM+WLjSDuS+TqD4z1sLdHXZaqgdOjllJX/8bDXA=;
- b=dqHxaK8fgt7KYiwgMNQpirwN2D3A4feL/M2jEh9iKqTTdyNFZ1kZd/URydQ8iXEjbwf7/Udzj+MVcJMufdotVlt759loeohkwFU0e7hYRL8GvagV+hNJkrSK1AJxuwf+ABjq1PeM1RfJyGoAiYPInr9FcLJJiZakpRo/k0yuuqaQ330nGnaYD0xmD55gbp3Owl00ITfF7hAz5EkNUOrGfWfjQBXlsF0ei+ZUAk/gmzTNeTLvgbdrltJx7YzbZwNSS9ERcvf+psENazx10eZd3TaX97Argb4RLy+aelLQEjd7qq0kN/Jselv8vpK9y2NBG8mFokrumZPoZyhpft5l5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t29QSM+WLjSDuS+TqD4z1sLdHXZaqgdOjllJX/8bDXA=;
- b=v74CveI0flgUrOgxqRpTEVEhs27xrQb1ujT9lXSocJ+Mh+sv2WfTnGbrBBXryTrgI9Teufaq7+L7flLM4EJBRLgU8j6ILWJDKp4hRVDSWT25FIKdG7i6JnIvoHljfzyeRL8/3dGetCsNJB7itppAuybyFcaWeeawwYL0xQe7XMo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
- by SJ0PR12MB7458.namprd12.prod.outlook.com (2603:10b6:a03:48d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 09:29:52 +0000
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f%3]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 09:29:52 +0000
-Message-ID: <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
-Date: Mon, 15 Jun 2026 14:59:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset support
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org,
- Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org
-References: <20260525105042.2249542-3-nagendra.golla@amd.com>
- <20260525113349.68D6E1F00A3D@smtp.kernel.org>
-Content-Language: en-US
-From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-In-Reply-To: <20260525113349.68D6E1F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2P287CA0014.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:21b::8) To DS4PR12MB999075.namprd12.prod.outlook.com
- (2603:10b6:8:2fc::20)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8881B3DA7FB
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781515821; cv=none; b=VJGD43uDwDNYOpvBKRLmw1col77r4ul2i203pTjhazHFq0xCRMXX7KBHc3Jf12RaGZ4Nt9imUjXWwu/B6dbETcT7c1oYUzSGVxwJTKT+ytq7O6ZksAZSx8vTxOIQrOtDfOdtq+ZTNMcCSzPUor8Oer/Ca0Gdy46yNoT5YEfnvGg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781515821; c=relaxed/simple;
+	bh=cokh81Cx7W15QrHxXBRjalQp7kxTMzsuksUx0kqLiGU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IsozHZNJPuE+eXJqBAresnvQfoy+25E3IG8cKiO+M93RhfQzgUaZwypTKt1KMbmD589nJUibVDNuzz1KyR/407Pv9yUdhU2A9QXOxFBr44W4AAxjn2Gyn7Isn+draJnDOvr8neEWr+4TgXm62QeUc9ObBVHkj2KYb3sHCXwbFBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5175eab3a93so25724241cf.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:30:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781515818; x=1782120618;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ekHktY4/Tubvm6BgE1BfS1UNgz1F/icrKZN3pNx8f0Y=;
+        b=J3DFUk7fw4o/k9XqjMqSbd/09fvGHRw6YEtv6NHSRc7tCzjK93TtWuYwWPrRbSN6Om
+         ZC+g65os8jQgSCxgerihyOwvgoSja5Mjzd2D6AibDDE0/7UIJB7eFpWdyChtf/pGHiUQ
+         npwBQqHsbnvXTTMR6O9sbFJKyjC3KnhMq4Mi0kujEhC8k0HMXDKvpBm2KT+mJqz4xFsj
+         2V6QXXTZuBw65fo33GPh5YtJYy6HdZjhgCXGc+k3OPYlAAA6c4NxKMJOvhlmPqlcfDb/
+         b60IX9U9coFFDhadPcDcj1+0Eh3ZlKnal2ZZk0gdTk0vhaMqMIypBpKEXzXZiR904NBD
+         5CeA==
+X-Forwarded-Encrypted: i=1; AFNElJ9aA10WwwNa/22noWACnDzdRr+ekgh2ryIX67vy8o3LSL6gOB7RfgtsNuM3Tp5HU5K5EzReU/WcopIB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyldiIf4sqHQjfsY77Bev39491Ioae5EUd2ryxQ4Tj+Dcif2H9f
+	k7krXGxO/AiA7HYYwC5L7BvTdioAoZ4y3dxeWE8mZdFn74OUpj2lorJ8ITRvjjhD
+X-Gm-Gg: Acq92OGiia5W9Mf3uPnyDYbf7cNE0Pq1J2XOoJsEopCCLqNUMFvY4kmJfSVQFIkUvrj
+	3b/KHD7nM2Rh6su9dx6Kvqn2NfslQSDKA1PYt+8hUCsN/L5R2Udb39Wm+NlW1mUdIh0LWtFmCFs
+	onQIMQ3RWxkeK9AozWIy6uSAx44Lx5pnsdpJ8yzkasGptYccfqnmMWKl3MBN/Pe+GPQXC+2+7Vb
+	EyNEDt43hiKrVkLiKowBCm+6UAaOW/k1WQoOtPwJ7FJgH5qEcLVUQ5dsCcnZbcWyz8coidX1RjD
+	D9w9HQmbj7SBxFp1MZGHWfFFFSi/gWLSseBx0GD1G6aHv22J5dIfNGbH4iqwEhmG9Ts78ZlXDde
+	wviZ5f5Eqh7Ev+100oM9cWiKb6ff6C1eKuJb4SaaX/T6qqlYe1OhhjM+OrUhE6t8KIYnNcqi5iB
+	QUc4XX0sN/Zzq+RjOeRVBXa9lbaprmyEzhNTN82Safad+L6F8b7I4eLMC6awQKfl8O
+X-Received: by 2002:a05:622a:894a:b0:517:8aa7:4aaa with SMTP id d75a77b69052e-51953552d55mr112568001cf.39.1781515818080;
+        Mon, 15 Jun 2026 02:30:18 -0700 (PDT)
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com. [209.85.222.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb6442d8sm102109261cf.11.2026.06.15.02.30.17
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 02:30:17 -0700 (PDT)
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-915b5ce94c7so337732585a.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:30:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/y9cwvF5/KJUC5lUyFNgxzgl/iWbiSIcfgwNdCarExG0zPHUd3STO0GveGyI8LP+oTE3O5iZBc0/uu@vger.kernel.org
+X-Received: by 2002:a05:6102:32c4:b0:6c2:e290:cc69 with SMTP id
+ ada2fe7eead31-71f60e0fc5bmr5388435137.23.1781515508903; Mon, 15 Jun 2026
+ 02:25:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|SJ0PR12MB7458:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ca6aece-317b-45c6-b903-08decac0a71b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|56012099006|11063799006|5023799004|4143699003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	aInr9agrAXLyvekgtDZQiy4MxMkONSHOqKCGIb9F0YIWRDwngYN/GP4I9+SPrS4n+5tgGxGVvsf1XgPjzPjR9BcFMIb2y2fOylhJV1tf8jYmMESezsfuFo2j1GDYv2UCd4lw+4ajplNgfYQPjiVKR1iqQayf9+av/DIBP3hiVVlVC4rbdcIwlre9blEi1fUIBUUOoYxq6VCwlm+gKLqZWWiR5tX30UdMZo7QRbSkFGovDEL5QdaHgdErr/GGjZxEvD2ebZDDC3xt2zfOjIXpl1kTeVSAsJ5YoEKScx1//VE6c43fFuZjsH8Jjojgv9AOPZmhIJXFFRZflke/O9zCnB04rdLIYsCP/LAxu+w+twqfO9Ib/EPaI4oRUBSudWu/yxILWzMpMBxg/1giDZ7bD6GGsL61CgnI304HLBcTX0b8QpjXFOcH79iB7f/EgjQzT29IVyDxSbqDZwwikbU2D6Mnbhffit2qsiuUpgGjeQzdOq/6DOehko7TIf5rOFe/OHODYcTO7KJuEslziXh/HNadKynK2nY1aSq5eS+xDLVwunqUJgh0TtjihcNFU2FqsXzERo7+UEYNlZhXNmwCwWDFm/sMvrRN+ZqlOBIRNpe6HR0WuAEsWjTgJaQtlTXjs2t+d/PBxztBAK+WO7/qOIWMxPj0HdMcMMBWYw+W78MXKRCtuNsa6VY7bSd11Q56
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(5023799004)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dXpYbkZZTWFnZkRzazRadXBIeisvK1RZMEVKd2hSbXozSjU1WmhuU3p6MStk?=
- =?utf-8?B?TDBQTFhLMkZxMkI0dXlFdUduMHQxZFlWbUQySFdGZDJMeFNYU1ZiZjI0blAr?=
- =?utf-8?B?ZU13aUFIdHdLTXlUb0xwU216cEw0a3RzUUZnakd5R3dtdnFlYTRGOFNpVTNS?=
- =?utf-8?B?VzFVTUhUNXVoUHhYR1BDdVE2Q0Fnd2I0TGFUaXRPWFhCLzNDWlY4aXJLYTcx?=
- =?utf-8?B?TzNxN3lPcktXUy9sTzRwY1c5YmhObCtJdE1DdVFpRDJaNllEeDFkcWlQVnZE?=
- =?utf-8?B?S0VMUFZ2RHBIbXBIdWhlaDhCMmZhTk1TSFVneVZhT2I3cFlwWTJYRkRFT3Jq?=
- =?utf-8?B?WjlwMk9CSmk1bExlRUpta1ZWcmdoNmhEZG1IN2pMaXY1RDJLWkdmZXB4ME56?=
- =?utf-8?B?U09DYW5JT1ErRVNjNUJoT2VUeUk3NC81TXc1V3ByUEt5VEhKcHZNaGFkT21P?=
- =?utf-8?B?Ty9ORlU3NEVlTlk0Q0U3Tlgrd0dPOW9KMHNVKzd1QUlWU0htOElnWTdWWGxk?=
- =?utf-8?B?T0F3TURCMXhHUUdnWUxFVVEwUS9kbmNZTmduZ1MyRk4zOGtWaDRreEtpTjdX?=
- =?utf-8?B?a3hidEh0VUNnc2VUNVhxL2h3NkhPMU1naHA3NWtqSVpkcVBUeTc2WlJpRm5Y?=
- =?utf-8?B?WXkxUVd0b3l5bkN0aFhTYTRNKzRBNHo3bWR1NzMxM2dYZ3JHUWJ5eGlObWQ2?=
- =?utf-8?B?T3NiYmR4TzczK2ZmMCtjVjRPbmE4WHJhT0l5dDB6eFIraDBWQmZGWEFvSFpX?=
- =?utf-8?B?d1d1VDc4YXhYcEZnWnM2bWxDMmx1VHJrWThTTFVHS0Vidmh5MFpWa1BIUXlq?=
- =?utf-8?B?bklhYmxucE5lVjdJRzgydEE1R2lsZnBoVlFSTjRVZ01vNDR0VXR4a3cvbFo1?=
- =?utf-8?B?WUMxUXlyNWFqWjlyT21RaVhTb2hBTFIzOXlzcUpYS3hzUlhUVUV1T1R6SDFN?=
- =?utf-8?B?N1V5ZkJkSU0yOUl6QmJ3M0FHcDI3Yld6bWVQM3NqTnE5elc3UnFiSEdsMTkx?=
- =?utf-8?B?NXZnV0c2UHpHVk1hTXJ0TER5bjg0NVIwSi91NEZBL1l4UlhHcUlwUFYwRThq?=
- =?utf-8?B?NzVRMnh1cXZjTFhOandTYVlDR3p0Vy9VYXVSR2lPY1M2V0ZOWlB6SUZaTXNV?=
- =?utf-8?B?VjlVS3pwRCtHV1dZVjR2MU9SVFh5eCtneEZ2WTM5emg3Wk91cVBRRjROaGFx?=
- =?utf-8?B?Tjc0TDAzeWNpeTRjLzNtUmNQQUFhamJHaGpSY3ppY0lWbXlQYUVxM3dWUWJr?=
- =?utf-8?B?ejBxbGUvNGFFRzV5OFA4bHJWSFNFNG8wcnVXQndKaCtNbm5oSDBvWnVMU1lJ?=
- =?utf-8?B?c003bGhPeHg1eWJTQldWeU51L3ZTOUdHNENsWmxielFhWm1SMHdaTTUwVHJ5?=
- =?utf-8?B?QjM4UTZUdUQ2YUdUK2lOYXpwNnhWclkzeSsydjU4ZllZVzNyakNpME04YlQ5?=
- =?utf-8?B?SE4wc1JubE1ic1FCVUhFL21ZNzFIUXhjNngwZVZUOC9OVHF1RWswenk1b25j?=
- =?utf-8?B?U3FFdmRneVZmaEk3MHErbC9RL3lGa01BVG9lbUQ2WHdPT0dGU3FHUG56bUxK?=
- =?utf-8?B?WlZ1K0FvWjZhQ21sdUREY0FadUpPd3M2Zkl0TnFuRnRQL0FQYzJyRFVZTTUy?=
- =?utf-8?B?RFo5N0g2Y2Rac1MvNG1BUWZBNXFyUWRHbklLTzU1YjRIN1hsNkVHSlhTcnNr?=
- =?utf-8?B?cWZlSE5LUk0yaHdJcjVZZ0Rrb0VaVC9MYXF3RGd3akwxUU5pT2h2T1QrQjZn?=
- =?utf-8?B?Vnd2RUkrR1dqTDd5T0JYRk9jTndrRTQ5WmNKUDZmcTZMekFOTUVXMFB2Nm5x?=
- =?utf-8?B?YmZaQVhyQ2lPeTdFaGFnVEZJSEFaSzJnSGdHZ2FNQW9EcmtxWlhJU3VNUllv?=
- =?utf-8?B?MmxydFNoVHZDcnJBRjNUZ09KVHFiZjlDM1R6bFlVVDB1UE5sVTJkNmpOaThI?=
- =?utf-8?B?alZsQXo5cVROZE16ZmdrQjNCWm8rd3didnJvMnVtMTNzTGRNbTBHaFcyN0Zu?=
- =?utf-8?B?cHhURnh6bXdJb3JBb3kyVVM0TU0zRWcwcERwQW1uQ0RyWXloNTl5aTNNQ1hV?=
- =?utf-8?B?cCt3UE5SRkt3aXNHNlVTZ1lWUkhQbjZwUGc5ckdWNnZsaTlLTDdSWVJSZHBC?=
- =?utf-8?B?UERjNVFQMTlBcllyT3picmxpM3RpaFZXODRzRXpXRnlLV0RsakRGQ3hoMEFT?=
- =?utf-8?B?YnpCZWYxRlZLcGx2Vk1JaDVnQlh4bWdkbG5PalNLdTBOSkFreE9NbFR3eXlC?=
- =?utf-8?B?SjV1dHBFSXdoM0ZERTVRMjN0czFORjZjYW92cXBHY3ZhcDRiZmgrOFVGTStQ?=
- =?utf-8?B?YWZVUHlzKzZVWG9NUkdmQUhBUnluc1lmdVVxa3NQV3k3c3NzU012UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca6aece-317b-45c6-b903-08decac0a71b
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:29:52.2349
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +kA1FIHLbLnOKuc0XTogWjy4jml8sbzwVt5el1Rfkpos3V3cVWq+XoZ0CbZGGTLB+9Fuv9MFa+3/ZySCA99vAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7458
+References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com> <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+In-Reply-To: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 15 Jun 2026 11:24:57 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+X-Gm-Features: AVVi8Ceq73VEJddOjmb1j9jjrYgT5rbGI4-mYSdD7C_MYewqPqxZACymjTcgJ3U
+Message-ID: <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Tomi,
 
+On Mon, 15 Jun 2026 at 08:28, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>
+> The Renesas DSC Display Stream Compression is a bridge embedded in the
+> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> 8k or 400 Mpixel/s .
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> [tomi.valkeinen: fix the example]
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-On 5/25/2026 5:03 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] The probe error path leaks a runtime PM usage counter reference, permanently breaking runtime PM and leaving hardware clocks enabled.
-> - [High] Dropping the spinlock inside `list_for_each_entry_safe` allows concurrent modification of the list, leading to memory corruption.
-> - [High] Hardware registers are accessed in the IRQ handler without verifying if the device is active, risking a kernel panic on spurious interrupts.
-> --
-> 
-> commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
-> Author: Golla Nagendra <nagendra.golla@amd.com>
-> Subject: dmaengine: zynqmp_dma: Add per-channel reset support
-> 
-> This commit introduces per-channel reset support for Versal Gen 2 and
-> Versal Net SoCs. It adds reset handling in the channel probe path using
-> device_reset_optional() to trigger a reset pulse during initialization.
-> Platforms without per-channel reset are unaffected.
-> 
->> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
->> index f6a812e49ddca..51c831760372c 100644
->> --- a/drivers/dma/xilinx/zynqmp_dma.c
->> +++ b/drivers/dma/xilinx/zynqmp_dma.c
-> [ ... ]
->> @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
->>   	if (IS_ERR(chan->regs))
->>   		return PTR_ERR(chan->regs);
->>   
->> +	err = device_reset_optional(&pdev->dev);
->> +	if (err)
->> +		return dev_err_probe(&pdev->dev, err,
->> +				     "failed to reset channel\n");
->> +
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this error path leak a
-> runtime PM usage counter reference?
-> 
-> In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
-> the runtime PM usage counter and enable the device clocks. If a subsequent
-> initialization step fails, such as the newly added device_reset_optional()
-> returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
-> 
-> zynqmp_dma_probe()
->      ...
-> 	ret = pm_runtime_resume_and_get(zdev->dev);
->      ...
-> 	ret = zynqmp_dma_chan_probe(zdev, pdev);
-> 	if (ret) {
-> 		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
-> 		goto err_disable_pm;
-> 	}
->      ...
-> err_disable_pm:
-> 	if (!pm_runtime_enabled(zdev->dev))
-> 		zynqmp_dma_runtime_suspend(zdev->dev);
-> 	pm_runtime_disable(zdev->dev);
-> 	return ret;
-> 
-> Since the device is still runtime PM enabled, it skips
-> zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
-> pm_runtime_put_noidle().
-> 
-> Because -EPROBE_DEFER is a normal occurrence during boot, this path can
-> be hit multiple times. Will this permanently leave the usage counter above
-> zero, preventing the device from ever entering runtime suspend and leaving
-> its clocks enabled indefinitely?
-> 
->>   	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
->>   	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does dropping the spinlock inside
-> list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurrent
-> modification of the list, leading to memory corruption?
-> 
-> When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
-> the DMA callback:
-> 
-> zynqmp_dma_chan_desc_cleanup()
->      ...
-> 	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
->          ...
-> 		if (dmaengine_desc_callback_valid(&cb)) {
-> 			spin_unlock_irqrestore(&chan->lock, irqflags);
-> 			dmaengine_desc_callback_invoke(&cb, NULL);
-> 			spin_lock_irqsave(&chan->lock, irqflags);
-> 		}
-> 
-> A client driver can concurrently invoke dmaengine_terminate_sync(), which
-> calls zynqmp_dma_device_terminate_all() and executes
-> zynqmp_dma_free_descriptors(). This moves all remaining elements, including
-> the prefetched next pointer, from done_list to free_list.
-> 
-> When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
-> iterating using the corrupted next pointer that now resides in free_list,
-> eventually interpreting the list head &chan->free_list as a struct
-> zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
-> 
-> [Severity: High]
-> This is a pre-existing issue, but are hardware registers accessed in the
-> IRQ handler without verifying if the device is active, risking a kernel
-> panic on spurious interrupts?
+Thanks for the update!
 
-Hi,
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> @@ -0,0 +1,99 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R-Car DSC Display Stream Compression
+> +
+> +maintainers:
+> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +
+> +description: |
+> +  This binding describes the VESA DSC Display Stream Compression encoder
+> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - renesas,r8a779g0-dsc
+> +      - const: renesas,rcar-dsc
 
-Thanks for pointing this out.After reviewing the runtime PM guidelines 
-and the driver behavior, I believe this is not a strict requirement for 
-all IRQ handlers. The PM documentation does not mandate that 
-pm_runtime_get_if_active() must be used before every register access in 
-an ISR. It is mainly intended for cases where an interrupt can occur 
-while the device might be runtime-suspended, such as shared IRQ or 
-spurious interrupt scenarios.
+Please do not introduce new "renesas,rcar" fallback compatible values,
+unless you are adding new support for a hardware block that is present
+in SoCs belonging to multiple (nowadays I would say at least three)
+R-Car generations.  The DSC is only found in R-Car Gen4 SoCs, so
+"renesas,rcar-gen4-dsc" sounds more appropriate.
+However, so far R-Car V4H is the only R-Car Gen4 SoC that has a DSC.
+Even the very similar R-Car V4M does not seem to have it.
+R-Car X5H has DSC-functionality integrated in its DisplayPort TX
+controller, so that seems to be a different implementation?
+Hence that rules out any family-specific compatible value for now.
 
-In the case of the zynqmp DMA driver, the interrupt is generated only 
-when the hardware is active during a transfer, and the driver ensures 
-the device remains runtime-active while DMA operations are in progress. 
-Because of this, the ISR is not expected to run when the device is 
-suspended, and accessing registers directly should be safe.
+The rest of the (system/core) SoC integration LGTM.
 
-So, in this context, adding pm_runtime_get_if_active() in the IRQ 
-handler may not be necessary. That said, please let me know  if you see 
-a scenario where the interrupt could be triggered while the device is 
-runtime-suspended, and I can revisit accordingly.
+Gr{oetje,eeting}s,
 
-Thanks,
-Nagendra
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> 
-> The IRQ handler zynqmp_dma_irq_handler() directly reads the ISR and IMR
-> hardware registers:
-> 
-> zynqmp_dma_irq_handler()
->      ...
-> 	isr = readl(chan->regs + ZYNQMP_DMA_ISR);
-> 	imr = readl(chan->regs + ZYNQMP_DMA_IMR);
-> 
-> According to the Power Management Subsystem guidelines, IRQ handlers must
-> use pm_runtime_get_if_active() before accessing hardware registers.
-> 
-> Although this IRQ is not shared, spurious interrupts can still occur. If a
-> spurious interrupt fires while the device is in a suspended state with its
-> clocks disabled via zynqmp_dma_runtime_suspend(), could this unprotected
-> register read lead to a synchronous external abort and crash the kernel?
-> 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
