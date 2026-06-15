@@ -1,460 +1,278 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47823DA7D2
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF89D3DA5B5;
+	Mon, 15 Jun 2026 09:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781515724; cv=pass; b=mlA/ibYgwkUVWMJiq8UwWfiZox551BP2o8sUoy1uzsxY0qsQFC3M2jjt01jWzvztfOB1oVb4EIsXkgroTKLgGibN2p0t5+3UIp3fxT/bOcgsbbPFMcT381XQnpTIM2WVqk6msPSJ3qV9qtcst6aeaXp1B9D4c4DN2f9wScT+M+M=
+	t=1781515797; cv=fail; b=YxCrrSFwx5CVyIc60xocGwVzBZkou/QbcOarhZw1XnlvvGkDdy9bk5F42ABnk9QG2VIUHuZOgoMXdCKxBa02xnO5YiBqfU3kFenTVOR0zhox6GP+7+KDataV1g5i/ChUJH3A9FeM2/QIVWNxxW6LKjo71iYPQGfWaH/+SV5OlY0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781515724; c=relaxed/simple;
-	bh=BR4ukWXw930jyHa5ruidGUlGFCpRYZad0Pwt5fuelE8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VBgMNKwMX0R/ljcllj3ooO24BNZz5lXdjayzdtJ945JDoxydIurxlrhfBRazk3UcPTvSkzJnbT3v4ti789FIEH9//yl6QZ4ZjkIVGkZley61wMJzTM7k3+IBqcGwHO4yiD/hETv/S/ICJ8P2uRpo2OZJVNKjh/gZQOLiSqKzbpw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XOELhX8N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bsOawze6; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781515797; c=relaxed/simple;
+	bh=GqVlSFGJcIEbwKj5ktMi4YASaL6Dus3Qx8hvKuGIhQg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=hwHn7IpFbZE5sJgkXXQFBxjh1ayUXkZsqFozks25P67iJTAXKcnmDHhgs9nb3Lsp5YZrRNtUs+yKmFFD0aasfX4NwlyKRFjunje6pITbi92jr4Xpk1BPbRRS0+JlqhiCG8lxbirEr43oDr9a7pMFd2TB7BlxtT6NWYPcKo3l518=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=v74CveI0; arc=fail smtp.client-ip=52.101.62.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XOELhX8N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bsOawze6"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6K9t73692441
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:28:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cJ91cGOE3AFgPVR4MUNMTN4B9fXw/iUPFEgbOHjaEU0=; b=XOELhX8N1Bf4wA6b
-	/Z3rYd8zA/Ixlfqk0s+4bCGEbYt8m3l1ziZJJgwE4+po+R2W0exjvmC66UB/8yAK
-	i+0ZF9LYWYGvgwie398qzj85q6qFgFqfqx29wRnhdrwyFdYNagD6y5Duo6XAHt8V
-	m4tWLkBGfvBsCBUfvaRQKuh2GcLoZRG0dS0gAVHwGQbe2gMDwghQAdaCmz0gge25
-	IMdyAqpQjIZ46KDqY3aCW+UjmrCYv5DCpbuF7ipNF8CgiOteLxg2HOnLPgemrDOO
-	G1LbCw8BpRRYv7JI/RDPYhxLhjUFcPujE2uKk0Wiu6jPRn31BmyyGqoViecHpk4G
-	yiG74g==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eryk6ekek-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:28:40 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-915c364ae3bso624090285a.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:28:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781515720; cv=none;
-        d=google.com; s=arc-20240605;
-        b=PcTGUZLSAzK0b5qXWTje5RJXyqIAkJfTaJKuoyK9Lj085BeIYe5HS85H8TwAtg8lM8
-         yDGK1m/F64fe3vfR7cnqlb5Ek99t3ANMrFxeFgSZzLmghCTEktP7dBnh9PVfMIni2Hpg
-         wZ/nDciI2AQxm97SKMud+afgUtZbd7fB1fpYBgxBCOPE8x/dMjw/KB9SItvuZ3839Ly5
-         ApX/9svZlj13D8zUoDA/CkcFCPgwJ/cU839WACoBB8fXPSHxhX33ZeZUHt31H5wNgS+b
-         e306QOJuRUoCr6z4ryULBXiO2WXdQlAwdRqk/MuMqCNmVIzL0FGtg0DaLOLypTb0yoAC
-         wveA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cJ91cGOE3AFgPVR4MUNMTN4B9fXw/iUPFEgbOHjaEU0=;
-        fh=br5pkK1lKE85FTt/bvm2WVu13khv3SdAzM8224WK86A=;
-        b=NylmJ5HE94lBLouxlk3gTDdQTQyZBn1fkVvCPhb7EV7+PPeretfaAhfVwY3ZoqghSk
-         +PQop4IbLap6sieBbyPM/qaWc+sTrQ9ksHBzLDWjoVg9CcNaXrSVGgjm+tloGIsDJque
-         nRTI4vhJkD7fpV2UvkQBhzRZG1+SklS8QexL81B8hq5I/c3JWSoT7UBlEvNgCUv8DePM
-         wQuoiytfobqLJ4CFAYi95sHXpvoMnRWk57vN9gP0XB3hvO+kRW3+y5i+eHYSPqDi0ruR
-         rTm7MGOKqzBFAS7ie57hd6fVKAuU4c4hlO9wURHhObbIk9jtXVYyd+dSyjpguBjcjIr6
-         V0wQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781515720; x=1782120520; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cJ91cGOE3AFgPVR4MUNMTN4B9fXw/iUPFEgbOHjaEU0=;
-        b=bsOawze6cQrbID2XPmgCK0OKODivpIP4cAHccagYFbgR1EUM5UE9AiEo5mfq0DbbG7
-         3OHngjl3Ai57K4j6iGPa9AEYK+pxD8mUW4oiQXy7/TxGUEO4mkl/eJi/7S56Jt/TmUFk
-         rDRwhUl+ImKOZomyAgYadNLodxxqbKu0U45oWaRJyoOq8CzvFd84S4hIjuXdJrn5p8ad
-         lQYYOsKtQYem2Pj0SO5PP+CUFnRnxdBMreGSJ6+gKNT99JqkHLtfU0H+HE5as7ejZYdU
-         xAR7grWCBr8L4S161qLdmPQ9ohCyj5YPSpOj/J9MSsmwey1EJevjhjR52P7vMOqoviQ7
-         aPbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781515720; x=1782120520;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=cJ91cGOE3AFgPVR4MUNMTN4B9fXw/iUPFEgbOHjaEU0=;
-        b=B4fBzn4+ZxwJiR+MefUHEU2dbDwhyJS44Zs7z2PEqT6zVx2VmM6U74BIYixKK/UAZu
-         8+/D5TkjRkl2tap72eLB0w8L3QkRGN2g0BO9w3tV/V+RNHJ/t5eWkh1h46TH6f2LJYNS
-         5K6wnFp7exBpF8vT1hOzi62YUu1Lt+Y3IbXBjyOydVWbH6KNfoPA7czuEh0DnJPJUN9u
-         o9U3H7WKHa6991x7zBRVVyM55h5bQ7OA3emj6TDHwyphuVwKrZUNriUdHyhJZf1354TH
-         EWG9l9NrhghWh+/pgTE6I033q7VkBmhyQeJ8aMJIDqSZ177T7D78Pk5ilViHn0vxAyqk
-         XykA==
-X-Forwarded-Encrypted: i=1; AFNElJ+xkUzAOgVcOUpHhG2Ypejh3cvMVaftBjCzigA821PWSMxgTfE61a19mJ+HFbsRckGJAg/M+eDQ6/Gx@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDEHIEeFSHQFctQRmw455w+EtCWXShypRhRhlceoZzaO/PZkwk
-	LzutkajIxoKLyqm5T+2QZienDhRIO8QIPiZKsxOg577grY24PEVsAvjf72w6h6PqCMVhXDwHBto
-	mNgsn+yuCd1cpXM5sN5BkI0leY8YG3C9WGOK5NonHy0tY1aRcmrLHE0G+L2Oxo+0libPwXVohyt
-	hHnLmaLN5cDmwCo3v0SqLRlcUS5Uld3/RGoG0VXlY=
-X-Gm-Gg: Acq92OGKRq65AuI+GN2P0YK9ICuVkHz5EDTRFFhfyrNdO3LahIuBLpQLEPZCKSwhqQh
-	ssrsteZmcBnqPa7gMwexLX1CGvqk/8W45zt3Qr0mP8+lZO/6nKAtLEvlJb/IqqO2OOfUCeszN4U
-	X2je49vGBFcjO/hTQeZ1irPn5SBEeKUZmL+jsU1I532vd3ejnrdxVYdCGV51ISiDQr82Ig+cXjL
-	KNfK3B6pGX/NYoQbOxRRFdceROOrJ1xxJ5ZlV+A7dNo4LmMdfGhXZ4gFr4tu2aWp6K2CI2mm7sW
-	z6z6kyvR+eQg3R2Abmz9
-X-Received: by 2002:a05:620a:1999:b0:915:820f:c78e with SMTP id af79cd13be357-9161bfa0d31mr1962335485a.52.1781515720037;
-        Mon, 15 Jun 2026 02:28:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:1999:b0:915:820f:c78e with SMTP id
- af79cd13be357-9161bfa0d31mr1962333085a.52.1781515719471; Mon, 15 Jun 2026
- 02:28:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="v74CveI0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JWc0nClJGqfu33MoBQENd+vCWgyJd3xEa4+56cl9oZrWV1zHK4LWMtWcekmAjS0toC+MpZjEM/+tIo+hGsJwzuAm0mvaHoyVFwdGbT0Q6drRrapiFXBOmFT8R3OVgtmEKDOEzQypNCLYj4/pMWGs4uDBib+oVHEdm0MUX4KWleALIQBNY590tDUP7q8IP4V6uRwOSML1B4UNH4BLgh+fSp2eF6wr2RTzLy09g3R2uo4JQRjWCWUY684VnG85jQkOswMVeJvBlZWlS1Cpn2+1wNgmK4oB6k7PLa7+r/FUrwWnL7ajLQlVgTvWpHH9XZJJP6HAS2cDyEVTODouJnTsKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t29QSM+WLjSDuS+TqD4z1sLdHXZaqgdOjllJX/8bDXA=;
+ b=dqHxaK8fgt7KYiwgMNQpirwN2D3A4feL/M2jEh9iKqTTdyNFZ1kZd/URydQ8iXEjbwf7/Udzj+MVcJMufdotVlt759loeohkwFU0e7hYRL8GvagV+hNJkrSK1AJxuwf+ABjq1PeM1RfJyGoAiYPInr9FcLJJiZakpRo/k0yuuqaQ330nGnaYD0xmD55gbp3Owl00ITfF7hAz5EkNUOrGfWfjQBXlsF0ei+ZUAk/gmzTNeTLvgbdrltJx7YzbZwNSS9ERcvf+psENazx10eZd3TaX97Argb4RLy+aelLQEjd7qq0kN/Jselv8vpK9y2NBG8mFokrumZPoZyhpft5l5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t29QSM+WLjSDuS+TqD4z1sLdHXZaqgdOjllJX/8bDXA=;
+ b=v74CveI0flgUrOgxqRpTEVEhs27xrQb1ujT9lXSocJ+Mh+sv2WfTnGbrBBXryTrgI9Teufaq7+L7flLM4EJBRLgU8j6ILWJDKp4hRVDSWT25FIKdG7i6JnIvoHljfzyeRL8/3dGetCsNJB7itppAuybyFcaWeeawwYL0xQe7XMo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
+ by SJ0PR12MB7458.namprd12.prod.outlook.com (2603:10b6:a03:48d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 09:29:52 +0000
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f%3]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 09:29:52 +0000
+Message-ID: <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
+Date: Mon, 15 Jun 2026 14:59:46 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset support
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org,
+ Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org
+References: <20260525105042.2249542-3-nagendra.golla@amd.com>
+ <20260525113349.68D6E1F00A3D@smtp.kernel.org>
+Content-Language: en-US
+From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
+In-Reply-To: <20260525113349.68D6E1F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN2P287CA0014.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:21b::8) To DS4PR12MB999075.namprd12.prod.outlook.com
+ (2603:10b6:8:2fc::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260612-block-as-nvmem-v5-0-95e0b30fff90@oss.qualcomm.com>
- <20260612-block-as-nvmem-v5-5-95e0b30fff90@oss.qualcomm.com> <CAMRc=McQkLnz2OS2RREAbcrsp47cL-W3bCduq8LwPBBUcVNyJw@mail.gmail.com>
-In-Reply-To: <CAMRc=McQkLnz2OS2RREAbcrsp47cL-W3bCduq8LwPBBUcVNyJw@mail.gmail.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 11:28:27 +0200
-X-Gm-Features: AVVi8CcVJ9tT2-ROJWBj3M8PVcaYsYfsOzvYsFfBdtVBF-QvEOp396eVPW8z9IE
-Message-ID: <CAFEp6-0qsqhcwnSjm3=bG21jsCktzn5-L5sk2pNTZcGuVXaiNA@mail.gmail.com>
-Subject: Re: [PATCH v5 5/9] block: implement NVMEM provider
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-wireless@vger.kernel.org,
-        ath10k@lists.infradead.org, linux-bluetooth@vger.kernel.org,
-        netdev@vger.kernel.org, daniel@makrotopia.org,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Saravana Kannan <saravanak@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA5OSBTYWx0ZWRfX/Pp9P93K0MBy
- 5GW5T41PoTLdgx2JTltp9bZ3FrJnv9Dt9tT59QT0BT8/rMg/tMnk62wHleKzPNqbAPClvo2mEEF
- OEHpxrz5+kMEOt1SG1mfnctMwCgQq5M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA5OSBTYWx0ZWRfX3/jgkK6rG45I
- tczyTINHCKUdKNfbOVILf/Ey69Jd9xrXUlH4/eJHHbLoZfpp8XYYihNhSHy176CbygLvHrWoBjt
- AVWK7iyDOaDkEJfYovvjkwnRsHZYsMssqKVi+eiPSYKuDcsfboLYo2S0C9ZpOjZDI0ccqTW6te3
- FEFmD5hpqfNJbu1CUpc8j0x2cPmil/asgCt4lj4hOXpikikT6T71xCuN6YrKFqXYbiwd90Ldyaj
- ujpq8BKDfDs71WurcS1erDSCyQledWiYxBdS7Djzo9kcT4sIr0qhIPYYQl+dzArZHczb0tDvL74
- kS/zhQvo8vP3AkqMI1AfeQ+M3RwDxIk2dyxnV2Z705/uqb2ptyOMtat9fZhq0kro4tXH5kdGLPY
- Fq/3Ft4sTfxcgx58A0IHdY8CHPlSCQDpqcWqaUInzs5TO+tHA11JgZ2pSCSfI4aC1wsYaZtws0q
- SyJCwgZSOFzAQdwSupQ==
-X-Authority-Analysis: v=2.4 cv=NrThtcdJ c=1 sm=1 tr=0 ts=6a2fc5c8 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=VT4XjZGOAAAA:8
- a=6Rv5uNetd_8wmlz2G50A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=6CpsfURP9XNmmWg3j1mJ:22
-X-Proofpoint-GUID: EmhcHelBnVUQlhubr4z5cpQfJMgTMlL1
-X-Proofpoint-ORIG-GUID: EmhcHelBnVUQlhubr4z5cpQfJMgTMlL1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150099
-
-On Mon, Jun 15, 2026 at 10:53=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
-rg> wrote:
->
-> On Fri, 12 Jun 2026 15:20:57 +0200, Loic Poulain
-> <loic.poulain@oss.qualcomm.com> said:
-> > From: Daniel Golle <daniel@makrotopia.org>
-> >
-> > On embedded devices using an eMMC it is common that one or more partiti=
-ons
-> > on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPRO=
-M
-> > data. Allow referencing the partition in device tree for the kernel and
-> > Wi-Fi drivers accessing it via the NVMEM layer.
-> >
-> > For now, NVMEM is only registered for the whole disk block device, as t=
-he
-> > OF node is currently only associated to it.
-> >
-> > Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> > Co-developed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > ---
-> >  block/Kconfig             |   9 ++++
-> >  block/Makefile            |   1 +
-> >  block/blk-nvmem.c         | 109 ++++++++++++++++++++++++++++++++++++++=
-++++++++
-> >  block/blk.h               |   8 ++++
-> >  block/genhd.c             |   4 ++
-> >  include/linux/blk_types.h |   3 ++
-> >  include/linux/blkdev.h    |   1 +
-> >  7 files changed, 135 insertions(+)
-> >
-> > diff --git a/block/Kconfig b/block/Kconfig
-> > index 15027963472d7b40e27b9097a5993c457b5b3054..0b33747e16dc33473683706=
-f75c92bdf8b648f7c 100644
-> > --- a/block/Kconfig
-> > +++ b/block/Kconfig
-> > @@ -209,6 +209,15 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
-> >         by falling back to the kernel crypto API when inline
-> >         encryption hardware is not present.
-> >
-> > +config BLK_NVMEM
-> > +     bool "Block device NVMEM provider"
-> > +     depends on OF
-> > +     depends on NVMEM
-> > +     help
-> > +       Allow block devices (or partitions) to act as NVMEM providers,
-> > +       typically used with eMMC to store MAC addresses or Wi-Fi
-> > +       calibration data on embedded devices.
-> > +
-> >  source "block/partitions/Kconfig"
-> >
-> >  config BLK_PM
-> > diff --git a/block/Makefile b/block/Makefile
-> > index 7dce2e44276c4274c11a0a61121c83d9c43d6e0c..d7ac389e71902bc091a8800=
-ea266190a43b3e63d 100644
-> > --- a/block/Makefile
-> > +++ b/block/Makefile
-> > @@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION) +=3D blk-crypto.o=
- blk-crypto-profile.o \
-> >                                          blk-crypto-sysfs.o
-> >  obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) +=3D blk-crypto-fallback.=
-o
-> >  obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)        +=3D holder.o
-> > +obj-$(CONFIG_BLK_NVMEM)                +=3D blk-nvmem.o
-> > diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-> > new file mode 100644
-> > index 0000000000000000000000000000000000000000..c005f059d9fe56242ebaef9=
-905673dff902b5686
-> > --- /dev/null
-> > +++ b/block/blk-nvmem.c
-> > @@ -0,0 +1,109 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +/*
-> > + * block device NVMEM provider
-> > + *
-> > + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
-> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> > + *
-> > + * Useful on devices using a partition on an eMMC for MAC addresses or
-> > + * Wi-Fi calibration EEPROM data.
-> > + */
-> > +
-> > +#include <linux/file.h>
-> > +#include <linux/nvmem-provider.h>
-> > +#include <linux/nvmem-consumer.h>
-> > +#include <linux/of.h>
-> > +#include <linux/pagemap.h>
-> > +#include <linux/property.h>
-> > +
-> > +#include "blk.h"
-> > +
-> > +static int blk_nvmem_reg_read(void *priv, unsigned int from, void *val=
-, size_t bytes)
-> > +{
-> > +     blk_mode_t mode =3D BLK_OPEN_READ | BLK_OPEN_RESTRICT_WRITES;
-> > +     dev_t devt =3D (dev_t)(uintptr_t)priv;
-> > +     size_t bytes_left =3D bytes;
-> > +     loff_t pos =3D from;
-> > +     int ret =3D 0;
-> > +
-> > +     struct file *bdev_file __free(fput) =3D bdev_file_open_by_dev(dev=
-t, mode, priv, NULL);
-> > +     if (IS_ERR(bdev_file))
-> > +             return PTR_ERR(bdev_file);
-> > +
-> > +     while (bytes_left) {
-> > +             pgoff_t f_index =3D pos >> PAGE_SHIFT;
-> > +             struct folio *folio;
-> > +             size_t folio_off;
-> > +             size_t to_read;
-> > +
-> > +             folio =3D read_mapping_folio(bdev_file->f_mapping, f_inde=
-x, NULL);
-> > +             if (IS_ERR(folio)) {
-> > +                     ret =3D PTR_ERR(folio);
-> > +                     break;
-> > +             }
-> > +
-> > +             folio_off =3D offset_in_folio(folio, pos);
-> > +             to_read =3D min(bytes_left, folio_size(folio) - folio_off=
-);
-> > +             memcpy_from_folio(val, folio, folio_off, to_read);
-> > +             pos +=3D to_read;
-> > +             bytes_left -=3D to_read;
-> > +             val +=3D to_read;
-> > +             folio_put(folio);
-> > +     }
-> > +
-> > +     return ret;
-> > +}
-> > +
-> > +void blk_nvmem_add(struct block_device *bdev)
-> > +{
-> > +     struct device *dev =3D &bdev->bd_device;
-> > +     struct nvmem_config config =3D {};
-> > +
-> > +     /* skip devices which do not have a device tree node */
-> > +     if (!dev_of_node(dev))
-> > +             return;
-> > +
-> > +     /* skip devices without an nvmem layout defined */
-> > +     struct device_node *child __free(device_node) =3D
-> > +             of_get_child_by_name(dev_of_node(dev), "nvmem-layout");
-> > +     if (!child)
-> > +             return;
-> > +
-> > +     /*
-> > +      * skip block device too large to be represented as NVMEM devices=
-,
-> > +      * the NVMEM reg_read callback uses an unsigned int offset
-> > +      */
-> > +     if (bdev_nr_bytes(bdev) > UINT_MAX) {
-> > +             dev_warn(dev, "block device too large to be an NVMEM prov=
-ider\n");
-> > +             return;
-> > +     }
-> > +
-> > +     config.id =3D NVMEM_DEVID_NONE;
-> > +     config.dev =3D dev;
-> > +     config.name =3D dev_name(dev);
-> > +     config.owner =3D THIS_MODULE;
-> > +     config.priv =3D (void *)(uintptr_t)dev->devt;
-> > +     config.reg_read =3D blk_nvmem_reg_read;
-> > +     config.size =3D bdev_nr_bytes(bdev);
-> > +     config.word_size =3D 1;
-> > +     config.stride =3D 1;
-> > +     config.read_only =3D true;
-> > +     config.root_only =3D true;
-> > +     config.ignore_wp =3D true;
-> > +     config.of_node =3D to_of_node(dev->fwnode);
-> > +
-> > +     bdev->bd_nvmem =3D nvmem_register(&config);
-> > +     if (IS_ERR(bdev->bd_nvmem)) {
-> > +             dev_err_probe(dev, PTR_ERR(bdev->bd_nvmem),
-> > +                           "Failed to register NVMEM device\n");
->
-> Using dev_err_probe() only makes sense with a return value. Which makes m=
-e
-> think: we won't retry this after a probe deferral. I think we should retu=
-rn
-
-Yes, so here with the nvmem fixed-layout, there is no way to get a
-deferred probe error, but better to be ready to handle this anyway.
-
-> int from this function just for this use-case. Also: if we *do* have
-> a layout, shouldn't we treat a failure to register the nvmem provider as
-> a an error and propagate it up the stack?
-
-From an API perspective we should indeed return the error. From block
-core, Do we want to fail the entire disk addition just because the
-'companion' NVMEM provider couldn't be registered, or should we only
-abort/return in case of EPROBE_DEFER?
-
->
-> > +             bdev->bd_nvmem =3D NULL;
-> > +     }
-> > +}
-> > +
-> > +void blk_nvmem_del(struct block_device *bdev)
-> > +{
-> > +     if (bdev->bd_nvmem)
->
-> Nvmem core already performs a NULL check.
-
-Ok, thanks!
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|SJ0PR12MB7458:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ca6aece-317b-45c6-b903-08decac0a71b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|56012099006|11063799006|5023799004|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	aInr9agrAXLyvekgtDZQiy4MxMkONSHOqKCGIb9F0YIWRDwngYN/GP4I9+SPrS4n+5tgGxGVvsf1XgPjzPjR9BcFMIb2y2fOylhJV1tf8jYmMESezsfuFo2j1GDYv2UCd4lw+4ajplNgfYQPjiVKR1iqQayf9+av/DIBP3hiVVlVC4rbdcIwlre9blEi1fUIBUUOoYxq6VCwlm+gKLqZWWiR5tX30UdMZo7QRbSkFGovDEL5QdaHgdErr/GGjZxEvD2ebZDDC3xt2zfOjIXpl1kTeVSAsJ5YoEKScx1//VE6c43fFuZjsH8Jjojgv9AOPZmhIJXFFRZflke/O9zCnB04rdLIYsCP/LAxu+w+twqfO9Ib/EPaI4oRUBSudWu/yxILWzMpMBxg/1giDZ7bD6GGsL61CgnI304HLBcTX0b8QpjXFOcH79iB7f/EgjQzT29IVyDxSbqDZwwikbU2D6Mnbhffit2qsiuUpgGjeQzdOq/6DOehko7TIf5rOFe/OHODYcTO7KJuEslziXh/HNadKynK2nY1aSq5eS+xDLVwunqUJgh0TtjihcNFU2FqsXzERo7+UEYNlZhXNmwCwWDFm/sMvrRN+ZqlOBIRNpe6HR0WuAEsWjTgJaQtlTXjs2t+d/PBxztBAK+WO7/qOIWMxPj0HdMcMMBWYw+W78MXKRCtuNsa6VY7bSd11Q56
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(11063799006)(5023799004)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dXpYbkZZTWFnZkRzazRadXBIeisvK1RZMEVKd2hSbXozSjU1WmhuU3p6MStk?=
+ =?utf-8?B?TDBQTFhLMkZxMkI0dXlFdUduMHQxZFlWbUQySFdGZDJMeFNYU1ZiZjI0blAr?=
+ =?utf-8?B?ZU13aUFIdHdLTXlUb0xwU216cEw0a3RzUUZnakd5R3dtdnFlYTRGOFNpVTNS?=
+ =?utf-8?B?VzFVTUhUNXVoUHhYR1BDdVE2Q0Fnd2I0TGFUaXRPWFhCLzNDWlY4aXJLYTcx?=
+ =?utf-8?B?TzNxN3lPcktXUy9sTzRwY1c5YmhObCtJdE1DdVFpRDJaNllEeDFkcWlQVnZE?=
+ =?utf-8?B?S0VMUFZ2RHBIbXBIdWhlaDhCMmZhTk1TSFVneVZhT2I3cFlwWTJYRkRFT3Jq?=
+ =?utf-8?B?WjlwMk9CSmk1bExlRUpta1ZWcmdoNmhEZG1IN2pMaXY1RDJLWkdmZXB4ME56?=
+ =?utf-8?B?U09DYW5JT1ErRVNjNUJoT2VUeUk3NC81TXc1V3ByUEt5VEhKcHZNaGFkT21P?=
+ =?utf-8?B?Ty9ORlU3NEVlTlk0Q0U3Tlgrd0dPOW9KMHNVKzd1QUlWU0htOElnWTdWWGxk?=
+ =?utf-8?B?T0F3TURCMXhHUUdnWUxFVVEwUS9kbmNZTmduZ1MyRk4zOGtWaDRreEtpTjdX?=
+ =?utf-8?B?a3hidEh0VUNnc2VUNVhxL2h3NkhPMU1naHA3NWtqSVpkcVBUeTc2WlJpRm5Y?=
+ =?utf-8?B?WXkxUVd0b3l5bkN0aFhTYTRNKzRBNHo3bWR1NzMxM2dYZ3JHUWJ5eGlObWQ2?=
+ =?utf-8?B?T3NiYmR4TzczK2ZmMCtjVjRPbmE4WHJhT0l5dDB6eFIraDBWQmZGWEFvSFpX?=
+ =?utf-8?B?d1d1VDc4YXhYcEZnWnM2bWxDMmx1VHJrWThTTFVHS0Vidmh5MFpWa1BIUXlq?=
+ =?utf-8?B?bklhYmxucE5lVjdJRzgydEE1R2lsZnBoVlFSTjRVZ01vNDR0VXR4a3cvbFo1?=
+ =?utf-8?B?WUMxUXlyNWFqWjlyT21RaVhTb2hBTFIzOXlzcUpYS3hzUlhUVUV1T1R6SDFN?=
+ =?utf-8?B?N1V5ZkJkSU0yOUl6QmJ3M0FHcDI3Yld6bWVQM3NqTnE5elc3UnFiSEdsMTkx?=
+ =?utf-8?B?NXZnV0c2UHpHVk1hTXJ0TER5bjg0NVIwSi91NEZBL1l4UlhHcUlwUFYwRThq?=
+ =?utf-8?B?NzVRMnh1cXZjTFhOandTYVlDR3p0Vy9VYXVSR2lPY1M2V0ZOWlB6SUZaTXNV?=
+ =?utf-8?B?VjlVS3pwRCtHV1dZVjR2MU9SVFh5eCtneEZ2WTM5emg3Wk91cVBRRjROaGFx?=
+ =?utf-8?B?Tjc0TDAzeWNpeTRjLzNtUmNQQUFhamJHaGpSY3ppY0lWbXlQYUVxM3dWUWJr?=
+ =?utf-8?B?ejBxbGUvNGFFRzV5OFA4bHJWSFNFNG8wcnVXQndKaCtNbm5oSDBvWnVMU1lJ?=
+ =?utf-8?B?c003bGhPeHg1eWJTQldWeU51L3ZTOUdHNENsWmxielFhWm1SMHdaTTUwVHJ5?=
+ =?utf-8?B?QjM4UTZUdUQ2YUdUK2lOYXpwNnhWclkzeSsydjU4ZllZVzNyakNpME04YlQ5?=
+ =?utf-8?B?SE4wc1JubE1ic1FCVUhFL21ZNzFIUXhjNngwZVZUOC9OVHF1RWswenk1b25j?=
+ =?utf-8?B?U3FFdmRneVZmaEk3MHErbC9RL3lGa01BVG9lbUQ2WHdPT0dGU3FHUG56bUxK?=
+ =?utf-8?B?WlZ1K0FvWjZhQ21sdUREY0FadUpPd3M2Zkl0TnFuRnRQL0FQYzJyRFVZTTUy?=
+ =?utf-8?B?RFo5N0g2Y2Rac1MvNG1BUWZBNXFyUWRHbklLTzU1YjRIN1hsNkVHSlhTcnNr?=
+ =?utf-8?B?cWZlSE5LUk0yaHdJcjVZZ0Rrb0VaVC9MYXF3RGd3akwxUU5pT2h2T1QrQjZn?=
+ =?utf-8?B?Vnd2RUkrR1dqTDd5T0JYRk9jTndrRTQ5WmNKUDZmcTZMekFOTUVXMFB2Nm5x?=
+ =?utf-8?B?YmZaQVhyQ2lPeTdFaGFnVEZJSEFaSzJnSGdHZ2FNQW9EcmtxWlhJU3VNUllv?=
+ =?utf-8?B?MmxydFNoVHZDcnJBRjNUZ09KVHFiZjlDM1R6bFlVVDB1UE5sVTJkNmpOaThI?=
+ =?utf-8?B?alZsQXo5cVROZE16ZmdrQjNCWm8rd3didnJvMnVtMTNzTGRNbTBHaFcyN0Zu?=
+ =?utf-8?B?cHhURnh6bXdJb3JBb3kyVVM0TU0zRWcwcERwQW1uQ0RyWXloNTl5aTNNQ1hV?=
+ =?utf-8?B?cCt3UE5SRkt3aXNHNlVTZ1lWUkhQbjZwUGc5ckdWNnZsaTlLTDdSWVJSZHBC?=
+ =?utf-8?B?UERjNVFQMTlBcllyT3picmxpM3RpaFZXODRzRXpXRnlLV0RsakRGQ3hoMEFT?=
+ =?utf-8?B?YnpCZWYxRlZLcGx2Vk1JaDVnQlh4bWdkbG5PalNLdTBOSkFreE9NbFR3eXlC?=
+ =?utf-8?B?SjV1dHBFSXdoM0ZERTVRMjN0czFORjZjYW92cXBHY3ZhcDRiZmgrOFVGTStQ?=
+ =?utf-8?B?YWZVUHlzKzZVWG9NUkdmQUhBUnluc1lmdVVxa3NQV3k3c3NzU012UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca6aece-317b-45c6-b903-08decac0a71b
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:29:52.2349
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +kA1FIHLbLnOKuc0XTogWjy4jml8sbzwVt5el1Rfkpos3V3cVWq+XoZ0CbZGGTLB+9Fuv9MFa+3/ZySCA99vAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7458
 
 
->
-> > +             nvmem_unregister(bdev->bd_nvmem);
-> > +
-> > +     bdev->bd_nvmem =3D NULL;
-> > +}
-> > diff --git a/block/blk.h b/block/blk.h
-> > index ec4674cdf2ead4fd259ff5fc42401f591e684ee9..cd3c7ca723391c40be56f1d=
-d4810e641b7c8a2b3 100644
-> > --- a/block/blk.h
-> > +++ b/block/blk.h
-> > @@ -757,4 +757,12 @@ static inline void blk_debugfs_unlock(struct reque=
-st_queue *q,
-> >       memalloc_noio_restore(memflags);
-> >  }
-> >
-> > +#ifdef CONFIG_BLK_NVMEM
-> > +void blk_nvmem_add(struct block_device *bdev);
-> > +void blk_nvmem_del(struct block_device *bdev);
-> > +#else
-> > +static inline void blk_nvmem_add(struct block_device *bdev) {}
-> > +static inline void blk_nvmem_del(struct block_device *bdev) {}
-> > +#endif
-> > +
-> >  #endif /* BLK_INTERNAL_H */
-> > diff --git a/block/genhd.c b/block/genhd.c
-> > index 7d6854fd28e95ae9134309679a7c6a937f5b7db8..1b2382de6fb30c1e5f60f45=
-c04dc03ed3bf5d5f2 100644
-> > --- a/block/genhd.c
-> > +++ b/block/genhd.c
-> > @@ -421,6 +421,8 @@ static void add_disk_final(struct gendisk *disk)
-> >                */
-> >               dev_set_uevent_suppress(ddev, 0);
-> >               disk_uevent(disk, KOBJ_ADD);
-> > +
-> > +             blk_nvmem_add(disk->part0);
-> >       }
-> >
-> >       blk_apply_bdi_limits(disk->bdi, &disk->queue->limits);
-> > @@ -704,6 +706,8 @@ static void __del_gendisk(struct gendisk *disk)
-> >
-> >       disk_del_events(disk);
-> >
-> > +     blk_nvmem_del(disk->part0);
-> > +
-> >       /*
-> >        * Prevent new openers by unlinked the bdev inode.
-> >        */
-> > diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-> > index 8808ee76e73c09e0ceaac41ba59e86fb0c4efc64..ace6f59b860d0813665b2f6=
-2a1c03a1f4be94059 100644
-> > --- a/include/linux/blk_types.h
-> > +++ b/include/linux/blk_types.h
-> > @@ -73,6 +73,9 @@ struct block_device {
-> >       int                     bd_writers;
-> >  #ifdef CONFIG_SECURITY
-> >       void                    *bd_security;
-> > +#endif
-> > +#ifdef CONFIG_BLK_NVMEM
-> > +     struct nvmem_device     *bd_nvmem;
-> >  #endif
-> >       /*
-> >        * keep this out-of-line as it's both big and not needed in the f=
-ast
-> > diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-> > index 890128cdea1ce66863c5baa36f3b336ec4550807..f15d2b5bf9e4fd2368b8a70=
-416a978e22c0d4333 100644
-> > --- a/include/linux/blkdev.h
-> > +++ b/include/linux/blkdev.h
-> > @@ -30,6 +30,7 @@
-> >
-> >  struct module;
-> >  struct request_queue;
-> > +struct nvmem_device;
-> >  struct elevator_queue;
-> >  struct blk_trace;
-> >  struct request;
-> >
-> > --
-> > 2.34.1
-> >
-> >
->
-> I like this approach better than the previous one.
->
-> Thanks,
-> Bartosz
+
+On 5/25/2026 5:03 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The probe error path leaks a runtime PM usage counter reference, permanently breaking runtime PM and leaving hardware clocks enabled.
+> - [High] Dropping the spinlock inside `list_for_each_entry_safe` allows concurrent modification of the list, leading to memory corruption.
+> - [High] Hardware registers are accessed in the IRQ handler without verifying if the device is active, risking a kernel panic on spurious interrupts.
+> --
+> 
+> commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
+> Author: Golla Nagendra <nagendra.golla@amd.com>
+> Subject: dmaengine: zynqmp_dma: Add per-channel reset support
+> 
+> This commit introduces per-channel reset support for Versal Gen 2 and
+> Versal Net SoCs. It adds reset handling in the channel probe path using
+> device_reset_optional() to trigger a reset pulse during initialization.
+> Platforms without per-channel reset are unaffected.
+> 
+>> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+>> index f6a812e49ddca..51c831760372c 100644
+>> --- a/drivers/dma/xilinx/zynqmp_dma.c
+>> +++ b/drivers/dma/xilinx/zynqmp_dma.c
+> [ ... ]
+>> @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
+>>   	if (IS_ERR(chan->regs))
+>>   		return PTR_ERR(chan->regs);
+>>   
+>> +	err = device_reset_optional(&pdev->dev);
+>> +	if (err)
+>> +		return dev_err_probe(&pdev->dev, err,
+>> +				     "failed to reset channel\n");
+>> +
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this error path leak a
+> runtime PM usage counter reference?
+> 
+> In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
+> the runtime PM usage counter and enable the device clocks. If a subsequent
+> initialization step fails, such as the newly added device_reset_optional()
+> returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
+> 
+> zynqmp_dma_probe()
+>      ...
+> 	ret = pm_runtime_resume_and_get(zdev->dev);
+>      ...
+> 	ret = zynqmp_dma_chan_probe(zdev, pdev);
+> 	if (ret) {
+> 		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
+> 		goto err_disable_pm;
+> 	}
+>      ...
+> err_disable_pm:
+> 	if (!pm_runtime_enabled(zdev->dev))
+> 		zynqmp_dma_runtime_suspend(zdev->dev);
+> 	pm_runtime_disable(zdev->dev);
+> 	return ret;
+> 
+> Since the device is still runtime PM enabled, it skips
+> zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
+> pm_runtime_put_noidle().
+> 
+> Because -EPROBE_DEFER is a normal occurrence during boot, this path can
+> be hit multiple times. Will this permanently leave the usage counter above
+> zero, preventing the device from ever entering runtime suspend and leaving
+> its clocks enabled indefinitely?
+> 
+>>   	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
+>>   	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does dropping the spinlock inside
+> list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurrent
+> modification of the list, leading to memory corruption?
+> 
+> When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
+> the DMA callback:
+> 
+> zynqmp_dma_chan_desc_cleanup()
+>      ...
+> 	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
+>          ...
+> 		if (dmaengine_desc_callback_valid(&cb)) {
+> 			spin_unlock_irqrestore(&chan->lock, irqflags);
+> 			dmaengine_desc_callback_invoke(&cb, NULL);
+> 			spin_lock_irqsave(&chan->lock, irqflags);
+> 		}
+> 
+> A client driver can concurrently invoke dmaengine_terminate_sync(), which
+> calls zynqmp_dma_device_terminate_all() and executes
+> zynqmp_dma_free_descriptors(). This moves all remaining elements, including
+> the prefetched next pointer, from done_list to free_list.
+> 
+> When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
+> iterating using the corrupted next pointer that now resides in free_list,
+> eventually interpreting the list head &chan->free_list as a struct
+> zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
+> 
+> [Severity: High]
+> This is a pre-existing issue, but are hardware registers accessed in the
+> IRQ handler without verifying if the device is active, risking a kernel
+> panic on spurious interrupts?
+
+Hi,
+
+Thanks for pointing this out.After reviewing the runtime PM guidelines 
+and the driver behavior, I believe this is not a strict requirement for 
+all IRQ handlers. The PM documentation does not mandate that 
+pm_runtime_get_if_active() must be used before every register access in 
+an ISR. It is mainly intended for cases where an interrupt can occur 
+while the device might be runtime-suspended, such as shared IRQ or 
+spurious interrupt scenarios.
+
+In the case of the zynqmp DMA driver, the interrupt is generated only 
+when the hardware is active during a transfer, and the driver ensures 
+the device remains runtime-active while DMA operations are in progress. 
+Because of this, the ISR is not expected to run when the device is 
+suspended, and accessing registers directly should be safe.
+
+So, in this context, adding pm_runtime_get_if_active() in the IRQ 
+handler may not be necessary. That said, please let me know  if you see 
+a scenario where the interrupt could be triggered while the device is 
+runtime-suspended, and I can revisit accordingly.
+
+Thanks,
+Nagendra
+
+
+> 
+> The IRQ handler zynqmp_dma_irq_handler() directly reads the ISR and IMR
+> hardware registers:
+> 
+> zynqmp_dma_irq_handler()
+>      ...
+> 	isr = readl(chan->regs + ZYNQMP_DMA_ISR);
+> 	imr = readl(chan->regs + ZYNQMP_DMA_IMR);
+> 
+> According to the Power Management Subsystem guidelines, IRQ handlers must
+> use pm_runtime_get_if_active() before accessing hardware registers.
+> 
+> Although this IRQ is not shared, spurious interrupts can still occur. If a
+> spurious interrupt fires while the device is in a suspended state with its
+> clocks disabled via zynqmp_dma_runtime_suspend(), could this unprotected
+> register read lead to a synchronous external abort and crash the kernel?
+> 
+
