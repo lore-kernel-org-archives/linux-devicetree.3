@@ -1,64 +1,64 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C42140910B
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43F140912E
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781538513; cv=none; b=DvEAuKoPzdiGFHxtDSIPWEQK4wWcg6pcolpnnh1z6nxUHJcMUcFtU1Nbcz4nca61PpuGxEpO62b1jHy8cg02+7uaH40nAqpB7y0h4jmligXUREjhEwE0DLxIK4RtZ4y6FkotHpRD7prJ4zCA852priY8vwZVYVkn1YqM5Yk8//U=
+	t=1781538515; cv=none; b=YpwwghlpmlM2diS0hMhODImn951yDjWcTMGrd03zxK6kkeQx9WgqB471JKquuEfQMoOzlDiXQxFLLU/1UtQaGPQ33adK2l2mHaBPYD0UUtD/gnqtJv6bnWXbxNLlySGByvwI1VfdeRoTtLQtEg3h//I6A/nZFCcOBnV2SWMj2Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781538513; c=relaxed/simple;
-	bh=Gk/cPNPTDZkAWNymipz74p7wZWq4X8OMsudl9IitgbU=;
+	s=arc-20240116; t=1781538515; c=relaxed/simple;
+	bh=2OWKymJzJI+c60cQ/7m96HIrf3ANiQc7K5wZLe8G22Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MuekYcuTkUrtb50ZXx4CH7PoXXA8LaLIhEliGB7kp3riR0+VUWiiM1QZqEtARmS1VMnT89BJ9pMxQRExlEZiQUp/gpOWRNWryVXZOdI2P4aZxefnrlh/UlXKAI6KiPz7hHyQw+7TQF5nbznR8up26I7Vmpx7vMX/ttBvKEk7AfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q4MnCh93; arc=none smtp.client-ip=209.85.221.44
+	 MIME-Version; b=RoZ5zlcHKDUcuLhoA1ZuxmygmkQvaaIO6+LmzG1VMKYIn7Us9IR/2WE7MzxVceEXoEHuIuEw61zM7R0Y56iRhmuBji+AF6dPlG10ypzu9o0o3UbNbK1q7B3wNV+2UyYnzIg5oNJ+pGcIX7hQtJD9HLzNpzGPLJV19rwaKiChNws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P1TwcFLh; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q4MnCh93"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45eea68dd6fso1831433f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:48:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P1TwcFLh"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso34537385e9.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:48:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781538509; x=1782143309; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781538511; x=1782143311; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L9hQG1QLJk/k6gtdHr4QTzx1kFxzhJfLJZfPoGCSsmc=;
-        b=q4MnCh936TEEJ4mH4z7asgg18S3Zd2MzhZ/pKPKK2s8/sAD0/tMe16++9sQ2kg2lgN
-         o9QorLYaSnvFzc+7ly/g85IL8nJrKORdalExnLqYJorVhc8VTPILqRiuceQWruWKG7Tn
-         79UkSZeQif8TmXOFQeHp2DOfJsZu9FJcZV3z2VWv6JXzvaJMrvF9HkgKalitM78ZeDih
-         TbTZb9b3+RZrat9eBlNBJowcmqaMbb3zKs/Ybge2AKW90k+nO8kgCGCTUqVkpLGtKPt9
-         9VtaAJwCARTley0TdoIJmeRSDjciLZHayeTOsaItZnLRrPxS/ZTDxJDZMCwZzZh9hURA
-         aWPA==
+        bh=yPJ5nbggfdHMUBsOoocYfnWb3ApNjTIRio6Pe00dpEA=;
+        b=P1TwcFLh8MyWNy607YznzMyttWbYjGkyGUlYply2rcsG/12ztCu4AFcDTFnloTzT0l
+         qT3G9XTEIFW1DrpSIihfk3P0jGqhWsF0X6JLcH87FagKEu/mX4QjRvoKRQqHOSFhxXok
+         HDar02wCRYhF4WEpidAydYzr062ksiEXfAUIfgTwfRIozSxt54IBLSpxIlRm5iuUDt0+
+         LU6O4z0w0suRCGERYeHZASiYRGEDryfJ+JgRg5cPDgIRNzecpotCtQN7fkebGhoJ+OI7
+         hZbmWz49l+SIsEmZwiEBWB6XO/7HrMIJbBhrmMNjs6bpfRe3T+CwWmb4S2lcY0oiqjO9
+         o56g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781538509; x=1782143309;
+        d=1e100.net; s=20251104; t=1781538511; x=1782143311;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=L9hQG1QLJk/k6gtdHr4QTzx1kFxzhJfLJZfPoGCSsmc=;
-        b=VFiCFhj9ABlqgt+t4EJi+Nn7Hg9UHu1Ol1Vy3EWicI70TXDSxCSvFAAoEArHGIoEEl
-         8/hHfbw8T5Zh0byLcjQppqwbAz53EDxKYZMGRKkyNST06C4y5uQVfCoeA6On/dQ0K5nI
-         Jp1De6aDcPvvLtPTIPiYfvUNDqZeTerwaT69pntIfzlINUHHYxdvSIrLrnNa5bZsivg6
-         nDwqEbPC9u0G+zq7o1kE96x6u0BWStzBAvehjQ8SCjKBnQe+m818ZK4j/jwhVAsnZhGy
-         hJCfmQW1XF+z1Ffa6OUBXC9nnRsxCv+tcqxwOoWwCwRwwYBLg8ZqO6r297kwylHKqjzp
-         Q1uw==
-X-Forwarded-Encrypted: i=1; AFNElJ8eui7ElUSU+ldN3ZLVRM3Zvu8aMCCjWYGJXxNX3sGPTQ+yfkAqj9jrK11NGySdi/xfemH7E9O8OsLW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxP/QMvNFbtN3F4RPgt4E5vV/Xi350pqBWKvvfYF6rFPZ8lkwS3
-	lRFZ/C3vZd7cDR0JgSmKAsqOzluG1zOU37/wZXLrumHRjYxkX7Kf0EMT
-X-Gm-Gg: Acq92OEK1QDkDn/HQbpDO9JsmMW85RyH+A9oPGLJjEZeZ42COd093kPb/inja+wTxKB
-	28rFEd7pZvH1m/khWGd9nayQoUFuKVsRFRxdMSVLvx4hPdKlehXXEfuAcxTMZWV0bsU+60GsltD
-	otWK84kpBTYFU+/q8Z7va05IiHuuWhbLEodZ/HH7U82NOpYRpR5IhT/Wu+9QTfGDelwFJ747FTT
-	AVwFaDQJ+OOVsp0hZbdnrfSDXUhPiir8LgTCZM/SJdAwLpvrbv7+MWkVmCHMLlyw/nTzp1tEnY5
-	1PW+CMq2pBKKWH5gEU5sRxnGpwkIj8HoDfr1hpbaVreXYu6TfLNrycLLUd0FKzAeF+hNwFvR3R/
-	j5cSAKhYCcD+KrW4feRMpFqNoSnxXFoefO82SKaI5Nflxic7NUhiUrbg5ZDD/m/FD5FxCBQh/HF
-	bGWw7CLTAtIXeNRrx/FlnsRkbAYhEpRKggwlCjXezHe56l8La3RVAsSs/7jANpw0SNYOXqQWpvO
-	eD9WQ3xeMYPbDEdK/qa72mmeCiKXOIRR4/zOdo8i/ZzQ3U=
-X-Received: by 2002:a05:6000:2994:20b0:45e:df46:ba30 with SMTP id ffacd0b85a97d-4606dba453fmr15655433f8f.34.1781538509590;
-        Mon, 15 Jun 2026 08:48:29 -0700 (PDT)
+        bh=yPJ5nbggfdHMUBsOoocYfnWb3ApNjTIRio6Pe00dpEA=;
+        b=QjnD6hrWQZmPmeW0dCKdP2/IiDob8Ype94U+DZoVFng92Z8PruIiBe+x9hIpqIjdxk
+         nmuFPuK3OxbbAReslRXmne22e6I1ctJQ3qfPPHFoqXsfy/VWkbij5tIgAZQZu5jY2pCM
+         LBgAwt4yiojebwZx//qoLBckbY1k1tcCu6ZrwBttKsn2wsr4LjdqKlfyCLKHOtF7eqbF
+         Lce3dG1iZOG5c61isixvDb1HsGkTfAwzMDRFXZUzSujQ/lKvsXsXhnpu7Id636KF3uLs
+         51WHwoyWJ2OfQU7Hk4VQ9MJnX5RXEfB+TKfIl6SbnQwQ9UMs2tEfioLM44jnOhFaseuM
+         eeew==
+X-Forwarded-Encrypted: i=1; AFNElJ/neQEcxz3K2s7Fyr28zMkgXQEqn0TsEb6WOukqcpS6wRvuAku6SzdbwASzFGmcS7S7jPiA8SYRHedB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwdNCVgf3wgqDphwZfSOmBx7yTZyFyFLp37jUzLTwFRUKedB2w+
+	7FuSAcq5rCrGcp9fq+N0WZ5OHMIMCcH3yu++Cpv5dfIE3eqFAevchC/G
+X-Gm-Gg: Acq92OF/1Cfw2AXn0fX38RCTixjnp+sCTVZ6hviLMYMKZcF60bhhEbHrzp5btKhzPNf
+	qQcu6e8OoDuOLn9bhsYfiypGVo597qakw7/JcXOjb4E5Ss8TpYlKRqEFuzc8UUH9JOaoIV16SnY
+	bPNh332Ym7R5oN8giUNASQaG36uL7znOABWmS22GFrteVwoKtu8Jg+elCDMWODc5olbMrEBTvK6
+	6xS6oDgFyks/1D6paMNOdWehwXLiZ/qXcROauW0/riwoSa+14alsgyWE4y87mpDvS/G0SWP4WLV
+	tC7itnJBjdfbQKzBYDLdOTWyCgK9fTcdveL9OWD/UvJQmbNEabh5j1d42dM45Cg/aml1kWc3kx6
+	xnyKjriYTFvOvmycTf8DtOyZ0MUPRXFeB2sozvU2qzGl+VR0geAKfyuaI+0JzFfpTV9wlf+soEe
+	NRIlbhhF7bX5kW/A7KZ//QP4K8/KvAoQrLFBl/zJOWutOa8gXdkKvaMsuWTodaX9w7QxA/bIQtx
+	P9Qc4fJMonpr4vNvm1vIrkU5k4eIt5nCup0
+X-Received: by 2002:a05:600c:a40b:b0:48e:8eb0:4957 with SMTP id 5b1f17b1804b1-4922faa1474mr721775e9.2.1781538510820;
+        Mon, 15 Jun 2026 08:48:30 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:1e4:992f:3ad2:4f2b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26434dsm36010995f8f.1.2026.06.15.08.48.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26434dsm36010995f8f.1.2026.06.15.08.48.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 08:48:29 -0700 (PDT)
+        Mon, 15 Jun 2026 08:48:30 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -77,9 +77,9 @@ Cc: linux-rtc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 10/12] rtc: rzn1: Consistently use dev_err_probe()
-Date: Mon, 15 Jun 2026 16:48:03 +0100
-Message-ID: <20260615154805.1619693-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 11/12] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
+Date: Mon, 15 Jun 2026 16:48:04 +0100
+Message-ID: <20260615154805.1619693-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,27 +93,109 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Use dev_err_probe() in the IRQ request error path to make error handling
-consistent with the rest of rzn1_rtc_probe().
+Replace open-coded shift and mask operations with the bitfield API.
+
+Note that the weekday field is changed from an explicit 0x0f mask to
+an 8-bit field definition, matching the hardware manual. This does not
+change behaviour, as valid weekday values cannot exceed 7.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- drivers/rtc/rtc-rzn1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/rtc/rtc-rzn1.c | 46 ++++++++++++++++++++++++------------------
+ 1 file changed, 26 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-index 25cad9213147..c7ef3c81180f 100644
+index c7ef3c81180f..9f9cf9882fc4 100644
 --- a/drivers/rtc/rtc-rzn1.c
 +++ b/drivers/rtc/rtc-rzn1.c
-@@ -477,7 +477,7 @@ static int rzn1_rtc_probe(struct platform_device *pdev)
+@@ -12,6 +12,8 @@
+  */
  
- 	ret = devm_request_irq(dev, irq, rzn1_rtc_alarm_irq, 0, "RZN1 RTC Alarm", rtc);
- 	if (ret) {
--		dev_err(dev, "RTC alarm interrupt not available\n");
-+		dev_err_probe(dev, ret, "RTC alarm interrupt not available\n");
- 		goto dis_runtime_pm;
+ #include <linux/bcd.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
+ #include <linux/clk.h>
+ #include <linux/init.h>
+ #include <linux/iopoll.h>
+@@ -40,14 +42,18 @@
+ #define   RZN1_RTC_CTL2_STOPPED (RZN1_RTC_CTL2_WAIT | RZN1_RTC_CTL2_WST)
+ 
+ #define RZN1_RTC_TIME 0x30
+-#define RZN1_RTC_TIME_MIN_SHIFT 8
+-#define RZN1_RTC_TIME_HOUR_SHIFT 16
++#define RZN1_RTC_TIME_SEC GENMASK(7, 0)
++#define RZN1_RTC_TIME_MIN GENMASK(15, 8)
++#define RZN1_RTC_TIME_HOUR GENMASK(23, 16)
++
+ #define RZN1_RTC_CAL 0x34
+-#define RZN1_RTC_CAL_DAY_SHIFT 8
+-#define RZN1_RTC_CAL_MON_SHIFT 16
+-#define RZN1_RTC_CAL_YEAR_SHIFT 24
++#define RZN1_RTC_CAL_WDAY GENMASK(7, 0)
++#define RZN1_RTC_CAL_DAY GENMASK(15, 8)
++#define RZN1_RTC_CAL_MON GENMASK(23, 16)
++#define RZN1_RTC_CAL_YEAR GENMASK(31, 24)
+ 
+ #define RZN1_RTC_SUBU 0x38
++#define   RZN1_RTC_SUBU_RTCA0FX GENMASK(5, 0)
+ #define   RZN1_RTC_SUBU_DEV BIT(7)
+ #define   RZN1_RTC_SUBU_DECR BIT(6)
+ 
+@@ -82,15 +88,15 @@ static void rzn1_rtc_get_time_snapshot(struct rzn1_rtc *rtc, struct rtc_time *tm
+ 	u32 val;
+ 
+ 	val = readl(rtc->base + RZN1_RTC_TIMEC);
+-	tm->tm_sec = bcd2bin(val);
+-	tm->tm_min = bcd2bin(val >> RZN1_RTC_TIME_MIN_SHIFT);
+-	tm->tm_hour = bcd2bin(val >> RZN1_RTC_TIME_HOUR_SHIFT);
++	tm->tm_sec = bcd2bin(FIELD_GET(RZN1_RTC_TIME_SEC, val));
++	tm->tm_min = bcd2bin(FIELD_GET(RZN1_RTC_TIME_MIN, val));
++	tm->tm_hour = bcd2bin(FIELD_GET(RZN1_RTC_TIME_HOUR, val));
+ 
+ 	val = readl(rtc->base + RZN1_RTC_CALC);
+-	tm->tm_wday = val & 0x0f;
+-	tm->tm_mday = bcd2bin(val >> RZN1_RTC_CAL_DAY_SHIFT);
+-	tm->tm_mon = bcd2bin(val >> RZN1_RTC_CAL_MON_SHIFT) - 1;
+-	tm->tm_year = bcd2bin(val >> RZN1_RTC_CAL_YEAR_SHIFT) + 100;
++	tm->tm_wday = FIELD_GET(RZN1_RTC_CAL_WDAY, val);
++	tm->tm_mday = bcd2bin(FIELD_GET(RZN1_RTC_CAL_DAY, val));
++	tm->tm_mon = bcd2bin(FIELD_GET(RZN1_RTC_CAL_MON, val)) - 1;
++	tm->tm_year = bcd2bin(FIELD_GET(RZN1_RTC_CAL_YEAR, val)) + 100;
+ }
+ 
+ static int rzn1_rtc_read_time(struct device *dev, struct rtc_time *tm)
+@@ -133,15 +139,15 @@ static int rzn1_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 			return ret;
  	}
  
+-	val = bin2bcd(tm->tm_sec);
+-	val |= bin2bcd(tm->tm_min) << RZN1_RTC_TIME_MIN_SHIFT;
+-	val |= bin2bcd(tm->tm_hour) << RZN1_RTC_TIME_HOUR_SHIFT;
++	val = FIELD_PREP(RZN1_RTC_TIME_SEC, bin2bcd(tm->tm_sec)) |
++	      FIELD_PREP(RZN1_RTC_TIME_MIN, bin2bcd(tm->tm_min)) |
++	      FIELD_PREP(RZN1_RTC_TIME_HOUR, bin2bcd(tm->tm_hour));
+ 	writel(val, rtc->base + RZN1_RTC_TIME);
+ 
+-	val = tm->tm_wday;
+-	val |= bin2bcd(tm->tm_mday) << RZN1_RTC_CAL_DAY_SHIFT;
+-	val |= bin2bcd(tm->tm_mon + 1) << RZN1_RTC_CAL_MON_SHIFT;
+-	val |= bin2bcd(tm->tm_year - 100) << RZN1_RTC_CAL_YEAR_SHIFT;
++	val = FIELD_PREP(RZN1_RTC_CAL_WDAY, tm->tm_wday) |
++	      FIELD_PREP(RZN1_RTC_CAL_DAY, bin2bcd(tm->tm_mday)) |
++	      FIELD_PREP(RZN1_RTC_CAL_MON, bin2bcd(tm->tm_mon + 1)) |
++	      FIELD_PREP(RZN1_RTC_CAL_YEAR, bin2bcd(tm->tm_year - 100));
+ 	writel(val, rtc->base + RZN1_RTC_CAL);
+ 
+ 	writel(0, rtc->base + RZN1_RTC_CTL2);
+@@ -306,7 +312,7 @@ static int rzn1_rtc_read_offset(struct device *dev, long *offset)
+ 	val = readl(rtc->base + RZN1_RTC_SUBU);
+ 	ppb_per_step = val & RZN1_RTC_SUBU_DEV ? 1017 : 3051;
+ 	subtract = val & RZN1_RTC_SUBU_DECR;
+-	val &= 0x3F;
++	val = FIELD_GET(RZN1_RTC_SUBU_RTCA0FX, val);
+ 
+ 	if (!val)
+ 		*offset = 0;
 -- 
 2.54.0
 
