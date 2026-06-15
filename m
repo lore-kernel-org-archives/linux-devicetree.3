@@ -1,143 +1,102 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8913F8246;
-	Mon, 15 Jun 2026 14:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798C53F88B8;
+	Mon, 15 Jun 2026 14:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781533759; cv=none; b=oFZWTqnvU9wTtCqLM1Fq18eEw1NyelalzcCSSsiepA8EVtAgSqq9cedtno9/T5H6u8yrd/9f8YjotmhRHORH445D2nQC4BO1SNBubpt+23hKqlTES1PFdmIMPXXGIfQV7cQa2dkI+x7HOeidRbUYjQlVOfmKQ1D9rESvzC7UJW8=
+	t=1781533852; cv=none; b=bZOYXj9yCS9tBKT+tCnqYR6Al+mjdT0xZ4obE7LaLt4f/wdeCc9F35CSTBcSVWJVoYxhegO3I1lMrWZqBQK5qjRCf2GobchJD2QzU6fgUYfWwzxkfto7PNPQ3T6imYMtnAeR5cAppvhD0AkZEQ1bPHh9uyER5arjxU6yhUhmacQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781533759; c=relaxed/simple;
-	bh=7cbZh0H/gGZPnJCdul/uOhQlZasghqu8qchZzA/13Q4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Mp1t5cezzPuTCoT9BtnVzxT4spHulSVv1Xe8Bk/xr/WEwHxLooXEJwAZc8L0u/2MAxaGVL8uVZ+qwiqpo2haFDqX9Gsc1agF8UgY7Y/T4Wih4HZNVuIyWRqhr3v5siitq5/fo2tQcw3WR3YKSwIQ/37bDI2jQPxeRMu8YC95dvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TYCQPqE2; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781533852; c=relaxed/simple;
+	bh=eeKfuNDktYjoBS3dmFiTkel/+BwxgBfVU25t5KzqhsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mSSiSwB/J9UCXEnw3rdfeGfwPG8wNXwV+KM2JQUnGx3s/G24Gw4md+iMhQBv4GkPd3o7aR+0cvekauVW7lG8FhRyRYfQmEfxK739emFe3Phsw4Fpmy8tNAW0VfJKk3rEkTMijDzJqSG20pJtXvtKIJgalqP/HOnx4KzAddTlgYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k7MOjS2i; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TYCQPqE2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 40A101A3934;
-	Mon, 15 Jun 2026 14:29:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0F2B660015;
-	Mon, 15 Jun 2026 14:29:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2F0A106C968A;
-	Mon, 15 Jun 2026 16:29:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781533754; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3rMsrZ7GVRodQT0vv+F6bubXVUBI/vtcGoamkCWzv8c=;
-	b=TYCQPqE2QSvlgUb/4JT5XIhXAMpBRqUwvWyNEa+AQy1qdwmW6is6Lmk+BBvd8vCY6XZMAR
-	pwX8hKmcij0KqlCHhAlICumWm1QN2FZpcQJU6O7XsrMHtUQxNzIyv+BR6zpWNAIlARpmOg
-	pxw3LQMtXaYy7Eqkn3zjJv20NkpuRWIUcKUGeogMRyT+s0lLkwQ8735Upe2rAEiENbqn6e
-	Se7LvxooQiSsU2E8wgag4N7J85IMrGMXrMPWjlzvZT9VZa/7qXDuaAryDPwaE9RbQeRqpC
-	Ytp6PSShO0oL0EttURSQGkMNnMAEp8fQJH/9H4LNFihxMGSQWut+wskXWQ2uOQ==
-Message-ID: <7702ac09-75fd-49de-8ad2-fceaa122b627@bootlin.com>
-Date: Mon, 15 Jun 2026 16:29:04 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k7MOjS2i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781533850; x=1813069850;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=eeKfuNDktYjoBS3dmFiTkel/+BwxgBfVU25t5KzqhsU=;
+  b=k7MOjS2iO3QQ4JdonELUcxOr+bR0mSvGa9tSoIiILGjkzon5riOF779p
+   PizU6HLQm3sWL3TAsdfA+FbY7/uWiV/dMgYUu5NB4NIlyIdKfnJB+f507
+   HySfeMMmW2ErzyGzh/gmbJ14sIl9mbGrnR+kuPFZKZYubYS3NBwQa1Uxi
+   /r7jmXOBbEnNVsYw/RrKJ06E2NUx7XhTdLuEKnckDckTQhpjAmWVpEKMa
+   PgZfWk562bH16gkTO1SAtr10hpGGleFeVfJZJ57Yy3pvuR+H22JnAO8Cp
+   WfewZB1cRKtF4hgI7GqJ71B285BjbUBJRHpM4tWSFGpybzAJRTuZ2uPMm
+   A==;
+X-CSE-ConnectionGUID: HQ+usF8kT7CZnhZxpX+RRw==
+X-CSE-MsgGUID: o7OdfnndSLaZ0IjXjf207A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82312242"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="82312242"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:30:43 -0700
+X-CSE-ConnectionGUID: 8O33OnCSSiaC1yGI5gSpng==
+X-CSE-MsgGUID: 0zr5w2RgRNOnZZ+ge9rOZA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="251410643"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:30:40 -0700
+Date: Mon, 15 Jun 2026 17:30:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Salih Erim <salih.erim@amd.com>
+Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
+	linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 3/5] iio: adc: versal-sysmon: add I2C driver
+Message-ID: <ajAMjZzfTqplts_B@ashevche-desk.local>
+References: <20260614233722.2603459-1-salih.erim@amd.com>
+ <20260614233722.2603459-4-salih.erim@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 05/12] net: phylink: support late PCS provider
- attach
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Saravana Kannan <saravanak@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-References: <20260615122950.22281-1-ansuelsmth@gmail.com>
- <20260615122950.22281-6-ansuelsmth@gmail.com>
- <867a39de-ccc2-4dcf-be24-ab2542d20ab6@bootlin.com>
- <6a3007ce.73de60af.3a056d.d903@mx.google.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <6a3007ce.73de60af.3a056d.d903@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260614233722.2603459-4-salih.erim@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-
-On 6/15/26 16:10, Christian Marangi wrote:
-> On Mon, Jun 15, 2026 at 04:07:03PM +0200, Maxime Chevallier wrote:
->> Hi Christian,
->>
->> On 6/15/26 14:29, Christian Marangi wrote:
->>> Add support for late PCS provider attachment to a phylink instance.
->>> This works by creating a global notifier for the PCS provider and
->>> making each phylink instance that makes use of fwnode subscribe to
->>> this notifier.
->>>
->>> The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
->>> a new PCS provider is added.
->>>
->>> phylink will then react to this event and will call the new function
->>> fwnode_phylink_pcs_get_from_fwnode() that will check if the PCS fwnode
->>> provided by the event is present in the pcs-handle property of the
->>> phylink instance.
->>>
->>> If a related PCS is found, then such PCS is added to the phylink
->>> instance PCS list.
->>>
->>> Then we link the PCS to the phylink instance and we refresh the supported
->>> interfaces of the phylink instance.
->>>
->>> Finally we check if we are in a major_config_failed scenario and trigger
->>> an interface reconfiguration in the next phylink resolve.
->>>
->>> In the example scenario where the link was previously torn down due to
->>> removal of PCS, the link will be established again as the PCS came back
->>> and is now available to phylink.
->>>
->>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
->>> ---
->>
->> [...]
->>
->>> @@ -2151,6 +2204,10 @@ void phylink_destroy(struct phylink *pl)
->>>  	if (pl->link_gpio)
->>>  		gpiod_put(pl->link_gpio);
->>>  
->>> +	/* Unregister notifier for late PCS attach */
->>> +	if (pl->fwnode_pcs_nb.notifier_call)
->>> +		unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
->>
->> I wanted to try this out, but I get :
->>
->> drivers/net/phy/phylink.c:2218:17: error: implicit declaration of function ‘unregister_fwnode_pcs_notifier’; did you mean ‘register_fwnode_pcs_notifier’? [-Werror=implicit-function-declaration]
->>  2218 |                 unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
->>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>       |                 register_fwnode_pcs_notifier
->>
->> I guess you either need to stub this, or there's a missing Kconfig
->> dependency somewhere
->>
+On Mon, Jun 15, 2026 at 12:37:20AM +0100, Salih Erim wrote:
+> Add an I2C transport driver for the Versal SysMon block. The SysMon
+> provides an I2C slave interface that allows an external master to
+> read voltage and temperature measurements through the same register
+> map used by the MMIO path.
 > 
-> Hi yes if you want toi test just enable CONFIG_FWNODE_PCS. I forgot to add
-> the static declaration for unregister_fwnode_pcs_notifier. 
-
-I'll give it a go with this yeah, I have a few devices here I'd like to
-try this on.
-
-Can you CC me for the next rounds ?
-
-Maxime
-
+> The I2C command frame is an 8-byte structure containing a 4-byte data
+> payload, a 2-byte register offset, and a 1-byte instruction field.
+> Read operations send the frame with a read instruction, then receive
+> a 4-byte response containing the register value.
 > 
+> Events are not supported on the I2C path because there is no
+> interrupt line and the I2C regmap backend cannot be called from
+> atomic context.
+
+...
+
+> +static const struct regmap_config sysmon_i2c_regmap_config = {
+> +	.reg_bits = 32,
+> +	.val_bits = 32,
+> +	.reg_stride = SYSMON_REG_STRIDE,
+> +	.max_register = SYSMON_MAX_REG,
+> +	.reg_read = sysmon_i2c_reg_read,
+> +	.reg_write = sysmon_i2c_reg_write,
+> +};
+
+No cache?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
