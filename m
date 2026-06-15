@@ -1,104 +1,166 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011031.outbound.protection.outlook.com [52.101.70.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA15C3AFAE0;
-	Mon, 15 Jun 2026 06:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503959; cv=none; b=sG79XmqJwokk2CAn89/GoWEausyI7IdXbXL+Nb4IzC0Dl3DrQ6FewF1p3t4Y4YW3W1FaYbse0QXuWita4F+HfL8+FsYDK9hzcz/X4nVj0Jh1W8FC4KyWehCos8GD6DbildJlASeuSZVMv+QIJmPMhfanBJheJAW3ZuYCO2EyaXY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503959; c=relaxed/simple;
-	bh=/VZ4zClhJzZrNLtXfhTdULU67m3ZVri2koYZWW3a9LM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=sNZpWuZmmgFN18Z77RxvpddeDMhTZM+FwOlK9igzaBq0xjaTT33QaQIfX9tvFA6LzjfwqMkQzQ6gX7oD3YKsxnAjngSo8KBXxfsuh4uvF85Lm84CClw2gGVgnT33blZPyaE2fgvdQ1QoeZVh7DQamOv9+HT3WIj7OkquKjrnNig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=phzulaZ+; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D633AB285;
+	Mon, 15 Jun 2026 06:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781504077; cv=fail; b=cakXc9JIb7ccaQftFcHTcAsF0vjqtxW1gK2VM1PcA2HOzb/fjypI/yTdDNozc9oiDjGxgO0Yuy0/92j8EHNwVYY7DxrUMsMRDQJwWppCGlgchfpIVolIy6Xyyc8VU1NkXpPinhwt/nkQ8dFdLyl58vtI0RZCmQac/2FLhw+3pI4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781504077; c=relaxed/simple;
+	bh=w9iBp9XVCTEZk9VMiK+jRO/nxhIPYG0l6+l/JMSVZb0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hjT91CIfKhUyftD0TGDbAk29IcPinuC/iKKK2DoYtN0pDvvdjI8LYwiEF8DmdmlMmpTtIZEvqRlDzMfBLBoMfsnNXSJs69vrLoNkz1nkwh88Y5fUf9LD42AQw1UZig2eIMjV7LX35i/oDX1sP7d2b/bWFCS5y+jJVAasZqAMCUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=IABYLq1d; arc=fail smtp.client-ip=52.101.70.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="phzulaZ+"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gf0C6218Bz9ts6;
-	Mon, 15 Jun 2026 08:12:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781503938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/VZ4zClhJzZrNLtXfhTdULU67m3ZVri2koYZWW3a9LM=;
-	b=phzulaZ+JyLogfpRQ7HBGAPyUMuCFbqDHsgS63IH86zVwE8JMmlOMK4nk7h97gqkdCHKxr
-	85o+QvnD4AhHyhIbYJI3x805Kj7mVedsv5/10NsrzmctqpG06QaWDs0AMBbKod33GbqWbE
-	CMXEgj7yXNvTP3OLaJ50rO2esiTi86Z2Gu3ousMffnuP7WqudyJYpUgPpCkSPRhJNNMFna
-	/9YC0E+9+5uITErC3cZ2r6T0inWTtmPpHHPtC390U8Av2ISJnVBDdxOijDUBH066+ifG1x
-	WV14TL+3PwH/B6+X927t8quPY+Yrj3EBRgDeEMCt9taYl+e2NHF5SfuJth5Bug==
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="IABYLq1d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MvqTKeAge8SVl5ru0SvRFiNHDUFskyodmRxcaDXHP+OE+5gNUNjXA2RtQGy/nf/c1Ry4LcIJI07slWxFoJz/6z46YuecGFkxoBEVp4MgjlRDWv2g3M7E4kgrucXEpjHmVseo3Bzs3AFD5I+07JEBwSHElt0AOUBev8XsFlS/jcOqKo0jm3y4lKiIkXkxr7a24SPUXRAqRWwi2m/UnZBAetkn149eQdjb9q6dmAqbET3OqQa7x4txNB6TJuuuQOENaztyw6BLdGfsuPzq1eDUxq8quf8Lxh5jqJfA+r8yuCb1mR3PqbGz4gIfD74BL9Gb1UE2yGGTFycGr5cvq3D4vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w9iBp9XVCTEZk9VMiK+jRO/nxhIPYG0l6+l/JMSVZb0=;
+ b=t4JYz5r1KDXEhW9XMk3Z2bOxyS1zn1D1ut1TAjiy+yfJP9WSHf+F9KHyLjFlmiPRdP7OzVDDTzSdY9CkG6CHIw2P3bhapu2KPI2tcLYz0zha01dDerTqy8SnwLJ4d0sYwYH2i84eW1GxeP+TmxkYsxn0WewzveblSdEf6o2VoU8YizPtP2dQHjk3slJEO08AY0H7/93D++Xw6PtJVPzjSigHtlYcJjWLbQkTj1XJr5sWwLh+99Jhfgnl8LWEWbZUPtzENWAYAF6zv8PPYeMvyCRLFQoVKb0T4ydxr/+laNbclpKOVMd0Lg9E0NloEo/drIXDz0yld67aqTjB2m8gQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w9iBp9XVCTEZk9VMiK+jRO/nxhIPYG0l6+l/JMSVZb0=;
+ b=IABYLq1dGt9/L11wD6jgGQ29ihTF4XJdf7VXxK2FKaFGyZpK8QGCuEYMi1+VjwpvOP+FWn4x8SYfWF8sBEturOVLRYhG+2zg59rjv3iGzJ4f/mqvP0WElmRdvuLGRWAIt7JaQPSur/S5tEEGWkr4jmR/v6/XgNsAPEiGMiokQKZOmh7OtnsNt77+3Vpoj2R6eEOGTBYBra5pH0ZyVMLvB86cOa9I8Y3mxGX0ElFpjQ/+N4CKg8N1sE+JeP5I9fyF0TRLPIoIHBRfkE6FDUZqs/Lh4+QtE6+bQL0TrRHfQfZ4AZFHXyybeZax43jdNW7KJmqOuEmMch9OLhS9NAoyTg==
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
+ by PA4PR04MB9413.eurprd04.prod.outlook.com (2603:10a6:102:2a8::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 06:14:32 +0000
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 06:14:31 +0000
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"linux-rtc@vger.kernel.org" <linux-rtc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"wim@linux-watchdog.org" <wim@linux-watchdog.org>, "linux@roeck-us.net"
+	<linux@roeck-us.net>, "linux-watchdog@vger.kernel.org"
+	<linux-watchdog@vger.kernel.org>
+CC: Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain
+	<priyanka.jain@nxp.com>
+Subject: RE: [PATCH v4 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp mode
+ config
+Thread-Topic: [PATCH v4 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp
+ mode config
+Thread-Index: AQHcWuAAR8BPN5MBkUWbSOAo/I/sE7XucZvAgFH02JA=
+Date: Mon, 15 Jun 2026 06:14:31 +0000
+Message-ID:
+ <AS4PR04MB9362F3E93C1133986D30B0D3FBE62@AS4PR04MB9362.eurprd04.prod.outlook.com>
+References: <20251121121137.3043764-1-lakshay.piplani@nxp.com>
+ <AS4PR04MB93628F4BEFE9293FC6E457C6FB2B2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+In-Reply-To:
+ <AS4PR04MB93628F4BEFE9293FC6E457C6FB2B2@AS4PR04MB9362.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|PA4PR04MB9413:EE_
+x-ms-office365-filtering-correlation-id: 6d57734f-03d9-4c7f-d8e3-08decaa55d2a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|19092799006|376014|4143699003|921020|18002099003|56012099006|11063799006|38070700021|22082099003;
+x-microsoft-antispam-message-info:
+ +8Sf7OWS4XHF2yrxpAs5gDP9JzxKHTgv3ntd+ZsR7i89ux7sR/YKgIGVTL2jAI7Ydjp69bUTvvYUm4yTWXEyAXs01ZOZpZTL0xc8PfS5jlBnZzljSkks131y9Ki2uG1nt/7XPyuAm0CUYRjatfw6uxWS0o6FBlLlP5/etLJOEtd7KCYDQyrK3n4y996L54Ka/sGZWpcRq9WIZ7PWE0bAD0vKn+a8pidDwb5+LLHBvzYVc2lDUp75w/mYQSuIpdwv96fpVLJrm6FTZeBPeZmwC2xFaH6BRBP38OT02TVeapJDW2axCZpmPGUdo2reN3vNqCDGqyEGqpENZslYm6bWTnJXDJVcbF4E3iAXD806jTixOVV5xx7q5ijCJqQZrWKI44bVkq7H889z0dy2i0OLONcwFm3O0RsvsVScKf6kNcVDmMuP/fjj3KQeVLXDT7acaHzOKeHcLKYQOHDAGPBLEC5ioL9t5hCBqWP35IQz4yC3bSQ4L/b/qTX6jHYtKwOlZArQtphU1OKEqmxxb30ZgzSj2R1Qb1JzRUTbP/ZS0qurUbD+rtBA4wsE14hh3hER642d4XpzZsTT17icB9Qcx7fKkHi2/JrjzeWpSAkRKmbOR52XBIJsoS2EQxgiRnpF7VLEIlhfeoro5i6A7kg+yFngmjhdgYu5DkPuB4496HlfwcqNqFm04dIQSuLdsqiJPENFDlGln8J0jPo7WdxI7aym8sR2brciV9eDXgOD1kBLQFvuSwpO74wzwGfNQX3rOSJjEw9wRbGkAs8CPRgpYA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(19092799006)(376014)(4143699003)(921020)(18002099003)(56012099006)(11063799006)(38070700021)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?cRAl8j8vCecUPpbIoSBSVrKOKnUdJNUr1ynhsq7p75nzftYRiRqzq+y2WSN3?=
+ =?us-ascii?Q?CU61v5vKU4/SFuoS2Mtb70Xo81I8617srahiy74Vci+2uXzPEf6GwFcVV0s5?=
+ =?us-ascii?Q?ARJ+HYE4H/rESMgqAR0fwOyW+Vcg6JN4nfGLMuHbLsB0/3KXqu3BXMTFhiyi?=
+ =?us-ascii?Q?gRUZG32QC2nAos6UgWKoh4oKe2PSlFCMqtS17U9/BojmAmcohz4Eb0DZsFJy?=
+ =?us-ascii?Q?5o5RuRTuKfvsAaDhUjehGBHH2U9wGGgdRBTyR7wOxeZ0fbm6CieTerlWn3iY?=
+ =?us-ascii?Q?5Jq346q70xA4YC8rCs5cZQK2XwWlPH4BIBKMrv8g7a9E8+qQ9Pudk/zjrzjG?=
+ =?us-ascii?Q?hdIc0tVBcxDRPj7YKukFm6DCVRvSBnNMmFeaZtEfshaLLKeKD8IvXQ9ad9Mg?=
+ =?us-ascii?Q?X5lOgtqXHgc5E8jjqUny2mzWPoikh+7h/GsCn/PDNhpKTk+S/o2jFn6Mios7?=
+ =?us-ascii?Q?dhpY5tJG9Xwhy5Rid8TaZfL7ZhLoLDuY9FU0oyn1wNE8qKBCoyWks0ZBVfUe?=
+ =?us-ascii?Q?n6rY/zt66Mlz58xJ5aEa/FAmkD0fmCEXNbVxdWiI35iLGynrAfVvLg0HXcA+?=
+ =?us-ascii?Q?bE48HUoc1uDKOyskVEaa623dKvtnlcNyqN1zjBChIbT/Il+c7m/Bzi9u36vF?=
+ =?us-ascii?Q?AIdMXTvfZLSHceSXCjuHHj3O5240qT0Q4/jxWJWllAyml9dSPICNsQGOGIEu?=
+ =?us-ascii?Q?HTFmmP8Jt3Ip1Iyw5k5USLuT85I+JHrZLGv+L0VAUGfxSFe5jbxhKjAfHgun?=
+ =?us-ascii?Q?XE+pxqw5FFhSE82RTXTzGJnS+DN0ff2RWY82Gt0KjyK2ExcVsjXbfNfmfMdR?=
+ =?us-ascii?Q?Rzg9XVFT7mHO1BBj+hZTE5d9/kB//lxsflxL6AGtcarRJrUSWV7IrUwK4WBu?=
+ =?us-ascii?Q?UwFoMjFmcslKMu71tTGPO+3ZGujn83xKnDcsAam4fL58I13AGkyf+/bvGisX?=
+ =?us-ascii?Q?enxEMDr0yOHw+P1VwFvUMnW6mbeHT+AkjylvrMyl/CXxqWhmWgY7qfaaL8oT?=
+ =?us-ascii?Q?syrhB2k3n1r8SVj66AEv9tbIfCQkU3JJmHSSbcGHvbXEOs21qVHeqd4nbsiX?=
+ =?us-ascii?Q?jZOLb6e4++oPhbtvgAzAujpRODevysBfokWJIPrbghBkV5436ijFLkywX60O?=
+ =?us-ascii?Q?rKljDsd0ieBJ9AT6G+SIiHrlXEflR2rmB6q3feYXllEwHTi4IGr5PsBxwFTK?=
+ =?us-ascii?Q?GQMRLK0bPQiaMdNEw76pg8lQOtE5GY36OgazHrl+gYt+8IhsYo99CK+MdrSZ?=
+ =?us-ascii?Q?a99rvIHG4xBCM0tRolKQy5rfxMTegHmrrZXS5Eia7dpbbNzBmiERHiXqMnm0?=
+ =?us-ascii?Q?shB1FCrHN+TmsMc8JzAT214wN2UsTg6JZiRdeMUESVqBcky59COINoIbAIDA?=
+ =?us-ascii?Q?VU/uuiQ+1oKQWG7Agdk9rfPkgtaHuTP9SnA2bKSPdmPRETFTPBJQp4m4KPRl?=
+ =?us-ascii?Q?Qb/xddOX1rveXP5HrF4dT0P3O2l00wZm5NRTHJk72Sb2xAKM/GMVYWJOZ5yA?=
+ =?us-ascii?Q?hV5+2afFGQaGYgtm+3zBV7KVBr4eJSNEJAxz1f5/BDL+DjSkli+goTxgvbDG?=
+ =?us-ascii?Q?Dvq84GUEbYRnLbAvQy4ZdSCR61K8FaLdN6/wtAQuXCxt6LPmwU9G+Onu/YQF?=
+ =?us-ascii?Q?R4awl/pyQ9F6KpbQ62Js+mLPfdi7j/EBEPRjjzohjVh1KJk5pl2DSRq+hdca?=
+ =?us-ascii?Q?1zOTOMPpCSyxgepvou2Gjijfw54Fw2U5l0l/TRY0rorPJHNU9lCu/lj7uMKi?=
+ =?us-ascii?Q?Y7KY/Rex5w=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 15 Jun 2026 14:12:06 +0800
-Message-Id: <DJ9EFPG561VZ.1WGRYYHJ2W9J9@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan" <dlan@kernel.org>,
- <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 1/2] cpufreq: spacemit: Add K1 cpufreq driver
-From: "Shuwei Wu" <shuwei.wu@mailbox.org>
-To: "Viresh Kumar" <viresh.kumar@linaro.org>
-References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
- <20260612-shadow-deps-v3-1-2f3ba88611ff@mailbox.org>
- <bd4s2icqgusnuujvrpoag4cniy3g2e4bumecqxt5yffl77aqpq@kxg4dj4c2wk3>
-In-Reply-To: <bd4s2icqgusnuujvrpoag4cniy3g2e4bumecqxt5yffl77aqpq@kxg4dj4c2wk3>
-X-MBO-RS-ID: c7b5cf38a87e3ca26a7
-X-MBO-RS-META: zjp4t73kp1bk1dehp139gn986jjq6dpj
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d57734f-03d9-4c7f-d8e3-08decaa55d2a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 06:14:31.4180
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ibZM1/9TSeOReuGmAU5HxzrEyMFY+f1IT6PUDT2nxT3esK9IgyW1GxytqPju5pQORZnZfLEVv38rTjZLKZjbIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9413
 
-Hi Viresh,
+>=20
+> Hi,
+>=20
+> This is a gentle follow up on the patch series I submitted in November
+> (regarding the v4 of PCF85363 RTC driver). I haven't seen any review feed=
+back
+> Yet. So, I wanted to check whether you might have had a chance to look at=
+ the
+> series.
+>=20
+> Please let me know if there is anything further is needed from my side.
+>=20
+> Thanks,
+> Lakshay Piplani
 
-Thanks for your reply.
+Hi,
 
-On Mon Jun 15, 2026 at 1:24 PM CST, Viresh Kumar wrote:
-> On 12-06-26, 17:51, Shuwei Wu wrote:
->> K1 has two CPU cluster clocks but one shared CPU voltage rail. Use one
->> cpufreq policy for all CPUs, let the OPP core handle the shared regulato=
-r
->> and the cluster0 clock, and update the cluster1 clock explicitly.
->
-> If the clusters can do DVFS individually (as they have separate clocks), =
-this
-> should be represented as two separate policies. Isn't it ?
+I hope you're doing well.
 
-The clusters have separate clocks, but they share the same voltage supply.[=
-1]
-So two independent policies would be unsafe: one policy could lower the sha=
-red
-voltage while the other cluster is still running at a higher frequency.
-This means they can't use different policies.
+This is a gentle follow-up regarding the v4 patch series for the PCF85363 R=
+TC driver that I submitted in November 2025.=20
+I understand things can get busy, but I haven't seen any feedback on the se=
+ries yet, so I wanted to check if you've had a chance to review it.
 
-From a hardware perspective, the eight cores of the K1 are homogeneous,
-so using the same policy for them is relatively reasonable.
+I'd be happy to make any updates if needed. Please let me know if there's a=
+nything required from my side to move this forward.
 
-I used a K1-specific driver because cpufreq-dt only manages one CPU clock
-through the CPU device used for the OPP transition.
-On K1, the policy needs to control two independent cluster clocks and one s=
-hared
-regulator, so the driver has to update the second cluster clock explicitly =
-and
-keep the ordering safe: raise voltage before raising either cluster, and lo=
-wer
-both cluster clocks before lowering the shared voltage.
+Thanks in advance for your time and feedback.
 
-[1] https://lore.kernel.org/spacemit/aeaXszeaE62rM6BJ@aurel32.net/
-
---=20
 Best regards,
-Shuwei Wu
+Lakshay Piplani
+
