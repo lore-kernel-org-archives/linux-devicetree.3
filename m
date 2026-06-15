@@ -1,276 +1,168 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3D52F360A
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CE82E6116
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781545596; cv=none; b=LFw5ZkCW0RmBbMcWXaET8kZJng2LMO5AeUAhaMc4IsenChL5FhHSR6+BLvh27Stid6m1TmAaA5njb5THhRwZmV3wGLpzbCtYSmuAyKfz+ZFG8jNISXUMx+G9vn1inRR1yskBI5H3ASnKhm2rUHy9OXrEiBkK/XXXnIrpa77CtTg=
+	t=1781545824; cv=none; b=VRiD68xEDqBkp1Z94buiK1MrMbsG1VHsJ/J2aQFnjfEnW1/zD83aNvPZzqc/FSoGdVaNQCKVGdz2fd6AU2hEQ/JTNvs16k0jzoIYAB1htWjmFFLPrm8NRnGEDhlg7iaQWn8HfAZ+z3svovARGVKRDjVQg00e2t6OkcZOM1eUp4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781545596; c=relaxed/simple;
-	bh=6Kch48sojf7uiTigvd+1WdQSRnstLfhc2vvsNDPRh8g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jUPAIjw699uRGrF/INW6PDQEbOaauCu6hUBMMPG26S9gjYrwu9zqSeJWf7HWLojbpH+k0yYcg7FmIoxc6pNFEy2Y4lbuoSJhmyNXligfqU6i1SNzQCUpMfR34qUBvR3Iu/In4gersM5mwWRXC3cEx5p6JdZ14CIe6VAVsesfJr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=V9e5csqu; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781545824; c=relaxed/simple;
+	bh=XGoUcUEU4j54w0QguWzcYYqOmDeMSZBvJxrKiEDM51Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ocZHTQ8Kcnfu2KZwWEpqqXf6rjLaxChB87YvIgCTI/jLblhqczvePnY93c9JBAYQnsgzXdvDon1nfgzU0HhxuGPDjvpx4YDcb6+adsuWuHZoSwn0SlPKvTJDvf933NNVuc+XmlweJ3UoZLVi/lTYOxB41zllc/JzjTrtHrmxr/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QN5U80TT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="V9e5csqu"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-491b390f9e9so29622435e9.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:46:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781545591; x=1782150391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ksRwsZduIIB6SyG2nFNgDOhkTcDdI1Vxdkt4BX+vx3c=;
-        b=V9e5csquuf1zX//IXNFGDd3OvoWedqTPYctKiCAPTb7LpF/5XmOhmFDS3t/DbyCrfU
-         hrhnGMswTcFYbLE+od7qf+vngsGd4exUurM5PVtPjVKZvM7UbbBMD3NpW3czbfhIUZsP
-         A0y7sCiW9kBx5+v8/N16LlqQNCZP/jva6tbRmaTVuBtm7MpZDHO0ByuO0RVCEGRaS3Eh
-         mvwBKCCeXLTKWk2i6m4eTX1sBydoYunfAeLapjRGCanPHuS1hvVnRjSZOnbpX9N7xJwx
-         /z3Sq3dfL+k78AtMAloDj7/sqAgEluCL/nFMYhBn4GUMRm8X+nj6qzv5EtYz8F1BUBLb
-         05Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781545591; x=1782150391;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ksRwsZduIIB6SyG2nFNgDOhkTcDdI1Vxdkt4BX+vx3c=;
-        b=DpWHl/K/skVd48/oY7KmX+LUgamzv09MOy0pmOV4KDhhhzOgIFIhiv4sMF4sM8QPdJ
-         mn+cLLM98h/TVq3leD/XM6bcfN+I5CdxQfaSvuCkl0bsVu25Nthg9X8KFCawkcfuypca
-         t4/Q1ZWXce/0VhxOxv2NCzC1x8xwX/akSrn9Qp0A2Kma3/SaCpTjPGjf+6W3ft3TuelP
-         Pgg/l3uOeACr6MqKEBaeJvAZhzqesLw42YlVC2yOsPPv3Isjtbsa2x2BDv2IFdJz1qxD
-         lZFXoVF/j1osAOvBZ5PMPX1S6xQl+tIHdvNLBSUiTExj38rXGlLVLBnSgRhsxtdXYGO1
-         KoVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8lVTjglUtul1Tu5CpoSjUir6oAl9IoZu43hQahgs0J/thpGmrf6M7PMoC4qP5D9E3sWX46+RRJ8Ssw@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcEFUEjNV7dgwsNjrMZz6L/+gCtnvFEMVVeumh1r6mp0ELYCnq
-	KbBNEf05GMh/Yt+htBFYfsFfMA52EhXG28/6LMwhglpSyuRkyoGq0/WJTXkYypOyIhM=
-X-Gm-Gg: Acq92OEPVkWVTUR5eUQDq8DYB4/KGcGwUGpeeQIpVDP1hmeOf9rJX3+80V0npCX+2rn
-	mObFPnmrylWJZ02GeP8JatcmGq9b1QIza878JKttyYSYt3tB4BWziUo+A10mqLp1NwejJnym3zS
-	VdS84ApyNMsXKyIk95e8BJW4wtZfoygRTmxdp1+aMnPGy7HLkURRsTkl491WuAYTjHr7sOHxPOM
-	3bg5OZOS9rpBQg1acUZs8Duey8oxNj2UxNrqmwWjF0yDM+p8FeToR0o04ELZTh724Da6/FG3C/M
-	TnzULhWDlSBIDtBv/EkEkUwtHMRfBqklrjE/+tJIOTXS1ikFPMKrdRdmryiooHCyf/+0YtqAwkc
-	LDd/O3W4Sa70sfB7Lnwoumau7IiEdlQAYStK1Tt6Z0Y7niYElp539LY3vH2ZHpVDEudMyBEfd0K
-	9zuiOyKIj07Lmy9D7t57xQmA==
-X-Received: by 2002:a05:600c:638f:b0:490:9df1:f0cf with SMTP id 5b1f17b1804b1-4922ff8eeaemr3741655e9.2.1781545591514;
-        Mon, 15 Jun 2026 10:46:31 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:5176:ebe3:853b:8fb0])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4922fa3a8e4sm12251795e9.3.2026.06.15.10.46.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 10:46:30 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>,  Michael Turquette
- <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,  Jernej
- Skrabec <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,
-  Alexandre Belloni <alexandre.belloni@bootlin.com>,  Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor
- Dooley <conor+dt@kernel.org>,  Maxime Ripard <mripard@kernel.org>,
-  linux-clk@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
-  linux-sunxi@lists.linux.dev,  linux-kernel@vger.kernel.org,
-  linux-rtc@vger.kernel.org,  devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: rtc: sun6i: Add Allwinner A733 support
-In-Reply-To: <CAGb2v67844OPwE6VJ0PAs5LsmCa2h0FvXOBUomZ50dM5tZ0Zow@mail.gmail.com>
-	(Chen-Yu Tsai's message of "Sat, 28 Mar 2026 20:37:26 +0800")
-References: <20260121-a733-rtc-v1-0-d359437f23a7@pigmoral.tech>
-	<20260121-a733-rtc-v1-1-d359437f23a7@pigmoral.tech>
-	<CAGb2v67844OPwE6VJ0PAs5LsmCa2h0FvXOBUomZ50dM5tZ0Zow@mail.gmail.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Mon, 15 Jun 2026 19:46:29 +0200
-Message-ID: <1j1pe7elxm.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QN5U80TT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3771F000E9;
+	Mon, 15 Jun 2026 17:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781545822;
+	bh=xttoPIat5TvELpIaoc4pkxjEovch9JYfzrznzcYQrTI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QN5U80TTEFCP25v+xA+6Ety8Y7IWeTHI8zQNtoqBFFvBVlW148Q2TRjfFHzc4R2LA
+	 MZk9LXQKmlLPaRJjlnisAm8KQ6HV7e1CUMf9KC8QWW91ok+MSU6ythB/bR/nJtGETo
+	 JbsO9EIhf2Sgon52UC4V47WkysnZLCVi6ec21UQFCdjuNCvICVQe0injmUGtDS2WWd
+	 wBLdj4T2s22JZCl/KaXr8I9uHTcjM1mOQA+NCfr0jwGjPnk0ejmhPMe42t33p9Iy6P
+	 tbX3VUH8PZoR9QWuowp7O/rmyGwM5JchrSQDczg2/7385b1Q06rE0NfpkJSWfPjBcO
+	 htS0Mq39GNMVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V13 5/9] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260615172554.160910-6-macroalpha82@gmail.com>
+References: <20260615172554.160910-6-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 17:50:21 +0000
+Message-Id: <20260615175022.9A3771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On sam. 28 mars 2026 at 20:37, Chen-Yu Tsai <wens@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing synchronous suspend during driver unbind leaves hardware s=
+ensors powered on and leaking power.
+- [Medium] Unconditional 45ms sleep during gyro power-off injects unnecessa=
+ry delay on every suspend transition.
+- [Low] Incorrect constant used for defining the autosuspend delay.
+--
 
-> On Wed, Jan 21, 2026 at 7:03=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.t=
-ech> wrote:
->>
->> The RTC module in the Allwinner A733 SoC is functionally compatible with
->> the sun6i RTC, but its internal Clock Control Unit (CCU) has significant
->> changes.
->>
->> The A733 supports selecting the oscillator between three frequencies:
->> 19.2MHz, 24MHz, and 26MHz. The RTC CCU relies on hardware to detect
->> which frequency is actually used on the board. By defining all three
->> frequencies as fixed-clocks in the device tree, the driver can identify
->> the hardware-detected frequency and expose it to the rest of the system.
->
-> No. The board device tree shall have the exact and correct frequency
-> defined in the external crystal device node. The operating system can
-> use the hardware-detected frequency to "fix" the in-system representation
-> if it is off.
->
->> Additionally, the A733 RTC CCU provides several new DCXO gate clocks for
->> specific modules, including SerDes, HDMI, and UFS.
->>
->> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->> ---
->>  .../bindings/rtc/allwinner,sun6i-a31-rtc.yaml      | 38 +++++++++++++++=
-+++++--
->>  include/dt-bindings/clock/sun60i-a733-rtc.h        | 16 +++++++++
->>  2 files changed, 52 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-r=
-tc.yaml b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> index 9df5cdb6f63f..b18431955783 100644
->> --- a/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> +++ b/Documentation/devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml
->> @@ -26,6 +26,7 @@ properties:
->>            - allwinner,sun50i-h6-rtc
->>            - allwinner,sun50i-h616-rtc
->>            - allwinner,sun50i-r329-rtc
->> +          - allwinner,sun60i-a733-rtc
->>        - items:
->>            - const: allwinner,sun50i-a64-rtc
->>            - const: allwinner,sun8i-h3-rtc
->> @@ -46,11 +47,11 @@ properties:
->>
->>    clocks:
->>      minItems: 1
->> -    maxItems: 4
->> +    maxItems: 6
->>
->>    clock-names:
->>      minItems: 1
->> -    maxItems: 4
->> +    maxItems: 6
->>
->>    clock-output-names:
->>      minItems: 1
->> @@ -156,6 +157,38 @@ allOf:
->>          - clocks
->>          - clock-names
->>
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: allwinner,sun60i-a733-rtc
->> +
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 5
->> +          items:
->> +            - description: Bus clock for register access
->
->> +            - description: 19.2 MHz oscillator
->> +            - description: 24 MHz oscillator
->> +            - description: 26 MHz oscillator
->
-> No. There is only one input. As in there is only one set of pins for the
-> DCXO. The inputs are the same as on R329 / A523. Just use that list.
->
->> +            - description: AHB parent for internal SPI clock
->> +            - description: External 32768 Hz oscillator
->> +
->> +        clock-names:
->> +          minItems: 5
->> +          items:
->> +            - const: bus
->> +            - const: osc19M
->> +            - const: osc24M
->> +            - const: osc26M
->> +            - const: ahb
->> +            - const: ext-osc32k
->> +
->> +      required:
->> +        - clocks
->> +        - clock-names
->> +
->>    - if:
->>        properties:
->>          compatible:
->> @@ -164,6 +197,7 @@ allOf:
->>                - allwinner,sun8i-r40-rtc
->>                - allwinner,sun50i-h616-rtc
->>                - allwinner,sun50i-r329-rtc
->> +              - allwinner,sun60i-a733-rtc
->>
->>      then:
->>        properties:
->> diff --git a/include/dt-bindings/clock/sun60i-a733-rtc.h b/include/dt-bi=
-ndings/clock/sun60i-a733-rtc.h
->> new file mode 100644
->> index 000000000000..8a2b5facad73
->> --- /dev/null
->> +++ b/include/dt-bindings/clock/sun60i-a733-rtc.h
->> @@ -0,0 +1,16 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only OR MIT */
->> +
->> +#ifndef _DT_BINDINGS_CLK_SUN60I_A733_RTC_H_
->> +#define _DT_BINDINGS_CLK_SUN60I_A733_RTC_H_
->> +
->> +#define CLK_IOSC               0
->> +#define CLK_OSC32K             1
->> +#define CLK_HOSC               2
->
-> The DCXO enable control has been present since at least the H6. We just
-> never added it, as we would never disable it anyway.
->
-> If you compare the RTC clock trees of the A733 and A523, the only addition
-> besides the new gates seems to be the LOSC auto selection. But even that
-> is just an illusion, as the A523 has the same registers for that.
->
-> One could say the A733 RTC is almost backward compatible to the A523, if
-> not for the two fastboot registers the A523 has at 0x120 and 0x124.
->
-> So I ask that you try to integrate the differences into the existing
-> driver and bindings. You can tweak and export internal clks if you
-> need.
+commit c053e5ed4a86d71f412c402ec80e9602b6677c2a
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-I'd like to help with that. I think it is doable but I have a question
-regarding the binding of the existing driver, more precisely their usage
-here:
+iio: imu: inv_icm42607: Add PM support for icm42607
+   =20
+Add power management support for the ICM42607 device driver.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/dri=
-vers/clk/sunxi-ng/ccu-sun6i-rtc.c?h=3Dv7.1#n370
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/im=
+u/inv_icm42607/inv_icm42607.h
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+[ ... ]
+> @@ -334,11 +345,18 @@ struct inv_icm42607_state {
+>  #define INV_ICM42607_GYRO_STOP_TIME_MS			45
+>  #define INV_ICM42607_TEMP_STARTUP_TIME_MS		77
+> =20
+> +/*
+> + * Suspend delay assumed from other icm42600 series device, not
+> + * documented in datasheet.
+> + */
+> +#define INV_ICM42607_SUSPEND_DELAY_MS			(2 * USEC_PER_MSEC)
 
-Clock indexes are supposed to be stable in DT (AFAIK) but with the code
-linked the external 32k is at:
+[Severity: Low]
+Is this using the correct conversion macro? While (2 * USEC_PER_MSEC)
+evaluates to 2000, USEC_PER_MSEC means microseconds per millisecond. Using
+it to convert seconds to milliseconds is semantically confusing. Should thi=
+s be
+2 * MSEC_PER_SEC or just the literal 2000?
 
-* "ext-32k" - so index 3 - if "clock-names" is present
-* index 0 if clock names is not present
+> +
+>  typedef int (*inv_icm42607_bus_setup)(struct inv_icm42607_state *);
+> =20
+>  extern const struct regmap_config inv_icm42607_regmap_config;
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_core.c
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+[ ... ]
+> @@ -103,6 +105,63 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data =
+=3D {
+>  };
+>  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
+> =20
+> +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> +				      enum inv_icm42607_sensor_mode gyro,
+> +				      enum inv_icm42607_sensor_mode accel,
+> +				      bool temp, unsigned int *sleep_ms)
+> +{
+> +	enum inv_icm42607_sensor_mode oldaccel =3D st->conf.accel.mode;
+> +	enum inv_icm42607_sensor_mode oldgyro =3D st->conf.gyro.mode;
+> +	bool oldtemp =3D st->conf.temp_en;
+> +	unsigned int sleepval_ms;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	if (gyro =3D=3D oldgyro && accel =3D=3D oldaccel && temp =3D=3D oldtemp)
+> +		return 0;
+> +
+> +	/*
+> +	 * Datasheet on page 14.26 says we need to ensure the gyro sensor is on
+> +	 * for a minimum of 45ms. So if we transition from an on state to an
+> +	 * off state wait 45ms to ensure a sufficient pause before power off.
+> +	 */
+> +	if (!gyro && oldgyro)
+> +		fsleep(INV_ICM42607_GYRO_STOP_TIME_MS * USEC_PER_MSEC);
 
-... but index 0 is supposed to be the bus clock according the binding
-doc, whether "clock-names" is there or not :/
+[Severity: Medium]
+Does this inject a 45ms delay into every runtime suspend transition?=20
 
-So what are those old r329 bindings ? is there a documentation defining
-them somewhere ?
+The code unconditionally sleeps for 45ms when turning off the gyro.
+If the datasheet requires the gyro to remain ON for a minimum of 45ms
+after power-on, wouldn't it be better to track the power-on timestamp
+instead of delaying every power-off sequence, even if the gyro has
+been active for hours?
 
-Cleaning that part would help with A733 addition in the existing driver
-I think
+> +
+> +	val =3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
+> +	val |=3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
+[ ... ]
+> @@ -271,10 +342,78 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, INV_ICM42607_SUSPEND_DELAY_MS);
+> +	pm_runtime_use_autosuspend(dev);
+> +
+>  	return 0;
+>  }
 
->
->> +#define CLK_RTC_32K            3
->
-> AFAICT besides being an internal clock, this is also fed to GPIO for
-> debounce? We probably need to expose this on the A523 as well.
->
->
-> Thanks
-> ChenYu
->
->
->> +#define CLK_OSC32K_FANOUT      4
->> +#define CLK_HOSC_SERDES1       5
->> +#define CLK_HOSC_SERDES0       6
->> +#define CLK_HOSC_HDMI          7
->> +#define CLK_HOSC_UFS           8
->> +
->> +#endif /* _DT_BINDINGS_CLK_SUN60I_A733_RTC_H_ */
->>
->> --
->> 2.52.0
->>
->>
+[Severity: High]
+Does this code leak power on unbind?=20
+
+Since autosuspend is used, the device doesn't suspend synchronously when
+pm_runtime_put_sync() is called by the driver core on removal. Instead, an
+async autosuspend is queued.=20
+
+When the devres cleanup action invokes pm_runtime_disable(), the pending
+autosuspend work is cancelled, meaning inv_icm42607_runtime_suspend() is
+never executed.
+
+If the sensors remain fully powered on in the PWR_MGMT0 register, and the
+vddio regulator is shared with other devices, will this cause a permanent
+power leak? Would adding a driver remove callback that calls
+pm_runtime_dont_use_autosuspend() or pm_runtime_put_sync_suspend()
+ensure the device powers down synchronously?
 
 --=20
-Jerome
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615172554.1609=
+10-1-macroalpha82@gmail.com?part=3D5
