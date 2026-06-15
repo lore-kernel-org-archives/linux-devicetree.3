@@ -1,94 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C53140963C
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6697840B36A;
+	Mon, 15 Jun 2026 16:24:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781540662; cv=none; b=iOKv36W+sTO1Nm4qBkDXeae0B883m7YP4r4Yku2S7NUS4OwoQ5Ejjiimy4P4AlpPPL809NH5cLqcCmLZalu4f493Dg1ZtTBFDPHsPvs55hjjLbKPTDU2raPeN5nFBpiCGbkyKYLszmslQgo1KjK6x0naSa7d6C69i8i7z0DE7ug=
+	t=1781540671; cv=none; b=dBSMWCoOBDNNZ2sN99znTsDvRH2j/lyfSNdlXJBgLXQTyCKN1oPiLyyhw2JB/altzNY/1vS+ybFLAFXysi8LzppHXryU9DjVi1pIVa/UQ/3ECwacspL1UvEBYLMEXgOBV9C1AYBFm538Rp2sCqFOxLCMBU76whQXCvrW9RPqpcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781540662; c=relaxed/simple;
-	bh=Q7c/NMSHjYKqqzRK4ynaC5ZpCoSj5lV+1Asj8hqT12o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XfRMGGFEmpcvTAA2RrFPdyH0BbGwHRypfKSCHUuCfg8L0WzEcHIQvjaRxlWRoceZSFyw+JiP+/IUnOd4LoLNZKp+7ep6BJ2MVGn6wcEwqu3Sbmw1f84CYafLvqpLb9bKtxQw87FVg2maVPEvgtxtpb3Xyhm1uIppPUfQTa2trnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oX7OuEko; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781540671; c=relaxed/simple;
+	bh=VD4gWciO7XbH307WFhQ3+84rem9LCvgkUBcnAYffrU8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UVZi+dL63DeUUO9wqZmehZz5prCDOo4hsFyRmQEWXjxbrHdlZG4N3w9XGSjLvuP9N+azQ7LpPuH7+DrLfOm/xok/bVM0g15koscLFvu4fGs6S/q549HnWqP7/vqJSO7xiduJrxRirfUoTYmp8AX5QQtSwk0pup61+nMgukE9O2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G1DFtggS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oX7OuEko"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C512B1F000E9;
-	Mon, 15 Jun 2026 16:24:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G1DFtggS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BBAA1F000E9;
+	Mon, 15 Jun 2026 16:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781540661;
-	bh=47Dcuv73lzfZc1kpN/UgpIBQiNtJh3Y8tS+NVhkIIjo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oX7OuEkouMTMTO4bX6TXlgZZBludLnpizvyu6A/QqXbxvBcmXToX5MiGL3kitWoh+
-	 n7WebJfML4XV8bNB31ENGW1kpjyrrjauyAoulOtNUILqszxMPCzYkpHdQtwR3Y8fGy
-	 cuEyL0wBbIWdL978b9Mn7Kqw9cu5mUZhO1KlAAKii1aQY2eTUGSWxyoNd2doSHemYR
-	 MfXPofzZXkNf20NCBW8w0TztdBEdr+Nqj5GFDY0Cm2aKWzm/RyVdflPXpfSzowFnoy
-	 aPjWBlFAmUddAbYCVln5ZA2+VhjBx1XBKz0QbpeSPuRilTovbia90sNU9Brae+QAEU
-	 zuBuwsN9AjUqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 1/3] dt-bindings: pwm: opencores: Update
- compatibles, examples and maintainers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hal Feng" <hal.feng@starfivetech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615155759.129210-2-hal.feng@starfivetech.com>
-References: <20260615155759.129210-2-hal.feng@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 16:24:20 +0000
-Message-Id: <20260615162420.C512B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1781540670;
+	bh=VD4gWciO7XbH307WFhQ3+84rem9LCvgkUBcnAYffrU8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G1DFtggSu8cmR98uspVsx5OiCy6Q1fSsxU+5Bu7kzvSTzIsu14lNDptPOeiJZvQiO
+	 8wo580jtX9hSWa7a4DiyGjTuZcgzzvz/gADDyGccqtXq31zYaKPL1uXuj72DpqPEZP
+	 oLVljmWv0ePycxRgKGLoXYEkwbKu/czjNWYyaOaGn53a5l7ppPs0n6FNSlqzgF+KEM
+	 HH4itRBzJ9BQCgZEHu7hJjP6D7Hxq3e9P1R3aMJf17E4fD8sQCSFGRDp2UYpfCpkLx
+	 3+S0m1YhjR8uLXM/GmP6ropvcysqd7rD7z0bl/kzS4lfjBCsXOTxx35LIvE9C0WXPJ
+	 RwsLf8YxfiOhQ==
+Date: Mon, 15 Jun 2026 17:24:26 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jun Yan <jerrysteve1101@gmail.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 04/10] dt-bindings: input: microchip,cap11xx: Add
+ microchip,cap1126 LED reg constraints
+Message-ID: <20260615-fiction-twig-84c754b36a85@spud>
+References: <20260615142103.352163-1-jerrysteve1101@gmail.com>
+ <20260615142103.352163-5-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2KRTIjmYZz7ZtxZb"
+Content-Disposition: inline
+In-Reply-To: <20260615142103.352163-5-jerrysteve1101@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Invalid YAML indentation under the `items` block violates the subsy=
-stem's yamllint rules, causing `make dt_binding_check` to fail.
---
 
-commit f6d46c997f1ef83c6c55a27e0e3260fdf27add18
-Author: Hal Feng <hal.feng@starfivetech.com>
+--2KRTIjmYZz7ZtxZb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Remove the jh8100 compatible since the JH8100 SoC has been canceled and
-will not be released. Add the jhb100 compatible to replace it. Use a oneOf
-construct to support the single-string opencores,pwm-v1 compatible.
+--2KRTIjmYZz7ZtxZb
+Content-Type: application/pgp-signature; name=signature.asc
 
-> diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml b/D=
-ocumentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> index 52a59d245cdb1..5f05606a2d3d4 100644
-> --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
-[ ... ]
-> @@ -19,12 +19,14 @@ allOf:
-> =20
->  properties:
->    compatible:
-> -    items:
-> -      - enum:
-> -          - starfive,jh7100-pwm
-> -          - starfive,jh7110-pwm
-> -          - starfive,jh8100-pwm
-> +    oneOf:
->        - const: opencores,pwm-v1
-> +      - items:
-> +        - enum:
-> +            - starfive,jh7100-pwm
-> +            - starfive,jh7110-pwm
-> +            - starfive,jhb100-pwm
-> +        - const: opencores,pwm-v1
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Low]
-Does this formatting cause make dt_binding_check to fail? It looks like the
-YAML sequence markers under the items block are indented to 8 spaces,
-matching the parent mapping key, instead of being indented to 10 spaces.
-This might violate the yamllint indent-sequences rules.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajAnOgAKCRB4tDGHoIJi
+0o/dAP9hQZQkUbsVidcAlaBzeilYHdLRROy2NNRuE4Y76YNpQQD8DMg7lGetgVt6
+7JapW54EctA+50nch6m+fHs8kQT1Ygo=
+=PzHU
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615155759.1292=
-10-1-hal.feng@starfivetech.com?part=3D1
+--2KRTIjmYZz7ZtxZb--
