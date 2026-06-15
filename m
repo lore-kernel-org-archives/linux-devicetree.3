@@ -1,187 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D97A36DA13;
-	Mon, 15 Jun 2026 08:42:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A153381B05
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781512965; cv=none; b=SLbDV0HbfzbRBf+x2Ix4WAQPUKs1j3FIzkMWpdO9o/FwMSRaBlNeNf/QpDPOzOV/C3y6qaNVsT5Bs3qjvtbN7iLDRDoVLapMLRsxU7R8fqu7Hg0slnOh3SOYlOPovHWD2bWzJ+CanLYi8mEq+xajJuPqkBr+mXwJQqNQKCU0ANA=
+	t=1781513059; cv=none; b=ZJuTNdzjl3l0/KkYtIGW/7RMesOabiZ+nN3o5pIMrbyky+/RFAA/Y6F/okHphTRW1Vz9VtncqFGC7ZyyWQOCEbkFE4Qx6hfJ3HEdOsNPymzdOq09Ub5yrRUIkCaznhl05UMS5PYnfaRLzMJsUyiWjpdGVl1ujeDlBsLeVs0MFu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781512965; c=relaxed/simple;
-	bh=2cZfHeL1FXnc0TTeZ8+n3ucDW+IA/Y2eMrHO7Fn7eDA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N90i9aY9TAURLsbfkJlBLJUvb/P2WKjPFymo/93DWQXljzvcStbIeyOPTOobDKG5uS73m74/YEZKR0HOm0X2b64tJyTep+g7WxGqVwkGgO/JPYTzTbbj/R1RsstQ6qHTCheW4Raar/NV2MFvwZQJzE9QIqeCOWqKvMdXSH859Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oiPXCYnO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781513059; c=relaxed/simple;
+	bh=+wH1MxvDCOggh+bKBqqD6P5rHeGYNTvLkzHmZC7wuFI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kMkveoiuVk8Ypyh83S8/qjzTuixJUrdE09Yz59aDDEcSo5evQAMDxdi7BfE+ekVjg5642z/OHwEJOd39jBVQUoJd1vV+WuAxo61e5sJYj+fjF/dUlBBAjlpqIuCPjs1F44BkNKkSxI179L4OZxJKeL9I6Cw+RrwjlPtFNUilg9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiN3Gs/p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oiPXCYnO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4143E1F000E9;
-	Mon, 15 Jun 2026 08:42:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiN3Gs/p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CC61F000E9;
+	Mon, 15 Jun 2026 08:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781512964;
-	bh=mwO5FPo2SZJiaMC+NrcQMS9Mm3+xTinTgwgahXySq38=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oiPXCYnO3Ht/EK/EB3OX7/UzAy017Ie9gwB0OtXodrczVM/ii1R8RYE8lFgfO7zxF
-	 xqrMGya+FCFmBlkdbkC4tD5NA+rZVg7izZ+zli5GjqXTOTql7827twZAx1uNjfkUCh
-	 3JAaWIXMZH97P7YPpPVgNqBOpc4/1AeaGq+xsu0lw2g4NMDcOVMXWLct588CD+SKU3
-	 euRQeg9NdlAFWE7/BgmggCIgN+U1HrxHtyv/XnAR2svAu712Wx5ZvnX4BcPFGKoJMn
-	 3CMVeqTDDXODBMlFb41L1RzWYTKRArrKSNNGtABV5LfiOLh7hzt44dr8gpGLfCmTiK
-	 LwRgdgw1Vecyw==
-Message-ID: <4e0f7aac-fd1e-40b7-a71e-47d02f10f3d2@kernel.org>
-Date: Mon, 15 Jun 2026 09:42:40 +0100
+	s=k20260515; t=1781513058;
+	bh=wffpTJ3XVPQgNbgSXpU434HrpMsXxswQzUIT00W9tXE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aiN3Gs/p+nY0hAB91tB7+xCZDKnG5xtV5OvvNQeqCWDHN0A8OcBZYBFY8MOIXJd4Q
+	 +83ZHs3vOzJGI/76k3uC5nNVaj6qJVpMvKG+cQEWIh+zT6lS0vdEgNZjd8qcclsnLX
+	 PYGZBLP0Z3199XSBLqU7Lt/NXEAzDd0sIapxAY8voKRCyrS4ZgSmk9HAGwwFQysami
+	 DfgzZfCpWpfzwnkT/Vur3kZlEDz0fpw9dCkFYyh9q3M+yGi01VXS1ixK1cK2qvEDPp
+	 of99v5queGdAW+meWPDKRN3GBLO7ZNF64dC4nWENq1U/qAzHqT08zD/ZipmUogcnju
+	 nc7GBT7RxOGqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] dt-binding: pinctrl: samsung: Add
+ exynos8855-pinctrl compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alim Akhtar" <alim.akhtar@samsung.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260615085252.1964423-3-alim.akhtar@samsung.com>
+References: <20260615085252.1964423-3-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 08:44:17 +0000
+Message-Id: <20260615084417.D7CC61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] ASoC: qcom: sc8280xp: add Ayaneo Pocket S2 card with
- special WSA channel mapping
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-2-18bb19c5ca22@linaro.org>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-2-18bb19c5ca22@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Thanks Neil for the patch.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit adds `samsung,exynos8855-pinctrl` to the main pin con=
+troller binding, but fails to add the corresponding wake-up interrupt contr=
+oller compatible (e.g., `samsung,exynos8855-wakeup-eint`) to the related `s=
+amsung,pinctrl-wakeup-interrupt.yaml` schema.
+--
 
-On 6/10/26 8:41 AM, Neil Armstrong wrote:
-> The WSA Speakers are connected on the WSA2 interface, but the
-> WSA and WSA2 links are handled as a single dai and DSP interface, so
-> we need to specify the channel mapping of the Ayaneo Pocket S2 for the
-> WSA dai in order to have functional playback and avoid DSP errors.
-> 
-> Let's add a special entry for the Ayaneo Pocket S2 adding a prepare
-> callback in order to set the proper channel mapping.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  sound/soc/qcom/sc8280xp.c | 56 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 56 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> index 1f3afc6d015c..2f1688c9f317 100644
-> --- a/sound/soc/qcom/sc8280xp.c
-> +++ b/sound/soc/qcom/sc8280xp.c
-> @@ -14,6 +14,7 @@
->  #include "qdsp6/q6afe.h"
->  #include "qdsp6/q6apm.h"
->  #include "qdsp6/q6prm.h"
-> +#include "qdsp6/q6dsp-common.h"
->  #include "common.h"
->  #include "sdw.h"
->  
-> @@ -49,6 +50,7 @@ struct snd_soc_common {
->  	bool codec_sysclk_set;
->  	bool mi2s_mclk_enable;
->  	bool mi2s_bclk_enable;
-> +	int (*snd_prepare)(struct snd_pcm_substream *substream);
->  };
->  
->  struct sc8280xp_snd_data {
-> @@ -193,12 +195,58 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
->  	return 0;
->  }
->  
-> +/*
-> + * WSA and WSA2 are handled as a single interface with the
-> + * following channels mask:
-It should not be handled as single interface in this case, you could use
-WSA2 as it is.
+commit 899082861559d7c752e009f7ed23cca09b5d64d4
+Author: Alim Akhtar <alim.akhtar@samsung.com>
 
-> + *  __________________________________________________
-> + *  | Bits  |     3    |     2    |   1     |     0   |
-> + *  ---------------------------------------------------
-> + *  | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
-> + *  ---------------------------------------------------
-> + *
-> + * The Ayaneo Pocket S2 speakers are connected only to
-> + * the WSA2 interface and the WSA interface is not enabled.
-> + *
-> + * Set the channel mapping on the WSA2 channels only.
-> + */
-> +static const unsigned int ayaneo_ps2_channels_mapping[] = {
-> +	0,			/* WSA Ch1 */
-> +	0,			/* WSA Ch2 */
-> +	PCM_CHANNEL_FL,		/* WSA2 Ch1 */
-> +	PCM_CHANNEL_FR		/* WSA2 Ch2 */
-> +};
+dt-binding: pinctrl: samsung: Add exynos8855-pinctrl compatible
 
-So we are are playing 4 channels on a 2 channel speakers?
+Document pin controller support on Exynos8855 SoC.
 
-There is also a patch by Abel, on allowing userspace/ucm to set the
-channel map for WSA at https://lkml.org/lkml/2026/6/10/1002
-Its worth having a look.
+> diff --git a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.ya=
+ml b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> index 7b006009ca0e7..c4773701c92e3 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/samsung,pinctrl.yaml
+> @@ -53,6 +53,7 @@ properties:
+>        - samsung,exynos7870-pinctrl
+>        - samsung,exynos7885-pinctrl
+>        - samsung,exynos850-pinctrl
+> +      - samsung,exynos8855-pinctrl
 
---srini
+[Severity: Medium]
+When adding support for a new Exynos pin controller, should the correspondi=
+ng
+wake-up interrupt controller compatible (like samsung,exynos8855-wakeup-ein=
+t)
+also be added to the compatible enum in the related file:
+Documentation/devicetree/bindings/pinctrl/samsung,pinctrl-wakeup-interrupt.=
+yaml?
 
-> +
-> +static int ayaneo_ps2_snd_prepare(struct snd_pcm_substream *substream)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-> +	unsigned int channels = substream->runtime->channels;
-> +
-> +	if (cpu_dai->id != WSA_CODEC_DMA_RX_0)
-> +		return 0;
-> +
-> +	if (channels != 2)
-> +		return -EINVAL;
-> +
-> +	return snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
-> +					   ARRAY_SIZE(ayaneo_ps2_channels_mapping),
-> +					   ayaneo_ps2_channels_mapping);
-> +}
-> +
->  static int sc8280xp_snd_prepare(struct snd_pcm_substream *substream)
->  {
->  	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
->  	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
->  	struct sc8280xp_snd_data *data = snd_soc_card_get_drvdata(rtd->card);
->  
-> +	if (data->snd_soc_common_priv->snd_prepare) {
-> +		int ret;
-> +
-> +		ret = data->snd_soc_common_priv->snd_prepare(substream);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	return qcom_snd_sdw_prepare(substream, &data->stream_prepared[cpu_dai->id]);
->  }
->  
-> @@ -273,6 +321,13 @@ static int sc8280xp_platform_probe(struct platform_device *pdev)
->  	return devm_snd_soc_register_card(dev, card);
->  }
->  
-> +static struct snd_soc_common ayaneo_ps2_priv_data = {
-> +	.driver_name = "ayaneo-ps2",
-> +	.dapm_widgets = sc8280xp_dapm_widgets,
-> +	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-> +	.snd_prepare = ayaneo_ps2_snd_prepare,
-> +};
-> +
->  static struct snd_soc_common kaanapali_priv_data = {
->  	.driver_name = "kaanapali",
->  	.dapm_widgets = sc8280xp_dapm_widgets,
-> @@ -341,6 +396,7 @@ static struct snd_soc_common sm8750_priv_data = {
->  };
->  
->  static const struct of_device_id snd_sc8280xp_dt_match[] = {
-> +	{.compatible = "ayaneo,pocket-s2-sndcard", .data = &ayaneo_ps2_priv_data},
->  	{.compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data},
->  	{.compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data},
->  	{.compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data},
-> 
+When related binding files in the same family don't receive matching update=
+s,
+it can prevent complete device tree schema validation for the new hardware.
+If omitted, device tree files might be forced to define the node using older
+generic compatibles without an SoC-specific compatible string just to pass
+dt_binding_check.
 
+>        - samsung,exynos8890-pinctrl
+>        - samsung,exynos8895-pinctrl
+>        - samsung,exynos9610-pinctrl
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615085252.1964=
+423-1-alim.akhtar@samsung.com?part=3D2
