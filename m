@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8A5276038;
-	Mon, 15 Jun 2026 05:00:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF72A2356C6;
+	Mon, 15 Jun 2026 05:04:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781499627; cv=none; b=CG+8LhojCKyr2BwmCMTg84KeDKliTGCE2Tm5ayhCLET1WdR9JPqo/JJ8pnHsddUcCA96JRPKINzobsTr9OnBSu1noOWdSzCJ87/xB8M1BfTFcsB0sbSIFrU/j4HCUZfJiQoMIQys0zw/e0sOKLYa/NDLnjWoW1O46nB53pEVXSw=
+	t=1781499846; cv=none; b=QdtN+7jO61WZiFwfskhbwFKtqaMr0+P7a1ywBzJWex5QhHIYLvmFl5UDI6EsAAnImN9dPIjGLvdDbOWTybarIfH5TElWngr8tH9DIkKRjrzFS74qqliGueKYZBP07pk3oFbVQSsHAUcnqLkEHV8lIPe0qbJcVz94Z388pGwq4zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781499627; c=relaxed/simple;
-	bh=VyM3uWqzCL4EjAj+odULPFPqWhSJbBg+oSj3/+Fq+6o=;
+	s=arc-20240116; t=1781499846; c=relaxed/simple;
+	bh=0HhWe1seyRlKLxx3pNMcBtphyrx4k4lPf103O9pdouk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nww3oRqAVuocPEK3MOUUFdewilcSLGQvdPZqr+6cJJGcBlzObqeZnhErOqGY9QoJFVSHRqjnpnir12AyOfWhxPfjDSUrU83FwtZCpLMuSrsFHs4ovX1KDwVc4Hg7HCH+L9J4BCL6qcKA+N8RIoqyRGx77NOnfa5v3lMDIcg291c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QInwTotf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tb1Mo+cMzuBT9Hws76SJua5X5rWXU4Q1+8BhM7kljaZZSE3fpdHVXlZuAw0MdNyjnpPVAVpbgV3p1YFKh9sgvdBf1t1GZowVSK6L9K4CvFl/1JJ0hcAiFJxBPtDK7WJ6OWvDLsyApzfpkghlxfH/lVV95s0q6n12GdlvUh888Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8hzrIMf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QInwTotf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CC21F000E9;
-	Mon, 15 Jun 2026 05:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8hzrIMf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FF91F000E9;
+	Mon, 15 Jun 2026 05:03:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781499626;
-	bh=jxo8Z/Ct8QoSM6nzW7hzkjASiD3YlinA1yCW6+KDXWY=;
+	s=k20260515; t=1781499845;
+	bh=Yt6XP6ZAF087YJvQ/TWamXgnpVuER8uuw8tlRu8qZmc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QInwTotfKVTzNAmvo4K7bPrWgcnzuf3/Fx58ZxU08J+Jbs3hNGt8MuZlBA9dkSS7Y
-	 ucNo/Sn1jYp/S+SIQ/94HMwFZONC6YtXVtS9qzvarkMc5PI5X8b1LSdsHLjHZqsDRw
-	 hUtulF5bKZY4QVN0OOEckuRGjfMbiYIxJVZyv5vCkBkD79t2QjpDeh4fDyJCgQHAtS
-	 MOnWUcOXwNRiBNBMdoU7KZZnX4H6xUiD60rVLOt4bSEkqqKIZlyZvZYrj8ZIzcYohL
-	 qiXad73MNqK1AqzgfdKTdwJcZtGDOZDjyZj3fau0ubc/HI1Cna5OBdZgxRtvwDrzA3
-	 Y0NveFlehj8Aw==
-Message-ID: <0f045b88-94fc-46b5-8a49-8a53235fc8fc@kernel.org>
-Date: Mon, 15 Jun 2026 07:00:20 +0200
+	b=N8hzrIMf9cik/aZ6ChgJG2DbevLzW+NhJLvaR/RhAazT9471JJOnOpoT/q9zJNpCs
+	 fiV97azjFQ0dV0vx8yQM6hXrss8z3wB/fv19s8yaS3a3vVdStW+A909BCHQv4+5S4d
+	 w1OnGPJNQ/AgWxa387gFRA3MBiCfCWb8Q0t3PkRJwb44jmMookrZToXBiCTc2EgAxU
+	 dkW2vppplYQIfSLmcVb87bQVFQbzvpl5Y+xx3boOmzUiNhwgkmVEsum/0KPvVe0cea
+	 w+QFZtIQT5G8UJ6UUNagJGlc7LhFZL01XiyeUieEUOKsBhVnCbTzTbB9V4p03GE8nz
+	 vyGxjoaU0dvHQ==
+Message-ID: <be9b10c2-7e16-4c83-bc59-82ec25495622@kernel.org>
+Date: Mon, 15 Jun 2026 07:03:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: install DT overlays via dtbs_install
-To: Vishwas Udupa <vudupa@qti.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
+ mitigation properties
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, snb@qti.qualcomm.com, kbajaj@qti.qualcomm.com
-References: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
+ <conor+dt@kernel.org>, Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-hardening@vger.kernel.org,
+ Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
+ <20260610-ocelot-of-stimulating-excellence-bcb0fe@quoll>
+ <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
+ <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
+ <7f1e46fb-15e3-4638-9930-8abc1dd5a778@oss.qualcomm.com>
+ <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
+ <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,27 +104,34 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
+In-Reply-To: <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28/04/2026 14:37, Vishwas Udupa wrote:
-> +dtb-$(CONFIG_ARCH_QCOM)	+= monaco-el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3.dtb
-> @@ -192,6 +203,7 @@ qcs9100-ride-r3-el2-dtbs := qcs9100-ride-r3.dtb lemans-el2.dtbo
->  
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-el2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride-r3-el2.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= lemans-el2.dtbo
+On 13/06/2026 13:05, Gaurav Kohli wrote:
+> 
+>> register something.
+>>
+>> I don't understand the problem and explanation in the binding is
+>> basically non-existing.
+>>
+>> Remember that all lists and indices ARE FIXED, so driver knows exactly
+>> which index means what.
+>>
+> 
+> thanks for review, shall i use driver data, which is basically pas data 
+> structure like below:
+> 
+> static const struct qcom_pas_data {
+>      .crash_reason_smem = 601,
+>      .firmware_name = "cdsp.mdt",
+>      .tmd_names = (const char *[]){"xyz", NULL},
+>      .num_tmds = 1,
+> 
+> Is something like above acceptable? and this will also help to filter 
+> tmd names as well?
 
-el2 is not a overlay which should be runtime chosen by bootloader. You
-are supposed to just choose proper DTB.
-
-Same in other places for el2.
-
-You install ONLY the DTBOs which are for real mezzanines and addons/hats.
+Yes, assuming this is per SoC.
 
 Best regards,
 Krzysztof
