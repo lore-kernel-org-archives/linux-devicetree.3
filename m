@@ -1,127 +1,264 @@
-Received: from mail-m1973189.qiye.163.com (mail-m1973189.qiye.163.com [220.197.31.89])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023128.outbound.protection.outlook.com [52.101.83.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467F5407CCB
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:04:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781539480; cv=none; b=OxXcPB7H41iRnehIdXVNDXb/+kP1kcxTfHeIq4VZG8p0H6ZrlCyx2eSfM1sSKcrBA9IREgqLVCaZ27NrTE17iMhSy32I8TX/B+09yQp+u51/5rcj0ReekTiw18s/pQcn3KpfhklAgt9v3e6FS6IQ3KbiY+tvvGf9X/yTePNPNOk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781539480; c=relaxed/simple;
-	bh=xCMEoerQr6qOpSceVTrX07b3WN8wSqvO5OwJkSDd64Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LJaV56PIgbigO/w5HR7MEh5V6XJYSFz6ZsVRTzisc7xkNUDuSH4tJ8oI6UfyqwywNIzFEbGiLTmCVvzpR/6cDv9fONnR+IF3hIx9oDAFJbloOxU8uU1Ibcy2/66DkhJGZwE43m8yBe25Jee31x8ls7Wnr6gLxAGMKX1tZriyaNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=H2pYc5H4; arc=none smtp.client-ip=220.197.31.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E91640628D;
+	Mon, 15 Jun 2026 16:07:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.128
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781539656; cv=fail; b=C53noFNPoONY0iD1cgljPWHNLo6uawbEPTHZpDXHc45ep7jKYBGsUaNhhVKC1WYt0fUZBHUqu+O4NqMPibWgNvIeNG8VUOFANUZJyXBr//gXYnY+1G9boIUfdkb7fBCNR6CKY02LkQyuD7cIs/7te9YJ01PTBSnH1HEIzbUNyac=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781539656; c=relaxed/simple;
+	bh=l0J2exwWvAYmXaht2YUEI7CSGIdofcgyL2iOuTaGYlk=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fgo1PEoerkdRnzML3CIng1AvyhFn9ydpWeWMaOkotgtEbXm3WFBEaVnPVzM3HYdX/xH6yZSkvEwE9UoWtRmGRHkR0Jkp4S9HTnHLvH45sx9s9ER2TWMLd25yEMf8suE07p1H6RJv0Ynl88zgUimziuPcqX/yRtRytKoghFoh61A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=q5MSLSD3; arc=fail smtp.client-ip=52.101.83.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="H2pYc5H4"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 427046fb6;
-	Mon, 15 Jun 2026 20:34:58 +0800 (GMT+08:00)
-Message-ID: <8da02c6f-030d-4033-935b-a44c777a14d2@rock-chips.com>
-Date: Mon, 15 Jun 2026 20:34:58 +0800
+	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="q5MSLSD3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zEzYILUhvuTF2t2g6EV8gNYKAgA2d5S4tgS1bk3WcnPWEd0+jhezOjFTpEsc9btqFrP4TUCr8DmDZJ0V0VRBgYeBpvRsFUi35+p1EM5ev51CsA9cGbRxueOqEZfnDyHpX0Ei2EH8QySKfzFpULDkk/fxhuH7/wjKZUTKinaX2CIWW655LXAvnRCe1Wrfl+CEnWLxwIJixyOwXnnx8uexBzM4AJiwU9+CJS3bnx5aBwobQJb+heR7LmzetNHot8XflpQNDmMhSAOR3B8g2PAFTosiCZrJRoLPTl5l7zA0zTswvy+yZ/9JyO25QkkDZXDtgF3WjlNIhhse+KdVBSuGFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cjEKOVmSawLDjbusYExuhQVHSPU73cb5fl9gHKhGBHU=;
+ b=WMMGOZ7QFvfdEHH6+fBOnsOREzN1IXkbFxwFd3z+2hMuO8LTZwOz+BoThYsjgEfu5v9P/fFwQf8VLvVX18A8xzPCNNIoucUkEwjXrzzRPGCc4bHgJA/XsUioj7JHobbUU3Zvouq+dNFcnHgvd7EdvG0UuAjvxv40gUfs+gjFLLGoij2DJseNHoNGogOc9vKr+VvqFGWispDxjzYFw9fnfnJRWcO5DE7gM9h4TuP/Kkp0ou/5a5qTtwAx7pYmpFmWGVUIqlj6AuwBWmbtkhsYiEkw/fzUMpP2OKPR6Okwtd2E1zebKmAzuLJovLJa1kVnVYEJUJ9lotzGqiYAViQqVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
+ dkim=pass header.d=genexis.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cjEKOVmSawLDjbusYExuhQVHSPU73cb5fl9gHKhGBHU=;
+ b=q5MSLSD3DQQlEwLsH46+3AJ4LJJfcHJ3Tob8sfpCBYw1VwFeib1EhJRIrJO20o0Q50Afhd7qSFPPTL4CiKPeTe4HtJaNZ0rrOxxIdmRUhXPU9IW++2alY/sx8mR6xnxTM6wiD74+BDNfSSwiMMPkKMPhqMN0AIi2jmU6Lbkb5BRUXJ+grMSVWcYD2IJlBG9yR9KswUGX/ksCX474UYiq89Gg6naOYVfdKejQupAJJ42eVnD+Q7eEZgCJuHF2Q5PisI6ahTk2L833wxM5WqZsLyorTOmsYXHQgME4t0yY/bSGcRMMXxOP0dKNTqRUvJSmByXzmJAA88FK/wA1bZT6/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=genexis.eu;
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
+ by AM0PR08MB5410.eurprd08.prod.outlook.com (2603:10a6:208:182::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 16:07:29 +0000
+Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
+ ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 16:07:29 +0000
+Message-ID: <eac0714d-d8d3-4698-8983-91dd33fe79bf@genexis.eu>
+Date: Mon, 15 Jun 2026 18:07:26 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 12/12] net: airoha: add phylink support
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-13-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+In-Reply-To: <20260615122950.22281-13-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: GVZP280CA0058.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:271::10) To DB9PR08MB6697.eurprd08.prod.outlook.com
+ (2603:10a6:10:2ad::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/4] Add eDP lane mapping support
-To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260604085220.2862986-1-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9ecb4725bc03a8kunmad12dd9f4325
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShkaVhkYTxoaGEsYQhpIGVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=H2pYc5H4U519kPcqsLXiGZSqfal7roIZHKjog0oUnFm77yfp9eZTtdfOGTPLM5/Lcsv+XL4jWuNSRzLTovnS6ukbqMHh0l4IBojJTjDT+R0HGDUMdDikxtVT4j36p8sRGDPrJFuqrwx4ZAj5tX2uj6ZkKN0BqpTpcTwOo+O86QA=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=qY5kOzqcJfORXQNkdCMcMwTxAyKHZxf9POk2wrTq/zs=;
-	h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|AM0PR08MB5410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e916e4f-11e8-45ba-843d-08decaf832ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|5023799004|4143699003|11063799006|6133799003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	tI2UYShFz196dMcQhp3UcRTunzVB8dXsAf9pkLTqvFkqH7VvCgdNBuJG/Z5AAFE1CtnWDmV2BtneS/uMjbfgrM9oFXaOQP6hWra5I/6fpD9ZUH91L72ZKREtda5AJuPnKVA+sQl0p17eMuoARDlvvwKK6N9GpP/L8BPr2iYZlDCymjUeh+RTrHrLgeLXDG8pYwDElKL5jVzGuhR8SdRzuO4KI1+J3loNtz/hcrT4UxR6oCFbl1wPRlno0cpgdwrzOSaXJJwrFE91ZjqLfhK85hBanWG0+NJqq/adBxbB/wMWcHYfHKBwPj+jAWkCsCxpVfo21AYMSe3ohIOLhWLmfmZFQppjJFTGY7K65XgjbTaGdsPqZ5EDvleIGH20FCF1VFHmb7XgePJiRvps88dMfPNNau9y1OHBI3L8Q/Uv9FGfhxWLbdtZcRSLe+YaB6lm2NrnuOySFgWqsRUIWtHX1UQ6zato2o92zdwxNrbg1/ENHXn0Xn6XjKNDFhAzUdA5lICyKlPKK4H4/haAPk/6sLgbmFplBu6YRfukWFoRGrj+NKLBhBbf5/kedMHspnaNIv3cja9eroq8LtcPTjNmVCzY8/UwW/7rt+xvm58J1qMQaKMZxDsuRUVVz2WpxQ5JP2SiJQztoOwBCUp5avZ8rgFpLI5hy1Bl8fXdO2YxfF6HLFMv9WBW47pkA90vAIDFYcppZo8fPzLUDAqhYp59fDbp3fSidSibr5FzM2zeAeQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(5023799004)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T0RNc2xqZ0RvVTlvYnpEN3VVRTgyMkpMSnRVMnJ5SWlQL2l3V25FVDBYd0RZ?=
+ =?utf-8?B?Nmhtdlh0ak5NOUw4NUdpSUgxd0NlbGNvRzFBZ1NoV0dtUEZyZmw1NEpxVy9H?=
+ =?utf-8?B?T0hGMDVrMjRwSCtJRE1UL1d3SXJDNWpjVStBSWNPdnFINmFMcVBiNWpBRmlX?=
+ =?utf-8?B?VzJMSlcxWmMzV1h2NXZwUUVNbXpPUTRHek9qR0xzSStmeTJlTDVrdEFwSk1S?=
+ =?utf-8?B?MlV5UmRIU2lzbHg4T2tNN2c2UW55cVFybEE5ekJLWVdGYkhVWWNrcXo5L0k5?=
+ =?utf-8?B?czl0QkJJWVF3RnBFRkE5UHZ5MndGWXJ5ZlhmUGw5ZEFRVlp3NjlVL1lZVnF4?=
+ =?utf-8?B?VkhQL1RvR1hrUXJodnJDRk1YczExdTRWTHZUaXhHWDg4elFIdzNycTlOWHov?=
+ =?utf-8?B?OEhNRDNPWVlkWnp2TU1XQkI1T083UVFncjNGSlhoU2NFSnN3VndWcmYvNmt2?=
+ =?utf-8?B?aWYwSmFzSzJoMGovajlMeVJWL1FIWDBkQ2dSUEVjdTF4WUcyOHZ2UkpDOHBI?=
+ =?utf-8?B?VHFHVWpWdWprNWNUQ3Y1ZjMvdVRZbHZLMlZGZWkrRXJyUW9FR1FmOXN5KzZQ?=
+ =?utf-8?B?M0I4VlNqMEI0TC9KMC96SzYrbUpLaGhURGxOcWpEOWplL014K3NzSHNocVcw?=
+ =?utf-8?B?M2J6RXdNZzk5Zjl0SGxZVjdWbTNPakhQaGZmeXRFc1ZiK3hKcmJac1g4THZv?=
+ =?utf-8?B?RkZxK2dRd1UyTm8zSzA2V0FjTUFuTTJoUG5IMnhWVDh4dnZmTXlPTzVOcTA3?=
+ =?utf-8?B?dUVuQ3NvcEV5SzBBNitjMksrZ0Y1VUVYZmI2R1drUUpnTFV3VjFMVDFRN3Bm?=
+ =?utf-8?B?dXUxTlpuRmlDMzRJNlBEMEN4RFZQWjJxdm44azNnWGpIeXRnNC9ZMllSUXpm?=
+ =?utf-8?B?Z2dNVGdQTXZTRDVFd2xRcU5OY09CbGhNVFV0RHRxSGpQdWI3WTNoL3dsUURT?=
+ =?utf-8?B?L0N0VlhpQnNhUVFvRlhpaFNPNndQazVRR0RiUjhaQnVaeTFibGw1YjB6VXZX?=
+ =?utf-8?B?OGZLdjJqUi9IQ3lHd1h0cUViaE1SNUxveVM0enBlMjFMaGdEWHFma2VVWTE1?=
+ =?utf-8?B?WHR2MEI0QnJ4NG91V1RQUzI3Z1k4VVZKT0d4Qit0ekRzMGkvUFdOeWNJUHhQ?=
+ =?utf-8?B?R0JRejdQaWxCcHBtN3RUN3B1SVBrU05KVHdxaCs1WHpDMEJmYkQ1ZFN2djk3?=
+ =?utf-8?B?eDNublJwKzhZbU8wOWxtQi8xamdpenRUbkdyb1BhR1IvbXcwNHBFMGY3T2tw?=
+ =?utf-8?B?Q0dpZFhzbGYycXkyOW50c1hhUWlaUE5rVWRiNXFlSUxUd0RCL1I2bCtlUG4z?=
+ =?utf-8?B?RStkSWI4YkZESzlNVldKQ2FxeVUxQ1U2TklVcko5bEdxQUZsRXZjQ2RjK054?=
+ =?utf-8?B?VlNlbXNEV1cxQUdGYmtxM0IxaldVQk5oakhiT1NtWlZIL3ZtTkF2ZGY0RkhX?=
+ =?utf-8?B?VllNZFgyd1M1WjVWNWMrc0JWclFNWCt0K0VzL09uMTdnT09OZ3kwVDhBS1dT?=
+ =?utf-8?B?WmNhanFwUGR3YXhSNDIvTDhvamFzaml3d2pGRmp6YzVCaDZ2RmZoWEowZHpv?=
+ =?utf-8?B?Z2plS09oY1U2OGliOFlYcmR1ZE1UODAreTB3VHFzVWRlZk04c0hzcEN2Z2RM?=
+ =?utf-8?B?cWt4Z2xhYjUzMFE4cm0wRVRmU1YraTBsZ3Ztcm10TjVrVWExM0FyZGlMZW5E?=
+ =?utf-8?B?Y2czLzJ3c2c5ZjFBOVM2OFREYURyRHBHZ1BTZnorMmFUc04vNFJDRlk1ZXVE?=
+ =?utf-8?B?OXBxQXhqSnNaMUU0bUcyLzJUcE52clVNS2lhSEw1cldlRGx4SGVHK1lKUko1?=
+ =?utf-8?B?SUR1RXcxaHRXMFdua3J6K1AvZWI3bjFtNGlUTXYzNmxWWW9YeEY4bEJzQVFD?=
+ =?utf-8?B?VnFZTHQ2TVJ3K1EraTJhckpEZHk3YTVKNXJZSFJtUlVwNGhCTEN0QjZ3cFNm?=
+ =?utf-8?B?cWtOR1JmRFZGVEp5d0pTUE9MQkZKdkJQYjBEbTdOK1NoZEhCaU1JM2xsMFgz?=
+ =?utf-8?B?YXhxRWt2SWNGeE8xZjhBeUVkS0hldVc3RS9SNm1VTm5lWC96cHYrSXB3KzIv?=
+ =?utf-8?B?TWFUd0RBK1p6K3kzTEE3QjdacEtNRmFneE04ck9zaFk3bXMrdnRHZTNGVWhO?=
+ =?utf-8?B?Z3AwR1E2WHA2RlVTc0RKQnhZV0wxUi90NVNCUlhXUDRRTGx5L1FTeGtYR1JU?=
+ =?utf-8?B?dVp5S1VySHhuczQzK1RyUHdSeXltVXRTdEJ0NzVEN2RjOGxrV1V2RzJIMTVa?=
+ =?utf-8?B?UTFzdGw0eFhpd2xJZzdRekVSVHNkbWZmMWNJclVNWXdxUlNKY2RXSXdPUnBh?=
+ =?utf-8?B?Q3gwTFBHNXcvbWtkeUwxL1BwaThzZ0VCa0RPNFBrT0pNMXZuWWhTemp4VnB2?=
+ =?utf-8?Q?/OBC6WyN66+Y2yE0=3D?=
+X-OriginatorOrg: genexis.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e916e4f-11e8-45ba-843d-08decaf832ab
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 16:07:29.0749
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CmE87s+ZB0nUkIrWO4/Z2jvi7Id0C/kV/j1xLavOK4S/dpnzIlXneUcvpvwSww3oXSYTOBUNrn9ISh4ZBJmYSj98shvadNHKmyKc6g2wDyE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5410
 
-Hi all,
+Hi.
 
-Gentle ping on this patch series.
-
-Best regards,
-Damon
-
-On 6/4/2026 4:52 PM, Damon Ding wrote:
-> This series adds configurable eDP physical lane mapping support via
-> device tree data-lanes property.
-> 
-> Lane mapping is mainly used for below scenarios:
-> 1. Correct PCB lane swap and differential line routing crossover
->     without hardware changes;
-> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-> 3. Support multiple panel hardware variants on the same board
->     by configuring data-lanes in device tree only.
-> 
-> The series includes driver implementation and device tree binding
-> updates to support custom lane mapping configuration from endpoint
-> node, and keeps default linear lane order if no configuration is given.
-> 
-> Patch 1: Add endpoint data-lanes property to analogix-dp binding
-> Patch 2: Add DRM DP helper API to validate DP lane counts
-> Patch 3: Add validation for samsung,lane-count property as preparation
-> Patch 4: Implement lane mapping in analogix_dp driver
-> 
-> Damon Ding (4):
->    dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
->      endpoint
->    drm/dp: Add helper to validate DP lane counts
->    drm/bridge: analogix_dp: Add validation for samsung,lane-count
->      property
->    drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-> 
->   .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++--
->   .../rockchip/rockchip,analogix-dp.yaml        |  1 +
->   .../drm/bridge/analogix/analogix_dp_core.c    | 64 ++++++++++++++++++-
->   .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
->   .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++---
->   .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
->   include/drm/display/drm_dp_helper.h           |  6 ++
->   7 files changed, 97 insertions(+), 16 deletions(-)
-> 
+On 15/06/2026 14:29, Christian Marangi wrote:
+> Add phylink support for each GDM port. For GDM1 add the internal interface
+> mode as the only supported mode. For GDM2/3/4 add the required
+> configuration of the PCS to make the external PHY or attached SFP cage
+> work.
+>
+> These needs to be defined in the GDM port node using the pcs-handle
+> property.
+>
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 > ---
-> 
-> Changes in v2:
-> - Add lane mapping application scenarios in commit message.
-> - Remove redundant deprecated property 'data-lanes' for eDP node.
-> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
-> 
-> Changes in v3:
-> - Squash [PATCH v2 2/3] into [PATCH v2 1/3].
-> - Add unevaluatedProperties: false to both the port@1 and endpoint
->    nodes.
-> 
-> Changes in v4:
-> - Add validation for samsung,lane-count property as preparation.
-> 
-> Changes in v5:
-> - Add DRM DP helper API to validate DP lane counts.
-> - Apply DRM DP helper API to check the validity of samsung,lane-count
->    property.
-> - Add Acked-by and Reviewed-by tags.
-> 
+>   drivers/net/ethernet/airoha/Kconfig       |   1 +
+>   drivers/net/ethernet/airoha/airoha_eth.c  | 161 +++++++++++++++++++++-
+>   drivers/net/ethernet/airoha/airoha_eth.h  |   3 +
+>   drivers/net/ethernet/airoha/airoha_regs.h |  12 ++
+>   4 files changed, 176 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/airoha/Kconfig
+> index ad3ce501e7a5..38dcc76e5998 100644
+> --- a/drivers/net/ethernet/airoha/Kconfig
+> +++ b/drivers/net/ethernet/airoha/Kconfig
+> @@ -20,6 +20,7 @@ config NET_AIROHA
+>   	depends on NET_DSA || !NET_DSA
+>   	select NET_AIROHA_NPU
+>   	select PAGE_POOL
+> +	select PHYLINK
+>   	help
+>   	  This driver supports the gigabit ethernet MACs in the
+>   	  Airoha SoC family.
+> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ethernet/airoha/airoha_eth.c
+> index 5f1a118875fb..9a42fb991bd7 100644
+> --- a/drivers/net/ethernet/airoha/airoha_eth.c
+> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
+> @@ -8,6 +8,7 @@
+>   #include <linux/of_reserved_mem.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/tcp.h>
+> +#include <linux/pcs/pcs.h>
+>   #include <linux/u64_stats_sync.h>
+>   #include <net/dst_metadata.h>
+>   #include <net/page_pool/helpers.h>
+> @@ -1810,6 +1811,14 @@ static int airoha_dev_open(struct net_device *netdev)
+>   	u32 cur_len, pse_port = FE_PSE_PORT_PPE1;
+>   	struct airoha_qdma *qdma = dev->qdma;
+>   
+> +	err = phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0);
+> +	if (err) {
+> +		netdev_err(netdev, "could not attach PHY: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	phylink_start(dev->phylink);
+> +
+>   	netif_tx_start_all_queues(netdev);
+>   	err = airoha_set_vip_for_gdm_port(dev, true);
+>   	if (err)
+> @@ -1907,6 +1916,9 @@ static int airoha_dev_stop(struct net_device *netdev)
+>   		}
+>   	}
+>   
+> +	phylink_stop(dev->phylink);
+> +	phylink_disconnect_phy(dev->phylink);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -3168,6 +3180,151 @@ bool airoha_is_valid_gdm_dev(struct airoha_eth *eth,
+>   	return false;
+>   }
+>   
+> +/* Nothing to do in MAC, everything is handled in PCS */
+> +static void airoha_mac_config(struct phylink_config *config, unsigned int mode,
+> +			      const struct phylink_link_state *state)
+> +{
+> +}
+> +
+> +static void airoha_mac_link_up(struct phylink_config *config, struct phy_device *phy,
+> +			       unsigned int mode, phy_interface_t interface,
+> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
+> +{
+> +	struct airoha_gdm_dev *dev = container_of(config, struct airoha_gdm_dev,
+> +						  phylink_config);
+> +	struct airoha_gdm_port *port = dev->port;
+> +	struct airoha_eth *eth = dev->eth;
+> +	u32 frag_size_tx, frag_size_rx;
+> +	u32 mask, val;
+> +
+> +	/* TX/RX frag is configured only for GDM4 */
+> +	if (port->id != AIROHA_GDM4_IDX)
+> +		return;
+> +
+> +	switch (speed) {
+> +	case SPEED_10000:
+> +	case SPEED_5000:
+> +		frag_size_tx = 8;
+> +		frag_size_rx = 8;
+> +		break;
+> +	case SPEED_2500:
+> +		frag_size_tx = 2;
+> +		frag_size_rx = 1;
+> +		break;
+> +	default:
+> +		frag_size_tx = 1;
+> +		frag_size_rx = 0;
+> +	}
+> +
+> +	/* Configure TX/RX frag based on speed */
+> +	if (dev->nbq == 1) {
+> +		mask = GDMA4_SGMII1_TX_FRAG_SIZE_MASK;
+
+Can the naming be consistently GDM4 without the A?
+
+MvH
+
+Benjamin Larsson
 
