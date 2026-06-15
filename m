@@ -1,80 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF02A2F12A5;
-	Mon, 15 Jun 2026 20:55:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B112EEE68;
+	Mon, 15 Jun 2026 21:02:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781556911; cv=none; b=JCd6HqRdrFRMo4X38uW53iR7GVWMTOf53vYYocAE878kjeg3Hqt1Fd+rwkCdccr0hJ12ZczFS/Jna0IhlD/KcGTY+fLiKaywDLxsw9DnHvcsiUaxx4820ymRgQ+H3hbkYga9EzCQei6CTPeaMafI/QmPlj0HKlL7zYY9OIyKqZ4=
+	t=1781557323; cv=none; b=iVf2YdFOi/5oFDYtTwioSle/AP6E8Srl80K8xHmZb7x+ScGOCoWkOOK0kp7vIb2tLYNjfUyVIUGYHMwCPkKQ5SrGvsEJisjXFnZXYbqIlanmXSx7FxkIvrAIO9RS148RAIN1HcQS+wIFrsnOFiE7Dk8vgTgrjxqJT30yl7nOemU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781556911; c=relaxed/simple;
-	bh=lZwdFwKFAoSFzDCeOtIwcjmsxAiKODYH1oJfwjM6FdY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUQfJktAhS7nn6VVSUCGUcBthHv7miOFgzuFwOqBRSv3fd274W63AqCu9XE1Ag7viEoPVXhihHcTeDHnmyCdVfaimaljpgUatVym69b3e44eZUo6IqGH7MnIN+AJYueU0wJV3zm/SmjClvxfi7LCKWB5joUS+Qt8+F+9VvO1mz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OaW/WZcL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781557323; c=relaxed/simple;
+	bh=QZw37cA5aQdC8S64W8vZ0f57k9jrcFVFXLwCGyygj2Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LOK0NxCO0/QhTzTNCvYbL+kTxonKcjdgNma29LZ5AIvKgP9tuEIk6tcOxGuKT0C33p9iunFyNM1UWJYYhfQLosZ/vn4fdzVul1TKibuCQigIh53dpOPscMaeYTBHczTxlttYNMJENGxuxiv03Lntl6kH7d9RRnWbmjle2pxIrFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hv5/iCCm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OaW/WZcL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B1B1F000E9;
-	Mon, 15 Jun 2026 20:55:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hv5/iCCm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310D71F000E9;
+	Mon, 15 Jun 2026 21:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781556910;
-	bh=UHz2gVgEYhuDq6Px4YiBXlefN2X8uO6xuCskOVJmhjs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OaW/WZcLc/H2DdGxZ/E06MAegjsy/nU6eXAk99WDWhzkJo92P1Gz8tL0IQu7E/HeJ
-	 rsTxkpU159G0+pljiCQaum2cTb/JwZR2WE6zyNojTj1LOx44i03VRK1GgkBRx2LoyC
-	 AogaF0jIvif1WwidakB5M8Pt2m98HCRauGxkxkct1J3HqAGqFy8xNT3vwi+rfbXZ/A
-	 +HDRN0meUQ7ALXn2qeOqZcsuGKz1M+G288dlJBiln7DIK3f0E4/rZusxO/mMJ9hKC4
-	 +JrwmYrEwcRR1FD9YNh/8Dh0CD1Tmv/x8bFqPztZfRmQ5GYW8jsL4y77+z3zL6Knm4
-	 BhNug0kVkCVyw==
-Date: Mon, 15 Jun 2026 13:55:08 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Selvamani Rajagopal via B4 Relay
- <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Cc: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew@lunn.ch>,
- Piergiorgio Beruto <pier.beruto@onsemi.com>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
- Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Parthiban
- Veerasooran <parthiban.veerasooran@microchip.com>, Richard Cochran
- <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
- Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, Jerry Ray <jerry.ray@microchip.com>
-Subject: Re: [PATCH net-next v5 05/15] net: ethernet: oa_tc6: Move constant
- definitions to header file
-Message-ID: <20260615135508.692a7725@kernel.org>
-In-Reply-To: <20260614-s2500-mac-phy-support-v5-5-89874b72f725@onsemi.com>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
-	<20260614-s2500-mac-phy-support-v5-5-89874b72f725@onsemi.com>
+	s=k20260515; t=1781557322;
+	bh=DdygmByCDmh91zxCbmb+NyTdMRmdD4F6g3LqLyz6S+k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hv5/iCCmeYJIyoPUhr8t5Sy/qfi6oGh8oN1xxfb1ecdF32sW+kJEVAqVpDxQDUiQA
+	 oJIxXI/LuI8avDsTkjf0KPubp/HkfKTd3x+9Fp6YYyhHdDexqw2INy6HS7+zOnD05Y
+	 yUIDVZ5NkDBzR5p6f5UisvxSKJPXWYy8x2YL/IScCa2WjC0A+YMkeFlCGsnMsgWOhB
+	 KjgYBG8TJPM08OrGGK7eJB4UyV580cr8o7qMMYVFXlB3rIEyHHjYTlBCIzScKECnaS
+	 hCCH6L58wxz6Are7y5pQ2YVlKTskBG6PaQLOyYBTerUXzyF3FXLDme4EN50ym3cD4S
+	 L44DyPzir7GBw==
+Date: Mon, 15 Jun 2026 16:01:55 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: simona.toaca@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	Thomas Gleixner <tglx@kernel.org>, Sricharan R <r.sricharan@ti.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, goledhruva@gmail.com
+Subject: Re: [PATCH v3] dt-bindings: interrupt-controller: ti,irq-crossbar:
+ Convert to DT schema
+Message-ID: <178154975475.1640860.7016352484406221018.robh@kernel.org>
+References: <20260612-crossbar-v3-1-266747bc2e86@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260612-crossbar-v3-1-266747bc2e86@gmail.com>
 
-On Sun, 14 Jun 2026 10:00:21 -0700 Selvamani Rajagopal via B4 Relay
-wrote:
-> To help other source files within the module share the
-> constant definitions, they are moved to a header file.
+
+On Fri, 12 Jun 2026 02:42:29 +0530, Bhargav Joshi wrote:
+> Convert TI irq-crossbar binding from text format to DT schema.
 > 
-> The memory map selector(MMS) values that are defined in
-> in Table 6 of OPEN Alliance 10BASE-T1x Serial Interface
-> specification and currently used are added.
+> As part of conversion following changes are made:
+>  - Add '#interrupt-cells' as a required property which was missing in
+>    text binding
+>  - As irq-crossbar is interrupt-controller. Move binding from
+>    bindings/arm/omap to bindings/interrupt-controller
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+> Changes in v3:
+> - Fixed typo in property description
+> - Link to v2: https://lore.kernel.org/r/20260611-crossbar-v2-1-231d4f88298e@gmail.com
+> 
+> Changes in v2:
+> - Dropped property name change and driver updates.
+> - Link to v1: https://lore.kernel.org/r/20260606-crossbar-v1-0-f67f7cb9ee50@gmail.com
+> ---
+>  .../devicetree/bindings/arm/omap/crossbar.txt      | 55 -------------
+>  .../interrupt-controller/ti,irq-crossbar.yaml      | 96 ++++++++++++++++++++++
+>  2 files changed, 96 insertions(+), 55 deletions(-)
+> 
 
-If you're adding kdoc on functions the return value must be documented
-(unless it's void of course):
+Applied, thanks!
 
-Warning: drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c:34 No description found for return value of 'oa_tc6_ptp_register'
-Warning: drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c:143 function parameter 'stats' not described in 'oa_tc6_get_ts_stats'
-Warning: drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c:185 No description found for return value of 'oa_tc6_get_ts_info'
-
-
-Please note that net-next is closed during the merge window, please
-wait with the repost per: https://netdev.bots.linux.dev/net-next.html
--- 
-pw-bot: cr
