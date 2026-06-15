@@ -1,130 +1,83 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1618330B14;
-	Mon, 15 Jun 2026 09:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530F23DA7FD
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781516351; cv=none; b=f9LIYtyBsUyF3658PWJGxqLBJXHN+8sVgQ5cmFGpv3B567SDqQ4RCXgx5ZXK+kWW9wYqZnFf3Lete+b3NyvjL1Vq6QMWVkia+zShhBmpsM+P7BQ49kzPVEuRy/gO8jwsBMoH94EqWb7oWbzZFbHI6ebFUCdgHihG5M6xcGqs+gg=
+	t=1781516385; cv=none; b=DRWTmrmVnVsfdXUUuFrr52DPqBzazx/y+G0/YzWQaBfF6IoVt+E4pFi/GnS3CHLkw/SMHByw/9WQshOb/20SQTwONlutyVR5nBQMcXSgCJBbyaP0JAPkQIH4eV09NYu3/aYLTRzqb5cYhDXwG2duyDxNlkNkEIRce8jlSaYHADE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781516351; c=relaxed/simple;
-	bh=dnONPYD6XzHhp9EBOgFNHs7pj4H4LDKb5beDVT0zjho=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tTozMDUayrxNENwXOkhSt4SrEBxAgEfqxhuYxaiBydEb6KgP3Z1tPBkwJqh0iEgpXfRqlWhei0hqzjG8FTJwDUULhvNjAQJvL6EdNSXbrUEKP+AY0XQFLx9zAmc7RzfS+8xyyWY2Q7o6v7XrK14AiS7Ojvd80WOGvfGuqdhKMT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=cQE6uE/o; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="cQE6uE/o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781516349; x=1813052349;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dnONPYD6XzHhp9EBOgFNHs7pj4H4LDKb5beDVT0zjho=;
-  b=cQE6uE/osYndA9+53fxO5LpgJcax07WKMQKhUTfRvf2XyH8EHNV5thVq
-   Nx/gzTj8yC+3vrI7bQtVzCXGTvUTrnw9LmtK1/CH0meUpz/5kDlZiDSEb
-   D3ebq2kT+MjFMnFkT2f/M9fTXd6tbJtMYX2M8Mj8MFXBVCCnZMVD9rUbc
-   CUrGQUoIWJc50Ui9Mkd0yyAuheR9HUw5wj3SCYqCqNZg1bTKr7BSN/HZC
-   drBcc3yYDGyRoYH2RuwQcIt7NCfuEou3a3ruihwOX0+bEJQ7tdNEHirLR
-   EeQ/zH1YMeL8XKpNultaHNdEgYtc7oGEf8pbQ8sWsu6zkGMo6Edmr3/FS
-   g==;
-X-CSE-ConnectionGUID: +Wai5PhcQwyFvCCU3De2TA==
-X-CSE-MsgGUID: vqn+V4SDSieryT8ypJm+tQ==
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="asc'?scan'208";a="58296024"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 02:39:02 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 15 Jun 2026 02:39:02 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex01.mchp-main.com (10.10.85.143)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Mon, 15 Jun 2026 02:38:57 -0700
-Date: Mon, 15 Jun 2026 10:38:10 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-CC: Geert Uytterhoeven <geert+renesas@glider.be>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda
-	<andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
- Foss <rfoss@kernel.org>, Laurent Pinchart
-	<Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Magnus
- Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, Kieran Bingham
-	<kieran.bingham+renesas@ideasonboard.com>, Philipp Zabel
-	<p.zabel@pengutronix.de>, <linux-renesas-soc@vger.kernel.org>,
-	<linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Message-ID: <20260615-undiluted-gallery-d7318905c8fe@wendy>
-References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
- <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+	s=arc-20240116; t=1781516385; c=relaxed/simple;
+	bh=x75oxlQn2awWT9/NZxh+u45lCUQYq+UJ7N/Fuf4rw4w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pbthsr5Z9uYLoDZHyLtYE/wvtZg+DOnJts7/qFRm3iW3pPdmgJlvCUnZMectAG3xRjzSRDV102nczZfCO/CDX8Ht1fNJfJumku5Hpx34ddrs7o0eicrPyF3F4owK20OYNjbF9o9o1hq9RbNwz35yLCCGmg8j+XmzEyFwdw2Omvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wZ3mx-0008GM-Ey; Mon, 15 Jun 2026 11:39:27 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wZ3mu-002qHT-2Z;
+	Mon, 15 Jun 2026 11:39:24 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wZ3mu-00000006HGh-2mTL;
+	Mon, 15 Jun 2026 11:39:24 +0200
+Date: Mon, 15 Jun 2026 11:39:24 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Simon Horman <horms@kernel.org>
+Cc: jelonek.jonas@gmail.com, kory.maincent@bootlin.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	daniel@makrotopia.org, bjorn@mork.no
+Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: add Realtek/Broadcom PSE
+ MCU driver
+Message-ID: <ai_ITHd_xxt7an4q@pengutronix.de>
+References: <20260612132944.460646-3-jelonek.jonas@gmail.com>
+ <20260615090733.739423-2-horms@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Uh78Vh1VzfEi4O33"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+In-Reply-To: <20260615090733.739423-2-horms@kernel.org>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ore@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
---Uh78Vh1VzfEi4O33
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Jonas,
 
-On Mon, Jun 15, 2026 at 09:28:07AM +0300, Tomi Valkeinen wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->=20
-> The Renesas DSC Display Stream Compression is a bridge embedded in the
-> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
-> 8k or 400 Mpixel/s .
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: fix the example]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> ---
->  .../bindings/display/bridge/renesas,dsc.yaml       | 99 ++++++++++++++++=
-++++++
->  1 file changed, 99 insertions(+)
+On Mon, Jun 15, 2026 at 10:07:33AM +0100, Simon Horman wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at: https://sashiko.dev
 
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - renesas,r8a779g0-dsc
-> +      - const: renesas,rcar-dsc
+It probably sounds scary, but sashiko finds not all issues in one time.
+Bigger patches and more different included frameworks - increase findings
+probability a lot. With other words, it may more rounds than expected.
 
-I didn't provide an ack for this FYI, I was giving the ack for the
-file being called renesas,r8a779g0-dsc.yaml. Since Geert isn't happy
-with what's here, could you drop my ack when you send another version?
+You may optimize it if you have access to some free or payed tokes,
+by using sashik-cli with LLM of you choice as backend.
 
-Cheers,
-Conor.
-
---Uh78Vh1VzfEi4O33
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCai/IAgAKCRB4tDGHoIJi
-0lGiAP4i+hsdDIWn5Ob66ARc+soBDeG/vc4lEZHkeIcbNWBX8QD8CvRTmZfRwU0o
-J33Zs5Y0tg/53Ixvcqhdm9vClQTuzQo=
-=DIro
------END PGP SIGNATURE-----
-
---Uh78Vh1VzfEi4O33--
+Best Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
