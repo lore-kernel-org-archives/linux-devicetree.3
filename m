@@ -1,154 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E633EDACC
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 13:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76FC2D63E5;
+	Mon, 15 Jun 2026 13:02:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781528415; cv=none; b=LgyjjDv1WKRM4o8ZdeBawr4dYBhtbNjx7ufVKP5zMNBK+UhpDVWbigJ8UrAYdnKYCSuL46X8QcQGnqwlQApqYOBt7YhXQ4qiZyB1neJsKoq+wthStytqJyE0H+xsXDtoQFYoOViCi+cP0h23A5AwOsVnSVeg7ZJP/3J4XmA3p9Q=
+	t=1781528524; cv=none; b=Y8yZhrrvx3cJF219N9BvebXtYCuqtrtKjo/Tqcyb4g4D4db4dBmkwCkT+RQQBth4g9P7o8bog8ubGRmrim5FITg/149gyXu7B5LrxTCE6rP3BDlDJktEGrpuJ1tO9j1BkOIiIM7HQ+OdbhxxtSFMXe5LT+7a0Zk8NQksd55345I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781528415; c=relaxed/simple;
-	bh=iQ3Soby+H1Im+rNqR4BJmskioYFWneXQcHdUDGsEmQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OwkpPbHtIa45sV6MhDpZROhajWLqvs3AZZK8tyucPKFuS6F1wrzyVghCQYaYtZ7ynyiQLvicZl8bqzwKvZNNHnPpIDdPDb74efzzTt+MS2ZOfBZKLgUIkgi5WjrWy8VWaEkk57dE6Rj8bY37JlcaDHxFGA0OGVEb83ryR0C4HBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtAYO8G1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781528524; c=relaxed/simple;
+	bh=4R72PtRdeQ0I1tu2r8jsBM3qPQ7dlP7ay4Jpm2M0dcQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zw5TfPmLHLoLkIU3wuvdJ04Ic3rcO0xchl69mcbpdoWvoT1M+kLE/iVLE7jJIQHv+shzE8QAe92fgEjWZnaquEaqUE/lYiNJt4Rfe9Ka4k6M553uoJ4mZP7HUlCsgRfz2Mnfq/gVT1TDBK5A34hGU9/iaGohHjoP4nKDNggjnoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=WpbqWBWv; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtAYO8G1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1051F00ACA
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 13:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781528413;
-	bh=9AfeWhadO1v9+SOwJHNDv9yxD8mKNaO32U/4W8IqQks=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OtAYO8G1iTz93pqIG95Bt5ygW6csEa09rVqLyrXI6Fcw0vMP1/t3zvd5iLq3O51+H
-	 P3gWBKO5f2DujiUFvJ4XZlLmd/dAKxzQdAzmBAgKt6bf95AzqcfaxVuJWwezRBpcnB
-	 KazPgpaISQA0Rt3QKRhDJ4uIwkr9UflXUkHo/PF7SUmclwcswC+qiVBTpwAUPEx7zP
-	 RXT8GdWSOoOjccxEzOf2WL5f+lK1uVAJr5/MW/bS/+SCBxLVmy6jhf3eYzgco1H1bl
-	 sH49ShaxRAnJfzPof0Qb8n52UVjgBZMSysdEfSIIu5rWWZ3wiL/Ku9qTD6eB1FFx6U
-	 yR+L5yZR+jFpQ==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3967717c951so39827541fa.1
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:00:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9rJjkXUhms3DyYRhBleANLVsEmIkD0f+VQSJ2JL6vyBTkxjq8obtinTkgZrjnZLTDzD/dded2Ltz8U@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxEj27nMw+0i28GZ9AaV3fp3PfYU2leu4UuQAQszvwwglGD6T/
-	NzTHfXTZpSsokwjc/IqTaPmCPamy40ywYX4+0fYGaK33tV/O7UM7vngkpkxOVO5Lkpn38/McpGZ
-	nTlPaM7iabx09tBen0r2hNJgrX4gXSOw=
-X-Received: by 2002:ac2:4842:0:b0:5ad:a25:b8a3 with SMTP id
- 2adb3069b0e04-5ad30dc3332mr1847615e87.29.1781528412405; Mon, 15 Jun 2026
- 06:00:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="WpbqWBWv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=tPjmqX9SMTeCykCfytbi1fpwWJ22FWgRgMVFy1mXudo=; b=WpbqWBWvTzXryDqoZIBXExPhvv
+	kC4TAdAZPOGy3MWoEl9R/ridFn0Caqhgf6h44LSmRNpCoDSTrqd9CL6EsZC6lxZgUJlTXiJWw3xFl
+	+95E2b7+/FYv6Ncrs9pgKL1jpnGUbQJX1FCdxKgV2sq9g+GMdGSdK1wK2KsDmd2zaN1MtTobwxuOi
+	kiMyjzV7srbexEZXMXzTEvwGJbilvUhVCUWQGKRl8YCxFvNXODPowabXfP3XLL+St6/i332uPzH5A
+	bnQ2u2XKMLvfGXUDYnI4O+ZconYoCd+homOJwc3DXlEcZN7dVqdjWJQoOmoWi2MVv6u/JvyvT7Yzz
+	AVSBdotg==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Cc: sebastian.reichel@collabora.com, nicolas.frattaroli@collabora.com,
+ alchark@gmail.com, detlev.casanova@collabora.com,
+ cristian.ciocaltea@collabora.com, michael.riesch@collabora.com,
+ andy.yan@rock-chips.com, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 0/3] Add eDP support for RK3576
+Date: Mon, 15 Jun 2026 15:01:38 +0200
+Message-ID: <3213683.CbtlEUcBR6@diego>
+In-Reply-To: <cd1f968a-2e1b-434f-a331-a60cd8740032@rock-chips.com>
+References:
+ <20260605022305.3058853-1-damon.ding@rock-chips.com>
+ <cd1f968a-2e1b-434f-a331-a60cd8740032@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260611-gpio-to-irq-v1-0-12201716f23f@amlogic.com>
- <CAD++jLk3YdMUSkk71rgT=taQZnEhqgMgGP0dKBPx7_5Bsxmu+g@mail.gmail.com> <2bb2c0e8-29e1-444b-851b-a9932f547c6a@amlogic.com>
-In-Reply-To: <2bb2c0e8-29e1-444b-851b-a9932f547c6a@amlogic.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 15 Jun 2026 14:59:59 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm9+8RSbBCi-k=8S98XvVJ7taYrK=kuBp3_RqxE_bcxbg@mail.gmail.com>
-X-Gm-Features: AVVi8CcBb6WQACvc7gkaicyjvy5mkWEAD_WR6myDRZYFSecbNnPJmhQJczsoxDs
-Message-ID: <CAD++jLm9+8RSbBCi-k=8S98XvVJ7taYrK=kuBp3_RqxE_bcxbg@mail.gmail.com>
-Subject: Re: [PATCH RFC 0/2] pinctrl: Add support gpiod_to_irq
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-amlogic@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Mon, Jun 15, 2026 at 5:17=E2=80=AFAM Xianwei Zhao <xianwei.zhao@amlogic.=
-com> wrote:
-> On 2026/6/11 20:51, Linus Walleij wrote:
-> > Hi Xianwei,
-> >
-> > thanks for your patches!
-> >
-> > On Thu, Jun 11, 2026 at 9:54=E2=80=AFAM Xianwei Zhao via B4 Relay
-> > <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
-> >
-> >> Some users need to obtain an IRQ directly from a GPIO descriptor throu=
-gh gpiod_to_irq().
-> >> Add the required DT binding and implementation to support this use cas=
-e.
-> >> Since this introduces a new DT property, the property is kept optional=
- to
-> >> maintain compatibility with existing SoCs and DTS files.
-> > To me it looks like you have just re-implemented hierarchical
-> > irqs.
-> >
-> > Look into the section "Infrastructure helpers for GPIO irqchips"
-> > in Documentation/driver-api/gpio/driver.rst, especially towards
-> > the end.
-> >
-> > Solve this by using GPIOLIB_IRQCHIP and a custom
-> > child_to_parent_hwirq() callback to translate the GPIO into
-> > an IRQ.
-> >
-> > To just implement gpiod_to_irq() without any irqchip abstraction
-> > is also broken: you can't force all users to just use this way
-> > to get an IRQ it's excessively restricting.
-> >
-> > Add
-> >
-> >    interrupt-controller: true
-> >
-> >    "#interrupt-cells":
-> >      const: 2
-> >
-> > to the pinctrl node as well so that DT users can simply request
-> > the IRQ from the irqchip inside of the pin controller. It will
-> > be hierarchical and lightweight but an irqchip nevertheless.
-> >
-> > The GPIOLIB_IRQCHIP approach will help you to get this
-> > right.
-> >
->
-> I read the document (Documentation/driver-api/gpio/driver.rst) you
-> pointed me to and found that the corresponding implementation has
-> already been added in this file:
->
-> https://github.com/torvalds/linux/blob/master/drivers/irqchip/irq-meson-g=
-pio.c
+Hi Damon,
 
-That is the parent interrupt controller to the pinctrl+gpio isn't it.
+Am Montag, 15. Juni 2026, 14:33:03 Mitteleurop=C3=A4ische Sommerzeit schrie=
+b Damon Ding:
+> Gentle ping on this patch series.
 
-It will be even clearer once you use interrupts =3D <>; instead of
-the hwirq =3D <>; hack.
+Linux 7.1 was released yesterday, so we're in the merge-window now.
+(And the 5th of june was shortly before -rc7, so too late for 7.2)
 
-> However, it is implemented as a standalone irqchip and is not integrated
-> with the GPIO controller.
+So I'll pick those up after the merge window end in 2 weeks.
 
-Right, so it is the parent. Of course it it stand alone.
 
-> In this patch, I implemented the GPIO-to-IRQ conversion through
-> gpiod_to_irq(). Users can still obtain the interrupt directly through
-> the interrupt property, for example:
->
-> interrupts-extended =3D <&gpio_intc 16 1>;
->
-> The purpose of this change is to make GPIO-to-IRQ conversion easier for
-> users who do not want to know the actual interrupt number. The interrupt
-> mapping is not fixed and varies between different SoCs, so users should
-> not need to handle the hardware interrupt allocation details.
+Heiko
 
-This is not why gpiod_to_irq() exists. It is not a convenience function
-that is voluntary to implement.
+>=20
+> Best regards,
+> Damon
+>=20
+> On 6/5/2026 10:23 AM, Damon Ding wrote:
+> > Picked from:
+> > https://lore.kernel.org/all/20260601065100.1103873-1-damon.ding@rock-ch=
+ips.com/
+> >=20
+> > Patch 1-2 are to add missing clock "hclk" for RK3588 eDP nodes.
+> > Patch 3 is to add the RK3576 eDP node.
+> >=20
+> > Damon Ding (3):
+> >    arm64: dts: rockchip: Add missing hclk for RK3588 eDP0
+> >    arm64: dts: rockchip: Add missing hclk for RK3588 eDP1
+> >    arm64: dts: rockchip: Add eDP node for RK3576
+> >=20
+> >   arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 28 +++++++++++++++++++
+> >   arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  4 +--
+> >   .../arm64/boot/dts/rockchip/rk3588-extra.dtsi |  4 +--
+> >   3 files changed, 32 insertions(+), 4 deletions(-)
+> >=20
+> > ---
+> >=20
+> > Changes in v2:
+> > - Split out separate patches to add the "hclk" clock reference.
+> > - Split out separate patches to enable the "hclk" clock.
+> > - Add Reviewed-by tag.
+> >=20
+> > Changes in v3:
+> > - Add a patch to expand descriptions for clocks of the eDP node.
+> > - Add Reviewed-by tag.
+> >=20
+> > Changes in v4:
+> > - Modify commit msg.
+> >=20
+> > Changes in v5:
+> > - Enforce the correct third clock name on a per-compatible basis.
+> > - Modify the commit msg simultaneously.
+> > - Add Acked-by tag.
+> >=20
+> > Changes in v6:
+> > - Expand more detail commit msg about using hclk instead of grf clock.
+> >=20
+> > Changes in v7:
+> > - List all valid clock names at the top level, and constrain the clock
+> >    count for each platform with minItems/maxItems in allOf.
+> >=20
+> > Changes in v8:
+> > - Fix indentation to 10 for enum in clock-names property.
+> >=20
+> > Changes in v9:
+> > - Restore the explicit clock-names for RK3399 and RK3588 eDP dt-binding=
+s.
+> >=20
+> > Changes in v10:
+> > - Use automatic cleanup to fix OF node reference leak reported by
+> >    Sashiko.
+> >=20
+> > Changes in v11:
+> > - Pick and rebase DT related patches.
+> >=20
+>=20
+>=20
 
-If you implement gpiod_to_irq() you implement an entire
-irqchip otherwise it is a bug.
 
-If the pin control + GPIO driver should serve IRQ numbers in any
-shape or form, you need to go the whole way and provide a
-hierarchical irqchip.
 
-It doesn't matter if you don't need to set a single bit in the
-pinctrl + GPIO hardware for these IRQs, the fact that they are
-routed internally on the SoC out through the pin control and
-GPIO block by definition makes it hierarchical.
 
-Yours,
-Linus Walleij
