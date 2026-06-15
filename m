@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685933B14BA
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4F730648A
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781505023; cv=none; b=ANtvP7Oj+xPcREO5AUy1TiS39Bjc8YvoEVpHwJROxKMTK1s06uMGC/+qbgVecjyzkpEuwcHF/7zFKwNP1rWPb1NR2UzSR+BFKTHA84vZEOJRyeIkscLYVmi0/SkU1joX4u77DQtRKFKM/+CHmHLkvkSU1ZQq/C18hNCTvT/PvT8=
+	t=1781505171; cv=none; b=Q9XN0p3jsDhoc24Gxc7yYt+OBImzODjHpibbF6otDOSDI3YZLwuqGV91uweoDfoq9G8Ae4bAUrRlVDOsdhrZm39W5ekVZCvbHBryMQfO24d58HdisUwIqPY1+COxNPu4fn5vqCxt4S9pKyBqGWS+1o6DjcZSwBRp9y7wi2aSzU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781505023; c=relaxed/simple;
-	bh=2GnlzbNWMVeDy1soDalLhjX/JsJbPWx1WgprvQHs6x4=;
+	s=arc-20240116; t=1781505171; c=relaxed/simple;
+	bh=i7VluU/3qkhYqgv7iDvWcuIMGbZZwZtOnNpKKgjpkmc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=V+l28Nn9DAKO3dn/GcgTftQXYtliO6xpxnzNcqVPx4a5RqLUymgTyR6WGgJMoallYzL21OZJwWAnBkjP1YpJBfEMzr2lr8+Ll8N+cQZhFI9orhiZ/Xwk5sS9T41TkR6OUOrRoHQvrlVS4xZI382eSLWDHGfKkdWMsg1SLIDEH2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7r0VEdq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UrBIr6kqL8xQRVajxC7xbrxtdSH3+3KG4/9QWnTU2dzEaW9GzQ8jjV1xTmiwa39h0WTEfyCTBPKp0opgj8Gkmw5PzE/CEQPh8dLffvJoZLJcReIWv3q2Sn3hVoZJKLsKMr1dFpGnNJib7MfGHs8ROxh+FgZcLAsB1mYLtlOkxDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNToIshC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7r0VEdq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E651F000E9;
-	Mon, 15 Jun 2026 06:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNToIshC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C97A1F000E9;
+	Mon, 15 Jun 2026 06:32:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781505022;
-	bh=IwtL5vuViFdeGZGbPSa+bajFoZ9U35ZueHzM3DfQV88=;
+	s=k20260515; t=1781505170;
+	bh=x4rTlq7L6SbF4qGk/fgIEJ2sItYkyhjCZzBoumx0bH0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S7r0VEdq/FzWQg29Ngu24pZy/X3zuIs8rWIYF50MsxujdElBRVgXxUrz81ksru+7E
-	 Fp4pBGF7w0TgOWQOhD22pBqUtHMvpuk89+IMqrbG0E0GzgwWB9NtRq2QaGfuwl7/0D
-	 EGJfTyZilXV56kYroMShDf8bfZEJTpya5P8AjXP+6Y/bYhxu4EUMWSCD2jU3B6sgZC
-	 8cB9myxm95TBaOROYgDlq+E0QfYER5Tnsw9AO1/rq5VaLTZ+tvVMh6TWLhzOmDnNB8
-	 GlWSjyIdzfosRnsQ8b1T6QIAd67jFoVWf2RI7WaZXM/5RIs3wjleZv31LZlMW7o20k
-	 Su6CC06j3KQEw==
+	b=RNToIshCn3l3Ms8X+OEn48UhAFfAHsoUOCQZV9sdGFJV86RpiokPrbA6KomzUPUty
+	 +LXVDdXCsHB1FxJPUqeJg82zobttUewvl/41GZdGPNn3L9FruwId4DIB0LZ8BW/CbF
+	 PXHpvlbXzzFyNbecaVxwVoFimZ4aei0Uyxtull4aMG9LTSnZrIEJU6e0/9LnfZi7bO
+	 zUAweMMwoyCa6JTY+pjYB1qrpOjJJ9Z2jkSxLH0xUiEupnnHnvz1aMVuipJsXNuSYc
+	 0vpFyL1MpoUqG5HaCWfUSRllRk8nyP5lETAgpmKEJL8bPWnUaAS5Yp5VwMrDH9yjZ/
+	 cEk3a8A9Q+bMA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] iio: dac: ad3530r: Refactor setup to
- table-driven register bank approach
+Subject: Re: [PATCH v2 2/4] iio: ABI: add DAC 10kohm_to_gnd powerdown mode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615-iio-ad3532r-support-v2-1-84a0af8b83fa@analog.com>
-References: <20260615-iio-ad3532r-support-v2-1-84a0af8b83fa@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-iio-ad3532r-support-v2-2-84a0af8b83fa@analog.com>
+References: <20260615-iio-ad3532r-support-v2-2-84a0af8b83fa@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:30:21 +0000
-Message-Id: <20260615063021.C8E651F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 06:32:49 +0000
+Message-Id: <20260615063250.0C97A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,8 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Duplicate field initialization for `input_ch_reg` in the `ad3530r_c=
-hip` structure.
+- [Low] Duplicate field initialization in the `ad3530r_chip` structure.
 --
 
 commit 2528c529a11e7b49d5cde3c0238451d59c5f698b
@@ -55,18 +53,16 @@ Author: Kim Seer Paller <kimseer.paller@analog.com>
 
 iio: dac: ad3530r: Refactor setup to table-driven register bank approach
 
-This commit replaces direct register accesses in ad3530r_setup() with a
-table-driven register bank approach using per-chip address arrays. It also
-converts the software LDAC trigger register from a static address to a
-function pointer.
+Replace direct register calls in ad3530r_setup() with per-chip register
+address arrays and bank helpers. Convert sw_ldac_trig_reg from a static
+register address to a function pointer for per-bank LDAC trigger register
+selection.
 
 > diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
 > index d9db3226ecd64..e4346bc729ba5 100644
 > --- a/drivers/iio/dac/ad3530r.c
 > +++ b/drivers/iio/dac/ad3530r.c
-
 [ ... ]
-
 > @@ -344,7 +387,14 @@ static const struct ad3530r_chip_info ad3530r_chip =
 =3D {
 >  	.name =3D "ad3530r",
@@ -82,15 +78,16 @@ function pointer.
 > +	.num_banks =3D ARRAY_SIZE(ad3530r_if_config),
 > +	.num_op_mode_regs =3D ARRAY_SIZE(ad3530r_op_mode),
 >  	.input_ch_reg =3D ad3530r_input_ch_reg,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 [Severity: Low]
-This isn't a bug, but there is now a duplicate initialization of
-.input_ch_reg in ad3530r_chip. Should the newly added instance be removed
-to prevent compiler warnings like -Winitializer-overrides?
+Is this duplicate initialization intended? It looks like .input_ch_reg is
+initialized twice in the ad3530r_chip structure, once in the newly added
+lines and again here.
 
 >  	.internal_ref_support =3D true,
 >  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-iio-ad3532=
-r-support-v2-0-84a0af8b83fa@analog.com?part=3D1
+r-support-v2-0-84a0af8b83fa@analog.com?part=3D2
