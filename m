@@ -1,63 +1,63 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EFB3033DF
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FD5301493
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781498435; cv=none; b=qN94BeBSOtLPXWg/CoX6K3Dy2GzaZnT3M63pckChy/pZbGFle4wdsaTCT/o4CuYCzVKHjPBUY0BoBU5xiZBndP3II9SOjLIk+pNRJ5UbXNurZJu+HnQdf+/wlg4xmgqWAWvt2DoFjJ5dWt01K33C24b082g0Q/+B/X5Wlzv5FZo=
+	t=1781498584; cv=none; b=gTTaWH/jnEGmYmKWowmJGZW9yus7P7ukJuYTTMiedaoUAbUC79dyWPpG48teqzmr/+jZyw7CoZ+ZpQwb0byLkrA3gepF/eLrAI+WXIXvT8MsKkxoILjmzRbfptFIckzQ05IXBLYyMkQPoSYcMAEvtipMBc8nWcqCodCyJb1yc/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781498435; c=relaxed/simple;
-	bh=7duavQ222Pjg3G2ZNfIGpmYS3Gzto3uKYx0OaVsfd2U=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=U1dPrs176yFc1/z4+DXmnbjamHiw0QEaHrwX+xABsksAGy3bP6E/+CNcFZpItDHuY2HMSxxl36RGzM3Y8krq76G/MPUo22ToNiJsZch7ncdVr9rUj+U/A6eiFNv4N2BACOxBSUb806+a0MP+eIxrQSwbGdfUt3bhqBrByhWU/Xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LSq7aa6D; arc=none smtp.client-ip=209.85.217.46
+	s=arc-20240116; t=1781498584; c=relaxed/simple;
+	bh=FdzmA9cNqe8kCysYCqcBOJeAapnnHealTPUZxbjYDTU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=nVxE0HwrnTbZLe+jN0J1QuC1MTQdwQ/idqPVCBJ9J6E7NPnNKjXBhS6jxTCOnLs6dHdCfZk5fdf3HK7+R+/Lxc9IYf+spKq0OZMs8owN6pPZpmPWP5FHjUl7gVdHYWitq7FBdbbzwHpi4bn/Nq4wARhS9HlALAWDVL3Yf2EF8XQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AyLEMwkG; arc=none smtp.client-ip=209.85.222.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LSq7aa6D"
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-6c4db0bf752so1939505137.0
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 21:40:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AyLEMwkG"
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-96358d0a024so1969753241.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 21:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781498433; x=1782103233; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=gmail.com; s=20251104; t=1781498582; x=1782103382; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dGB285QQfzjMEZKVcQE1jA6+Ydb7tIVKdW6CKVeUVnE=;
-        b=LSq7aa6Dh2KBSg+dICMeTnDHu0bQLvd3xq9k1Qymi6uAThcYmwaRZ0f+QdYUcA8SzJ
-         qoFdXyEB3k+unvb549Z+OaP+6B1xf/Xdhjl5kggib3Wrt+tmbic5RdHX42Uad/ZXmA3D
-         4IrGO+wSRNziabpHgLdmoj2qZ5HJRFEXtlc39zp0tgHK0cNDS2G0fKEeH7sjthumrxpr
-         WNvA/GiT3RMUgI5/35X1R1/SjSFca9yN1uTG0wOiijJq1TOSeyjAKz6+PQbBx97tXKS3
-         qZZXizJ6ejUAC+f8OSTRLpBcwzKK7u0dmOQbkerNfcZ5A6EZJ+e54W/I5bAT4HGU0vsk
-         3ifQ==
+        bh=n/0zATgZkedxxJFW8wtHE/FC+bydOMretvCllv2EasY=;
+        b=AyLEMwkGNYVTjVg7PGXKEDWRALnxpwuukJRK0nT1NR0c8NHtaCRy3RGNmrUAicTn+Q
+         oPVEwbHXpGxfbXbSELUIpWEkCd7V3WejIWP10A3pAyva+osPq3AHLEA4OgTtrbs0dwdH
+         ay28MVzNH+qMr8aEpV94zsHUlWd65vowhEEB2Lot6i/C0KxBNldW3juBuVdQw/dzBr7T
+         J1NGIF3UK+wPLZMQ5ORXRrO7YMUL5bcT1xVMIajXOx1rqnVKrflNddfs8iM5i6QWvnhO
+         bQ7wWXQqK5lXULbKGgmpvRQmoq+Yf4dWH9SiUywmpIW7OiVR0F8mno3w2jHVrK7dPjXn
+         28mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781498433; x=1782103233;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
+        d=1e100.net; s=20251104; t=1781498582; x=1782103382;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
          :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dGB285QQfzjMEZKVcQE1jA6+Ydb7tIVKdW6CKVeUVnE=;
-        b=n6JafyQu3AUDgSHDOCvuOQjer80OHwz+AJm7MMIUqdo+aTkDIvDKnUIJTBJP5we8vH
-         HqqMvs72jLqAGenKNn04OT/dwWC/PSZSQmDc53zp3K1oQMc9Ypaki41zzu267WBK9HG7
-         SOAfRG0vAH9QQs7K7iEYHssZ+cDOiNoNvdq728ywdnA++Bz4xxvpszcRqYucdS/S2Ar6
-         HdBNvjZD8Q1SxWIvrHhIDHjBoEjmoOyWzUTumGX4uxKEupGKgLsuSXdUiSXcr6ru4jT/
-         mYNZCkSNj/fZbf6o9lpujvheB6IVf1lxZk0Jv6hA8FgJVPo+4y1hIShtNaEDkQ3dK7K9
-         KwnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+vwwcDU/+D5Sc54GeUfDHtYxkkvDVGS/GB2rbH5/Co4IQ8AhPTLaecCsfgUeKjZnSdmyYct2xQ7aBe@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzifw8Ly1PSF17tNXHZ09sieEqeaxWpeaSvuhu62QSF/hlyAuAB
-	w4/5Tv9qH2d0W3clfTaHVqtrelX3ebCc0kFjTneHdoelDCJg5pko8Ddr
-X-Gm-Gg: Acq92OEs7roTVw1GNc0Qfl8QWz/A/6Oihwq3sT3wHXYrSyLYVpXbjFpsCzjLjDtpaKE
-	yF8DvSMwLXYsaJyMZchxtaBjzxA5Q1+aJN/SklY+D49X5wbqKXC4udIJtssWp0yhGXif2F53QQL
-	IdN0o+mpWX62XvgsZsFDiA3VMoxhOiDNrpLrN3njtb4X9fozQv6G9z1+ahEjHk63KCRHNec1qD7
-	dXto7P991sfI4LgTRieZO8Y6IRzl+F/wQjdV4Qnrow1mvt+V3mYty/QkEOHFntLxptykfCBY6lu
-	s9E/O88mV+cwlqFsud089AeoreqdRjnAu69JcL3cl4Q38FhvUzdC4fqt1brW0CbotNo7SibPavL
-	Y08fd6Q7xvYZxpQ0Obivi7OlL9lSA+tH8MGCbFWDvt1PR5HopSfUK/0P69Pb7XI9pFc9PB7FJuO
-	N+cCFkMWUr2co5FQ==
-X-Received: by 2002:a05:6102:4243:b0:633:d7ec:153c with SMTP id ada2fe7eead31-71f5e0f9832mr4264466137.3.1781498432649;
-        Sun, 14 Jun 2026 21:40:32 -0700 (PDT)
+        bh=n/0zATgZkedxxJFW8wtHE/FC+bydOMretvCllv2EasY=;
+        b=Qy8UmY4nIg5arKqUcmzmTXgkjiHtkQetifO3R+lvE4t/IGENhGlPTGKsF859DglgLU
+         t+nX/99l8m3INUBrZCWz+Y3U3fZsJJkORn0sV+f05y6ciwjpYeEZAQqVdFKNhBSO+4zf
+         FeV5Hy+EjaqCwY+VHnfROWKiK+5x9WchsNjEFodn+fYnpgs+oWMIUbJm/Po1nM0bCKpH
+         3wQO38XcX8gTAcZhnOYTPZi1JLpaYQIoeIGjIeXFvmHoBTdlLjk7dodQINcYutOJ1RGn
+         LNpt07/7cjRumiYuo8k9ohORdO0KyfW77fzrbiluIRSpE27vz+CNBS10pGoez9jXcqC3
+         e9zg==
+X-Forwarded-Encrypted: i=1; AFNElJ/gBBGJA/VovYzk1ijUN2KyQh9c5LYpKTlCoXWfaPgSTaJ63AUEj2vAoKT5dtOFpsQ5ujVbQ8oQ+1J+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuDmKdj9QFXNZR9BVp4psmeDW7pq1gYkufXHptzvcQektDWtXm
+	s/29XsILNy2Wq3qhfDQIldfdLOnB4W6c088YtUO7X3Kjb2dG8vDNKprDMMeQ+Q==
+X-Gm-Gg: Acq92OEEJNwwxauHs1iswJqN5k1gQsnP40QNTsI/iD63BJ0wA/H+vVFeJBG1rD7t1ib
+	LENYvrwtMgMqvvzpWnlVLjpSdnUKggbnkhih7lHoDz6p/lkPOJ/QRXUJh5HHVm0kiy+nS1qE17i
+	vpihdxc0nrn0TFUbiG+1fGtSXhz1egtn7rtkhSz29vJoZr5nYd5H5t2/yeLKcr7jvK/X1k4kfRe
+	LhbS0St+Yu+ab4hglFae17ECqSmBeTa308zsBqxnJPIYs5ntB1X5pYIWTHYRtjX8tu7GRc0ce6a
+	piYzih7m+ZIN6aFkvCJQd5Q55ev7TgJkN2PYtZqrRsiWP2KxTW6e6XQM7fur3UWC0fNR7rAFHUn
+	MC4GeZUy7rHdngulA9ILFJu8fuYHxxsuulKpwn24Xs6KTi0ITDr9xWJUHoEL3ia7WXUs4GpfupR
+	eqX5irKSjwYAYOeA==
+X-Received: by 2002:a05:6102:80a0:b0:634:eb91:695 with SMTP id ada2fe7eead31-71f5e0fa7f2mr4814652137.5.1781498582422;
+        Sun, 14 Jun 2026 21:43:02 -0700 (PDT)
 Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7208788587esm1915399137.10.2026.06.14.21.40.30
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-720847c15a5sm1934151137.3.2026.06.14.21.43.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 21:40:32 -0700 (PDT)
+        Sun, 14 Jun 2026 21:43:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,9 +66,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 14 Jun 2026 23:40:25 -0500
-Message-Id: <DJ9CHIBMQDFE.19RJYS0VV5N6A@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring" <robh@kernel.org>,
+Date: Sun, 14 Jun 2026 23:42:55 -0500
+Message-Id: <DJ9CJF4J1UT7.T2SOQM49NL56@gmail.com>
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Jonathan Cameron"
+ <jic23@kernel.org>
+Cc: "Kurt Borja" <kuurtb@gmail.com>, "Rob Herring" <robh@kernel.org>,
  "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
  <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>, "Bartosz
  Golaszewski" <brgl@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
@@ -76,170 +79,63 @@ Cc: "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring" <robh@kernel.org>,
  <andy@kernel.org>, <linux-iio@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
  <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 1/5] dt-bindings: iio: adc: Add TI ADS126x ADC family
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
+Subject: Re: [PATCH 2/5] iio: adc: Add ti-ads1262 driver
 X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
- <20260612-ads126x-v1-1-894c788d03ed@gmail.com>
- <20260613-loyal-azure-goldfish-cf6d54@quoll>
- <DJ92JT0CPSXJ.1113K3KLSRHH4@gmail.com>
- <73d85fad-d39a-4c34-90c2-819998656f7a@kernel.org>
-In-Reply-To: <73d85fad-d39a-4c34-90c2-819998656f7a@kernel.org>
+ <20260612-ads126x-v1-2-894c788d03ed@gmail.com>
+ <20260613-sparkling-naughty-tuna-3e9bf1@quoll>
+ <20260614143918.35503c5a@jic23-huawei>
+ <08a9a68a-f0f3-45eb-b018-43007a0acfdf@kernel.org>
+In-Reply-To: <08a9a68a-f0f3-45eb-b018-43007a0acfdf@kernel.org>
 
-On Sun Jun 14, 2026 at 11:34 PM -05, Krzysztof Kozlowski wrote:
-> On 14/06/2026 22:53, Kurt Borja wrote:
->> Hi Krzysztof,
+On Sun Jun 14, 2026 at 11:33 PM -05, Krzysztof Kozlowski wrote:
+> On 14/06/2026 15:39, Jonathan Cameron wrote:
 >>=20
->> On Sat Jun 13, 2026 at 1:54 PM -05, Krzysztof Kozlowski wrote:
->>> On Fri, Jun 12, 2026 at 05:46:19PM -0500, Kurt Borja wrote:
->>>> +  ti,neg-refmux:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>> +    description: |
->>>> +      Selects the negative voltage reference input:
->>>> +      0: Internal 2.5 V reference
->>>> +      1: AIN1 pin
->>>> +      2: AIN3 pin
->>>> +      3: AIN5 pin
->>>> +      4: AVSS pin
->>>> +    minimum: 0
->>>> +    maximum: 4
->>>> +    default: 0
 >>>> +
->>>> +  ti,vbias:
->>>> +    $ref: /schemas/types.yaml#/definitions/flag
->>>> +    description: Enables the level-shift voltage on the AINCOM pin.
->>>> +    default: false
+>>>> +DEFINE_RUNTIME_DEV_PM_OPS(ads1262_runtime_pm, ads1262_runtime_suspend=
+,
+>>>> +			  ads1262_runtime_resume, NULL);
+>>>> +
+>>>> +static const struct of_device_id ads1262_of_match[] =3D {
+>>>> +	{ .compatible =3D "ti,ads1262" },
+>>>> +	{ .compatible =3D "ti,ads1263" }, =20
 >>>
->>> There is no such syntax, drop.
+>>> So devices are fully compatible? Then it should be expressed in the
+>>> binding and drop one entry here.
 >>=20
->> The "default: false" syntax? Sure I'll drop.
->>=20
->>>
->>>> +
->>>> +  ti,idac1-pin:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>> +    description: |
->>>> +      Selects the analog input pin to connect IDAC1:
->>>> +      0: AIN0
->>>> +      1: AIN1
->>>> +      2: AIN2
->>>> +      3: AIN3
->>>> +      4: AIN4
->>>> +      5: AIN5
->>>> +      6: AIN6
->>>> +      7: AIN7
->>>> +      8: AIN8
->>>> +      9: AIN9
->>>> +      10: AINCOM
->>>> +      11: No Connection
->>>> +    minimum: 0
->>>> +    maximum: 11
->>>> +    default: 11
->>>> +
->>>> +  ti,idac1-microamp:
->>>> +    description: Selects the current values of IDAC1.
->>>> +    enum: [0, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3000]
->>>> +    default: 0
->>>> +
->>>> +  ti,idac2-pin:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32
->>>> +    description: |
->>>> +      Selects the analog input pin to connect IDAC2:
->>>> +      0: AIN0
->>>> +      1: AIN1
->>>> +      2: AIN2
->>>> +      3: AIN3
->>>> +      4: AIN4
->>>> +      5: AIN5
->>>> +      6: AIN6
->>>> +      7: AIN7
->>>> +      8: AIN8
->>>> +      9: AIN9
->>>> +      10: AINCOM
->>>> +      11: No Connection
->>>> +    minimum: 0
->>>> +    maximum: 11
->>>> +    default: 11
->>>> +
->>>> +  ti,idac2-microamp:
->>>> +    description: Selects the current values of IDAC2.
->>>> +    enum: [0, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3000]
->>>> +    default: 0
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 1
->>>> +
->>>> +  '#io-channel-cells':
->>>> +    const: 1
->>>> +
->>>> +  '#gpio-cells':
->>>> +    const: 2
->>>> +
->>>> +  gpio-controller: true
->>>> +
->>>> +  adc:
->>>> +    $ref: /schemas/iio/adc/ti,ads1263-adc2.yaml#
->>>
->>> Not a separate device node. Fold into the parent... or explain in
->>> commit msg. You have entire commit msg to explain odd things.
->>>
->>> In that binding description you call it "independent", so it should hav=
+>> They aren't. It's relying on one of them having a subnode that spins up =
+an
+>
+> I don't  see anything in the this patch that would be using the other
+> compatible, so driver looks like handling it fully compatible.
+>
+>
+>
+>> auxdev for the hardware block they don't share.  A fallback would be fin=
 e
->>> its own SPI chip select? Why "independent" and part of this binding?
->>> Maybe not independent, so basically part of this device?
->>=20
->> It's independent in the sense that it is a proper subdevice on the same
 >
-> You cannot use DT syntax as argument why you use DT syntax like that.
+> Patch #5 adding auxdev still does it uncoditionally, thus driver
+> clearly treats them as 100% compatible.
+>
+> Or I missed piece of code - please point me where is any incompatible
+> behavior coded.
 
-I'm not saying subdevice in the DT sense, I'm saying subdevice in the
-actual secondary ADC inside the chip sense.
+You're right, Jonathan mentioned the same thing. This was the only check
+when creating the auxiliary device.
 
->
->
->> chip. It shares the serial interface but operates completely in
->> parallel.
->
-> How completely in parallel? If the interface is the same, then it does
-> not operate in parallel. It's impossible.
+	node =3D device_get_named_child_node(dev, "adc");
+	if (!node)
+		return 0;
 
-It does conversions in parallel, communication is of course still
-serial.
+But I should definitely check if chip is actually ads1263. I just
+assumed user would know better, but I'm dropping the subnode anyway so
+I'll check the model.
 
 >
->>=20
->> I decided to add a subnode because other devices might request their
->> io-channels and most importantly a different voltage reference might be
->> connected to it.
->>=20
->> I'll clarify this in the commmit message on the next version. Although
->> after seeing this submitted bindings [1], I wonder if it's a better
->> approach to do something like
->>=20
->> 	spi@0 {
->> 		mydevice@0 {
->> 			...
->> 			adc@0 { ... };
->> 			adc@1 { ... };
->> 		};
->> 	};
->>=20
->> Any thoughts?
 >
-> Does not look like separate subnode. You still did not provide arguments
-> why this is independent.
-
-Well, there's not more arguments than this [1].
-
-Anyway, I'll go for David's #io-channels-cells =3D <2> approach and drop
-the subnode.
-
 >
 > Best regards,
 > Krzysztof
-
-[1] https://lore.kernel.org/linux-iio/DJ93WSYC3HTT.3NXQW390CLQ82@gmail.com/
 
 --=20
 Thanks,
