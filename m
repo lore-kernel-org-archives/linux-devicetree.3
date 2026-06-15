@@ -1,222 +1,344 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1E430568A
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B413C2BAC;
+	Mon, 15 Jun 2026 09:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514298; cv=none; b=LOLOBODz4ETTc2/Pl6B79ssDj1mF+gvyepEi782FMWFWVsYja3OqGDy2gyN2vlB8GhKUV+xRZtPHCsxx4UCHJTERxo24Vz/rgTyOk6qFIJcSQE80LD6hiw+731jk9FrC5o0XQx6VyU8ca6/H/JlmBacfHmv62XWdJu6LVxFmQmc=
+	t=1781514496; cv=none; b=cMBRjFhumLj5jDIaxsSa4EHzA1o/3WttCOK84sWq7l6XriLayGzTqjRUYlAfv42O1KS8M1JdCIwq8TPOHPnZYjPeULo8lnLqOKvfQvAZSOEoutdqMnlAC1kMUDO1ihw4eyRZXdFLNCWS0ZAjDF9UQ8KkARCdqVILXVyaAzCH4RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514298; c=relaxed/simple;
-	bh=tiq9HqJn8WIW/K+skZJTJrQYH7WlT8ThiJp5SmiE1Vo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BTQJN7NEvzZPgxr41u5QCIYscAhsyAuhblqYcKtEYJh7BSPG8GiZYUHNkz/vpSKqHf1q6N+XXAHLwdZP1Gg1WRv1lbDZBi9YL85fQQVvJSme7SfzK1dq1WTLWD8MgXBI3LwWfxh/5287pQE9jOxjC5YnpZLT7fsn4BR7Ovh3T9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wp7iFXX3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781514496; c=relaxed/simple;
+	bh=UBQ3UcLPjRIMTkPWF2+utSaOLYSar8jA7aT4PmlpIa4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VqhJW7iJfSScilI68YWXsvJ65b4unpXyE9oZzmBVQRAg7YSBejSTGA8izpkSrXIb8Pzgo7n5kUdKSvEHCL6sRMBNi7RX8Sn1tn10PZvKxY2Yw+TJjCzYOtrJCdQWTzkXKVjIL6SSNo8bIHPJbjAtBCqQyM0F4/LlsOOGkRqnIcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adjajgKU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wp7iFXX3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34011F000E9;
-	Mon, 15 Jun 2026 09:04:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adjajgKU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA251F000E9;
+	Mon, 15 Jun 2026 09:08:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781514297;
-	bh=qLw2SCqcDFLa4nvdw6UC4l6oTRH8NFq2j+M0ojC1c1Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wp7iFXX360GrpOsrhERHy8KJf+bfsZ/6OWAVKW0OE6D4PKMD+iD0Gf/mLWFZFGJlQ
-	 8y+zmhKQ6vqxNUSYh9kYRwv4lyPcWyNLWEevwPPAYuxCClI+ItOmoun7dsspxEhK6o
-	 4r13IAZPtAZ/FwwB8zVb8jhrCgQdSWr7pKtXst5ROJw9n7vR8bTp0peDaNSV9QTi66
-	 ET5lK6PWH/ySM03dCJTRh8XtDQWzcu24GaWSvWvCXbvNPlfeQYnIp7YqrMz5cofplS
-	 sIp4co83LbwUCf9NB/fTKAircpB9fbYKFLgwwlymuSbCTOpTB7j2x07WQbQUohYdFB
-	 gIUT84723SFQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
- display controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260615065003.76661-5-a0987203069@gmail.com>
-References: <20260615065003.76661-5-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 09:04:56 +0000
-Message-Id: <20260615090456.F34011F000E9@smtp.kernel.org>
+	s=k20260515; t=1781514492;
+	bh=wg8fBQfnN9gNnALaLS/O6GaJwTABoRT4jJ3YV+TtFLM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=adjajgKUvGOaFCLS2TpY/h4uFBKu4qtoaFZGs1yLcikx0xc/sxz06HIcpswGq0j6t
+	 0+N5gds5sg082waUrjzIk8hbY1WF1fpC5peeKda5yKrQ7H4tvLIRdYPaawIt0acNjh
+	 xLfpeFfwsWeCJY9BVR83KPCU7CaucA88iUc036RlJz2rLs33trVh649kTyfn9MFZhL
+	 ODu7JkRxQumCQ4H9Uza1YzuSUeFi8f7du8CQiBoOBFZheOBgbRJcyzke0aqhXwG2Ii
+	 Iu5UJFCRcUgWkxEkCi2dKE7FHwROkHNm6a/qptDAUqjDK7h+RXI2gND5E1OLIkl1Cr
+	 A1acw10vItEgw==
+From: Simon Horman <horms@kernel.org>
+To: jelonek.jonas@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	o.rempel@pengutronix.de,
+	kory.maincent@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	daniel@makrotopia.org,
+	bjorn@mork.no
+Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU driver
+Date: Mon, 15 Jun 2026 10:07:33 +0100
+Message-ID: <20260615090733.739423-2-horms@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260612132944.460646-3-jelonek.jonas@gmail.com>
+References: <20260612132944.460646-3-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://sashiko.dev
+---
+net: pse-pd: add Realtek/Broadcom PSE MCU driver
 
-New issues:
-- [High] Missing RUNNING bit configuration in panel_enable_ex prevents pane=
-l output.
-- [High] Framebuffer enable bit placed in CRTC callbacks prevents independe=
-nt plane disablement, causing Use-After-Free.
-- [High] Pixel clock is disabled before writing to CRTC registers during di=
-sablement.
-- [High] Uninitialized stack memory leak when reading IRQ status registers.
-- [Medium] Positional clock-names array causes schema validation failure fo=
-r abbreviated clock topologies.
+This patch adds a driver for a microcontroller that fronts Realtek and
+Broadcom PSE silicon on PoE switches, exposing the MCU over I2C/SMBus or
+UART using a 12-byte fixed-frame protocol. The driver is split into a
+shared core plus two transport modules, with a per-dialect opcode table
+and parser hooks for the Realtek vs Broadcom variants.
 
-Pre-existing issues:
-- [High] DC8200 primary plane disable hook erroneously sets the enable bit.
-- [High] IRQ handler registration races with drm_dev initialization, causin=
-g NULL pointer dereference.
---
-
-commit 7f62f89410b84fe09c3b006e2a2c8a7c5dedfeaa
-Author: Joey Lu <a0987203069@gmail.com>
-
-drm/verisilicon: add DC8000 (DCUltraLite) display controller support
-
-This commit adds support for the Verisilicon DC8000 (DCUltraLite) display
-controller found on the Nuvoton MA35D1 SoC. It handles differences in regis=
-ter
-layout, commit cycles, and clock topology by introducing a new vs_dc8000_fu=
-ncs
-structure.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index 9729b693d360e..9499fffbca58e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-[ ... ]
-> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
->  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
->  		 dc->identity.revision, dc->identity.customer_id);
-> =20
-> -	dc->funcs =3D &vs_dc8200_funcs;
-> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
-> +		dc->funcs =3D &vs_dc8200_funcs;
-
-[Severity: High]
-This is a pre-existing issue, but does vs_dc8200_primary_plane_disable_ex()
-fail to disable the hardware plane?=20
-
-It uses regmap_set_bits() for VSDC_FB_CONFIG_EX_FB_EN instead of clearing i=
-t:
-
-vs_dc8200.c:vs_dc8200_primary_plane_disable_ex() {
-    regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-                    VSDC_FB_CONFIG_EX_FB_EN);
-    ...
-}
-
-Will the display controller continue accessing the freed memory when DRM fr=
-ees
-the framebuffer after the atomic commit, leading to a use-after-free?
-
-[Severity: High]
-This is also a pre-existing issue, but does vs_dc_probe() register the IRQ
-handler before the DRM device is fully initialized?
-
-If an interrupt fires immediately after devm_request_irq(), could
-vs_drm_handle_irq() dereference dc->drm_dev->crtcs[i] and dc->drm_dev->base
-before vs_drm_initialize() has allocated dc->drm_dev?
-
-> +	else
-> +		dc->funcs =3D &vs_dc8000_funcs;
-> =20
->  	if (port_count > dc->identity.display_count) {
->  		dev_err(dev, "too many downstream ports than HW capability\n");
-[ ... ]
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8000.c
-> new file mode 100644
-> index 0000000000000..be0c0d7baf52e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> @@ -0,0 +1,78 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-[ ... ]
-> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
-put)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
-
-[Severity: High]
-Does this function miss configuring the RUNNING bit?=20
-
-The commit message states that panel output starts when PANEL_CONFIG.RUNNING
-is set, but this implementation only sets VSDC_FB_CONFIG_RESET. Will the
-display controller fail to output pixels to the panel without setting
-VSDC_DISP_PANEL_CONFIG_RUNNING?
-
-[ ... ]
-> +static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_ENABLE);
-> +}
-
-[Severity: High]
-Does placing the framebuffer enable bit in the CRTC enable callback prevent
-independent plane disablement?
-
-If the DRM core disables the primary plane while keeping the CRTC active,
-vs_primary_plane_atomic_disable() will act as a no-op because the plane
-disable hook is NULL in vs_dc8000_funcs. Will the hardware continue scanning
-out from the freed framebuffer, resulting in a use-after-free and potential
-IOMMU faults?
-
-> +static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			  VSDC_FB_CONFIG_ENABLE);
-> +}
-
-[Severity: High]
-Will writing to the CRTC register during disablement cause a bus fault?
-
-In vs_crtc_atomic_disable(), clk_disable_unprepare() is called on the
-pixel clock before invoking the crtc_disable hook:
-
-vs_crtc.c:vs_crtc_atomic_disable() {
-    clk_disable_unprepare(dc->pix_clk[output]);
-
-    if (dc->funcs->crtc_disable)
-        dc->funcs->crtc_disable(dc, output);
-    ...
-}
-
-Does this cause vs_dc8000_crtc_disable() to access hardware registers
-after their corresponding clock is disabled?
-
-[ ... ]
-> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 irqs;
+> diff --git a/drivers/net/pse-pd/Kconfig b/drivers/net/pse-pd/Kconfig
+> index 7ef29657ee5d..b065b19db126 100644
+> --- a/drivers/net/pse-pd/Kconfig
+> +++ b/drivers/net/pse-pd/Kconfig
+> @@ -13,6 +13,34 @@ menuconfig PSE_CONTROLLER
+>  
+>  if PSE_CONTROLLER
+>  
+> +config PSE_REALTEK
+> +	tristate
+> +	help
+> +	  Shared core for the Realtek/Broadcom PSE MCU driver. This is
+> +	  selected automatically by the transport options below.
 > +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
-> +	return irqs;
-> +}
+> +config PSE_REALTEK_I2C
+> +	tristate "Realtek/Broadcom PSE MCU driver (I2C transport)"
+> +	depends on I2C
+> +	select PSE_REALTEK
+> +	help
+> +	  Driver for the microcontroller (MCU) that fronts the PSE
+> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
+> +	  via I2C/SMBus. The MCU exposes a message-based protocol; the actual
+> +	  PSE silicon is not accessed directly. To compile this driver as a
+> +	  module, choose M here: the module will be called realtek-pse-i2c.
+> +
+> +config PSE_REALTEK_UART
+> +	tristate "Realtek/Broadcom PSE MCU driver (UART transport)"
+> +	depends on SERIAL_DEV_BUS
+> +	select PSE_REALTEK
+> +	help
+> +	  Driver for the microcontroller (MCU) that fronts the PSE
+> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
+> +	  via UART. The MCU exposes a message-based protocol; the actual PSE
+> +	  silicon is not accessed directly. To compile this driver as a
+> +	  module, choose M here: the module will be called realtek-pse-uart.
+> +
 
-[Severity: High]
-Can this leak uninitialized stack memory?
+[Medium]
+The realtek, vendor prefix is used for both the Realtek dialect and the
+Broadcom dialect compatibles (realtek,pse-mcu-rtk and
+realtek,pse-mcu-bcm), and the binding documentation explicitly notes
+that the prefix "reflects the platform" rather than the silicon vendor.
+DT compatibles are stable ABI once accepted.
 
-If regmap_read() fails, the irqs variable remains uninitialized. Will this
-cause the function to return garbage data that is then passed to
-vs_drm_handle_irq(), potentially causing an information leak when logged by
-drm_warn_once or spurious execution of VBLANK handlers?
+Would a brcm, prefix (or per-MCU-part compatibles) for the Broadcom
+dialect be more appropriate, given that the BCM variant uses Broadcom
+PSE silicon driven by an MCU built by Nuvoton or STMicro and has no
+Realtek involvement?
+
+Similarly, would describing the I2C wire framing (native vs SMBus) via
+separate compatibles be preferable to encoding it in the
+realtek,i2c-protocol DT property, and would describing the actual PSE
+chip in DT (rather than relying on runtime device-id detection) match
+the usual binding patterns?
+
+>  config PSE_REGULATOR
+>  	tristate "Regulator based PSE controller"
+>  	help
 
 [ ... ]
 
-[Severity: Medium]
-Will the abbreviated clock topology cause device tree validation failures?
+> diff --git a/drivers/net/pse-pd/realtek-pse-core.c b/drivers/net/pse-pd/realtek-pse-core.c
+> new file mode 100644
+> index 000000000000..3a601cfb6280
+> --- /dev/null
+> +++ b/drivers/net/pse-pd/realtek-pse-core.c
 
-Since the commit makes the axi and ahb clocks optional, the device tree cou=
-ld
-use a simpler topology with just core and pix0. However, the DT binding sch=
-ema
-in verisilicon,dc.yaml uses a rigid positional items array for clock-names
-(expecting axi at index 1). Would a node using clock-names =3D "core", "pix=
-0"
-fail validation because pix0 is evaluated against the const: axi requiremen=
-t?
+[ ... ]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
-1-1-a0987203069@gmail.com?part=3D4
+> +static int rtpse_port_cmd(struct rtpse_ctrl *pse, unsigned int port, u8 opcode, u8 arg)
+> +{
+> +	struct rtpse_mcu_msg req, resp;
+> +	int ret;
+> +
+> +	rtpse_mcu_msg_init(&req, opcode);
+> +	req.payload[0] = port;
+> +	req.payload[1] = arg;
+> +
+> +	ret = rtpse_do_xfer(pse, &req, &resp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (resp.payload[0] != port || resp.payload[1] != 0)
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+
+[Medium]
+Can an all-zero 12-byte buffer be silently accepted as a successful
+PORT_ENABLE/PORT_DISABLE on the BCM dialect for port 0?
+
+For the BCM dialect, RTPSE_CMD_PORT_ENABLE maps to opcode 0x00, and the
+checksum of eleven zero bytes is 0, so an all-zero response passes the
+opcode and checksum checks in rtpse_do_xfer():
+
+	if (resp->opcode != req->opcode ||
+	    resp->checksum != rtpse_checksum((u8 *)resp, RTPSE_MCU_MSG_SIZE - 1))
+		return -EBADMSG;
+
+rtpse_port_cmd() then verifies payload[0] == port and payload[1] == 0,
+both of which pass when port == 0 and arg is 0 (disable) or when arg is
+1 but the MCU never observed the command and the buffer is all zero
+anyway since payload[1] is checked against 0.
+
+The seq_num field exists in struct rtpse_mcu_msg and is filled with 0xff
+by rtpse_mcu_msg_init() but is never checked on the response side. Could
+a seq_num round-trip check (or a non-zero opcode sentinel for the BCM
+dialect) reject stale or zeroed-out frames here?
+
+[ ... ]
+
+> +static int rtpse_discover(struct rtpse_ctrl *pse, struct rtpse_mcu_info *info)
+> +{
+> +	struct rtpse_mcu_ext_config ext_config;
+> +	unsigned long deadline;
+> +	int ret;
+> +
+> +	/*
+> +	 * The MCU may not answer on the bus yet right after power-up or
+> +	 * enable-gpios assertion: depending on the transport it either stays
+> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
+> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
+> +	 * still probes, while a genuinely unresponsive MCU fails with its real
+> +	 * error instead of deferring forever and masking it.
+> +	 */
+> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
+> +	do {
+> +		ret = rtpse_mcu_get_info(pse, info);
+> +		if (ret != -ETIMEDOUT && ret != -ENXIO &&
+> +		    ret != -EREMOTEIO && ret != -EAGAIN)
+> +			break;
+> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
+> +	} while (time_before(jiffies, deadline));
+
+[Low]
+The comment says the loop is meant to tolerate a slow-boot MCU, but the
+retry whitelist excludes -EBADMSG and -EIO.
+
+rtpse_do_xfer() returns -EBADMSG when the opcode or checksum mismatch
+fires, and rtpse_port_query()/rtpse_port_cmd() return -EIO when the
+echoed port byte does not match the request. On a UART-attached MCU
+that emits a single garbled frame while its serial peripheral
+stabilises, or on an I2C-attached MCU that returns stale boot-ROM bytes
+right after enable-gpios assertion, the first attempt would surface as
+one of those errors rather than -ETIMEDOUT or -ENXIO, and the loop
+would break out immediately.
+
+Should -EBADMSG (and arguably -EIO) be added to the retry set so the
+documented intent matches the actual behaviour?
+
+[ ... ]
+
+> +int rtpse_register(struct rtpse_ctrl *pse)
+> +{
+
+[ ... ]
+
+> +	if (!info.system_enable) {
+> +		ret = rtpse_set_global_state(pse, true);
+> +		/* Dialects without a global-state concept (e.g. BCM) return
+> +		 * -EOPNOTSUPP; treat that as "no separate enable required".
+> +		 */
+> +		if (ret && ret != -EOPNOTSUPP)
+> +			return dev_err_probe(pse->dev, ret,
+> +					     "failed to enable PSE system\n");
+> +	}
+> +
+> +	ret = regulator_enable(pse->poe_supply);
+> +	if (ret)
+> +		return dev_err_probe(pse->dev, ret, "failed to enable PoE supply\n");
+> +
+> +	ret = devm_add_action_or_reset(pse->dev, rtpse_regulator_disable, pse->poe_supply);
+> +	if (ret)
+> +		return ret;
+
+[Low]
+If rtpse_set_global_state(pse, true) succeeds but a later step in
+rtpse_register() fails (regulator_enable, devm_add_action_or_reset, or
+devm_pse_controller_register), is the MCU left with the PSE subsystem
+enabled while the kernel detaches?
+
+The regulator is rolled back via rtpse_regulator_disable through
+devm_add_action_or_reset, but there does not seem to be a matching
+devm_add_action_or_reset to call rtpse_set_global_state(false) on
+probe-failure or driver-removal. Is that asymmetry intentional?
+
+[ ... ]
+
+> diff --git a/drivers/net/pse-pd/realtek-pse-uart.c b/drivers/net/pse-pd/realtek-pse-uart.c
+> new file mode 100644
+> index 000000000000..785407b379a4
+> --- /dev/null
+> +++ b/drivers/net/pse-pd/realtek-pse-uart.c
+
+[ ... ]
+
+> +static size_t rtpse_uart_receive(struct serdev_device *serdev,
+> +				 const u8 *buf, size_t count)
+> +{
+> +	struct rtpse_uart *ctx = serdev_device_get_drvdata(serdev);
+> +	bool done = false;
+> +	size_t take;
+> +
+> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
+> +		take = min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
+> +		if (take) {
+> +			memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
+> +			ctx->rx_len += take;
+> +			done = (ctx->rx_len == sizeof(ctx->rx_buf));
+> +		}
+> +	}
+> +	if (done)
+> +		complete(&ctx->rx_done);
+> +
+> +	/* consume all to avoid desync/misalignment */
+> +	return count;
+> +}
+
+[ ... ]
+
+> +static int rtpse_uart_send(struct rtpse_ctrl *pse, const struct rtpse_mcu_msg *req)
+> +{
+> +	struct rtpse_uart *ctx = to_rtpse_uart(pse);
+> +	int written;
+> +
+> +	/* clear any leftover rx state before transmitting */
+> +	reinit_completion(&ctx->rx_done);
+> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock)
+> +		ctx->rx_len = 0;
+
+[High]
+Is there a race between reinit_completion() here and the asynchronous
+serdev receive_buf callback when a previous transaction has timed out
+with bytes still in flight?
+
+reinit_completion() is an unlocked x->done = 0 write, and the matching
+complete() in rtpse_uart_receive() is called outside rx_lock. The
+following interleave seems possible:
+
+  rtpse_uart_send() runs reinit_completion()       /* done = 0 */
+  rtpse_uart_receive() takes rx_lock, fills rx_buf
+    to 12 bytes, computes done=true, releases lock
+  rtpse_uart_send() takes rx_lock, sets rx_len = 0,
+    releases lock
+  rtpse_uart_receive() calls complete(&ctx->rx_done) /* done = 1 */
+  rtpse_uart_send() writes the new request
+  rtpse_uart_recv() wait_for_completion_timeout()
+    returns immediately (done was 1), then sees
+    rx_len == 0 and returns -EIO
+
+rtpse_discover()'s retry whitelist covers -ETIMEDOUT, -ENXIO,
+-EREMOTEIO, and -EAGAIN but not -EIO, so a single occurrence of this
+race during the boot retry window would break out of the loop and turn
+into a permanent dev_err_probe() failure.
+
+Would moving complete() inside rx_lock in rtpse_uart_receive(), or
+performing reinit_completion() and rx_len = 0 together inside rx_lock
+while excluding the completer, close this window?
+
+> +
+> +	written = serdev_device_write(ctx->serdev, (const u8 *)req, sizeof(*req),
+> +				      RTPSE_UART_TX_TIMEOUT);
+> +	if (written < 0)
+> +		return written;
+> +	if (written != sizeof(*req))
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+
+[ ... ]
