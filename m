@@ -1,126 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5523F8ED3;
-	Mon, 15 Jun 2026 14:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9723F99E9
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534078; cv=none; b=KA1g7Zk75ZkUiXksJVKrl/Y2XCJV0h0ZWZXN8s9MEFg/M+5gLyC34njK8x2XE+vp7w5LNTQKD0rxOvoMXKYWK6qKeAb/3SIlBD+3GIIqh8PCptI39z+BHrPopcEFPm2KkG1RvsZnFOhYq023f1GjArpwkNo/qWC6aHlxtIy+PBY=
+	t=1781534118; cv=none; b=pHSkJXo2DT8CTHw4zMIg5gM3SaYgcKIdz6x2hi1tAQieod7F682RTaQCzG/sHbw/1PriMMTdFKWnrccz8nOXCrpHW9nkTv6OWeOQpIbniJ07oGozYSI/ZwKngkGPKRk0iiJ5cnoVtpC9lZK/X6XlfEwsnn2fT77ervaflPGYsFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534078; c=relaxed/simple;
-	bh=iWZWj7L37iSmshZoi0widnyc7RCga1hkn2LxcKT6Xrs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d7V7gIpq9SF+s53QsYsb82N/TRJH8oQf87tMPjSk8+ePaN7JemqzNoCfJgbem9wpCc3etbV6okHwWhYXx5fKxl5tyODW3P4qcJkazKbxYCvsd49VXbRfDp8v9MEhS77ob0X02UqQsIU+sUoUNhkTBlXgQM5OlTV0dmgPRDrws38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/nm1f2M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781534118; c=relaxed/simple;
+	bh=wvoL/ARwz34r4zELAfhhtSWiVFqfCTHu90foqCKrMhc=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NPr7h+e6M1yQBIVqROX9CSVWA883H3JVNSRtWY/tpUzyI500bzKrFBonPpeTer2AcOQri5mwtkJBucmwwabA9aPVbSE4/3874qGhw/EiOhnANM5JcXT8jtOa4Ky8HNWEAjXNTyWvgsQAKok9bImJhZYz8mr2/Gu3cpnCOX8/Cho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lRZrBFhl; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/nm1f2M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183A71F000E9;
-	Mon, 15 Jun 2026 14:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781534075;
-	bh=5JvNdQbQCe0+C0G2rL7xFkELL7DEv2gcC/2GTnzxCI8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D/nm1f2M2iUZVlxx4Iu3OetJD4RVArhhICOnGE66NqCEuZlm/wb1q4tHvOlFMvByy
-	 w1IP9Kd29ziJDRtFON2Oxot2dpcuPHHYcm6c1eEfOH/1m6YuZ//uV9z8oAPWsPBoiM
-	 RiDxUZZ1GVOarnQfW8Fg1jSNgffwpfMasUniXOvHAOz3GLMCUUNdvYHbmm7SLa/sjn
-	 bA13idBvt0u37jBp2647Vt0tPYhbZVIwrf+JP3akzOA7va2ikg7gZ62rWBEGpRtUgB
-	 0lGNnz/wtnE2ya0QdfYr32aIeBRTRmDqB+Lq0DS4LBnjyd4aPAOAj3tLGWd1BYpzwR
-	 SOOYIckYjuegQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/10] Input: cap11xx - remove unused register macros
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: conor+dt@kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <20260615142103.352163-3-jerrysteve1101@gmail.com>
-References: <20260615142103.352163-3-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 14:34:34 +0000
-Message-Id: <20260615143435.183A71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lRZrBFhl"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490ace40f4bso32681615e9.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781534113; x=1782138913; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=xNzTJAzLpoj9UCkQ0S0Kema5FeZLkRTnD+aulM3+7ZM=;
+        b=lRZrBFhlYuH6/KA3OV+795aqezI3io8TLzm+ZdNJFO68kw95Sqa1dO+fvXlkvLaFFB
+         ojwST7fv8uDxRgUCOy3hPgU8VJ+CL+OT6076XNF9rVqSOYRFxIE/gm4Vb3FSIiwI+Xl+
+         Hn9p/hp+QsSVmOnzZnGQ6XVA5+oWFQsDHgWLQeedKZr/+yUqY8HCdg1nTWmWUqmiezKf
+         asYEbT09eNW8vWE5Vo+u7scyfRiZvi+00FqjIAj0eWhZY2Bq3hxujmEngYQ3DkhZWOwG
+         izu6LScV/qxwzr6XDm8GGq3xEZN+iWJvZwAywpopvoVpEQGdPYE4zwm+2De2QputBpXf
+         eSpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781534113; x=1782138913;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xNzTJAzLpoj9UCkQ0S0Kema5FeZLkRTnD+aulM3+7ZM=;
+        b=dXIwG7hC1lfOrTiBPudCafJ9xdP4eeBSP5urbZClLENKGXBbxNf7MuWL8fRNEuF84i
+         z66WlxSia3sUwRE4Ul25uHOnZ5YA3h2ZWf1N7wVkEf3gqsMUcCCyqs9zsmW0XYk51PoD
+         dtXFokqwNOBKUog5Lr7Z/nf7+qF9zppmp75mZKMMpS+xJvwMPBoHWTGiE8J+qN1pj73G
+         Tmw72d6JrZc2pwvDJm2+gYaBe9p1676nynLN7QXwhiD0InH0N0E/IXXt+js0pT6rYbUA
+         Ux7C0jLAIAfNq9Z9IgbH/UcoM826YvSd5Mz63RAtd7x4mcPKLNGQdn/hP9101RDpHizC
+         Mwlw==
+X-Forwarded-Encrypted: i=1; AFNElJ+3yONpPjoGTqZIv99oiw3a6Uhs2lPzhhgjygZsVoM7mVKjPoOhfEz+tUtEQ+TwFAaTqLkF+bytAh2O@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBVnEFXalhKHTZGgxVKNOfEl2WVTtYGt4EFNvWQgyTTISyVfPV
+	rzRpAA0vbFO07IJCv043uOc4svJjwVdf/K1Kadkzzj0L9FSTiDz1HZik
+X-Gm-Gg: Acq92OH2fd3BlWmG9bqNv1ikdZ4Y219qEKLxjmtU1ACP70airxCR/oCgVBpMDGsOZ9f
+	/tT/1NuA81Iu+KTkYxBrbeTlqydFeQTwjZAnacgBjkVZovAa9iCXT0fW4fRFOtHUQDwnXX5qffT
+	QhwdXjLCsFGyb8PEqpDlmhOYdKAcQ3CIED1t1FPtWCZ/I9OuzscZImdWauFeQm0P1Y474vmszaR
+	soQpZsNZKjvi3fwEWMDQEVetqwqpR4Qa958nPBQKBqMhCIQUkIQ4ygAP8i0T5a1is1dXTZLM9U+
+	hpkB1ajuIELIoFIsdMbatRN2Gdi3rgkISYCoTQyCeOJxQ1/FROn7MwSd4UyCbrWwUnkv+OfEJRh
+	PP8PTjorWgcmECimyNNhTTZrzr6kg7MJl0rfsdFD+G+bNsW4NGpZn8kCHCAFMXpAY4P4TkYx4Up
+	1l86cWTqx13/UpDM5EQK1cWQiWPhmRFsBc1f9DLb48uuHQzWsDgQ1V5w==
+X-Received: by 2002:a05:600c:3512:b0:491:9969:739d with SMTP id 5b1f17b1804b1-4922011393fmr148091175e9.29.1781534113065;
+        Mon, 15 Jun 2026 07:35:13 -0700 (PDT)
+Received: from Ansuel-XPS. (93-34-88-103.ip49.fastwebnet.it. [93.34.88.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f263945sm35561117f8f.8.2026.06.15.07.35.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 07:35:12 -0700 (PDT)
+Message-ID: <6a300da0.d5af3cef.1ca29d.19c4@mx.google.com>
+X-Google-Original-Message-ID: <ajANmyh9gB9a8FGL@Ansuel-XPS.>
+Date: Mon, 15 Jun 2026 16:35:07 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net-next v7 05/12] net: phylink: support late PCS
+ provider attach
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-6-ansuelsmth@gmail.com>
+ <867a39de-ccc2-4dcf-be24-ab2542d20ab6@bootlin.com>
+ <6a3007ce.73de60af.3a056d.d903@mx.google.com>
+ <7702ac09-75fd-49de-8ad2-fceaa122b627@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7702ac09-75fd-49de-8ad2-fceaa122b627@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, Jun 15, 2026 at 04:29:04PM +0200, Maxime Chevallier wrote:
+> 
+> 
+> On 6/15/26 16:10, Christian Marangi wrote:
+> > On Mon, Jun 15, 2026 at 04:07:03PM +0200, Maxime Chevallier wrote:
+> >> Hi Christian,
+> >>
+> >> On 6/15/26 14:29, Christian Marangi wrote:
+> >>> Add support for late PCS provider attachment to a phylink instance.
+> >>> This works by creating a global notifier for the PCS provider and
+> >>> making each phylink instance that makes use of fwnode subscribe to
+> >>> this notifier.
+> >>>
+> >>> The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
+> >>> a new PCS provider is added.
+> >>>
+> >>> phylink will then react to this event and will call the new function
+> >>> fwnode_phylink_pcs_get_from_fwnode() that will check if the PCS fwnode
+> >>> provided by the event is present in the pcs-handle property of the
+> >>> phylink instance.
+> >>>
+> >>> If a related PCS is found, then such PCS is added to the phylink
+> >>> instance PCS list.
+> >>>
+> >>> Then we link the PCS to the phylink instance and we refresh the supported
+> >>> interfaces of the phylink instance.
+> >>>
+> >>> Finally we check if we are in a major_config_failed scenario and trigger
+> >>> an interface reconfiguration in the next phylink resolve.
+> >>>
+> >>> In the example scenario where the link was previously torn down due to
+> >>> removal of PCS, the link will be established again as the PCS came back
+> >>> and is now available to phylink.
+> >>>
+> >>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> >>> ---
+> >>
+> >> [...]
+> >>
+> >>> @@ -2151,6 +2204,10 @@ void phylink_destroy(struct phylink *pl)
+> >>>  	if (pl->link_gpio)
+> >>>  		gpiod_put(pl->link_gpio);
+> >>>  
+> >>> +	/* Unregister notifier for late PCS attach */
+> >>> +	if (pl->fwnode_pcs_nb.notifier_call)
+> >>> +		unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+> >>
+> >> I wanted to try this out, but I get :
+> >>
+> >> drivers/net/phy/phylink.c:2218:17: error: implicit declaration of function ‘unregister_fwnode_pcs_notifier’; did you mean ‘register_fwnode_pcs_notifier’? [-Werror=implicit-function-declaration]
+> >>  2218 |                 unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+> >>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >>       |                 register_fwnode_pcs_notifier
+> >>
+> >> I guess you either need to stub this, or there's a missing Kconfig
+> >> dependency somewhere
+> >>
+> > 
+> > Hi yes if you want toi test just enable CONFIG_FWNODE_PCS. I forgot to add
+> > the static declaration for unregister_fwnode_pcs_notifier. 
+> 
+> I'll give it a go with this yeah, I have a few devices here I'd like to
+> try this on.
+> 
+> Can you CC me for the next rounds ?
+> 
 
-New issues:
-- [Medium] Removing sensor delta registers from the volatile register list =
-causes regmap to incorrectly cache their values, breaking debugfs observabi=
-lity.
+Sure, if you can would be good to check also the other commit if everything
+is logically correct.
 
-Pre-existing issues:
-- [High] The driver requests its IRQ after registering the input device, cr=
-eating a race condition where an unhandled interrupt can permanently disabl=
-e the device.
---
+BTW by checking test from patchwork I can see also another fix is needed if
+you want to test this revision.
 
-commit 72bbdd7bb3155f054afabfd004f5e097d568001b
-Author: Jun Yan <jerrysteve1101@gmail.com>
+phylink_create()
 
-Input: cap11xx - remove unused register macros
-   =20
-Remove unused register address macros and unused definitions in
-the cap11xx_reg_defaults array and cap11xx_volatile_reg. This cleanup
-reduces code clutter and makes the driver easier to maintain.
+-if (config->num_possible_pcs && pl->mac_ops->mac_select_pcs) {
++if (config->num_possible_pcs && mac_ops->mac_select_pcs) {
 
-> diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-p11xx.c
-> index 485d8ba977235..686174722204c 100644
-> --- a/drivers/input/keyboard/cap11xx.c
-> +++ b/drivers/input/keyboard/cap11xx.c
+Aside from these change I expect the current legacy code to be not
+affected by these change.
 
-[ ... ]
-
-> @@ -149,12 +97,6 @@ static bool cap11xx_volatile_reg(struct device *dev, =
-unsigned int reg)
->  	switch (reg) {
->  	case CAP11XX_REG_MAIN_CONTROL:
->  	case CAP11XX_REG_SENSOR_INPUT:
-> -	case CAP11XX_REG_SENOR_DELTA(0):
-> -	case CAP11XX_REG_SENOR_DELTA(1):
-> -	case CAP11XX_REG_SENOR_DELTA(2):
-> -	case CAP11XX_REG_SENOR_DELTA(3):
-> -	case CAP11XX_REG_SENOR_DELTA(4):
-> -	case CAP11XX_REG_SENOR_DELTA(5):
-
-[Severity: Medium]
-Does removing the sensor delta registers from the volatile list cause a
-regression for observability via the regmap debugfs interface?
-
-These registers contain real-time capacitance delta hardware values that are
-continuously updated by the device. Treating them as non-volatile causes
-regmap to cache them on the first read, resulting in stale values for any
-subsequent reads by tuning tools or developers.
-
->  		return true;
->  	}
-> =20
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a pre-existing pro=
-be
-ordering flaw in cap11xx_i2c_probe():
-
-	error =3D input_register_device(priv->idev);
-	if (error)
-		return error;
-
-	error =3D devm_request_threaded_irq(dev, i2c_client->irq,
-					  NULL, cap11xx_thread_func,
-					  IRQF_ONESHOT, dev_name(dev), priv);
-
-Could this sequence lead to the interrupt being permanently disabled?
-
-Since input_register_device() exposes the device to userspace, a daemon
-can immediately open the device, waking the sensor from deep sleep.
-
-If the sensor generates a hardware interrupt before
-devm_request_threaded_irq() completes, the generic IRQ core will receive an
-interrupt with no registered handler.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615142103.3521=
-63-1-jerrysteve1101@gmail.com?part=3D2
+-- 
+	Ansuel
