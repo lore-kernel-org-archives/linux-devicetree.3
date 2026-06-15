@@ -1,311 +1,246 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound7.mail.transip.nl (outbound7.mail.transip.nl [136.144.136.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8CE3E4C6C
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 11:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD053E3172;
+	Mon, 15 Jun 2026 11:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781522793; cv=none; b=CKyo/wb+DcnEiCyS6ZiNWe8wS1VZerK1JuUd9ADL1HiOYUwhWDm6lBjAxKA2XyXYTSFTXBBMFgGXoUEI1UZm2hjRqxKsUnTxk/vPuovvL7YjSBCduGBa22JcTHVXxeQ3kNBB99UWgJljRfmJXTn9866xpCMroPDTxJU2edCp/Jk=
+	t=1781522910; cv=none; b=mXX3yKXrCmCdbsKh4DWykOTyN9fZ8W9p0ly4otUTDIUdjCBC5CK9kZzq0mvHr423D9COYcX1Kc2QhKb6DJXJIh+8sFvE/eqNgmygqLt6wOlHKcgqD+eBhDydoCUaiO0/crupX6jVwDajJl74A92OZQdSNxssfq+Dr3mHnQaS7+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781522793; c=relaxed/simple;
-	bh=hP+2XiLIB+gTL9i+OgmpZuIqU6+CJhVBzpLc1SYZMYA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tR6B0B/LSmAXcwg8iXXBgRN7HFFqqX+0RUEft04Ia45O7tcSbnMsN8o7oBLxbsYLSIIRApk527aYnpwbw0o0tqNuxg6vLfXLVgUYPXhUo7xd9d1Yuj5m5UqkJhqOxSilMeYSXiSmLkLeQEdh86NaAl3cGL+5Ymj7DY6YjI1pMMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BOZU25KI; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781522910; c=relaxed/simple;
+	bh=VyF+tEcxEs62cFwn6ieRGy2ts08RJpAiM5Fc/+TM/tM=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=m7c+323DRpRKos4MUK+KLToLizMA3fOdkAS2AnRFpOcWBcvlTouCa0bDoa9K8loHt9xM3Ncsr919HhpR6adPEjsl/8nMV9gIgl2ZsHpArwb2aYtoF/FBJjFYQFOv/wTHgNhK4GX7K8G5ZDenIF2Q2VU9AwylsJrkl5ubNzoTVBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=R33EQat/; arc=none smtp.client-ip=136.144.136.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BOZU25KI"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c0c1e0d00bso28591695ad.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:26:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781522791; x=1782127591; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bj+KG3OVUhBoWkPimYDUROHV3nvGOOs1vbpk2ZeW3hA=;
-        b=BOZU25KI/1sPmtMWQrhMC2dOEOSL6Bn9FCRFizQ9Kaggs6S7kO9j9Ug0i8ox1/mKJk
-         BP0FhaS8SwPalhT1e6YLLROa0zmJhEkFPfwTE8LYkjVZKLhVXCgeHzV7/Bv/Rr2wONFo
-         5NIvGetO1ZaMW5G+VWd662pe3Oq/S73Rv6n6Hzi7OIcrKytd6TkHHv3EvZ6jcyKDnUPb
-         9eeqoTexuLRXzSXwxawjhV0Wv5oiIgD3tL4pDwZimzuCqVOcVTnWBpyHSwZj9kXqNLq5
-         /261YACyUDBcwrVHUiqmk+0dCqr+nl9T9llU9j9i4duVAsy0GzgxiYcOWp5bLf6hdiHx
-         J68Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781522791; x=1782127591;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bj+KG3OVUhBoWkPimYDUROHV3nvGOOs1vbpk2ZeW3hA=;
-        b=f4MXYnVWTMTfeg8+janGUqwiCdwUEPHExSUoWReEU9MeDMsMdo/LpigSqbRMK/bkks
-         WXhnV2esur4VBV9+iE0BXV3I2p9iF9zVi5bpuVf1LzPlUEwIdDD1JAsUe735garyS1+4
-         QgxKl6DFTAdSFLhNFsX+HKNFivYd3AEy3+VTZfisK9uLxgm7d/d4XDRchxRVFT5weSgI
-         mOw44EZzRUi3ocWiPZ06tWE8q1Qrc/JDHK9a9uGFds9pmNDp0xx3iUjGEsOsbD9gsCVm
-         YTbs5shVDeEbugeA48PLtuDYtYvzuTE0lsto4upoErTV9eHli5+0c1yizxzpfnUIBid5
-         Tc5w==
-X-Gm-Message-State: AOJu0Yw7plV3ERCRr8nGlfcWFc9ilnpcsP5nxlRnVdkGZk/7wKdpZJpI
-	qbLMe5Qf4f4Bleroiw+wMJy2pEpsLQrQcTfiJUenv+xkdCf7KooGxsiY9DD80XIF
-X-Gm-Gg: Acq92OEudi/kZVEAGugyOz7llM10xQPLXQbS7zq9uFVuhmRLWfr3XAPi3e3kFSUw6wk
-	GRpF2DVC01aEm0Mz5s3FHoZf9sVB7jprAgb//o/WMS4ovoPiiqjFsf9kTkI7d15dxon+chjDvqn
-	MULBZncCj/Y1ZdQHiGksJ+f5hViourFpDWcoLdOomBBWtX8aSwFAiBNOhHtuQtX5Bd8oAcwwcRo
-	CndIc8Zql0fHcO1V+uo/duVv9lhNrwSzNn58aEb+BFpWzelhV8Nri0I/+Iy+2YSNtXUmUfGFVTo
-	F916Ob7naIwv1CsF6dt558y3tFpSwDWrN2vJ4ozzmPd2YxoxubGIpZC+9HlInYTtTAJqoZCArd5
-	XTaD9U7/6t2RWe7xtxqRiK/UJ/2Y5QWl6bM4BXyPGXpaZJTAl28gFXRzclixOJ7KfkefGI1o4Mw
-	tmx1t0RyW+mxJu6oxlyusK4ZP3fhdarb2Tk+iK
-X-Received: by 2002:a17:903:46c6:b0:2b0:6a22:5165 with SMTP id d9443c01a7336-2c41050a155mr156412165ad.7.1781522791374;
-        Mon, 15 Jun 2026 04:26:31 -0700 (PDT)
-Received: from vbox ([117.215.39.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c43326b085sm95644305ad.70.2026.06.15.04.26.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 04:26:31 -0700 (PDT)
-From: Tejas <tejasmutalikdesai@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	sstabellini@kernel.org,
-	Tejas <tejasmutalikdesai@gmail.com>
-Subject: [PATCH] dt-bindings: arm: xen: Convert xen.txt to YAML schema
-Date: Mon, 15 Jun 2026 16:56:25 +0530
-Message-ID: <20260615112625.7892-1-tejasmutalikdesai@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="R33EQat/"
+Received: from submission9.mail.transip.nl (unknown [10.103.8.160])
+	by outbound7.mail.transip.nl (Postfix) with ESMTP id 4gf72W6HgXzQvwk1;
+	Mon, 15 Jun 2026 13:20:19 +0200 (CEST)
+Received: from transip.email (unknown [10.100.4.34])
+	by submission9.mail.transip.nl (Postfix) with ESMTPA id 4gf72W1yTrz3NZKgd;
+	Mon, 15 Jun 2026 13:20:19 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Mon, 15 Jun 2026 13:20:19 +0200
+From: me@herrie.org
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, github.com@herrie.org,
+ dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, tomasborquez13@gmail.com,
+ masneyb@onstation.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: iio: light: isl29018: add
+ isil,cover-comp-gain
+Reply-To: github.com@herrie.org
+Mail-Reply-To: github.com@herrie.org
+In-Reply-To: <20260614205131.7449d180@jic23-huawei>
+References: <20260604100617.3486541-1-github.com@herrie.org>
+ <20260604100617.3486541-3-github.com@herrie.org>
+ <20260604-energy-lid-e7949164431a@spud>
+ <20260605140449.1d7538ee@jic23-huawei>
+ <b6919a62f06ad8e4e80232d9b2a0e706@herrie.org>
+ <bb7c65095dc53dd8723c1ecd9c33796c@herrie.org>
+ <20260608-raft-auction-6305f9f324cd@spud>
+ <20260614205131.7449d180@jic23-huawei>
+User-Agent: Webmail
+Message-ID: <5ab0c054be89432db7cf6917f2528a30@herrie.org>
+X-Sender: me@herrie.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission9.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1781522419; h=from:reply-to:subject:to:
+ cc:references:in-reply-to:date:mime-version:content-type;
+ bh=/OiORrqSOn5XJRaVbRclzkXa59IhgUb4CGdw0dXXDxQ=;
+ b=R33EQat/Vj9Tkib92GCeVN5WnFcvdoqBEw6PqufPaNIJc7Rt7ZUf1ksc1S/SVmb0wrw6ZG
+ tlzZCOkTODHMuG/wXEiEe6jbQroj0RNdRICWD2lZlg2KZmIvaSLeJ7eXA7s2h5Ysd02o/i
+ pcE/p4GObYzjqCnTSxqzgccyZxqveAd/cwROqqwiB0k32F9ovn+5tbUVowCoTHU7z3Idx7
+ bYdihawBiRLEuB+oS40ms7cw89OKczo2sA4STz7guW5GswhC8DywRe1ezhv/IftkMW3euv
+ X8tWrhQfbb4NQjrAuInn3tHLFdN7AXH7G0yW/F1NY+7Mc9f8fzTbiXrDNSyXQQ==
+X-Report-Abuse-To: abuse@transip.nl
 
-Convert the Xen ARM device tree binding documentation from the legacy
-plain-text format (Documentation/devicetree/bindings/arm/xen.txt) to
-the YAML schema format, as required by the modern DT binding process.
-The old xen.txt is removed as the YAML schema is now the authoritative
-source.
+On 2026-06-14 21:51, Jonathan Cameron wrote:
+> On Mon, 8 Jun 2026 18:49:13 +0100
+> Conor Dooley <conor@kernel.org> wrote:
+> 
+>> On Fri, Jun 05, 2026 at 09:28:03PM +0200, me@herrie.org wrote:
+>> > On 2026-06-05 15:18, me@herrie.org wrote:
+>> > > On 2026-06-05 15:04, Jonathan Cameron wrote:
+>> > > > On Thu, 4 Jun 2026 18:01:08 +0100
+>> > > > Conor Dooley <conor@kernel.org> wrote:
+>> > > >
+>> > > > > On Thu, Jun 04, 2026 at 12:06:16PM +0200, Herman van Hazendonk wrote:
+>> > > > > > Document the new optional property that seeds the ISL29018 calibration
+>> > > > > > scale factor at boot from firmware, allowing boards with tinted cover
+>> > > > > > glass to ship with correct luminance readings without a userspace helper.
+>> > > > > >
+>> > > > > > The value is a positive integer (minimum 1, maximum 65535) that is
+>> > > > > > multiplied with the raw lux reading.  Userspace can still override it
+>> > > > > > at runtime through in_illuminance0_calibscale.
+>> > > > > >
+>> > > > > > Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+>> > > > > > ---
+>> > > > > >  .../devicetree/bindings/iio/light/isl29018.yaml     | 13 +++++++++++++
+>> > > > > >  1 file changed, 13 insertions(+)
+>> > > > > >
+>> > > > > > diff --git a/Documentation/devicetree/bindings/iio/light/isl29018.yaml b/Documentation/devicetree/bindings/iio/light/isl29018.yaml
+>> > > > > > index 0ea278b07d1c..92ea2742bbd3 100644
+>> > > > > > --- a/Documentation/devicetree/bindings/iio/light/isl29018.yaml
+>> > > > > > +++ b/Documentation/devicetree/bindings/iio/light/isl29018.yaml
+>> > > > > > @@ -34,6 +34,19 @@ properties:
+>> > > > > >    vcc-supply:
+>> > > > > >      description: Regulator that provides power to the sensor
+>> > > > > >
+>> > > > > > +  isil,cover-comp-gain:
+>> > > > > > +    description: |
+>> > > > > > +      Multiplier applied to the ambient-light reading at startup to
+>> > > > > > +      compensate for optical loss in the board's cover glass. Boards
+>> > > > > > +      that mount the sensor under a tinted or coated window typically
+>> > > > > > +      need a value between a few and a few hundred.
+>> > > >
+>> > > > Is it useful to support decimal points on these values?  The
+>> > > > userspace interface
+>> > > > does and you mention the 'right' answer might be only a few which
+>> > > > means precision
+>> > > > at that range will be terrible - less of an issue if 100s!
+>> > > >
+>> > > > Thanks
+>> > > >
+>> > > > Jonathan
+>> > > >
+>> > > Hard to say, my old HP TouchPad needs 100 as a value here (taken from
+>> > > legacy 2.6.35
+>> > > kernel and binaries). So we probably don't need precision, but I have no
+>> > > other
+>> > > references to substantiate.
+>> > >
+>> > > Thanks
+>> > > Herman
+>> > Scratch that. Did some more research. Proof is in the legacy webOS binaries:
+>> >
+>> > What legacy webOS actually does here:
+>> >
+>> > 1. Per-device calibration via factory token reads an ALSCal token from
+>> > system storage
+>> > containing JSON with calibration points at lux_0, lux_50, lux_100, lux_400
+>> > (measured
+>> > ADC counts at known reference illuminance levels).
+>> >
+>> > 2. Computes a floating-point ratio AlsToLux_Ratio_WhiteLED = average of
+>> > expected_lux /
+>> > measured_count across the JSON calibration points. This is a real number,
+>> > not an integer.
+>> >
+>> > 3. Adjusts for light source spectrum at runtime detects illuminant type from
+>> > ALS:IR
+>> > ratio, then applies a fractional spectrum correction:
+>> > Fluorescent above 100 counts: ratio x 0.4652
+>> > Incandescent above 700 counts: ratio x 0.4
+>> > Incandescent 50-100 counts:    ratio x 0.9
+>> > Fluorescent < 50 counts:       ratio x (-0.000724·N + 0.7463)
+>> >
+>> > 4. Final lux = ALSCount / spectrum_corrected_ratio - a true floating-point
+>> > division.
+>> >
+>> > Implications
+>> >
+>> > - The "right" cover-comp value is per-device factory-measured, not
+>> > per-board. Different
+>> > units off the same production line have different optical transmission due
+>> > to coating
+>> > tolerance.
+>> > - The values are fractional by nature. Examples from the legacy code:
+>> > 0.4652, 0.7463,
+>> > 0.8333. None are integers.
+>> >
+>> > The ISL29023 datasheet itself says nothing about cover compensation - it's
+>> > strictly
+>> > board-level optical correction. So there's no "right" answer from the chip
+>> > side;
+>> > it's whatever the board's cover glass + coating attenuates.
+>> >
+>> > ALSCal values found on the particular device:
+>> >
+>> > {"lux_50":{"c":31}, "lux_100":{"c":58}, "lux_400":{"c":164}}
+>> >
+>> > This is device specific TouchPad's factory calibration:
+>> >   - At 50 lux, ADC reads 31 counts  lux/count = 1.613
+>> >   - At 100 lux, ADC reads 58 counts lux/count = 1.724
+>> >   - At 400 lux, ADC reads 164 counts  lux/count = 2.439
+>> >
+>> > Note the ratio isn't constant - the response is mildly non-linear, but per
+>> > the legacy
+>> > code the driver computes the average ratio as the calibration:
+>> >
+>> >   ratio = (1.6129 + 1.7241 + 2.4390) / 3 = 1.9253 lux/count
+>> >
+>> > Independent verification:
+>> >   - At calibscale=34: lux = 1295
+>> >   - Implied raw count: 1295 / (34 x 0.015258) = 2496 counts
+>> >   - Applying legacy formula: 2496 / 1.9253 = 1296.4 = 1295
+>> >
+>> > The factory-calibrated value for this specific TouchPad is 34.04 (not 100).
+>> > Per-point
+>> > calibscale values from the ALSCal JSON:
+>> >
+>> > Cal point‚ lux/count ratio‚ Equivalent calibscale
+>> > lux_50    ‚ 1.6129          ‚ 40.64
+>> > lux_100   ‚ 1.7241          ‚ 38.01
+>> > lux_400   ‚ 2.4390          ‚ 26.87
+>> > average   ‚ 1.9253          ‚ 34.04
+>> >
+>> > What this means concretely
+>> >
+>> > 1. Decimal precision is necessary, not nice-to-have. Real per-device factory
+>> > values
+>> > span 26.9 - 40.6 across the chip's response curve. A single scalar
+>> > approximation costs
+>> > precision; restricting to integer compounds it.
+>> >
+>> > 2. Updated v5 plan: switch to two-cell <int micro> for fractional values,
+>> > and change
+>> > the tenderloin DTS default from <100> to <34 040000> (or close to that).
+>> >
+>> > Thoughts on this?
+>> 
+>> Instead of going 2-cell, it might be worth moving the property to be
+>> based in some fractional unit to begin with. I just don't know what to
+>> call that, milligain? I dunno.
+>> 
+>> 
+>> Jonathan's call here I think
+> 
+> If this is varying that a lot per device, then, unless you plan to
+> have a bootloader inject it into DT, are we better off making this
+> a userspace problem?  There is a hybrid we've done before, which is
+> to make it a firmware loading problem but that requires some way to
+> generate a suitable file to load and typically a calibration sequence
+> that goes with it.
+> 
+> If it is 'fairly constant' for a given device then fine to be in DT
+> - it will just be a case of picking the average of a bunch of measured
+> devices and assuming it is good enough.
+> 
+> If it does end up in dt, then a fractional type like Conor suggests
+> is fine.
+> 
+> Jonathan
+Hi Jonathan,
 
-The YAML schema:
-  - Validates compatible string format as "xen,xen-<major>.<minor>"
-    followed by the generic "xen,xen" string
-  - Documents reg as accepting 1..N regions (region 0 mandatory for
-    grant table mapping; regions 1..N optional extended regions)
-  - Documents the uefi subnode with correct types:
-      * xen,uefi-system-table:   uint64 (guest PA of UEFI System Table)
-      * xen,uefi-mmap-start:     uint64 (guest PA of UEFI memory map)
-      * xen,uefi-mmap-size:      uint32 (size of UEFI memory map)
-      * xen,uefi-mmap-desc-size: uint32 (size of each mmap entry)
-      * xen,uefi-mmap-desc-ver:  uint32 (mmap descriptor format version)
-  - 64-bit properties use /bits/ 64 <value> in the example, consistent
-    with other bindings carrying uint64 properties (e.g. opp-v2.yaml,
-    arm/mali-bifrost.yaml)
+I have about 8-10 devices in slightly different configurations using 
+this I guess,
+so I can quickly run the numbers and see how the values look like, so we 
+have more
+data to go by.
 
-The uefi subnode was originally introduced through a multi-version review
-series (v2..v7); the mistakes caught during those reviews (typos,
-duplicated UEFI spec content, insufficient description of Xen-specific
-hypercall semantics) are avoided with deliberate caution here.
-
-Note: the example emits a dtc warning (unit_address_vs_reg) for the
-/hypervisor node. Both the normative text in xen.txt ("Xen ARM virtual
-platforms shall have a top-level 'hypervisor' node") and the example
-in xen.txt mandate this exact node name — the $nodename: const:
-hypervisor in the schema is a direct encoding of that pre-existing
-requirement. A unit address is therefore impossible despite the presence
-of reg. This warning is pre-existing and not introduced by this
-conversion.
-
-Signed-off-by: Tejas Mutalikdesai <tejasmutalikdesai@gmail.com>
----
- Documentation/devicetree/bindings/arm/xen.txt |  62 ----------
- .../devicetree/bindings/arm/xen.yaml          | 113 ++++++++++++++++++
- 2 files changed, 113 insertions(+), 62 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/arm/xen.txt
- create mode 100644 Documentation/devicetree/bindings/arm/xen.yaml
-
-diff --git a/Documentation/devicetree/bindings/arm/xen.txt b/Documentation/devicetree/bindings/arm/xen.txt
-deleted file mode 100644
-index f925290d4641..000000000000
---- a/Documentation/devicetree/bindings/arm/xen.txt
-+++ /dev/null
-@@ -1,62 +0,0 @@
--* Xen hypervisor device tree bindings
--
--Xen ARM virtual platforms shall have a top-level "hypervisor" node with
--the following properties:
--
--- compatible:
--	compatible = "xen,xen-<version>", "xen,xen";
--  where <version> is the version of the Xen ABI of the platform.
--
--- reg: specifies the base physical address and size of the regions in memory
--  where the special resources should be mapped to, using an HYPERVISOR_memory_op
--  hypercall.
--  Region 0 is reserved for mapping grant table, it must be always present.
--  The memory region is large enough to map the whole grant table (it is larger
--  or equal to gnttab_max_grant_frames()).
--  Regions 1...N are extended regions (unused address space) for mapping foreign
--  GFNs and grants, they might be absent if there is nothing to expose.
--
--- interrupts: the interrupt used by Xen to inject event notifications.
--  A GIC node is also required.
--
--To support UEFI on Xen ARM virtual platforms, Xen populates the FDT "uefi" node
--under /hypervisor with following parameters:
--
--________________________________________________________________________________
--Name                      | Size   | Description
--================================================================================
--xen,uefi-system-table     | 64-bit | Guest physical address of the UEFI System
--			  |	   | Table.
----------------------------------------------------------------------------------
--xen,uefi-mmap-start       | 64-bit | Guest physical address of the UEFI memory
--			  |	   | map.
----------------------------------------------------------------------------------
--xen,uefi-mmap-size        | 32-bit | Size in bytes of the UEFI memory map
--                          |        | pointed to in previous entry.
----------------------------------------------------------------------------------
--xen,uefi-mmap-desc-size   | 32-bit | Size in bytes of each entry in the UEFI
--                          |        | memory map.
----------------------------------------------------------------------------------
--xen,uefi-mmap-desc-ver    | 32-bit | Version of the mmap descriptor format.
----------------------------------------------------------------------------------
--
--Example (assuming #address-cells = <2> and #size-cells = <2>):
--
--hypervisor {
--	compatible = "xen,xen-4.3", "xen,xen";
--	reg = <0 0xb0000000 0 0x20000>;
--	interrupts = <1 15 0xf08>;
--	uefi {
--		xen,uefi-system-table = <0xXXXXXXXX>;
--		xen,uefi-mmap-start = <0xXXXXXXXX>;
--		xen,uefi-mmap-size = <0xXXXXXXXX>;
--		xen,uefi-mmap-desc-size = <0xXXXXXXXX>;
--		xen,uefi-mmap-desc-ver = <0xXXXXXXXX>;
--        };
--};
--
--The format and meaning of the "xen,uefi-*" parameters are similar to those in
--Documentation/arch/arm/uefi.rst, which are provided by the regular UEFI stub. However
--they differ because they are provided by the Xen hypervisor, together with a set
--of UEFI runtime services implemented via hypercalls, see
--http://xenbits.xen.org/docs/unstable/hypercall/x86_64/include,public,platform.h.html.
-diff --git a/Documentation/devicetree/bindings/arm/xen.yaml b/Documentation/devicetree/bindings/arm/xen.yaml
-new file mode 100644
-index 000000000000..3117f6d3828c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/xen.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/arm/xen.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xen hypervisor
-+
-+maintainers:
-+  - Stefano Stabellini <sstabellini@kernel.org>
-+
-+description: |
-+  Xen ARM virtual platforms shall have a top-level "hypervisor" node with
-+  the properties defined below.
-+
-+properties:
-+  $nodename:
-+    const: hypervisor
-+
-+  compatible:
-+    description: |
-+      Specifies the Xen hypervisor. The version of the Xen ABI is encoded
-+      in the first item as "xen,xen-<version>", followed by the generic
-+      "xen,xen" string.
-+    items:
-+      - pattern: "^xen,xen-[0-9]+\\.[0-9]+$"
-+      - const: xen,xen
-+
-+  reg:
-+    description: |
-+      Base physical address and size of the regions in memory where special
-+      resources should be mapped to, using an HYPERVISOR_memory_op hypercall.
-+
-+      Region 0 is reserved for mapping the grant table and must always be
-+      present. The memory region must be large enough to map the whole grant
-+      table (it is larger or equal to gnttab_max_grant_frames()).
-+
-+      Regions 1...N are extended regions (unused address space) for mapping
-+      foreign GFNs and grants. They might be absent if there is nothing to
-+      expose.
-+    minItems: 1
-+
-+  interrupts:
-+    description: |
-+      The interrupt used by Xen to inject event notifications.
-+      A GIC node is also required.
-+    maxItems: 1
-+
-+  uefi:
-+    type: object
-+    description: |
-+      Node populated by Xen to support UEFI on Xen ARM virtual platforms.
-+      The format and meaning of the "xen,uefi-*" parameters are similar to
-+      those in Documentation/arch/arm/uefi.rst, but are provided by the Xen
-+      hypervisor together with a set of UEFI runtime services implemented via
-+      hypercalls.
-+    properties:
-+      xen,uefi-system-table:
-+        description: Guest physical address of the UEFI System Table.
-+        $ref: /schemas/types.yaml#/definitions/uint64
-+
-+      xen,uefi-mmap-start:
-+        description: Guest physical address of the UEFI memory map.
-+        $ref: /schemas/types.yaml#/definitions/uint64
-+
-+      xen,uefi-mmap-size:
-+        description: Size in bytes of the UEFI memory map pointed to by xen,uefi-mmap-start.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      xen,uefi-mmap-desc-size:
-+        description: Size in bytes of each entry in the UEFI memory map.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      xen,uefi-mmap-desc-ver:
-+        description: Version of the mmap descriptor format.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    / {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        gic: interrupt-controller {
-+            #interrupt-cells = <3>;
-+            interrupt-controller;
-+        };
-+
-+        hypervisor {
-+            compatible = "xen,xen-4.3", "xen,xen";
-+            reg = <0 0xb0000000 0 0x20000>;
-+            interrupt-parent = <&gic>;
-+            interrupts = <1 15 0xf08>;
-+
-+            uefi {
-+                xen,uefi-system-table = /bits/ 64 <0x1301415>;
-+                xen,uefi-mmap-start = /bits/ 64 <0x7591400>;
-+                xen,uefi-mmap-size = <0x1800>;
-+                xen,uefi-mmap-desc-size = <0x30>;
-+                xen,uefi-mmap-desc-ver = <1>;
-+            };
-+        };
-+    };
-+...
--- 
-2.54.0
+Thanks,
+Herman
 
