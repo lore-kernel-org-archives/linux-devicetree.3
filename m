@@ -1,76 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA28B79CD;
-	Mon, 15 Jun 2026 10:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2179F30C17B;
+	Mon, 15 Jun 2026 10:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781518922; cv=none; b=k7vTK2eaDfBHIrNHLL8Xz6MBGZaA2DA1vlrKb/TJNIq1291i3qbJtGAHcnBwSqxNdq1wubjjxuNbmgMtAke9y+bR3Y+bV3ap9svxRYITOShNqVRGRUFjIEIyXm/1L3n+V+8XBFzOpkaFcigfU/SMwm9w7Q6t1PH7kEndGUsJcA0=
+	t=1781519025; cv=none; b=FsMDF41YDtZzMyfDFq4aG+znnvheu7fnm6RwMyMS+p6Iv0VPZTd/ktITjLu1MBHWGL+y4DqZOgfYH7nWM25fAZIjJ1yABJ1rzZ7RB0TLsoyyuN7ANgeZtrHpqWPhvysiwYif8mI746cDH9p7ayWuFkZxJVGECcfkyhElICddD8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781518922; c=relaxed/simple;
-	bh=1pgoTUa/iaFDUDl6dNuZhTQb81x2vd4ypbGHLcDcZ5Q=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=W7QMQhZSkR5UAWCrKIXuvR7mqZEMl7TXOEjRyUrhxBvp90ucagYwMihnV9xb9QZeaogeD2hYlfKOuPD7haQl6m4nY5HUC1ssUHeOc/CkBJsPcHW9FU9xctvwDD/AGJzsuDAX5m1h3xnMAH1pSy9fp2b0A2eGP/s1cbLWOMYYvgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mVCcf1ev; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781519025; c=relaxed/simple;
+	bh=JlxMRRzmNLl5motzE3G6Kxf7KBpQ0QeKSXmg+oxTlDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ozAFajBCznnu5U9JnUSTvk3exFo2vPKCLn6amdQfA5/0JKMKamz9k3mNmmECuiNPV6a142r9qzW7oGXbf40NLWCr5/q8cQ4K2Zr2byV9yJQUndDxBn4kcKDam2RTQEygEiGEOrGtWIFqwzPSUYU2rRFvtXNjVWVq1+4sTMZknmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cqjYFSU7; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mVCcf1ev"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6CA1F00A3A;
-	Mon, 15 Jun 2026 10:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781518921;
-	bh=pOMyA4oeoJ6pkRQwgpC41H2yFFgKVKeVKbT/i84cSqo=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=mVCcf1evQTW1CRlsDkWOa11pBr3M+jTO96geXI/hhSQw/xbewxDoOggW3gekJp/rY
-	 ccCPoWnq7jInai6PXaa2cPOH6nlyBi2qy4usFw/Rb2B+wGffK64XrYQV47IVODSqEN
-	 XpNnaYutAopQgs4rh/JpvGBKEjZix7V04jPh7Qz4S6DVIi52kbp96jROOTc2EDRzQ4
-	 To8irBKN77urpH+XoS75K5f3oLWd3NpxaBcENxPrhP8tM6lPWhDSo/UntFZGC/PrwW
-	 81JOCUQcLqvbt8yLX2nlgja8zE+FTpplqZqgr4dCfUIGN2JEcTRvrIPaJcMt2NpGrr
-	 gIskWnSyKYCSg==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260608115507.134969-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260608115507.134969-2-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH] dt-bindings: mfd: syscon: Revert
- renesas,r9a08g046-lvds-cmn
-Message-Id: <178151891887.278191.1501610164206818615.b4-ty@b4>
-Date: Mon, 15 Jun 2026 11:21:58 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cqjYFSU7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781519024; x=1813055024;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=JlxMRRzmNLl5motzE3G6Kxf7KBpQ0QeKSXmg+oxTlDA=;
+  b=cqjYFSU7ombQta1JLG4IyVaCHu0SBbbUnYB/uzfIqn+am6g3AAOlXVxH
+   aA2HLFIU11q3BnaQ64iZoEH2fXQ/QJJaQtzzNX+UxKwDQXuhdHwJ3DNc6
+   zPwiFa/qSaBrh6V96Jo+uuOQsNTjSTiA8hjPxUToCVMx+hGwArzPkQ/EZ
+   KK2Y/FCI11O9IvCnFFgH7WmsBUlkENkHO6yacQO5tV1KtEGWWuRy/Hjyk
+   F6Z5MQTOELalBA6Jg8AB4Ih/CK7cmLQOLXoJwNcEsSlisdQKh1kfeGbT5
+   /ppMLFWndK4J+PNOLJhLruW6HNH0t6kBWmyaflQQX2GeTBZJ9KN9OIjBm
+   A==;
+X-CSE-ConnectionGUID: 4cxcmnKvTO2gZeUHOoVgfg==
+X-CSE-MsgGUID: MRsM3rh7Rzq2DCrZWRrrZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="82102479"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="82102479"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:23:43 -0700
+X-CSE-ConnectionGUID: 5X9uSTOYTlGXJeJgC+24mg==
+X-CSE-MsgGUID: XVYi6KlESCqG5krYV3y3qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="246544081"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:23:40 -0700
+Date: Mon, 15 Jun 2026 13:23:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V12 4/9] iio: imu: inv_icm42607: Add SPI For icm42607
+Message-ID: <ai_SqaTvBYI7wL79@ashevche-desk.local>
+References: <20260611202607.85376-1-macroalpha82@gmail.com>
+ <20260611202607.85376-5-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+In-Reply-To: <20260611202607.85376-5-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 08 Jun 2026 13:55:08 +0200, Krzysztof Kozlowski wrote:
-> Revert commit 51284d8b1dbc ("dt-bindings: mfd: syscon: Document the
-> LVDS_CMN syscon for the RZ/G3L") because it is completely not matching
-> reality and clearly incorrect in respect of renesas,r9a08g046-lvds-cmn.
-> 
-> It wasn't ever build-tested by author on their DTS, either.
-> 
-> The documented renesas,r9a08g046-lvds-cmn compatible clearly disallows
-> any children and simple-mfd fallback, however its only use in original
-> patchset is with simple-mfd and children, so this could have never
-> worked.
-> 
-> [...]
+On Thu, Jun 11, 2026 at 03:26:01PM -0500, Chris Morgan wrote:
 
-Applied, thanks!
+> Add SPI driver support for InvenSense ICM-42607 devices.
 
-[1/1] dt-bindings: mfd: syscon: Revert renesas,r9a08g046-lvds-cmn
-      commit: 4143734f197c0065bf5fce7da22f4d0eaf404753
+...
 
---
-Lee Jones [李琼斯]
+> +#include <linux/bitfield.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +#include <linux/spi/spi.h>
+
+...
+
+> +static const struct spi_device_id inv_icm42607_spi_id_table[] = {
+> +	{
+> +		.name = "icm42607",
+> +		.driver_data = (kernel_ulong_t)&inv_icm42607_hw_data
+> +	}, {
+> +		.name = "icm42607p",
+> +		.driver_data = (kernel_ulong_t)&inv_icm42607p_hw_data
+
+I believe I have commented on this already. But anyway, please leave
+a trailing comma for .driver_data assignments as well. Same for I�C
+driver.
+
+> +	},
+> +	{ }
+> +};
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
