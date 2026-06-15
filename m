@@ -1,307 +1,362 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012005.outbound.protection.outlook.com [40.107.209.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661D8405C47
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781537601; cv=none; b=fkhQjpx+gB85CkVd70MJscQNzGJgDHhZBObsI0VE8UjkcP9w6t3loXWBxkMb3Z+ZKJbcggaIxlgICbQIFQ9ojKd/x0E3/1TQY6sN/IijyrBddYdhRMDEDmW3iLcJHScQtYkeXNu7WS3sxVNNwB/gPvhvt8otm0kGM4BVF1hvXlw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781537601; c=relaxed/simple;
-	bh=KwUenCCTGlmgA/VcqQxmvfMpJVnf0YViC+wBXBgr9oQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tos2f7PBjDGCmH4/b7aAlhczK+s2OSC5XyVMvVUUIL2ockvfd0zE6+mXroHFEZZ6E9goOuOhN0UyzcgTUelAdg+XgQo60T3kHPDMLSoRrMFZ/FqR9pWTWZQyuo8CL3DBRy8z8y00+XCgAZFXqLH7e97JMIXpVjfgFl4Kn7UuCTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ACi9lPJz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DRT02+vN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93121406281;
+	Mon, 15 Jun 2026 15:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781538083; cv=fail; b=Mp0jCJmxj5cTZyuwuXZLBTxOt0QhoedJxNln8jtpGHYuabCIqDjZ7jY+8s9NWGqFt29XdSnE2cm+CZcxyOz6Ffx3U9cDA3wLx3VQ3SIAmyOX0/YpW7lwNSyoyQh2iquJOA9CjiGzUzYxjq3pOFDKVf81vE7ArA+byFyt4e1xgk8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781538083; c=relaxed/simple;
+	bh=FiwTSftOC8j/PPfBQdN0nUQb5xvxidTVLbaXSdczKn4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ArBZ1GZ3+dHEv+C2CVcQagL/+IocFN+5Rv+d8XnB4a8wvkpKJeV+W7kG1LYA0m8KTm6dFG4XbN17EmG2H6CBL6nIVG63jFR1vuq8KjJLWkFFyKds+uUYE8Cqi+16rmEiQNBkdLWtmWURBPU0S2aC6JfgSH6KBaeTA/H1DvW8qDw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sKawbtup; arc=fail smtp.client-ip=40.107.209.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ACi9lPJz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DRT02+vN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FFLj7u876554
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:33:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OwMQO0LcqR49s8kdpKn9p05zdjYBTA9VDNonkRXI1Ww=; b=ACi9lPJzRqm6Ft+O
-	dQs5XME/f76WWxRbnjH7GJ7yfRAJ2lHzskCTVl96VVuuwqmcqBRtVMUqPQwW3fwS
-	5F9ZAoMx6bOYAxIPNQlAWCSXjLoJ4Um3P8BhymdqZ2s17XAFb4Kao6Of/JHgdHUE
-	RRvkmeUAi1K/Hu99t6ZtQ7AJOh2FiEv3YyIrtJV7JS8h0jxdJV4ijb0mzl+w9tKL
-	FUpM643/Y29wQJ3odnMZPs0FD3oeVVC6ozRBJ9OmCs5L15B0NNVkHRkkzAVhExJq
-	RWspUUlJU1bFkheNdOxoMzD1T7sL4hrierQXWZ0N1FFreFhI9v/FL/0U6kwB81US
-	d4yZwQ==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etegushqw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:33:19 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-59ebf602dbcso1955867e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:33:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781537599; x=1782142399; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OwMQO0LcqR49s8kdpKn9p05zdjYBTA9VDNonkRXI1Ww=;
-        b=DRT02+vNNFqAME/zbKOYa2Pc7tzwL/MSYTUrtsMNAdLlM/OCbsByyxm0YEvMOrIlXl
-         JJeYvJLEuAjZL06juLweVT2LDeb/7525CHV/eIttlHRhB1qtnjPOpXipoiLT76/u9uCA
-         Afy7Dsa9sS1mATXK2EucuwZGFhSmlJIYgVfsWF6F7fPbPSDhxO9HS3TqSBDYW9xNt8pO
-         Y1QQGdcxi9Zf8gBT7tHfogs5q2nyFCcCzfQb7ODkeOl30RsWDj4+d0ywjvPsUWohk0Bm
-         KKSubp21jy1QK22rDkvVpDyxNu+0QNujV0bQl9GThJ5RzsYRI6rAg0yOHV4S0pjLSes+
-         ridw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781537599; x=1782142399;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OwMQO0LcqR49s8kdpKn9p05zdjYBTA9VDNonkRXI1Ww=;
-        b=G3Tb2urEqRY2RVaOBvN/zec/ZxmDMM9525OATExtfLPzmGfWc4o3RE92R0j7TiOs5J
-         iPc4P93MiaLHQ5cG8s2FgSo1zmYiVTjuS7R2xsHVXsL2/MaYDBMrIYcSusmBrPB3XbrW
-         1M+FgcF5M1G4Lg7Ch4XSTNuj5yUhM7pZ5zAYOg/h4AtPV3cg7V/PLW58xA68VzNb/fTR
-         AYWidZRUfjoiESwiCGb75urst4EO/VRiX4NuH+SiNel6pnEwiCwCTatLtm8fqRtcsbr0
-         NAiYXLwTv05m4SMR157yI6GM5Cy+kfxGbx3WVKFd361gDF1iAFt6pk7C2RCk9rp0odIC
-         LYHg==
-X-Forwarded-Encrypted: i=1; AFNElJ8s/Gbi2nf/8+OEQRJd3LGulGL7RlLxkBaHnqdvYd0ys3aGV/HK2TX/9A5McvbJ/NNqj96crPuyDrjz@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywr6BqrHsiw/Po4EpIStyWgXmTZjZVtFdxEvVjojfjCgLLcds/3
-	uF/RbhusQ2jXlMWEmzBYAL1bGFhlcQjZCCcTZV2h1Bdyeav6fKddc4KJVCRxE1zE6xxCFc4lyB+
-	QRjot6G16ZqhLBb8VY2fP17/OzK3R8yXaPzYPOrgWVhWnBp9Db9R30hOq+C/uGQ07
-X-Gm-Gg: Acq92OGdr+QW/2IJjwrlVvlJYcb3GywN9ig6PYxkQHsm3TSkXCo22Jb/f6RuvkYA0e0
-	T11ECZElprlNxyLHt1YyfklKUtba4pdwCZIk6Av3feGKVbxDCSzRIqYvL4SZAlwCLe90RTvr7/y
-	EVelReWNCCPtmDyUtHxzYI3n6bQQ6ST5d6lO5f14ZPKuVKssp5G8KDWMg2H+kz/lnFsKhbNVeXm
-	Wtcmit+D9Ye2MrjeSF2P4bB57A81JIwDaopnBocQtj5Jxzv5TzguT6F3Sgov96z1ecpjQ26suVV
-	zqK/TI5y7JFcDkcANB648PDhXqGL3OoSmrp9joD6Yw8cmVj9Uxpdh7lMBN4ZT20ETLcyHJ0RwXS
-	YAGKvNicIu/7q/Lm3UtAfD/KwD+xPg7uXQ5dOh+KQI0tz4qd4++slMdgGWNPNUEXupACShk0ftb
-	uv3KGTDUkEZ2KdIA==
-X-Received: by 2002:a05:6122:907:b0:5a0:9ad4:7016 with SMTP id 71dfb90a1353d-5bb6c13290fmr6584834e0c.10.1781537598501;
-        Mon, 15 Jun 2026 08:33:18 -0700 (PDT)
-X-Received: by 2002:a05:6122:907:b0:5a0:9ad4:7016 with SMTP id 71dfb90a1353d-5bb6c13290fmr6584791e0c.10.1781537597998;
-        Mon, 15 Jun 2026 08:33:17 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:b0eb:75fa:2a81:cf30? ([2a05:6e02:1041:c10:b0eb:75fa:2a81:cf30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa51440sm739885e9.9.2026.06.15.08.33.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 08:33:16 -0700 (PDT)
-Message-ID: <dcdfe9f4-aeec-4d85-92a1-a42592fe11c8@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 17:33:15 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sKawbtup"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Dm3sG9zBpi5PwVtXI0bwiTat66TjGa5yYFE/UkvXvmEMovIpil7+fWDVBVW5d2IbVDNQoF+0xuKu156GMp90AVUDkJBdwwwqjNEHj1JnOFS1yNlSrQ643agb5gzK+kRCQA11tWX6EJiJlN/jXe7Y59zhuh9v1aK6zTz+Z0bF7DZRlDBVUraZh3sr+1cV0H9hvNBvnaItJbbf087CvA/5sKcUG0GhRiqCY+g0VoSTWMn4kfxW6Fd/9KmzAm0KP1AoqmF0LgUJm0QLMv0IMW+qg1uE+ccR/CsXuE4g38pgmJ3XG+u0n+pu8QEj+e31tLfIehwNQY/3d804cw0ixcohPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S/Mkeab5tkDLLmdEbbzRY2CBZdPgQEMBImictorD/FE=;
+ b=oQ5XmpZ1zLXd0mhU43D9HT++WPRtzHcAEAIPcDO/jwL1mSrdKv3tGN2bKTxB8IWV6DC67ZBhlEK6+nwp/3YTooMrC4n4Dijb3QraWQ2yUu6I7/MD+4t55B68+ZriW2oDuaIAyKb0mrQi3qCxEbqeHQRVmGjRMCqu4jd5nRbfTPgTQVneH8XUpIftqJyptma1bwcMMml3K4rGGFHSg+ztl9JiI6XxmLoggFrnYFsuAySeIGjunVh+4ZVaipOPtmlwokcanxVkjYGOAEsAse9gknT85oGJ2/fJ4Txow9PkEQXpaWk8D7dndaghs469nvKiPlAMg0FEU0C4invxKo/90w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S/Mkeab5tkDLLmdEbbzRY2CBZdPgQEMBImictorD/FE=;
+ b=sKawbtup88qMVeGWDkdpWAEOgdmDsXZyoD+zi+1nHTFtYKg4fYE/EGuXifAPOFIw4J/SVNvQBXsOXa0eKpfqaWuezfaDNI+AlTdUf6712kYzvkXPGGzGsmPBEyHndZHz7NliQB77wzvx54DLqLOWneoPTbYjDZmgVaLe0XptN9Q=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
+ by CY5PR12MB6551.namprd12.prod.outlook.com (2603:10b6:930:41::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 15:41:16 +0000
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 15:41:16 +0000
+Message-ID: <2998a9fc-4b9f-49bd-8020-697081401f85@amd.com>
+Date: Mon, 15 Jun 2026 16:41:12 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/5] iio: adc: add Versal SysMon driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
+ linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260614233722.2603459-1-salih.erim@amd.com>
+ <20260614233722.2603459-3-salih.erim@amd.com>
+ <ajAKkqMO5jdQjKgS@ashevche-desk.local>
+Content-Language: en-US
+From: "Erim, Salih" <salih.erim@amd.com>
+In-Reply-To: <ajAKkqMO5jdQjKgS@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PA7P264CA0045.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:34b::7) To IA1PR12MB7736.namprd12.prod.outlook.com
+ (2603:10b6:208:420::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
- <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
- <7f1e46fb-15e3-4638-9930-8abc1dd5a778@oss.qualcomm.com>
- <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
- <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
- <3cbcaf8c-357e-42d2-91c1-9d1a32c55ed0@oss.qualcomm.com>
- <ae43a691-4879-4bfa-8c7c-1be16945480c@oss.qualcomm.com>
- <9a31bb29-75d7-42fa-b8a8-4155cf85cadf@oss.qualcomm.com>
- <hebyboondtxyyetwuwggoiysurz335xzn7asf6yit3qrexap3x@kngk2m5xum3x>
- <93e7251c-c75d-4e43-9ae2-bf485af58de3@oss.qualcomm.com>
- <mp2hl67rupxrssa43dcy36m3dwatlxsu7n27l7qdqsguo5i3bp@bo6sdzxglxt2>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <mp2hl67rupxrssa43dcy36m3dwatlxsu7n27l7qdqsguo5i3bp@bo6sdzxglxt2>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE2NCBTYWx0ZWRfXx95Hov1PmP7K
- dcLlSxQJQD4OSri87IiJze/4u+iZ1tOsmaH2VzJmwo8uagdLq0alE1Z1HobWnlo6YWI9RWYFXcJ
- HMiQr+dPY2dHVVTKeoIMLR39WTqsGtiZC9uJudjj4oNbwUCosJt2iOXWUkY+6hJpOEDUa0ZHEk9
- jsVfi9wLV8cnrn1RipG0ArXRw6M8K7dzp4SFNNNxem7t7Jic18mfZJOFucUrgj7uovkglyfMamL
- xyUN36FTtrr/QONL/QKp5iTS1+CAsb6noKoUhKaAkKY5bjCQWKGiGYHLrRQlMi0JnsQhXQUrPE8
- mbsxf9G5emBdDY4Pi0MsNVpMDE6EyN0lFQR/Lj4vKF3/5kN9igYut77tLlRIXIwIr9kYK2yRin3
- MsbzgmeBD94BjXejKNPJIxUKqW4tKeOr00cA5VAbDtOlldckEFlKLypSBEyJI16is0EHfkhHBIC
- SHmKuD19w9YeRZtuGww==
-X-Proofpoint-ORIG-GUID: Wu7QvdYSYGyXNn3-TQZD8bes2NFlBVlW
-X-Authority-Analysis: v=2.4 cv=HMvz0Itv c=1 sm=1 tr=0 ts=6a301b3f cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=UGbA0b5lBdDrEDKOv_UA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE2NCBTYWx0ZWRfX9WqQES7ysI7Y
- 2A7/1eAySldB5BOmAHkCBwDu7qq7RQ0JUHptWllQZQvxs2Sk8bZiGfc+BFnCOIRASQHkF7JoEq5
- srz2yjpzaCEQtx0Omkvx3ste6V1qmuU=
-X-Proofpoint-GUID: Wu7QvdYSYGyXNn3-TQZD8bes2NFlBVlW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_03,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150164
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|CY5PR12MB6551:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f20a4ab-f16f-49ba-fc9a-08decaf4898f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|22082099003|18002099003|4143699003|6133799003|56012099006|3023799007|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	7uONAtXIw9CP/ljh5zeMAAcgSnXrZsaHHuXNHH0YWi4BLVoMooiRcfGBE+UZQknHOdUgTyR1JA19fPvFgeF5NKG2N9plzz55sksM3WATUhB4dT0iTkH83DDaTy6Bqm/h72O0jc5b+3IhiLOvdaxpyMF9eoMdvwb1mvjpdleDkN/ABfWE51b8wWbueGHHNb5Lu06H8L+vF1zwok4C5RVr2DAimTo7lRSzmWR24CcYSPyFQW3I6jX6lhrbJWguCgvdsKulPM/83/8Sxdzhi1RCYAMQgv/1mjN/lM6YRJEVKvHWw3kmN5bKkpsPp2VsTO1/a2MkmWbQEU2AVWixGg92oFuI/bwBxO+fPPKkyZ/tI3uIG6ZghfvaZYE8CkyXaitP1Ob/hz2ywlHQcwzZZje0bNW87NUT9PCiEaW6E92wqJa0UVHB73PWdSir7Lg1x8wNfsc5G5IIOg1KlIL3+jtbduH6qTBhYvlMHckHEKoPhuaWOiq4Fmezy4uK9s+pmVZaP8OQYBZMjLQvAr5aBBA4q3vJpQ/lqunpAD2bR8BLcEWsEjvkkPWcUZo316S+uvRvOqRYTvegTFBdKsDE4qSWO1o8QnPMyZUmH0euQWkXXDbJrMKlN5ZH9HpxwNk+5KS5PNBP1LfTzdPqSrG48LlVK0kt/pQyKZv2y8w7HvRVe+aTAxJh6FESibDEhdR+ij8/
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(4143699003)(6133799003)(56012099006)(3023799007)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R1Bnam9yQVV6LzBHWVNGcm9USU5uMG9pOFVVWWxreGVaeFVLbHRnZnVEd1pS?=
+ =?utf-8?B?TnBERzU4dXBzN3E1dUlFU3NmN1hHN2JnVGRqeTNEK2ZnK3BuTEEwanQ2d1dU?=
+ =?utf-8?B?UnZMMUNIeDhxSkRmY2N1bEdKT2tWKy9rd3hKaHBoN2ZtNGRXbjJJUnVLSWls?=
+ =?utf-8?B?dmlpQS91bGJlWDJSTmZRc25yVEdyalkyeUxvZTZ4dktDTjBzTW5iS1FZZXY1?=
+ =?utf-8?B?djNEQWZaS0JXbTJGUGlLUDg0d1NpcmhGNUJVSHZCSW4vMGxWTGh3R3VwRWR5?=
+ =?utf-8?B?TURSUjBpRnVUUXJpc2dQU3lVdlVaSmZKaHEyYnRmcGhyNHo0aVBYdVVTKy9M?=
+ =?utf-8?B?K3RaanhFc1VqS0xTTDdHQjRkdlhSYmpsM0xRMU94a0d3SlR6dllsVHBOazEv?=
+ =?utf-8?B?T1Q4UnZkaDk0TFo1NHRaQnZkbzhFZ1FtMWFUVWpWN1BxYWwrTjgwS3lqeG9O?=
+ =?utf-8?B?NHgwRitzdVFsQ1VoMG1RWTZqQlFhbHAxM3dTZ3IvbWlmYldOcEM0VkRNc2xU?=
+ =?utf-8?B?RUZaa3QxeU5PUm5vOHI1Z0FGNys1UGhQNXNGMExhK3o5SjZpL0ZvZG9hSCtl?=
+ =?utf-8?B?S0E4bHpocmdTemE0QVlNTzhPSncrdWxvbEhsQURDdVA1d1ROUkJUWE9kYUtB?=
+ =?utf-8?B?SXpVRjczS2Nma08zWVdmV3VJQUc5SS9NZmRpamMvMUxEd2g4L1lidTN3RjdH?=
+ =?utf-8?B?MzgrL0xIV0V3ckp5UXFHcDhHWXVoVEJyeCtRcGpYOG94SDhGNWxtK1g2T0NI?=
+ =?utf-8?B?UXJOS3MvMGltWFA0R1pkQTVwY1JzQUpPckR2TzNuM3lUckZFT3U4UmxpYnZa?=
+ =?utf-8?B?WUI5NnlFc0dVZUozVDU4K2k2Q2t5NXZUdDN5ZG5vdU1jRFZTZmJtS1E2VW9h?=
+ =?utf-8?B?eUJvU29INDU2dEpsSjZPVDdYd3BsUWgrMU01SWJMWFd1QytiOWtlSW82cnFQ?=
+ =?utf-8?B?TFQ0SlpEbUUwR0dYMjlGbEpPRXhmQ3hndVQva0YzRmlubldxT24vanhnaWpH?=
+ =?utf-8?B?ZnNua1Exd1A0cUkvWmFwSkdBZlAwa2o2bUlHbEZwMzFrRnhseG45eW9TY3Zi?=
+ =?utf-8?B?eHY1SVVaTW1zSFRQcXNMQkNwT3lmaG96TW5GbWlrL1B6TGUrUG1hdHVWdkpy?=
+ =?utf-8?B?VnBWeWVJclFaVVgxWklkVG9Pei81SFlyMHdoTU9kMDIraGxsbkFmL084dlV2?=
+ =?utf-8?B?b2FCSmh0ZEJDU0tjVlNUK2ttZzAybDRpYnpmQmlYQlVNWjRhUnJpdWJ1RkFK?=
+ =?utf-8?B?VFMwL2d2RXBXZEZMTWd0dkc1YWRwNUhqZ3RUNm9zQ0ZMV2RPeU1xNzVLZFBX?=
+ =?utf-8?B?UnhVNWlQc3JaZ2NqUDI3K0N6VHlhTFlNaUtvUitaMXZLVFZ1ZHdFYUliamRG?=
+ =?utf-8?B?SjdBNHdyZUtWRmI2NGoxRDQveU5XYnlCeGdXQzV0VXFLZklFbGIzS0FXWkhP?=
+ =?utf-8?B?ODNKdUtuODZUSGZuWUNTYVhNZ2RaOGEzdFNFaVlId3JjcDNtVUJEa3hCOHVH?=
+ =?utf-8?B?MDlvcTB5azZLcEpzemlZQ285SEp0b2pIbDgwcng3WEpHb0NzQlpSSUxJWmtW?=
+ =?utf-8?B?WlI5MDhuYUVOc1V0dEpQSzhpbjZvRjhoTjZ2czcvMW5SOFQ5aWl6RlQzUk1F?=
+ =?utf-8?B?SWtTaVBPK3pEdXBVbmZLMmQ0dWdQTGZKYlU0TUtGZDdvUU1kMXN5NDRSZVhO?=
+ =?utf-8?B?RXZpWEVlN2JQVUVzQ1Y4bmFBbGhPeDhhVGd5MFpJS290SnlCckpaYW9ORXpm?=
+ =?utf-8?B?eXZhQU8xc3daUWd0SXVnSlZBZnJKMkJSbnBlOENiSEpMWXhMeWR5LzlISVQz?=
+ =?utf-8?B?ZXBIR0tqVWs4ZFRLcGhOK0tRQVpBc1VkY3Vjc29rOGNaWmc4R0hpenArTGFs?=
+ =?utf-8?B?ZE8xbk9pdmJhNVJOTXlQckp5ZEU1YUdkcWtLU2VrTDF3cGxZNjJlTnZQME5a?=
+ =?utf-8?B?YVNNMldzVjZ5VlVMRHpsRDZNWm5URURnb3dUUWJWcWNhQSs0N2VjdTcyNndm?=
+ =?utf-8?B?QkxtbkZKd1JVd0tTVko1UXkzRWFqeTUwZmRDREMwWjE1WjNlejRVSHFCZUFw?=
+ =?utf-8?B?RHUrbHBFZEJqMHB5ang5V2ZKOWluaTEzRUhrUnlZaWNFVnJ4WVo0UFJ2OEJn?=
+ =?utf-8?B?UXZPcGg1SisxUVN6SGxnY01XYnpmYVhUNFY3Qkx5U1NvSzR5YWpUYzBZRDMr?=
+ =?utf-8?B?NXN3UXc3bGZBT01yUHZkTDlrRnNLSEtrTyt5YVIxYnMzNGJ6WXZ2WW1uZGZ3?=
+ =?utf-8?B?L09xL24xWVFkVE9uRWFVQm1ZbnRodEZVU3FnQkRRcXhaNmRubE1DQ21aU3A2?=
+ =?utf-8?Q?h2bQotLvDOtzjezYgV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f20a4ab-f16f-49ba-fc9a-08decaf4898f
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 15:41:16.4288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +14tzdTlFjVdVgTYG/kOkzd//J8682Hf2AuTgdOTwPkcNwVPvqXzLXvw88eeOlR1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6551
 
+Hi Andy,
 
+Thanks for the review, replies inline.
 
-Le 15/06/2026 à 17:14, Dmitry Baryshkov a écrit :
-> On Mon, Jun 15, 2026 at 04:33:38PM +0200, Daniel Lezcano wrote:
+On 15/06/2026 15:22, Andy Shevchenko wrote:
+> On Mon, Jun 15, 2026 at 12:37:19AM +0100, Salih Erim wrote:
+>> Add the core driver and MMIO platform driver for the AMD/Xilinx Versal
+>> System Monitor (SysMon) block.
 >>
+>> The SysMon block resides in the platform management controller (PMC) and
+>> provides on-chip voltage and temperature monitoring through a 10-bit,
+>> 200 kSPS ADC. It can monitor up to 160 voltage channels and 64
+>> temperature satellites distributed across the SoC, with a consistent
+>> sample rate of 8 kSPS per channel regardless of how many channels are
+>> enabled.
 >>
->> Le 15/06/2026 à 16:11, Dmitry Baryshkov a écrit :
->>> On Mon, Jun 15, 2026 at 02:30:49PM +0200, Daniel Lezcano wrote:
->>>> Hi Gaurav,
->>>>
->>>> Le 15/06/2026 à 14:12, Gaurav Kohli a écrit :
->>>>>
->>>>>
->>>>> On 6/15/2026 4:04 PM, Daniel Lezcano wrote:
->>>>>> On 6/13/26 13:05, Gaurav Kohli wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 6/13/2026 1:11 PM, Krzysztof Kozlowski wrote:
->>>>>>>> On 12/06/2026 15:52, Gaurav Kohli wrote:
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> On 6/11/2026 5:53 PM, Krzysztof Kozlowski wrote:
->>>>>>>>>> On 11/06/2026 13:12, Gaurav Kohli wrote:
->>>>>>>>>>>> Why? And where is this generic property defined? You cannot just
->>>>>>>>>>>> sprinkle generic properties in random bindings.
->>>>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>> Ack, will add why part.
->>>>>>>>>>> These names are matched with the thermal
->>>>>>>>>>> mitigation device identifiers
->>>>>>>>>>> populated by remote firmware over QMI and define
->>>>>>>>>>> mitigation devices are
->>>>>>>>>>> exposed as cooling devices.
->>>>>>>>>>
->>>>>>>>>> No, -names correspond to values passed via DT, not
->>>>>>>>>> some remote firmware.
->>>>>>>>>> The remote firmware should give you interface which
->>>>>>>>>> is explicit and does
->>>>>>>>>> not need such properties.
->>>>>>>>>
->>>>>>>>> thanks Krzysztof for review, We need tmd-names because
->>>>>>>>> of following reasons:
->>>>>>>>>
->>>>>>>>> Following Daniel's series [1], the thermal framework supports
->>>>>>>>> mapping multiple cooling devices per remoteproc/device via indexed
->>>>>>>>> cooling-cells.
->>>>>>>>>
->>>>>>>>> 1) The thermal framework's cooling-maps reference
->>>>>>>>> cooling devices by index (for #cooling-cells = <3>).
->>>>>>>>> Without tmd- names,
->>>>>>>>> there's no way to know which index corresponds to which
->>>>>>>>> TMD, as firmware
->>>>>>>>> may return tmd-names in any order.
->>>>>>>>>
->>>>>>>>> below are the changes post new thermal mapping changes:
->>>>>>>>> DT: tmd-names = "cdsp_sw", "xyz";
->>>>>>>>> Firmware: ["cdsp_sw", "xyz1", "xyz2",]
->>>>>>>>> Driver registers: Only "cdsp_sw" (index 0) and "xyz" (index 1)
->>>>>>>>
->>>>>>>> names property are not to instruct drivers to register or not to
->>>>>>>> register something.
->>>>>>>>
->>>>>>>> I don't understand the problem and explanation in the binding is
->>>>>>>> basically non-existing.
->>>>>>>>
->>>>>>>> Remember that all lists and indices ARE FIXED, so driver knows exactly
->>>>>>>> which index means what.
->>>>>>>>
->>>>>>>
->>>>>>> thanks for review, shall i use driver data, which is basically
->>>>>>> pas data structure like below:
->>>>>>>
->>>>>>> static const struct qcom_pas_data {
->>>>>>>        .crash_reason_smem = 601,
->>>>>>>        .firmware_name = "cdsp.mdt",
->>>>>>>        .tmd_names = (const char *[]){"xyz", NULL},
->>>>>>>        .num_tmds = 1,
->>>>>>>
->>>>>>> Is something like above acceptable? and this will also help to
->>>>>>> filter tmd names as well?
->>>>>>
->>>>>>
->>>>>> How the thermal framework will bind the thermal zone with the TMD ?
->>>>>> (node pointer, id) ?
->>>>>>
->>>>>
->>>>> Hi Daniel,
->>>>>
->>>>> thanks for review.
->>>>>
->>>>> With id only, in this case instead of taking tmd names from device tree,
->>>>> qmi_tmd will take tmd name from pas_data(driver) and register with the
->>>>> cooling framework with id only. Please let us know if this looks fine.
->>>> May be I'm missing something but:
->>>>
->>>>    - The QMI TMD returns a list of names, not ids
->>>>    - The QMI TMD may return the list in different order than assumed
->>>>    - The cooling map index points to the name of the TMD in the DT
->>>>    - This name is used to match the name in the aformentionned list
->>>>    - The index in the list and the id in the DT can differ
->>>
->>> Would it be better if we define standard indices for the standard names?
->>> This way we decouple the actual firmware strings from the DT.
+>> The hardware also provides four aggregate temperature registers that
+>> are always present regardless of the device tree configuration: the
+>> current max and min across all active satellites, and the peak and
+>> trough values recorded since the last hardware reset.
 >>
->> I don't think so, it seems to me too fragile and prone to error.
+>> The driver is split into two compilation units:
+>>    - versal-sysmon-core: Channel parsing, IIO registration, read_raw
+>>    - versal-sysmon: MMIO platform driver with custom regmap accessors
 >>
->> It is a remote proc, an external subsystem. The contract between the client
->> and the server is the protocol. The protocol specifies the identifier as
->> named strings, the TMD names, not numerical identifiers.
+>> Voltage results are stored in a 19-bit modified floating-point format
+>> and converted to millivolts. Temperature results are stored in Q8.7
+>> signed fixed-point Celsius format and converted to millicelsius.
 >>
->> When asking for the list of TMDs, we get a list of strings. But as it is an
->> external subsystems, may be tomorrow someone decide to send list ordered
->> alphabetically, or per number of states, or whatever.
->>
->> With hardcoded id the QMI TMD clients break
+>> The MMIO regmap backend uses a custom reg_write accessor that
+>> automatically unlocks the NPI (NoC programming interface) lock
+>> register before each write, as required by the hardware. The regmap
+>> is configured with fast_io since the underlying MMIO accessors are
+>> safe to call from atomic context.
 > 
-> I was thinking about something like:
+> ...
 > 
-> #define QCOM_TMD_DSP	0
-> #define QCOM_TMD_PA	1
-
-Ah ok, it is correct if:
-
-tmd-names = "dsp", "pa"
-
-Or
-
-#define QCOM_TMD_PA	0
-#define QCOM_TMD_DSP	1
-
-tmd-names = "pa", "dsp"
-
-> cooling-maps {
-> 	map0 {
-> 		cooling-device = <&remoteproc_cdsp QCOM_TMD_DSP 0 2>;
-> 	};
-> 	map1 {
-> 		cooling-device = <&remoteproc_mpss QCOM_TMD_DSP 0 2>;
-> 	};
-> 	map2 {
-> 		cooling-device = <&remoteproc_mpss QCOM_TMD_PA 0 2>;
-> 	};
-> };
+>> +static int sysmon_read_raw(struct iio_dev *indio_dev,
+>> +                        struct iio_chan_spec const *chan,
+>> +                        int *val, int *val2, long mask)
+>> +{
+>> +     struct sysmon *sysmon = iio_priv(indio_dev);
+>> +     unsigned int regval;
+>> +     int ret;
+>> +
+>> +     guard(mutex)(&sysmon->lock);
+>> +
+>> +     switch (chan->type) {
+>> +     case IIO_TEMP:
+>> +             if (mask == IIO_CHAN_INFO_SCALE) {
+>> +                     /* Q8.7 to millicelsius: raw * 1000 / 128 */
+>> +                     *val = MILLI;
 > 
+> Since this is about temperature, wouldn't be better to use
 > 
->>
->>>> Krzysztof , I don't get why having the TMD names as properties is wrong,
->>>> they describes the existing TMDs on the system and the cooling maps index
->>>> points to the one to be connected with thermal zone.
->>>
->>
+>          MILLIDEGREE_PER_DEGREE
+> 
+> here?
+
+Agreed, MILLIDEGREE_PER_DEGREE is semantically correct here.
+Will change in v8.
+
+> 
+>> +                     *val2 = BIT(SYSMON_FRACTIONAL_SHIFT);
+>> +                     return IIO_VAL_FRACTIONAL;
+>> +             }
+>> +             if (mask != IIO_CHAN_INFO_RAW)
+>> +                     return -EINVAL;
+>> +
+>> +             ret = regmap_read(sysmon->regmap, chan->address, &regval);
+>> +             if (ret)
+>> +                     return ret;
+>> +
+>> +             *val = sign_extend32(regval, 15);
+>> +             return IIO_VAL_INT;
+>> +
+>> +     case IIO_VOLTAGE:
+>> +             if (mask != IIO_CHAN_INFO_PROCESSED)
+>> +                     return -EINVAL;
+>> +
+>> +             ret = regmap_read(sysmon->regmap,
+>> +                               chan->address * SYSMON_REG_STRIDE +
+>> +                               SYSMON_SUPPLY_BASE, &regval);
+>> +             if (ret)
+>> +                     return ret;
+>> +
+>> +             sysmon_supply_rawtoprocessed(regval, val);
+>> +             return IIO_VAL_INT;
+>> +
+>> +     default:
+>> +             return -EINVAL;
+>> +     }
+>> +}
+> 
+> ...
+> 
+>> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
+>> +{
+>> +     unsigned int num_chan, idx, temp_chan_idx, volt_chan_idx;
+>> +     unsigned int num_supply, num_temp;
+>> +     struct iio_chan_spec *sysmon_channels;
+>> +     const char *label;
+>> +     u32 reg;
+>> +     int ret;
+>> +
+>> +     struct fwnode_handle *supply_node __free(fwnode_handle) =
+>> +             device_get_named_child_node(dev, "voltage-channels");
+>> +     num_supply = fwnode_get_child_node_count(supply_node);
+>> +
+>> +     struct fwnode_handle *temp_node __free(fwnode_handle) =
+>> +             device_get_named_child_node(dev, "temperature-channels");
+>> +     num_temp = fwnode_get_child_node_count(temp_node);
+>> +
+>> +     num_chan = size_add(num_temp, size_add(ARRAY_SIZE(temp_channels), num_supply));
+> 
+> + overflow.h
+
+Accepted, Will add.
+> 
+>> +     sysmon_channels = devm_kcalloc(dev, num_chan, sizeof(*sysmon_channels), GFP_KERNEL);
+>> +     if (!sysmon_channels)
+>> +             return -ENOMEM;
+>> +
+>> +     /* Static temperature channels first */
+>> +     memcpy(sysmon_channels, temp_channels, sizeof(temp_channels));
+>> +     idx = ARRAY_SIZE(temp_channels);
+>> +
+>> +     /* Supply channels from DT */
+>> +     fwnode_for_each_child_node_scoped(supply_node, child) {
+>> +             ret = fwnode_property_read_u32(child, "reg", &reg);
+>> +             if (ret)
+>> +                     return dev_err_probe(dev, ret,
+>> +                                          "missing reg for supply channel\n");
+>> +
+>> +             if (reg > SYSMON_SUPPLY_IDX_MAX)
+>> +                     return dev_err_probe(dev, -EINVAL,
+>> +                                          "supply reg %u exceeds max %u\n",
+>> +                                          reg, SYSMON_SUPPLY_IDX_MAX);
+>> +
+>> +             ret = fwnode_property_read_string(child, "label", &label);
+>> +             if (ret)
+>> +                     return dev_err_probe(dev, ret,
+>> +                                          "missing label for supply channel\n");
+>> +
+>> +             sysmon_channels[idx++] = (struct iio_chan_spec) {
+>> +                     .type = IIO_VOLTAGE,
+>> +                     .indexed = 1,
+>> +                     .address = reg,
+>> +                     .info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED),
+>> +                     .datasheet_name = label,
+>> +             };
+>> +     }
+>> +
+>> +     /* Temperature satellite channels from DT */
+>> +     fwnode_for_each_child_node_scoped(temp_node, child) {
+>> +             ret = fwnode_property_read_u32(child, "reg", &reg);
+>> +             if (ret)
+>> +                     return dev_err_probe(dev, ret,
+>> +                                          "missing reg for temp channel\n");
+>> +
+>> +             if (reg < 1 || reg > SYSMON_TEMP_SAT_MAX)
+>> +                     return dev_err_probe(dev, -EINVAL,
+>> +                                          "temp reg %u out of range [1..%u]\n",
+>> +                                          reg, SYSMON_TEMP_SAT_MAX);
+>> +
+>> +             ret = fwnode_property_read_string(child, "label", &label);
+>> +             if (ret)
+>> +                     return dev_err_probe(dev, ret,
+>> +                                          "missing label for temp channel\n");
+>> +
+>> +             sysmon_channels[idx++] = (struct iio_chan_spec) {
+>> +                     .type = IIO_TEMP,
+>> +                     .indexed = 1,
+>> +                     .address = SYSMON_TEMP_SAT_BASE +
+>> +                                (reg - 1) * SYSMON_REG_STRIDE,
+>> +                     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+>> +                     .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
+>> +                     .datasheet_name = label,
+>> +             };
+>> +     }
+>> +
+>> +     indio_dev->num_channels = idx;
+>> +     indio_dev->info = &sysmon_iio_info;
+>> +
+>> +     /*
+>> +      * Assign per-type sequential channel numbers.
+>> +      * IIO sysfs uses type prefix (in_tempN, in_voltageN)
+>> +      * so numbers only need to be unique within each type.
+>> +      */
+>> +     temp_chan_idx = 0;
+>> +     volt_chan_idx = 0;
+>> +     for (unsigned int idx = 0; idx < indio_dev->num_channels; idx++) {
+>> +             if (sysmon_channels[idx].type == IIO_TEMP)
+>> +                     sysmon_channels[idx].channel = temp_chan_idx++;
+>> +             else
+>> +                     sysmon_channels[idx].channel = volt_chan_idx++;
+>> +     }
+>> +
+>> +     indio_dev->channels = sysmon_channels;
+>> +
+>> +     return 0;
+>> +}
+> 
+> ...
+> 
+>> +/**
+>> + * sysmon_core_probe() - Initialize Versal SysMon core
+> 
+> It is managed, please name it accordingly: devm_sysmon_core_probe().
+
+Will rename to devm_sysmon_core_probe() and update callers.
+
+Thanks,
+Salih
+
+> 
+>> + * @dev: Parent device
+>> + * @regmap: Register map for hardware access
+>> + *
+>> + * Return: 0 on success, negative errno on failure.
+>> + */
+> 
+> --
+> With Best Regards,
+> Andy Shevchenko
+> 
 > 
 
