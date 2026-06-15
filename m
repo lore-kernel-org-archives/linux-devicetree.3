@@ -1,289 +1,128 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9C430CDA2
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 18:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4B2171CD
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 18:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781546403; cv=none; b=rLDC9jWomQA8w0LQZMlqCCKLhnDFVHlarNVAtDQ5VObHhyFmKH20rH78ENsx6I2JerVmRW1wAANIbuRAs8BzTFd5naYJstjuCMdKinC4GGLTUQzDKwej6418Xb1wRLrAapwzXkJr2F0Cfv1J7tJzh6m+LD3xsqVLpjti/OBlxCw=
+	t=1781546622; cv=none; b=KSf4IFu+yxQJ1YeO8uAnivL4F/N8E119HgqRfZbiR9ZnvwRAXDEtpYQvcnNX1wHSlLtuL8MphdPbC5XOk971eQjZ8zeWDmmDXavzw4EBEer6CRf3eX7wcakPqmi8bQmQwLGBLy9TAlq82zZ6A/S9aNkb30vz/blHZezIUfL0Zr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781546403; c=relaxed/simple;
-	bh=/T20fKjGztsJQ87ufRGpByOtPnHbRW+6wIDEKpP4RU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dy+JLQq9t3uir1vbMqBS9Dn4vskDg1Y65C3MmgmluPuqWublnEKaD/AC49C9rV6yyaYvdmr46asCi6bagKf6dBriEirdO+wDHc4/dYGtkCp+NvjzqBo62Ld71wYkM0Lgc3gTZpOVbWK6TUgVRzXCcD9zHEVx4JEyQ1k8KaLAhms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PKhxQXz3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aoOMgDdN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781546622; c=relaxed/simple;
+	bh=bISlzmMlOzxkjlStoCAkdxQ3hVhVIp/OJ64du6O2lqQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Pa2w9vQteDiTme0TpWf8hJSoAxNbbUAdh5XWVl3uO9vL/ezx+aF2qu6nWm0bL+HIWQYdutlIYF/JuIbNbRHjITsHPxCzANHMIPNHhaCRDFwLn1EWFmhJVqCPjPMVIeg+ZfEGaaY4S2PAEsidP0BOROzmjGPHpDsjjMijou0yISk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cExNXiGT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PKhxQXz3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aoOMgDdN"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FFhpiu449971
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 18:00:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kRsizAxY/r3NTCTR+W2kx0FDoYBEA1sH4F+4U3CB780=; b=PKhxQXz3nnsHUnf8
-	q4EEOAjkBUdG2RJvlEBef1Vq81k1UVHwT6tjIUAVALR8nLqoIWhGpjlhjB3ZNXNh
-	jmurSJWBWAYZV+txDx6clR8Ou4eAHIPKt0oineyD8cMvOwzUw22K410uShdPGZWj
-	uXjOUZkrmJrVQ3lwWC1Je+9Ec9ygSgVV691tE/x46Uh4HDQaRjfHA4aDNLJFPRbZ
-	y03eETJ1b7WEwIzoeHXopdQFl6XVkX44yf6AoDpwo4TJvoheuA6FMh15CzJPXVc2
-	tpr7pcO64PwfBgbxVhuLePoMIhlHJXOhtR7a8Zoe6v0ekMue20eSX6/feJbev0eZ
-	wdeDjA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etfa723r8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 18:00:01 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36bb6c41341so4310951a91.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 11:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781546400; x=1782151200; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kRsizAxY/r3NTCTR+W2kx0FDoYBEA1sH4F+4U3CB780=;
-        b=aoOMgDdNqPF7fFmF6mueioUzH3EbuNk3KB7pIKJ6sg1qJwDgU5WcU4MnuEA94fc9ye
-         z46Xa1j4JRl8IBHtBUCp8UAPUyAdurKwWpc8ydKnU4gCVZ7KrSxVVOH/FC3e9p8RK+Ln
-         sSZBI1fP1mci3rjZoKaO/+IwvZBsfGb79QwKotX3u55JwfgpVE/bc8gAhyzEOkRxoxbr
-         6oy5jWJdl4592vPQr0bfreUqIoG1t6y3P1+ii52LEv71Y0oeJKzW+AuvJbYWAxjFTW6z
-         iR4vj9Tu+qE3jSeDLXTkgwYv+/sG5sW2440kWa1GvMO9Ytgf3jmAaS7ccHPOSbRhLDgN
-         khGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781546400; x=1782151200;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kRsizAxY/r3NTCTR+W2kx0FDoYBEA1sH4F+4U3CB780=;
-        b=GxJaHrk1yYPlR213Pk8RioQOK5Xu15MryeCAn5zwctLQ8jKvx0uAD8Vy3hAjvqvKCO
-         zsNYnZW9ocXBJhwJa1sfnsEV4JPJXRlzg4FuLfzURVZCbmS4R/k2InSOkwVAmFncUGYT
-         RKjEVWAtxmwwz+GNglBZPHFgozHbj+gpKVRRcPsAdoz9Vf5cFiaVT5X8rKcmAUgzQ2t8
-         MrCJyXClYXDzxI6Ppy/nRrvFT1rBx7A7LEO1aK7cVcZQANoIhSNLdRzaexSkQrRrDU7q
-         dAmnYVidyyOjDcgPJQs9gIANetEMZhOzJ0zkV1Qc3YW0PB6lmGZKgC7P2L1aGOcivMbV
-         DvfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ94fMu/jI/f0vC1moCW2fpuSe7YW3fSIbdN9eP7NOtbY7w5+nNNWWNwlkoOHI3mBwoMpwn3FM6KFflH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yys3s4uBebAW30VTkj4WR+AbYfPLSa7q3mhFTFnTtDFbcVO5ZbN
-	qHs1lHGir/LEU0LAIKlpcGlWBGK4OKvuM9qjQbKSXrgFqJMPc0L1AU9dvv+VZD1R/IzhP6AJP0H
-	RXUk38PR+yrTJmQPplBq50K1sdksxOYSaO6tJKjTPpKefTPphOQG5xg0kND3lR3n5
-X-Gm-Gg: Acq92OGyih/vG8K8PDFui2LZSS9/MIRb9bpAr5h0HSnlxUcPLxV7m6Ej2nWstve4TA9
-	d9J9ZXQ6Xuq30PmP4v4+Djjr9iHfGSFnZzSXrXsACMzyeRzzpK3E/Y6DNSQkBWjfPBbrldeLOLn
-	fSkJMyRwhSF9YMz3ZnutdyYqGX/zRgsIn+t1fkTk2ZqTyipfKzXtLFPasXO8xNFro/27LjF88WN
-	CPTrc3zE+TcMZtexgmheIl2tWMsnYLzkghVWzXl5ssgJz7AXiyYz4CTSYvlYfD1uTySEP+Q7F8B
-	lLZLLYxAxpswi61Y//b1FW9uw5gK6N1ODJ4qCKraXhCkdCrIjRmFVx2dxg9hhoiOx302Mw0tm50
-	lWlk+G2hKZk2wklCfQmygEA9AZyWE2tvato4vwxfcsoJWWk9N42dgsc2j
-X-Received: by 2002:a17:90b:4f88:b0:368:f0d0:1ce8 with SMTP id 98e67ed59e1d1-37c52840f17mr337794a91.9.1781546400524;
-        Mon, 15 Jun 2026 11:00:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:4f88:b0:368:f0d0:1ce8 with SMTP id 98e67ed59e1d1-37c52840f17mr337752a91.9.1781546399936;
-        Mon, 15 Jun 2026 10:59:59 -0700 (PDT)
-Received: from [10.187.126.18] ([106.221.183.253])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37c521aa047sm316268a91.3.2026.06.15.10.59.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 10:59:59 -0700 (PDT)
-Message-ID: <bcb9b9df-1cfd-ec92-a08f-5ea99a07bf83@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 23:29:51 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cExNXiGT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939F81F000E9;
+	Mon, 15 Jun 2026 18:03:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781546620;
+	bh=41gWiUfa5VNOqCDyX2NbQKDSbkFOM8rBen+FAIweBX8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cExNXiGTLh4kSXjRsCJkKTiOavHt+ETH+4PInIYOoQD7THo1w2X2ulqwPx+5wyuOu
+	 cSx+Ewl1DCJEEUUY3xtmcaGax9lamkS5z/PrDGO9Nf1RCXYd/bICFZ3Tw2UzfoveIU
+	 9MYBFzjAGz3OD80rLaJjzAZkZ04YYXBxhVHtlrrDarBxFIGAmFYy0ifaLSt4e5zW6T
+	 trLzsqeP4ks6iBgMTnuXz50GvETTmhrDQOFxXrW0bi6SDa2YwwRkVwJoAGG6HjWFes
+	 yrA3qZobYqZxsROUqV1aHX5a2IzcjhlbDdgGepaq5BAIOU+0hrCrFExANRa546WLMX
+	 1HfqTOIH5zPag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V13 8/9] iio: imu: inv_icm42607: Add Gyroscope to
+ icm42607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260615172554.160910-9-macroalpha82@gmail.com>
+References: <20260615172554.160910-9-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 18:03:40 +0000
+Message-Id: <20260615180340.939F81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v4 06/16] media: iris: Add platform data field for
- watchdog interrupt mask
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260612-iris-ar50lt-v4-0-0abfb74d5b3c@oss.qualcomm.com>
- <20260612-iris-ar50lt-v4-6-0abfb74d5b3c@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260612-iris-ar50lt-v4-6-0abfb74d5b3c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: q8bJtPCSMIzbLnzdzOgYvnFCB3-HFct0
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE5MCBTYWx0ZWRfXzuqbkwMQkL9F
- dhVqcEXvFqk1pNsyseFRLhy0hWVCClGSPdD7XBn4/Y70k3X8FkD4RIJ7xQXdOxb06i5z1edbSIs
- XLk/yF+B7EHuGw+TgXW66TzGKAySyfc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE5MCBTYWx0ZWRfX2hQspnq1nsNH
- mGmF8IHMymPGaLgQv+clmbDDYF+T+qb6KbGFkH0JeQ8hbhhM9VewthJC1XN0OP5pD/yZ/RzlaQ3
- kTRgBccScoIF5C+XHVANAiU738Rn+f79/XSMx/oYBhaagkMXPqLy8h4m59qPnyozf1bE9bH44jY
- 8/uSrHIB+BTHhqjDcds5Bn3fX9uTW2qyA4Rj4MItd4wjVFxugojpX/CFlR2O7q5S5z7O/CiwLtk
- GpmTTu7UjZMZmqqyHDou/bpWjGsSOPhRLlRJVDva3O/Suaj9KyYYGwxLn6SKAsV+VpzdUQcJRgB
- D2d4eZV+1jokI+UUI7uOlK1Fq4k7E/PSkbKpxK4+lV/ADrRxk+Ntdj2k2pv2csQbMXOPoNfxMVP
- gfWc/5w/zt9gqIaAuEajwmz2IYjmo0QVbXcAtNc7awG684uLVQb6Zwy9WLf1snAuun1R+enHb6i
- BvibnaFtOMH1Dra7LEg==
-X-Proofpoint-GUID: q8bJtPCSMIzbLnzdzOgYvnFCB3-HFct0
-X-Authority-Analysis: v=2.4 cv=AN2yTM5Z c=1 sm=1 tr=0 ts=6a303da1 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ym48ABLkKUHSTpi9L/JoRg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=dkSSNRsQlKXtGsl7zWAA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_04,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150190
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The gyro sensor state is not reverted after a raw read, causing =
+it to remain permanently enabled during all future active PM states.
+--
 
-On 6/12/2026 2:55 PM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
->
-> For AR50LT core, the value of WRAPPER_INTR_STATUS_A2HWD_BMASK differs
-> from the currently supported VPUs. In preparation for adding AR50LT
-> support in subsequent patches, introduce a platform data field,
-> wd_intr_mask, to capture the watchdog interrupt bitmask per platform.
->
-> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_platform_common.h      | 1 +
->  drivers/media/platform/qcom/iris/iris_platform_vpu2.c        | 4 ++++
->  drivers/media/platform/qcom/iris/iris_platform_vpu3x.c       | 6 ++++++
->  drivers/media/platform/qcom/iris/iris_vpu_common.c           | 8 +++++---
->  drivers/media/platform/qcom/iris/iris_vpu_register_defines.h | 1 -
->  5 files changed, 16 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 55a4fa356985..81fcb2854772 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -315,6 +315,7 @@ struct iris_platform_data {
->  	u32 tz_cp_config_data_size;
->  	u32 num_vpp_pipe;
->  	bool no_aon;
-> +	u32 wd_intr_mask;
->  	u32 max_session_count;
->  	/* max number of macroblocks per frame supported */
->  	u32 max_core_mbpf;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index 961dce2e6aa9..eeef453c583f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -16,6 +16,8 @@
->  #include "iris_platform_sc7280.h"
->  #include "iris_platform_sm8250.h"
->  
-> +#define WRAPPER_INTR_STATUS_A2HWD_BMSK		BIT(3)
+commit 608315b9e755ed3de8730d6f1fc3e2dc0c68b7a5
+Author: Chris Morgan <macromorgan@hotmail.com>
+
+iio: imu: inv_icm42607: Add Gyroscope to icm42607
+
+This commit adds gyroscope functions and IIO device registration to the
+icm42607 driver.
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/i=
+io/imu/inv_icm42607/inv_icm42607_gyro.c
+> new file mode 100644
+> index 0000000000000..ef73560b39d73
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+
+[ ... ]
+
+> +static int inv_icm42607_gyro_read_sensor(struct iio_dev *indio_dev,
+> +					 struct iio_chan_spec const *chan,
+> +					 s16 *val)
+> +{
+> +	struct inv_icm42607_sensor_conf conf =3D INV_ICM42607_SENSOR_CONF_INIT;
+> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
+> +	struct inv_icm42607_sensor_state *gyro_st =3D iio_priv(indio_dev);
+> +	struct device *dev =3D regmap_get_device(st->map);
+> +	unsigned int reg;
+> +	u8 data[2];
+> +	int ret;
+
+[ ... ]
+
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
 > +
->  static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
->  	.firmware_data = &iris_hfi_gen1_data,
->  	.get_vpu_buffer_size = iris_vpu_buf_size,
-> @@ -94,6 +96,7 @@ const struct iris_platform_data sc7280_data = {
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu2),
->  	.num_vpp_pipe = 1,
->  	.no_aon = true,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = 4096 * 2176 / 256 * 2 + 1920 * 1088 / 256,
->  	/* max spec for SC7280 is 4096x2176@60fps */
-> @@ -124,6 +127,7 @@ const struct iris_platform_data sm8250_data = {
->  	.tz_cp_config_data = tz_cp_config_vpu2,
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu2),
->  	.num_vpp_pipe = 4,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = NUM_MBS_8K,
->  	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> index 74626b35d9cb..261db38a013b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> @@ -18,6 +18,8 @@
->  #include "iris_platform_sm8750.h"
->  #include "iris_platform_x1p42100.h"
->  
-> +#define WRAPPER_INTR_STATUS_A2HWD_BMSK		BIT(3)
+> +	guard(mutex)(&st->lock);
 > +
->  static const struct iris_firmware_desc iris_vpu30_p4_s6_gen2_desc = {
->  	.firmware_data = &iris_hfi_gen2_data,
->  	.get_vpu_buffer_size = iris_vpu_buf_size,
-> @@ -113,6 +115,7 @@ const struct iris_platform_data qcs8300_data = {
->  	.tz_cp_config_data = tz_cp_config_vpu3,
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu3),
->  	.num_vpp_pipe = 2,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = ((4096 * 2176) / 256) * 4,
->  	.max_core_mbps = (((3840 * 2176) / 256) * 120),
-> @@ -142,6 +145,7 @@ const struct iris_platform_data sm8550_data = {
->  	.tz_cp_config_data = tz_cp_config_vpu3,
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu3),
->  	.num_vpp_pipe = 4,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = NUM_MBS_8K * 2,
->  	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-> @@ -179,6 +183,7 @@ const struct iris_platform_data sm8650_data = {
->  	.tz_cp_config_data = tz_cp_config_vpu3,
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu3),
->  	.num_vpp_pipe = 4,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = NUM_MBS_8K * 2,
->  	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-> @@ -208,6 +213,7 @@ const struct iris_platform_data sm8750_data = {
->  	.tz_cp_config_data = tz_cp_config_vpu3,
->  	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu3),
->  	.num_vpp_pipe = 4,
-> +	.wd_intr_mask = WRAPPER_INTR_STATUS_A2HWD_BMSK,
->  	.max_session_count = 16,
->  	.max_core_mbpf = NUM_MBS_8K * 2,
->  	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> index 375bcd923476..41498f94480e 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> @@ -109,11 +109,11 @@ void iris_vpu_raise_interrupt(struct iris_core *core)
->  
->  void iris_vpu_clear_interrupt(struct iris_core *core)
->  {
-> +	u32 wd_intr_mask = core->iris_platform_data->wd_intr_mask;
->  	u32 intr_status, mask;
->  
->  	intr_status = readl(core->reg_base + WRAPPER_INTR_STATUS);
-> -	mask = (WRAPPER_INTR_STATUS_A2H_BMSK |
-> -		WRAPPER_INTR_STATUS_A2HWD_BMSK |
-> +	mask = (WRAPPER_INTR_STATUS_A2H_BMSK | wd_intr_mask |
->  		CTRL_INIT_IDLE_MSG_BMSK);
->  
->  	if (intr_status & mask)
-> @@ -124,7 +124,9 @@ void iris_vpu_clear_interrupt(struct iris_core *core)
->  
->  int iris_vpu_watchdog(struct iris_core *core, u32 intr_status)
->  {
-> -	if (intr_status & WRAPPER_INTR_STATUS_A2HWD_BMSK) {
-> +	u32 wd_intr_mask = core->iris_platform_data->wd_intr_mask;
+> +	/* enable gyro sensor */
+> +	conf.mode =3D gyro_st->power_mode;
+> +	conf.filter =3D gyro_st->filter;
+> +	ret =3D inv_icm42607_set_gyro_conf(st, &conf, NULL);
+> +	if (ret)
+> +		return ret;
 > +
-> +	if (intr_status & wd_intr_mask) {
->  		dev_err(core->dev, "received watchdog interrupt\n");
->  		return -ETIME;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h b/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> index 72168b9ffa73..4fffa094c52f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_register_defines.h
-> @@ -41,7 +41,6 @@
->  #define MSK_CORE_POWER_ON			BIT(1)
->  
->  #define WRAPPER_INTR_STATUS			(WRAPPER_BASE_OFFS + 0x0C)
-> -#define WRAPPER_INTR_STATUS_A2HWD_BMSK		BIT(3)
->  #define WRAPPER_INTR_STATUS_A2H_BMSK		BIT(2)
->  
->  #define WRAPPER_INTR_MASK			(WRAPPER_BASE_OFFS + 0x10)
+> +	/* read gyro register data */
+> +	ret =3D regmap_bulk_read(st->map, reg, data, sizeof(data));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val =3D get_unaligned_be16(data);
+> +	if (*val =3D=3D INV_ICM42607_DATA_INVALID)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+[Severity: Medium]
+Does this leave the gyroscope permanently enabled after a raw read?
 
+The function enables the gyro by setting conf.mode =3D gyro_st->power_mode
+and calling inv_icm42607_set_gyro_conf(), but does not appear to revert it
+to an off state before returning.=20
+
+When the device later autosuspends, inv_icm42607_runtime_suspend() saves th=
+is
+active state into st->suspended.gyro. On every subsequent PM resume,
+inv_icm42607_runtime_resume() will restore the gyro to ON.
+
+Could this cause an unnecessary 45ms startup delay and waste power during a=
+ll
+future active PM states?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615172554.1609=
+10-1-macroalpha82@gmail.com?part=3D8
