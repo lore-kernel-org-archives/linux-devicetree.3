@@ -1,97 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8053F410A;
-	Mon, 15 Jun 2026 14:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8913F8246;
+	Mon, 15 Jun 2026 14:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781533752; cv=none; b=eJaCooAyVqvzin91PZPcLDbV1aveleawPyJdW4ptfh0G3oGmyLa8AU8XOP+s8S/Dw9for2H1p57khlMsN6DMRjZvgGzzDi1K3hfYfnsGonBO3pG1kmnY73aJYEpPjVSuxU5wgzgkXS6ihjS8wwbLfyaabcVzn9WcqS07N9k7KKY=
+	t=1781533759; cv=none; b=oFZWTqnvU9wTtCqLM1Fq18eEw1NyelalzcCSSsiepA8EVtAgSqq9cedtno9/T5H6u8yrd/9f8YjotmhRHORH445D2nQC4BO1SNBubpt+23hKqlTES1PFdmIMPXXGIfQV7cQa2dkI+x7HOeidRbUYjQlVOfmKQ1D9rESvzC7UJW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781533752; c=relaxed/simple;
-	bh=rayzWICmGvFb3tX2zNCX4jQZLQUpwdDIqFudedq9w38=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AwzVilNJyXI9UEBcRiD6ndZMi4YXnlhh9GAEHyiiFWec3lnOHRnXhSI5Yziy6vnE9XCvcTsn+OEVPW/mYhD1U3W1x23Uias+4wROW2ekf8MZCILKZYxBI44BC2hneWGXxWB3d9hXXPdXcROp9QTMbR5rjCyge9JDnAjPInqoNZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYzdBjdG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781533759; c=relaxed/simple;
+	bh=7cbZh0H/gGZPnJCdul/uOhQlZasghqu8qchZzA/13Q4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mp1t5cezzPuTCoT9BtnVzxT4spHulSVv1Xe8Bk/xr/WEwHxLooXEJwAZc8L0u/2MAxaGVL8uVZ+qwiqpo2haFDqX9Gsc1agF8UgY7Y/T4Wih4HZNVuIyWRqhr3v5siitq5/fo2tQcw3WR3YKSwIQ/37bDI2jQPxeRMu8YC95dvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TYCQPqE2; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYzdBjdG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4061F000E9;
-	Mon, 15 Jun 2026 14:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781533751;
-	bh=Wgrm6nSxP4K6SAcQo8nbIqdcVusm06iSvy1X3gZt+5c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kYzdBjdGObA2T/W0s2lIU3AOO7p7WnacKDJxYIrh9h5uOPv9KtldoH50diypNCK9x
-	 SvU9lCJk8GfQFM58rUOBWWkI846Wx3LWXX3DPcJfGEnitQ0ChUyWNeSP61eaFkv3E3
-	 qIhaqnYv3t6Vdzud5H1qpLBt3AW+H2MXN12WW7L/nyv66Y+z10WO23mQWPSWhu7MpX
-	 U8rTq7Eb27PBNgbhmEOPrhwuj2A1RYWuOl5fnNTzvTpXxQJK8ppB7hk2nSz/rzqAXE
-	 kGkKX3rcvglJwURjQLX8GYktafR9VmnJCTzQ2IIzds2K+RMest1jo/wp69sCjJqwyg
-	 NXDcBRUlGJD1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/10] Input: cap11xx - add reset gpio support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615142103.352163-7-jerrysteve1101@gmail.com>
-References: <20260615142103.352163-7-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 14:29:10 +0000
-Message-Id: <20260615142911.2B4061F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TYCQPqE2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 40A101A3934;
+	Mon, 15 Jun 2026 14:29:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0F2B660015;
+	Mon, 15 Jun 2026 14:29:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C2F0A106C968A;
+	Mon, 15 Jun 2026 16:29:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781533754; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3rMsrZ7GVRodQT0vv+F6bubXVUBI/vtcGoamkCWzv8c=;
+	b=TYCQPqE2QSvlgUb/4JT5XIhXAMpBRqUwvWyNEa+AQy1qdwmW6is6Lmk+BBvd8vCY6XZMAR
+	pwX8hKmcij0KqlCHhAlICumWm1QN2FZpcQJU6O7XsrMHtUQxNzIyv+BR6zpWNAIlARpmOg
+	pxw3LQMtXaYy7Eqkn3zjJv20NkpuRWIUcKUGeogMRyT+s0lLkwQ8735Upe2rAEiENbqn6e
+	Se7LvxooQiSsU2E8wgag4N7J85IMrGMXrMPWjlzvZT9VZa/7qXDuaAryDPwaE9RbQeRqpC
+	Ytp6PSShO0oL0EttURSQGkMNnMAEp8fQJH/9H4LNFihxMGSQWut+wskXWQ2uOQ==
+Message-ID: <7702ac09-75fd-49de-8ad2-fceaa122b627@bootlin.com>
+Date: Mon, 15 Jun 2026 16:29:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 05/12] net: phylink: support late PCS provider
+ attach
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-6-ansuelsmth@gmail.com>
+ <867a39de-ccc2-4dcf-be24-ab2542d20ab6@bootlin.com>
+ <6a3007ce.73de60af.3a056d.d903@mx.google.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <6a3007ce.73de60af.3a056d.d903@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Coding style violations: redundant 'else' after 'return' and incons=
-istent brace usage.
---
 
-commit 2a7317102372f10d4bd76864cfeaec2d7955c415
-Author: Jun Yan <jerrysteve1101@gmail.com>
 
-Input: cap11xx - add reset gpio support
+On 6/15/26 16:10, Christian Marangi wrote:
+> On Mon, Jun 15, 2026 at 04:07:03PM +0200, Maxime Chevallier wrote:
+>> Hi Christian,
+>>
+>> On 6/15/26 14:29, Christian Marangi wrote:
+>>> Add support for late PCS provider attachment to a phylink instance.
+>>> This works by creating a global notifier for the PCS provider and
+>>> making each phylink instance that makes use of fwnode subscribe to
+>>> this notifier.
+>>>
+>>> The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
+>>> a new PCS provider is added.
+>>>
+>>> phylink will then react to this event and will call the new function
+>>> fwnode_phylink_pcs_get_from_fwnode() that will check if the PCS fwnode
+>>> provided by the event is present in the pcs-handle property of the
+>>> phylink instance.
+>>>
+>>> If a related PCS is found, then such PCS is added to the phylink
+>>> instance PCS list.
+>>>
+>>> Then we link the PCS to the phylink instance and we refresh the supported
+>>> interfaces of the phylink instance.
+>>>
+>>> Finally we check if we are in a major_config_failed scenario and trigger
+>>> an interface reconfiguration in the next phylink resolve.
+>>>
+>>> In the example scenario where the link was previously torn down due to
+>>> removal of PCS, the link will be established again as the PCS came back
+>>> and is now available to phylink.
+>>>
+>>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+>>> ---
+>>
+>> [...]
+>>
+>>> @@ -2151,6 +2204,10 @@ void phylink_destroy(struct phylink *pl)
+>>>  	if (pl->link_gpio)
+>>>  		gpiod_put(pl->link_gpio);
+>>>  
+>>> +	/* Unregister notifier for late PCS attach */
+>>> +	if (pl->fwnode_pcs_nb.notifier_call)
+>>> +		unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+>>
+>> I wanted to try this out, but I get :
+>>
+>> drivers/net/phy/phylink.c:2218:17: error: implicit declaration of function ‘unregister_fwnode_pcs_notifier’; did you mean ‘register_fwnode_pcs_notifier’? [-Werror=implicit-function-declaration]
+>>  2218 |                 unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+>>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>       |                 register_fwnode_pcs_notifier
+>>
+>> I guess you either need to stub this, or there's a missing Kconfig
+>> dependency somewhere
+>>
+> 
+> Hi yes if you want toi test just enable CONFIG_FWNODE_PCS. I forgot to add
+> the static declaration for unregister_fwnode_pcs_notifier. 
 
-This commit adds support for an optional hardware reset pin on CAP11xx
-devices to improve reliability and ensure proper initialization during prob=
-e.
+I'll give it a go with this yeah, I have a few devices here I'd like to
+try this on.
 
-> diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-p11xx.c
-> --- a/drivers/input/keyboard/cap11xx.c
-> +++ b/drivers/input/keyboard/cap11xx.c
-[ ... ]
-> @@ -452,6 +457,16 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_=
-client)
->  	if (IS_ERR(priv->regmap))
->  		return PTR_ERR(priv->regmap);
-> =20
-> +	priv->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HI=
-GH);
-> +	if (IS_ERR(priv->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> +				     "Failed to get 'reset' GPIO\n");
-> +	else if (priv->reset_gpio) {
+Can you CC me for the next rounds ?
 
-[Severity: Low]
-This isn't a bug, but does this follow the standard kernel coding style?
+Maxime
 
-Since the preceding if statement ends with a return, the else keyword here
-is redundant. Additionally, kernel style guidelines generally prefer that if
-one branch of a conditional requires braces, all branches should use them.
+> 
 
-Could this be simplified by dropping the else and just using a separate if
-statement for checking priv->reset_gpio?
-
-> +		usleep_range(CAP11XX_T_RST_FILT_MIN_US, CAP11XX_T_RST_FILT_MIN_US * 2);
-> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
-> +		msleep(CAP11XX_T_RST_ON_MIN_MS);
-> +	}
-> +
->  	error =3D regmap_read(priv->regmap, CAP11XX_REG_PRODUCT_ID, &val);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615142103.3521=
-63-1-jerrysteve1101@gmail.com?part=3D6
