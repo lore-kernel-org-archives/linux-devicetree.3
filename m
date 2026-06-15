@@ -1,202 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C2E2FF67E
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:16:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D733BE65F;
+	Mon, 15 Jun 2026 08:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781511398; cv=none; b=IwxABFITpri3hVa01tjHZLlhff2brd752DOsnnb4+A0ooqaQuiInWVqa2BhP39OJtC5aSaSR3jApEkVa1/av5HH1kmcqRbesk4ROsbeJhwdRZo+Mxq2Ih8UaKFTLEoQy1f9+ls2Bpifgej9UuzSxusuDkyIrbNmVfLcWfjdleZo=
+	t=1781511425; cv=none; b=Z+K7XO+Z41mRU+wkoVjHQOUk44MZ/fW+Sx5Ata5boarh/fBG+kLbkfPk3Qnw5ZX4bzjvuHTOH9MuZalMxvimKwZuQixGefj2lYdMjaThqTTeTmoqRSF4jMmQTGxNS1WJXicW8niu/sRYaQaSYiMR5SUFDzmw04eUOU9VfdsScOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781511398; c=relaxed/simple;
-	bh=WQeiERPaY6Shef7hbj5xBNnj39AH9DVnf6MmKY2WS9U=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=RyOY+Rm82VL/p1dTiWSCi7HHf9HWIhNW+PniF+N7SV528QpTbLsZoNKSGRXVnRUgBgnlISx61jwWAGmXIumRpcmrzn0NnegmYIWMur5IBjqyovALlH76o9cDlKFYgr9jpt5bOcu6i/05QTsgADMsk54hOD6m7Y66WFFCYtWu4CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gnSrvpkb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kflVSAhP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781511425; c=relaxed/simple;
+	bh=8eyhlRIj8sWtROsfnlZnpmAb9R6mFe7bid6T9bEOvC8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Wkm9aVikMGQ+d6nWAOHHAQP00OESj8IkU08wvQ1/+qrfzGGhlq4//ySpDsnJUI3+kxqx6P2hn2LjUivHwLilzg9xsA/vWIXAjVvn/lr91pIc2OS57osXZG8N2owKeKQ+j6guJKnc5TUS6YYxbl8lQFxS/OlxCckGITJ2kRdmUfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Biu4IkOD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gnSrvpkb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kflVSAhP"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6IsJY3346509
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:16:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uKAKZLHWhyZbcRvW6UFM6brpCAGbrwtPlsnkYNwsv80=; b=gnSrvpkbiXoNIy5H
-	IOylNB5sLFJZO+qza79cW3ddzh0BFOkhbOu7bpBeYiz1q6bfgotHrRftoB20l906
-	8/oHUbus8uBFlcPhFgE16WOSIEK3DQUlU8m3Lnx5xJI5ByeZ1MbDwE8Igqkx87tb
-	7gfEmTI0mCm3Dgg3wJJ8pyAwV2mGwD5vJJodpAipglTaSO/a7Fg6mdmBq3r3Y7Mo
-	nRJZ4YPq+fHCskWv4O1aLYRi/vJfsxIWcu2wbFMG8XEOEFvwLpu6u9uJ10/XNftJ
-	r30xq4KG1I8dB7BPsJDJ9Arm9VeCJXoUlZ1FjbP+Zn29a+vlQCsddrn+7OS8Nz8v
-	XSfTnA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0g86c92-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:16:35 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-842b0dd8107so1932608b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 01:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781511395; x=1782116195; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uKAKZLHWhyZbcRvW6UFM6brpCAGbrwtPlsnkYNwsv80=;
-        b=kflVSAhPh6zQRTwbd8IOg3naxYaSNcvkn+AAinMcjKLfJFgtGA012abvcR/6W50AE0
-         Iq9r1fFYv/QeWt5J4UGQJbpw8dntjUwfZtPN5MAK3tj9KzE2jVQAMyrAEB1LzVkt4LZh
-         QbWWxz+TEuPXjgfS4IMxXoEOs6cgvfdt2O6rZ/jKs005RRp6QQ8CSHo2VEcyJfkIZp/J
-         n55gXq1QfArbQ3Vgw3qky3TcI8DTp1TYx9vPBC+l/fBzHv1gSNLlJzcWzsD3YwXubQkT
-         racYd8N4N9PeUtsXbmWzvn8ZI1HPbAmlKWrqCWZ5BeKk8LrqiG672LQHUrq/zb0/G5B0
-         0VsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781511395; x=1782116195;
-        h=content-transfer-encoding:content-language:in-reply-to:mime-version
-         :user-agent:date:message-id:from:references:cc:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uKAKZLHWhyZbcRvW6UFM6brpCAGbrwtPlsnkYNwsv80=;
-        b=nrV20n+eoYY77pgZfwEQrjjQrODhzFjTwVebNnLyTIcj2LlB2X49dE6MI9kgmYupRy
-         e7L2bXXQwhOQnzvaA+5VS1MaIr2oJ8J7x6VUWYx3DACZUnN3oqoRLfdwC6Fu59acwuzs
-         MitBqXOfQKaWe3a6s2Rzd6u2cHnTkKZWs9ax0u/CR5CYZ0siuJ1VLsNUFezfzfIo2z6i
-         bKEX0P7cNnt/wZ8FJYvBRiXq0T57yl2JDf9jo+/23luku6JR0ywe0pP7Vxd9lR/UNRx3
-         b812GFjkalfH6pbO+wk8zbSPkEyDaEw43R0XyIGp+43MfxIanLhCAuqTkDTCfMW4zUZ5
-         z7lw==
-X-Forwarded-Encrypted: i=1; AFNElJ9KZZaU310+MM+PA6uhyE9Vymuye7IcMLMv0q03F93fcrp8vptEEM7lcZKjknLoOuII1DA9YhSkqsK7@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy26t+e40LxypWn6eB9h0Z0O/RC3yxCNjHK9XnCXQBb6AvXfSfx
-	vwq3M7rezWjWSzGtR/IKJ7GLZ3L7eEFM7k+c5MWGsFxiOQHJdv3gDVSyPyu1oVFS9wjhymZYKeq
-	hIqnLdZa21BiiMsacbGGzY4RPEFNpPPlBzhjzI7iDLVxWxRB62JJc+wecUIav0deb
-X-Gm-Gg: Acq92OHlPsHf31b1OnWx12BE5DJMEhoVidcTwutivx5S9FZgiZDJUM06fj/k20EpULa
-	EntF3JeiBKxL691RPOlMR0sVNZfyaTxL4SIBN/ht3BjaEt7Jve+yjS6bF0j3FjIl6lxiBPU3nSS
-	XWF+N/rCkltgxdJAqWTjOL2oruVJ6VDrahWpWbLfWd0eFpSpq8Wnzg8+HdaiZAPvXt4gTEdVFKj
-	MG8Ya52UjIgiOK5ZmoWD1krFaoNYX+oBSTxf7u+ge66TsBBfcF5UIqy4FHajmGCN+5eY6zMNX7y
-	74A0v2qg9lT4bNyqtZTxEAcYhhdMhgfRpv4pJ2mzt1py3zGosJWDoF6FGDYj3DDgtOYHMKfFVJL
-	/a70Itf4oK646vbieyQnwryJYeNh2Vl+p/Lgurajo4uiD6avPxA==
-X-Received: by 2002:a05:6a00:450f:b0:835:3949:3c1f with SMTP id d2e1a72fcca58-8434cf0e0d0mr13804239b3a.24.1781511394695;
-        Mon, 15 Jun 2026 01:16:34 -0700 (PDT)
-X-Received: by 2002:a05:6a00:450f:b0:835:3949:3c1f with SMTP id d2e1a72fcca58-8434cf0e0d0mr13804195b3a.24.1781511394140;
-        Mon, 15 Jun 2026 01:16:34 -0700 (PDT)
-Received: from [10.217.222.63] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afd17f5sm8444410b3a.39.2026.06.15.01.16.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 01:16:33 -0700 (PDT)
-Subject: Re: [PATCH v7 1/3] dt-bindings: mmc: sdhci-msm: Add ICE phandle
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, ulf.hansson@linaro.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@linaro.org>,
-        Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-References: <20260608041650.541502-1-neeraj.soni@oss.qualcomm.com>
- <20260608041650.541502-2-neeraj.soni@oss.qualcomm.com>
- <dc833e56-e127-47b7-9ea5-58d6d2cc193a@oss.qualcomm.com>
- <c8da8a89-e372-ca87-cdca-396c754ef5d7@oss.qualcomm.com>
- <1a66f1a6-840b-4de4-8e65-a3456b654044@oss.qualcomm.com>
- <91a90c37-f93a-17c8-b4fb-290759645977@oss.qualcomm.com>
- <432f3a3b-3d28-4130-9a9c-61be04eade1d@oss.qualcomm.com>
-From: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Message-ID: <8c2cd2e3-434a-936d-99e1-3e96b399e8f3@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 13:46:28 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Biu4IkOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721151F000E9;
+	Mon, 15 Jun 2026 08:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781511423;
+	bh=aH0o7nWDQT6KV9saGoM0jvsLIafJzmaBf4bhSqCtANs=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=Biu4IkODwpBcr+U/99U7lwrDVYfvGocIpBerQgK4X95YFyOYeuSbM4KdwZr7cJROz
+	 gjlLH2yHFHfG3uy67alqdVM8q+vJSHXnz8ayg6fs7SbMmwomyIOtbJf1ncaiO7lL1a
+	 i6E7yoqDShUBJO8DzW2JqMB4pg7CoCLUqDn3SksGMoc51hXpwKuuwpAHkG+e4uRNFM
+	 UePo4g6fts7bkpyCuFfikeZsjRX4u19b+VmUp24A6JH01cXUUa0k/xih+TKiL4SmVs
+	 braHK3PxxAf477vEg8VyeudilrdcpJhw/JOInESoNaVnMYFw+ByQN/9y4wAfPfNyEt
+	 1N4S659lRqCrw==
+Message-ID: <419fe57b-fed0-411d-8bd6-eb452e767784@kernel.org>
+Date: Mon, 15 Jun 2026 10:16:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <432f3a3b-3d28-4130-9a9c-61be04eade1d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=OOoXGyaB c=1 sm=1 tr=0 ts=6a2fb4e3 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=FC_baigHY8OP_pc6ZEMA:9
- a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: FILo9KI2xdQlLBwb35hlJWik0ZKHd_rd
-X-Proofpoint-ORIG-GUID: FILo9KI2xdQlLBwb35hlJWik0ZKHd_rd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA4NSBTYWx0ZWRfX2HgmWkprqacV
- sEgceRaTHbfbXroyQ/dkoUel5+HykhywHXjnU3oLdgO4YxHOqj4XYe5zzI2C9HWz6OLrFnAaS4W
- B1eEFeYAbMEiWjhFf1rdI79quyKtDCLP5CXOwsxl3E7wHOdfJntZBXR17Nkg+/eB57QNFP4cmlj
- fXr3x7fo4NUQWQ+vSbwOp3bQWdh6XU8iesTwWOh7d1MQsD/hS/F7zhoNWAGwf7iCV1Y6G1JPLep
- QEBNtA7qK4DnUNUxg/H9nUPvNwMzxcHZtX4UqrtoApTdl6CizkktWRH45eU86EOa4Guf/TRrZ8G
- 6JTbfxgb8ucLqz7RsXHvSAp+4musp4e5wP6WevzD1/UhnmZIOFa2TS6fQGLq1VoFA8G/J/np1/T
- IBgCoREmR/rFyytfQs0RF0qMovTBByvC42XIPl4+sClK0BYTfcfyk0zhw5SO72VZuy6ibshV8kg
- STzMWZXnZlDkFYtU8mw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA4NSBTYWx0ZWRfXwzhBD7/wbxEq
- /eHrYWTpAH7z2/RUIdpiXCnRWmULkjM6BfKxQtgXeynY9scDLFTfO/RD1WK98osA7nWkRKKNFyI
- hJ8aE45ltANw2rSs8lCL5MbB2uXgAaY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150085
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] MAINTAINERS: Add entry for Samsung Exynos8855 SoC
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>, 'Linus Walleij' <linusw@kernel.org>
+Cc: peter.griffin@linaro.org, robh@kernel.org, conor+dt@kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ hajun.sung@samsung.com
+References: <CGME20260612161148epcas5p33904df90bd840d20a6db05622aaa28b8@epcas5p3.samsung.com>
+ <20260612163020.411761-1-alim.akhtar@samsung.com>
+ <20260612163020.411761-6-alim.akhtar@samsung.com>
+ <CAD++jL=mQUJCqVyqK746UdkZCsO+2oeO1MCQM4F-_pSOfpuQuA@mail.gmail.com>
+ <007a01dcfc9d$aa94dd60$ffbe9820$@samsung.com>
+ <0aa74645-d99d-4776-b3e6-e74fc0528f11@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <0aa74645-d99d-4776-b3e6-e74fc0528f11@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 6/15/2026 10:15 AM, Krzysztof Kozlowski wrote:
-> On 13/06/2026 07:21, Neeraj Soni wrote:
+On 15/06/2026 10:12, Krzysztof Kozlowski wrote:
+> On 15/06/2026 10:04, Alim Akhtar wrote:
+>> Thanks Linus for your review
 >>
+>>> -----Original Message-----
+>>> From: Linus Walleij <linusw@kernel.org>
+>>> Sent: Monday, June 15, 2026 12:51 PM
+>>> To: Alim Akhtar <alim.akhtar@samsung.com>
+>>> Cc: krzk@kernel.org; peter.griffin@linaro.org; robh@kernel.org;
+>>> conor+dt@kernel.org; linux-samsung-soc@vger.kernel.org; linux-
+>>> kernel@vger.kernel.org; devicetree@vger.kernel.org; linux-
+>>> gpio@vger.kernel.org; hajun.sung@samsung.com
+>>> Subject: Re: [PATCH 5/5] MAINTAINERS: Add entry for Samsung Exynos8855
+>>> SoC
+>>>
+>>> Hi Alim,
+>>>
+>>> On Fri, Jun 12, 2026 at 6:11 PM Alim Akhtar <alim.akhtar@samsung.com>
+>>> wrote:
+>>>
+>>>> Add maintainers entry for the Samsung Exynos8855 SoC based platforms
+>>>>
+>>>> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+>>> (...)
+>>>> +SAMSUNG EXYNOS8855 SoC SUPPORT
+>>>> +M:     Alim Akhtar <alim.akhtar@samsung.com>
+>>>> +L:     linux-arm-kernel@lists.infradead.org (moderated for non-
+>>> subscribers)
+>>>> +L:     linux-samsung-soc@vger.kernel.org
+>>>> +S:     Maintained
+>>>> +F:     arch/arm64/boot/dts/exynos/exynos8855*
+>>>
+>>> If you really want to single out a single platform like this (and I don't even
+>>> know if that is a good idea... how do you keep the big picture in mind?) you
+>>> should probably want to also add a wildcard for all the
+>>> 8855 device tree files.
+>>>
+>> I am also not sure, just followed what was done historically, other Exynos8855 file will get added once they
+>> are posted for review, e.g. clock driver.
+>> Let me discuss with Krzk during OSS (Mumbai) and see how do we handle this or any other better ways.
 >>
->> On 6/9/2026 5:19 PM, Krzysztof Kozlowski wrote:
->>> On 09/06/2026 10:18, Neeraj Soni wrote:
->>>>
->>>>
->>>> On 6/8/2026 11:40 AM, Kuldeep Singh wrote:
->>>>> On 08-06-2026 09:46, Neeraj Soni wrote:
->>>>>> Starting with sc7280(kodiak), the ICE will have its own device-tree node.
->>>>>> So add the qcom,ice property to reference it.
->>>>>>
->>>>>> To avoid double-modeling, when qcom,ice is present, disallow an embedded
->>>>>> ICE register region in the SDHCI node. Older SoCs without ICE remain
->>>>>> valid as no additional requirement is imposed.
->>>>>>
->>>>>> Co-developed-by: Abel Vesa <abel.vesa@linaro.org>
->>>>>> Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
->>>>>> Co-developed-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
->>>>>> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
->>>>>> Reviewed-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
->>>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>>>> Link: https://lore.kernel.org/r/20260310113557.348502-2-neeraj.soni@oss.qualcomm.com
->>>>>> Signed-off-by: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
->>>>>
->>>>> Link should go below "---" to specify previous discussions.
->>>>>
->>>>> Usually maintainers add link of patchset being merged here while merging
->>>>> changes in their tree but authors don't add it here.
->>>>>
->>>> Do not see any such restrictions here https://www.kernel.org/doc/html/latest/process/submitting-patches.html
->>>
->>> What do you provide that Link for? What does it bring?
->>>
->> Kuleep highlighted a concern with the usage of "Link:" tag. The link i
->> provided guides on posting patches to upstream linux. Wanted to highlight
->> what i folloed and I did not find any specific comment/line in the guide
->> which prohibits author to use "Link:" tag in trailer section. If there
 > 
-> This is reversed logic. You need to provide reasons WHY it is worth, not
-> just claim it is not disallowed. Adding 100 Links to whatever website is
-> not disallowed, so you are going to add them?
->
-Ack. I understand your point on Author's responsibility.
- 
->> are guidelines otherwise please let me know and i will correct and post
->> new patch.
+> You are Alim already reviewer for entire Samsung, so not sure if this is
+> beneficial but I also do not mind.
 > 
-> The "Link:", not the URL itself. What does it bring? Linus made clear
-> statement that you should not add links UNLESS you have a reason.
-> 
-> So please share the reason. If you do not have, DO NOT ADD any "Link:".
-> 
-Ack. The purpose was to only highlight what was reviewed but i understand
-it was not necessary. I will fix and post v8.
+> For Exynos850 and Google GS101, these were added because folks wanted to
+> be involved in these specific bits. In the past I was voting for per-DTS
+> file maintainer entry and rejecting per-board maintainer entries. There
 
+Lemme clarify: "voting for in-DTS file maintainer entry", so like we
+have for DT bindings, which lists maintainers.
+
+> was even get_maintainers.pl patch doing that. Unfortunately after many
+> tries that patch eventually did not land and I got bored bringing it up,
+> thus I agreed to earlier NXP approach for per-board or per-SoC maintainers.
+> 
+> I would like to encourage more people doing meaningful reviews, so if
+> having maintainers entry helps that, then I am in.
+> 
+> Therefore I am fine with this patch as is.
+> 
 > Best regards,
 > Krzysztof
-> 
-Regards
-Neeraj
+
+
+Best regards,
+Krzysztof
