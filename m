@@ -1,107 +1,113 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00A63E1D16
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 13:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFE929B764;
+	Mon, 15 Jun 2026 13:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781530425; cv=none; b=adjS8sMwGlGG2IMUbldK1VYddC8kv6aqiXxgN6RCwhXAcT7Gs6SGaLE5z6rt/PCBHgkyJDJfREEVhFIeBpKCLNJKR/5qKyVBF7awxX29HDXqtr7h51Y0800/VxbTABBpw8TPJNBBNCJztCLs+sJz3BzKk1nzvLE805OVxIF51hQ=
+	t=1781530827; cv=none; b=c9a6Jie4vI8d+38hahpXh7Sff6K6AWgBwg5LE6xg1HFODXP/sZfvXbGoO4zDV2vpn/WDVipsbSAbU4cjYQrTN0ZFFWODOclnwsV6ZtCwPbkjlRSTlJYg5DP/L1KPS7CL7NblmZGB/oLGxmbV5uQu6tBp0xkXbovhKq2KMI5bCP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781530425; c=relaxed/simple;
-	bh=N2ntj/ynlOh+zA/3YbsZL3cEPB1z9yqFqBmhPLgjqNo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hHxxqujLMO7p9OUxol6dt3nE/5Akx13lBGLH3/QHajBtDTaQs4Lk5hJY+tMfW4tSaMORSZWSDpkv08b6Mpv6BUWyomEc7BqsV0wNzoj9WVu6I852pLnBNvT0SCJLyZTqaY/lsGzqTpd71UdZHG1yYgr9FAVO8WZDzQUi+M1kyUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cN8CNMsq; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781530827; c=relaxed/simple;
+	bh=6RpRTXDVHn3B/8pAZEesAMePZFseP4h+ni4I/YCWBfk=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=kdcnbUY8KIfni3xpymWp9HuTB201Gk5m4dH0P0ydZPBd4Z+8P1qUrmneQbSk0ZgvtgDNm+tSReqLmtES58zQV3jcur3zUzxAx/9tuy1vYnvt+Aj/VV/A2M1LUbK1k0CJHpdbB2JGR7SARgPKhsrwV1BY+eP01Dh/Qa92Jh56UiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbDNoefC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cN8CNMsq"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id D56B3C49F5C;
-	Mon, 15 Jun 2026 13:33:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B16B360015;
-	Mon, 15 Jun 2026 13:33:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 61CB9106C94F2;
-	Mon, 15 Jun 2026 15:33:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781530421; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=dOWrt41fp9ZkdsfONhl/POwO170vOA3eDS7WRaAIv2Y=;
-	b=cN8CNMsqV3vnmukdqV8G3Kzmq5G8amSuHqLO4tp10lfiI1kRuxOzzSVIOf7+6AuuwloL9i
-	EG6SwhRzQHIXAoItTEt3q0xG5RNm3La0F1DIV0asn9qRlDZg4i6V45E0qd0ChV4jh3qjXT
-	inGsCfhmYmkyv6LTBNRDy2xV4NQjVWHZntpev9zX9XStGsTgIhLlMTMf9yoUXdQCN9YRwv
-	t/XfzKsI8HZSndynjUihh3WNXfQmnYPID0ISfu59px6MIQgnFV/lBYoPkbtdYnQ+r1vduy
-	l+wlZo1hfEKbr7/6vnPBb9a5YhLqeYxBhb/ysDmThYVw9njwNSrwJliPypg9Kw==
-Message-ID: <371a1df7-084c-4431-bd00-0045298e3212@bootlin.com>
-Date: Mon, 15 Jun 2026 15:33:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbDNoefC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37F531F000E9;
+	Mon, 15 Jun 2026 13:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781530826;
+	bh=rMB2+OBOhHvjtcjOVbhC4Uj4jiqIRbaW+a/Lb9TNIDs=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=hbDNoefCWx2DjqI4528QInxoQ4xq4D7gRMX3Ae2g9Gec3MUp7O/HNgEQhGE6adQAn
+	 mFD1eVf6PsxEp6UMlscpQ8hM9+gS7uGo+lqQcKDopeAivrN7RAjB9RHucJO/B5I5zT
+	 Km4+71BmvuGQv7BtgfhQeb3oN2CH9E0zOsx30E1ekB88P9oNs5LgAPaKUYuYs6r55Y
+	 kqT/35e+Oy+rpi4pJ6gA+c5xQxH9fuPvn+LS5FxG8vFgbVWSo35nJ5ZJqGX7xzMJAK
+	 7ORgb99ZzxljwFqe61veexQ8MGNUaQ10yYV/4vFEH0tGJSGJSSj7nwyav10wlBFJaY
+	 H9Mewsp4NPu4g==
+Date: Mon, 15 Jun 2026 08:40:23 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 01/12] net: phylink: keep and use MAC
- supported_interfaces in phylink struct
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Saravana Kannan <saravanak@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-References: <20260615122950.22281-1-ansuelsmth@gmail.com>
- <20260615122950.22281-2-ansuelsmth@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260615122950.22281-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Hui-Ping Chen <hpchen0nvt@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ linux-arm-kernel@lists.infradead.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Joey Lu <yclu4@nuvoton.com>, Jacky Huang <ychuang3@nuvoton.com>, 
+ Arnd Bergmann <arnd@arndb.de>, linux-phy@lists.infradead.org, 
+ Shan-Chun Hung <schung@nuvoton.com>
+To: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <20260615054911.48821-2-a0987203069@gmail.com>
+References: <20260615054911.48821-1-a0987203069@gmail.com>
+ <20260615054911.48821-2-a0987203069@gmail.com>
+Message-Id: <178153082322.1456470.14205688450934768854.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend
+ for dual-port OTG support
 
-Hello Christian,
 
-On 6/15/26 14:29, Christian Marangi wrote:
-> Add in phylink struct a copy of supported_interfaces from phylink_config
-> and make use of that instead of relying on phylink_config value.
+On Mon, 15 Jun 2026 13:49:09 +0800, Joey Lu wrote:
+> The MA35D1 has two USB PHY ports managed by the same hardware block:
 > 
-> This in preparation for support of PCS handling internally to phylink
-> where a PCS can be removed or added after the phylink is created and we
-> need both a reference of the supported_interfaces value from
-> phylink_config and an internal value that can be updated with the new
-> PCS info.
+>   - PHY0 (index 0): OTG port shared between the DWC2 gadget controller
+>     and EHCI0/OHCI0 host controllers.  A hardware mux follows the USB
+>     ID pin automatically.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+>   - PHY1 (index 1): dedicated host-only port for EHCI1/OHCI1.
+> 
+> Extend the existing binding to cover both ports:
+> 
+>   - The PHY node is now a child of the system-management syscon node
+>     with a reg property.  The nuvoton,sys phandle and clocks
+>     properties are removed; the driver derives the regmap from its
+>     parent, and clock gating is owned by each individual USB controller.
+> 
+>   - #phy-cells changes from 0 to 1: the cell selects the PHY port.
+> 
+>   - Two optional board-tuning properties are added: nuvoton,rcalcode
+>     for per-port resistor trim and nuvoton,oc-active-high for
+>     over-current polarity.
+> 
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 > ---
->  drivers/net/phy/phylink.c | 22 +++++++++++++++-------
->  1 file changed, 15 insertions(+), 7 deletions(-)
+>  .../bindings/phy/nuvoton,ma35d1-usb2-phy.yaml | 62 ++++++++++++++-----
+>  1 file changed, 48 insertions(+), 14 deletions(-)
 > 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 087ac63f9193..4d59c0dd78db 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-> @@ -60,6 +60,11 @@ struct phylink {
->  	/* The link configuration settings */
->  	struct phylink_link_state link_config;
->  
-> +	/* What interface are supported by the current link.
-> +	 * Can change on removal or addition of new PCS.
-> +	 */
-> +	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
 
-Can you clarify a bit what you mean here ? Is that the combination of the
-interfaces the MAC supports AND the currently in-use PCS ?
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Maxime
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): '#address-cells', '#size-cells', 'usb-phy@60' do not match any of the regexes: '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): compatible: ['nuvoton,ma35d1-reset', 'syscon', 'simple-mfd'] is too long
+	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): reg: [[0, 1078329344], [0, 512]] is too long
+	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260615054911.48821-2-a0987203069@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
