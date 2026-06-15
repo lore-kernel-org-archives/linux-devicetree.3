@@ -1,281 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0E740FDB7;
-	Mon, 15 Jun 2026 16:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D91A40F8F8
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781542133; cv=none; b=L/OC49S9lBtmSvoicxkFYGMlIKQydrm0IE9wN/P9y612tA5lMCrVXb5lu69hnLNTW8f80f8iGT/S4GIIZTl4CjLSCw5/v0SR//kXtorHBSEP/b0xt1vpFU2PPC004Jm/Co+LtNCHZr6Fdc6wjUwClnBfZHDN6dB6QkXqcBrVclk=
+	t=1781542143; cv=none; b=m6y0F2ZvFfYwDjGvg3MKkHysyCOBkeuUEEGweTnUDZwgxBXwdSrEruw5Yt52kcALk3HorqFpGXgJ4xiFp2kbIt5tOHTr6Dx6f+tkfGD+JLWFKoAmwHamM94Jlrxst9n7OeQUhddNk3xpQ0jofG0+RJqtzS/1sAy9/NnLUZ8mj4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781542133; c=relaxed/simple;
-	bh=l5w3ieOteXurPvOx7c2sSzMGJI9CHIUqhd+xc5Vy/HI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cgPclRP15hjzYVRUSFM1f8jvX4Mi/mS7T2npcHSvi8O2pdM9YyJdwdh7RZo/CHJfl1FXy+6FGWP2f4FMytX/P8Nwt/58NtDqMGBClx5LNCTUZCUMB7Sra582BiH05N3tNMbaAqgpTQ2E6Iqnd+9uO1dWOiVM3wGvjHlVGB493yI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wru4OnAk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781542143; c=relaxed/simple;
+	bh=BLYP69on+acONkpbj7BDPcs9Wrpg/jph8ahC7zS8284=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TJqxV8212PRshJMyVjfoMtnZ0+eDcrWU1AlJl5TmNzydGFsaTNjh6hYuvpJ+M6PnN0UWRzIoP6Ys7XOVj8vwT4395g1aC8kqp6zcjGZyPAu539fT+6B4LhgFrZFXSH/sHpc2VL7dGetIQuJMdxSvxokjDQiRbVKK1uNl3t9El9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wyUAz6Qn; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wru4OnAk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE401F000E9;
-	Mon, 15 Jun 2026 16:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781542132;
-	bh=rgAK34AoO/YNV6ur2YhBuivVJRCBBRUUpYRgZ9dzBks=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wru4OnAk/9dpN7n0cAJMyVXsAmkWcFPZG/Bjnr15Jb2+fw+q2SjMQm0JucaKmibeO
-	 T9UUOfzwlHTyHEfQ4fiO/JpPrNnbsyyDZQfK3hKHxt0WlWNiBc2EPYDUSLu2p5IreE
-	 GKD8WYZMDD8E/gai6ma+uWJAZrrY5DhcGhWLiGkAfbtP61ECtVJP54DLY6w4/8/FpZ
-	 mY4+0PLTk1r0EJASWSniHWmbCkPPWLW8OmEBXSWSobuXZdfPkW5qqv4gc4dkbPyUIm
-	 NBG7clW+cKdRiLdEa6BpOqtLskEDD0q9lyEocEFOfpb4roid8N/Q1tM9BmAPh7Kccw
-	 iemSZuOpTDawQ==
-Date: Mon, 15 Jun 2026 17:48:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: MidG971 <midgy971@gmail.com>, conor+dt@kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [RFC PATCH v4 6/9] dt-bindings: npu: rockchip,rk3588-rknn-core:
- Add RK3568
-Message-ID: <20260615-platter-washroom-043ea869adb1@spud>
-References: <20260613070116.438906-7-midgy971@gmail.com>
- <20260613071113.C60751F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wyUAz6Qn"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490b3e03939so26607905e9.1
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781542140; x=1782146940; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sQ1dZAWMIqT78hOt+sG6oi20VAgpv8dyMe6SBppclyU=;
+        b=wyUAz6QnSrGFFbhxDGrUz6AbxotOkGq8Q7cE8WjKh5KdVhZgyrpoNvElA0b1xaW3h1
+         bbCuMWNPoqEEw1l8Nlw2uyaG32qqNQ46mT/UZcyULURV/w2QoSGkZg7bmyFYNElSmVnH
+         fgYdPXdEfkAIVP0Mxg57p1Qb2EpJLKe/S1HpZeO/EpNCc3iJKIV5IisLAJm2RgMg0dfd
+         KDNjcJGL+Hykmr1MivaI94Yh9XIXVeTQNTGgx5il7g2LlZHMmAEtF46O8TaJWPgbNQSq
+         epjn7+nzFvG4qS7KS3luMiFPn9iWXFBx+PIAN8OTeDTlOCSH6zVUDVTphMvDgmwneCOZ
+         oDug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781542140; x=1782146940;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sQ1dZAWMIqT78hOt+sG6oi20VAgpv8dyMe6SBppclyU=;
+        b=INhpMi+fDSZo/TnJZlMr96z+nxn299UbnY31+OEV+jKyut40j5BHYDTE/xtK+wUW+7
+         A5qKdRTICV2ZcnBgbTQAUcfFn16lGYCTYdCcxvGSYq6dIkna3jBxDYwXPNnjYilUT/WD
+         7QQbJhOcHqKDWod5faF+GH2hHivxTRFdpr81X+oojMDwEx2abruQ7AL3pqqFDAXdTAH3
+         QKIi7ffMscAmatBwXNhEqywq/XUpQ98MBCVLOWrvxVrrcIeEGiYxo57N+yoIHdpbzhET
+         ng667EzRtbS2XhaUHnFZsP7iPq+bCXn+sLX7iG4ETN1xmu3MhzYYK7DgcDJfVU1TVGx9
+         nrlA==
+X-Forwarded-Encrypted: i=1; AFNElJ8stZN0xTtFHRhzt0KekEs7qOdSL4oJ628p3zaNodBLuSCUrOz2KlIw2li3Uj5gvr+3RktB0U4yFHgU@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMZEYmTz/GbC2fnWFBub5Ep8eiQyga/r7K1eS2f/Etfhx1gz6U
+	sEpacZnOsOESUK6rf8gxd8IrvKYI9ppty/Tx8x5O210LdIiynhClsZsnTB+oGdDySfs=
+X-Gm-Gg: Acq92OHnyDZm0h40Najt5+C6XOYjaV8L1JT5tB67uMKXElurvhhQibXbTKEUDfQBj/v
+	07j3e42ViwnZfJmdr8U2pqAsLl/LzfOt3U1KbXYHwPvtUSm4lgZjboAb3X/oW3TPcZqT0ylUIZn
+	wHTDz6ApA5dTYbDvA7MoBD4MShKCJL5ScBBxs23xGDiyfoF6szDAkwAIarGWzWFi+u4SG07PhTw
+	31cusBo7kdYojUPvzXM91pTCRK4R7b2sFRU8Ivcw5fAm1ejbBR8x6KCkXhTvcX9GM7HJSP7H4A7
+	uuHRB12wdRALhbkVUliiXnd4hql75VHdGJU+CaZoxyImrXFlTdCKU9q9eyb+wMOkzw/R+ilHMY1
+	ef4XO+mp32qS99rtoO97KJN5ZApNhH+/51DcVokiJrjJp2n0ruDe7fM5T6Xyj82rxPY/DgAY56k
+	ic8Iybu/XVAX9ltAFvVoknfk+D8R+CbSgSUkAP8EpcY5w7
+X-Received: by 2002:a05:600c:6c10:b0:492:1e36:9a90 with SMTP id 5b1f17b1804b1-4922fb09049mr3353075e9.18.1781542140287;
+        Mon, 15 Jun 2026 09:49:00 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa58f80sm5670735e9.11.2026.06.15.09.48.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 09:48:59 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v3 0/3] arm64: qcom: sm8650: misc enhancements
+Date: Mon, 15 Jun 2026 18:48:55 +0200
+Message-Id: <20260615-topic-sm8650-upstream-cpu-props-v3-0-eeb6e9fa7581@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KcjmGw9GtIMy6xex"
-Content-Disposition: inline
-In-Reply-To: <20260613071113.C60751F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPcsMGoC/43NvQ6CMBSG4VshnT3mUP6Kk/dhHKCcQhOhTQuNh
+ nDvFhbjpOP7Dc+3Mk9Ok2eXZGWOgvbaTDGyU8Lk0Ew9ge5iM468xJQLmI3VEvwoygJhsX521Iw
+ g7QLWGesBqyKXklRGmLKoWEdKP4+H2z32oP1s3Os4DOm+/m+HFBBq1bYFKaoUVteHnhpnzsb1b
+ McD/4A5x98gj2ApasKqE00r5Be4bdsbahn4kCABAAA=
+X-Change-ID: 20260128-topic-sm8650-upstream-cpu-props-0754ccef3e01
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1094;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=BLYP69on+acONkpbj7BDPcs9Wrpg/jph8ahC7zS8284=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqMCz58NhdAw5qQ8hzNTZ0av58CRBe/QJHRSJ7gPhG
+ gFVhOIeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajAs+QAKCRB33NvayMhJ0dW3D/
+ 9OvD1c3Ry6pRrTJMAef998mSW5c10VJ4IS7GGGjIrqZyCditjiXWlVQ0NxR8m4oTWLwivVnaJBHiei
+ UAu21HK8AdyHeX0mYmz/mQ+ZWh6obsc/KhTMFts1TXOG1hobfl2xLyaBjhoLaGPsCdEFPtv0RlY8IP
+ rc5AfemYzFTVR3l5pWo0MvD90AfRI0AMEQGIR/09iR19yp90fWXiboR6IDfIZn6AXrf/Uu9e5izHsz
+ smL9t4KrJuMRdSFAGTTjEys5F+RBD2NOTYP4xekgPmrrklR8RWaT+MF3xbqSjwI3qfYvjRWjGVVwaq
+ 3z4v8uciFW9j4cQmAtFOD7TN25z2cyHBfXUPRAxIGtCrVYwLepiC/IuE/aBdxkd6zxZ6MH4dYbkHbY
+ wHkVFaJvK5sOQhpz2z3woGe/Nolfc0XSwongfdD7iHmTwXQ8rVDWXRvvmWTLzKt6XP+R9NIRj4m2BL
+ 4bV6sAMO+GHXC526GJlkDFtYEcFh2UfDNAkEoCYjGWdmfEIEIFnm591x6t+w2Xg/i7W8rcfXc3qvv/
+ KBrJWoRY2hw2n1EDmYzTw6NNEmELyP9pTl6IWb7tmEfCpccJo7fybzYluaJ70j3yB3oWi/LYcgIv53
+ cH0WZSYV3zl3f+/LSVcN0DT74XffU1Ud6SyBLV88tebyOu/cgFLOg2a7L3eg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
+Misc enhancements for the SM8650 platform:
+- update the cpus capacity-dmips-mhz
+- add the CPU cache sizes
+- correct the soundwire ports
 
---KcjmGw9GtIMy6xex
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v3:
+- Picked tags
+- Rebased on next
+- Link to v2: https://patch.msgid.link/20260420-topic-sm8650-upstream-cpu-props-v2-0-689e07d8ab8c@linaro.org
 
-On Sat, Jun 13, 2026 at 07:11:13AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issu=
-e(s) to consider:
->=20
-> Pre-existing issues:
-> - [Critical] Double free of `rjob->tasks` leading to memory corruption tr=
-iggerable from userspace.
-> - [Critical] Unconditional dereference of a NULL `job->domain` triggering=
- a kernel panic on early job submission failure.
-> - [High] Permanent PM runtime reference count leak when `iommu_attach_gro=
-up()` fails.
-> - [High] Zero-initialized clock IDs cause the framework to fetch the same=
- clock repeatedly, violating hardware constraints.
-> - [Medium] Premature DRM device registration exposes an incomplete state =
-to userspace.
+Changes in v2:
+- Add review tag
+- Fix l2 cache size to 512KiB
+- Link to v1: https://patch.msgid.link/20260128-topic-sm8650-upstream-cpu-props-v1-0-9fbb5efe7f07@linaro.org
 
-Why is the bot complaining about drivers here?
+---
+Neil Armstrong (3):
+      arm64: dts: qcom: sm8650: update the cpus capacity-dmips-mhz
+      arm64: dts: qcom: sm8650: add CPU cache size properties
+      arm64: dts: qcom: sm8650: fix soundwire ports properties
 
-> --
->=20
-> commit d0d76b931ac773e3e176353cdb3ac9c590c43dc3
-> Author: Midgy BALON <midgy971@gmail.com>
->=20
-> dt-bindings: npu: rockchip, rk3588-rknn-core: Add RK3568
->    =20
-> The RK3568 carries a single core of the same NVDLA-derived NPU IP as the
-> RK3588.  Add its compatible.
->=20
-> > diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn=
--core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-cor=
-e.yaml
-> > index caca2a4903cd1..e0b948ac47d45 100644
-> > --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.y=
-aml
-> > +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.y=
-aml
-> [ ... ]
->=20
-> drivers/accel/rocket/rocket_device.c:rocket_device_init() {
->     ...
->     err =3D drm_dev_register(ddev, 0);
->     ...
-> }
->=20
-> drivers/accel/rocket/rocket_drv.c:rocket_probe() {
->     ...
->     rdev->cores[core].dev =3D &pdev->dev;
->     ...
-> }
->=20
-> [Severity: Medium]
-> This is a pre-existing issue, but does this premature registration expose=
- an
-> incomplete state to userspace?
->=20
-> drm_dev_register() is called in rocket_device_init() before rocket_probe()
-> assigns rdev->cores[0].dev.
->=20
-> As a result, the device node is briefly visible to userspace while its co=
-re
-> structures remain partially uninitialized.
->=20
-> If userspace attempts to open the DRM device during this window, rocket_o=
-pen()
-> passes the NULL rdev->cores[0].dev to rocket_iommu_domain_create().
->=20
-> While the IOMMU framework safely catches the NULL device and returns -ENO=
-DEV,
-> this still causes a spurious open() failure for userspace applications re=
-lying
-> on udev events.
->=20
->=20
-> drivers/accel/rocket/rocket_job.c:rocket_job_run() {
->     ...
-> 	ret =3D pm_runtime_get_sync(core->dev);
-> 	if (ret < 0)
-> 		return fence;
->     ...
-> 		ret =3D iommu_attach_group(job->domain->domain, core->iommu_group);
-> 		if (ret < 0)
-> 			return fence;
->     ...
-> }
->=20
-> [Severity: High]
-> This is a pre-existing issue, but does this cause a permanent PM runtime
-> reference count leak when iommu_attach_group() fails?
->=20
-> In rocket_job_run(), pm_runtime_get_sync() increments the PM usage count =
-to wake
-> up the NPU.
->=20
-> If the subsequent iommu_attach_group() fails, the driver returns the allo=
-cated
-> fence and exits early without calling pm_runtime_put().
->=20
-> Because the driver exits before assigning core->in_flight_job, the subseq=
-uent
-> timeout handler rocket_reset() will also skip the manual
-> pm_runtime_put_noidle().
->=20
-> This causes a permanent PM runtime reference count leak, preventing the N=
-PU
-> hardware from ever entering runtime suspend.
->=20
->=20
-> drivers/accel/rocket/rocket_core.c:rocket_core_init() {
->     ...
->     err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
->     ...
-> }
->=20
-> [Severity: High]
-> This is a pre-existing issue, but do these zero-initialized clock IDs cau=
-se the
-> framework to fetch the same clock repeatedly?
->=20
-> In rocket_core_init(), the driver declares an array of clk_bulk_data but =
-never
-> initializes the .id fields, leaving them implicitly NULL.
->=20
-> When devm_clk_bulk_get() is called, the clock framework handles the NULL =
-IDs by
-> returning the first clock defined in the device tree for the device on al=
-l four
-> iterations.
->=20
-> Consequently, rocket_device_runtime_resume() enables the exact same clock=
- four
-> times, while the remaining required clocks are left disabled.
->=20
-> This violates physical hardware state requirements and causes unclocked N=
-PU
-> register accesses.
->=20
->=20
-> drivers/accel/rocket/rocket_job.c:rocket_copy_tasks() {
->     ...
-> fail:
-> 	kvfree(rjob->tasks);
-> 	return ret;
-> }
->=20
-> drivers/accel/rocket/rocket_job.c:rocket_job_cleanup() {
->     ...
-> 	kvfree(job->tasks);
->     ...
-> }
->=20
-> [Severity: Critical]
-> This is a pre-existing issue, but does this lead to a double free of rjob=
-->tasks
-> that can be triggered from userspace?
->=20
-> In rocket_copy_tasks(), if copy_from_user() fails, kvfree(rjob->tasks) is
-> called, but the pointer rjob->tasks is not cleared.
->=20
-> The function returns an error to rocket_ioctl_submit_job(), which jumps to
-> out_cleanup_job and invokes rocket_job_put().
->=20
-> When the reference count drops, rocket_job_cleanup() is executed,
-> unconditionally calling kvfree(job->tasks) again on the already freed mem=
-ory
-> block.
->=20
-> Since the IOCTL input is fully controlled by userspace, an unprivileged a=
-ttacker
-> can trigger a double free by submitting an invalid task pointer.
->=20
->=20
-> drivers/accel/rocket/rocket_job.c:rocket_ioctl_submit_job() {
->     ...
-> 	rjob =3D kzalloc_obj(*rjob);
->     ...
-> 	ret =3D rocket_copy_tasks(dev, file, job, rjob);
-> 	if (ret)
-> 		goto out_cleanup_job;
->     ...
-> }
->=20
-> drivers/accel/rocket/rocket_drv.c:rocket_iommu_domain_put() {
->     ...
->     kref_put(&domain->kref, rocket_iommu_domain_destroy);
->     ...
-> }
->=20
-> [Severity: Critical]
-> This is a pre-existing issue, but does this unconditionally dereference a=
- NULL
-> job->domain, triggering a kernel panic on early job submission failure?
->=20
-> In rocket_ioctl_submit_job(), rjob is allocated via kzalloc_obj(), leaving
-> rjob->domain initialized to NULL.
->=20
-> If a failure occurs before the domain is assigned, such as an invalid task
-> pointer in rocket_copy_tasks() or a bad BO handle in drm_gem_objects_look=
-up(),
-> the driver jumps to the cleanup path.
->=20
-> The cleanup handler, rocket_job_cleanup(), unconditionally passes the NULL
-> domain to rocket_iommu_domain_put(), which invokes kref_put(&domain->kref=
-, ...).
->=20
-> Computing &domain->kref yields an offset address, and refcount_dec_and_te=
-st()
-> immediately dereferences this invalid address, resulting in a kernel pani=
-c that
-> can be triggered by unprivileged userspace.
->=20
-> --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260613070116.43890=
-6-1-midgy971@gmail.com?part=3D6
+ arch/arm64/boot/dts/qcom/sm8650.dtsi | 110 ++++++++++++++++++++++++++---------
+ 1 file changed, 83 insertions(+), 27 deletions(-)
+---
+base-commit: 8d6dbbbe3ba62de0a63e962ee004afb848c8e3ac
+change-id: 20260128-topic-sm8650-upstream-cpu-props-0754ccef3e01
 
---KcjmGw9GtIMy6xex
-Content-Type: application/pgp-signature; name=signature.asc
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajAs8AAKCRB4tDGHoIJi
-0ofRAP97TD5uDsOpTTpPt+os3+gnPlFQSvVwHARNEl0ytyivmQD8DStsr3uQM9Me
-xBayd1rg1P6TJhzNDiXajM0OU5hPnQw=
-=KBbc
------END PGP SIGNATURE-----
-
---KcjmGw9GtIMy6xex--
