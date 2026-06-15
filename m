@@ -1,128 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EED2DC76F
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:58:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0086E3C06
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:02:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781495922; cv=none; b=TY27FWRjmcnAlnheGbeechZ00ROaFe7ScrSgEwOh+t3lLN874fznkmMYz1REAHH6D3Ka+AAukbXCJlIISrt1h94fxOJlYMel7aWTZ2xXOckuAcoq47uXcLBo9xXLMVOqM6EytZB+e+1smmc6ISG7IbZyYL1LtpiSkrMzZ9USBJw=
+	t=1781496144; cv=none; b=BHRaxUcOq2KktBKVlrb+QkyEMCFX/sezmIg6Yga5C65AdKr32NAxSS1x+e/ivC9VYZZRrAcjdg62f9Bvcu77m/rlV+EUh4F2LhbAS8+h8zg5PzSMZCH6NzLYLKBwv7lNDMBPTrp4b1JY98NEMURkH8Sk1tF/l3dDnpcUfmA3Voo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781495922; c=relaxed/simple;
-	bh=/kBo1xiONou1Fg1ByqINwakDFVscHfazvWeOwHDGqGQ=;
+	s=arc-20240116; t=1781496144; c=relaxed/simple;
+	bh=JY4P7Xh3ds3TBrpzcinVADAvT91i6FdqjmbEvW+AZnA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CVRg1vf1Ml6yuHHxCq5/B2HJdGTcIhixUAKSjg0y0RzWikZlsTNqAbxPDYhnndKxgeIQcI+8KuXYNcasFo61/yPUbvFdKs9nXZWz6D6q97ppAnvx7BHyHlzlBP75+75THxdqMgDAjedVVVoilk7mVGXXnqO7HxC/kuy0Qa5GLv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lvOvEIBT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=r1fwirKPvsXDG1PV9sCFYLt0S4UDCXjQs04yImj3uzv3MlidtCiOd1iFRnfy5ml4PpSnPw1QvF7w0abcoHZu8x9UCTAU4IpPyMCoF9KMmyb4IwXOoiKmZEokqI5tXgmNf0W89SgtcjESrmcxstcogdWK0XIKEupBNGSkLKQP7og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dADPu0+S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lvOvEIBT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA1D1F000E9;
-	Mon, 15 Jun 2026 03:58:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dADPu0+S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6849A1F000E9;
+	Mon, 15 Jun 2026 04:02:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781495921;
-	bh=qLiwW1E4C/8RgcM2DNghzbu2w52Truti3DBiahOsBz8=;
+	s=k20260515; t=1781496142;
+	bh=qh5Pbv7ep5/A+OTLeA627U//JpsxbS1dIws+chWtvNM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lvOvEIBT/z2pozSv3hnRRggFe0eHr27zb1mNcUFDRVVwQaia+KZu77Oak5VmVT9To
-	 Bf2pDoXL1WOr3BkP7HathqdD3R2YOHiBQSoi6/4jcXbeDVLf+l4cQ/2rdvVKZF83cQ
-	 hjVWjayuwJ+3xe42tDw1Skk9T5UdJ8e5Nz3Ov2QVfjdQAxaPGtJNYTUeF0t6n4pEHX
-	 3rLK0/lo5Juo+C1qfy+U+6ix5BLFpgMGEMeEcC2fMQphQUqb6ARMAJRU1rK1bRNPHu
-	 ORTjqmdfrhcuw2eRRM0zJjlEHmWYi405NDxI5QLrjVPbXHCtlpyOyl/mAGf7u2ZBWL
-	 cNEEle6gggiQQ==
+	b=dADPu0+Sbjd9Y8jaGuYw2g2r7RB1KA5b7SwFTDTx9PH8fc2Uw3dcyTVL4k57ANcu2
+	 5ftcxBdrFCbKrbHSYBTSm2fys2tudsQEInCE6hcoYM2HLTBAl38IpaVEAMfbFtOxYi
+	 Eks0JC2LwKaoGrCAmSNPGGDLQ56rB+wPXcvyrYgws+P+REXBqu8Z91Ja8tGMKv6Q+F
+	 HhdlbpdFlSwt+FAq3EkGjm7Wkg94SEFE8khE/yskqFBrxcrQ8OHEw/B3cTxTk+/Nm8
+	 pSkJ8fGvauhGj77fkAZB577t/M6Q6EkNWjMhKudGcEmh+DbAeRvIdb/9KRY3Q9paaw
+	 Qsc49UJ9DmRdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/8] clk: clocking-wizard: Skip s_axi_aclk for
- static-config
+Subject: Re: [PATCH 6/8] clk: clocking-wizard: Add static-config clock
+ provider support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615034845.3320286-8-shubhrajyoti.datta@amd.com>
-References: <20260615034845.3320286-8-shubhrajyoti.datta@amd.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260615034845.3320286-7-shubhrajyoti.datta@amd.com>
+References: <20260615034845.3320286-7-shubhrajyoti.datta@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 03:58:40 +0000
-Message-Id: <20260615035840.BAA1D1F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 04:02:22 +0000
+Message-Id: <20260615040222.6849A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] The driver registers the same `struct notifier_block` instance (`c=
-lk_wzrd->nb`) to two different clock notification chains (`clk_in1` and `ax=
-i_clk`), causing notifier list corruption.
+- [High] Division by zero in `clk_wzrd_determine_rate` when the requested r=
+ate is significantly larger than the parent rate.
+- [High] Logic bug with ignored `min_t` return value leads to unbounded reg=
+ister writes.
+- [High] Division by zero in `clk_wzrd_get_divisors` and `clk_wzrd_get_divi=
+sors_ver` when the target rate is 0.
 --
 
-commit 2cde73f9cf8529ad3e29f28db978947c4f80fd0e
+commit b31cd102641055f0a34c6e79498f21e726bb2a91
 Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
 
-clk: clocking-wizard: Skip s_axi_aclk for static-config
+clk: clocking-wizard: Add static-config clock provider support
 
-For static-config mode the AXI bus interface is not used, so there is
-no need to get and enable s_axi_aclk. Move the axi_clk setup inside
-the non-static-config branch.
+When xlnx,static-config is present the divider/multiplier path is
+synthesized inside the Wizard without exposing runtime MMIO
+reconfiguration, so omit the AXI register mapping and advertise each
+routed output clock as a clk_fixed_factor child of clk_in1 using the
+synthesized ratios exported through xlnx,clk-mul-div.
 
 > diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
 inx/clk-xlnx-clock-wizard.c
-> index 5470a717fccc8..fe73ee02b54ee 100644
+> index ffc78c90bee6f..5470a717fccc8 100644
 > --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
 > +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
+
 [ ... ]
-> @@ -1258,22 +1257,24 @@ static int clk_wzrd_probe(struct platform_device =
-*pdev)
->  		return -ENOMEM;
->  	platform_set_drvdata(pdev, clk_wzrd);
-> =20
-> -	clk_wzrd->axi_clk =3D devm_clk_get_enabled(&pdev->dev, "s_axi_aclk");
-> -	if (IS_ERR(clk_wzrd->axi_clk))
-> -		return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->axi_clk),
-> -				     "s_axi_aclk not found\n");
-> -	rate =3D clk_get_rate(clk_wzrd->axi_clk);
-> -	if (rate > WZRD_ACLK_MAX_FREQ) {
-> -		dev_err(&pdev->dev, "s_axi_aclk frequency (%lu) too high\n", rate);
-> -		return -EINVAL;
-> -	}
-> -
->  	clk_wzrd->clk_in1 =3D devm_clk_get(&pdev->dev, "clk_in1");
->  	if (IS_ERR(clk_wzrd->clk_in1))
->  		return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->clk_in1),
->  				     "failed to get clk_in1\n");
-> =20
->  	if (!of_property_present(np, "xlnx,static-config")) {
-> +		unsigned long rate;
-> +
-> +		clk_wzrd->axi_clk =3D devm_clk_get_enabled(&pdev->dev, "s_axi_aclk");
-> +		if (IS_ERR(clk_wzrd->axi_clk))
-> +			return dev_err_probe(&pdev->dev, PTR_ERR(clk_wzrd->axi_clk),
-> +					     "s_axi_aclk not found\n");
-> +		rate =3D clk_get_rate(clk_wzrd->axi_clk);
-> +		if (rate > WZRD_ACLK_MAX_FREQ) {
-> +			dev_err(&pdev->dev, "s_axi_aclk frequency (%lu) too high\n", rate);
-> +			return -EINVAL;
-> +		}
-> +
+
+This isn't a bug introduced by this patch, but I noticed a potential divisi=
+on
+by zero in the unpatched code:
+
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_determine_rate() {
+    ...
+    div =3D DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
+
+    req->rate =3D req->best_parent_rate / div;
+    ...
+}
 
 [Severity: High]
-This is a pre-existing issue, but does using the same struct notifier_block
-instance for multiple clock notifiers corrupt the notification chain?
+If the requested rate is significantly larger than the best parent rate,=20
+could div evaluate to 0 and trigger a division by zero exception here?
 
-Looking further down in clk_wzrd_probe(), the same &clk_wzrd->nb instance
-is registered to two different clocks:
 
-    ret =3D devm_clk_notifier_register(&pdev->dev, clk_wzrd->clk_in1,
-                                     &clk_wzrd->nb);
+This is a pre-existing issue, but the capping logic appears to be unused
+in the following code:
+
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_dynamic_reconfig() {
     ...
-    ret =3D devm_clk_notifier_register(&pdev->dev, clk_wzrd->axi_clk,
-                                     &clk_wzrd->nb);
+    /* Cap the value to max */
+    min_t(u32, value, WZRD_DR_MAX_INT_DIV_VALUE);
 
-Since a struct notifier_block has a single next pointer, registering the
-same instance to a second chain overwrites its next pointer. Doesn't this
-merge the two clock notification chains and corrupt the first notifier list?
+    /* Set divisor and clear phase offset */
+    writel(value, div_addr);
+    ...
+}
 
->  		clk_wzrd->base =3D devm_platform_ioremap_resource(pdev, 0);
->  		if (IS_ERR(clk_wzrd->base))
->  			return PTR_ERR(clk_wzrd->base);
+[Severity: High]
+Does this code leave value unbounded before the register write since the
+return value of min_t() is not assigned to anything?
+
+
+This isn't a bug introduced by this patch, but there might be another divis=
+ion
+by zero risk in the divisor calculations:
+
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_get_divisors_ver() {
+    ...
+    o =3D DIV_ROUND_CLOSEST_ULL(vco_freq, rate);
+    ...
+}
+
+And similarly in clk_wzrd_get_divisors():
+
+drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_get_divisors() {
+    ...
+    o =3D DIV_ROUND_CLOSEST_ULL(vco_freq, rate);
+    ...
+}
+
+[Severity: High]
+If rate is exactly 0, can this cause a kernel panic due to a division
+by zero?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615034845.3320=
-286-1-shubhrajyoti.datta@amd.com?part=3D7
+286-1-shubhrajyoti.datta@amd.com?part=3D6
