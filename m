@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC71B3B1019
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:59:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3573FA5F2
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781539186; cv=none; b=Mb6PoIKiIGE34zht1lBZuepqEgxwnzNwqRH7KEATUcbw52/z+fclE1L+KCal6ZkX9WDWxGEodLw6BAOlOtx1zcFSosclw+rb43GUAzP6BozPa7120mON5I0yQF+Objxg9KLGnn40uKHRu8vYvFe6plOUypwbvuUOKIKp1NSkaCc=
+	t=1781539242; cv=none; b=TO9OlkUR49wlCkWRTQ76FvZM3F5Cvhu448VsWSIEbMTq6+KMSG2DVk6rmchDcwv5NZAcBPk5EzEZz3aFzf3sVDd7YWz7qp8iAvDi3GQl0G6fqFSK3mHSTNJEnXhscLykPAURqe8NX8Vk9Yon6ocJf1GkUevQFYtbAiszVcB++kI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781539186; c=relaxed/simple;
-	bh=lmbFtVQGC89p9asOJlsHg0zQVd1y7DvM9DUr9dhMHW4=;
+	s=arc-20240116; t=1781539242; c=relaxed/simple;
+	bh=Qh+ISSIW9F9nJWAHe5XUZH6Hyr+Xx2qDwzsQrC+22Wc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uyQkyVDJij6uc4UcR3vBLHu9dxwm8ltj4gFwGKYH52IveBPnQDVhHHZAzRxabxXt/4oji3gjWLw3UNRUzh+u6Ca3sdljqzYIQLsDUnFCcUwmgnrzYyRBj4qrXLEaSDO6Ki5uiIGqM+XE7IOtCWF+dELKwYOJWcex1oQ+6uaqD7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9USl+I5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kalFDQB0a6u/phile+mZBMznaW6VZdHspGs8V1L3zwzqpU9af/+pKZsOoQKGiJFUmL8UTnWa1FKHkLtX73XxvaNRD3ZVzCKGa1Guy8evU7vvaUi3orrB7cBtU907qzTtClmch5a3pTkB3iKD/5P/E1WX9ynK9CqXZ/Fqf5IixPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onGYzPO/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9USl+I5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438721F000E9;
-	Mon, 15 Jun 2026 15:59:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onGYzPO/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670BE1F00A3A;
+	Mon, 15 Jun 2026 16:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781539185;
-	bh=oowwAoaPGfuvLcQr6HMntUEiFJWGTXVyXNzp6sTAzo0=;
+	s=k20260515; t=1781539241;
+	bh=hcsOnkjSbROmmF5NX+yApfiaHoZ66P0BuIBQbcgufbE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b9USl+I5r4P2/8+ZzBObmkZM11ZefT+zgEykR0s66B5+DjTS9tvotgS5jcLxeEBoo
-	 8inl0Avv8jpuDAbOa4yZyJ8L7L9WgFrN36ME6bK1NMXWtl9TtzeZGwYgzcFKxxg+vl
-	 /DeCqQlMvIdMJZ/kHgVK40OuJMfKecJjCwNegMd2TF/0VCAGVUG7YjNpEx1M8HF42z
-	 x9Idbr9hIWbH1ueGGW25amgxs5u3lUoSLGMZaPzp9IlpL7/UAadPIgMjW0AFHlsuNM
-	 xnadW5Brio7dqkYHSnItgjYaykfZG8x1edrrJ7Lp1EijiwEWlX0VhvCMxNqI6sgcOL
-	 jQ21hi/7nYzSg==
+	b=onGYzPO/WBkEAUKx2/1QWnI/JDOpg5VubQeMuBcISctWLSIC8HNnw9gUyRFv31Iww
+	 EBjun6x8AfFf0lqZBhoTtYa3y6u43Nd81uY0KE9mD+8h2HEgQb72I30+pm2owwwiiM
+	 LknJtErL8GzMUeG5c3xLo9Br0KNY8CC+mQEmGUnM7U19LsNh/obnONhI06BrGPEpdG
+	 KUr3GaKir6NcXoLx+iGfjSLPhDh3wfNWyDBiSlzpKS6AjMwcoHFlIrJjaE9gxnBCo3
+	 gOsw5w9KwlAlmFg60Dv1nn88+EgTDbMBmzpcQ4Rgwj5gfBnPGWgOF40U+quJt29XXF
+	 MJ/eZMyZzYmOQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 05/12] rtc: rzn1: Add system suspend/resume support and
- wakeup capability
+Subject: Re: [PATCH 07/12] rtc: rzn1: fix alarm range check truncation on
+ 32-bit systems
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615154805.1619693-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615154805.1619693-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 15:59:44 +0000
-Message-Id: <20260615155945.438721F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 16:00:41 +0000
+Message-Id: <20260615160041.670BE1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,117 +47,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] Incorrect error rollback and returning errors from rzn1_rtc_resu=
-me() breaks wakeup configuration.
-- [Medium] A hardware limitation is logged as a critical error on every sus=
-pend.
-
 Pre-existing issues:
-- [High] Asynchronous pm_runtime_put() is used before devres pm_runtime_dis=
-able(), leaving hardware powered on.
+- [High] Incorrect hardware alarm weekday assignment due to unsigned underf=
+low when the alarm crosses a month boundary.
+- [High] Unconfigured alarms in `rzn1_rtc_read_alarm` can return an invalid=
+ `tm_wday` value of `-1`, risking out-of-bounds array access in userspace.
+- [High] Potential spurious interrupt when sequentially updating active har=
+dware alarm registers.
 --
 
-commit 65fe5cbeb3fc2e52fb88cf7b501a98dd6399fa39
+commit d278abd6309a65fff235820bea9a8e8631da47be
 Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: rtc: rzn1: fix alarm range check truncation on 32-bit systems
 
-rtc: rzn1: Add system suspend/resume support and wakeup capability
-
-Add system-wide power management support along with wakeup capability to
-the rtc-rzn1 driver, bridging sub-minute gaps with a 1-second periodic
-broadcast loop.
+This commit fixes a silent truncation issue on 32-bit systems by changing
+the alarm and farest variables from unsigned long to time64_t. It also
+replaces the time_after() macro with a direct signed comparison.
 
 > diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-> index 866ff595188d8..12a319e9112c1 100644
+> index fe21fa6242881..06339adae71f6 100644
 > --- a/drivers/rtc/rtc-rzn1.c
 > +++ b/drivers/rtc/rtc-rzn1.c
 [ ... ]
-> @@ -500,6 +511,74 @@ static void rzn1_rtc_remove(struct platform_device *=
-pdev)
->  	pm_runtime_put(&pdev->dev);
->  }
+> @@ -265,8 +266,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, str=
+uct rtc_wkalrm *alrm)
+>  {
+>  	struct rzn1_rtc *rtc =3D dev_get_drvdata(dev);
+>  	struct rtc_time *tm =3D &alrm->time, tm_now;
+> -	unsigned long alarm, farest;
+>  	unsigned int days_ahead, wday;
+> +	time64_t alarm, farest;
+>  	int ret;
+> =20
+>  	ret =3D rzn1_rtc_read_time(dev, &tm_now);
+> @@ -276,7 +277,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, str=
+uct rtc_wkalrm *alrm)
+>  	/* We cannot set alarms more than one week ahead */
+>  	farest =3D rtc_tm_to_time64(&tm_now) + rtc->rtcdev->alarm_offset_max;
+>  	alarm =3D rtc_tm_to_time64(tm);
+> -	if (time_after(alarm, farest))
+> +	if (alarm > farest)
+>  		return -ERANGE;
+> =20
+>  	/* Convert alarm day into week day */
 
 [Severity: High]
-This is a pre-existing issue, but does using pm_runtime_put() here and in
-the dis_runtime_pm error path of rzn1_rtc_probe() leave the hardware
-powered on?
+This isn't a bug introduced by this patch, but does the calculation for
+days_ahead underflow if the alarm crosses a month boundary?
 
-The driver initializes runtime PM using devm_pm_runtime_enable(), which
-registers a devres action to call pm_runtime_disable() upon probe failure
-or device removal. By calling the asynchronous pm_runtime_put(), the
-suspend operation is queued but immediately cancelled by the subsequent
-pm_runtime_disable() devres action.
+In rzn1_rtc_set_alarm(), days_ahead is typed as an unsigned int and is
+calculated like this:
 
-Should pm_runtime_put_sync() be used instead when pm_runtime_disable()
-follows immediately to ensure the device is properly suspended?
+    days_ahead =3D tm->tm_mday - tm_now.tm_mday;
+    wday =3D (tm_now.tm_wday + days_ahead) % 7;
 
-> +static int rzn1_rtc_suspend(struct device *dev)
-> +{
-> +	struct rzn1_rtc *rtc =3D dev_get_drvdata(dev);
-> +	int ret;
-[ ... ]
-> +	if (rtc->alarm_enabled)
-> +		dev_crit(dev, "second/minute-level wakeup accuracy cannot be guarantee=
-d by HW\n");
+If the alarm is set for the 1st of the next month, and today is the 31st,
+the subtraction results in -30. When assigned to an unsigned int, this
+underflows. Because 2^32 % 7 evaluates to 4, the resulting wday calculation
+shifts the weekday by exactly 4 days, causing the hardware alarm register
+to be programmed for the wrong day.
 
-[Severity: Medium]
-Does this unconditionally log a critical message on every suspend if the
-alarm is enabled?
+[Severity: High]
+This is a pre-existing issue, but is there a risk of a spurious interrupt
+when updating the active hardware alarm registers?
 
-Since this is a known architectural limitation rather than an acute failure,
-this will spam the kernel log with critical severity messages during normal
-system suspend operations.
+Just below this hunk in rzn1_rtc_set_alarm(), the match registers are
+updated sequentially:
 
-Would it be better to downgrade this to dev_warn() or dev_info()?
+    writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
+    writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
+    writel(BIT(wday), rtc->base + RZN1_RTC_ALW);
 
-> +	ret =3D enable_irq_wake(rtc->alarm_irq);
-> +	if (ret)
-> +		return ret;
-> +	if (rtc->sec_irq >=3D 0) {
-> +		ret =3D enable_irq_wake(rtc->sec_irq);
-> +		if (ret) {
-> +			disable_irq_wake(rtc->alarm_irq);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rzn1_rtc_resume(struct device *dev)
-> +{
-> +	struct rzn1_rtc *rtc =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (!device_may_wakeup(dev))
-> +		return 0;
-> +
-> +	ret =3D disable_irq_wake(rtc->alarm_irq);
-> +	if (ret)
-> +		return ret;
-> +	if (rtc->sec_irq >=3D 0) {
-> +		ret =3D disable_irq_wake(rtc->sec_irq);
-> +		if (ret) {
-> +			enable_irq_wake(rtc->alarm_irq);
-> +			return ret;
-> +		}
-> +	}
+The RTC core can invoke this function without first disabling the hardware
+alarm if replacing an existing timer. If the hardware alarm interrupt is
+active, modifying these registers sequentially could cause the intermediate
+hardware state to momentarily match the current time, triggering a spurious
+interrupt and prematurely expiring the next timer in the queue.
 
-[Severity: Medium]
-Is it correct to re-enable the alarm_irq wakeup source and return an error
-here in rzn1_rtc_resume() if disable_irq_wake() fails?
+[Severity: High]
+This is a pre-existing issue, but what happens in rzn1_rtc_read_alarm() if
+the hardware alarm is unconfigured?
 
-Because the PM core ignores device resume failures and continues the
-system resume sequence, returning an error here and re-enabling alarm_irq
-leaves it permanently configured as a wakeup source while the system is
-active. This unbalanced state could lead to spurious wakeups.
+If the hardware alarm register reads 0, fls(0) - 1 evaluates to -1:
 
-Should the rollback logic be reconsidered or removed for the resume path?
+drivers/rtc/rtc-rzn1.c:rzn1_rtc_read_alarm() {
+    ...
+    wday =3D readl(rtc->base + RZN1_RTC_ALW);
+    ...
+    delta_days =3D ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
+    tm->tm_wday =3D fls(wday) - 1;
+    ...
+}
 
-> +
-> +	return 0;
-> +}
+If the current weekday is Saturday (6), delta_days evaluates to 0:
+((-1 - 6 + 7) % 7) =3D=3D 0.
+
+Because delta_days is 0, the rtc_time64_to_tm() block is skipped, and the
+function returns with tm->tm_wday =3D -1. Since rtc_valid_tm() does not
+bound-check tm_wday, this -1 is passed to userspace where tools commonly
+use it as an array index, which could cause an out-of-bounds memory read.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615154805.1619=
-693-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D5
+693-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D7
