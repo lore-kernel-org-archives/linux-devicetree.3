@@ -1,96 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D7528541A
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CCB296BCD;
+	Mon, 15 Jun 2026 06:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781505203; cv=none; b=lt9PAjYnT5ru4A6voqHBEGQILz2a/nghQ5w1+ITbQIi5RMLQbGMeamawG+E7bumHhPrGwwUryfUs+ayOoDERllY7DytKm2YC6yRH64wzo0VTs2cSzxqDKyWilnGtNRKvJNPERgLKctxXRrAojSQ3FLuU1EMF0aYCBh8xu/I87qo=
+	t=1781505217; cv=none; b=CkEi96GJjfESa7rtnlvmeJnOVhB0vbW8RQ4YeK7SUcf+w+axGRsgJW1n6If3994wAS2MseRMtLueMsxsiV2hyBzh1V/DOlKPi3RjYJ6VNkk0arVkmluMxWAjBTEYsAoTTTILVlioZnosQYJqTkSQ91OMCI1LE0jmfH2uyE/y4K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781505203; c=relaxed/simple;
-	bh=nzO2zgyt9J+x11p32VUmgb54uNujxbZuMjjY90xiVQw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IWj1ShgVUMIIh2K/+BZuoFkXvfgE4e7KvANA9BEV+nxsRsawAWqG6RUnpO9QPlot5qeKzihSjNqYnESi8QocIc/r8ETS+S0vnE63HoXedYHsaYcfwJDlZHV9tqkyFY9naqyRu11KewgSR+usqZRyMC331SF9zrOfJCT2AbI3Cz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSO9daLV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781505217; c=relaxed/simple;
+	bh=Xe9l67nGt4Kc4L+FUqiFs8jrQ7lqDLD2IBmMl0ujvGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eiQjRBPrFYsh7fIM6KF+ENvDNz4579V/SviBspbT5aCe06RFMNHyBCy+r9BIMgoqPg7thlMtznbNgZyEqpf2A91TYMfUt2hGbre73lAx7SaO5f7syVQ0PBCKionPMR7PzkiAd4ByUiwoUhvqkxAwqpBHV54oGmplASJnLtrp4vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZx677jE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSO9daLV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12091F000E9;
-	Mon, 15 Jun 2026 06:33:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZx677jE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841801F000E9;
+	Mon, 15 Jun 2026 06:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781505202;
-	bh=Sx7iz8jFx4o/z70sjukhDvOyVkCcR2lJqbus2U/QkeE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cSO9daLVYqULnfhp2AmnFcNrjTxHPcA48Pauu4q2+EOyMI6q4+w618zhKmCJpVbXt
-	 BixYlErmXpLfSofaVpQbR4Evp9o44YMLGE4vD1KzR+01YyVn4uwIYW7GTgQ478J7yQ
-	 Zs5WePag1vX8QtThiKS9NzORg247iNGwxsAbXx5c/4kTdIYRi3gpX/QhZJ98ZZDuAu
-	 dO7GqHFmPnmyTHcVX3LyCVR2NuBvAo8Ekp0XwtGIy7bLIoL1UCFDgLsfh8g50VXkJt
-	 gXY9Y4fm5MUyZJKAe0suXFeIdH68rRtwjM7dGDSRisZKf+i+T9pXix5rEiQgcuX2Em
-	 lTGJ5Uf0Um2Xw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: iio: dac: add support for
- AD3532R/AD3532
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kim Seer Paller" <kimseer.paller@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615-iio-ad3532r-support-v2-3-84a0af8b83fa@analog.com>
-References: <20260615-iio-ad3532r-support-v2-3-84a0af8b83fa@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:33:21 +0000
-Message-Id: <20260615063321.D12091F000E9@smtp.kernel.org>
+	s=k20260515; t=1781505216;
+	bh=+QxQVQJlIGn+2ZDCWDLM0UXRIyhO2e1DQA5DWZNrCss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SZx677jEm2tC5R3Hj+19phsHzay5QecVVID55jtGEu2sNMcLuhEjRPcs2DlaJ4oMQ
+	 anUHZXaqQkXme9XedriIJ70mFzaCYDotvliDBif99LaO+cIBsYB4lsQKZ1aQUks1Ts
+	 jZ+ojdEaQSXknVzIUkqDdaHY14O/TqF9gNtVshQ5yqQIatA8BVvePlZk0MpdKrhEFB
+	 65p91kPXpEv+zZQuEgP8KOuCOESxd22SQwFVy4bX/s+1fzDkGvBesBRiY20LAu3XYk
+	 IciQGk0QvXK7hOTZsgpAx3eh/C6cnA2YjER2beZuLrh3NtfMpGYgjR7cCti+7VB02K
+	 OaRAm1r+w3I7Q==
+Date: Mon, 15 Jun 2026 08:33:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Subject: Re: [PATCH] of: property: Fix of_fwnode_get_reference_args() with
+ negative index
+Message-ID: <20260615-obedient-axolotl-of-argument-fb55ef@quoll>
+References: <20260611102806.2643869-1-alban.bedel@lht.dlh.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260611102806.2643869-1-alban.bedel@lht.dlh.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `ad3530r_chip` struct initialization redundantly initializes `.=
-input_ch_reg` twice.
---
+On Thu, Jun 11, 2026 at 12:28:06PM +0200, Alban Bedel wrote:
+> fwnode_property_get_reference_args() should return -ENOENT when an out
+> of bound index is passed. An issue arised with the OF backend because
+> the OF API use signed indexes while the fwnode API use unsigned ones.
+> When an index value greater the INT_MAX was passed to the OF backend
+> it got casted to a negative value and it returned -EINVAL instead of
 
-commit 2528c529a11e7b49d5cde3c0238451d59c5f698b
-Author: Kim Seer Paller <kimseer.paller@analog.com>
+INT_MAX is not out of bound for this function. It is invalid value,
+because OF code expects signed.
+ 
+> -ENOENT. This patch add a check to of_fwnode_get_reference_args() to
+> catch negative index before they are passed to the OF API and return
+> -ENOENT right away.
 
-iio: dac: ad3530r: Refactor setup to table-driven register bank approach
+I do not understand why are you fixing this issue that way. For this
+API, the INT_MAX is correct value, but you claim that it is wrong and
+should be ENOENT (even if there is entry).
 
-Replace direct register calls in ad3530r_setup() with per-chip register
-address arrays and bank helpers. Convert sw_ldac_trig_reg from a static
-register address to a function pointer for per-bank LDAC trigger
-register selection. Switch spi_device_id to named initializers.
+Fine, if this is not a correct value, then EINVAL.
 
-> diff --git a/drivers/iio/dac/ad3530r.c b/drivers/iio/dac/ad3530r.c
-> index d9db3226ecd64..e4346bc729ba5 100644
-> --- a/drivers/iio/dac/ad3530r.c
-> +++ b/drivers/iio/dac/ad3530r.c
+But more important I think this should be just fixed in different way -
+why index in OF calls is signed in the first place? All indices are
+supposed to be unsigned in general, because that is both logical and
+readable when accessing arrays.
 
-[ ... ]
+> 
+> This issue appeared when the following pattern was used in the LED
+> subsystem:
+> 
+>     index = fwnode_property_match_string(fwnode, "led-names", name)
+>     led_node = fwnode_find_reference(fwnode, "leds", index);
+> 
+> Unlike the same pattern with the OF API, this pattern implicitly cast
+> the signed return value of fwnode_property_match_string() to an
+> unsigned index leading to the above issue with the OF backend. It can
+> be argued that the return value of fwnode_property_match_string()
+> should be checked separately, but I think there is value in supporting
+> such simple and straight to the point patterns.
+> 
+> Link: https://lore.kernel.org/linux-leds/aimVRwJPhlGxsIUj@tom-desktop/T/#mc43cbf7e0599991b56dd0d9680714d28d145fbc8
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
+> ---
+>  drivers/of/property.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/of/property.c b/drivers/of/property.c
+> index 136946f8b746f..eace2d1847b99 100644
+> --- a/drivers/of/property.c
+> +++ b/drivers/of/property.c
+> @@ -1157,6 +1157,13 @@ of_fwnode_get_reference_args(const struct fwnode_handle *fwnode,
+>  	unsigned int i;
+>  	int ret;
+>  
+> +	/* This function should return -ENOENT for out of bound indexes,
 
-> @@ -344,7 +387,14 @@ static const struct ad3530r_chip_info ad3530r_chip =
-=3D {
->  	.name =3D "ad3530r",
->  	.channels =3D ad3530r_channels,
->  	.num_channels =3D ARRAY_SIZE(ad3530r_channels),
-> -	.sw_ldac_trig_reg =3D AD3530R_SW_LDAC_TRIG_A,
-> +	.sw_ldac_trig_reg =3D ad3530r_trigger_sw_ldac_reg,
-> +	.input_ch_reg =3D ad3530r_input_ch_reg,
-        ^^^^^^^^^^^^^
+/*
 
-[Severity: Low]
-Is .input_ch_reg redundantly initialized here?  It looks like .input_ch_reg
-is also assigned just a few lines down in this struct.
+Please use Linux coding style comments.
 
-> +	.interface_config_a =3D ad3530r_if_config,
-> +	.output_control =3D ad3530r_out_ctrl,
-> +	.reference_control =3D ad3530r_ref_ctrl,
-> +	.op_mode =3D ad3530r_op_mode,
-> +	.num_banks =3D ARRAY_SIZE(ad3530r_if_config),
-> +	.num_op_mode_regs =3D ARRAY_SIZE(ad3530r_op_mode),
->  	.input_ch_reg =3D ad3530r_input_ch_reg,
->  	.internal_ref_support =3D true,
->  };
+> +	 * but the OF API uses signed indexes and consider negative indexes
+> +	 * as invalid. Catch them here to correctly implement the fwnode API.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-iio-ad3532=
-r-support-v2-0-84a0af8b83fa@analog.com?part=3D3
+Best regards,
+Krzysztof
+
