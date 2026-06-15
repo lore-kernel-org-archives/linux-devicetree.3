@@ -1,187 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7FF3FBECE;
-	Mon, 15 Jun 2026 14:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54EF33711D
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534607; cv=none; b=k2jBe19v8PKrmoOnTlcF1edZ7g9fyOh9h5OiUsqbA2ET2kRXFFfCK2jUXHaPO7dTODsQpSNUaP9ty8FjBgcEs5ctSDRTyxiaTwqo0Jku/0PQqGf5CMWrozZidRH7os7eUO6GneZeNrs7x5ijU9hgFHVwY+u92q6qW7V/HpGgg6w=
+	t=1781534661; cv=none; b=X73cUmoBDoWpAVS8NE+Rv7vBlBUBVRxqK4EnPKhCPI3tObPhXT8DfsQW8jurpod170fXRaLDcX/0x4dDkpDVqNRikui2Yu+uhTAC786J/yw8pOCMEV0EGaaHex/yQwnFqeTGeQb4gY579Gs8tSU/giydICXxwpox4pR2qShd+kY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534607; c=relaxed/simple;
-	bh=KFhiv7ZY9NvifF6eaVaM6d2i696gChhNL8L7Sqi6BwA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KxfncB+8kAvfXOkoipTe0zYJyjMvc4etlGsmLXIBVIuK9u1NnhlfeIyAVdKQ3sPHgxdLOcR+zHTRIAlF+j66E01pNJGmD7MyxFofePvsYw51ipi/VJHVpEs1YTb5sCewAxjSyIDwXzbTJBqhfDLr6IWYU2ExFrjP5j0ATnO5ZWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EjzfOp+G; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781534661; c=relaxed/simple;
+	bh=0uLKTvbEAK+Dn2jOLZxPcDA5FGg6UyplCkgx7XgWTI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nlqh/jAGm1Bo8w9X1G7VLazOKo6twXzIEFSAr/JkWq/u59erl2uSa+uJl8zny7yI3YaNvBV0Eg80MPnYaHBycx8HCtdmdEUqkXdKdPbSJ2H8UojdQ0y77B6pdXkgLJHrFV7AzghOnovy9OI1xuYKjECwQ/HKA0fKKF6un/FC49M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YFbbhTW9; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EjzfOp+G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781534606; x=1813070606;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KFhiv7ZY9NvifF6eaVaM6d2i696gChhNL8L7Sqi6BwA=;
-  b=EjzfOp+GOSmpGfoHwX3XOZaA0mWIYVfygC8qs+AcRaiwFUHvTysPwj0g
-   eJyVzV+PSAM6wTFVGi3pnNfYLRKPkRrVL4GlsRHPiXv1u/onXNXTpRAyS
-   NqMAIeKYp/EmU4wdTg037F6tIKUHylBZQLudDMvSo79HrBggCRAvvuma1
-   eSGX+yS3iBAT5wu+d4+eSnMyBJuYEYDuQaz1da+Q78TAVohdIpIHFzf/O
-   SMlN7Wi9k6Vsot1XYGcx2D3QX8PEungTwi3TZI28ZXoUms1+304tflBok
-   olwJ5FnlRcQ2ULhdPAFUGNw0OAN8QrIhv15TtKZjMkit1DiJvSMRGt+Gf
-   Q==;
-X-CSE-ConnectionGUID: X4sMJU/8RDqIJydfw6+tIA==
-X-CSE-MsgGUID: nQsFH/B/SKy7OtY/srIlQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="99851469"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="scan'208";a="99851469"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:43:25 -0700
-X-CSE-ConnectionGUID: DOj26RyoTMaML0W6xUW8fA==
-X-CSE-MsgGUID: HVX23VVZQb+DqeKruw/o7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="scan'208";a="247580409"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 07:43:22 -0700
-Date: Mon, 15 Jun 2026 17:43:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Salih Erim <salih.erim@amd.com>
-Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
-	linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/5] iio: adc: versal-sysmon: add threshold event
- support
-Message-ID: <ajAPh4xKqxRyIpBe@ashevche-desk.local>
-References: <20260614233722.2603459-1-salih.erim@amd.com>
- <20260614233722.2603459-5-salih.erim@amd.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YFbbhTW9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1DF35C2BB2A;
+	Mon, 15 Jun 2026 14:44:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A343460015;
+	Mon, 15 Jun 2026 14:44:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 528B2106C96A2;
+	Mon, 15 Jun 2026 16:44:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781534656; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=LNQ/A2/WUxw1qFzNZc5VEP3z3YtNzDc9swfW+wlF7i8=;
+	b=YFbbhTW99y38MgG/y6VAC2apnTEuaqt6BDTPv9X3YLQtVK46ALfjRfM6dV6JqDaRUgaKv1
+	Tl5JwKrF2HGbLIpA6BkSC+2OBNkydc3UsTtL6Qs1bij61KpbHSUaB2I5zj/9vHwdAslEjc
+	yxZ/sIka+VFvbfErdSPCAyXCr80uUYXDzHyhezFO2fiMGOdftv0vfRyoisP1Znms6bOc1U
+	NQDEJ6nnFnCxASwF6fHXoT0tny4ZJWkthBI6iRizavgRM6f8jvKuT39ZEl6DBL7M5T8xMu
+	5tP6/dIn7nfxVoVcmwa83SjNCEK9mT6utIwt+jm/qpxSMjTSRqDlNigCOg/iIQ==
+Message-ID: <0355da28-d3d7-41ee-ad85-632cc2e03951@bootlin.com>
+Date: Mon, 15 Jun 2026 16:44:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260614233722.2603459-5-salih.erim@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 05/12] net: phylink: support late PCS provider
+ attach
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-6-ansuelsmth@gmail.com>
+ <867a39de-ccc2-4dcf-be24-ab2542d20ab6@bootlin.com>
+ <6a3007ce.73de60af.3a056d.d903@mx.google.com>
+ <7702ac09-75fd-49de-8ad2-fceaa122b627@bootlin.com>
+ <6a300da0.d5af3cef.1ca29d.19c4@mx.google.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <6a300da0.d5af3cef.1ca29d.19c4@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Jun 15, 2026 at 12:37:21AM +0100, Salih Erim wrote:
-> Add threshold event support for temperature and supply voltage
-> channels.
+
+
+On 6/15/26 16:35, Christian Marangi wrote:
+> On Mon, Jun 15, 2026 at 04:29:04PM +0200, Maxime Chevallier wrote:
+>>
+>>
+>> On 6/15/26 16:10, Christian Marangi wrote:
+>>> On Mon, Jun 15, 2026 at 04:07:03PM +0200, Maxime Chevallier wrote:
+>>>> Hi Christian,
+>>>>
+>>>> On 6/15/26 14:29, Christian Marangi wrote:
+>>>>> Add support for late PCS provider attachment to a phylink instance.
+>>>>> This works by creating a global notifier for the PCS provider and
+>>>>> making each phylink instance that makes use of fwnode subscribe to
+>>>>> this notifier.
+>>>>>
+>>>>> The PCS notifier will emit the event FWNODE_PCS_PROVIDER_ADD every time
+>>>>> a new PCS provider is added.
+>>>>>
+>>>>> phylink will then react to this event and will call the new function
+>>>>> fwnode_phylink_pcs_get_from_fwnode() that will check if the PCS fwnode
+>>>>> provided by the event is present in the pcs-handle property of the
+>>>>> phylink instance.
+>>>>>
+>>>>> If a related PCS is found, then such PCS is added to the phylink
+>>>>> instance PCS list.
+>>>>>
+>>>>> Then we link the PCS to the phylink instance and we refresh the supported
+>>>>> interfaces of the phylink instance.
+>>>>>
+>>>>> Finally we check if we are in a major_config_failed scenario and trigger
+>>>>> an interface reconfiguration in the next phylink resolve.
+>>>>>
+>>>>> In the example scenario where the link was previously torn down due to
+>>>>> removal of PCS, the link will be established again as the PCS came back
+>>>>> and is now available to phylink.
+>>>>>
+>>>>> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+>>>>> ---
+>>>>
+>>>> [...]
+>>>>
+>>>>> @@ -2151,6 +2204,10 @@ void phylink_destroy(struct phylink *pl)
+>>>>>  	if (pl->link_gpio)
+>>>>>  		gpiod_put(pl->link_gpio);
+>>>>>  
+>>>>> +	/* Unregister notifier for late PCS attach */
+>>>>> +	if (pl->fwnode_pcs_nb.notifier_call)
+>>>>> +		unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+>>>>
+>>>> I wanted to try this out, but I get :
+>>>>
+>>>> drivers/net/phy/phylink.c:2218:17: error: implicit declaration of function ‘unregister_fwnode_pcs_notifier’; did you mean ‘register_fwnode_pcs_notifier’? [-Werror=implicit-function-declaration]
+>>>>  2218 |                 unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+>>>>       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>>       |                 register_fwnode_pcs_notifier
+>>>>
+>>>> I guess you either need to stub this, or there's a missing Kconfig
+>>>> dependency somewhere
+>>>>
+>>>
+>>> Hi yes if you want toi test just enable CONFIG_FWNODE_PCS. I forgot to add
+>>> the static declaration for unregister_fwnode_pcs_notifier. 
+>>
+>> I'll give it a go with this yeah, I have a few devices here I'd like to
+>> try this on.
+>>
+>> Can you CC me for the next rounds ?
+>>
 > 
-> Temperature events:
->   - Rising threshold with configurable value on the device
->     temperature channel (current max across all satellites)
->   - Per-channel hysteresis as a millicelsius value
->   - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
+> Sure, if you can would be good to check also the other commit if everything
+> is logically correct.
+
+Absolutely, I'm planning on doing this :) This is quite the series though,
+I'll try to give it some deeper look in the upcoming days, I expect net-next
+to close soon anyways, so that's as good as it gets for reviewing this :)
+
+Also, it's probably a good idea to have Sean in CC as well, I know a few people
+interested in the Xilinx PCS his series brought, hopefully he can follow-up on
+this series with the other new PCS drivers.
+
 > 
-> Supply voltage events:
->   - Rising/falling threshold per supply channel
->   - Per-channel alarm enable via alarm configuration registers
+> BTW by checking test from patchwork I can see also another fix is needed if
+> you want to test this revision.
 > 
-> The hardware supports both window and hysteresis alarm modes for
-> temperature. This driver uses hysteresis mode, where the upper
-> threshold triggers the alarm and the lower threshold clears it
-> (re-arm point). The hardware has a single ISR bit per temperature
-> channel with no indication of which threshold was crossed, so
-> hysteresis mode is the natural fit. The lower threshold register
-> is computed internally as (upper - hysteresis).
+> phylink_create()
 > 
-> Hysteresis is stored in the driver as a millicelsius value,
-> initialized from the hardware registers at probe. Writing the
-> rising threshold or hysteresis recomputes the lower register.
-> ALARM_CONFIG is hard-coded to hysteresis mode during init.
+> -if (config->num_possible_pcs && pl->mac_ops->mac_select_pcs) {
+> +if (config->num_possible_pcs && mac_ops->mac_select_pcs) {
+
+Ack, I'll test it with this change, thanks :)
+
+Maxime
+
 > 
-> The hardware also provides a separate over-temperature (OT)
-> threshold, but it is not exposed through IIO as it serves as a
-> hardware safety mechanism for platform shutdown. OT will be
-> exposed through the thermal framework in a follow-up series.
+> Aside from these change I expect the current legacy code to be not
+> affected by these change.
+
+I'll probably have things to say about this "legacy" naming :)
+
+Thanks for driving this work forwards anyway, that's 
+
 > 
-> The interrupt handler masks active threshold interrupts (which are
-> level-sensitive) and schedules a delayed worker to poll for condition
-> clear before unmasking. When no hardware IRQ is available, event
-> specs are not attached and interrupt init is skipped, since the
-> I2C regmap backend cannot be called from atomic context.
-> 
-> When disabling a supply channel alarm, the group interrupt remains
-> active if any other channel in the same alarm group still has an
-> alarm enabled.
-> 
-> A devm cleanup action masks all interrupts on driver unbind to
-> prevent unhandled interrupt storms after the IRQ handler is freed.
-
-...
-
-> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
-> +{
-> +	*val = (raw_data * (int)MILLI) >> SYSMON_FRACTIONAL_SHIFT;
-
-MILLIDEGREE_PER_DEGREE is defined as int.
-
-> +}
-> +
-> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
-> +{
-> +	*raw_data = (val << SYSMON_FRACTIONAL_SHIFT) / (int)MILLI;
-
-Ditto.
-
-> +}
-
-...
-
-> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_data)
-> +{
-> +	int exponent = FIELD_GET(SYSMON_MODE_MASK, reg_val);
-> +	int format = FIELD_GET(SYSMON_FMT_MASK, reg_val);
-> +	int scale, tmp;
-> +
-> +	scale = BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
-> +	tmp = (val * scale) / (int)MILLI;
-
-Due to agnosticism of this function, I dunno if the above can be applied here.
-
-> +	if (format)
-> +		tmp = clamp(tmp, S16_MIN, S16_MAX);
-> +	else
-> +		tmp = clamp(tmp, 0, U16_MAX);
-> +
-> +	*raw_data = (u16)tmp;
-> +}
-
-...
-
-> +static int sysmon_read_alarm_config(struct sysmon *sysmon,
-> +				    unsigned long address)
-> +{
-> +	u32 shift = address % SYSMON_ALARM_BITS_PER_REG;
-> +	u32 offset = SYSMON_ALARM_OFFSET(address);
-> +	unsigned int reg_val;
-> +	int ret;
-> +
-> +	ret = regmap_read(sysmon->regmap, offset, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return !!(reg_val & BIT(shift));
-
-regmap_test_bits()?
-
-> +}
-
-...
-
-> -static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
-> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev,
-> +			   int irq)
-
-I would leave one line (82 characters IIANM).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
 
