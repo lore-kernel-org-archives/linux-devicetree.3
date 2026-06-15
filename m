@@ -1,763 +1,218 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B953B6C00
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A793B6378
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781560879; cv=none; b=Sbla9oVD1oNnaeqKqSRwzqfOUXohNjj6oPFyFwEhSwlHapomnNkzO+MyxsDmvYEVwkhsuzL7sK0R8CoPt1SMMk7UNw+b1ZUw2ud81FsmMHtSzM5+8QTcbhgJHUXN0f0RG+WBN4SaHPkc/5T83KXRMxJBj5PJV6yuCIQ9OIaEOK0=
+	t=1781560902; cv=none; b=Wdxii/JuEInLAR1ZhL6EtFRtPSyzXwIjq0YvCGzqYr6Hz5CWuJ/23FlXRUPXjR4s/nudGO0BUlnEyQmbiLGjxkj3lugi+XKRvL0xPYS0lJhsy69LqnLpWnwsilT1LO5g899y9iqyJSFmUSrgPJWFYipdI+ci+i6OxP2LMXUrjXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781560879; c=relaxed/simple;
-	bh=Wot0X5sM7W60XK/7A4SLB9FW8RU+5PSWJVYyz9AxsUI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=t19SvfAbNHKjsBDcgUkdC9JW4p0OMBLGVXcrfuB99GhYGmPbUjEnN3UhHRbXxYhGPRjgnEmmenxuJ9i9M9jxeX93ltQOvyqxj8MKYD5S0OB8yVDqGJ+NhsYNfYf7AhNXYn7IWeuKquyK+VSiA26i32J09gp/razZbB8wIndblSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gbKfv6fG; arc=none smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781560902; c=relaxed/simple;
+	bh=KQya+UdDlavUkX/Dssd0LzS1SHmdLAk2q4vV5a+8SBM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YcbRcHPV6fplO06H5O5gMouxc0ToC2KYDZd4DHQzkhdGvy8aV+5qiZfGnpty1WkCMwD19zn8gVZZCUirb0QntiOdZro6qo0iuQf2IPh+PVgMU7TwzSLG1AKFbtOaDLHGDZldUDt4NYcYK4ysyAJ+Fbf8wTHjndHJIpdcyAuyxLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JH5Z5qNN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LRtkJ9vz; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gbKfv6fG"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-43d2ff651f2so3232079fac.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:01:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JH5Z5qNN";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LRtkJ9vz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781560900;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
+	b=JH5Z5qNN59p9SJ+eEdx80qhOKxLbU03oMIfTQBJAd5YgY9LNhcEoF0tQXAm8pVj1Gm6MPI
+	QHj4dkmFRdJTun34UShFEnZf4oXW2hvdjmswE0F+rRoD8c/0hA1V4ztiFXsTSloZC4xPO1
+	QOCmBCq3W3BfY7twIDhtTV4IPp4W7HM=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-502-aWC3E_f8PhCeL-zkqALzKQ-1; Mon, 15 Jun 2026 18:01:39 -0400
+X-MC-Unique: aWC3E_f8PhCeL-zkqALzKQ-1
+X-Mimecast-MFC-AGG-ID: aWC3E_f8PhCeL-zkqALzKQ_1781560898
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-486d0cff483so10453173b6e.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:01:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781560876; x=1782165676; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oVZH06lpazCnDdLB2HaYUQMqWrPKqXrIVmhsIkv9GcA=;
-        b=gbKfv6fG5XRb+FzpjCD+sXMJyRZiC2s1855JagAaCHGMnvNbIbEtyLlgOLtZ2TAOkN
-         PBZ6rBvopWuRmDQ40D0pyZvZoonbuxxHzdZh2NWOJ/kzLGwxUVMsaBXz6aVswI6LQmXN
-         U41LXFU9hDWO+LQUdGHKLyfZp7zgvLmknMqt0M+BGLm4J8pkOoL2AkPFl3Yc66OBS0G9
-         cGqios4EzLJZlSUe2k+884tu1TjUm56p3ZvjhTiCwvobFVckMeqzjkCYUmkdqPz8ExHE
-         laEDrCS1sPIhstyeMgnYPeZEC1R5O7Z6OhQGo3xlyCvwTy7VJFSUeQjJ1PLzglbMMXwf
-         0DQA==
+        d=redhat.com; s=google; t=1781560898; x=1782165698; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
+        b=LRtkJ9vzD7YJ2twTswRUR69q7pcEVA70GOV2CYt57hUYyjT+GqDSQ4uoQvLRI6E4f5
+         WpwwY2lFoEGR0WDxBnyiSw22TXzTEGk/YAvjhn+94qwAnglsKPyC9GWUPQowFfo7rqCw
+         rYVw27UwfEtO3B9IdoH/XUPKPDZi+d3eCl3He+lDKJRvZmOlZdrA7qEjlyZZjOT/MC7M
+         4HMN/yQu56RdPw3YHG5rEpxaebLSV19ZaqBW42njx8ccsKfs4vGpJxE8X6YXRHVYTvYo
+         6eMqi4Cv8rwj2AYddf/uIbzaoNFpFhcahaawUalR1xePcUirKgq/l/plWUKohhFa9EpZ
+         mABQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781560876; x=1782165676;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=oVZH06lpazCnDdLB2HaYUQMqWrPKqXrIVmhsIkv9GcA=;
-        b=j21VV5WTxdAQRVF58ROBsyh/ZZlIloFobUVTeOaf4rJSEtRC+MX/aBUacF4b6cOY59
-         7ruqWrZ4kzQy/zLKg2z8KxwBODO+F5tl4TERo7VhidLYHop18EUD+GQYhKXS2BSLovoJ
-         mvhus0EtWDYadPg5P+5ilpkwOOPLSvGU767/eSR0UTqm2kX/HhUlsaA0FAVS6ZfyxXH0
-         47eQxK1RxTeUwMtnkQhpGn9fEt6HAy4B0nteij5xk29jTt9vVWJtc6vQ5TF+/a6tP4t2
-         fzBM7jJr7OifxptxmZMduiNa7QZXKXQNxBEFXhoR4yNlAli2en6UBUaKx7jitJvCpcBa
-         v99A==
-X-Forwarded-Encrypted: i=1; AFNElJ/NqhZLw88v4EB1N0b1F8EbHmeBonvom3jFSiOV5iBFYIJFq6nq6K2g5S6z806rX/rD/VUtEcjGFDrP@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZbeZoWmYOtgjHAoGuBeLcNBJhZL/dioCqy1UizRJ8VZ1sgVAv
-	lkE0Rr8kuy6yuJOoHwZCIGR6n418UgHvxBFRq/Uz4M+0eFyXAAfhq+6YB8G+e57hdAE=
-X-Gm-Gg: Acq92OF/fPH1kdLYhBA8YbSqeDk8IKZvow4AN66397T+MTedY4/HpTU4Ob7e7CHyxJ0
-	ei1P9nfk4oSHofA+J6H1uWzn2djFYltLI4EPPBEKk4I4xbBd7Z9mVxD6avZgKjAcRGesASYhEH2
-	d1zfnhmfCPZFumQkKIzRMSu0+KFqZLqOrJsu0fhmWo597gdXDgkeTjFlsZ71bC2+f4c9c+TPVf7
-	5UmwkgCerLo1XuYDiAoXYj/p2xRBmolL9sIa+cf8IXWxECjEFg8h5MfRnU2wnKieOE8R+RtlLme
-	50v03FWaHZtYoFS4+IqKsFMJBn9dEL6buVOQlHZAW9iv1guSoUz/+RuVv/ZdPl54ZvtgDYcJHoD
-	uC47fCaOlU992D38myIsf32/WFBt4luElrhi9RnV4+PUdeqHJvJjHTldEOS0ehrRCzhi8Ch4N0S
-	gBcpVo7XJAJKIOp07vxi+THcWhtwsL
-X-Received: by 2002:a05:6870:9686:b0:439:b8f6:d2a5 with SMTP id 586e51a60fabf-4430b7848c8mr847363fac.31.1781560875392;
-        Mon, 15 Jun 2026 15:01:15 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308fd9221sm826145fac.15.2026.06.15.15.01.14
+        d=1e100.net; s=20251104; t=1781560898; x=1782165698;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
+        b=ghYi2upLZweuTWBTMuEw+WMzosXJK0olLQvvAivLf0IfifxmFthC85GPmYJORjgOSp
+         OAsvImLiHg7MFVQ18Bh1KGMANyeryuSUOj5SZPeKYIYpcnQ+pIOhpI81Y+2/9UjgMdHV
+         GXuEYeDhcT2Dpqg/X+PvnK/3/jliGQ3w/YsmC1OKs6Q5xcWgAjytlzAWlbzkHqvy5ExR
+         Tn1vuOw9J+er7unXxkZIhr7uUYoF88YCcDStjozV6+6R+HpeWYv8R/bd/w2gU0zBcuSf
+         rtrjL0CpedssyL8TzPSODLmyYcov2jtCbibH+lcCHeJ8rMV5oz45Ef39NCzYIkiPcU6q
+         SqVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/hyx7zWjB7k34Xedsg7lpHfNQIvb2t7+U50LfIVC0gsrZv5xOHWqsXUzbGOjGu/v5SHvFaokCXMuYB@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTjvhLnMmBTL9y0bICFZD/9RlpRk6KtdcHPiHhoySeP7XLCw2S
+	2hxk3ohZTlOHNGiTmxlKszUDr//27gY1bs9xnhtHZVy3YQSdPqH3MrmRFJkDu50j+ZttNXBhkSD
+	qsE6eVB3Ed0pZN+611QPfMJYQ9mA5VZ4+Dy1rzr3Ob6sF6uEFKGsmQfV1e0aM6yc=
+X-Gm-Gg: Acq92OHZtuMbSi8VBX8HIpndF8i9ICmdanOkgMSIimZOBel7UeUHYnGn/NX69PE7dnn
+	LWsjuHXfZWvM7jRwcUH9o/gQfD77Z5fQAEHaxaBVY6nwitvHjFpNxxTjKFpeat5mVWNi2eVEZ8w
+	9inJFiSuLsbil/G8qwvrGoPNbobknpNg6ZfJ0LsnS0kZNoN+WpmJFWVAc3wVe7yXz+/pQSqBGkQ
+	8giw7yun6ItZY793OCoqWoCEfvLOfyqetPLIqmUS0x+2Mv9koC22Gx5eewrm88fCOOBgedyLFCQ
+	GODQxL4pdkHAVYOFGDkYtnFDfsb9VaP3ULDTsIaKmlD5EKhH1IGYd/VVvTbR6FBre3DdYIT6+eY
+	fBTlKfqfkkD5c8owGuaHX15fb/UQQ4gciM/lDgI7c0zDqYHgJqurkLnv5
+X-Received: by 2002:a05:6808:159b:b0:487:5b1f:2bce with SMTP id 5614622812f47-4875b1ffd23mr5600430b6e.36.1781560897793;
+        Mon, 15 Jun 2026 15:01:37 -0700 (PDT)
+X-Received: by 2002:a05:6808:159b:b0:487:5b1f:2bce with SMTP id 5614622812f47-4875b1ffd23mr5600362b6e.36.1781560897194;
+        Mon, 15 Jun 2026 15:01:37 -0700 (PDT)
+Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb61eaf4sm120318231cf.4.2026.06.15.15.01.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 15:01:15 -0700 (PDT)
-From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Mon, 15 Jun 2026 17:00:02 -0500
-Subject: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
- support
+        Mon, 15 Jun 2026 15:01:36 -0700 (PDT)
+Date: Mon, 15 Jun 2026 18:01:34 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: V.Yurkov.EXT@bruker.com
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: Add GPIO-locked fixed clock
+Message-ID: <ajB2PhmxvdtsXNnm@redhat.com>
+References: <20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com>
+ <20260603-feature-clock-guard-v3-1-01cca0aa04a5@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
-References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
-In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22417;
- i=dlechner@baylibre.com; h=from:subject:message-id;
- bh=Wot0X5sM7W60XK/7A4SLB9FW8RU+5PSWJVYyz9AxsUI=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqMHYgFaWE286xZ+v1sjbAq24qdfm0DIpBjI1Qp
- 5I6f/MDVsyJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCajB2IAAKCRDCzCAB/wGP
- wA38B/0TqvdTC1Fxtt9N3LANn12/tadX0Vt5bvb5V6BeztJ7pYUWZ1VmhvUBNkGqVUlLCl3jE2p
- FygWWMQcpcgE8XyILJWTbND+YAoaCI+vAMR24qebpG00SdIM1t8sYmqYA74p0xUSDgXKlCbeiLi
- yQhQOBvjRbFak6oxvd2OR7k1/TjkoekrRsINxt43U3o61WvM2tZ3tODi04e0Er7kLTG2wfcbPKi
- 6nYnalWqicChsa4XfUsUX822KZeVLx/KsM95eO+XLoR1b2YYXAF59RieBpSnkttUtpYbrmg7WZI
- FDCshLhLPOl1v6QbCMFK6t2/McXldkhRPSTNzHaATH59V04H
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603-feature-clock-guard-v3-1-01cca0aa04a5@bruker.com>
+User-Agent: Mutt/2.3.1 (2026-03-20)
 
-Add support for parsing devicetree properties for measurement channels
-and doing direct reads on these.
+Hi Vyacheslav,
 
-There are quite a lot of conditions that have to be met for each
-measurement to be made, so quite a bit of state and algorithms are
-required to handle it.
+On Wed, Jun 03, 2026 at 11:16:42AM +0000, Vyacheslav Yurkov via B4 Relay wrote:
+> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> 
+> Some hardware designs provide fixed-frequency clocks generated outside
+> software control, such as by FPGA-resident PLLs. While the clock rate is
+> fixed, a separate GPIO signal indicates whether the clock source is
+> locked and producing a valid output.
+> 
+> Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
+> clock whose availability depends on one or more GPIO lock-status
+> signals.
+> 
+> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 70 ++++++++++++++++++++++
+>  1 file changed, 70 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> new file mode 100644
+> index 000000000000..9106b800b673
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: GPIO Locked Fixed Clock
+> +
+> +maintainers:
+> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> +
+> +description: |
+> +  Provides a clock output whose availability depends on a set of
+> +  prerequisite conditions. These conditions include the presence of
+> +  one or more parent clocks and the asserted state of one or more
+> +  GPIO lock indicators. An example of such clocks is FPGA clock that
+> +  are outside CPU control, with the lock status exposed through GPIO
+> +  signal.
+> +
+> +  The output clock is considered available only when all configured
+> +  prerequisites are satisfied.
 
-Channels are created dynamically since the number of possibilities is
-unreasonably large.
+I'm stepping outside my usual review of just the clk drivers. Krzysztof
+in v1 and v2 asked for more detailed hardware explanation. This feels to
+me like this is a policy that says to not use these clocks until the
+GPIO says they are ready. My gut feeling is that details like this
+should live in a clk driver instead of a dt-binding.
 
-Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
----
- drivers/iio/adc/ti-ads112c14.c | 486 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 439 insertions(+), 47 deletions(-)
+Alternatively, if this is generic enough, then could
+Documentation/devicetree/bindings/clock/gated-fixed-clock.yaml be
+extended?
 
-diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
-index 202a449b4234..d1297445025f 100644
---- a/drivers/iio/adc/ti-ads112c14.c
-+++ b/drivers/iio/adc/ti-ads112c14.c
-@@ -9,8 +9,10 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/dev_printk.h>
-+#include <linux/device/devres.h>
- #include <linux/i2c.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/types.h>
-@@ -26,6 +28,8 @@
- #include <linux/unaligned.h>
- #include <linux/units.h>
- 
-+#include <dt-bindings/iio/adc/ti,ads112c14.h>
-+
- /* Datasheet t_d(RST) - time to wait after reset before next I2C use. */
- #define ADS112C14_DELAY_RESET_us 500
- 
-@@ -89,6 +93,9 @@
- #define   ADS112C14_REFERENCE_CFG_REF_VAL_1_25V		  0
- #define   ADS112C14_REFERENCE_CFG_REF_VAL_2_5V		  1
- #define ADS112C14_REFERENCE_CFG_REF_SEL			GENMASK(1, 0)
-+#define   ADS112C14_REFERENCE_CFG_REF_SEL_INTERNAL	  0
-+#define   ADS112C14_REFERENCE_CFG_REF_SEL_EXTERNAL	  1
-+#define   ADS112C14_REFERENCE_CFG_REF_SEL_AVDD		  2
- 
- #define ADS112C14_REG_DIGITAL_CFG			0x0A
- #define ADS112C14_DIGITAL_CFG_REG_MAP_CRC_EN		BIT(6)
-@@ -197,10 +204,30 @@ struct ads112c14_chip_info {
- 	u32 resolution_bits;
- };
- 
-+struct ads112c14_measurement {
-+	const char *label;
-+	u32 vref_source;
-+	u32 idac_current_uA;
-+	u8 iadc_count;
-+	u8 idac1_mux;
-+	u8 idac2_mux;
-+	bool current_chop;
-+	bool bipolar;
-+	u8 gain_val;
-+	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
-+};
-+
- struct ads112c14_data {
- 	const struct ads112c14_chip_info *chip_info;
- 	struct i2c_client *client;
- 	struct regmap *regmap;
-+	u32 avdd_uV;
-+	u32 ext_ref_uV;
-+	bool refp_is_avdd;
-+	bool refn_is_gnd;
-+	u32 ext_ref_ohms;
-+	struct ads112c14_measurement *measurements;
-+	u32 num_measurements;
- 	u8 sys_mon_chan_short_gain_val;
- 	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
- };
-@@ -265,12 +292,106 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
- 	},
- };
- 
-+static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
-+						 const struct iio_chan_spec *chan)
-+{
-+	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
-+	bool iunit = measurement->idac_current_uA > 100;
-+	u32 idac1_val = measurement->iadc_count > 0 ?
-+		measurement->idac_current_uA / (iunit ? 100 : 10) : 0;
-+	u32 idac2_val = measurement->iadc_count > 1 ? idac1_val : 0;
-+	u32 refp_buf_en, refn_buf_en;
-+	u32 ref_val, ref_sel;
-+	int ret;
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_MUX_CFG,
-+			   FIELD_PREP(ADS112C14_MUX_CFG_AINP, chan->channel) |
-+			   FIELD_PREP(ADS112C14_MUX_CFG_AINN, chan->channel2));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DIGITAL_CFG,
-+				 ADS112C14_DIGITAL_CFG_CODING,
-+				 FIELD_PREP(ADS112C14_DIGITAL_CFG_CODING,
-+					    measurement->bipolar ? 0 : 1));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
-+				 ADS112C14_GAIN_CFG_SYS_MON | ADS112C14_GAIN_CFG_GAIN,
-+				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, 0) |
-+				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN,
-+					    measurement->gain_val));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_IDAC_MAG_CFG,
-+			   FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I2MAG, idac2_val) |
-+			   FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I1MAG, idac1_val));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, ADS112C14_REG_IDAC_MUX_CFG,
-+			   (iunit ? ADS112C14_IDAC_MUX_CFG_IUNIT : 0) |
-+			   FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I2MUX,
-+				      measurement->idac2_mux) |
-+			   FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I1MUX,
-+				      measurement->idac1_mux));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
-+				 ADS112C14_DATA_RATE_CFG_GC_EN,
-+				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
-+					    measurement->current_chop));
-+	if (ret)
-+		return ret;
-+
-+	refp_buf_en = !data->refp_is_avdd &&
-+		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
-+	refn_buf_en = !data->refn_is_gnd &&
-+		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
-+
-+	ref_val = measurement->vref_source == ADS112C14_VREF_SOURCE_INTERNAL_2_5V;
-+
-+	switch (measurement->vref_source) {
-+	case ADS112C14_VREF_SOURCE_AVDD:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_AVDD;
-+		break;
-+	case ADS112C14_VREF_SOURCE_EXTERNAL:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_EXTERNAL;
-+		break;
-+	default:
-+		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_INTERNAL;
-+		break;
-+	}
-+
-+	return regmap_update_bits(data->regmap, ADS112C14_REG_REFERENCE_CFG,
-+				  ADS112C14_REFERENCE_CFG_REFP_BUF_EN |
-+				  ADS112C14_REFERENCE_CFG_REFN_BUF_EN |
-+				  ADS112C14_REFERENCE_CFG_REF_VAL |
-+				  ADS112C14_REFERENCE_CFG_REF_SEL,
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFP_BUF_EN,
-+					     refp_buf_en) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFN_BUF_EN,
-+					     refn_buf_en) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_VAL,
-+					     ref_val) |
-+				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_SEL,
-+					     ref_sel));
-+}
-+
- static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
- 					     const struct iio_chan_spec *chan)
- {
- 	u32 gain_val;
- 	int ret;
- 
-+	/*
-+	 * NB: IDAC registers are left as-is in case they are generating current
-+	 * needed for the external reference measurement.
-+	 */
-+
- 	/*
- 	 * All SYS_MON channels use GAIN of 1 to keep it simple. Other than
- 	 * the internal short channel, where it is useful in practice.
-@@ -320,13 +441,14 @@ static int ads112c14_single_conversion(struct ads112c14_data *data,
- 	u32 reg_val;
- 	int ret;
- 
--	if (chan->channel >= 100) {
--		ret = ads112c14_prepare_sys_mon_channel(data, chan);
-+	if (chan->channel < 100) {
-+		ret = ads112c14_prepare_measurement_channel(data, chan);
- 		if (ret)
- 			return ret;
- 	} else {
--		/* Not implemented yet. */
--		return -EINVAL;
-+		ret = ads112c14_prepare_sys_mon_channel(data, chan);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
-@@ -351,13 +473,20 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			      int *val2, long mask)
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct ads112c14_measurement *measurement;
- 	u32 vref_uV, fsr_bits;
-+	int *scale_avail;
- 
- 	/* Selecting V_REF source is not implemented yet. */
- 	vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V];
- 
--	/* Currently, everything is using signed data. */
--	fsr_bits = data->chip_info->resolution_bits - 1;
-+	if (chan->channel < 100) {
-+		measurement = &data->measurements[chan->scan_index];
-+		fsr_bits = data->chip_info->resolution_bits - measurement->bipolar;
-+	} else {
-+		/* All SYS_MON channels are using signed coding. */
-+		fsr_bits = data->chip_info->resolution_bits - 1;
-+	}
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW: {
-@@ -383,7 +512,8 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			return -EINVAL;
- 		}
- 
--		*val = sign_extend32(*val, fsr_bits);
-+		if (!measurement || measurement->bipolar)
-+			*val = sign_extend32(*val, fsr_bits);
- 
- 		return IIO_VAL_INT;
- 	}
-@@ -396,7 +526,7 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 		}
- 
- 		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
--			int *scale_avail = data->sys_mon_chan_short_scale_available[
-+			scale_avail = data->sys_mon_chan_short_scale_available[
- 				data->sys_mon_chan_short_gain_val
- 			];
- 
-@@ -406,13 +536,23 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
- 			return IIO_VAL_INT_PLUS_NANO;
- 		}
- 
--		*val = vref_uV / (MICRO / MILLI);
--		/*
--		 * Last 3 SYS_MON channels (ext ref, AVDD, DVDD) need to be
--		 * multiplied by 8 to account for internal attenuation of / 8.
--		 */
--		*val2 = fsr_bits - (chan->address >= 3 ? 3 : 0);
--		return IIO_VAL_FRACTIONAL_LOG2;
-+		if (chan->channel > 100) {
-+			*val = vref_uV / (MICRO / MILLI);
-+			/*
-+			 * Last 3 SYS_MON channels (ext ref, AVDD, DVDD) need to
-+			 * be multiplied by 8 to account for internal attenuation
-+			 * of / 8.
-+			 */
-+			*val2 = fsr_bits - (chan->address >= 3 ? 3 : 0);
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		}
-+
-+		scale_avail = measurement->scale_available[measurement->gain_val];
-+		*val = scale_avail[0];
-+		*val2 = scale_avail[1];
-+
-+		return IIO_VAL_INT_PLUS_NANO;
- 	case IIO_CHAN_INFO_OFFSET:
- 		/* Only the temperature channel has an offset. */
- 		if (chan->type != IIO_TEMP)
-@@ -433,6 +573,16 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
- 
-+	if (chan->channel < 100) {
-+		struct ads112c14_measurement *measurement =
-+			&data->measurements[chan->scan_index];
-+
-+		*vals = (const int *)measurement->scale_available;
-+		*length = 2 * ARRAY_SIZE(measurement->scale_available);
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		return IIO_AVAIL_LIST;
-+	}
-+
- 	switch (chan->channel) {
- 	case ADS112C14_SYS_MON_CHANNEL_SHORT:
- 		*vals = (const int *)data->sys_mon_chan_short_scale_available;
-@@ -449,25 +599,31 @@ static int ads112c14_write_raw(struct iio_dev *indio_dev,
- 			       int val2, long mask)
- {
- 	struct ads112c14_data *data = iio_priv(indio_dev);
-+	const int (*scale_avail)[2];
-+	u8 *gain_val;
-+
-+	if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
-+		scale_avail = data->sys_mon_chan_short_scale_available;
-+		gain_val = &data->sys_mon_chan_short_gain_val;
-+	} else if (chan->channel < 100) {
-+		scale_avail = data->measurements[chan->scan_index].scale_available;
-+		gain_val = &data->measurements[chan->scan_index].gain_val;
-+	} else {
-+		return -EINVAL;
-+	}
- 
--	switch (chan->channel) {
--	case ADS112C14_SYS_MON_CHANNEL_SHORT: {
--		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
--		if (IIO_DEV_ACQUIRE_FAILED(claim))
--			return -EBUSY;
-+	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-+	if (IIO_DEV_ACQUIRE_FAILED(claim))
-+		return -EBUSY;
- 
--		for (u32 i = 0; i < ARRAY_SIZE(data->sys_mon_chan_short_scale_available); i++) {
--			if (val == data->sys_mon_chan_short_scale_available[i][0] &&
--			    val2 == data->sys_mon_chan_short_scale_available[i][1]) {
--				data->sys_mon_chan_short_gain_val = i;
--				return 0;
--			}
-+	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-+		if (val == scale_avail[i][0] && val2 == scale_avail[i][1]) {
-+			*gain_val = i;
-+			return 0;
- 		}
--		return -EINVAL;
--	}
--	default:
--		return -EINVAL;
- 	}
-+
-+	return -EINVAL;
- }
- 
- static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
-@@ -485,8 +641,20 @@ static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
- static int ads112c14_read_label(struct iio_dev *indio_dev,
- 				struct iio_chan_spec const *chan, char *label)
- {
-+	struct ads112c14_data *data = iio_priv(indio_dev);
- 	const char *label_source;
- 
-+	/* measurement channels */
-+	if (chan->channel < 100) {
-+		struct ads112c14_measurement *measurement =
-+			&data->measurements[chan->scan_index];
-+
-+		if (!measurement->label)
-+			return -EINVAL;
-+
-+		return sysfs_emit(label, "%s\n", measurement->label);
-+	}
-+
- 	/* System monitor channels. */
- 	switch (chan->channel) {
- 	case ADS112C14_SYS_MON_CHANNEL_TEMP:
-@@ -519,26 +687,187 @@ static const struct iio_info ads112c14_info = {
- 	.read_label = ads112c14_read_label,
- };
- 
-+static int ads112c14_parse_channels(struct iio_dev *indio_dev,
-+				    bool *need_avdd_ref, bool *need_ext_ref)
-+{
-+	struct ads112c14_data *data = iio_priv(indio_dev);
-+	struct device *dev = &data->client->dev;
-+	struct iio_chan_spec *channels;
-+	u32 pair[2];
-+	int i = 0;
-+	int ret;
-+
-+	*need_avdd_ref = false;
-+	*need_ext_ref = false;
-+
-+	data->num_measurements = device_get_named_child_node_count(dev, "channel");
-+
-+	data->measurements = devm_kcalloc(dev, data->num_measurements,
-+					  sizeof(*data->measurements), GFP_KERNEL);
-+	if (!data->measurements)
-+		return -ENOMEM;
-+
-+	data->num_measurements += ARRAY_SIZE(ads112c14_sys_mon_channels);
-+
-+	channels = devm_kcalloc(dev, data->num_measurements +
-+				ARRAY_SIZE(ads112c14_sys_mon_channels),
-+				sizeof(*channels), GFP_KERNEL);
-+	if (!channels)
-+		return -ENOMEM;
-+
-+	device_for_each_named_child_node_scoped(dev, child, "channel") {
-+		struct ads112c14_measurement *measurement = &data->measurements[i];
-+		struct iio_chan_spec *spec = &channels[i];
-+
-+		if (!fwnode_device_is_available(child))
-+			continue;
-+
-+		spec->type = IIO_VOLTAGE;
-+		spec->indexed = 1;
-+		spec->scan_index = i;
-+		measurement->gain_val = 1;
-+
-+		fwnode_property_read_string(child, "label", &measurement->label);
-+
-+		if (fwnode_property_present(child, "single-channel")) {
-+			ret = fwnode_property_read_u32(child, "single-channel", &spec->channel);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read single-channel property\n");
-+
-+			if (spec->channel >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "single-channel value must be between 0 and 7\n");
-+		} else if (fwnode_property_present(child, "diff-channels")) {
-+			ret = fwnode_property_read_u32_array(child, "diff-channels", pair, ARRAY_SIZE(pair));
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read diff-channels property\n");
-+
-+			if (pair[0] >= 8 || pair[1] >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "diff-channels values must be between 0 and 7\n");
-+
-+			spec->channel = pair[0];
-+			spec->channel2 = pair[1];
-+			spec->differential = 1;
-+		} else {
-+			return dev_err_probe(dev, -EINVAL,
-+					     "channel node missing channel type property\n");
-+		}
-+
-+		if (fwnode_property_present(child, "excitation-channels")) {
-+			ret = fwnode_property_count_u32(child, "excitation-channels");
-+			if (ret < 0)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-channels property\n");
-+
-+			if (ret < 1 || ret > 2)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "excitation-channels property must have 1 or 2 values\n");
-+
-+			measurement->iadc_count = ret;
-+			pair[1] = 0;
-+
-+			ret = fwnode_property_read_u32_array(child, "excitation-channels", pair, measurement->iadc_count);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-channels property\n");
-+
-+			if (pair[0] >= 8 || pair[1] >= 8)
-+				return dev_err_probe(dev, -EINVAL,
-+						     "excitation-channels values must be between 0 and 7\n");
-+
-+			measurement->idac1_mux = pair[0];
-+			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
-+
-+			ret = fwnode_property_read_u32(child, "excitation-current-microamp",
-+						       &measurement->idac_current_uA);
-+			if (ret)
-+				return dev_err_probe(dev, ret,
-+						     "failed to read excitation-current-microamp property\n");
-+
-+			measurement->current_chop = fwnode_property_read_bool(child, "current-chopping");
-+		}
-+
-+		measurement->bipolar = fwnode_property_read_bool(child, "bipolar");
-+
-+		fwnode_property_read_u32(child, "ti,vref-source", &measurement->vref_source);
-+		if (measurement->vref_source > ADS112C14_VREF_SOURCE_AVDD)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "invalid vref-source value\n");
-+
-+		if (measurement->vref_source == ADS112C14_VREF_SOURCE_AVDD)
-+			*need_avdd_ref = true;
-+		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
-+			*need_ext_ref = true;
-+
-+		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
-+		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
-+
-+		i++;
-+	}
-+
-+	memcpy(channels + i, ads112c14_sys_mon_channels, sizeof(ads112c14_sys_mon_channels));
-+
-+	indio_dev->channels = channels;
-+	indio_dev->num_channels = i + ARRAY_SIZE(ads112c14_sys_mon_channels);
-+
-+	return 0;
-+}
-+
-+static void ads112c14_populate_scale_available(int scale_avail[][2],
-+					       u32 vref_uV, u32 fsr_bits)
-+{
-+	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-+		int *entry = scale_avail[i];
-+		u32 gain_x10 = ads112c14_pga_gains_x10[i];
-+
-+		entry[0] = div_u64_rem(div64_u64((u64)(NANO * 10 /
-+						       (MICRO / MILLI)) * vref_uV,
-+						 (u64)gain_x10 * BIT(fsr_bits)),
-+				       NANO, &entry[1]);
-+	}
-+}
-+
- static void ads112c14_populate_tables(struct ads112c14_data *data)
- {
- 	u32 vref_uV, fsr_bits;
--	int i;
-+
-+	for (u32 i = 0; i < data->num_measurements; i++) {
-+		struct ads112c14_measurement *measurement = &data->measurements[i];
-+
-+		switch (measurement->vref_source) {
-+		case ADS112C14_VREF_SOURCE_EXTERNAL:
-+			if (data->ext_ref_ohms)
-+				vref_uV = measurement->idac_current_uA *
-+					  measurement->iadc_count * data->ext_ref_ohms;
-+			else
-+				vref_uV = data->ext_ref_uV;
-+			break;
-+		case ADS112C14_VREF_SOURCE_AVDD:
-+			vref_uV = data->avdd_uV;
-+			break;
-+		case ADS112C14_VREF_SOURCE_INTERNAL_1_25V:
-+			vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_1_25V];
-+			break;
-+		default:
-+			vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V];
-+			break;
-+		}
-+
-+		fsr_bits = data->chip_info->resolution_bits - measurement->bipolar;
-+
-+		ads112c14_populate_scale_available(measurement->scale_available,
-+						   vref_uV, fsr_bits);
-+	}
- 
- 	/* For now, assuming we are using 2.5V reference. */
- 	vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V];
- 	fsr_bits = data->chip_info->resolution_bits - 1;
- 
--	for (i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
--		int *scale_avail = &data->sys_mon_chan_short_scale_available[i][0];
--		u32 gain_x10 = ads112c14_pga_gains_x10[i];
--
--		/* NB: slightly odd arrangement to avoid overflow. */
--		scale_avail[0] = div_u64_rem(div_u64((u64)NANO * 10 /
--						     (MICRO / MILLI) * vref_uV /
--						     gain_x10,
--						     BIT(fsr_bits)),
--					     NANO, &scale_avail[1]);
--	}
-+	ads112c14_populate_scale_available(data->sys_mon_chan_short_scale_available,
-+					   vref_uV, fsr_bits);
- }
- 
- static int ads112c14_probe(struct i2c_client *client)
-@@ -547,6 +876,9 @@ static int ads112c14_probe(struct i2c_client *client)
- 	const struct ads112c14_chip_info *info;
- 	struct iio_dev *indio_dev;
- 	struct ads112c14_data *data;
-+	bool need_avdd_ref, need_ext_ref;
-+	u32 refp_uV = 0;
-+	u32 refn_uV = 0;
- 	u32 reg_val;
- 	int ret;
- 
-@@ -560,13 +892,75 @@ static int ads112c14_probe(struct i2c_client *client)
- 	data->chip_info = info;
- 	data->client = client;
- 
-+	ret = ads112c14_parse_channels(indio_dev, &need_avdd_ref, &need_ext_ref);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_regulator_get_enable(&client->dev, "dvdd");
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
- 
--	ret = devm_regulator_get_enable(&client->dev, "avdd");
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
-+	if (need_avdd_ref) {
-+		ret = devm_regulator_get_enable_read_voltage(&client->dev, "avdd");
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get avdd voltage\n");
-+
-+		data->avdd_uV = ret;
-+	} else {
-+		ret = devm_regulator_get_enable(&client->dev, "avdd");
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
-+	}
-+
-+	if (device_property_present(dev, "refp-supply")) {
-+		ret = devm_regulator_get_enable_read_voltage(&client->dev, "refp");
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get refp voltage\n");
-+
-+		refp_uV = ret;
-+
-+		struct fwnode_handle *refp_fwnode __free(fwnode_handle) =
-+			fwnode_find_reference(dev->fwnode, "refp-supply", 0);
-+		if (IS_ERR(refp_fwnode))
-+			return dev_err_probe(dev, PTR_ERR(refp_fwnode),
-+					     "failed to get refp fwnode\n");
-+
-+		struct fwnode_handle *avdd_fwnode __free(fwnode_handle) =
-+			fwnode_find_reference(dev->fwnode, "avdd-supply", 0);
-+		if (IS_ERR(avdd_fwnode))
-+			return dev_err_probe(dev, PTR_ERR(avdd_fwnode),
-+					     "failed to get avdd fwnode\n");
-+
-+		data->refp_is_avdd = refp_fwnode == avdd_fwnode;
-+	}
-+
-+	if (device_property_present(dev, "refn-supply")) {
-+		ret = devm_regulator_get_enable_read_voltage(&client->dev, "refn");
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to get refn voltage\n");
-+
-+		refn_uV = ret;
-+	} else {
-+		data->refn_is_gnd = true;
-+	}
-+
-+	data->ext_ref_uV = refp_uV - refn_uV;
-+
-+	if (device_property_present(dev, "refp-refn-resistor-ohms")) {
-+		if (refp_uV != 0 || refn_uV != 0)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "refp-refn-resistor-ohms property should not be present when refp-supply or refn-supply is present\n");
-+
-+		ret = device_property_read_u32(dev, "refp-refn-resistor-ohms",
-+					       &data->ext_ref_ohms);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "failed to read refp-refn-resistor-ohms property\n");
-+	} else {
-+		if (need_ext_ref && data->ext_ref_uV == 0)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "external reference measurements require either refp-supply or refp-refn-resistor-ohms property\n");
-+	}
- 
- 	data->regmap = devm_regmap_init_i2c(client, &ads112c14_regmap_config);
- 	if (IS_ERR(data->regmap))
-@@ -615,8 +1009,6 @@ static int ads112c14_probe(struct i2c_client *client)
- 
- 	indio_dev->name = info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
--	indio_dev->channels = ads112c14_sys_mon_channels;
--	indio_dev->num_channels = ARRAY_SIZE(ads112c14_sys_mon_channels);
- 	indio_dev->info = &ads112c14_info;
- 
- 	return devm_iio_device_register(&client->dev, indio_dev);
+Brian
 
--- 
-2.43.0
+
+> +
+> +properties:
+> +  compatible:
+> +    const: gpio-locked-fixed-clock
+> +
+> +  "#clock-cells":
+> +    const: 0
+> +
+> +  clocks:
+> +    description: Input clocks whose validity is monitored by this provider.
+> +
+> +  clock-output-names:
+> +    description: Names of the clock provided by this controller.
+> +    maxItems: 1
+> +
+> +  locked-gpios:
+> +    description: |
+> +      GPIOs to check the lock state.
+> +    minItems: 1
+> +    maxItems: 32
+> +
+> +required:
+> +  - compatible
+> +  - "#clock-cells"
+> +
+> +anyOf:
+> +  - required:
+> +      - clocks
+> +  - required:
+> +      - locked-gpios
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    clk_gpio_locked: gpio-locked-fixed-clock {
+> +        compatible = "gpio-locked-fixed-clock";
+> +        #clock-cells = <0>;
+> +
+> +        clocks = <&clk0 0>, <&pll 0>;
+> +
+> +        locked-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>,
+> +                <&gpio0 5 GPIO_ACTIVE_HIGH>,
+> +                <&gpio1 2 GPIO_ACTIVE_LOW>;
+> +
+> +        clock-output-names = "clkout0";
+> +    };
+> 
+> -- 
+> 2.34.1
+> 
+> 
 
