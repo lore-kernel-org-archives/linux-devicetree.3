@@ -1,67 +1,66 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D24726E718
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743041991CB
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781494095; cv=none; b=YMxFsGM6PRkmybeu3ob6wthXheouNTAwbMtQ9dGzLOOj1Z8Uqlf3DUyLIvTde2lCYTrDoN0GmSdRbF0SDjPuCahyEVvIvMGaIjVmbxtqjHWWmvB7LPKpGxeuQwSb5v6l2j40+jtVMjdpKGAufILrDDvPO8xJMWbw0+3NnMOaQ7s=
+	t=1781494438; cv=none; b=XAW3Tm5m7VBfBkm65Ua204E9DQD2k4VPv5bkhjMsbt1mH+cBzGAllDh0Hb9DzzDmRHmFKBXxgAytnyDx3r3Q5iPqXBU5GYW98oJJt/e+TyajBnMdV4dlrXnRAGKRtB5qRte66a/5voHwHEIOp6tbYW+VcY424rKrmkRd2FmNASk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781494095; c=relaxed/simple;
-	bh=R4oxdJg6MFRBM0wLUCdAy4NOHBsgcJPhFvs2qjWwp0M=;
+	s=arc-20240116; t=1781494438; c=relaxed/simple;
+	bh=7CYnTAuVR8rZg2/zzNHVJX1whHtFmlFtEUUksdZQ1Ds=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aM4Ueum/hGvw7aWK+zOTeF8ODlVvDZx9+anUbGkBot7tBGwYAASXwME19tnmIYk87NtZiQE3W0ngIDxW/9f76AbMCf31oVzsYAZb3bJ420yUmfYvXlDKXpF4mOT6OgVwwqWCwSL8yXVZYQI01Z+o3loMq70rco/lBEXzkuCoVAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lo+DGXOc; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	 In-Reply-To:Content-Type; b=H2RWGMXaKsi+cRlDS8o2M/vzQ/m8NS0HCY6Ltxau9t/uxVA8QdW0ltGXBdqUEd6kc5i2H4jqVjKz/Ogbn0R1QDZq4T/46dhDRtM05Fx93MrS/VUg+jTfIH/miHolrIMvykDbodeCNPUTOXqeKF4oPdHkx0bc3qyb7UzeV/fSawo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O50y6H8J; arc=none smtp.client-ip=209.85.215.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lo+DGXOc"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3042a388168so2063376eec.1
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:28:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O50y6H8J"
+Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-c859a374903so682927a12.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:33:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781494093; x=1782098893; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=F48M7UJZisk3+G8pGHk9mIzYZhroQ1h8yPblS2YzIO0=;
-        b=lo+DGXOc9uk2fDnlVp2FSuzA3EvZ3Qc6vjZ1HySjkqtx+iWwLpDsb9UHYZAHdT8eSz
-         n29On/7vuXT6M/hpaRL12HgPL+5z+6503sw6hc4+J5yn5qYpFfLYj9Wk7zFa8ngym4Q3
-         qq8U37NXHZBaoaFhlmOGldqUZe5QVv/tkTRXWA/ss19a8le+n1cmFE5KzgLCPij8fUNO
-         rgZY/hndtd9uKVNRi7uuJ/O+or9dtUcOW+ZOOyN3dW4umH/HbZXklmpj6J96CHFtHpu2
-         Mxmiw2jyaza4Hk2ZSl1WITtFPhWKu0ZqKzIVFScNz7+UwcyGRsEcw5R+UldkLyzEdBLp
-         nEiw==
+        d=gmail.com; s=20251104; t=1781494437; x=1782099237; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4N4VN4U8dWKYBPdGLpmGB0dN8xMC6v/gON67oih3Zak=;
+        b=O50y6H8J6c4qWl6eVw1XNtHsT9ahZ0OIDDwECLSdjSt/CU1FH7WR9IH9YkyYhHHM0q
+         S/0W2JckPF9EROW8XBBpnsZzxQZ7Wevoe8Ot95rszy0pkCdA4PylTJ8EASTafppy4lSO
+         2ZwAmAgZsoGqk3HGdvEY8eJeTIlbrw7RH5vO7OR8FSUyrOUqMoRim0zgfLm6EWpeyfY+
+         p8QrKNU98vTvMmJtN+NLYYULd8fhymD7YGqnvbmZyouPdWBOZ98MSVcUTl0rAXVtwmMs
+         kynPQRD/ZSaQphYp6pya83KEjhY3VAAIFz+QLA3CYg/nMLws30qKGcOkIw8sYznVLtgd
+         j/1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781494093; x=1782098893;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=F48M7UJZisk3+G8pGHk9mIzYZhroQ1h8yPblS2YzIO0=;
-        b=p3TXoh42oLsBN9vL+KWef0E4jvhtX9a7xqe30uKEvrBttV2LOgSFudpvvq+cuXETla
-         k6D7O5qyHdQRy810SnkipEwTFN8tBP3HIHvRiJcVqc6nxNRRpQudgnPOJMwsl+/gadks
-         CsPqgC2MZ77Yn72n5aOU99iIP4lmifoYyWym9eJXh4OGbA5OKqA9vNZiEt0wefUHk2t2
-         57l7O6UjQHYjBb/mvZhCKbugE9+9RevVjvwFwfQ7bKoAffWQQxzDaMhxBrFpcQWU2DfX
-         +zg+rNxoE2xRjx8w/mscWuhb+7Cbq0LI86VQ1rgE77VS96wjVoIYi3fIBuq9wa4ZUpE7
-         Bb9w==
-X-Forwarded-Encrypted: i=1; AFNElJ8zdqG/UwdONShbiKPk+gBYffBiahqmXi2wQ/0R4cxGLJxhXfvZSx+xIGM9ZFmTtXudeym83vonkYo6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCLnSfZ32XvYPKniIdbMc1TU4eNA++Z+zBSk6Qk5af4eC/lCuZ
-	fL0V0JjVkJ9vjIgPTB51Xub18LR9GHeSpO0kbyZXB2Hf9gGjWIHy/NPo
-X-Gm-Gg: Acq92OGbZqeNIkvBKQj9aDqg0gOJPK+0doxTlA8qgiviY1tNN/FjGMFzj8/QNgeHWVd
-	K+ExwtXIhQkUFmn2iwXHbKMS5T8a8YFlQXwYbyUL16sALeqYoRgghSVcz5+ujBesywBoFEQq1fe
-	CtvUWpXMfcGWDpaCgNGx2xw7NdIfyDAUUrC58zFATk0FcPp4vBUi6h/1a6eJQYGGp3tc8FGyACp
-	oTK3nroyGCAU3t7CMbd8qEtERLYckTOQUCgk8fncqIJalZ7bzoA70ecM9/AFyKmVTTSq4mOUvv3
-	V9uD5uJ3e3KJuFFs6okjR6zA+XF7b6eybsT8jIy2QH2oCWOTu/cJZs8nnoFLdW+1ll3bXDWgXMX
-	Pm/Qj4NhWIeG/vzKW/oG1FgWpXWOHzZjM7CFm6/l+SpmWAFmTrcqiwqttgM+IiQHuW0XDcoYeib
-	GPV7IAsdwF0vEAFBPLElc/lgVenjjDJYJA9la3c0iZfeNWmejX5Z2PEqDPzPeAb2KUdf6/WOUj
-X-Received: by 2002:a05:7301:fc16:b0:30b:7bc2:c70b with SMTP id 5a478bee46e88-30b7bc2c7a4mr1067298eec.9.1781494093327;
-        Sun, 14 Jun 2026 20:28:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e4898c0sm13606848eec.3.2026.06.14.20.28.12
+        d=1e100.net; s=20251104; t=1781494437; x=1782099237;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4N4VN4U8dWKYBPdGLpmGB0dN8xMC6v/gON67oih3Zak=;
+        b=fdQZe1JQzSeYgo0YWQo4Ag7GIgYm5KaPjZ7iZzeqKm68ykdrupwywgYS9UdRKpGZ5N
+         cvZWGZyzqo8wFQn45uEAnQFkBbXojykhH0KfmxBbC+ehY+A8YdK/Cxs6I/0IblUuSBtV
+         8ydPi9+gBFuzBzx0PlTsYe7JU+wRR9CqmI3NMEzeg6Pc84IQiiR0p9jYldp/C9eUfHn2
+         9yKMKaBesyq6NWvvPw1Rfz1fJQZpxgDDojw8AVnhZIwK7xg6+tWTUtIFLuMVlEqgC7lL
+         z6gleD0S2GoX8h6zM7kq9JsESdmnSP5GRH9DG38lqW5GOFGW/sJnHvdKMqEoGJstRz+6
+         00Fg==
+X-Forwarded-Encrypted: i=1; AFNElJ9j07Xez3cqrBW8LeCe4Bi7Z8212tQhRhdAz22HIufl5uffMJEhD/Dm7SC5uLFekDpczbXj+r3Ki1ku@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3UVYpO/8wExyNzBgSFzBD+X6ZthFHpbNhdCrzhYE9z1lqzYIv
+	YdYAWoTDes2KjVuaBZh18DADf9UZz+OaC/vIJi0WUar2SwL03rtJJqkb
+X-Gm-Gg: Acq92OHeWtWFagM0Z1qnwaGY7I818l5YaaNpKQXzUPsxfeFtHX5M+sEb24DkSA2Sd1r
+	RaPZHHsoqmQS1+c/srK3zvR+KKfwcns1xNXSJTsVETSAKPOFIH3OBOWF8xnJbvju1CeMMOcNDbP
+	WC/fIfiEIxqPJa8QlBE7wfqU74Jypwgq2vbIbmgXRdTPDl1JFOkH1t0fE7Ohas10Yq3DHWtQWt6
+	TAalPJiLyxOmJn32GVXOimx3BRACVKkCr+t23TK0nlT8k6Zg714luoHTHIK63U7Tn1jiuxx6XsC
+	Yl1bqQwfLGVqp+NL15C7IWve/q+wyFd2biLHCKDVLGSUpY4egfrLjzto8/5p3GF3a8ekdKtw7GN
+	crYzuosWudrTZ9K9Y2QKQibEhP/PTjoQLudlR/vcNA29ObLzm/psNu9BZ1riAiAcfEUdavh9yUe
+	F7NyUv/RM3Quvvsd4B1KZ8YfPEF7kaGz2GRrb1xg2RnA==
+X-Received: by 2002:a05:6a21:6813:b0:3a2:d629:16a2 with SMTP id adf61e73a8af0-3b783b757e9mr14493609637.10.1781494436758;
+        Sun, 14 Jun 2026 20:33:56 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b035ce6sm8650381b3a.49.2026.06.14.20.33.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 14 Jun 2026 20:28:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <cec33844-09b3-43e2-970c-b21cb82f10b0@roeck-us.net>
-Date: Sun, 14 Jun 2026 20:28:11 -0700
+        Sun, 14 Jun 2026 20:33:56 -0700 (PDT)
+Message-ID: <894d7c33-8e14-4ba5-b774-14062ece39f2@gmail.com>
+Date: Mon, 15 Jun 2026 11:33:34 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,108 +68,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current
- limit properties
-To: sashiko-reviews@lists.linux.dev, Potin Lai <potin.lai.pt@gmail.com>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-References: <20260615-lm25066-cl-config-v2-1-59be46e67d5a@gmail.com>
- <20260615031628.ADC9C1F000E9@smtp.kernel.org>
+Subject: Re: [PATCH v3 05/11] of: reserved_mem: split
+ alloc_reserved_mem_array() from fdt_scan_reserved_mem_late()
+To: Rob Herring <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org,
+ iommu@lists.linux.dev, zhaomeijing@lixiang.com, catalin.marinas@arm.com,
+ will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com,
+ quic_obabatun@quicinc.com
+References: <20260527032917.3385849-1-chenwandun1@gmail.com>
+ <20260527032917.3385849-6-chenwandun1@gmail.com>
+ <20260612144122.GA974326-robh@kernel.org>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260615031628.ADC9C1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260612144122.GA974326-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/14/26 20:16, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Device Tree Schema Type Conflict: The new `ti,current-limit` property is defined as a string, which conflicts with its existing global definition as a `uint32`.
-> --
-> 
-> commit 2d0e259557c772018da03b728b427c7fa9a267ca
-> Author: Potin Lai <potin.lai.pt@gmail.com>
-> 
-> dt-bindings: hwmon: pmbus: ti,lm25066: add current limit properties
-> 
-> This commit adds a 'ti,current-limit' string property to configure the
-> device's Current Limit (CL) behavior to "high" or "low". It also disables
-> this property for the LM25056 variant, which does not support software
-> configuration for the current limit.
-> 
->> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->> index a20f140dc79a6..53ee98e871ffc 100644
->> --- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
->> @@ -46,12 +46,30 @@ properties:
->>   
->>       additionalProperties: false
->>   
->> +  ti,current-limit:
->> +    description: |
->> +      Configure the current limit setting. When present, this property
->> +      overrides the hardware setting of the physical CL pin by configuring
->> +      the register.
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    enum:
->> +      - low
->> +      - high
-> 
-> [Severity: Low]
-> Does this introduce a global schema type conflict?
-> 
-> Device Tree schema tooling requires property names to have consistent primitive
-> types globally. The property ti,current-limit is already defined as a uint32 in
-> other Texas Instruments bindings (such as power/supply/bq2415x.yaml).
-> 
-> Redefining it here as a string breaks make dt_binding_check validation. Would
-> it be possible to rename this property (for example, ti,current-limit-setting)
-> to resolve the collision?
-> 
 
-ti,current-scale or ti,current-range might be other possibilities.
 
-Guenter
+On 6/12/26 22:41, Rob Herring wrote:
+> On Wed, May 27, 2026 at 11:29:11AM +0800, Wandun Chen wrote:
+>> From: Wandun Chen <chenwandun@lixiang.com>
+>>
+>> Prepare for storing /memreserve/ entries in the reserved_mem array.
+>> alloc_reserved_mem_array is skipped if the device tree lacks a
+>> /reserved-memory node, pointer 'reserved_mem' continues to reference
+>> the reserved_mem_array which lives in __initdata, storing
+>> /memreserve/ entries into reserved_mem_array would result in metadata
+>> loss, and an out-of-bounds memory access will occur if the device
+>> tree contains more than MAX_RESERVED_REGIONS /memreserve/ entries.
+>>
+>> So split alloc_reserved_mem_array() from fdt_scan_reserved_mem_late(),
+>> and call alloc_reserved_mem_array() whether or not there is a
+>> /reserved-memory node.
+>>
+>> No functional change.
+>> The actual /memreserve/ population is added in a follow-up patch.
+>>
+>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+>> ---
+>>  drivers/of/fdt.c             | 7 +++++--
+>>  drivers/of/of_private.h      | 1 +
+>>  drivers/of/of_reserved_mem.c | 6 +-----
+>>  3 files changed, 7 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+>> index 82f7327c59ea..83a2a474831e 100644
+>> --- a/drivers/of/fdt.c
+>> +++ b/drivers/of/fdt.c
+>> @@ -1284,8 +1284,11 @@ void __init unflatten_device_tree(void)
+>>  {
+>>  	void *fdt = initial_boot_params;
+>>  
+>> -	/* Save the statically-placed regions in the reserved_mem array */
+>> -	fdt_scan_reserved_mem_late();
+>> +	/* Attempt dynamic allocation of a new reserved_mem array */
+>> +	if (fdt && alloc_reserved_mem_array()) {
+>> +		/* Save the statically-placed regions in the reserved_mem array */
+>> +		fdt_scan_reserved_mem_late();
+> 
+> Can we make this just:
+> 
+> alloc_reserved_mem_array();
+> fdt_scan_reserved_mem_late();
+> 
+> We already check !fdt in fdt_scan_reserved_mem_late().
+
+Thanks for you review, Rob.
+
+The reason I kept the fdt check is that total_reserved_mem_cnt is wrong
+when fdt is NULL, early_init_fdt_scan_reserved_mem() returns early in
+that case, so fdt_scan_reserved_mem() never runs, and
+total_reserved_mem_cnt stays at MAX_RESERVED_REGIONS. Calling
+alloc_reserved_mem_array() unconditionally would allocate unnecessarily
+memory.
+
+A better fix might be to make total_reserved_mem_cnt always correct, add
+a !fdt check at the top of fdt_scan_reserved_mem() that sets
+total_reserved_mem_cnt to 0, and let early_init_fdt_scan_reserved_mem()
+call it even when initial_boot_params is NULL. Then
+alloc_reserved_mem_array() could naturally skip allcation when that
+count is 0, and we can drop the outer fdt guard.
+
+
+There is still separate UAF issue (fixed in patch3) if we don't check
+the return value of alloc_reserved_mem_array().
+
+
+With the fdt_scan_reserved_mem() fix for total_reserved_mem_cnt, the
+call site in unflatten_device_tree() becomes:
+
+if (alloc_reserved_mem_array()) {
+        fdt_scan_reserved_mem_late();
+}
+
+How does that sound?
+
+
+Best regards,
+Wandun
+
+> 
+> Rob
 
