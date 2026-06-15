@@ -1,124 +1,132 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8668413609
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781543394; cv=pass; b=hCvsqtveXS0FFHhMCaWejrk3+PPSzlLJOY6QBAv4QFqVJT9RjSYiQ0YM+G9oi/FP2CiYb3WAgJPxgvA+h/540dfveMxz5YCjV+KCmB4AWcQ5SLWO7mSOKLp9EAlUbW7Ash0VT7pPkrlTs7q4wkQ42PvY6g2j3bT9NQm4tNpNwc4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781543394; c=relaxed/simple;
-	bh=Cr21gZwUWq9jfHVaUeu1Ubez84cqLx99H1U3aLVfnCI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kW4UtGOHhgEHQGtjF/+ctrMMOHXfgeeEbapPl2Q/JpQJXTre4hes54h7VzR88sMEnqWO1Xi+dKvRHulQWeVepL/5gsFDCtfJHTWPczVDRzDEwl8/nKhGgGqidsKzupgx70Lisgvb7Nn+vuJXnL4nucq5YYDVZldIKro97I0Jp4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bU2Iblhk; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3774A3090D5
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781543408; cv=none; b=KgLgHytgLJmq8z/MxPsamvfY4Xv24NFMJmcDrHN266eaaTboGBwnXBmAHQKWYAAh+T6j9+oU/VAUfGGyHCJyB7bc1EWIUdmo3B2O/h+I19D9zjSfta92QHOlmQkkRvKrXo64ZLtYKSEc30J3EGa6D+IWpLsq+T4ur6f1BEah7FU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781543408; c=relaxed/simple;
+	bh=kysC6MdlGHLYijGiX8oILpsxu5tpjzeYnEpHiLBe74o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Bycgma/I5HpSTXUU9MfEQqFBl0X/F5lmO4v/M0nNHsjs95JG3VasWhfqQHbEk2DLRVpabG9HdEus88FB0x262PJaqHe3iGG2YrqzWkbvD3Sln+Eh4yjmpz8AXnRv5nIlrMqNGtGLP2wcxN0G+Myew3LkcIt10aBVFfxSmjGhyb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nNYKejhG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bU2Iblhk"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bf0170c80f7so614220966b.3
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:09:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781543391; cv=none;
-        d=google.com; s=arc-20240605;
-        b=DyxRvdO79WYElYJA+/SFpcsD49eb8OI8K3Od/BntOLwdFj0L3bUOqJfpfq457st7XV
-         7bR40D4Ey8iXMS4xewDBhsw/cqqOGUEcF9XbVaweCDfwqwCPdiSxmu0ils+G8Idq89YW
-         1QrJ8y08JwSki4226FtkRowfllIMg0WWe8QFH6MJasHV7v/JVP4Oc2JDBFxFf+TvDYvG
-         81S28h7OBb4xwa/ORgqUPeOwCp4cPssOOx1ISAZwZ1p9ypzUcQotBt64mu/Ct6mFoy79
-         I2EiN8wHGTxAhGTlykhDjOL+Y8VQYlew9J9RGSeIM9/fpISwlV/k/EjJ+wRPJcqXKpcr
-         WRWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Cr21gZwUWq9jfHVaUeu1Ubez84cqLx99H1U3aLVfnCI=;
-        fh=F+4ARp6zNNSi2sMv30MUMwPeoS4Tj86UnRk06RMBnUM=;
-        b=NZN3OMy8ruYYq+VE2ers1q9VxZcMMJ4pQ1JSbLG4yRZkwfuk1YVk74YfHlu88VcEdG
-         tNDGSPeAuwxL1bCfyLqWn0dQJKRdPZGbNF3i7JEBEMOC3BJcO7pCFW5cZESEtbskkPqD
-         ZUWkN+JClU3MhHvd9pPPtJKisnlH5ni32YiJn4+QyylqAGm7oyIj3bnX5ABJceqZqcXN
-         WWtzXQ0aIcPUr4AmKD5VsEyyZ7xtYsmfJNaHFI7LhKVDf95iSbjmpomwPfXOkv22qIA9
-         6GfVdJnkm487him7z7VaL+nbwSycZxtb2ldBfs0fJwIcihKz1fToQjSYUEgTAUXPk4Mz
-         8WOg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781543391; x=1782148191; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Cr21gZwUWq9jfHVaUeu1Ubez84cqLx99H1U3aLVfnCI=;
-        b=bU2Iblhk9vnsDgxKxhXjiCS2mj7KbveT4augZWlTS6ux58qPS754bw7G+7+uJqKHi6
-         94kyHYvMEuQOn17rovkHBYwgLZ8V2jwcTV/FJ8meab5Jbv74cOonR7apCDQj5rlH/KJ0
-         /4yVzA8HArrPKtkyyb0ssZSbr1jfVj59ntpAdQV71pDu0KzeibnBqtdwdDVQiwaPnu1M
-         Mw5AMag5P2ngaFmhlJrCA7D6lvASB7VtVykTakWfnEx6uOCaDGJMcyogV8FJq+tld6g2
-         1dIHFO+Fu+J2UK9OFZ5wsroZG7o440c59fGLL63lcLUc8p9y0sADHiHVsbD2E8QSHUeb
-         nHNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781543391; x=1782148191;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Cr21gZwUWq9jfHVaUeu1Ubez84cqLx99H1U3aLVfnCI=;
-        b=KJJQqt+lRXjHNTXfrg9HZIpcsw6xbPKL3ywqwNWptr8531e3dJzGXp/7ydCstH+Nf5
-         DJAsUwhPEFvcEGKwnz+ECdIpwWDVFc8GUyPlmpzZBN6ehtEdYdLoAmXXucFgm3soEeub
-         BDKYyIJVOWHy0grOWmIKJxtU4s6gkakUvaiIgZXtPprjeeQKDHwnFi9c6JnUvqSTuqV7
-         ubytEfBwnCewZxd5fAv3IBa1Z0a3ksojNRLIXPZ4/RS3F5hrqLuzTy0Pp65RPVZuKUsq
-         1tUDYxCPOQV/UgSB4D63I0mJqJABv5hOyxW7hJrCa3Uu7hOJRSjW4ciM3NPLR/xLWeX+
-         1Ngg==
-X-Forwarded-Encrypted: i=1; AFNElJ+xADBSekEZW6VqbT3gyndnrwHof+ehZ3OpTlqzp48xWTQNJE/lj32W9+rNHPbTu2KAmYh6YBYPPwSl@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzFYQ3jJMuX9xqOkaqOeIh/H/3d62MyCFOg4/PUwbdU42FCaNp
-	Ca2XtgJh88tRgf/XJbFMqgAIZwfgpwlHN6Bbkt/X6VDK95Vc3ngg/wdRKqlx78A0+FsXz4Aqxz7
-	7wI7YfDbQ2ynUmhzIE5h3wuHw8SzaEok=
-X-Gm-Gg: Acq92OHLkNjd3Vc1tEGo/IOJay/FiDBvJ8Ew5WQV2jez3v/c8vG18BfT5FNqK/63zd2
-	EL4nrVjkV+NintM/cn0sPtHCwZrN2Ffy49q0uapYCr+lg9PPdOFPGka0SK5tjzGa7a68EJ2y4mA
-	6USLm2OVIkXp+MeaSO8/NUPKm4tB5FNsbsrAqjWJx+F0ueVz/DVaKxz0XyXjMralTsw51YdUIMT
-	5bjmn1pEWMWzLt7sQeig8pRpDq0I9DYScnKBQE2ADlvu5CiOHdxAj1uKnwP5mebgnFlukQwnZSw
-	ZNA/T8sOGp0QXQlZ
-X-Received: by 2002:a17:907:3f8d:b0:bed:2a8b:3e73 with SMTP id
- a640c23a62f3a-bff4cddd831mr594131266b.41.1781543390991; Mon, 15 Jun 2026
- 10:09:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nNYKejhG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88CAB1F000E9;
+	Mon, 15 Jun 2026 17:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781543406;
+	bh=YmwEPL+7pIwLXCHcD/ZN6exp0snAl4luxZ9swauXDTw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nNYKejhGlFPujhHTyaYn7h8x46rU6plbeX1PQqUHW05yViwM7TINnFQ8JxOIdJBHg
+	 s57gi9CcLR58W/jvuKuPNOoPqLwElresQIECfNplK2HJJF2sffSMmWj6de9LOBpB/p
+	 lGT4MThGO4g1bmxd4jGRubB+ELG2uZZsLpf+HcST8X+Ub21vOm8wXXQYygGsFS4ocI
+	 q6b8LwlXx9hUS7iaks6kO3hp3Lra+nNg7hLNq6YHxfClZmx9Wnl/ZESWnYQVwW3ekI
+	 Jon2o3Lj7F/Yy0DwQImCGQIOYpjMaP47dDYyNzquCN/6okMton93LigW1pu7wLIP4H
+	 YTXEkA/KNjc4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/6] arm64: dts: qcom: sm8450: Add missing CX power
+ domain to GCC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-4-6b5752dd4747@linaro.org>
+References: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-4-6b5752dd4747@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 17:10:06 +0000
+Message-Id: <20260615171006.88CAB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260612200717.361018-1-l.scorcia@gmail.com> <20260612200717.361018-2-l.scorcia@gmail.com>
- <20260615-palatable-aerobics-3091229b6ada@spud>
-In-Reply-To: <20260615-palatable-aerobics-3091229b6ada@spud>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Mon, 15 Jun 2026 19:09:39 +0200
-X-Gm-Features: AVVi8CcgapzCFj6cwsB094FQLtSSMmdLrOP26pKMcjV8D9cFGpyiqQvrj10_jjw
-Message-ID: <CAORyz2+4EquYcUHEnoq0N_p7vCmDpPONEhVrmAfO1eX_RNMYbQ@mail.gmail.com>
-Subject: Re: [PATCH v6 1/7] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, Fabien Parent <parent.f@gmail.com>, 
-	Val Packett <val@packett.cool>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
-	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Linus Walleij <linusw@kernel.org>, 
-	Julien Massot <julien.massot@collabora.com>, 
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, Akari Tsuyukusa <akkun11.open@gmail.com>, 
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-yes, sorry about that, series v6 has been superseded by v7 (I replied
-to the thread and marked it as archived in patchwork, please let me
-know if I have to do something else to mark it as obsolete).
-Sashiko was correct, the regulators node is required for this device.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Sashiko also has suggestions for v7, a few pre existing issues and a
-few nits here and there but some are actual improvements. One bit that
-caught my eye is the use of the modeset register in the
-mt6392_ldo_get_mode function. I have to double check that with the
-data sheet and the android kernel sources. Not sure if I can do that
-before next week though.
+Pre-existing issues:
+- [High] Missing `pm_genpd_remove()` and error path cleanup in `gdsc_regist=
+er()` leads to use-after-free in `gpd_list` upon unbind or probe failure.
+--
 
-Is there any way I can trigger a Sashiko review before sending patches
-to the ML?
+commit e4315c043469a13f84ee75ac94f4e0790692142c
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-Thank you,
-Luca
+arm64: dts: qcom: sm8450: Add missing CX power domain to GCC
+
+This commit associates the GCC with RPMHPD_CX by adding a power-domains
+property to the device tree, preventing under-voltage conditions by allowing
+votes to propagate.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/q=
+com/sm8450.dtsi
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -935,6 +935,7 @@ soc: soc@0 {
+>  		gcc: clock-controller@100000 {
+>  			compatible =3D "qcom,gcc-sm8450";
+>  			reg =3D <0x0 0x00100000 0x0 0x1f4200>;
+> +			power-domains =3D <&rpmhpd RPMHPD_CX>;
+
+[Severity: High]
+This is a pre-existing issue, but since this patch configures the power
+domains for this device, it brings up a concern in the underlying Qualcomm
+GDSC driver framework.
+
+If probe fails or the module is unloaded, does the error handling in
+gdsc_register() leave dangling pointers in the core gpd_list?
+
+Looking at drivers/clk/qcom/gdsc.c:gdsc_register(), if a subsequent
+gdsc_init() fails, it returns directly:
+
+drivers/clk/qcom/gdsc.c:gdsc_register() {
+    for (i =3D 0; i < num; i++) {
+        if (!scs[i])
+            continue;
+        ...
+        ret =3D gdsc_init(scs[i]);
+        if (ret)
+            return ret;
+    }
+}
+
+This seems to leak the previously initialized power domains in the global
+gpd_list because it misses calling pm_genpd_remove() for scs[0..i-1].
+
+Similarly, if of_genpd_add_provider_onecell() fails at the end of the
+function, it also returns immediately or bypasses domain removal:
+
+drivers/clk/qcom/gdsc.c:gdsc_register() {
+    ...
+    return of_genpd_add_provider_onecell(dev->of_node, data);
+
+err_pm_subdomain_remove:
+    gdsc_pm_subdomain_remove(desc, i);
+
+    return ret;
+}
+
+Furthermore, gdsc_unregister() removes subdomains and deletes the provider,
+but entirely misses pm_genpd_remove() before the backing memory is freed
+on module unload:
+
+drivers/clk/qcom/gdsc.c:gdsc_unregister() {
+    ...
+    gdsc_pm_subdomain_remove(desc, num);
+    of_genpd_del_provider(dev->of_node);
+}
+
+Could this result in a use-after-free kernel panic if gpd_list is iterated
+(for example, by genpd_power_off_unused() or debugfs) after an unbind or
+probe failure?
+
+>  			#clock-cells =3D <1>;
+>  			#reset-cells =3D <1>;
+>  			#power-domain-cells =3D <1>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-topic-sm8x=
+50-tie-gcc-to-cx-v2-0-6b5752dd4747@linaro.org?part=3D4
