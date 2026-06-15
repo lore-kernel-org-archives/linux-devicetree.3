@@ -1,62 +1,62 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A473F4DC6
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736D03FA5CA
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781534404; cv=none; b=hpuOUbzPyfEjKNwWh8vpo7UBsUZqYcYGxnE1XMKcVx5GKsILLj6/T9MrgzQhnnhW9CSsPzwF5zsIBqigzhwXG2N5RdjwojnIS5xV1UpBs3pTHpljOF1bQZqr7yyv3Rl2CJXNRJfJJ34EHJY6rX2sT1IofW4XXfAN2Jx+ImsQazQ=
+	t=1781534405; cv=none; b=YtrBFwA6EEelqDZgPOUAMZUG5rx13RrZsEvBlGePlWx+b0+GbXpk6Lai5EA39ky9E6fT/9BG9oYFC7B/8DF/vbwuOoeEwwBUEJhlYGhcbCnVV6R9+8SL+b6Iv4aeXxwK1brJQlvVu6nEFHF252H9YkEnfgZRYPi/EClsst+3R7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781534404; c=relaxed/simple;
-	bh=RPYCKUoaLHx21mEpdL26fmX9w4xAgCZxloQUVPzEaaw=;
+	s=arc-20240116; t=1781534405; c=relaxed/simple;
+	bh=m66F2sL25SNBJsCp1T2HIzM0RPg0EP/lLtzkItOGeTE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Lb9bbzLBKYlQStb5kJi6S+SFVbiwaiTFs5VUMar7egNBdjrmnWTQrbMGmM9WLvlGBF/H9rpf+nuW19HTLJScGVDUBEk/w6svvoHMyMfE/gaHXrdFQx84VH+3yCVk4cywdvQyJYX0JjdQyq5miCG0adanRkycKoXT8o2v+j+mKSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RNHajxpP; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=KkUyDNm3gQ3L+v3TYo+LToBb5IOEXkO/6vLMrENcSDmzFEO30hwcwglr94qYIu0GhNKMgral/tz6z9TnLAWrSw7CSYq4Qu7Jkf11Btwbz2i0SJ1xQLGWl7Sbt+n8IQbhd4UYqsHURW3unNuM79dNGnSCAh1LxXyyCPa409JpQYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H9Y5BAEC; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RNHajxpP"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490aaeabdb4so23050905e9.1
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:40:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H9Y5BAEC"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49222b6e871so20594315e9.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:40:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781534402; x=1782139202; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781534403; x=1782139203; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4eOE2cW5CuMlltMnNIAtALpjm3kz28XwuEUz1GGDmxQ=;
-        b=RNHajxpP9OT7RBWJDkxfPGRnH+aeTYtSjVibR6AwR53qdyiQ8zL4Ln52zpVJhnrbRI
-         KiXZAQwS3ilMZdcvEoqYwNjqPwu2+vvcl5jeLM3Gc4D1zBTZpwh0H+BqSvPYmexdNNsj
-         bXiGLzzp6pKyZmibSBUp6O3f//it++Y9+nMopopQ3JovHfAxa+RqYU7KVhL4pi4LPdn4
-         pkCX+Zd/huVLT23nw5NiwUxItqGT6pVYYe7D8O20vfmzBRvUtvZ3WKKOJsihJSVS1Z6S
-         3N/xLpaunucSJdNvlgbBepeTtPcBqiBQ9BcQ5UTta7loOiOOzykCXdtykMawQK21cdEJ
-         Z1rA==
+        bh=ZU/52Hsil9tk4JLlHlSaydCvbsd+hTRfmIz26QTpIbs=;
+        b=H9Y5BAECGBOY2rbXHVx/Ncm+oMUbsHX6DeIkcju8psO5UMzVbfTzn0mVFtNI/M+2SM
+         fTfxRjEcRQsN/vLyEhtYhDulpBatU4M2xOUqa0GOaXy+PWt4bfcwOvPyxo9Xug3sKTe5
+         yN67/3Vy23shGqNf4+xbaJAvTKXzgaLVb3++o2z9OLvve+5Gbi3z5GtKZi8KRyQPJJP/
+         YK7NVxxBUU6JDxXEOvjt9nqwB0T+o9ZG2xOPK7O1PJgvxDaR1FJKmxlemW7cXta+bDVW
+         OxqbZ5MgMAa607Qhyl/EoWPm5cYWpF9i4sGINfc3MmSPWP5LX1QGXdV75DWvrnblHgT+
+         kcRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781534402; x=1782139202;
+        d=1e100.net; s=20251104; t=1781534403; x=1782139203;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4eOE2cW5CuMlltMnNIAtALpjm3kz28XwuEUz1GGDmxQ=;
-        b=phErxtCcHS6Z6ZGpAuiF79sFaUnk9goqyNca/+jH0tMK5e1MpJc8nE4JFQykBTquxT
-         SAIRPNhTQqte2Hui6S8eYnoIFzM/iPA3JO3kLIq3B41ha8FctyOrkE+hHMPTjiZK/XvQ
-         EhdqYPJHoA8BMaLUKzRHwRcWWvXYJ/Ah/Su8ydyGGviv7ieqYMtUjJlnb435wnm1acsJ
-         qFk04hFJJ6abMfokxHNVUzNXjmRBlr+1VNsCz9UXnkOOFp1e5SmeTSLTNsC7QzWACw9V
-         l5E2uGkqdXyPu8tHVMaBHFLLwMKBSM13GivHpnoNuqww9V8126Q+xFQLP5QsFpPWLBdt
-         7Lrg==
-X-Forwarded-Encrypted: i=1; AFNElJ+uBJL/B5EYEppXy9xA8Z3fVIEDPBO4siMPm9kn+DWEIJMaOoB3SHEtC53L/CDv0VMKR7szP6d5uBgU@vger.kernel.org
-X-Gm-Message-State: AOJu0YyqLEb59flvfWqfeZHIyYs8fCirxZDRa5BNMXPMWxvVFxS86kdV
-	ZxVm/45WYIvqboTFue9r4i3CC4YorrcSHB3/XmKx9u2MZYug7MX/QaeU
-X-Gm-Gg: Acq92OFkGE58yh6VSCGSwNOQxLeSCgLK+paJNh09i0xpuqBAMYsNp1h1YWHeOKNsuEb
-	7CxYkMr7IomCkVOxCXvPupXqb1AWjf103q90QOaT0eKvMZClU4ZpAcOo0LZKOWVY6xsHXuBh4xS
-	OM0DM4I3KwvM9huqnLB1YIURf5KaCPmKv3ourh85SvuCGMVTtA7HPeDpnsr6Te93lxMenZW6C/Q
-	D2Y78KQIFY0J92y7iOk2FT9C7llAGFN6kFRe5SkZeQPrn9baPNguboAKxr/dmD2NEWdeg89zlaN
-	uoJk+d/dXWAD6hS3q6nhi/4UOR5lJZ2/eNkJocLu76DLtIp0PcVO0veTOz0FLU9078KdFgODbVZ
-	9WOjXtdk1HkxqwW2Nf6mq9sKQKTZYcd+atY7HwXhBxDTzq5J9pvI7ZguGyhUCk+I3ASKvWNWNEx
-	DgYEHTigwTPyH+dM0Sh1sjEbRNbhXXvLNCOV5IVkGnoZqcC6s0aM7M1XyqB7/FdT4BFkW/o8w9W
-	B0RcO8vAZSSOla7qjITSVTojcjLXgS/FU9ftZHBVhMkzEU=
-X-Received: by 2002:a05:600c:4709:b0:490:5057:f5f7 with SMTP id 5b1f17b1804b1-4922007472cmr139483105e9.11.1781534401612;
-        Mon, 15 Jun 2026 07:40:01 -0700 (PDT)
+        bh=ZU/52Hsil9tk4JLlHlSaydCvbsd+hTRfmIz26QTpIbs=;
+        b=TTCdCZGJ+V0fiaATJ1WVEF+/rUZnoH3gPild7TL3Jio+WaflC0jFgfZCKi/ZGVXz+O
+         e1ZSt3CvJ/XJ2ewMbSqmgpFw+PTspr9DslMOcmQqCJxMyOKULReXXbT8V9wRk1VAUKEP
+         hzofhjyife+JfWBMRx1R8BLbNBgLbz+kbbTC2ZNlxSH8Y0iSZmmbkcknkhV8eDMr6R5n
+         FGYiyK/4Q/BygNIZ301CS189KNv+AnTpdBC4APHNaHTIYkoJ2wflooGVOdimrsVv9vMd
+         jKd2nn2StEixUhTJlP+ktfW7aaiFZqMXAAVq5FKpDk2mnSxny4Ee/XvoUzEeyPXr3HJD
+         VkWQ==
+X-Forwarded-Encrypted: i=1; AFNElJ92DkxC3E2D3iQk11QYEftyX4ftWtTIDFYOm8ACg5oPrDHFMtl7FyqUADhtWXB+vvj/Gd57+8tEc/yw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNZmig2pf4lxw9O3AVNva7wgHgOGxBs84JM/l15bDQlrq2PRfi
+	mG6fw17PRYJX9cBoe5VQCm76M4Q9z7PDFZVqdSmrDGwx0cHpoHeGXAIO
+X-Gm-Gg: Acq92OH4J4ylg0biH/F90jyB5pYiAyRuXpPeF9Hd875wPnAIJLSVW/V5kkGV9l4wamR
+	urTqx5jhoVZrUAvEqp4bTjHTSuPwtAQezAECjMiNYgLLn4eh4wTctyKSVeO8oOsa7UcmnTqOLj0
+	JEC/VUOzSL5ROsyjdc1g6woT0ZDGYH+Pk2IcNCNCMN2UqEHxm2qjmjF05mhGVdZzObH1twsbv+v
+	JL8iVdM0tT/Ijf4WIBoO94BAswmeqbPSBSLsiQ8zbnH5B58TOvRX/f1aVxUp3ZgmJ15pZsPAXjF
+	G5GHQHkKVIK8ZrB7aARCXcQyA8MVGMZFr/qPkYOHlOQ7a2sGYqwoop/OvGxeeWqlY8puKTWZKnI
+	tN255kSQ5Om5hlAbUGXnYRmuUJjhqwd7dfGc8kAFPPMhA9RemllsjJXAnqouaaUc+sM6OgKy0dr
+	VEADil6Vh6Hf2Dc6VCkAmbiZBHjTrH3zrxWRaLRthagcucl1mXUSuwbhqgYyKdbhMiGeV3UaGnM
+	ZzI9I/W7RGUFTOPTKgJ9xWEdov7JuzXcIqQ
+X-Received: by 2002:a05:600c:8b56:b0:490:e60b:5fb5 with SMTP id 5b1f17b1804b1-490ec527e4emr178094045e9.34.1781534402500;
+        Mon, 15 Jun 2026 07:40:02 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:1e4:992f:3ad2:4f2b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203c05ebsm256627915e9.9.2026.06.15.07.40.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492203c05ebsm256627915e9.9.2026.06.15.07.40.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 15 Jun 2026 07:40:01 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
@@ -77,9 +77,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 1/2] dt-bindings: clock: renesas,r9a09g077/87: Add PCLKRTC clock ID
-Date: Mon, 15 Jun 2026 15:39:42 +0100
-Message-ID: <20260615143943.1610095-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 2/2] clk: renesas: r9a09g077: Add RTC clocks
+Date: Mon, 15 Jun 2026 15:39:43 +0100
+Message-ID: <20260615143943.1610095-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260615143943.1610095-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260615143943.1610095-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -93,40 +93,43 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add the peripheral clock ID definition for the Real-Time Clock (PCLKRTC)
-on the Renesas RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs.
-
-Note that the LCDC_CLKD clock is utilized as the operating clock source
-for the RTC IP.
+Add the core and module clock definitions for the Real-Time Clock (RTC)
+peripheral on the Renesas RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- include/dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h | 1 +
- include/dt-bindings/clock/renesas,r9a09g087-cpg-mssr.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/clk/renesas/r9a09g077-cpg.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h b/include/dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h
-index f6cb8d649a46..aa47685f329a 100644
---- a/include/dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h
-+++ b/include/dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h
-@@ -35,5 +35,6 @@
- #define R9A09G077_XSPI_CLK1		23
- #define R9A09G077_PCLKCAN		24
- #define R9A09G077_LCDC_CLKD		25
-+#define R9A09G077_PCLKRTC		26
+diff --git a/drivers/clk/renesas/r9a09g077-cpg.c b/drivers/clk/renesas/r9a09g077-cpg.c
+index 873c41ae5606..5640c2035e5a 100644
+--- a/drivers/clk/renesas/r9a09g077-cpg.c
++++ b/drivers/clk/renesas/r9a09g077-cpg.c
+@@ -149,7 +149,7 @@ static const struct rzv2h_pll_limits r9a09g077_cpg_pll3_limits = {
  
- #endif /* __DT_BINDINGS_CLOCK_RENESAS_R9A09G077_CPG_H__ */
-diff --git a/include/dt-bindings/clock/renesas,r9a09g087-cpg-mssr.h b/include/dt-bindings/clock/renesas,r9a09g087-cpg-mssr.h
-index 312e563b322e..1c73d0dcef18 100644
---- a/include/dt-bindings/clock/renesas,r9a09g087-cpg-mssr.h
-+++ b/include/dt-bindings/clock/renesas,r9a09g087-cpg-mssr.h
-@@ -35,5 +35,6 @@
- #define R9A09G087_XSPI_CLK1		23
- #define R9A09G087_PCLKCAN		24
- #define R9A09G087_LCDC_CLKD		25
-+#define R9A09G087_PCLKRTC		26
+ enum clk_ids {
+ 	/* Core Clock Outputs exported to DT */
+-	LAST_DT_CORE_CLK = R9A09G077_LCDC_CLKD,
++	LAST_DT_CORE_CLK = R9A09G077_PCLKRTC,
  
- #endif /* __DT_BINDINGS_CLOCK_RENESAS_R9A09G087_CPG_H__ */
+ 	/* External Input Clocks */
+ 	CLK_EXTAL,
+@@ -337,6 +337,7 @@ static const struct cpg_core_clk r9a09g077_core_clks[] __initconst = {
+ 		sel_clk_pll4d3_div10_div20, ARRAY_SIZE(sel_clk_pll4d3_div10_div20), 0),
+ 	DEF_DIV_LCDC("LCDC_CLKD", R9A09G077_LCDC_CLKD, CLK_SEL_CLK_PLL3, LCDCDIVSEL,
+ 		     dtable_2_32),
++	DEF_FIXED("PCLKRTC", R9A09G077_PCLKRTC, CLK_EXTAL, 128, 1),
+ };
+ 
+ static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst = {
+@@ -367,6 +368,7 @@ static const struct mssr_mod_clk r9a09g077_mod_clks[] __initconst = {
+ 	DEF_MOD("sci5fck", 600, CLK_SCI5ASYNC),
+ 	DEF_MOD("iic2", 601, R9A09G077_CLK_PCLKL),
+ 	DEF_MOD("spi3", 602, CLK_SPI3ASYNC),
++	DEF_MOD("rtc", 605, R9A09G077_CLK_PCLKL),
+ 	DEF_MOD("lcdc", 1204, R9A09G077_CLK_PCLKAL),
+ 	DEF_MOD("sdhi0", 1212, R9A09G077_CLK_PCLKAM),
+ 	DEF_MOD("sdhi1", 1213, R9A09G077_CLK_PCLKAM),
 -- 
 2.54.0
 
