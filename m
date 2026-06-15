@@ -1,184 +1,311 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3F53E4519;
-	Mon, 15 Jun 2026 11:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8CE3E4C6C
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 11:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781522776; cv=none; b=LMt53Ljv5ksuuerlN5DyJAZVzhft1w1yxZC5nbt8mPDPR/I7RDsIbe8dabUSZI4wiJZyQpGaU4CQpNmRRb29rShFbANFWVJyWdHMuySRKSxlOZLI2c1STqjcm42qPQAtRfPTKujbVeBp2HZXCd+yH80odQQss4yC0dQtr5W2BkQ=
+	t=1781522793; cv=none; b=CKyo/wb+DcnEiCyS6ZiNWe8wS1VZerK1JuUd9ADL1HiOYUwhWDm6lBjAxKA2XyXYTSFTXBBMFgGXoUEI1UZm2hjRqxKsUnTxk/vPuovvL7YjSBCduGBa22JcTHVXxeQ3kNBB99UWgJljRfmJXTn9866xpCMroPDTxJU2edCp/Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781522776; c=relaxed/simple;
-	bh=50rTYE6DTwOfJ1L3FKIi5qxwqDTG+KHLwGsAAM4DvpM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SQQss8Y9imFpTcX315YtJFK76A9ydGsHMU4Ah+heN013Rw+9SzU0/9MNQsWIzxgB5WSviM1hc0qI3w2Cc45Jz4+TLxPjkJ1a3UnYaXmAIW/sjVUrmccmOBJoeUvTfjHgnjR5moHWs6c1jE2h704haBHScfpQ7xhAQOFUUjamCP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cdb8kenC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781522793; c=relaxed/simple;
+	bh=hP+2XiLIB+gTL9i+OgmpZuIqU6+CJhVBzpLc1SYZMYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tR6B0B/LSmAXcwg8iXXBgRN7HFFqqX+0RUEft04Ia45O7tcSbnMsN8o7oBLxbsYLSIIRApk527aYnpwbw0o0tqNuxg6vLfXLVgUYPXhUo7xd9d1Yuj5m5UqkJhqOxSilMeYSXiSmLkLeQEdh86NaAl3cGL+5Ymj7DY6YjI1pMMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BOZU25KI; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cdb8kenC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87051F00A3A;
-	Mon, 15 Jun 2026 11:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781522775;
-	bh=4tfI640HQlxM02Fv4lCeLHOEUDwDAWi0qaHz5zFkTw4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cdb8kenCBsj6o/pnQykpthWp/Cfru57Uh0g79UcGwxAg0bIPH3FUcLlzmk2Z2n3fq
-	 hGTK3MgzkzUxh9+gVAFwwNsX7uyA+fkN5fwazanlBFTFJw9OzRY3y6kPBs12Nogwy8
-	 Ee8qORkK/6qV4G3eHb/NqGb8KHcDTWweCHvU22TSnbmRaVjJpHngGEYfivw7HALS1u
-	 MZTiFIKrGhDWlReOfICuu16uNBwAUr6AKNjsOgE8XEZzNBFjyqKsfX+9atC/41kpGy
-	 turesqfJDWZJNapjyqQDOW8bFIRwhjaGze9IEZZm+xMMBS4CxUKrFDZ1J7ofKLgiGP
-	 rLzAqpR5thj5g==
-Message-ID: <8ee6bfe0-71aa-4d3a-a583-f7495a86fc58@kernel.org>
-Date: Mon, 15 Jun 2026 13:26:07 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BOZU25KI"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c0c1e0d00bso28591695ad.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:26:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781522791; x=1782127591; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bj+KG3OVUhBoWkPimYDUROHV3nvGOOs1vbpk2ZeW3hA=;
+        b=BOZU25KI/1sPmtMWQrhMC2dOEOSL6Bn9FCRFizQ9Kaggs6S7kO9j9Ug0i8ox1/mKJk
+         BP0FhaS8SwPalhT1e6YLLROa0zmJhEkFPfwTE8LYkjVZKLhVXCgeHzV7/Bv/Rr2wONFo
+         5NIvGetO1ZaMW5G+VWd662pe3Oq/S73Rv6n6Hzi7OIcrKytd6TkHHv3EvZ6jcyKDnUPb
+         9eeqoTexuLRXzSXwxawjhV0Wv5oiIgD3tL4pDwZimzuCqVOcVTnWBpyHSwZj9kXqNLq5
+         /261YACyUDBcwrVHUiqmk+0dCqr+nl9T9llU9j9i4duVAsy0GzgxiYcOWp5bLf6hdiHx
+         J68Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781522791; x=1782127591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bj+KG3OVUhBoWkPimYDUROHV3nvGOOs1vbpk2ZeW3hA=;
+        b=f4MXYnVWTMTfeg8+janGUqwiCdwUEPHExSUoWReEU9MeDMsMdo/LpigSqbRMK/bkks
+         WXhnV2esur4VBV9+iE0BXV3I2p9iF9zVi5bpuVf1LzPlUEwIdDD1JAsUe735garyS1+4
+         QgxKl6DFTAdSFLhNFsX+HKNFivYd3AEy3+VTZfisK9uLxgm7d/d4XDRchxRVFT5weSgI
+         mOw44EZzRUi3ocWiPZ06tWE8q1Qrc/JDHK9a9uGFds9pmNDp0xx3iUjGEsOsbD9gsCVm
+         YTbs5shVDeEbugeA48PLtuDYtYvzuTE0lsto4upoErTV9eHli5+0c1yizxzpfnUIBid5
+         Tc5w==
+X-Gm-Message-State: AOJu0Yw7plV3ERCRr8nGlfcWFc9ilnpcsP5nxlRnVdkGZk/7wKdpZJpI
+	qbLMe5Qf4f4Bleroiw+wMJy2pEpsLQrQcTfiJUenv+xkdCf7KooGxsiY9DD80XIF
+X-Gm-Gg: Acq92OEudi/kZVEAGugyOz7llM10xQPLXQbS7zq9uFVuhmRLWfr3XAPi3e3kFSUw6wk
+	GRpF2DVC01aEm0Mz5s3FHoZf9sVB7jprAgb//o/WMS4ovoPiiqjFsf9kTkI7d15dxon+chjDvqn
+	MULBZncCj/Y1ZdQHiGksJ+f5hViourFpDWcoLdOomBBWtX8aSwFAiBNOhHtuQtX5Bd8oAcwwcRo
+	CndIc8Zql0fHcO1V+uo/duVv9lhNrwSzNn58aEb+BFpWzelhV8Nri0I/+Iy+2YSNtXUmUfGFVTo
+	F916Ob7naIwv1CsF6dt558y3tFpSwDWrN2vJ4ozzmPd2YxoxubGIpZC+9HlInYTtTAJqoZCArd5
+	XTaD9U7/6t2RWe7xtxqRiK/UJ/2Y5QWl6bM4BXyPGXpaZJTAl28gFXRzclixOJ7KfkefGI1o4Mw
+	tmx1t0RyW+mxJu6oxlyusK4ZP3fhdarb2Tk+iK
+X-Received: by 2002:a17:903:46c6:b0:2b0:6a22:5165 with SMTP id d9443c01a7336-2c41050a155mr156412165ad.7.1781522791374;
+        Mon, 15 Jun 2026 04:26:31 -0700 (PDT)
+Received: from vbox ([117.215.39.99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c43326b085sm95644305ad.70.2026.06.15.04.26.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 04:26:31 -0700 (PDT)
+From: Tejas <tejasmutalikdesai@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	sstabellini@kernel.org,
+	Tejas <tejasmutalikdesai@gmail.com>
+Subject: [PATCH] dt-bindings: arm: xen: Convert xen.txt to YAML schema
+Date: Mon, 15 Jun 2026 16:56:25 +0530
+Message-ID: <20260615112625.7892-1-tejasmutalikdesai@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-To: Can Guo <can.guo@oss.qualcomm.com>, bvanassche@acm.org,
- beanhuo@micron.com, peter.wang@mediatek.com, martin.petersen@oracle.com,
- mani@kernel.org
-Cc: linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
- Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
- Zhaoming Luo <zhml@posteo.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-References: <20260615085027.2102882-1-can.guo@oss.qualcomm.com>
- <20260615085027.2102882-2-can.guo@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260615085027.2102882-2-can.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/06/2026 10:50, Can Guo wrote:
-> UFS v5.0/UFSHCI v5.0 adds HS-G6 support (46.6 Gbps/lane) via UniPro
-> v3.0 and M-PHY v6.0. These specs define TX Equalization for all
-> High-Speed Gears (not only HS-G6) to compensate channel loss and
-> improve signal integrity at high speed.
-> 
-> For HS-G6, M-PHY uses PAM4 1b1b line coding. Pre-Coding may also be
-> required depending on channel characteristics.
-> 
-> Document vendor-neutral properties in ufs-common.yaml:
-> - txeq-preshoot-g[1-6]
-> - txeq-deemphasis-g[1-6]
-> - tx-precode-enable-g6
-> 
-> Values are per-lane Host/Device tuples (2 values for x1, 4 values for
-> x2). PreShoot/DeEmphasis range from 0..7, and Precode is 0/1.
-> 
-> These are board-specific signal-integrity tuning values. They depend on
-> channel SI/PHY characterization and validation (host PHY, device PHY,
-> package, and board routing), and are determined by HW/PHY designers.
-> 
-> Although UFSHCI v5.0 supports TX Equalization Training via UniPro v3.0,
-> which allows host software to determine optimal TX Equalization at
-> runtime, static board-specific TX Equalization settings in the Device
-> Tree are still necessary because:
-> - TX Equalization Training is not supported for HS-G3 and below
-> - TX Equalization Training is disabled on some platforms
-> 
-> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/ufs/ufs-common.yaml   | 55 +++++++++++++++++++
->  1 file changed, 55 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> index ed97f5682509..145a6416e1df 100644
-> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> @@ -105,6 +105,61 @@ properties:
->        Restricts the UFS controller to rate-a or rate-b for both TX and
->        RX directions.
->  
-> +  tx-precode-enable-g6:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +    oneOf:
-> +      - items:
-> +          - description: Host_Lane0 precode
-> +          - description: Device_Lane0 precode
-> +      - items:
-> +          - description: Host_Lane0 precode
-> +          - description: Device_Lane0 precode
-> +          - description: Host_Lane1 precode
-> +          - description: Device_Lane1 precode
-> +    items:
-> +      enum: [0, 1]
-> +    description:
-> +      Static TX Precode enable values for HS-G6 only.
+Convert the Xen ARM device tree binding documentation from the legacy
+plain-text format (Documentation/devicetree/bindings/arm/xen.txt) to
+the YAML schema format, as required by the modern DT binding process.
+The old xen.txt is removed as the YAML schema is now the authoritative
+source.
 
-My bad here, that was my mistake. I wanted matrix, but gave you array
-syntax. Proper code would be:
+The YAML schema:
+  - Validates compatible string format as "xen,xen-<major>.<minor>"
+    followed by the generic "xen,xen" string
+  - Documents reg as accepting 1..N regions (region 0 mandatory for
+    grant table mapping; regions 1..N optional extended regions)
+  - Documents the uefi subnode with correct types:
+      * xen,uefi-system-table:   uint64 (guest PA of UEFI System Table)
+      * xen,uefi-mmap-start:     uint64 (guest PA of UEFI memory map)
+      * xen,uefi-mmap-size:      uint32 (size of UEFI memory map)
+      * xen,uefi-mmap-desc-size: uint32 (size of each mmap entry)
+      * xen,uefi-mmap-desc-ver:  uint32 (mmap descriptor format version)
+  - 64-bit properties use /bits/ 64 <value> in the example, consistent
+    with other bindings carrying uint64 properties (e.g. opp-v2.yaml,
+    arm/mali-bifrost.yaml)
 
-  tx-precode-enable-g6:
-    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-    minItems: 1
-    items:
-      - items:
-          - description: Host_Lane0 precode
-            enum: [0, 1]
-          - description: Device_Lane0 precode
-            enum: [0, 1]
-      - items:
-          - description: Host_Lane1 precode
-            enum: [0, 1]
-          - description: Device_Lane1 precode
-            enum: [0, 1]
-    description:
-      Static TX Precode enable values for HS-G6 only.
+The uefi subnode was originally introduced through a multi-version review
+series (v2..v7); the mistakes caught during those reviews (typos,
+duplicated UEFI spec content, insufficient description of Xen-specific
+hypercall semantics) are avoided with deliberate caution here.
 
+Note: the example emits a dtc warning (unit_address_vs_reg) for the
+/hypervisor node. Both the normative text in xen.txt ("Xen ARM virtual
+platforms shall have a top-level 'hypervisor' node") and the example
+in xen.txt mandate this exact node name — the $nodename: const:
+hypervisor in the schema is a direct encoding of that pre-existing
+requirement. A unit address is therefore impossible despite the presence
+of reg. This warning is pre-existing and not introduced by this
+conversion.
 
-I tested it with DTS and seems to work fine. Please use the same for
-other properties, but enum will be 0-7.
+Signed-off-by: Tejas Mutalikdesai <tejasmutalikdesai@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/xen.txt |  62 ----------
+ .../devicetree/bindings/arm/xen.yaml          | 113 ++++++++++++++++++
+ 2 files changed, 113 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/arm/xen.txt
+ create mode 100644 Documentation/devicetree/bindings/arm/xen.yaml
 
+diff --git a/Documentation/devicetree/bindings/arm/xen.txt b/Documentation/devicetree/bindings/arm/xen.txt
+deleted file mode 100644
+index f925290d4641..000000000000
+--- a/Documentation/devicetree/bindings/arm/xen.txt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-* Xen hypervisor device tree bindings
+-
+-Xen ARM virtual platforms shall have a top-level "hypervisor" node with
+-the following properties:
+-
+-- compatible:
+-	compatible = "xen,xen-<version>", "xen,xen";
+-  where <version> is the version of the Xen ABI of the platform.
+-
+-- reg: specifies the base physical address and size of the regions in memory
+-  where the special resources should be mapped to, using an HYPERVISOR_memory_op
+-  hypercall.
+-  Region 0 is reserved for mapping grant table, it must be always present.
+-  The memory region is large enough to map the whole grant table (it is larger
+-  or equal to gnttab_max_grant_frames()).
+-  Regions 1...N are extended regions (unused address space) for mapping foreign
+-  GFNs and grants, they might be absent if there is nothing to expose.
+-
+-- interrupts: the interrupt used by Xen to inject event notifications.
+-  A GIC node is also required.
+-
+-To support UEFI on Xen ARM virtual platforms, Xen populates the FDT "uefi" node
+-under /hypervisor with following parameters:
+-
+-________________________________________________________________________________
+-Name                      | Size   | Description
+-================================================================================
+-xen,uefi-system-table     | 64-bit | Guest physical address of the UEFI System
+-			  |	   | Table.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-start       | 64-bit | Guest physical address of the UEFI memory
+-			  |	   | map.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-size        | 32-bit | Size in bytes of the UEFI memory map
+-                          |        | pointed to in previous entry.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-desc-size   | 32-bit | Size in bytes of each entry in the UEFI
+-                          |        | memory map.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-desc-ver    | 32-bit | Version of the mmap descriptor format.
+---------------------------------------------------------------------------------
+-
+-Example (assuming #address-cells = <2> and #size-cells = <2>):
+-
+-hypervisor {
+-	compatible = "xen,xen-4.3", "xen,xen";
+-	reg = <0 0xb0000000 0 0x20000>;
+-	interrupts = <1 15 0xf08>;
+-	uefi {
+-		xen,uefi-system-table = <0xXXXXXXXX>;
+-		xen,uefi-mmap-start = <0xXXXXXXXX>;
+-		xen,uefi-mmap-size = <0xXXXXXXXX>;
+-		xen,uefi-mmap-desc-size = <0xXXXXXXXX>;
+-		xen,uefi-mmap-desc-ver = <0xXXXXXXXX>;
+-        };
+-};
+-
+-The format and meaning of the "xen,uefi-*" parameters are similar to those in
+-Documentation/arch/arm/uefi.rst, which are provided by the regular UEFI stub. However
+-they differ because they are provided by the Xen hypervisor, together with a set
+-of UEFI runtime services implemented via hypercalls, see
+-http://xenbits.xen.org/docs/unstable/hypercall/x86_64/include,public,platform.h.html.
+diff --git a/Documentation/devicetree/bindings/arm/xen.yaml b/Documentation/devicetree/bindings/arm/xen.yaml
+new file mode 100644
+index 000000000000..3117f6d3828c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/xen.yaml
+@@ -0,0 +1,113 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/xen.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xen hypervisor
++
++maintainers:
++  - Stefano Stabellini <sstabellini@kernel.org>
++
++description: |
++  Xen ARM virtual platforms shall have a top-level "hypervisor" node with
++  the properties defined below.
++
++properties:
++  $nodename:
++    const: hypervisor
++
++  compatible:
++    description: |
++      Specifies the Xen hypervisor. The version of the Xen ABI is encoded
++      in the first item as "xen,xen-<version>", followed by the generic
++      "xen,xen" string.
++    items:
++      - pattern: "^xen,xen-[0-9]+\\.[0-9]+$"
++      - const: xen,xen
++
++  reg:
++    description: |
++      Base physical address and size of the regions in memory where special
++      resources should be mapped to, using an HYPERVISOR_memory_op hypercall.
++
++      Region 0 is reserved for mapping the grant table and must always be
++      present. The memory region must be large enough to map the whole grant
++      table (it is larger or equal to gnttab_max_grant_frames()).
++
++      Regions 1...N are extended regions (unused address space) for mapping
++      foreign GFNs and grants. They might be absent if there is nothing to
++      expose.
++    minItems: 1
++
++  interrupts:
++    description: |
++      The interrupt used by Xen to inject event notifications.
++      A GIC node is also required.
++    maxItems: 1
++
++  uefi:
++    type: object
++    description: |
++      Node populated by Xen to support UEFI on Xen ARM virtual platforms.
++      The format and meaning of the "xen,uefi-*" parameters are similar to
++      those in Documentation/arch/arm/uefi.rst, but are provided by the Xen
++      hypervisor together with a set of UEFI runtime services implemented via
++      hypercalls.
++    properties:
++      xen,uefi-system-table:
++        description: Guest physical address of the UEFI System Table.
++        $ref: /schemas/types.yaml#/definitions/uint64
++
++      xen,uefi-mmap-start:
++        description: Guest physical address of the UEFI memory map.
++        $ref: /schemas/types.yaml#/definitions/uint64
++
++      xen,uefi-mmap-size:
++        description: Size in bytes of the UEFI memory map pointed to by xen,uefi-mmap-start.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      xen,uefi-mmap-desc-size:
++        description: Size in bytes of each entry in the UEFI memory map.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      xen,uefi-mmap-desc-ver:
++        description: Version of the mmap descriptor format.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    / {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        gic: interrupt-controller {
++            #interrupt-cells = <3>;
++            interrupt-controller;
++        };
++
++        hypervisor {
++            compatible = "xen,xen-4.3", "xen,xen";
++            reg = <0 0xb0000000 0 0x20000>;
++            interrupt-parent = <&gic>;
++            interrupts = <1 15 0xf08>;
++
++            uefi {
++                xen,uefi-system-table = /bits/ 64 <0x1301415>;
++                xen,uefi-mmap-start = /bits/ 64 <0x7591400>;
++                xen,uefi-mmap-size = <0x1800>;
++                xen,uefi-mmap-desc-size = <0x30>;
++                xen,uefi-mmap-desc-ver = <1>;
++            };
++        };
++    };
++...
+-- 
+2.54.0
 
-Best regards,
-Krzysztof
