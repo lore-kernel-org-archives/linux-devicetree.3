@@ -1,651 +1,305 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BED30C14C;
-	Mon, 15 Jun 2026 05:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF1B394793
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781501215; cv=none; b=TSN4Ur0RAX8yj0n9A/YJwkgmzlG9cwPtQeMxNAmHz4MrZJC4f5RzBegydnDMofk2Q/vKdGeO6aLYJAnyc+DJirWtr1CXOggXmrBqbc66IJhMQICxazfg0h6IdHF/znLHel8cw9K9cfPjfz1IYWR5uPfDh0wj/pnhA2Y4UIivKH0=
+	t=1781501556; cv=none; b=It4nzMczVMtATAR3q6G1KFixUNDsxjPoI+Zgbvn8bngQaQvgGUjjtPnNI17QooWJXEshjdHiIeFPAN23uG75lXwkSmzBmrQygLBT2jwc9KXZmgcJVr4xt1DQjGre+E6/76v/w9tXzXq0RH7BL72/Z9+TVNZbTVOrfBYR5dKWqCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781501215; c=relaxed/simple;
-	bh=69LfCg46mTJOAn6HtnGa0qRTDZ6csxiNvMuyYRm5cAU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=YQ7SbxoaXuKZRyGHvrLbzZ9iK+4n7Rzhd/ZMV18hQh/L8AGwDqRgFy8XEFoKcM5XKZ/UP4948vU0K1y1djQu+7xSqXXL3BkWo87rhRuQp10w7OyALPZpKg501lvr0bIAP4CDcx7WCv4pDp46Vq1kOWiv5x5FaT66N76dtALyZLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=b2Er7RfV; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1781501556; c=relaxed/simple;
+	bh=kpOfB852bwmuwaZanodcktCSfyCuAn/3QFse7+RpxgY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PrpQAs0YwaVek+vhxV3cAucSqfgQ/SKBUb1qeKHS/2GpqL5JU4Qi72qd5cjBoIhlpa5DYqC84CAVyPa5pDidEOe12me6ezDdtEn4g4O9rFXYqNLJaV0goLJDT/lRJI++ndudZJqkdqcWwp+v0XbL9JOTgi5fFtDcNpLHuRFKZWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J9BC89hy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JDSDWHYB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="b2Er7RfV"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F1mpZI4115747;
-	Mon, 15 Jun 2026 01:26:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=EUg2h
-	zImQlfxBLe1WVhSF6LTYpGnrlRK++AmJrcT90A=; b=b2Er7RfVwXbKS2dRq6TZe
-	yFAkI/160Z+UubbRRk75ZXnmJa+G0lhpQYR2Jelm15JMPU1oHtp81W8hipDvAYal
-	uXXBf7QD8dJPlmpJF267CtXYbabdn9MzdeF6eo0cwN0pRGxr5Pw0NYnCcnTukx6l
-	fPJa/Wx/YCmboWsNgdGu2gH/K5uVMnYxVn/UE7P9fB9sIG4psJjrWFmEg2cwM2yi
-	H0DQApEfOH1cqJ53cN39NKUhCbVnvgGYBwAbK6OtjRph3T5xgAVhfAWgZU0dtiiS
-	oUrwo5oQco3GY4k1c3TXOVr6XZwNYZTCs2EXXhx75UhrY60lMi3QBIyP3AbQYAqS
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4esrhfae88-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 15 Jun 2026 01:26:45 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 65F5QifM015025
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 15 Jun 2026 01:26:44 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 15 Jun 2026 01:26:44 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 15 Jun 2026 01:26:42 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 15 Jun 2026 01:26:42 -0400
-Received: from HYB-7P5GeKnsiiX.ad.analog.com ([10.118.9.46])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 65F5QJCO012830;
-	Mon, 15 Jun 2026 01:26:30 -0400
-From: Edelweise Escala <edelweise.escala@analog.com>
-Date: Mon, 15 Jun 2026 13:26:09 +0800
-Subject: [PATCH v10 2/2] leds: ltc3220: Add Support for LTC3220 18 channel
- LED Driver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J9BC89hy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JDSDWHYB"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F1jKQj3244352
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:32:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2WxLejNJ7y8XIoszPdcRSycDXw68aEv4UAG08MDaNWg=; b=J9BC89hylX242OS9
+	vfP1ZBIuKej/Ovithi1H/Yq7GrbI74fkghjOxKmxD6xE3fCEM/akHAhMVa8xyIlw
+	pFSI7CFXltgfg3ka8wCxcfXGBH9YG2wqSIDlFcZmVwDi7a39FdSCx9ygJ8t8CxzP
+	60OZVba0SaqZXUDTcHV5I9Yf3ZBzYaIfNWnz5tmA5MhKcQDXEFF1Bwdz2MepIrki
+	kJVSM5RCd+l6jB+wDb8L9vk28bc/Xsoto/r2EpCIfEe4ZBlY8D6wbKVcrDlRONHi
+	bQfNX2yCKNGsVdCGq4EYhxbZ3zwNF9TC2p1248R7K4lFZyw1jKSX0W9v7Kh7Miiy
+	fE7I6g==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery7gwquy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:32:31 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c85a2bf5388so1329069a12.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 22:32:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781501550; x=1782106350; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2WxLejNJ7y8XIoszPdcRSycDXw68aEv4UAG08MDaNWg=;
+        b=JDSDWHYB1rlEydU3075W448184SOkGc8kbcivuRCGa2Y6c4zMc7xwDex2NCrXvLkbN
+         o3TJQtp/JhfLREXJRiqdQeCpw5abVSi9/b45cVIX4zQTZe61TX0KbjzNXvg7n3jU0AZG
+         MaJcuzoaWOgSkEw3t5QfceduprWCSaJ+2uVEkz+yoISHn5783EXmw9Tc8XLsaZH7qAFk
+         m5wNHYkSZZ5+gtstpsl4AK1CwQX8VAiX7m029yLbOg3RpzMZqRVnx4seNpqk5MeGmJWp
+         D04GExGzXVPlWyLQarsbu/QWTivLoZqRCUzK6KrmGgGl1g8A91ZFSCUBuG6KyM554nbH
+         IGag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781501550; x=1782106350;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2WxLejNJ7y8XIoszPdcRSycDXw68aEv4UAG08MDaNWg=;
+        b=nV2HXK0vO08D+9rm0bM7OJ+ETuownycucy83jb2M8mT17GSSdZ02khMxlNduJFC3dM
+         znbym90seqUM9zqPpfxjd6gkS/zDYpZ5pFqifsqVidSKniHzdTnLBnB/7o6YYcmlgRmT
+         XMDkS2E6ikpcqMdtd+Slkx1reaZQqqi1EpSoXLuOCmUwDH3eEW/FD0xZ8GNNTdSwneRj
+         xnRJjIFCXtXCMeq6c4XpDZCIfUjROmUgch8iporvCYDwdKQ7pUlQBFLErKDj/MYopaqT
+         7Q1NeIAU6T7q6OmtsBkhH9LOkBDUspee1u4+ngPSD1K9FzKuTJt+QRLqSeiGTkExSd28
+         OvzA==
+X-Forwarded-Encrypted: i=1; AFNElJ8JH6N7X2WxWAw8s3Jbbb6T8XymbCYCQ9EJyhSZA1EPOPX9Z52fLB8vLTBPe2qZks1NkUFrL9wLqHd3@vger.kernel.org
+X-Gm-Message-State: AOJu0YwuMLLw+OAJDo0YHfzWd4xT5BmeleQcJN99WGwMOUL8ji8D1NPG
+	M9PF0Ud4JueDrkk7a5cLKN3MFFb8gB9LLI/q+EtqN1v4p3DSBahvJQpONfoWIml1QVOREfIWSHg
+	jMNMheF8kheZSVSFxpFJyoWdZ3/JFlXogZ0YIG/lJcUUe1RYXPXZeP1DG7HNPMQbE
+X-Gm-Gg: Acq92OEyidRL5rS63DFcQyUTaOXtxWFtRuhVDo4IVYd9wURS3dhIWqwyyn9liR046tQ
+	mZhMIRt8wHoNqTHbE1Wb/obyTkCu3HZjKC2CHintxL8/HJL9mmhnipOdNW7EvqAO9CLaO8yYW5Z
+	YWUycGutRe+v7aa7u9iPZyaHrNkE3EkOALSyHgX9aQh0H0e3MdUeG9EVTx3frkPZpzckDhyPs8E
+	YdXRxXPtfERtyVkjqp8CVzL5qoe5MTDS6M4dovwlbGRpz2idyERC5jd9pA1uy6huCcoLnFqHn70
+	fGoA1DzyaHJuo9q+Q23gZ/qr38WVSf90Nk2Pl1eDgFTybkUESektJlKfdRcGjOthjmCEoWA7MkA
+	BanJjR7B8tKvYQDukbBBq5kFWoLu1c08FzvgA4S38LQO0TEGJQPK8
+X-Received: by 2002:a17:903:944:b0:2c4:608:167c with SMTP id d9443c01a7336-2c410cd152emr134644975ad.6.1781501550284;
+        Sun, 14 Jun 2026 22:32:30 -0700 (PDT)
+X-Received: by 2002:a17:903:944:b0:2c4:608:167c with SMTP id d9443c01a7336-2c410cd152emr134644755ad.6.1781501549703;
+        Sun, 14 Jun 2026 22:32:29 -0700 (PDT)
+Received: from [10.217.199.117] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c432c8dd4bsm88750835ad.60.2026.06.14.22.32.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jun 2026 22:32:29 -0700 (PDT)
+Message-ID: <4006d16f-a159-4f1b-ba80-f19bef8f4c5c@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 11:02:22 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260615-ltc3220-driver-v10-2-916562c88598@analog.com>
-References: <20260615-ltc3220-driver-v10-0-916562c88598@analog.com>
-In-Reply-To: <20260615-ltc3220-driver-v10-0-916562c88598@analog.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/8] arm64: dts: qcom: kodiak: Enable CDSP & Modem
+ cooling
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Edelweise Escala
-	<edelweise.escala@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781501179; l=17212;
- i=edelweise.escala@analog.com; s=20260106; h=from:subject:message-id;
- bh=69LfCg46mTJOAn6HtnGa0qRTDZ6csxiNvMuyYRm5cAU=;
- b=nv5vZ3KSuiTg4V5nZolHC/EKYSklaMEk7YFwMiLo3n+lEqC9xmMnzpQ0PyZjxTCVzM+X3uRa3
- Vh3W+npol7+B/pt8NDvh5PFEDVXctGm1LZVsBz6YkajciF939Qmmjp5
-X-Developer-Key: i=edelweise.escala@analog.com; a=ed25519;
- pk=lf5HLFe8ZeQjXZgkBkFMK+u9qH5/tqZhCIushTKduNQ=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: MtJbE2MxBsfAyCAJVXL5xf7OCDrqCAtB
-X-Proofpoint-ORIG-GUID: MtJbE2MxBsfAyCAJVXL5xf7OCDrqCAtB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA1NSBTYWx0ZWRfX+zXZgUU7u5DM
- Pu9gimFUQd/Q5kyblcrakUQv+J4qe9XjUuclgtSto687vj/LJF635sqdsyIWMhv6H0KjzuxfXSp
- GfwnziIV6CkUBrk8XI+GiRE9zaAUB2wwu8IpxGQ11xIRVg1m0HJz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA1NSBTYWx0ZWRfXzJWgfVBetp//
- nAY8Vl2IKvnMjNEtWA4t8DVieNtwbQHu54Tk1KUf6xnqA6wqt+NZ/h8VwkgEog9UanNe91KNbr6
- U9zYFcEQfCbfr2fnlWXGY3Y8P0dJAUE3vGCgGXuJslGZ06WJIy8gYBYgqgQIFccXz4PaSP18L5y
- TDOAjgUcqJkY6mt3bzw4rv5W51eTH7natdNmqRraZtNCdsSwLEffSM4npiiX2Gpy+DC5F1gALm0
- gQyDmQjGYQlIOymslNUeqVxBZ+c6mbhcSr//UBqdgxYQ6BBUjWVJrDCjT9rLUDnW0nC0a0rKqOa
- mYjNX6t4TH84aiO6X7CCQYGReJ1XHToiCwr5QoUJMo3A1QHT8eDuqLJ8db4MTpDIg0EBPZCTnjm
- PQTfZ6zVv3zorAbLacf+0MduLvuX5aiI6prgxcVUK02blQ7gCvESfcmb1R/97WvCmkxB152Na8r
- 2U7eg0+v8pHcJvwFpzA==
-X-Authority-Analysis: v=2.4 cv=H7HrBeYi c=1 sm=1 tr=0 ts=6a2f8d15 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=hDp-1W3ThxgPJ28xnkQA:9 a=QEXdDO2ut3YA:10
+ <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
+ <20260609-qmi-tmd-v3-4-291a2ff4c634@oss.qualcomm.com>
+ <pf6rymdtbfcqqzt6vnn6gc3uuod4vlfpw42dxxag33aom7lltu@6ymibirvwfnc>
+Content-Language: en-US
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+In-Reply-To: <pf6rymdtbfcqqzt6vnn6gc3uuod4vlfpw42dxxag33aom7lltu@6ymibirvwfnc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA1NSBTYWx0ZWRfX7l+9aIHFKoBe
+ IGcNZY83UhrpW/OcU6Q94Gwt8cmlHvl8v/TH/vk6eBBT+26b6RIXAOYwBEyP0RrZB/jQWGjN7of
+ 5I0t3QE344Ge9QYtpBGxxiFUjneAneg=
+X-Authority-Analysis: v=2.4 cv=fLYJG5ae c=1 sm=1 tr=0 ts=6a2f8e6f cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vKcbMMOwgKL51wQY6hoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA1NSBTYWx0ZWRfXysd9jR1zdf4s
+ m8ideIVxiN0be9MhHKMeQ9h7vT1is4bWbNNhJHkzyKgdYtEQMmQsUDAN1KdqqEN5Le/7RsKkE3A
+ ODyQ9gUxxM44Vqw75DzH/B6GijhUhXvA6NOFSkoyqMJrG9Se0J34GCSuCmwKAoI9afzQK/8KKbA
+ kD8EZtFRG4KNhief8m04EVVhTy2eJbXVWtbUJzAjNr8hhs+le2qElFmlA6zfgKs6vWeXOCiICL1
+ VOXzaiC676ridvkPkACT6IkfB1miQBdIHsyh+XZ0VwiAIjvARiVg7p2Z7oMzgbKNS0cEGdPQcuM
+ EGkQhJMEJvFofTDY6+nZGfop2Vrz3z5v7KBWw5zBRbmz2LwCpFNPPi6qY+zrIuulOzFCmLdppg/
+ SRfKXmIi64b+sDDg/ZeslTjnLQWxyHxuv6xgjGtkxzmGbDZYlcDSLRxtW0OExCR60hIA6z/NmPx
+ QGJGVrj6S4oMXT3HeIA==
+X-Proofpoint-GUID: bWHsuNAcM_5BYFzbkV7tw_FHmbkpBbs-
+X-Proofpoint-ORIG-GUID: bWHsuNAcM_5BYFzbkV7tw_FHmbkpBbs-
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 impostorscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ malwarescore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150055
 
-Add driver for the LTC3220 18-channel LED driver
-with I2C interface, individual brightness control, and hardware-assisted
-blink/gradation features.
 
-Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
----
- MAINTAINERS                 |   1 +
- drivers/leds/Kconfig        |  13 ++
- drivers/leds/Makefile       |   1 +
- drivers/leds/leds-ltc3220.c | 467 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 482 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c8a242577d2f..0f553ada61d9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15229,6 +15229,7 @@ L:	linux-leds@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
-+F:	drivers/leds/leds-ltc3220.c
- 
- LTC4282 HARDWARE MONITOR DRIVER
- M:	Nuno Sa <nuno.sa@analog.com>
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index f4a0a3c8c870..31b1e3ff094c 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -1000,6 +1000,19 @@ config LEDS_ST1202
- 	  Say Y to enable support for LEDs connected to LED1202
- 	  LED driver chips accessed via the I2C bus.
- 
-+config LEDS_LTC3220
-+	tristate "LED Driver for Analog Devices Inc. LTC3220"
-+	depends on I2C && LEDS_CLASS
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable support for the Analog Devices LTC3220
-+	  18-channel LED controller with I2C interface.
-+	  The driver supports individual LED brightness control (64 steps),
-+	  hardware-assisted blinking and gradation effects.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called leds-ltc3220.
-+
- config LEDS_TPS6105X
- 	tristate "LED support for TI TPS6105X"
- 	depends on LEDS_CLASS
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 7db3768912ca..a68244bd50fb 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
- obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
- obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
- obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
-+obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-diff --git a/drivers/leds/leds-ltc3220.c b/drivers/leds/leds-ltc3220.c
-new file mode 100644
-index 000000000000..f95174ae451b
---- /dev/null
-+++ b/drivers/leds/leds-ltc3220.c
-@@ -0,0 +1,467 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * LTC3220 18-Channel LED Driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ *
-+ * Author: Edelweise Escala <edelweise.escala@analog.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/leds.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+/* LTC3220 Registers */
-+#define LTC3220_COMMAND_REG				0x00
-+#define   LTC3220_QUICK_WRITE_MASK			BIT(0)
-+#define   LTC3220_SHUTDOWN_MASK				BIT(3)
-+
-+#define LTC3220_ULED_REG(x)				(0x01 + (x))
-+#define   LTC3220_LED_CURRENT_MASK			GENMASK(5, 0)
-+#define   LTC3220_LED_MODE_MASK				GENMASK(7, 6)
-+
-+#define LTC3220_GRAD_BLINK_REG				0x13
-+#define   LTC3220_GRADATION_MASK			GENMASK(2, 0)
-+#define   LTC3220_GRADATION_DIRECTION_MASK		BIT(0)
-+#define   LTC3220_GRADATION_PERIOD_MASK			GENMASK(2, 1)
-+#define   LTC3220_BLINK_MASK				GENMASK(4, 3)
-+
-+#define LTC3220_NUM_LEDS				18
-+
-+#define LTC3220_GRADATION_RAMP_TIME_240MS		240
-+#define LTC3220_GRADATION_RAMP_TIME_480MS		480
-+
-+#define LTC3220_BLINK_ON_156MS				156
-+#define LTC3220_BLINK_ON_625MS				625
-+#define LTC3220_BLINK_PERIOD_1250MS			1250
-+#define LTC3220_BLINK_PERIOD_2500MS			2500
-+
-+#define LTC3220_BLINK_SHORT_ON_TIME			BIT(0)
-+#define LTC3220_BLINK_LONG_PERIOD			BIT(1)
-+
-+enum ltc3220_led_mode {
-+	LTC3220_NORMAL_MODE,
-+	LTC3220_BLINK_MODE,
-+	LTC3220_GRADATION_MODE,
-+};
-+
-+enum ltc3220_blink_mode {
-+	LTC3220_BLINK_MODE_625MS_1250MS,
-+	LTC3220_BLINK_MODE_156MS_1250MS,
-+	LTC3220_BLINK_MODE_625MS_2500MS,
-+	LTC3220_BLINK_MODE_156MS_2500MS
-+};
-+
-+enum ltc3220_gradation_mode {
-+	LTC3220_GRADATION_MODE_DISABLED,
-+	LTC3220_GRADATION_MODE_240MS_RAMP_TIME,
-+	LTC3220_GRADATION_MODE_480MS_RAMP_TIME,
-+	LTC3220_GRADATION_MODE_960MS_RAMP_TIME
-+};
-+
-+static const struct regmap_config ltc3220_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = LTC3220_GRAD_BLINK_REG,
-+	.cache_type = REGCACHE_FLAT_S,
-+};
-+
-+struct ltc3220_uled_cfg {
-+	struct led_classdev led_cdev;
-+	u8 reg_value;
-+	u8 led_index;
-+};
-+
-+struct ltc3220 {
-+	struct ltc3220_uled_cfg uled_cfg[LTC3220_NUM_LEDS];
-+	struct regmap *regmap;
-+	bool is_aggregated;
-+};
-+
-+/*
-+ * Set LED brightness. Hardware supports 0-63 brightness levels.
-+ * Mode switching (blink/gradation) is handled through dedicated callbacks.
-+ */
-+static int ltc3220_set_led_data(struct led_classdev *led_cdev,
-+				enum led_brightness brightness)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg - uled_cfg->led_index, struct ltc3220,
-+					       uled_cfg[0]);
-+	int ret;
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+			   brightness);
-+	if (ret)
-+		return ret;
-+
-+	uled_cfg->reg_value = brightness;
-+
-+	/*
-+	 * When aggregated LED mode is enabled, writing to LED 1 updates all
-+	 * LEDs simultaneously via quick-write mode. Update cached values for
-+	 * all LEDs to reflect the synchronized state.
-+	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for how
-+	 * to configure aggregated LED mode.
-+	 */
-+	if (ltc3220->is_aggregated && uled_cfg->led_index == 0) {
-+		for (int i = 0; i < LTC3220_NUM_LEDS; i++)
-+			ltc3220->uled_cfg[i].reg_value = brightness;
-+	}
-+
-+	return 0;
-+}
-+
-+static enum led_brightness ltc3220_get_led_data(struct led_classdev *led_cdev)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+
-+	return uled_cfg->reg_value;
-+}
-+
-+/*
-+ * LTC3220 pattern support for hardware-assisted breathing/gradation.
-+ * The hardware supports 3 gradation ramp time 240ms, 480ms, 960ms)
-+ * and can ramp up or down.
-+ *
-+ * Pattern array interpretation:
-+ *   pattern[0].brightness = start brightness (0-63)
-+ *   pattern[0].delta_t = ramp time in milliseconds
-+ *   pattern[1].brightness = end brightness (0-63)
-+ *   pattern[1].delta_t = (optional, can be 0 or same as pattern[0].delta_t)
-+ */
-+static int ltc3220_pattern_set(struct led_classdev *led_cdev,
-+			       struct led_pattern *pattern,
-+			       u32 len, int repeat)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg - uled_cfg->led_index, struct ltc3220,
-+					       uled_cfg[0]);
-+	u8 gradation_period;
-+	u8 start_brightness;
-+	u8 end_brightness;
-+	u8 gradation_val;
-+	bool is_increasing;
-+	int ret;
-+
-+	if (len != 2)
-+		return -EINVAL;
-+
-+	start_brightness = pattern[0].brightness & LTC3220_LED_CURRENT_MASK;
-+	end_brightness = pattern[1].brightness & LTC3220_LED_CURRENT_MASK;
-+
-+	is_increasing = end_brightness > start_brightness;
-+
-+	if (pattern[0].delta_t == 0)
-+		gradation_period = LTC3220_GRADATION_MODE_DISABLED;
-+	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_240MS)
-+		gradation_period = LTC3220_GRADATION_MODE_240MS_RAMP_TIME;
-+	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_480MS)
-+		gradation_period = LTC3220_GRADATION_MODE_480MS_RAMP_TIME;
-+	else
-+		gradation_period = LTC3220_GRADATION_MODE_960MS_RAMP_TIME;
-+
-+	gradation_val = FIELD_PREP(LTC3220_GRADATION_PERIOD_MASK, gradation_period);
-+	gradation_val |= FIELD_PREP(LTC3220_GRADATION_DIRECTION_MASK, is_increasing);
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
-+				 LTC3220_GRADATION_MASK, gradation_val);
-+	if (ret)
-+		return ret;
-+
-+	ret = ltc3220_set_led_data(led_cdev, start_brightness);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+			   FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_GRADATION_MODE) |
-+			   end_brightness);
-+	if (ret)
-+		return ret;
-+
-+	uled_cfg->reg_value = end_brightness;
-+
-+	return 0;
-+}
-+
-+static int ltc3220_pattern_clear(struct led_classdev *led_cdev)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg - uled_cfg->led_index, struct ltc3220,
-+					       uled_cfg[0]);
-+	int ret;
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+				 LTC3220_LED_MODE_MASK, LTC3220_NORMAL_MODE);
-+	if (ret)
-+		return ret;
-+
-+	return ltc3220_set_led_data(led_cdev, LED_OFF);
-+}
-+
-+/*
-+ * LTC3220 has a global blink configuration that affects all LEDs.
-+ * This implementation allows per-LED blink requests, but the blink timing
-+ * will be shared across all LEDs. The delay values are mapped to the
-+ * hardware's discrete blink rates.
-+ */
-+static int ltc3220_blink_set(struct led_classdev *led_cdev,
-+			     unsigned long *delay_on,
-+			     unsigned long *delay_off)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg - uled_cfg->led_index, struct ltc3220,
-+					       uled_cfg[0]);
-+	u8 blink_mode = 0;
-+	int ret;
-+
-+	if (*delay_on <= LTC3220_BLINK_ON_156MS)
-+		blink_mode = LTC3220_BLINK_SHORT_ON_TIME;
-+
-+	if (*delay_on + *delay_off > LTC3220_BLINK_PERIOD_1250MS)
-+		blink_mode |= LTC3220_BLINK_LONG_PERIOD;
-+
-+	switch (blink_mode) {
-+	case LTC3220_BLINK_MODE_625MS_1250MS:
-+		*delay_on = LTC3220_BLINK_ON_625MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_625MS;
-+		break;
-+	case LTC3220_BLINK_MODE_156MS_1250MS:
-+		*delay_on = LTC3220_BLINK_ON_156MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_156MS;
-+		break;
-+	case LTC3220_BLINK_MODE_625MS_2500MS:
-+		*delay_on = LTC3220_BLINK_ON_625MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_625MS;
-+		break;
-+	case LTC3220_BLINK_MODE_156MS_2500MS:
-+		*delay_on = LTC3220_BLINK_ON_156MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_156MS;
-+		break;
-+	}
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
-+				 LTC3220_BLINK_MASK, FIELD_PREP(LTC3220_BLINK_MASK, blink_mode));
-+	if (ret)
-+		return ret;
-+
-+	/* Ensure LED has non-zero brightness before enabling blink mode */
-+	if (uled_cfg->reg_value == 0) {
-+		ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+				   led_cdev->max_brightness);
-+		if (ret)
-+			return ret;
-+
-+		uled_cfg->reg_value = led_cdev->max_brightness;
-+	}
-+
-+	return regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+				  LTC3220_LED_MODE_MASK,
-+				  FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_BLINK_MODE));
-+}
-+
-+static void ltc3220_reset_gpio_action(void *data)
-+{
-+	struct gpio_desc *reset_gpio = data;
-+
-+	gpiod_set_value_cansleep(reset_gpio, 1);
-+}
-+
-+static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *client)
-+{
-+	struct gpio_desc *reset_gpio;
-+	int ret;
-+
-+	reset_gpio = devm_gpiod_get_optional(&client->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(reset_gpio))
-+		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio), "Failed on reset GPIO\n");
-+
-+	if (reset_gpio) {
-+		usleep_range(10000, 12000);
-+		gpiod_set_value_cansleep(reset_gpio, 0);
-+		usleep_range(10000, 12000);
-+
-+		ret = devm_add_action_or_reset(&client->dev, ltc3220_reset_gpio_action,
-+						reset_gpio);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
-+	if (ret)
-+		return ret;
-+
-+	for (int i = 0; i < LTC3220_NUM_LEDS; i++) {
-+		ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(i), 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_write(ltc3220->regmap, LTC3220_GRAD_BLINK_REG, 0);
-+}
-+
-+static int ltc3220_suspend(struct device *dev)
-+{
-+	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
-+
-+	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-+				  LTC3220_SHUTDOWN_MASK, LTC3220_SHUTDOWN_MASK);
-+}
-+
-+static int ltc3220_resume(struct device *dev)
-+{
-+	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
-+	int ret;
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-+				 LTC3220_SHUTDOWN_MASK, 0);
-+	if (ret)
-+		return ret;
-+
-+	return regcache_sync(ltc3220->regmap);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend, ltc3220_resume);
-+
-+static int ltc3220_probe(struct i2c_client *client)
-+{
-+	struct ltc3220 *ltc3220;
-+	bool aggregated_led_found = false;
-+	int num_leds = 0;
-+	u8 led_index = 0;
-+	int ret;
-+
-+	ltc3220 = devm_kzalloc(&client->dev, sizeof(*ltc3220), GFP_KERNEL);
-+	if (!ltc3220)
-+		return -ENOMEM;
-+
-+	ltc3220->regmap = devm_regmap_init_i2c(client, &ltc3220_regmap_config);
-+	if (IS_ERR(ltc3220->regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(ltc3220->regmap),
-+				     "Failed to initialize regmap\n");
-+
-+	i2c_set_clientdata(client, ltc3220);
-+
-+	ret = ltc3220_reset(ltc3220, client);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to reset device\n");
-+
-+	/* First pass: validate configuration and set up LED structures */
-+	device_for_each_child_node_scoped(&client->dev, child) {
-+		struct ltc3220_uled_cfg *led;
-+		u32 source;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &source);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret, "Couldn't read LED address\n");
-+
-+		if (!source || source > LTC3220_NUM_LEDS)
-+			return dev_err_probe(&client->dev, -EINVAL, "LED address out of range\n");
-+
-+		if (fwnode_property_present(child, "led-sources")) {
-+			if (source != 1)
-+				return dev_err_probe(&client->dev, -EINVAL,
-+						     "Aggregated LED out of range\n");
-+
-+			if (aggregated_led_found)
-+				return dev_err_probe(&client->dev, -EINVAL,
-+						     "One Aggregated LED only\n");
-+
-+			aggregated_led_found = true;
-+			ltc3220->is_aggregated = true;
-+
-+			ret = regmap_update_bits(ltc3220->regmap,
-+						 LTC3220_COMMAND_REG,
-+						 LTC3220_QUICK_WRITE_MASK,
-+						 LTC3220_QUICK_WRITE_MASK);
-+			if (ret)
-+				return dev_err_probe(&client->dev, ret,
-+						     "Failed to set quick write mode\n");
-+		}
-+
-+		num_leds++;
-+
-+		/* LED node reg/index/address goes from 1 to 18 */
-+		led_index = source - 1;
-+		led = &ltc3220->uled_cfg[led_index];
-+
-+		if (led->led_cdev.dev)
-+			return dev_err_probe(&client->dev, -EINVAL,
-+					     "Duplicate LED reg %u found", source);
-+
-+		led->led_index = led_index;
-+		led->reg_value = 0;
-+		led->led_cdev.brightness_set_blocking = ltc3220_set_led_data;
-+		led->led_cdev.brightness_get = ltc3220_get_led_data;
-+		led->led_cdev.max_brightness = 63;
-+		led->led_cdev.blink_set = ltc3220_blink_set;
-+		led->led_cdev.pattern_set = ltc3220_pattern_set;
-+		led->led_cdev.pattern_clear = ltc3220_pattern_clear;
-+	}
-+
-+	/*
-+	 * Aggregated LED mode uses hardware quick-write to control all 18 LEDs
-+	 * simultaneously. This is mutually exclusive with individual LED control.
-+	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for details
-+	 * on how to configure aggregated LED mode.
-+	 */
-+	if (aggregated_led_found && num_leds > 1)
-+		return dev_err_probe(&client->dev, -EINVAL,
-+				     "Aggregated LED must be the only LED node\n");
-+
-+	/* Second pass: register LEDs after validation */
-+	device_for_each_child_node_scoped(&client->dev, child) {
-+		struct led_init_data init_data = {};
-+		struct ltc3220_uled_cfg *led;
-+		u32 source;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &source);
-+		if (ret)
-+			return ret;
-+
-+		init_data.fwnode = child;
-+		init_data.devicename = "ltc3220";
-+
-+		led_index = source - 1;
-+		led = &ltc3220->uled_cfg[led_index];
-+
-+		ret = devm_led_classdev_register_ext(&client->dev, &led->led_cdev, &init_data);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret, "Failed to register LED class\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ltc3220_of_match[] = {
-+	{ .compatible = "adi,ltc3220" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ltc3220_of_match);
-+
-+static struct i2c_driver ltc3220_led_driver = {
-+	.driver = {
-+		.name = "ltc3220",
-+		.of_match_table = ltc3220_of_match,
-+		.pm = pm_sleep_ptr(&ltc3220_pm_ops),
-+	},
-+	.probe = ltc3220_probe,
-+};
-+module_i2c_driver(ltc3220_led_driver);
-+
-+MODULE_AUTHOR("Edelweise Escala <edelweise.escala@analog.com>");
-+MODULE_DESCRIPTION("LED driver for LTC3220 controllers");
-+MODULE_LICENSE("GPL");
+On 6/9/2026 4:27 PM, Dmitry Baryshkov wrote:
+> On Tue, Jun 09, 2026 at 03:52:59PM +0530, Gaurav Kohli wrote:
+>> Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
+>> when it reaches high temperatures in kodiak.
+>>
+>> Set up CDSP cooling by throttling the cdsp when it reaches 100°C and
+>> for modem when it reaches to 95°C.
+>>
+>> Remove inherited mdmss cooling-map nodes for Non Modem kodiak variant.
+> 
+> Why? If it is a GNSS-only MPSS, does it not provide any thermal
+> mitigation mechanisms? Does ADSP provide those? WPSS?
+> 
 
--- 
-2.43.0
+Hi Dmitry,
+
+Thank you for the review.
+
+Since the remoteproc_mpss node doesn't exist on these boards, the
+cooling-maps that reference it cause DT compilation errors. That's why
+we need to remove the inherited cooling-maps from the SoC DTSI.
+  /delete-node/ &remoteproc_mpss;
+
+Regarding thermal mitigation for other subsystems:
+->CDSP and Modem are the primary heat sources based on our internal
+   thermal testing and evaluation.
+->ADSP and WPSS have lower power consumption and don't typically reach
+   thermal thresholds that require active mitigation
+->For this, I'm checking with our internal team to confirm if ADSP/WPSS
+   provide any TMD mechanism across all targets.
+
+>>
+>> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/kodiak.dtsi               | 127 ++++++++++++++++++++-
+>>   .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     |  17 +++
+> 
+> So, you removed those for Radxa Q6A, but not forRB3 Gen2. Why?
+> 
+
+Ack, this is a miss. will fix this.
+
+>>   .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts  |  17 +++
+>>   .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |  17 +++
+>>   .../boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi    |  18 +++
+>>   .../boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi   |  16 +++
+>>   6 files changed, 208 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>> index fa540d8c2615..d345add2d8c8 100644
+>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>> @@ -3427,6 +3427,9 @@ remoteproc_mpss: remoteproc@4080000 {
+>>   			qcom,smem-states = <&modem_smp2p_out 0>;
+>>   			qcom,smem-state-names = "stop";
+>>   
+>> +			#cooling-cells = <3>;
+>> +			tmd-names = "pa", "modem";
+>> +
+>>   			status = "disabled";
+>>   
+>>   			glink-edge {
+>> @@ -4787,6 +4790,9 @@ remoteproc_cdsp: remoteproc@a300000 {
+>>   			qcom,smem-states = <&cdsp_smp2p_out 0>;
+>>   			qcom,smem-state-names = "stop";
+>>   
+>> +			#cooling-cells = <2>;
+>> +			tmd-names = "cdsp_sw";
+> 
+> I'm going to review only this DT, the comments apply to the rest of
+> them.
+> 
+> So, we have two cases, CDSP and MPSS. Why does CDSP have only 2 cells?
+> Just because tmd-names has only one name? What if we add another
+> mitigation (which can be added in the firmware), do we suddenly have to
+> change number of cells and all the cooling devices to reflect it?
+> 
+
+As Cdsp has only one relevant tmd to mitigate, so we have used cooling 
+cells as 2. But i will change this to 3 as this is backward compatible.
+
+> Finally. If I understand correctly, these mitigtion mechanisms are
+> provided by the firmware. Firmware differs between the boards. Vendors
+> (in theory) can change them. Why do we list these names here, in the SoC
+> DT?
+> 
+
+Below are the main reason for this, replied in other thread also.
+Please guide, if i can use qcom_pas_data to define names.
+
+Following Daniel's series [1], the thermal framework supports
+mapping multiple cooling devices per remoteproc/device via indexed
+cooling-cells.
+
+1) The thermal framework's cooling-maps reference
+cooling devices by index (for #cooling-cells = <3>). Without tmd-names,
+there's no way to know which index corresponds to which TMD, as firmware
+may return tmd-names in any order.
+
+below are the changes post new thermal mapping changes:
+DT: tmd-names = "cdsp_sw", "xyz";
+Firmware: ["cdsp_sw", "xyz1", "xyz2",]
+Driver registers: Only "cdsp_sw" (index 0) and "xyz" (index 1)
+
+This allows cooling-maps like below:
+cooling-device = <&remoteproc 0 ...>  // "cdsp_sw"
+cooling-device = <&remoteproc 1 ...>  // "xyz"
+
+2) Not all firmware-provided TMDs should be
+exposed as cooling devices. The tmd-names property acts as a filter,
+allowing board-specific DT to select only the relevant TMDs for that
+platform.
+
+[1]
+https://lore.kernel.org/all/20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com/
+
+Shall i use pas data to define tmd-names instead of dt ?
+
+>> +
+>>   			status = "disabled";
+>>   
+>>   			glink-edge {
+>> +			cooling-maps {
+>> +				map0 {
+>> +					trip = <&mdmss0_alert1>;
+>> +					cooling-device = <&remoteproc_mpss 0 0 2>;
+> 
+> What does this mean? I assume that the first cell is one of the
+> mechanisms. What is the difference between them? Do we really need to
+> list them one by one here?
+> 
+
+Let me check, if i can document different tmd's somewhere:
+
+-> modem tmd used for Modem Processor mitigation.
+-> pa is used for Power Amplifier mitigation.
+
+And we need to list them for binding purpose mainly.
+
+> What do other cells mean? Why are they 0 and 2 rather than
+> THERMAL_NO_LIMIT? How does one come with those values? This should all
+> be documented and explained somewhere.
+> 
+
+Will change to THERMAL_NO_LIMIT. Let me check, if i can use
+qli doc for documentation.
+
+>> +				};
+>> +
+>> +				map1 {
+>> +					trip = <&mdmss0_alert1>;
+>> +					cooling-device = <&remoteproc_mpss 1 0 2>;
+>> +				};
+>> +			};
+>>   		};
+>>   
+> 
 
