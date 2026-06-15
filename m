@@ -1,187 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055DC3E7BCE
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D433E7BCE
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781525813; cv=none; b=hsXwkVIDWNv3k3qu1mbjelRMEUnZT+aBs5Kxkq+lSaCGxcfOZlI7XLQ9KIy5tPwFZJQ17sxfDo0JZ/RgvRelHZRGMfopW2B87z2lyoGbUBawlkqeLAtCL8ca/p6LtZrEnASlXzlnvBPOlDdGr91wp+20VqSLUqMuPZD0oqD7Ojc=
+	t=1781525966; cv=none; b=HVePS70v/qm0WV2GIwwnS74rRscMPopsXpk2dzkGj26f79+L5TmpQvKiq1U4gUAtdw85M8zBouJIefUOX7HfhHT2qzGgzvM6D5xQCb3U7KXxpN0lzAp8cw61VSnqLRqL+9AXyIY/iSF/sD6jR6ccC5C5fYUGAEc5HmN7y1wc8bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781525813; c=relaxed/simple;
-	bh=CK6UTyjpxdKXNdNQ9uQ3F4qXvg/brF1FB31/1qGDvgU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=flfVTM3pXq32wAQ7on94i03YumYLauC4XJplK/B6MN08gcOyzEWy/YfX9b4lQeTgBcAr92zkz8b9Zj/bD8oc1ksEgC+8rvxVqzWgi4R+qOdXzuB83U2/kNPAg0g+Cw56Wxj47U763R8eMNEHpSqebySwccyiQq1n91LVv30Fcek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k4rexQuW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781525966; c=relaxed/simple;
+	bh=7FmCLHeh58sbTqDhyFlCcWfDhpGagE0jiv3A7Fg0eVY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CjVFA2VwHNn9n64SB35Inq9IPiUK/6k3pyWGOqVOAdJUX7cOIjeH9bOw+8e8NN0UNUgFqjdCDwbWGh4k1U4YXqTZie0z/tImSOivvbB89HU7B9887s5xHZJKFg/Pfq7nuSlx9bviJPPRA+MK0YEtWlUk1DPu4r76OlKQh9vV5yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NoxiD0B3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=koMLwF7H; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k4rexQuW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25F41F000E9;
-	Mon, 15 Jun 2026 12:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781525811;
-	bh=9iqVy+5+rJXm592HelTq9mDfS/LD1A876hdQuh6hkaY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k4rexQuWEzHcDIa3/xN5n7hsNV4UKB6i2J2slVzKJrwsynxinZ3KZc0+RfalDv/wu
-	 LqNKZZdUTQKFQU6lbfke4k4jTnyUcrYxrJjTkr1KXweivpS8ZYa5ujLx3ZZrO+kUzQ
-	 8VDuswC2T1prEAL1U7Oz/K2FP/vFv+11tHAos6uypeGfPh4nOZn8U/W/+k167ElAyJ
-	 6oGZcKcLaAPUJ68vJSxorJz/ub3aC4NNi5xlNmqRhINqftfBmEnKgsSTeep5qikC+h
-	 bH0A4opuPmA9qr8zJTdnczwCM+xjLiV25gwY0dB2+nHOYCu9FBeghsq/riklvLRbIX
-	 Hk6h3qgy+NX8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] backlight: lp8864: Convert from LED to backlight
- class driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
-References: <20260615120353.3409035-4-alexander.sverdlin@siemens.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 12:16:50 +0000
-Message-Id: <20260615121650.F25F41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NoxiD0B3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="koMLwF7H"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FAobuu3956158
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:19:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4KIiam3l7WE9M0XsEr+loFMQinsori3CfSieNhHYSGg=; b=NoxiD0B3gaaM5ukL
+	HOJoThSpC4ViINmRuVTI1X7MHmQgJYvpI5Z3lIOJhUeMEfq6A6pi/ZfM+qq7/0zY
+	L6kXnoNxNzd2Djyo4bC3lBRLgUuosf2lk1uSmTIexGJr8ioJEm77gX6h6UwkQ04s
+	Q9RQAthFcftNoRix4fKaBROeyoKO5rXrfq27YfHXu9xno2dTDImMxA54TT+qqbCF
+	+SC9w5fpYJXSmRV3POQ39wGZhzY3IZvlxZAX9cM2k7z8qtD1ubzIwbZFAx6RiN2u
+	k1F79Xnfnp6sS1vztunGg642vbmeZplU0XuR+UPuB3PvCqjFoCq4noFUYeI8XjlY
+	ZyD9KQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter00kvx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:19:24 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8ccd1c3b9caso12835916d6.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781525963; x=1782130763; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4KIiam3l7WE9M0XsEr+loFMQinsori3CfSieNhHYSGg=;
+        b=koMLwF7Hc9o9Hf5DtwTF+gwgdMF1ZGxaePw85o90owT1BWtOmOYEmwaacsbjZS+b/U
+         sVYP8IcnFvdTNp617EgGBMN4cwXpEw1O1bctpDC7qYZd+qQoIe0dslhvzXIjuq0f9HTU
+         /HMrorvb2jVL8jww6LV4a82uXeS6VoMODmLHxQmQvZDkMWB0GzJkGUhUNuDbn+8SJBNs
+         o/yJslIK00vA1Dt8Eu3pW9N/8mUmRm+0zUFCTxJeBOHqcMsDt/eRQBdqpuNNqLXfB7zt
+         gj79hdNlEPly3A44WuiF+dl8N2SXAFBTp1rLDIP0lb/VqdPQa0qmIAaxDgoz7A3jk8XQ
+         bNOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781525963; x=1782130763;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4KIiam3l7WE9M0XsEr+loFMQinsori3CfSieNhHYSGg=;
+        b=j7PC7UNwvUGaVnxjRMbN7TWoUCB4MTyHGIbGhrVb4Rr/uLbEfu8yNNpTNrLYLnNxFy
+         W1DSZQJnXM0dZVlbRnzLvLytvkcGqDfdBHlDlLSYrSsB+fV3hV3P24iNU6HGw1FdR+qb
+         BqZySlTVyHfUI3pz7kjPvJF1KWqvl09fwNSkEgmiZ7FcMA4clLrDoBQahNb7Z8QwC7vy
+         vtRIvFCwBMx1EAN+c8OVgL+zo11u0ApXuY/ZdZrRx4oGX2Cn2tsGPx1J6nDHydHV+DQy
+         zpswtmrjhhW3zLtAQQOpqe56+62UZAsUcnAhtivLP6wy6aX5DGFaXnC11VYpjS0q9QXI
+         63xA==
+X-Forwarded-Encrypted: i=1; AFNElJ+5hbYeMIO3RSUVAfjjl9OljCYeEYLdMeXbzL6SZ1y4WAtb3eVn4oeBG57y+ue63qXoWIjJQR8yQNvk@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkD+ZSu9/baaqAj8voK5CaKus9I/8IDQHXx6kZNk+xU8tcu3O5
+	frLS9a30dR3y7FDzszjHfPFAmrwq9je8lBXTFWmNsli2xgwfeAnkeCzYW+QkhPY5N4c9M8c9Ijn
+	xLp3mJSU+HfUQ1QnDrP1WiPHUmDBIo4FmZq/ZUReWf4GwGIQsfsQ5sr19XQZhf9Xf
+X-Gm-Gg: Acq92OHt17hj31meCpKPEAcAF6UBWmtLvcidQqVd9FxJSbkHUjBhMSml4uxqaQse1tb
+	BwhpFiMBvVr7mgKAHuPtd6dI6ViwTporVpWr3GS5CnrnTSnAjNQt2mO6+HLc6rcg3u7nAQUFHWL
+	qQdq9gYQkdTpSVHP0rJkV25safHElDb1+3mwKQeZTL8Bm3hS88hSMS+SDJR6AOYJtbbeV17bN4R
+	xjhwQ6arxTJcvDaxqpwG+eLZY9bDakoYpFcFjXsAjXbM4dRUBDD1BMgua64AyZhqVMoVcSigvzN
+	T4+Ipk/MzDJAwZu+9SpbFe2WXDlaWKl7dqkqbW8Ilg07Vj/co/U3sKKYuUBRjghmbauCZILD1aI
+	F1XCj6wG56BETCvSiBVKGfp2Onh8FN7dLIHireXCv/uFR4w==
+X-Received: by 2002:a05:620a:2714:b0:90f:7ce2:3019 with SMTP id af79cd13be357-9161bd622a1mr1242974185a.7.1781525963345;
+        Mon, 15 Jun 2026 05:19:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:2714:b0:90f:7ce2:3019 with SMTP id af79cd13be357-9161bd622a1mr1242969885a.7.1781525962763;
+        Mon, 15 Jun 2026 05:19:22 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad2e161f1esm2770733e87.2.2026.06.15.05.19.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 05:19:21 -0700 (PDT)
+Message-ID: <ea441f1c-6426-47e1-bf6c-7c7f2d8058e1@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 14:19:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: glymur: fix PCIe SMMU interrupts
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260611-glymur-pcie-smmu-espi-v1-1-5effbaa3e1af@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260611-glymur-pcie-smmu-espi-v1-1-5effbaa3e1af@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: zScLcw7Vc9ZsZxfCRartZrWXGRmkzEte
+X-Proofpoint-GUID: zScLcw7Vc9ZsZxfCRartZrWXGRmkzEte
+X-Authority-Analysis: v=2.4 cv=UPzt2ify c=1 sm=1 tr=0 ts=6a2fedcc cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=NAC2ETaABoKmWdFWtrwA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEzMCBTYWx0ZWRfX/UXWHnFCWo8Q
+ s2ig8joXfXa9y+FOZ+0P2/wO/Nr9Ruab1pgSNoMfvQDai396pk7mUlboTlWUFp6YTsyT6AlrAAR
+ xiBnc027fqeJK3S1CtFosxQ7lCsyu6szaLFhgyfXSF9aQQNrhpEZMZlhETXCKqWx7ew/8CnvAvQ
+ 7JxhielgpQcIdr/7T32osqVd45uA+oDo9eqIXwtgwiug9rs3/Mg3gyPbqIbs4js25XN7/rwAoyX
+ ryzKcpFr/UKAv8x8dRjS7k/t7dcZ4EEUYI4kzGcHFV0kH/ce8GWgSwZkhlLsZ172wCnmVcvYruD
+ n94KBbKeyLgbyKP0LE0/GjZN3eQxUZMRV8t05/rVfXFTIbcvxBEjCFTSUI/d+pbqd2gIQvk1sIy
+ ysVcxAPX3MRHJd600E6VOFggPgIt5zBsXiESFAyGS1C4eELqaOS2TV3lvj+2Y8oO5/LsV9ZcMZN
+ VAB3XxaI2DtN2G1B/0A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEzMCBTYWx0ZWRfXxOpQXMiTsRRu
+ sjHlvoMHwJQJDdq0ZXbANKsP8wciYXvdjD15prDipNO3eIbyxoShKYHhUnCF9ENubfKmvUeR/iN
+ vXuLtAqTIiR/yG5gqXZFNR0medeMiZ8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_03,2026-06-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150130
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Hardcoded backlight device name prevents probing multiple device i=
-nstances.
-- [High] Unclamped device tree brightness properties bypass limits and caus=
-e hardware wraparound.
-- [High] The LED class interface completely ignores DT backlight limits, al=
-lowing userspace to overdrive the display.
-- [Medium] Concurrent sysfs writes from the backlight and LED subsystems ca=
-use a data race on `priv->led_status_mask`.
---
+On 6/11/26 9:00 PM, Bjorn Andersson wrote:
+> The PCIe SMMUv3 wired interrupts are routed to GIC extended SPI INTIDs
+> 4100, 4098 and 4096. Describe them as ESPIs with the ESPI-relative
+> interrupt numbers instead of regular SPIs 964, 962 and 960.
+> 
+> Assisted-by: Codex:GPT-5.5
+> Fixes: 41b6e8db400c ("arm64: dts: qcom: Introduce Glymur base dtsi")
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> ---
 
-commit 3a876b5316e78acf44b2217cdc076c3285471e8a
-Author: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-backlight: lp8864: Convert from LED to backlight class driver
-   =20
-Move the TI LP8864/LP8866 driver from drivers/leds/ to drivers/video/backli=
-ght/
-and convert it to register a backlight class device. The driver preserves
-backward-compatible LED class device registration if the "led" child node is
-present.
-
-> diff --git a/drivers/video/backlight/lp8864_bl.c b/drivers/video/backligh=
-t/lp8864_bl.c
-> index d05211b970c94..67b28f7daedd2 100644
-> --- a/drivers/leds/leds-lp8864.c
-> +++ b/drivers/video/backlight/lp8864_bl.c
-
-[ ... ]
-
-> @@ -157,28 +162,59 @@ static int lp8864_fault_check(struct lp8864 *priv)
->  	return ret;
->  }
-> =20
-> -static int lp8864_brightness_set(struct led_classdev *led_cdev,
-> -				 enum led_brightness brt_val)
-> +static int lp8864_brightness_set(struct lp8864 *priv, unsigned int brigh=
-tness)
->  {
-> -	struct lp8864 *priv =3D container_of(led_cdev, struct lp8864, led_dev);
-> -	/* Scale 0..LED_FULL into 16-bit HW brightness */
-> -	unsigned int val =3D brt_val * 0xffff / LED_FULL;
->  	int ret;
-> =20
->  	ret =3D lp8864_fault_check(priv);
-
-[Severity: Medium]
-Since the driver registers both a backlight device and an LED class
-device, can concurrent sysfs writes to both interfaces cause a data race?
-
-The LED and Backlight subsystems use independent locks (led_access mutex
-and update_lock mutex). Parallel writes will result in concurrent calls to
-lp8864_brightness_set(), which calls lp8864_fault_check().
-
-Inside lp8864_fault_check(), the driver performs an unprotected
-read-modify-write on priv->led_status_mask. Could this concurrent access
-cause fault status updates to be lost?
-
->  	if (ret)
->  		return ret;
-
-[ ... ]
-
-> +static int lp8864_led_brightness_set(struct led_classdev *led_cdev,
-> +				     enum led_brightness brt_val)
-> +{
-> +	struct lp8864 *priv =3D dev_get_drvdata(led_cdev->dev->parent);
-> +
-> +	/* Scale 0..LED_FULL into 16-bit HW brightness */
-> +	return lp8864_brightness_set(priv, brt_val * 0xffff / LED_FULL);
-> +}
-
-[Severity: High]
-Does the LED class interface ignore the device tree backlight limits?
-
-The backlight device respects props.max_brightness, but the parallel LED
-interface scales the requested brightness using a hardcoded LED_FULL divisor
-(brt_val * 0xffff / LED_FULL).
-
-If a custom max-brightness is specified in the device tree, writing to
-the LED sysfs interface could bypass this limit and write arbitrary high
-values to the hardware. Could this overdrive and potentially damage the
-display?
-
-[ ... ]
-
-> @@ -258,11 +290,46 @@ static int lp8864_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
-> =20
-> +	/* Register backlight class device */
-> +	memset(&props, 0, sizeof(props));
-> +	props.type =3D BACKLIGHT_RAW;
-> +	props.max_brightness =3D LP8864_MAX_BRIGHTNESS;
-> +	props.brightness =3D LP8864_MAX_BRIGHTNESS;
-> +	props.scale =3D BACKLIGHT_SCALE_LINEAR;
-> +
-> +	if (!device_property_read_u32(&client->dev, "max-brightness", &val))
-> +		props.max_brightness =3D val;
-> +
-> +	if (!device_property_read_u32(&client->dev, "default-brightness", &val))
-> +		props.brightness =3D val;
-
-[Severity: High]
-Could reading max-brightness without default-brightness bypass the
-protective limits during boot?
-
-If max-brightness is provided in the device tree but default-brightness
-is not, props.brightness retains its initial 0xFFFF value. When
-backlight_update_status() is called shortly after, it will write this
-unconstrained 0xFFFF to the hardware.
-
-Additionally, since device_property_read_u32() is used without upper bound
-checks, would values greater than 65535 in the device tree wrap around
-when passed to the 16-bit regmap_write() in lp8864_brightness_set()?
-
-> +
-> +	bl =3D devm_backlight_device_register(&client->dev, "lp8864-backlight",
-> +					    &client->dev, priv,
-> +					    &lp8864_backlight_ops, &props);
-
-[Severity: High]
-Will using a fixed string for the backlight device name prevent probing
-multiple instances?
-
-The commit message mentions a use case on a hot-pluggable segment of an
-I2C bus. If there are multiple LP8864 instances on the same system, the
-second instance will fail to probe because the sysfs core mandates unique
-names for devices in the same class.
-
-Should this use a dynamically unique name, such as dev_name(&client->dev),
-to avoid device_add() returning -EEXIST?
-
-> +	if (IS_ERR(bl))
-> +		return dev_err_probe(&client->dev, PTR_ERR(bl),
-> +				     "Failed to register backlight device\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615120353.3409=
-035-1-alexander.sverdlin@siemens.com?part=3D3
+Konrad
