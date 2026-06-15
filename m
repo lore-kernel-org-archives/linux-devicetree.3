@@ -1,101 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD5A3A0E80;
-	Mon, 15 Jun 2026 06:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FC837D11A;
+	Mon, 15 Jun 2026 06:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781505451; cv=none; b=k3P2huGgOZBUihihMfOyKfsNAptgbKF+y1gZyG4+Vde6YUjSN2G8rKwkWFvwwG+kLTVrfASOZ3GpYCJO0RdVy38DVk7UO9OZGMym5cmnY6QeL0EtxEzRyumKbjDv7k9FmLcRw1kO+9OiLDVfUg2IAyj1+Eg/GJlXAV9BwnM+LrQ=
+	t=1781505582; cv=none; b=V7sf4/oFnes154bSuOQjPjCJBbdlsOPUg15P6z7bxxAlrv7CBfQJbWGUmr/ekQUwS4O+K+AKw1HSr5SivxRGc8X1XzbyruOoeV6CX1MXExktY1K3J6VU/B3LjyjYHopUos+6gfEjHPeIl3DQ//345bzfGXvdZcmRwZtUTBDgrVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781505451; c=relaxed/simple;
-	bh=xYhec2l2zy7ltRZnfYBjNGcFte6NZlmFwPRyNJOyiaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I4sNChW2fobciC8BujIxihRTexnGXBI9Z86jOoJsmy75/UnLNrsZI9tuy7A2D2g463VmvExzBvCqxfveaAVtTYi7ugZS6idIJuaZL+4vR6lEVBilcdcheDYd/AoZ3WGVWBQdHZhorU5oMYz39DEF+8ov0umQwn3ftam2xsJsV4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWVdxXcM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781505582; c=relaxed/simple;
+	bh=BjVyEJazZBYrHGfeHgzgdcSZi1k4s/Uo3Cm46811Fs0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KDDiZLdrSGCptL0GBpT2LUWyqIgq1NtuKDRCg/pAqdFhyg22OcEiUUkZlDs51QMSet5w/cuJ6WRtecfJsMEFn7uPSJD4Iy7f/zy7kKbZgFLHiMOD3/OORbHg2xCtVwN3cZrOQbyCuWA4VPgHhMDbHeB0MggsnF4jKz3yJGNo4wQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p6L8WtsT; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWVdxXcM"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 539C21F000E9;
-	Mon, 15 Jun 2026 06:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781505451;
-	bh=wYvlTdTkI8iTFk+/aWNvdop1BELaOWjR9XgqorfHy0o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KWVdxXcMy5KN4BO2w3B22IRJrWNfqThxDyUC0W8HUkClZuh2P9N9iWaBPIZoBlaRt
-	 boUKjMI3L5d9spGYBtbMPEIGbNBJE5swnZVzIYy/27dOv9HGs+M/7a9cxebTCsvk84
-	 vJ9Mwq2PqNQ3q3zmKQFAZekSsQ9/Fa4iQc7mAkms/aSStQtJdzXrkjCAj5lgJmiE1r
-	 EwMu4BrlqhYYlxZy0YuDxkTVikIdxwekAwj/Us+diEjiAc7i380cKyY0CWrfDUwOvS
-	 RliT5chIFPkzKkYZV36iTCzJJR1EB2htPdsDeH4dYYCDEen4Mb6GQwL92UvXY+XUak
-	 vNF6so87QfGjw==
-Date: Mon, 15 Jun 2026 08:37:28 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>, linux-pwm@vger.kernel.org, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
-Subject: Re: [PATCH v5 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <ai-dNlC1_nbQTy5Z@monoceros>
-References: <cover.1780670224.git.andrea.porta@suse.com>
- <f8dd46a553351adaf9d29fbba9f98e803b672fe7.1780670224.git.andrea.porta@suse.com>
- <0b6a7f41-b753-48dc-b46e-77aaf0e999f4@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p6L8WtsT"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C855757E;
+	Mon, 15 Jun 2026 08:39:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781505546;
+	bh=BjVyEJazZBYrHGfeHgzgdcSZi1k4s/Uo3Cm46811Fs0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=p6L8WtsTzbEdudkge2s9nkXKlUdAfS5OxcBPyKOxonJn+FMlS9mHO4gID0nWMoAxt
+	 KBqIOHzzfvh2HBHWI1bVa5/rojFU+GR0+BqcRDOOOOllvah9vX4k0U5Sdi5r4BB0eJ
+	 0IR1TdOFeeva47Pay51BfnXHFm0o/7W8c28+ErLk=
+Message-ID: <7e0fc443-62a7-425b-8960-583fbad8aced@ideasonboard.com>
+Date: Mon, 15 Jun 2026 09:39:34 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ajhov2qxsz3lss5g"
-Content-Disposition: inline
-In-Reply-To: <0b6a7f41-b753-48dc-b46e-77aaf0e999f4@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
+ <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
---ajhov2qxsz3lss5g
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 2/3] pwm: rp1: Add RP1 PWM controller driver
-MIME-Version: 1.0
+On 15/06/2026 09:28, Tomi Valkeinen wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> 
+> The Renesas DSC Display Stream Compression is a bridge embedded in the
+> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+> 8k or 400 Mpixel/s .
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> [tomi.valkeinen: fix the example]
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> ---
+>   .../bindings/display/bridge/renesas,dsc.yaml       | 99 ++++++++++++++++++++++
+>   1 file changed, 99 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> new file mode 100644
+> index 000000000000..4d2c2c6cb1f0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+> @@ -0,0 +1,99 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R-Car DSC Display Stream Compression
+> +
+> +maintainers:
+> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +
+> +description: |
+> +  This binding describes the VESA DSC Display Stream Compression encoder
+> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - renesas,r8a779g0-dsc
+> +      - const: renesas,rcar-dsc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: R-Car DU input port
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: R-Car DSI output port
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - interrupts
+> +  - power-domains
+> +  - resets
+> +  - ports
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> +
+> +    bridge@feb8d000 {
+> +        compatible = "renesas,r8a779g0-dsc";
 
-On Sat, Jun 13, 2026 at 01:27:49PM +0100, Julian Braha wrote:
-> On 6/12/26 15:01, Andrea della Porta wrote:
->=20
-> > +config PWM_RASPBERRYPI_RP1
-> > +	tristate "RP1 PWM support"
-> > +	depends on MISC_RP1 || COMPILE_TEST
-> > +	depends on HAS_IOMEM
-> > +	select REGMAP_MMIO
-> > +	select MFD_SYSCON
-> > +	help
-> > +	  PWM framework driver for Raspberry Pi RP1 controller.
-> > +
->=20
-> Hi Andrea,
->=20
-> Selecting REGMAP_MMIO is unnecessary here since you're already selecting
-> MFD_SYSCON.
+I missed adding "renesas,rcar-dsc" here.
 
-IMHO selecting REGMAP_MMIO explicitly here is fine because at least to
-me it's not obvious that MFD_SYSCON enforces REGMAP_MMIO.
+  Tomi
 
-Best regards
-Uwe
-
---ajhov2qxsz3lss5g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmovnaUACgkQj4D7WH0S
-/k6rsQf/UOXqKwIUO7qhgK9i5TY4JtULpUGRl6MSYUIchZKFq4oJExnI1G1PeqVe
-B5QU11I7UGYCjLgU8TBxtxpajjDFLxl+9c9a+AgJNftMMlSXV4ow8aaE9f3ejLFd
-71RW8KxSTWSmXioUKYFklPhx6PaKSaob6D3tE78UBsm95+m8RNQPGFNjus73flHZ
-RYJU+Kw9oFjKhrYWD628kCEED5GjMK6xvExvq33NP6RNi8nFvsLlcB0kbC/89esk
-SWE2CiR/4hGygS1KtKNMA9WjLxxVSCJWeWPv024Fb06m83lBiOJfImYHZyFt2PPQ
-hmyOo+L9FLZ2rshpaiIaqAZgYZarhw==
-=s2AI
------END PGP SIGNATURE-----
-
---ajhov2qxsz3lss5g--
