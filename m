@@ -1,150 +1,172 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A90E324716
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C96737DE90;
+	Mon, 15 Jun 2026 12:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781525464; cv=none; b=iVaYJ7rrpPBLJc4XF814SEFOkWUsWGu+GHtq35axoWkKP/N4/as97Juk1PMeqhGig5a0gpRJH5YsX5GN+803ilo4UhWynncsJvF1mnaNZn6QyoEN0yx33s5WmSs+blE6LsTuGIM9HYBy7g1QoMQ4PwiiU9bnUgaenINkN3xnoHg=
+	t=1781525477; cv=none; b=YsF+8dL6CfljAoj4Dq3FjzZyYmcCJHPnEPRV5M3aoMUawBdiUMSm/fGrQxtvN0t5/ZW17UoG+XpR+4qgVSaFszAQ8Xeo0oUzGU040J8Zc47HwVwCaAdQ3+F7HmMRj6uwUEsAcoJGoVe2yyLmBrMbAoHqtXP2bBHTFeo3f+XP/vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781525464; c=relaxed/simple;
-	bh=SYS6DuxvOsAPUHg0CRU/asuNx+GYt1ac6BM2JbjTeFM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QFWmjvRc1SD6zML+MCakaIIdjCV7n/MfIscfV+QLR8iDkDPot8Q7bpod2WasStUdLm3tIH3PAh8vdb5QgrIcsAJFJ9rj2GUZT7xTbuvB9nCJ3n/weWYQTZWheGizUnLG9yOxoKyPd5nbSOgfCBRpTE0+v7QzhpnnISExksD7iF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jbOq5iTV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FlhGUq78; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781525477; c=relaxed/simple;
+	bh=FANZUCVXVRpn2CEeRrNobR3DPc0KUQ/Ujz4qmUnKyFc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=TDcBa/pYP9WlbBFVbdn6xqAml1vpN0aPmX3L3d4d/fLswpWlTOcbCV9KAJPF98XXyixROr2BUHnAPd7ihgrpdX2xppvnp3E312N93xgj5zWVOT8SDiq3UexxBVT3QuUsruQMA3ENsgZhU4unZ/uG/A3h8EzT3wa/DfPwjrv1aP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Lrd3GhbC; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jbOq5iTV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FlhGUq78"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FAoOXm3972256
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=; b=jbOq5iTViqae5GaE
-	VrWWF275K6FaLgxT0cPSG6lIHscXn36i8CaLzCmAlkF81wUunDEWs8Xq3S80JWCQ
-	5x6EXRZJdB4tws19ZVqL/3CRvQ8+zlEpEmHO4hz9V/e3uXplNRGUlFwygqEdw5Zy
-	XOUWA5uivmKNSaYFN3D0wKOlOMwQFQUJ6Uszxk7ZKsIseojf+GZ3cTybS35wTFLt
-	poDLklPkFgNN6j4iewh7pup70CUPrq0kgg0qGH8dwjG13qtfzziKEau5VC52nZM8
-	3zFAyFlhcm9/PwVh6oeocS1oQIU6jYOEc6MzqKhUQyJ84VWXklJJO4Po9zcG6bMc
-	DIV/WQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eteyd8j44-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:02 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51757324dcdso4474871cf.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:11:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781525462; x=1782130262; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=;
-        b=FlhGUq78Zu57tKx1EOIl+4Rp3a8yeuzL4r+JzQwAkzwPtJYh8pGxuxiSZaH1HyaBbC
-         UeXrnuvezEPwkPYVaWJX5vpQX+VJRxXW/J+KZR267D7YdUdtwNo8a54GW4cOJMRrX6qP
-         oSBcNkhJAad37CqRUrhvVdJBl9d4owgqSWQ63ew4sfII4abaef+nquCqsTNwaRtxPjx5
-         aTT5R+2yN90H4VMYybHyY3880ZzBNFuNXZuv6qqaaENst2Y0oTlOx3FR5L/W2sNiQt3D
-         ukZmZi1mnboptE6mwhbA8k2lrD2cyD4SbKEiu6CpsYm6ozYvUNblLg10r+PYdsv2iUvS
-         7YFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781525462; x=1782130262;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=;
-        b=FRpLr3iIzNEF+N3NkAvM4kfNfVsD46AsnzZoNeJSe3RlISMBUL7+m8ZKwvgPMvWI+d
-         MhFvOzBT6wqJ6SlWd2oGeEJIB14a/tDqhTW5AZbEcOV3HgAnEhre+HZtCPNXeOnNsISw
-         5DxbKWYQLn+h9bJFsyzB56qnaRkKEs2LRq+9uB4jEC5kKAzXj8cJmoyrOGQULNsNsLvn
-         qzFBcphNb75JGfnqvoUF1UA7xK4JKZpfSir8eWB0mCRQV0iICyGncCYPeB3tF+3vOdRn
-         hCA5Le5e6/qKf+G65T5mxHa1SOQAQYdjaZ9YJXSUAV7Yjj/w61CekbfZJKhJWiKtqyLT
-         PCVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+//Mx37Snf1dMCxnbssNRPdqfs2aQpRu0yoDGyUTFMu8ynajJ085AwdLB/A+dZK2X0momwyyv3dGG0@vger.kernel.org
-X-Gm-Message-State: AOJu0YwkDaYFHPYU9sIZqlVyUPkd6qAuri1e5UcLeVp3BT30rmKqgnap
-	sSLMzlL6Fb2c72JlWeQ3vyxv4iWfDrGRPN+6XsLSZWr1OCUJaxegRVO3QHW4anbTGUam4o/FxpM
-	54luWdKwsdZ0FxAxCk+gnCzzqgdaXlFf/KEzHJfMiZuetVsMmwIcgWJbA77vHy8yw
-X-Gm-Gg: Acq92OHJaRqUjsNPpN7bWMFHWiYDocjvbe/faSF/MdLOiAV14M2swTNPUy2psmoo8lj
-	mX3Cboo2Waj4kKKHXRFG8FJCUUtMe3h2oQwf7NJoeqwL5AqGWVj7RcXHwHrElY/aLUNmjXa0aWM
-	JzvQRHq/vi9/Xyqv9KhSGIoxPzKs5A13EWq8xk1HqbsAGd9tutuPZTWzgueyHJA3Yw0y/j6HsKX
-	pQfAoPo4we6JJIInk/UAYiwfmbwhnsQ0ujrFtbyXNtzcQvGVJfBp3JoVn8xQEQEakq97hnEs9gL
-	1HBu+3Wj6WFWhsf/4txvDfRUUDqo74D2JwYMcuBs1oqy5Vud8nz+i/BV3KLMd04MOoFXHeSAyF2
-	55RNRdZhuOOQZdUfZp+kJHvZTlWGDA3aP5VRjeOGw/4o0iA==
-X-Received: by 2002:a05:622a:1b01:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-517fe568e67mr124102781cf.5.1781525461699;
-        Mon, 15 Jun 2026 05:11:01 -0700 (PDT)
-X-Received: by 2002:a05:622a:1b01:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-517fe568e67mr124102341cf.5.1781525461225;
-        Mon, 15 Jun 2026 05:11:01 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb9013575sm464826866b.59.2026.06.15.05.10.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 05:11:00 -0700 (PDT)
-Message-ID: <2f76cb76-9bd8-4f95-b168-1250de12eec0@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 14:10:58 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Lrd3GhbC"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gf89D2qK2z9vCH;
+	Mon, 15 Jun 2026 14:11:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1781525472;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C2ni2HKLJTKwWZDPeU4N3Yd1IXA3apJPvhe3IpmDCyc=;
+	b=Lrd3GhbCEc5wkRYKdr2J366BSm0U6EkvUYfCptFiN9eJRq+LITYHf3+5N8ANNvuNXLOJ6k
+	8lvR3SYktrUnYFp4ZOWQibYOL1iVpIFxe/rD6QJzOFERqj4qbSQN94qDW6hXWEmF+JJ29b
+	DPO2Yvp45sdI2YgMxR+Y+EWn8gkC9KuME+ViX54t222iAWcm4PJnydxnAzL7KW0aaytNZp
+	ymhDbnOF9Xjo6It6uDPDKzgCDQcVaXews96bYjsd78yjj4BQUodKP6WiKVCJO/c8sug//A
+	JpRmUJkSCPmMxotQUfUn/fyX8KiZnmeE5JhH2Z0OsnlMqpf4e/P845hOCqbr/g==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: kodiak: Add camera mclk pinctrl
- definitions
-To: Luca Weiss <luca.weiss@fairphone.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com>
- <20260612-kodiak-cam-mclk-v1-2-fd294ff003a2@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260612-kodiak-cam-mclk-v1-2-fd294ff003a2@fairphone.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 9OFbc1T9v8K51LsIPJZl4IavaKObZ-WM
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEyNyBTYWx0ZWRfX3C7FXZZAfOhp
- TBKsUDVTBJRRDddvE20YmPS0qAEjGKltWfhQ0YZtcsUtxSSE/yX4YyhdoymCbTtZiviAjQ/AQ7v
- 62PT8Z7P/HD1b96E36tEBB/xFsvdiXo=
-X-Authority-Analysis: v=2.4 cv=QrJuG1yd c=1 sm=1 tr=0 ts=6a2febd6 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=GC7ltwg7MdDjMvrKfcoA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-ORIG-GUID: 9OFbc1T9v8K51LsIPJZl4IavaKObZ-WM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEyNyBTYWx0ZWRfX5alL+SwZF/Pm
- S3MWEsXvLGzvyOjjhdGcD5UNuiJrI7AinemBbbZuJIMPU66p+9gkDs//f2tOLfcHCfTR317vp1V
- /gUGs9xfG5v9DbBDKSE0ekO8E5tlyE3wphsge9XGqpp15zAZVxkpRqNznq311bggsnAeoV5njNr
- LGsd+CENIxthnk4rioNB0vfM9gO3DEp87qFqbONQINwg/D5tTigIAJYVVwrq9KyhmGyXJ6qcFWT
- b/q4lU6Us1Ud/TpKyD3K5xksF0UNwenJ7B8UF8JDlvaEMkgXaA8hBEb4b/wCSuR+xiLSHmvDHWU
- NbqKKbjH9QLgZ8YuN4xXNwF+KE3eXQpecdTelXOlpkrsKra4a8l2UwCgr4YhFiLWGpozljU3DFK
- 9TGVHdKZVZfJVFuw7CRoWeLhPRsLAOHHziSrpG5Cv7KAmYl41cMMCawIk3ux55KCOYPE9ycBHZw
- mEBv+xjjYQ0Ic6jFyMg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_03,2026-06-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- phishscore=0 spamscore=0 impostorscore=0 malwarescore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150127
+Date: Mon, 15 Jun 2026 20:11:01 +0800
+Message-Id: <DJ9M2IDYE6XZ.20RN5AFBYNB9Y@mailbox.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan" <dlan@kernel.org>,
+ <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 1/2] cpufreq: spacemit: Add K1 cpufreq driver
+From: "Shuwei Wu" <shuwei.wu@mailbox.org>
+To: "Viresh Kumar" <viresh.kumar@linaro.org>
+References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
+ <20260612-shadow-deps-v3-1-2f3ba88611ff@mailbox.org>
+ <bd4s2icqgusnuujvrpoag4cniy3g2e4bumecqxt5yffl77aqpq@kxg4dj4c2wk3>
+ <DJ9EFPG561VZ.1WGRYYHJ2W9J9@mailbox.org>
+ <wjwkykv555gkeqxabsqcdfn4lomcopawsv7bgm4bydc5likhjs@p3ca3p7wbri5>
+In-Reply-To: <wjwkykv555gkeqxabsqcdfn4lomcopawsv7bgm4bydc5likhjs@p3ca3p7wbri5>
+X-MBO-RS-ID: 8f80bbf1dd5291ba946
+X-MBO-RS-META: edisx4wchww8awjnyt6qkyss1w8jk1uh
 
-On 6/12/26 12:55 PM, Luca Weiss wrote:
-> On different boards the cameras are connected to different pins with the
-> cam_mclk function. Add the definitions so that mclk0-5 are covered.
-> 
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
-> ---
+Hi Viresh,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thanks for pointing it out.
 
-Could you tack on a patch qcs6490-rb3gen2-vision-mezzanine.dtso
-to use this common define?
+On Mon Jun 15, 2026 at 2:34 PM CST, Viresh Kumar wrote:
+> Hi Shuwei,
+>
+> On 15-06-26, 14:12, Shuwei Wu wrote:
+>> The clusters have separate clocks, but they share the same voltage suppl=
+y.[1]
+>> So two independent policies would be unsafe: one policy could lower the =
+shared
+>> voltage while the other cluster is still running at a higher frequency.
+>
+> No, both will vote for the regulator contraints using CPU device and the
+> regulator core will make sure it doesn't break any of them. This is what =
+all
+> frameworks do, regulator, clk, etc.
+>
+>> This means they can't use different policies.
+>
+> This is incorrect.
+>
+>> From a hardware perspective, the eight cores of the K1 are homogeneous,
+>> so using the same policy for them is relatively reasonable.
+>
+> Right, but this is inefficient. One cluster can be idle, or in low freq m=
+ode
+> while other can be in higher. They MUST be two policies.
 
-Konrad
+Yes, you're right. Two policies are not inherently unsafe.
+The regulator framework handles multi-consumer voting correctly.
 
+The actual problem was using single value opp-microvolt. With one cluster a=
+t
+a low frequency holding a precise [950000, 950000] on the shared rail, and =
+the
+other requesting [1050000, 1050000] for 1.6 GHz, the regulator finds no
+intersection:
+
+~ # echo 1600000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+[  544.744195] buck1: Restricting voltage, 1050000-950000uV
+[  544.757073] cpu cpu0: _set_opp_voltage: failed to set
+              voltage (1050000 1050000 1050000 mV): -22
+[  544.771304] cpufreq: __target_index: Failed to change
+              cpu frequency: -22
+
+The fix is to use the <target min max> triplet for the lower OPPs so the
+regulator always has a valid intersection:
+
+-    cpu_opp_table: opp-table-cpu {
++    cluster0_opp_table: opp-table-cluster0 {
+         compatible =3D "operating-points-v2";
+         opp-shared;
+         opp-614400000 {
+-            opp-microvolt =3D <950000>;
++            opp-microvolt =3D <950000 950000 1050000>;
+         };
+         opp-819000000 {
+-            opp-microvolt =3D <950000>;
++            opp-microvolt =3D <950000 950000 1050000>;
+         };
+         ...
+         opp-1600000000 {
+             opp-microvolt =3D <1050000>;
+         };
+     };
++    cluster1_opp_table: opp-table-cluster1 {
++        // same OPP entries and voltage ranges as above
++    };
+-    &cpu_0 { operating-points-v2 =3D <&cpu_opp_table>; };
++    &cpu_0 { operating-points-v2 =3D <&cluster0_opp_table>; };
+     ...
+-    &cpu_7 { operating-points-v2 =3D <&cpu_opp_table>; };
++    &cpu_3 { operating-points-v2 =3D <&cluster0_opp_table>; };
++    &cpu_4 { operating-points-v2 =3D <&cluster1_opp_table>; };
+     ...
++    &cpu_7 { operating-points-v2 =3D <&cluster1_opp_table>; };
+
+This way the low frequency cluster accepts up to 1.05 V on the rail.
+That is safe: high voltage at low frequency costs power but does not cause
+instability.
+
+With two cpufreq-dt policies (one per cluster) and these ranges, neither cl=
+uster
+blocks the other. Tested on BPI-F3 and OrangePi Rv2 boards, works as expect=
+ed.
+
+Does this look good to you, or would you prefer a different approach?
+>
+>> I used a K1-specific driver because cpufreq-dt only manages one CPU cloc=
+k
+>> through the CPU device used for the OPP transition.
+>> On K1, the policy needs to control two independent cluster clocks and on=
+e shared
+>> regulator, so the driver has to update the second cluster clock explicit=
+ly and
+>> keep the ordering safe: raise voltage before raising either cluster, and=
+ lower
+>> both cluster clocks before lowering the shared voltage.
+>>=20
+>> [1] https://lore.kernel.org/spacemit/aeaXszeaE62rM6BJ@aurel32.net/
+
+--=20
+Best regards,
+Shuwei Wu
