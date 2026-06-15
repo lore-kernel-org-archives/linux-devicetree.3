@@ -1,294 +1,257 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCFE3F825F
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781532913; cv=pass; b=UsdOCXoD1fag4zqm55ZYCT+I69OB+0XhCPIanH3SrenQ2oeWxqx8vCaqcI5PRwC7N7xzJTHVneDIwGuLujiEtE6b56BTuCjtQUCNpN+EYw/tK0ujYfDkkidkFGBWmVfPDr5dyuuogHIOMur3VhjB0teneXT4BqMwnb0XRMmOepI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781532913; c=relaxed/simple;
-	bh=xTYJTF9WX1tkILvQ4OfNPiOZwQsAyO+hC34NdNlz0q4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tov865MUsyQCiSMlSbGOTxLGcnkAX4iz9LnJnNuC/ewxhmpCrWEsRGx1N/rVfIJQfS+OrrsMZT2tdpO/n7V90wYiptAccO1lYYH7hF0k6cz/IfrgzjZ9SOQy8c0nKEWXmDR+glw7FE6jF8EgmkB0G8lisx4S9VVYrfoTjfAnJEE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rENLb8Dx; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473533F9F51
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781533036; cv=none; b=eUys0vHIkNfLH3N8qAFP3ngi3Z2cONz5ZaxRNP7rqZPuwB/tqvGYLzdmNMQ+nH9rl4c1VO/gkngYnBWsl21uFLPJySfv/ibTCh4e2BjHRvA7966YHgwEvNC3N5pNYcV1DZJd7nIkuZlcjWGWNztE/s53IRDMjYtHJ7w5zbf2vQc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781533036; c=relaxed/simple;
+	bh=f61WmIx+hm1+/2AxbT2xxwh9RLHb5jUbD7RVIZwXnTc=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VTGudG+7gys2ud0gZQHQnLKbZs/ybhbTmT4h/RbxGdsQRTRwGr5ZV6IqJgOU+v4mx3AeF+USCEJ8pXdM9f5vBSWc7T69yM2NVyLdYL3uTiWQEJYo83a+hT8Q2NQ5mA2m+93RuxzZLzGXdY4dBtYNomydeMdNZ8Rcnv3YliYwQpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fRM3ZYbc; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rENLb8Dx"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-bec3ffb95dbso497888766b.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:15:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781532911; cv=none;
-        d=google.com; s=arc-20240605;
-        b=M/PH1FZB3fny0mmbEFQabo+X0r7uBMdu7tI66fY0vqttYvVPvEde8aNpHYIPNTNyqh
-         N3GjefqEhiKh8b/FLKRV7Qk6tZaprubTyYLThyFIJEpeIFKpSv+eMY7rWOMHUodsgLZ5
-         gJ2hqfo3B2RFEAbObFzAnL7w9NHdi5pW5zKxjtHO+/PyC9ht+UTi7Ce+kYcJHXnJiDgw
-         geJXxF8rIrV/JEvb0OgzK+BUPrnHcv3//di44ONMV7CC8Wje2fQVcp2S48EfKNVHOvq5
-         pMLcp7sBtMhouWk/n0GfdQ1QHLrFv5n2e/WVbBbDbsVVZxBlOgLJTpAyPuYH404TFIYq
-         CfyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
-        fh=ve8DxViffBHBmnj7YT03P/R9UoQYrNH25SHyz+Lfl20=;
-        b=ITtyHo1tey4rkx7bEDocD6GVAbXibfAo5pb/Q2LdkiBQHnFPbCCPxyESC6qaeP6ddL
-         wMNkkpmOxeUWw3vD1vrVZSSAUVKf6HGfhWRcLFJ/6z8sXZNbdmCRNJc8xws8gU4cWpKn
-         zmBowDYNzMLcQ+Gym4o+fQAyZUp/R+jJqFiHXBCYStQKe4cteAmaI/xrXy+mnWlk9HxV
-         t4Y7ym55WVKFDqS0c+r2NL1FyRWyGhD45fCORuHRQD1F124lj+Qi/nB7NAg0L4mSpw6c
-         QFYXfwNjXzXIBNr8ytqtkd6B5vPiIHjXsvRdKRnYfUAsP+bVT5Fga5Rll228r//3/TNI
-         tN5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fRM3ZYbc"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45eec22fab7so1463831f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:17:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781532911; x=1782137711; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
-        b=rENLb8DxHg2dzAUvz70MPXSyXBkXXW6Sf13TbnWsNM8nXkt2iBxULOAU290i187Mxu
-         B7G+0xJy7bgu4JMWJXdcp2qzInwd158sAog+xjFPHBYISoPyJIAEpTLeau0vN+VHOOWn
-         x0enV73x89V2u4TPa5CgVA/T4o2fh0b28cWzB2T6p8kXdCZlGZnY1nfGdwVan40zF9Ww
-         dF1CosTJQmUIzOTBoC7U4J1p+HrtXjIppibeo3eoJ2ByQwUEOOTOVvhmqI0VMUIU85+r
-         myA4yCXosgJAIjLa4pVqqGYv36ymZhDpPr6nAr7S/i5zzx/ylLOrE2/9w5jH9Ph6io86
-         klzA==
+        d=gmail.com; s=20251104; t=1781533033; x=1782137833; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=3UfvMLnftnG86sZpVtOaAoiC3x6zQGxcuXN2h4bzNvU=;
+        b=fRM3ZYbc5XZjO0nKw/n7qCYVQ8jMPJvJP85xsUUmwejv5hUANR/p+w4Y7dzp/0zkV3
+         zNfbC3EtZb1qrTaOz6ffjxqqYIrOAl3M2eBOWYOdN22rGxx5IrfEWiz4qeRAnPn6uhaF
+         3knCgmMxJ9cbQfNlQ0j1JbwKWJDrIdV/7q10mM6gHEUj9/xJ+YtEjaLXq50U110RCJuY
+         F4uiZdy31X9Jtza0vif4t3OZ15e1LlGD7c5ioo3JMKoIMt0ix5L//eQG/4FhfwO3bIY+
+         F+VInyMYjodBMNorM7kvPGWyDNm5DEeAvltDXumLQqzrXSfTg+CwDF2WkHO4fmnhJx+9
+         Mfjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532911; x=1782137711;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nVryjK2DM4sA5w3mh6UPqm7isJZnfv1jNZ8fuuEu1pk=;
-        b=Gf0i7zB2IRu6nhzU1N1PrMWsjaLq5acWCkcK6ze4pMrwCzgRj5yQJiUsCI5PUyG/UM
-         ZzUuz9uPw69FS+57OinNaxNRw2F2nrvMkSFw03z6We7zn1nzceEyx03QWBJKKk3WIp1L
-         VAHEl4YXEihEkSKao6j2wqF5bYpm7a2I67oVa10T8IwpY8nF3jnO3lCFrNhNS7lVkpdG
-         QKYAoMeTq5+N1ZSxEyCS7SwlrDOWkfGYEkPcoswPeZ3+5Tc19BwbouHzGJlBRODRPd7G
-         KaqTYNIwN518ubm7SaQk834qkJwG9Adu5jimmVwuqjbzV/uPOQHfhk/B5TuXyC9VxOdB
-         l4Jw==
-X-Forwarded-Encrypted: i=1; AFNElJ+AcMAmEpHAT+jn+Itcgrtvt3UDtGeflGfBzWbnKUMX9xh3XlxqMVi1L8rhZ9jW2+vpDt8PXhMEsYYQ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9+voz0vh+oy2IH2hNVM2wEEIvE8bZcAZP1P7fg4r/DaIpr7RF
-	GJtvpsSguHD6gO0SqhzFZHVX0oY16cASQSV12H0R4NBV3xQNR8X0ytcNqlDRECLUTBzbaOzdQCp
-	iWHGOtybs9+cLAnSeu0ieBX+w3KUYUuti1JkXQa+8jg==
-X-Gm-Gg: Acq92OHtbjOCqEbw/4UNIWn9yxTOxWrdSgUxcBFS2SvEZzi1dndz4efmmNxci3tyuCC
-	Sqc7qpqdIFc0DCdkp5iYOmosj1gDcUgYfZjcRaUzH2AxagEKBAnzQCro4z01L++/aYhsxKTGKk9
-	g5JPN9eml5UrjuVDqYpCDEB7zHbOUkqZKJ+fMLt1zrnuSOgzHIm2n2UpNawPI9G4VhhULazFMet
-	YxBVwU2rNV4yBSx5OH1tOQOos05T27U33Aa2pOKV4SqRWahXTlhOfWxLZSBUV9k9f28GC9CjPqF
-	Ed0aKGOeFPbaYrWTJ18cOnqlODep521cz3MW+K0+4Q==
-X-Received: by 2002:a17:906:6312:b0:beb:a412:4597 with SMTP id
- a640c23a62f3a-bfe289041e9mr675217466b.16.1781532910299; Mon, 15 Jun 2026
- 07:15:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781533033; x=1782137833;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3UfvMLnftnG86sZpVtOaAoiC3x6zQGxcuXN2h4bzNvU=;
+        b=XH0n6xg7fV1hOH53qsMRwNT2oUNvLUibJMOBRNnpSVtIwgBEl5aqiABnqmvSOCMeIJ
+         +bLUPW7Rj3gwyL6rJLbT2DOg/5V8ljkqTzzRiU9t36EE2Uo5Mqj2MU5qdFZrTm4Vk5Rc
+         YE4rxlGqpY/QIQpZ+SJY6eZZewVW4kzvecVmFRzke5EtaTRIk73zRb/2+bsV1Zw/9XPP
+         Ld3fT4ymq4RYmjMY7Ho+lPqc4HN1DSDcygfhqDh2sQo5z4XOzaBa/syl0PJWySrtmlcG
+         YMwnHFB+TMpEZV+/bESe/byW5/sSG6LzcKUuJ0bqWO3egdElx8j+f/hxYjxjSGYZOa6n
+         9eaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+y5YQgJHV4zK5uwHPw1AfxWim6uC+TErAUdHPQt0HiIzmJsCJ8bjMaDjgZ1KVrEA7F43wXToTbWjxU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz1rPzPeg1YQyyOHjKi6olqHF6p738lt9H+InA/MAzD4QAcHXHF
+	Ssy0rzNpfgKGA9MkrEDIahJ5pP9h47JCY4k9ekaLYMqWH8NhatyO9nBI
+X-Gm-Gg: Acq92OGLFclRPK0caTrbHaDSi/yE7YF0Lzyvojho0bLfOoN6VUNpkSLKBuX7A3Q29n8
+	MKgcz4zGewWwROKVh24ltcFEWCkp1Ndu3pkiv8XYA6YNv5Ju/dnHUQmR7OMWuxw6Q7V1RP/H6MB
+	IkY0uK0uxC9cvDnpEdAJmfvZKjH6KEIrzAT6kA2lXxg1Ytkt4xIGp8Tlf6wam3jGfFnakQBCv3s
+	/WB4aE/+jgeqGtY3OxGoOgl3cak2jOU+uEjjB8OKld3FDxckZZJzJApcQpsmviYSHThDf+qGO4+
+	D77OnODtpoziKG4vYwi1meyesw8dEx0ZSez+Tfo79D0TzmpB2hlC39Ussb2fgH3E4r/jlCT8EQ8
+	3e9zqkFvf3ImbhrCutJe+snPlTuCnZUJb1RCOyWBX6JkYXf1QemO5p2Ujqlq9T0LvRFTbXltIfM
+	kx8apu79K8PFJ3QlT5QKU0eeMIZjKi/or1bmxlTlxt4/0N2p5JKGmPYg==
+X-Received: by 2002:a5d:5e8c:0:b0:460:51f6:6248 with SMTP id ffacd0b85a97d-4606dbc695bmr19385571f8f.27.1781533032304;
+        Mon, 15 Jun 2026 07:17:12 -0700 (PDT)
+Received: from Ansuel-XPS. (93-34-88-103.ip49.fastwebnet.it. [93.34.88.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f263923sm35293507f8f.2.2026.06.15.07.17.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 07:17:11 -0700 (PDT)
+Message-ID: <6a300967.379593d1.36e868.4f67@mx.google.com>
+X-Google-Original-Message-ID: <ajAJY92mipEgxdlA@Ansuel-XPS.>
+Date: Mon, 15 Jun 2026 16:17:07 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net-next v7 02/12] net: phylink: introduce internal
+ phylink PCS handling
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-3-ansuelsmth@gmail.com>
+ <3bbacda3-4225-4536-a4b4-3aa31a47a3aa@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CGME20260615083423epcas5p3acec08339e81e2d276d7953b3c6ee51a@epcas5p3.samsung.com>
- <20260615085252.1964423-1-alim.akhtar@samsung.com> <20260615085252.1964423-4-alim.akhtar@samsung.com>
-In-Reply-To: <20260615085252.1964423-4-alim.akhtar@samsung.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Mon, 15 Jun 2026 15:14:58 +0100
-X-Gm-Features: AVVi8CegUODrx3rDKzc3HaHPFo8dt4vcr6ypuvp0i1NB7YLXJyBmVm30dPPOny0
-Message-ID: <CADrjBPpyNymPXtYgdeOGtp1KDkdp9gTrBAEcJR89B+wwF8uUXw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] pinctrl: samsung: Add Exynos8855 pinctrl configuration
-To: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: krzk@kernel.org, robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	hajun.sung@samsung.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3bbacda3-4225-4536-a4b4-3aa31a47a3aa@bootlin.com>
 
-Hi Alim,
-
-Thanks for your patch. It's great to see more Exynos SoCs being supported!
-
-On Mon, 15 Jun 2026 at 09:34, Alim Akhtar <alim.akhtar@samsung.com> wrote:
+On Mon, Jun 15, 2026 at 03:31:20PM +0200, Maxime Chevallier wrote:
+> Hi Christian,
+> 
+> On 6/15/26 14:29, Christian Marangi wrote:
+> > Introduce internal handling of PCS for phylink. This is an alternative
+> > way to .mac_select_pcs that moves the selection logic of the PCS entirely
+> > to phylink with the usage of the supported_interface value in the PCS
+> > struct.
+> > 
+> > MAC should now provide a callback to fill the available PCS in
+> > phylink_config in .fill_available_pcs and fill the .num_possible_pcs with
+> > the number of elements in the array. MAC should also define a new bitmap,
+> > pcs_interfaces, in phylink_config to define for what interface mode a
+> > dedicated PCS is required.
+> > 
+> > On phylink_create(), an array of PCS pointer is allocated of size
+> > .num_possible_pcs from phylink_config and .fill_available_pcs from
+> > phylink_config is called passing as args the just allocated array and
+> > the number of possible element in it.
+> > 
+> > MAC will fill this passed array with all the available PCS.
+> > 
+> > This array is then parsed and a linked list of PCS is created based on
+> > the allocated PCS array filled by MAC via .fill_available_pcs().
+> > 
+> > Every PCS in phylink PCS list gets then linked to the phylink instance
+> > by setting the phylink value in phylink_pcs struct to the phylink instance.
+> > Also the supported_interface value in phylink struct is updated with
+> > the new supported_interface from the provided PCS.
+> > 
+> > On phylink_destroy(), every PCS in phylink PCS list is unlinked from the
+> > phylink instance by setting the phylink value in phylink_pcs struct to NULL
+> > and removed from the PCS list.
+> > 
+> > phylink_validate_mac_and_pcs(), phylink_major_config() and
+> > phylink_inband_caps() are updated to support this new implementation
+> > with the PCS list stored in phylink.
+> > 
+> > They will make use of phylink_validate_pcs_interface() that will loop
+> > for every PCS in the phylink PCS available list and find one that supports
+> > the passed interface.
+> > 
+> > phylink_validate_pcs_interface() applies the same logic of .mac_select_pcs
+> > where if a supported_interface value is not set for the PCS struct, then
+> > it's assumed every interface is supported.
+> > 
+> > A MAC is required to implement either a .mac_select_pcs or make use of
+> > the PCS list implementation. Implementing both will result in a fail
+> > on phylink_create().
+> > 
+> > A MAC defining .num_possible_pcs in phylink_config MUST also define a
+> > .fill_available_pcs or phylink_create() will fail with an negative error.
+> > 
+> > phylink value in phylink_pcs struct with this implementation is used to
+> > track from PCS side when it's attached to a phylink instance. PCS driver
+> > will make use of this information to correctly detach from a phylink
+> > instance if needed.
+> > 
+> > phylink_pcs_change() is also changed to verify that the PCS that triggered
+> > a link change is the one that is currently used by the phylink instance.
+> > 
+> > The .mac_select_pcs implementation is not changed but it's expected that
+> > every MAC driver migrates to the new implementation to later deprecate
+> > and remove .mac_select_pcs.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> 
+> [...]
+> 
+> > @@ -1872,10 +1993,28 @@ struct phylink *phylink_create(struct phylink_config *config,
+> >  	mutex_init(&pl->phydev_mutex);
+> >  	mutex_init(&pl->state_mutex);
+> >  	INIT_WORK(&pl->resolve, phylink_resolve);
+> > +	INIT_LIST_HEAD(&pl->pcs_list);
+> > +
+> > +	/* Fill the PCS list with available PCS from phylink config */
+> > +	ret = phylink_fill_available_pcs(pl, config);
+> > +	if (ret < 0) {
+> > +		kfree(pl);
+> > +		return ERR_PTR(ret);
+> > +	}
+> > +
+> > +	/* Link available PCS to phylink */
+> > +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> > +		pcs->phylink = pl;
+> >  
+> >  	phy_interface_copy(pl->supported_interfaces,
+> >  			   config->supported_interfaces);
+> >  
+> > +	/* Update supported interfaces */
+> > +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> > +		phy_interface_or(pl->supported_interfaces,
+> > +				 pl->supported_interfaces,
+> > +				 pcs->supported_interfaces);
+> > +
+> 
+> I'm not entirely sure about that, we may need to restrict the supported_interfaces
+> from the MAC.
+> 
+> As an example, take mvpp2. We have 2 PCSs, one for BaseX/SGMII, one for BaseR. But
+> if we don't have a comphy (generic PHY) device, then we can't use all the
+> combination of modes our PCSs can provide :
+> 
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c#L7074
+> 
+> These aren't external PCS IPs, but from what I understand you'd like to
+> handle these the same way as purely external PCSs, right ?
+> 
+> I'd say the MAC driver utltimately has the knowledge of all possible interfaces.
+> 
+> The way I see it, it's probably safer to let the MAC give a wide range of interfaces,
+> and filter that down with what the PCSs can provide (i.e. turn that or into an and,
+> while handling the case where the pcs supported interfaces is empty).
+> 
+> What do you think ?
 >
-> Add pinctrl configuration for Exynos8855. The bank type
-> macros are reused from Exynos850 SoC.
->
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-> ---
->  .../pinctrl/samsung/pinctrl-exynos-arm64.c    | 123 ++++++++++++++++++
->  drivers/pinctrl/samsung/pinctrl-samsung.c     |   2 +
->  drivers/pinctrl/samsung/pinctrl-samsung.h     |   1 +
->  3 files changed, 126 insertions(+)
->
-> diff --git a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> index fe9f92cb037e..db120ae4d847 100644
-> --- a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> +++ b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> @@ -943,6 +943,129 @@ const struct samsung_pinctrl_of_match_data exynos850_of_data __initconst = {
->         .num_ctrl       = ARRAY_SIZE(exynos850_pin_ctrl),
->  };
->
 
-Are you sure you want to use E850 pinctrl macros and not the GS101
-ones? The GS101 macros allow the fltcon offset to be specified, which
-I think is required for all Exynos9 (including e850 SoC). Youngmin
-sent a series previously
-https://lore.kernel.org/lkml/20251202093613.852109-1-youngmin.nam@samsung.com/
-fixing up some of this but it hasn't been re-spun in a while. In
-particular this patch
-https://lore.kernel.org/lkml/20251202093613.852109-4-youngmin.nam@samsung.com/.
+The idea is that supported_interface is a mask of every possible interface
+from MAC and PCS. Then it's phylink_validate_mac_and_pcs that actually use
+that mask and validates it on both MAC and PCS.
 
-> +/* pin banks of exynos8855 pin-controller 0 (ALIVE) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks0[] __initconst = {
-> +       /* Must start with EINTG banks, ordered by EINT group number. */
-> +       EXYNOS850_PIN_BANK_EINTW(8, 0x000, "gpa0", 0x00),
-> +       EXYNOS850_PIN_BANK_EINTW(4, 0x020, "gpa1", 0x04),
-> +       EXYNOS850_PIN_BANK_EINTN(3, 0x040, "gpq0"),
-> +       EXYNOS850_PIN_BANK_EINTN(2, 0x060, "gpq1"),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x080, "gpc0", 0x10),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0a0, "gpc1", 0x14),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0c0, "gpc2", 0x18),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x0e0, "gpc3", 0x1c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x100, "gpc4", 0x20),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x120, "gpc5", 0x24),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x140, "gpc6", 0x28),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x160, "gpc7", 0x2c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x180, "gpc8", 0x30),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1a0, "gpc9", 0x34),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1c0, "gpc10", 0x38),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1e0, "gpc11", 0x3c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x200, "gpc12", 0x40),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x220, "gpc13", 0x44),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x240, "gpc14", 0x48),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x260, "gpj0", 0x4c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x280, "gpj1", 0x50),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x2a0, "gpj2", 0x54),
-> +};
-> +
-> +/* pin banks of exynos8855 pin-controller 1 (CMGP) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks1[] __initconst = {
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x00,  "gpm0",  0x00),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x20,  "gpm1",  0x04),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x40,  "gpm2",  0x08),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x60,  "gpm3",  0x0c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x80,  "gpm4",  0x10),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0xa0,  "gpm5",  0x14),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0xc0,  "gpm6",  0x18),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0xe0,  "gpm7",  0x1c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x100, "gpm8",  0x20),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x120, "gpm9",  0x24),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x140, "gpm10", 0x28),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x160, "gpm11", 0x2c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x180, "gpm12", 0x30),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1a0, "gpm13", 0x34),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1c0, "gpm14", 0x38),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x1e0, "gpm15", 0x3c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x200, "gpm16", 0x40),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x220, "gpm17", 0x44),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x240, "gpm18", 0x48),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x260, "gpm19", 0x4c),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x280, "gpm20", 0x50),
-> +       EXYNOS850_PIN_BANK_EINTW(1, 0x2a0, "gpm21", 0x54),
-> +};
-> +
-> +
-> +/* pin banks of exynos8855 pin-controller 2 (HSI UFS) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks2[] __initconst = {
-> +       EXYNOS850_PIN_BANK_EINTG(2, 0x0, "gpf3", 0x00),
-> +};
-> +
-> +/* pin banks of exynos8855 pin-controller 3 (PERIC) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks3[] __initconst = {
-> +       EXYNOS850_PIN_BANK_EINTG(8, 0x0,   "gpp0", 0x00),
-> +       EXYNOS850_PIN_BANK_EINTG(8, 0x20,  "gpp1", 0x04),
-> +       EXYNOS850_PIN_BANK_EINTG(6, 0x40,  "gpp2", 0x08),
-> +       EXYNOS850_PIN_BANK_EINTG(4, 0x60,  "gpg0", 0x0c),
-> +       EXYNOS850_PIN_BANK_EINTG(3, 0x80,  "gpg1", 0x10),
-> +       EXYNOS850_PIN_BANK_EINTG(6, 0xa0,  "gpb0", 0x14),
-> +       EXYNOS850_PIN_BANK_EINTG(4, 0xc0,  "gpb1", 0x18),
-> +};
-> +
-> +/* pin banks of exynos8855 pin-controller 4 (PERICMMC) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks4[] __initconst = {
-> +       EXYNOS850_PIN_BANK_EINTG(7, 0x0, "gpf2", 0x00),
-> +};
-> +
-> +/* pin banks of exynos8855 pin-controller 5 (USI) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks5[] __initconst = {
-> +       EXYNOS850_PIN_BANK_EINTG(8, 0x00, "gpp3", 0x00),
-> +       EXYNOS850_PIN_BANK_EINTG(2, 0x20, "gpp4", 0x04),
-> +       EXYNOS850_PIN_BANK_EINTG(2, 0x40, "gpg2", 0x08),
-> +       EXYNOS850_PIN_BANK_EINTG(1, 0x60, "gpg3", 0x0c),
-> +};
-> +
-> +static const struct samsung_pin_ctrl exynos8855_pin_ctrl[] __initconst = {
-> +       {
-> +               /* pin-controller instance 0 ALIVE data */
-> +               .pin_banks      = exynos8855_pin_banks0,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks0),
-> +               .eint_wkup_init = exynos_eint_wkup_init,
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       }, {
+This is why the OR was used instead of AND. The idea is to have the PCS as
+external standalone entry (even if they are internal to the MAC). So each
+entry should have they own set of supported mask.
 
-With fltcon_offset specified, you could then use
-gs101_pinctrl_suspend/gs101_pinctrl_resume callbacks here.
+The previous patch and this try to address this problem where phylink is
+actually clueless of what is actually supported exactly because it's has
+been given MAC too much freedom of modelling limitation internally.
 
-regards,
+I feel limitation should be handled by their dedicated function with
+.pcs_validate and .mac_get_caps.
 
-Peter.
+Just my idea on this, if needed it's totally ok to simplify this and let
+MAC entirely handle the mask. (but I feel the current idea of phylink code
+was to have a generic mask in supported_interfaces and then verify MAC and
+PCS in phylink_validate_mac_and_pcs())
 
+But by thinking on it more, following your case of mvpp2, with this new
+PCS:
 
-> +               /* pin-controller instance 1 CMGP data */
-> +               .pin_banks      = exynos8855_pin_banks1,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks1),
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       }, {
-> +               /* pin-controller instance 2 HSI UFS data */
-> +               .pin_banks      = exynos8855_pin_banks2,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks2),
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       }, {
-> +               /* pin-controller instance 3 PERIC data */
-> +               .pin_banks      = exynos8855_pin_banks3,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks3),
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       }, {
-> +               /* pin-controller instance 4 PERICMMC data */
-> +               .pin_banks      = exynos8855_pin_banks4,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks4),
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       }, {
-> +               /* pin-controller instance 5 USI data */
-> +               .pin_banks      = exynos8855_pin_banks5,
-> +               .nr_banks       = ARRAY_SIZE(exynos8855_pin_banks5),
-> +               .eint_gpio_init = exynos_eint_gpio_init,
-> +       },
-> +};
-> +
-> +const struct samsung_pinctrl_of_match_data exynos8855_of_data __initconst = {
-> +       .ctrl           = exynos8855_pin_ctrl,
-> +       .num_ctrl       = ARRAY_SIZE(exynos8855_pin_ctrl),
-> +};
-> +
->  /* pin banks of exynos990 pin-controller 0 (ALIVE) */
->  static struct samsung_pin_bank_data exynos990_pin_banks0[] = {
->         /* Must start with EINTG banks, ordered by EINT group number. */
-> diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.c b/drivers/pinctrl/samsung/pinctrl-samsung.c
-> index 5ac6f6b02327..5ecc9ed4c44d 100644
-> --- a/drivers/pinctrl/samsung/pinctrl-samsung.c
-> +++ b/drivers/pinctrl/samsung/pinctrl-samsung.c
-> @@ -1500,6 +1500,8 @@ static const struct of_device_id samsung_pinctrl_dt_match[] = {
->                 .data = &exynos7885_of_data },
->         { .compatible = "samsung,exynos850-pinctrl",
->                 .data = &exynos850_of_data },
-> +       { .compatible = "samsung,exynos8855-pinctrl",
-> +               .data = &exynos8855_of_data },
->         { .compatible = "samsung,exynos8890-pinctrl",
->                 .data = &exynos8890_of_data },
->         { .compatible = "samsung,exynos8895-pinctrl",
-> diff --git a/drivers/pinctrl/samsung/pinctrl-samsung.h b/drivers/pinctrl/samsung/pinctrl-samsung.h
-> index 937600430a6e..bb02fb49b2af 100644
-> --- a/drivers/pinctrl/samsung/pinctrl-samsung.h
-> +++ b/drivers/pinctrl/samsung/pinctrl-samsung.h
-> @@ -396,6 +396,7 @@ extern const struct samsung_pinctrl_of_match_data exynos7_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos7870_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos7885_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos850_of_data;
-> +extern const struct samsung_pinctrl_of_match_data exynos8855_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos8890_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos8895_of_data;
->  extern const struct samsung_pinctrl_of_match_data exynos9610_of_data;
-> --
-> 2.34.1
->
+- You need a PCS for the .get_state.
+- And such PCS will have the supported interface set 1000baseX and
+  2500BaseX (as that is what is actually supported in HW)
+
+Either some magic is done in .pcs_validate to deny changing the interface
+that was initially configured or this gets limited at the
+supported_interface configured by the MAC.
+
+I need to check if this might be problematic for the other driver where
+this is being used on OpenWrt but maybe changing the logic to an AND might
+be sensible for these kind of case.
+
+(for the other it shouldn't change anything)
+
+-- 
+	Ansuel
