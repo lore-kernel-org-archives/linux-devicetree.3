@@ -1,83 +1,186 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530F23DA7FD
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FCA3DB658
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781516385; cv=none; b=DRWTmrmVnVsfdXUUuFrr52DPqBzazx/y+G0/YzWQaBfF6IoVt+E4pFi/GnS3CHLkw/SMHByw/9WQshOb/20SQTwONlutyVR5nBQMcXSgCJBbyaP0JAPkQIH4eV09NYu3/aYLTRzqb5cYhDXwG2duyDxNlkNkEIRce8jlSaYHADE=
+	t=1781516784; cv=none; b=fCT+0itSbefnZ0Gx2EiZnmHImr4ZdB+gOgXJFBbSca4eoTcmVtt1fedzc6wrl7AU0z1SUd5zfn57XPMcB/7n0BegEB0hALDYQ+c3zH2Qn0RwtGcTVXAYE5r74zl/gdG4CsX1wLLll7/+KEWY6l13cu/Ee3Yme3NQ3lnbnIaRXus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781516385; c=relaxed/simple;
-	bh=x75oxlQn2awWT9/NZxh+u45lCUQYq+UJ7N/Fuf4rw4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pbthsr5Z9uYLoDZHyLtYE/wvtZg+DOnJts7/qFRm3iW3pPdmgJlvCUnZMectAG3xRjzSRDV102nczZfCO/CDX8Ht1fNJfJumku5Hpx34ddrs7o0eicrPyF3F4owK20OYNjbF9o9o1hq9RbNwz35yLCCGmg8j+XmzEyFwdw2Omvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wZ3mx-0008GM-Ey; Mon, 15 Jun 2026 11:39:27 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wZ3mu-002qHT-2Z;
-	Mon, 15 Jun 2026 11:39:24 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wZ3mu-00000006HGh-2mTL;
-	Mon, 15 Jun 2026 11:39:24 +0200
-Date: Mon, 15 Jun 2026 11:39:24 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Simon Horman <horms@kernel.org>
-Cc: jelonek.jonas@gmail.com, kory.maincent@bootlin.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	daniel@makrotopia.org, bjorn@mork.no
-Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: add Realtek/Broadcom PSE
- MCU driver
-Message-ID: <ai_ITHd_xxt7an4q@pengutronix.de>
-References: <20260612132944.460646-3-jelonek.jonas@gmail.com>
- <20260615090733.739423-2-horms@kernel.org>
+	s=arc-20240116; t=1781516784; c=relaxed/simple;
+	bh=RfHlJyVY3qOQ1gvEl60Xwl3FcvFNo2dgj1KhjcIFKxU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rO09oohN7DhiFA23l5BAJ0fy8wQZMiw0HGOjyXkl5iHdIOFI78Sbu2uyTOaeakTL0xiOG7CMBWmmipgitEIB0bF6bdkBNIPcexOEgrQ0zMWxNQnUVsslUlTTVPqWge6KJb9XVzix0CmbTn5G3VEcfFuBMApk9Sn1GCX+G216Wf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UymCYjNc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YPYqjjW1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UymCYjNc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YPYqjjW1"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F9ON6q3763490
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=; b=UymCYjNcWzxqFDi9
+	tF0Dk421TzOUACQRVE/wKL7m0+ifqJ//5FDRjG4cHfwIF14ZbFEVJJSuYweeLNbG
+	aIeq0qaFAnRUTJwxE6eGggfC8QKBIsSNBc0jkVdXzIkyqttrShDP9bK3A0/rOenI
+	a0fWei7+NviBNAKwlD3F13oyxEfKxmu6J1g0OrTsQg1t4yKA+qaSV/Siup0zSzYb
+	52uhAUpkY7HFKXkOFXBZlVmIOHkcPnWmsURr+wLbuPlCLkB/sCMQrtHw9b7yCq01
+	6/oA5pBYYb9qBAHnyimGMwefPT10coRmA4B+xSGMDHzK4ifCrXwSonnmUqErhccb
+	zxddeg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter002nd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c858e0cbca3so1663036a12.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:46:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781516782; x=1782121582; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=;
+        b=YPYqjjW1VxI3e4KSSqegI86duuwceFORdG9dm14cfVO0gjV20kZ7ByhFL57EPLY3h0
+         RbQb66vmTlbpX+jB9TgEbc8VZ9yWp9UU1tXYA60/TQ9bamEI0foMALr/wmy1GwZwDCBl
+         xbTYoccOJrYYSfYRJ/rW54xWG/G+etCmaAkbdRglaoyEadLpFNQq7HBNUPYFqwRtnlEO
+         odnfEoStzxlS1V27NVJDcGS/tbXrMlKXBYw+ElRDPNFnaPz0kyeledmr2Dk+QkJ8Q/q1
+         p7Qv0H39NLHKoezoMCP/AjjporkMwN5GNFBpLMf41k0bcCZ7POWJxnqrq8bT7Wb3DONO
+         vbCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781516782; x=1782121582;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=;
+        b=qjyI3GLMNcmsqYLbO54HPiie9i/B/EN9+knSGbbg9e2z6JPOa8Bv0zuhriUy/+kbMT
+         DbvBribEc40nGWXlYPUO/NqlvFs4vUDkNBrrMejEqVg2SmheyPKiL/RGLD+C5CpRy8RZ
+         qPCaqj/TuY0FJ3W+LTtEbigLvI9dk90DWN+ThPMLDjqGL1jNDjFKpaiEb/1ctYd1ZlQO
+         EsoNtGXkPbmTNX3YJqTiiquGLpWKNooMbMty9+VmJhwRDkHuEQLM+TJWUcggVFLN6G9w
+         xZ9GZy54cgNy5O2x2WfDzyOADLApwy9tAxHxVTyOiSlKqk47+1tCS5k7AotdaZrw9n4w
+         +iVA==
+X-Forwarded-Encrypted: i=1; AFNElJ8mM8i51kcF+7v1YbYs8IVtHSUCdgZSJTUI0Fgkpl+PxTEp5YKVOi3ppFHMvHlDY+dpsU7v/49aHO+G@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxbwev7RZOrP0C4zMBOqrzWLztxcpwOyzqKNyV6KMswkOuF4Gzd
+	aJyCRZ496r+y5IxeYXC4oNDmwYSTfZOIylKBEJ1JfpK0fCEkevCc8s2Jd8n0k+Ue7KGXKgDv+N0
+	nZI3gjZHvdtMVCCJZTmY2lFFPBkfC6wZL9w0DEyjKSwBW4AcX75eET29YYlW3EJ1p
+X-Gm-Gg: Acq92OHX8wws0eNJVs4s3K1ShIA3Jo9vrSkyTw78IRXkW01txOOudJBliI2qhxFsiwz
+	LgTEqRMZx1rl3JFBqobAXAl7KdPexEkvD0oaEn2tSHGgN5X6RAYqX6zoTyEcO41/APmeiVmbWpQ
+	kBZlzSmtxlB5JseT5Abfqf6U2pMxHadpSoy3fqgyGhau1y6gPX4H4U2GRDSFLHj+rzl2jYRi0o+
+	8EGD8Yvf1Ui24kPjym487wHZhFTat/1IK8d9yWVDUGNQDPS8NmxnytrecHP/x1l6jgaIgLCXd3J
+	WR2VICKsGAPIjz/28rin4s0MBQc6nKJEOzKd8YBt100aYdKwy56d2q4vaBJvPNsS5x9+O/hsC0Z
+	PDrRqkC0MAS825Q1UEJCgLXG8kzwXiDqz1eP8XgOC+jYyM2HuiUEkZ9eCMhrG
+X-Received: by 2002:a05:6a00:1f04:b0:843:497e:b392 with SMTP id d2e1a72fcca58-844e1939fdbmr9893053b3a.9.1781516781503;
+        Mon, 15 Jun 2026 02:46:21 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1f04:b0:843:497e:b392 with SMTP id d2e1a72fcca58-844e1939fdbmr9893005b3a.9.1781516780914;
+        Mon, 15 Jun 2026 02:46:20 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b05921bsm9597116b3a.59.2026.06.15.02.46.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 02:46:20 -0700 (PDT)
+Message-ID: <970e9449-ef38-47d2-8e77-9f406722afa9@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 15:16:14 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260615090733.739423-2-horms@kernel.org>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ore@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] ASoC: qcom: q6apm-lpass-dais: Add MI2S clock
+ control
+To: Val Packett <val@packett.cool>, Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+References: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260608023011.942228-3-mohammad.rafi.shaik@oss.qualcomm.com>
+ <8b2318ff-d07c-4c2d-9c2d-ef7c5c763096@packett.cool>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <8b2318ff-d07c-4c2d-9c2d-ef7c5c763096@packett.cool>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: 3ayNUVl5Wcl0TOFck3_Dl1dFvOSNi6ZB
+X-Proofpoint-GUID: 3ayNUVl5Wcl0TOFck3_Dl1dFvOSNi6ZB
+X-Authority-Analysis: v=2.4 cv=UPzt2ify c=1 sm=1 tr=0 ts=6a2fc9ee cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=wLQ3rIZANEYmN962rggA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEwMiBTYWx0ZWRfX9k39gVTur9NP
+ nxT0t51FsahAUUCiYkTQeCZ9cB1togzHv5IGL0lo7lCjfKlH9FSLAhx+Tr2nAvlaPOgdzZjlKNu
+ cNobrdhCuL8YGXsmgICIjMiPSK2BT4a+UBTEo2NpMPx/AVvERgqGFkquNX0maqzN7CGqcB0aNu+
+ /Cu48iVCfHT9hC9HXo0y89jL94Z3VvjokE4+IPGKCEPB+SkTwbQ9zEX3wxKqHmLiKgn2qK+FoIu
+ 9Y6EzdAPM51r96XOJmkjDFkMsuN0GS+ZMEt/X12g0o1PWA9qi2Fty76fUR/HAdvK4Y5/1KG0phe
+ bE/+Gi3VTX+0bl2FAvqYPO2BAbVOrK+Du+Chd6rsqbVYrPEkYnVzqY1YlHBgr7YRG9TDOK+JGLN
+ hVsVjfRTeZWsamh859IWmxHZ68Gg5rQ6E7veFsb5m3BbTrpyn2qqg6XdWVZzKW8Zjv7S5wPh3p1
+ dsjiVGXWaOovPqETtIg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEwMiBTYWx0ZWRfX+t99qSs4q3r2
+ 9WPh0611OzRDER8ViCHDX0nJ5ZCz1FxkEnnrd0+3brZyMFZ0F+ygFFoD+ejFCPqxLjzh8i1Dtdy
+ hXPs+PbKmKHiirtSoyJ/jurulUd297k=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150102
 
-Hi Jonas,
 
-On Mon, Jun 15, 2026 at 10:07:33AM +0100, Simon Horman wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://sashiko.dev
 
-It probably sounds scary, but sashiko finds not all issues in one time.
-Bigger patches and more different included frameworks - increase findings
-probability a lot. With other words, it may more rounds than expected.
+On 6/8/2026 8:19 AM, Val Packett wrote:
+> 
+> On 6/7/26 11:30 PM, Mohammad Rafi Shaik wrote:
+>> Add support for MI2S clock control within q6apm-lpass DAIs, including
+>> handling of MCLK, BCLK, and ECLK via the DAI .set_sysclk callback.
+>> Each MI2S port now retrieves its clock handles from the device tree,
+>> allowing per-port clock configuration and proper enable/disable during
+>> startup and shutdown.
+>> [..]
+>> @@ -297,6 +373,59 @@ static const struct snd_soc_component_driver 
+>> q6apm_lpass_dai_component = {
+>>       .remove_order   = SND_SOC_COMP_ORDER_FIRST,
+>>   };
+>> +static int of_q6apm_parse_dai_data(struct device *dev,
+>> +                   struct q6apm_lpass_dai_data *data)
+>> +{
+>> +    struct device_node *node;
+>> +    int ret;
+>> +
+>> +    for_each_child_of_node(dev->of_node, node) {
+>> +        struct q6apm_dai_priv_data *priv;
+>> +        int id;
+>> +
+>> +        ret = of_property_read_u32(node, "reg", &id);
+>> +        if (ret || id < 0 || id >= APM_PORT_MAX) {
+>> +            dev_err(dev, "valid dai id not found:%d\n", ret);
+>> +            continue;
+>> +        }
+>> +
+>> +        switch (id) {
+>> +        /* MI2S specific properties */
+>> +        case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
+>> +        case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+> 
+> SENARY is also a thing these days btw..
+> 
 
-You may optimize it if you have access to some free or payed tokes,
-by using sashik-cli with LLM of you choice as backend.
+Ack, will include SENARY dai also.
 
-Best Regards,
-Oleksij
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Thanks & Regards,
+Rafi.
+
+> 
+> ~val
+> 
+
