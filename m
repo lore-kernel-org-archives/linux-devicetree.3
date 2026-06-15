@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5F02AD2C;
-	Mon, 15 Jun 2026 04:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8DD2AD2C;
+	Mon, 15 Jun 2026 04:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781497628; cv=none; b=J8kXlFGEeN0NU5I3NjFpXOJYdr8AxF0SPKgMkVNgwvWdEA75YL5zuD7PU2Dac3E/xqnOZWQsgemvubU8+rRbgTKt4ekBOQrvocxq8VDIlTTkMMx4Wksw1RGUPmTNdsP14XhulgB7wZ9VN2Fmm2PJbiDfg/uC7I9HqGkbXSHGROg=
+	t=1781497744; cv=none; b=fhYOkXifukdOakgGBySVTZ0040Qx1fL0UTN8585N9YmQ552rod7vkfNp0fhelor7a/Ably5oika4evtJM30Sd7XRmPwHWWrL9yxLrBwJvx3Trv6ulb8diYIQOOBafRFPsH5N++YcMPBN5bLrqq0VhTF8QLQRBUCktugvTMIhW7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781497628; c=relaxed/simple;
-	bh=cSJeumcbp4HbRcl5MBu/rRqVYBXDtiOSnAElKqKZ2cA=;
+	s=arc-20240116; t=1781497744; c=relaxed/simple;
+	bh=ck7Prj6LUmNL2O0pu9DFDaFX27y5bdZ0cJMjkilSEh0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RMEnvvXBM7SLvXazcAWGqr+puaU8ejoUPXmcGT9apXz7YbldjRBb5XgOS2K58tAhH8EpoyAunCldpyeEvdddc7pfqUoo9RZQS6cp26TwnXzqG2YKcY6VPGIqENZQjgLQgN1SZNQotkIdM1v2HhoQNKuqvW/cePG2MIGPChXmKeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I9VEeFT5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=j91KiOXG2VIkKM7Opbed58OV2c/Nj16M0I7743UshQnZvWtOMdMEYa9SryJ7QYPtSvnSHAfqwLraHSYBoEyXpOr7kh7jHExhgCXk0sBLb0Jcp7Pxs7/pLqCcTWVbnS6MNIuVxbZYaIctGQ65YuFvIqYBtbE9MlAnYuWmptTxmmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIBjQVoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I9VEeFT5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265951F000E9;
-	Mon, 15 Jun 2026 04:27:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIBjQVoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50261F000E9;
+	Mon, 15 Jun 2026 04:28:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781497627;
-	bh=PutqXygEbgIrZ8v6ecbxnI9XjwAfh8YhF6fviR77oRI=;
+	s=k20260515; t=1781497742;
+	bh=4zOF8ACcQnGINtLJ1j5EoUWcnRZyFCDbQM5I2mI8cJI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I9VEeFT5TKwjlmYkmIaaWQzejwExOLAetOZ/bgoVdNHR8dwLRCuzsDR6AwyKBE+PS
-	 YHFnDLx4YRjNst+iFtlPE5jyupzBqxwKS97ZPLD2IoLnb/alan5U6wfyvdJfP2vGRP
-	 lQmRk4zjmI2NhThoZJBLdYh7OHcjFnERKyZ5Sfy7GdJbC5jvHdLa1KbWdDjmHB83GF
-	 GuTYlAA7CEVqfKJh3MPkH5Me5PgoWjvm8j/udLqjc/mBfSj7L2m8z143yb7JsXTViI
-	 jwjAEq6+sKi8xJjtaXCDsplStKF/fpa4HJma0dtQWhNJF89jCCDk9LsrAsIWnH5bZG
-	 mnhKwC00+egkw==
-Message-ID: <84503093-4bff-4c93-aff8-aa07e1a6a1a1@kernel.org>
-Date: Mon, 15 Jun 2026 06:27:00 +0200
+	b=gIBjQVoVnGaNXBlOLr/2kvjLqa0XSsytCf8icoDPAioCUFGNWQnfNXRXxu4NikDqv
+	 D0oOU+SqepW8a21COfHEblvn+oLteTPOrSQ0Drb8i+VwxagY1aFakmjhNDYf6qqpcs
+	 lmTDU1wkB1A9YSjy9fJcbbQw7HnkdfNSLjsZ4rPi3++mWCYn314MRTNMAFGdnpeZHg
+	 2r+tIu+CPbyOVJUrJuNQK5I/HYxYSuGqaapRKH6Vnb5ubmupjB6SSGzWDa3hF2aML0
+	 BkAm7uMysMiPkdAw09NttKj5XwD+g7ToWZixfZf0mMiL5934O0kX6b4Uvs1Sv1fefv
+	 WMXzXpB8kFWSQ==
+Message-ID: <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+Date: Mon, 15 Jun 2026 06:28:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] iio: flow: add Sensirion SLF3S liquid flow sensor
- driver
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Wadim Mueller <wafgo01@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Maxwell Doose <m32285159@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-References: <20260611132700.671322-1-wafgo01@gmail.com>
- <20260611132700.671322-5-wafgo01@gmail.com>
- <e01d100b-9809-4af3-8f21-055f687ca6c6@kernel.org>
- <20260612184729.795e0e84@jic23-huawei>
- <4e4ef1ae-62e7-4639-914c-19f49930be02@kernel.org>
- <20260614161011.7f7946f1@jic23-huawei>
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
+ wens@kernel.org
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <ahNuuaVlDl0KvOSj@home.wens.tw>
+ <032c1099-40ab-470e-8cc3-af6d3cad22d4@kernel.org>
+ <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,71 +95,73 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260614161011.7f7946f1@jic23-huawei>
+In-Reply-To: <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/06/2026 17:10, Jonathan Cameron wrote:
-> On Sat, 13 Jun 2026 09:51:13 +0200
-> Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On 12/06/2026 19:47, Jonathan Cameron wrote:
->>> On Thu, 11 Jun 2026 16:01:12 +0200
->>> Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>   
->>>> On 11/06/2026 15:27, Wadim Mueller wrote:  
->>>>> +
->>>>> +static const struct of_device_id slf3s_of_match[] = {
->>>>> +	{ .compatible = "sensirion,slf3s-0600f", .data = &slf3s_variants[0] },
->>>>> +	{ .compatible = "sensirion,slf3s-1300f", .data = &slf3s_variants[1] },
->>>>> +	{ .compatible = "sensirion,slf3s-4000b", .data = &slf3s_variants[2] },    
->>>>
->>>> You should have only 1300f here and detect the variants. That was my
->>>> point when I suggested to use the fallback.
->>>>  
+On 14/06/2026 16:08, Jernej Škrabec wrote:
+> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+>>> Hi,
 >>>
->>> I'm lost. How does that work?  They cannot fallback to that part because
->>> it relies on in driver detection of the fact that they are incompatible.
->>>   
+>>> (resent from new email)
+>>>
+>>> On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>
+>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>>>>>
+>>>>> As it turns out, current H616 DE33 binding was written based on
+>>>>> incomplete understanding of DE33 design. Namely, planes are shared
+>>>>> resource and not tied to specific mixer, which was the case for previous
+>>>>> generations of Display Engine (DE3 and earlier).
+>>>>>
+>>>>> This means that current DE33 binding doesn't properly reflect HW and
+>>>>> using it would mean that second mixer (used for second display output)
+>>>>> can't be supported.
+>>>>>
+>>>>> Remove layer register space, which will be represented with additional
+>>>>> node, and replace it with phandle, which will point to that new, shared
+>>>>> node. That way, all mixers can share same layers.
+>>>>>
+>>>>> There is no user of this binding yet, so changes can be made safely,
+>>>>> without breaking any backward compatibility.
+>>>>
+>>>> There is user. git grep gives me:
+>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
+>>>>
+>>>> which means this is a released ABI. As I understood, the old code was
+>>>
+>>> We held off on merging the DT changes so that we could rework this.
+>>> I can't find the actual request though. It was probably over IRC.
+>>>
+>>>> working fine but just did not support all use cases. Why this cannot be
+>>>> kept backwards compatible?
+>>>
+>>> AFAIK the "planes" block is shared between two display mixers. As the
+>>> commit message explains, this prevents using the second mixer, since
+>>> only one of them can claim and map the register space. And on the H700
+>>> (which is the same die as the H616 discussed here but with more exposed
+>>> interfaces), there could actually be a use case for the second mixer.
 >>
->> I am lost too. Then why were they made compatible in the binding?
->>
->> Entire discussion was that these are FULLY compatible due to variant
->> detection. That was the entire point of discussing more generic
->> fallback. Using specific fallback does not change that - it is the same
->> concept.
->>
->> If devices are not detectable, why were we discussing any compatibility?
+>> It explains why you want to make the changes but not why you cannot keep
+>> it backwards compatible.
 > 
-> They are detectable, but the feature set is not, so to me there is zero valid
-> in a generic fallback, we have to update the driver every time a new part comes
-> along. (i.e. I agree with Conor's reply to the previous version thread).
-> A specific fallback to a completely compatible part would be fine as there
-> would be sufficient info to not need the ID lookup.
+> I guess it can be backward compatible, but I don't think it makes sense.
+> Yes, original driver implemented original DT bindings, but there is no node
+> which uses that binding. If there is no user of that, why would driver
 
-This patch has specific fallback and we discuss this now.
+Did you check all out of tree users of the ABI? All vendor kernels,
+forks and all of them for which the ABI was made for?
 
+If there is no single downstream/out of tree kernel using this ABI, then
+of course you do not need to consider it. I don't know how would you
+prove that but I am open for suggestions.
+
+> need to support it nevertheless? Supporting only actually used DT binding
+> allows for better code architecture, as there is no need to support second,
+> unused path. It also simplifies testing, since developer doesn't need to
+> test both paths if code is changed in that area.
 > 
-> The case in the binding for this version is the worst of all options because
-> it implies it is valid to fallback to something that gives a false impression
-> of being specific when it's relying on ID matching to say actually it's something
-> else.
-> 
-> So definitely not
-> +  compatible:
-> +    oneOf:
-> +      - const: sensirion,slf3s-1300f
-> +      - items:
-> +          - enum:
-> +              - sensirion,slf3s-0600f
-> +              - sensirion,slf3s-4000b
-> +          - const: sensirion,slf3s-1300f
-> +
-> 
-> Falling back to slf3s is better than this, but I'd rather not have a fallback
-> at all, thus allowing correct fallback to the parts listed here in future.
-
-Why? These devices are fully detectable thus fully compatible.
-
 Best regards,
 Krzysztof
