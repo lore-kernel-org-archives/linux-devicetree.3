@@ -1,67 +1,67 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260FF4183A1
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFD941166D
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781542637; cv=none; b=MFDRA81vfryDo4giKiLd62Py9IsvZVzlAG/o5r3VO78wcCWvtmclaGv1N0/Oqwj5MclpniCUf1v94H+NM9l2bPRFp13JGWAyTrDTlGQcnHiBv5++eGRDghd/LPUoQC1WtEO1bbE599+SJntNgXoqSg13Sgy5HLjE1APvibtbwOM=
+	t=1781542821; cv=none; b=KAs4GDvf1sAmmaQlIlLie/JTrRHCQFDjGYm96OGywPY9QhH3v2fpi3j+prOiw3ZFkW8n6/68cSlklhNAkMbO7Cq+1W/eOLJs1RXrL8Uo18K0GKfr0JsZXQ+dsMCD9pobH4SZ61GjtY4uny1bUGNZX8dRbe0tQa+k5Ef7FnXST5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781542637; c=relaxed/simple;
-	bh=Q++Lf186tcvSnhNbpXMGHHXwihp6Nj2/MYlU3xEci64=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TGPSfANdoOAYvsShBERicK3ny3ujuVPLFovLmue32ZFiOdb6HL2DCi7CMe5TmsG6QGmzDvAsm2EwcA3GV+n4gs9YiEqKD/MAt0JVZ9irY0BwXamFcg8zVFWnUpgX+7rS1+ld0Vg5lRp3cNPZ77RDYB/6P/dEM7WYxxYWOS9gMHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=n7y/vxpm; arc=none smtp.client-ip=209.85.128.50
+	s=arc-20240116; t=1781542821; c=relaxed/simple;
+	bh=YxNDpw9xuK3rygMohXzgPJDlAzMxnfekYv4lW9z3syw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EqhWfo97Biplfc5J40gCUmEQMpsCZJIvXgPcGVy/ngeBEtPYqEfCwn2UI5HgCJUEaH9HEwDWA3CO05ioTWcQzWsWXodpT6oDpSwc6EZiglIHULziSFkcTbcpQEhWA5g+qX9+JrWbvYa10cqnpoH2uKmpKJBpeFeX0/jn0I8ejMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FKHE/9Al; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="n7y/vxpm"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490b7866869so37321655e9.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:57:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FKHE/9Al"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49222fb062bso26348775e9.1
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781542634; x=1782147434; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XjyMVm4fYYqVPsgeWiKX2v7WFAJCpVCyaRGSZIumw3A=;
-        b=n7y/vxpmE0zsY2wMuUR+SfyWEUlbOeFm1Ekn9BChRC9EmctRzTMINuuwH2CRE3Vrfr
-         nSUXY8I3GGAd3e1H2VvX/t9GALp/qgQ2L4GVeiIEmijkpc4YAfQcVDIYuqMdScYvaMM9
-         ck4GWexKkcmugdV8/NlpvuD4d3C7rLSH1g4sm6Qy/nLXPcOt2QIGkSjsnVSFkvQKCI1E
-         KdMT7nFzrSRB6+G7WymYtu/ZpmQfWKppceplu3lY0s4MLd46TEjp7pZ3VpOAhq1se90m
-         JcopVEgVEZ3Io6/Qm251ARwjVjQyAso6tTNXl6fbnia+Z4DtxZ1ElChVI+z4U0xTPnUF
-         c7MQ==
+        d=linaro.org; s=google; t=1781542818; x=1782147618; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Jq/aabxoXCdxhHTjLQmnQMl4f/hEoUj9vBeaPo8NSGA=;
+        b=FKHE/9AlhTUMp3ZygCFWCTMHqJwtYSa6sSahiHFFN6XXvyGtZqFsYOyNkqbdQ0ASAc
+         JfCeT31QHNAFTX+EIgqHoSO8Vm4eC3oeuUWcWyZXE+pRU1UlxZZUqf14piO+GXJeD7aA
+         SyhYtkJGzjcgi0efGOXheLQY4KzWi+nJmrTMbbTxw5vYGEbIzURFGf6aJdtf5ibJt311
+         ZF+YZDbAyHJom8NQtxFgNfzq2KA+IC+Dd6onN62URsII5Z8ZdkJ/pSaYUpCJzuwELy+5
+         8OQ4Rmt0abnAQ0+06E073rQD9O/Lbh5K7+KboiEbGpNsEOTLdY72Mj/51ubOMImQyO/n
+         /Leg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781542634; x=1782147434;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=XjyMVm4fYYqVPsgeWiKX2v7WFAJCpVCyaRGSZIumw3A=;
-        b=DCY5SHgP7xXkZIJY5goUlTGqFGhEX/sq7uWu6200PwlvbpIaR7/3tDldZWbW4V9yKx
-         fTwOVDfev3R/rpOR/ECDQEu3zzJbksaB6BcZzh1GN+A3cB9KGHtFJY53JousFNdCkuKa
-         wt9B/7YhkOsSk/5vuWXlm8rcMqvrkUA0DoTuEs4E2dnWFBU/rmgZ+uSHlF8q/RdjXSGv
-         KJsh2WisN5qt3G7FGYOcxBqwvOXCsgHV+lit6DUZPwbg5u2QqJpWP/X97Af4RQ6iIUKy
-         shksRLhGtv+0yMkXGKBuwph9x5EEmwM6duWZPyLENzEsZzaNUJbOYRfSneSIosqR1+No
-         8esA==
-X-Forwarded-Encrypted: i=1; AFNElJ/ZGiNSFa/W3E6PiiHBdQhT24cp+nFi41rVGP9Eiy0GwZbyo53ICrQd3QKj08IwysbWTsH9/iQKKpOk@vger.kernel.org
-X-Gm-Message-State: AOJu0YyArDYZyibzE/ESloELoru0KTZWTz+YQbwEICGi6juh94mbUNKh
-	Po7KAbf8S0kKBM2/Xpao0MO/y7SUFtpQVRkjUUA/jkHbc5idFBrVMOrZGdxkwhy9HY8=
-X-Gm-Gg: Acq92OG6mqOz9wV0v9WJayP7I9HwseJQNkZtx0eYQqX3rA8sxEYVg1LPP6vbL42yW8j
-	Fq4ff74MuZnRUVh9Rz2KfQLcX/MmnWFXPS9zE0sSqSpUrHm+z1oJqqQVVmjrp9zbo3siDj+/PDN
-	FoBbx8ej6F9nd0KPsSjRr4BTkB1fTA9Npy+mN/xkiauPhD/3cHvff6AjzvtwW86/V9iSAasNzfJ
-	Q6PX+i3UFyXUJAgU9F2A/hVCcICCxdFijcNvXmcrENxen209DRbqUL6lLkO5vHuMuIrMehknPZh
-	foGFlmIL+aRFnhZCxrLHrYYerH2/B0R7EAPwoBjGDK07aOl/ZCkzzQzTugAOQ7/n8oydbJmnknD
-	DeQAk/wl3ffC10fnz77zT4jUHhOBo+WXnVeloVNVAQpoUhAcftfGrxlqPIz4tVju4BIkIK4Ym2n
-	Gq/tT33hlDfVLTCLeEIGRZRfSCIE+LcQbjihtOtLvROSfo
-X-Received: by 2002:a05:600c:3f07:b0:492:1e36:bafc with SMTP id 5b1f17b1804b1-4921e36bb41mr153680045e9.36.1781542634466;
-        Mon, 15 Jun 2026 09:57:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781542818; x=1782147618;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jq/aabxoXCdxhHTjLQmnQMl4f/hEoUj9vBeaPo8NSGA=;
+        b=C33G9a9uA4ii23U//VTWn12mBfUfc8xGeBbgypTLN+2eoVCC9LNDeidSD0o9hGvcQ0
+         jpT8NQHw6V9Rl7rFri9R2zllRosI27yGoTeiUCca9s+0hjyA4A5giJR6gfX6xxpQnLKs
+         8KpmOmw6+tJx8nqICip5Y5Ch09Xiq5nN4fEVVxDWpHqSL0KLwOMBs3rqJ90Gjsb4W5sS
+         qgVF4Vf6rkTEQ4hdZsgCz/yc7fnFwYM6+PYG4MkfR0gItKz2+NMyhJR2p1zOIaILLiw0
+         3siaVqab79+9/6PjD3gonYirVpk/iAoAOyEsC2S6ZFaU23Zg4RbpND4XLbNiCi6vSDTd
+         i3LA==
+X-Forwarded-Encrypted: i=1; AFNElJ8wkTpeiAay7WcsyBpcAGI9lGp1BbIJeUiiXJgH23cG+2WnqKwMeRIKfVkfMtNgy+ruGSLuM0GppPwv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyE5uZXAWVDPR9HUq4htXqJVvk9YMJajfajKdnwYdfroWN+x5lM
+	zin2+X7iBUq9OhTXDeYu5rerhiFNPuId27DiWBhb81JiFw/L7xKCsu3tEfheoc7peMp47pU7G/f
+	Gvk4ZmrM=
+X-Gm-Gg: Acq92OFf9WCHPDd+wBJhrMGyRCDemT31ogxB4IzQzrFTGAIhlP2A6QrgWMuPqhEZh7H
+	xayDt5304fOCheSqCG+MWXgQPCqjC8Gl7QbBNZQ7f8Nkju25piF5bhyrG46eDjii/R6Db6lIGEi
+	D9G7uz3pl7hcXZ8tfppC25Z+ZnVjNzPYgnga1WTZcfs59fYgTJ1FaKAcpRY51ipWl8wjNl0bSoR
+	VuFlIeT62Ydp9TahX9MtmFXCkAT594ejg5kxqTrA6jiIcA0y5A1xi4dVxF9nJuyV+YNVqPmULnJ
+	obpMSXcQaA3MVnSIzGafKCfnQelCJpO1xpECf6aOEccJ38A7HLiQUusW1+APvwMWi4zXs0sz7Lr
+	FB6LE2/byc2y4wbBzFcAu452srYPxWXA/WHZeJ6IgTonMPYGD1YqLkq7lkjok6XsP+/PaSZWbn4
+	hcz1Ci8vntKh2lbiU/ueXuceui5DRQpQGEjX1R9uVjd0DR
+X-Received: by 2002:a7b:c8c4:0:b0:492:2fa4:2563 with SMTP id 5b1f17b1804b1-4922ff9b0d6mr252455e9.25.1781542818301;
+        Mon, 15 Jun 2026 10:00:18 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0c35sm37202471f8f.22.2026.06.15.09.57.13
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47d1csm5716425e9.4.2026.06.15.10.00.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 09:57:14 -0700 (PDT)
+        Mon, 15 Jun 2026 10:00:17 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 15 Jun 2026 18:57:07 +0200
-Subject: [PATCH v2 6/6] arm64: dts: qcom: sm8650: Add missing CX power
- domain to GCC
+Subject: [PATCH RFC v3 0/6] arm64: dts: qcom: sm8[56]50: add PMIC5 Gen3 ADC
+ channels
+Date: Mon, 15 Jun 2026 19:00:06 +0200
+Message-Id: <20260615-topic-sm8x50-adc5-gen3-v3-0-216a2b5ccb85@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,69 +70,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-6-6b5752dd4747@linaro.org>
-References: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-0-6b5752dd4747@linaro.org>
-In-Reply-To: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-0-6b5752dd4747@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAJYvMGoC/4XNTQ6CMBAF4KuQrq0ZSsuPKxMTD+DWuCjtADVKS
+ YsNhnB3ARfGhXH5Jm++NxKPzqAnu2gkDoPxxrZzSDYRUY1sa6RGz5kwYClwltHedkZRf88HAVR
+ qJWiNbUJRVwWvSp0koiTzc+ewMsMKn8npeCCX99E/yiuqfiGXWmN8b91znQ/xWv63FGIKNJcZV
+ FlZgMzE/mZa6ezWunpdCezjCOA/HTY7QingOkWlJXw50zS9AOLirm0cAQAA
+X-Change-ID: 20260427-topic-sm8x50-adc5-gen3-edf94fbd335b
 To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>, 
- Brian Masney <bmasney@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1084;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2623;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Q++Lf186tcvSnhNbpXMGHHXwihp6Nj2/MYlU3xEci64=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqMC7jZAiJqW5AmB1lC7UlqNt0vIWrJRHtTC326me0
- PmXRnEiJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajAu4wAKCRB33NvayMhJ0S34D/
- 4wC9TFzb6OByWn6XRk30aSwG1MOO6TDGE/O8Zy/RyeNfPPs4cZUoUxa1Eg4qAVm6ut2RlvzxTReou0
- b7Lg/kHLVRGnN5mUOw/ebWHNwtxi3RwiINm1PAV42JmYueR/g/IVKAodgxcb5ojsRFOmqifs3Qzcdu
- BlbOzm8Hr/KaUYQV5JbDiaSJDkuMBeUjtXbH4ZWQYUYYnwrcD6j0uR9GlsEmIEyYx6Bo+su3j3HGGA
- a7yQAT/KaqQyzND2fqPYy3SF4hxUNWUiJbpKEqXelYVABd+KRW2c5fYCmhpF1cBlQ/2yr/aTI/L5Az
- inpmUVKLEWqWgZ+GfPDFUfluY1F+NkeMCbBgWEEYDhjMdR98tW2fe0AXhQMp6XkpZGlW0n58andf8/
- VozIOiApMLpUGlBWqUnNbzeb+TbhW2iA7UsumTuisIbG1mxHE+Wr4nFErwQnhRdz9eOlzDnajk3sPn
- cRfPqaadeGMVht5+vF4C5VOkBnwB18MXktAVrQQpTKcKsHRZZNnxrMsFWqhlb/5IPxdtOOtxPbeOXS
- sdA+rwlfITleBcmVmtHErPBzvIBXupBjwuhmlicGQFMOGvCzognf/ayoIEi3f5OPXrw/nCO8382tks
- cErQXKVTpGgKGvRKh1n8sv1K7eHjSK/3I5/LWxaIdJ9iuW5oigJ9u05DViTw==
+ bh=YxNDpw9xuK3rygMohXzgPJDlAzMxnfekYv4lW9z3syw=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqMC+d4YFOyD1U60xXqCO9gD8i45wOrsN2VrFVY1/W
+ Jjw8OnmJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajAvnQAKCRB33NvayMhJ0ZPcD/
+ wP8jXCxdB7NCspgrTbrfdenAyduKllEea9g6FrIFPD/P+ZfrM9SWU9m6nHt0AAZCqbSlB+wmnsnPv4
+ U+afLy8Ys8P3uUBAaesBFg1rX8faEJ52k+eVP4r2iLgndlAhX44wRrhrybIulZvsb7Pe/7zxadg07h
+ 5C7uRAWccbruHifeBhgaYygHI+PC+qjTfx8dEfUOIzaN2/sDSxvP7kny15cdJuqhlYSXl34DziQhZW
+ zlgVufjs4bmGPd3wil4/4+4ZgiBpSSNz/HjJInadezcwGoqJZAiCqgeDMGbVkg0KxpmebBR24kQ+aD
+ 5tleKizUBvP0yKChPc2dd8C8VC7p4syITgQCKzi8LmFUgtVyk7RVAxfcD4XJlypHCdGfx2kCblYPyo
+ voK0FE39lTXHOz6ofGMdihNx9VLmLiaUWi41taQdesN8LjPnEWNPbBCK20H/HvBrKyra95e9fbgPLr
+ ccEKDTSa7Ol94p8PU5t3exigPqY/nU8/mtEjKpSzBBuwhdR7xqvVnylo9vDJxWCmLpd6RMe6ZF6P3p
+ G7laskIZbDoAYVjYvCbctGh1PfqBCHWU8V2nIIEd3v/0J+C61nE2f8YXlXYp6Fehf1iL7jx0HNUDam
+ HhSf6m+gnAy/1I5X2qOX8UvZR9lPtaBdXUtdys5E+5Q5OtTftUlNC12mWJnQ==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Unless CX is declared as the power-domain of GCC, votes (power and
-performance) on the GDSCs it provides will not propagate to the CX,
-which might result in under-voltage conditions.
+Now the bindings and driver was merged for the SPMI PMIC5 Gen3 ADC
+found on the PMK8550 which allow reading ADC data on the PMK8550
+and other PMICs on the system.
 
-Add the missing power-domains property to associate GCC with RPMHPD_CX.
+First, add the PMIC5 Gen3 macros to calculate the channel numbers which
+is a combination of SPMI bus number and a constant for the sensor
+type and configuration.
 
-Fixes: d2350377997f ("arm64: dts: qcom: add initial SM8650 dtsi")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+The macros definitions were taken out of [1] where it was initially
+in the dt-bindings include directory but since those are not hardware
+bindings but logical numbers, they can be moved to local includes
+instead to make the DT source more readable.
+
+[1] https://lore.kernel.org/all/20250826083657.4005727-4-jishnu.prakash@oss.qualcomm.com/
+
+Finally add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
+other PMICS on the system.
+
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8650.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v3:
+- Added note about nodes ordering in commit message
+- Rebased on next
+- Link to v2: https://patch.msgid.link/20260504-topic-sm8x50-adc5-gen3-v2-0-5cc04d6ecda0@linaro.org
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-index 160ead25ecf7..8365e97436d6 100644
---- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
-@@ -1963,6 +1963,8 @@ gcc: clock-controller@100000 {
- 				 <&ufs_mem_phy 2>,
- 				 <&usb_dp_qmpphy QMP_USB43DP_USB3_PIPE_CLK>;
- 
-+			power-domains = <&rpmhpd RPMHPD_CX>;
-+
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
- 			#power-domain-cells = <1>;
+Changes in v2:
+- Removed stray line from patch 2, added review tag
+- Added missing header file
+- Link to v1: https://patch.msgid.link/20260427-topic-sm8x50-adc5-gen3-v1-0-8a70f7b90a75@linaro.org
 
--- 
-2.34.1
+---
+Neil Armstrong (6):
+      arm64: dts: qcom: add PMIC5 Gen3 macros for channel numbers
+      arm64: dts: qcom: pmk8550: add VADC node
+      arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
+      arm64: dts: qcom: sm8550-hdk: add SPMI ADC channels and thermal nodes
+      arm64: dts: qcom: sm8650-qrd: add SPMI ADC channels and thermal nodes
+      arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels and thermal nodes
+
+ arch/arm64/boot/dts/qcom/pmk8550.dtsi              |  30 +++
+ arch/arm64/boot/dts/qcom/qcom,adc5-gen3-channels.h |  88 +++++++
+ arch/arm64/boot/dts/qcom/qcom,pm8550-adc5-gen3.h   |  46 ++++
+ arch/arm64/boot/dts/qcom/qcom,pm8550b-adc5-gen3.h  |  85 +++++++
+ arch/arm64/boot/dts/qcom/qcom,pm8550vx-adc5-gen3.h |  22 ++
+ arch/arm64/boot/dts/qcom/qcom,pmk8550-adc5-gen3.h  |  52 ++++
+ arch/arm64/boot/dts/qcom/sm8550-hdk.dts            | 279 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8550-qrd.dts            | 279 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts            | 279 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts            | 279 +++++++++++++++++++++
+ 10 files changed, 1439 insertions(+)
+---
+base-commit: 8d6dbbbe3ba62de0a63e962ee004afb848c8e3ac
+change-id: 20260427-topic-sm8x50-adc5-gen3-edf94fbd335b
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
