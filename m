@@ -1,54 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FDA3321A1;
-	Mon, 15 Jun 2026 21:04:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038C833BBD9;
+	Mon, 15 Jun 2026 21:15:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781557476; cv=none; b=O+vQaUPO1otljnAM0fZnrAjZ3ipqIP1llj/wUOgfPJBR241oNKfTYSWnpRnNX/HrXBFy/RRVSKu003SktbY4NkyElyWdvmsGmN2+/1OCR0R51y7GLb0JzuNlAcpRj4RPIjZOb5nvLbcA49kZ9UAWBNPiH0+Vdyy9X2wu9mHqNMo=
+	t=1781558113; cv=none; b=QzHPDxGKvwakzaI5ilpxSW7Gnrz86JeCpUMa1vyQiMoBTAZFyJ4NiWW6qoaT3WTK0jO3hHmoC7JFdrL+SD3UFEL2hscjQYls32koJo39pINq0IyjpswSEnWAelJRDMdtNTHpFUSB0kKawMjPZiS+wRzFIeCfHmgD7k3g1wRt6sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781557476; c=relaxed/simple;
-	bh=2WymXcmDnbTlWuMxRn4kNi1soTb/3DvX56AzCNTNZjQ=;
+	s=arc-20240116; t=1781558113; c=relaxed/simple;
+	bh=S1WpUMOEPRN+THgJTlL+7X75kgLTtijIEKOOxaDy4AQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gckuib1xZgrxku6gtQfzPqcQH6Q5HxsMxDe2rQb4jrzAaHZIcLLLDZ6tXbwFmX1BhiwQDMvnC9re0sJr08/nxG9irvVSRwQPiPjG+yN6jdWNgAUsUoNio7Xj5GU6lIdprY+TrWDdGsviAXLd7G5l2awRTiUCvnmZRs8Vy+0fRho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2snKoPo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7yOS+LrI+biHqO1RkdWJnzVYfAAgvOiB8EN32Trmpdhz6XTxE28tYYGZlFrkR+YLr0MnzRYchBfQdMp1kFaoI6qRwKD0/KDhqxJM/ln4o/T0IcBWRG5GSYucxfe0JW0ICfn6/tuldj0ySLbYmaXRc13vc8aUnDSRI8xqadLHwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELwF1Yei; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2snKoPo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728481F000E9;
-	Mon, 15 Jun 2026 21:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELwF1Yei"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3CD1F000E9;
+	Mon, 15 Jun 2026 21:15:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781557475;
-	bh=4b0Lv74/nBILk2gIMYWUm6i3SoTaSg4GpRxXNoby7dE=;
+	s=k20260515; t=1781558112;
+	bh=v1F2ZzzT1p3w0X8otzyBIUwMYdx0HypLdu4oZbFgfuA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f2snKoPoB7CwlS7KzqRFdoObM/38la6po2Kp5PWfB8qUzXHJ7XEvm+T0D7AOk8ofj
-	 zItneTSHyEJIJzLhdCGE9qPCSyykot/o54R3ctVUIme7V9qXDtxjb0XsTBpY/5fnIb
-	 9OkOeybaXMpaG+mfcB/ob6KHmJZu9QLZNl0Utc/DALIZZSerMOK85bUpv7VdpklzwF
-	 SAaEUCvo0iba0yAhcjRHytmxWNsqFl7o6RV055yko/bwBKbD3w6bmOFXFCIUjiOHhD
-	 qZlnmHo1y2SXxmlAl91AoR9BMuwC4ypUNB1kXUoLsxiJ0Qx7F8gpM3bBOrXal05L2J
-	 Ow0qzPJQT6s5w==
-Date: Mon, 15 Jun 2026 16:04:32 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-	Fabio Estevam <festevam@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org,
-	dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	devicetree@vger.kernel.org, Frank Li <Frank.Li@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Ying Liu <victor.liu@nxp.com>
-Subject: Re: [PATCH v9 4/9] dt-bindings: display: imx: Add i.MX94 DCIF
-Message-ID: <178155747196.1679059.5104272619144115714.robh@kernel.org>
-References: <20260612-dcif-upstreaming-v9-0-8d0ff89aa3c5@oss.nxp.com>
- <20260612-dcif-upstreaming-v9-4-8d0ff89aa3c5@oss.nxp.com>
+	b=ELwF1Yei7oqYXgY0gwiKte1dZgGVEmw5mkICcQ0YX4nJZ+EhwZQt2oK65GqxAJfgt
+	 KemtZYQw54YN3Xh32ZwVvTsJDsbVtlUsXqv7Hh4bZ0oq8Z/8nR3GzqMLhos6QL6b4q
+	 FHUwzNIwDSkLUYmJQpAiR8ngHAN0SWWO4JPKdDIKq8fsDkhHIX6G1Vm9Gy8G6HXD+M
+	 8VlYXdgBhmnpDoaDxHxBBkGsurQjjQALM9LJGseD1WSSFxNiN/uxnHOYtbRWcJIQ0P
+	 1yJb3OuzTItnuD0DuhYdJYPg1mRja1o6pPkMnnabNKr2j6tlpdRdKHvqXoIeOG3RFS
+	 k9aIxokuOlZWg==
+Date: Mon, 15 Jun 2026 23:15:08 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	linux-i2c@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
+	Peter Rosin <peda@lysator.liu.se>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
+Message-ID: <ajBq_yjuV-LeqgpI@zenone.zhora.eu>
+References: <20260611122704.7559-2-wsa+renesas@sang-engineering.com>
+ <ajBGibftf679T6P4@arch.a226c7d-lcedt>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,19 +45,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260612-dcif-upstreaming-v9-4-8d0ff89aa3c5@oss.nxp.com>
+In-Reply-To: <ajBGibftf679T6P4@arch.a226c7d-lcedt>
 
+Hi Thierry,
 
-On Fri, 12 Jun 2026 14:58:35 +0300, Laurentiu Palcu wrote:
-> DCIF is the i.MX94 Display Controller Interface which is used to
-> drive a TFT LCD panel or connects to a display interface depending
-> on the chip configuration.
+> >  maintainers:
+> > -  - Wolfram Sang <wsa@kernel.org>
+> > +  - Thierry Reding <treding@nvidia.com>
+> >  
+> >  description: |
+> >    This binding describes an I2C bus multiplexer that uses pin multiplexing to route the I2C
 > 
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> ---
->  .../bindings/display/imx/nxp,imx94-dcif.yaml       | 90 ++++++++++++++++++++++
->  1 file changed, 90 insertions(+)
+> By default I used to list the subsystem maintainer as the bindings
+> maintainer if the binding wasn't Tegra-specific, or in this case the
+> original author wasn't active anymore.
 > 
+> I'm fine being listed as the maintainer for this if you don't want to,
+> but I prefer to use the thierry.reding@kernel.org email address for
+> communication.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Just to be clear, are you saying that in this file you want your
+kernel.org e-mail or are you referring to generic communication?
+
+Andi
+
+> With that:
+> 
+> Acked-by: Thierry Reding <treding@nvidia.com>
+
 
