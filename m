@@ -1,123 +1,222 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045163D3D01;
-	Mon, 15 Jun 2026 09:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1E430568A
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:04:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514076; cv=none; b=EzfVTAlwiQ1mFtfNJ9OYwttqQOgu8AVq+c8KGRnAejKt9Bp+WU0KirZhnPwGMo59w/t36NGfJhtUHsnwusdVgax5226qtKz7sZENFdKgGTY81RRhyMtOJtJZfwMSHsRQgqw1SLQxu30MG78koIYxhCzggOBg3twhzFJMX5ycDbw=
+	t=1781514298; cv=none; b=LOLOBODz4ETTc2/Pl6B79ssDj1mF+gvyepEi782FMWFWVsYja3OqGDy2gyN2vlB8GhKUV+xRZtPHCsxx4UCHJTERxo24Vz/rgTyOk6qFIJcSQE80LD6hiw+731jk9FrC5o0XQx6VyU8ca6/H/JlmBacfHmv62XWdJu6LVxFmQmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514076; c=relaxed/simple;
-	bh=XE9M36zNF8kPCNxXJKa86cWurWQ8krjEUdLSKIVGsW8=;
+	s=arc-20240116; t=1781514298; c=relaxed/simple;
+	bh=tiq9HqJn8WIW/K+skZJTJrQYH7WlT8ThiJp5SmiE1Vo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ofmoC1AbVf/GB0Dd/ftCjbm92UDtU6A75+rUC1+uE+WtmCbCu5qwr/1enBqyBtsIgEuLRMw1dM41UVsRjV4B+DvVaeeTwq7oklxZiNbO9apBAXr5KUCa51wzsi5KCn3rp/DICzMM/VT0EWmdbWZ74BEwpveEBDIMZX5QXSyatDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkOxRoUT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BTQJN7NEvzZPgxr41u5QCIYscAhsyAuhblqYcKtEYJh7BSPG8GiZYUHNkz/vpSKqHf1q6N+XXAHLwdZP1Gg1WRv1lbDZBi9YL85fQQVvJSme7SfzK1dq1WTLWD8MgXBI3LwWfxh/5287pQE9jOxjC5YnpZLT7fsn4BR7Ovh3T9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wp7iFXX3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkOxRoUT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216E51F00A3D;
-	Mon, 15 Jun 2026 09:01:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wp7iFXX3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F34011F000E9;
+	Mon, 15 Jun 2026 09:04:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781514069;
-	bh=Mq1SIg3/yOrXOOVlNbiynONcMl1Q3uonnyq8ql4w2m8=;
+	s=k20260515; t=1781514297;
+	bh=qLw2SCqcDFLa4nvdw6UC4l6oTRH8NFq2j+M0ojC1c1Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EkOxRoUTR3lvDuN13GaAJrDmSoRY8bzZRDENFnc0rH/0N8n+0r0S4NYhtgVr5Iqgw
-	 GqPYnmwxUe1g9kusuq9VbONUt2jLs2ZWr1BeHbmmaUc7mz7z8Y8aZFV0McLUfj5bQi
-	 v3awhVrb0WSrPsS0lMw+PSqVIPVrZV0pRJBj+UdKzX47zMsRBiFg9OUgx5VYQXed6a
-	 Fxo8AWqXLrTwaVNK9FMrgQBYTCJI1hKpHNPOj3s0pdGWBx5ADqJadK9YU5y9sX+uMf
-	 yIkmXR1ily/92j+z4iDc8TPcZziSeqclZzVr31jVBg+h/EJazTpBIC1HxzRO3sQYv8
-	 zYGEC5x+km4vQ==
+	b=Wp7iFXX360GrpOsrhERHy8KJf+bfsZ/6OWAVKW0OE6D4PKMD+iD0Gf/mLWFZFGJlQ
+	 8y+zmhKQ6vqxNUSYh9kYRwv4lyPcWyNLWEevwPPAYuxCClI+ItOmoun7dsspxEhK6o
+	 4r13IAZPtAZ/FwwB8zVb8jhrCgQdSWr7pKtXst5ROJw9n7vR8bTp0peDaNSV9QTi66
+	 ET5lK6PWH/ySM03dCJTRh8XtDQWzcu24GaWSvWvCXbvNPlfeQYnIp7YqrMz5cofplS
+	 sIp4co83LbwUCf9NB/fTKAircpB9fbYKFLgwwlymuSbCTOpTB7j2x07WQbQUohYdFB
+	 gIUT84723SFQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/2] dt-bindings: ufs: Document static TX
- Equalization settings properties
+Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Can Guo" <can.guo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260615085027.2102882-2-can.guo@oss.qualcomm.com>
-References: <20260615085027.2102882-2-can.guo@oss.qualcomm.com>
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260615065003.76661-5-a0987203069@gmail.com>
+References: <20260615065003.76661-5-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 09:01:08 +0000
-Message-Id: <20260615090109.216E51F00A3D@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 09:04:56 +0000
+Message-Id: <20260615090456.F34011F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [Medium] The new TX Equalization properties incorrectly use `uint32-matri=
-x` instead of `uint32-array`, causing `dt_binding_check` validation to fail=
- unconditionally on all valid device trees.
+
+New issues:
+- [High] Missing RUNNING bit configuration in panel_enable_ex prevents pane=
+l output.
+- [High] Framebuffer enable bit placed in CRTC callbacks prevents independe=
+nt plane disablement, causing Use-After-Free.
+- [High] Pixel clock is disabled before writing to CRTC registers during di=
+sablement.
+- [High] Uninitialized stack memory leak when reading IRQ status registers.
+- [Medium] Positional clock-names array causes schema validation failure fo=
+r abbreviated clock topologies.
+
+Pre-existing issues:
+- [High] DC8200 primary plane disable hook erroneously sets the enable bit.
+- [High] IRQ handler registration races with drm_dev initialization, causin=
+g NULL pointer dereference.
 --
 
-commit 3028e214ba5cd87e73e5059697a94d86be2b33c8
-Author: Can Guo <can.guo@oss.qualcomm.com>
-Date:   Mon Jun 15 08:50:25 2026 +0000
+commit 7f62f89410b84fe09c3b006e2a2c8a7c5dedfeaa
+Author: Joey Lu <a0987203069@gmail.com>
 
-dt-bindings: ufs: Document static TX Equalization settings properties
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
 
-This commit documents vendor-neutral properties for UFS static TX
-Equalization settings in UFS v5.0/UFSHCI v5.0. It defines properties
-for tx-precode-enable-g6, txeq-preshoot-g[1-6], and txeq-deemphasis-g[1-6]
-to compensate for channel loss and improve high-speed signal integrity.
+This commit adds support for the Verisilicon DC8000 (DCUltraLite) display
+controller found on the Nuvoton MA35D1 SoC. It handles differences in regis=
+ter
+layout, commit cycles, and clock topology by introducing a new vs_dc8000_fu=
+ncs
+structure.
 
-> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Docu=
-mentation/devicetree/bindings/ufs/ufs-common.yaml
-> index ed97f56825093..145a6416e1dff 100644
-> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-> @@ -105,6 +105,61 @@ properties:
->        Restricts the UFS controller to rate-a or rate-b for both TX and
->        RX directions.
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index 9729b693d360e..9499fffbca58e 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+[ ... ]
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
+>  		 dc->identity.revision, dc->identity.customer_id);
 > =20
-> +  tx-precode-enable-g6:
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
 
-[Severity: Medium]
-Should this reference /schemas/types.yaml#/definitions/uint32-array instead
-of uint32-matrix?
+[Severity: High]
+This is a pre-existing issue, but does vs_dc8200_primary_plane_disable_ex()
+fail to disable the hardware plane?=20
 
-Because uint32-matrix evaluates as an array of inner arrays, applying flat
-scalar constraints like the enum sequence below makes the constraints
-structurally impossible to satisfy. Will this cause make dtbs_check
-validation to fail unconditionally on any device tree implementing this
-property?
+It uses regmap_set_bits() for VSDC_FB_CONFIG_EX_FB_EN instead of clearing i=
+t:
 
-> +    oneOf:
-> +      - items:
-> +          - description: Host_Lane0 precode
-> +          - description: Device_Lane0 precode
+vs_dc8200.c:vs_dc8200_primary_plane_disable_ex() {
+    regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+                    VSDC_FB_CONFIG_EX_FB_EN);
+    ...
+}
+
+Will the display controller continue accessing the freed memory when DRM fr=
+ees
+the framebuffer after the atomic commit, leading to a use-after-free?
+
+[Severity: High]
+This is also a pre-existing issue, but does vs_dc_probe() register the IRQ
+handler before the DRM device is fully initialized?
+
+If an interrupt fires immediately after devm_request_irq(), could
+vs_drm_handle_irq() dereference dc->drm_dev->crtcs[i] and dc->drm_dev->base
+before vs_drm_initialize() has allocated dc->drm_dev?
+
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+> =20
+>  	if (port_count > dc->identity.display_count) {
+>  		dev_err(dev, "too many downstream ports than HW capability\n");
+[ ... ]
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..be0c0d7baf52e
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,78 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+[ ... ]
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
+put)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+
+[Severity: High]
+Does this function miss configuring the RUNNING bit?=20
+
+The commit message states that panel output starts when PANEL_CONFIG.RUNNING
+is set, but this implementation only sets VSDC_FB_CONFIG_RESET. Will the
+display controller fail to output pixels to the panel without setting
+VSDC_DISP_PANEL_CONFIG_RUNNING?
+
+[ ... ]
+> +static void vs_dc8000_crtc_enable(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_ENABLE);
+> +}
+
+[Severity: High]
+Does placing the framebuffer enable bit in the CRTC enable callback prevent
+independent plane disablement?
+
+If the DRM core disables the primary plane while keeping the CRTC active,
+vs_primary_plane_atomic_disable() will act as a no-op because the plane
+disable hook is NULL in vs_dc8000_funcs. Will the hardware continue scanning
+out from the freed framebuffer, resulting in a use-after-free and potential
+IOMMU faults?
+
+> +static void vs_dc8000_crtc_disable(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_ENABLE);
+> +}
+
+[Severity: High]
+Will writing to the CRTC register during disablement cause a bus fault?
+
+In vs_crtc_atomic_disable(), clk_disable_unprepare() is called on the
+pixel clock before invoking the crtc_disable hook:
+
+vs_crtc.c:vs_crtc_atomic_disable() {
+    clk_disable_unprepare(dc->pix_clk[output]);
+
+    if (dc->funcs->crtc_disable)
+        dc->funcs->crtc_disable(dc, output);
+    ...
+}
+
+Does this cause vs_dc8000_crtc_disable() to access hardware registers
+after their corresponding clock is disabled?
+
+[ ... ]
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 irqs;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &irqs);
+> +	return irqs;
+> +}
+
+[Severity: High]
+Can this leak uninitialized stack memory?
+
+If regmap_read() fails, the irqs variable remains uninitialized. Will this
+cause the function to return garbage data that is then passed to
+vs_drm_handle_irq(), potentially causing an information leak when logged by
+drm_warn_once or spurious execution of VBLANK handlers?
 
 [ ... ]
 
-> +patternProperties:
-> +  "^txeq-preshoot-g[1-6]$":
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-
 [Severity: Medium]
-Does this pattern property also require uint32-array instead of
-uint32-matrix for the scalar enum constraints to apply correctly?
+Will the abbreviated clock topology cause device tree validation failures?
 
-> +    oneOf:
-> +      - items:
-> +          - description: Host_Lane0 Preshoot value
-> +          - description: Device_Lane0 Preshoot value
-
-[ ... ]
-
-> +  "^txeq-deemphasis-g[1-6]$":
-> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-
-[Severity: Medium]
-Would changing uint32-matrix to uint32-array here as well resolve the
-schema validation failures for these flat arrays?
-
-> +    oneOf:
-> +      - items:
-> +          - description: Host_Lane0 DeEmphasis value
-> +          - description: Device_Lane0 DeEmphasis value
+Since the commit makes the axi and ahb clocks optional, the device tree cou=
+ld
+use a simpler topology with just core and pix0. However, the DT binding sch=
+ema
+in verisilicon,dc.yaml uses a rigid positional items array for clock-names
+(expecting axi at index 1). Would a node using clock-names =3D "core", "pix=
+0"
+fail validation because pix0 is evaluated against the const: axi requiremen=
+t?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615085027.2102=
-882-1-can.guo@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
+1-1-a0987203069@gmail.com?part=3D4
