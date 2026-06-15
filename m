@@ -1,178 +1,255 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E780D21D596
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5802E6116
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781545892; cv=none; b=M6EgEP8qlxTXnxxdh6XTM4/pJUkJy2hcLKknfESVvaBcF6dH/O04oKiCht4Ku814IRmJx+x8Jeca5y+G7B9nNcpDSbspgin+pENWbSbfBv7m0JzJ3glV64RvsheI46WQ6zIi5ggJxiJoz/jeMigz8i1pvI7Lx2prc6WFpRFATlI=
+	t=1781546160; cv=none; b=OgSY/1omYX1bLYmlIW9jFUL6CcEFuH509V3fNcticc5zX6b2//25AsZYGpq+CiCXnHOhpark4TNFzbyF25DhWUmpKFL6z1a+F9Q+KF/bc/Y+aKFfeQIVhkfeAZ5hZacrD4qQNhoRcoTIT0Ho5Ho8F+3DPLfbFrc+6QRmGS1pXyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781545892; c=relaxed/simple;
-	bh=aOGvR/6EMXxzHIz/mT4m4+9Tih1GazD+g4jiXrWaUTk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rOxLtm22t84Jkj1hpDW11UDaVSRBAXltJf+813AbEyN+cPS1Rmna0P3IeGpDZuU0/ipwfBA7k6+EQ+qYogM1/lKM7sGWXtEhKknt4rvhtSWy/OUZ6yGuZAfHI35eJgWnh0BJB51/kPQAGcFJRmYokHKCI5+1KZa8CinPdcXQ1bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fu+gyOXz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781546160; c=relaxed/simple;
+	bh=Bfg65l9oLYMQye/1jT8eUxdRbUv5Ys7i9CriojpoHSY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hyxzgRh3vtVDxycBFptdtL99vKgSA+LFbHPHgVkF82RGiuH0jAySD82wOLIv1OblhC10U/+U09VNoaoMG12De4cLOa/xdHfAaGkiz676fEW/l7bAkpY+OkzUenGQScSVMWQNEkhn8BPrWQ5CZSIUSgjEp5HROXEmdIj5V4BAVsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jZVfAd9f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LNIQRKIV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fu+gyOXz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEE41F000E9;
-	Mon, 15 Jun 2026 17:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781545890;
-	bh=kbacCHcH56fljO/cEdIVM0u0Q74/nT7xv4thcY7cGFo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fu+gyOXzW0velKzuApERSvd2zOPgC71NyuA4GbBRFanre3eO8sCE62rsAHlCSfft/
-	 iaXDhb2FJJ8A8rEdSA6ZpDagxAvFfx6gs+Tq4dEoxETwR+Tw8nPawhFw9zWy/GPo8K
-	 pnDetalumh/vMJUf91rkY8yOIW+YXlhp3XFq1hoOTi24pXg6XqTk+/t8Dj/n0W5s2Z
-	 b+XoswGYWFMObyKySH1HHvWbZTyIg2BW/zzbU+oQA1JjGc5fhfOrUz9P6efjwbhAi0
-	 KfCarBjiokNzkWEOb4BioWxa5SRWvpfndK/kCywq0VkDgG7V2yhrOwH26lV2wf7BYd
-	 5EuA/d7A99RCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V13 6/9] iio: imu: inv_icm42607: Add Temp Support in
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260615172554.160910-7-macroalpha82@gmail.com>
-References: <20260615172554.160910-7-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 17:51:30 +0000
-Message-Id: <20260615175130.6CEE41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jZVfAd9f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LNIQRKIV"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FFhLoU414024
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:55:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ST1w0wZqczPPxszNphmXYIsO4uUm6fjnUhko0y+jWxc=; b=jZVfAd9ftVJpSaDc
+	cQAH45/ksdOKCjoguK8Ldq7QZLJnM9tER1ZXMjOGNP6f7Y0M014+nEwfH/E415/j
+	+bVna5vBmmASqrU2irhHSb/3e1iV1rD/0eYrFyaxDHDekOyjazGnpD4HEXMe7bXp
+	GduEnXwbpTTlEgZ7jTg4MYLih19jRVtg0SmhRpyu5naq5JIlZiznYM7J0QhlqRrL
+	72EFDICEGetj/nfThpyApgEMvy1ZeAo25ZkdojvLVU3ITewXS6IorhCk+FtcRGLF
+	Ly72h1Oj331Rgy8i9TJO7qfRnWzFg7kdYD4NQPRaTkbAKt9s9mbFMlzF9bOjzSDz
+	CIf+FA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter0258a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 17:55:58 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8628dc1802so3904613a12.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781546158; x=1782150958; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ST1w0wZqczPPxszNphmXYIsO4uUm6fjnUhko0y+jWxc=;
+        b=LNIQRKIVvrs58hVQNKiqJXnn4Y93w8G8A82esmfJNxs43Q0QWaouSHeUSzzq4pGFzr
+         nm5NU23lHpCXObN6uPApT14Ha2AJnOcWMT2IHtKmvM1gys7oQfzxOyG/t+0tSggwenDg
+         AII/go09JQHEMxLNae/iHwy4COsIWHDWE7lgtHIPBWcjj88GOgwHbNSavH3Lp7GDPRTh
+         orOvfa02Lh0h+l1qm9qrG15Lqi2wD8zHFmyG8Cr92pSIKdFd6babHxRYhG3ARd7yAbKk
+         SQgdX3uFiWw7gv6+nSdw3aRvongmktaCwuZxpqXyMBbqxKCspicgW0VrhLPDgZkgkh2A
+         8Wrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781546158; x=1782150958;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ST1w0wZqczPPxszNphmXYIsO4uUm6fjnUhko0y+jWxc=;
+        b=si1RWPlPOxt7142m7/Qt4iVI3QMECZ6jSS+eEPaRy4mn9SSJ6+0oKjoNJW6crX8vDO
+         n1FORNxdb4buak63Lfr/Ox/pZXhE/G1EFXpe6yMDhXwQt2gMAJBIkkkotqU3d9WlY5lV
+         tlXCE+KsWkpGm+1krOwVYE6l1fseY4I3jBlwJRfEbk7k5iprvGoUhmjdPsesWRb/jDYK
+         6klnXUt9mrcXlLUPoUGmqUWwnvpa3VXQ9tximJHhxlgQNwxUzUscsyPgyfUmYEJKGhK4
+         y8ZvUMfDPbZjnacEYk0kVDUsalDwTAVHZlHZqAV2+RG22rvdAulMyBh+wpC02MX6tCHs
+         Bv4w==
+X-Forwarded-Encrypted: i=1; AFNElJ8jp03McjylL27M64ycdc55V7YukDKKVqaLGhR+IzRA4XaZmYcVf3GjGn5g1zjl57sD93xDblP6ze+D@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWmzRGsPRv+l76/4nTSCCLonvwrlAMqUBqQ/RyH8Nn6WilmjKJ
+	mHj4WsdOSavKpa0Smo13OWOYa8ZqF2zTl7g9x4Z2mPBDBw4GD8Y55ZSaB5qdStG87WlkQgYQgl7
+	i9bQY1qw+tnJmcDfVWh9wPfQDsJRTdaASufqFOmfrI4IrFx1LxszyRkTNck+gyxjI
+X-Gm-Gg: Acq92OFyKV5c/M7UGmMVroQmj+F8FeN/klzFVVUf2LhBDvSUGjZ9W+JFIKXHKQi9F3k
+	30LiQ0bDZXTa9XIPHUm8dQ+C2JJRLfOqe8NY2HydERgJEbE0kHJV+AkLJqISfMZcdH4KhpqnpU9
+	vniQLXjad2ffP6Xzt+/l4jGFfBxK+i93LbGtHebA8VbKF5B6VfX60on1gg/P160pD2t6LLLWteR
+	IrGR/kdWidNE6iHRqx1J2s127zu5Mg8Cnu1YKPYJeYNpKkj+OkkAdGHarHW89qYwCAAIN/Aixbr
+	xOBw69sUFV9tWLx6CcS8A/3uhjF+or6Yqg8JmMhli9jzT368K+YuJVFSnlsjdvIRCvROvgY+gQr
+	Np/BbI8OpyayJbU2Pu0dHGC9s142FvzPR6eYj3caqI9yBVjhWksYR+mfd
+X-Received: by 2002:a05:6a20:3942:b0:3b4:8fb2:a34b with SMTP id adf61e73a8af0-3b783dbd6d3mr17269429637.11.1781546158134;
+        Mon, 15 Jun 2026 10:55:58 -0700 (PDT)
+X-Received: by 2002:a05:6a20:3942:b0:3b4:8fb2:a34b with SMTP id adf61e73a8af0-3b783dbd6d3mr17269388637.11.1781546157694;
+        Mon, 15 Jun 2026 10:55:57 -0700 (PDT)
+Received: from [10.187.126.18] ([106.221.183.253])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c86651af0edsm9099233a12.32.2026.06.15.10.55.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 10:55:57 -0700 (PDT)
+Message-ID: <72318d39-3b71-50f4-a928-4600405e3c2c@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 23:25:46 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v4 04/16] media: iris: Introduce interrupt_init as a
+ vpu_op
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260612-iris-ar50lt-v4-0-0abfb74d5b3c@oss.qualcomm.com>
+ <20260612-iris-ar50lt-v4-4-0abfb74d5b3c@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260612-iris-ar50lt-v4-4-0abfb74d5b3c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: JveNzvmoloMnyj3SiawftzYpU0OZClHG
+X-Proofpoint-GUID: JveNzvmoloMnyj3SiawftzYpU0OZClHG
+X-Authority-Analysis: v=2.4 cv=UPzt2ify c=1 sm=1 tr=0 ts=6a303cae cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ym48ABLkKUHSTpi9L/JoRg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=G49y4s14Wf6zNiCwfuMA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE5MCBTYWx0ZWRfX0noYhFbgnQWL
+ 2d5umfQR6bbajvO9LCoA/xFmbId7BZyQO7+q3Dl0ENRipxR3UGVbCpfgS2TRCMkA1/5msHM2otD
+ loE0r15Hq+hwqNQxav2ljQEJ0aSeFNwUbWy5u7tk6DJGE8Q1lLMGsjg0rC2p5tPiT16ltL0v3ql
+ gh8EmTY+aCGiHXb/aY2+9O+XzU2Ls/l8MXZ/q1fESFxlBoAi6MTeSXktVcCuLqvIZbEDAR0l0Z+
+ IhWcBzsuJjFzhWBMaqK0MB9GKRHjdi2eHmSWMwrP0vUcPayz4OhweKGp48wu21IETiEe+/Z24eR
+ 8Hp6XdWUs1J5cXy3auP/BmBJhbVsQu2Qgv084IsqLOjWk3DGUEs68MdsZDxKmFmIOTIYROVGL+a
+ +r3mfsc4S7bgZDmpZ3TQORCUf/FT3PQUGUxeSQw93HaF/yOwB6/+aQRVv47VYyiqg9ADJ7j/GUS
+ YKRllD3w660JJzIooYQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE5MCBTYWx0ZWRfXzg3UHbxvtzEI
+ mElp3DxmqwiEfMuBbxMfxqrFj7Gu44xr5CTP4oZKt8Kp0iPnQs6up5JywdpdEERB2uW59t1S2mk
+ rxSRvplyhaCNu6Vv9MoRyjT/UECoEsk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_04,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150190
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Prematurely mutating the temperature software state before calling=
- the power management configuration bypasses state change detection, skippi=
-ng the mandatory startup delay and causing reads of uninitialized data.
+On 6/12/2026 2:55 PM, Dmitry Baryshkov wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+>
+> The interrupt_init sequence is currently shared across all supported
+> devices. Starting with Qualcomm QCM2290 (AR50LT), the register
+> programming would differ.
+>
+> Move interrupt_init into a vpu_op to allow per-device customization.
+>
+> This change prepares the driver for upcoming hardware variants.
+> No functional change so far for existing devices.
+>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_vpu2.c       | 1 +
+>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 3 +++
+>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 1 +
+>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 4 ++--
+>  drivers/media/platform/qcom/iris/iris_vpu_common.h | 2 ++
+>  5 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu2.c b/drivers/media/platform/qcom/iris/iris_vpu2.c
+> index 2dc121a3f5e8..dd2eeae0d9eb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu2.c
+> @@ -46,4 +46,5 @@ const struct vpu_ops iris_vpu2_ops = {
+>  	.calc_freq = iris_vpu2_calc_freq,
+>  	.set_hwmode = iris_vpu_set_hwmode,
+>  	.set_preset_registers = iris_vpu_set_preset_registers,
+> +	.interrupt_init = iris_vpu_interrupt_init,
+>  };
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> index dc02ced1b931..c3b760730c98 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> @@ -262,6 +262,7 @@ const struct vpu_ops iris_vpu3_ops = {
+>  	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+>  	.set_hwmode = iris_vpu_set_hwmode,
+>  	.set_preset_registers = iris_vpu_set_preset_registers,
+> +	.interrupt_init = iris_vpu_interrupt_init,
+>  };
+>  
+>  const struct vpu_ops iris_vpu33_ops = {
+> @@ -272,6 +273,7 @@ const struct vpu_ops iris_vpu33_ops = {
+>  	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+>  	.set_hwmode = iris_vpu_set_hwmode,
+>  	.set_preset_registers = iris_vpu_set_preset_registers,
+> +	.interrupt_init = iris_vpu_interrupt_init,
+>  };
+>  
+>  const struct vpu_ops iris_vpu35_ops = {
+> @@ -283,4 +285,5 @@ const struct vpu_ops iris_vpu35_ops = {
+>  	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+>  	.set_hwmode = iris_vpu_set_hwmode,
+>  	.set_preset_registers = iris_vpu_set_preset_registers,
+> +	.interrupt_init = iris_vpu_interrupt_init,
+>  };
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu4x.c b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> index f608a297d4a3..90ccdc0d2a07 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> @@ -369,4 +369,5 @@ const struct vpu_ops iris_vpu4x_ops = {
+>  	.calc_freq = iris_vpu3x_vpu4x_calculate_frequency,
+>  	.set_hwmode = iris_vpu4x_set_hwmode,
+>  	.set_preset_registers = iris_vpu_set_preset_registers,
+> +	.interrupt_init = iris_vpu_interrupt_init,
+>  };
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> index a49113b0da23..375bcd923476 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> @@ -31,7 +31,7 @@
+>  #define UC_REGION_ADDR				(CPU_CS_BASE_OFFS + 0x64)
+>  #define UC_REGION_SIZE				(CPU_CS_BASE_OFFS + 0x68)
+>  
+> -static void iris_vpu_interrupt_init(struct iris_core *core)
+> +void iris_vpu_interrupt_init(struct iris_core *core)
+>  {
+>  	u32 mask_val;
+>  
+> @@ -485,7 +485,7 @@ int iris_vpu_power_on(struct iris_core *core)
+>  
+>  	core->iris_platform_data->vpu_ops->set_preset_registers(core);
+>  
+> -	iris_vpu_interrupt_init(core);
+> +	core->iris_platform_data->vpu_ops->interrupt_init(core);
+>  	core->intr_status = 0;
+>  	enable_irq(core->irq);
+>  
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.h b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> index 21ed4c9bd5e3..9151545065cd 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.h
+> @@ -23,6 +23,7 @@ struct vpu_ops {
+>  	u64 (*calc_freq)(struct iris_inst *inst, size_t data_size);
+>  	int (*set_hwmode)(struct iris_core *core);
+>  	void (*set_preset_registers)(struct iris_core *core);
+> +	void (*interrupt_init)(struct iris_core *core);
+>  };
+>  
+>  int iris_vpu_boot_firmware(struct iris_core *core);
+> @@ -44,5 +45,6 @@ void iris_vpu35_vpu4x_program_bootup_registers(struct iris_core *core);
+>  u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_size);
+>  
+>  void iris_vpu_set_preset_registers(struct iris_core *core);
+> +void iris_vpu_interrupt_init(struct iris_core *core);
+>  
+>  #endif
 
-Pre-existing issues:
-- [High] The temperature sensor read fails (returns -EINVAL) when the gyros=
-cope and accelerometer are off because the device is placed in Sleep mode i=
-nstead of Idle mode, disabling the internal RC oscillator.
---
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-commit d36f0c461ef9d5076de90b75b6238be45c35148d
-Author: Chris Morgan <macromorgan@hotmail.com>
-Subject: iio: imu: inv_icm42607: Add Temp Support in icm42607
-
-Add functions for reading temperature sensor data.
-
-[ ... ]
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 64f5d263de4f2..644cd7f821b92 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-[ ... ]
-> @@ -162,6 +162,24 @@ static int inv_icm42607_set_pwr_mgmt0(struct inv_icm=
-42607_state *st,
->  	return 0;
->  }
-> =20
-> +int inv_icm42607_set_temp_conf(struct inv_icm42607_state *st, bool enabl=
-e,
-> +			       unsigned int *sleep_ms)
-> +{
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	val =3D FIELD_PREP(INV_ICM42607_TEMP_CONFIG0_FILTER_MASK,
-> +			 INV_ICM42607_FILTER_BW_34HZ);
-> +	ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_TEMP_CONFIG0,
-> +				 INV_ICM42607_TEMP_CONFIG0_FILTER_MASK, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return inv_icm42607_set_pwr_mgmt0(st, st->conf.gyro.mode,
-> +					  st->conf.accel.mode, enable,
-> +					  sleep_ms);
-
-[Severity: High]
-This is a pre-existing issue, but will this temperature read fail with -EIN=
-VAL
-if the gyroscope and accelerometer are off?
-
-Looking at inv_icm42607_set_pwr_mgmt0(), it constructs the PWR_MGMT0 regist=
-er
-value using only the gyro and accel mode masks:
-
-    val =3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
-    val |=3D FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
-    ret =3D regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
-
-If both gyro and accel are off, val is 0, which places the device in Sleep =
-mode
-instead of Idle mode. The internal RC oscillator required for temperature r=
-eads
-is disabled, causing the data register to return 0x8000
-(INV_ICM42607_DATA_INVALID).
-
-Should the IDLE bit be set when temp is true and the other sensors are
-inactive?
-
-> +}
-> +
-[ ... ]
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_temp.c
-> new file mode 100644
-> index 0000000000000..9a60e1a478b08
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
-[ ... ]
-> +static int inv_icm42607_temp_read(struct inv_icm42607_state *st, s16 *te=
-mp)
-> +{
-> +	struct device *dev =3D regmap_get_device(st->map);
-> +	u8 raw[2];
-> +	int ret;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	st->conf.temp_en =3D true;
-> +	ret =3D inv_icm42607_set_temp_conf(st, st->conf.temp_en, NULL);
-
-[Severity: High]
-Does setting st->conf.temp_en to true before this call bypass the hardware
-configuration and startup delay?
-
-Because st->conf.temp_en is mutated before the call, when
-inv_icm42607_set_temp_conf() calls inv_icm42607_set_pwr_mgmt0(), it will
-evaluate the state transition like this:
-
-    bool oldtemp =3D st->conf.temp_en;
-    ...
-    if (gyro =3D=3D oldgyro && accel =3D=3D oldaccel && temp =3D=3D oldtemp)
-        return 0;
-
-Since temp and oldtemp are now both true, the function returns early without
-writing to the power management register or waiting for the startup delay.
-Could this lead to reading uninitialized or desynchronized data?
-
-> +	st->conf.temp_en =3D false;
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_bulk_read(st->map, INV_ICM42607_REG_TEMP_DATA1,
-> +			       raw, sizeof(raw));
-> +	if (ret)
-> +		return ret;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615172554.1609=
-10-1-macroalpha82@gmail.com?part=3D6
