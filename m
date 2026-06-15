@@ -1,344 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B413C2BAC;
-	Mon, 15 Jun 2026 09:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4E602FFF8D
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781514496; cv=none; b=cMBRjFhumLj5jDIaxsSa4EHzA1o/3WttCOK84sWq7l6XriLayGzTqjRUYlAfv42O1KS8M1JdCIwq8TPOHPnZYjPeULo8lnLqOKvfQvAZSOEoutdqMnlAC1kMUDO1ihw4eyRZXdFLNCWS0ZAjDF9UQ8KkARCdqVILXVyaAzCH4RU=
+	t=1781514541; cv=none; b=ST3MFoQ9zMw0Whlbb1JwiXQ2QujX1g3YJQocE5qBBwo2wogmS922YxEPIW4ZLoBYHXFYhNpPQYE1HJQKnKPAnNRaLZ2pmwnsHlpt+8OTxDtGtiDiZ7vZFBn8BXpwK39U5jHV1sciQHsnhrWJubT/gshueBueVwAezC4heU5FCfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781514496; c=relaxed/simple;
-	bh=UBQ3UcLPjRIMTkPWF2+utSaOLYSar8jA7aT4PmlpIa4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VqhJW7iJfSScilI68YWXsvJ65b4unpXyE9oZzmBVQRAg7YSBejSTGA8izpkSrXIb8Pzgo7n5kUdKSvEHCL6sRMBNi7RX8Sn1tn10PZvKxY2Yw+TJjCzYOtrJCdQWTzkXKVjIL6SSNo8bIHPJbjAtBCqQyM0F4/LlsOOGkRqnIcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adjajgKU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adjajgKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA251F000E9;
-	Mon, 15 Jun 2026 09:08:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781514492;
-	bh=wg8fBQfnN9gNnALaLS/O6GaJwTABoRT4jJ3YV+TtFLM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=adjajgKUvGOaFCLS2TpY/h4uFBKu4qtoaFZGs1yLcikx0xc/sxz06HIcpswGq0j6t
-	 0+N5gds5sg082waUrjzIk8hbY1WF1fpC5peeKda5yKrQ7H4tvLIRdYPaawIt0acNjh
-	 xLfpeFfwsWeCJY9BVR83KPCU7CaucA88iUc036RlJz2rLs33trVh649kTyfn9MFZhL
-	 ODu7JkRxQumCQ4H9Uza1YzuSUeFi8f7du8CQiBoOBFZheOBgbRJcyzke0aqhXwG2Ii
-	 Iu5UJFCRcUgWkxEkCi2dKE7FHwROkHNm6a/qptDAUqjDK7h+RXI2gND5E1OLIkl1Cr
-	 A1acw10vItEgw==
-From: Simon Horman <horms@kernel.org>
-To: jelonek.jonas@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	o.rempel@pengutronix.de,
-	kory.maincent@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel@makrotopia.org,
-	bjorn@mork.no
-Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU driver
-Date: Mon, 15 Jun 2026 10:07:33 +0100
-Message-ID: <20260615090733.739423-2-horms@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260612132944.460646-3-jelonek.jonas@gmail.com>
-References: <20260612132944.460646-3-jelonek.jonas@gmail.com>
+	s=arc-20240116; t=1781514541; c=relaxed/simple;
+	bh=3eAaKq0DRhnOArpoc3MHZ0x/2bcD2End1NmsemJGrf8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=LXoaodRAgmYfVSsydwwfCLBA8gn8Wop6eGHkm9lAhkrvNtN/2SlwLqn6TZXp9EzonRFMQvt9Enix3VLK9PDqBlrbR5l7pU74G9KL63B+aXTIXoucodKnKT6648yNFhnGA/UGHjp2BMvnEaGha7gZYQmcnTYvq84UMIAvxTlJ8+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 15 Jun 2026 17:08:52 +0800 (GMT+08:00)
+Date: Mon, 15 Jun 2026 17:08:52 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: Re: [PATCH net-next v8 6/6] riscv: dts: eswin:
+ eic7700-hifive-premier-p550: enable Ethernet controller
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260611013250.985401F00898@smtp.kernel.org>
+References: <20260610013223.972-1-lizhi2@eswincomputing.com>
+ <20260611013250.985401F00898@smtp.kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <1691b864.9610.19eca8a775c.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:TAJkCgDHW3AkwS9qfeUoAA--.7707W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgETDGou2BZoiwABs0
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev
----
-net: pse-pd: add Realtek/Broadcom PSE MCU driver
-
-This patch adds a driver for a microcontroller that fronts Realtek and
-Broadcom PSE silicon on PoE switches, exposing the MCU over I2C/SMBus or
-UART using a 12-byte fixed-frame protocol. The driver is split into a
-shared core plus two transport modules, with a per-dialect opcode table
-and parser hooks for the Realtek vs Broadcom variants.
-
-> diff --git a/drivers/net/pse-pd/Kconfig b/drivers/net/pse-pd/Kconfig
-> index 7ef29657ee5d..b065b19db126 100644
-> --- a/drivers/net/pse-pd/Kconfig
-> +++ b/drivers/net/pse-pd/Kconfig
-> @@ -13,6 +13,34 @@ menuconfig PSE_CONTROLLER
->  
->  if PSE_CONTROLLER
->  
-> +config PSE_REALTEK
-> +	tristate
-> +	help
-> +	  Shared core for the Realtek/Broadcom PSE MCU driver. This is
-> +	  selected automatically by the transport options below.
-> +
-> +config PSE_REALTEK_I2C
-> +	tristate "Realtek/Broadcom PSE MCU driver (I2C transport)"
-> +	depends on I2C
-> +	select PSE_REALTEK
-> +	help
-> +	  Driver for the microcontroller (MCU) that fronts the PSE
-> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
-> +	  via I2C/SMBus. The MCU exposes a message-based protocol; the actual
-> +	  PSE silicon is not accessed directly. To compile this driver as a
-> +	  module, choose M here: the module will be called realtek-pse-i2c.
-> +
-> +config PSE_REALTEK_UART
-> +	tristate "Realtek/Broadcom PSE MCU driver (UART transport)"
-> +	depends on SERIAL_DEV_BUS
-> +	select PSE_REALTEK
-> +	help
-> +	  Driver for the microcontroller (MCU) that fronts the PSE
-> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
-> +	  via UART. The MCU exposes a message-based protocol; the actual PSE
-> +	  silicon is not accessed directly. To compile this driver as a
-> +	  module, choose M here: the module will be called realtek-pse-uart.
-> +
-
-[Medium]
-The realtek, vendor prefix is used for both the Realtek dialect and the
-Broadcom dialect compatibles (realtek,pse-mcu-rtk and
-realtek,pse-mcu-bcm), and the binding documentation explicitly notes
-that the prefix "reflects the platform" rather than the silicon vendor.
-DT compatibles are stable ABI once accepted.
-
-Would a brcm, prefix (or per-MCU-part compatibles) for the Broadcom
-dialect be more appropriate, given that the BCM variant uses Broadcom
-PSE silicon driven by an MCU built by Nuvoton or STMicro and has no
-Realtek involvement?
-
-Similarly, would describing the I2C wire framing (native vs SMBus) via
-separate compatibles be preferable to encoding it in the
-realtek,i2c-protocol DT property, and would describing the actual PSE
-chip in DT (rather than relying on runtime device-id detection) match
-the usual binding patterns?
-
->  config PSE_REGULATOR
->  	tristate "Regulator based PSE controller"
->  	help
-
-[ ... ]
-
-> diff --git a/drivers/net/pse-pd/realtek-pse-core.c b/drivers/net/pse-pd/realtek-pse-core.c
-> new file mode 100644
-> index 000000000000..3a601cfb6280
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-core.c
-
-[ ... ]
-
-> +static int rtpse_port_cmd(struct rtpse_ctrl *pse, unsigned int port, u8 opcode, u8 arg)
-> +{
-> +	struct rtpse_mcu_msg req, resp;
-> +	int ret;
-> +
-> +	rtpse_mcu_msg_init(&req, opcode);
-> +	req.payload[0] = port;
-> +	req.payload[1] = arg;
-> +
-> +	ret = rtpse_do_xfer(pse, &req, &resp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (resp.payload[0] != port || resp.payload[1] != 0)
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-
-[Medium]
-Can an all-zero 12-byte buffer be silently accepted as a successful
-PORT_ENABLE/PORT_DISABLE on the BCM dialect for port 0?
-
-For the BCM dialect, RTPSE_CMD_PORT_ENABLE maps to opcode 0x00, and the
-checksum of eleven zero bytes is 0, so an all-zero response passes the
-opcode and checksum checks in rtpse_do_xfer():
-
-	if (resp->opcode != req->opcode ||
-	    resp->checksum != rtpse_checksum((u8 *)resp, RTPSE_MCU_MSG_SIZE - 1))
-		return -EBADMSG;
-
-rtpse_port_cmd() then verifies payload[0] == port and payload[1] == 0,
-both of which pass when port == 0 and arg is 0 (disable) or when arg is
-1 but the MCU never observed the command and the buffer is all zero
-anyway since payload[1] is checked against 0.
-
-The seq_num field exists in struct rtpse_mcu_msg and is filled with 0xff
-by rtpse_mcu_msg_init() but is never checked on the response side. Could
-a seq_num round-trip check (or a non-zero opcode sentinel for the BCM
-dialect) reject stale or zeroed-out frames here?
-
-[ ... ]
-
-> +static int rtpse_discover(struct rtpse_ctrl *pse, struct rtpse_mcu_info *info)
-> +{
-> +	struct rtpse_mcu_ext_config ext_config;
-> +	unsigned long deadline;
-> +	int ret;
-> +
-> +	/*
-> +	 * The MCU may not answer on the bus yet right after power-up or
-> +	 * enable-gpios assertion: depending on the transport it either stays
-> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
-> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
-> +	 * still probes, while a genuinely unresponsive MCU fails with its real
-> +	 * error instead of deferring forever and masking it.
-> +	 */
-> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
-> +	do {
-> +		ret = rtpse_mcu_get_info(pse, info);
-> +		if (ret != -ETIMEDOUT && ret != -ENXIO &&
-> +		    ret != -EREMOTEIO && ret != -EAGAIN)
-> +			break;
-> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
-> +	} while (time_before(jiffies, deadline));
-
-[Low]
-The comment says the loop is meant to tolerate a slow-boot MCU, but the
-retry whitelist excludes -EBADMSG and -EIO.
-
-rtpse_do_xfer() returns -EBADMSG when the opcode or checksum mismatch
-fires, and rtpse_port_query()/rtpse_port_cmd() return -EIO when the
-echoed port byte does not match the request. On a UART-attached MCU
-that emits a single garbled frame while its serial peripheral
-stabilises, or on an I2C-attached MCU that returns stale boot-ROM bytes
-right after enable-gpios assertion, the first attempt would surface as
-one of those errors rather than -ETIMEDOUT or -ENXIO, and the loop
-would break out immediately.
-
-Should -EBADMSG (and arguably -EIO) be added to the retry set so the
-documented intent matches the actual behaviour?
-
-[ ... ]
-
-> +int rtpse_register(struct rtpse_ctrl *pse)
-> +{
-
-[ ... ]
-
-> +	if (!info.system_enable) {
-> +		ret = rtpse_set_global_state(pse, true);
-> +		/* Dialects without a global-state concept (e.g. BCM) return
-> +		 * -EOPNOTSUPP; treat that as "no separate enable required".
-> +		 */
-> +		if (ret && ret != -EOPNOTSUPP)
-> +			return dev_err_probe(pse->dev, ret,
-> +					     "failed to enable PSE system\n");
-> +	}
-> +
-> +	ret = regulator_enable(pse->poe_supply);
-> +	if (ret)
-> +		return dev_err_probe(pse->dev, ret, "failed to enable PoE supply\n");
-> +
-> +	ret = devm_add_action_or_reset(pse->dev, rtpse_regulator_disable, pse->poe_supply);
-> +	if (ret)
-> +		return ret;
-
-[Low]
-If rtpse_set_global_state(pse, true) succeeds but a later step in
-rtpse_register() fails (regulator_enable, devm_add_action_or_reset, or
-devm_pse_controller_register), is the MCU left with the PSE subsystem
-enabled while the kernel detaches?
-
-The regulator is rolled back via rtpse_regulator_disable through
-devm_add_action_or_reset, but there does not seem to be a matching
-devm_add_action_or_reset to call rtpse_set_global_state(false) on
-probe-failure or driver-removal. Is that asymmetry intentional?
-
-[ ... ]
-
-> diff --git a/drivers/net/pse-pd/realtek-pse-uart.c b/drivers/net/pse-pd/realtek-pse-uart.c
-> new file mode 100644
-> index 000000000000..785407b379a4
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-uart.c
-
-[ ... ]
-
-> +static size_t rtpse_uart_receive(struct serdev_device *serdev,
-> +				 const u8 *buf, size_t count)
-> +{
-> +	struct rtpse_uart *ctx = serdev_device_get_drvdata(serdev);
-> +	bool done = false;
-> +	size_t take;
-> +
-> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
-> +		take = min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
-> +		if (take) {
-> +			memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
-> +			ctx->rx_len += take;
-> +			done = (ctx->rx_len == sizeof(ctx->rx_buf));
-> +		}
-> +	}
-> +	if (done)
-> +		complete(&ctx->rx_done);
-> +
-> +	/* consume all to avoid desync/misalignment */
-> +	return count;
-> +}
-
-[ ... ]
-
-> +static int rtpse_uart_send(struct rtpse_ctrl *pse, const struct rtpse_mcu_msg *req)
-> +{
-> +	struct rtpse_uart *ctx = to_rtpse_uart(pse);
-> +	int written;
-> +
-> +	/* clear any leftover rx state before transmitting */
-> +	reinit_completion(&ctx->rx_done);
-> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock)
-> +		ctx->rx_len = 0;
-
-[High]
-Is there a race between reinit_completion() here and the asynchronous
-serdev receive_buf callback when a previous transaction has timed out
-with bytes still in flight?
-
-reinit_completion() is an unlocked x->done = 0 write, and the matching
-complete() in rtpse_uart_receive() is called outside rx_lock. The
-following interleave seems possible:
-
-  rtpse_uart_send() runs reinit_completion()       /* done = 0 */
-  rtpse_uart_receive() takes rx_lock, fills rx_buf
-    to 12 bytes, computes done=true, releases lock
-  rtpse_uart_send() takes rx_lock, sets rx_len = 0,
-    releases lock
-  rtpse_uart_receive() calls complete(&ctx->rx_done) /* done = 1 */
-  rtpse_uart_send() writes the new request
-  rtpse_uart_recv() wait_for_completion_timeout()
-    returns immediately (done was 1), then sees
-    rx_len == 0 and returns -EIO
-
-rtpse_discover()'s retry whitelist covers -ETIMEDOUT, -ENXIO,
--EREMOTEIO, and -EAGAIN but not -EIO, so a single occurrence of this
-race during the boot retry window would break out of the loop and turn
-into a permanent dev_err_probe() failure.
-
-Would moving complete() inside rx_lock in rtpse_uart_receive(), or
-performing reinit_completion() and rx_len = 0 together inside rx_lock
-while excluding the completer, close this window?
-
-> +
-> +	written = serdev_device_write(ctx->serdev, (const u8 *)req, sizeof(*req),
-> +				      RTPSE_UART_TX_TIMEOUT);
-> +	if (written < 0)
-> +		return written;
-> +	if (written != sizeof(*req))
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
+CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiBzYXNoaWtvLWJvdEBrZXJu
+ZWwub3JnCj4gU2VuZCB0aW1lOlRodXJzZGF5LCAxMS8wNi8yMDI2IDA5OjMyOjUwCj4gVG86IGxp
+emhpMkBlc3dpbmNvbXB1dGluZy5jb20KPiBDYzogY29ub3IrZHRAa2VybmVsLm9yZywgZGV2aWNl
+dHJlZUB2Z2VyLmtlcm5lbC5vcmcsIHJvYmhAa2VybmVsLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFU
+Q0ggbmV0LW5leHQgdjggNi82XSByaXNjdjogZHRzOiBlc3dpbjogZWljNzcwMC1oaWZpdmUtcHJl
+bWllci1wNTUwOiBlbmFibGUgRXRoZXJuZXQgY29udHJvbGxlcgo+IAo+IFRoYW5rIHlvdSBmb3Ig
+eW91ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDIgcG90ZW50aWFsIGlz
+c3VlKHMpIHRvIGNvbnNpZGVyOgo+IC0gW0xvd10gRGV2aWNlIFRyZWUgY29tcGlsZXIgd2Fybmlu
+ZzogdW5pdCBhZGRyZXNzIHdpdGhvdXQgYHJlZ2AgcHJvcGVydHkuCj4gLSBbTG93XSBEZXZpY2Ug
+VHJlZSBzY2hlbWEgdmFsaWRhdGlvbiB3YXJuaW5nczogbm9uLXN0YW5kYXJkIG5vZGUgbmFtZXMu
+Cj4gLS0KPiAKPiBjb21taXQgNjFmZTg3YjJhZjMzYTg5YzY1MzFkMGQ3ZWM4ZjQ5ODk5YTUyMDU3
+ZQo+IEF1dGhvcjogWmhpIExpIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+IAo+IHJpc2N2
+OiBkdHM6IGVzd2luOiBlaWM3NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTA6IGVuYWJsZSBFdGhlcm5l
+dCBjb250cm9sbGVyCj4gICAgIAo+IEVuYWJsZSB0aGUgb24tYm9hcmQgR2lnYWJpdCBFdGhlcm5l
+dCBjb250cm9sbGVyIG9uIHRoZQo+IEhpRml2ZSBQcmVtaWVyIFA1NTAgZGV2ZWxvcG1lbnQgYm9h
+cmQuCj4gCj4gPiBkaWZmIC0tZ2l0IGEvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3NzAw
+LWhpZml2ZS1wcmVtaWVyLXA1NTAuZHRzIGIvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3
+NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTAuZHRzCj4gPiBpbmRleCAxMzFlZDFmYzZiMmVkLi5lZGQ5
+MWIwNGUyNTE1IDEwMDY0NAo+ID4gLS0tIGEvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3
+NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTAuZHRzCj4gPiArKysgYi9hcmNoL3Jpc2N2L2Jvb3QvZHRz
+L2Vzd2luL2VpYzc3MDAtaGlmaXZlLXByZW1pZXItcDU1MC5kdHMKPiA+IEBAIC0xMywxMSArMTMs
+MjUxIEBAIC8gewo+IAo+IFsgLi4uIF0KPiAKPiA+ICAJY2hvc2VuIHsKPiA+ICAJCXN0ZG91dC1w
+YXRoID0gInNlcmlhbDA6MTE1MjAwbjgiOwo+ID4gIAl9Owo+ID4gKwo+ID4gKwl2Y2NfMXY4OiB2
+Y2Mxdjggewo+ICAgICAgICAgICAgICAgICAgXl5eXl5eCj4gW1NldmVyaXR5OiBMb3ddCj4gU2hv
+dWxkIHRoaXMgbm9kZSBiZSBuYW1lZCB1c2luZyB0aGUgZ2VuZXJpYyByZWd1bGF0b3ItKiBwYXR0
+ZXJuLCBzdWNoIGFzCj4gcmVndWxhdG9yLTF2OD8gVGhlIGN1cnJlbnQgbmFtZSBtaWdodCB0cmln
+Z2VyIGR0YnNfY2hlY2sgdmFsaWRhdGlvbiB3YXJuaW5ncwo+IGZvciB0aGUgZml4ZWQtcmVndWxh
+dG9yIHNjaGVtYS4KPiAKPiA+ICsJCSBjb21wYXRpYmxlID0gInJlZ3VsYXRvci1maXhlZCI7Cj4g
+PiArCQkgcmVndWxhdG9yLW5hbWUgPSAidmNjMXY4IjsKPiA+ICsJCSByZWd1bGF0b3ItYWx3YXlz
+LW9uOwo+IAo+IFsgLi4uIF0KPiAKPiA+IGRpZmYgLS1naXQgYS9hcmNoL3Jpc2N2L2Jvb3QvZHRz
+L2Vzd2luL2VpYzc3MDAuZHRzaSBiL2FyY2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcwMC5k
+dHNpCj4gPiBpbmRleCBjM2VkOTMwMDhiY2ExLi5jNzdiYzhiMWI3YmMwIDEwMDY0NAo+ID4gLS0t
+IGEvYXJjaC9yaXNjdi9ib290L2R0cy9lc3dpbi9laWM3NzAwLmR0c2kKPiA+ICsrKyBiL2FyY2gv
+cmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcwMC5kdHNpCj4gCj4gWyAuLi4gXQo+IAo+ID4gQEAg
+LTIwMiw2ICsyMDUsMTEgQEAgcG11IHsKPiA+ICAJCQkJPDB4MDAwMDAwMDAgMHgwMDAwMDAwZiAw
+eGZmZmZmZmZjIDB4MDAwMDAwZmYgMHgwMDAwMDA3OD47Cj4gPiAgCX07Cj4gPiAgCj4gPiArCXh0
+YWwyNG06IG9zY2lsbGF0b3Igewo+ICAgICAgICAgICAgICAgICAgXl5eXl5eXl5eXgo+IFtTZXZl
+cml0eTogTG93XQo+IFdvdWxkIGl0IGJlIGJldHRlciB0byB1c2UgdGhlIGdlbmVyaWMgY2xvY2st
+KiBwYXR0ZXJuIGZvciB0aGlzIG5vZGUgbmFtZSwKPiBzdWNoIGFzIGNsb2NrLTI0bT8gVXNpbmcg
+b3NjaWxsYXRvciBtaWdodCB0cmlnZ2VyIGR0YnNfY2hlY2sgd2FybmluZ3MKPiBhZ2FpbnN0IHRo
+ZSBmaXhlZC1jbG9jayBiaW5kaW5nIHNjaGVtYS4KPiAKPiA+ICsJCWNvbXBhdGlibGUgPSAiZml4
+ZWQtY2xvY2siOwo+ID4gKwkJI2Nsb2NrLWNlbGxzID0gPDA+Owo+ID4gKwl9Owo+ID4gKwo+ID4g
+IAlzb2Mgewo+ID4gIAkJY29tcGF0aWJsZSA9ICJzaW1wbGUtYnVzIjsKPiA+ICAJCXJhbmdlczsK
+PiA+IEBAIC0yNDUsNiArMjUzLDg1IEBAIHBsaWM6IGludGVycnVwdC1jb250cm9sbGVyQGMwMDAw
+MDAgewo+ID4gIAkJCSNpbnRlcnJ1cHQtY2VsbHMgPSA8MT47Cj4gPiAgCQl9Owo+ID4gIAo+ID4g
+KwkJaHNwX3Bvd2VyX2RvbWFpbjogYnVzQDUwNDAwMDAwIHsKPiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eCj4gW1NldmVyaXR5OiBMb3ddCj4gRG9lcyB0aGlz
+IG5vZGUgbmVlZCBhIHJlZyBwcm9wZXJ0eT8gSXQgaGFzIGEgdW5pdCBhZGRyZXNzIChANTA0MDAw
+MDApLCB3aGljaAo+IHVzdWFsbHkgcmVxdWlyZXMgYSBtYXRjaGluZyByZWcgcHJvcGVydHkuIFdp
+dGhvdXQgaXQsIHRoZSBkZXZpY2V0cmVlIGNvbXBpbGVyCj4gbWlnaHQgZ2VuZXJhdGUgYSB1bml0
+X2FkZHJlc3NfdnNfcmVnIHdhcm5pbmcuCj4gCj4gPiArCQkJY29tcGF0aWJsZSA9ICJzaW1wbGUt
+cG0tYnVzIjsKPiA+ICsJCQlyYW5nZXM7Cj4gPiArCQkJY2xvY2tzID0gPCZjbGsgMTcxPjsKPiA+
+ICsJCQkjYWRkcmVzcy1jZWxscyA9IDwyPjsKPiA+ICsJCQkjc2l6ZS1jZWxscyA9IDwyPjsKPiAK
+SXQncyBvbmx5IGZvciB0aGUgcmV2aWV3ZXIgdG8gZ2V0IGEgZnVsbCBwaWN0dXJlIG9mIHRoZSBk
+dHMuIEl0IHdpbGwgTk9UIGJlIHVwc3RyZWFtZWQuCkFzIG1lbnRpb25lZCBieSBBbmRyZXcgTHVu
+biBhdDoKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC82NGJmNmI0MC1iOTQ3LTRmZmEtOGQ0
+OC00ZDYzNDE5MzEzMjdAbHVubi5jaC8K
