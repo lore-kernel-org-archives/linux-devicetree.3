@@ -1,137 +1,132 @@
-Received: from outbound8.mail.transip.nl (outbound8.mail.transip.nl [136.144.136.8])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CFC3E3153;
-	Mon, 15 Jun 2026 11:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143991C695;
+	Mon, 15 Jun 2026 11:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781521970; cv=none; b=Q6xjf1o5GIGdf81hViIwP4RkjxzfE3N5ItjRjQZT4Xai643C8ftX7EEQGJZI8aUGwSrPJT/Ao5pSfYNsxsCS+SGYs9pRBAqIbtmBCHvzXAvDgrt9zbfxtV6ourLpPWhFcSnJmVZh+sm6DL+55gJbzR82DdzBP8OaO1ArvjbrWiQ=
+	t=1781522473; cv=none; b=QQ8WOS6LXqtozVEytxEu08BH79WUZIIyALVg16ImHO7nCKZC9LIvY6MzRS7c8YS4/5GO6sr0YLTgGJ6QEQWeh4LTe6ypz7q+zmlRVYwt6DhYaZyqC2RoqUG5xnaiwMTofo2erM17hcQMMyZq+mYBqBxooAbzB3kwySj2E3QaEg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781521970; c=relaxed/simple;
-	bh=i1fJphGInHt+MH5vnYGByStkYCIbzrGiFpLXbuB18bI=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=PTkjxx0g46SmmPhMq0Qn+dvsrj67h+zd2a4lJ6mOPr04u4W72bnUVDDOd3TTkPNzyFBK7eyZDgU4TnO24/yPK0AVfdkQ9ZkFVlCACt6gGI6wiaBHe7RwJDGMUdB2CTT328SdhsAwkzVFqsJvF6F9v/rgIIphS/OggFnYTW+o2sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=pqjz8gmU; arc=none smtp.client-ip=136.144.136.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1781522473; c=relaxed/simple;
+	bh=oUuco3i0K38eSMot402UJs61QnUbT2+JIaR5boNplsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qv89WCL44PhDOKcAReugLtLEAouIUGDOKJmMAh563KF6sQqFzHMNPCKXttxTfgt+qKcIBcFp2BmLvZSsTmZ3z7G8L4uz4cUWxvFQcS+88ag9Ur3vT/6z526xA4RDhiLKd3cdYNpZutX+y5moLrhMAxZHp1Kq4YoWZvwHmVonuTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J1UNVB2R; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="pqjz8gmU"
-Received: from submission15.mail.transip.nl (unknown [10.103.8.166])
-	by outbound8.mail.transip.nl (Postfix) with ESMTP id 4gf6sc0KN4zY76j3;
-	Mon, 15 Jun 2026 13:12:36 +0200 (CEST)
-Received: from transip.email (unknown [10.100.4.34])
-	by submission15.mail.transip.nl (Postfix) with ESMTPA id 4gf6sb2nl3z3R3nyj;
-	Mon, 15 Jun 2026 13:12:35 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J1UNVB2R"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781522472; x=1813058472;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oUuco3i0K38eSMot402UJs61QnUbT2+JIaR5boNplsQ=;
+  b=J1UNVB2RZApvvu3Gtts/5scUuGcyPJ3NoBpze8TTqZKjLyKrLHV1Yr0p
+   1oqyH92PxkAh8Xb7fPK0ZNhjXN+Iolqo7/BqqbsgPDq/6Ju8Z+44qmgEs
+   bPP6T25gCjnMDGrhTCXy/5Zebg2xkTUrryjopLFRpVrOmepetYSj28uMg
+   60k2I7MkO/MGP7RE5QzKXRsHXAY6s0gzykk2reUzNONQxMCADPw4IngDz
+   Zwl7W1SwXC8+7zpSkTcxgzQieC5QFN8ircLjVm2qWE+/X4NAEUFyloRgT
+   +HgpaPs5km13nUAbhX8sZfGeXG5mpGVi+FO56kNb7yo6ieOArLJxRUzUx
+   w==;
+X-CSE-ConnectionGUID: 4s3oRf5QRq+UdssV1YsWaw==
+X-CSE-MsgGUID: pynKRtC8QqOvjRhYZeSfeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11817"; a="93750794"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="93750794"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 04:21:11 -0700
+X-CSE-ConnectionGUID: +VUN7yuxSNuQPnk+/FSvKg==
+X-CSE-MsgGUID: KzZJslhUQuu3pFRYoagyyg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
+   d="scan'208";a="241090446"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 04:21:08 -0700
+Date: Mon, 15 Jun 2026 14:21:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V12 7/9] iio: imu: inv_icm42607: Add Accelerometer for
+ icm42607
+Message-ID: <ai_gIR2d9fzHLZ-G@ashevche-desk.local>
+References: <20260611202607.85376-1-macroalpha82@gmail.com>
+ <20260611202607.85376-8-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 15 Jun 2026 13:12:35 +0200
-From: me@herrie.org
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Herman van Hazendonk <github.com@herrie.org>, linusw@kernel.org,
- denis.ciocca@st.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, sanjayembeddedse@gmail.com, maudspierings@gocontroll.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] iio: common: st_sensors: honour channel endianness in
- read_axis_data
-Reply-To: github.com@herrie.org
-Mail-Reply-To: github.com@herrie.org
-In-Reply-To: <20260614193908.522272ed@jic23-huawei>
-References: <cover.1780652883.git.github.com@herrie.org>
- <0dac8e8e2872dc180b138923b5cd4fd18eee047b.1780652883.git.github.com@herrie.org>
- <20260614193908.522272ed@jic23-huawei>
-User-Agent: Webmail
-Message-ID: <7a4f25be10eae7c22125863a2523f435@herrie.org>
-X-Sender: me@herrie.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission15.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1781521955; h=from:reply-to:subject:to:
- cc:references:in-reply-to:date:mime-version:content-type;
- bh=mGJ7Z6B3aU7tj5WDPKIkd1Iu5EsLo/qlOIAj54yFA7c=;
- b=pqjz8gmUMMeg9l3q3+K6SDEuW4aNABMp3Nz66ahoWw5ju7E9ZaNpnbq34VPAnKYuWRiiwM
- nMEyXcCQ6JXsMLmLQmy9lr80RFtmcCR2bqzowwjhqZUs1SIyCUZMY6ncgwZrxawW6NWGfm
- IbLWrOeK78pPQNwZSg4VJs730hzzJZzaawUW7NJcV/S+abkFc01Vgt5Ys38/R2JHSqVc48
- p+qyn0L/ikixyqvhMzw5RyYx7AdgC1IDKizfsq8AhDlGHO2VuOkFZ2TnJz8BIkvzpfaA4o
- ZocIA2lx8oWmpUvYZcZKxVtlPF1Gq5mwgKJ9vIpzjXSZHHd+22Zdz0IC0BMZLw==
-X-Report-Abuse-To: abuse@transip.nl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611202607.85376-8-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026-06-14 20:39, Jonathan Cameron wrote:
-> On Fri,  5 Jun 2026 12:08:41 +0200
-> Herman van Hazendonk <github.com@herrie.org> wrote:
-> 
->> st_sensors_read_axis_data() unconditionally decoded multi-byte
->> results with get_unaligned_le16() / get_unaligned_le24() regardless
->> of the channel's declared scan_type.endianness.
->> 
->> For every ST sensor that has used this helper since it was introduced
->> this happened to be fine because the ST IMU/accel/gyro/pressure
->> families publish their data registers as little-endian and the
->> channel specs in those drivers declare IIO_LE accordingly.
->> 
->> The LSM303DLH magnetometer however publishes its X/Y/Z output as a
->> pair of big-endian bytes (the H register sits at the lower address,
->> 0x03/0x05/0x07, and the L register immediately after), and its
->> channel specs in st_magn_core.c correctly declare IIO_BE -- but
->> read_axis_data() ignored that and decoded as little-endian, swapping
->> the high and low bytes of every magnetometer sample.
->> 
->> The bug is most visible on a stationary chip: in earth's field the
->> true X reading is small and the high byte sits at 0x00, so swapping
->> the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
->> = 240). Y and Z still appear "to vary" because their magnitudes are
->> larger and the noise in the low byte produces big swings in the
->> swapped high byte:
->> 
->>   before (chip flat, sysfs in_magn_*_raw):
->>       X=240 (stuck), Y= 12032..23296, Z=-16128..-9728
->> 
->>   after (direct i2c-dev big-endian decode, same chip same 
->> orientation):
->>       X≈-4096, Y≈210, Z≈80     (sensible values reflecting earth's
->>                                 ambient field at low gauss range)
->> 
->> Fix read_axis_data() to dispatch on ch->scan_type.endianness and
->> call get_unaligned_be16() / get_unaligned_be24() when the channel
->> declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
->> st_pressure, st_lsm6dsx and others) are unaffected because their
->> channel specs already declare IIO_LE and the LE path is unchanged.
->> 
-> Hi Herman,
-> 
-> Fixes tag please.   We want to know how far to backport and provide
-> info to those trying to work out if the bug affects their kernel
-> trees.
-> 
-> Thanks
-> 
-> Jonathan
-> 
->> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
-Hi Jonathan,
+On Thu, Jun 11, 2026 at 03:26:04PM -0500, Chris Morgan wrote:
 
-I've been working with the HP TouchPad which uses the Qualcomm APQ8060 
-to bring this to mainline kernel, which was running a very ancient 
-2.6.35 kernel where I could compare things since it was working there 
-without issues, hence I could compare them side by side, check values 
-etc.
+> Add icm42607 accelerometer sensor for icm42607.
 
-It seems this "bug" was introduced with 3.9:
+...
 
-Fixes: 23491b513bcd ("iio:common: Add STMicroelectronics common 
-library")
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
 
-That's the commit that introduced st_sensors_read_axis_data() with the 
-unconditional get_unaligned_le16() decode.
+Please, please, use IWYU! So many headers are missing...
+(Same comment to all files in this series.)
 
-I'll include that for the v2.
++ array_size.h
++ bits.h // BIT()
++ cleanup.h // guard()()
++ device/devres.h // devm_kasprintf()
++ err.h // -EINVAL, IS_ERR()
 
-Thanks,
-Herman
+> +#include <linux/iio/iio.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+
++ types.h // s16, __be16
+
+Also you need to have
+
+asm/byteorder.h // be16_to_cpup()
+
+...
+
+> +static int inv_icm42607_accel_read_odr(struct inv_icm42607_state *st,
+> +				       int *val, int *val2)
+> +{
+> +	unsigned int odr;
+> +	unsigned int i;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	odr = st->conf.accel.odr;
+> +
+> +	for (i = 5; i < ARRAY_SIZE(inv_icm42607_accel_odr); ++i) {
+
+Why pre-increment? Same for all other cases.
+
+> +		if (i == odr)
+> +			break;
+> +	}
+> +	if (i >= ARRAY_SIZE(inv_icm42607_accel_odr))
+> +		return -EINVAL;
+> +
+> +	*val = inv_icm42607_accel_odr[i][0];
+> +	*val2 = inv_icm42607_accel_odr[i][1];
+> +
+> +	return IIO_VAL_INT_PLUS_MICRO;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
