@@ -1,178 +1,141 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2138.outbound.protection.partner.outlook.cn [139.219.146.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D564128816;
-	Mon, 15 Jun 2026 02:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781492338; cv=fail; b=rxE13VdnqIgsZ8w0551C99BNppeNu1+u6A/+CLG/feIE4GyOZwQPH0fCe3DkNGsv6bfWXKtDa4WpgcaNxG5biQc/VTx/oeClx0oWTRKpP97UY4lOulWyKFmtViZMvG31MU2AHQoqrN0bW9c8gyycd1MPiWK+vFUof0AXT4GB6F0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781492338; c=relaxed/simple;
-	bh=gvxjd+BivmwY2Q3VJ9dbTb+WM7AjgIIWTm7Um5Zsgp8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=TQR/HhzJxE4bm9B/4UI8F6ZoV8Kot2z4fsamiYt9KP3aDiJNGym/ZiPjPBdDiH1oXj7mWQsVj5GrCPxbXCoD8BmlVK2QgQaEHzMcO0NBNIJ5M4k4dWyhAGJM33vfKBzq2NFvVAk3naojRZXcG4oxZZobCljNjKpqqFhbrWvU8Ok=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M9EvC2h+1pkhXnuEgUKDpI8lftRJERpGSv0Flf5riGt3yxZvMNtKwNt3QcUVIW9hzCOma0VE0R+Bahfe3/STNJvOdNPmmd4co71TBEFlFsNKqe/X/LQ8O+H5pY78F5bxgBbH32YK+gH0fnvk72NCMar66RQ/ghZbmY3jhgGWE7eBsB/N+j760jVe1oLW/KCD0WiIYj0vCtjSgfZl5F4TnrQvlumgxpHbVbGC9PkkKHulX5blmJwRM435KELYnYfUULTikOFYLwq0DpevWJLa7LpA07EIofYZT6RBP+bl0RcOiMhWCnGyWO/TIcgcRDgHBEo2PEl83nP34s6Ay7PtKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a/UWQP0DGSm6A8W1do7ZQEVppFyB01zLmnQNfo+bRJI=;
- b=gEz/q+/TeUhSgjZtjgkRPtPOkvbuCnqvxR/BbqTGuIY/wdXEsdvg9kLzP5VUEdmuTtPjKMjTv/2iAkBZXiyOoDTFp+xPiRpDhtxuhb2Q6ogjRC32ctpstjPYexvOuSXDOv/bTqM1wFwb5/p4NQk+dRrl60S+AiW/3/uOOuyA6XU0ERcYkUvqrPybQVawhrIBfeADx13tCiugQ5smBhNO11UkParjUkwEGKWdXHBacCcad9wYpDwPNYlcvodZZQBK8kDbQRSNXLmdGEy4JrU6qq/dJ9pkAvuE8Ys5Xx2Vwp7RfuzwxgJCjqzOuasCnJZbXiUMARmoCJp+rcASx+UZlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0877.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1f::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 01:25:08 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::9b99:12dc:a115:b90f]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.21.0113.015; Mon, 15 Jun 2026 01:25:08 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jose Abreu
-	<joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Russell
- King <linux@armlinux.org.uk>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring
-	<robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-stm32@st-md-mailman.stormreply.com"
-	<linux-stm32@st-md-mailman.stormreply.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if
- NULL in NCSI case
-Thread-Topic: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if
- NULL in NCSI case
-Thread-Index: AQHc+KotsU7CSx9q1kuYrR3iPfERvbY3dEMAgAdmAgA=
-Date: Mon, 15 Jun 2026 01:25:07 +0000
-Message-ID:
- <SHXPR01MB086317D16524E2E0CEE46D66E6E62@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
-References: <20260610072420.64699-1-minda.chen@starfivetech.com>
- <20260610072420.64699-3-minda.chen@starfivetech.com>
- <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
-In-Reply-To: <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0877:EE_
-x-ms-office365-filtering-correlation-id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- rcRb6qzZvhDWUvd30Hodq7nsgaLIlFgPOdXq1m/FhM3nYWeZ98PuEB3w18LbLEZGAPUICmqZVvzr0f8Gl/2KK5YWdFT2VD0HDxKLZ5HMLJH/YRi+ewSrDAW7kskoBGZIOvcjJ8obyaTSQy8rln0kD1TmpVniD8hqAGCsfC/9i3SYkIsmqucFQLZSkMvGK3kd8sZ+c3PrqKzrILRb5YdEqE3ACkjvwUNkU7KqNxXZgwgN4vxVxw7z0I1FxlbYZNmV71/IzfflQADrcNgPf+auuKY/Y56lcAIpvUoz4l3Tnw0tzkEzGoKBgx6iTXRjFxvuzuXArfG3vZXAKTEWgqp7h/hbjbLhfD9TuZZ+umzWhDJeBCm1sdsz7cS+1fOiQvpg0Cv52AaGVsyKS4mYUn3SmH3odVvu0PbDq9QrI5Er+rNBUm1nmMsF9sBhSTVBGZ9wg3WRTlQlN7U755C6IL3FbvtEKL2RkhbNBs3axNlvZvQNFE3+8zKVVGGoTswqcThoF1ToIt/+esiYKL9uVs+HUjsUrsHTnKPRefMmcwXN9WOQeMZljWN5rJz88U1f6ePl
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?hK7+qHUAvr2za3/vDTPNvZR8LreExHYL0jvADhIwYWByijrG6ZLqD0uA2ZC6?=
- =?us-ascii?Q?rwwKZPSR1CW80j+7JnMvHnTgBUPyT1xWbVx8vtTAOi3fp+vveG6e3A6n/Ez5?=
- =?us-ascii?Q?y5qYNst7Btudx0XEX28vG5xG5qa/5ugxp+SU5aP+W9xniz42T57ISRfFlezt?=
- =?us-ascii?Q?AQaao/dV6YHo7v7vMXhbqaJZkWNfmsZFPiy3EB97MyRDNth8Xzz+1nRdFXmN?=
- =?us-ascii?Q?/S94PB8dAcJPNAMQWSPoD7Dqn8xxJvwK7go/IBDzPOisMAe67x8JE/GYOGa+?=
- =?us-ascii?Q?37K6Rzdq4tfKuV66vu6oKbAy5r5GyIR0rtBl1vdmEuJt1KPsJUWlac9uUY3t?=
- =?us-ascii?Q?e6pV0c/nzszj/qklF/2ZmVf3NUSTeGKJZiRorhPaaeDHgkA4juIUSJbMuFLs?=
- =?us-ascii?Q?s+KsphA2CKFCvAoI0O8y3lkZvFwUhHbgPnyhOnLuRVZZcXst0J5CVDE9Yq5Y?=
- =?us-ascii?Q?je3gMPveonXqkXHT3+ZHIzB1sbSfNuR6ikh8KCXxVPj+UIrqzBBF1wh7oq1+?=
- =?us-ascii?Q?I4MF+FiUz2n1m2YOMLRtlFlLByAeJ7vAjOkgzlBRfQx0xPzIqtuLvOvUAO8a?=
- =?us-ascii?Q?8Y4VFno2YIy6E0W7wQryx845KTj3dw0fV22gp1QcG7ja3xF8V+rZBtJT1rAG?=
- =?us-ascii?Q?7EwAbZJyZUNYRpfclf2BKfaGFd7ZVV48mgXePHZcqY8Ro8amFgCbrFRv/4kF?=
- =?us-ascii?Q?+JwbX1ucd38C4U5dwdj80Kf7Qp/L3nULxUSM2tXnaukGo5doTfe4UjMKZ1Ak?=
- =?us-ascii?Q?cJrzLLltHMyy+OvVaohLq5FPzvlpWrPmdE+wAyjPTBmf1/M0a9d12Ee5x5Ew?=
- =?us-ascii?Q?tFIs4OFbVtUdebm33fgwmwc3l0lWxsURtc4SyQ/tnzc2LzrTwXZ3No+Brgb/?=
- =?us-ascii?Q?x7xTNy/ubBWBkkT9SwI4hQALpLRna1iGrTxA9eDofBb+fROWa9zbHW5LlOwS?=
- =?us-ascii?Q?8Zx7Nivdmw1V5BoYGibw4VJFM3S+pE3BJ/lM7UpgrIt+WYsDK1Y0or8J18Mq?=
- =?us-ascii?Q?8b/+hbCemynot8z9GgVsXnyAhxzabfvk9fNNzv5odR605C7wmJKqGUuKbSkf?=
- =?us-ascii?Q?a8Gje/PO76iqTE01A4fgdDSsWfheph/F7J/gyXexa2iywuOAxKOZ56Yo5hK4?=
- =?us-ascii?Q?zuCPSSz2WXjNMNKKe4v88zTDNEVjHtI6P+//GKZc56rltj9+ieDI5mWLYcd7?=
- =?us-ascii?Q?pApDD+fLjlh/WABNu714MWRVFX75Coa2FPmPggDzQZrpHY8305jC6nqJP8Sb?=
- =?us-ascii?Q?CaID1BcVcYPYirKXQ76y6ISu76oOJzwsCTp4C685lkE8QifcJspivibHpZpk?=
- =?us-ascii?Q?OEreOGZR8ZJm+QzZZ08aKcAmHRS3t2ueffXHmIT5yF805+xcltx4kpmHB1np?=
- =?us-ascii?Q?W6b2PTpxRELUHIG4uRa5/91bJoL77t1Ui/Wl2tKMqdmUsFQc6+/o7q9wZODZ?=
- =?us-ascii?Q?vuBttpMQiGN+8dBuKmO0pcvYrNoHCohe/JPm0r4EG2n1HA7Ej1oI2I1ZQsK/?=
- =?us-ascii?Q?f1HFwCabzOomXBbdb0hCQlYm/dD6nfeWW4fJOcsDpEAx4kgJEZPWZ+4K5jsU?=
- =?us-ascii?Q?PNLzqjVgXl2P2aq9To5fMP/CUb1GBqXuhmCfEFxx5sifgcJ6NoN4WhFmTsri?=
- =?us-ascii?Q?AT8YcG7aOhOv4gLUExRfQZNRD4b64eYcF98WyIPuclbd/wi7b0t+Dj7pH0Vi?=
- =?us-ascii?Q?OTUnhHQsVMFo67aKE+SXlu6svyzE0KENYvq4+/Fhndbck9Al7iMqG+N+C7aW?=
- =?us-ascii?Q?g5knzyUNyg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE79417A31C
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 03:09:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781493000; cv=none; b=TltFL7FG+kwAqEhEL0wFqZmKOyoYdBRecaaZerOlZcKc52mOCLJLsssoISkmzHLKxC6GUlpq5TwM+jEj9SrzWOZgJWCZmkggYJ1gJphqeFotzu76R/py5Dpif3Vj3+l0FjRydHbGp0RZFUb/KYeva55behCbh9nPxqoUpicfuiQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781493000; c=relaxed/simple;
+	bh=v0Z7PIY+mX/+RL3QyIzsYuLVn2ukFlDgmlMoLq5x8+g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gJ9RfeWrQtDTN0YFxW67sn++NAULCn7d1+Iw84YLIpiE6ImtN3fdfNoE01bHbXqtMLMo2BU0gJiG/01U20rkCR21vUrz3lL1tbZx+nL3466S1DhMhaAB6kxpKWvJfH9M9A7212255+bPeLCUGINk2+DzIdoDW1dx9RLpqXcqMHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XN49NFpn; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XN49NFpn"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2c0c3543590so18989015ad.2
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 20:09:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781492999; x=1782097799; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cSGwU+Hsjf+p3YpunxSqmiWp7EnaNjmp/qUqKeITdgE=;
+        b=XN49NFpn6GSFIRpCk30yfK8GioTQnuRqMbY+z4G0+WYQQE1hzpTwDOy9khN7AmOs4i
+         owkSTDGPTo00Zp7zyskxN9HRSLiPEL8bGozOTvuebZ/3B/z26G1khhuTamJ3O85Kqai2
+         o9hR4MQcyhqahdn0Ido3pkXqEH/nYHSRhVSMcJ/n3PZlBFFvy00zjixmlf7Pc9q48aIt
+         OYkkCLJzm+dPDa9beBYN7Mv2Fw4b7pCPMt85AdUau6uvwqLGh/sCFi6m16BtSr3iVidu
+         S0qmM2k6YgHAUeb6N9NaAQ8KpLOOKQS6+wEQ65vux9hQubqxHqqr7jtBTIL9gePiTFxQ
+         GTTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781492999; x=1782097799;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cSGwU+Hsjf+p3YpunxSqmiWp7EnaNjmp/qUqKeITdgE=;
+        b=DZAWjd7ELlO/PrFau0QTsvTPGOXElKJRDUkpqKnDzk+uwNOIKk6DjNfvAi0BFp/opS
+         jBCDR6yHkl00UVfbgWm2J35TopT9LNUrmNbTh2HZwFzhniNr9VHLQAOLU/lh7tvk9j7G
+         o03Ja0ILhNrfxtpdQJ+bE90TeTSQ6VxRB51Jux6OTD+xVU30tCflk15R1JP+SEfcLA/d
+         RLrwDKeNuft2WExjUAdQ716pEVOdykEtgs1JdF3VpJ5ldHHY184pKtZFnpRkSDjDvBGg
+         o3YU1vHiA0lydMSVNZF3WRv1fHSO6V29tRVzPCmFBTfLKnK7p4bGHP2a5x0JetN4Og+Y
+         6iZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9AuM+MzG35in5IgWj7bk+RPGMSy1U5XffWIEThPzHL+MTGcQC5IN/CAeuZ0PxmQ3710xt0EZfUtqt1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw8ZRodE6Qp1OUuEGl7ETlPk91nuI/kaKgeJCLtas8rJZLrTqHZ
+	cW1NCb9h8rdNSo4cj4vKvzqc/5mhGKR3CA4hhj/AUqbbUD8C30084+BC
+X-Gm-Gg: Acq92OHVnDf2cTG0Izy4UVITx4k81rxp/eRp+QW9+RDmnN1t8XJIEJbkGpECNHg15CT
+	rurbxbmT0umCvPdq4pswUUOSpZLdxQeZ16nAKaci5WBmHE2m0yVpHjqtBNiOFEFT4HyG91wIopb
+	+Gn6TSv6jIZLNsswu2Bfe7n/NTW64h+DRvfjOAhlX9CotO+MkB2E+xPBL6Kyw9gJSR+a7Zszu+G
+	wwnFare7eI0kxyyub2jpfWUWo7RkCU4FgnsvVARoPDZs03YPbPY8jCKcvTzchYuqWD59U0mOa79
+	6Ix2HEUeI9C492fpCoS+vCpUFEUgkAZJi3BTQDRmSB2tS0yEzzueNhHUsH9ES/1d9v3+qk1Rgdc
+	T20i8mldFXOFprvBoULl5MbD4BM4W9N+zQUkV2u44HtOCh4XIF1vttK0eEONm2oweY/5m79tOUH
+	+VLGjGTl0SlAhj9eSqUCpN1G+3ENoMKwjGmVcQDFvTC9povC9oqfjRHewIbFX6qsVHNg==
+X-Received: by 2002:a17:902:e78e:b0:2bc:b80f:677e with SMTP id d9443c01a7336-2c4137e49c1mr124323815ad.25.1781492999119;
+        Sun, 14 Jun 2026 20:09:59 -0700 (PDT)
+Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c433460a60sm99211095ad.76.2026.06.14.20.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 14 Jun 2026 20:09:58 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+Subject: [PATCH v2 0/2] hwmon: (pmbus/lm25066) Support SMBus Current Limit
+ configuration
+Date: Mon, 15 Jun 2026 11:07:12 +0800
+Message-Id: <20260615-lm25066-cl-config-v2-0-59be46e67d5a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 01:25:07.8418
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IQlHREwQzw7P7T5sN26ypsVBlQtDBl6e6uIxy11gYJ82CkY3nbxySljwbqSydGctx/4h5iiBQGRaIuSgBQZ1LPs7EAL0SbsBfZBQ7Zq/HYU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0877
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGBsL2oC/32Nyw6CMBBFf4XM2jF9pEVc+R+GBZQpjAFqWiQaw
+ r8LuHd5knPPXSBRZEpwzRaINHPiMG6gThm4rhpbQm42BiWUFVZK7AdlhLXoenRh9Nyiv8hCGZ9
+ rnRNsu2ckz++jeS9/nF71g9y0h3aj4zSF+DlOZ7l7//qzRIFCkbF57XVTyFs7VNyfXRigXNf1C
+ z55Q2bEAAAA
+X-Change-ID: 20260611-lm25066-cl-config-f81925f7337e
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Zev Weiss <zev@bewilderbeest.net>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>, 
+ Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
+ Potin Lai <potin.lai.pt@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781492996; l=2017;
+ i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
+ bh=v0Z7PIY+mX/+RL3QyIzsYuLVn2ukFlDgmlMoLq5x8+g=;
+ b=8jBjNoDgtbqIn10yoWlK5lI5bjsbBBXfQ4gJjoqlc79NBqxy/3tkuYX8cREOx9pVmkO7kEeAE
+ 83IGcT80yJJA0zAmJr9lcFxwIIVUmHCpvI875Yb+XERQ0ec61zYfkBw
+X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
+ pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
+This series adds support for configuring the current limit behavior via
+software override on LM25066-compatible devices (excluding LM25056) using
+the DEVICE_SETUP (0xD9) register.
 
+When the 'ti,current-limit' property is specified in the device tree,
+the driver configures the DEVICE_SETUP register's Current Limit Configuration
+bit (bit 2) to activate SMBus/software override and sets the Current Limit
 
->=20
-> > +static inline bool stmmac_phylink_expects_phy(struct phylink *link) {
-> > +	if (link)
-> > +		return phylink_expects_phy(link);
-> > +
-> > +	return false;
-> > +}
-> > +
-> > +static inline int stmmac_phylink_pcs_pre_init(struct phylink *link,
-> > +struct phylink_pcs *pcs) {
-> > +	if (link)
-> > +		return phylink_pcs_pre_init(link, pcs);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static inline void stmmac_phylink_start(struct phylink *link) {
-> > +	if (link)
-> > +		phylink_start(link);
-> > +}
-> > +
-> > +static inline void stmmac_phylink_stop(struct phylink *link) {
-> > +	if (link)
-> > +		phylink_stop(link);
-> > +}
->=20
-> Please take a step back and think about the Linux big picture architectur=
-e.
->=20
-> What is stmmac specific here? If you were to add NCSI support to another =
-driver
-> which uses phylink, would it need to replicate all this?
->=20
-> When you consider how the MAC is configured, does it need to know it is
-> connected to an NCSI? Can the MAC tell the difference between NSCI, fixed=
--link,
-> a PHY or an SFP? Or does the MAC just need to know RGMII, the link is up,=
- send
-> frames?
->=20
-> Please look at adding generic support for NSCI in phylink, and see if the=
- existing
-> phylink mac ops covers everything needed for configuring the MAC.
->=20
-> 	Andrew
+Setting bit (bit 4) to "low" or "high" threshold accordingly.
+Since LM25056 does not support software override (bit 2 of DEVICE_SETUP is
+reserved), it is explicitly excluded from this support in both the device
+tree binding schema and the driver.
 
-Thanks. I will try to use fix-PHY link.
+---
+Changes in v2:
+- Replaced the boolean properties ('ti,cl-smbus-high' and 'ti,cl-smbus-low')
+  with a single string property 'ti,current-limit' ('low' or 'high')
+- Excluded lm25056 in the driver from parsing/setting the current limit property.
+- Link to v1: https://patch.msgid.link/20260611-lm25066-cl-config-v1-0-02e567bf3d91@gmail.com
+
+To: Guenter Roeck <linux@roeck-us.net>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Zev Weiss <zev@bewilderbeest.net>
+Cc: linux-hwmon@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Cosmo Chou <cosmo.chou@quantatw.com>
+Cc: Mike Hsieh <Mike_Hsieh@quantatw.com>
+Cc: Potin Lai <potin.lai@quantatw.com>
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+
+---
+Potin Lai (2):
+      dt-bindings: hwmon: pmbus: ti,lm25066: add current limit properties
+      hwmon: (pmbus/lm25066) add current limit configuration support
+
+ .../bindings/hwmon/pmbus/ti,lm25066.yaml           | 18 +++++++++++
+ drivers/hwmon/pmbus/lm25066.c                      | 37 ++++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+---
+base-commit: 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
+change-id: 20260611-lm25066-cl-config-f81925f7337e
+
+Best regards,
+--  
+Potin Lai <potin.lai.pt@gmail.com>
+
