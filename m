@@ -1,157 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93543D1719
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:49:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B4F83D1717
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781513379; cv=none; b=m8/nvlFdYfOL/Pg1EaVHIhLAPKOpnEoxSF+PpX8gNFyyE028cNORKGHoHycT5vNOEPRLrl7vxKzhik97EhZy+Q/MA49D96XsG2vgc0QtabvxivUrvnNlLdAsN6WrDJg8hKJ/6P9vTeeqRwiB2Js98PxsmrNZct5MZ0TYabd7dNc=
+	t=1781513429; cv=none; b=sLxy2MmBxTwLMxtUsZcTILTt6GD1KSjagbzmCstH+XtxRqz03XTevNu+BbhbbulhxcPtZmFwztd9FLAaRLGAEYZehSXUdJJQUmdz7crQLmA2VlnY64TjHa9x9l1Sk0708gVCDmfUhrm86Hff4hYivsIcDnCgHK4WhLc9cZhSUAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781513379; c=relaxed/simple;
-	bh=OGWwQjYp/m8Ac183IXfDepFYGyqVyPluaYAi2VN4+gg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kN+HuHInZQV/5DxsjkqK8qP/MIqVy8A6OrM+78s0jUbj7TDJILSZmaIpHYGWmZqO6H8x7wiFgG2ydJ2l/OvgTmNsONED8sfTtx0Qd1uqA2FK/kibvmVpV2GmOIKWZRmTpgc7yfxvvpFdIirT/rqHzMWwqoIPsn9mJROrfTChngk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXOCu0df; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXOCu0df"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D93D1F000E9;
-	Mon, 15 Jun 2026 08:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781513373;
-	bh=/la8RhNqZVnXkoAGJYebtLERkxibsheY+y/nLa4tygs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GXOCu0dfQ3B+T2msSS0HUwSgo0VlhWYEjt/Szt+uzsuE2QQgtJtpCSNi3efIFfIJJ
-	 yfpjO+tX6xp55jpwL9vUA8YFWwLi9BS3gLuk2ok86xNrAlIYYDbos8sfA53XEGRaOP
-	 rO7QNvCfvwbcq7NsugkMeNL1ZOxzgH5vgPKAPS8pCfpbCy8SgGIuT4hRKcAHksqi7g
-	 ug1LA6YTwQFGtzgGSb3W7R3SNO8I3tIGjt+wI8Ih5Pyk3IzW92/GRvGUzwFzmQ/82Z
-	 MzUARP2kC2NjxUxfk07CRAz4givJ1vJdp8xGfeVBcm+BniG0Fu6Qfr1+ntqI3SzvL5
-	 rdTJROb3h+Mmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] pinctrl: samsung: Add Exynos8855 pinctrl
- configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alim Akhtar" <alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615085252.1964423-4-alim.akhtar@samsung.com>
-References: <20260615085252.1964423-4-alim.akhtar@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 08:49:32 +0000
-Message-Id: <20260615084933.0D93D1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1781513429; c=relaxed/simple;
+	bh=HWXKAVs6udjCbIAkf4Ar/V/4mhi571C9+FnihLfXfW4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=Qk6jfRkrwVso7/kRLhuOYe8vmVzGI67+WpIIu9UXWmHVrr9LNdPq8jLVUJHQ8FkLrMu0eWfpvueAO3hlp70BoIfxRua6Nwxfa6ufoon7Fi6DVyjBncNtCI4YXvYu41qrk9tOISMPQKg+8q8i+6iETBZEWsJw5iSeRDpv9zYpCVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 15 Jun 2026 16:49:56 +0800 (GMT+08:00)
+Date: Mon, 15 Jun 2026 16:49:56 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: Re: [PATCH net-next v8 2/6] dt-bindings: ethernet: eswin: add
+ EIC7700 eth1 RX clock inversion variant
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260611013249.E03641F00893@smtp.kernel.org>
+References: <20260610012907.894-1-lizhi2@eswincomputing.com>
+ <20260611013249.E03641F00893@smtp.kernel.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <268c0169.9602.19eca791ff2.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:TAJkCgDHaXO0vC9qSOIoAA--.9818W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgETDGou2BZn7wABsf
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The CMGP pin controller (instance 1) is missing the `.eint_wkup_in=
-it` callback, but its pin banks are configured for wakeup interrupts (`EINT=
-_TYPE_WKUP`).
-- [Low] The ALIVE and CMGP controllers erroneously configure `eint_gpio_ini=
-t`, triggering spurious boot errors.
-
-Pre-existing issues:
-- [High] Calculating the PMU wakeup mask using the newly introduced, extrem=
-ely sparse `eint_offset` values triggers C undefined behavior by shifting b=
-eyond 63 bits.
---
-
-commit 9e3fddb96151cd82aa6084b7afbcf1a84a9843ef
-Author: Alim Akhtar <alim.akhtar@samsung.com>
-
-pinctrl: samsung: Add Exynos8855 pinctrl configuration
-   =20
-Add pinctrl configuration for Exynos8855. The bank type
-macros are reused from Exynos850 SoC.
-
-> diff --git a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c b/drivers/pin=
-ctrl/samsung/pinctrl-exynos-arm64.c
-> index fe9f92cb037ea..db120ae4d847a 100644
-> --- a/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-> +++ b/drivers/pinctrl/samsung/pinctrl-exynos-arm64.c
-[ ... ]
-> +/* pin banks of exynos8855 pin-controller 0 (ALIVE) */
-> +static const struct samsung_pin_bank_data exynos8855_pin_banks0[] __init=
-const =3D {
-> +	/* Must start with EINTG banks, ordered by EINT group number. */
-> +	EXYNOS850_PIN_BANK_EINTW(8, 0x000, "gpa0", 0x00),
-[ ... ]
-> +	EXYNOS850_PIN_BANK_EINTW(1, 0x260, "gpj0", 0x4c),
-> +	EXYNOS850_PIN_BANK_EINTW(1, 0x280, "gpj1", 0x50),
-> +	EXYNOS850_PIN_BANK_EINTW(1, 0x2a0, "gpj2", 0x54),
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new Exynos8855 pin
-definitions expose it. The new pin layout introduces extremely sparse
-eint_offset values up to 0x54 (like gpj2 here).
-
-In exynos_wkup_irq_set_wake(), the wake mask bit is calculated as:
-
-unsigned long bit =3D 1UL << (2 * bank->eint_offset + irqd->hwirq);
-...
-eint_wake_mask_values[0] |=3D bit;
-
-When computing the shift for an offset of 0x54 (84), the expression evaluat=
-es
-to 1UL << 168. Since 1UL is 64 bits wide on ARM64, this left shift invokes
-C undefined behavior.
-
-Even ignoring the undefined behavior, the result is implicitly cast to u32
-when OR'd into eint_wake_mask_values[0], effectively truncating it to 0.
-
-Does this completely break PMU wakeup configuration for all pins with an
-eint_offset >=3D 0x10?
-
-> +};
-[ ... ]
-> +static const struct samsung_pin_ctrl exynos8855_pin_ctrl[] __initconst =
-=3D {
-> +	{
-> +		/* pin-controller instance 0 ALIVE data */
-> +		.pin_banks	=3D exynos8855_pin_banks0,
-> +		.nr_banks	=3D ARRAY_SIZE(exynos8855_pin_banks0),
-> +		.eint_wkup_init =3D exynos_eint_wkup_init,
-> +		.eint_gpio_init =3D exynos_eint_gpio_init,
-> +	}, {
-
-[Severity: Low]
-Does the ALIVE controller need to configure eint_gpio_init?
-
-Neither the ALIVE nor the CMGP instances contain any EINT_TYPE_GPIO banks
-(they only contain EINT_TYPE_WKUP and EINT_TYPE_NONE). Because wake-up only
-controllers typically do not have a generic hardware IRQ mapped for standard
-GPIOs in the device tree, exynos_eint_gpio_init unconditionally attempts to
-retrieve it, prints a spurious error, and returns -EINVAL:
-
-dev_err(dev, "irq number not available\n");
-
-Could this cause unnecessary boot log pollution and attempts to initialize
-GPIO IRQ domains for zero eligible banks?
-
-> +		/* pin-controller instance 1 CMGP data */
-> +		.pin_banks	=3D exynos8855_pin_banks1,
-> +		.nr_banks	=3D ARRAY_SIZE(exynos8855_pin_banks1),
-> +		.eint_gpio_init =3D exynos_eint_gpio_init,
-> +	}, {
-
-[Severity: High]
-Is the .eint_wkup_init callback missing here for the CMGP pin controller?
-
-The CMGP pin controller banks (exynos8855_pin_banks1) are exclusively defin=
-ed
-using the EXYNOS850_PIN_BANK_EINTW macro, which sets .eint_type to
-EINT_TYPE_WKUP. However, this instance only configures .eint_gpio_init and
-omits .eint_wkup_init.
-
-During initialization, exynos_eint_gpio_init() skips any banks that are not
-EINT_TYPE_GPIO. Because .eint_wkup_init is missing, it looks like the wakeup
-interrupts for gpm0 through gpm21 will never be registered, leaving them
-without functional external wakeup interrupts.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615085252.1964=
-423-1-alim.akhtar@samsung.com?part=3D3
+CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiBzYXNoaWtvLWJvdEBrZXJu
+ZWwub3JnCj4gU2VuZCB0aW1lOlRodXJzZGF5LCAxMS8wNi8yMDI2IDA5OjMyOjQ5Cj4gVG86IGxp
+emhpMkBlc3dpbmNvbXB1dGluZy5jb20KPiBDYzogcm9iaEBrZXJuZWwub3JnLCBkZXZpY2V0cmVl
+QHZnZXIua2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFU
+Q0ggbmV0LW5leHQgdjggMi82XSBkdC1iaW5kaW5nczogZXRoZXJuZXQ6IGVzd2luOiBhZGQgRUlD
+NzcwMCBldGgxIFJYIGNsb2NrIGludmVyc2lvbiB2YXJpYW50Cj4gCj4gVGhhbmsgeW91IGZvciB5
+b3VyIGNvbnRyaWJ1dGlvbiEgU2FzaGlrbyBBSSByZXZpZXcgZm91bmQgMSBwb3RlbnRpYWwgaXNz
+dWUocykgdG8gY29uc2lkZXI6Cj4gLSBbTWVkaXVtXSBVc2luZyBhIHRvcC1sZXZlbCBgb25lT2Zg
+IHBhcnRpdGlvbiBmb3IgYGNvbXBhdGlibGVgLWJhc2VkIGNvbnN0cmFpbnRzIGJyZWFrcyBzY2hl
+bWEgZXh0ZW5zaWJpbGl0eSBhbmQgdmlvbGF0ZXMgZHQtc2NoZW1hIGNvbmRpdGlvbmFsIHBhdHRl
+cm5zLgo+IC0tCj4gCj4gY29tbWl0IGMxODc1OTM2YzE5M2U5MWE3M2JhYTFkNjYxNTU5ZTgxOWYx
+NmU3MTAKPiBBdXRob3I6IFpoaSBMaSA8bGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbT4KPiAKPiBk
+dC1iaW5kaW5nczogZXRoZXJuZXQ6IGVzd2luOiBhZGQgRUlDNzcwMCBldGgxIFJYIGNsb2NrIGlu
+dmVyc2lvbiB2YXJpYW50Cj4gCj4gVGhpcyBjb21taXQgYWRkcyBhIG5ldyBjb21wYXRpYmxlIHN0
+cmluZyBmb3IgdGhlIEVJQzc3MDAgZXRoMSBNQUMgdmFyaWFudAo+IHRvIGhhbmRsZSBSWCBjbG9j
+ayBpbnZlcnNpb24gcmVxdWlyZW1lbnRzLiBJdCBpbnRyb2R1Y2VzIHNwZWNpZmljCj4gdHgtaW50
+ZXJuYWwtZGVsYXktcHMgY29uc3RyYWludHMgZm9yIGVhY2ggdmFyaWFudCB1c2luZyBhIG9uZU9m
+IGJsb2NrLgo+IAo+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbAo+ID4gaW5kZXggNGUwMmZlZGFl
+NWM2Ny4uOGNiNzU0NWM1NmU4NyAxMDA2NDQKPiA+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNl
+dHJlZS9iaW5kaW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbAo+ID4gKysrIGIvRG9jdW1l
+bnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9lc3dpbixlaWM3NzAwLWV0aC55YW1sCj4g
+Cj4gWyAuLi4gXQo+IAo+ID4gIGFsbE9mOgo+ID4gICAgLSAkcmVmOiBzbnBzLGR3bWFjLnlhbWwj
+Cj4gPiAgCj4gPiArb25lT2Y6Cj4gPiArICAtIHByb3BlcnRpZXM6Cj4gPiArICAgICAgY29tcGF0
+aWJsZToKPiA+ICsgICAgICAgIGNvbnRhaW5zOgo+ID4gKyAgICAgICAgICBjb25zdDogZXN3aW4s
+ZWljNzcwMC1xb3MtZXRoCj4gPiArICAgICAgdHgtaW50ZXJuYWwtZGVsYXktcHM6Cj4gPiArICAg
+ICAgICBtaW5pbXVtOiAwCj4gPiArICAgICAgICBtYXhpbXVtOiAyNTQwCj4gPiArICAgICAgICBt
+dWx0aXBsZU9mOiAyMAo+ID4gKwo+ID4gKyAgLSBwcm9wZXJ0aWVzOgo+ID4gKyAgICAgIGNvbXBh
+dGlibGU6Cj4gPiArICAgICAgICBjb250YWluczoKPiA+ICsgICAgICAgICAgY29uc3Q6IGVzd2lu
+LGVpYzc3MDAtcW9zLWV0aC1jbGstaW52ZXJzaW9uCj4gPiArICAgICAgdHgtaW50ZXJuYWwtZGVs
+YXktcHM6Cj4gPiArICAgICAgICBtaW5pbXVtOiAyMDAwCj4gPiArICAgICAgICBtYXhpbXVtOiA0
+NTQwCj4gPiArICAgICAgICBtdWx0aXBsZU9mOiAyMAo+IAo+IFtTZXZlcml0eTogTWVkaXVtXQo+
+IEFjY29yZGluZyB0byB0aGUgZGV2aWNlIHRyZWUgYmluZGluZ3Mgc3Vic3lzdGVtIGd1aWRlbGlu
+ZXMsIFlBTUwgYmluZGluZyAKPiBzY2hlbWFzIHR5cGljYWxseSB1c2UgYWxsT2Ygd2l0aCBpZi10
+aGVuIGJsb2NrcyB0byBhcHBseSBkaWZmZXJlbnQgCj4gY29uc3RyYWludHMgYmFzZWQgb24gdGhl
+IGNvbXBhdGlibGUgc3RyaW5nLgo+IAo+IERvZXMgcGxhY2luZyBhIG9uZU9mIGJsb2NrIGF0IHRo
+ZSByb290IGxldmVsIGNyZWF0ZSBhIG11dHVhbGx5LWV4Y2x1c2l2ZSAKPiB2YWxpZGF0aW9uIHBh
+cnRpdGlvbiB0aGF0IHdpbGwgYnJlYWsgc2NoZW1hIGV4dGVuc2liaWxpdHk/IAo+IAo+IElmIGEg
+bmV3IGNvbXBhdGlibGUgc3RyaW5nIGlzIGFkZGVkIHRvIHRoZSBlbnVtIGluIHRoZSBmdXR1cmUs
+IGl0IGxvb2tzIAo+IGxpa2UgaXQgbWlnaHQgZmFpbCB0aGUgZW50aXJlIG9uZU9mIGJsb2NrIGJ5
+IG5vdCBtYXRjaGluZyBlaXRoZXIgYXJtLCAKPiBjYXVzaW5nIHRoZSB3aG9sZSBkb2N1bWVudCB0
+byBmYWlsIHZhbGlkYXRpb24uCj4gCj4gQ291bGQgdGhpcyBiZSByZXdyaXR0ZW4gdXNpbmcgYWxs
+T2YgYW5kIGlmLXRoZW4gY29uZGl0aW9uYWxzPwo+IAo+IFsgLi4uIF0KPiAKPiA+IEBAIC02Nywx
+MSArODksNiBAQCBwcm9wZXJ0aWVzOgo+ID4gICAgICBtYXhpbXVtOiAyNTQwCj4gPiAgICAgIG11
+bHRpcGxlT2Y6IDIwCj4gPiAgCj4gPiAtICB0eC1pbnRlcm5hbC1kZWxheS1wczoKPiA+IC0gICAg
+bWluaW11bTogMAo+ID4gLSAgICBtYXhpbXVtOiAyNTQwCj4gPiAtICAgIG11bHRpcGxlT2Y6IDIw
+Cj4gPiAtCj4gPiAgICBlc3dpbixoc3Atc3AtY3NyOgo+ID4gICAgICBkZXNjcmlwdGlvbjoKPiA+
+ICAgICAgICBIU1AgQ1NSIGlzIHRvIGNvbnRyb2wgYW5kIGdldCBzdGF0dXMgb2YgZGlmZmVyZW50
+IGhpZ2gtc3BlZWQgcGVyaXBoZXJhbHMKPiAKPiBbU2V2ZXJpdHk6IE1lZGl1bV0KPiBJcyBpdCBp
+bnRlbmRlZCB0byByZW1vdmUgdHgtaW50ZXJuYWwtZGVsYXktcHMgZW50aXJlbHkgZnJvbSB0aGUg
+bWFpbiAKPiBwcm9wZXJ0aWVzIGJsb2NrPyAKPiAKPiBSZW1vdmluZyB0aGUgcHJvcGVydHkgZnJv
+bSB0aGUgcm9vdCBwcm9wZXJ0aWVzIGJsb2NrIGlzIHVzdWFsbHkgY29uc2lkZXJlZCAKPiBhIHNj
+aGVtYSBhbnRpLXBhdHRlcm4uIFNob3VsZCB0aGUgYmFzZSBwcm9wZXJ0eSBkZWZpbml0aW9uIHJl
+bWFpbiBoZXJlLCAKPiB3aXRoIG9ubHkgdGhlIHJhbmdlIGNvbnN0cmFpbnRzIGJlaW5nIG92ZXJy
+aWRkZW4gaW4gdGhlIGNvbmRpdGlvbmFsIGJsb2NrcyAKPiBhYm92ZT8KPiAKPiAtLSAKSSBhbSBw
+bGFubmluZyB0byBzd2l0Y2ggdGhlIHNjaGVtYSBmcm9tIGEgdG9wLWxldmVsIG9uZU9mCnRvIGFu
+IGFsbE9mICsgaWYvdGhlbiBiYXNlZCBhcHByb2FjaC4KClRoZSBpZGVhIGlzIHRvOgotIGRlZmlu
+ZSBhIGdsb2JhbCB0eC1pbnRlcm5hbC1kZWxheS1wcyByYW5nZSBpbiBwcm9wZXJ0aWVzICgw4oCT
+NDU0MCBwcykKLSB0aGVuIGFwcGx5IHBlci1jb21wYXRpYmxlIGNvbnN0cmFpbnRzIHVzaW5nIGlm
+L3RoZW46Ci0gZXN3aW4sZWljNzcwMC1xb3MtZXRoOiBtYXggMjU0MCBwcwotIGVzd2luLGVpYzc3
+MDAtcW9zLWV0aC1jbGstaW52ZXJzaW9uOiBtaW4gMjAwMCBwcwoKRG9lcyB0aGlzIGFsaWduIHdp
+dGggdGhlIHByZWZlcnJlZCBkdC1zY2hlbWEgcGF0dGVybiBmb3IKbW9kZWxpbmcgdmFyaWFudC1z
+cGVjaWZpYyBjb25zdHJhaW50cywgY29tcGFyZWQgdG8gdXNpbmcgb25lT2Y/Cg==
