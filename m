@@ -1,170 +1,106 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F0630AD1A;
-	Mon, 15 Jun 2026 10:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9997033F598
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 11:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781521125; cv=none; b=SugVrXx3sHs5tA3cC0JeQUONnSqBKP433OZf1UcL8+1n9tyX+kjzgwHwy94wPgaJLLNej26VSfGAcD5/tb8nieCpPWLwM/zaqWFp1vXmWRdvK9Aop9vavgZfeXnRpRFv20X2MIiTIG1Y6ul0gLwUKXQtBUm3FAnqG0xUTbiVo/0=
+	t=1781521243; cv=none; b=YXPD8ZePH8MfF4RtOSrCAC7jHR52bLD3r5cfkjENxF+GZ7tOZ0Igad2WEJhQ03WTeo5nc2Rbw1z+9FKyi7FSxZvsLHQ1wDnT3hXCQEPVEeNI7s57YPfLdHyjH+lf/eWH0G3bQ8e2HXMi9tn/Ro9XFtFJwv3fllnW0Hk0Dl9xXGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781521125; c=relaxed/simple;
-	bh=eX116ZmZWLRLVRGZZmaQX+HBBCwo6J3ncAuSHT4+93k=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DPNas3CE8D82g9uVkIe2yU82ZODn+9bCb0inYn1uCeBDhD5iGP2i1vIxnNFz+h6CJWB/QDzF3Dwg+1RjVPciOI9AlygNi9HF/wml+ETZeDigZLB9SzbIuTX6JDadlAimpeLwFNCy8GsjysK8ubtKMmzqO6SnPQlaAygBfkbK2fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=BETXeWYq; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1781521243; c=relaxed/simple;
+	bh=WiKyMDGDQNrAF9XfIKme4BDt3laUrmlvv7SvN5n7EVE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rI6chmaNvwJqA6CLN5+cnlYGn5JxIBS0I+PEf8kviUcPxtfFUL4dahx3TykOQuR4qpm6tSJG3csUpC2dSOtBVAPSZCT5Chi1Znp1zxtWRBGtwee+3/wLhTEhdXevzbJrsm0s45w3rxEleKOzvFt99SQlBVpb3jIpa61rsci0Cj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lduAnaCN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="BETXeWYq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1781521124; x=1813057124;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eX116ZmZWLRLVRGZZmaQX+HBBCwo6J3ncAuSHT4+93k=;
-  b=BETXeWYq4tDbIgOaimwHYDJi5yp//zT4OVivsdquJCfkB28GZO7SIupV
-   asgSXUmDvDoAoNvmmlqDNUbtejNLmAZP1u8EJxefMXLO45VR08fEY3JVP
-   dTF/6hX3ietgYwVagx7E2txLpQbg91OE4ObxSJlcej2X8qA8ai0ubWYtz
-   A5IRqtxBLNwpfwQz0WQA6/sMz8riWAhRt7nfDv+4JJmLHXG4BLUa/fE62
-   yzIdpgAraRL5hffEiPbfZFnAIOF2eij7z08ZyYFsrDk0/WK3aZnT3DKaB
-   Mv+v4mh1hJ002QL/o9hebla40KKlHcl6Dd5IzGIojFMh8c1+ZKLIS33sl
-   A==;
-X-CSE-ConnectionGUID: wr9h5fdqRpywT5+TOakhmg==
-X-CSE-MsgGUID: bPuuKTJJQT6Sx+X0XNqjow==
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; 
-   d="asc'?scan'208";a="68188465"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 03:58:37 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 15 Jun 2026 03:58:37 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Mon, 15 Jun 2026 03:58:35 -0700
-Date: Mon, 15 Jun 2026 11:57:48 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-CC: Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Mark
- Brown <broonie@kernel.org>, "linux-spi@vger.kernel.org"
-	<linux-spi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH v1 1/2] dt-bindings: spi: snps,dw-apb-ssi: Add support
- for snps,dwc-ssi-2.00a
-Message-ID: <20260615-regretful-unviable-3a6a65f48d9b@wendy>
-References: <20260612125856.8530-1-changhuang.liang@starfivetech.com>
- <20260612125856.8530-2-changhuang.liang@starfivetech.com>
- <20260612-mute-aqueduct-029ac227314e@spud>
- <ZQ4PR01MB1202FA8F122134F7153D26F7F2192@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <20260615-disallow-dosage-333752ccddc1@wendy>
- <ZQ4PR01MB12028430668DE1F9AE8645A9F2E62@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lduAnaCN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07AFA1F00A3D;
+	Mon, 15 Jun 2026 11:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781521242;
+	bh=cgxPzybupjyGsJvBxJOqNvPUnLN1MyIehJIFtsa2Ess=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lduAnaCNWUp7T3I3yZ7fLMcXy/u3A4WKSC9FeUTNj4H2dMThwx4jVA0OqGXM9/O5N
+	 miSl3RYZMne8jv/GNLyhhL4s/XaoLC8klzzXGM3T13EIVpxsirQQC6cljYGINhbxgg
+	 QWpN314UukIIDRD6h8GoilKR8l/0nSQz7Yslw+3Xtv+Yhu40dhNpkSYPT8Y7ZxccBs
+	 91FJ/6a/5Kdf4WFziplSRQmbviyIZhf+1lYS16Ku40TBp6CI/yveTZq8DoLBOpJB62
+	 xY2PoXZl1ipq7RRR3OIEQ40AcSXLuoH3qhX7dwJTgOeeeM7Y6duClqJZaXW4HpeOJh
+	 b3I5ptg9eNZ3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] clk: renesas: rzv2h-cpg: Extract PLL calculation
+ math into a library
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260615104845.4122868-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260615104845.4122868-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 15 Jun 2026 11:00:41 +0000
+Message-Id: <20260615110042.07AFA1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/xIMeAPBUa6tS9wt"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB12028430668DE1F9AE8645A9F2E62@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
---/xIMeAPBUa6tS9wt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Arithmetic on `p.k` and `input_fref` produces incorrect results on=
+ 32-bit platforms when `p.k` is negative, due to signed-to-unsigned integer=
+ promotion and subsequent zero-extension.
+--
 
-On Mon, Jun 15, 2026 at 10:49:07AM +0000, Changhuang Liang wrote:
-> Hi, Conor
->=20
-> > On Sat, Jun 13, 2026 at 03:38:46AM +0000, Changhuang Liang wrote:
-> > > Hi, Conor
-> > >
-> > > Thanks for the review.
-> > >
-> > > > On Fri, Jun 12, 2026 at 05:58:55AM -0700, Changhuang Liang wrote:
-> > > > > Add a new compatible string "snps,dwc-ssi-2.00a" for the Synopsys
-> > > > > DesignWare SSI controller version 2.00a.
-> > > >
-> > > > Two things. Firstly, driver patch suggests a fallback to 1.01a is
-> > > > possible. Why haven't you added one?
-> > >
-> > > Will support fallback.
-> > >
-> > > > Secondly, I am going to expect that when your starfive user for this
-> > > > appears in my inbox that it has a device-specific compatible, so you
-> > > > may as well add that now.
-> > >
-> > > Our standard SPI control is completely based on the Synopsys DesignWa=
-re
-> > SSI controller version 2.00a.
-> > > However, for the controller that accesses the flash, a set of
-> > > modifications has been made based on the Synopsys DesignWare SSI
-> > controller version 2.00a, and the driver part also requires specific ad=
-aptation.
-> > >
-> > > Therefore, on the JHB100 SoC, the initial device tree source I have p=
-lanned
-> > looks like this:
-> > >
-> > > spi0: spi@17f20000 {
-> > >       compatible =3D "snps,dwc-ssi-2.00a";
-> > >       reg =3D <0x0 0x17f20000 0x0 0x10000>; };
-> > >
-> > > sfc0: spi@18000000 {
-> > >       compatible =3D "starfive,jhb100-spi";
-> > >       reg =3D <0x0 0x18000000 0x0 0x10000>; };
-> > >
-> > > Thus, I plan to add a new "starfive,jhb100-spi" compatible string for=
- the
-> > controller that accesses the flash.
-> > > For now, I intend to keep these as two separate series.
-> >=20
-> > No, if you have two integrations of the designware IP with different
-> > programming models on the jhb100 I expect to see two different soc-spec=
-ific
-> > compatibles used. I don't want to see bare synopsys compatibles on the
-> > platforms I am looking after.
->=20
-> Okay, I will change it to the following:
->=20
-> spi0: spi@17f20000 {
->       compatible =3D " starfive,jhb100-spi";
+commit 11b81f60e771c7c62903fe36e982968dc58b35e3
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-This one is compatible with "snps,dwc-ssi-2.00a" and "snps,dwc-ssi-1.00a",
-so it should probably have those as fallbacks. The latter for sure, the
-former if you know there's some non-discoverable differences between 2.00a
-and 1.00a hardware.
+clk: renesas: rzv2h-cpg: Extract PLL calculation math into a library
 
-Cheers,
-Conor.
+This commit extracts the common PLL and divider calculation logic from the
+RZ/V2H CPG driver into a standalone library. This restructuring allows shar=
+ing
+the calculation infrastructure with upcoming platforms like RZ/T2H and RZ/N=
+2H
+without duplicating code.
 
->       reg =3D <0x0 0x17f20000 0x0 0x10000>;=20
-> };
->=20
-> sfc0: spi@18000000 {
->       compatible =3D "starfive,jhb100-sfc";
->       reg =3D <0x0 0x18000000 0x0 0x10000>;=20
-> };
->=20
-> Best Regards,
-> Changhuang
->=20
+> diff --git a/drivers/clk/renesas/rzv2h-cpg-lib.c b/drivers/clk/renesas/rz=
+v2h-cpg-lib.c
+> new file mode 100644
+> index 0000000000000..124239c7327e4
+> --- /dev/null
+> +++ b/drivers/clk/renesas/rzv2h-cpg-lib.c
 
---/xIMeAPBUa6tS9wt
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +				/* Compute (Ffvco * 65536) */
+> +				fvco =3D mul_u32_u32(p.m * 65536 + p.k, fref);
+> +				if (fvco < mul_u32_u32(limits->fvco.min, 65536) ||
+> +				    fvco > mul_u32_u32(limits->fvco.max, 65536))
+> +					continue;
+> +
+> +				/* PLL_M component of (output * 65536 * PLL_P) */
+> +				output =3D mul_u32_u32(p.m * 65536, input_fref);
+> +				/* PLL_K component of (output * 65536 * PLL_P) */
+> +				output +=3D p.k * input_fref;
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCai/arAAKCRB4tDGHoIJi
-0npmAQDsg6YBqoSXb5BlCCoIOel0O41cbZtYZDxZ2mjOoB5LvgD8CrtnPmapUBou
-h1Bii8MSHVHRua6XkJsQHOe3RJxbyAc=
-=jX7z
------END PGP SIGNATURE-----
+[Severity: High]
+Will this calculation corrupt the output frequency on 32-bit platforms?
 
---/xIMeAPBUa6tS9wt--
+Since input_fref is unsigned long and p.k is s16, if p.k is negative on a
+32-bit system, doesn't it get promoted to a 32-bit unsigned integer,
+wrapping around to a large positive value?
+
+When added to the u64 output, it would be zero-extended rather than
+sign-extended, resulting in a massive positive value being added instead
+of subtracting the correct proportional amount.
+
+Should p.k be explicitly cast to s64 before the multiplication to prevent
+this issue when used by 32-bit targets?
+
+> +				/* Make it in mHz */
+> +				output *=3D MILLI;
+> +				output =3D DIV_U64_ROUND_CLOSEST(output, 65536 * p.p * divider);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615104845.4122=
+868-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
