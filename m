@@ -1,115 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDD83E5A0D
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A90E324716
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781525406; cv=none; b=jIcaUvGGNyJfMmY4RI7fLYDKUNEd/egs2g99eAl8mRb1lEAja5ltycEiM4wTFLDvOAE3hA05MGB7MqJca1r56xBMFFCQSJbWk54fFxdw64vAXkyj8Hz2gN/tkol+Le6XLkydHxeF1RhQ5ksqc8rL1/jb7gHihmp01x3k6lvHEsQ=
+	t=1781525464; cv=none; b=iVaYJ7rrpPBLJc4XF814SEFOkWUsWGu+GHtq35axoWkKP/N4/as97Juk1PMeqhGig5a0gpRJH5YsX5GN+803ilo4UhWynncsJvF1mnaNZn6QyoEN0yx33s5WmSs+blE6LsTuGIM9HYBy7g1QoMQ4PwiiU9bnUgaenINkN3xnoHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781525406; c=relaxed/simple;
-	bh=GRI3tkagR3kL6itJqeqxy08fmpfrLVQVZrdtZRjQ71A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FG1IMwKljHMDTGLG3Nm7cSIL3QdACtWzT7e/h5ZAmoFbeyEM9pxNhBniD4IdSB8h64dw9LJOMNANnjUNzo+oSXZue7NS4aIQ3qOsQYcAhlGH4C70xHYTOAur9jpgmErelLlT7weFv1+gisTvNempH7lhtR+1zTZnguhe2ALL2WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y324kz+I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781525464; c=relaxed/simple;
+	bh=SYS6DuxvOsAPUHg0CRU/asuNx+GYt1ac6BM2JbjTeFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QFWmjvRc1SD6zML+MCakaIIdjCV7n/MfIscfV+QLR8iDkDPot8Q7bpod2WasStUdLm3tIH3PAh8vdb5QgrIcsAJFJ9rj2GUZT7xTbuvB9nCJ3n/weWYQTZWheGizUnLG9yOxoKyPd5nbSOgfCBRpTE0+v7QzhpnnISExksD7iF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jbOq5iTV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FlhGUq78; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y324kz+I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231C01F00A3A;
-	Mon, 15 Jun 2026 12:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781525404;
-	bh=AeybkjLugyiJ0pqNJS2+u4o/uP6/g/+5I+2AGZtvrTQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y324kz+IfA/+4HGJ5ezc3uJfzAbqvIwsaRTMMy49qZxGlzFmEQPTn7zfLKK5VPvnU
-	 KOlmorKZo3YGl7qw9cAyyV4wVnPlh3CueNZHC41d5/VaKKPdt7isArOonK4DnWkAc7
-	 cDpgzd9awc6dgIknO+cmOT0jpaOpEBj3CT/Kh9+eFohOwA2Noqe+hFSZEQgKO0B9Eu
-	 O/0uM2YujaXBJGNbLWaXEEcHX7Gh6No/Q82XeKjKYNX9ccaEQtEnJGY0vGzhnvSMm6
-	 YQq3WcnIUUAzXmG+3tQNP8io7Cc6FqKI6D3zgUw+6VNw7Hl84wSt3to3ODiahTO8W/
-	 t+Tp4f0bZN27g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: renesas: r9a09g087: Add DU node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260615115455.1412098-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615115455.1412098-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 12:10:03 +0000
-Message-Id: <20260615121004.231C01F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jbOq5iTV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FlhGUq78"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FAoOXm3972256
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=; b=jbOq5iTViqae5GaE
+	VrWWF275K6FaLgxT0cPSG6lIHscXn36i8CaLzCmAlkF81wUunDEWs8Xq3S80JWCQ
+	5x6EXRZJdB4tws19ZVqL/3CRvQ8+zlEpEmHO4hz9V/e3uXplNRGUlFwygqEdw5Zy
+	XOUWA5uivmKNSaYFN3D0wKOlOMwQFQUJ6Uszxk7ZKsIseojf+GZ3cTybS35wTFLt
+	poDLklPkFgNN6j4iewh7pup70CUPrq0kgg0qGH8dwjG13qtfzziKEau5VC52nZM8
+	3zFAyFlhcm9/PwVh6oeocS1oQIU6jYOEc6MzqKhUQyJ84VWXklJJO4Po9zcG6bMc
+	DIV/WQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eteyd8j44-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:11:02 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51757324dcdso4474871cf.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:11:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781525462; x=1782130262; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=;
+        b=FlhGUq78Zu57tKx1EOIl+4Rp3a8yeuzL4r+JzQwAkzwPtJYh8pGxuxiSZaH1HyaBbC
+         UeXrnuvezEPwkPYVaWJX5vpQX+VJRxXW/J+KZR267D7YdUdtwNo8a54GW4cOJMRrX6qP
+         oSBcNkhJAad37CqRUrhvVdJBl9d4owgqSWQ63ew4sfII4abaef+nquCqsTNwaRtxPjx5
+         aTT5R+2yN90H4VMYybHyY3880ZzBNFuNXZuv6qqaaENst2Y0oTlOx3FR5L/W2sNiQt3D
+         ukZmZi1mnboptE6mwhbA8k2lrD2cyD4SbKEiu6CpsYm6ozYvUNblLg10r+PYdsv2iUvS
+         7YFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781525462; x=1782130262;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+QzD9QjCDgi8m96sISja9Y9G8pf1CyaetmofKENz/yg=;
+        b=FRpLr3iIzNEF+N3NkAvM4kfNfVsD46AsnzZoNeJSe3RlISMBUL7+m8ZKwvgPMvWI+d
+         MhFvOzBT6wqJ6SlWd2oGeEJIB14a/tDqhTW5AZbEcOV3HgAnEhre+HZtCPNXeOnNsISw
+         5DxbKWYQLn+h9bJFsyzB56qnaRkKEs2LRq+9uB4jEC5kKAzXj8cJmoyrOGQULNsNsLvn
+         qzFBcphNb75JGfnqvoUF1UA7xK4JKZpfSir8eWB0mCRQV0iICyGncCYPeB3tF+3vOdRn
+         hCA5Le5e6/qKf+G65T5mxHa1SOQAQYdjaZ9YJXSUAV7Yjj/w61CekbfZJKhJWiKtqyLT
+         PCVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+//Mx37Snf1dMCxnbssNRPdqfs2aQpRu0yoDGyUTFMu8ynajJ085AwdLB/A+dZK2X0momwyyv3dGG0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwkDaYFHPYU9sIZqlVyUPkd6qAuri1e5UcLeVp3BT30rmKqgnap
+	sSLMzlL6Fb2c72JlWeQ3vyxv4iWfDrGRPN+6XsLSZWr1OCUJaxegRVO3QHW4anbTGUam4o/FxpM
+	54luWdKwsdZ0FxAxCk+gnCzzqgdaXlFf/KEzHJfMiZuetVsMmwIcgWJbA77vHy8yw
+X-Gm-Gg: Acq92OHJaRqUjsNPpN7bWMFHWiYDocjvbe/faSF/MdLOiAV14M2swTNPUy2psmoo8lj
+	mX3Cboo2Waj4kKKHXRFG8FJCUUtMe3h2oQwf7NJoeqwL5AqGWVj7RcXHwHrElY/aLUNmjXa0aWM
+	JzvQRHq/vi9/Xyqv9KhSGIoxPzKs5A13EWq8xk1HqbsAGd9tutuPZTWzgueyHJA3Yw0y/j6HsKX
+	pQfAoPo4we6JJIInk/UAYiwfmbwhnsQ0ujrFtbyXNtzcQvGVJfBp3JoVn8xQEQEakq97hnEs9gL
+	1HBu+3Wj6WFWhsf/4txvDfRUUDqo74D2JwYMcuBs1oqy5Vud8nz+i/BV3KLMd04MOoFXHeSAyF2
+	55RNRdZhuOOQZdUfZp+kJHvZTlWGDA3aP5VRjeOGw/4o0iA==
+X-Received: by 2002:a05:622a:1b01:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-517fe568e67mr124102781cf.5.1781525461699;
+        Mon, 15 Jun 2026 05:11:01 -0700 (PDT)
+X-Received: by 2002:a05:622a:1b01:b0:50e:5cc3:6f59 with SMTP id d75a77b69052e-517fe568e67mr124102341cf.5.1781525461225;
+        Mon, 15 Jun 2026 05:11:01 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb9013575sm464826866b.59.2026.06.15.05.10.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 05:11:00 -0700 (PDT)
+Message-ID: <2f76cb76-9bd8-4f95-b168-1250de12eec0@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 14:10:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: kodiak: Add camera mclk pinctrl
+ definitions
+To: Luca Weiss <luca.weiss@fairphone.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com>
+ <20260612-kodiak-cam-mclk-v1-2-fd294ff003a2@fairphone.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260612-kodiak-cam-mclk-v1-2-fd294ff003a2@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 9OFbc1T9v8K51LsIPJZl4IavaKObZ-WM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEyNyBTYWx0ZWRfX3C7FXZZAfOhp
+ TBKsUDVTBJRRDddvE20YmPS0qAEjGKltWfhQ0YZtcsUtxSSE/yX4YyhdoymCbTtZiviAjQ/AQ7v
+ 62PT8Z7P/HD1b96E36tEBB/xFsvdiXo=
+X-Authority-Analysis: v=2.4 cv=QrJuG1yd c=1 sm=1 tr=0 ts=6a2febd6 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=6H0WHjuAAAAA:8 a=EUspDBNiAAAA:8 a=GC7ltwg7MdDjMvrKfcoA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-ORIG-GUID: 9OFbc1T9v8K51LsIPJZl4IavaKObZ-WM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEyNyBTYWx0ZWRfX5alL+SwZF/Pm
+ S3MWEsXvLGzvyOjjhdGcD5UNuiJrI7AinemBbbZuJIMPU66p+9gkDs//f2tOLfcHCfTR317vp1V
+ /gUGs9xfG5v9DbBDKSE0ekO8E5tlyE3wphsge9XGqpp15zAZVxkpRqNznq311bggsnAeoV5njNr
+ LGsd+CENIxthnk4rioNB0vfM9gO3DEp87qFqbONQINwg/D5tTigIAJYVVwrq9KyhmGyXJ6qcFWT
+ b/q4lU6Us1Ud/TpKyD3K5xksF0UNwenJ7B8UF8JDlvaEMkgXaA8hBEb4b/wCSuR+xiLSHmvDHWU
+ NbqKKbjH9QLgZ8YuN4xXNwF+KE3eXQpecdTelXOlpkrsKra4a8l2UwCgr4YhFiLWGpozljU3DFK
+ 9TGVHdKZVZfJVFuw7CRoWeLhPRsLAOHHziSrpG5Cv7KAmYl41cMMCawIk3ux55KCOYPE9ycBHZw
+ mEBv+xjjYQ0Ic6jFyMg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_03,2026-06-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ phishscore=0 spamscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606150127
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing the required `resets` property in the `du` node, leading t=
-o a driver probe failure.
-- [Medium] Missing a fallback compatible string for the `du` node.
-- [Low] The device tree compilation fails due to the use of an undeclared m=
-acro `R9A09G087_LCDC_CLKD`.
---
+On 6/12/26 12:55 PM, Luca Weiss wrote:
+> On different boards the cameras are connected to different pins with the
+> cam_mclk function. Add the definitions so that mclk0-5 are covered.
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
 
-commit 60fe4c07204f3af15bb869a850f5f3764a505646
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-arm64: dts: renesas: r9a09g087: Add DU node
+Could you tack on a patch qcs6490-rb3gen2-vision-mezzanine.dtso
+to use this common define?
 
-This commit adds the Display Unit node to the r9a09g087 device tree.
+Konrad
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g087.dtsi
-> index cb2eabe3242e0..21250caf31493 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> @@ -1272,6 +1272,30 @@ sdhi1_vqmmc: vqmmc-regulator {
->  			};
->  		};
-> =20
-> +		du: display@920c0000 {
-> +			compatible =3D "renesas,r9a09g087-du", "renesas,r9a09g077-du";
-
-[Severity: Medium]
-Does this node need a recognized fallback compatible string?
-
-Neither "renesas,r9a09g087-du" nor "renesas,r9a09g077-du" are present in
-the display driver's match table, and no existing fallback string
-is provided. Without a recognized fallback, the device will fail to match
-with the driver entirely, preventing the display unit from probing.
-
-> +			reg =3D <0 0x920c0000 0 0x10000>;
-> +			interrupts =3D <GIC_SPI 781 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: High]
-Does this node need a resets property?
-
-The renesas,rzg2l-du.yaml schema strictly requires the resets property.
-Furthermore, the display driver in drivers/gpu/drm/renesas/rz-du/
-unconditionally attempts to acquire the reset control via:
-
-    devm_reset_control_get_shared(rcdu->dev, NULL)
-
-Because the resets property is absent, this returns -ENOENT, which aborts
-the driver probe and renders the display subsystem unusable.
-
-> +			clocks =3D <&cpg CPG_CORE R9A09G087_CLK_PCLKAH>,
-> +				 <&cpg CPG_MOD 1204>,
-> +				 <&cpg CPG_CORE R9A09G087_LCDC_CLKD>;
-
-[Severity: Low]
-Is the R9A09G087_LCDC_CLKD macro defined in the dt-bindings headers?
-
-This macro is used as a clock specifier but does not appear to be defined
-in the repository, causing the preprocessor to output the macro name as a
-literal string. This results in a syntax error from dtc which expects a
-phandle or integer.
-
-> +			clock-names =3D "aclk", "pclk", "vclk";
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615115455.1412=
-098-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
