@@ -1,63 +1,63 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C3A3F39EF
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:30:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1043D3F4121
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781526659; cv=none; b=U/wEqJblU0NTib/6c0Y80uHUWS5ywXI/nebk9ngvNNPCuuZKcvO8Cu1QfLB7j6IvSqQ0woRN08zR3m6UKTvoiakCkWS2RwM/42Hjs/4Wfjc5sGtTVjYBlcZrK7zSR0UbP4uAEe9155cqjLsmp+opcCq7O78zzvWlsrcJ4Wk/jzI=
+	t=1781526661; cv=none; b=lhgBPFx21A2H7AxAbpozJAjmDCije6Izs5b5U8un7YOtT5MuKiEL5F5CcaNkoTPE0aoKU61T/JigcdsVUjHPr3SJViw92v+TJ+YkEDg6fx3S/34qCCRkmKIDM5gf1Guce8OeUc2mp7LpcQUkGI3vIggKg2AvXialNM+ZpDuVOb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781526659; c=relaxed/simple;
-	bh=AtNohlQ0WYu7yAy0ZDcPtcuY1C2JeuynsMtDfbhK1Oc=;
+	s=arc-20240116; t=1781526661; c=relaxed/simple;
+	bh=s24y9GPV7y+NJAKmvwvAX1cER3c+JYcl/Cz6+DphJa0=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M5sPGtll8JpwRab8brdwQYjVFEKNpgOsa6vKCgze/V7YCffbj6r1LlKDwUBl1wjS7LdbjEBtR4aq530MWXy1q/qtxahH9uOziBzPBIilvwQ5TcHVnuim9URw5qTHNO8thM20HIJ5a5C1k5dz6F2JZ3cDSWuZI0QDVCH45jsNE0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1r6gmqr; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=OZ8PYOE/DWCRNH2pbiqJdg0c6aiUwlefTh5OCLgxiPYTpGzlrk9G3jZ8sDIuZM99RarYvosQRUd7fwl/Up6hp3SXkoA2g+dJt3NDWd6rJ7sEqgDfPaDenyDDtQhnd0DaaPAUPkPP/+C0MCu6TF5aam4Qav352g1UDA8nZHsh4PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RLj9FNF9; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1r6gmqr"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490b9318997so23476775e9.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:30:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RLj9FNF9"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49222b6e871so18960955e9.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:30:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781526647; x=1782131447; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781526649; x=1782131449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Z7ibR1uk6j3yRvHUeSG7+Ts5vUBpNZwTn1NirzFE3FA=;
-        b=b1r6gmqrfjrAl4VunJk5vfjQlwQzDRrQxiFD6ZjrtNXk9oQdXhYufu2nwL7S2hknPW
-         zVqUs6Vp9xCUTd3wzRy4YGDWCh9R1+3pvdlqvZJC8QER9RqvNroGkkldP8sQSx8HuQ3x
-         m4wE12LY9iGWK8BAaO3XVAiOsRt7OLrSQ1+L8NS7MNOcVrtCzI4Q7pO2WRsVFoog1Ygc
-         NaMCc8eUEvzUkdR+kEgcwks/J+qp/xPEiDXyXfqRo8lkfQOnz87386+8Dt4Qh/DdZQ0v
-         B8xpp7cJYaXeVV9YjBfUvGqnsBh/v8370D8rgCFz1fa9PF3KLJFg4cvPxj3gBOLof2wO
-         SqvQ==
+        bh=3neVONgdAVcEZX3f1l1KWGoYXB46SXm/tOXseRIlMNM=;
+        b=RLj9FNF9kCa9JCJgII2lEK20OgFXJIkgwmHHFV/g4ofnX1cRRStGQ4lF0s3KNBCB/d
+         P+NJHCYne6EdbHZid8DaxC10V5C1fobEjjlXWPU2u1P8gX++Vb6nl4TivkfTrAClYpdN
+         YYYIKmxEa/pHTQ4zf7rX2sr1naB2MNdilGTKIDaqarsZYObQ6dAEFm0CClEKBIwrZKW2
+         Uhj069wO8cDjGKJ5xVIXQH2AmsjdY9dCfSTgGlI8/AYvs2ZducVXG5h+CY1x1vOFiy8z
+         OYkRTE6shBZyviB2H3t72IS0pea7rvSFLFceXCqP9kb4zgCjpdE5JwHv+78Va8djtRKo
+         iFfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781526647; x=1782131447;
+        d=1e100.net; s=20251104; t=1781526649; x=1782131449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=Z7ibR1uk6j3yRvHUeSG7+Ts5vUBpNZwTn1NirzFE3FA=;
-        b=Q0+9b8VJDcylbT0w2+H9S/ojgMB/QtcU9XJXxBNIJcso6byo6N4FIv5Wl+zEiX+1nC
-         tMbdatrAnph5T0GqrpRp8tgypngmpJ8+CYuihfZ/mCLXVnKDg47bqREAAt5V8WDG6YqR
-         rNPWXC0shzzVaOqdcFikjsCwxa4biPRPqkUc6QylkjiSh8vHA5NtM7pdZbe5Q2cJjibj
-         WOa2tqtlCT/gdT15MT9iIjjTbHxSCJlwifOFqGCJy6LkC/fuxrACI4fuPOfZIBWvwZ7b
-         iqJ1nL341JEIc7mGmPai+t9g/1hTAMPya32n/DN597yvN01VgQBBRekbgbiyXDkkVx2a
-         hfMw==
-X-Forwarded-Encrypted: i=1; AFNElJ+WfNjQI1OEmptkISqYPOdOkUNw7nfv7XO95k4MUbR9OCwPaOsCMoL6VCfM5w3uKbR2JwRRE+xpu1m7@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywb+pzzkBr/eo5QdGDvSZrOe/vHhTQSuJl0rswzdZpcXOhslzm/
-	AYXT3J2PqMrCHwoUv/6RBiub0WFcnwOjPRiImrGjnWgvgMpaosTP1QQa
-X-Gm-Gg: Acq92OHaxpwe1VKZN0eR/llOARWqvFKYbqIu39hvyydK0+wTgCHUvmVaGlFFIr79R1D
-	bkPwEsIBBJH371MhNTqWSCnREPZtq2/rTgu7sBmn7VNNsw6n4/WDONl2MhODyKoHFB/uatm93T/
-	aPNrnXNRl7tojFASJQD4070Id4vHPHgejTJTWc9iwtPh6JSwKBAkA+wmMmP5wJUSmdEDA2Lvxgn
-	DWBfhUx+SeVneh7AlROjDueKJTS/XLGmoQoeznj4VveZsd6cvwiEckljK93IN818c3Gz9Vc7Ccb
-	0RppGdJAxO0i5PyAI1kirlnibAFe9nLPO/cw9wqisP9VjYuguGhGQCG+0ok9QbY4i+uTBFcJ923
-	kEBHBTE5gI+VikgrGet7jvo531yLb2R391nKza06R7r+whVLVk3Pz57pbCjpwHtmK3e6q613ZTq
-	5BPEDSLGmCV+I0uahz32S9PK7QL2X0EMYO1a9PsXc4Ow8f+8yCZML1RUQ=
-X-Received: by 2002:a05:600c:800f:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-492201436f9mr121572525e9.25.1781526646890;
-        Mon, 15 Jun 2026 05:30:46 -0700 (PDT)
+        bh=3neVONgdAVcEZX3f1l1KWGoYXB46SXm/tOXseRIlMNM=;
+        b=f7DdLS/ZgIgZb5/IhJxTnuBNJmeKJXPAurYI2Htdi6kuylhdE5Lw5rpH3HrWYPpK0A
+         bTwkV+wx+GmYLiIO62ex+F7peg4Co8ac9CrrDczZa9zh4fz87P3GkysEHGzMXXrEk4LQ
+         8lIkOhAgSlTlWrVjj7s3q7hzqg00R4HhEeWndVkvyEC06Ct+qCM7OAqYbSEdsbh16frF
+         U5svP8wJyuehZiaY9WSQSCQlAxmHaxbmlh/vEltRZjvQRK91hq6gEkMdBqUNpbhxve0c
+         EwJTWwtk2e6r7F8Kee2GSg1nFnAi5TEbw5wTCq12VyKyQxyViXig0MXSGLqWKODo9R8C
+         Pm3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8hoO6pyc4XmK+an0rkwPWdTiDNgQTjSYvmqDj9lOZMhukNq+z3Pahq27MSRdM4TYf7ggVzF1pYolpp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZqrX7vdD6p3NQWbcyqErw+FB6VVgWzv8DgckDFNoFbiX3ShO9
+	cJzqZHIVO/QPW6emKtxkgAIih7xyI3VMfc2zgllwwiFcdEbFaq0q6foi
+X-Gm-Gg: Acq92OFELXqZU0rh5zViDoHS2QP9UjIOsAE/gn9GInKDgp5IDs5wiQrkWO8e8Xyx79G
+	kUzFtUrcIJeiY8CILLbzQT1YABfzt28EBmmRIeenLli7JdtlYVUMF3/7oEi6ym4+pdDkgySCxmL
+	w11/p8o+RGljljKhMtC0CMRpfSG0OBycEUnGFj8oWnglDY/Ptq73jH8zv/lOPPFBI0Gm9JyzRNq
+	lsMNizCTLsII5rTj+V1C+WWb8DSesNOUY9QXu+KR1ze01WewqY1HrZzXoX4v1/JB5D5F6XLogXL
+	fi2fApVICqnok19VIVviZ/klebGCg8FAV3f/1M2hsjo9V9N7HZXje+Ewnn08PPNlWMAT8SR6n4d
+	SMfxdeLlGAbALJ7qiN/iAC3wLOagF6sBvCTn3ehYgv1O1SsBdI+NRII1uFb92ajirpxeaVWMtcD
+	3CH2QAHgFiXLkhUix8ebhkpgJg6CQHUc3ws1sMvL0hJM6Qg2UFcg0aued5Jwmyjws1NQ==
+X-Received: by 2002:a05:600c:3585:b0:490:b642:ce29 with SMTP id 5b1f17b1804b1-490ec4d4f71mr195103365e9.8.1781526648835;
+        Mon, 15 Jun 2026 05:30:48 -0700 (PDT)
 Received: from Ansuel-XPS24 (93-34-88-103.ip49.fastwebnet.it. [93.34.88.103])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-490ea95c512sm191426435e9.2.2026.06.15.05.30.44
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-490ea95c512sm191426435e9.2.2026.06.15.05.30.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 05:30:46 -0700 (PDT)
+        Mon, 15 Jun 2026 05:30:48 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -87,9 +87,9 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	llvm@lists.linux.dev
-Subject: [PATCH net-next v7 07/12] MAINTAINERS: add myself as PCS subsystem maintainer
-Date: Mon, 15 Jun 2026 14:29:43 +0200
-Message-ID: <20260615122950.22281-8-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v7 08/12] of: property: fw_devlink: Add support for "pcs-handle"
+Date: Mon, 15 Jun 2026 14:29:44 +0200
+Message-ID: <20260615122950.22281-9-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615122950.22281-1-ansuelsmth@gmail.com>
 References: <20260615122950.22281-1-ansuelsmth@gmail.com>
@@ -101,34 +101,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-List all the files of the Ethernet PCS subsystem and add myself as
-maintainer.
+Add support for parsing PCS binding so that fw_devlink can
+enforce the dependency with Ethernet port.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/of/property.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc1dde0c9067..ef3ef5096d08 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9593,6 +9593,15 @@ F:	include/uapi/linux/if_bridge.h
- F:	include/linux/netfilter_bridge/
- F:	net/bridge/
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 136946f8b746..e6584a2f705d 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1392,6 +1392,7 @@ DEFINE_SIMPLE_PROP(access_controllers, "access-controllers", "#access-controller
+ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
+ DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
+ DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
++DEFINE_SIMPLE_PROP(pcs_handle, "pcs-handle", "#pcs-cells")
+ DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
+ DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
  
-+ETHERNET PCS SUBSYSTEM
-+M:	Christian Marangi <ansuelsmth@gmail.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/networking/pcs.rst
-+F:	drivers/net/pcs/pcs.c
-+F:	include/linux/pcs/pcs-provider.h
-+F:	include/linux/pcs/pcs.h
-+
- ETHERNET PHY LIBRARY
- M:	Andrew Lunn <andrew@lunn.ch>
- M:	Heiner Kallweit <hkallweit1@gmail.com>
+@@ -1548,6 +1549,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+ 	{ .parse_prop = parse_interrupts, },
+ 	{ .parse_prop = parse_interrupt_map, },
+ 	{ .parse_prop = parse_access_controllers, },
++	{ .parse_prop = parse_pcs_handle, },
+ 	{ .parse_prop = parse_regulators, },
+ 	{ .parse_prop = parse_gpio, },
+ 	{ .parse_prop = parse_gpios, },
 -- 
 2.53.0
 
