@@ -1,101 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AA826E710
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E633AFAF4;
+	Mon, 15 Jun 2026 06:34:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781505250; cv=none; b=hqzzQZ/uUTuOGIXwA44SvN0ADnSKRpwj5PzXp+m+KE9G6MZXfXWgkB8Zu9712VVMgR3SoiRXLrr4BE+EbPPFdQU+fvkfoIwlt0XTxD4wPKYJ6pEfBZUNT0VjJQWn+Jav9CdJQ9LRQWPlz9OiTejzAxZhAbWTEBACiel3LPLMyfQ=
+	t=1781505295; cv=none; b=iEmJddhsRiXefRGgGgFHvIVtL1vVGzFFLEyjKcDWQRZDc2fus38bvi9WTezv7yW0Gp4nBdPxW3+14pduEe/PW4lV4y+kRyt0p8rNbU3K4X1F4d9mUjVguhFSMQMX1FXN+RV8PhPM36TGPENlSX91CJxaJiwD9EveizGrVdUW+rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781505250; c=relaxed/simple;
-	bh=6SLaDAqcS/OeJu4eGi6y4W6aQYcuJbmRKPaeonP7Mak=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NO7kQczNH2FPvootsfZmTWu6joS7mj/swXvnpvGpw5usEJ0VtY6wKVBKhE32VNYv2RZWv0I/+0ttcyHRjfh8IWlxuO5iwn+1l/qK1vSrVu3dfnjzWD93gUoiv/ghAhmkRBhY4RBrmPz+oqZuQfy6/t+i3Xpq8Io8uQV5TEVlsYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MfA/RG5K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781505295; c=relaxed/simple;
+	bh=LwVwZ1OH794aFnSS7FIyTAlzmDuCdGBWxBc78g/rlcw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CybEPb2eZiMkJAOMEUhmePhGa8H9dywysKJAD4/AywbkLeVjanT4FojC8wVKelq4vbIA/PfDhzr9oHhaOKz4e6Oqzo62SAtVxppv9mbF5Cn2L2ej4V465JtN1ic46SND1adlR/BSajiWEZl1S3PmBSqtVNTgg/xb5rNHJwXnHNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M15whiB7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MfA/RG5K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74C11F000E9;
-	Mon, 15 Jun 2026 06:34:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M15whiB7"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A230B1F000E9;
+	Mon, 15 Jun 2026 06:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781505249;
-	bh=KJB66/+GRQlMBTLzxNiwr90NsdExgZU8pcK43avWcxQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MfA/RG5K2mvRg/RcNtiyNhlKqT5OeVBX1oQsQhKWQW0ZWQ/4ynMHEVqudVH3eSN63
-	 b29hK6yJ5Lh8lsSPN92JkQTWczecArgO4vHSDNXYsvjLqBEWA/+AWJUQoUO917s8Ps
-	 JkOcluRp1SpfPzAq+pCbhyWkEM9vJQGzBrFPYl0VxxXvNQ2vbSrVNFocMrSdzPnVJf
-	 6bqdVqYXnuvEm+6ncod2NNCvNPim7O1DATUD3/GV3MZoRExkcCSU/Dt9ENFcnIpO2d
-	 VrFc/8jcl/meEY4vDCdO6mhaRngQ0d7IOTlrxY8o9Vk1WvNIkVwA/Meh4W50CNw9ai
-	 Nn7S11h2zbR/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
- R-Car V4H DSC bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
-References: <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:34:08 +0000
-Message-Id: <20260615063408.B74C11F000E9@smtp.kernel.org>
+	s=k20260515; t=1781505294;
+	bh=LwVwZ1OH794aFnSS7FIyTAlzmDuCdGBWxBc78g/rlcw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M15whiB7awNSzpgBgSLlWyrVBDSrbGMngmgj4QA5DHrS9J3frZf509O0fV2RQbd94
+	 yhpGEseCZZDlGfCAaUUrtT1CNxBkhSAzt919SG0KUMewHAfTf81TYOsS0Co1zO3JAf
+	 +HSErqQLjMyM/q+XqhcLjDCJj/KUWo4mLP4Kir/5plPOMbfOy6VfwPHTyQHil4MbyB
+	 km3LiF8oxFKGJXhKisvRoZcinCilhh2pvZb9EtZd5gkXmQbYlCe5SaIeEPW8+J248C
+	 S1QVq2vi39+IiTCtQZe4E106CR7PxvTVZkQDCT2gugxR2+wtEi//eQ81X84Rr9wMyO
+	 vt+0OsI2+CTjA==
+Date: Mon, 15 Jun 2026 08:34:51 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Charan Pedumuru <charan.pedumuru@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pal Singh <ajitpal.singh@st.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: pwm: st,pwm: convert to DT schema
+Message-ID: <ai-cWP8XW0ZwBnbH@monoceros>
+References: <20260613-st-pwm-v1-1-458c2c89709a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="emncwsoh2jwmrgbx"
+Content-Disposition: inline
+In-Reply-To: <20260613-st-pwm-v1-1-458c2c89709a@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The DT binding example fails schema validation because its `compati=
-ble` string array is incomplete and does not match the schema's requirement=
-s.
---
 
-commit 0c24ed90ba663d71759d36b46777595ba20ee9c3
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+--emncwsoh2jwmrgbx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] dt-bindings: pwm: st,pwm: convert to DT schema
+MIME-Version: 1.0
 
-dt-bindings: display: bridge: Document Renesas R-Car V4H DSC bindings
+Hello,
 
-This commit adds device tree bindings for the VESA DSC Display Stream
-Compression encoder embedded in the Renesas R-Car V4H SoC. It defines the
-schema constraints, required properties, and provides an example node.
+On Sat, Jun 13, 2026 at 07:04:11AM +0000, Charan Pedumuru wrote:
+> Convert STMicroelectronics STiH41x PWM/Capture controller binding
+> to DT schema.
+>=20
+> Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
 
-> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,dsc=
-.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-> new file mode 100644
-> index 0000000000000..4d2c2c6cb1f08
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - renesas,r8a779g0-dsc
-> +      - const: renesas,rcar-dsc
-> +
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/r8a779g0-sysc.h>
-> +
-> +    bridge@feb8d000 {
-> +        compatible =3D "renesas,r8a779g0-dsc";
+FTR: sashiko found a relevant issue in this patch, sent a mail about it,
+but not to the list. It's about the old binding requiring `interrupts`
+which isn't the case in the new proposed one.
 
-[Severity: Low]
-Does this example fail dt_binding_check validation? The schema requires the
-compatible property to be an array containing exactly two items: the=20
-SoC-specific string and the fallback constant (renesas,rcar-dsc). However,
-the example only provides the SoC-specific string.=20
+Find the full message at
+https://sashiko.dev/#/message/20260613071327.BE3101F000E9%40smtp.kernel.org.
 
-Should the example be updated to match the schema requirements?
+So I marked this patch as changes requested.
 
-> +        reg =3D <0xfeb8d000 0x400>;
-> +        interrupts =3D <GIC_SPI 559 IRQ_TYPE_LEVEL_HIGH>;
-[ ... ]
+Best reagrds
+Uwe
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
-c-v4-0-93096a1b56a3@ideasonboard.com?part=3D2
+--emncwsoh2jwmrgbx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmovnQgACgkQj4D7WH0S
+/k40YwgAuXZImzLUX+KOPP158jbavgVEmzuiuBb//DdDlrIGgzzO6v+dBAMA9SDj
+PvuC7RBW/B5UooAcMZ1ug0XNSKEBPdmt5Y0gQ87AHDpCorEj0TT7sxnwkNsPFX7x
+HWl9G8cL27P6GutcVbCOluI0yYR7Nw1zHYQf21RyAACqbQ8Vhyhh72ob5smi9YfV
+33kT4xEB6wS6RhPxBqf4Nq+uAItquyUKzPnYPnJyA/tYFsPGidRAMDVQ67CCC59y
+b1wHuvuWgjOm7Vf43RWcIcBZflb/1IGtXsHWm2NX0LiS7MCBDIiuchqFT32NykG0
+RZvK1jwXaN14bK03WyRqvyufOjWRXA==
+=XSA6
+-----END PGP SIGNATURE-----
+
+--emncwsoh2jwmrgbx--
