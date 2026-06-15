@@ -1,288 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367742472B6
-	for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 23:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB75D191
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 00:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781480940; cv=none; b=ZtvwTgtD98xQdIG8p/nXUgtx+okkmEIiIJmRZkj9qgsdlNojldzfkmHAdzbcwCl4WCHBr7GU/I5AzWU3XXBrQi08L+aE1LINqQFSpj6XAOc2Fg4xCxmWNo+uW6WIMye8JtuKgmAukkPKG3CK6LPaxLXh8oLXY6jAtgROHFryn6c=
+	t=1781481977; cv=none; b=lh6qjObfsB6cNSWTsdLvXGvDc5VF0hxzUbT0f9cU/P4V0lrYZpmLWsOXgwa6IBvzstW7gwYT8Eb8c6LW+ZSGhvw/ceVq0zuPO7ixSgOO2EbELkHOwaw/zvP/vR0NQJffxERiNil0kZxrVPFt8vZzqigZc0UGHtzkANuFXhXQfOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781480940; c=relaxed/simple;
-	bh=LwWN83DS6BbbLbfB+zxhh1txoXyI5J30xLq/eeFhweE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P5qNARw8E3Oe4Wm83Ln2Ku1Ivwhh+m5Up7zIMNl1QBZNQXIcCSeMqitvFgtyRMimdkEEDeCN9OafCmw+mGCPTspVA4SS5wrrEZd3xVmPFIJnq93VlvGc/LxhQa1YSGv9lRnQISZgotpVjLXPdBqm8T/HX81PD4/LazmGAXs8wLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGGKPTEW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781481977; c=relaxed/simple;
+	bh=wM1pmd/n2MEMAAgL+lxlk4EYzKHHmRQZ+o9slw24KHk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UsyW+YoSEdDwOccSjibnXL7GwFLhUEIqUrjWmm81nju9xA07a9mQuEO5IXHr4cGLyEOlsYH78eUcjFp9PXQJkfutMeuv0JbjBneTeB7LM0CbFXra8lWBtQqGWSf8A8SNY7pF1aQV7SkXl8WKv0CyoLiIvC3DDYjpfU3IzkLA5iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WFpnXeA5; arc=none smtp.client-ip=209.85.210.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGGKPTEW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D67261F000E9;
-	Sun, 14 Jun 2026 23:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781480939;
-	bh=HwahtrIYFYzKqugaWL56CI73lxnulxopgI7chTnsaho=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bGGKPTEWgbk+X/FA8FfVb/A5bg4MOSIGxVb6wCRDv1oYW/KamWsTmAh7/zOC/dE5q
-	 O/RmsEHtLDMX0eiNlyyVpDYTR3lsrNIgZKuBr0I0HbQZNzE6aaD0WBXW9UQbJX8hsd
-	 7kh7gj/B+YAHA8B24NRhXsD5vmzREDbrHJ9+db9qnFvL2GPq4ffLQr+LBP+ejaD9Me
-	 s+f9UzZYfnCMamt2dQ9ZPCMLXif/kDP9F+w7Ydm50HT7w5il/nuRPxxWuY+SPeQBa0
-	 HtF8c38hCVWQHiqTK9B5qiM9qjkqL2adlJseBatlrnck0ZX1dbyMxIoRTaaCGWwa50
-	 gNZ05fAwcEI5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/5] iio: adc: versal-sysmon: add threshold event
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Salih Erim" <salih.erim@amd.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260614233722.2603459-5-salih.erim@amd.com>
-References: <20260614233722.2603459-5-salih.erim@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 14 Jun 2026 23:48:58 +0000
-Message-Id: <20260614234858.D67261F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WFpnXeA5"
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e6da33a561so2558260a34.3
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 17:06:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781481975; x=1782086775; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ptr+qeygHzVdWEi2AIpd32uZGos4ZXKkLuroPag1QJM=;
+        b=WFpnXeA5JmNyF1Q5c2wMM9nGPzf8+viFdlk3InFmTwqWemb8E1fi0vJY+F2IaikkO/
+         SiHsecZ17sqEatMz0895YLGcSp/UOliC74SfhAkLVRnNiScrHvtRFcOUKiJFGltODTM4
+         xCnV3Ct6/gRYjKBlFQm0NL0HRngAm0g57OuzK8QafvkVHiPE8aULonGb8HVr5hEZ9g40
+         ji8ljQpfvPL/YR4k5+cPv3N1VHRCRDGVIpHjF9jUngPKJkzqWq6ms1VHDQ0k31SSqV+L
+         D2v2Tew4hygq29cltzKOlZumQK2Df07jQUN8PU3WkklHBRAB2FeCq7fd5SDmqUcNTmLI
+         bnDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781481975; x=1782086775;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ptr+qeygHzVdWEi2AIpd32uZGos4ZXKkLuroPag1QJM=;
+        b=XSjdlz7Yrk681bqyxpPhCQ99UGONaHPGs/BJZRUErpISlMyDi2fVD1g0rHaRVNt8XB
+         AhnnlxvJTsXx/+hMC9iOq/Y3O06sIlddcMl0b2MaW32huzbMOjgwi7V/f9paVdu3NXlI
+         z6o8QhWwiiIRbd1qptFSP6aruVtCS685uaxCmMGB6+/YAYkqF2cCx+15921XY2ZddztM
+         oylw4SpiTE+y9DwthuWUzOiNcKwQAow7ltIUC5FvqxK8hZ1nDOL5xOPQA521cGXrfwBF
+         cYFj75nCGTlyCdkRbv+OA7M8ucvRL9jjYpEqvtF/HHSezETv4R/c4kfeSCZs9fq+ol7x
+         +HwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ofPQ6IQMcnZfgla18iiGzIi82spFnK78FEbcTnfwM0qYkx+8DfY8cJdQMuLi+wGv3Tf0F6EjgHgCd@vger.kernel.org
+X-Gm-Message-State: AOJu0YzqTxGICjUu2o5JfvurL/k1CRnfyqLYEa2SE+BnJtySHLvrAhLA
+	XTYXdf3p13Oxw0NVhE1mLGCibwqKPkeI/oaQMKlHLZulddP2Jmk8IxcGeaeV+Wc+4Ho=
+X-Gm-Gg: Acq92OHp+D6D7L6Tc5XkSkK0FuaOw/UBnu2LHltihwSa2LnGA9AkrIR3C0g6BqGeCk5
+	OhHl1Ia97zQMfRwpKGj20icLC7/mBZ31bxGZQ6lG6kUnMG7g8k2DQRsNE2gWImxHAxZ//Ox1jMF
+	qQa5MkRly65Bi04kqNSgNmXcqO1/sIjFGs7dWa4IHozARl3y87IRe7H40Z1f516atB7s8czi/qX
+	b8jNfsOiAMSpNy9uq2Zoo1RA3QybA71N2EmUAWzJILvvbIszcREcMwP3dR5Wa64vLpX9x0kVcdw
+	opILyBMsfyKCknqtqlgo4B0Nf0kLu7U3Je6Ihc7W64n4XIqwSERScWb2QqLjNEHJkLg0HMXmnhh
+	jHqqUV9S9hnjtHdCD+Fm0LWRbyrZY/5Zqg7W+V/Syt4VUVJl3I3lqmwTPC5XozTwjVmx2pz8+is
+	XdxfIdyirC7DTYjA1gSjb4IuXRmaLpU18vvcLBMqHd4SpIuC3dNRw2Oj0NWXUEaXRzNhsfLzkc+
+	Q==
+X-Received: by 2002:a05:6830:6413:b0:7e7:7de:ca8a with SMTP id 46e09a7af769-7e784885b4dmr8823375a34.22.1781481974833;
+        Sun, 14 Jun 2026 17:06:14 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:38f2:457e:e670:19c7? ([2600:8803:e7e4:500:38f2:457e:e670:19c7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f5a1b22sm2723806a34.2.2026.06.14.17.06.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jun 2026 17:06:14 -0700 (PDT)
+Message-ID: <4fb4f7c8-0a26-4d92-a3d6-ffde82ab4df3@baylibre.com>
+Date: Sun, 14 Jun 2026 19:06:13 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] dt-bindings: iio: adc: Add TI ADS126x ADC family
+To: Kurt Borja <kuurtb@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+ <20260612-ads126x-v1-1-894c788d03ed@gmail.com>
+ <20260613-loyal-azure-goldfish-cf6d54@quoll>
+ <DJ92JT0CPSXJ.1113K3KLSRHH4@gmail.com>
+ <f13b9c55-770e-454c-9bfb-5847ff17813b@baylibre.com>
+ <DJ93WSYC3HTT.3NXQW390CLQ82@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DJ93WSYC3HTT.3NXQW390CLQ82@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Incorrect devm teardown sequence allows the delayed worker to re-e=
-nable hardware interrupts after the IRQ handler is freed, causing an unhand=
-led interrupt storm.
-- [High] Writing a supply voltage threshold replaces the entire hardware re=
-gister with the 16-bit mantissa, silently clearing the channel's format and=
- mode bits.
-- [High] Voltage threshold events are silently disabled in hardware after t=
-hey fire, making them unexpectedly one-shot.
-- [Medium] Unbounded sysfs threshold values cause signed integer overflows =
-and undefined behavior during conversion.
-- [Medium] Converting negative temperature thresholds writes 1s to the rese=
-rved upper 16 bits of the hardware threshold registers.
---
+On 6/14/26 4:57 PM, Kurt Borja wrote:
+> On Sun Jun 14, 2026 at 4:37 PM -05, David Lechner wrote:
+>> On 6/14/26 3:53 PM, Kurt Borja wrote:
+>>
+>> ...
+>>
+>>>> Not a separate device node. Fold into the parent... or explain in
+>>>> commit msg. You have entire commit msg to explain odd things.
+>>>>
+>>>> In that binding description you call it "independent", so it should have
+>>>> its own SPI chip select? Why "independent" and part of this binding?
+>>>> Maybe not independent, so basically part of this device?
+>>>
+>>> It's independent in the sense that it is a proper subdevice on the same
+>>> chip. It shares the serial interface but operates completely in
+>>> parallel.
+>>>
+>>> I decided to add a subnode because other devices might request their
+>>> io-channels and most importantly a different voltage reference might be
+>>> connected to it.
+>>>
+>>> I'll clarify this in the commmit message on the next version. Although
+>>> after seeing this submitted bindings [1], I wonder if it's a better
+>>> approach to do something like
+>>>
+>>> 	spi@0 {
+>>> 		mydevice@0 {
+>>> 			...
+>>> 			adc@0 { ... };
+>>> 			adc@1 { ... };
+>>> 		};
+>>> 	};
+>>>
+>>> Any thoughts?
+>>
+>> I don't see how this relates to the linked patch at all. The linked
+>> patch looks just like a normal DAC binding.
+> 
+> Ah, wrong link. This is the correct one [1]. The suggestion just at the
+> end.
+> 
+>>
+>> What is the point of the 2nd ADC in this chip? Is it just to be able
+>> to do simultaneous sampling of two different measurements at the same
+>> time? We have other simultaneous sampling ADC chips and just model them
+>> as a single device.
+> 
+> It does simultaneous sampling of the same channel, as well as different
+> channels. Also the secondary ADC is only 24 bit instead of 32 bit, has a
+> different noise profile and has a different PGA configuration (goes up
+> to 128 gain, instead of 32).
+> 
+> Taken from the datasheet (Section 9.3.15):
+> 
+> 	Use ADC2 to perform main channel (ADC1) cross-checking
+> 	measurements (for example, diagnostics purposes and redundant
+> 	channel measurements), system background measurements, or
+> 	temperature compensation of the primary sensor (such as
+> 	thermocouple cold junction compensation). Using data rates of
+> 	10, 100, and 400 SPS for both ADCs, ADC2 performs virtual
+> 	parallel conversions with ADC1 on the same input channel.
+> 
 
-commit 4db3b58bd3561251c48f5d1c527c846b332e37fd
-Author: Salih Erim <salih.erim@amd.com>
+Ah, that is the kind of info I was looking for.
 
-iio: adc: versal-sysmon: add threshold event support
+>>
+>> Since everything can be muxed to either ADC at runtime, I don't see
+>> any reason the devicetree should care about it. Forcing certain pins
+>> to be assigned to a certain ADC seems overly restrictive.
+>>
+>> And unless you have an application that specifically needs it, I
+>> wouldn't bother trying to implement the 2nd ADC in the IIO driver.
+>> I didn't see any hints in the datasheet as to when it would actually
+>> make sense to use this 2nd ADC. My first thought is that it might
+>> make sense to use the 2nd ADC for a 2nd buffer so that you can do
+>> 2 buffered reads at the same time. But without knowing why this chip
+>> was designed this way, I don't know if that is the right idea or not.
+> 
+> I myself don't have an application for this feature. But I don't see why
+> not adding support for this feature, given that I already implemented a
+> driver (Patch 5) and is capable, as you said, of 2 buffered reads at the
+> same time.
+> 
+> I do believe I have to explain all this better in commit messages
+> though.
 
-This commit adds threshold event support for temperature and supply voltage
-channels in the versal-sysmon driver. It enables rising thresholds and
-hysteresis for temperature channels, and rising/falling thresholds for supp=
-ly
-voltage channels. It also sets up interrupt handling, including a delayed
-worker for polling and re-arming temperature events.
+I still think we don't need anything special in the devicetree
+though. Other than #io-channels-cells = <2>; where the 2nd cell
+would be which ADC the channel is routed through when the consumer
+reads it.
 
-> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
-l-sysmon-core.c
-> index 5b7439e443fca..16feb373bc704 100644
-> --- a/drivers/iio/adc/versal-sysmon-core.c
-> +++ b/drivers/iio/adc/versal-sysmon-core.c
-[ ... ]
-> @@ -51,6 +100,16 @@ static const struct iio_chan_spec temp_channels[] =3D=
- {
->  	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
->  };
-> =20
-> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
-> +{
-> +	*val =3D (raw_data * (int)MILLI) >> SYSMON_FRACTIONAL_SHIFT;
-> +}
-> +
-> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
-> +{
-> +	*raw_data =3D (val << SYSMON_FRACTIONAL_SHIFT) / (int)MILLI;
+Otherwise, we would just have to duplicate all channels exactly
+in both the adc@0 and adc@1 node (otherwise we would just be
+making artificial limitations).
 
-[Severity: Medium]
-Will this 32-bit left shift overflow for large sysfs input values?
+> 
+>>
+>>
+>>> Ack to the rest of comments.
+>>>
+>>> [1] https://lore.kernel.org/linux-iio/20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com/
+>>>
+> 
+> [1] https://lore.kernel.org/linux-iio/25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3ce3oqzqz56ehi@le72iqv7ye3d/
+> 
 
-Since val is a 32-bit signed integer, an overflow could lead to undefined
-behavior during the conversion. Is a cast to a 64-bit integer needed before
-the arithmetic operation?
-
-[Severity: Medium]
-If a negative temperature threshold is provided, does this calculation
-sign-extend the negative integer and write 1s to the upper 16 bits?
-
-The negative 32-bit integer is stored in the u32 pointer. Later in
-sysmon_write_event_value(), this unmasked value is written directly to the
-threshold register:
-
-sysmon_write_event_value() {
-    ...
-    sysmon_millicelsius_to_q8p7(&raw_val, val);
-    ret =3D regmap_write(sysmon->regmap, SYSMON_TEMP_TH_UP, raw_val);
-    ...
-}
-
-Could this overwrite reserved hardware fields or adjacent configuration bits
-in the upper 16 bits of the register?
-
-> +}
-> +
-> +static void sysmon_supply_rawtoprocessed(int raw_data, int *val)
-> +{
-[ ... ]
-> @@ -68,6 +127,34 @@ static void sysmon_supply_rawtoprocessed(int raw_data=
-, int *val)
->  	*val =3D (mantissa * (int)MILLI) >> exponent;
->  }
-> =20
-> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_=
-data)
-> +{
-> +	int exponent =3D FIELD_GET(SYSMON_MODE_MASK, reg_val);
-> +	int format =3D FIELD_GET(SYSMON_FMT_MASK, reg_val);
-> +	int scale, tmp;
-> +
-> +	scale =3D BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
-> +	tmp =3D (val * scale) / (int)MILLI;
-
-[Severity: Medium]
-Can this 32-bit multiplication overflow when val is a large sysfs input?
-
-Since scale can be up to 65536, multiplying it by the 32-bit signed integer
-val might overflow. Should this use a 64-bit cast before the multiplication
-to prevent undefined behavior?
-
-> +
-> +	if (format)
-> +		tmp =3D clamp(tmp, S16_MIN, S16_MAX);
-> +	else
-> +		tmp =3D clamp(tmp, 0, U16_MAX);
-> +
-> +	*raw_data =3D (u16)tmp;
-
-[Severity: High]
-Does this discard the extracted mode and format bits by returning only the
-16-bit mantissa?
-
-When sysmon_write_event_value() writes this value back to the hardware, it =
-uses
-regmap_write() which overwrites the entire register:
-
-sysmon_write_event_value() {
-    ...
-    sysmon_supply_processedtoraw(val, reg_val, &raw_val);
-    return regmap_write(sysmon->regmap, offset, raw_val);
-}
-
-Will this overwrite the entire 32-bit threshold register and silently clear
-the channel's format and mode bits?
-
-> +}
-> +
-> +static int sysmon_supply_thresh_offset(int address,
-[ ... ]
-> @@ -127,24 +473,244 @@ static int sysmon_read_label(struct iio_dev *indio=
-_dev,
-[ ... ]
-> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
-> +{
-> +	u32 alarm_flag_offset =3D SYSMON_ALARM_FLAG + event * SYSMON_REG_STRIDE;
-> +	u32 alarm_reg_offset =3D SYSMON_ALARM_REG + event * SYSMON_REG_STRIDE;
-> +	struct sysmon *sysmon =3D iio_priv(indio_dev);
-> +	unsigned long alarm_flag_reg;
-> +	unsigned int reg_val;
-> +	u32 address, bit;
-> +	int ret;
-> +
-> +	switch (event) {
-> +	case SYSMON_BIT_TEMP:
-> +		sysmon_push_event(indio_dev, SYSMON_TEMP_MAX);
-> +
-> +		ret =3D regmap_write(sysmon->regmap, SYSMON_IDR, BIT(SYSMON_BIT_TEMP));
-> +		if (ret)
-> +			return ret;
-> +
-> +		sysmon->masked_temp |=3D BIT(SYSMON_BIT_TEMP);
-> +		return 0;
-> +
-> +	case SYSMON_BIT_ALARM0:
-> +	case SYSMON_BIT_ALARM1:
-> +	case SYSMON_BIT_ALARM2:
-> +	case SYSMON_BIT_ALARM3:
-> +	case SYSMON_BIT_ALARM4:
-> +		ret =3D regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		alarm_flag_reg =3D reg_val;
-> +
-> +		for_each_set_bit(bit, &alarm_flag_reg, SYSMON_ALARM_BITS_PER_REG) {
-> +			address =3D bit + SYSMON_ALARM_BITS_PER_REG * event;
-> +			sysmon_push_event(indio_dev, address);
-> +			ret =3D regmap_clear_bits(sysmon->regmap, alarm_reg_offset, BIT(bit));
-
-[Severity: High]
-Does clearing the alarm configuration bit here permanently disable the volt=
-age
-event after it fires?
-
-Unlike the temperature alarms which use a delayed worker to poll and unmask,
-there doesn't appear to be a mechanism to re-arm voltage alarms once the
-condition clears. Does this make the voltage threshold events unexpectedly
-one-shot, rather than remaining enabled until explicitly disabled by the us=
-er?
-
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		return regmap_write(sysmon->regmap, alarm_flag_offset, alarm_flag_reg);
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-[ ... ]
-> +static int sysmon_init_interrupt(struct sysmon *sysmon,
-> +				 struct device *dev,
-> +				 struct iio_dev *indio_dev,
-> +				 int irq)
-> +{
-> +	unsigned int imr;
-> +	int ret;
-> +
-> +	/* Events not supported without IRQ (e.g. I2C path) */
-> +	if (!irq)
-> +		return 0;
-> +
-> +	ret =3D devm_delayed_work_autocancel(dev, &sysmon->sysmon_unmask_work,
-> +					   sysmon_unmask_worker);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
-> +	if (ret)
-> +		return ret;
-> +	sysmon->temp_mask =3D imr & SYSMON_TEMP_INTR_MASK;
-> +
-> +	ret =3D devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", ind=
-io_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_add_action_or_reset(dev, sysmon_disable_interrupts, sysmon);
-
-[Severity: High]
-Does this devm teardown sequence allow the delayed worker to execute after =
-the
-IRQ handler has been freed?
-
-Since devm actions execute in reverse order, the IRQ is freed before the
-delayed worker is canceled. If sysmon_unmask_worker() runs during this
-window, it can unmask the hardware interrupt by calling sysmon_unmask_temp(=
-):
-
-sysmon_unmask_worker() -> sysmon_unmask_temp():
-    ...
-    regmap_write(sysmon->regmap, SYSMON_IER, unmask);
-
-Could this trigger an unhandled interrupt storm since the IRQ handler is no
-longer registered?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614233722.2603=
-459-1-salih.erim@amd.com?part=3D4
