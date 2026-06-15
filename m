@@ -1,427 +1,163 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E833BD246
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B801C3318;
+	Mon, 15 Jun 2026 08:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781511543; cv=none; b=nOrZ0NQZ9vCVnLWm3dvWqgntGVwpog+3RBm63+8dj64hcc4C5okjApkrFfHlxZlUVWr1eS30D8+vYt5aSyLUmoAAR58dVJRPyRgqwgR530vaxZMFW4O4qW1vCH8Ogft1gWwstfv6deFlUF4/Qg7F+AMe88LrOyUx+rVSLSdzaio=
+	t=1781511578; cv=none; b=sR1Gdmkbivl1xD1H1a+DiRTFQq2CJb9HzVI2qOljDUJDhfLSUCipJ7hmqNYtIiIx7J8En8CI6cuZAMdqWWhION6MJ+k8pCVxp0W3iDAksWoizxaEEHbNQ7wX1LnmTvmIj45JqUtYBV6+DhIgBtnRzlDpKql39EiHXtFYCWtdmMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781511543; c=relaxed/simple;
-	bh=XxSH6K5goIksl7xHmaNctNtLnqbjtIgJF5jSapAFvOM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=rn1sIxCUYfqNHc3r9sFcK9WM1SKB1iXq3KDriOHu5NwbtgP169gYuBqZzKe2QCksUTCwVWwy9nCRkTTamWBClaKMLEY7Hn1OyfuFcsVciO5651e3fB9yQ/seux5lFJRj0Z8WuW0aMQ6vfGvYoEWfKvjMhMCDZbD5xp8LhGjxvC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=euVI83Wp; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="euVI83Wp"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso22462715e9.1
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 01:19:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781511540; x=1782116340; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sfhjXkFiPTY3eVrBVWFAPyRxScSGPxMn/4MzjCSybWI=;
-        b=euVI83Wpwg8VOlI2JyL0kxmXXJLVXAQWdilRQP/MK07gbue6grpqGRmVDcjaLHvPst
-         qi6soXGxspWzxbMo9zKCr5ASKb+4xUti+HyBGWPY+aoPEudA2wNzkFCqBDT7VnEbxbMH
-         mJ5qTBOgDJdxchKa+D5tfUkTACisxqTsDzhwq4J1W/nDLtTYUhCyWrha4k+a7E3ZkLOQ
-         uZ7MG5IWJSe+NSSnckTN4QJ5bEM3AfIfftv4un/z5iXXcPSfzmhG79jVrpSWZOVo++Tq
-         lAzsyliPjOzA84wOon/63K2fkb3iB+iSAiVuxLjZWfYDy5BBSkXMSxG9MjB/IOqa8v/A
-         dJTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781511540; x=1782116340;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=sfhjXkFiPTY3eVrBVWFAPyRxScSGPxMn/4MzjCSybWI=;
-        b=GSsq9d5d64oMjtOaQdezan/QYRTZn7wI1H6Qvs3lsQWjH/eGOR6F3fx3HuMh0snwTT
-         owictBL4/JIKmk4vKvqaTR5Ur0B4X5mT1E42AtOCjgbkWKHCyPmRFdEtrrUy0wxxAE0y
-         PG+F6fPDlM7jmvHf6u7IgiDBzYpp/DF6g2b3EbKaBKHmusXZbxqYijCHDvT7vfLqQCdo
-         GoboZPkMzDXLy919BT2amDoo7/cldYdVMZX9FiSe8fPRlqyUcHDvLOBrX0ES62ITukbH
-         WO/fhQenlI4bsi5WMr3rKrdjQ88dRxgKWzajTV4XT2gKkH1M/LJqcJnq6A7+BSoviHjI
-         3yNA==
-X-Gm-Message-State: AOJu0YzO/ZeQHkYwkTQKUOl905MeiZPPhrWdymMDBvAl20RIvvUGAysV
-	Diy2B32cUjzLekBEP7kEMp4U27qFNcg7p7d59M2qybFSo2goib+iLsrJFdfl4LX+Rds=
-X-Gm-Gg: Acq92OHgtJdSj7rtmcalFmSjHDIwTJMXo2F47XLaPSipKR/1NphxkHvAW5asb011z0n
-	Mk3UdH4Lcjy2DuOh8l8uFGrn8Isv/ONnBgTTFpfQL6yC71rUDoewjekDlbvZq0cccjARBaDoZF8
-	17MXa5RQ1+Tt1Y1cxSQOi0HMws2qMOR0sXijUtMteuzX4lobtv12NvFnMsl8GrQ73VZBF5EsvXY
-	IPRGaisaIEN4NkLnBLhj9r9y3jdhefQKSrN45kLH3B2DZbmAnLKsRrvr4xg6PMnRHjAH/sb5LW9
-	c3J5W5r2Pi15G28Qlbum54Vg3B7IG2z1vix0wI+Jv7l0cvGbFVlNiE5E9PiQKrL9Qx+iS6B38uP
-	uy13LPnyWQTH/rz/uXCc3oqkHmJO7ZT5/19Desi29meVnmgwhlzB5nIdAF4SDtxuQxSRDwQOkD8
-	3fR5LxG5Me3n9tMhd0Rjv5OFKCBOq0Hg/hiE9m7XIYSqdaVjV/De8zsoOcsIJSlq8OnT7DlRAkE
-	hqVlAo=
-X-Received: by 2002:a05:600c:81c5:b0:490:44eb:c1e0 with SMTP id 5b1f17b1804b1-490ec5019b9mr142128755e9.21.1781511539739;
-        Mon, 15 Jun 2026 01:18:59 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:fdaf:c588:880d:106a? ([2a01:e0a:106d:1080:fdaf:c588:880d:106a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492202edf89sm249136335e9.1.2026.06.15.01.18.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 01:18:59 -0700 (PDT)
-Message-ID: <8c0c992e-5e41-4a2c-bf4b-0b6755b9659a@linaro.org>
-Date: Mon, 15 Jun 2026 10:18:58 +0200
+	s=arc-20240116; t=1781511578; c=relaxed/simple;
+	bh=esLxOdDvi2vPjMTMgqd+SoSQ1+kSVOGxdsHp7IfiPl0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QF6z1FbEVdRbGduJJi76hqbc6M6lfByT1vFIGI+0TqhR08RT8oIGN8NAkOOwUrwhauAyFG+WF5hbDon6deoG5Zlznav8DzdbJkQIMOBF+ea59DTB4BNACG8E9B3z+nL9WBEV3AHcg4tRyqYLUn3Y3pZePukR1+/5M+Uozizvlcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.167])
+	by APP-03 (Coremail) with SMTP id rQCowABHK+KAtS9qGh3KFA--.4043S2;
+	Mon, 15 Jun 2026 16:19:13 +0800 (CST)
+Message-ID: <3683c5c617324f5835529617325745ef48fa1943.camel@iscas.ac.cn>
+Subject: Re: [PATCH v4 1/6] dt-bindings: display: verisilicon, dc:
+ generalize for single-output variants
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 15 Jun 2026 16:19:11 +0800
+In-Reply-To: <20260615065003.76661-2-a0987203069@gmail.com>
+References: <20260615065003.76661-1-a0987203069@gmail.com>
+	 <20260615065003.76661-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH V7 4/6] drm/panel: anbernic-td4310: Add RG Vita Pro panel
-To: Chris Morgan <macroalpha82@gmail.com>, linux-rockchip@lists.infradead.org
-Cc: devicetree@vger.kernel.org, xsf@rock-chips.com, sre@kernel.org,
- simona@ffwll.ch, airlied@gmail.com, tzimmermann@suse.de, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, jesszhan0024@gmail.com, heiko@sntech.de,
- conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- Chris Morgan <macromorgan@hotmail.com>
-References: <20260610144407.438846-1-macroalpha82@gmail.com>
- <20260610144407.438846-5-macroalpha82@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260610144407.438846-5-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:rQCowABHK+KAtS9qGh3KFA--.4043S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtryrZr17WFW3tF1ftFy3twb_yoW7trykpF
+	4kJrWUJryxJrn5Xr18tF18AFyUJw1DJw1DJr1xXF15tr1UJr10qr1a9r1qgr13Jr48Xr1U
+	tr1UXr17Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
+	Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r
+	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
+	yTuYvjxU2H7KDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 6/10/26 16:44, Chris Morgan wrote:
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> The panel used by Anbernic in the RG Vita-Pro is a DSI panel based
-> on the TD4310 controller IC. It measures approximately 5.5 inches
-> diagonally and is 1080x1920 in resolution.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> ---
->   drivers/gpu/drm/panel/Kconfig                 |  10 +
->   drivers/gpu/drm/panel/Makefile                |   1 +
->   drivers/gpu/drm/panel/panel-anbernic-td4310.c | 257 ++++++++++++++++++
->   3 files changed, 268 insertions(+)
->   create mode 100644 drivers/gpu/drm/panel/panel-anbernic-td4310.c
-> 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index d592f4f4b939..61dd00297ecc 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -17,6 +17,16 @@ config DRM_PANEL_ABT_Y030XX067A
->   	  Y030XX067A 320x480 3.0" panel as found in the YLM RG-280M, RG-300
->   	  and RG-99 handheld gaming consoles.
->   
-> +config DRM_PANEL_ANBERNIC_TD4310
-> +	tristate "Anbernic TD4310 LCD panel"
-> +	depends on GPIOLIB && OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y here to enable support for Anbernic designed panels with the
-> +	  TD4310 panel controller such as the ones used on the Anbernic RG
-> +	  Vita Pro.
-> +
->   config DRM_PANEL_ARM_VERSATILE
->   	tristate "ARM Versatile panel driver"
->   	depends on OF
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index a4291dc3905b..9d8f70c9de3e 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -1,5 +1,6 @@
->   # SPDX-License-Identifier: GPL-2.0
->   obj-$(CONFIG_DRM_PANEL_ABT_Y030XX067A) += panel-abt-y030xx067a.o
-> +obj-$(CONFIG_DRM_PANEL_ANBERNIC_TD4310) += panel-anbernic-td4310.o
->   obj-$(CONFIG_DRM_PANEL_ARM_VERSATILE) += panel-arm-versatile.o
->   obj-$(CONFIG_DRM_PANEL_ASUS_Z00T_TM5P5_NT35596) += panel-asus-z00t-tm5p5-n35596.o
->   obj-$(CONFIG_DRM_PANEL_AUO_A030JTN01) += panel-auo-a030jtn01.o
-> diff --git a/drivers/gpu/drm/panel/panel-anbernic-td4310.c b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
-> new file mode 100644
-> index 000000000000..9a1b4525423c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
-> @@ -0,0 +1,257 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Driver for Anbernic panels with TD4310 panel controller.
-> + *
-> + * Copyright (C) 2026 Chris Morgan <macromorgan@hotmail.com>
-> + *
-> + */
-> +
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +#include <video/mipi_display.h>
-> +
-> +struct anbernic_panel_td4310_info {
-> +	const struct drm_display_mode *display_mode;
-> +	u16 width_mm;
-> +	u16 height_mm;
-> +	u32 bus_flags;
-> +	unsigned long mode_flags;
-> +	u32 format;
-> +	u32 lanes;
-> +	u16 prepare_delay;
-> +	u16 reset_delay;
-> +	u16 init_delay;
-> +	u16 enable_delay;
-> +	u16 disable_delay;
-> +	u16 unprepare_delay;
-> +};
-> +
-> +struct anbernic_panel_td4310 {
-> +	struct device *dev;
-> +	struct mipi_dsi_device *dsi;
-> +	struct drm_panel panel;
-> +	const struct anbernic_panel_td4310_info *panel_info;
-> +	struct gpio_desc *reset_gpio;
-> +	struct gpio_desc *enable_gpio;
-> +	struct regulator *vdd;
-> +	enum drm_panel_orientation orientation;
-> +};
-> +
-> +static inline struct anbernic_panel_td4310 *panel_to_anbernic_panel_td4310(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct anbernic_panel_td4310, panel);
-> +}
-> +
-> +static int panel_anbernic_td4310_prepare(struct drm_panel *panel)
-> +{
-> +	struct anbernic_panel_td4310 *ctx = panel_to_anbernic_panel_td4310(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
-> +	int ret;
-> +
-> +	ret = regulator_enable(ctx->vdd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = gpiod_set_value_cansleep(ctx->enable_gpio, 1);
-> +	if (ret)
-> +		goto err_enable;
-> +
-> +	if (ctx->panel_info->enable_delay)
-> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->enable_delay);
-> +
-> +	ret = gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	if (ret)
-> +		goto err_reset;
-> +
-> +	mipi_dsi_msleep(&dsi_ctx, 10);
-> +
-> +	ret = gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	if (ret)
-> +		goto err_reset;
-> +
-> +	if (ctx->panel_info->reset_delay)
-> +		mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->reset_delay);
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->prepare_delay);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->prepare_delay);
-> +
-> +	if (dsi_ctx.accum_err) {
-> +		ret = dsi_ctx.accum_err;
-> +		goto err_reset;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_reset:
-> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
-> +err_enable:
-> +	regulator_disable(ctx->vdd);
-> +	return ret;
-> +}
-> +
-> +static int panel_anbernic_td4310_unprepare(struct drm_panel *panel)
-> +{
-> +	struct anbernic_panel_td4310 *ctx = panel_to_anbernic_panel_td4310(panel);
-> +	struct mipi_dsi_device *dsi = ctx->dsi;
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->unprepare_delay);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, ctx->panel_info->disable_delay);
-> +
-> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +
-> +	regulator_disable(ctx->vdd);
-> +
-> +	return 0;
-> +}
-> +
-> +static int panel_anbernic_td4310_get_mode(struct drm_panel *panel,
-> +				    struct drm_connector *connector)
-> +{
-> +	struct anbernic_panel_td4310 *ctx = panel_to_anbernic_panel_td4310(panel);
-> +	const struct anbernic_panel_td4310_info *panel_info = ctx->panel_info;
-> +
-> +	connector->display_info.bpc = 8;
-> +	connector->display_info.width_mm = panel_info->width_mm;
-> +	connector->display_info.height_mm = panel_info->height_mm;
-> +	connector->display_info.bus_flags = panel_info->bus_flags;
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, panel_info->display_mode);
-> +}
-> +
-> +static enum drm_panel_orientation panel_anbernic_td4310_get_orientation(struct drm_panel *panel)
-> +{
-> +	struct anbernic_panel_td4310 *ctx = panel_to_anbernic_panel_td4310(panel);
-> +
-> +	return ctx->orientation;
-> +}
-> +
-> +static const struct drm_panel_funcs panel_anbernic_td4310_funcs = {
-> +	.prepare = panel_anbernic_td4310_prepare,
-> +	.unprepare = panel_anbernic_td4310_unprepare,
-> +	.get_modes = panel_anbernic_td4310_get_mode,
-> +	.get_orientation = panel_anbernic_td4310_get_orientation,
-> +};
-> +
-> +static int panel_anbernic_td4310_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct anbernic_panel_td4310 *ctx;
-> +	int ret;
-> +
-> +	ctx = devm_drm_panel_alloc(dev, struct anbernic_panel_td4310, panel,
-> +				   &panel_anbernic_td4310_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(ctx))
-> +		return PTR_ERR(ctx);
-> +
-> +	ctx->dev = dev;
-> +
-> +	ctx->panel_info = of_device_get_match_data(dev);
-> +	if (!ctx->panel_info)
-> +		return -EINVAL;
-> +
-> +	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to get panel orientation\n");
-> +
-> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +				     "Cannot get reset gpio\n");
-> +
-> +	ctx->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ctx->enable_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->enable_gpio),
-> +				     "Cannot get enable gpio\n");
-> +
-> +	ctx->vdd = devm_regulator_get(dev, "vdd");
-> +	if (IS_ERR(ctx->vdd))
-> +		return dev_err_probe(dev, PTR_ERR(ctx->vdd),
-> +				     "Failed to request vdd regulator\n");
-> +
-> +	ctx->dsi = dsi;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +
-> +	dsi->lanes = ctx->panel_info->lanes;
-> +	dsi->format = ctx->panel_info->format;
-> +	dsi->mode_flags = ctx->panel_info->mode_flags;
-> +
-> +	ret = drm_panel_of_backlight(&ctx->panel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	devm_drm_panel_add(dev, &ctx->panel);
-> +
-> +	ret = devm_mipi_dsi_attach(dev, dsi);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct drm_display_mode anbernic_vitapro_mode = {
-> +	.clock = 140020,
-> +	.hdisplay = 1080,
-> +	.hsync_start = 1080 + 50,
-> +	.hsync_end = 1080 + 50 + 4,
-> +	.htotal = 1080 + 50 + 4 + 50,
-> +	.vdisplay = 1920,
-> +	.vsync_start = 1920 + 15,
-> +	.vsync_end = 1920 + 15 + 4,
-> +	.vtotal = 1920 + 15 + 4 + 32,
-> +	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-> +};
-> +
-> +static const struct anbernic_panel_td4310_info anbernic_vitapro_info = {
-> +	.display_mode = &anbernic_vitapro_mode,
-> +	.width_mm = 69,
-> +	.height_mm = 121,
-> +	.bus_flags = DRM_BUS_FLAG_DE_LOW | DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> +		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET |
-> +		      MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.lanes = 4,
-> +	.prepare_delay = 50,
-> +	.reset_delay = 220,
-> +	.enable_delay = 120,
-> +	.disable_delay = 50,
-> +	.unprepare_delay = 20,
-> +};
-> +
-> +static const struct of_device_id panel_anbernic_td4310_of_match[] = {
-> +	{
-> +		.compatible = "anbernic,panel-vita-pro",
-> +		.data = &anbernic_vitapro_info,
-> +	},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, panel_anbernic_td4310_of_match);
-> +
-> +static struct mipi_dsi_driver anbernic_panel_td4310_driver = {
-> +	.driver = {
-> +		.name = "panel-anbernic-td4310",
-> +		.of_match_table = panel_anbernic_td4310_of_match,
-> +	},
-> +	.probe	= panel_anbernic_td4310_probe,
-> +};
-> +module_mipi_dsi_driver(anbernic_panel_td4310_driver);
-> +
-> +MODULE_AUTHOR("Chris Morgan <macromorgan@hotmail.com>");
-> +MODULE_DESCRIPTION("DRM driver for Anbernic TD4310 MIPI DSI panels");
-> +MODULE_LICENSE("GPL");
+5ZyoIDIwMjYtMDYtMTXkuIDnmoQgMTQ6NDkgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gVGhl
+IGV4aXN0aW5nIHNjaGVtYSBoYXJkLWNvZGVzIHRoZSBmaXZlLWNsb2NrL3RocmVlLXJlc2V0L2R1
+YWwtcG9ydAo+IHRvcG9sb2d5IG9mIHRoZSBEQzgyMDAgSVAgYmxvY2ssIHByZXZlbnRpbmcgcmV1
+c2UgZm9yIHNpbmdsZS1vdXRwdXQKPiB2YXJpYW50cyBzdWNoIGFzIHRoZSBWZXJpc2lsaWNvbiBE
+Q1VsdHJhTGl0ZSB1c2VkIGluIHRoZSBOdXZvdG9uCj4gTUEzNUQxCj4gU29DLgo+IAo+IFJld29y
+ayB0aGUgc2NoZW1hIHNvIHRoYXQgdmFyaWFudC1zcGVjaWZpYyBjb25zdHJhaW50cyBhcmUgZXhw
+cmVzc2VkCj4gdmlhCj4gYWxsT2YvaWYgYmxvY2tzOgo+IAo+IC0gQWRkIG51dm90b24sbWEzNWQx
+LWRjdSB0byB0aGUgU29DLXNwZWNpZmljIGNvbXBhdGlibGUgZW51bS7CoCBUaGUKPiDCoCBnZW5l
+cmljIHZlcmlzaWxpY29uLGRjIGZhbGxiYWNrIHJlbWFpbnMgdGhlIGRyaXZlci1iaW5kaW5nIHN0
+cmluZy4KPiAtIE1vdmUgY2xvY2sgYW5kIHJlc2V0IGl0ZW1zIGRlc2NyaXB0aW9ucyBpbnRvIHRo
+ZSBwZXItdmFyaWFudAo+IGFsbE9mL2lmCj4gwqAgYmxvY2tzOyBrZWVwIG9ubHkgbWluSXRlbXMv
+bWF4SXRlbXMgYXQgdGhlIHRvcCBsZXZlbCBzbyB0aGUgYmFzZQo+IHNjaGVtYQo+IMKgIGFjY2Vw
+dHMgYWxsIHZhcmlhbnRzLgo+IC0gUmVzdG9yZSBmdWxsIGl0ZW1zIGxpc3RzIGZvciBjbG9jay1u
+YW1lcyBhbmQgcmVzZXQtbmFtZXMgYXQgdGhlIHRvcAo+IMKgIGxldmVsIHdpdGggbWluSXRlbXMg
+c28gdGhlIG5hbWVzIGFyZSB2YWxpZGF0ZWQgYWdhaW5zdCB0aGUKPiBkZXNjcmlwdGlvbnMuCj4g
+LSBLZWVwIHBvcnRzIGluIHRoZSBnbG9iYWwgcmVxdWlyZWQgbGlzdCBhbmQga2VlcAo+IGFkZGl0
+aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZS4KPiAtIEFkZCBhbiBhbGxPZi9pZiBibG9jayBmb3IgdGhl
+YWQsdGgxNTIwLWRjODIwMDogZml2ZS1jbG9jayAoY29yZSwKPiBheGksCj4gwqAgYWhiLCBwaXgw
+LCBwaXgxKSwgdGhyZWUtcmVzZXQgKGNvcmUsIGF4aSwgYWhiKSwgcmVxdWlyZWQgcmVzZXRzLgo+
+IC0gQWRkIGFuIGFsbE9mL2lmIGJsb2NrIGZvciBudXZvdG9uLG1hMzVkMS1kY3U6IHR3by1jbG9j
+ayAoY29yZSwKPiBwaXgwKSwKPiDCoCBvbmUtcmVzZXQgKGNvcmUpLCByZXF1aXJlZCByZXNldHMu
+Cj4gCj4gU2lnbmVkLW9mZi1ieTogSm9leSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IC0t
+LQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAg
+fCA4MAo+ICsrKysrKysrKysrKysrKysrLS0KPiDCoDEgZmlsZSBjaGFuZ2VkLCA3MyBpbnNlcnRp
+b25zKCspLCA3IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQKPiBhL0RvY3VtZW50YXRpb24v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBiL0RvY3Vt
+ZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwK
+PiBpbmRleCA5ZGMzNWFiOTczZjIuLjBjNDEyODZiODIyMyAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1sCj4g
+KysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGlj
+b24sZGMueWFtbAo+IEBAIC0xNyw2ICsxNyw3IEBAIHByb3BlcnRpZXM6Cj4gwqDCoMKgwqAgaXRl
+bXM6Cj4gwqDCoMKgwqDCoMKgIC0gZW51bToKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoCAtIHRoZWFk
+LHRoMTUyMC1kYzgyMDAKPiArwqDCoMKgwqDCoMKgwqDCoMKgIC0gbnV2b3RvbixtYTM1ZDEtZGN1
+Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IHZlcmlzaWxpY29uLGRjICMgREMgSVBzIGhhdmUgZGlz
+Y292ZXJhYmxlIElEL3JldmlzaW9uCj4gcmVnaXN0ZXJzCj4gwqAKPiDCoMKgIHJlZzoKPiBAQCAt
+MjYsMTQgKzI3LDEyIEBAIHByb3BlcnRpZXM6Cj4gwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiDCoAo+
+IMKgwqAgY2xvY2tzOgo+IC3CoMKgwqAgaXRlbXM6Cj4gLcKgwqDCoMKgwqAgLSBkZXNjcmlwdGlv
+bjogREMgQ29yZSBjbG9jawo+IC3CoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVz
+IGNsb2NrCj4gLcKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogQ29uZmlndXJhdGlvbiBBSEIgYnVz
+IGNsb2NrCj4gLcKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4ZWwgY2xvY2sgb2Ygb3V0cHV0
+IDAKPiAtwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQgMQoK
+Q2xvY2sgZGVzY3JpcHRpb25zIHNob3VsZCBzdGlsbCBiZSBpbiB0aGUgZ2xvYmFsIHBhcnQgaW5z
+dGVhZCBvZiB0aGUKcGVyLWNvbXBhdGlibGUgcGFydC4KCkluIHRoZSBwZXItY29tcGF0aWJsZSBw
+YXJ0LCBjbG9jay1uYW1lcyBzaG91bGQgYmUgY29uc3RyYWludCBmb3IgU29Dcy4KCj4gK8KgwqDC
+oCBtaW5JdGVtczogMgo+ICvCoMKgwqAgbWF4SXRlbXM6IDUKPiDCoAo+IMKgwqAgY2xvY2stbmFt
+ZXM6Cj4gK8KgwqDCoCBtaW5JdGVtczogMgo+ICvCoMKgwqAgbWF4SXRlbXM6IDUKPiDCoMKgwqDC
+oCBpdGVtczoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogY29yZQo+IMKgwqDCoMKgwqDCoCAtIGNv
+bnN0OiBheGkKPiBAQCAtNDIsMTIgKzQxLDE2IEBAIHByb3BlcnRpZXM6Cj4gwqDCoMKgwqDCoMKg
+IC0gY29uc3Q6IHBpeDEKPiDCoAo+IMKgwqAgcmVzZXRzOgo+ICvCoMKgwqAgbWluSXRlbXM6IDEK
+PiArwqDCoMKgIG1heEl0ZW1zOiAzCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0g
+ZGVzY3JpcHRpb246IERDIENvcmUgcmVzZXQKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjog
+RE1BIEFYSSBidXMgcmVzZXQKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogQ29uZmlndXJh
+dGlvbiBBSEIgYnVzIHJlc2V0Cj4gwqAKPiDCoMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqAgbWlu
+SXRlbXM6IDEKPiArwqDCoMKgIG1heEl0ZW1zOiAzCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKg
+wqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTU5
+LDcgKzYyLDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+IMKgwqDCoMKg
+wqDCoCBwb3J0QDA6Cj4gwqDCoMKgwqDCoMKgwqDCoCAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1s
+Iy9wcm9wZXJ0aWVzL3BvcnQKPiAtwqDCoMKgwqDCoMKgwqAgZGVzY3JpcHRpb246IFRoZSBmaXJz
+dCBvdXRwdXQgY2hhbm5lbCAsIGVuZHBvaW50IDAgc2hvdWxkIGJlCj4gK8KgwqDCoMKgwqDCoMKg
+IGRlc2NyaXB0aW9uOiBUaGUgZmlyc3Qgb3V0cHV0IGNoYW5uZWwsIGVuZHBvaW50IDAgc2hvdWxk
+IGJlCgpJZiB5b3UgcmVhbGx5IHdhbnQgdG8gZml4IHRoaXMsIHBsZWFzZSBtYWtlIGl0IGEgc2Vw
+YXJhdGVkIHBhdGNoCmluc3RlYWQgb2YgZG9pbmcgaXQgaGVyZSwgZm9yIGNvbW1pdCBhdG9taWNp
+dHkuCgpUaGFua3MsCkljZW5vd3kKCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgdXNlZCBmb3IgRFBJ
+IGZvcm1hdCBvdXRwdXQgYW5kIGVuZHBvaW50IDEgc2hvdWxkIGJlIHVzZWQKPiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBmb3IgRFAgZm9ybWF0IG91dHB1dC4KPiDCoAo+IEBAIC03Nyw2ICs4MCw2OSBA
+QCByZXF1aXJlZDoKPiDCoMKgIC0gY2xvY2stbmFtZXMKPiDCoMKgIC0gcG9ydHMKPiDCoAo+ICth
+bGxPZjoKPiArwqAgLSBpZjoKPiArwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKg
+wqDCoCBjb21wYXRpYmxlOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgY29udGFpbnM6Cj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgY29uc3Q6IHRoZWFkLHRoMTUyMC1kYzgyMDAKPiArwqDCoMKgIHRo
+ZW46Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzOgo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDUKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1h
+eEl0ZW1zOiA1Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBpdGVtczoKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2NrCj4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgLSBkZXNjcmlwdGlvbjogRE1BIEFYSSBidXMgY2xvY2sKPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBDb25maWd1cmF0aW9uIEFIQiBidXMgY2xvY2sKPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQg
+MAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IFBpeGVsIGNsb2NrIG9m
+IG91dHB1dCAxCj4gKwo+ICvCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiArwqDCoMKgwqDC
+oMKgwqDCoMKgIG1pbkl0ZW1zOiA1Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogNQo+
+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRl
+bXM6IDMKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAzCj4gKwo+ICvCoMKgwqDCoMKg
+wqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogMwo+ICsKPiArwqDCoMKgwqDCoCByZXF1aXJlZDoK
+PiArwqDCoMKgwqDCoMKgwqAgLSByZXNldHMKPiArwqDCoMKgwqDCoMKgwqAgLSByZXNldC1uYW1l
+cwo+ICsKPiArwqAgLSBpZjoKPiArwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKg
+wqDCoCBjb21wYXRpYmxlOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgY29udGFpbnM6Cj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgY29uc3Q6IG51dm90b24sbWEzNWQxLWRjdQo+ICvCoMKgwqAgdGhl
+bjoKPiArwqDCoMKgwqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogMgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4
+SXRlbXM6IDIKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGl0ZW1zOgo+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIC0gZGVzY3JpcHRpb246IERDIENvcmUgY2xvY2sKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQgMAo+ICsKPiArwqDCoMKg
+wqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogMgo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDIKPiArCj4gK8KgwqDCoMKgwqDCoMKgIHJl
+c2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAxCj4gK8KgwqDCoMKgwqDCoMKg
+wqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogMQo+ICsKPiArwqDCoMKgwqDCoCByZXF1aXJlZDoK
+PiArwqDCoMKgwqDCoMKgwqAgLSByZXNldHMKPiArwqDCoMKgwqDCoMKgwqAgLSByZXNldC1uYW1l
+cwo+ICsKPiDCoGFkZGl0aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQo+IMKgCj4gwqBleGFtcGxlczoK
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Thanks,
-Neil
