@@ -1,66 +1,67 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301C92DECA1
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9DE3B71C0
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781560875; cv=none; b=EWJXRAWsFvP3UvdE2z0Nvb+ODWUN3GeuHezx5qHRz+e2laH7hOaWYYNrG+6D5sbPqlXyEAsM4dIg2P0Zl4S5b+5/37goUpe02C3cAED1ouIH1HCWrBza1OUQ5CxkaRI+XvSjAYlF+CsS85ERluRlyIhFV+9d7PbLhC3qWpGcnz4=
+	t=1781560877; cv=none; b=B0xCWHSAdzI1AjW4WUvwbXlPL+9tiYXRdeLipq4fYhvkz6VDQRKuqc8F5Abhapl1jfcWtYkV30mjZB+RiwazPDy7SE4DMlXFVFl4yLh+3Ol3vsySZ2GtGDeXwjCr736dkQCr9yKyQsUTGM+1MhMomkGUmOnL/Qoc6WABc/SK7ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781560875; c=relaxed/simple;
-	bh=oB81RdQ3Jp0/L98SYuih+EtVe425Glj6LB4b/2sKKmU=;
+	s=arc-20240116; t=1781560877; c=relaxed/simple;
+	bh=9Ox9qMzTcOLYvYMxwoNwTWwBTiqAfc826z+sSqFU7wE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nIrUcSBasawuZmQE6RaCsRRnOx572FTN217UE/IFnTSYv2n306heHIBQkxs9zfazOgH0G4jQ8pCNQkSvc/hJf8K7uvHSeIE+WqT+n/Isjv0On5yA1mSmkJamr1kgcL1fTTRSDihmHrRgjcRZtrAwsONV0IaaA70UX5Asfxt1UY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=E4BLQ2+L; arc=none smtp.client-ip=209.85.160.49
+	 In-Reply-To:To:Cc; b=eawXqU8xBe7+ogWVNmoxnKhQeox2DTmR5KAV/WyNmpsWHhWwfbKgHjCHAeUZfXjRgI3PNfciW4Je2dCRfnK1+byC2UKCQcLJK1+HpZl6rPmop5J7xYC2z8xUPidj0JpxGlzv/OpVcRhnvaP3lVXFG/gyEnWOpjwuy7fO3wJDfEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KFHI7hg1; arc=none smtp.client-ip=209.85.160.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="E4BLQ2+L"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-43d34292872so1831196fac.0
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:01:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KFHI7hg1"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-43bf9548df4so2358992fac.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:01:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781560873; x=1782165673; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781560874; x=1782165674; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=cCjOZHNaP5yGs5ZTh8/uUhbONHspfiRjpCm/YCT/xlM=;
-        b=E4BLQ2+LG6R9lcm4x7i7VPz35mfhvu3JUTm6zEtr9z/rvlv+zX7kgRuO+Sv7rGbJFm
-         FeIHykYHa98ecn8QUr5HxLlZ00nKOlJ4kPz0klH75tz9a5pMZ0fbvF8i6ToHvPrRTIB+
-         1FBKj24LQ7GvTNEi9NxAvPBtO8rz0RmBVaHIjbL0+VKE7ftiuCVjTFlAonvlCfd25Sip
-         ZcokGXLH5l86ZTWRwEUCnGFGgv6QPDHK3vKBnIVzV49bGG8zIh6do36UEKOb07evgk43
-         pR4dGRwB7a0k1h6vXilZpRPi+zHMR7hI0QJPCy8lyZXRkI+qn7zouOAjaeSMYhheD0zc
-         HeYQ==
+        bh=TxwcdgK6UCUPMSSCo1Vbtj6IzuBL775/aR0ilNqdq3Q=;
+        b=KFHI7hg1nQBrYGppxMtgImzMUn6+zge+/3KarUsITpKao3qPWdLuBNgijAi4dswHtR
+         4FdfjyPopBiNBs6FuQm3yoAuDxkMlfidnvSYuHGPf+H6MUoTB8QaxJjrrlNlWQBU941s
+         sib49gGHZcTrtKr9vw2o5+JSSP6ngctEGiGpmtYFdmZR7k7mcRZifeO3ePVaJ2CUUY98
+         lhYCPpLO1asrQ0b3aNwR+fhBTH3JmZ2iWObqv+tN7EjJw+Uvb1nPgJ1B5r1bX6CtQUCn
+         1MeXSCKQFwc13XRm6JMWa2G0ynL8arvRdThL/6+CnfRVwmSltHenuB5qlOvPvNz1k/6M
+         y9og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781560873; x=1782165673;
+        d=1e100.net; s=20251104; t=1781560874; x=1782165674;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=cCjOZHNaP5yGs5ZTh8/uUhbONHspfiRjpCm/YCT/xlM=;
-        b=q+HgLyvYZn1fUmk9NjWKI3E359mn+sKf9gf/9BGhTl6BuoB1UNvjIFJuDKqxbt80uH
-         QHJoek2e1zy4TSaX08eRP4KrUlWrKDmlu5iQeAtxkUe7Qb5JxTxqBsKVBsFzJwI8GhpA
-         RuQO1TvwFG5a8vuSBGtrwqe/dpLnEjumj1MslW31Xa/RfI/VcUCBw9CD/PUo3r1jHp4N
-         8D0bhIfy6KyYJAQUwoQUacsJ2joBvd7fICecAYKSoAIkNkDL/mo4KI9xvRxDUCmFqCpQ
-         SuXKhrpppQNQ7HzqkEutI+60M6Nph7f67gORbONsVBhUHf35cc43S+qLXqDggVMsNfM9
-         JyEg==
-X-Forwarded-Encrypted: i=1; AFNElJ8W0UH4ajucXTCjtSOFyArVO5iD7PoSwxC3d9u9LFbu7iT7RLrl1G4BpKOd5jOz5JcvaXG9yQ5uROTh@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTvHNPzfKcgDx0OkIYcpg69jsgaCSse2eSSdgi6rEKZvkZRiGn
-	VvCFoJ7/iYvqB+PhDOlrZwAE2LwdyznplYrwRU7mKO0YtKS0YO1Ha2nJO1YTO7nSieE=
-X-Gm-Gg: Acq92OEbiMEOOiGwpDU7S9vMI/XU+J83E8v46lbjWFOw3kf3mocKOAxeRifaZivn+Ca
-	RZyhczm/qs9bK8SX7uGxVz3qJ5h8RYnN9iv0XDEGJ0pkAUsDaX+eUN65olKZFiPtAztwniFu/dB
-	dbfraVaE8xy5MjeICu/nwzbu9556C4d9iSLRFP/FTDWm2IQ6BpjWs7n11E656BiB7B6EE7phiQa
-	hwvmqnNlhqr4I/ViSla+4GODsqIhYBHP20p0PB/iUZkgp2ATo0b1xG1p/4CGFeJFQX70W1131Zy
-	x1tP64grhX2GZTUtSobrosIahwYTVFx2bB5QJXOPcQc9UXOYkp52cy6TVBzb9ofoOa2vecz0nX/
-	1y4/N4P0+lxZakqlVvYvUfB6gZHbLsM1ix/onXbcqFRXVTvEneTDa1zlLB8PUo7/xnwadztdw72
-	IuGYLiNE4cLMqaqVeARV/bWc5u/dhlp0P+8UkdINk=
-X-Received: by 2002:a05:6870:6c15:b0:442:5f16:ab9 with SMTP id 586e51a60fabf-4426dd5ac69mr11259963fac.12.1781560872545;
-        Mon, 15 Jun 2026 15:01:12 -0700 (PDT)
+        bh=TxwcdgK6UCUPMSSCo1Vbtj6IzuBL775/aR0ilNqdq3Q=;
+        b=WJ+QgPOleBo62Ky3MTt/PSgiAKqs2Yw0ETEdCmvEO5tmSJHZhi3QiQaf8kPaVVEkiZ
+         jMOdDzh6zQTPmvdN3RaReaYpJ88CpHkr3ox/YZOcbMFurER9lc6pYsbvD/VqYbNQfopd
+         pnYizXwlH1oXaNMvt3Y6MqeVDlWkNVFFz6H/cXc6lEFS7G4j40hWb7h4zZw2miRtIdA4
+         Tnuw/CBKZk+5Y916mKXagnUsLZhGYHGDYi5ROpnQPjYu5l3RK8XXTflV7Wb1uilM156m
+         RbZxag9iCJ+hDypHd4d3d/IU9FguIplWpAmfvZNeAn3H700VPn3hi+LjLOj4OhwHdIGf
+         NnqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ981s5BY254VhARVKJ3OYM6QogEL3l+pjuJpFeFJOA5D45qx5smOsD4MrBvYfOxkzFYnhO9AYZTFbyy@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIookzvJ4YdYPawVjmqXnWelbyOiwqKmjlWpMOLL/clwP6w6Bd
+	soB3yZW1tG4mTgCXAULmQ5E/cJWEprhvEn17CUku4mMXiYzA83qCxsqpQDtKWqHd/dg=
+X-Gm-Gg: Acq92OHCUcYzW9TREAAjifQhuZWoOmqxVZLGBh98/i3Jr89w9mDtGwMBKDxdvLeqdSC
+	geh9FYdRjK/NgTm7BxgWzpKZP+wTFNMPj5Tvv7M92vGwa4Y1DQtzUYxitxwyFWxIC6RJPKZcUwd
+	ZibWBpjlF5w+PQzyW2B6ka5YLNd/bRFTFbb5lp9tVYmvJty/vrlzyAD0V7KMlfaslwl5dEQ27Ag
+	VkmbZat/5YzlwN4Veaqj71MfwO1XEzZj5aYo30PY6sgI+Smr1lCnoJHO7qmY5oHSVyY82pBHsUm
+	X3+/yEvEXkjbqU5eNSLp3tuJgOpXUC/Lx/5UeIQtfDREF+WpXl5hfKcgFb074s9ayjyC/3Zpy2d
+	Z/sZlNTHRFvE+i6CbiU1jtME9hin4MQfP/d2eR52b5mhN0CkC/teu5DWF9uvkT/RkE0LMCoHPsC
+	zb5T3HubPQaNeNkI/7FDrdASq+RS7ejludWByxRP0=
+X-Received: by 2002:a05:6871:8304:b0:43d:1151:3742 with SMTP id 586e51a60fabf-4426dce80f7mr9940706fac.8.1781560874437;
+        Mon, 15 Jun 2026 15:01:14 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308fd9221sm826145fac.15.2026.06.15.15.01.11
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308fd9221sm826145fac.15.2026.06.15.15.01.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 15:01:12 -0700 (PDT)
+        Mon, 15 Jun 2026 15:01:14 -0700 (PDT)
 From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Mon, 15 Jun 2026 16:59:59 -0500
-Subject: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
+Date: Mon, 15 Jun 2026 17:00:01 -0500
+Subject: [PATCH 3/4] iio: adc: ti-ads112c14: implement gain on internal
+ short SYS_MON channel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
+Message-Id: <20260615-iio-adc-ti-ads122c14-v1-3-e6bdadf7cb2b@baylibre.com>
 References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
 In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -81,306 +82,238 @@ Cc: Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
  linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8417; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=oB81RdQ3Jp0/L98SYuih+EtVe425Glj6LB4b/2sKKmU=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqMHYMw0A0zsdRToUZqkZNf+N2mSdyJ8YqvF2FN
- M6CdAZp4byJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCajB2DAAKCRDCzCAB/wGP
- wAaYB/0WsY8SLzrtkpv7CF6YZ5xKe1xa3c5VA+wGIkrTvV6zkF5gazCkxVOh+arUvubkJ6SbZ5M
- 6/5NJD2vP1xTFIOkhSG6SAvy8lJzgILWjInljWrvRVP3uzCyXcOPgAnCtHz2AfgzoQseXBlnIxv
- AGBiuqyaf7uZxqSwsFCgk61pwyOJOai1hDqYhELtfRop5Yjt8PFFmYrzE/GIo88jwcd87ErckAr
- D0ZSuGDCzkBrZ3tOdQ3oVuDDgDiUWBY0F30l4rUlNOARDn3WL546p0dhPquC8rQ174v/RIXqDWa
- 6hcAveTFcMgF5XReNqsK96GVBCOt2CsSt+KsL4Wk5925ZvsZ
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7003; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=9Ox9qMzTcOLYvYMxwoNwTWwBTiqAfc826z+sSqFU7wE=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqMHYZgdq/W3jr85DkY6Ctxr7aN2mWVHD2XuWVl
+ +EcnLY/j9GJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCajB2GQAKCRDCzCAB/wGP
+ wG95B/9X1jYmdmIPzw4jhD4dL2slTwgtK7d1CVy3jkLA9Otc+pAD0L7VTkctT8W+VTk1Q6fmYjl
+ DFZA76o60ZWpUxGOf9cAwvUxj5Sq3iRhU6eYpRJSEnnLr+wGGVP0mryrE8YMMbkr+Q0+Zwo2Nxw
+ +7drIuHBnlHajgjPWf8tA+flQqB/wmrDZsgPxzy55F+VZns8pzsg3nXRT7EE1fsjnRu9NQZl84W
+ Xo2qgviPmFavo3KG5CsBrj4agE6UYkxgcdq6Fidx6UP0Aisvjdqyy6HGrb2H4nWW46k+R1v4ptB
+ ZS9PMRQPrheX3srX+A2Vtq/nZf0pZiLHe0yy2jWCG1Oh9YQm
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Add new bindings for ti,ads122c14 and similar devices.
+Implement support for the programmable gain amplifier on the internal
+short SYS_MON channel. This channel is used for calibration, so it is
+useful to be able to set the PGA to the same gain as the external
+channels. The gain setting is implemented via the `_scale` attribute.
 
-This is an ADC that is primarily intended for use with temperature
-sensors. There are a few unusual properties because of this. In
-particular, the reference voltage source and current output requirements
-can be different for each measurement, so these are included in the
-channel bindings.
-
-The REFP/REFN reference voltage is usually just connected to a resistor
-that is being driven by the ADC's current outputs, so there is special
-property for this case rather than requiring a regulator to be defined
-to represent that.
-
-ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
-have preferred an enum of strings).
+In the future, we may want to support different reference voltages for
+this channel, so the scale_available table is populated during probe
+rather than being a static table.
 
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
- .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 224 +++++++++++++++++++++
- MAINTAINERS                                        |   7 +
- include/dt-bindings/iio/adc/ti,ads112c14.h         |  11 +
- 3 files changed, 242 insertions(+)
+ drivers/iio/adc/ti-ads112c14.c | 131 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 128 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-new file mode 100644
-index 000000000000..dc7f37cad772
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-@@ -0,0 +1,224 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/ti,ads112c14.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments' ADS112C14 and similar ADC chips
-+
-+description: |
-+  Supports the following Texas Instruments' ADC chips:
-+  - ADS112C14 (16-bit)
-+  - ADS122C14 (24-bit)
-+
-+  https://www.ti.com/lit/ds/symlink/ads122c14.pdf
-+
-+  These chips are primarily designed for use with temperature sensors such as
-+  RTDs and thermocouples. The channel bindings reflect this in that each channel
-+  represents the conditions required to make a measurement rather than strictly
-+  just the physical input channels.
-+
-+maintainers:
-+  - David Lechner <dlechner@baylibre.com>
-+
-+unevaluatedProperties: false
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,ads112c14
-+      - ti,ads122c14
-+
-+  reg:
-+    items:
-+      - minimum: 0x40
-+        maximum: 0x47
-+
-+  clocks:
-+    maxItems: 1
-+    description: Optional external clock connected to GPIO3 pin.
-+
-+  avdd-supply: true
-+  dvdd-supply: true
-+
-+  refp-supply: true
-+  refn-supply: true
-+
-+  refp-refn-resistor-ohms:
-+    description:
-+      The resistance of the external resistor between REFP and REFN when using
-+      resistor bridge driven by current outputs for RTD measurements.
-+
-+  interrupts:
-+    minItems: 1
-+    items:
-+      - description: FAULT interrupt (GPIO2 pin)
-+      - description: DRDY interrupt (GPIO3 pin)
-+
-+  interrupt-names:
-+    minItems: 1
-+    maxItems: 2
-+    items:
-+      enum: [fault, drdy]
-+
-+  gpio-controller: true
-+  '#gpio-cells':
-+    const: 2
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+patternProperties:
-+  ^channel@[0-7]$:
-+    $ref: adc.yaml
-+
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        maximum: 16 # arbitrary limit, channel@ can be any combination of AIN0-AIN7
-+
-+      single-channel:
-+        maximum: 7
-+
-+      diff-channels:
-+        items:
-+          maximum: 7
-+
-+      bipolar:
-+        description:
-+          Set this flag if the differential input can be negative.
-+
-+      excitation-channels:
-+        description: AINx pins used as current output.
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+        minItems: 1
-+        maxItems: 2
-+        items:
-+          maximum: 7
-+
-+      excitation-current-microamp:
-+        description: The current output of the excitation channels in microamps.
-+        minimum: 1
-+        maximum: 1000
-+
-+      current-chopping:
-+        $ref: /schemas/types.yaml#/definitions/flag
-+        description:
-+          If provided, the two excitation channels are to be used with current
-+          chopping enabled.
-+
-+      ti,vref-source:
-+        description: |
-+          Indicates the source for the reference voltage for this channel.
-+          0 - Internal 2.5V reference
-+          1 - Internal 1.25V reference
-+          2 - External reference (REFP-REFN)
-+          3 - AVDD as reference
-+
-+          For convenience, macros for these values are available in
-+          dt-bindings/iio/adc/ti,ads112c14.h.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        maximum: 3
-+        default: 0
-+
-+    dependencies:
-+      excitation-channels: [ excitation-current-microamp ]
-+      excitation-current-microamp: [ excitation-channels ]
-+      current-chopping: [ excitation-channels ]
-+
-+    oneOf:
-+      - required: [ single-channel ]
-+      - required: [ diff-channels ]
-+
-+required:
-+  - compatible
-+  - reg
-+  - avdd-supply
-+  - dvdd-supply
-+
-+dependencies:
-+  refn-supply: [ refp-supply ]
-+
-+allOf:
-+  - oneOf:
-+      - required: [ refp-supply ]
-+      - required: [ refp-refn-resistor-ohms ]
-+      - properties:
-+          refp-supply: false
-+          refn-supply: false
-+          refp-refn-resistor-ohms: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/iio/adc/ti,ads112c14.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@40 {
-+            compatible = "ti,ads112c14";
-+            reg = <0x40>;
-+
-+            avdd-supply = <&avdd>;
-+            dvdd-supply = <&dvdd>;
-+
-+            /* 3-Wire RTD: Two IDACs, One Measurement (AIN1-AIN2) */
-+
-+            refp-refn-resistor-ohms = <500>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            channel@0 {
-+              reg = <0>;
-+              diff-channels = <1>, <2>;
-+              excitation-channels = <0>, <3>;
-+              excitation-current-microamp = <500>;
-+              current-chopping;
-+              ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
-+              label = "rtd";
-+            };
-+        };
-+    };
-+  - |
-+    #include <dt-bindings/iio/adc/ti,ads112c14.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        adc@40 {
-+            compatible = "ti,ads112c14";
-+            reg = <0x40>;
-+
-+            avdd-supply = <&avdd>;
-+            dvdd-supply = <&dvdd>;
-+
-+            /* Resistive Bridge Measurement With a Thermistor for Temperature Compensation*/
-+
-+            refp-supply = <&avdd>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            channel@0 {
-+              reg = <0>;
-+              diff-channels = <6>, <7>;
-+              bipolar;
-+              ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
-+              label = "bridge";
-+            };
-+
-+            channel@1 {
-+              reg = <1>;
-+              diff-channels = <1>, <2>;
-+              ti,vref-source = <ADS112C14_VREF_SOURCE_INTERNAL_2_5V>;
-+              label = "thermistor";
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f1caa6e5198b..9ce7c61b0c14 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26911,6 +26911,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/adc/ti,ads1119.yaml
- F:	drivers/iio/adc/ti-ads1119.c
+diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+index 97097ae2a487..202a449b4234 100644
+--- a/drivers/iio/adc/ti-ads112c14.c
++++ b/drivers/iio/adc/ti-ads112c14.c
+@@ -122,6 +122,26 @@
  
-+TI ADS112C14 ADC DRIVER
-+M:	David Lechner <dlechner@baylibre.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-+F:	include/dt-bindings/iio/adc/ti,ads112c14.h
+ #define ADS112C14_REG_REG_MAP_CRC			0x0F
+ 
++/* Available gains as tenths (x10) */
++static const u32 ads112c14_pga_gains_x10[] = {
++	5, /* 0.5 */
++	10, /* 1 */
++	20, /* 2 */
++	40, /* 4 */
++	50, /* 5 */
++	80, /* 8 */
++	100, /* 10 */
++	160, /* 16 */
++	200, /* 20 */
++	320, /* 32 */
++	500, /* 50 */
++	640, /* 64 */
++	1000, /* 100 */
++	1280, /* 128 */
++	2000, /* 200 */
++	2560, /* 256 */
++};
 +
- TI ADS1018 ADC DRIVER
- M:	Kurt Borja <kuurtb@gmail.com>
- L:	linux-iio@vger.kernel.org
-diff --git a/include/dt-bindings/iio/adc/ti,ads112c14.h b/include/dt-bindings/iio/adc/ti,ads112c14.h
-new file mode 100644
-index 000000000000..96906642fe41
---- /dev/null
-+++ b/include/dt-bindings/iio/adc/ti,ads112c14.h
-@@ -0,0 +1,11 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+ static bool ads112c14_writeable_reg(struct device *dev, unsigned int reg)
+ {
+ 	switch (reg) {
+@@ -181,6 +201,8 @@ struct ads112c14_data {
+ 	const struct ads112c14_chip_info *chip_info;
+ 	struct i2c_client *client;
+ 	struct regmap *regmap;
++	u8 sys_mon_chan_short_gain_val;
++	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
+ };
+ 
+ /* Maps REF_VAL to microvolts. */
+@@ -239,21 +261,28 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.address = 1,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+ 				    | BIT(IIO_CHAN_INFO_SCALE),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
+ 	},
+ };
+ 
+ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
+ 					     const struct iio_chan_spec *chan)
+ {
++	u32 gain_val;
+ 	int ret;
+ 
+-	/* TODO: GAIN is useful for shorted PGA inputs. */
+-	/* All SYS_MON channels use GAIN of 1 to keep it simple. */
++	/*
++	 * All SYS_MON channels use GAIN of 1 to keep it simple. Other than
++	 * the internal short channel, where it is useful in practice.
++	 */
++	gain_val = chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT ?
++		   data->sys_mon_chan_short_gain_val : 1;
 +
-+#ifndef _DT_BINDINGS_TI_ADS112C14_H
-+#define _DT_BINDINGS_TI_ADS112C14_H
+ 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
+ 				 ADS112C14_GAIN_CFG_SYS_MON |
+ 				 ADS112C14_GAIN_CFG_GAIN,
+ 				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, chan->address) |
+-				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, 1));
++				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN, gain_val));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -366,6 +395,17 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
+ 			return IIO_VAL_FRACTIONAL_LOG2;
+ 		}
+ 
++		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
++			int *scale_avail = data->sys_mon_chan_short_scale_available[
++				data->sys_mon_chan_short_gain_val
++			];
 +
-+#define ADS112C14_VREF_SOURCE_INTERNAL_2_5V	0
-+#define ADS112C14_VREF_SOURCE_INTERNAL_1_25V	1
-+#define ADS112C14_VREF_SOURCE_EXTERNAL		2
-+#define ADS112C14_VREF_SOURCE_AVDD		3
++			*val = scale_avail[0];
++			*val2 = scale_avail[1];
 +
-+#endif /* _DT_BINDINGS_TI_ADS112C14_H */
++			return IIO_VAL_INT_PLUS_NANO;
++		}
++
+ 		*val = vref_uV / (MICRO / MILLI);
+ 		/*
+ 		 * Last 3 SYS_MON channels (ext ref, AVDD, DVDD) need to be
+@@ -387,6 +427,61 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
+ 	}
+ }
+ 
++static int ads112c14_read_avail(struct iio_dev *indio_dev,
++				const struct iio_chan_spec *chan, const int **vals,
++				int *type, int *length, long mask)
++{
++	struct ads112c14_data *data = iio_priv(indio_dev);
++
++	switch (chan->channel) {
++	case ADS112C14_SYS_MON_CHANNEL_SHORT:
++		*vals = (const int *)data->sys_mon_chan_short_scale_available;
++		*length = 2 * ARRAY_SIZE(data->sys_mon_chan_short_scale_available);
++		*type = IIO_VAL_INT_PLUS_NANO;
++		return IIO_AVAIL_LIST;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ads112c14_write_raw(struct iio_dev *indio_dev,
++			       struct iio_chan_spec const *chan, int val,
++			       int val2, long mask)
++{
++	struct ads112c14_data *data = iio_priv(indio_dev);
++
++	switch (chan->channel) {
++	case ADS112C14_SYS_MON_CHANNEL_SHORT: {
++		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
++		if (IIO_DEV_ACQUIRE_FAILED(claim))
++			return -EBUSY;
++
++		for (u32 i = 0; i < ARRAY_SIZE(data->sys_mon_chan_short_scale_available); i++) {
++			if (val == data->sys_mon_chan_short_scale_available[i][0] &&
++			    val2 == data->sys_mon_chan_short_scale_available[i][1]) {
++				data->sys_mon_chan_short_gain_val = i;
++				return 0;
++			}
++		}
++		return -EINVAL;
++	}
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ads112c14_write_raw_get_fmt(struct iio_dev *indio_dev,
++				       struct iio_chan_spec const *chan,
++				       long mask)
++{
++	switch (mask) {
++	case IIO_CHAN_INFO_SCALE:
++		return IIO_VAL_INT_PLUS_NANO;
++	default:
++		return IIO_VAL_INT_PLUS_MICRO;
++	}
++}
++
+ static int ads112c14_read_label(struct iio_dev *indio_dev,
+ 				struct iio_chan_spec const *chan, char *label)
+ {
+@@ -418,9 +513,34 @@ static int ads112c14_read_label(struct iio_dev *indio_dev,
+ 
+ static const struct iio_info ads112c14_info = {
+ 	.read_raw = ads112c14_read_raw,
++	.read_avail = ads112c14_read_avail,
++	.write_raw = ads112c14_write_raw,
++	.write_raw_get_fmt = ads112c14_write_raw_get_fmt,
+ 	.read_label = ads112c14_read_label,
+ };
+ 
++static void ads112c14_populate_tables(struct ads112c14_data *data)
++{
++	u32 vref_uV, fsr_bits;
++	int i;
++
++	/* For now, assuming we are using 2.5V reference. */
++	vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V];
++	fsr_bits = data->chip_info->resolution_bits - 1;
++
++	for (i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
++		int *scale_avail = &data->sys_mon_chan_short_scale_available[i][0];
++		u32 gain_x10 = ads112c14_pga_gains_x10[i];
++
++		/* NB: slightly odd arrangement to avoid overflow. */
++		scale_avail[0] = div_u64_rem(div_u64((u64)NANO * 10 /
++						     (MICRO / MILLI) * vref_uV /
++						     gain_x10,
++						     BIT(fsr_bits)),
++					     NANO, &scale_avail[1]);
++	}
++}
++
+ static int ads112c14_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -472,6 +592,9 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
+ 		return dev_err_probe(dev, -EIO, "reset failed\n");
+ 
++	/* Default gain after reset is 1. */
++	data->sys_mon_chan_short_gain_val = 1;
++
+ 	/*
+ 	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
+ 	 * that happens on every reset.
+@@ -488,6 +611,8 @@ static int ads112c14_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	ads112c14_populate_tables(data);
++
+ 	indio_dev->name = info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->channels = ads112c14_sys_mon_channels;
 
 -- 
 2.43.0
