@@ -1,86 +1,76 @@
-Received: from r3-71.sinamail.sina.com.cn (r3-71.sinamail.sina.com.cn [202.108.3.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAFD3DA7F5
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 10:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA28B79CD;
+	Mon, 15 Jun 2026 10:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781518481; cv=none; b=gWzqiMPs46I4kVfx+y9NR35o2iPuSkaN29jD6rux+Y112S6Jor/OdlhCkNsX2KhOv+Zp0p9M77NTJtN+InlmnX5HF+G0whTDykf6wRkZ6h1nKSNA1jJAEhWDdd74XBEGNOtgnvhtIkp1rXZfKn5nOppPQ7qnHR4LThSJ8BUOEE4=
+	t=1781518922; cv=none; b=k7vTK2eaDfBHIrNHLL8Xz6MBGZaA2DA1vlrKb/TJNIq1291i3qbJtGAHcnBwSqxNdq1wubjjxuNbmgMtAke9y+bR3Y+bV3ap9svxRYITOShNqVRGRUFjIEIyXm/1L3n+V+8XBFzOpkaFcigfU/SMwm9w7Q6t1PH7kEndGUsJcA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781518481; c=relaxed/simple;
-	bh=9NGg8hDxj2vdLvxEygzDIHhkUl++kdXXyURUQkJD64k=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=WxIewtdsl4U43/bzZLUCL3Mw4vFupKOGkA9gcCaJEX6/Vy9SsDMi2mUMqhTNpnMmTxiY9Z8v2IYBJajWW2roQP9JNDw7dXBn7AUqNRL/oxENJnNxNVDrby65KbCCCiHPa4w8XDO+TnNQIEdvmJwztth30v1LyVvzJ7p6DvLKbc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
-Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
-	by sina.net (10.54.253.39) with ESMTP
-	id 6A2FD08000007C99; Mon, 15 Jun 2026 18:14:25 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 889CB02C459244E5BEE42764EBC27718
-X-SMAIL-UIID: 889CB02C459244E5BEE42764EBC27718-20260615-181425
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: krzk@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	tiwai@suse.com,
-	zhangyi@everest-semi.com
-Subject: RE: [PATCH 7/7] ASoC: dt-bindings: ES8389: Add members about HPF and clock
-Date: Mon, 15 Jun 2026 18:14:23 +0800
-Message-Id: <20260615101423.19781-1-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <241d0fab-26ea-4c06-9928-e256f2cc5d1c@kernel.org>
-References: <241d0fab-26ea-4c06-9928-e256f2cc5d1c@kernel.org>
+	s=arc-20240116; t=1781518922; c=relaxed/simple;
+	bh=1pgoTUa/iaFDUDl6dNuZhTQb81x2vd4ypbGHLcDcZ5Q=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=W7QMQhZSkR5UAWCrKIXuvR7mqZEMl7TXOEjRyUrhxBvp90ucagYwMihnV9xb9QZeaogeD2hYlfKOuPD7haQl6m4nY5HUC1ssUHeOc/CkBJsPcHW9FU9xctvwDD/AGJzsuDAX5m1h3xnMAH1pSy9fp2b0A2eGP/s1cbLWOMYYvgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mVCcf1ev; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mVCcf1ev"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6CA1F00A3A;
+	Mon, 15 Jun 2026 10:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781518921;
+	bh=pOMyA4oeoJ6pkRQwgpC41H2yFFgKVKeVKbT/i84cSqo=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=mVCcf1evQTW1CRlsDkWOa11pBr3M+jTO96geXI/hhSQw/xbewxDoOggW3gekJp/rY
+	 ccCPoWnq7jInai6PXaa2cPOH6nlyBi2qy4usFw/Rb2B+wGffK64XrYQV47IVODSqEN
+	 XpNnaYutAopQgs4rh/JpvGBKEjZix7V04jPh7Qz4S6DVIi52kbp96jROOTc2EDRzQ4
+	 To8irBKN77urpH+XoS75K5f3oLWd3NpxaBcENxPrhP8tM6lPWhDSo/UntFZGC/PrwW
+	 81JOCUQcLqvbt8yLX2nlgja8zE+FTpplqZqgr4dCfUIGN2JEcTRvrIPaJcMt2NpGrr
+	 gIskWnSyKYCSg==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260608115507.134969-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260608115507.134969-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH] dt-bindings: mfd: syscon: Revert
+ renesas,r9a08g046-lvds-cmn
+Message-Id: <178151891887.278191.1501610164206818615.b4-ty@b4>
+Date: Mon, 15 Jun 2026 11:21:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-> >>> Yes, setting mclk-from-sclk does not affect the MCLK connection.
-> >>
-> >> I am asking about wiring of the device. If MCLK is used from SCLK, but
-> >> SCLK is used as the internal clock, then how can you still have MCLK
-> >> connected?
-> > 
-> > If MCLK is derived from SCLK, whether the 'MCLK' pin on the device is
-> > connected or not has no effect on operation.
+On Mon, 08 Jun 2026 13:55:08 +0200, Krzysztof Kozlowski wrote:
+> Revert commit 51284d8b1dbc ("dt-bindings: mfd: syscon: Document the
+> LVDS_CMN syscon for the RZ/G3L") because it is completely not matching
+> reality and clearly incorrect in respect of renesas,r9a08g046-lvds-cmn.
 > 
-> If MCLK is connected, why would you derive it from SCLK? That's the
-> point - your clocks property already might be telling everything needed
-> here.
-
-This is because sometimes the codec does not work properly
-when using the MCLK provided by the CPU.
-
-> >>>>> +
-> >>>>> +  everest,hpfl:
-> >>>>> +    $ref: /schemas/types.yaml#/definitions/uint8
-> >>>>> +    description:
-> >>>>> +      the HPF value of ADCL.
-> >>>>
-> >>>> Is HPF value in dB? If so, use proper unit suffix and proper units.
-> >>>
-> >>> No, the values here correspond to the values in the registers.
-> >>> The value is not in dB
-> >>
-> >> What are the meanings of the register values?
-> > 
-> > The value of everest,hpfl is equal to the value of the corresponding register,
-> > not the cutoff frequency of the HPF.
+> It wasn't ever build-tested by author on their DTS, either.
 > 
-> You keep avoiding answers.
+> The documented renesas,r9a08g046-lvds-cmn compatible clearly disallows
+> any children and simple-mfd fallback, however its only use in original
+> patchset is with simple-mfd and children, so this could have never
+> worked.
 > 
-> I don't want you to encode standard units as register values.
+> [...]
 
-I think I understand what you mean.
-Do you want me to enter the physical values in DTS and then convert them to register values in the code?
+Applied, thanks!
+
+[1/1] dt-bindings: mfd: syscon: Revert renesas,r9a08g046-lvds-cmn
+      commit: 4143734f197c0065bf5fce7da22f4d0eaf404753
+
+--
+Lee Jones [李琼斯]
+
