@@ -1,113 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from naesa05.arrow.com (naesa05.arrow.com [216.150.161.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968B6354AEB
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 12:20:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11453E6DD8;
+	Mon, 15 Jun 2026 12:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.150.161.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781526041; cv=none; b=AN29L8yWctvDBmaYeZMUHKn2F2jtP/caS6dZfhswlxQjonOTXHgHrMC1dDcz/UBdDBmhbIsQg6q1Y/TrBzsqEAoY586vp0CF5MYrycgmfsFhqFluC6wAx9g7yEfObAYlw0i6L0t7KLvT716u/OFlLQW8ztpLbyIqS3wlpgR+p8c=
+	t=1781526088; cv=none; b=dtdxUGX2bt8Cs9bFnAyYzGAjvRn3dF214hAwhYC3Gi9ViLnnVVj2uK4BrR66dRaQWshvm4qs+LugEKev2RNMyK3byxgQ4MiaA2pdSSZJGnLZm1opzoXPCP1pCCs5vpQ5BIs+OA9nprVAVzdw8K3nhv+UbSDuv5YXJiRLN/bP8aM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781526041; c=relaxed/simple;
-	bh=zOIIUv/I8WqfnJ9BVjsquDKY8TVdHHsAXl13FT4v7rA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=svqonVNygV4LW/ycG9dQGJn5Cgz4lIhHk+s4lRtJ1NgXs1fSJS/Uy/g6P+YOhXDK4uEOw4Nvv9VXlgsYWE8UnTP9LEKavz6NrFe97A3zTvkejREoD7dD8Zs/41S46TudxvwfGUdV93+l/7CR7CBwG0CdBew2JpWA63LxBz48wWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWRiVyx3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781526088; c=relaxed/simple;
+	bh=wvfK47CrSMsQ0UiXmu5vOE7FqXsvHQNdu+KxrtzEa9c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iVWj1hH60qiYftdacuBrG+hQKJEEWT9//wrLu5iBoyaBgbutRHLkAIfHDw2bLj6xIHd6kxysNC3x5biasiQ26ewLLR9mWhAkTkn9ETFTuJaptGHB4+mGsmaH/JouDMYP3MyOaEK/5YCXXkfmM7A+eEt4yfTdQiDVejwK9ov68ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=TLPQFBHA; arc=none smtp.client-ip=216.150.161.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWRiVyx3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F12D1F00A3D;
-	Mon, 15 Jun 2026 12:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781526040;
-	bh=pBHnazMo49l9BA9fPXQ4Cap2I4Wl7QqAaI34swF5Q3c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bWRiVyx3fL8tUJIeHs7Nn/XLEfUoPepSeQIwWMBViodqvzEetCW4T7++BBCZO/BMV
-	 jsiGHy7fDeHDncsWyBfVRYcASHR5OzPrqVAIAQrqUQ9oqS7+x2x61m43hamt3wTKvE
-	 iIJ7rz+Isbc4ItQYwi43+AV6FHc6TIxCsgGBARfIYkeRrxrN0q+Smg8NISIK1VQqVw
-	 6z1W3cIltxv06SM3qlGQ8e5vHiG0kxIaVHEKB53JGZhFDBmHwg4VpUnGZRoDxkCV/b
-	 QiEdeOYkA/5j7oaj+OIvaSsMltaY/7/mxDiU9WXI27Owr56v8CAK7S24HrMD/9Z9DU
-	 sIJVVMNNcm4Ow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/3] arm64: dts: sophgo: add initial Milk-V Duo S
- board support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Milas" <josh.milas@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615120324.1527881-2-josh.milas@gmail.com>
-References: <20260615120324.1527881-2-josh.milas@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 12:20:39 +0000
-Message-Id: <20260615122040.0F12D1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="TLPQFBHA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=einfochips.com; i=@einfochips.com; l=1240; q=dns/txt;
+  s=NAESA-Selector1; t=1781526087; x=1813062087;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=AXq/7QTdQmljzH1gjNuvNWvgr9Xn6XXBdRnyML2gxUQ=;
+  b=TLPQFBHAJCicMBUensE5jPwESdopTHcpUdHcTPZbb0/ePH03LbuHN1Js
+   SOt7U9v/d7KSm34BfqKNYyknP/7UI6+LTlG8MqnARVMexQNBuTsvYaux5
+   QHfV/2U6wR7cvHZopPG59Ygb9aBG2oIBDMXxVLyRoqAbDz4nPdXzpQD/V
+   7ZFMHoadHYu5Fu3BXoeufwXBzxACXzbxiSK/CcHPzqaC4PP60gHfUSLdb
+   wTLF9OzgyZQaOKh/WCICAegx4EvdKPA2kCK3ySkN0cUjJ34ILIi3PyJEO
+   XdmHFjP7Rby9X8t+vfGYsoxOZbGrfOe4GQq0QG5o7SdDGMdqahLc17shp
+   g==;
+X-CSE-ConnectionGUID: Jytg3ZVQRCyMylJZrUsYvw==
+X-CSE-MsgGUID: WIKWMA+0SS2Hu4KjJQq70g==
+X-IronPort-AV: E=Sophos;i="6.24,206,1774332000"; 
+   d="scan'208";a="55984196"
+Received: from unknown (HELO eicahmirelay01.einfochips.com) ([10.100.49.50])
+  by naesa05out.arrow.com with ESMTP; 15 Jun 2026 06:20:17 -0600
+Received: from AHMCPU1888.ap.corp.arrow.com ([172.25.5.100]) by eicahmirelay01.einfochips.com with Microsoft SMTPSVC(10.0.20348.1);
+	 Mon, 15 Jun 2026 17:50:16 +0530
+From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Min Lin <linmin@eswincomputing.com>
+Cc: Yulin Lu <luyulin@eswincomputing.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
+	Pritesh Patel <pritesh.patel@einfochips.com>
+Subject: [PATCH 0/7] riscv: eswin: eic7700: Add support for clocks, resets, pinctrl, HSP power domain, I2C and watchdog
+Date: Mon, 15 Jun 2026 17:50:09 +0530
+Message-Id: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-OriginalArrivalTime: 15 Jun 2026 12:20:16.0751 (UTC) FILETIME=[531C17F0:01DCFCC1]
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `no-1-8-v` property in the `&emmc` node artificially restric=
-ts eMMC performance, contradicting the 1.8V pinctrl pad configuration.
---
+This series extends the ESWIN's EIC7700 SoC support beyond the
+already upstreamed basic DTS and DTSI files. It introduces DT nodes
+for reset, clock, pinctrl, HSP power domain, I2C and Watchdog.
 
-commit 16f792133b8071df278eace7bc1ca7b6e4b52d31
-Author: Joshua Milas <josh.milas@gmail.com>
+As support for boot media is yet to be upstreamed, we have
+boot-tested this series with initramfs on HiFive Premier P550 board
+using Linux 7.1, U-Boot 2024.01 and OpenSBI 1.8.1.
 
-arm64: dts: sophgo: add initial Milk-V Duo S board support
-   =20
-Adds initial arm64 support for the Milk-V Duo S board making it possible
-to boot Linux to the command line.
-   =20
-Link: https://milkv.io/duo-s [1]
+[1]: https://lore.kernel.org/lkml/20251113014656.2605447-1-samuel.holland@sifive.com/
 
-> diff --git a/arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/arm=
-64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> new file mode 100644
-> index 0000000000000..f56bfddeacc40
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+Pinkesh Vaghela (2):
+  dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+  riscv: dts: eswin: add hsp power domain
 
-[ ... ]
+Pritesh Patel (4):
+  riscv: dts: eswin: add reset generator for EIC7700 SoC
+  riscv: dts: eswin: add clock generator for EIC7700 SoC
+  riscv: dts: eswin: add I2C controller support
+  riscv: dts: eswin: add watchdog support
 
-> +	emmc_cfg: emmc-cfg {
-> +		emmc-rstn-pins {
-> +			pinmux =3D <PINMUX(PIN_EMMC_RSTN, 0)>;
-> +			bias-pull-up;
-> +			drive-strength-microamp =3D <10800>;
-> +			power-source =3D <1800>;
-> +		};
-> +
-> +		emmc-clk-pins {
-> +			pinmux =3D <PINMUX(PIN_EMMC_CLK, 0)>;
-> +			bias-pull-up;
-> +			drive-strength-microamp =3D <10800>;
-> +			power-source =3D <1800>;
-> +		};
+Yulin Lu (1):
+  riscv: dts: eswin: eic7700: add pinctrl support
 
-[ ... ]
+ .../devicetree/bindings/mfd/syscon.yaml       |   2 +
+ .../dts/eswin/eic7700-hifive-premier-p550.dts | 182 ++++
+ .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 888 ++++++++++++++++++
+ arch/riscv/boot/dts/eswin/eic7700.dtsi        | 234 +++++
+ 4 files changed, 1306 insertions(+)
+ create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
 
-> +&emmc {
-> +	bus-width =3D <4>;
-> +	no-1-8-v;
+-- 
+2.34.1
 
-[Severity: Medium]
-The emmc node specifies no-1-8-v, but the emmc_cfg pinctrl configures the
-eMMC pins for 1.8V logic using power-source =3D <1800>. Is the board
-physically wired to operate the eMMC at 1.8V?
-
-If the hardware supports 1.8V, is it possible that setting no-1-8-v
-artificially restricts the eMMC from utilizing high-speed capabilities
-like HS200 and HS400?
-
-> +	cap-mmc-hw-reset;
-> +	no-sd;
-> +	no-sdio;
-> +	non-removable;
-> +	pinctrl-0 =3D <&emmc_cfg>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615120324.1527=
-881-1-josh.milas@gmail.com?part=3D1
