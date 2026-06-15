@@ -1,176 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E463BBFB2;
-	Mon, 15 Jun 2026 07:39:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2372F8EB1
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781509165; cv=none; b=SGdV1pyBJzVKEPnEKdJuayY7WDizbRXMslTrWuPRjd6yalh0UV+FF8e2LDPGU3cx4DmIE/il9PNcjDXKtIrLOwMGL6hq06xB/S+8VZc7iKzvnnQWiEgdRgV0mbmtt9TsuMLonECU+mNp0eguP/Z8wunyYPyjEr+NKpkFhEB3P1o=
+	t=1781509175; cv=none; b=ti55s/YUWWhAkArdkRE/FYzUXZbob/tghzBh3buinWt1U0kbRGxE/+DN09uig52XF7p4iAmX5bOxEhycvb45bzLqMAL2ziHNyQBxDDUCq3qef0+zitIjmnQIp/n8D3vZF41HaDRMRQ+wbKtvdgCGkYG9aHnkQ2AeupUSmqyaeNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781509165; c=relaxed/simple;
-	bh=vLAqeS6GnCpVFF68qF+U3zzI36eQxuymf+b+lcmuutI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QLyGFy1ftFrgJEEEB8KdeylxVSJqFMTOV7wJ0waFczAj3xIRfwlWPe3wNGqjwKLHlo3M2G8r8RShb7j3sAcZNpTgJRU07uzqX2LkNeyCQDGE5eGBGScg4Pf/H5gMYGrRoUEqBbJ1KrudmgD8QwxHM9C6sUuFQ3qoXeWXBQFD7eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exVyqlGl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781509175; c=relaxed/simple;
+	bh=bUTD83Pf7C+H3yrldiYUl4te8DBkzpoeq4nNJbvHMsQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HZdQ0mtrBMw5/j9GreGl6vObYcn2ySVzTwXqkIo3pMbWqmWXUmcIz5kmzTixqSMdUa3LTsSfF9yv4VvJXdkrc1XqJ80rBglkshf81ZNG7htzFZC0Tbpweo7dWh+QpqinqAkMRc3IQJD/hyjiepWIv1Hrq+6sOqbP2YJNOOyfTxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZKvcTkAT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GyxMkTub; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exVyqlGl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863751F000E9;
-	Mon, 15 Jun 2026 07:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781509164;
-	bh=T2zyCSl7BFOuGJsz/aHGzSdvR6M81lquHWQatFXE7PI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=exVyqlGl871iNEj0iStoVJiw4UOeAigm5ke8f6QMByZxTiv6K1T9IQzo6Ej5tCH5O
-	 tn3C5rIHthEkxxnmutje91AU2PeD9CZsH6xIPO9dfpwmfy44HvCOPgxjl13OaJVQ8I
-	 uPekIKWzRWij7WAhfYTRML1Np+jFRoLkj2s7z/mSwE2veBd03g6FDZn2GPMtHvgZEg
-	 TBZgElPZl0xD8WvPLyoTV9dc3ah/81smPYVbXHka8Ibyon7cYLvBg2sw2MtCgHCZ0Q
-	 e0WQiKDwESD/Agiaea14JkwCaZur7lQppWn0uhCFQ/YWGQqXXK+phjCWHTP861GsIV
-	 ZiUgsK5CP96Aw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 8/9] regulator: Add MediaTek MT6392 regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: robh@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260615071836.362883-9-l.scorcia@gmail.com>
-References: <20260615071836.362883-9-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 07:39:23 +0000
-Message-Id: <20260615073923.863751F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZKvcTkAT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GyxMkTub"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6J1CS3327542
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:39:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UZp2CdAOzWMP9vNOOQFjfC/K
+	5baWaymmSjQGLpC8WcY=; b=ZKvcTkAT4GvL5Yp5yQ68MYwSnHMLSIV4+ZgzzPw/
+	kV6yJSNcbvOabzoUO2gowjOWsFamE/su+n08PAKzUBBSK8ev/KORO4upnF6IuO5V
+	v7nfFBe+cYK6eGEwIh0nr6E2u1XPPFPy70l141hewHPUAhmh+SrY1nJM84FRJt9e
+	qgDDJmqOfDCLBoJajA9LpMW7Cr3py5PDmAX2jqHotZ+OEfQXrGE0J/uuVCTEi54X
+	kyYDRYQsxByTd2VF0NGkeL2/qmxex9Ey1mbkhm4/WkSR+kUZiAZSsR3evr1RJ8Am
+	VaF0Pk+hwuGoykPBS/pi8AwGXlyPQz2s9LhXjvSzXUYn4w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0cgp3k2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:39:33 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36d97a4e08fso2977187a91.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 00:39:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781509173; x=1782113973; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UZp2CdAOzWMP9vNOOQFjfC/K5baWaymmSjQGLpC8WcY=;
+        b=GyxMkTubtGcwPtiinlMuCSgPDC9cCf7z/JjVtLgv6rwvldwa62VwYR0EHbBp5vTRmM
+         Nn0tGj0d3Jo0XZT0c0Ptm1AwCc8xYXXAA1rh2W3G0p8C1C05FLd/8Kwzjt4SbQboO/3+
+         grHtVflgRBEubeqwHI3sji/gZX4QXBVq+GT4pPnA6wiF/hBHgy0bd3VYe9rDUVrlrtVo
+         L6prHE4FY0CCzB4QgUYayx/skB8Eqf/iFqFiAfeqgsnSdX5qxXDXhR42YpeSN16u1q8z
+         ZepvFyi2Eg/O+SybmUGQBViUwwUtk4y8aX0qOOIY8VTxZ4kdLSTFL8sP5nftZnrkWS5B
+         SgDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781509173; x=1782113973;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UZp2CdAOzWMP9vNOOQFjfC/K5baWaymmSjQGLpC8WcY=;
+        b=ZXuJZXjIKPKXlLiFcG07Z3iuXUGVbnef7PX65VnTh15PzvjtFTLAT/bm6j1oP0E2pF
+         M8x6Rn+evNggp8cwrIX2UzGnEmgUBUn5bRjWZ5Nv9brWJJWhANpp/v0pa9NQfDJ7r45P
+         nLbXtvPUG//F7v9fXzZhRfKxwtWEyYyxtT+XR5ZNRV0eMbRjWkZCDr2sQpYOoGdo1Pjk
+         ju4W1zhuVXqIS2k037tmejy9pvi9XRgZYJLBxsFd0MLXnZ2sQSHUH0dOiJBS5Vv1C4hm
+         r6qVJJU4sEd0kJitq85sQ6ymZ4hFC3/xrCsDdEcqmZxsATTz5CRm5sDIVJmOeIN9jleq
+         cD/Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8tDVgHokIkFgeWPS6suF1aSHPsAgC+gcpOGDWLwycRtWJx/5+KB0DpgL2jqC/O5YoRnttwD4CETu6m@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrS6fVhjfFhaiZkOkLDCPplCqXghzD7RmM/7lih/J03Ef9cIAc
+	inHZ12whEITUZE4vbGTBvBpbn2B5E5aMA+JcQxBGnPZyZ/n6U0NQd8CzLg0sIMzTV88UwBT3jBm
+	eAd0jn8m3grLeThxV5ag9L5mV3Mv/h9Ixw+zVkAqunwoJQKltATFa/V4TovWEZ5nC
+X-Gm-Gg: Acq92OHs7VCZ8bwJC/ka5jiOlgkT7FF9gnKBDBZL+C2ikwzR6yGRfboiBGtm1nkofFV
+	zFzFNFBWGb9z5s5wW7K1bykYUxfmUVC5Ujl6UhK1eWY3Lms/ztxXN40DMHA/snhzOLT5JZAWdXJ
+	LBoOSTcm5Exs2KT0ZhOBphKVPjeCbauneNu3QWnlNt5rQbL3ylG3Vsu+s9+CZmvxt7qC1bZnCup
+	SHc8K1mPtqChF15/bRWg2Ik2ovSMoqXEmPHs4ZV+tXhzzGGUf/MLowQE2QIr4j2T96eqVRpIBbB
+	mRi2WRTs7DGr+7d9R+O1KYGVAK5jZjIyXIW2/0UCsg1DvSpEn36lXm4QMd9Xrm5sxjOethwtEJh
+	BHmPNy/v+6M22BICeuh+xr51+U7Jl0U7E3aIAC83hjiLRqKXFUQ8XHGm+
+X-Received: by 2002:a17:90b:3f43:b0:36d:79c6:1562 with SMTP id 98e67ed59e1d1-37c2bd7e8d6mr10389168a91.25.1781509172676;
+        Mon, 15 Jun 2026 00:39:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:3f43:b0:36d:79c6:1562 with SMTP id 98e67ed59e1d1-37c2bd7e8d6mr10389142a91.25.1781509172228;
+        Mon, 15 Jun 2026 00:39:32 -0700 (PDT)
+Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37a25ecd66fsm12016278a91.12.2026.06.15.00.39.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 00:39:31 -0700 (PDT)
+Date: Mon, 15 Jun 2026 13:09:24 +0530
+From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
+        Kernel Team <kernel@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-mmc@vger.kernel.org,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH V1 1/2] arm64: dts: qcom: Add SD Card support for Shikra
+ SoC
+Message-ID: <ai+sLLCjdWQt3NOC@hu-mchunara-hyd.qualcomm.com>
+References: <20260604122045.494712-1-monish.chunara@oss.qualcomm.com>
+ <20260604122045.494712-2-monish.chunara@oss.qualcomm.com>
+ <gq54nr2bzvvqkocphvkji7g7rhbsrngsno7gvsfl4nsfvakj2a@wsfsnohrnscm>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <gq54nr2bzvvqkocphvkji7g7rhbsrngsno7gvsfl4nsfvakj2a@wsfsnohrnscm>
+X-Proofpoint-ORIG-GUID: DnC_uaX5Bjt-5cQQx80Elf46CxaW8t5w
+X-Authority-Analysis: v=2.4 cv=NPLlPU6g c=1 sm=1 tr=0 ts=6a2fac35 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=wlKiXeHTwYhgOVykP0sA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: DnC_uaX5Bjt-5cQQx80Elf46CxaW8t5w
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA3OCBTYWx0ZWRfXwphntDRsMbeW
+ kJNv/5a4lbTRxOY5UK4y414vrcxGm8PupQQIDakZRFe982tjldhKhMm4o7cEPkzE+3DO3zXPvuW
+ xHA0Vrs++sv+VhSyaXbzXeB0BVSWA1I=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA3OCBTYWx0ZWRfX/Eep0tod+wsh
+ q+w6FCAdpyxR9uI9jrDLKGCZF5XfK+OZeTkKVxXr9Y5luR/MrhJ2dgeoQn+qPNHEavTqKOQBO4O
+ T17pXwo5sIDoCs5B/8oF1ayrTZuge7V2M0MBzBUZPdkUZD5SDa25dZrFVNpEVdKQ1Lt2/oXIg9v
+ rTk1koBcwcgNE1ZzdzFx/zNPJhcyOuwIG/JgNbo+uAioXVztKdeL9d8pEPIlz3Oj4HM4UKyfoEh
+ +z6+4NmjhUm4WZHwAq2CH0oQoiTN5A4cqxeHR5qcZUCxTI+e4R9OTbbfVW5EOssvHdCk0YHZezs
+ +fO47OQzMoX0mdSDLyVo7getVgj/8bX+XGSDGLJjp4QIJ5CYPgj/dI63UVREZmIpTNsldeLixHu
+ z/qQ2eqXT2IQHJdWfFm9TBMW38lEtelIH8K95OLm7QeVee0G3v+QYhn+Lh+25QD/bDwCHFv4m0K
+ CLdKqaNJCbISf1y0AGg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150078
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Data race and state corruption due to mutation of the shared globa=
-l `mt6392_regulators` array.
-- [High] Logic error in `mt6392_ldo_get_mode()` reads the wrong register to=
- determine mode.
-- [Medium] Missing `.of_map_mode` callback breaks `regulator-initial-mode` =
-parsing.
-- [Medium] Poor error handling and unnecessary kernel log spamming in `mt63=
-92_buck_set_mode`.
---
+On Thu, Jun 04, 2026 at 04:49:59PM +0300, Dmitry Baryshkov wrote:
+> On Thu, Jun 04, 2026 at 05:50:44PM +0530, Monish Chunara wrote:
+> > Add support for SD card on Shikra SoC and enable the required pinctrl
+> > configurations.
+> > 
+> > Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/shikra.dtsi | 93 ++++++++++++++++++++++++++++
+> >  1 file changed, 93 insertions(+)
+> > 
+> > +			clocks = <&gcc GCC_SDCC2_AHB_CLK>,
+> > +					 <&gcc GCC_SDCC2_APPS_CLK>,
+> > +					 <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> 
+> Misaligned
 
-commit cf9cb32e08ea85698033220fad437d4b27bf421d
-Author: Fabien Parent <parent.f@gmail.com>
+ACK
 
-regulator: Add MediaTek MT6392 regulator
-   =20
-The MT6392 is a regulator found on boards based on the MediaTek
-MT8167, MT8516, and probably other SoCs. It is a so called PMIC and
-connects as a slave to a SoC using SPI, wrapped inside PWRAP.
+> 
+> > +			clock-names = "iface", "core", "xo";
+> 
+> One perline
 
-> diff --git a/drivers/regulator/mt6392-regulator.c b/drivers/regulator/mt6=
-392-regulator.c
-> new file mode 100644
-> index 0000000000000..1f91aac3917ab
-> --- /dev/null
-> +++ b/drivers/regulator/mt6392-regulator.c
+ACK
 
-[ ... ]
+> 
+> > +
+> > +			qcom,dll-config = <0x0007442c>;
+> > +			qcom,ddr-config = <0x80040868>;
+> > +
+> > +			iommus = <&apps_smmu 0x0a0 0x0>;
+> > +
+> > +			interconnects = <&system_noc MASTER_SDCC_2 RPM_ALWAYS_TAG
+> > +					&mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>,
+> 
+> Misaligned, make sure that ampersands are at the same column.
+> 
 
-> +static int mt6392_buck_set_mode(struct regulator_dev *rdev, unsigned int=
- mode)
-> +{
+ACK, thanks for pointing out.
 
-[ ... ]
+> > +					<&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
 
-> +	ret =3D regmap_update_bits(rdev->regmap, info->pwm_modeset_reg,
-> +				 info->pwm_modeset_mask, val);
-> +
-> +	if (regmap_read(rdev->regmap, info->pwm_modeset_reg, &reg_value) < 0) {
-> +		dev_err(&rdev->dev, "Failed to read register value\n");
-> +		return -EIO;
-> +	}
-> +
-> +	dev_info(&rdev->dev, "%s: info->pwm_modeset_reg 0x%x =3D 0x%x\n",
-> +		 info->desc.name, info->pwm_modeset_reg, reg_value);
-> +
-> +	return ret;
-> +}
+Regards,
+Monish
 
-[Severity: Medium]
-Does this error handling correctly propagate failures?
-
-If regmap_update_bits() fails, 'ret' contains the error code, but the
-subsequent regmap_read() might succeed, masking the original error.
-
-Also, since set_mode can be a hot path called frequently by power managemen=
-t,
-could this dev_info() spam the kernel ring buffer? Would dev_dbg() be more
-appropriate here?
-
-[ ... ]
-
-> +static unsigned int mt6392_ldo_get_mode(struct regulator_dev *rdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D regmap_read(rdev->regmap, info->lp_modeset_reg, &val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	val &=3D info->lp_modeset_mask;
-> +	val >>=3D ffs(info->lp_modeset_mask) - 1;
-
-[Severity: High]
-Should this read from info->lp_modeget_reg instead?
-
-By reading from lp_modeset_reg, it seems this retrieves the requested mode
-rather than the actual hardware state, leaving the lp_modeget fields unused.
-
-[ ... ]
-
-> +static const struct regulator_ops mt6392_volt_range_ops =3D {
-> +	.list_voltage =3D regulator_list_voltage_linear_range,
-> +	.map_voltage =3D regulator_map_voltage_linear_range,
-> +	.set_voltage_sel =3D regulator_set_voltage_sel_regmap,
-
-[Severity: Medium]
-Is this missing the .of_map_mode callback?
-
-The driver defines custom device tree mode constants (e.g.,
-MT6392_BUCK_MODE_AUTO), but without .of_map_mode, the regulator framework
-will ignore the regulator-initial-mode DT property and log a warning.
-
-[ ... ]
-
-> +static int mt6392_set_buck_vsel_reg(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +			if (regval & mt6392_regulators[i].vselctrl_mask) {
-> +				// Regulator in Normal mode
-> +				mt6392_regulators[i].desc.vsel_reg =3D
-> +					mt6392_regulators[i].vsel_normal_mode_reg;
-> +				mt6392_regulators[i].desc.vsel_mask =3D
-> +					mt6392_regulators[i].vsel_normal_mode_mask;
-
-[Severity: High]
-Can this cause a data race or state corruption?
-
-mt6392_regulators is a shared global static array, and the driver modifies =
-it
-during probe based on the current hardware state.
-
-Since the driver requests PROBE_PREFER_ASYNCHRONOUS later on:
-
-> +static struct platform_driver mt6392_regulator_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "mt6392-regulator",
-> +		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-
-Could probing multiple MT6392 instances concurrently overwrite the desc
-fields for the other instances? Does the driver need to allocate per-device
-copies of the regulator_desc?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615071836.3628=
-83-1-l.scorcia@gmail.com?part=3D8
