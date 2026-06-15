@@ -1,171 +1,146 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C750933A6E0
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524313BBFBA;
+	Mon, 15 Jun 2026 09:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781517116; cv=none; b=lECnqzIQ0QRIkYc5/48O4A/g9d1KznQTwUQ59yw1DWC6Y1awM49AjYeJo8YdLUQWnvR+cd0V+7xtgHcQ9QHgyHjs4TDzQvKL+Ti156TXyBXz/5vgpxPtfxL9pWE6HDB/s8L5pE6PJ0Y4iLJhzlcGkeCdeaFk4oFEOjo2fwG6SNE=
+	t=1781517248; cv=none; b=HF7iEsFmEpeuheEEJH0U+141NpOrokd0g/Z4ZxUJ1t4vwiToLQX+RwyWwHYJ+ivHB7zkziK74n2FwaeNMsacaJXMm4tziAfGDyNTbGHcHFdMJOwHSa791KyHmDZ5xT2FXRxIWutW9a0tNJvK9etKNYlqOl8UpqKsonn8wyO68Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781517116; c=relaxed/simple;
-	bh=ETGqMavWeBiOQjMJHU7tbf74DHMQeX6TYULgpbT74aQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YTI1Ol65QEVzc/sxzG/bh1f6xrtIEw6CWDYbV0MB/WOj8UDWfKUtupnIzjjtgbLW18YsKlmbXLBGGaXmeHFTn/rAVP/JSgSCgfC71eDnUGbh3820O79wNlPU13R+u6S6UUv6hn8wJJe4fJ7ePNtdRL8F1yEj2vrVLZrnhC5dU8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qF/9v95P; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781517248; c=relaxed/simple;
+	bh=peZm/dA/V1NACXdcWFNQYDztQuC0ZGTliMu9Rdw8CFM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RvbZiG7iEZc4q/F6+X/cgU7wa4/8W31XE0SA/efuFwdDT29wUss1xTBeZY8RtPF2PwnfkTkDV4s83zvIws/KpZMvTs3havAsccKeS4mQJuDXPwW/qALmfrLzMhNZUMz0z7gW65Bat4u8bU3KyhtImKzxmEFi6Dd3VZvfC9L05kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfUH64ji; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qF/9v95P"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c85d4b4245aso2268517a12.1
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:51:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781517110; x=1782121910; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2nFkIvMOfm7ZS9BgOncXs0eGFftuYADS8e8/xvDEWbQ=;
-        b=qF/9v95PCZkp9OGYx6K5UIrsDVFGUX7W6ydkvm1UvKnle3Dj3gC24/aJOVF3//Nso2
-         JpTjoGMetXJZDLA4SqfSWkTUQdQa8BIGCdx8TMkXAGwc5ECe7doSH+Bi/Vj23oofioGG
-         UA/pRzCasotJVEKuK/NlGPARxgihV7ln2TGanMsz3xPbWpPsRtUkX2+lqlCP9DoKWvPF
-         V/f0r574+ErnnZ56TTcFrlSTDcB/VOf7VOfDuiahaMZIYxpjGdf0ZmPzUcqfoElCQYhy
-         XX1E0KzHxqh/iY8X1UlZEkG0cYrkdHhFqkLDS77qYgwTfG+yiH6G7arbDDG+qLJ+b5s0
-         iyqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781517110; x=1782121910;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=2nFkIvMOfm7ZS9BgOncXs0eGFftuYADS8e8/xvDEWbQ=;
-        b=TOQMaaG5DxMxv7iah7oasY51wRfBgDnKMk9wf4dCaNCZkjmU1QZPhPIVmbBdzbfnwG
-         xzjdnkKuC/yZ8tMACzjy15opvLccaVIVE8HqD22OGwf1SeQwwjeZWA3crqM8m5SgkRVi
-         yCcjpz6e1HeZ4lg2lxDt7jLwIeGm9SkAuluskX852ZQln5D7m183mRamNI/wrvV9pI+O
-         Ols86nT7MKn7khdUHHxpL6rABQ1tWxyXo4T3oys1yCnBb4f8i5lri+IJne5LXx2WxY0z
-         z8S2BJfmMBkoW0JwYc0StQv9HSgdEehdJedy1cbr+DKjwID0k28hPaMF+rOjK2BxEbEf
-         8Tww==
-X-Forwarded-Encrypted: i=1; AFNElJ9YUGrZhAcr7FMXXUxd+F4kP9a6c18hO5NppTbfUFwkzuNhFA9kwqsqboN0iC9wWI1DsXQqgeKqWiDD@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoViOvDGGtYbcQ0XA3a/TzwezVzAcerlme4sp2+Vc/9OCj16oy
-	PzTgyXX3/B/2qji5jODr3F/2n194DQD6St+GC4h7gej574cTl9NzqSF1sGlDNA==
-X-Gm-Gg: Acq92OHRRNHq8YNFK4X8gpY8njTijWFVnA/U1IwBdA9Re2onK1iU7NA5GovWNukmh+V
-	cWsr1CLtK42dcVaIllOdaRhW7Cq+J99/4lf3xmwDzK6w10dUH9os49Y2wF1SaLbQHMjcFQJtXgo
-	gJjfgI8nOHImEm9h0zD9IfiWKBIippD5D4WfiRdHgw7mkQZa2DDyJ0U6d+oD+8YEwezAVXOICez
-	Ji04NAaMgouGvR56J29xBc6RxRfrE5m7hRtDKUDd/YXviWhqVSAx9WoJq6yngzSVnsNX9A9VWf6
-	ZKaKOEN0ec3T5aDrYmeyQ36pm+dHMAKVreKs5RkpoD3yCas5G3PTZdBiv7cm1nskKt3QIVDZFMf
-	loK5Ak9hqfIsjlEIm+6ie5VTFIt7tV55r/CNQ/HZAY2akfC6aG8a7eW796du0hAprg9LYKtboN+
-	lxml7bC7JTAX7ZMfcF7ZTgayfzFnszSfOkzuX/0kiEECQSkycl+LgyzX+dmEi5Rts2sw1WH0Icb
-	pdO
-X-Received: by 2002:a05:6a00:2d21:b0:82c:d986:e917 with SMTP id d2e1a72fcca58-844e1a2f1aamr10649157b3a.22.1781517110139;
-        Mon, 15 Jun 2026 02:51:50 -0700 (PDT)
-Received: from [10.10.15.228] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc8a5bsm9922207b3a.33.2026.06.15.02.51.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 02:51:49 -0700 (PDT)
-From: Potin Lai <potin.lai.pt@gmail.com>
-Date: Mon, 15 Jun 2026 17:49:17 +0800
-Subject: [PATCH v3 2/2] hwmon: (pmbus/lm25066) add current limit
- configuration support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfUH64ji"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91ACB1F000E9;
+	Mon, 15 Jun 2026 09:54:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781517246;
+	bh=sFHjNnWDW/UEjcBAZ8oTGaGh+/904qdh9hRt8q+m+2k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CfUH64ji4H9oGcYm1b7GpH9cq745QX3p0TW/wSYa43ibNjqvpx+Hd/McMrmvC3RZP
+	 fKKlFUWBKd8fCSQFcEue74uZcbpsIOc5vPi0r5bkB+XtlnaNE/sAJMnYoUHWBu3Ue4
+	 Gwj0UV4h9AXhSDoIYQ8BTwcMYtwUEy3k/tkPsuHphxDwhr+gcHH5NqS0cL+O7fKu47
+	 f5NHy1XgHmuF1GnLMgvoVNZbyt+41qW5X+KM4SlpHWXN4np1I4Y2bo4CSQPJLCWO9j
+	 ujnzgkkZ50RhQ551DWVvzeN0I9g6Rtmj3BRfzZ8cEmRdMX34R67dwkB0c/3W5T0COd
+	 WgiMNfuhfwb9g==
+Message-ID: <f21486ea-db76-4b71-9b68-86c861b0be53@kernel.org>
+Date: Mon, 15 Jun 2026 11:54:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] of: property: Fix of_fwnode_get_reference_args() with
+ negative index
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+References: <20260611102806.2643869-1-alban.bedel@lht.dlh.de>
+ <20260615-obedient-axolotl-of-argument-fb55ef@quoll>
+ <20260615113330.11406fbd@OMT-CWNXR4TFW5-LHT>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260615113330.11406fbd@OMT-CWNXR4TFW5-LHT>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-lm25066-cl-config-v3-2-decb4f5b0b77@gmail.com>
-References: <20260615-lm25066-cl-config-v3-0-decb4f5b0b77@gmail.com>
-In-Reply-To: <20260615-lm25066-cl-config-v3-0-decb4f5b0b77@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Zev Weiss <zev@bewilderbeest.net>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>, 
- Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
- Potin Lai <potin.lai.pt@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781517101; l=2406;
- i=potin.lai.pt@gmail.com; s=20260522; h=from:subject:message-id;
- bh=ETGqMavWeBiOQjMJHU7tbf74DHMQeX6TYULgpbT74aQ=;
- b=FDP8Iq+zzz6ciIgFDabF/U/Du5LF+SBtaWRalK/5mSepbgKtRAtuNmJE4X5s32CiALU4zYxsH
- 8MQNDluhGpfCbBlW5N+Td4kCSm94Azf7GOtvVFKGcFJqGRc0qjPV04a
-X-Developer-Key: i=potin.lai.pt@gmail.com; a=ed25519;
- pk=j3/nMxzz1ZPpp1revghyZ8IqOnwi6RWfuxXN2XrNMRE=
 
-Add support for the 'ti,current-range' devicetree property to configure
-the current limit via the DEVICE_SETUP (0xD9) register, overriding the
-physical CL pin setting.
+On 15/06/2026 11:33, Alban Bedel wrote:
+> On Mon, 15 Jun 2026 08:33:32 +0200
+> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> 
+>> On Thu, Jun 11, 2026 at 12:28:06PM +0200, Alban Bedel wrote:
+>>> fwnode_property_get_reference_args() should return -ENOENT when an out
+>>> of bound index is passed. An issue arised with the OF backend because
+>>> the OF API use signed indexes while the fwnode API use unsigned ones.
+>>> When an index value greater the INT_MAX was passed to the OF backend
+>>> it got casted to a negative value and it returned -EINVAL instead of  
+>>
+>> INT_MAX is not out of bound for this function. It is invalid value,
+>> because OF code expects signed.
+> 
+> But this is fwnode code, it use the OF API but it should implement the
+> fwnode API which, unlike the OF API, use unsigned index.
+>>> -ENOENT. This patch add a check to of_fwnode_get_reference_args() to
+>>> catch negative index before they are passed to the OF API and return
+>>> -ENOENT right away.  
+>>
+>> I do not understand why are you fixing this issue that way. For this
+>> API, the INT_MAX is correct value, but you claim that it is wrong and
+>> should be ENOENT (even if there is entry).
+>>
+>> Fine, if this is not a correct value, then EINVAL.
+> 
+> Indices larger than INT_MAX are valid in the fwnode API, so returning
+> -EINVAL is not appropriate here.
+> 
 
-This configuration is supported on all chips in this driver (LM25066,
-LM5064, LM5066, LM5066i) except LM25056.
+Then neither ENOENT are.
 
-The property values "low" and "high" map to:
-- LM25066: low = 25 mV, high = 46 mV
-- LM5064, LM5066, LM5066i: low = 26 mV, high = 50 mV
+But really, EINVAL is correct here. This is OF implementation, so this
+implementation decides what is EINVAL and what is right. Not fwnode API.
 
-The Bit 4 mapping to High/Low current limit is handled dynamically on
-probe because it is swapped for LM25066 compared to the other supported
-chips.
 
-Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
----
- drivers/hwmon/pmbus/lm25066.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+>> But more important I think this should be just fixed in different way -
+>> why index in OF calls is signed in the first place? All indices are
+>> supposed to be unsigned in general, because that is both logical and
+>> readable when accessing arrays.
+>  
+> I agree that would be the better fix in the long run. But that would
+> impact a lot more code and I found it difficult to ensure it would not
+> potentially break some of its users. 
 
-diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
-index dd7275a67a0a..53d274033d66 100644
---- a/drivers/hwmon/pmbus/lm25066.c
-+++ b/drivers/hwmon/pmbus/lm25066.c
-@@ -34,6 +34,7 @@ enum chips { lm25056, lm25066, lm5064, lm5066, lm5066i };
- #define LM25066_READ_AVG_PIN		0xdf
- 
- #define LM25066_DEV_SETUP_CL		BIT(4)	/* Current limit */
-+#define LM25066_DEV_SETUP_CL_CFG	BIT(2)	/* Current limit configuration */
- 
- #define LM25066_SAMPLES_FOR_AVG_MAX	4096
- 
-@@ -484,6 +485,42 @@ static int lm25066_probe(struct i2c_client *client)
- 
- 	data->id = (enum chips)(unsigned long)i2c_get_match_data(client);
- 
-+	if (data->id != lm25056) {
-+		int config_new = config;
-+		const char *cl_setting;
-+		int ret;
-+
-+		if (!of_property_read_string(client->dev.of_node,
-+					     "ti,current-range", &cl_setting)) {
-+			config_new |= LM25066_DEV_SETUP_CL_CFG;
-+			if (strcmp(cl_setting, "high") == 0) {
-+				if (data->id == lm25066)
-+					config_new |= LM25066_DEV_SETUP_CL;
-+				else
-+					config_new &= ~LM25066_DEV_SETUP_CL;
-+			} else if (strcmp(cl_setting, "low") == 0) {
-+				if (data->id == lm25066)
-+					config_new &= ~LM25066_DEV_SETUP_CL;
-+				else
-+					config_new |= LM25066_DEV_SETUP_CL;
-+			} else {
-+				dev_err(&client->dev,
-+					"invalid current-range setting: %s\n",
-+					cl_setting);
-+				return -EINVAL;
-+			}
-+		}
-+
-+		if (config_new != config) {
-+			ret = i2c_smbus_write_byte_data(client,
-+							LM25066_DEVICE_SETUP,
-+							config_new);
-+			if (ret < 0)
-+				return ret;
-+			config = config_new;
-+		}
-+	}
-+
- 	info = &data->info;
- 
- 	info->pages = 1;
+I don't see how this fixes anything. You basically replace correct
+return value to a different one.
 
--- 
-2.52.0
-
+Best regards,
+Krzysztof
