@@ -1,205 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF22119D074;
-	Mon, 15 Jun 2026 01:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638C92153EA
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 01:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781486120; cv=none; b=mCKstc/3u03mJO2ZNphceqrfgqFDg3TpoZor5m9xMqMzv0lRsmiZZCA3LpefrSxL96O8ckjBWATLXQLh8fFumWy5JetxYjQZ0UzA7GsnD1QMw+hUqa4BnSfIgrwXB/OesraAZ6kt6DPbTRklS1q58W1uRq+/e1SAT1MJwjHu/eM=
+	t=1781486301; cv=none; b=iMq7VMCQ8ufzG3TBDnNoXRrYLDTiOOhJCT7DxXSKw217Hhq99BMtaILWKTIiZPVD+ze85EvqjYQOkJszxvoWKvqAAdBEYF6aXw9wvrJvkNxNE2gVQvgzUAoWy+AiQ2cI18vCgtqxHGaQ9vBExC0XG3powTHOSjFO5t4mjvi42Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781486120; c=relaxed/simple;
-	bh=+SKzSkSy7soYPj7GRxVW99YY/MGv5sWxmACFX5LVZxY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GCStiog3wst0Ija9C2Ha+wDCXI8D27aaNc4qyl03xbmoC4OsqbHcEevTsfC2OQ+Bl5sg70aNDynC5mc8giBKE+hGxBBPqmp5WznUl40kTw0bb0++RIXYpzbs9nVe5ofBL2fO6GkNvesjWnziSv9pP+qg/M7bX8SdgATQgHoSVlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsEMYjGj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781486301; c=relaxed/simple;
+	bh=/pzSwr19+VdrcX+IqjZIPPA/r+0axARzOy4vWIKuvpw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iP8u/8Kb6N57LWfo1dMI0z43410sSOWbdw5Se9rHlYerjE8pSqlBa0GTiNwGVrFGXU3XV4lovMSdm88TGwDtFBxUvdiVlkvgCiCW0yvkthubrk31TDv5Sie7OBGnA8k4QOnk5t4GRmepiRnmnwJ2Cll6xhTlQPYORFBYnkwua7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c4M0ubql; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsEMYjGj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18ED21F000E9;
-	Mon, 15 Jun 2026 01:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781486118;
-	bh=hGK8hBUI3VJwq85vtwBACfkguai9KZPSsva45uV6o8M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fsEMYjGjf5tatKUMlRl+xWUzn0TKC1A34OI58zH3ZiUeMP2E8i4XmYEF87azothCT
-	 9ek/9edj0jdsw9MFuK0kdpL20DR/mrms3qf470wYg2dgDQMMLKuGiT+wtQC2CJ1Irt
-	 96X//sIvLVuP+AkmQ0rprEtDV7ONEE16OC7YKbdfa/4SJQpcPKU3GG6uXYfpjXgY+f
-	 I1Dmgx/k3D8GpNaVwMuXYGflsHsWx4bWJeJJncMX1cWGQlBwSC8HCkXKIj+MO+ipx2
-	 DDfVNbPIp01h4wy3Ycnx1wRs7HXgWPn6Sr/emkSffsx9YueSBT6T8VPHDqHIq2NVf1
-	 RSOoraI21QF8Q==
-Date: Mon, 15 Jun 2026 01:15:16 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Guodong Xu <docular.xu@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH v3] riscv: dts: spacemit: Use symbolic PDMA request
- numbers on K1
-Message-ID: <20260615011516-GKB1002079@kernel.org>
-References: <20260611-b4-k1-pdma-req-macros-v3-1-ae8416052571@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c4M0ubql"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1397e093f90so1118654c88.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 18:18:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781486297; x=1782091097; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xD2K3MV/ImpTfNxgjLbCTNSQAYJN87stcDsw5szY+bI=;
+        b=c4M0ubqlNp/XFMMAgTtdVKxagQYgzROC8FdyWXPH8MhLz64WbjbhN3iKpk4HKfRd/v
+         VFrq1gexltBqMKCJijcLsq59rCLVRkT+yy2LA1B2N3lG6x6v0DdgM1Mh3WtCVJ1HPY94
+         jm/x82unjkyPUR8XPudaVn+8Qf5H/XVJ+Zvy6MaPv9J0Ue7Z3FmghfB5XfNCqDRkcmSq
+         MfVyATKeSKdfoLlUgb65chtYpNETkNcTe/yBc9r5BTqOi4Qlx09yjnm1blRbkT/RBh2a
+         xpLJf1SljzFyklbytsZpTBrohqOh/mguxQqWGjR2eDo/2U7I5oAXIytw0qBFhg+qNywo
+         ACTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781486297; x=1782091097;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xD2K3MV/ImpTfNxgjLbCTNSQAYJN87stcDsw5szY+bI=;
+        b=aHCoen7uHnZJRQzZTGNlF2stOhABBRgXf2bkz9WpzXuIMbZCl/TESCYfxyLMV9uFay
+         CAjqbyGMEyu6ttfU2c1+4IdriuwbhqsRAQZwmWNvrSwOthfbZ636+50P1aDyy1k/Uwkb
+         qzu6LJdrH0DtCu8Xhh+f3c/r+LeAPbHhihv07R3XUtG795sTbmjAtMrb32ZwovdS+5ui
+         P0XA2Z6PBO40jXcgYK2bEIUXrnGXyTIzz7llbHbCghQv92OMLvc/5e7LdjZENqzkemTD
+         FxsV5eiRXgT7xh/q1ZViCSTLO+DW7YdAzXdDtaZlqrTy7Tewm/M/xbtCy94dLSuETiOE
+         H+Ig==
+X-Forwarded-Encrypted: i=1; AFNElJ9BbWsRX7GwfcCBynDIJPSA5XHVPvvoSd3SBGzp3ELCVkCCbYrL5ZEDA1z5G3v/igg51kqCnnNkyR0t@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOR4Kh4U+XCQJF2xc2D/wuSCwlYiiA/WYNY3O2avm1wFqRai79
+	sqCwlPyyZwf+ByaI/YXbzMewjr+aTNgNmxYp8w6H8y31QOckofmBNEMo
+X-Gm-Gg: Acq92OE3QMZ/GBNpnYsbYi43XOsbB51lD5ovEQzT+MudTnJ75EMIZF5D20l9Zr9Quvv
+	1icjlz22UFkTfka+I8PhrCBeyWb0wpvBr7Fxxasszg4USsToMCberee2gHdUgC/vntu2u8uUug/
+	9NEtlZUnh+mL2B1d4hBN0+26//RwDRZzWP9qqPrAOx6SrMFunvOTQaeqBg7mQpb6C3E75DYMhxn
+	7ahzes2KatdqN9Yy35NWRskcxlc39Fc49HJKdUrL5VaLYiWpWxaQQ5K1oX8X3uE9/2UfyxyEfHL
+	oAe7Fznhrfd/kFMlX3LgOTIdi5KPkB22gBc9038ldX68J9WqdsAql78qq0nkvWq9ebLQLuZQ3av
+	CzaYGzVB507d2wl/rUZEizfmh3tIWI3/UeiCeZImvP3zPAJ4QPe69gIob775J7Y7X2hqzFmQ6nt
+	v1PpelPIr9VgfjDQTKk86DSXv2rR1JBZrHgqGy0FvuzKWahuHtSiKC0HXaN8CrpNz05V/7kWPKo
+	+Q=
+X-Received: by 2002:a05:7022:629f:b0:137:6bdb:5842 with SMTP id a92af1059eb24-1384b97f25bmr5877161c88.0.1781486297416;
+        Sun, 14 Jun 2026 18:18:17 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1384b964862sm8982362c88.10.2026.06.14.18.18.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jun 2026 18:18:16 -0700 (PDT)
+Message-ID: <59dbf955-56d5-4d72-85ca-0ed8407de295@gmail.com>
+Date: Mon, 15 Jun 2026 09:18:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260611-b4-k1-pdma-req-macros-v3-1-ae8416052571@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton
+ MA35D1 QSPI
+To: Conor Dooley <conor@kernel.org>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260611091246.2070485-1-cwweng.linux@gmail.com>
+ <20260611091246.2070485-2-cwweng.linux@gmail.com>
+ <20260611-decoy-glamorous-81903a5fd1f9@spud>
+ <0031379c-0cc3-40c8-8145-5b1991b42f05@gmail.com>
+ <20260612-diagram-florist-01a0e8f923d8@spud>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <20260612-diagram-florist-01a0e8f923d8@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Guodong,
- The patch itself looks good to me, only few minor comments
+Hi Conor,
 
-On 09:17 Thu 11 Jun     , Guodong Xu wrote:
-> Add a local DTS header, k1-pdma.h, that gives symbolic names to the K1
-> PDMA request numbers. These request numbers are hardware-fixed; their
-> allocation can be found in K1 manual.
-> 
-..
-> Replace the hard-coded numbers in the SPI3 "dmas" property with the
-> K1_PDMA_SPI3_RX/TX macros.
-> 
-As it's too obvious that people can tell from the diff, then I feel it's
-unnecessary to repeat in commit message..
+Thanks for the clarification.
 
-> Signed-off-by: Guodong Xu <docular.xu@gmail.com>
-> ---
-> Add a local DTS header naming the K1 PDMA request lines and convert the
-> current user (the K1 SPI3 node) to the new K1_PDMA_* macros.
-..
-> The request
-> numbers come from the SpacemiT K1 User Manual [1], Chapter 9.4.3 DMA
-> Connectivity & Assignments.
-> 
-I'd suggest to put above into commit message, as more detailed description.
-Here is my attempt to slightly reconstruct the commit message:
+I will make the driver read num-cs in v4 and fall back to the hardware
+default of 2 when the property is not present. I will also keep the
+binding default in sync with that behavior.
 
-The PDMA request numbers (DRQ) are fixed values specific to the SoC from a
-hardware perspective. The detailed definition can be found in K1 User Manual,
-Chapter 9.4.3 DMA Connectivity & Assignments. Add a DTS header file to define
-the symbolic names for the DRQs of non-secure DMA peripherals.
+Best regards,
+Chi-Wen
 
-> [1]: https://www.spacemit.com/community/document/info?lang=en&nodepath=hardware/key_stone/k1/k1_docs/k1_usermanual/9.Top_System.md
-> 
-> Changes in v3:
-> - Move the request-number macros from include/dt-bindings/dma/ to a local
->   DTS header arch/riscv/boot/dts/spacemit/k1-pdma.h (Conor).
-> - Squash the header and its user into a single patch.
-> - Link to v2: https://patch.msgid.link/20260609-b4-k1-pdma-req-macros-v2-0-5d5d7b997b54@gmail.com
-> 
-> Changes in v2:
-> - Drop the #dma-cells description change in spacemit,k1-pdma.yaml; the request
->   numbers are hardware-fixed and unused by the driver (Conor)
-> - Link to v1: https://patch.msgid.link/20260607-b4-k1-pdma-req-macros-v1-0-5b2a3955007c@gmail.com
-> 
-> BR,
-> Guodong Xu
-> ---
->  arch/riscv/boot/dts/spacemit/k1-pdma.h | 56 ++++++++++++++++++++++++++++++++++
->  arch/riscv/boot/dts/spacemit/k1.dtsi   |  4 ++-
->  2 files changed, 59 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-pdma.h b/arch/riscv/boot/dts/spacemit/k1-pdma.h
-> new file mode 100644
-> index 0000000000000..65112d5847add
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k1-pdma.h
-> @@ -0,0 +1,56 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * This header provides DMA request number for non-secure peripherals of
-> + * SpacemiT K1 PDMA.
-slightly less redundant,
-  DMA request number (DRQ) defintion for non-secure peripherals
-
-> + *
-> + * Copyright (c) 2026 Guodong Xu <docular.xu@gmail.com>
-> + */
-> +
-> +#ifndef _DTS_SPACEMIT_K1_PDMA_H
-> +#define _DTS_SPACEMIT_K1_PDMA_H
-> +
-> +#define K1_PDMA_UART0_TX	3
-> +#define K1_PDMA_UART0_RX	4
-> +#define K1_PDMA_UART2_TX	5
-> +#define K1_PDMA_UART2_RX	6
-> +#define K1_PDMA_UART3_TX	7
-> +#define K1_PDMA_UART3_RX	8
-> +#define K1_PDMA_UART4_TX	9
-> +#define K1_PDMA_UART4_RX	10
-> +#define K1_PDMA_I2C0_TX		11
-> +#define K1_PDMA_I2C0_RX		12
-> +#define K1_PDMA_I2C1_TX		13
-> +#define K1_PDMA_I2C1_RX		14
-> +#define K1_PDMA_I2C2_TX		15
-> +#define K1_PDMA_I2C2_RX		16
-> +#define K1_PDMA_I2C4_TX		17
-> +#define K1_PDMA_I2C4_RX		18
-> +#define K1_PDMA_SPI3_TX		19
-> +#define K1_PDMA_SPI3_RX		20
-> +#define K1_PDMA_I2S0_TX		21
-> +#define K1_PDMA_I2S0_RX		22
-> +#define K1_PDMA_I2S1_TX		23
-> +#define K1_PDMA_I2S1_RX		24
-> +#define K1_PDMA_UART5_TX	25
-> +#define K1_PDMA_UART5_RX	26
-> +#define K1_PDMA_UART6_TX	27
-> +#define K1_PDMA_UART6_RX	28
-> +#define K1_PDMA_UART7_TX	29
-> +#define K1_PDMA_UART7_RX	30
-> +#define K1_PDMA_UART8_TX	31
-> +#define K1_PDMA_UART8_RX	32
-> +#define K1_PDMA_UART9_TX	33
-> +#define K1_PDMA_UART9_RX	34
-> +#define K1_PDMA_I2C5_TX		35
-> +#define K1_PDMA_I2C5_RX		36
-> +#define K1_PDMA_I2C6_TX		37
-> +#define K1_PDMA_I2C6_RX		38
-> +#define K1_PDMA_I2C7_TX		39
-> +#define K1_PDMA_I2C7_RX		40
-> +#define K1_PDMA_I2C8_TX		41
-> +#define K1_PDMA_I2C8_RX		42
-> +#define K1_PDMA_CAN0_RX		43
-> +#define K1_PDMA_QSPI_RX		44
-> +#define K1_PDMA_QSPI_TX		45
-> +
-> +#endif /* _DTS_SPACEMIT_K1_PDMA_H */
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> index 08a0f28d011fe..7d414e15d2cc2 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -6,6 +6,8 @@
->  #include <dt-bindings/clock/spacemit,k1-syscon.h>
->  #include <dt-bindings/phy/phy.h>
->  
-> +#include "k1-pdma.h"
-> +
->  /dts-v1/;
->  / {
->  	#address-cells = <2>;
-> @@ -1094,7 +1096,7 @@ spi3: spi@d401c000 {
->  				clock-names = "core", "bus";
->  				resets = <&syscon_apbc RESET_SSP3>;
->  				interrupts = <55>;
-> -				dmas = <&pdma 20>, <&pdma 19>;
-> +				dmas = <&pdma K1_PDMA_SPI3_RX>, <&pdma K1_PDMA_SPI3_TX>;
->  				dma-names = "rx", "tx";
->  				status = "disabled";
->  			};
-> 
-> ---
-> base-commit: 793cc54475b49b5b558902b5c13e4bfe66530a50
-> change-id: 20260607-b4-k1-pdma-req-macros-8d276d0126df
-> 
-> Best regards,
-> --  
-> Guodong Xu <docular.xu@gmail.com>
-> 
-
--- 
-Yixun Lan (dlan)
+Conor Dooley 於 2026/6/12 下午 11:48 寫道:
+> On Fri, Jun 12, 2026 at 08:33:01AM +0800, Chi-Wen Weng wrote:
+>> Hi Conor,
+>>
+>> Thanks for the review.
+>>
+>> I will add a default value for num-cs in v4:
+>>
+>>    num-cs:
+>>      maximum: 2
+>>      default: 2
+>>
+>> The controller has two native chip selects and the driver currently uses
+>> that hardware default.
+> The driver should handle the property and fall back to the default.
+> It's not complex to support, so surely there's no reason not to?
+>
+> Cheers,
+> Conor.
+>
+>> Best regards,
+>> Chi-Wen
+>>
+>> Conor Dooley 於 2026/6/12 上午 01:34 寫道:
+>>> On Thu, Jun 11, 2026 at 05:12:45PM +0800, Chi-Wen Weng wrote:
+>>>> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>>>>
+>>>> Add a devicetree binding for the Quad SPI controller found in
+>>>> Nuvoton MA35D1 SoCs.
+>>>>
+>>>> The controller supports SPI memory devices such as SPI NOR and SPI NAND
+>>>> flashes. It has one register range, one clock input and one reset line,
+>>>> and supports up to two chip selects.
+>>>>
+>>>> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+>>>> ---
+>>>>    .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 62 +++++++++++++++++++
+>>>>    1 file changed, 62 insertions(+)
+>>>>    create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..d3b36e612eb0
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+>>>> @@ -0,0 +1,62 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Nuvoton MA35D1 Quad SPI Controller
+>>>> +
+>>>> +maintainers:
+>>>> +  - Chi-Wen Weng <cwweng@nuvoton.com>
+>>>> +
+>>>> +allOf:
+>>>> +  - $ref: /schemas/spi/spi-controller.yaml#
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: nuvoton,ma35d1-qspi
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  interrupts:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  clocks:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  resets:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  num-cs:
+>>>> +    maximum: 2
+>>> Missing a default of 2, unless you make the property required.
+>>> FWIW, your driver doesn't appear to read this value.
+>>>
+>>> pw-bot: changes-requested
+>>>
+>>> Cheers,
+>>> Conor.
+>>>
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - clocks
+>>>> +  - resets
+>>>> +
+>>>> +unevaluatedProperties: false
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+>>>> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+>>>> +
+>>>> +    soc {
+>>>> +        #address-cells = <2>;
+>>>> +        #size-cells = <2>;
+>>>> +
+>>>> +        spi@40680000 {
+>>>> +            compatible = "nuvoton,ma35d1-qspi";
+>>>> +            reg = <0 0x40680000 0 0x100>;
+>>>> +            interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+>>>> +            clocks = <&clk QSPI0_GATE>;
+>>>> +            resets = <&sys MA35D1_RESET_QSPI0>;
+>>>> +            #address-cells = <1>;
+>>>> +            #size-cells = <0>;
+>>>> +        };
+>>>> +    };
+>>>> +
+>>>> -- 
+>>>> 2.25.1
+>>>>
