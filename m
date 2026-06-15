@@ -1,171 +1,233 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B5F4A0C
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 00:18:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C711C84D0;
+	Mon, 15 Jun 2026 00:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781482684; cv=none; b=ZVXh6hFGFBxkZjfX3iekV77yfoyszdioMMt1L3g0JZYUPIs7V1cGvFNBwrAflf/WG33S77LZyJ9uwATfcOgFp95OCOK0yZxIx4zfvXKz8BVHG4epX6DCZgo5eMdkWhwXoi37ctw6xuBt5zEQkt5EsWmdTKQMTpZ2pEopN4+btgY=
+	t=1781484072; cv=none; b=b3wErO2zUiUGQta177qIYjq2WKWwyGYg9YM3gMIVj/oo2bOkqIPUNhJlU9qSalW3KD/fZc7olwkYoEAIzjt2DAU9R+lo6HRgZGQkH5yBN0Gxh9Azs+5NuvoUQ4ds34Y+v4z5sAAXEB6DnAn6KVV3sO1DbNEnbCjiO176iYFUhCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781482684; c=relaxed/simple;
-	bh=U1kN8R1+l8O2sMPgHOQTpGDDnCmJ19nJhq2+FEdBwOQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TG7tNGMtK0Y9izdTwW0BK5DH5ntaoGp+r62knWWRVBfFEfofBYGeTBTy36E/WtyNWbrGUyFVq9aUqvqdrs8haHqgG1LUplM8LOHnC5RMf6iI+Dhuayt+iTvt802J57/mBnB0hMqgxb50DkU+8j4CqjtDuyXcO8qyj9depLOTQTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSSoE0Nb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781484072; c=relaxed/simple;
+	bh=rHW7iSFM1/5SccAkwiz04HAQ0dgWkBSTJyHysQPm/6E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H8aDCBFe46rfCAOhhkwE9QknPzH/HlX1UOXLBBEtHSykpMiRNVN0ddPH/Mo5VXhWx+j2TlxzHA0oko1acDf/8SHA6ViDrsdfxK258mqMc5TOzMXDsxZk9+x4xKelu0LR331V1YsDjLAu2/F94WH2v5aeW+CbbVDc0Gb9SWqS2KY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDJkSnLb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSSoE0Nb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982D71F000E9;
-	Mon, 15 Jun 2026 00:18:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDJkSnLb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3C51F000E9;
+	Mon, 15 Jun 2026 00:41:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781482682;
-	bh=D0M6Ucn4o06rLjKqLhPXilHkISXTrNCsJAeIkz6Dk0o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FSSoE0NbVKD8FYDkOiD6TUB+u0URe5FE+w2ViPNTf/lkc4ZDu1Q9d8k48eYxuTMJV
-	 p0HaocCwEZipfl6mXpBXW/UueZcqraJ2jgx/RE1XXT6JEVgRMH0R9UgMSqXxxBg5Yl
-	 x5xJ31nYnnicfv0o2Qv2RB1PuYZ34I41KG2nFXV7ow7nuwU8Mj7a9sm62iAR1iXW+l
-	 ksiklASJVyOznujQ5cjpM0KnfPbmE5gqoaLIZ+eLLQ+/F9whqKr7s0gwfxuvb67A2Q
-	 KarNjbcTXcpyw7SfK72QFsgq8HSzQ6ISLF5WJ2a7AbVBLQGxWnsql4Mbm+8QYb8hm1
-	 eSXGoyX2+N7vA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] drm: panel: Add LG LH609QH1 Panel with SW49410
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Sajna" <sajattack@postmarketos.org>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
-References: <20260614-judyln-panel-v3-1-07f4134441bd@postmarketos.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 00:18:02 +0000
-Message-Id: <20260615001802.982D71F000E9@smtp.kernel.org>
+	s=k20260515; t=1781484071;
+	bh=wO+xhrsIY7D9Za7HFA+jcdc+uFRy9vZxo0r3ijKBOMc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BDJkSnLbAydbROsU/w2Ao1u7vkhvlnf3yIcWpGa1NWsj8v5WM9EcqfOVe4YyBmuVI
+	 4TAIi1DEyQLis8OJ2a9o0m5m/5xOttqUMDDlZMifak7lBIF0OvzDkrSn0xkPHuPy3D
+	 GDRpDK9IqkFHPoQdtRfP3Xm7F2ZokVnFtiKhx1LR0bF4rFQXVa3IQE9QKo4F1WJ9cc
+	 Q54rzjNKu05r57NAcppKGIdufMCywYyjJmCW+weODbbymyxXpkZUgA3W4snx1b7506
+	 zgp8fr53R27uqgBTo6+a+pjfv6bgiCzQ23MC5KWviAUGYoqtxE9TJnluyFbC7FGXPb
+	 iQuEX01208Vrw==
+Date: Mon, 15 Jun 2026 00:41:08 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Vincent Legoll <legoll@online.fr>
+Cc: Shuwei Wu <shuwei.wu@mailbox.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: spacemit: orangepi-rv2: Add cpu scaling for
+ K1, SoC
+Message-ID: <20260615004108-GKA1002079@kernel.org>
+References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
+ <f031e13e-d9f5-414a-b90e-a3d5a60b8d05@online.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f031e13e-d9f5-414a-b90e-a3d5a60b8d05@online.fr>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing `drm_panel_remove()` in the `mipi_dsi_attach()` error path=
- causes a global list corruption and Use-After-Free.
-- [High] DSI commands are sent while the panel is held in reset in `sw49410=
-_panel_unprepare()`.
-- [Medium] Misplaced `MIPI_DSI_MODE_LPM` flag manipulation around a softwar=
-e memory packing function.
-- [Medium] The panel is published to the system before its DSC configuratio=
-n is fully initialized.
---
+Hi Vincent,
 
-commit 1a6b069af275d9965692f4acaa02ebd1a8517da9
-Author: Amir Dahan <system64fumo@tuta.io>
-Subject: drm: panel: Add LG LH609QH1 Panel with SW49410 controller
+ Please send the patch directly instead of attached file, it's more
+easy for people to review and apply, suggest to use b4, or
+ "git send-email" (old way)
 
-This commit adds a new panel driver for the LG SW49410 controller used
-in the LG G7 ThinQ. It configures the panel, sets up the DSI commands,
-and initializes the DSC parameters.
 
-> diff --git a/drivers/gpu/drm/panel/panel-lg-sw49410.c b/drivers/gpu/drm/p=
-anel/panel-lg-sw49410.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-lg-sw49410.c
+On 08:50 Sun 14 Jun     , Vincent Legoll wrote:
+> [RESEND] as I cannot see yesterday's
+> 
+> 
+> Hello,
+> 
+> 
+> 
+> I tested (on OrangePi RV2) the attached patch applied over
+> 
+> spacemit/for-next + Shuwei Wu's V3 series.
+> 
+> 
+> This is a copy/paste of Shuwei Wu's work, so I don't know
+> 
+> if I can submit this with my SoB or if it should be done
+> 
+It's ok to add your SoB while adding support for new board
 
-[ ... ]
+> differently, please advise.
+> 
+> 
+> Anyways, you can add my:
+> 
+> Tested-by: Vincent Legoll <vincent.legoll@gmail.com> # OrangePi-RV2
+> 
+> 
+> To the relevant patches from your series, if that's useful,
+> 
+> because it looks like it is working properly:
+> 
+> 
+> On Void linux (musl libc):
+> 
+> 
+> uname -a
+> Linux opirv2 7.1.0-rc1-00043-gb860bca13be4 #14 SMP PREEMPT Sat Jun 13 
+> 11:02:13 CEST 2026 riscv64 GNU/Linux
+> 
+> awk --version | head -1
+> GNU Awk 5.3.2, API 4.0
+> 
+> echo userspace > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+> 
+> echo 1600000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
+> real    0m0.300s
+> user    0m0.299s
+> sys     0m0.001s
+> 
+> echo 1228800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
+> real    0m0.432s
+> user    0m0.429s
+> sys     0m0.004s
+> 
+> echo 1000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
+> real    0m0.476s
+> user    0m0.476s
+> sys     0m0.001s
+> 
+> echo 819000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
+> real    0m0.582s
+> user    0m0.581s
+> sys     0m0.001s
+> 
+> echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
+> time awk 'BEGIN{for(i=0;i<1000000;i++){}}'
+> real    0m0.778s
+> user    0m0.773s
+> sys     0m0.005s
+> 
+> -- 
+> 
+> Vincent Legoll
+> 
 
-> +static int sw49410_panel_program(struct sw49410_panel *ctx)
-> +{
+> From 9924789655ae5f4f98e7a5cdc3df3f34e7bfb659 Mon Sep 17 00:00:00 2001
+> From: Vincent Legoll <vincent.legoll@gmail.com>
+> Date: Sat, 13 Jun 2026 10:49:34 +0200
+> Subject: [PATCH] riscv: dts: spacemit: orangepi-rv2: Add cpu scaling for K1
+>  SoC
+> 
+> Enable CPU DVFS on OrangePi RV2
+> 
+..
+> This is a copy/paste from Shuwei Wu's BPI-F3 DTS modifications
+> 
+It's quite common that people do copy/paste for additional board
+support, no need to mention it in commit message which I think it
+isn't really useful
 
-[ ... ]
 
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> Signed-off-by: Vincent Legoll <vincent.legoll@gmail.com>
+> ---
+>  .../boot/dts/spacemit/k1-orangepi-rv2.dts     | 35 ++++++++++++++++++-
+>  1 file changed, 34 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index 7c49bce427f3..62d25f579af6 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> @@ -8,6 +8,7 @@
+>  
+>  #include "k1.dtsi"
+>  #include "k1-pinctrl.dtsi"
+> +#include "k1-opp.dtsi"
+keep alphabet sorted
+>  
+>  / {
+>  	model = "OrangePi RV2";
+> @@ -80,6 +81,38 @@ &combo_phy {
+>  	status = "okay";
+>  };
+>  
+> +&cpu_0 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +&cpu_1 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +&cpu_2 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
-
-[Severity: Medium]
-Does this code incorrectly clear and restore the MIPI_DSI_MODE_LPM flag?
-
-The drm_dsc_pps_payload_pack() function merely formats a local structure
-in memory and performs no hardware DSI transactions, so manipulating DSI
-hardware transmission flags around it seems unnecessary.
-
-By restoring the flag immediately after packing, does it cause the
-subsequent mipi_dsi_picture_parameter_set_multi() call to execute in Low
-Power Mode rather than the intended High Speed mode?
-
-[ ... ]
-
-> +static int sw49410_panel_unprepare(struct drm_panel *panel)
-> +{
-> +	struct sw49410_panel *ctx =3D to_sw49410_panel(panel);
+> +&cpu_3 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	gpiod_set_value(ctx->reset_gpio, 1);
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +&cpu_4 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-
-[Severity: High]
-Is it intentional to assert the reset GPIO before sending the sleep
-commands?
-
-Because the display controller is held in hardware reset, it cannot receive
-or process the display off and sleep commands, which could cause the DSI
-host's transmissions to fail or time out.
-
-Looking further down in this function, the reset GPIO is asserted a second
-time, which suggests this first call might be misplaced.
-
-[ ... ]
-
-> +static int sw49410_panel_probe(struct mipi_dsi_device *dsi)
-> +{
-
-[ ... ]
-
-> +	drm_panel_add(&ctx->panel);
+> +&cpu_5 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	/* This panel only supports DSC; unconditionally enable it */
-> +	dsi->dsc =3D &ctx->dsc;
+> +&cpu_6 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	ctx->dsc.dsc_version_major =3D 1;
-> +	ctx->dsc.dsc_version_minor =3D 1;
-
-[Severity: Medium]
-Could this cause a race condition where a concurrently probing display
-driver reads uninitialized DSC settings?
-
-Since drm_panel_add() makes the panel visible globally, another driver
-could find it before the DSC parameters like slice_width and
-bits_per_component are fully populated.
-
-Should drm_panel_add() be called as the final step of initialization?
-
-[ ... ]
-
-> +	ctx->dsc.slice_count =3D 1440 / ctx->dsc.slice_width;
-> +	ctx->dsc.bits_per_component =3D 8;
-> +	ctx->dsc.bits_per_pixel =3D 8 << 4; /* 4 fractional bits */
-> +	ctx->dsc.block_pred_enable =3D true;
+> +&cpu_7 {
+> +       cpu-supply = <&buck1_0v9>;
+> +};
 > +
-> +	return mipi_dsi_attach(dsi);
-> +}
+>  &emmc {
+>  	bus-width = <8>;
+>  	mmc-hs400-1_8v;
+> @@ -162,7 +195,7 @@ pmic@41 {
+>  		dldoin2-supply = <&buck5>;
+>  
+>  		regulators {
+> -			buck1 {
+> +			buck1_0v9: buck1 {
+>  				regulator-min-microvolt = <500000>;
+>  				regulator-max-microvolt = <3450000>;
+>  				regulator-ramp-delay = <5000>;
+> -- 
+> 2.54.0
+> 
 
-[Severity: High]
-Does returning the error from mipi_dsi_attach() without calling
-drm_panel_remove() leave a dangling pointer in the global panel list?
 
-If mipi_dsi_attach() fails, the probe function returns the error directly.
-Because the panel context is allocated via devm_drm_panel_alloc(), it will
-be automatically freed by the driver core.
-
-However, since drm_panel_add() was already called, this freed memory would
-remain linked in the global DRM panel list, leading to a use-after-free
-the next time the list is traversed.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260614-judyln-pan=
-el-v3-0-07f4134441bd@postmarketos.org?part=3D1
+-- 
+Yixun Lan (dlan)
