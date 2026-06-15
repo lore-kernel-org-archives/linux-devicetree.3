@@ -1,94 +1,93 @@
-Received: from r3-55.sinamail.sina.com.cn (r3-55.sinamail.sina.com.cn [202.108.3.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727BC2857EE
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24AF2857EE;
+	Mon, 15 Jun 2026 06:08:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503684; cv=none; b=OgXhlhCsosiJFi8DZO8iT7eeJC2EGkmId7QS8I6GYQkQPOXbnpTryWxKvsFUeYwMAmVOcjRifzUGt3Daxro36Mf6toEAM8zxNX42Cr7goE5L+xaw/XtW+COfqiRocFt126TyXNYBXBcqPlZRlZptSbgVcdYPGB3BKo88s1iyGpg=
+	t=1781503731; cv=none; b=kusuLUneGKKYjogyozd7Nv+VNz8WQbAQVSMJCef/VktHEf101FiZ74wtcZpVUds/c6pFtvpvAgmwfGg0/KPeajUizbQAXwhtU9ZBfB/VwiWdYacgFcFcc03ZsDY37Eqs/4u1aN/EVbFByhaXaLXEVSW12d3ys3GgkwjFNjqx46U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503684; c=relaxed/simple;
-	bh=AUdimFTexxZwClYm/z6jwEfeqBrojqxOhlxN5l/yYBo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References; b=NB8wmfe1DGxbfBlFZtNi8heKDkm1koHCUdHqgs2ngI/qbZtktzHTJxrZ9ZoRpSEAIvDWgPlQ1xQK/s+vqXro7TMjJu4Ibm/J7rUvuS1PuIDAL6v1QQMIqTEOJmoOnvmmmEBcKGugT5Qo0Nwaedtaw2KIFJFyX0E81iWvoDJj49U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com; spf=pass smtp.mailfrom=everest-semi.com; arc=none smtp.client-ip=202.108.3.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=everest-semi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everest-semi.com
-Received: from unknown (HELO zy-virtual-machine.localdomain)([58.38.107.94])
-	by sina.net (10.54.253.38) with ESMTP
-	id 6A2F96B200002371; Mon, 15 Jun 2026 14:07:47 +0800 (CST)
-X-Sender: zhangyi@everest-semi.com
-X-Auth-ID: zhangyi@everest-semi.com
-Authentication-Results: sina.net;
-	 spf=none smtp.mailfrom=zhangyi@everest-semi.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=zhangyi@everest-semi.com
-X-SMAIL-MID: 060A3B3A33EE4A8FBA7316C5896DBAAD
-X-SMAIL-UIID: 060A3B3A33EE4A8FBA7316C5896DBAAD-20260615-140747
-From: Zhang Yi <zhangyi@everest-semi.com>
-To: krzk@kernel.org
-Cc: alsa-devel@alsa-project.org,
-	broonie@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	tiwai@suse.com,
-	zhangyi@everest-semi.com
-Subject: RE: [PATCH 7/7] ASoC: dt-bindings: ES8389: Add members about HPF and clock
-Date: Mon, 15 Jun 2026 14:07:44 +0800
-Message-Id: <20260615060744.18775-1-zhangyi@everest-semi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <fa710884-e66e-4ef8-bbbd-034eeef8ee62@kernel.org>
-References: <fa710884-e66e-4ef8-bbbd-034eeef8ee62@kernel.org>
+	s=arc-20240116; t=1781503731; c=relaxed/simple;
+	bh=0Z5uG4/AOYNdvuGgb4y98kM0ToVrfsxjdgygj69Omj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fm1U6zcZrR6WSHOwHetipO9eLA2Ov4nYg5EFne0menQTs7iCsUayOb2XdtKKwlwCXBBJrFJgTPWmLsnEWVcArAjUPMymd+dzw7Qk6iNGoS9+JatrxKvqpwWrB/yiKboS2J+RmmSAlmUmSgXLl4r3fsplG27mOJann73mvyZlqD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3wCrQGe; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3wCrQGe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B991F000E9;
+	Mon, 15 Jun 2026 06:08:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781503730;
+	bh=7zDyufU/kpnCdxmNNT0kkrOVtZuRP5VOwqnx/D+i3Hk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W3wCrQGe7EgJseUWLPHuKSiYGoong7fj0fJAsBQW2SRdCK3zAHUgn3PR8YVMLgJkO
+	 k4pRA8Af7+uvrbqTbBDCNXnkEw1KWmqyemyVUCFYlf7gmvhRNZ0L5wK0rJt4oxnZIu
+	 +XAubSSgSByObUP5x/ADEy56VYTFAS/8tjJk4C1//eV9aqaTVTw+nnAWJTLb4eKnp5
+	 c+/S0NB+q9OvgDp1VVvD8mJcFBe+7BLBl9qOdM33+HE5o8tOA8ehdQv53Rxl894De3
+	 4eExZ9bgH2LB60zijLJ8oshfQArpzY0/A1DhFiIx4Zi8uFLkkzEO8Kf62gWIMkO4GA
+	 lG5/y0yn4pJGQ==
+Date: Mon, 15 Jun 2026 08:08:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Potin Lai <potin.lai.pt@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Zev Weiss <zev@bewilderbeest.net>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>, 
+	Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai <potin.lai@quantatw.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add
+ current limit properties
+Message-ID: <20260615-invaluable-jade-lionfish-d66e17@quoll>
+References: <20260615-lm25066-cl-config-v2-0-59be46e67d5a@gmail.com>
+ <20260615-lm25066-cl-config-v2-1-59be46e67d5a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260615-lm25066-cl-config-v2-1-59be46e67d5a@gmail.com>
 
-> >>> +    $ref: /schemas/types.yaml#/definitions/flag
-> >>> +    description:
-> >>> +      Indicates that SCLK is used as the internal clock.
-> >>
-> >> And what happens with mclk in such case? Is it still wired?
-> > 
-> > Yes, setting mclk-from-sclk does not affect the MCLK connection.
+On Mon, Jun 15, 2026 at 11:07:13AM +0800, Potin Lai wrote:
+> Add a 'ti,current-limit' string property to configure the device's Current
+> Limit (CL) behavior to "high" or "low".
 > 
-> I am asking about wiring of the device. If MCLK is used from SCLK, but
-> SCLK is used as the internal clock, then how can you still have MCLK
-> connected?
+> LM25056 does not support setting the current limit via software, so
+> disallow this property for it.
 
-If MCLK is derived from SCLK, whether the 'MCLK' pin on the device is
-connected or not has no effect on operation.
+Then which device supports it? Your commit msg should explain WHY you
+are doing this, not WHAT you are doing (unless that is not obvious). The
+reason WHY is for some device. You just explainde WHY NOT doing that...
 
-> >>> +
-> >>> +  everest,hpfl:
-> >>> +    $ref: /schemas/types.yaml#/definitions/uint8
-> >>> +    description:
-> >>> +      the HPF value of ADCL.
-> >>
-> >> Is HPF value in dB? If so, use proper unit suffix and proper units.
-> > 
-> > No, the values here correspond to the values in the registers.
-> > The value is not in dB
 > 
-> What are the meanings of the register values?
-
-The value of everest,hpfl is equal to the value of the corresponding register,
-not the cutoff frequency of the HPF.
-The code does not specify which register corresponds to which HPF cutoff frequency.
-And we did not set the HPF to kcontrol because we do not want users to be able to control it
-while the codec is running.
-
-> >>> +        everest,hpfl = [0a];
-> >>
-> >> <0xa>? What did you want to say here?
-> > 
-> > I just wanted to give an example to show how to set the values of everest,hpfl to 0x0a.
+> Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+> ---
+>  .../devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml    | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 > 
-> So use syntax I asked.
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+> index a20f140dc79a..53ee98e871ff 100644
+> --- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+> @@ -46,12 +46,30 @@ properties:
+>  
+>      additionalProperties: false
+>  
+> +  ti,current-limit:
+> +    description: |
+> +      Configure the current limit setting. When present, this property
+> +      overrides the hardware setting of the physical CL pin by configuring
+> +      the register.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - low
+> +      - high
 
-OK
+What is the meaning of low and high? Maybe these map to specific values?
+Docs are saying 25 or 46 mV, so maybe there is no direct mapping. Anyway
+commit msg could also explain that.
 
-If you receive this email, please reply to me.
-(I'm worried that the issue with not receiving emails might happen again.)
+Best regards,
+Krzysztof
+
