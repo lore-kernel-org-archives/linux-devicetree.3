@@ -1,86 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FCA3DB658
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F79E3D7D8B
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781516784; cv=none; b=fCT+0itSbefnZ0Gx2EiZnmHImr4ZdB+gOgXJFBbSca4eoTcmVtt1fedzc6wrl7AU0z1SUd5zfn57XPMcB/7n0BegEB0hALDYQ+c3zH2Qn0RwtGcTVXAYE5r74zl/gdG4CsX1wLLll7/+KEWY6l13cu/Ee3Yme3NQ3lnbnIaRXus=
+	t=1781516865; cv=none; b=qF+CmXAqqcpbZAwCmwqjCtjxaMBNgAgXUTpYcBBEtq20ZIiTpfY2m1Aampzi0jlT3SqP124VhWQo+N7c3B3V2nACKCESICDxui4C7mEYSioz1fHsXA6C1umK7cFIcLRlS0jWgMysKZbL+ztolgFJd2Im7TQm18VRiorWzYpUkYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781516784; c=relaxed/simple;
-	bh=RfHlJyVY3qOQ1gvEl60Xwl3FcvFNo2dgj1KhjcIFKxU=;
+	s=arc-20240116; t=1781516865; c=relaxed/simple;
+	bh=oRdiyeOjH0aUktYn1+FRWgx2GsnQKnaO38v78u+4ArI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rO09oohN7DhiFA23l5BAJ0fy8wQZMiw0HGOjyXkl5iHdIOFI78Sbu2uyTOaeakTL0xiOG7CMBWmmipgitEIB0bF6bdkBNIPcexOEgrQ0zMWxNQnUVsslUlTTVPqWge6KJb9XVzix0CmbTn5G3VEcfFuBMApk9Sn1GCX+G216Wf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UymCYjNc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YPYqjjW1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=aVOf4GL+IVBXPajHwQp74eM/MZtSxbPSAM4P4VoFNJhM0VsgA7TVN3WoGEl3ikhL0zivHrQAKya5hqsRwZHrljTy18VGGOBiBGCm//f1Sdn1oXBK9+5QZ5GvO30aVCuMfkGtv2NmzumbaCBGKLFJCHFRasjODVIQ43o+aeMc/Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=msQLu2id; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UymCYjNc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YPYqjjW1"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F9ON6q3763490
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=; b=UymCYjNcWzxqFDi9
-	tF0Dk421TzOUACQRVE/wKL7m0+ifqJ//5FDRjG4cHfwIF14ZbFEVJJSuYweeLNbG
-	aIeq0qaFAnRUTJwxE6eGggfC8QKBIsSNBc0jkVdXzIkyqttrShDP9bK3A0/rOenI
-	a0fWei7+NviBNAKwlD3F13oyxEfKxmu6J1g0OrTsQg1t4yKA+qaSV/Siup0zSzYb
-	52uhAUpkY7HFKXkOFXBZlVmIOHkcPnWmsURr+wLbuPlCLkB/sCMQrtHw9b7yCq01
-	6/oA5pBYYb9qBAHnyimGMwefPT10coRmA4B+xSGMDHzK4ifCrXwSonnmUqErhccb
-	zxddeg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter002nd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 09:46:22 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c858e0cbca3so1663036a12.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:46:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="msQLu2id"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-491b390f9e9so24597125e9.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 02:47:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781516782; x=1782121582; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=gmail.com; s=20251104; t=1781516862; x=1782121662; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=;
-        b=YPYqjjW1VxI3e4KSSqegI86duuwceFORdG9dm14cfVO0gjV20kZ7ByhFL57EPLY3h0
-         RbQb66vmTlbpX+jB9TgEbc8VZ9yWp9UU1tXYA60/TQ9bamEI0foMALr/wmy1GwZwDCBl
-         xbTYoccOJrYYSfYRJ/rW54xWG/G+etCmaAkbdRglaoyEadLpFNQq7HBNUPYFqwRtnlEO
-         odnfEoStzxlS1V27NVJDcGS/tbXrMlKXBYw+ElRDPNFnaPz0kyeledmr2Dk+QkJ8Q/q1
-         p7Qv0H39NLHKoezoMCP/AjjporkMwN5GNFBpLMf41k0bcCZ7POWJxnqrq8bT7Wb3DONO
-         vbCw==
+        bh=Xj9QL4/yOEaypRgWx6F22O/WECZ96lxRB8xdf7w7GbI=;
+        b=msQLu2idVMhhHemjXn7R6pFLoPS68xg3jDRa3iBTc1433g0fVI2QNPYZkcXRedLPgD
+         fPvF8a8148ipMo2h0+I47RnQJOq9U6mjfDyvfdDnORzXjlbGHwQIdXQ3Qd3NDLU7CAF0
+         pV5j/x6o1v/hD15WpHkiu8XMPlZ63k82irK/FgNxqQ57gzmZNodQwBUfY5ts1Ua6DZU6
+         cP/nNNypjKcA+qsrYWOvak0G8Xubt4eYIRmGBf6u8xbStmS7wS0CYe+R+cT+S99WV2kU
+         5hEDSxhQ8OG+RfEpkowDsWzMIxS5GwmKvpd45e6u2kz3v331MhCkLcgGHkyDbsSz1ZsE
+         8FVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781516782; x=1782121582;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20251104; t=1781516862; x=1782121662;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=x7cxzz2bMuaIGQXwrnW+Ls6KtkN6+BZuFlXPJCuStfM=;
-        b=qjyI3GLMNcmsqYLbO54HPiie9i/B/EN9+knSGbbg9e2z6JPOa8Bv0zuhriUy/+kbMT
-         DbvBribEc40nGWXlYPUO/NqlvFs4vUDkNBrrMejEqVg2SmheyPKiL/RGLD+C5CpRy8RZ
-         qPCaqj/TuY0FJ3W+LTtEbigLvI9dk90DWN+ThPMLDjqGL1jNDjFKpaiEb/1ctYd1ZlQO
-         EsoNtGXkPbmTNX3YJqTiiquGLpWKNooMbMty9+VmJhwRDkHuEQLM+TJWUcggVFLN6G9w
-         xZ9GZy54cgNy5O2x2WfDzyOADLApwy9tAxHxVTyOiSlKqk47+1tCS5k7AotdaZrw9n4w
-         +iVA==
-X-Forwarded-Encrypted: i=1; AFNElJ8mM8i51kcF+7v1YbYs8IVtHSUCdgZSJTUI0Fgkpl+PxTEp5YKVOi3ppFHMvHlDY+dpsU7v/49aHO+G@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxbwev7RZOrP0C4zMBOqrzWLztxcpwOyzqKNyV6KMswkOuF4Gzd
-	aJyCRZ496r+y5IxeYXC4oNDmwYSTfZOIylKBEJ1JfpK0fCEkevCc8s2Jd8n0k+Ue7KGXKgDv+N0
-	nZI3gjZHvdtMVCCJZTmY2lFFPBkfC6wZL9w0DEyjKSwBW4AcX75eET29YYlW3EJ1p
-X-Gm-Gg: Acq92OHX8wws0eNJVs4s3K1ShIA3Jo9vrSkyTw78IRXkW01txOOudJBliI2qhxFsiwz
-	LgTEqRMZx1rl3JFBqobAXAl7KdPexEkvD0oaEn2tSHGgN5X6RAYqX6zoTyEcO41/APmeiVmbWpQ
-	kBZlzSmtxlB5JseT5Abfqf6U2pMxHadpSoy3fqgyGhau1y6gPX4H4U2GRDSFLHj+rzl2jYRi0o+
-	8EGD8Yvf1Ui24kPjym487wHZhFTat/1IK8d9yWVDUGNQDPS8NmxnytrecHP/x1l6jgaIgLCXd3J
-	WR2VICKsGAPIjz/28rin4s0MBQc6nKJEOzKd8YBt100aYdKwy56d2q4vaBJvPNsS5x9+O/hsC0Z
-	PDrRqkC0MAS825Q1UEJCgLXG8kzwXiDqz1eP8XgOC+jYyM2HuiUEkZ9eCMhrG
-X-Received: by 2002:a05:6a00:1f04:b0:843:497e:b392 with SMTP id d2e1a72fcca58-844e1939fdbmr9893053b3a.9.1781516781503;
-        Mon, 15 Jun 2026 02:46:21 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1f04:b0:843:497e:b392 with SMTP id d2e1a72fcca58-844e1939fdbmr9893005b3a.9.1781516780914;
-        Mon, 15 Jun 2026 02:46:20 -0700 (PDT)
-Received: from [10.218.21.154] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b05921bsm9597116b3a.59.2026.06.15.02.46.16
+        bh=Xj9QL4/yOEaypRgWx6F22O/WECZ96lxRB8xdf7w7GbI=;
+        b=FdAf1ezSVptImSlx9AmVPB0fm5FcFWNGoaOKO5lVZui+tCeca+NUbxEdIYJIWqJYcR
+         ZTfpvwrQQJGkIvMX58hf0Em3hDv5dsNIK4fC1GWhmuEXDl1ppMNK/Kd7DdjBY77U5tcS
+         e+jjV3Aonl3vKhRgFdBY34q2kRp1MrMxGdNIRtZmt9kyU5R31Yj4+jVEGF3I3mAVTmyM
+         ERwEZS5unGDVm2dqv6s7MavvBn7gn9OYztcCbyntwoModR5ZPb9fzm1vaCklkIIJ4WnL
+         lsc/DBU/3q331prBLDPa9MwIKA/ob8jej3o4TZ1e8VlIKd9wTeGuqXelM3TJk/jlSrhI
+         eNGA==
+X-Forwarded-Encrypted: i=1; AFNElJ/tr+ZGZIVaSnwogpPXfPZvgXGAsOaVXDJXJtLodTSIrd27nXu/hMC83PbzxcPZ87yqMtTANsLPwUGD@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOrZ8JWYvyVvpq2BGLujf55yvCzfbK/J699ZUH+YJURREmnSUN
+	9W1cNtd8nmEoG494/HbR0TCBsyhGC2TRdoB3CAz3EfwHXppLrXoK3o/U
+X-Gm-Gg: Acq92OF4B0vusrQRr/Bff14QSVtV3Sh8LFff8AS7ciS09CGGh45myW27CIlmTGaI4kJ
+	V/u9inQQoH7C351nOS0ov3YTaVyoLUnBfgCIEbpIMvqSk1DzO1qvOtjn5iFCwMTN0vXuXI0OejX
+	94SIo83f+BMvjFZoaEBYgjOdlV6Zuhb9vGjVfn6fcaQ6ucwbF3PrcvRIRL7VEDlKamr0Yx/itMl
+	4usMEGVIQg3774K6C5f25DsAhU2gQ9VXdXjQNUa8ABRHb33GxgWao1Qx4nwryCvKLng49Dm4PI3
+	U37PRwcVmx/1m+qoU+M/xVaxAReaHGElwLebB4A+W9A+Us5bmkWOoIUfrrFFvTb9eTFryCMG3zZ
+	D2Z6THyBeVoLGC/yBe7+e3rUTtB0tFl7Nv/XPb3Lkqxx59GKUI44eX8Ojztpa6CsN2Tf2glOHQL
+	xPuGufelYN7wnoR2F+XADQtXtG4qI/337+HgvK7p0RyGS8jCpCwIzNdrvXpo//boXd4spa8YmPI
+	Op910woHWjL0yMy+yR/WlVNrQ==
+X-Received: by 2002:a05:600c:8b56:b0:490:c2a3:23cf with SMTP id 5b1f17b1804b1-490ec507974mr164349725e9.34.1781516861481;
+        Mon, 15 Jun 2026 02:47:41 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f12e:9401:c875:96a4:7b6f:72fd? ([2001:9e8:f12e:9401:c875:96a4:7b6f:72fd])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4619a041986sm9483420f8f.23.2026.06.15.02.47.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 02:46:20 -0700 (PDT)
-Message-ID: <970e9449-ef38-47d2-8e77-9f406722afa9@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 15:16:14 +0530
+        Mon, 15 Jun 2026 02:47:40 -0700 (PDT)
+Message-ID: <94f2d540-36a7-48da-8fc6-6ac32d7787a2@gmail.com>
+Date: Mon, 15 Jun 2026 11:47:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,99 +69,355 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] ASoC: qcom: q6apm-lpass-dais: Add MI2S clock
- control
-To: Val Packett <val@packett.cool>, Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260608023011.942228-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260608023011.942228-3-mohammad.rafi.shaik@oss.qualcomm.com>
- <8b2318ff-d07c-4c2d-9c2d-ef7c5c763096@packett.cool>
+Subject: Re: [PATCH net-next v2 2/2] net: pse-pd: add Realtek/Broadcom PSE MCU
+ driver
 Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <8b2318ff-d07c-4c2d-9c2d-ef7c5c763096@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Simon Horman <horms@kernel.org>
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel@makrotopia.org, bjorn@mork.no
+References: <20260612132944.460646-3-jelonek.jonas@gmail.com>
+ <20260615090733.739423-2-horms@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260615090733.739423-2-horms@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 3ayNUVl5Wcl0TOFck3_Dl1dFvOSNi6ZB
-X-Proofpoint-GUID: 3ayNUVl5Wcl0TOFck3_Dl1dFvOSNi6ZB
-X-Authority-Analysis: v=2.4 cv=UPzt2ify c=1 sm=1 tr=0 ts=6a2fc9ee cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=wLQ3rIZANEYmN962rggA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEwMiBTYWx0ZWRfX9k39gVTur9NP
- nxT0t51FsahAUUCiYkTQeCZ9cB1togzHv5IGL0lo7lCjfKlH9FSLAhx+Tr2nAvlaPOgdzZjlKNu
- cNobrdhCuL8YGXsmgICIjMiPSK2BT4a+UBTEo2NpMPx/AVvERgqGFkquNX0maqzN7CGqcB0aNu+
- /Cu48iVCfHT9hC9HXo0y89jL94Z3VvjokE4+IPGKCEPB+SkTwbQ9zEX3wxKqHmLiKgn2qK+FoIu
- 9Y6EzdAPM51r96XOJmkjDFkMsuN0GS+ZMEt/X12g0o1PWA9qi2Fty76fUR/HAdvK4Y5/1KG0phe
- bE/+Gi3VTX+0bl2FAvqYPO2BAbVOrK+Du+Chd6rsqbVYrPEkYnVzqY1YlHBgr7YRG9TDOK+JGLN
- hVsVjfRTeZWsamh859IWmxHZ68Gg5rQ6E7veFsb5m3BbTrpyn2qqg6XdWVZzKW8Zjv7S5wPh3p1
- dsjiVGXWaOovPqETtIg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEwMiBTYWx0ZWRfX+t99qSs4q3r2
- 9WPh0611OzRDER8ViCHDX0nJ5ZCz1FxkEnnrd0+3brZyMFZ0F+ygFFoD+ejFCPqxLjzh8i1Dtdy
- hXPs+PbKmKHiirtSoyJ/jurulUd297k=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
- suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150102
 
+Hi,
 
+On 15.06.26 11:07, Simon Horman wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> Full review at: https://sashiko.dev
+> ---
+> net: pse-pd: add Realtek/Broadcom PSE MCU driver
+>
+> This patch adds a driver for a microcontroller that fronts Realtek and
+> Broadcom PSE silicon on PoE switches, exposing the MCU over I2C/SMBus or
+> UART using a 12-byte fixed-frame protocol. The driver is split into a
+> shared core plus two transport modules, with a per-dialect opcode table
+> and parser hooks for the Realtek vs Broadcom variants.
+>
+>> diff --git a/drivers/net/pse-pd/Kconfig b/drivers/net/pse-pd/Kconfig
+>> index 7ef29657ee5d..b065b19db126 100644
+>> --- a/drivers/net/pse-pd/Kconfig
+>> +++ b/drivers/net/pse-pd/Kconfig
+>> @@ -13,6 +13,34 @@ menuconfig PSE_CONTROLLER
+>>  
+>>  if PSE_CONTROLLER
+>>  
+>> +config PSE_REALTEK
+>> +	tristate
+>> +	help
+>> +	  Shared core for the Realtek/Broadcom PSE MCU driver. This is
+>> +	  selected automatically by the transport options below.
+>> +
+>> +config PSE_REALTEK_I2C
+>> +	tristate "Realtek/Broadcom PSE MCU driver (I2C transport)"
+>> +	depends on I2C
+>> +	select PSE_REALTEK
+>> +	help
+>> +	  Driver for the microcontroller (MCU) that fronts the PSE
+>> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
+>> +	  via I2C/SMBus. The MCU exposes a message-based protocol; the actual
+>> +	  PSE silicon is not accessed directly. To compile this driver as a
+>> +	  module, choose M here: the module will be called realtek-pse-i2c.
+>> +
+>> +config PSE_REALTEK_UART
+>> +	tristate "Realtek/Broadcom PSE MCU driver (UART transport)"
+>> +	depends on SERIAL_DEV_BUS
+>> +	select PSE_REALTEK
+>> +	help
+>> +	  Driver for the microcontroller (MCU) that fronts the PSE
+>> +	  hardware on switches with Realtek or Broadcom PSE chips, attached
+>> +	  via UART. The MCU exposes a message-based protocol; the actual PSE
+>> +	  silicon is not accessed directly. To compile this driver as a
+>> +	  module, choose M here: the module will be called realtek-pse-uart.
+>> +
+> [Medium]
+> The realtek, vendor prefix is used for both the Realtek dialect and the
+> Broadcom dialect compatibles (realtek,pse-mcu-rtk and
+> realtek,pse-mcu-bcm), and the binding documentation explicitly notes
+> that the prefix "reflects the platform" rather than the silicon vendor.
+> DT compatibles are stable ABI once accepted.
+>
+> Would a brcm, prefix (or per-MCU-part compatibles) for the Broadcom
+> dialect be more appropriate, given that the BCM variant uses Broadcom
+> PSE silicon driven by an MCU built by Nuvoton or STMicro and has no
+> Realtek involvement?
+>
+> Similarly, would describing the I2C wire framing (native vs SMBus) via
+> separate compatibles be preferable to encoding it in the
+> realtek,i2c-protocol DT property, and would describing the actual PSE
+> chip in DT (rather than relying on runtime device-id detection) match
+> the usual binding patterns?
 
-On 6/8/2026 8:19 AM, Val Packett wrote:
-> 
-> On 6/7/26 11:30 PM, Mohammad Rafi Shaik wrote:
->> Add support for MI2S clock control within q6apm-lpass DAIs, including
->> handling of MCLK, BCLK, and ECLK via the DAI .set_sysclk callback.
->> Each MI2S port now retrieves its clock handles from the device tree,
->> allowing per-port clock configuration and proper enable/disable during
->> startup and shutdown.
->> [..]
->> @@ -297,6 +373,59 @@ static const struct snd_soc_component_driver 
->> q6apm_lpass_dai_component = {
->>       .remove_order   = SND_SOC_COMP_ORDER_FIRST,
->>   };
->> +static int of_q6apm_parse_dai_data(struct device *dev,
->> +                   struct q6apm_lpass_dai_data *data)
+This has been the hardest part so far but the solution I have right now
+seems the "best" one so far. But this part needs some guidance from
+DT maintainers.
+
+I would hold against the AIs suggestions due to particular reasons. Using
+specific compatibles for the PSE chips would be very wrong IMO because:
+
+(1) It would claim those PSE chips are what is interfaced on the bus. But
+     this is not true, there's only the MCU which mostly hides the PSE chips.
+(2) The PSE chips could be used without such an MCU. While this is rather
+     theoretical for Realtek PSE chips, it is definitely the case for the
+     Broadcom PSE chips. And in that case, they even use a different
+     for communication, called Broadcom Serial Control.
+
+On the other side, using specific MCU compatibles would be wrong too:
+
+(1) The MCU silicon is irrelevant to the PSE/PoE system. Those are just
+     general purpose MCUs where the supplied firmware on that MCU,
+     not the silicon, defines the interface to the host.
+(2) The MCUs are from various vendors (here STMicro, GigaDevice,
+     Nuvoton), since they are general purpose they're likely used in various
+     other applications. Claiming compatibles here for a specific
+     application is IMO wrong.
+
+Finally, why using the Realtek prefix/scope: The system that is described
+by the bindings and supported by the driver has so far been seen solely
+on Realtek-based switches. Some SDK sources already include a driver
+implementation for that. Though there is no 100% evidence of that, it
+seems quite reasonable that Realtek provides this MCU+firmware+PSE
+silicon as kind of a package. Thus, Realtek defines and provides the
+interface and behavior. The suffix then just denotes the protocol dialect
+used, correlating with the PSE silicon behind the MCU.
+
+In older switch generations, Realtek just decided to use BCM59xxx PSE
+chips until they developed and shipped their owns. Likely because
+the capabilities of BCM and Realtek PSE silicon slightly differs, they
+decided to alter the protocol with different opcodes and slightly
+different command set.
+
+I've seen a similar review from Sashiko on the bindings patch, my
+explanation above applies to it in the same way.
+
+I'll try to improve the rationale a bit in the descriptions for the next
+version.
+
+>>  config PSE_REGULATOR
+>>  	tristate "Regulator based PSE controller"
+>>  	help
+> [ ... ]
+>
+>> diff --git a/drivers/net/pse-pd/realtek-pse-core.c b/drivers/net/pse-pd/realtek-pse-core.c
+>> new file mode 100644
+>> index 000000000000..3a601cfb6280
+>> --- /dev/null
+>> +++ b/drivers/net/pse-pd/realtek-pse-core.c
+> [ ... ]
+>
+>> +static int rtpse_port_cmd(struct rtpse_ctrl *pse, unsigned int port, u8 opcode, u8 arg)
 >> +{
->> +    struct device_node *node;
->> +    int ret;
+>> +	struct rtpse_mcu_msg req, resp;
+>> +	int ret;
 >> +
->> +    for_each_child_of_node(dev->of_node, node) {
->> +        struct q6apm_dai_priv_data *priv;
->> +        int id;
+>> +	rtpse_mcu_msg_init(&req, opcode);
+>> +	req.payload[0] = port;
+>> +	req.payload[1] = arg;
 >> +
->> +        ret = of_property_read_u32(node, "reg", &id);
->> +        if (ret || id < 0 || id >= APM_PORT_MAX) {
->> +            dev_err(dev, "valid dai id not found:%d\n", ret);
->> +            continue;
->> +        }
+>> +	ret = rtpse_do_xfer(pse, &req, &resp);
+>> +	if (ret)
+>> +		return ret;
 >> +
->> +        switch (id) {
->> +        /* MI2S specific properties */
->> +        case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
->> +        case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-> 
-> SENARY is also a thing these days btw..
-> 
+>> +	if (resp.payload[0] != port || resp.payload[1] != 0)
+>> +		return -EIO;
+>> +
+>> +	return 0;
+>> +}
+> [Medium]
+> Can an all-zero 12-byte buffer be silently accepted as a successful
+> PORT_ENABLE/PORT_DISABLE on the BCM dialect for port 0?
+>
+> For the BCM dialect, RTPSE_CMD_PORT_ENABLE maps to opcode 0x00, and the
+> checksum of eleven zero bytes is 0, so an all-zero response passes the
+> opcode and checksum checks in rtpse_do_xfer():
+>
+> 	if (resp->opcode != req->opcode ||
+> 	    resp->checksum != rtpse_checksum((u8 *)resp, RTPSE_MCU_MSG_SIZE - 1))
+> 		return -EBADMSG;
+>
+> rtpse_port_cmd() then verifies payload[0] == port and payload[1] == 0,
+> both of which pass when port == 0 and arg is 0 (disable) or when arg is
+> 1 but the MCU never observed the command and the buffer is all zero
+> anyway since payload[1] is checked against 0.
+>
+> The seq_num field exists in struct rtpse_mcu_msg and is filled with 0xff
+> by rtpse_mcu_msg_init() but is never checked on the response side. Could
+> a seq_num round-trip check (or a non-zero opcode sentinel for the BCM
+> dialect) reject stale or zeroed-out frames here?
+>
+> [ ... ]
+>
 
-Ack, will include SENARY dai also.
+Valid, I will add a check for the seq_num field here.
 
-Thanks & Regards,
-Rafi.
+>> +static int rtpse_discover(struct rtpse_ctrl *pse, struct rtpse_mcu_info *info)
+>> +{
+>> +	struct rtpse_mcu_ext_config ext_config;
+>> +	unsigned long deadline;
+>> +	int ret;
+>> +
+>> +	/*
+>> +	 * The MCU may not answer on the bus yet right after power-up or
+>> +	 * enable-gpios assertion: depending on the transport it either stays
+>> +	 * silent (-ETIMEDOUT) or does not ACK its address at all (-ENXIO /
+>> +	 * -EREMOTEIO). Retry within a bounded wall-time window so a slow boot
+>> +	 * still probes, while a genuinely unresponsive MCU fails with its real
+>> +	 * error instead of deferring forever and masking it.
+>> +	 */
+>> +	deadline = jiffies + msecs_to_jiffies(RTPSE_MCU_BOOT_TIMEOUT_MS);
+>> +	do {
+>> +		ret = rtpse_mcu_get_info(pse, info);
+>> +		if (ret != -ETIMEDOUT && ret != -ENXIO &&
+>> +		    ret != -EREMOTEIO && ret != -EAGAIN)
+>> +			break;
+>> +		msleep(RTPSE_MCU_BOOT_RETRY_MS);
+>> +	} while (time_before(jiffies, deadline));
+> [Low]
+> The comment says the loop is meant to tolerate a slow-boot MCU, but the
+> retry whitelist excludes -EBADMSG and -EIO.
+>
+> rtpse_do_xfer() returns -EBADMSG when the opcode or checksum mismatch
+> fires, and rtpse_port_query()/rtpse_port_cmd() return -EIO when the
+> echoed port byte does not match the request. On a UART-attached MCU
+> that emits a single garbled frame while its serial peripheral
+> stabilises, or on an I2C-attached MCU that returns stale boot-ROM bytes
+> right after enable-gpios assertion, the first attempt would surface as
+> one of those errors rather than -ETIMEDOUT or -ENXIO, and the loop
+> would break out immediately.
+>
+> Should -EBADMSG (and arguably -EIO) be added to the retry set so the
+> documented intent matches the actual behaviour?
 
-> 
-> ~val
-> 
+This would be speculative IMO, because 'no answer' was the only behavior
+I could observe so far. It always came up as a timeout when the MCU
+wasn't ready yet.
 
+> [ ... ]
+>
+>> +int rtpse_register(struct rtpse_ctrl *pse)
+>> +{
+> [ ... ]
+>
+>> +	if (!info.system_enable) {
+>> +		ret = rtpse_set_global_state(pse, true);
+>> +		/* Dialects without a global-state concept (e.g. BCM) return
+>> +		 * -EOPNOTSUPP; treat that as "no separate enable required".
+>> +		 */
+>> +		if (ret && ret != -EOPNOTSUPP)
+>> +			return dev_err_probe(pse->dev, ret,
+>> +					     "failed to enable PSE system\n");
+>> +	}
+>> +
+>> +	ret = regulator_enable(pse->poe_supply);
+>> +	if (ret)
+>> +		return dev_err_probe(pse->dev, ret, "failed to enable PoE supply\n");
+>> +
+>> +	ret = devm_add_action_or_reset(pse->dev, rtpse_regulator_disable, pse->poe_supply);
+>> +	if (ret)
+>> +		return ret;
+> [Low]
+> If rtpse_set_global_state(pse, true) succeeds but a later step in
+> rtpse_register() fails (regulator_enable, devm_add_action_or_reset, or
+> devm_pse_controller_register), is the MCU left with the PSE subsystem
+> enabled while the kernel detaches?
+>
+> The regulator is rolled back via rtpse_regulator_disable through
+> devm_add_action_or_reset, but there does not seem to be a matching
+> devm_add_action_or_reset to call rtpse_set_global_state(false) on
+> probe-failure or driver-removal. Is that asymmetry intentional?
+
+No, this is an inconsistency. I'll fix this in the next version.
+
+> [ ... ]
+>
+>> diff --git a/drivers/net/pse-pd/realtek-pse-uart.c b/drivers/net/pse-pd/realtek-pse-uart.c
+>> new file mode 100644
+>> index 000000000000..785407b379a4
+>> --- /dev/null
+>> +++ b/drivers/net/pse-pd/realtek-pse-uart.c
+> [ ... ]
+>
+>> +static size_t rtpse_uart_receive(struct serdev_device *serdev,
+>> +				 const u8 *buf, size_t count)
+>> +{
+>> +	struct rtpse_uart *ctx = serdev_device_get_drvdata(serdev);
+>> +	bool done = false;
+>> +	size_t take;
+>> +
+>> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
+>> +		take = min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
+>> +		if (take) {
+>> +			memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
+>> +			ctx->rx_len += take;
+>> +			done = (ctx->rx_len == sizeof(ctx->rx_buf));
+>> +		}
+>> +	}
+>> +	if (done)
+>> +		complete(&ctx->rx_done);
+>> +
+>> +	/* consume all to avoid desync/misalignment */
+>> +	return count;
+>> +}
+> [ ... ]
+>
+>> +static int rtpse_uart_send(struct rtpse_ctrl *pse, const struct rtpse_mcu_msg *req)
+>> +{
+>> +	struct rtpse_uart *ctx = to_rtpse_uart(pse);
+>> +	int written;
+>> +
+>> +	/* clear any leftover rx state before transmitting */
+>> +	reinit_completion(&ctx->rx_done);
+>> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock)
+>> +		ctx->rx_len = 0;
+> [High]
+> Is there a race between reinit_completion() here and the asynchronous
+> serdev receive_buf callback when a previous transaction has timed out
+> with bytes still in flight?
+>
+> reinit_completion() is an unlocked x->done = 0 write, and the matching
+> complete() in rtpse_uart_receive() is called outside rx_lock. The
+> following interleave seems possible:
+>
+>   rtpse_uart_send() runs reinit_completion()       /* done = 0 */
+>   rtpse_uart_receive() takes rx_lock, fills rx_buf
+>     to 12 bytes, computes done=true, releases lock
+>   rtpse_uart_send() takes rx_lock, sets rx_len = 0,
+>     releases lock
+>   rtpse_uart_receive() calls complete(&ctx->rx_done) /* done = 1 */
+>   rtpse_uart_send() writes the new request
+>   rtpse_uart_recv() wait_for_completion_timeout()
+>     returns immediately (done was 1), then sees
+>     rx_len == 0 and returns -EIO
+>
+> rtpse_discover()'s retry whitelist covers -ETIMEDOUT, -ENXIO,
+> -EREMOTEIO, and -EAGAIN but not -EIO, so a single occurrence of this
+> race during the boot retry window would break out of the loop and turn
+> into a permanent dev_err_probe() failure.
+>
+> Would moving complete() inside rx_lock in rtpse_uart_receive(), or
+> performing reinit_completion() and rx_len = 0 together inside rx_lock
+> while excluding the completer, close this window?
+>
+
+Valid, will fix it as suggested in the next version.
+
+>> +
+>> +	written = serdev_device_write(ctx->serdev, (const u8 *)req, sizeof(*req),
+>> +				      RTPSE_UART_TX_TIMEOUT);
+>> +	if (written < 0)
+>> +		return written;
+>> +	if (written != sizeof(*req))
+>> +		return -EIO;
+>> +
+>> +	return 0;
+>> +}
+> [ ... ]
+
+Best regards,
+Jonas
