@@ -1,105 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9773F184524
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 11:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FC5371D02;
+	Mon, 15 Jun 2026 11:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781521463; cv=none; b=Von8OKZmoS7cOmviaTrvvkURptbsL4Mj71qp6oTOyxN0SzM6zzndu60dxaJJx+gZO5/0ec956ggpvPkX4a1xCwOpIoi+JikhxMhanjNsKQ9WPIZQ6dnzOsnFJ3UcEzXj0hVdjkeVSTCmTQO2ruu4kHL3BTXqtpFwOPBiQH7Pl1M=
+	t=1781521578; cv=none; b=BVz+CLgytrEwxm4auEhcDHXs0bEmcl+PEqZ91MGDUO0dDgBR1gnbyCn5LUG+P2Rv1c8O25DmPGmeN8pVinA6aUEigcDtmfvLvqsHhO2eJTUSI99vF0LHsba4AWL3Jxvqk3MNmjNIXznBpU3/7UvrPqIcV7X5aiJv8bzgKC12jgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781521463; c=relaxed/simple;
-	bh=AILJQl8pkL5DVuygJVnfocpf2caEDEby9vDKRWnRSnQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UsGvZzYfG5k8BLIB2+VfYUJLX3nIpVeerpg27z6Jzv9dgCkQy0khTfo4c1OXAlz3aVMChv87U5++YBwuHr2GBDJpm1t0FBqroFdgU+KZr1EMrtZ35pqQShjXBnO8zcYU/qWZFlC4sG+Dx8FsqABL+glfOZKCS5WM8xhcubJYt64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBpqrduc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781521578; c=relaxed/simple;
+	bh=ZKByL8sIB9khjZZ1TUk0OL6t+PRiVXvN+5s/ImffJBI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gAwxVAg3YKM1NV7qpHA+dQsbF6pMV/vQQFlhBrVaUdU4jxfjzwU3BWm/bS4OINwCBRWlRdETlkNwIi4IYmND1Bxq4i4dcc5wmCGo2jS894EQz8WPMh3sivv796zQB1cp5qrdkuDgGjqi/jciClzatCXANAF6NxUzVgt+RlYves0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FthRFMEl; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBpqrduc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0148C1F000E9;
-	Mon, 15 Jun 2026 11:04:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781521462;
-	bh=x4EH+FcI2tojvlhghTAKVDHMmM0XY31ccyifYbEYIp8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cBpqrduc8u0khqmuq4P676vx9A0SxbaFYhuzS9jKUpksbl/gs+K+0SbfVdbkWF9a4
-	 ibS8jGrhOUcy08aYdx5qLL5XUDOPjcFORMXN864NW7alr6xM+M9C3VK/sgWfQyuCmN
-	 1JTzU+XcWXky0ouyda4R/GGISnJgGP7+rL/uNhl0bQgCyKKTHz0nKmZcOOMeZLlrZZ
-	 SxR9T4qMZWjGRtl4x1aQsYxZNaqnPBEkzdh/fj7oThzJcqKeUMcrPzOXfZ+bR7kil2
-	 DociPXCOt5CHeTebMEIkxGHJtrMJzgP+zGWwNukHbyo/DsXPeO0cE9xHunsnKpM2aD
-	 1ygvTqvZOLUEw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] clk: renesas: rzv2h-cpg: Use per-SoC PLL
- reference frequency for calculations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 11:04:21 +0000
-Message-Id: <20260615110422.0148C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FthRFMEl"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B80A119DC;
+	Mon, 15 Jun 2026 13:05:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1781521540;
+	bh=ZKByL8sIB9khjZZ1TUk0OL6t+PRiVXvN+5s/ImffJBI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FthRFMElHZZvDVqh9YrWQfdOKxPN0jbC5Ad1wKd/HyHknKZGFaY2xX065HhvIshJG
+	 3QrnGmwXybKHKzN1LdB9JTRVuAcKI4rqSqAojMUkE1DGHzhe5qbCwWYtXTMOpQiIPO
+	 Q0RgNvA+8m0+T5g2k/X9jYGppdtNbG+gE+5rAlTQ=
+Message-ID: <27ff2472-5e71-4af1-98fd-7b8142ad14c5@ideasonboard.com>
+Date: Mon, 15 Jun 2026 14:06:08 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/7] dt-bindings: display: bridge: Document Renesas
+ R-Car V4H DSC bindings
+To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260615-rcar-du-dsc-v4-0-93096a1b56a3@ideasonboard.com>
+ <20260615-rcar-du-dsc-v4-2-93096a1b56a3@ideasonboard.com>
+ <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <CAMuHMdVxwvDmRqsdbA_ReCnnaDWbzzTKGCXw-64U-bSJfgiy7g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The documentation for `input_fref` explicitly states it should be i=
-n MHz, but the implementation assumes and requires Hz.
---
+Hi Geert,
 
-commit bcb3fbb3f1de21bfd1e1a632fe1e124e9c03de3b
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for c=
-alculations
+On 15/06/2026 12:24, Geert Uytterhoeven wrote:
+> Hi Tomi,
+> 
+> On Mon, 15 Jun 2026 at 08:28, Tomi Valkeinen
+> <tomi.valkeinen+renesas@ideasonboard.com> wrote:
+>> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>>
+>> The Renesas DSC Display Stream Compression is a bridge embedded in the
+>> Renesas R-Car V4H SoC. The bridge performs VESA DSC encoding of up to
+>> 8k or 400 Mpixel/s .
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> [tomi.valkeinen: fix the example]
+>> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+>> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> 
+> Thanks for the update!
+> 
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,dsc.yaml
+>> @@ -0,0 +1,99 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/bridge/renesas,dsc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Renesas R-Car DSC Display Stream Compression
+>> +
+>> +maintainers:
+>> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> +
+>> +description: |
+>> +  This binding describes the VESA DSC Display Stream Compression encoder
+>> +  embedded in the Renesas R-Car V4H SoC. The encoder supports all DSC1.1
+>> +  encoding mechanisms, configurable bits-per-pixel, resolution up to 8k.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +          - renesas,r8a779g0-dsc
+>> +      - const: renesas,rcar-dsc
+> 
+> Please do not introduce new "renesas,rcar" fallback compatible values,
+> unless you are adding new support for a hardware block that is present
+> in SoCs belonging to multiple (nowadays I would say at least three)
+> R-Car generations.  The DSC is only found in R-Car Gen4 SoCs, so
+> "renesas,rcar-gen4-dsc" sounds more appropriate.
 
-This commit introduces a per-SoC PLL reference input frequency parameter to
-the rzv2h_pll_limits struct. It updates the PLL calculation logic to use
-this dynamically provided reference frequency instead of a hardcoded 24MHz
-constant, falling back to 24MHz if the field is not initialized.
+Ok.
 
-> diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-=
-cpg.c
-> index f6c47fb89bca5..513f8283c4796 100644
-> --- a/drivers/clk/renesas/rzv2h-cpg.c
-> +++ b/drivers/clk/renesas/rzv2h-cpg.c
-[ ... ]
-> @@ -237,6 +236,7 @@ struct rzv2h_plldsi_div_clk {
->  bool rzv2h_get_pll_pars(const struct rzv2h_pll_limits *limits,
->  			struct rzv2h_pll_pars *pars, u64 freq_millihz)
->  {
-> +	unsigned long input_fref =3D limits->input_fref ?: (24 * MEGA);
+> However, so far R-Car V4H is the only R-Car Gen4 SoC that has a DSC.
 
-[ ... ]
+Right. Even "renesas,rcar-gen4-dsc" feels a bit too wide.
 
-> diff --git a/include/linux/clk/renesas.h b/include/linux/clk/renesas.h
-> index c360df9fa735c..94ee70b20b44c 100644
-> --- a/include/linux/clk/renesas.h
-> +++ b/include/linux/clk/renesas.h
-> @@ -53,6 +53,9 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 div=
-ider, int target) { }
->   * various parameters used to configure a PLL. These limits ensure
->   * the PLL operates within valid and stable ranges.
->   *
-> + * @input_fref: Reference input frequency to the PLL (in MHz). If set
-> + * to 0, a default value of 24MHz is used.
+None of the other rcar du related bindings define fallback compatibles. 
+So maybe we can just keep "renesas,r8a779g0-dsc" and name the file 
+"renesas,r8a779g0-dsc.yaml" (which was the review comment I'm trying to 
+resolve with this change).
 
-[Severity: Low]
-The documentation here states that the frequency should be provided in MHz,
-but the implementation in rzv2h_get_pll_pars() expects Hz, as it falls back
-to (24 * MEGA) and doesn't scale input_fref.
+> Even the very similar R-Car V4M does not seem to have it.
+> R-Car X5H has DSC-functionality integrated in its DisplayPort TX
+> controller, so that seems to be a different implementation?
+I'm not that familiar with DSC functionality, but my understanding is 
+that it's not DSI or DP specific, it just outputs packed parallel video. 
+I couldn't find details about X5H's DSC, it could even be the same block 
+(or not).
 
-If a developer configures a new SoC and sets .input_fref =3D 48 as document=
-ed,
-will it be evaluated as 48 Hz instead of 48 MHz and cause the PLL limit che=
-cks
-to fail? Should the kernel-doc be updated to request the frequency in Hz?
+  Tomi
 
->   *
->   * @fout: Output frequency range (in MHz)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615104845.4122=
-868-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
