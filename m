@@ -1,218 +1,134 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A793B6378
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28843B71C0
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781560902; cv=none; b=Wdxii/JuEInLAR1ZhL6EtFRtPSyzXwIjq0YvCGzqYr6Hz5CWuJ/23FlXRUPXjR4s/nudGO0BUlnEyQmbiLGjxkj3lugi+XKRvL0xPYS0lJhsy69LqnLpWnwsilT1LO5g899y9iqyJSFmUSrgPJWFYipdI+ci+i6OxP2LMXUrjXQ=
+	t=1781561276; cv=none; b=ihORqUlTTskIWQs9ebO/geB5GyaRV90zXiuVtEUIKVOxAduw8GAx6gmL8xu23+SLe/X0FRGma1gi1bkvxCIVxy5OP/g058Ne5ceFQRRqM8tc9RR2O6s73kthtD/EPV+zcMSFT0hIxR9llQJTbfwcI+YmD6H8rog2H4Nr4YhAFrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781560902; c=relaxed/simple;
-	bh=KQya+UdDlavUkX/Dssd0LzS1SHmdLAk2q4vV5a+8SBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YcbRcHPV6fplO06H5O5gMouxc0ToC2KYDZd4DHQzkhdGvy8aV+5qiZfGnpty1WkCMwD19zn8gVZZCUirb0QntiOdZro6qo0iuQf2IPh+PVgMU7TwzSLG1AKFbtOaDLHGDZldUDt4NYcYK4ysyAJ+Fbf8wTHjndHJIpdcyAuyxLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JH5Z5qNN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=LRtkJ9vz; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781561276; c=relaxed/simple;
+	bh=YfbpY7Bc3Dqsf70uwxALqNV6kXHWLWzxXvuWJJpKc98=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DOyUvP5msEEUAyG4FuJ/sb4dLuDownjqwhAYzC0m859XjwJMGL/fELm3UBbgOtGDSIfp7TrS7DvOl8Pi7MdsGfE4N12udb4aqxQo1jCyv2OsLWeEXEOMp+b7FxtvpHDhoOoS3ulecYSGPTZL3EgTgQK2oyrF8Ay02jW3edpNC2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Y6yKOH/w; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JH5Z5qNN";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="LRtkJ9vz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781560900;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
-	b=JH5Z5qNN59p9SJ+eEdx80qhOKxLbU03oMIfTQBJAd5YgY9LNhcEoF0tQXAm8pVj1Gm6MPI
-	QHj4dkmFRdJTun34UShFEnZf4oXW2hvdjmswE0F+rRoD8c/0hA1V4ztiFXsTSloZC4xPO1
-	QOCmBCq3W3BfY7twIDhtTV4IPp4W7HM=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-502-aWC3E_f8PhCeL-zkqALzKQ-1; Mon, 15 Jun 2026 18:01:39 -0400
-X-MC-Unique: aWC3E_f8PhCeL-zkqALzKQ-1
-X-Mimecast-MFC-AGG-ID: aWC3E_f8PhCeL-zkqALzKQ_1781560898
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-486d0cff483so10453173b6e.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:01:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Y6yKOH/w"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-43d08bc82deso3747417fac.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 15:07:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781560898; x=1782165698; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
-        b=LRtkJ9vzD7YJ2twTswRUR69q7pcEVA70GOV2CYt57hUYyjT+GqDSQ4uoQvLRI6E4f5
-         WpwwY2lFoEGR0WDxBnyiSw22TXzTEGk/YAvjhn+94qwAnglsKPyC9GWUPQowFfo7rqCw
-         rYVw27UwfEtO3B9IdoH/XUPKPDZi+d3eCl3He+lDKJRvZmOlZdrA7qEjlyZZjOT/MC7M
-         4HMN/yQu56RdPw3YHG5rEpxaebLSV19ZaqBW42njx8ccsKfs4vGpJxE8X6YXRHVYTvYo
-         6eMqi4Cv8rwj2AYddf/uIbzaoNFpFhcahaawUalR1xePcUirKgq/l/plWUKohhFa9EpZ
-         mABQ==
+        d=baylibre.com; s=google; t=1781561273; x=1782166073; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9qFetXIKm9GhA/aEeRCm4t+hK+zcMVI2EtnnmBeBC2Q=;
+        b=Y6yKOH/w1UQcdirdADVjMBdVSgaSdb+gAayEVACuyR/ANYCuX06CsAQZQpNO4HBoaN
+         8KfArtVNhDsX2suplO6pjqgTtfg9Cyf5jFkQ7mxY5csYxxMhQxnhdLg0SLt1x+Qw91rh
+         65IoRNAArkHn2PEPUHQ3KHd8R5VKMLZVS+8u1DtjccEYdYPLb3BqdIH79s6PVkfCNxhe
+         Xpt1CE4Dc6JqdhHndVM5D2JUzBDvf52pFGq+TOMTTlIv6uxE2XhWQ2z7MAXVpighSjOQ
+         /ikKKv+BeAJ7+Bfb86Foa04H4KWJuVHgT3n0QwU2tlf90CZfE1j6WdMwGPY8uXzU/3fl
+         5HSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781560898; x=1782165698;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=baYX1Qtzf/n+O1i7trf2KNQTHTp/T36Knv9xiG+6gR8=;
-        b=ghYi2upLZweuTWBTMuEw+WMzosXJK0olLQvvAivLf0IfifxmFthC85GPmYJORjgOSp
-         OAsvImLiHg7MFVQ18Bh1KGMANyeryuSUOj5SZPeKYIYpcnQ+pIOhpI81Y+2/9UjgMdHV
-         GXuEYeDhcT2Dpqg/X+PvnK/3/jliGQ3w/YsmC1OKs6Q5xcWgAjytlzAWlbzkHqvy5ExR
-         Tn1vuOw9J+er7unXxkZIhr7uUYoF88YCcDStjozV6+6R+HpeWYv8R/bd/w2gU0zBcuSf
-         rtrjL0CpedssyL8TzPSODLmyYcov2jtCbibH+lcCHeJ8rMV5oz45Ef39NCzYIkiPcU6q
-         SqVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/hyx7zWjB7k34Xedsg7lpHfNQIvb2t7+U50LfIVC0gsrZv5xOHWqsXUzbGOjGu/v5SHvFaokCXMuYB@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTjvhLnMmBTL9y0bICFZD/9RlpRk6KtdcHPiHhoySeP7XLCw2S
-	2hxk3ohZTlOHNGiTmxlKszUDr//27gY1bs9xnhtHZVy3YQSdPqH3MrmRFJkDu50j+ZttNXBhkSD
-	qsE6eVB3Ed0pZN+611QPfMJYQ9mA5VZ4+Dy1rzr3Ob6sF6uEFKGsmQfV1e0aM6yc=
-X-Gm-Gg: Acq92OHZtuMbSi8VBX8HIpndF8i9ICmdanOkgMSIimZOBel7UeUHYnGn/NX69PE7dnn
-	LWsjuHXfZWvM7jRwcUH9o/gQfD77Z5fQAEHaxaBVY6nwitvHjFpNxxTjKFpeat5mVWNi2eVEZ8w
-	9inJFiSuLsbil/G8qwvrGoPNbobknpNg6ZfJ0LsnS0kZNoN+WpmJFWVAc3wVe7yXz+/pQSqBGkQ
-	8giw7yun6ItZY793OCoqWoCEfvLOfyqetPLIqmUS0x+2Mv9koC22Gx5eewrm88fCOOBgedyLFCQ
-	GODQxL4pdkHAVYOFGDkYtnFDfsb9VaP3ULDTsIaKmlD5EKhH1IGYd/VVvTbR6FBre3DdYIT6+eY
-	fBTlKfqfkkD5c8owGuaHX15fb/UQQ4gciM/lDgI7c0zDqYHgJqurkLnv5
-X-Received: by 2002:a05:6808:159b:b0:487:5b1f:2bce with SMTP id 5614622812f47-4875b1ffd23mr5600430b6e.36.1781560897793;
-        Mon, 15 Jun 2026 15:01:37 -0700 (PDT)
-X-Received: by 2002:a05:6808:159b:b0:487:5b1f:2bce with SMTP id 5614622812f47-4875b1ffd23mr5600362b6e.36.1781560897194;
-        Mon, 15 Jun 2026 15:01:37 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-517fb61eaf4sm120318231cf.4.2026.06.15.15.01.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Jun 2026 15:01:36 -0700 (PDT)
-Date: Mon, 15 Jun 2026 18:01:34 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: V.Yurkov.EXT@bruker.com
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	Vyacheslav Yurkov <uvv.mail@gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: Add GPIO-locked fixed clock
-Message-ID: <ajB2PhmxvdtsXNnm@redhat.com>
-References: <20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com>
- <20260603-feature-clock-guard-v3-1-01cca0aa04a5@bruker.com>
+        d=1e100.net; s=20251104; t=1781561273; x=1782166073;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9qFetXIKm9GhA/aEeRCm4t+hK+zcMVI2EtnnmBeBC2Q=;
+        b=OxTGAaiWjwZunLPtgIxWJVIgx9MCtBy6tK8cPcoBZRFcSTx2HqxnzNmSlJCBLtVHDd
+         T8uq+Q7ihtrjmftwVI9gQRcGz340IkPdsrJy+o6VH64M7aVtkTh+Vsr0pEpJ64cC3ZBt
+         /lYkowEkgkh69UcjQDx11gUGtTT7WqejNxwDkdTc8XxzKQvE7U2YLwoYNwqIBc474/eb
+         J0kfdaDfd1DVXEWciRbPP3PNxbOTmiiSlpGekmBBCfk7MJ5QmO8kidtfag63Qcrwhx+i
+         YNhzl3WLuPctAE/DOQCMq/TQMrbNYkwGFcUkU+uqwUkkqDE5TMQMyPqAuTfvMUdHk68P
+         W1/g==
+X-Forwarded-Encrypted: i=1; AFNElJ8J8tZ8wM+sZmTthohSF2lzVIVHpdYFt/OW1znU5j2ZEivWgZW1HBkI253UrBrE2KOmzL65ODYkPKdo@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzm++C+mJWERy+Bd6cxp2n8a75lYXOlqX1TJaTYH6Nf7vkXoAq1
+	GUWyUXnEsTx4gTIqdg+DyVm1TDafQKSGAmcHaxFoHABefv8NPtW5QuYOqgJlbv8AdP0=
+X-Gm-Gg: Acq92OEZQ4K5lsg/Ot6mmmJXWneXlav1YrvmJZS+QRYniTghxgMkz2mMEpVic5t8WkA
+	KGW4jo/SyAcg2pRDME3lMG5Z5N837XGQnLAnSJGdgR4VrD164zuiDvOm8yjbHFwQJifkeUGuJdT
+	K3+hk4xZJR4z1fGDEKYCaHeFYT79fWnSbepdarO3FoZaXMiPTtaeIvl6iHqVJnRKCQz5N3yiKkm
+	CjgvIpjUHdpdHBQycnAtUKCWCgWpY+q0uUNMfRyxUNfS8rA5/b/642KOOSY03CZ4l65AnhFQRSd
+	W/GfP5QbCvczZx7PsF6EzsJ1q2gXQZu6UZMk2xHYnPSZBfx8z1Bk+hg4dRe3fgkyZbbicUbP+cS
+	b5JwVRQs7fMBkYZyQHIOYXpji2/G7hgpAsF2ei1sK0IQn90lv2RfR1wxzmgLL6L4fxRuEGnTLLB
+	TmFV+XZeMFaAC1z+Y0qQ6F0F/JqP9cZgSvh2WcR6Ghp6p7Dk2swCLtSxBBOJ2Cw9EMKbe9cXrvE
+	Q==
+X-Received: by 2002:a05:6820:88f:b0:69e:9a1b:5c26 with SMTP id 006d021491bc7-6a0a40ae32fmr935828eaf.45.1781561272863;
+        Mon, 15 Jun 2026 15:07:52 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308f190c9sm745841fac.11.2026.06.15.15.07.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 15 Jun 2026 15:07:52 -0700 (PDT)
+Message-ID: <d25798eb-50a2-41fb-ad2b-7ac7feeabd86@baylibre.com>
+Date: Mon, 15 Jun 2026 17:07:51 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603-feature-clock-guard-v3-1-01cca0aa04a5@bruker.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: ti,ads1100: add support for
+ ADS1110
+To: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org
+Cc: andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, duje@dujemihanovic.xyz, jic23@kernel.org,
+ jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com,
+ krzk+dt@kernel.org, linusw@kernel.org, linux-kernel@vger.kernel.org,
+ marcelo.schmitt@analog.com, mazziesaccount@gmail.com,
+ mike.looijmans@topic.nl, nuno.sa@analog.com, robh@kernel.org,
+ sakari.ailus@linux.intel.com, wens@kernel.org, joshua.crofts1@gmail.com
+References: <20260613190957.654798-1-jakubszczudlo40@gmail.com>
+ <20260613190957.654798-2-jakubszczudlo40@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260613190957.654798-2-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Vyacheslav,
+On 6/13/26 2:09 PM, Jakub Szczudlo wrote:
+> Register layouts are the same as for ADS1100 but ADS1110 have different
+> datarates and have internal voltage reference that is always 2.048V
 
-On Wed, Jun 03, 2026 at 11:16:42AM +0000, Vyacheslav Yurkov via B4 Relay wrote:
-> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+If we do a v4, would be nice to mention here that fixing the order
+of ti,ads1100 was intentional while we are touching this.
+
 > 
-> Some hardware designs provide fixed-frequency clocks generated outside
-> software control, such as by FPGA-resident PLLs. While the clock rate is
-> fixed, a separate GPIO signal indicates whether the clock source is
-> locked and producing a valid output.
-> 
-> Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
-> clock whose availability depends on one or more GPIO lock-status
-> signals.
-> 
-> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 > ---
->  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 70 ++++++++++++++++++++++
->  1 file changed, 70 insertions(+)
+>  .../devicetree/bindings/iio/adc/ti,ads1100.yaml        | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
-> new file mode 100644
-> index 000000000000..9106b800b673
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
-> @@ -0,0 +1,70 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: GPIO Locked Fixed Clock
-> +
-> +maintainers:
-> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> +
-> +description: |
-> +  Provides a clock output whose availability depends on a set of
-> +  prerequisite conditions. These conditions include the presence of
-> +  one or more parent clocks and the asserted state of one or more
-> +  GPIO lock indicators. An example of such clocks is FPGA clock that
-> +  are outside CPU control, with the lock status exposed through GPIO
-> +  signal.
-> +
-> +  The output clock is considered available only when all configured
-> +  prerequisites are satisfied.
-
-I'm stepping outside my usual review of just the clk drivers. Krzysztof
-in v1 and v2 asked for more detailed hardware explanation. This feels to
-me like this is a policy that says to not use these clocks until the
-GPIO says they are ready. My gut feeling is that details like this
-should live in a clk driver instead of a dt-binding.
-
-Alternatively, if this is generic enough, then could
-Documentation/devicetree/bindings/clock/gated-fixed-clock.yaml be
-extended?
-
-Brian
-
-
-> +
-> +properties:
-> +  compatible:
-> +    const: gpio-locked-fixed-clock
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  clocks:
-> +    description: Input clocks whose validity is monitored by this provider.
-> +
-> +  clock-output-names:
-> +    description: Names of the clock provided by this controller.
-> +    maxItems: 1
-> +
-> +  locked-gpios:
-> +    description: |
-> +      GPIOs to check the lock state.
-> +    minItems: 1
-> +    maxItems: 32
-> +
-> +required:
-> +  - compatible
-> +  - "#clock-cells"
-> +
-> +anyOf:
-> +  - required:
-> +      - clocks
-> +  - required:
-> +      - locked-gpios
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    clk_gpio_locked: gpio-locked-fixed-clock {
-> +        compatible = "gpio-locked-fixed-clock";
-> +        #clock-cells = <0>;
-> +
-> +        clocks = <&clk0 0>, <&pll 0>;
-> +
-> +        locked-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>,
-> +                <&gpio0 5 GPIO_ACTIVE_HIGH>,
-> +                <&gpio1 2 GPIO_ACTIVE_LOW>;
-> +
-> +        clock-output-names = "clkout0";
-> +    };
-> 
-> -- 
-> 2.34.1
-> 
-> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
+> index 970ccab15e1e..28c5e2dd0ad6 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
+> @@ -4,19 +4,23 @@
+>  $id: http://devicetree.org/schemas/iio/adc/ti,ads1100.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: TI ADS1100/ADS1000 single channel I2C analog to digital converter
+> +title: TI ADS1100 and similar single channel I2C Analog to Digital Converters
+>  
+>  maintainers:
+>    - Mike Looijmans <mike.looijmans@topic.nl>
+>  
+>  description: |
+> -  Datasheet at: https://www.ti.com/lit/gpn/ads1100
+> +  Datasheets:
+> +    - https://www.ti.com/lit/gpn/ads1000
+> +    - https://www.ti.com/lit/gpn/ads1100
+> +    - https://www.ti.com/lit/gpn/ads1110
+>  
+>  properties:
+>    compatible:
+>      enum:
+> -      - ti,ads1100
+>        - ti,ads1000
+> +      - ti,ads1100
+> +      - ti,ads1110
+>  
+>    reg:
+>      maxItems: 1
 
