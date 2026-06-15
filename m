@@ -1,137 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0086E3C06
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623033C06
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781496144; cv=none; b=BHRaxUcOq2KktBKVlrb+QkyEMCFX/sezmIg6Yga5C65AdKr32NAxSS1x+e/ivC9VYZZRrAcjdg62f9Bvcu77m/rlV+EUh4F2LhbAS8+h8zg5PzSMZCH6NzLYLKBwv7lNDMBPTrp4b1JY98NEMURkH8Sk1tF/l3dDnpcUfmA3Voo=
+	t=1781496500; cv=none; b=LUAIT3OO2UKcBgdBe0WQHxkychvp6sxXCeoUbwCtsPSO+/olH8nM/t3diLuo+Xa7W9ag1c4cmIJ7eCn9GKFEyLt5Rg7T4A4JUkpkZcfCXv0Ua2whYIktLDg8BD6CIecM5AHZiTzW6SKmkZ+NhY6TS+VhsL56Ad73Nl5NeAGMC0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781496144; c=relaxed/simple;
-	bh=JY4P7Xh3ds3TBrpzcinVADAvT91i6FdqjmbEvW+AZnA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r1fwirKPvsXDG1PV9sCFYLt0S4UDCXjQs04yImj3uzv3MlidtCiOd1iFRnfy5ml4PpSnPw1QvF7w0abcoHZu8x9UCTAU4IpPyMCoF9KMmyb4IwXOoiKmZEokqI5tXgmNf0W89SgtcjESrmcxstcogdWK0XIKEupBNGSkLKQP7og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dADPu0+S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781496500; c=relaxed/simple;
+	bh=wgSyVO0iIUWYE87p1E6tP9DPgnR1SJcFx3srHn++h/A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cLFqPP0vGKZGALZnIuCY9fnFmfjbhWd+6q1oL7UL/XsSgtWMM+BbJdoE0F3uZmYl6VSoCPtwuBLb+MS/cxQRCPbmKUR/Buzxec3Dxoks3clA8D9ZB20kwWqBhBCVPYSyf3VGNc208dcqEdt9yENN6PWqbJGPw8Po9Ma9nCiOU0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C2BE0zoP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B/6GegSu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dADPu0+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6849A1F000E9;
-	Mon, 15 Jun 2026 04:02:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781496142;
-	bh=qh5Pbv7ep5/A+OTLeA627U//JpsxbS1dIws+chWtvNM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dADPu0+Sbjd9Y8jaGuYw2g2r7RB1KA5b7SwFTDTx9PH8fc2Uw3dcyTVL4k57ANcu2
-	 5ftcxBdrFCbKrbHSYBTSm2fys2tudsQEInCE6hcoYM2HLTBAl38IpaVEAMfbFtOxYi
-	 Eks0JC2LwKaoGrCAmSNPGGDLQ56rB+wPXcvyrYgws+P+REXBqu8Z91Ja8tGMKv6Q+F
-	 HhdlbpdFlSwt+FAq3EkGjm7Wkg94SEFE8khE/yskqFBrxcrQ8OHEw/B3cTxTk+/Nm8
-	 pSkJ8fGvauhGj77fkAZB577t/M6Q6EkNWjMhKudGcEmh+DbAeRvIdb/9KRY3Q9paaw
-	 Qsc49UJ9DmRdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/8] clk: clocking-wizard: Add static-config clock
- provider support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubhrajyoti Datta" <shubhrajyoti.datta@amd.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260615034845.3320286-7-shubhrajyoti.datta@amd.com>
-References: <20260615034845.3320286-7-shubhrajyoti.datta@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 04:02:22 +0000
-Message-Id: <20260615040222.6849A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C2BE0zoP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B/6GegSu"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F1htqR2741821
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:08:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0p0MLtTlWKVebvI15ppDtod3gdrxS+s7urCWzK/2WKM=; b=C2BE0zoP8MWDEFHB
+	53blho8FUzbbLHQWDG+xvyYaTwwBnRl+W7DTbswzcMzHu1On38a85VmKA8nphGiD
+	j8FH86JQ7C4x8F0/qLziyiyWkQcTF/eXigfGhOWx5IIgwc8LC2a1UG2E/u9bOOKV
+	h1sxXVsdk8Fgl3vXhiQe44JksSnt4jQ233EOV0t+cg1Emp0iJA4cHOVHe0oJ5lbf
+	aKVkXs+ELB6mzvBHRdQwWegjtHzksBExvQaTLArhRAWLb8Dka2gABB7wYZ4kEeeV
+	/raoq07b/xheeM1EX2+vNYuRJeobIxKwWY8Ckdc1ldAf1j201tfRTjSsrT+mrkxi
+	IpzuXQ==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0g85e1k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 04:08:18 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1383414cf84so3291950c88.1
+        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 21:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781496498; x=1782101298; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0p0MLtTlWKVebvI15ppDtod3gdrxS+s7urCWzK/2WKM=;
+        b=B/6GegSubAZ8VBPUuqBkBrt8yXLm07B8s6KpwwbELmycLB7NNr68VbVYjh4Kc1zaW1
+         BaLP7x4xsV7E3fzfiCC2MV3ZXItN1tVPro0ZJ2OAYYCzijDDlHAcuWfiMUlg+MrlooJg
+         WLMH91Ksb8RIMmRt0xtsKKDgT36GvmHwcWuPYkhdYsDpwnrvPFba4TR3gSOffRwRryft
+         PKO9q+b5YpooeSkv2BYOiRtYVIV86+qlhs7fErJIVupqk6IbrWlQs+dnw/2WYGHtgNRV
+         6QAkrN/FUizaISYzwjX6i74HIsHTssXgbQQ8HXtebVfbgV1s6/pJqRioHt2oZ5fSXKjD
+         RBVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781496498; x=1782101298;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0p0MLtTlWKVebvI15ppDtod3gdrxS+s7urCWzK/2WKM=;
+        b=VmUb+Gkwm1UC8EkNwb+XChZq25VerPZQJ3g3teUqHCz2hNyZglEKrbVQQF2lH4MiRZ
+         5zWL0I0bbVG4nLUbBHbnaEaH0Od3LflDQvsLSPa/DJRUVZorK1xH5O+bQH/kBl2+A+xb
+         +/QFZ1tnW5FWZpF0X6UEmhhjyyHDKg48zrUVoQZ4lngaz/niR00IwImIKIRXwBBxQhkA
+         dvt+MKw0JjQAkzNZ8WTpOQt+tCuBNZf394cbLeGUK6udmmLSTkBifSFMmVg+PqxFKvQq
+         6EGDTNfPrV44Hahf47NwB9cD/rqc95FeNpsEEVtI5xdibvWzXqgSuq6SoUjUwB2vYlvH
+         xWRQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8YLgoAGAXDhz/3bVkc08vRzIYqUuq9sH64xp3guu31/XAd3pEu7cyBEt7OUFLU8W8FxVR4vhG+rdsL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE1Dy0cRXHkmsYdS9RYbkGtYkk/6/Tc3LnTvxcr3aRVNZxRz8p
+	TNEgq547YYhEe7GOelF26PfF2BT/mrcakSZFI/p0a25LHb/GZYEvMbIZId89dOuZU3EYqilTLSU
+	BWJ42uTZfnA/AOFcLcjduzAauzRKs4tVP/4+mPHGGGmRDOq0jAIE7CW5wPkD4odF6
+X-Gm-Gg: Acq92OFQIeqUt0gwZqiEZMOKAGkO3CH2YDNuBNDHh/ob+QVM/pZVIPBi1heWII+Gpny
+	PodFK1o5p4HO5t9UzN1lau3x0LeOVthm0srctwuLgMlgxJTZS00GS0pKklgMooz5YYv5ns9ciz6
+	5sY7DNwBb7X70UgAQjhwQmhw0xS7KodCZTmQDrwvTkggH6ZpTkmgYZCAB5IqSsC1nMYBOdxAr2r
+	TUtvyMqL1kaXGu7/u3AoK+3NtcHhABKQQ2z02ImWwxI5Tiwd2cn0o2/1pH/7giXNokbHUpErIBR
+	VOjdlOiBdWObjh3qmuoSxDxLWscuJopA+YHD1SbdhhbJ+ayC1xxJ7947RDXRhsHqx4ARn9iltLx
+	7mQjnxVLrxAfTAETBsWc9A0PSLv4nIGn3N1z+qYUs3TJliendSxgO
+X-Received: by 2002:a05:7022:f9d:b0:138:177c:b971 with SMTP id a92af1059eb24-1384bb7fef1mr5255592c88.29.1781496497903;
+        Sun, 14 Jun 2026 21:08:17 -0700 (PDT)
+X-Received: by 2002:a05:7022:f9d:b0:138:177c:b971 with SMTP id a92af1059eb24-1384bb7fef1mr5255559c88.29.1781496497227;
+        Sun, 14 Jun 2026 21:08:17 -0700 (PDT)
+Received: from [192.168.0.5] ([49.204.108.63])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1384b97570asm8790480c88.12.2026.06.14.21.08.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 14 Jun 2026 21:08:16 -0700 (PDT)
+Message-ID: <f7391beb-bca5-416f-920d-cd9a1a9a4ca1@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 09:38:09 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] spi: qcom-geni: Use geni_se_resources_init() for
+ resource initialization
+To: Mark Brown <broonie@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        bjorn.andersson@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mukesh.savaliya@oss.qualcomm.com,
+        aniket.randive@oss.qualcomm.com, chandana.chiluveru@oss.qualcomm.com,
+        jyothi.seerapu@oss.qualcomm.com, chiluka.harish@oss.qualcomm.com
+References: <20260604-enable-spi-on-sa8255p-v3-0-43984eac4c67@oss.qualcomm.com>
+ <20260604-enable-spi-on-sa8255p-v3-2-43984eac4c67@oss.qualcomm.com>
+ <aixBtqPq3MNgYOkk@sirena.co.uk>
+Content-Language: en-US
+From: Praveen Talari <praveen.talari@oss.qualcomm.com>
+In-Reply-To: <aixBtqPq3MNgYOkk@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OOoXGyaB c=1 sm=1 tr=0 ts=6a2f7ab2 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=CzlE4M4Y721Tu1n/tZ9MRw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rXPX3GvGq0DlZHiU1VsA:9 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-GUID: mp5lv7F1CYERfwfDt_KvphSBicwWrDba
+X-Proofpoint-ORIG-GUID: mp5lv7F1CYERfwfDt_KvphSBicwWrDba
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA0MCBTYWx0ZWRfX/lTmGoOyjCpM
+ VkPrvIvnfMAs3FjvtjPMtx8mliP2K6ypjy5AYZaJ6ZsBIZwvjTmvwHxrebsmxnS0Zi68k7c0NkZ
+ pCEaS4QjABSEKUogMHXq2POq7S9kR7pu3fo/D5UjQC2T4zNBiN1lYzSMiwqZ89hz+N9ZAQvNyDY
+ q+QpIlAze+/JZpZzvVWEs3nWFsJ8YGSTobA49m489MlSQzfDzXcR8hRv+ke+QqVACB5Di+QPhlP
+ tobB/fLyzJIJTFNs0oN4I43wVzeG54QvgwaH0htStiETTbJ/RRMYsOrB9/WLHTlOB2fhDnjBJAY
+ gfeTLNYq5JvTrZenSvqauxH39OsAlcxWiXhk2FHqIVTKnmRFzT9MVYMIhlO4lKPz07yUElGK1e5
+ u/nxFN32Mk439Ud2uZE03pFu6xUayxG2S5D/FoRjmuz0ZUO6X0IlFPoPCoWC+q9Qf+5/VDnWRyj
+ 0lk5eqqj5/Nxqu3GC0Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA0MCBTYWx0ZWRfX3/JFltkwmS5p
+ FLKN4DvymwiU57k0JCEkMtbpc4gpzbamF8Kvin3ExAfxIEM4rhtJ5O/Hjac97nRUUXB+uctwOKX
+ 6sezNiMh8zUNqL3m3IIMMwzbtTLv2gA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150040
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+HI Mark,
 
-Pre-existing issues:
-- [High] Division by zero in `clk_wzrd_determine_rate` when the requested r=
-ate is significantly larger than the parent rate.
-- [High] Logic bug with ignored `min_t` return value leads to unbounded reg=
-ister writes.
-- [High] Division by zero in `clk_wzrd_get_divisors` and `clk_wzrd_get_divi=
-sors_ver` when the target rate is 0.
---
+On 12-06-2026 22:58, Mark Brown wrote:
+> On Thu, Jun 04, 2026 at 12:20:36PM +0530, Praveen Talari wrote:
+>
+>> -	ret = devm_pm_opp_set_clkname(&pdev->dev, "se");
+>> +	ret = geni_se_resources_init(&mas->se);
+>>   	if (ret)
+>>   		return ret;
+> Doesn't this still make qup-memory mandatory, breaking existing DTs that
+> might not supply it?
 
-commit b31cd102641055f0a34c6e79498f21e726bb2a91
-Author: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
+No. "qup-memory" is optional only.
 
-clk: clocking-wizard: Add static-config clock provider support
-
-When xlnx,static-config is present the divider/multiplier path is
-synthesized inside the Wizard without exposing runtime MMIO
-reconfiguration, so omit the AXI register mapping and advertise each
-routed output clock as a clk_fixed_factor child of clk_in1 using the
-synthesized ratios exported through xlnx,clk-mul-div.
-
-> diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xil=
-inx/clk-xlnx-clock-wizard.c
-> index ffc78c90bee6f..5470a717fccc8 100644
-> --- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-> +++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-
-[ ... ]
-
-This isn't a bug introduced by this patch, but I noticed a potential divisi=
-on
-by zero in the unpatched code:
-
-drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_determine_rate() {
-    ...
-    div =3D DIV_ROUND_CLOSEST(req->best_parent_rate, req->rate);
-
-    req->rate =3D req->best_parent_rate / div;
-    ...
-}
-
-[Severity: High]
-If the requested rate is significantly larger than the best parent rate,=20
-could div evaluate to 0 and trigger a division by zero exception here?
+Ref
+https://lore.kernel.org/all/20260227061544.1785978-2-praveen.talari@oss.qualcomm.com/
 
 
-This is a pre-existing issue, but the capping logic appears to be unused
-in the following code:
+Thanks,
 
-drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_dynamic_reconfig() {
-    ...
-    /* Cap the value to max */
-    min_t(u32, value, WZRD_DR_MAX_INT_DIV_VALUE);
+Praveen Talari
 
-    /* Set divisor and clear phase offset */
-    writel(value, div_addr);
-    ...
-}
-
-[Severity: High]
-Does this code leave value unbounded before the register write since the
-return value of min_t() is not assigned to anything?
-
-
-This isn't a bug introduced by this patch, but there might be another divis=
-ion
-by zero risk in the divisor calculations:
-
-drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_get_divisors_ver() {
-    ...
-    o =3D DIV_ROUND_CLOSEST_ULL(vco_freq, rate);
-    ...
-}
-
-And similarly in clk_wzrd_get_divisors():
-
-drivers/clk/xilinx/clk-xlnx-clock-wizard.c:clk_wzrd_get_divisors() {
-    ...
-    o =3D DIV_ROUND_CLOSEST_ULL(vco_freq, rate);
-    ...
-}
-
-[Severity: High]
-If rate is exactly 0, can this cause a kernel panic due to a division
-by zero?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615034845.3320=
-286-1-shubhrajyoti.datta@amd.com?part=3D6
