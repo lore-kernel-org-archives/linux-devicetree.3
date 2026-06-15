@@ -1,126 +1,247 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8D73168EB
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91BA3B71CC
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 22:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781561423; cv=none; b=cSeJuY1gatRi0FSNPzGUX3CqBJ7M/VmV+rxh/Bv63FmWDAXH83CqLjqDHpaZwfAcq+AQLjMBl+6xg39KEF48xi/WEHuUgMzs0kiewgsxX52ZCANa6XsSFZcRlcdMNBaGyYiSlwhDLDH6BvYPGyFQQ2BKMi/BI5ho8kclqLZ4AF4=
+	t=1781561470; cv=none; b=markqDdiAu2AQQmP6Asz3f1Y2UGnQXiMlWuGLBBvb7Kt3i8iSywj/56HlG9oXPh0y5sHMz+kuCuZpRG++ndCXop/99l4FV/MSlYjTN9aKb8PPBUOf8vonqpgP1XRA/DZAjw2DdDBTLchMYyYnSPmq6eW3MX2/GiIJxb19/qsU7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781561423; c=relaxed/simple;
-	bh=l+NTvZwrLFVw4yUAn5OLNZaxmixZeMtDVKxvdKo6Qbc=;
+	s=arc-20240116; t=1781561470; c=relaxed/simple;
+	bh=6cbcLUuijttbqVSAyYFDNAbK6N5Fzra0MFkiL2a88jM=;
 	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bfjqyjfdxTXldxwS9OhyOvlVQSg2ENXuob0qiHwXZfdx09t2iv4jRdl4VrBkOJtuj2338gLtpQCyHMkHcrBDw4/j/SNd17JmWHOJTngaoJYtgQE+uKHIjmkr0IYM4pA3DqNft4oSWS1ENl81SvDNXmnMVzpAQQejVYQCw72NTZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6bStSOZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=P8KF4bqDIUFThjL1g3jo4j8vdJ3tvlsqMwYo7XPAJOjulfvsl8LbgJA6CG6wduRCuQl8oA2SgmA8pI8z8KvtsjDXZeyLpHAMApczKaCZ6SlJLLUyzuZCJz7CJOKLpw4ZoOnrxnjWLWAax8YmfH8W1i7xp0FMvhtKk8GxyFcrK50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVrgTP2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6bStSOZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DD21F000E9;
-	Mon, 15 Jun 2026 22:10:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVrgTP2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8271F00A3A;
+	Mon, 15 Jun 2026 22:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781561422;
-	bh=p5FL+SzdexA0S6HPAk/0oHX63ZZ/EQqjkZHBc3Hy5T4=;
+	s=k20260515; t=1781561468;
+	bh=5nr70t5MRStu4X+VR7IDEBuNpzcQz+UOhBvXJQBrllI=;
 	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=l6bStSOZT1HFXRolKD4JdxsuKEEXX+kVipmw+LndEKACJwmIqJcMWXI7FAq4CZbgL
-	 5/NcOAqK4APazhSioQiM7hCgPoN6b8iAqTNc7wwSVgwb8oleq8tH9YSvbePUqeg58p
-	 fcRyXB0whJAkKvPtKhnppItAL1OSD9JSGrmfS62Gqqr33lTS1NeVRhulgBVcM3do8M
-	 31aQsRRK6ZruVlimlpkH0pImttku5imw0yzP6+NqluK3my/ESGQcVWUMc/8wwiObNY
-	 yRQS+HHbilzv9w4PXSu2NcSqG8SW0SNO8RpSLqTK2OaS4BRb5XigYx72G7uH6y1Bue
-	 4HM7j9q7HDoIw==
+	b=ZVrgTP2EEmeGm7AEbxCsalU3v9Uoi+7Io8PyMsb24l//QsieLmscU8BSQL9eHTt8o
+	 nV5BwlhV0EE+CqwIxfCeWzyrZUStZWg+11juudWJPkFGvJyKP/jZo3dTkI9GG1XeGo
+	 hjsYCofJiJFQxXPr0RrNxY0H2M7EtiRKtdtokOdYawsy9+TIzzMr/UlFnvRc4FpjV9
+	 mSXewSgHpITxHxxaQd9PAvCYfCjfKvXi07SBYe0sfX2FaUyZhvVqgA2XgDywBHtGdy
+	 jH44xMzxT7TeoJ0IrwSFVILHutPrKAIWpGw55G9JsulbRSAp7tInU0tTLTWE4haHd/
+	 Ll1xQswMDp/yA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
+Subject: Re: [PATCH 2/4] iio: adc: add ti-ads112c14 driver
 Reply-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
-References: <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
+References: <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 22:10:21 +0000
-Message-Id: <20260615221021.F1DD21F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 22:11:08 +0000
+Message-Id: <20260615221108.6E8271F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Low] Invalid schema constraint applied directly to an array property (`r=
-eg`) in the child nodes, and it contradicts the `patternProperties` regex.
-- [Low] Mismatched and inflexible constraints between `interrupts` and `int=
-errupt-names`.
+- [High] Incorrect error checking and status validation in `ads112c14_probe=
+` causes the driver to always fail probing or exit early.
+- [High] The polling timeout for data readiness is significantly shorter th=
+an the minimum conversion time, causing all reads to fail.
+- [High] Short reads from the I2C block transfer cause uninitialized kernel=
+ stack memory to be exposed to userspace.
+- [Medium] Setting the `CONV_MODE` bit places the device in continuous mode=
+ instead of the intended single-shot mode.
+- [Low] The driver uses floating-point literals, which is prohibited in the=
+ kernel.
 --
 
-commit 73a67f643701ff236b57cf5c513f2db2525ad034
+commit cac55fa736d39d53faf1e07aa41f7aa5d0909c7f
 Author: David Lechner (TI) <dlechner@baylibre.com>
+Subject: iio: adc: add ti-ads112c14 driver
 
-dt-bindings: iio: adc: add ti,ads122c14
+Adds a basic driver for TI ADS112C14/ADS122C14 ADC chips supporting
+power on/reset and system monitor channels.
 
-This commit adds new bindings for the Texas Instruments ADS122C14 and simil=
-ar
-ADC chips. The devices are primarily intended for temperature sensors, and =
-the
-bindings include channel-specific reference voltage and current output
-properties.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml =
-b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-> new file mode 100644
-> index 0000000000000..dc7f37cad7721
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+new file mode 100644
+index 0000000000000..97097ae2a4872
+--- /dev/null
++++ b/drivers/iio/adc/ti-ads112c14.c
 [ ... ]
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: FAULT interrupt (GPIO2 pin)
-> +      - description: DRDY interrupt (GPIO3 pin)
+> +struct ads112c14_data {
+> +	const struct ads112c14_chip_info *chip_info;
+> +	struct i2c_client *client;
+> +	struct regmap *regmap;
+> +};
 > +
-> +  interrupt-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum: [fault, drdy]
+> +/* Maps REF_VAL to microvolts. */
+> +static const u32 ads112c14_internal_ref_uV[] =3D {
+> +	[ADS112C14_REFERENCE_CFG_REF_VAL_1_25V] =3D 1.25 * MICRO,
+> +	[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V] =3D 2.5 * MICRO,
+> +};
 
 [Severity: Low]
-Is it possible that this unordered enum for interrupt-names allows mismatch=
-ed
-arrays like [drdy, fault] to pass validation without enforcing order?
+Does this use floating-point literals which are prohibited in the kernel?
 
-Also, the interrupts array strictly defines index 0 as FAULT and index 1 as
-DRDY. If a board only wires up the DRDY interrupt, would it be forced to pl=
-ace
-it at index 0 of the interrupts array, contradicting the description here?
-
-Could this be improved by defining valid combinations using oneOf blocks wi=
-th
-exact items arrays for both interrupts and interrupt-names?
+The kernel environment does not support floating-point arithmetic, so
+using 1.25 and 2.5 could cause compilation errors or link failures on
+architectures without a hardware FPU. Could integer arithmetic be used
+instead, such as 1250000?
 
 [ ... ]
-> +patternProperties:
-> +  ^channel@[0-7]$:
-> +    $ref: adc.yaml
+> +static int ads112c14_single_conversion(struct ads112c14_data *data,
+> +				       const struct iio_chan_spec *chan,
+> +				       u8 *buf)
+> +{
+> +	u32 reg_val;
+> +	int ret;
+[ ... ]
+> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
+> +			   ADS112C14_CONVERSION_CTRL_START);
+> +	if (ret)
+> +		return ret;
 > +
-> +    unevaluatedProperties: false
+> +	ret =3D regmap_read_poll_timeout(data->regmap,
+> +				       ADS112C14_REG_STATUS_MSB, reg_val,
+> +				       FIELD_GET(ADS112C14_STATUS_MSB_DRDY, reg_val),
+> +				       1 * USEC_PER_MSEC, 10 * USEC_PER_MSEC);
+
+[Severity: High]
+Is the 10ms timeout duration here long enough?
+
+The ADC's data rate is left at its default value representing 20 SPS,
+which means a single conversion would take approximately 50ms. Because
+the maximum timeout here is 10ms, won't every read attempt timeout and
+fail with -ETIMEDOUT before the DRDY bit can be set?
+
+> +	if (ret)
+> +		return ret;
 > +
-> +    properties:
-> +      reg:
-> +        maximum: 16 # arbitrary limit, channel@ can be any combination o=
-f AIN0-AIN7
+> +	return i2c_smbus_read_i2c_block_data(data->client, ADS112C14_CMD_RDATA,
+> +					     BITS_TO_BYTES(data->chip_info->resolution_bits),
+> +					     buf);
+> +}
+> +
+> +static int ads112c14_read_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan, int *val,
+> +			      int *val2, long mask)
+> +{
+> +	struct ads112c14_data *data =3D iio_priv(indio_dev);
+> +	u32 vref_uV, fsr_bits;
+> +
+> +	/* Selecting V_REF source is not implemented yet. */
+> +	vref_uV =3D ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2=
+_5V];
+> +
+> +	/* Currently, everything is using signed data. */
+> +	fsr_bits =3D data->chip_info->resolution_bits - 1;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		u8 buf[3];
+> +		int ret;
+> +
+> +		if (!iio_device_claim_direct(indio_dev))
+> +			return -EBUSY;
+> +
+> +		ret =3D ads112c14_single_conversion(data, chan, buf);
+> +		iio_device_release_direct(indio_dev);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		switch (data->chip_info->resolution_bits) {
+> +		case 16:
+> +			*val =3D get_unaligned_be16(buf);
 
-[Severity: Low]
-Since the reg property is an array in device tree schemas, will applying the
-JSON Schema maximum keyword directly to it be ignored by standard validator=
-s?
-Should it define the maximum limit under an items list instead, similar to =
-how
-other array constraints are specified?
+[Severity: High]
+Can this lead to uninitialized kernel stack memory being leaked to userspac=
+e?
 
-Additionally, does a limit of 16 contradict the regex ^channel@[0-7]$ on the
-pattern properties node? The regex restricts the unit address to 0-7, which
-prevents any reg value of 8 or higher from matching, rendering the maximum =
-of
-16 logically unreachable.
+In ads112c14_single_conversion(), i2c_smbus_read_i2c_block_data() returns
+the number of bytes successfully read. If a short read occurs (e.g., it
+returns 1 byte), ret will be a positive value.
+
+Since the check here only looks for ret < 0, it treats a short read as a
+success. This would cause the code to parse the partially uninitialized buf
+array using get_unaligned_be16() or get_unaligned_be24(), exposing
+uninitialized stack data.
+
+Should this check verify that the expected number of bytes were actually
+read?
+
+[ ... ]
+> +static int ads112c14_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	const struct ads112c14_chip_info *info;
+> +	struct iio_dev *indio_dev;
+> +	struct ads112c14_data *data;
+> +	u32 reg_val;
+> +	int ret;
+[ ... ]
+> +	/* Write magic reset value (0x16) to ensure known state.*/
+> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
+> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
+> +	/*
+> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
+> +	 * I2C ACK at the end of the message. The device still gets reset.
+> +	 */
+> +	if (ret !=3D -EREMOTEIO)
+> +		return ret;
+
+[Severity: High]
+Will this logic cause the probe to exit early with success instead of
+continuing?
+
+If the regmap_write() successfully resets the device, it returns 0. The
+condition (0 !=3D -EREMOTEIO) evaluates to true, causing the driver to
+immediately return 0 and incorrectly skip the rest of the device registrati=
+on
+entirely.
+
+> +
+> +	fsleep(ADS112C14_DELAY_RESET_us);
+> +
+> +	ret =3D regmap_read(data->regmap, ADS112C14_REG_STATUS_MSB, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
+> +		return dev_err_probe(dev, -EIO, "reset failed\n");
+
+[Severity: High]
+Is this reset status check inverted?
+
+The ADS112C14_STATUS_MSB_RESETN bit is set to 1 upon a successful power-on
+reset, which is corroborated by the subsequent comment mentioning clearing
+the reset bit. If the reset is successful, this check will actively fail
+the probe with -EIO.
+
+> +
+> +	/*
+> +	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
+> +	 * that happens on every reset.
+> +	 */
+> +	ret =3D regmap_write(data->regmap, ADS112C14_REG_STATUS_MSB,
+> +			   ADS112C14_STATUS_MSB_RESETN |
+> +			   ADS112C14_STATUS_MSB_AVDD_UVN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Place in single-shot conversion mode to make ready for raw read. */
+> +	ret =3D regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
+> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
+
+[Severity: Medium]
+Does this configure the device for continuous conversion mode rather than
+single-shot?
+
+The comment notes the intention to place the device in single-shot
+conversion mode, but setting the ADS112C14_DEVICE_CFG_CONV_MODE bit to 1
+enables continuous mode instead. The default register value of 0 is
+single-shot mode.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-iio-adc-ti=
--ads122c14-v1-0-e6bdadf7cb2b@baylibre.com?part=3D1
+-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com?part=3D2
