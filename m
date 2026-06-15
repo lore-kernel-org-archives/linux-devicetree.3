@@ -1,162 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BBF3FF8B4;
-	Mon, 15 Jun 2026 14:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619F53F926D
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781533355; cv=none; b=eR7S7ck9PTUftpDu4yjNijA4/x728R9XI3r79C445zVNnRJXfM5sXH1umUhgPIqBLH4QiX3QmpfbKycWMDuiYdXuQBa6oNGtnUq2uvGkk4fgWYpUhlDTpkCjRsTJJhuGUqD+17uzyCO6GbgsTfQ0EhWNpKtmPLx2AJJkuvYuBFc=
+	t=1781533558; cv=none; b=Na9xNpV6LUNLuqDxNhk6WeG7+DzZRGoSjRrKSpLOEnzE1ZmRahEfj4OYmRj/vOB2jeGbxSJFBmrflktdGadpEJIjjxZ76e/2ZrFZfaQnbjGmdpLc5iCNCgJxbu7y6f85XVIxDqqEa31CUASnwLDclUMLLZ4VXnA62BRNsIk0avA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781533355; c=relaxed/simple;
-	bh=rZaVt8Ws5gtAJV+GoGQAWHPqAVxY5skFXxkyhwS/8JM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UL5h7jsiy/AW404DraLf8i/qeUK/1nFEvMPN1CiWM0+GAwK3UDig/+3ddnruN0/uQx27qwktcPHoVWzRwW6lyYwbRX1ckSb0crwgm4k9Uk+RqYD7KsvTHbvmwEdpRaSW67Xntyx6NFkbWwOKUFt3AIIBZVl+p5J3BScYkJk8Tqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkB3ow2n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781533558; c=relaxed/simple;
+	bh=vGkYE5EbNX67cgweAxxpCRWreqIevxM1P/7Qp2YYF0I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VA0U/QHls7mXUMmV0p3KbsFB97JptfZF530G4sLkmU6ai04iSGvLnPM7SOUUQkfFvhi0SBJ+7uUGkffyGQFMkwQ2DDe81zuubEnhkfE7EfxDCux3vA9WPWAe12Nw/vxEk04Xu1aq6t2QAcPuGzKTTll2JqNAefR2v5MsIaZRegw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ej6Sbxdy; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkB3ow2n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DBF51F000E9;
-	Mon, 15 Jun 2026 14:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781533353;
-	bh=afxo2q67tV47U2FNyPKEGjT+gagcWsu+AwA1kg7ekPs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dkB3ow2nVpHeRl6oVTcUslzuUNe3cESpDUSy4pIGsHcyaRuosXFfPm/h6S8dkKZzC
-	 Hwlw9qB7dbML7T2VSLF89GmNRyqhquLwLDy2Y1L/rMjBiSZm4xwSlo/4Unw2bZYI6g
-	 OTrd2KDRygNvIsOe0WT2SERObCQE1wk+zDEFtnFP2l185lInE6MhBfRodsH4+CIlvM
-	 cHCLhXEWpFODxKj3O5C10woALhQcaaAlwZOPGpYhdOucyfoj5NDcUSp3DksXIL4FJT
-	 EojmhByhdP4VkBx7xXpxwudq8jWij75izb+VF+PRfrcEplmX0oANFcPU4GDa3YBdq+
-	 7bUhb4RE12gSQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 15 Jun 2026 16:22:07 +0200
-Subject: [PATCH 4/4] arm64: dts: qcom: sc8180x-lenovo-flex-5g: Describe the
- display power net
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ej6Sbxdy"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490ac10e337so23710175e9.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781533554; x=1782138354; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IS4hKl08e5fFQM7CS+6rOZwYJSvHMZdWZRds5aVjNjQ=;
+        b=Ej6Sbxdy9Agh2wmxQ8UyI1zkQiO1hIwy1/rW+LYNqr4hNj2pPWDmKuUOlFHTTDCoU5
+         olWZLcc8dwryyHWxo1h2eINwXw+gsTsK4xP1nCJ+/dZC2Nk0GHEeniTd9oDR+A1zZhgJ
+         fvz/C0i5fvSye2JbI/RixMZ0l4VO+i52T81F775IfX+wrambfCRN2QlzzHwA4BsBcKJo
+         Qa0tc96l1DEnqkwb8mMgFJTdjB+CSfc8KFiaLgiOHGCtd6Cp++RdYF093L/a1pIRMIWc
+         tr3AtIKHrTku3Ml0bB5fAxZR8KWuCdVsy+6y2V5U6zz4a9ilndtxPI2DKTz9jEKZ5qEC
+         YR8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781533554; x=1782138354;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IS4hKl08e5fFQM7CS+6rOZwYJSvHMZdWZRds5aVjNjQ=;
+        b=lMLNiawOG2fvMzkGPH+1CJNIowN7wAOCA68UeFTRgI8mMm2LglSK5EHSYY+jBb/9OA
+         700B6r8QenDZ98pDGWRunKBVrwjBHTw4z8YOjGtCUGSns7TWFmfeh9cTFIcrkUDO7B1B
+         PjM6utAOE3+MKmaFiVAZUTrt6dAmk3DVTJB6pLJEOiRrQiFWvUaCQndqixhPIwic76QJ
+         iTTvkmamPJkF1eZQ/VaQ8RFkfE2SB8IiwDU032mzfLkg0lALfZDdojDPrTjtmpW7GLd/
+         XMOw4sVYB91nQU/85vETh0DyHJBb1W3um9Qp5ZJhGRiEkqkVkTOhKF5bOALFf1xw8jnX
+         QkHw==
+X-Forwarded-Encrypted: i=1; AFNElJ9M90fgzWFTEx6ZhZUxOyiQpY/JLrE2al4Jp/HLQSyXL5ifb9kH0lJC9Wa3W68hGfNXjGLBiFKZDaLq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7/6l7IO4rDH9k+HX7KNOyQXEvyAYzfA+oK8rvTaumW+v7S5UA
+	iJTgwaWkIg6GtWVC/JfYi++fvr/RAaXlJgWmrGzTHe9QdIzjsaiU6luZ5AMk5A==
+X-Gm-Gg: Acq92OHQZQMW+6tsOhH1lSTHgYRCMraiwD+I/yf7KXyCp2DSKmJVP7dEJO3ATHg6AMo
+	EcMpIfpJyfYE9BHPgY5Jy33G1F5xTq751V3IJRFyxY+EgfgJiKvErkGZZsMYs4WW2FUnovGB+CE
+	Y4Tt/JoQtXCIWxu5XqMLGD5ssbG4m8t4uX7khHMYSsiXs7jhos9empmAi7UbLFriZmR+9/r6GoI
+	UT/qYDZ7j+aOLFZlM5YGUeJ0PSwUEY88twdNal+Z6i2d1WM8kthnBRpQ5rUmE3BNq+1XO0tNdvq
+	nnAJZy3ZqfNC0cgyQRQfmf61M63stg9bvvzxt1ve1L6LQfqxiOj/dsO92glQOawbbiqGku4IYA8
+	J2QAlUrEtJl+/pZmZe7GMRv10TkexYXhZvox/8jUsNUbD3JhPgRcZ5kmrba6ZAjvf3lPww8fZZ1
+	0AZaofJ9mb1iAWSaHnYYlbQom1PE04GjYsng==
+X-Received: by 2002:a05:600c:c0c3:10b0:490:c024:2ec8 with SMTP id 5b1f17b1804b1-4921fcb3ffemr112530735e9.0.1781533553436;
+        Mon, 15 Jun 2026 07:25:53 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490ea961f18sm273333205e9.2.2026.06.15.07.25.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 07:25:52 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH v5 0/4] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
+Date: Mon, 15 Jun 2026 17:25:44 +0300
+Message-Id: <20260615142548.1373799-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260615-topic-8180_disp_power-v1-4-18d36b548c48@oss.qualcomm.com>
-References: <20260615-topic-8180_disp_power-v1-0-18d36b548c48@oss.qualcomm.com>
-In-Reply-To: <20260615-topic-8180_disp_power-v1-0-18d36b548c48@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781533332; l=2593;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=rnn0bOizRXEWen7is6SUvyZOZuwIq1kQ7NZm59fxIkM=;
- b=1zVR3mBgzZpzFwE9w394y/0ueK2NLLt2PHoG4OwotnXkqVwGNyJDCcxzoaWXkNIeOkRLtBaH2
- Ongebu+nEmFAziZbULGg7zmyc0Ajq98ei+x/lSHr7GUWztYbceldzgw
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This series fixes the remaining timer binding issue and adds device tree
+support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
+Board (EVB).
 
-Describe and wire up the power supplies for the eDP panel and its
-backlight. Previously, this was only working because of settings
-inherited from the bootloader.
+The first patch drops the undocumented timer0 clock-names property.
+The second patch reorders timer0 and PECI so the APB child nodes stay in
+ascending unit-address order.
+The third patch introduces peripheral nodes for Ethernet, MMC, SPI, USB,
+RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC device
+tree.
+The fourth patch enables these peripherals for the NPCM845-EVB, adding
+MDIO nodes, reserved memory, aliases, and board-specific configurations
+such as PHY modes and SPI flash partitions.
 
-Fixes: 20dea72a393c ("arm64: dts: qcom: sc8180x: Introduce Lenovo Flex 5G")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- .../arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts | 47 ++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+The NPCM8XX device tree was tested on NPCM845 evaluation board.
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
-index 0d2cfb830e83..0a8980c36c4e 100644
---- a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
-@@ -26,6 +26,7 @@ backlight: backlight {
- 		compatible = "pwm-backlight";
- 		pwms = <&pmc8180c_lpg 4 1000000>;
- 		enable-gpios = <&pmc8180c_gpios 8 GPIO_ACTIVE_HIGH>;
-+		power-supply = <&vled_bl_pw>;
- 
- 		pinctrl-0 = <&bl_pwm_default>;
- 		pinctrl-names = "default";
-@@ -157,6 +158,38 @@ cdsp_mem: cdsp-region@98900000 {
- 		};
- 	};
- 
-+	vled_bl_pw: regulator-vled-bl-pw {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VLED_BL_PW";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&pmc8180_2_gpios 1 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&bl_pwr_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
-+	vreg_lcm_3v3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_LCM_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 130 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&lcm_3v3_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
- 	vreg_s4a_1p8: regulator-pm8150-s4 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vreg_s4a_1p8";
-@@ -438,6 +471,7 @@ &mdss_edp {
- 	aux-bus {
- 		panel {
- 			compatible = "edp-panel";
-+			power-supply = <&vreg_lcm_3v3>;
- 			no-hpd;
- 
- 			backlight = <&backlight>;
-@@ -472,6 +506,13 @@ &pcie3_phy {
- 	status = "okay";
- };
- 
-+&pmc8180_2_gpios {
-+	bl_pwr_en: blw-pwr-en-state {
-+		pins = "gpio1";
-+		function = "normal";
-+	};
-+};
-+
- &pmc8180_pwrkey {
- 	status = "okay";
- };
-@@ -765,6 +806,12 @@ ts_int_default: ts-int-default-state {
- 		drive-strength = <2>;
- 	};
- 
-+	lcm_3v3_en: lcm-3v3-en-state {
-+		pins = "gpio130";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	usbprim_sbu_default: usbprim-sbu-state {
- 		oe-n-pins {
- 			pins = "gpio152";
+This series depends on:
+https://lore.kernel.org/all/20260610121822.2524634-2-tmaimon77@gmail.com/
+https://lore.kernel.org/all/20260610121822.2524634-3-tmaimon77@gmail.com/
+https://lore.kernel.org/all/20260610121822.2524634-4-tmaimon77@gmail.com/
+
+Addressed comments from:
+	- Rob Herring
+
+Changes since version 4:
+	- Split the timer0 clock-names cleanup into a separate first patch.
+	- Remove nuvoton,sysgcr from udc8 and udc9.
+	- Rename apb: bus@f0000000 back to apb.
+	- Add no-map to tip_reserved.
+	- Rename spix-mode to nuvoton,spix-mode.
+	- Keep cooling-levels as 32-bit cells while encoding fan-tach-ch
+	  as /bits/ 8.
+
+Tomer Maimon (4):
+  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+  arm64: dts: nuvoton: npcm845: Add peripheral nodes
+  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
+
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 721 +++++++++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 413 ++++++++++
+ .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |  11 +-
+ 3 files changed, 1126 insertions(+), 19 deletions(-)
 
 -- 
-2.54.0
-
+2.34.1
