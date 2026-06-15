@@ -1,109 +1,214 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5107D279334
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:58:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E8C27E049
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781503138; cv=none; b=d8wDyBSMHbIorSnNl3XS4ieIJwk4qV+jyx+iqsB4v+kQ+j/CU76LNYz64tK3c0dlCjyDbyBHAX418QBeMoWDx6YkKrKoBPfIfSH4ExvfOq4MO/w1m0MLIabi0dDax79Eeju5BJU4hKsiMBcNtaa7WURwRfbBXdk+NmJFOiD2TpM=
+	t=1781503184; cv=none; b=euaV3RL2O9osjjwdtLIS1hlMTQqDLVs/UkXmRhHtRRxAhRFhWAvvHhDEnIQX4HJsFF2ekGHTABtJuF+Htjtz6QeonVb2PpYml2GniJPDyts/GZP5RYAA9/ZDtnFt7yulU2XoZmnzTM4a0p+GRdTJlxwHAAfHEwPu874Rjs/meyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781503138; c=relaxed/simple;
-	bh=Pm4OyMAP61mA3mN4kSfp/jGpGMMPAUmftzYSHNt95bk=;
+	s=arc-20240116; t=1781503184; c=relaxed/simple;
+	bh=csc0pUoCgDvL3B/Dm8XBXIENIuZCDAoGPkZAJJwRulQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pR3TpsYHwsY+ZEMXibns0PMJXr/BHp85paUWMt02u181t8+Do+DPqTI3Zt7FTI0Ue3Sryb0S7QnUlFf7YUulmv7BNW9S16pbJryJGZoFKXj+xhh3xTvu0YMAAHDq4In/0hnyzRWIbwV7ARGwFQr1mROMId+laj1H7Llsggr23g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1Ib6nLJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WW64lEP6HKUeuisN+fkPAfO4z3gJGPto51hC/eAEB4fFftlnU6CvXWTCnJzjc2LxzujHIJXROt6ZwQbA415xaRA4X8zJgrUL/5p5EDDlgLpx0emUyuR35InbHTvq2IsCAaiQiZvBPxADTyLuqwFgjLkKxnctu3w9qfTcdyiMgUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bnc8UmTL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1Ib6nLJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C39D1F000E9;
-	Mon, 15 Jun 2026 05:58:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bnc8UmTL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A19B1F000E9;
+	Mon, 15 Jun 2026 05:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781503137;
-	bh=vSoFisx1yYAN5MrYKXbZPonPev23XeGsWoy2Yd+cYcw=;
+	s=k20260515; t=1781503182;
+	bh=S+lqH2ziGyzPodMSHpNvr3CtKx5so0cg6Gjuioczo1g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U1Ib6nLJxfKxtrR+d0vjMge8pkriDFz4BTgjTB5iVxlvd1W6Ov6HmZAxNqufjBaK+
-	 1OMNxBSo2zfR+RcW8CYKbcTrDhvsk1qcXfqn/guXoCewcgTY4v64gtRCE5FZkeFxgi
-	 BVm4xgP0Tao4cwf/a1oNKdZo0lBNtoHiZumKCc9+nry2EhV/35DwY98HMKFyv6O5TE
-	 iSJmixVNWQEncHCyK66xA9mvh92vpOOwQAgc4WvxiDsPuQwrjY2p6uRtsES2G43vqm
-	 Ikf7hAUSnpDOlAFYFNwEKp2oRi6aeyA+7PuGcSrNk45pipeL5enkeLMhkUY1n5Eocb
-	 Fpu9IK8k9wGjA==
+	b=Bnc8UmTLk++wiCN1G4UP+PFh5F1QSXIGsCpYNRkel1z3WQZyxR0M8fzWuOWM+sBl+
+	 EaSzb03XSbOBhgDPZs7zeDPMZlWoE6BruFZyZoeOPS1LgJv5Xe0xUeWx8cGLtZvAWZ
+	 8wmQVD26oGlSZWJZUpDfo27az/BnuctpWLFILxjN0rAjc6JkkIJ/oqoFT8VMQQuaEF
+	 qvdrTeSnJb+5kgGwqOePb2+b739KblAbQbBaNrUZuOjRSCP5EuWrmOb+eNYMzmxlw2
+	 4BPKD74MIe5y2XAZhfKUMcyQqYwVmu4xO1g/NIdUNtonrWPfE9MSKX2e3Xkb3HRPh8
+	 VnA6Gwz8BrM9w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend
- for dual-port OTG support
+Subject: Re: [PATCH 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to dual-port
+ with OTG support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260615054911.48821-2-a0987203069@gmail.com>
-References: <20260615054911.48821-2-a0987203069@gmail.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, olteanv@gmail.com, vkoul@kernel.org
+In-Reply-To: <20260615054911.48821-4-a0987203069@gmail.com>
+References: <20260615054911.48821-4-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 05:58:56 +0000
-Message-Id: <20260615055856.8C39D1F000E9@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 05:59:42 +0000
+Message-Id: <20260615055942.8A19B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] The device tree example fails `dt_binding_check` validation due to =
-a unit address mismatch and violations of the parent reset controller schem=
-a.
+- [High] Missing cleanup of the USB role switch on the probe error path lea=
+ds to a memory leak and a triggerable use-after-free vulnerability.
+- [Medium] Missing bounds check on `args_count` in `ma35_usb_phy_xlate` lea=
+ds to an uninitialized stack memory read and potential out-of-bounds access.
+- [Medium] Unchecked return values of `regmap_read()` lead to the use of un=
+initialized stack variables.
+- [Medium] Failure to explicitly clear `MISCFCR0_UHOVRCURH` when `nuvoton,o=
+c-active-high` is absent allows bootloader state to bleed over.
 --
 
-commit abaf23416a1205bdc22b4891ef46a49e088031a4
+commit c78d99f91b7305f8a53b899cb3cb3fa45c43c783
 Author: Joey Lu <a0987203069@gmail.com>
 
-dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend for dual-port OTG support
+phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
 
-This extends the Nuvoton MA35D1 USB2 PHY binding to support two ports (OTG
-and host-only). The PHY node becomes a child of the syscon node, and
-properties are updated to reflect the new architecture.
+The existing driver handled only PHY0 in device mode (DWC2 gadget). Extend =
+it
+to manage both PHY ports and integrate OTG support, per reviewer suggestion=
+ to
+reuse the existing driver rather than add a separate one.
 
-> diff --git a/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-ph=
-y.yaml b/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
-> --- a/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.yaml
-> @@ -8,38 +8,72 @@ title: Nuvoton MA35D1 USB2 phy
+> diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/=
+phy-ma35d1-usb2.c
+> index 9a459b700ed48..336680161104f 100644
+> --- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+> +++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
 
 [ ... ]
 
->  examples:
->    - |
-> -    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-> +    system-management@40460000 {
-> +        compatible =3D "nuvoton,ma35d1-reset", "syscon", "simple-mfd";
-> +        reg =3D <0x0 0x40460000 0x0 0x200>;
-> +        #reset-cells =3D <1>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
+> +static int ma35_usb_phy_init(struct phy *phy)
+>  {
+> -	struct ma35_usb_phy *p_phy =3D phy_get_drvdata(phy);
+> +	struct ma35_phy_port *port =3D phy_get_drvdata(phy);
+> +	struct ma35_usb_phy *p =3D container_of(port - port->idx,
+> +					      struct ma35_usb_phy, port[0]);
+> +	unsigned int n =3D port->idx;
+>  	unsigned int val;
+>  	int ret;
 > =20
-> -    usb_phy: usb-phy {
-> -        compatible =3D "nuvoton,ma35d1-usb2-phy";
-> -        clocks =3D <&clk USBD_GATE>;
-> -        nuvoton,sys =3D <&sys>;
-> -        #phy-cells =3D <0>;
-> +        usb-phy@60 {
-> +            compatible =3D "nuvoton,ma35d1-usb2-phy";
-> +            reg =3D <0x60 0x14>;
-> +            #phy-cells =3D <1>;
-> +        };
->      };
+> -	ret =3D clk_prepare_enable(p_phy->clk);
+> -	if (ret < 0) {
+> -		dev_err(p_phy->dev, "Failed to enable PHY clock: %d\n", ret);
+> -		return ret;
+> -	}
+> +	regmap_read(p->sysreg, MA35_SYS_USBPMISCR, &val);
 
-[Severity: Low]
-Will this example pass dt_binding_check validation?
+[Severity: Medium]
+Could this leave val uninitialized if regmap_read() fails?
 
-The schema for the parent node (nuvoton,ma35d1-reset.yaml) enforces
-additionalProperties: false and requires exactly two compatible items
-("nuvoton,ma35d1-reset" and "syscon"). It does not permit child nodes,
-the "simple-mfd" compatible, or the #address-cells and #size-cells
-properties.
+If regmap_read() fails (e.g. due to a bus error), val remains uninitialized.
+Evaluating it in the next line could lead to skipping the PHY initialization
+incorrectly.
 
-Additionally, does the 4-cell reg array <0x0 0x40460000 0x0 0x200> mismatch
-the unit address @40460000? Without a ranges property, the dt-schema wrapper
-defaults to 1 cell for address and size, which parses this as two distinct
-ranges and triggers a dtc unit_address_vs_reg warning.
+> +	if (val & USBPMISCR_PHY_SUSPEND(n))
+> +		return 0;
+
+[ ... ]
+
+> +static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
+> +{
+> +	struct ma35_usb_phy *p =3D usb_role_switch_get_drvdata(sw);
+> +	u32 val;
+> +
+> +	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
+> +
+> +	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
+
+[Severity: Medium]
+Does this code return an unpredictable role if regmap_read() fails?
+
+If regmap_read() encounters an error, val will remain uninitialized, which
+could lead to nondeterministic driver behavior when evaluated for the retur=
+ned
+role.
+
+> +}
+
+[ ... ]
+
+> +static struct phy *ma35_usb_phy_xlate(struct device *dev,
+> +				      const struct of_phandle_args *args)
+> +{
+> +	struct ma35_usb_phy *p =3D dev_get_drvdata(dev);
+> +
+> +	if (args->args[0] >=3D MA35_PHY_NUM)
+
+[Severity: Medium]
+Can this code access uninitialized memory if args->args_count is 0?
+
+If the device tree incorrectly specifies #phy-cells =3D <0>, args_count will
+be 0 and the args->args array (allocated on the caller's stack) might be
+uninitialized. Could we add a bounds check for args->args_count >=3D 1 befo=
+re
+accessing args->args[0]?
+
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	return p->port[args->args[0]].phy;
+> +}
+
+[ ... ]
+
+>  static int ma35_usb_phy_probe(struct platform_device *pdev)
+>  {
+
+[ ... ]
+
+> +	if (of_property_read_bool(pdev->dev.of_node, "nuvoton,oc-active-high"))
+> +		regmap_update_bits(p->sysreg, MA35_SYS_MISCFCR0,
+> +				   MISCFCR0_UHOVRCURH, MISCFCR0_UHOVRCURH);
+
+[Severity: Medium]
+Does this code fail to clear MISCFCR0_UHOVRCURH when "nuvoton,oc-active-hig=
+h"
+is absent?
+
+If a bootloader previously set this bit to active-high, Linux will fail to
+clear it upon boot when active-low is expected, potentially breaking USB
+functionality.
+
+> +
+> +	for (n =3D 0; n < MA35_PHY_NUM; n++) {
+
+[ ... ]
+
+> +	ret =3D ma35_role_switch_init(pdev, p);
+> +	if (ret)
+> +		return ret;
+> =20
+> -	provider =3D devm_of_phy_provider_register(&pdev->dev, of_phy_simple_xl=
+ate);
+> +	provider =3D devm_of_phy_provider_register(&pdev->dev, ma35_usb_phy_xla=
+te);
+>  	if (IS_ERR(provider))
+>  		return dev_err_probe(&pdev->dev, PTR_ERR(provider),
+> -				     "Failed to register PHY provider\n");
+> +				     "failed to register PHY provider\n");
+
+[Severity: High]
+Does this error path leak the USB role switch created by
+ma35_role_switch_init()?
+
+If devm_of_phy_provider_register() fails, the function returns immediately
+without unregistering the role switch.
+
+The driver core will then free the devm-allocated memory (including the
+struct ma35_usb_phy *p passed as driver data). Since the role switch remains
+registered, any later interaction with it (e.g. from sysfs) will invoke
+ma35_role_sw_get():
+
+static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
+{
+	struct ma35_usb_phy *p =3D usb_role_switch_get_drvdata(sw);
+	u32 val;
+
+	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
+
+This dereferences the freed p pointer, causing a Use-After-Free.
+
+> +
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615054911.4882=
-1-1-a0987203069@gmail.com?part=3D1
+1-1-a0987203069@gmail.com?part=3D3
