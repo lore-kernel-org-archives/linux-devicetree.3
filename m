@@ -1,206 +1,114 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AC62D0606
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 05:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781500687; cv=pass; b=bM9Ph6tj9dPNUQizbDxk4dsbbLN+cZOlVpzoYCV/rHiDEnAF6mxIoblIp5Uwp+dy9JgunijHFTHql7h9SHJJLfBT0su/jifbbREhvJDfEjfNKe41pkZJlQEcSRsF3lPQPBn+0MrPHhl4Pd86hMahPvcobZgyIPYAbku+nFEVoCM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781500687; c=relaxed/simple;
-	bh=Q5OPxhP+CspScS1nLYEDe5+mVuYgOaCZiuJROYkIGgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FQZeRnf4985mKJ6gxpkAWr2NK8VCUzdU3cq6WNeoajZ/YCuaFC/TIHYpFDwa2QH/dmeiwqOS4upZt8oAfhkJ7FeWLJZ6cmz8d2Y3RjTCQPSU2ZEAG/915MBsOBq07xU6pE4G7vaRsOsFtoK66ti2QytxIXWdl9ah6lINTIIqTlc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gI8aEOLD; arc=pass smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1695305662;
+	Mon, 15 Jun 2026 05:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781500980; cv=none; b=eZPhDDq//+C71A0fmyAwmXPSt8p6HlcbMnOfKgL2cdP8s0SBwsfoF0txFdzoKCcRjTSfhvtD4Ll9YeMni81aRK0NDdGmi1WWhycEtbtObf7ypbQ1HlUDXVIp0gOfKGyUgj6S8hyDKzDCCB1Wz3ub0KRstFyyfVgTbulXshef0T0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781500980; c=relaxed/simple;
+	bh=kPX0CCkaS95O6QiDFH3BY+rq2IFqgBZWvOwq0+XbjNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jHkbNmjS1xSntsIT9FYIfOyFuxH94K6RiMuDG4FEI6TH/xMfIdaTDhT3M5Yc8/TJ++Yt0eCoujwXuO4a1xlphNMMYhGz04/kQ+XFzKfOHVffPp2SyiU9iHIICmhRYZCIk6v/zDgsOMBfRgypqaX5sDDe6Uao5PNgJo2XYcIMyaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hf1/Wukc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gI8aEOLD"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c86307c4e6bso910205a12.0
-        for <devicetree@vger.kernel.org>; Sun, 14 Jun 2026 22:18:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781500686; cv=none;
-        d=google.com; s=arc-20240605;
-        b=WJubI77JxZCCjPQr63f0zHxbx+1O63pkkxTNXLMrJDGOrFyL6s/zlJMWlfRuF/rxCv
-         sOw/ZQnG9RwsjCuq9KV+EGxse2TiZMLhII00zUAIG3ttiq9tBBoxYvTPYBks7Ban6iem
-         pAZfv1xdPldFSZ8sxEWDZ3hEYhzuFoVkXY1P0TrVLAKP4nIwn/8ic0S4DO4OH3T8mtkO
-         o2OvBY2TTUunzeRJDXZXQRcLMhrF0Zlci5r951FiTtENrNt3Vt36fQIZknR4rLkUGfLn
-         Z/dXNELc1uv4rs4jSvoCdGHkMjXe7uMGNHjBVAvPKvozF3CyW5G+ixtMnpkOOUaPQIoe
-         Nc7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=u5Z+dpuey7Egy9wZLQhya1KqlCVIFqeHwt0VDEyuTm4=;
-        fh=xPXNu1sncdr8rs55SH7YPhEAih41+H9sDg9M1YaWF/A=;
-        b=gXi8h7M9J+hmwg6KJu1WdAy+C+6VgzZVexjS/OnMxMTDB4uxwMrXxup5nZBZRXI1Nq
-         qPaNJuYyYPcunHhiqyc3/WL3GrOy9zbRLLjoFBXcaOb1WPLqzWShk7rvuO/sJGrT+xJj
-         aAqPYw1eaKIZCnnzadT3WboDh4e1uyg2S4LU7YUsp3cDX8R4q8rQu2T+CD07z0MGh8Cw
-         Pm3W6uV6/ngIwQXRKwot2SCtEA3TZqmrKM2xptADKB9IZyaLPZTeFv948hbMwrw1P/rO
-         z7Qu4rPcAfuPs3GVzBhWR2QI0GLXF3F99GybsA/sLJ1h5uENvcUYxmH2eMUxKWKm4a+l
-         70OA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781500686; x=1782105486; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=u5Z+dpuey7Egy9wZLQhya1KqlCVIFqeHwt0VDEyuTm4=;
-        b=gI8aEOLDJHxr3vddWqxcSkPia4NVb0rgcMWjJckcfXgs9JMMdHuRPmGgdgXgcE+gEM
-         fSOCjCnAZlp4chumWjLUpFFkPcmhvU5Dm6y9YH0heT1nAZb1D51RZfWQHDopB5T4XDF/
-         EjdZYc5kP/9xfRpZNxAOvLpPCUwpSI+yS4uFPxIVBTsLlSeugQl1ILJnsJNG9/+kr4jL
-         MMBgdTch0V/RKzed82CLFeG+DAjDaKsc8m6QYIwiJ/e4XWYsIQ8dbmTt86ddQVJipFsz
-         ZMtoqzab4YL3pBTbtUWDz/dNuY15NJIXRfo4tUaGbwma5NjC3g9bS5lfxNaUIGCAS4IK
-         RoYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781500686; x=1782105486;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u5Z+dpuey7Egy9wZLQhya1KqlCVIFqeHwt0VDEyuTm4=;
-        b=MjMIcBWWKY4mibdQgkKrwtgrAY6oJ+2BKyMOEr+9joIF7eCtm/2mNKnr73mfuZh0YC
-         q84DCLzoyvQe3AEWxXMcZP7IR5gEqDhwHCBONMVhhGtFuRYiVnqhS2mPPpIQ9Gy2WkeT
-         eqRoYNOysGH8rIkXiZcFRugYdAU7jXZFl2CtO/apnb7NkCffoe4P0XrzbfgJFY0dEFmh
-         7ns3YkMTHEbnW8BR1nJfT8mrH1PrMYpO6+7CbwUYj55aWqe23La+IA+P4AUCq+deBEr5
-         p1harN014bRtlQKvA5gDf/npggm7jJv5BTrWeCFwZpJ8xKRR554OycO/w2PNAw07uksX
-         i2tg==
-X-Forwarded-Encrypted: i=1; AFNElJ/wPGmBc+jY653qBT+GFSQQvxl+FCdhsMwt7h/lUbDfUrHg4iBkS/hwMN9WKmIRLElyAK8C6J6DJlCw@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHa9Cyik4UPabbHkeWXD3Arl0K31+FL4UreQiqatAROK5YxULa
-	xIVNEPZyagum4vjUwm//HrEFvrNby2yJtMhoN5qOB3Ixt+5ps4PXKfnype5CEx9Z0d3LICXRiN6
-	2f3LEifxhn/sZUQNw+j/wQ8/g80WoAOc=
-X-Gm-Gg: Acq92OEP0hnGdHpf2eI3TtP1Vb4N3nn7ly85BYyszKLhHm2K+Fuwuz5ni/ESFjferlf
-	62rB+Cwns2a5krcRqLR9XL7y+zlwMGnbHvaSXoPQbOr1sG4qNdxK6va0qbRUoNSAlQLpcc9DNPr
-	eenNT/TTGaBgjWrCYBwNu6XluEulfwnje/312HccRqLLC+IG3iEr4R7dy6MFrzrRWz1lihV+r5k
-	ID26EkBwUS7UgrKrWYs3ct1xHqLPifjS37zIR+MAXo/pXT1qcCd7V7QW7zzMK8LcMcUYnxFGgw0
-	dtN+fQF5fuIGnTH66kKNOEaJSS7M8CHriTSzJw==
-X-Received: by 2002:a05:6a20:d43:b0:3b2:a8cd:ef4e with SMTP id
- adf61e73a8af0-3b783f23b40mr15009348637.28.1781500685831; Sun, 14 Jun 2026
- 22:18:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hf1/Wukc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CC11F000E9;
+	Mon, 15 Jun 2026 05:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781500979;
+	bh=3kQqZZZ7qMqSw0hVV/Jifg8JGJb5VIL4BbDU26ZLBsQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hf1/WukcfQYiZcH9Rulajd/fItP6yGAq2pyA5Zm4/5c6Yim+iN/E4UFOoZqzUW91b
+	 DNIQQzOuq6ew7rQOJ1LgoYRbGqc6qNfPoSokKsL2FXxNTe5chcpIiTfrg7jAGLYWFP
+	 FBoZYsRqJnI66OvqibGgtftydgr0376S9FtW4cJsUZSjYhJd+SkMPWJwqpwZqktF+m
+	 iO6XNIHJ+orYQ8CygKz+fgYmFU+NClh5tML/IielRdQqTlh9/jDfE3Admqogb4Fxnc
+	 4iKuv57sgJl0v7RiSRG5W4Fv0RVbeOfu8RVmhzAe66PQHUenecs0DP6I8FIhHIb32/
+	 Tu9JeJCgyDM9A==
+Message-ID: <c7bcc64c-e7cb-475c-8d4b-4e8003a3772e@kernel.org>
+Date: Mon, 15 Jun 2026 07:22:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609113836.45079-1-phucduc.bui@gmail.com> <20260609113836.45079-3-phucduc.bui@gmail.com>
- <CAMuHMdXku0BVRgwWWv1vNccKpRbvTu+1b0TjYacNJH94XBDOGg@mail.gmail.com>
- <CAABR9nHFHWFeEaaYE6X9fqt_Zb-3pF=jJbHQpsiBTgkS5LyTLQ@mail.gmail.com>
- <CAMuHMdWsLeEzjCPHEa=nY-kC0n34RHL3kUMW30vneUajCWwTRg@mail.gmail.com>
- <CAABR9nG2kHH3=gkd0H+vhGZJtvkHLA7YMpoWt+p+XtdNV+oe=A@mail.gmail.com>
- <CAMuHMdVQhVQvvnh-aJxw64_h6jOcfaQFk6_Sez-T9aNV30DfRA@mail.gmail.com>
- <CAABR9nFoLrYTUqRr0__n33EZ9Y+YfM=RxAMsx2EFnDWxHa4k3g@mail.gmail.com>
- <CAABR9nHtihP+JW1WcaKpw8470Y25LvZgzNqSZaU09u9F=2K5Ww@mail.gmail.com> <CAABR9nEgE=jGTSS7snPxyRDgRj6qiFDDkbm0MBM40RpLy_nESQ@mail.gmail.com>
-In-Reply-To: <CAABR9nEgE=jGTSS7snPxyRDgRj6qiFDDkbm0MBM40RpLy_nESQ@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 15 Jun 2026 12:17:54 +0700
-X-Gm-Features: AVVi8Cfvt5cdb-6_WYt2gRmdURKt0pynWpaJM-czjNHwMc5_DptuTE2uMt0yVH0
-Message-ID: <CAABR9nFUGY78TxN6yT92a=h+Xe3QQFTKqk0-LFzNExqGOOKK3w@mail.gmail.com>
-Subject: Re: [PATCH v6 02/11] ARM: dts: renesas: r8a7740: Add clocks for FSI
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] spi: dt-bindings: qcom,spi-geni-qcom: Add property to
+ force GSI mode
+To: Pengyu Luo <mitltlatltl@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260614083424.464132-1-mitltlatltl@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260614083424.464132-1-mitltlatltl@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Dear all,
+On 14/06/2026 10:34, Pengyu Luo wrote:
+> Some devices (such as gaokun3) do not disable FIFO mode, causing the
+> driver to fallback to FIFO mode by default. However, these platforms
+> also support GSI mode, which is highly preferred for certain
+> peripherals like SPI touchscreens to improve performance.
+> 
+> Introduce the "qcom,force-gsi-mode" device property to hint and force
+> the controller into GSI mode during initialization.
 
-Sorry for sending two additional emails regarding FSIA. They were not
-in HTML format and therefore were rejected by the mailing list.
-To avoid further confusion, I would like to summarize my findings here
-and also include some additional observations regarding FSIB.
+You described the desired Linux feature or behavior, not the actual
+hardware. The bindings are about the latter, so instead you need to
+rephrase the property and its description to match actual hardware
+capabilities/features/configuration etc.
 
-1. Regarding FSIA
-
-The 12.288 MHz oscillator (OSC X8) only provides a reference/system
-clock and does not by itself determine whether the FSI operates in
-Master or Slave mode.
-The Master/Slave relationship is determined by which device drives the
-BCLK and LRCLK signals. Therefore, assuming that the current MCLK
-source remains valid,
-switching the FSI to Master mode would primarily require rerouting
-BCLK and LRCLK, together with the corresponding software configuration
-changes.
-Alternatively, the codec MCLK could also be sourced directly from the
-FSI MCLK output by rerouting the MCLK connection.
-In that configuration, the FSI would provide all audio clocks (MCLK,
-BCLK, and LRCLK) and operate as the clock master.
-
-2. Regarding FSIB
-
-I could not find any FSIB-related connections in the available
-Armadillo board schematic. The schematic only shows FSIA.
-Therefore, there appear to be two possible explanations:
-
- 1. The available hardware design documentation is incomplete, or
-
- 2. The connection between FSIB and HDMI is implemented internally
-inside the SoC,
-    so the FSIB signals are not exposed in the board schematic.
-
-Personally, I believe the second explanation is more likely.
-At present, the only signal related to FSIB that I can identify in the
-schematic is FSIACK, which is shared between FSIA and FSIB.
-I cannot find any of the other FSIB signals. In addition, after
-tracing the Linux 4.2 source code, I found that for the FSIB-to-HDMI
-path,
-only one FSIB-related pin is configured:  ' fsib_mclk_in '
-Furthermore, when the audio stream is started and the clock rate is
-configured, the driver calls: fsi_clk_set_rate_cpg() rather than
-the external clock configuration function (fsi_clk_set_rate_external()).
-
-At the moment, I have not investigated the HDMI subsystem in depth,
-and I do not know how the internal connection between HDMI
-and FSIB is implemented inside the SoC. In addition, the original HDMI
-driver source code has already been removed, so HDMI is not supported.
-Currently, FSIB is not ready for testing on the current kernel.
-As I also mentioned in the cover letter:
->   - FSI master mode is currently compile-tested only. Full verification
->     requires a dedicated HDMI driver (FSIB) or hardware modifications
->     (resoldering board resistors) (FSIA).
-
-
-3. Regarding Geert's question
-
-> I have one more general question.
-> arch/arm/boot/dts/renesas/r8a7740-armadillo800eva.dts configures
-> audio for FSI (fsia_pins), but does not fill in a clock-frequency
-> in fsiack_clk.  Instead, it fills in 12.288 MHz in fsibck_clk, while
-> the schematics call it FSIACK.
-> Apparently the FSIACK pin is shared with FSIBCK on R-Mobile A1, so
-> which function is used depends on pin control.  However, the DTS does
-> not perform any pin configuration for this pin?
->
-
-Based on the current schematic and source code analysis, I think that
-if we continue to support FSIB for this use case,
-the DTS should explicitly configure the FSIB clock and pinmux, for example:
-
-&fsibck_clk {
-        clock-frequency = <12288000>;
-};
-
-fsia_pins: sounda {
-        groups = "fsia_sclk_in",
-                 "fsia_mclk_out",
-                 "fsia_data_in_1",
-                 "fsia_data_out_0";
-        function = "fsia";
-};
-
-+ fsib_pins: soundb {
-+       groups = "fsib_mclk_in";
-+       function = "fsib";
-+ };
-
-This configuration appears to match the current resistor population
-shown in the schematic:
-FSIA operates in Slave mode & FSIB operates in Master mode.
-However, this conclusion is based only on the currently available
-schematic and source code analysis.
-Additional hardware documentation would be helpful to better
-understand the internal HDMI/FSIB clock architecture and to confirm
-this assumption.
+And even differently named property does not feel correct here - just
+choose GSI in the driver...
 
 Best regards,
-Phuc
+Krzysztof
