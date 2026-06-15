@@ -1,152 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m1973189.qiye.163.com (mail-m1973189.qiye.163.com [220.197.31.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3573FA5F2
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467F5407CCB
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 16:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781539242; cv=none; b=TO9OlkUR49wlCkWRTQ76FvZM3F5Cvhu448VsWSIEbMTq6+KMSG2DVk6rmchDcwv5NZAcBPk5EzEZz3aFzf3sVDd7YWz7qp8iAvDi3GQl0G6fqFSK3mHSTNJEnXhscLykPAURqe8NX8Vk9Yon6ocJf1GkUevQFYtbAiszVcB++kI=
+	t=1781539480; cv=none; b=OxXcPB7H41iRnehIdXVNDXb/+kP1kcxTfHeIq4VZG8p0H6ZrlCyx2eSfM1sSKcrBA9IREgqLVCaZ27NrTE17iMhSy32I8TX/B+09yQp+u51/5rcj0ReekTiw18s/pQcn3KpfhklAgt9v3e6FS6IQ3KbiY+tvvGf9X/yTePNPNOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781539242; c=relaxed/simple;
-	bh=Qh+ISSIW9F9nJWAHe5XUZH6Hyr+Xx2qDwzsQrC+22Wc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kalFDQB0a6u/phile+mZBMznaW6VZdHspGs8V1L3zwzqpU9af/+pKZsOoQKGiJFUmL8UTnWa1FKHkLtX73XxvaNRD3ZVzCKGa1Guy8evU7vvaUi3orrB7cBtU907qzTtClmch5a3pTkB3iKD/5P/E1WX9ynK9CqXZ/Fqf5IixPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onGYzPO/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781539480; c=relaxed/simple;
+	bh=xCMEoerQr6qOpSceVTrX07b3WN8wSqvO5OwJkSDd64Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LJaV56PIgbigO/w5HR7MEh5V6XJYSFz6ZsVRTzisc7xkNUDuSH4tJ8oI6UfyqwywNIzFEbGiLTmCVvzpR/6cDv9fONnR+IF3hIx9oDAFJbloOxU8uU1Ibcy2/66DkhJGZwE43m8yBe25Jee31x8ls7Wnr6gLxAGMKX1tZriyaNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=H2pYc5H4; arc=none smtp.client-ip=220.197.31.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onGYzPO/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670BE1F00A3A;
-	Mon, 15 Jun 2026 16:00:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781539241;
-	bh=hcsOnkjSbROmmF5NX+yApfiaHoZ66P0BuIBQbcgufbE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=onGYzPO/WBkEAUKx2/1QWnI/JDOpg5VubQeMuBcISctWLSIC8HNnw9gUyRFv31Iww
-	 EBjun6x8AfFf0lqZBhoTtYa3y6u43Nd81uY0KE9mD+8h2HEgQb72I30+pm2owwwiiM
-	 LknJtErL8GzMUeG5c3xLo9Br0KNY8CC+mQEmGUnM7U19LsNh/obnONhI06BrGPEpdG
-	 KUr3GaKir6NcXoLx+iGfjSLPhDh3wfNWyDBiSlzpKS6AjMwcoHFlIrJjaE9gxnBCo3
-	 gOsw5w9KwlAlmFg60Dv1nn88+EgTDbMBmzpcQ4Rgwj5gfBnPGWgOF40U+quJt29XXF
-	 MJ/eZMyZzYmOQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/12] rtc: rzn1: fix alarm range check truncation on
- 32-bit systems
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 16:00:41 +0000
-Message-Id: <20260615160041.670BE1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="H2pYc5H4"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 427046fb6;
+	Mon, 15 Jun 2026 20:34:58 +0800 (GMT+08:00)
+Message-ID: <8da02c6f-030d-4033-935b-a44c777a14d2@rock-chips.com>
+Date: Mon, 15 Jun 2026 20:34:58 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] Add eDP lane mapping support
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9ecb4725bc03a8kunmad12dd9f4325
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZShkaVhkYTxoaGEsYQhpIGVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=H2pYc5H4U519kPcqsLXiGZSqfal7roIZHKjog0oUnFm77yfp9eZTtdfOGTPLM5/Lcsv+XL4jWuNSRzLTovnS6ukbqMHh0l4IBojJTjDT+R0HGDUMdDikxtVT4j36p8sRGDPrJFuqrwx4ZAj5tX2uj6ZkKN0BqpTpcTwOo+O86QA=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=qY5kOzqcJfORXQNkdCMcMwTxAyKHZxf9POk2wrTq/zs=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Hi all,
 
-Pre-existing issues:
-- [High] Incorrect hardware alarm weekday assignment due to unsigned underf=
-low when the alarm crosses a month boundary.
-- [High] Unconfigured alarms in `rzn1_rtc_read_alarm` can return an invalid=
- `tm_wday` value of `-1`, risking out-of-bounds array access in userspace.
-- [High] Potential spurious interrupt when sequentially updating active har=
-dware alarm registers.
---
+Gentle ping on this patch series.
 
-commit d278abd6309a65fff235820bea9a8e8631da47be
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: rtc: rzn1: fix alarm range check truncation on 32-bit systems
+Best regards,
+Damon
 
-This commit fixes a silent truncation issue on 32-bit systems by changing
-the alarm and farest variables from unsigned long to time64_t. It also
-replaces the time_after() macro with a direct signed comparison.
+On 6/4/2026 4:52 PM, Damon Ding wrote:
+> This series adds configurable eDP physical lane mapping support via
+> device tree data-lanes property.
+> 
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>     without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>     by configuring data-lanes in device tree only.
+> 
+> The series includes driver implementation and device tree binding
+> updates to support custom lane mapping configuration from endpoint
+> node, and keeps default linear lane order if no configuration is given.
+> 
+> Patch 1: Add endpoint data-lanes property to analogix-dp binding
+> Patch 2: Add DRM DP helper API to validate DP lane counts
+> Patch 3: Add validation for samsung,lane-count property as preparation
+> Patch 4: Implement lane mapping in analogix_dp driver
+> 
+> Damon Ding (4):
+>    dt-bindings: display: bridge: analogix-dp: Add data-lanes support for
+>      endpoint
+>    drm/dp: Add helper to validate DP lane counts
+>    drm/bridge: analogix_dp: Add validation for samsung,lane-count
+>      property
+>    drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+> 
+>   .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++--
+>   .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+>   .../drm/bridge/analogix/analogix_dp_core.c    | 64 ++++++++++++++++++-
+>   .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+>   .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 ++---
+>   .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
+>   include/drm/display/drm_dp_helper.h           |  6 ++
+>   7 files changed, 97 insertions(+), 16 deletions(-)
+> 
+> ---
+> 
+> Changes in v2:
+> - Add lane mapping application scenarios in commit message.
+> - Remove redundant deprecated property 'data-lanes' for eDP node.
+> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+> 
+> Changes in v3:
+> - Squash [PATCH v2 2/3] into [PATCH v2 1/3].
+> - Add unevaluatedProperties: false to both the port@1 and endpoint
+>    nodes.
+> 
+> Changes in v4:
+> - Add validation for samsung,lane-count property as preparation.
+> 
+> Changes in v5:
+> - Add DRM DP helper API to validate DP lane counts.
+> - Apply DRM DP helper API to check the validity of samsung,lane-count
+>    property.
+> - Add Acked-by and Reviewed-by tags.
+> 
 
-> diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-> index fe21fa6242881..06339adae71f6 100644
-> --- a/drivers/rtc/rtc-rzn1.c
-> +++ b/drivers/rtc/rtc-rzn1.c
-[ ... ]
-> @@ -265,8 +266,8 @@ static int rzn1_rtc_set_alarm(struct device *dev, str=
-uct rtc_wkalrm *alrm)
->  {
->  	struct rzn1_rtc *rtc =3D dev_get_drvdata(dev);
->  	struct rtc_time *tm =3D &alrm->time, tm_now;
-> -	unsigned long alarm, farest;
->  	unsigned int days_ahead, wday;
-> +	time64_t alarm, farest;
->  	int ret;
-> =20
->  	ret =3D rzn1_rtc_read_time(dev, &tm_now);
-> @@ -276,7 +277,7 @@ static int rzn1_rtc_set_alarm(struct device *dev, str=
-uct rtc_wkalrm *alrm)
->  	/* We cannot set alarms more than one week ahead */
->  	farest =3D rtc_tm_to_time64(&tm_now) + rtc->rtcdev->alarm_offset_max;
->  	alarm =3D rtc_tm_to_time64(tm);
-> -	if (time_after(alarm, farest))
-> +	if (alarm > farest)
->  		return -ERANGE;
-> =20
->  	/* Convert alarm day into week day */
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the calculation for
-days_ahead underflow if the alarm crosses a month boundary?
-
-In rzn1_rtc_set_alarm(), days_ahead is typed as an unsigned int and is
-calculated like this:
-
-    days_ahead =3D tm->tm_mday - tm_now.tm_mday;
-    wday =3D (tm_now.tm_wday + days_ahead) % 7;
-
-If the alarm is set for the 1st of the next month, and today is the 31st,
-the subtraction results in -30. When assigned to an unsigned int, this
-underflows. Because 2^32 % 7 evaluates to 4, the resulting wday calculation
-shifts the weekday by exactly 4 days, causing the hardware alarm register
-to be programmed for the wrong day.
-
-[Severity: High]
-This is a pre-existing issue, but is there a risk of a spurious interrupt
-when updating the active hardware alarm registers?
-
-Just below this hunk in rzn1_rtc_set_alarm(), the match registers are
-updated sequentially:
-
-    writel(bin2bcd(tm->tm_min), rtc->base + RZN1_RTC_ALM);
-    writel(bin2bcd(tm->tm_hour), rtc->base + RZN1_RTC_ALH);
-    writel(BIT(wday), rtc->base + RZN1_RTC_ALW);
-
-The RTC core can invoke this function without first disabling the hardware
-alarm if replacing an existing timer. If the hardware alarm interrupt is
-active, modifying these registers sequentially could cause the intermediate
-hardware state to momentarily match the current time, triggering a spurious
-interrupt and prematurely expiring the next timer in the queue.
-
-[Severity: High]
-This is a pre-existing issue, but what happens in rzn1_rtc_read_alarm() if
-the hardware alarm is unconfigured?
-
-If the hardware alarm register reads 0, fls(0) - 1 evaluates to -1:
-
-drivers/rtc/rtc-rzn1.c:rzn1_rtc_read_alarm() {
-    ...
-    wday =3D readl(rtc->base + RZN1_RTC_ALW);
-    ...
-    delta_days =3D ((fls(wday) - 1) - tm->tm_wday + 7) % 7;
-    tm->tm_wday =3D fls(wday) - 1;
-    ...
-}
-
-If the current weekday is Saturday (6), delta_days evaluates to 0:
-((-1 - 6 + 7) % 7) =3D=3D 0.
-
-Because delta_days is 0, the rtc_time64_to_tm() block is skipped, and the
-function returns with tm->tm_wday =3D -1. Since rtc_valid_tm() does not
-bound-check tm_wday, this -1 is passed to userspace where tools commonly
-use it as an array index, which could cause an out-of-bounds memory read.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615154805.1619=
-693-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D7
