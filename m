@@ -1,39 +1,40 @@
 Received: from naesa05.arrow.com (naesa05.arrow.com [216.150.161.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11453E6DD8;
-	Mon, 15 Jun 2026 12:21:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4B33E7BA0;
+	Mon, 15 Jun 2026 12:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.150.161.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781526088; cv=none; b=dtdxUGX2bt8Cs9bFnAyYzGAjvRn3dF214hAwhYC3Gi9ViLnnVVj2uK4BrR66dRaQWshvm4qs+LugEKev2RNMyK3byxgQ4MiaA2pdSSZJGnLZm1opzoXPCP1pCCs5vpQ5BIs+OA9nprVAVzdw8K3nhv+UbSDuv5YXJiRLN/bP8aM=
+	t=1781526089; cv=none; b=iNEUJy7w0CwxX1SUEBaugBE7pLHXyvSK6NfsnX4BkA3y54kj/MNL2VzqOs9qZvaUA64lLpp1xW0M+RNY27/70kwOGM27g3HBqIGykQeNj+ZeGbX9F0fbFmeNuUBOsP5OMs+BvtJm5Kt510qGQbHzwbtKNa59gpMbUzva9qjuvNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781526088; c=relaxed/simple;
-	bh=wvfK47CrSMsQ0UiXmu5vOE7FqXsvHQNdu+KxrtzEa9c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iVWj1hH60qiYftdacuBrG+hQKJEEWT9//wrLu5iBoyaBgbutRHLkAIfHDw2bLj6xIHd6kxysNC3x5biasiQ26ewLLR9mWhAkTkn9ETFTuJaptGHB4+mGsmaH/JouDMYP3MyOaEK/5YCXXkfmM7A+eEt4yfTdQiDVejwK9ov68ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=TLPQFBHA; arc=none smtp.client-ip=216.150.161.26
+	s=arc-20240116; t=1781526089; c=relaxed/simple;
+	bh=jw3+3lJtQgkvf5fDUwPS8TNUCR+dBtI2QeQxiyX6HAI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EBiugdwqfLffNOK6dcFiuumLiYGu+6Cek3xKV1uUp21UexRChGEcjpVE/jI9EpDL3PluyTYQbBPtCNY9aW7kbi2uiP6wrxx+cWY4weZYCw1OlaOrOhyv72z4H6CYboFcfWvKwBUGu9mTGhewyY2z6DNn085s+NfJjgZRKsuCP6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=rzxl6LhI; arc=none smtp.client-ip=216.150.161.26
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="TLPQFBHA"
+	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="rzxl6LhI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=einfochips.com; i=@einfochips.com; l=1240; q=dns/txt;
-  s=NAESA-Selector1; t=1781526087; x=1813062087;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=AXq/7QTdQmljzH1gjNuvNWvgr9Xn6XXBdRnyML2gxUQ=;
-  b=TLPQFBHAJCicMBUensE5jPwESdopTHcpUdHcTPZbb0/ePH03LbuHN1Js
-   SOt7U9v/d7KSm34BfqKNYyknP/7UI6+LTlG8MqnARVMexQNBuTsvYaux5
-   QHfV/2U6wR7cvHZopPG59Ygb9aBG2oIBDMXxVLyRoqAbDz4nPdXzpQD/V
-   7ZFMHoadHYu5Fu3BXoeufwXBzxACXzbxiSK/CcHPzqaC4PP60gHfUSLdb
-   wTLF9OzgyZQaOKh/WCICAegx4EvdKPA2kCK3ySkN0cUjJ34ILIi3PyJEO
-   XdmHFjP7Rby9X8t+vfGYsoxOZbGrfOe4GQq0QG5o7SdDGMdqahLc17shp
+  d=einfochips.com; i=@einfochips.com; l=908; q=dns/txt;
+  s=NAESA-Selector1; t=1781526088; x=1813062088;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=5/2A2ZLlbiY9nslJ7nQB+Yn+IkxiipPp1ULDmEpmnRE=;
+  b=rzxl6LhI0rq3a/FWsOsAmZwDU1YXQ7IigjwIuwZupxaJO62yWJ1zTxDP
+   6np/19o1hFpPKrRC2aHtKTycv/jgYPf1MJDfdzTc838/JnvpNDxqB1rhO
+   bbmizBFLMfSxWqV4aOlfxmTIEdxNWQ42YPZYlSVZkpW/78hcLaCaWpvpd
+   BKFB1SRMbrgxkJjP9Fe068ABqWmSWpzpcTEhH3WGOiao+nMf1cq/Jgpn3
+   04AiRBHANGAv5oZ5qzMA2fado6G3Arc73keIKlWlr5c0ziBjeaWz0aX8N
+   +q1pgU0VOxztrV0M+Zu695PlzuXBETXZ3LVo1VbcZjom4ChP3T34CJNjC
    g==;
-X-CSE-ConnectionGUID: Jytg3ZVQRCyMylJZrUsYvw==
-X-CSE-MsgGUID: WIKWMA+0SS2Hu4KjJQq70g==
+X-CSE-ConnectionGUID: QYUooyuwTRqrwRObcPY3og==
+X-CSE-MsgGUID: eFLtxijDQEy/VakZiPuK2g==
 X-IronPort-AV: E=Sophos;i="6.24,206,1774332000"; 
-   d="scan'208";a="55984196"
+   d="scan'208";a="55984199"
 Received: from unknown (HELO eicahmirelay01.einfochips.com) ([10.100.49.50])
-  by naesa05out.arrow.com with ESMTP; 15 Jun 2026 06:20:17 -0600
+  by naesa05out.arrow.com with ESMTP; 15 Jun 2026 06:20:19 -0600
 Received: from AHMCPU1888.ap.corp.arrow.com ([172.25.5.100]) by eicahmirelay01.einfochips.com with Microsoft SMTPSVC(10.0.20348.1);
 	 Mon, 15 Jun 2026 17:50:16 +0530
 From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
@@ -54,10 +55,12 @@ Cc: Yulin Lu <luyulin@eswincomputing.com>,
 	Darshan Prajapati <darshan.prajapati@einfochips.com>,
 	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
 	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: [PATCH 0/7] riscv: eswin: eic7700: Add support for clocks, resets, pinctrl, HSP power domain, I2C and watchdog
-Date: Mon, 15 Jun 2026 17:50:09 +0530
-Message-Id: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+Subject: [PATCH 1/7] riscv: dts: eswin: add reset generator for EIC7700 SoC
+Date: Mon, 15 Jun 2026 17:50:10 +0530
+Message-Id: <20260615122016.1110206-2-pinkesh.vaghela@einfochips.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+References: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -65,38 +68,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-OriginalArrivalTime: 15 Jun 2026 12:20:16.0751 (UTC) FILETIME=[531C17F0:01DCFCC1]
+X-OriginalArrivalTime: 15 Jun 2026 12:20:16.0851 (UTC) FILETIME=[532B5A30:01DCFCC1]
 
-This series extends the ESWIN's EIC7700 SoC support beyond the
-already upstreamed basic DTS and DTSI files. It introduces DT nodes
-for reset, clock, pinctrl, HSP power domain, I2C and Watchdog.
+From: Pritesh Patel <pritesh.patel@einfochips.com>
 
-As support for boot media is yet to be upstreamed, we have
-boot-tested this series with initramfs on HiFive Premier P550 board
-using Linux 7.1, U-Boot 2024.01 and OpenSBI 1.8.1.
+Add reset generator node for EIC7700 SoC
 
-[1]: https://lore.kernel.org/lkml/20251113014656.2605447-1-samuel.holland@sifive.com/
+Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
+Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+---
+ arch/riscv/boot/dts/eswin/eic7700.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Pinkesh Vaghela (2):
-  dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
-  riscv: dts: eswin: add hsp power domain
-
-Pritesh Patel (4):
-  riscv: dts: eswin: add reset generator for EIC7700 SoC
-  riscv: dts: eswin: add clock generator for EIC7700 SoC
-  riscv: dts: eswin: add I2C controller support
-  riscv: dts: eswin: add watchdog support
-
-Yulin Lu (1):
-  riscv: dts: eswin: eic7700: add pinctrl support
-
- .../devicetree/bindings/mfd/syscon.yaml       |   2 +
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 182 ++++
- .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 888 ++++++++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        | 234 +++++
- 4 files changed, 1306 insertions(+)
- create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-
+diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+index c3ed93008bca..430a210f01e6 100644
+--- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
++++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+@@ -4,6 +4,7 @@
+  */
+ 
+ /dts-v1/;
++#include <dt-bindings/reset/eswin,eic7700-reset.h>
+ 
+ / {
+ 	#address-cells = <2>;
+@@ -341,5 +342,11 @@ gpioD: gpio-port@3 {
+ 				#gpio-cells = <2>;
+ 			};
+ 		};
++
++		reset: reset-controller@51828300 {
++			compatible = "eswin,eic7700-reset";
++			reg = <0x0 0x51828300 0x0 0x200>;
++			#reset-cells = <1>;
++		};
+ 	};
+ };
 -- 
 2.34.1
 
