@@ -1,528 +1,262 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D88A3F39E8
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 13:54:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781531662; cv=none; b=LgtkNyebs/OrUhYIrVCCLtxeLh0m+DQ6aAhZeNTcHCcfn5HlcLjkDZio86oCY8D6bl1zW5pFlMNFXzHU225yECuuA8n2RAqIhusW1TTcoXENzhJrzKO8q4WgSQPP1paoDRlw4UyZ9QrX6Dwfva4PaNi1+ByLeiSjXIRhhM4NpDM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781531662; c=relaxed/simple;
-	bh=WO4iKIhbi5zRveijZj8+MrF6/VoJ4oXRfm2pwjCUFao=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YcfgHwiLX3JuOZQrcxbdZx2f34c6pzpNk4dfhsFM6i694vXPRdvWDFpsRr71ZMd1tAiuWroYJsqJ2FbfuePSv0NRULODGes8CZdx2sRw+7l3L1Jc2r0eUkcioPIPSzUYnfKIgP9G5aYwjG2kpWb4JaCrQDvTPo6fGdlyN42lNko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wAXEhzde; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BD33F4840
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781532410; cv=pass; b=Tnam+KaGYJ/U4oSZ/8p2w0iCesBBK22vkXrLWL3wuFHiUKrYrymBKrJG0NQB7akBDewh3Cua0cKunYdCp7FvLx9Rv4k0Kz9DXcejncbyKd8nphw/tTcLHV4DT6fjU2k6csK/CB7FtzCQVBlCdQM4yU1sBRvn1vhdTuwIhG+m8Ck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781532410; c=relaxed/simple;
+	bh=8mnu1b//x6MbL4l4Q/DwqLbKuYvGzUIUeTEEC+ZG/+o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ViACcSb9HPHOJsxJ4U2rPEuJsz4jCQgtINAjeUQnajbgk2fAzNLOhiNxxcrbJvBgfsugtQKAby6l86zOb9mYaZyZLFRRzta7jjAh2b6fknth83Y1f71SbkNjb1YoaRKarXhDQFuy4NmFOOCej45rK8nbummhTZ9+8G5qYsvN5H8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NAopAMyq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vz1ZedY4; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wAXEhzde"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso21628705e9.2
-        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:54:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NAopAMyq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vz1ZedY4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FCZNxA022356
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:06:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CtAagYp3jdJuBGRK4I9xSk0WcG3zU047OSNI8ovVPTM=; b=NAopAMyqD6A9UzdC
+	jKnHMCHqy+twvcfWx8oGsq80EyBoXVupG+xLD0Th3IUT0QaIXw5LJY1rKpByEj5w
+	mHuiw3L/xkiRNkFs/2iz2Ofs76lfdGJodJJZLELTsUDutAQH5mLBTZWZrvivn73z
+	nhwndYYHP7S/icyOdLHcifj0q1WfrG6YiztnI0R6062R9SG2ac62D+pinUfsKN4i
+	z8buksGqTun1hEmQhY569AyRghIimg9rIYtlQm3klekMUlPmk5P65SpU9Ag04Xmw
+	Tc6zGWb54jVpix/uXyhKryFgKac4EAifbLd+q3Qp3BaX7VHH40pbYt7jP3fj9u+b
+	VT031g==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etfa70w4p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 14:06:48 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-69e412347c1so4313901eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:06:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781532407; cv=none;
+        d=google.com; s=arc-20240605;
+        b=IzweXjbTsKOaS9Dr117vDPsTLeZS429irP7CtU4Psc7koeZE57tCSw9iytncuXxTxA
+         zaKzrb/e3Feb9z5WOquVqjwwxEy4K8E9cb9jEp9XGFtUVHIW3/08FlH9IYPrBhM3SW8Z
+         qAWOnjp1jNfZFzg3NZkw5bFhviBHsesdURCVfP2bM2hBkVyDRPLZnjGevbAKpZ1/ou4M
+         +hqwsLteX5tvmzLFuCSBCM59oo9INTlDRnLtcQkCh/B84C3OdtJNxLHpaeqHkNs8iUAj
+         1qj4wNHn2xEE9widfYmFshfh+lqOI0fV3LwnWcdti8KG+bbUsAjkyKeJAKIu9f+JkU5S
+         zb/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CtAagYp3jdJuBGRK4I9xSk0WcG3zU047OSNI8ovVPTM=;
+        fh=BTSFnJPShOEkeLUrX+c6evTGdymgSfne2SjnZXGwUTw=;
+        b=Ls2sPV19DrskGKH3+qtNgDYdWlWzVp1ZHf+RF8Z6TL6kDQvXIBhdQO3mb/JRTqFRmL
+         0YzPPOD3AtpMDrDb97XCPGlleL96Pu9xicWxG/67GQtyFRNR4+507Pcx0FqDj0q/pN7k
+         JKCHFsSeBIdaNqD7qiclTczkaO6d0qxi/pConYmAJdIvIf218JKW+BL+S8I0Bg2Hv5+f
+         Hn22MNbTs8CiZeT8t2pl3CER9QCv0u8eFlnBMZ1ft3vTM6C2nsCYkGO5alfJfXOoCL/C
+         KAZ3nKgK1SXUUw1IHYxlgFNb7kaoEbvKYucHS6y2+h1Okv4x+M9O5sBP/ygV0NR15T2E
+         ikqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781531658; x=1782136458; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uu11zNcu46wIUWyRNavmvIySfaoC1WRINzIF9mk7y20=;
-        b=wAXEhzdeay1umb7E4j0XvZaC6INSaOjZ+bpFIG523PcBq2aiTHBwneWwNYldXDu2f1
-         eD8VnwpJTsKJ3JJGG/mhRdG7ksbUyvt/e7knLW2tjsNCWFO9wSzqSWx7eGAEPBYVIMPk
-         rCoF9xMy12yQvJrbwmVLNPBkHR1k/ts8i+Ogrdm81NEEpylJmG9aOl8qBSKUlrxKEHb9
-         op90Qh8IncqLrLtUWTY/r1HzyKdw/2sp6sSE3LqXcRvUigRTXiaQgk0EogwqrWZCsQcl
-         MN3pq10zwolR2biTgiHZ/Yij7R08fA8FQWz9/WZGoFLou8I6/Npyy2yPVzW82NSxO8We
-         OT8w==
+        d=oss.qualcomm.com; s=google; t=1781532407; x=1782137207; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CtAagYp3jdJuBGRK4I9xSk0WcG3zU047OSNI8ovVPTM=;
+        b=Vz1ZedY43YDIZdseWTMdQWXAkSpXyv41cRBf61cF1iRPuiYbpif5jLtTgDTz8G6/u8
+         n5RBkx/lJuFHXR6c332UjV1Dc31U9NlXd2QEbaYA9voPtmED4vCjiv94i6X5FPbDne9o
+         qoEeVqem1gBKPQv9LSDj15By/IeyfI5A4yT5WzCd2OYPQcPDOXsnMH8BNGASdi8hV4ca
+         Myli4add+XRb5D9qO9GSqmumsctKlKh8FY0IIZp4+eVoYxcav2ahSknd+XkcVoZKp6k4
+         Mg9QNVxnKJj1ZfHfRfWZMFPYGUKx/UDlX2nMosRhho2DU9r6BwJ3uNBVURHkbKhhswTq
+         wHuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781531658; x=1782136458;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uu11zNcu46wIUWyRNavmvIySfaoC1WRINzIF9mk7y20=;
-        b=j9J2fAHfOywyhl8QG9CAiGlEdSWNpJodEtfUj8dMdU1CqF0vSToCGNDHtfwr0cLfcE
-         q3RMCeCBFVFbYrRXfkky2ZVjXUibInd581SFw5N23W1QF+Mx9KJhooqM7ABTwDBiJ33N
-         NfkOI6E+ccfQfF+wYAg6AXch1uV3SOhwbbe2FpIfg3hYc0kMqOZHWQYfC5aiJ8qg/gu0
-         LejwZcUQFaTWF3aEw7Da6HobjsXEv40niMUCmMRfjiviyrLtdLusqWa+ZQ/kSp6Ft6Zj
-         vFDnO2udJDK0RX8o8uPWVKI5FoUUyzYJT60VQ6hqQJdxYSVqqBsf+kZdYp0OoU4paAvd
-         8ogg==
-X-Forwarded-Encrypted: i=1; AFNElJ9h5eirAzE/pt0eQCw0t+3E6Ul5f55CiQyA/CpHT6XXk/C3TJ4FrI218bOh9BrQ3U594eW/M5dYhOgw@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7wOIM819YBqivzGPWT1rGZb7G6gRhwbtr40RCxabUWV4Gj1TE
-	wb3K2KwEKofhicEWwBsKsG0sl0zMEDLVo9F+sdhsfnWnNp/3tSiU1HxZd23DV2GJ2lA=
-X-Gm-Gg: Acq92OFdE/L37LziItfSmuOdc+hCgs2Cs5SaLgDncVz8vU4lAgoIzO30Cinr/AkHSuw
-	GFuzig3IFCfJAE4OI8VlBdQpT6Da8V0TX1JzmvGve6avSnCsx6IuHowOoDeFHyEnAn1X7c4lm/y
-	TcPqDIoZrrO0etJCbfACAJdDui4T5m9UCbGMfkSPL7k5KoZv86NW00ZOCdnPAoukJhor7f4n3vo
-	sin/U5LxvqKNc58rUAnv/O9p/LpBNE+88s9onVi/Hx8DaFt1wFslHiXosa8sCNlpCs8eKavTnSB
-	2Pj6CoLkH9y9cGmqfr/93nISQtfmwBsOPQf8HzigmC84rlPczJKJ7Yn4afnEZi7H8TEyDr706OE
-	NQD/zXLI7OdA+C46vu0y/7DxHPQvOM5f1u5MK+AyTo4sJK42kdRGunZdDNzHPpo7TdXp6Q3wADh
-	WC+mgTIXJDCxBMqkyi3IgiUg46e1Mrna0dAM8vK82Y2X5oSK33ypCNbgfegdiejDHFq8qs030N+
-	4c3MJ0=
-X-Received: by 2002:a05:600c:214b:b0:490:bd1d:472a with SMTP id 5b1f17b1804b1-490ec4d7879mr137536905e9.15.1781531657302;
-        Mon, 15 Jun 2026 06:54:17 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:8ff6:927e:47e7:5df7? ([2a01:e0a:106d:1080:8ff6:927e:47e7:5df7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4619b9b7750sm7157811f8f.6.2026.06.15.06.54.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 15 Jun 2026 06:54:16 -0700 (PDT)
-Message-ID: <16d2e8e8-91bc-437d-8225-eb6eedb4bd8a@linaro.org>
-Date: Mon, 15 Jun 2026 15:54:16 +0200
+        d=1e100.net; s=20251104; t=1781532407; x=1782137207;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CtAagYp3jdJuBGRK4I9xSk0WcG3zU047OSNI8ovVPTM=;
+        b=DE3EQiQhPzLmEErugHMQY9479MWB5wA9HTxAQnYxjYZZtbPA0LVrAOOT4fqyvXjip7
+         ZpHEV+AxSY1Eb91esLtmIPQMijojEep9M2I+7gu/0n5EVO1t65vqXaKsoARFxVVoYBVR
+         C24oUCbZhERsGG6IUWbqzhHJ6dwsfgiBtteUvpQBAz+4uaxbyWj+gqsDO+56qerssnBn
+         zpZphgwqn6CRQoOUFfKMGipHs2EIm+YhhIiLZ77Y4ZE4CydD6HYa+Q1R8vsWR97gIYn2
+         wUAU7yDr4APaAY+/oDCIbVWO8ch7gQiPaQiS+5C6WT7OQGeqkFumj5KXlVf9jdNOLrtp
+         OY6w==
+X-Forwarded-Encrypted: i=1; AFNElJ8xc1yU+7Ue5HRyN4RUM+frl3YvC8MmthBTMaPiWJBo6acdRVUjlLDceDTsCOg/Z3ZvF4QAZPTkwULa@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNsfSfJBinWNzEz6KVJdmL0Eioec2E52AKUu0W6u1+BEbXyYBj
+	5+e6MACWB9ZWGUEr7RYaoYXoelbtj52RCB/bgOIAAv9ciI9Jd+vzVa1wWMHmY4HlHUZvEjtE65M
+	VBGt6uBft9ciNT7bLG8GariOBnzDtr2LkrDxso62L4AXFOWmCqhC4xu4zXEx8nt5YuP7tT3NpwM
+	LMaoZ3fNffZ+JiFeHRfNa0EVtbrne1H2vPcZ872/V7G8G92rA3Xg==
+X-Gm-Gg: Acq92OH0ktLk8UGQFH8FYcADOamiIwuamju1rCKwKGQEPR5l3V5/dilZHZ82N2l6135
+	myqOEoTpSQQKH9Gxqyuav0w2ltNQ32Ll/smqlZ8lOKz5lJu5+6vzsvWvA9q7CGzsMPLJeyDdRcE
+	fPgrcvTBsxUOHL4MWfQ6e4OV8Ukbzf5418Pb3uDoOBz0UzA/t+zsYhDRVtkZ+TM3Qfy2M1+s89w
+	U/A+uA42X/9PZjCne207KuEPBBoV15gjG0U5xShQDvlbKJuBG81+OtMH1P/YAAXXC5OYADKm114
+	uBN70NwTZFdNWxtM/rQTNYrgfyPTrLSs/cebf00woilDnGtV
+X-Received: by 2002:a05:6820:a02:b0:69e:158c:8998 with SMTP id 006d021491bc7-69edc74ba26mr8704354eaf.38.1781532407169;
+        Mon, 15 Jun 2026 07:06:47 -0700 (PDT)
+X-Received: by 2002:a05:6820:a02:b0:69e:158c:8998 with SMTP id
+ 006d021491bc7-69edc74ba26mr8704315eaf.38.1781532406716; Mon, 15 Jun 2026
+ 07:06:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/4] ASoC: qcom: audioreach: compute active channel maps
- from channel_map
-To: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
- <937aed10-9ec6-4ca4-bc60-db892121a416@kernel.org>
- <a5a957d0-a40c-424e-9d6d-622a4f624343@linaro.org>
- <05e15363-d49e-4a7b-82b3-0f07537b5366@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <05e15363-d49e-4a7b-82b3-0f07537b5366@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com>
+ <CAFEp6-2-n1L8rLv9zV142D_Q7io1G1ZuFgLHowsf8sObQt6iLw@mail.gmail.com>
+ <aivBcGQgeKGW45Is@lpieralisi> <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
+In-Reply-To: <9a2f95e1-f01e-4956-9e84-23f0a5f26298@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 16:06:35 +0200
+X-Gm-Features: AVVi8Cf8pitrTp7zxl57WdsyeqAZVFnmJNxiFVDQF8HHco4mBWZB6R14se962UM
+Message-ID: <CAFEp6-3dC3mzYdB6imB9evgdK68fZjDER5uJ4mEC7a1F_SEGsA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] Add psci_sys_reset2 reboot modes for Qualcomm boards
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Xin Liu <xin.liu@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: 9RIhv9j8ca46ut-R43yFyKSfmulZpSmz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE0OCBTYWx0ZWRfX68B/Ifr2MWIc
+ hIDylrvCL04i05nm759O22UiesxbZ+2FdJ6azGfUK3/ZIgwd2CjCbip1X+Nizxg7QFfVlL3jv9p
+ 9ej2lxHfEWFT1cQA/Og4BKQC79mmlZo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE0OCBTYWx0ZWRfX9xbpoW5pgFqW
+ 5LmjHdoMAF1XCitPKg//yoZabv6bnhv9JI4UqS1CsD9QO8RQ3L7daUvy0kDiKw0V0KKnE94CNQI
+ MM3BqzOxHqJqEUE+tRAqEgRXzTQfpYpPKhuoG1ftSYmdujuSwwXCZMv8mqGv7bGE5UQW39tccSF
+ W9DQ7cnbwMU7AgxArK/wYzkD3qdGykB7/I5colZ82gGnidV/vaD1bpSFn76JjpjtigIda8J3XNo
+ E8gbb2XWb0vwaC0n/mihTi/Z/BUu2oAlv8uP7md9d1+e2IVDaMTiIgHjYXgIbsMDMuhncjTaw43
+ G3lBfr9gPQC1nnvgx4zpP2EWqVx0FHtvdRWge7ehGYn4MrL2kSKCFuWwv5IIo7I7HsOYpUbKL7s
+ WxZ5K756eJ1YfDrRDmqxPLmKiQYaiuh6kNrX6AF6E8yK7Rik7RLtzUz1/bf7ehZ6ijSWjSpAlWF
+ HMU10Y+bT8TGspnzFvQ==
+X-Proofpoint-GUID: 9RIhv9j8ca46ut-R43yFyKSfmulZpSmz
+X-Authority-Analysis: v=2.4 cv=AN2yTM5Z c=1 sm=1 tr=0 ts=6a3006f8 cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=8K5-RUECaDmC9v1tkEsA:9 a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_03,2026-06-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150148
 
-On 6/15/26 11:36, Srinivas Kandagatla wrote:
-> On 6/15/26 10:31 AM, Neil Armstrong wrote:
->> On 6/15/26 10:38, Srinivas Kandagatla wrote:
->>>
->>>
->>> On 6/10/26 8:41 AM, Neil Armstrong wrote:
->>>> The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
->>>> of 2 WSA speakers connected on the WSA2 lines.
->>>>
->>>> But the Audioreach DSP only handles WSA2 in pair with the WSA
->>>> interface by using the upper bits of the active_channels_mask
->>>> for WSA2 and the lower bits for WSA:
->>>>
->>>> /-------------------------------------------------\
->>>> | Bits  |     3    |     2    |   1     |     0   |
->>>> |-------------------------------------------------|
->>>> | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
->>>> \-------------------------------------------------/
->>>>
->>> No, this is not totally correct, if the setup only has WSA2, then
->>> channel 0 and 1 should be WSA2 channels.
->>>
->>> What is the backend dai id that is in DT, it should be
->>>
->>>      sound-dai = <&q6apmbedai WSA2_CODEC_DMA_RX_0>;
->>>
->>> I also noticed that you are using
->>> https://github.com/linux-msm/audioreach-topology/blob/main/SM8550-HDK.m4
->>> which has WSA as backend dai, that is not correct, you should have WSA2.
->>
->> So I did try that, and DSP would error out when using the
->> LPAIF_INTF_TYPE_WSA2,
->> but I'm retrying from scratch right now.
-> 
-> Please share the failure logs, we need to change
-> 1. dt : bedai id, codec dais with correct soundwire wsa2 instance, the
-> routes.
-> 2. tplg
-> 
+On Mon, Jun 15, 2026 at 3:09=E2=80=AFPM Shivendra Pratap
+<shivendra.pratap@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 12-06-2026 13:51, Lorenzo Pieralisi wrote:
+> > On Wed, Jun 10, 2026 at 02:57:19PM +0200, Loic Poulain wrote:
+> >> Hi Anurag,
+> >>
+> >> On Fri, May 29, 2026 at 4:29=E2=80=AFPM Anurag Pateriya
+> >> <anurag.pateriya@oss.qualcomm.com> wrote:
+> >>>
+> >>> Adding PSCI SYSTEM_RESET2 reboot-modes for sm8750 and
+> >>> kaanapali based boards.
+> >>
+> >> I would like to highlight that when Linux/EFI is enabled, which is a
+> >> common config, efi_reboot is used as the primary reboot path (see
+> >> machine_restart).
+>
+> Yes but, only if EFI RESET RUNTIME service is enabled by UEFI.
+>
+> efi_reboot(...) {
+> ..
+>           if (!efi_rt_services_supported(EFI_RT_SUPPORTED_RESET_SYSTEM))
+>                    return;
+> ..
+>
+> >> As a result, the PSCI reboot hook is not invoked in
+> >> this scenario, assuming Qualcomm firmware provides EFI runtime
+> >> services.
+>
+> Currently EFI RUNTIME RESET service is not enabled on these firmware.
 
-So I did all the changes as you suggested:
-
-Resurected Krzk's serie: https://patch.msgid.link/20231019153541.49753-1-krzysztof.kozlowski@linaro.org
-
-Adapted/Fixes it to apply on v7.1:
-https://gitlab.com/superna9999/linux/-/commit/fd8cf1922d10175c5bcd8cf2a444c5825392d994
-https://gitlab.com/superna9999/linux/-/commit/0c4e89e167b9ca9c7b500577c030e550ec2a6e73
-https://gitlab.com/superna9999/linux/-/commit/6364a0a45a3f0985b872d9f504e9ea1d1f3f2a35
-
-```
-+#define WSA2_CODEC_DMA_RX_0	147
-+#define WSA2_CODEC_DMA_TX_0	148
-+#define WSA2_CODEC_DMA_RX_1	149
-+#define WSA2_CODEC_DMA_TX_1	150
-+#define WSA2_CODEC_DMA_TX_2	151
-```
-
-https://gitlab.com/superna9999/linux/-/commit/9bd0ce21f73df92fb35e3db7ef570f561a106478
-
-DT:
-https://gitlab.com/superna9999/linux/-/commit/2fc270860e3b77ccae28e0c38228cba3e39ea78a
-
-```
--                               sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
-+                               sound-dai = <&q6apmbedai WSA2_CODEC_DMA_RX_0>;
-                         };
-```
-
-Topology, copied the SM8550-HDK into a new one, dropped I2S and changed all WSA to WSA
-and added the WSA defines:
-https://github.com/superna9999/audioreach-topology/commit/12adc76859cde606c67e5a95df204b8d407038df
+Okay, if the EFI/firmware does not expose it or ignores the reset
+call, the PSCI hook will still be reached successfully. Thanks for the
+clarification.
 
 
-```
-+define(`WSA2_CODEC_DMA_RX_0', `147') dnl
-+define(`WSA2_CODEC_DMA_TX_0', `148') dnl
-+define(`WSA2_CODEC_DMA_RX_1', `149') dnl
-+define(`WSA2_CODEC_DMA_TX_1', `150') dnl
-+define(`WSA2_CODEC_DMA_TX_2', `151') dnl
-```
-
-Extract of the SM8650-APS2.m4 concerning WSA2:
-```
-...
-+dnl WSA Playback
-+DEVICE_SG_ADD(audioreach/subgraph-device-codec-dma-playback.m4, `WSA2_CODEC_DMA_RX_0', WSA2_CODEC_DMA_RX_0,
-+       `S16_LE', 48000, 48000, 2, 2,
-+       LPAIF_INTF_TYPE_WSA2, CODEC_INTF_IDX_RX0, 0, DATA_FORMAT_FIXED_POINT,
-+       0x00004006, 0x00004006, 0x00006050)
-+dnl
-...
-+STREAM_DEVICE_PLAYBACK_MIXER(WSA2_CODEC_DMA_RX_0, ``WSA2_CODEC_DMA_RX_0'', ``MultiMedia1'', ``MultiMedia2'', ``MultiMedia5'')
-...
-+STREAM_DEVICE_PLAYBACK_ROUTE(WSA2_CODEC_DMA_RX_0, ``WSA2_CODEC_DMA_RX_0 Audio Mixer'', ``MultiMedia1, stream0.logger1'', ``MultiMedia2, stream1.logger1'', ``MultiMedia5, stream4.logger1'')
-...
-```
-
-On device, all sets up without errors:
-```
-[   20.710228] qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
-[   20.720234] platform 6800000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 30
-[   20.763797] va_macro 6d44000.codec: qcom,dmic-sample-rate dt entry missing
-[   20.791279] wsa_macro 6aa0000.codec: using zero-initialized flat cache, this may cause unexpected behavior
-[   20.912445] wcd939x_codec audio-codec: bound sdw:2:0:0217:010e:00:4 (ops wcd_sdw_component_ops [snd_soc_wcd_common])
-[   20.923343] wcd939x_codec audio-codec: bound sdw:3:0:0217:010e:00:3 (ops wcd_sdw_component_ops [snd_soc_wcd_common])
-[   20.960741] snd-sc8280xp sound: ASoC: Parent card not yet available, widget card binding deferred
-[   20.972182] va_macro 6d44000.codec: supply vdd-micb not found, using dummy regulator
-[   20.985751] ALSA: Control name 'stream0.vol_ctrl0 MultiMedia1 Playback Volume' truncated to 'stream0.vol_ctrl0 MultiMedia1 Playback Volu'
-[   20.998589] ALSA: Control name 'stream1.vol_ctrl1 MultiMedia2 Playback Volume' truncated to 'stream1.vol_ctrl1 MultiMedia2 Playback Volu'
-[   21.011536] ALSA: Control name 'stream4.vol_ctrl4 MultiMedia5 Playback Volume' truncated to 'stream4.vol_ctrl4 MultiMedia5 Playback Volu'
-[   21.026510] input: SM8650-APS2 Headset Jack as /devices/platform/sound/sound/card0/input7
-[   21.035151] input: SM8650-APS2 DP0 Jack as /devices/platform/sound/sound/card0/input8
-```
-
-Available mixer elements:
-```
-# amixer | grep WSA
-Simple mixer control 'SpkrLeft WSA MODE',0
-Simple mixer control 'SpkrRight WSA MODE',0
-Simple mixer control 'WSA RX0 MUX',0
-Simple mixer control 'WSA RX1 MUX',0
-Simple mixer control 'WSA RX_MIX EC0_MUX',0
-Simple mixer control 'WSA RX_MIX EC1_MUX',0
-Simple mixer control 'WSA RX_MIX0 MUX',0
-Simple mixer control 'WSA RX_MIX1 MUX',0
-Simple mixer control 'WSA2_CODEC_DMA_RX_0 Audio Mixer MultiMedia1',0
-Simple mixer control 'WSA2_CODEC_DMA_RX_0 Audio Mixer MultiMedia2',0
-Simple mixer control 'WSA2_CODEC_DMA_RX_0 Audio Mixer MultiMedia5',0
-Simple mixer control 'WSA_AIF_VI Mixer WSA_SPKR_VI_1',0
-Simple mixer control 'WSA_AIF_VI Mixer WSA_SPKR_VI_2',0
-Simple mixer control 'WSA_COMP1',0
-Simple mixer control 'WSA_COMP2',0
-Simple mixer control 'WSA_RX0 Digital',0
-Simple mixer control 'WSA_RX0 Digital Mute',0
-Simple mixer control 'WSA_RX0 EC_HQ',0
-Simple mixer control 'WSA_RX0 INP0',0
-Simple mixer control 'WSA_RX0 INP1',0
-Simple mixer control 'WSA_RX0 INP2',0
-Simple mixer control 'WSA_RX0 INT0 SIDETONE MIX',0
-Simple mixer control 'WSA_RX0 MIX INP',0
-Simple mixer control 'WSA_RX0_MIX Digital',0
-Simple mixer control 'WSA_RX0_MIX Digital Mute',0
-Simple mixer control 'WSA_RX1 Digital',0
-Simple mixer control 'WSA_RX1 Digital Mute',0
-Simple mixer control 'WSA_RX1 EC_HQ',0
-Simple mixer control 'WSA_RX1 INP0',0
-Simple mixer control 'WSA_RX1 INP1',0
-Simple mixer control 'WSA_RX1 INP2',0
-Simple mixer control 'WSA_RX1 MIX INP',0
-Simple mixer control 'WSA_RX1_MIX Digital',0
-Simple mixer control 'WSA_RX1_MIX Digital Mute',0
-Simple mixer control 'WSA_Softclip0 Enable',0
-Simple mixer control 'WSA_Softclip1 Enable',0
-```
-
-I setup the speaker with (no errors):
-```
-amixer -c 0 cset name='SpkrLeft PA Volume' 20
-amixer -c 0 cset name='SpkrRight PA Volume' 20
-amixer -c 0 cset name='WSA RX0 MUX' AIF1_PB
-amixer -c 0 cset name='WSA RX1 MUX' AIF1_PB
-amixer -c 0 cset name='WSA_RX0 INP0' RX0
-amixer -c 0 cset name='WSA_RX1 INP0' RX1
-amixer -c 0 cset name='SpkrLeft DAC Switch' 1
-amixer -c 0 cset name='SpkrRight DAC Switch' 1
-amixer -c 0 cset name='WSA_RX0 Digital Volume' 85
-amixer -c 0 cset name='WSA_RX1 Digital Volume' 85
-```
-
-and finally:
-```
-amixer -c 0 cset name='WSA2_CODEC_DMA_RX_0 Audio Mixer MultiMedia1' 1
-numid=216,iface=MIXER,name='WSA2_CODEC_DMA_RX_0 Audio Mixer MultiMedia1'
-   ; type=BOOLEAN,access=rw------,values=2
-   : values=on,off
-
-```
-
-When playing sound, it just timeouts, no printed errors:
-```
-# speaker-test -D plughw:0,0 -c 2
-
-speaker-test 1.2.14
-
-Playback device is plughw:0,0
-Stream parameters are 48000Hz, S16_LE, 2 channels
-Using 16 octaves of pink noise
-Rate set to 48000Hz (requested 48000Hz)
-Buffer size range from 960 to 130560
-Period size range from 480 to 16320
-Periods = 4
-was set period_size = 12000
-was set buffer_size = 48000
-  0 - Front Left
-Write error: -5,Input/output error
-xrun_recovery failed: -5,Input/output error
-Transfer failed: Input/output error
-```
-
-Neil
-
-> 
-> --srini
->>
->> Thanks,
->> Neil
->>
->>>
->>>
->>>> Setting only the WSA2 upper bits is perfectly valid and
->>>> functional but the current Audioreach code builds the bitmask
->>>> from the channels count with:
->>>>      active_channels_mask = (1 << num_channels) - 1;
->>>>
->>>> In order to enable the WSA2 bits the channel count should be 4,
->>>> but the lower WSA bits are then also enabled and the DSP errors
->>>> out when trying to play on the disabled WSA interface.
->>>>
->>>> A solution would've been to add a fake WSA2 topology element which
->>>> would be translated into the top bits only, but it's not clean and
->>>> add some special exceptions in the generic Audioreach code.
->>>>
->>>> The solution suggested by Srinivas is to use the channel mapping to
->>>> set this bitmask.
->>>>
->>>> This works but makes all the other calls using the channel mapping fail
->>>> because the DSP requires the channel_mapping table to start from index 0
->>>> and using num_channel length in order to apply the mapping on the
->>>> active_channels_mask bits in order.
->>>>
->>>> So we need to skip the empty channel mapping entries in all other
->>>> users of the channel_map to build valid channel_mapping tables.
->>>>
->>>> This should not break any other usecases since the default channel
->>>> mapping always start from index 0, and will add flexibilty to allow
->>>> some special non linear mapping for other interfaces as well.
->>>>
->>>> Suggested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
->>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>> ---
->>>>    sound/soc/qcom/qdsp6/audioreach.c | 47 ++++++++++++++++++++++++++++
->>>> ++---------
->>>>    1 file changed, 37 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/
->>>> qdsp6/audioreach.c
->>>> index a13f753eff98..9b80cfa56e8a 100644
->>>> --- a/sound/soc/qcom/qdsp6/audioreach.c
->>>> +++ b/sound/soc/qcom/qdsp6/audioreach.c
->>>> @@ -703,6 +703,7 @@ static int
->>>> audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->>>>        int pm_sz = APM_HW_EP_PMODE_CFG_PSIZE;
->>>>        int size = ic_sz + ep_sz + fs_sz + pm_sz;
->>>>        void *p;
->>>> +    int i;
->>>>          struct gpr_pkt *pkt __free(kfree) =
->>>> audioreach_alloc_apm_cmd_pkt(size, APM_CMD_SET_CFG, 0);
->>>>        if (IS_ERR(pkt))
->>>> @@ -741,7 +742,12 @@ static int
->>>> audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->>>>          intf_cfg->cfg.lpaif_type = module->hw_interface_type;
->>>>        intf_cfg->cfg.intf_index = module->hw_interface_idx;
->>>> -    intf_cfg->cfg.active_channels_mask = (1 << cfg->num_channels) - 1;
->>>> +    intf_cfg->cfg.active_channels_mask = 0;
->>>> +    /* Convert the physical channel mapping into a bit field */
->>>> +    for (i = 0; i < AR_PCM_MAX_NUM_CHANNEL; i++)
->>>> +        if (cfg->channel_map[i])
->>>> +            intf_cfg->cfg.active_channels_mask |= BIT(i);
->>>> +
->>>
->>> This one looks good, this should be a bug fix patch.
->>>
->>>>        p += ic_sz;
->>>>          pm_cfg = p;
->>>> @@ -840,7 +846,7 @@ static int audioreach_mfc_set_media_format(struct
->>>> q6apm_graph *graph,
->>>>        uint32_t num_channels = cfg->num_channels;
->>>>        int payload_size = APM_MFC_CFG_PSIZE(media_format, num_channels) +
->>>>                    APM_MODULE_PARAM_DATA_SIZE;
->>>> -    int i;
->>>> +    int i, j;
->>>>        void *p;
->>>>          struct gpr_pkt *pkt __free(kfree) =
->>>> audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0);
->>>> @@ -860,8 +866,12 @@ static int
->>>> audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->>>>        media_format->sample_rate = cfg->sample_rate;
->>>>        media_format->bit_width = cfg->bit_width;
->>>>        media_format->num_channels = cfg->num_channels;
->>>> -    for (i = 0; i < num_channels; i++)
->>>> -        media_format->channel_mapping[i] = cfg->channel_map[i];
->>>> +    /* Convert the physical mapping to a logical mapping of the
->>>> channels */
->>>> +    for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg-
->>>>> num_channels; i++) {
->>>> +        if (!cfg->channel_map[i])
->>>> +            continue;
->>>> +        media_format->channel_mapping[j++] = cfg->channel_map[i];
->>> Each element i of the channel_mapping[i] array, describes the channel i
->>> inside the buffer where i is less than num_channels.  An unused channel
->>> is set to 0.
->>>
->>> For some reason I get impression that user is trying to set a 4 channels
->>> instead of 2 channel.
->>>
->>> Can you fix the backend-dai id and play it directly on WSA2 instead of
->>> WSA.
->>> Or was there a reason for not doing it otherwise?
->>>
->>> --srini
->>>
->>>> +    }
->>>>          return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->>>>    }
->>>> @@ -1080,6 +1090,7 @@ static int
->>>> audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->>>>        struct apm_pcm_module_media_fmt_cmd *cfg;
->>>>        struct apm_module_param_data *param_data;
->>>>        int payload_size;
->>>> +    int i, j;
->>>>          if (num_channels > 4) {
->>>>            dev_err(graph->dev, "Error: Invalid channels (%d)!\n",
->>>> num_channels);
->>>> @@ -1113,7 +1124,12 @@ static int
->>>> audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->>>>        media_cfg->num_channels = mcfg->num_channels;
->>>>        media_cfg->q_factor = mcfg->bit_width - 1;
->>>>        media_cfg->bits_per_sample = mcfg->bit_width;
->>>> -    memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg-
->>>>> num_channels);
->>>> +    /* Convert the physical mapping to a logical mapping of the
->>>> channels */
->>>> +    for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg-
->>>>> num_channels; i++) {
->>>> +        if (!mcfg->channel_map[i])
->>>> +            continue;
->>>> +        media_cfg->channel_mapping[j++] = mcfg->channel_map[i];
->>>> +    }
->>>>          return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->>>>    }
->>>> @@ -1127,6 +1143,7 @@ static int
->>>> audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->>>>        struct payload_media_fmt_pcm *cfg;
->>>>        struct media_format *header;
->>>>        int rc, payload_size;
->>>> +    int i, j;
->>>>        void *p;
->>>>          if (num_channels > 4) {
->>>> @@ -1166,7 +1183,12 @@ static int
->>>> audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->>>>            cfg->q_factor = mcfg->bit_width - 1;
->>>>            cfg->endianness = PCM_LITTLE_ENDIAN;
->>>>            cfg->num_channels = mcfg->num_channels;
->>>> -        memcpy(cfg->channel_mapping, mcfg->channel_map, mcfg-
->>>>> num_channels);
->>>> +        /* Convert the physical mapping to a logical mapping of the
->>>> channels */
->>>> +        for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg-
->>>>> num_channels; i++) {
->>>> +            if (!mcfg->channel_map[i])
->>>> +                continue;
->>>> +            cfg->channel_mapping[j++] = mcfg->channel_map[i];
->>>> +        }
->>>>        } else {
->>>>            rc = audioreach_set_compr_media_format(header, p, mcfg);
->>>>            if (rc)
->>>> @@ -1243,7 +1265,7 @@ static int
->>>> audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->>>>        struct apm_module_sp_vi_ex_mode_cfg *ex_cfg;
->>>>        int op_sz, cm_sz, ex_sz;
->>>>        struct apm_module_param_data *param_data;
->>>> -    int rc, i, payload_size;
->>>> +    int rc, i, payload_size, j;
->>>>        struct gpr_pkt *pkt;
->>>>        void *p;
->>>>    @@ -1284,14 +1306,19 @@ static int
->>>> audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->>>>        param_data->param_size = cm_sz - APM_MODULE_PARAM_DATA_SIZE;
->>>>          cm_cfg->cfg.num_channels = num_channels * 2;
->>>> -    for (i = 0; i < num_channels; i++) {
->>>> +    /* Convert the physical mapping to a logical mapping of the
->>>> channels */
->>>> +    for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j <
->>>> num_channels; i++) {
->>>> +        if (!mcfg->channel_map[i])
->>>> +            continue;
->>>>            /*
->>>>             * Map speakers into Vsense and then Isense of each channel.
->>>>             * E.g. for PCM_CHANNEL_FL and PCM_CHANNEL_FR to:
->>>>             * [1, 2, 3, 4]
->>>>             */
->>>> -        cm_cfg->cfg.channel_mapping[2 * i] = (mcfg->channel_map[i] -
->>>> 1) * 2 + 1;
->>>> -        cm_cfg->cfg.channel_mapping[2 * i + 1] = (mcfg-
->>>>> channel_map[i] - 1) * 2 + 2;
->>>> +        cm_cfg->cfg.channel_mapping[2 * j] = (mcfg->channel_map[i] -
->>>> 1) * 2 + 1;
->>>> +        cm_cfg->cfg.channel_mapping[2 * j + 1] = (mcfg-
->>>>> channel_map[i] - 1) * 2 + 2;
->>>> +
->>>> +        ++j;
->>>>        }
->>>>          p += cm_sz;
->>>>
->>>
->>
-> 
-
+>
+> >> As a follow-up, it would therefore be beneficial to also
+> >> improve the EFI path to support such custom mode(s)...
+>
+> Yes, and potentially linux should also have some control, if it wants to
+> go via efi reset path or the PSCI reset path.
+>
+> thanks,
+> Shivendra
+>
+> >
+> > I have not checked but we should probably put in a place a way for user
+> > space to check that PSCI is _not_ the reboot method that will be
+> > used, lest it would be allowed to send commands to the kernel that
+> > would be duly ignored.
+> >
+> > Need to go through the whole thing again before commenting any further.
+> >
+> > Thanks,
+> > Lorenzo
+> >
+> >> Regards,
+> >> Loic
+> >>
+> >>
+> >>
+> >>>
+> >>> These DT patches depend on PSCI SYSTEM_RESET2 support introduced in:
+> >>> https://lore.kernel.org/all/20260514-arm-psci-system_reset2-vendor-re=
+boots-v22-0-28a5bde07483@oss.qualcomm.com/
+> >>>
+> >>> To: Bjorn Andersson <andersson@kernel.org>
+> >>> To: Konrad Dybcio <konradybcio@kernel.org>
+> >>> To: Rob Herring <robh@kernel.org>
+> >>> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> >>> To: Conor Dooley <conor+dt@kernel.org>
+> >>> Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> >>> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> >>> Cc: linux-arm-msm@vger.kernel.org
+> >>> Cc: devicetree@vger.kernel.org
+> >>> Cc: linux-kernel@vger.kernel.org
+> >>>
+> >>> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> >>> ---
+> >>> Changes in v2:
+> >>> - Fixed subject lines.
+> >>> - Link to v1: https://lore.kernel.org/r/20260529-psci_sys_reset-dt-ch=
+anges-for-pakala-v1-0-7c32161cf50b@oss.qualcomm.com
+> >>>
+> >>> ---
+> >>> Anurag Pateriya (1):
+> >>>        arm64: dts: qcom: sm8750: add reboot-mode support
+> >>>
+> >>> Xin Liu (1):
+> >>>        arm64: dts: qcom: kaanapali: add reboot-mode support
+> >>>
+> >>>   arch/arm64/boot/dts/qcom/kaanapali-mtp.dts | 7 +++++++
+> >>>   arch/arm64/boot/dts/qcom/kaanapali-qrd.dts | 7 +++++++
+> >>>   arch/arm64/boot/dts/qcom/kaanapali.dtsi    | 2 +-
+> >>>   arch/arm64/boot/dts/qcom/sm8750-mtp.dts    | 7 +++++++
+> >>>   arch/arm64/boot/dts/qcom/sm8750-qrd.dts    | 7 +++++++
+> >>>   arch/arm64/boot/dts/qcom/sm8750.dtsi       | 2 +-
+> >>>   6 files changed, 30 insertions(+), 2 deletions(-)
+> >>> ---
+> >>> base-commit: 6ee02bbf328be8a8586487e3af73b65a906cce58
+> >>> change-id: 20260529-psci_sys_reset-dt-changes-for-pakala-a09fc0e2a8a8
+> >>>
+> >>> Best regards,
+> >>> --
+> >>> Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> >>>
+> >>>
+>
