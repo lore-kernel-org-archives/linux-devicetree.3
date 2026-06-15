@@ -1,208 +1,189 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0B635C183;
-	Mon, 15 Jun 2026 13:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6C73E1D16;
+	Mon, 15 Jun 2026 13:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781530142; cv=none; b=FycUeJFG/n/t3PhswHUCc3gs991IFdBTno45d2NAR1ZSHuMX8imk548gJY0qT0lI5ebDOBAAL2kFq4XJnuN58QfqmHQJDSBTmaJHnzkL0dL8dtPWkp61ndWUKupkb/q5Z9XA9A5+TmBP6q5dNL72y3xea55CFuqekxf2NbljdQ0=
+	t=1781530296; cv=none; b=pTN/K+ceDW3Gv7RtsWFJdzV8Ep+Gl2CPuhpoMr8woiP6OuV6IP2Q2ClzhAro1up7fYcMx/APa1Nr0hkSWfDr1xopgZ5ki7s0W7/7gldJiWlgzrb3mxzuwxn298XZkS6OeRZ8zGjGzPJEQRepHb7XwpokcR+lLeDiO4fK8cERTg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781530142; c=relaxed/simple;
-	bh=4A5MXxBe64SU2Q/pU/QWy+zuGR7sLDnGfGi2RLbiZfA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FapmkuEgH80ge6DL8Zw+IkFThyOVgEip2WojqWbMGC0W3HvxYnPguztjPtZUs02A8Nq2D3/VXLAZKIFo1e0Nbwjas98V703wb1QoiiZQ1pzeEzlhwcUGRftRkSD0AKkiQT70Okz6cuY2AaOrijrVMGGfV0S4QLaPBjs8HBuiX8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pLw77lHY; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1781530296; c=relaxed/simple;
+	bh=vxGw+J6MkVQiW1g+xovzopOXnMIewQeQRSZQMf+b2JU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ppaEh92U1yRhHv8JwQQ7ftQykJdionuj8m8qJBr3UqJ99DjFsUuCDygSTfqH40yC73FuXFGG7Ph6oKytSFqmUPR8hxXwMn12pzVTvayQgFwzDvGbl6h3LB67q5jxgdPPfo2qeviIVaCq04u0ouRbrpLPlannBtbwI0rHbSSgz7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DQHVEXjM; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pLw77lHY"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FCZGSY008857;
-	Mon, 15 Jun 2026 13:28:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=+jESVR0qtzp
-	SLFMsdQCxMK6niFde+uXzx6UmA6k+Udk=; b=pLw77lHYUe9ngXMzvXKatFOdvYA
-	UkxnM4a1uvLnfY0gJ2+1l7H1YItnBuDbnDAdqOX5XNyKHpkaVjulgtpolsLF2BL7
-	AOjUVcDu4PvGYA5iDecAYYj5FPtmvtgmPNPhZbobu4EAzqyCAJAoct4Jyy/6KT0W
-	mWW6ULL+WxZilyFyB/gIfWDHE6mkXUnDLQ5CwbFS68aFRKt5M+YMtoF6GUp3S+Lo
-	W63zcLNqZTbSYk/b62EFUZB+LS9EjtP1K1nshF34F92v9YLhBaRviE+ty8IqPTsv
-	QqmjzfeyY9SxUL650M1ePViXLQofUD58fv4OpsmbdibUU90WrODJWLiEsDg==
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eteyd8u92-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 15 Jun 2026 13:28:40 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
-	by NALASPPMTA03.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65FDRgDi002734;
-	Mon, 15 Jun 2026 13:28:39 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 4et6php7j3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 15 Jun 2026 13:28:39 +0000 (GMT)
-Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65FDSd54003748;
-	Mon, 15 Jun 2026 13:28:39 GMT
-Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
-	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 65FDSdKq003746
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 15 Jun 2026 13:28:39 +0000 (GMT)
-Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
-	id 439EF657; Mon, 15 Jun 2026 06:28:39 -0700 (PDT)
-From: Can Guo <can.guo@oss.qualcomm.com>
-To: krzk@kernel.org, bvanassche@acm.org, beanhuo@micron.com,
-        peter.wang@mediatek.com, martin.petersen@oracle.com, mani@kernel.org
-Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
-        Zhaoming Luo <zhml@posteo.com>,
-        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v9 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
-Date: Mon, 15 Jun 2026 06:28:33 -0700
-Message-Id: <20260615132834.2985346-2-can.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260615132834.2985346-1-can.guo@oss.qualcomm.com>
-References: <20260615132834.2985346-1-can.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DQHVEXjM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 94CD3C5146A;
+	Mon, 15 Jun 2026 13:31:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 67AD660015;
+	Mon, 15 Jun 2026 13:31:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E3D57106C94F2;
+	Mon, 15 Jun 2026 15:31:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781530290; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=AztGQmlWKqiomMfQy7VwV1LA90NR9R4FU4YZ8MZTWBc=;
+	b=DQHVEXjMGNQkj6OzgBLI7rDFOF/FNM88+41WUUHPg+BrpSxpFT/14EES1zC3zgPtRppV60
+	O/iPBXU1sjhMFIr08FKA2puoS7HgC/bWwTXrmDzUaK3SFJ7tECgzgjpg+p+hGU3l+iTm2z
+	zgXUvvlFaH/R7/vmVhczsdW4ctDr6SPdHLCYBxty/3ZOB3ezGRLdk2JSR2hYx3L9bje1hf
+	tw/7W857gReWfemIRnofdh0QdG7+BjBOnIpc9ZpisndoW3pcIZk0PjYmEBYOqyQSvQSyqk
+	5SpkK1Ff3Z4+YOJBS56jp8YaE91zYpo2Bd/AFirKKZd/rvWYqKTzYd3ur43wtg==
+Message-ID: <3bbacda3-4225-4536-a4b4-3aa31a47a3aa@bootlin.com>
+Date: Mon, 15 Jun 2026 15:31:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: RHZHH0R7KiBqv3JMcLfBZUuBmD-J09fN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDE0MiBTYWx0ZWRfX2gsTWhQe8u52
- BJcgRA8G2PJrfAtFBkBPtzdVrpGmhmmfJkwu6+tU+TRGxTYyVphls4sMyrd+ErN8o/9EmHGxj39
- S/eCIpujSLbzc4L5XAcaSHmhq4G1IGw=
-X-Authority-Analysis: v=2.4 cv=QrJuG1yd c=1 sm=1 tr=0 ts=6a2ffe08 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=O1bjOzfcQfNXtJdNm1oA:9
-X-Proofpoint-ORIG-GUID: RHZHH0R7KiBqv3JMcLfBZUuBmD-J09fN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDE0MiBTYWx0ZWRfX6TUd/WvX2qss
- HgEOJQxZ+JCxJ92F95Wub7cbmHCOnPGDQRElriRVB1iCV+wLfQpA2P4OfmvhqtsXmYP/3bPCNC9
- 06TteXxizK/4dvaIjaFoRs2DpOY73e13hE9x5uWLYJFZDs7B4BSf/19/zxXDfzY5uqaQu5+sPGZ
- 34kDKueTce7XB1Q4aRfd0cZj6z4JlWixyOBRhLUzGJviOmMkOaef8/rkktUTxeozB7wx8RKdnOu
- jdcYA9vnWJ95CT282qiJLx7Dzf15BS35g/XwEWoIR+Q/UFOOsrOubO8yxZ3jkSM1B1Dhg+XPpfV
- 4jIkVjmzUD3NWuS9opGyFGoTdz7GqPDxp2ZfRNPziCL1vFpH/GbatVdjVMzlUJCtGozsZ1wVqir
- ca9Rf9OzdjKrIGxgTC4UqxxY/36Yrz2ay7wNWqQF2mXryC3EO1z3W+AtNiqwwIZJ4nc4SigySG8
- EhUkvlKZPap6sGqCH8A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_03,2026-06-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- phishscore=0 spamscore=0 impostorscore=0 malwarescore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150142
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 02/12] net: phylink: introduce internal
+ phylink PCS handling
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
+ <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
+ <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260615122950.22281-1-ansuelsmth@gmail.com>
+ <20260615122950.22281-3-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260615122950.22281-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-UFS v5.0/UFSHCI v5.0 adds HS-G6 support (46.6 Gbps/lane) via UniPro
-v3.0 and M-PHY v6.0. These specs define TX Equalization for all
-High-Speed Gears (not only HS-G6) to compensate channel loss and
-improve signal integrity at high speed.
+Hi Christian,
 
-For HS-G6, M-PHY uses PAM4 1b1b line coding. Pre-Coding may also be
-required depending on channel characteristics.
+On 6/15/26 14:29, Christian Marangi wrote:
+> Introduce internal handling of PCS for phylink. This is an alternative
+> way to .mac_select_pcs that moves the selection logic of the PCS entirely
+> to phylink with the usage of the supported_interface value in the PCS
+> struct.
+> 
+> MAC should now provide a callback to fill the available PCS in
+> phylink_config in .fill_available_pcs and fill the .num_possible_pcs with
+> the number of elements in the array. MAC should also define a new bitmap,
+> pcs_interfaces, in phylink_config to define for what interface mode a
+> dedicated PCS is required.
+> 
+> On phylink_create(), an array of PCS pointer is allocated of size
+> .num_possible_pcs from phylink_config and .fill_available_pcs from
+> phylink_config is called passing as args the just allocated array and
+> the number of possible element in it.
+> 
+> MAC will fill this passed array with all the available PCS.
+> 
+> This array is then parsed and a linked list of PCS is created based on
+> the allocated PCS array filled by MAC via .fill_available_pcs().
+> 
+> Every PCS in phylink PCS list gets then linked to the phylink instance
+> by setting the phylink value in phylink_pcs struct to the phylink instance.
+> Also the supported_interface value in phylink struct is updated with
+> the new supported_interface from the provided PCS.
+> 
+> On phylink_destroy(), every PCS in phylink PCS list is unlinked from the
+> phylink instance by setting the phylink value in phylink_pcs struct to NULL
+> and removed from the PCS list.
+> 
+> phylink_validate_mac_and_pcs(), phylink_major_config() and
+> phylink_inband_caps() are updated to support this new implementation
+> with the PCS list stored in phylink.
+> 
+> They will make use of phylink_validate_pcs_interface() that will loop
+> for every PCS in the phylink PCS available list and find one that supports
+> the passed interface.
+> 
+> phylink_validate_pcs_interface() applies the same logic of .mac_select_pcs
+> where if a supported_interface value is not set for the PCS struct, then
+> it's assumed every interface is supported.
+> 
+> A MAC is required to implement either a .mac_select_pcs or make use of
+> the PCS list implementation. Implementing both will result in a fail
+> on phylink_create().
+> 
+> A MAC defining .num_possible_pcs in phylink_config MUST also define a
+> .fill_available_pcs or phylink_create() will fail with an negative error.
+> 
+> phylink value in phylink_pcs struct with this implementation is used to
+> track from PCS side when it's attached to a phylink instance. PCS driver
+> will make use of this information to correctly detach from a phylink
+> instance if needed.
+> 
+> phylink_pcs_change() is also changed to verify that the PCS that triggered
+> a link change is the one that is currently used by the phylink instance.
+> 
+> The .mac_select_pcs implementation is not changed but it's expected that
+> every MAC driver migrates to the new implementation to later deprecate
+> and remove .mac_select_pcs.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
 
-Document vendor-neutral properties in ufs-common.yaml:
-- txeq-preshoot-g[1-6]
-- txeq-deemphasis-g[1-6]
-- tx-precode-enable-g6
+[...]
 
-Values are per-lane Host/Device tuples (2 values for x1, 4 values for
-x2). PreShoot/DeEmphasis range from 0..7, and Precode is 0/1.
+> @@ -1872,10 +1993,28 @@ struct phylink *phylink_create(struct phylink_config *config,
+>  	mutex_init(&pl->phydev_mutex);
+>  	mutex_init(&pl->state_mutex);
+>  	INIT_WORK(&pl->resolve, phylink_resolve);
+> +	INIT_LIST_HEAD(&pl->pcs_list);
+> +
+> +	/* Fill the PCS list with available PCS from phylink config */
+> +	ret = phylink_fill_available_pcs(pl, config);
+> +	if (ret < 0) {
+> +		kfree(pl);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	/* Link available PCS to phylink */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		pcs->phylink = pl;
+>  
+>  	phy_interface_copy(pl->supported_interfaces,
+>  			   config->supported_interfaces);
+>  
+> +	/* Update supported interfaces */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		phy_interface_or(pl->supported_interfaces,
+> +				 pl->supported_interfaces,
+> +				 pcs->supported_interfaces);
+> +
 
-These are board-specific signal-integrity tuning values. They depend on
-channel SI/PHY characterization and validation (host PHY, device PHY,
-package, and board routing), and are determined by HW/PHY designers.
+I'm not entirely sure about that, we may need to restrict the supported_interfaces
+from the MAC.
 
-Although UFSHCI v5.0 supports TX Equalization Training via UniPro v3.0,
-which allows host software to determine optimal TX Equalization at
-runtime, static board-specific TX Equalization settings in the Device
-Tree are still necessary because:
-- TX Equalization Training is not supported for HS-G3 and below
-- TX Equalization Training is disabled on some platforms
+As an example, take mvpp2. We have 2 PCSs, one for BaseX/SGMII, one for BaseR. But
+if we don't have a comphy (generic PHY) device, then we can't use all the
+combination of modes our PCSs can provide :
 
-Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
----
- .../devicetree/bindings/ufs/ufs-common.yaml   | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
+https://elixir.bootlin.com/linux/v7.1-rc7/source/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c#L7074
 
-diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-index ed97f5682509..cc32e1189d50 100644
---- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-+++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-@@ -105,6 +105,64 @@ properties:
-       Restricts the UFS controller to rate-a or rate-b for both TX and
-       RX directions.
- 
-+  tx-precode-enable-g6:
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    minItems: 1
-+    items:
-+      - items:
-+          - description: Host_Lane0 precode
-+            enum: [0, 1]
-+          - description: Device_Lane0 precode
-+            enum: [0, 1]
-+      - items:
-+          - description: Host_Lane1 precode
-+            enum: [0, 1]
-+          - description: Device_Lane1 precode
-+            enum: [0, 1]
-+    description:
-+      Static TX Precode enable values for HS-G6 only.
-+
-+patternProperties:
-+  "^txeq-preshoot-g[1-6]$":
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    minItems: 1
-+    items:
-+      - items:
-+          - description: Host_Lane0 Preshoot value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+          - description: Device_Lane0 Preshoot value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+      - items:
-+          - description: Host_Lane1 Preshoot value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+          - description: Device_Lane1 Preshoot value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+    description: |
-+      Static TX Equalization PreShoot settings for High Speed Gears. These
-+      values are programmed to the corresponding UniPro PA layer attribute
-+      PA_TxEQG[1-6]Setting. Each value selects a Pre-Shoot level as defined
-+      by the MIPI M-PHY specification (TX_HS_PreShoot_Setting).
-+
-+  "^txeq-deemphasis-g[1-6]$":
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    minItems: 1
-+    items:
-+      - items:
-+          - description: Host_Lane0 DeEmphasis value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+          - description: Device_Lane0 DeEmphasis value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+      - items:
-+          - description: Host_Lane1 DeEmphasis value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+          - description: Device_Lane1 DeEmphasis value
-+            enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+    description: |
-+      Static TX Equalization DeEmphasis settings for High Speed Gears. These
-+      values are programmed to the corresponding UniPro PA layer attribute
-+      PA_TxEQG[1-6]Setting. Each value selects a De-Emphasis level as defined
-+      by the MIPI M-PHY specification (TX_HS_DeEmphasis_Setting).
-+
- dependencies:
-   freq-table-hz: [ clocks ]
-   operating-points-v2: [ clocks, clock-names ]
--- 
-2.34.1
+These aren't external PCS IPs, but from what I understand you'd like to
+handle these the same way as purely external PCSs, right ?
 
+I'd say the MAC driver utltimately has the knowledge of all possible interfaces.
+
+The way I see it, it's probably safer to let the MAC give a wide range of interfaces,
+and filter that down with what the PCSs can provide (i.e. turn that or into an and,
+while handling the case where the pcs supported interfaces is empty).
+
+What do you think ?
+
+Maxime
