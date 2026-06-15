@@ -1,99 +1,279 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F243CEB98
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CB8381B05
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:34:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781512468; cv=none; b=b5/+KVw9ZMk2rz/oQYXFH/C2Uo+NrguQ0IF9XuNSWDI1E1kn92K1OVX/mxwGt89GpqzJWXoVlHuFEHjqVZq+4Dy1Vkgyxh4NSkGaljxmidoOMP2MtB88tSFBZ+ecUtoeO8mn8/6VntmSxQEUL8AEvxqio2W3D4hugceQ+SpmxeQ=
+	t=1781512471; cv=none; b=Dk0gH1s8uS47sIjFTJHHqXJ/X8746upZQZmp8rZX8bc5zcB6eyqKZQ0bTi7ojZ8RnrjktpJr7YDTUenWNqRnhQ9NAlFHWmFGqaeMlaMQE5BqtA0uEcgUI5ezB+bA2akuxfvWdkcTlOIY/LxMFPxWYh/lpCN8d2MaDD0HOv4vsLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781512468; c=relaxed/simple;
-	bh=eYfoVTTY5NEjUxbcKceaFp2ZtOa8bfuibisKfUP+gSc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=mCMknkr8guHgELJ92mjF0GD4hpNeH0h3CbCOhyIRQ6B2WwhemiVfQHX2jEyDjjN2K5+ji/V4vDDrvxbJi2vPIEAtIPDoqDO9pu1w/rn/USS7dnHFAkkNdMjBAOSfs4K8Fe9G9u94DChJyhFIRCmwiFV4qECpz2e/Ku5XUhcYegc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=B3QX1w4M; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1781512471; c=relaxed/simple;
+	bh=FD/YYzeYflttpFETR8KNzzuysuLGEKsTDke9rdJBgPs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pidNC99TPBKoDhgXGhZMixHjFWqZuLw/jVgS+hHVgghA+XJyTdBT4RUGBPylgTtIBvdKNRF9za/tHKXt2hyGpzou13iPyU4D/CbStID/eGrs+TcpJ8FOYl37PHwu3tDSJJtOIaEiRiLI+4JhPZg18VRHEuNu3JXhF3x6fh1gFzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h36EGtv8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i2Uhq0ch; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="B3QX1w4M"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260615083420epoutp015db1596588e5f620e2a178d80a3d98a7~5NCTS04Ik2412324123epoutp01S
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:34:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260615083420epoutp015db1596588e5f620e2a178d80a3d98a7~5NCTS04Ik2412324123epoutp01S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1781512460;
-	bh=wl26fAR/gW6o8YIBNsSnb/apIo7BbF6qv1tG/czd9Dg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=B3QX1w4MKhmduwNZ7cmVp02v3c4u3d0CkIfDJadcgAS/IV26QVoupTwO/2qfQFeyk
-	 MiW0Vzlr8w7l/5Wk4SkdFGMevUxEN86vPAgYxvTxfFE/Sy2MFq3qK5zNOOt3Zkba6b
-	 NWRf/4bgrw7UebOXtmJeNYGOaJztXtqwr3eCWZj4=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260615083420epcas5p4165ab507ad0395eff05b47f40302028f~5NCS-cyqD3233832338epcas5p4Q;
-	Mon, 15 Jun 2026 08:34:20 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.87]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4gf3Lv4SCtz6B9mG; Mon, 15 Jun
-	2026 08:34:15 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260615083414epcas5p1391355f26fb4ce147782382af6668063~5NCOSYQKc2849128491epcas5p1n;
-	Mon, 15 Jun 2026 08:34:14 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260615083413epsmtip147883ec3f24d1808b5113998f4de05ec~5NCMinSDw0113401134epsmtip1j;
-	Mon, 15 Jun 2026 08:34:12 +0000 (GMT)
-From: Alim Akhtar <alim.akhtar@samsung.com>
-To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	hajun.sung@samsung.com, Alim Akhtar <alim.akhtar@samsung.com>
-Subject: [PATCH v2 1/5] dt-binding: ARM: samsung: Add Samsung Exynos8855
-Date: Mon, 15 Jun 2026 14:22:48 +0530
-Message-Id: <20260615085252.1964423-2-alim.akhtar@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260615085252.1964423-1-alim.akhtar@samsung.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h36EGtv8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i2Uhq0ch"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65F6Kr5c3710243
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:34:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XeXuSTBUDtUckVxvoOvS+dfvJD3DA/ozz/evToIu/as=; b=h36EGtv8Vx0KQuJD
+	PZ5IC27QV9rqS8hOCPuzi8adZ9hlXABwztMwbiGFplsxterTTY7eQ9lrG0sD1dp7
+	n+Nb3P8885TdV+y/WbWvc+xAxXhjWJhnl4KHCez6JNidjz7vDBGdvxgBQalXT31C
+	l/tIVgLFYBpzk/dvZ8pm6lDxUV7lCH1v5ZXev4tmJ8sWt1tslZQM0Iw8fbUuNMNA
+	GxVXsBATQlZISgrdVJ5qLn9FeM9IbxcE+CS+NcKkbNz9CCUtHctHDXys2ei369PT
+	H2jjniQDp7moJKM1vfTBHA2+2Pf8TqUhR6HGlTNoGXPGay/i2cMPgSRh6K+WVb0B
+	GeiRhQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ery956eaq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 08:34:23 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2c0a81c1738so19469895ad.2
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 01:34:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781512463; x=1782117263; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XeXuSTBUDtUckVxvoOvS+dfvJD3DA/ozz/evToIu/as=;
+        b=i2Uhq0chMk0h9AMS9qnzJiROohcSwR0ZE61sVZFx656nLlK/vl8WVz955jR9BrU6iC
+         E88zdRtTlw0RAmmcLp4dRTILtgfFRbThf/TNXrQxeZ6r7WonMue49RCmHRX8Euezumw7
+         LTg/uwTY1Qnzrd99Ox7aOAUQzqimrJhJmUiPZGbsTeJfnEzLmzc97Yax4O4PJpK80+KM
+         W2uInPhNRfuQt6lhWxn334bkQtm2c0/z+E+kmMhwg1ki3OfsvqOwouE2+75cA0aN5J70
+         8PjBUjqIdDi+93CH0SHkD/3YILE72URPESRfP1bTYySo/HaSdDXwkbOE49u29EVHbR8u
+         iEdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781512463; x=1782117263;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=XeXuSTBUDtUckVxvoOvS+dfvJD3DA/ozz/evToIu/as=;
+        b=QsB4+WHydGiM6kpvudtPiyNDANShGRKdC9F+Ckx0o1SLp8jPdmd3Ek7LI7I1Jmm5RW
+         qekIFPyr5yclb3ZCgW5nlKKY/TfKvuTmoLDQHsux4R3bXsYJsyI7nrU/zL79+fLJX7YB
+         sEaUlRnmCblWLOkX/W+/WCif90cINfgju2kdjSwWzbiXh67A1iayEYunabSl3r3MT3sr
+         SjuxlezVboC4Bwb9T868afCUjqmBYEWp0XphZwbl0NhIPg3m5TaaECRbGZMPJelzpwZO
+         su1d552iGsVhi9H2gxVi1YW4BbD8OHaugwkPHz3AlJDZRhUDEfCh+vKsnXfVNzZlTv2s
+         Hfpw==
+X-Forwarded-Encrypted: i=1; AFNElJ+0fNtevrqdd3R4CpytDg4nTXxq5h0a57CvFs7CUvSqJSqut9vOU31Ge/5ma1j7sjxpsAq4wGhN9dgH@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJBxoRcjEn9WOzwnzqr865cgU239NcAFyp3Dt2wXVN014NPgUJ
+	ev79gaC48z9vwbAbMA0SaR8z2KhnvhMqd8y+9jw0QK7mJjrZTOz3R5q3MVJyJa7nxmyFRh5Awjr
+	iWorer/7FbgXzZgEIVALXN+vx0JkMOCCMw2yFSeWNZDvJ0+JA7w1Lyr5GVrJMCpvZ
+X-Gm-Gg: Acq92OGeRrbHOvSzziOuM2WEqKgZTI7JYlMe+DXlWQocKwSn0YIJwJuJoZWsdj0kBh9
+	VCo9aFLcQpf65XcwmFyFyWEo8iw18+/o+YkzUpZFIh2igTyzEY1hVk7figB0diqW/GLqrNCvRXR
+	pi3xoxRwu+soENGM9AsuDE4ygMRHLjFRqS9DEJ0byckQH5YLVxDbebN8RVvrqzXuK8LImpP+iRH
+	LPqDwWf7/veJhne75Ss6ACS3g2s8k3Jv5fMbwwhGwhruwSreNmHGzii83kW9RaVCIsU3aqFGJEh
+	vVFJWuX+/51znjaSfQvTd9gpj2BoHGpcgwZt9Ti1W3oyYvqE1R3iG0ToQ5tkiWDLQ1Q/kmXrJ5/
+	Cr8Vnxm2JH5EIXIYewER58qRTFAwKYIyOhwAQilMV+dpx/687N5aa
+X-Received: by 2002:a17:903:2310:b0:2bc:ac76:c1cf with SMTP id d9443c01a7336-2c4136e81d7mr136314895ad.24.1781512462589;
+        Mon, 15 Jun 2026 01:34:22 -0700 (PDT)
+X-Received: by 2002:a17:903:2310:b0:2bc:ac76:c1cf with SMTP id d9443c01a7336-2c4136e81d7mr136314725ad.24.1781512462126;
+        Mon, 15 Jun 2026 01:34:22 -0700 (PDT)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c70easm122789235ad.25.2026.06.15.01.34.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2026 01:34:21 -0700 (PDT)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 14:03:55 +0530
+Subject: [PATCH v4 2/6] arm64: dts: qcom: shikra: Add CAMSS node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260615083414epcas5p1391355f26fb4ce147782382af6668063
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260615083414epcas5p1391355f26fb4ce147782382af6668063
-References: <20260615085252.1964423-1-alim.akhtar@samsung.com>
-	<CGME20260615083414epcas5p1391355f26fb4ce147782382af6668063@epcas5p1.samsung.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260615-shikra-camss-review-v4-2-bcb51081735b@oss.qualcomm.com>
+References: <20260615-shikra-camss-review-v4-0-bcb51081735b@oss.qualcomm.com>
+In-Reply-To: <20260615-shikra-camss-review-v4-0-bcb51081735b@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        Suresh Vankadara <quic_svankada@quicinc.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781512439; l=3937;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=FD/YYzeYflttpFETR8KNzzuysuLGEKsTDke9rdJBgPs=;
+ b=S+g3AVCbFZadW0cTR3VKyGr/WyTEp+9L5TnSb1M6ihwOPpO9a5hWKeZBoHRpo14yQvnGDguUA
+ sDaldeY7rINBJKtG0qa3JAYOz+R0/fS0KO+jnsBqbCg8PVZFhry85FL
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-ORIG-GUID: nta8PClbyRlNlxtgFh9tcQX6TAvSbaR2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA4OSBTYWx0ZWRfXy/mawhVmKD0i
+ xI3uJnQTWyyaL5sgR9coM5e7J7aDbqe1Ug8DYQGtOzX4zWHjhjT8ENFgnwBSbX1dZZ9hTyaQVVu
+ uDhPiD0EkmvYiOmxxfj+HWMRCwhD1LI=
+X-Proofpoint-GUID: nta8PClbyRlNlxtgFh9tcQX6TAvSbaR2
+X-Authority-Analysis: v=2.4 cv=EbP4hvmC c=1 sm=1 tr=0 ts=6a2fb90f cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=ahKksh3eZu5pIVwncigA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA4OSBTYWx0ZWRfX6Nca7nAVrXzK
+ Za/BwEJ2DRkbo8BatQ5a2R9GhY0AhLLk7NqrbM7JjrT/br5lfuGOf+iQIfdKkkssiDDkc6VbEu9
+ TYf9CAfSgWTP6I/pzIkvDROdyE7j9krsH5DZ2yFe2WyQ4P9B2bN+8Ci3bSi6/lc2cy/GdojmynA
+ qk8ogT1ytCUqDnStpZk2gvNwML1XLAj9F5PR2U0CpjTcXNv5l02wgxMrttOIDzGQAONRd9PmJ/+
+ /yHJQW4QL6Z0Q7IW+HbVUHl6NNCgKWJOZimlYt6WW6E3gpk2j5QNJi5C30A0zW3NT1xaizTkRYA
+ 0dIJbUmGXhNRJ1N0O4Pcu5MyAtEnN9BcSBwYnv2E4wVTLNxb+TC6DBKyQwsbtWGjDd4ONHDvhWe
+ NMJNVPFQA9HfBFPG38OaB0JOk24pjsDso3rKrDjwW2WF9JQIKyW3F/YrjUBajavyfEx/txvnDqF
+ aeYUM4/H8nGWiGTjZ3A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150089
 
-Add Samsung Exynos8855 smdk board to documentation
+Add the Camera Subsystem node. Shikra shares the same IP as QCM2290
+with two CSIPHYs, two CSIDs and two VFEs, but does not include CDM
+and OPE blocks, so only a single IOMMU context bank is needed.
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 ---
- .../devicetree/bindings/arm/samsung/samsung-boards.yaml     | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 100 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-index 753b3ba1b607..273464400477 100644
---- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-+++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-@@ -235,6 +235,12 @@ properties:
-               - winlink,e850-96                 # WinLink E850-96
-           - const: samsung,exynos850
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index a4334d99c1f35ee851ca8266ec37d4a200a07ee5..f0e827996609dab2c09834857a1bffd9560155a6 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -604,6 +604,106 @@ opp-384000000 {
+ 			};
+ 		};
  
-+      - description: Exynos8855 based boards
-+        items:
-+          - enum:
-+              - samsung,exynos8855-smdk         # Samsung SMDK
-+          - const: samsung,exynos8855
++		camss: camss@5c11000 {
++			compatible = "qcom,shikra-camss", "qcom,qcm2290-camss";
 +
-       - description: Exynos8895 based boards
-         items:
-           - enum:
++			reg = <0x0 0x05c11000 0x0 0x1000>,
++			      <0x0 0x05c6e000 0x0 0x1000>,
++			      <0x0 0x05c75000 0x0 0x1000>,
++			      <0x0 0x05c52000 0x0 0x1000>,
++			      <0x0 0x05c53000 0x0 0x1000>,
++			      <0x0 0x05c66000 0x0 0x400>,
++			      <0x0 0x05c68000 0x0 0x400>,
++			      <0x0 0x05c6f000 0x0 0x4000>,
++			      <0x0 0x05c76000 0x0 0x4000>;
++			reg-names = "top",
++				    "csid0",
++				    "csid1",
++				    "csiphy0",
++				    "csiphy1",
++				    "csitpg0",
++				    "csitpg1",
++				    "vfe0",
++				    "vfe1";
++
++			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
++				 <&gcc GCC_CAMSS_AXI_CLK>,
++				 <&gcc GCC_CAMSS_NRT_AXI_CLK>,
++				 <&gcc GCC_CAMSS_RT_AXI_CLK>,
++				 <&gcc GCC_CAMSS_TFE_0_CSID_CLK>,
++				 <&gcc GCC_CAMSS_TFE_1_CSID_CLK>,
++				 <&gcc GCC_CAMSS_CPHY_0_CLK>,
++				 <&gcc GCC_CAMSS_CSI0PHYTIMER_CLK>,
++				 <&gcc GCC_CAMSS_CPHY_1_CLK>,
++				 <&gcc GCC_CAMSS_CSI1PHYTIMER_CLK>,
++				 <&gcc GCC_CAMSS_TOP_AHB_CLK>,
++				 <&gcc GCC_CAMSS_TFE_0_CLK>,
++				 <&gcc GCC_CAMSS_TFE_0_CPHY_RX_CLK>,
++				 <&gcc GCC_CAMSS_TFE_1_CLK>,
++				 <&gcc GCC_CAMSS_TFE_1_CPHY_RX_CLK>;
++			clock-names = "ahb",
++				      "axi",
++				      "camnoc_nrt_axi",
++				      "camnoc_rt_axi",
++				      "csi0",
++				      "csi1",
++				      "csiphy0",
++				      "csiphy0_timer",
++				      "csiphy1",
++				      "csiphy1_timer",
++				      "top_ahb",
++				      "vfe0",
++				      "vfe0_cphy_rx",
++				      "vfe1",
++				      "vfe1_cphy_rx";
++
++			interrupts = <GIC_SPI 210 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 72 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 73 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 309 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 310 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 211 IRQ_TYPE_EDGE_RISING 0>,
++				     <GIC_SPI 213 IRQ_TYPE_EDGE_RISING 0>;
++			interrupt-names = "csid0",
++					  "csid1",
++					  "csiphy0",
++					  "csiphy1",
++					  "csitpg0",
++					  "csitpg1",
++					  "vfe0",
++					  "vfe1";
++
++			interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
++					 &config_noc SLAVE_CAMERA_CFG RPM_ACTIVE_TAG>,
++					<&mmrt_virt MASTER_CAMNOC_HF RPM_ALWAYS_TAG
++					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>,
++					<&mmnrt_virt MASTER_CAMNOC_SF RPM_ALWAYS_TAG
++					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
++			interconnect-names = "ahb",
++					     "hf_mnoc",
++					     "sf_mnoc";
++
++			iommus = <&apps_smmu 0x400 0x0>;
++
++			power-domains = <&gcc GCC_CAMSS_TOP_GDSC>;
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		qupv3_0: geniqup@4ac0000 {
+ 			compatible = "qcom,geni-se-qup";
+ 			reg = <0x0 0x04ac0000 0x0 0x2000>;
+
 -- 
 2.34.1
 
