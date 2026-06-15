@@ -1,155 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDBC3B388E
-	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 06:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D5C5374E57
+	for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 07:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781506772; cv=none; b=pYAUnuMeBU1nyIiuSuUlH5Eiq85h2DLI0XM7luLfy09scxGmxHKc7JXYEzUHjJiku0lgYyK7S04o0MVaMC1m8zpbvMJNUwqLZYCg4HT4fTstFOYn16aiMmTiFn5a32jyV+SbXKUAFH1R7FCuK21rit5DGBGY8iXbHJ/Bw5JG1KI=
+	t=1781506913; cv=none; b=IoUdqJSRrO1vk93feDjYzfNZzqu352pQFmdsO7yq+NxAvZTAsDQj2i70dLG/avu9kGiCTnaQ95pFIxeCvEMTmGPT2SAjUjYPnzfBPrJEsitpz0CYzM7FA1qcQ6Ije96AFrMOGkDZMtADs4ftCrfCo2DQjN3idB6EqAqSSzpXL7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781506772; c=relaxed/simple;
-	bh=LVxPz6z9XH9EBV7fzU2Z8GYanURHaRC5MIyF9VWDKiw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=d5rBmsZk3sjhowJS0U2S7GmgUD+bBAOrHQdTC4VamkNvsnVS/CGcNk0WrvAiOzAWjGjMo6rNDFQ2e1/DxJRNjoKpLgjAJJQoeKSfJd3Xk+gSIIJWd5z8i4rDc9O6VuTxoE107Fx37RzYMO+XOyP0HEQoOmSe38d62RWAMFFapYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NpLBUruS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781506913; c=relaxed/simple;
+	bh=8d71gvCE26obaNdK6alpyZkm3zRLlqDQNYU/BYziUWw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=pQartKDNEDrdUBJM894I7SHj+x8SI62uUnT0HidZGhEJGXqRF1+fyZHiwpdj878X3BrFKfP6MMxeauBYN9NFhGmqYrGDp0O5IM8nOVyzxlOXdVYmj+YwZJt3sqG6tFEnRVzgHvx1cYY3eu301FmTyTx01ZhqFF0VZ7MO0Wz0q4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=nv9UbOVd; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NpLBUruS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A25C1F000E9;
-	Mon, 15 Jun 2026 06:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781506771;
-	bh=6XzBu3M2scvQsZp9WK4RvPSBsl6EUuLeUaeoh0Te2LE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NpLBUruSWPrSSg4S5u2fRhoCIUHFxb+q/2ecTnkppAa1qGFZVBZslkPCGrmecPsPU
-	 ZwesQvGDjdqZY4Qkx5CKSPn20/gdHcdhKWHBHYAXA59kVloLiKLtEHIppQNj0Lqs1h
-	 Hzu/y4jEnrrGJpb13Jm2Y8nV+E37mgFab49mQ29wKNUMf150zfZ8ctF7unFc88PFWj
-	 wG0trOYG6ATncPsTiFW+8YL+SqNKhAeJfizrgPZna6CpjhUTUbNFHJTkOSEHNb6PQT
-	 t8ACtEMFk3j4aQ8tYE4E9MML9Dr5iLARO2F4OhscFB4LNpTEXCfS2wXfgF9PftjexA
-	 s4y/qTdCrQG8A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] drm/verisilicon: add DCUltraLite chip identity
- to HWDB
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615065003.76661-6-a0987203069@gmail.com>
-References: <20260615065003.76661-6-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 06:59:30 +0000
-Message-Id: <20260615065931.3A25C1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="nv9UbOVd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=+ksF9/VRPxakQlox57HhEm2kyt4RNoIz9
+	SuYhw4PTng=; b=nv9UbOVdAOmStamKOkljqLlZd5ra4VBq379pep3OcF4aJLdZj
+	68ujPpfSEtTv+jWvfzBDpQkvJp2BVRP0phGZp9IY1He5g9jDhrA+0/0P6dDrbVRi
+	QtYnBRD9dZ5Ts5gNLydgJ3BqdP9wtyN1YOA0hwmXZywtnnqohYcTDNw0+M=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkN5oy9qQYQKAA--.9493S2;
+	Mon, 15 Jun 2026 15:02:17 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/2] clk: ultrarisc: add DP1000 clock driver
+From: Jia Wang <wangjia@ultrarisc.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>, 
+ devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260611095617.765C81F00898@smtp.kernel.org>
+References: <20260611-ultrarisc-clock-v1-2-2d93ebb4cc13@ultrarisc.com>
+ <20260611095617.765C81F00898@smtp.kernel.org>
+Date: Mon, 15 Jun 2026 15:01:41 +0800
+Message-Id: <178150690104.3055943.9789165706692446618.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781506901; l=6620;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=8d71gvCE26obaNdK6alpyZkm3zRLlqDQNYU/BYziUWw=;
+ b=ArJ3st3O9mqu5Xl9BYTv1QDnYqfvvPqcZ2Dns2O5adohSOfKZf37dkWN0nNKTK1mGeRFhQjUO
+ Dtk+qDGkI19C1VO5A9vpxZMaaSRD6JOT3qvvl3P6BQzsbGNjpSZUm74
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwAnEkN5oy9qQYQKAA--.9493S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFW8Xr15Cr4xKw4xKry8Krg_yoWxXryUpF
+	WkGa45Ja1DJFyruwnFqw4xZF18Aw18JFWakryrJr1Iyr90grn5tFW0g3yrCa9rursYkw12
+	v3yjv34xCwn0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
+	MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
+	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
+	boDGrUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQATEWovdsoAOAABsD
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 2026-06-11 09:56 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] Missing clocks in `clk_data->hws` evaluate to `NULL` instead of an error pointer, creating dummy clocks.
+> - [High] Read-modify-write operations on clock control registers fail to mask the self-clearing load bit, risking spurious loads and preventing divider updates.
+> - [Low] Missing `<linux/module.h>` include.
+> --
+> 
+> commit 8cba5aa205eda7abb58c5b279348bd81f69fdc45
+> Author: Jia Wang <wangjia@ultrarisc.com>
+> 
+> clk: ultrarisc: add DP1000 clock driver
+>     
+> Add a clock driver for the UltraRISC DP1000 SoC.
+>     
+> The clock tree is driven by a SYSPLL and provides fixed-factor clocks for
+> the subsystem and PCIe, divider-based root clocks for GMAC and the UART,
+> I2C, and SPI blocks, and per-instance gate clocks for UART0-3, I2C0-3,
+> and SPI0-1.
+> 
+> > diff --git a/drivers/clk/ultrarisc/clk-ultrarisc.c b/drivers/clk/ultrarisc/clk-ultrarisc.c
+> > index 0000000000000..2b970565a4be8
+> > --- /dev/null
+> > +++ b/drivers/clk/ultrarisc/clk-ultrarisc.c
+> > @@ -0,0 +1,417 @@
+> [ ... ]
+> > +#include <linux/bitfield.h>
+> > +#include <linux/clk-provider.h>
+> 
+> [Severity: Low]
+> Should <linux/module.h> be explicitly included here?
+> 
+> The file uses module macros like MODULE_DESCRIPTION and EXPORT_SYMBOL_GPL(),
+> and relying on implicit inclusion can sometimes cause build failures.
+>
 
-Pre-existing issues:
-- [High] A wildcard entry in vs_chip_identities shadows specific customer I=
-D entries, making them unreachable.
-- [High] The function vs_fill_chip_identity() ignores the return values of =
-regmap_read() calls, leading to potential use of uninitialized stack memory.
---
+Thanks. I'll add linux/module.h explicitly.
+ 
+> [ ... ]
+> > +static int ultrarisc_divider_set_rate(struct clk_hw *hw, unsigned long rate,
+> > +				      unsigned long parent_rate)
+> > +{
+> [ ... ]
+> > +	scoped_guard(spinlock_irqsave, divider->lock) {
+> > +		val = readl_relaxed(divider->reg);
+> > +		val &= ~(clk_div_mask(divider->width) << divider->shift);
+> > +		val |= value << divider->shift;
+> > +		writel_relaxed(val, divider->reg);
+> 
+> [Severity: High]
+> Does this read-modify-write sequence need to mask out divider_clk->load_mask
+> from the read value before the first write?
+> 
+> If the hardware hasn't cleared the bit from a previous operation, the first
+> write could write it as 1. Then the second write (below) would also write 1,
+> failing to provide the required 0->1 transition to trigger the hardware.
+>
 
-commit a6a5d6f3773180ae44a10c5525c46667d81239fe
-Author: Joey Lu <a0987203069@gmail.com>
+The load bit is write-only and always reads as 0, so it is not affected by
+the read-modify-write sequence. The second write is intentionally used to
+trigger the hardware update after programming the divider value.
 
-drm/verisilicon: add DCUltraLite chip identity to HWDB
-   =20
-Register the Nuvoton MA35D1 DCUltraLite chip identity in
-vs_chip_identities[]:
-  model       =3D 0x0   (DCUltraLite; Verisilicon uses 0 for this IP)
-[ ... ]
+I will also add a comment to clarify this behavior in the code.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
-silicon/vs_hwdb.c
-> index 91524d16f7785..7d630a667a3f0 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-[ ... ]
-> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
-=3D {
->  		.max_cursor_size =3D 64,
->  		.formats =3D &vs_formats_no_yuv444,
->  	},
-> +	{
-> +		.model =3D 0x0,		/* DCUltraLite */
-> +		.revision =3D 0x5560,
-> +		.customer_id =3D 0x305,
-> +
-> +		.generation =3D VSDC_GEN_DC8000,
-> +		.display_count =3D 1,
-> +		.max_cursor_size =3D 32,
-> +		.formats =3D &vs_formats_no_yuv444,
-> +	},
->  };
-> =20
->  int vs_fill_chip_identity(struct regmap *regs,
->  			  struct vs_chip_identity *ident)
->  {
->  	u32 model;
->  	u32 revision;
->  	u32 customer_id;
->  	int i;
-> =20
->  	regmap_read(regs, VSDC_TOP_CHIP_MODEL, &model);
->  	regmap_read(regs, VSDC_TOP_CHIP_REV, &revision);
->  	regmap_read(regs, VSDC_TOP_CHIP_CUSTOMER_ID, &customer_id);
+> > +
+> > +		if (divider_clk->load_mask) {
+> > +			/*
+> > +			 * The divider update is triggered by writing 1 to the
+> > +			 * self-clearing load bit after programming the new
+> > +			 * divider field.
+> > +			 */
+> > +			writel_relaxed(val | divider_clk->load_mask,
+> > +				       divider->reg);
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> 
+> [ ... ]
+> > +static struct clk_hw *
+> > +ultrarisc_clk_register_divider(struct device *dev,
+> > +			       const struct ultrarisc_divider_desc *desc,
+> > +			       struct clk_hw *parent_hw, void __iomem *base,
+> > +			       spinlock_t *lock)
+> > +{
+> [ ... ]
+> > +	if (desc->gate_bit != ULTRARISC_CLK_NO_GATE) {
+> > +		divider->gate.reg = reg;
+> > +		divider->gate.bit_idx = desc->gate_bit;
+> > +		divider->gate.flags = desc->gate_flags;
+> > +		divider->gate.lock = lock;
+> > +		gate_hw = &divider->gate.hw;
+> > +		gate_ops = &clk_gate_ops;
+> 
+> [Severity: High]
+> Can using the standard clk_gate_ops here cause spurious loads?
+> 
+> The standard gate ops perform a generic read-modify-write. If a gate
+> operation executes while the load_mask bit is still 1, it will blindly
+> write 1 back to the load bit, potentially triggering a spurious hardware
+> reload or corrupting the update state machine.
+>
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does vs_fill_chip_identity()
-ignore the return values of these regmap_read() calls?
+On DP1000 the load bit always reads back as 0, so a generic gate
+read-modify-write cycle cannot preserve a stale asserted load bit and
+write it back as 1.
 
-The regmap_read() API returns an integer error code on failure and leaves
-the output pointer's target unmodified.=20
+Because of that, clk_gate_ops does not cause a spurious reload on this
+hardware.
 
-If any of these reads fail due to bus errors or unmapped I/O, will the
-function proceed to use uninitialized stack memory in the loop to compare
-against the vs_chip_identities array?
+> > +	}
+> > +
+> > +	return devm_clk_hw_register_composite_pdata(dev, desc->name, &pdata, 1,
+> > +						    NULL, NULL,
+> > +						    &divider->divider.hw,
+> > +						    &ultrarisc_divider_ops,
+> > +						    gate_hw, gate_ops,
+> > +						    CLK_GET_RATE_NOCACHE);
+> > +}
+> 
+> [ ... ]
+> > +static int ultrarisc_clk_register_fixed_factors(struct device *dev,
+> > +						struct clk_hw_onecell_data *clk_data,
+> > +						const struct ultrarisc_clk_soc_data *soc_data)
+> > +{
+> [ ... ]
+> > +		parent_hw = clk_data->hws[desc->parent_id];
+> > +		if (!parent_hw)
+> > +			return -EINVAL;
+> 
+> [Severity: High]
+> If the clk_data initialization (below) is fixed to use error pointers
+> instead of NULL, should this validation check use IS_ERR_OR_NULL() or
+> IS_ERR() to avoid dereferencing an ERR_PTR?
+> 
+> > +
+> > +		hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, desc->name,
+> > +								 parent_hw,
+> 
+> [ ... ]
+> > +int ultrarisc_clk_probe(struct platform_device *pdev,
+> > +			const struct ultrarisc_clk_soc_data *soc_data)
+> > +{
+> [ ... ]
+> > +	clk_data = devm_kzalloc(dev, struct_size(clk_data, hws,
+> > +						 soc_data->num_clks),
+> > +				GFP_KERNEL);
+> 
+> [Severity: High]
+> Since this array is zero-initialized, any unpopulated clock IDs will remain
+> NULL. Does this need to be explicitly filled with ERR_PTR(-ENOENT)?
+> 
+> When a consumer requests an invalid clock index, of_clk_hw_onecell_get()
+> returns this NULL pointer. The clock framework considers NULL a valid
+> optional dummy clock, allowing consumer drivers to silently succeed at
+> enabling the clock instead of failing. If they then access peripheral
+> registers without the clock actually being enabled, it could trigger a bus
+> fault.
+> 
 
-> =20
->  	for (i =3D 0; i < ARRAY_SIZE(vs_chip_identities); i++) {
->  		if (vs_chip_identities[i].model =3D=3D model &&
->  		    vs_chip_identities[i].revision =3D=3D revision &&
->  		    (vs_chip_identities[i].customer_id =3D=3D customer_id ||
->  		     vs_chip_identities[i].customer_id =3D=3D ~0U)) {
->  			memcpy(ident, &vs_chip_identities[i], sizeof(*ident));
->  			ident->customer_id =3D customer_id;
->  			return 0;
->  		}
+For the current UltraRISC clock data, all clock IDs in the advertised
+[0, num_clks) range are populated before the provider is registered, so
+no in-range NULL entry is exposed to consumers.
 
-[Severity: High]
-This is a pre-existing issue, but does the wildcard entry in
-vs_chip_identities[] shadow specific customer ID entries?
+Within the driver, clk_data->hws[] is zero-initialized and missing
+entries are represented as NULL rather than ERR_PTR values, so the
+local parent checks only need to handle NULL. I'll add an explicit
+hws[] completeness check before provider registration in the next
+version.
 
-Looking at vs_chip_identities[] in drivers/gpu/drm/verisilicon/vs_hwdb.c,
-there is a wildcard entry at the beginning of the array:
+> > +	if (!clk_data)
+> > +		return -ENOMEM;
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260611-ultrarisc-clock-v1-0-2d93ebb4cc13@ultrarisc.com?part=2
+> 
 
-	{
-		.model =3D 0x8200,
-		.revision =3D 0x5720,
-		.customer_id =3D ~0U,
-		...
-	}
+Best regards,
+Jia Wang
 
-Since vs_fill_chip_identity() searches sequentially and returns on the first
-match, will any hardware with model 0x8200 and revision 0x5720 instantly
-match this wildcard entry?
 
-If so, the specific configurations for customer IDs 0x310 and 0x311 defined
-later in the array might be completely shadowed and never reached. This wou=
-ld
-cause customer ID 0x310 to incorrectly use vs_formats_no_yuv444 instead of
-its intended vs_formats_with_yuv444.
-
->  	}
-> =20
->  	return -EINVAL;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615065003.7666=
-1-1-a0987203069@gmail.com?part=3D5
