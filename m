@@ -1,154 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB02E88BD
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2882E88BD
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599150; cv=none; b=OiI2Tpq96GkmwdYcGnjf2YcT7fzdG1v4Jr12F9+cL1qEkPyzIZBWgZ/oBE28KfHoC0/88kam1z3LGn5sDnLMQ8C7TfNn9xZDvNE4XbYwGSq0elRcIc89fCPH8B1w7tX/DeoO96YWwwoJzCivu+TMh0LBwOMI81fMF2rkcfUpaMw=
+	t=1781599171; cv=none; b=eQDfdCjIdRdFU+S+gx/+nLkphAwp0QNe6L5XVOs9u56uFMYMGFivJixNHTUR1wR9mFwQJY9casMxmlNdk3Dauw9Rd6+P50xor9/fuj//mq4WgRlEhah8MErHPRrq49f7QmsyeL64PlnPtbVbBt/qwLDA4o/cHZ2crlO9eKtrMMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599150; c=relaxed/simple;
-	bh=67qthQB9wBmxm3ZeCIrGPjVEbE7ZYRdGnFs8xqCw+PE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=j5enMxFT/cF9vmBUQ8g0rFTvhGGwF4G7ZmQUZoc0otDP+0qUWVdh4oovW9DYpfqzyeIADVQJjvdXIdiM4KnZ3m+blmVmmjJLejLZJtoV2Ici2D7F4VMLEmI5ZOgYCy3UfI46pXI9HgppqfXQeZERZAWLxe2NPkBU3GynjnaOrvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIgmhiZq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HMLOkWEp; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781599171; c=relaxed/simple;
+	bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DqWJJLz+xnBKMU4lvlc0UiNed98/cBx0pQ6b3pzZq96w4Ot8+jhTZQXFxFnJkv8oQ7x+wJZBMnZRKCy0Ul2zNsatDTcTdP5SkR4qqF5s3sIopAy9kFmPdRefCC0C5go7QDP4R/cDJBWiJcQp3QD1UGkqXcI5C7GttrVn4TjpbJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhjBK0PS; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIgmhiZq";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HMLOkWEp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781599148;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
-	b=UIgmhiZqnjjIOxU3+Hp18GP4nhFEAbgzL0m48KHbwi7DS+EnW61uf8MI4vQhskHhrKfo/T
-	Y4S7+zF8sYLPD5IloMLUOXxQ+x2WfEFw6XjMNJhY+yTsSoelvBbbGI75USaQ674kGqmR+C
-	eOoeO4cgCiLdvoG4+aIdHrS2tEvZoWA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-695-Rh1bwwywO82QDfnYNbbuGw-1; Tue, 16 Jun 2026 04:39:07 -0400
-X-MC-Unique: Rh1bwwywO82QDfnYNbbuGw-1
-X-Mimecast-MFC-AGG-ID: Rh1bwwywO82QDfnYNbbuGw_1781599146
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-45ef616db45so3298969f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhjBK0PS"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-842358aaf36so1664736b3a.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781599146; x=1782203946; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
-        b=HMLOkWEptBdMoKJS21CiE7p3yCzTN926m1zMhC+B/mrykhQMbRsnXMPDubEj8Eann+
-         y6yP648Pe++AaRnc9BNc3oB1dXoeO+XYmBksYlXAuVRagTVRzZvozjbO6ajXdULWvSax
-         vt2VJ9dVlzstNE2qcmxR88eYuvT06U76Lu8UqnJVdC2AfMh9vepj/DEoOunnB0PDEP+O
-         N7HyjOC7P4Rq+n/UEx6Dlqm7wSvVrL0US8xr/cLbEij4uGwydWHB3gjPffmBMBSbJUJF
-         L3XndI6QEX1x2ZdMUezvHGE+NNuU9CZC8n503pJSgil7L3e3p3+tLgQ4qYjT6SgMSysl
-         V8+w==
+        d=gmail.com; s=20251104; t=1781599170; x=1782203970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
+        b=NhjBK0PS63XcvtOqhjQEeZL93+hDzY4GG+i24qbdPkNwd1hCJRdRbSHu+5JQdkzr8g
+         O1VOYqF8neLOCeV1rODwKyRmmOUwhq/saz9ZBKg0BKY9NW44MDzyelAs5akuxLVsXupp
+         pjX96YuqSBQplhQ3DN5pCHAsn1jFcWa/ciR71oV8Nkk0lvIgRHyArVxqGZi9CwxYaMAz
+         nYWsjesgEszSEILHKeydDp8lXeq/9HquX6mljWHBSiBNicNKZ8HURmiJvBvfbzwcEeNu
+         IrILdHbUUIwlfvzWm2w7nyGKV9Mi6TRH6g5RPeP/knm6AUfY1JyxUmDg98Q6T4LN8303
+         JCPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781599146; x=1782203946;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
-        b=pgVOxZwUgwdnoOff6sCMQ2SAor7GdptYDQS9F4/JhX6j6N+3ehI0HYhWtsA37WD7Cz
-         iI1EK4H6NDcUJIQfKUQSJKDXEFbLdOm15b7mu9uRf/0uJTxDwQxBJYAU4YTsDfTDeibf
-         Ehv5AD5bUjJgVr3STG+OCa/HWTJFhVSI1OybFHd93dWjHwtRBoywfUmUivanorP5W2CT
-         lvBDb6SDLn4JMHmMZVLiGGK8zEqwN9G/UCnW22jARp90uXrctP8to3r9KpGF7TvZEIp6
-         UT66n0WbE3h8FUh+SkkJY47+KZsB26SsrhdphhYjeG7tofJ/+KnZSBETOwHvxqka1AEQ
-         rTXw==
-X-Gm-Message-State: AOJu0YzLFVm+FvVTpgZs2rIeovIXBLtB2Kq982QlnopbjYcw3ILN/sAU
-	reCLEaBYVU5jTqi4vZ6Yxjy1/Oxkh/xGxSvNw2mk/h0qI0b5zAzH0sL46uvSSWglx7Ns1SXk4RU
-	hRWbvzBy59F0u5EW7pG/OsxqR73/yU8b8p7joagotWn6kooVx1r9GrzQHW4dQI8E=
-X-Gm-Gg: Acq92OGZ9sh6PX/a/4uF1jqNZBaFJnjbH+XO59Vs8Xkc0WUm4lmdw0LXEil4PM02ckY
-	MO3BYd/UWYNzeaUCgOcrx7HdR+3/aplhts2W9iitgROxj6gQ9CK7UhgtXAr7TAnaueHNWwx0kO2
-	ItoU1S5FonsFPhsQiSJJV8V8SUXS0gssw5wsII9EzxpElLPstG6sX81m0C5FjAh7PM8cQ6CuVAE
-	Oez7RI0J6F5Uw4omWQE3p3PNnV2prt9bhrvGWD+w8u0mmuzuuFGfvBD8WG1llHxrP23fqaQaqX4
-	cR1vIObI5ap+N+V7SgCHMBUuAoV9AcBPnxGwnu1OLRMkQV6OakOsIhxN0mzJXhBpIcUm43I5NQn
-	PCm68GX7Webs7qvlCo4zf83eAOrIA1iaJTmRPWYXeAoHedwqkU6QypZMrgOJ+HjFP9JcrG6CdYV
-	2pHVYP
-X-Received: by 2002:a05:6000:2584:b0:45f:f142:d563 with SMTP id ffacd0b85a97d-46074a62560mr19589166f8f.16.1781599145907;
-        Tue, 16 Jun 2026 01:39:05 -0700 (PDT)
-X-Received: by 2002:a05:6000:2584:b0:45f:f142:d563 with SMTP id ffacd0b85a97d-46074a62560mr19589127f8f.16.1781599145498;
-        Tue, 16 Jun 2026 01:39:05 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f263945sm43464472f8f.8.2026.06.16.01.39.04
+        d=1e100.net; s=20251104; t=1781599170; x=1782203970;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
+        b=Z1vWJGwaBt5d/NAYu6+W0X+KtzTWc/dFv1Y3M+NFDp8LkLDi5r+0GposnBMT9kTImu
+         jKy5ASakhzZ1EAEDi7i1Lu/qieqdgjMFq8iaPzuTq6fzj0f5f1hS5GXyT2ssIP+B1SYG
+         u0BuNB6il+yEhHOPW2j8G5VqOoayQkXjQjZjzvr1UfPE2TZXFa5PmGia4iMftELdVWUD
+         T7Pa/A836AWyQJumdpNAYOnoDEPvq+SCb0rCIeHVTVjffSe1DTHvxwAmYQrtBfT8LQk9
+         3e1+ZTiXvEc/b+2Xlz40dJ/eb+ycwO05Yb18aJ5UDSHseEFv4OgSVZCigsZt/uX8Mn3I
+         uYAw==
+X-Forwarded-Encrypted: i=1; AFNElJ9eHaXmISeEyVla3Uz9SsoAQtAvgpqDl1ZQXRU3YGPFJN0hvnD7+3rTgbdjKG+FQ/WjQXBuUhiAPyDj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2u/YROEgvwC8R+GnHrCwF+j8saPRDx4mFJFZpT9vF6HbS6j3u
+	7BGtaKGrr8xTGIWoMvIb+KIHOvIASBjgs8sDJL77Yn0d+qj+qUr8C1j3
+X-Gm-Gg: Acq92OF+Rod9eU180Om6ITN9zPjGaBbHlezyejG3benVW8dFTrKG4rDEyeDYpNYvf4P
+	w9vgHcGyUs0Rmaymsw3IrfN5IQpIINlIDnhxzWnGEJ+Ru0eFK4sJbg80hVxI9BjCEalP2NEAzrV
+	61G4E8SfBonGYaMcL90P+C19CmOW2iFHwvrZtCQouky616L6DB6w0RYnFuKSTpK8BDRrUta1M5J
+	TzMBhw2JB7i5/vK6XEwlxyWLNQAKEDuDtvDo8q8fTgTBNSiVSjcCkYsMaEerXWPZg/F1ICi1nxb
+	p4drFlQLS5T4FzGhYUKt7pSjkDsmbgaXZN2+2Qcd+hlwof9SQuLAC5KNyRM6dOpHFPSLkc8BFTA
+	lDCf1BzEO7wzsT3jqvC82vfkRBJ5cy9QdiUxo+XvLDHYU58OKnXjkiuufiTbpGLheJ5b74xlxb3
+	nAtxkjFhrLJo/5cQNJQhizXVfemhIDaJDi5YzSGEsgA8MukRgsocdnyLVIVcXNc4QAjA3WNtgtM
+	/rF6xnVkruFDkWfZXJLD8Jo+InNlRCenHU=
+X-Received: by 2002:a05:6a00:4399:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-844e19676f0mr15311972b3a.10.1781599170061;
+        Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9dc87sm11497535b3a.4.2026.06.16.01.39.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 01:39:04 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: display: Add Solomon SSD1351 OLED
- controller
-In-Reply-To: <20260615175620.88828-1-amit.barzilai22@gmail.com>
-References: <20260615175620.88828-1-amit.barzilai22@gmail.com>
-Date: Tue, 16 Jun 2026 10:39:03 +0200
-Message-ID: <87jyryzxp4.fsf@ocarina.mail-host-address-is-not-set>
+        Tue, 16 Jun 2026 01:39:29 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Devarsh Thakkar <devarsht@ti.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+Date: Tue, 16 Jun 2026 16:39:21 +0800
+Message-Id: <20260616083921.4066690-1-zaq14760@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+Hi Devarsh,
 
-Hello Amit,
+Thanks for the detailed review.
 
-> Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
-> RGB OLED display controller driven over a 4-wire SPI bus. The binding
-> builds on the shared solomon,ssd-common.yaml properties already used by
-> the other Solomon display controllers.
->
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-> ---
-> Changes since v1:
-> - Drop solomon,width / solomon,height: both are deducible from the
->   compatible and are already declared (as optional) by the referenced
->   solomon,ssd-common.yaml, so a local override is unnecessary.
-> - Drop the rotation property: it has no consumer (rotation is being removed from the driver).
-> - Use dt-bindings/gpio/gpio.h flag defines in the example
->   (reset-gpios active-low, dc-gpios active-high).
->
->  .../bindings/display/solomon,ssd1351.yaml     | 41 +++++++++++++++++++
->  1 file changed, 41 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
->
-> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-> new file mode 100644
-> index 000000000000..39622d74a41d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Solomon SSD1351 OLED Display Controller
-> +
-> +maintainers:
-> +  - Amit Barzilai <amit.barzilai22@gmail.com>
-> +
+> 1) Could you please share the datasheet for the display controller used
+> inside this pixpaper version ?
 
-Feel free to add me as a maintainer of this binding too since I
-maintain the ssd130x driver.
+Unfortunately I'm not able to share the controller datasheet publicly; it
+was provided to us under NDA.
 
-It looks good to me.
+> 2) Does 0xFF or 0xF7 mode work as well for your display or is it strictly
+> 0xF4 which seems to mean that analog and osc bits are disabled ?
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+I'll test whether the standard 0xF7/0xFF sequences also work on this panel
+and follow up with the result.
 
--- 
-Best regards,
+> 3) Also could you confirm which display controller IC does the PIXPAPER
+> 4.26 use ?
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+The PIXPAPER 4.26 uses the Solomon SSD1677, so you're right that it is an
+SSD16xx-family controller -- the commands it uses (0x01, 0x0C, 0x18, 0x20,
+0x22, 0x24, 0x3C, 0x44/0x45, 0x4E/0x4F) match the standard SSD16xx set.
 
+> it would be appropriate to add this panel as a new display panel entry in
+> panel-ssd16xx.c rather than a separate driver to avoid code duplication.
+
+I agree that consolidating SSD16xx panels under panel-ssd16xx.c is the right
+long-term direction, and I'd be glad to converge there.
+
+I'm not yet sure how SSD1677 would fit with the controllers your series
+currently targets (SSD1673/SSD1680/SSD1681/SSD1683) -- ours is a larger
+4.26" 800x480 panel, so I suspect it may need a new controller variant.
+Would you expect panel-ssd16xx.c to be able to support SSD1677?
+
+In the meantime, would it be reasonable to take this smaller standalone
+driver, and migrate the panel into panel-ssd16xx.c once that driver lands
+with SSD1677 support? I'd be happy to help with the migration, and of course
+I'll defer to your and the maintainers' preference here.
+
+Regards,
+LiangCheng
