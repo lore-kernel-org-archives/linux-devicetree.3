@@ -1,99 +1,114 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB88E30AD0A
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D9E30E84F;
+	Tue, 16 Jun 2026 08:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599761; cv=none; b=bVwvXRKizZ6xkkQsX56yZ0FnFQFQ+ZQ38nXc1xoPqS9yEns/1+LzNckgADPZYg3J/hmIO2vXRBuW6NWljGDP0gRv9isFfHLIVka150JS/r5mA1JD84TYu9hLK2yu6HMdoUZE3JD7HcKASsLMbOJ+56ASZJ/C5yIwYhCAd7kaBqM=
+	t=1781600023; cv=none; b=WibzPA1VEYE2Ji8891aOFkO43ZnvS/0RHrxVqQJyVxW3w5GiSnChbisKLd/uT4wMshLJ3PXfyU8URf3WsImb7MmAhjoQEJAIJRTlRnyorOpKVbeEk32MFr31bSYyWKxAOv318g3nUATQTo935hH1etf35DcTejPVC1rw4x0naPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599761; c=relaxed/simple;
-	bh=5qZeW5YzLFhcgQkjwqN2LfNQ6PaBD2MvWbgc/7xFC5o=;
+	s=arc-20240116; t=1781600023; c=relaxed/simple;
+	bh=4eXl+6BMV54atctUJAn+UMP+d/Cq5vNngv4WweukLZU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LVJpKzBUzcyh5vcaW9SvKiRplvQGhnv/NcQnlWQsSL9d80Hyc7Aqwxc/heV3khEKHFtt5K4ZLygZpt5poynE3mh6Ezt0inppqGrEk+R5aTHOKxqx7Eu29nioKRZKVwa7WjmEcNH6m73h6OwtHidWE61n05mq20lpOkmaOzDOt+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Zh6au3Ev; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZLFeB4zsy3LyOqK2TnMugIMmhPVmLar+1NuswSOZZ13WxdiMpt0DqnkeTg0j8hJlXE8+cXRkbFM7ut7sFcKmm9mQn6AY4UpqW+gv4m+lVt3IzHZDjO6vpP9+WTZI+uiNGwnPyD7d9dGC6TrQmToZQyG7QQ855LkbAK+Wx2T41WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jzvgjEkO; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Zh6au3Ev"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=5qZe
-	W5YzLFhcgQkjwqN2LfNQ6PaBD2MvWbgc/7xFC5o=; b=Zh6au3Evcf1q6/dpIPJT
-	2dx4W29iNgvmzHO9v0dAEBllP9VTixhPd3uBQOHpgCKVtu1e0KRVTD4hiybmb8y0
-	sCU1PjZvWJbXey7QXWYyzJ54l3isAhwRSfvN1SXQvLusVWHOiA0p6f6a95uYga0D
-	0Uh/T467nYXE8TxaDZ6ADUW3kK4FpxADQSSrSG+1tH6i3GokTV/Y1scDMaQAm1lD
-	ntXL3E3YZyjIWFl36Yr7yAKWOVBlGaW9iglN597IIIuvIzKQfXnzWCImm0UerFdA
-	TPQVTmYZt/pltrZOJ+oSux02Fpw3LWZu4fc26MWn2c3VeQNjxN/nBO5WK6bVMI1Y
-	vQ==
-Received: (qmail 3876385 invoked from network); 16 Jun 2026 10:49:13 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Jun 2026 10:49:13 +0200
-X-UD-Smtp-Session: l3s3148p1@KsdtBFtUCTFUszEP
-Date: Tue, 16 Jun 2026 10:49:13 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-i2c@vger.kernel.org, Thierry Reding <thierry.reding@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
-Message-ID: <ajEOCZtuknAlvda6@shikoro>
-References: <20260616060910.1480-2-wsa+renesas@sang-engineering.com>
- <c41975e9-e238-441f-a71d-3c7bf3d67e21@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jzvgjEkO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781600022; x=1813136022;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4eXl+6BMV54atctUJAn+UMP+d/Cq5vNngv4WweukLZU=;
+  b=jzvgjEkO/vJ9eHL+zfpC7rPPqy3rqCZ2ivHTKMWO4VfF/2s5PmgGwk8Y
+   jyFNEqGgejahR1l0kBgLAZpGt13kOomwNnWsNG90QCBBGbKNhYxnG+Zr5
+   zJxIaaXuVlUmiG3xVEuDLHyBGtH6RwmNMPPjID8Fp5T1R7Hq6p0e2ZYkT
+   5v63VbVcAhpisbWxlwYsCHdcFWLUWbtTHgV3RHIG6xrvHXInDCbPugCag
+   bC090FDYqTqLBNxcL4k3HXypak09zR5+8HTMiEz+nJKLa7msmAUkqrqYm
+   i5hezOB8NsnpdVVYiHTypmDSSUUcspGK8yUUSQ8IocDf4uxm2/MC2gUys
+   g==;
+X-CSE-ConnectionGUID: Yn5OqeoORYCHBr2O2bjHtw==
+X-CSE-MsgGUID: NWF+LVhfRS+ZYUvrsUwiOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82403062"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="82403062"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 01:53:41 -0700
+X-CSE-ConnectionGUID: 4ynVvdJ8Rce3uTVbQCrshg==
+X-CSE-MsgGUID: DKnibsVeRWWvQYqSwE2Jug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="247775232"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 01:53:38 -0700
+Date: Tue, 16 Jun 2026 11:53:35 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+	krzk+dt@kernel.org, robh@kernel.org,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V13 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Message-ID: <ajEPD8gdgiuQdZ7Q@ashevche-desk.local>
+References: <20260615172554.160910-1-macroalpha82@gmail.com>
+ <20260615172554.160910-4-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gflUkJnjzO6OqBFk"
-Content-Disposition: inline
-In-Reply-To: <c41975e9-e238-441f-a71d-3c7bf3d67e21@kernel.org>
-
-
---gflUkJnjzO6OqBFk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260615172554.160910-4-macroalpha82@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jun 16, 2026 at 10:41:23AM +0200, Krzysztof Kozlowski wrote:
-> On 16/06/2026 08:07, Wolfram Sang wrote:
-> > The YAML conversion added me as maintainer but I can't recall being
-> > asked nor do I want to maintain it. Thierry has created the YAML file
-> > and works for the company which contributed the driver.
-> >=20
-> > Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> > Acked-by: Thierry Reding <thierry.reding@kernel.org>
-> > ---
->=20
->=20
-> I think Conor also acked it already.
->=20
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Mon, Jun 15, 2026 at 12:25:46PM -0500, Chris Morgan wrote:
 
-Yes, my fault. Sorry!
+> Add the core component of a new inv_icm42607 driver. This includes
+> a few setup functions and the full register definition in the
+> header file, as well as the bits necessary to compile and probe the
+> device when used on an i2c bus.
+
+...
+
+> +#ifndef INV_ICM42607_H_
+> +#define INV_ICM42607_H_
+> +
+> +#include <linux/bits.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/time.h>
+> +#include <linux/types.h>
+
++ asm/byteorder.h // cpu_to_le16()
+
+...
+
+> +#include <linux/bitfield.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regmap.h>
+> +
+> +
+
+Single blank line is enough.
+
+> +#include "inv_icm42607.h"
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---gflUkJnjzO6OqBFk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoxDgkACgkQFA3kzBSg
-KbYwqxAAiXkpJYibOhU5A7FjTTAppsFkFup9MbOwG/xyLhojjFUTs857fXYiTFlH
-qPGmDOIiBMRsG/3WKzmqWPyZs+TiIdQIjv9lcJqFUDbPSM6Gpra9iILMLlIQTWJY
-tw25i4tuDjpv17H/stQz2BbyXHRN9EC2N3UzxAeZYS6Q6+Zy0RcuxZo10qZfw5FU
-lw4LTN77EQ+vWcEU2NLH455vXAroQQO36wbGvNntHPp+z2yHtZU7umS8zKIrOU59
-0b0VN4/cpeS8arON/4ampCTGpZTWxsCSYTg+YzBuDFECDBaYtxfcxMra7GF/YZk+
-bj+tZHZBXToVX1QFOk/SQ2znJJhyWzB4X05ofHxRGWxcxeNfFNfAhtMbf1wbK9Jy
-vMQV3YFLXM86Ij84ckp9w2JBsdxbZ6v/JUz+q/hX6Hmct35CD6s4ADblyZM2cBD9
-d6GFD7COtgnYRKsTt8FZnglsPEJq1vf3JeL0CX61yhnnQJ5Uv3qK4sa8UMOF+9LI
-5ihkKojlPgHJEx3RWzTLBNUf5OQl+YSXt81xrFeRRY4lzna+h+XULBEgcVS8wgBV
-9OWyzn5nbnB6UEf+xwWorIOyYDTu3UDM/aNw3m0USgewOHVQg0ghMPpT8aU9QrGJ
-SZE5MEdePHj85L+eFXH/kOzI+8iZBIKXvQnyCMsjakWAjqZvO+U=
-=iNmr
------END PGP SIGNATURE-----
-
---gflUkJnjzO6OqBFk--
