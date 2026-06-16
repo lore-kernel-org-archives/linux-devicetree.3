@@ -1,263 +1,268 @@
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DC23EF670
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 06:44:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781592293; cv=none; b=RL49fsGpzeM7lNS9lyeVwvKtDwGxxOxS5XRknxOWhqaMSvkKFcHrONQFZl9Cz+MsCjzzkM0lnM9yOcIJtF1xjuxl7eLpLDGgNJeKWILD3c22vsafYg7wDlFDe1QaQDc142uJThZax3EWZmrch46W3qbXqake7sZT5U8bi6qGh7Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781592293; c=relaxed/simple;
-	bh=OiM5ypzR88cAhCjF875IhykGG/yce5aNhBFPrt+e9ds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NxLnDiUyTGnMVGh71U0GKym81kfevhIK7vy5f3cH2B/NX0vpA9AVyoP/B8WyeVhtNKSU8cOliu/hNZgY+/4wmIu69it2sKNsbga2KPT2bcU/T9bgaX0pEb2yA2T2WdMwABEhalde3bIrrAaoyQxbm7gw0yeEuoE+iE/7TuRewKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EN2MoOc2; arc=none smtp.client-ip=95.215.58.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144B93FDBFD
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 06:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781592339; cv=pass; b=LSEEfosf0/79rXIfFfQUqeMCEaRG+fsrFPuZdG27TDfbWy/wdDaIopAIM9e94keVCL6q1hPqq4S/etqH+Sa5bn0YI7kBJ7hVUWmmMQwPJJxgRnIkY6VDaJm9LhoftbvjvPVQKmuE4v2XIMK//Ea8A3l5dYxyscPHDiBfjTkt4+A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781592339; c=relaxed/simple;
+	bh=9MITQHlZE2jQG0r+zMqCjYjCQ3rQ90HVws6GvzoB1Og=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UcCFA2v7//9+UMyq8SMsqovgsBAEjmAd0k0TIxSaBykgeFVwd8Y9Nope1GH6tGFZlhyGyJddUs468WSCPIOB2SZdWZfC8FySyA2b9DVuIBl31dyubYKgb2H8XSAV/URVMzPxNM4O0cZmTO6tAyk2x6hDBEkIB4VkQ2BhLhsP/uw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/GjyagX; arc=pass smtp.client-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EN2MoOc2"
-Date: Tue, 16 Jun 2026 09:44:28 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781592280; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=Fcg5nDalk2ZrJbRiyt867O7Gv8WEDrhPTHHaAZn21No=;
-	b=EN2MoOc23+4pteEZN8vCIazIC2eLIP5RdQ7k+eufGdtnK1AfpDRyKsPLf2s0thqZmC06UV
-	SHa+DUqgwr5fA7tJWOX20sZbHPkF874MWwanBGExq8a7piE7ltn96Kwf+dIi8XexeeHCmp
-	60fkSC/0hIIvbJDR00lTZqQMKBBapCY=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Wensheng Wang <wenswang@yeah.net>,
-	Ashish Yadav <ashish.yadav@infineon.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Kim Seer Paller <kimseer.paller@analog.com>,
-	Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
-	Charles Hsu <hsu.yungteng@gmail.com>,
-	ChiShih Tsai <tomtsai764@gmail.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 6/7] hwmon: adm1275: Support ROHM BD12790
-Message-ID: <8ca875d21f2d9a4d53a87b47a5e6efab48266178.1781591132.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1781591132.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/GjyagX"
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-13988680a69so559600c88.0
+        for <devicetree@vger.kernel.org>; Mon, 15 Jun 2026 23:45:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781592337; cv=none;
+        d=google.com; s=arc-20240605;
+        b=c8rKzULbo9aFcpx8pui8an6OIqetHfHsM9KkJ1wIxhw4F+22pIAq18HWBdLfAzQUl+
+         Dw9xo2Ck+xaLYZzWZitu87DfZyEszhe0i6P0GGST5n5lp7EEu+yPEC/ssmZwakv1OpDC
+         2OopP2bgvZxRSjCwrFOXGUjpqrG2qnBd4VtYWQxhsrBCgjg4qh6z+6Cr+Zd+wm8Guyz8
+         x7/AjHv+qMG5rJKEmemQAMhfjD0g4xNRaavwC4ngJG5wsw5uzTQWFNiXoJA2lwRcaV3h
+         D2SeF1VK2Js84HPNB1vUxwP0M9xcqIjpLiEBcOeCnoPScaoveEylcYAcqTa9Ky3yxBmu
+         dNTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8kFsmTNaVGUIcmzldWaeRj4JyXsXyJHFJfqk2C+U9Gs=;
+        fh=jNdj9pFGVRJLEZ8gvvfsS7pismaKy9zMay+SV/sce40=;
+        b=GNv85OEqtmDVFy+d45SYOXm1UHy8EH5ZbY2xt0vIIU+eYh62ugcghxEnDi6QhicosI
+         fjtYqMxL53LpTkntbp8RdkEyMbm42d8NAhk7RBskIfPik2uOn7cKTZYTN/ufiBvOcxo5
+         T33UxM8GcQl7DYL6Xaxj2eOg2EUX/dKHBjvoMP8ogOZ0NDD5BeQMkr47pkpyUaDNzGin
+         3S4hSgi7wrhaSW5S8/uylSVk1sRE8BYZq/9Y0BTjRGabYK44Nh0IQMuo72OQPoNnsRRk
+         Qcw82BMu0oA2+uFVLN046a7OBN4lur5kzeIT/7ehETD59x8He+bTzaNHQY0yHIjqp+Uk
+         Khhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781592337; x=1782197137; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8kFsmTNaVGUIcmzldWaeRj4JyXsXyJHFJfqk2C+U9Gs=;
+        b=p/GjyagX+PBrsY8ZGDhoJ2tR7Mc6RyJJuOwO1LieKk78tt8H7G0A1xzgN1G+1Ppet+
+         iOka0pCUUSrxyhorKchevKQ72l4Cbx7Td3JfpN2eH2Ev8xa+avjwW5h11YUaFyFKOpuS
+         nWWck7SesawjEWhBJuBeUoNG0lNTjjAVl/5T82eqyg0TO3vaU4Vz2VvrRknTqrkzhHeh
+         n818B30I+vhZDfUSRLE83U9per5I6GHkDGq/F06yo2uC8zzTuaclUB4aG/q9SCNntdSG
+         NuoRDzsvYrzqfE2+fOU4Io1TeD2ZBV8ltHNnPPQ3W8cVhXJXlVAEmx8k/Uss0hqDdkbJ
+         ajVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781592337; x=1782197137;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8kFsmTNaVGUIcmzldWaeRj4JyXsXyJHFJfqk2C+U9Gs=;
+        b=rmVrS4IXTWFlrQYjAYPBQmsvb/Ik3YQhezblK116xdMiFvxwAMwAgyKImJdK9+ppbj
+         sqbNg68bdF94YSkXyJY4XBnxLdWyr8mJXGm7Ho4Ze7oLzbMPgJ9M/fDhUOfJ0b9A2Glk
+         +xBwdorOCnKFMaUBzIxtJS3UlaRJRdNxB+eqqb3y2im+ChOsrUrL7Of9XfQ5ZCKhmddy
+         JQpX5Fz+35pSmuwEkKdImydbBAtHEf6hfTOmgnbP8PLTuVwU8pL3tzFBKGyH1iE5Buwe
+         o+iRLLNrx2BeeoQYu/ImiqjPd8w0ktjiBB8xdw/5hC147b1tb+GphC1mvCabxK6tZ2Pt
+         lqkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+mzP1mYiOThLGtdfsxfRTB0n+DqadOSBWJyx2koj8KZDHsuuvbFlomNjArbpd2xa1/ghSfO66wWmD6@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcNDuSo5S46pmLSaHRhYeBz371NAW5BGQY5oZBlrTRAFAz6JYo
+	tNoFX2+8fO4tlzCTm8iIyOVlPVTsj+tH5LyFXe32/FwDU/pN1rsCRH2oEwRocFu9dUVHMoSf9fC
+	vyh0C/dQRI1V0Nf6mQmFf2ExyJQE1/n7Zrg15
+X-Gm-Gg: Acq92OFuBnICJ7v/XV+cGSO1dAG6vmlwtBnfzOYXmgNXgcJHk2xcVGMZ3oxhnwmBeBU
+	UW6izFtbs1IMHvvxbX+ZgIi5m1k8zgP+3ovuKOw5Z6//8m7bxTErKrrh5Q1je/ApT68xHFc84Xq
+	sSjCXA/fmJ28eeIEFaPa7c346Uzf30xuND6v2aocJ1iJVbmF3BF0O+7FRVzj+mW8jb34aLTOGWe
+	ZGa4B0+grbq0VJdGxx2rDsPgYNRe0Pi9WOXJl5tabHhHxX8aF/OsUDCRd2JIS4RvhxOFXhq8oH+
+	oJKPb+MhA7pUAMxZwG8=
+X-Received: by 2002:a05:7300:7481:b0:304:d32e:65f5 with SMTP id
+ 5a478bee46e88-30940261180mr8677062eec.26.1781592337166; Mon, 15 Jun 2026
+ 23:45:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="soKsB7Eb2LXXln6K"
-Content-Disposition: inline
-In-Reply-To: <cover.1781591132.git.mazziesaccount@gmail.com>
-X-Migadu-Flow: FLOW_OUT
-
-
---soKsB7Eb2LXXln6K
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260512102445.55372-1-clamor95@gmail.com> <20260512102445.55372-3-clamor95@gmail.com>
+ <CAPVz0n3Dw6Vtqqn8if=MYkBbYittXqsBKbDvrs1ntbD5Zn6iig@mail.gmail.com>
+ <CAPVz0n3iCSeT3xJ2XkwZ6PYofwSLkc0gfm+iYo4xbKBkAtihcQ@mail.gmail.com> <ajDEsU8oZWT7KB9d@google.com>
+In-Reply-To: <ajDEsU8oZWT7KB9d@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 16 Jun 2026 09:45:25 +0300
+X-Gm-Features: AVVi8Cdni-YgjbkGwaPHD4SvqBamlP3Fi3rQTRtFFK2Yd7Pl3xlrNDqDtcouRWU
+Message-ID: <CAPVz0n26H2t=pi_C+t8jP_cWXGSa5pk=1cpTZtkBh3=RQsUk2g@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+=D0=B2=D1=82, 16 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 07:1=
+6 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Hi Svyatoslav,
+>
+> On Mon, Jun 15, 2026 at 09:19:27AM +0300, Svyatoslav Ryhel wrote:
+> > =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+08:38 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > =D0=B2=D1=82, 12 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=
+=BE 13:24 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > >
+> > > > From: Linus Walleij <linusw@kernel.org>
+> > > >
+> > > > The ISA1200 is a haptic feedback unit from Imagis Technology using =
+two
+> > > > motors for haptic feedback in mobile phones. Used in many mobile de=
+vices
+> > > > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsun=
+g Beam
+> > > > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> > > >
+> > > > The exact datasheet for the ISA1200 is not available; all data was =
+modeled
+> > > > based on available downstream kernel sources for various devices an=
+d
+> > > > fragments of information scattered across the internet.
+> > > >
+> > > > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
+> > > > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/input/misc/Kconfig   |  12 +
+> > > >  drivers/input/misc/Makefile  |   1 +
+> > > >  drivers/input/misc/isa1200.c | 524 +++++++++++++++++++++++++++++++=
+++++
+> > > >  3 files changed, 537 insertions(+)
+> > > >  create mode 100644 drivers/input/misc/isa1200.c
+> > > >
+> > >
+> > > Hello Dmitry! Do I need to make any further adjustments to this drive=
+r?
+> >
+> > Hello Dmitry! Do I need to make any further adjustments to this
+> > driver? This driver is hanging in LKML for some time already without
+> > responds from input maintainer. It is still relevant and I would like
+> > it to move forward.
+>
+> There were valid sashiko comments on the patch regarding resetting
+> "level" to 0 and also potential racing conditions, as well as suggestion
+> to check number of gpios specified in the device tree.
+>
+> Please see if the following works for you:
+>
+> diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
+> index ff82252a08e1..c61adc4b605c 100644
+> --- a/drivers/input/misc/isa1200.c
+> +++ b/drivers/input/misc/isa1200.c
+> @@ -131,6 +131,7 @@ struct isa1200 {
+>         struct work_struct play_work;
+>         struct isa1200_config config;
+>
+> +       bool suspended;
+>         bool active;
+>         int level;
+>  };
+> @@ -247,17 +248,21 @@ static void isa1200_stop(struct isa1200 *isa)
+>                                isa->supplies);
+>
+>         isa->active =3D false;
+> -       isa->level =3D 0;
+>  }
+>
+>  static void isa1200_play_work(struct work_struct *work)
+>  {
+>         struct isa1200 *isa =3D container_of(work, struct isa1200, play_w=
+ork);
+> -
+> -       if (isa->level)
+> -               isa1200_start(isa);
+> -       else
+> -               isa1200_stop(isa);
+> +       struct input_dev *input =3D isa->input;
+> +
+> +       scoped_guard(mutex_try, &input->mutex) {
+> +               if (!isa->suspended) {
+> +                       if (isa->level)
+> +                               isa1200_start(isa);
+> +                       else
+> +                               isa1200_stop(isa);
+> +               }
+> +       }
+>  }
+>
+>  static int isa1200_vibrator_play_effect(struct input_dev *input, void *d=
+ata,
+> @@ -280,7 +285,8 @@ static int isa1200_vibrator_play_effect(struct input_=
+dev *input, void *data,
+>
+>         if (isa->level !=3D level) {
+>                 isa->level =3D level;
+> -               schedule_work(&isa->play_work);
+> +               if (!READ_ONCE(isa->suspended))
+> +                       schedule_work(&isa->play_work);
+>         }
+>
+>         return 0;
+> @@ -292,6 +298,7 @@ static void isa1200_vibrator_close(struct input_dev *=
+input)
+>
+>         cancel_work_sync(&isa->play_work);
+>         isa1200_stop(isa);
+> +       isa->level =3D 0;
+>  }
+>
+>  static int isa1200_of_probe(struct i2c_client *client)
+> @@ -331,6 +338,9 @@ static int isa1200_of_probe(struct i2c_client *client=
+)
+>                 return dev_err_probe(dev, PTR_ERR(isa->enable_gpios),
+>                                      "failed to get enable gpios\n");
+>
+> +       if (isa->enable_gpios && isa->enable_gpios->ndescs > ISA1200_EN_P=
+INS_MAX)
+> +               return dev_err_probe(dev, -EINVAL, "too many enable gpios=
+\n");
+> +
+>         ldo_node =3D device_get_named_child_node(dev, "ldo");
+>         if (!ldo_node)
+>                 return dev_err_probe(dev, -ENODEV,
+> @@ -479,9 +489,9 @@ static int isa1200_suspend(struct device *dev)
+>         guard(mutex)(&isa->input->mutex);
+>
+>         if (input_device_enabled(isa->input)) {
+> +               WRITE_ONCE(isa->suspended, true);
+>                 cancel_work_sync(&isa->play_work);
+> -               if (isa->level)
+> -                       isa1200_stop(isa);
+> +               isa1200_stop(isa);
+>         }
+>
+>         return 0;
+> @@ -493,9 +503,11 @@ static int isa1200_resume(struct device *dev)
+>
+>         guard(mutex)(&isa->input->mutex);
+>
+> -       if (input_device_enabled(isa->input))
+> +       if (input_device_enabled(isa->input)) {
+> +               WRITE_ONCE(isa->suspended, false);
+>                 if (isa->level)
+> -                       isa1200_start(isa);
+> +                       schedule_work(&isa->play_work);
+> +       }
+>
+>         return 0;
+>  }
+>
+> --
+> Dmitry
 
-Add support for ROHM BD12790 hot-swap controller which is largely
-similar to Analog Devices adm1272.
+I have tested your code on my P895 and it works perfectly fine. Should
+I resend with these changes or you can integrate them while picking
+patchset?
 
-The BD12790 uses the same selectable 60V/100V voltage ranges and
-15mV/30mV current-sense ranges as the ADM1272, and the same VRANGE
-(bit 5) and IRANGE (bit 0) layout in PMON_CONFIG. It therefore uses
-a dedicated coefficient table that mirrors adm1272_coefficients, with
-the following differences derived from BD12790 datasheet Table 1 (p.18):
-- power 60V/30mV: m=3D17560 (vs. 17561)
-- power 100V/30mV: m=3D10536 (vs. 10535)
-- temperature: b=3D31880 (vs. 31871, reflecting T[11:0] =3D 4.2*T + 3188)
+Thank you for your suggestions and efforts!
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-
----
-Originally this patch was AI-generated. I did pretty much re-write the
-probe changes by hand, and also fixed some of the coefficient math
-afterwards :/ But yeah, this one was AI "assisted". :)
-
- drivers/hwmon/pmbus/Kconfig   |  4 +--
- drivers/hwmon/pmbus/adm1275.c | 53 +++++++++++++++++++++++++++++------
- 2 files changed, 47 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index b3c27f3b2712..6ebc01e26db3 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -52,8 +52,8 @@ config SENSORS_ADM1275
- 	help
- 	  If you say yes here you get hardware monitoring support for Analog
- 	  Devices ADM1075, ADM1272, ADM1273, ADM1275, ADM1276, ADM1278, ADM1281,
--	  ADM1293, ADM1294, ROHM BD12780, and SQ24905C Hot-Swap Controller and
--	  Digital Power Monitors.
-+	  ADM1293, ADM1294, ROHM BD12780, ROHM BD12790, and SQ24905C
-+	  Hot-Swap Controller and Digital Power Monitors.
-=20
- 	  This driver can also be built as a module. If so, the module will
- 	  be called adm1275.
-diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-index 838b8827eb76..9e21dd4083e9 100644
---- a/drivers/hwmon/pmbus/adm1275.c
-+++ b/drivers/hwmon/pmbus/adm1275.c
-@@ -19,7 +19,7 @@
- #include "pmbus.h"
-=20
- enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281,
--	 adm1293, adm1294, bd12780, sq24905c };
-+	 adm1293, adm1294, bd12780, bd12790, sq24905c };
-=20
- #define ADM1275_MFR_STATUS_IOUT_WARN2	BIT(0)
- #define ADM1293_MFR_STATUS_VAUX_UV_WARN	BIT(5)
-@@ -47,8 +47,8 @@ enum chips { adm1075, adm1272, adm1273, adm1275, adm1276,=
- adm1278, adm1281,
- #define ADM1278_VOUT_EN			BIT(1)
-=20
- #define ADM1278_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN | ADM1=
-278_TSFILT)
--/* The BD12780 data sheets mark TSFILT bit as reserved. */
--#define BD12780_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN)
-+/* The BD127x0 data sheets mark TSFILT bit as reserved. */
-+#define BD127X0_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN)
-=20
- #define ADM1293_IRANGE_25		0
- #define ADM1293_IRANGE_50		BIT(6)
-@@ -136,6 +136,30 @@ static const struct coefficients adm1272_coefficients[=
-] =3D {
-=20
- };
-=20
-+/*
-+ * BD12790 coefficients derived from preliminary datasheet, Table 1 (p.18)
-+ * and the PMBus direct-format relationship X =3D (Y * 10^(-R) - b) / m.
-+ *
-+ * Voltage: V[V] =3D 14.77e-3 * code (60V) / 24.62e-3 * code (100V)
-+ *   -> m =3D 6770, R=3D-2 / m =3D 4062, R=3D-2
-+ * Current: code =3D I[A] * RS * 132802.1 + 2048 (15mV) / * 66401.06 + 204=
-8 (30mV)
-+ *   -> m =3D 1328, b =3D 2048 * 10^(-R) =3D 20480, R=3D-1 / m =3D 664, sa=
-me b and R
-+ * Power: code =3D k * RS * PIN, k =3D 35119.94 / 17559.97 / 21071.44 / 10=
-535.72
-+ *   -> m =3D round(k / 10^(-R)), R=3D-2 for 60V/15mV, R=3D-3 for the othe=
-r three
-+ * Temperature: code =3D 4.2 * T + 3188 -> m =3D 42, b =3D 3188 * 10 =3D 3=
-1880, R=3D-1
-+ */
-+static const struct coefficients bd12790_coefficients[] =3D {
-+	[0] =3D { 6770, 0, -2 },		/* voltage, vrange 60V */
-+	[1] =3D { 4062, 0, -2 },		/* voltage, vrange 100V */
-+	[2] =3D { 1328, 20480, -1 },	/* current, vsense range 15mV */
-+	[3] =3D { 664, 20480, -1 },	/* current, vsense range 30mV */
-+	[4] =3D { 3512, 0, -2 },		/* power, vrange 60V, irange 15mV */
-+	[5] =3D { 21071, 0, -3 },		/* power, vrange 100V, irange 15mV */
-+	[6] =3D { 17560, 0, -3 },		/* power, vrange 60V, irange 30mV */
-+	[7] =3D { 10536, 0, -3 },		/* power, vrange 100V, irange 30mV */
-+	[8] =3D { 42, 31880, -1 },	/* temperature */
-+};
-+
- static const struct coefficients adm1275_coefficients[] =3D {
- 	[0] =3D { 19199, 0, -2 },		/* voltage, vrange set */
- 	[1] =3D { 6720, 0, -1 },		/* voltage, vrange not set */
-@@ -504,6 +528,7 @@ static const struct i2c_device_id adm1275_id[] =3D {
- 	 */
- 	{ "bd12780", bd12780 },
- 	{ "bd12780a", /* driver data unused, see --^ */ },
-+	{ "bd12790", bd12790 },
- 	{ "mc09c", sq24905c },
- 	{ }
- };
-@@ -581,7 +606,8 @@ static int adm1275_probe(struct i2c_client *client)
- 	if (mid->driver_data =3D=3D adm1272 || mid->driver_data =3D=3D adm1273 ||
- 	    mid->driver_data =3D=3D adm1278 || mid->driver_data =3D=3D adm1281 ||
- 	    mid->driver_data =3D=3D adm1293 || mid->driver_data =3D=3D adm1294 ||
--	    mid->driver_data =3D=3D bd12780 || mid->driver_data =3D=3D sq24905c)
-+	    mid->driver_data =3D=3D bd12780 || mid->driver_data =3D=3D bd12790 ||
-+	    mid->driver_data =3D=3D sq24905c)
- 		config_read_fn =3D i2c_smbus_read_word_data;
- 	else
- 		config_read_fn =3D i2c_smbus_read_byte_data;
-@@ -655,12 +681,23 @@ static int adm1275_probe(struct i2c_client *client)
- 		break;
- 	case adm1272:
- 	case adm1273:
-+	case bd12790:
-+	{
-+		u16 defconfig;
-+
- 		data->have_vout =3D true;
- 		data->have_pin_max =3D true;
- 		data->have_temp_max =3D true;
- 		data->have_power_sampling =3D true;
-=20
--		coefficients =3D adm1272_coefficients;
-+		if (data->id =3D=3D bd12790) {
-+			coefficients =3D bd12790_coefficients;
-+			defconfig =3D BD127X0_PMON_DEFCONFIG;
-+		} else {
-+			coefficients =3D adm1272_coefficients;
-+			defconfig =3D ADM1278_PMON_DEFCONFIG;
-+		}
-+
- 		vindex =3D (config & ADM1275_VRANGE) ? 1 : 0;
- 		cindex =3D (config & ADM1272_IRANGE) ? 3 : 2;
- 		/* pindex depends on the combination of the above */
-@@ -685,14 +722,14 @@ static int adm1275_probe(struct i2c_client *client)
- 			PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
- 			PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
-=20
--		ret =3D adm1275_enable_vout_temp(data, client, config,
--					       ADM1278_PMON_DEFCONFIG);
-+		ret =3D adm1275_enable_vout_temp(data, client, config, defconfig);
- 		if (ret)
- 			return ret;
-=20
- 		if (config & ADM1278_VIN_EN)
- 			info->func[0] |=3D PMBUS_HAVE_VIN;
- 		break;
-+	}
- 	case adm1275:
- 		if (device_config & ADM1275_IOUT_WARN2_SELECT)
- 			data->have_oc_fault =3D true;
-@@ -738,7 +775,7 @@ static int adm1275_probe(struct i2c_client *client)
- 		u16 defconfig;
-=20
- 		if (data->id =3D=3D bd12780)
--			defconfig =3D BD12780_PMON_DEFCONFIG;
-+			defconfig =3D BD127X0_PMON_DEFCONFIG;
- 		else
- 			defconfig =3D ADM1278_PMON_DEFCONFIG;
-=20
---=20
-2.54.0
-
-
---soKsB7Eb2LXXln6K
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmow8MwACgkQeFA3/03a
-ocVGBgf7B9ClH9hO7mvvUWZP5vF1fT7ZpPAcLDkEuAEe+ydngB0eChSxxS/5+Weu
-m0jJY+Gy2+O4/pwSDktTH3+M1pRyK89ltpW6bgahRZbBULWy4hD961grnaxb1j/0
-76FQHSn7zVfBXSBDtNLlQDXPgOxnMLHoiMJY9G2XQDLiOflwCGkTfljtpb04HgkJ
-3CrKTMxK9VJvfNNAtNX1NhDEETK1aR300lEja7ZQrkgGUDrvlaC97xBe5Iljz8dQ
-js8d/P2gJ3Q4mD5DrupNy5lBh5WYcIhbJzruI1JVPGfVekEn85Vk+mTE7/idfaay
-BKB5d117frZxvHdkShG1UXFNdJZ+8w==
-=TSDT
------END PGP SIGNATURE-----
-
---soKsB7Eb2LXXln6K--
+Best regards,
+Svyatoslav R.
