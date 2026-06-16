@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1515743D4FB;
-	Tue, 16 Jun 2026 15:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA133B840B;
+	Tue, 16 Jun 2026 15:44:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781624576; cv=none; b=E9tyidrlNba6n5V8M+uXfW9ySN25heiF3IdbtyVM9qyM9Doa9LEV34R5ZO1sP6GtmMWCMAMfYi34tDNlaWONvN7O438rSQcFKrE/qclHc2OY+HN2o/gSR3vXFGFG3SgbeTnEkR+9sr5/U2S5NbKuN3qHpZ02xvU/i92h6iIT2jY=
+	t=1781624680; cv=none; b=k+t5uQCa+/fh5c3j6JnUcV2+6aARSNwphGXi+7RmWrlj1QOA/5roUraGDqU6QfI1AAj/BExAMEOThkwXto/Y6tzxcf5ju+59bjq2FYUt4Id4KVersmA0iqQA5RrHXMg0uqhqRIC8W5FnJwi8A00GgJvZxKecdlNi4mmxCaXVfWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781624576; c=relaxed/simple;
-	bh=tbZdYRssnMc1tPdeHTB9KBupFi6MeJUHUJTnqK3jnro=;
+	s=arc-20240116; t=1781624680; c=relaxed/simple;
+	bh=44GbppVY9g5cV5Pz9TKezJ5i6TOvCL+U0t/ZkjWZOpY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JEiJ0UnXXxaZXA20mEJJhC4+f6RijVMKSgmtHhxt3PijMOsGD+UNe2kbHgmHA495DBn3s/fOX8bwQ241H/Z0huPCZ0WD/Hb8e5GhFnYlNk7y2Rl8Vw4m0nbFj0r0JSl0TYOEpDSukEseKNVg19nDD6Duda8PSfueWY1pHYD0Ubc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IqwoSB1d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EHll0Xnm35YmlYODrUD6MD9oDX8rSV1Ut72Wub3tTEQt51yfeQ5ZBAkvFso+olHNWRBzWRRsowLK5o6bEhHsq9LaS0peNXte0i/VKk4gqL4lEwNkuFnWySx8rzKHHEdq67U+lgx72T57M5kLMhBg+XV1xRjbOctMvpE0NAUTCgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h64hWi3F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IqwoSB1d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C471F00A3A;
-	Tue, 16 Jun 2026 15:42:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h64hWi3F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697EA1F000E9;
+	Tue, 16 Jun 2026 15:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781624574;
-	bh=tbZdYRssnMc1tPdeHTB9KBupFi6MeJUHUJTnqK3jnro=;
+	s=k20260515; t=1781624677;
+	bh=usxbDjGoESOwF/+qHUomOy5eE2TAacfJqrUyEzlRYYs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IqwoSB1d+aKHgby6Y4P4Ha7VF8hUwzGg6nG5zg40oY9J0K30b4CaK6j9KWm1Vn+g7
-	 Csi63qULUfrzZAT68L1qhRpv58jJ1IOKApIhC1iIuqsxBLaAJXBrOu5ot0X9vmU10r
-	 rXH04jarToFjb4/BuKjBTr9uoIBFu+NmV5WPQU19mSJG5HR2sKne8Bf+PqIdX16S7e
-	 ndASXBARK/a2wMOo4EI8ZbEu8lPt52OK4N+k7ZavhSiLBpbsmfrlODO3EhqcB+rubE
-	 6iArfdeCqnz5aD/ZbzaJa5+UrwlCPWf52XIB3Sz1TMlyCjZfGrJPUyTdYUiSMNXTK8
-	 eUS409YJsAcCw==
-Date: Tue, 16 Jun 2026 16:42:50 +0100
+	b=h64hWi3FuWxHVNtkblwYPl6I6tp+AGgfvd+j/5ZXO6SWUBnYpV8z094z+MhO69GIL
+	 xoA4GxeAbR/v8ikAtXbCLTWIDkOQY9thGGMh8Zfc+R0QP4QYU0Q70LwFFRrrDPTk12
+	 qpdr3DR7P8ELlTN+AYrQCiOUpM3pQXuE7t/5+kJYXtFHNMxhsWMKFJxe6B8c+9KJlQ
+	 0aymLN72GEarKHYgnVTnrtCRKi29Xmwx4Wa7jXY5cAhkv2JFybOmj8Nw0hZb6T02wZ
+	 1I7UDIO6YkMfJ3JvcYGuQO3WLncoDXKLtp00/GM3qEEyT54LEs+xDANYbqXNooi/uH
+	 IMobvNzQUyuvg==
+Date: Tue, 16 Jun 2026 16:44:33 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: iio: magnetometer: add QST QMC5883L
- Sensor
-Message-ID: <20260616-camping-slug-15ebd1524376@spud>
-References: <20260616114942.37241-1-siratul.islam@linux.dev>
- <20260616114942.37241-3-siratul.islam@linux.dev>
+To: Biju <biju.das.au@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2 01/10] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl:
+ Document RZ/G3L support
+Message-ID: <20260616-velcro-collar-3e764c6851da@spud>
+References: <20260616104459.410743-1-biju.das.jz@bp.renesas.com>
+ <20260616104459.410743-2-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,27 +49,74 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uiONKxPyM9s9/R2T"
+	protocol="application/pgp-signature"; boundary="K1ZHmlGF1Q7eZ8/m"
 Content-Disposition: inline
-In-Reply-To: <20260616114942.37241-3-siratul.islam@linux.dev>
+In-Reply-To: <20260616104459.410743-2-biju.das.jz@bp.renesas.com>
 
 
---uiONKxPyM9s9/R2T
+--K1ZHmlGF1Q7eZ8/m
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+On Tue, Jun 16, 2026 at 11:44:43AM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Document Renesas RZ/G3L (r9a08g046) USB PHY controller bindings.
+> The RZ/G3L USB PHY block is similar to RZ/G3S but differs in that each
+> port has its own OTG controller, whereas RZ/G3S only has one on port 1.
+> To reflect this, RZ/G3L uses a regulators sub-node with per-port vbus0
+> and vbus1 entries instead of the single regulator-vbus property used
+> by other compatible SoCs.
+>=20
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v1->v2:
+>  * Updated commit description.
+>  * Added enum instead of const in the compatible section.
+>  * Dropped regulator1-vbus and added a regulators group node.
+>  * Updated schema check.
+> ---
+>  .../reset/renesas,rzg2l-usbphy-ctrl.yaml      | 49 +++++++++++++++++--
+>  1 file changed, 46 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy=
+-ctrl.yaml b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-c=
+trl.yaml
+> index c83469a1b379..12da48d069e5 100644
+> --- a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
+aml
+> +++ b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.y=
+aml
+> @@ -16,13 +16,17 @@ description:
+>  properties:
+>    compatible:
+>      oneOf:
+> +      - items:
+> +          - enum:
+> +              - renesas,r9a08g045-usbphy-ctrl # RZ/G3S
+> +              - renesas,r9a08g046-usbphy-ctrl # RZ/G3L
 
---uiONKxPyM9s9/R2T
+Looks fine, other than the fact that the "- items: - enum:" construct is
+the same as just having "- enum".
+pw-bot: changes-requested
+
+Fix that problem, and
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+
+Cheers,
+Conor.
+
+--K1ZHmlGF1Q7eZ8/m
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajFu+gAKCRB4tDGHoIJi
-0uXZAQC/+uVjuHYjYXHgKGQc5XFKXXFRcRzLwTzZngFLZT07IAEA/RcmnUdMAotS
-iJ22/o/3O8oUSPj411v3V71Pcm5NJgo=
-=unlx
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajFvYQAKCRB4tDGHoIJi
+0qVOAQCx2XZXiGdizSgiFt2qcjdpFeCmQ5qYqVIM9va9BqBsBQEAmCrP8/MY9eNV
+wuXhDP6/KDhE06HLXzuUBiN5H68PHAk=
+=WVnf
 -----END PGP SIGNATURE-----
 
---uiONKxPyM9s9/R2T--
+--K1ZHmlGF1Q7eZ8/m--
