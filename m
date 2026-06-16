@@ -1,124 +1,96 @@
-Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C1444CAD4
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0243CBE8B;
+	Tue, 16 Jun 2026 15:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623821; cv=none; b=A2fHzIBkYERyggJ/pIroODh70uhT3tlTzY5b/xHxH4uj6pNtn9NcBmL3Fc6jSKhjhPI44r7Vov+G+UerxAHnzUAykQJboQ+vSW/6SZ3KbeVMWUTRQiTOe/1Y9tgMFkHWNmYblMYtzaldz8/MlvAynzFSYXRibBZ36dxEO4nZKw8=
+	t=1781623870; cv=none; b=a/J+E++mTUUrOtU0/hnkiyLoayoLpsPeZ3tRXzHFg8hGuwDDLOam4qwPZKj7Dr6xth6JG1OQvoeu7c2CGAyiJJ7TImQcjEEuDtDStFRNkVl56RfLsN6/wBC2QwhwtWHpWmg0Dxb8Kr5z8wNYL1AGGf1UhdcANRE/bzl5y8y/IyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623821; c=relaxed/simple;
-	bh=P8HCEBD70snqwKdpaO75cGCjmvTTJXjD8qQCQ1uOKdM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jvrGEnVLXWvtZg4bcIhhIH3qsAKIbXtJn8/CovAAJsw409fBwKTdwHvQB7tJIOAX733zItOS055uym7Vr75rlRqs+YWGmyMy37Swz3cU9O35CGSqjaM/+gTJ8+I3I56fVPL0X3iLbyXvBp1hWpmczbcajFJR/hAnXPMhoC26tX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HDQjCFpY; arc=none smtp.client-ip=209.85.160.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781623870; c=relaxed/simple;
+	bh=3nk1SqwTjFBC3ctGt1B9moE+DwlnAcJ+ZfvsMGUJmWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BtpzwkXKiro+8I021Kwj/bgND6qcLlYiAxSCSP86qnWxIv3SBYtSy6R0NLyYo3xwhfOWJ1+a8RYWQ/m5+8l7Rz5ef4s6SLKtirYQVGyrYiprOyifoV4FNzBsbNIFgGNVN42kYacKjjJgQIgoF83f/0+Kt04l6BU+KTtqZgLA5ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltwzz9ah; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HDQjCFpY"
-Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-440ebc72386so2467460fac.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:30:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781623819; x=1782228619; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xgEPcrFDybOilEEFxetPSI7iakaIrltXJjjOqciP8Q4=;
-        b=HDQjCFpYx1KaurIpevULR3IqppU1wtTzjAsWAnYJXgapPmPDBY0/KjkxEr7Cv2IC6K
-         pQbXhbIB2vyAe9nBWOkmtYneBvMctAHrvdeu7DBUc8R6dpJdXrpylGdcVlGsPyuq+RUA
-         5OxP0esCwr06jQLsFoA873DSdVK+1X6N81a+iGF2gCPpTT7LTcwS88AEYr5Ea1aYfesw
-         koWb8E0o6j5ycztFTrdzd3Dn0BOjMMm5SwNKpDL0NfYSrNVEBPv2W1DcLUsqjybjqsX4
-         JTS6Ot5tK/je/XLsDfudwI01xKzbtf06l9zQHPPtKfRaPuzOYbtG3StcOIdcF6Q6/ArK
-         p2RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781623819; x=1782228619;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xgEPcrFDybOilEEFxetPSI7iakaIrltXJjjOqciP8Q4=;
-        b=XYkEbLL8ThtPPfQ/MBxvUIBRPY/Er6BofTOeMyTi0ZRBTlK/E5hakyfoRPySPyuCa9
-         RnUDxwycx7RjJQrG2U9cHaiFWWyryx9Kh//AZVFtEtb+69/Ds6SW4y/kl2GVX3V56ucQ
-         fTkwyOO90BU7xtNJNcYuyj9paPYpQnHKibbbxxjvcvH83a3j7EcZP9NH/dT+4bsIkreu
-         2wGLiDZh+pHYt0gngg5qSPLlyLfAKEBpI2EE6I000SNGV8HBRSPc1e/6Wq6nJHVi2vUv
-         fuUa3UjWfm46nvtrOX5aH7MNi4FxRyeTDA9/OUVW+7Xcy019pvT7Ln0GBJFw47egKY6I
-         KVhw==
-X-Forwarded-Encrypted: i=1; AFNElJ8jNzSOFhfey6s8otisVlIKrLHbcESrPaPf7BPyIy2IGZamtX0655g8YN6RNexpK+R5ciZDigRQgttZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza2jDh051ME1xqZ6zT126231b63/vQRkipIHot08FohzxndYnx
-	9mrb+KIA8uHwlmtD4dKrQ7vc7zVyaQqEsJHzrjx6OXIid1NI5TQLA/VOHoZ/8cHkoCQ=
-X-Gm-Gg: Acq92OHPq8ugoWd6+Bes5vH3zZnSb7SNGiguQjJp7GsS4DSMZSVUMwdN/zND9fcxNDp
-	x8sKCVYm0QyafECrD52cO7vKrf8n0q/FOTWsRb0fRY29h1P4k5V08wPtzIFtTtSWYkL0Gb2GRaU
-	sz5hTfHd4Nysav6O43BFzoUG2qShRi+Pq50pez9vj22q+NT6SxjXZvAAZfk7hOxK/Ye5P3nZHaQ
-	5CUynwkqDuV42Ms1kLG8xD8cEp59ciASPDEDG5uNrfSjsJFcJ6G9MOWCXzDFyKrbN9/rk8n3F6Z
-	YYtt7kFatls4R8lxBW3qMJRMtgVTjYCx7AGjMYXwy5g9Impp4LRq2IqnVSy1Ccs6w6FUpN2fETm
-	F0WPEDj9iUYyNPY0myRBKNalbyhgDjvsSKErlokkD4/JjY0J54IvruevO5jgn6vu6Z+uAYuY3oF
-	tuf/3Pxv2KncoHjQkl4U1iGw78Q6bej9pBnBVZFor6jr0RAAk+KfsIuvu5oa4Q2qT4lDzCp3n7v
-	XVe4oLdOgBq
-X-Received: by 2002:a05:6870:e314:b0:42c:24f6:f190 with SMTP id 586e51a60fabf-4430b5e7c76mr3275033fac.17.1781623818663;
-        Tue, 16 Jun 2026 08:30:18 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4430866fa15sm2376561fac.0.2026.06.16.08.30.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 08:30:18 -0700 (PDT)
-Message-ID: <1aec0172-68b4-4542-83d4-5c05680c0096@baylibre.com>
-Date: Tue, 16 Jun 2026 10:30:17 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltwzz9ah"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D54E1F00A3A;
+	Tue, 16 Jun 2026 15:31:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781623869;
+	bh=H4q3EaMMaI2HFEM9XMWLyy+ranKnuc2iJ9R48LAi+Co=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ltwzz9ahZ1f/RKzdJ5velxbsLeSwb6LIbPVG92hCsCHIuJC6Q8lC3JuB0FS6DqCKY
+	 lIv7hr7q5pHYYm9pv1a6AXauU9jtgXSQW87un/uK/QjazdZaZru0Cc/MXB1srkUI3D
+	 9lIKkA5MDSeHWRr2150Gs5NYGUqgf4zKmbfCg1d8Ni2VbL44FPfzzacBV18zwmSv/5
+	 w14pjfaMHy3aF6aeol1qiZPtQg5sjdPb48bccqOQCRz/bx8GJBaxbhPwSa36G/ygp4
+	 0fPX9LLEDtorjqb/OtqsXOGHqYGBpbqNEi3N+p9a5M/2FoF8an/HWhabzRRzOS5K8X
+	 EzhaiVrflUUeA==
+Date: Tue, 16 Jun 2026 16:31:04 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	Min Lin <linmin@eswincomputing.com>,
+	Yulin Lu <luyulin@eswincomputing.com>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>,
+	Pritesh Patel <pritesh.patel@einfochips.com>
+Subject: Re: [PATCH 6/7] riscv: dts: eswin: add I2C controller support
+Message-ID: <20260616-greeter-securely-16e742490a4a@spud>
+References: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
+ <20260615122016.1110206-7-pinkesh.vaghela@einfochips.com>
+ <20260615-lumpiness-profusely-155422288c31@spud>
+ <SJ2PR04MB8896A5877CCFC177FA5D5A9583E52@SJ2PR04MB8896.namprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
- support
-To: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
- <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 6/15/26 5:00 PM, David Lechner (TI) wrote:
-> Add support for parsing devicetree properties for measurement channels
-> and doing direct reads on these.
-> 
-> There are quite a lot of conditions that have to be met for each
-> measurement to be made, so quite a bit of state and algorithms are
-> required to handle it.
-> 
-> Channels are created dynamically since the number of possibilities is
-> unreasonably large.
-> 
-
-...
-
->  static void ads112c14_populate_tables(struct ads112c14_data *data)
->  {
->  	u32 vref_uV, fsr_bits;
-> -	int i;
-> +
-> +	for (u32 i = 0; i < data->num_measurements; i++) {
-> +		struct ads112c14_measurement *measurement = &data->measurements[i];
-> +
-> +		switch (measurement->vref_source) {
-> +		case ADS112C14_VREF_SOURCE_EXTERNAL:
-> +			if (data->ext_ref_ohms)
-> +				vref_uV = measurement->idac_current_uA *
-> +					  measurement->iadc_count * data->ext_ref_ohms;
-
-One thing I am considering is that if we have a resistor between
-REFP and REFN rather than a voltage supply, then we should consider
-the channel IIO_RESISTANCE rather than IIO_VOLTAGE.
-
-In this case, the user doesn't care about voltage at all, but rather
-the ratio of the REFP-REFN resistor to the measured resistance.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WNod8yUaohcmzurl"
+Content-Disposition: inline
+In-Reply-To: <SJ2PR04MB8896A5877CCFC177FA5D5A9583E52@SJ2PR04MB8896.namprd04.prod.outlook.com>
 
 
+--WNod8yUaohcmzurl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jun 16, 2026 at 11:57:33AM +0000, Pinkesh Vaghela wrote:
+> On Mon, Jun 15, 2026 at 10:05 PM +0530, Conor Dooley wrote:
+> > On Mon, Jun 15, 2026 at 05:50:15PM +0530, Pinkesh Vaghela wrote:
+> > > +		i2c0: i2c@50950000 {
+> > > +			compatible =3D "snps,designware-i2c";
+> >=20
+> > Missing a soc-specific compatible here for all i2c controllers.
+>=20
+> We are using generic DesignWare I2C driver for all I2C controllers with
+> no changes required in the driver. Do we still need to add soc-specific
+> compatible for all i2c controllers?
+
+Yes. Just use "snps,designware-i2c" as a fallback.
+
+Thanks,
+Conor.
+
+--WNod8yUaohcmzurl
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajFsNwAKCRB4tDGHoIJi
+0rUXAQCh5hx72iaCwvhODXXBrj/a0alO+abHFoxSfaBo+7vy2QD8DF0KE8HEDctE
+m5ZQMaLYkLda7O1wmlcME+9t698Z6ws=
+=E+bB
+-----END PGP SIGNATURE-----
+
+--WNod8yUaohcmzurl--
