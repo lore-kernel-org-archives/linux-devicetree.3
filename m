@@ -1,181 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11022121.outbound.protection.outlook.com [52.101.53.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4200430AD0A;
-	Tue, 16 Jun 2026 08:44:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599489; cv=none; b=tKORO+Pdbr1k/7R38irpP7PHsePRv8hRIBCQhde//4zSWkxHZijaDRyCpfxkf5IRL6WvEZuhILumYkHuh5QePEHBuXhkBND1CY+2e8uu3hWG/mGeO0tAqvqPw2SsEK4sKVqjbkqGx/W+UKwzlGSyhF4+bJ8dRpvkeUe9PyZfVyM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599489; c=relaxed/simple;
-	bh=vU5CkjwusbK4oTshtz0qTyrjjkJfMFH1mI6MHUX9Lf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NqSZS8JDwF/vb4FY91WXHj2HsZwOadk5Fh86QaeUA784M9NbW6UeLfSEHIcOkbJ1950FYRtc2YftMJ5/EjrdguQrGKclAWthgP4jNg62krJmk+wxzub27y9XD3b6idEgz00fNvngcjHq0ZLHzcofmK/CSgVPyvqvyliHG9SfYgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OoTB7quQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679834192FD;
+	Tue, 16 Jun 2026 08:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.121
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781599513; cv=fail; b=dCnfFLt9ZtClQHL9kRtpimjP0DRIYE53zETY5itRzNtRbIjNabukiMLgOOFjMZHXvVPSQAV+cfsj+UfIC5aFBXfCa7NWxOZuvaANrJwc8/6pSDRTuX3Q0xHzvMVzRQNfWF3auynHqnh4r9CyMaykA0Lwq9ISvYJ+evbyG1TsnJg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781599513; c=relaxed/simple;
+	bh=jNLN98ZWz0MKpNvdm4Zh13BdiUoUeIX09kWeAxzdEks=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mGT3ZDJ9ln500AsQ+uNKMELg2sZby8OxlGopjweUGmzYQ7gvyw8xeLKOTyvkhsDlB0hbuQ6tN15eDxzZ26e641zxQt3TXmq86RzZShS+lLSCUNU8DVg/E2YjsVdZ5HZy4SqzPtR6QLcuvFEiIsRbfdYN8xt216N8tNMShnTZwVA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=QxBCqjZ4; arc=fail smtp.client-ip=52.101.53.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OoTB7quQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D07FB1F000E9;
-	Tue, 16 Jun 2026 08:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781599487;
-	bh=/oYQ5/Jb6iFjya9RVTgs4HXzWqEW3bAB8XqQIRdPPM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OoTB7quQChG4Wuzmat03cFa0GB8SBI0UrHX3msdndFVJFvkvkrEubr4xQ0mjvFKG2
-	 gDLWKmz4VrxKjIbRXVoX1KTjikdfDOua1XZEl4C71AMT4Vlf5DR4txJmU9r9SKqNw4
-	 7R6xIjrhPMh603GkUw4MK50pgP/U3AWWOxv2i3sEUMGYwZ7fb94m1u+NsXJZXSztfK
-	 XpD9y0Tq1sRcEhgd/hn1K7o1hHKfMJgnRo0gJh7z4TDTZS5ELx0fsU8N4V0/woM5f0
-	 hnNH203ujgzyILmM/hQSueJi0c5i1hAt7IslgoMPqZdYOYj4eCibOCB5nCao0lvrIg
-	 vpTfLF8ZXQQsg==
-Date: Tue, 16 Jun 2026 14:14:33 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset support
-Message-ID: <ajEM8QfB5brd3sOQ@vaman>
-References: <20260525105042.2249542-3-nagendra.golla@amd.com>
- <20260525113349.68D6E1F00A3D@smtp.kernel.org>
- <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="QxBCqjZ4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kAzxIwVyboGzjfxvlaPePiy+BejuuB8c3L7mzL7rcDvofhKfoaUSz9TR5uJhUr0/4m8UKlareQLdbRKdwiPIQ2m9qAdzs26yy3KBE074my+01qVphGm5LDIx5t+WCqPzaJ8nopeDphKoV88E47mBsoDioyn7WedpXXbzF8hvGtc3/wXZ4ayC1+3LLHMk6jghO5EuTitlt3t8TDS+VT/DKrw+0cxFrRqFR830408+xTylN+OjeD6v3gAs+py5qukIVxHsd64Fkz41pMzo2XAQQfVBbLNx5QCQHEhID0h/ohf2VEIG7FW8nYnIk86uDq0ZKDyC0LddldtZVqnkce7JAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=es2USX/kih+n6KKZQznVlM+DXbCsDIbVfN5izjO+HWk=;
+ b=lvF+66v5HvWJmL2OhyWm/YsyYLc3UNP7AWA7MW7jvHzFH9+UtHwqTB+oZGzn4XWVUhdFQwZO7uZfrpL44zOmf9VINBwjhnCe1hRzytDoidcMURrRWG4H0Oe4Zln/VZAIXXUN6v5A0smI28FKSV8eU3CoYmRKxQMh1RA4iTwpd6+jUYml/Hj92PkkSXOJ2X7SAy7YiNqgF8Wc9zhBuBu3teegWet7zlbs+w71gOYOln0i+f9wqtrJ3olOw43tjZpaQoidxbHSxSGgLvQdox18YnwZtGyXHSPcDiRGxNjZgKP5gGj5ey3sPmZY8Z/4+hC1Ta0kvG2gP5rp1FDGoRvxiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=es2USX/kih+n6KKZQznVlM+DXbCsDIbVfN5izjO+HWk=;
+ b=QxBCqjZ42QVEgqYzzUPaLiKgxunftGFLIXVNPFqkEbi9G5Rh+29x/uEDSYkQ9lMcb7j1gfq3XAovwzAajXte6ByE0UqUAmquJffHtiHTlVubZDlaBBoiHEnMKf41WoK5z+0Rxrgf6MRLqHbY3QOhilHRfwtPxf4EO1gFvdUBT14xOzn0cvPJsp0zjRAyqFrWni16IvmveK3fWHIzU8K1+TURMyGxbydJa5L3kImGhmAKooGojJ9g0En1Seb9qd0GXhKatCaraUWm8DH2/qQPQe7JULuMufmFQA2FKksLnTDEm2KMjTuOUpYDi6oLDOlJvnm/VK+7qUOKH+BadoLVqw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ CH0PR18MB4305.namprd18.prod.outlook.com (2603:10b6:610:d0::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.113.18; Tue, 16 Jun 2026 08:45:08 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
+ 08:45:08 +0000
+Message-ID: <df6b0d94-0817-4293-bf73-e8400f819ec6@axiado.com>
+Date: Tue, 16 Jun 2026 10:45:03 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] iio: adc: add Axiado SARADC driver
+Content-Language: en-GB
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com>
+ <20260611-axiado-ax3000-ax3005-saradc-v2-2-913c9de7c64c@axiado.com>
+ <20260611110923.2f55d280@jic23-huawei>
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <20260611110923.2f55d280@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P189CA0033.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5dd::6) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|CH0PR18MB4305:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5432eaf7-1d55-43e7-82f1-08decb83922a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	YI7N4gIvcRxhASVWfrcVmpk+5KRTGHjkBzsDgMiSCz/qZJ2IqjJF1a/1RxFbG9t2ka9K8ph2RHMSiJawqa0X2HT1i7fqdQoO47BIgVlqeO4i38nBhPDBtDQwbX1dxW7HdXxmmPA6cuSVsMXgKqfK5JZFV2UWmZoBuySkxm+NrhhHBn99oIY2t8dk9swgctxLbKYUK75dR8xxK3VXbtXsr7gP4IcOD9OVtzNHmyPC0lPpMhucAZCB8ZCryFZmeVP4Tt3UpDv+Vt0z/yax1G48xc5x6fwY7nH+P1O+JvJkShybDEq5eQ9V9eKL+FW6rn7OsFRTZlUFYiq1BYEgQfBIWA0+VJO1Ko3sJu+bvQcEzhx67R8XpD1JzkKI2+C7NspclQqRVUDIQcqTs2DUV6qoowJN8G8W6jRgBBE8nQFZfVhEdAyVD5RX2K7mBWbCB4ytjohIFe4yN5TZptfao0/FlZo3/VRED/vjnnGHR5NYBRsdjvYjbbeBvseTj/XR8Ba+koskeG9wm+Celsz4tU0qN1h9WW2njLlz9TYfakS9uCcGgjRd4FK1YUKd1MX+KxCc6DUNiHH9gwjbHtPOs1tXjCkoaUNH35lqunpePIlTb55hPSvoyU3RWteysdyl8RaBTMs0+DgMxSRXYQzfF0l7oKoYXuuttOgAA71z9pJK/BHfDKm/sWW09RBbo4Uk93S2
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3FBM0lCdzFiakdMTXVYLzNFajVWNFFScTNUbHZQQ3YwYmhtd3RBb1dDOTNz?=
+ =?utf-8?B?U0NLcUI1bldsV2dBZjdmaW1HYVYwVWdjd0lSNDFxSDJZeTNNN3lTOVd5Y0xQ?=
+ =?utf-8?B?WnpyaGUxa2FORTB1ZDVkRWFBdVRyU0xNNFdQQStEMU9rdWVLZHZ3SmNsV3l1?=
+ =?utf-8?B?L05Wcis0dVNtRjJlMnRFWUcwVjVhT3BYbDF4TjdFNjVnYTVyNzhyTGxOa3lW?=
+ =?utf-8?B?K0M2QWZtaU1jcDhudmo3c1kzaUl5TjFxanVhSmFjUi96NmlXVXJKUXYyd1lu?=
+ =?utf-8?B?clNzRkc5Q1ZoY08xUjdWeGVWMXVWenZ0bXM4M1NoUDF3YzdqNTkzM1N5SG9W?=
+ =?utf-8?B?SnlCRVU2ZjZUYXo0L3IyemlGdUhBZkoyRVFsbWlBY0UzWXFsVFJkWm5ycks0?=
+ =?utf-8?B?OTBxTVVLd2VtSlJSS3psVFlMeEw3Z1BjdnN5SlRNdjQzNHRpOGY5cFpXdTNM?=
+ =?utf-8?B?Z2xIcVVVRDFVc20zT1dObWQvUEdNMmxscTBlL2RheEJjZmNRZzJHOCtlV2ZX?=
+ =?utf-8?B?ZGJETmRxdHlySDcwdHE5K29YUGJCdGp0V0lIaDRRclFyTkpkUWhYSExGcDNs?=
+ =?utf-8?B?bks1UnpnOUgxVXdPYTNFdFZHdjJFejFkQkswYmxPLy9BWDJSa01qMTA5cjly?=
+ =?utf-8?B?MC9KR3l0dktqWUEvRzkrc0FvT2MyUlJhMHlHR1REbGV4WkUyNkNpWk51MUZI?=
+ =?utf-8?B?aldoVVJjRk1aWlQ3Z0dlckh3eEFxOWtGY0tnSTA1eWJneUE5MjlRRUtZL0No?=
+ =?utf-8?B?K0xtdVJlZDhhalJ3RmN0UFViZVp0OHh4OW9PRE9laG5Cam1UbjlrWFlMYnFv?=
+ =?utf-8?B?c215QmtESkVTOE9GMjZZaEZRV3l0NWk5Tk5XUVlua290UDJxbzF2MVV2bkZp?=
+ =?utf-8?B?a1VGRHl6SDk4eUJaU2J1K2VuVlhDVGl4bTBDZ0FmNEZUM1dKZ2tnQkpnOStJ?=
+ =?utf-8?B?akhROWN4M2k3TmVlcE4rcFhEazhmekVQSmFpbXVIQkJSR3VaMmIxV1VKMnh0?=
+ =?utf-8?B?SVJHM25wTjI0L2RTQkFYTllaV3FTeFh4VGFFcHFweDN6THY4K0dReWFYYVZ0?=
+ =?utf-8?B?VlJwT3k5YzYwTWVHV3AxVnpydkJDNElRQm12cnU2eGoxQndOQzBKT044T3A4?=
+ =?utf-8?B?RENXZUVobG1nUEJ6QmppK3A2cW9vSmFnSWhsUHNMNVpzNy9rL3VQMUlTbEhF?=
+ =?utf-8?B?UUhEd3MySkFsbTNyT3hpZDBxS3hCYnhpa2dLT3FXb01sak1ld0lWTmttWm5s?=
+ =?utf-8?B?UCtvNkp2cXNyMzhqdklXL0ZqbVZhZnRTMXdpaVQzMDcwc1hkMnpycUMwNFVO?=
+ =?utf-8?B?c0Evak80Wjg2STlJbm9iNjJIYnZyeHlncldIWjNvRjNuR3VNSnZqSnN1QzM5?=
+ =?utf-8?B?YVhJZzJSTTBlUXpveVdIQXBxRW5FYXVWNENvc1FuSzVQVGxvcmpkNXVCcXdK?=
+ =?utf-8?B?TjhQOUtpeitxbkVDaW9HcmFwVHZUbzUvMXdYcTNNRHV0aUFKQXpQbXlEeUdU?=
+ =?utf-8?B?THExaGhzV0ZPUWdqNHEyeGZrUk1UU0UzVEIzTEE0c2t5UUZteUlCSW54NzJn?=
+ =?utf-8?B?b0Fqanc2YjNQdU0vdlNRVm13YjVGVVJnK0UvOHI1MFBZdjFFY1lYU1FLWnhD?=
+ =?utf-8?B?dTZ5ZmJCb0xTeGw0S3VQVXhUWkFIVFlRem5xbXg2N0pPdUlmZ1VsR0ZlUWdL?=
+ =?utf-8?B?NFFhb1A4V3RVT2xXZmFubE1CMnR1cU9GY1RPRFF4WWtseC9ya2lhMlZuVFFw?=
+ =?utf-8?B?ckJoemt5cHVIMisrUXgxK0hLZVRRbjNIeUJUclMxNzdnQytsTnczb1VHUWJP?=
+ =?utf-8?B?aVZHNDkxTm9rTlR6NGEvcHpoNlNHQnJFQjNIMC8rb29DVWZVQzBET0JmdTR2?=
+ =?utf-8?B?TFVEMTBEZWtLQ1BjeTZMYWxSY00zaHVnRUQ5cmhwanZOZVh2NEt2Y1RkUVlW?=
+ =?utf-8?B?d0M4d2lrU0pORUdwR0FDbHRLRk9ZUk1QeTNvRTdWanovYjNYT1NoQ1Y5am5j?=
+ =?utf-8?B?bVEzUXB0WTViUXJ5c2hNdndiaGZIZkREck5zbGRZbGxGQldxVzNFaUl5R3c2?=
+ =?utf-8?B?TmhYdUJPTU5sK01qYURWWStaaXM0ZVJLNVFHTlVlS2ZhdFF5clhTOElNaHZX?=
+ =?utf-8?B?TVZjbEZ1MGUxcUtvL3VOZWUrbTE0dVpjN0I4SStJVllZNktSelA5UUVJc0ps?=
+ =?utf-8?B?Y0dvcml4bS8zdTd6TURxQTY3QXpLaEpJcXNzSVArbmpMb1F0cFBESDU0QXR2?=
+ =?utf-8?B?bUpKVXYzcWJXRk80UDd5Q3l6enpMZzI1NWpiSDhVSlg5SVFMcHRtdTR6ZEVW?=
+ =?utf-8?B?TzJZZXNSN2lSb2NjVTgwQS8yMHp2cTZJdHZRcUxrZitlcXlVT1lsUT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5432eaf7-1d55-43e7-82f1-08decb83922a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 08:45:08.8012
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l9B8IAhi2UTaQ3MkATnwfFNFxkd5v7HurZoxXGj9o+KYIRswTeebp06ESNBiMNKAxkrAsWHMjl9JAU3GPMuBMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR18MB4305
 
-On 15-06-26, 14:59, Golla, Nagendra wrote:
-> 
-> 
-> On 5/25/2026 5:03 PM, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> > 
-> > Pre-existing issues:
-> > - [High] The probe error path leaks a runtime PM usage counter reference, permanently breaking runtime PM and leaving hardware clocks enabled.
-> > - [High] Dropping the spinlock inside `list_for_each_entry_safe` allows concurrent modification of the list, leading to memory corruption.
-> > - [High] Hardware registers are accessed in the IRQ handler without verifying if the device is active, risking a kernel panic on spurious interrupts.
-> > --
-> > 
-> > commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
-> > Author: Golla Nagendra <nagendra.golla@amd.com>
-> > Subject: dmaengine: zynqmp_dma: Add per-channel reset support
-> > 
-> > This commit introduces per-channel reset support for Versal Gen 2 and
-> > Versal Net SoCs. It adds reset handling in the channel probe path using
-> > device_reset_optional() to trigger a reset pulse during initialization.
-> > Platforms without per-channel reset are unaffected.
-> > 
-> > > diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-> > > index f6a812e49ddca..51c831760372c 100644
-> > > --- a/drivers/dma/xilinx/zynqmp_dma.c
-> > > +++ b/drivers/dma/xilinx/zynqmp_dma.c
-> > [ ... ]
-> > > @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
-> > >   	if (IS_ERR(chan->regs))
-> > >   		return PTR_ERR(chan->regs);
-> > > +	err = device_reset_optional(&pdev->dev);
-> > > +	if (err)
-> > > +		return dev_err_probe(&pdev->dev, err,
-> > > +				     "failed to reset channel\n");
-> > > +
-> > 
-> > [Severity: High]
-> > This isn't a bug introduced by this patch, but does this error path leak a
-> > runtime PM usage counter reference?
-> > 
-> > In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
-> > the runtime PM usage counter and enable the device clocks. If a subsequent
-> > initialization step fails, such as the newly added device_reset_optional()
-> > returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
-> > 
-> > zynqmp_dma_probe()
-> >      ...
-> > 	ret = pm_runtime_resume_and_get(zdev->dev);
-> >      ...
-> > 	ret = zynqmp_dma_chan_probe(zdev, pdev);
-> > 	if (ret) {
-> > 		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
-> > 		goto err_disable_pm;
-> > 	}
-> >      ...
-> > err_disable_pm:
-> > 	if (!pm_runtime_enabled(zdev->dev))
-> > 		zynqmp_dma_runtime_suspend(zdev->dev);
-> > 	pm_runtime_disable(zdev->dev);
-> > 	return ret;
-> > 
-> > Since the device is still runtime PM enabled, it skips
-> > zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
-> > pm_runtime_put_noidle().
-> > 
-> > Because -EPROBE_DEFER is a normal occurrence during boot, this path can
-> > be hit multiple times. Will this permanently leave the usage counter above
-> > zero, preventing the device from ever entering runtime suspend and leaving
-> > its clocks enabled indefinitely?
-> > 
-> > >   	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
-> > >   	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
-> > 
-> > [Severity: High]
-> > This is a pre-existing issue, but does dropping the spinlock inside
-> > list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurrent
-> > modification of the list, leading to memory corruption?
-> > 
-> > When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
-> > the DMA callback:
-> > 
-> > zynqmp_dma_chan_desc_cleanup()
-> >      ...
-> > 	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
-> >          ...
-> > 		if (dmaengine_desc_callback_valid(&cb)) {
-> > 			spin_unlock_irqrestore(&chan->lock, irqflags);
-> > 			dmaengine_desc_callback_invoke(&cb, NULL);
-> > 			spin_lock_irqsave(&chan->lock, irqflags);
-> > 		}
-> > 
-> > A client driver can concurrently invoke dmaengine_terminate_sync(), which
-> > calls zynqmp_dma_device_terminate_all() and executes
-> > zynqmp_dma_free_descriptors(). This moves all remaining elements, including
-> > the prefetched next pointer, from done_list to free_list.
-> > 
-> > When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
-> > iterating using the corrupted next pointer that now resides in free_list,
-> > eventually interpreting the list head &chan->free_list as a struct
-> > zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
-> > 
-> > [Severity: High]
-> > This is a pre-existing issue, but are hardware registers accessed in the
-> > IRQ handler without verifying if the device is active, risking a kernel
-> > panic on spurious interrupts?
-> 
-> Hi,
-> 
-> Thanks for pointing this out.After reviewing the runtime PM guidelines and
-> the driver behavior, I believe this is not a strict requirement for all IRQ
-> handlers. The PM documentation does not mandate that
-> pm_runtime_get_if_active() must be used before every register access in an
-> ISR. It is mainly intended for cases where an interrupt can occur while the
-> device might be runtime-suspended, such as shared IRQ or spurious interrupt
-> scenarios.
-> 
-> In the case of the zynqmp DMA driver, the interrupt is generated only when
-> the hardware is active during a transfer, and the driver ensures the device
-> remains runtime-active while DMA operations are in progress. Because of
-> this, the ISR is not expected to run when the device is suspended, and
-> accessing registers directly should be safe.
-> 
-> So, in this context, adding pm_runtime_get_if_active() in the IRQ handler
-> may not be necessary. That said, please let me know  if you see a scenario
-> where the interrupt could be triggered while the device is
-> runtime-suspended, and I can revisit accordingly.
 
-We can have a spurious interrupt. if you have an isr registered, your
-cide should be able to handle the invocation... I think it is indeed
-pragmatic to handle this
+On 6/11/2026 12:09 PM, Jonathan Cameron wrote:
+>> +
+>> +#define AX_SARADC_MANUAL_CTRL_EN(ch)           \
+>> +     (AX_SARADC_MANUAL_CTRL_ENABLE |          \
+> Why tabs to place the \ above and spaces here?  I don't mind
+> that much which you use, but aim for consistency.
 
--- 
-~Vinod
+Thanks, Jonathan.
+
+The indentation issue was not intentional. It was probably my mistake while copying and adjusting that code, and it looks like my editor replaced some tabs with spaces during the copy.
+
+I will address all of these comments in v3 and clean up the formatting consistently across the driver.
+
+[...]
+
+>> +
+>> +     regval = FIELD_PREP(AX_SARADC_GLOBAL_CTRL_CH_EN_MASK,
+>> +                      GENMASK(soc_data->num_channels - 1, 0)) |
+> For readability that G should be under the a of the line above so it's
+> obvious this line starts with a parameter of FIELD_PREP.
+>
+> The particular form of indentation you have here with an effective 8 spaces
+> after the start of the function call seems to be something I'm commenting
+> on a lot at the moment. Is some tool defaulting to that?
+
+Yes, that was the same indentation issue. I will fix the |FIELD_PREP()|alignment in v3 and check the rest of the driver for the same pattern.
+
+Regards,
+Petar
+
