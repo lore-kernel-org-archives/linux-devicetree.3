@@ -1,142 +1,196 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEC93D7D70
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 18:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781633633; cv=pass; b=T4wL+oq/Ds2pjJUX2RqSqskIdJTD9lvQC0wkVK67AP6qr90zJcuODg2bwxNaxalsQgj9LWhd1fkUo0XRWfitM8qf6sLq+650+dJZRz7CUxgYVAkYUBUoCK8PPQUTDILQ9nvN/UNP1Y5XP8GD4t9thkkBTvqCf4e4aB7pn2No3yc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781633633; c=relaxed/simple;
-	bh=XVDXOs5PD1K5upzQNmkXI9UANSCojiYwT2l1mSGO/eE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P5m+3upnZp67CKIy+yDCeuXw2WO8DkbzsFF3zZmPG4rOqkZPA232WCjqJueOilzchlOhKbCaWq2djmghhNOOIjplbJUwg4IdwxE3UTpUV8/Iq0OVM30gel4Xxw2xmy2fCvSqpCnJJEiXwkiCjWM7gOJZFJ7CwFGUMYSOUnyeb/4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rAnxvk94; arc=pass smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB59B3D45CB
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 18:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781633813; cv=none; b=A1weGm+QLOT3vlGk045kF2jd/qBDNWCoI54e2TZUV7hUkTQCxLg6WrBZWczfoizbTPZEaEOXecPGAvMU863g+Yb14+1xnTVgTUUsVJo5PmKgSTG1RtAj71FkVAhgl6vUFAkdGIPsJ8XEeWS5t2vpHNQ5fPBodPKuGHqIQMHh3qM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781633813; c=relaxed/simple;
+	bh=HMXSDipecyxoyMLf9IBRX9tSy9InflZQp8u8Vm4182Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GBG3xZtMlUL1TI2d/Q4uL3UfgQVezCN0HEOqed4UjMz7XNw/CDRwSL6a5dMSE1YY3jzGGe9eSyTRM4oamVwCnGtcYlmIuuMe4sXQAh5F9nQRpj8g8D0a94DAc3w/FhftViOxz+Njo7GV0tWQ5YEg+5fzMeKV5h/Uq6Qh+iA9GQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CTssDelQ; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rAnxvk94"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6607e80a846so5065662d50.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:13:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781633631; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ASwAAw6exAhhs6cqqN4B+Sl1dTonirWFNsmaamVP6cw29p9uSCE0GLTJIvSCWNuPzS
-         Ei3JUMSLngk95D0lEsl+cijEGA0tH9XTD+rFsQV7L+8A3Y2in9HKwkqMHgpUu4UTyAzA
-         mecGII+SnB0L4TsMV8Y8sPDNRRgf+J4bfwFzodMf1QSteWHB0zD+GAtqGouBz22C23wX
-         ay9SiHjP5+X4cbPSPbhTABFrbY2xzTZupchcXsCj6qBXUWJKGHybJKaSiWrvTmuDMrtG
-         UX4vkI5/iPAHKkD9vEEnWjzcc7raL3RD6MEpcPZW9KnpD6tAeV1GPlh0fPu0vUNNbOKt
-         bgSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tAuGRKuOlDbkCJf/rcFDQnFKbzVCieXn0KWbIFna+U4=;
-        fh=YZCu+W+/c5xpoO2oUo+Ma27S0uH7eXsNAYDWFY4dvr0=;
-        b=JO6Q7qW8RLMaA+U5iLzn7PUuYcswOXm4SN0Q/iVnWuihfD/wmXAPO1rKufO8XGWQAu
-         wLGLET9tRN9gBRfty13mWRAajlEYiR1AvBQ8NgrK2MaUIx7P0oxn5Y3krjHQMBvqdgJ5
-         KN40xItPwmX8s4vnevxqNfm+bhOk6p8Az2m4Mrifg/eAEzgVaMUMb+puFit9m0Ap9G6W
-         lqcwtLE9I1XjQWlCgch8CKUmvV/twzEA5v9WJBfgoCTUWFI/+/KJrX9cwLTS1gO04qWR
-         pIp4AEdQyD1KQq52DRHKTbJPxKoIhLzrJQuzifqqQp6hLoayN1B0HO5o4nh1dLQ7BUeD
-         2Ikg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CTssDelQ"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e6f586a0d5so2490670a34.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:16:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781633631; x=1782238431; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tAuGRKuOlDbkCJf/rcFDQnFKbzVCieXn0KWbIFna+U4=;
-        b=rAnxvk947cvJ8ukLbiBKxhRl+YNdBW7Y02O9Zulprv2+8noCPttVhKT2baOBLMvEK5
-         lvsHgOwNJ9PJhCoIYlRDESOCtoA/qBh4TomXhxtNyzQFaQonFC2UHlD3CLdOC9N54VAf
-         qfk+PKjzZ0747AaH5uE/2cXPWPOh9RYfipXOtvJWsnusbs6Bw1tW1lsuCLCziJqgcc5Q
-         WuiqaO8toIjAtVd8C4lTYrq8sgyXM3EXR0RuEcHUQxSbNmjpbbZSP4/Wg39oAUF0nnVO
-         NX7CIqNty/AEFmOl8Q8iDi+SyIGQgwmGn3QdtlJtGcqAvDWaR4X5WdLEYvJJaMrmj7Nu
-         R3yA==
+        d=baylibre.com; s=google; t=1781633808; x=1782238608; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fNH/J02lBrL7hdVnRQ4UVLWbhNp0HeLEy22DRQvVDN8=;
+        b=CTssDelQeTtO+25elTtTQHjoAcDKPG/bHuFKV+vi5qf+kPyTFEV0spTbx8gT67ZnX5
+         07EhZMJ6JKI/l9nKEcyQf6vxuThE2cL6vbYsIvgMr025V4jKcb2ncLtZKHJ72SOSZMo9
+         YNdhbYo1XY9veO3Zjvy8gaXSxHEU9QM3PtYyTx/avdRarrYLaASHNB/rGrCoXbf3x91T
+         uwdEoKgGj+kUNrNsSc3pCcfky/CNOqrN94Ol3wDQraquIODmRUCzA4qmvrX+Uk9uYHSN
+         E41ENjFwZUFqReIZYciKZPhElmicrfBbJ39hEYdnPWyFy9RZOBVtsvU5agtJOg3jz5cd
+         3R0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781633631; x=1782238431;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tAuGRKuOlDbkCJf/rcFDQnFKbzVCieXn0KWbIFna+U4=;
-        b=chEaHnQNAzpcGXRLPsTERRyIWE15DRLSncW/7I4mvqE7i2uEpFhmKwpNGuMxal6Myt
-         E51Vp9A+JBX4+yf5cOOOZPZj6Pqkqv37U8TzTNWs3wZ/ovZuMUHbpwpm82S9lc7/Ydjs
-         tQ/MK7ogOOrbDzEj9zbS9pPVSBG3yIIAReXu4EGgUkvb8ue0IKQ+58GYl7hz45YQwqN/
-         HHoRWep0zjowiVDHR6/JpgxpGq/r38KnfPYGP/PHszZFa5fHwzNvLpgfK8XAXKsnsIxb
-         1TlJIriaJytb2w0/L8fPH+BFFUh6JjHM8oXxjchEucErm2MQaqNFSuW/5H8POAN5BAQ3
-         MZYw==
-X-Forwarded-Encrypted: i=1; AFNElJ+FdxIP6iLbFiXq1y6grfad/Ez7Ce8JLK5XJlzBW+7yd2C9P8Esh+4Hl/bqtVLt8I4lKEfgX9FI4gpt@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDcmS2ceW0ggx8b55yDQqYefnR/U46bsGyzcmtPQt+Fnp3iImM
-	FzsVkGTHODjHCZJricsxF3zvYJx2St0d3Foel5eS6McTtBdPR56GbLEEC9B3fhIYR0eEwTUKOVe
-	lLvCS9ES/RuH47xff3q1inE7BXMn6LMB1Ug==
-X-Gm-Gg: AfdE7ck9gHWuhddPhl9vaXfHJgblzF7H/c47VHHu5MQKY/J7c0WbGb6JKFfpy8k6Ph8
-	9hI3/iCk58W8RoOWv/+w1aFAzrvNsFdziX2d1yGw+qxg2KPBPHsO/ikxx83wlEVkjOA7fzbqZP9
-	bJC1kX8Mr9c4EPoARq58TWEbcUhlLs5RG88oxGVkBmmlaULkeUh/ID6hdrAYcCcRrI2m8IaC6n8
-	ZlQnlioqyM//8A/oRU2SmiLS6VtJFn1RqahjW40qDZEBhDJbuht8UK4bUT1bKTy6H6Y/43iIMzU
-	KtWs
-X-Received: by 2002:a05:690e:1446:b0:662:b875:b149 with SMTP id
- 956f58d0204a3-662cb9a5521mr488948d50.28.1781633631026; Tue, 16 Jun 2026
- 11:13:51 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781633808; x=1782238608;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=fNH/J02lBrL7hdVnRQ4UVLWbhNp0HeLEy22DRQvVDN8=;
+        b=S4GITWRflwm6lqqwU3TgKl3Lo0kuhUXyYkCvZFApI7dZT8t5AC/xIRadUEJDVpboaW
+         7qIfestz3Jy7xC7XJogViUrjg9JYd0YZTqO+WkhK11iN8+VSqKHe4nTMVVRfA2SSLZIb
+         GwhucuURPAQ0UaElYCZlIkB5ege1PYrqbdTbz+nHB69fMccZOdCGP0o5uuIjHR5U6L9f
+         7z6OkU4q7iCOH0icexJy/PLy1XuLY1Y+f2kxCvj5TqmVtUx83hpckrk50BHt4qMOvZTE
+         fxq0bGuUVBkKKPWI5l+6wS33ID+CmuAOY5nw+mMKUBgYISarEemr9thrnMBGV+UuB7oP
+         eMgg==
+X-Forwarded-Encrypted: i=1; AFNElJ9/Uy5xT19bf4emEkyvQczRs8Ehl0aJgJ3faG+JVFRTV1TWLKUyKeKZOxLddmcnxK0km7Skoo0l69Dq@vger.kernel.org
+X-Gm-Message-State: AOJu0YymMKaf7OhGJeL2KFCLQ5sQQxj12rpu0z5EudhomuNwi42UA2gP
+	Twn8xsUUQy16/hbFw2r3jKYwu3I5q8+liL+l7QQrpCVfBcIeIkALoKDS0GtCczjCAo6A/rtkzHq
+	8u21ZLC0=
+X-Gm-Gg: Acq92OEu91OxdW+Mkjke8fpjEa5RvAU3pTUSs0/TC6zBHh5u4Vg8qRvZJBYboLXGe8H
+	18CTtDTX8wo0nrcp819U7cGuPGSEkiV4CNXGjRmBaHYhU9jn8pLsj9CUWStf/5dnBIlpxkVSuO8
+	mkPbnXopHg0PNA2kilve+tzBZPI1ZXhPkXV6n6rMbQTMgvVMZ0cia7cy8LnhDNtGLNI09aApJRA
+	0QZJuSkrkYDTmv9ZNGPJAwpJ8inn9sjoQwIC2w8MSIzWcLmq2LiYPxBryH1Na71+Ml/nlA+zLUr
+	Duev8gnQGsaPt62PCtqbK69Mjn/pP8Y1+rcHGqURNc92WZZRpmDBb666iTNftjWTQxOZHbxPzkk
+	/qn7vxE2ivvHB3SjZOTJ2gY6TJt44Nh4oFwhtOhosF6cPUhJCIrmpinVMj/brAMD3aM+vx2xkWz
+	OYAra71d3EBjPwc0e6p6urgPWfmb73uhvyFRTEdP0NPwDzr5fuXf3c+POogudx3vofAWCbHwen3
+	g==
+X-Received: by 2002:a05:6830:438c:b0:7d7:4fc7:21a with SMTP id 46e09a7af769-7e90b3bdab8mr714067a34.13.1781633808548;
+        Tue, 16 Jun 2026 11:16:48 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f6df8e1sm7215347a34.20.2026.06.16.11.16.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 11:16:47 -0700 (PDT)
+Message-ID: <9b8d5cfc-e392-45aa-9adc-867c364dd36e@baylibre.com>
+Date: Tue, 16 Jun 2026 13:16:46 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260614161503.2219681-1-ekffu200098@gmail.com>
- <20260614161503.2219681-2-ekffu200098@gmail.com> <20260616131945.GA2236977-robh@kernel.org>
-In-Reply-To: <20260616131945.GA2236977-robh@kernel.org>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Wed, 17 Jun 2026 03:13:38 +0900
-X-Gm-Features: AVVi8CfDQJdb4Q9jLQYUPY3KXB7WpMZ-iKjsv1-5FCLStEz_WwunrIBu4QHvpOQ
-Message-ID: <CABFDxMGYTP4uLaH-ew+zf4++CtPY54+pDsRVO6TbC9W5nVVtBA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] of/fdt: fix misleading elfcorehdr reservation success message
-To: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	devicetree@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] iio: adc: new ti-ads112c14 driver
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <DJA1J8D91ESA.2XU7OCVKN7LXU@gmail.com>
+ <d3270250-ae18-4c0f-a0fe-e0fdabfce046@baylibre.com>
+ <DJANEYYA4QTA.1JBN2L78PNXDD@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DJANEYYA4QTA.1JBN2L78PNXDD@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 16, 2026 at 10:19=E2=80=AFPM Rob Herring <robh@kernel.org> wrot=
-e:
->
-> On Mon, Jun 15, 2026 at 01:15:01AM +0900, Sang-Heon Jeon wrote:
-> > fdt_reserve_elfcorehdr() does not check the return value of
-> > memblock_reserve(), so a success message is falsely printed when the
-> > reservation fails.
-> >
-> > Check the return value and warn on failure instead.
-> >
-> > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> > ---
-> >  drivers/of/fdt.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> > index 26f66046cc32..d985c07d7c5c 100644
-> > --- a/drivers/of/fdt.c
-> > +++ b/drivers/of/fdt.c
-> > @@ -479,7 +479,10 @@ static void __init fdt_reserve_elfcorehdr(void)
-> >               return;
-> >       }
-> >
-> > -     memblock_reserve(elfcorehdr_addr, elfcorehdr_size);
-> > +     if (memblock_reserve(elfcorehdr_addr, elfcorehdr_size)) {
-> > +             pr_warn("Failed to reserve memory for elfcorehdr\n");
->
-> I would think memblock_reserve() should always succeed and if not it
-> should print a message rather than having every caller print a message.
+On 6/16/26 12:26 PM, Kurt Borja wrote:
+> On Tue Jun 16, 2026 at 10:21 AM -05, David Lechner wrote:
+>> On 6/15/26 7:18 PM, Kurt Borja wrote:
+>>> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:
 
-Thanks for reviewing, Rob.
+...
 
-You're right. After taking a closer look, memblock_reserve() either
-succeeds or panics before memblock_allow_resize() called.
-So the check that I added in this patchset is totally unreachable.
+>>>> All of these chips have in common that they are designed for use with
+>>>> RTDs and thermocouples and so they look very similar to each other in
+>>>> terms of wiring and feature set, even if the register maps are
+>>>> different. They are in the gray area where we could either keep them
+>>>> separate because they are just different enough, or we could do like
+>>>> we've done before with ad_sigma_delta and have a bit of an abstraction
+>>>> layer for the register differences and otherwise try to share as much
+>>>> code as possible. Normally, I would lean towards keeping them separate,
+>>>> but in this case, I'm considering trying to share code because the
+>>>> devicetree bindings for the inputs is complex and is going to be mostly
+>>>> the same across all of these chips.
+>>>
+>>> The channel configuration is indeed very similar for the three chips.
+>>> All three have IDAC, BOC and VREF configurations.
+>>
+>> Hmm... I forgot to include the burnout current in the DT bindings. Following
+>> the channel = "conditions for measurement" pattern that I have set out here
+>> I guess that would mean that we would need to have the same inputs twice
+>> when using the burnout. One "channel" would be the one used to do a "precision"
+>> measurement and the other would be the one to do open/short circuit detection.
+>>
+>>
+>>     i2c {
+>>         #address-cells = <1>;
+>>         #size-cells = <0>;
+>>
+>>         adc@40 {
+>>             compatible = "ti,ads112c14";
+>>             reg = <0x40>;
+>>
+>>             avdd-supply = <&avdd>;
+>>             dvdd-supply = <&dvdd>;
+>>
+>>             refp-supply = <&avdd>;
+>>
+>>             #address-cells = <1>;
+>>             #size-cells = <0>;
+>>
+>>             channel@0 {
+>>                 reg = <0>;
+>>                 diff-channels = <1>, <2>;
+>>                 excitation-channels = <0>, <3>;
+>>                 excitation-current-microamp = <500>;
+>>                 current-chopping;
+>>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+>>                 label = "rtd-precision";
+>>             };
+>>
+>>             channel@1 {
+>>                 reg = <0>;
+>>                 diff-channels = <1>, <2>;
+>>                 excitation-channels = <0>, <3>;
+>>                 excitation-current-microamp = <500>;
+>>                 burnout-current-nanoamp = <1000>;
+>>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+>>                 label = "rtd-diagnostic";
+>>             };
+> 
+> This would mean we wouldn't be able to use iio_chan_spec .channel and
+> .channel2 to describe inputs because of duplicate sysfs attributes, no?
+> 
 
-Please drop this patchset. I'll be more careful when sending patches next t=
-ime.
+Yes, that is a bit unfortunate. At least there the labels to tell them
+apart. I guess we would just need to use consecutive channel and channel2
+when dynamically allocating the channels to avoid conflict. 
 
-> Rob
+>>>> This makes things more flexible, but does make the driver a bit more
+>>>> complex. For example, knowing when the current output needs to be
+>>>> enabled or disabled. For now, I have chosen a lazy-enable where they
+>>>> are not turned on until the first measurement is taken that requires
+>>>> them, but then they stay on until another measurement is taken that
+>>>> doesn't require them. This can lead to some oddness with the diagnostic
+>>>> channels that may be measuring something that indirectly requires the
+>>>> current output (i.e. the external reference voltage when it is connected
+>>>> to a resistor rather than a power supply). This means you need to take
+>>>> a measurement that requires the current output to be enabled before the
+>>>> diagnostic channels will give accurate readings.
+>>>
+>>> This is the same approach I took around the BOC, it feels kinda hacky
+>>> but it makes sense. Just an idea I thought about just now: What if we
+>>> have an additional write-only "_enable" sysfs attribute for these
+>>> channels?
+>>
+>> I would not want to make a write-only attribute, we always want to be
+>> able to read back what the current state is.
+> 
+> Yeah, I don't know why I said WO. Reading would be fine too.
+> 
+>>
+>> Do you mean an _enable for just the BOC? I think I would do it like I
+>> suggested above instead.
+> 
+> No, no just the BOC. The BOC, IDAC and rest of side effects. Thinking
+> about it some more, it would be a bit redundant but clearer if proper
+> documentation is provided.
+> 
+I would be interested to see what Jonathan has to say about this too.
+Generally, his advice has been to avoid attributes that power things
+on and off if we can help it.
 
-Best Regards,
-Sang-Heon Jeon
