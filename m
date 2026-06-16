@@ -1,109 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296AD3AE1B4;
-	Tue, 16 Jun 2026 08:41:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4200430AD0A;
+	Tue, 16 Jun 2026 08:44:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599290; cv=none; b=sN2l0k3xwSNGARtBzWN3bN+1nI36Y0SOa3iNZSeD0B0e0TYmip7AYcvbtGFFRfZnDaLPgTHlQJTd3W0Vi0uVUZX9b//1sqcqvTLEV2dw1JEFr4p0k+75HrVIuffo6g2bEDPdwLDbeOweAElCoJPMkq2Wn3lEbFPfVO7Fr3pHltg=
+	t=1781599489; cv=none; b=tKORO+Pdbr1k/7R38irpP7PHsePRv8hRIBCQhde//4zSWkxHZijaDRyCpfxkf5IRL6WvEZuhILumYkHuh5QePEHBuXhkBND1CY+2e8uu3hWG/mGeO0tAqvqPw2SsEK4sKVqjbkqGx/W+UKwzlGSyhF4+bJ8dRpvkeUe9PyZfVyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599290; c=relaxed/simple;
-	bh=yTK6d63Zv9gqgtSTmS92dFaom/UB12XyVa3ztSAOGN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tb38lCvJBLQcGij3sIHj4dy04VgWSXWcT10ZKnStPuPy3DY+o2qrvvJf1dzjqXyzWvZdZowiaXf+Bi6/Qt29ZF+fxN0S9jd8/sQhdg5bW2F/7fEtFflyJsQpyPIggE2x/wNZOke6wJ04MV5MbIxgCv281Hmib0TbAx7D+65e0ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4Ayncga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781599489; c=relaxed/simple;
+	bh=vU5CkjwusbK4oTshtz0qTyrjjkJfMFH1mI6MHUX9Lf0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NqSZS8JDwF/vb4FY91WXHj2HsZwOadk5Fh86QaeUA784M9NbW6UeLfSEHIcOkbJ1950FYRtc2YftMJ5/EjrdguQrGKclAWthgP4jNg62krJmk+wxzub27y9XD3b6idEgz00fNvngcjHq0ZLHzcofmK/CSgVPyvqvyliHG9SfYgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OoTB7quQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4Ayncga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4421F000E9;
-	Tue, 16 Jun 2026 08:41:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OoTB7quQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D07FB1F000E9;
+	Tue, 16 Jun 2026 08:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781599288;
-	bh=jFGGAWZNbanXKebPSEqI4bGVPUdVO99NWynRkuxx1jY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A4AyncgasHLsj7ELApKZDfjItsiuw6Ou7kk5NJir4gXh01aK9lXnromqsC3bWXQGY
-	 tG1fe756S2NsWBYp8qsfc+wbLJzJzwqwKW0xgsy1vx1uNb68U8nLcHIHfGHs38Z6NL
-	 WBg6qR/INlpy1pNEAccMLfLNTQR+vBzNO9zSNMSMZciBjCRdJFc435DQX8qLBqPcja
-	 SYyVKtkS9AOAa5yRRAMLniFzwSdsWAvBL5wf/jrr4TuHcVxJDT2Zzuz7OTqzqdd5AQ
-	 PIVcgKI7n7wEvmaWQLgVjM3uK4pHdkK8UEjm7pUrxT5pbTGneYaZ6vpyoPdc0IeIOe
-	 nLAG7C0LaY2WQ==
-Message-ID: <c41975e9-e238-441f-a71d-3c7bf3d67e21@kernel.org>
-Date: Tue, 16 Jun 2026 10:41:23 +0200
+	s=k20260515; t=1781599487;
+	bh=/oYQ5/Jb6iFjya9RVTgs4HXzWqEW3bAB8XqQIRdPPM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OoTB7quQChG4Wuzmat03cFa0GB8SBI0UrHX3msdndFVJFvkvkrEubr4xQ0mjvFKG2
+	 gDLWKmz4VrxKjIbRXVoX1KTjikdfDOua1XZEl4C71AMT4Vlf5DR4txJmU9r9SKqNw4
+	 7R6xIjrhPMh603GkUw4MK50pgP/U3AWWOxv2i3sEUMGYwZ7fb94m1u+NsXJZXSztfK
+	 XpD9y0Tq1sRcEhgd/hn1K7o1hHKfMJgnRo0gJh7z4TDTZS5ELx0fsU8N4V0/woM5f0
+	 hnNH203ujgzyILmM/hQSueJi0c5i1hAt7IslgoMPqZdYOYj4eCibOCB5nCao0lvrIg
+	 vpTfLF8ZXQQsg==
+Date: Tue, 16 Jun 2026 14:14:33 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: "Golla, Nagendra" <Nagendra.Golla@amd.com>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset support
+Message-ID: <ajEM8QfB5brd3sOQ@vaman>
+References: <20260525105042.2249542-3-nagendra.golla@amd.com>
+ <20260525113349.68D6E1F00A3D@smtp.kernel.org>
+ <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Peter Rosin <peda@lysator.liu.se>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260616060910.1480-2-wsa+renesas@sang-engineering.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260616060910.1480-2-wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <efa45058-6724-45cb-8b8f-75427446f62c@amd.com>
 
-On 16/06/2026 08:07, Wolfram Sang wrote:
-> The YAML conversion added me as maintainer but I can't recall being
-> asked nor do I want to maintain it. Thierry has created the YAML file
-> and works for the company which contributed the driver.
+On 15-06-26, 14:59, Golla, Nagendra wrote:
 > 
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Acked-by: Thierry Reding <thierry.reding@kernel.org>
-> ---
+> 
+> On 5/25/2026 5:03 PM, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> > 
+> > Pre-existing issues:
+> > - [High] The probe error path leaks a runtime PM usage counter reference, permanently breaking runtime PM and leaving hardware clocks enabled.
+> > - [High] Dropping the spinlock inside `list_for_each_entry_safe` allows concurrent modification of the list, leading to memory corruption.
+> > - [High] Hardware registers are accessed in the IRQ handler without verifying if the device is active, risking a kernel panic on spurious interrupts.
+> > --
+> > 
+> > commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
+> > Author: Golla Nagendra <nagendra.golla@amd.com>
+> > Subject: dmaengine: zynqmp_dma: Add per-channel reset support
+> > 
+> > This commit introduces per-channel reset support for Versal Gen 2 and
+> > Versal Net SoCs. It adds reset handling in the channel probe path using
+> > device_reset_optional() to trigger a reset pulse during initialization.
+> > Platforms without per-channel reset are unaffected.
+> > 
+> > > diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+> > > index f6a812e49ddca..51c831760372c 100644
+> > > --- a/drivers/dma/xilinx/zynqmp_dma.c
+> > > +++ b/drivers/dma/xilinx/zynqmp_dma.c
+> > [ ... ]
+> > > @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
+> > >   	if (IS_ERR(chan->regs))
+> > >   		return PTR_ERR(chan->regs);
+> > > +	err = device_reset_optional(&pdev->dev);
+> > > +	if (err)
+> > > +		return dev_err_probe(&pdev->dev, err,
+> > > +				     "failed to reset channel\n");
+> > > +
+> > 
+> > [Severity: High]
+> > This isn't a bug introduced by this patch, but does this error path leak a
+> > runtime PM usage counter reference?
+> > 
+> > In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
+> > the runtime PM usage counter and enable the device clocks. If a subsequent
+> > initialization step fails, such as the newly added device_reset_optional()
+> > returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
+> > 
+> > zynqmp_dma_probe()
+> >      ...
+> > 	ret = pm_runtime_resume_and_get(zdev->dev);
+> >      ...
+> > 	ret = zynqmp_dma_chan_probe(zdev, pdev);
+> > 	if (ret) {
+> > 		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
+> > 		goto err_disable_pm;
+> > 	}
+> >      ...
+> > err_disable_pm:
+> > 	if (!pm_runtime_enabled(zdev->dev))
+> > 		zynqmp_dma_runtime_suspend(zdev->dev);
+> > 	pm_runtime_disable(zdev->dev);
+> > 	return ret;
+> > 
+> > Since the device is still runtime PM enabled, it skips
+> > zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
+> > pm_runtime_put_noidle().
+> > 
+> > Because -EPROBE_DEFER is a normal occurrence during boot, this path can
+> > be hit multiple times. Will this permanently leave the usage counter above
+> > zero, preventing the device from ever entering runtime suspend and leaving
+> > its clocks enabled indefinitely?
+> > 
+> > >   	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
+> > >   	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
+> > 
+> > [Severity: High]
+> > This is a pre-existing issue, but does dropping the spinlock inside
+> > list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurrent
+> > modification of the list, leading to memory corruption?
+> > 
+> > When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
+> > the DMA callback:
+> > 
+> > zynqmp_dma_chan_desc_cleanup()
+> >      ...
+> > 	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
+> >          ...
+> > 		if (dmaengine_desc_callback_valid(&cb)) {
+> > 			spin_unlock_irqrestore(&chan->lock, irqflags);
+> > 			dmaengine_desc_callback_invoke(&cb, NULL);
+> > 			spin_lock_irqsave(&chan->lock, irqflags);
+> > 		}
+> > 
+> > A client driver can concurrently invoke dmaengine_terminate_sync(), which
+> > calls zynqmp_dma_device_terminate_all() and executes
+> > zynqmp_dma_free_descriptors(). This moves all remaining elements, including
+> > the prefetched next pointer, from done_list to free_list.
+> > 
+> > When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
+> > iterating using the corrupted next pointer that now resides in free_list,
+> > eventually interpreting the list head &chan->free_list as a struct
+> > zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
+> > 
+> > [Severity: High]
+> > This is a pre-existing issue, but are hardware registers accessed in the
+> > IRQ handler without verifying if the device is active, risking a kernel
+> > panic on spurious interrupts?
+> 
+> Hi,
+> 
+> Thanks for pointing this out.After reviewing the runtime PM guidelines and
+> the driver behavior, I believe this is not a strict requirement for all IRQ
+> handlers. The PM documentation does not mandate that
+> pm_runtime_get_if_active() must be used before every register access in an
+> ISR. It is mainly intended for cases where an interrupt can occur while the
+> device might be runtime-suspended, such as shared IRQ or spurious interrupt
+> scenarios.
+> 
+> In the case of the zynqmp DMA driver, the interrupt is generated only when
+> the hardware is active during a transfer, and the driver ensures the device
+> remains runtime-active while DMA operations are in progress. Because of
+> this, the ISR is not expected to run when the device is suspended, and
+> accessing registers directly should be safe.
+> 
+> So, in this context, adding pm_runtime_get_if_active() in the IRQ handler
+> may not be necessary. That said, please let me know  if you see a scenario
+> where the interrupt could be triggered while the device is
+> runtime-suspended, and I can revisit accordingly.
 
+We can have a spurious interrupt. if you have an isr registered, your
+cide should be able to handle the invocation... I think it is indeed
+pragmatic to handle this
 
-I think Conor also acked it already.
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+-- 
+~Vinod
