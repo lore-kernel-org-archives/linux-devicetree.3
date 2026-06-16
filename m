@@ -1,57 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FD12E7376;
-	Tue, 16 Jun 2026 13:50:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD38335081;
+	Tue, 16 Jun 2026 13:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781617822; cv=none; b=dE5wf5hV+hHTh1zAvZ1MqvmkKf/oHmoOaSkBeVP7EIymibP/toLi0AWlYrkKKLc+FcOPvY3tykZVGqI+Kycqh9KkzA90l3w52ZguZ+6htvdwoPBAMavNQf3FkV5chgj/Q4JP+3KgQwz5MGf688CZgyq0dbodBO6NeBcReDwfTrI=
+	t=1781617967; cv=none; b=Jiqwa2tRwXZ2M8sRRjl0fyvDlYbSYzs5zKlNOlRCP/pZlpgqfh/pHprLWf5rbY4zZRuW/LjobC+ZPFUUpa2kRiJa9sq2uNVPgqmFL74WVD7BpRLyBtmW0O3XBbzNWR9o3idTHBKRjLoZDdGvjdVS1kOrNL21gsWGBVvnFElRxWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781617822; c=relaxed/simple;
-	bh=KyFXq4rAhOxuQot223j6lYudnMDTj2bMJ3QGczUCfaY=;
+	s=arc-20240116; t=1781617967; c=relaxed/simple;
+	bh=g/s3I8fEbaD9UtcCin0NuVp0QdDR96dzv1oLtNEgtWo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p96CJeztDOvM8IyfQi7FFdKWop8nXwGLazxqeBjwk8FUhp2pg3XsOCdY3igukIIUc7czjWsTzLyHSVn4QlWisTYqBytobzIQofkKOIkq5pVke0LRoTPSyTDe+2dwd/sxiTcGDqKb5UkPo53O/trc0fGvvfabvUrju74FfJ0fLw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bctDtHcg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DwRrmK7YXx4wriqB8nl8yJggoftwk8eEenWsKQ0LsTMaJOS/kxGDcoFQwzeQ+R8IccovW7yz0GSeLIFc2wJ1vKR2oBpinPNF1CJqpuo+SlSV0XYl7GNttijdi1Tu5plGEnTAbFxpGp3D/x1B91eEp/PXJYecRmLrLgWfWghgbT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgTrmwAC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bctDtHcg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72581F00A3A;
-	Tue, 16 Jun 2026 13:50:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgTrmwAC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A321F000E9;
+	Tue, 16 Jun 2026 13:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781617821;
-	bh=8Xk0PdLiYymMCUqB6kWMCwekoJyvD8MM/ojXTg/ijko=;
+	s=k20260515; t=1781617965;
+	bh=WlEPYhlhha14wrj3jA/9tHd88Da5ifSylk4wFd+Q0LY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bctDtHcgCuI3AA4NjgzsGt6xKEfxgIvEO1rFEtIVw0SvA0e8sDjRtlT+QFfGqT4xx
-	 MEy8vspJNIdbfF1LCuWkQ1xpygdYURwY68TtcT8h6LoFzLVSiKiqyiYnHsB2mO927Z
-	 cxXJIYfaehrwxMRwpbUcC+9UuFaUYuCxKd56iJdtsTzLNYoRVeTU+NWVVF9HsPQJLb
-	 fB28TqMMOXyBuextma02GV38UzL0h4FAQoSKsn05nDPunPEWBrguWxTVRj1SzQ8aCR
-	 O4G061n0UmZScpEF2jgoDNm+/yC0Uk/WqgFLsrAI5M/TGIvdmAhLDa6tZ1EVmQZ4jH
-	 uCBlivyCU/Esg==
-Date: Tue, 16 Jun 2026 08:50:17 -0500
-From: Rob Herring <robh@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	b=jgTrmwACsXZNY1tIA7L1IY1S386FxipNGNTcgC8+JuNYQQpZCLLALOJo5e4bBnAjv
+	 f+9TKsCM9KJPmbv2G0QqCRxoLta2p//0U29o22HqR0iU3bM6LxQVAV6IlHHSE75Nhx
+	 lO745Bridad3uUD8nppQm8mbIJu4nhtaMSedlYJx6k3utI/7RskDxLApLFCimfKIxq
+	 ravWOZa6r7LgzKhoR3kDstEb1+ix7izhMJOaut6dy2mwKpItZv3uSiAAoWPr5sYDNp
+	 M2tX1/8hdMCZtaq0fBZFU1otjZ44jYOeHz2gDODtQvMVb1WbWr9o8OIkq4Cv0Klr16
+	 Smr5p1ndxTgBg==
+Date: Tue, 16 Jun 2026 08:52:42 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Yijie Yang <yijie.yang@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, linux-remoteproc@vger.kernel.org,
+	Bjorn Andersson <andersson@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Val Packett <val@packett.cool>,
-	Julien Massot <julien.massot@collabora.com>,
-	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v7 3/9] regulator: dt-bindings: Add MediaTek MT6392 PMIC
-Message-ID: <20260616135017.GA2350711-robh@kernel.org>
-References: <20260615071836.362883-1-l.scorcia@gmail.com>
- <20260615071836.362883-4-l.scorcia@gmail.com>
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH RESEND] dt-bindings: remoteproc: qcom,sm8550-pas: Add
+ Qualcomm Maili ADSP and CDSP
+Message-ID: <178161796214.2360769.2901290121329434344.robh@kernel.org>
+References: <20260615-remoteproc-v1-1-67721b4b052a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,134 +48,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260615071836.362883-4-l.scorcia@gmail.com>
+In-Reply-To: <20260615-remoteproc-v1-1-67721b4b052a@oss.qualcomm.com>
 
-On Mon, Jun 15, 2026 at 09:16:09AM +0200, Luca Leonardo Scorcia wrote:
-> Add bindings for the regulators found in the MediaTek MT6392 PMIC,
-> usually found in board designs using the MediaTek MT8516/MT8167 SoCs.
+
+On Mon, 15 Jun 2026 16:30:21 +0800, Yijie Yang wrote:
+> Document compatible strings for the ADSP and CDSP Peripheral Authentication
+> Services on the Qualcomm Maili SoC. Both are compatible with the Qualcomm
+> SM8550 PAS and can fallback to SM8550 except for one additional interrupt
+> ("shutdown-ack"). For CDSP, similar to Kaanapali, "global_sync_mem" is
+> not managed by the kernel.
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Assisted-by: Claude:claude-opus-4-6
+> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
 > ---
->  .../regulator/mediatek,mt6392-regulator.yaml  | 234 ++++++++++++++++++
->  .../regulator/mediatek,mt6392-regulator.h     |  24 ++
->  2 files changed, 258 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
->  create mode 100644 include/dt-bindings/regulator/mediatek,mt6392-regulator.h
+>  Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
-> new file mode 100644
-> index 000000000000..197041df4ba1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6392-regulator.yaml
-> @@ -0,0 +1,234 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/mediatek,mt6392-regulator.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MediaTek MT6392 regulator
-> +
-> +maintainers:
-> +  - Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> +
-> +description:
-> +  MT6392 is a power management system chip containing three buck converters and
-> +  23 LDOs. All voltage regulators provided by the PMIC are described as
-> +  sub-nodes of this node.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: mediatek,mt6392-regulator
-> +
-> +  vproc-supply:
-> +    description: Supply for buck regulator vproc
-> +  vcore-supply:
-> +    description: Supply for buck regulator vcore
-> +  vsys-supply:
-> +    description: Supply for buck regulator vsys
-> +  avddldo-supply:
-> +    description: |
 
-Don't need '|' if no formatting to preserve. Elsewhere too.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +      Supply for AVDD LDOs (vm, vio18, vcn18, vcamd, vcamio). According to the data sheet
-> +      this is an internal supply derived from vsys.
-> +  ldo1-supply:
-> +    description: Supply for LDOs group 1 (vaud28, vxo22, vaud22, vadc18, vcama, vrtc)
-> +  ldo2-supply:
-> +    description: Supply for LDOs group 2 (vcn35, vio28, vmc, vmch, vefuse, vdig18)
-> +  ldo3-supply:
-> +    description: Supply for LDOs group 3 (vusb, vemc3v3, vcamaf, vgp1, vgp2, vm25)
-> +
-> +patternProperties:
-> +  "^v(core|proc|sys)$":
-> +    description: Buck regulators
-> +    type: object
-> +    $ref: regulator.yaml#
-> +    properties:
-> +      regulator-allowed-modes:
-> +        description: |
-> +          BUCK regulators can set regulator-initial-mode and regulator-allowed-modes to
-> +          values specified in dt-bindings/regulator/mediatek,mt6392-regulator.h
-> +        items:
-> +          enum: [0, 1]
-
-           minItems: 1
-           maxItems: 2
-
-? Because if there are only 2 modes, can't have more entries than that, 
-right? Though wouldn't 2 entries be the same as no property present 
-because I would assume the default is all modes. I shouldn't have to 
-assume though.
-
-
-> +    unevaluatedProperties: false
-
-Place this after $ref. Easier to read than after indented blocks.
-
-> +
-> +  "^v(adc18|camio|cn18|io18|xo22|m25|aud28|io28|rtc|usb)$":
-> +    description: LDOs with fixed output and mode setting
-> +    type: object
-> +    $ref: regulator.yaml#
-> +    properties:
-> +      regulator-allowed-modes:
-> +        description: |
-> +          LDO regulators can set regulator-initial-mode and regulator-allowed-modes to
-> +          values specified in dt-bindings/regulator/mediatek,mt6392-regulator.h
-> +        items:
-> +          enum: [0, 1]
-> +    unevaluatedProperties: false
-> +
-> +  "^v(cama|dig18)$":
-> +    description: LDOs with fixed output without mode setting
-> +    type: object
-> +    $ref: regulator.yaml#
-> +    unevaluatedProperties: false
-> +
-> +  "^v(aud22|camaf|camd|cn35|efuse|emc3v3|gp1|gp2|m|mc|mch)$":
-> +    description: LDOs with adjustable output
-> +    type: object
-> +    $ref: regulator.yaml#
-> +    properties:
-> +      regulator-allowed-modes: false
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    regulators {
-> +      compatible = "mediatek,mt6392-regulator";
-
-Drop the example. Put 1 complete example in the MFD schema rather than 
-incomplete examples.
-
-Rob
