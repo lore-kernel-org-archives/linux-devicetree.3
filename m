@@ -1,96 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0243CBE8B;
-	Tue, 16 Jun 2026 15:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623870; cv=none; b=a/J+E++mTUUrOtU0/hnkiyLoayoLpsPeZ3tRXzHFg8hGuwDDLOam4qwPZKj7Dr6xth6JG1OQvoeu7c2CGAyiJJ7TImQcjEEuDtDStFRNkVl56RfLsN6/wBC2QwhwtWHpWmg0Dxb8Kr5z8wNYL1AGGf1UhdcANRE/bzl5y8y/IyY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623870; c=relaxed/simple;
-	bh=3nk1SqwTjFBC3ctGt1B9moE+DwlnAcJ+ZfvsMGUJmWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BtpzwkXKiro+8I021Kwj/bgND6qcLlYiAxSCSP86qnWxIv3SBYtSy6R0NLyYo3xwhfOWJ1+a8RYWQ/m5+8l7Rz5ef4s6SLKtirYQVGyrYiprOyifoV4FNzBsbNIFgGNVN42kYacKjjJgQIgoF83f/0+Kt04l6BU+KTtqZgLA5ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltwzz9ah; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958EC449EAB
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:32:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781623977; cv=pass; b=gQarf6DZiHxe8gQl+Bnh0JdNoRnU0ueU6ehmUE04g6WfjtsH7a411R0Ukz0kpzHoCVTIjcCYG63pcFqpcoiSL4sUQOyuGDmNjNKBCPJK9YcHbI0aFo8rmNfLjUjJXaPG3pGjwUe6Cbp4+v4PmV2zMxqFSAo5apxDvjtDpK/ExAg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781623977; c=relaxed/simple;
+	bh=9ryEeEKN34qoxZ5iOwtkmdOLrQqqwl0md2Lu6yLAkww=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZuvRuqqpxDvzpxnECpy1DrFhGR+Mul5gIP87mo3HhLBCpknLQ2vV8FafqDRXj6BNZq1vxO9DfqSBKVwJqbM0EyVSegBhPvDZjjXjVbUJXzKAXLRyh1ZlnVz0P31UFa5iC3wBEv16XLk/ZZR7b7DLcF8reW4G2c2o6UoqT/3O604=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Onak4tcL; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltwzz9ah"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D54E1F00A3A;
-	Tue, 16 Jun 2026 15:31:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781623869;
-	bh=H4q3EaMMaI2HFEM9XMWLyy+ranKnuc2iJ9R48LAi+Co=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ltwzz9ahZ1f/RKzdJ5velxbsLeSwb6LIbPVG92hCsCHIuJC6Q8lC3JuB0FS6DqCKY
-	 lIv7hr7q5pHYYm9pv1a6AXauU9jtgXSQW87un/uK/QjazdZaZru0Cc/MXB1srkUI3D
-	 9lIKkA5MDSeHWRr2150Gs5NYGUqgf4zKmbfCg1d8Ni2VbL44FPfzzacBV18zwmSv/5
-	 w14pjfaMHy3aF6aeol1qiZPtQg5sjdPb48bccqOQCRz/bx8GJBaxbhPwSa36G/ygp4
-	 0fPX9LLEDtorjqb/OtqsXOGHqYGBpbqNEi3N+p9a5M/2FoF8an/HWhabzRRzOS5K8X
-	 EzhaiVrflUUeA==
-Date: Tue, 16 Jun 2026 16:31:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Min Lin <linmin@eswincomputing.com>,
-	Yulin Lu <luyulin@eswincomputing.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: Re: [PATCH 6/7] riscv: dts: eswin: add I2C controller support
-Message-ID: <20260616-greeter-securely-16e742490a4a@spud>
-References: <20260615122016.1110206-1-pinkesh.vaghela@einfochips.com>
- <20260615122016.1110206-7-pinkesh.vaghela@einfochips.com>
- <20260615-lumpiness-profusely-155422288c31@spud>
- <SJ2PR04MB8896A5877CCFC177FA5D5A9583E52@SJ2PR04MB8896.namprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Onak4tcL"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-68bfcf11050so7953786a12.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:32:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781623975; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FAH72CbSE8FxfIsDLcZ6jxXLZ/K+lO8T2Zls/WYocTGmbuFR3K68tJOhPPyJpoYxOR
+         vegL3cWnnAyNhIBy/a60SO2tYqd7eg6nnXif1p4g+gq6i46o5timnY922s7SyQalGFyp
+         XZk+1C/tDIk2KoMBngHxZuJUMB/JFv7HeaUSHf4c2TCRnMbcVZfqasE/L1VYE/irkvPG
+         HoEfHrsaFC4OLHIccBFOfQnu5n5cYRWV3XVmgZFu5T172my3RessFQzx3E6PyN6kKgNh
+         UzwYq4y+lqxUgqw+YsUkbGROdbVyq7P4w8I7DIyyMn0/ilzv5yiwClYL8x1Bq+/SXcmO
+         C0Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=pfw1ICkm7+kbiLyNwGHlM24bHrY+azb4TocUjKCxBR0=;
+        fh=dEaiBz/DNwAFWJa7Cd2+mV2jgpwvpUDbXndS7Ggr7b8=;
+        b=Al2xgqSG27qQyqPanHgyfkf/W3P/UbGeQwIpG9+X3J8RpXlvBDsCHuuH1gMSdjMxvt
+         an5U6F4fqaKRs5aZVWdjr1TxAFO9UO06ATWXe2+qSawKAsQgt4XuaZqw7VxFkimus3xu
+         7HusJPS4OBS2jmHKJu/X3BtQ+2CRG/aaWUE6UHkhsI0UTKL2cW9B3a+lobpQvgW+Nw2K
+         E7xXol/hVK9ed0HeaHCE62LWpoe32KD7YLEI23WChuoHuAA4hb/bKULbuclRNvGk+Lc6
+         Do5fcZserZtnVGViu77hxmpyzuSasDKfFuSgC4fNFfH9vCTpeR5Mhgs6sjspwIN9vv/u
+         X/sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781623975; x=1782228775; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=pfw1ICkm7+kbiLyNwGHlM24bHrY+azb4TocUjKCxBR0=;
+        b=Onak4tcL5vSFVX9zbAMb5EL2enSwZMolN7dPWdBSvZ1YfGpRrRAmfSvARvhFef6wof
+         cC1Y57VJB8c+fnIbL1ggRxC/ShwE7AfDkiBBgip58TToDiFW3fA3wUAG661aMIgBZy5E
+         SvYJygCDWsbciA7gnkRjAf0+6qbp5J+oDrUfJJ5CuV89vaDeClKgzEYShVIN39M5na9F
+         MtV6ZOalGVHYMCzSzsjn8b7nV/wOPpSRMDIDsiqHMOOnPd5gw80xGoQ7oxiDqIn59UeP
+         HaACvImgUJGUu0jZ1c9ookZx7k8MQ1W9qy14X226sVAmTI1chWtEuNtxtyZhbUXP+Wvc
+         exyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781623975; x=1782228775;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pfw1ICkm7+kbiLyNwGHlM24bHrY+azb4TocUjKCxBR0=;
+        b=qa/eL5ds+FqUG/ZuuibmCZ6aAWT3zJYoNd+OLd9vTMpURw/ysX6wcMmCtxzizxrSxy
+         zQFuZqKlx0dfZchsPIleFIqlb9UAd/VkuCWtGI/g0RHqVC3EA8TgvMMaOFtqw3ZjZwFh
+         GNKZfUy1nu7SVadCuR1neAVb1RnUrTPb8Th+OzFoE9A+NJXF35HaWX603Ra9mU+I5U6+
+         1Yienh7Br8rAG4VQgbfQ43av1WFujTjLP1xesC6xYFB2sqLEyEf1mvPFKN2dNvjWxXsO
+         kjF1QBzP7F5z0Z0t/aoQcdsSE8TGfspGi/Jbqa7BBueelD7XHai1zmZPV5BpwSyJ5pgf
+         Oh7g==
+X-Forwarded-Encrypted: i=1; AFNElJ+5jwGMiFzW9R8FabH9slTtRv2ZXJcrmp+cYoR0YaQfvqXF2hwNcXPkKmTHyW5TAJrgdyZgqib5Fsle@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHlEE6n3QzjCzVD8edngl/3Ah+VBo+TzG8jUNDnkC8ph3UOwmf
+	oandWEyXlYFVxzHDviUY2L+uc/RnddCAC02wzWQmKPoeyX5CUankfyRhhwUZITTNDY9tc3fGxGL
+	2dj12EnYEkz9e4aPXyRCJHB5j50rF2SM=
+X-Gm-Gg: Acq92OEnVpdh9hw//FoIYncPXIMY3pCJGKjao8gswvzpOjsV8H9p5x3gOk8EC5DM0jh
+	+KKHoucUzjd0IlGi6AmRebDdcnkWWZAE3BH/ywdy3eivh1+B9hFDcBSpogcsqF+gqAwdNmgOzu4
+	OqOJjIHXAXSzWX3dFL4ZXnAdfPJxvlsx8q6GDKhX/0KxtpQ7GQ5VelyNzjpmgji6+TCwd7J98jj
+	iuBi6LnUCgGvlyrsk2+Jr7MV3jhDdTWrmfYyBb6dILIiRA63zf9+r/j/W5nsecO2P5CmrSCp/I2
+	e5zb0A==
+X-Received: by 2002:a05:6402:3488:b0:68a:c8c8:bf70 with SMTP id
+ 4fb4d7f45d1cf-6950875d069mr2423072a12.26.1781623973864; Tue, 16 Jun 2026
+ 08:32:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WNod8yUaohcmzurl"
-Content-Disposition: inline
-In-Reply-To: <SJ2PR04MB8896A5877CCFC177FA5D5A9583E52@SJ2PR04MB8896.namprd04.prod.outlook.com>
+References: <20260615071836.362883-1-l.scorcia@gmail.com> <20260615071836.362883-10-l.scorcia@gmail.com>
+ <20260616133918.GA2335264-robh@kernel.org>
+In-Reply-To: <20260616133918.GA2335264-robh@kernel.org>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Tue, 16 Jun 2026 17:32:43 +0200
+X-Gm-Features: AVVi8CcxGgSJDcwyWDi8AM7eUTYUD6802ufCx2_1yb4EtV-skFio6HexhMd5f18
+Message-ID: <CAORyz2LiMHnaTK6QnsLxJDtw0fZ_N9LELw0iCorOZwHuWXus0g@mail.gmail.com>
+Subject: Re: [PATCH v7 9/9] arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
+To: Rob Herring <robh@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, Val Packett <val@packett.cool>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
+	Julien Massot <julien.massot@collabora.com>, Fabien Parent <parent.f@gmail.com>, 
+	Akari Tsuyukusa <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> >  arch/arm64/boot/dts/mediatek/mt6392.dtsi | 75 ++++++++++++++++++++++++
+>
+> Nothing is using this so it is a dead file that doesn't get tested.
 
---WNod8yUaohcmzurl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi, it's not referenced as the dtsi inclusion was removed in the
+original patch from 2019 for an easier merging of support for mt8516
+pumpkin boards [1][2].
+If you prefer in the next revision I can add another patch to readd it
+to the existing pumpkin board.
 
-On Tue, Jun 16, 2026 at 11:57:33AM +0000, Pinkesh Vaghela wrote:
-> On Mon, Jun 15, 2026 at 10:05 PM +0530, Conor Dooley wrote:
-> > On Mon, Jun 15, 2026 at 05:50:15PM +0530, Pinkesh Vaghela wrote:
-> > > +		i2c0: i2c@50950000 {
-> > > +			compatible =3D "snps,designware-i2c";
-> >=20
-> > Missing a soc-specific compatible here for all i2c controllers.
->=20
-> We are using generic DesignWare I2C driver for all I2C controllers with
-> no changes required in the driver. Do we still need to add soc-specific
-> compatible for all i2c controllers?
+I am working on a few boards with MT8167 (Xiaomi Mi Smart Clock,
+Lenovo Smart Clock 2, Sony Playstation Classic) that reference it and
+these have been used to test it locally too.
 
-Yes. Just use "snps,designware-i2c" as a fallback.
+[1] https://lore.kernel.org/linux-mediatek/20190323211612.860-25-fparent@baylibre.com/
+[2] https://lore.kernel.org/linux-mediatek/20200229170401.1287324-2-fparent@baylibre.com/
 
-Thanks,
-Conor.
-
---WNod8yUaohcmzurl
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajFsNwAKCRB4tDGHoIJi
-0rUXAQCh5hx72iaCwvhODXXBrj/a0alO+abHFoxSfaBo+7vy2QD8DF0KE8HEDctE
-m5ZQMaLYkLda7O1wmlcME+9t698Z6ws=
-=E+bB
------END PGP SIGNATURE-----
-
---WNod8yUaohcmzurl--
+Thank you
+Luca
