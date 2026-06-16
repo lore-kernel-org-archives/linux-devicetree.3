@@ -1,103 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E45427A06;
-	Tue, 16 Jun 2026 10:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3D5324B31;
+	Tue, 16 Jun 2026 10:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781605036; cv=none; b=deUzITuheL83Z7T2JGBceMIm4ifxmHCLD+j6EIa5M4E6p5or0iaEZ4BvLRCHxkkSP7XIH5HfR0029pHxcLS9zEhIBawQ3ODQ26r3yjS4+VRHZsc/wJY1ZBKn5sSwPOszdx/JzZW1LGcacuhsyTu1qJYEU7ffHAzYeOQqlJ8NBsI=
+	t=1781605060; cv=none; b=ZWgfcOQHe+RN8Li2ukDaYJGjP8pA3fMzRrM3JUW2FG/1CZ6D8E8S0y3jCUHw5vqc0Xxohn/S8Dw7k5JPOvHfCj/JS8XCfdumbSzHgUEd7y05jEC5MK6Jv+pCXZwk8qSTAOcp62XXix30Xupr3NJgT/YggiExCIywXRl3RjTuplM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781605036; c=relaxed/simple;
-	bh=Sd7yodx4UjxiO1kYmuXLn/zWxJQG/zJVsR3dXRgOmFw=;
+	s=arc-20240116; t=1781605060; c=relaxed/simple;
+	bh=3Df0h30B5pdDIgPwrDp5lOb9fhohdDeWpWmslIihrGo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Iu0TI4gbcshBP59zmK0syK93Dre40x7fnONaiQUWPzhacwzL2weCNeQBxUrC39UR+9pZotYTK01N0Tpq3/uLKZYH3armUl+n7hcWlFQjSNkccoiXBwdz9IscOYifW1fPorjJkEtKMIqMBgcN7tJkwqQRJcFeeQQUNoJ+TsIrwMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebFMlZ41; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BBymxTtDLz0cMGoZeIk/Ajp/jJy9YBAaB+glOubmRCw93qC8xz97bERWp4KOuRN03EHF7enxL5cn0LK3xEpRfMjv+OioiGF8xcTGrSwdQfSRO2zF60HBuVEC1nA0lDuCiwmA8ZQNv0sHolpiLwr8Nd5T/onhDN0hfp1hrouiziE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g26xIRdj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebFMlZ41"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E5B1F000E9;
-	Tue, 16 Jun 2026 10:17:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g26xIRdj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6891F00A3E;
+	Tue, 16 Jun 2026 10:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781605035;
-	bh=XPvA0lxmzSRezVHw61eAohFfU/8m3+vlMPaNgVMQSvI=;
+	s=k20260515; t=1781605059;
+	bh=m9fvRfvFkE7880z8gjqTj4HICoZgZjnRQdAV/h+A+Oc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ebFMlZ41LV7Vhzf4J2SGywFBLSq9bRfRA+RFbLk9kiNs7vIZc0pe9A9p1poh9dXRk
-	 5b3/3+Q9UQE8cKiPMhXx+BgoTwVJhdXQwxeAqcPaK7BEP+9/4HD4SGjL10OFHqs/Jp
-	 SoY63oZJaqoqUgu7tVYospg6+G7q24cmSw2elDSOTrbLtw3VII+ON6pXaVUwaz4kKV
-	 KoM0Z38972jXn0aw0isnDlM7j4z9c8kWutfE7HfFWxZjZwS5hUx/lUB+1jg0CM3SgP
-	 g/+o/3Itf2xo7+Lfn1wyqIAmhNxHspFIxMeNxfCBf+QIHNCaT8azDnrH9Yzp4uZm80
-	 A6WKTcdfeqLHg==
+	b=g26xIRdjQcF/oS9JPexpO07kEyekl4nXTm2DcEgU7vX6poYAZmj6kMwYMUUGgk2dD
+	 lDi7smwhf7a6FRNocUdDiCG3rWVDMUZEd+89FCEbOCKD0ykUMuOPKt2UZmED5y7LHf
+	 52UO4ecWMey2fQHUDvWOne3G/dlB/dM3S1czCAothPKV5QOx9sIWGGHF5P1ar6MGCe
+	 B4dOIaZxN2ZvdkPQbdYqmoPEZUh+jnFGhygVQoMA1W2p7t9bHAdhGrtkf8lBLaISII
+	 8pVYFpjbB8ej4RbxsPuIZMXfAeC73FsIRF+PoxqCP0/q1jLEdwqeAJcPM7pkmqDfq6
+	 i/2M4D9ZF9Iwg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: mfd: qcom,spmi-pmic: Document haptics
- device
+Subject: Re: [PATCH v4 05/12] i3c: master: Add support for devices without
+ PID
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260616-qcom-spmi-haptics-v1-2-d24e422de6b4@oss.qualcomm.com>
-References: <20260616-qcom-spmi-haptics-v1-2-d24e422de6b4@oss.qualcomm.com>
+To: "Akhil R" <akhilrajeev@nvidia.com>
+Cc: linux-i3c@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260616095429.3947205-6-akhilrajeev@nvidia.com>
+References: <20260616095429.3947205-6-akhilrajeev@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 10:17:14 +0000
-Message-Id: <20260616101715.01E5B1F000E9@smtp.kernel.org>
+Date: Tue, 16 Jun 2026 10:17:38 +0000
+Message-Id: <20260616101738.CF6891F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Use of a wildcard ('x') in the compatible string.
+
+New issues:
+- [Low] The fallback logic added to `i3c_master_attach_boardinfo` for match=
+ing devices without a PID is completely unreachable dead code.
+
+Pre-existing issues:
+- [High] Dangling pointer in `i3c_master_register_new_i3c_devs()` error pat=
+h leads to Use-After-Free and Double-Free.
 --
 
-commit 24bf9f2257f4052d27a53163621c8f5173fe1da8
-Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+commit 02ce08803703bc5626ea5224b66caedd628224e4
+Author: Akhil R <akhilrajeev@nvidia.com>
 
-dt-bindings: input: Add binding for Qualcomm SPMI PMIC haptics
+i3c: master: Add support for devices without PID
+   =20
+Devices using SETAASA for address assignment are not required to have
+a 48-bit PID according to the I3C specification. Allow such devices to
+register and use the static address where PID was required.
 
-Add binding document for the haptics module inside Qualcomm PMIH010X.
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index 557332d932576..bcc9c2d29c342 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+> @@ -1963,8 +1963,17 @@ i3c_master_register_new_i3c_devs(struct i3c_master=
+_controller *master)
+>  		desc->dev->dev.type =3D &i3c_device_type;
+>  		desc->dev->dev.bus =3D &i3c_bus_type;
+>  		desc->dev->dev.release =3D i3c_device_release;
+> -		dev_set_name(&desc->dev->dev, "%d-%llx", master->bus.id,
+> -			     desc->info.pid);
+> +
+> +		/*
+> +		 * For devices without PID (e.g., SETAASA devices), use
+> +		 * static address for naming instead.
+> +		 */
+> +		if (desc->info.pid)
+> +			dev_set_name(&desc->dev->dev, "%d-%llx", master->bus.id,
+> +				     desc->info.pid);
+> +		else
+> +			dev_set_name(&desc->dev->dev, "%d-%02x", master->bus.id,
+> +				     desc->info.static_addr);
+> =20
+>  		if (desc->boardinfo)
+>  			device_set_node(&desc->dev->dev,
+>  					fwnode_handle_get(desc->boardinfo->fwnode));
+> =20
+>  		ret =3D device_register(&desc->dev->dev);
+>  		if (ret) {
+>  			dev_err(&master->dev,
+>  				"Failed to add I3C device (err =3D %d)\n", ret);
+>  			put_device(&desc->dev->dev);
+>  		}
 
-> diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.ya=
-ml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
-> new file mode 100644
-> index 0000000000000..0e26d68563dcd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
-> @@ -0,0 +1,119 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
+[Severity: High]
+This is a pre-existing issue, but does this error path leave a dangling
+pointer that can cause memory corruption?
+
+If device_register() fails, put_device() drops the reference and frees
+desc->dev. However, desc->dev is not set to NULL.
+
+When the I3C master later unregisters, i3c_master_unregister_i3c_devs()
+iterates through the bus devices. Since the pointer is left dangling, it
+passes the if (!i3cdev->dev) check, leading to write-after-free when
+setting i3cdev->dev->desc =3D NULL, followed by a double-free when calling
+put_device() again.
+
+Should desc->dev be set to NULL after calling put_device() here?
 
 [ ... ]
 
-> +properties:
-> +  compatible:
-> +    const: qcom,pmih010x-haptics
+> @@ -2357,8 +2366,18 @@ static void i3c_master_attach_boardinfo(struct i3c=
+_dev_desc *i3cdev)
+>  	struct i3c_dev_boardinfo *i3cboardinfo;
+> =20
+>  	list_for_each_entry(i3cboardinfo, &master->boardinfo.i3c, node) {
+> -		if (i3cdev->info.pid !=3D i3cboardinfo->pid)
+> -			continue;
+> +		/*
+> +		 * For devices without PID (e.g., SETAASA devices), match by
+> +		 * static address. For devices with PID, match by PID.
+> +		 */
+> +		if (i3cboardinfo->pid) {
+> +			if (i3cdev->info.pid !=3D i3cboardinfo->pid)
+> +				continue;
+> +		} else {
+> +			if (!i3cboardinfo->static_addr ||
+> +			    i3cdev->info.static_addr !=3D i3cboardinfo->static_addr)
+> +				continue;
+> +		}
 
 [Severity: Low]
-Does this introduce a regression by using a wildcard character ('x') in the
-compatible string?
+Is this else block reachable?
 
-Device tree specifications generally forbid wildcards in compatible strings.
-Should the specific model name of the first chip in the family
-(e.g., "qcom,pmih0108-haptics") be used instead of a wildcard?
+Looking at i3c_master_add_i3c_boardinfo(), it requires a valid PID for all
+non-SETAASA devices. Since SETAASA devices bypass
+i3c_master_attach_boardinfo() entirely as they are attached early via
+i3c_master_early_i3c_dev_add(), wouldn't i3cboardinfo->pid be strictly
+non-zero for any device reaching this function?
 
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    pmic {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        haptics@f000 {
-> +            compatible =3D "qcom,pmih010x-haptics";
-
-[Severity: Low]
-Does this example share the same regression with the wildcard compatible
-string?
+Additionally, for dynamically discovered devices, wouldn't
+i3cdev->info.static_addr be 0 prior to this call, causing
+i3cdev->info.static_addr !=3D i3cboardinfo->static_addr to always be true
+anyway?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-qcom-spmi-=
-haptics-v1-0-d24e422de6b4@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616095429.3947=
+205-1-akhilrajeev@nvidia.com?part=3D5
