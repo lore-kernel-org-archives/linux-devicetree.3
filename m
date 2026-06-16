@@ -1,132 +1,164 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2882E88BD
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CE441360C
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599171; cv=none; b=eQDfdCjIdRdFU+S+gx/+nLkphAwp0QNe6L5XVOs9u56uFMYMGFivJixNHTUR1wR9mFwQJY9casMxmlNdk3Dauw9Rd6+P50xor9/fuj//mq4WgRlEhah8MErHPRrq49f7QmsyeL64PlnPtbVbBt/qwLDA4o/cHZ2crlO9eKtrMMU=
+	t=1781599189; cv=none; b=QDxXtOv47apR5g/PN1L7Fds7oqHSvXPn+uyhEcoTVuSl+NaCyJZTyN5GTPW+xM+mKcP8OHdqWYukjHIkBxDoKwQ1QTSKcjZrg3Lqs9WHzr5xh6CTfTC5ahCu//UCSl/aPMCyO72qrDrYdHfW/o12hdt/3LOEtvxhw6ug/X1v6Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599171; c=relaxed/simple;
-	bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DqWJJLz+xnBKMU4lvlc0UiNed98/cBx0pQ6b3pzZq96w4Ot8+jhTZQXFxFnJkv8oQ7x+wJZBMnZRKCy0Ul2zNsatDTcTdP5SkR4qqF5s3sIopAy9kFmPdRefCC0C5go7QDP4R/cDJBWiJcQp3QD1UGkqXcI5C7GttrVn4TjpbJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhjBK0PS; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781599189; c=relaxed/simple;
+	bh=xgqg2HEwifWUM0vuhnri1EIB65MvKX7fBHTptgMWJfY=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=a+VlopmlgL+BiNJjPNRIYmtgogH1W+vZfvF3WDGcSdvBtmMLQyTMbiXFN14RUNFHae2/d1ik6jIs9+fxBQmpwtpxtPMM7xlaaHUAcL32LY5BdUHB8jcy1ojMMsvdz0IWN75hEW9hKQ5BVpX+yAZnxLXU24gZr3hGYlcS5hryz9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BcrtUyvZ; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhjBK0PS"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-842358aaf36so1664736b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BcrtUyvZ"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490ace40f4bso40410625e9.3
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781599170; x=1782203970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
-        b=NhjBK0PS63XcvtOqhjQEeZL93+hDzY4GG+i24qbdPkNwd1hCJRdRbSHu+5JQdkzr8g
-         O1VOYqF8neLOCeV1rODwKyRmmOUwhq/saz9ZBKg0BKY9NW44MDzyelAs5akuxLVsXupp
-         pjX96YuqSBQplhQ3DN5pCHAsn1jFcWa/ciR71oV8Nkk0lvIgRHyArVxqGZi9CwxYaMAz
-         nYWsjesgEszSEILHKeydDp8lXeq/9HquX6mljWHBSiBNicNKZ8HURmiJvBvfbzwcEeNu
-         IrILdHbUUIwlfvzWm2w7nyGKV9Mi6TRH6g5RPeP/knm6AUfY1JyxUmDg98Q6T4LN8303
-         JCPw==
+        d=linaro.org; s=google; t=1781599186; x=1782203986; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2H65j63RwgTq0P0u4BfHzeL9+e1nXdHZ4T1IfU/mVhQ=;
+        b=BcrtUyvZN7PVZHUdfVxapcKBlZzv4//L+SszHxuulGTPMqudFOL42G4Wm6/zwUpJN6
+         AftaSO9ByaydvTI5f346xAGz9zm1jCW9YUQhZAaTnY5uzcTcwiH90PO/ASW6JqXiEmKJ
+         E4seNKTMwwXkluKhn+2Y5JTlGaoQWPITlh5hX1XfHQFvNUu1RjkBVTZlm8PIp6N2YwrM
+         mKhr5nZzs86F7UgmvXoX6O7qYz/+nHtFBca8VyUmc4ohR5sK+O1mJHlxtD0+09Yaw7Zz
+         MSfB1o1vc3P83U3wAmp+0i7MNZvDug2R6Z/TsbzovUwhD1rkymfhFl+wWz6WGZ3vMktz
+         xk7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781599170; x=1782203970;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+4Je8IwSJvG/jfPJ4CeCInyfi1a6CXtfdj6NR9s+scU=;
-        b=Z1vWJGwaBt5d/NAYu6+W0X+KtzTWc/dFv1Y3M+NFDp8LkLDi5r+0GposnBMT9kTImu
-         jKy5ASakhzZ1EAEDi7i1Lu/qieqdgjMFq8iaPzuTq6fzj0f5f1hS5GXyT2ssIP+B1SYG
-         u0BuNB6il+yEhHOPW2j8G5VqOoayQkXjQjZjzvr1UfPE2TZXFa5PmGia4iMftELdVWUD
-         T7Pa/A836AWyQJumdpNAYOnoDEPvq+SCb0rCIeHVTVjffSe1DTHvxwAmYQrtBfT8LQk9
-         3e1+ZTiXvEc/b+2Xlz40dJ/eb+ycwO05Yb18aJ5UDSHseEFv4OgSVZCigsZt/uX8Mn3I
-         uYAw==
-X-Forwarded-Encrypted: i=1; AFNElJ9eHaXmISeEyVla3Uz9SsoAQtAvgpqDl1ZQXRU3YGPFJN0hvnD7+3rTgbdjKG+FQ/WjQXBuUhiAPyDj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2u/YROEgvwC8R+GnHrCwF+j8saPRDx4mFJFZpT9vF6HbS6j3u
-	7BGtaKGrr8xTGIWoMvIb+KIHOvIASBjgs8sDJL77Yn0d+qj+qUr8C1j3
-X-Gm-Gg: Acq92OF+Rod9eU180Om6ITN9zPjGaBbHlezyejG3benVW8dFTrKG4rDEyeDYpNYvf4P
-	w9vgHcGyUs0Rmaymsw3IrfN5IQpIINlIDnhxzWnGEJ+Ru0eFK4sJbg80hVxI9BjCEalP2NEAzrV
-	61G4E8SfBonGYaMcL90P+C19CmOW2iFHwvrZtCQouky616L6DB6w0RYnFuKSTpK8BDRrUta1M5J
-	TzMBhw2JB7i5/vK6XEwlxyWLNQAKEDuDtvDo8q8fTgTBNSiVSjcCkYsMaEerXWPZg/F1ICi1nxb
-	p4drFlQLS5T4FzGhYUKt7pSjkDsmbgaXZN2+2Qcd+hlwof9SQuLAC5KNyRM6dOpHFPSLkc8BFTA
-	lDCf1BzEO7wzsT3jqvC82vfkRBJ5cy9QdiUxo+XvLDHYU58OKnXjkiuufiTbpGLheJ5b74xlxb3
-	nAtxkjFhrLJo/5cQNJQhizXVfemhIDaJDi5YzSGEsgA8MukRgsocdnyLVIVcXNc4QAjA3WNtgtM
-	/rF6xnVkruFDkWfZXJLD8Jo+InNlRCenHU=
-X-Received: by 2002:a05:6a00:4399:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-844e19676f0mr15311972b3a.10.1781599170061;
-        Tue, 16 Jun 2026 01:39:30 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9dc87sm11497535b3a.4.2026.06.16.01.39.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 01:39:29 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: Devarsh Thakkar <devarsht@ti.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wig Cheng <onlywig@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	LiangCheng Wang <zaq14760@gmail.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
-Date: Tue, 16 Jun 2026 16:39:21 +0800
-Message-Id: <20260616083921.4066690-1-zaq14760@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+        d=1e100.net; s=20251104; t=1781599186; x=1782203986;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=2H65j63RwgTq0P0u4BfHzeL9+e1nXdHZ4T1IfU/mVhQ=;
+        b=LNWBpikn6jYdjtfULlPTL0Ph7vMYPCwtRFzOtUROIL6olWgoG4BfQ/L1x8uidt+J/3
+         XcJpsKtCJ7cJ/tOeaJrOuttoeu5bqBIhcjH6O4IGJIxfL7mtxzrxU9jJsn28STSlBiSF
+         tAMuQvJN8r3dM1S9/Qxa9I5bucuVr9Eji4FGpoyysvYTaOR02ee7lXWi9nrbjGkAiRHk
+         Oqn3R+ObIdzUmncB/ToHj9TZQXtcCWuqpN+Gf+0fwr/JGxs5iAIbXUQxxxLbBRifMJ4s
+         kHM1PiRmox6CnVj/DDoX6z3RoKcqvfbPDORl9pYmOvxYHZ1L5yw/COk/pwvR5ZxK+nja
+         MsBQ==
+X-Gm-Message-State: AOJu0YwUZdj5znlVf5F3PbQnAT+02tYjwcr6MxzwshdnzmYDuWmy91Gh
+	BDQRf9xWStpH5t4D2W+QXYAISClRL270UV7YzkGrulq/vBa2htMvzErDQNgIiqeHLRs=
+X-Gm-Gg: Acq92OFLCQexu5/O9nHc5bkQQlh+xjLCe3XpkRWu+gCg0xjpjHAa5Rwf243fYnU0UDG
+	PAaNbbR3OV5/6b1dfTjmfPDvxQVfskX9xCkyarjY2hpXYJYaL1O2+ZiveyDok7FYcZZ3h2+UQ4P
+	WmqR1R9n4+f8b91byeDvKLpEyqdFjjbyUobBMVH6vzBhsQuAhbuNuiibv40r1rVlzpqemwauBdD
+	no3Kukzn/mfuI4MOk6plGyDzkcq8lZ2W2+1g85rEJoFsL6MN/cjYpnz7TYIadVQ/os+/D1Dt2F4
+	esp+qUFZ1qfq3xY18WMGFaG7R9qSHEB87OyZ25VE5Ut/ABztexHB/busUuiH54pt8fhK1UWQdVF
+	mJ4hHVZJJ/8T+7qSVoAxWgc0O/LUBuX+0paBhtQknHW+qBEyt6H+2tEEneL7+jOtkC0MpX0/qKT
+	lAKNCijujVQdSbi7CclLusDSlWQYiffA==
+X-Received: by 2002:a05:600c:6d4c:b0:490:d2a4:1b59 with SMTP id 5b1f17b1804b1-492201184admr149927925e9.31.1781599185914;
+        Tue, 16 Jun 2026 01:39:45 -0700 (PDT)
+Received: from [10.3.4.22] ([212.133.41.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a96b47sm35404405e9.13.2026.06.16.01.39.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 01:39:45 -0700 (PDT)
+Message-ID: <542d32c7-a3a0-41a4-833a-c28f33f24cea@linaro.org>
+Date: Tue, 16 Jun 2026 10:39:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC v3 3/6] arm64: dts: qcom: sm8550-qrd: add SPMI ADC
+ channels and thermal nodes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+References: <20260615-topic-sm8x50-adc5-gen3-v3-3-216a2b5ccb85@linaro.org>
+ <20260615171519.F2A851F00A3A@smtp.kernel.org>
+ <dz2leajz5bh5knzzhjlbisosfg3ujaokaoo5rq7lf2dzvgut7u@s44eop5u4li4>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <dz2leajz5bh5knzzhjlbisosfg3ujaokaoo5rq7lf2dzvgut7u@s44eop5u4li4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Devarsh,
+On 6/16/26 01:59, Dmitry Baryshkov wrote:
+> On Mon, Jun 15, 2026 at 05:15:19PM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>> - [Medium] Missing `qcom,hw-settle-time` for the `channel@749` 100kΩ pull-up thermistor (`pm8550b_wls_therm`), leading to inaccurate temperature readings.
+>> - [Low] The ADC channel nodes are not sorted by their unit address, violating standard device tree conventions.
+>> --
+>>
+>> commit 4a45cdf2d6ed588ab63165c08752b51ef046be4f
+>> Author: Neil Armstrong <neil.armstrong@linaro.org>
+>>
+>> arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
+>>      
+>> Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
+>> other PMICS on the system.
+>>
+>> The thermal nodes are sorted by the sensor channel to be
+>> coherent with the system thermal nodes ordering.
+>>
+>>
+>> [Severity: Low]
+>> Similar to the above, this isn't a bug, but should channel@78e and
+>> channel@78f be placed after channel@747 and channel@749 to maintain
+>> proper unit address sorting?
+> 
+> Yes, sorting might need some improvements.
 
-Thanks for the detailed review.
+Definitely, will fix
 
-> 1) Could you please share the datasheet for the display controller used
-> inside this pixpaper version ?
+> 
+>>
+>>> +
+>>> +	channel@749 {
+>>> +		reg = <PM8550B_ADC5_GEN3_AMUX_THM6_GPIO10_100K_PU(7)>;
+>>> +		label = "pm8550b_wls_therm";
+>>> +		qcom,ratiometric;
+>>> +		qcom,pre-scaling = <1 1>;
+>>> +		qcom,adc-tm;
+>>> +	};
+>>
+>> [Severity: Medium]
+>> Does this node need qcom,hw-settle-time = <200> like the other 100K
+>> pull-up thermistor channels in this patch?
+>>
+>> Without it, the ADC measurement falls back to the default settle time,
+>> which might be insufficient for this high-impedance path and lead to
+>> inaccurate temperature readings for the pm8550b_wls_therm channel.
+> 
+> I'd also guess so. Neil, are you sure?
+> 
 
-Unfortunately I'm not able to share the controller datasheet publicly; it
-was provided to us under NDA.
+I'll check
 
-> 2) Does 0xFF or 0xF7 mode work as well for your display or is it strictly
-> 0xF4 which seems to mean that analog and osc bits are disabled ?
-
-I'll test whether the standard 0xF7/0xFF sequences also work on this panel
-and follow up with the result.
-
-> 3) Also could you confirm which display controller IC does the PIXPAPER
-> 4.26 use ?
-
-The PIXPAPER 4.26 uses the Solomon SSD1677, so you're right that it is an
-SSD16xx-family controller -- the commands it uses (0x01, 0x0C, 0x18, 0x20,
-0x22, 0x24, 0x3C, 0x44/0x45, 0x4E/0x4F) match the standard SSD16xx set.
-
-> it would be appropriate to add this panel as a new display panel entry in
-> panel-ssd16xx.c rather than a separate driver to avoid code duplication.
-
-I agree that consolidating SSD16xx panels under panel-ssd16xx.c is the right
-long-term direction, and I'd be glad to converge there.
-
-I'm not yet sure how SSD1677 would fit with the controllers your series
-currently targets (SSD1673/SSD1680/SSD1681/SSD1683) -- ours is a larger
-4.26" 800x480 panel, so I suspect it may need a new controller variant.
-Would you expect panel-ssd16xx.c to be able to support SSD1677?
-
-In the meantime, would it be reasonable to take this smaller standalone
-driver, and migrate the panel into panel-ssd16xx.c once that driver lands
-with SSD1677 support? I'd be happy to help with the migration, and of course
-I'll defer to your and the maintainers' preference here.
-
-Regards,
-LiangCheng
+Thanks,
+Neil
