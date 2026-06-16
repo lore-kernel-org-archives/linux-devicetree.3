@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1611741C2F7
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88AA04219F2
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781601985; cv=none; b=Zucwa3FgPLBoNVuhSH6QYW3FYab1gqjK9hpA+spEqk3SDEnqpLRlTth+UaCr/9G8gDpC/1DT5fZNDU/0CpvMowvlHYECmj6gsWoBy22/Mq7U1AybDlXTX02LQqH0TwHIzY5IUXRfSe65GrCmSrswjr4DpFDOaF6tnIsfWcmvXBY=
+	t=1781601991; cv=none; b=l9RnEEdTB3f658DVqa3ZqZ78FZagMn5otPljAvXck7HYxyjPov1ECeLqL3B6l0b6EfrMAc7lcHx7htViHtMUwKhje76duiAv9owK/grnvYkRIR417QuiNN9hfAy5G0leM+p6WNvXjXDxkQeUx7DAHkeW8qZ1CphdzIUQew536+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781601985; c=relaxed/simple;
-	bh=l0yvFWCjGqALYpibJwYjgc+rbMxGpbSzkybRumcJUbA=;
+	s=arc-20240116; t=1781601991; c=relaxed/simple;
+	bh=sLcI40qtn/Il8kWTLKDdBY3n0NAGFC+HZsWN3fXfvdU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IPU70Oy9UkD2THmwhzzTYwQdo2IIKSRH0z0EE6YahFFJ5MtRpBW3feldN16wc3RTnGAkseD3RmReVS9BS3RzP9X1uQF8FEQgj8mxOYoc8Nxxpj+zjqsOyqrvy+SGZbFhercObUtaIEapPgIBGbq0oGLEVBgOOVu62o5v2WQm8bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y/D7ugGP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SOnFjHmw; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=b7YEc/WZQvqfXD/OBLD4AnBO2U4g6LilqdYQrOlFTSEJFBTXVg9yh+Ztn/2rGlz1Wpn1oSV7OLiW5Pd8yeQnfo/JvpPJYNM29bKkts5IpWjAGDVP+hut/l3CxNNcNwpk6eS2u69hUG7t+pwM3vq3hGcoDflzD4sAQwPP1VUo1C8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gK8X//ol; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RLPvO8vP; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y/D7ugGP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SOnFjHmw"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65G77QvV2383237
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gK8X//ol";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RLPvO8vP"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65G65PE22849969
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NAXb5yw4TktASaT4DIdQAQD/zAZTtEP96c+FwsmHD0Y=; b=Y/D7ugGPjv9iybTU
-	P4uQNU4dRPV9ztHfKO1MCjttfnHtqxITMICXOif/wPArbbgOXJQfg73sGfedGxnT
-	KA07PNfEqRdFtTu+nBALstgjgb+LMYXufsWNl0vnqtOUvsttaaMUxT2ki9Twbgyp
-	4H0uwTnwcO/pRPkZsYB2r0VvqZ0/BFRLBHbGxotBu0Nmg/64Ya4tNQnoV3mGrdlm
-	n/wVYBuNyREAyUwA2jo+LFcUbl5D8AnJIOr0BC5jEra5CdJEjDTBDIRoMavwaWS+
-	fmTuknrPLEmywe43gHwBVspzhIKqKaycM8FzKNPkZP/2/RavG3G1ZiPnTM0USu0+
-	YRGmug==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu0a7s283-1
+	rT6Jh2t74FriHgz0o25z1IveWAiiu7PsQiuvC/qMBe8=; b=gK8X//olGdu2Hzwy
+	N9bRRae/CHWXniRd7Ik89drhh/RthoBNL5MxL9qeosD+S4/6/uNWWGCaDcvsra6F
+	3j/E1SuU6nbOh74NT2Zjhb29gdaCM65UWGBptpXWsk9S/oOq147OuBBpwney1yAX
+	RceWrd30JmCBSxDb9GBo+kZ+3nvVmQfml6tv3Nd4oia0RSEJ9aGUGNCr5TgWXDOl
+	BjQ+gLSHQUkeEAPPoqnYoQsgUQ0zonF8XMCXQZmU5Zdp+63J0K8S4SlMqimkgZZM
+	sFL16ttKJKrG3ozLjazKasRq73NqaAI1n5O+tObWpslwT/jyka8uLA6fHc0DoCss
+	LRoCQg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu09g91dr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:23 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c0c32f4b1bso43406315ad.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 02:26:23 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:26:28 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c0c32f4b1bso43406725ad.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 02:26:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781601983; x=1782206783; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781601987; x=1782206787; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=NAXb5yw4TktASaT4DIdQAQD/zAZTtEP96c+FwsmHD0Y=;
-        b=SOnFjHmwTSk51ba1gs3bciphQp1odY58jI4DGHr6OYwWClAeXMxR1kw67IUV0tfcma
-         YLQNoMRgUgJGdB6oiVj18TDe/fTNbcVYyf1VekEsj/Ba22h34z9kK03ndPFUtq3sRBOx
-         /GfgMJ88m1bH3T5RaERVx27tbPtCZOE0DO2QgH1p+xNpgJSIi0xqOZDLOqGI7j9Qet5u
-         k9xKrRYRisYHDIQ6i8bh9Cvg/9fiI4LofMj67rswqWNd5OcKc8LqD9iyr5oTNzhgdC1B
-         PQnBrTVfoKq9843rhuqWRx7PYPdFiN8p+NaXoiJTI95kwpO47dHaPW8DWkNMBemcYb6n
-         1DjQ==
+        bh=rT6Jh2t74FriHgz0o25z1IveWAiiu7PsQiuvC/qMBe8=;
+        b=RLPvO8vPTZf9GOl2GL97ZdHeZmKG3e5doy+jXLO6J0GzvKc8KJbxqX0bJM5uL2IFVF
+         +fYdLrppQIGEQFP8G2GDseMXzUKdR/Aw7WO95TkVU0t33GljpentWd4bdkbVvn7DcULw
+         VTSQhXjQkM7PjOrRHfGMT7t9Ff2QdeycdiX3Y7UfEgBN0Q9GwQHHFxUOW6XGe8OCDRfe
+         EHhULxBSLgXxJ2xNrt0G7JsGlamN2whHDQHP2na85OZiOKSNfx1B06yhS1L42RH7jPBM
+         LnVUXko8LFOH46lhGpuUhJnNPnGOrHDcTFunwcsduk+r0vXwUjUBPBEQDMHDlbFx9U/S
+         5Kig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781601983; x=1782206783;
+        d=1e100.net; s=20251104; t=1781601987; x=1782206787;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=NAXb5yw4TktASaT4DIdQAQD/zAZTtEP96c+FwsmHD0Y=;
-        b=REZfHUl4crT/mjzWf9p46MJAixCIYfANXdZIsg3MyhChsvkvTKeiIqmGrnGpi/IRkp
-         LtyOWJ7Npkz0sPEFLi9BkYTy0keJWY5pdO1FG7++IoeGkbvPhvh5PxUoqk8mIA22InnX
-         OcG13oGIbD8Z/hPotvYmBjTg0I+HB2NkOfC9rJQkQrfuatnKYx5ltgmgwV9R5Bijmxy1
-         0/WkVRPJM2jRIl2mNyCN/t6vldZFidHhantF1OmKReSRqJFDmQvuyZy7XQ4hFDOZG2C0
-         clMFrtXH4zXpEqy6YzXimjl/DaV2gLaLPR1QAxpTNxuEeOb6FieVpQxE3s3eJku1K8Tm
-         mHZA==
-X-Forwarded-Encrypted: i=1; AFNElJ9I++30tmcc+U5HvIhFFc/8kKV8n5G1owgJC5zOR7sohg+kmuwDHPLCwHv5V8WY3e46UmGttHAZET+W@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoyJS/sK4EzHvPcV2gKwlsp+r1rPnk81ZdbDi+e+hSiL+Nt977
-	rwviu/FC4nemVvA9bRc7H3ep5CV3TjPd9udCIk1yQrdb78ErWhrP3KSwuXmZ5rOQD/AHU6NWwB4
-	iFeNGNM65WlZlUWxzlEgLj4tbroQf3RyOpA18bXkeDF0M0HKx8dsCShDcG1rS1+YLu0G99Snp
-X-Gm-Gg: Acq92OEQfnC0jJV2Z6cvUNz8lLAGNsPaq+uZYfeVZV5ijD8xYlbKetxVop9KiLSnPod
-	OCuLEQIBDY6Xh2SdCUO/RDDSU+nKDkgeP+p9LN9CyUkS7gDD0jJjNttFENed5IxsLBLhS9WWzPx
-	YbYDclYxzv/zU2CWJYj0+VD/kEKx5I7nN+NEmMoJwSwKLrTfgFHKOsk8qyzvVBOrwdMlupKMDs2
-	N0uWCWm06AMakCSESWaSsWekPgwBCHiprUKmmBbSZs+UpmhnikmfyjqPD8jZbmvQsr75L+BwPsy
-	tizbXSeiKl40groNUbFPDSJlI/QLdt7Ql0kkBd0CebrCmpeYwfbKNYyfV0KxlWbblrTThk19hbi
-	+W2hba+RHqz2doACOaudzlSlqoRBihwQA+Rg4m4Q6B3fLNOwl+Q==
-X-Received: by 2002:a17:903:1b43:b0:2bf:23ad:8595 with SMTP id d9443c01a7336-2c66414887cmr157520255ad.4.1781601982595;
-        Tue, 16 Jun 2026 02:26:22 -0700 (PDT)
-X-Received: by 2002:a17:903:1b43:b0:2bf:23ad:8595 with SMTP id d9443c01a7336-2c66414887cmr157519965ad.4.1781601982122;
-        Tue, 16 Jun 2026 02:26:22 -0700 (PDT)
+        bh=rT6Jh2t74FriHgz0o25z1IveWAiiu7PsQiuvC/qMBe8=;
+        b=CYw02N/V9FzvT2KC4+12gDPRycyiHou2vOYw1QZa0WnYmafXcaLwAmNU8vHBTzVz+1
+         9wZMcDI2rqtop2hsEqG2O1PzzJeWLYOzyg3+MgcazWhy5zwIZX4L1zd4B1YWbxtJO041
+         h9i5JG7FEC5nLxWoOe6N8iDzA+iuAPUeCu0y1cZc1VlIRdbB+0SY4OKHJJkbmJoN7jB3
+         MCblAC5MvkXnSUFrv8A4eWhly/kfYXZxHhf036THOclFUoBgvsU0Jl/4OVGh6dMqL1ua
+         Pkym/B6Lzurj6+81SEVG6qmqzCNZskMQ/Co2ppUmTEmcEZFGJsy/O8+ecftSepgAqI9l
+         vwmQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9J5WW5rfWeL5eLZQCq4l7RPtdd3TCDx3aPtGEAeH2Dwaf0seL8yhllHyw8IQZ5XGExDeYDXMGfCqDt@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3an1YkfzIXulbB34PoS+yI+j1NYrHg6vqGc9oIBEO4VBHo1xU
+	P7ipfqjfd3GUMO7JNSGSuo4P5z7e5ItsYeylq7Ci6NT9+Zgiu6DS+9TnvLbozPlotvICHV8akw3
+	/FCUi1CYWFJUK6K2zhLlKpRhZ5u+b2V0vJLqoP4ypc9w0Sts4f/b+/+TfONoCOrhj
+X-Gm-Gg: Acq92OGRdB5ZTTs8zOMB/3XsFedqlBUgaZyRN1Xw+e4DDU5FKNLDiDIS/pwohp38Yf5
+	Ic1BVcSf6hrwEoz83XHtiqvM3LmwyaomKN+MXH3A0o5HJJiaZVSckKdQyizdnNgCQ7+U1k4Vn0R
+	at5bTGBYdOTdTP22TWmRONvVDBYa39Ao4g3S7q5iWlUiyoZKonk86Odue1sjkwnS9oZYipSo5dx
+	fIJYhvpOtdWaVtNBVRR0Le0HB7wKjm97HRXXFfb7nMB5cNtAxQ4CsxH9UwmsvZVhoQ9hZWi1IvX
+	yGrEgq2iXtHJFd7SHcZHXgvSI0Oge3w+Mi46UR5zTBvepnChrBlEyWb2l8U9jHCLWElYin8VVf2
+	buJImr4pyKs4xolBffNWJqZ4Fr26eCjPcLkjwQGlcePrGFOMW7g==
+X-Received: by 2002:a17:903:2442:b0:2c0:ab82:6bb8 with SMTP id d9443c01a7336-2c66420992cmr157411705ad.27.1781601987283;
+        Tue, 16 Jun 2026 02:26:27 -0700 (PDT)
+X-Received: by 2002:a17:903:2442:b0:2c0:ab82:6bb8 with SMTP id d9443c01a7336-2c66420992cmr157411315ad.27.1781601986734;
+        Tue, 16 Jun 2026 02:26:26 -0700 (PDT)
 Received: from hu-mkshah-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e586bsm130042025ad.12.2026.06.16.02.26.18
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f2e586bsm130042025ad.12.2026.06.16.02.26.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 02:26:21 -0700 (PDT)
+        Tue, 16 Jun 2026 02:26:26 -0700 (PDT)
 From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Date: Tue, 16 Jun 2026 14:55:54 +0530
-Subject: [PATCH v3 4/8] irqchip/qcom-pdc: Differentiate between direct SPI
- and GPIO as SPI
+Date: Tue, 16 Jun 2026 14:55:55 +0530
+Subject: [PATCH v3 5/8] irqchip/qcom-pdc: Configure PDC to pass through
+ mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-hamoa_pdc_v3-v3-4-4d8e1504ea75@oss.qualcomm.com>
+Message-Id: <20260616-hamoa_pdc_v3-v3-5-4d8e1504ea75@oss.qualcomm.com>
 References: <20260616-hamoa_pdc_v3-v3-0-4d8e1504ea75@oss.qualcomm.com>
 In-Reply-To: <20260616-hamoa_pdc_v3-v3-0-4d8e1504ea75@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -103,154 +103,431 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
         Maulik Shah <maulik.shah@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781601959; l=4386;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781601959; l=12610;
  i=maulik.shah@oss.qualcomm.com; s=20240109; h=from:subject:message-id;
- bh=l0yvFWCjGqALYpibJwYjgc+rbMxGpbSzkybRumcJUbA=;
- b=7z/PfdFzn0Z2mVeQg6VszqurdrtfvdA77vqiVY0xFhHQc551CE2kd9GB72v4jpDGHsanN7C3M
- sgE4calTATJClaY7EXUKR86+lap8JkQeDta5mcqpvV8b7WTTYKWNhQ6
+ bh=sLcI40qtn/Il8kWTLKDdBY3n0NAGFC+HZsWN3fXfvdU=;
+ b=EpSCVe2QU3s/BwVo4CL6/nsNv3mM/i+ZbmgiEHSIXGMBkg8XhOrL0jDnhKz1dR9V6YUH08LFY
+ 1C0WUfPHWUZAkQSbpzkaoPpmxl70q7nL/rsSQS2QDnMnaR3dhNpLw6M
 X-Developer-Key: i=maulik.shah@oss.qualcomm.com; a=ed25519;
  pk=bd9h5FIIliUddIk8p3BlQWBlzKEQ/YW5V+fe759hTWQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDA5NCBTYWx0ZWRfX3YbNkksGupyD
- D3bVstm1JEZMxBoZu+Fy2pnd9qLzyCPnYVd8g7ifG4EwmR+RqUB6TAwQmMT5+weYkVJJ2nomIP8
- BMgHbQc76N4Wrfz3pQlW9zyn7lYlp1TK17cjEsvptWPu2+6csxWfy041p96HIM1aL2mbLM5suVw
- P6RVyoV8GA7t9DgHEg1+q7Q8WpQHR1hz6v4s7E+G7SYgh3w1SY1wkcQ7qeU5XRZj7ttaunlI/LH
- i02xUduSSvJ0ESEc0xzy796Kf5sil0lRBWvn83aEv5korq8ioiTSuMJV0E30WFzYsB76XFslsAB
- TIcQVBVOxXhEsZlI1Pzuvw/EEs/0YTzlNbjpQGTMOHbjJapVMrBQgWBbZOCAWeM/jG2UKXRKTPF
- 81IE5ranHNZGEo6GrccjDsQYAEiU1MDp/fGxV0KTg+VnO8Z7BMiHSbixg4KZZ1ZYG6zhBySnmzj
- n9mLWRY8kDU6Lb7m9Fw==
-X-Authority-Analysis: v=2.4 cv=JKALdcKb c=1 sm=1 tr=0 ts=6a3116bf cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDA5MyBTYWx0ZWRfX51a4KGfCwtWu
+ AN+Fd3qEnn4Z+AsbXuNIwtvDVVq5XHSoOXw+gxLv2v2kbumEjAUKN2TDvtGvnH4xlawFagT+dRr
+ e4ANj1ycCjZHX31vlnJLwqlNTUTFKMn4kBauHplZI1Qrk1BU5lbTWoBT4SPNVDdW9XrZqa+Ob5C
+ svK1daE7aYBdBbm6h+2q4byor7F8UXH82Q6AEGMKWCvn0gwEAMLb/t23ZN/mEoFEmVoFwg82qtH
+ EipCmd9n2metLkTRSpYs6Du0/VFTk8XoFzLnHysIYU3XJiXPy1hBoN4i7/W89CXuDleh1N8m5tJ
+ xjCeWeixDq1d7FgMomSUYAWM8UqFPT4VJnTSIJ4F/hy/QLoGlYjIpE/3xj9qHNl1NRTaeWauslV
+ xAIjNMIC0afi0bWYam+TJpmWKIzfoVkO8vqGyK3yk9W0789v4zdotZxzgJgOXHo1Gs8M/Jb7hxn
+ jWru3uFEuYEmHxyDjWQ==
+X-Proofpoint-ORIG-GUID: xquBYPWEYslZ-XzjemU95jjZ5gD0L0vK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDA5MyBTYWx0ZWRfX30ugt8S6F9hf
+ Xi1073/LeYN/aoeCSJneT/dVAr1A0Ia2RGFvqtj2FmkMiTH9LkumkD2oGVWXcvBdH/gwlVQu67S
+ ZRO7NqDi+fvPa+qscwG/HC4PTWWEa+Q=
+X-Authority-Analysis: v=2.4 cv=DLa/JSNb c=1 sm=1 tr=0 ts=6a3116c4 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=_ArkcH_OKHg-bdOJ338A:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: Q8lJy9JBG5pFEw1xE1U9HvtrYDcVk9Ya
-X-Proofpoint-GUID: Q8lJy9JBG5pFEw1xE1U9HvtrYDcVk9Ya
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDA5NCBTYWx0ZWRfXzMREMEuUu3K6
- 48PfN+7xnkTo9sgIrbkibC/MpEbv9ty08mIX/fm+mSJC0wXBB3t2QxaZifl657ZAmcCvWb86gGM
- +6KGbBmwcwEj4c46oWcgjQnx7DA/QzM=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=bkapaEfNc9YyNyxQztEA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: xquBYPWEYslZ-XzjemU95jjZ5gD0L0vK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-16_02,2026-06-15_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160094
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160093
 
-Before commit 4dc70713dc24 ("irqchip/qcom-pdc: Kill non-wakeup irqdomain")
-there are separate domains for direct SPIs and GPIO used as SPIs. Separate
-domains can be useful in case irqchip want to differentiate both of them.
-Since commit unified both the domains there is no way to differentiate.
+All PDC irqchip supports pass through mode in which both Direct SPIs and
+GPIO IRQs (as SPIs) are sent to GIC without latching at PDC.
 
-In preparation to add the second level interrupt controller support where
-GPIO interrupts get latched at PDC (but not direct SPIs) there is a need to
-differentiate between SPIs and GPIOs as SPIs. Reverting above commit do not
-seem a good option either which leads to waste of resources.
+Newer PDCs (v3.0 onwards) also support additional secondary controller mode
+where PDC latches GPIO IRQs and sends to GIC as level type IRQ. Direct SPIs
+still works same as pass through mode without latching at PDC even in
+secondary controller mode.
 
-PDC HW have the IRQ_PARAM register telling number of direct SPIs and number
-of GPIOs as SPIs. Further PDC allocates direct SPIs at the beginning and
-all GPIOs as SPIs are allocated at the end. This information can be used in
-driver to differentiate them.
+All the SoCs so far default uses pass through mode with the exception of
+x1e. x1e PDC may be set to secondary controller mode for builds on CRD
+boards whereas it may be set to pass through mode for IoT-EVK boards.
+The mode configuration is done in firmware and initially shipped windows
+firmware did not have SCM interface to read or modify the PDC mode.
+Later only write access is opened up for non secure world.
 
-Add the support to read this register and keep this information in
-struct pdc_desc. Later change utilizes same.
+Using the write access available add changes to modify the PDC mode to
+pass through mode via SCM write. When the write fails (on older firmware)
+assume to work in secondary mode.
 
+In secondary mode set the separate irqchip for the GPIOs to perform
+additional operations only for the GPIO irqs.
+
+Co-developed-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 ---
- drivers/irqchip/qcom-pdc.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/irqchip/qcom-pdc.c | 220 ++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 208 insertions(+), 12 deletions(-)
 
 diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
-index 6c556464d37c..1aa6be42307c 100644
+index 1aa6be42307c..c6f2935ff788 100644
 --- a/drivers/irqchip/qcom-pdc.c
 +++ b/drivers/irqchip/qcom-pdc.c
-@@ -61,6 +61,11 @@
-  * |                   |    [4] GPIO_STATUS|    [4] GPIO_MASK      |
-  * |   [31:3] Unused   |    [3] GPIO_MASK  |    [3] IRQ_ENABLE     |
-  * |    [0:2] Type     |  [0:2] Type       |  [0:2] Type           |
-+ * |---------------------------------------------------------------|
-+ * |   IRQ_PARAM       | IRQ_PARAM         | IRQ_PARAM             |
-+ * |                   |                                           |
-+ * |   [15:8] NUM_GPIO | [15:8] NUM_GPIO   | [15:8] NUM_GPIO       |
-+ * |    [7:0] NUM_SPI  |  [7:0] NUM_SPI    |  [7:0] NUM_SPI        |
-  * +---------------------------------------------------------------+
-  */
+@@ -20,12 +20,18 @@
+ #include <linux/spinlock.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
++#include <linux/firmware/qcom/qcom_scm.h>
  
-@@ -69,10 +74,12 @@
-  *
-  * @irq_en_reg:     IRQ_ENABLE_BANK register location
-  * @irq_cfg_reg:    IRQ_CFG register location
-+ * @irq_param_reg:  IRQ_PARAM register location
-  */
- struct pdc_regs {
- 	u32 irq_en_reg;
- 	u32 irq_cfg_reg;
-+	u32 irq_param_reg;
- };
+ #define PDC_MAX_IRQS			256
+ #define IRQ_ENABLE_BANK_MAX		BITS_TO_BYTES(PDC_MAX_IRQS)
+ #define IRQ_ENABLE_BANK_INDEX_MASK	GENMASK(31, 5)
+ #define IRQ_ENABLE_BANK_BIT_MASK	GENMASK(4, 0)
  
++/* Secure DRV register to configure the PDC mode via qcom_scm_io_writel() */
++#define PDC_GPIO_INT_CTL_ENABLE		0xb2045e8
++#define PDC_PASS_THROUGH_MODE		0x0
++#define PDC_SECONDARY_MODE		0x1
++
+ #define PDC_DRV_SIZE			0x10000
+ #define PDC_VERSION_REG			0x1000
+ #define PDC_VERSION_MAJOR		GENMASK(23, 16)
+@@ -85,10 +91,14 @@ struct pdc_regs {
  /**
-@@ -92,6 +99,8 @@ struct pdc_irq_cfg {
-  * @base:           PDC base register for DRV2 / HLOS
-  * @prev_base:      PDC DRV1 base, applicable only for x1e RTL bug.
-  * @version:        PDC version
-+ * @num_spis:       Total number of direct SPI interrupts
-+ * @num_gpios:      Total number of GPIOs forwarded as SPI interrupts
+  * struct pdc_irq_cfg: bit fields for PDC IRQ_CFG register
+  *
++ * @gpio_irq_sts:   bit number for GPIO_STATUS field
++ * @gpio_irq_mask:  bit number for GPIO_MASK field
+  * @irq_enable:     bit number for IRQ_ENABLE field
+  * @irq_type:       GENMASK for IRQ_TYPE field
+  */
+ struct pdc_irq_cfg {
++	u32 gpio_irq_sts;
++	u32 gpio_irq_mask;
+ 	u32 irq_enable;
+ 	u32 irq_type;
+ };
+@@ -103,11 +113,14 @@ struct pdc_irq_cfg {
+  * @num_gpios:      Total number of GPIOs forwarded as SPI interrupts
   * @region:         PDC interrupt continuous range
   * @region_cnt:     Total PDC ranges
++ * @mode:           PDC_PASS_THROUGH_MODE or PDC_SECONDARY_MODE
   * @x1e_quirk:      x1e H/W Bug handling
-@@ -104,6 +113,8 @@ struct pdc_desc {
+  * @lock:           lock for IRQ_ENABLE_BANK protection
+  * @regs:           PDC regs (IRQ_ENABLE_BANK and IRQ_CFG)
+  * @cfg_fields:     Fields of IRQ_CFG reg
+  * @enable_intr:    pointer to enable function based on PDC version
++ * @unmask_gpio:    pointer to GPIO irq unmask function
++ * @clear_gpio:     pointer to GPIO irq clear function
+  */
+ struct pdc_desc {
  	void __iomem			*base;
- 	void __iomem			*prev_base;
- 	u32				version;
-+	u32				num_spis;
-+	u32				num_gpios;
- 
+@@ -119,6 +132,7 @@ struct pdc_desc {
  	struct pdc_pin_region		*region;
  	int				region_cnt;
-@@ -120,6 +131,7 @@ struct pdc_desc {
+ 
++	u8				mode;
+ 	bool				x1e_quirk;
+ 
+ 	raw_spinlock_t			lock;
+@@ -127,6 +141,8 @@ struct pdc_desc {
+ 	const struct pdc_irq_cfg	*cfg_fields;
+ 
+ 	void (*enable_intr)(int pin_out, bool on);
++	void (*unmask_gpio)(int pin_out, bool on);
++	void (*clear_gpio)(int pin_out);
+ };
  
  static const struct pdc_regs pdc_v3_2 = {
- 	.irq_cfg_reg	= 0x110,
-+	.irq_param_reg	= 0x100c,
+@@ -135,6 +151,8 @@ static const struct pdc_regs pdc_v3_2 = {
  };
  
  static const struct pdc_irq_cfg pdc_cfg_v3_2 = {
-@@ -130,6 +142,7 @@ static const struct pdc_irq_cfg pdc_cfg_v3_2 = {
- static const struct pdc_regs pdc_v3_0 = {
- 	.irq_en_reg	= 0x10,
- 	.irq_cfg_reg	= 0x110,
-+	.irq_param_reg	= 0x100c,
++	.gpio_irq_sts	= 5,
++	.gpio_irq_mask	= 4,
+ 	.irq_enable	= 3,
+ 	.irq_type	= GENMASK(2, 0),
+ };
+@@ -146,6 +164,8 @@ static const struct pdc_regs pdc_v3_0 = {
  };
  
  static const struct pdc_irq_cfg pdc_cfg_v3_0 = {
-@@ -139,6 +152,7 @@ static const struct pdc_irq_cfg pdc_cfg_v3_0 = {
- static const struct pdc_regs pdc_v2_7 = {
- 	.irq_en_reg	= 0x10,
- 	.irq_cfg_reg	= 0x110,
-+	.irq_param_reg	= 0x100c,
++	.gpio_irq_sts	= 4,
++	.gpio_irq_mask	= 3,
+ 	.irq_type	= GENMASK(2, 0),
  };
  
- static const struct pdc_irq_cfg pdc_cfg_v2_7 = {
-@@ -449,6 +463,7 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
- 	struct device *dev = &pdev->dev;
- 	resource_size_t res_size;
- 	struct resource res;
-+	u32 irq_param;
- 	int ret;
+@@ -184,6 +204,15 @@ static u32 pdc_reg_read(int reg, u32 i)
+ 	return readl_relaxed(pdc->base + reg + i * sizeof(u32));
+ }
  
- 	/* compat with old sm8150 DT which had very small region for PDC */
-@@ -505,6 +520,10 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
- 		pdc->x1e_quirk = true;
++static inline bool pdc_pin_is_gpio(int pin_out)
++{
++	/*
++	 * PDC allocates direct SPIs at the beginning and
++	 * all GPIOs as SPIs are allocated after direct SPIs.
++	 */
++	return pin_out >= pdc->num_spis;
++}
++
+ static void pdc_x1e_irq_enable_write(u32 bank, u32 enable)
+ {
+ 	void __iomem *base;
+@@ -231,6 +260,30 @@ static void pdc_enable_intr_bank(int pin_out, bool on)
+ 		pdc_reg_write(pdc->regs->irq_en_reg, index, enable);
+ }
+ 
++static void pdc_clear_gpio_cfg(int pin_out)
++{
++	unsigned long gpio_sts;
++
++	if (pdc->version < PDC_VERSION_3_0)
++		return;
++
++	gpio_sts = pdc_reg_read(pdc->regs->irq_cfg_reg, pin_out);
++	__clear_bit(pdc->cfg_fields->gpio_irq_sts, &gpio_sts);
++	pdc_reg_write(pdc->regs->irq_cfg_reg, pin_out, gpio_sts);
++}
++
++static void pdc_unmask_gpio_cfg(int pin_out, bool unmask)
++{
++	unsigned long gpio_mask;
++
++	if (pdc->version < PDC_VERSION_3_0)
++		return;
++
++	gpio_mask = pdc_reg_read(pdc->regs->irq_cfg_reg, pin_out);
++	__assign_bit(pdc->cfg_fields->gpio_irq_mask, &gpio_mask, !unmask);
++	pdc_reg_write(pdc->regs->irq_cfg_reg, pin_out, gpio_mask);
++}
++
+ static void pdc_enable_intr_cfg(int pin_out, bool on)
+ {
+ 	unsigned long enable = pdc_reg_read(pdc->regs->irq_cfg_reg, pin_out);
+@@ -245,12 +298,40 @@ static void qcom_pdc_gic_disable(struct irq_data *d)
+ 	irq_chip_disable_parent(d);
+ }
+ 
++static void qcom_pdc_gic_secondary_disable(struct irq_data *d)
++{
++	pdc->enable_intr(d->hwirq, false);
++	pdc->unmask_gpio(d->hwirq, false);
++	irq_chip_disable_parent(d);
++}
++
+ static void qcom_pdc_gic_enable(struct irq_data *d)
+ {
+ 	pdc->enable_intr(d->hwirq, true);
+ 	irq_chip_enable_parent(d);
+ }
+ 
++static void qcom_pdc_gic_secondary_enable(struct irq_data *d)
++{
++	pdc->enable_intr(d->hwirq, true);
++	pdc->unmask_gpio(d->hwirq, true);
++	irq_chip_enable_parent(d);
++}
++
++static void qcom_pdc_secondary_ack(struct irq_data *d)
++{
++	if (!irqd_is_level_type(d))
++		pdc->clear_gpio(d->hwirq);
++}
++
++static void qcom_pdc_gic_secondary_eoi(struct irq_data *d)
++{
++	if (irqd_is_level_type(d))
++		pdc->clear_gpio(d->hwirq);
++
++	irq_chip_eoi_parent(d);
++}
++
+ /*
+  * GIC does not handle falling edge or active low. To allow falling edge and
+  * active low interrupts to be handled at GIC, PDC has an inverter that inverts
+@@ -338,6 +419,67 @@ static int qcom_pdc_gic_set_type(struct irq_data *d, unsigned int type)
+ 	return 0;
+ }
+ 
++/**
++ * qcom_pdc_gic_set_type: Configure PDC for the interrupt
++ *
++ * @d: the interrupt data
++ * @type: the interrupt type
++ *
++ * All @type are forwarded as Level type to parent GIC
++ */
++static int qcom_pdc_gic_secondary_set_type(struct irq_data *d, unsigned int type)
++{
++	enum pdc_irq_config_bits pdc_type;
++	enum pdc_irq_config_bits old_pdc_type;
++	int ret;
++
++	switch (type) {
++	case IRQ_TYPE_EDGE_RISING:
++		pdc_type = PDC_EDGE_RISING;
++		break;
++	case IRQ_TYPE_EDGE_FALLING:
++		pdc_type = PDC_EDGE_FALLING;
++		break;
++	case IRQ_TYPE_EDGE_BOTH:
++		pdc_type = PDC_EDGE_DUAL;
++		break;
++	case IRQ_TYPE_LEVEL_HIGH:
++		pdc_type = PDC_LEVEL_HIGH;
++		break;
++	case IRQ_TYPE_LEVEL_LOW:
++		pdc_type = PDC_LEVEL_LOW;
++		break;
++	default:
++		WARN_ON(1);
++		return -EINVAL;
++	}
++
++	old_pdc_type = pdc_reg_read(pdc->regs->irq_cfg_reg, d->hwirq);
++	pdc_type |= (old_pdc_type & ~pdc->cfg_fields->irq_type);
++	pdc_reg_write(pdc->regs->irq_cfg_reg, d->hwirq, pdc_type);
++
++	type = IRQ_TYPE_LEVEL_HIGH;
++	pdc->clear_gpio(d->hwirq);
++
++	ret = irq_chip_set_type_parent(d, type);
++	if (ret)
++		return ret;
++
++	/*
++	 * When we change types the PDC can give a phantom interrupt.
++	 * Clear it.  Specifically the phantom shows up when reconfiguring
++	 * polarity of interrupt without changing the state of the signal
++	 * but let's be consistent and clear it always.
++	 *
++	 * Doing this works because we have IRQCHIP_SET_TYPE_MASKED so the
++	 * interrupt will be cleared before the rest of the system sees it.
++	 */
++	if (old_pdc_type != pdc_type)
++		irq_chip_set_parent_state(d, IRQCHIP_STATE_PENDING, false);
++
++	return 0;
++}
++
+ static struct irq_chip qcom_pdc_gic_chip = {
+ 	.name			= "PDC",
+ 	.irq_eoi		= irq_chip_eoi_parent,
+@@ -357,6 +499,26 @@ static struct irq_chip qcom_pdc_gic_chip = {
+ 	.irq_set_affinity	= irq_chip_set_affinity_parent,
+ };
+ 
++static struct irq_chip qcom_pdc_gic_secondary_chip = {
++	.name			= "PDC",
++	.irq_ack		= qcom_pdc_secondary_ack,
++	.irq_eoi		= qcom_pdc_gic_secondary_eoi,
++	.irq_mask		= irq_chip_mask_parent,
++	.irq_unmask		= irq_chip_unmask_parent,
++	.irq_disable		= qcom_pdc_gic_secondary_disable,
++	.irq_enable		= qcom_pdc_gic_secondary_enable,
++	.irq_get_irqchip_state	= irq_chip_get_parent_state,
++	.irq_set_irqchip_state	= irq_chip_set_parent_state,
++	.irq_retrigger		= irq_chip_retrigger_hierarchy,
++	.irq_set_type		= qcom_pdc_gic_secondary_set_type,
++	.flags			= IRQCHIP_MASK_ON_SUSPEND |
++				  IRQCHIP_SET_TYPE_MASKED |
++				  IRQCHIP_SKIP_SET_WAKE |
++				  IRQCHIP_ENABLE_WAKEUP_ON_SUSPEND,
++	.irq_set_vcpu_affinity	= irq_chip_set_vcpu_affinity_parent,
++	.irq_set_affinity	= irq_chip_set_affinity_parent,
++};
++
+ static struct pdc_pin_region *get_pin_region(int pin)
+ {
+ 	for (int i = 0; i < pdc->region_cnt; i++) {
+@@ -385,20 +547,37 @@ static int qcom_pdc_alloc(struct irq_domain *domain, unsigned int virq,
+ 	if (hwirq == GPIO_NO_WAKE_IRQ)
+ 		return irq_domain_disconnect_hierarchy(domain, virq);
+ 
+-	ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
+-					    &qcom_pdc_gic_chip, NULL);
+-	if (ret)
+-		return ret;
++	/*
++	 * PDC secondary chip is only set for the GPIO interrupts as SPIs.
++	 * Direct SPI interrupts are still in pass through mode (no latching
++	 * at PDC).
++	 */
++	if (pdc->mode == PDC_PASS_THROUGH_MODE || !pdc_pin_is_gpio(hwirq)) {
++		ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
++						    &qcom_pdc_gic_chip,
++						    NULL);
++		if (ret)
++			return ret;
+ 
+-	region = get_pin_region(hwirq);
+-	if (!region)
+-		return irq_domain_disconnect_hierarchy(domain->parent, virq);
++		if (type & IRQ_TYPE_EDGE_BOTH)
++			type = IRQ_TYPE_EDGE_RISING;
+ 
+-	if (type & IRQ_TYPE_EDGE_BOTH)
+-		type = IRQ_TYPE_EDGE_RISING;
++		if (type & IRQ_TYPE_LEVEL_MASK)
++			type = IRQ_TYPE_LEVEL_HIGH;
++	} else {
++		ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
++						    &qcom_pdc_gic_secondary_chip,
++						    NULL);
++		if (ret)
++			return ret;
+ 
+-	if (type & IRQ_TYPE_LEVEL_MASK)
++		/* Secondary mode converts all interrupts to LEVEL HIGH type */
+ 		type = IRQ_TYPE_LEVEL_HIGH;
++	}
++
++	region = get_pin_region(hwirq);
++	if (!region)
++		return irq_domain_disconnect_hierarchy(domain->parent, virq);
+ 
+ 	parent_fwspec.fwnode      = domain->parent->fwnode;
+ 	parent_fwspec.param_count = 3;
+@@ -449,8 +628,13 @@ static int pdc_setup_pin_mapping(struct device *dev, struct device_node *np)
+ 		if (ret)
+ 			return ret;
+ 
+-		for (int i = 0; i < pdc->region[n].cnt; i++)
+-			pdc->enable_intr(i + pdc->region[n].pin_base, 0);
++		for (int i = 0; i < pdc->region[n].cnt; i++) {
++			if (pdc_pin_is_gpio(i + pdc->region[n].pin_base) &&
++			    pdc->mode == PDC_SECONDARY_MODE)
++				pdc->clear_gpio(i + pdc->region[n].pin_base);
++
++			pdc->enable_intr(i + pdc->region[n].pin_base, false);
++		}
  	}
  
-+	irq_param = pdc_reg_read(pdc->regs->irq_param_reg, 0);
-+	pdc->num_spis = FIELD_GET(GENMASK(7, 0), irq_param);
-+	pdc->num_gpios = FIELD_GET(GENMASK(15, 8), irq_param);
+ 	return 0;
+@@ -501,6 +685,8 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
+ 		pdc->enable_intr = pdc_enable_intr_bank;
+ 	}
+ 
++	pdc->mode = PDC_PASS_THROUGH_MODE;
 +
- 	parent_domain = irq_find_host(parent);
- 	if (!parent_domain) {
- 		pr_err("%pOF: unable to find PDC's parent domain\n", node);
+ 	/*
+ 	 * PDC has multiple DRV regions, each one provides the same set of
+ 	 * registers for a particular client in the system. Due to a hardware
+@@ -518,6 +704,16 @@ static int qcom_pdc_probe(struct platform_device *pdev, struct device_node *pare
+ 		}
+ 
+ 		pdc->x1e_quirk = true;
++
++		if (!qcom_scm_is_available())
++			return -EPROBE_DEFER;
++
++		ret = qcom_scm_io_writel(PDC_GPIO_INT_CTL_ENABLE, PDC_PASS_THROUGH_MODE);
++		if (ret) {
++			pdc->mode = PDC_SECONDARY_MODE;
++			pdc->unmask_gpio = pdc_unmask_gpio_cfg;
++			pdc->clear_gpio = pdc_clear_gpio_cfg;
++		}
+ 	}
+ 
+ 	irq_param = pdc_reg_read(pdc->regs->irq_param_reg, 0);
 
 -- 
 2.43.0
