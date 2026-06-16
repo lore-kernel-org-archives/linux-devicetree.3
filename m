@@ -1,121 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCD43B47CF;
-	Tue, 16 Jun 2026 08:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7146F315793
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781598453; cv=none; b=ThKx9wbBwtTIReRZbb9VYjbnH+/Hj/wWRCgFmunBxAO3da4WaodJ1NQq5UIDCI5bu+UEaVl/dRjM2CB506s+sHM4XozlWiV/rmSGXn63LDbxjYxAcxc2RMAErBFiLr4NbCQjw45m87wLbNHp12n/5xpke4rbYo8FenU8EleA24k=
+	t=1781598626; cv=none; b=PcROhFwmHt74eubRvNTcwgQinkHTJhFq6jQqV4T4ObJ9xmwcFS10yHfhK+lp1ADDGyNwlK63p5TevqkmtOX6PPWZ/Qw2Gyf54dZiizt91IQcNJr/+ZfBVZ1iyrKasUDc3bApGl1rN5aM/i6jjiXrUxv5dUVKGZjDgafY9OquPOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781598453; c=relaxed/simple;
-	bh=OZlrVaq8cSFNA3Rt09tG3hk2INw3iVFCfo5f5Ru+45M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UHHU3mLpJyMun35zKKLW4Y3l9wHiqeNZx4eZgivKMed8xcII4ZVToopNRz3FSYKduxiea670f5ysov8OH4Bkgp3R4a71fuKdqy39JjieTi1F+yKXOao/IKdMiRISWa328fDhgamoS+BK+e+yALKU4Kv7x9tbOH/7CH95cBDNftE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uo0jo+1X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781598626; c=relaxed/simple;
+	bh=Uxc1tBxQnhY9odqukfXK9XM8Ge99uvanvulAG6DDdNE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lBRF98bnVHiFvl6yGsaYVRkfN1gZOKGqtobkZrVgy4A/FP5FlvEkSedgv3eIKy4gybhf8j/mDB013753uCeGv+mTLtziLvtVeBzikoGKUATC6w9GyW0PaNv57fLTitlPGESW6RQJXQ0q9rUJSvmGCguT3P2Fe8ODI5Fku2ewLvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5rbf+cX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uo0jo+1X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30781F000E9;
-	Tue, 16 Jun 2026 08:27:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5rbf+cX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E851F1F000E9;
+	Tue, 16 Jun 2026 08:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781598452;
-	bh=Q0fLaFQ950eBptOVg8md2eixmDLx1TIa5yy+9sn5UnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uo0jo+1XthHZVO2hdLrC0mDJGqQqRvUVfi5P8TKbPbggYu92RYZGF270mBt2damKG
-	 fYpKdCUQDLPeW8jfZrn39XtOZTuuoiTJiTIY6cb1UFquKj26esMnjxENMI7AcviBmi
-	 gEtac6MDfV048DQLSM65MTyRvmhfjkVcMddqm/WQ5v5hWHsW1HXtY5u9bWg6kn9nJk
-	 oSQCt8WHPSn5gu2VkLuKYjVwloWEkEaKPDmzrMQIRECcK8NNVp1C1rLYoY+mQ51LhP
-	 m8dAMVkVtvxcoa1vPBC7o6Mv0fGDQOJkLHsaqSAcovFRy0X+yipacJIlJzz0GNI8m8
-	 zUb1VMOLk2ZHA==
-Date: Tue, 16 Jun 2026 09:27:25 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	Amir Vajid <amir.vajid@oss.qualcomm.com>,
-	Ramakrishna Gottimukkula <ramakrishna.gottimukkula@oss.qualcomm.com>
-Subject: Re: [PATCH RFC v7 0/9] firmware: arm_scmi: vendors: Qualcomm Generic
- Vendor Extensions
-Message-ID: <20260616-responsible-junglefowl-of-chaos-7eda7d@sudeepholla>
-References: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
+	s=k20260515; t=1781598625;
+	bh=n5H8GgdKz4wsDCBPXlNBgLS1HMwF+xZOCx9wMLIoIzM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l5rbf+cXuT3qQQnNOHgc2c+euitUCxawJ6TM397+3gL8GrzWTemTEL6noLv1nh38c
+	 zF+w4oIBTcjoTiVvr97BsGv8qTsS7Vt9RaCQVi9OKiHcbYXORZuVwQ718QEoW2+ZlE
+	 zRS/TvNi9906ZyvfHM5JEaVZ9/l1wqQOK7ly9RosnSVpw1Ob532tWy95yAzHrH2zz8
+	 9+mXigWk0DjofcfCd3RjtnjxOMWVFX+DVUjs+uYk74lH4C/QmPpQckMlV3jDNLF+Y+
+	 ELOU06OuYs4/8Q8buO/QTLnSFdxEuGiY8NjSVr+MPs2c4IBK4rHfhRwFNa32iZubiB
+	 xFfKrFDeLcCyw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 06/12] iio: dac: ad5686: consume optional reset
+ signal
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260616-ad5686-new-features-v3-6-f829fb7e9262@analog.com>
+References: <20260616-ad5686-new-features-v3-6-f829fb7e9262@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 08:30:24 +0000
+Message-Id: <20260616083024.E851F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260610-rfc_v7_scmi_memlat-v7-0-f3f68c608f25@oss.qualcomm.com>
 
-On Wed, Jun 10, 2026 at 02:21:27PM +0530, Pragnesh Papaniya wrote:
-> The QCOM SCMI vendor protocol provides a generic way of exposing a number of
-> Qualcomm SoC specific features (like memory bus scaling) through a mixture of
-> pre-determined algorithm strings and param_id pairs hosted on the SCMI
-> controller. On Qualcomm Glymur and Hamoa SoCs, the memlat governor and the
-> mechanism to control the various caches and RAM is hosted on the CPU Control
-> Processor (CPUCP) and the method to tweak and start the governor is exposed
-> through the QCOM SCMI Generic Extension Protocol.
-> 
-> This series introduces the devfreq SCMI client driver that uses the MEMLAT
-> algorithm string hosted on the QCOM SCMI Generic Extension Protocol to detect
-> memory latency workloads and control frequency/level of the various memory
-> buses (DDR/LLCC/DDR_QOS). DDR/LLCC/DDR_QOS are modelled as devfreq devices
-> using the remote devfreq governor. This provides basic insight into device
-> operation via trans_stat and lets userspace further tweak the parameters of
-> the remote governor.
-> 
-> trans_stat data for DDR/LLCC/DDR_QOS is now available with this series:
-> 
->      From  :   To
->    315000000 479000000 545000000 725000000 840000000  959000000 1090000000 1211000000   time(ms)
->    315000000:         0         3         6         6         6         7         0        30    143956
->    479000000:         2         0         7         1         1         1         0         3       356
->    545000000:         7         6         0         5         5         0         0        10      1200
->    725000000:         3         0         5         0         6         1         0         6      2172
->    840000000:         8         2         3         2         0         4         0        12      1188
->    959000000:         3         0         1         2         2         0         0        13       272
->   1090000000:         0         0         0         0         0         0         0         0         0
->   1211000000:        35         4        11         5        11         8         0         0     21684
-> Total transition : 253
-> 
-> QCOM SCMI Generic Vendor protocol background:
-> A lot of the vendor protocol numbers used internally were for
-> debug/internal development purposes that were either highly SoC-specific
-> or had to be disabled because some features were fused out during
-> production. This led to a large number of vendor protocol numbers being
-> quickly consumed and never released. Using a single generic vendor
-> protocol with functionality abstracted behind algorithm strings gives us
-> the flexibility of letting such functionality exist during initial
-> development/debugging while still being able to expose mature features
-> (like MEMLAT) once they have stabilised. The param_ids are expected to
-> act as ABI for algorithm strings like MEMLAT.
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Missing return value checks for `reset_control_assert()` and `rese=
+t_control_deassert()`.
+- [High] The reset pin is left in a deasserted (driven) state on probe fail=
+ure or device unbind, leading to potential back-powering of the DAC.
+- [Medium] Acquiring the reset control after enabling regulators causes unn=
+ecessary power toggling on `-EPROBE_DEFER` and leaves the reset pin floatin=
+g during power-up.
+- [Medium] Missing recovery delay after deasserting the hardware reset may =
+cause subsequent device communications to fail on fast CPUs.
+--
 
-Not sure if it was discussed in the previous versions or not, it would be
-good if you can capture why some of bus scaling doesn't work with the existing
-SCMI performance protocol and the monitors don't fit the MPAM mode.
+commit c3eb5fda0704f698d1f8b2f76769857300b80132
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Please capture them in 1/9 as a motivation for this vendor protocol. It will
-then help to understand it better as I am still struggling to. Sorry for that.
+iio: dac: ad5686: consume optional reset signal
+   =20
+This commit adds GPIO support for the RESET pin using an optional
+reset control local to the probe function. It manually generates
+a reset pulse after the device is powered up.
 
--- 
-Regards,
-Sudeep
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index fc3863274b291..a48acedff51c1 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
+[ ... ]
+> @@ -508,6 +510,15 @@ int ad5686_probe(struct device *dev,
+> =20
+>  	fsleep(5); /* power-up time */
+> =20
+> +	rstc =3D devm_reset_control_get_optional_exclusive(dev, NULL);
+
+[Severity: Medium]
+Is it intentional to fetch the reset control after the regulators are
+enabled and the 5=C2=B5s power-up delay has occurred?
+
+If devm_reset_control_get_optional_exclusive() returns -EPROBE_DEFER,
+the driver will disable the regulators and have to retry the sequence
+later. Fetching the reset control before enabling regulators might also
+prevent the reset pin from floating during power-up.
+
+> +	if (IS_ERR(rstc))
+> +		return dev_err_probe(dev, PTR_ERR(rstc),
+> +				     "Failed to get reset control\n");
+> +
+> +	reset_control_assert(rstc);
+
+[Severity: High]
+Do we need to check the return value of reset_control_assert() and
+reset_control_deassert()?
+
+These functions can fail and return error codes, particularly if the
+reset controller is behind a slow bus. Proceeding without checking
+could cause the driver to communicate with a device that is still held
+in reset.
+
+> +	fsleep(1); /* reset pulse: comfortably bigger than the spec */
+> +	reset_control_deassert(rstc);
+
+[Severity: Medium]
+Does the device need a guaranteed recovery delay after the reset is
+deasserted?
+
+Exiting the hardware reset initiates an internal power-on reset
+sequence. On faster CPUs, the execution time before the first SPI/I2C
+command might be shorter than the device's required reset recovery time.
+
+[Severity: High]
+Should there be a registered devm action to assert the reset pin on
+driver removal or probe failure?
+
+Currently, the reset pin is deasserted here but never asserted again on
+cleanup. Since devm_regulator_get_enable() automatically disables the
+VDD and VLOGIC regulators during cleanup, leaving this pin driven HIGH
+while the device is unpowered could forward-bias ESD protection diodes
+and back-power or damage the DAC.
+
+> +
+>  	/* Initialize masks to all ones */
+>  	st->pwr_down_mask =3D ~0;
+>  	st->pwr_down_mode =3D ~0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-ad5686-new=
+-features-v3-0-f829fb7e9262@analog.com?part=3D6
