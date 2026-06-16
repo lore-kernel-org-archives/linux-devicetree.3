@@ -1,127 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93B735C183
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:04:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2853B42E0;
+	Tue, 16 Jun 2026 09:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781600645; cv=none; b=UWZnDnPhkAp1lPHrZIdRrlk8yf0uON6x7wEcQRcTbka6Di97+zTDXPjHmOJM7+XUkKeDQEP1Lm+kVY1UqWVKNa7KNJdi/8eIzNKpQwDsSIbgLBhzVt0jzTYskqkhjWqKCotl4Cq0muGQD+K1iPyb3F59BjyjNGyglGy4LrvleJk=
+	t=1781600805; cv=none; b=Q75r4rNdaqbuXCizrt0JBmmCP7vKIJmlVrqX1N5i0b84rmJ76E8iSMndmdapmyUmxE6vvpDtK+VpL1NCyxRhjr/kCYEwwnlehGSWWXM8iBVckAjbR/aXSS5vbKlaR+xnWm5jYkCq0sUH9y2gGhpeNSCkhmUcOtts72syi9w6yyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781600645; c=relaxed/simple;
-	bh=uHcsdbKFLmBvSUpYkpBRCbI54pYWVJAVMBA4n4TroaU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BPgbyBExjIskWxEQjUzOd7jmOWDmYAB/o3MtsHTTUEAWouhOzWgAjkkAqkX+HLdfWM2PYRGuSE6w0lwO5LnE0SXyxy5CvbbCUGmbUDcYj7bxkUwTjBa9X3df7EvmrC858NkXtcGBj6U7wRyTsBCiAbLIrw3fIM44alEkglFWbaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8h0pnlk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781600805; c=relaxed/simple;
+	bh=bB9Bam2Axx2bksZq+8g8hmEcVk0SMTEUNNk16RqbDcY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gG/0E5Hs8cjDuPODoCOzZK/nMmUYQEaB89FAmakUkzxGEyJUUznwKltkMV7KGmzzNoIC84gPU8FQHCmpOTsaxtS61GoOUbTyt7NURXDyePJLfyZ1Q85n9gsAUL5hzQAeSkdBeI4kcmmGT1WtYmkzWlFmJbThK75vnuQugHjkmTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SpoUqeVm; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8h0pnlk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534451F000E9;
-	Tue, 16 Jun 2026 09:04:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781600644;
-	bh=4seXvpIW1lQ++lU822us1lGINTLbDm2ozLepAdJWMgE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z8h0pnlkf9zWMJnnG/jJMQjIlwDz2zEuMu7JPJjPty7gIvr6MLla3k5wRE5f9w2KQ
-	 ShJqIqxrtfGhyhVzK9rRNwPbVy3AYtmojpknLpTKLKpHTQ/bsT8Q2hZ3L7dVsi3nTM
-	 TL5DqAOYOu7pxRAONsyiameMeaGmZlPAWMX6UGhASRzbwHpC9PwFZ2bebYWTBDOd2h
-	 4RaD7KrKZ1wujHDnXd4pjfMhKdKR+nB2kDLRCcmRxbV+42DUl4om5C7IbJG2oxu1VD
-	 3OHxn+c1gaT1udNJNK3uKA4GDFhrya1SqlOyYPyLk3me/EyI/BkplivaPx8PQNnGni
-	 wBFeLfIGbdSCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: rtc: Convert rtc-cmos binding to YAML
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Teja Sai Charan B" <tejaasaye@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260616085659.12809-1-tejaasaye@gmail.com>
-References: <20260616085659.12809-1-tejaasaye@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 09:04:03 +0000
-Message-Id: <20260616090404.534451F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SpoUqeVm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781600805; x=1813136805;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bB9Bam2Axx2bksZq+8g8hmEcVk0SMTEUNNk16RqbDcY=;
+  b=SpoUqeVmyP23qR2Yp8avD5eiR3J92DjWEkBHjIhQ8+d3NtM0aiVAmaPX
+   nk1gVdCxiYFPNDTChqWAX/rykgo2h+GuhGMsmCHe64BKPmEtJtd932wYq
+   +yiofrxkjLlq1GV3LBD1stz5QrUreE78gp9AQya1VrDi54mx063J0W6QV
+   H1O6s4IwXs+/XbRkkv83V9y3JWxDFoOVsnd/gqCTeshlORy0Fz1kBEWYl
+   SrT9InRPv/ofaiInK/Bl4TCeIbJdyyFsv/qFKtD+4lRV3rYS8oDU8b5a9
+   aQK/zA2WkDWHsFCzf7MFFEwZXJIrImOXBapZawBEuf9YA1CZ/KIiFr8Yp
+   Q==;
+X-CSE-ConnectionGUID: 5Bd8Wj1QSSiGptcUs3810Q==
+X-CSE-MsgGUID: InTpZOGWTaWw1PwBNmgKLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82558849"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="82558849"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 02:06:44 -0700
+X-CSE-ConnectionGUID: GayzKkKyQl6UTa8KXRnl/w==
+X-CSE-MsgGUID: Xh4q4IjyS8WaN5UAOcp9+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="246832393"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 02:06:39 -0700
+Date: Tue, 16 Jun 2026 12:06:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
+	andy@kernel.org, antoniu.miclaus@analog.com, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, duje@dujemihanovic.xyz,
+	jic23@kernel.org, jishnu.prakash@oss.qualcomm.com,
+	jorge.marques@analog.com, krzk+dt@kernel.org, linusw@kernel.org,
+	linux-kernel@vger.kernel.org, marcelo.schmitt@analog.com,
+	mazziesaccount@gmail.com, mike.looijmans@topic.nl,
+	nuno.sa@analog.com, robh@kernel.org, sakari.ailus@linux.intel.com,
+	wens@kernel.org, joshua.crofts1@gmail.com
+Subject: Re: [PATCH v3 2/3] iio: adc: Add ti-ads1110 support to ti-ads1100
+ driver
+Message-ID: <ajESHET8J0PV8jw3@ashevche-desk.local>
+References: <20260613190957.654798-1-jakubszczudlo40@gmail.com>
+ <20260613190957.654798-3-jakubszczudlo40@gmail.com>
+ <43e4c4f4-0b13-4331-80ce-7353408c78f5@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <43e4c4f4-0b13-4331-80ce-7353408c78f5@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] The node name in the YAML example uses a unit address that does not=
- match its 'reg' property, which will cause a dtc warning and fail `make dt=
-_binding_check`.
-- [Low] A stray file `result.txt` containing intermediate search and build =
-output was accidentally included in the patch.
-- [Low] Important explanatory text about firmware initialization was droppe=
-d during the conversion to YAML.
---
+On Mon, Jun 15, 2026 at 05:29:17PM -0500, David Lechner wrote:
+> On 6/13/26 2:09 PM, Jakub Szczudlo wrote:
+> > Add ADS1110 support that have faster datarate than ADS1100, it also uses
+> > internal voltage reference of 2.048V for measurement.
 
-commit 141cef115f7766092691376134d5e5d70aca938a
-Author: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+...
 
-dt-bindings: rtc: Convert rtc-cmos binding to YAML
+> > +#define ADS1100_MAX_DRDY_TIMEOUT	7500000
+> 
+> Always nice to include the units in the identifier name.
+> 
+> ADS1100_MAX_DRDY_TIMEOUT_us
 
-Convert the rtc-cmos devicetree bindings to dt schema.
+I think for seconds unit we stuck with capital letters.
+But I appreciate the attempt.
 
-> diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Docume=
-ntation/devicetree/bindings/rtc/rtc-cmos.yaml
-> new file mode 100644
-> index 0000000000000..ba4812778115c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> +  ctrl-reg:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Initial value of the control register
-> +      (also known as Register B).
-> +
-> +  freq-reg:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Initial value of the frequency register
-> +      (also known as Register A).
-
-[Severity: Low]
-The original text binding contained information explaining that Register A
-and B are usually initialized by firmware (e.g., BIOS), and if not, can be
-performed by the driver. Should this explanatory text be preserved in the
-descriptions here to retain the original context?
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    bus {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <1>;
-> +
-> +        rtc@70 {
-> +            compatible =3D "motorola,mc146818";
-> +            reg =3D <1 0x70 2>;
-
-[Severity: Low]
-Since the bus has #address-cells =3D <2> and the reg property starts with 1,
-should the node name be formatted as rtc@1,70 instead of rtc@70? A mismatch=
-ed
-unit address will result in dtc warnings and fail make dt_binding_check.
-
-[ ... ]
-
-> diff --git a/result.txt b/result.txt
-> new file mode 100644
-> index 0000000000000..5e90660b93ec2
-> --- /dev/null
-> +++ b/result.txt
-> @@ -0,0 +1,17 @@
-> +arch/x86/kernel/x86_init.c:42:	{ .compatible =3D "motorola,mc146818" },
-> +arch/x86/platform/ce4100/falconfalls.dts:420:					compatible =3D "intel,=
-ce4100-rtc", "motorola,mc146818";
-
-[Severity: Low]
-Was this result.txt file intentionally included? It appears to be a local
-search and build log that accidentally made it into the patch.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616085659.1280=
-9-1-tejaasaye@gmail.com?part=3D1
