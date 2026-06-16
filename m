@@ -1,67 +1,86 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3CC425CF4
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F7141C31C
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781604099; cv=none; b=Zo8yvA7XFQUVZ/CqDIaveoaf0bnxWt6br6VCuuDsoJNS2GVw6kP21zZMW39UuW2KUpG6dZuDsg+w5ON2v7hwccd7Xe6kB4DK4EWz9FyfzcdgswHYZBdy7zGnp1VUCm4RWpMVd6hueknnfjPKwjEcZY1BFkIZVmgC+Q1OWLvY7zA=
+	t=1781604118; cv=none; b=FBM7OuHh9vEVeN1BqMhWY6wtLhi2TytRsxbTG4Swj1CaoZxoEZ5FOKktp0hqSLYUALvxeDBaqZnxshLOUWlKnRujQXY1xQRuae9QAPpFzD4Yyxpyzq/mx/QHsg6cqyWxkTvNWO2tcET9ZUyW491QP8fYyukCiubAvoTJ0BVPR3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781604099; c=relaxed/simple;
-	bh=YN7jywOfwOI6y9/MW4+/QURs+igeKnS3wJ6xDPErbgw=;
+	s=arc-20240116; t=1781604118; c=relaxed/simple;
+	bh=01Fc/ADSOZDZ1YOUFiGsh2Gt6FB2lvIRgd4lvAvm/Qg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QG+wFBwKfh6bebVW0mmP7UUOpNEI3I1Vx+qW1wGoiFUqsSQriPaUjKFxQXYFX62VljdXs1riLFaPdxITG7TAr14NcaCXhqgcVzwdgTnS6rY+7U4xdREKIQ2ZF+KHZpAPdjsr/L0kEHsLxXZuAlRxImho2r/YPq8K9JklFRWnBm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QjFUCTGN; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=YnC6in72Wqc1bUqOKaGQ6aOFu2IRqKp/9FWxlNl2r3KL9bQZDsLad3DpRKZroHtv+mn0NIRDusmhWICHBh+bn4DoJxC2NS251Wn0Nk3SkFxF1P6DBNjnGPVi/x0RYqaYct2c4IfAgk1GgdAWZVLe9EWr521vpeyAMd7cPTYiaAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nyfo/zpa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kSi2yTTB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QjFUCTGN"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-30bb7d20ad9so365341eec.1
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 03:01:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nyfo/zpa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kSi2yTTB"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65G7I1St2832536
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:01:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XZH9b/PeVYJfBxYJerWUqFojidubZWZ7u1DZcm4xfGc=; b=nyfo/zpa+QHaMpyU
+	DpNbxzv/6NZIVuDfDz2ASWwLw1jnjwCvfweaEBtHtGRALNvVCIYHX/D5lbtfqlbw
+	1YG9vR3Ixy1cX/1b9y/fxWp/3c8GjOu+brdlW3e6oOQslfve0Nm9RbRGKocJa02e
+	PFlgFZpQsRG1XxlZyNfTU5opoyJPYbGFlCpP63SMcBBnhPF7EMuTTx0z+XTJJnaE
+	nwpc1ofQczzbdluDkQYVbxqtGBFLj27+jXBYyl2yqCGK/zlDxNPeiD+Ye5DBV3fn
+	DKQ9PpymV1XvlYKT9ZsonEBOrBjeRqtX2nIhYW+hku6txEV9llM1Bi7hHtk+M+8O
+	0sGL9A==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu1ysrn6k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:01:56 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5176891d0a9so10708261cf.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 03:01:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781604097; x=1782208897; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781604115; x=1782208915; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uBeImg1GeZ73aPo+Du634svjdTCaD/BADcPkIYViljc=;
-        b=QjFUCTGNjEwBTOWLRYJtB0g2/BK/iXo8FBj2f8P2HuDE86Z45kBJcBAUJo/sAR7K+m
-         ypvyhUfqWPGLHZDagc8eO1jge5nOPsEzJ9rVGYDpJkOJ5PX89XAp3C9u/1RMYMTp76xE
-         gBZ7M86wj3xecho3euzPHw/X6voo/9B/VG4Gn+im3Koa3LOS3x+d9T5qNWNq++1hCwFu
-         e6TcHcaf/9Dyjoixdb2PAZUX2yIrG7Ko7vURFalzQjQcqOqTiaikVy/l9aF+6h5YA5vU
-         vX+AXKID/AYdHB28HS9TH0C9j6X00Q/MP2I36TzUYPiDATD61HO95h9kLHYqy8VJLTji
-         bkyg==
+        bh=XZH9b/PeVYJfBxYJerWUqFojidubZWZ7u1DZcm4xfGc=;
+        b=kSi2yTTB6/Jwa6MfrD+Xp5mIP5u96/nUx4npXBFamLpdEGaYi3dTx5w1aMQDBWT7SF
+         WaFb/vgXEhmcGgrHfstIg3ifeH/svGIwpjZJkCKMyqLpWdl+LPQyR9Svkoqxr23GhBzW
+         bp2yLRjWpexINlkluXDWJucmbR3OA7hDyuHXy7myfI/yNjJSUVOsRb7ur34NmtIXiIEG
+         +NzBHR4nOsWgOFGsUBGM0uWevZCELcrIN+Hl2qOBsK+9htVY6gn+Jy4Wq6EN66T9B2P5
+         P/mYpPjCnFJCHxHw5m6Qwv5KOGDojbgvQSLzwXNxshbiRz4O2QPcQzXoZVZU4U6e1dlH
+         zvFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781604097; x=1782208897;
+        d=1e100.net; s=20251104; t=1781604115; x=1782208915;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=uBeImg1GeZ73aPo+Du634svjdTCaD/BADcPkIYViljc=;
-        b=i1XQcrGXSNsJkMFkCRiG/u9NyL390JoHGxWZ0zXePORDX7+qXKKplopfttgBUPvcBi
-         QwJ/+r+Q0Do+ijbTh5jWnc5anOtPvwR46TynbUGjHhsjZDxkANonELRe/hfv9eUIaTmy
-         qBLnHyGx+fDy9huYvLTYshxlhlkZ7LAtJHrrAUY26pJXHMY8IPglwzxdZ+5b5QawDdsh
-         /2zSXGAZ9EakcSeiJlbmyusVa5Ra4rwxAeYx8ecWlHsvh36WB2pgEfRuGM2tQUuFH8Ir
-         qQAEM1ItPAVAD2Z1NRf2gwnCcezjooO1bHhkpMjtyKJQTUj/5vz3e1iyR0HHdsh3y+bA
-         MSjA==
-X-Forwarded-Encrypted: i=1; AFNElJ+TUU4EAlyQKah86PW5n3MVmW8gHf2+bRhAOH7uX5KEQq7ApxMr/5dYAz3BPzwmpiBQCjMeqLiFCpSO@vger.kernel.org
-X-Gm-Message-State: AOJu0YykEIF9Ob4jIDECLxHtSCnk1ujrUZcRFLx+sDft711WiDrIri/7
-	rtD6PcpbhHUaPmhtY1anqsIDBmEO4zqcAKOYx8Q6qcPIGhrscZF5j5gs
-X-Gm-Gg: Acq92OG0FF6NAAJGnkcM4iYgjHqb/smLT7AZoBscIQEtMB/UaaJqqdlhgiNajtKgGgE
-	JiW30+S9XfM+Fi7jbHVbaIc8vD9eC2BYk15suTInWGSY78s32tzdpA8NkVnVhFIEiDW/m/6vK2D
-	t0kJdyKye8oAO8jyQKhCaAnEk4hsT39r1FF2FrVwVQTKFkyIb/eBK0upegxAwtlZNW9hL5QGwJR
-	OH6xtbCYcoB7XQen96jPYkQ37gKxBh52s0futcxi5WKfDLxtVfqtZsicBRpsxZZycWKdJbCYubI
-	vBgZ6ghEEotceJEprAUhUxMrDm2TD9JAEKwY7tb8lbrHmHIi4NGMREI8hNatFbj12zQFA2JavrU
-	O6Q/7Q0FVk0+ebeaIHNIu8WlXQUndNpqctOVBhiwot7bKbjw2puC89+cErZpKF1La05ZXOm38VN
-	idolNOboQuvYvD4aVGo4b41KHipdUI0flx7ooNqGksXEyZpaxRGvB6BXOVgX5YGyQ0UcZZnryNe
-	uce
-X-Received: by 2002:a05:7300:6144:b0:307:e4fa:894b with SMTP id 5a478bee46e88-3093685d5b2mr8915809eec.8.1781604096865;
-        Tue, 16 Jun 2026 03:01:36 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e5fefecsm18456036eec.13.2026.06.16.03.01.33
+        bh=XZH9b/PeVYJfBxYJerWUqFojidubZWZ7u1DZcm4xfGc=;
+        b=DKzw6A3OiZdxDvbwQr4r5fZqOzQDsFH+0Ia2XVc0BB9Mgd4ikDUInRk/l87mkrCtyx
+         lrrAkt2iBLLDiw/kuF+nvJqNMoIs/iAlndz5Fp9+vuG0EnH62b0uOjnibzj7dhR5wceV
+         0LgRUToxBFwIYYtGbeFCPZzeRd5XuG4ayLFgZZtwYYihJR5tfY0bAmjPI7bvb3905aHe
+         HX6J0w2lgZsUg9INjb25Wcx+P5AN5iVYsQN07mYpoMUhHp/B9EUv84u5o3zucC6rmNoK
+         0fzz53GI8v9hEKiaWQ9rioBsHLpDaIz8IWcZzjcHRsQdMZeemLkfKt80XEWa/aI6UJx0
+         Lbcg==
+X-Forwarded-Encrypted: i=1; AFNElJ82dCYmiGnegPabscnZ0BhmQd32nG09VbG/HnmZrOu3hZs8pLEX1Xfmm3itHV03sqvxJuT8Kj/h0OvN@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzG6zET6nMmvldbYOlln43XlA9COQgCbHQ4ho+djcqXBRA6qzJ
+	cwJdm3xRcrZSqO5KDSpSIjX7LJRrB0pIuqoiMTZbFyGny488RcY9Fo9qJxV3JPZ2rifm7dUDENI
+	zshPF8Mp1t2r3v0SQh6/Wxf+lVWLklA7+wJSauLFw995/lOVi2A/0Jl8VBLe4Ejwn
+X-Gm-Gg: Acq92OHAsmOzTYfvFb/7wOqCbvDJB1bJrNIg+7UT7nV4HtY1rqPCNUfd42juzIQDXiY
+	0+Tujo2JbSqbhRK0z9SOo8otQjW6FQfL2Jj7mpFYqen0ujJ3duacDkdQ5tsQCuiX9A/SZTNEfq8
+	bmFSb42VD/RZ3HrbkZzPhXHGWrhPvg7MqgABnjzXadNskBXctLeO/91V1AWJPgnWtnHFZAGKneL
+	6uuJ+ymgkBIO/4yQysF/LZTBjatR5LHBKqsBYEOvhdronDqsvk6jBiL/d7UNvE/P06t8da9zUFo
+	oxCyzG4ObiiWGZJHrxRKxaMrhVneLK3FHSg5TmbnmPecQwZ7zdmqjP+uxrQc0nZZUrQfGo8FqaJ
+	phm0E0FYamMLnm94C6sEvW2TV5VE/sXANyvp7IODrlgFHOw==
+X-Received: by 2002:a05:620a:8011:b0:91c:9d38:30ac with SMTP id af79cd13be357-91c9d3836a4mr138711985a.4.1781604115497;
+        Tue, 16 Jun 2026 03:01:55 -0700 (PDT)
+X-Received: by 2002:a05:620a:8011:b0:91c:9d38:30ac with SMTP id af79cd13be357-91c9d3836a4mr138709385a.4.1781604114924;
+        Tue, 16 Jun 2026 03:01:54 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-693791c5d33sm4694035a12.8.2026.06.16.03.01.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 03:01:35 -0700 (PDT)
-Message-ID: <07761947-12a2-4ee0-9fc2-60511c40398e@gmail.com>
-Date: Tue, 16 Jun 2026 18:01:29 +0800
+        Tue, 16 Jun 2026 03:01:54 -0700 (PDT)
+Message-ID: <8b8fe93b-3df4-4dd4-acd6-3e87401071f9@oss.qualcomm.com>
+Date: Tue, 16 Jun 2026 12:01:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,82 +88,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend for
- dual-port OTG support
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Hui-Ping Chen <hpchen0nvt@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- devicetree@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Joey Lu <yclu4@nuvoton.com>, Jacky Huang <ychuang3@nuvoton.com>,
- Arnd Bergmann <arnd@arndb.de>, linux-phy@lists.infradead.org,
- Shan-Chun Hung <schung@nuvoton.com>
-References: <20260615054911.48821-1-a0987203069@gmail.com>
- <20260615054911.48821-2-a0987203069@gmail.com>
- <178153082322.1456470.14205688450934768854.robh@kernel.org>
+Subject: Re: [PATCH v9 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
+ DTS
+To: Stanislav Zaikin <zstaseg@gmail.com>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, linux-kernel@vger.kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com
+References: <20260608143329.252033-1-zstaseg@gmail.com>
+ <20260608143329.252033-3-zstaseg@gmail.com>
 Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <178153082322.1456470.14205688450934768854.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260608143329.252033-3-zstaseg@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: b-EkgKwLcflyfXoPRUxxmguPybw0kf6J
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEwMCBTYWx0ZWRfX0D1Sll7fRlzZ
+ fkhznF6PGNk2Ck+4ifZCxs7czcNilU4DndNQHxJ614XiBqqv8xkPPiqAYoT0E9qUeNiz5uKyiCl
+ lp4tQQf1DpwzAb0PGyIrZa1Pa49qirI=
+X-Proofpoint-ORIG-GUID: b-EkgKwLcflyfXoPRUxxmguPybw0kf6J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEwMCBTYWx0ZWRfXwmWV5gXSnDDR
+ wM1JttSpL6VVC6LNoVhQVZwALRYGLYfL98s6vJIrzPGhM+L5k2t3nhKG3hLjqqjC8d0eRNoXsoS
+ XqDJ7DogEiWgAfXXXZNt0tuHTp1cf0mEW7JcmHLMZwo9T30v4UaJOwKs4hHU9inPACI4jne1P6j
+ 2j5I2YNXwCGnmPZ0GSCh2BkFz5QnvLcvo0ufnyoghHHv5A2hEFafVzowUrFIjxKpakZHsgkoL7C
+ rk6fr1Psqf94tSf8/+l001TYLYImznjEUcCyxy2XNkrGmzEUA0yzFE72dFfhJmZ+iBncmvZNLKM
+ ouDkn2q+u4w9p/gLNbN5K77v9dKMfZhtrFV2bNRLbTi015f0SSfYifpvkxVPGDfQyp0J4wQoiLo
+ elN0DyKGbtt3GBTbNRXmNQe/dFnqSZDt27Gz1qmCLBIevV0bKjbqraRJOoy6heG/xaQIie2ZGWd
+ tXICzDjizVFKI53xY5w==
+X-Authority-Analysis: v=2.4 cv=JJcLdcKb c=1 sm=1 tr=0 ts=6a311f14 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=yr-2ec9jEi1U7REnfNwA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_02,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
+ definitions=main-2606160100
 
+On 6/8/26 4:33 PM, Stanislav Zaikin wrote:
+> Xiaomi 12 Lite 5G is a handset released in 2022
+> 
+> This commit has the following features working:
+> - Display (with simple fb)
+> - Touchscreen
+> - UFS
+> - Power and volume buttons
+> - Pinctrl
+> - RPM Regulators
+> - Remoteprocs - wifi, bluetooth
+> - USB (Device Mode)
+> 
+> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+> ---
 
-On 6/15/2026 9:40 PM, Rob Herring (Arm) wrote:
-> On Mon, 15 Jun 2026 13:49:09 +0800, Joey Lu wrote:
->> The MA35D1 has two USB PHY ports managed by the same hardware block:
->>
->>    - PHY0 (index 0): OTG port shared between the DWC2 gadget controller
->>      and EHCI0/OHCI0 host controllers.  A hardware mux follows the USB
->>      ID pin automatically.
->>
->>    - PHY1 (index 1): dedicated host-only port for EHCI1/OHCI1.
->>
->> Extend the existing binding to cover both ports:
->>
->>    - The PHY node is now a child of the system-management syscon node
->>      with a reg property.  The nuvoton,sys phandle and clocks
->>      properties are removed; the driver derives the regmap from its
->>      parent, and clock gating is owned by each individual USB controller.
->>
->>    - #phy-cells changes from 0 to 1: the cell selects the PHY port.
->>
->>    - Two optional board-tuning properties are added: nuvoton,rcalcode
->>      for per-port resistor trim and nuvoton,oc-active-high for
->>      over-current polarity.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   .../bindings/phy/nuvoton,ma35d1-usb2-phy.yaml | 62 ++++++++++++++-----
->>   1 file changed, 48 insertions(+), 14 deletions(-)
->>
-> My bot found errors running 'make dt_binding_check' on your patch:
->
-> yamllint warnings/errors:
->
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): '#address-cells', '#size-cells', 'usb-phy@60' do not match any of the regexes: '^pinctrl-[0-9]+$'
-> 	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): compatible: ['nuvoton,ma35d1-reset', 'syscon', 'simple-mfd'] is too long
-> 	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/phy/nuvoton,ma35d1-usb2-phy.example.dtb: system-management@40460000 (nuvoton,ma35d1-reset): reg: [[0, 1078329344], [0, 512]] is too long
-> 	from schema $id: http://devicetree.org/schemas/reset/nuvoton,ma35d1-reset.yaml
->
-> doc reference errors (make refcheckdocs):
->
-> See https://patchwork.kernel.org/project/devicetree/patch/20260615054911.48821-2-a0987203069@gmail.com
->
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
->
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
->
-> pip3 install dtschema --upgrade
->
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-I will fix it.
+[...]
+
+> +&ipa {
+> +	firmware-name = "qcom/sm7325/xiaomi/taoyao/ipa_fws.mbn";
+> +
+> +	status = "okay";
+> +};
+
+From make dtbs_check:
+
+qcom/sm7325-xiaomi-taoyao.dtb: ipa@1e40000 (qcom,sc7280-ipa): 'memory-region' is a required property
+
+Please fix that (or disable IPA)
+
+Otherwise:
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
