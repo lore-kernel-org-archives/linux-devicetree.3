@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4829E3932DF
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 20:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB33238F244
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 20:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781642337; cv=none; b=LI9Z+C3mLovGFsQyqIDmwlfhGpJ98vVJYHbPIO6Y7/ASLG1xOchfc2pLV2Hv18u7JO4cEqF/PNJ0FFrJwIVFX0wjgu6Tx7NSfJpZFELNzlgQcxT/7fVsmQN34E0nI4zvsgP2Z5WH9bq+oamggsCWZ60ggZwzJHFtHIeiRaEtUhI=
+	t=1781642342; cv=none; b=anThDipaANvOpPRPHiVnvOkg5bGq+PnCeEoE4VSu+2XSgXtPrPMGCgaU31dvThaQDw2WavImHo052p0Y83fjYJYuDOt2bpze+lh5sRSZUxtXhpHbcugg+dDd3ncO5dheFjm2acS64Kuo5Bkh7QlcbdIW1lMpVGevBvnHn1zhSeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781642337; c=relaxed/simple;
-	bh=6L77SelvjnNBrtK1rmdCibmjTVODL8Co6+NUBCmNm/w=;
+	s=arc-20240116; t=1781642342; c=relaxed/simple;
+	bh=I8OdAUowNhRDX3M2/QjpX4ZCQuCVka6XTEgSKFQHgYM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tTjwN8eCa7SIXh1rfc8CVVBy8pNBgcXOBMdrGYjCjIHw9HrEaLF7KGASwlHDaXpZyETJ8kgPC28cFJpQrnPGQRLjSDP4v1R+KYO4/vC8G0FM8XBqHXxon1UEMzxB1R6aoAN2ZNLE8u/FfZ1qgGEIfmhumltSzZdBIYVO4ekM3uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCtFOXcB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TIQocRJrvsWuWfbYske7VmEpwsuu24hla7eZPB/F+mIwrCSbhGREDymDuiz11P/sAThQSE+xDAniq5VifzrwSQJIP4Q4gI4kPYWxv5i9vNW0XWOGV3ENKCO7D/7H3x7AUsltnvKHcjvLJLEoigOPnIRmKeZci9yit5K1XOe/Ibw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOtCIHA2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCtFOXcB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0A91F00A3A;
-	Tue, 16 Jun 2026 20:38:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOtCIHA2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91C151F000E9;
+	Tue, 16 Jun 2026 20:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781642336;
-	bh=IVluyqDHibxnF3sHDdKzRRC1rVwhzaAJUFSyV01xMKk=;
+	s=k20260515; t=1781642341;
+	bh=2A0yp8+FUcodmsd7L3tQNCN54slQpLxU3CAuASCzPr8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gCtFOXcBJeS/E4KHmx9X6FjMCXS/KkM+/g/x4M+STeA26eoOQ5Ye2Iliy9+ZuLBqB
-	 GzR1iGu3LxLDZtUxqjUOpgbZrkthPnGgItoJR5c2DfffyyPe2ErRIxo7iqGdmGWSEA
-	 TB9Erf6e1ufX6BmTlZKJNy7Jsn+8TopfRiOY+5up7POAUlEqAnJWtdxZkdGvnBmmVj
-	 ZQhDqGtJe7yAE1Gxs8T5RAw1rv/H3f9nFeTTd3nSpWM8L7MCarXCs6OX+OxNJOC7xY
-	 9yT249dDHlD3QY7l8dZkrGUdxXWr+rUCz+af9naZtPuiwkzvmTaJrtd8e54gEgnslV
-	 WAV3wzm7LqCVw==
+	b=gOtCIHA2Bbpi4LN0uRK7akGxiGYZRPdCH1Ctdz21dL1LRvNqvM85go/UyOzSGIK8E
+	 g5fM4Gk1lIRtPaZc5WPmwNZ3Ka3uM4xgvvXZAAfDyl8MwM4XlCpoNWubH1SrUP98Wv
+	 qFQfku+pKRu5NvOkQgeDJkfd74ByY6hPxHZck2L1jjlfW6FyqfptzuAhowuw4hIP2Q
+	 MpqeBYcIJzhUbFuwfKztWNCArTOfx++fOkNLUwJHoD9QUOzKl21aXIgloJLKk5Mc3q
+	 liKviutmNkTc4aUYs5gQLMvxSsmEC6CGiRxevhswTQ/ZdxTT1+ccDdkAZNb502cQby
+	 suPzt2TnAH2yg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 09/12] clk: zte: Introduce a driver for
- zx297520v3 LSP clocks
+Subject: Re: [PATCH RFC v4 06/12] clk: zte: Add regmap based clocks
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260616-zx29clk-v4-9-ca994bd22e9d@gmail.com>
-References: <20260616-zx29clk-v4-9-ca994bd22e9d@gmail.com>
+In-Reply-To: <20260616-zx29clk-v4-6-ca994bd22e9d@gmail.com>
+References: <20260616-zx29clk-v4-6-ca994bd22e9d@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 20:38:55 +0000
-Message-Id: <20260616203855.CC0A91F00A3A@smtp.kernel.org>
+Date: Tue, 16 Jun 2026 20:39:01 +0000
+Message-Id: <20260616203901.91C151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,81 +45,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The static array `tdm_lsp_sel` is defined but never used, causing a=
-n unused-const-variable compiler warning.
-- [Low] Multiple internal data structures contain a typo in their name: `zx=
-297529v3_` instead of `zx297520v3_`.
+
+New issues:
+- [High] In `zte_clk_regmap_gate_is_enabled`, the result of `regmap_read` i=
+s ignored and the read value is not properly masked, leading to uninitializ=
+ed memory use and incorrect clock state reporting.
+
+Pre-existing issues:
+- [High] Allocating `struct auxiliary_device` with `devm_kzalloc` causes a =
+Use-After-Free when the parent device is removed while external references =
+still exist.
 --
 
-commit 62ece0243f8a2453a83a724365246a3a8447995d
+commit 4134682feec28075c68eddb683db94b9fb9b761a
 Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-clk: zte: Introduce a driver for zx297520v3 LSP clocks
+clk: zte: Add regmap based clocks
 
-This commit introduces a clock driver for the "LSP" (low speed peripherals)
-block of the ZTE ZX297520v3 SoC. It adds support for various peripherals
-including UART, I2C, SPI, timers, and I2S.
+This commit adds regmap based clocks for ZTE, simplifying the implementation
+based on the meson clock regmap code.
 
-> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
-520v3.c
-> index d90aadf180269..26b05f2bf97ae 100644
-> --- a/drivers/clk/zte/clk-zx297520v3.c
-> +++ b/drivers/clk/zte/clk-zx297520v3.c
+> diff --git a/drivers/clk/zte/clk-regmap.c b/drivers/clk/zte/clk-regmap.c
+> index 7908f1562f639..d9459417d17dd 100644
+> --- a/drivers/clk/zte/clk-regmap.c
+> +++ b/drivers/clk/zte/clk-regmap.c
 
 [ ... ]
 
-> +static const char * const i2s_lsp_sel[] =3D {
-> +	"lsp_osc26m",
-> +	"lsp_dpll_d4",
-> +	"lsp_mpll_d6",
-> +	/* Unknown */
-> +};
+> +static int zte_clk_regmap_gate_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct zte_clk_regmap *clk =3D to_zte_clk_regmap(hw);
+> +	u32 val;
 > +
-> +static const char * const tdm_lsp_sel[] =3D {
-> +	"lsp_tdm_wclk",
-> +};
+> +	regmap_read(clk->map, clk->reg, &val);
+> +	return !!val;
+> +}
 
-[Severity: Low]
-Is this array intended to be used somewhere? It appears to be defined but
-never referenced in the file, which might trigger a -Wunused-const-variable
-compiler warning.
+[Severity: High]
+Does this code properly mask the specific gate bit? Since clock gates commo=
+nly
+share registers, returning !!val might erroneously report this specific gate
+as enabled whenever any other bit in the register is active, rather than us=
+ing
+BIT(clk->shift) to evaluate the correct bit.
 
-> +
-> +static const char * const spi_lsp_sel[] =3D {
-> +	"lsp_osc26m",
+Also, should the return value of regmap_read() be checked here? If the read
+fails, val remains uninitialized, which could lead to evaluating stack
+garbage.
 
 [ ... ]
 
-> +	GATE(ZX297520V3_TDM_WCLK,          "tdm_wclk",       "tdm_div",        =
-0x50,  0, 0),
-> +	GATE(ZX297520V3_TDM_PCLK,          "tdm_pclk",       "lsp_pclk",       =
-0x50,  1, 0),
-> +};
-> +
-> +static const char * const zx297529v3_lsp_inputs[] =3D {
-> +	"mpll_d5", "mpll_d4", "mpll_d6", "mpll_d8", "mpll_d12",
-> +	"osc26m", "osc32k", "tdm_wclk", "dpll_d4"
-> +};
-> +
-> +static const char * const zx297529v3_lsp_inputs_enable[] =3D {
-> +	"pclk"
-> +};
+In drivers/clk/zte/clk-zx.c:
 
-[Severity: Low]
-This isn't a bug, but should these arrays be named zx297520v3_lsp_inputs
-instead of zx297529v3_lsp_inputs? It looks like there's a typo in the
-numbering (9 instead of 0) compared to the other structures and the SoC
-device name.
+[Severity: High]
+This is a pre-existing issue, but does allocating the auxiliary_device with
+devm_kzalloc() in zx_clk_probe() create a use-after-free risk?
 
-> +
-> +static const struct zx_clk_data zx297520v3_lspclk_data =3D {
-> +	.inputs_enable =3D zx297529v3_lsp_inputs_enable,
-> +	.num_inputs_enable =3D ARRAY_SIZE(zx297529v3_lsp_inputs_enable),
-> +	.inputs =3D zx297529v3_lsp_inputs,
-> +	.num_inputs =3D ARRAY_SIZE(zx297529v3_lsp_inputs),
+If the parent device is unbound, devres will automatically free the memory
+for the auxiliary_device. However, if external references to the embedded
+device still exist, the memory will be freed while it is still in use.
 
-[ ... ]
+When the final reference is eventually dropped, the kernel will attempt to
+call the release callback on the freed memory:
+
+zx_adev_release() {
+        dev_info(dev, "Aux device released.\n");
+}
+
+Should the structure be allocated with kzalloc() instead, and explicitly
+freed inside the release callback?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-zx29clk-v4=
--0-ca994bd22e9d@gmail.com?part=3D9
+-0-ca994bd22e9d@gmail.com?part=3D6
