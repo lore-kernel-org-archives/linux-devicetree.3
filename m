@@ -1,306 +1,127 @@
-Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2EB4183DE
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93B735C183
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781600242; cv=none; b=V/1Vn0bQ2b8HtYc2JkPukvDueC6PXyY0ogO/f4D6LFr1/CN4z7ln0YgqpNASA2ERcan4FObd3eCsDG5NxpuSwokVVTA6G3DCPE1Jn6mWQxDTww/VSgsY4JIbqDLUyXzFsMAcbW8kNtRM2wJJEzTQa2S5hjq4K9k6qTwKyhcI5t0=
+	t=1781600645; cv=none; b=UWZnDnPhkAp1lPHrZIdRrlk8yf0uON6x7wEcQRcTbka6Di97+zTDXPjHmOJM7+XUkKeDQEP1Lm+kVY1UqWVKNa7KNJdi/8eIzNKpQwDsSIbgLBhzVt0jzTYskqkhjWqKCotl4Cq0muGQD+K1iPyb3F59BjyjNGyglGy4LrvleJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781600242; c=relaxed/simple;
-	bh=YQTPaERZZEVfDy3cbkgqveLx6aZM/khTCmkBnMIkHzU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=au6r4Nu1owYnQAd0UUSLKtO0upJtw0JoUZDqHd9ygSZ7QsRnIunGYBuiLlKpkPUZ4uSgkLIDmIBdpUSdyR7tjGqdakwYlgCgQRsm1LFuFD0Dh0BpuhNjGh+T5YaE+rl4o7K38npMk/pRoEtbFsdwwHxVIuwDdrR0SRkF4Hfze5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IPKuHdcW; arc=none smtp.client-ip=209.85.210.196
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781600645; c=relaxed/simple;
+	bh=uHcsdbKFLmBvSUpYkpBRCbI54pYWVJAVMBA4n4TroaU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BPgbyBExjIskWxEQjUzOd7jmOWDmYAB/o3MtsHTTUEAWouhOzWgAjkkAqkX+HLdfWM2PYRGuSE6w0lwO5LnE0SXyxy5CvbbCUGmbUDcYj7bxkUwTjBa9X3df7EvmrC858NkXtcGBj6U7wRyTsBCiAbLIrw3fIM44alEkglFWbaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8h0pnlk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IPKuHdcW"
-Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-8423b08b293so2082951b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:57:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781600240; x=1782205040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9yNlL/Fch0KIwV+VLb90p7R9gZLFeyNye+IbISH5/PI=;
-        b=IPKuHdcWiYUthbfOPA9X828f/d3MhYyQ6ByeqDM3NR96DbBURv2fkJ2nqwgs0OTEHg
-         dz7TQsCKdrHM2N93us4C88YYcr/y5Yb7cfqoEo92N4AtXfqf6+0sXwuBIMQ/8A5C4olO
-         0deo6CqKcy6gdrxScwt+jOwW4MLA+3lg2R0RQTd128E4GfvAeCGiCwZaIJowyEaAnKIv
-         fnXAz/51HFmVS9KObWBalOlTG4d8bUjnfMONPLev4b3b+GZn9UBxJM/nyrqY/HrBtiR3
-         w7rqamLs02yNNZqcKqprckdGF+PuG/ZPkV0EP7DM6j7FZdP18L67E6Kb2JC/5hTkDp6O
-         4QvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781600240; x=1782205040;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9yNlL/Fch0KIwV+VLb90p7R9gZLFeyNye+IbISH5/PI=;
-        b=B9wK44DUANUx/C7DSOY5CoW/GVjzzvv8IAch/s5EVZmQtpSPoucZM5v6jayEtpntGA
-         uSBp8kVH2hI5XY+ntY0HHC8zj+/Y4tJj8tLKrWpvomsPEyFtvXoEY7U9Jm9UmoEl2kba
-         v7Sx/YMjoLuFA2h/IlM8sxs+M0XHiwDw36WxDvyBf5KaNpwMHFDo4sZVyFXpn5pM4CW1
-         IyIwIChqG9WiFWhri1niZbq+37n7RmavRTdQusZqKre0wHRduH6B8DAXF7XtzDMUrQjY
-         f3inhvlIbte7mMoT1JgkjoYsMzS2rKzEf2UsUcgv8DW7tjGAs4LPRRz+HtRAAbVxFM/A
-         JaSw==
-X-Forwarded-Encrypted: i=1; AFNElJ9FBSHwlcKCNTR/8qsfVr4LvDa1h74H4wIpoVNIN235LYXkQImsSRxOIf1glyn27lpawbhEX5s5bq/D@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4IuIgLC6h+F/S9If/+wYUg0o6F1pBrJe88/9Dj/TjcoslNQ28
-	XMwY16UpUzi3hdib3IKL4yDYfktdkPLabfstLKSdt/bq5cPOcldw10Y1
-X-Gm-Gg: Acq92OEwuZ4sYJTkXTpWnrd7zV6Jnxd8c045rk5P28S4e3cATrPd8MjQxZSqd5egsp/
-	GorxGZ65pUjaxgS8gFfJCGk5wRoeEa1I9DMydmfWsaFp78cY27sxG2BVOZtG5/N7P4bro+zS/MQ
-	O4CEbn/xp3k4IdLIY2zJ84VRejBz0Y1t1QUPUVpHkFLqwRn4GWiGxG1rotdhCQrMJGLsSqE2s27
-	7+sRpx6wNtcLkX9K/uAExXqIJVaEL3u6dalIPaCAe7XDNSobtlIHkCUUYAfM/lqWOvAz3ujmV2y
-	nqBShABeb8/LEFesOo31zAUqmXxPo5F2ziCM76AeuFvdHeUbb37vJLKm5sRBDVsofo5YtTJr3pG
-	sozyOm+BJcADx0wmd8qANqPZdkeQ4/28op0qvONef25wXelzZ1xKOA/qFA8ojbqZDm7lzeoLkWu
-	xq5JejXPZr/sWXldZu2VXEPNhHSqhe3cRlmNfyFSXhW34kOdPJOdFd
-X-Received: by 2002:a05:6a00:391d:b0:842:6482:adc with SMTP id d2e1a72fcca58-8434cd0ca2emr18698657b3a.9.1781600239218;
-        Tue, 16 Jun 2026 01:57:19 -0700 (PDT)
-Received: from Tejas-Legion-7-16IRX9.. ([103.159.249.83])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434accbc89sm12689662b3a.15.2026.06.16.01.57.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 01:57:18 -0700 (PDT)
-From: Teja Sai Charan B <tejaasaye@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
-Subject: [PATCH v2] dt-bindings: rtc: Convert rtc-cmos binding to YAML
-Date: Tue, 16 Jun 2026 14:26:58 +0530
-Message-ID: <20260616085659.12809-1-tejaasaye@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8h0pnlk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534451F000E9;
+	Tue, 16 Jun 2026 09:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781600644;
+	bh=4seXvpIW1lQ++lU822us1lGINTLbDm2ozLepAdJWMgE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z8h0pnlkf9zWMJnnG/jJMQjIlwDz2zEuMu7JPJjPty7gIvr6MLla3k5wRE5f9w2KQ
+	 ShJqIqxrtfGhyhVzK9rRNwPbVy3AYtmojpknLpTKLKpHTQ/bsT8Q2hZ3L7dVsi3nTM
+	 TL5DqAOYOu7pxRAONsyiameMeaGmZlPAWMX6UGhASRzbwHpC9PwFZ2bebYWTBDOd2h
+	 4RaD7KrKZ1wujHDnXd4pjfMhKdKR+nB2kDLRCcmRxbV+42DUl4om5C7IbJG2oxu1VD
+	 3OHxn+c1gaT1udNJNK3uKA4GDFhrya1SqlOyYPyLk3me/EyI/BkplivaPx8PQNnGni
+	 wBFeLfIGbdSCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: rtc: Convert rtc-cmos binding to YAML
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Teja Sai Charan B" <tejaasaye@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260616085659.12809-1-tejaasaye@gmail.com>
+References: <20260616085659.12809-1-tejaasaye@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 09:04:03 +0000
+Message-Id: <20260616090404.534451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 
-From: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The node name in the YAML example uses a unit address that does not=
+ match its 'reg' property, which will cause a dtc warning and fail `make dt=
+_binding_check`.
+- [Low] A stray file `result.txt` containing intermediate search and build =
+output was accidentally included in the patch.
+- [Low] Important explanatory text about firmware initialization was droppe=
+d during the conversion to YAML.
+--
+
+commit 141cef115f7766092691376134d5e5d70aca938a
+Author: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+
+dt-bindings: rtc: Convert rtc-cmos binding to YAML
 
 Convert the rtc-cmos devicetree bindings to dt schema.
 
-Signed-off-by: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+> diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Docume=
+ntation/devicetree/bindings/rtc/rtc-cmos.yaml
+> new file mode 100644
+> index 0000000000000..ba4812778115c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
 
----
+[ ... ]
 
-Changes in v2:
-- Allow intel,ce4100-rtc compatible used by existing DTS files
----
- .../devicetree/bindings/rtc/rtc-cmos.txt      | 27 ---------
- .../devicetree/bindings/rtc/rtc-cmos.yaml     | 60 +++++++++++++++++++
- result.txt                                    | 17 ++++++
- 3 files changed, 77 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.txt
- create mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
- create mode 100644 result.txt
+> +  ctrl-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the control register
+> +      (also known as Register B).
+> +
+> +  freq-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the frequency register
+> +      (also known as Register A).
 
-diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt b/Documenta=
-tion/devicetree/bindings/rtc/rtc-cmos.txt
-deleted file mode 100644
-index 7d7b5f6bda65..000000000000
---- a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
-- Motorola mc146818 compatible RTC
--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--
--Required properties:
--  - compatible : "motorola,mc146818"
--  - reg : should contain registers location and length.
--
--Optional properties:
--  - interrupts : should contain interrupt.
--  - ctrl-reg : Contains the initial value of the control register also
--    called "Register B".
--  - freq-reg : Contains the initial value of the frequency register also
--    called "Register A".
--
--"Register A" and "B" are usually initialized by the firmware (BIOS for
--instance). If this is not done, it can be performed by the driver.
--
--ISA Example:
--
--	rtc@70 {
--	         compatible =3D "motorola,mc146818";
--	         interrupts =3D <8 3>;
--	         interrupt-parent =3D <&ioapic1>;
--	         ctrl-reg =3D <2>;
--	         freq-reg =3D <0x26>;
--	         reg =3D <1 0x70 2>;
--	 };
-diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Document=
-ation/devicetree/bindings/rtc/rtc-cmos.yaml
-new file mode 100644
-index 000000000000..ba4812778115
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
-@@ -0,0 +1,60 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/rtc-cmos.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Motorola mc146818 compatible RTC
-+
-+maintainers:
-+  - Alexandre Belloni <alexandre.belloni@bootlin.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: motorola,mc146818
-+
-+      - items:
-+          - const: intel,ce4100-rtc
-+          - const: motorola,mc146818
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  ctrl-reg:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Initial value of the control register
-+      (also known as Register B).
-+
-+  freq-reg:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      Initial value of the frequency register
-+      (also known as Register A).
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    bus {
-+        #address-cells =3D <2>;
-+        #size-cells =3D <1>;
-+
-+        rtc@70 {
-+            compatible =3D "motorola,mc146818";
-+            reg =3D <1 0x70 2>;
-+
-+            interrupts =3D <8 3>;
-+
-+            ctrl-reg =3D <2>;
-+            freq-reg =3D <0x26>;
-+        };
-+    };
-diff --git a/result.txt b/result.txt
-new file mode 100644
-index 000000000000..5e90660b93ec
---- /dev/null
-+++ b/result.txt
-@@ -0,0 +1,17 @@
-+arch/x86/kernel/x86_init.c:42:	{ .compatible =3D "motorola,mc146818" },
-+arch/x86/platform/ce4100/falconfalls.dts:420:					compatible =3D "intel,ce=
-4100-rtc", "motorola,mc146818";
-+arch/mips/boot/dts/loongson/rs780e-pch.dtsi:31:				compatible =3D "motorol=
-a,mc146818";
-+arch/mips/boot/dts/mti/malta.dts:110:			compatible =3D "motorola,mc146818";
-+arch/alpha/kernel/rtc.c:25: * We don't want to use the rtc-cmos driver, be=
-cause we don't want to support
-+drivers/built-in.a:1031:rtc/rtc-cmos.o/
-+drivers/rtc/built-in.a:11:rtc-cmos.o/
-+drivers/rtc/.rtc-mc146818-lib.o.cmd:1:savedcmd_drivers/rtc/rtc-mc146818-li=
-b.o :=3D gcc -Wp,-MMD,drivers/rtc/.rtc-mc146818-lib.o.d -nostdinc -I./arch/=
-x86/include -I./arch/x86/include/generated -I./include -I./include -I./arch=
-/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./=
-include/generated/uapi -include ./include/linux/compiler-version.h -include=
- ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KE=
-RNEL__ -std=3Dgnu11 -fshort-wchar -funsigned-char -fno-common -fno-PIE -fno=
--strict-aliasing -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a=
- -fcf-protection=3Dnone -m64 -falign-jumps=3D1 -falign-loops=3D1 -mno-80387=
- -mno-fp-ret-in-387 -mpreferred-stack-boundary=3D3 -mskip-rax-setup -march=
-=3Dx86-64 -mtune=3Dgeneric -mno-red-zone -mcmodel=3Dkernel -mstack-protecto=
-r-guard-reg=3Dgs -mstack-protector-guard-symbol=3D__ref_stack_chk_guard -Wn=
-o-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=3Dthunk-ex=
-tern -mindirect-branch-register -mindirect-branch-cs-prefix -mfunction-retu=
-rn=3Dthunk-extern -fno-jump-tables -mharden-sls=3Dall -fpatchable-function-=
-entry=3D16,16 -fno-delete-null-pointer-checks -O2 -fno-allow-store-data-rac=
-es -fstack-protector-strong -fno-omit-frame-pointer -fno-optimize-sibling-c=
-alls -ftrivial-auto-var-init=3Dzero -fno-stack-clash-protection -fzero-call=
--used-regs=3Dused-gpr -pg -mrecord-mcount -mfentry -DCC_USING_FENTRY -falig=
-n-functions=3D16 -fstrict-flex-arrays=3D3 -fms-extensions -fno-strict-overf=
-low -fno-stack-check -fconserve-stack -fno-builtin-wcslen -Wall -Wextra -Wu=
-ndef -Werror=3Dimplicit-function-declaration -Werror=3Dimplicit-int -Werror=
-=3Dreturn-type -Werror=3Dstrict-prototypes -Wno-format-security -Wno-trigra=
-phs -Wno-frame-address -Wno-address-of-packed-member -Wmissing-declarations=
- -Wmissing-prototypes -Wframe-larger-than=3D1024 -Wno-main -Wno-dangling-po=
-inter -Wvla-larger-than=3D1 -Wno-pointer-sign -Wcast-function-type -Wno-arr=
-ay-bounds -Wno-stringop-overflow -Wno-alloc-size-larger-than -Wimplicit-fal=
-lthrough=3D5 -Werror=3Ddate-time -Werror=3Dincompatible-pointer-types -Werr=
-or=3Ddesignated-init -Wenum-conversion -Wunused -Wno-unused-but-set-variabl=
-e -Wno-unused-const-variable -Wno-packed-not-aligned -Wno-format-overflow -=
-Wno-format-truncation -Wno-stringop-truncation -Wno-override-init -Wno-miss=
-ing-field-initializers -Wno-type-limits -Wno-shift-negative-value -Wno-mayb=
-e-uninitialized -Wno-sign-compare -Wno-unused-parameter -g -gdwarf-5  -fsan=
-itize=3Dbounds-strict -fsanitize=3Dshift -fsanitize=3Dbool -fsanitize=3Denu=
-m      -DKBUILD_MODFILE=3D'"drivers/rtc/rtc-mc146818-lib"' -DKBUILD_BASENAM=
-E=3D'"rtc_mc146818_lib"' -DKBUILD_MODNAME=3D'"rtc_mc146818_lib"' -D__KBUILD=
-_MODNAME=3Drtc_mc146818_lib -c -o drivers/rtc/rtc-mc146818-lib.o drivers/rt=
-c/rtc-mc146818-lib.c=20=20
-+drivers/rtc/.built-in.a.cmd:1:savedcmd_drivers/rtc/built-in.a :=3D rm -f d=
-rivers/rtc/built-in.a;  printf "drivers/rtc/%s " lib.o class.o interface.o =
-nvmem.o dev.o proc.o sysfs.o rtc-mc146818-lib.o rtc-cmos.o | xargs ar cDPrS=
-T drivers/rtc/built-in.a
-+drivers/rtc/Kconfig:1065:	  will be called rtc-cmos.
-+drivers/rtc/Makefile:45:obj-$(CONFIG_RTC_DRV_CMOS)	+=3D rtc-cmos.o
-+drivers/rtc/.rtc-cmos.o.cmd:1:savedcmd_drivers/rtc/rtc-cmos.o :=3D gcc -Wp=
-,-MMD,drivers/rtc/.rtc-cmos.o.d -nostdinc -I./arch/x86/include -I./arch/x86=
-/include/generated -I./include -I./include -I./arch/x86/include/uapi -I./ar=
-ch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -=
-include ./include/linux/compiler-version.h -include ./include/linux/kconfig=
-.h -include ./include/linux/compiler_types.h -D__KERNEL__ -std=3Dgnu11 -fsh=
-ort-wchar -funsigned-char -fno-common -fno-PIE -fno-strict-aliasing -mno-ss=
-e -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a -fcf-protection=3Dnone =
--m64 -falign-jumps=3D1 -falign-loops=3D1 -mno-80387 -mno-fp-ret-in-387 -mpr=
-eferred-stack-boundary=3D3 -mskip-rax-setup -march=3Dx86-64 -mtune=3Dgeneri=
-c -mno-red-zone -mcmodel=3Dkernel -mstack-protector-guard-reg=3Dgs -mstack-=
-protector-guard-symbol=3D__ref_stack_chk_guard -Wno-sign-compare -fno-async=
-hronous-unwind-tables -mindirect-branch=3Dthunk-extern -mindirect-branch-re=
-gister -mindirect-branch-cs-prefix -mfunction-return=3Dthunk-extern -fno-ju=
-mp-tables -mharden-sls=3Dall -fpatchable-function-entry=3D16,16 -fno-delete=
--null-pointer-checks -O2 -fno-allow-store-data-races -fstack-protector-stro=
-ng -fno-omit-frame-pointer -fno-optimize-sibling-calls -ftrivial-auto-var-i=
-nit=3Dzero -fno-stack-clash-protection -fzero-call-used-regs=3Dused-gpr -pg=
- -mrecord-mcount -mfentry -DCC_USING_FENTRY -falign-functions=3D16 -fstrict=
--flex-arrays=3D3 -fms-extensions -fno-strict-overflow -fno-stack-check -fco=
-nserve-stack -fno-builtin-wcslen -Wall -Wextra -Wundef -Werror=3Dimplicit-f=
-unction-declaration -Werror=3Dimplicit-int -Werror=3Dreturn-type -Werror=3D=
-strict-prototypes -Wno-format-security -Wno-trigraphs -Wno-frame-address -W=
-no-address-of-packed-member -Wmissing-declarations -Wmissing-prototypes -Wf=
-rame-larger-than=3D1024 -Wno-main -Wno-dangling-pointer -Wvla-larger-than=
-=3D1 -Wno-pointer-sign -Wcast-function-type -Wno-array-bounds -Wno-stringop=
--overflow -Wno-alloc-size-larger-than -Wimplicit-fallthrough=3D5 -Werror=3D=
-date-time -Werror=3Dincompatible-pointer-types -Werror=3Ddesignated-init -W=
-enum-conversion -Wunused -Wno-unused-but-set-variable -Wno-unused-const-var=
-iable -Wno-packed-not-aligned -Wno-format-overflow -Wno-format-truncation -=
-Wno-stringop-truncation -Wno-override-init -Wno-missing-field-initializers =
--Wno-type-limits -Wno-shift-negative-value -Wno-maybe-uninitialized -Wno-si=
-gn-compare -Wno-unused-parameter -g -gdwarf-5  -fsanitize=3Dbounds-strict -=
-fsanitize=3Dshift -fsanitize=3Dbool -fsanitize=3Denum      -DKBUILD_MODFILE=
-=3D'"drivers/rtc/rtc-cmos"' -DKBUILD_BASENAME=3D'"rtc_cmos"' -DKBUILD_MODNA=
-ME=3D'"rtc_cmos"' -D__KBUILD_MODNAME=3Drtc_cmos -c -o drivers/rtc/rtc-cmos.=
-o drivers/rtc/rtc-cmos.c=20=20
-+drivers/rtc/.rtc-cmos.o.cmd:3:source_drivers/rtc/rtc-cmos.o :=3D drivers/r=
-tc/rtc-cmos.c
-+drivers/rtc/.rtc-cmos.o.cmd:5:deps_drivers/rtc/rtc-cmos.o :=3D \
-+drivers/rtc/.rtc-cmos.o.cmd:1372:drivers/rtc/rtc-cmos.o: $(deps_drivers/rt=
-c/rtc-cmos.o)
-+drivers/rtc/.rtc-cmos.o.cmd:1374:$(deps_drivers/rtc/rtc-cmos.o):
-+drivers/rtc/rtc-cmos.c:1382:		.compatible =3D "motorola,mc146818",
+[Severity: Low]
+The original text binding contained information explaining that Register A
+and B are usually initialized by firmware (e.g., BIOS), and if not, can be
+performed by the driver. Should this explanatory text be preserved in the
+descriptions here to retain the original context?
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    bus {
+> +        #address-cells =3D <2>;
+> +        #size-cells =3D <1>;
+> +
+> +        rtc@70 {
+> +            compatible =3D "motorola,mc146818";
+> +            reg =3D <1 0x70 2>;
+
+[Severity: Low]
+Since the bus has #address-cells =3D <2> and the reg property starts with 1,
+should the node name be formatted as rtc@1,70 instead of rtc@70? A mismatch=
+ed
+unit address will result in dtc warnings and fail make dt_binding_check.
+
+[ ... ]
+
+> diff --git a/result.txt b/result.txt
+> new file mode 100644
+> index 0000000000000..5e90660b93ec2
+> --- /dev/null
+> +++ b/result.txt
+> @@ -0,0 +1,17 @@
+> +arch/x86/kernel/x86_init.c:42:	{ .compatible =3D "motorola,mc146818" },
+> +arch/x86/platform/ce4100/falconfalls.dts:420:					compatible =3D "intel,=
+ce4100-rtc", "motorola,mc146818";
+
+[Severity: Low]
+Was this result.txt file intentionally included? It appears to be a local
+search and build log that accidentally made it into the patch.
+
 --=20
-2.43.0
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616085659.1280=
+9-1-tejaasaye@gmail.com?part=3D1
