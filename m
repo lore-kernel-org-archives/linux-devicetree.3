@@ -1,96 +1,156 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41E639B943
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630FB3B42FE;
+	Tue, 16 Jun 2026 08:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781597952; cv=none; b=oxj6RyRq71wVEm4qhGkVuJJi7gQmAFxVIMvTjfaisIGEqpXmfdQJG9cEAt7OAEYe0PIPHzFfq3BhT8JglSpiA/8p9ZQu8rhJ0Fg27f8Mv9R7CeL4rYHqoRxFG7nPd27NIVO0b09pADL5AjBG1UbtjQcvB+Ivh2If7R9VcOZvWwc=
+	t=1781598072; cv=none; b=YF+h0OGbQkEjDE6OUJFiHynHGCSoxo8RYsOaKB5tj2dimGDJQBd3Nek11LqKyyLW97C0udiANJBrreebIKVuScFLL2ghQElZ1obxJiooU9o3ohK7NKAW4f6fRk3gQ8gR9mTytus2HUKgJ1NqlMZj4nuMOD1yyvhsnWGnUslnE2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781597952; c=relaxed/simple;
-	bh=xYc99uvXLsYWScO0EmNoWIRKvKiJpOTShn+ZEKrkN1Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GwXhdlKPCCuMNZgnykXdOmSW92qB/45HWNZn7HatDhR2yDY+ioRFR7KgzcneO7VkUwHK2aq5GTUkP05DYVM65wMTrA/lk3rt0TuaXy2CgCrUIUp/54o1PxKG+qwxxjDYcnhIJ+153/D8KuhdGtFzcILGjVfDXbuLdCC3YPmhsTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NmruZcyp; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781598072; c=relaxed/simple;
+	bh=IVZHDHLkqvFkPXw1nOpMLohJ43d0l2ovf8sACtwrGwU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kmKL5xSL/EL0uh+riaApR+16iA1SOjv2lQi7QXD2SPs7NIUxE0lkQ4QkBunuu5c1aa/JbltxDILIm60qSkwBuAM8IU7iSRwN538qfJ9mu9sg2mDjNRUCc6dp4xNNDCyGXJ73UFvvqvuZi5M7xoNHmcPBpDc6fS9Se54HvB4qWkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHsUlg7L; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NmruZcyp"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0c3543590so29264695ad.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:19:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781597951; x=1782202751; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=PhNt6MHC4AegleV/WbvHUk1ZYZMA3NIq1ay5U/dxpKQ=;
-        b=NmruZcypNSsJastH8Y2pS4jNwmS1sFI7xh8KKStePYGaHsHMlpTy6v6t5pyvxbe19E
-         o5f1t/nmgV3dIew3YjJNkQfJ6YdAMQGArhvN0Hab5K00Os1cbmNRtVvMt4jPr2nTEVHv
-         RNv2HumhiaOqDsQ1HN2Oo18kjXc8PmAtWk3PqeObcBcgAqxYB5TC/4BLKRw8RymqUs7O
-         e48kt2+42I3OboijgOcNVXJZ+dbqWSArZWmZ1xb02L1NSoLWHvdM4rNBCu011Dk8gpzx
-         yN9SQLVUXLb1U2HayVyFb09WXlIjNmScGnRL+l5w6UazerL+7e4oxMkL1/W2RIgnB1db
-         J8KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781597951; x=1782202751;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PhNt6MHC4AegleV/WbvHUk1ZYZMA3NIq1ay5U/dxpKQ=;
-        b=eQ+KuMw5ImQz6VySsEGBME+ZLKh/VbR1lGsoA0s0+8neaJ/+HcYYXYfHKg1I6gtB8Y
-         G9HqsdOs9XYpBAejSQRKeOySCLDfbJTaKRurBo+WzBnlN7x3VemgwTUwPNw7Y3yOQ7FK
-         B92eqDgzstYHO6cqprC2UijfP2gaD4bDhEnoVNSoyYMcFLPuOdC0V5Relb4bER72mEGV
-         S8pHdaG7/Mqc/tu4g4jWlj16mq+Witg8pFmU7Kzzr4DLs22qrT91p5iD8NczDt6l0U36
-         rYRI675qSPdShr0SFtOSZUEwbLF8ETLnwBjJO0Oj9LPYykzd+gslCNvXWGGAPl9TzQ9C
-         BrZg==
-X-Forwarded-Encrypted: i=1; AFNElJ+HJ1atvalkuKy0SfZVhYx0sQhHGBegjT8p9QXO86qSZW0DeS68PLIrsbRyvY3tYdlcpfKhWQV3X/HE@vger.kernel.org
-X-Gm-Message-State: AOJu0YytX3x5VqUlpGoqHCq+uvcryThjDbLN2hV5IW9A3MqdrhvQc1wg
-	SWBR/BH6cxOTx0a5j9QtQfsLdJ07nsm+ixmGVX5wERJ4XrtPlyeXELilN9DM53tIAd8=
-X-Gm-Gg: Acq92OGkgQUAW6qsTlRmEwZpg29/+zlu3hterqJIPIDAZNmoZF8ktzCeeYSf4OEUZzj
-	6+l+KEBDeyBd75b0KCC3ZUbnBDZ4ahzBT1raEwsCBeaDgdfWmlPhaiTalQGeHMeau0XhL5yPcH3
-	30GI0T5tF/9gVH5nI0xsPyViOgYq2EyY2bQNRAUnFTZVmFWDVNBQDyQb7pkoX8wi4sbhtXhIuLw
-	kKjGeEwUtKporUQdzPVtbOB6v2e9NIZ6iAerP6+3TavKXtHF3C4fSyupkc13yme13HSXxCqukDr
-	xti9u55FAw5o44kkb7GOxU+VxA5kR7sUBh8uFskD+GddxLRVY1gnYaPX7w+Yscs/05fDbk4K/S9
-	ThUdYbbL8X81MHd10ODq1xJsmJeSTBNCoA9qJFxGVKiPqHpmXaXXUk2IrIqiFMpFg9NH5kxMvrN
-	+O68Wrj+QtpKl0Yk5f84zJPcc=
-X-Received: by 2002:a17:903:3890:b0:2bc:b80f:677e with SMTP id d9443c01a7336-2c69a1965ddmr27832715ad.25.1781597950906;
-        Tue, 16 Jun 2026 01:19:10 -0700 (PDT)
-Received: from localhost ([122.172.82.94])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac631sm124267105ad.44.2026.06.16.01.19.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 01:19:10 -0700 (PDT)
-Date: Tue, 16 Jun 2026 13:49:07 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Shuwei Wu <shuwei.wu@mailbox.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] cpufreq: spacemit: Add K1 cpufreq driver
-Message-ID: <nffvtnb765pa72xcfhmxe3wepxpld3e6265s7imvldbwounkzk@jmrrhtrwau34>
-References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
- <20260612-shadow-deps-v3-1-2f3ba88611ff@mailbox.org>
- <bd4s2icqgusnuujvrpoag4cniy3g2e4bumecqxt5yffl77aqpq@kxg4dj4c2wk3>
- <DJ9EFPG561VZ.1WGRYYHJ2W9J9@mailbox.org>
- <wjwkykv555gkeqxabsqcdfn4lomcopawsv7bgm4bydc5likhjs@p3ca3p7wbri5>
- <DJ9M2IDYE6XZ.20RN5AFBYNB9Y@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHsUlg7L"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1910BC4AF0D;
+	Tue, 16 Jun 2026 08:21:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781598072;
+	bh=IVZHDHLkqvFkPXw1nOpMLohJ43d0l2ovf8sACtwrGwU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=GHsUlg7La5weSerWNV3Mr16qKQ4d8r6qUiWok7EN1zSpTGWBx+ooxhFBwv7DWfvfC
+	 ZNwZWMqsG/kH4pu5uZGE2EGhySEo5/DelM06O/nckYYfwTJVnrYxXMUIuYmc2vsS6O
+	 2DURn0vurb67K+ISuKPoNl5NT0pLxr6rSNIAVkivwA7Cu+FkENVUwoV3NcmzgCb9dV
+	 bL6Pk05aDsv4qa4HzNplAWY6qx+mMsdKunlFSSoP3YiTPdNvtxuSiz32KwnVMplPdU
+	 pjGFYrMCMBaAb7hekdVO2r8w9tuHOAeB3YiY1/zcQd+krv76YfNVnFa0YL7CpoRWFk
+	 KS5dj3S5FPa5A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0DB60CD98DA;
+	Tue, 16 Jun 2026 08:21:12 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Tue, 16 Jun 2026 09:21:07 +0100
+Subject: [PATCH v3 01/12] dt-bindings: iio: dac: ad5696: add
+ reset/ldac/gain support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DJ9M2IDYE6XZ.20RN5AFBYNB9Y@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260616-ad5686-new-features-v3-1-f829fb7e9262@analog.com>
+References: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
+In-Reply-To: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
+To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781598070; l=2592;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=7Cug+QHjt1jD5xYv/KPDnzhbYiS8SoQ8CGYq1vLLIrg=;
+ b=L055HawAj+bNyaqmwMRo4zS2BN+drP9SATPW5SENDRx5nrlqJEWTtNzD+qBNOQHCpwzg0CGRz
+ 3X1iUYHlR0xBi74iw9CEtJwm4pll81XpCDy7UnlgUs3qBe2tjzyNtZd
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-On 15-06-26, 20:11, Shuwei Wu wrote:
-> With two cpufreq-dt policies (one per cluster) and these ranges, neither cluster
-> blocks the other. Tested on BPI-F3 and OrangePi Rv2 boards, works as expected.
-> 
-> Does this look good to you, or would you prefer a different approach?
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Looks correct.
+Add GPIO property for RESET, LDAC and GAIN pin. RESET is active-low, LDAC
+is used to load DAC channels with values from input registers and GAIN
+can double the voltage in output channels. The gain-gpios property is
+not available to all supported parts. The adi,range-double property
+indicates that GAIN pin is hardwired to high in case gain-gpios is not
+set, otherwise it sets the initial value for the gain setting.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ .../devicetree/bindings/iio/dac/adi,ad5696.yaml    | 41 +++++++++++++++++++++-
+ 1 file changed, 40 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+index b5a88b03dc2f..c55158c464fd 100644
+--- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+@@ -37,14 +37,52 @@ properties:
+     description: |
+       The regulator supply for DAC reference voltage.
+ 
++  reset-gpios:
++    description: Active-low RESET pin to reset the device.
++    maxItems: 1
++
++  ldac-gpios:
++    description:
++      Active-low LDAC pin used to asynchronously update the DAC channels.
++    maxItems: 1
++
++  gain-gpios:
++    description:
++      GAIN pin that sets a multiplier for the DAC output voltage. When high,
++      the DAC output voltage is multiplied by 2, otherwise it is unchanged.
++    maxItems: 1
++
++  adi,range-double:
++    description:
++      Sets the initial voltage output range from 0 to 2xVREF. On devices that
++      have a GAIN pin and no gain-gpios property is set, this indicates the pin
++      is hardwired high.
++    type: boolean
++
+ required:
+   - compatible
+   - reg
+ 
+-additionalProperties: false
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            anyOf:
++              - const: adi,ad5311r
++              - const: adi,ad5691r
++              - const: adi,ad5692r
++              - const: adi,ad5693
++              - const: adi,ad5693r
++    then:
++      properties:
++        gain-gpios: false
++
++unevaluatedProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/gpio/gpio.h>
+     i2c {
+       #address-cells = <1>;
+       #size-cells = <0>;
+@@ -53,6 +91,7 @@ examples:
+         compatible = "adi,ad5696";
+         reg = <0>;
+         vcc-supply = <&dac_vref>;
++        ldac-gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;
+       };
+     };
+ ...
 
 -- 
-viresh
+2.43.0
+
+
