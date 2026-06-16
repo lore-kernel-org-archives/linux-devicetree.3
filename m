@@ -1,187 +1,162 @@
-Received: from outbound7.mail.transip.nl (outbound7.mail.transip.nl [136.144.136.7])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB4F3644A2;
-	Tue, 16 Jun 2026 13:02:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F247236AB56
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 13:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781614942; cv=none; b=mfQ02ARJrkyvZk8MDOMZqzuSjOXo3Sy34KM/KbBq80LEoy4hcIluOEjDxfqSAgzPVJ5VBFqIgbCPkQNcrcUBzbzx29eZiuXDdN0uGF0UUz6VPHCQm5wWAhOHRz5ieyFzFj736Ditug5yIwpSzBRu58bvvRx06TaEvlvqxmKu1Rw=
+	t=1781615040; cv=none; b=tpN0TJyOzdWmfAN3cHAQDU0viCC2VoVVSZJzSM4ZGqEH113zQr0JXHQzUZzEgO/BJMizuVcGLhLtKq++JWMloJ7x3YHN+JThHQ2K1xwfIsCiP1B5Clx8DMljC3IFZKBAHroIn6hqV257yffQM+NmGZuyjQSIQKdZvgW6oXrmwTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781614942; c=relaxed/simple;
-	bh=ptFCoVl4ejPQq6L4t3OjIwSPGRB4OMjQlhaTVIC6B98=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PZ+BtFjJDrtbOP4EpJVacZ+ndTfpGWUwwhEmAO8j12qOGtmb0x5Y8DVEq2qBhV81x0vDF1jZa9rkAeXHIIIUloTVhstkuYZc7L+70K+1MHWxPFPx4jUAy9v3oUIjf+gIXUwaSt/ZuGWmXE46nkwvV2w/HvOUZpD6Jjj2LNBeZmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=stD0q1WY; arc=none smtp.client-ip=136.144.136.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1781615040; c=relaxed/simple;
+	bh=pFCiTIOaCtErcZ/jxv1e0Dao47Mm9tD9RU3GiKb8xY8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iCzBlofqKqJNGU/pD5NxVwmiQPE9EUzmH3weYEe4UBCd5DYXQLtSlBBmWrRt2Wut/TeAC7bHMLX4Lvfgai/4nfLkjqBvDxpdIy3F61vlc+D+ywDq7ut93o8976Ap9E2pMoYL8fE72LPxumqi6DrUy/nCnkTD7gfMFRVLUUlNffo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eZRqdHJR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FoXHr+PU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="stD0q1WY"
-Received: from submission12.mail.transip.nl (unknown [10.103.8.163])
-	by outbound7.mail.transip.nl (Postfix) with ESMTP id 4gfnFY08WVzQvxwW;
-	Tue, 16 Jun 2026 15:02:09 +0200 (CEST)
-Received: from [127.0.1.1] (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission12.mail.transip.nl (Postfix) with ESMTPA id 4gfnFX1Qrpz3SJ37Q;
-	Tue, 16 Jun 2026 15:02:08 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-Date: Tue, 16 Jun 2026 15:02:06 +0200
-Subject: [PATCH v2 3/3] iio: magnetometer: st_magn: honour
- st,fullscale-milligauss DT property
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eZRqdHJR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FoXHr+PU"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GABoKm3384206
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 13:03:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=qUyzgrOtBX2LiKRqpvqy7WvVynXsD0T3XMs
+	8CgMXolE=; b=eZRqdHJRfDTrGM/X2Qw8KUYl+zAuKfuQx6xzZ0RC3+cJdOMUsxA
+	wkoudYtVs4QDGkmLlvkvV3fXbchZ8EmMHOnB7VZ+Fcr1OgA71PXl9Y/Lj9l3D02y
+	oPPjtc/CJbJcRd/HMraTknX4PL/D2EJucXusdax59i9SfDNHRB1Wti1z8D+bwkqa
+	tcXRZjUEq6cNKRjOvEjF2mpHR6kMO/sR2yHpf3lOLxoQhc3TWG3u/5MhT+4k8QeB
+	ByOLiLco/m3aoEM8Ynqp1jU4JrNb+IkScJsfQ37Tgr3JZU+XU8ciBag3MELQTTtD
+	ioncMLQXSttujoRSRz/YPX0wN3Fc+r3JAIg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu1ep9gu2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 13:03:57 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2bf1845bddfso47185125ad.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 06:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781615037; x=1782219837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qUyzgrOtBX2LiKRqpvqy7WvVynXsD0T3XMs8CgMXolE=;
+        b=FoXHr+PUG3jCSIKYdcLoJ6v1exsX3/tw/ZiJpEXPHTBiXCdmw5FwjgA3ppIo5DUGEA
+         fDIQuIEQdaKhHvGN+WgLHL73+DDS0tZIReEsPcDXqmoowBLyWvli+7kovATqHwr6xMbU
+         ym4q21w2xHzAYEGfXExMuIecmJGAX0wcRLGsioRDdTg/UABRwab11/QTYlopQ/dEwctZ
+         00DwCz8gk+RrnQI81icp+inGZVdP9Zu8+zzHTpuJzp2o+eKa/olJXpEuVbWiNbzzu31Y
+         jlMDeK5iyXJVeTt+XGs7aqPsUIe7TOiRIQWjDmphwyBTeLcX7sz4I12V+ttmmY+LNqk9
+         kH9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781615037; x=1782219837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qUyzgrOtBX2LiKRqpvqy7WvVynXsD0T3XMs8CgMXolE=;
+        b=Qhd8Z5nBkSuYbubpBc/idzW4mCG96sAuKZOoukvW1mGkqZTAqQhA2l06CEtxs0UBKn
+         H+aVoTqrcYXNXUAQksgevwTGD0PRV+ITDr9Xmn/Y37OrXkL4T2kBLWUYu5B4EUf+bfzc
+         IZsd5EI4X8yXTFghta+ObVYaevF63JHY02EzvWJiri9M12FX+eTEnx82REdd09IYhxY6
+         MUfauOuVILOp0Bbg4LYctRJ0HRJ9V8ItmaRsPGAtgGP4tGMMcyRvHhaA2YEQ1xuHVgY6
+         m842hu5Hr2TV8hg7fEnfVG6V5EIQplylV/kejVg5X7krObojzvuRFcVnx9D+ZksRzr09
+         q7+A==
+X-Forwarded-Encrypted: i=1; AFNElJ+8vlcDWD1G7VxMv94b4E//jk5vqkiYqFwqFCUw00ZAwQWqt1Vz16T+acJ5mTRMBj16Xnfi5VrRev86@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfELdUo1j93h0vxv3ROC75Solx8qMCcut54PikbUQmC92f5Gb6
+	MTLNpfPc9qoIIpPzP7MY0dntLZiFSakocQ5xEzBxYzo6ppEXewbTkvRgghFtVMQJzMIdJx8MGbS
+	Vqf4VxWnw5vyYSz1MpBJvDIH6Lr3aNbUSCSYL072lxxAX9DtL3jRQXK/nVAne4Xc9
+X-Gm-Gg: Acq92OFTedevRwBXj88rTa6E2LgXCszCExu5JUoL7xRNsACw3dfjue8iNgQtw3+S1WE
+	JKM0rybXDKCxDimLoRodkg6m/WBgSj5qsGbNzyjO2k2DY4ECXiE9nttNkaOazovRmUPNEea5LG+
+	iJPA9nAD7BArMorsErC1oxmvnTIP9QIndU4NK7Wdd5/c+1s6iowmu0leqtkUw7/dxMkAA4AlQdL
+	Hn1D6r6xKsSdAIijiKeKyq04Fam3D5QmGm79CIJy74DFQWzJvBWBQNA7ZBYF855zdqaY7SO431e
+	DUcv6H6niMBEdxPT9Dt+Kw4RCbJ6o3oH/UUgUx//LCY/oyqh2d5u+p11Ntk0AWJdlkElOiy9qe+
+	fKtDAsWMM/xCrIWk0QHI2GZ8venE5GVBwwMuPiw8YDsox3YM9YGa86Dy6
+X-Received: by 2002:a17:903:1aad:b0:2c0:dd75:e834 with SMTP id d9443c01a7336-2c41050af58mr226079745ad.5.1781615036869;
+        Tue, 16 Jun 2026 06:03:56 -0700 (PDT)
+X-Received: by 2002:a17:903:1aad:b0:2c0:dd75:e834 with SMTP id d9443c01a7336-2c41050af58mr226079245ad.5.1781615036401;
+        Tue, 16 Jun 2026 06:03:56 -0700 (PDT)
+Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42f7c58c3sm134867235ad.23.2026.06.16.06.03.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 06:03:55 -0700 (PDT)
+From: Monish Chunara <monish.chunara@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>,
+        Monish Chunara <monish.chunara@oss.qualcomm.com>
+Subject: [PATCH V2 0/3] arm64: dts: qcom: Monaco: Enable SDHCI storage support
+Date: Tue, 16 Jun 2026 18:33:44 +0530
+Message-Id: <20260616130347.3096034-1-monish.chunara@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-3-063edcf74e60@herrie.org>
-References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
-In-Reply-To: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Denis Ciocca <denis.ciocca@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Denis Ciocca <denis.ciocca@st.com>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, devicetree@vger.kernel.org, 
- Herman van Hazendonk <github.com@herrie.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781614923; l=4762;
- i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
- bh=ptFCoVl4ejPQq6L4t3OjIwSPGRB4OMjQlhaTVIC6B98=;
- b=nsmHBF4qPcS6fWpU4qhjDeRybgbXWZTf8rrNPKTaeVu4nPQ1Puhoyx6JWvWFYIKNKBj5NfiwK
- oF6vgd/TsUSB5vvBuFD6bCODUShiEf54RQX1aUA7JVhPYuAxn3cy/0Q
-X-Developer-Key: i=github.com@herrie.org; a=ed25519;
- pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
-X-Scanned-By: ClueGetter at submission12.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1781614928; h=from:subject:to:cc:
- references:in-reply-to:date:mime-version:content-type;
- bh=X+nCpIryhHub4FcQjDYfT4e8eh2iGorvyop023rL09I=;
- b=stD0q1WYODJbp98Nn08n1Jnf+vCkO7w+K4rFGAe6NtQUEO6VpZkQhDt9mrKF1FwZL561zR
- jD76ALv1lvYA871V2qK5PRXJh6Nm1uuwYkR+npWzJljR16i8K+h1F9DomoyOojPva+Serx
- mxYJpFyf8iMj8pYCW4TprNqpuctf9ztsRAbopPqql4tSyfzrw4b2oLHRjaPo7qWLkFJt3S
- bTWtKT26LYP6HyahjBkNkS+L2xoD+bpXfQdZBhSdN/VUY1MxnoZnnwSuhWOl3lnn7D1DIx
- rz0aToPacdiBCt9oz7uGm7yZLqlO9PNJR+TKIuCiiciajG8LJMBpkDO6+DQtsw==
-X-Report-Abuse-To: abuse@transip.nl
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=I/ZVgtgg c=1 sm=1 tr=0 ts=6a3149bd cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=972t8ukbrjnbrM4mtFgA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEzMyBTYWx0ZWRfX6fvQycnifgVi
+ eVHRDHOYaTnWpBHQVW2eld80vRdrwzLtREgZ6dM3c6vAr3eeXrO9TBv3+b11p+pbpA71/jlyYaG
+ ucd55WKFElkocJVX4NncJr3Zk+it3yw=
+X-Proofpoint-ORIG-GUID: bQp3QJBJi9W3LSrx_6OsCSQ1wIEh3Ido
+X-Proofpoint-GUID: bQp3QJBJi9W3LSrx_6OsCSQ1wIEh3Ido
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEzMyBTYWx0ZWRfX1glPl7mSoEQU
+ us7vMrvQ0wOCMmgkri0tC6ywcEYS2pcYr/diBc/pLiwRS+1TmbpOvyDpJkH1atzFMDMwnKPAd39
+ vi0not5tqjZ7KZ0YDoL6y9QxQ6ryb1sdC2OM3RoXwTP4QqI+i7Wku3kuS5yZC+aWfc42MEJV+or
+ bjfxVg2h6/wUWXNhgbio8HFTEIyQ7v1tKrkZEvFJBJvE/6zhkBcVvB5Zpmr9/qEub/JG8PKBcYe
+ GCGS3uPtnyNTfS3oJz/xnprk/m3QZVyC3AZZtadP8FyYlgiHSx3UcwtR4EAGuYx0D6vzMlxvo+i
+ q88EjPYwlhKwy5Z+hU+9f1zrGGvv61x2apz0l8/7Khx9A5jkz+rrmCbCehPg1PKoDHEorBMTPbU
+ VEsL/7SrZNuKAZ1zQinyCdlyjtBnGvnUMyLbpX19jP6Hr8KhmgxlkUPBNyb4VKaupA2nof3+vmY
+ PlgX7hVNpiR8R5e+G5A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0
+ malwarescore=0 spamscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160133
 
-The ST magnetometer core's common probe hardcodes fs_avl[0] -- the
-highest-sensitivity full-scale supported by the chip -- as the
-starting range. For the LSM303DLH that is +/-1.3 G; for the
-LSM303DLHC and LSM303DLM it is +/-2 G; for the LIS3MDL it is +/-4 G.
+Hello respected Maintainers,
 
-That is the right default for "minimal noise floor at a desk", but
-it leaves no margin for boards that pick up appreciable DC bias from
-nearby PCB structures. On the HP TouchPad (apq8060 / tenderloin) the
-LSM303DLH magnetometer is mounted close enough to the surrounding
-power planes that X reads back as the chip's 0xF000 overflow
-sentinel (== -4096 raw, the value the chip publishes when the ADC
-saturates) on every sample at the chip-default range, while Y and Z
-fall well within the +/-1.3 G window.
+This is v2 of the Monaco SDHCI storage support series.
 
-Parse the st,fullscale-milligauss device-tree property (documented
-separately in dt-bindings/iio/st,st-sensors.yaml) in the
-magnetometer common probe to select the initial fs_avl entry by its
-mg value. The DT binding pins the accepted value set per compatible
-via allOf/if-then enum clauses, so a malformed mg value fails
-dt_binding_check rather than reaching the driver. Sensors with a
-fixed full-scale (fs.addr == 0: LSM303AGR, LIS2MDL, IIS2MDC) have no
-register to switch and the property is rejected outright for them
-in the binding; the parse block is additionally gated on fs.addr as
-defence in depth against stale DTBs.
+V1 was sent here:
+https://lore.kernel.org/all/20260227105055.2364348-1-monish.chunara@oss.qualcomm.com/
 
-Per-sensor mg ranges are listed in st_magn_sensors_settings[]. For
-LSM303DLH and LSM303DLHC/DLM the valid values are 1300, 1900, 2500,
-4000, 4700, 5600 and 8100; for LIS3MDL, LSM9DS1-magn and LSM303C-magn
-they are 4000, 8000, 12000, 16000.
+Compared to v1, this revision makes the storage split more explicit and keeps
+the SoC description generic:
+- Avoids using the reference to direct supplies as dummy
+- Updates the eMMC overlay to remove the static UFS host disablement and
+  vreg_l8a voltage override, allowing DT-fixup to manage the UFS-eMMC mutual
+  exclusion dynamically for flexible UFS/eMMC configurations.
 
-Empirical scale sweep on the HP TouchPad confirmed that on this
-board any fs_avl >= 1 produces non-saturated X readings:
+Validated on Qualcomm Monaco EVK with both SD card and eMMC modules.
 
-    scale (0.001 G/LSB)  | X raw    Y raw    Z raw
-    --------------------+-------------------------------
-            1.100        | -4096    44       46    (X saturated)
-            0.855        |  -547    37       37    (clean)
-            0.670        |  -433    94      103    (clean)
-            0.450        |  -266    44       71    (clean)
-            0.400        |  -235    34       65    (clean)
-            0.330        |  -196    27       56    (clean)
-            0.230        |  -145    15       40    (clean)
+Monish Chunara (3):
+  arm64: dts: qcom: monaco: Move eMMC CQE support from SoC to board DT
+  arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+  arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
 
-2500 mg is the natural choice for tenderloin: comfortably outside
-the saturation regime while keeping useful precision for compass
-applications.
-
-Assisted-by: Claude:claude-opus-4-7 sparse smatch clang-analyzer coccinelle checkpatch
-Assisted-by: Sashiko:claude-opus-4-7
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- drivers/iio/magnetometer/st_magn_core.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/drivers/iio/magnetometer/st_magn_core.c b/drivers/iio/magnetometer/st_magn_core.c
-index ef348d316c00..6f369e8dddea 100644
---- a/drivers/iio/magnetometer/st_magn_core.c
-+++ b/drivers/iio/magnetometer/st_magn_core.c
-@@ -10,6 +10,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/property.h>
- #include <linux/sysfs.h>
- #include <linux/iio/iio.h>
- #include <linux/iio/sysfs.h>
-@@ -608,6 +609,7 @@ int st_magn_common_probe(struct iio_dev *indio_dev)
- 	struct st_sensor_data *mdata = iio_priv(indio_dev);
- 	struct device *parent = indio_dev->dev.parent;
- 	struct st_sensors_platform_data *pdata = dev_get_platdata(parent);
-+	const char *propname;
- 	int err;
- 
- 	indio_dev->modes = INDIO_DIRECT_MODE;
-@@ -628,6 +630,36 @@ int st_magn_common_probe(struct iio_dev *indio_dev)
- 	mdata->current_fullscale = &mdata->sensor_settings->fs.fs_avl[0];
- 	mdata->odr = mdata->sensor_settings->odr.odr_avl[0].hz;
- 
-+	/*
-+	 * Skip fixed-FS chips (fs.addr == 0): no register to switch.
-+	 * The binding rejects the property on these compatibles too;
-+	 * the gate guards stale DTBs.
-+	 */
-+	propname = "st,fullscale-milligauss";
-+	if (mdata->sensor_settings->fs.addr &&
-+	    device_property_present(parent, propname)) {
-+		struct st_sensor_fullscale *fs = &mdata->sensor_settings->fs;
-+		u32 fs_mg;
-+		int i;
-+
-+		err = device_property_read_u32(parent, propname, &fs_mg);
-+		if (err)
-+			return err;
-+
-+		for (i = 0; i < ST_SENSORS_FULLSCALE_AVL_MAX; i++) {
-+			if (!fs->fs_avl[i].num)
-+				break;
-+			if (fs->fs_avl[i].num == fs_mg) {
-+				mdata->current_fullscale = &fs->fs_avl[i];
-+				break;
-+			}
-+		}
-+		if (mdata->current_fullscale->num != fs_mg)
-+			dev_warn(parent, "%s=%u not supported, using %u\n",
-+				 propname, fs_mg,
-+				 mdata->current_fullscale->num);
-+	}
-+
- 	if (!pdata)
- 		pdata = (struct st_sensors_platform_data *)&default_magn_pdata;
- 
+ arch/arm64/boot/dts/qcom/Makefile             |  7 ++
+ arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso | 37 ++++++++++
+ .../boot/dts/qcom/monaco-evk-sd-card.dtso     | 72 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/monaco.dtsi          |  1 -
+ arch/arm64/boot/dts/qcom/qcs8300-ride.dts     |  1 +
+ 5 files changed, 117 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
+ create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
 
 -- 
-2.43.0
+2.34.1
 
