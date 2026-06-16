@@ -1,107 +1,405 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1A83A8746
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 16:06:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5612F3A16AC;
+	Tue, 16 Jun 2026 16:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625972; cv=none; b=O4qTBpKaF1lECCWOLvxDV7W0jTevKtIQPhwvvtQFRnBEZn1jGwBYF9CYZma+xALHCvovOYuOYABtXgfcpkQlUHq7UrEkDsj2s05o8wuhNsnv3JVqVtzUXheqG7BW/rJ6G8jr8oyGV3FoLyJ3/IwBWvDnAHab6Ubb6JfboAwza3E=
+	t=1781626046; cv=none; b=Gsl1q54XGf2/0+797mCJqQLAsRvcP67GML9byVnEzOW4+gYbYG0uAR30EEW19fHPch+OfyQKRW5JPw1uFobyJpNr2S24KJ0s5wTiNzW0FdMQoGPjzqmf8ofQstc2XP26cSA7kXVJY8JSVSNOzFd/HULMOWR1t9mpFkW/9mynvys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625972; c=relaxed/simple;
-	bh=+FxnwydxHua8Z6tkMX36UHcpuucb1rXxmv27CydN09c=;
+	s=arc-20240116; t=1781626046; c=relaxed/simple;
+	bh=3tzZnjmNjmotFZ7uaMnAomU+ygB5XKg7WBs+mh1XAQM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RSVBqH3Quvqw/TkmM47Rgn6XcjfLCWZmxq3KHsCPIrmbzUSbjYFmykSjUH8IbPhecNISR4HA6xkUkj7Reh2dYGkeYhk/NykJz0NCimT9vxLs9LShP0FHgABj7hmtJSmULywj9SQwqTJV6Ug37cDqbrBln+ZwHlYJjeXKyQgx0ys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qMCfNzRC; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gr+/OcmQjsehN1C/Tsccmneg1Rn4YceKuZDA+rKzrnBvDxwya7nF0YYhJfDLII2iacIx0EyvOousWkr8/tlhHn8DhKQL5Esyfgd07syvpxTGhLp1QFyquSavK0tUl85b6r29pX8y1OM3Z125f0GRDmtTP6SjKRmO1PBn55FCAJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lA6q07+2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMCfNzRC"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-842848fd613so4194213b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:06:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781625970; x=1782230770; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=aX9hyq1cLGDHYR490qDGwzNNEN7oKaQ0B3Q6KeGbmjc=;
-        b=qMCfNzRCdhAMPobIF6Gl8MJPrSFW8NpBsVvtGDXrbPnoz4hxQmhHXFi7DgljdXeBeW
-         CI/YYkLqJgJA7uFgTbczIq2IvaJkGb8G0UB/QcNRWMmvGVV93qbkvZkA9JJrS8tgHH7r
-         M5rqwGJXGQgTVSu9rXrX6E5y7rql6+reYbyO/5jCThdQpo9uSImVSijycIeLRLgqk7yI
-         OWfMLOuvEmj0Du1WfLfTj3fdA+bd3mzIEz4U670PJoZ+2+C6+HX0REAuJqWdpKC229Kc
-         cy8UZ2qq46olmV2rn+KnTV4Kd/VvrcYaKrlLuVOSXmYH+4JphnwUHH5LkvSQ9o7/E33f
-         U1YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781625970; x=1782230770;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=aX9hyq1cLGDHYR490qDGwzNNEN7oKaQ0B3Q6KeGbmjc=;
-        b=IQVPV+61T+StpsWHCZCpDkSM+Odht/7d543SMQTthhtyU871IgBdZJypEkc5TyhqZn
-         V1bBt6Nzofm/Pzl5Pv765IKPexMWOZAU/uZxMj+j9lDtjU0UXvzEJdRE/VjckJeXxT2w
-         8yOZICg+r1uxzSP4lB2IbFHA77rthxJkdvq7XKCyWEHlYiXiHZwK5wgimlI98elT5voN
-         5gPTk1gK8mmnn874GX7B4bW1VWBiw7rBaFD3DjJb7EXqlP6vSePAQvIn9MuQs6qnbI2A
-         iYSYiHnaovJkW4raGJ7hl1rtS9/GBOtR3MGYsAo2N/stdFEeDt3aHNrA26/D0Lgu2quc
-         0JKA==
-X-Forwarded-Encrypted: i=1; AFNElJ8Xk00vSZbVoxcMV9P9Vf/oB8aq1A4Cc4lhSaV+hF3ZfaBHppWRXQhJ42dovp393VJwzLK/sy86dRVw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSwavdEGAJd4cEWXgk4YGTUjgxnL7iB6+/iIYZKJ8lxrrEYi8x
-	l2YHASMaRxl9OqcBvLip7J5zlOmt2/hjxWXLO1Aff+ekCHfcYaOuaITg
-X-Gm-Gg: Acq92OGlqoE2WtDbyGck4rjbjzszzewytUyuvHiTNTaDoNcdlZnPNoOhP8LesFS0xC2
-	mt4ADPaZB/z8ObL1sK2NBtcvjibOFQJ+DhRETtIamZErMsX2Sj6oZ+asGIgSlSPWKrdZ9/9hxig
-	Lw0Gsvz8VePUmiZBWnrXz5BkMkTqBCew37G6VVDr5237ZISSuCJRyiD6Fjkf4G8jbeCHOwkWrZ/
-	tStdtZnzE5rQTySOfI3Yn4RCztWLPirsNuM8XgIg61ke+rOligBiZDAQbeqX/pMfhk2gn7GkQsI
-	kiWphzTxwIZKyTy+FWTiGQMvuhNq0w+6J+hQFj4uA8SzYkfekUwvk17SWnMFgYL8OfFBZEjrqWQ
-	AqIR9HS+KflDyamyGflTcQVMF64Z7LlL2+uQn8WHndZz2DKLlm3dT3mf5Mh1oVsF4sQoGs54Oak
-	D/a4pyCEJ9gCSZyYrv7ITkgK20NVz1eX2DCbCR
-X-Received: by 2002:a05:6a00:418c:b0:835:405a:7e6f with SMTP id d2e1a72fcca58-84515357f7emr3850005b3a.14.1781625970515;
-        Tue, 16 Jun 2026 09:06:10 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434acca7ecsm13880233b3a.13.2026.06.16.09.06.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 09:06:10 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 16 Jun 2026 09:06:09 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Potin Lai <potin.lai.pt@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Zev Weiss <zev@bewilderbeest.net>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Cosmo Chou <cosmo.chou@quantatw.com>,
-	Mike Hsieh <Mike_Hsieh@quantatw.com>,
-	Potin Lai <potin.lai@quantatw.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add
- current limit properties
-Message-ID: <ff79cd10-557e-446d-a599-93b228f9427a@roeck-us.net>
-References: <20260615-lm25066-cl-config-v3-0-decb4f5b0b77@gmail.com>
- <20260615-lm25066-cl-config-v3-1-decb4f5b0b77@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lA6q07+2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30B11F00A3A;
+	Tue, 16 Jun 2026 16:07:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781626045;
+	bh=A6qXeT9XxkhSfASDVonIFYEzG76sxThY93rvQLvFR0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lA6q07+2xJLK/v8OrIBxStGcP66KNC8c6KjWyLNkiLJf/nPedtW53EXjSBgCILpWV
+	 BPgGEcI7LWuvZh8ue0yovKueIU4QS/Hbw4m7fpd9/rb7TB5vkhTVo1ldeT+50ngsQL
+	 91Yc5mBwkJpNnmL9BfqFTtN8RWpYf8SKmqTuArXUr8cLmo7Fjim6n6+Gd1AaKCG6am
+	 OcXN1YWZ1MNaQv+jGxrddNLA0MJtqDyKtPjj4ERZeYikD9lXjfvsNuLjs77MzNeRmF
+	 xEuiUMCsDIC2XGcQWjdByyvKFiJObCARtTsf3CMv9qqu25NE0wEwuY/w9FFW3uCVdZ
+	 TgxQrJyKrxl0w==
+Date: Tue, 16 Jun 2026 17:07:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
+Message-ID: <20260616-spoon-ducky-b05e9bf7e999@spud>
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HSGwlUuCraZwW8tT"
+Content-Disposition: inline
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
+
+
+--HSGwlUuCraZwW8tT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260615-lm25066-cl-config-v3-1-decb4f5b0b77@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 15, 2026 at 05:49:16PM +0800, Potin Lai wrote:
-> Add a 'ti,current-range' string property to configure the device's Current
-> Limit (CL) behavior to "high" or "low" via the register, overriding the
-> physical CL pin setting.
-> 
-> This configuration is supported on LM25066, LM5064, LM5066, and LM5066i.
-> LM25056 is excluded because it does not support configuring the current
-> limit via the DEVICE_SETUP register (bit 2 of DEVICE_SETUP is reserved).
-> 
-> The values "low" and "high" map to the respective low/high threshold
-> voltages of the chips:
-> - LM25066: low = 25 mV, high = 46 mV
-> - LM5064, LM5066, LM5066i: low = 26 mV, high = 50 mV
-> 
-> Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
-> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+On Mon, Jun 15, 2026 at 04:59:59PM -0500, David Lechner (TI) wrote:
+> Add new bindings for ti,ads122c14 and similar devices.
+>=20
+> This is an ADC that is primarily intended for use with temperature
+> sensors. There are a few unusual properties because of this. In
+> particular, the reference voltage source and current output requirements
+> can be different for each measurement, so these are included in the
+> channel bindings.
+>=20
+> The REFP/REFN reference voltage is usually just connected to a resistor
+> that is being driven by the ADC's current outputs, so there is special
+> property for this case rather than requiring a regulator to be defined
+> to represent that.
+>=20
+> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
+> have preferred an enum of strings).
+>=20
+> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+> ---
+>  .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 224 +++++++++++++++=
+++++++
+>  MAINTAINERS                                        |   7 +
+>  include/dt-bindings/iio/adc/ti,ads112c14.h         |  11 +
+>  3 files changed, 242 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+> new file mode 100644
+> index 000000000000..dc7f37cad772
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+> @@ -0,0 +1,224 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c14.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments' ADS112C14 and similar ADC chips
+> +
+> +description: |
+> +  Supports the following Texas Instruments' ADC chips:
+> +  - ADS112C14 (16-bit)
+> +  - ADS122C14 (24-bit)
+> +
+> +  https://www.ti.com/lit/ds/symlink/ads122c14.pdf
+> +
+> +  These chips are primarily designed for use with temperature sensors su=
+ch as
+> +  RTDs and thermocouples. The channel bindings reflect this in that each=
+ channel
+> +  represents the conditions required to make a measurement rather than s=
+trictly
+> +  just the physical input channels.
+> +
+> +maintainers:
+> +  - David Lechner <dlechner@baylibre.com>
+> +
+> +unevaluatedProperties: false
 
-Applied to hwmon-next.
+Weird positioning of this.
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,ads112c14
+> +      - ti,ads122c14
+> +
+> +  reg:
+> +    items:
+> +      - minimum: 0x40
+> +        maximum: 0x47
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Optional external clock connected to GPIO3 pin.
+> +
+> +  avdd-supply: true
+> +  dvdd-supply: true
+> +
+> +  refp-supply: true
+> +  refn-supply: true
+> +
+> +  refp-refn-resistor-ohms:
+
+Missing prefix here and elsewhere.
+
+> +    description:
+> +      The resistance of the external resistor between REFP and REFN when=
+ using
+> +      resistor bridge driven by current outputs for RTD measurements.
+> +
+> +  interrupts:
+> +    minItems: 1
+> +    items:
+> +      - description: FAULT interrupt (GPIO2 pin)
+> +      - description: DRDY interrupt (GPIO3 pin)
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum: [fault, drdy]
+> +
+> +  gpio-controller: true
+> +  '#gpio-cells':
+> +    const: 2
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  ^channel@[0-7]$:
+> +    $ref: adc.yaml
+> +
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maximum: 16 # arbitrary limit, channel@ can be any combination o=
+f AIN0-AIN7
+> +
+> +      single-channel:
+> +        maximum: 7
+> +
+> +      diff-channels:
+> +        items:
+> +          maximum: 7
+> +
+> +      bipolar:
+> +        description:
+> +          Set this flag if the differential input can be negative.
+> +
+> +      excitation-channels:
+
+(here)
+
+> +        description: AINx pins used as current output.
+> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> +        minItems: 1
+> +        maxItems: 2
+> +        items:
+> +          maximum: 7
+> +
+> +      excitation-current-microamp:
+
+(here)
+
+> +        description: The current output of the excitation channels in mi=
+croamps.
+> +        minimum: 1
+> +        maximum: 1000
+> +
+> +      current-chopping:
+
+(and here)
+
+> +        $ref: /schemas/types.yaml#/definitions/flag
+> +        description:
+> +          If provided, the two excitation channels are to be used with c=
+urrent
+> +          chopping enabled.
+> +
+> +      ti,vref-source:
+> +        description: |
+> +          Indicates the source for the reference voltage for this channe=
+l.
+> +          0 - Internal 2.5V reference
+> +          1 - Internal 1.25V reference
+> +          2 - External reference (REFP-REFN)
+> +          3 - AVDD as reference
+
+My usual complaint here about things you have to make macros for, could
+these just be strings from the get-go?
+
+> +
+> +          For convenience, macros for these values are available in
+> +          dt-bindings/iio/adc/ti,ads112c14.h.
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        maximum: 3
+> +        default: 0
+> +
+> +    dependencies:
+> +      excitation-channels: [ excitation-current-microamp ]
+> +      excitation-current-microamp: [ excitation-channels ]
+> +      current-chopping: [ excitation-channels ]
+> +
+> +    oneOf:
+> +      - required: [ single-channel ]
+> +      - required: [ diff-channels ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - avdd-supply
+> +  - dvdd-supply
+> +
+> +dependencies:
+> +  refn-supply: [ refp-supply ]
+> +
+> +allOf:
+> +  - oneOf:
+
+"allOf: - oneOf:" is equivalent to just writing "oneOf:"
+
+pw-bot: changes-requested
 
 Thanks,
-Guenter
+Conor.
+
+
+> +      - required: [ refp-supply ]
+> +      - required: [ refp-refn-resistor-ohms ]
+> +      - properties:
+> +          refp-supply: false
+> +          refn-supply: false
+> +          refp-refn-resistor-ohms: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/iio/adc/ti,ads112c14.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        adc@40 {
+> +            compatible =3D "ti,ads112c14";
+> +            reg =3D <0x40>;
+> +
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +
+> +            /* 3-Wire RTD: Two IDACs, One Measurement (AIN1-AIN2) */
+> +
+> +            refp-refn-resistor-ohms =3D <500>;
+> +
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            channel@0 {
+> +              reg =3D <0>;
+> +              diff-channels =3D <1>, <2>;
+> +              excitation-channels =3D <0>, <3>;
+> +              excitation-current-microamp =3D <500>;
+> +              current-chopping;
+> +              ti,vref-source =3D <ADS112C14_VREF_SOURCE_EXTERNAL>;
+> +              label =3D "rtd";
+> +            };
+> +        };
+> +    };
+> +  - |
+> +    #include <dt-bindings/iio/adc/ti,ads112c14.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        adc@40 {
+> +            compatible =3D "ti,ads112c14";
+> +            reg =3D <0x40>;
+> +
+> +            avdd-supply =3D <&avdd>;
+> +            dvdd-supply =3D <&dvdd>;
+> +
+> +            /* Resistive Bridge Measurement With a Thermistor for Temper=
+ature Compensation*/
+> +
+> +            refp-supply =3D <&avdd>;
+> +
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            channel@0 {
+> +              reg =3D <0>;
+> +              diff-channels =3D <6>, <7>;
+> +              bipolar;
+> +              ti,vref-source =3D <ADS112C14_VREF_SOURCE_EXTERNAL>;
+> +              label =3D "bridge";
+> +            };
+> +
+> +            channel@1 {
+> +              reg =3D <1>;
+> +              diff-channels =3D <1>, <2>;
+> +              ti,vref-source =3D <ADS112C14_VREF_SOURCE_INTERNAL_2_5V>;
+> +              label =3D "thermistor";
+> +            };
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index f1caa6e5198b..9ce7c61b0c14 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26911,6 +26911,13 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/adc/ti,ads1119.yaml
+>  F:	drivers/iio/adc/ti-ads1119.c
+> =20
+> +TI ADS112C14 ADC DRIVER
+> +M:	David Lechner <dlechner@baylibre.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+> +F:	include/dt-bindings/iio/adc/ti,ads112c14.h
+> +
+>  TI ADS1018 ADC DRIVER
+>  M:	Kurt Borja <kuurtb@gmail.com>
+>  L:	linux-iio@vger.kernel.org
+> diff --git a/include/dt-bindings/iio/adc/ti,ads112c14.h b/include/dt-bind=
+ings/iio/adc/ti,ads112c14.h
+> new file mode 100644
+> index 000000000000..96906642fe41
+> --- /dev/null
+> +++ b/include/dt-bindings/iio/adc/ti,ads112c14.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +
+> +#ifndef _DT_BINDINGS_TI_ADS112C14_H
+> +#define _DT_BINDINGS_TI_ADS112C14_H
+> +
+> +#define ADS112C14_VREF_SOURCE_INTERNAL_2_5V	0
+> +#define ADS112C14_VREF_SOURCE_INTERNAL_1_25V	1
+> +#define ADS112C14_VREF_SOURCE_EXTERNAL		2
+> +#define ADS112C14_VREF_SOURCE_AVDD		3
+> +
+> +#endif /* _DT_BINDINGS_TI_ADS112C14_H */
+>=20
+> --=20
+> 2.43.0
+>=20
+
+--HSGwlUuCraZwW8tT
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajF0uAAKCRB4tDGHoIJi
+0mcJAP44DrE0LNcsX+Iafys5e3uy5YT7UIkD0S12BY0qT9TBKQEAqf1acULQmuGU
+ChznUhI4oo46RSs451RW9ZuV9MoAYgI=
+=/Zhv
+-----END PGP SIGNATURE-----
+
+--HSGwlUuCraZwW8tT--
