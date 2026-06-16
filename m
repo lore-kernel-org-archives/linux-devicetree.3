@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0082F8E96;
-	Tue, 16 Jun 2026 03:49:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC35123C512;
+	Tue, 16 Jun 2026 03:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781581780; cv=none; b=FiHfVYRPhsfQ4DuZmACCE/wU6J9bdj/cW1GWZzhmeOVC1NT4av3WE/ge+ToOZv2UsogaAdO0TaIAX0KAT14qh4xzFSXHsKYlne8bVnFGRbnbYeBG3qFILJ34fhXnMEiZ72lp8AcqZIBtIQxzwas0mE+21TNDF8sdUZuPPUsAAv0=
+	t=1781581902; cv=none; b=VNYuPAP0V6nbOtnsjToQ0vSEG0N/3hDpcjNOlgKj4pGofQx5fAGE76JNrax1A644khk8i5BRfsfYaJYcq+/oKlw8Md1a4RFtF/spjeb0aKsL/fhcFHb6HbMozmmK78r3HxG2kjMJpODmTFq+C+yq33KDYfH7tq3Hke+FKcUqHus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781581780; c=relaxed/simple;
-	bh=OUCFcuyKnRRE4PnHiT2Tu+2FaPoPVrI8ilWygmqFJvc=;
+	s=arc-20240116; t=1781581902; c=relaxed/simple;
+	bh=A1zaSC8/ttGVTC9vbcVYYzlxZTQy1+EstQ32TwbpofY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XNGhYHYBWHerJvKTroAlFcHQy4hXJNBQvBnTSSp8R/+2A2MTYUPkqKaprgcIT59LJ7bp6l/17337BwljVopmh37YHdx9ONYo8+S6RF5Lw4rXxQO7CKDuU/10fS+XjySt/3iQRBn6J2zNnBjJC5oEUqD2sKsOy3Qj2j0tZS5H4no=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iNKpTGNm; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=BEv9eq2aTq4GGN34p5NtV6AJn7EfnE8b9yYDQ/PPgGt23pZ4G6u9vGx3K7lvy+SWtMBZ0T86uEk1da/ZMIkNlqGMs/Zqf1+Zk0AzF9VCqrtdJjwy8epNucX/bE/k9EsC1vOiPmytmDxNQjCJ2Pbzmq596Tp9wZh6zgWO+77jIPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nVj5KS8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iNKpTGNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2C31F000E9;
-	Tue, 16 Jun 2026 03:49:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nVj5KS8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4373D1F000E9;
+	Tue, 16 Jun 2026 03:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781581778;
-	bh=cDc8Xi19f30oX4QQKMwPG2K9ujGq0ToE5G6/ak0TJWA=;
+	s=k20260515; t=1781581900;
+	bh=0LLj4LGa+CEorWsXFdkROPtAy/btizr8qptWeMPKmQ0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iNKpTGNmFRDdVoyRd1VJB1WPLhxzg+WdmATrrZ/lS0cjBMrLzU2dtRX2EVSn2SQ59
-	 86k0ogxf57y0EoP4wt8RXw1kDJml+XQFf1k/wfe0EVTrvg+qCqLGIYsRTmR0Xgguse
-	 lJA0s/DFuBf6KHvMxkxEdumYSUSvkYfaAqyBIngYJyrmpG5ZahBN0e305Yq+0Ji5Le
-	 jwIyK8QeCJLTeltT10g4Ph0ms2WzZM1OQ+YejW7vwQluQhvyl4hifNK8UNxMjyiqbW
-	 t0tRkF27BHYztQGHZ/sxNT85/yTYRHdtumHbMGPPy6VIBDFGyJTooTHRBl2i4eb0fa
-	 bNtOzEJOPMblA==
-Message-ID: <ce96a826-08ce-4e63-a794-26d9600f73f4@kernel.org>
-Date: Tue, 16 Jun 2026 05:49:32 +0200
+	b=nVj5KS8dmM6px34g0QjZi4/1Wq1JfYLMPwSqwR8qAPVxOE4KFryFGL/NPsr77lOE9
+	 S1ZZt+Ne0GT+XH5So8VkuxbjNrbV075vkRN4kCCWXWrIX9rCGAQI1aijwuW8fGCzMv
+	 ceHkk9RDMYlMkieIcfOQimcbbQaAHVRtQUyP9vFZcyyFZwx65+nJlgqbFl0EyJ94Ch
+	 RMzeO5zFPKfqnqxpOKmHXJtXrI+fRF2Cc08uEC7RLxpzo70wRLUPkT5YztQAp+8jdm
+	 hnuqPOEbDrKh6zT+92WHog+xjOfK+cT7RoQQcZGokdjGVKsGroAQl1b0iNSaVUSKqz
+	 DOIP2VrKhkHbA==
+Message-ID: <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
+Date: Tue, 16 Jun 2026 05:51:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: install DT overlays via dtbs_install
-To: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
-Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
- vudupa@qti.qualcomm.com
-References: <0f045b88-94fc-46b5-8a49-8a53235fc8fc@kernel.org>
- <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>,
+ wens@kernel.org
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+ <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+ <0r4us4OeRRWtJhxvps-bZw@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,32 +95,92 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
+In-Reply-To: <0r4us4OeRRWtJhxvps-bZw@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/06/2026 18:27, Vishwas Udupa wrote:
-> EL2 DTBOs are used at build time to construct DTBs corresponding to
-> an EL2 (hypervisor-enabled) boot configuration. These DTBs are included in
-> distributions [1] as complete boot configurations (e.g. EL1 and EL2).
+On 15/06/2026 17:47, Jernej Škrabec wrote:
+> Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>> On 14/06/2026 16:08, Jernej Škrabec wrote:
+>>> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>>>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+>>>>> Hi,
+>>>>>
+>>>>> (resent from new email)
+>>>>>
+>>>>> On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>>
+>>>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+>>>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>>>>>>>
+>>>>>>> As it turns out, current H616 DE33 binding was written based on
+>>>>>>> incomplete understanding of DE33 design. Namely, planes are shared
+>>>>>>> resource and not tied to specific mixer, which was the case for previous
+>>>>>>> generations of Display Engine (DE3 and earlier).
+>>>>>>>
+>>>>>>> This means that current DE33 binding doesn't properly reflect HW and
+>>>>>>> using it would mean that second mixer (used for second display output)
+>>>>>>> can't be supported.
+>>>>>>>
+>>>>>>> Remove layer register space, which will be represented with additional
+>>>>>>> node, and replace it with phandle, which will point to that new, shared
+>>>>>>> node. That way, all mixers can share same layers.
+>>>>>>>
+>>>>>>> There is no user of this binding yet, so changes can be made safely,
+>>>>>>> without breaking any backward compatibility.
+>>>>>>
+>>>>>> There is user. git grep gives me:
+>>>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
+>>>>>>
+>>>>>> which means this is a released ABI. As I understood, the old code was
+>>>>>
+>>>>> We held off on merging the DT changes so that we could rework this.
+>>>>> I can't find the actual request though. It was probably over IRC.
+>>>>>
+>>>>>> working fine but just did not support all use cases. Why this cannot be
+>>>>>> kept backwards compatible?
+>>>>>
+>>>>> AFAIK the "planes" block is shared between two display mixers. As the
+>>>>> commit message explains, this prevents using the second mixer, since
+>>>>> only one of them can claim and map the register space. And on the H700
+>>>>> (which is the same die as the H616 discussed here but with more exposed
+>>>>> interfaces), there could actually be a use case for the second mixer.
+>>>>
+>>>> It explains why you want to make the changes but not why you cannot keep
+>>>> it backwards compatible.
+>>>
+>>> I guess it can be backward compatible, but I don't think it makes sense.
+>>> Yes, original driver implemented original DT bindings, but there is no node
+>>> which uses that binding. If there is no user of that, why would driver
+>>
+>> Did you check all out of tree users of the ABI? All vendor kernels,
+>> forks and all of them for which the ABI was made for?
 > 
-> The EL2 configuration is not enabled by default and is typically selected
-> after the initial boot by updating a UEFI runtime variable from userspace.
-> Once set, firmware selects the prebuilt EL2 DTB on subsequent boots.
+> Since when do we care about out of tree users? I understand that drivers
+
+Since always? That is the meaning of ABI. Otherwise there is no point to
+discuss ABI at all. Why would it exist if you had all DTS inside kernel
+always matching the code?
+
+
+> must support old device tree files. Once they work, compatibility must
+> be carried forward. But that's not the case here.
 > 
-> Although EL2 DTBOs are not used directly at runtime during initial boot,
-> they are required to generate and package the EL2 DTBs in the image so that
-> firmware can switch to EL2 when the configuration variable is enabled. Hence, el2 dtbo's
-> need to be retained.
+> In any case, vendor kernels have completely different DT structure. This
+> was developed independently from them. Take a look at [1] how BSP DT looks
+> like, specifically Display Engine node.
 > 
-> 1: https://github.com/qualcomm-linux/qcom-dtb-metadata/blob/main/qcom-next-fitimage.its#L273
+> Of course there are some distros which grab WIP patches from mailing lists
+> soon after they are available. For example, I know that Armbian carried old
+> WIP patches which used old ABI. However, such distros generally don't care
+> about exact solution and ditch patches as soon as proper solution is merged
+> upstream or even when better WIP patches come around. DT files in such
+> distros get updated alongside kernel, they are not hidden in firmware. 
+> 
 
-You cut entire context making any discussion very difficult.
+I am not talking about BSP. I am talking about out of tree users for
+which we defined the ABI and called it that way.
 
-Anyway, comment stays. EL2 is not an overlay. If I need to repeat
-myself, then let's do like:
-
-NAK
 
 Best regards,
 Krzysztof
