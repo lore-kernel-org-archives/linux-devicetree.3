@@ -1,232 +1,298 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023103.outbound.protection.outlook.com [52.101.72.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C651D43CEC7
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.103
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781622843; cv=fail; b=PKpLnamuM+49mBjTUcWYJ+7wrmTtWQxJzhFAabexqNEdam7V3a3ji5vau+LU1JZuGorAhkb463tFjDz/jIBE2f9ooiiHUtBti93iHEAXc2Tr22DG4N/D1aSJpemRSHwi+aTMpj9OqsfkgPuwjbUrPTRyi0kF/JUK4vi05ofXB0k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781622843; c=relaxed/simple;
-	bh=5MlW6eR/f6z9p6gzFIIfB73nsuyD+AuRw/0qAVL7wDo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Zy0G2OC4PQGVfjHFpBwusixPOsmi2w2VhR5fL//t9bnQjvyWf24wQhhUXxrAZkXD5GrAd/UgLx8OuxvEprXqIioSOJgc5Y1nzpZzbpXi+PhdhgzMQwfs8F7ULVfPGuolVRS0OZQcodo6i6nHa/6Tsr4vsatk7pHoaXOSa0A+kM8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=loKxbACR; arc=fail smtp.client-ip=52.101.72.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D2B2E612E
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781623286; cv=none; b=XGmDgOl6+6qdsyFSfIVZT8k4xX6iNG4QLiy5KBEh5xNKQFQrpJaLf5PzKhZAzTvHQIJAe71GdjJSPkrE4cWvV89H1kAa6DpG7prSktLDvBPlzteYe5Oa4L3XQEJrcggGqKfQvJCBK24cbNB5Oj8WtPgT/7Nw/blTTJ3bdta72YE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781623286; c=relaxed/simple;
+	bh=+qsEwzDaJpqMf1b/Iyy+htP2649+vSch4XQlFsNXdU0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XDgz7dmA++3XWk4wcKdtCbRP6bajq8GqcsJK4ASVRmTwop9L2zIZ+aUG8FPsQOg/mgzkS4awyRvbK96+C7W6RYIzbHy68uUnbLcU6i+1RAxfPqI/D9BeCze0dnOOrn+g8bLeSBTYFCZ830Ju/Q/IsJAVoF86punEuzMMoKoZQpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mCe+46vK; arc=none smtp.client-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="loKxbACR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KeLWyj2FN3WcAGsiHHl5jo54ipuoviAnvJaVCUfOe7hNdMUKCFCcRc3McbeZEo95bA3lBvzGfNjZw3eqOuoGgbNHGff021sFNs1rw4IfnPJjkMiN9tjMUmU4qvZG3WtbGAjsE7nnL74tw0ngacQoKQCZWiIL6wf6hvhoxMeDh4JgsRXBzxErzJUeo3uUcuBDYd3L9E0aRWNMKG1z/JmiIn3Y68oi9ny4UTfR9qof18KkjzVHM4tL5b2z7sFlr8zwN/TVzjAvVC9E5YFtAI6C5RM8hPfG4pJ9LbcNZy3nkaXcaBYF3YfUgRylyxyU84UbrDMKpfjuRreFcz+nkyaEgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nt7JZFOeAJ6Ua8bj1VlSrXgLXleS1VG62V8AZ8cTyfg=;
- b=ctJyRPWBnkLu5m5OCALF6Bwq0R3XyX5eS275PHjsD4l90X8ibP3ywdZQAPrEde94L9AJQ6FZuCEr99dQBbnpjXC/QMy315eygLHZwnZEaz7QWLrc4/nhJJQj0QHEbIHZWBLL95eW3+483OVHJUPNtjXc0kD6IlNBlerx41SYLWt5ySHFdLIQ0yhE9+XvE3dIjb6iDVK76F5/va/mQORl966CcdTt/AH50p2UADVmzIPYqqTX/HtwpEK833/urqsAOtjRKc7rB5qqQoEWXOJeVtFazHPJGlE9kvBHLVAujtn84ALV3fZzaqUgghjOkLbMMlDAJczL03SADU4dVbVA6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nt7JZFOeAJ6Ua8bj1VlSrXgLXleS1VG62V8AZ8cTyfg=;
- b=loKxbACRlFABphi3HcyEIWIoKrWgAaE/0aMJR2G9DBeAi3k28E2rw3Ajm0WdI/8FAQJ1WAejVCv0H2CTynkjGvysixwnXwc3ltj6bFwMBy20SjnDeRaOHrOw6Z2LhC37vLKYdZlfPlOdZQzztv+GuAXQHIatYMkLpnVjj6Zqwu4kf4Rv/BwNpEejrbq6WRUQ/j2x9oaMaNNU3HwEuPJYnfPTodzCr1MBJIU3Py69WoyNrMubJtLpZPXvm0NWvM13YFtrcJKcojYKSiVcMPziMOMIyB9HkoWjszRST9dNhDQGIgcUsAvP3WeCk5supbTovrjV/SpTBgZpMfAeIzs62Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by PA1PR10MB8538.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:44e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 15:13:53 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 15:13:53 +0000
-Message-ID: <5f37abe8-3055-48e8-8a92-43cfdfbb72da@kontron.de>
-Date: Tue, 16 Jun 2026 17:13:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] nvmem: imx-ocotp-ele: Support the ELE API
-To: sashiko-reviews@lists.linux.dev, Frieder Schrempf <frieder@fris.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org,
- conor+dt@kernel.org, imx@lists.linux.dev
-References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-6-cb7f3698c3e6@kontron.de>
- <20260616120436.5908D1F00A3A@smtp.kernel.org>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <20260616120436.5908D1F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0100.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::14) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mCe+46vK"
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7e6e9408e30so3317028a34.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781623282; x=1782228082; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QNdT+XhJozqfpz4fe+qnm4StGxBNuXMaq3lxFAPMpTE=;
+        b=mCe+46vKNYn3MYMbJIxZkDu3Gb4voGsvpVrj1/Ds6aUImLn83fTLWfXQY+jSnRZGCC
+         AA9mI/9iGIbDd09zrYbar+MPhwT2eiNNcIpA1nJxhwyhmL4KBUmipyWDJLmp/GhG2DWt
+         5OOyR8y0Ob8x62uI0w0rN9DNOVIoJLQv1C7Y1I5ZM/mDcozhkqP+PLOJ+2Xncwtuv1DA
+         G5HLMyyZqppiiwBY+To9wFtzKAzWtie7edgVS1AsrsH2os3sjVgNEyyQcmiFk1B//CDc
+         gVDTdJ5ZlfKCKyNZqfZoQNzjiKrHzLAGxd+RXRkHBQJJ2FrcWcAZcVOmQNHa13q+GuHg
+         eX2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781623282; x=1782228082;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QNdT+XhJozqfpz4fe+qnm4StGxBNuXMaq3lxFAPMpTE=;
+        b=VRIElpN+0cIOIJBVT13Tzl5/jZlMEyqDak1jYNf7sS1nFF7pn2pnLd6DX8whUw5xlF
+         XOIdrhExhlmdwZg5Uht33dT0UsfkJhG84/S7fhL3/wWqrescMFt07jynwCkKsW2HBCTd
+         CkYhy8rigIhgtxgEAd3XP8TxSjtblu44z/VgHU8f6uI2tzb3q9Bdzw1WzdoTq0Si2XEj
+         MQIu+EMkFNwOLDXRsUdVsH85oKlW7Ye4XSsurzRCNZkWpVX/gQ0oWktjfYFiHQmeVeV3
+         x6to/lMDgwq59nAjezjQGilx92HE4tGNsx6p3sSk3AQ3ARxiJNud5mgAOHTNFh2SXtYM
+         ituQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+WCKSGcxZt0eMPK58ap4qppYeZARETNdFspdSlGnYUu67Ij1RoC45DNKFS2HI6QhIKSyQnX74Uzy0R@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHGRQfsMyg60EgIFamMONssHRu6ULdX6sRPBRAUiYDJGe0akD5
+	MTls83RVnhGol6wtKMBejACTJ8Pz6Qa80ASgE09cgAdDP9UJHJSiQ00I3C+8kB470Kc=
+X-Gm-Gg: Acq92OG360gKKPuErfGU/dwFT/tfHxW6qBAvy6/4N/0fNeAhcwZfBxzIi/kUP2tc6JI
+	NbHPRnY5u9ZrZ+IQQ7KHJIRyvKZkorXIkHqYJsOmy/QDjKF1CttCF6GZ5ptybyKR9RXgeZTDKrA
+	9G0Ke0OQFBwEtdF+zAhJiDg4IlmDsEgEMFlgCsxAsVP1T1cdqdUYNtVdv+GDT7fD7yCT70TaZYV
+	oG18IfYNae//rk12Gavgxhj+YssZvfdKsJtx4H6K0NFsUXyh7Qus/BqMq+SWvRubno+Mzi9pb8t
+	2/IQ0tsTZP1HJ6KaZ/ctL12GOgiletme1IL61AHJlcIqJe8Bsf6YTgZScyWfWbJZavk0unW5tI3
+	Jy6pY1PjDBRhBWOIjjrmVAEKsDyPobCqS0CfA5pl8jztM1UJT/ynORKi6eTswIswYci7PlH7mwo
+	aA/Z33kMPL/gy+yK3+YAEPbG177+T//6kiSxOin8HMpflgzhaxfr20NMlfxMSGvmGck1BTUA/31
+	d4PcSJTEYcA
+X-Received: by 2002:a05:6830:81fb:b0:7de:4f6b:9e10 with SMTP id 46e09a7af769-7e90b237f61mr132612a34.0.1781623281612;
+        Tue, 16 Jun 2026 08:21:21 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f6dfae9sm6873968a34.23.2026.06.16.08.21.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 08:21:21 -0700 (PDT)
+Message-ID: <d3270250-ae18-4c0f-a0fe-e0fdabfce046@baylibre.com>
+Date: Tue, 16 Jun 2026 10:21:20 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|PA1PR10MB8538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52ecfd00-11f0-40da-d302-08decbb9e0e1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	CAmsbn3ha8SR37a0RNX6qvfii1f/KK14J5ZQ93GWIUB+x19q8yyRdNc0HXkxZ7iYg7BK/1RMPs9vD01L7wdF7nwgFi3qd98spAm5rIO01IJ4K/tslbpazdhuT7agzrEleIaZhngOhJBAja/TArVK+7+Sa9cfjvyKyZeJBqGa9vmVJoS5shQL6K08KD0vi71NsLcyvQ4yrEm+cu1i913+s0dLa38turwcf0pfX9nbRD4UKkYm+VNF2hQMOyZZcJV4O7IHDKW4CpntRuySiiqtSUJFqKEbwh4XfDDC2m2OrAOMCVBSBsd25Uo3jiBqhX7jNF56whrKYy8gIx7WfTthKmTb/wJ3X/PVbbJNApPdO+bpkA/lZUYk3K0nXoziNfIQJWKFyYVHkjAj8dGx/xAo+3wkZiOx0HrqSEYYMPYLcKn7+FPVXgujwFwfAiucHjpI4LjubguLlXF8mHB3J3GOdvmgBEOeOLLPQMhgeN5ZxD/QjCmU6gPnXMZma5XfFGxZpH43OeZS5I2Qd5i5nhZe43o8wGfGhFFsYch7TVxh0Nwdh24MzxTGlfSdm1O8QSxVaH+uAlD9JPlxde0rCkCdeaq49nwfgHDwQJTRswp3EO9WKtd5c/FBz/nQaf60H1TXMvpy7CoL9l+jrkslpdtLYk414eDUHsocvAudy80ePU/F4kUxlVKIMFl82MQOhGLz
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VGFyM3kyUkRDREltQ2VtdTJ4TmhPRm95Z2tvTXZzMHdnem5CNkw2RGVPcGhD?=
- =?utf-8?B?MFlaQ1BxNUQzSDVVcWdHUDExMFBCN0p4M2V2T1dEcS84VGhaeDFNaWhOaGI0?=
- =?utf-8?B?aUNVeGhnV0dWaUpQUnpqcHEwSzRpN1J2RjQ5QVNQSmFGTDZURS9qMkpPUmJ0?=
- =?utf-8?B?QkUrTWViZnlqNkxhSFlDQy9BcVpRNEduOXM4WlU0aGovZWIwaEVSWGFXMzFt?=
- =?utf-8?B?ZXNJamJoZ095aGI1ZWUwTmFyblIrYjlYeGhCdDZLOW9KQWZad1FEWHJuZEFz?=
- =?utf-8?B?SFFUTHFSRUxEaXd2b3hMcnBZT1MzeER4djJvOWtwS3J3T0hxK3RVdHlhVFBG?=
- =?utf-8?B?SG0rZEVwVnZTQmt0UFEzTW1LMkhxUG1VTzR6RWxuZzdjdUQzWk9IS3l3RzNr?=
- =?utf-8?B?TW9IeDZ0QVFqYzRjOXR6NlRxZU5uRzRDdzkxREJwbkM4N2tvcjdXRmRmL1No?=
- =?utf-8?B?TTdnZmRSMGRjdjN3NUo0Y3dZQ09odHY1bnBzUkhCT1grMG43NGFNV2cwSUJm?=
- =?utf-8?B?OVVlSmlibkFFWndWU2JuOVFZWUhVSVlMb3B1NmJ3QVcwdlNxMmFudlRKWFBX?=
- =?utf-8?B?bFVDMFR1cGRoWDlMemFZOHBwTjJJeXQwaHdML0pjNnlsWXRjUG11M2EwdmFP?=
- =?utf-8?B?bzFkZHJJc20yRXQ1bWU1NlNFZFBBdVVGUnNwWnRFNmFodmNnOGRXbHhDb2NX?=
- =?utf-8?B?aGx6dFdNMUVKSGZpN09XS2w4K3gzRlo4Zml5VnlUL1FRLzBmOFJXWjJNL24z?=
- =?utf-8?B?WHNxc0pzOGV1RVVCWTRjWC9XM0xwQVNtaEI1cU91eW9SZUVFWDdoRFRjL3lP?=
- =?utf-8?B?NTczTDFBT2ZiUlBWbzZKdk9TWk5KZzUzZGRQQW5DaWJ6VVZ6TDNuSXRwTTZ6?=
- =?utf-8?B?UmdCZmVZSzVMUWR0dndrZFJaeHNWWVo2ODRMc2xlL2ZwTi85TzRrbGJ3eTZh?=
- =?utf-8?B?UVRQaWdJOUQvYStOZW96R1pnNWh5NFJGeFpGY0VnWnlzZ3VFMHdTZkVPSUJ5?=
- =?utf-8?B?NG5RSjl1b0N4U1dVQjIyV2o4dGlFaGM1ODkwRWJxc0ZvejJiNk5EQ1p2R1B2?=
- =?utf-8?B?akE4OUNvZ3kyeUxFN1MzdjZiRytCOTRtcVp1dDdlTlBXS1gvaFlPTDRlY0RP?=
- =?utf-8?B?akNBbVAwUStVeWIxT0t0NjIwbEZGSUhCekRkYVFMVEZqenJKc1YrWFJ5OUEz?=
- =?utf-8?B?Tk9NblJoei9qRmtIalVkOUs4YmlyVWRzN20zQ3VtSyt4YlNLejZmOG1pY3dV?=
- =?utf-8?B?cjlyZjdSQ3FGa1ZhYmt6TXhSaUI5elpualJ2VkhPUUwvYjVXOVhrNGNoNjFw?=
- =?utf-8?B?KzIraXZ0a3lIVjFIRmRGejJnajEvZEtqQTh0TjRNaFZyYVhsZmdJTlJ0SUhv?=
- =?utf-8?B?YkZSMFFRMjJoMWxMOXpHWVVtUjJ4U0xKdW5kdDI5eHcwK0ErMFVGLzlBNEY5?=
- =?utf-8?B?TkpUZ2NSaUNBeHlwcUluajJtZThFSjlEbldRK1NWdkVqWTJwdEFGOTRaR0tH?=
- =?utf-8?B?anBINjJOd2FMRkN6T2lxRmFENFBXTzNXMHpMYU9FMzRCZ1FPQWpOQ1lVMW1n?=
- =?utf-8?B?SjVTNFgxaGZyZ05tdnBxVjRBeW1vcTdDNE11aGthK2dJdDVRUjRDekZnKzh0?=
- =?utf-8?B?ZDNCMkgvcGtvdDYzenRkSGRLR0Z1K3hHcmVicGRVbGtaYThQT3ZHdjVtTzJ3?=
- =?utf-8?B?RThTQ3NTdlZEMVkyMjBCS2l1N1RsMHBSZ3dGVVhoNVBSeWtkcjhnV0dLWFQy?=
- =?utf-8?B?cmZTMWwyNjBMdHdreE5JYUFqTmg2b2tsam1qVHNmblVpL21LNVdydktuZ283?=
- =?utf-8?B?cDRBUWlZdDliYTE5MTJpa2w5V1c5VW0ybzladGthNVZtcUFJRnMzejZoMDFa?=
- =?utf-8?B?RmZrVkllK00rQ1pNd3JOa1VnWEZ5MnFBNGdwZlc1UldqWFZCc2ZVdEJLTzJi?=
- =?utf-8?B?M1NMUFRFSC9od1hGanFLU1dBTDFOZTk5TTYwYlh2NWgxM2pNMERXNWd2dER1?=
- =?utf-8?B?Y0phV3JXVG4wTDVvV0VoUk1JR1kwVE5kdVJmVHZzSHBpU3cxT0lkYTRXRjlh?=
- =?utf-8?B?WU9TTVhIVHFqbUJlc3pnVGQ3dmdpZnYwZXgrNTRZY1dVa1MyMEd3bFBwemVn?=
- =?utf-8?B?bnB5RnVST0tqTzQ3enVzc3BxL254bWFiVTMralQybHQwWlI0eFJMYWF4ZFhQ?=
- =?utf-8?B?YkNLN3NjNTJiSmJ2WElYZlRyRXhhUm5oc2NqNzFZd3hFd0VHWkNSdnlVTUlW?=
- =?utf-8?B?NHA1VFVDVDZNWFlUV3MvRlRIaVZiQUJJejJUYitEcGVXU0dlWWVmYUY4Z0F2?=
- =?utf-8?B?aXpQWUJsSlpPSldPY0FyTHk4QWJ2QTlPUHV1MjBpcmtEYWtXOVNZVjZweHRU?=
- =?utf-8?Q?X4vjttBU/nJavMTk=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52ecfd00-11f0-40da-d302-08decbb9e0e1
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 15:13:53.6548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: brF4qtUZN+ouS6zCMnieRp+yLTCOs8AaxbA6rX/RBvYElrthPjoD5w3gS8c1Qpm+FPH4eJ77Suvf2bEPS9BWWbaWu6XrUjgCY7mUkIJQlo8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR10MB8538
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] iio: adc: new ti-ads112c14 driver
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <DJA1J8D91ESA.2XU7OCVKN7LXU@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DJA1J8D91ESA.2XU7OCVKN7LXU@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 16.06.26 14:04, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The dynamically allocated read buffer `p` is leaked when `imx_se_read_fuse()` returns an error in `imx_ocotp_reg_read()`.
-> - [High] Lack of unbind protection for the supplier Secure Enclave (`se_dev`) device leads to a potential Use-After-Free of its cached private data.
-> --
+On 6/15/26 7:18 PM, Kurt Borja wrote:
+> Hi David,
 > 
-> commit ce01a1e44e5619e1342b66aca8b1bf267d01e93e
-> Author: Frieder Schrempf <frieder.schrempf@kontron.de>
-> 
-> nvmem: imx-ocotp-ele: Support the ELE API
-> 
-> The fuses inside the Edgelock Secure Enclave are currently not accessed via
-> its API but through the FSB block which provides limited access to some
-> fuses. The ELE API allows us to access all fuses with read/write
-> permissions.
-> 
->> diff --git a/drivers/nvmem/imx-ocotp-ele.c b/drivers/nvmem/imx-ocotp-ele.c
->> index 9d3f94e35508f..92cc061b9b347 100644
->> --- a/drivers/nvmem/imx-ocotp-ele.c
->> +++ b/drivers/nvmem/imx-ocotp-ele.c
-> 
-> [ ... ]
-> 
->> @@ -92,6 +97,19 @@ static int imx_ocotp_reg_read(void *context, unsigned int offset, void *val, siz
->>  	buf = p;
->>  
->>  	for (i = index; i < (index + count); i++) {
->> +		/*
->> +		 * All fuse registers can be read via ELE. If the SE device is
->> +		 * available, always prefer it.
->> +		 */
->> +		if (priv->se_data) {
->> +			ret = imx_se_read_fuse(priv->se_data, i, buf++);
->> +			if (ret) {
->> +				mutex_unlock(&priv->lock);
->> +				return ret;
-> 
-> [Severity: High]
-> Does this error path leak the memory allocated for p earlier in the function?
-> 
-> The allocation happens here:
-> 
-> 	p = kzalloc(num_bytes, GFP_KERNEL);
-> 	if (!p)
-> 		return -ENOMEM;
-> 
-> Returning directly here will bypass the kfree(p) at the end of the function.
-
-Will be fixed using __free(kfree) in v2.
-
-> 
->> +			}
->> +			continue;
->> +		}
->> +
-> 
-> [ ... ]
-> 
->> @@ -152,16 +203,36 @@ static int imx_ele_ocotp_probe(struct platform_device *pdev)
->>  	if (IS_ERR(priv->base))
->>  		return PTR_ERR(priv->base);
->>  
->> +	np = of_parse_phandle(pdev->dev.of_node, "secure-enclave", 0);
->> +	if (!np) {
->> +		dev_info(&pdev->dev, "missing or invalid SE handle, using readonly FSB\n");
->> +	} else {
->> +		priv->se_dev = of_find_device_by_node(np);
->> +		of_node_put(np);
->> +		if (!priv->se_dev)
->> +			return dev_err_probe(&pdev->dev, -ENODEV, "failed to find SE device\n");
->> +
->> +		ret = devm_add_action_or_reset(&pdev->dev, imx_ocotp_put_se_dev,
->> +					       priv->se_dev);
->> +		if (ret)
->> +			return ret;
->> +
->> +		priv->se_data = platform_get_drvdata(priv->se_dev);
-> 
-> [Severity: High]
-> Is there anything preventing the SE driver from being unbound via sysfs after we
-> cache its private data in priv->se_data here?
-> 
-> If the SE driver is unbound, its devres allocations (which likely include the
-> se_data) would be freed. Since we haven't established a device link
-> (e.g. using device_link_add) to enforce unbind ordering, we might be left
-> with a dangling pointer in priv->se_data.
-> 
-> Could this result in a use-after-free when imx_ocotp_reg_read() or
-> imx_ocotp_reg_write() later attempts to dereference priv->se_data?
-
-Will be fixed by creating a device link in v2.
-
-> 
->> +		if (!priv->se_data)
->> +			return dev_err_probe(&pdev->dev, -EPROBE_DEFER,
->> +					     "SE device not ready\n");
->> +	}
+> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:
+>> This adds support for TI ADS112C14 and ADS122C14 ADC chips.
 >>
+>> The closest thing we've seen to this in the kernel already is ads124s08.
+>> However, that has a completely different register map and the DT
+>> bindings are incomplete and the driver is extremely basic. So I've just
+>> started from scratch here.
+>>
+>> We've also had a similar submission recently for ADS1220 [1]. That chip
+>> is in a similar situation to ads124s08 in that it has a different
+>> register map (but the submitted DT bindings are better than the ones for
+>> ads124s08, even if still a bit incomplete). And literally as I was
+>> writing the previous sentence, another series [2]  was sent for yet
+>> another similar family of chips (ADS1262). That one is even more complex
+>> in the feature set than the ones I am working on. I was going to polish
+>> up the driver a bit more before submitting it, but now it seems more
+>> urgent to coordinate with the other two series to align on how we would
+>> like to handle all of these.
+>>
+>> [1]: https://lore.kernel.org/linux-iio/20260610151342.44274-1-zizuzacker@gmail.com/
+>> [2]: https://lore.kernel.org/linux-iio/20260612-ads126x-v1-0-894c788d03ed@gmail.com/
+>>
+>> All of these chips have in common that they are designed for use with
+>> RTDs and thermocouples and so they look very similar to each other in
+>> terms of wiring and feature set, even if the register maps are
+>> different. They are in the gray area where we could either keep them
+>> separate because they are just different enough, or we could do like
+>> we've done before with ad_sigma_delta and have a bit of an abstraction
+>> layer for the register differences and otherwise try to share as much
+>> code as possible. Normally, I would lean towards keeping them separate,
+>> but in this case, I'm considering trying to share code because the
+>> devicetree bindings for the inputs is complex and is going to be mostly
+>> the same across all of these chips.
+> 
+> The channel configuration is indeed very similar for the three chips.
+> All three have IDAC, BOC and VREF configurations.
+
+Hmm... I forgot to include the burnout current in the DT bindings. Following
+the channel = "conditions for measurement" pattern that I have set out here
+I guess that would mean that we would need to have the same inputs twice
+when using the burnout. One "channel" would be the one used to do a "precision"
+measurement and the other would be the one to do open/short circuit detection.
+
+
+    i2c {
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        adc@40 {
+            compatible = "ti,ads112c14";
+            reg = <0x40>;
+
+            avdd-supply = <&avdd>;
+            dvdd-supply = <&dvdd>;
+
+            refp-supply = <&avdd>;
+
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            channel@0 {
+                reg = <0>;
+                diff-channels = <1>, <2>;
+                excitation-channels = <0>, <3>;
+                excitation-current-microamp = <500>;
+                current-chopping;
+                ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+                label = "rtd-precision";
+            };
+
+            channel@1 {
+                reg = <0>;
+                diff-channels = <1>, <2>;
+                excitation-channels = <0>, <3>;
+                excitation-current-microamp = <500>;
+                burnout-current-nanoamp = <1000>;
+                ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+                label = "rtd-diagnostic";
+            };
+        };
+    };
+
+> 
+>>
+>> If we decide to go the route of sharing code, we could still merge this
+>> series as-is and then do the refactoring to add the abstraction layer in
+>> a follow-up series that also adds support for the first of the other
+>> chips.
+> 
+> Do you have a proposal of how such an abstraction would look like? I do
+> like the idea of abstracting the firmware parsing, scales and shared
+> calculations.
+
+As mentioned, it would look a bit like the ad_sigma_delta ADC driver.
+Basically, each chip (family with same registers) would still have it's
+own driver that include the chip-specific const info structs. In this
+case, these would also include function pointers for all of the functions
+that need to access registers. And there will be lots of supports_... bool
+flags for the shared code to use.
+
+> 
+>>
+>> This series includes just basic support for reading single measurements
+>> from the ADC and gain selection via the scale attribute. I plan to
+>> follow this up with additional series to add support for buffered reads,
+>> filtering/oversampling configuration, event support, gpio controller
+>> support and perhaps a few other things that are slipping my mind right
+>> now.
+>>
+>> The most interesting part about this (that I alluded to above) is the
+>> way channels are handled. These are multipling ADCs with differential
+>> and single-ended inputs. But what sets them apart from other similar
+>> chips is that since they are designed for use with RTDs, there can also
+>> be a current output required to excite the RTD and this current output
+>> might be different for different channels. So the way I conceptualized
+>> the channels is that the devicetree specifies the conditions needed
+>> to take a particular measurement rather than being purely a physical
+>> channel.
+>>
+>> This makes things more flexible, but does make the driver a bit more
+>> complex. For example, knowing when the current output needs to be
+>> enabled or disabled. For now, I have chosen a lazy-enable where they
+>> are not turned on until the first measurement is taken that requires
+>> them, but then they stay on until another measurement is taken that
+>> doesn't require them. This can lead to some oddness with the diagnostic
+>> channels that may be measuring something that indirectly requires the
+>> current output (i.e. the external reference voltage when it is connected
+>> to a resistor rather than a power supply). This means you need to take
+>> a measurement that requires the current output to be enabled before the
+>> diagnostic channels will give accurate readings.
+> 
+> This is the same approach I took around the BOC, it feels kinda hacky
+> but it makes sense. Just an idea I thought about just now: What if we
+> have an additional write-only "_enable" sysfs attribute for these
+> channels?
+
+I would not want to make a write-only attribute, we always want to be
+able to read back what the current state is.
+
+Do you mean an _enable for just the BOC? I think I would do it like I
+suggested above instead.
+
+> 
+> The approach I took for the IDAC was to have a single configuration that
+> it's enabled for all channels. This makes some sense in my device when
+> thinking about optimal software sequencial reads, because of the
+> register layout, but I also see the value in having per-channel IDAC
+> configuration. I think I will take your approach, so we have the same
+> channel configuration around this.
+
+There are only two IDACs but on chips with 8 AIN pins we could have two
+RTDs wired up and if both require 2 IDACs, then we can't have a fixed
+setting for the IDACs. This is why I made it per-channel.
+
+> 
+> Have you thought about how to implement the BOC? In the ADS1262 the
+> feature can be found "Sensor Bias". What I did was add per channel DT
+> properties for this too.
+
+See above.
+
+> 
+> Another question. When you implement power management in the future,
+> will you enable autosuspend? IDAC currents will be lost if autosuspend
+> is enabled. Is this acceptable? In my case I did enable autosuspend, but
+> I have some doubts about this.
+
+I don't like to implement power management unless I have an application
+that actually requires it. Otherwise, I consider it premature optimization.
+It is difficult to know if we would be implementing it in a way that is
+actually useful for a real-world use case. These chips seem like they
+would mostly be used in an industrial setting, not in battery powered
+applications, so I'm not sure anyone is going to worry about saving a few
+milliamps.
+
+> 
+>>
+>> I have also pushed a branch to [3] that contains the start of some
+>> documentation for this driver that can give some more insight into how
+>> the implementation works. It still needs some work and also documents
+>> some things that haven't been implemented yet, so I haven't included it
+>> in this series yet.
+>>
+>> [3]: https://github.com/dlech/linux/blob/b4/iio-adc-ti-ads122c14/Documentation/iio/ads112c14.rst
+>>
+>> Signed-off-by: David Lechner <dlechner@baylibre.com>
+>> ---
+>> David Lechner (TI) (4):
+>>       dt-bindings: iio: adc: add ti,ads122c14
+>>       iio: adc: add ti-ads112c14 driver
+>>       iio: adc: ti-ads112c14: implement gain on internal short SYS_MON channel
+>>       iio: adc: ti-ads112c14: add measurement channel support
+>>
+>>  .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  |  224 +++++
+>>  MAINTAINERS                                        |    8 +
+>>  drivers/iio/adc/Kconfig                            |   12 +
+>>  drivers/iio/adc/Makefile                           |    1 +
+>>  drivers/iio/adc/ti-ads112c14.c                     | 1053 ++++++++++++++++++++
+>>  include/dt-bindings/iio/adc/ti,ads112c14.h         |   11 +
+>>  6 files changed, 1309 insertions(+)
+>> ---
+>> base-commit: ec039126b7fac4e3af35ebccaa7c6f9b6875ba81
+>> change-id: 20260514-iio-adc-ti-ads122c14-d0b92479334e
+>>
+>> Best regards,
+>> --  
+>> David Lechner (TI) <dlechner@baylibre.com>
 > 
 
