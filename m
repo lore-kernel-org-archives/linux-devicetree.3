@@ -1,106 +1,263 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9532840801C
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31F740803D;
+	Tue, 16 Jun 2026 07:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781595081; cv=none; b=LzPHajLDKmAEbASBWToiGOkOkAUsAU3Ly7MsYDV0Wp5NdmA7UEnUCr6JPJ9+M3QahqXNbXrT2t7BfVqSeZPM3CzmwsJ/eGomCttu3NkjapAJFJ9kqKbg6sGb9KDvHZHVxDutEk6wI0kpx/phwACPA9B8rwZev8QcYgxQiEFmchA=
+	t=1781595171; cv=none; b=rjJKSy18tSlehW0iKFIzU9l+KgFh9dAfQimHUxFGVxwA/Hd3stxjmy6szmC5NFUkBeU3zukvoOHCe7APLrGctzEzZ7OatjYxbGO7Hc12LmcD1heNCfxNeHruOyQeGZeYCxosh6I23dJX9cka8xzfweQB5WQwVwKtIO+T6SMonSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781595081; c=relaxed/simple;
-	bh=MUvXesPFyZ2Y8sg0qQbkeioxs2j0YpJnqCRGVvvcNHk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mXmUH/+KwL7h5NEDxsWOCMSyVjr13MXHQrytYfUFlNwFFietIOgmhAV3cXjxWq6I+61ylzMnpu1JvMTupSbFHp88LGGtzPQUIfKvHGPbFiewNDaYOsN0LMtApfH6d8XEqU7fi45ByRSrIo8aXtuGiu3VX7Iacp8FEXifQ33vOpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZttlWelk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781595171; c=relaxed/simple;
+	bh=chxCQhvOg6qyFjVgvl09HGWa2xN1R5saN06UoVKYeoY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ivx1GQTiu+F9nq7D3Z7MtVRyxcWDkxV1HTBUm7HGXw9m64GXhxub5Y3YVky6r2uhFBRlkvBrW8cjcsH/F5L57L5f+b4BWv7Oara7ZTa88yI9fboc1Fiay89pufLpWtNozPjmq50qJQ6hrt/vIQSKtZ6dLo4baXyJPNzGCBYBs08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NFmg0wtt; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZttlWelk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0530A1F000E9;
-	Tue, 16 Jun 2026 07:31:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781595080;
-	bh=Pb4xMFYA4+98XP5PXlkyTWl/J6Gi4mR7gtcLmsmTCIk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZttlWelkbjumcE6zHN6KWMdddVzvpsrDnjCRr68YZ3ThqtJwoXq9CUWMdMvEawLNL
-	 Ln7WGWMWWWd3dz6/x6hGhO30ca2FQGiyuPPyz1xtRIyT2BqVpIHfDs8kv5cmVCMun7
-	 hzQWDJJJDDssKRhAktsxMsQWqBdJZEGH0ht6woEu2TH7KcOX6StfTH5QctG4sDhSyj
-	 8jLy2AqTcjRHlNulZqiv2A/EjYQZaBp+3TlWFnZFL2T5ezqjQLCXIdn+XvdvRtLAFD
-	 8elJ/JKvzSMQHA7Mr/9M4u6K3J3QaYPq02kOCHW/Am620w8DgJaj/DTAtjNAXrvGmr
-	 xqdlBnZ458TYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v5 1/6] dt-bindings: iio: add Open Sensor Fusion
- device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260616072242.3942-2-kimjinseob88@gmail.com>
-References: <20260616072242.3942-2-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 07:31:19 +0000
-Message-Id: <20260616073120.0530A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NFmg0wtt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781595170; x=1813131170;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=chxCQhvOg6qyFjVgvl09HGWa2xN1R5saN06UoVKYeoY=;
+  b=NFmg0wttZsWerqzoBK/C73GJ7El0RF6borr3ayEf965OoRSEzwLDT+th
+   lusRX5yQ4NA8iwOxbmO45cB5FE0u6i4KLeWjausBU/we7HlfnajJqdCAG
+   trT91djua/9k+qnZHTgJV9PIB/HljbRBHkwX9AUQp3JYbjp8uYUqVTRxw
+   LcJXxEqho1xhOPO2AvDxv8kHGDvZvPhIW2KdHbL/d0upVTIlP3nlkqOXe
+   K2Yn+8NQNsGQ1d5nl6IRcywFikW586n7lXkzmwkFmN5IeKagkJTUGofKG
+   GQdEt8567o9DJJ6jrRFt1OItT6ubSvmTsxmQiCozEmjepgexPM5dCHfVB
+   Q==;
+X-CSE-ConnectionGUID: +yvHnFZlTb+hs/aQ3NwboQ==
+X-CSE-MsgGUID: Wd/VehhBRg6xPh/afvm29g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="69896910"
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
+   d="scan'208";a="69896910"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:32:48 -0700
+X-CSE-ConnectionGUID: htkDtAbqQfi/RqAIBiQqjg==
+X-CSE-MsgGUID: PDRBgJqjT++MNd88CVJ0Dg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
+   d="scan'208";a="271414785"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:32:46 -0700
+Date: Tue, 16 Jun 2026 10:32:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] iio: adc: add ti-ads112c14 driver
+Message-ID: <ajD8Gxkp66kkDflE@ashevche-desk.local>
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-2-e6bdadf7cb2b@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The binding uses a generic software protocol as the compatible s=
-tring instead of describing specific hardware.
---
+On Mon, Jun 15, 2026 at 05:00:00PM -0500, David Lechner (TI) wrote:
+> Add a new driver for the TI ADS112C14/ADS122C14 ADC chips.
+> 
+> This first step is adding a very basic driver that only supports power
+> on/reset and reading the system monitor channels.
+> 
+> ADS112C14_SYS_MON_CHANNEL_SHORT is the last channel rather than being in
+> logical order by address to keep the voltage channels together and in
+> case we find we need to add variants of this channel with different
+> voltage reference later.
 
-commit d9858298f5a88a8d0d1665f79878488487e06393
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+...
 
-dt-bindings: iio: add Open Sensor Fusion device
+> +#include <linux/bitfield.h>
 
-Adds the generic Open Sensor Fusion device binding for a serdev-attached IIO
-sensor aggregation hub and documents the vendor prefix.
++ bitops.h // BIT(), GENMASK(), sign_extend32()
 
->     The opensensorfusion,osf compatible describes the generic Open Sensor
->     Fusion host interface. OSF GREEN is not the Linux compatible identity.
->     Likewise, OSF0 is the current wire magic and a wire-format detail, not
->     the Linux driver identity.
+> +#include <linux/delay.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/i2c.h>
 
-[Severity: Medium]
-Does this approach align with Device Tree design principles?
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/types.h>
 
-Device Tree is typically intended to describe specific hardware components
-(such as vendor,chip-model), rather than software interfaces or generic wire
-protocols.
+I believe we discussed that (with Jonathan) already and seems the trend is to
+imply that iio/types.h is always included whenever iio/iio.h is included.
 
-> diff --git a/Documentation/devicetree/bindings/iio/opensensorfusion,osf.y=
-aml b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
-> new file mode 100644
-> index 0000000000000..012a07fd69fe4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> +#include <linux/math64.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/time64.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
 
-[ ... ]
+...
 
-> +properties:
-> +  compatible:
-> +    const: opensensorfusion,osf
+> +/* Datasheet t_d(RST) - time to wait after reset before next I2C use. */
+> +#define ADS112C14_DELAY_RESET_us 500
+
+For µs (and second related units) we traditionally use _US suffix
+(yeah, I know...). Of course, we can start a SI schema in new code
+but it will look quite strange and probably more confusing.
+
+...
+
+> +struct ads112c14_data {
+> +	const struct ads112c14_chip_info *chip_info;
+
+> +	struct i2c_client *client;
+
+No need to keep it, it's one time use and can be derived from regmap.
+
+regmap --> dev --> i2c_client.
+
+> +	struct regmap *regmap;
+> +};
+
+...
+
+> +static int ads112c14_read_label(struct iio_dev *indio_dev,
+> +				struct iio_chan_spec const *chan, char *label)
+> +{
+> +	const char *label_source;
+
+I don't see the need of having this. Can't be returned directly?
+
+> +	/* System monitor channels. */
+> +	switch (chan->channel) {
+> +	case ADS112C14_SYS_MON_CHANNEL_TEMP:
+> +		label_source = "Internal temperature sensor";
+> +		break;
+> +	case ADS112C14_SYS_MON_CHANNEL_EXT_REF:
+> +		label_source = "External reference";
+> +		break;
+> +	case ADS112C14_SYS_MON_CHANNEL_AVDD:
+> +		label_source = "AVDD";
+> +		break;
+> +	case ADS112C14_SYS_MON_CHANNEL_DVDD:
+> +		label_source = "DVDD";
+> +		break;
+> +	case ADS112C14_SYS_MON_CHANNEL_SHORT:
+> +		label_source = "Internal short";
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
 > +
-> +  vcc-supply:
-> +    description:
-> +      Regulator supplying power to the Open Sensor Fusion device.
+> +	return sysfs_emit(label, "%s\n", label_source);
+> +}
+
+...
+
+> +static int ads112c14_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	const struct ads112c14_chip_info *info;
+> +	struct iio_dev *indio_dev;
+> +	struct ads112c14_data *data;
+> +	u32 reg_val;
+> +	int ret;
 > +
-> +required:
-> +  - compatible
-> +  - vcc-supply
+> +	info = i2c_get_match_data(client);
 
-[Severity: Medium]
-Is it appropriate to constrain the compatible string to a generic software
-protocol identifier here instead of a hardware-specific string?
+NULL check (yeah) due to driver_override issue.
 
-Because this generic compatible string also requires specific hardware
-constraints like vcc-supply, will future hardware variants that speak the
-same OSF protocol but have different electrical needs (such as needing a
-vddio-supply or reset GPIOs) be able to distinguish themselves without
-clashing with these generic constraints?
+> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616072242.3942=
--1-kimjinseob88@gmail.com?part=3D1
+Here, and below, use 'dev'.
+
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->chip_info = info;
+> +	data->client = client;
+> +
+> +	ret = devm_regulator_get_enable(&client->dev, "dvdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get dvdd regulator\n");
+> +
+> +	ret = devm_regulator_get_enable(&client->dev, "avdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get avdd regulator\n");
+> +
+> +	data->regmap = devm_regmap_init_i2c(client, &ads112c14_regmap_config);
+> +	if (IS_ERR(data->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
+> +				     "failed to init regmap\n");
+> +
+> +	/* Write magic reset value (0x16) to ensure known state.*/
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_CONVERSION_CTRL,
+> +			   FIELD_PREP(ADS112C14_CONVERSION_CTRL_RESET, 0x16));
+> +	/*
+> +	 * The reset may cause an -EREMOTEIO error because of failing to get the
+> +	 * I2C ACK at the end of the message. The device still gets reset.
+> +	 */
+> +	if (ret != -EREMOTEIO)
+> +		return ret;
+
+I would do it separately as
+
+	if (ret == -EREMOTEIO)
+		/* ...big comment here... */
+		return 0;
+	if (ret) // which is regular pattern and doesn't need any comment.
+		return ret;
+
+> +	fsleep(ADS112C14_DELAY_RESET_us);
+> +
+> +	ret = regmap_read(data->regmap, ADS112C14_REG_STATUS_MSB, &reg_val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(ADS112C14_STATUS_MSB_RESETN, reg_val))
+> +		return dev_err_probe(dev, -EIO, "reset failed\n");
+> +
+> +	/*
+> +	 * Clear reset bit to prepare for next probe. And clear AVDD fault since
+> +	 * that happens on every reset.
+> +	 */
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_STATUS_MSB,
+> +			   ADS112C14_STATUS_MSB_RESETN |
+> +			   ADS112C14_STATUS_MSB_AVDD_UVN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Place in single-shot conversion mode to make ready for raw read. */
+> +	ret = regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
+> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = info->name;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = ads112c14_sys_mon_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(ads112c14_sys_mon_channels);
+> +	indio_dev->info = &ads112c14_info;
+> +
+> +	return devm_iio_device_register(&client->dev, indio_dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
