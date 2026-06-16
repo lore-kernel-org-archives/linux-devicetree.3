@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3CD378D72
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:32:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDD62868B5
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:32:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781620342; cv=none; b=rmTHd+65nPWn9KOkcM1PVsV6nByG2OX4kmgXuqnG4RMuMfPBENm0FE4/Em9K7gouE45cmCgPpdoGZHWmjnzY3QrWqzD5PoRi1wuyrn4YgPFybxIU+byLwC+dX9D8DaX/xO1ROL+1aoLWnIF0QBio4MCMeSpj2Ef3uhJKTYXq02s=
+	t=1781620343; cv=none; b=jnghUN6pNPy7zn1i2tLHhc2FCSgj1J8Pcv1P7lmovBvh6BYlPu3k9+ropfMYknhaSlAPuPqOs5TtCyZ5ii4KGVLaP46/LwpA7BrZyZ7P1ysXBJBR7FhGrW0yJDnwmiOOuoOTnVlSrcHrbRzFHQPKtZ3dXcX1H6SBEEzjC8jnFbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781620342; c=relaxed/simple;
-	bh=fE2TtmuoVgJ7bGRbXsCVBzxDxf26oDJmkZfeaBkMmmY=;
+	s=arc-20240116; t=1781620343; c=relaxed/simple;
+	bh=JbVV8ts52KJmTF73lZh+x79HKH2bU7jcTE/C4dm1DC4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rmh8jlb12Ase5XS7H+t5SpWc2MHz7JW4wd18h7aMWwzg2XbGgbzeOpiqkLLW+oo8V7cTkeEcsg8ivF98lN2MNQ/ljnJ3WQhzumWGUxQKsLemaiGPb39lAcy+rJFtI9jvodpA+MTdWh2KK76hFLwQNnHn03faZm35KKsdqmHPUf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IY8rQfC9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Sg/IdlqEXkoYxDrqVQjyirYOkL2V2Bn0YrxOsc/qNifLZbMBRjwac69wSlFUmLGv3OeFVZPSKwVz9NgL98TLFK137LEVnnrWR/z17HoMR2McTwRznAlhuzTDP3ew8KjGNsu62Cix/CtK7/dRvpTStZqS//nLp9rwoPBy3+EB/CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBe2MO18; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IY8rQfC9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7D81F00A3D;
-	Tue, 16 Jun 2026 14:32:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBe2MO18"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C761F000E9;
+	Tue, 16 Jun 2026 14:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781620341;
-	bh=dETsmP/46YaE9cQgum8/eKLP3RfVU/gcZxi3iUC8y+o=;
+	s=k20260515; t=1781620342;
+	bh=1SA8Mm2FuDLjwdmZxsK19MPPGykWFb+cehwkKiT7dNs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IY8rQfC9Sdz1kpRbPSmyCX3CPbdmLjHVlY0md1ZdoPXaBlE5C2yF6IQAVcQo71DhA
-	 YSbu/Uyx7aLqk5R+cPbOEc13Fdf22kYdgOItN3VtQ3kvl9xLJG10qzze703WVepKTQ
-	 5Gi4NSuuZLhu8M3UGvO8PZj6VyF01umPIQb7MPAErPO/6TBzQKwHdL9Kl63k5m0yQ0
-	 0TesZw77Tf/qP8HDGmnrsvr/5SbuYM5ugW1CjoF6mruIojCAkf87YejIQIGjf04hAm
-	 wsn8ZKkNiw13/YvQ+fUd1NRhFQxyLwkbIyb8vSR5iKuLqXEiPaVUn8SAtaTQX3manE
-	 14bHf32hgrGVA==
+	b=OBe2MO18f3pA6N4fWdG9pBQbW0P6h7japgw2TTLiNpldOtLXeCJZOetsQJFnecn6M
+	 iaLFOaaillhxc5/a90FCZL53D0KzXEddMriNGamdsrlTo70UO8vJwe4Y140cKHaruj
+	 iJ6B32Bp+JP30VexYXuQJrvA1UCdYWWEBz/B7EL26K+SDlV96qA8aPn3XHryo5bIaB
+	 9aN6oTfrWfGihJT6OPbeDD79RPU/cdE1+3gjaxaajXmrZBmP4ieXwJTfNUT2yJbu0L
+	 p6rtieKypeZUAL1kC6bzMPgJ3VeTCov8x8hd5Gy2sN1PM1Szrm7KUF3Pn+EfVYBQve
+	 MLc4hSD1IbxPA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 09/12] net: phylink: add .pcs_link_down PCS
- OP
+Subject: Re: [PATCH net-next v7 04/12] net: pcs: implement Firmware node
+ support for PCS driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260615122950.22281-10-ansuelsmth@gmail.com>
-References: <20260615122950.22281-10-ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260615122950.22281-5-ansuelsmth@gmail.com>
+References: <20260615122950.22281-5-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 14:32:20 +0000
-Message-Id: <20260616143220.DF7D81F00A3D@smtp.kernel.org>
+Date: Tue, 16 Jun 2026 14:32:21 +0000
+Message-Id: <20260616143221.C7C761F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,103 +46,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Data Race and Use-After-Free in `phylink_destroy()` due to incorre=
-ct cancellation order
-- [Medium] Missing Link Teardown Callback (pcs_link_down) on PCS release
-- [Low] Missing Kernel-Doc for `pcs_link_down`
+- [Medium] Type mismatch in `fwnode_parse_pcsspec()` where a negative error=
+ code is assigned to an unsigned integer, making the error check dead code.
+- [Medium] `fwnode_phylink_pcs_parse()` incorrectly aborts on out-of-bounds=
+ instead of returning the parsed count, violating its 'up to num_pcs' contr=
+act.
+- [Low] The fallback stub for `fwnode_pcs_get()` uses an incorrect paramete=
+r type.
 --
 
-commit 33892cef9bd3c637bb8d5d91bf19b186872ff8bf
+commit 5e32951da9dab6acca331c331c1e41d55a580883
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: add .pcs_link_down PCS OP
+net: pcs: implement Firmware node support for PCS driver
 
-Permit for PCS driver to define specific operation to tear down the link
-between the MAC and the PCS. This might be needed for some PCS that reset
-counter or require special reset to correctly work if the link needs to be
-restored later.
+This commit implements the foundation of Firmware node support for PCS
+drivers. It introduces a simple Provider API where a PCS driver can expose
+multiple PCS and consumers can access them using fwnode_pcs_get().
 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 0734c98498a99..1bedac517d213 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
+> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs.c
+
 [ ... ]
-> @@ -1736,6 +1742,9 @@ static void phylink_link_down(struct phylink *pl)
-> =20
->  	pl->mac_ops->mac_link_down(pl->config, pl->act_link_an_mode,
->  				   pl->cur_interface);
+
+> +static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode,
+> +				unsigned int index, const char *name,
+> +				struct fwnode_reference_args *out_args)
+> +{
+> +	int ret;
 > +
-> +	phylink_pcs_link_down(pl->pcs);
+> +	if (!fwnode)
+> +		return -EINVAL;
+> +
+> +	if (name) {
+> +		index =3D fwnode_property_match_string(fwnode, "pcs-names",
+> +						     name);
+> +		if (index < 0)
+> +			return index;
 
 [Severity: Medium]
-Will this callback be missed if a PCS is released?
+Does this error check work as intended? fwnode_property_match_string()
+returns negative error codes like -ENODATA, but it is assigned to index
+which is an unsigned int. The check for index < 0 will be dead code,
+potentially leading to an out-of-bounds query that returns -ENOENT.
 
-In phylink_release_pcs(), pl->pcs is disabled and set to NULL while the link
-is logically UP:
-
-	if (pl->pcs =3D=3D pcs) {
-		phylink_pcs_disable(pl->pcs);
-		pl->force_major_config =3D true;
-		pl->pcs =3D NULL;
-	}
-
-When this triggers phylink_resolve(), which attempts to bring the link down
-using phylink_link_down(), pl->pcs is already NULL. The released PCS never
-receives its .pcs_link_down() callback, which might break link lifecycle
-symmetry and fail to reset internal counters.
-
+> +	}
 > +
->  	phylink_info(pl, "Link is Down\n");
->  }
-> =20
-> diff --git a/include/linux/phylink.h b/include/linux/phylink.h
-> index 15e6b1a39dfe2..eb6c6ca34147f 100644
-> --- a/include/linux/phylink.h
-> +++ b/include/linux/phylink.h
-> @@ -528,6 +528,7 @@ struct phylink_pcs {
->   * @pcs_an_restart: restart 802.3z BaseX autonegotiation.
->   * @pcs_link_up: program the PCS for the resolved link configuration
->   *               (where necessary).
-> + * @pcs_link_down: tear down link between MAC and PCS.
+> +	ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
+> +						 "#pcs-cells",
+> +						 -1, index, out_args);
 
-[Severity: Low]
-Is there a missing kernel-doc entry for the function signature of
-pcs_link_down?
-
-The @pcs_link_down callback is added here, but the detailed function signat=
-ure
-appears to be missing from the corresponding "#if 0" block in
-include/linux/phylink.h (for kernel-doc purposes only), where other PCS
-callbacks like pcs_link_up() are fully documented.
-
->   * @pcs_disable_eee: optional notification to PCS that EEE has been disa=
-bled
->   *		     at the MAC.
->   * @pcs_enable_eee: optional notification to PCS that EEE will be enable=
-d at
 [ ... ]
 
+> +int fwnode_phylink_pcs_parse(struct fwnode_handle *fwnode,
+> +			     struct phylink_pcs **available_pcs,
+> +			     unsigned int num_pcs)
+> +{
+> +	unsigned int i, found =3D 0;
+> +
+> +	if (!available_pcs)
+> +		return -EINVAL;
+> +
+> +	if (!fwnode_property_present(fwnode, "pcs-handle"))
+> +		return -ENODEV;
+> +
+> +	for (i =3D 0; i < num_pcs; i++) {
+> +		struct phylink_pcs *pcs;
+> +
+> +		pcs =3D fwnode_pcs_get(fwnode, i);
+> +		if (IS_ERR(pcs)) {
+> +			/*
+> +			 * Ignore -ENODEV error for PCS that still
+> +			 * needs to probe.
+> +			 */
+> +			if (PTR_ERR(pcs) =3D=3D -ENODEV)
+> +				continue;
+> +
+> +			return PTR_ERR(pcs);
 
-[Severity: High]
-Does the incorrect cancellation order in phylink_destroy() cause a data race
-and use-after-free?
+[Severity: Medium]
+If the firmware node contains fewer pcs-handle properties than num_pcs,
+won't fwnode_pcs_get() eventually return -ENOENT? Since this loop only
+ignores -ENODEV, does this cause the function to abort entirely and return
+an error instead of returning the successfully parsed count?
 
-In phylink_destroy(), pl->pcs_list is modified without holding
-pl->state_mutex:
+> +		}
+> +
+> +		available_pcs[found] =3D pcs;
+> +		found++;
+> +	}
+> +
+> +	return found;
+> +}
+> +EXPORT_SYMBOL_GPL(fwnode_phylink_pcs_parse);
 
-	/* Remove every PCS from phylink PCS list */
-	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list)
-		list_del(&pcs->list);
+[ ... ]
 
-	cancel_work_sync(&pl->resolve);
+> diff --git a/include/linux/pcs/pcs.h b/include/linux/pcs/pcs.h
+> new file mode 100644
+> --- /dev/null
+> +++ b/include/linux/pcs/pcs.h
 
-If the background work pl->resolve is currently running, the worker thread
-executes phylink_major_config() and iterates over pl->pcs_list while holding
-pl->state_mutex. Because phylink_destroy() modifies the list concurrently
-without synchronization and before canceling the work, the worker thread can
-traverse corrupted list pointers, resulting in a use-after-free. Should
-cancel_work_sync(&pl->resolve) be called before modifying the list?
+[ ... ]
+
+> +#else
+> +static inline struct phylink_pcs *fwnode_pcs_get(struct fwnode_handle *f=
+wnode,
+> +						 int index)
+
+[Severity: Low]
+Is this intentional? The fallback stub for fwnode_pcs_get() uses int index,
+but the active declaration and implementation use unsigned int index.
+
+> +{
+> +	return ERR_PTR(-ENOENT);
+> +}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615122950.2228=
-1-1-ansuelsmth@gmail.com?part=3D9
+1-1-ansuelsmth@gmail.com?part=3D4
