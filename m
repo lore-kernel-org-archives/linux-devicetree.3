@@ -1,196 +1,175 @@
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB59B3D45CB
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 18:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37363472798;
+	Tue, 16 Jun 2026 18:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781633813; cv=none; b=A1weGm+QLOT3vlGk045kF2jd/qBDNWCoI54e2TZUV7hUkTQCxLg6WrBZWczfoizbTPZEaEOXecPGAvMU863g+Yb14+1xnTVgTUUsVJo5PmKgSTG1RtAj71FkVAhgl6vUFAkdGIPsJ8XEeWS5t2vpHNQ5fPBodPKuGHqIQMHh3qM=
+	t=1781634488; cv=none; b=fA4APbedOGxEHsy2VSo4HFB1vFT8hPLXMHttruYWupAhM7yAfLZ4Ib/bEUcFKj7nH4uvymTm4wrwtx1EPqPJtKJWsohYclr//me/5ws/sWcKA87xsR+IutHua4BtVDqyDWWxof3Wl1oXRkWQ7Oq6UGTR9veJNKwBqb3D0vBi6dE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781633813; c=relaxed/simple;
-	bh=HMXSDipecyxoyMLf9IBRX9tSy9InflZQp8u8Vm4182Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GBG3xZtMlUL1TI2d/Q4uL3UfgQVezCN0HEOqed4UjMz7XNw/CDRwSL6a5dMSE1YY3jzGGe9eSyTRM4oamVwCnGtcYlmIuuMe4sXQAh5F9nQRpj8g8D0a94DAc3w/FhftViOxz+Njo7GV0tWQ5YEg+5fzMeKV5h/Uq6Qh+iA9GQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CTssDelQ; arc=none smtp.client-ip=209.85.210.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781634488; c=relaxed/simple;
+	bh=cauuSKOD9be1nCF8OIXuzJJdDKyjLeHMP9n64X8cU1E=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cUgyleE2UM2Zipns1npurUyMlB3yqR8Sb/mzoVsRV9Of+yrJQkwZukMQJ3s4CHhkl1TDuUom+OSJZYFPWsV9K1qTrCDEygNCKYKHJ9j1mmEDFvVehm63mXZFcgD5EP59BVb3bub4eoi2Y419WOIH8vH5BZao6TGoMGEPgfkABMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=mMXCNUNW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VVsXPiOA; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CTssDelQ"
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7e6f586a0d5so2490670a34.0
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:16:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781633808; x=1782238608; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fNH/J02lBrL7hdVnRQ4UVLWbhNp0HeLEy22DRQvVDN8=;
-        b=CTssDelQeTtO+25elTtTQHjoAcDKPG/bHuFKV+vi5qf+kPyTFEV0spTbx8gT67ZnX5
-         07EhZMJ6JKI/l9nKEcyQf6vxuThE2cL6vbYsIvgMr025V4jKcb2ncLtZKHJ72SOSZMo9
-         YNdhbYo1XY9veO3Zjvy8gaXSxHEU9QM3PtYyTx/avdRarrYLaASHNB/rGrCoXbf3x91T
-         uwdEoKgGj+kUNrNsSc3pCcfky/CNOqrN94Ol3wDQraquIODmRUCzA4qmvrX+Uk9uYHSN
-         E41ENjFwZUFqReIZYciKZPhElmicrfBbJ39hEYdnPWyFy9RZOBVtsvU5agtJOg3jz5cd
-         3R0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781633808; x=1782238608;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fNH/J02lBrL7hdVnRQ4UVLWbhNp0HeLEy22DRQvVDN8=;
-        b=S4GITWRflwm6lqqwU3TgKl3Lo0kuhUXyYkCvZFApI7dZT8t5AC/xIRadUEJDVpboaW
-         7qIfestz3Jy7xC7XJogViUrjg9JYd0YZTqO+WkhK11iN8+VSqKHe4nTMVVRfA2SSLZIb
-         GwhucuURPAQ0UaElYCZlIkB5ege1PYrqbdTbz+nHB69fMccZOdCGP0o5uuIjHR5U6L9f
-         7z6OkU4q7iCOH0icexJy/PLy1XuLY1Y+f2kxCvj5TqmVtUx83hpckrk50BHt4qMOvZTE
-         fxq0bGuUVBkKKPWI5l+6wS33ID+CmuAOY5nw+mMKUBgYISarEemr9thrnMBGV+UuB7oP
-         eMgg==
-X-Forwarded-Encrypted: i=1; AFNElJ9/Uy5xT19bf4emEkyvQczRs8Ehl0aJgJ3faG+JVFRTV1TWLKUyKeKZOxLddmcnxK0km7Skoo0l69Dq@vger.kernel.org
-X-Gm-Message-State: AOJu0YymMKaf7OhGJeL2KFCLQ5sQQxj12rpu0z5EudhomuNwi42UA2gP
-	Twn8xsUUQy16/hbFw2r3jKYwu3I5q8+liL+l7QQrpCVfBcIeIkALoKDS0GtCczjCAo6A/rtkzHq
-	8u21ZLC0=
-X-Gm-Gg: Acq92OEu91OxdW+Mkjke8fpjEa5RvAU3pTUSs0/TC6zBHh5u4Vg8qRvZJBYboLXGe8H
-	18CTtDTX8wo0nrcp819U7cGuPGSEkiV4CNXGjRmBaHYhU9jn8pLsj9CUWStf/5dnBIlpxkVSuO8
-	mkPbnXopHg0PNA2kilve+tzBZPI1ZXhPkXV6n6rMbQTMgvVMZ0cia7cy8LnhDNtGLNI09aApJRA
-	0QZJuSkrkYDTmv9ZNGPJAwpJ8inn9sjoQwIC2w8MSIzWcLmq2LiYPxBryH1Na71+Ml/nlA+zLUr
-	Duev8gnQGsaPt62PCtqbK69Mjn/pP8Y1+rcHGqURNc92WZZRpmDBb666iTNftjWTQxOZHbxPzkk
-	/qn7vxE2ivvHB3SjZOTJ2gY6TJt44Nh4oFwhtOhosF6cPUhJCIrmpinVMj/brAMD3aM+vx2xkWz
-	OYAra71d3EBjPwc0e6p6urgPWfmb73uhvyFRTEdP0NPwDzr5fuXf3c+POogudx3vofAWCbHwen3
-	g==
-X-Received: by 2002:a05:6830:438c:b0:7d7:4fc7:21a with SMTP id 46e09a7af769-7e90b3bdab8mr714067a34.13.1781633808548;
-        Tue, 16 Jun 2026 11:16:48 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e79f6df8e1sm7215347a34.20.2026.06.16.11.16.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 11:16:47 -0700 (PDT)
-Message-ID: <9b8d5cfc-e392-45aa-9adc-867c364dd36e@baylibre.com>
-Date: Tue, 16 Jun 2026 13:16:46 -0500
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="mMXCNUNW";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VVsXPiOA"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D51697A0178;
+	Tue, 16 Jun 2026 14:28:05 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Tue, 16 Jun 2026 14:28:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:content-transfer-encoding:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781634485;
+	 x=1781720885; bh=VC7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=
+	mMXCNUNWUNg65wsus5Oisk4uOqeWdq87vg0PeR9Xz2Fn4JjPraVN1PFC+aGrNxDS
+	BBmiaOvXAl+ILHZng+aRU/XnPR2DJQde5J1zN9fet7S0If4HnH68XXkzTSlBYXw9
+	2hFUAJffe3nL0Hld/Vm8erzHgcExKPUjLp0xokmd0eOhENfNacCAzWQPLhr5J+2c
+	jOoDOozEJAfF/oLdVepx7V/Uf3axTCJps25FnL1FapYhdKHJGoDVicZuiCAyJ2dN
+	1zsEhsOJ8OxCOdLiH+vCQoRsd3tWuXQyavnifdh4G921DbRNmHcB5KvQrpaoAdat
+	J33fusBM+G9kXLlri87GKQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1781634485; x=1781720885; bh=V
+	C7DCe11ZyrzA2G7vkYOQT1GcSliXObtOSZKwBmMzRo=; b=VVsXPiOAWff6HReYo
+	7U+j2lc3tJeL9fb0eflW8kxp5Dvqez2Q1UgrGMDACP57morRDwXXMvKy4SF4qzr+
+	x/NrBvThFgDo8eC8tDyELb5KEn1JVRTe6uydpy/eP7u6uwPbtYGbI7dVhiv7sEFw
+	VAIEqBG8tTgFGg4KcD3g/GEfM3s4Gmin38q8DG33I++zgcoEwjLd9sOd1DjY259j
+	QLGBBVvkichLTXCLcC9YYjQzBv/IpCOghGNud/MjzML3iQVn6AqMMpzwc+1CJ5jY
+	d8+1YpDFuLIFR9yVI7u0X8rMXIkcBugEiZlsrJU8a0yMhW+I6j5QUAbNsZZeugxE
+	+ZpDg==
+X-ME-Sender: <xms:tJUxajtoRbiRmW1poiSDMiZC1UlZY2lixfA34fldFqhN1uRegCHOiA>
+    <xme:tJUxai-hHPEnPbxyCqUm9UQRNxyOAeYQL0kxc5mVNyNh8_XQTpVbrlSTx8U4MOQY-
+    m5b3SwULEnMENtoWnHJB_KDRd7zybyZuwtt-h545d8MorTbIBcR2g>
+X-ME-Received: <xmr:tJUxatn2UDE9O17qYGRdNPUibemkUX04LFE8Hv5Z_fpX-XRCkGR9RMdMvNfRdGJqCA9E5t_QN4zcjorSbs-8H57iFb5Y>
+X-ME-Proxy-Cause: dmFkZTGrC5DYJP9mSxqJd1fDXc0Oh1AGx3JLF0BRoNGPbCwDKFsaw0D49sQCZTbacGELJP
+    NPTNfLWvLgiPPk8vfyWDXR9pvW4cjmDKY+4hStnqjC00ax5yRqzEy7s74FV3Hst0oRau05
+    +ZOMSZTUF108LlkZ2bYRXRXyXUJeSS8XHpZ+B6zsfyqUVuJYZ+5HIS98pyiXjS3nRQlNe+
+    ZjHbBYR5RgivqZj4ZTUGyl3488WbqeP2qTbAGbkO61UP/cMkWZvsgOuuB9JTEbsBXmiGDy
+    dOAAnO+9yWExe3+wxZw7oKyr7SKFr6rnJQISOhv7KbwSDOJwPFjdu7d/V6aiFdPml6XCrS
+    R3JqRpkUv/4qoe+0fvmTytcOSlFdsKxpKg58u6aYZ1z2A3fSQCnTWefZ7HjiUwuE8hQC4p
+    G/S2m8yrTFEuKFnGlmbqljvKuVc4mAf+rhAiyDy+56MoV2x5W9ScAn+N3UFkqMBOEWuWKs
+    s1KiXcknlIA1fYSBCXyT82MmaoJeODLfHNnAA4C4Aj66F/UzmJot110c9VuWCAPk8gIFqc
+    39cazJKohx853+MZmwELfMmd4I63YViLryT7pYGNiJ6oxH3RsuFHnRYhsgQ80XhvZG0bun
+    OdKWBXU4jTx2h2XZ8ZkIrmuHQC/plGNTA6FFsJ8tesDFJ7uRuYAjilFy+eIQ
+X-ME-Proxy: <xmx:tJUxaiNcskzLMEK9Oa4ndBu1OwgYuJIrLUAIiDoo4HCVgda1wh4MZw>
+    <xmx:tJUxasLq-wBc_WmQiFYIfvkEeQiO87MJrIWsIEZjY-nXrCiG2P2ldw>
+    <xmx:tJUxatG-PaNMzX79RsuzDlf73S5K2776QWiJy45vAH0PPrkYrX_WEg>
+    <xmx:tJUxatAKEwAlT0SKZCJlMNWm-i3LYQHDuShGmKhdGhq2Qkyt58ha3A>
+    <xmx:tZUxaoXRy8ZHUNEoYu_jK99k0OMhk0rJEh0xohBXEX_-uKrw9VAdShL7>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 14:28:03 -0400 (EDT)
+Date: Tue, 16 Jun 2026 20:28:02 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Frank Binns <frank.binns@imgtec.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Matt Coster <matt.coster@imgtec.com>,
+	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpu: img,powervr-rogue: Document
+ GE8300 GPU in Renesas R-Car D3
+Message-ID: <20260616182802.GB1662668@fsdn.se>
+References: <20260616175835.2109336-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] iio: adc: new ti-ads112c14 driver
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
- <DJA1J8D91ESA.2XU7OCVKN7LXU@gmail.com>
- <d3270250-ae18-4c0f-a0fe-e0fdabfce046@baylibre.com>
- <DJANEYYA4QTA.1JBN2L78PNXDD@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DJANEYYA4QTA.1JBN2L78PNXDD@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260616175835.2109336-2-niklas.soderlund+renesas@ragnatech.se>
 
-On 6/16/26 12:26 PM, Kurt Borja wrote:
-> On Tue Jun 16, 2026 at 10:21 AM -05, David Lechner wrote:
->> On 6/15/26 7:18 PM, Kurt Borja wrote:
->>> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:
-
-...
-
->>>> All of these chips have in common that they are designed for use with
->>>> RTDs and thermocouples and so they look very similar to each other in
->>>> terms of wiring and feature set, even if the register maps are
->>>> different. They are in the gray area where we could either keep them
->>>> separate because they are just different enough, or we could do like
->>>> we've done before with ad_sigma_delta and have a bit of an abstraction
->>>> layer for the register differences and otherwise try to share as much
->>>> code as possible. Normally, I would lean towards keeping them separate,
->>>> but in this case, I'm considering trying to share code because the
->>>> devicetree bindings for the inputs is complex and is going to be mostly
->>>> the same across all of these chips.
->>>
->>> The channel configuration is indeed very similar for the three chips.
->>> All three have IDAC, BOC and VREF configurations.
->>
->> Hmm... I forgot to include the burnout current in the DT bindings. Following
->> the channel = "conditions for measurement" pattern that I have set out here
->> I guess that would mean that we would need to have the same inputs twice
->> when using the burnout. One "channel" would be the one used to do a "precision"
->> measurement and the other would be the one to do open/short circuit detection.
->>
->>
->>     i2c {
->>         #address-cells = <1>;
->>         #size-cells = <0>;
->>
->>         adc@40 {
->>             compatible = "ti,ads112c14";
->>             reg = <0x40>;
->>
->>             avdd-supply = <&avdd>;
->>             dvdd-supply = <&dvdd>;
->>
->>             refp-supply = <&avdd>;
->>
->>             #address-cells = <1>;
->>             #size-cells = <0>;
->>
->>             channel@0 {
->>                 reg = <0>;
->>                 diff-channels = <1>, <2>;
->>                 excitation-channels = <0>, <3>;
->>                 excitation-current-microamp = <500>;
->>                 current-chopping;
->>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
->>                 label = "rtd-precision";
->>             };
->>
->>             channel@1 {
->>                 reg = <0>;
->>                 diff-channels = <1>, <2>;
->>                 excitation-channels = <0>, <3>;
->>                 excitation-current-microamp = <500>;
->>                 burnout-current-nanoamp = <1000>;
->>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
->>                 label = "rtd-diagnostic";
->>             };
+On 2026-06-16 19:58:34 +0200, Niklas Söderlund wrote:
+> Document Imagination Technologies PowerVR Rogue GE8300 BNVC 22.67.54.30
+> present in Renesas R-Car R8A77995 D3 SoCs.
 > 
-> This would mean we wouldn't be able to use iio_chan_spec .channel and
-> .channel2 to describe inputs because of duplicate sysfs attributes, no?
+> Compared to other R-Car Gen3 SoCs the D3 only have one power domain and
+> it is always on. Extend the list of special cases for this to also cover
+> R8A77995 and update the description of it.
+> 
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> * Changes since v1
+> - Sort img,img-ge8300 after img,img-ge7800.
+> - Fold special case for power domain into an existing one and update the
+>   description.
+> ---
+>  .../devicetree/bindings/gpu/img,powervr-rogue.yaml | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> index a1f54dbae3f3..b93f49f1fa0a 100644
+> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
+> @@ -25,6 +25,11 @@ properties:
+>                - renesas,r8a779a0-gpu
+>            - const: img,img-ge7800
+>            - const: img,img-rogue
+> +      - items:
+> +          - enum:
+> +              - renesas,r8a77995-gpu
+> +          - const: img,img-ge8300
+> +          - const: img,img-rogue
+>        - items:
+>            - enum:
+>                - ti,am62-gpu
+> @@ -114,6 +119,7 @@ allOf:
+>            contains:
+>              enum:
+>                - img,img-ge7800
+> +              - img,img-ge8300
+>                - img,img-gx6250
+>                - thead,th1520-gpu
+>      then:
+> @@ -159,14 +165,14 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          contains:
+
+The 'contains' node should have been kept, my bad. I wonder why 'make 
+dt_binding_check' or `make dtbs_check' did not catch it. Sorry for the 
+noise.
+
+> -            const: thead,th1520-gpu
+> +          enum:
+> +            - renesas,r8a77995-gpu
+> +            - thead,th1520-gpu
+>      then:
+>        properties:
+>          power-domains:
+>            items:
+> -            - description: The single, unified power domain for the GPU on the
+> -                TH1520 SoC, integrating all internal IP power domains.
+> +            - description: The single, unified power domain for the GPU.
+>          power-domain-names: false
+>        required:
+>          - power-domains
+> -- 
+> 2.54.0
 > 
 
-Yes, that is a bit unfortunate. At least there the labels to tell them
-apart. I guess we would just need to use consecutive channel and channel2
-when dynamically allocating the channels to avoid conflict. 
-
->>>> This makes things more flexible, but does make the driver a bit more
->>>> complex. For example, knowing when the current output needs to be
->>>> enabled or disabled. For now, I have chosen a lazy-enable where they
->>>> are not turned on until the first measurement is taken that requires
->>>> them, but then they stay on until another measurement is taken that
->>>> doesn't require them. This can lead to some oddness with the diagnostic
->>>> channels that may be measuring something that indirectly requires the
->>>> current output (i.e. the external reference voltage when it is connected
->>>> to a resistor rather than a power supply). This means you need to take
->>>> a measurement that requires the current output to be enabled before the
->>>> diagnostic channels will give accurate readings.
->>>
->>> This is the same approach I took around the BOC, it feels kinda hacky
->>> but it makes sense. Just an idea I thought about just now: What if we
->>> have an additional write-only "_enable" sysfs attribute for these
->>> channels?
->>
->> I would not want to make a write-only attribute, we always want to be
->> able to read back what the current state is.
-> 
-> Yeah, I don't know why I said WO. Reading would be fine too.
-> 
->>
->> Do you mean an _enable for just the BOC? I think I would do it like I
->> suggested above instead.
-> 
-> No, no just the BOC. The BOC, IDAC and rest of side effects. Thinking
-> about it some more, it would be a bit redundant but clearer if proper
-> documentation is provided.
-> 
-I would be interested to see what Jonathan has to say about this too.
-Generally, his advice has been to avoid attributes that power things
-on and off if we can help it.
-
+-- 
+Kind Regards,
+Niklas Söderlund
