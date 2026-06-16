@@ -1,49 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE082F7EE5;
-	Tue, 16 Jun 2026 11:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C88F3BADB3;
+	Tue, 16 Jun 2026 11:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781608608; cv=none; b=bjLAu6Ryst+3P3ji1tJEdh1FM1rJjpjUJjnD+j/GzsLhJ03Iy4tOhdyRnabnMIqis3ynZ73i24zc2694LSCNbZOkwDZyoURWF6GbsV+6bjnNe6sEixa4qIqrtwzjd+W6S4uaSuFLOTclixOfRcsURpyvMxjdXnjVYdGXozyxl+E=
+	t=1781609232; cv=none; b=N1Wy6HoXTs8xAsUr/87no1sUQMWWTLvPbZkrk++E5XU+R0S2wtL65QCFLk0cU53E+LJ+rpmSXOU97oakT0hZ8u5uthBH5VjiQwxUGBCrfPAhW3KGx/OZTUiaWaYv9RAwNTVRy1iN8TO9ulNci5i1tc5ZkRvmkjX5dKrQU/2SIbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781608608; c=relaxed/simple;
-	bh=oDxOtVrOzDh6MvwAYljgCU2APhYTV/mMaD2dgqtmdiY=;
+	s=arc-20240116; t=1781609232; c=relaxed/simple;
+	bh=vBU0oeoznmrBzgpbfqa2fHCeWcntu8zCrigJTO3m+qs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKDw7gw1Hz7zqhyH+NqQxXFR+0dyf8tPhKrxjPThQwuKVUt0EvpsPe+G1MWTzC+H6nqLAC9FC30DZngcMgljHpTmJQLyuT4ypKP3ticlDHSrczeU+2MzqutaxTQFWIumx/++3qa+JBmEuKuCSdLj8nFtGJDYyNbiVBeOMp4x0+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZF1oxy3x; arc=none smtp.client-ip=198.175.65.14
+	 Content-Type:Content-Disposition:In-Reply-To; b=JLfC/XXn1tG+YhVHrR5yRVKJdQ6PAm5R+0N4x4jaxAizL0iFshsGj2dcRr9EizF7c8TZyDMFBIlpUIpKPhA4h/g4ZBc7bKepSxoEJSf4/F/oEXViWc3n+dUg7449o61K5SFqKvZlFA3xkRbkYOMKWe96tHW/CAtFaBMC2rEUolw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PPhl90TI; arc=none smtp.client-ip=192.198.163.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZF1oxy3x"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PPhl90TI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781608606; x=1813144606;
+  t=1781609230; x=1813145230;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=oDxOtVrOzDh6MvwAYljgCU2APhYTV/mMaD2dgqtmdiY=;
-  b=ZF1oxy3xjWCUVwRbuWEfOfUoaHveC/GaU5Bum4cEHT1bw/Gop7FfT6mr
-   0Vn8dj6+VO4FXCtm3flz44Qd+lNYv30cEOJ3hhnsWJQEAPf+cGuZGStv6
-   Zgpv2eUgwhEOAcr5jWNG8C6tjc1n8cV+cc7VpTtdMwm452GmQXDYOh6CM
-   vaJ0lpNug+1lSJt5rNNLv1dfMMzbDcK8dNIEVyDN13p+BtfqJZ1c6VQX8
-   B9/0RX5e2xUxfHX1MLJ7uUBFvbciw2otMw13bYXEmU1MnxT8PQ++P8wk2
-   +W46eSr6IrAR6FiP+QklKcLfJbHi01z71ts3aXELes/Ygc0mOywbdG+6w
-   g==;
-X-CSE-ConnectionGUID: F+nZxR1VS3mk6+NRohnxBg==
-X-CSE-MsgGUID: TuObY2fpTXCcrXGY0oO17w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="86272005"
+  bh=vBU0oeoznmrBzgpbfqa2fHCeWcntu8zCrigJTO3m+qs=;
+  b=PPhl90TI+MRY/yg+MTpJlmtG4cBt13g/BcvJo4TQTsKenu+trZ6awQnX
+   SmaX0UG+xsuZ7qkWUKScFZDhN0AsO6EN3b/QNDCNIVmErlrY7OeKpbLP6
+   g3TZG/klw1tiY/vRBxjglWThEmsSVjpTFXz6ijfBIxk0Wiu8yCiuz52xM
+   A8X2DLt5dJEJmCjHmX2R28BKLbB5aJzzfoE8kt3QQR1C6dRKccgoT2oA1
+   ekFRDW6xX/+Dkiz20JV3iRKiQXcSMHjdXjGfutS5OgY5SPWqR3DTj+Ark
+   9j+yyrsTM/jUTqbXsanK7JejRsIg1q6gcX053hyMZ/krUFIm/FlBExJMo
+   Q==;
+X-CSE-ConnectionGUID: 2GWHPu94Q5OjSCRIiD21dg==
+X-CSE-MsgGUID: e+h/E4rJSCCCEmQh4WLGbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="93042589"
 X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="86272005"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:16:37 -0700
-X-CSE-ConnectionGUID: Ym9Sqpc4QZyxM79Wc1Oerg==
-X-CSE-MsgGUID: 6bl6RVMkTEi8oTpoqraQ4g==
+   d="scan'208";a="93042589"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:27:10 -0700
+X-CSE-ConnectionGUID: enHVA23sSiG9X+FenkfaxQ==
+X-CSE-MsgGUID: qDSE1rUpRieweaOCO/haTQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="247617556"
+   d="scan'208";a="247804024"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:16:34 -0700
-Date: Tue, 16 Jun 2026 14:16:31 +0300
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:27:06 -0700
+Date: Tue, 16 Jun 2026 14:27:03 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Jinseob Kim <kimjinseob88@gmail.com>
 Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -55,10 +55,10 @@ Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
 	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v5 4/6] iio: osf: add stream parser
-Message-ID: <ajEwj390mBxc9tfs@ashevche-desk.local>
+Subject: Re: [PATCH RFC v5 5/6] iio: osf: add UART transport
+Message-ID: <ajEzB4EC53vRk9vY@ashevche-desk.local>
 References: <20260616072242.3942-1-kimjinseob88@gmail.com>
- <20260616072242.3942-5-kimjinseob88@gmail.com>
+ <20260616072242.3942-6-kimjinseob88@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,164 +67,248 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260616072242.3942-5-kimjinseob88@gmail.com>
+In-Reply-To: <20260616072242.3942-6-kimjinseob88@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jun 16, 2026 at 04:22:40PM +0900, Jinseob Kim wrote:
-> Add a byte-stream parser that resynchronizes on OSF frame magic, validates
-> complete frames, and forwards decoded frames to the OSF core.
+On Tue, Jun 16, 2026 at 04:22:41PM +0900, Jinseob Kim wrote:
+> Add the serdev UART transport and the initial OSF core receive path.
+> 
+> Enable the required vcc regulator with devm_regulator_get_enable()
+> before opening the UART, keeping power handling limited to the simple
+> probe-time requirement for this RFC.
 
 ...
 
-> +static const u8 osf_stream_magic[OSF_STREAM_MAGIC_LEN] = {
-> +	'O', 'S', 'F', '0',
-> +};
+> +config OPEN_SENSOR_FUSION
+> +	tristate "Open Sensor Fusion UART IIO driver"
+> +	depends on IIO
+> +	depends on SERIAL_DEV_BUS
+> +	select CRC32
+> +	help
+> +	  Build the Open Sensor Fusion UART receive path.
+> +
+> +	  The driver receives OSF protocol frames over a serdev UART.
+> +	  Frames are decoded and validated before being passed to the
+> +	  driver core.
 
-Why?! You have already a definition, use it instead.
+> +	  This patch only adds the transport path.
+> +	  IIO device registration is added separately.
+
+What is this paragraph supposed to mean?
 
 ...
 
-> +static size_t osf_stream_discard_to_magic(struct osf_stream *stream)
+> +static int osf_core_validate_capability_report(const struct osf_frame *frame)
 > +{
-> +	size_t old_len = stream->len;
-> +	size_t match_len;
-
-> +	size_t i;
-> +
-> +	for (i = 0; i < stream->len; i++) {
-
-In current form it's as simple as
-
-	for (size_t i = 0; i < stream->len; i++) {
-
-> +		match_len = stream->len - i;
-> +		if (match_len > OSF_STREAM_MAGIC_LEN)
-> +			match_len = OSF_STREAM_MAGIC_LEN;
-> +
-> +		if (osf_stream_magic_match(stream->buf + i, match_len)) {
-> +			if (i)
-> +				osf_stream_discard(stream, i);
-> +			return i;
-> +		}
-> +	}
-> +
-> +	stream->len = 0;
-> +	return old_len;
-> +}
-
-...
-
-> +static int osf_stream_process(struct osf_stream *stream)
-> +{
-> +	size_t discarded;
-> +	size_t frame_len;
-> +	u32 payload_len;
-> +	int first_err = 0;
+> +	struct osf_capability_entry entry;
+> +	struct osf_capability_report report;
+> +	unsigned int i;
 > +	int ret;
 > +
-> +	while (stream->len) {
-> +		discarded = osf_stream_discard_to_magic(stream);
-> +		if (discarded) {
-> +			stream->stats.bad_magic_resyncs++;
-> +			stream->stats.dropped_bytes += discarded;
-> +			if (!first_err)
-> +				first_err = -EPROTO;
-> +		}
+> +	ret = osf_protocol_decode_capability_report(frame, &report);
+> +	if (ret)
+> +		return ret;
 > +
-> +		if (!stream->len)
-> +			break;
-> +
-> +		if (stream->len < OSF_FRAME_HEADER_LEN)
-> +			break;
+> +	for (i = 0; i < report.capability_count; i++) {
 
-> +		if (get_unaligned_le16(stream->buf + 6) !=
-> +		    OSF_FRAME_HEADER_LEN) {
+	for (unsigned int i = 0; i < report.capability_count; i++) {
 
-Make it a single line for readability.
+> +		ret = osf_protocol_decode_capability_entry(&report, i, &entry);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
 
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err = -EPROTO;
-> +			continue;
-> +		}
+...
+
+> +int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
+> +{
+> +	struct osf_frame frame;
+> +	size_t frame_len;
+> +	int ret;
+
+> +	if (!osf || !buf)
+> +		return -EINVAL;
+
+How can this be called with osf == NULL?
+
+> +	ret = osf_protocol_decode_frame(buf, len, &frame, &frame_len);
+> +	if (ret)
+> +		return ret;
 > +
-> +		payload_len = get_unaligned_le32(stream->buf + 10);
-> +		if (payload_len > OSF_STREAM_MAX_PAYLOAD_LEN) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err = -EMSGSIZE;
-> +			continue;
-> +		}
+> +	if (frame_len != len)
+> +		return -EMSGSIZE;
 > +
-> +		frame_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +		if (stream->len < frame_len)
-> +			break;
-> +
-> +		ret = osf_core_receive_frame(stream->osf, stream->buf, frame_len);
-> +		if (ret) {
-> +			if (ret == -EBADMSG) {
-> +				stream->stats.bad_crc_frames++;
-> +				stream->stats.dropped_bytes++;
-> +				osf_stream_drop_invalid_head(stream);
-> +			} else {
-> +				osf_stream_discard(stream, frame_len);
-> +			}
-> +			if (!first_err)
-> +				first_err = ret;
-> +			continue;
-> +		}
-> +
-> +		stream->stats.valid_frames++;
-> +		osf_stream_discard(stream, frame_len);
+> +	switch (frame.message_type) {
+> +	case OSF_MSG_SENSOR_SAMPLE:
+> +		ret = osf_core_validate_sensor_sample(&frame);
+> +		break;
+> +	case OSF_MSG_DEVICE_STATUS:
+> +		ret = osf_core_validate_device_status(&frame);
+> +		break;
+> +	case OSF_MSG_CAPABILITY_REPORT:
+> +		ret = osf_core_validate_capability_report(&frame);
+> +		break;
+> +	default:
+> +		if (frame.message_type >= OSF_RESERVED_MSG_FIRST &&
+> +		    frame.message_type <= OSF_RESERVED_MSG_LAST)
+> +			ret = 0;
+> +		else if (frame.message_type >= OSF_VENDOR_PRIVATE_FIRST)
+> +			ret = 0;
+> +		else
+> +			ret = -EOPNOTSUPP;
+> +		break;
+
+You may invert this and return directly
+
+		if ((frame.message_type < OSF_VENDOR_PRIVATE_FIRST) &&
+		    (frame.message_type < OSF_RESERVED_MSG_FIRST ||
+		     frame.message_type > OSF_RESERVED_MSG_LAST))
+			return -EOPNOTSUPP;
+
 > +	}
 
-> +	return first_err;
+> +	if (!ret)
+> +		osf->last_sequence = frame.sequence;
+> +
+> +	return ret;
 
-Why do we continue on the error and then still return an error?
-Same Q for the receive part.
+No. Use regular pattern
+
+	if (ret)
+		return ret;
+	...
+	return 0;
 
 > +}
 
 ...
 
-> +void osf_stream_init(struct osf_stream *stream, struct osf_device *osf)
-> +{
-> +	if (!stream)
-> +		return;
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+
+> +#include <linux/of.h>
+
+What is this for?
+
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/serdev.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
 > +
-> +	stream->osf = osf;
-> +	stream->len = 0;
-> +	memset(&stream->stats, 0, sizeof(stream->stats));
-> +}
+> +#include "osf_core.h"
+> +#include "osf_stream.h"
 > +
-> +void osf_stream_reset(struct osf_stream *stream)
+> +#define OSF_SERDEV_BAUD		115200
+> +
+> +struct osf_serdev {
+> +	struct serdev_device *serdev;
+> +	struct osf_device osf;
+> +	struct osf_stream stream;
+> +};
+> +
+> +static size_t osf_serdev_receive_buf(struct serdev_device *serdev,
+> +				     const u8 *buf, size_t count)
 > +{
-> +	if (stream) {
-> +		stream->len = 0;
-> +		memset(&stream->stats, 0, sizeof(stream->stats));
-> +	}
+> +	struct osf_serdev *osf_uart = serdev_device_get_drvdata(serdev);
+> +	const struct osf_stream_stats *stats;
+> +	u64 valid_before;
+> +	int ret;
+> +
+> +	valid_before = osf_uart->stream.stats.valid_frames;
+> +	ret = osf_stream_receive_bytes(&osf_uart->stream, buf, count);
+> +	stats = &osf_uart->stream.stats;
+> +
+> +	if (ret || stats->valid_frames != valid_before)
+> +		dev_dbg_ratelimited(&serdev->dev,
+> +				    "rx count=%zu valid=%llu bad_magic=%llu bad_crc=%llu partial=%llu dropped=%llu ret=%d\n",
+> +				    count,
+> +				    (unsigned long long)stats->valid_frames,
+> +				    (unsigned long long)stats->bad_magic_resyncs,
+> +				    (unsigned long long)stats->bad_crc_frames,
+> +				    (unsigned long long)stats->partial_frames,
+> +				    (unsigned long long)stats->dropped_bytes,
 
-As per above
+Why casting?
 
-	if (!stream)
-		return;
-
+> +				    ret);
+> +
+> +	return count;
 > +}
 
 ...
 
-> +struct osf_stream_stats {
-> +	u64 valid_frames;
-> +	u64 bad_magic_resyncs;
-> +	u64 bad_crc_frames;
-> +	u64 partial_frames;
-> +	u64 dropped_bytes;
+> +static int osf_serdev_probe(struct serdev_device *serdev)
+> +{
+
+	struct device *dev = &serdev->dev;
+
+makes the below look better.
+
+> +	struct osf_serdev *osf_uart;
+> +	unsigned int baudrate;
+> +	int ret;
+> +
+> +	osf_uart = devm_kzalloc(&serdev->dev, sizeof(*osf_uart), GFP_KERNEL);
+> +	if (!osf_uart)
+> +		return -ENOMEM;
+> +
+> +	osf_uart->serdev = serdev;
+> +	osf_core_init(&osf_uart->osf, &serdev->dev);
+> +	osf_stream_init(&osf_uart->stream, &osf_uart->osf);
+> +
+> +	serdev_device_set_drvdata(serdev, osf_uart);
+> +	serdev_device_set_client_ops(serdev, &osf_serdev_ops);
+> +
+> +	ret = devm_regulator_get_enable(&serdev->dev, "vcc");
+> +	if (ret)
+> +		return dev_err_probe(&serdev->dev, ret,
+> +				     "failed to enable vcc regulator\n");
+> +
+> +	ret = serdev_device_open(serdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	baudrate = serdev_device_set_baudrate(serdev, OSF_SERDEV_BAUD);
+> +	if (baudrate != OSF_SERDEV_BAUD)
+> +		dev_warn(&serdev->dev, "requested %u baud, controller set %u\n",
+> +			 OSF_SERDEV_BAUD, baudrate);
+> +
+> +	serdev_device_set_flow_control(serdev, false);
+> +
+> +	return 0;
+> +}
+> +
+> +static void osf_serdev_remove(struct serdev_device *serdev)
+> +{
+> +	struct osf_serdev *osf_uart = serdev_device_get_drvdata(serdev);
+> +
+> +	serdev_device_close(serdev);
+> +	osf_stream_reset(&osf_uart->stream);
+> +	osf_core_unregister_iio(&osf_uart->osf);
+> +}
+
+...
+
+> +static struct serdev_device_driver osf_serdev_driver = {
+> +	.probe = osf_serdev_probe,
+> +	.remove = osf_serdev_remove,
+> +	.driver = {
+> +		.name = "open-sensor-fusion-uart",
+> +		.of_match_table = osf_serdev_of_match,
+> +	},
 > +};
 
-Don't you want to use linux/u64_stats_sync.h APIs?
+> +
+
+No blank line needed here.
+
+> +module_serdev_device_driver(osf_serdev_driver);
 
 -- 
 With Best Regards,
