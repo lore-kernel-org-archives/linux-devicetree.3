@@ -1,111 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6063911CA
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2A535F180;
+	Tue, 16 Jun 2026 09:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781602585; cv=none; b=m2Rrr6w1Opq466X7DEbHU/FskrrC1w+mGPzrlg8jO8nOSu1TgI9h+PZQeMTXgnlqm4s1aSkX+Kcw43AtHMVXYH/D2+QJ8tGLqyiSzHzceChgpSBGjWuEF0BvOu7hJXMj6+Kf0Cq3FeTQLelsCzE1hFKgzRzBUZsflFPCo/sz1U8=
+	t=1781602875; cv=none; b=CpM0mFu7VHWbDvtYx09CXrH7J3JFbjs3nxdBV2kCfjtj80VA0qt9bu5VOZz9L/kwhaDwWC4rpoCBH3+YYHxbX4iELAS+4ZG4FQ6vQ4fhDHICd01kLISHOxd9UiRc57TOykpHdJrDE89J67b7CnZ0+dFtOnyPhTB4H5xmT9Ab7dE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781602585; c=relaxed/simple;
-	bh=YpSgsOBX5ZrIXMTKHBQmLupXFsPxOohYbjQt0ZYOZSg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nyy9Z4woXa/4TJwqPDU+EzJwjSacRGnHRTGJtjxE8vWDqi5Gxp36FAF4ykvO+oQoNwMISY7xHPN+zDCLzoKvRO5fRApb20m7Xr+rO9uWzhtLqdaNdWmO17NOdw53pBzxIB3vEka0s0Gh9GdyVCFuMz9joByOMeiy6tjyF8hu6us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nafq/uxz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781602875; c=relaxed/simple;
+	bh=6rB2N++QnF7JTGORtVke61SAOuu1kszVTJ+rWarYgM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jxxB1sCFCDuAgwJ0e8omFuPMAac8y7fcqSrgwUcvfyAtU7prSUhWClpjs/IN5cZNdSNgyO2Yrr9LXhrTkDWCvbUa/F7e3sFnAn+aqjTDYeNgugAVl/du6CYYnzwTfUg+w6ep3DLfaScPjMGOcgbnwuhx7vHcA3WqPn0ZhXhoY68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fh6curBK; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nafq/uxz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936991F000E9;
-	Tue, 16 Jun 2026 09:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781602583;
-	bh=vydmwUmA81FSz3gMEqDDYmNv81l+LHUpKbJnZ/aLZ1c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Nafq/uxzEX/3xRKgpE8WUM61/ATlr7AqVXGW6Le+GIIEIp9s2VdhNPTltCZhOaKjU
-	 FQIQFadhpZ0/NMeH1JFuoiaOsYsOXNoY5GX3wucP61KtLGxViQ1bPg1L2ltkGDNXYX
-	 znB570/A2+a/j1zxryeuI4+5QcSFmK6rpBJw95vEeN53WdGgj0N6fgnJCpWZS7sYMF
-	 PJD7wWGWPiiqAZYb4uOa3K/myAp6xh6+ZLcsulURYSbIkIQQ34xH+S/EgV12Y0+4k2
-	 ejRn3nZTyTCw4ySk07PQJJJbJrCv7dAQ7tFeODnfB74pcSysvD6Gf85ztIeyJv15Lf
-	 XlF0C+cBWGIbA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/8] irqchip/qcom-pdc: Remove pdc_enable_intr()
- wrapper
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Maulik Shah" <maulik.shah@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260616-hamoa_pdc_v3-v3-3-4d8e1504ea75@oss.qualcomm.com>
-References: <20260616-hamoa_pdc_v3-v3-3-4d8e1504ea75@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 09:36:23 +0000
-Message-Id: <20260616093623.936991F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fh6curBK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781602874; x=1813138874;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6rB2N++QnF7JTGORtVke61SAOuu1kszVTJ+rWarYgM8=;
+  b=fh6curBKt3may/lCi//rvXkItEBagXFKYnE8NKobO8mkHNPvem5TjlP9
+   LzhI7KszzeSYX8wWrV8Cy4jWTw8J3alD4S/9U9yC3zBSGLW5xEKre5tve
+   +uG4meGAYqUN+t6fiJ8ybzYwNXTE7MnhUZHTLj2acvrX/ap/czQvCuOx0
+   He49CRBOX4EsoaZJQPpct9zvPraICluc0ZRswjSfBChyBsQjhs14guwBM
+   m+qgsD3w2A1EBr1tzx0e0tHudbkSWQeAqMCoyH+/Q4s5amd58kT+WXcR/
+   hwZcIwpuMUmQmExkmNj/O/WV2XpjP8sK5ETzBxf/S5u1IaRJPR1dYqi/E
+   g==;
+X-CSE-ConnectionGUID: e4lZJbE4RriJdz/gCOg/AA==
+X-CSE-MsgGUID: V5d9FVsxTqiDyMFnyAa1mQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="69908006"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="69908006"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 02:41:13 -0700
+X-CSE-ConnectionGUID: pkkOvgdVRce1ymYq3o7KMQ==
+X-CSE-MsgGUID: oY5xBo2hRTuZOA251fu1yQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="251644854"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa003.jf.intel.com with ESMTP; 16 Jun 2026 02:41:10 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id AD51695; Tue, 16 Jun 2026 11:41:08 +0200 (CEST)
+Date: Tue, 16 Jun 2026 11:41:08 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Lee Jones <lee@kernel.org>,
+	Mark Brown <broonie@opensource.wolfsonmicro.com>,
+	Thierry Reding <thierry.reding@avionic-design.de>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Peter Chen <peter.chen@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 08/23] driver core: platform: provide
+ platform_device_set_of_node_from_dev()
+Message-ID: <ajEaNFhntZTS-w3e@black.igk.intel.com>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-8-88c324a1b8d2@oss.qualcomm.com>
+ <ah9O15bMlAYgSlHx@ashevche-desk.local>
+ <aiK-EXwp_xhcbty9@hovoldconsulting.com>
+ <aiLi0KZskrCyEYO5@ashevche-desk.local>
+ <aiZpJkQBXg2pcczy@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aiZpJkQBXg2pcczy@hovoldconsulting.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Uninitialized spinlock acquired during driver probe.
---
+On Mon, Jun 08, 2026 at 09:03:02AM +0200, Johan Hovold wrote:
+> On Fri, Jun 05, 2026 at 05:53:04PM +0300, Andy Shevchenko wrote:
+> > On Fri, Jun 05, 2026 at 02:16:17PM +0200, Johan Hovold wrote:
+> > > On Wed, Jun 03, 2026 at 12:44:55AM +0300, Andy Shevchenko wrote:
+> > > > On Thu, May 21, 2026 at 10:36:31AM +0200, Bartosz Golaszewski wrote:
+> > > > > Provide a platform-specific variant of device_set_of_node_from_dev(). In
+> > > > > addition to bumping the reference count of the OF node being assigned,
+> > > > > it also assigns the fwnode of the platform device.
+> > > > 
+> > > > Can we rather investigate the way how to make that of node reuse thingy
+> > > > (which is used solely by pin control) differently and then drop this confusing
+> > > > device_set_of_node_from_dev() call altogether?
+> > > 
+> > > No, that call is needed. See commit 4e75e1d7dac9 ("driver core: add
+> > > helper to reuse a device-tree node") for details.
+> > 
+> > Bart fixes the problem with the platform driver. At the result this will be
+> > the only device_set_node() + 'reused = true'.  As for 'reused' flag, the need
+> > is only for pinmux/pin control stuff.
+> 
+> And any other resource which may (eventually) be claimed by driver core
+> or bus code.
+> 
+> > The question here is if there is a better
+> > way to make that 'reused' be done automatically without need of setting some
+> > flag explicitly.
+> 
+> That's not really relevant to the series at hand.
 
-commit ff89675171bbba82a63beea5300191b24d1a290f
-Author: Maulik Shah <maulik.shah@oss.qualcomm.com>
+It's not, but it's relevant in a long-term for understanding how we can get
+this done in a better way.
 
-irqchip/qcom-pdc: Remove pdc_enable_intr() wrapper
+> If this is something we want to merge then you need to continue setting
+> the flag in order not to cause regressions.
 
-This commit removes the pdc_enable_intr() wrapper and moves its locking
-into pdc_enable_intr_bank(), as the lock is only needed for the shared
-bank and not for individual IRQ_CFG registers.
+Yes, that's how it's now.
 
-> diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
-> index b9acb0f25c9c8..6c556464d37c0 100644
-> --- a/drivers/irqchip/qcom-pdc.c
-> +++ b/drivers/irqchip/qcom-pdc.c
-> @@ -206,6 +206,8 @@ static void pdc_enable_intr_bank(int pin_out, bool on)
->  	index =3D FIELD_GET(IRQ_ENABLE_BANK_INDEX_MASK, pin_out);
->  	mask =3D FIELD_GET(IRQ_ENABLE_BANK_BIT_MASK, pin_out);
-> =20
-> +	guard(raw_spinlock)(&pdc->lock);
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[Severity: High]
-Does this cause an uninitialized spinlock to be acquired during driver prob=
-e?
 
-Looking at qcom_pdc_probe(), the lock is initialized after setting up the p=
-in
-mapping:
-
-qcom_pdc_probe() {
-    ...
-    ret =3D pdc_setup_pin_mapping(dev, node);
-    ...
-    raw_spin_lock_init(&pdc->lock);
-    ...
-}
-
-And pdc_setup_pin_mapping() invokes pdc->enable_intr() for each pin:
-
-pdc_setup_pin_mapping() {
-    ...
-    for (int i =3D 0; i < pdc->region[n].cnt; i++)
-        pdc->enable_intr(i + pdc->region[n].pin_base, 0);
-    ...
-}
-
-Previously, pdc_setup_pin_mapping() bypassed the lock because it was held in
-the pdc_enable_intr() wrapper, not the enable_intr() callback. By moving the
-lock down into pdc_enable_intr_bank(), won't the probe sequence now attempt=
- to
-acquire a zero-initialized lock before it has been initialized with
-raw_spin_lock_init()?
-
-> +
->  	enable =3D pdc_reg_read(pdc->regs->irq_en_reg, index);
->  	__assign_bit(mask, &enable, on);
-> =20
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-hamoa_pdc_=
-v3-v3-0-4d8e1504ea75@oss.qualcomm.com?part=3D3
