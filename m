@@ -1,167 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D227037C91F
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D178F386426
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781620347; cv=none; b=ljqIg7g3YkdzngVuvtrQDB16GcLiXZADyrtvTvMSb02ZTbCLBrTqGp8nyja4j3O3tSmedpy/AGKJFTSF/msA0L6FT1nwNyd79U5JA47T9yUKJQr12j0JrBDL03+SKSDavyLyLSR2blgfPR1d3Av3BLARHFQLpeCBgNgsCE2PbXk=
+	t=1781620658; cv=none; b=Dovmrtcc7wxeTk7mns7D3cgG91qR1p/oNuWy+Kk5joyH7WOrrd75z/x2m3mgyrEknEzykuyCTdSAMp6JWpxnKN8UCMxUh1jIBlrdPVioAzL6fP8Es58x7QZ5Md6gxp2JO+gScEq7qHebeqA1d11xNK46VfXXdViYt9fLSMTQ87s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781620347; c=relaxed/simple;
-	bh=bir+cipck6KrSpyz9jy4k7OOGiJVXiEf/ukp6s9uB94=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DUNpiWVvpK89QYCfG1hN8tElYHbU1pyyclieqNdOgEEmY3UpMrxXYHmshrti5x3RAluih2YZCzQgUebHE+YC2luO67N2g4lRqotmrhWDUi50+vuALXr238gIIdS5mXUCODVqzK0s9cJWEhrk0GI7Hy5oriaJSdu/+4h9y48fsaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=El8sQXWL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781620658; c=relaxed/simple;
+	bh=FfugnIQHm5unZ1sPR1Y/dZuhbcMyf+Hu3CPQK9MdeHE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GtkMPRtboAE1co51NgXqcDsmpQ5jI446ddYnFXzyHPywdH44Y3f01q7IrcUnEnZk4WpvLqMYWpsjDpAKZ3ukXQJ+g0o8w5E80gCeWbnWZIiSokWO8IDUXiICRpZLmOht4S9U6OArEwGH/OgkyHYnL7HWlzpo1TUTd9H7d8rmgI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LD6KhlVl; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="El8sQXWL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CA6B1F00A3D;
-	Tue, 16 Jun 2026 14:32:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781620346;
-	bh=qtwW59/nj5EUgfvx1PWAGNaRHh3B3aC8ltn/UQ4idl4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=El8sQXWLnaI5PQRoCLJXGBy+4H+EHmIMOLmpMEAfwr+IHAlrmKkPnKbg4JAjjraAx
-	 ZNugZiETKxRHfMd1yzCvQHWzgEqgFbjEb0bUK2uyuRvmlcGA+6w+bGW/Vc012W+A5g
-	 55hOqIaHLWbQtNEhVsY0jtIBKkdHtsK03kj9eKAQRps020zyu6RkLsrEBiyWSuX4xu
-	 wWOYNzOAoB4h/QvTmt6cFGQkx5MnAHa2aB18H3BgdSNp5uC3Egg9XFONYfZmsAO4iE
-	 jq/QbsedSpazZ1gWT/sP5cIn0+okk/SvZiiRIqkdW2JKMrQhA4uwgCnnFG79pmesFs
-	 y37FgJMOCy1kw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 12/12] net: airoha: add phylink support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260615122950.22281-13-ansuelsmth@gmail.com>
-References: <20260615122950.22281-13-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 14:32:26 +0000
-Message-Id: <20260616143226.5CA6B1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LD6KhlVl"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490ac357c55so44397135e9.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:37:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781620655; x=1782225455; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=j5+URZt3Wu1iRceLE2DPySkKJNC2rK90kTRHgoMPIB8=;
+        b=LD6KhlVlHlwayDjDAR7n7v6Y4dplTfNFAimIfTXZLXetf3revKu7W/sGFuDAe9JAb9
+         Z6SfCwrYCI50699JAjL10HwWrGQhnZ2jan8dh0jyVGY6CLpixBZL0ZN3UvGb/0R5ooD2
+         8trGIoCX3YFzOHSj64taYDS62KbPiA0flRYHVZx6jxewInu9F53dLj69nfM2YzriQdRU
+         BVSO222j71YZ5hirvvWlC1sH2d7u8S8YXJW+Y1Qtx8vVlihOe2VO+vU2uI6OYbiKKCWo
+         StAyqvtj+Cf0BhWWvCaeekXK7Y9P2Gd+2CluXmt9WfmWKZ1RVjuAQU2EgjMWrZUXSUcd
+         qTHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781620655; x=1782225455;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j5+URZt3Wu1iRceLE2DPySkKJNC2rK90kTRHgoMPIB8=;
+        b=EwX5EtXdkjNR8DjnwA94wDh3ZknnjcAps4WP4fN7HYbw+N2VkoY55+DbyFe+/os46R
+         owGLr+s2gBtfMu4yLJRUl/VSZnScp5b0BymvhxBm7wej3tS3bFytYnbWGsPUcFRpLM0X
+         07IJM2yyhwhuO9XcANS5GzMNyl1AyJ2CNZQyGqzbSRcpJhdPUn7jKrOS1vOcGhjINTVk
+         OFx2fNlMdTHVvUO3f473efAGR35GGsms/e1u4BZjj7XzRp2/8/KDPHq2z05TJZFg7vT9
+         5Rlv33zm7xX9of2NhZdg549BnXPybV+Or8/ea2OLNUACCrTQwV5IgjCJkI7t3tmBfU8q
+         7IaA==
+X-Forwarded-Encrypted: i=1; AFNElJ8TtD51i1OArlv1DSR2YfWIGOY7vt+8hN9qrHk+Xu+iBYXUEc3uffVKkCC2I9fC63YnVy5Js9OUOsp4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbzXl3KMz2qnS3lBWkeCPi4Ry7kgpIOEAOrXTk0IkjvNqLW2F2
+	2rBMuw6+REtldcN6cnaK7ybVoDNJPxekJIv7RR7qlTLFr1dZ404aNRgv
+X-Gm-Gg: Acq92OFdQetaiOn2QUr6Bi3dvUS83kKIV03aWL4VIKlmRDuBwvLma4ePdDT9aiGDpEe
+	K7+vnabhvkOkD5xxDLfk0uYOnn5AyRXR0J3OyIPl0LNtbfbkDRLKB6AAOgWm/KwUwRn/8ap2x/E
+	SSeZVr7GBXRZowWNrqc9CrSAjlYCSunEAmGT7rrmICef81BU+Z0DI/+JhhzFkLxHqmL8+9r6xro
+	TmNMSHhbvuhbql1Q0gHqJ1QS9TFrD6Ka37jOsSTC08ldsO4Ar7s82jvWXSk9fx8/kyjxUD07um9
+	FUPgjvd+jjMkwAmdBBUzXbsY96t2+32hjezNO0PrkixxB3wgehlgVmOijFt/FRzcRdcboRUqcka
+	JRWnIPjEn4FcjblIULplRk0RSml5eGWk1qrciF/ldjN7CqiNqV3BzOJ2sGRNZ5lPt/gNnzzhuSW
+	7uED9BaWMQzy3Va1/ynqOKdaD8Ys5CC/C2F7KPCTqblCAwPJHNFLkXKgHvbVxcmZJ2W1HNMMp8m
+	VX4AukIRVGdDvKh5qaSDbOuS8LALQ==
+X-Received: by 2002:a05:600c:3543:b0:492:3071:1db7 with SMTP id 5b1f17b1804b1-49230711dc1mr53184075e9.28.1781620655013;
+        Tue, 16 Jun 2026 07:37:35 -0700 (PDT)
+Received: from [10.128.10.215] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d1c7sm1813947f8f.7.2026.06.16.07.37.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 07:37:34 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <18c34b11-04eb-4e01-aad2-8c18fbe26efa@gmail.com>
+Date: Tue, 16 Jun 2026 15:37:33 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] input: misc: Add Qualcomm SPMI PMIC haptics driver
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+ Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
+ <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] NULL pointer dereference in `phylink_destroy()` on probe error pat=
-h.
-- [High] Data race on shared GDM4 fragment size registers causes configurat=
-ion corruption.
---
+Hi Fenglin,
 
-commit a159dc684c14d93e9de96a620bb343b8bb77e730
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On 6/16/26 11:08, Fenglin Wu wrote:
 
-    net: airoha: add phylink support
-   =20
-    Add phylink support for each GDM port. For GDM1 add the internal interf=
-ace
-    mode as the only supported mode. For GDM2/3/4 add the required
-    configuration of the PCS to make the external PHY or attached SFP cage
-    work.
+> +config INPUT_QCOM_SPMI_HAPTICS
+> +	tristate "Qualcomm SPMI PMIC haptics support"
+> +	depends on INPUT && MFD_SPMI_PMIC
 
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 5f1a118875fbe..9a42fb991bd72 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-[ ... ]
-> @@ -3168,6 +3180,151 @@ bool airoha_is_valid_gdm_dev(struct airoha_eth *e=
-th,
-> +static void airoha_mac_link_up(struct phylink_config *config, struct phy=
-_device *phy,
-> +			       unsigned int mode, phy_interface_t interface,
-> +			       int speed, int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct airoha_gdm_dev *dev =3D container_of(config, struct airoha_gdm_d=
-ev,
-> +						  phylink_config);
-> +	struct airoha_gdm_port *port =3D dev->port;
-> +	struct airoha_eth *eth =3D dev->eth;
-> +	u32 frag_size_tx, frag_size_rx;
-> +	u32 mask, val;
-> +
-> +	/* TX/RX frag is configured only for GDM4 */
-> +	if (port->id !=3D AIROHA_GDM4_IDX)
-> +		return;
-[ ... ]
-> +	/* Configure TX/RX frag based on speed */
-> +	if (dev->nbq =3D=3D 1) {
-> +		mask =3D GDMA4_SGMII1_TX_FRAG_SIZE_MASK;
-> +		val =3D FIELD_PREP(GDMA4_SGMII1_TX_FRAG_SIZE_MASK,
-> +				 frag_size_tx);
-> +	}  else {
-> +		mask =3D GDMA4_SGMII0_TX_FRAG_SIZE_MASK;
-> +		val =3D FIELD_PREP(GDMA4_SGMII0_TX_FRAG_SIZE_MASK,
-> +				 frag_size_tx);
-> +	}
-> +	airoha_fe_rmw(eth, REG_GDMA4_TMBI_FRAG, mask, val);
+The dependency on INPUT is unnecessary, all config options in this
+Kconfig file already depend on INPUT due to an 'if INPUT..endif' in
+drivers/input/Kconfig
 
-[Severity: High]
-Does this lockless read-modify-write on shared GDM4 registers cause data
-corruption?
+(Yes, a few of the other config options in this file also have this
+duplicate dependency on INPUT due to an explicit 'depends on'
+attribute, but this file is in need of a cleanup.)
 
-Because the SGMII lanes of the GDM4 port operate as separate phylink instan=
-ces,
-their link states are resolved independently.
-
-If both lanes undergo a link state change simultaneously, phylink's workque=
-ues
-can execute airoha_mac_link_up() concurrently on different CPUs.
-
-Without a lock around airoha_fe_rmw(), these concurrent updates to
-REG_GDMA4_TMBI_FRAG and REG_GDMA4_RMBI_FRAG could overwrite and corrupt each
-other's settings.
-
-> +
-> +	if (dev->nbq =3D=3D 1) {
-> +		mask =3D GDMA4_SGMII1_RX_FRAG_SIZE_MASK;
-> +		val =3D FIELD_PREP(GDMA4_SGMII1_RX_FRAG_SIZE_MASK,
-> +				 frag_size_rx);
-> +	} else {
-> +		mask =3D GDMA4_SGMII0_RX_FRAG_SIZE_MASK;
-> +		val =3D FIELD_PREP(GDMA4_SGMII0_RX_FRAG_SIZE_MASK,
-> +				 frag_size_rx);
-> +	}
-> +	airoha_fe_rmw(eth, REG_GDMA4_RMBI_FRAG, mask, val);
-> +}
-[ ... ]
-> @@ -3231,7 +3388,7 @@ static int airoha_alloc_gdm_device(struct airoha_et=
-h *eth,
->  	dev->nbq =3D nbq;
->  	port->devs[index] =3D dev;
-> =20
-> -	return 0;
-> +	return airoha_setup_phylink(netdev);
->  }
-[ ... ]
-> @@ -3457,6 +3614,7 @@ static int airoha_probe(struct platform_device *pde=
-v)
->  			netdev =3D netdev_from_priv(dev);
->  			if (netdev->reg_state =3D=3D NETREG_REGISTERED)
->  				unregister_netdev(netdev);
-> +			phylink_destroy(dev->phylink);
-
-[Severity: High]
-Could this cause a NULL pointer dereference during a probe failure?
-
-In airoha_alloc_gdm_device(), the port->devs[index] =3D dev assignment happ=
-ens
-before calling airoha_setup_phylink(). If airoha_setup_phylink() fails,
-dev->phylink remains NULL.
-
-The error propagates back up to airoha_probe(), which then unconditionally
-calls phylink_destroy() on all populated port->devs slots.
-
-Because phylink_destroy() dereferences its argument without checking if it =
-is
-NULL, this will result in a kernel panic.
-
->  			of_node_put(netdev->dev.of_node);
->  		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615122950.2228=
-1-1-ansuelsmth@gmail.com?part=3D12
+- Julian Braha
