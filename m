@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2B2315793
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:33:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C153CC310
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781598781; cv=none; b=VYV3oUse1DJ4UDqV00mLV7O7IneOgw6iAR41n3/E0DS7b1Bh9Dirpst1QNkXQR0HQZfZ3pPFL9VKSckKnh1jbrYKAZMVh9Y0FZDCDI9O2aqM5N1gqj9t9qJzmfZAZFIky+hSPNbXCHS5UH8GOpEy0wyJ+gR0r2eJfmEPoRk9WdI=
+	t=1781598792; cv=none; b=TqYfBC/I+fd3lEMCWorLWCdeNZwRnkvJW3f1gbi0J8Q99v7kHmeQLXF33KxWf9avZu9Bd/5CR8sLYEqZ6X3sBPdyUPa8WoRD4rBtIpdqw5e9okvyAAY7UToiccbVIZ6UEysIEDcXPyyjnLuS2ahXwKMkKXSu6Aj3UJIk9HRxX5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781598781; c=relaxed/simple;
-	bh=RMUOAucSL+ZzhRYiy7RmmQjOQ6CvgKfD0BwB0J/I4kw=;
+	s=arc-20240116; t=1781598792; c=relaxed/simple;
+	bh=M97Tz707eToHhH+ZrIUN8w+3ie0jgrgEvk6GX+oA+uE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DGkogd+b4clBzbvmEZCVDGFpKJLDzqnvc+2Z2UkVJAdF4HjI5JoQo5++F6viGTaTxoEb4eds61zcaNC3kVwU37cJ8St5oNRJcsohZB8OUMP6mdGTVoSWvfvzYmvRRqwrR26oS9q0KH4mu+1i4qidd2Hu3aOntUUsNYNpPqoiHaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9tAI9JN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lLM3wZArArrGCx4Of6V4gfpP7U1p3EXVqoFoQBL0JCsMPkRcEc1MPKXsNDzW7CXa52SJKQu1b1PjO43UiB9yj5SOGqlUsc8Bn1Fesu3uWU2EgUyX0NaHrLj+8wuu9zGWfTCcLTZDa0uyc6croeavZkH+R7qyJBuwmq8YLkdeql4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iQdiqZHR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9tAI9JN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCC551F000E9;
-	Tue, 16 Jun 2026 08:32:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iQdiqZHR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BBA1F000E9;
+	Tue, 16 Jun 2026 08:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781598780;
-	bh=p9WcdK7TNKcP0LW2jnyP/r6T1tiMPOINzgD//AM3MMg=;
+	s=k20260515; t=1781598791;
+	bh=KgXtqJqX/GuaR8//qJPvF12+WJuDBbytWIPZ46OIzQs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b9tAI9JNQv4ibkRyPhGcW9dg3PpVB3VJaRAGZwGS0wv3jv1aRv5o+oblYmz5JgzLd
-	 BLTfBcfHaw9ILEx4vlycNdosGWTS+QbVuRdAtMd5ep7C1t6K1TsZ38qszd2SzCtU5Z
-	 CG+xuRCclnN47jrvQonaTXujiZxv+krgfS0kSoAtjRv28M/tiydUlY7oGnHOceR7re
-	 B4RYvO82gX0mjj42LPDq7gMWiISONJLByWZ0DWfJA+KJEjP5ipcB41AeuNnDWa8wxD
-	 ZRnte4+4VkKlOxwgK/IZEKMhklbOEGS0+y0xk+NpU8xvLuvPgxpgA1I1B5zz3bD67J
-	 t7idp+ybMm/Zw==
+	b=iQdiqZHRBIkCQzTVOBK+PPD9q79MAgsw2WXVxxfUnlu3C2qNK4yYd2bMQ2jV6DVzx
+	 mtb4qAljeJ3pKnuJnXpD+gKze6fzeiKQgEFjK6w86aMprc1qL1XOmltbxBlUatWmPk
+	 E9EgnY1Zn/oPWT+sHi1NfjeAC1IN7QHWGGf7jwDbjIEu5do9c4pJLHVNJNDwIuKRPn
+	 j4jVyszE2Mq35eMeQiL0SxNuZLIOUXMuYD95oxVzQ5hIrTSz0xYXaLjg0vlcZIW/BH
+	 SPQv+6vjEYlG4ej/Pu1RFqCAnc4prSPOF/9rbokhu59PSEQdNBXFX/rIrf20qv86Ex
+	 KCQrg53zh4ZdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 01/12] dt-bindings: iio: dac: ad5696: add
- reset/ldac/gain support
+Subject: Re: [PATCH v3 04/12] dt-bindings: iio: dac: ad5686: rework on power
+ supplies
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260616-ad5686-new-features-v3-1-f829fb7e9262@analog.com>
-References: <20260616-ad5686-new-features-v3-1-f829fb7e9262@analog.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260616-ad5686-new-features-v3-4-f829fb7e9262@analog.com>
+References: <20260616-ad5686-new-features-v3-4-f829fb7e9262@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 08:32:59 +0000
-Message-Id: <20260616083259.DCC551F000E9@smtp.kernel.org>
+Date: Tue, 16 Jun 2026 08:33:10 +0000
+Message-Id: <20260616083310.C0BBA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,58 +46,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Incorrect use of `unevaluatedProperties: false` without an external=
- schema `$ref`.
+- [High] Making new power supply properties strictly required breaks backwa=
+rd compatibility for existing devicetrees.
 --
 
-commit cd7d8addb3fad4751f6c895cad5073c1197387e2
+commit 37c22112eb8071cacd8ef295c9d3096b1ae584af
 Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-dt-bindings: iio: dac: ad5696: add reset/ldac/gain support
+dt-bindings: iio: dac: ad5686: rework on power supplies
 
-This commit adds GPIO properties for RESET, LDAC, and GAIN pins to the=20
-adi,ad5696 DAC device tree binding. It introduces conditionally restricted=
+This commit introduces vdd-supply, vlogic-supply, and vref-supply properties
+to the ad5686 binding while deprecating the misleading vcc-supply property.=
 =20
-support for gain-gpios and adi,range-double based on the compatible string.
+The new power supply properties are added to the required lists to better
+reflect the physical hardware requirements.
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/=
-Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> index b5a88b03dc2f0..c55158c464fde 100644
-> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml b/=
+Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+> index 7567de0ead4a3..bdc6bc425b489 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5686.yaml
 
 [ ... ]
 
+> @@ -60,9 +74,23 @@ properties:
 >  required:
 >    - compatible
 >    - reg
-> =20
-> -additionalProperties: false
-> +allOf:
+> +  - vdd-supply
+> +  - vlogic-supply
+
+[Severity: High]
+Does making these new properties unconditionally required break backward=20
+compatibility for existing device trees? Older device trees that were valid=
+=20
+under the previous schema will now fail dtbs_check because they lack=20
+vdd-supply and vlogic-supply.
+
+>  allOf:
+>    - $ref: /schemas/spi/spi-peripheral-props.yaml#
 > +  - if:
 > +      properties:
 > +        compatible:
 > +          contains:
 > +            anyOf:
-> +              - const: adi,ad5311r
-> +              - const: adi,ad5691r
-> +              - const: adi,ad5692r
-> +              - const: adi,ad5693
-> +              - const: adi,ad5693r
+> +              - const: adi,ad5676
+> +              - const: adi,ad5683
+> +              - const: adi,ad5684
+> +              - const: adi,ad5686
 > +    then:
-> +      properties:
-> +        gain-gpios: false
-> +
-> +unevaluatedProperties: false
+> +      required:
+> +        - vref-supply
 
-[Severity: Low]
-This isn't a bug, but is it necessary to change additionalProperties to
-unevaluatedProperties here? Because this schema does not reference any
-external schemas via a $ref, and the conditionally restricted gain-gpios
-property is already explicitly declared in the top-level properties block,
-additionalProperties: false is sufficient and usually preferred when no
-external schema references are present.
+[Severity: High]
+Will this strict requirement cause older device trees that rely on the now=
+=20
+deprecated vcc-supply to fail validation? Is there a way to allow either=20
+vref-supply or the deprecated vcc-supply in an anyOf block so older dtb=20
+files still pass validation while enforcing the requirement moving forward?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-ad5686-new=
--features-v3-0-f829fb7e9262@analog.com?part=3D1
+-features-v3-0-f829fb7e9262@analog.com?part=3D4
