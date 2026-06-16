@@ -1,639 +1,178 @@
-Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD5E43C075
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:50:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C8F43D4FA
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781610620; cv=none; b=VFQbrh+G0Eqw1j9wE14yLxoLBmujobhICzhtT7FnCFNsHkAWNOMqa8mSDThcqapNBHBcl4i7wCjtxMNaVGDyFUmwlf9BYAkSZcCfokOJzDyOG06m2YNpe/AivAYKQ4cmrfecY0/xjR4AmGyFmGuyOZhBpsKeKYBV80hp7GSCyiw=
+	t=1781610680; cv=none; b=rx3X2uyPGgLpEsY9wMZmcH6VOZR/xKzoWNfJ6MvE0gYeC6JCL0XP3Pc5qsWhMXXbi2CAHJEBfuNI6WOXsWLgsTg1xUCCqJIoi+Q/lCslN9ClUnhqNETrFwdOsNWitT0eFDxOKClvQqmNvrPSkbFxk8QEV3bwMHZLApemtt4nucM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781610620; c=relaxed/simple;
-	bh=oWW0v5ipwftBruO6rRkNB+1oC2DlGwhG/hHA3msNojc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ia0t09s1W+1e3ej08Qhwwmpme5dCndwQOMSnm17DS59hv+HZ02C/z9aHBkmIDO+AVJzeLQCBjLC1EnWeOE3s/RbgYlO6mWoa8NH5Xumxx3K9Tt6Umne5l4oLffULVFSeYauU42JZCfgNV/XdWYlyh6bl2Un0axASDyvNpVZz8mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D0syg95G; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781610680; c=relaxed/simple;
+	bh=S4Pr7OC0zUgcE+WVa02kJXmu3HUXXKm4UWEwo3FFliQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=li5covGFj/SDRIMrT0emhpEpncrIeD9JbxdqaImN0vLFsEIHaYCK2/0EHD3qZSFVSAZz2Jb49bUO+8GFqb4kOyuqAtQT8VWEdeEgb8cKWkk5K7I7PKZHa6tM6IrH4n03ffMujnf8cipff5gpv1uUAY6ZuFGV6WPADybLer6O4e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iO7rqEvO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WXbFdp1X; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D0syg95G"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781610616;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oGbV2+/1+IKbnWwdP+VogChNJTLG23ow0u9o8bvhEus=;
-	b=D0syg95GbiMw7rV+AZtZ2f0HOzsXCZ/mTCaNOs7whZsqE7Uq1thuCnkyLqrXYTB7SBaWMV
-	CD0E71LKkg0AVIZtjetGtmUIRZrDyq9s0blK4LXoD3N5PaShw9J8EEqp3MxXc+M92h7Pet
-	CipCYVjQhwxrPGRaY8r3VeMRWUIU26o=
-From: Siratul Islam <siratul.islam@linux.dev>
-To: jic23@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: siratul.islam@linux.dev,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] iio: magnetometer: add driver for QST QMC5883L Sensor
-Date: Tue, 16 Jun 2026 17:49:39 +0600
-Message-ID: <20260616114942.37241-4-siratul.islam@linux.dev>
-In-Reply-To: <20260616114942.37241-1-siratul.islam@linux.dev>
-References: <20260616114942.37241-1-siratul.islam@linux.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iO7rqEvO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WXbFdp1X"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GA9h342799365
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:51:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1zI67otVq+aJIZ3IRAwoCMpz4lJ4T9Rvgd77tzIR4h0=; b=iO7rqEvObgNKJwvp
+	NwiNWmBkuePzRnGN65Aw5XfkbxnBRmDSdiQPgNokTbxzbigkSDq+k1NcqFLO30N+
+	wBJhW2diRYdOEPpeoWHqN7wiJjR7pg0DANP8XuRWw9GSd/KckTUyFgELYjiNhBG3
+	2vP8iu2sKGtgFOIrvoCd3pSp5p4rHNQqk45hbLu75XMwppJy9jJc5XardSuI9J7b
+	SmLUPCbh1S3+4Jkc6rHQu1GtOb7VLEf3F2eu6yRg9fQGuvTrSC0TyF+6NsccemV6
+	wxCmOQKJ87cSZ1bMMPrWE2WnF/DZiMuKW+akNnvCV+Z7LOlIOpuXsTzwtB3Hof/P
+	cRBKMA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu0a7smfj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 11:51:18 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-915827fb1a3so30835485a.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 04:51:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781610677; x=1782215477; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=1zI67otVq+aJIZ3IRAwoCMpz4lJ4T9Rvgd77tzIR4h0=;
+        b=WXbFdp1Xw9F7QA0ZFs1pirEMWywFnVT2Mujdb7w/H5zz9J7DQ0WeQ/ET5Dd5Huse/v
+         jFa9b1iCE7qaNjsfuRaurJQFjEsXgwQMeTUie5AhVKf9ir2Z1kTNGUqT/d9zxlPPCEck
+         2opQbrV9/wCprJg817JeTeIawisMc10ijJMrS0WsEM4rRjw7wNrcb4fnLxD1djVNIm0o
+         d3lR1IqRsFIBcS24VBFtfKDEzsth6fkJZAVgxiE92Vwym/oxwwtnFCbCX7jIreTaHzih
+         xRwwKr/+FrPayYmXgaYny24ncSspF50UIQcYWd527AmeG+S3PFmcsAzLrx0YxYN4Ln42
+         0dRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781610677; x=1782215477;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1zI67otVq+aJIZ3IRAwoCMpz4lJ4T9Rvgd77tzIR4h0=;
+        b=UD/vxhHnA+zxheCw2m7h/TZvLtdqxS9GdiPfwp/QbdnS3biUgM4FP4DqgjfQsIrs9v
+         lzwwEyb96YzYpK8Ga0qvJeDEp8eIPx6NPY/U+fcaqA0v1etS8X+iQt/QBz4tNrr30+Hi
+         HAmP/h54fY7G0zAEFkkhV9rCB/94AbPP9Wjd+PFpUwkjjAuAbuB3+1hz/ym+gBQt87S3
+         QzU2UQiCuE7WQKhRBYpwsy/I6d1jRdTwVA/yakd2MZyhsqKoGy1R1A/ve3apLBE4/KqL
+         KgUZSf/zX+kIPuBRbv+byhHOQTeBXZmiJByZTSP8w6t+Aga8cKHgeRt0a3UjVfyuz0St
+         Gznw==
+X-Forwarded-Encrypted: i=1; AFNElJ9RwXCRUXTgFapTg2FzcKlrKnN5/SRtDrVPvA+bZURFFZx89J0PvQnSDTzq0blZVRXXDDJjVIhgcU36@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywa0WR/9tgz68i/7xepkyh5bSRiA2LkM883dB26Tee8xUVyuvdj
+	HhpZoDmmY68om71ien0g4OrFTh2iqek8i3CXbUPs2YYOXulnwlXkDJrmWeufacOx0xnMKB3jKvy
+	sjp/VMhpy7b1LKra9/lz+I0yXlcmEZqb7Q9YDfKXmqiKzXL22DR+nAh5IxmFB3Bog
+X-Gm-Gg: Acq92OEv1n/dvdNp6g2fUp9h+nGZv7iv7RD4bbL2OTASuAV0EDOg1KiKhH78yqZ5ArC
+	kffVqM8emNlIhKArsujyWgnyWFGYVxyOXNCx5g5SW25Jfrm+GkWQnomEok+xQHxu+7/zcMaxLmb
+	3Tl4Xak37If44It28WlwyABCktIDAKYgd2/MVP+d6SD+9T4M9AvX/b/IAm4rggTQhbC+Gf5fLg0
+	BJTEEALsJUrzh8XcFo2DGOcFQsRvFw2AA9F5s66kfMFHv5pvN0wRCLsVK8ndOmw7w4ho19903oU
+	WZWEEl9G411HaoZUNpqpqaRcQJs6ar3fwRqVmXdglJBv+ki+0oU8VoMNY5oww16D0URZdkBSQzr
+	Jh31NfF5e95LnPrwZEBkDS6Z6P8IGs7wu0f4DzNhD7q59bA==
+X-Received: by 2002:a05:620a:31a8:b0:916:1a60:ee05 with SMTP id af79cd13be357-9161b94f702mr1639850685a.0.1781610677147;
+        Tue, 16 Jun 2026 04:51:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:31a8:b0:916:1a60:ee05 with SMTP id af79cd13be357-9161b94f702mr1639848485a.0.1781610676676;
+        Tue, 16 Jun 2026 04:51:16 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6937938a0acsm5185937a12.19.2026.06.16.04.51.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 04:51:15 -0700 (PDT)
+Message-ID: <d91431db-6f71-41a9-8912-42d74e19173b@oss.qualcomm.com>
+Date: Tue, 16 Jun 2026 13:51:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] arm64: dts: qcom: glymur: add coresight nodes
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260519-add-coresight-nodes-for-glymur-v5-1-3dad99fe31e0@oss.qualcomm.com>
+ <3c2fdcf8-957b-4b28-85b7-3a50ab8ee485@oss.qualcomm.com>
+ <a8bb974f-4886-4adb-baf1-9e6c352bc6cc@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <a8bb974f-4886-4adb-baf1-9e6c352bc6cc@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEyMCBTYWx0ZWRfXzl4pSEtMCOlv
+ bA5y+9oo0NlYkBr7LmqdcAmx/hAbDLy7aWW4wolqn9MXHCcRNfQ4fqaoPcaghYdtTnFQzqOULrV
+ 3AENvEOEe9htbLD+hyqzCaNluiRqjBXNi9+4ZCJkk1BcpnQOmQFwmcx1Xn54L69eSFPTzpjq9iC
+ 2S+G+BExL62owTK7XexaYZsaxoso6wy8h53gHUImaDkK9h1ZRM3KwP2khbXk1MfW7Hevu3r5vyV
+ M0r9n9cl6N9SX11U70ViraD4msF6DRpd3MbyaNF+sU25P/e2M/iCypd5/7oBDm11OJM2+AHde7E
+ ZxEwmGpewm2TUiFCDmdxzPnnYEupVPKblaXSmi3RgAASu6t3TuxY08O/6KNTe/SrffOI4PVKjIf
+ kQzehW4KkXXXq6QuX0ZmYR7qD341bK5mbslSLd2XNK9PqZrdTpegYyM2PhoaWlrijAqumnWkJJl
+ z+ACRKKGakCLRYCSmbw==
+X-Authority-Analysis: v=2.4 cv=JKALdcKb c=1 sm=1 tr=0 ts=6a3138b6 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=-p3cA0bc1xiosEUZoXEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: PbsIJDmS4dN7hMoKB9jEMvFEIw9uz7nQ
+X-Proofpoint-GUID: PbsIJDmS4dN7hMoKB9jEMvFEIw9uz7nQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEyMCBTYWx0ZWRfXx1L/wjfVLdfG
+ BPL9Wlr5FiDdRclA5+X4sosJJ75S+rC+fNzEYCrAQXgcnuwPHv6a7lwv5AGhaFiR0DDoVPAqWo7
+ 9TTDJUjl5slVSeqQeIEBluC5kuu55mA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160120
 
-Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
-connected via i2c.
+On 6/12/26 1:11 AM, Jie Gan wrote:
+> 
+> 
+> On 6/11/2026 5:28 PM, Konrad Dybcio wrote:
+>> On 5/19/26 3:14 PM, Jie Gan wrote:
+>>> Add CoreSight nodes to enable trace paths like TPDM->ETF/STM->ETF.
+>>> These devices are part of the AOSS, CDSP, QDSS, PCIe5, TraceNoc and
+>>> some small subsystems, such as GCC, IPCC, PMU and so on.
+>>>
+>>> Delete cti_wpss DT node on Mahua since this device will cause NoC issue
+>>> on Mahua device.
+>>
+>> Another good explanation is that it simply doesn't exist there!
+>>
+>>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>>> ---
+>>
+>> [...]
+>>
+>>
+>>> +    tpdm-cdsp-llm {
+>>
+>> Nodes without a unit address should be sorted alphabetically
+>>
+>>> +        compatible = "qcom,coresight-static-tpdm";
+>>> +        qcom,cmb-element-bits = <32>;
+>>
+>> Do these other TPDMs not have the "DSB element" as the driver
+>> calls it?
+> 
+> Depends on the design of the TPDM.
+> 
+> tpdm-cdsp-llm here only supports CMB mode.
+> 
+> There are three types of TPDM:
+> CMB only
+> DSB only
+> support both
 
-Signed-off-by: Siratul Islam <siratul.islam@linux.dev>
----
- MAINTAINERS                         |   1 +
- drivers/iio/magnetometer/Kconfig    |  11 +
- drivers/iio/magnetometer/Makefile   |   2 +
- drivers/iio/magnetometer/qmc5883l.c | 516 ++++++++++++++++++++++++++++
- 4 files changed, 530 insertions(+)
- create mode 100644 drivers/iio/magnetometer/qmc5883l.c
+OK, thank you
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1127403c579b..0f9ad3b49a5d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21792,6 +21792,7 @@ M:	Siratul Islam <siratul.islam@linux.dev>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/magnetometer/qstcorp,qmc5883l.yaml
-+F:	drivers/iio/magnetometer/qmc5883l.c
- 
- QT1010 MEDIA DRIVER
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/iio/magnetometer/Kconfig b/drivers/iio/magnetometer/Kconfig
-index fb313e591e85..615564174086 100644
---- a/drivers/iio/magnetometer/Kconfig
-+++ b/drivers/iio/magnetometer/Kconfig
-@@ -198,6 +198,17 @@ config INFINEON_TLV493D
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called tlv493d.
- 
-+config QMC5883L
-+	tristate "QST QMC5883L 3-Axis Magnetic Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say Y here to add support driver for QST QMC5883L 3-Axis
-+	  Magnetic Sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called qmc5883l.
-+
- config SENSORS_HMC5843
- 	tristate
- 	select IIO_BUFFER
-diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
-index 5bd227f8c120..552682555d86 100644
---- a/drivers/iio/magnetometer/Makefile
-+++ b/drivers/iio/magnetometer/Makefile
-@@ -26,6 +26,8 @@ obj-$(CONFIG_IIO_ST_MAGN_SPI_3AXIS) += st_magn_spi.o
- 
- obj-$(CONFIG_INFINEON_TLV493D)		+= tlv493d.o
- 
-+obj-$(CONFIG_QMC5883L)			+= qmc5883l.o
-+
- obj-$(CONFIG_SENSORS_HMC5843)		+= hmc5843_core.o
- obj-$(CONFIG_SENSORS_HMC5843_I2C)	+= hmc5843_i2c.o
- obj-$(CONFIG_SENSORS_HMC5843_SPI)	+= hmc5843_spi.o
-diff --git a/drivers/iio/magnetometer/qmc5883l.c b/drivers/iio/magnetometer/qmc5883l.c
-new file mode 100644
-index 000000000000..e1addcaf0551
---- /dev/null
-+++ b/drivers/iio/magnetometer/qmc5883l.c
-@@ -0,0 +1,516 @@
-+// SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-+/*
-+ * Support for QST QMC5883L 3-Axis Magnetic Sensor on I2C bus.
-+ *
-+ * Copyright (C) 2026 Siratul Islam <siratul.islam@linux.dev>
-+ *
-+ * Datasheet available at
-+ * <https://www.qstcorp.com/upload/pdf/202512/13-52-04%20QMC5883L%20Datasheet%20Rev.%20B.pdf>
-+ *
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bits.h>
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/time.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#include <asm/byteorder.h>
-+
-+#define QMC5883L_REG_X_LSB	0x00
-+#define QMC5883L_REG_STATUS1	0x06
-+#define QMC5883L_REG_CTRL1	0x09
-+#define QMC5883L_REG_CTRL2	0x0A
-+#define QMC5883L_REG_SET_RESET	0x0B
-+#define QMC5883L_REG_ID		0x0D
-+
-+#define QMC5883L_CHIP_ID	0xFF
-+
-+#define QMC5883L_MODE_MASK	GENMASK(1, 0)
-+#define QMC5883L_ODR_MASK	GENMASK(3, 2)
-+#define QMC5883L_RNG_MASK	GENMASK(5, 4)
-+#define QMC5883L_OSR_MASK	GENMASK(7, 6)
-+
-+#define QMC5883L_MODE_STANDBY	0x00
-+#define QMC5883L_MODE_CONT	0x01
-+
-+#define QMC5883L_ODR_10HZ	0x00
-+#define QMC5883L_ODR_50HZ	0x01
-+#define QMC5883L_ODR_100HZ	0x02
-+#define QMC5883L_ODR_200HZ	0x03
-+
-+#define QMC5883L_RNG_2G		0x00
-+#define QMC5883L_RNG_8G		0x01
-+
-+#define QMC5883L_OSR_512	0x00
-+#define QMC5883L_OSR_256	0x01
-+#define QMC5883L_OSR_128	0x02
-+#define QMC5883L_OSR_64		0x03
-+
-+#define QMC5883L_STATUS_DRDY	BIT(0)
-+#define QMC5883L_STATUS_OVL	BIT(1)
-+
-+#define QMC5883L_SET_RESET_VAL	BIT(0)
-+#define QMC5883L_INT_DISABLE	BIT(0)
-+#define QMC5883L_SOFT_RESET	BIT(7)
-+
-+/* POR completion time max per datasheet */
-+#define QMC5883L_PORT_US	350
-+
-+struct qmc5883l_data {
-+	struct regmap *regmap;
-+	/*
-+	 * Protect data->range/odr/osr.
-+	 * Protect poll and read during measurement.
-+	 */
-+	struct mutex mutex;
-+	u8 range;
-+	u8 odr;
-+	u8 osr;
-+};
-+
-+enum qmc5883l_chan {
-+	QMC5883L_AXIS_X,
-+	QMC5883L_AXIS_Y,
-+	QMC5883L_AXIS_Z
-+};
-+
-+static const int qmc5883l_odr_avail[] = { 10, 50, 100, 200 };
-+
-+static const int qmc5883l_osr_avail[] = { 512, 256, 128, 64 };
-+
-+static const int qmc5883l_scales[][2] = {
-+	[QMC5883L_RNG_2G] = { 0, 83333 },
-+	[QMC5883L_RNG_8G] = { 0, 333333 },
-+};
-+
-+static int qmc5883l_take_measurement(struct iio_dev *indio_dev, int index,
-+				     int *val)
-+{
-+	struct qmc5883l_data *data = iio_priv(indio_dev);
-+	unsigned int status;
-+	__le16 buf[3];
-+	int ret;
-+
-+	guard(mutex) (&data->mutex);
-+
-+	/* 50ms headroom over the slowest ODR (10Hz) */
-+	ret = regmap_read_poll_timeout(data->regmap,
-+				       QMC5883L_REG_STATUS1,
-+				       status, (status & QMC5883L_STATUS_DRDY),
-+				       2 * USEC_PER_MSEC, 150 * USEC_PER_MSEC);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_bulk_read(data->regmap, QMC5883L_REG_X_LSB, buf,
-+			       sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	if (status & QMC5883L_STATUS_OVL)
-+		return -ERANGE;
-+
-+	*val = (s16)le16_to_cpu(buf[index]);
-+
-+	return 0;
-+}
-+
-+static int qmc5883l_read_raw(struct iio_dev *indio_dev,
-+			     const struct iio_chan_spec *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct qmc5883l_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = qmc5883l_take_measurement(indio_dev, chan->address, val);
-+		if (ret)
-+			return ret;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE: {
-+		guard(mutex)(&data->mutex);
-+
-+		*val = qmc5883l_scales[data->range][0];
-+		*val2 = qmc5883l_scales[data->range][1];
-+
-+		return IIO_VAL_INT_PLUS_NANO;
-+	}
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		guard(mutex)(&data->mutex);
-+
-+		switch (data->odr) {
-+		case QMC5883L_ODR_200HZ:
-+			*val = 200;
-+			break;
-+		case QMC5883L_ODR_100HZ:
-+			*val = 100;
-+			break;
-+		case QMC5883L_ODR_50HZ:
-+			*val = 50;
-+			break;
-+		case QMC5883L_ODR_10HZ:
-+			*val = 10;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		return IIO_VAL_INT;
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		guard(mutex)(&data->mutex);
-+
-+		switch (data->osr) {
-+		case QMC5883L_OSR_64:
-+			*val = 64;
-+			break;
-+		case QMC5883L_OSR_128:
-+			*val = 128;
-+			break;
-+		case QMC5883L_OSR_256:
-+			*val = 256;
-+			break;
-+		case QMC5883L_OSR_512:
-+			*val = 512;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		return IIO_VAL_INT;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc5883l_write_raw(struct iio_dev *indio_dev,
-+			      const struct iio_chan_spec *chan,
-+			      int val, int val2, long mask)
-+{
-+	struct qmc5883l_data *data = iio_priv(indio_dev);
-+	u8 rng, osr, odr;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE: {
-+		if (val != 0)
-+			return -EINVAL;
-+
-+		if (val2 == qmc5883l_scales[QMC5883L_RNG_2G][1])
-+			rng = QMC5883L_RNG_2G;
-+		else if (val2 == qmc5883l_scales[QMC5883L_RNG_8G][1])
-+			rng = QMC5883L_RNG_8G;
-+		else
-+			return -EINVAL;
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC5883L_REG_CTRL1,
-+					 QMC5883L_RNG_MASK,
-+					 FIELD_PREP(QMC5883L_RNG_MASK, rng));
-+		if (ret)
-+			return ret;
-+
-+		data->range = rng;
-+
-+		return 0;
-+	}
-+	case IIO_CHAN_INFO_SAMP_FREQ: {
-+		switch (val) {
-+		case 200:
-+			odr = QMC5883L_ODR_200HZ;
-+			break;
-+		case 100:
-+			odr = QMC5883L_ODR_100HZ;
-+			break;
-+		case 50:
-+			odr = QMC5883L_ODR_50HZ;
-+			break;
-+		case 10:
-+			odr = QMC5883L_ODR_10HZ;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC5883L_REG_CTRL1,
-+					 QMC5883L_ODR_MASK,
-+					 FIELD_PREP(QMC5883L_ODR_MASK, odr));
-+		if (ret)
-+			return ret;
-+
-+		data->odr = odr;
-+
-+		return 0;
-+	}
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
-+		switch (val) {
-+		case 64:
-+			osr = QMC5883L_OSR_64;
-+			break;
-+		case 128:
-+			osr = QMC5883L_OSR_128;
-+			break;
-+		case 256:
-+			osr = QMC5883L_OSR_256;
-+			break;
-+		case 512:
-+			osr = QMC5883L_OSR_512;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_update_bits(data->regmap, QMC5883L_REG_CTRL1,
-+					 QMC5883L_OSR_MASK,
-+					 FIELD_PREP(QMC5883L_OSR_MASK, osr));
-+		if (ret)
-+			return ret;
-+
-+		data->osr = osr;
-+
-+		return 0;
-+	}
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc5883l_read_avail(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       const int **vals, int *type, int *length,
-+			       long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SAMP_FREQ:
-+		*vals = qmc5883l_odr_avail;
-+		*type = IIO_VAL_INT;
-+		*length = ARRAY_SIZE(qmc5883l_odr_avail);
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
-+		*vals = qmc5883l_osr_avail;
-+		*type = IIO_VAL_INT;
-+		*length = ARRAY_SIZE(qmc5883l_osr_avail);
-+		return IIO_AVAIL_LIST;
-+	case IIO_CHAN_INFO_SCALE:
-+		*vals = (const int *)qmc5883l_scales;
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+		*length = ARRAY_SIZE(qmc5883l_scales) * 2;
-+		return IIO_AVAIL_LIST;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int qmc5883l_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				      struct iio_chan_spec const *chan,
-+				      long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return IIO_VAL_INT;
-+	}
-+}
-+
-+static const struct iio_info qmc5883l_info = {
-+	.read_raw = qmc5883l_read_raw,
-+	.write_raw = qmc5883l_write_raw,
-+	.read_avail = qmc5883l_read_avail,
-+	.write_raw_get_fmt = qmc5883l_write_raw_get_fmt,
-+};
-+
-+static int qmc5883l_init(struct qmc5883l_data *data)
-+{
-+	struct regmap *regmap = data->regmap;
-+	unsigned int reg;
-+	int ret;
-+
-+	ret = regmap_read(regmap, QMC5883L_REG_ID, &reg);
-+	if (ret)
-+		return ret;
-+
-+	/* Not failing because rev 1.0 had this register reserved */
-+	if (reg != QMC5883L_CHIP_ID)
-+		dev_warn(regmap_get_device(regmap),
-+			 "Unknown chip id: 0x%02x, continuing\n", reg);
-+
-+	ret = regmap_write(regmap, QMC5883L_REG_CTRL2, QMC5883L_SOFT_RESET);
-+	if (ret)
-+		return ret;
-+
-+	fsleep(QMC5883L_PORT_US);
-+
-+	/* DRDY pin no used in this version of the driver */
-+	ret = regmap_write(regmap, QMC5883L_REG_CTRL2, QMC5883L_INT_DISABLE);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(regmap, QMC5883L_REG_SET_RESET, QMC5883L_SET_RESET_VAL);
-+	if (ret)
-+		return ret;
-+
-+	data->odr = QMC5883L_ODR_50HZ;
-+	data->range = QMC5883L_RNG_2G;
-+	data->osr = QMC5883L_OSR_64;
-+
-+	return regmap_write(regmap, QMC5883L_REG_CTRL1,
-+			    FIELD_PREP(QMC5883L_MODE_MASK, QMC5883L_MODE_CONT) |
-+			    FIELD_PREP(QMC5883L_ODR_MASK, data->odr) |
-+			    FIELD_PREP(QMC5883L_RNG_MASK, data->range) |
-+			    FIELD_PREP(QMC5883L_OSR_MASK, data->osr));
-+}
-+
-+static void qmc5883l_power_down_action(void *priv)
-+{
-+	struct qmc5883l_data *data = priv;
-+
-+	regmap_update_bits(data->regmap, QMC5883L_REG_CTRL1,
-+			   QMC5883L_MODE_MASK,
-+			   FIELD_PREP(QMC5883L_MODE_MASK, QMC5883L_MODE_STANDBY));
-+}
-+
-+static bool qmc5883l_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	return reg <= QMC5883L_REG_STATUS1;
-+}
-+
-+static bool qmc5883l_writable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case QMC5883L_REG_CTRL1:
-+	case QMC5883L_REG_CTRL2:
-+	case QMC5883L_REG_SET_RESET:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static const struct regmap_config qmc5883l_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = QMC5883L_REG_ID,
-+	.cache_type = REGCACHE_MAPLE,
-+	.volatile_reg = qmc5883l_volatile_reg,
-+	.writeable_reg = qmc5883l_writable_reg
-+};
-+
-+#define QMC5883L_CHANNEL(_axis)                                \
-+	{                                                      \
-+		.type = IIO_MAGN,                              \
-+		.modified = 1,                                 \
-+		.channel2 = IIO_MOD_##_axis,                   \
-+		.address = QMC5883L_AXIS_##_axis,              \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),  \
-+		.info_mask_shared_by_type =                    \
-+			BIT(IIO_CHAN_INFO_SCALE) |             \
-+			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-+		.info_mask_shared_by_type_available =          \
-+			BIT(IIO_CHAN_INFO_SCALE) |             \
-+			BIT(IIO_CHAN_INFO_SAMP_FREQ) |         \
-+			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO), \
-+	}
-+
-+static const struct iio_chan_spec qmc5883l_channels[] = {
-+	QMC5883L_CHANNEL(X),
-+	QMC5883L_CHANNEL(Y),
-+	QMC5883L_CHANNEL(Z)
-+};
-+
-+static int qmc5883l_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct qmc5883l_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	regmap = devm_regmap_init_i2c(client, &qmc5883l_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "regmap initialization failed\n");
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to enable VDD regulator\n");
-+
-+	ret = devm_regulator_get_enable(dev, "vddio");
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to enable VDDIO regulator\n");
-+
-+	fsleep(QMC5883L_PORT_US);
-+
-+	data = iio_priv(indio_dev);
-+	data->regmap = regmap;
-+
-+	ret = devm_mutex_init(dev, &data->mutex);
-+	if (ret)
-+		return ret;
-+
-+	indio_dev->name = "qmc5883l";
-+	indio_dev->info = &qmc5883l_info;
-+	indio_dev->channels = qmc5883l_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(qmc5883l_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = qmc5883l_init(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "qmc5883l init failed\n");
-+
-+	ret = devm_add_action_or_reset(dev, qmc5883l_power_down_action, data);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct of_device_id qmc5883l_match[] = {
-+	{ .compatible = "qstcorp,qmc5883l" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, qmc5883l_match);
-+
-+static const struct i2c_device_id qmc5883l_id[] = {
-+	{ .name = "qmc5883l" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, qmc5883l_id);
-+
-+static struct i2c_driver qmc5883l_driver = {
-+	.driver = {
-+		.name = "qmc5883l",
-+		.of_match_table = qmc5883l_match,
-+	},
-+	.id_table = qmc5883l_id,
-+	.probe = qmc5883l_probe
-+};
-+module_i2c_driver(qmc5883l_driver);
-+
-+MODULE_DESCRIPTION("QST QMC5883L 3-Axis Magnetic Sensor driver");
-+MODULE_AUTHOR("Siratul Islam <siratul.islam@linux.dev>");
-+MODULE_LICENSE("Dual BSD/GPL");
--- 
-2.54.0
-
+Konrad
