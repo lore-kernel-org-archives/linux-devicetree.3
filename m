@@ -1,240 +1,203 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C537047AF5D
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 17:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25BE356766;
+	Tue, 16 Jun 2026 17:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781631068; cv=none; b=lUT4fmkKfPOrIy+O8nQU46m0EAK9gbZnzFV42i1Z5eYx/yoQRwel81wF+D9YM1eZcZ2S8wZJZYzSug38Qcs9p/Pix+mtHrmGIV8lmD18KduHdaGPDx6NbCmT2oc0b67lGeQ/CpoZ1IprebcavaG3gvEVsyE0w8KA6e3fSvnoxWw=
+	t=1781632793; cv=none; b=USE/AwJdCHeZeJiSj8Bz5RdNj7N6vqJ10HEOGOtufR64kP1fv/24LXmRwdh8Dy5ap2iCuJHW32qTam24N23Rske1WphQ/OTH0KKhrM9MlI/Nb3HFAKrfPrIRkYd4x8jVUXifPxf1ScgoFFgHnGODlLCmiWOFQY0mwN5f8wKFZbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781631068; c=relaxed/simple;
-	bh=7wN6KFQ63zy7Pi56yP46VHM+3T2LvLOCz0Ue4+tT8e4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=BtTjFLzo3vatJGcRs08twnPNgWRJlyaYYH6kM8L0NEDjxgNRrzp46j30Jqtz+HnhJ+0zbYjq60CWMse060P3rKcHBP/4zTpAregdr252fMZYswAB5/3e1BM1vBAU58AFpSdfW/lhvt2X/FHWzGQ+757wTIwuN08LGAYAXTd68xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrrLHhyW; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781632793; c=relaxed/simple;
+	bh=oDAJ6BkBLht2O3ozAZLw/7x6RyjFOVByMdZ86HloKGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ubUGvkh1ggcBV32E6BG+2LsxukFJZYjvTSpqGc3vkHPdv/PrmvgpgJAQtCsPvg8EOUI9ZNQ9nsWHQJ601kMBs6dQiRTbClbNZ/wBIauYbkEmjDBxz3XvtrEbgPuq2G1nHiE6Brl2a8oHVVZ5hIsMQivE/CpGU13iztDj5k/IUOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=2brQOGfK; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FUAUFrRd; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrrLHhyW"
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-59ecd51117dso67002e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:31:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781631066; x=1782235866; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TusoqYXQtC7ZEmYrVS88Qf1B/mtpW5yAVVSfmOzzRUo=;
-        b=GrrLHhyWfLp4E+g7W27h5MbIa/bxTm1Mw65Fi7mjXKSKpw9jeBkb97bCFdLUT6svDh
-         7Zd9g2VrRvNNEldCBNVvvgzgsbskxgDhVoQnhr6do16mmV9fxv1TBxuNy+wsYBCnBOl/
-         ViCgPW6j9oaBZH5VicdpAD+Hw8RLHGeqD1O7oL7XBqZlsr/4trYvLHnARNSM3DG7+EZC
-         4cjBYOXgQCOJULYYk6Qb8hvA2xPDb2HbrZbx7Uwk1HXFOyAveqT89isaq+vpfxrFkmRc
-         pCTIBAiaaeyjMpaQWlzkMl2QgT0wNDU2gMUePc7IYHUHbQfJEbwNvFDshQ/R+7isv/iC
-         hEnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781631066; x=1782235866;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TusoqYXQtC7ZEmYrVS88Qf1B/mtpW5yAVVSfmOzzRUo=;
-        b=DpdL9Bl4JBQlUzOl0cKStCLvkiej+A4i7UzWo0IEd7FfxIAut4ja1sDoEYoZjFOElz
-         sAK/GOwm2WPnP4OUGMvDhjNd7NDb/oS2JP51rU4RMz6UG8ZanYgaQf3Qics88R8sojxl
-         zFXhiemGBw5WLwqkTMYiXtR4LDJ4o/vZmXYJFxMTsVqzBQGqQEKMyKnUYnW7jUpS6/dH
-         rLtH13Ad0pKmviXtCh4l2XIi9QKGJsgJJvdRnMW68jz/O6vqbVTGg49uQOG5BwpHmdck
-         JgpO1a/BGNf33XMhzcpju5beBrb3I5sQv7HhNTIuOJhYgnslvNLcp++HSOj+mmKo5mto
-         WksQ==
-X-Forwarded-Encrypted: i=1; AFNElJ90HJIZ/ogAbtauZtIiFbslzZNOFXlSSjaxT8qgtPTJSAtpHSkl/6wFSDg5QXev7+xIbv/piHDQxvQW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq4eDme5589Ca1uI05BHBQbAofOvBVhwNEcsiseGptPSew7u1b
-	reDBvUB3qXme2cRmTZvtQltA2Bit4zb5oxaxHiMzmayiWi2zzd90CGo8
-X-Gm-Gg: Acq92OGVcXn0AU+68VEvW0dMiHLhi6tFoZw1fCfMXvoVL8yNDu4gPwuR4qHe/6stz/l
-	EKdP3KicWBcQZPUeNF+xG6V4EWm1mTyjEXFkBvpY7kIaGDKjc7NQifJZqW+nJsLvt/vyRpTwLar
-	cHP+odYG4aY1sMp9NtI5N4e1+4rQVESR51BZE/OwPBwRmD53O6trz8fL5oSb5DRgg0p3jj0PaWC
-	my2yIPbRfDBUIWdlTjS9+2DsI6EyUCiK7awaolCyVZs0XnREdSUl/wJ01Vd9p1vW9yJpryodZuK
-	VDTQEPzpRkESJsH+i5lv4dCVHJIp/9rKYClUUKqs6uDnav+tufihsGyNALdVaTuwOhAOyDlQ3le
-	2OZ2etE07o4Ynl5eBmTXdqCxg3G/13pA8OhMr5fuQgCRj53gH+Ct3evzq46xuowU+uY0opMbreI
-	nQ5JxOKWWAaubBHQ==
-X-Received: by 2002:a05:6122:3486:b0:575:f155:8cd4 with SMTP id 71dfb90a1353d-5bbbdc1651bmr455091e0c.0.1781631065662;
-        Tue, 16 Jun 2026 10:31:05 -0700 (PDT)
-Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bb901ac4d6sm6540419e0c.13.2026.06.16.10.31.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 10:31:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="2brQOGfK";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FUAUFrRd"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 927631D00047;
+	Tue, 16 Jun 2026 13:59:50 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Tue, 16 Jun 2026 13:59:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm3; t=1781632790; x=1781719190; bh=2K
+	HqdAQvS6LYGq9BigDCPJUQFQ0+SZhsyyRYGHPKzOs=; b=2brQOGfKVLiD3sGEhd
+	vKnJ4l7KqAvkKyO3MOFb2QXZ8xk0QVFLlEm+fDhOs7LbTXwGxxQ5DG9zraFAjcxA
+	JJA6nUOf7tT1XO2spcUAuHkFXMmLlPe4LCZSrGHuj7uyM3CjPF5eZkffNQcvvUKY
+	ZVWAmFwj8hwmFD6CHyXTGPO8prfx4MErwI+SqFpLHm3r1d2QLQ6ePIgWIUjoN14U
+	T84Y9+LBNsCqrFYeEftqj+UpjPpu8kq7B0bDs1yUXqYh3pOqimuzguPniTMd9WUe
+	HfXGiLTT3xK92CYLamkOipbazg6OUn5HSianHvGhmIbgPcCiXy/9yOJYmLqvPhLr
+	WMhA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1781632790; x=1781719190; bh=2KHqdAQvS6LYGq9BigDCPJUQFQ0+
+	SZhsyyRYGHPKzOs=; b=FUAUFrRdw0df3ehoPtkWKF3HsqJMu6wO5Gx7zU2Ozm66
+	0ppiJ74MUkz3xb1W23EfkUwop55cikaZCcsNNSGiSWQCrEX1Q36Flie77+cdAxEL
+	nb995MqFHIr9hOT1WK6gcpqGv7pHg7VnrqjbloyA3sDBeRszi8Lai6pPkFotQb2G
+	8QfHDI6nICXndz2jG1rSk+JNt9+8155etn8gydpsonMwTXFxuce5VUnqd0/+Xa/c
+	lUOyJ7keoFfvaD6YEwIuLcDmuEavUTfbuTLVD9oDPhJuNbLqCLYWwbTuaAEEC/xQ
+	1gDB4hAf8zljg6mCn1u5a278zx1JHrUdISOeByAOZQ==
+X-ME-Sender: <xms:FY8xasdjQFturD8kGbWS1alJ_Xgjm3B1BOMNf527q-aeHoKJjNCaag>
+    <xme:FY8xaqgPBe9amh7xJaz8bqCWAYsnVKsL5sasgCpXh5loN2TuFRheVv_XPZA2PmluI
+    RFVcCwfHuMdsSyyRBvjYXEzIQOmlQZdtiUsrjm7suRHX-_O2ivTyg>
+X-ME-Received: <xmr:FY8xavI8Dipt10N9OtJ5Ci-1ZNX_CnBXkDV1blQy7WRgW7l7F85vbTS1AXMAnkU5ytM0QjMh6l0WDV53uMwCq7_xtVIa>
+X-ME-Proxy-Cause: dmFkZTFZzyQWraOnST6FuDBlHu3xHOEH2q3xdoju3GmHJ9O+ktDvIl7h/6KkwZA+sIw1K6
+    tX+BvuEZo0yWeRvKtd1fUdkREWavinalVe9+ePjYvGL63Fz0KKTVFBCe47T8ru2qH5Uf74
+    AEfJmsTCJS66cT/v46iyiovOmg/KjHn9wwBXq07BGa0ITIClrTYrDXVni51h3b4GYiLAtC
+    wxaAZ/b0hHorrpP51lEQfpyd6FjzzYAyJRTm5wr2syUFR6Nyesl4p2mFxDz/+9BEgh0IID
+    WOCd96YyJmBe3X4nW265gJBJpVvOjYom2yIcMhTBEPOtSnK26tM0F/TUJsIn7gO7BUBBTe
+    TtA64UEAmph0guL9fnWq2kxZ1Z+OoOSegkGWd21PFa7RG7iXF1k6OmD+YQR9Tv5mCcZEre
+    NTZk7GmvvkSNmQuUtrqt0Vy0A76O9E0DyuSra0TTtMeYqUUy7S9E3TcbE6ToEGk9v2Sq2f
+    DkdO3HQiRwtSl7vhmrMrVgiV3Tt/yuw7bhYogqjsJJ7AoTQ0NbQfd7vfe6JzqYkGqhEXfb
+    TyTJ4m2AhndT36/nLgwLR786nMoY1wIiQWglXjEY3geXQFM/SmfAeoFiKnAU6gKyoyonL2
+    uNnINl4DrEJQF8xkI699Pev2P7LQw8m6rTuBaw4td6cELSlvNWy17WcAxPhg
+X-ME-Proxy: <xmx:FY8xavEdLgccP0tQo3c23--KblonfH0GspMq_4om0I2hsdR8bql09Q>
+    <xmx:FY8xat3hltiaP0yBysvLR7qoFZIVtVMnpRU3YC0h71C9JAB-1tckAw>
+    <xmx:FY8xauyRjMfCk5Dwqm_0VJmX__YltLM2Q1siPLp7_2CRWLEnQkOJkw>
+    <xmx:FY8xakjcQ3xj4ENwTFO1XrYuHjpEr7JuPdNq9lDP0Pec04q1lvlDGw>
+    <xmx:Fo8xaroGMPGGJwMBuDMcsNBcm9L_KEqDsS6G_bWOrXTp6YwXPnbTMv4Q>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 13:59:49 -0400 (EDT)
+From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Frank Binns <frank.binns@imgtec.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Matt Coster <matt.coster@imgtec.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org
+Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH v2 0/2] arm64: dts: renesas: Describe GPU on D3
+Date: Tue, 16 Jun 2026 19:58:33 +0200
+Message-ID: <20260616175835.2109336-1-niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 16 Jun 2026 12:31:03 -0500
-Message-Id: <DJANI38U2UC6.2RX60CFL2K7DE@gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
-From: "Kurt Borja" <kuurtb@gmail.com>
-To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
- <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: "Nguyen Minh Tien" <zizuzacker@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
- <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
- <DJA1PXNS9SFP.VAURJH1MR9BK@gmail.com>
- <88f29dc3-7929-4d94-a1bc-6268c41ee3dd@baylibre.com>
-In-Reply-To: <88f29dc3-7929-4d94-a1bc-6268c41ee3dd@baylibre.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue Jun 16, 2026 at 10:22 AM -05, David Lechner wrote:
-> On 6/15/26 7:26 PM, Kurt Borja wrote:
->> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:
->>> Add new bindings for ti,ads122c14 and similar devices.
->>>
->>> This is an ADC that is primarily intended for use with temperature
->>> sensors. There are a few unusual properties because of this. In
->>> particular, the reference voltage source and current output requirement=
-s
->>> can be different for each measurement, so these are included in the
->>> channel bindings.
->>>
->>> The REFP/REFN reference voltage is usually just connected to a resistor
->>> that is being driven by the ADC's current outputs, so there is special
->>> property for this case rather than requiring a regulator to be defined
->>> to represent that.
->>>
->>> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
->>> have preferred an enum of strings).
->>>
->>> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
->>> ---
->>>  .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 224 +++++++++++++=
-++++++++
->>>  MAINTAINERS                                        |   7 +
->>>  include/dt-bindings/iio/adc/ti,ads112c14.h         |  11 +
->>>  3 files changed, 242 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yam=
-l b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->>> new file mode 100644
->>> index 000000000000..dc7f37cad772
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->>> @@ -0,0 +1,224 @@
->>=20
->> [...]
->>=20
->>> +patternProperties:
->>> +  ^channel@[0-7]$:
->>> +    $ref: adc.yaml
->>> +
->>> +    unevaluatedProperties: false
->>> +
->>> +    properties:
->>> +      reg:
->>> +        maximum: 16 # arbitrary limit, channel@ can be any combination=
- of AIN0-AIN7
->>> +
->>> +      single-channel:
->>> +        maximum: 7
->>> +
->>> +      diff-channels:
->>> +        items:
->>> +          maximum: 7
->>> +
->>> +      bipolar:
->>> +        description:
->>> +          Set this flag if the differential input can be negative.
->>> +
->>> +      excitation-channels:
->>=20
->> I noticed this doesn't have the "ti," prefix. Is your plan to add this
->> to adc.yaml?
->
-> I hadn't really though about it. I guess it could make sense.
+Hello,
 
-I think it would be valuable, given that TI is producing quite a few of
-this kind of devices.
+This series adds the needed bindings to operate the PowerVR GPU on R-Car
+D3 SoC.
 
->
->>=20
->> Also, do you think excitation-pins might be a better name?
->
-> I used -channels to match e.g. diff-channels. The same values apply to
-> both properties.
->
->>=20
->>> +        description: AINx pins used as current output.
->>> +        $ref: /schemas/types.yaml#/definitions/uint32-array
->>> +        minItems: 1
->>> +        maxItems: 2
->>> +        items:
->>> +          maximum: 7
->>> +
->>> +      excitation-current-microamp:
->>> +        description: The current output of the excitation channels in =
-microamps.
->>> +        minimum: 1
->>> +        maximum: 1000
->>> +
->>> +      current-chopping:
->>=20
->> If you agree with the above comment, I think this too should be added.
->> In that case, can we call this something like
->> excitation-current-rotation for less ambiguity?
->
-> I think excitation-channel-rotation would be fine.
+Together with the D3 clock changes [1] and a still OOT patch for the PVR
+driver [2], I'm able to load firmware.
 
-I like it.
+    powervr fd000000.gpu: [drm] loaded firmware powervr/rogue_22.67.54.30_v1.fw
+    powervr fd000000.gpu: [drm] FW version v1.0 (build 6889268 OS)
+    powervr fd000000.gpu: [drm] Unsupported quirks in firmware image
+    powervr fd000000.gpu: [drm] Unsupported enhancements in firmware image
+    powervr fd000000.gpu: [drm] Unsupported features in firmware image
+    [drm] Initialized powervr 1.0.0 for fd000000.gpu on minor 1
 
->
->>=20
->> I say this because my device has an "IDAC rotation mode", but it also ha=
-s
->> a "Chop Mode" which rotates analog inputs and averages consecutive
->> conversions.
->
-> And this one sounds like it could be named input-channel-rotation. Would
-> this also need a 2nd set of single-channel or diff-channels to the extra
-> inputs?
+I can run vulkaninfo from mesa (need to add the driver to
+pvr_drm_configs):
 
-No, just one set. It rotates the positive and negative inputs.
+    $ PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=1 meson devenv -C builddir vulkaninfo --summary
+    WARNING: powervr is not a conformant Vulkan implementation, testing use only.
+    MESA: warning: Warning: The available RAM is below the minimum required by the Vulkan specification!
+    MESA: warning: ../src/imagination/vulkan/pvr_border.c:117: FINISHME: Devices without tpu_border_colour_enhanced require entries for compressed formats to be stored in the table pre-compressed.
+    ==========
+    VULKANINFO
+    ==========
 
-I'll go with input-channel-rotation then!
+    Vulkan Instance Version: 1.4.335
 
->
->>=20
->>> +        $ref: /schemas/types.yaml#/definitions/flag
->>> +        description:
->>> +          If provided, the two excitation channels are to be used with=
- current
->>> +          chopping enabled.
->>> +
->>> +      ti,vref-source:
->>> +        description: |
->>> +          Indicates the source for the reference voltage for this chan=
-nel.
->>> +          0 - Internal 2.5V reference
->>> +          1 - Internal 1.25V reference
->>> +          2 - External reference (REFP-REFN)
->>> +          3 - AVDD as reference
->>> +
->>> +          For convenience, macros for these values are available in
->>> +          dt-bindings/iio/adc/ti,ads112c14.h.
->>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>> +        maximum: 3
->>> +        default: 0
->>> +
->>> +    dependencies:
->>> +      excitation-channels: [ excitation-current-microamp ]
->>> +      excitation-current-microamp: [ excitation-channels ]
->>> +      current-chopping: [ excitation-channels ]
->>> +
->>> +    oneOf:
->>> +      - required: [ single-channel ]
->>> +      - required: [ diff-channels ]
->>=20
->> [...]
->>=20
 
---=20
-Thanks,
- ~ Kurt
+    Instance Extensions: count = 20
+    -------------------------------
+    VK_EXT_debug_report                    : extension revision 10
+    VK_EXT_debug_utils                     : extension revision 2
+    VK_EXT_headless_surface                : extension revision 1
+    VK_EXT_surface_maintenance1            : extension revision 1
+    VK_EXT_swapchain_colorspace            : extension revision 5
+    VK_KHR_device_group_creation           : extension revision 1
+    VK_KHR_display                         : extension revision 23
+    VK_KHR_external_fence_capabilities     : extension revision 1
+    VK_KHR_external_memory_capabilities    : extension revision 1
+    VK_KHR_external_semaphore_capabilities : extension revision 1
+    VK_KHR_get_display_properties2         : extension revision 1
+    VK_KHR_get_physical_device_properties2 : extension revision 2
+    VK_KHR_get_surface_capabilities2       : extension revision 1
+    VK_KHR_portability_enumeration         : extension revision 1
+    VK_KHR_surface                         : extension revision 25
+    VK_KHR_surface_protected_capabilities  : extension revision 1
+    VK_KHR_wayland_surface                 : extension revision 6
+    VK_KHR_xcb_surface                     : extension revision 6
+    VK_KHR_xlib_surface                    : extension revision 6
+    VK_LUNARG_direct_driver_loading        : extension revision 1
+
+    Instance Layers:
+    ----------------
+
+    Devices:
+    ========
+    GPU0:
+	    apiVersion         = 1.2.330
+	    driverVersion      = 25.99.99
+	    vendorID           = 0x1010
+	    deviceID           = 0x22054030
+	    deviceType         = PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU
+	    deviceName         = PowerVR Rogue GE8300
+	    driverID           = DRIVER_ID_IMAGINATION_OPEN_SOURCE_MESA
+	    driverName         = Imagination open-source Mesa driver
+	    driverInfo         = Mesa 26.0.0-devel (git-8fb0621f2d)
+	    conformanceVersion = 1.3.8.4
+	    deviceUUID         = 19031a08-e22f-9565-d78b-ddda8240380a
+	    driverUUID         = 48685174-7bd0-6840-5716-9d00003566aa
+    GPU1:
+	    apiVersion         = 1.4.330
+	    driverVersion      = 25.99.99
+	    vendorID           = 0x10005
+	    deviceID           = 0x0000
+	    deviceType         = PHYSICAL_DEVICE_TYPE_CPU
+	    deviceName         = llvmpipe (LLVM 21.1.4, 128 bits)
+	    driverID           = DRIVER_ID_MESA_LLVMPIPE
+	    driverName         = llvmpipe
+	    driverInfo         = Mesa 26.0.0-devel (git-8fb0621f2d) (LLVM 21.1.4)
+	    conformanceVersion = 1.3.1.1
+	    deviceUUID         = 6d657361-3236-2e30-2e30-2d6465766500
+	    driverUUID         = 6c6c766d-7069-7065-5555-494400000000
+
+I can't run test Vulkan applications such as gears as the PVR driver do
+not support all features need for GE8300, for example
+simple_internal_parameter_format_v1, see [3].
+
+1. https://lore.kernel.org/linux-renesas-soc/20260616175247.2104891-1-niklas.soderlund+renesas@ragnatech.se
+2. https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/38211#note_3177232
+3. https://gitlab.freedesktop.org/imagination/mesa/-/issues/13
+
+Niklas Söderlund (2):
+  dt-bindings: gpu: img,powervr-rogue: Document GE8300 GPU in Renesas
+    R-Car D3
+  arm64: dts: renesas: r8a77995: Add GE8300 GPU node
+
+ .../bindings/gpu/img,powervr-rogue.yaml           | 14 ++++++++++----
+ arch/arm64/boot/dts/renesas/r8a77995.dtsi         | 15 +++++++++++++++
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+-- 
+2.54.0
+
