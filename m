@@ -1,153 +1,154 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B252E88BD
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB02E88BD
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781599142; cv=none; b=Ip2jb1GX3BDhfCACdAA2zs8/spXS9JyhxBCf5YFHYqCPZAQAHBhD/J51w/ewHRRrSBvdpgu7eHNss9J1qA9YSLYARGuwy2oOuEln+aon5QwxF3ii4/xsTXH+A2L17vrE4udJG9FGU8AO/RXtTu7gDB6jaA0Lz3mNZSLaq06wY2U=
+	t=1781599150; cv=none; b=OiI2Tpq96GkmwdYcGnjf2YcT7fzdG1v4Jr12F9+cL1qEkPyzIZBWgZ/oBE28KfHoC0/88kam1z3LGn5sDnLMQ8C7TfNn9xZDvNE4XbYwGSq0elRcIc89fCPH8B1w7tX/DeoO96YWwwoJzCivu+TMh0LBwOMI81fMF2rkcfUpaMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781599142; c=relaxed/simple;
-	bh=k8aQq5wGmFAB4J4lBgkr9j72Y9UninjoFJHtA/6CKlU=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fGZiGCPW+1fz4T4TUiey6jrBBxfjdZBH9bfWw5UPUF1PKoCFnqtX+FOVZ7ouASMWnAWsQ89eqmwNW+/VCt6k5U6XcMxthFD/iLK/cjAnoz9F6FbaDCB5LnwFu46pN21grOoksTLc53xLP+Mpamp/0OBpajKqcOyi0nOsLK0tQzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=J7OZ/uPb; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781599150; c=relaxed/simple;
+	bh=67qthQB9wBmxm3ZeCIrGPjVEbE7ZYRdGnFs8xqCw+PE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=j5enMxFT/cF9vmBUQ8g0rFTvhGGwF4G7ZmQUZoc0otDP+0qUWVdh4oovW9DYpfqzyeIADVQJjvdXIdiM4KnZ3m+blmVmmjJLejLZJtoV2Ici2D7F4VMLEmI5ZOgYCy3UfI46pXI9HgppqfXQeZERZAWLxe2NPkBU3GynjnaOrvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIgmhiZq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HMLOkWEp; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="J7OZ/uPb"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49222b6e871so27719755e9.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIgmhiZq";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HMLOkWEp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781599148;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
+	b=UIgmhiZqnjjIOxU3+Hp18GP4nhFEAbgzL0m48KHbwi7DS+EnW61uf8MI4vQhskHhrKfo/T
+	Y4S7+zF8sYLPD5IloMLUOXxQ+x2WfEFw6XjMNJhY+yTsSoelvBbbGI75USaQ674kGqmR+C
+	eOoeO4cgCiLdvoG4+aIdHrS2tEvZoWA=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-695-Rh1bwwywO82QDfnYNbbuGw-1; Tue, 16 Jun 2026 04:39:07 -0400
+X-MC-Unique: Rh1bwwywO82QDfnYNbbuGw-1
+X-Mimecast-MFC-AGG-ID: Rh1bwwywO82QDfnYNbbuGw_1781599146
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-45ef616db45so3298969f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781599140; x=1782203940; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kTZp3Url2zZDdRq9wvwMvf217hOXdGlg4G7ifVPCt0M=;
-        b=J7OZ/uPbYioBaElB78mQDC8gLuglE0SIflZu864FX+21Osctd+gkjzlUrqNWORzpxR
-         OIDofk8l2k3i8E8nCtN+MtlehMgE9BQiggK5SCDy8TMNWUq795eSwo0bRunt9OPTivnO
-         A1GO4Icw/4yTOsDFycv0G8zAegc2SBABQcXb2wHquEALpuU2AcPIJUpRi4A2BPeckiuR
-         FtEKDlfmyCbXPgGB74M9IzWexkAm1POuDWUrMdkFtVYgrXIIXkpqvk68YcrQCrNBtyG+
-         C6PMzV8A5c8o1gJyJNynwnMYxyF/YHiibeQF7fZq1nhtIwBGXbJft288cPp5/Mvi4Os4
-         THAA==
+        d=redhat.com; s=google; t=1781599146; x=1782203946; darn=vger.kernel.org;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
+        b=HMLOkWEptBdMoKJS21CiE7p3yCzTN926m1zMhC+B/mrykhQMbRsnXMPDubEj8Eann+
+         y6yP648Pe++AaRnc9BNc3oB1dXoeO+XYmBksYlXAuVRagTVRzZvozjbO6ajXdULWvSax
+         vt2VJ9dVlzstNE2qcmxR88eYuvT06U76Lu8UqnJVdC2AfMh9vepj/DEoOunnB0PDEP+O
+         N7HyjOC7P4Rq+n/UEx6Dlqm7wSvVrL0US8xr/cLbEij4uGwydWHB3gjPffmBMBSbJUJF
+         L3XndI6QEX1x2ZdMUezvHGE+NNuU9CZC8n503pJSgil7L3e3p3+tLgQ4qYjT6SgMSysl
+         V8+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781599140; x=1782203940;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kTZp3Url2zZDdRq9wvwMvf217hOXdGlg4G7ifVPCt0M=;
-        b=rNdwhl8bmfMaeeeBMtQEseTmtZDaxkRmEd9vLXI88ngS7pyX57+PKizDAsOmAam5dZ
-         Qhx80A4oxWxhI0M9vCtXYpxubyxgjiLhnFFhzMWd3Zp6kr2csE++RiZXsOKNFoZ0zrBY
-         yO3rFEtunqZ6Uu7uG9b/eX3C93uvNlsOPT+TS140/NMsBfWYctsl69XZ2ZRlO2PGFg6T
-         ivOeeyWabESH0O+ObIXNbt0h+fKpYnbMfkOfC3qN5sbMn5ISHiCJHyHZpRf+7LSDLS/S
-         LKBDJJQagUwkc+QC2L5Nrc5LkzMeHW74TXR81MfUJi/LykO7mQKHTo72NGWXGVMTfzZ1
-         W0fg==
-X-Forwarded-Encrypted: i=1; AFNElJ9JjVaNDhfjF2lKAhYURcVIVYvPiy1sZhpShi4Cn5cCxZzaD+/6N1UG4E+D6UFDmzEliCvSBhFvipM2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2ScrBk5fTSjjwdBnTE5C1xJ0nkrWPh31a0gZfEM6iVFXUuvZN
-	DvMHDXChEUhAiUvfRwEMGpYBayNs6OJ0WoeZOZMH00K9Cc4LeWgIY4yAeAuu5IdVS2Q=
-X-Gm-Gg: Acq92OGt1HgpoPAzl0SQUNdodAgqeWo8VC9KL2VMG5vDglefplLXFvFGQEZtQD3mokL
-	CxPcZNAzQUHtZHjfoDMq2r95xxHCkIYnlss/cRW8FSwQmSOMeb+yL0b6rL7Vc7kzOlOHIF3AVhp
-	yU0kHQHqGonwPXzvkCh3DN6eeiFNiyss/GL4Bg8hR/Bm3ZBXuYdEcp0+/Si49bzrA27hnddVexc
-	U3ZNXZ9sdGdAwCdAKWSYjgd9YD+MnnGepxJI3y8pryXa145IZ4qTRi0gFYlE5/8oW9ZVH0gs4tq
-	4mlIQvyNVFiBp3LJaLlqyiHrXh05Uunb6g24u06a2vi5h16ig3mlry++mHkd1PLpCcLfnxP68py
-	smDcPCy0Q3AJao6SSWF62yKjh3hwVexUNl4boRdvWBDbaftSIdnVf7YbOmCje06QTJ22p0rCwO+
-	8XpNjGM4+RTrtzHpRhJ2+RPUDXdc+dMw==
-X-Received: by 2002:a05:600c:34c8:b0:492:1e36:8c4b with SMTP id 5b1f17b1804b1-4921e368c91mr191827965e9.36.1781599139730;
-        Tue, 16 Jun 2026 01:38:59 -0700 (PDT)
-Received: from [10.3.4.22] ([212.133.41.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0c10sm42736575f8f.21.2026.06.16.01.38.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 01:38:59 -0700 (PDT)
-Message-ID: <50b8d6e1-7038-4752-a200-441736dc7135@linaro.org>
-Date: Tue, 16 Jun 2026 10:38:57 +0200
+        d=1e100.net; s=20251104; t=1781599146; x=1782203946;
+        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rWhHVjmNBxttchA8qHW+tZDgQHHXjvRil6qjeh9Uq5k=;
+        b=pgVOxZwUgwdnoOff6sCMQ2SAor7GdptYDQS9F4/JhX6j6N+3ehI0HYhWtsA37WD7Cz
+         iI1EK4H6NDcUJIQfKUQSJKDXEFbLdOm15b7mu9uRf/0uJTxDwQxBJYAU4YTsDfTDeibf
+         Ehv5AD5bUjJgVr3STG+OCa/HWTJFhVSI1OybFHd93dWjHwtRBoywfUmUivanorP5W2CT
+         lvBDb6SDLn4JMHmMZVLiGGK8zEqwN9G/UCnW22jARp90uXrctP8to3r9KpGF7TvZEIp6
+         UT66n0WbE3h8FUh+SkkJY47+KZsB26SsrhdphhYjeG7tofJ/+KnZSBETOwHvxqka1AEQ
+         rTXw==
+X-Gm-Message-State: AOJu0YzLFVm+FvVTpgZs2rIeovIXBLtB2Kq982QlnopbjYcw3ILN/sAU
+	reCLEaBYVU5jTqi4vZ6Yxjy1/Oxkh/xGxSvNw2mk/h0qI0b5zAzH0sL46uvSSWglx7Ns1SXk4RU
+	hRWbvzBy59F0u5EW7pG/OsxqR73/yU8b8p7joagotWn6kooVx1r9GrzQHW4dQI8E=
+X-Gm-Gg: Acq92OGZ9sh6PX/a/4uF1jqNZBaFJnjbH+XO59Vs8Xkc0WUm4lmdw0LXEil4PM02ckY
+	MO3BYd/UWYNzeaUCgOcrx7HdR+3/aplhts2W9iitgROxj6gQ9CK7UhgtXAr7TAnaueHNWwx0kO2
+	ItoU1S5FonsFPhsQiSJJV8V8SUXS0gssw5wsII9EzxpElLPstG6sX81m0C5FjAh7PM8cQ6CuVAE
+	Oez7RI0J6F5Uw4omWQE3p3PNnV2prt9bhrvGWD+w8u0mmuzuuFGfvBD8WG1llHxrP23fqaQaqX4
+	cR1vIObI5ap+N+V7SgCHMBUuAoV9AcBPnxGwnu1OLRMkQV6OakOsIhxN0mzJXhBpIcUm43I5NQn
+	PCm68GX7Webs7qvlCo4zf83eAOrIA1iaJTmRPWYXeAoHedwqkU6QypZMrgOJ+HjFP9JcrG6CdYV
+	2pHVYP
+X-Received: by 2002:a05:6000:2584:b0:45f:f142:d563 with SMTP id ffacd0b85a97d-46074a62560mr19589166f8f.16.1781599145907;
+        Tue, 16 Jun 2026 01:39:05 -0700 (PDT)
+X-Received: by 2002:a05:6000:2584:b0:45f:f142:d563 with SMTP id ffacd0b85a97d-46074a62560mr19589127f8f.16.1781599145498;
+        Tue, 16 Jun 2026 01:39:05 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f263945sm43464472f8f.8.2026.06.16.01.39.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 01:39:04 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ tzimmermann@suse.de, Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: display: Add Solomon SSD1351 OLED
+ controller
+In-Reply-To: <20260615175620.88828-1-amit.barzilai22@gmail.com>
+References: <20260615175620.88828-1-amit.barzilai22@gmail.com>
+Date: Tue, 16 Jun 2026 10:39:03 +0200
+Message-ID: <87jyryzxp4.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 1/6] dt-bindings: clock: qcom: gcc-sm8450: Add missing
- power-domains property
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- Brian Masney <bmasney@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-0-6b5752dd4747@linaro.org>
- <20260615-topic-sm8x50-tie-gcc-to-cx-v2-1-6b5752dd4747@linaro.org>
- <1d4f3e4e-ec9e-44d0-9e4a-651b6920015c@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <1d4f3e4e-ec9e-44d0-9e4a-651b6920015c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 6/16/26 10:36, Krzysztof Kozlowski wrote:
-> On 15/06/2026 18:57, Neil Armstrong wrote:
->> In order for the GCC votes on the GDSCs it provides to be propagated
->> to CX, CX needs to be declared as power domain of the GCC.
-> 
-> I would be happier to see here short mentioning what is the effect of
-> missing votes - do things work? - as justification why required
-> property, thus ABI change, is justified.
-> 
-> The DTS patches gave me that answer, but should be here as well the best.
-> 
-> Well, don't want to stall anything here, so anyway:
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-Thanks I'll update the commit message with the same explanation as
-the DT changes.
+Hello Amit,
 
-Thanks,
-Neil
+> Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
+> RGB OLED display controller driven over a 4-wire SPI bus. The binding
+> builds on the shared solomon,ssd-common.yaml properties already used by
+> the other Solomon display controllers.
+>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+> ---
+> Changes since v1:
+> - Drop solomon,width / solomon,height: both are deducible from the
+>   compatible and are already declared (as optional) by the referenced
+>   solomon,ssd-common.yaml, so a local override is unnecessary.
+> - Drop the rotation property: it has no consumer (rotation is being removed from the driver).
+> - Use dt-bindings/gpio/gpio.h flag defines in the example
+>   (reset-gpios active-low, dc-gpios active-high).
+>
+>  .../bindings/display/solomon,ssd1351.yaml     | 41 +++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+> new file mode 100644
+> index 000000000000..39622d74a41d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/solomon,ssd1351.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Solomon SSD1351 OLED Display Controller
+> +
+> +maintainers:
+> +  - Amit Barzilai <amit.barzilai22@gmail.com>
+> +
 
-> 
->>
->> Document the missing power-domains property to that purpose.
->>
->> Fixes: 72a0ca203ca7 ("dt-bindings: clock: Add SM8450 GCC clock bindings")
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> 
-> 
-> 
-> Best regards,
-> Krzysztof
+Feel free to add me as a maintainer of this binding too since I
+maintain the ssd130x driver.
+
+It looks good to me.
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
