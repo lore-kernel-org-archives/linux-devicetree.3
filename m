@@ -1,98 +1,98 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA78D332EC8
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1472825C80E
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:33:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781613049; cv=none; b=UFK6X37P+2OaRdxHZlDqbpuTfITjreXQTcBo3rOdrknQxkrTeD3n3M1W1sfym6cQVgWNlgXvJiD4AjbiLqpUrBaXZuvhXtISSSUbMZnYFCXWRKlTkQh4Q301C+r3SFIe+HSGUJjbRAu7jjBzNHDlyfdf47uOCdjEfDUvEkwaKqw=
+	t=1781613186; cv=none; b=uW8N6iynAU8R6k6CzlGFOdVhfkpThd6uPMqwn0yxM/7WBDvHa0cU1RB4BAE+GHRAG/lRPRoicKkIZaxx+NsN9L9VUyeoZSv8pQ+jjM5gGQhJ7lOE0ot1Kyn54xuHzjjuV/cMTW6E3S+CxikWSCEF/iAwt+NOU/ZuxKCdcp+P80Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781613049; c=relaxed/simple;
-	bh=4C4mx4yhK/9O8g9uOz1/BcR20UST1jOXccEF0NCmjD8=;
+	s=arc-20240116; t=1781613186; c=relaxed/simple;
+	bh=LC2MPRRKKi7YG3GvDn89rbcy8u/XG56ENIpxJdMr+mk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iLSFGZ+eQKXXjtOrtl89WDXbabznK1GUEkSRZagOlVxi97xdSr1CRF5I+b49CJdEdoABxxavPKi4wd+JqixKThtC7AuX2Nqi9PMUWGtpl0JidVaJZoe3X1WI5zp1a4+w+3XHMn9iy3+UCR471oSdSlykuw+NqlhOAnJcre1ua8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TmhlvSa1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EZriYYX1; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=M7c4/kifIiKJ6fqlwTT4O4Zd1pK843lI9whduhzPtH1cE3zI7szPv8VpAqhqfBogfIzJP8DMf9Jbyy6Av0PPn30+NmOegG/fJleY6RXiajhc4Y0abW5dVprUbHyv+e+q17katursoY0rgjBavjwkHzalMpEHTLQOoyteF6tK7kY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UYIvM3MG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RcS2Ssnl; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TmhlvSa1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EZriYYX1"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GACI7C3411127
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:30:46 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UYIvM3MG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RcS2Ssnl"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GA9GAf2893556
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:33:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=f19SLqAgEJbQFZmj9Orm3CkK
-	Ctys9ra3vEbJzX5dQTs=; b=TmhlvSa11GRSLpJhI8UDm3kB6awbqzfruwyUPsL6
-	8SAj5G8ABY6cYxvSvFrY9Nf+duQc8TQDMu+ksIba/F91gnQrjZOSKM1AtyCvxoeJ
-	VVkJpJZL5WBM9/qN8pBF61qKgoVorsHYKMPX8afFTUQqSSYI3u+JRQf7Yfd/mKTF
-	PsGZXx+3TsDGGYHOSPG/Ndhl8rV7aFF9LyOaR6yvWJRce82qgidl2Dz44qAS5Dzr
-	4sQ773OGoh03kCz3TTSskyzGqdyx92gmEPDzkc68m2v/ocSs3e9esI7GuMBwDW92
-	tfF4PI5qps/RuXC2NOQ4zkfvDeyNs/nxa59n7xjplB40jQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu09g9r59-1
+	:references:subject:to; s=qcppdkim1; bh=Uc7tBpluxfzaCIfWGvGu3mOj
+	RdTPF+6lM7MM7zDtwag=; b=UYIvM3MGzNeen4q3DuuKHwU2zX/lU5rC4XwiSs01
+	duIvyBgbad54lT6hxzWN/0HDwoISgADaphMQB4LrdcqSMA9AHwv9ALYY8oLOUk+4
+	e08CLuPr+0mjPkICJ7mOU3gq7eBsDuEwIdZO6HajK6TRJP2HI+bXCfvmfD3Db1bp
+	m7nSMt8FFY9PgJPgkx+D7jPlRMmVRQ9kpXGSHd+PUGEk70yEbxXahEJwJdjxXykp
+	1wjG3eOCFmLdx9MnU+yh/V4RlYgz9boAkiX3R72tw/F3tkWkN54e+Z3W5jNTfLo1
+	BjaoQGO01qnQNspCw46S7ec8vYNY6Q6fNi7vhLYlYYnBSA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu253h7r7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:30:46 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8423f1fe39eso5330516b3a.1
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 05:30:46 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 12:33:04 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84240683a82so3417088b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 05:33:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781613046; x=1782217846; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781613184; x=1782217984; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=f19SLqAgEJbQFZmj9Orm3CkKCtys9ra3vEbJzX5dQTs=;
-        b=EZriYYX1BTx3nPjz9PWB6o8siQZbATUawy3or7UkW5fTC7rMxE8IzOnl7muqbSsQg2
-         LfcXbNyTSNxnpy1vmtktQGjQI5IqpF3XrFc8b0oDV0V/BB4BI98HocUBiATTpmCZkv+y
-         V34UCunXPjVQL/kP3xaSiREQmkExThkRfEecSZ1kVvLrBgBTRqLZm0ecrNimF1jnBMUL
-         iiy/Oq6NemG6zrfsrJlNJUpriyXYUPUyNGe8aBpUe0VZH8eSfGqTLWa/jJKwJHPDcBts
-         y1+3/2+nF+yvv4LnzCn9DCIJzAZ4zz91rqyd6XUJIhEeTrTCCaMlGs3uQCRgj+KP+RtX
-         hUFA==
+        bh=Uc7tBpluxfzaCIfWGvGu3mOjRdTPF+6lM7MM7zDtwag=;
+        b=RcS2SsnlZLmIJl8iYfUw+AVDLDLr7+cF896wRZP2P/hjVb5mCGeklXtd42BfgnMcDf
+         uVAceFZjob/8h2hYcbubnelsMp1AEjNVUO4LVdsUukANt4cV/0FC6ZJNwQA1zKlOSLtl
+         ayC2rjpHjGWhKQOfZsOnXg21q8YSTu8aSswOB6cCjWKIVteCWBgfEc8skDR9o/8wqKaL
+         VDvwxW+fPZZOi8S4EOeLJ3pPtE9B6P1bVznW9GoG4lT2trO/5Cx0uK6sTkM5kgISqi+3
+         tF2LtwGbZjMW7f4GFYJsfxdDz29S3iKYMGk94G92y1WGABYdEmsDRMRBPcTqpT8E0adH
+         5VcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781613046; x=1782217846;
+        d=1e100.net; s=20251104; t=1781613184; x=1782217984;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=f19SLqAgEJbQFZmj9Orm3CkKCtys9ra3vEbJzX5dQTs=;
-        b=dHI/aKeEXWT/c/04PG3Xos9Ko4uWk8/LuRSzv5cvjK12FD+rRf9YoSV4DtAo1cfj/e
-         mlnUdeVv8atGE3ecAKjy50dWPALf6SnZ1rCd5DUrX7YsZNeOkX7AWchRPgJzS3bGvsVI
-         PJdxnOHB3HEkM2TFP89bs6rYE+KB5pTWXmfGCiqAzC8CC8hbXzhwENALEQFFBDoPuy2J
-         htLPt7wxC1vVPNwFlelbI0dcJ8lYd3u3ZGeUNogLP9N3YQ+2ieQeg8Of82ZGJUvmXnO4
-         htuOeTgBUSPHOaexJC7NWnolU103dBie5SIcW9n8ly2S7TpAsvT4FLAMNjnzaKxZfLxX
-         Rz7A==
-X-Forwarded-Encrypted: i=1; AFNElJ8swKQMkmm65DnoRNRKQJI2pccHUEDX2VyYS4NfhF1YvHXtf/qWT9qaKcwohxj2c5K+9KoRDHX+zeeR@vger.kernel.org
-X-Gm-Message-State: AOJu0YyUMo6dgnCgOhfI+uT+6lypkiqMfMjLitG2vamaiDmNnfDJ4Z8B
-	bQ7WLNRobiYVWbzOBgTKP+RqoNJNWUOy1/fxTEDvqaefZdkl4RBk5TmncVFB164O7Z4fj0fJGG2
-	/fPflTA4/OlNaQIwwtyeVK/UfE3iHeKUwzcvuMdXjHELAtlBgZ9LKLt5oAm0CUo87
-X-Gm-Gg: Acq92OG035W0jbXFeZvk3uq6dVCzi0loIKtk2K95ieDolCNzguXvsYziR73xJYWbP2j
-	YBqnhYgxXzY400aRYdKm3ovoaxlCBCwncJO2yUYTnOi8caJQAFDVa/pIGs9d2f7GIgiZ/Ueg/ET
-	w+Gv1P1DF4HxTXh1e6gP+W1X5b2fCd4Mqr/cW0Jz1wRdHFTWXy00wdVxYITr5aIJc2lhD9V9dXr
-	wHRaMIPjcsoZ6AgnXwvJo+4oeHhOCq+zYxkOg+G1lQwBOhdy/P9L9KJ6j4QUWYAJHLqUYxglC3C
-	+mXFz5g00qm9A5R/QkceGsYwlBFbx1+jaes1SQFW/0C9mVlw1kj75c2ejGKtd/5y+O/K02IDRox
-	6JCxWWA0M1/3yVOENNdfJ0T8Wl9SKAEHSsuVPlaWMp8AkhCW8oVxF/ArH
-X-Received: by 2002:a05:6a00:3981:b0:82c:dfea:9e2a with SMTP id d2e1a72fcca58-845153db80bmr3338415b3a.2.1781613045628;
-        Tue, 16 Jun 2026 05:30:45 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3981:b0:82c:dfea:9e2a with SMTP id d2e1a72fcca58-845153db80bmr3338356b3a.2.1781613044983;
-        Tue, 16 Jun 2026 05:30:44 -0700 (PDT)
+        bh=Uc7tBpluxfzaCIfWGvGu3mOjRdTPF+6lM7MM7zDtwag=;
+        b=EHge9TzvCoKe7SQ0EqSoXr9rDyuCht403tzkOn0O5FFBJU4n51tcvD0SFeGAgNIAg7
+         I9z5z5I1nKz6nT7HNmbyECJN08EOQTcyuyCtpBmlPHAzJEK3W+j2wpHpEhMfumYMNNNa
+         TVNVMVgPJssq6s6Vh1JmzduSp9/FCakHhP4lGfCdNR8Yi5rEeqGNFB5Izv7eK4O26w7X
+         6qKfclhMCOvHUpzucuiMjEXBSqT8Q/+zaDjhhgIpacSiBj5l53ZJx0Hzl7XTvtg/qgiR
+         Q2Mv/CaKFwSRhTSgHDoYfjgOvS1XnmkOoFqPZGw5lDqj28b8vIzsp7yLwRopapKz450I
+         r3Hg==
+X-Forwarded-Encrypted: i=1; AFNElJ+aGYxjq87S6EEl1vWm8EufnQk1zlj6RfVg7pACgqUT3sWziXGnBdgjdn9mHBAUwdmiAuotrbs2nvNd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxYewoBZtYmQnFHHThbs49AQ+mJatQXV3jDe1KgkUzYtgRREIR
+	YOY65zz+NGVQZe/Kz5Od1JRR2djmQlSkmeYOH06vFOAokqvPYYgWbS185X/rvt6e6BjzJThu3zX
+	+Yg6BXSWesgQ0phvC6cs3evWuST6Wgacx9qYKzn0V+qgt18n2bwuJLW8b8j1LXnSM
+X-Gm-Gg: Acq92OGvI2TOJmMSVZXlLB8MIhPoc+f3do10ybYlCmcWDKeJt2vBuF7CPlJ1jaz5m3A
+	O8/2+saCyP7/I4kiU4rPAEPnxqHAqggdoo3AyzRicMny63gDKRQvEIQefDOnTQwR1JaitwxtR8M
+	98nX0QsIqF8QkmYlpT+n5zB2kHJcU/GNjwz+1QIiqoNP/nD+WhdV4MC2thLGD+XorDa1o9yZnQ2
+	wlbpFCC0Y16CSWHBDnCACpINI21yjyHebz2RAmZ5oEvhxVRhAymjU5tFkf+EDIbC2OqA6dkDayX
+	dcaHeKvhYsObYUP233ReBUlx3t3bQSyiYw+OudiJDNhQym91YKFfRrkc6PlzS/9fK4uuWRVfZkd
+	wRlTzZGAoylVGFw3viT3ux4TeWlE4Pgtx5Hm6EoT546tbbID+dzPiTI3i
+X-Received: by 2002:a05:6a00:2d05:b0:835:3861:812c with SMTP id d2e1a72fcca58-84513f23f6fmr2896387b3a.23.1781613183538;
+        Tue, 16 Jun 2026 05:33:03 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d05:b0:835:3861:812c with SMTP id d2e1a72fcca58-84513f23f6fmr2896365b3a.23.1781613183019;
+        Tue, 16 Jun 2026 05:33:03 -0700 (PDT)
 Received: from hu-mchunara-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b0112edsm11767563b3a.45.2026.06.16.05.30.39
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b055095sm15663212b3a.57.2026.06.16.05.32.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 05:30:43 -0700 (PDT)
-Date: Tue, 16 Jun 2026 18:00:36 +0530
+        Tue, 16 Jun 2026 05:33:02 -0700 (PDT)
+Date: Tue, 16 Jun 2026 18:02:56 +0530
 From: Monish Chunara <monish.chunara@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, mani@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        sarthak.garg@oss.qualcomm.com, pradeep.pragallapati@oss.qualcomm.com,
-        nitin.rawat@oss.qualcomm.com
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: monaco-evk: Enable SDHCI for SD
- Card via overlay
-Message-ID: <ajFB7FVlqp3qCA0i@hu-mchunara-hyd.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, sarthak.garg@oss.qualcomm.com,
+        pradeep.pragallapati@oss.qualcomm.com, nitin.rawat@oss.qualcomm.com
+Subject: Re: [PATCH 0/3] arm64: dts: qcom: monaco: Enable SDHCI storage
+ support
+Message-ID: <ajFCeCEsNbkcGKo9@hu-mchunara-hyd.qualcomm.com>
 References: <20260227105055.2364348-1-monish.chunara@oss.qualcomm.com>
- <20260227105055.2364348-3-monish.chunara@oss.qualcomm.com>
- <2ra2apfephjl2au6wel25gbxoxyvohf2ysq4yzaufp3xb7mtoi@g5p6asbk2fqe>
- <aaWdjuqvhpJb1oSX@hu-mchunara-hyd.qualcomm.com>
- <3aaf273a-c7da-4740-a68a-49f5d2f5309f@oss.qualcomm.com>
+ <ltuoonopd2fmxhxnfmezflwqicyagha3jchxl3inputbtnpvhm@gsgnsccr62pk>
+ <aaWgo/FYDhCVvaX/@hu-mchunara-hyd.qualcomm.com>
+ <3insznroqfkpgdspe4wj3nrxgp4igeoyawr5udscpfi66m4kmc@brssmf6olu6g>
+ <aaWnIrIMDgXAY7jo@hu-mchunara-hyd.qualcomm.com>
+ <4gg2xq7mdx7bni2acicavtq3ogwupe4ok6tehh7rmjarldwb3x@j3cgohnd764i>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -101,153 +101,115 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3aaf273a-c7da-4740-a68a-49f5d2f5309f@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEyNyBTYWx0ZWRfXyEA5SIlUQFvZ
- AamZ+VkFl1dArIqmuKr/b4fTq/fTx0wdKdH+gIpBVDhAN+s3kYSMFgL+95I6lj3MXNCT3ccA201
- Shadzc6dXCwnyQ2u0bsF5mx1GTZqVOZAtUlatcxId2u1Vu8HyCcg8SJLm8x73mFh5aiNlHac2MD
- jfjfNlRzeJqEvdywjZAQOLLCZk39AuM7RonTsVMfxmoFvBO8jLDLEW1+tVYsuQMp2XC31xx4U6o
- 8CqQ6FMJr/R6akKwtFfIc10N3tMUnpkR8ga/L76WFBwEAI7d3ICjc1Os1R+1dD0+tyurqL2clqc
- BciHi5L3SpdrExyKZi4Z4WgrG61fYkvu6JZ0u8sB6lagq7IMDl5dA9gweMhhb8xwLP0VoLl7Stg
- QdBZknc7ACK6PP7NjUbd7fwnKCvOelR3Ulyepdc3FVtldV+7WrmYsTyZf6V84g/dTET3mWT+FGn
- EmHORuv4afJoZ7+ca3Q==
-X-Proofpoint-ORIG-GUID: O8ZT14fBnYGDTXxEQFOpaumHmNaIxd-O
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEyNyBTYWx0ZWRfX0eD0dI5FOuMA
- 91zQrbflNFTnOdyt9R/XA8xBvj6eLf1f0WIgL+7+PWGEQeOw7GjP8umNxKIAm/h93w3VO0Aw6ZB
- QqnkPKUFz8b92CgtZgygiA4NPWzPzWw=
-X-Authority-Analysis: v=2.4 cv=DLa/JSNb c=1 sm=1 tr=0 ts=6a3141f6 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+In-Reply-To: <4gg2xq7mdx7bni2acicavtq3ogwupe4ok6tehh7rmjarldwb3x@j3cgohnd764i>
+X-Proofpoint-GUID: aC6Om7JanJJ32oZ5w-dSwkC10EnnewwM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDEyNyBTYWx0ZWRfX4yFxfHEu6xgz
+ LNIGT1bIS6eBdyIpnvkmT87+j5UxdMcxgLu1IGjXvYoZOTxCrJ5TRbx4yz4hRZ7Ddaz0GGlqtAi
+ XAj5xLAozshrIpsiST4d7mGDdERlGG0=
+X-Authority-Analysis: v=2.4 cv=WNdPmHsR c=1 sm=1 tr=0 ts=6a314280 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=M70xRs4N6LTtd3t2Oi4A:9 a=CjuIK1q_8ugA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: O8ZT14fBnYGDTXxEQFOpaumHmNaIxd-O
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=T0vSrIAX6HVucII9xVQA:9 a=CjuIK1q_8ugA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDEyNyBTYWx0ZWRfX5N1GogI0Gxaf
+ Cgm7WxY0yObTN/bpD+175azS33GVLcuep3Ei1LyVsFIk/BE6fNkSwipBrfPq6IS5loi/DA4RtTF
+ 7ohcH/40Xto8U9cDDfZaH5xMGkgVMu6PPvVAJ1oJi1UHa3RG9WJZW7jr8MEdPALLp1YvDmCGBeM
+ EUqx0FOwcGkBmbXnP40Sxbhzi07H5SoBI6hIftKF3U0Cmh59FWsGtfxoiIqdvQx/sA2yEVVnSpi
+ Su46hYj8fM5YpMm91CKc/rc4LLr84RKdbv2vZtvI/3+s+bqFTbCPiuK9oUyeJf5pdf1yIA7X5vv
+ Uk1SzaAyG1MWs097rZcOwGCH88n4WO0qdIK+Gchpnde6YuvmGEDJ8TYAqfQoYMxoaIOfNv8Eyai
+ pN0lnCHwr0rZmBiJibtG+0sIHmm9PSpI5K5JzKiJiqrcC8AGj+GS1A1UHMxMNxU/WWASjqsJToH
+ xrSydZJ6RcKUuCGeb9w==
+X-Proofpoint-ORIG-GUID: aC6Om7JanJJ32oZ5w-dSwkC10EnnewwM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0
- priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 adultscore=0
+ phishscore=0 impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160127
 
-On Mon, Mar 23, 2026 at 03:15:09PM +0100, Konrad Dybcio wrote:
-> On 3/2/26 3:24 PM, Monish Chunara wrote:
-> > On Fri, Feb 27, 2026 at 10:03:10PM +0200, Dmitry Baryshkov wrote:
-> >> On Fri, Feb 27, 2026 at 04:20:54PM +0530, Monish Chunara wrote:
-> >>> The monaco EVK board supports either eMMC or SD-card, but only one
-> >>> can be active at a time.
-> >>>
-> >>> Enable the SD Host Controller Interface (SDHCI) on the monaco EVK board
-> >>> to support SD Card for storage via a device tree overlay. This allows
-> >>> eMMC support to be enabled through a separate overlay when required.
-> >>>
-> >>> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
-> >>> ---
-> >>>  arch/arm64/boot/dts/qcom/Makefile             |  4 ++
-> >>>  .../boot/dts/qcom/monaco-evk-sd-card.dtso     | 72 +++++++++++++++++++
-> >>>  2 files changed, 76 insertions(+)
-> >>>  create mode 100644 arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> >>>
-> >>> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> >>> index 317af937d038..c86242a1631d 100644
-> >>> --- a/arch/arm64/boot/dts/qcom/Makefile
-> >>> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> >>> @@ -46,6 +46,10 @@ lemans-evk-el2-dtbs := lemans-evk.dtb lemans-el2.dtbo
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk.dtb
-> >>> +
-> >>> +monaco-evk-sd-card-dtbs := monaco-evk.dtb monaco-evk-sd-card.dtbo
-> >>> +dtb-$(CONFIG_ARCH_QCOM) += monaco-evk-sd-card.dtb
-> >>> +
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= msm8216-samsung-fortuna3g.dtb
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-acer-a1-724.dtb
-> >>>  dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-alcatel-idol347.dtb
-> >>> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> >>> new file mode 100644
-> >>> index 000000000000..a0bc5c47d40b
-> >>> --- /dev/null
-> >>> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
-> >>> @@ -0,0 +1,72 @@
-> >>> +// SPDX-License-Identifier: BSD-3-Clause
-> >>> +/*
-> >>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> >>> + */
-> >>> +
-> >>> +/dts-v1/;
-> >>> +/plugin/;
-> >>> +
-> >>> +#include <dt-bindings/gpio/gpio.h>
-> >>> +
-> >>> +/ {
-> >>> +        vmmc_sdc: regulator-dummy {
-> >>
-> >> No dummy regulators, please.
+On Thu, Mar 05, 2026 at 06:51:09AM +0200, Dmitry Baryshkov wrote:
+> On Mon, Mar 02, 2026 at 08:35:06PM +0530, Monish Chunara wrote:
+> > On Mon, Mar 02, 2026 at 04:47:41PM +0200, Dmitry Baryshkov wrote:
+> > > On Mon, Mar 02, 2026 at 08:07:23PM +0530, Monish Chunara wrote:
+> > > > On Fri, Feb 27, 2026 at 10:05:32PM +0200, Dmitry Baryshkov wrote:
+> > > > > On Fri, Feb 27, 2026 at 04:20:52PM +0530, Monish Chunara wrote:
+> > > > > > This series enables SDHCI storage support for both SD Card and eMMC on the
+> > > > > > Qualcomm Monaco EVK platform.
+> > > > > > 
+> > > > > > The Monaco SoC shares the SDHCI controller between SD Card and eMMC use
+> > > > > > cases. Previously, the common SoC dtsi unconditionally enabled the
+> > > > > > 'supports-cqe' property. This causes regression for SD cards, resulting
+> > > > > > in timeouts and initialization failures during the probe sequence, as
+> > > > > > the driver attempts to enable Command Queueing (CQE) logic incompatible
+> > > > > > with the SD protocol.
+> > > > > > 
+> > > > > > To resolve this and enable full storage support, this series:
+> > > > > > 
+> > > > > > 1. Moves the 'supports-cqe' property out of the common SoC dtsi. It is
+> > > > > >    now only enabled in the specific eMMC configuration where it is
+> > > > > >    supported.
+> > > > > > 2. Adds a device tree overlay to enable SD Card support (SDR/DDR modes).
+> > > > > > 3. Adds a device tree overlay to enable eMMC support. This configuration
+> > > > > >    also explicitly disables the UFS controller to prevent power leakage,
+> > > > > >    as the VCC regulator is shared between the UFS and eMMC rails on this
+> > > > > >    platform.
+> > > > > > 
+> > > > > > Validated on Qualcomm Monaco EVK with both SD Card and eMMC modules.
+> > > > > > 
+> > > > > > Monish Chunara (3):
+> > > > > >   arm64: dts: qcom: monaco: Move eMMC CQE support from SoC to board DT
+> > > > > >   arm64: dts: qcom: monaco-evk: Enable SDHCI for SD Card via overlay
+> > > > > >   arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
+> > > > > 
+> > > > > You are adding two overlays. But what does it mean? Does EVK has no uSD
+> > > > > / eMMC at all, having both attachable via some kind of mezzanine? Is one
+> > > > > of them attachable? Or are both cases present onboard with the correct
+> > > > > one being selected by the DIP switch?
+> > > > > 
+> > > > 
+> > > > The monaco EVK has both storage devices present onboard and the desired one is
+> > > > selected via a DIP switch. The overlay selection logic would be based on a
+> > > > fitImage metadata entry that gets populated at UEFI level by determining the
+> > > > currently selected storage device (eMMC/SD) on the device.
+> > > > 
+> > > > Hence, this approach becomes robust to enable the user for using either of the
+> > > > two mediums, without any additional requirement of reflashing any images.
+> > > 
+> > > You are answering a different question :-)
+> > > 
+> > > Let me formulate my question as a review comment:
+> > > - identify the default DIP switch position
+> > > - squash corresponding dtso into the dts
+> > > - leave only the default dts and non-default dtso to be applied by UEFI
+> > >   if necessary.
+> > > 
 > > 
-> > ACK, these will be renamed as per the schematic. Since these are direct supplies
-> > on hardware, used fixed-regulator configuration.
+> > Thanks for clarifying. 
 > > 
-> >>
-> >>> +                compatible = "regulator-fixed";
-> >>> +
-> >>> +                regulator-name = "vmmc_sdc";
-> >>> +                regulator-min-microvolt = <2950000>;
-> >>> +                regulator-max-microvolt = <2950000>;
-> >>> +        };
-> >>> +
-> >>> +        vreg_sdc: regulator-sdc {
-> >>> +		compatible = "regulator-gpio";
-> >>> +
-> >>> +		regulator-name = "vreg_sdc";
-> >>> +		regulator-type = "voltage";
-> >>> +		regulator-min-microvolt = <1800000>;
-> >>> +		regulator-max-microvolt = <2950000>;
-> >>> +
-> >>> +		gpios = <&expander1 7 GPIO_ACTIVE_HIGH>;
-> >>> +		states = <1800000 1>, <2950000 0>;
-> >>> +
-> >>> +		startup-delay-us = <100>;
-> >>> +        };
-> >>> +};
-> >>> +
-> >>> +&sdhc_1 {
-> >>> +	vmmc-supply = <&vmmc_sdc>;
-> >>> +	vqmmc-supply = <&vreg_sdc>;
-> >>> +
-> >>> +	pinctrl-0 = <&sdc1_state_on>, <&sd_cd>;
-> >>> +	pinctrl-1 = <&sdc1_state_off>, <&sd_cd>;
-> >>> +	pinctrl-names = "default", "sleep";
-> >>> +
-> >>> +	cap-sd-highspeed;
-> >>> +	no-1-8-v;
-> >>> +
-> >>> +	bus-width = <4>;
-> >>> +	cd-gpios = <&tlmm 11 GPIO_ACTIVE_LOW>;
-> >>> +	no-mmc;
-> >>> +	no-sdio;
-> >>> +
-> >>> +	status = "okay";
-> >>> +};
-> >>> +
-> >>> +&sdhc1_opp_table {
-> >>
-> >> Why? Is it specific to the device or to the chip? In the latter case,
-> >> please define a separate table in the monaco.dtsi and switch to it here.
-> >>
+> > Default switch position is on eMMC on Monaco EVK. But as mentioned in the other
+> > thread, there are a few boolean (flag) properties like 'no-sd', that conflicts
+> > with SD card use case and cannot be deleted in an overlay file as
+> > /delete-property/ cannot be used. Also cd-gpio and regulators used for SD card
+> > would be redundant for eMMC.
 > > 
-> > As per the previous review, it was suggested to use an existing table. But yes,
-> > this is specific to the Host controller and the corresponding voltage corners on
-> > the chip and can be defined as a separate entity for SD card use-case.
+> > And similarly 'no-mmc' added by default would be inappropriate for eMMC. This
+> > being the reason, two separate overlays were added.
 > 
-> The SDC programming guide I have access to does not seem to have bene
-> updated for any recent chips. Are you sure these different corners are
-> *actually* valid? The clock-side documentation doesn't mention that
+> This only means one thing to me: UEFI mechanism needs to be changed from
+> applying the dtso into directly modifying the FDT in the DT_FIXUP protocol.
 > 
+> There are three options which needs to be removed this way:
+> - supported-cqe
+> - non-removable
+> - no-sd
+>
+As per latest discussions and the approach finalized, will be updated in the V2
+series, such that the default scenario is honoured and no-sd-no-emmc case is
+also avoided. 
 
-There seems a gap in the clock documentation. This is being communicated to the
-corresponding stakeholders. However, the corners mentioned are as per the
-reference platform and will be updated in the subsequent series based on the
-updates from the clock-plan PoC as required.
+Thanks for the detailed discussion and suggestions.
 
-Regards,
-Monish
+Thanks and Regards,
+Monish 
