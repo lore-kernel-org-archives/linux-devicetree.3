@@ -1,116 +1,509 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7906E419319;
-	Tue, 16 Jun 2026 08:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60DE29346F;
+	Tue, 16 Jun 2026 08:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781598991; cv=none; b=sNk6+aJrvZ3QBmTaFfIlVgEAAqs2nHzFT+bZ+thO83Cyy5Jq3qmJtCLYszoTErFpyrFD3QckPaw83D85lxGUTLHY2pPkhqBlgWcjWd9jlk1spIHbw+lsBXdKVfl9CYtsTc9xEXoC49a3zNcLqMRUdfwISbOk3wcKGmOW6dEt/Mw=
+	t=1781599013; cv=none; b=rYrT0uf+l7Z0VL7V+Sw0e50XCtZjo7iBxwS78ZQ4KsxixnZ/P5Wkis2pLWsa0ZKuZ9zr41EYgJxNIbP1nLvllvr7VsKC5pqXaU6VqhKGmHDZgusR4hPvsDXvGUhy3umBXW8+QW/Y7a2dmTcpunw4BQr+0E7Fo4DnWw8Kxdp6OLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781598991; c=relaxed/simple;
-	bh=iH1cetdJJJ+YCmXeFA3Gllk+6D44EBO9xdAh7Xinhpc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QCYYUvOpN1fR1oN9OfnSOmc3+W4K8SCCzi9lZP3p3WR4pnHoVYnmcRsKsJHGrfVSR0ZZBWnbGZymwNS5eiisZ9buwCvMJUa7rdamfkrjd5Ml7iVKAe2QEZAxbOZu13Mxgmzikv3lBwdCLdXEF5A36WNlsw5xedzMpfcUdN3BS3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzcXzBhh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781599013; c=relaxed/simple;
+	bh=rCS4bzSYozHmyxajgR4yfN2ZlRwalgccsJhMLts4DWE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kazTNywwHhrA3s55kqiTOozAZ7egjIA7pIlz+gHoQn/uLd/QN3GnIkZPzcKGiRjw2N6fWPcCXsKOO3q9GBqFiWqUqeZ8cjn4CTjKL6s9/8E9xdI0DyPRwfw+105O68EW5mojZxOhlBUO+n0MwfsxN7GBMT7zMJFBlWsQb0GcsQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gyP1R3iR; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzcXzBhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9541F000E9;
-	Tue, 16 Jun 2026 08:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781598990;
-	bh=T/mvmU2AzTCySS6VELX3OIKCuLfI9VaJo1VhLV5VZaQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mzcXzBhhrGWUNQ0rdoOuSGi7EXVmg+gl/ll9cXO5ucHt4ExtCDWhHvmwkzgvS267Q
-	 XONnhCXEmL+heKxGU+tCYX4RpLO+AcT87LvZwtCxyxvA95t6Q0kZvtBmgNQ+7elCs4
-	 1RdLSWrgF4lF8jJ+x1V714T7UGIOfETOFxP6SV0CNtiIufr7PRigXXszNIL0hSivF/
-	 3I0hwlpRStFngXsv+v3MBLvZSFWLjYqbtaNuUWcdv05OVSCE1L1tqaG/nFzlgUJLtf
-	 fNh8G+QXx0CS2RS3wZZqusax+a+wo3DsJJy7vH/tQ99c4lhNrVHyjo2OjbG4MU/uyr
-	 XW5PnNCTO6ssg==
-Message-ID: <d99a1ac8-a5dd-4588-a62f-88b5eed71988@kernel.org>
-Date: Tue, 16 Jun 2026 10:36:23 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gyP1R3iR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781599011; x=1813135011;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rCS4bzSYozHmyxajgR4yfN2ZlRwalgccsJhMLts4DWE=;
+  b=gyP1R3iRXRy5GutdNqJq492X+kmgx9DvEXgSXbfUq+qpAgue9dDrwYeY
+   ERzXK0mAvdGCfBcWOyl0VfqI75cyOaHOPmtq0P5aAjxpsIQQuP0LnJ1pm
+   H+UU6IUWACxzCsAi9DLF8dheGwob0IuwRLKA8CfSEMlPsrW4+f9ZE1ijD
+   UKjJCxgRw316LPvD0slYnExSej6zwRiAriGL/Coo4KUS7+SsMvNiwXiri
+   drpKKnD+uMdwxSOzo4tmlQAeQKuEBO/QrlqZSHiUz2RynhQrwor/f18JI
+   VX+ewXjeSx6P7BRzUQk/cW1xP7VKpKm08VzAX/vXMobqCN+359Oj1cUQg
+   g==;
+X-CSE-ConnectionGUID: CFc+Ojb3RJOkwNXWOqBmQg==
+X-CSE-MsgGUID: t0Zz7JCmRmW2vKUmlk0viA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82462029"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="82462029"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 01:36:49 -0700
+X-CSE-ConnectionGUID: Rgg0GD4uQ3uEEHEK8Osuvg==
+X-CSE-MsgGUID: eROkFS8YRD68BVaBFgVMeQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="249597319"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 01:36:45 -0700
+Date: Tue, 16 Jun 2026 11:36:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "David Lechner (TI)" <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
+ support
+Message-ID: <ajELGxonxsQp-Ut2@ashevche-desk.local>
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] dt-bindings: clock: qcom: sm8650-gcc: Add missing
- power-domains property
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>,
- Brian Masney <bmasney@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-0-6b5752dd4747@linaro.org>
- <20260615-topic-sm8x50-tie-gcc-to-cx-v2-3-6b5752dd4747@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260615-topic-sm8x50-tie-gcc-to-cx-v2-3-6b5752dd4747@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 15/06/2026 18:57, Neil Armstrong wrote:
-> In order for the GCC votes on the GDSCs it provides to be propagated
-> to CX, CX needs to be declared as power domain of the GCC.
+On Mon, Jun 15, 2026 at 05:00:02PM -0500, David Lechner (TI) wrote:
+> Add support for parsing devicetree properties for measurement channels
+> and doing direct reads on these.
 > 
-> Document the missing power-domains property to that purpose.
+> There are quite a lot of conditions that have to be met for each
+> measurement to be made, so quite a bit of state and algorithms are
+> required to handle it.
 > 
-> Fixes: b69d932154dc ("dt-bindings: clock: qcom: document the SM8650 General Clock Controller")
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
+> Channels are created dynamically since the number of possibilities is
+> unreasonably large.
+
+...
+
+> +struct ads112c14_measurement {
+> +	const char *label;
+> +	u32 vref_source;
+> +	u32 idac_current_uA;
+> +	u8 iadc_count;
+> +	u8 idac1_mux;
+> +	u8 idac2_mux;
+> +	bool current_chop;
+> +	bool bipolar;
+> +	u8 gain_val;
+
+Hmm... Can we group u8:s for a better visual?
+
+> +	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
+> +};
+
+...
+
+>  struct ads112c14_data {
+>  	const struct ads112c14_chip_info *chip_info;
+>  	struct i2c_client *client;
+>  	struct regmap *regmap;
+> +	u32 avdd_uV;
+> +	u32 ext_ref_uV;
+> +	bool refp_is_avdd;
+> +	bool refn_is_gnd;
+> +	u32 ext_ref_ohms;
+> +	struct ads112c14_measurement *measurements;
+> +	u32 num_measurements;
+>  	u8 sys_mon_chan_short_gain_val;
+
+If you run `pahole` you will see a gap that can be easily avoided.
+
+>  	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
+>  };
+
+...
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> +static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+> +						 const struct iio_chan_spec *chan)
+> +{
+> +	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
 
-Best regards,
-Krzysztof
+> +	bool iunit = measurement->idac_current_uA > 100;
+> +	u32 idac1_val = measurement->iadc_count > 0 ?
+> +		measurement->idac_current_uA / (iunit ? 100 : 10) : 0;
+> +	u32 idac2_val = measurement->iadc_count > 1 ? idac1_val : 0;
+
+These three will look much better when decoupled from the definitions.
+
+> +	u32 refp_buf_en, refn_buf_en;
+> +	u32 ref_val, ref_sel;
+> +	int ret;
+
+	iunit = measurement->idac_current_uA > 100;
+	if (measurement->iadc_count > 0)
+		idac1_val = measurement->idac_current_uA / (iunit ? 100 : 10);
+	else
+		idac1_val = 0;
+	idac2_val = measurement->iadc_count > 1 ? idac1_val : 0;
+
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_MUX_CFG,
+> +			   FIELD_PREP(ADS112C14_MUX_CFG_AINP, chan->channel) |
+> +			   FIELD_PREP(ADS112C14_MUX_CFG_AINN, chan->channel2));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DIGITAL_CFG,
+> +				 ADS112C14_DIGITAL_CFG_CODING,
+> +				 FIELD_PREP(ADS112C14_DIGITAL_CFG_CODING,
+> +					    measurement->bipolar ? 0 : 1));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(data->regmap, ADS112C14_REG_GAIN_CFG,
+> +				 ADS112C14_GAIN_CFG_SYS_MON | ADS112C14_GAIN_CFG_GAIN,
+> +				 FIELD_PREP(ADS112C14_GAIN_CFG_SYS_MON, 0) |
+> +				 FIELD_PREP(ADS112C14_GAIN_CFG_GAIN,
+> +					    measurement->gain_val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_IDAC_MAG_CFG,
+> +			   FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I2MAG, idac2_val) |
+> +			   FIELD_PREP(ADS112C14_IDAC_MAG_CFG_I1MAG, idac1_val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(data->regmap, ADS112C14_REG_IDAC_MUX_CFG,
+> +			   (iunit ? ADS112C14_IDAC_MUX_CFG_IUNIT : 0) |
+> +			   FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I2MUX,
+> +				      measurement->idac2_mux) |
+> +			   FIELD_PREP(ADS112C14_IDAC_MUX_CFG_I1MUX,
+> +				      measurement->idac1_mux));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
+> +				 ADS112C14_DATA_RATE_CFG_GC_EN,
+> +				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
+> +					    measurement->current_chop));
+> +	if (ret)
+> +		return ret;
+> +
+> +	refp_buf_en = !data->refp_is_avdd &&
+> +		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
+> +	refn_buf_en = !data->refn_is_gnd &&
+> +		      measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL;
+> +
+> +	ref_val = measurement->vref_source == ADS112C14_VREF_SOURCE_INTERNAL_2_5V;
+> +
+> +	switch (measurement->vref_source) {
+> +	case ADS112C14_VREF_SOURCE_AVDD:
+> +		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_AVDD;
+> +		break;
+> +	case ADS112C14_VREF_SOURCE_EXTERNAL:
+> +		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_EXTERNAL;
+> +		break;
+> +	default:
+> +		ref_sel = ADS112C14_REFERENCE_CFG_REF_SEL_INTERNAL;
+> +		break;
+> +	}
+> +
+> +	return regmap_update_bits(data->regmap, ADS112C14_REG_REFERENCE_CFG,
+> +				  ADS112C14_REFERENCE_CFG_REFP_BUF_EN |
+> +				  ADS112C14_REFERENCE_CFG_REFN_BUF_EN |
+> +				  ADS112C14_REFERENCE_CFG_REF_VAL |
+> +				  ADS112C14_REFERENCE_CFG_REF_SEL,
+> +				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFP_BUF_EN,
+> +					     refp_buf_en) |
+> +				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REFN_BUF_EN,
+> +					     refn_buf_en) |
+> +				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_VAL,
+> +					     ref_val) |
+> +				  FIELD_PREP(ADS112C14_REFERENCE_CFG_REF_SEL,
+> +					     ref_sel));
+> +}
+
+...
+
+> -	if (chan->channel >= 100) {
+> -		ret = ads112c14_prepare_sys_mon_channel(data, chan);
+> +	if (chan->channel < 100) {
+> +		ret = ads112c14_prepare_measurement_channel(data, chan);
+>  		if (ret)
+>  			return ret;
+>  	} else {
+> -		/* Not implemented yet. */
+> -		return -EINVAL;
+> +		ret = ads112c14_prepare_sys_mon_channel(data, chan);
+> +		if (ret)
+> +			return ret;
+>  	}
+
+Why ping-ponging this? Leave the condition as is. Or start with the < 100 in
+the previous patch.
+
+...
+
+> +	if (chan->channel < 100) {
+
+For the consistency's sake keep it the similar to the above.
+
+> +		measurement = &data->measurements[chan->scan_index];
+> +		fsr_bits = data->chip_info->resolution_bits - measurement->bipolar;
+> +	} else {
+> +		/* All SYS_MON channels are using signed coding. */
+> +		fsr_bits = data->chip_info->resolution_bits - 1;
+> +	}
+
+...
+
+>  		if (chan->channel == ADS112C14_SYS_MON_CHANNEL_SHORT) {
+> -			int *scale_avail = data->sys_mon_chan_short_scale_available[
+> +			scale_avail = data->sys_mon_chan_short_scale_available[
+>  				data->sys_mon_chan_short_gain_val
+>  			];
+
+Oh, can we simply move the index to the temporary variable and make this look
+better?
+
+...
+
+> -		for (u32 i = 0; i < ARRAY_SIZE(data->sys_mon_chan_short_scale_available); i++) {
+> -			if (val == data->sys_mon_chan_short_scale_available[i][0] &&
+> -			    val2 == data->sys_mon_chan_short_scale_available[i][1]) {
+> -				data->sys_mon_chan_short_gain_val = i;
+> -				return 0;
+> -			}
+> +	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
+> +		if (val == scale_avail[i][0] && val2 == scale_avail[i][1]) {
+> +			*gain_val = i;
+> +			return 0;
+>  		}
+> -		return -EINVAL;
+> -	}
+
+Can this be written in a better form initially to make less churn here?
+
+...
+
+> +	/* measurement channels */
+> +	if (chan->channel < 100) {
+> +		struct ads112c14_measurement *measurement =
+> +			&data->measurements[chan->scan_index];
+
+> +		if (!measurement->label)
+> +			return -EINVAL;
+
+Hmm... Can it be true?
+
+> +		return sysfs_emit(label, "%s\n", measurement->label);
+> +	}
+
+...
+
+> +static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+> +				    bool *need_avdd_ref, bool *need_ext_ref)
+> +{
+> +	struct ads112c14_data *data = iio_priv(indio_dev);
+> +	struct device *dev = &data->client->dev;
+> +	struct iio_chan_spec *channels;
+> +	u32 pair[2];
+
+> +	int i = 0;
+
+Why signed? Also decouple assignment from definition.
+
+> +	int ret;
+> +
+> +	*need_avdd_ref = false;
+> +	*need_ext_ref = false;
+> +
+> +	data->num_measurements = device_get_named_child_node_count(dev, "channel");
+
+> +	data->measurements = devm_kcalloc(dev, data->num_measurements,
+> +					  sizeof(*data->measurements), GFP_KERNEL);
+> +	if (!data->measurements)
+> +		return -ENOMEM;
+> +
+> +	data->num_measurements += ARRAY_SIZE(ads112c14_sys_mon_channels);
+> +
+> +	channels = devm_kcalloc(dev, data->num_measurements +
+> +				ARRAY_SIZE(ads112c14_sys_mon_channels),
+
+size_add()? But here you add it twice, why?
+
+> +				sizeof(*channels), GFP_KERNEL);
+> +	if (!channels)
+> +		return -ENOMEM;
+> +
+> +	device_for_each_named_child_node_scoped(dev, child, "channel") {
+> +		struct ads112c14_measurement *measurement = &data->measurements[i];
+> +		struct iio_chan_spec *spec = &channels[i];
+> +
+> +		if (!fwnode_device_is_available(child))
+> +			continue;
+> +
+> +		spec->type = IIO_VOLTAGE;
+> +		spec->indexed = 1;
+> +		spec->scan_index = i;
+> +		measurement->gain_val = 1;
+> +
+> +		fwnode_property_read_string(child, "label", &measurement->label);
+
+> +		if (fwnode_property_present(child, "single-channel")) {
+> +			ret = fwnode_property_read_u32(child, "single-channel", &spec->channel);
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read single-channel property\n");
+> +
+> +			if (spec->channel >= 8)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "single-channel value must be between 0 and 7\n");
+> +		} else if (fwnode_property_present(child, "diff-channels")) {
+> +			ret = fwnode_property_read_u32_array(child, "diff-channels", pair, ARRAY_SIZE(pair));
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read diff-channels property\n");
+> +
+> +			if (pair[0] >= 8 || pair[1] >= 8)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "diff-channels values must be between 0 and 7\n");
+> +
+> +			spec->channel = pair[0];
+> +			spec->channel2 = pair[1];
+> +			spec->differential = 1;
+> +		} else {
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "channel node missing channel type property\n");
+> +		}
+
+Looking how it's going to spread (I mean the above pattern), perhaps it's a time to introduce bunch of
+
+	fwnode_property_read_*_optional()
+
+and the respective device_property_read_*_optional()?
+
+Let's start from u32 case only, as it will be most used anyway.
+
+> +		if (fwnode_property_present(child, "excitation-channels")) {
+> +			ret = fwnode_property_count_u32(child, "excitation-channels");
+> +			if (ret < 0)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read excitation-channels property\n");
+> +
+> +			if (ret < 1 || ret > 2)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "excitation-channels property must have 1 or 2 values\n");
+> +
+> +			measurement->iadc_count = ret;
+> +			pair[1] = 0;
+> +
+> +			ret = fwnode_property_read_u32_array(child, "excitation-channels", pair, measurement->iadc_count);
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read excitation-channels property\n");
+> +
+> +			if (pair[0] >= 8 || pair[1] >= 8)
+> +				return dev_err_probe(dev, -EINVAL,
+> +						     "excitation-channels values must be between 0 and 7\n");
+> +
+> +			measurement->idac1_mux = pair[0];
+> +			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
+> +
+> +			ret = fwnode_property_read_u32(child, "excitation-current-microamp",
+> +						       &measurement->idac_current_uA);
+> +			if (ret)
+> +				return dev_err_probe(dev, ret,
+> +						     "failed to read excitation-current-microamp property\n");
+> +
+> +			measurement->current_chop = fwnode_property_read_bool(child, "current-chopping");
+> +		}
+> +
+> +		measurement->bipolar = fwnode_property_read_bool(child, "bipolar");
+> +
+> +		fwnode_property_read_u32(child, "ti,vref-source", &measurement->vref_source);
+> +		if (measurement->vref_source > ADS112C14_VREF_SOURCE_AVDD)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "invalid vref-source value\n");
+> +
+> +		if (measurement->vref_source == ADS112C14_VREF_SOURCE_AVDD)
+> +			*need_avdd_ref = true;
+> +		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
+> +			*need_ext_ref = true;
+> +
+> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
+> +		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
+> +
+> +		i++;
+> +	}
+> +
+> +	memcpy(channels + i, ads112c14_sys_mon_channels, sizeof(ads112c14_sys_mon_channels));
+> +
+> +	indio_dev->channels = channels;
+> +	indio_dev->num_channels = i + ARRAY_SIZE(ads112c14_sys_mon_channels);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static void ads112c14_populate_scale_available(int scale_avail[][2],
+> +					       u32 vref_uV, u32 fsr_bits)
+> +{
+> +	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
+> +		int *entry = scale_avail[i];
+> +		u32 gain_x10 = ads112c14_pga_gains_x10[i];
+> +
+> +		entry[0] = div_u64_rem(div64_u64((u64)(NANO * 10 /
+> +						       (MICRO / MILLI)) * vref_uV,
+> +						 (u64)gain_x10 * BIT(fsr_bits)),
+
+Hmm... This differs from the previous implementation. Why?
+
+> +				       NANO, &entry[1]);
+> +	}
+> +}
+
+...
+
+> +	if (device_property_present(dev, "refp-refn-resistor-ohms")) {
+> +		if (refp_uV != 0 || refn_uV != 0)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "refp-refn-resistor-ohms property should not be present when refp-supply or refn-supply is present\n");
+> +
+> +		ret = device_property_read_u32(dev, "refp-refn-resistor-ohms",
+> +					       &data->ext_ref_ohms);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to read refp-refn-resistor-ohms property\n");
+
+Using
+
+	const char *propname;
+	...
+	propname = "refp-refn-resistor-ohms";
+
+makes this
+
+	if (device_property_present(dev, propname)) {
+		if (refp_uV != 0 || refn_uV != 0)
+			return dev_err_probe(dev, -EINVAL,
+					     "%s property should not be present when refp-supply or refn-supply is present\n",
+					     propname);
+
+		ret = device_property_read_u32(dev, propname, &data->ext_ref_ohms);
+		if (ret)
+			return dev_err_probe(dev, ret, "failed to read %s property\n", propname);
+
+Also the rest can be improved in the similar way.
+
+> +	} else {
+> +		if (need_ext_ref && data->ext_ref_uV == 0)
+> +			return dev_err_probe(dev, -EINVAL,
+> +					     "external reference measurements require either refp-supply or refp-refn-resistor-ohms property\n");
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
