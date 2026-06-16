@@ -1,109 +1,122 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D178F386426
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:37:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ECF36E470
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781620658; cv=none; b=Dovmrtcc7wxeTk7mns7D3cgG91qR1p/oNuWy+Kk5joyH7WOrrd75z/x2m3mgyrEknEzykuyCTdSAMp6JWpxnKN8UCMxUh1jIBlrdPVioAzL6fP8Es58x7QZ5Md6gxp2JO+gScEq7qHebeqA1d11xNK46VfXXdViYt9fLSMTQ87s=
+	t=1781620714; cv=none; b=jk19tcCp4Sxji1GvFCxYhDtIdJcNKoW60+xxysJiTkpV0qXTNR8T4oxGhuHZiNW1CyIbEWPwyHcRaGpJR0godcgtD85mu50XYCm4j2xubiMdlYQ9NfBoqpsgGE6Q73+3q0eeOH/7IzUrR6J8QaD/cHkKOwncta9jz4dWb/OICAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781620658; c=relaxed/simple;
-	bh=FfugnIQHm5unZ1sPR1Y/dZuhbcMyf+Hu3CPQK9MdeHE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GtkMPRtboAE1co51NgXqcDsmpQ5jI446ddYnFXzyHPywdH44Y3f01q7IrcUnEnZk4WpvLqMYWpsjDpAKZ3ukXQJ+g0o8w5E80gCeWbnWZIiSokWO8IDUXiICRpZLmOht4S9U6OArEwGH/OgkyHYnL7HWlzpo1TUTd9H7d8rmgI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LD6KhlVl; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781620714; c=relaxed/simple;
+	bh=aDkGa1fHOoX9CWecRRiXkMOqeEGb+j1cjyZUGETQMCI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JfvNY5p11mUJuvA/0F4nsjvvYonLhvqBc2Myqi6scz+sgztEz3VfnxLQq0s86Dv9501HZZjXNfgkiMkLfjuG7CgGWtDtx7SM3xrESco/Kf9czoGoCZ2gCy32WQF7Y1GghsVb1/faONHvVwwt0FGP98Aj3C+wlcpo343ynGBu2OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIU0DITV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LD6KhlVl"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490ac357c55so44397135e9.1
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:37:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781620655; x=1782225455; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=j5+URZt3Wu1iRceLE2DPySkKJNC2rK90kTRHgoMPIB8=;
-        b=LD6KhlVlHlwayDjDAR7n7v6Y4dplTfNFAimIfTXZLXetf3revKu7W/sGFuDAe9JAb9
-         Z6SfCwrYCI50699JAjL10HwWrGQhnZ2jan8dh0jyVGY6CLpixBZL0ZN3UvGb/0R5ooD2
-         8trGIoCX3YFzOHSj64taYDS62KbPiA0flRYHVZx6jxewInu9F53dLj69nfM2YzriQdRU
-         BVSO222j71YZ5hirvvWlC1sH2d7u8S8YXJW+Y1Qtx8vVlihOe2VO+vU2uI6OYbiKKCWo
-         StAyqvtj+Cf0BhWWvCaeekXK7Y9P2Gd+2CluXmt9WfmWKZ1RVjuAQU2EgjMWrZUXSUcd
-         qTHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781620655; x=1782225455;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j5+URZt3Wu1iRceLE2DPySkKJNC2rK90kTRHgoMPIB8=;
-        b=EwX5EtXdkjNR8DjnwA94wDh3ZknnjcAps4WP4fN7HYbw+N2VkoY55+DbyFe+/os46R
-         owGLr+s2gBtfMu4yLJRUl/VSZnScp5b0BymvhxBm7wej3tS3bFytYnbWGsPUcFRpLM0X
-         07IJM2yyhwhuO9XcANS5GzMNyl1AyJ2CNZQyGqzbSRcpJhdPUn7jKrOS1vOcGhjINTVk
-         OFx2fNlMdTHVvUO3f473efAGR35GGsms/e1u4BZjj7XzRp2/8/KDPHq2z05TJZFg7vT9
-         5Rlv33zm7xX9of2NhZdg549BnXPybV+Or8/ea2OLNUACCrTQwV5IgjCJkI7t3tmBfU8q
-         7IaA==
-X-Forwarded-Encrypted: i=1; AFNElJ8TtD51i1OArlv1DSR2YfWIGOY7vt+8hN9qrHk+Xu+iBYXUEc3uffVKkCC2I9fC63YnVy5Js9OUOsp4@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbzXl3KMz2qnS3lBWkeCPi4Ry7kgpIOEAOrXTk0IkjvNqLW2F2
-	2rBMuw6+REtldcN6cnaK7ybVoDNJPxekJIv7RR7qlTLFr1dZ404aNRgv
-X-Gm-Gg: Acq92OFdQetaiOn2QUr6Bi3dvUS83kKIV03aWL4VIKlmRDuBwvLma4ePdDT9aiGDpEe
-	K7+vnabhvkOkD5xxDLfk0uYOnn5AyRXR0J3OyIPl0LNtbfbkDRLKB6AAOgWm/KwUwRn/8ap2x/E
-	SSeZVr7GBXRZowWNrqc9CrSAjlYCSunEAmGT7rrmICef81BU+Z0DI/+JhhzFkLxHqmL8+9r6xro
-	TmNMSHhbvuhbql1Q0gHqJ1QS9TFrD6Ka37jOsSTC08ldsO4Ar7s82jvWXSk9fx8/kyjxUD07um9
-	FUPgjvd+jjMkwAmdBBUzXbsY96t2+32hjezNO0PrkixxB3wgehlgVmOijFt/FRzcRdcboRUqcka
-	JRWnIPjEn4FcjblIULplRk0RSml5eGWk1qrciF/ldjN7CqiNqV3BzOJ2sGRNZ5lPt/gNnzzhuSW
-	7uED9BaWMQzy3Va1/ynqOKdaD8Ys5CC/C2F7KPCTqblCAwPJHNFLkXKgHvbVxcmZJ2W1HNMMp8m
-	VX4AukIRVGdDvKh5qaSDbOuS8LALQ==
-X-Received: by 2002:a05:600c:3543:b0:492:3071:1db7 with SMTP id 5b1f17b1804b1-49230711dc1mr53184075e9.28.1781620655013;
-        Tue, 16 Jun 2026 07:37:35 -0700 (PDT)
-Received: from [10.128.10.215] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d1c7sm1813947f8f.7.2026.06.16.07.37.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 07:37:34 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <18c34b11-04eb-4e01-aad2-8c18fbe26efa@gmail.com>
-Date: Tue, 16 Jun 2026 15:37:33 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIU0DITV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974DA1F00A3A;
+	Tue, 16 Jun 2026 14:38:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781620712;
+	bh=kE6vZIkSlfVVvnbSnfCxpcpg9N3s5fE6t9Jl3TUBOmk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oIU0DITVtVNoroAvdvyR2Y2b+2341fazRBhhCrwRy85xCyZNz4k6VJYDe9anN1Uqi
+	 SWmIbfDMzdh1Hi6lA7eIQyvxG8tXUujcMUTcQaI7fuMuDyaLTqPEY+xFfA0ZdSD8LM
+	 ADenS24n2MBHTQuvnAZ79/k6kFug/nRis3l9Yo/Qp0CDWSGe2Phx8lPQFsACHDYEqS
+	 Ddvd+xaVkwp/n1If/dBe2YvYd3ZcFDNTb8G62EdxBN6YLoyrLsPsXoNIy+bwliUF8m
+	 I3VzKSrdYc7ubFPQ8XYqwRQTZhPWfYcwCdMB9ggzjR32jvXWGrPjxeyDoGcHbgVzMd
+	 439FPPGSpuLcQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] ARM: dts: mediatek: mt6323: add AUXADC support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260616-mt6323-adc-v3-4-1c27c588185d@protonmail.com>
+References: <20260616-mt6323-adc-v3-4-1c27c588185d@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 14:38:31 +0000
+Message-Id: <20260616143832.974DA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] input: misc: Add Qualcomm SPMI PMIC haptics driver
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
- Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
- <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Fenglin,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 6/16/26 11:08, Fenglin Wu wrote:
+Pre-existing issues:
+- [High] Unconditional dereference of `dev->parent->parent` can lead to a k=
+ernel panic.
+- [High] The driver actively powers down the AUXADC clock and disables the =
+1.8V voltage reference during initialization.
+--
 
-> +config INPUT_QCOM_SPMI_HAPTICS
-> +	tristate "Qualcomm SPMI PMIC haptics support"
-> +	depends on INPUT && MFD_SPMI_PMIC
+commit 0ad66b352744a9242754a09a7f9af3042d3da009
+Author: Roman Vivchar <rva333@protonmail.com>
 
-The dependency on INPUT is unnecessary, all config options in this
-Kconfig file already depend on INPUT due to an 'if INPUT..endif' in
-drivers/input/Kconfig
+ARM: dts: mediatek: mt6323: add AUXADC support
 
-(Yes, a few of the other config options in this file also have this
-duplicate dependency on INPUT due to an explicit 'depends on'
-attribute, but this file is in need of a cleanup.)
+Add the devicetree node for the mt6323 AUXADC.
 
-- Julian Braha
+> diff --git a/arch/arm/boot/dts/mediatek/mt6323.dtsi b/arch/arm/boot/dts/m=
+ediatek/mt6323.dtsi
+> index c230c865116d0..c070f4b0936c2 100644
+> --- a/arch/arm/boot/dts/mediatek/mt6323.dtsi
+> +++ b/arch/arm/boot/dts/mediatek/mt6323.dtsi
+> @@ -14,6 +14,11 @@ pmic: mt6323 {
+>  		interrupt-controller;
+>  		#interrupt-cells =3D <2>;
+> =20
+> +		mt6323_adc: adc {
+> +			compatible =3D "mediatek,mt6323-auxadc";
+> +			#io-channel-cells =3D <1>;
+> +		};
+
+[Severity: High]
+This isn't a bug introduced by this patch, but adding this devicetree node
+exposes a pre-existing issue in the mt6323-auxadc driver. Can the driver
+panic if it evaluates dev->parent->parent as NULL?
+
+In drivers/iio/adc/mt6323-auxadc.c:mt6323_auxadc_probe():
+
+    regmap =3D dev_get_regmap(dev->parent->parent, NULL);
+
+If the device is instantiated directly without a parent (such as via a
+standalone devicetree node or manual sysfs binding), platform_device_add()
+sets dev->parent to &platform_bus. Because platform_bus.parent is NULL,
+passing NULL to dev_get_regmap() will cause an immediate kernel panic when
+devres_find() attempts to acquire the devres_lock spinlock.
+
+[Severity: High]
+This is also a pre-existing issue, but does the driver actively power down
+the AUXADC clock and disable the 1.8V voltage reference during initializati=
+on?
+
+In drivers/iio/adc/mt6323-auxadc.c:mt6323_auxadc_init():
+
+    ret =3D regmap_set_bits(map, MT6323_TOP_CKPDN2, AUXADC_TOP_CKPDN2_CTL_C=
+K);
+
+And later in the same function:
+
+    ret =3D regmap_set_bits(map, MT6323_AUXADC_CON27,
+                  AUXADC_CON27_VREF18_ENB_MD |
+                  AUXADC_CON27_MD_STATUS);
+
+In MediaTek PMIC terminology, CKPDN stands for Clock Power Down (setting the
+bit to 1 actively powers down the clock), and ENB stands for Enable Bar
+(an active-low enable signal, where setting the bit to 1 disables the
+reference voltage). By setting these bits to 1 instead of clearing them to =
+0,
+the driver appears to disable the hardware it is attempting to initialize,
+which could cause subsequent ADC read operations to time out and fail.
+
+>  		mt6323_leds: leds {
+>  			compatible =3D "mediatek,mt6323-led";
+>  			#address-cells =3D <1>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-mt6323-adc=
+-v3-0-1c27c588185d@protonmail.com?part=3D4
