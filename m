@@ -1,33 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011071.outbound.protection.outlook.com [52.101.52.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB9A33067F;
-	Tue, 16 Jun 2026 15:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781622348; cv=none; b=CMn7FSpCjBLJnXHrMvFqSUQE0yQ4bP/e7J5Hfu7A8h2ahALokv9Sp7pwRoQECtrQjNeEZlsZK2E2BjBJ85U00JzD7J6HkdQmke5MY7UiJ88oP8bKmknKYMkeeBzLFYzzsByEXwomrhFWERsTaQdvLqZ+3ErOGOxvOA2rhzhNatw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781622348; c=relaxed/simple;
-	bh=Mqwg32probdaFC6N7CDqXMSVmDVXh1qnD5fQSb/df+A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RG37PUSBVY023Li8tcJHMwujj9G2WOHfMki+uwWqpMLmNx/PTCgVY2B1e+HTlfPAOVNC4vLPNQ+QA/Ukxq/Fwy68raonn/yTZ2+kkfSakAwQkTT0ww9K77hek7vQ1J1iMIqbWv/V3Eh7TtI9J75jXwmr0Ye5Y9kO9pbetsza7V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0Zdmd0g; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB543BFAE2;
+	Tue, 16 Jun 2026 15:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781622557; cv=fail; b=BL3rVO9PVFGaKmbte9CuTw35uFVI2pXLYIXmaiMPm1u33zpCAhRehNme9bzkMkyBGJJOtsYynlaElyUgRZLKgxYENraVxK8Aiz5lqUO23REcyvjaT8Ei717BYU/aOrfJVjKGLZl/JSjkFAPk9MMI7DM2JvjmU1L/M07eeBJ+C2Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781622557; c=relaxed/simple;
+	bh=YfWZ6HUtwyR8/4Nhsp9JP7Ch3IvBiwOhIH2u+LF7wBk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=RFZ9RTWFk4LM+kGSOvcHDoP8oKQacwLGOn/dw+nBXnJWkJUW37UWUjOGiptLJyDet+zJX2VrpK5gHteJ5d0aEiPIp/fFW+Wdf8L/oS96QRfd8QyDD4QbQgaIuMl6PQkO+Rt/25mcNAJWW5OIUjDnQ7RAsTgd70fxvQz14r1H97k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=xerLUgv9; arc=fail smtp.client-ip=52.101.52.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0Zdmd0g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDF11F000E9;
-	Tue, 16 Jun 2026 15:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781622347;
-	bh=XqGVyLHI6/AL1K9+yS2bokXPhDw+7D07z/ZHu/uJoic=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j0Zdmd0ghBmH1NuDzdWdyF+Ir8fhHcoTnEjxLXr4AY1V/HBiDSa7WhqAuliDt331j
-	 KbCb9oGWzO/LxNhHJV1BemYlqp1jnD+kXdoHQSNFL6GjfuNNUcAbc2Hp007JjtZKTW
-	 4opwKSZ+1u2yv/Y20Wr8EDi6TLcpFzAi93dOdSmXI1ms3eFodZYv+9E+1eX2trMoid
-	 82T4IMFai/tae+PLaGCk0t4U2mvCLA2BnqcE/nU55DO3GM679pb/yrDc7pK3ahQk8+
-	 HSBLfSMc+qNZOISLFI+lbvf0q+Kw2RpeSnJ0LC1X46wp4zAXpNhUBmyPMI0cbRDvv0
-	 Jt5oZJqyw8HmA==
-Message-ID: <e6199940-b917-47e7-b543-d19cf031f8fc@kernel.org>
-Date: Tue, 16 Jun 2026 16:05:42 +0100
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xerLUgv9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GTpoRGoy+cJD4S/zMI+2elrf9Aks98u7sM7ZQ2lCLibvuikxpZKGJ6BgwShZ7crN3ZD+OnKFTGT9YTbn/A3HYQTScbhTKUVeHLedZ6Xnv3Du/dNLoGsuN/08UP2XvhsHFmeTt+c38ffx9Tlzs8/hmccDrFxqLWRG407W9+W4ksIsWtse3sy9KbB8cA8mxI5KhuP5T6ob1THKvqXsNXLzNwLpB1OdKMRHXMP1cUGE8wS8Cui6dhm6Kp4V3U9GryVvkntU17wZS0/jCuB0NH9fRdOmUvj8eQLlaUal16CRSIDtQoQIf8ggHc+jaR80YDr7vIyCBnw58XgdruhnhHg3Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NfO/dInM6yttWsyz3txZtJASIVYsEszz7SW7Cw/64Vk=;
+ b=VxjkMSbHkC7FkR1lSdIpXYjyjQkSx61b0eD2jbOXzexmlkI4zCV9q059cYBsP1rCbnBTM7hteOmGtxVrN3V8Isqj5D1VZb7vXRy+T0yw0XmUsU9XtxVHFyxFbVw7wDmozVQhbeFtSanWphpdwKuNOqGBsdZu8YvGZAnjkBZ1/b3mMrPcV1mAsvgEmS3LjRV/XEY6zmEmLdVZeZPQwaBfpjwgYgftc5SpUKVGkuDdRJ79xFKrjld8EkwjFYlR3FLiXJvrgZxSKr132JXTtgwlfWx0BVHY9QYUr642Pjg16xQkBAZDEk4z/JHn/Ruml0PT+WP9VD+UByT4G3Bsi5uIQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NfO/dInM6yttWsyz3txZtJASIVYsEszz7SW7Cw/64Vk=;
+ b=xerLUgv9xsFt9mQyL/Y+WROhRFXT1Ha4YRAH1uk8Roc7jayP8ap7xCE9GFlK49GP2k0h8JXRSSmTl0spFLds0Ige8cN1Z5M6vgCRRvRQ3WOlQ1efWPwQbthZM94CLXgAyNohfo2lh2u0rZVb3LOtxTWWpO8Cn8dKbcHDUKTfvTc=
+Received: from BN0PR04CA0050.namprd04.prod.outlook.com (2603:10b6:408:e8::25)
+ by IA1PR10MB7286.namprd10.prod.outlook.com (2603:10b6:208:3ff::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 15:09:11 +0000
+Received: from BL6PEPF00020E64.namprd04.prod.outlook.com
+ (2603:10b6:408:e8:cafe::8b) by BN0PR04CA0050.outlook.office365.com
+ (2603:10b6:408:e8::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Tue,
+ 16 Jun 2026 15:09:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BL6PEPF00020E64.mail.protection.outlook.com (10.167.249.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 15:09:10 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 16 Jun
+ 2026 10:08:50 -0500
+Received: from DFLE207.ent.ti.com (10.64.6.65) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 16 Jun
+ 2026 10:08:50 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 16 Jun 2026 10:08:50 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65GF8kVs258336;
+	Tue, 16 Jun 2026 10:08:47 -0500
+Message-ID: <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+Date: Tue, 16 Jun 2026 20:38:45 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,202 +75,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] ASoC: qcom: audioreach: compute active channel maps
- from channel_map
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: kancy2333@outlook.com, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-0-18bb19c5ca22@linaro.org>
- <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Wig
+ Cheng <onlywig@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
 Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260610-topic-sm8650-ayaneo-pocket-s2-wsa2-fix-v1-1-18bb19c5ca22@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20260616083921.4066690-1-zaq14760@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E64:EE_|IA1PR10MB7286:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4b8394f-0f55-453a-0147-08decbb93882
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|22082099003|18002099003|921020|4143699003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	YkKiyS+RMGKuSvvwgSOrB1c3JVIHx0np9gIZ3x9oewEkDjkCDflcOCmdVdjOrmlWEADKEBC9YkhNZaqmu0/R4lcL4EW8UtSYlJgDfWunmuJpDLIQo0VLa3VxbFuiYuWfWrgh+lp4CWlmubpnGYx3cbvJb6Wm6v1tANkeRc/7YsJTyKI1Kh529OrKHD461LnU2VMggwvKVGrjgXfGUG/U9SYSLSOL6YQmaje0sew4REebhXbS3ShekYdWQX7mOZFgDEKgLw4u6WbpnkdS0SGjSGBkWbfbKaQOdKhBRpOWK96eXQ3I3ATzH1sWGIZUeV8zbNtcCHSi17L6YveyOC9I4wu41SAl34smizdCMbbb4oq0+2Lsf2vWzf6ekjBSOo2ofAH9ZvgsHb78WhRq0DbYraNwYsveVGecstWcUB/7niHlo0ThPsz8dBsAmgf6zRRbe7SXhHNt1tzZRwCp6JDid4G16wBtrJihf22rpW47VCP1M+j+t+EVuJjPMq9JAZBAJb/46Zm9K4rN1jjKFEO/SuhhP5pdVQIQz2d7r14wId9rxElw3LM4SP4bvvd8A4OuDe5AIS2ROrdGUUYSET1+BxdCpjtBePoakZDhc8+8YM9ZUbYhzP7jXRoEiAFdriqEfKAYMFEgWvMiuKd1FFrfpgnML0Qoo1pa/7rR0Fmb7yt4uBoc0GfWaSmZQBePXJ2nZBtaGKOmAohDnWxOFYp3s7NENwNCObBQsK42qfVmsv2oMnZaGKU/k+1xtfKvVSfjuDYwo6hnh00q3g21OAXDlw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(921020)(4143699003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	z3xbVCn/aGqu/16RqZN+VEoE6DLJe2x0lq2JNacTaAJ7uhmGV2GwWXwY2G/xpuphmoXf4fmmfXt3RWwEfeZFKBz6097UE+ILESUuJflL51Y83dH7NtDyDZSv4gO8izhhsx7hxzGdjgwT3snammfRYMKweZZeIgIuAvPbeQHiB2o3Z3A2k5Dw+Xm6viOC3fqG2tRLtHU+N8iw2wIHRJj6HMvuVlb0wQcn8hHUyVYNVzTbEcJ8lyYbKD30Hi8IXwQVyd6p/U2V2q5K10bFe36V4XBpP5uZI5F+Tn/uafPLrVepR7coX7cDD6ftf8r0cFqTOYdMs9/bO5T+bQ4uhD8fR+aQYlqgti3OB6E8lFQ2x+FIhsDc+E99aWjq8K/oqgeX/+nwlzBuM0+Davg+ZsoZ+PQCfKq9JKF8wTTEZLMkbm0W0rA/6XBHxyX4ujpZo4Wh
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 15:09:10.9382
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4b8394f-0f55-453a-0147-08decbb93882
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E64.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7286
 
-+add Prasad to comment on dsp side.
+Hi LiangCheng,
 
-On 6/10/26 8:41 AM, Neil Armstrong wrote:
-> The Qualcom SM8650 based Ayaneo Pocket S2 gaming device has a set
-> of 2 WSA speakers connected on the WSA2 lines.
+On 16/06/26 14:09, LiangCheng Wang wrote:
+> Hi Devarsh,
 > 
-> But the Audioreach DSP only handles WSA2 in pair with the WSA
-> interface by using the upper bits of the active_channels_mask
-> for WSA2 and the lower bits for WSA:
+> Thanks for the detailed review.
 > 
-> /-------------------------------------------------\
-> | Bits  |     3    |     2    |   1     |     0   |
-> |-------------------------------------------------|
-> | Line  | WSA2 Ch2 | WSA2 Ch1 | WSA Ch2 | WSA Ch1 |
-> \-------------------------------------------------/
+>> 1) Could you please share the datasheet for the display controller used
+>> inside this pixpaper version ?
 > 
-> Setting only the WSA2 upper bits is perfectly valid and
-> functional but the current Audioreach code builds the bitmask
-> from the channels count with:
-> 	active_channels_mask = (1 << num_channels) - 1;
+> Unfortunately I'm not able to share the controller datasheet publicly; it
+> was provided to us under NDA.
 > 
-> In order to enable the WSA2 bits the channel count should be 4,
-> but the lower WSA bits are then also enabled and the DSP errors
-> out when trying to play on the disabled WSA interface.
+>> 2) Does 0xFF or 0xF7 mode work as well for your display or is it strictly
+>> 0xF4 which seems to mean that analog and osc bits are disabled ?
 > 
-> A solution would've been to add a fake WSA2 topology element which
-> would be translated into the top bits only, but it's not clean and
-> add some special exceptions in the generic Audioreach code.
+> I'll test whether the standard 0xF7/0xFF sequences also work on this panel
+> and follow up with the result.
 > 
-> The solution suggested by Srinivas is to use the channel mapping to
-> set this bitmask.
+>> 3) Also could you confirm which display controller IC does the PIXPAPER
+>> 4.26 use ?
 > 
-> This works but makes all the other calls using the channel mapping fail
-> because the DSP requires the channel_mapping table to start from index 0
-> and using num_channel length in order to apply the mapping on the
-> active_channels_mask bits in order.
+> The PIXPAPER 4.26 uses the Solomon SSD1677, so you're right that it is an
+> SSD16xx-family controller -- the commands it uses (0x01, 0x0C, 0x18, 0x20,
+> 0x22, 0x24, 0x3C, 0x44/0x45, 0x4E/0x4F) match the standard SSD16xx set.
 > 
-> So we need to skip the empty channel mapping entries in all other
-> users of the channel_map to build valid channel_mapping tables.
+>> it would be appropriate to add this panel as a new display panel entry in
+>> panel-ssd16xx.c rather than a separate driver to avoid code duplication.
 > 
-> This should not break any other usecases since the default channel
-> mapping always start from index 0, and will add flexibilty to allow
-> some special non linear mapping for other interfaces as well.
+> I agree that consolidating SSD16xx panels under panel-ssd16xx.c is the right
+> long-term direction, and I'd be glad to converge there.
 > 
-> Suggested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  sound/soc/qcom/qdsp6/audioreach.c | 47 ++++++++++++++++++++++++++++++---------
->  1 file changed, 37 insertions(+), 10 deletions(-)
+> I'm not yet sure how SSD1677 would fit with the controllers your series
+> currently targets (SSD1673/SSD1680/SSD1681/SSD1683) 
+
+Thanks for sharing this information, yes it makes sense now that it is 
+using ssd1677.I have the SSD1677 datasheet and I think there should be 
+minimal change in the driver to support this controller, I will be 
+adding that in v2.
+
+-- ours is a larger
+> 4.26" 800x480 panel, so I suspect it may need a new controller variant.
+> Would you expect panel-ssd16xx.c to be able to support SSD1677?
 > 
-> diff --git a/sound/soc/qcom/qdsp6/audioreach.c b/sound/soc/qcom/qdsp6/audioreach.c
-> index a13f753eff98..9b80cfa56e8a 100644
-> --- a/sound/soc/qcom/qdsp6/audioreach.c
-> +++ b/sound/soc/qcom/qdsp6/audioreach.c
-> @@ -703,6 +703,7 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->  	int pm_sz = APM_HW_EP_PMODE_CFG_PSIZE;
->  	int size = ic_sz + ep_sz + fs_sz + pm_sz;
->  	void *p;
-> +	int i;
->  
->  	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(size, APM_CMD_SET_CFG, 0);
->  	if (IS_ERR(pkt))
-> @@ -741,7 +742,12 @@ static int audioreach_codec_dma_set_media_format(struct q6apm_graph *graph,
->  
->  	intf_cfg->cfg.lpaif_type = module->hw_interface_type;
->  	intf_cfg->cfg.intf_index = module->hw_interface_idx;
-> -	intf_cfg->cfg.active_channels_mask = (1 << cfg->num_channels) - 1;
-> +	intf_cfg->cfg.active_channels_mask = 0;
-> +	/* Convert the physical channel mapping into a bit field */
-> +	for (i = 0; i < AR_PCM_MAX_NUM_CHANNEL; i++)
-> +		if (cfg->channel_map[i])
-> +			intf_cfg->cfg.active_channels_mask |= BIT(i);
-> +
->  	p += ic_sz;
->  
->  	pm_cfg = p;
-> @@ -840,7 +846,7 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->  	uint32_t num_channels = cfg->num_channels;
->  	int payload_size = APM_MFC_CFG_PSIZE(media_format, num_channels) +
->  				APM_MODULE_PARAM_DATA_SIZE;
-> -	int i;
-> +	int i, j;
->  	void *p;
->  
->  	struct gpr_pkt *pkt __free(kfree) = audioreach_alloc_apm_cmd_pkt(payload_size, APM_CMD_SET_CFG, 0);
-> @@ -860,8 +866,12 @@ static int audioreach_mfc_set_media_format(struct q6apm_graph *graph,
->  	media_format->sample_rate = cfg->sample_rate;
->  	media_format->bit_width = cfg->bit_width;
->  	media_format->num_channels = cfg->num_channels;
-> -	for (i = 0; i < num_channels; i++)
-> -		media_format->channel_mapping[i] = cfg->channel_map[i];
-> +	/* Convert the physical mapping to a logical mapping of the channels */
-> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
-> +		if (!cfg->channel_map[i])
-> +			continue;
-> +		media_format->channel_mapping[j++] = cfg->channel_map[i];
-> +	}
->  
->  	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->  }
-> @@ -1080,6 +1090,7 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->  	struct apm_pcm_module_media_fmt_cmd *cfg;
->  	struct apm_module_param_data *param_data;
->  	int payload_size;
-> +	int i, j;
->  
->  	if (num_channels > 4) {
->  		dev_err(graph->dev, "Error: Invalid channels (%d)!\n", num_channels);
-> @@ -1113,7 +1124,12 @@ static int audioreach_pcm_set_media_format(struct q6apm_graph *graph,
->  	media_cfg->num_channels = mcfg->num_channels;
->  	media_cfg->q_factor = mcfg->bit_width - 1;
->  	media_cfg->bits_per_sample = mcfg->bit_width;
-> -	memcpy(media_cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
-> +	/* Convert the physical mapping to a logical mapping of the channels */
-> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < mcfg->num_channels; i++) {
-> +		if (!mcfg->channel_map[i])
-> +			continue;
-> +		media_cfg->channel_mapping[j++] = mcfg->channel_map[i];
-> +	}
->  
->  	return q6apm_send_cmd_sync(graph->apm, pkt, 0);
->  }
-> @@ -1127,6 +1143,7 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->  	struct payload_media_fmt_pcm *cfg;
->  	struct media_format *header;
->  	int rc, payload_size;
-> +	int i, j;
->  	void *p;
->  
->  	if (num_channels > 4) {
-> @@ -1166,7 +1183,12 @@ static int audioreach_shmem_set_media_format(struct q6apm_graph *graph,
->  		cfg->q_factor = mcfg->bit_width - 1;
->  		cfg->endianness = PCM_LITTLE_ENDIAN;
->  		cfg->num_channels = mcfg->num_channels;
-> -		memcpy(cfg->channel_mapping, mcfg->channel_map, mcfg->num_channels);
-> +		/* Convert the physical mapping to a logical mapping of the channels */
-> +		for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < cfg->num_channels; i++) {
-> +			if (!mcfg->channel_map[i])
-> +				continue;
-> +			cfg->channel_mapping[j++] = mcfg->channel_map[i];
-> +		}
->  	} else {
->  		rc = audioreach_set_compr_media_format(header, p, mcfg);
->  		if (rc)
-> @@ -1243,7 +1265,7 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->  	struct apm_module_sp_vi_ex_mode_cfg *ex_cfg;
->  	int op_sz, cm_sz, ex_sz;
->  	struct apm_module_param_data *param_data;
-> -	int rc, i, payload_size;
-> +	int rc, i, payload_size, j;
->  	struct gpr_pkt *pkt;
->  	void *p;
->  
-> @@ -1284,14 +1306,19 @@ static int audioreach_speaker_protection_vi(struct q6apm_graph *graph,
->  	param_data->param_size = cm_sz - APM_MODULE_PARAM_DATA_SIZE;
->  
->  	cm_cfg->cfg.num_channels = num_channels * 2;
-> -	for (i = 0; i < num_channels; i++) {
-> +	/* Convert the physical mapping to a logical mapping of the channels */
-> +	for (i = 0, j = 0; i < AR_PCM_MAX_NUM_CHANNEL && j < num_channels; i++) {
-> +		if (!mcfg->channel_map[i])
-> +			continue;
->  		/*
->  		 * Map speakers into Vsense and then Isense of each channel.
->  		 * E.g. for PCM_CHANNEL_FL and PCM_CHANNEL_FR to:
->  		 * [1, 2, 3, 4]
->  		 */
-> -		cm_cfg->cfg.channel_mapping[2 * i] = (mcfg->channel_map[i] - 1) * 2 + 1;
-> -		cm_cfg->cfg.channel_mapping[2 * i + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
-> +		cm_cfg->cfg.channel_mapping[2 * j] = (mcfg->channel_map[i] - 1) * 2 + 1;
-> +		cm_cfg->cfg.channel_mapping[2 * j + 1] = (mcfg->channel_map[i] - 1) * 2 + 2;
-> +
-> +		++j;
->  	}
->  
->  	p += cm_sz;
+
+Yes, I will be adding SSD1677 controller support in V2 of my series, 
+hopefully that should help and after that it's just a matter of adding 
+panel entry for your pixpaper panel. I can share you my branch with 
+ssd1677 support once I have it ready.
+
+Also, I don't have PIXPAPER 4.26 panel but if you want I can share you 
+my branch having ssd1677 support and additionally I can quickly add 
+boilerplate pixpaper 4.26 panel entries on top of my V2 series referring 
+from your patch so that it switches to using standard ssd16xx commands 
+and ssd1677 quirks wherever necessary and you can then validate and modify.
+
+> In the meantime, would it be reasonable to take this smaller standalone
+> driver, and migrate the panel into panel-ssd16xx.c once that driver lands
+> with SSD1677 support? I'd be happy to help with the migration, and of course
+> I'll defer to your and the maintainers' preference here.
 > 
+
+I think it makes more sense to use already posted unified ssd16xx driver 
+which already supports standard controller flow for the ssd16xx family 
+with additional controller/panel specific quirks and has interface to 
+support different panels thus avoiding massive code duplication and 
+leveraging already developed functionalities.
+
+Regards
+Devarsh
+
+> Regards,
+> LiangCheng
 
