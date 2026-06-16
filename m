@@ -1,177 +1,306 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com [209.85.210.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2553E411664
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:55:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2EB4183DE
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781600140; cv=none; b=O6FuHRQ64/Ob6D+b352bsgwP6BZWxLpLuM7MWwQLlnmY2qbKmr73JVIOjgxrPRIdag0oK5PpMHsHGdBTagBk590QJ0o4bfEsiK0f8hf5T06hNPdkJKpDP95sm3sqvnMyhm8jOn/+43fJ7qgR7Rvo9mhh01XemHTFacTTB6yUNy0=
+	t=1781600242; cv=none; b=V/1Vn0bQ2b8HtYc2JkPukvDueC6PXyY0ogO/f4D6LFr1/CN4z7ln0YgqpNASA2ERcan4FObd3eCsDG5NxpuSwokVVTA6G3DCPE1Jn6mWQxDTww/VSgsY4JIbqDLUyXzFsMAcbW8kNtRM2wJJEzTQa2S5hjq4K9k6qTwKyhcI5t0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781600140; c=relaxed/simple;
-	bh=4xrzWiPUPLpe/cLXPoITvQw+GLIajO+n8AwKDTD1XRg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=K5YmdaEbC1nPNhJlvNRus+HbWpOSX7A75elIHgrzeEQKSGlaVo3K31xTDGIHcYIET/QEkCTx3qGnlsAZr9nbcaLBewI8YZj5uf/3dmEqSqkFzRCOeEXFJm7emFuryGVwK+gdRx2RpIrFlSMyaTgp2saXXJoHrv0eG86WMEkazNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=avsx/M6t; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aLKP4+8L; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781600242; c=relaxed/simple;
+	bh=YQTPaERZZEVfDy3cbkgqveLx6aZM/khTCmkBnMIkHzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=au6r4Nu1owYnQAd0UUSLKtO0upJtw0JoUZDqHd9ygSZ7QsRnIunGYBuiLlKpkPUZ4uSgkLIDmIBdpUSdyR7tjGqdakwYlgCgQRsm1LFuFD0Dh0BpuhNjGh+T5YaE+rl4o7K38npMk/pRoEtbFsdwwHxVIuwDdrR0SRkF4Hfze5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IPKuHdcW; arc=none smtp.client-ip=209.85.210.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="avsx/M6t";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aLKP4+8L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781600138;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mAyn5kESksTVfnvqgVzJ356M4lj5kuXhDk0e0cXq2jQ=;
-	b=avsx/M6thGN+GaQF3Vd4XmJqMkoORGrlHiVp2HQKQ2bf3X8gT5SyF/BZfCXLo58D5eeCJf
-	BS9AIAfPR3eYsxmSbOv1zImnEBTODXcaN5hfJc9ws3J/A9G4cO10AdbndCc26VPTZJOmzz
-	ezV7vyvH3sCyVIDCtAxnuUstH8f2iwY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-529-pWmGDMLzMcGsc3Sou0DVpg-1; Tue, 16 Jun 2026 04:55:36 -0400
-X-MC-Unique: pWmGDMLzMcGsc3Sou0DVpg-1
-X-Mimecast-MFC-AGG-ID: pWmGDMLzMcGsc3Sou0DVpg_1781600135
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-490b8adf8b8so40868715e9.0
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:55:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IPKuHdcW"
+Received: by mail-pf1-f196.google.com with SMTP id d2e1a72fcca58-8423b08b293so2082951b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:57:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781600135; x=1782204935; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mAyn5kESksTVfnvqgVzJ356M4lj5kuXhDk0e0cXq2jQ=;
-        b=aLKP4+8LT+5aZjlOBuUDYKi56G7kmlR4dIDMlqcza0nzrCU2j0moS4w3D7apgyvOZ5
-         gszbLYIR5xIzgoiL9OufwVmRQUjSJwGJvbQPN62ya7BdjH2aYxNRG6o/0AtjM3kFyp82
-         4O3y3aN97rXdbJKAHSLycY2BbUqz1YWq36ezc2VlzSUTCExxCjyrc7reHUaRvFLBu2j2
-         BsbKjhgdL0hsgj6MeTzwDo5IcGBYs5M9jIiMYJw/5Kpdmd8Xa/Jz84fsGsOvDInc85Zl
-         PyWP/ZPcdz0pbl6frMFdJmChVeChLpG+3Of0oqVQP2x6Byxgbtd7PBPnZTpOS3OCC7zy
-         aEMQ==
+        d=gmail.com; s=20251104; t=1781600240; x=1782205040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9yNlL/Fch0KIwV+VLb90p7R9gZLFeyNye+IbISH5/PI=;
+        b=IPKuHdcWiYUthbfOPA9X828f/d3MhYyQ6ByeqDM3NR96DbBURv2fkJ2nqwgs0OTEHg
+         dz7TQsCKdrHM2N93us4C88YYcr/y5Yb7cfqoEo92N4AtXfqf6+0sXwuBIMQ/8A5C4olO
+         0deo6CqKcy6gdrxScwt+jOwW4MLA+3lg2R0RQTd128E4GfvAeCGiCwZaIJowyEaAnKIv
+         fnXAz/51HFmVS9KObWBalOlTG4d8bUjnfMONPLev4b3b+GZn9UBxJM/nyrqY/HrBtiR3
+         w7rqamLs02yNNZqcKqprckdGF+PuG/ZPkV0EP7DM6j7FZdP18L67E6Kb2JC/5hTkDp6O
+         4QvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781600135; x=1782204935;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mAyn5kESksTVfnvqgVzJ356M4lj5kuXhDk0e0cXq2jQ=;
-        b=W/v7d7OwP8kOE6aO/xZkKem5PkyjHepZUIwRW+fWUxwff8VMDaH7RmsipxC5WlzXXZ
-         m7HtZ3xfVK7C+aDHtQfQSHoZbKs1rRuBIrysXzEh3xqfRoxfIXwZ2PGT3ISQUPvLLa5z
-         HUS0VapJ5sMiPlGxD9p7+/CWezIBuZgPAe+A4XVJX7NRCK4NPoK/eQIv49QNnqM2Gr8j
-         O+9KsYg4qru87PeYjLPYVNjbW3cqz1UseQ8RjrybfnsfKFXal4gBnksf8JROe2S/o5X5
-         EkoKSUEPoqZREManBh8bKYDG6yuaYh7g1vDQ1Ju5CUs2EmoqHKYDUidwS7UnlG37xCQ5
-         ryLg==
-X-Forwarded-Encrypted: i=1; AFNElJ8z2jNWFLFAQaUlv2d/cev1ZlaGGcprXnIKFVgDUFxBPs5Y+G10r2GGZN4ttVT1tZhb/Y9YgLDw21pR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxR9E4EOfRmQyH/tDsbOGZJPESUXYeJu7Lbxe2xfXWTKvJ3LaI7
-	GZWDrHiEd/sP2YKMFKy4ZvacnH+hwNncYuRcdAnHcJL7O0hxlQAieW4Wlwi9M3trTHBuPSbJN95
-	5zLZ544XdktOd3pWO95jzXMMonMh6sdsW6Gu2f3wqUrotyEW97jXjSmcF+e/yeV4=
-X-Gm-Gg: Acq92OHnD4aF3xamt78fwu0LpbictK2n6HVT3SWVUbm8vVHuGEY5Dv/jkmx6nqF3JqX
-	tIwlJ8oZiWcjWhxol9vzTEyZSBP77qeo4BDftADWrqHYxC+HP7WstxjY/HYbpsXQzSMx28HZj8H
-	8ohvCwzSkcr/il2DHlVQrq8n+FWtDZJkuCzA0cct5yzQDjYiDZEG28p5orspEY698eColiOG5q1
-	L6JJPf7xKolS/YTN47nX9hr0ezTFFkBcAnVLJg1v3EemYrrozEw0b7Fr/3FzSZdO30VUj0caUIO
-	cVmbmxrj5ZXYuy/LISGA2lSFfSkIbfKBRbWkfAUUtf3WWtgVtkgX87bKzghAQxJ3ZecipUvREby
-	IFauMRHeM/4icd9Kna6loPgCeKajommXp+VYY5FdG5m4LkNF4p/TAqrvTj0oGU1CdJvpl1c9Tq1
-	Chx9MV
-X-Received: by 2002:a05:600c:6812:b0:490:adb6:793d with SMTP id 5b1f17b1804b1-4922ffb7525mr40889355e9.26.1781600134977;
-        Tue, 16 Jun 2026 01:55:34 -0700 (PDT)
-X-Received: by 2002:a05:600c:6812:b0:490:adb6:793d with SMTP id 5b1f17b1804b1-4922ffb7525mr40888885e9.26.1781600134534;
-        Tue, 16 Jun 2026 01:55:34 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f26f450sm46481919f8f.10.2026.06.16.01.55.33
+        d=1e100.net; s=20251104; t=1781600240; x=1782205040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9yNlL/Fch0KIwV+VLb90p7R9gZLFeyNye+IbISH5/PI=;
+        b=B9wK44DUANUx/C7DSOY5CoW/GVjzzvv8IAch/s5EVZmQtpSPoucZM5v6jayEtpntGA
+         uSBp8kVH2hI5XY+ntY0HHC8zj+/Y4tJj8tLKrWpvomsPEyFtvXoEY7U9Jm9UmoEl2kba
+         v7Sx/YMjoLuFA2h/IlM8sxs+M0XHiwDw36WxDvyBf5KaNpwMHFDo4sZVyFXpn5pM4CW1
+         IyIwIChqG9WiFWhri1niZbq+37n7RmavRTdQusZqKre0wHRduH6B8DAXF7XtzDMUrQjY
+         f3inhvlIbte7mMoT1JgkjoYsMzS2rKzEf2UsUcgv8DW7tjGAs4LPRRz+HtRAAbVxFM/A
+         JaSw==
+X-Forwarded-Encrypted: i=1; AFNElJ9FBSHwlcKCNTR/8qsfVr4LvDa1h74H4wIpoVNIN235LYXkQImsSRxOIf1glyn27lpawbhEX5s5bq/D@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4IuIgLC6h+F/S9If/+wYUg0o6F1pBrJe88/9Dj/TjcoslNQ28
+	XMwY16UpUzi3hdib3IKL4yDYfktdkPLabfstLKSdt/bq5cPOcldw10Y1
+X-Gm-Gg: Acq92OEwuZ4sYJTkXTpWnrd7zV6Jnxd8c045rk5P28S4e3cATrPd8MjQxZSqd5egsp/
+	GorxGZ65pUjaxgS8gFfJCGk5wRoeEa1I9DMydmfWsaFp78cY27sxG2BVOZtG5/N7P4bro+zS/MQ
+	O4CEbn/xp3k4IdLIY2zJ84VRejBz0Y1t1QUPUVpHkFLqwRn4GWiGxG1rotdhCQrMJGLsSqE2s27
+	7+sRpx6wNtcLkX9K/uAExXqIJVaEL3u6dalIPaCAe7XDNSobtlIHkCUUYAfM/lqWOvAz3ujmV2y
+	nqBShABeb8/LEFesOo31zAUqmXxPo5F2ziCM76AeuFvdHeUbb37vJLKm5sRBDVsofo5YtTJr3pG
+	sozyOm+BJcADx0wmd8qANqPZdkeQ4/28op0qvONef25wXelzZ1xKOA/qFA8ojbqZDm7lzeoLkWu
+	xq5JejXPZr/sWXldZu2VXEPNhHSqhe3cRlmNfyFSXhW34kOdPJOdFd
+X-Received: by 2002:a05:6a00:391d:b0:842:6482:adc with SMTP id d2e1a72fcca58-8434cd0ca2emr18698657b3a.9.1781600239218;
+        Tue, 16 Jun 2026 01:57:19 -0700 (PDT)
+Received: from Tejas-Legion-7-16IRX9.. ([103.159.249.83])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434accbc89sm12689662b3a.15.2026.06.16.01.57.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 01:55:33 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de,
- Alberto Ruiz <aruiz@redhat.com>
-Subject: Re: [PATCH 0/2] drm: Add driver for the Solomon SSD1351 OLED
- controller
-In-Reply-To: <20260615181253.97551-1-amit.barzilai22@gmail.com>
-References: <20260615181253.97551-1-amit.barzilai22@gmail.com>
-Date: Tue, 16 Jun 2026 10:55:32 +0200
-Message-ID: <87cxxqzwxn.fsf@ocarina.mail-host-address-is-not-set>
+        Tue, 16 Jun 2026 01:57:18 -0700 (PDT)
+From: Teja Sai Charan B <tejaasaye@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+Subject: [PATCH v2] dt-bindings: rtc: Convert rtc-cmos binding to YAML
+Date: Tue, 16 Jun 2026 14:26:58 +0530
+Message-ID: <20260616085659.12809-1-tejaasaye@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+From: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
 
-> Hi Javier,
->
-> Thanks you for the detailed review and for the Reviewed-by on the binding.
->
+Convert the rtc-cmos devicetree bindings to dt schema.
 
-You are welcome.
+Signed-off-by: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
 
-> I agree with folding the SSD1351 into ssd130x rather than keeping it
-> standalone. My plan for the v2 driver series follows your two steps:
->
->   1. Add RGB565 support to the existing SSD133X family (so the SSD1331 gains
->      65k color), gating the format on a per-variant flag in device_info so the
->      existing RGB332 path is untouched.
->   2. Add a new SSD135X family for the SSD1351 on top of that, reusing the
->      ssd133x data path (the update_rect window logic is already
->      format-agnostic) and adding only the SSD1351-specific bits - the 0x5c
->      write-RAM command and its init sequence.
->
+---
 
-These make sense to me.
+Changes in v2:
+- Allow intel,ce4100-rtc compatible used by existing DTS files
+---
+ .../devicetree/bindings/rtc/rtc-cmos.txt      | 27 ---------
+ .../devicetree/bindings/rtc/rtc-cmos.yaml     | 60 +++++++++++++++++++
+ result.txt                                    | 17 ++++++
+ 3 files changed, 77 insertions(+), 27 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.txt
+ create mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+ create mode 100644 result.txt
 
-> I'm deferring step 3 (native 256k color) for now since, as you suspected, 
-> there's no matching DRM fourcc, and I'm dropping the 0/180 rotation support
-> to keep the series focused; it can come back later.
->
-
-This also makes sense. Having 256k color support is nice to have, but so was
-65k color for SSD1331, that didn't prevent me to add support for that family.
-
-> Two things I'd like to confirm before I send the series:
->
->   - I have an SSD1331 panel, but it is currently unsoldered and I don't have
->     the means to solder it myself. I'm trying to arrange testing through
->     someone else - I can't promise it will work out. If it doesn't, the
->     SSD1331 RGB565 change would be compile-tested only (I do have SSD1351
->     hardware to test the new family). Is compile-tested-only acceptable for
->     the SSD1331 part, or would you prefer I hold that piece until it can be
->     verified on hardware?
-
-That's OK. I've a SSD1331 that I used to test the SSD130X support when I was
-working on it. So I can test your SSD1331 changes without any problem.
-
->   - Could you confirm the RGB565 byte order the SSD1331 expects? The
->     standalone SSD1351 code used big-endian (drm_fb_xrgb8888_to_rgb565be);
->     I want the shared conversion helper to match the SSD1331 datasheet.
->
-
-If I read the SSD1331 data sheet correctly I see that it support different 65k
-formats but it does support the same 64k color depth format than the SSD1351.
-
-Only supporting that variant is totally fine so that you could reuse it for 
-both chip families.
-
-> Separately, I've sent the DT binding as a standalone v2. Since I dropped the
-> width/height and rotation properties per Krzysztof's review, I did not carry
-> your Reviewed-by forward - please re-review at your convenience.
->
-
-Yes, that looks good to me. I already gave it my r-b again.
-
-BTW, I just added some cleanup patches from Alberto that simplify how the driver
-send multiple commands. Please base your v2 on drm-misc-next branch to ensure it 
-does not conflict with your changes.
-
-> Thanks,
-> Amit
->
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt b/Documenta=
+tion/devicetree/bindings/rtc/rtc-cmos.txt
+deleted file mode 100644
+index 7d7b5f6bda65..000000000000
+--- a/Documentation/devicetree/bindings/rtc/rtc-cmos.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+- Motorola mc146818 compatible RTC
+-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-
+-Required properties:
+-  - compatible : "motorola,mc146818"
+-  - reg : should contain registers location and length.
+-
+-Optional properties:
+-  - interrupts : should contain interrupt.
+-  - ctrl-reg : Contains the initial value of the control register also
+-    called "Register B".
+-  - freq-reg : Contains the initial value of the frequency register also
+-    called "Register A".
+-
+-"Register A" and "B" are usually initialized by the firmware (BIOS for
+-instance). If this is not done, it can be performed by the driver.
+-
+-ISA Example:
+-
+-	rtc@70 {
+-	         compatible =3D "motorola,mc146818";
+-	         interrupts =3D <8 3>;
+-	         interrupt-parent =3D <&ioapic1>;
+-	         ctrl-reg =3D <2>;
+-	         freq-reg =3D <0x26>;
+-	         reg =3D <1 0x70 2>;
+-	 };
+diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Document=
+ation/devicetree/bindings/rtc/rtc-cmos.yaml
+new file mode 100644
+index 000000000000..ba4812778115
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/rtc-cmos.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Motorola mc146818 compatible RTC
++
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
++
++properties:
++  compatible:
++    oneOf:
++      - const: motorola,mc146818
++
++      - items:
++          - const: intel,ce4100-rtc
++          - const: motorola,mc146818
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  ctrl-reg:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Initial value of the control register
++      (also known as Register B).
++
++  freq-reg:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Initial value of the frequency register
++      (also known as Register A).
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    bus {
++        #address-cells =3D <2>;
++        #size-cells =3D <1>;
++
++        rtc@70 {
++            compatible =3D "motorola,mc146818";
++            reg =3D <1 0x70 2>;
++
++            interrupts =3D <8 3>;
++
++            ctrl-reg =3D <2>;
++            freq-reg =3D <0x26>;
++        };
++    };
+diff --git a/result.txt b/result.txt
+new file mode 100644
+index 000000000000..5e90660b93ec
+--- /dev/null
++++ b/result.txt
+@@ -0,0 +1,17 @@
++arch/x86/kernel/x86_init.c:42:	{ .compatible =3D "motorola,mc146818" },
++arch/x86/platform/ce4100/falconfalls.dts:420:					compatible =3D "intel,ce=
+4100-rtc", "motorola,mc146818";
++arch/mips/boot/dts/loongson/rs780e-pch.dtsi:31:				compatible =3D "motorol=
+a,mc146818";
++arch/mips/boot/dts/mti/malta.dts:110:			compatible =3D "motorola,mc146818";
++arch/alpha/kernel/rtc.c:25: * We don't want to use the rtc-cmos driver, be=
+cause we don't want to support
++drivers/built-in.a:1031:rtc/rtc-cmos.o/
++drivers/rtc/built-in.a:11:rtc-cmos.o/
++drivers/rtc/.rtc-mc146818-lib.o.cmd:1:savedcmd_drivers/rtc/rtc-mc146818-li=
+b.o :=3D gcc -Wp,-MMD,drivers/rtc/.rtc-mc146818-lib.o.d -nostdinc -I./arch/=
+x86/include -I./arch/x86/include/generated -I./include -I./include -I./arch=
+/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./=
+include/generated/uapi -include ./include/linux/compiler-version.h -include=
+ ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KE=
+RNEL__ -std=3Dgnu11 -fshort-wchar -funsigned-char -fno-common -fno-PIE -fno=
+-strict-aliasing -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a=
+ -fcf-protection=3Dnone -m64 -falign-jumps=3D1 -falign-loops=3D1 -mno-80387=
+ -mno-fp-ret-in-387 -mpreferred-stack-boundary=3D3 -mskip-rax-setup -march=
+=3Dx86-64 -mtune=3Dgeneric -mno-red-zone -mcmodel=3Dkernel -mstack-protecto=
+r-guard-reg=3Dgs -mstack-protector-guard-symbol=3D__ref_stack_chk_guard -Wn=
+o-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=3Dthunk-ex=
+tern -mindirect-branch-register -mindirect-branch-cs-prefix -mfunction-retu=
+rn=3Dthunk-extern -fno-jump-tables -mharden-sls=3Dall -fpatchable-function-=
+entry=3D16,16 -fno-delete-null-pointer-checks -O2 -fno-allow-store-data-rac=
+es -fstack-protector-strong -fno-omit-frame-pointer -fno-optimize-sibling-c=
+alls -ftrivial-auto-var-init=3Dzero -fno-stack-clash-protection -fzero-call=
+-used-regs=3Dused-gpr -pg -mrecord-mcount -mfentry -DCC_USING_FENTRY -falig=
+n-functions=3D16 -fstrict-flex-arrays=3D3 -fms-extensions -fno-strict-overf=
+low -fno-stack-check -fconserve-stack -fno-builtin-wcslen -Wall -Wextra -Wu=
+ndef -Werror=3Dimplicit-function-declaration -Werror=3Dimplicit-int -Werror=
+=3Dreturn-type -Werror=3Dstrict-prototypes -Wno-format-security -Wno-trigra=
+phs -Wno-frame-address -Wno-address-of-packed-member -Wmissing-declarations=
+ -Wmissing-prototypes -Wframe-larger-than=3D1024 -Wno-main -Wno-dangling-po=
+inter -Wvla-larger-than=3D1 -Wno-pointer-sign -Wcast-function-type -Wno-arr=
+ay-bounds -Wno-stringop-overflow -Wno-alloc-size-larger-than -Wimplicit-fal=
+lthrough=3D5 -Werror=3Ddate-time -Werror=3Dincompatible-pointer-types -Werr=
+or=3Ddesignated-init -Wenum-conversion -Wunused -Wno-unused-but-set-variabl=
+e -Wno-unused-const-variable -Wno-packed-not-aligned -Wno-format-overflow -=
+Wno-format-truncation -Wno-stringop-truncation -Wno-override-init -Wno-miss=
+ing-field-initializers -Wno-type-limits -Wno-shift-negative-value -Wno-mayb=
+e-uninitialized -Wno-sign-compare -Wno-unused-parameter -g -gdwarf-5  -fsan=
+itize=3Dbounds-strict -fsanitize=3Dshift -fsanitize=3Dbool -fsanitize=3Denu=
+m      -DKBUILD_MODFILE=3D'"drivers/rtc/rtc-mc146818-lib"' -DKBUILD_BASENAM=
+E=3D'"rtc_mc146818_lib"' -DKBUILD_MODNAME=3D'"rtc_mc146818_lib"' -D__KBUILD=
+_MODNAME=3Drtc_mc146818_lib -c -o drivers/rtc/rtc-mc146818-lib.o drivers/rt=
+c/rtc-mc146818-lib.c=20=20
++drivers/rtc/.built-in.a.cmd:1:savedcmd_drivers/rtc/built-in.a :=3D rm -f d=
+rivers/rtc/built-in.a;  printf "drivers/rtc/%s " lib.o class.o interface.o =
+nvmem.o dev.o proc.o sysfs.o rtc-mc146818-lib.o rtc-cmos.o | xargs ar cDPrS=
+T drivers/rtc/built-in.a
++drivers/rtc/Kconfig:1065:	  will be called rtc-cmos.
++drivers/rtc/Makefile:45:obj-$(CONFIG_RTC_DRV_CMOS)	+=3D rtc-cmos.o
++drivers/rtc/.rtc-cmos.o.cmd:1:savedcmd_drivers/rtc/rtc-cmos.o :=3D gcc -Wp=
+,-MMD,drivers/rtc/.rtc-cmos.o.d -nostdinc -I./arch/x86/include -I./arch/x86=
+/include/generated -I./include -I./include -I./arch/x86/include/uapi -I./ar=
+ch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -=
+include ./include/linux/compiler-version.h -include ./include/linux/kconfig=
+.h -include ./include/linux/compiler_types.h -D__KERNEL__ -std=3Dgnu11 -fsh=
+ort-wchar -funsigned-char -fno-common -fno-PIE -fno-strict-aliasing -mno-ss=
+e -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -mno-sse4a -fcf-protection=3Dnone =
+-m64 -falign-jumps=3D1 -falign-loops=3D1 -mno-80387 -mno-fp-ret-in-387 -mpr=
+eferred-stack-boundary=3D3 -mskip-rax-setup -march=3Dx86-64 -mtune=3Dgeneri=
+c -mno-red-zone -mcmodel=3Dkernel -mstack-protector-guard-reg=3Dgs -mstack-=
+protector-guard-symbol=3D__ref_stack_chk_guard -Wno-sign-compare -fno-async=
+hronous-unwind-tables -mindirect-branch=3Dthunk-extern -mindirect-branch-re=
+gister -mindirect-branch-cs-prefix -mfunction-return=3Dthunk-extern -fno-ju=
+mp-tables -mharden-sls=3Dall -fpatchable-function-entry=3D16,16 -fno-delete=
+-null-pointer-checks -O2 -fno-allow-store-data-races -fstack-protector-stro=
+ng -fno-omit-frame-pointer -fno-optimize-sibling-calls -ftrivial-auto-var-i=
+nit=3Dzero -fno-stack-clash-protection -fzero-call-used-regs=3Dused-gpr -pg=
+ -mrecord-mcount -mfentry -DCC_USING_FENTRY -falign-functions=3D16 -fstrict=
+-flex-arrays=3D3 -fms-extensions -fno-strict-overflow -fno-stack-check -fco=
+nserve-stack -fno-builtin-wcslen -Wall -Wextra -Wundef -Werror=3Dimplicit-f=
+unction-declaration -Werror=3Dimplicit-int -Werror=3Dreturn-type -Werror=3D=
+strict-prototypes -Wno-format-security -Wno-trigraphs -Wno-frame-address -W=
+no-address-of-packed-member -Wmissing-declarations -Wmissing-prototypes -Wf=
+rame-larger-than=3D1024 -Wno-main -Wno-dangling-pointer -Wvla-larger-than=
+=3D1 -Wno-pointer-sign -Wcast-function-type -Wno-array-bounds -Wno-stringop=
+-overflow -Wno-alloc-size-larger-than -Wimplicit-fallthrough=3D5 -Werror=3D=
+date-time -Werror=3Dincompatible-pointer-types -Werror=3Ddesignated-init -W=
+enum-conversion -Wunused -Wno-unused-but-set-variable -Wno-unused-const-var=
+iable -Wno-packed-not-aligned -Wno-format-overflow -Wno-format-truncation -=
+Wno-stringop-truncation -Wno-override-init -Wno-missing-field-initializers =
+-Wno-type-limits -Wno-shift-negative-value -Wno-maybe-uninitialized -Wno-si=
+gn-compare -Wno-unused-parameter -g -gdwarf-5  -fsanitize=3Dbounds-strict -=
+fsanitize=3Dshift -fsanitize=3Dbool -fsanitize=3Denum      -DKBUILD_MODFILE=
+=3D'"drivers/rtc/rtc-cmos"' -DKBUILD_BASENAME=3D'"rtc_cmos"' -DKBUILD_MODNA=
+ME=3D'"rtc_cmos"' -D__KBUILD_MODNAME=3Drtc_cmos -c -o drivers/rtc/rtc-cmos.=
+o drivers/rtc/rtc-cmos.c=20=20
++drivers/rtc/.rtc-cmos.o.cmd:3:source_drivers/rtc/rtc-cmos.o :=3D drivers/r=
+tc/rtc-cmos.c
++drivers/rtc/.rtc-cmos.o.cmd:5:deps_drivers/rtc/rtc-cmos.o :=3D \
++drivers/rtc/.rtc-cmos.o.cmd:1372:drivers/rtc/rtc-cmos.o: $(deps_drivers/rt=
+c/rtc-cmos.o)
++drivers/rtc/.rtc-cmos.o.cmd:1374:$(deps_drivers/rtc/rtc-cmos.o):
++drivers/rtc/rtc-cmos.c:1382:		.compatible =3D "motorola,mc146818",
+--=20
+2.43.0
 
