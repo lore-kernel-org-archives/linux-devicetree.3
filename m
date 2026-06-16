@@ -1,67 +1,86 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93ED36E470
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20253672AB
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781619188; cv=none; b=eYA9bPleUcLyNZ01vFEzfmPbu3ZWIlY4CvHOPcv6i2MTnURQ8YeENAa3H54JKiRqgHPfQPoPKCOH8CONdKkOIuY0Ub5rR5qpxbWuChBPtXCCVj+3ZAb6SMWQWD/5xQOCaP7uGcYaA8voIlZ/wOMlOGiDDYzUfHU6QtJYKfJSoS8=
+	t=1781619288; cv=none; b=A74uDGrmIP1vTGzMmt4jrF3bCB9En+ygvP/LxKf6UF3plXgvvZXEPfLSFeNgO1lBUkCivCBMgjqK/ds24+jUP9bhBsmHgRKexsfDckBlNc6QwXBBywVHsJKLf5GQ8lb2OiP69P8S64aI8Tl2ffetW0n8319s7fyxZCqjGRCUcbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781619188; c=relaxed/simple;
-	bh=EzyrpESZ6sx78ziNYC4dwQEt1wvJ/sO+d+pbw71TIfc=;
+	s=arc-20240116; t=1781619288; c=relaxed/simple;
+	bh=irl8QxA5C9eS4raapfmrswfr3OhWo1FcTIzj3kwcHHc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B0tq5CXZhUapUSsTa1DpdBm4NXRDzdKxDzDyvc/n+aAG5Rea5PqIfaO5hs6MbN69+n9yKv5Zkzpdc1ga4hC1gmIHQV74n1q3fViRIqexwODdA8OAGXDUFB1lQNGpJPQ+AKANNrhbidVNy/xuor6aX5mvh9pbqqA5YlTBTjBqqTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j2WCRia5; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=f+BiCHfnqNY0Y26F6M5OoFVuiJk34hLZUIBKWK02OQTIOjMHSmGZ+1Zh6m+i0Vhyfc4OHxgDZiqUecPlW91ip/F4Rxx8mCKkV9hoxVYg+Vc2bmC/c0PHRIBdMMxuUYlkaVVVbxfYid/oLjnTdjjcP+SoHBkBHMgxhWxU9daHBnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QAM1kyVT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cUsvkNr8; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j2WCRia5"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8434840cea8so2788741b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:13:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QAM1kyVT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cUsvkNr8"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GE07km3314856
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:14:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=; b=QAM1kyVTARUAiUx1
+	HwN+Rt6ZPoLOrdawDoHFv7Fqdc32iTUYp39m0XzMLGHkpcqd0xkq3fZgHcaemSmN
+	ANGPium+D5z1xual38fwaYY0vF/sHhoJ6Qglc3O7zImBcQbIu6aPNpiFueoVY7Wk
+	OhvRw2QYbY6ukTECrhwTWbCr+mxQjrvSgMWy9VEz44c4mV8SVxkLqacih9//O6nh
+	GDzAvqhArXNn/Sg28e/MY+SsHZ0p2+409jVroHjrIULgFyj+hZFtPLzQY3RkPkRL
+	sO9NSscH/uSIWI3FrcEPfDskndnhaRb5hwOjaUv+7ogTIeycvXbhZwIvFzaQBNQr
+	N/5jHA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu0a7ta5a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:14:46 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6cf9fa331ddso188291137.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781619186; x=1782223986; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=KXP0r2jujypcXFrQc5+xMdbDTCDzpAzAxM0kAvYA+dY=;
-        b=j2WCRia5YnQl+EQLdPBleKUpROpPpCWpdoTv5tzPup9NdnwmtiDPBPCeZQGZleCXjT
-         tBnE3fa61akEHOXUVt2LDQ+4iUavC6XVqaCR1+OBF0mLBFXurYS3kT4hcbSzlhh0nMqC
-         ML3Xgs9m8SG4zkx9ZhM48To63GviCqm+TDVgMyNnCYcGxo3M458CIJBzOijJmLPFIqfF
-         oXfvbZ3m1aUIk3WuSptb9lIbyPSlbOsSyiKh5bctpC3Fdd2+QQC/zDYov/d7GlFMSbFp
-         xgR//YNazGWgGD0s0O0d83U7DudivwrSRsr2qI91MP3ltCs/SZ+NaUqv3GeIEQfUPauq
-         U2lA==
+        d=oss.qualcomm.com; s=google; t=1781619285; x=1782224085; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=;
+        b=cUsvkNr8aM7a+6Sca1olvc/J3uuAVC42YaKvMrAm5oPJ53s2paflvxyf9AAZha1zOe
+         7fWLGUAxvatzyDgoJ9jM1aFCE9RpJl3JYPJoTKUwRmINMdtpmzTRUSYsyJO+GmWkqiOm
+         zyOlOcA9095VwaWT9TBAK4pnXUHJGyyB5lhb8cp1GA7VX6szrakJdOMxmchvJ/kpLy41
+         2Phm5+aS7k9H3FRRKqVk2tYaC/dJ3foPTKPdGdYtDFLvJb4aaCOi0FjXMDKKamCHfMqB
+         A9nOPnagJu4PTMqdS00qkzRPdJNhtsBFdgvEHYGXeOahS8ogRXr91waJPUhRoMkMlu22
+         bT5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781619186; x=1782223986;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KXP0r2jujypcXFrQc5+xMdbDTCDzpAzAxM0kAvYA+dY=;
-        b=Fqq/77/lRkn7/JgmvlGBTFQOGr8lB3YmTk1w0l5i/azWrsQ5WrRGFEjaV83Eu+1U8k
-         jub0pUXfYS9/p3otdHnpzFKy/h0tnMNM7GOpdN785rhlTwjjvC9PYo/6CFgYayyGgvjk
-         DLOAd+zKelPy2/304Hq6DzYmgk0e3JEd9dEt4m3TceccNDXMKWYts4v8jecxHURhg2+z
-         cm7f9Jtg1KZ759vXBbg2xLtwSSVlUitNe2v4TLlGmbErBtNMfrUPLAxvD2cxE5BQTE42
-         qO16sG7l3u1lrli1OWRLbmvsADo4In6jmQCjmpT0EQzJ1lpxMjcuXE1Mqt640Zv7GSn2
-         GVow==
-X-Forwarded-Encrypted: i=1; AFNElJ+NmLMahXqqWrr+n6clSOH0b2LpBjjMpiRYrfsKEHU5KBRn7Xy/ZLD1nUqdUOdxSr2ZqP1s+R+9jmQx@vger.kernel.org
-X-Gm-Message-State: AOJu0YxgJgp2B4GgXOpa+aNDPyoHX1bIlnZlzETEzQYGYtKpE2sOBhY8
-	MD0SwCxT0eIysZsf4ypqNH/RXWI6FBU4lW94sZQnY4KoeWeyxvjs4dfZ
-X-Gm-Gg: Acq92OFMfEkrnA8j9knpghCVDiMy7foJYZAICH2NCC/BOOtpBHkmOpk/8BfsEgzQ5rT
-	cgc7/FEw8iSs6KC2yCJG4HJOauoR4mMhftA7rU2bCE/FZc1vkAGLKaU7EYKjADbX2wOGwCM8XjY
-	D6BWpy7HJ8jcXNbTQHTtp6BiZvdmXee8IZSvaxrjguyFR6VetpwFQKT1u6awPQzXbTMtWY/4/9N
-	s8vVttaGKBqHE0hs5g47gkbOy3FzOdBkTq9AidnwWeQ0n+b7lESUyT6BB7W4Ho2NCSNJohQkS78
-	tDJ6hjt7j01kAXIAFSDtR9k+0CQmGoSMnxdWHvxixdlZMdyBagwj+sAMOlRnAfM0qCthB2ZuqN8
-	fzPmldEHnGMJv9xAE4yg8z0QLTuKGacEwvrJqti2XSohrbEnUa8+aWTnueUltcpdl3/9hS28R0L
-	8CsC4kmT7O/JNSRUYPgzMwceBqm9ndQMTUPvC6ATlpY1XIsPWVrC+f3mVPhCrvBsgYfA8Cbr/N
-X-Received: by 2002:a05:6a00:2da7:b0:842:5bf3:c53c with SMTP id d2e1a72fcca58-845152ae344mr3679305b3a.2.1781619186010;
-        Tue, 16 Jun 2026 07:13:06 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434b07c5c2sm13358690b3a.61.2026.06.16.07.13.04
+        d=1e100.net; s=20251104; t=1781619285; x=1782224085;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=;
+        b=RoR/fU7FRJHgrCV6jhePEZwGZjHSRXcwzEVMPmT3+7Y/kltT2yuVTPcE3TF7C9deEz
+         nclmWR7AFlE9kLggmvWXm2RdWsjDiOozi5KhqECP0NUc+LvYY5Wswzl+yPD750m1EHSF
+         CYyqQD7m0SIKT2zh0md4e3YfjCsIWbCzuie/UYCNk5F+r8pT7vd6qeEEa5L3o9Jyr0gP
+         5q5rw8NpOS8xnp4gtQrsYCVscwbO+IEl2rxxFKJpL4Y4HIVC3M2VuHO3TT8pX6Yhf2ZO
+         DalAx+SMJFSAwAD04psZ1fCeqntUkCZJhnz81Zvmg0VSAQRkK5Kgnbr3YnqUvl8vvbKP
+         UYpg==
+X-Forwarded-Encrypted: i=1; AFNElJ/j/a6jrkjuAh5wLjiFFDeJKOtlhDtmzkV8PRXlqUz7JL2/NDF7AbGbnbN8eklJoa1cTwC8WVjxnYcP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKTdCXlIeWM97PZi0VQdI77b6gy7yDvQx6JqDqV8DaqG78uDkb
+	g9TSe1KLfl6u/nol14FYgOgYG8eWJfq1GdzMx/pc+HbAYHs9reaxrLMidLoEGLr7TBFIRo2C+ta
+	CyEVAnSBN90fwAOQSXD/zRW050I5Ag3eTVufnwv/ndYIor9DcdPEGktLsCFuNSMIk
+X-Gm-Gg: Acq92OEU+G93f+u1FVufrVlu42ULi7ZAJ6LLlJ6Vo9HZw89bR4DMhzUkiBvJJutdERp
+	QnHM45uxyBPlLs+xcNuNuGn3EVuswA66Q9xcCMv9+Ha16iA1DtaHGLNAvSG0EDWM2uYPJvBEO1i
+	T1loahkgKhQnOPAZDLpFxBTM91tNMjLCWcKxivpy2LIwmQ6jo1p53B6jEmeEyXRLdo4Wh3diq6m
+	He9yYwxegh3UhYZEOm2pmBZTiEmgCt9H7uEAiKkTBcrHZf96KlqESgYDl1xCquo+Z8kyHtHkQs2
+	yNoEfvQC5sGKmM5ZWvgx9iNwJ3bvV1BwMd0lT+7ZWDGJddE8qIqtYPK1vuaaFVUwjfbd55/DmBv
+	qohOtoLngkrvJYnVELh7Z8wG+FDuwrXqIAlXMB7ojsBNlvw==
+X-Received: by 2002:a05:6102:510b:b0:631:4d32:a86 with SMTP id ada2fe7eead31-71e88e3f21emr2770729137.7.1781619285168;
+        Tue, 16 Jun 2026 07:14:45 -0700 (PDT)
+X-Received: by 2002:a05:6102:510b:b0:631:4d32:a86 with SMTP id ada2fe7eead31-71e88e3f21emr2770699137.7.1781619284575;
+        Tue, 16 Jun 2026 07:14:44 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb7b6d8c2sm638601966b.38.2026.06.16.07.14.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 07:13:05 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <67bec6ae-4f21-441a-8c5e-b56bd1a2ab84@roeck-us.net>
-Date: Tue, 16 Jun 2026 07:13:03 -0700
+        Tue, 16 Jun 2026 07:14:43 -0700 (PDT)
+Message-ID: <50f7eb11-7bac-4d45-9e0a-b209f7e8e9f6@oss.qualcomm.com>
+Date: Tue, 16 Jun 2026 16:14:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,235 +88,100 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] hwmon: adm1275: Support ROHM BD12780
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Wensheng Wang <wenswang@yeah.net>,
- Ashish Yadav <ashish.yadav@infineon.com>,
- Kim Seer Paller <kimseer.paller@analog.com>,
- Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
- Charles Hsu <hsu.yungteng@gmail.com>, ChiShih Tsai <tomtsai764@gmail.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <cover.1781591132.git.mazziesaccount@gmail.com>
- <c92f1356fbf967dee3130f2eb0da08eb84800d47.1781591132.git.mazziesaccount@gmail.com>
+Subject: Re: [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix RGMII_ID mode to
+ use DLL bypass
+To: Andrew Lunn <andrew@lunn.ch>,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Eric Chanudet <echanude@redhat.com>,
+        Lucas Karpinski <lkarpins@redhat.com>,
+        Andrew Halaney <ahalaney@redhat.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
+        netdev@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
+ <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
+ <ai93X/cNWHtEQsDt@oss.qualcomm.com>
+ <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <c92f1356fbf967dee3130f2eb0da08eb84800d47.1781591132.git.mazziesaccount@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfXwZc9uC0Izdsg
+ cHunmalyHkS+561lBFYghPqdt/4XjMvZIOKbJr3N9Q8smQy0Lvnml4mBmnxbxRfOyqxUINhdpg5
+ cMKSPdrfeJyOKWOsrN4sOG8HTh2qdTeoPUd703/BgO8LZ/LGn0fhtOg4vQovuVAmjyjQ1T0r8Ng
+ 0gVM8/3ScnUy8sG+/W73nrmXrJl/Jm1rogsF2a9YDXCCnb7aF4IoTb6wUr2KPUfyDNzSco2ZYVR
+ VVPMak3kPB8pjdA7meby/xT9atVbdiBDmoRG3Zu1dlpyQtXmbBiy+2Ls2ZbhEIZAVm03yu+7tbR
+ CS/7AKbzcuK2+5CLzDwITJeLWSYX4r5cBiAyt9sci/spsX+tE1CmJofvJy0pqTb5+GcYMxrwb6d
+ 01Dk/noTW6fZ6g4PMHGA+SASBQRTtWIOOTNj8tCz8KGMAAgqFVHSfpQLNgMCSFkCPwBuD0saEBP
+ fnR2VjKGnkVcD4J5k8A==
+X-Authority-Analysis: v=2.4 cv=JKALdcKb c=1 sm=1 tr=0 ts=6a315a56 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=RaRby332RutXx2QLMF0A:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: BG2ulb89VqrllJOwg1lH9_kzkQZqEzel
+X-Proofpoint-GUID: BG2ulb89VqrllJOwg1lH9_kzkQZqEzel
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfXzdC2+F+xXJcU
+ aAAtHPrkWOlDT8Y5fySkxmbTJK19Vxgw7uXT6GdmK4/qRQq46D+cikAJ0ZPHHM4//jqNzt/fDEa
+ z0SVcbpUH9LRSwHG9fAXBLqKjzSMRgI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_04,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160145
 
-On 6/15/26 23:36, Matti Vaittinen wrote:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
+On 6/15/26 6:48 PM, Andrew Lunn wrote:
+> On Mon, Jun 15, 2026 at 09:24:07AM +0530, Mohd Ayaan Anwar wrote:
+>> Hello Andrew,
+>> On Thu, Jun 11, 2026 at 10:54:37PM +0200, Andrew Lunn wrote:
+>>> On Fri, Jun 12, 2026 at 12:06:59AM +0530, Mohd Ayaan Anwar wrote:
+>>>> When "rgmii-id" is selected the PHY supplies both TX and RX delays, so
+>>>> the MAC must not add its own.  The driver currently falls through to the
+>>>> generic DLL initialisation path which programs it to add a delay.
+>>>>
+>>>> Power down the DLL and set DDR bypass mode for RGMII_ID, then program
+>>>> the IO_MACRO via a new ethqos_rgmii_id_macro_init() helper.  Also fix
+>>>> ethqos_set_clk_tx_rate() to not double the clock rate in bypass mode at
+>>>> 100M/10M, and remove RGMII_ID from the phase-shift suppression in
+>>>> ethqos_rgmii_macro_init() since RGMII_ID no longer reaches that path.
+>>>
+>>> I'm curious how this works at the moment? Do no boards make use of
+>>> RGMII ID? Are all current boards broken?
+>>
+>> Searching through the DTS, I found that we have two boards using "rgmii"
+>> (qcs404-evb-4000.dts and sa8155-adp.dts) and another board using
+>> "rgmii-txid" (sa8540p-ride.dts). No board which uses RGMII ID.
 > 
-> ROHM BD12780 and BD12780A are hot-swap controllers. They are largely
-> similar to Analog Devices ADM1278. Besides the ID registers and some
-> added functionality, the BD12780 and BD12780A mark PMON_CONFIG bits
-> [15:14] as reserved. Hence TSFILT setting must be omitted on these ICs.
-> 
-> The BD12780 has 3 pins usable for configuring the I2C address. The
-> BD12780A lists the ADDR3-pin as "not connect".
-> 
-> Support ROHM BD12780 and BD12780A controllers.
-> 
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> ---
->   drivers/hwmon/pmbus/Kconfig   |  2 +-
->   drivers/hwmon/pmbus/adm1275.c | 46 +++++++++++++++++++++++++++++------
->   2 files changed, 39 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index 8f4bff375ecb..b3c27f3b2712 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -52,7 +52,7 @@ config SENSORS_ADM1275
->   	help
->   	  If you say yes here you get hardware monitoring support for Analog
->   	  Devices ADM1075, ADM1272, ADM1273, ADM1275, ADM1276, ADM1278, ADM1281,
-> -	  ADM1293, ADM1294 and SQ24905C Hot-Swap Controller and
-> +	  ADM1293, ADM1294, ROHM BD12780, and SQ24905C Hot-Swap Controller and
->   	  Digital Power Monitors.
->   
->   	  This driver can also be built as a module. If so, the module will
-> diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-> index bc2a6a07dc3e..838b8827eb76 100644
-> --- a/drivers/hwmon/pmbus/adm1275.c
-> +++ b/drivers/hwmon/pmbus/adm1275.c
-> @@ -19,7 +19,7 @@
->   #include "pmbus.h"
->   
->   enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281,
-> -	 adm1293, adm1294, sq24905c };
-> +	 adm1293, adm1294, bd12780, sq24905c };
->   
->   #define ADM1275_MFR_STATUS_IOUT_WARN2	BIT(0)
->   #define ADM1293_MFR_STATUS_VAUX_UV_WARN	BIT(5)
-> @@ -47,6 +47,8 @@ enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281,
->   #define ADM1278_VOUT_EN			BIT(1)
->   
->   #define ADM1278_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN | ADM1278_TSFILT)
-> +/* The BD12780 data sheets mark TSFILT bit as reserved. */
-> +#define BD12780_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN)
->   
->   #define ADM1293_IRANGE_25		0
->   #define ADM1293_IRANGE_50		BIT(6)
-> @@ -487,6 +489,21 @@ static const struct i2c_device_id adm1275_id[] = {
->   	{ "adm1281", adm1281 },
->   	{ "adm1293", adm1293 },
->   	{ "adm1294", adm1294 },
-> +	/*
-> +	 * The BD12780a is functionally identical to BD12780(*). Even the pmbus ID
-> +	 * register contents are same. When instantiated from the DT, it is required
-> +	 * to have the bd12780 as a fall-back. We still need the bd12780a ID here,
-> +	 * because the i2c_device_id is created from the first compatible, not from
-> +	 * the fall-back entry.
-> +	 * (*)Until proven to differ. I prefer having own compatible for these
-> +	 * variants for that day. Please note that even though the probe is called
-> +	 * based on the 'bd12780a' -entry, the ID is picked at probe based on the
-> +	 * pmbus register contents and not by DT entry. Thus, if the bd12780 and
-> +	 * bd12780a are found to require different handling, then this needs to be
-> +	 * changed, or bd12780a is handled as bd12780.
-> +	 */
-> +	{ "bd12780", bd12780 },
-> +	{ "bd12780a", /* driver data unused, see --^ */ },
+> So this causes problems. We cannot break existing boards, yet it would
+> be good to fix the current broken behaviour.
 
-We don't usually do that. There are various A/B/C variants for many chips,
-and we just use the base name unless a difference is warranted. Either this
-is needed, and driver data is needed as well, or it isn't. If it is not needed,
-it should be dropped.
+These are a funny bunch.. QCS404 is a stuck in a perpetual cycle of
+"no one has the hardware" and "someone has the hw but zero interest or
+time". I think we've considered it for removal at one point..
 
->   	{ "mc09c", sq24905c },
->   	{ }
->   };
-> @@ -494,12 +511,13 @@ MODULE_DEVICE_TABLE(i2c, adm1275_id);
->   
->   /* Enable VOUT & TEMP1 if not enabled (disabled by default) */
->   static int adm1275_enable_vout_temp(struct adm1275_data *data,
-> -				    struct i2c_client *client, int config)
-> +				    struct i2c_client *client, int config,
-> +				    u16 defconfig)
->   {
->   	int ret;
->   
-> -	if ((config & ADM1278_PMON_DEFCONFIG) != ADM1278_PMON_DEFCONFIG) {
-> -		config |= ADM1278_PMON_DEFCONFIG;
-> +	if ((config & defconfig) != defconfig) {
-> +		config |= defconfig;
->   		ret = adm1275_write_pmon_config(data, client, config);
->   		if (ret < 0) {
->   			dev_err(&client->dev, "Failed to enable VOUT/TEMP1 monitoring\n");
-> @@ -535,7 +553,8 @@ static int adm1275_probe(struct i2c_client *client)
->   		return ret;
->   	}
->   	if ((ret != 3 || strncmp(block_buffer, "ADI", 3)) &&
-> -	    (ret != 2 || strncmp(block_buffer, "SY", 2))) {
-> +	    (ret != 2 || strncmp(block_buffer, "SY", 2)) &&
-> +	    (ret != 4 || strncmp(block_buffer, "ROHM", 4))) {
->   		dev_err(&client->dev, "Unsupported Manufacturer ID\n");
->   		return -ENODEV;
->   	}
-> @@ -562,7 +581,7 @@ static int adm1275_probe(struct i2c_client *client)
->   	if (mid->driver_data == adm1272 || mid->driver_data == adm1273 ||
->   	    mid->driver_data == adm1278 || mid->driver_data == adm1281 ||
->   	    mid->driver_data == adm1293 || mid->driver_data == adm1294 ||
-> -	    mid->driver_data == sq24905c)
-> +	    mid->driver_data == bd12780 || mid->driver_data == sq24905c)
->   		config_read_fn = i2c_smbus_read_word_data;
->   	else
->   		config_read_fn = i2c_smbus_read_byte_data;
-> @@ -666,7 +685,8 @@ static int adm1275_probe(struct i2c_client *client)
->   			PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
->   			PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
->   
-> -		ret = adm1275_enable_vout_temp(data, client, config);
-> +		ret = adm1275_enable_vout_temp(data, client, config,
-> +					       ADM1278_PMON_DEFCONFIG);
->   		if (ret)
->   			return ret;
->   
-> @@ -712,7 +732,16 @@ static int adm1275_probe(struct i2c_client *client)
->   		break;
->   	case adm1278:
->   	case adm1281:
-> +	case bd12780:
->   	case sq24905c:
-> +	{
-> +		u16 defconfig;
-> +
-> +		if (data->id == bd12780)
-> +			defconfig = BD12780_PMON_DEFCONFIG;
-> +		else
-> +			defconfig = ADM1278_PMON_DEFCONFIG;
-> +
+I'm not sure to what degree the two SA8xxx boards are used. They
+may have been stuck in some sort of a limbo. Maybe Bjorn knows?
 
-Please add a separate case statement for the new chip
-and do not overload existing chip data.
+Also +Cc some of the folks that contributed to them in the past
 
->   		data->have_vout = true;
->   		data->have_pin_max = true;
->   		data->have_temp_max = true;
-> @@ -728,13 +757,14 @@ static int adm1275_probe(struct i2c_client *client)
->   			PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT |
->   			PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
->   
-> -		ret = adm1275_enable_vout_temp(data, client, config);
-> +		ret = adm1275_enable_vout_temp(data, client, config, defconfig);
->   		if (ret)
->   			return ret;
->   
->   		if (config & ADM1278_VIN_EN)
->   			info->func[0] |= PMBUS_HAVE_VIN;
->   		break;
-> +	}
->   	case adm1293:
->   	case adm1294:
->   		data->have_iout_min = true;
-
+Konrad
