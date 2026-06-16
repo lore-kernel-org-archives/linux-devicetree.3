@@ -1,188 +1,104 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE81443CEC2
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0AE40E8C1;
+	Tue, 16 Jun 2026 10:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781606725; cv=none; b=Gfw63BcRMxTS2o5cWrkqK2Gja2pb7MfI6oAMW8ERBgBpIRv7Id1u8wqHt8IMN6FvUc4cJ5/i/fhxNnNmTm58b0h/MJOeYG3i4q21qhguQE+CWGkkPiKmCLLD+pRJEGTrCvBj1x0LawE5H5r3oWG2t+QMPVtMUa3IZBdbHc5+y1Q=
+	t=1781606830; cv=none; b=IrFb4HVfrIe2JD0CAQSOnZEcIbFdlifs+a6Gehh4At735Ne0hjmU4AWe2g++UFEUnyc8GCBy3ZOzNoDS7hbCrYmTwce5E+Ie/zzuo6KjxoxTmxg+/67kAeTCPJQo48kDX0jY2X32HcPRU6JCSwwSKlts+qMfg9VpJkaDHjr2Hqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781606725; c=relaxed/simple;
-	bh=/+QxgrEtVCoAJlH780G3C4bNU8LpijH2gKwosk8/UB8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qatqrn0aNxhbygMWy4hWE0eKwCIao4Wc5LTmdq+44BizT/fHIPKRP7B+tSyTATTzrCvM3TQ6gX5flJhSioNx1aLPKbYNiggIo4OqAbZZh7vbHcgBTIsnq3sNp++WjG4QuxTlrZIpts/3iDReEzoI3YfSaBKbhYnBiXNlVeahgWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Grgn7EaE; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781606830; c=relaxed/simple;
+	bh=fQm2nGhwI7XtrRnZn6n7a5+l1TKxFhwaPo4+cckCwtk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aJCrNbclvqb5FDfIozlEpQrv11ZmGZzewPwEaMtkdEpTD1MnH2Ey8XaAmRbxUlo7vRuX5pwCYEQPBBeomvLojYIsG/S/r3G/PT8ep/wlwyjIPBudV1XXNsu2xJMPjjsEC+a6xRdk7q/RNVMYupiHvd2oIoo4rkmidkHJ24IOVcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gO0Ihibu; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Grgn7EaE"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490ac10e337so29786055e9.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 03:45:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781606712; x=1782211512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ghDcckMrsxIgI0PwQD8NgJiWjxevvvKKfOn6FTfcfKY=;
-        b=Grgn7EaE+yxMAQH0aOry+yPAb94dpWVHMdYLo3d9FEjDv7f5JBu1HiIWUNTEA3BQfQ
-         jiPhn2c72O2PrCCLZbr8cnRiZFN2tlyRoKsWo/Kw0Bm+Kq8DjJOFddyB2VJ1wy8/WrWV
-         gJyR5gJSq/m5t93GfED68wASsbV/zV748VmfzxYDhPoHRL5xskuBFpXJCeZXEMGlUVhS
-         sLAckfWXG/b8L7cgICmeZ1ejG3+QAFfyC35FmmeChkcx3tDSzi3Od/Vm5Po7ESXHrizl
-         y1pG+gVcJ5qiF/Z3d1xY1020dtsPFhgbRTaqBewtlovApMgVj/dmaHzxaVwIWBdJqvdX
-         js4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781606712; x=1782211512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ghDcckMrsxIgI0PwQD8NgJiWjxevvvKKfOn6FTfcfKY=;
-        b=oIFAAcRMCF9tUsnCheBBqpLRxr5IQ06TytroTDcLtLxqiPEQnrLnpPJhEX3wBap2hX
-         vhYS0OavMumocBMvJYBN863znZnoYzkbq+DApCDRmb3x7swQE+wreB3hUde0Nc17bDCU
-         ROouG2GHjp8myiEZ998+4Y7fGQP8UrUlXZgSnVSssUft9qPqaBrHCckEgMrPRnJVIQc7
-         kGXSMnn7dLEGESoWelGWr4yLWsjfNTHKwlLf3HhIo7OhByH8XJtCX+05UQ7zUpBb7jyE
-         eDqMGFSS1qib6VsWizGphUXj0HSazzUZ72uIVLWZwO5OQeQ5Ou7jETea3nQwcaNeHQ12
-         K7sQ==
-X-Forwarded-Encrypted: i=1; AFNElJ82lbT2M7jtA9tJwsIWjcx1CaGLn2EVAe1zp07VU6ODsjvchwx3CwXezb9uHa2xIANCjAuRqjM7X0kk@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywdrut4OVVhMvsJG3gq2bg4nqI5ESu9Bu+ObSwbhiF6mC34vd5l
-	Ub82esYMj5jUByrTyojMkckQpZKyPxfAlA6g6WqDV0XLc0ELyofPg9+u
-X-Gm-Gg: Acq92OEhZpfDFan1r5el30Ba8Wf/Ht7O2efptM3jBFyMVaC6/FNgS/4Pu6nlXvRZakY
-	GVPXJ7iiTWjcksPii+OYEaGvcteUf7IVdi33akr6uPw+yHUzD4iwyWgOyx+xBBLIlZ+swcpyd48
-	Q7Tp4K/ERzLsz8t3T0Hcz4grUeDMjPZjS2mpUuu/FUAIs0V14fFOH1I47tw90LKFvTCt80Ielbl
-	Ks5fn7OiwPmRLxtAdQUR5ON2Py1PHGUWft+BuB5yaIB62dSdM31lQJ3SOsdU1ttihxWpz1SFqSo
-	S/iEy+EyeKsMb1kBIjrPtEZjbiem1cPte7CPoW4PFSAHQMs/3zPzJ1Vt/wft/wenZZb0h9hU7xp
-	u9qvyPSenThabdhl+aRz6Eq9hOjXI6E7VRGJ/XO7O48fXoQy6HtQJY1fruqVwlbtxARAC9OGRnJ
-	xS7wCYT1h5rYys/tBoSLfr8q8ffQIo2E/6TWMJ0Ofk9TCk0NuJ
-X-Received: by 2002:a05:600c:154c:b0:48f:e249:4094 with SMTP id 5b1f17b1804b1-492200c01dbmr209666135e9.18.1781606711871;
-        Tue, 16 Jun 2026 03:45:11 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a700:7301:7499:34c3:598b:e20c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47da9sm82458485e9.5.2026.06.16.03.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 03:45:11 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gO0Ihibu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781606829; x=1813142829;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fQm2nGhwI7XtrRnZn6n7a5+l1TKxFhwaPo4+cckCwtk=;
+  b=gO0Ihibu6NGHZZdYYei7heXuicscGfj+1+34EyVppKhExfxVEB4Ua2/t
+   3DK1InyjEoRZsezunxVJOTe1YRHBX/q4RCIu6dk8aXC4AI7abDVOnw2s4
+   ckD0GT2VmywLR+DCuW4Oqn41SAyTXq/NaA3X7T401+f+EN2xrdnkU6+U6
+   qcOLnhWgyN4towdprWxlmJoCTAYHy51IQBjPjfIHFZkJNtfpdv9K7r2B/
+   BkMUwX03FjmlGj81Wxg91q64LTKNBYMHZLxJ+ksIDa+ez01yVXF4NFRy0
+   kObCCU3Httx8pMbsMjp+z6VOBvC5o7/DcYftOyMFpQ0XlmQ1yjx8ZCFhf
+   Q==;
+X-CSE-ConnectionGUID: 9lfh8LWdS9C8xWvqZWiabQ==
+X-CSE-MsgGUID: d74uuqPyTee+5z7wE7LE9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="93749947"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="93749947"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 03:47:09 -0700
+X-CSE-ConnectionGUID: wytDQeg2QEKqmXtolZTukQ==
+X-CSE-MsgGUID: RsxrbMx6R16/zrXEIut/9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="249632916"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 03:47:05 -0700
+Date: Tue, 16 Jun 2026 13:47:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: rodrigo.alencar@analog.com
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 10/10] arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
-Date: Tue, 16 Jun 2026 11:44:52 +0100
-Message-ID: <20260616104459.410743-11-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260616104459.410743-1-biju.das.jz@bp.renesas.com>
-References: <20260616104459.410743-1-biju.das.jz@bp.renesas.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v3 12/12] iio: dac: ad5686: add gain control support
+Message-ID: <ajEppnu-AWSbbihS@ashevche-desk.local>
+References: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
+ <20260616-ad5686-new-features-v3-12-f829fb7e9262@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260616-ad5686-new-features-v3-12-f829fb7e9262@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Tue, Jun 16, 2026 at 09:21:18AM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-Enable USB2.0 on the RZ/G3L SMARC board (r9a08g046l48-smarc).
+> Most of the supported devices rely on a GAIN pin to control a 2x
+> multiplier applied to the output voltage. Other devices, e.g. the
+> single-channel ones, provides a gain control through a bit field in
+> the control register. Some designs might have the GAIN pin hardwired
+> to VDD/VLOGIC or GND, which would have no "gain-gpios" device property,
+> being able to set "adi,range-double" if it is hardwired to VDD. The
+> vref_mv field is moved down in the struct ad5686_state, so that the
+> overall size increase is reduced.
 
-Port 0 (ehci0, ohci0, usb2_phy0) is configured as OTG with
-usb0_pins pinmux (USB20_OVRCUR, USB20_VBUSEN) and usb0_vbus_otg
-as the VBUS supply. Port 1 (ehci1, ohci1, usb2_phy1) is configured
-as host-only with usb1_pins pinmux (USB21_OVRCUR, USB21_VBUSEN),
-usb1_vbus_otg as the VBUS supply, and renesas,no-otg-pins set to
-indicate no OTG pin routing. The phyrst USB PHY reset controller is
-also enabled.
+...
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v1->v2:
- * Updated commit description.
----
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+> +static void ad5686_init_scale_avail(struct ad5686_state *st)
+> +{
+> +	int realbits = st->chip_info->channels[0].scan_type.realbits;
+> +	s64 tmp = 2ULL * st->vref_mv * NANO >> realbits;
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 96cc7ee46a6a..b189ae8e808d 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -87,6 +87,16 @@ vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
- #endif
- };
- 
-+&ehci0 {
-+	dr_mode = "otg";
-+	status = "okay";
-+};
-+
-+&ehci1 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
- &i2c2 {
- 	pinctrl-0 = <&i2c2_pins>;
- 	pinctrl-names = "default";
-@@ -138,6 +148,20 @@ &keys {
- #endif
- };
- 
-+&ohci0 {
-+	dr_mode = "otg";
-+	status = "okay";
-+};
-+
-+&ohci1 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&phyrst {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	audio_clk_pins: audio-clock {
- 		pinmux = <RZG3L_PORT_PINMUX(H, 4, 6)>, /* AUDIO_CLK_B */
-@@ -259,6 +283,16 @@ ssi0_pins: ssi0 {
- 			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
- 			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
- 	};
-+
-+	usb0_pins: usb0 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-+	};
-+
-+	usb1_pins: usb1 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 4, 12)>, /* USB21_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 5, 12)>; /* USB21_VBUSEN */
-+	};
- };
- 
- #if SW_SER0_PMOD
-@@ -330,3 +364,18 @@ &ssi0 {
- 	status = "okay";
- };
- #endif
-+
-+&usb2_phy0 {
-+	pinctrl-0 = <&usb0_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb0_vbus_otg>;
-+	status = "okay";
-+};
-+
-+&usb2_phy1 {
-+	pinctrl-0 = <&usb1_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb1_vbus_otg>;
-+	renesas,no-otg-pins;
-+	status = "okay";
-+};
+As Nuno noticed in other patch review, this can probably use mul_u64_u32_shr().
+
+> +	st->scale_avail[2] = div_s64_rem(tmp, NANO, &st->scale_avail[3]);
+> +	st->scale_avail[0] = div_s64_rem(tmp >> 1, NANO, &st->scale_avail[1]);
+> +}
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
