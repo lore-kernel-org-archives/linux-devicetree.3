@@ -1,170 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7888E35A384;
-	Tue, 16 Jun 2026 07:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AE830FC23;
+	Tue, 16 Jun 2026 08:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781596734; cv=none; b=qGiZ/7DsqaXvtcuba74ogHGHFVu/9KHEMynDs3VYk0nGCJ8ARah4nWB197goaNm2wC9myzlqi7oyt52xzNZots5rgzXXviDb1iwaHiR7svn/7fynI59vU8sdxa2rAqVPGlbUg7YG0+nxh6WD5wKiIF4YmUrejFtRkWt+WeMc0vg=
+	t=1781597152; cv=none; b=hOTpP6JfTkZrsEIBWnZ7TPvpSWqS0S15O7mNcQojE1EsmpqfZhItqlpw3dWHbYq2ta4Q8K5KoAzOUMdbyD59iMmjlxW2wRVFrRrfVqo3sLat55UNqBgz7mF5F03tkJ2Kud75iyMtx57h5bwybBKa6Fxrbgdd0TLeFAlFOuwo2fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781596734; c=relaxed/simple;
-	bh=6qAEEh+Ijcrf4TP+oWKYZYR4HXBhZIOPbloZtqMYjPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DhL51dIIadkakNpndw3Y5tnjNeYbcm1Blt2Z5Fmh4Y9Gz7vNlr9ZUibo2PU5012aLh+vGqCLWZO2ufBobgUoJltcuYK8Nk0ro065RVzQaEvwD9MNuwtzKFGWV8F9zdEzvmqenvDfL3j/FK/2UAL/nu9gtY6F/U0ARn9y52wekuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=agB/LCCv; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781597152; c=relaxed/simple;
+	bh=OWnfHZ9uCqT3W1rWv+BSW5bdc64TFnh6U2o0E2yve7M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FrBOZSYYt0rhlDs+/nH0mCr8GSvgJRENW/2TlZ+XGRhA0N6da6a5DgwDMLlHBHzEt9S5xff9Ouf+F22DGrIJHL0PhEqdWAyXfoy0953VRWdQWlul9PZlodv6HV8DTc/GrLdgIymTF+lysw9lPTmtKSynQ2LZi5OBxy+nB433vR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dkel8dnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="agB/LCCv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781596733; x=1813132733;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6qAEEh+Ijcrf4TP+oWKYZYR4HXBhZIOPbloZtqMYjPM=;
-  b=agB/LCCvcVthKlo5vg+H0TLIIQ4JVKPTywxeGbUzO7a5A5iHXD0XlMa8
-   H78sCYjoznOOjB9oM3UdoxYl22PRhGnbKytRb2GEO+3aUdVBwAW/NdvoH
-   EJlPYCe+kVgEnAcaxMd2GKiVTPSpxYC5wNaoO3/ULBASZ3jzqJNsdgnX4
-   BUzqlCS9Uh/1RTWoUjNGzsun8xqYYI2HTuGIzH1sDUvzX2SsYYm2EbJs8
-   Fb2Avl9A2vSQG+fGl/IdrXBqlGeFG6H7MKN4muU4zXCzVccwqJf0uq+JC
-   936ErdnAjjlDM9ipyATq2G2Ecbw8OShI5D2hueWh8Ax3v4OC/lY5P+aIt
-   g==;
-X-CSE-ConnectionGUID: IT/2W51mQIKeVWSAWZ+1Kg==
-X-CSE-MsgGUID: qiWbljdVRPGt8p7Q8I5XAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82339675"
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="82339675"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:58:52 -0700
-X-CSE-ConnectionGUID: P+O7mjbFSw2SjqCr3dLZkQ==
-X-CSE-MsgGUID: hfLzOcoBT0moFV73XKPHYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="245314128"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:58:48 -0700
-Date: Tue, 16 Jun 2026 10:58:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "David Lechner (TI)" <dlechner@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
-	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] iio: adc: ti-ads112c14: implement gain on internal
- short SYS_MON channel
-Message-ID: <ajECNvjntVg_GjwR@ashevche-desk.local>
-References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
- <20260615-iio-adc-ti-ads122c14-v1-3-e6bdadf7cb2b@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dkel8dnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D8B1F00A3D;
+	Tue, 16 Jun 2026 08:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781597150;
+	bh=cNE/K4rZg9p3MJXXQgsd723Fg9kfYPxODqy7V63Jjw4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Dkel8dnTvVvTyUH04au/v3AsPxdokuN+fVHq4HvWUeaLdFh/E+Q68i8cW3Xmy/Opv
+	 5DElrCLMnHOaT8HYVws9uLxquRz9Gzvxy1XGR4PPmIJOLFM91Jxv5z70CVdUfDAubs
+	 ulafviN8lLJuVP8I94Cx2uTTlvjFW34pe3rEkt3573leNrfpeKFQiUQ7FcywH5lxmD
+	 seuYuR2AsJ/HZzv/WTr2/x997T+m2WAm4sXPfpsyLmSlMAhVh+QpdMVKKy8tohyyaD
+	 Ln7XmitqUu8gQTYpj5yNkuxnLbjnzYmXtBLFVGLJZpZydvGQ54+hk95IaMttfTUC64
+	 EVgP6zT2cXeMw==
+Message-ID: <68ead37a-44d1-457b-ba8a-b2a895ec68c3@kernel.org>
+Date: Tue, 16 Jun 2026 10:05:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-3-e6bdadf7cb2b@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: mfd: s2mu005-pmic: reorder reg and
+ interrupts properties
+To: Kaustabh Chakraborty <kauschluss@disroot.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-leds@vger.kernel.org
+References: <20260616-s2mu005-pmic-supplement-v1-0-41e84518b711@disroot.org>
+ <20260616-s2mu005-pmic-supplement-v1-1-41e84518b711@disroot.org>
+ <7dd8dcf3-5aec-442a-941e-7564936befa9@kernel.org>
+ <DJA938R30SZG.7WGSHHZHP07X@disroot.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <DJA938R30SZG.7WGSHHZHP07X@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 15, 2026 at 05:00:01PM -0500, David Lechner (TI) wrote:
-> Implement support for the programmable gain amplifier on the internal
-> short SYS_MON channel. This channel is used for calibration, so it is
-> useful to be able to set the PGA to the same gain as the external
-> channels. The gain setting is implemented via the `_scale` attribute.
+On 16/06/2026 08:13, Kaustabh Chakraborty wrote:
+> On 2026-06-16 06:14 +02:00, Krzysztof Kozlowski wrote:
+>> On 15/06/2026 22:26, Kaustabh Chakraborty wrote:
+>>> As per convention, and as also reiterated by maintainers [1], the
+>>> properties in schema is to be ordered similar to how its done in
+>>> devicetree sources; starting from compatible and reg. Re-order the
+>>> properties in this schema accordingly.
+>>>
+>>> Link: https://lore.kernel.org/all/0240eb13-6c56-4879-8db7-b990a220a78f@kernel.org [1]
+>>> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+>>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+>>
+>> Honestly, nah... I commented on v6 so you change the patch. But you were
+>> posting this huge patchset faster than we can review (v6 and v7 posted
+>> on the same day!), so v7 got applied where you did not implement the
+>> comments. One small posting per 24h. One big posting per 2-3 days, not
+>> more often.
 > 
-> In the future, we may want to support different reference voltages for
-> this channel, so the scale_available table is populated during probe
-> rather than being a static table.
+> Fair, there were a lot of sashiko reviews, so I quickly addressed most
+> of them and send a v7. It is indeed a failure on my part. :(
+> 
+>> There is little benefit in fixing this single file.
+> 
+> Fine, I drop the series. I'd assumed it'd be at least fine to have it
+> before a stable release.
 
-...
+I would ack such patch if you do it rather for multiple files in MFD
+bindings, e.g. all Samsung PMICs or even all files. Otherwise it feels a
+bit too much of a churn doing this file by file.
 
-> +	switch (chan->channel) {
-> +	case ADS112C14_SYS_MON_CHANNEL_SHORT: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		for (u32 i = 0; i < ARRAY_SIZE(data->sys_mon_chan_short_scale_available); i++) {
-
-u32 here looks confusing. the entire loop can be made readable with a temporary
-for the array item I believe.
-
-
-> +			if (val == data->sys_mon_chan_short_scale_available[i][0] &&
-> +			    val2 == data->sys_mon_chan_short_scale_available[i][1]) {
-> +				data->sys_mon_chan_short_gain_val = i;
-> +				return 0;
-> +			}
-> +		}
-
-		for (size_t i = 0; i < ARRAY_SIZE(data->sys_mon_chan_short_scale_available); i++) {
-			const int *sa = data->sys_mon_chan_short_scale_available[i];
-
-			if (val == sa[0] && val2 == sa[1]) {
-				data->sys_mon_chan_short_gain_val = i;
-				return 0;
-			}
-		}
-
-> +		return -EINVAL;
-> +	}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-...
-
-> +static void ads112c14_populate_tables(struct ads112c14_data *data)
-> +{
-> +	u32 vref_uV, fsr_bits;
-> +	int i;
-
-size_t? unsigned int?
-
-> +	/* For now, assuming we are using 2.5V reference. */
-> +	vref_uV = ads112c14_internal_ref_uV[ADS112C14_REFERENCE_CFG_REF_VAL_2_5V];
-> +	fsr_bits = data->chip_info->resolution_bits - 1;
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
-> +		int *scale_avail = &data->sys_mon_chan_short_scale_available[i][0];
-> +		u32 gain_x10 = ads112c14_pga_gains_x10[i];
-> +
-> +		/* NB: slightly odd arrangement to avoid overflow. */
-> +		scale_avail[0] = div_u64_rem(div_u64((u64)NANO * 10 /
-> +						     (MICRO / MILLI) * vref_uV /
-> +						     gain_x10,
-> +						     BIT(fsr_bits)),
-> +					     NANO, &scale_avail[1]);
-
-Oh, what about temporary variable for the inner division? Also note one trick
-to avoid casting (and making it shorter).
-
-		u64 foo;
-
-		foo = div_u64(10ULL * NANO / (MICRO / MILLI) * vref_uV / gain_x10, BIT(fsr_bits));
-
-		/* NB: slightly odd arrangement to avoid overflow. */
-		scale_avail[0] = div_u64_rem(foo, NANO, &scale_avail[1]);
-
-Now, with much more readability, it's visible that the first division is just a right shift.
-
-		u64 foo;
-
-		/* ...a comment to explain voodoo calculations... */
-		foo = (10ULL * NANO / (MICRO / MILLI) * vref_uV / gain_x10) >> fsr_bits;
-
-		scale_avail[0] = div_u64_rem(foo, NANO, &scale_avail[1]);
-
-> +	}
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Krzysztof
