@@ -1,94 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87FB32470E;
-	Tue, 16 Jun 2026 10:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097142980D
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 10:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781606640; cv=none; b=CJSXBc9j1+0oQswV6D9g0GLbUUNxGn6XqD4ftasbCRXStD7T6VT6gPjgQn/C8MReCXwq5si9JoAmTP7HMeK24vcN+NMjFq0EV85nA7nT+IusT5Sz5lnJ6Unm5bKhx6U/YaneHDKtioDPF54J4Aqj2JOohgk/gb67hxDkeW0B8KA=
+	t=1781606706; cv=none; b=qJux3jOWumiuKHJKztrqWUm+3dSU7Q39prTRL2O+3awz+lNDtnHLvE/Iju4gn8Hmz7mQj+C/ZVZvkUeLAc61WHTerPqWzXlvggYEr7O6MH0OTjEP0BKQef/TZVgc1ZFKzLvYsaFFmkgCNcH7mDIaFwSgr8OXA3ca7GJ22ywnrHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781606640; c=relaxed/simple;
-	bh=or6ka08HTdTIL7tQrOrGRK1iNdKlRkBhHzeGjcqAPX8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=relE9/vUMi7UeC54jNyI1EqO/DQZ1CSJD19y18jVsZ9ea2eIIr+IWAWaplx9roXkIYbAUz7a2WPdNrba90WgRhJr3ARCAEOvBfaBB28GROz0cD68Y3U4UPHRCEikV5cg/TyJbXdgMUmFaYogwb07SJK06G1A2FjfL8ldxb2ReRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cCqbdkQg; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781606706; c=relaxed/simple;
+	bh=sKtKuInWWgkpnwOdLL4P+tLnyENjTquK40r7C4btG6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ns3NMDIY18Jo48x2vftGQ4/OnqwO+RtAVcsMCeBTSALe77hSbp4ZIE6KAn8Apoa2kLYf7W0PjFfB8UQGBj/88SyQUAdqwmOStTUWqQwlmO25xEN0nZs+L3VojXeGKE5BpZWw51b45xi3fgyYyZaJ29TFmx1rIdIm2x6v4q/XoA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/Ru7QiU; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cCqbdkQg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781606639; x=1813142639;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=or6ka08HTdTIL7tQrOrGRK1iNdKlRkBhHzeGjcqAPX8=;
-  b=cCqbdkQg4kMg+hofgI5P0TKwpuj1Y6fkHSp34AJy6TwnqUaXXF06HhSN
-   /xL6oDtuaC3zyytcHC0LFThG29LZh4lH4Aq9Y7UXGjr/OLA58QgV+F2zE
-   7z3cfq217Wp8/B7m/QkYgNywVTrJxqs1xn63b5OboRgow3lU+tfCFNfPj
-   doPeA896jtnWC6oZTblXsUieaEBCoYf0Wu2z7wH4kS9MZGvfsDKEJBFvq
-   +YaA6rd7F6lwfMdRzxNa3t6on97eI2taGeXsrAKIeEHRsH2WaY3Bm6w+z
-   J1UvydJUi91+bVJ2/gp7pgZN671jCnWzIbBKKGQfmpG6S6gR7NWzIdgL7
-   w==;
-X-CSE-ConnectionGUID: Q7V2vDugQwWS/spH0m1jkQ==
-X-CSE-MsgGUID: G8OmHLdlTGiJKsIVqU1eQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="84932254"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="84932254"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 03:43:57 -0700
-X-CSE-ConnectionGUID: gwpn4hzLR+2ySJ4i/93kZQ==
-X-CSE-MsgGUID: Li1AE4dwQgOWqMCWM2iznQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="247802515"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 03:43:52 -0700
-Date: Tue, 16 Jun 2026 13:43:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: rodrigo.alencar@analog.com
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/Ru7QiU"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so28020315e9.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 03:45:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781606703; x=1782211503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=v+W3gkJdUSVWqcMXGqjt/1kOI7XTiovzDDxctkwEQPc=;
+        b=i/Ru7QiUzfKr3YVecRZc1fd/7oKYU+TowVY2i1EcwBmTicUWOFluN09vik4kKTzsS3
+         fhgIRk0U93iLfRkgxbodCbhdXw9qHdCokWn8TT1sQwdE62jxNrfldjTWzkl26hx/U8iG
+         Hfa74vvt88RxV0CDNVbgvwncpPxa3Ziz2/Oj6P2OybOWJQL0HmQ9TR873JbUKsmfRPmH
+         OZ+qrHrKCz/6BQzHDGluetj4nBtcLIck2/YxXHV2qUFtZpiwVzxMOCEqW3wUQR/WJRuP
+         /aAJOhqUgnQTw1LZUqzD8DBFZ+bihaUBwwEOywSe3r+rOoU1HEHSAGRN3gHTIunN+3zU
+         PacA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781606703; x=1782211503;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v+W3gkJdUSVWqcMXGqjt/1kOI7XTiovzDDxctkwEQPc=;
+        b=anRoKsG3etVYwVskkv8F1kvhS2RE0gbxEapbqjS2uQeLWxQk8gfOLCqrco9Hz2UJqF
+         JOexiLyMBdVLWqcl6flAcLjgyxY7NQrR71WKC5pijfqhAs6ZYf0kQSiug2hjfKKFHdGF
+         y3CtzGs9xu8+HV5bC2jTVRGV0bJ+FICMnTZYaRgMbnHgKmZX787WcSU0Dtv2pg4vghJc
+         2ECNzcZgtbgnpb1bfhCF0s8/cqf1nYWRDhm0jlxK8sI9/LrSwlsgEoPN5VuY13rWfsnw
+         T4DMreX9V9Ip915lfVQ7c6pKg9otWon5T3IFMXTETPWuiZHcX1GZAnZbBPL5pdONUHur
+         pKZg==
+X-Forwarded-Encrypted: i=1; AFNElJ+1I6WQgOIVcBv5XX9wZu/udICwqg0nGdOoNtRqDb2pImGkRkx+EAY7usZDah5Q+s6L8eM9SYG2vqmZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+eEhvXZinFh9E0Jncjxx78PvBzu3JI1QqO0CAoaId8uRMjei4
+	2bK3DViqAw0uLB7/5HeN5ODQd/ugHtO+uRVQXdLDrnxsOswGORNIsL9X
+X-Gm-Gg: Acq92OGr4NbevlqGkRju43hU3D8KT3p/j/r7AdTLF5LckRYHq3KaDvG2BVAEIz19IZA
+	pwTE+uaHZjumFsa8+KCNi+J/oK5cz217JoIHKqjWibjdxOK6+enhxC/KjfCNQRkeItsrEnX6umY
+	VLp9Bp2Oj4yZrgLD+GJNm7nt/NehBXnzvf9pda6l6RVIJ1skaqyfv110zxMCCA5t05Z679kEdvi
+	/lw2GnD2IAB8AYkomyCAt/lofNzhfhdxB3i6qBzU8RCSGJokJYb+QGUy9R2oc5/NtyKRWOlXg+M
+	DMEWvFPXz/tboMrIY81oWl0FPoxxjcUGovup0uucpJODaejp5pjz4gVPOQ8A5VRTQAOAyCXsmdl
+	fD1+TtMd2vaPnEDXFieSg+Wr7vjLzMEOAk5tZrZ9Itmff14AB+lQ1Ce7QrGB5z7VM0Mv4oWSIGc
+	9mlIjwlifeMAUaPwOhWWKgLBZ4fgrSqGL14qxfMuPvaaruG9Ux
+X-Received: by 2002:a05:600c:190b:b0:490:bcf6:469f with SMTP id 5b1f17b1804b1-490ec33898fmr239045165e9.0.1781606703064;
+        Tue, 16 Jun 2026 03:45:03 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:7499:34c3:598b:e20c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47da9sm82458485e9.5.2026.06.16.03.45.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 03:45:02 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Maxwell Doose <m32285159@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v3 11/12] iio: dac: ad5686: read_raw/write_raw: use
- guard(mutex)()
-Message-ID: <ajEo5pOp3ElX4cP7@ashevche-desk.local>
-References: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
- <20260616-ad5686-new-features-v3-11-f829fb7e9262@analog.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2 00/10] Add RZ/G3L USB2.0 host support
+Date: Tue, 16 Jun 2026 11:44:42 +0100
+Message-ID: <20260616104459.410743-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260616-ad5686-new-features-v3-11-f829fb7e9262@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 16, 2026 at 09:21:17AM +0100, Rodrigo Alencar via B4 Relay wrote:
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-> Use guarded mutex lock to facilitate code review when adding new
-> attributes. This will allow for early returns, avoiding error-prone
-> locking and unlocking in error paths. This also adds missing include
-> linux/cleanup.h. Gain-control support will allow the scale attribute
-> to be configurable.
+Add device tree binding support for the RZ/G3L (r9a08g046) USB PHY
+controller. The RZ/G3L USB PHY block is similar to RZ/G3S, but each port
+has an OTG controller, unlike RZ/G3S, which has an OTG controller only on
+port 1.
 
-What about interrupt handler? You just added yet another mutex lock/unlock
-there. Perhaps this patch should be done before the previous one?
+v1->v2:
+ * Dropped patch#6(Introduce helper for regulator registration)
+ * Passing pointer to an array of regulators to make it scalable.
+ * Dropped regulator1-vbus and added a regulators group node.
+ * Updated commit description for patch#1,#4,#6,#7,#8,#9 and #10.
+ * Added enum instead of const in the compatible section.
+ * Updated schema check.
+ * Collected tag for PHY binding patch.
+   in the regulator driver.
+ * Added regulators group node and its children in SoC dtsi.
+
+Biju Das (10):
+  dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L support
+  dt-bindings: phy: renesas,usb2-phy: Document RZ/G3L PHY bindings
+  clk: renesas: r9a08g046: Add USB2.0 clock and reset entries
+  reset: rzg2l-usbphy-ctrl: Introduce info struct for match data
+  reset: rzg2l-usbphy-ctrl: Add RZ/G3L support
+  regulator: renesas-usb-vbus-regulator: Add RZ/G3L VBUS regulator
+    support
+  phy: renesas: phy-rcar-gen3-usb2: Add RZ/G3L support
+  phy: renesas: phy-rcar-gen3-usb2: Fix devm action registration for
+    disabled VBUS regulator
+  arm64: dts: renesas: r9a08g046: Add USB2.0 device nodes
+  arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
+
+ .../bindings/phy/renesas,usb2-phy.yaml        |   2 +
+ .../reset/renesas,rzg2l-usbphy-ctrl.yaml      |  49 +++++++-
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 105 ++++++++++++++++++
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  49 ++++++++
+ drivers/clk/renesas/r9a08g046-cpg.c           |  15 +++
+ drivers/phy/renesas/phy-rcar-gen3-usb2.c      |  20 ++--
+ .../regulator/renesas-usb-vbus-regulator.c    |  53 +++++++++
+ drivers/reset/reset-rzg2l-usbphy-ctrl.c       |  44 +++++---
+ 8 files changed, 312 insertions(+), 25 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
