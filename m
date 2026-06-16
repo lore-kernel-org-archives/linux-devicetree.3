@@ -1,221 +1,151 @@
-Received: from outbound6.mail.transip.nl (outbound6.mail.transip.nl [136.144.136.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27BE374A1B;
-	Tue, 16 Jun 2026 13:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B7B36B059
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 13:13:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781615370; cv=none; b=d+5RHA2a0WrAlNP3HshxdRyhnzrR5l56ZAg16HJa1YV1pMfyAYtJBuDh7bsJewNzmNel32WHSnO8CiHdTwyZu/Mf+N3FIfuxgclm8tMyo/KbmzfZst2Ck98xZquPVjdj0JczFsLtDHXxOMulLJUm00Vszg46Dx6G8axSZH7+v6k=
+	t=1781615591; cv=none; b=iU/bFvQcqmetFmNXMaXVkIFN7AvvQq6KsOhVk0+/Lg3fuSTlV8myNCKn+3SuyP2MTGuFjj+TiOuN4z2uiKsI+WPaxUpHWvhK8Zsok2/hDmMSGytKJjPDv4BdtY+mZOk0WaGSBNWVoyWsLTOQhA6VoFeNMoA6DodI7Y22smRuwVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781615370; c=relaxed/simple;
-	bh=CK33TNa9SheLY8lCX11VLFemMv+xC1hg4xSfmjqQv2Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H42UbhGWu/urQJNQev93xAov1PcX+b/pSVH8JmQ5tAnYP04sdSH1iec6VxQbMnHNRq2Pp8RUzXLa4tha/DGLKE/XR1tzF7sxMucYtAAtpC7flvYEZLmQ+1//xKhxtvCDBjJ6cpUhEMstx6s4EgMfMKuAmhgzjkUyOh4aGK+r6tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=AJkYqrVK; arc=none smtp.client-ip=136.144.136.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1781615591; c=relaxed/simple;
+	bh=AOCb5daMzYh8r7izLLNKkTVzK0fH9eYC26/VS2vPBC8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t/pIOgGjoYxAna1TQx91eOD0IHMQOEhYQ4YzYrF5eED2IxqLsDjT12o0xBkA1xu9Dl2FMjQx3rUM5q2yNz5nI03N8sh1EkzeTzxhlrhwVAnMY6sGPh8ZNhjn2ONjiLW8YxoK/CvFCXTf66SPzmwp7Rr21D19ZmIavIeu1+RnbbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bl8FsHbd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="AJkYqrVK"
-Received: from submission12.mail.transip.nl (unknown [10.103.8.163])
-	by outbound6.mail.transip.nl (Postfix) with ESMTP id 4gfnFX1GcCzwLHdX;
-	Tue, 16 Jun 2026 15:02:08 +0200 (CEST)
-Received: from [127.0.1.1] (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission12.mail.transip.nl (Postfix) with ESMTPA id 4gfnFW26Y3z3SJ37P;
-	Tue, 16 Jun 2026 15:02:07 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-Date: Tue, 16 Jun 2026 15:02:05 +0200
-Subject: [PATCH v2 2/3] dt-bindings: iio: st,st-sensors: add
- st,fullscale-milligauss
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bl8FsHbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BB4D1F000E9;
+	Tue, 16 Jun 2026 13:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781615589;
+	bh=5PxxwQGbFURJrgrNFrjQ92yL+bnQBpXsFPgLNIjxUY8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bl8FsHbduHrXy6gfokOXC+bsQl+00zfB7NoDWkl6UACWDCGoJOePPOA/1e41bpA05
+	 AgO5hIIqY9MmLihiV/CwyOGMkmYkOCpjDCzltSut+hM+qP5Dh+apUfd1HYmqOq0B4/
+	 kEJr/REySJbYHa94NJsbTuQ/0Z+7h6z1kJuD5+++hD3+ODXqM8Z64TLUyeoWAu/kQh
+	 K4toQEr4oK+YfGvvKi+o3cO9dIwi5T+8yUuivNwgBlhpUGmTffRn7I9I0+UQD8xbKs
+	 vz3sTlyjiNdUkt1ctwnJEh5uBE8h6Em5Di3ySclt8D7/CQB46cFFvoVt4Sts84+wWA
+	 qn3Bo1NIsM3Jg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V2 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
+ for eMMC via overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260616130347.3096034-4-monish.chunara@oss.qualcomm.com>
+References: <20260616130347.3096034-4-monish.chunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 13:13:08 +0000
+Message-Id: <20260616131309.6BB4D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-2-063edcf74e60@herrie.org>
-References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
-In-Reply-To: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Denis Ciocca <denis.ciocca@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Denis Ciocca <denis.ciocca@st.com>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, devicetree@vger.kernel.org, 
- Herman van Hazendonk <github.com@herrie.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781614923; l=5598;
- i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
- bh=CK33TNa9SheLY8lCX11VLFemMv+xC1hg4xSfmjqQv2Q=;
- b=z09ZgHaePo74W3jkJkUturnBGept6GYOOZ107fhh9YwTjWjsuj+i5+pRpTasmft+bVMUioZa/
- bJik5Km4t5SCPjIRb2z8ZbLs/DhZpFC2CW9mpW/FlsqCdqunf8rTdb1
-X-Developer-Key: i=github.com@herrie.org; a=ed25519;
- pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
-X-Scanned-By: ClueGetter at submission12.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1781614927; h=from:subject:to:cc:
- references:in-reply-to:date:mime-version:content-type;
- bh=VAxElGXdunDODgznWU+hK4uck2vrkbcn6Yab79LlD1M=;
- b=AJkYqrVK6LvozlJfi/qeeGBH9qVMAzVRLqzx58I6NlMcoiCFwsMPd8WqXa3QjI/Z7wXXok
- IeL8zXVHppjBikmb9PftGmnGKF8oLm1BQyKAsAjYTXG5b5aYMAE7mirwYxvugXjiM7pE2F
- esNOjHLaGr+uk2rlMfvOk09cbpOi1MI90t3LHVuGFlDTlRRhPSs2a0Pyyt4WwvkDh4rWY0
- xkI45TvdFGq/D1CjxQGTno81J1+lj1a5dWUriwB/RrqBNFQbzSytF7eoL+QMeUzhhNZel/
- P/01tN9F0jQwvEbsH/wYtrfp08BVLRc0p9V5wLEf1jFo0wU7q8XGM7IoO9nhTQ==
-X-Report-Abuse-To: abuse@transip.nl
 
-Add an optional st,fullscale-milligauss property that selects the
-initial magnetometer full-scale range at probe time, expressed in
-milligauss.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-The motivating case is the LSM303DLH magnetometer on the HP TouchPad
-(apq8060 / tenderloin) where the kernel's chip-default +/-1.3 G range
-saturates the X axis to the chip's 0xF000 overflow sentinel out of
-probe, because the chip is mounted close to surrounding power planes
-and picks up enough DC bias to exceed the smallest range.
+New issues:
+- [Medium] Device Tree resource duplication for the vreg_s2s regulator.
 
-The chip is not wedged by the saturation: a sysfs write of a wider
-range to in_magn_x_scale recovers it on the next conversion, and a
-UDEV rule on add of the IIO device is a viable steady-state
-workaround. What the DT property buys is the probe-time window: the
-in-tree consumers we use (sensorfw's iio-sensors-adaptor and the
-geomagnetic / orientation services on top of it) start polling
-in_magn_x_raw essentially as soon as the device node appears and
-treat the 0xF000 sentinel as a legitimate sample. Until a UDEV rule
-fires and commits the wider range, every read returns the stuck
-sentinel, and on slow-boot paths the consumer may have already
-cached a bogus calibration baseline by the time UDEV catches up.
+Pre-existing issues:
+- [High] Incomplete base DT refactoring leaves mutually exclusive eMMC prop=
+erties, breaking the SD card overlay.
+--
 
-st,fullscale-milligauss lets the device tree declare a wider
-initial range up-front so the correct range is in effect before any
-IIO consumer can open the device, and keeps the board-specific
-magnetometer calibration alongside the rest of the hardware
-description rather than splitting it between DTS and per-distro
-UDEV rules.
+commit 457596ee7fdadc67892c938f430cbd6d76fabaf4
+Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
 
-The full property name is spelled out rather than abbreviated to
-"-mg" because this same binding file already covers ST accelerometers
-where the conventional shorthand "mg" reads as milli-g (acceleration);
-the explicit "-milligauss" suffix makes the unit unambiguous if a
-similar tunable is ever introduced for the accel/gyro/pressure
-families.
+arm64: dts: qcom: monaco-evk: Add SDHCI support for eMMC via overlay
+   =20
+Enable the SDHCI controller for eMMC functionality on the Monaco EVK
+using a device tree overlay.
 
-The property is scoped to magnetometer compatibles via allOf/if-then
-clauses, with per-family enum lists of the accepted milligauss
-values (1300..8100 for LSM303DLH/DLHC/DLM, 4000..16000 for
-LIS3MDL/LSM9DS1/LSM303C). LSM303AGR / LIS2MDL / IIS2MDC have a
-single fixed full-scale (15000 mg) with no register to switch
-ranges, so the property is rejected outright for them. DTSes that
-misspell the value, place the property on an accelerometer /
-gyroscope / pressure node, or set it on a fixed-FS magnetometer
-fail dt_binding_check rather than emitting a runtime warning.
+> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso b/arch/arm64/b=
+oot/dts/qcom/monaco-evk-emmc.dtso
+> new file mode 100644
+> index 0000000000000..cb2566ac6923c
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-emmc.dtso
+> @@ -0,0 +1,37 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +/ {
+> +        vreg_s2s: regulator-vreg-s2s {
+> +                compatible =3D "regulator-fixed";
+> +                regulator-name =3D "regulator-s2s";
+> +
+> +                regulator-min-microvolt =3D <1800000>;
+> +                regulator-max-microvolt =3D <1800000>;
+> +        };
+> +};
 
-The property is purely additive: if absent, drivers fall back to
-their existing chip default. No existing in-tree DTS is affected.
+[Severity: Medium]
+Does this create a duplicate regulator node?
 
-Assisted-by: Claude:claude-opus-4-7 dt_binding_check checkpatch
-Assisted-by: Sashiko:claude-opus-4-7
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- .../devicetree/bindings/iio/st,st-sensors.yaml     | 71 ++++++++++++++++++++++
- 1 file changed, 71 insertions(+)
+The base device tree in arch/arm64/boot/dts/qcom/monaco-evk.dts already
+provisions this exact 1.8V fixed regulator as vreg-s2s with the vreg_s2s
+label:
 
-diff --git a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml b/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-index a1a958215cdb..f0805604c849 100644
---- a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-+++ b/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-@@ -126,6 +126,13 @@ properties:
-   mount-matrix:
-     description: an optional 3x3 mounting rotation matrix.
- 
-+  st,fullscale-milligauss:
-+    description:
-+      Initial magnetometer full-scale at probe time, in milligauss.
-+      Per-chip allowed values are enumerated in the allOf clauses
-+      below.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
- allOf:
-   - if:
-       properties:
-@@ -163,6 +170,70 @@ allOf:
-           maxItems: 1
-         st,drdy-int-pin: false
- 
-+  # Per-chip enum lists for st,fullscale-milligauss. Out-of-range
-+  # values fail dt_binding_check instead of being demoted to a
-+  # runtime warning by the driver.
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - st,lsm303dlh-magn
-+              - st,lsm303dlhc-magn
-+              - st,lsm303dlm-magn
-+    then:
-+      properties:
-+        st,fullscale-milligauss:
-+          enum: [1300, 1900, 2500, 4000, 4700, 5600, 8100]
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - st,lis3mdl-magn
-+              - st,lsm303c-magn
-+              - st,lsm9ds1-magn
-+    then:
-+      properties:
-+        st,fullscale-milligauss:
-+          enum: [4000, 8000, 12000, 16000]
-+
-+  # Single fixed full-scale, no register to switch: reject.
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - st,iis2mdc
-+              - st,lis2mdl
-+              - st,lsm303agr-magn
-+    then:
-+      properties:
-+        st,fullscale-milligauss: false
-+
-+  # Reject st,fullscale-milligauss on non-magnetometer compatibles.
-+  # Keep this enum in sync with the three magn clauses above when
-+  # adding a new magnetometer compatible.
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum:
-+                - st,iis2mdc
-+                - st,lis2mdl
-+                - st,lis3mdl-magn
-+                - st,lsm303agr-magn
-+                - st,lsm303c-magn
-+                - st,lsm303dlh-magn
-+                - st,lsm303dlhc-magn
-+                - st,lsm303dlm-magn
-+                - st,lsm9ds1-magn
-+    then:
-+      properties:
-+        st,fullscale-milligauss: false
-+
- required:
-   - compatible
-   - reg
+arch/arm64/boot/dts/qcom/monaco-evk.dts:
+	vreg_s2s: vreg-s2s {
+		compatible =3D "regulator-fixed";
+		regulator-name =3D "vreg_s2s";
 
--- 
-2.43.0
+Since the node names differ, applying this overlay instantiates a duplicate
+physical regulator node instead of referencing the existing one.
 
+> +
+> +&sdhc_1 {
+> +	vmmc-supply =3D <&vreg_l8a>;
+> +	vqmmc-supply =3D <&vreg_s2s>;
+> +
+> +	supports-cqe;
+> +
+> +	pinctrl-0 =3D <&sdc1_state_on>;
+> +	pinctrl-1 =3D <&sdc1_state_off>;
+> +
+> +	pinctrl-names =3D "default", "sleep";
+> +
+> +	non-removable;
+> +
+> +	bus-width =3D <8>;
+> +	no-sd;
+> +	no-sdio;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+This isn't a bug introduced by this patch, but this commit fails to address
+it while supposedly completing the eMMC overlay separation.
+
+The base device tree arch/arm64/boot/dts/qcom/monaco-evk.dts retains
+hardcoded eMMC properties for sdhc_1:
+
+arch/arm64/boot/dts/qcom/monaco-evk.dts:sdhc_1
+	no-sd;
+	no-sdio;
+	non-removable;
+
+Because overlays cannot easily delete properties, applying the previously
+merged SD card overlay arch/arm64/boot/dts/qcom/monaco-evk-sd-card.dtso
+inherits no-sd from the base DT while appending its own no-mmc. This causes
+the MMC core to skip probing entirely, rendering the SD card controller
+non-functional.
+
+Should the base DT be stripped of these media-specific properties to proper=
+ly
+implement mutually exclusive overlays?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616130347.3096=
+034-1-monish.chunara@oss.qualcomm.com?part=3D3
