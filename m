@@ -1,67 +1,67 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7769444D686
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F72B44CF44
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625329; cv=none; b=e2EBK0epCRrNoW+fmBU8mA0Eq8U0VZfcq8aKjxMdrEjY/M2wELM3KZeh4NnlNI9SF7xsvgoWQCsbDJ/tZzic1XVN/cZr/zZ71RhLbhf9bGdiQsQ41WqSjaK0hYqzGdAKGiN51irEIlnjU6MWNaPOrRH65mJs5lcYwvumV7yqyy0=
+	t=1781625343; cv=none; b=IskAkuF3u6AjnMbZQq8V4pvjHbVr6sWXUyEkrVvazykoMY4UYKWySfTL7FWutqmEeUDi249Jn4Z0TWwNHp4qp64v2Ri/XkCCOLptutAzOj2yiTBZikQt2f2IqKbi/V3bmxwAd7c+lgOBuAKEffzfrQAEc8fY4lOp5gGAJn/eLT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781625329; c=relaxed/simple;
-	bh=bEH96bnIltoEa0z4iZyqds3YfSC1kw1kx0wLvQAGKTI=;
+	s=arc-20240116; t=1781625343; c=relaxed/simple;
+	bh=fx2MvxDOp+zgfbQanHVlBFA2C9ssVsnmseycDuhq1VU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=un2shFJdzmFr/LNoDMb+Rxfd6Zhw7Nsi5laYapSIqvzX/bOHK65jAhVVsP0eSWHyyeu1r5QLMBLPW9u9NXm666oQZAk/756R29G8WGl68xz8Pg603QgMXv7VMMwrTlZI01eTY2QYQckAPHNUxMS7LXyqE2QUBGd9TjFic4Pwl84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GpbU409b; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=kIKVNAmLZZxa9i0Zd+ldzIy8uQMAFp0Ug+E33Xn3hWtivZIZ4GwsacNY0N1lV9nOGnyyJsVBgTsRvPpRp4czX4Poy6/lJlHT1LnF3HlwjwKriWBsQ063MrBtkR9c8Z1VWi+Oro/Eva5jC8pKvXhRArgvHAyKMmGbPmH+2ioDD9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Cue+EfXu; arc=none smtp.client-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GpbU409b"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-36da8439078so4087949a91.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:55:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Cue+EfXu"
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-69e8aa31e9fso2204343eaf.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:55:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781625328; x=1782230128; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=AsR19V/9UOzKY0KYtJv6IFN6IvbD4jUVTeC5l3UI9uA=;
-        b=GpbU409boDiPjYCu5KuQ4pRLExZCfs3N457SIb98Usf8IjpwmoXer9Ysxn2wvWX1zL
-         UIxv2FZALSzGeQv6NI6CfB1ORk4eud3uVzFIYXpicfNfk5L3/VzkHzfWV+TYpjHxnp9R
-         Wtwo0RaeZXsbwiXvb1i+fFQrBLlaXCirjGUzJhvngz/OXtVYNTwbl5rDlv6l1xzofKJx
-         jaqzNa7K1j22Z1uK+2zPVD/HyMAujwEYAxCqh3ZePZuhmcpeQfSGHg5Rq7SqknJQnZWq
-         2YCuPW2XZBV2MGlfqIc09jm1NAPejBwZwQmXSxHLJnq/CpCPcToG31zKp1Jv8jFI1lPQ
-         DzdQ==
+        d=baylibre.com; s=google; t=1781625340; x=1782230140; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PswXrphDi92EK2opFWAkaWgKVXNG2RJTsAlsaI0Q2zQ=;
+        b=Cue+EfXutNEZCPky4R9focYhM373DvAYbh1Gjn9pxyafUi14q5xRvQFdcKMhN/wQCE
+         rQIU0IqDoiPZArmw4KhAZKGOIfDSq9y7Scn3Qg+FYtlEb/B6Gd160hacnDZ/FuLd6uRu
+         prsl0PHcqH2HD3tCbnTCvDbca1GHlnSAkENl9mmfx3zDN0DYAkuU1J4sdyVyUNpo+UV7
+         GIj20aFd/85yXI3eC6EoVrfCacQb/vOdf9wmBSazwhkUfotZbQxLAcOFdyfZECLjSXiZ
+         Mc0/xwh92OGqZ5NaFinSXXsRE34P7W55AA/ARV3R+rHzN8na5/P7/TD6fXxzCGaNgaa6
+         ygCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781625328; x=1782230128;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AsR19V/9UOzKY0KYtJv6IFN6IvbD4jUVTeC5l3UI9uA=;
-        b=fFUn4rc8BysAqgKshd9+Tin0w0L8SaI5wjRYQqQPpH9Sg6asZw46kdc7IAfZ35qcLC
-         ncu7+uq+lGhHBRyZwIGnfgZh0hMLCow8EBDUshUPecsrXkBgG3CQ2wGKBYeWtPY8uNdg
-         3dsC3nSSYCr7lBil+3nczIzIYjaVXskpMkJRKMtOfj7BxVk5EntG/pZJ/9PWQlXqB5BM
-         9Uc332lLKqdLrTRR2HkpV0XaWyxeaVyKsZlxDzEBpvaStyiq0AHCQUnS/b9/hFeqbQua
-         +sc2NMGHWeLTPeaZZG+aHi4YYNxlmKKPzQmEh9XVCXJK4uUTJzRLCbAz4mwCJqhKzsN1
-         7CSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Skwv0qz2lx5nu7HDtRbhWZCwrOKak3mZNOwlHsMCJ6k7ubdaaQFzMR/ApqpJzcxnlAGfHTBOYOQzb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1iZ6/7ewoDOstV5GPTBxMzBZxrQ91N6AG9un7LlV1Sj8VNIAX
-	nV7ivoAYpd1WIexxFSrNkx+DEKmARWv1CMadb6qVy0CrORed59XnFSM66q/u4iA/
-X-Gm-Gg: Acq92OEhtuJV6LcZpuAgDJv6jmeAYszbyUgP710LmvorJcEQpwTBsTVf9HgWxTH1GwZ
-	YSn6Ku9laF9nNYEgq2AUwZVtLrqCH0RffSY4MV03HgW0svNgORZ8ZqWqAhRikksZDFmARfNjvK/
-	HWsy/8ZcRQ3zr+R3s9RJFjDdXNEK9/kK6wKvcz1iKoTzB2OPXwUxausGZ2gFjtAVhyb1PB6rry0
-	QEIKRBhCT02KVLEnU2RwjnCN7wj17MN7HsRIUq886YTNRh1y8nL+52ey/NvTYWKnwWkNlc5gpbO
-	5bmMREpFsrfuqXX3V/hAxVq6sD87t8rZ3hzSJyosEddFHYdN2+I2LDqQI8iQMspbAXP7VCnhxaX
-	uK+xPuwco7NmZ1BzkYeRiYkuQmrX2ok2S8NFFECqfWrefGUzmrdME6o6rHu16W38wJZ3JBZHaXJ
-	JdxvtAd+oRL3eV7/9N2J35DS+nGYfioYa132WV09VPnj/HLbQ/JifS4xxWL3K3LRxtYKBUUO5S
-X-Received: by 2002:a17:902:ced0:b0:2c0:d097:51bb with SMTP id d9443c01a7336-2c69a0de0b3mr44847805ad.1.1781625327711;
-        Tue, 16 Jun 2026 08:55:27 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4330782b2sm147646405ad.67.2026.06.16.08.55.26
+        d=1e100.net; s=20251104; t=1781625340; x=1782230140;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PswXrphDi92EK2opFWAkaWgKVXNG2RJTsAlsaI0Q2zQ=;
+        b=aq6PSW8Ve5/fgraqdodQLNcN8P2InV8IVNPZ3G8kZQ7CHxwxOkOoy22hpDSrkOBZjG
+         J7i5ofhQ9pNFQtxcekg1c4MeoAGJjyK1ouKZzlMOE/vGgq5GJQpi0iZfAwVOL9miqWg1
+         RHX/raDhe46FU6ABe4tI+wonQw+ai2F5y7EqyUbrcFEPp06GQSH2PFMkumlwaVn2SL8O
+         ILT3Uygi4M9H84inZxLTB8TyoMmEC44d/EwWq704fY8QppZw33Hw+KhHZMybTDXiCrvx
+         hhu/+LX3FrafmYANGB6aBx2mGRg374hbzJY+kSrBXkgv37H1n11O0De/RvCtyUD4ynAE
+         ItGA==
+X-Forwarded-Encrypted: i=1; AFNElJ9o8RVhMmtBbT3pMG+FUXbQWjAfTM35fAcFvIvfb8ZLFUeeKeVXRe81C7CMAEw7hH0gVVo2WrzTfoJX@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWw9QMwxDM97NyAoZMe34161CscYLBdXoePN40UVryhgFbLVoe
+	xh6/gmPuUIUWSYJqYzGrrhVqzcmcf6xI0d5dra2gkLpdqhuZPBOaHu/dQN9WJQ78g30=
+X-Gm-Gg: Acq92OFZxedOVuFSbzoBUK+rj+4aYNaqahr9BrEaM45vFeT7n3s+psd2An/fDvRDvcJ
+	5Ror2ysZXOxMBhvSDYsOPmsYYPCGCF/0RDQdUNZNvBAaxM1cTCv7/r/MTk5T2iXC9K65NuSdDj/
+	bCtFjc9mfiHPKRDzaEdJDmZsQVJjKvufHYUmQP0bde89OZHTKd4509zZCHVaspytCsXJOl6it37
+	BzbcscZIBobMEepJcjwJbkJSOfzVpoCW/nnWq9tlYL3q9+8V9nFYwyhafeoWDdPPnGfruzGBws1
+	UnJ9bYWMDYqIH5VgWQBqqfQSNihd/nXgQIHx3A4HtrcP/HCcgN0myok28Lhc+322zpxS5VPBAJW
+	KnTky8dqwBYHXDpX3vPP+pkVT66pbBAqHeruVLB+y8Aca8HjdxgFh6w2DW3ExA6F3H04jFDUckw
+	bIQAeZ5mFgzmwOwAWC4dkLtrZPAqSUceAmE1GGv5NX2qf9mLPw7qZop+uV+MpIuA1ifmMgZ/wHJ
+	Q==
+X-Received: by 2002:a05:6820:2015:b0:69e:3960:b5b4 with SMTP id 006d021491bc7-69edc73ac67mr12760353eaf.40.1781625335733;
+        Tue, 16 Jun 2026 08:55:35 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69f00d609e9sm4851306eaf.7.2026.06.16.08.55.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 08:55:27 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <2d1ae3b5-bc52-4043-9090-a78f30390024@roeck-us.net>
-Date: Tue, 16 Jun 2026 08:55:26 -0700
+        Tue, 16 Jun 2026 08:55:35 -0700 (PDT)
+Message-ID: <e1e6a5f3-4cf3-4454-ab73-a45ae7b77116@baylibre.com>
+Date: Tue, 16 Jun 2026 10:55:34 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,173 +69,222 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
-To: sashiko-reviews@lists.linux.dev, hehuan1@eswincomputing.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260611090639.777-1-hehuan1@eswincomputing.com>
- <20260611091748.A6EAC1F00898@smtp.kernel.org>
+Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
+ support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+ Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
+ <ajELGxonxsQp-Ut2@ashevche-desk.local>
 Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260611091748.A6EAC1F00898@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <ajELGxonxsQp-Ut2@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/11/26 02:17, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The IRQ is requested before the PM runtime cleanup action is registered, leading to a possible use-after-disable of the hardware clock in the ISR on driver removal.
-> - [Medium] The interrupt handler `eic7700_pvt_hard_isr` does not check the hardware interrupt status bit to verify if the device actually generated the interrupt.
-> --
+On 6/16/26 3:36 AM, Andy Shevchenko wrote:
+> On Mon, Jun 15, 2026 at 05:00:02PM -0500, David Lechner (TI) wrote:
+>> Add support for parsing devicetree properties for measurement channels
+>> and doing direct reads on these.
+>>
+>> There are quite a lot of conditions that have to be met for each
+>> measurement to be made, so quite a bit of state and algorithms are
+>> required to handle it.
+>>
+>> Channels are created dynamically since the number of possibilities is
+>> unreasonably large.
 > 
-> commit 0f4c8aefb83780ee09652639eb2843f01c2baf38
-> Author: Huan He <hehuan1@eswincomputing.com>
+
+
+>> +	/* measurement channels */
+>> +	if (chan->channel < 100) {
+>> +		struct ads112c14_measurement *measurement =
+>> +			&data->measurements[chan->scan_index];
 > 
-> hwmon: Add Eswin EIC7700 PVT sensor driver
+>> +		if (!measurement->label)
+>> +			return -EINVAL;
 > 
-> Add support for ESWIN EIC7700 Voltage and Temperature sensor. The driver
-> supports temperature and voltage monitoring with polynomial conversion,
-> and provides sysfs interface for sensor data access.
+> Hmm... Can it be true?
+
+Yes. For some channels, label comes from the devicetree, which
+may not have provided a label.
+
 > 
->> diff --git a/drivers/hwmon/eic7700-pvt.c b/drivers/hwmon/eic7700-pvt.c
->> new file mode 100644
->> index 0000000000000..3b3aed74c3941
->> --- /dev/null
->> +++ b/drivers/hwmon/eic7700-pvt.c
+>> +		return sysfs_emit(label, "%s\n", measurement->label);
+>> +	}
 > 
-> [ ... ]
+
+...
+
+>> +		if (fwnode_property_present(child, "single-channel")) {
+>> +			ret = fwnode_property_read_u32(child, "single-channel", &spec->channel);
+>> +			if (ret)
+>> +				return dev_err_probe(dev, ret,
+>> +						     "failed to read single-channel property\n");
+>> +
+>> +			if (spec->channel >= 8)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "single-channel value must be between 0 and 7\n");
+>> +		} else if (fwnode_property_present(child, "diff-channels")) {
+>> +			ret = fwnode_property_read_u32_array(child, "diff-channels", pair, ARRAY_SIZE(pair));
+>> +			if (ret)
+>> +				return dev_err_probe(dev, ret,
+>> +						     "failed to read diff-channels property\n");
+>> +
+>> +			if (pair[0] >= 8 || pair[1] >= 8)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "diff-channels values must be between 0 and 7\n");
+>> +
+>> +			spec->channel = pair[0];
+>> +			spec->channel2 = pair[1];
+>> +			spec->differential = 1;
+>> +		} else {
+>> +			return dev_err_probe(dev, -EINVAL,
+>> +					     "channel node missing channel type property\n");
+>> +		}
 > 
->> +static irqreturn_t eic7700_pvt_hard_isr(int irq, void *data)
+> Looking how it's going to spread (I mean the above pattern), perhaps it's a time to introduce bunch of
+> 
+> 	fwnode_property_read_*_optional()
+> 
+> and the respective device_property_read_*_optional()?
+> 
+> Let's start from u32 case only, as it will be most used anyway.
+
+I don't think that would be really any different from device_property_read_*
+and checking for -EINVAL or ignoring the error completely. TBH, I really like
+it this way with fwnode_property_present().
+
+> 
+>> +		if (fwnode_property_present(child, "excitation-channels")) {
+>> +			ret = fwnode_property_count_u32(child, "excitation-channels");
+>> +			if (ret < 0)
+>> +				return dev_err_probe(dev, ret,
+>> +						     "failed to read excitation-channels property\n");
+>> +
+>> +			if (ret < 1 || ret > 2)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "excitation-channels property must have 1 or 2 values\n");
+>> +
+>> +			measurement->iadc_count = ret;
+>> +			pair[1] = 0;
+>> +
+>> +			ret = fwnode_property_read_u32_array(child, "excitation-channels", pair, measurement->iadc_count);
+>> +			if (ret)
+>> +				return dev_err_probe(dev, ret,
+>> +						     "failed to read excitation-channels property\n");
+>> +
+>> +			if (pair[0] >= 8 || pair[1] >= 8)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "excitation-channels values must be between 0 and 7\n");
+>> +
+>> +			measurement->idac1_mux = pair[0];
+>> +			measurement->idac2_mux = measurement->iadc_count > 1 ? pair[1] : 0;
+>> +
+>> +			ret = fwnode_property_read_u32(child, "excitation-current-microamp",
+>> +						       &measurement->idac_current_uA);
+>> +			if (ret)
+>> +				return dev_err_probe(dev, ret,
+>> +						     "failed to read excitation-current-microamp property\n");
+>> +
+>> +			measurement->current_chop = fwnode_property_read_bool(child, "current-chopping");
+>> +		}
+>> +
+>> +		measurement->bipolar = fwnode_property_read_bool(child, "bipolar");
+>> +
+>> +		fwnode_property_read_u32(child, "ti,vref-source", &measurement->vref_source);
+>> +		if (measurement->vref_source > ADS112C14_VREF_SOURCE_AVDD)
+>> +			return dev_err_probe(dev, -EINVAL,
+>> +					     "invalid vref-source value\n");
+>> +
+>> +		if (measurement->vref_source == ADS112C14_VREF_SOURCE_AVDD)
+>> +			*need_avdd_ref = true;
+>> +		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
+>> +			*need_ext_ref = true;
+>> +
+>> +		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
+>> +		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
+>> +
+>> +		i++;
+>> +	}
+>> +
+>> +	memcpy(channels + i, ads112c14_sys_mon_channels, sizeof(ads112c14_sys_mon_channels));
+>> +
+>> +	indio_dev->channels = channels;
+>> +	indio_dev->num_channels = i + ARRAY_SIZE(ads112c14_sys_mon_channels);
+>> +
+>> +	return 0;
+>> +}
+> 
+> ...
+> 
+>> +static void ads112c14_populate_scale_available(int scale_avail[][2],
+>> +					       u32 vref_uV, u32 fsr_bits)
 >> +{
->> +	struct pvt_hwmon *pvt = data;
->> +	int active;
->> +	u32 val;
+>> +	for (u32 i = 0; i < ARRAY_SIZE(ads112c14_pga_gains_x10); i++) {
+>> +		int *entry = scale_avail[i];
+>> +		u32 gain_x10 = ads112c14_pga_gains_x10[i];
 >> +
->> +	if (IS_ENABLED(CONFIG_PM)) {
->> +		active = pm_runtime_get_if_active(pvt->dev);
->> +		if (active <= 0)
->> +			return IRQ_NONE;
+>> +		entry[0] = div_u64_rem(div64_u64((u64)(NANO * 10 /
+>> +						       (MICRO / MILLI)) * vref_uV,
+>> +						 (u64)gain_x10 * BIT(fsr_bits)),
+> 
+> Hmm... This differs from the previous implementation. Why?
+
+Probably fixed it during testing and missed that I needed to fix
+the original patch too.
+
+> 
+>> +				       NANO, &entry[1]);
 >> +	}
+>> +}
+> 
+> ...
+> 
+>> +	if (device_property_present(dev, "refp-refn-resistor-ohms")) {
+>> +		if (refp_uV != 0 || refn_uV != 0)
+>> +			return dev_err_probe(dev, -EINVAL,
+>> +					     "refp-refn-resistor-ohms property should not be present when refp-supply or refn-supply is present\n");
 >> +
->> +	eic7700_pvt_update(pvt->regs + PVT_INT, PVT_INT_CLR, PVT_INT_CLR);
->> +	/*
->> +	 * Read the data, update the cache and notify a waiter of this event.
->> +	 */
->> +	val = readl(pvt->regs + PVT_DATA);
->> +	WRITE_ONCE(pvt->data_cache, FIELD_GET(PVT_DATA_OUT, val));
->> +	complete(&pvt->conversion);
+>> +		ret = device_property_read_u32(dev, "refp-refn-resistor-ohms",
+>> +					       &data->ext_ref_ohms);
+>> +		if (ret)
+>> +			return dev_err_probe(dev, ret,
+>> +					     "failed to read refp-refn-resistor-ohms property\n");
 > 
-> [Severity: Medium]
-> Does this unconditionally process the interrupt without checking if the device
-> actually generated it?
+> Using
 > 
-> If a spurious interrupt occurs, the ISR will prematurely clear the interrupt,
-> read whatever stale value is in PVT_DATA, and call complete(&pvt->conversion).
-> This will cause the waiting thread in eic7700_pvt_read_data() to wake up early
-> and return stale or garbage data to userspace.
+> 	const char *propname;
+> 	...
+> 	propname = "refp-refn-resistor-ohms";
 > 
-> Should the ISR read the status register and return IRQ_NONE if its device did
-> not assert the interrupt?
+> makes this
 > 
-> [ ... ]
+> 	if (device_property_present(dev, propname)) {
+> 		if (refp_uV != 0 || refn_uV != 0)
+> 			return dev_err_probe(dev, -EINVAL,
+> 					     "%s property should not be present when refp-supply or refn-supply is present\n",
+> 					     propname);
 > 
->> +	ret = eic7700_pvt_request_irq(pvt);
->> +	if (ret) {
->> +		if (!IS_ENABLED(CONFIG_PM))
->> +			clk_disable_unprepare(pvt->clk);
->> +		return ret;
->> +	}
->> +
->> +	pm_runtime_enable(&pdev->dev);
->> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 3000);
->> +	pm_runtime_use_autosuspend(&pdev->dev);
->> +	pm_runtime_get_noresume(&pdev->dev);
->> +
->> +	ret = devm_add_action_or_reset(pvt->dev, eic7700_pvt_disable_pm_runtime,
->> +				       pvt);
+> 		ret = device_property_read_u32(dev, propname, &data->ext_ref_ohms);
+> 		if (ret)
+> 			return dev_err_probe(dev, ret, "failed to read %s property\n", propname);
 > 
-> [Severity: High]
-> Can this devres setup lead to accessing unclocked registers during device
-> removal?
-> 
-> Because devres executes teardown callbacks in reverse order of their
-> registration, eic7700_pvt_disable_pm_runtime() will run before the IRQ
-> is freed by devm_request_threaded_irq()'s teardown.
-> 
-> During removal, eic7700_pvt_disable_pm_runtime() disables the clock:
-> 
-> eic7700_pvt_disable_pm_runtime() {
->      ...
->      if (!pm_runtime_status_suspended(pvt->dev)) {
->          clk_disable_unprepare(pvt->clk);
->          pm_runtime_set_suspended(pvt->dev);
->      }
-> }
-> 
-> If an interrupt fires concurrently and the ISR executes past the
-> pm_runtime_get_if_active() check before the clock is disabled, the ISR
-> will attempt to access hardware registers while unclocked, which can lead
-> to an external abort or kernel panic:
-> 
-> eic7700_pvt_hard_isr() {
->      ...
->      eic7700_pvt_update(pvt->regs + PVT_INT, ...);
-> }
-> 
-> Should the PM runtime cleanup action be registered before the IRQ is requested?
-> 
+> Also the rest can be improved in the similar way.
 
-If not solved, these questions will at least have to be answered.
+Hmm... maybe less error prone, but makes the code harder to read IMHO.
+Will think about it.
 
-Thanks,
-Guenter
-
->> +	if (ret) {
->> +		pm_runtime_put_noidle(&pdev->dev);
->> +		return dev_err_probe(&pdev->dev, ret,
->> +				     "Can't register PM cleanup\n");
+> 
+>> +	} else {
+>> +		if (need_ext_ref && data->ext_ref_uV == 0)
+>> +			return dev_err_probe(dev, -EINVAL,
+>> +					     "external reference measurements require either refp-supply or refp-refn-resistor-ohms property\n");
 >> +	}
 > 
 
