@@ -1,154 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B6D428828;
-	Tue, 16 Jun 2026 10:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E45427A06;
+	Tue, 16 Jun 2026 10:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781605030; cv=none; b=D1IGd5PAf00YdXwszaVJEqS3ltgDZpXHbxKhyKZODBMLLU5y66lKOLOcjWkxy5QppbUZFjTMjBG8R+2dZv9wANWj3mhOQtUZEVfJX6qyVH/tsvlC9cCUQeheDQRNYG4DzM/zCTxf4ypBCFIrf6MM63jEGaBASmUCDcBITugBc4Y=
+	t=1781605036; cv=none; b=deUzITuheL83Z7T2JGBceMIm4ifxmHCLD+j6EIa5M4E6p5or0iaEZ4BvLRCHxkkSP7XIH5HfR0029pHxcLS9zEhIBawQ3ODQ26r3yjS4+VRHZsc/wJY1ZBKn5sSwPOszdx/JzZW1LGcacuhsyTu1qJYEU7ffHAzYeOQqlJ8NBsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781605030; c=relaxed/simple;
-	bh=3G1b1u1mhyqIsPwQuBGQ0BRkQlCXxKVSs3nG/7kw2cg=;
+	s=arc-20240116; t=1781605036; c=relaxed/simple;
+	bh=Sd7yodx4UjxiO1kYmuXLn/zWxJQG/zJVsR3dXRgOmFw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UWA9KJ5LROGkbDdI0EgoofbdOZyuMHmUaxNlMl7nW+R4T5JUD5BZxPnWbsOiJAG7LY/PtLMH+lqX0OLhRoiKwSLNu5Sb0EypAdS9AdR63y8aQWKgUxiI4Qh4hgu301tnFaU+UJPXav1VosaYKYSvgokXrq8nHvwlCNcQpmzBrGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSLKqiCR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Iu0TI4gbcshBP59zmK0syK93Dre40x7fnONaiQUWPzhacwzL2weCNeQBxUrC39UR+9pZotYTK01N0Tpq3/uLKZYH3armUl+n7hcWlFQjSNkccoiXBwdz9IscOYifW1fPorjJkEtKMIqMBgcN7tJkwqQRJcFeeQQUNoJ+TsIrwMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebFMlZ41; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSLKqiCR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2BD1F000E9;
-	Tue, 16 Jun 2026 10:17:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebFMlZ41"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E5B1F000E9;
+	Tue, 16 Jun 2026 10:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781605029;
-	bh=EKmMWJCcYI6rOjOLTtJx1zGlMKl2tGx/GPxF/7QCcCI=;
+	s=k20260515; t=1781605035;
+	bh=XPvA0lxmzSRezVHw61eAohFfU/8m3+vlMPaNgVMQSvI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WSLKqiCRyOrS+TzBfjgTLfPE3Fmg/xqAYhJLw0KJpA6wXkmYrMhTFDN2bnE0B25Y4
-	 LZ8rcimc4AsHbFCwWSKR7By8PBKkyw766gPNgeMYJraGOSnpUaG8D3flurJqjTHgKi
-	 eAHUh/wdTME8WkjuBUhxTtVeT8rcuGb5AlrcU/59+CjsaicOCO2OmzAYF2nMS+QXKh
-	 6YRdAoY2///IfsjDhDmaX2x7Kel75x0jFfgkCVr5s3hOerh1wl8JBOI7rf233SFqmy
-	 nkm43YFZDc2iZim+p67YnvT34/bBbte+vB4vEHc0/fFP/j/glpKTRwUJQ1xWAOT6yw
-	 r3oaVSJ9xadaA==
+	b=ebFMlZ41LV7Vhzf4J2SGywFBLSq9bRfRA+RFbLk9kiNs7vIZc0pe9A9p1poh9dXRk
+	 5b3/3+Q9UQE8cKiPMhXx+BgoTwVJhdXQwxeAqcPaK7BEP+9/4HD4SGjL10OFHqs/Jp
+	 SoY63oZJaqoqUgu7tVYospg6+G7q24cmSw2elDSOTrbLtw3VII+ON6pXaVUwaz4kKV
+	 KoM0Z38972jXn0aw0isnDlM7j4z9c8kWutfE7HfFWxZjZwS5hUx/lUB+1jg0CM3SgP
+	 g/+o/3Itf2xo7+Lfn1wyqIAmhNxHspFIxMeNxfCBf+QIHNCaT8azDnrH9Yzp4uZm80
+	 A6WKTcdfeqLHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/12] i3c: master: Use unified device property
- interface
+Subject: Re: [PATCH 2/4] dt-bindings: mfd: qcom,spmi-pmic: Document haptics
+ device
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akhil R" <akhilrajeev@nvidia.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260616095429.3947205-3-akhilrajeev@nvidia.com>
-References: <20260616095429.3947205-3-akhilrajeev@nvidia.com>
+To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260616-qcom-spmi-haptics-v1-2-d24e422de6b4@oss.qualcomm.com>
+References: <20260616-qcom-spmi-haptics-v1-2-d24e422de6b4@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 10:17:08 +0000
-Message-Id: <20260616101709.1B2BD1F000E9@smtp.kernel.org>
+Date: Tue, 16 Jun 2026 10:17:14 +0000
+Message-Id: <20260616101715.01E5B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Permanent leak of firmware node references in I2C and I3C boardi=
-nfo structures.
-
-Pre-existing issues:
-- [High] Dangling pointer `desc->dev` causes Use-After-Free on device unreg=
-istration if device_register() fails.
+- [Low] Use of a wildcard ('x') in the compatible string.
 --
 
-commit 89419216775e33fb2b850943aa4a2781f19278a1
-Author: Akhil R <akhilrajeev@nvidia.com>
+commit 24bf9f2257f4052d27a53163621c8f5173fe1da8
+Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-i3c: master: Use unified device property interface
+dt-bindings: input: Add binding for Qualcomm SPMI PMIC haptics
 
-Replace all OF-specific functions with unified device property functions
-as a prerequisite to support both ACPI and device tree.
+Add binding document for the haptics module inside Qualcomm PMIH010X.
 
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 109aa50eb1f8f..3b19a5e8f46d0 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-[ ... ]
-> @@ -1902,7 +1904,8 @@ i3c_master_register_new_i3c_devs(struct i3c_master_=
-controller *master)
->  			     desc->info.pid);
-> =20
->  		if (desc->boardinfo)
-> -			desc->dev->dev.of_node =3D desc->boardinfo->of_node;
-> +			device_set_node(&desc->dev->dev,
-> +					fwnode_handle_get(desc->boardinfo->fwnode));
-> =20
->  		ret =3D device_register(&desc->dev->dev);
->  		if (ret) {
-
-[Severity: High]
-This is a pre-existing issue, but can this error path cause a use-after-free
-and double-free?
-
-If device_register() fails, put_device() is called which frees the memory
-backing desc->dev, but the desc->dev pointer is not set to NULL.
-
-Later during cleanup, the dangling pointer bypasses the NULL check:
-
-i3c_master_unregister_i3c_devs() {
-    ...
-    if (!i3cdev->dev)
-        continue;
-
-    i3cdev->dev->desc =3D NULL;
-    ...
-}
-
-Does desc->dev need to be set to NULL after put_device() to prevent this?
+> diff --git a/Documentation/devicetree/bindings/input/qcom,spmi-haptics.ya=
+ml b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+> new file mode 100644
+> index 0000000000000..0e26d68563dcd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/qcom,spmi-haptics.yaml
+> @@ -0,0 +1,119 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
 
 [ ... ]
-> @@ -2623,14 +2630,14 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master=
-_controller *master,
->  	boardinfo->lvr =3D reg[2];
-> =20
->  	list_add_tail(&boardinfo->node, &master->boardinfo.i2c);
-> -	of_node_get(node);
-> +	fwnode_handle_get(fwnode);
-> =20
->  	return 0;
->  }
 
-[Severity: Medium]
-Does this code leak the fwnode reference?
+> +properties:
+> +  compatible:
+> +    const: qcom,pmih010x-haptics
 
-The result of fwnode_handle_get() is completely discarded. Since
-i2c_new_client_device() separately takes and drops its own fwnode reference,
-does this initial reference remain unreleased?
+[Severity: Low]
+Does this introduce a regression by using a wildcard character ('x') in the
+compatible string?
+
+Device tree specifications generally forbid wildcards in compatible strings.
+Should the specific model name of the first chip in the family
+(e.g., "qcom,pmih0108-haptics") be used instead of a wildcard?
 
 [ ... ]
-> @@ -2670,14 +2677,14 @@ of_i3c_master_add_i3c_boardinfo(struct i3c_master=
-_controller *master,
->  		return -EINVAL;
-> =20
->  	boardinfo->init_dyn_addr =3D init_dyn_addr;
-> -	boardinfo->of_node =3D of_node_get(node);
-> +	boardinfo->fwnode =3D fwnode_handle_get(fwnode);
->  	list_add_tail(&boardinfo->node, &master->boardinfo.i3c);
-> =20
->  	return 0;
->  }
 
-[Severity: Medium]
-Does this also leak the fwnode reference?
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    pmic {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        haptics@f000 {
+> +            compatible =3D "qcom,pmih010x-haptics";
 
-The reference is acquired and stored in the devres-managed boardinfo
-structure, but there seems to be no teardown logic for the master->boardinfo
-lists to drop it before devres frees them.
-
-As seen earlier in i3c_master_register_new_i3c_devs():
-
-device_set_node(&desc->dev->dev, fwnode_handle_get(desc->boardinfo->fwnode)=
-);
-
-A second reference is taken there which is properly dropped by
-i3c_device_release(), but does the first reference stored in
-boardinfo->fwnode remain stranded?
+[Severity: Low]
+Does this example share the same regression with the wildcard compatible
+string?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616095429.3947=
-205-1-akhilrajeev@nvidia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-qcom-spmi-=
+haptics-v1-0-d24e422de6b4@oss.qualcomm.com?part=3D2
