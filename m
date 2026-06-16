@@ -1,208 +1,154 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419283769F3
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 14:15:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE33C36403D;
+	Tue, 16 Jun 2026 14:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781619315; cv=none; b=rAybKJQq9IMyYCD72S40X70Wo0NW5v6rrHoMemkwDYBgGKoLCaMflBj25V80QBD/pWNz9Q48PJ09paTCcHg1H86gK7y6NZ26Jn4fwbyfbBfx8PHKHvPgqBaOTa/U9EiVLwjWgKQeq3AxxqrMJxqOgWgTsvjAcjjFsLyY+SsPRcA=
+	t=1781619341; cv=none; b=IdziFsee0cMK4po+4PMyfWiCD3/tLvv2oZvU6LEk3n5RDE4RAZDJML2E35YNXbZwATk5Rt1ejLNn5nJPN7PtomzGRXAMW4mE6tPp2GkaxOYliPQsonbla14jGmmHrz61sh8x58puiDMqZXti+KUDCIxq1NUFjzSmxs/WU/OyCG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781619315; c=relaxed/simple;
-	bh=nDJmMRWkeOLbn2goHXAjdy5C4LSHSDrkIV++R3Eijtc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hDPdrJS3rHf9T0n3z7F+K5i+U9BNfvgpHxBA+aG8meIj0uHqDASTMWgiqJ11kg5cja/P3HAUIflR9blvBto1uDmAewSCIdCizdcZijW3cKk/RfqguhYKcgIrgOsMaxbZdn0nXTI7jgTLX+pY+rUuHQMIed4ynqkZka6Qg3ix9Bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9YbMax9; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781619341; c=relaxed/simple;
+	bh=XlvIloNwlhCYTGHH8aZG1rdAJjOlq93TwFN1w080BL0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hay82irC5dyXo2yIZEEKEfUW2KVgJaWSFKmgCqfXqBaxqXtVMEcyTBBP/Zj9KVOhoQ8H08z+cOABBD7eL7FulwkAzhp9Q7TSDtwW0TlIv4HbuDvw1EgE7MMZfMrioMbe7x36awhBJS82azL5ppILY3G9mNLqslyq9I34ZZ74ZtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3ALwlVF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9YbMax9"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2bf30d530bdso45358285ad.3
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:15:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781619313; x=1782224113; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=27t8qhcnA1Ic/MPJoY1rquIFKqlth0zmgwRxjvyFCMA=;
-        b=f9YbMax986SsEtGo5/hhRgq8niTpEqSRkK/7mvJ8a28MIDTlnzSc1pcjKvVXwZEvph
-         2GR1eB9DDEGKcEchygrxRkwPS2ugBr4ChW3/Keq/BWWxRDnGFsQjDLk+rlBD4j43MHbg
-         8TNN35H7HEs4SBd3JHzVVTBL6zt1C26djUkAlCdReu/sXvcGvD0V7veyU4nH1y43wTkM
-         DNhRlmCwwV4Dzj9Ra4kxdenLAwiRbTszUULrhH5LQx5uIy7xPcZ1frBeStLqEhWQKVv0
-         RxTtiBGHMcZPJtehWOq1mBpXXy5/SP4SpcDstgw8DvKwaqqzzzwhBu7SYvv2N+xjRlV7
-         yHXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781619313; x=1782224113;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=27t8qhcnA1Ic/MPJoY1rquIFKqlth0zmgwRxjvyFCMA=;
-        b=soLwabkye1FdmHS9KEtSavLFy4JqDiN0Rqu5Q7pGU6GpSr7jXEtGnbqq5TGNhVWmYZ
-         XEO9J1KX3EbTvgXA04kgYY1XFj35pQLPrZt/DOMTiYvXvwhiV6kMEuBZ9O4CIdOI67+2
-         iq4f7LPuA+qMQp6KIr4sloxGeorU+lsHkiUM/57muTodr5BG5tHbQfZIcTIhcsvj+EZY
-         fJdbLqbS2qVUNTZKqWbnBn8HdStWF8DBG/cLM+2yPWNsRlVUp9w6WAvRCqZbakTD3z2l
-         jhcDwMLSvfSGTh785bd1zaCWOTs1X+C2pyX/Ql8t1As8iPTNGFCIYPFR36fcArRDNKfy
-         MGzA==
-X-Forwarded-Encrypted: i=1; AFNElJ8ryo5wiqu/49AwqZ9EmLWJd77V570waQDc4VInbyK+6OiOUiBggIDJa6FTxR4eHCXZDvu7E5c62Bdl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9DRjVZI3EC1/rn+XgnhGqMUcYx7G+V1nLyQbOq4OV3OOlFKdN
-	qRn5wvqvwGkZ8rD4opSxFJmwaXeEKTus9C1FXbWb5z1n8RRb1xzySVNP
-X-Gm-Gg: Acq92OGrUkXaVcVCztjiZJr5peU3+KI4+VVjjylpJ7ct8XbHisJheG+wS0dEU+5O8zK
-	NGOMNzLPsPbDmUMtn/fpuavHpZSapOFcsDJTsrhaUgDmHR9SpU/6KMktew2iBiheSegISkEgdkY
-	Gti2yB9CMJGwOugH5YiYiUY0qS/cNeBVRDpjwvVgZ/MZALiKwkTJhqOkIkhpyZVPnWrKSvAG3+D
-	rlWHauC9jL9ZNa5xCg5srJY8ZVRmTuwYY7AFWocNhv4rrbB/e0WmvpsGRHEl7bSNzy9RJ5gZ6mf
-	qXsxFQbsOYmb7r7ZT4++FVqClNarQNNsm+O+pAxIITspxnyvg23j5DmZhmP66Tk6781qyt65cGw
-	Lcvxzc2ZQ1JKi8gh/5j+MX5x2ETTv+KNiaOfaOr3v1SwI3hoCF/KZbSRI93li1l+quqW4d1jkF0
-	XxOY5DkOoayFys91vs7vJsqPrij4i3HAAi1eC4mDQ3upUoJd6LwnSjlL9pb+meRMhica1M4Cxa
-X-Received: by 2002:a17:903:1246:b0:2c2:be43:39bc with SMTP id d9443c01a7336-2c664243254mr168453485ad.22.1781619313300;
-        Tue, 16 Jun 2026 07:15:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c432d86501sm127308945ad.61.2026.06.16.07.15.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 07:15:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <d66b9de3-db06-4f83-9c2a-b45e341bfc9c@roeck-us.net>
-Date: Tue, 16 Jun 2026 07:15:11 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3ALwlVF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 512CCC2BCB8;
+	Tue, 16 Jun 2026 14:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781619341;
+	bh=XlvIloNwlhCYTGHH8aZG1rdAJjOlq93TwFN1w080BL0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=d3ALwlVFgmBywMHfOl5dLQuzlxvQ1Dl0G6AW76Ch6YwwzuiQ6tF0ULMU0O2ZFpz4J
+	 n7UIamdVyUErWvbQTFGkitK9FnUeLgBbhpet1iy1MZq5fgo3xM93YyujMrLRMt0AhO
+	 bI1FeusiXH9hCp6ADy/oFd6gP7ErjB3Lndo190gpfGeo447yR/kFDxXbAVygpL1pVM
+	 SSU/HoP7hQ0xweaWEtoBB6BHzPDpdfG5z8MhDu94WCiihZoOXMYF3XBi8INSTEREEh
+	 ffOGy1AxcfD1IJavmW99fFzKWyZYyaT0BOYKusAVl0LlBVIejMjJgXnpj9fy2y6mGV
+	 7LWBIYj3qSs5w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39B72CD98CF;
+	Tue, 16 Jun 2026 14:15:41 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH v3 0/4] AUXADC driver for the MediaTek mt6323 PMIC
+Date: Tue, 16 Jun 2026 17:15:38 +0300
+Message-Id: <20260616-mt6323-adc-v3-0-1c27c588185d@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] hwmon: adm1275: Support ROHM BD12790
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Wensheng Wang <wenswang@yeah.net>,
- Ashish Yadav <ashish.yadav@infineon.com>,
- Kim Seer Paller <kimseer.paller@analog.com>,
- Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
- Charles Hsu <hsu.yungteng@gmail.com>, ChiShih Tsai <tomtsai764@gmail.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <cover.1781591132.git.mazziesaccount@gmail.com>
- <8ca875d21f2d9a4d53a87b47a5e6efab48266178.1781591132.git.mazziesaccount@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <8ca875d21f2d9a4d53a87b47a5e6efab48266178.1781591132.git.mazziesaccount@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WN0Q6CIBhGX8VxHY1+JmpXvUfrAvEnaSkOiNWc7
+ x7oja3Ls33nfDPx6Ax6ci5m4jAab+yYgB8Kono53pGaLjEBBoKVUNIhCA6cyk5R3qJWyIVqNZA
+ kTA61ea+x621j/2ofqEIu5EVvfLDus77FU95tYcFgH44nyqioUVW8KlmNeJmcDXYcpHkelR1Ir
+ kfY+82PD8mXsuESgLNGN3/+sixfL3ZHK/sAAAA=
+X-Change-ID: 20260525-mt6323-adc-3befce36cbf2
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781619339; l=3607;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=XlvIloNwlhCYTGHH8aZG1rdAJjOlq93TwFN1w080BL0=;
+ b=NbUp3PfytNvQnQz7+JDvwPQAi/S5bTTYQfLrvRPuMmXmkYazYuBdekOocL0sWzz3jCGWz72Ix
+ EGx0RQ40Dw0AXDupH/lVZbWQ00PDSjnvhgqIgdRzNJP6x4bJYy7YcFm
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-On 6/15/26 23:44, Matti Vaittinen wrote:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
-> 
-> Add support for ROHM BD12790 hot-swap controller which is largely
-> similar to Analog Devices adm1272.
-> 
-> The BD12790 uses the same selectable 60V/100V voltage ranges and
-> 15mV/30mV current-sense ranges as the ADM1272, and the same VRANGE
-> (bit 5) and IRANGE (bit 0) layout in PMON_CONFIG. It therefore uses
-> a dedicated coefficient table that mirrors adm1272_coefficients, with
-> the following differences derived from BD12790 datasheet Table 1 (p.18):
-> - power 60V/30mV: m=17560 (vs. 17561)
-> - power 100V/30mV: m=10536 (vs. 10535)
-> - temperature: b=31880 (vs. 31871, reflecting T[11:0] = 4.2*T + 3188)
-> 
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> Assisted-by: GitHub Copilot:claude-sonnet-4.6
-> 
-> ---
-> Originally this patch was AI-generated. I did pretty much re-write the
-> probe changes by hand, and also fixed some of the coefficient math
-> afterwards :/ But yeah, this one was AI "assisted". :)
-> 
->   drivers/hwmon/pmbus/Kconfig   |  4 +--
->   drivers/hwmon/pmbus/adm1275.c | 53 +++++++++++++++++++++++++++++------
->   2 files changed, 47 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index b3c27f3b2712..6ebc01e26db3 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -52,8 +52,8 @@ config SENSORS_ADM1275
->   	help
->   	  If you say yes here you get hardware monitoring support for Analog
->   	  Devices ADM1075, ADM1272, ADM1273, ADM1275, ADM1276, ADM1278, ADM1281,
-> -	  ADM1293, ADM1294, ROHM BD12780, and SQ24905C Hot-Swap Controller and
-> -	  Digital Power Monitors.
-> +	  ADM1293, ADM1294, ROHM BD12780, ROHM BD12790, and SQ24905C
-> +	  Hot-Swap Controller and Digital Power Monitors.
->   
->   	  This driver can also be built as a module. If so, the module will
->   	  be called adm1275.
-> diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-> index 838b8827eb76..9e21dd4083e9 100644
-> --- a/drivers/hwmon/pmbus/adm1275.c
-> +++ b/drivers/hwmon/pmbus/adm1275.c
-> @@ -19,7 +19,7 @@
->   #include "pmbus.h"
->   
->   enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281,
-> -	 adm1293, adm1294, bd12780, sq24905c };
-> +	 adm1293, adm1294, bd12780, bd12790, sq24905c };
->   
->   #define ADM1275_MFR_STATUS_IOUT_WARN2	BIT(0)
->   #define ADM1293_MFR_STATUS_VAUX_UV_WARN	BIT(5)
-> @@ -47,8 +47,8 @@ enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281,
->   #define ADM1278_VOUT_EN			BIT(1)
->   
->   #define ADM1278_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN | ADM1278_TSFILT)
-> -/* The BD12780 data sheets mark TSFILT bit as reserved. */
-> -#define BD12780_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN)
-> +/* The BD127x0 data sheets mark TSFILT bit as reserved. */
-> +#define BD127X0_PMON_DEFCONFIG		(ADM1278_VOUT_EN | ADM1278_TEMP1_EN)
+This series adds support for the 15-bit AUXADC hardware block found on
+the MediaTek mt6323 PMIC.
 
-Please don't use such placeholders. Just use BD12780_PMON_DEFCONFIG
-for both chips, similar to how the defines for all other chips
-are handled.
+The previous version of the series for all AUXADC, EFUSE and thermal
+drivers was split after Krzysztof's comment [1].
 
-Thanks,
-Guenter
+Tested on the MediaTek mt6572 and mt8163 SoCs (Ben), both paired with a
+mt6323.
+
+The other parts (EFUSE and thermal) will probably be sent this week.
+
+[1]: https://lore.kernel.org/linux-mediatek/20260504-mt6323-v1-0-799b58b355ff@protonmail.com/T/#med30fad67a090be35f549231336b2dec295233f6
+
+Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Changes in v3:
+- AUXADC driver:
+    - Add comment for channels table about voltage and channel IDs (Jonathan)
+    - Add comment for mutex in the 'mt6323_auxadc' struct (Jonathan)
+    - Break 'regmap_read_poll_timeout' on logical boundaries (Andy)
+    - Switch to 'guard' from 'scoped_guard' (Andy)
+- Link to v2: https://patch.msgid.link/20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com
+
+Changes in v2:
+- AUXADC driver:
+    - Drop channel type from the MTK_PMIC_IIO_CHAN macro (Nuno)
+    - Drop kerneldoc for the mt6323_auxadc struct (Nuno)
+    - Add channel release to save power (Sashiko, Jonathan)
+    - Drop 'reg' variable in the mt6323_auxadc_read (Jonathan)
+    - Sort variables in the mt6323_auxadc_probe (Jonathan)
+- Maintainers:
+    - Drop linux-mediatek list (Andy)
+    - Split between dt-bindings and driver to avoid missing file (Nuno)
+- Link to v1: https://patch.msgid.link/20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com
+
+Changes after split:
+- dt-bindings: Change 'MT63xx' to 'MT6350 series and similar' (Jonathan)
+- AUXADC driver:
+    - Add missing headers (Andy)
+    - Fix AUXADC_TRIM_CH* values (Andy)
+    - Rename masks to include their register name (Jonathan)
+    - Fix formatting (Andy, Jonathan)
+    - Replace channel address with actual register value (Jonathan), align the table
+    - Replace IIO_TEMP with IIO_VOLTAGE, since the actual output is still mV, not mC
+    - Rename constants to match their registers (Jonathan)
+    - Remove 'if/else if/else' in the mt6323_auxadc_read_raw (Andy)
+    - Add comments for fsleep, ADC range and resolution (Andy, Jonathan)
+    - Remove useless error messages (Andy)
+- Maintainers:
+    - Explicitly include mt6323 in the name (Jonathan)
+    - Squash with AUXADC driver commit (Krzysztof)
+    - Set status back to 'Maintained'
+- Link to a previous series: https://patch.msgid.link/20260512-mt6323-v2-0-3efcba579e88@protonmail.com
+
+---
+Roman Vivchar (4):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6323 PMIC AUXADC
+      iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC driver
+      mfd: mt6397-core: add mt6323 AUXADC support
+      ARM: dts: mediatek: mt6323: add AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   3 +-
+ MAINTAINERS                                        |   7 +
+ arch/arm/boot/dts/mediatek/mt6323.dtsi             |   5 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6323-auxadc.c                    | 314 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6323-auxadc.h   |  24 ++
+ 8 files changed, 367 insertions(+), 1 deletion(-)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260525-mt6323-adc-3befce36cbf2
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
 
