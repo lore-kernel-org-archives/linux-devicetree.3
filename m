@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35464657DA;
-	Tue, 16 Jun 2026 16:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCA8466B74;
+	Tue, 16 Jun 2026 16:03:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781625821; cv=none; b=F4A+M8Uns0Im2CKVh2J5Yb6ipILCCQhMwCgdD2I4F4RuXGtJTxsme9Cp0wutyPwg2qDnf46iViFngcxTJHLfdK4RFNX3IDIPoUOPA/Bl3lNwyVQaP6AX7UOT7m2Q7eINtPovkYB8O4NoKh0nOVfjBvtPjtEfGWp9zfjsBdK/rmU=
+	t=1781625821; cv=none; b=QBGNBKHhfIJtJNLvuvZYrJN2oZz2oC32JHtngL+TQEPT+OSN0VkT6JkKWRxftWekvCUkb0GZI+FfKo4auEK0rl62h3dHPT9QDOfadr8ARc22weWtu2CskoTHZj7tJsvPu5I5e0Kd9j+1BtGD9mt9SgxTGzHM31lT+lEE8U6FDjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781625821; c=relaxed/simple;
-	bh=YSQJCU6UP8xSjWxbVovXreGZS/Xd6/2Gt8PJB5MgUBM=;
+	bh=YHwfvmddVr4unERB3/tGhfSpoWi3ZnbcdzoDw1R0ZMI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZEtcgIR7Z2YKoYJZJ82hkGdqFMiqCHi5VdZXTqqmwbjI6QX4CJbKxu7QbF9DQWE1xYG+49ygyd4dU+XdHU2c4nTVwED42Bj4s2HJ4XJuWB5DHik2FPbT4lQFT1/niRycJqQ9B0tT5Ysdc9fGj6/AsWVlZ85B7B3JnARoG3PUFpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igb3NArz; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Va+1Qu0uHjePmGJLrutp+d2cE2+AikjxQIuYlWC2sMCRK/EhZdi8JaZEJeIgi4XvP0bPueqrRJSCphB+X/dUaLuxGFotUJ6mxxUBobafnOXqnoxc2+oJB3A/7Zrpj0NJSPncY4snRGj1DhymGekOQQCdUlgUThPWG42enlb04xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=se5mSKY1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igb3NArz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BBDD4C4AF13;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="se5mSKY1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D7426C4AF0E;
 	Tue, 16 Jun 2026 16:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1781625820;
-	bh=YSQJCU6UP8xSjWxbVovXreGZS/Xd6/2Gt8PJB5MgUBM=;
+	bh=YHwfvmddVr4unERB3/tGhfSpoWi3ZnbcdzoDw1R0ZMI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=igb3NArz2SNq99p6/eGKfm+ZwpU8vcYSeyM0Y29KmZS4J1lWke91AmPGozsGg10u6
-	 CU6siMFziuQiK/41VA6MboxtdanZaEl4SmbG37fvGsdfNBBJ7avkDad1M6PCj7x30T
-	 cpSoad3lf7dLw0EGvqk5Daq+YG/y+V80dg7/xM4k0un0JDu64vAPqr9S0snSBAPfnT
-	 pNrpqWUYXbmsprHeMdPtVvzYjgJyrcHdJ5oZso8Oys0KiRhmKW4DN5ujdMCnRBzoPI
-	 u5bkrt67ZIFVgiZijDgfQ+VQgZAdXxhSWricaqS7Ydlws4Fmw5vCBooSlmeF9TSpjt
-	 8wgYnn1eQYNhw==
+	b=se5mSKY1GRMQrKYN4sTPOHGb3hp3r/1woZ2dunB8k/4J0JQKzs0s2kJsyK/VqGKke
+	 aSbZRWmUg7qiPuSw2YsXIQYzUsvtLpx1+l5RdbZNUMNiCNGuGb2Lt6itvHJMzxC+GJ
+	 2KK9A+3oKyRQSUf96re2umcGKA5Tl5y2jkhx7RvOujmuIavTxnXBi6dftb0i5JnqpT
+	 Dc4P+O4XW4iZZrGH5UPExqCxZ0bDnxvhBkFxBu7y8FiLjFzZGYNUdwA+ZK2azIV+ii
+	 LyRX7WezTpK06V7aURmNzUq4/hrJIggxmAaNTbeUUIQ1PkCBDvJo1ogS3J4Sn6Pwf7
+	 qSewq9EicBjMg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A692DCD98E4;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C95E3CD98DA;
 	Tue, 16 Jun 2026 16:03:40 +0000 (UTC)
 From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Tue, 16 Jun 2026 18:03:38 +0200
-Subject: [PATCH v9 2/3] riscv: clocksource: Add readq options to
- clocksource mmio
+Date: Tue, 16 Jun 2026 18:03:39 +0200
+Subject: [PATCH v9 3/3] riscv: clocksource: Add p8700-gcru driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-riscv-time-mmio-v9-2-03af7bc8f2d8@htecgroup.com>
+Message-Id: <20260616-riscv-time-mmio-v9-3-03af7bc8f2d8@htecgroup.com>
 References: <20260616-riscv-time-mmio-v9-0-03af7bc8f2d8@htecgroup.com>
 In-Reply-To: <20260616-riscv-time-mmio-v9-0-03af7bc8f2d8@htecgroup.com>
 To: Daniel Lezcano <daniel.lezcano@linaro.org>, 
@@ -59,11 +58,11 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
  Aleksa Paunovic <aleksa.paunovic@htecgroup.com>, 
  Chao-ying Fu <cfu@mips.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781625819; l=1938;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781625819; l=3298;
  i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=xJr18GUgwDimiDlbxKI0yWHxvsNJAqXLsf1ztMWXw7U=;
- b=By06W4XK0v5RRGKaBEE57X5AIAtQGToFihzCgmHqkNKkwU+nNA/KnKJmMbbpzH+UjvOaAqS3R
- xbe3ySTGRkXAsxhX9+Q6nB1NohkgOMtPtAr2JRaclgTb6qi86f27crI
+ bh=3gylppdlQket8tUc4qx/+ik8cQwg9RhMZJmHFwMxyPQ=;
+ b=JyCsFdiHFV3/q9WIm3YPS+zSuWcxmwYz8t77rpDBcMTZgG0NpVwHkBIYQkcbylZT39ppzBU0d
+ cFqlf3WYa38BvaD6VaaUR57VrEEBsbXDozDyTeKbJGURy2xOyfBkXkn
 X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
  pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
 X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
@@ -73,55 +72,103 @@ Reply-To: aleksa.paunovic@htecgroup.com
 
 From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-Add read functions for 64-bit register size to the generic
-mmio clocksource, covering both up and down counters.
+Add a clocksource driver for the P8700 GCRU.
+
+Initialization uses helper functions
+provided by clocksource/mmio.c and timer-of.c.
+
+Since the GCRU does not support any kind of interrupts,
+the default RISC-V clockevent implementation should suffice.
 
 Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 ---
- drivers/clocksource/mmio.c  | 14 ++++++++++++++
- include/linux/clocksource.h |  4 ++++
- 2 files changed, 18 insertions(+)
+ drivers/clocksource/Kconfig       |  9 ++++++++
+ drivers/clocksource/Makefile      |  1 +
+ drivers/clocksource/timer-p8700.c | 47 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 57 insertions(+)
 
-diff --git a/drivers/clocksource/mmio.c b/drivers/clocksource/mmio.c
-index 9de75153183124cc8997c6ab61d0c01d9b2637bc..f3b6f7e93ffbf0ed68e56c58c3d9f711d2193caa 100644
---- a/drivers/clocksource/mmio.c
-+++ b/drivers/clocksource/mmio.c
-@@ -17,6 +17,20 @@ static inline struct clocksource_mmio *to_mmio_clksrc(struct clocksource *c)
- 	return container_of(c, struct clocksource_mmio, clksrc);
- }
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index ffcd23668763fe7707a4e917bf240caadbb09a8c..a775a301f3f08ca97699e46aaf3ccfaf99734e6b 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -672,6 +672,15 @@ config CLINT_TIMER
+ 	  This option enables the CLINT timer for RISC-V systems.  The CLINT
+ 	  driver is usually used for NoMMU RISC-V systems.
  
-+#if defined(CONFIG_64BIT) && defined(readq_relaxed)
++config P8700_TIMER
++	bool "MIPS P8700 timer driver"
++	depends on GENERIC_SCHED_CLOCK && RISCV && RISCV_SBI && 64BIT
++	select CLKSRC_MMIO
++	select TIMER_PROBE
++	select TIMER_OF
++	help
++	  Enables support for MIPS P8700 timer driver.
 +
-+u64 clocksource_mmio_readq_up(struct clocksource *c)
+ config CSKY_MP_TIMER
+ 	bool "SMP Timer for the C-SKY platform" if COMPILE_TEST
+ 	depends on CSKY
+diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+index ec4452ee958f1a814c708aeba6412bea61d24892..fae9a58d6c8663a7c857b9ab7fdae05782b3551c 100644
+--- a/drivers/clocksource/Makefile
++++ b/drivers/clocksource/Makefile
+@@ -95,3 +95,4 @@ obj-$(CONFIG_CLKSRC_LOONGSON1_PWM)	+= timer-loongson1-pwm.o
+ obj-$(CONFIG_EP93XX_TIMER)		+= timer-ep93xx.o
+ obj-$(CONFIG_RALINK_TIMER)		+= timer-ralink.o
+ obj-$(CONFIG_NXP_STM_TIMER)		+= timer-nxp-stm.o
++obj-$(CONFIG_P8700_TIMER)		+= timer-p8700.o
+diff --git a/drivers/clocksource/timer-p8700.c b/drivers/clocksource/timer-p8700.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..dd20b4e72fcdd77a6b33775f286d0945c2a2b659
+--- /dev/null
++++ b/drivers/clocksource/timer-p8700.c
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2025 MIPS.
++ */
++
++#include <linux/sched_clock.h>
++#include <linux/delay.h>
++#include <linux/of_address.h>
++#include <linux/init.h>
++#include <linux/interrupt.h>
++#include <linux/clocksource.h>
++
++#include "timer-of.h"
++
++static struct timer_of gcru_of = { .flags = TIMER_OF_BASE };
++static u64 __iomem *p8700_time_val __ro_after_init;
++
++static u64 notrace p8700_timer_sched_read(void)
 +{
-+	return (u64)readq_relaxed(to_mmio_clksrc(c)->reg);
++	return (u64)readq_relaxed(p8700_time_val);
 +}
 +
-+u64 clocksource_mmio_readq_down(struct clocksource *c)
++static int __init p8700_timer_init(struct device_node *node)
 +{
-+	return ~(u64)readq_relaxed(to_mmio_clksrc(c)->reg) & c->mask;
++	int error = 0;
++
++	error = timer_of_init(node, &gcru_of);
++	if (error)
++		return error;
++
++	p8700_time_val = timer_of_base(&gcru_of);
++	/* Now init the mmio timer with the address we got from DT */
++	error = clocksource_mmio_init(p8700_time_val, "mips,p8700-gcru",
++				      riscv_timebase, 450, 64,
++				      clocksource_mmio_readq_up);
++	if (error) {
++		timer_of_cleanup(&gcru_of);
++		return error;
++	}
++
++	/* Sched clock */
++	sched_clock_register(p8700_timer_sched_read, 64, riscv_timebase);
++
++	return error;
 +}
 +
-+#endif
-+
- u64 clocksource_mmio_readl_up(struct clocksource *c)
- {
- 	return (u64)readl_relaxed(to_mmio_clksrc(c)->reg);
-diff --git a/include/linux/clocksource.h b/include/linux/clocksource.h
-index 65b7c41471c390463770c2da13694e58e83b84ea..39e0df5a0ab52cbb7016b53a4d7500f2697e2797 100644
---- a/include/linux/clocksource.h
-+++ b/include/linux/clocksource.h
-@@ -276,6 +276,10 @@ static inline void clocksource_arch_init(struct clocksource *cs) { }
- 
- extern int timekeeping_notify(struct clocksource *clock);
- 
-+#if defined(CONFIG_64BIT) && defined(readq_relaxed)
-+extern u64 clocksource_mmio_readq_up(struct clocksource *c);
-+extern u64 clocksource_mmio_readq_down(struct clocksource *c);
-+#endif
- extern u64 clocksource_mmio_readl_up(struct clocksource *);
- extern u64 clocksource_mmio_readl_down(struct clocksource *);
- extern u64 clocksource_mmio_readw_up(struct clocksource *);
++TIMER_OF_DECLARE(p8700_timer, "mips,p8700-gcru", p8700_timer_init);
 
 -- 
 2.43.0
