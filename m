@@ -1,128 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AC83FE65F
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 07:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CD540B398;
+	Tue, 16 Jun 2026 07:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781595533; cv=none; b=V7OgnhQjkZ5Ue0qa6imuSzQgrayS7lY7XqENwiCaUMHWeVYx2uGyaS9AB7IeSturbuYIhq46C/s5wVmKN1IVbM0a6ACjLTCvDhOgqr/3vpl/r5X6Lrjo+HQIdmGmcOwLGaNVI9QWVFt4AyIbuwWk1YRf6mVlSLXS2oIJfn+3uUI=
+	t=1781595793; cv=none; b=US1Tj5rca2W9JVK8soYb+w9Oyc1G+EU7VUUoJM8rrqQZTaJimvswyACzCzM+tLEzrERfzbwUjnC0apfF7uLydVBXICap/2c/ZUOAfulazMXL+O2akK/sKvE6i2oGVTQpLo4fYvWwaZe5HzA9SKfa9uFaYXdAQx3gwdg6ZZPj7G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781595533; c=relaxed/simple;
-	bh=LuMdnQMHhj1haeud7J07Z0F2RlF254gF6Rq9xIwhmfQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oGRjpihdqKippMWrJwtkB85d++ddvD4E0aPsf3jIEQHLo2Hs1Hx+5Z4uARxPfLnsIcU2aIJs7iRpNLUOSxPLCj1fa4O/Z/Dp2MHjkWaYJLf7sOeqCMmKHF5X5o31ltGaVPoLA0en2+2V5uLxQlqmxXApiBgXitZAZVxg3sD5FOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYDt6Sk5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781595793; c=relaxed/simple;
+	bh=GJtFDRilXTuZRcJctFaE5YyUlDIoJGp0D9pkihkxevU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WqHWodBG+XYm0DICNwMEfZTgWwoLa/cJbacoTvHBoAZuLzT9qfy/XPPVjCTJbQizNOOo2hYP3C8Ggmc0Vd/tbISYdS5kwtY/rq0hoBiHTvJhV+OH5+YIL5fQ/pVrw0RmKlb5Bu46JlP9SOfYLMhHa6SB9QPV4v00KMeIXfbrsHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AffMyYVU; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYDt6Sk5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAA91F00A3A;
-	Tue, 16 Jun 2026 07:38:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781595531;
-	bh=Cp/nlC+2RuS25I0AvyfOXm0M72FCHhNxFdLx9FTdqGc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aYDt6Sk5h3rxy7YOWPvIYip3cR1uy1WBK64ndZxqWvKXHYMriMSZTRfLqHKh4JiEn
-	 aKA8IEsfJtJQ0zyuLVYzHyLuOdp2wJE9hyhyOgmaFKCc6TpRI3DKP6cXlNvc0qzs/W
-	 Nn98CbJSoisPlHXlPR8B/upAZv1C8HVNxZIGZyeG5iclqojF0L22rYbpf8UabzkF8B
-	 7tgz4Dab3A59PXKPPqGwhQcZc00MPCYnh70+0IUuHU1psfE81pPl9PjValjaNW7B7A
-	 ZDnNK7E1Uqgw/oi6EldXf4C8waV30gPk43S64494cVa3GDw+PLYgIzKvv3dUhpC318
-	 2M14Fnnq9T2Gg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v5 6/6] iio: osf: register IIO devices from
- capabilities
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260616072242.3942-7-kimjinseob88@gmail.com>
-References: <20260616072242.3942-7-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 07:38:50 +0000
-Message-Id: <20260616073851.5DAA91F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AffMyYVU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781595792; x=1813131792;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GJtFDRilXTuZRcJctFaE5YyUlDIoJGp0D9pkihkxevU=;
+  b=AffMyYVUenyYAZLHpEnOBDtjvBtyxF17t9FVB5mNj2VhHjpeC+l+M4c8
+   EjjBfzgfS05uhhseq+n6WO1wR2SCl9fp55EchRXsDGUrwYbHqIlzrw4sP
+   F+xNcStuyUw3ZFiRkJ+ioVDiafvNaec9ZJeEwlJsq+FVLObGSXXXwTnEW
+   UoDL3ELIp9GwPSPC2E4EqgjOKviEVEcvthta9MwgJvPj0ZIhMqltL5TdR
+   CO/nbnasuxxEnLf8i5Nh9SwGW/Uo3o0E3R5i65FPzL+mOfC6Uh7YDG9Ri
+   h8DKeN6gVVx8OyQHIb/F1n8s93eqw4ZoQuMBGl12/d0gz71I3LqmocTUD
+   w==;
+X-CSE-ConnectionGUID: zPffoZE+SG+ZK7Vw/hWWrQ==
+X-CSE-MsgGUID: bhT6ARI6RhmAmUcbiqRznw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82395845"
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
+   d="scan'208";a="82395845"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:43:11 -0700
+X-CSE-ConnectionGUID: JGqqX0CQTxitv246kc/ang==
+X-CSE-MsgGUID: uv8xi63kRma/+gD3t+egQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
+   d="scan'208";a="277892646"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 00:43:07 -0700
+Date: Tue, 16 Jun 2026 10:43:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: "Erim, Salih" <salih.erim@amd.com>
+Cc: jic23@kernel.org, andy@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, conall.ogriofa@amd.com, michal.simek@amd.com,
+	linux@roeck-us.net, erimsalih@gmail.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/5] iio: adc: add Versal SysMon driver
+Message-ID: <ajD-iS3nANaXOZty@ashevche-desk.local>
+References: <20260614233722.2603459-1-salih.erim@amd.com>
+ <20260614233722.2603459-3-salih.erim@amd.com>
+ <ajAKkqMO5jdQjKgS@ashevche-desk.local>
+ <2998a9fc-4b9f-49bd-8020-697081401f85@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2998a9fc-4b9f-49bd-8020-697081401f85@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing synchronization between asynchronous IIO buffer push and b=
-uffer enable/disable operations, leading to list corruption.
-- [High] Uninitialized padding bytes in the IIO bounce buffer leak kernel h=
-eap memory to user-space.
---
+On Mon, Jun 15, 2026 at 04:41:12PM +0100, Erim, Salih wrote:
+> On 15/06/2026 15:22, Andy Shevchenko wrote:
+> > On Mon, Jun 15, 2026 at 12:37:19AM +0100, Salih Erim wrote:
 
-commit e42cf74aa62314d9b92e389435a75cfcd58b0820
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+...
 
-iio: osf: register IIO devices from capabilities
+> > > +/**
+> > > + * sysmon_core_probe() - Initialize Versal SysMon core
+> > 
+> > It is managed, please name it accordingly: devm_sysmon_core_probe().
+> 
+> Will rename to devm_sysmon_core_probe() and update callers.
 
-Register IIO devices for supported Open Sensor Fusion capability entries
-and push received samples into IIO buffers when enabled.
+I believe you also want to have a proper namespace. The sysmon is to broad.
 
-> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensen=
-sorfusion/osf_iio.c
-> new file mode 100644
-> index 0000000000000..862a797f4fb84
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+The easiest solution is to name it as devm_versal_sysmon_core_probe().
 
-[ ... ]
+> > > + * @dev: Parent device
+> > > + * @regmap: Register map for hardware access
+> > > + *
+> > > + * Return: 0 on success, negative errno on failure.
+> > > + */
 
-> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
-> +			unsigned int channel_count)
-> +{
-> +	struct osf_iio_state *state =3D iio_priv(indio_dev);
-> +	s64 timestamp;
-> +
-> +	if (channel_count !=3D state->spec->channel_count)
-> +		return -EPROTO;
-> +
-> +	/* This is only a fast path; IIO rechecks buffer state while pushing. */
-> +	if (!iio_buffer_enabled(indio_dev))
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[Severity: High]
-Is there a race condition between this asynchronous IIO buffer push and
-buffer enable/disable operations?
 
-The IIO core's iio_push_to_buffers() function iterates over the buffer_list
-without locks, expecting the driver to guarantee no pushes occur concurrent=
-ly
-with buffer state changes.=20
-
-Since this driver doesn't implement IIO setup_ops (like predisable) to stop
-incoming frames, or use a software lock, could a concurrent write to the
-sysfs enable attribute invoke iio_disable_buffers() and modify the
-buffer_list while the UART RX path is traversing it, causing list corruptio=
-n?
-
-> +		return 0;
-> +
-> +	timestamp =3D iio_get_time_ns(indio_dev);
-> +
-> +	return iio_push_to_buffers_with_ts_unaligned(indio_dev, values,
-> +						     channel_count * sizeof(*values),
-> +						     timestamp);
-
-[Severity: High]
-Does this leak uninitialized kernel heap memory to user-space through the
-bounce buffer padding?
-
-The data payload size passed here is exactly the size of the channels
-without padding. The IIO core computes scan_bytes to include padding for the
-64-bit timestamp to ensure alignment, and allocates the internal bounce
-buffer using devm_krealloc() without the __GFP_ZERO flag.
-
-Because the IIO core only copies the exact data payload size and inserts the
-timestamp at the aligned offset, it leaves the intermediate padding bytes
-completely uninitialized. When this bounce buffer is pushed into the KFIFO,
-will it leak uninitialized memory with every sample?
-
-Would it be safer to assemble the sample in a zero-initialized padded struct
-on the stack and use iio_push_to_buffers_with_timestamp() instead?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616072242.3942=
--1-kimjinseob88@gmail.com?part=3D6
