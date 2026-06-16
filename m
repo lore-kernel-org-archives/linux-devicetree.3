@@ -1,67 +1,67 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB5543E48C
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C1444CAD4
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 15:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781623378; cv=none; b=XJJiXQksGlQ84N6ymGf4cY58KWA7ATyVniPdWjv4bXHPL0ibveQLl/rg9uw5d5T37ksfq7+Q7kZCTu/wDtC+lvkmyDGaY6nNRu6VsD4dVmLsm3oaGknGicz4T8oJV6mu2LAPoWxh/tvXRndZ4er7U9lnaUXvI2yyYAsdEv98QtA=
+	t=1781623821; cv=none; b=A2fHzIBkYERyggJ/pIroODh70uhT3tlTzY5b/xHxH4uj6pNtn9NcBmL3Fc6jSKhjhPI44r7Vov+G+UerxAHnzUAykQJboQ+vSW/6SZ3KbeVMWUTRQiTOe/1Y9tgMFkHWNmYblMYtzaldz8/MlvAynzFSYXRibBZ36dxEO4nZKw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781623378; c=relaxed/simple;
-	bh=Dm+eJzpZ+w4h/0RUMtGBtgG6Lo1FLnxNlxe1iA17mbw=;
+	s=arc-20240116; t=1781623821; c=relaxed/simple;
+	bh=P8HCEBD70snqwKdpaO75cGCjmvTTJXjD8qQCQ1uOKdM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hMAyL+40p39zMQqJR5un2b0wUqtzOwD5JLCb9Wau6HQ8Rtbp+6Xng7k3x1zThZOPzNTl2kbMHAuZ1bqAbvw4jBTcbwgggC735PKc1pNp1j9b8Hz0cWUWyNsMuyT3qJZIOgBfL77wlFEICuQ6lmXo1yRUWcz/ntANiG6xLazLgEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=daDr1ZOc; arc=none smtp.client-ip=209.85.161.43
+	 In-Reply-To:Content-Type; b=jvrGEnVLXWvtZg4bcIhhIH3qsAKIbXtJn8/CovAAJsw409fBwKTdwHvQB7tJIOAX733zItOS055uym7Vr75rlRqs+YWGmyMy37Swz3cU9O35CGSqjaM/+gTJ8+I3I56fVPL0X3iLbyXvBp1hWpmczbcajFJR/hAnXPMhoC26tX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HDQjCFpY; arc=none smtp.client-ip=209.85.160.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="daDr1ZOc"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6a0a38a013eso1012872eaf.0
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:22:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HDQjCFpY"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-440ebc72386so2467460fac.3
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:30:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781623375; x=1782228175; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781623819; x=1782228619; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kjhOxDkswCjowPjmQRY74kXxqAzDQo+MkQLOFEq8cqQ=;
-        b=daDr1ZOcmEqvJtu4QRRSySNqnyqhoTRsjxUc/uR6mKEX/fRjc+g0QQPjsPlaY9Azey
-         k8HKsM+ZKiv3nMoJovXhkAeaCDBBYYbVcX4ysm41LZSvFNi4T/Nf2KiRwjahmptT8j7z
-         MpwncEhBBtW+Hr3NW8chdToHda7kvKFvVCY5N93K/8PVBE9Zu/O4AbRmsO+24EYeTQIa
-         pIc8GCL9S0Bu34ImA+oF1OG/sH84L2LNWcdFhklsOwCmq/gHQjmd5zFUoR3UBo5yBe/y
-         5vzs8eKoWTGIT7G7Tyi7y3K5PgNJ6MbDSbBTpc9/k6OfzXcV7msq90fizu2cYGVUYyYU
-         24xQ==
+        bh=xgEPcrFDybOilEEFxetPSI7iakaIrltXJjjOqciP8Q4=;
+        b=HDQjCFpYx1KaurIpevULR3IqppU1wtTzjAsWAnYJXgapPmPDBY0/KjkxEr7Cv2IC6K
+         pQbXhbIB2vyAe9nBWOkmtYneBvMctAHrvdeu7DBUc8R6dpJdXrpylGdcVlGsPyuq+RUA
+         5OxP0esCwr06jQLsFoA873DSdVK+1X6N81a+iGF2gCPpTT7LTcwS88AEYr5Ea1aYfesw
+         koWb8E0o6j5ycztFTrdzd3Dn0BOjMMm5SwNKpDL0NfYSrNVEBPv2W1DcLUsqjybjqsX4
+         JTS6Ot5tK/je/XLsDfudwI01xKzbtf06l9zQHPPtKfRaPuzOYbtG3StcOIdcF6Q6/ArK
+         p2RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781623375; x=1782228175;
+        d=1e100.net; s=20251104; t=1781623819; x=1782228619;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kjhOxDkswCjowPjmQRY74kXxqAzDQo+MkQLOFEq8cqQ=;
-        b=YlYGEquyrplARmK83Vr7652p5MzSdfu+ipIVB9/c1TnSjt7a9h/NbXqbDzBJOowLQN
-         KbOGwS30n8OYJS9OFDUjKNFM+cwgb4oqQMkashhSANxOFfvXseNQ4SAGkXaY1cDLgCHC
-         WoHBeGHJlCqlcDBH7JtiGODrxgklBjUoMgFxMN0KO5G9Ti0hAP3Rt6ko85AhW9jyoTYw
-         ba6pqt2n1jZoXIEFQLpWT045lacz1pvUw5KynGVL4Ye8VaGg6k2jBUXawOaliafYSxai
-         k3Nk1sr36yarr7Qx65XCSmW+S+hTiwPtS+I48/1guV9YA44F5wEw8Z3/ixt3cKjuBASl
-         1DPw==
-X-Forwarded-Encrypted: i=1; AFNElJ9xaJbpuudHkh7hzc6oEvte9C1tbF/QhF0nlgSIe/GSrxORpMhbCaH/Xn4bGHac0QIvFRnLFVg5ftnB@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFrjtuH3FTCyFcMq5leQfWGQvKVqLAXktBNv+sJ57sz2i9uvOh
-	ObpxblaSptjbYDyWoA5PYkifw5hDRbcabh9EaFnqY4hiQEi8VDkigCtvrPFIB28HkhA=
-X-Gm-Gg: Acq92OHaUrt1j0zNgFEwYMM2LiUOxT+Jo+KVVIJj4jBT8pMu75182iGtapxzLeMTc1L
-	NkKT+TEaETWMUmt0Oxjwt/XGK/C35CAx5m7nVj3rUfbBtMu23PJ9DwOS7I4Kl7YUc4qnXps+rkz
-	VDw+ZOaywHEOHyxi8hNETHOV4AdU5yP/6dwTbcSX6iUf6aS/hFJaF0qIZSvhazSd7EsERvWUvsc
-	NC8DOFPjGPQJB5sITAJbJj5C4mVE3+qH1qDY3eOU4H8KdivgvLe4GC4wucq+x4Au6IQ0ooGAmQL
-	OX16ppYTv7mjn04KHw7W/KM+cCbbuO+7yJQ6O2ZbjvM+xjYRfM2ya59HQl2CuSksl86JEz3dPPS
-	BD+WGMV1oaX6c8jg4XfP/MZ0Q2YNghAIghe4/XUe14pUk0SUTP6TvH5i4jbj/yibl3rwd56Zu/F
-	ru0sxi50ebzZfscQGr+ZAUoY5w4njNZ8Z81qhkernL70zmUWDoAscXLyuMEHmddTLxqA1dWtFMV
-	YmYpn5J5wOy
-X-Received: by 2002:a05:6820:60f:b0:694:9910:f78f with SMTP id 006d021491bc7-6a0b446cd72mr62149eaf.3.1781623375548;
-        Tue, 16 Jun 2026 08:22:55 -0700 (PDT)
+        bh=xgEPcrFDybOilEEFxetPSI7iakaIrltXJjjOqciP8Q4=;
+        b=XYkEbLL8ThtPPfQ/MBxvUIBRPY/Er6BofTOeMyTi0ZRBTlK/E5hakyfoRPySPyuCa9
+         RnUDxwycx7RjJQrG2U9cHaiFWWyryx9Kh//AZVFtEtb+69/Ds6SW4y/kl2GVX3V56ucQ
+         fTkwyOO90BU7xtNJNcYuyj9paPYpQnHKibbbxxjvcvH83a3j7EcZP9NH/dT+4bsIkreu
+         2wGLiDZh+pHYt0gngg5qSPLlyLfAKEBpI2EE6I000SNGV8HBRSPc1e/6Wq6nJHVi2vUv
+         fuUa3UjWfm46nvtrOX5aH7MNi4FxRyeTDA9/OUVW+7Xcy019pvT7Ln0GBJFw47egKY6I
+         KVhw==
+X-Forwarded-Encrypted: i=1; AFNElJ8jNzSOFhfey6s8otisVlIKrLHbcESrPaPf7BPyIy2IGZamtX0655g8YN6RNexpK+R5ciZDigRQgttZ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yza2jDh051ME1xqZ6zT126231b63/vQRkipIHot08FohzxndYnx
+	9mrb+KIA8uHwlmtD4dKrQ7vc7zVyaQqEsJHzrjx6OXIid1NI5TQLA/VOHoZ/8cHkoCQ=
+X-Gm-Gg: Acq92OHPq8ugoWd6+Bes5vH3zZnSb7SNGiguQjJp7GsS4DSMZSVUMwdN/zND9fcxNDp
+	x8sKCVYm0QyafECrD52cO7vKrf8n0q/FOTWsRb0fRY29h1P4k5V08wPtzIFtTtSWYkL0Gb2GRaU
+	sz5hTfHd4Nysav6O43BFzoUG2qShRi+Pq50pez9vj22q+NT6SxjXZvAAZfk7hOxK/Ye5P3nZHaQ
+	5CUynwkqDuV42Ms1kLG8xD8cEp59ciASPDEDG5uNrfSjsJFcJ6G9MOWCXzDFyKrbN9/rk8n3F6Z
+	YYtt7kFatls4R8lxBW3qMJRMtgVTjYCx7AGjMYXwy5g9Impp4LRq2IqnVSy1Ccs6w6FUpN2fETm
+	F0WPEDj9iUYyNPY0myRBKNalbyhgDjvsSKErlokkD4/JjY0J54IvruevO5jgn6vu6Z+uAYuY3oF
+	tuf/3Pxv2KncoHjQkl4U1iGw78Q6bej9pBnBVZFor6jr0RAAk+KfsIuvu5oa4Q2qT4lDzCp3n7v
+	XVe4oLdOgBq
+X-Received: by 2002:a05:6870:e314:b0:42c:24f6:f190 with SMTP id 586e51a60fabf-4430b5e7c76mr3275033fac.17.1781623818663;
+        Tue, 16 Jun 2026 08:30:18 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:16b0:5133:47b1:a939? ([2600:8803:e7e4:500:16b0:5133:47b1:a939])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69f00ce1f72sm4965290eaf.1.2026.06.16.08.22.54
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4430866fa15sm2376561fac.0.2026.06.16.08.30.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 08:22:54 -0700 (PDT)
-Message-ID: <88f29dc3-7929-4d94-a1bc-6268c41ee3dd@baylibre.com>
-Date: Tue, 16 Jun 2026 10:22:54 -0500
+        Tue, 16 Jun 2026 08:30:18 -0700 (PDT)
+Message-ID: <1aec0172-68b4-4542-83d4-5c05680c0096@baylibre.com>
+Date: Tue, 16 Jun 2026 10:30:17 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,149 +69,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
+ support
+To: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
- <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
- <DJA1PXNS9SFP.VAURJH1MR9BK@gmail.com>
+ <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DJA1PXNS9SFP.VAURJH1MR9BK@gmail.com>
+In-Reply-To: <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/15/26 7:26 PM, Kurt Borja wrote:
-> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:
->> Add new bindings for ti,ads122c14 and similar devices.
->>
->> This is an ADC that is primarily intended for use with temperature
->> sensors. There are a few unusual properties because of this. In
->> particular, the reference voltage source and current output requirements
->> can be different for each measurement, so these are included in the
->> channel bindings.
->>
->> The REFP/REFN reference voltage is usually just connected to a resistor
->> that is being driven by the ADC's current outputs, so there is special
->> property for this case rather than requiring a regulator to be defined
->> to represent that.
->>
->> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
->> have preferred an enum of strings).
->>
->> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
->> ---
->>  .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 224 +++++++++++++++++++++
->>  MAINTAINERS                                        |   7 +
->>  include/dt-bindings/iio/adc/ti,ads112c14.h         |  11 +
->>  3 files changed, 242 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->> new file mode 100644
->> index 000000000000..dc7f37cad772
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->> @@ -0,0 +1,224 @@
+On 6/15/26 5:00 PM, David Lechner (TI) wrote:
+> Add support for parsing devicetree properties for measurement channels
+> and doing direct reads on these.
 > 
-> [...]
+> There are quite a lot of conditions that have to be met for each
+> measurement to be made, so quite a bit of state and algorithms are
+> required to handle it.
 > 
->> +patternProperties:
->> +  ^channel@[0-7]$:
->> +    $ref: adc.yaml
->> +
->> +    unevaluatedProperties: false
->> +
->> +    properties:
->> +      reg:
->> +        maximum: 16 # arbitrary limit, channel@ can be any combination of AIN0-AIN7
->> +
->> +      single-channel:
->> +        maximum: 7
->> +
->> +      diff-channels:
->> +        items:
->> +          maximum: 7
->> +
->> +      bipolar:
->> +        description:
->> +          Set this flag if the differential input can be negative.
->> +
->> +      excitation-channels:
+> Channels are created dynamically since the number of possibilities is
+> unreasonably large.
 > 
-> I noticed this doesn't have the "ti," prefix. Is your plan to add this
-> to adc.yaml?
 
-I hadn't really though about it. I guess it could make sense.
+...
 
-> 
-> Also, do you think excitation-pins might be a better name?
+>  static void ads112c14_populate_tables(struct ads112c14_data *data)
+>  {
+>  	u32 vref_uV, fsr_bits;
+> -	int i;
+> +
+> +	for (u32 i = 0; i < data->num_measurements; i++) {
+> +		struct ads112c14_measurement *measurement = &data->measurements[i];
+> +
+> +		switch (measurement->vref_source) {
+> +		case ADS112C14_VREF_SOURCE_EXTERNAL:
+> +			if (data->ext_ref_ohms)
+> +				vref_uV = measurement->idac_current_uA *
+> +					  measurement->iadc_count * data->ext_ref_ohms;
 
-I used -channels to match e.g. diff-channels. The same values apply to
-both properties.
+One thing I am considering is that if we have a resistor between
+REFP and REFN rather than a voltage supply, then we should consider
+the channel IIO_RESISTANCE rather than IIO_VOLTAGE.
 
-> 
->> +        description: AINx pins used as current output.
->> +        $ref: /schemas/types.yaml#/definitions/uint32-array
->> +        minItems: 1
->> +        maxItems: 2
->> +        items:
->> +          maximum: 7
->> +
->> +      excitation-current-microamp:
->> +        description: The current output of the excitation channels in microamps.
->> +        minimum: 1
->> +        maximum: 1000
->> +
->> +      current-chopping:
-> 
-> If you agree with the above comment, I think this too should be added.
-> In that case, can we call this something like
-> excitation-current-rotation for less ambiguity?
+In this case, the user doesn't care about voltage at all, but rather
+the ratio of the REFP-REFN resistor to the measured resistance.
 
-I think excitation-channel-rotation would be fine.
-
-> 
-> I say this because my device has an "IDAC rotation mode", but it also has
-> a "Chop Mode" which rotates analog inputs and averages consecutive
-> conversions.
-
-And this one sounds like it could be named input-channel-rotation. Would
-this also need a 2nd set of single-channel or diff-channels to the extra
-inputs?
-
-> 
->> +        $ref: /schemas/types.yaml#/definitions/flag
->> +        description:
->> +          If provided, the two excitation channels are to be used with current
->> +          chopping enabled.
->> +
->> +      ti,vref-source:
->> +        description: |
->> +          Indicates the source for the reference voltage for this channel.
->> +          0 - Internal 2.5V reference
->> +          1 - Internal 1.25V reference
->> +          2 - External reference (REFP-REFN)
->> +          3 - AVDD as reference
->> +
->> +          For convenience, macros for these values are available in
->> +          dt-bindings/iio/adc/ti,ads112c14.h.
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        maximum: 3
->> +        default: 0
->> +
->> +    dependencies:
->> +      excitation-channels: [ excitation-current-microamp ]
->> +      excitation-current-microamp: [ excitation-channels ]
->> +      current-chopping: [ excitation-channels ]
->> +
->> +    oneOf:
->> +      - required: [ single-channel ]
->> +      - required: [ diff-channels ]
-> 
-> [...]
-> 
 
