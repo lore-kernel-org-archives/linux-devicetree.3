@@ -1,108 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E96309F00;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C6E73ED5A6;
 	Tue, 16 Jun 2026 11:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781608190; cv=none; b=nBsariXmHGN5shFRcAJlujNnc8+nnB3IUOLuvvtRiXdyQV6/yI5oOjU3rUX3Fyx0vKWlhBcyRXlkXbbvjJBSk7a/kk1cYlW/U0tu9dnudtaikKwFjDn6FQejRkaohXZUE5DsndXAloknQ8/a5PPJ4rTdxmgJUJFVAe5RzJ22DoQ=
+	t=1781608190; cv=none; b=kqYy+pj53BhPn7WLBL4MKdOz+nW8gg6e1TPFuo9tPjQnY2HE3qjyMCNcJT3gU4SAclhqH2dDg1L8s1si63hcFl5Ytx8maEfvXguEr2aXuHGx9ywYpTp9bradedZ2PYaB/g2AzKu2ozEIl0qgXXQuHl+vjoL6uKcqGPOZ/tn38g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781608190; c=relaxed/simple;
-	bh=AjKd75RB0qGlWqPFNPqCY9pJjFFNLAEX/Ps73l8d6Yw=;
+	bh=zVLmNdbqcdgaIpabNeHauLHcVtIQXyItIe+/fQ2wNd8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TIjtqIJSBPR0C+rPVXgsygeHmKGp42jNMlf58rbAysGPvWuVXgR/sUBLyEn+WFolCiR5SuhojBUaB+YH9dV8D8ezXpy1IWuFh7eXrlGgGY6J9CEvU3sepwrZUVfwy+dHwg4ec8nAiMU7RXH0bjOOWi+dlUQ+XMi1BS7WoyTzWJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gd72MEyE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4kAuMFM7THh1IgA5vqDa/eppVoqhg27i537QK1OmEm0R5+dFq8a9ZderFWVcSzPeP41bQKbnNPkdR7ZjsX1ndujXUyR4CmtxWQxNg7buE7/BAjYt0poamldrnN+9Urr2NhsHhAWVOj2OxA9WfENtvFjOCDFS04uP4aiogEZ754=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cKQqWLrr; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gd72MEyE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DF71F000E9;
-	Tue, 16 Jun 2026 11:09:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781608189;
-	bh=mK9HYVdQKJlIyEdG/ut16hHa0K36o0/3LJEgVGYcSUo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gd72MEyE4Blx+0jFHAmEscIwwfWEQLpIdjNt24ej/LvV+NYx1s7DSV1cdZqCnpuLM
-	 BjZaTLi70P2+X/8IEJNQzctRy586GmEP93Vk1mmgcbI0tyj0uXNd4EEx6GpLIqNo1i
-	 wmt+4coVDOvLMQXbE0bdHJV+iAZ931MVr69A4r5I4Vz1Yi+GuVzXZJJATeN5tbAaVv
-	 iBmwFkBGVjv+0HY0vHtSJotk6iG6Ksv+BOAI4z+XYXSDnKgo9WuFaa1MCueGLxwcBE
-	 +JgZJjApCyKc15jxTPNBRW02W+EKOHPC+WljjLrNEzn62y7WO4V/b0MdvjJ0FyC8Ix
-	 IaV6R8jkTziRg==
-Date: Tue, 16 Jun 2026 13:09:46 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	linux-i2c@vger.kernel.org, Thierry Reding <treding@nvidia.com>, 
-	Peter Rosin <peda@lysator.liu.se>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
-Message-ID: <ajEuUbjIWSpD9ieO@arch.a226c7d-lcedt>
-References: <20260611122704.7559-2-wsa+renesas@sang-engineering.com>
- <ajBGibftf679T6P4@arch.a226c7d-lcedt>
- <ajBq_yjuV-LeqgpI@zenone.zhora.eu>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cKQqWLrr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781608189; x=1813144189;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zVLmNdbqcdgaIpabNeHauLHcVtIQXyItIe+/fQ2wNd8=;
+  b=cKQqWLrrPUp5y36hLlbXRaSqdnwxYhHPi6Rh2pEDIRLeNtwFFJyVm6Cb
+   Chjg3sbM/H5496BxnHsFwAcWpyTo5VCTfS3S7+gPJjMWkIXcrkMMR1BWR
+   mncrzyh/WNqoa4EaUMe7KvgxO6/eQTB6nzTfvLjQHggqvUyAvf1+GvC1f
+   pTcHaGz3TGNsW9mUHrSxqyBORsHgu6T4sNrE+Vuf91qgGQWcsxWxs1YiU
+   rYA4qX6UiEU93453h2alZpsJyQoZJwkX+9P+t5PJb1tq0EFMybmieHd6l
+   5+jop6ACa545ApJdf+VnD9hA41uOqwTWTkNmKI/AXtgfGNV27FHObNpPV
+   w==;
+X-CSE-ConnectionGUID: ZaPB5hHCTA+Nvar0kOo0nw==
+X-CSE-MsgGUID: 0d2cmOHZSIGt19AThb/f9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="86271477"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="86271477"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:09:49 -0700
+X-CSE-ConnectionGUID: IQ9r4yVVSjaSe3ozHtRXOQ==
+X-CSE-MsgGUID: M7bd+DTERiy8I5Nn/qS3Uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
+   d="scan'208";a="247615803"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:09:46 -0700
+Date: Tue, 16 Jun 2026 14:09:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v5 3/6] iio: osf: add protocol decoding
+Message-ID: <ajEu95ZgIPEsvoKu@ashevche-desk.local>
+References: <20260616072242.3942-1-kimjinseob88@gmail.com>
+ <20260616072242.3942-4-kimjinseob88@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lglwbbgf5exx6rig"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ajBq_yjuV-LeqgpI@zenone.zhora.eu>
+In-Reply-To: <20260616072242.3942-4-kimjinseob88@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Jun 16, 2026 at 04:22:39PM +0900, Jinseob Kim wrote:
+> Add helpers for validating and decoding Open Sensor Fusion frames and the
+> message payloads used by the initial receive path.
+
+...
+
+> +int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
+> +				     unsigned int index, s32 *value)
+> +{
+> +	if (!sample || !sample->samples || !value)
+> +		return -EINVAL;
+> +
+> +	if (index >= sample->channel_count)
+> +		return -ERANGE;
+> +
+> +	/* Samples are little-endian two's-complement signed values. */
+> +	*value = (s32)get_unaligned_le32(sample->samples + index * sizeof(s32));
+
+This casting does not add anything.
+
+> +	return 0;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---lglwbbgf5exx6rig
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: i2c: i2c-mux-pinctrl: change maintainer
-MIME-Version: 1.0
-
-On Mon, Jun 15, 2026 at 11:15:08PM +0200, Andi Shyti wrote:
-> Hi Thierry,
->=20
-> > >  maintainers:
-> > > -  - Wolfram Sang <wsa@kernel.org>
-> > > +  - Thierry Reding <treding@nvidia.com>
-> > > =20
-> > >  description: |
-> > >    This binding describes an I2C bus multiplexer that uses pin multip=
-lexing to route the I2C
-> >=20
-> > By default I used to list the subsystem maintainer as the bindings
-> > maintainer if the binding wasn't Tegra-specific, or in this case the
-> > original author wasn't active anymore.
-> >=20
-> > I'm fine being listed as the maintainer for this if you don't want to,
-> > but I prefer to use the thierry.reding@kernel.org email address for
-> > communication.
->=20
-> Just to be clear, are you saying that in this file you want your
-> kernel.org e-mail or are you referring to generic communication?
-
-I prefer the kernel.org e-mail for generic communication. The corporate
-one is primarily important but inconvenient for mass-communication on
-thi lists.
-
-Thierry
-
---lglwbbgf5exx6rig
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoxLvgACgkQ3SOs138+
-s6EC1A/+MKJ4ECmfNPo28COAifNBNz7HEAqDMywS6+Qh5jltrk1P/OciTusfpAQC
-gAaQ1EPWasOISgwd3Id43stTl+Gm83cLc9TxZQEKrtzfmYs1Q6UlqlVQuXh+rdWa
-on0zakyl80rjPFVV0PnLzi8K2gLekN/G4hHGmVUwG19pBrsd+2VdaXV0SUGIWB3B
-fDrpMrnGFLJGfLheH8cs4MbKsILUyDdv7OMPk83jdkLQl4C2Fcb5f4+8x53zFRez
-EqZd12wJfnVx5NPhKP0PWCavacJcYxYvjUiCLIQ71jVYrjxJM9t6G1wOV7V+IIn+
-DBm52C6PJZd4pAYI3GntP2fR0szLzPBqDYM+Suz/rSyAXhtgB/yfKBL2iezciOVp
-XzV7cKqJJNRDYki4qdGrBvpPJj6JJw2WuDzKQCSJJ8mjxYsCrGBBx41W4kXeu1C3
-Fw3bk3q3fe34U7WDoWbr/PFRwO7/wLM5TSqMIlRAq+vVd01mgzZHY/pP1i11Pm3M
-qz+peFTyZB5QFdIVQ3BCy9LR+G8D2Df1Tipy26SI+IcqLd8zakntaF3BgiGMFSo7
-fBaFUytyUzkXEyFZRp/zFhm7rWLzzXhkbxbOIPIaiksgyBAItxcmJWxWVBcruP7F
-Nqc07wCrpdTzeWMKCthvzwIwbOi7Jz7qRgGKMieLR5dUZ7ZD0+M=
-=KYu2
------END PGP SIGNATURE-----
-
---lglwbbgf5exx6rig--
