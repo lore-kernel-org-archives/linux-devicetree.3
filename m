@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B574218A9;
-	Tue, 16 Jun 2026 09:09:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7514218AC;
+	Tue, 16 Jun 2026 09:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781600945; cv=none; b=LR/3IsmfsYC2j8C9NWP64K2UB4CDpuR+/hMvLzsBSBzzVlogJJkW6njcGw8At2SjLsY34IjAloRN/3rPZ5oKynOL94px1U6Ih41Xvrk8uXgfG+3uDCc9YLWnBAbqXq8vy8nsVpf1/cCzLL53keAZ3yGBkOLrOSVL7CyquwvJKos=
+	t=1781600948; cv=none; b=Jrw+njNO78IzEIUV5CNEFoXZxyPxsylUrqL1HOBgH1Q+lrTbVvYb8N3AT9TzrW/bcb1pHOxXseDLfUX/EwQnMGRTx91K9VEg45hwHH/unFHUxvNKESF7BPFPxLnmcla9OHy0PVEYqXJETsjiu97Vof7B89yynbkZw+jdeYiDVBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781600945; c=relaxed/simple;
-	bh=B+ciZHq3dTOAw9URmdcqBgqh9CthfuRwUt3AsV/x1YQ=;
+	s=arc-20240116; t=1781600948; c=relaxed/simple;
+	bh=vebhRQ4JVx5d1dkWkzDJWbnHnLwIaAWZNO5n0xOY8iQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fvVWA/6MXJ8cmmPr20wKWDSf7WVTTM5yBlBsFwVHlWspjh93kJK67jibblfuI96Fejt6/AKdzyxzgwgD59SDJ50kpASgrVczCVrza+Ik3pgLv+dCoezfHMcc0fDJF3lZuAFhj3zQhup7QhbZsiRwMzqfNgcQIl2SxnRqseXrJMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osxTMTSE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=ls7YNRzlbkHGaoKuaCQr1h8R4uekOxuDUvy/kYNHN9lY0KWSAEfMOOMxj9gy4tcElY6Rnjgu4VQXZIfS2Rm7ywRouk76x8VObib7H/M7q6hGEuG9qz1vdlBXwAN3axBtY/U+Yes8B5SUVSfkdVN5/XnnqBRkphMLfU5XTfJ08l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PtDbgy73; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osxTMTSE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F761F000E9;
-	Tue, 16 Jun 2026 09:09:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PtDbgy73"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 213281F00A3A;
+	Tue, 16 Jun 2026 09:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781600943;
-	bh=0GoIO2/qev31fAFAXPF0kq9Rt+4Amb5M+1wCBl95B6s=;
+	s=k20260515; t=1781600947;
+	bh=kTC02gixLyjI76t6uFP/9KhZ216P+IxBEX0Si7H/Ubc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=osxTMTSEksqjDmN5y20B0+Nf8w1Gh11Hy0LuwhNcrr2GxD6yMRulczCyFnH4tLeBX
-	 QyuPiEy6raXYRppeNhG4oH0c4kN3mSFcboR5gwey+1TEaFn0GiOx/udN/E5zTAFBte
-	 IkBFoyUlHJRRRZeypdDz0oWsmvIGioXgFn+p3Ume1pUVp6H7FFin6n01l7aaXxec/q
-	 2ax+gnO86AjdvPgoIaX3neKuslesf1byGAYi10cj3+M61nZ/eh4XTmUQbgKI4QW4nw
-	 thfXmYsB9d1/baAy+I3JIZ+dpPfFXnwbcOyKSHLv4eoRKUsrWQCqEqUVjefQBz+/9f
-	 UVn0LS2lCWK5Q==
+	b=PtDbgy73LF10RntcsafwBzgBaqSREgBkVBPPmkQHwrI5VGK/o45MiXDEOg7Rh438E
+	 /58IPD/ak+yQLlrafeUTpyiEmm1AD0WE4iLNROmtPzPbNxnpL1pilndyI9HPKKqWXg
+	 LOZdtPs58Sarh3HERuaRZEsN/t/zoIr2Z40keor8kSl20b0DORSD0C3yS/IOu7gL/Z
+	 pFbVMgNPL2ZqDBG5o908BEaN41lkaRWYXjZ67LsMloXwpSbctI0rhS9NbHhgJkAG2k
+	 jU5jWRIDpEFjw5XdLQZp/6dgGG3NtaUdesBpS/5BcSiS18WJctH721IljpM/N6T+Pz
+	 WOa7BgjXX1lBQ==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Tue, 16 Jun 2026 11:08:50 +0200
-Subject: [PATCH v2 2/4] arm64: dts: qcom: sc8180x-primus: Describe the
- display power net
+Date: Tue, 16 Jun 2026 11:08:51 +0200
+Subject: [PATCH v2 3/4] arm64: dts: qcom: sc8180x-lenovo-flex-5g: Rename
+ regulator nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-topic-8180_disp_power-v2-2-167785993231@oss.qualcomm.com>
+Message-Id: <20260616-topic-8180_disp_power-v2-3-167785993231@oss.qualcomm.com>
 References: <20260616-topic-8180_disp_power-v2-0-167785993231@oss.qualcomm.com>
 In-Reply-To: <20260616-topic-8180_disp_power-v2-0-167785993231@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -50,113 +50,62 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781600932; l=2503;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781600932; l=1546;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=IC/tMlQ45HvlLBwCXB9uIrnjtMwPXv48TQT4oxwEkJU=;
- b=QesjG661TArrFLhHPtVk4BX4HoHDMyBzGkxj8XnWUmB+93WzC389EYXeruI46DU+7KBVRb8ch
- rY1K2VD6rRXA0QHYtf1XzWS/JdmfiDyf03jOfR0l/YS7oGsdaVZnEg6
+ bh=XBZeVpQP/lzhjWVpMx7gMsYu9/JWKDtrxr7fKgtXMgM=;
+ b=6t6U+cPH9oP39TICiANrSZ3YBkAVt2oWxq7ak2ft9SqkUbg6VBdl90pCuncLmhXmOlEceLcFy
+ qfh+ESJWIVCC1wRaSs+OH2aflabOGMsTfa79+0Ugr3TkYq625/U4mSv
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Describe and wire up the power supplies for the eDP panel and its
-backlight. Previously, this was only working because of settings
-inherited from the bootloader.
+Align with the contemporary way of naming regulator nodes (regulator-
+prefix) in preparation for adding more of them.
 
-Fixes: 2ce38cc1e8fe ("arm64: dts: qcom: sc8180x: Introduce Primus")
+Reorder the renamed entries to match the expectations of the DT coding
+style doc.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sc8180x-primus.dts | 48 ++++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
-index ffe7c45366ed..e34f4758ebe2 100644
---- a/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8180x-primus.dts
-@@ -29,9 +29,10 @@ backlight: backlight {
- 		compatible = "pwm-backlight";
- 		pwms = <&pmc8180c_lpg 4 1000000>;
- 		enable-gpios = <&pmc8180c_gpios 8 GPIO_ACTIVE_HIGH>;
-+		power-supply = <&vled_bl_pw>;
- 
--		pinctrl-names = "default";
- 		pinctrl-0 = <&bl_pwm_default>;
-+		pinctrl-names = "default";
- 	};
- 
- 	chosen {
-@@ -167,6 +168,38 @@ reserved-region@9a500000 {
+diff --git a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+index d86a31ddede2..0d2cfb830e83 100644
+--- a/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
++++ b/arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts
+@@ -157,14 +157,7 @@ cdsp_mem: cdsp-region@98900000 {
  		};
  	};
  
-+	vled_bl_pw: regulator-vled-bl-pw {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VLED_BL_PW";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&pmc8180_2_gpios 1 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&bl_pwr_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
-+	vreg_lcm_3v3: regulator-edp-3p3 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_LCM_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+
-+		gpio = <&tlmm 130 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&lcm_3v3_en>;
-+		pinctrl-names = "default";
-+
-+		regulator-boot-on;
-+	};
-+
- 	vreg_nvme_0p9: regulator-nvme-0p9 {
+-	vph_pwr: vph-pwr-regulator {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vph_pwr";
+-		regulator-min-microvolt = <3700000>;
+-		regulator-max-microvolt = <3700000>;
+-	};
+-
+-	vreg_s4a_1p8: pm8150-s4-regulator {
++	vreg_s4a_1p8: regulator-pm8150-s4 {
  		compatible = "regulator-fixed";
- 		regulator-name = "vreg_nvme_0p9";
-@@ -540,6 +573,7 @@ &mdss_edp {
- 	aux-bus {
- 		panel {
- 			compatible = "edp-panel";
-+			power-supply = <&vreg_lcm_3v3>;
+ 		regulator-name = "vreg_s4a_1p8";
  
- 			backlight = <&backlight>;
- 
-@@ -769,6 +803,12 @@ &wifi {
- };
- 
- /* PINCTRL */
-+&pmc8180_2_gpios {
-+	bl_pwr_en: bl-pwr-en-state {
-+		pins = "gpio1";
-+		function = "normal";
-+	};
-+};
- 
- &pmc8180c_gpios {
- 	bl_pwm_default: bl-pwm-default-state {
-@@ -950,4 +990,10 @@ rx-pins {
- 			bias-pull-up;
- 		};
+@@ -177,6 +170,13 @@ vreg_s4a_1p8: pm8150-s4-regulator {
+ 		vin-supply = <&vph_pwr>;
  	};
-+
-+	lcm_3v3_en: lcm-3v3-en-state {
-+		pins = "gpio130";
-+		function = "gpio";
-+		bias-disable;
+ 
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
 +	};
- };
++
+ 	usbprim-sbu-mux {
+ 		compatible = "pericom,pi3usb102", "gpio-sbu-mux";
+ 
 
 -- 
 2.54.0
