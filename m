@@ -1,231 +1,172 @@
-Received: from outbound11.mail.transip.nl (outbound11.mail.transip.nl [136.144.136.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420FF302753;
-	Tue, 16 Jun 2026 13:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85AE630648C;
+	Tue, 16 Jun 2026 13:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781616973; cv=none; b=h0wZH/Nt9tkaFsveJXD/VOuPvwnS5oljuo4NwhYFCxdhT4pgiM8uGiFPwILU1NMeLNYdaCLyuQ8rGnJ99JhPjV3gyFOZeINtPNWFfx9dIuDLjcmuBhAToJzgL+vOr8h/iWxAujl7saO52GifythF0XvsyPV/lYwqk0JJrOvlN78=
+	t=1781617142; cv=none; b=i3z1Kcnl8x8Hk0GYVjj++t1rBSDXq7gEQUvHJlOg6dOT/VhPy2dHEHG2HSIj6UfXTo84XVwEDrVQw5YSruSFiFQ0qmkEMmXoLXTF0lQIBM0hxSQF65zUndeu/06do3EbQgYyOpLQx9D81s4OdgnD70/4pWj4uPKaZkaMVMKlQMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781616973; c=relaxed/simple;
-	bh=alQwayR/ZWd66B+tpmSWDGPSW8rFt3k3UXDfeMFYw+E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WBwJwIMoIOKjgSSdq+VY77S6Tic8kAY4wgpioiAdlwxkqZHIEJz+JzSKKgmKP2UKOGJS/Axyb74TPBTU1nnJ6QtDI41kUcuAuQC1s22eTwJLi2B5EX6vTT3C8fIKsqtYfIMwSBCjntiLYIZypYNFwSrWctFDWewzhdZb7gtQfOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=jia1Tl8/; arc=none smtp.client-ip=136.144.136.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1781617142; c=relaxed/simple;
+	bh=vHgwqjPAnui1vFfI/U4dBN4GhtxUFMHf4/+uBSe6sDM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T6fyK5eIJvjA+h/G3gJLEcGxW1k6rl5VkA0C2nzuL/5Yuf6okr/0MpnRJM4Cpuj3Kw1U83i7rBNZvLh/N8DC5iDrgHeEManha5Z4Hy0Y+6oIGgqObHlZClYRiYJZ3UQ6YjLYUyVhkRBbL1BvTQCkSkWqreEM3RDqtcD6UKIYiFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CoUrDeIq; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="jia1Tl8/"
-Received: from submission10.mail.transip.nl (unknown [10.103.8.161])
-	by outbound11.mail.transip.nl (Postfix) with ESMTP id 4gfnp72L2LzkQMbd;
-	Tue, 16 Jun 2026 15:26:55 +0200 (CEST)
-Received: from [127.0.1.1] (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission10.mail.transip.nl (Postfix) with ESMTPA id 4gfnp63lDNz1g93PY;
-	Tue, 16 Jun 2026 15:26:54 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-Date: Tue, 16 Jun 2026 15:26:54 +0200
-Subject: [PATCH v3 2/2] phy: qcom: usb-hs: program MSM8x60 vendor ULPI
- registers on power-on
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CoUrDeIq"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3CFD135BD;
+	Tue, 16 Jun 2026 06:38:55 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E47083F763;
+	Tue, 16 Jun 2026 06:38:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1781617139; bh=vHgwqjPAnui1vFfI/U4dBN4GhtxUFMHf4/+uBSe6sDM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CoUrDeIq57GBlIaQSiZ6IIZZXYYwvBjf9AtMwGTg8WTSlBAHp1guaKv17UCEaXsDV
+	 ih/mSnXhuuoKY/hByor37luu/fn8K8ojll/MhfByHhaIIN1aH20ou4PrVANWJJk40y
+	 3PfyZb/ddxw1qccXThjCpzVoJ83xZm1hA7B5sSdA=
+Message-ID: <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
+Date: Tue, 16 Jun 2026 15:38:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260616-submit-phy-usb-hs-vendor-init-seq-v3-2-7d21fb1d1484@herrie.org>
-References: <20260616-submit-phy-usb-hs-vendor-init-seq-v3-0-7d21fb1d1484@herrie.org>
-In-Reply-To: <20260616-submit-phy-usb-hs-vendor-init-seq-v3-0-7d21fb1d1484@herrie.org>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, Herman van Hazendonk <github.com@herrie.org>, 
- konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781616413; l=5851;
- i=github.com@herrie.org; s=20240417; h=from:subject:message-id;
- bh=alQwayR/ZWd66B+tpmSWDGPSW8rFt3k3UXDfeMFYw+E=;
- b=/b1XhJ0CbraycY+Tqc+AHHmn2cMUfL1CyJDU/KGK7BfqW5rdNmVhpiv27GH+FpI2ht5IlY55T
- c/vgAoihMeNBsD8Zz+d952QpKtoV8GdO4NTuCqvWyJJFTkX+kj69dUX
-X-Developer-Key: i=github.com@herrie.org; a=ed25519;
- pk=YYxdq8fb5O9vhkW3n2dCH044FPZZO5718v/du7fRhFw=
-X-Scanned-By: ClueGetter at submission10.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1781616414; h=from:subject:to:cc:
- references:in-reply-to:date:mime-version:content-type;
- bh=bKwldoJ8S7M88lVIxxOm1g6Eugev8VfNz6lpMmlF2RQ=;
- b=jia1Tl8/MzuqTkDxmvHuhVokyi+UgthIAn+hD6GqloGX8LduoXH7Us2gH9l4LRtFlixNbL
- zog9GRrbcjtILjcD/uCNnGYMiYnGalEfdB6xcIofagKz0C6fchUYio8zl5fVJ7NM3PufJx
- mx9jDq5Fx76S9SVcMBTmaFqK+A1GUAu3PTUfhOQ4taeL8JVNC/kLTg/ie1IvtufYdHqA62
- 3ZaFBClEYiF3pOzL7YjmqOR20kVe1zJft+MT2scztsIav50cqHUPrpMwhJQkFlUl4ayti+
- tpTIsMG7+6QN27Dx9zhFNl8uBhGOZjgaFDF7mPOM3KPVTRGqJEnoLXLvAXDa/Q==
-X-Report-Abuse-To: abuse@transip.nl
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
+ layer reg space
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, wens@kernel.org
+Cc: samuel@sholland.org, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org
+References: <20260509190015.79086-1-jernej.skrabec@siol.net>
+ <nIKN_benRn2Bk8SDZrkMCA@gmail.com>
+ <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
+ <0r4us4OeRRWtJhxvps-bZw@gmail.com>
+ <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
+Content-Language: en-US
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The MSM8x60-class PHY needs three vendor-register tweaks for stable
-USB operation, which the legacy msm_otg driver used to drive from
-board platform data.  A survey of every MSM8x60-class downstream tree
-(Qualcomm SURF/FFA/Fluid/Dragon, Samsung Galaxy S2 family, Sony
-Xperia, HTC MSM8660 ports and HP TouchPad) shows that two of the
-three settings are identical across every board:
+Hi,
 
-  - reg 0x32 [5:4] = 11b: pre-emphasis level set to 20%
-  - reg 0x36 bit 1 = 1, bit 2 = 1: CDR auto-reset and SE1 gating
-    disabled (the legacy driver inverts these bits, so setting them
-    disables the function)
+On 6/16/26 05:51, Krzysztof Kozlowski wrote:
+> On 15/06/2026 17:47, Jernej Škrabec wrote:
+>> Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>>> On 14/06/2026 16:08, Jernej Škrabec wrote:
+>>>> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni čas je Krzysztof Kozlowski napisal(a):
+>>>>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> (resent from new email)
+>>>>>>
+>>>>>> On Thu, May 14, 2026 at 2:04 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>>>
+>>>>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
+>>>>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>>>>>>>>
+>>>>>>>> As it turns out, current H616 DE33 binding was written based on
+>>>>>>>> incomplete understanding of DE33 design. Namely, planes are shared
+>>>>>>>> resource and not tied to specific mixer, which was the case for previous
+>>>>>>>> generations of Display Engine (DE3 and earlier).
+>>>>>>>>
+>>>>>>>> This means that current DE33 binding doesn't properly reflect HW and
+>>>>>>>> using it would mean that second mixer (used for second display output)
+>>>>>>>> can't be supported.
+>>>>>>>>
+>>>>>>>> Remove layer register space, which will be represented with additional
+>>>>>>>> node, and replace it with phandle, which will point to that new, shared
+>>>>>>>> node. That way, all mixers can share same layers.
+>>>>>>>>
+>>>>>>>> There is no user of this binding yet, so changes can be made safely,
+>>>>>>>> without breaking any backward compatibility.
+>>>>>>>
+>>>>>>> There is user. git grep gives me:
+>>>>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
+>>>>>>>
+>>>>>>> which means this is a released ABI. As I understood, the old code was
+>>>>>>
+>>>>>> We held off on merging the DT changes so that we could rework this.
+>>>>>> I can't find the actual request though. It was probably over IRC.
+>>>>>>
+>>>>>>> working fine but just did not support all use cases. Why this cannot be
+>>>>>>> kept backwards compatible?
+>>>>>>
+>>>>>> AFAIK the "planes" block is shared between two display mixers. As the
+>>>>>> commit message explains, this prevents using the second mixer, since
+>>>>>> only one of them can claim and map the register space. And on the H700
+>>>>>> (which is the same die as the H616 discussed here but with more exposed
+>>>>>> interfaces), there could actually be a use case for the second mixer.
+>>>>>
+>>>>> It explains why you want to make the changes but not why you cannot keep
+>>>>> it backwards compatible.
+>>>>
+>>>> I guess it can be backward compatible, but I don't think it makes sense.
+>>>> Yes, original driver implemented original DT bindings, but there is no node
+>>>> which uses that binding. If there is no user of that, why would driver
+>>>
+>>> Did you check all out of tree users of the ABI? All vendor kernels,
+>>> forks and all of them for which the ABI was made for?
+>>
+>> Since when do we care about out of tree users? I understand that drivers
+> 
+> Since always? That is the meaning of ABI. Otherwise there is no point to
+> discuss ABI at all. Why would it exist if you had all DTS inside kernel
+> always matching the code?
 
-Hardcode those two unconditionally behind the existing
-qcom,usb-hs-phy-msm8660 compatible.  The bit-level documentation
-comes from the Code Aurora downstream header
-arch/arm/mach-msm/include/mach/msm_hsusb_hw.h, which Samsung and HP
-both shipped byte-for-byte identical.
+In general I would agree with Krzysztof, merged binding means we need to 
+stick to it, but in this case I think that would be over the top. As 
+Jernej said, there are no users, since we didn't commit on the DTs, and 
+the DE33 graphics support in the kernel (bindings and code) is 
+incomplete: it's really just the mixer, but no other components (TCON or 
+output PHYs) required. So it never worked as such.
 
-The third setting -- reg 0x32 [3:0] HS driver slope -- is genuinely
-board-specific (HP TouchPad uses 5, HTC MSM8660 ports use 1, every
-Qualcomm/Samsung/Sony reference board leaves the silicon default of
-0) and is consumed from the new qcom,hs-drv-slope DT property.  When
-the property is absent the silicon default is preserved.
+In hindsight we could say that we should have never merged the bindings 
+without having fully working, reviewed and accepted driver code, for the 
+whole display chain. Which we need to do because we create those 
+bindings based on reverse engineering efforts, not by looking at 
+documentation or design documents (which we don't have).
 
-No public Qualcomm documentation describes how the 4-bit slope value
-maps to an actual slew rate, V/ns or %; the field is an opaque
-hardware control whose semantics only Qualcomm knows.  Boards must
-copy the value from their vendor / downstream kernel -- this is a
-measured / tuned-per-layout knob, not a derived one.  We program the
-4 bits verbatim and trust the silicon to do the right thing.
+>> must support old device tree files. Once they work, compatibility must
+>> be carried forward. But that's not the case here.
+>>
+>> In any case, vendor kernels have completely different DT structure. This
+>> was developed independently from them. Take a look at [1] how BSP DT looks
+>> like, specifically Display Engine node.
+>>
+>> Of course there are some distros which grab WIP patches from mailing lists
+>> soon after they are available. For example, I know that Armbian carried old
+>> WIP patches which used old ABI. However, such distros generally don't care
+>> about exact solution and ditch patches as soon as proper solution is merged
+>> upstream or even when better WIP patches come around. DT files in such
+>> distros get updated alongside kernel, they are not hidden in firmware.
+>>
+> 
+> I am not talking about BSP. I am talking about out of tree users for
+> which we defined the ABI and called it that way.
 
-The writes live behind a runtime flag that only matches
-"qcom,usb-hs-phy-msm8660" so the existing MSM8226/8916/8960/8974
-consumers are untouched.  They are issued *after*
-reset_control_reset() so the values survive the register restore the
-reset performs.
+If you are looking for DT users outside of the Linux kernel, this is the 
+result of a quick check (list of users from ChatGPT, checks by myself 
+with git clone/git grep):
+Zephyr RTOS: no graphics support
+FreeBSD: no H616 support
+OpenBSD: no H616 graphics support
+NetBSD: no H616 support
+U-Boot: no H616 graphics support
+Barebox: no H616 support
+TF-A: no graphics support
+OP-TEE: no (Allwinner) graphics support
+EDK2: no Allwinner support
 
-Note: HTC MSM8660 vendor kernels additionally write 0x0C to reg 0x31.
-The HP TouchPad webOS kernel does not touch that register and USB is
-stable without it, so those bits are omitted here until documentation
-is available to explain what they control.
-
-Assisted-by: Claude:claude-opus-4-7 sparse smatch clang-analyzer coccinelle checkpatch
-Assisted-by: Sashiko:claude-opus-4-7
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- drivers/phy/qualcomm/phy-qcom-usb-hs.c | 68 ++++++++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hs.c b/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-index 98a18987f1be..a7649a09e82c 100644
---- a/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-+++ b/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-@@ -20,6 +20,14 @@
- # define ULPI_MISC_A_VBUSVLDEXTSEL	BIT(1)
- # define ULPI_MISC_A_VBUSVLDEXT		BIT(0)
- 
-+/* MSM8x60 vendor ULPI registers (raw addresses, not ULPI_EXT_VENDOR_SPECIFIC). */
-+#define ULPI_MSM_CONFIG_REG3		0x32
-+# define ULPI_MSM_HSDRVSLOPE_MASK	GENMASK(3, 0)
-+# define ULPI_MSM_PRE_EMPHASIS_MASK	GENMASK(5, 4)
-+# define ULPI_MSM_PRE_EMPHASIS_20PCT	(3 << 4)
-+#define ULPI_MSM_DIGOUT_CTRL		0x36
-+# define ULPI_MSM_CDR_AUTORESET		BIT(1)
-+# define ULPI_MSM_SE1_GATE		BIT(2)
- 
- struct ulpi_seq {
- 	u8 addr;
-@@ -37,6 +45,9 @@ struct qcom_usb_hs_phy {
- 	struct ulpi_seq *init_seq;
- 	struct extcon_dev *vbus_edev;
- 	struct notifier_block vbus_notify;
-+	bool msm8x60_init;
-+	bool hs_drv_slope_present;
-+	u8 hs_drv_slope;
- };
- 
- static int qcom_usb_hs_phy_set_mode(struct phy *phy,
-@@ -105,6 +116,41 @@ qcom_usb_hs_phy_vbus_notifier(struct notifier_block *nb, unsigned long event,
- 	return ulpi_write(uphy->ulpi, addr, ULPI_MISC_A_VBUSVLDEXT);
- }
- 
-+/*
-+ * RMW the vendor registers to preserve silicon reserved bits.
-+ * In reg 0x36 the legacy semantics are inverted: setting
-+ * CDR_AUTORESET / SE1_GATE *disables* those functions.
-+ */
-+static int qcom_usb_hs_phy_msm8x60_init(struct qcom_usb_hs_phy *uphy)
-+{
-+	struct ulpi *ulpi = uphy->ulpi;
-+	int reg32, reg36, ret;
-+
-+	reg32 = ulpi_read(ulpi, ULPI_MSM_CONFIG_REG3);
-+	if (reg32 < 0)
-+		return reg32;
-+
-+	reg32 &= ~ULPI_MSM_PRE_EMPHASIS_MASK;
-+	reg32 |= ULPI_MSM_PRE_EMPHASIS_20PCT;
-+
-+	if (uphy->hs_drv_slope_present) {
-+		reg32 &= ~ULPI_MSM_HSDRVSLOPE_MASK;
-+		reg32 |= uphy->hs_drv_slope & ULPI_MSM_HSDRVSLOPE_MASK;
-+	}
-+
-+	ret = ulpi_write(ulpi, ULPI_MSM_CONFIG_REG3, reg32);
-+	if (ret)
-+		return ret;
-+
-+	reg36 = ulpi_read(ulpi, ULPI_MSM_DIGOUT_CTRL);
-+	if (reg36 < 0)
-+		return reg36;
-+
-+	reg36 |= ULPI_MSM_CDR_AUTORESET | ULPI_MSM_SE1_GATE;
-+
-+	return ulpi_write(ulpi, ULPI_MSM_DIGOUT_CTRL, reg36);
-+}
-+
- static int qcom_usb_hs_phy_power_on(struct phy *phy)
- {
- 	struct qcom_usb_hs_phy *uphy = phy_get_drvdata(phy);
-@@ -154,6 +200,12 @@ static int qcom_usb_hs_phy_power_on(struct phy *phy)
- 			goto err_ulpi;
- 	}
- 
-+	if (uphy->msm8x60_init) {
-+		ret = qcom_usb_hs_phy_msm8x60_init(uphy);
-+		if (ret)
-+			goto err_ulpi;
-+	}
-+
- 	if (uphy->vbus_edev) {
- 		state = extcon_get_state(uphy->vbus_edev, EXTCON_USB);
- 		/* setup initial state */
-@@ -214,6 +266,22 @@ static int qcom_usb_hs_phy_probe(struct ulpi *ulpi)
- 		return -ENOMEM;
- 	ulpi_set_drvdata(ulpi, uphy);
- 	uphy->ulpi = ulpi;
-+	uphy->msm8x60_init = of_device_is_compatible(ulpi->dev.of_node,
-+						     "qcom,usb-hs-phy-msm8660");
-+
-+	if (uphy->msm8x60_init) {
-+		u32 slope;
-+
-+		if (!of_property_read_u32(ulpi->dev.of_node,
-+					  "qcom,hs-drv-slope", &slope)) {
-+			if (slope > ULPI_MSM_HSDRVSLOPE_MASK)
-+				return dev_err_probe(&ulpi->dev, -EINVAL,
-+						     "qcom,hs-drv-slope out of range (max %lu)\n",
-+						     ULPI_MSM_HSDRVSLOPE_MASK);
-+			uphy->hs_drv_slope = slope;
-+			uphy->hs_drv_slope_present = true;
-+		}
-+	}
- 
- 	size = of_property_count_u8_elems(ulpi->dev.of_node, "qcom,init-seq");
- 	if (size < 0)
-
--- 
-2.43.0
+Cheers,
+Andre
 
