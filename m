@@ -1,158 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F8A3043C8;
-	Tue, 16 Jun 2026 11:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB9F2D8DD0;
+	Tue, 16 Jun 2026 11:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781609554; cv=none; b=WeouoN0AphDdyXU0FGmW6tH1WvZcRmXkjkuZ+1HhPoAJIPmos5ipV/KVgzm3MChjTFE9jOicXnMMgxtJCHE22ZsUadyL2owpieM2HZbVkwLiyfH9e0f2h3b/08POT4/vrKSs8xFGK+RsqW59naYemm6aOg7rcK3BoNy/a9yz7rk=
+	t=1781609652; cv=none; b=jgMRA86uIiI1enKUXCH7N+tbMcNYrgCfNn3AAUoHiHbe7IEgZ4MZrgeD33WXpriKquANF2xyu+S/l0KFpakeCuA3WwX8P7rt9Nt91paYGbFGdTLuUlo42DHq/CbBbiWaU73dahz+rRMDVEr6X1xnF/ITxYhuz1sS9aHEfkHDg24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781609554; c=relaxed/simple;
-	bh=fQ2AA+B5HXg+9VGEjKTj0JjSlcUTHbf1yHvGGfrbrfE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JD+fsS3VxK2PGeZgq4LQecbX8yYr7Koqa55+p91NSbWzEuZn7BKH6O0g3thTBWAk0znv4AMEBLbVE2OQdKgMsN8VYOy5Wts+uciy0vYyPoM6zbe+vhOBnLz4fnS6WAUB1zVpYXplNeh1EYps3tCj2HGnVfnDo7hX2bEMvSJJXow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=en4cbng2; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781609652; c=relaxed/simple;
+	bh=CL9iSNo6Gwr0ZBggrG8RUS9/Kutk/ZqrjLdbhxbCzXY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HyXZacZQJekpMUdBE46u0DOjK3jIlBbtO3KF0IoKxH0rskcdmhzTvzrQAkJQToKStSVy80CVT7pAcPB+U0gtevLBbgZJQG2O1PaOVfEjpouXNHhalmdAaRzv6TYz5Ci4P1VjvJWHnVu8rA/HQxGFmgXbUDgsJUtDnlBxpbzaMms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iynEmIoT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="en4cbng2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781609553; x=1813145553;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fQ2AA+B5HXg+9VGEjKTj0JjSlcUTHbf1yHvGGfrbrfE=;
-  b=en4cbng2upN4Bz2ddIxOrL1GgigAaCjfgeQF6Snuu72ROb/2K4mnvlBS
-   f/NlRIjiQ8vf47b9NPONfdMUxlA124Z5pq/lN7rU58hJCzGEb7CjGnTHg
-   ynDJrvX7qKbgLT1IfQd2YWDnNzmd7PdYuSbsdKGOVvf/IIXMd5+0dco/W
-   r4C1/zBI9EDZ9+4SnFAxYhIllajIC0tepBVgemFbAMuqsPNfSmAx33hNg
-   H5hd3RRkaM0f/xQtP507yAY94m+2tt7OCUTaQi4WcC2/bhO5C4gqmpgi7
-   +NdFBE1zWfJdo+/9Hh3vGRYTLg32aDAD48kljy5ICwdXt9qUxYIKJ9Az2
-   w==;
-X-CSE-ConnectionGUID: rgk3QDc3Te2E//zDcGMx4A==
-X-CSE-MsgGUID: 0pIsejHvTciWi+gV50SOrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="99788903"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="99788903"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:32:33 -0700
-X-CSE-ConnectionGUID: jo3l7CJ9R367mJbNikhgWQ==
-X-CSE-MsgGUID: ANnVecl1QBm9K0FuCXVuzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; 
-   d="scan'208";a="245376373"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jun 2026 04:32:30 -0700
-Date: Tue, 16 Jun 2026 14:32:27 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v5 6/6] iio: osf: register IIO devices from
- capabilities
-Message-ID: <ajE0S4gQ7yMoxX51@ashevche-desk.local>
-References: <20260616072242.3942-1-kimjinseob88@gmail.com>
- <20260616072242.3942-7-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iynEmIoT"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GA9Ckj2893402;
+	Tue, 16 Jun 2026 11:33:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Lt3LqJwPP0c
+	V17oxSnsW76l/WW5Mel1VGCC3Vf/WdSA=; b=iynEmIoTAo5AufBw83CgKRzR7Xo
+	Zct7DLuk+zHJII8rbe02xsbUya7BXFmxnPU4wJOvVnv5elUXCfbjNr/qPsdrq4Ya
+	DAHayhuWgVvqnKrPi8u3SXR6ZKfZTamIqeNv3kzdhQvGvHE8zSBLmD355kJPaXjI
+	zlcm/uYKBA/Vio6AhMjmHViqddyfqdbFYAaf7LI2Sdb1E94WTcIje/umy1YnchCj
+	k9dNxzRz49CFbMSMEADBxIZq9FPwhm2fj9wCp3sGe4mcXKqimS1Ge+usnkOJELGT
+	7sWYaFfGVRvFxWjkA/cxs3equwu7y64S/4KoB1wOlfILHKmKCvIdg2ZNRLQ==
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu253h0ev-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 11:33:54 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA02.qualcomm.com [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65GBXrWR015212;
+	Tue, 16 Jun 2026 11:33:53 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 4etk1at1ty-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 11:33:53 +0000 (GMT)
+Received: from NALASPPMTA02.qualcomm.com (NALASPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65GBXrmp015206;
+	Tue, 16 Jun 2026 11:33:53 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
+	by NALASPPMTA02.qualcomm.com (PPS) with ESMTPS id 65GBXqnP015205
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 16 Jun 2026 11:33:53 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
+	id EA8A1654; Tue, 16 Jun 2026 04:33:52 -0700 (PDT)
+From: Can Guo <can.guo@oss.qualcomm.com>
+To: krzk@kernel.org, bvanassche@acm.org, beanhuo@micron.com,
+        peter.wang@mediatek.com, martin.petersen@oracle.com, mani@kernel.org
+Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+        Zhaoming Luo <zhml@posteo.com>,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list),
+        linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support:Keyword:mediatek),
+        linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support:Keyword:mediatek)
+Subject: [PATCH v10 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
+Date: Tue, 16 Jun 2026 04:33:47 -0700
+Message-Id: <20260616113348.1168248-2-can.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260616113348.1168248-1-can.guo@oss.qualcomm.com>
+References: <20260616113348.1168248-1-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260616072242.3942-7-kimjinseob88@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: wOytt8lAaXQ1_vZuW7vrt1lxUzU_RXYu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDExOCBTYWx0ZWRfXxAjkYJemLrO5
+ rS8BVLG1VDjFFrVn5pK4GGsekYWv2Vo5+E0+0eiZP64ZqzHecHIQYdE9F8UsXfE/LB2RdVidMgV
+ abhw0MD3TuTRXJc0IYSiDPIjNBjtrtk=
+X-Authority-Analysis: v=2.4 cv=WNdPmHsR c=1 sm=1 tr=0 ts=6a3134a2 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=mpaa-ttXAAAA:8
+ a=O1bjOzfcQfNXtJdNm1oA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDExOCBTYWx0ZWRfXzVR853ZNXVWs
+ sBuYWyMyYemi/UXgfAWlqBnS0RM6KPCSP0XZmsqAUirpmtlnVjUgD9mNvYWo48TRtLHtc50IkOy
+ /UZ8/95L48fcahhrBuvqDc6GBZ1mAVtNtjzo7PqZACUeFjylXDYulvv3Re2lC0EBinj+McYRVCC
+ uA4AcInoZOqqpxBECdh7NBLMAuetlafl7HXQA0I0QFGSgHLFq+uJD/E95hXIobojudPke6dPt6V
+ 31u5GsL1vl+DalWoB1OeZ8IYBRO2+ou8NiQSneIUjDxFiZa1/FbFhqiGWhweSyBA7sVanmIOpMn
+ xOwKpspTD/25N/QKwbnWR2C3vAnRM9b78MifwU87C+pnQ7rp3RDGpYXW3OnasZSAYVUHM9YbZhW
+ kI3Gf53vjaAHAlNTnYf0hcCPUH8Ap5awwygq85iim8Om9S1ievvWVfz94FQ/7AFzH0rWtrtVFBw
+ pt7xNg5BZTAJ9QqLOaA==
+X-Proofpoint-ORIG-GUID: wOytt8lAaXQ1_vZuW7vrt1lxUzU_RXYu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_03,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1011
+ suspectscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160118
 
-On Tue, Jun 16, 2026 at 04:22:42PM +0900, Jinseob Kim wrote:
-> Register IIO devices for supported Open Sensor Fusion capability entries
-> and push received samples into IIO buffers when enabled.
+UFS v5.0/UFSHCI v5.0 adds HS-G6 support (46.6 Gbps/lane) via UniPro
+v3.0 and M-PHY v6.0. These specs define TX Equalization for all
+High-Speed Gears (not only HS-G6) to compensate channel loss and
+improve signal integrity at high speed.
 
-...
+For HS-G6, M-PHY uses PAM4 1b1b line coding. Pre-Coding may also be
+required depending on channel characteristics.
 
->  	help
-> -	  Build the Open Sensor Fusion UART receive path.
-> +	  Build the Open Sensor Fusion UART IIO driver.
->  
-> -	  The driver receives OSF protocol frames over a serdev UART.
-> -	  Frames are decoded and validated before being passed to the
-> -	  driver core.
-> -	  This patch only adds the transport path.
-> -	  IIO device registration is added separately.
-> +	  The driver receives OSF protocol frames over a serdev UART and
-> +	  registers IIO devices for supported capability entries.
+Document vendor-neutral properties in ufs-common.yaml:
+- txeq-preshoot-g[1-6]
+- txeq-deemphasis-g[1-6]
+- tx-precode-enable-g6
 
-Can't you fix this in the initial patch?
+Values are per-lane Host/Device tuples (2 values for x1, 4 values for
+x2). PreShoot/DeEmphasis range from 0..7, and Precode is 0/1.
 
-...
+These are board-specific signal-integrity tuning values. They depend on
+channel SI/PHY characterization and validation (host PHY, device PHY,
+package, and board routing), and are determined by HW/PHY designers.
 
->  obj-$(CONFIG_OPEN_SENSOR_FUSION) += open-sensor-fusion.o
->  
-> -open-sensor-fusion-y := osf_core.o osf_protocol.o osf_serdev.o osf_stream.o
-> +open-sensor-fusion-y := osf_core.o osf_iio.o osf_protocol.o osf_serdev.o \
-> +			 osf_stream.o
+Although UFSHCI v5.0 supports TX Equalization Training via UniPro v3.0,
+which allows host software to determine optimal TX Equalization at
+runtime, static board-specific TX Equalization settings in the Device
+Tree are still necessary because:
+- TX Equalization Training is not supported for HS-G3 and below
+- TX Equalization Training is disabled on some platforms
 
-Modify the original code the way that this will only have a + line.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+---
+ .../devicetree/bindings/ufs/ufs-common.yaml   | 58 +++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-...
-
->  void osf_core_unregister_iio(struct osf_device *osf)
->  {
-> +	unsigned int i;
-> +
-> +	for (i = 0; i < osf->iio_dev_count; i++)
-
-For all for-loops where it's not going outside it
-
-	for (unsigned int i = 0; i < osf->iio_dev_count; i++)
-
-> +		osf_iio_unregister_sensor(osf->iio_devs[i].indio_dev);
-> +
-> +	osf->iio_dev_count = 0;
-> +}
-
-...
-
-> -		ret = osf_core_validate_sensor_sample(&frame);
-> -		break;
-> +		return osf_core_handle_sensor_sample(osf, &frame);
->  	case OSF_MSG_DEVICE_STATUS:
-> -		ret = osf_core_validate_device_status(&frame);
-> -		break;
-> +		return osf_core_handle_device_status(osf, &frame);
->  	case OSF_MSG_CAPABILITY_REPORT:
-> -		ret = osf_core_validate_capability_report(&frame);
-> -		break;
-> +		return osf_core_handle_capability_report(osf, &frame);
->  	default:
->  		if (frame.message_type >= OSF_RESERVED_MSG_FIRST &&
->  		    frame.message_type <= OSF_RESERVED_MSG_LAST)
-> -			ret = 0;
-> -		else if (frame.message_type >= OSF_VENDOR_PRIVATE_FIRST)
-> -			ret = 0;
-> -		else
-> -			ret = -EOPNOTSUPP;
-> -		break;
-> +			return 0;
-> +		if (frame.message_type >= OSF_VENDOR_PRIVATE_FIRST)
-> +			return 0;
-> +		return -EOPNOTSUPP;
-
-With my suggestion this can be done in the initial patch.
-So, this indeed needs a lot of work as for RFC :-)
-
-I stop here.
-
+diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+index ed97f5682509..cc32e1189d50 100644
+--- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
++++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+@@ -105,6 +105,64 @@ properties:
+       Restricts the UFS controller to rate-a or rate-b for both TX and
+       RX directions.
+ 
++  tx-precode-enable-g6:
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    minItems: 1
++    items:
++      - items:
++          - description: Host_Lane0 precode
++            enum: [0, 1]
++          - description: Device_Lane0 precode
++            enum: [0, 1]
++      - items:
++          - description: Host_Lane1 precode
++            enum: [0, 1]
++          - description: Device_Lane1 precode
++            enum: [0, 1]
++    description:
++      Static TX Precode enable values for HS-G6 only.
++
++patternProperties:
++  "^txeq-preshoot-g[1-6]$":
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    minItems: 1
++    items:
++      - items:
++          - description: Host_Lane0 Preshoot value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++          - description: Device_Lane0 Preshoot value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++      - items:
++          - description: Host_Lane1 Preshoot value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++          - description: Device_Lane1 Preshoot value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++    description: |
++      Static TX Equalization PreShoot settings for High Speed Gears. These
++      values are programmed to the corresponding UniPro PA layer attribute
++      PA_TxEQG[1-6]Setting. Each value selects a Pre-Shoot level as defined
++      by the MIPI M-PHY specification (TX_HS_PreShoot_Setting).
++
++  "^txeq-deemphasis-g[1-6]$":
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    minItems: 1
++    items:
++      - items:
++          - description: Host_Lane0 DeEmphasis value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++          - description: Device_Lane0 DeEmphasis value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++      - items:
++          - description: Host_Lane1 DeEmphasis value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++          - description: Device_Lane1 DeEmphasis value
++            enum: [0, 1, 2, 3, 4, 5, 6, 7]
++    description: |
++      Static TX Equalization DeEmphasis settings for High Speed Gears. These
++      values are programmed to the corresponding UniPro PA layer attribute
++      PA_TxEQG[1-6]Setting. Each value selects a De-Emphasis level as defined
++      by the MIPI M-PHY specification (TX_HS_DeEmphasis_Setting).
++
+ dependencies:
+   freq-table-hz: [ clocks ]
+   operating-points-v2: [ clocks, clock-names ]
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
