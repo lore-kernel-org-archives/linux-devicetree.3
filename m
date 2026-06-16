@@ -1,196 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1415391E49
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 02:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3423BFE5B;
+	Tue, 16 Jun 2026 02:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781576277; cv=none; b=kRD4YTk2V1meljO9rCWVbNzWNt7nKGejEfvevB0t9OL/2mFePyJkxG8Z2ls3jTaCK9i2dI/1WTleH2k5m2iVMxQt3/hhZ8vEdXIAXq9Ur3mcWgKlGjgTv9apylnT54i+rmNHP3a0m+BKmTZk337s4MERjG/kf7YFyaCFAjJ8p+E=
+	t=1781576796; cv=none; b=Ud0lV2esv6A2U3QleMYt3gPStievmKZ3zQn2gsLnHfJXxRZdajgCqUjZ7M5mBFE6qxnSsz8ogsZA6y81pN5M0WHZVWU7t0i3UAzcomeGaA/+iZPy/mCQ7KdaEYp4k0rtIxYGtJWF2WJXrrKevdwwUpThmRgQ7rYXtyOm5X97bKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781576277; c=relaxed/simple;
-	bh=GCJwaC8vD15OnBYO2mXtAccwoXGyYiv2AWM5TOqfphM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YrdvJcJ6sQ+Sg8ER5jFkCPhnyClak5CbC7WS/kCXWvVQjulzuk0Lf94oXNjzsShfUskL4Myue3ProhrG68dSr7uPEOy7u0a2VECSnFnvW5DTXUDhPxEqJ10w3f+eQIzu02TJyE1yXKzHifYskM/ps/vpRNZOa0+Bnb448KNGT/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gsiNeUHj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781576796; c=relaxed/simple;
+	bh=ATo86HR1stCHsr3n7RinhHnOzmXNCQLcpelYiZzE5hU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tGOsnCac4+TyBDShE5RxJf56h2KtrDm7dqngVTa1UXdGaaK2pcXCmPh3cNf9W9sLyrpWUSzjJtuf3DZk6MxTrYmBe4BmZifbUSrggZOqyJsHXrZIuNPhV6JsTGYZkniKkUYLGMcB34MsCPuSu/pXqXELwzkC+9Yp0t5ZvkodPTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=ka1vVPCT; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gsiNeUHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CADC1F000E9;
-	Tue, 16 Jun 2026 02:17:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781576275;
-	bh=Wn6Q+NOyBD6Ui8nzoqSrC8hnlFvlbYLe/kzBl6pqK0c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gsiNeUHj6O/mkzbywCa89rAPr5OtEW2fySTz2wUwa/RwEm8nA164/BhnI40s6G56a
-	 smnZjsQjmTkyor0cenIurcud5N6tuAtWDN5aUKo6rItZgXA9jSFVVQe5oq1t0DFxs2
-	 knUXntmLoMbu1hoyRrFzJnAuPncBPdn80Nustvo8dOemx3VM9MEb2cbnPng4CZGPE3
-	 8DTekPPPhKmIe1YoUUBrFeeKfd61VfZywN/MJdXCdfUVP/IXMzjjgVZVd9EdIeJ6dU
-	 1wkgERT3nXjnpQmdKHLFXBKniuw1386ZdfuA9v6CxCidBFAu4viuKNnz2hpAbKs3vH
-	 ocTQUX7QkT6hw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 09/16] media: iris: Add framework support for
- AR50_LITE video core
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260616-iris-ar50lt-v5-9-583b42770b6a@oss.qualcomm.com>
-References: <20260616-iris-ar50lt-v5-9-583b42770b6a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 16 Jun 2026 02:17:53 +0000
-Message-Id: <20260616021754.5CADC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="ka1vVPCT"
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65FJrWLg1304448;
+	Tue, 16 Jun 2026 02:26:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=DCIToSqAAuUxIjig/P634q/DCSLKGB/gFfwbWdPS+6w=; b=
+	ka1vVPCTeEbWQ5K73cczjxsN64J0fvZL7l0NKJ/cU+0Nm0Lq44ozeVTjjxTdhddV
+	kBftqaFx7P8lioOmrCpAlbGNXPOmAu1EqxoHIZn2Dhr/qBm+6V/g9HrHHw1k7bx0
+	tzRG9P7ZFHtb8Qw/p7gBzf3ctgpOvio8C8m87WK+J0u6wc/wNEPRUKiJJHEWMM4b
+	TcNPp72jxXtj+5nLr1Dzv8n1tWhQHKDE3uTx/1fREnU2DNBxGfTxedH7qvgruNw2
+	OlbTz5Ygs22Bt/6eA0v6wn603fYQoYbNzES7lvfMfkE95GfyeCyIG7GCQ9SzQY//
+	VhZNTFN8CiGMB3+3w2F9Zw==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4es1q7kn8g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Jun 2026 02:26:18 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 65G2NZtA016521;
+	Tue, 16 Jun 2026 02:26:17 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4erwnpnym2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 16 Jun 2026 02:26:16 +0000 (GMT)
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65G2QE2H023822;
+	Tue, 16 Jun 2026 02:26:16 GMT
+Received: from ca-mkp2.ca.oracle.com.com (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com [100.100.251.135])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4erwnpnyjt-4;
+	Tue, 16 Jun 2026 02:26:16 +0000 (GMT)
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        alim.akhtar@samsung.com, bvanassche@acm.org, andersson@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+        luca.weiss@fairphone.com, palash.kambar@oss.qualcomm.com
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com
+Subject: Re: (subset) [PATCH v3 0/3] Add Hawi UFS PHY and Controller support
+Date: Mon, 15 Jun 2026 22:26:08 -0400
+Message-ID: <178157184615.1899010.4839070160759447766.b4-ty@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260526090956.2340262-1-palash.kambar@oss.qualcomm.com>
+References: <20260526090956.2340262-1-palash.kambar@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_01,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 mlxscore=0 suspectscore=0 spamscore=0
+ mlxlogscore=934 malwarescore=0 adultscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2606040000 definitions=main-2606160021
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDAyMSBTYWx0ZWRfX60L7k1Q6QzuS
+ aKbskshzOiKcHLrQdm/6Fkt9t1GYhd2iHDTsntTsiFpYqz0DCoJuY2f463dTIEEkIaWQgfUQDyY
+ f8NRlH/hf5IGudFl3OvfN6ErNW6Qd1bnQEGYnc9gHPTJV+RyTi5s
+X-Authority-Analysis: v=2.4 cv=e+A2j6p/ c=1 sm=1 tr=0 ts=6a30b44a b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=3cHhxUsnBYRNvqWN0XQA:9 a=QEXdDO2ut3YA:10
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13723
+X-Proofpoint-ORIG-GUID: rQ2UVnJdIHqp6t8-CSMC5uIiauQd4Dai
+X-Proofpoint-GUID: rQ2UVnJdIHqp6t8-CSMC5uIiauQd4Dai
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDAyMSBTYWx0ZWRfX3jZYsiqQcEL+
+ UOM+W3lW+fKfYsp4wiBCXIyHjP4doLef3uiu7jfE5/vK/FDdSq1stVcUjC1hIfPnvqAGNNIzWLq
+ 6Byu3qgqBGvh3WYdpmd/Z7KCuR+G15D1pt4eQj0qDSjnWBuin7D8PPpno7Tdxq/l/fOpEuoF4+h
+ c9TJJzB7oG1KvEreXFercvqFAqba8N4w6+N2PEvOGAOVC2YWK/iQUhzy6Ob+/oppp72uaXI1t7k
+ /dXuOuIUVQ530wVY8A+vyLLtSO5+nnmyt1yzB2vBz7reRNX32fmOSlBfqH15oT5J+Ce52dzQ+iY
+ EcYn+MZast46BsN4mDIbt9I8uoQX879L1sQHHgXJc1UYyWeKUjjHm8xfoJNT/v5EMDdeGQpduj+
+ JGfLJLMsVk5NeTXQTuadi7pe1RF+w2ME38cFMG41BR4sbxcUU0De6AfuWsqwmdu5n98mcUgCCHi
+ 4TKowiQIlRxBoQAEocbl6GA70dRvpjpxP2qWY9eY=
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Tue, 26 May 2026 14:39:53 +0530, palash.kambar@oss.qualcomm.com wrote:
 
-Pre-existing issues:
-- [High] pm_runtime_get_sync() leaks usage count on failure in iris_enable_=
-power_domains().
-- [High] iris_disable_power_domains() bails early on OPP failure, bypassing=
- pm_runtime_put_sync() and leaking the PM reference.
-- [High] 32-bit multiplication in VPU frequency calculations silently overf=
-lows, leading to drastic underclocking at high resolutions/framerates.
-- [High] The function `iris_vpu_boot_firmware()` returns success (0) even w=
-hen it detects a firmware boot error.
---
+> This series introduces devicetree binding documentation and PHY
+> initialization support required to enable UFS on this platform.
+> 
+> 1. Devicetree binding documentation for the QMP UFS PHY
+>      used on Qualcomm Hawi.
+>   2. Devicetree binding documentation for the UFS controller
+>      instance present on the Hawi platform.
+>   3. Initialization sequence tables and configuration required
+>      for the QMP UFS PHY on Hawi SoC.
+> 
+> [...]
 
-commit 7269410ec2faaa10691a53dc0ab6c6efcc23fc3e
-Author: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Applied to 7.2/scsi-queue, thanks!
 
-media: iris: Add framework support for AR50_LITE video core
+[2/3] scsi: ufs: qcom: dt-bindings: Document the Hawi UFS controller
+      https://git.kernel.org/mkp/scsi/c/63977ab3c6a0
 
-Add power sequence for ar5lt core. Add register handling for ar50lt by
-hooking up vpu op with ar50lt specific implemtation or resue from earlier
-generation wherever feasible.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_ar50lt.c
-> new file mode 100644
-> index 0000000000000..e084a5b49f2e3
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c
-
-[ ... ]
-
-> +static int iris_vpu_ar50lt_power_on_controller(struct iris_core *core)
-> +{
-> +	int ret;
-> +
-> +	ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRI=
-S_CTRL_POWER_DOMAIN]);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but do iris_enable_power_domains=
-()
-and iris_disable_power_domains() leak runtime PM references on failure?
-
-In drivers/media/platform/qcom/iris/iris_resources.c,
-iris_enable_power_domains() calls:
-
-	ret =3D pm_runtime_get_sync(pd_dev);
-	if (ret < 0)
-		return ret;
-
-If the resume fails, it returns a negative error code but leaves the usage
-count incremented without calling pm_runtime_put_noidle().
-
-Similarly, iris_disable_power_domains() has an early return that bypasses
-pm_runtime_put_sync():
-
-	ret =3D iris_opp_set_rate(core->dev, 0);
-	if (ret)
-		return ret;
-=09
-	pm_runtime_put_sync(pd_dev);
-
-If iris_opp_set_rate() fails, the pm_runtime_put_sync() call is skipped,
-permanently leaking the runtime PM reference and leaving the power domain
-active.
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers=
-/media/platform/qcom/iris/iris_vpu_common.c
-> index 41498f94480e8..d64e7745a63dc 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> @@ -97,7 +97,8 @@ int iris_vpu_boot_firmware(struct iris_core *core)
->  	}
-> =20
->  	writel(HOST2XTENSA_INTR_ENABLE, core->reg_base + CPU_CS_H2XSOFTINTEN);
-> -	writel(0x0, core->reg_base + CPU_CS_X2RPMH);
-> +	if (!core->iris_platform_data->no_rpmh)
-> +		writel(0x0, core->reg_base + CPU_CS_X2RPMH);
-> =20
->  	return 0;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does iris_vpu_boot_firmware()
-return success even when it detects a firmware boot error?
-
-Earlier in this function:
-
-	if ((ctrl_status & CTRL_ERROR_STATUS__M) =3D=3D 0x4) {
-		dev_err(core->dev, "invalid setting for uc_region\n");
-		break;
-	}
-
-Because the loop is exited early via break, the count does not reach
-max_tries. This skips the subsequent timeout check (if (count >=3D max_trie=
-s)),
-and the function incorrectly falls through to return 0.
-
-Could this cause the caller to proceed assuming the firmware booted correct=
-ly,
-leading to undefined behavior and hardware timeouts later?
-
-[ ... ]
-
-> @@ -422,6 +423,32 @@ void iris_vpu35_vpu4x_program_bootup_registers(struc=
-t iris_core *core)
->  	writel(0x1, core->reg_base + WRAPPER_IRIS_VCODEC_VPU_WRAPPER_SPARE_0);
->  }
-> =20
-> +u64 iris_vpu2_calculate_frequency(struct iris_inst *inst, size_t data_si=
-ze)
-> +{
-> +	struct platform_inst_caps *caps =3D inst->core->iris_platform_data->ins=
-t_caps;
-> +	struct v4l2_format *inp_f =3D inst->fmt_src;
-> +	u32 mbs_per_second, mbpf, height, width;
-> +	unsigned long vpp_freq, vsp_freq;
-> +	u32 fps =3D inst->frame_rate;
-> +
-> +	width =3D max(inp_f->fmt.pix_mp.width, inst->crop.width);
-> +	height =3D max(inp_f->fmt.pix_mp.height, inst->crop.height);
-> +
-> +	mbpf =3D NUM_MBS_PER_FRAME(height, width);
-> +	mbs_per_second =3D mbpf * fps;
-> +
-> +	vpp_freq =3D mbs_per_second * caps->mb_cycles_vpp;
-
-[Severity: High]
-This is a pre-existing issue, but does this 32-bit multiplication silently
-overflow before assignment?
-
-Both mbs_per_second and caps->mb_cycles_vpp are u32. For high resolutions
-and framerates (like 8K at 240+ FPS), mbs_per_second can reach ~33M and
-mb_cycles_vpp is ~200. This results in a product greater than 6.6 billion,
-exceeding the u32 maximum.
-
-The value wraps around before being cast to unsigned long, which might cause
-the requested clock frequency to be set drastically lower than required.
-
-The same multiplication overflow also exists in
-iris_vpu3x_vpu4x_calculate_frequency() where mult_frac() internally execute=
-s a
-u32 * u32 operation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260616-iris-ar50l=
-t-v5-0-583b42770b6a@oss.qualcomm.com?part=3D9
+-- 
+Martin K. Petersen
