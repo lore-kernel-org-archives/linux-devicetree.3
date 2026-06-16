@@ -1,148 +1,176 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B4346AF25
-	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 16:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32112477994
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 16:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781627261; cv=none; b=mboB88+3+vcY31cSvOS50oDjfbE8KkpuPM+Yfme2x7tgL+Z79ShuIP+H9ya+JMqqDMeqb8TuxbjSr2/KYQO/RUG1JVxNZiKnkHXNCMZKB6r807ku3SGd4TuIiWiPC6S/tpJLeICKN/fFPGau1GN5saHaTiUjY0ClUryYcWAEiEM=
+	t=1781627575; cv=none; b=GOG26OLDR7xSzDQvCH7dmeLPYwqJkfNqqbhG+TZFvlBYBI6pBokQgRQZ2/uwI29aaLbsMm2D4z+1PorNLTPzCl4QeCid7dNxzs77MdiMtcazIWKRaFOW8LkqiGowbk+sxmi46+lGRZ2O95PBzm1sz8uReH8s2AXo8VMokykkFHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781627261; c=relaxed/simple;
-	bh=kUghcp6LbEAXRYmNtVjn2OnzfDOMmCET7f0ph/Dtj7g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lza1GHr7WQbDYYj7J075jC+vvWgVveqUzjdw487498Cf3WIgL9jl9puKx1odC28LsQln4iR38YzR3vM0oY535+U4UJk6I2X4S4u2pNdLJY8gxCBOT6w1vJ8atBD9Ofgk4XF4EDIpMUI8aGVZG72Q2dVhMaIjSzk4kZM7i5MCmaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UDr+Fszu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QEQIoxqw; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1781627575; c=relaxed/simple;
+	bh=lWWZPYEQrsIsGdAAXnMw9QstRgjLolTF7cGTMEF4YXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CLLodpkfmNWecPAK5u79aoI+TC7TxThLOaMNtB/D4/2tk0HYKTc16CYGRidaYpREm1oT+D1X6wxGbAPuvfK1WjjPSXHJGS8vSdWvw0asJy/OvQkElbVSy1HWAxetjmrhzSQcfdYJ28HmywrjaFV/8yg7JSaomMaW0XBtO9zCRkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ghlKm+wz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i4yI9DLZ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UDr+Fszu";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QEQIoxqw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781627258;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ONTRu09Dr+Ry3nIH2CFE3AeVpsjq5ZCjzHdim5kHqGk=;
-	b=UDr+FszuotcMcCMF+o6ecWBYdFOy33fZViKDMPWK1b1xosXwIj4Wl+EuJl55d9jPWZO0g5
-	hjrdonasKgFYV7e+T6MlH+C6aYTuAr0eZF6EOZX7EmGIy+fjYK4sImODFj63JcZes0IzR7
-	TUV629VD1KDiIBy4+QO/1t77rcP/HAA=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-509--Ked-wVqPYyw0KTamNgQIg-1; Tue, 16 Jun 2026 12:27:35 -0400
-X-MC-Unique: -Ked-wVqPYyw0KTamNgQIg-1
-X-Mimecast-MFC-AGG-ID: -Ked-wVqPYyw0KTamNgQIg_1781627254
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490b9cd54f3so28231155e9.2
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:27:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ghlKm+wz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i4yI9DLZ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65GFepbV4131466
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 16:32:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=HTLmtc9ksI3Eco4GNG31SXnN
+	US7oWeItGbDEBkSUCOQ=; b=ghlKm+wzr3rwcCYPHJJPPl2IabGV0RObc7v3ufHv
+	Af5mdpjw84AwRh4yDrZg3SpfLgkcHAeWBh0FHD0z0HbXdz1N5fNC9k/MBSGSJxYJ
+	Z2iJ5D8JR2YlecMzmtQ7caUkP0MhxI56qJVTW5YrCMK59E0NRjz8QaTEKSJuo29z
+	Qf5GaL89jZK59uwBwfBZHjYlGG8E/O5iy+LogQu4td2ds3oc7q7m9Pg5nhPEtYd1
+	vmdpqekjL90bSW64cEE2Ax7UZGoodtiIkytS55m+XsyGlzKR/ojDXDN6HjvOQLlZ
+	WJPlWseHn3+joMGIsr5VZocLhjov4eRdEowpDtqduzflgw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eu1epaj48-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 16:32:53 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2bf11699875so355875ad.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 09:32:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1781627254; x=1782232054; darn=vger.kernel.org;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ONTRu09Dr+Ry3nIH2CFE3AeVpsjq5ZCjzHdim5kHqGk=;
-        b=QEQIoxqw82riJoFiHRnuFw6umnPPEQ7h4SmDPsgH+ePyThRQAdWWl94Y2eYzh4/W58
-         QYdnxevbF5K3bTkqun/bkOt3SO4O02C4dPTb4EPtgm2Axyq4QMiTbGxFU1ZhXVDbgLzl
-         DJ0Mvxv6kAaM1t19YaS3NR7hqP2DyQ76hZIWd2cl/lnSYMymAZl14UsQTID/hGxcmPVe
-         mCHQR5Ci/Dvs4LgyOCyBo7a9TP6DU2jtLxLZ47SqugR2Lr4ilceblUqCI56aE8qN0cTP
-         C9am/U8KQjPvEsXBuv3zYOiLM4WA/Ua7Zmrs5O7TCqa4dC3xHwSw5jh7deVsHqqag+PA
-         02vw==
+        d=oss.qualcomm.com; s=google; t=1781627572; x=1782232372; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=HTLmtc9ksI3Eco4GNG31SXnNUS7oWeItGbDEBkSUCOQ=;
+        b=i4yI9DLZigSd6Rh3PyiPOd2ptzLWHYvadcMSJE1uXY/yUawfFtSvwSiK1JwGA6P/Ww
+         aP3SmXssyWl3kMW++5/yaCDix9U/YBQM2Uu2wT/6MTQLEv/Cjfs6H4RxuorGEg5rThO5
+         6FrBR3wUKZaseWeX87+1jyr6u+Us5uD2/drACPYboipxnPaf2IuIrgdbbS/LkqtbtC0Q
+         G/RrC07v+ZQhgsCE9Y0xXPLMXzMfDAabeO3CAr1zW7SnFW/GdCJTgfUjsXZvN76LvVCw
+         A7r1Z0xm9Vme+rxx6a0fQg1irGzl6DHXZp45hsaMceF+0E2CA/JA4Pr3y64zVqB1fdSz
+         UQjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781627254; x=1782232054;
-        h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ONTRu09Dr+Ry3nIH2CFE3AeVpsjq5ZCjzHdim5kHqGk=;
-        b=cW6de7JnizP1TiMaTkpo7YSU6ImPt6N/NUF61Wyu2XiwsJXkjlYuXRpnbM8p65yYhU
-         Z7eTcAA7lH+YzBTJnN0omD88p5YuXvmlR1l0cbYiVTCyq1mRBupLbzHERP+owJV/C9Df
-         iDQvvFKFYgkWJBM5GgtDv65hxGgNGySQJWHpyNhvW5pTUbQMm8aqUxhPtyTquP9XB7vB
-         NQxa//U1hGll3FwHVDiZgS5cXUyA+3C0MYoPVlY3nBaosBbF10e0EyZNZAwnIj/MR/8I
-         h3w4lk5YbdPu6VGvv5x83KchebHCkIDcSszrZXLkfp8z1tZbNm9147cmf6UKw/P5woP1
-         T8ZA==
-X-Forwarded-Encrypted: i=1; AFNElJ8n34PvmmypepgApQ8exSlJF9APjzLjxT1EX3fZ8M9+A4JwO22xWYDfaHSbxIvFSKC8T7aT4eFsC2Ei@vger.kernel.org
-X-Gm-Message-State: AOJu0Yziu2opFGwTZyOxChTAg95HNvhQbnj/9i8AplaAi/dHk9Q3AY2f
-	ThD3ekORgdDFUWk9Mn0twzxqo34l7TJtG71nsaHKDJ0YKDr6dkk58cAOtGuf3EUCBqkCOgH+hiP
-	XuQ8ChY+krI5HsaUFX9SrB4fJl5clfpCpOxOmiCp51TEALdTWbuh+/F6gIb2BNQGzSjb5Ykk=
-X-Gm-Gg: Acq92OF70pr6mgJBfA36NYR02RK4dCg1t+3I7WtQyt1eSwIcZydeWlskpcJxTFjaFjF
-	4grO5jyJVNM/Yv6zIs7XYfQADLbNMP20xyWF/3tZ8aNint+40yra/htOHCJNT2X2im3gu1pNRhu
-	jnD66XnFF9767J2uS4cbaZS18E8UqyJSq0Ril22TW3s2lypzFZSoDjkECJfR/MZrfrTXQxeGUHL
-	166sfbiSTNJKRDB67YGdQl5dLIKanbATH9zzZNCY4Wa7f1zMn3OJlCREX+x9GBWSbVAdIUKtwDd
-	NAqCmcqOx2G4aFkMLjytbJGpMZ1qU6N6+Ht2Lo5f69mY915QKOMYmDWi/ptBVGLbvHjP6Nn9qG3
-	Y42qha23O1UNmOi+SyA/WJxIZgcrbNFPHt2Px8gxT901FfRZ/eNMOrzDsyarUP6MHtExRdO62An
-	n1j66R
-X-Received: by 2002:a05:600d:848a:b0:492:1e36:bb04 with SMTP id 5b1f17b1804b1-492333f84acmr2657325e9.37.1781627254323;
-        Tue, 16 Jun 2026 09:27:34 -0700 (PDT)
-X-Received: by 2002:a05:600d:848a:b0:492:1e36:bb04 with SMTP id 5b1f17b1804b1-492333f84acmr2656865e9.37.1781627253899;
-        Tue, 16 Jun 2026 09:27:33 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d275sm2513344f8f.2.2026.06.16.09.27.32
+        d=1e100.net; s=20251104; t=1781627572; x=1782232372;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=HTLmtc9ksI3Eco4GNG31SXnNUS7oWeItGbDEBkSUCOQ=;
+        b=sXLfoP7nm/p+kX0naZYWQtGBu2FxCujALIFXNLV2wvAL5HnFGsx2A418BujKz5EFmw
+         Hm2gIbZy7s+dsLMYOIdultv0NykNxLJp4UBc4sbC+QixBU8BqeZrzngqyPdR8dFChmqJ
+         FlCZcV49FtWNO8nl67hwXaZW0WqDqTn8eW9QPuu+YnPNN3KprvYoC2fY0hrKcioPgQV7
+         BEhh3qWdM70pw/7LmEm+wF+r6fJFcCRZN020XmyLMFXpFLHrfM4QuUtHmostaVPWz4TX
+         /B1g/nMLNQztZG5NSHH5pG//1iGOOJZOppxJjWHAi1QYc1V06Wn6nlsjis3biznNBwvq
+         shxA==
+X-Forwarded-Encrypted: i=1; AFNElJ+ifiq551FuSiPjXRpdEnIV6jk5n6HCYBLDsgrAjI/urxVgfLBiXRhP9qMHjRsVp/NRg7xXvaUIkBXx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjkDc8pYQSto56lewdOfJxGG4mrduMJzhBdoWehAodi4azKVt8
+	3DEs6tznm1ceGVyAmrGBp41lRuRdiXsS0OBKYfalQ3tlDIn98GNFR8LrX2QNSijjw+XGXoBKJx/
+	EojMJ5I7gQiXxionYBOxsWvqUcWI4GG3/zJDpM3mlTLArsXqxltbZkj7RZuopi/z1
+X-Gm-Gg: Acq92OH4ef55EImdkrFFhJdLJJf0HMa/UpdhFInEH9O0n6AhL05/2HZf+yZnH3S4U5y
+	zN/JCVUCdgkTU0/qh8q1QjS2pfzzcTQberkpZaDhXcamf1fB+XKCitUEele68r++9VWtAtzL3RM
+	x2ks+M2JGFR8qEVtgTa9Jxs4X6kMehprF2JFCZJyDvblNb2AiLJAgPnfZ3BEoWvLxjWBqOgVDfC
+	HvUztUm8AROVGSyO9OLnq43nT0DblVzTgH+6u3bpadJgHfRPDdeB6HxnjmcFSUic/QJnpofbvr8
+	CeU/KgMvdqH8Ap3dC1W+Cf93u30ObUg7zwFa6x0HlGN0cXb7VRpw9eWVrk38JaA5TvTwsr780GN
+	/tDVTTmUaMkykyeta9i3NELDY2dXt+4lnDZw=
+X-Received: by 2002:a17:902:8a93:b0:2c6:6425:b343 with SMTP id d9443c01a7336-2c6b877e63amr1906415ad.6.1781627572066;
+        Tue, 16 Jun 2026 09:32:52 -0700 (PDT)
+X-Received: by 2002:a17:902:8a93:b0:2c6:6425:b343 with SMTP id d9443c01a7336-2c6b877e63amr1906225ad.6.1781627571526;
+        Tue, 16 Jun 2026 09:32:51 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac72asm145948035ad.38.2026.06.16.09.32.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 09:27:32 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Conor Dooley <conor@kernel.org>, Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de
-Subject: Re: [PATCH v2] dt-bindings: display: Add Solomon SSD1351 OLED
- controller
-In-Reply-To: <20260616-nautical-obstinate-a92fd80ef483@spud>
-References: <20260615175620.88828-1-amit.barzilai22@gmail.com>
- <20260616-nautical-obstinate-a92fd80ef483@spud>
-Date: Tue, 16 Jun 2026 18:27:31 +0200
-Message-ID: <87a4suzc0c.fsf@ocarina.mail-host-address-is-not-set>
+        Tue, 16 Jun 2026 09:32:51 -0700 (PDT)
+Date: Tue, 16 Jun 2026 22:02:43 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
+        netdev@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix RGMII_ID mode to
+ use DLL bypass
+Message-ID: <ajF6q5eKz92ddqVl@oss.qualcomm.com>
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
+ <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
+ <ai93X/cNWHtEQsDt@oss.qualcomm.com>
+ <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
+X-Authority-Analysis: v=2.4 cv=I/ZVgtgg c=1 sm=1 tr=0 ts=6a317ab5 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=1fSEK5Xs-BiMaI_fvDcA:9 a=CjuIK1q_8ugA:10
+ a=GvdueXVYPmCkWapjIL-Q:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDE2OSBTYWx0ZWRfX97OnyyKSxswa
+ OE9G6DCKuFgAR0YX05+OLWrH9RaprrE38OasqD/nhY6K0b/PKSQH+KoSAnPMY0y+8v0X2jhPN2M
+ jJndkRXIOrnnnC34TOuOzqwedRpDdyM=
+X-Proofpoint-ORIG-GUID: H9v_7RpLzFLv-LopxYlig7U85s033IjQ
+X-Proofpoint-GUID: H9v_7RpLzFLv-LopxYlig7U85s033IjQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDE2OSBTYWx0ZWRfX5xtYtu1EQGb1
+ 402svmEV0Ry9aB4XFuEeL4n0nofVvoHot4jZMFIjcegaRL2WkE5TB9Ru0P22du66c3KEMAWFi0C
+ rmWXzdqn/yBMfNzmz+RrUqBaFUzDQQi0/2xm/CoSPTEGEHFYn6Dpy14MIZfAwzHSccv/EQtVNdL
+ iidJjiqKyQoE4JrzzlhKMT9MowFu35/PfU8xE6DSp1/M2ySxhI2Ak9alDL3sIzBZmI9e4But98I
+ cQym9SKTxXDNfVtHfInWI/VgcIMMpO+sGRr2oxJBm7ekwWZslBUegPVnch1JhLEF4t042SPxLrn
+ b5HHKK4AJ/g6bwyXJJh3nwsNGagJ25oOefKsg/i6holosU2Lxesp77jDThFznGnLHAn8OQue2Gg
+ FonFMefQ78c/TTlbCG7J3QfxvvBdjcb+Fop/sYvvGbQEexGivsI8XNMehgoqniRAd8tnuk6yZ48
+ t/d5REIVlnxWzgL7/0Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-16_05,2026-06-15_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0
+ malwarescore=0 spamscore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160169
 
-Conor Dooley <conor@kernel.org> writes:
+On Mon, Jun 15, 2026 at 06:48:55PM +0200, Andrew Lunn wrote:
+> > > I'm curious how this works at the moment? Do no boards make use of
+> > > RGMII ID? Are all current boards broken?
+> > 
+> > Searching through the DTS, I found that we have two boards using "rgmii"
+> > (qcs404-evb-4000.dts and sa8155-adp.dts) and another board using
+> > "rgmii-txid" (sa8540p-ride.dts). No board which uses RGMII ID.
+> 
+> So this causes problems. We cannot break existing boards, yet it would
+> be good to fix the current broken behaviour.
 
-Hello Conor,
+I am trying to track down the sa8155-adp and sa8540p-ride boards. The
+EMAC on QCS404 is extremely similar to QCS615 Ride [0], and I got that
+board to work with this series (with RGMII ID mode). So I am fairly
+confident that QCS404 would not break (if its even booting up with the
+upstream kernel currently). Also, I think we could change the phy-mode
+for QCS404 to "rgmii-id" from "rgmii" if these fixes go in.
 
-> On Mon, Jun 15, 2026 at 08:56:20PM +0300, Amit Barzilai wrote:
->> Add a device tree binding for the Solomon SSD1351, a 128x128 65k-color
->> RGB OLED display controller driven over a 4-wire SPI bus. The binding
->> builds on the shared solomon,ssd-common.yaml properties already used by
->> the other Solomon display controllers.
->> 
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
->> ---
->> Changes since v1:
->> - Drop solomon,width / solomon,height: both are deducible from the
->>   compatible and are already declared (as optional) by the referenced
->>   solomon,ssd-common.yaml, so a local override is unnecessary.
->> - Drop the rotation property: it has no consumer (rotation is being removed from the driver).
->> - Use dt-bindings/gpio/gpio.h flag defines in the example
->>   (reset-gpios active-low, dc-gpios active-high).
->
-> The user for this appears to be in staging. As far as I understand, the
-> policy is that we only add bindings for staging things when they move
-> out of staging.
-> Sure, this is straightforward but why should an exception be made here?
-> Are you working on moving this out of staging?
->
+> It could be the best way forward is that you issue a warning when
+> "rgmii" is found and pass rgmii-id to the PHY. And you also change the
+> two boards to use rgmii-id. Lets think about the rgmii-txid case once
+> we better understand it.
+> 
 
+As Konrad mentioned, it would be great to know if we can test out these
+boards. Looking at the different versions of the ETHQOS programming
+guide, stopping MAC side delay should be as simple as what we are doing
+in this commit. But whether the two boards work directly with the
+default PHY delays is unknown.
 
-This DT binding was part of a series to add support for "solomon,ssd1351"
-to drivers/gpu/drm/solomon/ DRM driver. Amit only sent a v2 of the binding
-schema because he had some questions about the driver:
+	Ayaan
 
-https://lore.kernel.org/dri-devel/87cxxqzwxn.fsf@ocarina.mail-host-address-is-not-set/
-
-But yes, I agree that it would had been better for him to post this as a
-part of v2 (and I still expect him to do it), otherwise it is confusing.
-
-Specially since as you pointed out, there is an existing fbdev driver for
-the same device in staging.
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+[0] The proposed RGMII fixes would help enable ethernet on QCS615 Ride
+as well. I see that the original series had a lot of issues:
+https://lore.kernel.org/all/20250121-dts_qcs615-v3-0-fa4496950d8a@quicinc.com/
