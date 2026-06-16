@@ -1,131 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AE830FC23;
-	Tue, 16 Jun 2026 08:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41E639B943
+	for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 08:19:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781597152; cv=none; b=hOTpP6JfTkZrsEIBWnZ7TPvpSWqS0S15O7mNcQojE1EsmpqfZhItqlpw3dWHbYq2ta4Q8K5KoAzOUMdbyD59iMmjlxW2wRVFrRrfVqo3sLat55UNqBgz7mF5F03tkJ2Kud75iyMtx57h5bwybBKa6Fxrbgdd0TLeFAlFOuwo2fg=
+	t=1781597952; cv=none; b=oxj6RyRq71wVEm4qhGkVuJJi7gQmAFxVIMvTjfaisIGEqpXmfdQJG9cEAt7OAEYe0PIPHzFfq3BhT8JglSpiA/8p9ZQu8rhJ0Fg27f8Mv9R7CeL4rYHqoRxFG7nPd27NIVO0b09pADL5AjBG1UbtjQcvB+Ivh2If7R9VcOZvWwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781597152; c=relaxed/simple;
-	bh=OWnfHZ9uCqT3W1rWv+BSW5bdc64TFnh6U2o0E2yve7M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FrBOZSYYt0rhlDs+/nH0mCr8GSvgJRENW/2TlZ+XGRhA0N6da6a5DgwDMLlHBHzEt9S5xff9Ouf+F22DGrIJHL0PhEqdWAyXfoy0953VRWdQWlul9PZlodv6HV8DTc/GrLdgIymTF+lysw9lPTmtKSynQ2LZi5OBxy+nB433vR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dkel8dnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781597952; c=relaxed/simple;
+	bh=xYc99uvXLsYWScO0EmNoWIRKvKiJpOTShn+ZEKrkN1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GwXhdlKPCCuMNZgnykXdOmSW92qB/45HWNZn7HatDhR2yDY+ioRFR7KgzcneO7VkUwHK2aq5GTUkP05DYVM65wMTrA/lk3rt0TuaXy2CgCrUIUp/54o1PxKG+qwxxjDYcnhIJ+153/D8KuhdGtFzcILGjVfDXbuLdCC3YPmhsTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NmruZcyp; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dkel8dnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D8B1F00A3D;
-	Tue, 16 Jun 2026 08:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781597150;
-	bh=cNE/K4rZg9p3MJXXQgsd723Fg9kfYPxODqy7V63Jjw4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Dkel8dnTvVvTyUH04au/v3AsPxdokuN+fVHq4HvWUeaLdFh/E+Q68i8cW3Xmy/Opv
-	 5DElrCLMnHOaT8HYVws9uLxquRz9Gzvxy1XGR4PPmIJOLFM91Jxv5z70CVdUfDAubs
-	 ulafviN8lLJuVP8I94Cx2uTTlvjFW34pe3rEkt3573leNrfpeKFQiUQ7FcywH5lxmD
-	 seuYuR2AsJ/HZzv/WTr2/x997T+m2WAm4sXPfpsyLmSlMAhVh+QpdMVKKy8tohyyaD
-	 Ln7XmitqUu8gQTYpj5yNkuxnLbjnzYmXtBLFVGLJZpZydvGQ54+hk95IaMttfTUC64
-	 EVgP6zT2cXeMw==
-Message-ID: <68ead37a-44d1-457b-ba8a-b2a895ec68c3@kernel.org>
-Date: Tue, 16 Jun 2026 10:05:44 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NmruZcyp"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2c0c3543590so29264695ad.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 01:19:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1781597951; x=1782202751; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PhNt6MHC4AegleV/WbvHUk1ZYZMA3NIq1ay5U/dxpKQ=;
+        b=NmruZcypNSsJastH8Y2pS4jNwmS1sFI7xh8KKStePYGaHsHMlpTy6v6t5pyvxbe19E
+         o5f1t/nmgV3dIew3YjJNkQfJ6YdAMQGArhvN0Hab5K00Os1cbmNRtVvMt4jPr2nTEVHv
+         RNv2HumhiaOqDsQ1HN2Oo18kjXc8PmAtWk3PqeObcBcgAqxYB5TC/4BLKRw8RymqUs7O
+         e48kt2+42I3OboijgOcNVXJZ+dbqWSArZWmZ1xb02L1NSoLWHvdM4rNBCu011Dk8gpzx
+         yN9SQLVUXLb1U2HayVyFb09WXlIjNmScGnRL+l5w6UazerL+7e4oxMkL1/W2RIgnB1db
+         J8KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781597951; x=1782202751;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PhNt6MHC4AegleV/WbvHUk1ZYZMA3NIq1ay5U/dxpKQ=;
+        b=eQ+KuMw5ImQz6VySsEGBME+ZLKh/VbR1lGsoA0s0+8neaJ/+HcYYXYfHKg1I6gtB8Y
+         G9HqsdOs9XYpBAejSQRKeOySCLDfbJTaKRurBo+WzBnlN7x3VemgwTUwPNw7Y3yOQ7FK
+         B92eqDgzstYHO6cqprC2UijfP2gaD4bDhEnoVNSoyYMcFLPuOdC0V5Relb4bER72mEGV
+         S8pHdaG7/Mqc/tu4g4jWlj16mq+Witg8pFmU7Kzzr4DLs22qrT91p5iD8NczDt6l0U36
+         rYRI675qSPdShr0SFtOSZUEwbLF8ETLnwBjJO0Oj9LPYykzd+gslCNvXWGGAPl9TzQ9C
+         BrZg==
+X-Forwarded-Encrypted: i=1; AFNElJ+HJ1atvalkuKy0SfZVhYx0sQhHGBegjT8p9QXO86qSZW0DeS68PLIrsbRyvY3tYdlcpfKhWQV3X/HE@vger.kernel.org
+X-Gm-Message-State: AOJu0YytX3x5VqUlpGoqHCq+uvcryThjDbLN2hV5IW9A3MqdrhvQc1wg
+	SWBR/BH6cxOTx0a5j9QtQfsLdJ07nsm+ixmGVX5wERJ4XrtPlyeXELilN9DM53tIAd8=
+X-Gm-Gg: Acq92OGkgQUAW6qsTlRmEwZpg29/+zlu3hterqJIPIDAZNmoZF8ktzCeeYSf4OEUZzj
+	6+l+KEBDeyBd75b0KCC3ZUbnBDZ4ahzBT1raEwsCBeaDgdfWmlPhaiTalQGeHMeau0XhL5yPcH3
+	30GI0T5tF/9gVH5nI0xsPyViOgYq2EyY2bQNRAUnFTZVmFWDVNBQDyQb7pkoX8wi4sbhtXhIuLw
+	kKjGeEwUtKporUQdzPVtbOB6v2e9NIZ6iAerP6+3TavKXtHF3C4fSyupkc13yme13HSXxCqukDr
+	xti9u55FAw5o44kkb7GOxU+VxA5kR7sUBh8uFskD+GddxLRVY1gnYaPX7w+Yscs/05fDbk4K/S9
+	ThUdYbbL8X81MHd10ODq1xJsmJeSTBNCoA9qJFxGVKiPqHpmXaXXUk2IrIqiFMpFg9NH5kxMvrN
+	+O68Wrj+QtpKl0Yk5f84zJPcc=
+X-Received: by 2002:a17:903:3890:b0:2bc:b80f:677e with SMTP id d9443c01a7336-2c69a1965ddmr27832715ad.25.1781597950906;
+        Tue, 16 Jun 2026 01:19:10 -0700 (PDT)
+Received: from localhost ([122.172.82.94])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac631sm124267105ad.44.2026.06.16.01.19.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 01:19:10 -0700 (PDT)
+Date: Tue, 16 Jun 2026 13:49:07 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Shuwei Wu <shuwei.wu@mailbox.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] cpufreq: spacemit: Add K1 cpufreq driver
+Message-ID: <nffvtnb765pa72xcfhmxe3wepxpld3e6265s7imvldbwounkzk@jmrrhtrwau34>
+References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
+ <20260612-shadow-deps-v3-1-2f3ba88611ff@mailbox.org>
+ <bd4s2icqgusnuujvrpoag4cniy3g2e4bumecqxt5yffl77aqpq@kxg4dj4c2wk3>
+ <DJ9EFPG561VZ.1WGRYYHJ2W9J9@mailbox.org>
+ <wjwkykv555gkeqxabsqcdfn4lomcopawsv7bgm4bydc5likhjs@p3ca3p7wbri5>
+ <DJ9M2IDYE6XZ.20RN5AFBYNB9Y@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: mfd: s2mu005-pmic: reorder reg and
- interrupts properties
-To: Kaustabh Chakraborty <kauschluss@disroot.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-leds@vger.kernel.org
-References: <20260616-s2mu005-pmic-supplement-v1-0-41e84518b711@disroot.org>
- <20260616-s2mu005-pmic-supplement-v1-1-41e84518b711@disroot.org>
- <7dd8dcf3-5aec-442a-941e-7564936befa9@kernel.org>
- <DJA938R30SZG.7WGSHHZHP07X@disroot.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <DJA938R30SZG.7WGSHHZHP07X@disroot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DJ9M2IDYE6XZ.20RN5AFBYNB9Y@mailbox.org>
 
-On 16/06/2026 08:13, Kaustabh Chakraborty wrote:
-> On 2026-06-16 06:14 +02:00, Krzysztof Kozlowski wrote:
->> On 15/06/2026 22:26, Kaustabh Chakraborty wrote:
->>> As per convention, and as also reiterated by maintainers [1], the
->>> properties in schema is to be ordered similar to how its done in
->>> devicetree sources; starting from compatible and reg. Re-order the
->>> properties in this schema accordingly.
->>>
->>> Link: https://lore.kernel.org/all/0240eb13-6c56-4879-8db7-b990a220a78f@kernel.org [1]
->>> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
->>> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
->>
->> Honestly, nah... I commented on v6 so you change the patch. But you were
->> posting this huge patchset faster than we can review (v6 and v7 posted
->> on the same day!), so v7 got applied where you did not implement the
->> comments. One small posting per 24h. One big posting per 2-3 days, not
->> more often.
+On 15-06-26, 20:11, Shuwei Wu wrote:
+> With two cpufreq-dt policies (one per cluster) and these ranges, neither cluster
+> blocks the other. Tested on BPI-F3 and OrangePi Rv2 boards, works as expected.
 > 
-> Fair, there were a lot of sashiko reviews, so I quickly addressed most
-> of them and send a v7. It is indeed a failure on my part. :(
-> 
->> There is little benefit in fixing this single file.
-> 
-> Fine, I drop the series. I'd assumed it'd be at least fine to have it
-> before a stable release.
+> Does this look good to you, or would you prefer a different approach?
 
-I would ack such patch if you do it rather for multiple files in MFD
-bindings, e.g. all Samsung PMICs or even all files. Otherwise it feels a
-bit too much of a churn doing this file by file.
+Looks correct.
 
-Best regards,
-Krzysztof
+-- 
+viresh
