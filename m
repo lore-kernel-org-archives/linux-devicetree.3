@@ -1,211 +1,247 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011016.outbound.protection.outlook.com [52.101.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C0F380FDE;
-	Wed, 17 Jun 2026 13:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.16
-ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781703787; cv=fail; b=RmuX/8JKwOsCSZpEhyK4fGNUka3BzCPTqWctq6Himov25zdlSBQQ+Fu6Emdw3YhL8372XaSHXVShhG+LCJvdk2pl1Nf9SKKM68bGwUWvxu3Zwm1ZN2YpWkTNE3yF0qptW0AROD8JJRA2xu1zSnGMl4NjqZM82qFqVA3I5CUfens=
-ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781703787; c=relaxed/simple;
-	bh=bKJqmB8T9NUFI2ZCmFoZtk4bGEdKE0pWELaOk76jYIQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=CIZb4JDuymCi7EIKzBCxLf3r2f014Z/W/B4Ph5F4UR9tI3Zp7kDlgfC3KMXB7zQTiKPuuHCIqolvwsm6Y5E30OwAv49jQqZSzUQ4GnYn/g1yFmB4Pmo3X/ug98Rc0exA4nsjreCXxHiVZefh+8/Z9jt/+YVEZGBDeuqTM07DLtk=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=K56XyMku; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=K56XyMku; arc=fail smtp.client-ip=52.101.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848AA2E5B29
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781704208; cv=none; b=ZNkqUgRtv0lUVB8y1P1xQ78jzm8qV0pm1DrukgdPd61cYi5aXLr1dB06ZnC7IY7pfiFbVOKdcgsgyORAOfbOfW50oir23yVU0odXbIGZ30ZxxPCXHwi3n4HtzmoxXjAiNCUh3n6yr8KGgYVD1zIOYvOX3JL+aPmIo9AFyA6RZG0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781704208; c=relaxed/simple;
+	bh=qpznpDvTavb86eld76Rk9ajBvLIAutQFKvl0Rmx4Jzs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pRoYnLMmN7J1IvUptKGZJ0jkqJ6Ryj9oieLUFqfn4XTTLksrj4jwCmTgyBG6eDBC366qCf+t8vgTdRLrhOmS1uSxiYRt2dMLSkTN/XOCosjgS1rR1Ib7QzD10lZkoQZrJW4Rjtxwi+ZpmlXl8jshzUJBPFpGOokUWuA2D+xgnKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dq9YRoVu; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="K56XyMku";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="K56XyMku"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=SVzzBXkvvSYb4VCmNI6gGYlLAiyH09KMpYe2C/o58lhLy2DrjpkT+CDySa3BMy/JjSuizcTXJwqCsOP3/40AOkum9jvSrGO1Ysd79Ng0uRAiIsMa7Hh8DdM3ENUUfHagzXtBMLfQfHQjoT0SV60iVsB7u+uSAaimbnOUmoix2vnY2lunAiY39c5sjIAn6cXuJ5A8PH9Mcs2ZX415mS7exT6tq6tYGp03k1KAbFdaa+Vt1xS+Yx4Z2aAGvS9V3yR/BsPKz0NPRCSxUUX86NU51E7XHM/qZW7D98HgN00LDN/crrdTppmygGCOCLeRk10Evh8EPNi0Xy5/TZVWmhBmxQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lAPVz2C6xbautcVWwtApKAUZmIdNdR2PVzeZ91Oyg2c=;
- b=d/5WjW1eLNYWsqQ+1qU+BAQHY/DXcHuH9VvJ/nBeZ+GoXXM2iUNuJq9uOAWH3Mgs/3cleK2TMAiMaCBvY2NQcDoAP/biC/ZekjOmkXGVz0Qo6oz1y4dix5LmrcV1r41ceMYxyEcPdLuGhvMWaSoyy0Ar3RLwgqxRRifyklSsZmV3K3QjwJNSi5PDOWdsd+ej5TMCtv7UQVVjp5k1KPF5PEznTxhz2JW6j2aJ74sLTwF1l7YIrVtudNxOwFiPc2oxpwRM7lDkQzqfD7jH32dRtOYNJ/3592noCjzLqZHfZQt4AyRKv6r+kQtX5xTeldPVd9mTsaDX7ReC6w+UxVrfxQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lAPVz2C6xbautcVWwtApKAUZmIdNdR2PVzeZ91Oyg2c=;
- b=K56XyMkud3p2BoVa9b7USj7PtIVM3IfxhkI7K7RqB1eLZktZq+2iFguhJX0ulRWgHuA7m6VAFrIRJcqTEruoaPnxH76bcJWfPxSCaYTm5ggteyc4J3ZeLj5Wlscl5eLFbstWBPhscbaPvVXl6CkgmF1/G7R+duHc9wIa3zyJJPE=
-Received: from AS4P192CA0015.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5da::10)
- by AS2PR08MB9869.eurprd08.prod.outlook.com (2603:10a6:20b:596::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
- 2026 13:42:59 +0000
-Received: from AM4PEPF00027A5E.eurprd04.prod.outlook.com
- (2603:10a6:20b:5da:cafe::57) by AS4P192CA0015.outlook.office365.com
- (2603:10a6:20b:5da::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Wed,
- 17 Jun 2026 13:42:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM4PEPF00027A5E.mail.protection.outlook.com (10.167.16.72) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.8
- via Frontend Transport; Wed, 17 Jun 2026 13:42:58 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gd1VzqKtXlXh2wqE6LTQTGYP8jaU0mJlo3OFxmxt3ugMXvDbdfC4pXoJuvNc0QxxrqF9w/rwCaTl1vQeqpcDBsQK4TIGFOIY2rivvFuIxoj6LXmkriRLyvS0KTlLsuBsvTuf78C+RkqShyqPTOxNJP5i3x73Md0+phnrUEYg26ylDaX/7WYhEbYnf74dbfnBdzxLJfNg16hGd91JUOMvHcKwln020PRhsAs9l2QzXrqPZ7B6L5B3KDa+X5yKGff6xtI4RFaPsdX87J2agtPUWoKH+3i0RVvo5NEJgyxDTn8e6BQLEUZbf1TBWRUOIt2LUcsxMvMHetbmGy0uZEJ3eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lAPVz2C6xbautcVWwtApKAUZmIdNdR2PVzeZ91Oyg2c=;
- b=VDjHjNiiz9Rl81ZduCmoBsENpBEEn/+VKGdLtVxx467xNc5jE27hbBC7hs7mGm4157Oja4gYkkA2kPQhEEDgOIyCm9IGJcoJgKWjj/Mt1qY5A1IKJHhvHBTJR0zqsumxiJzHiUSn9TbkvW1z8qAZj4rk4xeQb+/K40wCqSTviZhEhs9+xa7/ssum3xtp0wKg2bzc2N1vW2KpHmCFQXRTfdun+IpDkzmoomgXlFokEkVmoPXxjSZlO5y1xIuz9TKmYTllatbHl7J4URCsFXy2Z5PPFWHRc6HuxUmGC6ownf95TOmYQu1HfnPpOJh+Fi6mJD1JHI0er2tzFXflOcG/bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lAPVz2C6xbautcVWwtApKAUZmIdNdR2PVzeZ91Oyg2c=;
- b=K56XyMkud3p2BoVa9b7USj7PtIVM3IfxhkI7K7RqB1eLZktZq+2iFguhJX0ulRWgHuA7m6VAFrIRJcqTEruoaPnxH76bcJWfPxSCaYTm5ggteyc4J3ZeLj5Wlscl5eLFbstWBPhscbaPvVXl6CkgmF1/G7R+duHc9wIa3zyJJPE=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI0PR08MB11823.eurprd08.prod.outlook.com (2603:10a6:800:324::5)
- by DBBPR08MB10461.eurprd08.prod.outlook.com (2603:10a6:10:535::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
- 2026 13:41:54 +0000
-Received: from VI0PR08MB11823.eurprd08.prod.outlook.com
- ([fe80::694c:3790:be1a:8ddd]) by VI0PR08MB11823.eurprd08.prod.outlook.com
- ([fe80::694c:3790:be1a:8ddd%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 13:41:54 +0000
-Message-ID: <d480a8f7-fc0d-4c23-be7d-4ea253d3c264@arm.com>
-Date: Wed, 17 Jun 2026 14:41:50 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/10] dt-bindings: firmware: add arm,ras-cper
-Content-Language: en-GB
-To: Rob Herring <robh@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, will@kernel.org,
- xueshuai@linux.alibaba.com, saket.dumbre@intel.com, mchehab@kernel.org,
- dave@stgolabs.net, djbw@kernel.org, bp@alien8.de, tony.luck@intel.com,
- guohanjun@huawei.com, lenb@kernel.org, skhan@linuxfoundation.org,
- vishal.l.verma@intel.com, rafael@kernel.org, corbet@lwn.net,
- ira.weiny@intel.com, dave.jiang@intel.com, krzk+dt@kernel.org,
- catalin.marinas@arm.com, alison.schofield@intel.com, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
- devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
- <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-9-2e0500d42642@arm.com>
- <20260529174407.7081ad0b@jic23-huawei>
- <ceb19cb6-7083-44ad-a262-a8198f489257@arm.com>
- <20260612144910.GA989816-robh@kernel.org>
-From: Ahmed Tiba <ahmed.tiba@arm.com>
-In-Reply-To: <20260612144910.GA989816-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0047.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::14) To VI0PR08MB11823.eurprd08.prod.outlook.com
- (2603:10a6:800:324::5)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dq9YRoVu"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8422f148dfcso3438180b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781704205; x=1782309005; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=v8p3qTBw4ely1JdACaWOk7zKQbPvRPDs6QhiejnidQw=;
+        b=dq9YRoVue2GGAEB3h9p2el7RJIPAeQRhATG31R5UCGgkjKMTwSb6it2g70yDoOGyJp
+         aDKDcOAUPdcz/heK2jP+KTo2p1Jjj8eq85nSoi3fWO8IbiLhgFtFSdcYDFxrztYEz9nA
+         ebqEcbNmYnlO3GtH2sRHjET1dFeytFttXh4s1MO4QuiAYmrrT5TCoeMgnzdu92cfwJVo
+         /ua0iJStoGHKQya5NhuuKoOFKTYQOp1Qn5x1UDw64LKJE3awh8etJR+2FMTkBWbLUFy6
+         S96zzjmX47MUta23a5TLOrO6cbe5dQHsiWdgrgkz+we53kdkBdQMOLVH1pcYDEyr6KZJ
+         3r8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781704205; x=1782309005;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=v8p3qTBw4ely1JdACaWOk7zKQbPvRPDs6QhiejnidQw=;
+        b=rEeqk8a9elpiRPrLIVd5SWgs8ZsqTsZ/hVPB7LdMoA4Fp39NHGlWq5qKxv7ROxPYL4
+         m3I2GgQWyME6/Ki6VpSkDwvC5GrMCfLvqIUxn9lUWXtUxsUXi4mffrO1C0h7iuHl/i7A
+         va2P5HIA5/OkRStW7yRPiJ9jR0dtqJ34NqTNvpNeJ3imgBm2DD8LE/yl3I+oQAc0p6T6
+         PWlCFpZASVVJx2v3+ELHxuIqmPdm0FpIpZodBI5xg2T2OHZlgdsmD1dqHuxopd7lmc0e
+         TBmm8St4JEPdVPqLQOPInGRmJRti3Ls2I1E1Ik1VdAXeeZfBExJV7qoEE3bUL34JkjjD
+         GGKw==
+X-Forwarded-Encrypted: i=1; AFNElJ+E7Fn4yGjsrHf0/5a7z3iZHg2lhRGe4AuajigoDWQQUy6Ir/RWr2UMT49qg3b8JCBuMlXZf4mv20ml@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8+z7WH7W1FBR7/HoJhOlZWIj65LCEgcPvVLpqaKFtuvu7DJGz
+	KaWPWzyh3VVa8qQedLBzfylLnH3uieC7/y1fr8PRxUErcCo87EA/2Qhh
+X-Gm-Gg: Acq92OHxGRSYyvxOUIjnvXq3mqPu7WOGopqAtmdmuDiqXsoSRCWgPd+WwlAaRv9T2Uy
+	mKTVEDGKc18ZPSjLM251s1jNbdUm3dX/YWqAlEriALwnpq6ptGdsNGrYqsnrImV9ZY6dxihtWMQ
+	708CPQ/8FgRwglqL2QXBc8bHz5XKect1awgNoX+H4PJarlroLC1QFqibR7xhqdORFwJmYxug5yO
+	+DeVZPiVch6zDQGTzEcECOou2wpVY1XfStahtWgw0T1ldNZDLv5MKAUwFxO7yj5Ny8wh4MBOQFJ
+	WCaI0QepudMpCeZ3blUFCTk/8423cMBzbg2vghGb7GyXxI1XuUYKgeNbxKqaWGL8vnjBDE+EBo4
+	7gahxTMvQSNbrp+undyk86bYV0vJkniYZNt9Suf8lv+Tx6LaIOUIxQVV72M3GA2OsxtKIg9hLTW
+	JdLzy3y3r1N8ecr/SrD0WrEQ+pt+guKSUZjcRxGoko9BpsnYc7/CacGKpGwmKhFg==
+X-Received: by 2002:a05:6a00:198d:b0:841:edb9:4ea2 with SMTP id d2e1a72fcca58-8452458ea48mr3799218b3a.32.1781704204722;
+        Wed, 17 Jun 2026 06:50:04 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434accdca8sm20204102b3a.18.2026.06.17.06.50.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 06:50:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <751cd5eb-104f-4445-a6d2-8119ad5d5660@roeck-us.net>
+Date: Wed, 17 Jun 2026 06:50:02 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic:
-	VI0PR08MB11823:EE_|DBBPR08MB10461:EE_|AM4PEPF00027A5E:EE_|AS2PR08MB9869:EE_
-X-MS-Office365-Filtering-Correlation-Id: 354bee06-ed7b-432c-ec76-08decc765829
-X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|11063799006|4143699003|3023799007|56012099006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 8BmtT9CM/INxoqfZut3HPsJ1y3cEbDxQQHpSJHLcKQbmKWdfWUZYJWO4WxPoaVPcbH+UUBsKv/pYrYwrTvK5s1ZDdkUrN7Vmo1Obc0WTcF0VDxbrSyXfJ/Y3fYoO3vNXAl9p5gv1WNN/eCn3KloUazzth+QFsTgQXU9FPP3rWSOwPex8tIvepj+CyKChqq5fUGyc88rRVa3ILJXHBiygNiRae+Pj8skwNXjfn/fCfJn7oJkOUnNDd/DSbKouQO76Hg18cWL2pVk6kbwNN5M+KgZgwqvSfcib0oRdM1bjbDE8dRCimF1HdNi5X+wSCYUr21WYFdBMyRFLQY3dM2nJZAZOfgJKPgH/4jf8dEm+CL4Qpol7J3DrRGOAvNxgtabgapOMPb16NfPPMKkq/1rTSYZt6jnt+SUGp3tkHi+/fQsqkqZBotS/K0994TswFpwl2sRX4fUm/tF+Xy8sg6v4H+EPb3E7vTAUx0T8dwKHkVhAHv0QsfRvY3OMBQmBnrGz5O+bMu663v+8lBOYnuC1REZkeXi/WrxyDEzEfAfI9acxQSNujChOH7igm1HcOwZvoWKnucHBKPCVWd/bOZ3MdhCAvMfohr3sJ8uov5m8IIhXezJozmp5nkHwwIHWtojs7Wso4Y/43Mq9ytK+ICDaAQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB11823.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(11063799006)(4143699003)(3023799007)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-Exchange-RoutingPolicyChecked:
- YDs/QWyeRobGoiG4QE6tTT/j7XJr2HoCwacYaXauglRf6kIC38R0tT22VFcHfxiD0GCHdnOf6M1aTVbxq+9y/eJ/gGzis2C13kmsY4c0HijzQ++426fTFZCfOk7/rJtoVASdvkolpPL/7/RYcbOkEgkGY2Dn+YZPaaLvRKGdByrilS7W+OiM5KzMhlTMILpwTFn5VS9pw1auKbFq6r3DQGWldiq7yny9ECqYDyxJlCsZFdQvr9WRoLfw21rGqATYEjTvMmUEAzNYrMmFYOBoeHKFDCvXEluvzqvCdCa3pwpRk5b5k4mjwwdLC+x10FcJUfxAjYuhZuRRFH0LsWs3kQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10461
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00027A5E.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e980248d-db3b-4d38-c911-08decc763164
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|36860700016|376014|14060799003|23010399003|82310400026|35042699022|1800799024|18002099003|13003099007|22082099003|11063799006|4143699003|56012099006|3023799007|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	7JhvKMFcW6BAlcbhcEZ2hjJTCH4LKzjLY2qoE76zp7vRkOXmrqYkR4QnHRUlJzvL/Acb3OElhOaERm2iPIEZdG+3GiAWJOnbjw5x1Pll0HslKEODtfhxx+UMOPbDMvicLY5o2a9L9q+Jz3Ys1YxREmg/WSaFkgKcySvkV/UEeZaBOQYoO8Zl2kgiAz1STfgIu3Rbymhq6uctcYjvSqj4994b9ss24NiJhSxIWrlPAhY5LaTc3BZwibSfYPsBw3CInJgZhSCdPSQAsyZfCiGHpt0EZ/XikoUUdQxd0Dp4fpTTpisuxPmVqyKbVJw4V4KfAps3jMP5dAYvEU+0Ah6hnPbOKDFExifO8D3aAiqEgFF8Xc9Df3dSKad1O6UVrkHSuycz++3/xiqV8d7VYYsqyx30Ot8mPkRMAmQLuI5XkhGmoU7jmRLqkF/ieQNfIfrVjgcUG//QbGwCM+H4paK3zMj35IA4OSvuZscrGpZYWh9x+ys59YWW8PzSNw5ewF3M4VPrd4rdehCMMSAluj+Iz2vPR7UOD3z4XBJebFQaDtiP7FSUPwC1GcQ6AR2MtnaZepgdaAzuzNy+wG6hlUZTTF3oVUPUUjj8fR21DO0kt9LunBmwnpkZesf0GqIYX2kZXJxz1iPBjvan4lppiHkVLxUopoWunENjtftry3IEPBHOoSxhW5AXTi9KrFIhrnEW
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(376014)(14060799003)(23010399003)(82310400026)(35042699022)(1800799024)(18002099003)(13003099007)(22082099003)(11063799006)(4143699003)(56012099006)(3023799007)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	qdq5L9BMc15S8QUc5mLdwhtfA1Mpthke7JFjHkPlTDwasFAoMxv5k6nf5KUuVnnE7FKA7Wrd6iFndHmcFYsR63S/uwdE48voDfc4EOx4dpDqgQOqxwzIll/Wv5tH6E0a3YkL6LXP0HX2S1xccwnnzG5rGWyK5V/DuVbFzm8T6MS/WBswG0Qb5A6AoGUqbS5UWmYbb0Nx33w+W7LsOZJfYHFqIR1eTiNB1Ioo2/9ACq659Wr7lm+COLMykcfoVVS+JuR3TEgGKRw5CS9MNlS0nSna/XMlbATzJOr8jJ4jkvOijww+WTEU7qYEICCv7lKZ3oMPcpRkAMh5Ft1+F7Srb8jKzRdJzpsWzg+esQCRF2Sg5x9nWLEnv441ycwyDPqs26+83Sc/h/+yz9Xl3LXdl9HE+hVgsm5yV6PM9Y1vzdAX1YWoP2pY49o6fcV91p48
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 13:42:58.9596
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 354bee06-ed7b-432c-ec76-08decc765829
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A5E.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9869
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] hwmon: adm1275: Support ROHM BD12780
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Wensheng Wang <wenswang@yeah.net>,
+ Ashish Yadav <ashish.yadav@infineon.com>,
+ Kim Seer Paller <kimseer.paller@analog.com>,
+ Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
+ Chris Packham <chris.packham@alliedtelesis.co.nz>,
+ Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
+ Charles Hsu <hsu.yungteng@gmail.com>, ChiShih Tsai <tomtsai764@gmail.com>,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <cover.1781591132.git.mazziesaccount@gmail.com>
+ <c92f1356fbf967dee3130f2eb0da08eb84800d47.1781591132.git.mazziesaccount@gmail.com>
+ <67bec6ae-4f21-441a-8c5e-b56bd1a2ab84@roeck-us.net>
+ <46b3f680-91a9-4a2a-a197-8f0ca5e38b90@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <46b3f680-91a9-4a2a-a197-8f0ca5e38b90@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 12/06/2026 15:49, Rob Herring wrote:
-> On Thu, Jun 11, 2026 at 03:22:21PM +0100, Ahmed Tiba wrote:
->> On 29/05/2026 17:44, Jonathan Cameron wrote:
->>> On Fri, 29 May 2026 10:50:49 +0100
->>> Ahmed Tiba<ahmed.tiba@arm.com> wrote:
->>>>    .../devicetree/bindings/firmware/arm,ras-cper.yaml | 54 ++++++++++++++++++++++
->>>>    MAINTAINERS                                        |  5 ++
->>>>    2 files changed, 59 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
->>>> new file mode 100644
->>>> index 000000000000..3d4de096093f
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
->>>> @@ -0,0 +1,54 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id:http://devicetree.org/schemas/firmware/arm,ras-cper.yaml#
->>>> +$schema:http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Arm RAS CPER provider
->>>> +
->>>> +maintainers:
->>>> +  - Ahmed Tiba<ahmed.tiba@arm.com>
->>>> +
->>>> +description:
->>>> +  Arm Reliability, Availability and Serviceability (RAS) firmware can expose
->>>> +  a firmware-first CPER error source directly via DeviceTree. Firmware
->>>> +  provides the CPER Generic Error Status block and notifies the OS through
->>>> +  an interrupt.
->>> I'd like some spec references in here if possible.
->> I can add a reference to the UEFI CPER specification for the Generic
->> Error Status record format.
+On 6/16/26 22:48, Matti Vaittinen wrote:
+> Thanks for taking the time to review this! Feedback is appreciated :)
+> 
+> On 16/06/2026 17:13, Guenter Roeck wrote:
+>> On 6/15/26 23:36, Matti Vaittinen wrote:
+>>> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>>>
+>>> ROHM BD12780 and BD12780A are hot-swap controllers. They are largely
+>>> similar to Analog Devices ADM1278. Besides the ID registers and some
+>>> added functionality, the BD12780 and BD12780A mark PMON_CONFIG bits
+>>> [15:14] as reserved. Hence TSFILT setting must be omitted on these ICs.
+>>>
+>>> The BD12780 has 3 pins usable for configuring the I2C address. The
+>>> BD12780A lists the ADDR3-pin as "not connect".
+>>>
+>>> Support ROHM BD12780 and BD12780A controllers.
+>>>
+>>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>>> ---
+>>>   drivers/hwmon/pmbus/Kconfig   |  2 +-
+>>>   drivers/hwmon/pmbus/adm1275.c | 46 +++++++++++++++++++++++++++++------
+>>>   2 files changed, 39 insertions(+), 9 deletions(-)
+>>>
+> 
+> // snip
+> 
+>>> @@ -487,6 +489,21 @@ static const struct i2c_device_id adm1275_id[] = {
+>>>       { "adm1281", adm1281 },
+>>>       { "adm1293", adm1293 },
+>>>       { "adm1294", adm1294 },
+>>> +    /*
+>>> +     * The BD12780a is functionally identical to BD12780(*). Even the pmbus ID
+>>> +     * register contents are same. When instantiated from the DT, it is required
+>>> +     * to have the bd12780 as a fall-back. We still need the bd12780a ID here,
+>>> +     * because the i2c_device_id is created from the first compatible, not from
+>>> +     * the fall-back entry.
+>>> +     * (*)Until proven to differ. I prefer having own compatible for these
+>>> +     * variants for that day. Please note that even though the probe is called
+>>> +     * based on the 'bd12780a' -entry, the ID is picked at probe based on the
+>>> +     * pmbus register contents and not by DT entry. Thus, if the bd12780 and
+>>> +     * bd12780a are found to require different handling, then this needs to be
+>>> +     * changed, or bd12780a is handled as bd12780.
+>>> +     */
+>>> +    { "bd12780", bd12780 },
+>>> +    { "bd12780a", /* driver data unused, see --^ */ },
 >>
->> For the firmware-first DT description itself I do not have a more specific
->> public reference to cite.
+>> We don't usually do that. There are various A/B/C variants for many chips,
+>> and we just use the base name unless a difference is warranted. Either this
+>> is needed, and driver data is needed as well, or it isn't. If it is not needed,
+>> it should be dropped.
 > 
-> Is there a platform actually using this with DT (FVP doesn't really
-> count)?
+> At the moment the only difference I know is reduced amount of I2C slave addresses. This shouldn't be visible to this driver.
 > 
-> Rob
+> My problem is that I don't know for sure if we later notice something that requires differentiating. Thus I would like to have different DT compatibles (or other source of I2C IDs if those are used to instantiate the driver). If we don't do this, then we have problems if we later find out that these ICs require different handling as users because we can't differentiate these ICs if they are described with same compatible/I2C ID.
+> 
+> The "fun" thing is that both variants have exactly same MFR_MODEL and MFR_REVISION register contents. Thus, these ICs can't be differentiated by reading PMBus registers.
+> 
+> This is also why the driver data entry gets unused. The existing probe mechanism in this driver, scans the names in this ID list and compares it to the PMBus MFR_MODEL, and then picks-up the driver data to use. Now because BD12780 and BD12780A both have same MFR_MODEL, the scan in probe will always pick the same driver data entry, no matter what ID was matched by bus code. That's why I added the comment here.
+> 
+> If I drop the { "bd12780a", /* driver data unused, see --^ */ } -entry from the ID list and add the of_device_ids, then I think this problem is solved for the DT-platforms. As far as I understand, this would still cause any non DT platform to describe both variants as "bd12780", making it impossible to later differentiate ICs in the driver, right? I can do this, but for me it feels a bit like asking for problems...
+> 
+> My thinking was to have different IDs for these variants so hardware description could have different IDs for different ICs. Then, if we later need to differentiate these ICs, we still have an option to change the probe to trust the i2c_get_match_data() when PMBus indicates the bd12780.
+> 
+> This however is some extra complexity, and I would like to add it to the probe only if it really is required.
+> 
+> But yeah, having an ID entry in the list and driver data not used even when the matching IC is found, is unusual and would have caught me off guard. Hence I added the (long) comment.
+> 
 
-Yes. The initial intended user is the upstream zena-css platform,
-with validation so far on FVP.
+It is unusual and unnecessary. If for whatever reason it turns out to be necessary
+later to have a separate ID, add it then. Again, there are lots of chips with A/B/C
+variants. We only add separate entries for them if/when needed just for "in case".
 
-I will note that in the next revision commit message and cover letter.
+>>
+>>>       { "mc09c", sq24905c },
+>>>       { }
+>>>   };
+> 
+> // snip
+> 
+>>> @@ -712,7 +732,16 @@ static int adm1275_probe(struct i2c_client *client)
+>>>           break;
+>>>       case adm1278:
+>>>       case adm1281:
+>>> +    case bd12780:
+>>>       case sq24905c:
+>>> +    {
+>>> +        u16 defconfig;
+>>> +
+>>> +        if (data->id == bd12780)
+>>> +            defconfig = BD12780_PMON_DEFCONFIG;
+>>> +        else
+>>> +            defconfig = ADM1278_PMON_DEFCONFIG;
+>>> +
+>>
+>> Please add a separate case statement for the new chip
+>> and do not overload existing chip data.
+> 
+> I originally did just that. I, however, was not happy with this as it resulted quite long own case this IC, which is almost identical to this other (adm1278, adm1281, sq24905c) case. I wanted the code to shout that the DB12780 is indeed (almost) identical to the adm1278. But yeah, I agree, having "if (foo)" in "switch (foo)" case can get confusing.
+> 
+Better that than embedded if statements. At some point it would
+probably make sense to rework the driver to use per-chip configuration
+data, similar to other drivers such as lm90. But that would be a separate
+effort. Until then, please keep per-chip configuration in separate case
+statements.
 
-Best regards,
-Ahmed
+Thanks,
+Guenter
+
