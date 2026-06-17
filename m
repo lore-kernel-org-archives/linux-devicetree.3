@@ -1,127 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6053803DA
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE0F38D40C
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:22:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684307; cv=none; b=YjOijtwqUzTuIDE40FB4pPR3snoIHm6sJdw7hoKakAWeC1oF16wTQ2odL5bNWBsZgCWfc/0l7UaFnObH7dQdpSjlD1FhvCJ04UDeZRxcDAFRFVFQ8rENpFojr1gtLBQTHaHqcnaWka3i/Sh1+GuZsu3Re1nfWJv7GWvPTMyjSSs=
+	t=1781684576; cv=none; b=gh29p4eYyZRhoxAA5ecoztqKmzbNGgx0ZN2c5Fnyevdgl8X9+citvQN2U+ZfDcJG0CHGe87zlHB6j5YS0EauH4njS5phTV8Y35df9xDmxkLYdVszNVJJklpbRgQVv/c+EYyYYVu8NuBvShiO891KWIOCQy0fe00lQ5mViWvmARo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684307; c=relaxed/simple;
-	bh=pOtjPd30KsF0yYahtCCRARRtnBkfd9hGwoCjxZbMMAk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ULJhgp1Czx6a+ieeeVVJl56EvxRlKjKUc5wjjt/6EO0/GKhkaMPBNjO911tz+HqJYc6enAhVYKzjC0lhjSIXALrtchsGmDySq2pDLCVWgwBWwBkkZPLiHY93nQFjDIKoG7i2t1UYms0LL1ASeON3m167pJMlOW/ecK/3HPsVXfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1BKapoV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781684576; c=relaxed/simple;
+	bh=7iGTEsQdXdpMFpeyINnDzwBkhJuY3AUtId0rc5NAD7o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VO1F7M03owg4/QqBtQz5HmCww0LOnsRg0ADeKzJcrqZTGeLAyDODeBdwEbJiMQum0hR/WJD2IM2AvlRWE4ba6n7TSlu7LXbMcGYLrcbc+q+Wsot+3rJQcm7zCxi1IXvs35BNTxar7N0/Vl9poAshzeZks/P3GdWMADvF2US20M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iF/0BsEU; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1BKapoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9D21F00A3D;
-	Wed, 17 Jun 2026 08:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781684305;
-	bh=97ZJT/CCUoabnLTNLvjmKsXlThHvT5k3+GVud78Rjgk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T1BKapoV89Crdy2R10Muwnl3oU09W9arSCS3/c/4LJnKEDSEcFbLlvfPbJVOCkgkU
-	 P8OmiBFxoabF5uC/4ZpD8BvTWTbvWAf7udfC2cYwmtrhO+0WcwnnVhui6hxb7FBjmZ
-	 jJRtcso93FIm+TM4it2/GRi6oW8GUMHeZAkLqjlClgqDV0Oj/2IzXbvmVv1U1Edo2y
-	 vcFnEuT8peAC6aMbewKyM4MV1i6O/VHBXsEFlt+Ygebn/+lk1HtILhHFTBK3LUjDZq
-	 wVSFvqA/HphDyMtg3pkkA5XcZ77WErnrq7Wn0drrz2/Bp7iMBoJTpp49NbdB6edVxx
-	 GTydcx8doqnJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 14/14] video: leds: backlight: lm3533: Support
- getting LED sources from DT
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-15-clamor95@gmail.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-15-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:18:24 +0000
-Message-Id: <20260617081825.6A9D21F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iF/0BsEU"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c0c2d792c8so35371195ad.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:22:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781684572; x=1782289372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mbp+XGu08SphaD/VmIY79o/0rYxP0riQ62ZWUCZr/Gs=;
+        b=iF/0BsEUc7mS5Oe8nUadc3PSS4wqejK472Bslr7BmPfSxyCAiwbwmuq76TrBzy1lIO
+         e051X4kpvhHvoGyQRBsVTMYWbrvoLyaRZZZiNRPbHjgKxsSq8epC9eX1Whxs9Iwn/nOa
+         OSHG+gDDOMtElATXRPuGbdzsQJwbvu1vNM8xyXYKrv83feOnZCSFHhiNpPUCAhfgsQ+Q
+         u1wNUgtXnBjfUzqfnRXxWI0+E1KPFX6aSFhHFvPTGXjR7om15nTP/p9O7+H5D2J+eHRn
+         nA9Wm55hdb1XaMNB5G+GE9iSmKrHLTUYfwQHTUvFeMu1Zqxia1CRzcFTTMjh55qkTER+
+         A5yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781684572; x=1782289372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mbp+XGu08SphaD/VmIY79o/0rYxP0riQ62ZWUCZr/Gs=;
+        b=dpkvVa7MvHbx5Wqx1tr209zncv+/WbcVgQmDQWgJic65FxuXJ5Y/Qh7aiWZ5Tvfs0R
+         5HW8rSyjuR2jUAKv1pDB0VTlHF7E5HcX3aXMIkTI6mGhua5hjTbpfX0FdZYGlN8fMHi0
+         02s7rvKjlB6E8rg3AFhJgbJWfC+5DiGGs7o31Jy+gM+0PH6L52hqGUy7vEH1iRAcY2Wx
+         4CaMd/TVp6457OC8Qxje/7xDK3XNoNkM5W1KyCLx9/lTfbgx8Vaa8PshSeBn6uaL7neK
+         RY1DhS+E+K3GVEADdJnbZ0rG0Jr7RZbgROv1EZE26jPyF0mDzZhFahfMPW3Q22IVxMOR
+         aQcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9+TPHLbnIGQcAgPY+KW9UnP2RRxTH/kqBvtkFdZQyuHMHgqjg8AnDEHMyevGDoNQBVkR0e+uQ87x4Q@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRfhBKmuyAwRTtWg73JD+uOfefo/jJRg5KKMcKJXChbOwCbfBM
+	FnpCo5LC11X4sJMVou/fWjBv0oS91JkRxCU9zz4w98v/pa0pli5v7DWa
+X-Gm-Gg: AfdE7ck/4c6173oJ2WcVtEHgPvmAK0fNCwky1byydszKONLWOogDpU1zzikYYIfTdsI
+	V5hJVRYJyqAvItow3OEES2dPUYP7Xwp6ddaj8cCEjVv8TozFkWDbIBd6lSL0XwXFPJsfQjY0eUf
+	E6/nDY6lNacIgIFcMOVbapEk8jNOh6VaCwxt+U3bSinCcnhwbKp8rnAfA3oZQQDucotwOQ9HRwj
+	ZLKz77BWec81dhpuVvRMPpJFHxi9ZGM6tegMMpdWz+L9E6EqWAeiLeZaSOYOtH8g2+hSrZDgsDh
+	OEKpmyOiD/P1oHyjvHO9x77Sqhd1iTaeZOWnnRtGp6EH8gJiQ7d8RzLiZB4VlH4Q/RUHvvpUlrn
+	3rorvjO02wVDX8gTwteQ6fN1OmxOa3MV+c1zu7Y+tXkVcSxLHfgm2uoWOtPep21JsYVT4N0biwG
+	08S8Lr4cLIbw==
+X-Received: by 2002:a17:903:887:b0:2c2:245a:3360 with SMTP id d9443c01a7336-2c6bbfa18e8mr18681895ad.6.1781684571658;
+        Wed, 17 Jun 2026 01:22:51 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.22.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 01:22:51 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Arseniy Krasnov <avkrasnov@salutedevices.com>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] arm64: dts: amlogic: meson-axg: NAND fix and PCIe PHY adjustment
+Date: Wed, 17 Jun 2026 16:22:31 +0800
+Message-ID: <20260617082239.645562-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Out-of-bounds bitmask shift causes regcache pollution and unnecessa=
-ry I2C bus writes for LM3533_REG_OUTPUT_CONF1.
---
+- Disable nfc node by default ahead of nand_rb0 pin addition.
+- Add missing nand_rb0 pin to fix incomplete NAND pinctrl.
+- Disable pcie_phy by default to suppress probe warning.
+- Re-enable pcie_phy on S400 board to preserve PCIe functionality.
 
-commit a74553be2d2b60a05a193e9dc35527d3d4a425da
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Changes in v3:
+- squash "disable pcie_phy node by default" and "enable pcie_phy in 
+  meson-axg-s400" patches
+- Link to v2:
+  https://lore.kernel.org/all/20260617071604.635627-1-jerrysteve1101@gmail.com/
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
+Changes in v2:
+- Add patch to disable nfc node by default.
+- Link to v1:
+  https://lore.kernel.org/all/20260529140605.1070764-1-jerrysteve1101@gmail.com/
 
-This commit adds Control Bank to HVLED/LVLED muxing support based on
-the led-sources defined in the device tree.
+Jun Yan (3):
+  arm64: dts: amlogic: meson-axg: Disable nfc node by default
+  arm64: dts: amlogic: meson-axg: Add missing nand_rb0 pin to
+    nand_all_pins
+  arm64: dts: amlogic: meson-axg: Disable pcie_phy node by default
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index ed810c23f30f3..9e07953814fdd 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
+ arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi     | 5 ++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-[ ... ]
+-- 
+2.54.0
 
-> @@ -623,8 +631,36 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
-> =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	u32 output_cfg_mask =3D 0;
->  	int ret;
-> =20
-> +	if (led->num_leds) {
-> +		for (int i =3D 0; i < led->num_leds; i++) {
-> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
-> +				continue;
-> +
-> +			output_cfg_shift =3D led->leds[i] * 2;
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +			output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-
-[Severity: Low]
-Can this shift cause bits to fall outside the 8-bit register width?
-
-When led-sources specifies LVLED4 or LVLED5, output_cfg_mask accumulates
-bits that, when shifted left by OUTPUT_CONF1_SHIFT (which is 2), will exceed
-8 bits (for example, forming masks like 0x300 or 0xC00).
-
-Because regmap_update_bits operates on unsigned int internally, these
-out-of-bounds bits are applied to the cached register value. This causes
-the internal comparison (tmp !=3D orig) to incorrectly evaluate to true,
-triggering an unnecessary I2C write.
-
-Although the I2C subsystem harmlessly truncates the value to 8 bits so the
-hardware state is not corrupted, does it make sense to apply an explicit
-8-bit mask (e.g., & 0xFF) before passing the shifted mask and value to
-regmap_update_bits() to prevent regcache pollution and redundant bus traffi=
-c?
-
-> +		if (ret)
-> +			return ret;
-> +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D14
