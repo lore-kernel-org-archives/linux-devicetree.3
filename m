@@ -1,265 +1,117 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188373E4C61
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADF63C09F1
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:38:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781689047; cv=none; b=f2o6IeQxcOWvYgra3UvcMQBAPiUrCKze80z17w+pxPJhjxbeNR+2Qj84jKv9G0VFBi/Tr5VaFz91heRhhV2tgzb8aZtvZ3ddrEpt/sqWw+kY/rBOm7R75mC4XZ4zGZPcMRK2EZgP+/RISyvm8BLfDgWgecfNIf8Q4uooTFz0qXs=
+	t=1781689120; cv=none; b=PYjhNuc16am6+ya+opPJVP8G8eQ1uZY077H+KUnqrvMBJmPu3a5omA8Tbz7uKf708kkdoYY6+ncrmyUeC8peRxL/DdrUGnH5IG5hQ2c51dS7zkXq4SYPukIq03pZ8L1XGQzJlBY2ArIyAzU0MlRVcd9PTUGMMNuVE8tSaWA5r7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781689047; c=relaxed/simple;
-	bh=IB6dX8SYiaGhkj6r/5uY4W+ONZ0hIflMNwbNBhpmTwY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WUMN2JmPzdYgkFHIg7AsDa4lFthm3uwYqepqbEzQQmdlnJQDHittG0ixZd95reegQUb+CQWobxigvtUEYbegKwUDxUeBy691AJqJLD1RwjvIMWRj7S/Jf7D586uojvwhnvyuHzD3yU1+hH0sujtFsx4/8D97377i5IZB5hsXP7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pZtnU48U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=adKl+VKW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781689120; c=relaxed/simple;
+	bh=rgm36y2OpGnpfZDyJq45v+u5S54koPvVYpOixi6Jo6E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CYsgNHrA9rrqL/M56EvQ2oNfrqeUNKtCwZufNlxa4g/K5d7sF2IzoK6DkWegIzm4aMlS5qtXAtFKJSQRFr70qL4UrfjnUbpSizEFteP0rWHY2mMsSMXXgGURTy8Vp0+JmZVP4PW0mK54mDbNgyRB7JhT4D6PHwJ8kvUSRnO5v1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=XaPtupS/; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pZtnU48U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="adKl+VKW"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8Vw5H2056596
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=; b=pZtnU48UluGG0aXu
-	Zv1QYMVllQc7n7CQcjHEd0UlHltbd1l/BgFxwVnVGianLooUp9Ffta6ERwluQqeD
-	k3gI526XqyU2j/Yfuwk3Kl6T/TugGSziYFBwvS5K8Eqd7IlR8feW6Tt5CPO9HzI7
-	3UJeavRnoJAlyPoplF1nbdV1kKjOmpkvsuONQxNNee324GZkUEggImFPzZsw09jo
-	bdhDw2xKL0rkpLGWETHrZYoCbk1oWqeleh+YU8NMaX/VY38/QAi3YQTrcl0+Q5Cr
-	avH7UtgMJdVX9bI585ZQr6QbNUr80uC8/jn3I0S45BpLb+GSd5L+672qgmCgEOB0
-	oEKoJQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueesafdm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:13 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c6a48fb4d5so14532535ad.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:37:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781689033; x=1782293833; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=;
-        b=adKl+VKWc3TvKvbSnG3Bt2X4TSgOwHnlg+W56Z75c8fsJQuDNL/+u7FmA6oMteNQaY
-         N/xq21MJGxIS7GG1KJYLToN0dl6BPlEtu+CeDg6xY0YA6ftJhyPHiiHYLNwZ0BO+rig8
-         sM47he/Ry7Xlass5RlHFptaq6XEszbiuayYVzpNxutfD6tCyM2qS7NNfJiv0ts/h3SKx
-         f2Hhj8YtBfSYzcC5K2y11wPYsjohE086A3mrlM0MTobFDahRyRI/F+xn6HrIf2HCCsmZ
-         hLNMTNop4RNHvRR59AfagZzHCn/zflXcG3sQNjqaQ48BXEboTdt7pFjZZ/VONmrC33Kr
-         8vbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781689033; x=1782293833;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=;
-        b=WisGXgqbiBjXSAuTe6WddyG4byaaKblzdg9PnO5uWlSpvidSL3ywEhI7PfTf/iZzBz
-         C8F/8gfTVrVAw7imZ/yOuHepSet8GP1xWFP6L9v1xdtc1/OiuYn2M4L5N4JkKhUEeuoz
-         pJRP/M2T28XZxLBnO2UObv/qdpepVg7MRCM8qCQUMUX8qXRpZeEvlOHdav7F2DKYkNuA
-         /u9WDrkNRIRZQ1dp08ESDl1kgtWjXTd3sk3kVSNJimb7bF6vCk8348sIFW8CFSA+S5Ng
-         QmUdKy7QdVIa8ng2P+TxHE0XP4OzXhYqeQc2htS7Ykv+XPr39DvVa0jl0MYlfaWAGnyL
-         J5tg==
-X-Forwarded-Encrypted: i=1; AFNElJ/7mrUPL3siMdah+9c2tZIbqIsYd96HV5QoD31i7YHSwqZCayEL0aFlEjOSowgc4AOi1KQHnS2BhCXi@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWG/VxvDYG26+4xrD7AzSFmEzlLEnkLdD83+1VlHbLKCGsv3h7
-	Y7UWus1akDbDa8NqXrswvqNBDGugZerLvw12Fp1knsBsYHhT0MHWyF5FNCT7+MSwdukeZZrzRTq
-	bA+WXHPITCu+pCeOnz1AF94rKc8AiWggpcRxJI1ERJ328o/6SShzGfE2AeSlEA0qi
-X-Gm-Gg: AfdE7clnOnRBpcMmNkPu6d5Vc5oMHtXmeqg+b7iRtKSPEYSohNKOZzBTE68QzQQBri6
-	9bZoEeWu83UHDf+iBdbrErQZKSGw/KXysc/kqEmoX5rCdRcyon84wL/KyeWEcRMM39NV5aFtgqQ
-	h7XHk1M4Ms6SEw6RtoAv1umJf2Vvo6aKLSbUPKu0aG8unlJsSucfhMUADnZbxR0etQVb6Pe3Vnw
-	Y992v83KUhQOZA2VpBCsGNmch4Gxz75ejP76ibXJrVtLB13cL6A6Wn72GFiRgzox6x3PUt2h8aZ
-	MkK62ExAfvF5Eze0Sw6F5xIPcjTOgUDPW/wgwoYz7UZwED/I0TF5Vt6OcNGIpq6YZKUryT9LHtN
-	XMI30s0Yyu5+SsUvg1j2j0tPjxCFtBmrnsfWOc+HqbG4rhL/iUnXdg/eVoxvdwgG3jR7KylO5hS
-	dHlm6f2w==
-X-Received: by 2002:a17:903:2b03:b0:2c6:afa8:c181 with SMTP id d9443c01a7336-2c6bc0b11a9mr31050225ad.1.1781689032561;
-        Wed, 17 Jun 2026 02:37:12 -0700 (PDT)
-X-Received: by 2002:a17:903:2b03:b0:2c6:afa8:c181 with SMTP id d9443c01a7336-2c6bc0b11a9mr31049875ad.1.1781689031977;
-        Wed, 17 Jun 2026 02:37:11 -0700 (PDT)
-Received: from [10.133.33.123] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac7fbsm168941325ad.42.2026.06.17.02.37.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 02:37:11 -0700 (PDT)
-Message-ID: <b8adacd3-a8ab-4f54-b169-bf6b919e6fa9@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 17:37:06 +0800
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="XaPtupS/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=rgm3
+	6y2OpGnpfZDyJq45v+u5S54koPvVYpOixi6Jo6E=; b=XaPtupS/JnmjRKBJ4YPp
+	0DigDPNogMfztF9OWk+MC+NvlOQB/SJWWIdeGMxxyt1n7b0tuu9g9nmSqmlbgmuO
+	VErKW7IZ8TQXGF+jI3kqVpN9vSKEWRkTFhGNl6IwHtYXoufSPNq3P1tkCxn5yLju
+	w1wtD5mdq7A+OoUg+eHwDM4eyx51jlDosw9198ziES7uqKuspNXH+3vuxdQM6iUL
+	XQ7VuoJxe/k6vVCGWZ7KajoslCiBn0x7l6vCxOEtsHCdzK84IsuNPhlWFhuZxG4M
+	IAcOp+JdkuaMFRHD4xoIs5UiwY7O0eIQKd8GfjTDlsdqyUS6Eupll80dR67Bbzvc
+	AQ==
+Received: (qmail 106160 invoked from network); 17 Jun 2026 11:38:36 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 11:38:36 +0200
+X-UD-Smtp-Session: l3s3148p1@2HrX0m9UiKQujnvI
+Date: Wed, 17 Jun 2026 11:38:35 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 01/12] dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and
+ RZ/N2H support
+Message-ID: <ajJrG51jysbJQujR@shikoro>
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615154805.1619693-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support for
- subsystems
-To: Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Bartosz Golaszewski
- <brgl@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, shengchao.guo@oss.qualcomm.com,
-        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
-        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
-References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
- <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
- <ahBG6jKYdSAboWjs@linaro.org>
- <6df4c351-7287-4fb9-8af8-83b5deabfa07@oss.qualcomm.com>
- <aip7feoTn0ncwzL7@linaro.org>
-Content-Language: en-US
-From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-In-Reply-To: <aip7feoTn0ncwzL7@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfX4esapRBkQGIz
- 51k7VIkInjLaD5ey4UP0aWoZjMnu+pctW5x8S6gqc4K/hqKXMxjyvz6uXH3JKjNybDjACCTLfYw
- +XytOSppa9GCDoJMPnos/gitCS8UD6c=
-X-Proofpoint-ORIG-GUID: XxrzGONk5x967QnplIym01i_07u_oKSA
-X-Authority-Analysis: v=2.4 cv=R6oz39RX c=1 sm=1 tr=0 ts=6a326ac9 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bdzlAc8VpKKGP06_0pAA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: XxrzGONk5x967QnplIym01i_07u_oKSA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfX1kE3JrtmttU3
- P9+7KKDH8c3+eTSeDmtCIeame9og+l0ms0hjYfyoNGkcnq5uGubgNY8yrPU2O3oS3OlS6UmEPmR
- yTEwvLfkP9zCrMyhi1XkthcI/rvprOGAyLi2Uqc2USKEik0PzgXxZJakmu8oAVhhATWY3qerGOW
- ibwlCa+k9UwTd+8q2zAra+E/NUh9hW2RtpaD9z5HmOqxTu8sp5Sf73Qev1Oz4i1Fi3Fhp27dNoB
- obDLBFTavxPXeZMbXtLS6oC1tOEUg/C1wUB/gsm6cTII54rWgXFwDx9XsZf1Sw8sSa2WLnA08up
- 2FuSLZs2HV317ZvnB1GK+VFxQNV4+amKliL2a9xPyiAEgK+jnzYQuVEYq+WWhohzBDAkZdcjwxm
- jxkuWvSjkwhCJ555MXyIakaskxjbFvhDNb/pqB4/m1mM7d3KIrNcz2h+vxlWq0ro2gmF+A9vKqG
- pAE7y8brzp8a5WLJTFg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606170089
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9KewOfIgVqcuK8jH"
+Content-Disposition: inline
+In-Reply-To: <20260615154805.1619693-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
 
+--9KewOfIgVqcuK8jH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 6/11/2026 5:10 PM, Stephan Gerhold wrote:
-> On Thu, Jun 11, 2026 at 11:10:25AM +0800, Aiqun(Maria) Yu wrote:
->> On 5/22/2026 8:07 PM, Stephan Gerhold wrote:
->>> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
->>>> Subsystems can be brought out of reset by entities such as bootloaders.
->>>> As the irq enablement could be later than subsystem bring up, the state
->>>> of subsystem should be checked by reading SMP2P bits.
->>>>
->>>> A new qcom_pas_attach() function is introduced. if a crash state is
->>>> detected for the subsystem, rproc_report_crash() is called. If the ready
->>>> state is detected, it will be marked as "attached", otherwise it could
->>>> be the early boot feature is not supported by other entities. In this
->>>> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
->>>> can load the firmware and start the remoteproc.
->>>>
->>>> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
->>>> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
->>>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
->>>
->>> Unfortunately, removing the ping-pong functionality that was present in
->>> previous patch versions makes the whole mechanism a lot more fragile.
->>> I'm not entirely sure if this has changed in SMP2P v2 or more recent
->>> firmware versions, but in my experience the SMP2P "ready" bit does not
->>> tell you if the remoteproc is actually running. The problem is that the
->>> "ready" bit is asserted by the remoteproc when the firmware is ready,
->>> but it is not cleared when you shutdown or forcibly stop the remoteproc.
->>>
->>> If this is still the case, you can easily reproduce that with the
->>> following test:
->>>
->>>   1. Start the system as usual and let it attach the remoteproc
->>>   2. Manually stop the remoteproc in sysfs (echo stop > state)
->>>   3. modprobe -r qcom_q6v5_pas
->>>   4. modprobe qcom_q6v5_pas
->>>   5. If the "ready" bit is still set, the driver will try attaching the
->>>      remoteproc, but it's actually not running. No recovery will happen.
->>>
->>> In this situation, it is very difficult to detect the correct remoteproc
->>> state without relying on an additional query mechanism like the
->>> ping-pong feature.
->>
->> This a valid use case and concern. We had a discussion with Bjorn, and
->> want to take this scenario into consideration of the separate robustness
->> improvement series[1].
->> Stephan could you agree to have the basic function in this series can be
->> go in firstly.
->>
->> [1]
->> https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
->>
->>>
->>> You can make it a bit more reliable if you also check the status of the
->>> "stop-ack" bit. This would tell you if the remoteproc was cleanly
->>> stopped with the SMP2P "stop" mechanism. However, that will typically
->>> still not fix the case above since nowadays remoteprocs are typically
->>> stopped via the QMI qcom_sysmon and the "stop-ack" is not set in that
->>> case. I believe this might set the separate "shutdown-ack" bit though
->>> that is described for some SoCs, I never finished testing that.
->>>
->>> And even if you check both "stop-ack" and "shutdown-ack", that doesn't
->>> tell you if the remoteproc was forcibly killed using
->>> qcom_scm_pas_shutdown() without gracefully stopping it first. The ideal
->>> solution would be querying the PAS API to tell us if the remoteproc is
->>> actively running, but the last time I checked I was unfortunately not
->>> able to find a documented call that would tell us that.
->>
->> It is a state currently kernel don't know whether the remoteproc is
->> offline or crashed when ready==1 && error==0 && ping-pong==0 scenario.
->> If it is re-modprob, the software don't have any data and only the
->> firmware can tell us whether if it is active or not per my understanding.
->>
->> Maybe let's have this scenario and solution discussion in the other
->> series I mentioned before.
->>
-> 
-> If you add a new feature upstream, you must make sure that it is
-> reasonably robust and reliable. The other series is about generic
-> limitations in the remoteproc subsystem, so I don't think you should
-> move QC-specific parts over there as well (personally, I would have
-> probably kept all of it in one series to make it easier to understand,
-> but that's subjective).
-> 
-> With the current firmware design, it's hard - probably impossible - to
-> make the status detection perfectably reliable. I would therefore choose
-> some reasonable compromise to start with. Given that Shawn (and actually
-> me as well) would like to have attach working without firmware support
-> for the ping-pong functionality, I think it would be reasonable to start
-> with the basic detection scheme discussed above, i.e.
-> 
->    ready==1 && handover==1 && fatal==0 && stop-ack==0 && shutdown-ack==0
-> 
+On Mon, Jun 15, 2026 at 04:47:54PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> Add compatible strings for the RTC block found on the Renesas RZ/T2H
+> (R9A09G077) and RZ/N2H (R9A09G087) SoCs.
+>=20
+> These SoCs integrate a closely related variant of the RZ/N1 RTC IP.
+> Unlike RZ/N1, they do not implement the RTCA0SUBU and RTCA0TCR
+> registers. This is not a limitation for Linux support, as these
+> registers are not used when the RTC operates in "scmp" clock mode, which
+> is required on RZ/T2H and RZ/N2H due to their 195.3 kHz input clock.
+>=20
+> The RZ/T2H RTC variant also supports a 1Hz output signal on the
+> RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
+> marked as reserved in the RZ/N1 hardware manual.
+>=20
+> Update the binding schema to require the additional clock inputs used by
+> these SoCs.
+>=20
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi Stephan,
+Sashiko is wrong here because
 
-We did local test, checking stop-ack==0 && shutdown-ack==0 should be able to
-cover graceful shutdown cases.
+a) TCR is the "Test Register"
+b) TCR is not even present on RZ/N1D. Cover-letter misses that, too.
 
-Would it be redundant to additionally check the handover state here? In our
-observations, the ready and handover bits are usually set together. Meanwhile,
-handover irq is not a necessary condition for pas start.
-
-Thanks,
-Jingyi
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
 
-> The ping-pong functionality could be added later for platforms that
-> support it. It would be good to have the interrupts already defined in
-> the device tree, so you can tweak the driver without making DT changes
-> later.
-> 
-> Thanks,
-> Stephan
+--9KewOfIgVqcuK8jH
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoyaxsACgkQFA3kzBSg
+Kbb8RA//b1xWUiwEPvJfSOWW96169F2XSyhe0K7AtnjiPwqycXdgnN67t/VyHqiM
+ujexSHD/Xm5N/l2xIW7B23X+yXlMov5iZBrH4y1z2jS7DXafrlpyjy8CuINfUfcw
+UfH9hBv4lUaudlXBXpHaofVlygOGHnCZQm8UGB6gyBPWCt7pK4hQ2Zq5EK4oMJDh
+1yH0sZIMmrJLJwhECbtJFdcgoVxugiY4wdnjvyKZ+ukP/fTNYZJaDnwOf89uNMl3
+94lsBSobIFs2x9k60KV1x8UKrcz0nuvbGOLzraplen1OrUmsUjgxtvbK1oe0goKV
+nGoSHfIZXXULSvHGdSnMU3xWv0IPifJX+Mn3+QEsT1v4rhKLIyOVXwoQDfJk/BV8
+0LaHrfy0v4y4Q94lchcm+SYBBUS6dE+O0GJQ9n1WCaXA4oYY2O0LO3wpaviVwftC
+kBCatWPQi0AWe2IXUr/EOBaq4Z42XK+ecctJH4EBAbkRJZNveQ3nJea1TzCkmZ1z
+vCYjtQ3vmDd+cfgtwuvzM0x++CTVmUbbY4P3HgQtpWX0k0udZ8EkWiIbFT+K1nm4
+zYwGZdbg3hXJFQXM9NijCfv91lRUNnfHIivoC3IxtvXPPiMp4ItgsMHtOCoeWHNh
+p2emQw6UibeA5ezXcnTGW8SD/dpmGUmyAshZrQ0yDVzq028LWE0=
+=Y5jp
+-----END PGP SIGNATURE-----
+
+--9KewOfIgVqcuK8jH--
