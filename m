@@ -1,114 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435003B3C15
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BE238398F;
+	Wed, 17 Jun 2026 08:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781683893; cv=none; b=HPh2z8Elh+BHxLwSCExkxwSG2BS5ihnmKkfmKMx48IETXL6YQsu4ndMP+5JuJVh9d2e0YdPspaR3M/DtORrlf2Nkrg5AuF2x7jdxYXt/UTR1XcCrlqapKwniyTLAFy5nEJQOrdIyBO/chjjPXi3pPXhwC8NOpfTdXIvflQN/SgM=
+	t=1781683956; cv=none; b=EucRGaUdcLbe+tUNZk8v7i9ip0XEoLvdj/ksoF7L1/jYAbHy9Anr3+cNKGJHw9ZpZZddxzLeqBXqFYvSgDhnke1P8bAMaDVkHTFbMPYKjBOPHRHVIw0ACG4Kw1Z5r1taKXYSHpUxMTMTDlpmhRW1VNRVUWnd/r5agIhyl102M5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781683893; c=relaxed/simple;
-	bh=clmtvH0eGeQxS0G7U8hVQilo3vOZ4+YAU57i9dR3RQc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p0cMppammz7+c+mcKl6kDbeJC5OHoLVry3Ue2P9TTVbnb2HdQ5fOF+ZQAvwlfASjHFz/0ewg+zOWihgR5oeNrD36TLP/rePLdai8Myb+TZ50KM6DC9UzjwFunX43U0FeBWpv0SrXBoqFgo3pvEQoeLGxseh4aJNcmNFRccZ+NF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=keYoykJI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781683956; c=relaxed/simple;
+	bh=xquYgklU+rATdCmZd5DdC0DhayIkYy1d3BFfzdZxBgY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PBryKbZh7uiMhXADcc8ojwnHJ62fy3IJkxftKhT0NorAYKecY5xTuR6MxlP/DTel9kaBcVNfZuSUf2HjY6I/TxuGdyX4YfzUo4afvZXo6946qt35buk1G5JM2oiYW2pHK7anP6SBmxP6A1aL0ec4F6kS6Tthgawa21U/DOTGpTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huxdnGkk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="keYoykJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CD41F000E9;
-	Wed, 17 Jun 2026 08:11:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huxdnGkk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 666B21F000E9;
+	Wed, 17 Jun 2026 08:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781683891;
-	bh=DGyTkWofSz/FPfY2ZGkAAhsr14BRhfEZM+zZ+Pxo9xM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=keYoykJId3a1bOCp5KcblSpX1qdL8vt1e5z02K120PuU6Vl/Chw1yM1WZBIyV8PPb
-	 wIyTeY2q8qz6vnvX3T6RnEadxsDYWHNwpjWrjzCdEvOdgCMvz5Wgietpd/cgYySr0e
-	 vxQtPO8Fskc1zCmJ9HTxOp8dT3juV2gHVMkHKrSORl7IWM2BBPVoiLQ2jo/Bn/bLvc
-	 66T4OeRj48fmUTavmbr7XYTHrZrJR/U/GHB+Citm7B3BU6ZRNt8UUsQx9ddOSdKFoA
-	 CtwpkBfpEGZO/087W2qOvtm1mDTIsEtXzCP1k2AZyZ17Tjq+E3SBTYkwRSd/Nwr3al
-	 +fcfmW5+rop9A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
- device_driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-8-clamor95@gmail.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-8-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:11:31 +0000
-Message-Id: <20260617081131.A0CD41F000E9@smtp.kernel.org>
+	s=k20260515; t=1781683955;
+	bh=h0V/anAz/uLvj+D8TDeyvY6nZjIPCaaCNAXIXvi1mBM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=huxdnGkk/zlz1rL8vQIDnrlwtH1G/X5bKGSEL/z+U7+YKQriBQCpdgqC1iP9ulgCm
+	 KxHPwxtaxs59P1h9posismk9QeIGmJBb+KBUTTtAqw4qNt3MzSDZTQ0ymvU0LvzEgH
+	 haq1T6HayIwVPFF3zra1QBj3G7ygvYsNku5La52k7iOlGCcmLSuKAWkKXuH8QWygRI
+	 3nnAXSGxcMyIX1pkwNgg2k9ooMAShTo4OO1vcaF2wSMyOC2+vd8m3sj5z3F/qw/hzM
+	 I/X/t8KPmODmxbdDtTPoDmQlUuHaJc748OJ3TuT96u54szC5j27XnpQKZ7aQl45Uhn
+	 9k97cP+HZB9QA==
+Date: Wed, 17 Jun 2026 10:12:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Teja Sai Charan B <tejaasaye@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: rtc: Convert rtc-cmos binding to YAML
+Message-ID: <20260617-devious-furious-hummingbird-c387ba@quoll>
+References: <20260616085659.12809-1-tejaasaye@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260616085659.12809-1-tejaasaye@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unintentional user-space ABI breakage by moving custom sysfs attri=
-butes from the backlight class device to the platform device.
---
+On Tue, Jun 16, 2026 at 02:26:58PM +0530, Teja Sai Charan B wrote:
+> From: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+> 
+> Convert the rtc-cmos devicetree bindings to dt schema.
 
-commit b4eaddced56809e9f87ffe143724f151f0e7013e
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: s/YAML/DT schema/
 
-mfd: lm3533: Use dev_groups in struct device_driver
+> 
+> Signed-off-by: Teja Sai Charan Bellamkonda <tejaasaye@gmail.com>
+> 
+> ---
+> 
+> Changes in v2:
+> - Allow intel,ce4100-rtc compatible used by existing DTS files
+> ---
+>  .../devicetree/bindings/rtc/rtc-cmos.txt      | 27 ---------
+>  .../devicetree/bindings/rtc/rtc-cmos.yaml     | 60 +++++++++++++++++++
+>  result.txt                                    | 17 ++++++
 
-Instead of creating and removing the device sysfs attributes directly
-during probe and remove of the driver, respectively, use dev_groups in
-struct device_driver to point to the attribute definitions and let the
-core take care of creating and removing them.
+Stale file, please drop.
 
-No intentional functional impact.
 
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index 4d6f680334802..9ef171d3aaeab 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-[ ... ]
-> @@ -304,28 +309,17 @@ static int lm3533_bl_probe(struct platform_device *=
-pdev)
-> =20
->  	platform_set_drvdata(pdev, bl);
-> =20
-> -	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
-> -		return ret;
-> -	}
-> -
->  	backlight_update_status(bd);
-[ ... ]
-> @@ -377,6 +370,7 @@ static struct platform_driver lm3533_bl_driver =3D {
->  	.driver =3D {
->  		.name	=3D "lm3533-backlight",
->  		.pm	=3D &lm3533_bl_pm_ops,
-> +		.dev_groups =3D lm3533_bl_attribute_groups,
+>  3 files changed, 77 insertions(+), 27 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.txt
+>  create mode 100644 Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+>  create mode 100644 result.txt
 
-[Severity: High]
-Does moving these attributes to the platform driver break the userspace ABI?
+...
 
-The old code explicitly created custom sysfs attributes on the backlight
-device's kobject (&bd->dev.kobj), placing them in the backlight class
-directory, for example under /sys/class/backlight/<name>/.
+> diff --git a/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+> new file mode 100644
+> index 000000000000..ba4812778115
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/rtc-cmos.yaml
+> @@ -0,0 +1,60 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/rtc/rtc-cmos.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Motorola mc146818 compatible RTC
+> +
+> +maintainers:
+> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: motorola,mc146818
+> +
+> +      - items:
+> +          - const: intel,ce4100-rtc
+> +          - const: motorola,mc146818
 
-By attaching the attribute groups to the platform driver via .dev_groups, t=
-he
-driver core will now create these attributes on the parent platform device
-instead.
+These were not in original binding, so you need to mention it in the
+commit msg and explain why.
 
-Since the commit message states there is no intentional functional impact,
-could this path change accidentally break userspace tools or udev rules
-that expect to find these custom attributes inside the backlight class
-directory?
+I understand there is not 'rtc-cmos' compatible, so basically the
+filename should be set to this fallback compatible.
 
->  	},
->  	.probe		=3D lm3533_bl_probe,
->  	.remove		=3D lm3533_bl_remove,
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  ctrl-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the control register
+> +      (also known as Register B).
+> +
+> +  freq-reg:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      Initial value of the frequency register
+> +      (also known as Register A).
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D7
+You should $ref the rtc.yaml schema and use "unevaluatedProperties:
+false". Or explain in the commit msg why it is not applicable.
+
+> +additionalProperties: false
+
+Best regards,
+Krzysztof
+
