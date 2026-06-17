@@ -1,164 +1,145 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BD235CBCB
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 04:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7081434D4D6
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 05:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781672112; cv=none; b=HyPKkU/rJpmWDI4Db3p0/DdHIqm/SmU98D5ypB/+UyBe88oVgS9c13gZiIrZoC5lTTubBO1zWwVZsJj3HsYFCxToCixqdsigfn8mk1QF2DGCbfRD9R3Gq9EpK3bFD0F9+gcRi+e0LvjiotiuHwmA/yxfWmUeFIqXnM8p92GoMC0=
+	t=1781672442; cv=none; b=ra9ksC/ivGEzRVgaY5Eya6dqilUlIntUwa3UDF8NAnYna2HrGp1DJjVRQNkkr9vcExeYDVo1D8CqH0shFZxJ0Acy1UVtSQWWWJRjsRHOk8yRHSnz+1KNjhV9xjhzKZnm7goKO0DtCHgnSAvsJHDdoeCNHcpFPdsdhP3kfKjUbIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781672112; c=relaxed/simple;
-	bh=VKSIp1hqO/6BaEqstNYrrSvv+n5piAhSDOZo9EpH1sk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=VhDFeBtLApxq3wXN+dLVhhReDncpGVkT2cRHSu6lP++YzP7vkkaSAwmqrlG2ooEwj4PHjTCbkqneS34MKfDGQbcQdjes2e2IGwtqipi/iEhzc24mNMER9LNezVwJiCBJDV7eucGm8o4oyqVLHaeKWVDnJGDdhHL6Gdy20Hjpqdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=jnNjjWX7; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1781672442; c=relaxed/simple;
+	bh=1ecGMvwsnIVyqRGZgxnJm8/iKN852N3s8u/EsVfKzuQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IQ3dQdZEBeXYlg9TjITc6UegHiVqU5MUU97/GorW51kRFyHRGcY64HgWMtme3GPO7AfohoMo1E0z4w7aLCIbgRWPjJTC0lkvxmjieYkWmVO4NFKDXEifbuCaROyKSdmsZTy38qT/T4cIu5Y50luhrm+0qwD0eY7+foq7IisKqps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPvtL/Hi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="jnNjjWX7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1781672095;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VKSIp1hqO/6BaEqstNYrrSvv+n5piAhSDOZo9EpH1sk=;
-	b=jnNjjWX7tXBvhV1FmvD28plB+P5XxzCd/r6njzCQOb//d+b3yrLhaZA022U1yNSu4ZOOoB
-	mXe/JwojtYeDzdELOl3dJ5q7QHwcxrWV+rH1viy7rT+Ty8R5eJVtKUj4OfN4SuLoXQCTOF
-	q+mZ+TuQgek5TvpG8LF1EJbT1DFa84/iuGFatPiVjzWCGwoKNBz7PdALj66lEiiwOqQImL
-	9joVXLwhruRFyl9cVqDvFJq8Yo+9g3nilBPlK9W/kxWntMLv3M67qJESwJEegQiDLFPqn3
-	TFNRqYg4Jix0vhQYtJh8+6VzXskWgw/BhIKT0CsYrrIJbzApBh3S+oJQLbQi6Q==
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012013.outbound.protection.outlook.com
- [40.93.195.13]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-10-miz2B9F0OuKPTzVvTTHHAg-2; Tue, 16 Jun 2026 21:54:51 -0700
-X-MC-Unique: miz2B9F0OuKPTzVvTTHHAg-2
-X-Mimecast-MFC-AGG-ID: miz2B9F0OuKPTzVvTTHHAg_1781672087
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by LV4PR02MB11099.namprd02.prod.outlook.com (2603:10b6:408:2da::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 04:54:45 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 04:54:44 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: "Parthiban.Veerasooran@microchip.com"
-	<Parthiban.Veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, Piergiorgio Beruto
-	<Pier.Beruto@onsemi.com>
-CC: "andrew@lunn.ch" <andrew@lunn.ch>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Conor.Dooley@microchip.com"
-	<Conor.Dooley@microchip.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Topic: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Index: AQHc+e0nFxx0u09WdkC+bo9XNPrS8rZAt0OAgAF+ZZA=
-Date: Wed, 17 Jun 2026 04:54:44 +0000
-Message-ID: <CYYPR02MB9828B41845A534BDF0B0C17083E42@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
- <20260611-level-trigger-v5-1-4533a9e85ce2@onsemi.com>
- <7c89df6b-32ac-46c8-8400-945879037f2e@microchip.com>
-In-Reply-To: <7c89df6b-32ac-46c8-8400-945879037f2e@microchip.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|LV4PR02MB11099:EE_
-x-ms-office365-filtering-correlation-id: 29b26fa1-e4c1-4d64-8912-08decc2c8ce5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|921020|56012099006|11063799006|4143699003|6133799003|22082099003|38070700021|18002099003
-x-microsoft-antispam-message-info: RkI4LWkL8VvTmL+g6sS6Yzw+Zo8yGJNrnrQz1HYxOR9lOpQWRgCK/QhAJLKSalQ+DqZkVNYCWjpjHIOLyn38IfgQTLyqCUVBuN+KYoyVDnk/Oj0sascW1yc9S+Nx5L/+lGGkQt6b4pJWFIa2PmhA7rU88ByWI+M8GCOoWzwbkK4PBn0cur8klfbiCxkNyGzCx1QUj1fNskke1WSj7LzxFXYUyveA48cqkboA10+opEg1dY0ipIUMMHJMDyOIlt8KZQE/LVfNIWAO72utnLj9WMUrbDIGqWjprA5KiR7/xoeMjmpaDrNkfxRsmvup10y0VgYkGuSOtm0d1DRctHfD7SUjSGnfuU6dGnQBe9N4uRT8SFPz4xHURHoRoI0VP2Le2Bdw346Ucjbd6vH/KbKwiONgEPHqqeiMN67QzFUccLn+I3+C8+vzReShrRqDW5EWWi/2KMZEJIekLRhhS+CEQaP7Q2hEbcr8L7zmHIyVR0Wxbk9TdX1dbwXC4CKkaY85cELUb+0W5BsT9X/uxQ5Dm7QtJc9HpJytIWJIR1vqgMg1LR49tiRsO7dkc9N0uSP5clPzC5kOwnZIuIF9cuAnS0+O0uipUJ+cNY5Seh0oKriFajfFGFVpRinIyZ6o5h8vXDbwEaOGDg0TfbcPI0G7/8/FymIvrprQAjyvOdin9NHqEAagoehCex8rpclmytUr39vr7pJNnZP4NvMAayo+USpQ87EG0TUNyNHrTOoyQdOA8/x9jK0Se/KUe2qgBpKPpACCltdYVne2iMpplW/syA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(921020)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(38070700021)(18002099003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?S1hWU2JQclhWbUx6QkZxeHE5cjAxL3RSQlhpMWdZUWpqN0tRbWI4Z1U0OEln?=
- =?utf-8?B?UThqaWRDem5BRkNkc3pLdWVXWit0UExYbTNsbjVJdlFRLzF1ZHhDTnY0TXI1?=
- =?utf-8?B?NTFTR0JHQTVUaUV3MFhLWE5HelJDS0E2dEhWZVVxNjZpbit1Q2lmOVdoQ0Na?=
- =?utf-8?B?VS9vTUZrY1lSVGlFbnVZVFErR3l2ckZYVkJZZkQxRVFmdDAxUHFiUEZPRUIr?=
- =?utf-8?B?dmFuaGc4ejExU05sREhyNzhTRXNPNVhvN2QyUWk0cGc3b0h0VGl1bDh5eVNK?=
- =?utf-8?B?Vk5sRlpjaWpWU2xyTWl4WXphMjhsNk1sZnorME5Id2g3dmRJTWg2RFUxTWVx?=
- =?utf-8?B?WDJiQndNY24vblpnRE5DdVlYNXVtcWx4NU5BdEx0S0lERnFHdDFPclNnZHdG?=
- =?utf-8?B?T3ZHMk9BZGlXTktoU293eTRkT0NxKy9LM1JsQTNyclk2N3oyU2xxaytaRytq?=
- =?utf-8?B?VlJudDRMemJuMlRlVmp3SHVpQURXeGxaRzQwS2tUeVpyTWVvQzNRcyt1MDFT?=
- =?utf-8?B?UzBYaDQzSmdOclNWT1ZUM2lOZ1Vac0thaFIxalJDbXljWW51ZXcwVTdWRGcy?=
- =?utf-8?B?REFLcnkvREUyWWZaQldEWVRNd05oTjdzeTU1dlVZY1U5akE4WVFJcnd5ZWdT?=
- =?utf-8?B?QXJFam9rMGJlNjdMOGV5SWJpNFFqZnNnaC9Kb2ZuQkJMbjh5WDMrMmFNNWU0?=
- =?utf-8?B?QTQ4MDlLRFhnWGhUL1hXcjBzTDBHLzgyN0pGaTV0RmI1c3dueVJtNWZWRW9X?=
- =?utf-8?B?U2hudEFYK1p1TWJ6dy9VcmRZRG1pVGdjbmZ2R3JuckFzTFJTSDBudFp5Qjgz?=
- =?utf-8?B?Z1N1aGl5UFJ3WHVCS1FSRmZYemRENlZkZ3FyVVdjRXkvZzUvTzl5T0hjRW42?=
- =?utf-8?B?dmlTcWtMQndsd1pWNTNUMmlydXV0K3dNTGh3SW5GcHJqYjF6SFF2UGRkb3Vo?=
- =?utf-8?B?cHNoSzhKb3JpRkRpOU1odSttSi9pRGFkQ3pIMmdVeFkycmErbmsyeUp4Qm9S?=
- =?utf-8?B?cVgwZjBmLzVuZUJRWkN2Y1RwU3IwL2U3UCt0Rlpyd1k0dTh4U0xjNmVPSFlq?=
- =?utf-8?B?aTY0NG03bGt4c1JJTisyN3NkeTc4c2swY3lXSDc1T1FuOWhnUTQ4ZVhOMGRB?=
- =?utf-8?B?eW5YK3lidndXMTNrM3JEK2h6L2JsZWhCaU5QV2k0U2FkUzZ6eURuY3o1VFZu?=
- =?utf-8?B?VTU2UDV4VUYxTVpuZStHdjdKeklCZzVyQS9YZmpPVGFvd3hpU2psUW5iUnVj?=
- =?utf-8?B?NnNHT3ZZMHJPR3I2ZGM4UWpDWk9vci9LNm4rcm5wYktnR0lKWFNwTEdmcjFP?=
- =?utf-8?B?VURYdGVpR2xNeFJDbzZlcVpJTGVhZ0l3TmZlUDZHWm1NWi9XcjY3MTdITGpq?=
- =?utf-8?B?ZDViVE9xSldnUUhYcHVCZmdJMGsrbThpZEtMNEVNNnlWdVBqYnlWY09ZZG1M?=
- =?utf-8?B?b01USXJUUGc1NGVxRTgwb2lPYlRwSGlUVy8wdHN1bUhrRFZaVmdUd0ZWckIv?=
- =?utf-8?B?QWRUVGZ3NmxzVVgzWDZnOVJWWTV1MkxIT3QrMUxDZHlaelBiR3JoVytQaFFJ?=
- =?utf-8?B?aDJKZFFoYnhUYUgrNmJ5Um0vMFBWRFVmZTlZZDUrV2ptTnNmb0E1dXhOeTAz?=
- =?utf-8?B?ZFIwQkZSZmJVUktrV1BUQ3B1OVM0Q09HcDdpNmdEWDU2a1lVYXVEN1lxOC92?=
- =?utf-8?B?UkVtczJBbStFZk5ZSXhuem9RUkk1djlwOHZwNXdwYUlsQnBTVVhsN1piMlQv?=
- =?utf-8?B?R0N3OEwwZXMxS3pjTFFZVjNmYmk4RmMxS2ZSTEtDak8rUHdtTmRKSWtOZ1py?=
- =?utf-8?B?V21Id3VMWXVtT1ZINEpkMkVhRFRubExhNkF2dDJJUm12RVRpL21VSmFaS0xo?=
- =?utf-8?B?NVFKWnJ6UEw3K3dHdjViRUhpZEk0TWNyVk9JQzd4aUxqOTNFbExjMGZ3LzdC?=
- =?utf-8?B?eVBrZEdXQkVSYTh3ZUhDOU1FZGhSRFIzMjhhVWk2VkdPSWxITEYweDdEek1z?=
- =?utf-8?B?a3ZTMi9aOVExbDhKd1hxZ0JXS1ZhR1FwNVZTM28vN3VLRFVRS09XcHNqYWFG?=
- =?utf-8?B?emdZQkpyU3ZTVHVBSFhiL0ZFcklSYU10SXRCa3B4eEYyV2dETXFIUXhhUSty?=
- =?utf-8?B?U0tkN1J5cUtsU2tSWEdJZ0pwdzkzbEtBOFJHRkZmYVdiOUJaWjVKT25yS1hP?=
- =?utf-8?B?SFpWS2NyNCtYbFZGVFR3ZlQvNHcwd3lBY1B4QUdjUXBoMUUvN09zZkNpRW1B?=
- =?utf-8?B?aUo5N1FYR3c3eGpWVlBqK2JoY2ZJVXFxUFB5QldVSk1SR1ZHdGw4ZEpMUDhD?=
- =?utf-8?B?Sm5zTUhoczV1L1NId1ZIK0phQ2Q5OFFGV29YRGwvNC9rK0FHbGpnbkpINjFM?=
- =?utf-8?Q?N5Bw+Ly2jcnROlu0=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPvtL/Hi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657DA1F000E9;
+	Wed, 17 Jun 2026 05:00:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781672432;
+	bh=WSaNJqmJ6vO68nEyMH4T2J45+FxBFfuOsFbSAVRjyLc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hPvtL/HiPpPBDoOUD4a68XvHOeO8GO/n0tkPHfDMa1EKogaZiIsVRWqNHEcSqIDns
+	 4/rm9XJW3sMyac+W8i33yzCL8GRj2Z4xuFbJIkzpp/SCGN0G6Arkx9Mg9nb1fZsugf
+	 rx9t8VNLOMJIhf+RwKrsKtd4xW9d1eWvrKro1KzwHbQjVUd9UUmQMQpYoKyjC+Usv3
+	 e68X2/LQ9+PeyyLuggqrHkBsE3NacrDIIKD7ECvHzajAoF3y4pVJSVReLcytnV/iVm
+	 iyA4f41d7aCT7RyGGUWCr0l658+533ewpEOhOluXrzZaqmuBNyrhIxH8pmyjl4LHaA
+	 ybDyoj/udKlEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/6] i2c: qcom-geni: Isolate serial engine setup
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260617-enable-i2c-on-sa8255p-v7-2-ad736dbeab57@oss.qualcomm.com>
+References: <20260617-enable-i2c-on-sa8255p-v7-0-ad736dbeab57@oss.qualcomm.com>
+ <20260617-enable-i2c-on-sa8255p-v7-2-ad736dbeab57@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 05:00:32 +0000
+Message-Id: <20260617050032.657DA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: qFHwWdo7NfzM5/yGuBTwimEKkmV609tlwZMNTsJ5vGs8vtgLO8YQNc0qJtBcEFjPRgrgjfu+/esG+q3pjWj+TZPIedOeQK4JF3AgrIE8Q5Effm4QFjzXWHtG7nIpS3WzBZEb6tWCaJXlUP2kowV2b7FdDp7N8RySDy47nA6koxl9dGYVh9tRtWkBt7+f9rQp+XZgtmdklSkeCkE2GGi6JWwGKJPWpDl1SCmAhMUJf8ZmXuFErfHlIjhXoxSqXKwSx4FwVzmFsLjC8eUZ3QenrWBhZRlgTMwdNbd97+THkrv+gluI/X+UQyZlp8T4fgw9kojM8QD/B2Ql21LjEPw2zw==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29b26fa1-e4c1-4d64-8912-08decc2c8ce5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 04:54:44.7552
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WMyVG6ojE4PAm5V+IjcGEjFW5TS868y3XKr7gf/VQRwpmGP5em1IOIlbapMy5vY0Y40ilTXkgLruRgOU5yqwwPMwowgsUsoVPvzU6bD5b8c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV4PR02MB11099
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Q0L5B1TLGXnRXRUHtMzpVwj3JZSAiomew2tWU6h8L_o_1781672087
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIG5ldCB2NSAxLzRdIG5ldDogZXRoZXJuZXQ6IG9hX3RjNjog
-SW50ZXJydXB0IGlzIGFjdGl2ZSBsb3csIGxldmVsDQo+IHRyaWdnZXJlZC4NCj4gDQo+IA0KPiBI
-aSBTZWx2YW1hbmksDQo+IA0KPiBJIGRpZCBhIHF1aWNrIHRlc3QgYnkgY29ubmVjdGluZyBNaWty
-b2UgTEFOODY1MSBDbGljayB0byBhIFJhc3BiZXJyeSBQaQ0KPiA0IGFuZCBzaGFyZWQgdGhlIGZl
-ZWRiYWNrIGJlbG93LiBQbGVhc2UgbGV0IG1lIGtub3cgaWYgeW91IG5lZWQgYW55DQo+IGZ1cnRo
-ZXIgZGV0YWlscy4NCg0KUGFydGhpYmFuLA0KDQpUaGFua3MgZm9yIHRlc3RpbmcgdGhpcy4NCg0K
-VGhvdWdoIHRoZSBOVUxMIHBvaW50ZXIgcmVmZXJlbmNlIGFmdGVyIHNrYl9wdXQgaXMgYSBjbHVl
-LCBJIGFtIHdvcmtpbmcgd2l0aCBvdXIgdGVhbSB0byBzZWUgd2UgY2FuIHNlZSB0aGlzIGNyYXNo
-IGluIG91ciBzZXR1cC4NCldpbGwga2VlcCB5b3UgdXBkYXRlZC4NCg0KPiANCj4gWyA4Mjc2LjY5
-MTA2NF0gZXRoMTogUmVjZWl2ZSBidWZmZXIgb3ZlcmZsb3cgZXJyb3INCj4gWyA4MjgxLjY2MjYw
-MF0gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0DQo+
-IHZpcnR1YWwgYWRkcmVzcyAwMDAwMDAwMDAwMDAwMDc0PiBkcm1fcGFuZWxfb3JpZW50YXRpb25f
-cXVpcmtzIGJhY2tsaWdodCBuZm5ldGxpbmsNCj4gWyA4MjgxLjgzOTQyN10gcGMgOiBza2JfcHV0
-KzB4MTQvMHg4MA0KPiBbIDgyODEuODQyODY0XSBsciA6IG9hX3RjNl9tYWNwaHlfdGhyZWFkZWRf
-aXJxKzB4NDI4LzB4ODgwIFtsYW44NjV4X3Qxc10NCg0K
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Asynchronous pm_runtime_put() followed immediately by pm_runtime=
+_disable() leaves hardware permanently powered on during probe failures.
+- [Medium] DMA channels allocated during hardware initialization are perman=
+ently leaked if I2C adapter registration fails.
+--
 
+commit 111d823f58de8c30c14ab44aa8466c66a5e8d761
+Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
+
+i2c: qcom-geni: Isolate serial engine setup
+   =20
+Moving the serial engine setup to geni_i2c_init() API for a cleaner
+probe function and utilizes the PM runtime API to control resources
+instead of direct clock-related APIs for better resource management.
+
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-=
+qcom-geni.c
+> index d2f5055b0b108..3ee0be228d7c1 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -990,10 +990,77 @@ static int setup_gpi_dma(struct geni_i2c_dev *gi2c)
+>  	return ret;
+>  }
+> =20
+> +static int geni_i2c_init(struct geni_i2c_dev *gi2c)
+> +{
+> +	const struct geni_i2c_desc *desc =3D NULL;
+> +	u32 proto, tx_depth;
+> +	bool fifo_disable;
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(gi2c->se.dev);
+
+[ ... ]
+
+> +	if (fifo_disable) {
+> +		/* FIFO is disabled, so we can only use GPI DMA */
+> +		gi2c->gpi_mode =3D true;
+> +		ret =3D setup_gpi_dma(gi2c);
+> +		if (ret)
+> +			goto err;
+
+[ ... ]
+
+> +err:
+> +	pm_runtime_put(gi2c->se.dev);
+> +	return ret;
+> +}
+> +
+>  static int geni_i2c_probe(struct platform_device *pdev)
+>  {
+
+[ ... ]
+
+>  	pm_runtime_set_suspended(gi2c->se.dev);
+>  	pm_runtime_set_autosuspend_delay(gi2c->se.dev, I2C_AUTO_SUSPEND_DELAY);
+>  	pm_runtime_use_autosuspend(gi2c->se.dev);
+>  	pm_runtime_enable(gi2c->se.dev);
+> =20
+> +	ret =3D geni_i2c_init(gi2c);
+> +	if (ret < 0) {
+> +		pm_runtime_disable(gi2c->se.dev);
+
+[Severity: Medium]
+If geni_i2c_init() fails, it drops its runtime PM reference using the
+asynchronous pm_runtime_put(). Will calling pm_runtime_disable() right
+afterwards cancel the pending suspend work, leaving the device in the
+RPM_ACTIVE state and leaking power resources?
+
+> +		return ret;
+> +	}
+> +
+>  	ret =3D i2c_add_adapter(&gi2c->adap);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "Error adding i2c adapter\n");
+>  		pm_runtime_disable(gi2c->se.dev);
+> -		goto err_dma;
+> +		return ret;
+
+[Severity: Medium]
+Does this code leak the DMA channels if i2c_add_adapter() fails?
+
+Before this patch, a failure here would jump to err_dma which called
+release_gpi_dma(gi2c). Now it returns directly, but geni_i2c_init()
+may have successfully allocated the DMA channels via setup_gpi_dma().
+
+Additionally, similar to the check above, will pm_runtime_disable() cancel
+the async suspend from the successful geni_i2c_init() path, leaving the
+hardware powered on?
+
+>  	}
+> =20
+>  	dev_dbg(dev, "Geni-I2C adaptor successfully added\n");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-enable-i2c=
+-on-sa8255p-v7-0-ad736dbeab57@oss.qualcomm.com?part=3D2
