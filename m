@@ -1,61 +1,63 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE0F38D40C
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4011138E8BB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684576; cv=none; b=gh29p4eYyZRhoxAA5ecoztqKmzbNGgx0ZN2c5Fnyevdgl8X9+citvQN2U+ZfDcJG0CHGe87zlHB6j5YS0EauH4njS5phTV8Y35df9xDmxkLYdVszNVJJklpbRgQVv/c+EYyYYVu8NuBvShiO891KWIOCQy0fe00lQ5mViWvmARo=
+	t=1781684583; cv=none; b=ZAXDyT5QV+deBEuVZA+6TNIzJbbumxQ+yptD8UXM6XItwWVC/1yFz5gM30c/3Ewb0wuE2JrYlPPIVJWinzWFD1ieKLb4HVLbJIpP+TDwhLI8kVwA/hub1OOWsN2XWETIiiKZkK0P9EL1nXcuzg5l6moB5M1i/sspBUFq5N+EIgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684576; c=relaxed/simple;
-	bh=7iGTEsQdXdpMFpeyINnDzwBkhJuY3AUtId0rc5NAD7o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VO1F7M03owg4/QqBtQz5HmCww0LOnsRg0ADeKzJcrqZTGeLAyDODeBdwEbJiMQum0hR/WJD2IM2AvlRWE4ba6n7TSlu7LXbMcGYLrcbc+q+Wsot+3rJQcm7zCxi1IXvs35BNTxar7N0/Vl9poAshzeZks/P3GdWMADvF2US20M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iF/0BsEU; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1781684583; c=relaxed/simple;
+	bh=lSN8fwJzMoOoe1Em8kYvhvxEFsCMOPfETF5wp2itgRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nuKg0D1zIpJnLP8vosjZyi0OpbCXW4fAYKleKFgVOYef4KhgT4G1wot4jBF5aGHZWe0aQzDtV3v7bVS156+DKqVGsApA3ni8hU13I/7i/ee9iW37DL7QlVXq74VWkHCDcucCn65Ftib9+bZGeRI/9dKcumqXvl8dTlYDlAZRzNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sevpGwDl; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iF/0BsEU"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c0c2d792c8so35371195ad.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:22:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sevpGwDl"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c132ac5ec2so54874555ad.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:23:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781684572; x=1782289372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mbp+XGu08SphaD/VmIY79o/0rYxP0riQ62ZWUCZr/Gs=;
-        b=iF/0BsEUc7mS5Oe8nUadc3PSS4wqejK472Bslr7BmPfSxyCAiwbwmuq76TrBzy1lIO
-         e051X4kpvhHvoGyQRBsVTMYWbrvoLyaRZZZiNRPbHjgKxsSq8epC9eX1Whxs9Iwn/nOa
-         OSHG+gDDOMtElATXRPuGbdzsQJwbvu1vNM8xyXYKrv83feOnZCSFHhiNpPUCAhfgsQ+Q
-         u1wNUgtXnBjfUzqfnRXxWI0+E1KPFX6aSFhHFvPTGXjR7om15nTP/p9O7+H5D2J+eHRn
-         nA9Wm55hdb1XaMNB5G+GE9iSmKrHLTUYfwQHTUvFeMu1Zqxia1CRzcFTTMjh55qkTER+
-         A5yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781684572; x=1782289372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781684580; x=1782289380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mbp+XGu08SphaD/VmIY79o/0rYxP0riQ62ZWUCZr/Gs=;
-        b=dpkvVa7MvHbx5Wqx1tr209zncv+/WbcVgQmDQWgJic65FxuXJ5Y/Qh7aiWZ5Tvfs0R
-         5HW8rSyjuR2jUAKv1pDB0VTlHF7E5HcX3aXMIkTI6mGhua5hjTbpfX0FdZYGlN8fMHi0
-         02s7rvKjlB6E8rg3AFhJgbJWfC+5DiGGs7o31Jy+gM+0PH6L52hqGUy7vEH1iRAcY2Wx
-         4CaMd/TVp6457OC8Qxje/7xDK3XNoNkM5W1KyCLx9/lTfbgx8Vaa8PshSeBn6uaL7neK
-         RY1DhS+E+K3GVEADdJnbZ0rG0Jr7RZbgROv1EZE26jPyF0mDzZhFahfMPW3Q22IVxMOR
-         aQcQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9+TPHLbnIGQcAgPY+KW9UnP2RRxTH/kqBvtkFdZQyuHMHgqjg8AnDEHMyevGDoNQBVkR0e+uQ87x4Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRfhBKmuyAwRTtWg73JD+uOfefo/jJRg5KKMcKJXChbOwCbfBM
-	FnpCo5LC11X4sJMVou/fWjBv0oS91JkRxCU9zz4w98v/pa0pli5v7DWa
-X-Gm-Gg: AfdE7ck/4c6173oJ2WcVtEHgPvmAK0fNCwky1byydszKONLWOogDpU1zzikYYIfTdsI
-	V5hJVRYJyqAvItow3OEES2dPUYP7Xwp6ddaj8cCEjVv8TozFkWDbIBd6lSL0XwXFPJsfQjY0eUf
-	E6/nDY6lNacIgIFcMOVbapEk8jNOh6VaCwxt+U3bSinCcnhwbKp8rnAfA3oZQQDucotwOQ9HRwj
-	ZLKz77BWec81dhpuVvRMPpJFHxi9ZGM6tegMMpdWz+L9E6EqWAeiLeZaSOYOtH8g2+hSrZDgsDh
-	OEKpmyOiD/P1oHyjvHO9x77Sqhd1iTaeZOWnnRtGp6EH8gJiQ7d8RzLiZB4VlH4Q/RUHvvpUlrn
-	3rorvjO02wVDX8gTwteQ6fN1OmxOa3MV+c1zu7Y+tXkVcSxLHfgm2uoWOtPep21JsYVT4N0biwG
-	08S8Lr4cLIbw==
-X-Received: by 2002:a17:903:887:b0:2c2:245a:3360 with SMTP id d9443c01a7336-2c6bbfa18e8mr18681895ad.6.1781684571658;
-        Wed, 17 Jun 2026 01:22:51 -0700 (PDT)
+        bh=O9WzTe+1vlDzzoGxy8+EdE00Q4JOiUjNnl8CApnpdjw=;
+        b=sevpGwDl/ZtQFAwYrmHqTW5j/JURuJEqMiRvKqHfSiC690KKxljbAcj1V0/OLBels2
+         LnEi8/XgBaTaCYWdciTKCXKe3SQ39k9jml091eWIHZCCFYwPjdJ2n1f2767SMRMDvEDN
+         SJjBGdZsTdiV/5e8Iz27Dexxv1oxrmabMh0De/WZ+zFmxYjLMlTjULfQy68E2EsZVXdW
+         b4C+1D3fAXWFPGqNU/JNdbzSBkpvZg/j0jVsQJLpsrW9hSsy9dIm00DycH5nv0PPQjk6
+         FvFdrCyxDHq/ulI1kSqE/nmgfKW+BmG4HLy8QhgAgSah2NIzrQYaKwFUFzmyv50EdKtS
+         WHWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781684580; x=1782289380;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=O9WzTe+1vlDzzoGxy8+EdE00Q4JOiUjNnl8CApnpdjw=;
+        b=WY2AdzrkcZzZUSCyzhF4fdqp7CnipQqpsBltTFYmh4I/+7Qr80LCxk0h/YCgoccVrS
+         nlR/G/Ro4bvNQ1hcpGMnHP0fFHqtuAxDjxW9dxi99fV1cSIMok3QJGImzPZHpWaqAFrE
+         koYDDimchMo5fbnMBs6OUap3wWfh+L3+Ruac762VSsPdCxAP06V0jRBxNramcTRL333C
+         93zRj3Rj6HvV51UJ0SGoC915YHyRpgQLqLiVId+zkwXjYfP8N0d84CTvXRICwdw1Gxw/
+         BJ7jkA5jhK6TF/FEen0ClwSvwDBhaAuWqHzBUEx1Nl6c3D1ezIqslVsdkszTbcmXVSCT
+         aDfg==
+X-Forwarded-Encrypted: i=1; AFNElJ+QffI36o4FmppvFgWeL4l4WTr/1ujvEkAmelkh9ZuVLCVQFJUiuc/rJty2vKO4d6o79G4rkjimSxsQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRUBX3w/raUjwohM/NbUmKiYVIaodx/60Rv8oIMXTOrNqM2VDv
+	A273/dzoxlNQs+qRWVeuA4ImwewY/eOjQ62fV7PXmXk5YDRW8J5GOyrW
+X-Gm-Gg: AfdE7cl2StouB/BMgYwly6hPPOtIjfgJ72qUrUfrzrs2wrhHvslV8vZKrFZB7PzVRCo
+	DyTxO9/pOdJtts11FYbUtIOTBT8LO17q7jFYDSypvgrsO0DvWcn54EX3sjSlPnS1UBv4OWuHkuz
+	NZQaweGZ58s/npbd40cZRIgRy2yhONErzHZDP6/KVDb74WBXfqHoGdjnC2MoWugPcQ3w8xEdqz/
+	PlUEBVIwIIAAkxC6xMZ/Z6b+18X0WmXsUZAuf8MyLc1HS8DxRit/+pIxD3bHwnIeU/UAjEOTl+Q
+	2OMVyM5fwNfPG1qUWX2N4yEZo4xvno0Hp+0KH/FfjDeOxA3Sa7c7xwGbmmE+8X+WEjMbL9Ryjqt
+	toKGpDeWVwxhfj4PCK+A4199QIZvViPeZkfKdBVoUYtOgIAyN7tdEjfB5hLeicay6/tVSDWUfHq
+	AfIwIEqf6y4tenfPfAOICE
+X-Received: by 2002:a17:903:230c:b0:2ba:3e2f:6883 with SMTP id d9443c01a7336-2c6bc227c83mr25166055ad.19.1781684580462;
+        Wed, 17 Jun 2026 01:23:00 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.22.44
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.22.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 01:22:51 -0700 (PDT)
+        Wed, 17 Jun 2026 01:23:00 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,10 +72,12 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/3] arm64: dts: amlogic: meson-axg: NAND fix and PCIe PHY adjustment
-Date: Wed, 17 Jun 2026 16:22:31 +0800
-Message-ID: <20260617082239.645562-1-jerrysteve1101@gmail.com>
+Subject: [PATCH v3 1/3] arm64: dts: amlogic: meson-axg: Disable nfc node by default
+Date: Wed, 17 Jun 2026 16:22:32 +0800
+Message-ID: <20260617082239.645562-2-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260617082239.645562-1-jerrysteve1101@gmail.com>
+References: <20260617082239.645562-1-jerrysteve1101@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,32 +86,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-- Disable nfc node by default ahead of nand_rb0 pin addition.
-- Add missing nand_rb0 pin to fix incomplete NAND pinctrl.
-- Disable pcie_phy by default to suppress probe warning.
-- Re-enable pcie_phy on S400 board to preserve PCIe functionality.
+nand_rb0 and emmc_ds share one pad. Before enabling nand_rb0 for nfc,
+disable nfc nodes by default to resolve pinctrl resource contention.
 
-Changes in v3:
-- squash "disable pcie_phy node by default" and "enable pcie_phy in 
-  meson-axg-s400" patches
-- Link to v2:
-  https://lore.kernel.org/all/20260617071604.635627-1-jerrysteve1101@gmail.com/
+No mainline AXG boards enable nfc currently thus no extra DTS adjustments
+are needed.
 
-Changes in v2:
-- Add patch to disable nfc node by default.
-- Link to v1:
-  https://lore.kernel.org/all/20260529140605.1070764-1-jerrysteve1101@gmail.com/
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-Jun Yan (3):
-  arm64: dts: amlogic: meson-axg: Disable nfc node by default
-  arm64: dts: amlogic: meson-axg: Add missing nand_rb0 pin to
-    nand_all_pins
-  arm64: dts: amlogic: meson-axg: Disable pcie_phy node by default
-
- arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi     | 5 ++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
+diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+index f1f53fd98ae2..6457667d974e 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
+@@ -1999,6 +1999,7 @@ nfc: nand-controller@7800 {
+ 				clocks = <&clkc CLKID_SD_EMMC_C>,
+ 					 <&clkc CLKID_FCLK_DIV2>;
+ 				clock-names = "core", "device";
++				status = "disabled";
+ 			};
+ 
+ 			usb2_phy1: phy@9020 {
 -- 
 2.54.0
 
