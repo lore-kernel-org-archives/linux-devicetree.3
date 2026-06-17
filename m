@@ -1,64 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0859397E8B;
-	Wed, 17 Jun 2026 20:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A16035B631;
+	Wed, 17 Jun 2026 20:31:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781727927; cv=none; b=a+9qbn/o7OzMm1rFgc5ktPPQmd1Pq7ZTOUU6JITSjC11L71Lx1ae0nqT2PJb4xgRlM9tckENQ2m9YvHCLknc+/QTTIyg/7zQ4WZXHJtboy3ln/6735T2dRJnojzKzsLixvcN9ptNARuS7UjSoBxMxoZhtyChbJchnQhh3RVGwYs=
+	t=1781728272; cv=none; b=otEQ7SoMD6CqKBBwgfhKgULd15g8t49f+aK7Mr6Ieow4wcXKRXgW0zkLDrHDRCEVkw6MV3RHgjU5igN4SebCZLmI2ZtqnwqJNIHJBAU/E/cSNpcVuJgEmeTtb2o9wGseNW0tTn1Lp/61DlVYVtj7ex0o21nP06fL0U6eQw/qAU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781727927; c=relaxed/simple;
-	bh=6iej/hQl+0QYeiLQHxqYbBMPbJEyZ5TXZc78+bT7JuQ=;
+	s=arc-20240116; t=1781728272; c=relaxed/simple;
+	bh=5A7sAOhhb2RfiJ+NOx1F4HByPaknrUUEQtps2W92ePs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oFSQ/ovG0r+w2ACXURO/6dee5Wg2gIbuZ5Bbsu43s8cZiLe68qq6roMFMy3iA2nPTtpwpkczZxPi+Lv3UEkr4Fmc2U17oo+DFf7WeHHye1Qiw5M9vcmBNJ+jnzqOEulCz03XOqwpjbBgvC5n0z/bjqnwEif8TfbKfyvxBcF+IPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERh2GKso; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MRgDdvdH/s/lnq72ttFrqQqjhqpv8XK6tHWibCY+0hnDqqfJvBC68i8ad3bxferrKl0+exgYq0c1w1uEAPA0VTFb2VfhcultxPN9Vf9ya34VJbx1b6ovNzdUYX1IsWaPJkeRLsNS0v4aJaD2V89rs939MA9SfrlrcLKkVjsN5uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3LfjN7m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERh2GKso"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA651F00A3A;
-	Wed, 17 Jun 2026 20:25:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3LfjN7m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4FDE1F000E9;
+	Wed, 17 Jun 2026 20:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781727926;
-	bh=6iej/hQl+0QYeiLQHxqYbBMPbJEyZ5TXZc78+bT7JuQ=;
+	s=k20260515; t=1781728265;
+	bh=ozfQcw/O8CAMHls+vIGVb+Ve0akF50Yh5E7IY7QYNB8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ERh2GKsouxhE02ePsZAeiQN9yo7F9Lz5z0Qf2+2PY8tip73ti6S5lLws05OynCfJa
-	 nFvf7z50qUIg4Ry1luogaFozal9GDL0/v8R+LB3uKkixMemOMAAK52Dzy84A6/Fukx
-	 zYq8CyJhQ9w2YYccq4/+QnFBc8DmMyEUGb6OskHA+ku60cXeRSVZOKTmX4POeUZTF9
-	 UlBBLd9zwbZh89TM0XmdOrt4YrkBTgeyzzI4dBiesWOKdTsucgbBN3r7mDBY9hrO2i
-	 AOwmVoPGGbtQZ++Apse2qS3HyIObWVPK7q5ePNiesBNv2p0JkSq6Wkhbipjv+UlsER
-	 O7rVocvYdByow==
+	b=b3LfjN7mRR05KiEjmhkwWu8skBH76BD4vfUODQcl2kWZqRzPEN4WV0Kt5LyPJfQE2
+	 LMD0dtHNp8V/FFkhdH+HaTWeeQhXbbBv4gZmtRzjsbVY+vA8asIX7DsU6HkhoWx5LC
+	 KnLI5bkJEBOuMRzdnWujJVx84DxhFPzDawamQFnQQvgAFpVRi3oyLFPqJQ1DsxsdGx
+	 j7zmxnsFLgWFJ4iwioVxJwxtqZJ5or7lGtYfou2jktdqVxEz4SjjRIiS+W8TOI0AK0
+	 H4PZVozVOvFOSC5Y5mKDLmbvb52G844lsfoWsVyDdveGusRagMbTpaUUbwV+LbXc2u
+	 k39B7mmHASICQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/4] dt-bindings: pci: Strictly distinguish C0 from
- C1-C5
+Subject: Re: [PATCH v4 03/10] dt-bindings: input: microchip,cap11xx: Update
+ datasheet URL and LED reg range
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260617-tegra264-pcie-v7-1-eae7ae964629@nvidia.com>
-References: <20260617-tegra264-pcie-v7-0-eae7ae964629@nvidia.com>
- <20260617-tegra264-pcie-v7-1-eae7ae964629@nvidia.com>
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20260617150318.753148-4-jerrysteve1101@gmail.com>
+References: <20260617150318.753148-1-jerrysteve1101@gmail.com>
+ <20260617150318.753148-4-jerrysteve1101@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:25:26 +0000
-Message-Id: <20260617202526.7DA651F00A3A@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 20:31:04 +0000
+Message-Id: <20260617203104.A4FDE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> From: Thierry Reding <treding@nvidia.com>
->=20
-> Instead of using the ECAM registers as the first entry, strictly make a
-> distinction between C0 and C1-C5. This is needed because otherwise the
-> unit address doesn't match the first "reg" entry. We also cannot change
-> the ordering of these nodes to follow the ECAM addresses because that
-> would put them outside of their "control bus" hierarchy since the ECAM
-> address space is a global one outside of any of the control busses.
->=20
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete Refactoring / Code and Commit Message Mismatch
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit e8499e0ca62db6a2ee6dc0986e7c04ea1337f6c7
+Author: Jun Yan <jerrysteve1101@gmail.com>
+
+Add datasheet links for all supported CAP11xx variants.
+
+Update LED node regex and replace enum constraints with minimum/maximum
+for LED reg ranges in preparation for CAP1114 support. Drop unnecessary
+led unit-address pattern.
+
+> diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.ya=
+ml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> index 7ade03f1b32b..eabf06a1163e 100644
+> --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+> +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+
+[ ... ]
+
+> @@ -131,7 +140,9 @@ patternProperties:
+> =20
+>      properties:
+>        reg:
+> -        enum: [0, 1, 2, 3, 4, 5, 6, 7]
+> +        description: LED channel number
+> +        minimum: 0
+> +        maximum: 7
+
+[Severity: Medium]
+Does this fully prepare the schema for CAP1114 support as mentioned in the
+commit message?
+
+While the constraints on the reg property were updated here, the main
+patternProperties definition for the LED node just above this still uses
+"^led@[0-7]$".
+
+Since CAP1114 has 11 LED channels, wouldn't the schema fail validation for
+nodes like led@8 and led@9 because the top-level pattern wasn't also update=
+d?
+
+[ ... ]
+
+> @@ -158,7 +169,7 @@ allOf:
+>                - microchip,cap1298
+>      then:
+>        patternProperties:
+> -        "^led@[0-7]$": false
+> +        "^led@": false
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-tegra264-p=
-cie-v7-0-eae7ae964629@nvidia.com?part=3D1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617150318.7531=
+48-1-jerrysteve1101@gmail.com?part=3D3
