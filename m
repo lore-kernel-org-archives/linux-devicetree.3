@@ -1,127 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9231E30674D;
-	Wed, 17 Jun 2026 10:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6519E405C2D;
+	Wed, 17 Jun 2026 10:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781692379; cv=none; b=WKtDJ18efILzbum0kWYlnUOrbzHwB1o9EFUw5iXrwb//2u/zfNm1KHtKpU1CnmoiF1bj0RwXeO3Gi4qwHQ1Wdm+oPwpbYbzqk05r1JDYKh+NZbLfcfcvkI9OqGhBX0AUVsLQgwbEe5rUkNGAb2Nx72sJBf01EOOaPS/oehl+rDI=
+	t=1781692431; cv=none; b=As4SCwW+oAbzcfp3P95FARWZ3Y5ne4ftZdJK5BftXlw07WMaU4uj2Eorzt/TTMOh0TAx3F1qYb6nVKY844GtYbD9VqU5lEwaIxFGHBAjIg36iwqR9eSp6sZNOjrjk1lPZ/WuUu7p18KkaDqFjAzKPaZ7Chz/cUz6SLn1oKuyLB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781692379; c=relaxed/simple;
-	bh=X3winq5qm2HIT6UC0/yxmrF0jTAu33Gl4aE30OAa1oI=;
+	s=arc-20240116; t=1781692431; c=relaxed/simple;
+	bh=IOTXUH576NXlSthhVuzvANvakjDYSXmiJ5wl6Xy6Df4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cx1nVbjJ4QcRWGCGEdc3NBw7nwVV5ycwaUlBJo7N759M1PLbROwYxFdDBokp4xrPU9q/ED2ljiADzotaYGSxGwaCQuJOaH7QsC0AYVxVAfR4OhQKjbHpMEuJD/b5Wpr+7bXJfsKyovrB4hd0ESD1P/yIE6sSTcp3kBGNAWqk1Jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kAlEW2mZ; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bDQhli6xhwsMQXc2VdTotm1V1RUFpehUDEaofkhjNnwHw5bW08Dei7lLDBwEjd013xaWgCMhFbejfggsNhEueo9ZBAph0H/nTUxVkKG01iPqCMB884FakTpMV4xoNqIPEnqrKDJtSAa6JdhGV+WuCBDaw+TD4SpaZYP9+xySZjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N37b7Ihg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kAlEW2mZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781692377; x=1813228377;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=X3winq5qm2HIT6UC0/yxmrF0jTAu33Gl4aE30OAa1oI=;
-  b=kAlEW2mZ3uZngNOBMtaNvhBeyWkA7uhdlSO9KJL000T459Mmv8rJphOs
-   76D+hamhhVKLHIoWzEDkbwOzahCRV4UH1lCrVtOKpWI8WnFATq3M6t04E
-   s3XVML4tSvItwDI7cHgG/dwTXeKu4KKXrcjUblZk/gGZ1VK5DANfj/N4o
-   +zxN+MD962PFEEF9bcVVPkl7EmS9j0u5q4WroC+BG4fA9n2SxhCgYUoqz
-   IK3eH3jdhv38N8Yrm2CPRFCpyJYD2w3E6G/aQDFiDiQhor1aEm3RyzMbm
-   CUwyOY8oyCRqgJZ+tqSUziZ/OX7WZHNicSY6inVqZXd1Wx4mtk5KsSAFl
-   Q==;
-X-CSE-ConnectionGUID: VU2zsj0lQC2AxCYJ51w9Ww==
-X-CSE-MsgGUID: 29+8XFCgQCmEeh6slDi6mA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93594475"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
-   d="scan'208";a="93594475"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:32:57 -0700
-X-CSE-ConnectionGUID: leLgKuVYTtSbL+4Q82bKlQ==
-X-CSE-MsgGUID: Uko2CTWXRUGLJxZ5qEEMcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
-   d="scan'208";a="247139272"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.69])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:32:53 -0700
-Date: Wed, 17 Jun 2026 13:32:50 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 02/14] mfd: lm3533: Remove driver specific regmap
- wrappers
-Message-ID: <ajJ30lHG5lEXri7I@ashevche-desk.local>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-3-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N37b7Ihg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749A61F000E9;
+	Wed, 17 Jun 2026 10:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781692429;
+	bh=szLE0S72oFPtCHbqy6RYhj+xzfkKN142/ocsCt11p94=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N37b7IhgoLv0nxsiTXFRbKaFHlR4HBRYKnrPzolbj6l4lHrypkiYiRraYPnPdiubo
+	 mKX35W+0Fmhe6GwAubfGWzQWrwAGV87fmOeAlG0NnfsiiNNXzXkTTMyTt3dSDWHSLI
+	 WQaNuRFAaxGAFo1gwCbVJAOtA6yEab3oT8GxxiML/HK3sToP8Ru5ugvj4jtucO8cp7
+	 Bp02jPEYrbv1etezulBk/di4LkHhR4eSduZBgOlvzIK7GV6DpUVSRV3RFSUIGDPVqB
+	 XOXbDPaXbzxDMGb34jsJzWBqpbp4/k6tM8ZbGC99oiJI51tWsVgeSper9fg1cJxUne
+	 KMateyyg0kgWQ==
+Date: Wed, 17 Jun 2026 12:33:39 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/3] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+Message-ID: <lstafqaogzunb2azyqwvtt3swrk42nu3n5zyct2la5fqxomaqg@wyrz3qolhist>
+References: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260617080031.99156-3-clamor95@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
 
-On Wed, Jun 17, 2026 at 11:00:19AM +0300, Svyatoslav Ryhel wrote:
-> Remove driver-specific regmap wrappers in favor of using regmap helpers
-> directly.
-
-OK, let's go with this variant.
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-
-Some side notes below for the record.
-
-...
-
->  	struct lm3533_led *led = to_lm3533_led(led_cdev);
->  	unsigned enable;
-
-Oh, besides using the old way of declaring unsigned int, it most likely
-just needs to be kstrtobool().
-
->  	u8 reg;
-> -	u8 mask;
-> -	u8 val;
->  	int ret;
+On Wed, Jun 17, 2026 at 04:59:44AM +0200, Marek Vasut wrote:
+> In case MSI are enabled, but DWC built-in iMSI-RX is not in use, the
+> MSI are handled via GIC ITS. Configure all controller MSI registers
+> fully.
+> 
+> Set or clear MSI capability register MSICAP0 MSI enable MSIE bit and
+> PCIe Interrupt Status 0 Enable register PCIEINTSTS0EN MSI interrupt
+> enable MSI_CTRL_INT bit according to MSI enable state, set both bits
+> if MSI are enabled, clear both bits if MSI are disabled.
+> 
+> If MSI are disabled, or MSI are enabled and iMSI-RX is used, then
+> deconfigure AXIINTCADDR and AXIINTCCONT to 0, which disables any
+> pass through of MSI TLPs onto the AXI bus and then further into
+> GIC ITS translation registers.
+> 
+> If MSI are enabled and iMSI-RX is not used, the configure AXIINTCADDR
+> with target address of GIC ITS translation registers, and configure
+> AXIINTCCONT to enable MSI TLP pass through onto AXI bus and into the
+> GIC ITS. This specific configuration allows handling of MSI via the
+> GIC ITS instead of integrated iMSI-RX.
+> 
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> NOTE: This would not be possible without prior work from Shimoda-san
+> ---
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 53 +++++++++++++++++++--
+>  1 file changed, 48 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index 485cfa8bd9692..ba6e3bedd6d0a 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -31,6 +31,10 @@
+>  #define DEVICE_TYPE_RC		BIT(4)
+>  #define BIFUR_MOD_SET_ON	BIT(0)
 >  
->  	if (kstrtouint(buf, 0, &enable))
->  		return -EINVAL;
-
-We should unshadow error codes (it may return more than -EINVAL).
-
->  	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
-> -	mask = LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK;
+> +/* MSI Capability */
+> +#define MSICAP0			0x0050
+> +#define MSICAP0_MSIE		BIT(16)
+> +
+>  /* PCIe Interrupt Status 0 */
+>  #define PCIEINTSTS0		0x0084
 >  
-> -	if (enable)
-> -		val = mask;
-> -	else
-> -		val = 0;
-> -
+> @@ -55,6 +59,16 @@
+>  #define APP_HOLD_PHY_RST	BIT(16)
+>  #define APP_LTSSM_ENABLE	BIT(0)
+>  
+> +/* INTC address */
+> +#define AXIINTCADDR		0x0a00
+> +/* GITS GIC ITS translation register */
+> +#define AXIINTCADDR_VAL		0xf1050000
 
-...
+As Marc pointed out, this address should be fetched from DT, not hardcoded in
+the driver.
 
-> -	if (kstrtou8(buf, 0, &val))
-> +	if (kstrtou32(buf, 0, &val))
->  		return -EINVAL;
+> +
+> +/* INTC control & mask */
+> +#define AXIINTCCONT		0x0a04
+> +#define INTC_EN			BIT(31)
+> +#define INTC_MASK		GENMASK(11, 2)
+> +
+>  /* PCIe Power Management Control */
+>  #define PCIEPWRMNGCTRL		0x0070
+>  #define APP_CLK_REQ_N		BIT(11)
+> @@ -305,6 +319,39 @@ static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
+>  	return rcar;
+>  }
+>  
+> +static void rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
+> +{
+> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+> +	u32 val;
+> +
+> +	/* Make sure MSICAP0 MSIE is configured. */
+> +	val = dw_pcie_readl_dbi(dw, MSICAP0);
+> +	if (pci_msi_enabled())
+> +		val |= MSICAP0_MSIE;
+> +	else
+> +		val &= ~MSICAP0_MSIE;
+> +	dw_pcie_writel_dbi(dw, MSICAP0, val);
+> +
+> +	if (!pci_msi_enabled() || pp->use_imsi_rx) {
 
-Like in the previous case we should unshadow error codes.
+If MSI is not enabled, then what's the point in clearing these registers (also
+above)? I see it as a redundant code. Is there a necessity to clear them?
+
+- Mani
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+மணிவண்ணன் சதாசிவம்
