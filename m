@@ -1,82 +1,74 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E41E2F1FDF
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 14:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4318244E021
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781708118; cv=none; b=gY0QYmug6e2JOCRDa2Cc4SkW4rKGpC/jDhrLl4BciQi34dV5yTKeO070rcXxO9yY7jSGY4ZaD1H6buIuwNYPJpkChmqc3fLZRj0+WRaDWHvsIzW2BexVEoU6LeSCKKzTeiTIsiKJmAuSn6I3ONddS5eiKPDyEeIWMtRLjnfUwfs=
+	t=1781708610; cv=none; b=oILZzpbqJ0Ln7P5ljP8WVHYEWHwcacZbRmRxT0DDlXonUM+kIbzMZ9FIbVkxdSlpN+6YlZH+Y1ObakMX0a4cK8ChzuCsgsJPz+1m3Rb/TkISf02wWyE1Ntitanuemei3uo7PNCtHgosRs4COjGhiOsxifG3Bbm5+yYqLmp1Z1BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781708118; c=relaxed/simple;
-	bh=05HOaEuyul5dBwOVXUvj7r3DDkrvOsAck0De0iRlMmQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iIqMYlxbEj+mU+8vJ1MsaXGXpUgBnmC0Ul1vr3AKcaOBiWwVOVA+l9OhkIwqUJJ8A4EQoy2A9sLnzte5hiKiIgbpfOoj7lS3PJSpn3dDxICzACaQBHsOiOan0BI15ch2SeJ2aFMe9hlM5fSj5HOUs/Is9GoK9JrqjHmbykFc2eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J1e8Kfy4; arc=none smtp.client-ip=209.85.128.177
+	s=arc-20240116; t=1781708610; c=relaxed/simple;
+	bh=qzyT0dzNYNRzCgv3FFeDbY8FMLcOkX1xXai2XHOpIog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eAlfZHw4fY5z4sce79sWypjGOvWGIz1FzmQCp+saoXTbVCwTjrlnlik7izE5SBBoO2Zo3XNEthAjbWMsFOeRACRwD+Cn0vQhUyY8uj/dvZI2Qw+KgNz/26Ao07Fq5LQcH2s6fVD4k4ltelNEtNLTnVv9E5JTWFaF07W6R2tQUqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anCgHfDA; arc=none smtp.client-ip=74.125.224.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J1e8Kfy4"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-7e2fc11088dso55927277b3.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:55:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anCgHfDA"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-662bb8b1f93so1715523d50.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:03:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781708116; x=1782312916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=05HOaEuyul5dBwOVXUvj7r3DDkrvOsAck0De0iRlMmQ=;
-        b=J1e8Kfy4suXqdt6bz+XiCLxOaFAXeI/CWT2i/Hw9p9P5ouD8YuFrGkvZG/WCRtTOEP
-         DS5qh1zONoynKZyFuyyIgtNqopj41zGA3hUg5gDSyzALuCQbVykEYO7FD58iVsvV27qM
-         5LMMceQgYJuMUdhqZfx5b/hupf1YuK6b5oVzu1j5qC1FSQd6FNusePq2RDp71iJmiH1p
-         WdUTMJuJ6/e3u2tOp6/8eEjINEEiQVOH7COWJQnHUKU1CfFwm3uVaj2+AZnAI+84PlJz
-         YSrbPk5EbDRtXWYCh4ef4Q20Q24wxFdX7xX/tTt+fzflehZ8KCHvts7yl0ykaUHhHuRo
-         Mopg==
+        d=gmail.com; s=20251104; t=1781708608; x=1782313408; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tOnNk1sZYLOxT2mttvm70Wp3djDGUiIpBw1iucl4JHk=;
+        b=anCgHfDAclc2V4UxZki+xwFGDlx3HUXFyn5hz00iJ7OaLfXWU4Kq/8+jRbJwSKbQqE
+         4ys1TLKCA2+eIq5qt1k3c45lPnrHAx3eUMAtu26K7GZe6afVpGSEPckK93H8q7Hns0AS
+         85ggMzH9hcpV5RIzTE2oytvriekTid5DTSac4Wtm8Bm61obF3Qe6ZtytvbwN0I8pjc4q
+         C7i2rD8eR5rplF8TSCz1o0PV+LTY65Y8o8QTQn69Gw6Xl3tdh2LQd6KdQCtwewGbaXH+
+         8xlrtJtZbYBzMmuJXiNaQsDfyLl2fgjUDy4pRbqPy1lheeipN43iIkjx+8UOGnU/rpA1
+         Lb2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781708116; x=1782312916;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=05HOaEuyul5dBwOVXUvj7r3DDkrvOsAck0De0iRlMmQ=;
-        b=A1vpDcKgjQXcB88VHuXSuztW2A9xpUv+ORSJoi5yVSRsSRcwNbBp9Sdbf+UznL4P0T
-         l2jUu/rl1rbMVyB9giQ+54XZBNfpA8htWexXDDZq/Tin0iR8EZwnmIw/fjlWLf0KlUKO
-         kO8FckA7hwfkFKLU5qjzSq4dvOQq9/jzj3I3rDdhYNdrUv826b8t5hZXP0lIGP9eKKt+
-         vIPfxraHDUgSmwbYcYb5hYhijKN/Q4SVttsLepMOOLsn3/ASAX9Tj39TE7X9W/CIOlxf
-         ImPwhoUXps6cWozEOSqHyZwMbA/SpBM1whEYMYsdJboif045I55Mmaw8SmmFJxiCC/zS
-         nutQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/D94XqLTfw0jIrAj37X9F8YDIhsdDUaqplJ1hQcvA1iwapLUihqPvWtvW6nx4Ug0tLYLUCe9Zn5anJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPDN9PFR4qJ+1x5nC5K3m0shglHHtW+14Bxrq7K/owKdKXIFad
-	hdU28oldVAH3TpC02onDT6dLVbQqDGtpzjs20SlyxABR/96E2/QJxmWENQKrvGXe2Q3bclhm
-X-Gm-Gg: AfdE7ckF2mYLJ9YjH2QXonpysCS8KlIRlZ//tuj7aQH9tM0YYJ5hAr0+Oh4IaiCtsEX
-	S/bxqx8Ph1shR9Bdzk4SSMsqpsJVWklK79/blbqPREE2g0h3RszUqGe4/3VfxWwCEkD1BnK26V1
-	xAwiHdPgBvPZPjEkhL0M44f0FkNDBMTT0Om1kXewOjGEaxHso9wCs8zVZ1xBd9i4Ph8wwVDOJj2
-	kA3E5olqRd5K/waimuJy3o2102BCYFxSTGQ9f/I7KdTXodSMNUIW47BZJ4Ri+JgSX+dVRhLMsyd
-	A+3eOanvJLeMBxZDYR2TQ7KsQoUS2dLegofufiqPA5VqSFBzR/FSx7l/rA6bEgcrMUld9YG7XVX
-	ikcoe0D3VlFIw+JEKrkiyUEth1hJuTnQpgx/+GlDsfvqp8s8Q2qfwuvHKvdPdrzNuyhzyS9trtC
-	AGoSVtmH7eFo2N+7qDWVA3
-X-Received: by 2002:a05:690c:450c:b0:7dc:e96a:26d3 with SMTP id 00721157ae682-7fe5e3a067emr41528947b3.45.1781708116317;
-        Wed, 17 Jun 2026 07:55:16 -0700 (PDT)
-Received: from qchaos.cnea.gob.ar ([186.141.138.29])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7fcd345749csm46739657b3.33.2026.06.17.07.55.12
+        d=1e100.net; s=20251104; t=1781708608; x=1782313408;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tOnNk1sZYLOxT2mttvm70Wp3djDGUiIpBw1iucl4JHk=;
+        b=aWYEf0rJZtGPUPNu2Yshm9z6YQR5eU18fM6i7DV8OrE3xt9lvGS+xIAgURpJSZ4Ay4
+         l4lUW0N9dKHgL8AJvudSU1y9YD+9rg9zco/TlZL5tBGMaocBIXHz7XLIKQkdFC5spu6L
+         lDFpmUEEBiHAAJTaFOUn01fNb72QVtlxrl4D5cjRwTFVNCD9H35BqqQcY2NlEjEQzywg
+         XhRTqhzxxNRoPyxlMlTlLqzGcEhnyiux6S/vhM5P2PXyeCDspb8A1kPqBNQhr3dip93J
+         UgaP2KyXAiI9zgKLo8Ckl010kU4aiaybwbac+QWFF7bSS7mPn2nvE+yYjQQctChEsW7N
+         voqA==
+X-Forwarded-Encrypted: i=1; AFNElJ9VAWKgjLouRplsHzShPf4OcTxiPAxcPnRgjdxSauz8kI5AzIAYJPWyGMd+OObHaSBIX83+H3b3hWZ0@vger.kernel.org
+X-Gm-Message-State: AOJu0YxISoPaHjKxkDfX6K7JsXK8HNHu13BnsYgSfQK3JRX7uirTIT/5
+	9k4PWLjaCxGndQAphVsv6TTNBohVx+dcEnWozOq09UGzppO+yBybcly6
+X-Gm-Gg: AfdE7cnTmU99eADw8reDDTAusdwcqDIO559O2LxreOuxDvBbh4RoQ5GvydNWNl862iP
+	3ejfRdJtvL26aV1R01dXzhaqiXlCrOKrGf0kJv0kpz6yXoMh7HhDGyovOi0jRfdco2xaKCbaP+A
+	cgidYpdS2PWEAdsxNU3oUok96vXg9EjrAkrhoOR2AQiBoQ9NCRTMYttqdIoKdMe0LpTt0vIxpkI
+	TWsA1eODAaYjTJSRCtZsivV44o/F6xQ7l03ZVlPi0rei/P8TFzazzXxjtJGXA/8NqXEMONbcW8i
+	BLCp0sPB2ZLQWHlmZ1/s0MDKZ2WE6MJIIR8ljcMejyOWrBcIpdiwEBfxtAO/RuKBLVqFND4Unl2
+	sQg7ovRbvPIS3H7pA5kqEGua1R040hAOqupbEhUS88cBg9E+nDI2rNjucfAtjhKV33VD0WmCob5
+	+2IIAGMMbvKQ==
+X-Received: by 2002:a05:690e:480a:b0:660:5a04:9a02 with SMTP id 956f58d0204a3-662cd7a0977mr2345514d50.40.1781708608042;
+        Wed, 17 Jun 2026 08:03:28 -0700 (PDT)
+Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.03.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 07:55:15 -0700 (PDT)
-From: "Pablo D. Bergamasco" <danpablo@gmail.com>
-To: krzk@kernel.org
-Cc: broonie@kernel.org,
-	conor+dt@kernel.org,
-	danpablo@gmail.com,
+        Wed, 17 Jun 2026 08:03:27 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	mgreer@animalcreek.com,
-	robh@kernel.org,
-	vaibhav.sr@gmail.com
-Subject: Re: [PATCH] dt-bindings: sound: add toshiba,apb-dummy-codec binding
-Date: Wed, 17 Jun 2026 11:55:09 -0300
-Message-ID: <20260617145509.1782137-1-danpablo@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 00/10] Input: cap11xx - Add support for CAP1114
+Date: Wed, 17 Jun 2026 23:02:39 +0800
+Message-ID: <20260617150318.753148-1-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260617-marvellous-cunning-curassow-0113ab@quoll>
-References: <20260617-marvellous-cunning-curassow-0113ab@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,16 +77,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Jun 17, 2026, Krzysztof Kozlowski wrote:
-> Nope. We don't take bindings for staging. Isn't this documented in
-> staging docs already?
+CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+and hardware reset support.
 
-I checked drivers/staging/greybus/Documentation/ and found only
-firmware and sysfs documentation. There is no existing DT binding
-documentation for the "toshiba,apb-dummy-codec" compatible string.
+Patches 1-4 perform driver cleanup and DT binding tweaks.
+Patches 5-6 add reset-gpios support for CAP11xx.
+Patches 7-10 add support for CAP1114.
 
-Should I add the binding documentation within the staging directory
-itself, or is there a preferred approach for staging drivers?
+Changes in v4:
+- Revert cleanup operation for CAP11XX_REG_SENSOR_DELTA.
+- Move the LED unit-address update operation to the CAP1114 support patch.
+- Limit the CAP1114 LED unit-address range from 0x0 to 0xa.
+- Link to v3:
+  https://lore.kernel.org/all/20260615142103.352163-1-jerrysteve1101@gmail.com/
 
-Best regards,
-Pablo D. Bergamasco
+Changes in v3:
+- Simplified the logic of the reset pin operation.
+- Adjust linux,keycodes configuration for CAP11xx.
+- Drop unnecessary CAP11XX_REG_SENSOR_THRESH(8).
+- Checks for the presence of microchip,calib-sensitivity and
+  microchip,signal-guard properties before processing them.
+- Link to v2:
+  https://lore.kernel.org/all/20260612072237.1177304-1-jerrysteve1101@gmail.com/
+
+Changes in v2:
+- Drop LED property tweaks, keep only reg changes and node regex
+  update in DT bindings.
+- Split microchip,cap1126 LED reg constraints into a separate patch.
+- Replace usleep_range() with msleep() for 500 ms delay during
+  reset pin handling.
+- Add missing <linux/delay.h> for usleep_range() and msleep().
+- Add CAP1114 to unsupported enum for microchip,signal-guard and
+  microchip,calib-sensitivity
+- Add constraint for linux,keycodes to support CAP1114.
+- When reading CAP1114 button status, mask STATUS1 to bits 0-5
+  and OR with STATUS2.
+- Adjust code style.
+- Link to v1:
+  https://lore.kernel.org/all/20260606150458.250606-1-jerrysteve1101@gmail.com
+
+Jun Yan (10):
+  Input: cap11xx - clean up duplicate log and add probe error logs
+  Input: cap11xx - remove unused register macros
+  dt-bindings: input: microchip,cap11xx: Update datasheet URL and LED
+    reg range
+  dt-bindings: input: microchip,cap11xx: Add microchip,cap1126 LED reg
+    constraints
+  dt-bindings: input: microchip,cap11xx: Add reset-gpios property
+  Input: cap11xx - add reset gpio support
+  Input: cap11xx - refactor code for better CAP1114 support.
+  Input: cap11xx - guard unsupported DT properties before parsing
+  dt-bindings: input: microchip,cap11xx: Add CAP1114 support
+  Input: cap11xx - add support for CAP1114
+
+ .../bindings/input/microchip,cap11xx.yaml     |  90 +++++-
+ drivers/input/keyboard/cap11xx.c              | 274 +++++++++++-------
+ 2 files changed, 254 insertions(+), 110 deletions(-)
+
+--
+2.54.0
+
