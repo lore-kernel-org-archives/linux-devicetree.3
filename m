@@ -1,67 +1,87 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7CC3DC4DE
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5D37C0EB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781691163; cv=none; b=IhFp9SMzFuksQ2G+u9vYwr4cahcrB2E0f/cAjY63UOz48AHDgrIk/OezhncjEVInewGanIXTv0w5EILK3EtF6Yt4DxnnJms+jvT3DRVQzxdGpfb6Axsv6PIxf7Mebq2o12eqEdRudIQAYi6CL8+5RfRhTveZWBLqlEKqvhjhuAw=
+	t=1781691188; cv=none; b=YrjGuSjk6dm/5/Sxkzxuq0+hawiMIsuiLk924xg0EA0/2jAzeGbQD6lomlMthNCtDvDuDlbqNsfBGWkUSqLgGLqLepyVRL/Ci3RjjlMQuEU2ZtqZh9QAlJ451/xNlLJI8P6tzPkJo8fCNMVPY+E2w0vCIgYHOFdG8EDM6m7n8IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781691163; c=relaxed/simple;
-	bh=BysS5DE5SQ4JcGg29SHsYYeFCMkJUMHJLEJ7VMQuFyo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=pH2kSM6Lik+TFTK2RnczNTIESwBWg9GL9wqf+njg7Cx+SlgwZ8vFZGQmQCASMb2xZhkT8jzv8QMk2MBvlFWyNSQ0V5sK/Zx5cVy4gn5+/koCWmLdwb+IjVQuBscZ76+3wmb/A6xsY7TfYm2JDLzx8Bu7lbQi1prSpWsUIdR9KtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bY2BrTHA; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781691188; c=relaxed/simple;
+	bh=UoM7xrBB+ZCYmns2vLjYYzvl9XGVdcm9LQNtgl1qOwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PLLbaomigXtOaWRRAc8ZyJ/iqipu/fhomR1S3kno5McIh5sn7a9+PxebFMfShLQeNinNRDASuA0tMn7honK+ZqcsAqtnX34/t/ZGTokbHhdQ9mCWE6BeIsjrA5VekLZQNXVsD0nV4yEXePryONbNGt9yTmuAWk2bUQ15DSYaL4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gia1PQyo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QG8DBqi/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bY2BrTHA"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-461edb387ddso1144585f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:12:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gia1PQyo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QG8DBqi/"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8Vxih2056606
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=; b=Gia1PQyoK8Wo4nRQ
+	MCkM9D63pFLVuXGmBdXXtWmIH3/G+q1O4nPtEYiqafAKZTVh5otx8I/5fwxadXDw
+	D7/1LCAa97Ve6vWnk/AX+uuVVSc0cwesnJJ9GkDSiUVrTAE84D332vGY8VWlKiMU
+	DunK/6CPNdS/2ZzPPEc0pAZDctSCcWnPxgiYb8FrOagNcVrVTSmPEEIa2JWIh46m
+	q7sBPWNPwopa2CoPWiIco3/N5HeMrNgFcE5ErkEFxxKuJ0xZsCj4AhOBiginqo83
+	hSgrzCQpcd4D51dRHcwRbM827kk1b5Evm8UATWHcDV8+UCw+cucPPjuGaKF1SpAQ
+	A7Ijfw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueesam32-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:05 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84240b58211so3769897b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:13:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781691159; x=1782295959; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ct0Hy4xHFL/4fAYc8KtuCQL880liqSZIqsPpgmzHFEE=;
-        b=bY2BrTHAT6PENzKO77Uc8DB7ycJFYBkGLP71QXWK3rYFpC54ZORDEIksB1SWJlr3n3
-         LJiKauZ1d405izYMetCn/qoA7NKypsRtf94d0ANili6Ryd4TaMGMdQQYJCq0RbrHaNmo
-         ABuedFZLA0iaUAHKVbRGmkfYuoUBcD9DerjoWr3P6cJ78qqjHXeq9kwB1bJyI91ycQrG
-         xbEoQv2ZymO6hKWNt5BP3JpO4RGU/2fFLMDitz1PZkzM92BOno9ByBPhtikJKQjS7ThG
-         fUi27gjLxFh3SqXeh+kOolTt5t6cMLrxXQzQbR3Qn3ouv/S/4WpMpi6NUJK9zCLt8gwO
-         B6tg==
+        d=oss.qualcomm.com; s=google; t=1781691184; x=1782295984; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=;
+        b=QG8DBqi/UfQgXGLZUG456VDA1bkiMYFrK2ZA+LkKhZ8PEDwH8djOeN7aanEys21XF6
+         Fgqlx5Z2P/3OHW2yWeRKH91By+FjZmn9InliMSlhMOKfE70pWBEd9n4MRQPS4mBfx5Ij
+         kw5glDOe4ojCVLUTM5paqqNVkgeBKKeoiRlMEZ5ej4dEJWc5fvxaLmj+BxQ0T5w6IGvh
+         4KA+pVSFPnG5nVUU8a+Vqgv6SQvhzKgTMjtfTB9SXh6WB8oroA/3sxJEYBH5E4lc2Riq
+         gww76UR2RkjDt+3DS1Vg0l4mZrMvoNIWj08ORIyPApwDlhBnxCQTM2etDJVtf6gP2cXJ
+         YpIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781691159; x=1782295959;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ct0Hy4xHFL/4fAYc8KtuCQL880liqSZIqsPpgmzHFEE=;
-        b=p8aYSD/7D4KYynxsJc3fsWn3PwicphBKT93wvCxEMbiyd40mWMzxrZLTFARNxU4IXU
-         vXC+2g9m6CC4YTHByDKST+RfwQOww6rom4qhOjom05o4I/v6nbBMsR+MJDWLkiuOIkO+
-         9VR3w0oOcOgnoOsGjEGoLCm6F/KLQlqVQ9rxaPvVo9t6ZsEz+CDLwU7I9k+8F73VaEK0
-         hQVTNbNEojubnNwSlb9a/6j7YkOP4oNVQZRk86l1sA3aq+Ki5z0KebJIO6pTJBOR1CPH
-         v6AAuIljzkN1flaj+z5zY42CyBOAOQs2Lo7SwzqlDdiXt3dc17fqyZwh0k8ETyYWo6gE
-         FTaA==
-X-Forwarded-Encrypted: i=1; AFNElJ/vpOhbZkR1lKDoa18A58P13/n+vTwpoFgGaXANe8p2qCyKgs1sboGbvVYxnk6rWNDHoPmJafbanDsY@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJT6eQZ7BC5Oyk7LfmpF5myPuCsQmarGGA2T3xXQFNPMKcPusq
-	7BZXR11/Cn1NOfPqYE2rryiJOrRXy1QNJc2oJ3fM13+xYVCA74tNMAVbBJrkMZqHLPQ=
-X-Gm-Gg: AfdE7cnZ7ngeGECqoCr3dxqAOTVOiMI7POWDeKR1WftTjkQdjvJx4v6CneGHCryl/TA
-	Ld4BhYQwtmuJ827FAzIJaVwIeRGQZKz8w4iGaqD3Ovjj2Iysi0WlVEpOjSvN+CaZIL59BdJUcM7
-	JFWKiD/E8R8M3EHQDqb7TTwGWPvaGbGqaBcYwjQoskkoaylPPW2ezvDYYg2IuMMU86P6zVTvdvA
-	cplZgzI4mwEnbfjZgCJAgKBhcdhQuivcVdkzyq21hlU1uzF5QRGw+pJoEFFfUm2T8uK2np7PAO2
-	YffOfd9HUQq9qqKE5iMkMaDfeCcQJ+IghgjqP2G5lQB4vAWhCeVeK0JD6+8ZkwPVpQGYuxSA/J2
-	cRWp5AqyAcjLFQ14egdIZBGOM703KpFBGE0+eD4tP1E8VXIoKNjmQvHLL4utfk1SdKN/W9uTuu6
-	wGkpRI63dPf69+UrlX3yoFuQ==
-X-Received: by 2002:adf:fcca:0:b0:45e:f302:95b with SMTP id ffacd0b85a97d-46238f972damr3707279f8f.37.1781691158602;
-        Wed, 17 Jun 2026 03:12:38 -0700 (PDT)
-Received: from [10.12.4.106] ([212.133.41.97])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2cf5d9sm46101981f8f.32.2026.06.17.03.12.36
+        d=1e100.net; s=20251104; t=1781691184; x=1782295984;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=;
+        b=KcFEdeaOGLEtq+sIsImTYCA1CAPHx5xwD/LFvQSrpvXn9Y0ju2ZHQhESYkY96yVOGm
+         qkVN2kuI1IZ5aHC/LFhODp4jg7L6NT9hoWRtV4fDaU5dSiYjIObI+FRSVHCtm/RNVXxw
+         hccuRQ1gwNWV58Irai6LTeMNBty667TVNrLIPo9gFVDNYwtdcz8U1JACV0pOahelvjHj
+         hJXD6mTITz0suvnHPSo7aCExempbWaD73ouP1xviU4SIlDiOOehhPIkI4h5WjdHoAWNP
+         3dmyUB1yMJImFkfA3mLRLXwwGNdMgIBFlJrpZyj9wLjg6U3Iaqvi7Cl6keS8ZrrfiRmG
+         t08g==
+X-Forwarded-Encrypted: i=1; AFNElJ+RTcGCRYzPQiM+Lwz4pota+S6J1sdqdb2iIpD39YmAXeQF2HFkjsizCn/uDV8fXBC3Isy1KDEudieW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXGsUR8diuXGemw0FaN+3miWw2wZhtP7RdtiugcFi9Uwea8r6f
+	XlKVDCnUocOuQe0c60i+rWMUx4RDdktjb/XwmYwZ3vbmIIaQExSq30wzp2aMfmmiPF3qMCi5CWU
+	ywf+eZujiFweike2Se0IZlLF6gMR9NmUyniL7NVGxOyVn43OOsJ/5T27L5876WWGH
+X-Gm-Gg: Acq92OHQ/EaaHMYWgHWeDLiv/bksj/r6BTy6L27yO+y86sqNncr3OIyBz9yrYyVkYF7
+	3X0zeZfkxD4rWURJlAINMXjl7nUHMhVyH9hKsfKCqGwcc/R03cnMOZtTlph+W+QOKBnGh8BDmZq
+	0NSgCGMO0ED9U4ukizMfJD3PSc3XT5FFVyh9hdDnmyEbW/ULYx0ho53ptYS5U3ni+0aeRckCoU9
+	aiPF5seeEiviAz0RwU79Lbp+dKSw/z7PsQozp5r13zoq3rLMCe8cpI4zesOsvWPIZEAt/k8zL8A
+	7v8s6rgJQ4z9G5CZaJYnYf/yNgokVN+L+UFqKdmHFf5DTn4khU712Fq0APrxf4JGoYsUep2D7u0
+	16oyaabHdETPlZGjXS0eb2WYhk+19rRE8zEMTxXOYiPDHGE8Qe8gO7fv6kjEDIHgeWg8Kn4tBsM
+	Nij9Ia
+X-Received: by 2002:a05:6a00:94ed:b0:842:21f0:5114 with SMTP id d2e1a72fcca58-845245659c2mr3122562b3a.30.1781691184483;
+        Wed, 17 Jun 2026 03:13:04 -0700 (PDT)
+X-Received: by 2002:a05:6a00:94ed:b0:842:21f0:5114 with SMTP id d2e1a72fcca58-845245659c2mr3122518b3a.30.1781691183961;
+        Wed, 17 Jun 2026 03:13:03 -0700 (PDT)
+Received: from [10.133.33.101] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9bfe1sm16026068b3a.12.2026.06.17.03.12.57
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 03:12:38 -0700 (PDT)
-Message-ID: <f6844aea-a7b0-4b2f-877b-bdfdc2bbb7da@linaro.org>
-Date: Wed, 17 Jun 2026 12:12:35 +0200
+        Wed, 17 Jun 2026 03:13:01 -0700 (PDT)
+Message-ID: <82253653-bd85-45b8-8520-e2bb213ca48f@oss.qualcomm.com>
+Date: Wed, 17 Jun 2026 18:12:56 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,89 +89,125 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/3] arm64: dts: qcom: Add header file for ADC5 Gen3
- channel macros
+Subject: Re: [PATCH 3/4] input: misc: Add Qualcomm SPMI PMIC haptics driver
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Ayyagari Ushasreevalli <aushasre@qti.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-References: <20260430-adc5_gen3_dt-v1-0-ab2bb40fd490@oss.qualcomm.com>
- <20260430-adc5_gen3_dt-v1-1-ab2bb40fd490@oss.qualcomm.com>
- <60170148-2fef-4282-ad68-f784e4fdfe23@oss.qualcomm.com>
- <831ed020-4a1f-46af-95c6-38ef1f875fd1@linaro.org>
- <bae5b5be-16a9-4581-9863-4ca4eca88754@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <bae5b5be-16a9-4581-9863-4ca4eca88754@oss.qualcomm.com>
+        linux-arm-msm@vger.kernel.org,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
+ <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
+ <eb693705-c0c3-427b-a924-5aa907fd65bb@oss.qualcomm.com>
+ <1bcf00ae-2558-4c3a-970d-aee1da0c06f9@oss.qualcomm.com>
+ <29806448-0588-4590-8540-a689ccf1e7b0@oss.qualcomm.com>
+Content-Language: en-US
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+In-Reply-To: <29806448-0588-4590-8540-a689ccf1e7b0@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA5NiBTYWx0ZWRfX8jBjuRbq5W/V
+ JBvUIkAsR0scwV29fRKybkZ//yOdKRHBGZq3SyY5oPDhrmOSzP0O49gRR0VzmaPhSm6MaEOZoBz
+ n6CPPWoJT4qKRAy2pEW2EFzs9i09PBM=
+X-Proofpoint-ORIG-GUID: 9Il9F5XbEXAsKAbWDT4GAg7bSAJhqPf4
+X-Authority-Analysis: v=2.4 cv=R6oz39RX c=1 sm=1 tr=0 ts=6a327331 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=3bJTXa-xiIkwHRLKEFYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: 9Il9F5XbEXAsKAbWDT4GAg7bSAJhqPf4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA5NiBTYWx0ZWRfXyaXwuDR5FhHq
+ fGwq058IiixHhVqfsBmYye7X74pXl/YDQWOfK157r0odCwZLzp6gkuuQJ9XYKMtu0/4l4g5NGN4
+ Lk6yLZ9kJLP9wVYWxgjMQ6VE+LKkpCEf1u1JdihTINOvjFhr0zqLc6wnNRzQ25TAtlLzmoaI6iy
+ tHf7EAE9QfQQSy3MsyUk+/MihmxOOh4GFV4gnOt/evZf9FV65WVNIYxo6WiTNv+VtI7jBsqQuPv
+ 6xIyoDY26H6We8sGkKbt0fmk2wrFrvLFnzZVa0lr4mQuBZPhElLFFhcQLvS0Oc2hIQqwMcRybSf
+ Mo6iGVU+VxznzvyG/VbFc2X2XwMtQo7HasSrkMGgH+u+bDgPYspYsDMfRRY14RyLVDyyBATrVun
+ 6v5w/1RVdk2UXYquayq9H0XacDZE0/pf0i1frBrsQ2Kd+IQnAXlWxAR15VAvgDbQ0pGaSnvIyfA
+ XJMjdX0EKPzdiTvbtNg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606170096
 
-On 6/15/26 18:48, Konrad Dybcio wrote:
-> On 6/15/26 6:39 PM, Neil Armstrong wrote:
->> Hi,
->>
->> On 6/15/26 17:55, Konrad Dybcio wrote:
->>> On 4/30/26 10:58 AM, Jishnu Prakash wrote:
->>>> Add macro definitions for virtual channels (combination of ADC channel
->>>> number and PMIC SID number), to be used in devicetree by clients of ADC5
->>>> GEN3 device and in the "reg" property of ADC channels.
->>>>
->>>> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->>>> ---
->>>
->>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>
->> And what happens with my patch [1] ?
->>
->> I had zero feedback so far
->>
->> [1] https://lore.kernel.org/all/20260504-topic-sm8x50-adc5-gen3-v2-1-5cc04d6ecda0@linaro.org/
-> 
-> I think this approach (single generic header) is better. The existing
-> ADC7 bindings which your series draws inspiration from come with a ton
-> of boilerplate.
-> 
-> There are some non-trivial mappings in there though, e.g.:
-> 
-> +#define PM8550B_ADC5_GEN3_AMUX4_GPIO12_100K_PU(sid)		((sid) << 8 | ADC5_GEN3_AMUX4_GPIO_100K_PU)
-> 
-> but these would presumably be deducible from downstream
 
-I'll try to rebase on this patch, seems all the values are defined, I just need to match the old and new defines
-
-Neil
-
-> 
+On 6/17/2026 5:30 PM, Konrad Dybcio wrote:
+> On 6/17/26 4:31 AM, Fenglin Wu wrote:
+>>>> +        ret = ptn_bulk_write(h, HAP_PTN_FIFO_DIN_0_REG, &data[i], 4);
+>>>> +        if (ret)
+>>>> +            return ret;
+>>>> +    }
+>>>> +
+>>>> +    for (; i < len; i++) {
+>>>> +        ret = ptn_write(h, HAP_PTN_FIFO_DIN_1B_REG, (u8)data[i]);
+>>>> +        if (ret)
+>>>> +            return ret;
+>>>> +    }
+>>> So if i'm reading this right, the first loop will always write
+>>> 4*(len//4) bytes and the second one will be entered at most once,
+>>> to write len rem 4 bytes.. should this be an if instead?
+>> I should put a comment for clarification. Here’s some background: FIFO data writing supports both 4-byte bulk writes using registers [HAP_PTN_FIFO_DIN_0_REG ... HAP_PTN_FIFO_DIN_3_REG], and 1-byte writes using the HAP_PTN_FIFO_DIN_1B_REG register. The 4-byte bulk write is more efficient, especially for waveform which has several Kb data, and it helps to reduce software latency when loading effects and reduce the delay in triggering vibration. It also helps prevent the FIFO from running dry during data refill in FIFO-empty interrupts. Typically, we use 4-byte writes for the initial 4-byte aligned data, and 1-byte writes for any trailing remainder.
+>>
+>> So it still needs a 'for' loop here since the remainder could be more than 1 byte.
+> Right, I mentioned len rem 4 but failed to notice it's a
+> single-byte write.. anyway, a comment here would be good
+>
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +/*
+>>>> + * Configure the hardware FIFO memory boundary.
+>>>> + * FIFO occupies addresses [0, fifo_len).
+>>>> + */
+>>>> +static int haptics_configure_fifo_mmap(struct qcom_haptics *h)
+>>>> +{
+>>>> +    u32 fifo_len, fifo_units;
+>>>> +
+>>>> +    /* Config all memory space for FIFO usage for now */
+>>> What's the not-"for now" endgame for this?
+>> The hardware supports more modes than the two currently supported in the driver. One of these, called 'PAT_MEM' mode, also shares memory space with FIFO mode. However, 'PAT_MEM' requires memory to be pre-reserved and waveform data to be pre-loaded. The entire 8K bytes of memory can be divided into partitions, and it is configurable, with FIFO mode always using the first partition [0, fifo_len], where 'fifo_len' is set via the 'MMAP_FIFO_REG' register. 'PAT_MEM' mode plays waveform using data preloaded in a memory bank defined by the registers 'PATX_MEM_START_ADDR_REG' and 'PATTERN_SPMI_PATX_LEN_REG' (they are not defined in the driver). Since PAT_MEM is mainly intended for hardware-triggered vibrations, such as a signal from a dedicated GPIO triggering a short vibration with a preloaded waveform, and although it also supports software triggers, I haven't found a suitable way to support it well into the driver under input FF framework yet. So, I am currently allocating the
+>> entire 8K FIFO memory for FIFO mode only. We can adjust this later if we find a better way to incorporate 'PAT_MEM' mode into the driver.
+> Sounds like a plan.
+>
+> For the other mode, would that GPIO trigger need any OS intervention?
+> Could you speak a bit more about how that works?
+>
 > Konrad
+
+I'll try to clarify the 'PAT_MEM' mode further. 'PAT_MEM' is useful for 
+latency-sensitive vibrations because it preloads the waveform into a 
+fixed memory bank, then it doesn't need to load the data of the effect 
+in the HW before triggering the play. When playback is triggered, it 
+plays the waveform from the specified memory address and length. This 
+memory should be preserved, and the data is preloaded during boot. 
+Unlike FIFO mode, it doesn't allow data refilling. The trigger can come 
+from hardware via dedicated GPIOs—currently, three are supported, each 
+mapping to a memory bank set through specific registers. Software 
+configuration can be done in the bootloader or in the driver probe, but 
+the 'fifo_len' should be adjusted accordingly. After setup, software 
+doesn't need to manage it further, relying on the GPIO signal to 
+activate the playback (for example, a pressure sensor triggering 
+vibration to simulate a physical key press). The trigger can also come 
+from software using SPMI commands by setting the play mode, start 
+address, and data length. I previously tried using the 'FF_HAPTIC' 
+effect by mapping 'hid_usage' to a predefined effect in the devicetree, 
+but later I found it unsuitable since 'FF_HAPTIC' is mainly for USB HID 
+touch devices and not general vibration usage. If you have any 
+suggestions for supporting 'PAT_MEM' mode through the input FF 
+framework, please let me know.
+
 
