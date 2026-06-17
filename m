@@ -1,120 +1,88 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2273C13E2;
-	Wed, 17 Jun 2026 11:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAE22E7F3A
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781695462; cv=none; b=AtqGp9eLE+uAgE6D6VrLjgqWsZIE1SqDKhpwdOazCsA28HQI8wk9HRKdIQ1rJ5RGgw1/X60voeD7GduSAaqI2FpDxb7c33Awr6XxxWXPnQ99IflN4WG+R1kqSXojRxiiO0sdAbZEpOJaHMxrKGWeoxPjMPKJHlBfWpRSCiSMXdk=
+	t=1781695498; cv=none; b=WsTC5v38F7Z2OFCE0X70IIjAFc5C4cMhDCveqLfrWW8kwbXoiuW6B33IUe8UUwUOX9ko4qjjfBGfragbxERwV8J4/9m9wZ/Lr5h2x145Wzjl76XZGpinJAMAEaROpKLpDh4PDmiC47J9k0qh+e18eBw/R78QH28nJvdjoZtUohw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781695462; c=relaxed/simple;
-	bh=kJznhAsAIoUPplZeSBc53gfszz7QFOud6uyzz8FYHLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aXawt3AcSZ4XnIpbCLxzk2j8S3k46IrDWOCKbX1sHstCe9ZnnzSy+KrjfjwiWHo2B/aqhunjxPpl0YjLCHLzZ4a3yhsozRs0jPlPYMaIsXBzjBWAcrXKjCcIyQdHGPTDIcg18N3NTIbiKEbaupfXmDGwKz3+MGJV4QISV2VI+N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QQDlkgfj; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1781695498; c=relaxed/simple;
+	bh=jX/8emOQp5xs4seA46C4NVqBAgm+8hcDgxoQT28DtsI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TSLxqpcB6tNEQfGobxik80PRtdYhWB2j9YYN1oA+XOQWcKpUaWiKHIGR9PMkYj9d3PQgXj7Xxf7lLqwCStBocATtV1F7Dkinee4KoDcp2t6lJuJY9w37k5YXki9XRvuyGC4SXPsfK4U5atj5+EewXxGFm+K1rjvDL78eTAqOn+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0VfgQcG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QQDlkgfj"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ggM1s2l5qz9t1H;
-	Wed, 17 Jun 2026 13:24:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781695441;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0DwUTq2rLnB3z9n23jFo4+tRKz4woW730QVRFw/7ngQ=;
-	b=QQDlkgfjLuq0b23L76DrNNnzMr69RuAuxPzpbnSehHzZeyKIdHSwGjC8Jq5LXW7Bl8qjyX
-	eGOi2xt0cvGZV/POpBy36oSF4VvLqZ3x8VjBzdis5MTl1x9byFuMNhEIFiP383JV2VsMsv
-	o8J4J5z90+L/ZX9PA35MZmKSpcO8UzoiZrWlaQm2dQRoa5dRblqL4X1E6wJitWxuaqWXoK
-	ZLYcoWAU3exZQs+OgrctL7jf1Gh3ffJ+u6VxnFF2d2l9WdGx8A15gXjPS7uTJ61n22BcXM
-	mHRU/KcigXMjs4HOPOOuKEqqQqlJL6BXdwK4iYG7WfTutrX95OF/k8zzr1pEQg==
-Date: Wed, 17 Jun 2026 13:23:54 +0200
-From: Anthony Ruhier <aruhier@mailbox.org>
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	Maya Matuszczyk <maccraft123mc@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/6] Add driver for EC found on Qualcomm reference
- devices
-Message-ID: <ajKCupui1WILXnxh@tour-anthony.aruhier.fr>
-References: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0VfgQcG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5773E1F000E9;
+	Wed, 17 Jun 2026 11:24:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781695497;
+	bh=DrgRXswN9gowQ21ag0rmVRzpXIIR022S13w6JYDKPBU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G0VfgQcGtZMdAVQnYO5ByroW3Gmxu1X3++LCyAuxWklVUIoxmhhkMWKDMqyzaN5/U
+	 AByVT93oSy7o84brkYznTum6Ktb+iAcCzzwtqJxlgs5j0qcQJb7qWFLKKujAEs9KCh
+	 dGyYZxQwjQEE1ThxoMWc/y7t9pV7oE7pJ0KEOz8L7/s1ovHutHLWmNpXYB250C/xCH
+	 X7I0dQr53AdETOnfekoOZcbUF+a0k7rSDVvmRikj+/KBlHTDMpsJBCUXWfMs48QhZL
+	 CvSOhs2Yq/R4TteIqrKbDv7sdqGb0yeoNq+whpbBKmq+EVJmYimzQx99gemkQkNrp9
+	 Hpnzkn4hYyyBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 3/7] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c
+ hub and on-die regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: Frank.Li@kernel.org, linux-i3c@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260617110355.1591844-4-lakshay.piplani@nxp.com>
+References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
+ <20260617110355.1591844-4-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 11:24:56 +0000
+Message-Id: <20260617112457.5773E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com>
-X-MBO-RS-ID: b8d4d4c08c8a9ab286f
-X-MBO-RS-META: 8wmtbtcc1pxi9rewx5nkkk1reg86sbyu
 
-Tested-by: Anthony Ruhier <aruhier@mailbox.org>
-
-Thanks, I tested it on the slim 7x (2024) on which I was previously using the
-first patches from Maya, it works great!
-
-I confirm that the following works: keyboard backlight shutdowns when
-suspended, led blinks when suspended, keyboard fn shortcuts.
-
-For the Slim 7x, I needed to add the following in the DTS:
-
----
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-index b5247fb91299..423bf7340b83 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-@@ -1070,6 +1070,21 @@ retimer_ss0_con_sbu_out: endpoint {
-        };
- };
-
-+&i2c5 {
-+       clock-frequency = <400000>;
-+       status = "okay";
-+
-+       embedded-controller@76 {
-+               compatible = "qcom,hamoa-crd-ec";
-+               reg = <0x76>;
-+
-+               interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
-+
-+               pinctrl-0 = <&ec_int_n_default>;
-+               pinctrl-names = "default";
-+       };
-+};
-+
- &i2c7 {
-        clock-frequency = <400000>;
-
-@@ -1487,6 +1502,12 @@ reset-n-pins {
-                };
-        };
-
-+       ec_int_n_default: ec-int-n-state {
-+               pins = "gpio66";
-+               function = "gpio";
-+               bias-disable;
-+       };
-+
-        edp_reg_en: edp-reg-en-state {
-                pins = "gpio70";
-                function = "gpio";
-
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The I3C driver incorrectly binds to any generic I3C Hub instead of=
+ specifically to NXP P3H2x4x devices.
 --
-Anthony Ruhier
+
+commit e3f8613aba897f64df36ad159bade0cf0e0c5cf1
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+
+mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
+
+This commit adds core MFD support for the NXP P3H2x4x family of multiport
+I3C hub devices. It registers the devices via I3C/I2C/SMBus and exposes
+multiple downstream target ports and an on-die regulator.
+
+> diff --git a/drivers/mfd/p3h2840.c b/drivers/mfd/p3h2840.c
+> new file mode 100644
+> index 0000000000000..0a80992d6250a
+> --- /dev/null
+> +++ b/drivers/mfd/p3h2840.c
+[ ... ]
+> +static const struct i3c_device_id p3h2x4x_i3c_ids[] =3D {
+> +	I3C_CLASS(I3C_DCR_HUB, NULL),
+
+[Severity: High]
+Does this match table inappropriately bind the driver to any generic I3C Hub
+instead of specifically NXP P3H2x4x devices?
+
+Since p3h2x4x_device_probe_i3c() does not perform manufacturer or part ID
+validation, could this claim non-NXP hubs and cause child drivers to send
+proprietary NXP register sequences to them?
+
+Should this use the I3C_DEVICE() macro with MIPI_VENDOR_ID_NXP instead?
+
+> +	{ /* sentinel */ },
+> +};
+> +MODULE_DEVICE_TABLE(i3c, p3h2x4x_i3c_ids);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617110355.1591=
+844-1-lakshay.piplani@nxp.com?part=3D3
