@@ -1,147 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C5538398F
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE363BF685;
+	Wed, 17 Jun 2026 08:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684035; cv=none; b=QPBTRo/x3fUcpYJy3wZSnNUs/HtJlNH0XWGe8Jg8vYxxzhS4rGBtii4HANO9876otJoVM8sUh7fdCP/6RLB6Gwz30btK1Nje0c/BoYDHpOaaLMZh94TO2OYF390/6srE6GSf4LCF5S045ki4HQqPd676Oyz15A6uJjBZGbWme5k=
+	t=1781684101; cv=none; b=LxnTB/1SW6Hqt9PuS5aPX0msqIRKqe9gqLwQbwj1WvHH+RxkOK7kk8o2RIv/jcui+7pqvSCBuofsrfO6EpktRKNlQFll69zjjSh23SpsaUNBnGigVZ/27NVgg0liQV38AzAh6LPvnnm3Gk2q5SkV/0u0BY+YbXEsZAir3vfDLUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684035; c=relaxed/simple;
-	bh=4sk+1hdtTmUbkmgS4e9uj1Cj8O3uL797c+qgy1e68xI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=a2RBVKma14dVDcKy0EX6aUQLToOkBu7DHnv0N9R1meqJfXSrh8dLmXe9sV2qW5lEVia9quFJ5jPYzDyFstbH/o1tFCa+616zUS0PD7TJQtjVNMOm5TngQI4uDAi/4wiwlCOqKR3AQ50D+2fXX1t6Jn5n24vzWu05dobeV1bail0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hR5wCeFo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781684101; c=relaxed/simple;
+	bh=UFRzjIZMl4fqCNAO5kfBRw/n6pttuXrdM8a5f7agF5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eZnzby2P9TDp9bVXW56mClz7TWz1PDqIT+zDtMKRKNSyMjH/A0Y8z9czNYD7SZF17xSYAqvMhibzVEUEoDFn+Npc7RJJz4+dDc6NJmB70x9ZBEF4DdGfrJEA1yOgLLi4oH9c8F4C3pBc4Pf7PzzjZCoINRkg6KMTsSz/Yc8R6ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMGMPguA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hR5wCeFo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7031F000E9;
-	Wed, 17 Jun 2026 08:13:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMGMPguA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25471F00A3A;
+	Wed, 17 Jun 2026 08:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781684034;
-	bh=veNgmkNgD4Mlhfw1pfIiMjy0SLfb/093aag2YW45KAg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hR5wCeFo1kTisiw88P6sOGM7XjTRmbhVoAWzN+YZmO3yQIiHj/iF+cKfEtWzJaB5/
-	 Gs9Vs3bzS4b+3XR6w0PQssZ2cJ0r+Xj6t4aOnohMpBSsK1apwVHuLMTDlg2zDrcsfl
-	 NfSbqjXxUjSzZGdNTbEOXdi+mNXTxdzTPYayKFtbU95GE2vWvj6xlbc8TTkpQsNiQ/
-	 EuWWOJlz2MA+otQsOOnfGO9D18xqJKPkWJB4oe6+7iusuwvO0fBaitDEnmo4XkY7TF
-	 gC9b66Xt5IOq2MfAnWHbE1N7nNIy6SZCCD7T98E01+zwTnPVPidw+79PWlOMp2QE1B
-	 MXzpzADY4mZkg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 01/14] dt-bindings: leds: Document TI LM3533 LED
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-2-clamor95@gmail.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:13:53 +0000
-Message-Id: <20260617081353.DA7031F000E9@smtp.kernel.org>
+	s=k20260515; t=1781684099;
+	bh=otwGeQpskHHm+wFZ22SL3D9NNml9z+98KO2A26lz/sU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mMGMPguAcaxnFd677i0gfTX4THeS7dJC5EQ+ItxTaqGvRSAK6JhcGVdlwsf31YW9b
+	 pWRcuk2k5tz76jQ7L9bfucppCYWJ8ZcOCGNvG30GmP0aKPxlcbmXKVbmpC54Bzo7rE
+	 +eSMyHdXdlKcpzOh/zQb75TFgLHi+VbPPs1XZ9hfaTFi/yZDNeQRHZiMSBkFvY1svm
+	 YuClHdvZtrM23w1fs5626fsyFoMAy+GOyO6TqD5DGPVNYNbWSD61hfE9TuJnTXZSdp
+	 xUNP+rCuFrdsBPOJNLYUNEOGRq2Fqo4gozHNsYoAVCN8OlBUfq4PL7yJ0DkSP5nSS0
+	 pTenuppg7wCHw==
+Date: Wed, 17 Jun 2026 10:14:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: interrupt-controller: qcom,pdc:
+ Document Purwa PDC
+Message-ID: <20260617-flawless-quokka-of-radiance-1de6cd@quoll>
+References: <20260616-purwa-pdc-v2-0-8dda7ef25ce5@oss.qualcomm.com>
+ <20260616-purwa-pdc-v2-1-8dda7ef25ce5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260616-purwa-pdc-v2-1-8dda7ef25ce5@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] DT Schema Validation Failure due to strict property restrictions.
-- [Low] Ineffective Schema Constraints on `reg` property array.
---
+On Tue, Jun 16, 2026 at 03:57:13PM +0530, Maulik Shah wrote:
+> X1P42100 (Purwa) shares the X1E80100 (Hamoa) PDC device, but the hardware
+> register bug addressed in commit e9a48ea4d90b ("irqchip/qcom-pdc:
+> Workaround hardware register bug on X1E80100") is already fixed in
+> X1P42100 silicon.
+> 
+> X1E80100 compatible forces the software workaround. Add PDC compatible
+> for purwa as "qcom,x1p42100-pdc" to remove the workaround from Purwa.
 
-commit 69694c121b5fef16f95b87bbf30e28ee4fb13044
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+That is an excellent commit msg, really very good! Thank you.
 
-dt-bindings: leds: Document TI LM3533 LED controller
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Document the LM3533 - a complete power source for backlight, keypad and
-indicator LEDs in smartphone handsets.
+Best regards,
+Krzysztof
 
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-b=
-acklight.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-=
-backlight.yaml
-> new file mode 100644
-> index 0000000000000..a25846e9b3752
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backligh=
-t.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: ti,lm3533-backlight
-> +
-> +  reg:
-> +    description: Control bank selection (0 =3D bank A, 1 =3D bank B).
-> +    maximum: 1
-
-[Severity: Low]
-Are these constraints effective? In Device Tree JSON representations, reg is
-decoded as an array of arrays of integers (cells).
-
-Numeric validation keywords like maximum are silently ignored when applied
-directly to arrays instead of being nested under items.
-
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml b=
-/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
-> new file mode 100644
-> index 0000000000000..d8dbefef3323e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: ti,lm3533-leds
-> +
-> +  reg:
-> +    description:
-> +      Control bank selection (2 =3D bank C, 3 =3D bank D, 4 =3D bank E, =
-5 =3D bank F).
-> +    minimum: 2
-> +    maximum: 5
-
-[Severity: Low]
-Similar to the reg property in the backlight binding, should these numeric
-constraints be nested under items? As written, they apply to the array itse=
-lf
-and will be ignored during schema validation.
-
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533.yaml b/Docu=
-mentation/devicetree/bindings/leds/ti,lm3533.yaml
-> new file mode 100644
-> index 0000000000000..bdc05a9f3d663
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
-[ ... ]
-> +  light-sensor:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      compatible:
-> +        const: ti,lm3533-als
-[ ... ]
-> +examples:
-> +  - |
-[ ... ]
-> +            light-sensor {
-> +                compatible =3D "ti,lm3533-als";
-> +
-> +                interrupt-parent =3D <&gpio>;
-> +                interrupts =3D <80 IRQ_TYPE_LEVEL_LOW>;
-
-[Severity: Low]
-Will this fail make dt_binding_check? The light-sensor definition uses
-additionalProperties: false but doesn't explicitly list interrupt-parent
-in its properties block.
-
-Since the example uses interrupt-parent, it seems this will cause a schema
-validation failure. Should the schema include interrupt-parent: true, or
-perhaps drop additionalProperties: false?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D1
