@@ -1,108 +1,239 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013068.outbound.protection.outlook.com [40.107.159.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6598481666
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 16:17:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781713069; cv=none; b=MGYvrlBueU65G1+T/s0Tza6t40W1Hnv1YHwvMocteJASwYCnkxf+WVdIJ/b99IHT0BJcqgMXb1QiIf0ML9JFSDmHiS9BhJecYqGd7DX4bk0cE9Z5urA964G597laEOI3WIoxO/rbao0pyXEg26UgQ1OeHrD2uyZLSBQGPo/iOGw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781713069; c=relaxed/simple;
-	bh=nKda00S1poT2xNV4nGGH1Wqx5kxvVBmxnAtBXAq8V80=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OWsthAwD+LP5BG5tS4EgGpp0M8lSlLIOMMAjpckjUOcnK4aMFstlVAcC3n6rhxtY7ASBOkGa31rdZc6bBeKj/pTp6dC/kFiBAT9sPZmRwtZWb0JogugXQdwaSnvZgHFTvbaVpYQeMIXwJ022EpKCXBhlhQ9ZORLVaL/u3TxAzu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PT2Jqfol; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495994A2E30
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 16:18:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781713113; cv=fail; b=uRTlbF5LNnx4rRiTsE31aerHwlcrFvOsR+GxxUJtWxieV6xA7l9tfxQYCOdq3tjrbsDPl/p9CpBvtmzsMMU/pmjyfWJHjAVVkazCU2ScHaOwieVh5P01BbjYFCnf8ufK/h1ki36pS5pVUuQTtF7MJLs3cEsA50TZX+qZy5KQVlg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781713113; c=relaxed/simple;
+	bh=peUGCMEInB7YAHHNGk/v9U3XRFl+ysJLkX5MZshOVqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=R6ujJHTBkzp1j/k0tkW08xO9rSP4XlrUp7hBKrRzM0AgI6hWMCjj73FdWSh4FlyL6Ay1oKmDvf0DOOFwwmKM/PHSdL3olduxGyr24XMn40qe8Jq8re7AN9lrUvDzl+UFpaC6j1zk8a7aRqWtCXQIC8u6dkSC43UondHWXz0ELLc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=CfJNX+cw reason="signature verification failed"; arc=fail smtp.client-ip=40.107.159.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PT2Jqfol"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so41511315e9.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:17:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781713060; x=1782317860; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=00BSHQd1j4XWZK2YFSucxAoO1q8dCKrhXt7//WIy4nI=;
-        b=PT2JqfolULsVGFeaqQROmAgvvc9U7Lhy5c4X1XNgTGepKpC+8vz+3vQqvxOUzR9261
-         /dlmdLPnjDbztf7UdYyTys3wvCa5orrFYQIXYk64f2ty69UXXzC4U4rPhmXmHe/Q302R
-         LjXSShnIwbzSk7yuxyUqHcMYQ+8upx+/r8wJ+hHQPQGPD3YzxmdI+sPEE5AQneJEdiJK
-         TQr0RksHD+gXXZB/qNqdrC/YC5IurFONLJ48JsNpCdfqQg4kABnbAq+iuFn0IokzYK6j
-         Ek501l1uq64ecDN66hhlwx9hOO/myGh4VdT4TvUMTyndRO++JwcPHAcB9W1kUTUC6ewZ
-         rvIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781713060; x=1782317860;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=00BSHQd1j4XWZK2YFSucxAoO1q8dCKrhXt7//WIy4nI=;
-        b=KW+ZCY3qbFsaM0D7dw7uenC3kxYW4ykvm+pLbIH3tjlH5zvXn24ERr7pNvTkM0WJqW
-         vugPW2xbo2UP57YMq7TnFHIUFFeMB6PlTa9pM45kASKPk/lPWeDPHcxenp/dxX+z2hlH
-         gsRpYj/2ZTmJyf0B09y3hxppTLXnKbNqRYtseekiWRCkCCjJWwppzHVHaXDDjgFMpyNA
-         7ahG37TzJfaZGrAWHFeisrII9xIB4BLdKr5Ow/cJjsu9oyewb4UF4YF0Rx3ENmfKhAI4
-         URZ9NyVW5utdo/HC3wUzn4VOLSyXTw9Mgs11yA+vvjExHjFWGTzK72g4KAZZe1PlfphN
-         UAUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9OhtmIqLmLg768EFVyaH8VHSRB+exuALPe3Yp8gBGSsy1NG+VENvg6cGrEtTku/+0Kv/ihxptK+tPu@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMYNVSVOFsHdJqTM2nH8JxozJWT1SmMsYdtAFn+nEt1It8+Z5M
-	kl1//SSRvsPOtFoc1/zjFciHmk3uxSrDF4XEkZK0XUwNRk2tzeYpQXX4
-X-Gm-Gg: Acq92OG5mU1Tv8QT2RbZS8BW4IpG1TBD4l6sboIF7y3q2cGlemrCo9tWNfwZeUmpaT2
-	4xzvUg+j+YOKjC+9OYiQQ3YiWNeRKfrqgm5h/TuXYCg5u7d/1XJTWlDjUVImzpnl4zpSMZiZ6DR
-	8GFUcavT98TA6RVt7zkWF4VKRmayY7fAUJJrsepMOX1OT+I/NRUFXAc9fGjyKMc74+JWGrFayHu
-	jrOU45jOrQPXkkHlmN7COz3+PVRZe6r7CWiL16S8c+a83ypfYxCMpm5Elx0BU/g5NX9FuYNrqf/
-	xBxYSFRK4861OBDKkAxu7R6y7E+BEAUyxePvIIVFm3+J4X2/Tl28qYNVZCKLZ80s/g1Fz+U3hLb
-	YLyzQObLx810oFXxZy1OkEtP14f4Sk/3H78+X69fTkKIKbevUew1o7PlgALLUKLuOXu2017kVB9
-	uUsGwZdvSVCgz9pRgo7iZjrl5t8fIvFchWPn6Gq+iVkCBM6tgPJE0UJsutxef21aANHpCN56qLR
-	1c3/1VKyIerqrAlnA==
-X-Received: by 2002:a05:600c:8889:10b0:490:44eb:c1d9 with SMTP id 5b1f17b1804b1-49234139bdfmr51405045e9.28.1781713059719;
-        Wed, 17 Jun 2026 09:17:39 -0700 (PDT)
-Received: from [10.128.11.42] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2b0d4fsm59746373f8f.24.2026.06.17.09.17.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 09:17:39 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <d515b780-84ff-4854-bd77-e98247d62172@gmail.com>
-Date: Wed, 17 Jun 2026 17:17:36 +0100
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="CfJNX+cw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ermb8XuA54H7Tn/Djr+eR3GlNNOtZhO67iKgsJIp5pqaSRdUfZky94uGpEt10h+uyhibGo4WimtnK1IFdNsrA+CWOCo4SVqDKTsRyA9IXkUKyULpN6eVOCDG7yYGxVRWGLkWk+GV+AfqCG+EWnGpbko69i9J1wJWfsSypxZIgsgw/p0wzbMV9baqbI+jJ1mS7v+65dvg0kwWBWoi9HauI2G9ZlboYjwHkczkAOKwGNyToh8mjIcPJkyZwUkTpkN6CihHl40BEXVkCNcp+u/xxFH1z1sCb2IpLkunfoRWPgVGTMQ7qKP4rpnbFO7jpZTDdZQ4BUxqRtlTo4JysQW+Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TaI6upzSEiwR72qpWdqed8mUJLxPuuTuu3NTpKtzlCY=;
+ b=erbFJeNbDNBHig7j8NiyE8f0XELMnY0esmqRzX+/uH2xruh6TguNKlu1M2UmkKjHWwbVJsHbgTCiZtK+qbdEre4D3jEjkAOJvBZx+i0z6cyytIOMzx5+Lznuat/IkjsEgpSEMbI8zNuuC8RhZVjUP7VYmKfMIVdAkU5gtxzpZdBdM8DAUfyg9LACTFBP1JsFdu/qro6fZgvUcYu+/RUNrWnLRhYxvtX1x+5fyacdv0SkaTuHnBelA/O17M35S8fHCf4v0DLYs/d9TOLNdrV9iRNKrif3JlnBcTM5rETRx6LwY4oD/3M2Itk6mwFAe5QYV9nxeiIJtb/qhZOHx0MMVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TaI6upzSEiwR72qpWdqed8mUJLxPuuTuu3NTpKtzlCY=;
+ b=CfJNX+cwUamK/vXdD4BI4ZGg+t2iMTTBQJiwSwINkTginfeGOrX48FMY1MWkuWeYj0ERf0i1XlnNwm+04HjIDNuJ0L5OHidLJzEyQsFNTgSyrSO0SwmQ2v5fV395mstqmJjZZY/L7zWv6R0oMS2vTTw2w+MkS76oOPT0PxcjqP/uUdUJseOKa6ylwx8x4qbf5khsU+VC0Z91V4O4UKdVG5ZMcFGgyVJN6HsB8fUG8ruKnYNih3O37VVy85j3V8n5SyLjyYDgMMx8wMVMReqt+fu0i3TxIdK3WdTa1Psj+XVj29u3c1ad5vKXE8bfegAErUOfjtJY6Ndcn82IQkhj8g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU4PR04MB10623.eurprd04.prod.outlook.com (2603:10a6:10:580::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
+ 2026 16:18:21 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 16:18:19 +0000
+Date: Wed, 17 Jun 2026 12:18:11 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Lakshay Piplani <lakshay.piplani@nxp.com>, Frank.Li@kernel.org,
+	linux-i3c@lists.infradead.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v12 1/7] i3c: master: Add APIs for I3C hub support
+Message-ID: <ajLIwyaTQHFnKf8D@lizhi-Precision-Tower-5810>
+References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
+ <20260617110355.1591844-2-lakshay.piplani@nxp.com>
+ <20260617112035.86E7E1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617112035.86E7E1F000E9@smtp.kernel.org>
+X-ClientProxiedBy: PH5P222CA0004.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/3] riscv: clocksource: Add p8700-gcru driver
-To: aleksa.paunovic@htecgroup.com, Daniel Lezcano
- <daniel.lezcano@linaro.org>, Thomas Gleixner <tglx@linutronix.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Paul Walmsley <pjw@kernel.org>, John Stultz <jstultz@google.com>,
- Stephen Boyd <sboyd@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org,
- Djordje Todorovic <djordje.todorovic@htecgroup.com>,
- Chao-ying Fu <cfu@mips.com>
-References: <20260616-riscv-time-mmio-v9-0-03af7bc8f2d8@htecgroup.com>
- <20260616-riscv-time-mmio-v9-3-03af7bc8f2d8@htecgroup.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260616-riscv-time-mmio-v9-3-03af7bc8f2d8@htecgroup.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU4PR04MB10623:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad36beb7-7715-4c15-75e7-08decc8c0b78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|19092799006|1800799024|56012099006|6133799003|4143699003|11063799006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	t1oSFNK238xzHHx56UKB93voBtf6EmTpYWQMRBxCtT5d1O3tgVbNUov/D6UzbDqLvFSX+tWCFDNU14GwxaMEHbZB0dXY7K32rNu38pcGXHW2jO5A86Kb6hefLMRff5UvZTSakO1ArhIMpOKa+7Bhr3LJNcBuXSCXjvX6RpURZmnViJaMmdIZ0KAqIdC7DxtKHGjGp8YWgCWkohnZ99BWCaslXxFwPimFIdn3P108lmg7+1i9DTcH3li52PkS/Nv9h5a45mAMoRWa4Np6+WwDFz2SPuQSIk70IBkUpvFtH7KH76buYj32Pb5/dGQW8qH0NVdsiJp0KZEK5W+X5gPvlYKlQnOBjXeFSRPDPSj1PzKt5vTL0P+4Py45MqSqP+hHAN+HhinZqt0IZAdt2Za6fnOkI50xx4a4w6AUxcwfhTE3mOaTMmOIyF3oO9ubqUctwO3ak5TCvbbmdWayPEaudp9vY5ZCDCxc4kVL2XslNARdXFRGAyLDg/L0RmTfCJG7nvNNsUmh30Q5TcdME9IgauaRoavUq3KuzU3RGJAKyvLu0PvOR9ia+WR6zdR2DIEgPwfUguaCK3toBcIVuHwacjj8LYGHSWAa9W5C5Ixg3H2padTiBxXeGUWHlJvZ6r/+7K3OG6iHzHvOgCZzrN8xmQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(19092799006)(1800799024)(56012099006)(6133799003)(4143699003)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?vztwD6dGBynczh8vUE5F4NsWFzBKnWqd6oSz2ec8rO5bb2AiQ/gyQEeDkp?=
+ =?iso-8859-1?Q?QX0Ug2slTsn53pn3f+DJu7S52HiWCBvcpp80y5g90TRE9SuAfUiWI8VyfA?=
+ =?iso-8859-1?Q?XZKdex2VfjXpmAfSgxeQ5SjI0a5V1NzKnzsq5othFXuP5YxrFQgi4tOeKw?=
+ =?iso-8859-1?Q?oRISN+bO+oGsxKlqyMiYQ7VYjCPxG7pZIohJgvXZCT7CoLr98WEa3pddsR?=
+ =?iso-8859-1?Q?j0LTBJBKPxRQGXFdZ8N9pHMZ/R/rX3X/cXeFk33P0vtAHJmGizinzOqXEt?=
+ =?iso-8859-1?Q?k9hidZEhPOWo7VPDMmSSli7savHiBdzyPG3JeFWn28WEEIv4jQHbScvdGJ?=
+ =?iso-8859-1?Q?GAeYAbJQTeAUiHlRHzDcYpXazmm25ivJjizWD8lnayPk5HhDSnwb6wB9nC?=
+ =?iso-8859-1?Q?swkMU7tmFowU3uZ7WFdm241rvg28f+B7obyvgI9sCy0tPJKU5yE451yfh5?=
+ =?iso-8859-1?Q?MyDwdvRh3ec6NISNeV6XrKZKGAcAg0mcsB1D+b8aIN57KXln+V3SGUUcI6?=
+ =?iso-8859-1?Q?S8muTMYNamLX0A4ZyV9NlntIodCt9Wq9PpUOhVyCw4Iu6v1Wxm8nd5yeFK?=
+ =?iso-8859-1?Q?sw7LvMwMj/88xf4WVeR2EL+Y7bIeTke0mAmsA9UHh4evaBfsS7/0jJgWFW?=
+ =?iso-8859-1?Q?zgypy0QWOj2KJ2tgAICzvTU8ds2CyEaUb42nKPusbBwNH3GYNto4L9RZlo?=
+ =?iso-8859-1?Q?gpqcEqPjUQJa5yuNFrwXqSbRo/e4jBuDExLAqzBkO8VxlAm+yen4wlXNnu?=
+ =?iso-8859-1?Q?hc0VSyyz4JQC55bKaVAwVdSsZs6P0HMNA4B4NIvdaocbGfnwkhcfx7iyqq?=
+ =?iso-8859-1?Q?V1/MOaW9wvtgZWqsRNLhCqYa/nGnzGAGTGKPXeVd/IA1OmjLDQX2Bf6s1O?=
+ =?iso-8859-1?Q?kBO1GE1OGIbyzgJGasIiFa4JQYKH+yJBArYpNNsydCvy8MLYyC0ncTj1ed?=
+ =?iso-8859-1?Q?ddf9ILirhuvWSrJgyj7aWINAhg20ed3OYsDsLu0kI5YHJw9sit+net7h1e?=
+ =?iso-8859-1?Q?lEBRPMSJKsRVKfmAAaD4Kp3BzIAIX3fOJVMbd/WY5Az1Uwk+hKoRUbop+S?=
+ =?iso-8859-1?Q?DNT15a5IRDG7ssiKctKom4xGY1NogS/8fRJ1d5wt7KKTZ0uN0LryxkiC1m?=
+ =?iso-8859-1?Q?OYejKnYd16BFOHghXUU6yUD/96xkf5pOm73ioLrtigjpBo2MFJ23xpP+1A?=
+ =?iso-8859-1?Q?ORaoMS0AQ8P/hiNufxWN5xTjApMZm2AfknzDC8xoQkxPjtLueANkO+Mjj6?=
+ =?iso-8859-1?Q?W28Z1o3je1UXKfUcdfP1hYPOVXS05Kf7lXw3REnprXZ2fZ3K5+xkJLPYdI?=
+ =?iso-8859-1?Q?EjAOzh1I5HioR5H7vMRp7qnfh0b3auJ6igWLdKBsPOsBdWZzxupboMFsff?=
+ =?iso-8859-1?Q?iKWgJB/JeDPZrqBp4DNoArHrbjCfurjmDBYe7YBN9ag4P29TvGVrcAD1gE?=
+ =?iso-8859-1?Q?zgohmIz/Oq2oA/57SnH0Vk3vAhceSDmTz5zBTkzeQDxBzL7SS+0vwxcW/x?=
+ =?iso-8859-1?Q?XF8Ft21sXlXhBMfaUB8FMZghm8twAmrNadeuAVEkpYVG/gYVaYUlEREhz8?=
+ =?iso-8859-1?Q?fcAsdhI+pAQoMfpW9nD2I7M6I/CucKzF9I3r5cDt5LHkmIa/bbOMsmMNL5?=
+ =?iso-8859-1?Q?G5cIEz7Yf/9gpZuAp8l2ZAfKnHOGUVWsRBFVQ3VDlE5xh3keAYI9tUvfNg?=
+ =?iso-8859-1?Q?8JD+JzsD/gDalZkxM1AJLLKjAMMCuGtkbvdV2GRMFAJHnVuetOBlqyMqCE?=
+ =?iso-8859-1?Q?hviKm4mu5qsMEWXSVDr5URJquS5rlF8iiSr5rImNzm8UpBQKtFeES0tRFZ?=
+ =?iso-8859-1?Q?hnF3udUmegEfNcMQYWrAvmbR/IAsEyAcJszIzUa74MatDuVpxJXI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad36beb7-7715-4c15-75e7-08decc8c0b78
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 16:18:19.5781
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c+hoUH4R1cPP4UYPJBXMvp7Qd+qTxb/CsFhDJCTtWjtYbdrmGp7hllebwV5VqUjdbX9/Gwaga4YLEldCWEWfA0MpXPjI5wwetBmE2r7jF8lhIkPVcb7fXuyL0p6/dPYJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10623
 
-Hi Aleksa,
+On Wed, Jun 17, 2026 at 11:20:35AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Critical] Bypassing core state tracking in `direct_attach` / `direct_detach` causes Use-After-Free, NULL pointer dereferences, and Memory Leaks.
+> - [High] Bypassing address slot reservation in `direct_attach` leads to unrecoverable I3C bus address collisions.
+> --
+>
+> commit ce08f4a6bc0d82c966d4e3337e6b4d082a9d09d2
+> Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+>
+> i3c: master: Add APIs for I3C hub support
+>
+> This commit introduces helper functions for attaching and detaching I3C
+> devices, alongside CCC command helpers. These additions prepare the core
+> framework for handling I3C hubs.
+>
+> > diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> > --- a/drivers/i3c/master.c
+> > +++ b/drivers/i3c/master.c
+> > @@ -1775,6 +1775,70 @@ static int i3c_master_attach_i3c_dev(struct i3c_master_controller *master,
+>
+> [ ... ]
+>
+> > +int i3c_master_direct_attach_i3c_dev_locked(struct i3c_master_controller *master,
+> > +					    struct i3c_dev_desc *dev)
+> > +{
+> > +	int ret = 0;
+> > +
+> > +	/*
+> > +	 * We don't attach devices to the controller until they are
+> > +	 * addressable on the bus.
+> > +	 */
+> > +
+> > +	if (!dev->info.static_addr && !dev->info.dyn_addr)
+> > +		return 0;
+> > +
+> > +	/* Do not attach the master device itself. */
+> > +	if (master->this != dev && master->ops->attach_i3c_dev)
+> > +		ret = master->ops->attach_i3c_dev(dev);
+>
+> [Severity: High]
+> Does bypassing address slot reservation here lead to I3C bus collisions?
+>
+> In the standard attachment flow, i3c_master_get_i3c_addrs() is called to
+> reserve the address slot in the controller's bus.addrslots bitmap. Because
+> this direct helper skips that reservation, the parent controller's address
+> map is never updated to reflect the newly occupied address.
+>
+> Since the parent controller and the virtual hub share the physical I3C bus,
+> the parent might still believe the downstream device's address is free. If
+> a new device hot-joins, could the parent controller allocate the exact same
+> address, resulting in an unrecoverable address collision?
 
-On 6/16/26 17:03, Aleksa Paunovic via B4 Relay wrote:
+Should check address before attached.
 
-> +config P8700_TIMER
-> +	bool "MIPS P8700 timer driver"
-> +	depends on GENERIC_SCHED_CLOCK && RISCV && RISCV_SBI && 64BIT
-> +	select CLKSRC_MMIO
-> +	select TIMER_PROBE
-> +	select TIMER_OF
+>
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(i3c_master_direct_attach_i3c_dev_locked);
+> > +
+> > +/**
+> > + * i3c_master_direct_detach_i3c_dev_locked() - Detach an I3C device from its
+> > + * master controller.
+>
+> [ ... ]
+>
+> > +void i3c_master_direct_detach_i3c_dev_locked(struct i3c_dev_desc *dev)
+> > +{
+> > +	struct i3c_master_controller *master = i3c_dev_get_master(dev);
+> > +
+> > +	/*
+> > +	 * We don't attach devices to the controller until they are
+> > +	 * addressable on the bus, so skip detach for unaddressed devices.
+> > +	 */
+> > +	if (!dev->info.static_addr && !dev->info.dyn_addr)
+> > +		return;
+> > +
+> > +	/* Do not detach the master device itself. */
+> > +	if (master->this != dev && master->ops->detach_i3c_dev)
+> > +		master->ops->detach_i3c_dev(dev);
+>
+> [Severity: Critical]
+> Can this lead to a use-after-free or a NULL pointer dereference by bypassing
+> the core state tracking?
+>
+> When i3c_master_direct_detach_i3c_dev_locked() invokes the controller's
+> detach callback, master drivers typically free the master_priv data. However,
+> the dev->common.master_priv pointer is never cleared here.
 
-You don't need to select TIMER_OF here, it's already enabled by
-TIMER_PROBE. You could consider using a comment there, if you'd like.
+It'd better clean it and free dyn_addr.
 
-- Julian Braha
+Frank
+
+>
+> If i3c_hub_free_ibi() calls this detach helper, and later a transfer is sent
+> via i3c_hub_master_priv_xfers():
+>
+> drivers/i3c/hub.c:i3c_hub_master_priv_xfers() {
+>     ...
+>     xfer_ret = i3c_master_priv_xfers(dev, xfers, nxfers, mode);
+>     ...
+> }
+>
+> Will the parent controller end up dereferencing the freed master_priv
+> pointer?
+>
+> Additionally, if a device is never explicitly attached via the direct helper
+> (leaving master_priv NULL), would a standard transfer immediately cause a
+> NULL pointer dereference when forwarded to the parent driver?
+>
+> > +}
+> > +EXPORT_SYMBOL_GPL(i3c_master_direct_detach_i3c_dev_locked);
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260617110355.1591844-1-lakshay.piplani@nxp.com?part=1
