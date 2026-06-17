@@ -1,166 +1,242 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2384B8DF6
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 17:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1804B8DEC
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 17:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781715891; cv=none; b=kXU9HEgfUvQq6hNck8tQeuMbAN9Ov3Tuw7kg1SfmYYTy5g/e/ivSRSHUTB69pDj9/KwtvnMcjxzB+olb+fl1L4kGehybLa+mLYaT24HsoCbrYIWIY7HuQkTPCP9couIVAA7vrfqXq5nyxR37xt7uzMhFytjmpqVCLK9A+B0pReQ=
+	t=1781716441; cv=none; b=GDZ2WIFWgg0BMeebiWF9Q5pRtexecHbPi6nBZfmqqhFGSRwLDISjyhXJ9EYR7xF12vDVrzmDX0qQN/CZ9r/vra/qn1q7AaopefwNIbszbOta8BYKjAFM9/sveGo/VHm5ZJrR6bpNzoEMbik/GeVBVa68eGjs6+3PsateFAuKXCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781715891; c=relaxed/simple;
-	bh=6ZRmXpEHJbpqKN93OaRNsHjfn+lhlrd9jdCdeeQKlQM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WkLgokl+Cq2sWCWtjHHWaPzFGq8rAirTG2OJyOz04MhOGdaOIL3zu98hpMzAd3raFCDO7OeZ+TNAgBkqDXQSGaxOwNVcOLnlylKCV33ZkTpqQpuImHJRUIIry2kGNTW/sCSuOcfkvVATEY94xwtOfFBBhR1GOoIDoM5MvYUVtag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G6fR/Mdh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=it9X8ows; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781716441; c=relaxed/simple;
+	bh=xIDciGkPDxl+GOsw0EvfaENOKwnEE8x3lxWp++1w/IY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o1LrUNLR6MyZvbEFW4IpJ5gjqRYdUH4rRNrC1nRvivknyVS9cPa3hHy0c+0SyV2vjeo0inaV8R0P9N13QFWopPqkS/iXr7bu5YCTZFUoLs1/IKdiZ5FKhbu1avKOdj6GLoLqmHKKX7L/N3IZhNvv+/QJk12SV9R93yygDpYPjls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJv7snLO; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G6fR/Mdh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="it9X8ows"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65HFohts2731411
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 17:04:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g/zsHYT/VLV15pDa/l0a4Pcd2IDfua2uu8jZoLR/3PY=; b=G6fR/MdhCJGdaDmj
-	+t5ajrUXwnbJ0Mksf1Cew0PgkbVR18xO9TY9siqMZbKIkP/WWa7QKLMmPBQaR3Yx
-	ExX9sAj7mODOTTmD6wgZzEuG0M7uAu0mfHUkARFFo+7cybncOfrqVw8OBNgKBGTa
-	tfNWR0tXXEHkAqnspuykg9qDua+0PPrBDN9xjKHBWN64+CkkjcxWPi8S+S+9HXV1
-	+QuuSrjHnsidvFTseFC3fAtriZzW3OYC4ohIjb9A1fbPh7g46/+iTmK7QMkOXv1h
-	NpjzrR15d+RR+moBhFykgOU99ZxxAymk8zn3H74CIeJ4TvNAdfw+1PmdNnNeaJct
-	Z7XzuA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eux2c8mca-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 17:04:48 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-915737aaf0bso1043585a.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:04:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJv7snLO"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1384ebe7a10so40265c88.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781715887; x=1782320687; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=g/zsHYT/VLV15pDa/l0a4Pcd2IDfua2uu8jZoLR/3PY=;
-        b=it9X8owsfab84sSf4vNCbtU6PxdfIADPMxacyDynpxcng07Mvum6qYrh1dvS0fzuBe
-         VdXCGwO7OOUWslFbszOLUlHuSMCebuWiy+hB8IFpK7GY8wWfe5EOpg64LGkxRpstXdVB
-         vYW8Bma2MBxErPn9/c9lwqHKe3nSxjhURySalXPrCVNfY/on4u63kKf2OKtIIymvyKrK
-         v0pfRuW3RrX7uQUJkyJKdZeS1yGNjH9+SUhpTFHNfvV+fqfuNaTEC4osBylQv/KVVtft
-         A+Gtol+mTkvET8VBrQGOeGmF9eRgGXk79catFlbbUWfH0Q61LpoV++wLIDj/ge1qtBCg
-         05uw==
+        d=gmail.com; s=20251104; t=1781716436; x=1782321236; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=zkK63x4tm8us5I2Vs4qjhcSV0srfiYOxRPUfwTWSlMI=;
+        b=rJv7snLOJQuG8RPtb0+lWgqA3hRNON1a5lGuHZdHZCV5EA0DzdotyQ5lbkrl6ku/4N
+         98vxakRQiEdf6uZKVXZy2fOpyR7oKVCoQGOwSafAOHUmd/lKkmBAjXG8zD/WzkjXAhkh
+         9HtgTNwbLOJZZUp8OfWc3kVjD6mnf/tm6wrUhPT1/wcblLoLtlll4yBoFcsCVCaNEdKO
+         gD+2wD5SSXKjFBIAaqtRf5zt/9dVNC5+i/9Ue0axjkj5gNMxXWTPeoQdDJJ8q5nCBZYR
+         z5/6zzW6XWHSlDaUAuH2lYiRIvcjEMGClXrcU6WPp9hJ7H9mtKJnwcTQN1fSKLtYqdYQ
+         CdRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781715887; x=1782320687;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=g/zsHYT/VLV15pDa/l0a4Pcd2IDfua2uu8jZoLR/3PY=;
-        b=MyVtgHo83COR2XtVBxehEhW5EPF1zLs2JUQ4OJbzgNf0B9xcdHF4SPOy6gxzpsv/vg
-         NyuG/O6SQBJ2aaZrenhShCeCJZYRJ2XHFzoFTV5zdnRD/fWyWyCow8tyMv70vIVxLexu
-         nO+B8lE5zXgJrpUFM6Z2sVC7wuGAmJAiiYOHKfcLoEKC7k+Zbza8NlXd7K+FcidjTvay
-         +H/RTSM1LDMzLGOMCramdCvIAOYPXJcmExfydB0p0+/ZzEK31dTuHvxNGepKqiqUJ8dh
-         U1R05iE/gjRy2gZBVp2TfzmZHLWLsbWI3XEqui8xNgOJQlLb7id9dkzKkhWGYLrCgaWd
-         artQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+bYCYhZMYCONYvXhg0kRzz8CPpB4XyCEF/peV6d6G0YJtEp4ZLijG99kYyfe2JPV9OS6/27fH+l1kL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCi9KtwRfonCtJmEZ+r1upOy62egVr1heifNhf0XrQ+Vo6e5Id
-	5sUePcegi8wif8b6RK3zAg7OTvYlGZGOAqz7aYkbM1eRL2oTX2D3bdIQqniVCzsgnIsmDlFFDUc
-	NhYyEYCeZx1FMbsW5X4evA0NAk8wRKPKhvBwtngqqAB/hRqB4u77hnpmo3d0IYwjX
-X-Gm-Gg: Acq92OF9fQg0pFaRPD/earI6PEWPQ4dYYA9bl+t+/NHRHt4M5i33Q1BNbWLqUGlXos3
-	EwLLq2gitfjmQmRvFv4NejOf62TKr0cjF44oPsc/ZnwRuOSD62B7tJR0OpeFCTOovK5ypx5zuhb
-	tA89aLIwHBdjw2UV8f9ZgOiNd+YtTGNXwP5w2bbfz47kNyNr9Syhkd0NqXuTj+ESsLqE0l5m5Kj
-	TlP5RhKgdeo6nPHQ5Eco9BZvPd+Tkh8O8UvWIP/DVpdg5Dv+nedqg/CX0vetkxLU+PzzKkEuODa
-	FsC6jw/xkLtMynCH2ZkYWOcHTqsbw2Wok/91xpRB2fdZYMMYBZILg9YMumsdSxvg7tKtn5g5bYq
-	BwmOSyp+7B+pbb7UHXokG6R3UvhvlvgekRDo=
-X-Received: by 2002:a05:620a:7117:b0:8cf:d289:d0f3 with SMTP id af79cd13be357-91dbb842a92mr373351985a.4.1781715886994;
-        Wed, 17 Jun 2026 10:04:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:7117:b0:8cf:d289:d0f3 with SMTP id af79cd13be357-91dbb842a92mr373347485a.4.1781715886373;
-        Wed, 17 Jun 2026 10:04:46 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb8341840sm840779566b.43.2026.06.17.10.04.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 10:04:45 -0700 (PDT)
-Message-ID: <a1e0d80d-736d-4fd9-a765-26f86e0961ea@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 19:04:42 +0200
+        d=1e100.net; s=20251104; t=1781716436; x=1782321236;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zkK63x4tm8us5I2Vs4qjhcSV0srfiYOxRPUfwTWSlMI=;
+        b=HaJwpSxDtpV1F8JLBK3PoAM2/gnXm27qUgCkyrhF0BCJ8km7NhhJkWijKkXYG01xuD
+         QU2JF35V/WqNFXPonEQxlXMitbn6mPF6CPbEm0muiLyo16lZDeJUGmwA96+mGO8rvoVY
+         cQcQ0XnQWkkUQ+dvPHJJhugqefWboPUqQhPDyFfmoY+pyPbbhAT3E9PcJp75QjUwCRMA
+         bwJthTJWbtbHjzQ7oEFc1wcWWB0O0qy0IY1ZkDb/qSjnZc884Kjt2BCnnbJv/BjWTou5
+         zu7bZUhr/KdDfpimImZ5Q0l/HdU6xg7sGulr3pDG0BWp2uTwBegwPHksllx3D4sn04gY
+         4nwg==
+X-Forwarded-Encrypted: i=1; AFNElJ+3/p34Xwxh1lyWVCcNl0NWsd7YlHIWn2VSV+KlLmuG5/7D8+weTgqupFG0v83PxWw62O0iJ2dp9SXA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY+daO+4cmRTk5onDImZsCkdmpUgWESwEG6iVdQXvHnHFPd5Gx
+	30Ss7p0UTp5EEHrOlw1csgLoqeyacoT7iVgzeCkFzAYqeAm87PRmhsM0
+X-Gm-Gg: Acq92OEM++1HREAvHWChNt+g/g5BXXvt108vK5YCRzjS6yUDzMEBw0pptQ1qhsEsEfV
+	TziwW1Nf/e9Fp82dVIiL/XaQhV/GAqD3w3sAefGRlllu0O8vY0/Kdag2mPtw1HgRJnVd5jcF7LU
+	tM7gb9jlFHfrZtm2hMqiGSGBxJDVR5S+Q6v9wqThHkmGRUyRPveoeniChnfXXOsDhUVcLq4enmH
+	+kIJYmbSo1zI9zzsNnBJZaUlNPQ8qgdJREoNfqCaLb74TUTlhHZ4+XUtlFJ6ZzGV814Qu1NPLFs
+	0+yTbmRIRXDWDqEQOKooDr6oTO9X/3MfRaZ5lFiUouGoMN0TsoM53NckqL9q7LzUbEpjSjWWaLr
+	CYoLlRJiOyL5Fcy8U0vyGG96BBUywLMIVwcfkmRIbF+oDI3bFATt9pRQDw2WB+MVBFGuyEwhGKy
+	e4tIl+9suaoht0REoR1y6GAw==
+X-Received: by 2002:a05:7022:f9a:b0:138:576:fd with SMTP id a92af1059eb24-1398f66aeafmr2117301c88.2.1781716436403;
+        Wed, 17 Jun 2026 10:13:56 -0700 (PDT)
+Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1384b97bf09sm17285359c88.14.2026.06.17.10.13.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 10:13:55 -0700 (PDT)
+Date: Wed, 17 Jun 2026 14:14:32 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, pop.ioan-daniel@analog.com
+Subject: Re: [PATCH v3 1/5] dt-bindings: iio: adc: Add ltc2378
+Message-ID: <ajLV-O60lCdlIbXR@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1781661028.git.marcelo.schmitt@analog.com>
+ <f9e88abdbd23df8039282497a81d3c8698a10665.1781661028.git.marcelo.schmitt@analog.com>
+ <20260617-bok-gains-9a1af41cf0de@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: arm: qcom: Document Hawi SoC and its
- reference boards
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260617151602.2018579-1-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260617151602.2018579-1-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDE2NCBTYWx0ZWRfX7YeLzwvel6L2
- 6+pIVHvYY/be5lF8EJ6DDiES9bQxw2Stogkb1ak7lSfAT3LlvCpKj8NcNm/9tqHas+iALi4q5Hw
- UDx+X5VDG/su9pDy4YcS2Bh4rKyGynz4GoQMFmg9tFNM2yT+7lZHveuXlBwvv7U0VLCDZzmJUeF
- F2++skxHJB3wUtA3dtN4qHQDZwPVKYyLTXWGxkWo8sceml8+01xRLr2i38KuZDOGuia3yEj95rh
- nA6neo2RY2uY/cLZQ5vVEmraT33CiUzURO3mRKy/A8ttgaSXor4PUwdM8ZZO582idtr7rs97h5B
- Il8UXcikfd+7B4gSWvogm7qsTjJoR7Z2ZKUpNVXJRFErkpHwbID1ELlaqxU++SPhtI3CZVNtjfY
- HfyvgoXNUGFpBSZ8ckbsa25xFUZout3Khog2vB8QyshlCnuk198f1SrNHtIOLFga/BSDruoLoJX
- PrUkVrL2MM6eMwbxLJA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDE2NCBTYWx0ZWRfXzRU7b6SnApT0
- D1MIVQvl8hFzPnYjPeN3dDkrRcqvOVh7rziyG535ZhdzgO3vfgOG8TPEEeZ+R8Mso1Qtoyspl1C
- uaBz1+LJZTE7FWsadDjA8uVQp4LZ+Ig=
-X-Proofpoint-GUID: FUbkR34F4Y6FvlZ__ZH9rfq_gXX5Qxwp
-X-Proofpoint-ORIG-GUID: FUbkR34F4Y6FvlZ__ZH9rfq_gXX5Qxwp
-X-Authority-Analysis: v=2.4 cv=WN1PmHsR c=1 sm=1 tr=0 ts=6a32d3b0 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=T-fziwSqmcXJobsc9NIA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_02,2026-06-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170164
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617-bok-gains-9a1af41cf0de@spud>
 
-On 6/17/26 5:16 PM, Mukesh Ojha wrote:
-> Add Hawi SoC and its reference boards to the Qualcomm binding.
+On 06/17, Conor Dooley wrote:
+> On Tue, Jun 16, 2026 at 11:03:11PM -0300, Marcelo Schmitt wrote:
+> > Document how to describe LTC2378-20 and similar ADCs in device tree.
+> > 
+> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > ---
+> > Change log v2 -> v3:
+> > - Re-added device tree fallback compatibles for LTC2378 chips, now with options
+> >   to provide a single compatible string or a pair of single compatible string
+> >   plus a fallback string to a slower sample rate spec in case a driver for the
+> >   specific part is not found.
+> > 
+> >  .../bindings/iio/adc/adi,ltc2378.yaml         | 160 ++++++++++++++++++
+> >  MAINTAINERS                                   |   7 +
+> >  2 files changed, 167 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+> > new file mode 100644
+> > index 000000000000..7d30a2cade8f
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+> > @@ -0,0 +1,160 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/adc/adi,ltc2378.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Analog Devices LTC2378 and similar Analog to Digital Converters
+> > +
+> > +maintainers:
+> > +  - Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > +
+> > +description: |
+> > +  Analog Devices LTC2378 series of ADCs.
+> > +  Specifications can be found at:
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/233818fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236416fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236418f.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236716fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236718f.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236816f.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236818f.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/236918fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237016fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237616fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237618fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237620fb.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237716fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237718fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237720fb.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237816fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237818fa.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237820fb.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/237918fb.pdf
+> > +    https://www.analog.com/media/en/technical-documentation/data-sheets/238016fb.pdf
+> > +
+> > +$ref: /schemas/spi/spi-peripheral-props.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      # Single compatible string match.
+> > +      - enum:
+> > +          - adi,ltc2338-18
+> > +          - adi,ltc2364-16
+> > +          - adi,ltc2364-18
+> > +          - adi,ltc2367-16
+> > +          - adi,ltc2367-18
+> > +          - adi,ltc2368-16
+> > +          - adi,ltc2368-18
+> > +          - adi,ltc2369-18
+> > +          - adi,ltc2370-16
+> > +          - adi,ltc2376-16
+> > +          - adi,ltc2376-18
+> > +          - adi,ltc2376-20
+> > +          - adi,ltc2377-16
+> > +          - adi,ltc2377-18
+> > +          - adi,ltc2377-20
+> > +          - adi,ltc2378-16
+> > +          - adi,ltc2378-18
+> > +          - adi,ltc2378-20
+> > +          - adi,ltc2379-18
+> > +          - adi,ltc2380-16
+> > +
+> > +      # Low sample rate fallback for 16-bit unipolar sensors.
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2370-16 # 2 MSPS
+> > +              - adi,ltc2368-16 # 1 MSPS
+> > +              - adi,ltc2367-16 # 500 kSPS
+> > +          - const: adi,ltc2364-16 # fallback (250 kSPS)
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
-> Changes in v2: https://lore.kernel.org/lkml/20260617080147.1657632-1-mukesh.ojha@oss.qualcomm.com/
->  -  Fixed the position of the Documentation.
->  -  Corrected the commit text.
+> Your driver still matches on ltc2370-16, which makes me question the
+> value of these fallbacks. That said, the chip info struct contains no
+> information about sampling rate.
+The info about sample rate is added in patch 4.
+
+> What actually is the impact of the sample rate on the programming model?
+If the user tries to set a sample rate beyond the maximum supported, software
+can throw an error to indicate that.
+
+> Is there actually a benefit to matching on ltc2370-16, or can you just
+> match on the fallback?
+The benefit is telling software that it is safe to go up to 2 MSPS. It is also
+okay to match on the fallback, but software may restrain operation to a slower
+sample rate.
+
+With the code being proposed in this patch set, there is no benefit in matching
+the ltc2364-16 fallback if there is a faster ltc2370-16 device connected because
+device driver supports that. Though, other operating systems and/or platforms
+might not support all device variants and so the fallback might be useful.
+
+> +static const struct ltc2378_chip_info ltc2370_16_chip_info = {
+> +	.name = "ltc2370-16",
+> +	.resolution = 16,
+In a later patch ...
++	.max_sample_rate_hz = 2 * HZ_PER_MHZ,
++	.tconv_ns = 322,
+> +	.bipolar = false,
+> +};
 > 
->  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+> +static const struct ltc2378_chip_info ltc2368_16_chip_info = {
+> +	.name = "ltc2368-16",
+> +	.resolution = 16,
++	.max_sample_rate_hz = HZ_PER_MHZ,
++	.tconv_ns = 527
+> +	.bipolar = false,
+> +};
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 50cc18a6ec5e..e229c0097e6f 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -303,6 +303,11 @@ properties:
->                - xiaomi,sagit
->            - const: qcom,msm8998
->  
-> +      - items:
-> +          - enum:
-> +              - qcom,hawi-mtp
-> +          - const: qcom,hawi
+> +static const struct ltc2378_chip_info ltc2367_16_chip_info = {
+> +	.name = "ltc2367-16",
+> +	.resolution = 16,
++	.max_sample_rate_hz = 500 * HZ_PER_KHZ,
++	.tconv_ns = 1500,
+> +	.bipolar = false,
+> +};
+> 
+> +static const struct ltc2378_chip_info ltc2364_16_chip_info = {
+> +	.name = "ltc2364-16",
+> +	.resolution = 16,
++	.max_sample_rate_hz = 250 * HZ_PER_KHZ,
++	.tconv_ns = 3000,
+> +	.bipolar = false,
+> +};
+> 
+...
+> > +      # Low sample rate fallback for 20-bit bipolar sensors.
+> > +      - items:
+> > +          - enum:
+> > +              - adi,ltc2378-20 # 1 MSPS
+> > +              - adi,ltc2377-20 # 500 kSPS
+> > +          - const: adi,ltc2376-20 # fallback (250 kSPS)
+> 
+> I didn't check these, but I assume they are the same.
 
-Someone did us a dirty and put all the router socs out of alphabetical order
-(ipq after msm)
+Yes, except for small variations on input (unipolar/bipolar) and precision bits,
+these devices are pretty much equal.
 
-I'll fix that up later to not bother you more
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
