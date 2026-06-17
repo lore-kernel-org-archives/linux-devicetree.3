@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1123BB664;
-	Wed, 17 Jun 2026 20:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B1538887C
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 20:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781728802; cv=none; b=dHavZNIrFBwtN4mOmqbjmVynkxsZ40XppV1AoqDWbxO1riHyNws55nwNODdIvrRmafqSVXHBTw2x9JHSLLn4ETcle/wrKs4QX/9dtRgqVMmRlES98kzYmU4LBzTqZI8rjhI0JMqMiuA1TzAc4e6w5FAYpwvsineN1NbgII2l3t8=
+	t=1781729044; cv=none; b=a3VjaadGAD2MI9n20Uf6+MrBy5+uSliVF+Od/HK96/bgKu2c8ulWCroc5TnLikKT4aZmRJoAw1oNTCov9J8DNuQtl6XCWsenBgFwvMkJfJERPGBiPB7Q8SeMBvXUjmtLrN0u2U9vCvxtbYpXzwqge4MgWI16hDlTd9w6K9Qk4w0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781728802; c=relaxed/simple;
-	bh=MvRWJdZBJDCMlsltvMQXYatKobmI0Mk0zpqaH8Mi9IY=;
+	s=arc-20240116; t=1781729044; c=relaxed/simple;
+	bh=tDtOsTkDHU/e+Bv5w6Ia8U0Xt2FUpFEKFp4NcBDHfc4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bDCF3MMIoJD/hGgRzBZlt9tXlVyqvD0El0/s7FzoJssBMaJwP0UdWNozZBTb9KEPa4z3B5A0flIoB136bYP63JvQT0Mew5qeNYaMmeKb8P1xOBxAUDNx7lq2ToPV1hpPA2v8/RBqoht1ifkrA9LMBbMOBq154Z5I9JaFNYx6Xhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NKVBuR+y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t5NfJ/Zo3IVFDk6VRk80vfRdLYT1vefYnFBTZsJslhFmM7goEoRicVAZH4oZxb9SH6Txd/qxu1RZxeNCSgjpBtWMn8OPjQM9TRwLPy4sRCg8BI+JF31N/9mF+4DvFLy14ZZMhAS+7AX2cCOZg/SgIvuaucxmdh0mWHazJo4zimQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1tmVUb1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NKVBuR+y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6F81F000E9;
-	Wed, 17 Jun 2026 20:40:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1tmVUb1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF7A1F000E9;
+	Wed, 17 Jun 2026 20:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781728801;
-	bh=yMxmwowVoF8q8JSxd1es/1GoqGp9neqjMH+XqQmm/Dk=;
+	s=k20260515; t=1781729042;
+	bh=F9TE+m0l5vryvChtPJAriVtP6btPEabMN8XhjTtESPk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NKVBuR+ygJD1clUdKIw83mBfLj/Zg3TaaW4jlL0kgdtCnCDsSXqZq1VlNp43Q8OkG
-	 brSKBHH6KzywF3gUOrTtwNs0b78Pd+qm06w8P8Fqbf4JEIEDqDpQUMc7EEr7z+bzVh
-	 7enKidVXIcXIObzM+pCh1PPzKf8psmkIKXtJZF7bPnRCRd+PcO5mDqOW5Bv15PzAJv
-	 nlTS5GjiSZDwfDiA0A/4qilkl0sR2Xbz6auzuWJ+GXUyCt5vZ32KdUgLA0Yk/cUu0h
-	 wDVA6iKLskzlj2+nMG5IjrYDd8sgmDUS2dAH+Kl2uMrYpvhSMUvaxpWqBakf/MD/rh
-	 i724z3OJhdnow==
+	b=i1tmVUb1EYK8yOhsKhnAyA+w7GqtSdtocuFeguF0dSWNYJQUZuM4JJhjtlCCn9xb1
+	 LbeBqPJQzGh7pFwy1C8nDgb0MXYoexfJEWBJRw8xo0iXYh74A4E4xg3FXU0/b7zkl0
+	 y3U5Gl39B6F5yNhOa87UC+EqjkM7rHgBX6wEaecPWTVudm4cymj8uvFoWBjtb6IVs1
+	 h1dkvDQfpm1EMqvcyF40xv8kfOcVhugl//eJIjSHDr00wbPLSZyU0sp24bKYbFZ7oX
+	 CR5DA+jDcmYWZUJKXxKi18R6s9zdD94DqjBSMoIuHOHklwbHmLbVa71nVppKDXl7AA
+	 JBwItiaqqXXZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/4] PCI: Use standard wait times for PCIe link
- monitoring
+Subject: Re: [PATCH v4 3/3] regulator: qcom-refgen: add support for the
+ IPQ9650 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260617-tegra264-pcie-v7-2-eae7ae964629@nvidia.com>
-References: <20260617-tegra264-pcie-v7-0-eae7ae964629@nvidia.com>
- <20260617-tegra264-pcie-v7-2-eae7ae964629@nvidia.com>
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260617-ipq9650_refgen-v4-3-c505ea6c6661@oss.qualcomm.com>
+References: <20260617-ipq9650_refgen-v4-0-c505ea6c6661@oss.qualcomm.com>
+ <20260617-ipq9650_refgen-v4-3-c505ea6c6661@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:40:00 +0000
-Message-Id: <20260617204000.DC6F81F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 20:44:02 +0000
+Message-Id: <20260617204402.6BF7A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,116 +47,104 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing cleanup of chained IRQ handlers and IRQ domains on error p=
-aths in multiple PCIe drivers leads to Use-After-Free.
-- [High] advk_pcie_wait_for_link() fails to guarantee the mandatory 100ms p=
-ost-reset delay before configuration requests.
+- [Critical] Unclocked MMIO read in get_status callback causes system crash.
+- [Medium] Silent failure on missing clocks due to inadequate DT validation.
 --
 
-commit 1edbe267835d4abccd02c4abc064267f402a8ce2
-Author: Thierry Reding <treding@nvidia.com>
+commit 90356084cf49412e26be88f69da7b99d50c27462
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-PCI: Use standard wait times for PCIe link monitoring
+regulator: qcom-refgen: add support for the IPQ9650 SoC
 
-Instead of defining the wait values for each driver, use common values
-defined in the core pci.h header file. Convert all drivers to msleep()
-and use the existing definition.
+This commit adds support for the IPQ9650 SoC to the qcom-refgen regulator
+driver. It introduces explicit clock handling for this block and a get_stat=
+us
+callback to report the regulator status.
 
-> diff --git a/drivers/pci/controller/mobiveil/pcie-mobiveil.c b/drivers/pc=
-i/controller/mobiveil/pcie-mobiveil.c
-> index 62ecbaeb0a604..e8346851c49b6 100644
-> --- a/drivers/pci/controller/mobiveil/pcie-mobiveil.c
-> +++ b/drivers/pci/controller/mobiveil/pcie-mobiveil.c
-> @@ -218,11 +218,11 @@ int mobiveil_bringup_link(struct mobiveil_pcie *pci=
-e)
->  	int retries;
-> =20
->  	/* check if the link is up or not */
-> -	for (retries =3D 0; retries < LINK_WAIT_MAX_RETRIES; retries++) {
-> +	for (retries =3D 0; retries < PCIE_LINK_WAIT_MAX_RETRIES; retries++) {
->  		if (mobiveil_pcie_link_up(pcie))
->  			return 0;
-> =20
-> -		usleep_range(LINK_WAIT_MIN, LINK_WAIT_MAX);
-> +		msleep(PCIE_LINK_WAIT_SLEEP_MS);
->  	}
-> =20
->  	dev_err(&pcie->pdev->dev, "link never came up\n");
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a potential
-Use-After-Free in the error paths handling these link bring-up failures?
-
-In the caller mobiveil_pcie_host_probe(), if mobiveil_bringup_link() fails,=
- it
-returns directly:
-
-	ret =3D mobiveil_bringup_link(pcie);
-	if (ret) {
-		dev_info(dev, "link bring-up failed\n");
-		return ret;
-	}
-
-Since chained handlers are set up earlier using
-irq_set_chained_handler_and_data(..., pcie), returning an error causes the
-devres-managed pcie struct to be freed. If the interrupt fires after this, =
-won't
-the active handler dereference the freed pcie pointer?=20
-
-A similar issue appears in nwl_pcie_probe() if nwl_wait_for_link() fails. S=
-hould
-these error paths unregister the chained handlers and call irq_domain_remov=
-e()
-to prevent this UAF and resource leak?
+> diff --git a/drivers/regulator/qcom-refgen-regulator.c b/drivers/regulato=
+r/qcom-refgen-regulator.c
+> index 6a3795469927e..cc72e5a43ba62 100644
+> --- a/drivers/regulator/qcom-refgen-regulator.c
+> +++ b/drivers/regulator/qcom-refgen-regulator.c
 
 [ ... ]
-> diff --git a/drivers/pci/controller/pci-aardvark.c b/drivers/pci/controll=
-er/pci-aardvark.c
-> index fd9c7d53e8a78..272c5c8fc1e5c 100644
-> --- a/drivers/pci/controller/pci-aardvark.c
-> +++ b/drivers/pci/controller/pci-aardvark.c
+
+> +static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
+> +{
+> +	struct qcom_refgen_drvdata *drvdata =3D rdev_get_drvdata(rdev);
+> +
+> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> +
+> +	drvdata->is_enabled =3D false;
+
+[Severity: Critical]
+Does this disable the clocks before updating the internal state?
+
+If an is_enabled check were added to get_status() to prevent unclocked read=
+s,
+could a concurrent call to get_status() still crash the system if it
+interleaves after clk_bulk_disable_unprepare() but before is_enabled is
+set to false?
+
+> +
+> +	return 0;
+> +}
+
 [ ... ]
-> @@ -350,13 +347,13 @@ static int advk_pcie_wait_for_link(struct advk_pcie=
- *pcie)
->  	int retries;
-> =20
->  	/* check if the link is up or not */
-> -	for (retries =3D 0; retries < LINK_WAIT_MAX_RETRIES; retries++) {
-> +	for (retries =3D 0; retries < PCIE_LINK_WAIT_MAX_RETRIES; retries++) {
->  		if (advk_pcie_link_up(pcie)) {
->  			pci_host_common_link_train_delay(pcie->link_gen);
->  			return 0;
->  		}
-> =20
-> -		usleep_range(LINK_WAIT_USLEEP_MIN, LINK_WAIT_USLEEP_MAX);
-> +		msleep(PCIE_LINK_WAIT_SLEEP_MS);
->  	}
 
-[Severity: High]
-This is a pre-existing issue, but does advk_pcie_wait_for_link() fail to
-guarantee the mandatory 100ms post-reset delay before configuration request=
-s?
+> +static int qcom_ipq9650_refgen_get_status(struct regulator_dev *rdev)
+> +{
+> +	u32 val;
+> +
+> +	regmap_read(rdev->regmap, REFGEN_REG_REFGEN_STATUS, &val);
 
-The PCIe Base Specification mandates a minimum 100ms delay after a conventi=
-onal
-reset (e.g., PERST# deassertion) before the host can send Configuration
-Requests. The caller advk_pcie_setup_hw() asserts PERST# and delegates the
-post-reset delay to this function.
+[Severity: Critical]
+Can this unclocked MMIO read cause a system crash?
 
-If the link trains rapidly and reaches L0 early, this loop returns immediat=
-ely.
-For link speeds of Gen2 or lower, pci_host_common_link_train_delay() is a n=
-o-op,
-so no additional delay is added.=20
+The get_status() callback reads the REFGEN_REG_REFGEN_STATUS register witho=
+ut
+ensuring the regulator's clocks are enabled. Since user space can trigger a
+read of /sys/class/regulator/regulator.X/status at any time, which invokes
+get_status() locklessly, a disabled regulator could cause this regmap_read()
+to trigger a synchronous external abort and hang the bus.
 
-Does this allow the driver to issue Configuration Requests before the endpo=
-int's
-100ms initialization period has elapsed, potentially causing enumeration fa=
-ilures
-for compliant endpoints?
+> +	if (FIELD_GET(REFGEN_STATUS_OUT_MASK, val))
+> +		return REGULATOR_STATUS_ON;
+> +
+> +	return REGULATOR_STATUS_OFF;
+> +}
+
+[ ... ]
+
+> @@ -106,10 +192,23 @@ static int qcom_refgen_probe(struct platform_device=
+ *pdev)
+
+[ ... ]
+
+> +	if (data->has_clocks) {
+> +		drvdata =3D devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
+> +		if (!drvdata)
+> +			return -ENOMEM;
+> +
+> +		drvdata->num_clks =3D devm_clk_bulk_get_all(dev, &drvdata->clks);
+> +		if (drvdata->num_clks < 0)
+
+[Severity: Medium]
+Will this silently fail if the clocks are missing from the device tree?
+
+If the clocks property is omitted, devm_clk_bulk_get_all() returns 0.
+Since this code only checks for drvdata->num_clks < 0, it treats the missing
+clocks as a success, and subsequent calls to clk_bulk_prepare_enable(0, ...)
+will silently succeed without enabling any clocks.
+
+Should this explicitly verify drvdata->num_clks > 0 since clocks are mandat=
+ory
+for the IPQ9650 PHY to function properly?
+
+> +			return dev_err_probe(dev, drvdata->num_clks,
+> +					     "failed to get clocks\n");
+> +	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-tegra264-p=
-cie-v7-0-eae7ae964629@nvidia.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-ipq9650_re=
+fgen-v4-0-c505ea6c6661@oss.qualcomm.com?part=3D3
