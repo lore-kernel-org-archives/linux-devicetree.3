@@ -1,66 +1,66 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7D8395AD0
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C07738E10C
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781691911; cv=none; b=hfy1OciLupjA5vIYNNmrHeWIp6Y06T/rCqvTNsIiKyn4ENkPQq7UfaWqq7G3Ss5Ck8FfAK8gqyV5v/lgUKbS/B2StrONVAsVzb66QjbJ9zzJ52j9GNnKYOGv3lsG/jw1knyxCIFFbJJKic8NdCjgqxIS1k/y/srN6Odfy66Noas=
+	t=1781691974; cv=none; b=IXDeHo8TE8c8hQW3W0R9jjx2VsG19GT/XacJ7PJmHIKAy9N4oDxOuc/mTRvmPkQwwipYoq6l7Lfibj1dQnQ8sn49S4LE8qShad4QWdwDQMDiVBgYcr/SsnO8xs4+STvDdEGKrwgjEreVMru22l+y5Pi4dHpif+FJuJhb+zGb5K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781691911; c=relaxed/simple;
-	bh=4x4RSj4SNmBnyxaoUtN1jRk/xA8qPv6kbb0oxeQhiLA=;
+	s=arc-20240116; t=1781691974; c=relaxed/simple;
+	bh=BmYcH4l716VLWUMeLv1QvY3JTHlX4B2YUxUNLOwFqvU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q/vYanWhfGzBZkDi/sRJ7Hslw5qMcB8K7ME418aeFVw7cqoXV/HBGeFF2xx0eph1kVgvOTdOs8V1HFXSMk2TTZembljmQ9kYIvgYfQ6XnnZABsu37uI28jdvGsjXnnweJUcusbOIe15AgeV7YRzg+lhfYUemb9hjrjoG/Tn4DX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S4Gao8jO; arc=none smtp.client-ip=209.85.214.175
+	 In-Reply-To:Content-Type; b=jibit9/Zl0EcknsGTEeWuD/zdXqcm5rYj38Wcdx7SPZI4NcRZ1aQFeuVF761VTzVDhTd/CfhXk4DcpVhs92WqsdgbDsQ8wdoeZeVPZ51wqMsjNVbD1VBeGzqkXi0sOv3LzIUUwn0D+EGG93/DP8Nc4m3Des7HhsB3OrIilKpRuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1v9yd8z; arc=none smtp.client-ip=209.85.215.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S4Gao8jO"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2c6be9cd7afso2333385ad.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:25:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1v9yd8z"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-c8894560c89so69574a12.0
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:26:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781691908; x=1782296708; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781691971; x=1782296771; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VbVg/KwHCVhdvL9LHCxz6CTvTzl761Uhp31GttVosv0=;
-        b=S4Gao8jO++UhlwDK1nB2M3Gg7FkpP31ZOG7GEERNRqQXHpY+Ah/oQ6ooJRPQ5AptrB
-         RHZ3fPLaaUVxlvAfq63HrZD3vudMUfUGfNzKx2mdYWBivti2KrpacwBXamKfuoM76N6m
-         qdxgUgxaXwQthXI6VJy2kZvHEaRwbdQojb/MiFM9xLG2Ek6P7PCG8vut3pAY4P1ARRFo
-         CPxJffBT22nHqJE18GnQlGq2LxvD3kde4yJBVJHQwWIXUnFKMfVMjEOo/Hd47A3Yn+2L
-         N5iaP5vEK9p8hKPYC8zf3MfFK3Gsjt+pf8Jn3AvHe864qtqX2bc+bPJFkeRDPB4H7oZ+
-         IkZg==
+        bh=TPFdGPVI89DMoWS2fldSDp40nn36zWGcGlqvbLPCcpw=;
+        b=d1v9yd8zkpIDPecXu6eEBNAAhOOftyjFMb9AD6Mz/eu5ObaCrcUNAqSo8Ensh0ANPx
+         2Ac2T9T5tzWY2yIDpqx/8vnt0Pin5wJdUmSbgveQUInFwb7G10TvHdKwSi8aioyHTsNt
+         TMb1F0WAXlic+kIFuXBqmBfZW08SeiPebKFHJTb5Be2/utdDPnGHShnq4iFNeWueFcBa
+         eZ6o4kHJLn2y8QUpCDck7jxR+NhmTkaiVYOAg9bfl61Lh+r+eZhuuQw1SIUY8ai72dyu
+         i+TorjyTFDbN7KTeJ/xXWpvFC1dnVTByCREJBeRX/MH0cvZwTF1iEP1bmBMmqfklcifb
+         WkiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781691908; x=1782296708;
+        d=1e100.net; s=20251104; t=1781691971; x=1782296771;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VbVg/KwHCVhdvL9LHCxz6CTvTzl761Uhp31GttVosv0=;
-        b=CEshoePlKEBU6bG+FK9/YQIWKMyiym6pBHAcMKtRoT58PjkznbohUB96hmFmna3YGY
-         ZroAivwDeERq1od+am/BA/I4kewDVcfi+siKrCMCiUEtyCI36xz6lR+4ouhw1y9xAsib
-         qzydZiqFiy+nYxS1Sg7AW9k/DmA5PFBSdQtlYr4B5wIuaBuUP0rWPg2KQckZerfxyYg+
-         lRn64EaFZ1+gogS2beJq5UgA7sB41v9cncUNN46Acac1O4zkox/pwutkxo9lGpav+St4
-         qaKA6Z83Fa5rSXJi9/a2nij+fyChRlnE8jftG1cbuq74MWbD60eBy5yfvbN4ZxcSdcQ5
-         QSGA==
-X-Forwarded-Encrypted: i=1; AFNElJ95fGSeQ8mgW+bAbdet+BQrCRV6U6Z2aUKA7jClvLKQ6UWYVbIAzUoLGpdLnWg7rtbSRyyBN73sVmFc@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEhRJxH7QETJ0u2qgZB/P3cGwTJ8ohVgXCKDHZR3m9E9/eyeTp
-	V4cxJMhVEAp7uip6UWYF/TGKLFWIJIHGTNF9MigDRTxFCPL0gpPr1lIb
-X-Gm-Gg: AfdE7cmGlx9UFFEYT5oLqdViK4xLztH6Bp0wnKg0W6CApki3FspJpGuYybAXOZudK61
-	uYcn3eVz6Yyzg93LcnfEhu9pCYDGoDl1BvfbS5rXjwaSEHPKiWaE5In7xPkugomB/BXEevdwCz5
-	Uqohn731XhVhM04++rfMIred2Ftxvner8Uatbw1XbLqEp2d8WC6LNjI8KqrlomxygwIfCnlIvEY
-	KNBo3XtwNROP691ncS1Lm9QFIUAxNZ+lRXGkSX6OsUMj8A8px6dAbO2WBzyOPC5AlFBPO/uqHGT
-	h/3mzzlWMkG2i3WwChOaOpP45nTlpY/i3YejnbqhgzthjpjhPmeYlMnpNE0AkRjrc7i9UDa4+H0
-	fACUE42E30uYg8nDSyUl7hvPUL+y5FrrahT/esNn8+r77AppFgUQrplKoTRvHTjcO0yx1FmXWgk
-	phm6sK2pIqObHHX7pdpS24o88rU9K92WMKh/xngMZ636dlclniMC3stJ3+wvDh9PVE0g==
-X-Received: by 2002:a17:902:ef44:b0:2c6:c66b:4b03 with SMTP id d9443c01a7336-2c6c66b4d39mr11874145ad.10.1781691908280;
-        Wed, 17 Jun 2026 03:25:08 -0700 (PDT)
+        bh=TPFdGPVI89DMoWS2fldSDp40nn36zWGcGlqvbLPCcpw=;
+        b=CjrG9usnIQmJIg5GiHzpBLMx5x20Ia8+RpxceZFvDBb2uTNkRuVN/MWi9Ybi94rL0q
+         pICmYsDPQkgPGACvoBLq5xEUkjlSzC5YFs79Y8uZtpIwT5l4dDOut1CfJ9MQm+ulEkKb
+         QuUXwxWK+mVszq3R8fn2hLpCoCZZqy8lf4Pb5V9oUo5b+NmTemnvuL1HO4Spig4lm4O5
+         2zTv7mnvYGG9/f0Uc3MBHRqr0+VwI4I8UGyuVuL/EorPDbIOwaclYHMEO0PuzEKu9Iy4
+         RDhfaPFVk+Q4DDIQLiEnchyDnz6AAxeO5+A7tnuvP4DM7ttlvPTntA3tiElaTPXSxPHF
+         LctQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8AsQ3O7cYekOhK/oQVKO8Q6bmsEvLra9a2WwGbGeS6smrneW7vk38zPW7zcy9UDvylbQ+Mh3poR7D/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxfJ5zuA91+vn2aaULVFeJ/1CmNVGQLcV7vQvzKOPNwIWqrwYtT
+	xcWcYmxmfQ9MtLHg/BGRhmRLs3l3WJxr3FPBlUHGqDkvylmrLTMi3wik
+X-Gm-Gg: Acq92OHRgiVA4J4X/PzLyAaOfThE2NUd6MtJBgMMffO0LnTqi1Rv3/mfT6sbxtIuPRY
+	AZQpDFUr17tHghxUKtaCX4j4RDfGAGJdqUyh3Wt+iviW/Zc/4aLzg3PDBE0dP9G53YYNcZ+HPGw
+	v14HQUo9Cy4epfK2aJutAoobMaIF+zuvaHN6kyFthoeKqq1tlojqjqV2JKxb2eMSWF/Vg14mpXR
+	2Q4H86K7yDhmnTL9iy2HInt6V9uJhcrk4+N6ob3NLt26tiMRB/Lhu+3DDxC7LWVs675ruIGxolk
+	ISyTn/xk6fnZukqVsUriKULB04RI0Hola3K3+BTM5bkBc919M+UqgJMFK5O4Ea6cKnMXIxVzD2X
+	77rqL5YoFJ3DM9bIuQoXsWxHbpezQCkvKiRgsrr0pHDgwHtEIIjkZJDKviz3+zAiAclyygdGmdw
+	P5kJgSx0xw1LaIz3DjJvD4dGoVfdZJYh6eHGuXQDXOaB/qjNYymd3INw3hAyXl6c5GNw==
+X-Received: by 2002:a05:6a00:194d:b0:842:4f20:53ff with SMTP id d2e1a72fcca58-845245bdbc2mr3342086b3a.42.1781691970650;
+        Wed, 17 Jun 2026 03:26:10 -0700 (PDT)
 Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c42fbb4134sm143780715ad.30.2026.06.17.03.25.04
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc825csm15446071b3a.36.2026.06.17.03.26.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 03:25:07 -0700 (PDT)
-Message-ID: <6d3e3121-22f2-4c59-9678-df2f57ff4d31@gmail.com>
-Date: Wed, 17 Jun 2026 18:25:02 +0800
+        Wed, 17 Jun 2026 03:26:10 -0700 (PDT)
+Message-ID: <3dedae12-038a-4233-8315-82e6d29b5926@gmail.com>
+Date: Wed, 17 Jun 2026 18:26:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/6] dt-bindings: display: verisilicon, dc: generalize
- for single-output variants
+Subject: Re: [PATCH v4 3/6] drm/verisilicon: introduce per-variant hardware
+ ops table
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
@@ -78,195 +78,609 @@ Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 References: <20260615065003.76661-1-a0987203069@gmail.com>
- <20260615065003.76661-2-a0987203069@gmail.com>
- <3683c5c617324f5835529617325745ef48fa1943.camel@iscas.ac.cn>
+ <20260615065003.76661-4-a0987203069@gmail.com>
+ <38d07e3b3c841d380c987800d8ef85065be94e79.camel@iscas.ac.cn>
 Content-Language: en-US
 From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <3683c5c617324f5835529617325745ef48fa1943.camel@iscas.ac.cn>
+In-Reply-To: <38d07e3b3c841d380c987800d8ef85065be94e79.camel@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-On 6/15/2026 4:19 PM, Icenowy Zheng wrote:
-> 在 2026-06-15一的 14:49 +0800，Joey Lu写道：
->> The existing schema hard-codes the five-clock/three-reset/dual-port
->> topology of the DC8200 IP block, preventing reuse for single-output
->> variants such as the Verisilicon DCUltraLite used in the Nuvoton
->> MA35D1
->> SoC.
+On 6/15/2026 4:37 PM, Icenowy Zheng wrote:
+> 在 2026-06-15一的 14:50 +0800，Joey Lu写道：
+>> The DC8200 and DCUltraLite share a broadly similar register layout
+>> but
+>> differ in how the bridge, CRTC, primary plane and IRQ paths are
+>> driven.
+>> Introduce a vs_dc_funcs vtable so each variant can supply its own
+>> implementation without scattering conditionals across multiple files.
 >>
->> Rework the schema so that variant-specific constraints are expressed
->> via
->> allOf/if blocks:
+>> Add enum vs_dc_generation (VSDC_GEN_DC8000 / VSDC_GEN_DC8200) to
+>> vs_hwdb.h and a generation field to struct vs_chip_identity.
+>> Annotate
+>> all four existing DC8200 HWDB entries with VSDC_GEN_DC8200.
 >>
->> - Add nuvoton,ma35d1-dcu to the SoC-specific compatible enum.  The
->>    generic verisilicon,dc fallback remains the driver-binding string.
->> - Move clock and reset items descriptions into the per-variant
->> allOf/if
->>    blocks; keep only minItems/maxItems at the top level so the base
->> schema
->>    accepts all variants.
->> - Restore full items lists for clock-names and reset-names at the top
->>    level with minItems so the names are validated against the
->> descriptions.
->> - Keep ports in the global required list and keep
->> additionalProperties: false.
->> - Add an allOf/if block for thead,th1520-dc8200: five-clock (core,
->> axi,
->>    ahb, pix0, pix1), three-reset (core, axi, ahb), required resets.
->> - Add an allOf/if block for nuvoton,ma35d1-dcu: two-clock (core,
->> pix0),
->>    one-reset (core), required resets.
+>> Extract the DC8200-specific hardware ops into a new vs_dc8200.c:
+>>    panel_enable_ex / panel_disable_ex - PANEL_CONFIG/START + CONFIG_EX
+>> commit
+>>    enable_vblank / disable_vblank - TOP_IRQ_EN VSYNC bit
+>>    primary_plane_enable_ex / disable_ex / update_ex - FB_CONFIG_EX
+>> path
+>>    irq_ack - reads TOP_IRQ_ACK
+>>
+>> Update vs_bridge.c, vs_crtc.c, vs_primary_plane.c and vs_dc.c to
+>> dispatch through dc->funcs instead of directly touching registers.
+>> vs_crtc.c gains atomic_begin and atomic_flush hooks to allow variants
+>> to gate per-frame commit cycles.
+>>
+>> No behaviour change for existing DC8200 platforms.
 >>
 >> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 >> ---
->>   .../bindings/display/verisilicon,dc.yaml      | 80
->> +++++++++++++++++--
->>   1 file changed, 73 insertions(+), 7 deletions(-)
+>>   drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+>>   drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +---
+>>   drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 ++++++-
+>>   drivers/gpu/drm/verisilicon/vs_dc.c           |   6 +-
+>>   drivers/gpu/drm/verisilicon/vs_dc.h           |  32 ++++++
+>>   drivers/gpu/drm/verisilicon/vs_dc8200.c       | 107
+>> ++++++++++++++++++
+>>   drivers/gpu/drm/verisilicon/vs_hwdb.c         |   4 +
+>>   drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+>>   .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +-----
+>>   9 files changed, 196 insertions(+), 51 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
 >>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index 9dc35ab973f2..0c41286b8223 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -17,6 +17,7 @@ properties:
->>       items:
->>         - enum:
->>             - thead,th1520-dc8200
->> +          - nuvoton,ma35d1-dcu
->>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
+>> diff --git a/drivers/gpu/drm/verisilicon/Makefile
+>> b/drivers/gpu/drm/verisilicon/Makefile
+>> index 426f4bcaa834..9d4cd16452fa 100644
+>> --- a/drivers/gpu/drm/verisilicon/Makefile
+>> +++ b/drivers/gpu/drm/verisilicon/Makefile
+>> @@ -1,6 +1,6 @@
+>>   # SPDX-License-Identifier: GPL-2.0-only
 >>   
->>     reg:
->> @@ -26,14 +27,12 @@ properties:
->>       maxItems: 1
+>> -verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_drm.o
+>> vs_hwdb.o \
+>> +verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
+>> vs_drm.o vs_hwdb.o \
+>>   	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
 >>   
->>     clocks:
->> -    items:
->> -      - description: DC Core clock
->> -      - description: DMA AXI bus clock
->> -      - description: Configuration AHB bus clock
->> -      - description: Pixel clock of output 0
->> -      - description: Pixel clock of output 1
-> Clock descriptions should still be in the global part instead of the
-> per-compatible part.
+>>   obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> index 7a93049368db..6ff2ac745b15 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_bridge.c
+>> @@ -162,15 +162,8 @@ static void vs_bridge_enable_common(struct
+>> vs_crtc *crtc,
+>>   			VSDC_DISP_PANEL_CONFIG_DE_EN |
+>>   			VSDC_DISP_PANEL_CONFIG_DAT_EN |
+>>   			VSDC_DISP_PANEL_CONFIG_CLK_EN);
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+>> -			VSDC_DISP_PANEL_CONFIG_RUNNING);
+>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> -			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> -			VSDC_DISP_PANEL_START_RUNNING(output));
+>> -
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
+>>> id),
+>> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>> +
+>> +	dc->funcs->panel_enable_ex(dc, output);
+>>   }
+>>   
+>>   static void vs_bridge_atomic_enable_dpi(struct drm_bridge *bridge,
+>> @@ -228,14 +221,7 @@ static void vs_bridge_atomic_disable(struct
+>> drm_bridge *bridge,
+>>   	struct vs_dc *dc = crtc->dc;
+>>   	unsigned int output = crtc->id;
+>>   
+>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> -			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
+>> -			  VSDC_DISP_PANEL_START_RUNNING(output));
+>> -	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+>> -			  VSDC_DISP_PANEL_CONFIG_RUNNING);
+>> -
+>> -	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(crtc-
+>>> id),
+>> -			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>> +	dc->funcs->panel_disable_ex(dc, output);
+>>   }
+>>   
+>>   static const struct drm_bridge_funcs vs_dpi_bridge_funcs = {
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c
+>> b/drivers/gpu/drm/verisilicon/vs_crtc.c
+>> index 0b8a35d09cd2..679d6541ba1b 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
+>> @@ -16,10 +16,33 @@
+>>   #include "vs_crtc_regs.h"
+>>   #include "vs_crtc.h"
+>>   #include "vs_dc.h"
+>> -#include "vs_dc_top_regs.h"
+>>   #include "vs_drm.h"
+>>   #include "vs_plane.h"
+>>   
+>> +static void vs_crtc_atomic_begin(struct drm_crtc *crtc,
+>> +				  struct drm_atomic_commit *state)
+>> +{
+>> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+>> +	struct vs_dc *dc = vcrtc->dc;
+>> +	unsigned int output = vcrtc->id;
+>> +
+>> +	if (dc->funcs->crtc_begin)
+>> +		dc->funcs->crtc_begin(dc, output);
+>> +}
+>> +
+>> +static void vs_crtc_atomic_flush(struct drm_crtc *crtc,
+>> +				  struct drm_atomic_commit *state)
+>> +{
+>> +	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+>> +	struct vs_dc *dc = vcrtc->dc;
+>> +	unsigned int output = vcrtc->id;
+>> +
+>> +	if (dc->funcs->crtc_flush)
+>> +		dc->funcs->crtc_flush(dc, output);
+>> +
+>> +	drm_crtc_vblank_atomic_flush(crtc, state);
+>> +}
+>> +
+>>   static void vs_crtc_atomic_disable(struct drm_crtc *crtc,
+>>   				   struct drm_atomic_commit *state)
+>>   {
+>> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc
+>> *crtc,
+>>   	drm_crtc_vblank_off(crtc);
+>>   
+>>   	clk_disable_unprepare(dc->pix_clk[output]);
+>> +
+>> +	if (dc->funcs->crtc_disable)
+>> +		dc->funcs->crtc_disable(dc, output);
+> Should this be `crtc_disable_ex` ? Because the clock-related operation
+> is shared.
+I will rename `crtc_disable` to `crtc_disable_ex` and `crtc_enable` to 
+`crtc_enable_ex` in v5 to make clear these hooks extend the shared clock 
+operations rather than replace them.
+>>   }
+>>   
+>>   static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
+>> @@ -42,6 +68,9 @@ static void vs_crtc_atomic_enable(struct drm_crtc
+>> *crtc,
+>>   	drm_WARN_ON(&dc->drm_dev->base,
+>>   		    clk_prepare_enable(dc->pix_clk[output]));
+>>   
+>> +	if (dc->funcs->crtc_enable)
+>> +		dc->funcs->crtc_enable(dc, output);
+> Ditto for appending `_ex` .
+Addressed above.
+>> +
+>>   	drm_crtc_vblank_on(crtc);
+>>   }
+>>   
+>> @@ -119,7 +148,8 @@ static bool vs_crtc_mode_fixup(struct drm_crtc
+>> *crtc,
+>>   }
+>>   
+>>   static const struct drm_crtc_helper_funcs vs_crtc_helper_funcs = {
+>> -	.atomic_flush	= drm_crtc_vblank_atomic_flush,
+>> +	.atomic_begin	= vs_crtc_atomic_begin,
+>> +	.atomic_flush	= vs_crtc_atomic_flush,
+>>   	.atomic_enable	= vs_crtc_atomic_enable,
+>>   	.atomic_disable	= vs_crtc_atomic_disable,
+>>   	.mode_set_nofb	= vs_crtc_mode_set_nofb,
+>> @@ -132,7 +162,7 @@ static int vs_crtc_enable_vblank(struct drm_crtc
+>> *crtc)
+>>   	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
+>> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
+>> +	dc->funcs->enable_vblank(dc, vcrtc->id);
+>>   
+>>   	return 0;
+>>   }
+>> @@ -142,7 +172,7 @@ static void vs_crtc_disable_vblank(struct
+>> drm_crtc *crtc)
+>>   	struct vs_crtc *vcrtc = drm_crtc_to_vs_crtc(crtc);
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
+>> VSDC_TOP_IRQ_VSYNC(vcrtc->id));
+>> +	dc->funcs->disable_vblank(dc, vcrtc->id);
+>>   }
+>>   
+>>   static const struct drm_crtc_funcs vs_crtc_funcs = {
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> index dad9967bc10b..9729b693d360 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+>> @@ -8,9 +8,7 @@
+>>   #include <linux/of.h>
+>>   #include <linux/of_graph.h>
+>>   
+>> -#include "vs_crtc.h"
+>>   #include "vs_dc.h"
+>> -#include "vs_dc_top_regs.h"
+>>   #include "vs_drm.h"
+>>   #include "vs_hwdb.h"
+>>   
+>> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void
+>> *private)
+>>   	struct vs_dc *dc = private;
+>>   	u32 irqs;
+>>   
+>> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+>> +	irqs = dc->funcs->irq_ack(dc);
+> The definition of bits in 0x0010 seems to be different to ones in
+> 0x147C, although the first 2 bits are the same. (e.g. `BIT(2)` is
+> "cursor interrupt" in DC8000 0x147C but "secure reset done" in DC8200
+> 0x0010).
 >
-> In the per-compatible part, clock-names should be constraint for SoCs.
-I will move the `items:` clock descriptions back into the global 
-`clocks:` property, covering all five possible clocks. In the 
-per-compatible sections I will remove the description items and only 
-constrain `clocks: minItems/maxItems` and `clock-names: 
-minItems/maxItems`; for nuvoton,ma35d1-dcu I will additionally override 
-`clock-names: items:` to the two names actually used (core, pix0).
->> +    minItems: 2
->> +    maxItems: 5
->>   
->>     clock-names:
->> +    minItems: 2
->> +    maxItems: 5
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -42,12 +41,16 @@ properties:
->>         - const: pix1
->>   
->>     resets:
->> +    minItems: 1
->> +    maxItems: 3
->>       items:
->>         - description: DC Core reset
->>         - description: DMA AXI bus reset
->>         - description: Configuration AHB bus reset
->>   
->>     reset-names:
->> +    minItems: 1
->> +    maxItems: 3
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -59,7 +62,7 @@ properties:
->>       properties:
->>         port@0:
->>           $ref: /schemas/graph.yaml#/properties/port
->> -        description: The first output channel , endpoint 0 should be
->> +        description: The first output channel, endpoint 0 should be
-> If you really want to fix this, please make it a separated patch
-> instead of doing it here, for commit atomicity.
+> Should some kind of translation be done in `irq_ack` ? (and add a
+> unified interrupt definition that aims to be the translation target).
 >
 > Thanks,
 > Icenowy
-I’ll drop this change and keep it as is
->>             used for DPI format output and endpoint 1 should be used
->>             for DP format output.
+>
 >>   
->> @@ -77,6 +80,69 @@ required:
->>     - clock-names
->>     - ports
+>>   	vs_drm_handle_irq(dc, irqs);
 >>   
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: thead,th1520-dc8200
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 5
->> +          maxItems: 5
->> +          items:
->> +            - description: DC Core clock
->> +            - description: DMA AXI bus clock
->> +            - description: Configuration AHB bus clock
->> +            - description: Pixel clock of output 0
->> +            - description: Pixel clock of output 1
->> +
->> +        clock-names:
->> +          minItems: 5
->> +          maxItems: 5
->> +
->> +        resets:
->> +          minItems: 3
->> +          maxItems: 3
->> +
->> +        reset-names:
->> +          minItems: 3
->> +          maxItems: 3
->> +
->> +      required:
->> +        - resets
->> +        - reset-names
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: nuvoton,ma35d1-dcu
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 2
->> +          maxItems: 2
->> +          items:
->> +            - description: DC Core clock
->> +            - description: Pixel clock of output 0
->> +
->> +        clock-names:
->> +          minItems: 2
->> +          maxItems: 2
->> +
->> +        resets:
->> +          minItems: 1
->> +          maxItems: 1
->> +
->> +        reset-names:
->> +          maxItems: 1
->> +
->> +      required:
->> +        - resets
->> +        - reset-names
->> +
->>   additionalProperties: false
+>> @@ -136,6 +134,8 @@ static int vs_dc_probe(struct platform_device
+>> *pdev)
+>>   	dev_info(dev, "Found DC%x rev %x customer %x\n", dc-
+>>> identity.model,
+>>   		 dc->identity.revision, dc->identity.customer_id);
 >>   
->>   examples:
+>> +	dc->funcs = &vs_dc8200_funcs;
+>> +
+>>   	if (port_count > dc->identity.display_count) {
+>>   		dev_err(dev, "too many downstream ports than HW
+>> capability\n");
+>>   		ret = -EINVAL;
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.h
+>> b/drivers/gpu/drm/verisilicon/vs_dc.h
+>> index ed1016f18758..544e1a37065b 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_dc.h
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.h
+>> @@ -14,6 +14,7 @@
+>>   #include <linux/reset.h>
+>>   
+>>   #include <drm/drm_device.h>
+>> +#include <drm/drm_plane.h>
+>>   
+>>   #include "vs_hwdb.h"
+>>   
+>> @@ -22,6 +23,34 @@
+>>   
+>>   struct vs_drm_dev;
+>>   struct vs_crtc;
+>> +struct vs_dc;
+>> +
+>> +struct vs_dc_funcs {
+>> +	/* Bridge: atomic_enable, atomic_disable */
+>> +	void (*panel_enable_ex)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*panel_disable_ex)(struct vs_dc *dc, unsigned int
+>> output);
+>> +
+>> +	/* CRTC: atomic_begin, atomic_flush */
+>> +	void (*crtc_begin)(struct vs_dc *dc, unsigned int output);
+>> +	void (*crtc_flush)(struct vs_dc *dc, unsigned int output);
+>> +
+>> +	/* CRTC: atomic_enable, atomic_disable */
+>> +	void (*crtc_enable)(struct vs_dc *dc, unsigned int output);
+>> +	void (*crtc_disable)(struct vs_dc *dc, unsigned int output);
+>> +
+>> +	/* CRTC: enable_vblank, disable_vblank */
+>> +	void (*enable_vblank)(struct vs_dc *dc, unsigned int
+>> output);
+>> +	void (*disable_vblank)(struct vs_dc *dc, unsigned int
+>> output);
+>> +
+>> +	/* Primary plane: atomic_enable, atomic_disable,
+>> atomic_update */
+>> +	void (*primary_plane_enable_ex)(struct vs_dc *dc, unsigned
+>> int output);
+>> +	void (*primary_plane_disable_ex)(struct vs_dc *dc, unsigned
+>> int output);
+>> +	void (*primary_plane_update_ex)(struct vs_dc *dc, unsigned
+>> int output,
+>> +					struct drm_plane_state
+>> *state);
+>> +
+>> +	/* IRQ acknowledge */
+>> +	u32 (*irq_ack)(struct vs_dc *dc);
+>> +};
+>>   
+>>   struct vs_dc {
+>>   	struct regmap *regs;
+>> @@ -33,6 +62,9 @@ struct vs_dc {
+>>   
+>>   	struct vs_drm_dev *drm_dev;
+>>   	struct vs_chip_identity identity;
+>> +	const struct vs_dc_funcs *funcs;
+>>   };
+>>   
+>> +extern const struct vs_dc_funcs vs_dc8200_funcs;
+>> +
+>>   #endif /* _VS_DC_H_ */
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> new file mode 100644
+>> index 000000000000..800df9279e9b
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+>> @@ -0,0 +1,107 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2025 Icenowy Zheng <uwu@icenowy.me>
+>> + */
+>> +
+>> +#include <linux/regmap.h>
+>> +
+>> +#include "vs_bridge_regs.h"
+>> +#include "vs_dc.h"
+>> +#include "vs_dc_top_regs.h"
+>> +#include "vs_plane.h"
+>> +#include "vs_primary_plane_regs.h"
+>> +
+>> +static void vs_dc8200_panel_enable_ex(struct vs_dc *dc, unsigned int
+>> output)
+>> +{
+>> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+>> +			VSDC_DISP_PANEL_CONFIG_RUNNING);
+>> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC);
+>> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> +			VSDC_DISP_PANEL_START_RUNNING(output));
+>> +
+>> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
+>> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>> +}
+>> +
+>> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned
+>> int output)
+>> +{
+>> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
+>> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
+>> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
+>> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
+>> +			  VSDC_DISP_PANEL_START_RUNNING(output));
+>> +
+>> +	regmap_set_bits(dc->regs, VSDC_DISP_PANEL_CONFIG_EX(output),
+>> +			VSDC_DISP_PANEL_CONFIG_EX_COMMIT);
+>> +}
+>> +
+>> +static void vs_dc8200_enable_vblank(struct vs_dc *dc, unsigned int
+>> output)
+>> +{
+>> +	regmap_set_bits(dc->regs, VSDC_TOP_IRQ_EN,
+>> +			VSDC_TOP_IRQ_VSYNC(output));
+>> +}
+>> +
+>> +static void vs_dc8200_disable_vblank(struct vs_dc *dc, unsigned int
+>> output)
+>> +{
+>> +	regmap_clear_bits(dc->regs, VSDC_TOP_IRQ_EN,
+>> +			  VSDC_TOP_IRQ_VSYNC(output));
+>> +}
+>> +
+>> +static void vs_dc8200_plane_commit(struct vs_dc *dc, unsigned int
+>> output)
+>> +{
+>> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> +			VSDC_FB_CONFIG_EX_COMMIT);
+>> +}
+>> +
+>> +static void vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc,
+>> unsigned int output)
+>> +{
+>> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> +			VSDC_FB_CONFIG_EX_FB_EN);
+>> +	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> +			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+>> +			   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+>> +
+>> +	vs_dc8200_plane_commit(dc, output);
+>> +}
+>> +
+>> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
+>> unsigned int output)
+>> +{
+>> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> +			VSDC_FB_CONFIG_EX_FB_EN);
+>> +
+>> +	vs_dc8200_plane_commit(dc, output);
+>> +}
+>> +
+>> +static void vs_dc8200_primary_plane_update_ex(struct vs_dc *dc,
+>> unsigned int output,
+>> +				       struct drm_plane_state
+>> *state)
+>> +{
+>> +	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
+>> +		     VSDC_MAKE_PLANE_POS(state->crtc_x, state-
+>>> crtc_y));
+>> +	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
+>> +		     VSDC_MAKE_PLANE_POS(state->crtc_x + state-
+>>> crtc_w,
+>> +					 state->crtc_y + state-
+>>> crtc_h));
+>> +	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
+>> +		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+>> +
+>> +	vs_dc8200_plane_commit(dc, output);
+>> +}
+>> +
+>> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
+>> +{
+>> +	u32 irqs;
+>> +
+>> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
+>> +	return irqs;
+>> +}
+>> +
+>> +const struct vs_dc_funcs vs_dc8200_funcs = {
+>> +	.panel_enable_ex		= vs_dc8200_panel_enable_ex,
+>> +	.panel_disable_ex		=
+>> vs_dc8200_panel_disable_ex,
+>> +	.enable_vblank			= vs_dc8200_enable_vblank,
+>> +	.disable_vblank			=
+>> vs_dc8200_disable_vblank,
+>> +	.primary_plane_enable_ex	=
+>> vs_dc8200_primary_plane_enable_ex,
+>> +	.primary_plane_disable_ex	=
+>> vs_dc8200_primary_plane_disable_ex,
+>> +	.primary_plane_update_ex	=
+>> vs_dc8200_primary_plane_update_ex,
+>> +	.irq_ack			= vs_dc8200_irq_ack,
+>> +};
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> index 2a0f7c59afa3..91524d16f778 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> @@ -94,6 +94,7 @@ static struct vs_chip_identity vs_chip_identities[]
+>> = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = ~0U,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> @@ -103,6 +104,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5721,
+>>   		.customer_id = 0x30B,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> @@ -112,6 +114,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = 0x310,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_with_yuv444,
+>> @@ -121,6 +124,7 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.revision = 0x5720,
+>>   		.customer_id = 0x311,
+>>   
+>> +		.generation = VSDC_GEN_DC8200,
+>>   		.display_count = 2,
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> index 2065ecb73043..a15c8b565604 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.h
+>> @@ -9,6 +9,11 @@
+>>   #include <linux/regmap.h>
+>>   #include <linux/types.h>
+>>   
+>> +enum vs_dc_generation {
+>> +	VSDC_GEN_DC8000,
+>> +	VSDC_GEN_DC8200,
+>> +};
+>> +
+>>   struct vs_formats {
+>>   	const u32 *array;
+>>   	unsigned int num;
+>> @@ -19,6 +24,7 @@ struct vs_chip_identity {
+>>   	u32 revision;
+>>   	u32 customer_id;
+>>   
+>> +	enum vs_dc_generation generation;
+>>   	u32 display_count;
+>>   	/*
+>>   	 * The hardware only supports square cursor planes, so this
+>> field
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> index 1f2be41ae496..f992cb277f61 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+>> @@ -53,12 +53,6 @@ static int vs_primary_plane_atomic_check(struct
+>> drm_plane *plane,
+>>   	return 0;
+>>   }
+>>   
+>> -static void vs_primary_plane_commit(struct vs_dc *dc, unsigned int
+>> output)
+>> -{
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_COMMIT);
+>> -}
+>> -
+>>   static void vs_primary_plane_atomic_enable(struct drm_plane *plane,
+>>   					   struct drm_atomic_commit
+>> *atomic_state)
+>>   {
+>> @@ -69,13 +63,8 @@ static void vs_primary_plane_atomic_enable(struct
+>> drm_plane *plane,
+>>   	unsigned int output = vcrtc->id;
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_FB_EN);
+>> -	regmap_update_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			   VSDC_FB_CONFIG_EX_DISPLAY_ID_MASK,
+>> -			   VSDC_FB_CONFIG_EX_DISPLAY_ID(output));
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->primary_plane_enable_ex)
+>> +		dc->funcs->primary_plane_enable_ex(dc, output);
+>>   }
+>>   
+>>   static void vs_primary_plane_atomic_disable(struct drm_plane *plane,
+>> @@ -88,10 +77,8 @@ static void vs_primary_plane_atomic_disable(struct
+>> drm_plane *plane,
+>>   	unsigned int output = vcrtc->id;
+>>   	struct vs_dc *dc = vcrtc->dc;
+>>   
+>> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+>> -			VSDC_FB_CONFIG_EX_FB_EN);
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->primary_plane_disable_ex)
+>> +		dc->funcs->primary_plane_disable_ex(dc, output);
+>>   }
+>>   
+>>   static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+>> @@ -133,18 +120,11 @@ static void
+>> vs_primary_plane_atomic_update(struct drm_plane *plane,
+>>   	regmap_write(dc->regs, VSDC_FB_STRIDE(output),
+>>   		     fb->pitches[0]);
+>>   
+>> -	regmap_write(dc->regs, VSDC_FB_TOP_LEFT(output),
+>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x, state-
+>>> crtc_y));
+>> -	regmap_write(dc->regs, VSDC_FB_BOTTOM_RIGHT(output),
+>> -		     VSDC_MAKE_PLANE_POS(state->crtc_x + state-
+>>> crtc_w,
+>> -					 state->crtc_y + state-
+>>> crtc_h));
+>>   	regmap_write(dc->regs, VSDC_FB_SIZE(output),
+>>   		     VSDC_MAKE_PLANE_SIZE(state->crtc_w, state-
+>>> crtc_h));
+>>   
+>> -	regmap_write(dc->regs, VSDC_FB_BLEND_CONFIG(output),
+>> -		     VSDC_FB_BLEND_CONFIG_BLEND_DISABLE);
+>> -
+>> -	vs_primary_plane_commit(dc, output);
+>> +	if (dc->funcs->primary_plane_update_ex)
+>> +		dc->funcs->primary_plane_update_ex(dc, output,
+>> state);
+>>   }
+>>   
+>>   static const struct drm_plane_helper_funcs
+>> vs_primary_plane_helper_funcs = {
