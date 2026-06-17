@@ -1,164 +1,269 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64EE3EDE5F;
-	Wed, 17 Jun 2026 20:57:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEC725A655
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 21:01:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781729870; cv=none; b=mumgqzEhVfampWXWblWQlSw491+I03wBJjDWByHlUurmDCdAKUZYtUh6AjUuJ0Pj4ODxH8d4grt7OA4JN04ij9xHIXa6IL2cwHuexVPcRLaLsyJznr7/jfBxvFstYzIzjCkySkIplPYPUiWTQVl3SwGsq01fkeYfeHTVxdBntCE=
+	t=1781730075; cv=none; b=TIGltvu5pyxBLOaVPWr+vPAoL2NrLais/ctk5Bs6J6Qjm3FAnFHuaLKA5PoBu4T8mjvqH8KG6wWNKBvzgz+1tjioRyB1BeKBESjza2vMhjCMmtdqXBm2iE6D4SqonHHFl2McYz3bAffESsqhfP4UW1jsJ93dht0UrmN5lx76ai0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781729870; c=relaxed/simple;
-	bh=BEVtIJyLUKR+9tc1CY0qY/GOb1ZOdaSf/hRc8Pj6lDo=;
+	s=arc-20240116; t=1781730075; c=relaxed/simple;
+	bh=yzIF1tX2gKUSPUBzQyDOcdvDStnIDA+2DBfDzt6awKQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Flf/Zq/g4tKim79qxT+Jb0EGnfpWdkZsxN2iv6yKbhjtdW5m+JPyBKJJTM7rKNxg5hj3kn3d++XFH/fx7XcLqR179D5telRK2pcC5U6PljQ8F3VleySJMVUCFBD0h/gL0osX8X82KcW5ArAB0faRdeDKVUtc2eJrQyQ4KZW9q3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gqLxkvem; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fhuvBTv6jVw5nXiXZRLfU3tEvcKFYmoN/QdqqBH+y6t0Znd2GqiSCETQPhEbrRJvOM/EWOTV4oZaP+/7MECb/52HjpPGD739oIsl85XVTAh+k6tLsWr4kiS0aht1W73Hr2u7op33z5deCNYyu0kSYYD3hJT8d3hI05H/2Smfphc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fcy9pwSh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gqLxkvem"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB501F00A3A;
-	Wed, 17 Jun 2026 20:57:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fcy9pwSh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF40C1F000E9;
+	Wed, 17 Jun 2026 21:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781729869;
-	bh=gdPZZvR9GXX9hrUhKDkutH4iyW9I19nhURknUYn2VxY=;
+	s=k20260515; t=1781730074;
+	bh=8r+s+n8g5pKO8u2BZ5wlzyuaZR+8nRnonTp9Fp26wn8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gqLxkvem68PhTcNi5f9+aTJYz6zV0DCM3T7k22K6QybsPrbxLOyY29v1f4nF8qGpa
-	 2tXkh6785XyPld+kZ0TXxweEsSJErSYinUzdGt1LQ8ivLOe3LCxanTTE+KWfPfO6hx
-	 J8TbPUlJSbOwuhUns4xvURlhfkMnV964GB41SEv5ui/2Ktcf0HqHAqxX3D6vhePIE5
-	 x+e0MTWLL40DaKZ+B0thSvnRvE1/JmXZat6AkIyPc3ZvWylIyp0pChUU45kL6/Us6F
-	 UNKuj8WJ1+z46+Nnt/+YAPk8XU6YS5VzH5iaCeiY6Gk4cFocVJU5iby/1/yFPlN2A+
-	 3lHj+GuQEGhQQ==
+	b=Fcy9pwSh4SU4b6uyHOLSxZgPQh/dZ5xJRhC624ahGLpIz2wN2I15yFe1+NnXihwwu
+	 OfoGQPnTRqHj9khk7TKtMquvXE2YBzwPV9pNOM7pdswdSWmRYQ44zWfUtmwlPUKaNk
+	 EqVObsfC24hWbUDKD6smHjfiYXB064Gpy+vthGGLfC0uIEI8m9U/mXNaRoY359diOt
+	 Vk0HNDjePDAhCKn2TKcs5snTaE3+9aomZeLQb22qv/Moa2r7PGgyEVX/SDrqb5H02J
+	 0/CCBuzcZvWQl+ZdcnppsuQ05jZaWiUZIv2xtTTMZ4oy8oS0Z1jIu0TBSPinN7xQ6/
+	 1NjI3crJtFHyg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 07/10] Input: cap11xx - refactor code for better
- CAP1114 support.
+Subject: Re: [PATCH v9 4/5] iio: adc: versal-sysmon: add threshold event
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260617150318.753148-8-jerrysteve1101@gmail.com>
-References: <20260617150318.753148-1-jerrysteve1101@gmail.com>
- <20260617150318.753148-8-jerrysteve1101@gmail.com>
+To: "Salih Erim" <salih.erim@amd.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260617180147.3370346-5-salih.erim@amd.com>
+References: <20260617180147.3370346-1-salih.erim@amd.com>
+ <20260617180147.3370346-5-salih.erim@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:57:48 +0000
-Message-Id: <20260617205748.7EB501F00A3A@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 21:01:13 +0000
+Message-Id: <20260617210113.CF40C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Bitmask truncation in `cap11xx_led_set` causing silent failure for=
- LEDs >=3D 8.
-- [High] Regmap cache staleness due to missing volatile register definition=
- for the dynamic `sensor_input_reg_base`.
-
-Pre-existing issues:
-- [High] Buffer overflow and Fortify Source panic when reading `calib_sensi=
-tivities` for devices with more than 8 channels.
+- [High] Integer Overflow and Missing Bit Masking in Threshold Calculations
+- [High] Supply Voltage Threshold Events Permanently Disabled on Trigger
+- [High] Kernel Panic from Sleeping in Atomic Context on I2C Devices
+- [High] Race Condition Desynchronizes Hardware Interrupt State
 --
 
-commit 837f207153012dfc0860b6d46ad5d3ae4f7b3004
-Author: Jun Yan <jerrysteve1101@gmail.com>
+commit 0d7222f55024a692e00cced200dc17d0764c1060
+Author: Salih Erim <salih.erim@amd.com>
 
-Extend cap11xx_hw_model structure to support CAP1114
+iio: adc: versal-sysmon: add threshold event support
 
-This patch extends the cap11xx_hw_model structure to support CAP1114
-with different register offsets and hardware characteristics.
+Adds threshold event support for temperature and supply voltage channels.
+It uses hysteresis mode for temperature and provides per-channel alarm
+enable for supply voltages. The interrupt handler masks active threshold
+interrupts and schedules a delayed worker to poll.
 
-> diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/ca=
-p11xx.c
-> index 1db4a9090705..0f19ee036e78 100644
-> --- a/drivers/input/keyboard/cap11xx.c
-> +++ b/drivers/input/keyboard/cap11xx.c
-
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
+l-sysmon-core.c
+> index e0b9b3d2b6d13..19a8edd89198c 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
 [ ... ]
-
-> @@ -211,8 +215,8 @@ static int cap11xx_init_keys(struct cap11xx_priv *pri=
-v)
->  	}
+> @@ -52,6 +101,16 @@ static const struct iio_chan_spec temp_channels[] =3D=
+ {
+>  	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
+>  };
 > =20
->  	if (!of_property_read_u32_array(node, "microchip,input-threshold",
-> -					priv->thresholds, priv->model->num_channels)) {
-> +					priv->thresholds, priv->model->num_sensor_thresholds)) {
-> -		for (i =3D 0; i < priv->model->num_channels; i++) {
-> +		for (i =3D 0; i < priv->model->num_sensor_thresholds; i++) {
->  			if (priv->thresholds[i] > 127) {
->  				dev_err(dev, "Invalid input-threshold value %u\n",
->  					priv->thresholds[i]);
+> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
+> +{
+> +	*val =3D (raw_data * MILLIDEGREE_PER_DEGREE) >> SYSMON_FRACTIONAL_SHIFT;
+> +}
+> +
+> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
+> +{
+> +	*raw_data =3D (val << SYSMON_FRACTIONAL_SHIFT) / MILLIDEGREE_PER_DEGREE;
+> +}
 
 [Severity: High]
-This is a pre-existing issue, but looking at cap11xx_init_keys(), could
-reading "microchip,calib-sensitivity" overflow the calib_sensitivities array
-for devices with more than 8 channels?
+Can this left shift overflow on negative or large sysfs values? Unlike the
+voltage path, this function also seems to lack value clamping and a (u16)
+bitmask. Since sysmon_write_event_value() writes this raw 32-bit value
+directly to SYSMON_TEMP_TH_UP, could it overwrite reserved hardware bits
+with sign-extended negative values like 0xFFFFEC00?
 
-In cap11xx_init_keys():
-
-    } else if (!of_property_read_u32_array(node, "microchip,calib-sensitivi=
-ty",
-                                           priv->calib_sensitivities,
-                                           priv->model->num_channels)) {
-
-The calib_sensitivities array is statically allocated to 8 elements in
-struct cap11xx_priv. For models with more than 8 channels (like the CAP1114
-which has 14), could this cause a buffer overflow into the keycodes array
-and trigger a kernel panic if FORTIFY_SOURCE is enabled?
-
-[ ... ]
-
-> @@ -308,7 +314,7 @@ static irqreturn_t cap11xx_thread_func(int irq_num, v=
-oid *data)
->  	if (ret < 0)
->  		goto out;
-> =20
-> -	ret =3D regmap_read(priv->regmap, CAP11XX_REG_SENSOR_INPUT, &status);
-> +	ret =3D regmap_read(priv->regmap, priv->model->sensor_input_reg_base, &=
-status);
->  	if (ret < 0)
->  		goto out;
-
-[Severity: High]
-Will this result in reading stale cached values instead of the actual
-hardware state?
-
-The interrupt handler now dynamically reads from sensor_input_reg_base.
-However, cap11xx_volatile_reg() still hardcodes CAP11XX_REG_SENSOR_INPUT as
-a volatile register.
-
-Since the new dynamic base register (and the subsequent register for devices
-with more than 8 channels) is no longer marked volatile, will the regmap
-cache return stale data and break input events for these models?
-
-[ ... ]
-
-> @@ -362,7 +368,7 @@ static int cap11xx_led_set(struct led_classdev *cdev,
->  	 * 0 (OFF) and 1 (ON).
->  	 */
->  	return regmap_update_bits(priv->regmap,
-> -				  CAP11XX_REG_LED_OUTPUT_CONTROL,
-> +				  priv->model->led_output_control_reg_base,
->  				  BIT(led->reg),
->  				  value ? BIT(led->reg) : 0);
+> +
+>  static void sysmon_supply_rawtoprocessed(int raw_data, int *val)
+>  {
+>  	int mantissa, format, exponent;
+> @@ -69,6 +128,33 @@ static void sysmon_supply_rawtoprocessed(int raw_data=
+, int *val)
+>  	*val =3D (mantissa * (int)MILLI) >> exponent;
 >  }
+> =20
+> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_=
+data)
+> +{
+> +	int exponent =3D FIELD_GET(SYSMON_MODE_MASK, reg_val);
+> +	int format =3D FIELD_GET(SYSMON_FMT_MASK, reg_val);
+> +	int scale, tmp;
+> +
+> +	scale =3D BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
+> +	tmp =3D (val * scale) / (int)MILLI;
 
 [Severity: High]
-Will this bitmask be truncated for LEDs with an index of 8 or higher?
+Can this 32-bit multiplication overflow on large sysfs inputs? If scale is =
+up
+to 65536, a large val could cause an integer overflow before the division.
 
-The bitmask passed to regmap_update_bits() is BIT(led->reg). Since models
-like CAP1114 support more than 8 LEDs, and the register operations are 8-bi=
-t,
-BIT(led->reg) will exceed 8 bits for higher-index LEDs.
+> +
+> +	if (format)
+> +		tmp =3D clamp(tmp, S16_MIN, S16_MAX);
+> +	else
+> +		tmp =3D clamp(tmp, 0, U16_MAX);
+> +
+> +	*raw_data =3D (u16)tmp;
+> +}
+[ ... ]
+> +static int sysmon_write_event_config(struct iio_dev *indio_dev,
+> +				     const struct iio_chan_spec *chan,
+> +				     enum iio_event_type type,
+> +				     enum iio_event_direction dir,
+> +				     bool state)
+> +{
+[ ... ]
+> +	case IIO_TEMP:
+> +		if (state) {
+> +			ret =3D regmap_write(sysmon->regmap, SYSMON_IER, mask);
+> +			if (ret)
+> +				return ret;
+> +
+> +			scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +				sysmon->temp_mask &=3D ~mask;
+> +		} else {
+> +			ret =3D regmap_write(sysmon->regmap, SYSMON_IDR, mask);
+> +			if (ret)
+> +				return ret;
+> +
+> +			scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +				sysmon->temp_mask |=3D mask;
+> +		}
+> +		return 0;
 
-The initialization code in cap11xx_init_leds() caps the LED clearance mask =
-to
-8 bits:
+[Severity: High]
+Is there a race condition here if sysmon_unmask_worker() runs concurrently?
+By writing to SYSMON_IDR before acquiring sysmon->irq_lock to update
+sysmon->temp_mask, the concurrent worker might read the old temp_mask (where
+the bit is still 0/enabled). Could the worker then write to SYSMON_IER in
+sysmon_unmask_temp(), effectively re-enabling the interrupt in hardware
+immediately after userspace administratively disabled it?
 
-    GENMASK(min(num_leds, 8) - 1, 0)
+[ ... ]
+> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
+> +{
+> +	u32 alarm_flag_offset =3D SYSMON_ALARM_FLAG + event * SYSMON_REG_STRIDE;
+> +	u32 alarm_reg_offset =3D SYSMON_ALARM_REG + event * SYSMON_REG_STRIDE;
+> +	struct sysmon *sysmon =3D iio_priv(indio_dev);
+> +	unsigned long alarm_flag_reg;
+> +	unsigned int reg_val;
+> +	u32 address, bit;
+> +	int ret;
+> +
+> +	switch (event) {
+[ ... ]
+> +	case SYSMON_BIT_ALARM0:
+> +	case SYSMON_BIT_ALARM1:
+> +	case SYSMON_BIT_ALARM2:
+> +	case SYSMON_BIT_ALARM3:
+> +	case SYSMON_BIT_ALARM4:
+> +		ret =3D regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		alarm_flag_reg =3D reg_val;
+> +
+> +		for_each_set_bit(bit, &alarm_flag_reg, SYSMON_ALARM_BITS_PER_REG) {
+> +			address =3D bit + SYSMON_ALARM_BITS_PER_REG * event;
+> +			sysmon_push_event(indio_dev, address);
+> +			ret =3D regmap_clear_bits(sysmon->regmap, alarm_reg_offset, BIT(bit));
 
-Does cap11xx_led_set() also need an update to handle devices with more than
-8 LEDs to avoid silently failing?
+[Severity: High]
+Does clearing this bit permanently disable the supply voltage hardware alar=
+m?
+The alarm_reg_offset here points to SYSMON_ALARM_REG, which
+sysmon_write_alarm_config() uses as the alarm configuration/enable register.
+Since there is no mechanism to re-enable voltage alarms later, does this tu=
+rn
+continuous threshold events into one-shot events?
+
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		return regmap_write(sysmon->regmap, alarm_flag_offset, alarm_flag_reg);
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+[ ... ]
+> +static void sysmon_unmask_worker(struct work_struct *work)
+> +{
+> +	struct sysmon *sysmon =3D
+> +		container_of(work, struct sysmon, sysmon_unmask_work.work);
+> +	unsigned int isr;
+> +
+> +	/*
+> +	 * If the ISR read fails, skip processing to avoid acting
+> +	 * on undefined data.
+> +	 */
+> +	scoped_guard(spinlock_irq, &sysmon->irq_lock) {
+> +		if (regmap_read(sysmon->regmap, SYSMON_ISR, &isr))
+> +			break;
+
+[Severity: High]
+Can this cause a "scheduling while atomic" panic on I2C devices?
+The driver takes a spinlock with interrupts disabled via spinlock_irq,
+but then calls regmap_read() which uses a sleeping mutex on I2C buses.
+A similar sequence occurs in the hardirq handler sysmon_iio_irq().
+
+> +		regmap_write(sysmon->regmap, SYSMON_ISR, isr);
+> +		sysmon_unmask_temp(sysmon, isr);
+> +	}
+[ ... ]
+> +static int sysmon_init_interrupt(struct sysmon *sysmon,
+> +				 struct device *dev,
+> +				 struct iio_dev *indio_dev,
+> +				 int irq)
+> +{
+> +	unsigned int imr;
+> +	int ret;
+> +
+> +	/* Events not supported without IRQ (e.g. I2C path) */
+> +	if (!irq)
+> +		return 0;
+> +
+> +	INIT_DELAYED_WORK(&sysmon->sysmon_unmask_work, sysmon_unmask_worker);
+> +
+> +	ret =3D regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
+> +	if (ret)
+> +		return ret;
+> +	sysmon->temp_mask =3D imr & SYSMON_TEMP_INTR_MASK;
+> +
+> +	ret =3D devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", ind=
+io_dev);
+
+[Severity: High]
+Should we verify that the regmap doesn't sleep before requesting the IRQ?
+If a user provides an interrupts property for an I2C-connected device in
+the Device Tree, it looks like this will register sysmon_iio_irq() as a
+hardirq handler and trigger the atomic sleep violations mentioned above.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_add_action_or_reset(dev, sysmon_disable_interrupts, sysmon);
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617150318.7531=
-48-1-jerrysteve1101@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617180147.3370=
+346-1-salih.erim@amd.com?part=3D4
