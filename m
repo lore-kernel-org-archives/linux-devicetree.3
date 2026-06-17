@@ -1,143 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8481EEA31
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:14:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B35B18C2C
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781662441; cv=none; b=mTnCxnK7gv/W6NdjuF437Pl2mdZgx6wWtrOX/XmfvHwFBcJIlUvJ0HD4UpCwva0mt7V3tTx3Epf589SqbzuVLu2/MAT8Gw+T0lOjEAaSZ20Pzkztj7LbBmOSnGpDsWFlIj65V0jY52nOssWxvi8S6K5wKqdqBaA8Wu+UlJzNLDY=
+	t=1781662574; cv=none; b=OIOPlcDZgG0OCwxg7UqcV7zmGaT384I3YQx6H+h7eiqAsx7fA/cqUTh0rJX5vZebgiO4U8zmRV+cBM6lXI1usbnyKYDX2qWfRNFbTJZfezKLPUHq44ubqZXv/M98ymrX61E1PGpbyEBYnD/IGKEzDzJwNlKNbZCKpkA0hnwKo7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781662441; c=relaxed/simple;
-	bh=PO3yO3dBl1wyUK8KnQT58LVt3ZIF8l3V6DHpYK5Ljpc=;
+	s=arc-20240116; t=1781662574; c=relaxed/simple;
+	bh=+YDzA/gz9gR/NOcPtT6DP5b8MwAlNNLhDdwnnMlNewQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GV34ueYtxMryWA1ox+/tUQ11h1GGhJ+tziedWbgkU9blno6QFHDEX/kRJf6eTwekHDXJ2nPcaSUKp8qH0yzf8uwB1gDqR8tgQNze/nqt84UmUzlXkqzyf/TzLP7CYCquR2sWVAXAHGNYuIPyXySvKUKHe6pep1FPTz1yc4Uy4uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gaOkdEHK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dS/OqKt+7eu1wZuhPOnkBc53C+/Q6KwxzpNYQwASjSXC4omlyzxXxqhxjJPAbW+WOuwUkF2OLLMtk8TR9KZQq15SoSjjlpmnZCKxzM0LAzoBdvsosyoK591phIh321dqpJ2FU9MuUOG65CJizo6/7pgsVsgf72GBV63eIQyNN2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVa0OdPM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gaOkdEHK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C761F000E9;
-	Wed, 17 Jun 2026 02:13:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVa0OdPM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8485A1F000E9;
+	Wed, 17 Jun 2026 02:16:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781662440;
-	bh=7ytRLuSkbANWs2LUDqMG5NaADvUNZVlSd10vJgNDeYA=;
+	s=k20260515; t=1781662572;
+	bh=wpjK1E+zQ/Jwfx7VVWOJjAWwyUs3rNcFblpXiTiPH44=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gaOkdEHKYlLEpyHCsZoBouqhRgWQdImBFdzBNpCeT6nMawq7as69nGQs33dw6DA6s
-	 8IGAfYePj00rsdnxvRl9gVCYhbgQWmMSdND3vstwWLOFmO2e/5yXSyPuhmBzHdRXKG
-	 HtegD0OHCgj9wqqwQhAZc3ZrwD//6LzEOu/l3jsKsdBWDPUlij1gY2sPFFRkgL6nTV
-	 8RVeC9FclUK6mCfSs4qG+Zh2S5vSxITXTvQp5goAllLKuGxNAH7SSTeFWcFIhDqP/O
-	 yWebtxWtIKs5HEvnS2HwF1/O+2Uy+Yi2ovqvMvSal43ldQpKiXZKxRZ9nwV7q+1Iw3
-	 lPAfwi6zw/WyQ==
+	b=gVa0OdPMLoEHJ/0Dph165eOK/GGcPY7O0FXJ/xZXxMdta4X2hLAqQfaJC3T7aDE0i
+	 Nf72/4R5n8nwuWs5bZ1n/cGthp55bYZOVizsw0STQZwGD4vqWO11bPyGpXOhST3PSC
+	 8zu/9oCfdkFcPOH8f5+2VWPTvd4BZDV9Cpg9ExW8ph8EnxFmmV5lp74hz5j9ICJwZc
+	 fzsPZMPdKc8OhoBJgeBjhkCCOMmLqWQ3rPs4oi5xo3ghfuDqTWOjdFDJcyFeLzKhLE
+	 VPAyB4wY6BKDa1/xBqQQzqlBIVWn/nw0AagDmz7b2mMHChWQU8CgUINaPm45flGgYY
+	 dY+E3urYaW0Uw==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 3/5] iio: buffer: Extend DMAengine buffer
- interfaces to take extra sysfs attributes
+Subject: Re: [PATCH v3 2/5] iio: adc: ltc2378: Add support for LTC2378-20
+ and similar ADCs
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <a09f2cac2d26fe385f1f7790b0db64b7d9953ac6.1781661028.git.marcelo.schmitt@analog.com>
+In-Reply-To: <5c18e7a370119ddfd5faefe147b294b39f78894a.1781661028.git.marcelo.schmitt@analog.com>
 References: <cover.1781661028.git.marcelo.schmitt@analog.com>
- <a09f2cac2d26fe385f1f7790b0db64b7d9953ac6.1781661028.git.marcelo.schmitt@analog.com>
+ <5c18e7a370119ddfd5faefe147b294b39f78894a.1781661028.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 02:13:59 +0000
-Message-Id: <20260617021359.C4C761F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 02:16:12 +0000
+Message-Id: <20260617021612.8485A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Unconditional assignment of `buffer->attrs` overwrites the def=
-ault DMAengine buffer attributes, removing `length_align_bytes` from sysfs =
-and breaking the userspace ABI.
-
-Pre-existing issues:
-- [High] The ad4691 driver manually overwrites the IIO buffer's `attrs` fie=
-ld after setup, clobbering the generic DMAengine buffer attributes.
+- [High] Unsupported SPI bits_per_word values for 18-bit and 20-bit ADCs.
+- [High] Logic Error: Keeping CNV high during SPI transfer outputs BUSY fla=
+gs instead of data.
+- [High] Data Corruption: Buffered reads for 16-bit parts always return 0 o=
+n big-endian architectures.
+- [Medium] ABI Violation: Non-standard sysfs attribute name without channel=
+ index.
+- [Medium] Missing Kconfig dependency on REGULATOR causes unconditional pro=
+be failure.
 --
 
-commit e15805cbfeb85d6ab2a3f8819279738d4402da62
+commit 30af41465781d1df468bbb782a984208c0789b78
 Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-iio: buffer: Extend DMAengine buffer interfaces to take extra sysfs attribu=
-tes
+iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
 
-This patch extends the IIO DMAengine buffer setup interfaces to accept an
-additional parameter for extra sysfs attributes. It updates all existing
-callers to pass NULL for this new parameter.
+Support for LTC2378-20 and similar analog-to-digital converters. Co-develop=
+ed
+by Ioan-Daniel Pop.
 
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-> @@ -1980,7 +1980,8 @@ static int ad4691_setup_offload(struct iio_dev *ind=
-io_dev,
->  		indio_dev->setup_ops =3D &ad4691_cnv_burst_offload_buffer_setup_ops;
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index a3a93a47b43d9..2b82034513673 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+[ ... ]
+> @@ -940,6 +940,17 @@ config LTC2309
+>  	  This driver can also be built as a module. If so, the module will
+>  	  be called ltc2309.
 > =20
->  	ret =3D devm_iio_dmaengine_buffer_setup_with_handle(dev, indio_dev, rx_=
-dma,
-> -							  IIO_BUFFER_DIRECTION_IN);
-> +							  IIO_BUFFER_DIRECTION_IN,
-> +							  NULL);
+> +config LTC2378
+> +	tristate "Analog Devices LTC2378 ADC driver"
+> +	depends on SPI
+> +	depends on GPIOLIB
+
+[Severity: Medium]
+Should this Kconfig entry also depend on REGULATOR?
+
+The probe function unconditionally calls devm_regulator_get_enable_read_vol=
+tage()
+and fails if it returns an error. If the kernel is built with CONFIG_REGULA=
+TOR
+disabled, the regulator API is stubbed out to return -ENODEV, making it
+structurally impossible for the driver to successfully probe.
+
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> new file mode 100644
+> index 0000000000000..88582bdcd6a62
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2378.c
+[ ... ]
+> +static int ltc2378_probe(struct spi_device *spi)
+> +{
+[ ... ]
+> +	st->chans[st->num_iio_chans++] =3D (struct iio_chan_spec) {
+> +		.type =3D IIO_VOLTAGE,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index =3D 0,
+
+[Severity: Medium]
+Does this channel specification need .indexed =3D 1 and .channel =3D 0?
+
+Without the index, the IIO core exposes the sysfs attribute as in_voltage_r=
+aw
+instead of in_voltage0_raw. The IIO ABI documentation strictly mandates that
+the number must always be specified and unique to allow association with ev=
+ent
+codes, so this non-standard naming breaks compatibility with generic usersp=
+ace
+clients.
+
+> +		.scan_type =3D {
+> +			.format =3D st->info->bipolar ? IIO_SCAN_FORMAT_SIGNED_INT :
+> +						      IIO_SCAN_FORMAT_UNSIGNED_INT,
+> +			.realbits =3D st->info->resolution,
+> +			/*
+> +			 * Buffer elements could be 16-bit for low precision
+> +			 * parts. Though, using more storage bits allows keeping
+> +			 * the same scan_type configuration for both types of
+> +			 * buffer support.
+> +			 */
+> +			.storagebits =3D 32,
+> +		},
 
 [Severity: High]
-This is a pre-existing issue, but does manually assigning the buffer attrib=
-utes
-further down in this function clobber the generic DMAengine buffer attribut=
-es?
+Will this configuration cause buffered reads for 16-bit parts to return 0 on
+big-endian architectures?
 
-Following this setup call in ad4691_setup_offload(), the driver manually
-assigns:
+For 16-bit parts, the SPI transfer writes 2 bytes to the 32-bit union. On
+big-endian architectures, these 2 bytes are written to the most significant
+bytes of the 32-bit space. However, setting storagebits =3D 32 with an impl=
+icit
+shift of 0 causes the IIO core to extract the lower 16 bits (which remain 0=
+).
+This causes the IIO core to persistently push 0 to the buffers.
 
-indio_dev->buffer->attrs =3D ad4691_buffer_attrs;
+> +	};
+> +
+> +	st->xfer.rx_buf =3D &st->scan.data;
+> +	st->xfer.len =3D st->info->resolution > 16 ? 4 : 2;
+> +	st->xfer.bits_per_word =3D st->info->resolution;
 
-Could this overwrite the default DMAengine buffer attributes like
-length_align_bytes? Since the new API allows injecting custom attributes,
-should this driver be updated to pass ad4691_buffer_attrs into
-devm_iio_dmaengine_buffer_setup_with_handle() rather than passing NULL and
-manually overwriting it afterwards?
+[Severity: High]
+Is it safe to set bits_per_word directly to 18 or 20?
 
->  	if (ret)
->  		return ret;
-> =20
+The SPI core validates bits_per_word against the controller's bits_per_word=
+_mask
+during transfer. Since the vast majority of SPI controllers only support 8,=
+ 16,
+or 32 bits per word, setting this to 18 or 20 will cause spi_sync_transfer(=
+) to
+immediately fail with -EINVAL, breaking data capture on standard hardware.
 
+> diff --git a/drivers/iio/adc/ltc2378.h b/drivers/iio/adc/ltc2378.h
+> new file mode 100644
+> index 0000000000000..a3a69351de6ce
+> --- /dev/null
+> +++ b/drivers/iio/adc/ltc2378.h
 [ ... ]
+> +static inline int ltc2378_convert_and_acquire(struct ltc2378_state *st)
+> +{
+> +	int ret;
+> +
+> +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
+> +	gpiod_set_value_cansleep(st->cnv_gpio, 1);
+> +	fsleep(4);
+> +	ret =3D spi_sync_transfer(st->spi, &st->xfer, 1);
+> +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
+> +
+> +	return ret;
+> +}
 
-> diff --git a/drivers/iio/buffer/industrialio-buffer-dmaengine.c b/drivers=
-/iio/buffer/industrialio-buffer-dmaengine.c
-> --- a/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-> +++ b/drivers/iio/buffer/industrialio-buffer-dmaengine.c
-> @@ -289,7 +289,8 @@ EXPORT_SYMBOL_NS_GPL(iio_dmaengine_buffer_teardown, "=
-IIO_DMAENGINE_BUFFER");
->  static struct iio_buffer
->  *__iio_dmaengine_buffer_setup_ext(struct iio_dev *indio_dev,
->  				  struct dma_chan *chan,
-> -				  enum iio_buffer_direction dir)
-> +				  enum iio_buffer_direction dir,
-> +				  const struct iio_dev_attr **buffer_attrs)
->  {
->  	struct iio_buffer *buffer;
->  	int ret;
-> @@ -301,6 +302,7 @@ static struct iio_buffer
->  	indio_dev->modes |=3D INDIO_BUFFER_HARDWARE;
-> =20
->  	buffer->direction =3D dir;
-> +	buffer->attrs =3D buffer_attrs;
+[Severity: High]
+Does keeping the CNV pin high during the SPI transfer cause the ADC to outp=
+ut
+BUSY flags instead of conversion data?
 
-[Severity: Critical]
-Does unconditionally overwriting buffer->attrs here remove the default
-DMAengine buffer attributes?
-
-Since iio_dmaengine_buffer_alloc() sets up the default attributes array
-(which exposes length_align_bytes to userspace), and all current callers
-updated in this patch pass NULL for buffer_attrs, it appears this will
-silently delete length_align_bytes from sysfs for all IIO DMAengine buffers.
-
-Could this break the userspace ABI, as applications might rely on
-length_align_bytes to determine the required memory alignment for DMA
-buffers?
+For the LTC2378 series, bringing the Chip Select low while CNV is still high
+places the ADC into a BUSY indicator mode instead of shifting out the sampl=
+ed
+data. Should CNV be brought low before initiating the SPI transfer?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1781661028.gi=
-t.marcelo.schmitt@analog.com?part=3D3
+t.marcelo.schmitt@analog.com?part=3D2
