@@ -1,93 +1,167 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDF03815DF
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:12:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CC13803DB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781694730; cv=none; b=uCMup16kWuWxZh+imvsDLqIddmF8clBW3Q3DahsrU/c/q6yj9p/RB6Wnf6Wh22UWdyUaNEtmFF1YOFiORM71T98fb8d+7cTlSTHKPcrNUNwffqSsG/KbPxGDTP75uTqVM130eGGtpTrE8duuHkQXBmM0E2CNoAGpCz13CZH25uU=
+	t=1781694813; cv=none; b=T9ENDPL4DWPjV26hkWZ3mWW0ploVc4sAa8XQkCVdoCHdrxhv6/YnZHbICpV885gVyDuPIikwJg0GZTXydCIo547Rqu9m93jA+hkLuoOeesb88E7J9ygmJmx9DP2hd6jYPk/s7YLcmhSj/PRDnf2uf7+4APtMLe6ANYAh+kOoKto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781694730; c=relaxed/simple;
-	bh=pqfx1Kz9Wn12PIFaf55ovBxOXez+eh0VV23VISnLVBk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QNpV/+6SA9+juVymNTiyNmKTpEU6Gk5WDcEjLnvusn86ipMNoJ+SpFnnp77JY31SGYqbxwdn+w2xXeIRMANC9XIaZDTQ7ihyc9HkUX1DKGWgwMN1ahzqqUSfM0uUmftCXNXET/UqMCfodg6iCM+X+vD+vqSmbpm564QAAba7Gss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=cz3cZLCm; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1781694813; c=relaxed/simple;
+	bh=B3VMWKNzvRyN+s43pyE9q49QxqSQxGojgGwKqa65X7I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MQU8pxDbqzatqJCEt/TLbOy8Rb2Cb80I+0RdMGfdAzQ40oW6bypDhdn4x7hAg4b5sdnsdWuFG/N4CufQEBBkd6zbf64pOfJ2+uwMTjAWBLSMqQ18gOlP1Dlvl/CaJJrJCgzk1LCdSxw+h2AfsTGUf3wC32cZRpnItpkFfwaHZ0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kj8hxfDZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="cz3cZLCm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=pqfx
-	1Kz9Wn12PIFaf55ovBxOXez+eh0VV23VISnLVBk=; b=cz3cZLCmGhaN3okhv6ue
-	V3XbwjDFla4dDy7biZbA4wJgzOovjXx4knrA1smyakh242lT/dN9PUduIQTFjX7V
-	YM5nWFR01cxHP8iS0TSa+aL09mhVuUz8NNYLS0R6cOxaa3WHVx+Oj06llfVf5TV9
-	rotjUcHC1wxH40KSebI+oERV8Q0z2zAKfg+y3TTjwlCHp/+t8noQUemOiNoQ06l8
-	dxVwqyNT9SFX/BsWgErSLiG7x6pvbYwXHo637CQCpL2lzvhBFZrsZpWjHvSvu5xu
-	bczW2yS6n0WR8yDpUy3IKHWi/pqUSAGaqI07TacbVFkGcUJqbNC85oPyASi8mC8P
-	2A==
-Received: (qmail 137433 invoked from network); 17 Jun 2026 13:12:07 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 13:12:07 +0200
-X-UD-Smtp-Session: l3s3148p1@Dk9OIXFUBM0ujnvI
-Date: Wed, 17 Jun 2026 13:12:06 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 00/12] Add RTC support for Renesas RZ/T2H and RZ/N2H SoCs
-Message-ID: <ajKBBqJZssGk79dV@shikoro>
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <ajJmacl9ZJtkoLyf@shikoro>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kj8hxfDZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AB671F000E9;
+	Wed, 17 Jun 2026 11:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781694812;
+	bh=L2FqbNDAR7EIkI573qd24umVLDgtXhDDGP8+p3mn/Pw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kj8hxfDZ74NZ0HgFH7hk+4id4VYfay4jL8ctWFxSrv/YwJHXxPXHy8/nXt75arHLp
+	 cVKOOVTByJclYKjo6oxK6B6II/59T1Yh7h/K4zUW6r6vmTcDkWNN3fAxCB5m3xsIO4
+	 /bdUXN0x6w935QE1aDELxVuFNYPxJQpYaem/OXqhQLEQTXktEde5qyZn31kSWin5Lx
+	 ResgqusEGIJ+8/+V0iWPvh+cNTjst8EB2B+VEJ4ixQjGAi8SoxjiMe6qv63vOFbUQN
+	 otfZk97YtfcfhYLC3+v/1ZFKm8CAgjKkegbyAlyiv+xS3/rMuO7mgHALXDwXiAIaij
+	 WqY05YqmQnXJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/7] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-i3c@lists.infradead.org, Frank.Li@kernel.org
+In-Reply-To: <20260617110355.1591844-3-lakshay.piplani@nxp.com>
+References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
+ <20260617110355.1591844-3-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 11:13:31 +0000
+Message-Id: <20260617111331.7AB671F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QZhgB7Djq8Hxo8mR"
-Content-Disposition: inline
-In-Reply-To: <ajJmacl9ZJtkoLyf@shikoro>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The binding documents GPIO capability for target ports but omits=
+ the standard GPIO provider properties, violating subsystem guidelines.
+- [Medium] The binding fails to include compatible strings for the 4-port v=
+ariants and unconditionally allows up to 8 ports.
+- [Low] The unit address in the I3C example does not match its `reg` proper=
+ty.
+--
 
---QZhgB7Djq8Hxo8mR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit af3b77595fece3e15864b37b9b683be835a0e1eb
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
+dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
 
-> I will review and test in on my N1D-board today.
+This commit adds device tree bindings for the NXP P3H2x4x multi-port I3C hub
+family. It supports connecting a host via I3C/I2C/SMBus to multiple downstr=
+eam
+peripherals across up to 8 ports.
 
-Except for the strange alarm-boundary behaviour, the tests went well.
-Will do further tests, it is probably not related to this series.
+> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Doc=
+umentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> new file mode 100644
+> index 0000000000000..c080eeb0eeaa8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+> @@ -0,0 +1,291 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2025 NXP
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: NXP P3H2X4X I3C HUB
+> +
+> +maintainers:
+> +  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> +  - Vikash Bansal <vikash.bansal@nxp.com>
+> +  - Lakshay Piplani <lakshay.piplani@nxp.com>
+> +
+> +description: |
+> +  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
+> +  hub devices that connect to:-
+> +  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to mu=
+ltiple
+> +     peripheral devices on the downstream  side.
+> +  2. Have two Controller Ports which can support either
+> +     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
+> +  3. P3H2840/ P3H2841 are 8 port I3C hub with eight I3C/I2C Target Port.
+> +  4. P3H2440/ P3H2441 are 4 port I3C hub with four I3C/I2C Target Port.
+> +     Target ports can be configured as I2C/SMBus, I3C or GPIO and connec=
+t to
+> +     peripherals.
 
+[Severity: Medium]
+Since the description advertises that target ports can be configured as GPI=
+O,
+should this binding include the standard GPIO provider properties like
+gpio-controller and #gpio-cells?
 
---QZhgB7Djq8Hxo8mR
-Content-Type: application/pgp-signature; name="signature.asc"
+Because unevaluatedProperties is false and there are no child node patterns
+defined for GPIO ports in patternProperties, won't adding a GPIO child node
+fail schema validation?
 
------BEGIN PGP SIGNATURE-----
+> +
+> +properties:
+> +  compatible:
+> +    const: nxp,p3h2840
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoygQYACgkQFA3kzBSg
-KbaDbw/9GG7nh3Fgh5SM6xw0smJjzDmMORq2jOlkPvZVFyypPhumd8th2/tMAjbi
-8dqhmiUQMhutMWhFRn0SPCHU3hqbVxuzIp47VaJKOPzYF8CFHsNEm7y/gcdVegJG
-s9rQ5fcWAkP8Jyr2Mi//3tNYXe0+soZqdREkV9m4Z7d724AZmuapm/QZtr0FaQ1w
-fzpSzTKN9auZ+egqW8Gt8iUknwG1mLucr8zkVsH7AdslJwlQc7nnHN+1hg+qr98/
-0F/mbTnr8lACF6U7VgIMKY82Y+UgS3KPe9/LvOVJIS+nyPmvhlTzao8ndSSZkpzt
-+PY2D3bCYgSNhCq+LgpxoRbK3BKt+4h3DxOuYi7dA6sRjR+LzPB0QELbXRblOigE
-NilH4dNe6AUQm05C1giTLcIB9bwH1gzCwbmWJVDYEqUNpOGvH+ILmDTVlqoRfW5c
-1U3ZovEGW8whpRvHBYD3VtlBuYCictRaZeA9183xRWY1vhR14VQikVWxRd6zoRoc
-f+dG65WJeCoY90r3yvju7Aiaa67HpSywjlxIRgyA+/txIXdBNO8J862qKZDeL7FF
-Sk2uU1C1dYAxE+4R7aqKaEIKVSHceSW/2A3ydEMamKvdSfz6ry4sKmwZOoRX/Nmt
-c+KlT+nGh3m8Hi22O4EU+V/2x0F7Tmivenb9NWFCWmuCk8WWtOU=
-=Q3Hz
------END PGP SIGNATURE-----
+[Severity: Medium]
+The commit message and description state the binding supports the P3H2440
+and P3H2441 4-port hubs alongside the 8-port P3H2840/P3H2841.
 
---QZhgB7Djq8Hxo8mR--
+Should compatible strings be included for the 4-port variants here as well?
+
+[ ... ]
+
+> +patternProperties:
+> +  "^i3c@[0-7]$":
+> +    type: object
+> +    $ref: /schemas/i3c/i3c.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        description:
+> +          The I3C HUB Target Port number.
+> +        maximum: 7
+
+[Severity: Medium]
+Does unconditionally allowing a maximum port index of 7 cause issues for the
+4-port variants mentioned in the description?
+
+It seems this allows invalid configurations that define non-existent ports
+(4-7) for the 4-port hardware.
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    i3c {
+> +        #address-cells =3D <3>;
+> +        #size-cells =3D <0>;
+> +
+> +        hub@70,236153000c2 {
+> +            reg =3D <0x70 0x236 0x3000c2>;
+
+[Severity: Low]
+Does the unit address in this example match its reg property?
+
+The reg property combines to a provisioned ID of 0x236003000c2, which appea=
+rs
+to differ from 236153000c2 in the unit address. Could this mismatch trigger=
+ a
+simple_bus_reg warning during make dt_binding_check?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617110355.1591=
+844-1-lakshay.piplani@nxp.com?part=3D2
