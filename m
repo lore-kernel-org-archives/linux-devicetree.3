@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092783955EE
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B8237F735
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781694494; cv=none; b=ODy6Yf8suOyk4+Fk6QKi9nBk3CXriXvEe3Z5w5DjtpTX7jkexkAPqM8qfBg9O8fqffOfqyytdFhzpxXHOM4MO9FqoA0RH2R58FqgfWNxAKYf8hWgbSey1kiDFtcngA+eFH03J+FQ2XNxVxyuvdo/V5Av2AH5+Iu2M9+l33UtOL8=
+	t=1781694501; cv=none; b=uTZaZTkm+/wV1myHnSxO8BF1JJgWCSSIrmAIAzBqrljW2903lzi5r6VBoxLOo203B6z/dbyPnycM+twOZlpQS3xD9c7z+5ghHGB7qzU4f0fo30saUjZsan20Sr+sQ6v7SwVrWIPurax+zKIC/8btrHdOTFTddrDV7jS2+O0TuK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781694494; c=relaxed/simple;
-	bh=ABvMKBubmq7+vT2mslDLycyynxFAYMClsx2j2iUyLrw=;
+	s=arc-20240116; t=1781694501; c=relaxed/simple;
+	bh=Va9DP1JOK0mstsSy90ZuVxwqnBOsm/kHZXDbxgqIbYw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bXFjj12wTNLlHfiD3Qafz1O/Ibr7CJwM7KwmUxi0WQ3+c+UpGc02dsxhud2hCY2GcKqNbvdZ6a6Sm9bHTzgnfzw3Gqvym5finmGESPVUQlRklMkPioUMAnQ0AgPuj0Wss/64IEbpbBELDjhf/04uLZz0H8/qVb2db1z7RJGBF5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GBqGCP3X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BH+IQvI6; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=NR0XUT6bKExL8dQ3EljBSIXs+4HKjNfQwj2XKKB51NRX62kc/5xddoWoXLbi8aZaun2Ftvdd7yLXvbma71hbAABaIP4yTA5QJtltu4SNf9rQelD+w6GG9JmLoyOXwvZ3Hbn0c6fJZvVr2UY2jlvL8Ro2Zk1tVGxF5dr+9D6Ly3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jp7jC87S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I2eCjmPJ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GBqGCP3X";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BH+IQvI6"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UTFN3273524
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:12 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jp7jC87S";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I2eCjmPJ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UOZ91703203
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZihRVb+s6uPehQzrp2IIPsHydM/cBCcZgzv0SNsTUpM=; b=GBqGCP3X8m2rL99C
-	ydcvh/iFR205lX0SQ9F7ezEWcLVpFQ2jorIlmEBdt1rmLiqnJkLXZIEibwbGk89F
-	zM40vF2S9TC1QLLRwEU4JNowhtClQuQSh9bXcEUt3zTesW+ai40dAVdVwZ5kRDmE
-	DYQufX1O4IrR5uTLvb44SPeEsiL0uTPFszoaJHs9w3wG/WRqfP6lw0E8aoZ2n734
-	yPnOq5++ca6Pp8JSwEFhQ2SdH0miVbt+B1FDMePJsQaLQhn84MTWHorEwmTgY5Ix
-	GAV5+PPswdqG0h9XtQ4to2YACq39w8ac9MgEzPXXewJ3/PJwhKUm+InSJX/FdxK+
-	2zjxQA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4euefbtt04-1
+	1Goy6WfBe0KdTPrja68NN4UJlaPm1q9rbXt8RgA3d7g=; b=jp7jC87SiVxFzFb0
+	AtE4SWJub1dFt5r7cmp+Cv8dt0GsXYfSzqgW2KqDz8bUt/ayhpmTJynJnE7YCE94
+	wupVjU0IErxI/+CTfoJ8gn4yamgEA5i5cbAUnOhK/wmsvahRznv7dNdZLvtUbIhD
+	2K1prWpmUXPFKqGq2lJpFROROgILLfT6Q4WM8WLfvIz2gPEfYI6IsEvYiK5WOsIk
+	TL99MTnE1crUoSId1B7lBfaQzCSdZiSYbS7MRrGBjqYdx+PrJZBvtBQxmd5V9CZ2
+	YbEgwVDDevBeVGgeaihj4pAXginffdfZ9KqbzSy39bY79sF+mD3TMRe/ucS2cYIG
+	NIWGZg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueet2qm5-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:12 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8422ca754d8so4314255b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 04:08:12 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:08:18 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8421ffff8a3so7171056b3a.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 04:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781694492; x=1782299292; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781694498; x=1782299298; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ZihRVb+s6uPehQzrp2IIPsHydM/cBCcZgzv0SNsTUpM=;
-        b=BH+IQvI6ninZJmTP4eBeXan+t5C3FctwiCuw7lgwV31LQo/mARZcNkJcHa8cjn0iVo
-         fqU4YJu1sDCV/zGzjvRpbHv+8XdNIBjp7vyJSQW8xG1mv8U+/Eg+zYIxO/CFEcXFvESr
-         6TsZYKNKVKrf7txtYqsvqEDNcu5pEVysv0Pyypl4ji7ATjvSq+OqwbqfbHM7+pWI7cFb
-         NiudQp1zlgoBzjRYkqKyhP/91Z1IkVt5kr+5Cg1Xr+N4kZ57HuD23UYXLCxOKZwl1pLl
-         z9lRRiaxWVGIMuc6Nq5KPhSlcJIGYbM/TIvMqtRGyquJ1S+r24IT3az3cSpovAaI9PXw
-         5lqg==
+        bh=1Goy6WfBe0KdTPrja68NN4UJlaPm1q9rbXt8RgA3d7g=;
+        b=I2eCjmPJQyN8xaAZHHYP8Qhm1iYlpFcWQ0i0E6nmzFtlzXv0F+uY53kLxO5BvQc4Z/
+         jtvP3Ih5cEhq8obexuyImn7M7APhUGalUMnqdek5Er9C83wCB4kM0dxUDsmMU50/DyyR
+         Ca16IjBDcI7LDkncP6rSvLhLs9Hcr/KLa+1Ft1QB+H1RMyzSw96iyZg5iFA1bGji4o9D
+         idIIdYSFE49m5+TwRNglmie6WiTo35PS7nX4bdQKVdWnwK3DI4ruT2VWsDkATwYETfKR
+         pfWRp1eR789sGYsrRQxYzytSBr3LLsAtSMlBobXC6mTjA9sVWZsujPNOr8cNkyUBDGBH
+         rmGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781694492; x=1782299292;
+        d=1e100.net; s=20251104; t=1781694498; x=1782299298;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ZihRVb+s6uPehQzrp2IIPsHydM/cBCcZgzv0SNsTUpM=;
-        b=eNqQTmTp3R40CycNp0uB5Z6awyM1DlmA9JgTeO+2cgE61fR/nXYx6byLaXmhKCFPGg
-         MDASV62nu4bDOfI2OE+zi/1ZLG4kcEJQd1OIcCPSbkw67MImCyxN8nDr4hrDPhyz8PJ6
-         qybni6rOC/JLqJfyJMCUnbCCxrO60qzox2wdoENUkhq0GwAq5Ch8xmHzJli3vDR4vrSr
-         vvivmNuBK1SxEK4/wZH/d1rEycA8WB+xULFibqDpf9zndTGm5eBeTXNTAbz+P0iflidm
-         ubSj/SEFRs2mIsELUFyZSBkmCetstVDjHbyPsYe70dMafV5gvIugGo1BGrPZD736SeKF
-         GGCg==
-X-Forwarded-Encrypted: i=1; AFNElJ+/7oOvtzTm4i8yamehHhqyXrp12tqchrpgvR3Je7rn0RlIN1rrElk7mgfILDzbPPHOvwi1nHQ+0RDi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzws5fyimGNMmj3p0Twpg1RmeR6lr/okp8bj3etqUQc8q1htd1t
-	A9Mzepf/Ao46bFAdJMjbyVA/4oKVoHvhO89lplRQ5DdeO2CCsjhzRIaNljcBNPyc8zn/SJjeNfN
-	wQlOMTXYup9GVz4RK8dSunwxR0y3MuucC1YQrMg0MY3+oGPbPLM1sCMy1wFRc8fe+
-X-Gm-Gg: AfdE7ck32MF2Uuk2OhP8t7gj/vLmJe3f1KUr6WUoRkQrMj1EGCE/vV7mi004xq3Xq2n
-	WoNwMSivMArBpHBJu/F6mFvt9D1Qoez8Y6zg+qtRR/e9ou19q/8tUvPNNVbOeCeEwNlDKvpFopO
-	0ZZb48+hKJrji8bOst/gQAborGzbGTUax0jXXCyzNKFtEa1n5OfVXtbm5z9ulUJ+jptkKJpfcPE
-	QRFmijX0YVPO7M5qe843Dxz61NmbD/l8sMBJuzxydxpvYn6ciliQoPS/y3DeBnOaQ1XypPUPz7u
-	yo4c5P/S3qyyHT77bvBC1T/3pyPYfMkx3xGjnV/qYqHP8V+dSYMfTx+0DpizrwQKfR5ARbKqrzU
-	5Z03y+XI+r+exU9KRk5CBAT/+Ut/b2Bt5yo4=
-X-Received: by 2002:a05:6a00:14cc:b0:83f:2568:d466 with SMTP id d2e1a72fcca58-8452456addbmr3391006b3a.31.1781694491728;
-        Wed, 17 Jun 2026 04:08:11 -0700 (PDT)
-X-Received: by 2002:a05:6a00:14cc:b0:83f:2568:d466 with SMTP id d2e1a72fcca58-8452456addbmr3390963b3a.31.1781694491269;
-        Wed, 17 Jun 2026 04:08:11 -0700 (PDT)
+        bh=1Goy6WfBe0KdTPrja68NN4UJlaPm1q9rbXt8RgA3d7g=;
+        b=dW/UUwpOCBD48/+fbvsgg3OwwSQQYfTBl5tA2hNte+qfklPCDzXdV6cNq1A+z2Zgkd
+         Y5OK7W++uVZCQOAKKoOHVR/U1u7L0vgng+ZWhv/NejpILqqEF0VX/xA7GyGxbDOIxi8A
+         QTpEsiH1hhiIkfT+x2Q1nxnABmOnAKJ/qU/ipqh1iOFH6oFSDt5C1Mo1uLgw9EqO/q6r
+         peBcxlvTTkw0cHCaFh1Ow6Sl8gREGTX0zUCAJ1it6wpjcQyIJL7a8A+8BRKiTrOLk0IG
+         +0PVd7Jc8K8dKG6gTjvu/sDqbgRa0nVHLMw2dhxFaPwSfscJvpH86NjV0vvWdsOZbhz0
+         M4XQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+dFxkR2YVUo2RdCMPUcf0I8kWypq0kiUMpaty2GE+cfjT7xtYrv/PDUWvfdBW45HrwoCnTGlmocnLn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtjmMZnwMyfz6e01hk8yZmduwX/Zb0aawnqrDhoC0MRFZdZS/F
+	EKekNRj+SxLlOe3ikmwFfziOBt9Cn5OgEVRsOe54LeMuWX0dx172cqxq/Hcpqihq4Sf4GBiwJ6W
+	0jN570s/0dIkocqeot+jHPEA3c3njD6TqqIftjEdnmcUc1+mXvMv59KUaqcGYOxyT
+X-Gm-Gg: AfdE7ckoWAWQ6U+ZlemRRKT4o+wZEiEEHzwOjvx90cIpxClBimkLD/aNtB7GMPHWwGt
+	P9grYEeC95YVjRw1bHYr35fD6Q6+zI2ecTWWt3w/0yDJnffQTCra30Ad2dX68NM/F6mi+up2HJT
+	Ka25uAQNAZmrCFmrPhdbXfo1VizmLwdpHsNA4DNN5lWlSVlENMDbWizYsAkm3RLqH+vQDokIKsU
+	MYSPpfsjgXaYaKF62J+aKKN3csZigU1x3CNQWnHbHqw+Pr6KRqRzI/MzWfYaHV/uVjVQVy81tti
+	n3hCiFiCz9bFpjBcbPKJfZ0u5crzaTbKQ6GTE+rP6pD44HTmN23REwnUgP70AutXwMrwDe3Zeew
+	p8ZSpDM5OPaeKp8nO3kf+JSqVdTn4TWNWe30=
+X-Received: by 2002:a05:6a00:14d0:b0:83e:2c38:f5d5 with SMTP id d2e1a72fcca58-84524556ed2mr3304748b3a.28.1781694497525;
+        Wed, 17 Jun 2026 04:08:17 -0700 (PDT)
+X-Received: by 2002:a05:6a00:14d0:b0:83e:2c38:f5d5 with SMTP id d2e1a72fcca58-84524556ed2mr3304696b3a.28.1781694496918;
+        Wed, 17 Jun 2026 04:08:16 -0700 (PDT)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9cf01sm15873609b3a.11.2026.06.17.04.08.06
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9cf01sm15873609b3a.11.2026.06.17.04.08.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 04:08:10 -0700 (PDT)
+        Wed, 17 Jun 2026 04:08:16 -0700 (PDT)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 16:37:53 +0530
-Subject: [PATCH v2 2/4] dt-bindings: clock: qcom: Add EVA clock and reset
- controller for Glymur SoC
+Date: Wed, 17 Jun 2026 16:37:54 +0530
+Subject: [PATCH v2 3/4] clk: qcom: Add EVA clock controller driver for
+ Glymur SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-evacc_glymur-v2-2-905108dacaaa@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260617-evacc_glymur-v2-3-905108dacaaa@oss.qualcomm.com>
 References: <20260617-evacc_glymur-v2-0-905108dacaaa@oss.qualcomm.com>
 In-Reply-To: <20260617-evacc_glymur-v2-0-905108dacaaa@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -109,167 +109,541 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         Taniya Das <taniya.das@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-GUID: dSoHEMPf51onN1-iI_hRMCPruD6NqxEL
-X-Authority-Analysis: v=2.4 cv=IeC3n2qa c=1 sm=1 tr=0 ts=6a32801c cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: fzCzoe4lWxLuiRAeGkrDGA4vjnI8e5b7
+X-Authority-Analysis: v=2.4 cv=JufBas4C c=1 sm=1 tr=0 ts=6a328022 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QUVFY6MdtzYYwQCb-hMA:9
- a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDEwNSBTYWx0ZWRfX0oogCauwK+r7
- ljgzwj8TTYmGTb7hvMJVZAkqi2bMqxvKFUlk6WNO0Y2/4K/ulvOahtW/84R/UXy3tJ19fecIs/u
- wiObBLAgpfTEAnqxO6RX1bMLUM6gHQQ=
-X-Proofpoint-ORIG-GUID: dSoHEMPf51onN1-iI_hRMCPruD6NqxEL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDEwNSBTYWx0ZWRfXysEK3hl0d+Ci
- /Ph5OZKKVMtOJhlkx+eP5atG6tCN2WW+13D1ui0modOjgmAQa258MaImVW7HkkLQ2CEKKJ/z80q
- KfvFoM2QVYx5f0rjOccUdZ4xGQsTMmce1BBFv2HFkbIgXBV97JvDkGc/0aSVRiLF6p4DJZ0DsHX
- bc9YsQ7WI2io0ofB8OePhmHhKWO9sC7nxZmzfDqkX72b4/mS5bDBUacGJh6UIcpN7U82Ca07WHV
- /qqz9k3T/tTIeg0oCXYiKEm6hH6KTTFNETF4dYJKUwT8WeaBXiPvpr1WOo24UvSzM3hHT1zSLbu
- ItlFwjWBkDDD7V6KszMbylnvSQzck+HuiJrIsQ5HxejECSzz2qDrCi55sD+nV2mHUflpRkQzyc5
- 3Ojfg/rpMANLF+iPtz0vzYQbSyWdwv5+iZladD3760/ykCn7/0Fh0T8nvQ4k81EUKIMl8x79BBH
- W54XT9ZvUNHpQBDL6Mg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=mU7vPRoAUwN6OPuHNRcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: fzCzoe4lWxLuiRAeGkrDGA4vjnI8e5b7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX0YvMv+xvzQAF
+ momBb6lB/zv4knlkHHgMm2qP3VTIH9Mdo42MYTatF1YsGH8+8NTTawb6+dH34iOfaMeUTQDYexy
+ VAzpyUcekxLbPVnlOjmnvEEEZoAlPnDfPHBirsJ12p8LFU2yU9w9MzPhkCUEplAkdBIvnhz/Q7D
+ D3zrswrawjVLQbZNMSom6vkjezknOYVLqrxb41V7yCPwiS9tlwUP4cxkn5nh4tO1EfgdXELwBw8
+ OyBKrYJiZgb49qyYKVHQcK0aWd4UuqWlOIF9SUvjnpzu0+w77/v46Ch6nSJicWARzoAKxnhi4aF
+ a+XHtmauMZfiXUfO6m2/hg6pyS+9uehaXvYLLATIf2gG62fBOQPeR+BoCi4o9UlN2V7SEO7zfLZ
+ znSC03zJOuFXpu+aC/7RU7JR0mvhVw6dZm3oJezV/zAx3o/cNWB7uvg4z0ju8b0mOMpCKHT8u5T
+ lVBwJgnV1nVBC8XA8pQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX9gBEB+E2/hbe
+ hAff4QY377ItCp7FbVauc2VxyDcXmrv6cUBQMNpYWsHX9DJqWWMK/Pd/SALPKLe9tXbiiJcHZP+
+ zL983lxkTUuE9uzrQG4cajOloitUrpo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
- adultscore=0 malwarescore=0 spamscore=0 clxscore=1015 impostorscore=0
+ malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170105
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170104
 
-Add the device tree bindings for the enhanced video analytics(EVA) clock
-controller which is required on Qualcomm Glymur SoC. The controller
-provides clocks, resets and power domains for the EVA subsystem.
+Add the Enhanced Video Analytics (EVA) clock controller driver for
+the Glymur SoC. The EVACC manages the PLL, RCGs, branch clocks, GDSCs
+and resets for the EVA subsystem which handles vision processing
+workloads.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
- .../bindings/clock/qcom,glymur-evacc.yaml          | 72 ++++++++++++++++++++++
- include/dt-bindings/clock/qcom,glymur-evacc.h      | 38 ++++++++++++
- 2 files changed, 110 insertions(+)
+ drivers/clk/qcom/Kconfig        |  11 +
+ drivers/clk/qcom/Makefile       |   1 +
+ drivers/clk/qcom/evacc-glymur.c | 455 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 467 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,glymur-evacc.yaml b/Documentation/devicetree/bindings/clock/qcom,glymur-evacc.yaml
+diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+index d9cff5b0281d8cc373b8ab14683370cb9b7f8bf3..94378d435162799aa866689377e4a9f1e96ab138 100644
+--- a/drivers/clk/qcom/Kconfig
++++ b/drivers/clk/qcom/Kconfig
+@@ -55,6 +55,17 @@ config CLK_GLYMUR_DISPCC
+ 	  Say Y if you want to support display devices and functionality such as
+ 	  splash screen.
+ 
++config CLK_GLYMUR_EVACC
++	tristate "Glymur EVA Clock Controller"
++	depends on ARM64 || COMPILE_TEST
++	default m if ARCH_QCOM
++	select CLK_GLYMUR_GCC
++	help
++	  Support for the Enhanced Video Analytics (EVA) clock controller on
++	  Qualcomm Technologies, Inc. Glymur devices.
++	  Say Y if you want to support EVA devices and functionality such as
++	  vision processing.
++
+ config CLK_GLYMUR_GCC
+ 	tristate "Glymur Global Clock Controller"
+ 	depends on ARM64 || COMPILE_TEST
+diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+index e100cfd6a52de9f88f11720d9c2043db5e553618..74761f2c767d9ce5988fedf539d80dc1393b4617 100644
+--- a/drivers/clk/qcom/Makefile
++++ b/drivers/clk/qcom/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_CLK_ELIZA_GCC) += gcc-eliza.o
+ obj-$(CONFIG_CLK_ELIZA_TCSRCC) += tcsrcc-eliza.o
+ obj-$(CONFIG_CLK_GFM_LPASS_SM8250) += lpass-gfm-sm8250.o
+ obj-$(CONFIG_CLK_GLYMUR_DISPCC) += dispcc-glymur.o
++obj-$(CONFIG_CLK_GLYMUR_EVACC) += evacc-glymur.o
+ obj-$(CONFIG_CLK_GLYMUR_GCC) += gcc-glymur.o
+ obj-$(CONFIG_CLK_GLYMUR_GPUCC) += gpucc-glymur.o gxclkctl-kaanapali.o
+ obj-$(CONFIG_CLK_GLYMUR_TCSRCC) += tcsrcc-glymur.o
+diff --git a/drivers/clk/qcom/evacc-glymur.c b/drivers/clk/qcom/evacc-glymur.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..fb0bc1acc920e906033e04fe38bf500c24247e5a
+index 0000000000000000000000000000000000000000..ba124cfc1a4def4c20962de03dbd8750b2d3f393
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,glymur-evacc.yaml
-@@ -0,0 +1,72 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,glymur-evacc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm EVA Clock & Reset Controller on Glymur SoC
-+
-+maintainers:
-+  - Taniya Das <taniya.das@oss.qualcomm.com>
-+
-+description: |
-+  Qualcomm EVA clock control module which supports the clocks, resets and
-+  power domains for the EVA instances on Glymur SoC.
-+
-+  See also:
-+  - include/dt-bindings/clock/qcom,glymur-evacc.h
-+
-+properties:
-+  compatible:
-+    const: qcom,glymur-evacc
-+
-+  clocks:
-+    items:
-+      - description: Interface clock from GCC
-+      - description: Board XO source
-+      - description: Sleep clock source
-+
-+  power-domains:
-+    items:
-+      - description: MMCX power domain
-+      - description: MXC power domain
-+
-+  required-opps:
-+    description:
-+      Required OPP nodes for the MMCX and MXC power domains.
-+    items:
-+      - description: MMCX performance point
-+      - description: MXC performance point
-+
-+required:
-+  - compatible
-+  - clocks
-+  - power-domains
-+  - required-opps
-+  - '#power-domain-cells'
-+
-+allOf:
-+  - $ref: qcom,gcc.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,glymur-gcc.h>
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+    clock-controller@ab00000 {
-+        compatible = "qcom,glymur-evacc";
-+        reg = <0x0ab00000 0x10000>;
-+        clocks = <&gcc GCC_EVA_AHB_CLK>,
-+                 <&rpmhcc RPMH_CXO_CLK>,
-+                 <&sleep_clk>;
-+        power-domains = <&rpmhpd RPMHPD_MMCX>,
-+                        <&rpmhpd RPMHPD_MXC>;
-+        required-opps = <&rpmhpd_opp_low_svs>,
-+                        <&rpmhpd_opp_low_svs>;
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+        #power-domain-cells = <1>;
-+    };
-+...
-diff --git a/include/dt-bindings/clock/qcom,glymur-evacc.h b/include/dt-bindings/clock/qcom,glymur-evacc.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..35a7b4550351661bdb1f7bdfbeec625fafdfcef7
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,glymur-evacc.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++++ b/drivers/clk/qcom/evacc-glymur.c
+@@ -0,0 +1,455 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef _DT_BINDINGS_CLK_QCOM_EVACC_GLYMUR_H
-+#define _DT_BINDINGS_CLK_QCOM_EVACC_GLYMUR_H
++#include <linux/clk-provider.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
 +
-+/* EVA_CC clocks */
-+#define EVA_CC_AHB_CLK					0
-+#define EVA_CC_AHB_CLK_SRC				1
-+#define EVA_CC_MVS0_CLK					2
-+#define EVA_CC_MVS0_CLK_SRC				3
-+#define EVA_CC_MVS0_DIV_CLK_SRC				4
-+#define EVA_CC_MVS0_FREERUN_CLK				5
-+#define EVA_CC_MVS0_SHIFT_CLK				6
-+#define EVA_CC_MVS0C_CLK				7
-+#define EVA_CC_MVS0C_DIV2_DIV_CLK_SRC			8
-+#define EVA_CC_MVS0C_FREERUN_CLK			9
-+#define EVA_CC_MVS0C_SHIFT_CLK				10
-+#define EVA_CC_PLL0					11
-+#define EVA_CC_SLEEP_CLK				12
-+#define EVA_CC_SLEEP_CLK_SRC				13
-+#define EVA_CC_XO_CLK					14
-+#define EVA_CC_XO_CLK_SRC				15
++#include <dt-bindings/clock/qcom,glymur-evacc.h>
 +
-+/* EVA_CC power domains */
-+#define EVA_CC_MVS0_GDSC				0
-+#define EVA_CC_MVS0C_GDSC				1
++#include "clk-alpha-pll.h"
++#include "clk-branch.h"
++#include "clk-pll.h"
++#include "clk-rcg.h"
++#include "clk-regmap.h"
++#include "clk-regmap-divider.h"
++#include "clk-regmap-mux.h"
++#include "common.h"
++#include "gdsc.h"
++#include "reset.h"
 +
-+/* EVA_CC resets */
-+#define EVA_CC_INTERFACE_BCR				0
-+#define EVA_CC_MVS0_BCR					1
-+#define EVA_CC_MVS0C_CLK_ARES				2
-+#define EVA_CC_MVS0C_BCR				3
-+#define EVA_CC_MVS0C_FREERUN_CLK_ARES			4
++enum {
++	DT_AHB_CLK,
++	DT_BI_TCXO,
++	DT_SLEEP_CLK,
++};
 +
-+#endif /* _DT_BINDINGS_CLK_QCOM_EVACC_GLYMUR_H */
++enum {
++	P_BI_TCXO,
++	P_EVA_CC_PLL0_OUT_MAIN,
++	P_SLEEP_CLK,
++};
++
++static const struct pll_vco taycan_eko_t_vco[] = {
++	{ 249600000, 2500000000, 0 },
++};
++
++/* 840.0 MHz Configuration */
++static const struct alpha_pll_config eva_cc_pll0_config = {
++	.l = 0x2b,
++	.alpha = 0xc000,
++	.config_ctl_val = 0x25c400e7,
++	.config_ctl_hi_val = 0x0a8060e0,
++	.config_ctl_hi1_val = 0xf51dea20,
++	.user_ctl_val = 0x00000008,
++	.user_ctl_hi_val = 0x00000002,
++};
++
++static struct clk_alpha_pll eva_cc_pll0 = {
++	.offset = 0x0,
++	.config = &eva_cc_pll0_config,
++	.vco_table = taycan_eko_t_vco,
++	.num_vco = ARRAY_SIZE(taycan_eko_t_vco),
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_TAYCAN_EKO_T],
++	.clkr = {
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_pll0",
++			.parent_data = &(const struct clk_parent_data) {
++				.index = DT_BI_TCXO,
++			},
++			.num_parents = 1,
++			.ops = &clk_alpha_pll_taycan_eko_t_ops,
++		},
++	},
++};
++
++static const struct parent_map eva_cc_parent_map_0[] = {
++	{ P_BI_TCXO, 0 },
++};
++
++static const struct clk_parent_data eva_cc_parent_data_0[] = {
++	{ .index = DT_BI_TCXO },
++};
++
++static const struct parent_map eva_cc_parent_map_1[] = {
++	{ P_BI_TCXO, 0 },
++	{ P_EVA_CC_PLL0_OUT_MAIN, 1 },
++};
++
++static const struct clk_parent_data eva_cc_parent_data_1[] = {
++	{ .index = DT_BI_TCXO },
++	{ .hw = &eva_cc_pll0.clkr.hw },
++};
++
++static const struct parent_map eva_cc_parent_map_2[] = {
++	{ P_SLEEP_CLK, 0 },
++};
++
++static const struct clk_parent_data eva_cc_parent_data_2[] = {
++	{ .index = DT_SLEEP_CLK },
++};
++
++static const struct freq_tbl ftbl_eva_cc_ahb_clk_src[] = {
++	F(19200000, P_BI_TCXO, 1, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 eva_cc_ahb_clk_src = {
++	.cmd_rcgr = 0x8018,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = eva_cc_parent_map_0,
++	.freq_tbl = ftbl_eva_cc_ahb_clk_src,
++	.hw_clk_ctrl = true,
++	.clkr = {
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_ahb_clk_src",
++			.parent_data = eva_cc_parent_data_0,
++			.num_parents = ARRAY_SIZE(eva_cc_parent_data_0),
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_rcg2_shared_ops,
++		},
++	},
++};
++
++static const struct freq_tbl ftbl_eva_cc_mvs0_clk_src[] = {
++	F(840000000, P_EVA_CC_PLL0_OUT_MAIN, 1, 0, 0),
++	F(1050000000, P_EVA_CC_PLL0_OUT_MAIN, 1, 0, 0),
++	F(1350000000, P_EVA_CC_PLL0_OUT_MAIN, 1, 0, 0),
++	F(1500000000, P_EVA_CC_PLL0_OUT_MAIN, 1, 0, 0),
++	F(1650000000, P_EVA_CC_PLL0_OUT_MAIN, 1, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 eva_cc_mvs0_clk_src = {
++	.cmd_rcgr = 0x8000,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = eva_cc_parent_map_1,
++	.freq_tbl = ftbl_eva_cc_mvs0_clk_src,
++	.hw_clk_ctrl = true,
++	.clkr = {
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0_clk_src",
++			.parent_data = eva_cc_parent_data_1,
++			.num_parents = ARRAY_SIZE(eva_cc_parent_data_1),
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_rcg2_shared_ops,
++		},
++	},
++};
++
++static const struct freq_tbl ftbl_eva_cc_sleep_clk_src[] = {
++	F(32000, P_SLEEP_CLK, 1, 0, 0),
++	{ }
++};
++
++static struct clk_rcg2 eva_cc_sleep_clk_src = {
++	.cmd_rcgr = 0x80e0,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = eva_cc_parent_map_2,
++	.freq_tbl = ftbl_eva_cc_sleep_clk_src,
++	.hw_clk_ctrl = true,
++	.clkr = {
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_sleep_clk_src",
++			.parent_data = eva_cc_parent_data_2,
++			.num_parents = ARRAY_SIZE(eva_cc_parent_data_2),
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_rcg2_shared_ops,
++		},
++	},
++};
++
++static struct clk_rcg2 eva_cc_xo_clk_src = {
++	.cmd_rcgr = 0x80bc,
++	.mnd_width = 0,
++	.hid_width = 5,
++	.parent_map = eva_cc_parent_map_0,
++	.freq_tbl = ftbl_eva_cc_ahb_clk_src,
++	.hw_clk_ctrl = true,
++	.clkr = {
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_xo_clk_src",
++			.parent_data = eva_cc_parent_data_0,
++			.num_parents = ARRAY_SIZE(eva_cc_parent_data_0),
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_rcg2_shared_ops,
++		},
++	},
++};
++
++static struct clk_regmap_div eva_cc_mvs0_div_clk_src = {
++	.reg = 0x809c,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "eva_cc_mvs0_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]) {
++			&eva_cc_mvs0_clk_src.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static struct clk_regmap_div eva_cc_mvs0c_div2_div_clk_src = {
++	.reg = 0x8060,
++	.shift = 0,
++	.width = 4,
++	.clkr.hw.init = &(const struct clk_init_data) {
++		.name = "eva_cc_mvs0c_div2_div_clk_src",
++		.parent_hws = (const struct clk_hw*[]) {
++			&eva_cc_mvs0_clk_src.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_regmap_div_ro_ops,
++	},
++};
++
++static struct clk_branch eva_cc_mvs0_clk = {
++	.halt_reg = 0x807c,
++	.halt_check = BRANCH_HALT_VOTED,
++	.hwcg_reg = 0x807c,
++	.hwcg_bit = 1,
++	.clkr = {
++		.enable_reg = 0x807c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_mvs0_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch eva_cc_mvs0_freerun_clk = {
++	.halt_reg = 0x808c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x808c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0_freerun_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_mvs0_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch eva_cc_mvs0_shift_clk = {
++	.halt_reg = 0x80d8,
++	.halt_check = BRANCH_HALT_VOTED,
++	.hwcg_reg = 0x80d8,
++	.hwcg_bit = 1,
++	.clkr = {
++		.enable_reg = 0x80d8,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0_shift_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_xo_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch eva_cc_mvs0c_clk = {
++	.halt_reg = 0x804c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x804c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0c_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_mvs0c_div2_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch eva_cc_mvs0c_freerun_clk = {
++	.halt_reg = 0x805c,
++	.halt_check = BRANCH_HALT,
++	.clkr = {
++		.enable_reg = 0x805c,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0c_freerun_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_mvs0c_div2_div_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch eva_cc_mvs0c_shift_clk = {
++	.halt_reg = 0x80dc,
++	.halt_check = BRANCH_HALT_VOTED,
++	.hwcg_reg = 0x80dc,
++	.hwcg_bit = 1,
++	.clkr = {
++		.enable_reg = 0x80dc,
++		.enable_mask = BIT(0),
++		.hw.init = &(const struct clk_init_data) {
++			.name = "eva_cc_mvs0c_shift_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&eva_cc_xo_clk_src.clkr.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct gdsc eva_cc_mvs0c_gdsc = {
++	.gdscr = 0x8034,
++	.en_rest_wait_val = 0x2,
++	.en_few_wait_val = 0x2,
++	.clk_dis_wait_val = 0x6,
++	.pd = {
++		.name = "eva_cc_mvs0c_gdsc",
++	},
++	.pwrsts = PWRSTS_OFF_ON,
++	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE,
++};
++
++static struct gdsc eva_cc_mvs0_gdsc = {
++	.gdscr = 0x8068,
++	.en_rest_wait_val = 0x2,
++	.en_few_wait_val = 0x2,
++	.clk_dis_wait_val = 0x6,
++	.pd = {
++		.name = "eva_cc_mvs0_gdsc",
++	},
++	.pwrsts = PWRSTS_OFF_ON,
++	.flags = HW_CTRL_TRIGGER | POLL_CFG_GDSCR | RETAIN_FF_ENABLE,
++	.parent = &eva_cc_mvs0c_gdsc.pd,
++};
++
++static struct clk_regmap *eva_cc_glymur_clocks[] = {
++	[EVA_CC_AHB_CLK_SRC] = &eva_cc_ahb_clk_src.clkr,
++	[EVA_CC_MVS0_CLK] = &eva_cc_mvs0_clk.clkr,
++	[EVA_CC_MVS0_CLK_SRC] = &eva_cc_mvs0_clk_src.clkr,
++	[EVA_CC_MVS0_DIV_CLK_SRC] = &eva_cc_mvs0_div_clk_src.clkr,
++	[EVA_CC_MVS0_FREERUN_CLK] = &eva_cc_mvs0_freerun_clk.clkr,
++	[EVA_CC_MVS0_SHIFT_CLK] = &eva_cc_mvs0_shift_clk.clkr,
++	[EVA_CC_MVS0C_CLK] = &eva_cc_mvs0c_clk.clkr,
++	[EVA_CC_MVS0C_DIV2_DIV_CLK_SRC] = &eva_cc_mvs0c_div2_div_clk_src.clkr,
++	[EVA_CC_MVS0C_FREERUN_CLK] = &eva_cc_mvs0c_freerun_clk.clkr,
++	[EVA_CC_MVS0C_SHIFT_CLK] = &eva_cc_mvs0c_shift_clk.clkr,
++	[EVA_CC_PLL0] = &eva_cc_pll0.clkr,
++	[EVA_CC_SLEEP_CLK_SRC] = &eva_cc_sleep_clk_src.clkr,
++	[EVA_CC_XO_CLK_SRC] = &eva_cc_xo_clk_src.clkr,
++};
++
++static struct gdsc *eva_cc_glymur_gdscs[] = {
++	[EVA_CC_MVS0_GDSC] = &eva_cc_mvs0_gdsc,
++	[EVA_CC_MVS0C_GDSC] = &eva_cc_mvs0c_gdsc,
++};
++
++static const struct qcom_reset_map eva_cc_glymur_resets[] = {
++	[EVA_CC_INTERFACE_BCR] = { 0x80a0 },
++	[EVA_CC_MVS0_BCR] = { 0x8064 },
++	[EVA_CC_MVS0C_CLK_ARES] = { 0x804c, 2 },
++	[EVA_CC_MVS0C_BCR] = { 0x8030 },
++	[EVA_CC_MVS0C_FREERUN_CLK_ARES] = { 0x805c, 2 },
++};
++
++static struct clk_alpha_pll *eva_cc_glymur_plls[] = {
++	&eva_cc_pll0,
++};
++
++static const u32 eva_cc_glymur_critical_cbcrs[] = {
++	0x80a4, /* EVA_CC_AHB_CLK */
++	0x80f8, /* EVA_CC_SLEEP_CLK */
++	0x80d4, /* EVA_CC_XO_CLK */
++};
++
++static const struct regmap_config eva_cc_glymur_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x9f50,
++	.fast_io = true,
++};
++
++static void clk_glymur_regs_configure(struct device *dev, struct regmap *regmap)
++{
++	/*
++	 * Update CTRL_IN register as per HW recommendation to ensure clocks
++	 * stay cycle‑aligned when the EVA core is ON.
++	 */
++	regmap_set_bits(regmap, 0x9f24, BIT(0));
++}
++
++static const struct qcom_cc_driver_data eva_cc_glymur_driver_data = {
++	.alpha_plls = eva_cc_glymur_plls,
++	.num_alpha_plls = ARRAY_SIZE(eva_cc_glymur_plls),
++	.clk_cbcrs = eva_cc_glymur_critical_cbcrs,
++	.num_clk_cbcrs = ARRAY_SIZE(eva_cc_glymur_critical_cbcrs),
++	.clk_regs_configure = clk_glymur_regs_configure,
++};
++
++static const struct qcom_cc_desc eva_cc_glymur_desc = {
++	.config = &eva_cc_glymur_regmap_config,
++	.clks = eva_cc_glymur_clocks,
++	.num_clks = ARRAY_SIZE(eva_cc_glymur_clocks),
++	.resets = eva_cc_glymur_resets,
++	.num_resets = ARRAY_SIZE(eva_cc_glymur_resets),
++	.gdscs = eva_cc_glymur_gdscs,
++	.num_gdscs = ARRAY_SIZE(eva_cc_glymur_gdscs),
++	.use_rpm = true,
++	.driver_data = &eva_cc_glymur_driver_data,
++};
++
++static const struct of_device_id eva_cc_glymur_match_table[] = {
++	{ .compatible = "qcom,glymur-evacc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, eva_cc_glymur_match_table);
++
++static int eva_cc_glymur_probe(struct platform_device *pdev)
++{
++	return qcom_cc_probe(pdev, &eva_cc_glymur_desc);
++}
++
++static struct platform_driver eva_cc_glymur_driver = {
++	.probe = eva_cc_glymur_probe,
++	.driver = {
++		.name = "evacc-glymur",
++		.of_match_table = eva_cc_glymur_match_table,
++	},
++};
++
++module_platform_driver(eva_cc_glymur_driver);
++
++MODULE_DESCRIPTION("QTI EVACC Glymur Driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
