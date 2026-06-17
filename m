@@ -1,150 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B1538887C
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 20:44:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781729044; cv=none; b=a3VjaadGAD2MI9n20Uf6+MrBy5+uSliVF+Od/HK96/bgKu2c8ulWCroc5TnLikKT4aZmRJoAw1oNTCov9J8DNuQtl6XCWsenBgFwvMkJfJERPGBiPB7Q8SeMBvXUjmtLrN0u2U9vCvxtbYpXzwqge4MgWI16hDlTd9w6K9Qk4w0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781729044; c=relaxed/simple;
-	bh=tDtOsTkDHU/e+Bv5w6Ia8U0Xt2FUpFEKFp4NcBDHfc4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t5NfJ/Zo3IVFDk6VRk80vfRdLYT1vefYnFBTZsJslhFmM7goEoRicVAZH4oZxb9SH6Txd/qxu1RZxeNCSgjpBtWMn8OPjQM9TRwLPy4sRCg8BI+JF31N/9mF+4DvFLy14ZZMhAS+7AX2cCOZg/SgIvuaucxmdh0mWHazJo4zimQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1tmVUb1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F376F38F954
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 20:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781729142; cv=pass; b=UWtDuhmmeOS72IM2aTHwd1S76RYbp1eTeSnU2FWNBWTKMBaLSX2ofmAte+yI2025je+Niv4yKNRvLBoAHlrmY7EEH2qtpYfo/yyxqtlFPYRIGfnqUOCSE2czhBj71pKmmJvUHekPRxjaU6Nd7esRXtInejKQJQJ1AiRCybUpRn4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781729142; c=relaxed/simple;
+	bh=8a/iR0PgeZPtVkzSIzBEbGfKE8M5iGI/7dK+r7riu/M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GcCFeF0yidLErHkRU11U5LyDqvBhsFDVNmJssoaVJRGT74ivCnTXfaOARFfXS3W48F6pBPbF+jl8GET4RR8dfblQCAKp48JXw3Zymmmbg0ReUPhTJptLDw6CDefqOhY1HTGtAdnj2DnKNaKJkBqu+ymcU/v1lR4JzR+IhLsw93Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DT7t0EGd; arc=pass smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1tmVUb1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF7A1F000E9;
-	Wed, 17 Jun 2026 20:44:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781729042;
-	bh=F9TE+m0l5vryvChtPJAriVtP6btPEabMN8XhjTtESPk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i1tmVUb1EYK8yOhsKhnAyA+w7GqtSdtocuFeguF0dSWNYJQUZuM4JJhjtlCCn9xb1
-	 LbeBqPJQzGh7pFwy1C8nDgb0MXYoexfJEWBJRw8xo0iXYh74A4E4xg3FXU0/b7zkl0
-	 y3U5Gl39B6F5yNhOa87UC+EqjkM7rHgBX6wEaecPWTVudm4cymj8uvFoWBjtb6IVs1
-	 h1dkvDQfpm1EMqvcyF40xv8kfOcVhugl//eJIjSHDr00wbPLSZyU0sp24bKYbFZ7oX
-	 CR5DA+jDcmYWZUJKXxKi18R6s9zdD94DqjBSMoIuHOHklwbHmLbVa71nVppKDXl7AA
-	 JBwItiaqqXXZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] regulator: qcom-refgen: add support for the
- IPQ9650 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617-ipq9650_refgen-v4-3-c505ea6c6661@oss.qualcomm.com>
-References: <20260617-ipq9650_refgen-v4-0-c505ea6c6661@oss.qualcomm.com>
- <20260617-ipq9650_refgen-v4-3-c505ea6c6661@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 20:44:02 +0000
-Message-Id: <20260617204402.6BF7A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DT7t0EGd"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4629051c946so144105f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:45:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781729139; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZGyQ9dLAAXER/3paJUKHCEUw0ykqHA1BEOTon0el1G7DNpdhxKi7/RRXJRgFwzvHT7
+         x6ANHUSYyqYfKJVNm2YXrMT9MrDGuHxJn7BnfiBkK512esKyU0lazxEcocp4Ze2c5KYf
+         d78tGXV3oLjRCC8q0M5e/3kE26Tpd6Bg/gmFtVVtSXAhEdsKievOIDyjasp/6ui5AbwF
+         enee956EjLoi4Hhl4zT2+0fREaScFrxtlGORrtpZU0OR8UxQPtN42MMKGhzzKMKvNH0e
+         BpSRtw4scmyLLg9fF9CtYGlXlYntRjOMDlF7phn/qKkBeThVOlae/Mn+9Mjjfmf+VfwD
+         xneQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tOxpa5RlaT10x/M9xWFJdAC7kk5hOTrDuX91QFFTTi8=;
+        fh=HBNXRSjAL8P0iTyVCiIOjfvkMAjt9+FJp+jT4V9lhdM=;
+        b=fr8mlek2YRQQJUxjcRaW7umtx5jXP9liC5NZXhJ3h9O8nFoJke8IEjs/Sm+ricaQ0y
+         L+BxWbyYESX46pSd9A3PHQM/FR3vXKLEJwjXPs1WKNC7p0Ucxt48eelQqxz1aAxTGxid
+         6aLVLrUf0mVwj9rCwuIF+dPEpNapOmjGm5MptsiA+30ErGa6m2wEooLMuqgewhQ6FbQR
+         ARSrIyg0i2BEa4EBzUKW6vtBdJwVS5R6jt/qSCCd9nJtLDD8g/8Nh0lajKPstTWDIsQn
+         BlJ0QRY8gc2VbiYi9oQhjfC4MbQZvLQ7LynxQ2y2v+e/15D0JZhZs1h5DwhEnF5uP60g
+         6kmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781729139; x=1782333939; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tOxpa5RlaT10x/M9xWFJdAC7kk5hOTrDuX91QFFTTi8=;
+        b=DT7t0EGddQ6oq5WJ7ix/vWnJ7EGtcz6PvZmYmAXQKsabmw79lUMDNz5YfwKw5LLT9Y
+         UH742BBlzFH3EZ2CxXyqIqjl4uEaq1v19Uhwh6olsl2PClKPSOuiBDvYirFPgxo8Nev/
+         L1WnJkdp6lTyLN4Z404c0VZUkh+pp5Wfx4Swtuj0l9KFpbt7CEJz4+st0yBw9PT69Mcb
+         uWz6cvL8n8hcWmU06fjEWv2gl5Tvavgnl+f3cji8fFH05wtagvLsMwSD3B9UqXcZIH42
+         14XdGM1JMQ7pHQukxnZ5bREgzhMK7tWLqn6wz32dQE5eCEOTABbedjtw30DZSjMKxrGv
+         5Xgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781729139; x=1782333939;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tOxpa5RlaT10x/M9xWFJdAC7kk5hOTrDuX91QFFTTi8=;
+        b=lWLnv/wmsKAm23guZEpbGPcdFBQrc6BT2QjqAJhG2PPfSwf6gOc6lKSPReh2NND9LT
+         eQ1d/bUKlMXYBczJ8pzGsnJ54m72tnVf+QMBpAAr8smQJMQuGq4lDMWZOPUhr5JYL9aK
+         bBOa78NwHq8JOShB745CcjdW2+QEUqUfp5/P4/4Thx5msViAk08qrlmAJfOjnz09o0hb
+         dD7QoLtwfl14sWwNHK4JHj9bhN5qE0JWfibBl7wlVikGy8Gj4Dua6YjKBKed2M5Tnjq6
+         JXxM92nl3p9pYwAlVGIhU9lJM5cwoj6MOeo8fG53kDJu13NZuTBOU8HSlXnTt7U6TuhM
+         Nd/w==
+X-Forwarded-Encrypted: i=1; AFNElJ/LWMSmNJA6X1m48iC4Qd9SPQdU/O2sj6y8HUsGBtPFWqMvaFn7gO7+xjJCJx425vwQAPPB3/d0Q00C@vger.kernel.org
+X-Gm-Message-State: AOJu0YybXy/G/ZboipUsHDiCaRgGGLqNysagWZ8IEiWLwNd3ingxd+TF
+	W9JReIg+Dpl1On72amNT/XwjN4FjkQEv59YAN2gSoGn3CyQpKkOIYaMR9gLsxKHTLH7ElursXix
+	y30JKI/LtPNY8Qxu+ipOt1+XE7Ndx1PI=
+X-Gm-Gg: AfdE7cnxBRhg6xVs63GM0ZxGg73cP+9t8+yU59rtH4S79qmqT6DoJhR0FqfJmLzvy0N
+	WJrrZXJfTeyz5wd31h/b4zhO7zWFmZiviZIA0u9n815llqk5aE2e/SGvCb8b+qB9RWBfwLHKd8u
+	e7HSsur/2IM8Xx2f7jhLNadJvN+6OPJwwxjPglgVBiSAG34x6Qv201FXX6nb3sQhucwjL9p6WxA
+	pdt3kvBaDY6uwNS064aJeiw/KSh6bOqefujHXPug1RzXdIPfwgrIna8vFKAzbXeeN7r4iTQGsAb
+	D4C3uZgu+zuzwFPGN2w64GvPv9/6vrYS2wrpPF58u7yID2D8hazir72nV7I=
+X-Received: by 2002:a05:6000:4712:b0:460:11a7:f82e with SMTP id
+ ffacd0b85a97d-463968566c6mr1731610f8f.8.1781729139388; Wed, 17 Jun 2026
+ 13:45:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615104845.4122868-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdVN7dfF6bah0Ca=G-uHZwJ7JDyQb5NoE59PPfAuXp+mHg@mail.gmail.com>
+In-Reply-To: <CAMuHMdVN7dfF6bah0Ca=G-uHZwJ7JDyQb5NoE59PPfAuXp+mHg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 17 Jun 2026 21:45:13 +0100
+X-Gm-Features: AVVi8Cdkf1jVo4kO3gd7API00mVvh1fcU6060AgvOUxLid7Szzq8x4Qi-iPfzo0
+Message-ID: <CA+V-a8t9b-xi-bfBs-rp8eZOS+TM8OVLVy44S19fPFZjRKT3Lg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/5] clk: renesas: rzv2h-cpg: Extract PLL calculation
+ math into a library
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Unclocked MMIO read in get_status callback causes system crash.
-- [Medium] Silent failure on missing clocks due to inadequate DT validation.
---
+Hi Geert,
 
-commit 90356084cf49412e26be88f69da7b99d50c27462
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Thank you for the review.
 
-regulator: qcom-refgen: add support for the IPQ9650 SoC
+On Wed, Jun 17, 2026 at 11:05=E2=80=AFAM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Mon, 15 Jun 2026 at 12:48, Prabhakar <prabhakar.csengg@gmail.com> wrot=
+e:
+> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> >
+> > Move the common PLL and divider parameter calculation logic from the
+> > core rzv2h-cpg driver into a standalone library file.
+> >
+> > Introduce the CLK_RZV2H_CPG_LIB Kconfig configuration symbol and create
+> > rzv2h-cpg-lib.c to house rzv2h_cpg_get_pll_pars() and
+> > rzv2h_cpg_get_pll_divs_pars().
+> >
+> > Keep rzv2h_get_pll_pars() and rzv2h_get_pll_divs_pars() in the original
+> > driver as wrappers that call into the new library helper endpoints.
+> > These wrappers are maintained for this cycle because they are actively
+> > referenced by the DSI driver; they will be safely removed in a subseque=
+nt
+> > cycle once the DSI driver is updated to use the new APIs from the libra=
+ry,
+> > preventing cross-subsystem build breakages.
+> >
+> > This restructuring allows other Renesas SoC clock drivers, such as the
+> > upcoming RZ/T2H and RZ/N2H platforms that utilize similar LCDC clock
+> > divider mathematical logic, to share the iterative calculation helper
+> > infrastructure without duplication.
+> >
+> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Thanks for your patch!
+>
+> > --- a/include/linux/clk/renesas.h
+> > +++ b/include/linux/clk/renesas.h
+> > @@ -213,4 +213,27 @@ static inline bool rzv2h_get_pll_divs_pars(const s=
+truct rzv2h_pll_limits *limits
+> >  }
+> >  #endif
+> >
+> > +#ifdef CONFIG_CLK_RZV2H_CPG_LIB
+> > +bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limits *limits,
+> > +                           struct rzv2h_pll_pars *pars, u64 freq_milli=
+hz);
+> > +
+> > +bool rzv2h_cpg_get_pll_divs_pars(const struct rzv2h_pll_limits *limits=
+,
+> > +                                struct rzv2h_pll_div_pars *pars,
+> > +                                const u8 *table, u8 table_size, u64 fr=
+eq_millihz);
+> > +#else
+> > +static inline bool rzv2h_cpg_get_pll_pars(const struct rzv2h_pll_limit=
+s *limits,
+> > +                                         struct rzv2h_pll_pars *pars,
+> > +                                         u64 freq_millihz)
+> > +{
+> > +       return false;
+> > +}
+> > +
+> > +static inline bool rzv2h_cpg_get_pll_divs_pars(const struct rzv2h_pll_=
+limits *limits,
+> > +                                              struct rzv2h_pll_div_par=
+s *pars,
+> > +                                              const u8 *table, u8 tabl=
+e_size,
+> > +                                              u64 freq_millihz)
+> > +{
+> > +       return false;
+> > +}
+> > +#endif
+> >  #endif
+>
+> What about just dropping the old functions, and adding two simple
+> compatibility defines in the header file:
+>
+>     #define rzv2h_get_pll_pars rzv2h_cpg_get_pll_pars
+>     #define rzv2h_get_pll_divs_pars rzv2h_cpg_get_pll_divs_pars
+>
+Thats neat!
 
-This commit adds support for the IPQ9650 SoC to the qcom-refgen regulator
-driver. It introduces explicit clock handling for this block and a get_stat=
-us
-callback to report the regulator status.
+> That way there is less code to change in the next phase.
+>
+Agreed.
 
-> diff --git a/drivers/regulator/qcom-refgen-regulator.c b/drivers/regulato=
-r/qcom-refgen-regulator.c
-> index 6a3795469927e..cc72e5a43ba62 100644
-> --- a/drivers/regulator/qcom-refgen-regulator.c
-> +++ b/drivers/regulator/qcom-refgen-regulator.c
+Cheers,
+Prabhakar
 
-[ ... ]
-
-> +static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
-> +{
-> +	struct qcom_refgen_drvdata *drvdata =3D rdev_get_drvdata(rdev);
-> +
-> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
-> +
-> +	drvdata->is_enabled =3D false;
-
-[Severity: Critical]
-Does this disable the clocks before updating the internal state?
-
-If an is_enabled check were added to get_status() to prevent unclocked read=
-s,
-could a concurrent call to get_status() still crash the system if it
-interleaves after clk_bulk_disable_unprepare() but before is_enabled is
-set to false?
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int qcom_ipq9650_refgen_get_status(struct regulator_dev *rdev)
-> +{
-> +	u32 val;
-> +
-> +	regmap_read(rdev->regmap, REFGEN_REG_REFGEN_STATUS, &val);
-
-[Severity: Critical]
-Can this unclocked MMIO read cause a system crash?
-
-The get_status() callback reads the REFGEN_REG_REFGEN_STATUS register witho=
-ut
-ensuring the regulator's clocks are enabled. Since user space can trigger a
-read of /sys/class/regulator/regulator.X/status at any time, which invokes
-get_status() locklessly, a disabled regulator could cause this regmap_read()
-to trigger a synchronous external abort and hang the bus.
-
-> +	if (FIELD_GET(REFGEN_STATUS_OUT_MASK, val))
-> +		return REGULATOR_STATUS_ON;
-> +
-> +	return REGULATOR_STATUS_OFF;
-> +}
-
-[ ... ]
-
-> @@ -106,10 +192,23 @@ static int qcom_refgen_probe(struct platform_device=
- *pdev)
-
-[ ... ]
-
-> +	if (data->has_clocks) {
-> +		drvdata =3D devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
-> +		if (!drvdata)
-> +			return -ENOMEM;
-> +
-> +		drvdata->num_clks =3D devm_clk_bulk_get_all(dev, &drvdata->clks);
-> +		if (drvdata->num_clks < 0)
-
-[Severity: Medium]
-Will this silently fail if the clocks are missing from the device tree?
-
-If the clocks property is omitted, devm_clk_bulk_get_all() returns 0.
-Since this code only checks for drvdata->num_clks < 0, it treats the missing
-clocks as a success, and subsequent calls to clk_bulk_prepare_enable(0, ...)
-will silently succeed without enabling any clocks.
-
-Should this explicitly verify drvdata->num_clks > 0 since clocks are mandat=
-ory
-for the IPQ9650 PHY to function properly?
-
-> +			return dev_err_probe(dev, drvdata->num_clks,
-> +					     "failed to get clocks\n");
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-ipq9650_re=
-fgen-v4-0-c505ea6c6661@oss.qualcomm.com?part=3D3
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
+>
