@@ -1,108 +1,62 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C323938A70A
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206D5305057;
+	Wed, 17 Jun 2026 10:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781693392; cv=none; b=sWD2kqS1aQJ/e9pXMcYI4+MywmQxO+nErNaxzj3c1PS58D4XYfKeMr3eCMlZ0f1h7nZUd26CZu8W/tMYU/sipvLJepBlSHPGjfW4FModbsdiDfPCb/rvxpXwqkGOHdpZKqYUvPATsNmi673l5y1L1NJJ7yONQ0BjedW9VkiKxYI=
+	t=1781693422; cv=none; b=WEzqlZFfNnsLT2H4/VTj1o3HLCS6viRzjnCQKzJvC8ba9rGjpJa7Hlqyjkp5uGptkTsUoTEVu2nMA53FXgPKVThcjZ2FK7IMyZAuqp3MJD4U6//ZwBZZMibBl6IYGXHcYvpAnMYM3Gs4OOw2kebvrmyCsu2oa6KhW8ZEAe1ddJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781693392; c=relaxed/simple;
-	bh=Nn8wg+Z7wUOkFoafAMDetdLdfHYSTwcl3VKFqFeYQVU=;
+	s=arc-20240116; t=1781693422; c=relaxed/simple;
+	bh=G2SGWa5N6ucn+9UK60WuNYpe8XUcdnVB88n3VTklUnM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IIDMC28A6QR33N/A1XKoXrnx7qWhFX/PnPzkfgvulYvmLE8cifYd9k9+KT+RQzy/ZfPpxRXmYy0OR39dQt8+AuC5H0OV+VEMKDhuD1DEGCO4uiFaFfymSInVrnlXKpDQ/yRnRuWw5fbWYSNN2lmoDMt4LFwURJ+6KJxSe+9CBJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=mRauZSft; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZk9/b5I7yLw61K8GDBeG17B8miy5N60YLVkeVTGDkr0ogOzwXI4Blf/89VAF7Ca6JhHwYSJgv/W/O6w/qL2+RK5ElMwCYZ/yiqvlw3qF6y+gWsA45e775LNPjV1YzL8xiZUoCGdk1Vo1GdDASP1exzMT4dukopQ6ygaHZ8B+eA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAeWxJNt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="mRauZSft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=Nn8w
-	g+Z7wUOkFoafAMDetdLdfHYSTwcl3VKFqFeYQVU=; b=mRauZSft36VdjuVkqN+u
-	in674LwuXVeCuqVINMgKusKwc/ToKD9V0WqTpr1HSZ2cVbMZi9S4cL2boMgn80OY
-	V4GYq/PBk3msrtAiOQzMa1EuELzwUYrP1ufK6+M1ecsoKIN9ynKJrbkPKDVxdezG
-	xSrc4p7nR/uIjCWHcoRBMdz4hKFxbvdnn6ctUpVX3Pv4Zn9X2qU/1AUldogyZ26T
-	0L6hNH70omm9PL159CEMsQqMko/Tg3cg2lsOoxIpNnBj2WvIhJW9q75JSyOezVHi
-	9+mNKafLtWbkMH3QNmy6RoC9lzmRpUxM+S/Qs0VhWUAkH/zVs5SX34lGzaJgksas
-	Og==
-Received: (qmail 129810 invoked from network); 17 Jun 2026 12:49:44 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 12:49:44 +0200
-X-UD-Smtp-Session: l3s3148p1@aS9K0XBUep0ujnvI
-Date: Wed, 17 Jun 2026 12:49:44 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 07/12] rtc: rzn1: fix alarm range check truncation on
- 32-bit systems
-Message-ID: <ajJ7yHNW9FnASuTW@shikoro>
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAeWxJNt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3171F000E9;
+	Wed, 17 Jun 2026 10:50:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781693420;
+	bh=gsH/cbSQ8Rdif7hB4wxv5EmRO0rjtZtS7++pqAxuNLU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mAeWxJNtW8Lh29bWoOM6LzkY233JeRBvzVj/kVUQ+z9HtQz8BUlcb/Z24xvODoKUT
+	 kejZelGxWp3RbgL9/L3jYwagrGH6cpd4lvystsUhzAb/b5H2mcGfvH7UPGNo4/VVic
+	 so/NbdAhim2IgKBUTwgsJ5JI3HYRQcmDzTh82s27Q0sPf4sstG8EO7Q/CBZWvakaDX
+	 RYEq3yclOShbGJKrPlHfRubctM7KicRKO269JOF061NarkmoZGdo3pBqTw7U5wyWJR
+	 UwDWoIASzYFMekM1ogB9ObAhgSs+t3Oipd7i6C+AcufozdG57J7GTPW4/AuxQPLPnP
+	 Cr/gbPlr3riWw==
+Date: Wed, 17 Jun 2026 12:50:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: "Pablo D. Bergamasco" <danpablo@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vaibhav Agarwal <vaibhav.sr@gmail.com>, Mark Greer <mgreer@animalcreek.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: sound: add toshiba,apb-dummy-codec binding
+Message-ID: <20260617-marvellous-cunning-curassow-0113ab@quoll>
+References: <20260616185619.1581174-1-danpablo@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2C4IQubKzRsAj3ev"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260616185619.1581174-1-danpablo@gmail.com>
 
+On Tue, Jun 16, 2026 at 03:56:19PM -0300, Pablo D. Bergamasco wrote:
+> Add device tree binding documentation for the Toshiba APBridge
+> dummy ALSA SoC codec used in the Greybus audio framework.
+> 
+> Fixes the following checkpatch warning:
+>   WARNING: DT compatible string appears un-documented
 
---2C4IQubKzRsAj3ev
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Nope. We don't take bindings for staging. Isn't this documented in
+staging docs already?
 
-On Mon, Jun 15, 2026 at 04:48:00PM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> alarm and farest were declared as unsigned long, but
-> rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
-> unsigned long is 32 bits, the assignment silently truncates the upper
-> 32 bits of the timestamp.
->=20
-> Fix by declaring alarm and farest as time64_t and replacing
-> time_after() with a direct signed comparison, which is correct for
-> time64_t values that will never realistically overflow.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Best regards,
+Krzysztof
 
-I need to postpone testing this to the evening. Setting alarm behaves
-strange here for alarms beyond the one-week-ahead-limit. No error, but
-bogus values. Seems to be irrelevant to your patch, though. Does it work
-for you?
-
-
---2C4IQubKzRsAj3ev
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoye8QACgkQFA3kzBSg
-KbariBAAsh85CuzWt8H1+maznXMXpaoF/5nizSXqhd90y0Mh3tsMOJrw6eoH8iFu
-Zy305N03nRDJPHNBXX/KzTfNnCbZaTVtrXq8K4sC6AaU69D3xAFaPAd5+4OG2nU7
-Y1fQPTx5+GLP05CoBQcvbro82f2Bq7KjB2eEVJi0tZd53AgQ5W3q0eC5+soh5UWm
-/N/Xpcd0DDTKzaINlQKiqTDSuxvvqKQf+YQKvoELLPAOLblE6POm9XR/Cyx0uQzx
-XGVE8DK+MaxMh4M442CjHeW7iIB4wWXEdZpGSTKijjOsyfqZeMYSCxShPo/Cdx+p
-CZtNOEDZL+0bqalhsDp3atWjK5N5/r66yNczdL1kOrLKVCdNcQXbTM5gcqhlt+eD
-fDseLSjM149WRev0dGjBd0Hll7XkTiE+6uu13nBG7khwRt6nUKCZvJpwpaIb8cCv
-BDnqhEI+kLs7zMKsGLhQsvYYRS1wgLIybHduFV6mzvmfKjR63Sj7ezehEDzmfiHS
-WSa1iBOJ9qTJREUAug41C28BdxA3Kmvgpqu8PcOaDQtbILOQdo//E0750+04yUlE
-RN5XN/MHGrWkmifey/PanUt2vr/PiqEOaSLLnFg9hmpaQeMI5Vtwgs6dr6qPZ4JC
-6/DSdk6GvcT58r39TFVQBdMcI98urPlSzCr71aPlXgVpnFHeWU4=
-=nvKZ
------END PGP SIGNATURE-----
-
---2C4IQubKzRsAj3ev--
