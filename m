@@ -1,63 +1,63 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E510B47ECDB
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980133FB7F3
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781708628; cv=none; b=aimuLiSJpJ1TazEy+nxShhN92fiL0PM7UVTaCb91Hu233C1Ad6MvG9uz82xtBbiVielP3RwqRMj8ojOuEKz7Lh357P8UschdX7coqj/Xinkg64bMWMvjI7wvj6n02jZ/SyrYb9w5FQim9sjyl3kPKwANLJsmFJOVz5mpkK32ljI=
+	t=1781708634; cv=none; b=U9UOxiIkuYdMbXxPCCcO9AGqutN81efshbsYRFaRnNdSqZoEAFS59Qx/4eUjAqfAD83W8dkzHVeiXQu2OZ2CBGaH0CvojWQmsQa4NWJdrkFExUx2NuIo8RsriPVczFluqMNVrelFUaSD7bQuEABcd9kLPp5f018ed0LX9lX6Djc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781708628; c=relaxed/simple;
-	bh=ByBa3DUMMmsAqDPHY9GN8y9L8dL3v17I0RL8QNLS9zs=;
+	s=arc-20240116; t=1781708634; c=relaxed/simple;
+	bh=XRt4srsjyYqjA+MY6rVOHPKtA0KHYMBxZKPqqpoNz54=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nQ+6grpxmA/rqeqsurJwNd/P6xK48zEpP6ff9CgXg2Ut51Dk9HdCJg9jFz+sx6oG8E+Tmvi1rlhTAxjLPTLR/F98RveSazEbBMsNm+te/Cfsavj8mGjjq4J4D08t/HrX/usAHyKwOiFcWjarvdMJwOJiJ+f0KD643pWJxVATT+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUEY28jU; arc=none smtp.client-ip=74.125.224.54
+	 MIME-Version; b=G/lCWr0EayC0r1zHnsRA4ZDpGruYxyKijrzg2PLQk9SeUcFkG65V/cQpbLLKSvxXV9v2HZ8vkhArXlhu9pn7kMxt99Ke1j6r8D+4AmCgTOtg1nsXjSG9e9LKZHejn21KQpV+Bto7Vr3FlKENiDh0ceKmJTgN63ULNw1xwa1+lQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oG6pPzOK; arc=none smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUEY28jU"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66043ecf6b3so5339412d50.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:03:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oG6pPzOK"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66077e888b2so5086758d50.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:03:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781708626; x=1782313426; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781708633; x=1782313433; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QpqJy4+Omr/p2TKo1zUjalm52kTRBfgDV2CGB6DKgQk=;
-        b=PUEY28jUuA78ufnOa6VcZZePvZObgRhg4SleQtNCx5LeTlq8RMvftkj6QCOxM4L3iS
-         x2PXpq2fULb2oGtM5Ph5P34FD+Aph8cY12nvCRFavpBr5W+Mlp7xF3xZQRfOiGa9xQpM
-         yiDl9BUx2v0/jv8nKIbpcOKRrLTChnn3CmfFjmWEZzAcjQA9cZqmLb4CIjr5OtphNSk4
-         EJLlX12DvwkDB+JxXzVIx4vd1ywXdFIxe7on6XLR+X5W1K2RMoLH4+1m0gaX5+xl+pBa
-         HfiDMQoAQP3sBF4eOpqRWfAZiG76C41nNSOp3pFhJg38UjIzXKDEFSPdAaapI1Y2G1An
-         mc3w==
+        bh=61hqGr3BmmUeHBEanL/FcLEbEl68pk5mF01rxEgZaz4=;
+        b=oG6pPzOKu5O872YJW7WqNVXBEibtQHyOktx69ISoMxlBg8G4MC85fp8bFw6UYywXol
+         cTxKbU6DKXzsPPBGiuyl3X0hAvgvOl3Z74+EHzoadVyfT3MVl2UBKs4zTlchxLxArDU9
+         7T0wVAiIRTAYpvv8lBub5mtkESvSY35VZIxfYF4yL2TLuEPTZHAdhYtggI3edEWkYC31
+         Qyv+cHmV9uXs6y/8IL/QxhB9abOZny2SYreeuILKhcLzy5pcj9AyCvnr9uR4HeIg6vAq
+         7SCtnMf3uyRB9AfVY1bzvzO4e2ySIxcbiqcyhybnBKaap4vzu1/w4u+Ep0I9NEZ4x+JK
+         uxTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781708626; x=1782313426;
+        d=1e100.net; s=20251104; t=1781708633; x=1782313433;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=QpqJy4+Omr/p2TKo1zUjalm52kTRBfgDV2CGB6DKgQk=;
-        b=jJvcwWcAES+twX0eOocrNXJQCyMayGOtEYat5lK/465CUc5jr/dp9VP2xjTsCXVYoI
-         lMKypGyuItHUyMnaMfjes60Wu5KTIbvGtm+Tb9QSgZ+Mz+SGh713GXgadw3haBsW1uRE
-         WDgEzpz8WKLnFTqGnmskIzoHV/ObhFLsOk0TkTx8UQJRwtCgqkHFXNaqfpGeWeiPG4iG
-         eqqUdp6CPgh5cUwkec0vD3OfJCS2H8K9K77e/tDb2fh7zPdYHyu4NYcn+OwQk/lFubct
-         f3NRTfGHYDP6p9AYHBv0CG/YwEimVvCepK+5jETv+XK+lWkxc61vE3f6GwHa1rg4wSUa
-         J0tw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Wx3L3qaNzsd2lFkib3Bki4QbsRHO2k1SMcc5Fvte9uxOA3IiRaO/NPlC+Tighm3c7rSsMhUwnE0OK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwB9aDFgTECjZUNfNfvuct2Ofea04FcWHnaWCQrhtTrGSLHiW2y
-	yS2SwUBuvRo5VlhjJs33MwsT6ifvuRy4li9w/dnE6mlS2g7AWrsFC40D
-X-Gm-Gg: AfdE7clR0BTtXd2Et1xLCfsDYACBDSw8efLXDYnctsGhHX2qPE4Ime78xBWqBDfv1p1
-	+tLuKZnaVACXIv1TGrCTePelBZLfpb459/+baPWVxSFq5uWXwJ77W9jHl8pvPFuO+Eqjw9WdTqk
-	zGHlKRiw3KciC26MAJNkbQhQwL/ZewSEyPK9fP4KvPOAq59LCDABrc8i0L1wyO1Zfr2DCyw6Uyp
-	wmn2Jw83ElwV3p5NdN9OoQpPI0PplFW0cWlrCCtY2RDxfNsqDzKTDuFa3BO8I2U4FuQwVAe6UW8
-	22CCG3AAaOKwCDk0BHM5D4KtjGNXMTqUM+vsLlP/hixhj5FxYitQFS4pfafobx9XxYsdIw8XZ5D
-	QNK4Hzjg+IZ1yLvwvVp3fNXbOx+SzKqNV0GM7X0iDiixWj8yEqdTpZu+iqnjhOWz9rthZsDdupk
-	EmOmpHp9wevQ==
-X-Received: by 2002:a05:690e:1c0d:b0:662:c2b3:8e93 with SMTP id 956f58d0204a3-662cd9f9e28mr3072886d50.60.1781708625919;
-        Wed, 17 Jun 2026 08:03:45 -0700 (PDT)
+        bh=61hqGr3BmmUeHBEanL/FcLEbEl68pk5mF01rxEgZaz4=;
+        b=cibzDu1209U6p6sTjX/7FUx9DtaSle4Cr2q5EYnheX7vIQkGhFSabnpIpEFToqz9Lb
+         9erlEndrx3RIv6EXzvd+czmE/04aNs2m7eeRQQ/AJHOnAn2/YVIo9TMKilqs3vRi8Uts
+         Vg0rUfnhesGUxZPgrNq9u4V5a7c2S5PWxe4DpT5AUOfLKxJCuTT1rNkooDRnHf1/AmcF
+         jIS9UFzIxXs2VZchfnaYFD3pVbbyZrQWfVeSe5gWBt0j8O9rb3sxarMN6LQO/G4TQqwO
+         ec5XDtxbEQJEGp5UbwQmFZPOp6F1pkKaoERerUfe/HL/po2wXs8koUQvmuooTd0LC2Au
+         RtZg==
+X-Forwarded-Encrypted: i=1; AFNElJ8tDb8GFbNNueJmxcFfuhsWdrnDvEXg1UCyDGNWAH6RqIfZI6v4Qjms0zVNi1qAraovtMYFrqMUgJ84@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywblak7GDNXXfvS6u9Qxnq8gefIjDdXM7yc0HcOFylGkYDFNAcD
+	HrlEDv07JeQ3LTgo6WL/QDg1rWg748R+JISwkrPJowCqHMbGItbGenEo
+X-Gm-Gg: AfdE7cn2YNCgEKJSfbeME5wGbTMOC6zAYhdpCeYS7K58mhDoFRBT6SovGFJf6gaNdFT
+	jA1eDwjHbXe5cJT8SSztuTZ4dbv+MPJAqLiHYAGPiciQlI2VuVYa/vy2O5aWkTnLF1lU+8V3Zd9
+	Ig/GYeh06kzCnOA+6Ci/TLNoNqGiAHgmnr9lZs5IvFTeyCTY7jrjvivukn90YYGyS/S/DAnDj3x
+	i4duFc11GYSG58gX6qEyJ1ZgbiEO0qEP2iuqW3ndcZYYJm1LEIM8KifmCdA3nnsHTeVCf+Y5l7s
+	ccsamw+sEL64ogp5VUTWGjGFX44uEcZ6WODKNb4kjpgUON+sX+upoHWnXoxnGwmjD2EZU43w0v8
+	eZf5rPepPStepnOdbWmUBlo2tcb1wUOtZhkr+/Cn3kZkfsC38j029ZjZTG/od3Ydw9PgZXIDy78
+	/dUJAprU6lAA==
+X-Received: by 2002:a05:690e:c4b:b0:660:6497:f8ac with SMTP id 956f58d0204a3-662d7e5d42fmr2064701d50.33.1781708632237;
+        Wed, 17 Jun 2026 08:03:52 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.03.42
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.03.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 08:03:45 -0700 (PDT)
+        Wed, 17 Jun 2026 08:03:51 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -68,9 +68,9 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 03/10] dt-bindings: input: microchip,cap11xx: Update datasheet URL and LED reg range
-Date: Wed, 17 Jun 2026 23:02:42 +0800
-Message-ID: <20260617150318.753148-4-jerrysteve1101@gmail.com>
+Subject: [PATCH v4 04/10] dt-bindings: input: microchip,cap11xx: Add microchip,cap1126 LED reg constraints
+Date: Wed, 17 Jun 2026 23:02:43 +0800
+Message-ID: <20260617150318.753148-5-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617150318.753148-1-jerrysteve1101@gmail.com>
 References: <20260617150318.753148-1-jerrysteve1101@gmail.com>
@@ -82,61 +82,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-- Add datasheet links for all supported CAP11xx variants.
-- Update LED node regex and replace enum constraints with minimum/maximum
-  for LED reg ranges in preparation for CAP1114 support.
-
-CAP1114 has 11 LED channels. minimum/maximum constraints are easier to
-maintain than long enum lists when expanding channel count later.
-
-Drop unnecessary led unit-address pattern.
+Apply per-chip LED channel limits:
+- CAP1126: max 2 channels (0-1)
+- CAP1188: max 8 channels (0-7)
+- CAP1106, CAP12xx: no LED support
 
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../bindings/input/microchip,cap11xx.yaml         | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ .../bindings/input/microchip,cap11xx.yaml           | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-index 7ade03f1b32b..eabf06a1163e 100644
+index eabf06a1163e..798035e942af 100644
 --- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
 +++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
-@@ -10,6 +10,15 @@ description: |
-   The Microchip CAP1xxx Family of RightTouchTM multiple-channel capacitive
-   touch controllers and LED drivers. The device communication via I2C only.
- 
-+  For more product information please see the links below:
-+    CAP1106: https://ww1.microchip.com/downloads/en/DeviceDoc/00001624B.pdf
-+    CAP1126: https://ww1.microchip.com/downloads/en/DeviceDoc/00001623B.pdf
-+    CAP1188: https://ww1.microchip.com/downloads/en/DeviceDoc/00001620C.pdf
-+    CAP1203: https://ww1.microchip.com/downloads/en/DeviceDoc/00001572B.pdf
-+    CAP1206: https://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.pdf
-+    CAP1293: https://ww1.microchip.com/downloads/en/DeviceDoc/00001566B.pdf
-+    CAP1298: https://ww1.microchip.com/downloads/en/DeviceDoc/00001571B.pdf
-+
- maintainers:
-   - Rob Herring <robh@kernel.org>
- 
-@@ -131,7 +140,9 @@ patternProperties:
- 
-     properties:
-       reg:
--        enum: [0, 1, 2, 3, 4, 5, 6, 7]
-+        description: LED channel number
-+        minimum: 0
-+        maximum: 7
- 
-       label: true
- 
-@@ -158,7 +169,7 @@ allOf:
-               - microchip,cap1298
-     then:
+@@ -171,6 +171,19 @@ allOf:
        patternProperties:
--        "^led@[0-7]$": false
-+        "^led@": false
+         "^led@": false
  
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - microchip,cap1126
++    then:
++      patternProperties:
++        "^led@":
++          properties:
++            reg:
++              maximum: 1
++
    - if:
        properties:
+         compatible:
 -- 
 2.54.0
 
