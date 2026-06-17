@@ -1,63 +1,63 @@
 Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AB6480963
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EAF480970
 	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:04:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781708654; cv=none; b=ZXR4pdM1Wn8ADiG0zRf/RHJnrGpQ8Oc/NhdIjoCMfFztes7jCb+GWV5ZFBI7/cF4/MeJnvIO0POKMS7pu/sdcCS0AAhr9XU2f/fJcHN++RZbAEP9vFeK1fuEQFC6ktJA82oIWi0XPAlzRMRQ4Lj5+0GrvPxBa45uk2p8f6hd3eM=
+	t=1781708654; cv=none; b=TiIftXuYTyGxWWi0iPqKFOwIaxchB9/pqZo6Rf9+jsijbtfFlK5OOdJdXCqk/81OtT9QXHk3FfAzOuVcMbH1xP9+LyUD5VbeP65ueEPcShtxn/o8BaNbZOvjCcSZKrmqZrH+U65INsLvLhNYveuoC78cHuaaZ3YbOm8BlsjzHIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1781708654; c=relaxed/simple;
-	bh=m4CmA91diHfu5RQdzmJWrSyYddAprpH+MrakQ4+IiR0=;
+	bh=L4IGNbM7y1d+TqDRCJgF9JoD/da1bj3QcNTtav1CsvA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Er1U3gN2T3bJoZ3dTbqXrKL+R4SxjfF+fCAi3H0o1R1/t6I2CqdJTCD36JMrIhKZJXBK/oSRCoLo/EqOrYhVgK/+vjli2Hw/97Q82YQ3k9ympFUPlQlSyZQ36ACjaz5TBdpsFhQJzSGBHi4IjWylSSuJAqVR2htKokPtQ+WcVSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WaZVtjUR; arc=none smtp.client-ip=74.125.224.45
+	 MIME-Version; b=EoTQ9AJjkcHx24KCcrXEzY6qs4whY1Vo1A5Y/WSQl9ZnYqgxrZ+cAC5kvKPtHjlf/Kc6nlC+D5XJwWvlin1ozjYSY+IYDskm10cZmNMNiBfN030te3pdYpwYpGvOv2tRmUhwPqiQ+mcMQ3Jldu6CfzdpiIFy109d2sBT61WC2XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=otTXlGZu; arc=none smtp.client-ip=74.125.224.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WaZVtjUR"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-662ddac3174so393939d50.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="otTXlGZu"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66077e90382so5245967d50.3
         for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:04:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781708652; x=1782313452; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781708653; x=1782313453; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9nfUJI5PgMZL2Vorhas9Kozi5Xqa/3mRVb5pBY1dDbk=;
-        b=WaZVtjUREQyWwclxqhi8w/QL9rHyHmdDmJLDF00vO5KpcPik/YjTVVxdNzUe/LnpTp
-         cvNhXl+v05dFfm3+KNfPojBQkkrrNb8gfzkgtGZYR+5srfAIpRbjEHFho0TVfctDoZtp
-         CBNizzvqFJdhBOWXdtcib92ClHpgT2XvpkIqHVtuP1mF9biHnLE115vUmamJq+VW6CDe
-         Z4mIThFFli3nGfafTYJbJFoeeyui0J4Af+QMALoSEdR7iRV8QbEfHLhTqzhCjdzJ9jhD
-         reLVDOx5OolW1cnj4n6Ou24V1czQsWw32X7fUnbp5pZIj/yv28zrluZONMXWXr9kqOql
-         bY2Q==
+        bh=xutruK5RfR43rmAYdiUjHl9bnTWIPbtUF5GMeFFCbOs=;
+        b=otTXlGZu4tMjsQOhZf9eYDlmwRyNfU7RoQnNVduXALNGlO2Zd+sIIKM//nVCUhQ+lS
+         7c09DinhsPVaoSerHuj5ZLUOvpik07xV6DpQBClL5G5ota6eRz6LYBBLmkQXdsQcd7O4
+         hqJXu+JMcIfC3eE2awDKG6tdfM6cu1hZaLBm07YEaWivJC2pqdf4Jep/A4CsusPm+FdV
+         rNu4DrmYj5dTdoVRVYtMsJuHDaI+jsWl7uVU5WNwigv/uEuWfDc2nAc4xpCp38ztf4Bs
+         CxwTUsmxeEUvRywaQ3/d1sIAguqL13wvsxaiuBrnm1658ZQpIcyUUTJcSEEPppyaGN2N
+         euqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781708652; x=1782313452;
+        d=1e100.net; s=20251104; t=1781708653; x=1782313453;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=9nfUJI5PgMZL2Vorhas9Kozi5Xqa/3mRVb5pBY1dDbk=;
-        b=H07edo5bfUx6O/X5PmJHxCTmU72eH7i2fu4YE4NrvLVeqAU7qKGF0Pzuwj5/wTX3aX
-         rqJ/PzsMAuytM47wRLEp8nxDQ7i8Ws/LUWioMZeXLaSHtLX1H+GZtUPd+gqpdDmm6XQ2
-         VUD0iQywkxfSjiY8SBAGNzMQ9GoaiienjY3rkqCbE9Dv2DzHeLHmSk8gcYrZLW+CRoDd
-         Lff3wJ5cjc3G9OF9WbyNQjzp1xLm5BDTOwjtK7ga9EZLtPIcwMwtnmsKE1jH2FmyzaRQ
-         gVmIZaOvpnYMOTz/p0Sc3XaJiVxR3Vmkm4GZ4lw85wATqO6kcUahlRHbPlxFeP36EZnu
-         07Fw==
-X-Forwarded-Encrypted: i=1; AFNElJ8EA1Geq0un+9zS7Tiih7hnxvKBKklsW2wZwun1seym06zKl4rFrCwHjconSaeOQ4PE48cIhcqh+K3p@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8EIWgSq/vx0zbW5js/MWl2PlNiX/SxYFN7zDfvLxhaAIaMDO1
-	/XSkqoO8ex4FSUuol/psRulm54tDi8Owt3gs1Qgb02L9KKn0YXaPFzteS0mImiYL
-X-Gm-Gg: AfdE7cnOdQHpbcvps++n0mjHb1SFiZ+8tfPx3QomIpNdQm8iMqY7ba+f2oob88v02gq
-	FKa6TXyZYK48y8UgSSkKWG4U4qbOfXDlIYZUNi2UkhdvtzpHLgfm8MOZrQUbA+XLn1u5YVnmLbp
-	FvMr1EoDKctjqtZ1I1mCnF/gLFIm25KPHHEod2XO552gD2zxVcMQxh/gcvGUwVoyJ86Cm6qAwLS
-	ruxCSR03GmF8aUG23flGUgKLh+Esz2Dsft7EqH7SWUUKx3ejUkK5K9D8aFGK5N0BFSku/7OHINp
-	CNUpgH+ohRv7eMe32IFBWYXr+yWMMPqVKgo4afNIEfaUT5aupbyqASdkzAXn8GlEHo/DxWEbA/H
-	WlP8y/WRTe0ZlwIX5bp/DMo645UE/knGOfB1SpJ9jVLDRLkNySidQaWofJJizB9RDXwvjWOEX6B
-	Xlq1dBZb+zQQ==
-X-Received: by 2002:a05:690e:1343:b0:660:109:b90f with SMTP id 956f58d0204a3-662cbcb84bcmr3775703d50.56.1781708651979;
-        Wed, 17 Jun 2026 08:04:11 -0700 (PDT)
+        bh=xutruK5RfR43rmAYdiUjHl9bnTWIPbtUF5GMeFFCbOs=;
+        b=KZjMNeMzx7OHs0doCGoFcGmHi6ydIzwoff3ANe+atQb8bvMY0dfRDdBnXn9WjsNyDe
+         pQ47R+RQfv7aUuTrcTtTQLIKwHFzPxji8oHoNEkLCVV51dMpENR8tK1aXDV3zEelURrw
+         rVZGZ3o+eIEjGHTQjrVUP9z+TV5vjdZXV6AogEIQi54D/Ue1MPESHynRvyhnMnJPpfUR
+         XRDnFSUcokXTI6hMm5rvDqWwugXCmToGk6w5TU29IbtWgDjrIFPmdfEeqUbplMKvLJOI
+         k0fFVerZTkKvQxwSjRzUi4g7RTFspdwOEUhSgwRJssheX49WtVD7/XF5EZ+itmxBv5lV
+         Y2Lg==
+X-Forwarded-Encrypted: i=1; AFNElJ+n/+X4PXK7UE5hLy3YSKFdQ7cwDzI5R8V03JhCYKywVXvXrfgidrg8TLvnZEW3JZ6JWiG+HZ3d9dDY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFY1zepQC4DnNLBTPEqxI36MpLpvL3fofmrTzgBRhD5+T35l6a
+	UjPhFcpeeO57aXQSwQ/h1dEa47KARi0Jd+xJIuxUxCA0+ML60j/sfFm8i+/CGQ==
+X-Gm-Gg: AfdE7cm8j00p/2O6XO8XyNJRJdA6r0bKPmw7wLcakmxE80UZfXL11Q6UW3Bii8uSAGM
+	/gUUw95UEH+rgcx3UXw+L4eFyl5bWIbHwI72wwvTvsoC7QC2eo998O21ISphlav7WuNJij6Zgty
+	3m3gs45PTXk99ckSJrthLvWbZZGzwVKm7U7T9bWtXXtfKWmuGX8ARgEJ7BEyD/1Itt1tjOnYtRc
+	NCnaYIN7v2MG9Mwx3XMhIrxqLXwxR3dGNUHhW0bEipRQtL8mtqsyFgA/CaHwTDx55BzeMHTYCB1
+	i/y/cmjghyQkDAeDwHSfXj1YxK/5Bus2JX4chTbTj/0bDdso5pInDH+oiHAj7JvUiQA103jFHXM
+	+DWQjYDEkMxU04NrwQXnxOiA4e+3tb1cJjfFAUj0rXfSwY4vVjTc2vAXhmU/tgu9Y30UU9u7r8H
+	V9bVOGZW8Wcg==
+X-Received: by 2002:a53:a94a:0:b0:660:eaa4:5c17 with SMTP id 956f58d0204a3-662cb8494d9mr2924093d50.2.1781708613613;
+        Wed, 17 Jun 2026 08:03:33 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.04.08
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.03.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 08:04:11 -0700 (PDT)
+        Wed, 17 Jun 2026 08:03:33 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -67,9 +67,9 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 07/10] Input: cap11xx - refactor code for better CAP1114 support.
-Date: Wed, 17 Jun 2026 23:02:46 +0800
-Message-ID: <20260617150318.753148-8-jerrysteve1101@gmail.com>
+Subject: [PATCH v4 01/10] Input: cap11xx - clean up duplicate log and add probe error logs
+Date: Wed, 17 Jun 2026 23:02:40 +0800
+Message-ID: <20260617150318.753148-2-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617150318.753148-1-jerrysteve1101@gmail.com>
 References: <20260617150318.753148-1-jerrysteve1101@gmail.com>
@@ -81,205 +81,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend cap11xx_hw_model structure to support CAP1114 with
-different register offsets and hardware characteristics:
+Duplicated device detection log exists at line 537 and line 542,
+which brings redundant kernel print messages. Drop one redundant
+log entry to clean up dmesg output.
 
-- led_output_control_reg_base: different address on CAP1114
-- sensor_input_reg_base: different address on CAP1114
-- num_sensor_thresholds: separate value from num_channels for CAP1114
-- has_repeat_en: repeat enable support, disabled by default on CAP1114
-
-Include linux/bits.h, update the register operations related to LEDs.
+Meanwhile add missing error logs when I2C communication fails
+during driver probe(), helping debug.
 
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- drivers/input/keyboard/cap11xx.c | 73 +++++++++++++++++++++++---------
- 1 file changed, 53 insertions(+), 20 deletions(-)
+ drivers/input/keyboard/cap11xx.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/cap11xx.c
-index 1db4a9090705..0f19ee036e78 100644
+index 2447c1ae2166..485d8ba97723 100644
 --- a/drivers/input/keyboard/cap11xx.c
 +++ b/drivers/input/keyboard/cap11xx.c
-@@ -5,6 +5,7 @@
-  * (c) 2014 Daniel Mack <linux@zonque.org>
-  */
+@@ -512,7 +512,7 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
  
-+#include <linux/bits.h>
- #include <linux/delay.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-@@ -36,7 +37,6 @@
- #define CAP11XX_REG_LED_DUTY_CYCLE_4	0x93
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_PRODUCT_ID, &val);
+ 	if (error)
+-		return error;
++		return dev_err_probe(dev, error, "Failed to read product ID\n");
  
- #define CAP11XX_REG_LED_DUTY_MAX_MASK	(0xf0)
--#define CAP11XX_REG_LED_DUTY_MAX_MASK_SHIFT	(4)
- #define CAP11XX_REG_LED_DUTY_MAX_VALUE	(15)
+ 	if (val != cap->product_id) {
+ 		dev_err(dev, "Product ID: Got 0x%02x, expected 0x%02x\n",
+@@ -522,7 +522,7 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
  
- #define CAP11XX_REG_PRODUCT_ID		0xfd
-@@ -77,10 +77,14 @@ struct cap11xx_priv {
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_MANUFACTURER_ID, &val);
+ 	if (error)
+-		return error;
++		return dev_err_probe(dev, error, "Failed to read manufacturer ID\n");
  
- struct cap11xx_hw_model {
- 	u8 product_id;
-+	u8 led_output_control_reg_base;
-+	u8 sensor_input_reg_base;
- 	unsigned int num_channels;
- 	unsigned int num_leds;
-+	unsigned int num_sensor_thresholds;
- 	bool has_gain;
- 	bool has_irq_config;
-+	bool has_repeat_en;
- 	bool has_sensitivity_control;
- 	bool has_signal_guard;
- };
-@@ -211,8 +215,8 @@ static int cap11xx_init_keys(struct cap11xx_priv *priv)
+ 	if (val != CAP11XX_MANUFACTURER_ID) {
+ 		dev_err(dev, "Manufacturer ID: Got 0x%02x, expected 0x%02x\n",
+@@ -531,11 +531,8 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
  	}
  
- 	if (!of_property_read_u32_array(node, "microchip,input-threshold",
--					priv->thresholds, priv->model->num_channels)) {
--		for (i = 0; i < priv->model->num_channels; i++) {
-+					priv->thresholds, priv->model->num_sensor_thresholds)) {
-+		for (i = 0; i < priv->model->num_sensor_thresholds; i++) {
- 			if (priv->thresholds[i] > 127) {
- 				dev_err(dev, "Invalid input-threshold value %u\n",
- 					priv->thresholds[i]);
-@@ -286,10 +290,12 @@ static int cap11xx_init_keys(struct cap11xx_priv *priv)
- 	of_property_read_u32_array(node, "linux,keycodes",
- 				   priv->keycodes, priv->model->num_channels);
- 
--	/* Disable autorepeat. The Linux input system has its own handling. */
--	error = regmap_write(priv->regmap, CAP11XX_REG_REPEAT_RATE, 0);
--	if (error)
+ 	error = regmap_read(priv->regmap, CAP11XX_REG_REVISION, &rev);
+-	if (error < 0)
 -		return error;
-+	if (priv->model->has_repeat_en) {
-+		/* Disable autorepeat. The Linux input system has its own handling. */
-+		error = regmap_write(priv->regmap, CAP11XX_REG_REPEAT_RATE, 0);
-+		if (error)
-+			return error;
-+	}
+-
+-	dev_info(dev, "CAP11XX detected, model %s, revision 0x%02x\n",
+-			 id->name, rev);
++	if (error)
++		return dev_err_probe(dev, error, "Failed to read revision\n");
  
- 	return 0;
- }
-@@ -308,7 +314,7 @@ static irqreturn_t cap11xx_thread_func(int irq_num, void *data)
- 	if (ret < 0)
- 		goto out;
+ 	priv->model = cap;
  
--	ret = regmap_read(priv->regmap, CAP11XX_REG_SENSOR_INPUT, &status);
-+	ret = regmap_read(priv->regmap, priv->model->sensor_input_reg_base, &status);
- 	if (ret < 0)
- 		goto out;
- 
-@@ -362,7 +368,7 @@ static int cap11xx_led_set(struct led_classdev *cdev,
- 	 * 0 (OFF) and 1 (ON).
- 	 */
- 	return regmap_update_bits(priv->regmap,
--				  CAP11XX_REG_LED_OUTPUT_CONTROL,
-+				  priv->model->led_output_control_reg_base,
- 				  BIT(led->reg),
- 				  value ? BIT(led->reg) : 0);
- }
-@@ -374,6 +380,7 @@ static int cap11xx_init_leds(struct device *dev,
- 	struct cap11xx_led *led;
- 	int cnt = of_get_child_count(node);
- 	int error;
-+	u32 duty_val;
- 
- 	if (!num_leds || !cnt)
- 		return 0;
-@@ -387,15 +394,18 @@ static int cap11xx_init_leds(struct device *dev,
- 
- 	priv->leds = led;
- 
-+	/* Set all LEDs to off */
- 	error = regmap_update_bits(priv->regmap,
--				CAP11XX_REG_LED_OUTPUT_CONTROL, 0xff, 0);
-+				   priv->model->led_output_control_reg_base,
-+				   GENMASK(min(num_leds, 8) - 1, 0), 0);
- 	if (error)
- 		return error;
- 
-+	duty_val = FIELD_PREP(CAP11XX_REG_LED_DUTY_MAX_MASK,
-+			      CAP11XX_REG_LED_DUTY_MAX_VALUE);
-+
- 	error = regmap_update_bits(priv->regmap, CAP11XX_REG_LED_DUTY_CYCLE_4,
--				CAP11XX_REG_LED_DUTY_MAX_MASK,
--				CAP11XX_REG_LED_DUTY_MAX_VALUE <<
--				CAP11XX_REG_LED_DUTY_MAX_MASK_SHIFT);
-+				   CAP11XX_REG_LED_DUTY_MAX_MASK, duty_val);
- 	if (error)
- 		return error;
- 
-@@ -561,41 +571,64 @@ static int cap11xx_i2c_probe(struct i2c_client *i2c_client)
- }
- 
- static const struct cap11xx_hw_model cap1106_model = {
--	.product_id = 0x55, .num_channels = 6, .num_leds = 0,
-+	.product_id = 0x55,
-+	.num_channels = 6, .num_leds = 0, .num_sensor_thresholds = 6,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
- 	.has_gain = true,
- 	.has_irq_config = true,
-+	.has_repeat_en = true,
- };
- 
- static const struct cap11xx_hw_model cap1126_model = {
--	.product_id = 0x53, .num_channels = 6, .num_leds = 2,
-+	.product_id = 0x53,
-+	.num_channels = 6, .num_leds = 2, .num_sensor_thresholds = 6,
-+	.led_output_control_reg_base = CAP11XX_REG_LED_OUTPUT_CONTROL,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
- 	.has_gain = true,
- 	.has_irq_config = true,
-+	.has_repeat_en = true,
- };
- 
- static const struct cap11xx_hw_model cap1188_model = {
--	.product_id = 0x50, .num_channels = 8, .num_leds = 8,
-+	.product_id = 0x50,
-+	.num_channels = 8, .num_leds = 8, .num_sensor_thresholds = 8,
-+	.led_output_control_reg_base = CAP11XX_REG_LED_OUTPUT_CONTROL,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
- 	.has_gain = true,
- 	.has_irq_config = true,
-+	.has_repeat_en = true,
- };
- 
- static const struct cap11xx_hw_model cap1203_model = {
--	.product_id = 0x6d, .num_channels = 3, .num_leds = 0,
-+	.product_id = 0x6d,
-+	.num_channels = 3, .num_leds = 0, .num_sensor_thresholds = 3,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
-+	.has_repeat_en = true,
- };
- 
- static const struct cap11xx_hw_model cap1206_model = {
--	.product_id = 0x67, .num_channels = 6, .num_leds = 0,
-+	.product_id = 0x67,
-+	.num_channels = 6, .num_leds = 0, .num_sensor_thresholds = 6,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
-+	.has_repeat_en = true,
- };
- 
- static const struct cap11xx_hw_model cap1293_model = {
--	.product_id = 0x6f, .num_channels = 3, .num_leds = 0,
-+	.product_id = 0x6f,
-+	.num_channels = 3, .num_leds = 0, .num_sensor_thresholds = 3,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
- 	.has_gain = true,
-+	.has_repeat_en = true,
- 	.has_sensitivity_control = true,
- 	.has_signal_guard = true,
- };
- 
- static const struct cap11xx_hw_model cap1298_model = {
--	.product_id = 0x71, .num_channels = 8, .num_leds = 0,
-+	.product_id = 0x71,
-+	.num_channels = 8, .num_leds = 0, .num_sensor_thresholds = 8,
-+	.sensor_input_reg_base = CAP11XX_REG_SENSOR_INPUT,
- 	.has_gain = true,
-+	.has_repeat_en = true,
- 	.has_sensitivity_control = true,
- 	.has_signal_guard = true,
- };
 -- 
 2.54.0
 
