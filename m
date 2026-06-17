@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9198366822
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:17:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6053803DA
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:18:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684224; cv=none; b=bv5wx2kek7b1gr/O8KfVcA8W8oLhhdLKiqJG21XAW0svnH66A8UeR/rtok8JthIvS2DSOwklBhLs00zzMpFssTbeZ5JQ/nVFr0UgxEwzopNvUzpb6x931dt+X63CZhWmBtMGjxD86j76zCJD4dsH6bIVBScMT4XhI1MBZwzPnno=
+	t=1781684307; cv=none; b=YjOijtwqUzTuIDE40FB4pPR3snoIHm6sJdw7hoKakAWeC1oF16wTQ2odL5bNWBsZgCWfc/0l7UaFnObH7dQdpSjlD1FhvCJ04UDeZRxcDAFRFVFQ8rENpFojr1gtLBQTHaHqcnaWka3i/Sh1+GuZsu3Re1nfWJv7GWvPTMyjSSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684224; c=relaxed/simple;
-	bh=UfISR+x35qhJwJm9UjLc+q56mcdySnA5FHhLDcRJ43M=;
+	s=arc-20240116; t=1781684307; c=relaxed/simple;
+	bh=pOtjPd30KsF0yYahtCCRARRtnBkfd9hGwoCjxZbMMAk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UK85ftFdRJFLvbulC84TrvzDt7icWEcINbmXvD+pYGEiuuzEv+RBnPd1HazSvJU098bUEz2yJ5w0TIlM0y0fdFcf5G+tZ4G6INFY06muFwAixY0LeytjdzPo6ie/HQQsg4Yr2z8wrZ1totF5mO0xes/7y7n8NSbyRN3mwo60FwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xzdhr+fl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ULJhgp1Czx6a+ieeeVVJl56EvxRlKjKUc5wjjt/6EO0/GKhkaMPBNjO911tz+HqJYc6enAhVYKzjC0lhjSIXALrtchsGmDySq2pDLCVWgwBWwBkkZPLiHY93nQFjDIKoG7i2t1UYms0LL1ASeON3m167pJMlOW/ecK/3HPsVXfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1BKapoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xzdhr+fl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F7F1F000E9;
-	Wed, 17 Jun 2026 08:17:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1BKapoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A9D21F00A3D;
+	Wed, 17 Jun 2026 08:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781684222;
-	bh=XC9wtXc5Er7eDX8M6LwgMZHUngAB2v3QW5QAOnwsr1E=;
+	s=k20260515; t=1781684305;
+	bh=97ZJT/CCUoabnLTNLvjmKsXlThHvT5k3+GVud78Rjgk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xzdhr+flD7l1F+1PeVPRwP4b5Upo2SLH6g7rJLu6m6oTmvlCBml6yREwZtcrjPcpB
-	 PbUMNM9Kp5QsKPtC+mlN4SeKJxNBguxg05UxUhAajYuWPSgEKYagUNH91TDt86ur0e
-	 H8lvJbPdHtMc3zzf/f4a0pU4Q+nVFONSLyqgzQzmXekHtlbCRJQ2sIDCiSYBY5Kk4o
-	 vgNqiomA7DSkEC8+7fWLJ4HhSNr14dyjRQhY1nkgP75oiZeopvb9lAfPYUZrhU1Q+B
-	 sziP7bjaNeAusXM3JVStmmV3j6nasjmqnzXmnHQQQzGKXpCyqO2i8BrsOWsgP5hY8+
-	 wVY4lub8a6SJw==
+	b=T1BKapoV89Crdy2R10Muwnl3oU09W9arSCS3/c/4LJnKEDSEcFbLlvfPbJVOCkgkU
+	 P8OmiBFxoabF5uC/4ZpD8BvTWTbvWAf7udfC2cYwmtrhO+0WcwnnVhui6hxb7FBjmZ
+	 jJRtcso93FIm+TM4it2/GRi6oW8GUMHeZAkLqjlClgqDV0Oj/2IzXbvmVv1U1Edo2y
+	 vcFnEuT8peAC6aMbewKyM4MV1i6O/VHBXsEFlt+Ygebn/+lk1HtILhHFTBK3LUjDZq
+	 wVSFvqA/HphDyMtg3pkkA5XcZ77WErnrq7Wn0drrz2/Bp7iMBoJTpp49NbdB6edVxx
+	 GTydcx8doqnJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 13/14] video: backlight: lm3533_bl: Implement
- backlight_scale property
+Subject: Re: [PATCH v5 14/14] video: leds: backlight: lm3533: Support
+ getting LED sources from DT
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260617080031.99156-14-clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260617080031.99156-15-clamor95@gmail.com>
 References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-14-clamor95@gmail.com>
+ <20260617080031.99156-15-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 08:17:01 +0000
-Message-Id: <20260617081701.E6F7F1F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 08:18:24 +0000
+Message-Id: <20260617081825.6A9D21F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +47,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Race condition in `store_linear` leading to hardware and softwar=
-e state mismatch.
+- [Low] Out-of-bounds bitmask shift causes regcache pollution and unnecessa=
+ry I2C bus writes for LM3533_REG_OUTPUT_CONF1.
 --
 
-commit 52a62eb2455ff3beba4492c4d5e3f63ad2e5e71d
+commit a74553be2d2b60a05a193e9dc35527d3d4a425da
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
-video: backlight: lm3533_bl: Implement backlight_scale property
 
-This commit implements the backlight_scale property for the lm3533_bl drive=
-r.
-It describes whether the backlight operates in linear or non-linear mode
-based on the device state.
+video: leds: backlight: lm3533: Support getting LED sources from DT
 
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-> @@ -142,6 +142,7 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
+This commit adds Control Bank to HVLED/LVLED muxing support based on
+the led-sources defined in the device tree.
+
+> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
+> index ed810c23f30f3..9e07953814fdd 100644
+> --- a/drivers/leds/leds-lm3533.c
+> +++ b/drivers/leds/leds-lm3533.c
+
+[ ... ]
+
+> @@ -623,8 +631,36 @@ static const struct attribute_group *lm3533_led_attr=
+ibute_groups[] =3D {
+> =20
+>  static int lm3533_led_setup(struct lm3533_led *led)
 >  {
->  	struct lm3533_bl *bl =3D dev_get_drvdata(dev);
->  	int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> +	struct backlight_device *bd =3D bl->bd;
->  	unsigned long linear;
+> +	u32 output_cfg_shift =3D 0;
+> +	u32 output_cfg_val =3D 0;
+> +	u32 output_cfg_mask =3D 0;
 >  	int ret;
 > =20
-> @@ -153,6 +154,9 @@ static ssize_t store_linear(struct device *dev, struc=
-t device_attribute *attr,
->  	if (ret)
->  		return ret;
-> =20
-> +	bd->props.scale =3D linear ? BACKLIGHT_SCALE_LINEAR :
-> +				   BACKLIGHT_SCALE_NON_LINEAR;
-
-[Severity: Medium]
-Could this allow the hardware state and the software property to diverge
-during concurrent writes?
-
-Since kernfs does not serialize concurrent writes to sysfs files, if two
-threads write contradictory values at the same time, the regmap updates and
-the bd->props.scale updates could interleave. This might result in the
-hardware being configured in one mode while bd->props.scale incorrectly
-reports the opposite mode.
-
-Would it make sense to protect this update sequence with a lock to ensure b=
-oth
-the hardware and software properties are updated atomically?
-
+> +	if (led->num_leds) {
+> +		for (int i =3D 0; i < led->num_leds; i++) {
+> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
+> +				continue;
 > +
->  	return len;
->  }
+> +			output_cfg_shift =3D led->leds[i] * 2;
+> +			output_cfg_val |=3D led->id << output_cfg_shift;
+> +			output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_cfg_shift;
+> +		}
+> +
+> +		/* LVLED1, LVLED2 and LVLED3 */
+> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
+> +					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
+> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
+
+[Severity: Low]
+Can this shift cause bits to fall outside the 8-bit register width?
+
+When led-sources specifies LVLED4 or LVLED5, output_cfg_mask accumulates
+bits that, when shifted left by OUTPUT_CONF1_SHIFT (which is 2), will exceed
+8 bits (for example, forming masks like 0x300 or 0xC00).
+
+Because regmap_update_bits operates on unsigned int internally, these
+out-of-bounds bits are applied to the cached register value. This causes
+the internal comparison (tmp !=3D orig) to incorrectly evaluate to true,
+triggering an unnecessary I2C write.
+
+Although the I2C subsystem harmlessly truncates the value to 8 bits so the
+hardware state is not corrupted, does it make sense to apply an explicit
+8-bit mask (e.g., & 0xFF) before passing the shifted mask and value to
+regmap_update_bits() to prevent regcache pollution and redundant bus traffi=
+c?
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* LVLED4 and LVLED5 */
+> +		ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
+> +					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
+> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
-6-1-clamor95@gmail.com?part=3D13
+6-1-clamor95@gmail.com?part=3D14
