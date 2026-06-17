@@ -1,101 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A43390CBA
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAC5388374;
+	Wed, 17 Jun 2026 10:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781690573; cv=none; b=G5n5utq3gYxK92dysuVDhmIW/4qyjl66NBpBqHPXG6cRciIRCDmKkM2saBT+BrlYcQhRrtYXn2J1M6F+l1GlfZtS9M3VYFodVAl0YWYwjOH0HDaDGnxa9zc2F+OO68Yc5vxibqD7p5r+HZy7FJLNpZGvgUAjOtdUwwo3MLEJ+uo=
+	t=1781690583; cv=none; b=W9357bzpxO62RITdLXY5WiQ69Hg9TObBv0bKPQrBEsqQW7hIR7jqBQjqD7FS40LpuKjdUc9JV4LGw39jN9SknyKCN0AMVHJ5xAtSrmkK51U0Sp86xHvI8AmzKy0YL/g/bGioSKNj5GJtgyPn7LiNdRlRPyNWAq77XT4uZxYptZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781690573; c=relaxed/simple;
-	bh=EEejXnNhX1t0385QYLTqhcY1NPi55OdYY00dz976Y4Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bhm3AQ1miT+gBRQIgtSGaz+Ttxzh8joYwkOGSIXri0SABbpeEIQW2Hazk2LaEJFJTjVUopTXc8rONZnk3glrZ9oPvcFv/8JJhvKECzs+rZ6J+51LNXHGPhPjor+rEceLjkfsmyfqlFJQbHJtGA/idUMIYumF08WtJcG1yIZiK5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=llQHu2Db; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781690583; c=relaxed/simple;
+	bh=ADT1HTaUENYBvVMSSkOSh6M3ht4EbVqx/pv3emwAuw8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BdPx4NhdIO38H9tFf23Zylc9TBpTzZC7RvC33zfKKT0YlIbcVYb4mqPziw6hZsH0sI8omrwGJQGJ+jGXEKujMqaESWAzo0/Zw5+0EHtB7ZAPENtJbO20lX/78V1V45OK4f3PC0oS/Jc76TqpLKBo82MAXCDjc1/zq9asLiifYYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AddNqM8C; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="llQHu2Db"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CEE1F000E9;
-	Wed, 17 Jun 2026 10:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781690571;
-	bh=kjWMf6E5c9VuppHmtdjI5HmwnO4zG0reBXuGrJToVKg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=llQHu2DbhXjZ7VRO6/ZQrKybctiUngolyXJlUZvVyXRPzhg90qa+FK30DSuknOGV/
-	 72bV8aOFYdmqKTEpNUI6iIO4FGnQAak+Ewma7Q71XNYut3de26msyiSpQ83qmoagTb
-	 VosXL4JfwDem3yeRz4A8ipOBURQB8ofDbhpXKmw9Lod8t17Mryhx/EdnDPJoS0RnE4
-	 e/DwHd2qm9+4zpQoVTJKJJfwW78Q5qhIJSfr5JM/NVLwvyGWhkjsbviEmrTAsOs74L
-	 3gJpZUk9UntpMb9ghBXmEM8C9aKTmo9+i2/Q6AMfmfOrPkSIoqz+YbAQTB+9aQnMPz
-	 SkGXMtQWYbJTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] ARM: dts: mediatek: mt6323: add EFUSE support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617-mt6323-nvmem-v2-4-4f30e36aa0f4@protonmail.com>
-References: <20260617-mt6323-nvmem-v2-0-4f30e36aa0f4@protonmail.com>
- <20260617-mt6323-nvmem-v2-4-4f30e36aa0f4@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 10:02:50 +0000
-Message-Id: <20260617100250.C9CEE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AddNqM8C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781690582; x=1813226582;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ADT1HTaUENYBvVMSSkOSh6M3ht4EbVqx/pv3emwAuw8=;
+  b=AddNqM8C9K+oKR+5vfS2NfCq5+FWoFj5WdeR/aG72aHkWixNDHroTY2l
+   ScPuIjEBa/bucAQ/suMmZeeYyTJLeSC+RzNdI9zm5eUEDupQNhrAbFx18
+   YLpKOcd39ib4ndFkY3pogBbQzh8LnUQwNOhw/JnWvvY1ftmbN3gxUn1RG
+   3rkpp/vhH8LX5RLEg9Ocd2NiImNn+SwoEqj3iAyXwjuwKWDU+8Hi4+ED5
+   mYjQPrR5Co+MjLYMLRIfiFgbyCC21kds7mWGlWqx+l8h+TJWZV2MMnVaP
+   muxViv/D7Si0aZ93E6Lk24gFmme2D1/cHkNUyVcscgQ9G4MJKEp2appcL
+   Q==;
+X-CSE-ConnectionGUID: Bc9n01ruRWKVMT3wbgHm8Q==
+X-CSE-MsgGUID: K/7RkrteSnqNrIncLBYwrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="92830362"
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
+   d="scan'208";a="92830362"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:03:01 -0700
+X-CSE-ConnectionGUID: bZbkiVwWRMOty6xxyFJ5Rw==
+X-CSE-MsgGUID: /4h9CwtxROmFk31G+h49uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
+   d="scan'208";a="241663123"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.69])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:02:56 -0700
+Date: Wed, 17 Jun 2026 13:02:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Denis Ciocca <denis.ciocca@gmail.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Denis Ciocca <denis.ciocca@st.com>,
+	Linus Walleij <linusw@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] iio: common: st_sensors: honour channel
+ endianness in read_axis_data
+Message-ID: <ajJwzsIMxX3Ew1x_@ashevche-desk.local>
+References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
+ <20260616-submit-iio-lsm303dlh-magn-fixes-v2-1-063edcf74e60@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-1-063edcf74e60@herrie.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unchecked dereference of dev->parent when getting regmap.
---
+On Tue, Jun 16, 2026 at 03:02:04PM +0200, Herman van Hazendonk wrote:
+> st_sensors_read_axis_data() unconditionally decoded multi-byte
+> results with get_unaligned_le16() / get_unaligned_le24() regardless
+> of the channel's declared scan_type.endianness.
+> 
+> For every ST sensor that has used this helper since it was introduced
+> this happened to be fine because the ST IMU/accel/gyro/pressure
+> families publish their data registers as little-endian and the
+> channel specs in those drivers declare IIO_LE accordingly.
+> 
+> The LSM303DLH magnetometer however publishes its X/Y/Z output as a
+> pair of big-endian bytes (the H register sits at the lower address,
+> 0x03/0x05/0x07, and the L register immediately after), and its
+> channel specs in st_magn_core.c correctly declare IIO_BE -- but
+> read_axis_data() ignored that and decoded as little-endian, swapping
+> the high and low bytes of every magnetometer sample. The LSM303DLHC
+> and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
+> were therefore byte-swapped by the same bug; users of those parts
+> will see different in_magn_*_raw values after this fix lands.
+> 
+> The bug is most visible on a stationary chip: in earth's field the
+> true X reading is small and the high byte sits at 0x00, so swapping
+> the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
+> = 240). Y and Z still appear "to vary" because their magnitudes are
+> larger and the noise in the low byte produces big swings in the
+> swapped high byte:
+> 
+>   before (LSM303DLH flat, sysfs in_magn_*_raw):
+>       X=240 (stuck), Y= 12032..23296, Z=-16128..-9728
+> 
+>   after (direct i2c-dev big-endian decode, same chip same orientation):
+>       X≈-4096, Y≈210, Z≈80     (sensible values reflecting earth's
+>                                 ambient field at low gauss range)
+> 
+> Fix read_axis_data() to dispatch on ch->scan_type.endianness and
+> call get_unaligned_be16() / get_unaligned_be24() when the channel
+> declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
+> st_pressure, st_lsm6dsx and others) are unaffected because their
+> channel specs already declare IIO_LE and the LE path is unchanged.
+> 
+> While restructuring the branches, replace the previously implicit
+> silent-success-with-uninitialised-*data fall-through for
+> byte_for_channel outside 1..3 with an explicit return -EINVAL. No
+> in-tree ST sensor publishes such a channel, but the new behaviour
+> is strictly safer than handing userspace garbage.
 
-commit f140540f16666ffd0b4a44edcb3b4ac15d83d749
-Author: Roman Vivchar <rva333@protonmail.com>
-ARM: dts: mediatek: mt6323: add EFUSE support
+Sounds like inevitable change in ABI, but worth doing it.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-This commit adds the devicetree node for the mt6323 efuse to the mt6323
-PMIC definition. It introduces the mediatek,mt6323-efuse compatible string
-to instantiate the driver.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> diff --git a/arch/arm/boot/dts/mediatek/mt6323.dtsi b/arch/arm/boot/dts/m=
-ediatek/mt6323.dtsi
-> index c230c865116d0..807e000a7ff64 100644
-> --- a/arch/arm/boot/dts/mediatek/mt6323.dtsi
-> +++ b/arch/arm/boot/dts/mediatek/mt6323.dtsi
-> @@ -14,6 +14,10 @@ pmic: mt6323 {
->  		interrupt-controller;
->  		#interrupt-cells =3D <2>;
-> =20
-> +		efuse {
-> +			compatible =3D "mediatek,mt6323-efuse";
 
-[Severity: High]
-Does binding to this compatible string introduce a regression under certain
-devicetree configurations?
-
-Looking at drivers/nvmem/mt6323-efuse.c:mt6323_efuse_probe(), the driver
-blindly traverses the parent hierarchy:
-
-	/* efuse -> mfd -> pwrap */
-	regmap =3D dev_get_regmap(dev->parent->parent, NULL);
-
-If the device is instantiated directly at the root of a Device Tree
-or via a malformed overlay, it lacks a grandparent. In this case,
-dev->parent is initialized to &platform_bus, and evaluating
-dev->parent->parent results in a null pointer.
-
-Passing a null pointer as the device to dev_get_regmap() triggers an
-immediate kernel panic during probe(), because the underlying
-devres_find() unconditionally dereferences the dev pointer.
-
-Could the driver verify that the parent hierarchy exists before
-attempting to traverse it and retrieve the regmap?
-
-> +		};
-> +
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-mt6323-nvm=
-em-v2-0-4f30e36aa0f4@protonmail.com?part=3D4
