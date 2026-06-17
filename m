@@ -1,242 +1,123 @@
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387A338239B
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 22:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59ED73803F7;
+	Wed, 17 Jun 2026 22:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781735591; cv=none; b=XN45GNWh6V+///+wITXl/ykV+WVeYWzjG6Jz/9b8COrT28yKaGELLPShwEZMtuTxXaxvhSOSZ+R1N/6ZA7Kwju5sPnJtGsKVul1B++ycYmHVErQewSHX9668/ll8S7+QXmxQivtUHub4QfPdAt4mIhz6vsY3bx7WTZ8Bp1oToAk=
+	t=1781735789; cv=none; b=QC4VKUQCIY5qtm6TlXCT3Mo4ax8IrGlyDrrv8r8+qSwzMMYcUvrZSBfkFb5orETxRwG/b6LljKO3GGbntvEKeErQkLA1zgtJeg0otDe6yO47pJudmqL+ZrcqoAk+1jROz8z1zn4mmXp8laRegKGI12CyE35Qyr1AdV2+7YopwtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781735591; c=relaxed/simple;
-	bh=7XyKUNIOL46jZur+YvXtih0JCTOGsfPQw2wktLsAwsU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X/Rz0FI35FMeXrEMeLFFjs2iwBn1t2J8W/VybsR/2m2sOyK7uODIZtfr89s+d02jzMhKK6dQQ4MGVm9jQbJwTADtufdQxpvOHPsTJxFZLvg1CvoNbeHpI2S/5kud+QoFfBmI3QyUfGqg5RTx/NCEX9XS77XPbzUdFCcGW5TzH6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=J5w9Otzl; arc=none smtp.client-ip=209.85.160.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781735789; c=relaxed/simple;
+	bh=xqYjUeV6vUJ0e8uDgzC+drVzHWfpAA3DVqnkox41OuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aLcWhDuyHYlNDs7MuMagrTjwnFkrmvIVPmm1eFj18v/CuXhNGjD3UY9owt9FHJ/CD2ioRjKkbOnmQ3B3n944i33+yPX44r589FSm6gS39WHIjvz4VoqUvsq2c9Oq3MksugxWIAtJFr7A+gRzOCnilyGzNTGIuQBFq9Y8iQFbYpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fYxPKBOe; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="J5w9Otzl"
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-43cce34c881so189961fac.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:33:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781735588; x=1782340388; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=w3NNNLn3FzT6ruT5UBTY8dZFvASj4Gla53dS/0lXbqE=;
-        b=J5w9OtzlcRAI6NCAwROEIOE4GpSq2dwHFIVVDmLKYlmP2ojhN4yezW1AR1xli6prVo
-         XsdyCp/d/BT5YdS8o65ZMZkYPGE0rcH5VG24FTG6p57tkkCUvkn0TJZ6RcjB7FgFjI+s
-         hTYTOUNXqvF1/pnHkIL0M+TH1HgMie0B4gWmJs4v+U9MYZTs1CaKE9K4TPueMH6McV9T
-         7tvtwW0I25zSdHaLQ28+W3SGQhCq1ETqp86AbGUcU9vUprJXUY+8NvLgrfNNv7T1nsWn
-         VAN601uG/6y0pjlvyV+grd9RUdTQh+Jru/w8HauTEwd9YQDs0AJ2m0PGVOfxR3f2dYGK
-         /eLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781735588; x=1782340388;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w3NNNLn3FzT6ruT5UBTY8dZFvASj4Gla53dS/0lXbqE=;
-        b=VaEkKwIjBFdLOLjEUkoUbw3Z8rEHkqt5DQuJ0rXWDoSaSpB4jzCav4Egugen0e/aBZ
-         2BUbtO9pAtgPhi7gYFIVifA9OnJsMuh8u7llUsUzMCHWhupZTuWSLDKvaa7EusoNr0HI
-         tBGtwcr9Kc+inagqsvt5jkjUzAO6ncULYj6piU2aVy1T5m3ZbSuYRdi28l2JXfVqUXAl
-         QGL+jJrKsPtT4nseyPXU3YUaHa8fq67+D2nF+uxghv+9GWogglCeSWUK1nspQqPSZz/Z
-         JdhG2m5ZuCSNmExua07V4JEjAeKzzNz1Y/7LIN9Boyih/6+NIrpJg4RcAtNcrTOGFWYw
-         zCmw==
-X-Forwarded-Encrypted: i=1; AFNElJ+XVpnEG6EXb34diyXFhhrF3LxYdpw6zat9nFV7+t3gaQK3h1+Cu3xi5K4bNpJY8JndC7olXl/BmvkI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq7m3iyyVKxq39Yq9nLMjxvUXzNS8g6m1kakRhfzsN6hHKZRlX
-	Wn76jmHCsDSuNn6qoSub0jJ/FxJ0WBidST4YcJzIg95B/dBRJdu0m6dkpLmNCUpiMNk=
-X-Gm-Gg: Acq92OFHbh5z9kUmRnymBokUlvEJXKPBLrd/r5r6EL/G4bcnJ5TIX6EpqrKlp/w/M9E
-	ZTQKDbp4g1buBIox2GvnHhyjix1r4v9gb5xIuV0GdEWN1gCd9t057ZUxRMJ4oFztYfdQXMUP5a1
-	Rdy2yZarYCYsN7B4iTla48fbv05/KgUPEp/1064s18NwAgJRvWPvT+iwcjawVQfys1CAQfNrZBY
-	nkhvzvrrVqzCwz3NR66zgIwP73aLquVax0rvGA96eJ0Xhuccp1CT6UBaim5PzekFtUsCvnGR/kL
-	9Zf8zMK25jTWkgFT7Cc0BvmKCYhMPE+9iFrS/1KNuD4we7K805Sy5SGSHYj0DZDT8Vj5W7OHnD0
-	vigw2a6O/Y9Up8NDAn+rO6y5m1FJYCad6tnlihLFiJx/cOc5EbfHkBnvCjTrzDo7bPyEnLnMlS0
-	qp+x6okBFcInL8+W3jcz1KHeUnMWMLhk7n51I7h1Xq+urPU18MydiKbHzEUmqr57I=
-X-Received: by 2002:a05:6870:31ab:b0:442:87b:c83 with SMTP id 586e51a60fabf-4469041bcd2mr4724545fac.22.1781735588136;
-        Wed, 17 Jun 2026 15:33:08 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:9458:d356:778c:22ac? ([2600:8803:e7e4:500:9458:d356:778c:22ac])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308f09405sm5253268fac.12.2026.06.17.15.33.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 15:33:07 -0700 (PDT)
-Message-ID: <3787d23b-6dd8-4e89-9a03-c3fddbbe8bf8@baylibre.com>
-Date: Wed, 17 Jun 2026 17:33:06 -0500
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fYxPKBOe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781735788; x=1813271788;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xqYjUeV6vUJ0e8uDgzC+drVzHWfpAA3DVqnkox41OuM=;
+  b=fYxPKBOe/ZsI/g8diTD+cTlGQfmeb6bxvLLs5HJgS3ls/ohqrf54yAES
+   bQBK56CcAjTQMkF3nbzsqFaU1gS3xF4sAWee42MmpYkHLRXO3NurL4JGs
+   8dn8G9G66tykEKe0q5srv/wds8YIPd2WKvbKwp73ZaJz8nzrGC6aPDkxd
+   PJBt55fwICq5AjKjR6urFE6BTVMdBFmNeTNrkZeMZrRL9UAacWfoVVuOz
+   oCJIhV/+IhLECY4nUYMcq9ThpWuLicbijjrAVpF2gZVnJKrrwI5s3iVfX
+   uu8Ge/PErM63JfaTeRslPrBfFL38kiaM8oj8CB3TnFem07uxCyd1yjooP
+   Q==;
+X-CSE-ConnectionGUID: ozcX0t0lTFyfjABU4/prGQ==
+X-CSE-MsgGUID: LCKb7US7Qeyu6gyB6uA13A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="86399440"
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; 
+   d="scan'208";a="86399440"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 15:36:27 -0700
+X-CSE-ConnectionGUID: SPtzNDigSgO4NknRt6PRGw==
+X-CSE-MsgGUID: wzISkg4lQyqkIxcyu5zSnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,210,1774335600"; 
+   d="scan'208";a="248250158"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.232])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 15:36:22 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 0BB2811FAA5;
+	Thu, 18 Jun 2026 01:36:20 +0300 (EEST)
+Date: Thu, 18 Jun 2026 01:36:20 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Frank.Li@oss.nxp.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
+	Purism Kernel Team <kernel@puri.sm>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v5 2/8] media: v4l2-fwnode: Add common helper library for
+ 1-to-1 subdev registration
+Message-ID: <ajMhZP5YHuQdhc5M@kekkonen.localdomain>
+References: <20260617-imx8qxp_pcam-v5-0-7fa6c8e7fba7@nxp.com>
+ <20260617-imx8qxp_pcam-v5-2-7fa6c8e7fba7@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] iio: adc: ltc2378: Enable high-speed data capture
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- pop.ioan-daniel@analog.com, marcelo.schmitt1@gmail.com
-References: <cover.1781661028.git.marcelo.schmitt@analog.com>
- <9f173c47928446aa3e900cf0becb6130dd76846b.1781661028.git.marcelo.schmitt@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <9f173c47928446aa3e900cf0becb6130dd76846b.1781661028.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260617-imx8qxp_pcam-v5-2-7fa6c8e7fba7@nxp.com>
 
-On 6/16/26 9:04 PM, Marcelo Schmitt wrote:
-> Make use of SPI transfer offloading to speed up data capture, enabling data
-> acquisition at faster sample rates (up to 2 MSPS).
+Hi Frank,
+
+Thanks for the patch.
+
+On Wed, Jun 17, 2026 at 03:50:12PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> Change log v2 -> v3:
-> - Fixed the evaluation loop conditions for CNV PWM and SPI Engine trigger PWM,
->   avoiding potential infinite loop if and CPU stall.
-> - Added comment to about initial PWM disable.
-> - Adjusted SPI offload setup initialization to not print error on a valid condition.
-> - Fully initialize IIO channel scan_type.
-> - Reworked to make offload support not imply all dependencies to be built in.
-> - Made sampling_frequency a buffer attribute.
-> - Made offload support not require DMA and other features to be built in.
-> - Now using same scan_type configuration for all use cases.
+> Many V4L2 subdev drivers implement the same registration and media pad
+> setup logic for simple pipelines consisting of a single sink pad and a
+> single source pad. As a result, the same boilerplate code is duplicated
+> across multiple drivers.
 > 
->  drivers/iio/adc/Kconfig                  |  19 ++
->  drivers/iio/adc/Makefile                 |   6 +
->  drivers/iio/adc/ltc2378-lib-core.c       |  35 +++
->  drivers/iio/adc/ltc2378-offload-buffer.c | 305 +++++++++++++++++++++++
->  drivers/iio/adc/ltc2378.c                |  46 ++++
->  drivers/iio/adc/ltc2378.h                |  42 ++++
->  6 files changed, 453 insertions(+)
->  create mode 100644 drivers/iio/adc/ltc2378-lib-core.c
->  create mode 100644 drivers/iio/adc/ltc2378-offload-buffer.c
-> 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index 2b8203451367..f96d9262b891 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -944,6 +944,9 @@ config LTC2378
->  	tristate "Analog Devices LTC2378 ADC driver"
->  	depends on SPI
->  	depends on GPIOLIB
-> +	select LTC2378_LIB
-> +	select LTC2378_LIB_OFFLOAD_BUFFER if SPI_OFFLOAD && PWM && SPI_OFFLOAD_TRIGGER_PWM && IIO_BUFFER && IIO_BUFFER_DMAENGINE
-> +	select LTC2378_LIB_TRIGGERED_BUFFER if IIO_BUFFER
->  	help
->  	  Say yes here to build support for Analog Devices LTC2378-20 and
->  	  similar analog to digital converters.
-> @@ -2027,3 +2030,19 @@ config XILINX_AMS
->  	  xilinx-ams.
->  
->  endmenu
-> +
-> +config LTC2378_LIB
-> +	tristate
-> +	help
-> +	  Say yes here to build support for buffered data capture with LTC2378
-> +
-> +config LTC2378_LIB_OFFLOAD_BUFFER
-> +	bool
-> +	help
-> +	  Say yes here to build support for high speed data capture with LTC2378
-> +
-> +config LTC2378_LIB_TRIGGERED_BUFFER
-> +	bool
-> +	select IIO_TRIGGERED_BUFFER
-> +	help
+> Introduce a common helper library for 1-to-1 subdevs to encapsulate the
+> registration, media entity initialization, and cleanup paths. Drivers
+> can embed a struct v4l2_subdev_1to1 instance and use the provided helper
+> APIs instead of open-coding the setup sequence.
 
-Why do these need to be compile-time options to only select one or the other?
-In all other SPI offload ADCs we've done so far, they always support both and
-gets selected at runtime based on devicetree config.
+I appreciate your efforts in trying to reduce the amount of code drivers
+need simply to get things done but I think there are a few issues with the
+approach taken in this patch:
 
-> +	  Say yes here to build support for buffered data capture with LTC2378
-> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> index 1814fb78dde3..109cd39237c9 100644
-> --- a/drivers/iio/adc/Makefile
-> +++ b/drivers/iio/adc/Makefile
-> @@ -82,6 +82,12 @@ obj-$(CONFIG_LPC18XX_ADC) += lpc18xx_adc.o
->  obj-$(CONFIG_LPC32XX_ADC) += lpc32xx_adc.o
->  obj-$(CONFIG_LTC2309) += ltc2309.o
->  obj-$(CONFIG_LTC2378) += ltc2378.o
-> +
-> +ltc2378_lib-y += ltc2378-lib-core.o
-> +ltc2378_lib-$(CONFIG_LTC2378_LIB_OFFLOAD_BUFFER) += ltc2378-offload-buffer.o
-> +ltc2378_lib-$(CONFIG_LTC2378_LIB_TRIGGERED_BUFFER) += ltc2378-triggered-buffer.o
-> +obj-$(CONFIG_LTC2378_LIB) += ltc2378_lib.o
+- The new helpers aren't generic enough, but require two pads; one sink,
+  one source. You could provide special helpers for just this case, but
+  right now it looks like that if there's something you need that the
+  helper assumes you don't, you can't use the helper at all. In other
+  words, more modularity would be nice.
 
-Why do these need to be split into separate files? The driver isn't that
-long, so seems better to just do it all in one file to make it easier to
-read.
+- The new helper should work with the existing types and not add new types
+  (struct v4l2_subdev_1to1).
 
-> +
->  obj-$(CONFIG_LTC2471) += ltc2471.o
->  obj-$(CONFIG_LTC2485) += ltc2485.o
->  obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
-> diff --git a/drivers/iio/adc/ltc2378-lib-core.c b/drivers/iio/adc/ltc2378-lib-core.c
-> new file mode 100644
-> index 000000000000..1160f4324d01
-> --- /dev/null
-> +++ b/drivers/iio/adc/ltc2378-lib-core.c
-> @@ -0,0 +1,35 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Analog Devices LTC2378 ADC series driver
-> + *
-> + * Copyright (C) 2026 Analog Devices Inc.
-> + * Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/iio/iio.h>
-> +
-> +#include "ltc2378.h"
-> +
-> +int ltc2378_lib_buffer_setup(struct iio_dev *indio_dev, struct ltc2378_state *st)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	int ret;
-> +
-> +	ret = __ltc2378_set_offload_ops(st);
-> +	if (ret == -EOPNOTSUPP)
-> +		return 0; /* Let device setup complete without buffer support */
-> +
-> +	if (!ret)
-> +		ret = st->ops->buffer_setup(indio_dev, st);
-> +
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "error on SPI offload setup\n");
+- There should be a way to provide default V4L2 fwnode endpoint
+  configuration as well as to validate the obtained configuration.
 
-Would be better to just return early instead of doing the !ret check.
+I don't have a good proposal to address the above but at least one way I
+can think of making error handling easier would be to use devm_() for
+teardown in more places we to today. That certainly does have its own
+issues though.
 
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ltc2378_lib_buffer_setup, "IIO_LTC2378");
-> +
+-- 
+Kind regards,
 
-...
-
-> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> index 88582bdcd6a6..bf17b202230b 100644
-> --- a/drivers/iio/adc/ltc2378.c
-> +++ b/drivers/iio/adc/ltc2378.c
-> @@ -17,6 +17,7 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/spi/spi.h>
->  #include <linux/types.h>
-> +#include <linux/units.h>
->  
->  #include <linux/iio/iio.h>
->  #include <linux/iio/types.h>
-> @@ -26,120 +27,160 @@
->  static const struct ltc2378_chip_info ltc2338_18_chip_info = {
->  	.name = "ltc2338-18",
->  	.resolution = 18,
-> +	.max_sample_rate_hz = HZ_PER_MHZ,
-
-1 * HZ_PER_MHZ would make a bit more sense
-
-> +	.tconv_ns = 527,
->  	.bipolar = true,
->  };
->  
-
-
+Sakari Ailus
