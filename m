@@ -1,86 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BB846AEF2
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0B43C09EA
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781692593; cv=none; b=SQK/Kwc2EsK66C1esKHI5PhMfszrPuASo1HOQRO+/amSeI+CI7Qldwh89PeXZWaOmsV1Bs15gPaOT3sEbazT2aag8j44MB4wJzjGXM7RiDFO9Fytssu4BN7kTDHJwcORfeJWDP7k0AkMeQJh6YCJe96UzwPUtxAXhUXNjP7ZwuQ=
+	t=1781692664; cv=none; b=Lp87sxwoothp2Xf7qPWsyw0u0PRoSEYg/3FBU6wovcHzsYp5IglNSbbBzXECVpDGZYZOhk5B02wih2EAHRJ978oGiL0bbdVP1W76o8nHESs1cVSsUgCU77W7Lb4aM/iMqo/lAkDi926LsKRBMf6NCi0vCTKGV48bmYreX3qF0EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781692593; c=relaxed/simple;
-	bh=KnTuYeZRW8y7/0KsX+KsMVHS3o+Iun6XoHfPR8REoOg=;
+	s=arc-20240116; t=1781692664; c=relaxed/simple;
+	bh=vALBa141v9+4vjbm0tDzeCmo10QrWJe8iyZLknBjxgQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xzf8vPX2RGXorhS7wFj7ddEAlXlwuDAYDMjrfvpoka2m1gb/W6MDgnTClH/7yIF4sGkYr+h3q+TxiilDhs7ddpYE3QtPmDWcd4uspkG0cvtFHhJ6LRGyy4qqnC0zNmUODdecgFMBWYoPQE55rfQLCxCYHlyUE5J2kNkZr1P5I1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hj6tap4s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gqsx2Mp7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=H+ZTLoG2o6naDkr5HAyp6ZDiYFPTiXwDLzuTodTHMNszLNZDS8LEhH6gbIphxowj0oCw9syDMgnvDFcJbpQYLFaTmJScSz187ekcL2ufkDlPfRmHP6L2VoX2Ui+aY9YCLAU5/7oYBrKhFyKD176twhTuw/cDwfN1wkBqgSbwokg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1YmmjYD; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hj6tap4s";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gqsx2Mp7"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UZwl2217819
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:36:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yZE/UYjH0ajhhmsX7fNo8hWaxZ5NU8yaye5JkX/d8D8=; b=hj6tap4s3U9IembA
-	xIXPtrZdvMZX7kJdB5YSJ0FamtjXDYBiuc7wNYMJ3pSh8ylAH/d/G0NTYga78MDZ
-	+6ay6cKH2B2/7yXbtmdjNniHP4TWL5AFyEtSL40QySt6PFnBy9zHkmRGc1yaz+00
-	vrwA3Z8pebvzFTYcZi5tKD6tdrLCmXlyMdC+Y2481yar3jRrzoyD8J+BKNM0fLCc
-	6oHbJ+9KUtYAYnXWT56pQC8NLYppgMs2UvWBd55YGrFKAI7iNrIGRkEhSea4JCpw
-	2n7NRV4XK3vmuQwZblO+pKrTjC0EpJtY2t6Y1g2VRSEBOg0+/vZj6ebfnQNslC4p
-	QcLSpQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueeraqb9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:36:29 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5178a632a12so13646661cf.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:36:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1YmmjYD"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84532e3dbf7so45235b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:37:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781692589; x=1782297389; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781692657; x=1782297457; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=yZE/UYjH0ajhhmsX7fNo8hWaxZ5NU8yaye5JkX/d8D8=;
-        b=Gqsx2Mp7UCY1pbSv3fbD2t/bjt0hh3T5Uz4L2OzPWBZZD3VtGw6kPME4WJ/o4LTqay
-         Znj7yI9M9DTgsjqNgyPemkplBSkN5Zxv1TiAUwdY4x+hxsFabJEAwwcbOTlAqHTs2/yV
-         tzWR65E+40B8RcSJuRsqpZ/jK9RYGe3WdV2WUYFFNwAZWlxCvxGWKe8bpaAnhfN6gZBJ
-         2dxNEnqjnMMHvuOLO06WJB8zeLQHLN+ekQsybMhKy826aRYd86eL0lfvcJvtDrDcVqXP
-         24BCMadOuuq6KzcinhHqZHbJVjbGdxdf9XigXP9GlVLE9O3enVPkCel7LHz02+UtgCY7
-         poew==
+        bh=AhUWEjlecPu7hlJvyuwWPRxl2TYmG2bGNVOKZVs0d90=;
+        b=E1YmmjYDjCUx9OJ3ntJZw/6fpoMkUtMDaBpQkhkwZsHP8jc4Q4qCqd51Dz9g5oLhFT
+         DKEcwsg28cmEhDTRqov5vllPZZOeUDXLb3Vvyv/um6sKdzpRdybDlvDLzDIRxuKJgHaS
+         YVOB7ewjj9yZ+fSMWUVfX1ntJxShCLCCVO3AOVx506Z/mhQ3pZjcGOoaDVUlej2VclYW
+         XhCnQURpfN+32uSxJovqD60JWiotlpf+S2Tp1ZVopyIeeQ1yBYG035FrADRVIY7o/4gV
+         0rtp7CC1pCpBaPNDCbdSs5qsENh+ygCl2GEXD37UuJW4q5jfV3eh6ooupMMjfdhzYt+A
+         NDjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781692589; x=1782297389;
+        d=1e100.net; s=20251104; t=1781692657; x=1782297457;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=yZE/UYjH0ajhhmsX7fNo8hWaxZ5NU8yaye5JkX/d8D8=;
-        b=s71B9iGBNW2X44faqb3zTp4O3FztcIukdv0/gZ9KOSmLEZpfTbNuZQEw5HkbmddJeV
-         MVkZzThiTRVn3O+PZ9AprZsNZA53RwydvHpb+la2Ysn+Cc7EjSxUMixnZdoBlqsBrlOE
-         3XotmA2ggl5l/LdDoIfmWyJqdiItGiiJDCfzp8sUbaTBAkp2CXtQ0tlXlKGPaEftM7hN
-         F8xjEps1gAhcqrE0rGbyDHcwrkaJpzIW7ktqtX1TSDEYOtVRMY8Qtz+dEgzgkJbreR2Y
-         WOGeWRWKDEn9/v6HxjOZmwa5ow8WVZRiOws8lGuAFcbtpFOe7BdFE5aOO5t29LLZPFP1
-         plEg==
-X-Forwarded-Encrypted: i=1; AFNElJ8/d60rJE7ogAcgwVJ+HCkRH/WPhMQJPEiLtxgN5clfADNh4/vxYAX9VSoHogKoP997QoEBfk6XO1CL@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywskrxt+9Q6r5C9Y4Gmvuc0EsFMsIeeFyNjjR4HxhENML24wOvK
-	3OgxqJC71nPrjXfJrvuVwt5rVlrNxr73q5gyO/75Tj2kT/IRjIzcpApuF6KbihZWLct6yLzgPT1
-	L7hb6m93jrhu4Q+1FLoJcES3qhscESZbAuzEan5FVn4GQ36I8eUdXPe7CfAZQZWQA
-X-Gm-Gg: Acq92OG4L8droBGarySd6tF1TakCPp+n3OwFnpeFXvLQ3PdxiBIWZ0PqDkaCzRq96C5
-	3k7p5HiC44/JVe+AqKMsIyuxK25hUKctueAVUYSQHi4rLdYOojTP+zG/k3HS1qesPwXPc2y/t7T
-	bkzE7cozRneQrB2LkD4WLn140R4kFIGjcdhXitUIuX77ZIsEXyYDbhtCuXRSAFRCQqCXDqbKDNz
-	CNHVa0VMhFRmYk2DKp2cI1G8yj0GBiDDQ1DpPFxPuRrFdD8WhrV4n1rVnV/r8mrNYn3gsYWQ023
-	dwcSsDkuYADZyK/tW8ZJJPnWrtADuaq9e4FfWMcVD0dhu7qKkJuCqVa3dg1gORNqeqr0tZ5b9FC
-	21RSs5MsnowFKS6WjXfdb6YJjb4czKiFoxLk=
-X-Received: by 2002:a05:620a:d8b:b0:90f:7ce2:3019 with SMTP id af79cd13be357-91dbd008667mr252973285a.7.1781692587559;
-        Wed, 17 Jun 2026 03:36:27 -0700 (PDT)
-X-Received: by 2002:a05:620a:d8b:b0:90f:7ce2:3019 with SMTP id af79cd13be357-91dbd008667mr252971685a.7.1781692587168;
-        Wed, 17 Jun 2026 03:36:27 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb5103710sm773989466b.22.2026.06.17.03.36.25
+        bh=AhUWEjlecPu7hlJvyuwWPRxl2TYmG2bGNVOKZVs0d90=;
+        b=GxKQFXV0JW+j/u9S7xFcRs/WtIPr1jEn0bbiPsn8PFyw1r0QFt6axRfLOSqaO4lHos
+         bLIoN/jp3cnAnEKWWTyGjxIQkLoatEarwF/EitlR31EPxqO+QJecsg0EX7tIW3DoN/fo
+         BB1J0YtKRkg6ufSGsKbnXcWq4LuLboUOtLz/kVQWgcU2kudjbQX2cK1HWZ6/xuFC01Mu
+         en8RZPGh7N9csVCsdIA5CHBVxImEqL+bQmyOy/2wUvGw/myr7jULmZgPLmo3sa6mf2sT
+         uupoV5WvG0Jq1uYkP0hYiDS1PF5AZizx0yA5BwloKlnYZdtDe3B7CFqCCUy/Gs+1lWO7
+         /JHg==
+X-Forwarded-Encrypted: i=1; AFNElJ8tJH8a5t8hwCtMucFfEvn6OAhqAa+iJlT2c5Si+oB6JdZEWhlWyKo5HTtk737mZtoSX1yeZJYFwsq4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxthkGQslESP1pYyJtz6fp7vcx9bTX2N15zgTCoQAR1ex3ZGEjG
+	zYBrt7vtOhYm9GNO3FOiyn9IUlw7DTquTv3tTw2K4blZIMODUYHUVrtw
+X-Gm-Gg: Acq92OGeTIGdgeUnnUz/x89ZXnaW4Jc/BOS6MfX+kJIcjj8db63w/oLgKeFWjvj4rgV
+	fxWnCFWmeFHvl7NostC4cy+93mHx/YlBNpGYKrHfVr1vw8UHCA9IE2C98nW6HCcJIc4kE9pu/ec
+	Z/LZbRGQzwe/5EtMpVhjSIcmMS8WkppkoVmwYo9zCu+HtogGdP/u/3Uewput7Y6KNPMuBZ0xX3a
+	4ow9viwCbv6BvXu/lHv3akNTKyQiJvcyHIDsFO2dfV8BN9u6GBCO88iGZDE0GfuG2kD4MfgycJ4
+	31RDlgQE+wQJQlJ8cSslV/umGXGyKBoz2wNFVWkVfoW6V3WJA5ekIc5FWhzHp+vh3Q11FxXgWgo
+	4Vehwe1peXkz3ruODJscVRk5Mc2EzsxkSS/xhOBqnEOPPM2kwj5H0q0u26Mhx54xkDgZLBCaxbc
+	SJif61pj3PsxCNex6v48WBksTijOwy+U418T05jzhsvvErTn6KQIZNYK2+Gp/GaJbZsc28gpKAv
+	IBZ
+X-Received: by 2002:a05:6a00:10d5:b0:842:4a39:6047 with SMTP id d2e1a72fcca58-84524550f44mr3301789b3a.29.1781692657527;
+        Wed, 17 Jun 2026 03:37:37 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ad03fdcsm15269159b3a.24.2026.06.17.03.37.34
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 03:36:26 -0700 (PDT)
-Message-ID: <ff72dd25-926b-4a51-99ad-4535f6025dcc@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 12:36:24 +0200
+        Wed, 17 Jun 2026 03:37:37 -0700 (PDT)
+Message-ID: <bd90109d-5c1c-47d6-ac1a-c9b81de5cf7b@gmail.com>
+Date: Wed, 17 Jun 2026 18:37:33 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,75 +69,85 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] interconnect: qcom: add MSM8x60 NoC driver
-To: Herman van Hazendonk <github.com@herrie.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260606-submit-interconnect-msm8660-v3-0-f9da0158cdf8@herrie.org>
- <20260606-submit-interconnect-msm8660-v3-2-f9da0158cdf8@herrie.org>
+Subject: Re: [PATCH v4 5/6] drm/verisilicon: add DCUltraLite chip identity to
+ HWDB
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260615065003.76661-1-a0987203069@gmail.com>
+ <20260615065003.76661-6-a0987203069@gmail.com>
+ <62c0b8ab9b6d9f994daa8bb60b3b626688af7d5e.camel@iscas.ac.cn>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260606-submit-interconnect-msm8660-v3-2-f9da0158cdf8@herrie.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA5OSBTYWx0ZWRfXzIVJngNnJorh
- KkxwvY5FmLLxuY1sDryQEw1sZYOhs3BPKW8QEu9LfGoK5njmMCU5wmIqHASwXVjrACuLDtY2LMX
- cQNjAS5aSZvdKD8xXbFLH7fPxztLvZ0=
-X-Proofpoint-GUID: 76iZ-GCaRJwpoiYVRRBPNf5KEsY46Ef-
-X-Authority-Analysis: v=2.4 cv=d4fFDxjE c=1 sm=1 tr=0 ts=6a3278ad cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=eFASmHcy9aB7nxdwtpoA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA5OSBTYWx0ZWRfX92K4nDbx6Ed/
- Xe1h9D6MJpC8mnWrpplXUpeu5hN714O/m4K6LeYSGRWdyaBoOX/6MbEbbuvw8pLs3t8NNvGEUqJ
- wDxlolWLdozMD/B59NGwnfeHytWJtZlaOkxfKAIo6BaiIpSXLNIjfPjFJ3PzSfKUZn+nC22MJYJ
- mElqVgMKqkKP68U43RIoacFA0ibJbA6YB0MdH0puAG5PZSusy4zuMAdO/mweDY32gqfdVY2/kwa
- foedHnb4u8XcW2+nFtV+KbIG5TUN64NPbKgauhyfTRDI6q0ZnhRnVI11CAatSnmSPIykcENOmMp
- eWqYCo5CP84FUg6vvrgEKP1aLXlvi0CyzLGaL2VjwyORaL3vLrmKz4hhk+ayn2BR5oyZx5Y+mZt
- Xn67PLsiixioosus4BkmjqJrjGzk7TvP9Pg3iskwdq90EF6MSZz9m2CMfAshlJUsb3nx6Zf9lgK
- +pOKVfBdolaTBDf8i+g==
-X-Proofpoint-ORIG-GUID: 76iZ-GCaRJwpoiYVRRBPNf5KEsY46Ef-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 malwarescore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606170099
-
-On 6/6/26 2:34 PM, Herman van Hazendonk wrote:
-> Add a Qualcomm interconnect driver for the MSM8x60 family modelling the
-> four NoC fabrics (APPSS, System, MMSS, Daytona) that connect masters
-> and slaves on these Scorpion-class SoCs.  The driver implements the
-> interconnect-provider API to manage bandwidth between specific masters
-> and slaves via the RPM arbitration tables.
-
-[...]
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <62c0b8ab9b6d9f994daa8bb60b3b626688af7d5e.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-> +/*
-> + * Minimum fabric clock rate to prevent bus starvation.
-> + *
-> + * When no consumers request bandwidth, the rate calculation yields 0,
-> + * causing fabric clocks to drop to minimum. This creates bimodal
-> + * performance: fast when other subsystems (like display) happen to
-> + * request bandwidth, slow otherwise.
-> + *
-> + * 384 MHz keeps fabric fast during concurrent MDP display scanout
-> + * and USB gadget traffic. legacy vendor kernel docs: "AXI bus frequency needs to be
-> + * kept at maximum value while USB data transfers are happening."
-> + * 266 MHz was insufficient - USB crashed during display activity.
-> + */
-> +#define MSM8660_FABRIC_MIN_RATE		384000000UL	/* 384 MHz */
-
-Can you ensure that through a vote in the USB driver?
-
-Konrad
+On 6/15/2026 4:57 PM, Icenowy Zheng wrote:
+> 在 2026-06-15一的 14:50 +0800，Joey Lu写道：
+>> Register the Nuvoton MA35D1 DCUltraLite chip identity in
+>> vs_chip_identities[]:
+>>    model       = 0x0   (DCUltraLite; Verisilicon uses 0 for this IP)
+>>    revision    = 0x5560
+>>    customer_id = 0x305
+>>    generation  = VSDC_GEN_DC8000
+>>    display_count = 1
+>>    max_cursor_size = 32
+> I suggest make this more human-readable instead of replicating the
+> machine-readable data of HWDB.
+>
+> My proposal here:
+>
+> ```
+> The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
+> model number 0x0 (sic, the model name contains no number either),
+> revision 0x5560 and customer ID 0x305. It has a similar register map
+> with DC8000, only one display output and only 32x32 cursor supported.
+> ```
+Thanks. I will use your proposed wording for the commit message in v5
+>> Placing this entry last makes it the gate that enables MA35D1
+>> hardware
+>> recognition only after all the supporting ops and DT binding changes
+>> are
+>> in place.
+> It's a little ambiguous that "last" here means whether the last in the
+> patchset or the last in the HWDB array, although I think it's not so
+> needed to explain the reason of the place in the patchset.
+>
+> I propose just say `Adding it to the HWDB to enable it to be usable
+> with the verisilicon driver.` .
+I will simplify the placement sentence to "Adding it to the HWDB to 
+enable it to be usable with the verisilicon driver." in v5.
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>> ---
+>>   drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
+>>   1 file changed, 10 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> index 91524d16f778..7d630a667a3f 100644
+>> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
+>> @@ -129,6 +129,16 @@ static struct vs_chip_identity
+>> vs_chip_identities[] = {
+>>   		.max_cursor_size = 64,
+>>   		.formats = &vs_formats_no_yuv444,
+>>   	},
+>> +	{
+>> +		.model = 0x0,		/* DCUltraLite */
+>> +		.revision = 0x5560,
+>> +		.customer_id = 0x305,
+>> +
+>> +		.generation = VSDC_GEN_DC8000,
+>> +		.display_count = 1,
+>> +		.max_cursor_size = 32,
+>> +		.formats = &vs_formats_no_yuv444,
+>> +	},
+>>   };
+>>   
+>>   int vs_fill_chip_identity(struct regmap *regs,
