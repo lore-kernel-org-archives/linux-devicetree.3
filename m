@@ -1,77 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E343B3CE4A3;
-	Wed, 17 Jun 2026 09:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5B13D45CB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:59:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781690323; cv=none; b=NuLJ2yRS1xAKyWIMTctOHGQddqgLuBG/J7EurCYQOAddWWIzSSzf0WKKBeXzwHXVbKG/VSzwTeJToc3RByRXI0d+HheV11YIsKZ+alrESjSOzaoM18skhY5ul24MZa7V+JGejmA5yGJxqClDm5GFCgEu/s72Z5jL3jUiTdoz7to=
+	t=1781690381; cv=none; b=PhsTKDgnlxlOEb+JSG1ntsetszmZQyMCk9OsF1MwkF9FpOCc4ENgo/azo49OS8P+AmvxfPbrhUUBoB+6drWlfr1WMqHCnPs9kGRwNwcDYlXLm2+rdBg4mN8wxv85d5hSHXm2h9tRyQLwmhyvc651pdWVfc6zrnyZAwgIlGntcXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781690323; c=relaxed/simple;
-	bh=pX65t2txArkHcwDg3wemWwTziKw33QD1Iq9DsnJOjHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L6GIL7vPbfNywpiCMan19EzPa4uHuGPDiKS/pZ4EvHvkbvp/e8eYFRrdL1fyS9rR+9DlDxeN3XA6r7b3KV/wDjzc71zjzmq1dEWwe4+AKfrcw0Hgpr8wHapLONoy8QR9HUtwT3oF8siF6HRumQSW54AA1fntwiAKwABKPYHTbus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8kJnIBm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781690381; c=relaxed/simple;
+	bh=vxkw8XvuuW0zW1Wfmu+OsdLiisNK4i8ADw399bCV/F4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pylM6yrRTokSzYY6/zJsutB4SqITvYjeot9G72td7nB6wta6fvSN9iCXUWcgwwmMOdbrIPmAuZMHFAQuqPzp3aK0Sb+qVx+p3x8b4zxitrAv1maNz4W/T+M/IswId9amI66mcL8c4EBc0rvi3DPqXWCTVvjLamQXOVTT4CyfRDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNmshquw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8kJnIBm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C081F000E9;
-	Wed, 17 Jun 2026 09:58:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNmshquw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 212311F000E9;
+	Wed, 17 Jun 2026 09:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781690322;
-	bh=vf55Z27wBvYv5++UeYCjXZHA1iYmcLSXC7ozvIxrmWQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l8kJnIBm1jSmrk2QikHqGG6bK1/5+Ofq3pmQ45J9JHLQXBFissEibc1nEPgk60hw6
-	 mBZ3XvX9Y0pV2Ve5kuvKvUo14CtbLx6pPoUzyfVVbM18ux/1qHODNcUF+zmUo+mFVp
-	 q1i6Zn1dTeBQJMk9HGbyr7H8LBrdwWw6Mm0SJ6wbKLluYCoC3x35r8BKFiVdMY7p0H
-	 OYnxP2DKGkR9ZBMwH2IsFRGXt8d+nHVDCAlcyhHFQGlpaWmMhXR1yT3EjsU5whp2Sd
-	 JEesksXMx4E3wbx9EzkoNxnfFYzzxmelGRdy1iXgLu/9PPiuPbzqn3u7bKzmUQILRC
-	 HPsXjlZPSF+7w==
-Date: Wed, 17 Jun 2026 11:58:38 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de, 
-	gary.yang@cixtech.com, cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4 resend 1/5] dt-bindings: soc: cix,sky1-system-control:
- add audss system control
-Message-ID: <20260617-resolute-sarcastic-orangutan-0fcf73@quoll>
-References: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
- <20260617064100.1504617-2-joakim.zhang@cixtech.com>
+	s=k20260515; t=1781690378;
+	bh=aZGxYfOht8yQWyhKKmxpniD+FQNp8uNkUu0Pj7RuSOs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cNmshquwOh1wdI1vPdVMkq0PYVDeJlZBm6ckKzBblvRlBQKq6hyjim1/Ecs3d08QB
+	 0XyGIsNn0owhsyBKvHxl7bhW1wiEJtsK0L64zHKXvlUVXoZCIOLnggCTwSpN4XNmHF
+	 08zPFQV42kxU8SczUzK3fat81TGn5c0YdyS0qjJd58l4KXUYkRL9MlpdzCys/CoS/5
+	 2YI38gYWeLAx2E6jd6bCmo3btyjYcXL5jCHgCBBCx7keImZ8qu1C7WbcOK1vJVPpqB
+	 2m4T+hMO8SojUAWNdvW/ubuo9j5i0bSKisUebW6N4eICo5DaN0XYtlSC2uBnOhY4tx
+	 6aNOSJfAAXJlw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] mfd: mt6397-core: add mt6323 EFUSE support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260617-mt6323-nvmem-v2-3-4f30e36aa0f4@protonmail.com>
+References: <20260617-mt6323-nvmem-v2-0-4f30e36aa0f4@protonmail.com>
+ <20260617-mt6323-nvmem-v2-3-4f30e36aa0f4@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 09:59:37 +0000
+Message-Id: <20260617095938.212311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260617064100.1504617-2-joakim.zhang@cixtech.com>
 
-On Wed, Jun 17, 2026 at 02:40:56PM +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
-> 
-> The Cix Sky1 Audio Subsystem (AUDSS) groups audio-related clock, reset
-> and control registers in a dedicated CRU block. Software reset lines are
-> exposed on the syscon parent via #reset-cells, following the same model
-> as the existing Sky1 FCH and S5 system control bindings.
-> 
-> A clock-controller child node is required under the audss syscon. It has
-> no reg property of its own and accesses the parent register block for mux,
-> divider and gate fields.
-> 
-> The AUDSS is also controlled by one power domain and reset part.
-> 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> ---
->  .../soc/cix/cix,sky1-system-control.yaml      | 48 +++++++++++++++++++
->  .../reset/cix,sky1-audss-system-control.h     | 25 ++++++++++
->  2 files changed, 73 insertions(+)
->  create mode 100644 include/dt-bindings/reset/cix,sky1-audss-system-control.h
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unchecked grandparent pointer dereference in mt6323_efuse_probe.
+--
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 9ff4fcd2490678b446194f62f1baf75c41828eff
+Author: Roman Vivchar <rva333@protonmail.com>
+Subject: mfd: mt6397-core: add mt6323 EFUSE support
 
-Best regards,
-Krzysztof
+This commit adds the mt6323 EFUSE to the mt6323 devices array in the MFD co=
+re.
+This registration allows the corresponding efuse driver to probe using its
+compatible string.
 
+> diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
+> index 3e58d0764c7e0..362737a1c4a9a 100644
+> --- a/drivers/mfd/mt6397-core.c
+> +++ b/drivers/mfd/mt6397-core.c
+> @@ -125,6 +125,9 @@ static const struct resource mt6323_pwrc_resources[] =
+=3D {
+> =20
+>  static const struct mfd_cell mt6323_devs[] =3D {
+>  	{
+> +		.name =3D "mt6323-efuse",
+> +		.of_compatible =3D "mediatek,mt6323-efuse",
+
+[Severity: High]
+Does adding this compatible string expose an unchecked pointer dereference
+in the efuse driver?
+
+Looking at mt6323_efuse_probe() in drivers/nvmem/mt6323-efuse.c:
+
+mt6323_efuse_probe() {
+    ...
+    regmap =3D dev_get_regmap(dev->parent->parent, NULL);
+    ...
+}
+
+If the driver is instantiated directly from a top-level device tree node via
+this compatible string instead of as an MFD child, dev->parent will point to
+the root platform bus. Because the platform bus has no parent,
+dev->parent->parent evaluates to a NULL pointer.
+
+Passing this NULL device pointer to dev_get_regmap() causes devres_find() to
+unconditionally dereference it. Would it be safer to add a NULL check on
+dev->parent and dev->parent->parent in the driver before doing this lookup
+to prevent a kernel panic?
+
+>  	}, {
+>  		.name =3D "mt6323-rtc",
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-mt6323-nvm=
+em-v2-0-4f30e36aa0f4@protonmail.com?part=3D3
