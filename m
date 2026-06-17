@@ -1,191 +1,364 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE212BE7A7
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BFD282F3A
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781695068; cv=none; b=D2dlyh3EZwxRBvBQSFG95vL4SN/nGOsz7sAc+l3dCXXKN/OtQ2zb90Ii10VZ2J9MURMiod9w6jK9fWVkrFvD4RcE2b6WJ0F1hCApcqpyZMMScSfGDwWtC1871yuwEncJ2P7WjrZB469wAmzuXWFfD2IyU0bRvGj5bGhwY/33VUg=
+	t=1781695090; cv=none; b=sSmBKXwsuxJ3v6GZxTCjGka/r92kaTPae2wtylIAfKMW3Gnb1y8hRWuj4+DYo4JzOydjGZ4xUjxhDHWp074qooFQEBpww7Dv+/G/UkSm0zLGVzcI9vX3+rEcLn8cUnPPr8Hm3mCnTr3bnuXLOA3J3C1kFXGFGSjTXpBH1x3LE2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781695068; c=relaxed/simple;
-	bh=Dn7givp6qpmywtrsbSaiJVt0X3+3bO+y71LrxiMJc28=;
+	s=arc-20240116; t=1781695090; c=relaxed/simple;
+	bh=aD8dD5p+/44c8fB9QiBdWQ+hcmF5aAlKG34iBDx5a7E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g6ugIxw7AYezdOT6ecTrdbkwkNfhigB5qVm3M7YmRteB9CJry66/FVQnvw68nP3NHosbsp1slN6dwBqxzkREMDXdaEOXiZY6Y9QeCxGhUgE2eTMkXAxZSG8CQIyINb606YhtpoSTXxddu5UfNYlcMUNiIHWL/7XMG+WHz9MPkCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/v1u8te; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UdEQ8ypUG5d+GJ+OPfVj5icTtndCRs3NDrnFIaszqFCku6HaHWG0XaC3zawXP7QYAXrK12/9eJgLxXgHhJwAAUglfBxqNQFapBa9QAlvt65hJ74IJ4B2Tf4fN/hzOWTYx9mhnZcjwr4t+k9XU34XLHDzGUh4zr9nzFuJeg7J4vw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAD/20LJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/v1u8te"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0971F000E9;
-	Wed, 17 Jun 2026 11:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAD/20LJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABFF71F00A3D;
+	Wed, 17 Jun 2026 11:18:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781695064;
-	bh=rt5MZHZ9w6MWDmQ5xmHXLkHiw1XPTomDmnzykaiUDKQ=;
+	s=k20260515; t=1781695085;
+	bh=0O7n1x2uoPuiR0pxuOx+prQXqwOkZgkFZTU+B/41iyU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B/v1u8te6LCdj+zOO8xBnHtXbH8hXdX5kNopX9VVUxrm7c+ZXJ222qGYaVz2JR1mO
-	 /MBbY1vJ/RSkhbqPj162aSmxlAk33qBKuzxlZiNfkKTvtC2Ifn5YJnnnhFO5pQWQm+
-	 I3P0lHI0qaJFvVt0nndC9TonqmN+6BDdkfDVLvKJ+ejvbwSWDNoh0eg2fTPeVszr8a
-	 Q0/7l24rzs0mIy3ZjlfA6DKM1cx2IXGd3lRT49ud5fonOLUZFq6q7r89P2i/T7xDEc
-	 UqK18SvgH5ylACEUlbmWCgDUn7+2uIN1XsCTof3FjNL+aZn0vUkZJzlGgEzRWeaMiD
-	 oavfVmF72b6hQ==
+	b=YAD/20LJu29GU0Q+FrjODWS7FbZcojsq1dkBg26694uTX+bWR1Uf+dMl0jT+FdIHy
+	 c41y36wWgUpzP5uCDmfmNBHi69pwWJOpzpH0uEry7z9yAGMsESBTclNa5WNNlhREsd
+	 SJZCy72y3kmppNUB9MaIpptxTqllhCr/isWkm4cKlKvQ29VFDSyHdVzOg+o5Q4kPkA
+	 ldFadGCQkvDXE1g0wNQSxysx1woLnz4y7emoBgMg1D5cKvUlQ8L2Lg/r9aXGDbLHct
+	 VOUzxjqoDV5jkUi/oZLS+fOcCwKMoJHOB+IAAUkvu03JNs3AotJEoS0b0t829Lb7tY
+	 IoUD+uAVDotug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 4/7] regulator: p3h2x4x: Add driver for on-die
- regulators in NXP P3H2x4x i3c hub
+Subject: Re: [PATCH v12 5/7] i3c: hub: Add support for the I3C interface in
+ the I3C hub
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: linux-i3c@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617110355.1591844-5-lakshay.piplani@nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, linux-i3c@lists.infradead.org
+In-Reply-To: <20260617110355.1591844-6-lakshay.piplani@nxp.com>
 References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
- <20260617110355.1591844-5-lakshay.piplani@nxp.com>
+ <20260617110355.1591844-6-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 11:17:43 +0000
-Message-Id: <20260617111744.1A0971F000E9@smtp.kernel.org>
+Date: Wed, 17 Jun 2026 11:18:04 +0000
+Message-Id: <20260617111804.ABFF71F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] Concurrent regulator operations race on the shared device-level pr=
-otection register, leading to silent hardware configuration failures.
-- [Medium] The driver module will not auto-load because it lacks a MODULE_A=
-LIAS or platform_device_id table.
-- [Medium] If regmap_read or the unlock sequence fails in the guard constru=
-ctor, the driver proceeds with the regulator operation on locked registers.
-- [Low] Typo in regulator config assignment assigns dev->of_node to itself =
-instead of rcfg.of_node.
+- [Critical] Deterministic NULL pointer dereference in `i3c_hub_free_ibi()`=
+ due to recursive callback chain.
+- [Critical] Memory leak and double-free memory corruption in `i3c_hub_requ=
+est_ibi()` error paths.
+- [Critical] Critical race condition and parent bus state corruption in `i3=
+c_hub_master_priv_xfers()` due to unlocked address mutation.
+- [Critical] Unimplemented `i3c_hub_recycle_ibi_slot()` permanently leaks h=
+ardware IBI slots.
+- [Critical] Architectural bypass in `i3c_hub_do_daa()` attaches dynamicall=
+y discovered devices to the parent bus instead of the virtual hub bus.
+- [High] Calling `i3c_hub_enable_port()` outside of any locks allows concur=
+rent operations to physically enable multiple downstream ports simultaneous=
+ly, breaking electrical isolation.
+- [High] Silently dropping broadcast RSTDAA commands prevents resetting of =
+downstream devices.
+- [Medium] Accepting I2C devices while unconditionally rejecting all I2C tr=
+ansfers violates the API contract.
 --
 
-commit e68081b58005a2422d441a5611dac29f8cffe2f4
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+commit 2a201a9e0e9a55b31467d874340085240b34afc3
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c hub
+i3c: hub: Add support for the I3C interface in the I3C hub
 
-The NXP P3H2x4x family integrates on-die regulators alongside I3C hub
-functionality. This driver registers the regulators using the MFD
-framework and exposes them via the regulator subsystem.
+This patch adds virtual I3C bus support for the hub and provides an
+interface to enable or disable downstream ports.
 
+> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
+> new file mode 100644
+> index 0000000000000..e8744b5172340
 > --- /dev/null
-> +++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
+> +++ b/drivers/i3c/hub.c
+> @@ -0,0 +1,483 @@
 
 [ ... ]
 
-> +static void p3h2x4x_reg_guard_enter(struct regulator_dev *rdev,
-> +				    struct p3h2x4x_reg_state *state)
+> +static int i3c_hub_do_daa(struct i3c_hub *hub,
+> +			  struct i3c_master_controller *controller)
 > +{
-> +	state->restore =3D false;
+> +	struct i3c_master_controller *parent;
+> +	int ret;
 > +
-> +	if (regmap_read(rdev->regmap,
-> +			P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			&state->orig))
-> +		return;
+> +	if (!hub || !hub->hub_dev)
+> +		return -ENODEV;
+> +
+> +	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
+> +	if (!parent)
+> +		return -ENODEV;
+> +
+> +	i3c_hub_enable_port(controller);
+> +	ret =3D i3c_master_do_daa(parent);
 
-[Severity: Medium]
-If regmap_read() fails here, the function returns early and swallows the
-error since the guard constructor returns void. Will this cause the caller
-to proceed with regulator operations on locked hardware, potentially
-resulting in silent hardware configuration failures?=20
+[Severity: Critical]
+Since `i3c_master_do_daa()` executes the DAA sequence natively on the parent
+controller, will the newly discovered devices be allocated and attached
+directly to the parent bus instead of this virtual hub's bus?=20
 
-If the device ACKs the transaction despite ignoring the write, wouldn't
-the driver incorrectly report success to the regulator core?
-
-> +
-> +	if (state->orig !=3D P3H2X4X_REGISTERS_UNLOCK_CODE) {
-> +		regmap_write(rdev->regmap,
-> +			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			     P3H2X4X_REGISTERS_UNLOCK_CODE);
-> +		state->restore =3D true;
-> +	}
-> +}
-> +
-> +static void p3h2x4x_reg_guard_exit(struct regulator_dev *rdev,
-> +				   struct p3h2x4x_reg_state *state)
-> +{
-> +	if (state->restore)
-> +		regmap_write(rdev->regmap,
-> +			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			     state->orig);
-> +}
-> +
-> +DEFINE_LOCK_GUARD_1(p3h2x4x_reg, struct regulator_dev,
-> +		    p3h2x4x_reg_guard_enter(_T->lock, &_T->state),
-> +		    p3h2x4x_reg_guard_exit(_T->lock, &_T->state),
-> +		    struct p3h2x4x_reg_state state);
+If they are attached to the parent bus, won't subsequent transfers complete=
+ly
+bypass `i3c_hub_master_priv_xfers()`, causing communication with these
+dynamically enumerated devices to fail?
 
 [Severity: High]
-Does this guard provide mutual exclusion across the four different regulato=
-rs
-on the same device?=20
+Is there a risk of breaking electrical isolation here? `i3c_hub_enable_port=
+()`
+is called before acquiring any parent bus locks.=20
 
-The regmap lock protects individual I/O operations, but since there is no
-device-level lock held across the unlock/modify/lock sequence, can concurre=
-nt
-operations on different regulators interleave?
+If multiple threads operate on different virtual controllers concurrently,
+could they physically enable multiple downstream ports at the same time
+before the bus lock is acquired?
 
-For example, could one thread re-lock the device in p3h2x4x_reg_guard_exit()
-while another thread is just about to write its configuration, causing the
-hardware write to be silently ignored? Is a shared device-level mutex needed
-to serialize these sequences?
+> +	i3c_hub_disable_port(controller);
+> +
+> +	return ret;
+> +}
 
 [ ... ]
 
-> +static int p3h2x4x_regulator_probe(struct platform_device *pdev)
+> +static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
+> +				struct i3c_master_controller *controller,
+> +				struct i3c_ccc_cmd *cmd)
 > +{
-> +	struct p3h2x4x_dev *p3h2x4x =3D dev_get_drvdata(pdev->dev.parent);
-> +	struct p3h2x4x_regulator_dev *p3h2x4x_regulator;
-> +	struct regulator_config rcfg =3D { };
-> +	struct device *dev =3D &pdev->dev;
-> +	struct regulator_dev *rdev;
-> +	int i;
+> +	struct i3c_master_controller *parent;
+> +	int ret;
 > +
-> +	p3h2x4x_regulator =3D devm_kzalloc(dev, sizeof(*p3h2x4x_regulator), GFP=
-_KERNEL);
-> +	if (!p3h2x4x_regulator)
-> +		return -ENOMEM;
+> +	if (!hub || !hub->hub_dev)
+> +		return -ENODEV;
 > +
-> +	platform_set_drvdata(pdev, p3h2x4x_regulator);
+> +	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
+> +	if (!parent)
+> +		return -ENODEV;
 > +
-> +	p3h2x4x_regulator->regmap =3D p3h2x4x->regmap;
-> +	device_set_of_node_from_dev(dev, dev->parent);
-> +
-> +	rcfg.dev =3D dev;
-> +	rcfg.dev->of_node =3D dev->of_node;
+> +	i3c_hub_enable_port(controller);
+> +	ret =3D i3c_master_send_ccc_cmd(parent, cmd);
 
-[Severity: Low]
-Should this be rcfg.of_node =3D dev->of_node? Since rcfg.dev is assigned to=
- dev
-on the previous line, this just assigns dev->of_node to itself.
+[Severity: High]
+Similar to `i3c_hub_do_daa()`, does calling `i3c_hub_enable_port()` without=
+ a
+lock risk enabling multiple ports concurrently if multiple CCC commands are
+issued on different ports?
 
-> +	rcfg.regmap =3D p3h2x4x_regulator->regmap;
-> +	rcfg.driver_data =3D p3h2x4x_regulator;
+> +	i3c_hub_disable_port(controller);
+> +
+> +	return ret;
+> +}
 
 [ ... ]
 
-> +static struct platform_driver p3h2x4x_regulator_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "p3h2x4x-regulator",
-> +		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +	.probe =3D p3h2x4x_regulator_probe,
-> +};
-> +module_platform_driver(p3h2x4x_regulator_driver);
+> +static int i3c_hub_master_priv_xfers(struct i3c_dev_desc *dev,
+> +				     struct i3c_xfer *xfers,
+> +				     int nxfers,
+> +				     enum i3c_xfer_mode mode)
+> +{
+
+[ ... ]
+
+> +	if (hub_addr !=3D target_addr) {
+> +		down_write(&parent->bus.lock);
+> +		hub_dev->info.dyn_addr =3D target_addr;
 > +
-> +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
-> +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
-> +MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-> +MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB Regulator driver");
-> +MODULE_LICENSE("GPL");
+> +		ret =3D i3c_master_reattach_i3c_dev_locked(hub_dev, hub_addr);
+> +		up_write(&parent->bus.lock);
+> +		if (ret) {
+> +			hub_dev->info.dyn_addr =3D hub_addr;
+> +			goto disable;
+> +		}
+> +	}
+> +
+> +	ret =3D i3c_device_do_xfers(hub->hub_dev, xfers, nxfers, mode);
+
+[Severity: Critical]
+Does dropping `parent->bus.lock` before calling `i3c_device_do_xfers()` exp=
+ose
+a race condition?=20
+
+If multiple downstream ports initiate transfers concurrently, could they
+overwrite the shared `hub_dev->info.dyn_addr` before the transfer completes,
+causing packets to be routed to the wrong physical device?
+
+> +
+> +	if (hub_addr !=3D target_addr) {
+> +		down_write(&parent->bus.lock);
+> +		hub_dev->info.dyn_addr =3D hub_addr;
+> +
+> +		xfer_ret =3D i3c_master_reattach_i3c_dev_locked(hub_dev,
+> +							      target_addr);
+
+[Severity: Critical]
+Could passing `target_addr` as the old address corrupt the parent bus state?
+
+`i3c_master_reattach_i3c_dev_locked()` frees the old address slot in the bus
+slot map. Will this erroneously mark `target_addr` as `I3C_ADDR_SLOT_FREE`
+on the parent bus?
+
+> +
+> +		up_write(&parent->bus.lock);
+> +		if (!ret)
+> +			ret =3D xfer_ret;
+> +	}
+> +disable:
+> +	i3c_hub_disable_port(controller);
+> +	return ret;
+> +}
+> +
+> +static int i3c_hub_attach_i2c_dev(struct i2c_dev_desc *dev)
+> +{
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int i3c_hub_i2c_xfers(struct i2c_dev_desc *dev,
+> +			     struct i2c_msg *xfers, int nxfers)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
 
 [Severity: Medium]
-Since the driver is registered as a platform driver with the name
-"p3h2x4x-regulator" but the module is compiled as
-"p3h2840_i3c_hub_regulator.ko", will this module fail to auto-load?=20
+Is it intentional to return `0` from `i3c_hub_attach_i2c_dev()` while rejec=
+ting
+all I2C transfers with `-EOPNOTSUPP`?=20
 
-Without a MODULE_ALIAS("platform:p3h2x4x-regulator") or an exported
-platform_device_id table, udev may not be able to load the module when the
-MFD core creates the child platform device.
+Would it be safer to return an error from the attach callback to cleanly
+prevent I2C driver binding if the hub does not support I2C forwarding?
+
+[ ... ]
+
+> +static int i3c_hub_master_send_ccc_cmd(struct i3c_master_controller *con=
+troller,
+> +				       struct i3c_ccc_cmd *cmd)
+> +{
+> +	struct i3c_hub_controller *hub_controller;
+> +	struct i3c_hub *hub;
+> +
+> +	hub_controller =3D dev_get_drvdata(&controller->dev);
+> +	if (!hub_controller || !hub_controller->hub)
+> +		return -ENODEV;
+> +
+> +	hub =3D hub_controller->hub;
+> +
+> +	if (!hub->hub_dev)
+> +		return -ENODEV;
+> +
+> +	if (cmd->id =3D=3D I3C_CCC_RSTDAA(true))
+> +		return 0;
+
+[Severity: High]
+Does silently dropping the broadcast RSTDAA command prevent downstream devi=
+ces
+from being correctly reset by the hub?=20
+
+If the command is dropped instead of being forwarded to the downstream port=
+s,
+will devices retain their old dynamic addresses and fail to re-initialize
+during hot-plug recovery?
+
+> +
+> +	return i3c_hub_send_ccc_cmd(hub, controller, cmd);
+> +}
+
+[ ... ]
+
+> +static int i3c_hub_request_ibi(struct i3c_dev_desc *desc,
+> +			       const struct i3c_ibi_setup *req)
+> +{
+
+[ ... ]
+
+> +	ret =3D i3c_master_direct_attach_i3c_dev_locked(parent, desc);
+> +	if (ret) {
+> +		i3c_hub_update_desc_parent(&desc->common, orig_parent);
+> +		up_write(&parent->bus.lock);
+> +		return ret;
+> +	}
+> +
+> +	kfree(desc->ibi);
+
+[Severity: Critical]
+Does freeing `desc->ibi` here leak `desc->ibi->wq`?
+
+When the core function `i3c_dev_request_ibi_locked()` allocates `ibi`, it a=
+lso
+allocates `ibi->wq`.=20
+
+Also, if the inner call to `i3c_dev_request_ibi_locked()` fails, this funct=
+ion
+returns an error to the original core caller. Will the outer caller's error
+path execute `kfree(ibi)` on its local variable, resulting in a double-free
+since it was already freed here?
+
+> +	desc->ibi =3D NULL;
+> +	ret =3D i3c_dev_request_ibi_locked(desc, req);
+> +	if (ret)
+> +		i3c_master_direct_detach_i3c_dev_locked(desc);
+> +
+> +	i3c_hub_update_desc_parent(&desc->common, orig_parent);
+> +
+> +	up_write(&parent->bus.lock);
+> +
+> +	return ret;
+> +}
+> +
+> +static void i3c_hub_free_ibi(struct i3c_dev_desc *desc)
+> +{
+
+[ ... ]
+
+> +	i3c_hub_enable_port(controller);
+> +
+> +	down_write(&parent->bus.lock);
+> +	orig_parent =3D i3c_hub_update_desc_parent(&desc->common, parent);
+> +	i3c_master_direct_detach_i3c_dev_locked(desc);
+> +	i3c_dev_free_ibi_locked(desc);
+
+[Severity: Critical]
+Can this recursive call to `i3c_dev_free_ibi_locked(desc)` cause a null
+pointer dereference?
+
+When the core initially calls `i3c_dev_free_ibi_locked(desc)`, it invokes
+this hub callback. The inner call here successfully frees `desc->ibi` and s=
+ets
+it to null.=20
+
+When control returns to the outer core function, it unconditionally evaluat=
+es:
+
+    if (dev->ibi->wq) {
+
+Will this immediately dereference the null pointer?
+
+> +	i3c_hub_update_desc_parent(&desc->common, orig_parent);
+> +	up_write(&parent->bus.lock);
+> +
+> +	i3c_hub_disable_port(controller);
+> +}
+
+[ ... ]
+
+> +static void i3c_hub_recycle_ibi_slot(struct i3c_dev_desc *desc,
+> +				     struct i3c_ibi_slot *slot)
+> +{
+> +}
+
+[Severity: Critical]
+Does leaving this function empty permanently leak hardware IBI slots?
+
+When the core finishes processing an IBI, it returns the slot to the virtual
+controller. Because this doesn't forward the recycle request to the parent
+hardware controller, will the parent controller eventually exhaust its hard=
+ware
+slots and permanently stop processing IBIs?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617110355.1591=
-844-1-lakshay.piplani@nxp.com?part=3D4
+844-1-lakshay.piplani@nxp.com?part=3D5
