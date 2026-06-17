@@ -1,263 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E883F4DCA
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781695452; cv=none; b=K0At0Iz3bJt1BAiH6O6pATwdpR3bWgrvEAH9h9aTql+C561VtiuHyv8eDFrlnVXqHEFwYZJgCSdZO7oip8GNBS7hrFG3PQsg0YoC69Bg3Qlbc2zcKYxBEvDFZwhPQMduDI9OulJ8dPyzTKGTCYjI6wFUBSUKz7fyDY8bbODR8uM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781695452; c=relaxed/simple;
-	bh=zYAtaTMA4z9/HpMPf9VKERGrjsAPBGPy/VySfhkFzyI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MGbtlZBav07MicdsfWIFOZ9/z18U19jA+29ezPQA0wLJfUXtmC19gii2z9GkcGucxLF8eZGAa82hml8ytYtNbANfHgSRpAG2cXVs9yNKxRwXL/Ok7Vas9S4dpfpwyyF8krnLeWlKnab5SkM/TvLxIM/YX7M2exKTceoAgT37kvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLDe4zRm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLDe4zRm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2DB1F0156D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2273C13E2;
 	Wed, 17 Jun 2026 11:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781695445;
-	bh=1GqKDiifPoS5JBbx/0LyqR8zvsDknb4g0B97x2ss29M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NLDe4zRmcGEkicRquX2aePUurgczhyu2hAlt30OQYkwgLZKy6+mCXQ7XiiHGxgjHp
-	 nG5lLxq7/wtx9mCR+KTlqgS8kV7+gC2jB7JVYvstH3yPmamkLCXVlmZM67/3SWl5oB
-	 CdYYpHl9u1wqdONH+2BK5DW1XTMh8hXC2jiFAsNbWrs+Paa7c7aMo5YHKARgcJI756
-	 o7lCFqmDJAP9rhlIncJTMvglEsYvUDoOaf+7QjLpb52PwFk8tYe4xRmDbcArfAjuzx
-	 ZuPXgECTkeLi9aSBGtMU06RsnE7Vj+Sxd/DjLZl7/5CpWAptw6ohcMmhpA8uMs3jQW
-	 bWc23Bu8V41NQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 7/7] i3c: hub: p3h2x4x: Add SMBus slave mode support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617110355.1591844-8-lakshay.piplani@nxp.com>
-References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
- <20260617110355.1591844-8-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 11:24:04 +0000
-Message-Id: <20260617112404.8D2DB1F0156D@smtp.kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781695462; cv=none; b=AtqGp9eLE+uAgE6D6VrLjgqWsZIE1SqDKhpwdOazCsA28HQI8wk9HRKdIQ1rJ5RGgw1/X60voeD7GduSAaqI2FpDxb7c33Awr6XxxWXPnQ99IflN4WG+R1kqSXojRxiiO0sdAbZEpOJaHMxrKGWeoxPjMPKJHlBfWpRSCiSMXdk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781695462; c=relaxed/simple;
+	bh=kJznhAsAIoUPplZeSBc53gfszz7QFOud6uyzz8FYHLE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aXawt3AcSZ4XnIpbCLxzk2j8S3k46IrDWOCKbX1sHstCe9ZnnzSy+KrjfjwiWHo2B/aqhunjxPpl0YjLCHLzZ4a3yhsozRs0jPlPYMaIsXBzjBWAcrXKjCcIyQdHGPTDIcg18N3NTIbiKEbaupfXmDGwKz3+MGJV4QISV2VI+N4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QQDlkgfj; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QQDlkgfj"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4ggM1s2l5qz9t1H;
+	Wed, 17 Jun 2026 13:24:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1781695441;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0DwUTq2rLnB3z9n23jFo4+tRKz4woW730QVRFw/7ngQ=;
+	b=QQDlkgfjLuq0b23L76DrNNnzMr69RuAuxPzpbnSehHzZeyKIdHSwGjC8Jq5LXW7Bl8qjyX
+	eGOi2xt0cvGZV/POpBy36oSF4VvLqZ3x8VjBzdis5MTl1x9byFuMNhEIFiP383JV2VsMsv
+	o8J4J5z90+L/ZX9PA35MZmKSpcO8UzoiZrWlaQm2dQRoa5dRblqL4X1E6wJitWxuaqWXoK
+	ZLYcoWAU3exZQs+OgrctL7jf1Gh3ffJ+u6VxnFF2d2l9WdGx8A15gXjPS7uTJ61n22BcXM
+	mHRU/KcigXMjs4HOPOOuKEqqQqlJL6BXdwK4iYG7WfTutrX95OF/k8zzr1pEQg==
+Date: Wed, 17 Jun 2026 13:23:54 +0200
+From: Anthony Ruhier <aruhier@mailbox.org>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	Maya Matuszczyk <maccraft123mc@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Subject: Re: [PATCH v9 0/6] Add driver for EC found on Qualcomm reference
+ devices
+Message-ID: <ajKCupui1WILXnxh@tour-anthony.aruhier.fr>
+References: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260511-add-driver-for-ec-v9-0-e5437c39b7f8@oss.qualcomm.com>
+X-MBO-RS-ID: b8d4d4c08c8a9ab286f
+X-MBO-RS-META: 8wmtbtcc1pxi9rewx5nkkk1reg86sbyu
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Unconditional IBI request causes probe failure if the upstream I3C=
- controller lacks IBI support.
-- [High] Over-clearing buffer status flags on error paths discards pending =
-data in the receive buffers.
-- [High] DMA-from-stack vulnerabilities by allocating buffers on the stack =
-and passing them to regmap bulk operations.
-- [Medium] SMBus slave registration configures IBI without verifying if the=
- upstream connection is I3C.
-- [Medium] Missing SMBus agent status clear for unregistered ports leads to=
- IBI storms.
-- [Medium] Lockless read of `is_registered` in the IBI handler races with l=
-ockless write during SMBus adapter teardown.
+Tested-by: Anthony Ruhier <aruhier@mailbox.org>
+
+Thanks, I tested it on the slim 7x (2024) on which I was previously using the
+first patches from Maya, it works great!
+
+I confirm that the following works: keyboard backlight shutdowns when
+suspended, led blinks when suspended, keyboard fn shortcuts.
+
+For the Slim 7x, I needed to add the following in the DTS:
+
+---
+
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+index b5247fb91299..423bf7340b83 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+@@ -1070,6 +1070,21 @@ retimer_ss0_con_sbu_out: endpoint {
+        };
+ };
+
++&i2c5 {
++       clock-frequency = <400000>;
++       status = "okay";
++
++       embedded-controller@76 {
++               compatible = "qcom,hamoa-crd-ec";
++               reg = <0x76>;
++
++               interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
++
++               pinctrl-0 = <&ec_int_n_default>;
++               pinctrl-names = "default";
++       };
++};
++
+ &i2c7 {
+        clock-frequency = <400000>;
+
+@@ -1487,6 +1502,12 @@ reset-n-pins {
+                };
+        };
+
++       ec_int_n_default: ec-int-n-state {
++               pins = "gpio66";
++               function = "gpio";
++               bias-disable;
++       };
++
+        edp_reg_en: edp-reg-en-state {
+                pins = "gpio70";
+                function = "gpio";
+
+
 --
-
-commit 4badb83d7f4fe074334808f3d555ec26e7923604
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
-
-i3c: hub: p3h2x4x: Add SMBus slave mode support
-
-This commit adds SMBus slave mode support for the P3H2x4x hub target ports.
-The hub SMBus slave agent can receive downstream payloads into target buffe=
-rs
-and report receive events through IBI, which are then forwarded to the
-registered I2C slave client.
-
-> diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c b/drivers/i3c/hub/p3h2=
-840_i3c_hub_i3c.c
-> --- a/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
-> +++ b/drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
-
-[ ... ]
-
-> @@ -117,5 +135,25 @@ int p3h2x4x_tp_i3c_algo(struct p3h2x4x_i3c_hub_dev *=
-p3h2x4x_hub)
->  		p3h2x4x_hub->tp_bus[tp].is_registered =3D true;
->  		p3h2x4x_hub->hub_config.tp_config[tp].always_enable =3D true;
->  	}
-> -	return regmap_write(p3h2x4x_hub->regmap, P3H2X4X_TP_NET_CON_CONF, ntwk_=
-mask);
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +	ret =3D i3c_device_request_ibi(p3h2x4x_hub->i3cdev, &p3h2x4x_ibireq);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Could this unconditional IBI request cause the probe to fail entirely if the
-upstream I3C master controller does not support In-Band Interrupts?
-
-If i3c_device_request_ibi() returns an error like -ENOTSUPP, it looks like
-it aborts the entire initialization sequence for the hub.=20
-
-Does this mean the core I3C/I2C target port routing functionality would bre=
-ak
-on systems without IBI support merely because an optional SMBus slave featu=
-re
-could not be enabled?
-
-[ ... ]
-
-> diff --git a/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c b/drivers/i3c/hub/p3=
-h2840_i3c_hub_smbus.c
-> --- a/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
-> +++ b/drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
-
-[ ... ]
-
-> @@ -15,6 +15,146 @@ enum p3h2x4x_smbus_desc_idx {
->  	P3H2X4X_DESC_READ_LEN,
->  };
-> =20
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static void p3h2x4x_read_smbus_agent_rx_buf(struct i3c_device *i3cdev, e=
-num p3h2x4x_rcv_buf rfbuf,
-> +					    enum p3h2x4x_tp tp, bool is_of)
-> +{
-> +	struct p3h2x4x_i3c_hub_dev *p3h2x4x_i3c_hub =3D i3cdev_get_drvdata(i3cd=
-ev);
-> +	u8 slave_rx_buffer[P3H2X4X_SMBUS_TARGET_PAYLOAD_SIZE] =3D { 0 };
-> +	u8 target_buffer_page, flag_clear =3D 0x0f, temp =3D 0, i, addr;
-
-[Severity: High]
-This isn't a bug strictly introduced by this patch, as a similar preexisting
-flaw exists in p3h2x4x_tp_i2c_xfer_msg() with the desc array, but allocating
-slave_rx_buffer on the stack and passing it to regmap bulk operations can
-cause DMA-from-stack vulnerabilities.
-
-Because the underlying regmap is backed by an I3C controller that may use D=
-MA
-for transfers, passing stack addresses is unsafe.
-
-If CONFIG_VMAP_STACK is enabled, the stack memory is not guaranteed to be
-physically contiguous, which could cause dma_map_single() to fail or corrupt
-memory.
-
-Should these buffers be dynamically allocated or pre-allocated in the device
-structure instead?
-
-> +	u32 packet_len, slave_address, ret;
-
-[ ... ]
-
-> +ibi_err:
-> +	regmap_write(p3h2x4x_i3c_hub->regmap, P3H2X4X_PAGE_PTR, 0x00);
-> +	regmap_write(p3h2x4x_i3c_hub->regmap, P3H2X4X_TP0_SMBUS_AGNT_STS + tp, =
-flag_clear);
-> +}
-
-[Severity: High]
-Could this over-clear the buffer status flags on error paths and discard
-pending data?
-
-The local variable flag_clear is initialized to 0x0f, which matches
-BUF_RECEIVED_FLAG_TF_MASK.
-
-If an early error occurs before flag_clear is constrained to the specific p=
-ort
-buffer flag, it will write 0x0f to the status register.
-
-Will this unconditionally clear all receive buffer flags, including buffer =
-0,
-buffer 1, and overflow flags, for that port? If the other buffer contained a
-valid pending message, would it be silently dropped?
-
-> +
-> +/**
-> + * p3h2x4x_ibi_handler - IBI handler.
-> + * @i3cdev: i3c device.
-> + * @payload: two byte IBI payload data.
-> + *
-> + */
-> +void p3h2x4x_ibi_handler(struct i3c_device *i3cdev,
-> +			 const struct i3c_ibi_payload *payload)
-> +{
-
-[ ... ]
-
-> +	guard(mutex)(&p3h2x4x_i3c_hub->etx_mutex);
-> +
-> +	for (i =3D 0; i < P3H2X4X_TP_MAX_COUNT; ++i) {
-> +		if (p3h2x4x_i3c_hub->tp_bus[i].is_registered && (payload_byte_two >> i=
-) & 0x01) {
-
-[Severity: Medium]
-What happens if an IBI is triggered by a port that is not registered?
-
-Since the loop skips unregistered ports entirely, the hardware interrupt so=
-urce
-at P3H2X4X_TP0_SMBUS_AGNT_STS is never read or cleared.
-
-Does this mean the underlying hardware condition remains active, causing the
-hub to immediately re-assert the IBI after the handler returns?
-
-Could this result in an infinite loop of IBIs locking up the I3C bus, and
-should the event status be cleared defensively even for unregistered ports?
-
-[Severity: Medium]
-Is there a data race here involving the read of is_registered?
-
-During driver unbind or probe failure, p3h2x4x_unregister_smbus_adapters()
-executes hub->tp_bus[tp].is_registered =3D false; without holding etx_mutex.
-
-Because the devm action to free the IBI executes after the SMBus teardown
-action, this new handler could be running concurrently and reading
-is_registered under etx_mutex.
-
-Since the writer does not hold the mutex, should this state modification be
-properly synchronized?
-
-> +			ret =3D regmap_read(p3h2x4x_i3c_hub->regmap, P3H2X4X_TP0_SMBUS_AGNT_S=
-TS + i,
-
-[ ... ]
-
-> @@ -205,11 +345,64 @@ static u32 p3h2x4x_tp_smbus_funcs(struct i2c_adapte=
-r *adapter)
->  	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_BLOCK_DATA;
->  }
-> =20
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static int p3h2x4x_tp_i2c_reg_slave(struct i2c_client *slave)
-> +{
-> +	struct tp_bus *bus =3D i2c_get_adapdata(slave->adapter);
-> +	struct p3h2x4x_i3c_hub_dev *hub =3D bus->p3h2x4x_i3c_hub;
-> +	int ret;
-> +
-> +	guard(mutex)(&hub->etx_mutex);
-> +
-> +	if (bus->tp_smbus_client)
-> +		return -EBUSY;
-> +
-> +	ret =3D regmap_set_bits(hub->regmap,
-> +			      P3H2X4X_TP_SMBUS_AGNT_IBI_CONFIG,
-> +			      bus->tp_mask);
-
-[Severity: Medium]
-Does this configure IBI without verifying if the upstream connection is I3C?
-
-The registration enables P3H2X4X_TP_SMBUS_AGNT_IBI_CONFIG to route receive
-events via IBI. However, it does not check if the hub is connected via an I=
-3C
-bus (i.e., whether hub->i3cdev is valid and an IBI handler was successfully
-requested).
-
-If the hub is connected via an I2C upstream bus, it cannot generate IBIs.
-Enabling IBI generation on an I2C-connected hub would cause slave receive
-events to be silently dropped since no handler is registered.
-
-Should this function return -EOPNOTSUPP if !hub->i3cdev?
-
-> +	if (ret)
-> +		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617110355.1591=
-844-1-lakshay.piplani@nxp.com?part=3D7
+Anthony Ruhier
