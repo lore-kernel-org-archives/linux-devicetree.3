@@ -1,103 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8CF3C2B92
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:00:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21E938A70A
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781690432; cv=none; b=iJMKpd/XCh7E99ejBhvHcjyLBb18ZyrpuTpKxpWzFuxilcqZerqb3VKxzx8d2VU9ntW9prXLZaVI8HUkqvyHeyCq82iMU8kYD514YANdRYLVlOEzJ1CagpmJHODZsKIUv529VAZ0AcjzSV+NHXPBFN002Kdn4s3dTnsxYcfd+j0=
+	t=1781690540; cv=none; b=WiWsV6f/sOMTLdwuZ8rRwxMJGfwqshJpsT9988WdxkKsP+488UawMjqLCZtQ5HnxDqYNxPwnUf4RG7zB8Rj2Gq2U+kdfGfqGOm+sxslAkhM0eUZivGEFpB8bXdN6eySew775PtICDN0nZ5hswQhizng9M8DvoKmF9WX94K4tAZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781690432; c=relaxed/simple;
-	bh=uPcBP0Fe5XSMTR/jhoT/g/InSDaaB3ZIn17C3YRm3Iw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qLLIF+LrJoGf4Yf2pYX2veXwQqXuNYrqjVXgnAKrmNknxm66Iheqw9BU1MbMDVarc3E7MjdlWBJfpfbPzXJLkhbNQPoWPMYAGw50wyz8wNAcMVAElwXHqsTYODF3HTnLBe1vJR0G78adz77IAXjfSN8KRONXTvmv8SCFrW6ZShU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mPMmnfQl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781690540; c=relaxed/simple;
+	bh=4o5OuqN2tEaIFaYsOFRv2B02XJgVZiqwZxrylGJfius=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FIMwFbNvddy55VDi5xUn6bralDqrvl/O/o5eKSgkiigQMm2zarmAj6eSKU2HOOBP13RUx5VuHK24Iesk60kQT6fIsBFfDVGEUk4HA1MUTV24+xGiquV5YGDZcRCpHRj1Ue9LbTeh11JhdHzsBncmPLgnwIpeLdki3wBEVYSSPf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=jfLn5P1N; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mPMmnfQl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C521F000E9;
-	Wed, 17 Jun 2026 10:00:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781690431;
-	bh=vM5uMEQwTJJS/3aMjyrsWcaLv8Zv7jseiK5ZP5EfTII=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mPMmnfQlMpmaUqrixjRDr+qgCgrD+wMsDB619LPyMYk47gYSQgDP4UUm7wSWA2ZQe
-	 JUUHo6xbApyhvzDbylIqWZh85MT2PvH5Jyq3uHhri7eE8YRV/dbjDszy7FCdt8PXyf
-	 LdrieVdF++maMC1dOOZbvnctO3d742gWpaaTSipj667EDkqsh/NeMiaRJZwEhL3awC
-	 GUpVCKs++XNfGctbc/ijp5hVTf452bKxJOKe244toNcIEM8THD0C4Ao143hH8FqfBg
-	 nq+ZNLrPj7X2GCO4es4F5JLsL0Py0eRK5bcDB5UHKc8wVw3CmZbqz94TqrVmFWT35c
-	 WHrFaLgJiNndw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: mfd: mediatek: mt6397: add mt6323
- PMIC EFUSE
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar via B4 Relay" <devnull+rva333.protonmail.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617-mt6323-nvmem-v2-1-4f30e36aa0f4@protonmail.com>
-References: <20260617-mt6323-nvmem-v2-0-4f30e36aa0f4@protonmail.com>
- <20260617-mt6323-nvmem-v2-1-4f30e36aa0f4@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 10:00:30 +0000
-Message-Id: <20260617100031.50C521F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="jfLn5P1N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=4o5O
+	uqN2tEaIFaYsOFRv2B02XJgVZiqwZxrylGJfius=; b=jfLn5P1NCgC/Rz+xN2o8
+	24kmv3T5Qc5eDqv7F17HDBg60ZMa1R/Kbm5iFzS+Xu2bCMiwp+EW2ghDdLXU93JZ
+	QLdJx55eCtK0N9Ix/OPLkC2wRqbqB/vb1zyFIi+KnlQZuf/XhIGFbGVhQbeZ6noI
+	4cqv7c6bAZXDzDs+rg7LkmEsTUwTHrDfTnMclCV/9w9Kpa9i9T0Fln8cqEQOkvFD
+	mCdSGJYvFafVdykyJyMXorM4UCnbdrHtbfKGfmwn49ThpVdBtBisigPNSGfxezp5
+	p3fFI/d15oZOSyPTqmgDJtbhgoTUt5jqmDHUiRekXC92hkFPJiXsqufr56qd2QZD
+	aQ==
+Received: (qmail 114252 invoked from network); 17 Jun 2026 12:02:16 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 12:02:16 +0200
+X-UD-Smtp-Session: l3s3148p1@KRCFJ3BUMqAujnvI
+Date: Wed, 17 Jun 2026 12:02:16 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 05/12] rtc: rzn1: Add system suspend/resume support and
+ wakeup capability
+Message-ID: <ajJwqDt2jUfhSD1x@shikoro>
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615154805.1619693-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hqHzedOQbdGcB1SM"
+Content-Disposition: inline
+In-Reply-To: <20260615154805.1619693-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing core NVMEM schema reference for an NVMEM provider node.
---
 
-commit 3b91c0fc686c29119bcba167256b72fe3a4c7b96
-Author: Roman Vivchar <rva333@protonmail.com>
-dt-bindings: mfd: mediatek: mt6397: add mt6323 PMIC EFUSE
+--hqHzedOQbdGcB1SM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This commit adds devicetree binding documentation for the MediaTek mt6323
-EFUSE. The efuse component is responsible for storing calibration data
-within the mt6323 PMIC.
 
-> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b=
-/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-> index 05c121b0cb3d8..beaa67bf0df2c 100644
-> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-> @@ -145,6 +145,23 @@ properties:
->      required:
->        - compatible
-> =20
-> +  efuse:
-> +    type: object
-> +    unevaluatedProperties: false
-> +    description:
-> +      The efuse is responsible for storing calibration data, such as the=
-rmal
-> +      sensor calibration.
-> +
-> +    properties:
-> +      compatible:
-> +        const: mediatek,mt6323-efuse
-> +
-> +      nvmem-layout:
-> +        $ref: /schemas/nvmem/layouts/nvmem-layout.yaml#
+> Add system-wide power management support along with wakeup capability to
+> the rtc-rzn1 driver.
 
-[Severity: Low]
-Does this node need a reference to the core NVMEM schema?
+Do you have an actual use case for the wakeup functionality? If it is so
+limited, then we should maybe not support the weak abilities until
+someone has a real use case? For which then, a proper solution has been
+developed and tested?
 
-Because the efuse node acts as an NVMEM provider and uses=20
-unevaluatedProperties: false, it will currently reject standard NVMEM
-properties like read-only and wp-gpios if they are specified in the
-device tree.
 
-Including a $ref to /schemas/nvmem/nvmem.yaml# would natively support
-nvmem-layout and permit standard NVMEM provider features to pass validation.
+--hqHzedOQbdGcB1SM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +
-> +    required:
-> +      - compatible
-> +
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-mt6323-nvm=
-em-v2-0-4f30e36aa0f4@protonmail.com?part=3D1
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoycKgACgkQFA3kzBSg
+KbbNSA//T2grMLIiSa3whMiupODJrq9i4V96Vqgef6ys7tzeh3ByXQnqHIUFIL/W
+7SwwiAvkesDwbsZFFCrab2wp6j1LN/jUNmkcOrWh2Mg0TsLc/ln1X9f4W1BBfOPZ
+u+mZwhmVjdt7UUl8fsG2igCE3Taxjycf7dxlUr1JjKnASriGyaVPBHFV3ASPqRin
+fEShf2ldk47zfvOLrZCQlh2taP2CLY8ZjkpBwh2JO//0TQ6P2batAj3B8Sr8sugR
+Y+aOt0oN6Z/SfBvYBrkwiCDNJbe0urq3+xSZ+yTTlKd3PJFHAuEFUX3UwXO77FZ0
+2EEQ1rqMS92M1ZOXk6foviiuokdR98wSZguQS6hNrtUiVrhLVoqiC+WP3yFJGh1z
+BDeqjR228UkjLV5TpCbcF8AzAo8ae9dHic0tpgrSplSwOevw1kpmgV0ZLxMIEutI
+XczfH0vVNeRTRAnaLkaB2q6vBWuJ6Qigc6XI1uHntd2covOSBjMjtuYYW8Y6s/rw
+DOh7uo2OrvjMC6ak4ndFdAJzqhZhJHUz0Nk+ju19XNAGq8BBz2zK1qXuLnf/aHIT
+XuQAMeM3oGRoJ2vGafMmblI+uPO6N2vlFCDKbQAjWeYc4qCDR87KVMEBVv0PU/kX
+rY0qDQuYDI8xNZDhXvWWsPwE2uPR4oLJcKh18FR4CZzoaeYuT7U=
+=KyJf
+-----END PGP SIGNATURE-----
+
+--hqHzedOQbdGcB1SM--
