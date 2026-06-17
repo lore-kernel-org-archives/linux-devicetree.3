@@ -1,96 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E863B3C15;
-	Wed, 17 Jun 2026 08:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435003B3C15
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781683713; cv=none; b=j4vVcTEXt/s13J5W9Mdvqe5D1TWdGksdxPz9OltCdEzM5gYR+p5VjH7mpD907ZPIKh+V0RleyexdOapw6QDWHjVNUhBNWGCI7YrL8Krxh2kUrsDieCciPWS0Ww4QyeSMYNqlAqJp8piGvCwFVChZYLZrW1SnxWzjl+yMxJVun4s=
+	t=1781683893; cv=none; b=HPh2z8Elh+BHxLwSCExkxwSG2BS5ihnmKkfmKMx48IETXL6YQsu4ndMP+5JuJVh9d2e0YdPspaR3M/DtORrlf2Nkrg5AuF2x7jdxYXt/UTR1XcCrlqapKwniyTLAFy5nEJQOrdIyBO/chjjPXi3pPXhwC8NOpfTdXIvflQN/SgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781683713; c=relaxed/simple;
-	bh=701pPDeERqE5FZ9UsS8JzuKBuCKsfjtKQlnHvpZQwao=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eDy+i1IlJPIC6k+ek4I8+a2nF+qdhe7j6oByAmnlASOTsDoHyOk6573wIR6V36h9whYA0JDWpBuyzQxpRCuwbi+d99PlW4QVpWk0PCefd0OQdHzPkCRVgAr2lghdg5LF0zV07zUVeZfHIb5002pdK7FG7Y66LJ5Vjst53jJFsTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsGn2v77; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781683893; c=relaxed/simple;
+	bh=clmtvH0eGeQxS0G7U8hVQilo3vOZ4+YAU57i9dR3RQc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=p0cMppammz7+c+mcKl6kDbeJC5OHoLVry3Ue2P9TTVbnb2HdQ5fOF+ZQAvwlfASjHFz/0ewg+zOWihgR5oeNrD36TLP/rePLdai8Myb+TZ50KM6DC9UzjwFunX43U0FeBWpv0SrXBoqFgo3pvEQoeLGxseh4aJNcmNFRccZ+NF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=keYoykJI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsGn2v77"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721111F000E9;
-	Wed, 17 Jun 2026 08:08:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="keYoykJI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CD41F000E9;
+	Wed, 17 Jun 2026 08:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781683710;
-	bh=HoG9/vDOOpXWqnLjwpYAe/pB1CsaDbIahSGPUtC8/X8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AsGn2v77PqE37kTNZD+tWnIof00woDcDxIAu7dib5zI9QgdkqWBcRZmVaJJRnsrCt
-	 AJw9V4Xb1MmCNgLEZBCcedqjYHpD235PFbjwqWMfLJSPsBAhZvvKsWxWpdpRn7r6lz
-	 mwsG2hm2tA/nmMCI63WvoRtOjchR0jzxkva+kYE7kVZGqRLgbQVg+t0IHF01wsPxqM
-	 8dK0aZSh8t45CBHURVNZD9kuVT0EW2MqOwBxaUht2i/w2xVhC2KZnTTtT09MDrkTGC
-	 TYqI8i3GeInpIZsGyHaCryURlE4O/A8RkdV8OaoVlbbT2+8MVxBa7wi1e9Q7te9pTo
-	 Bua6RvUYddalg==
-Date: Wed, 17 Jun 2026 10:08:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jad Keskes <inasj268@gmail.com>
-Cc: Olivia Mackall <olivia@selenic.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alexander Clouter <alex@digriz.org.uk>, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hw_random: timeriomem-rng: add configurable read
- width and data mask
-Message-ID: <20260617-grinning-tidy-bandicoot-5a2ef2@quoll>
-References: <20260615201339.1264676-1-inasj268@gmail.com>
+	s=k20260515; t=1781683891;
+	bh=DGyTkWofSz/FPfY2ZGkAAhsr14BRhfEZM+zZ+Pxo9xM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=keYoykJId3a1bOCp5KcblSpX1qdL8vt1e5z02K120PuU6Vl/Chw1yM1WZBIyV8PPb
+	 wIyTeY2q8qz6vnvX3T6RnEadxsDYWHNwpjWrjzCdEvOdgCMvz5Wgietpd/cgYySr0e
+	 vxQtPO8Fskc1zCmJ9HTxOp8dT3juV2gHVMkHKrSORl7IWM2BBPVoiLQ2jo/Bn/bLvc
+	 66T4OeRj48fmUTavmbr7XYTHrZrJR/U/GHB+Citm7B3BU6ZRNt8UUsQx9ddOSdKFoA
+	 CtwpkBfpEGZO/087W2qOvtm1mDTIsEtXzCP1k2AZyZ17Tjq+E3SBTYkwRSd/Nwr3al
+	 +fcfmW5+rop9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
+ device_driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260617080031.99156-8-clamor95@gmail.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-8-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 08:11:31 +0000
+Message-Id: <20260617081131.A0CD41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260615201339.1264676-1-inasj268@gmail.com>
 
-On Mon, Jun 15, 2026 at 09:13:39PM +0100, Jad Keskes wrote:
-> The TODO for supporting read sizes other than 32 bits and masking has
-> been sitting in this driver since 2009.  Implement it.
-> 
-> Add width (8, 16, or 32 bits) and mask properties to the platform data
-> and device tree bindings.  The read loop dispatches on width using
-> readb/readw/readl so a configured 8-bit access doesn't trigger a bus
-> error on hardware that rejects 32-bit reads to that address.  The mask
-> is ANDed with the value before storing.
-> 
-> These are platform properties, not runtime policy -- width depends on
-> SoC integration, mask reflects which output bits carry entropy.
-> 
-> The alignment check in probe is updated to verify the resource is
-> aligned to the configured width instead of hardcoding 4-byte alignment.
-> 
-> Signed-off-by: Jad Keskes <inasj268@gmail.com>
-> ---
-> 
-> v2:
-> - Remove old timeriomem_rng.yaml to avoid dt_binding_check conflict
-> - Use IS_ALIGNED() instead of modulo for 32-bit PAE safety
-> 
-> 
->  .../bindings/rng/timeriomem-rng.yaml          | 76 ++++++++++++++++++
->  .../bindings/rng/timeriomem_rng.yaml          | 48 ------------
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unintentional user-space ABI breakage by moving custom sysfs attri=
+butes from the backlight class device to the platform device.
+--
 
-I don't undetstand this diff... what are you doing exactly? And more
-important WHY?
+commit b4eaddced56809e9f87ffe143724f151f0e7013e
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+mfd: lm3533: Use dev_groups in struct device_driver
 
+Instead of creating and removing the device sysfs attributes directly
+during probe and remove of the driver, respectively, use dev_groups in
+struct device_driver to point to the attribute definitions and let the
+core take care of creating and removing them.
 
->  drivers/char/hw_random/timeriomem-rng.c       | 78 +++++++++++++++----
->  include/linux/timeriomem-rng.h                | 12 +++
->  4 files changed, 153 insertions(+), 61 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/rng/timeriomem-rng.yaml
->  delete mode 100644 Documentation/devicetree/bindings/rng/timeriomem_rng.yaml
+No intentional functional impact.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
+t/lm3533_bl.c
+> index 4d6f680334802..9ef171d3aaeab 100644
+> --- a/drivers/video/backlight/lm3533_bl.c
+> +++ b/drivers/video/backlight/lm3533_bl.c
+[ ... ]
+> @@ -304,28 +309,17 @@ static int lm3533_bl_probe(struct platform_device *=
+pdev)
+> =20
+>  	platform_set_drvdata(pdev, bl);
+> =20
+> -	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
+> -	if (ret < 0) {
+> -		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
+> -		return ret;
+> -	}
+> -
+>  	backlight_update_status(bd);
+[ ... ]
+> @@ -377,6 +370,7 @@ static struct platform_driver lm3533_bl_driver =3D {
+>  	.driver =3D {
+>  		.name	=3D "lm3533-backlight",
+>  		.pm	=3D &lm3533_bl_pm_ops,
+> +		.dev_groups =3D lm3533_bl_attribute_groups,
 
+[Severity: High]
+Does moving these attributes to the platform driver break the userspace ABI?
+
+The old code explicitly created custom sysfs attributes on the backlight
+device's kobject (&bd->dev.kobj), placing them in the backlight class
+directory, for example under /sys/class/backlight/<name>/.
+
+By attaching the attribute groups to the platform driver via .dev_groups, t=
+he
+driver core will now create these attributes on the parent platform device
+instead.
+
+Since the commit message states there is no intentional functional impact,
+could this path change accidentally break userspace tools or udev rules
+that expect to find these custom attributes inside the backlight class
+directory?
+
+>  	},
+>  	.probe		=3D lm3533_bl_probe,
+>  	.remove		=3D lm3533_bl_remove,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
+6-1-clamor95@gmail.com?part=3D7
