@@ -1,213 +1,135 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F5D37C0EB
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C723E6DEB;
+	Wed, 17 Jun 2026 10:16:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781691188; cv=none; b=YrjGuSjk6dm/5/Sxkzxuq0+hawiMIsuiLk924xg0EA0/2jAzeGbQD6lomlMthNCtDvDuDlbqNsfBGWkUSqLgGLqLepyVRL/Ci3RjjlMQuEU2ZtqZh9QAlJ451/xNlLJI8P6tzPkJo8fCNMVPY+E2w0vCIgYHOFdG8EDM6m7n8IQ=
+	t=1781691378; cv=none; b=NT56Nye0qScKm1pC2AyknrsEAgphGvpBmlKsVUNoap5jhh5pHHp4xjbhv8ccTyuTKKEjuKBw6voTV0AFnKHhaf2Itcoz6I3xZHLrYd/V1g04exI4WjOrxz4L6JGmyDF4O8cDhm/MRMbvFKirgPdjccikt/edsGPhE6diRQlcmqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781691188; c=relaxed/simple;
-	bh=UoM7xrBB+ZCYmns2vLjYYzvl9XGVdcm9LQNtgl1qOwk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PLLbaomigXtOaWRRAc8ZyJ/iqipu/fhomR1S3kno5McIh5sn7a9+PxebFMfShLQeNinNRDASuA0tMn7honK+ZqcsAqtnX34/t/ZGTokbHhdQ9mCWE6BeIsjrA5VekLZQNXVsD0nV4yEXePryONbNGt9yTmuAWk2bUQ15DSYaL4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gia1PQyo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QG8DBqi/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781691378; c=relaxed/simple;
+	bh=/Du7xSBZ9Xrv0FfRmXbt7uxO0SSdIh3ccn6AXcwcxzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TDb8ah8PglEEkHxV0K42Oa76K/YMPMz8bAd7BKxYeZlYN7X/8SPxnskzgPIa1O5Zd66D/LFDlJ4akKTi+evFJs/j7LpsJ8aW28+Wr3LIbFdxoE2pttMEiCQ85fIpaNa5yzmQFpNfaplBt1LtX4zgtCAJ4/euS3W5vTwVI3UFt9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ad1H0kwE; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gia1PQyo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QG8DBqi/"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8Vxih2056606
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=; b=Gia1PQyoK8Wo4nRQ
-	MCkM9D63pFLVuXGmBdXXtWmIH3/G+q1O4nPtEYiqafAKZTVh5otx8I/5fwxadXDw
-	D7/1LCAa97Ve6vWnk/AX+uuVVSc0cwesnJJ9GkDSiUVrTAE84D332vGY8VWlKiMU
-	DunK/6CPNdS/2ZzPPEc0pAZDctSCcWnPxgiYb8FrOagNcVrVTSmPEEIa2JWIh46m
-	q7sBPWNPwopa2CoPWiIco3/N5HeMrNgFcE5ErkEFxxKuJ0xZsCj4AhOBiginqo83
-	hSgrzCQpcd4D51dRHcwRbM827kk1b5Evm8UATWHcDV8+UCw+cucPPjuGaKF1SpAQ
-	A7Ijfw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueesam32-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:13:05 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84240b58211so3769897b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781691184; x=1782295984; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=;
-        b=QG8DBqi/UfQgXGLZUG456VDA1bkiMYFrK2ZA+LkKhZ8PEDwH8djOeN7aanEys21XF6
-         Fgqlx5Z2P/3OHW2yWeRKH91By+FjZmn9InliMSlhMOKfE70pWBEd9n4MRQPS4mBfx5Ij
-         kw5glDOe4ojCVLUTM5paqqNVkgeBKKeoiRlMEZ5ej4dEJWc5fvxaLmj+BxQ0T5w6IGvh
-         4KA+pVSFPnG5nVUU8a+Vqgv6SQvhzKgTMjtfTB9SXh6WB8oroA/3sxJEYBH5E4lc2Riq
-         gww76UR2RkjDt+3DS1Vg0l4mZrMvoNIWj08ORIyPApwDlhBnxCQTM2etDJVtf6gP2cXJ
-         YpIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781691184; x=1782295984;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GZ/8Xv192XsFQyD+0JEt9/9tPuIbHQCOMoIPHcWB8s0=;
-        b=KcFEdeaOGLEtq+sIsImTYCA1CAPHx5xwD/LFvQSrpvXn9Y0ju2ZHQhESYkY96yVOGm
-         qkVN2kuI1IZ5aHC/LFhODp4jg7L6NT9hoWRtV4fDaU5dSiYjIObI+FRSVHCtm/RNVXxw
-         hccuRQ1gwNWV58Irai6LTeMNBty667TVNrLIPo9gFVDNYwtdcz8U1JACV0pOahelvjHj
-         hJXD6mTITz0suvnHPSo7aCExempbWaD73ouP1xviU4SIlDiOOehhPIkI4h5WjdHoAWNP
-         3dmyUB1yMJImFkfA3mLRLXwwGNdMgIBFlJrpZyj9wLjg6U3Iaqvi7Cl6keS8ZrrfiRmG
-         t08g==
-X-Forwarded-Encrypted: i=1; AFNElJ+RTcGCRYzPQiM+Lwz4pota+S6J1sdqdb2iIpD39YmAXeQF2HFkjsizCn/uDV8fXBC3Isy1KDEudieW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXGsUR8diuXGemw0FaN+3miWw2wZhtP7RdtiugcFi9Uwea8r6f
-	XlKVDCnUocOuQe0c60i+rWMUx4RDdktjb/XwmYwZ3vbmIIaQExSq30wzp2aMfmmiPF3qMCi5CWU
-	ywf+eZujiFweike2Se0IZlLF6gMR9NmUyniL7NVGxOyVn43OOsJ/5T27L5876WWGH
-X-Gm-Gg: Acq92OHQ/EaaHMYWgHWeDLiv/bksj/r6BTy6L27yO+y86sqNncr3OIyBz9yrYyVkYF7
-	3X0zeZfkxD4rWURJlAINMXjl7nUHMhVyH9hKsfKCqGwcc/R03cnMOZtTlph+W+QOKBnGh8BDmZq
-	0NSgCGMO0ED9U4ukizMfJD3PSc3XT5FFVyh9hdDnmyEbW/ULYx0ho53ptYS5U3ni+0aeRckCoU9
-	aiPF5seeEiviAz0RwU79Lbp+dKSw/z7PsQozp5r13zoq3rLMCe8cpI4zesOsvWPIZEAt/k8zL8A
-	7v8s6rgJQ4z9G5CZaJYnYf/yNgokVN+L+UFqKdmHFf5DTn4khU712Fq0APrxf4JGoYsUep2D7u0
-	16oyaabHdETPlZGjXS0eb2WYhk+19rRE8zEMTxXOYiPDHGE8Qe8gO7fv6kjEDIHgeWg8Kn4tBsM
-	Nij9Ia
-X-Received: by 2002:a05:6a00:94ed:b0:842:21f0:5114 with SMTP id d2e1a72fcca58-845245659c2mr3122562b3a.30.1781691184483;
-        Wed, 17 Jun 2026 03:13:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:94ed:b0:842:21f0:5114 with SMTP id d2e1a72fcca58-845245659c2mr3122518b3a.30.1781691183961;
-        Wed, 17 Jun 2026 03:13:03 -0700 (PDT)
-Received: from [10.133.33.101] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9bfe1sm16026068b3a.12.2026.06.17.03.12.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 03:13:01 -0700 (PDT)
-Message-ID: <82253653-bd85-45b8-8520-e2bb213ca48f@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 18:12:56 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ad1H0kwE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781691377; x=1813227377;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/Du7xSBZ9Xrv0FfRmXbt7uxO0SSdIh3ccn6AXcwcxzw=;
+  b=ad1H0kwEhp2/NyzZLS7Q8P2HO+mrXgbyFBZzEhsdl9jJDPT8SdQc2BS8
+   2ZGqwOvNLTkMJFd60VyN/UWU1qcafaPRayDCOYVBjQLid1TdB2fpaqCko
+   CH0CtUuXof9U37tggyE3lkXG5tD4ENlI5wba15XoqDTkmd4LGgyiO8Uvs
+   R548P85ckysjXGdz4A2Or7lvLYrQcoX4FHh13qCDqAQLoRx0fbs47Aet6
+   7xsLvir15AbNaENt9LA/SKvva81YA+OC2xMCUETLpGQsGPF7Z2XQ8fus6
+   LeWQmhDhfde88EXzizRerNWdY5JUUXXLxmpxZnmRii7N7Ho0H5Obgctgx
+   Q==;
+X-CSE-ConnectionGUID: ggMkvxawTsSdb7HBkIdFSA==
+X-CSE-MsgGUID: N/Qfw4QzRvGbeQq528a9Ew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="82487799"
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
+   d="scan'208";a="82487799"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:16:17 -0700
+X-CSE-ConnectionGUID: +iRU2SCKS5GjpWI609Y8eQ==
+X-CSE-MsgGUID: FlcaSxNhQCaoEFLMPAY0rQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; 
+   d="scan'208";a="252981480"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.69])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Jun 2026 03:16:14 -0700
+Date: Wed, 17 Jun 2026 13:16:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+	Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] iio: adc: ti-ads112c14: add measurement channel
+ support
+Message-ID: <ajJz7LZGLhZcVN7i@ashevche-desk.local>
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-4-e6bdadf7cb2b@baylibre.com>
+ <ajELGxonxsQp-Ut2@ashevche-desk.local>
+ <e1e6a5f3-4cf3-4454-ab73-a45ae7b77116@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] input: misc: Add Qualcomm SPMI PMIC haptics driver
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
- <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
- <eb693705-c0c3-427b-a924-5aa907fd65bb@oss.qualcomm.com>
- <1bcf00ae-2558-4c3a-970d-aee1da0c06f9@oss.qualcomm.com>
- <29806448-0588-4590-8540-a689ccf1e7b0@oss.qualcomm.com>
-Content-Language: en-US
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-In-Reply-To: <29806448-0588-4590-8540-a689ccf1e7b0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA5NiBTYWx0ZWRfX8jBjuRbq5W/V
- JBvUIkAsR0scwV29fRKybkZ//yOdKRHBGZq3SyY5oPDhrmOSzP0O49gRR0VzmaPhSm6MaEOZoBz
- n6CPPWoJT4qKRAy2pEW2EFzs9i09PBM=
-X-Proofpoint-ORIG-GUID: 9Il9F5XbEXAsKAbWDT4GAg7bSAJhqPf4
-X-Authority-Analysis: v=2.4 cv=R6oz39RX c=1 sm=1 tr=0 ts=6a327331 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=3bJTXa-xiIkwHRLKEFYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: 9Il9F5XbEXAsKAbWDT4GAg7bSAJhqPf4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA5NiBTYWx0ZWRfXyaXwuDR5FhHq
- fGwq058IiixHhVqfsBmYye7X74pXl/YDQWOfK157r0odCwZLzp6gkuuQJ9XYKMtu0/4l4g5NGN4
- Lk6yLZ9kJLP9wVYWxgjMQ6VE+LKkpCEf1u1JdihTINOvjFhr0zqLc6wnNRzQ25TAtlLzmoaI6iy
- tHf7EAE9QfQQSy3MsyUk+/MihmxOOh4GFV4gnOt/evZf9FV65WVNIYxo6WiTNv+VtI7jBsqQuPv
- 6xIyoDY26H6We8sGkKbt0fmk2wrFrvLFnzZVa0lr4mQuBZPhElLFFhcQLvS0Oc2hIQqwMcRybSf
- Mo6iGVU+VxznzvyG/VbFc2X2XwMtQo7HasSrkMGgH+u+bDgPYspYsDMfRRY14RyLVDyyBATrVun
- 6v5w/1RVdk2UXYquayq9H0XacDZE0/pf0i1frBrsQ2Kd+IQnAXlWxAR15VAvgDbQ0pGaSnvIyfA
- XJMjdX0EKPzdiTvbtNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606170096
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e1e6a5f3-4cf3-4454-ab73-a45ae7b77116@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Tue, Jun 16, 2026 at 10:55:34AM -0500, David Lechner wrote:
+> On 6/16/26 3:36 AM, Andy Shevchenko wrote:
+> > On Mon, Jun 15, 2026 at 05:00:02PM -0500, David Lechner (TI) wrote:
 
-On 6/17/2026 5:30 PM, Konrad Dybcio wrote:
-> On 6/17/26 4:31 AM, Fenglin Wu wrote:
->>>> +        ret = ptn_bulk_write(h, HAP_PTN_FIFO_DIN_0_REG, &data[i], 4);
->>>> +        if (ret)
->>>> +            return ret;
->>>> +    }
->>>> +
->>>> +    for (; i < len; i++) {
->>>> +        ret = ptn_write(h, HAP_PTN_FIFO_DIN_1B_REG, (u8)data[i]);
->>>> +        if (ret)
->>>> +            return ret;
->>>> +    }
->>> So if i'm reading this right, the first loop will always write
->>> 4*(len//4) bytes and the second one will be entered at most once,
->>> to write len rem 4 bytes.. should this be an if instead?
->> I should put a comment for clarification. Here’s some background: FIFO data writing supports both 4-byte bulk writes using registers [HAP_PTN_FIFO_DIN_0_REG ... HAP_PTN_FIFO_DIN_3_REG], and 1-byte writes using the HAP_PTN_FIFO_DIN_1B_REG register. The 4-byte bulk write is more efficient, especially for waveform which has several Kb data, and it helps to reduce software latency when loading effects and reduce the delay in triggering vibration. It also helps prevent the FIFO from running dry during data refill in FIFO-empty interrupts. Typically, we use 4-byte writes for the initial 4-byte aligned data, and 1-byte writes for any trailing remainder.
->>
->> So it still needs a 'for' loop here since the remainder could be more than 1 byte.
-> Right, I mentioned len rem 4 but failed to notice it's a
-> single-byte write.. anyway, a comment here would be good
->
->>>> +
->>>> +    return 0;
->>>> +}
->>>> +
->>>> +/*
->>>> + * Configure the hardware FIFO memory boundary.
->>>> + * FIFO occupies addresses [0, fifo_len).
->>>> + */
->>>> +static int haptics_configure_fifo_mmap(struct qcom_haptics *h)
->>>> +{
->>>> +    u32 fifo_len, fifo_units;
->>>> +
->>>> +    /* Config all memory space for FIFO usage for now */
->>> What's the not-"for now" endgame for this?
->> The hardware supports more modes than the two currently supported in the driver. One of these, called 'PAT_MEM' mode, also shares memory space with FIFO mode. However, 'PAT_MEM' requires memory to be pre-reserved and waveform data to be pre-loaded. The entire 8K bytes of memory can be divided into partitions, and it is configurable, with FIFO mode always using the first partition [0, fifo_len], where 'fifo_len' is set via the 'MMAP_FIFO_REG' register. 'PAT_MEM' mode plays waveform using data preloaded in a memory bank defined by the registers 'PATX_MEM_START_ADDR_REG' and 'PATTERN_SPMI_PATX_LEN_REG' (they are not defined in the driver). Since PAT_MEM is mainly intended for hardware-triggered vibrations, such as a signal from a dedicated GPIO triggering a short vibration with a preloaded waveform, and although it also supports software triggers, I haven't found a suitable way to support it well into the driver under input FF framework yet. So, I am currently allocating the
->> entire 8K FIFO memory for FIFO mode only. We can adjust this later if we find a better way to incorporate 'PAT_MEM' mode into the driver.
-> Sounds like a plan.
->
-> For the other mode, would that GPIO trigger need any OS intervention?
-> Could you speak a bit more about how that works?
->
-> Konrad
+...
 
-I'll try to clarify the 'PAT_MEM' mode further. 'PAT_MEM' is useful for 
-latency-sensitive vibrations because it preloads the waveform into a 
-fixed memory bank, then it doesn't need to load the data of the effect 
-in the HW before triggering the play. When playback is triggered, it 
-plays the waveform from the specified memory address and length. This 
-memory should be preserved, and the data is preloaded during boot. 
-Unlike FIFO mode, it doesn't allow data refilling. The trigger can come 
-from hardware via dedicated GPIOs—currently, three are supported, each 
-mapping to a memory bank set through specific registers. Software 
-configuration can be done in the bootloader or in the driver probe, but 
-the 'fifo_len' should be adjusted accordingly. After setup, software 
-doesn't need to manage it further, relying on the GPIO signal to 
-activate the playback (for example, a pressure sensor triggering 
-vibration to simulate a physical key press). The trigger can also come 
-from software using SPMI commands by setting the play mode, start 
-address, and data length. I previously tried using the 'FF_HAPTIC' 
-effect by mapping 'hid_usage' to a predefined effect in the devicetree, 
-but later I found it unsuitable since 'FF_HAPTIC' is mainly for USB HID 
-touch devices and not general vibration usage. If you have any 
-suggestions for supporting 'PAT_MEM' mode through the input FF 
-framework, please let me know.
+> >> +		if (fwnode_property_present(child, "single-channel")) {
+> >> +			ret = fwnode_property_read_u32(child, "single-channel", &spec->channel);
+> >> +			if (ret)
+> >> +				return dev_err_probe(dev, ret,
+> >> +						     "failed to read single-channel property\n");
+> >> +
+> >> +			if (spec->channel >= 8)
+> >> +				return dev_err_probe(dev, -EINVAL,
+> >> +						     "single-channel value must be between 0 and 7\n");
+> >> +		} else if (fwnode_property_present(child, "diff-channels")) {
+> >> +			ret = fwnode_property_read_u32_array(child, "diff-channels", pair, ARRAY_SIZE(pair));
+> >> +			if (ret)
+> >> +				return dev_err_probe(dev, ret,
+> >> +						     "failed to read diff-channels property\n");
+> >> +
+> >> +			if (pair[0] >= 8 || pair[1] >= 8)
+> >> +				return dev_err_probe(dev, -EINVAL,
+> >> +						     "diff-channels values must be between 0 and 7\n");
+> >> +
+> >> +			spec->channel = pair[0];
+> >> +			spec->channel2 = pair[1];
+> >> +			spec->differential = 1;
+> >> +		} else {
+> >> +			return dev_err_probe(dev, -EINVAL,
+> >> +					     "channel node missing channel type property\n");
+> >> +		}
+> > 
+> > Looking how it's going to spread (I mean the above pattern), perhaps it's a time to introduce bunch of
+> > 
+> > 	fwnode_property_read_*_optional()
+> > 
+> > and the respective device_property_read_*_optional()?
+> > 
+> > Let's start from u32 case only, as it will be most used anyway.
+> 
+> I don't think that would be really any different from device_property_read_*
+> and checking for -EINVAL or ignoring the error completely. TBH, I really like
+> it this way with fwnode_property_present().
+
+Yeah, it's explicit, but with _optional() we may simply have
+
+		propname = "single-channel";
+		ret = fwnode_property_read_u32_optional(child, propname, &spec->channel, 0);
+		if (ret)
+			return dev_err_probe(dev, ret, "failed to read %s property\n", propname);
+		if (spec->channel >= 8)
+			return dev_err_probe(dev, -EINVAL, "%s value must be between 0 and 7\n", propname);
+
+However I admit that in the above case you also want to distinguish the cases.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
