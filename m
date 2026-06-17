@@ -1,67 +1,67 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9AD3F5BC0
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 12:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8FDEEA8
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 12:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781700840; cv=none; b=U9Teg6hTcCvGFLgC+xzYAlPS+k+ylR1be50f5YDJl8zxXe70Kfis41Ws+Kz5PtYZkkLip5apTltg3gCvJrNvcuO5xn72TM2XaEzET61grPlC2FcMGiMU19xPAqBYRueLpe8DzITXdJoliU5VHQaIN8UtXJ1P81F9hPQKeXsQ7IA=
+	t=1781700841; cv=none; b=BpuC7Ah3n0hsVvT+ihRQ/rkbtOmqEFwd+KyNk8+h6cvRapsDI4z6ecTuZVHaP+6EYGQxQ5rDY7oPpll9MKbfo4FiG8RxmvCa/9GaJQFf6MIpAwUNQKdvs3ni7y5Mg6EhOj1zee3wjR33L2RZOHnd7vEc43ZiAV8icWzvqXCrWMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781700840; c=relaxed/simple;
-	bh=eKVA40zvNTnz2Uo8qfzsM6JC+f9Jz/GL+8yFunA9mRo=;
+	s=arc-20240116; t=1781700841; c=relaxed/simple;
+	bh=co3zJ1YkSnTpdHKF+bz6CkAeVpcSuD9MWZee6XOEQSc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J1h2LNSDbgbk/ZEUA7pSEC71TQ8ZyQRISwGSx97mH9WrFRClfJ8PHWpzyyFvX13Kuvq4GyTYUbBOkOqvWumpSPIg0aQZ82fH8scXgGC2gVLmcXLSSCqN+bxIRmq8ZNBYEAoQwvhCkvpMQOn+BGf+5mqg0LHE13JqcHA7Ok2Gq3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jmKTrhqa; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:To:Cc; b=niVYv1GP/qedALHXSa19fTnNXk7wqJT98GBDlb20gzLNigIgozUE1TfqwaHUI8dGGDRdlEbuLDknAEUftx0fUFTO5uxTeMPnBuJ/zh27hYJISC6Uxt66KgFvVoJhRPEmL0cikwOL8mQ+s128HZeTqBhXXnbOm5gZkAQuu4YnxCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mSGZM1uX; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jmKTrhqa"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45fd464d51fso3388926f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 05:53:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mSGZM1uX"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso38195985e9.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 05:53:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781700835; x=1782305635; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1781700838; x=1782305638; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=/cmlLxSwWl8MO6GOSzERJUakH1AulLYsReRHOwXA/jA=;
-        b=jmKTrhqawcDnpwYXAt8Y23qwFMHx42Aq/E0JHdGiJ3QPn1MiEPr0Bvnc3mfMYLesso
-         i3MSyvj4tWJciKPcT0U81FbBZqpD4fLLXyNJdnL2hu/MPwyWdqHiiuiiT3TMz4ZyYAEg
-         9LYG4VitUSOpvk7wmGnH/tIwMkbyFlR44lQtJYdK7Tehb7FcD6mRvwS2nOkROYgJSG3u
-         8W28eE6lYep/ZhHp2ip6vGsm8Bkhqx3DW+IMtUt1Ius+COZ3GJ8cY2dMVF2A0JETNMsy
-         693k33++iUcC7I5C1W3vvMa1yPV/GBw+XdxbCm4bo/PytATAT9yiOp5yBK8xkTivI3G6
-         2NOQ==
+        bh=DEP4f57V0XIAN3mPY8YqCX+FrVX90yL/cJOfjBY3eLU=;
+        b=mSGZM1uXlaf9XE00CLzsHQSob50hWueLF0pLW1CeGb/SbcnYf4b7ruaITEMgLa/wfH
+         nE9vZvl4JygXOwA9l7xOGzUuTJAb9lYK6/wHjL4qNCMEg9UAxWDWc/mtSpkVjeosYuRc
+         ykkBWZP3vTMRzAy3if+mhfqegMa7q/wzkz7/ygIGpSghJsfsONqLCJn6KSOAHVoVTJ9m
+         riNHh1ZOtu3A+7UEpUklo9athWnjDSUSQkG0pyzqpFYTYOpxKvt2YOoxtp+6MmJsHBe8
+         dfJYxOPPBJYL96YvDdYJOMYOVjHHOr5S1e2Y3B2LtubIiEyhFFrDLWQkjK8BGCbdJSB8
+         PegQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781700835; x=1782305635;
+        d=1e100.net; s=20251104; t=1781700838; x=1782305638;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=/cmlLxSwWl8MO6GOSzERJUakH1AulLYsReRHOwXA/jA=;
-        b=qMt3QuuODa1amilhKja77kYyevjxB6F7CO/rGQ4BASnhMj7WBg/BOOUf/J6yfGPR9M
-         FqUxiOkdQUgNiWUXxzQ7CIGbs16hz4Jd0FPi+uqzo5n730RzrNq6HdzgrF55HiAqlHdq
-         f6AAgw3Or+IG0zydKOJMO57QwUCD/FoxGeoHJ2shgSqoIYjxrB+B7R9GOPmmuRbUpvIf
-         YRYXRGavFTeuv/VvbjenScRgPnKx4VTzSysTTdPcAlwjdd4Y7B3u90t5OqhAf7B7yoRS
-         Tvi6JduzlOJ2rcU1GJX7w1mt4ZvlZiX2RpnhXnMs3h1n3D2DmuEWrl42QHkQ6Ps5GCrP
-         kGew==
-X-Forwarded-Encrypted: i=1; AFNElJ8fUs4xyJd12jKKni0tK36KB9pcDaJe3WXap47piVSpZN2twfcEMARNAQm48Pr3o3UQK+Jxi/ek2mt2@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGYIS1rEsVyJtHM06iN8PTqZ3QkW3tdiaNTN7eMJwL8HHNUQ0l
-	+tBm61UyoZ8e3Wkj2ZBPMEhHhyxVoO/QbfNHiczCS48iqKiCu00Jo6uzOfxJ7hH8+lEYeP8NEv8
-	2Wjz6
-X-Gm-Gg: AfdE7cm4UPN2IRBRT6wjQDFnfAGXwc2E1xqKQE+AavhdMEHO2ylkcUxGIpFcCy95/MI
-	itFVsInBUp80ho1CZguSyMpr10DVj3HtcPNWR+EBPjOF9KDiwRcdl6ArT/Sx35Lvwy8wk5IZFhe
-	BHp2KB/sBH6xsLh0xpWADeUZ3RDIhFBwwTi+WC9DPfTBOId4mULHLdS8pa5Yfole6bBKvLJvaRq
-	gBPEVgI8XlhVJrYmbbgJvLL22DMi9Ga4NckDBY2YcqgXoWRQ24lw6xuh1Fpn4IGW6cX8KziSABz
-	wX8RyiL2/B02xylURVNluiDIsbIZVSuVPD9hGhTz/tUUxiismy0ATbC0994oVnLxZPW6eFspcLW
-	fj+Cr4hdwoc6I2Rn1JTV/VK+7Gmk2e7hJOvN02A+hZCXrVQYQOEfN3d9SAvN+WNAWbYw0WOLhf5
-	khyyoT2e038OZCooE9B42/D682OKe6KJwaYQ==
-X-Received: by 2002:a05:6000:43c6:20b0:452:75ca:3fab with SMTP id ffacd0b85a97d-4623955b609mr5441908f8f.38.1781700834871;
-        Wed, 17 Jun 2026 05:53:54 -0700 (PDT)
+        bh=DEP4f57V0XIAN3mPY8YqCX+FrVX90yL/cJOfjBY3eLU=;
+        b=b158KnH3YDJ5Dm0UlCor9dmY7qGEfYu/0MahlPte3ZDhcEIYiFO7bMqdiFyqBwO5tJ
+         AoSHUkybf5V2IJ0spB/ko+yYH0CS8h2uAbB1wtmJwh11QvxhBuHvGyRVg1RIwLMI0pHc
+         BV6VvrFrJ69GpudfnYhTztXTLKhwiTmaxY1laQFAr9NBngoUL5BPAkgQrKFQC3dsPb4e
+         eubcznQ8KmNHnzlMCjaKi0A73JfcO4d3Eh/bYPUm4gsGpb5OGt2efsy67uXT1X2kbmSS
+         epAHPlrX8FYr1ChTapNFdjKHwoQHzPNiUW52OLcikcYmkBJfQ61JR9T907OjuEPQXZgj
+         vgBA==
+X-Forwarded-Encrypted: i=1; AFNElJ8UtwGYbJdgpb1XKtbTDBgpk5resNe+zeo8GFrkD2X6MqTDErurEc3ANaSYcunPKtK+JpAP17KpajOm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEQTxmtYgg/gQuGdioq/TBZ3+If//3VNhgb3L4JUafb6KeECig
+	pr/1EqzfEdxRKsgQyw1SBKHH6/yh5bntGw5zvypu4AlaACtyujJkbsoeY0EpdqX4u6vzI9pzKB/
+	gejRW
+X-Gm-Gg: Acq92OGk+qG+vA21vdFFWk4UrWxlmgXd2+0iLQIQHjokyagC67PpDFqdS+gJ5TcTsMG
+	hwkZ+YbuOgiVTX3e89Ym0kuQXnA1QZOxble3N+nNnT5pvBJcM2MVCEJ9oepi5hSN2ZlxjiHkKqE
+	Hib2tVtNNdHl6m4KICFRDrMBJdsM9FmE7Sb5/rfAzVoUIbllZa0AUy2/44E9K/PZNZpy8QmJUmC
+	IBf6JZLAhKbIDydiJrPI/Izi9+IB32tt9XdKrA4USZj7705cXrcFBZ3X+GMrmKUeLpzvjMaWWbm
+	qCsisCsu/wqQolm2anBQdjHVciEVxPTvwVbn4cAxmjwgzW+ebAzes9nPXxBMoE8RT6Ed2svrYO5
+	WcCAMyGgdlKd2vk4Zr5TVTpaoOzQ0TScX7EUUCPbY/A82GK1Qnmyxyy3CROawbBln+8pdn8qre4
+	+xEwzuPPgHKEd7SUTzpDTVa+/8yCfU/xPTUUEaYTkU8xds
+X-Received: by 2002:a05:600c:2947:b0:490:6237:5200 with SMTP id 5b1f17b1804b1-492333f5dbamr40385605e9.10.1781700837751;
+        Wed, 17 Jun 2026 05:53:57 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-462236047c8sm9130562f8f.10.2026.06.17.05.53.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-462236047c8sm9130562f8f.10.2026.06.17.05.53.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 05:53:53 -0700 (PDT)
+        Wed, 17 Jun 2026 05:53:57 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 17 Jun 2026 14:53:47 +0200
-Subject: [PATCH v4 3/5] arm64: dts: qcom: sm8550-hdk: add SPMI ADC channels
+Date: Wed, 17 Jun 2026 14:53:49 +0200
+Subject: [PATCH v4 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels
  and thermal nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-topic-sm8x50-adc5-gen3-v4-3-4af9251731f1@linaro.org>
+Message-Id: <20260617-topic-sm8x50-adc5-gen3-v4-5-4af9251731f1@linaro.org>
 References: <20260617-topic-sm8x50-adc5-gen3-v4-0-4af9251731f1@linaro.org>
 In-Reply-To: <20260617-topic-sm8x50-adc5-gen3-v4-0-4af9251731f1@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -81,20 +81,20 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7139;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7153;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=eKVA40zvNTnz2Uo8qfzsM6JC+f9Jz/GL+8yFunA9mRo=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqMpjb+D8IpVgXqP8M7eDR+LJNcqFx+CR0grv3wVMG
- qzc0g/mJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajKY2wAKCRB33NvayMhJ0egoEA
- DKQDDwklmV1808pb1ms/C7FrTRNJBf7F8ZmwMnzOFmlngQws3ykfXsBbtVDZ6c7yuJwVykXYWNDeXN
- ZfVOu+lmd1qh/c41VS4IYoK3IvBHSFUkq9iKgYt4Oz474W/sJTmhBV18uIWs4DQVdNwuoMcxgJZChr
- JssKd9L8ZLDoiVqRIVRLeXX/p0K3PDhOL6XytK2PJVz6eIbgNjmjqjrbvyg+37cTBOHqv27z2m6EQu
- KyMXfS2xhElfctRdI0e72UgetKfqUtd1B2DRYwlzYcC3RAV0QWJ/dFZ0E/lmfdvGCk2AUH5iMPDnls
- RkP60aK8KEaK2kEGLxf6s+dKofAL6hPL4tAkynyurgoiGiZ77bmBg5opi52d0e9YUhxaa48TITA+SF
- A8R1WyfmK0vwmGZJUVIuSRZZJTeV+l19129F8IxjYd4Co33f7FW7ehx4dzXR7fw9b4NnGrZQNVI3XI
- zriaN8/7G3rcqn2PBtCx0/S1cfgBvHUyxucGSzRWPEumlnY9QZ8nUBwYQ+9ot2Raz6QmNsZVFdGZH+
- egRdjpmEJcfoit4RG73dOAhZFOH8xil4Zh6PJpVOWVmpYZhOZ60/aJqLSizv9YglJ3WS68JX8BdoGg
- Btd9y5I86W5+t9NPpPTiKekIFeQs220OsdoXe/W28gL0FZvGSpTcifKij8PA==
+ bh=co3zJ1YkSnTpdHKF+bz6CkAeVpcSuD9MWZee6XOEQSc=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqMpjcfEwz+3bq23HGrknx6+//uwN47parhOyUTHFv
+ LpgyW9aJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajKY3AAKCRB33NvayMhJ0ZLSEA
+ DDc9BRqCZ6F6G/LdNeWscm0ml57UXKlbeSl0ElfwkwvnIOKM1EtswzLfFq8MNV3uGuO0jsxbbLXCkV
+ 6p8jthK+x/x58V28CRbUdlLvwPgGSqSDKbeRs1X7PN5zXRuZ9sEKQVQFIYiXD34sWpL3Z/b7BQmi5K
+ kWJ6yCIgD65uJSuJM8wXvVubyIz+Dwy+SekT1vRNo6M3p5RwelBNwJZT3V4sJBFR/H2B6W3D66wgSI
+ QJPBWhHLHDJjwgwDHt0gSpGjLqTDCAHLI/dQ/7Q4rWMx8Pl9A0bpYozAw9DBSmW3xKaXcUDKX+T5BV
+ 1kVsG/+bUeEgBHk/8EA3z0OiyFJPMOpRnF9IAkhHjSkSxfPR+PE9W0y716346W5L6dAavYhCIaNZNp
+ l/sAphV84i5BwmILKwkqt9LVo0eU3OJrj/qwsXBViXkmi3xVERKi/7JsRW58e1Ig3jejgP7ng57w+X
+ 0qg8qlUEHVRJWm2JISWd1gNoNG5p9U1ByHyHF9BX4cGj+dHaDPD+nJARLyR3vE3TLvLrw2Zd1IN4Bb
+ qGZ8/c0fzTpL2V3DwM9N8JKRapQBB3lE67H5nP2gnZS9DamfNkxejXbF3533ItNXcoCsx/1BYxeBc7
+ irAH/aOuNH9Q/N7/UVVqVcnpSfDpiwhXRllpJ5Jx400hIuuqg+017fKAu5Ug==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
@@ -106,14 +106,14 @@ coherent with the system thermal nodes ordering.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/sm8550-hdk.dts | 277 ++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts | 277 ++++++++++++++++++++++++++++++++
  1 file changed, 277 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-index ee13e6136a82..f19419f63e36 100644
---- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
-@@ -280,6 +280,92 @@ platform {
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+index eabc828c05b4..05af2913055e 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+@@ -220,6 +220,92 @@ platform {
  		};
  	};
  
@@ -203,10 +203,10 @@ index ee13e6136a82..f19419f63e36 100644
 +		};
 +	};
 +
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
+ 	vph_pwr: regulator-vph-pwr {
+ 		compatible = "regulator-fixed";
  
-@@ -1102,27 +1188,218 @@ led@3 {
+@@ -1041,27 +1127,218 @@ led@3 {
  	};
  };
  
