@@ -1,149 +1,123 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347792FB965
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781679049; cv=none; b=LIu4RQAc5x7awAIa7f2wBEHDRRYPeeqN/iAqhSa1TiRypimeB8IBEQBvcroXvUoT6fJU7QaH58yjDjtRAdYsYYe92zinq9RvWdbfNOdKDvg1w9x8pcE8KZUV/eFmN/sJQVkOu9l7Y0tvFun5mg78INJFEDRXMIeD9HBKZZzd9VY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781679049; c=relaxed/simple;
-	bh=C7YFZCCu1dOeCsLg6DoF+9ZVtNHvPRq+h+Zo6dLBmB0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DuNjliq3HxMeytqYFNSxprO49CLFXscHSgPwTSFG1OC9WbXuTKQUFJGbYbuzMqxgtKPf+e29kVkyh/Qizq7bE7NwS4tjvn0Y9J60iyj7yUJ5jdEsFRbZ1cgOSFiNjSkH1Awl3AMqWDzarJKb/8SRDRGgchkM/9qL8AaLrSjWTXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCqJCXi9; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C933B7B8E
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:52:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781679180; cv=pass; b=GfDsV+iTiMZPC3WMXmF8V3acDzIcxwmSsEVUih//k/5TIm2LkhCewl++gTuxLls7TxBWu0tmCcaEFtqbVuoJlgGbKhRQBs55WEE4SsCxaO1LaiBOaaxmky1nVihKnVl6y6fnmMLqwz2FzwQzYNcUJPjc1P2bMob63sm7BSRQDEA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781679180; c=relaxed/simple;
+	bh=iSXxjbCL/hr1cvEgQ8IVLmSXjDTfgblayEtrSw9Vrz8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pRbuHq08wBXnLAHqYn9fqzzMlLhyroib8TjMfdxKlqS34j0v4rjlB8ABa2TKehmDO0M/UAwVhBUacr4vVy+U9n4QkJG+PKmTsfzkKKYbhfDsupGfvVDkMXq7AuIQO53uyckai+KMbWm7zBL9+LFUrnSPscGZYP46SCrNgqLWJd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1lsO8jX; arc=pass smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCqJCXi9"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b4a8e28bso40238215e9.1
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 23:50:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1lsO8jX"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-30bd47b9f0fso294939eec.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 23:52:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781679177; cv=none;
+        d=google.com; s=arc-20240605;
+        b=CynW7tyxXOYOSgfWJb05IAH0DA3Xq/33qqixyBKQxts3Jw9aKvxcChhGiXfFAkqsYe
+         Cxa2zj/v0eMCR+O3pZgPUanfma3oRUMrEFDAIrCTlfQZPXL92lFilKtzvm/sg+ZUCOAw
+         piK9GYuFn74SOXQr+AzSzAcZjABczy7bCZyNJHn+YgdOIWPUZ+Vp53P8xfHvfIkbN6Nu
+         Fj+k4C7uaL+d7xtJwiwvmDRjz2Myq3wuKtCtw5SxwnlT1Qw4qsYcQdu9THUk5JpPPhnF
+         bygaIFMi/0pLA2bLII4SZ67w8wCtZ7Pf6JNOk868CMzeGbzzzIhVilOKDFZ4XSmO5YjV
+         +Lxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iSXxjbCL/hr1cvEgQ8IVLmSXjDTfgblayEtrSw9Vrz8=;
+        fh=jRlN2FcXcOffIDbHhsfMXOkRK0tJbmv+ne0xvqdQfMQ=;
+        b=b3VVCkz0wJaSfIT9hvL0ztQqm1pcRqeihFWNKIAgVPoi0snAkPSshM88BXPgpZQjhE
+         b24Y1aXJi2mZUgI+t3+gaTaRF3DrSxIDX9/pA5CHcCgvVok47nZSutDk0IYTbwQhKjGU
+         xW0LOL50DmOd/vcZ/xlGTKJ2OJEvD1HKjuMSLRdVL01/7Ifv6AMHl1/0cOU2Jn4PJ8K7
+         XDZvfY3dih9eB9sKqyf6tb8VLpq5AGoceWno4aGBzr2JHLWGwvvFDwH1KIS+q7bIHmQy
+         strggCYkGUdytQCPOTv+IHBFOSZ1H0Xld0afuEoYHRRNQyNFtVtQ5O4v8T0QFU/Abmd9
+         Pc2w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781679047; x=1782283847; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Trq1GUdrJefwFDKO73LEpHAox6MBJ2GUwy+Cih5DopY=;
-        b=WCqJCXi9yibRSJ5D2QIBg96wVMVBsltG7hqEhWSiMMjpnepNe7JZcNqou8TvpStsC5
-         0O2VRVRDsZr8u6wYnVE9CMPpGHdot2XRhpzV5dySGs2ikkqUNBVPnz3FHJ7bZ1+V+TEP
-         aihcJCNbrHAZozcBZVodaoqGw+qhMxEUK8KO5H5WWYnmMpFxSCOLQKtK/fGUyB/z8sxB
-         ijoPo6PGn3OTd36WIVXzLOKNiutmb6rQoKwKI6s7cRcJ/20qJnOCoCpTeuT7D0VkSDkp
-         2SON5gb7viS29bcJumAjOzlr6/idKj4TDUPRF4JNb8d4dR/xoIkC+K73wDSZqiZ4ZhXu
-         aoVg==
+        d=gmail.com; s=20251104; t=1781679177; x=1782283977; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iSXxjbCL/hr1cvEgQ8IVLmSXjDTfgblayEtrSw9Vrz8=;
+        b=q1lsO8jXaPPFDDe43JbTYqNEDtukcXajOd3h37VcpgWT9tFkw3Fm5k/PcvRBMe1mGI
+         MxvgN6FYKuMCz91tznK5qOGW9nxe4/yunhvolIbAKLp3Rcr76iYK2ay1rw7+WMz4Ekyk
+         eVHFo/c2quOp9qyzbfDTjj2zjlWQfBN3fhv4YLsgXbFssPoMjJekJUpMpXJTxcsSL8rS
+         HVh4Xv1LriPJEXNhuVD9iTo1bcQJPsrHOOwMAEqlMFflPqzdu0EBNZNyvFMouwv6MCvA
+         12204gEl4yYmz3uZN9vWD37diXkodxoGNKs/JlHIfEVMGYXMt6xR/ZqZPNREBq8YkBWG
+         ji7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781679047; x=1782283847;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Trq1GUdrJefwFDKO73LEpHAox6MBJ2GUwy+Cih5DopY=;
-        b=pBG27QckBPkYYdFma2YRfXPTU4IymW5ipglVnWa3un/ffCOnX7OHYlSf7YKtyO4erJ
-         3MVh/JV7GXSAQCPNDSlOy3ep17GPPR0akox85Ch9Tt+ita/Sj8ZmSAgUwZKjgQ9AWXIS
-         84bj0AJmISuZUqt2FzS87Qlr/wHp9OGWpJHLWo1nGAgiC1+/mAB4SFHN0vh7i1iVmqz1
-         EyVqH4Crb/yOodKQQepnuX6Bv0UJXosSCx/goLouzGJsiAKGftiJM22f9itKz8/0cerc
-         JOFrN6QJn/kbgjmtre5zJ/C7ziWbkWsLq4z55lmJjyxS6nmoMdNP5JnfurMhkeVRZBzA
-         Augw==
-X-Forwarded-Encrypted: i=1; AFNElJ9BLqkCbrgxrR6yz35GlcTTS+ZmtcFCW2/9DaOoEnNvBIjTabAm4DUZnxVpaknS6/C5LPvHUbfBLMvQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCXEesqX0LwFP/CadxfO5PEABSwDIkMXKt1de1aK80lbxRUomN
-	R/d9oQCf37BjwlQ5rZxTbaTpFKz6vQsb54GIX1VdLabv+RKdk/kCBzBY
-X-Gm-Gg: Acq92OHIGxiFo4Y6iDroHLBEfVFixtgOxQDP0Hx+lXD2RVNg5fZWiNe6gDQWPJ/CbiX
-	LBo1+pihzPtMnLM4XYs3Bk9Mg/IBZtRT1Ki3uK5gzB742YJ6lsnrwBfG3xVKXEfZSk1W64unZb8
-	N8WwX59MOUWrU9GcGPiOas+Zohz84BV/q/eWsTq3hsX6NUvGvElaTgg+jejvrk/F0kxdc62mjd7
-	B94NSLQScsrC8vH1MSEToDnH26OtjrjfSHC5QWi1C9TzsZew/oYPXXIBV9C7J3G1qmbmGwmeRRh
-	4dyDjec7uhCfUeYjQOt1IQ7EHP2OQCmfVCpzY5VNg/jUlVH/is9bmAoKqBUcGrarRyhRrHqL6qu
-	I9Befe8Z9LIV9uaUcwZaZXcweN1YoEVHJJyIMwltg11Se0SfrtTcZtWM/xAhSnzQLtU7Cli61jf
-	jiHza2Fl40p4dv2cdlVgHrIpgRLartE4XHlC/eJiK3mK9GTo3t8BMBQhRig+f627MvADQkvdj0i
-	u0f67rImZ+jrkM=
-X-Received: by 2002:a05:600c:a111:b0:490:e5c1:b89d with SMTP id 5b1f17b1804b1-492333ffd28mr36380385e9.0.1781679046294;
-        Tue, 16 Jun 2026 23:50:46 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:f13a:1701:b918:4041:7c7d:eb1d? ([2001:9e8:f13a:1701:b918:4041:7c7d:eb1d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49233bf0881sm41430175e9.2.2026.06.16.23.50.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 23:50:45 -0700 (PDT)
-Message-ID: <36668b89-77ef-406f-9edc-ed57a025754b@gmail.com>
-Date: Wed, 17 Jun 2026 08:50:44 +0200
+        d=1e100.net; s=20251104; t=1781679177; x=1782283977;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iSXxjbCL/hr1cvEgQ8IVLmSXjDTfgblayEtrSw9Vrz8=;
+        b=PlMuXDC+qjNfxLhjX1W7m7Bctw8tAxH76PWZUDqDJ2XMnC37YtVz3E4rwmHTYc0RRf
+         2Kc1M1cnmVsLoNIZ+dGvDT3soSQ9ne4GCftCeo9H8BN2vkCW27u0JQk94cr5cbZY/tGh
+         BJwXvn6+cANqxsD9JajGuUuUPnvoc8I06Tay/drqmlWjsVQ2h5CHXaxgsmp+bNUPJTD8
+         u0ipjr+fXWx0xir6LSesCY8nh/nmrvOaGpaaDUSlnBt1f9BvonqXq0Zkp/WsYoBMxYQz
+         yP/G5XTwBTE0HrQ+BhqylRc5d/uz3GtK2jUxyf/uc3F7Qb0wSFWMC8TkFgqzERef5FIs
+         9Oog==
+X-Forwarded-Encrypted: i=1; AFNElJ+QEfRNtvTh0iFnyXv5DPm8+caR74KsS6BUZ2PwIsuGzOXsIxmWsUcmKMLH7JJau6/MMOHtrYimXbAw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzIwoiQvZkd5Nucra6UwEVFPTsrx4qK9yJe8+/GUtz/tuEdh/kD
+	L7/fV3S7ubZj9F1igf3ojOdevOSDmr4XFJJTP0TDqzFNaJSO1YhtMUdWGj9vXuZmWAAZ5hX96UZ
+	sSLZYhjrhzkFVImkwLQ6SjwM1zqwzgvk=
+X-Gm-Gg: AfdE7cki7PulmEpT7WTv+O0k6mxOsIGC2Fya+oZ6dc6wr+cfcSqbNb6loh3VIk7aUtG
+	3K4+Zc/n3080qwXIqoG2fQG9jc8MyWSnTsGliSmnMkteXDAD0qAIkHXvWKBuAHF13RurngG0wkc
+	1mjBxiaKw+MhsGK5yicTG3S84nk9CHMGRMFd2D0OBH/16v1Kz/jWqPKIoHFi/VbAaHfNRxU9qna
+	WaZlh8iT53+xz+kUrzvSevL7gy8L0x4lqYh2l3ZKKXdEOZ8fDUEEiDJbZckUEvOvxBnYe8QE84t
+	Bk/kwRwK
+X-Received: by 2002:a05:7300:6402:b0:303:f26f:df30 with SMTP id
+ 5a478bee46e88-30bca09f522mr1548857eec.23.1781679177199; Tue, 16 Jun 2026
+ 23:52:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: pse-pd: add bindings
- for Realtek/Broadcom PSE MCU
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
- Kory Maincent <kory.maincent@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
- =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>
-References: <20260612132944.460646-1-jelonek.jonas@gmail.com>
- <20260612132944.460646-2-jelonek.jonas@gmail.com>
- <20260615212959.GA1679454-robh@kernel.org>
-From: Jonas Jelonek <jelonek.jonas@gmail.com>
-In-Reply-To: <20260615212959.GA1679454-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260512102445.55372-1-clamor95@gmail.com> <20260512102445.55372-3-clamor95@gmail.com>
+ <CAPVz0n3Dw6Vtqqn8if=MYkBbYittXqsBKbDvrs1ntbD5Zn6iig@mail.gmail.com>
+ <CAPVz0n3iCSeT3xJ2XkwZ6PYofwSLkc0gfm+iYo4xbKBkAtihcQ@mail.gmail.com>
+ <ajDEsU8oZWT7KB9d@google.com> <CAPVz0n26H2t=pi_C+t8jP_cWXGSa5pk=1cpTZtkBh3=RQsUk2g@mail.gmail.com>
+ <ajGk5YxRTFycFc1G@google.com>
+In-Reply-To: <ajGk5YxRTFycFc1G@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 17 Jun 2026 09:52:45 +0300
+X-Gm-Features: AVVi8CdAHA6KnMvlndzjVeY1RjOWdn3VkGJdH7TEmihVzr_x7xsKAS4t5iH-0hc
+Message-ID: <CAPVz0n3RJF7j9hfqZe3Sd3NQXigizHgBxDrR6h8jcRK1R6RNAw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] Input: isa1200 - new driver for Imagis ISA1200
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Rob,
+=D0=B2=D1=82, 16 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 23:3=
+0 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, Jun 16, 2026 at 09:45:25AM +0300, Svyatoslav Ryhel wrote:
+> >
+> > I have tested your code on my P895 and it works perfectly fine. Should
+> > I resend with these changes or you can integrate them while picking
+> > patchset?
+>
+> I think there was an update requested by Rob for the bindings?
+>
 
-On 15.06.26 23:29, Rob Herring wrote:
-> On Fri, Jun 12, 2026 at 01:29:41PM +0000, Jonas Jelonek wrote:
->> [...]
->>
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - realtek,pse-mcu-rtk
-> The "rtk" feels redundant.
+Acknowledged, I will resend with both changes.
 
-In the full Realtek case yes. Do you have a suggestion to improve
-that?
-
->> +      - realtek,pse-mcu-bcm
-> "brcm" is the standard vendor prefix, so use that instead of "bcm". 
-> Though who defined the protocol in this case? Realtek or Broadcom? In 
-> the latter case, I'd argue that "brcm" should be the vendor prefix.
-
-I'll switch to brcm.
-As Daniel already mentioned, Realtek defines the firmware and thus
-the protocol, in both cases.
-
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  power-supply:
->> +    description: Regulator supplying the PoE power rail.
->> +
->> +  enable-gpios:
->> +    maxItems: 1
->> +
->> +  realtek,i2c-protocol:
->> +    $ref: /schemas/types.yaml#/definitions/string
->> +    enum: [ i2c, smbus ]
->> +    description: |
->> +      Wire framing the MCU firmware expects on the I2C bus. "smbus" means
->> +      reads carry a leading command byte (0x00) and a repeated start; "i2c"
->> +      means bare 12-byte writes and reads with no command prefix. Only
->> +      applies to the Realtek I2C attachment.
-> I tend to think this should be distinguished by the compatible string. 
-> That would simplify the schema given it only applies to one of the 
-> compatible strings.
-
-In theory this could also apply to the Broadcom dialect, however I didn't
-have a device with that variant on my desk.
-
-If you would go with separate compatibles, do you thought about
-something like "realtek,pse-mcu-rtk-i2c" and
-"realtek,pse-mcu-rtk-smbus" (given we stick with rtk) ?
-
-> Rob
-
-Best regards,
-Jonas
+> >
+> > Thank you for your suggestions and efforts!
+>
+> Thank you for your patience.
+>
+> --
+> Dmitry
