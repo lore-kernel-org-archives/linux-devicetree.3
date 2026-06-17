@@ -1,298 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021134.outbound.protection.outlook.com [52.101.70.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDD23B8D41
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781679273; cv=none; b=qiMShcs1VTppCXgPGZTozWX11uiQ4Zh2BFFePlypTzejPKXbk+EcN8INsdUWp4iTeEZm7lgh1TuzUnjmRyxzyRecgk5+qM48lbADzYpt5nWtYGyE1jHyhKk96qMx9Q/wsg3RQ2pC46IOpSjvToSU1L7ZgsTn/c5hqyLBscid6Rk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781679273; c=relaxed/simple;
-	bh=smEb3AwNqVjp5l47UDql6nfiiTsOmrABtaI/NqDByEo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gRiqB8dsbg2uyX/AzbK8jHktElnW0INK8D0JNN2+1qs/T00rqHHWdOcy6q7Y9SYUwvPc9IrVKel9Q/t0Xn246ZRz43oNqhem1dGOo7WQEZpirY68jUe/19cp7zdcMURFQWSPRDy1Vlfk4MHT2635UtDJB2e5Yhoeppklam54Xng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMPxvQjx; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D303B42F9;
+	Wed, 17 Jun 2026 06:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.134
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781679291; cv=fail; b=OZTodd6sqye2YSzD/e/hSunp/molyQ/+7eVWLtC3UKKtVCOfr87+sqd10n/ZHxb9I4rC+QAQogDFzkfewYBRfe4UqoN+A8exUaI3J2/T6pZmF/OjLWaNPeewjUO3O9NP9W7UOXuWVMCtqGGrmNr1+veDUD/gUeIngosLLEwY8I8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781679291; c=relaxed/simple;
+	bh=5FV1eNSeq9Dm+Xsea74jisYyZJE1Dv/iFuDXVlBYRC8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=GlgFpU4IfqRkWf2YECoSc2q2kd8O+4iodN4n3sOrk1MBjrz/KtTUbVTQW43jy8vNAhA0GgMSVOmsa/FXAkOkpisMJx509UaxCkoOmrqxIU7SKyVWf65CxbI1nDvzzZMLOJ633MUA5fasR0DsTU3Adk/d4PdT79NcvrSkANpanWM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=qnPY+yKz; arc=fail smtp.client-ip=52.101.70.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMPxvQjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5D61F000E9;
-	Wed, 17 Jun 2026 06:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781679270;
-	bh=dSG1N2RzgmmYFVDjS/hSmmH8jn2K7pkcHVpGLh7KUhU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WMPxvQjxIfDNmypqSf823sZcldN0YJCRw9NsD8WwnDtAeRbSnPYTezsTLuZGnHQ9h
-	 WzadOGzuIqAJpUOddN3kpZzdsOE9ITWXihNqJuVho7D5ZfwwXimnLs5f4pOsdQY+zF
-	 hYc+OQ1ZIeF26LKn0oH9K0E0zEzFQxNKjPYgJME5r5zYNujN1eQF++GdzRSRycMZcd
-	 jvv3pIt2/2/MdmTdxyvuF1dq4uaHSb7NYoqB+krPp8Hydl/kPaRUxawZgHw8OMY8+9
-	 EPsoe/gP0ajpvCYCaJ5aI9KIk7g5P8n+HKvojAU+IBV50irgyzOXMGworYm1vfJYjM
-	 AFh0dRZ0FfmqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 resend 4/5] clk: cix: add sky1 audss clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617064100.1504617-5-joakim.zhang@cixtech.com>
-References: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
- <20260617064100.1504617-5-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 06:54:29 +0000
-Message-Id: <20260617065429.EE5D61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="qnPY+yKz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vB4VXAcq8KRbksOTAtC6/qNjitieufqFl64CGcnGVOPPyRrHAH0dOiANDn9ttPNeQNgkec9bEc5GmNZSpELCPrNYxS8IUM1/ag99kFSts6H/kfkz4hxl/g+QYSta6uwi7gxzlMa0NHxjIho1VK5JLvnZPOsDZzti90Y5qOZlcmTK4w8lWjeu9O4vrzVEfmlEOatEAETsYu6aVNmDnTIcFyP0QJt4MSynUiTELkaYah4/qZDkMBOeTBgcx18A7OYMPEeJgReGM+33gzWKuz6G7bdqB+e/H9dXZrx1BX/v9RMAAvRe2oAD8HkYbCONE7XGyo72MIlhcqV22iR7o/a/Nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ieHQFyHBbhegB5JIMCKBzIO8F2lqEsLvLb7YOcXrKng=;
+ b=rkDeKQ3MrQXpJMVXt4fZfvKmYTOgn+ISjsGJwru9PY2VrvyWVLSqB5QnKoZGkVyAvqprdzc3GYO2+exnjH9QUyGnAIh1gfcC/h67jVDHGLJ41wELj9HNplFrN3iwIRuMWxdG2A0j/TUm8szTa+qYFn5UL0wwNfC+NSGpEU6Tm0kWj82Lt6eziZKe8rmb+mPdGUQ/PAthDAu+seuu0m5eN/s/XlvAtXLZXJx4mivDifv/Ff+MN/PZsiSWfGWXd+Zmum4d+1P4Y2LdD7mx+ZD7z7TBhL3D561BEaWqwkGuyKS36vSmvXu4keX+adViDjnqNaDohe8SInqXifQKAfrPnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ieHQFyHBbhegB5JIMCKBzIO8F2lqEsLvLb7YOcXrKng=;
+ b=qnPY+yKzCSwouRSZjsow8kIy7Vxqq4jMphJHQ17uNI7AV798FAgc8CoojlZSm308m8aX0nU6ZVZP9rQoakowpGEYhXObY70u6JaAwREidVGRxvpfjxKcCZxBCd6D7kWAsqoV2NEZ7bHagunshVqWJ/nFv4HfUhIRvw/MeTrISYvfRWTr+NRbLx+mlLEMpuPlszIcrtSd8T8DEbbA7chNTe4jCnrYM9Pg1LK2SBYKNAoFQmL8TnNILKGaclMxB+olbwIhUM6S4OmtTTlE3803CPSPZ3pSHCh9sdPEhnBjf5msxqTFrm3MoBB7/RRETwJ5W3ulVetskQwMc5ClWm5tmQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kontron.de;
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
+ by AS8PR10MB6021.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:52a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 06:54:38 +0000
+Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 06:54:38 +0000
+Message-ID: <9c1d34ec-0b96-471e-8b60-6b4c852878bf@kontron.de>
+Date: Wed, 17 Jun 2026 08:54:35 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/9] firmware: imx: ele: Add API functions for OCOTP fuse
+ access
+To: Frank Li <Frank.li@oss.nxp.com>, Pankaj Gupta <pankaj.gupta@nxp.com>,
+ "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Frieder Schrempf <frieder@fris.de>, Srinivas Kandagatla
+ <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
+ <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-3-cb7f3698c3e6@kontron.de>
+ <ajFtkysqxuLV8GgF@SMW015318>
+ <cea74ed4-1003-419e-8da3-1c62b1ace726@kontron.de>
+ <ajGsiglUUbDTIxTh@SMW015318>
+Content-Language: en-US, de-DE
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
+In-Reply-To: <ajGsiglUUbDTIxTh@SMW015318>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0149.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::16) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1fb::23)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|AS8PR10MB6021:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca9ebaa1-003f-4898-e7f9-08decc3d4c53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|11063799006|4143699003|3023799007|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	F4+OmvmiB2doLXS8beGpULQJxdrvjQw7V5rtv0lCW2qCO1f4Yf5wPxGjf0YAi/YdlJ4hya3vQ8+7bItTcqEOSfu/V0X/+Npzb/WnMT1HjI5tTqG9vTTq+R6ESwOJB0fEH4YN6fxeY4kwjAoLiZx7M/e+VRUf6mrqvSzWXER4PCWuxtU/FwuUzPbj9QCgseOUlV/MzJUbXMgyA9/z3JrUKPJPMfswGYGqgdwxgMBUbwWHbxzxrWlB319SOQLH1yCmAisaao3YtceOvGhwkzkeTQ9bCpdz432g8o+dp/S0uAXp+A/zbug840dp6vbANcxKSFFf8moQqXGBWlNeEqAawq//tl8MPaAkiDh0tL0OqtwsmhsT1p1K9BTTvtVXzHdhvOznEPGGTVbUQUS57/WeJMwz79YWK1Fl0ZgPrShy2m+Hj6c4Mn5eQKtweWZENTMYhhJNbg55FkFI7H09SYOs+B6dVJaILp2ac5dFo2o7Q8qECOVz/+Eje8l3dIFv01MM7hBY+QXQxUFoBIe7vGOpPhc1PgfhKvyo+YK/Q6x5b9WRl7SCk2J2A7J7hAx2/0x3O2ZtBkADr2OTW56VUD69DWwEFqlM+yqHf3TNFw8Atyp4ZfV0rajItWJrW9dOiqicnrBY46rw3L2TwCTwKr0p8tQrlKMzc7Kxqu8szuugqMwSef7CMV3i0sXfwKcwa2gM
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(11063799006)(4143699003)(3023799007)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MHovZ3liZjRFZGVtTjNhZU5VTWNlQU9CYmhKVUZOeEZoRDFseVNvdnIzUDY2?=
+ =?utf-8?B?VGJ0azd5R3ErUkFydVI0c21CdmZGU0RIVFdPZHZRR0dnU3dzL2pDSGZNdSta?=
+ =?utf-8?B?clZWWEpCbWVBS1h2Z1BnTjlLdjl4R3Y0MlNyQzFqdFBSaDQrbG9PY2dJTUJB?=
+ =?utf-8?B?bWNzd04xVDIySVRnSmY4d0Fnd0lkZk9NcVRTSGJ3dkhVSk9qUmJUR2dtSUJ6?=
+ =?utf-8?B?U21SbWcxVU41elZzV3VuMm9mdkZsYzh6TENFekVKNWgrMXRlMzNIZHIwcFBV?=
+ =?utf-8?B?b3lWYVRpNVhTZzlCVFhmU0d5aFc3YjlCZTZGdmtBZmw1NXQxQjdEcG5GK1c1?=
+ =?utf-8?B?WkFOOUk0emdkSTRHWmhCNjA1a1A0eHNDL1RudXJhSWZOb2NSWFJwZExjS3p6?=
+ =?utf-8?B?bk9ZWFBiV3NGYlQ0cWFXYlpzWitIMXYwam81WWgyQ0lHM2FPQnF1ampmbWNj?=
+ =?utf-8?B?ejljejRDdlU3ejdLVTR2ZE9IV21LWUlSVktNYU5BNjhBVzZ1U0NLanpKU1Ba?=
+ =?utf-8?B?RmZxY3F0ZlVmTEgxdFhrVHpNb2ZxcTVTK0tsS0wzMnlCTTRQc0ttSFBmclYz?=
+ =?utf-8?B?dVo0Z1JuZEtiNk5udU90Y2dZTnZKRUZ2Y0hCOUw1eVpEK2xmRFFqYnBzSWpn?=
+ =?utf-8?B?VGhNL0RmNW9USmxsM2NOS1BNRSsxeWU3U2g2WW1RclRCQ01WVGxVVFdnUnRH?=
+ =?utf-8?B?Uk5BR1I0OUh3ZkdueTFhdDlRclB0czM2dyt2Y296NmVzQWl0L3hKK3gyQVhX?=
+ =?utf-8?B?VlZrWEVUWEV5WkJ4dnN1ZDJaM3Bwemp0OXl5K0lnV2tIRm5aVzJwaUYxdFo4?=
+ =?utf-8?B?V2Rmb21OWVZDVWtwckFBdEtBTWVIeHByalE1RldKejhucjY1c3kwWE4rbmhG?=
+ =?utf-8?B?cXF1dGh2Ty9nUzBOTExkR09DMUxHa1dISkZSb041SE1reS9Ua2lnSk1uS0J1?=
+ =?utf-8?B?UEp2SWkyN2w1V1A2eFozajVJeU01Q2RnazhNWHhiSXIrb2d6RFNvTHZvUmsz?=
+ =?utf-8?B?S1U3UnlUT29sWERyVzJnMU9ZSXdhcTRHVU9vb0E2Mkg4bys0NUphYTkxYkRO?=
+ =?utf-8?B?S2MzWU9DYWJrVnN3Q1hGeTYrcUptRURrWktUZkJuaEV2bXlSbFMvTG0xcnAx?=
+ =?utf-8?B?ZHB2emdoVGlZWDBsaFcrdkFJblNZZjRkcUNFMnk2Ump3YjlMbE1HVlFQL3Jx?=
+ =?utf-8?B?VCtKMDdnZDkwaUY5dTRsVC9uZEZOcGtsY1FTTWZ1L293Tyt2cDRkMUxPNS9L?=
+ =?utf-8?B?TlpVQWFZTG1OVm5aOWlpMFBFSXVPUGdacFVvb1hOTXl3MkpyZ1AvQlc5eVNL?=
+ =?utf-8?B?NTJaZXc3MFlpT1haWmxEU09GandCQnZLbDBQR1NmM1g0YXNtMnI5NlArRlpF?=
+ =?utf-8?B?eG5zNm9ORXRldEtXcG5CRmFKUXBZZSt5a05kcGIzdkRyNjNLOUxZOEVSblAz?=
+ =?utf-8?B?bDBXOG9FdXVwUDQvbEh6YiticFpoVlkvZk03NXlBc0dhaEZaR3BOV3ZtRWp4?=
+ =?utf-8?B?NWdDQU9qMlhkcktIUE9qYWlVZkRNOXdPQ1VMMmM5N0FMMVhaK21jekVBWFMy?=
+ =?utf-8?B?b2d0emtaVW82RTlLemNGWkp1ZXpyS2NmcjNncFVrMWRjeUc5K1FDc2dWbDAr?=
+ =?utf-8?B?MEgyZGJkSnBnNjJiZWlPTlhjZFRXQmlPUnd6ZzVtMEhncG1WS0xLdUxEOWFy?=
+ =?utf-8?B?TVJ1U3cwb2tIOUwwWjcrOUZ4K1piNTdiYWlUSEJCS2FKTkVONG5seGxHS1J2?=
+ =?utf-8?B?VjI4ZWdIdyt0L2JjUytoUDZQcU5lWTdiOGxyTmUyRCttZkFoeU5VSU54NmZN?=
+ =?utf-8?B?RU1yS2orN1Vud3NldlRlOTRFOHFQQ1NndTZ2K1N3eUFvYXowcjJPT3NvRG1a?=
+ =?utf-8?B?dmFndjl5TWpmbjArWTZLVVZMaU5SRE9wNGdTRnZueDJpYUZRUGY3djJ4eUNR?=
+ =?utf-8?B?VUxoR2g1T3FSZmNPQTVwckRBa3BDL1BMNzhycklRWDR6d2ZROGtGcFRkb0ZJ?=
+ =?utf-8?B?QnMwWDNtb1hXbU9DUnJQMkdVUEpzdHRmYVRIZWY5MHB3YTVrK1Zub2xKWlRZ?=
+ =?utf-8?B?ZlpYNXFuSElnUndkZlVwcU9RZlcxcGM2TXRlZjNtTkFQa1hNdHRsUjNSYXRj?=
+ =?utf-8?B?eGQ2UEpOeStCWVducDlrYnppL3JDb0R2b01uWnA3VnRwNFBpNGxLV0RIZ25H?=
+ =?utf-8?B?cTBCNzcrNkhwRTNGalNBbll1cXpzSTZuQmpBRFpXbGhmaDJyM0Foa2lheVFH?=
+ =?utf-8?B?ZmF3TlJadS9zMldQKzVCS2xyZ1p5VGdlY1o2cGgxMEJDOEZoVVVmNFpRczNv?=
+ =?utf-8?B?SFI0VEJRQURrTS9EOFNqMzVkUDdiWitzMm14SXdWWlAvYkcwdmVNQ0VPRGZy?=
+ =?utf-8?Q?oZk4XD6TEnZFCtfM=3D?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca9ebaa1-003f-4898-e7f9-08decc3d4c53
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 06:54:38.4028
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uU92WJ38ZZIjz5Mi3hRbsaHZlKb/z+f6jDwwNS8VVX1T/I88ZnHFdNTTm4DDmKGj5GTNkNykbn7HQxdixxJq3HfKCVjoEYHSFpz/LREnYpo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6021
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The driver mutates a statically allocated global array to save reg=
-ister state during runtime suspend, breaking multi-instance driver isolatio=
-n.
-- [High] Using `pm_runtime_force_suspend()` in the `remove` callback leaks =
-the PM runtime `disable_depth` counter, permanently breaking PM runtime fun=
-ctionality if the driver is unbound and later rebound.
-- [High] Dangling clock hardware pointers due to mixing `devm_` provider re=
-gistration with manual clock unregistration.
-- [High] Multiple independent composite clocks share the exact same physica=
-l gate register and bit shift, which will cause unexpected hardware clock-g=
-ating.
-- [High] Shared hardware divider is incorrectly modeled as independent divi=
-ders in multiple clock configurations.
-- [Medium] Parent clocks remain permanently enabled on probe error paths an=
-d upon device removal when CONFIG_PM or runtime PM is disabled.
-- [Low] The `dev_pm_ops` structure pointer is assigned unconditionally with=
-out the `pm_ptr()` wrapper, causing dead code when CONFIG_PM is disabled.
---
+On 16.06.26 22:05, Frank Li wrote:
+> On Tue, Jun 16, 2026 at 07:59:54PM +0200, Frieder Schrempf wrote:
+>> On 16.06.26 17:36, Frank Li wrote:
+>>> On Tue, Jun 16, 2026 at 01:52:18PM +0200, Frieder Schrempf wrote:
+>>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>>>
+>>>> The ELE S400 API provides read and write access to the OCOTP fuse
+>>>> registers. This adds the necessary API functions imx_se_read_fuse()
+>>>> and imx_se_write_fuse() to be used by other drivers such as the
+>>>> OCOTP S400 NVMEM driver.
+>>>>
+>>>> This is ported from the downstream vendor kernel.
+>>>>
+>>>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>>> ---
+>>>>  drivers/firmware/imx/ele_base_msg.c | 122 ++++++++++++++++++++++++++++++++++++
+>>>>  drivers/firmware/imx/ele_base_msg.h |   6 ++
+>>>>  include/linux/firmware/imx/se_api.h |   3 +
+>>>>  3 files changed, 131 insertions(+)
+>>>>
+>>> ...
+>>>> +++ b/include/linux/firmware/imx/se_api.h
+>>>> @@ -11,4 +11,7 @@
+>>>>  #define SOC_ID_OF_IMX8ULP		0x084d
+>>>>  #define SOC_ID_OF_IMX93			0x9300
+>>>>
+>>>> +int imx_se_read_fuse(void *se_if_data, uint16_t fuse_id, u32 *value);
+>>>> +int imx_se_write_fuse(void *se_if_data, uint16_t fuse_id, u32 value);
+>>>> +
+>>>
+>>> This API should implement in fuse drivers. Other consume should use standard
+>>> fuse API to get value. If put here, it may bypass fuse driver.
+>>
+>> The reason this is here, is the downstream implementation in linux-imx
+>> and the current code organization.
+> 
+> Downstream may not good enough, sometime, it is quick solution.
 
-commit 6ca49a84216985afbfc516b783d555632389eed6
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
+Ok, but the code structure and API design has been upstreamed like this
+and the refactoring could have been done before, if downstream is known
+to not be well organized.
 
-clk: cix: add sky1 audss clock controller
+> 
+>> I thought there is some good reason
+>> to have shared functions and it looks like Pankaj structured it like
+>> this so all API functions live in ele_base_msg.c and the internal
+>> structs and defines in ele_base_msg.h and se_ctrl.h are not exposed to
+>> other drivers.
+>>
+>> If I would move this into imx-ocotp-ele.c, then I would also need to
+>> change how the code is organized and make the internal se_api functions
+>> exposed to other drivers. I don't know if that is really a good idea.
+>>
+>> I get your point but it looks like this contradicts the intention of
+>> having a clean API in the firmware driver.
+> 
+> You can refer imx-ocotp-scu.c, structure should be similar, only difference
+> is that lower transfer APIs.
+Ok, this would mean that I expose the generic SE functions and structs
+required for fuse handling. In practice, I would remove
+imx_se_read_fuse() and imx_se_write_fuse() from se_api.h and instead add
+the following:
 
-This patch adds a platform driver for the Cix Sky1 Audio Subsystem (AUDSS)
-internal clock controller. It registers mux, divider, and gate composite
-clocks for various components like DSP, SRAM, HDA, and I2S outputs.
+struct se_msg_hdr { ... };
+struct se_api_msg { ... };
+struct se_if_priv;
+se_fill_cmd_msg_hdr( ... );
+se_msg_send_rcv( ... );
+se_val_rsp_hdr_n_status( ... );
 
-> diff --git a/drivers/clk/cix/clk-sky1-audss.c b/drivers/clk/cix/clk-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..c1e7dfe45d12c
-> --- /dev/null
-> +++ b/drivers/clk/cix/clk-sky1-audss.c
-> @@ -0,0 +1,1167 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// Copyright 2026 Cix Technology Group Co., Ltd.
+Then I would export the functions in ele_common.c and put the fuse
+read/write functions in the NVMEM driver.
 
-[ ... ]
+Is that what you want me to do?
 
-> +static const struct composite_clk_cfg sky1_audss_clks[] =3D {
-> +	/* dsp */
-> +	CFG(CLK_DSP_CLK,
-> +	    "audss_dsp_clk",
-> +	    dsp_clk_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
+Pankaj (and maybe Peng), do you have any comments on this?
 
-[Severity: High]
-Does this code correctly model the hardware divider topology?
-
-Over 15 distinct clocks in this array, including CLK_DSP_CLK, CLK_SRAM_AXI,
-and all CLK_I2S*_APB clocks, define their divider configuration to use the
-exact same register and bitfield (INFO_CLK_DIV at shift 0 with width 2).
-
-If the Linux clock framework treats these as independent divider components,
-would calling clk_set_rate() on one clock silently change the frequency of
-all other clocks sharing those bits without the framework knowing?
-
-> +	    INFO_HIFI0, 0, 0,
-> +	    0),
-
-[ ... ]
-
-> +	/* i2s */
-> +	CFG(CLK_I2S0_APB,
-> +	    "audss_i2s0_apb",
-> +	    i2s_apb_parent,
-> +	    NULL,
-> +	    -1, 0, 0, 0,
-> +	    INFO_CLK_DIV, 0, 2, 0,
-> +	    INFO_CLK_GATE, 0, 0,
-> +	    0),
-
-[ ... ]
-
-> +	CFG(CLK_I2S0,
-> +	    "audss_i2s0",
-> +	    i2s0_parents,
-> +	    NULL,
-> +	    INFO_CLK_MUX, 0, 2, 0,
-> +	    INFO_CLK_DIV, 2, 2, 0,
-> +	    INFO_CLK_GATE, 0, 0,
-> +	    0),
-
-[Severity: High]
-Is it intentional that multiple independent clocks share the exact same gate
-bit?
-
-For example, both CLK_I2S0_APB and CLK_I2S0 map their gate control to
-INFO_CLK_GATE shift 0. The clock framework tracks enable counts per instance
-independently.
-
-If a consumer enables and then disables CLK_I2S0_APB, won't the clock
-framework physically clear bit 0, inadvertently turning off the hardware
-clock for CLK_I2S0 as well?
-
-[ ... ]
-
-> +static int sky1_audss_clk_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D sky1_audss_clks_enable(priv);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clocks\n");
-> +		goto err_link;
-> +	}
-
-[ ... ]
-
-> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, priv->c=
-lk_data);
-> +	if (ret) {
-> +		dev_err(dev, "failed to add clock provider: %d\n", ret);
-> +		goto fail_register;
-> +	}
-> +
-> +	pm_runtime_put_sync(dev);
-> +
-> +	return 0;
-> +
-> +fail_register:
-> +fail_array_clk:
-> +	while (i--)
-> +		clk_hw_unregister_composite(clk_table[devtype_data->clk_cfg[i].id]);
-> +fail_fixed_clk:
-> +fail_clks_set:
-> +	pm_runtime_put_sync(dev);
-> +	pm_runtime_disable(dev);
-
-[Severity: Medium]
-Will this error path properly disable parent clocks if CONFIG_PM is disable=
-d?
-
-The driver enables its parent clocks earlier in probe via
-sky1_audss_clks_enable(). If an error occurs here, the driver exclusively
-relies on pm_runtime_put_sync() to trigger sky1_audss_clk_runtime_suspend()
-and clean up the clocks.
-
-If CONFIG_PM is disabled, or runtime PM is forbidden via sysfs, won't this
-leak the prepare and enable counts of the parent clocks?
-
-> +err_link:
-> +	device_link_remove(dev, dev->parent);
-> +	return ret;
-> +}
-> +
-> +static void sky1_audss_clk_remove(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	int i =3D 0;
-> +
-> +	for (i =3D 0; i < devtype_data->clk_cfg_size; i++)
-> +		clk_hw_unregister_composite(priv->clk_data->hws[devtype_data->clk_cfg[=
-i].id]);
-
-[Severity: High]
-Does manually unregistering these clocks create a use-after-free window?
-
-The clock provider is registered via devm_of_clk_add_hw_provider() in probe,
-which delegates provider removal to devres. Devres runs after the remove()
-callback returns.
-
-By manually unregistering and freeing all composite clocks here in remove(),
-doesn't the clock provider remain active while pointing to freed
-clk_composite objects until devres eventually cleans up the provider?
-
-> +
-> +	if (!pm_runtime_status_suspended(dev))
-> +		pm_runtime_force_suspend(dev);
-> +
-> +	pm_runtime_disable(dev);
-
-[Severity: High]
-Does calling pm_runtime_force_suspend() followed by pm_runtime_disable()
-permanently break runtime PM for this device?
-
-pm_runtime_force_suspend() is intended for system-level sleep, and it
-internally increments the PM runtime disable_depth counter by calling
-pm_runtime_disable(). Calling pm_runtime_disable() a second time here
-increments it again.
-
-Since the device persists in sysfs across bind/unbind cycles, wouldn't a
-subsequent probe() only call pm_runtime_enable() once, leaving
-disable_depth > 0 and breaking runtime PM?
-
-[Severity: Medium]
-Additionally, if CONFIG_PM or runtime PM is disabled, does this remove()
-function leak the prepare/enable counts for the parent clocks? This seems
-likely since it relies solely on pm_runtime_force_suspend() to trigger
-sky1_audss_clk_runtime_suspend() for clock disablement.
-
-> +	device_link_remove(dev, dev->parent);
-> +}
-> +
-> +static int __maybe_unused sky1_audss_clk_runtime_suspend(struct device *=
-dev)
-> +{
-> +	struct sky1_audss_clks_priv *priv =3D dev_get_drvdata(dev);
-> +	const struct sky1_audss_clks_devtype_data *devtype_data =3D priv->devty=
-pe_data;
-> +	unsigned long flags;
-> +	int i;
-> +
-> +	spin_lock_irqsave(&priv->lock, flags);
-> +	for (i =3D 0; i < devtype_data->reg_save_size; i++)
-> +		regmap_read(priv->regmap_cru,
-> +			    devtype_data->reg_save[i][0], &devtype_data->reg_save[i][1]);
-
-[Severity: High]
-Is it safe to use a statically allocated global array to save device state?
-
-The devtype_data->reg_save pointer references the global sky1_reg_save arra=
-y.
-By reading registers directly into this shared array, any other driver
-instances matching cix,sky1-audss-clock will have their state overwritten.
-
-Could this lead to instances writing incorrect register values back to the
-hardware during resume?
-
-[ ... ]
-
-> +static struct platform_driver sky1_audss_clk_driver =3D {
-> +	.probe =3D sky1_audss_clk_probe,
-> +	.remove =3D sky1_audss_clk_remove,
-> +	.driver =3D {
-> +		.name =3D "sky1-audss-clk",
-> +		.suppress_bind_attrs =3D true,
-> +		.of_match_table =3D sky1_audss_clk_of_match,
-> +		.pm =3D &sky1_audss_clk_pm_ops,
-
-[Severity: Low]
-Should this assignment use the pm_ptr() macro?
-
-When power management is disabled, this unconditional assignment forces the
-compiler to keep the sky1_audss_clk_pm_ops structure in the binary instead
-of safely discarding it as dead code.
-
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617064100.1504=
-617-1-joakim.zhang@cixtech.com?part=3D4
+Thanks!
