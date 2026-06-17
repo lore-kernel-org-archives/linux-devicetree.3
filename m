@@ -1,437 +1,168 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6108737DEBA;
-	Wed, 17 Jun 2026 11:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4952015E5BB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781694281; cv=none; b=QOcO2+lkRHeUje7YHDesMH1RXOZaEz4fhIvZwLK6vZw80GtTh+slCuFYG3L5TyyeMvtb1p3b4hPTrK1vndJcOsqG0VYcnd1HLl04vQTkx+0FOEAeXEj8yMKXWJWO/Vtd5DagrRmr1sIswhLjJz1+eJzpzscugsDOkkpoI+qB6Pg=
+	t=1781694314; cv=none; b=Jcn1MQLeQ8swIIqKoGLe2k37TKWMZUZjfMLaB8lU24pdXWI5+xHqKaXV3E2uoQuJkKGgG40fIJW6l5i4JB7ge1vwHyEtrVymvEDnB1Ghs/+iv4/GewpgrK7tCKQYMLa+5YTAP3hFTGHDdUPEki/os+yOSwRipStNrbj360pqEi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781694281; c=relaxed/simple;
-	bh=qRWxJqPe0H3fVWBy0h34xJFVl6cSABdHgA6F/UZOxqE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kl1tRBYQyIA029Z3H3nmgAceMz70C/5yiV8ehZAlX3aFt1Y8ovUuNQ+m8azfelKrJD3HNcl1tkVXCcALIAQb0hshgZtXlfOMsZm/vSbQpP8T4KQsduVEuYTEVAdORcAuJpLl2oC+oFIjOOA117ITnj4ykPqoE48Xd6EqZjIKCfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2BCF620084B;
-	Wed, 17 Jun 2026 13:04:27 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E991F200C49;
-	Wed, 17 Jun 2026 13:04:26 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 9CCC4180008C;
-	Wed, 17 Jun 2026 19:04:25 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: linux-kernel@vger.kernel.org,
-	linux-i3c@lists.infradead.org,
-	alexandre.belloni@bootlin.com,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	broonie@kernel.org,
-	lee@kernel.org,
-	Frank.Li@nxp.com,
-	lgirdwood@gmail.com
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	aman.kumarpandey@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-Subject: [PATCH v12 2/7] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
-Date: Wed, 17 Jun 2026 16:33:50 +0530
-Message-Id: <20260617110355.1591844-3-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
-References: <20260617110355.1591844-1-lakshay.piplani@nxp.com>
+	s=arc-20240116; t=1781694314; c=relaxed/simple;
+	bh=eEiU8vMu+5O1vd1w6lRUiGs5KR7SZ5QpDvtIFlNlRTo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sMplQqxIhaz7Uu3FM/DBi+iKr9rBczce4tdspJuh3FxbVwlcWOC5p2I+D1Zhps51WndS6WtPU3K8GrINbxsV4y98F3xo5BMWzVfpoidTma2hdNTJahE1Fq5WmZmC0WSeiwo00RT9Tak+VE08pHqy19hLUXTF24cCkUAGvcTV+QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jGa+OMAW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ARSNzosN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jGa+OMAW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ARSNzosN"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UslQ2025364
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=; b=jGa+OMAWzW2QNASV
+	RBhcQINUjagf0ZQcla7SH4cLO/fG4+60rqMscZWpAkwf/C2OMNtmHZxWWUKTtSv7
+	/oY/yXoeIcwDjr4AfJN1m9yHnfrDpCWN73Wc/iF0/q17X3FclXRdxDSjjKgCgzRM
+	a1SnLoNeTUbyhEhMhDckcuLOZK6rA6c5SajdnW4DXcEgR84qlcSFBfhxpPkZvqp6
+	GVahBusdh/Ui43hOBMHHX4qt66W5GBK5JOI2Yzvu4mfGTh8CLWDaH+jW8NoaWHWE
+	X1Y0j1xXRuwj+n6/CHANhdCHMWwqRE0FJRODDTaVgX7ra/KtaqyDCiO/XCBVH275
+	fBNA9w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4euees2sbs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:12 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-915a547f4b3so69078585a.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 04:05:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781694312; x=1782299112; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=;
+        b=ARSNzosNfpOTWoCL4krVw8RuZm6MdZMMUaHYHbaywZZ79fvBMedYTzzTucqNjl/FC5
+         1sPbSGN6KtkKGz6sObPL0rXapfIyRMFESYT7dBbA11IeWvVJoGFpA8rur5K5IGjUBz3U
+         YP9FYDBDoKkyEullxp1BidaO7RcExFxgMDCBTxaTB7/omH1xKFnTxkhwgLRaO5gnh8Ax
+         7JhuIjBlSJiSrKYrIdSppUupYO/zpJkCeT/7zxckFqopfXUgBg4MBd1wdCSgAwWXS8DD
+         dJNS+d1V4F7AFpQ39zY0vsLASgH0bYzOoAx6hX9HtquM2eBO+r7wKxrKqDEHNJMOtQ70
+         iIKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781694312; x=1782299112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=;
+        b=AoDmLh5BoIuWNNwbKPykd7piror5MFF2KXg27O9QsVSzHPVMHcigzto4jd11qnbGrs
+         4SrtFXuR9BVLc1mAheQJi77G+cVs8/aLzEYkOTy4vQ8tI6k1T6iTMolZ9TbXU7RzBmU8
+         ZQ6Dlyif2u0ijWk9bjJ1sBKFqxsMribhdBjz/9FYAAyKuZyjV+WJTXiczGbJjQAM171p
+         oCSwWZXgF1tWc2iuto167QlZUvJH2etoi4/QfRRWMF1HgjCzSOPbdMvOcrT975jcd7Dt
+         1yQZzvlfjV1ZPJgyCfhHISC11EUJdXXsIKLcyeImZoJmnfnJWJ9CaPtnvPUpbFDh29hG
+         1zag==
+X-Forwarded-Encrypted: i=1; AFNElJ9262caYKBtXZOXSFxO3buA9X9EMr/rPob4kd6Oso8+z6JsE8eE0j2s3V8Ux3tD2PXVKa7ipJhCNU2I@vger.kernel.org
+X-Gm-Message-State: AOJu0YwfSFEz8+1ttriIG1vMaY1P8lqsOpTzLwKIcLNua/tTMDvoQEqW
+	Ra1BXcjB2a3vzIeUNWqEZfPCfvRuW5tHVOtVXP8PiE4d9M+UWz1ZhvqXB1NmCV6GC8/oRYklXBG
+	bJGzLTP7vDRMEG4aADr+yjrgQSuAyyfIcJH2rbBtz9SFaFtBHBzqzZoYgY8sUYSWw
+X-Gm-Gg: Acq92OHDEzYc5VKqWNJik4NDLxVAryuM62OARXopbFmU8bZfb4j6S+V2D3yGgx2vYmx
+	9MOZoTZ75kvNfzUX3ivRM0agKtIV8MoMVOqinN44qvwDSw7a771Z8MsIsJNjZmBMsIEaX8TCsiB
+	2wFIvyM8vxuRhYnpmgZ6Vsmmmrmm/DThgo/zBj0lr7AwGlhlI1JVBIjXHrWIVGQWefkSa49q0xJ
+	wLHU3Y2H0I5gSk+YUWIAo6UlVzJeKPu015q3hG+8ASNFRr0cz1/J0UJcXx+aLVQS8EL5r7Ii5AO
+	pNCGVKOaS0vYtbHchn/6T/sEpt8YYXqYa6bKKAXQsRJrCi49NgNWWkzofvyS1rOkQve0GPuYhw5
+	P5skWCLYMWTIhFPjBGAwSO+e6Ww1QuQYAuao=
+X-Received: by 2002:a05:620a:6286:b0:914:ea37:6f14 with SMTP id af79cd13be357-91d8aae2593mr337701485a.1.1781694311575;
+        Wed, 17 Jun 2026 04:05:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:6286:b0:914:ea37:6f14 with SMTP id af79cd13be357-91d8aae2593mr337696685a.1.1781694311144;
+        Wed, 17 Jun 2026 04:05:11 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb8b23f8fsm760459866b.53.2026.06.17.04.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 04:05:10 -0700 (PDT)
+Message-ID: <d4d01a6d-4c9e-4822-b0f6-b98e8ecf34f5@oss.qualcomm.com>
+Date: Wed, 17 Jun 2026 13:05:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] spi: qcom-geni: Enable SPI on SA8255p Qualcomm
+ platforms
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, bjorn.andersson@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mukesh.savaliya@oss.qualcomm.com, aniket.randive@oss.qualcomm.com,
+        chandana.chiluveru@oss.qualcomm.com, jyothi.seerapu@oss.qualcomm.com,
+        chiluka.harish@oss.qualcomm.com
+References: <20260604-enable-spi-on-sa8255p-v3-0-43984eac4c67@oss.qualcomm.com>
+ <20260604-enable-spi-on-sa8255p-v3-4-43984eac4c67@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260604-enable-spi-on-sa8255p-v3-4-43984eac4c67@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: itV44Yu0VAB1v8QQod16pD_83doDSJRl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX0xa/2f1+EzAc
+ cCAkjXw8nCUcuZDP/h0j6Dn8ZAkttMB7oXHHzQi3wtQWUWAg7YOj7WnHblKo53Bh9/RlU2So41p
+ eJ55jPPVEA768Tq+BNavYPmjvmLku2d4LCSI/D6Ms/0DLK3P3MZLRllinC3QZ3bbH4n8bIrPN24
+ sEp+M5X2oskWeIWummD6Pj5QVCmHEaT/7CLTZHsfTR0mGbdAs2Tx6sYbU7j1x4QUst6ztWxaU1g
+ m1h2IVb1IWc19f7x86LU5TScBFTOnsrJAtCi3kYHKpWT6d1Xj0Cjhywa2PvgdkyUV0OwSBfr4IN
+ fe+n+8z67f/22aXmhQEJbwH3FYM94KKMGq/YJW8QuJQTycqM0IIgg+1BUpTHYw6M0DD4tvg6baz
+ ZpUnFye4GJrzX0ORo6rTFaBfOt4Xhy3aOLwp0fFrthTjyaTFL93YfqEPJck0X+eLfCSB4HcXn1g
+ /axWGIHrrWOWnAEsAiQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfXwZABCrvCgdmO
+ Qvk/QaRlm4TjXoaVCARLzUDiblR7bzQJE//rq9Mgq17pJl7cuP6DznSXEIzWWXbUtXoelbC7nqm
+ KCcpTMyzoMdNqD/PjiqrvavYDRQ95a0=
+X-Authority-Analysis: v=2.4 cv=KeTidwYD c=1 sm=1 tr=0 ts=6a327f68 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=Ow8ltAAN0bl1iHkyYvMA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: itV44Yu0VAB1v8QQod16pD_83doDSJRl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170104
 
-From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+On 6/4/26 8:50 AM, Praveen Talari wrote:
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power
+> and performance protocols.
+> 
+> The SCMI power protocol enables or disables resources like clocks,
+> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+> such as resume/suspend, to control power states(on/off).
+> 
+> The SCMI performance protocol manages SPI frequency, with each
+> frequency rate represented by a performance level. The driver uses
+> geni_se_set_perf_opp() API to request the desired frequency rate.
+> 
+> As part of geni_se_set_perf_opp(), the OPP for the requested frequency
+> is obtained using dev_pm_opp_find_freq_floor() and the performance
+> level is set using dev_pm_opp_set_opp().
+> 
+> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
+> ---
 
-Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
-multiport I3C hub family. These devices connect to a host via
-I3C/I2C/SMBus and allow communication with multiple downstream
-peripherals.
+[...]
 
-Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> -	ret = geni_se_resources_init(&mas->se);
+> +	mas->dev_data = device_get_match_data(&pdev->dev);
 
----
-Changes in v12:
- - No change, added Reviewed-By tag
+This really needs to be null-checked
 
-Changes in v11:
- - No change
+Perhaps also the functions within that are called unconditionally
 
-Changes in v10:
- - No change, added Reviewed-By tag
-
-Changes in v9:
- - Referenced i3c.yaml and i2c-controller.yaml for child nodes
- - Dropped unnecessary #address-cells and #size-cells from child nodes
-
-Changes in v8:
- - Add compatible in i3c example
-
-Changes in v7:
- - Fix schema validation issues
- - Adjust required properties
- - Add I2C example
-
-Changes in v6:
- - Use a vendor prefix for the attributes
-
-Changes in v5:
- - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
-   tp0145-ldo-microvolt, tp2367-ldo-microvolt
- - Changed supply entries and its descriptions
-
-Changes in v4:
- - Fixed DT binding check warning
- - Removed SW properties: ibi-enable, local-dev, and always-enable
-
-Changes in v3:
- - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
- - Added Regulator supply node
-
-Changes in v2:
- - Fixed DT binding check warning
- - Revised logic for parsing DTS nodes
----
----
- .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 291 ++++++++++++++++++
- MAINTAINERS                                   |   9 +
- 2 files changed, 300 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-
-diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-new file mode 100644
-index 000000000000..c080eeb0eeaa
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-@@ -0,0 +1,291 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright 2025 NXP
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP P3H2X4X I3C HUB
-+
-+maintainers:
-+  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-+  - Vikash Bansal <vikash.bansal@nxp.com>
-+  - Lakshay Piplani <lakshay.piplani@nxp.com>
-+
-+description: |
-+  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
-+  hub devices that connect to:-
-+  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
-+     peripheral devices on the downstream  side.
-+  2. Have two Controller Ports which can support either
-+     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
-+  3. P3H2840/ P3H2841 are 8 port I3C hub with eight I3C/I2C Target Port.
-+  4. P3H2440/ P3H2441 are 4 port I3C hub with four I3C/I2C Target Port.
-+     Target ports can be configured as I2C/SMBus, I3C or GPIO and connect to
-+     peripherals.
-+
-+properties:
-+  compatible:
-+    const: nxp,p3h2840
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#address-cells':
-+    const: 1
-+
-+  '#size-cells':
-+    const: 0
-+
-+  assigned-address:
-+    maximum: 0x7f
-+
-+  nxp,tp0145-pullup-ohms:
-+    description:
-+      Selects the pull up resistance for target Port 0/1/4/5, in ohms.
-+    enum: [250, 500, 1000, 2000]
-+    default: 500
-+
-+  nxp,tp2367-pullup-ohms:
-+    description:
-+      Selects the pull up resistance for target Port 2/3/6/7, in ohms.
-+    enum: [250, 500, 1000, 2000]
-+    default: 500
-+
-+  nxp,cp0-io-strength-ohms:
-+    description:
-+      Selects the IO drive strength for controller Port 0, in ohms.
-+    enum: [20, 30, 40, 50]
-+    default: 20
-+
-+  nxp,cp1-io-strength-ohms:
-+    description:
-+      Selects the IO drive strength for controller Port 1, in ohms.
-+    enum: [20, 30, 40, 50]
-+    default: 20
-+
-+  nxp,tp0145-io-strength-ohms:
-+    description:
-+      Selects the IO drive strength for target port 0/1/4/5, in ohms.
-+    enum: [20, 30, 40, 50]
-+    default: 20
-+
-+  nxp,tp2367-io-strength-ohms:
-+    description:
-+      Selects the IO drive strength for target port 2/3/6/7, in ohms.
-+    enum: [20, 30, 40, 50]
-+    default: 20
-+
-+  vcc1-supply:
-+    description: Controller port 0 power supply.
-+
-+  vcc2-supply:
-+    description: Controller port 1 power supply.
-+
-+  vcc3-supply:
-+    description: Target port 0/1/4/5 power supply.
-+
-+  vcc4-supply:
-+    description: Target port 2/3/6/7 power supply.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      ldo-cp0:
-+        type: object
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+      ldo-cp1:
-+        type: object
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+      ldo-tpg0:
-+        type: object
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+      ldo-tpg1:
-+        type: object
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - reg
-+
-+patternProperties:
-+  "^i3c@[0-7]$":
-+    type: object
-+    $ref: /schemas/i3c/i3c.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        description:
-+          The I3C HUB Target Port number.
-+        maximum: 7
-+
-+      nxp,pullup-enable:
-+        type: boolean
-+        description:
-+          Enables the on-die pull-up for Target Port.
-+
-+    required:
-+      - reg
-+
-+  "^(i2c|smbus)@[0-7]$":
-+    type: object
-+    $ref: /schemas/i2c/i2c-controller.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        description:
-+          The I3C HUB Target Port number.
-+        maximum: 7
-+
-+      nxp,pullup-enable:
-+        type: boolean
-+        description:
-+          Enables the on-die pull-up for Target Port.
-+
-+    required:
-+      - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i3c {
-+        #address-cells = <3>;
-+        #size-cells = <0>;
-+
-+        hub@70,236153000c2 {
-+            reg = <0x70 0x236 0x3000c2>;
-+            compatible = "nxp,p3h2840";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            assigned-address = <0x50>;
-+
-+            nxp,tp0145-pullup-ohms = <1000>;
-+            nxp,tp2367-pullup-ohms = <1000>;
-+            nxp,cp0-io-strength-ohms = <50>;
-+            nxp,cp1-io-strength-ohms = <50>;
-+            nxp,tp0145-io-strength-ohms = <50>;
-+            nxp,tp2367-io-strength-ohms = <50>;
-+            vcc3-supply = <&reg_tpg0>;
-+            vcc4-supply = <&reg_tpg1>;
-+
-+            regulators {
-+                reg_cp0: ldo-cp0 {
-+                    regulator-name = "ldo-cp0";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_cp1: ldo-cp1 {
-+                    regulator-name = "ldo-cp1";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_tpg0: ldo-tpg0 {
-+                    regulator-name = "ldo-tpg0";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_tpg1: ldo-tpg1 {
-+                    regulator-name = "ldo-tpg1";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+            };
-+
-+            smbus@0 {
-+                reg = <0x0>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                nxp,pullup-enable;
-+            };
-+
-+            i2c@1 {
-+                reg = <0x1>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                nxp,pullup-enable;
-+            };
-+
-+            i3c@2 {
-+                reg = <0x2>;
-+                #address-cells = <3>;
-+                #size-cells = <0>;
-+                nxp,pullup-enable;
-+            };
-+        };
-+    };
-+
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        hub@70 {
-+            reg = <0x70>;
-+            compatible = "nxp,p3h2840";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            nxp,tp0145-pullup-ohms = <1000>;
-+            nxp,tp2367-pullup-ohms = <1000>;
-+            nxp,cp0-io-strength-ohms = <50>;
-+            nxp,cp1-io-strength-ohms = <50>;
-+            nxp,tp0145-io-strength-ohms = <50>;
-+            nxp,tp2367-io-strength-ohms = <50>;
-+            vcc3-supply = <&reg_tpg0_i2c>;
-+            vcc4-supply = <&reg_tpg1_i2c>;
-+
-+            regulators {
-+                reg_cp0_i2c: ldo-cp0 {
-+                    regulator-name = "ldo-cp0";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_cp1_i2c: ldo-cp1 {
-+                    regulator-name = "ldo-cp1";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_tpg0_i2c: ldo-tpg0 {
-+                    regulator-name = "ldo-tpg0";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+
-+                reg_tpg1_i2c: ldo-tpg1 {
-+                    regulator-name = "ldo-tpg1";
-+                    regulator-min-microvolt = <1800000>;
-+                    regulator-max-microvolt = <1800000>;
-+                };
-+            };
-+
-+            smbus@0 {
-+                reg = <0x0>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                nxp,pullup-enable;
-+            };
-+
-+            i2c@1 {
-+                reg = <0x1>;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+                nxp,pullup-enable;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2c6d79275c6..ba65ae5a008b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19303,6 +19303,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/ptp/nxp,ptp-netc.yaml
- F:	drivers/ptp/ptp_netc.c
- 
-+NXP P3H2X4X I3C-HUB DRIVER
-+M:	Vikash Bansal <vikash.bansal@nxp.com>
-+M:	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-+M:	Lakshay Piplani <lakshay.piplani@nxp.com>
-+L:	linux-kernel@vger.kernel.org
-+L:	linux-i3c@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-+
- NXP PF5300/PF5301/PF5302 PMIC REGULATOR DEVICE DRIVER
- M:	Woodrow Douglass <wdouglass@carnegierobotics.com>
- S:	Maintained
--- 
-2.25.1
-
+Konrad
