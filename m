@@ -1,258 +1,166 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023101.outbound.protection.outlook.com [52.101.127.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB4446B5
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.101
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781664277; cv=fail; b=Dsm9z+piFNEvAHoL/mB4IB0xdpR9E/hjZhl1jIPLRgYRYCWLycSNME9rxGbidaOhv53d3im9k4WsIxAB+UYkievL7hBY05nbe/xQjes03TQsr5AVyY+typSen/KOhcvl/CQJmNNeUT/wyzXYpLB42KpCyCPscNMktwEIkBZa9tQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781664277; c=relaxed/simple;
-	bh=5d71lVKIKQCseQ1Nmw60ZxFR/Up2RW+Yx3X7Ink9TjA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MOYIJuUf5i5/YU4Sv++bPgpXrki9OMBWG0cDg6z8VHwH/x32zJWPCL4XYhP8pGslPO/X0gIi7itFWZkYHondrp71LWEMTkp5f1dJTfCtY/fqF9XMe70wPvfjv7MmlZl4Fi8dPSSTXtMkNJvdF1KfaeyNrZMxZ9qTrCS5ej1etlE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=C2AcYWOi; arc=fail smtp.client-ip=52.101.127.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1FD18BBAE
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781665173; cv=none; b=NAgK/TNxQzhrIWcLRfNQI6jxpsp82WERDuRVDcGWmQ1jvz9GXUUS5x8yaDSDVAEe1t4Y1fUGxaXZ5yhhhw890zzeEu35L0T1xfT6Un4PvDs25ITOVfwuhoDmHb7+GGQ/qmgyjzjgwRpDEx1RW/Plj55Y1eFKGWNMBwra/53jIIQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781665173; c=relaxed/simple;
+	bh=mkBhvigEenoV7hVsKrScF2k37dBKNOTTn+0E9rJ/vAY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Tdo8HHcRmvXT7ei/zVPt1xhO3pupWfCQYNq1txEfP0AVaiu3ZhSFMfmSZ2Nm48fek+4kOn1SVb4NSy1K4bodNp11JWhUPmGvyuagD+ehKMjbnSnvqT45o0UeW+bpQ0MeEVVonCyDcjMCbrIEDL49QDAr0ZC3urmHnztxSKC8NuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNudawiI; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="C2AcYWOi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nJeFQl0VHOE2+eGKKiTJ4ecosB7ecOhIDUGASX2czLQIny0SWRLhzHtRPBXQa6SCj3SN44+W5yG8GKZqBtwbaleZGE5mrby/emhCZH4wfcxoaMdbP/qxxUf+i5NFlDwir/bVEMa9K/m4dt675CdR4CpWYnFBh5uzpPaZJB+zXDgJTHdHaeyk3p49MOVxhiTrjJkF8MEEBaib9i+yxEb7GZWxL4S9z2wZ7rpZpYz5zBBirqxaV2AnUmMymenJqesBQlKOfdspADmksENPNVJQJeMABrVRzmNfBKwEkVrTdIaK0XfKInB5Je6yB8zCIVs4rYZs8K0MHV5/3qrrYirqyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5d71lVKIKQCseQ1Nmw60ZxFR/Up2RW+Yx3X7Ink9TjA=;
- b=q729aVOT1eCQXjmqwSYzUoYsl8rv+XH+y6vqsbuCnWOWP3AFJDoMxGzl5FyZOrS2eIt/t0Mb+6sGIvAdyK5ZYN4t1MFFSW5rhGTCYpQ9g95qc+s2gJ9YxNJAhZaUo6yC+m9fcKSeJIsCxq03mzT6blqLZ4MTGyjXZeJWWtS7Qo3XRy6CnBzbmYHPepe7AiL9FZjzTAm7VxOs25GQCv0/2mNm7msTb6IVuzmW+wn6aZI2QFAqfjLBRtAZzH9cP35PQpzSnHdmyHkIjJw9IXvfbfVVBidmuK9z2Pk2eIbOC26H5KcmgL3P1/3bed8edns7jQwKdoggqpPnD/jw/2OnTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5d71lVKIKQCseQ1Nmw60ZxFR/Up2RW+Yx3X7Ink9TjA=;
- b=C2AcYWOiOyLAkHTyOUYHFlc+0WdlC9vRxePUh1XXUUSpIBIxsyi/Gm5zHl8JL5khMQquKCWvK/kISgxYWIjFcHdW+uhS8ThTuvpKPR744trAxyv9ZM2WtYIrsjacI0L6mjmK+vch/CLhvutoU1BAFkJe4fRhXGb6wUlrXEOtv3A6GrIccmQq9psmrhDAzcR420orGEbeEmicZOsrV+kskJ4BW47W1f5C2QqghtS479yc/Zy4w0pUF38DYNw39K7u+6LNicrsDP4TcjLPDiJfRaUVnizGHQaNZZp32ib//LVF0Hbbp3WOKKriprxsTGd4i6TjUVVWH+FQ4fq9vVDUHA==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by KUXPR06MB8082.apcprd06.prod.outlook.com (2603:1096:d10:55::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
- 2026 02:44:31 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::b696:e104:1f5e:7838]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::b696:e104:1f5e:7838%7]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
- 02:44:31 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "robh@kernel.org" <robh@kernel.org>
-Subject: RE: [PATCH v32 4/5] i2c: ast2600: Add controller driver for AST2600
- new register set
-Thread-Topic: [PATCH v32 4/5] i2c: ast2600: Add controller driver for AST2600
- new register set
-Thread-Index: AQHc+WOSg3T09DVctk+t/5RGs8OmKLY42H6AgAk6CbA=
-Date: Wed, 17 Jun 2026 02:44:31 +0000
-Message-ID:
- <TY2PPF5CB9A1BE635FFCCCE1C354BAC2E20F2E42@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260611-upstream_i2c-v32-4-b66eba921d01@aspeedtech.com>
- <20260611054624.25BC51F00893@smtp.kernel.org>
-In-Reply-To: <20260611054624.25BC51F00893@smtp.kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|KUXPR06MB8082:EE_
-x-ms-office365-filtering-correlation-id: 80f9636b-cd1f-40a7-dbe5-08decc1a5b9c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|38070700021|22082099003|18002099003|56012099006|6133799003|4143699003;
-x-microsoft-antispam-message-info:
- VFvowmXpqbsc7MMP28bIkdXrgvbyOQdNcQbdVz+wBzK0NyrznauPle2KBtSruOc0BsZw6pXfGNed3QHS4wC3YgFyypRrrmXtB0VTyQTQWVQ3lrx4eJt5MpZsL64XBfKhnHWJ04vo3DwrIRrqElRcbk3ps2XGpJczmf/7sxbtY7ZCmqX3cJ13ofUcvwPXIdwW1wSIxj4A4WbXJJT7ekujzsxmqjeWgUd5tvqsuAHD0QuMRF5+SeS5YdcgrZUKxNFKwAOrERjioGemCXfJv/civQ3jX0gv5/wgAxHc9nDMDhneNLf6OMOotjH/mRWY6LcpAS7ZVW5JxnwGUCbvNVkiYMBvyekzOtCedT8Q/0Rb7i4JFOI+yPxRF1k2heX9j4tWR4e40wjzlkgIQUmv5eTVPbOCco7e4O/do7QZjb8D86K2NKNOhRUM7ozEd51avjK9L0JbsV72xgsoGz4rhLALZlSK5KohMzDzhRNoc3q/TXCHHZdQrPwRZshPbv0KpypNV8JumSH6ktdfu3Bg53MuM/ZczHyy5XVWw1u0tp02UgFPv4J6m/IAC3Fm7OxXJsLxHgHKxvqDY/FY9/ssnG39M7KhEOp5hHkFjB8x6DHIVK+UyBcAXAO8+Bw6gimjC0vkUG4lrm+5kbIAtFxgWlsJCX4y5rkTYGrseaQ0yszMne9f8nAa/bO9M6D4HSx5DGli
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(38070700021)(22082099003)(18002099003)(56012099006)(6133799003)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?K1VMZmhjVkdZcENFMktoVXhHMWZhSUE5a1J5Zk95bVFxbTVDYVdRTmFSZmJp?=
- =?utf-8?B?MXYyR1F6cmJ0ck5oUXhWWGwzUHRrNnNGMnoyZXhlZzJjOXc4dHBDQzRtK2VQ?=
- =?utf-8?B?NVhLOHhqUkJtNldYb29VNVdDanlCTGI0TythRjZVWWJaZERUUmpsNXZiSUZw?=
- =?utf-8?B?ODY3VC9VcFhOY1pGRnQ3ZkVFeVc5aElueitRL0lyMDY4THZWTHNsQ1BTaHdN?=
- =?utf-8?B?Z294UTFBWDlzQUJTSWp1bnB2bXhjL3lnb01JUlFocHNVcFdDNGxrZVVyakQ2?=
- =?utf-8?B?d0MxM0JBRDI1OU9rN2t2cyttdHROV3hIVmZ5QVYxVTNxeXhJMkJ0d2VXMkNH?=
- =?utf-8?B?ZW9Wd3BHdndXRHQyNzRwcm1Eb1F6NDZvNUVWZFBGOTZVdUszMjg4dWw0d1JK?=
- =?utf-8?B?N1c0L3U1SzBJdTMrUkRONVNnUHRqdGhDaVMzdFRJSGtiaFBsWWtqOHY1M3o4?=
- =?utf-8?B?QXV5by9sSHhiR0F6WG5Uc3NYNjFZM0k2OEszMlNOb1JpVEYzZTl3TE5pVW9Q?=
- =?utf-8?B?RXhhMmtDRmx0VW9RYTM1Y2FyNUxrYTFDTnE1YXd5dnJGS1c0enIvcU9nMFZ5?=
- =?utf-8?B?ejVrMmlWbEkwaHp2MmFqbWRXNzFndEVzenBNOTJvdXdRZS84Q3NGdUliS1h1?=
- =?utf-8?B?aitLd0FKeGcyTEZzeDkvNS80bkZyZDdtV01vcjMxUXRMTGJXRGd4NUFaQ2hI?=
- =?utf-8?B?V2xUZGRTcVd4WTRWdHVWMjNKcUxkNzlJK1RpU2dhTFBscnhOYWtFNDFiU3JC?=
- =?utf-8?B?TDRTN1pPUEpPTllLU3RsTmkwbHRYclZNMlY2aEZOdXd0VFBvb1NweHZtY0R3?=
- =?utf-8?B?ZVVLcTBiaTRqYmNsZTNlU1g4VTFHMzJTd1d4eCs5YytTRzZ5cDFMSm1zS1Av?=
- =?utf-8?B?UWN1SXFuSERzTnR4ZUtXbTVqd0dDVkwrS0k2MGtmS1pnN2FUbUpwNWdxYTNw?=
- =?utf-8?B?dmozZVhQM3ZObTNsYTljQXBqZnFBdmhHajVmYmFDSUdpOUdIZXNMM0J0TVZW?=
- =?utf-8?B?Q3FBdUkzd3RYckcxS2pmY2lQVnlqM0EvcjRsODM5L2g4Y1N0QUJySGMxdHlM?=
- =?utf-8?B?QVcvRUNwc1E4blBuWGo4SHJCMTJxMGhKUUlSd052Q28xam1xZWhEeTVpcmFj?=
- =?utf-8?B?cUw5c0VsOHJDckdCZHNianFNSDZVU0tMaXpHZzdDdkF4UC8vUnl4K252UjVJ?=
- =?utf-8?B?RGV2Q29qTDJNU2VycXRSVXN1eWdWYlBVbTd2RG1keEVBcXFSUXIvSjJoWVVQ?=
- =?utf-8?B?VWs0RjRHdWdVdlM2V3JZK2UwcHZRNlZsOFZFOTljTys0cDhlb2dVNng1akZ5?=
- =?utf-8?B?UFRjaVFkNDVmQnpZZGlTMHJUN2lGWGp4Z2JQRVhvMWZiZE9TKzdSNDcxL0Er?=
- =?utf-8?B?Ylp3eWFXZ2UzckEzZlJCbTZCQkorSjJTWkljazBDU0I5N1dyenNyU2ROblZ5?=
- =?utf-8?B?Uy9tUnJyZC9vY2xjbndXcXlQWExlUFR5UGhHUGc0ZzVtUTg2a0dyYzdhNG1E?=
- =?utf-8?B?R0FEenBrTll5SEYzdlc3ZFducFhkS0V4RkJ0TnRKai9QZlptaXJ6Y1N3UnBj?=
- =?utf-8?B?eXBMVWpDWmNFNFNKMlltVGFyamhGZGhXcEZyZGV3c3lRODZqRndyUCtlRGI3?=
- =?utf-8?B?WEFkNkc0d0VZQVZGVkxQSVB4ckg4VnNxN1pOM25pRTdyR1FpT0FXRGthQWtt?=
- =?utf-8?B?ZHgyUkx4aFlocUFXUXE5eHJYREdPYzBZT1VCZzFCVUVnZ2NmdG1Ed2RVTlZK?=
- =?utf-8?B?dnVROEVlWmNLaCtJaFFQeXhHb1EwdGVYZ0dPTDJ6WkVIUWwxM2VUdkxYazJp?=
- =?utf-8?B?RUZqelAvd0lvRCtFR0hoR3JmV2c0VzN3SmxDSnhpdjA4VEF3dU05cW1CS1hy?=
- =?utf-8?B?OUtJQTRCOS9GdUpoUVBkS3RDYnhMbi9IVDlucUNxL1VQUzVJYlJCblZyNGlC?=
- =?utf-8?B?T1BraUdrTStncGtacHBJMHBjSzFLaHY0dmY1VUZuNmVWR3daaFVkdkZJZ3VH?=
- =?utf-8?B?Q3Q3WDVuL2JvVTlxb2gxelhaU01mVHZ5RFdxZ0VSQkxWMHcydTdRbFRjM0VD?=
- =?utf-8?B?dGRidGVKTHEwRmRScnkvQ0Y2ZmVEdzVSSDkyY1RHMTREbElPaVp1cnJkalRO?=
- =?utf-8?B?dkMyQU9PRklaYTZ4VWVEK3M3V1JLY2F0Nm5RVjhTUC93RUdRRGZsNngrSVhN?=
- =?utf-8?B?N0c2ODgrQU1IR0VobmZ3Ull2aFJjSVBSZGIza1QxTUxmSWlTK3c5Z25ZM2Mw?=
- =?utf-8?B?YzJTdzdxZzBucTBNdzk0OSt6MGNUbDlCY3FHMjJqMFgzd1hVcWRlZGVaNUw0?=
- =?utf-8?B?TlhVdmg0Mk51cWFUdzZ3T2JVMWlGazFEa0p5OWxHM242VXRyWmtQZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNudawiI"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-842307472d4so2010730b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 19:59:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781665172; x=1782269972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=TBin7H0Wt7Oi8P0z8wsZgQQjqhBwvW2vxMHjxdsEcyI=;
+        b=hNudawiICVnvIJbq7BFPLhcs2D6VhH0mROmU56PWBB4gUjIg3/1cluK7wFZPmGQRAK
+         jGRfq1tY+tPaBSw4s3ZTA6Oor3yjsMvtmpMdPiFRYW5jm2ZHx2ncGB1AhPaj2eAuy4aD
+         M0YRGV0A/d6AKwWgEjp+HeduDSUCFsXfJFxQ7P+0/2YlfB2IjsZFX1BPBlhkwPB2A4dH
+         e8hbybM0cHps52NsoDXs57jyFSQ6/bVjjSy9EJLMbTNsc7V4OOL14yaPN+ZmUYcPqhpL
+         LiuGiv34FnQ9VTt8iPstP9kHMK9uRJAwEA7VJRrnVHb53RBZ1uSF2imQAwznLdfyAFSp
+         m84Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781665172; x=1782269972;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TBin7H0Wt7Oi8P0z8wsZgQQjqhBwvW2vxMHjxdsEcyI=;
+        b=YxOh6qgvToTGN3yaSHJ0PshsauF97T9o4tVX++X8/suoGa2LpMH0Z4qjyqRcOSgirj
+         bEQ1iV6N2gb5w1v1N2g/cHLZetye9gbeGmMg3O8FiJYTgjTOcv91AYw3TAiy4b3gqVHz
+         YzFa5yBePWSPiJsKfk/Zz2Vvd4gQ7AXy58r02KGJeYmspRD1hekv7vQrKdEqD61OS1g1
+         Vkm29BNyvnmiaPzsXIK++EXw2mi/N/Yk6GTdvk5M6h8xVjljeb8OwN3zNWlxjR9edaie
+         c/ylesu/cOE08qpBoa/wRAnWXnQIdMW2jf9pSkcmsHu9ezh62eElkqp5s7aYNGzyN1+i
+         dp4w==
+X-Forwarded-Encrypted: i=1; AFNElJ+xtixmsXpTsulDaOVafInMhxAxvJwGFl3hvKqf7TpK40ZslryHrQOMwT9bX+IxXAK/xW8rhtNQsQSU@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXexo2bq9deDjYKlv8CHF0fVwfnuIelfaT2vD8+yrRxmUYy8bS
+	hNM5aM/vLH5FyOLYrG7HzGwn+PGzbShqADiX0X5uzBAqte9d+yUTa49F
+X-Gm-Gg: Acq92OGctBRcfijTUj4MQ7L5FJoom9bCy6IcY7UHDdbKTYfjKYB0DjGJF7Tfhc75R46
+	jWpnw8EKSJLQ3+PjITvx7Ih3lrHrpCm7M4la2v5rMl806zVnk0h3ABpL6B1tBgkCrKKDlfFofeO
+	YUZbd5cAXvAeAHpIK1PVroGz75jWt802CXYHzvdlRDyyeyUKYVsB0KXkqWuJViFioUI2TtoisOm
+	SnRMWp+mMQOk5Ajq2ymLQ9e4JU6ndAq2L7hYxbGYbWz747Mul2gfFH8Sfx3xrv0dlN/SdXs0nZE
+	n6s+BBvwX7uRkYcMb/TYcqNN0ePpNbfoQM7MlgjlUcoXtEhV4OX/tJNW5Wto7m8oN7ZTyMYaWtn
+	z2+JO+ukLaNXJ+52RVQTldO7FoxkSCHlzNttBPxdkGGBai7hH0XoxpbJ6JxB0Y0HH6o1WW0/K3i
+	ITeWvFKgoBxZZmKBn3Fi+efyOlTtN9xaHhVo1eGP/F86EGm2AEA6AOjU5s+6iEXbIt9bhcRuhDB
+	IU=
+X-Received: by 2002:a05:6a00:2987:b0:836:3f6a:3e7a with SMTP id d2e1a72fcca58-8452454cd35mr1655165b3a.26.1781665171696;
+        Tue, 16 Jun 2026 19:59:31 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc825csm14212821b3a.36.2026.06.16.19.59.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 19:59:31 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: ukleinek@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v4 0/2] pwm: Add Nuvoton MA35D1 PWM controller support
+Date: Wed, 17 Jun 2026 10:59:23 +0800
+Message-Id: <20260617025925.2539334-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80f9636b-cd1f-40a7-dbe5-08decc1a5b9c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2026 02:44:31.0956
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qG7wmeL0h/DSQ0WzimtS4fwhqsMkO4UvAqJ0Xx0QC4oLIgWxqSQNyYuuqf9jMnzgwRHVODYjM42ARlECfvxqTQ2IH8TayXjvupf2bc4DkxA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR06MB8082
+Content-Transfer-Encoding: 8bit
 
-SGVsbG8sDQoNCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MzIgNC81XSBpMmM6IGFzdDI2MDA6IEFk
-ZCBjb250cm9sbGVyIGRyaXZlciBmb3IgQVNUMjYwMA0KPiBuZXcgcmVnaXN0ZXIgc2V0DQo+IA0K
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAzIHBvdGVudGlhbCBpc3N1ZShzKSB0bw0KPiBjb25zaWRlcjoNCj4gLSBbSGlnaF0gVGhlIGRy
-aXZlciBmYWlscyB0byBzZW5kIGEgTkFLIG9uIHRoZSBsYXN0IGJ5dGUgb2YgYW4gaW50ZXJtZWRp
-YXRlIHJlYWQNCj4gbWVzc2FnZSwgY2F1c2luZyB0aGUgc2xhdmUgdG8gaG9sZCBTREEgbG93IGFu
-ZCBibG9jayB0aGUgc3Vic2VxdWVudCBSZXBlYXRlZA0KPiBTdGFydC4NCj4gLSBbSGlnaF0gVGhl
-IGludGVycnVwdCBoYW5kbGVyIGRvZXMgbm90IGNsZWFyIGVycm9yIHN0YXR1cyBiaXRzIGluIHRo
-ZQ0KPiBXcml0ZS0xLXRvLUNsZWFyIChXMUMpIElTUiByZWdpc3RlciwgcGVybWFuZW50bHkgd2Vk
-Z2luZyB0aGUgY29udHJvbGxlciBhZnRlcg0KPiBhIHNpbmdsZSBlcnJvci4NCj4gLSBbTWVkaXVt
-XSBCdXMgcmVjb3ZlcnkgZmFpbHVyZSBhbmQgb3RoZXIgZXJyb3IgaW50ZXJydXB0cyBhcmUgbm90
-IGVuYWJsZWQgaW4NCj4gdGhlIEludGVycnVwdCBFbmFibGUgUmVnaXN0ZXIgKElFUiksIGxlYWRp
-bmcgdG8gbmVlZGxlc3MgYmxvY2tpbmcgdGltZW91dHMuDQo+IC0tDQo+IA0KPiBjb21taXQgMDFj
-MDU4ODE5MTQyMWE5MmIzZDk2YjdiYzI0NmJlMWZlMDk1OGQ5Zg0KPiBBdXRob3I6IFJ5YW4gQ2hl
-biA8cnlhbl9jaGVuQGFzcGVlZHRlY2guY29tPg0KPiANCj4gaTJjOiBhc3QyNjAwOiBBZGQgY29u
-dHJvbGxlciBkcml2ZXIgZm9yIEFTVDI2MDAgbmV3IHJlZ2lzdGVyIHNldA0KPiANCj4gVGhlIEFT
-VDI2MDAgaW50cm9kdWNlcyBhIG5ldyBJMkMgY29udHJvbGxlciByZWdpc3RlciBsYXlvdXQsIHNl
-bGVjdGFibGUgYXQNCj4gcnVudGltZSB2aWEgZ2xvYmFsIGNvbnRyb2wgcmVnaXN0ZXJzLiBDb21w
-YXJlZCB0byB0aGUgbGVnYWN5IGxheW91dCB1c2VkIG9uDQo+IEFTVDI0MDAvQVNUMjUwMCwgdGhl
-IG5ldyBsYXlvdXQgc2VwYXJhdGVzIGNvbnRyb2xsZXIgKG1hc3RlcikgYW5kIHRhcmdldA0KPiAo
-c2xhdmUpIHJlZ2lzdGVycyBhbmQgYWRkcyBzdXBwb3J0IGZvciBwYWNrZXQtYmFzZWQgdHJhbnNm
-ZXJzDQo+IA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2kyYy9idXNzZXMvaTJjLWFzdDI2MDAu
-Yw0KPiA+IGIvZHJpdmVycy9pMmMvYnVzc2VzL2kyYy1hc3QyNjAwLmMNCj4gPiBuZXcgZmlsZSBt
-b2RlIDEwMDY0NA0KPiA+IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9kcml2ZXJzL2kyYy9idXNz
-ZXMvaTJjLWFzdDI2MDAuYw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiArc3RhdGljIGludCBhc3Qy
-NjAwX2kyY19zZXR1cF9idWZmX3J4KHUzMiBjbWQsIHN0cnVjdCBhc3QyNjAwX2kyY19idXMNCj4g
-PiArKmkyY19idXMpIHsNCj4gPiArCXN0cnVjdCBpMmNfbXNnICptc2cgPSAmaTJjX2J1cy0+bXNn
-c1tpMmNfYnVzLT5tc2dzX2luZGV4XTsNCj4gPiArCWludCB4ZmVyX2xlbiA9IG1zZy0+bGVuIC0g
-aTJjX2J1cy0+Y29udHJvbGxlcl94ZmVyX2NudDsNCj4gPiArDQo+ID4gKwljbWQgfD0gQVNUMjYw
-MF9JMkNNX1BLVF9FTiB8IEFTVDI2MDBfSTJDTV9SWF9CVUZGX0VOIHwNCj4gPiArQVNUMjYwMF9J
-MkNNX1JYX0NNRDsNCj4gPiArDQo+ID4gKwlpZiAoY21kICYgQVNUMjYwMF9JMkNNX1NUQVJUX0NN
-RCkNCj4gPiArCQljbWQgfD0gQVNUMjYwMF9JMkNNX1BLVF9BRERSKG1zZy0+YWRkcik7DQo+ID4g
-Kw0KPiA+ICsJaWYgKG1zZy0+ZmxhZ3MgJiBJMkNfTV9SRUNWX0xFTikgew0KPiA+ICsJCWRldl9k
-YmcoaTJjX2J1cy0+ZGV2LCAic21idXMgcmVhZFxuIik7DQo+ID4gKwkJeGZlcl9sZW4gPSAxOw0K
-PiA+ICsJfSBlbHNlIGlmICh4ZmVyX2xlbiA+IGkyY19idXMtPmJ1Zl9zaXplKSB7DQo+ID4gKwkJ
-eGZlcl9sZW4gPSBpMmNfYnVzLT5idWZfc2l6ZTsNCj4gPiArCX0gZWxzZSBpZiAoaTJjX2J1cy0+
-bXNnc19pbmRleCArIDEgPT0gaTJjX2J1cy0+bXNnc19jb3VudCkgew0KPiA+ICsJCWNtZCB8PSBD
-T05UUk9MTEVSX1RSSUdHRVJfTEFTVF9TVE9QOw0KPiA+ICsJfQ0KPiANCj4gW1NldmVyaXR5OiBI
-aWdoXQ0KPiBEb2VzIHRoaXMgbG9naWMgb21pdCB0aGUgTkFLIGZvciBpbnRlcm1lZGlhdGUgcmVh
-ZCBtZXNzYWdlcz8NCj4gDQo+IFRoZSBDT05UUk9MTEVSX1RSSUdHRVJfTEFTVF9TVE9QIGZsYWcg
-KHdoaWNoIGFwcGxpZXMgdGhlIGhhcmR3YXJlIE5BSw0KPiB2aWENCj4gQVNUMjYwMF9JMkNNX1JY
-X0NNRF9MQVNUKSBpcyBzdHJpY3RseSB0aWVkIHRvIHRoZSBhYnNvbHV0ZSBmaW5hbCBtZXNzYWdl
-IGluDQo+IHRoZSBhcnJheS4gSWYgdGhlIHRyYW5zZmVyIGNvbnRhaW5zIGFuIGludGVybWVkaWF0
-ZSByZWFkIG1lc3NhZ2UsIHN1Y2ggYXMgYSByZWFkDQo+IGJlZm9yZSBhIFJlcGVhdGVkIFN0YXJ0
-LCB0aGUgbGFzdCBieXRlIHdpbGwgYmUgQUNLZWQuDQo+IA0KPiBUaGlzIHdpbGwgY2F1c2UgdGhl
-IHNsYXZlIHRvIGV4cGVjdCBhbm90aGVyIGJ5dGUgYW5kIGhvbGQgU0RBIGxvdywgbGVhZGluZyB0
-bw0KPiBhbiBhcmJpdHJhdGlvbiBsb3NzIG9yIGJ1cyBoYW5nIHdoZW4gYXR0ZW1wdGluZyB0aGUg
-UmVwZWF0ZWQgU3RhcnQuDQoNCldpbGwgdXBkYXRlIHdpdGggZm9sbG93aW5nLg0KCX0gZWxzZSB7
-DQoJCWNtZCB8PSBBU1QyNjAwX0kyQ01fUlhfQ01EX0xBU1Q7DQoJCWlmIChpMmNfYnVzLT5tc2dz
-X2luZGV4ICsgMSA9PSBpMmNfYnVzLT5tc2dzX2NvdW50KQ0KCQkJY21kIHw9IEFTVDI2MDBfSTJD
-TV9TVE9QX0NNRDsNCgl9DQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMgaW50IGFzdDI2
-MDBfaTJjX2NvbnRyb2xsZXJfaXJxKHN0cnVjdCBhc3QyNjAwX2kyY19idXMNCj4gPiArKmkyY19i
-dXMpIHsNCj4gPiArCXUzMiBzdHMgPSByZWFkbChpMmNfYnVzLT5yZWdfYmFzZSArIEFTVDI2MDBf
-STJDTV9JU1IpOw0KPiA+ICsJdTMyIGN0cmw7DQo+ID4gKw0KPiA+ICsJc3RzICY9IH5BU1QyNjAw
-X0kyQ01fU01CVVNfQUxFUlQ7DQo+ID4gKw0KPiA+ICsJaWYgKHN0cyAmIEFTVDI2MDBfSTJDTV9C
-VVNfUkVDT1ZFUl9GQUlMKSB7DQo+ID4gKwkJd3JpdGVsKEFTVDI2MDBfSTJDTV9CVVNfUkVDT1ZF
-Ul9GQUlMLCBpMmNfYnVzLT5yZWdfYmFzZSArDQo+IEFTVDI2MDBfSTJDTV9JU1IpOw0KPiA+ICsJ
-CWN0cmwgPSByZWFkbChpMmNfYnVzLT5yZWdfYmFzZSArIEFTVDI2MDBfSTJDQ19GVU5fQ1RSTCk7
-DQo+ID4gKwkJd3JpdGVsKDAsIGkyY19idXMtPnJlZ19iYXNlICsgQVNUMjYwMF9JMkNDX0ZVTl9D
-VFJMKTsNCj4gPiArCQl3cml0ZWwoY3RybCwgaTJjX2J1cy0+cmVnX2Jhc2UgKyBBU1QyNjAwX0ky
-Q0NfRlVOX0NUUkwpOw0KPiA+ICsJCVdSSVRFX09OQ0UoaTJjX2J1cy0+bXNncywgTlVMTCk7DQo+
-ID4gKwkJaTJjX2J1cy0+Y21kX2VyciA9IC1FUFJPVE87DQo+ID4gKwkJY29tcGxldGUoJmkyY19i
-dXMtPmNtZF9jb21wbGV0ZSk7DQo+ID4gKwkJcmV0dXJuIDE7DQo+ID4gKwl9DQo+ID4gKw0KPiA+
-ICsJaWYgKHN0cyAmIEFTVDI2MDBfSTJDTV9CVVNfUkVDT1ZFUikgew0KPiA+ICsJCXdyaXRlbChB
-U1QyNjAwX0kyQ01fQlVTX1JFQ09WRVIsIGkyY19idXMtPnJlZ19iYXNlICsNCj4gQVNUMjYwMF9J
-MkNNX0lTUik7DQo+ID4gKwkJV1JJVEVfT05DRShpMmNfYnVzLT5tc2dzLCBOVUxMKTsNCj4gPiAr
-CQlpMmNfYnVzLT5jbWRfZXJyID0gMDsNCj4gPiArCQljb21wbGV0ZSgmaTJjX2J1cy0+Y21kX2Nv
-bXBsZXRlKTsNCj4gPiArCQlyZXR1cm4gMTsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlpMmNfYnVz
-LT5jbWRfZXJyID0gYXN0MjYwMF9pMmNfaXJxX2Vycl90b19lcnJubyhzdHMpOw0KPiA+ICsJaWYg
-KGkyY19idXMtPmNtZF9lcnIpIHsNCj4gPiArCQlXUklURV9PTkNFKGkyY19idXMtPm1zZ3MsIE5V
-TEwpOw0KPiA+ICsJCXdyaXRlbChBU1QyNjAwX0kyQ01fUEtUX0RPTkUsIGkyY19idXMtPnJlZ19i
-YXNlICsNCj4gQVNUMjYwMF9JMkNNX0lTUik7DQo+ID4gKwkJY29tcGxldGUoJmkyY19idXMtPmNt
-ZF9jb21wbGV0ZSk7DQo+ID4gKwkJcmV0dXJuIDE7DQo+ID4gKwl9DQo+IA0KPiBbU2V2ZXJpdHk6
-IEhpZ2hdDQo+IFdpbGwgdGhpcyBwZXJtYW5lbnRseSB3ZWRnZSB0aGUgY29udHJvbGxlciBhZnRl
-ciBhIHNpbmdsZSBlcnJvcj8NCj4gDQo+IFdoZW4gYW4gZXJyb3Igb2NjdXJzLCB0aGUgZXJyb3Ig
-cGF0aCBleHBsaWNpdGx5IHdyaXRlcyBvbmx5DQo+IEFTVDI2MDBfSTJDTV9QS1RfRE9ORSB0byB0
-aGUgSVNSLiBXMUMgZXJyb3IgYml0cyBsaWtlDQo+IEFTVDI2MDBfSTJDTV9BUkJJVF9MT1NTIG9y
-IEFTVDI2MDBfSTJDTV9UWF9OQUsgYXJlIG5ldmVyIHdyaXR0ZW4NCj4gYmFjayBhbmQgd2lsbCBy
-ZW1haW4gc2V0Lg0KPiANCj4gQmVjYXVzZSB0aGUgZXJyb3IgcGF0aCBjYWxscyBjb21wbGV0ZSgp
-IHN1Y2Nlc3NmdWxseSwgdGhlIHRpbWVvdXQgZmFsbGJhY2sgcGF0aA0KPiB0aGF0IGNvdWxkIHJl
-c2V0IHRoZSBjb250cm9sbGVyIGlzIGJ5cGFzc2VkLiBPbiB0aGUgdmVyeSBuZXh0IEkyQyB0cmFu
-c2FjdGlvbiwgYQ0KPiBuZXcgUEtUX0RPTkUgaW50ZXJydXB0IHdpbGwgY2F1c2UgdGhlIGhhbmRs
-ZXIgdG8gcmVhZCB0aGUgc3RhbGUgZXJyb3IgYml0cywNCj4gaW5zdGFudGx5IGZhaWwgdGhlIHRy
-YW5zYWN0aW9uLCBhbmQgbG9vcCBpbiB0aGlzIHN0YXRlLg0KPiANCj4gVGhlIHNhbWUgaXNzdWUg
-YXBwZWFycyB0byBleGlzdCBpbiBhc3QyNjAwX2kyY19jb250cm9sbGVyX3BhY2tldF9pcnEoKSBm
-b3IgYml0cw0KPiBsaWtlIEFTVDI2MDBfSTJDTV9QS1RfRVJST1IuDQoNCkluIHBhY2tldCBtb2Rl
-IHRoZSBlcnJvciBzdGF0dXMgaXMgbm90IGNsZWFyZWQgYml0LWJ5LWJpdC4gUGVyIHRoZQ0KZGF0
-YXNoZWV0IGRlc2NyaXB0aW9uIG9mIEkyQ00xNFsxNl0gKFBLVF9ET05FKSwgY2xlYXJpbmcgUEtU
-X0RPTkUgYWxzbw0KY2xlYXJzIGJpdFs2OjBdLCBiaXRbMTU6MTNdIGFuZCBiaXRbMTg6MTddIOKA
-lCB3aGljaCBjb3ZlcnMgYXJiaXRyYXRpb24NCmxvc3MsIHRoZSB0aW1lb3V0IGJpdHMsIEFCTk9S
-TUFMIGFuZCBQS1RfRVJST1IuIFdyaXRpbmcgYmFjayBvbmx5DQpQS1RfRE9ORSB0aGVyZWZvcmUg
-Y2xlYXJzIGFsbCBwZW5kaW5nIGVycm9yIHN0YXR1cyBhcyB3ZWxsOyB0aGUNCmNvbnRyb2xsZXIg
-aXMgbm90IHdlZGdlZC4gV3JpdGluZyB0aGUgZnVsbCBJU1IgdmFsdWUgYmFjayB3b3VsZCBiZQ0K
-ZnVuY3Rpb25hbGx5IGVxdWl2YWxlbnQuDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMg
-aW50IGFzdDI2MDBfaTJjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpIHsNCj4g
-DQo+IFsgLi4uIF0NCj4gDQo+ID4gKwlyZXQgPSBkZXZtX3JlcXVlc3RfaXJxKGRldiwgaTJjX2J1
-cy0+aXJxLCBhc3QyNjAwX2kyY19idXNfaXJxLCAwLA0KPiA+ICsJCQkgICAgICAgZGV2X25hbWUo
-ZGV2KSwgaTJjX2J1cyk7DQo+ID4gKwlpZiAocmV0IDwgMCkgew0KPiA+ICsJCXJldCA9IGRldl9l
-cnJfcHJvYmUoZGV2LCByZXQsICJVbmFibGUgdG8gcmVxdWVzdCBpcnEgJWRcbiIsDQo+ID4gKwkJ
-CQkgICAgaTJjX2J1cy0+aXJxKTsNCj4gPiArCQlnb3RvIGVycjsNCj4gPiArCX0NCj4gPiArDQo+
-ID4gKwl3cml0ZWwoQVNUMjYwMF9JMkNNX1BLVF9ET05FIHwgQVNUMjYwMF9JMkNNX0JVU19SRUNP
-VkVSLA0KPiA+ICsJICAgICAgIGkyY19idXMtPnJlZ19iYXNlICsgQVNUMjYwMF9JMkNNX0lFUik7
-DQo+ID4gKw0KPiA+ICsJcmV0ID0gaTJjX2FkZF9hZGFwdGVyKCZpMmNfYnVzLT5hZGFwKTsNCj4g
-DQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBBcmUgYnVzIHJlY292ZXJ5IGZhaWx1cmUgaW50ZXJy
-dXB0cyBpbnRlbnRpb25hbGx5IGxlZnQgZGlzYWJsZWQ/DQo+IA0KPiBUaGUgaW50ZXJydXB0IGVu
-YWJsZSByZWdpc3RlciBpcyBjb25maWd1cmVkIGhlcmUgd2l0aG91dCBpbmNsdWRpbmcgdGhlDQo+
-IEFTVDI2MDBfSTJDTV9CVVNfUkVDT1ZFUl9GQUlMIGJpdC4gSWYgYSBidXMgcmVjb3ZlcnkgYXR0
-ZW1wdCBmYWlscywgdGhlDQo+IGhhcmR3YXJlIHdpbGwgYXNzZXJ0IHRoZSBiaXQgaW4gdGhlIElT
-UiwgYnV0IHRoZSBpbnRlcnJ1cHQgaGFuZGxlciB3aWxsIG5ldmVyIGJlDQo+IHRyaWdnZXJlZC4N
-Cj4gDQo+IFRoaXMgd2lsbCBjYXVzZSB0aGUgZHJpdmVyIHRvIG5lZWRsZXNzbHkgYmxvY2sgZm9y
-IHRoZSBlbnRpcmUgZHVyYXRpb24gb2YNCj4gd2FpdF9mb3JfY29tcGxldGlvbl90aW1lb3V0KCkg
-aW5zdGVhZCBvZiBoYW5kbGluZyB0aGUgZmFpbHVyZSBpbW1lZGlhdGVseS4NCg0KUGVyIHRoZSBk
-YXRhc2hlZXQgZGVzY3JpcHRpb24gb2YgSTJDTTEwWzE2XSwgaW4gcGFja2V0IG1vZGUgb25seSBi
-aXQgMTYNCihQS1RfRE9ORSkgYW5kIG9wdGlvbmFsbHkgYml0IDEyIChTTUJ1cyBBbGVydCkgbmVl
-ZCB0byBiZSBlbmFibGVkOyB0aGUNCm90aGVyIGVuYWJsZSBiaXRzIGhhdmUgbm8gZWZmZWN0LiBB
-bGwgZXJyb3IgY29uZGl0aW9ucyAoYXJiaXRyYXRpb24gbG9zcywNCnRpbWVvdXRzLCBBQk5PUk1B
-TCkgYXJlIHJlcG9ydGVkIHRocm91Z2ggUEtUX0VSUk9SIGZvbGRlZCBpbnRvIFBLVF9ET05FLA0K
-c28gdGhleSBhcmUgZGVsaXZlcmVkIHdpdGhvdXQgYSBzZXBhcmF0ZSBlbmFibGUgYW5kIGRvIG5v
-dCByZWx5IG9uIHRoZQ0KeGZlciB0aW1lb3V0LiBJbiBhZGRpdGlvbiwgSTJDTTEwWzE1XSAoQnVz
-IFJlY292ZXIgRmFpbCBlbmFibGUpIGlzDQpSTy9SZXNlcnZlZCwgc28gaXQgY2Fubm90IGJlIGVu
-YWJsZWQgaW4gdGhlIGZpcnN0IHBsYWNlLg0KPiANCj4gLS0NCj4gU2FzaGlrbyBBSSByZXZpZXcg
-wrcNCj4gaHR0cHM6Ly9zYXNoaWtvLmRldi8jL3BhdGNoc2V0LzIwMjYwNjExLXVwc3RyZWFtX2ky
-Yy12MzItMC1iNjZlYmE5MjFkMDENCj4gQGFzcGVlZHRlY2guY29tP3BhcnQ9NA0K
+From: Chi-Wen Weng <cwweng@nuvoton.com>
+
+This series adds support for the Nuvoton MA35D1 PWM controller.
+
+The MA35D1 PWM controller provides 6 PWM channels. The hardware supports
+several counter types and output modes. This driver configures the controller
+to use up-counting mode, auto-reload mode and independent output mode. The
+waveform generator is configured to drive the output high at the zero point
+and low at the compare-up point.
+
+For the up-counting mode used by this driver, the counter counts from 0 to
+PERIOD inclusive. Therefore, the programmed period is PERIOD + 1 cycles. The
+hardware can generate 0% duty cycle with CMPDAT = 0 and 100% duty cycle with
+CMPDAT > PERIOD. To keep 100% duty cycle representable, the driver limits the
+maximum PERIOD value to 0xfffe and reserves CMPDAT = 0xffff for the full-duty
+case.
+
+The hardware buffers PERIOD and CMPDAT updates when IMMLDENn is disabled. The
+driver keeps IMMLDENn disabled, so period and duty cycle updates take effect
+at the end of the current period. Polarity and waveform-control changes are
+applied directly and may cause transient output changes if the PWM is running.
+
+When the PWM output is disabled by clearing POENn, the output pin is put into
+tri-state according to the MA35D1 reference manual.
+
+Changes in v4:
+- Add a Limitations section to describe the hardware capabilities and driver
+  limitations.
+- Add a link to the MA35D1 reference manual.
+- Replace register address macros containing the base pointer with register
+  offset macros.
+- Add readl/writel/rmw helper functions.
+- Rename TOTAL_CHANNELS to NUM_CHANNELS.
+- Use unsigned long for the cached clock rate.
+- Use devm_clk_rate_exclusive_get().
+- Configure polarity before enabling the counter and output.
+- Add controller initialization for up-counting, auto-reload and independent
+  output mode.
+- Configure the waveform generator for zero-point-high and compare-up-low
+  output.
+- Fix the period conversion because the hardware period is PERIOD + 1 cycles.
+- Limit the maximum PERIOD value to 0xfffe so that CMPDAT = 0xffff can be used
+  to generate 100% duty cycle.
+- Use CNTEN and POEN bits to report the enabled state in .get_state().
+- Disable the PWM by clearing POENn and CNTENn.
+- Fix error message capitalization and trailing newlines.
+- Fix coding style issues reported by review/checkpatch-style tools.
+
+Changes in v3:
+  - Update nuvoton,ma35d1-pwm.yaml
+    - Add maintainers entry
+    - Increse "#pwm-cells" to 3
+  - Update ma35d1 pwm driver
+    - Make include header and macros definitions organized alphabetically
+    - Rename macros REG_PWM_XXXX to MA35D1_REG_PWM_XXXX
+    - Add macros for register address
+
+v2 resend:
+  - Remove wrong 'Reviewed-by' tags.
+
+Changes in v2:
+  - Update nuvoton,ma35d1-pwm.yaml
+    - Fix 'maxItems' of 'reg' to 1.
+    - Remove unused label
+  - Update ma35d1 pwm driver
+    - Remove MODULE_ALIAS()
+    - Add chip->atomic = true
+
+
+Chi-Wen Weng (2):
+  dt-bindings: pwm: Add Nuvoton MA35D1 PWM controller
+  pwm: Add Nuvoton MA35D1 PWM controller support
+
+ .../bindings/pwm/nuvoton,ma35d1-pwm.yaml      |  45 +++
+ drivers/pwm/Kconfig                           |   9 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-ma35d1.c                      | 344 ++++++++++++++++++
+ 4 files changed, 399 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/nuvoton,ma35d1-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-ma35d1.c
+
+-- 
+2.25.1
+
