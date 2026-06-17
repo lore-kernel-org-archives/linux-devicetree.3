@@ -1,70 +1,70 @@
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8AF3B6C0A
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DB93AEB4E
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781680953; cv=none; b=YvwKjo4KFFfl9wjnIvFod+5blJnxmzm8yrwelRm4FsU7C72Q5YIdV3YJ1okZe1zP4/CkkLS6bTKPw+V9SZgFaI6B1qcYLog7I8vpe6kDzWj49WjAQqQYnNuPRHD+0rVgfBsXvnhVErFyx4Y/dNkAhkK/7hOrApS6+82dpTACPsw=
+	t=1781681055; cv=none; b=McVgOPWeeJun+8HsTZdgYnk9O/NmtaZwekm05D0nX8Bqpb6RnURuvhR0jL4mfyIhH6cyY3GmlHRDvqnaQ7qdo0q/PpwJJt3ZQrZkkbsmGpJ9ugY+YVzroQwDeHUPkaAKcp8DK28/Q+5YDlioE/AcXgpjh1hj7O8g0NES/GR7tfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781680953; c=relaxed/simple;
-	bh=zqRNRewoBpmHTp7Xk3UHetwxFmtfNMdTc5mpQ80sxZo=;
+	s=arc-20240116; t=1781681055; c=relaxed/simple;
+	bh=uR7TIRBR3yg8tAIyxRV/d8RKl0ocy3CufGlcD3SG8n4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VQ4x/65W4eKTUDKOfLScCiP+yEJWhlloY0k3KR6MeNETGTjLt86mQhsNXlELxr98Vu9s40aPKoZABwAO/iS33XG8HfmW7Bp3HJ1zuBOLFBLWwBSkIdj9YXSDlZh42QM/0mYI9RhQD+QFr9g7uURnuDO1g21zw4Pd7AQu8nRB3iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.44
+	 To:Cc:Content-Type; b=Mx2YgRGoe3krHrtNHbuToOolNU4ecePoE1dvjtw807aOLAhfJiSkB3hwr7NrIVfzrSpXzunbX0D3Z1DSbcok5YpZx4zByGxDrlGLV42Z01mgfxv881Ri2wEMNtv+ehNj6FkzU6TCuaRpgHTRwqXRvVLThK04Ub+v/J9rLozVkRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-6c3154fa46dso2639269137.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:22:31 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-961556c15ceso1582563241.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:24:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781680951; x=1782285751;
+        d=1e100.net; s=20251104; t=1781681053; x=1782285853;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JJJv1PNEf0VpJ/XXPLmaxN61dHusNzB2ydX0p6N48v8=;
-        b=DYBy8XzmSJX3R99I9G9rWPx1Zp2XpqSdnTXrjpD/MZ7q1pqwqzz1iwTmOv6cjV9vdm
-         iWPXYBfSYl32/KKlAOP+pWnvxGb2M/x8xTjEBZ9i7cwP0wUvftjFlKuA4iv3/VFGIZL3
-         KU1ciGlO3r03tGRMQGggwJGk8B7XklA7F7HiepMiO0cZK4DTGay3mh7TQgsV4P8hUBf6
-         HYI4nHogg4UjYE/HI5YIKbk9YIr5gdTJKwqb7P5PvLUU2JV2DZQBz7OVOl1ag7Nb9D3H
-         RUTFOs3opZuyYFjpW8QhM3WI1riG0tOssVByiroWgcS0UBW2JsOlJnDtYjlD7J2s6wPx
-         Qnlg==
-X-Forwarded-Encrypted: i=1; AFNElJ+nChBevGDCrzuLDsqp9YI2qm94k3M1uEYPqDFpsDjcUF6jFByCyzZfMLH3nyHMkl83/gizOc5zlZ64@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpG4MuJy20k1x1Zu1PvRrIDMoE3fZL5cGeOdnTBbnUeqddGQxq
-	bp9B1Fdf+8zItlxZPgC42Eez0dwvj9MjO7oG4401jCb2WFMz6vByfn6KaGhyT1PQ
-X-Gm-Gg: Acq92OFm2gjwIfvF2LG5vXjB4KacI+XFljuhkLIdgRR0P1IKHC12cG45c+AJxb9021E
-	GFZpAM8YFRxy7pKY5hM3fWBF2pXCmjw/TuZ/VKibg46ckDawhE6dyp8QUD5xZ0FRCvZztFz9J7/
-	xUPRLesLb+4xxl8CBzko+gP/fmfWl2322+CGVz7CXnVbrHR/hefMIz+35LJfdSnAsoSQ+7Ty9CK
-	HBXarMh4y4DSs2GWdnMbNcuV78pLOUS1+2kOTr99uQStzvoF+3PpmGw0g4ur87ZKwt6IxtPfRK5
-	vvM8lT77z7AUAWnTE5oWYYzb1DmPtTN8DwcxR+udbazDR8l5LyAxwyRFjaEt7ii/8CvZB57kDt3
-	pk6DUBN3f28s4l/TOoy4cajarwuZc5UP/sk+w1X4kPHoOzM3gz/zqWCVo/rqwe0KRaEmSGkmlTl
-	siFA77CBMcoNhbuXAF1EvORChXmQvFdSFiJR1bFJVXj6ujSJJPBg==
-X-Received: by 2002:a05:6102:3047:b0:612:c135:1b77 with SMTP id ada2fe7eead31-7246d5339e5mr1371024137.27.1781680950776;
-        Wed, 17 Jun 2026 00:22:30 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966a05a7067sm6886238241.9.2026.06.17.00.22.30
+        bh=ahs58FQh15JfUVstnf1wGngv+BPi4LTDqfDVl/aFn10=;
+        b=ByhHR2qtl3VgO3KGiVTDZbzCTpMuA4Ap2cVcfIki+vSuTELQ5QD8YahYbreGzLmZeO
+         hXJRmnFll0IdbJlbBKHF97VFlJkBZO/sJx1jfH70p+08dfU2qhvTVCPdu8QvChBGuzbW
+         8oLoOQ7QpON13PFUagODsndMncUFjIw+gT2JDt5/SgeoNJ/YgsTXz9gOcfSCibragtxq
+         AzNL29mepW1OLtAW2UTOIgYb3OO1c5F14MlR84I1IDj11/XkB1vNPcpMt3dKSH0k6/oG
+         6ieTpX3SgDbtj0MbqAUBJEErfD9I1i3JE40o/AkHt2ZLADvb194S9X4IP7QvkxgHx70h
+         YnGA==
+X-Forwarded-Encrypted: i=1; AFNElJ/G3aObYH6ziSj9N/HX1byu6QRbcktbAVt9eA6QLT6EKY+gvessAdvcWk/9MV1D5Yc6qkMR5ja4tAk/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy85UuI3aL/5Ch8silgtrVVsOr8zPlFbfK879hOOugwgXR7m3Rx
+	ODUY5pGCt0u1SdVHBxF0W6NreZbF5BqrkLMhA3I3awYiNjRqVHCCI06XT+l8bsPt
+X-Gm-Gg: Acq92OFKFJOD2rG45ycBt85xl+iGtJbUgBk2gUAy6yQs+UtCtMFszRBDA6z/coTxJPF
+	EXTSo6HL5ll64LBNtiZHU/c+47sSv9tLhPHPyNfI4XM7HwhUU2H5j+xcUk7V9Y7bVcnhw4B2LEy
+	Wi8SRd/FVvuIdPdzywEbD0RXdbMDV+xKoimfggQHk3IZXTknhFwp2PJ0B0dewo1NjVd8QNXYzlk
+	SbWArU6jB9xU4Wbg5qJiaKlOS9tdqoPQcGyDS/3uRUoM3aT1qFT6TXdzqsPBxTYK+kD4zItDCiG
+	yfh3+lNnbvW8kg2AS3YXL8ssFR81sfNgLy2PEKg3kSaqPy4LTrKbIAm0xjg8UoePC3yLY+CKb90
+	2EabbKRmXToXzycK6jpbd3puHexu4qF0LnZTSQa79107ozTv8/eqTD8FrSYr7zLFK9dz9+VR0g9
+	QxMqC/zvAb/UVnXXSM7DCbXEyegG4lidSQ5LpLZglznxZnaZyfew==
+X-Received: by 2002:a05:6102:c8c:b0:635:1bc8:3568 with SMTP id ada2fe7eead31-7246d0f4e6dmr1484790137.23.1781681053530;
+        Wed, 17 Jun 2026 00:24:13 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-72084cd88e7sm6379112137.4.2026.06.17.00.24.12
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 00:22:30 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-6cfc8f8e127so2151681137.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:22:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8THgNMXzzlfzk+mALUxtFMULSPo1MfxRKJqRELq1PfHMVLEIIyoZHd9XH/SGQCckcqWrgmtRBcXq5S@vger.kernel.org
-X-Received: by 2002:a05:6102:2b9a:b0:62f:2d04:db5b with SMTP id
- ada2fe7eead31-7246d42dc41mr1280153137.24.1781680950072; Wed, 17 Jun 2026
- 00:22:30 -0700 (PDT)
+        Wed, 17 Jun 2026 00:24:13 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6c3099b11a9so2204064137.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:24:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/eJNKGEEh5eTRYZ4pr0iTaFaBZaEB6rhPMW48pdKpWx9ArEPGcbQre8fZxJ1rZTriZhv+mZxLlTxZr@vger.kernel.org
+X-Received: by 2002:a05:6102:548c:b0:6ca:32f1:f06a with SMTP id
+ ada2fe7eead31-7246c88cf25mr1325601137.15.1781681052567; Wed, 17 Jun 2026
+ 00:24:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615154805.1619693-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260615154805.1619693-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615154805.1619693-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260615154805.1619693-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 17 Jun 2026 09:22:19 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXg16frnn88_P_jHRH+HPy00wWfoqNKdOv8teSWNpMEGg@mail.gmail.com>
-X-Gm-Features: AVVi8Cf4OglYcZCFMrrSmgF7E4807IU6wsvfZGr3kR7N8sXGY6lLU3UyPN82lAM
-Message-ID: <CAMuHMdXg16frnn88_P_jHRH+HPy00wWfoqNKdOv8teSWNpMEGg@mail.gmail.com>
-Subject: Re: [PATCH 06/12] rtc: rzn1: Sort headers alphabetically
+Date: Wed, 17 Jun 2026 09:24:01 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW769Sk4FMJWNyCK5jzc5oVZL_4L5wt0w5uyL93wrYF9Q@mail.gmail.com>
+X-Gm-Features: AVVi8Cct3Yj3PdPpYaOL4UBKNGskw3sUCzooWr22FhgciKRmjYjt1bOLgA7r9iE
+Message-ID: <CAMuHMdW769Sk4FMJWNyCK5jzc5oVZL_4L5wt0w5uyL93wrYF9Q@mail.gmail.com>
+Subject: Re: [PATCH 10/12] rtc: rzn1: Consistently use dev_err_probe()
 To: Prabhakar <prabhakar.csengg@gmail.com>
 Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
 	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
@@ -80,27 +80,10 @@ Content-Type: text/plain; charset="UTF-8"
 On Mon, 15 Jun 2026 at 17:48, Prabhakar <prabhakar.csengg@gmail.com> wrote:
 > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 >
-> Sorting headers alphabetically helps locating duplicates, and make it
-> easier to figure out where to insert new headers.
+> Use dev_err_probe() in the IRQ request error path to make error handling
+> consistent with the rest of rzn1_rtc_probe().
 >
 > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-> --- a/drivers/rtc/rtc-rzn1.c
-> +++ b/drivers/rtc/rtc-rzn1.c
-> @@ -15,8 +15,8 @@
->  #include <linux/clk.h>
->  #include <linux/init.h>
->  #include <linux/iopoll.h>
-> -#include <linux/module.h>
->  #include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-
-Sorting of special characters w.r.t. alphanumericals is always
-a bit fuzzy...
-
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/rtc.h>
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
