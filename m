@@ -1,113 +1,117 @@
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C642D3F5BC3
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416522D12EC;
+	Wed, 17 Jun 2026 14:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781704778; cv=none; b=eBq4s95vdmm0YlMeqBifvRLdTRojN28OalzToAj0hOtqrGs7gv1EKHqihJivnthUa62zmRxcus44sZaEENmEwsccAObc6RlHK8qapqv/sBI3VttpKHo1FJlNqfrd20sVk1p2aSpF7Geq2BC1StePtnlyRe+1Gqi5KVze2l/3C8I=
+	t=1781705350; cv=none; b=FpBrIuvlI7EIuhllgYtqWstPLCunp1iGEhWL1rEVMCwCNJT+HNk5DdluivJzaTN3Yd6plCmjuFglzwmbaS7vYRgeB9NEn6CbE4ifyJMgai2e5Vb7jAh/c0wIAgkhNZ+1WnkhNVNBrY4BPvTc3OD6WkZzKY9C+HIld9HwXkp5hXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781704778; c=relaxed/simple;
-	bh=dCBd6QOWdSfna80tO7lgRPNepVJ8z4/9yjwTGHpHQIE=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=maFQACwotDHSMkaFzBg5TPTfJcD/IaXAXYfS53D2TvMGONChqZ9YWF9VAUT4WVpr2k/Ps7CdPD6S00Wh81LiX/QV4YXu+0QCb/Dx/ffu53LgGpm8LGc/64bJqmDjd8GVtP4+1YqjlOC3Eas7X0xNqWSwzkAnK8YyzwHWh3LvnR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AgDg2q8A; arc=none smtp.client-ip=95.215.58.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1781705350; c=relaxed/simple;
+	bh=pElGO8DdnWVpirRLkNCQR3lp7A6U4z0APfRAFyJC7HE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fNNNdu7paLD2vqwdlojFZivZ8h4I0KtBKeHhyCDHAhRUj+93PCIJgfU4uCE910VAkqvntvNkBmbDpL6qVGHxokDlfvdEQ7f+5+5nMEcOHKHk91r6n5s4frt36dFaPJGxUPT9CCDQzxmh9diH5okZv0SpOKcQj4jOWb/6hjrg00U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkYUgmRR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AgDg2q8A"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkYUgmRR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FEA81F000E9;
+	Wed, 17 Jun 2026 14:09:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781705348;
+	bh=ojOXwpqpQjyswucugg131KVRIK8IRPfBz6xWmqwJKps=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dkYUgmRRTc382uGxguAYxa0xkPCHbVi0Ri5uENjbyLSkqkrvl9j9qnw/HijU9TWfl
+	 5/owiIcRNA9pOw475yd5fKmNK/O9AZCsfokxn0ni5JonVZDzVUH/SGfgQQEWwP0tGz
+	 DKyjBh4Hi1M9mhWTTMH+0dPoSv29bMldomQLfEd7DmH4LG8GDf6i1UQdgaQZ6Cstvi
+	 KHltgGswRjQZTc2mzKrCrzgQffIGnuEGdhNvU75cen4u4pCVGLmPAC68EtVlVet+nn
+	 O+BJXLutL8Ula349sq4kOUhftgi9Mr+fQzpWizvC1ka9BdzC7g3daXJhvX6VCzKt8B
+	 5LC/zyq9qvhGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 01/10] ACPI: APEI: GHES: share macros via a private
+ header
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ahmed Tiba" <ahmed.tiba@arm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-cxl@vger.kernel.org
+In-Reply-To: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-1-91f725174aa0@arm.com>
+References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
+ <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-1-91f725174aa0@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 14:09:08 +0000
+Message-Id: <20260617140908.9FEA81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1781704765;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0esiTjT2bh6BlTAeIet0hO+XCKrhmouZR2UAUKmVqSI=;
-	b=AgDg2q8A1u5L9oBFy6syZlCFggXZH38jJ724tm/ppHkiXyWaJ2MmVPmNq18UTPtUP1cCKL
-	j6IXeRvOw6xb1qT8ev2gadePk2HNs3M9/RioLy7VeLldQs553IUnCC7EiTYOiffrht2bqx
-	MAjTDXQLkjdGIejA3KF/fOEBNxwQq68=
-Date: Wed, 17 Jun 2026 13:59:18 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Siratul Islam" <siratul.islam@linux.dev>
-Message-ID: <8016d51ceb01974ae6d47185717d8e42dcc499bc@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v2 3/3] iio: magnetometer: add driver for QST QMC5883L
- Sensor
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <ajJI_KK0eLXeHK0A@ashevche-desk.local>
-References: <20260616114942.37241-1-siratul.islam@linux.dev>
- <20260616114942.37241-4-siratul.islam@linux.dev>
- <ajJI_KK0eLXeHK0A@ashevche-desk.local>
-X-Migadu-Flow: FLOW_OUT
 
-June 17, 2026 at 1:13 PM, "Andy Shevchenko" <andriy.shevchenko@intel.com =
-mailto:andriy.shevchenko@intel.com?to=3D%22Andy%20Shevchenko%22%20%3Candr=
-iy.shevchenko%40intel.com%3E > wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Missing irq_work_sync() during GHES device unbind leads to a Use-A=
+fter-Free of `struct ghes`.
+--
 
->=20
->=20On Tue, Jun 16, 2026 at 05:49:39PM +0600, Siratul Islam wrote:
->=20
->=20>=20
->=20> Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
-> >  connected via i2c.
-> >=20
->=20...
->=20
->=20>=20
->=20> +enum qmc5883l_chan {
-> >  + QMC5883L_AXIS_X,
-> >  + QMC5883L_AXIS_Y,
-> >  + QMC5883L_AXIS_Z
-> >=20
->=20Leave trailing comma, it's not a dedicated terminator.
->=20
->=20>=20
->=20> +};
-I generally have a habit of not adding a comma at the end as it reminds m=
-e of javascript/json. But sometimes I add it to help clang-format. Jonath=
-an suggested me to remove the commas at "terminating" entries. So I took =
-the opportunity to remove them everywhere. Apparently it was a wrong deci=
-sion. Thnaks for pointing this out, I'll make it a new habit. As always I=
-'m learning a lot from these reviews.
-> ...
->=20
->=20>=20
->=20> +
-> >  + return 0;
-> >  +}
-> >=20
->=20...
-> Ideally this should have a comment with a reference to the datasheet wh=
-ere this
-> delay is specified. Otherwise a comment why this exact value has been c=
-hosen.
->=20
-I=20have a comment where I define this, about this value being from the d=
-atasheet. I'll update it to specify where though.
-> >=20
->=20> + fsleep(QMC5883L_PORT_US);
-...
->=20
->=20>=20
->=20> +};
-> >=20
->=20--=20
->=20With Best Regards,
-> Andy Shevchenko
->
+commit e704c2dde2d2667b464a2f5a2c5c45ed826cc539
+Author: Ahmed Tiba <ahmed.tiba@arm.com>
 
-Thanks
-Sirat
+ACPI: APEI: GHES: share macros via a private header
+
+This commit moves CPER helper macros and function prototypes out of
+ghes.c and into a private header. This allows these helpers to be
+shared with other firmware-first error sources.
+
+> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+> index 3236a3ce79d6b..4f67f46410c46 100644
+> --- a/drivers/acpi/apei/ghes.c
+> +++ b/drivers/acpi/apei/ghes.c
+[ ... ]
+> @@ -313,7 +255,7 @@ static struct ghes *ghes_new(struct acpi_hest_generic=
+ *generic)
+>  	return ERR_PTR(rc);
+>  }
+> =20
+> -static void ghes_fini(struct ghes *ghes)
+> +void ghes_fini(struct ghes *ghes)
+>  {
+
+[Severity: High]
+This is a pre-existing issue, but does ghes_remove() need to call
+irq_work_sync() before freeing the ghes structure to prevent a
+use-after-free?
+
+When unbinding a GHES device, ghes_remove() unregisters the error
+notification handlers and calls synchronize_rcu(). While this ensures no new
+handlers will execute, it does not wait for any already-scheduled irq_work
+to complete:
+
+drivers/acpi/apei/ghes.c:ghes_remove() {
+	...
+	ghes_fini(ghes);
+	...
+	kfree(ghes);
+}
+
+If irq_work_queue(&ghes_proc_irq_work) was called just before the handler w=
+as
+unregistered, the work remains pending. When the asynchronous work runs, it
+dequeues the node and dereferences the freed ghes pointer:
+
+drivers/acpi/apei/ghes.c:ghes_proc_in_irq() {
+	...
+	estatus_node =3D llist_entry(llnode, struct ghes_estatus_node, llnode);
+	estatus =3D GHES_ESTATUS_FROM_NODE(estatus_node);
+	...
+	ghes_do_proc(estatus_node->ghes, estatus);
+}
+
+Could this lead to a use-after-free when ghes_do_proc() accesses ghes->dev
+and ghes->generic?
+
+>  	kfree(ghes->estatus);
+>  	apei_unmap_generic_address(&ghes->generic->error_status_address);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-topics-ahm=
+tib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com?part=3D1
