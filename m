@@ -1,132 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBB83955FF
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864A63F1670
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781703056; cv=none; b=V+nPLwf+UjUUWVv4mMZKa8qpG68S19T0/ZtuJJ1az261jps6MogmMIY8GZV2phwWFeRhSyMbTMFFPeULrA6Q2hXWiZlXtlJdbTAvC4nkZndrgDy/SlRLepQpmdDJaqf7IJhYP02AePLAxw3JWmJQNV+HQu8MJYuQiQbL6A16YyE=
+	t=1781703141; cv=none; b=jWBnRsQYBaxhEgCxuDVgC+JTYdhmdIrpuVv06Z9me7IhUXdyTwnPvXq87LIqZ4G1OX8sypFGF4Ei4DzSFpH4PYpPmCIZn2TB4cfYbRQ0LloGjjIocXgnws6Zq7C7Vg8NfcTvoSbyfhyTEGtxcp8cQghboIcoUIO1UvwWmnQtYPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781703056; c=relaxed/simple;
-	bh=Ue6F+ODw+IB1CLabWbZPjiscthH7cNTFYKe0LHGHwZ8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=twQDRHZNKKIbs5bSTXOPcNk7OzAp3k9L/S2AyeMYeVT9C9oIJ4N/Q7QlfcDD6kzp2u/Gff7Fx8J358g3vWIIDy1oBECQY0oWjgAYCv65IhOqMDGwoUmuvJCAaLxM2Pje4ypI6HC08pxX5i8jFSq2rG0cTqvbpvvtdww57qC14wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9hwPkTA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781703141; c=relaxed/simple;
+	bh=Q/U2yDFLyWZwU8XHHIHioLhnMV9QliHA7sS1beu8q/w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cOg4AAv7RO2pKiGN12ES69F2Z3vZi219cyvpQnBnXMIZESGrRcYwiqSIB+vsTnRu8vMyOghxOeT7JMQPM/zjy+vtDeTQfQq/kUyPkxH71gYwP1tt0HiTcBd0nGpwhYaDiYXQHdaUS03iOYk/7/ApC+2wY0WwEQ6OCXPtFXNE4qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2YZ+a+h; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9hwPkTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F631F000E9;
-	Wed, 17 Jun 2026 13:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781703055;
-	bh=Ggj9ZBoOh3yVKHQ4vusAdDBjWOX+kdsAynkZS1OG5fA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O9hwPkTAfyY97IDkpYgjA3NlHD8oiZpZz6h8c1FuXzLtKb1v/sj5uJo/Mx5IgG6bb
-	 hhaVikLwaqbdIr6us95sPjxbPskFp2lcWSwDcMuoerKzpkgoi5zBdgumMc65AQgOjg
-	 q0xJHrfRpCvWu+MPBLb7ugrYv8SoOqv+9kE/wt1HgwyHrnPofsOMy9wDLvLsDG5kcF
-	 0iJtHZrsvMU+nhaw+GT68pnJLd2d+osUPmBen6HbOBMtY5qxVPmJvYF42U8diiHoml
-	 kh2qkV3YHN1T249ce9SYUbjBVRVMWoxU0aUkhfETjmO7E53/o77W+x3+5vuTNj3WVW
-	 yqdDfYgWf6v5w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] arm64: dts: qcom: sm8650-hdk: add SPMI ADC
- channels and thermal nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260617-topic-sm8x50-adc5-gen3-v4-5-4af9251731f1@linaro.org>
-References: <20260617-topic-sm8x50-adc5-gen3-v4-0-4af9251731f1@linaro.org>
- <20260617-topic-sm8x50-adc5-gen3-v4-5-4af9251731f1@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 13:30:54 +0000
-Message-Id: <20260617133054.D8F631F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2YZ+a+h"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49222b6e871so42356555e9.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:32:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781703139; x=1782307939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=fFTX+AiRaMQbMH9lj/OuYWyjAe3WfpdoaTeBbXZUDPU=;
+        b=G2YZ+a+h47oH9btEmux/BcqI4PxQFFjLnUMHol6jqveJmk4Y2z3WmzN6ajRFnXmb/R
+         3Ml9Qida+NIPreDxXF5OJfa4xAoCRZ1MJnbkmL9qv99Nz2bvLt5KRVzAbkmJNtr6YuYi
+         7SZAd39Wn6oYkdRrv2FchG4VNEWMLfeZ1s3GVlP40kZzvriW9WsYs1YPHbVahqbt1ZvE
+         N6Qpk1cKgKc5VldMn2cQlfjrPPrhMz0cZLcCdRZx43QHCcrz4/OaRw00HdI4tpZDXIY1
+         LhIrTioauIZjxH7FnAZSRIfflfnSObi2LaDKcyiZCeghqFqPSdiG2bwU2gqS7HWO8iEh
+         1WUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781703139; x=1782307939;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fFTX+AiRaMQbMH9lj/OuYWyjAe3WfpdoaTeBbXZUDPU=;
+        b=XZa1HK7SdHHz/LinCDbxFq2TbUR5UgmD3mtMccZX8/klhcmlbBvCJKTKl3bQuhoi2K
+         Ph81Idafng2bxWffCT44I3h/DJ2Z89tdNZq3pAU17zPCxykgKlWdGAtsS+Y0CEY7GO/P
+         hQVSU7USfoIO/I+guLJRASA4tqSQr6af+d54pp6Y6yJLgOpJ3SJz/vInQSsehNlj3uDm
+         waZvhHWMoZRHlHqtmK/e8+8SeEVrqVoJq/gS2Lti9jDWPqKiKkmzf0GzDIezPGzZVQcp
+         UXFAyWkBHcBxKBaPxylTxUhcY/YOl86q9wr2JkmEegdOma1iJ3k37GKQhDWY0xAwxJiV
+         LekQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8GskVrvLZ5/nkzS6ylw1jmZlVJZfS83e7KL0q+bsXwH8dA0g2wbX0h9wORF144xlVOtDu2y87Hrs2m@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiqoXVJJyGoeWhhea+dauHKyplxZM/QC/q/OCgtccyse3I3u9K
+	NPKyFdWDTeZRCHGdiICGiKiYA24eBZRQaYFtNO/wr09C9Ko/+LtBY80V6KuJLA==
+X-Gm-Gg: Acq92OGpqAKlGGSKd1w1CGBEZvETeB4IX/N9nBq+k97W0Zlfeh211jEB9g78pNUZM5a
+	0pkmFoBYEZ0s+tR6xWs4M8QH6NnRT5jkxbVcsRPEq6q4l3Nw5VT9f0FWQWaZKis1zgabplU/h7f
+	0ZB5jqFpXCRcAwz8r4j7aPRT5bUlU9SvbTMukCxE9akokPfdd0GK7bFcM/agKyjo7biAv46Ml/C
+	LfJ6nbYFU02dfzfAeKNq9WGm8vOMzLCVNYUixtctgsq4S2eedc5RgTSg/7B9qWZpGuhYS8khMRr
+	8iJwIdGYVAZ9qjYCoxsXRGQKruV4bKkJo5zIUyMsyL+ztXR1Yozyaj4nl4jhbkqIAQd35mzXzWe
+	yKFyUUZjX0WZn6PqoP12znHwhp0QVmMrlxxoy6CNX7EEGOWBKVvfyoEmD3VC+At5Ux8sJhch9Qy
+	X2wK7buH1yp50G57rtICp90oU=
+X-Received: by 2002:a05:600c:8a1b:20b0:490:601f:d776 with SMTP id 5b1f17b1804b1-4923410091dmr42265145e9.3.1781703138441;
+        Wed, 17 Jun 2026 06:32:18 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a0e9e4sm147795145e9.0.2026.06.17.06.32.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 06:32:17 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH v6 0/4] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
+Date: Wed, 17 Jun 2026 16:32:08 +0300
+Message-Id: <20260617133212.287768-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Dangerously high and ineffective passive trip points for skin and =
-ambient thermal zones.
-- [Low] Use of undefined macro ADC5_GEN3_DIE_TEMP(x) causes a DTC syntax er=
-ror.
-- [Low] The unit-address of the pm8550ve_die_temp ADC channel node does not=
- match its reg property.
---
+This series fixes the remaining timer binding issue and adds device tree
+support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
+Board (EVB).
 
-commit f0b9d1fd765aad624439c8e56ebe37c1e26e52c9
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+The first patch drops the undocumented timer0 clock-names property.
+The second patch reorders timer0 and PECI so the APB child nodes stay in
+ascending unit-address order.
+The third patch introduces peripheral nodes for Ethernet, MMC, SPI, USB,
+RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC device
+tree.
+The fourth patch enables these peripherals for the NPCM845-EVB, adding
+MDIO nodes, reserved memory, aliases, and board-specific configurations
+such as PHY modes and SPI flash partitions.
 
-arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels and thermal nodes
-   =20
-Add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
-other PMICS on the system.
+The NPCM8XX device tree was tested on NPCM845 evaluation board.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dt=
-s/qcom/sm8650-hdk.dts
-> index eabc828c05b4c..05af2913055ed 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
-> @@ -220,6 +220,92 @@ platform {
->  		};
->  	};
-> =20
-> +	thermal-zones {
-> +		skin-thermal {
-> +			thermal-sensors =3D <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+This series depends on:
+https://lore.kernel.org/all/20260610121822.2524634-2-tmaimon77@gmail.com/
+https://lore.kernel.org/all/20260610121822.2524634-3-tmaimon77@gmail.com/
+https://lore.kernel.org/all/20260610121822.2524634-4-tmaimon77@gmail.com/
 
-[Severity: Low]
-Is the header defining parameterized macros like ADC5_GEN3_AMUX1_THM_100K_P=
-U(x)=20
-missing? Without it, the C preprocessor leaves the macro unexpanded, or exp=
-ands=20
-the parameterless constant in include/linux/iio/adc/qcom-adc5-gen3-common.h=
- to=20
-0x03(1), which causes a DTC syntax error and breaks the build.
+Addressed comments from:
+        - sashiko-bot
 
-> +
-> +			trips {
-> +				active-config0 {
-> +					temperature =3D <125000>;
-> +					hysteresis =3D <1000>;
-> +					type =3D "passive";
-> +				};
+Changes since version 5:
+        - Add no-map to the tip_reserved firmware memory region.
+        - Drop the unsupported snps,eee-force-disable property from gmac1.
+        - Rework the FIU0 boot flash layout into nested fixed-partitions
+          under the bmc container.
+        - Keep patches 1-3 unchanged.=0D
+=0D
+Changes since version 4:=0D
+        - Split the timer0 clock-names cleanup into a separate first patch.=
+=0D
+        - Remove nuvoton,sysgcr from udc8 and udc9.=0D
+        - Rename apb: bus@f0000000 back to apb.=0D
+        - Rename spix-mode to nuvoton,spix-mode.=0D
+        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch=0D
+          as /bits/ 8.=0D
+=0D
+Changes since version 3:=0D
+        - reomve tmp100.=0D
+=0D
+Changes since version 2:=0D
+        - Fix dts warning=0D
+        - Arrange node order by ascending unit address.=0D
+=0D
+Changes since version 1:=0D
+        - Fix commit message=0D
+        - Fix dtbs_check warnings.=0D
 
-[Severity: High]
-Is it intentional to set the passive trip point for the skin-thermal zone t=
-o=20
-125=C2=B0C? While 125=C2=B0C is a typical critical threshold for internal s=
-ilicon dies,=20
-it is physically impossible for skin or external surface temperatures witho=
-ut=20
-causing severe burns or melting the device. Does this functionally disable=
-=20
-skin thermal mitigation?
+Tomer Maimon (4):
+  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+  arm64: dts: nuvoton: npcm845: Add peripheral nodes
+  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
 
-[ ... ]
-
-> @@ -1041,27 +1127,218 @@ led@3 {
->  	};
->  };
-
-[ ... ]
-
-> +	/* PM8550VE Channel nodes */
-> +	channel@503 {
-> +		reg =3D <ADC5_GEN3_DIE_TEMP(PMK8550VE_SID)>;
-> +		label =3D "pm8550ve_die_temp";
-
-[Severity: Low]
-Does the unit-address channel@503 match the evaluated reg property here?=20
-Assuming PMK8550VE_SID is 8, the standard SPMI ADC encoding (sid << 8 | off=
-set)=20
-would evaluate to 0x803, making the unit-address channel@503 mismatched.=20
-Should this be updated to channel@803 to avoid dtc validation warnings?
-
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 721 +++++++++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 417 ++++++++++
+ .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |  11 +-
+ 3 files changed, 1130 insertions(+), 19 deletions(-)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-topic-sm8x=
-50-adc5-gen3-v4-0-4af9251731f1@linaro.org?part=3D5
+2.34.1
