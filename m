@@ -1,161 +1,183 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023098.outbound.protection.outlook.com [40.107.44.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293DF3B777F;
-	Wed, 17 Jun 2026 06:41:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781678473; cv=fail; b=FexYbsroOoPBWESoK8fQm88LdzTGQk/0ruIQYicj0AfvK8LYJJlti6auDlh0yMuolLBCGwp64DUP51cylKjxcllvRLPybqdfmisiQbK/LKPMIKpVjtcmDgCs7xYj9mHAXRUWfNUemBEU5d7D92i2tULtWdokYMj11s+CHWHieY4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781678473; c=relaxed/simple;
-	bh=XY8OmKS5RMP/eLdALeKP5k5qw3m1MHBv99xOUrCTuRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=O73IZfdIs/lcFq3kn4FB1kZkVRKTiIG8Xa4+UwhIWCABfMB4I8A5t7OR8tWDe5wsapm6VJArPHCuBdq+283fHG74kUTth3Ef9XAAdS1LvF3l5BLqG3e9+PCb2CZHCd2l7dyV6mmol6v+7YE+rlDFGSn4VqS9Va0y0JT5lxdJaho=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ims14/NRoXQVxbhDsRR1JSY40KpKdPlwfkmWEXcv26EuaqqkqNM31ikLE/mqKC+tgdK8trw/yJ8Ou1g6zVeJJS4ol3d7GczIDI+0hyRJ5VrK/wSmnxxQ+ip/q10sl0q9812Wr8kuhZgQsGx80aRmnHD8RyLQBMrQv1fOkZQMLVLGozBP7XPOotXxQcrYlx+gsQubVjGD7+0/ILzxD/FHPJCBwU3V33Icylqn/tGzeZXfEqOVD7G0jDvxwfjL4Tz7eDzQTOmSkliPw2Go7gGSiNk7P5ySUFpKoC+7lZqfLfzJL2YXyEQuXSzkxPU5K27kPddvhwW2192LOJdzN1r+qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2acalGdjXOFuxzk/aAGrwUTAkAlinpXJgrCw5xAZqA8=;
- b=a/A6m6UvqrRUp/A3N1A/lJy6YPUvLGkfH8EMaZX4t1nyKga1GC7mB5fxXrxuVVszeSvh8SiHdZ0FqqEFrWCX4hqCy1zIO53tCSJqZPTuxoHI17axxmTW78DpQyjizBghA2qVEYek7AO0BaKyLfLD80xg8MdGBoZJudvynGR7bpKNBOozsglO7eYFoAiDsTvbat63KAeo9j5f8Q0SG76BVy310eJFrg5k+4oqvHHYoXA+hu8TzGXaHrzvGffogkN/0h95K6nl4c3lmQmrFIRv8pn2Iua6+hae6n2Wf75+IlJIVIxqgMS2KbTKXqXyYm3dC6m6IxhtRb/vVU9dUwL8IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=baylibre.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PUVP216CA0014.KORP216.PROD.OUTLOOK.COM (2603:1096:301:16f::15)
- by TYPPR06MB8033.apcprd06.prod.outlook.com (2603:1096:405:316::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 06:41:07 +0000
-Received: from TY2PEPF0000AB89.apcprd03.prod.outlook.com
- (2603:1096:301:16f:cafe::a8) by PUVP216CA0014.outlook.office365.com
- (2603:1096:301:16f::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Wed,
- 17 Jun 2026 06:41:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB89.mail.protection.outlook.com (10.167.253.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Wed, 17 Jun 2026 06:41:07 +0000
-Received: from cix (unknown [172.18.64.61])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 1637B41D400E;
-	Wed, 17 Jun 2026 14:41:04 +0800 (CST)
-From: joakim.zhang@cixtech.com
-To: mturquette@baylibre.com,
-	sboyd@kernel.org,
-	bmasney@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	p.zabel@pengutronix.de,
-	gary.yang@cixtech.com
-Cc: cix-kernel-upstream@cixtech.com,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: [PATCH v4 resend 5/5] arm64: dts: cix: sky1: add audss system control
-Date: Wed, 17 Jun 2026 14:41:00 +0800
-Message-ID: <20260617064100.1504617-6-joakim.zhang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638063B4EB3
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781679029; cv=none; b=V5Ba4JRwMFb3lBO66+LEN/dBGrvybi+evUmBC330amkPDQLkNEhLBElmp7fKRgYkVFNRpMuIAYPky/MMqa5YpxcNRNd/w5liPbyS0/RW7anflKcbdxCu01s3lTylkIbG2qye/2lmdBySLZ0GsuX1xkp5meuvKQKK+yChWn4RLAo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781679029; c=relaxed/simple;
+	bh=yw2TGX5++AOIcAUFyF/oJHclSL6HDoiQOf1Bou0S1zU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ESfnPm3EfBkmqm/V6JqeFej6tlZxOHtZvI7wB1lQ9hmOfTxbEfYzPdsZV1u1azoJZp1IfKiFstpau2GL7uFQN11tmdO/TtoGSmI8AmeBH60CZ+zJzrO2btz6OWVHscXC0lmlK4i8303fO/DgJm0mBdbOFekvVsDMdN2+wvZqY1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNmYIla6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNmYIla6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830301F000E9;
+	Wed, 17 Jun 2026 06:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781679026;
+	bh=Fd94YkPRK8Xtobx3WL6aPBBHPkhVkW6bgzWE7xSI8M4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RNmYIla6MhKbPBTUYo1maSMJrFonXmFr3ksA4zJm0PSZHpA5R8hNqFiTG28RpNRBK
+	 2TahjaHrXE9id1R1v8LU/fZkn1CfgmQ/+5UbzNiJM9VGZLuyIOTVlqnO36NSqjsW04
+	 yVxiODYYVgl2FMjLNvi+aY5tzby6MLnXNB6Xg3i0upyx75ZOEhJuCmgomATdqCEFrU
+	 rHIbf+5ihyH5KC4AZjo94oZ+rx7cFYMCc2svWF3Ss//SsdBQsjuc+zAuzvRx7BjsHW
+	 ylXCrtdirVPZeUkU2elN69Hz1uvD6nxE38vzAJxk+xXI8StKhHZ00AFyrFICh484uo
+	 W3w1Pi7xIZk7g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 resend 2/5] reset: cix: add audss support to sky1
+ reset driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260617064100.1504617-3-joakim.zhang@cixtech.com>
 References: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
+ <20260617064100.1504617-3-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 06:50:26 +0000
+Message-Id: <20260617065026.830301F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB89:EE_|TYPPR06MB8033:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: a55f9224-9b7a-49a7-bbb7-08decc3b6930
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|7416014|82310400026|18002099003|56012099006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	d2Rlb+WQhjtI6fagtPSG2Cm4OJub1TyK0x9iAx7rGfaQ+hsN5hnrZO9hwVviI7KEF8rhxJivMZanw5q3RD/WtwhCR8rOo7kzC1WTxcjGY6RnZYtlF54aFEFmrFuW7RDyQpiPWxeFNRQdINH7rFMVkkMNSxH65HTd+OhBnM3TaOpSjtvdOmw+C/YseTi1oiU27KHmaql1LR1Ui2rifxVic215IfaEn8eXDx2m7+9pt5H5P3z/KYCSgQ+greNqpUJdVo9BkpbiQ7NuEMPXDGt7N7d5S0Niu76NxdYTuXQq0pD6N5fjVjkIIKRwAhO5Zuf6aAtUnDwTe4CiVcmBcID0eb/w5PvY/cEacdT0j+2FUb6LTTfOAaZ2fJWgoF4UDfj9MmmWHR7ClLTX28dXAe4HSZiTIOb7R5u10YeqARp0ZTvGrwodqnabpuxa4X4sQ4IUSn/lo8KB0jpBl0WZjH3zAmGmZeSwnaal3AvS9n7NuuMs6F6cFwdKlWEpkAOkJ2JGg2/Oirs6SUKQEW4kg8iLd5iYPb7cmseJX9thdOccHV8jaBNzhtLCtc7XgjOtcCRR4bSWm7MrMxNWi8HECmCNNsVxMv4xABBDUyg9fHnlMQghUHCPL9pGtu+Qt0rIiCpa6JVNjXJzuoAu7TCLREdh5jDtNLWteaNWIJvUNJ694hgi6JyeSBTnXQuw+R/2AwR+UzANehn703tT3i5R365qeIgzMTi4WOwyJ6jAtxzWj7A=
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(7416014)(82310400026)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hb0xE4ddOjSA8QQ0bZNbETcoZFKakBDX5UYcURuv/a1yJZiBviLZ75SFrcRIYb74h7drEE9VjIXi8b3EHerhltMohCn8sTMgO3ghlsfwfemmuphRevKdyqTDxJpepPNKXdpw7+vUi66Rc5DfLkHhMRbp6HU8fKQXEwfulbLsr7v/0V+aSKcFNivMB1Sv58S6lK0/Cuvw/XnpvBu/DVrZ2WzYj/rqoWm0IwqfUCtor38NesJNdbrH15NtfYd6R/tvxxUAqa80Mpbq/ZvXg6MabjivF4cIsltlM5mawkQ02Z3MWxgvEeo+8q2VEVffKtqJ6E9tqVz9JQCmWvQ9Up0kpojHzkyqpINEicplr/q9hrLXz2mmhnDiS7IYxsiT/py55mvlLK4Lm3q2ObAiZmn4366RGCq9JTimGzCdqFznmNNakhUwYoLDRa4ePolRw9Pi
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 06:41:07.1069
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a55f9224-9b7a-49a7-bbb7-08decc3b6930
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB89.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYPPR06MB8033
 
-From: Joakim Zhang <joakim.zhang@cixtech.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] The reset controller operations access hardware registers via =
+regmap without ensuring the reset controller device is active, leading to p=
+otential system crashes.
+- [High] The reset controller is registered before its underlying hardware =
+(NOC reset) is fully initialized and deasserted, creating a race condition =
+that can cause a bus hang.
+- [High] The return value of `reset_control_deassert()` is unchecked, which=
+ can lead to silent hardware failures and subsequent bus hangs.
+- [Medium] Using asynchronous `pm_runtime_put()` on the probe error path ra=
+ces with `pm_runtime_disable()`, leaving the hardware active and the reset =
+improperly deasserted.
+- [Low] The `dev_pm_ops` structure is assigned unconditionally without the =
+`pm_ptr()` wrapper, generating dead code when PM support is disabled.
+--
 
-Add audss system control device node, which would provides
-clocks and resets for devices in audss domain.
+commit 44fbafef81df1536ade6d0fdca4767f4c7fc1234
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
+Subject: reset: cix: add audss support to sky1 reset driver
 
-Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
----
- arch/arm64/boot/dts/cix/sky1.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+This commit extends the Sky1 reset controller driver for the AUDSS CRU sysc=
+on.
+It adds support for sixteen active-low software reset bits for audio subsys=
+tem
+peripherals, reusing the existing regmap-based reset operations.
 
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index bb5cfb1f2113..3091789fc176 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -6,6 +6,10 @@
- 
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/clock/cix,sky1.h>
-+#include <dt-bindings/clock/cix,sky1-audss-clock.h>
-+#include <dt-bindings/reset/cix,sky1-system-control.h>
-+#include <dt-bindings/reset/cix,sky1-s5-system-control.h>
-+#include <dt-bindings/reset/cix,sky1-audss-system-control.h>
- #include "sky1-power.h"
- 
- / {
-@@ -488,6 +492,26 @@ mbox_pm2ap: mailbox@65a0080 {
- 			cix,mbox-dir = "rx";
- 		};
- 
-+		audss_cru: system-controller@7110000 {
-+			compatible = "cix,sky1-audss-system-control", "syscon";
-+			reg = <0x0 0x07110000 0x0 0x10000>;
-+			power-domains = <&smc_devpd SKY1_PD_AUDIO>;
-+			resets = <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
-+			#reset-cells = <1>;
-+			status = "okay";
-+
-+			audss_clk: clock-controller {
-+				compatible = "cix,sky1-audss-clock";
-+				clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
-+					 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
-+				clock-names = "x8k", "x11k", "sys", "48m";
-+				#clock-cells = <1>;
-+				status = "okay";
-+			};
-+		};
-+
- 		mbox_sfh2ap: mailbox@8090000 {
- 			compatible = "cix,sky1-mbox";
- 			reg = <0x0 0x08090000 0x0 0x10000>;
--- 
-2.50.1
+> diff --git a/drivers/reset/reset-sky1.c b/drivers/reset/reset-sky1.c
+> --- a/drivers/reset/reset-sky1.c
+> +++ b/drivers/reset/reset-sky1.c
+[ ... ]
+> @@ -343,21 +379,65 @@ static int sky1_reset_probe(struct platform_device =
+*pdev)
+>  	sky1src->rcdev.of_node   =3D dev->of_node;
+>  	sky1src->rcdev.dev       =3D dev;
+> =20
+> -	return devm_reset_controller_register(dev, &sky1src->rcdev);
+> +	ret =3D devm_reset_controller_register(dev, &sky1src->rcdev);
 
+[Severity: High]
+Is it safe to register the reset controller globally before the AUDSS NoC
+reset is deasserted?=20
+
+If a consumer driver attempting to probe or wake up concurrently tries to
+assert or deassert a reset line, could the regmap MMIO access stall the bus
+and trigger a synchronous external abort because the AUDSS NoC is still held
+in reset?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	platform_set_drvdata(pdev, sky1src);
+> +
+> +	if (of_device_is_compatible(dev->of_node, "cix,sky1-audss-system-contro=
+l")) {
+> +		sky1src->rst_noc =3D devm_reset_control_get_exclusive(dev, NULL);
+> +		if (IS_ERR(sky1src->rst_noc))
+> +			return dev_err_probe(dev, PTR_ERR(sky1src->rst_noc),
+> +					     "failed to get audss noc reset");
+> +
+> +		pm_runtime_get_noresume(dev);
+> +		pm_runtime_set_active(dev);
+> +		devm_pm_runtime_enable(dev);
+> +
+> +		reset_control_deassert(sky1src->rst_noc);
+
+[Severity: High]
+Can reset_control_deassert() fail and return an error code?=20
+
+If it fails and leaves the NoC in reset, will devm_of_platform_populate()
+attempting to probe children over a blocked NoC cause a bus stall or
+system crash? Should the return value be checked and propagated here?
+
+> +
+> +		ret =3D devm_of_platform_populate(dev);
+> +		pm_runtime_put(dev);
+
+[Severity: Medium]
+Does using asynchronous pm_runtime_put() on the error path risk a race with
+pm_runtime_disable() which is called during devres cleanup?=20
+
+If devm_of_platform_populate() fails, the probe function returns an error a=
+nd
+devres will immediately disable PM runtime. This could cancel the pending
+async suspend work, meaning sky1_reset_runtime_suspend() might be skipped,
+leaking rst_noc in a deasserted state.=20
+
+Would using pm_runtime_put_sync() ensure the hardware is properly suspended
+before cleanup continues?
+
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static const struct dev_pm_ops sky1_reset_pm_ops =3D {
+> +	SET_RUNTIME_PM_OPS(sky1_reset_runtime_suspend, sky1_reset_runtime_resum=
+e, NULL)
+> +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resu=
+me)
+> +};
+
+[Severity: Critical]
+Now that PM runtime support is added and the AUDSS variant's NoC reset can =
+be
+asserted during runtime suspend, do the existing reset controller operations
+(sky1_reset_assert, sky1_reset_deassert, and sky1_reset_status) need to call
+pm_runtime_resume_and_get() before performing regmap accesses?
+
+If a consumer driver toggles a reset line while this controller is runtime
+suspended, will the raw MMIO write to a block held in NOC reset cause a
+synchronous external abort?
+
+> +
+>  static struct platform_driver sky1_reset_driver =3D {
+>  	.probe	=3D sky1_reset_probe,
+>  	.driver =3D {
+>  		.name		=3D "cix,sky1-rst",
+>  		.of_match_table =3D sky1_sysreg_of_match,
+> +		.pm		=3D &sky1_reset_pm_ops,
+
+[Severity: Low]
+If CONFIG_PM is disabled, will this unconditional assignment cause
+sky1_reset_pm_ops and its callbacks to be compiled but unreachable,
+generating dead code?=20
+
+Should this assignment be wrapped with pm_ptr() to align with standard
+Power Management subsystem guidelines?
+
+>  	},
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617064100.1504=
+617-1-joakim.zhang@cixtech.com?part=3D2
