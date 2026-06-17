@@ -1,268 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D5733A70E;
-	Wed, 17 Jun 2026 21:34:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67A016A395;
+	Wed, 17 Jun 2026 21:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781732071; cv=none; b=r/qhVeB33Tx58PgQchOF8qlOg8q/eaG7PGG3XHWLIRzgnpDR8tp4fREj26o0yPYuMuv+QWsWBTyV9qnwreJr4WfQ9XnWxopLFHzb4XcRDgHtfHBEInItWxTNxWofmL8cg+dypPyJeYI8dSKyFtG7f3vNsLnUsl0gFTq7JsmmIV0=
+	t=1781732466; cv=none; b=RHYNfJ64PenKzcwjYE1OK+Nf8rOeyUj0O1qiZtd1OUNIkyMgjfj0HTBuoykGE/qNRhqneLMgrwHRPGLpdw5V8+qr4NpE3nhZFEIt9DuEKYw8NIpu92HxTldBNtYzuy4qBEqxfLDo/wI+97Su4EktntIwwCtZzJYGtMH93Dzt0Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781732071; c=relaxed/simple;
-	bh=3nnnR6EiFyHYiW8wgKR9MDTaiYefKIwVegOvJV9aq2Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uGTvXLv/820p8Nt2BInPV9vC5PaLxDIWOKusx2RUE/R1PHPCWs5Dm62MjJHTbh8MbogbmPn/oDKuokMS6zY4huGFoV2mEUcGfG8oy3pFco3FgbVr3PSr3QVvrLSvePriYf3PBOV446ENX79pB/B3OV+73o5WJhI2GKjdljn1WTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y514OBHt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781732466; c=relaxed/simple;
+	bh=9SbnhFpmXED5XONNr2fJndo55THY+VHKyyWvmEih9Dg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n2sfFWzrZyYLnfElzY4jI9VNlJMdhhlbuUy3BlVa6AbDGdmFV4CaEiCe+5sLnwe83OOUAqctsJ/sUUlaRbyi3EcVtylGHf4pEKT4pD+s9ltdseAU5B7IvZeJIGxf2YioTLDCYIJPAvR9A5r7KEjB0tJy2Dx4ufMESmIkz2hwFks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTnUtpL6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y514OBHt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19601F000E9;
-	Wed, 17 Jun 2026 21:34:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTnUtpL6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4B11F000E9;
+	Wed, 17 Jun 2026 21:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781732069;
-	bh=aGyU18+JQRzeaO9DEypjkwjpt3OXdh3R9rJKxRBDrkk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y514OBHtxkI76J0l30uh04u8lwGNlB5HDJUffGsR2LRBIqBjIXnRQh0yW3WdnhGFC
-	 +JS0DIVOEzlZkk/vRrfMe+w7VEid9uRdhxMZ8RVIhFOGfEmDiZ0sEXOYIYZnppyavF
-	 HVTh6F9RSDUhShlpUWp8DQ4YNT3Wm2PGhg/ETl4OSa6ZNuQDymKhLCb8DJwKIe7wo7
-	 Gx9dmV53voj5499S7zoak+ghKzdI/sW+wbQQcxdQkjCq6ySzgFpCnZz/sOMMEDznZv
-	 oymDA4oqk5DqmsYLnjKIv2k4pj+nv8mEIntiqZxuP6gidrTIWas2g832C95JFOQUW/
-	 7H8527D7IlrRA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/8] media: nxp: add V4L2 subdev driver for camera
- parallel interface (CPI)
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617-imx8qxp_pcam-v5-6-7fa6c8e7fba7@nxp.com>
-References: <20260617-imx8qxp_pcam-v5-0-7fa6c8e7fba7@nxp.com>
- <20260617-imx8qxp_pcam-v5-6-7fa6c8e7fba7@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 21:34:29 +0000
-Message-Id: <20260617213429.A19601F000E9@smtp.kernel.org>
+	s=k20260515; t=1781732465;
+	bh=404tAE/+R1SyZUkdqbOQ+xCot/cOxhbKnrTtvvurl98=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YTnUtpL6Lr0x0CQQtTyI0DkN21QWM2xh3qkfbRkWOv0y85XPDJuI3a7vp8qy5dgYb
+	 vH4LblkNLxC1uJOBjj2RjKsZICTavJjedU+53pdVlJl0tGzTtZT9vSFklpncd4Y3Uq
+	 Jwy4EFyUamCpLp+ACc66go/TDzcg632smTIaseBWgKnA1CFR7PitKW1cUUoWdKRLVq
+	 HFBXDWlQuXoWs+2AMJepj72Lzln1ApRyoJ8YKNbm7IokF++KXGBwN/ghNvLxDaAyTw
+	 y+nw8zPuvdBzV2mrzSlgig1v0muqHra8Y6lAmUiZBp+DKc0HSSJVGq9QNoEpy3gFP5
+	 KoSInkaXxI5zg==
+Date: Wed, 17 Jun 2026 22:41:01 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC v4 01/12] dt-bindings: clk: zte: Add zx297520v3 top
+ clock and reset bindings
+Message-ID: <20260617-gone-antennae-66b362e9d42c@spud>
+References: <20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com>
+ <20260616-zx29clk-v4-1-ca994bd22e9d@gmail.com>
+ <20260617-tabasco-pulsate-454ed3f8f0b6@spud>
+ <-l2OM6P0RNSYRQfOSObOyw@gmail.com>
+ <20260617-deed-snap-4649ffae0e27@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yGnFFU5qPObdCcLm"
+Content-Disposition: inline
+In-Reply-To: <20260617-deed-snap-4649ffae0e27@spud>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] NULL pointer dereference when enabling or disabling streams on an =
-unconnected sink pad.
-- [High] Missing format bounds clamping causes integer underflow and massiv=
-e hardware width configuration.
-- [Medium] Missing `V4L2_SUBDEV_FL_STREAMS` flag breaks V4L2 format and rou=
-ting state initialization.
-- [Medium] Reversed pad direction arguments in `v4l2_subdev_state_xlate_str=
-eams` leads to improper stream mask mapping.
-- [Low] Unconditional overwrite of hardware configuration variable `val` re=
-nders `switch` statement dead code.
---
 
-commit 6eecb6f34887a526e9a659dcd6d0a03e320f98ab
-Author: Alice Yuan <alice.yuan@nxp.com>
+--yGnFFU5qPObdCcLm
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-media: nxp: add V4L2 subdev driver for camera parallel interface (CPI)
+On Wed, Jun 17, 2026 at 10:23:56PM +0100, Conor Dooley wrote:
+> On Wed, Jun 17, 2026 at 08:47:53PM +0300, Stefan D=F6singer wrote:
+> > Am Mittwoch, 17. Juni 2026, 19:08:02 Ostafrikanische Zeit schrieb Conor=
+=20
+> > Dooley:
+> > > On Tue, Jun 16, 2026 at 11:26:21PM +0300, Stefan D=F6singer wrote:
+> >=20
+> > > > +F:	Documentation/devicetree/zte,zx297520v3-*
+> > >=20
+> > > Sashiko complaint here looks valid.
+> >=20
+> > Yes, it is valid.
+> >=20
+> > It also brought up another concern in patch 12 that has an impact on th=
+is=20
+> > binding:
+> >=20
+> > Am Dienstag, 16. Juni 2026, 23:42:19 Ostafrikanische Zeit schrieb sashi=
+ko-
+> > bot@kernel.org:
+> > > issue(s) to consider: - [Low] The `syscon-reboot` node is incorrectly
+> > > defined at the root level using the explicitly deprecated `regmap`
+> > > property. --
+> >=20
+> > And indeed "regmap" is deprecated and I missed it somehow. As far as I=
+=20
+> > understand, to put syscon-reboot as a child of the clock, I need to add=
+ the=20
+> > simple-mfd .compatible:
+> >=20
+> > Either
+> >=20
+> > topclk: clock-controller@13b000 {
+> > 	compatible =3D "zte,zx297520v3-topclk", "syscon", "simple-mfd";
+> > 	reg =3D <0x0013b000 0x400>;
+> > 	...
+> > 	syscon-reboot {
+> > 		compatible =3D "syscon-reboot";
+> > 		regmap =3D <&topclk>;
+> > 		offset =3D <0x0>;
+> > 		mask =3D <0x1>;
+> > 	};
+> > };
+> >=20
+> > --- or ---
+> >=20
+> > something@13b000 {
+> > 	compatible =3D "zte,zx297520v3-topcrm", "syscon", "simple-mfd";
+> > 	reg =3D <0x0013b000 0x400>;
+> > 	ranges;
+> >=20
+> > 	topclk: clock-controller@0 {
+> > 		compatible =3D "zte,zx297520v3-topclk";
+> > 		...
+> > 	}
+> >=20
+> > 	syscon-reboot {
+> > 		compatible =3D "syscon-reboot";
+> > 		offset =3D <0x0>;
+> > 		mask =3D <0x1>;
+> > 	};
+> > };
+> >=20
+> > I see both ways in existing DTS files (e.g. imx6sl.dtsi for the fomer,=
+=20
+> > uniphier-pro4.dtsi for the latter). Is there a preferred way? I have a =
+mild=20
+> > preference for the first, as it would keep all 3 clocks in the same way=
+=2E If I=20
+> > go for the second, the clock driver would have to query its own node an=
+d the=20
+> > parent node for the regmap.
+>=20
+> The first one is more natural...
+>=20
+> > AFAIU unrelated to syscon-reboot option 2 would give me the opportunity=
+ to=20
+> > have separate clock and reset nodes and bindings and skip the aux bus, =
+but=20
+> > this would not be a correct representation of how the hardware works.
+>=20
+> ...for this reason!
+> Do you actually need an aux bus here though? Since you have to add
+> simple-mfd for your the syscon-reboot and simple-mfd is a real bus, can y=
+ou
+> set the reset controller up with an mfd_cell + devm_mfd_add_devices()
+> instead?
 
-Add a V4L2 sub-device driver for the CPI controller found on i.MX8QXP,
-i.MX8QM, and i.MX93 SoCs. This controller supports parallel camera sensors
-and enables image data capture through a parallel interface.
+Although, the /naming/ is more natural in the second case. "topcrm"
+sounds like the actual name of this register region. And syscon@ for the
+node name.
 
-> diff --git a/drivers/media/platform/nxp/imx-parallel-cpi.c b/drivers/medi=
-a/platform/nxp/imx-parallel-cpi.c
-> new file mode 100644
-> index 0000000000000..00f5d5f47644b
-> --- /dev/null
-> +++ b/drivers/media/platform/nxp/imx-parallel-cpi.c
-> @@ -0,0 +1,614 @@
+--yGnFFU5qPObdCcLm
+Content-Type: application/pgp-signature; name=signature.asc
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> +static void imx_cpi_config_ctrl_reg1(struct imx_cpi_device *pcpidev,
-> +				     const struct v4l2_mbus_framefmt *format)
-> +{
-> +	const struct imx_cpi_plat_data *pdata =3D pcpidev->pdata;
-> +	u32 pixel_width;
-> +	u32 vsync_pulse;
-> +	u32 val;
-> +
-> +	pixel_width =3D format->width - 1;
-> +	vsync_pulse =3D format->width << 1;
-> +
-> +	switch (pcpidev->pdata->version) {
-> +	case PI_V1:
-> +		val =3D CPI_CTRL_REG1_PIXEL_WIDTH(pixel_width) |
-> +		      CPI_CTRL_REG1_VSYNC_PULSE(vsync_pulse);
-> +		break;
-> +	default:
-> +		val =3D 0; /* Never happen */
-> +	}
-> +
-> +	val =3D CPI_CTRL_REG1_PIXEL_WIDTH(pixel_width) |
-> +	      CPI_CTRL_REG1_VSYNC_PULSE(vsync_pulse);
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajMUbQAKCRB4tDGHoIJi
+0r2hAPwNW7XtiqbIzMgNxrNCvFns+PFFwkEpnFNspkst36LvJwD/UrRB3kPmZ4Bk
+W7Wu8WXjAqQnoDnptstn15CHqLXgtwk=
+=IZMg
+-----END PGP SIGNATURE-----
 
-[Severity: Low]
-Is the unconditional assignment to val here intentional? It immediately
-overwrites the val computed inside the switch statement above, effectively
-rendering the switch block as dead code and dropping any future hardware
-version configurations.
-
-> +	writel(val, pcpidev->regs + pdata->interface_ctrl_reg1);
-> +}
-
-[ ... ]
-
-> +static int imx_cpi_set_fmt(struct v4l2_subdev *sd,
-> +			   struct v4l2_subdev_state *sd_state,
-> +			   struct v4l2_subdev_format *sdformat)
-> +{
-> +	struct imx_cpi_pix_format const *pcpidev_fmt;
-> +	struct v4l2_mbus_framefmt *fmt;
-> +
-> +	/*
-> +	 * The Parallel cpi can't transcode in any way, the source format
-> +	 * can't be modified.
-> +	 */
-> +	if (sdformat->pad =3D=3D V4L2_SUBDEV_1TO1_PADS_SOURCE)
-> +		return v4l2_subdev_get_fmt(sd, sd_state, sdformat);
-> +
-> +	pcpidev_fmt =3D find_imx_cpi_format(sdformat->format.code);
-> +	if (!pcpidev_fmt)
-> +		pcpidev_fmt =3D &imx_cpi_formats[0];
-> +
-> +	fmt =3D v4l2_subdev_state_get_format(sd_state, sdformat->pad);
-> +
-> +	fmt->code =3D pcpidev_fmt->code;
-> +	fmt->width =3D sdformat->format.width;
-> +	fmt->height =3D sdformat->format.height;
-
-[Severity: High]
-Does this code need bounds checking for width and height? If a malicious
-application provides a width of 0, it is copied directly to the format
-structure here.
-
-Later in imx_cpi_config_ctrl_reg1(), the width is used like this:
-
-    pixel_width =3D format->width - 1;
-
-which would underflow to 0xffffffff, causing an extremely large dimension to
-be written to the hardware configuration.
-
-> +	fmt->field =3D V4L2_FIELD_NONE;
-> +	fmt->colorspace =3D sdformat->format.colorspace;
-
-[ ... ]
-
-> +static int imx_cpi_disable_streams(struct v4l2_subdev *sd,
-> +				   struct v4l2_subdev_state *state, u32 pad,
-> +				   u64 streams_mask)
-> +{
-> +	struct imx_cpi_device *pcpidev =3D sd_to_imx_cpi_device(sd);
-> +	struct media_pad *sink_pad, *remote_pad;
-> +	struct device *dev =3D pcpidev->dev;
-> +	struct v4l2_subdev *remote_sd;
-> +	u64 mask;
-> +	int ret;
-> +
-> +	sink_pad =3D &sd->entity.pads[V4L2_SUBDEV_1TO1_PADS_SINK];
-> +	remote_pad =3D media_pad_remote_pad_first(sink_pad);
-> +	remote_sd =3D media_entity_to_v4l2_subdev(remote_pad->entity);
-
-[Severity: High]
-Could this cause a NULL pointer dereference if the subdevice is not connect=
-ed?
-
-media_pad_remote_pad_first() returns NULL if no link is enabled on the sink
-pad. If userspace sends VIDIOC_SUBDEV_S_STREAM directly to the unconnected
-device node, remote_pad->entity would trigger a panic.
-
-> +
-> +	mask =3D v4l2_subdev_state_xlate_streams(state, V4L2_SUBDEV_1TO1_PADS_S=
-INK,
-> +					       V4L2_SUBDEV_1TO1_PADS_SOURCE,
-> +					       &streams_mask);
-
-[Severity: Medium]
-Are the pad arguments reversed here?=20
-
-When disable_streams is called, streams_mask originates from the pad passed
-to the operation (the SOURCE pad). To find the remote mask, it should
-translate from SOURCE to SINK.=20
-
-Should this be passing V4L2_SUBDEV_1TO1_PADS_SOURCE as the second argument
-and V4L2_SUBDEV_1TO1_PADS_SINK as the third?
-
-> +
-> +	ret =3D v4l2_subdev_disable_streams(remote_sd, remote_pad->index, mask);
-> +	if (ret)
-
-[ ... ]
-
-> +static int imx_cpi_enable_streams(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state, u32 pad,
-> +				  u64 streams_mask)
-> +{
-> +	struct imx_cpi_device *pcpidev =3D sd_to_imx_cpi_device(sd);
-> +	const struct imx_cpi_pix_format *pcpidev_fmt;
-> +	const struct v4l2_mbus_framefmt *format;
-> +	struct media_pad *sink_pad, *remote_pad;
-> +	struct device *dev =3D pcpidev->dev;
-> +	struct v4l2_subdev *remote_sd;
-> +	u64 mask;
-> +	int ret;
-> +
-> +	sink_pad =3D &sd->entity.pads[V4L2_SUBDEV_1TO1_PADS_SINK];
-> +	remote_pad =3D media_pad_remote_pad_first(sink_pad);
-> +	remote_sd =3D media_entity_to_v4l2_subdev(remote_pad->entity);
-
-[Severity: High]
-Does this have the same NULL pointer dereference issue on unconnected links=
- as
-imx_cpi_disable_streams()?
-
-> +
-> +	mask =3D v4l2_subdev_state_xlate_streams(state, V4L2_SUBDEV_1TO1_PADS_S=
-INK,
-> +					       V4L2_SUBDEV_1TO1_PADS_SOURCE,
-> +					       &streams_mask);
-
-[Severity: Medium]
-Similarly, do the pad arguments need to be swapped here to correctly
-translate from SOURCE to SINK?
-
-> +
-> +	format =3D v4l2_subdev_state_get_format(state, V4L2_SUBDEV_1TO1_PADS_SI=
-NK);
-
-[ ... ]
-
-> +static int imx_cpi_probe(struct platform_device *pdev)
-> +{
-> +	struct imx_cpi_device *pcpidev;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct v4l2_subdev *sd;
-> +	int ret;
-
-[ ... ]
-
-> +	sd->internal_ops =3D &imx_cpi_internal_ops;
-> +	snprintf(sd->name, sizeof(sd->name), "parallel-%s",
-> +		 dev_name(pcpidev->dev));
-> +
-> +	sd->flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
-
-[Severity: Medium]
-Should V4L2_SUBDEV_FL_STREAMS also be set here?
-
-Without this flag, the V4L2 core falls back to allocating the legacy
-state->pads array. This causes the routing and stream configuration
-set up by v4l2_subdev_set_routing_with_fmt() in imx_cpi_init_state()
-to be ignored, which leaves the initial format reporting uninitialized.
-
-> +
-> +	sd->entity.function =3D MEDIA_ENT_F_VID_IF_BRIDGE;
-> +	sd->entity.ops =3D &imx_cpi_entity_ops;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-imx8qxp_pc=
-am-v5-0-7fa6c8e7fba7@nxp.com?part=3D6
+--yGnFFU5qPObdCcLm--
