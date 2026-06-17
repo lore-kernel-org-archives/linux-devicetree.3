@@ -1,66 +1,68 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8113AFCFF
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807C83C062F
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781681435; cv=none; b=tkd/AP2/iZ67CDlO1rSVNvNIkRmWFXbIqXZPl4CJjP4ttUE0lgPIDmiTmIRAI2YPirpE7pnOn4Xk5bQYbNjKxWeKgImqoo+bu1/6tXSO1LooAmAj5Ib9sj4e293JjM+dziTmoHn+qzLhC34o+W5vV4fChGxCLNK8LhkLlCzYSEU=
+	t=1781681670; cv=none; b=qRxHLQSzH3NaFWoSmDXgBg+FiVmtYEOdMmQ7O2DmRu1yg/vEumad5aO4JKlRqV6VhzycpL5/Bh5dvlxFcBJvPMc85cFX+6qVq0mqhAGZTtiLuyhJblARKvEBf1GJixMyluwtFi/XGof8Fn5N2R6OrTXxavlRbmRuACK+K5fwRMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781681435; c=relaxed/simple;
-	bh=ns641rOo4SmvQB02QITlRXBe7Y9sqH5VdSzYmVFmu7g=;
+	s=arc-20240116; t=1781681670; c=relaxed/simple;
+	bh=Gi0XiZ8YuxbcG9V+HtV+HlNj+B5fo8qkkv3muwP4M/o=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=r2D++qRMnPULsHjJRjnv3EzHl21qHg279onNjApgIjFbg2bPfkApToXc7V/WQcARc8poDRz72oAJxyCwBPEeY/Na+scPYCxm8tq7jHa4g8wUcfD3zhTGOk/rGTF2OO35+n3a7pSlf3xQWHW4acMdvKJ234FcZJ4dXkMdOQBoSpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UXHSNJoM; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:Content-Type; b=PTsRHfroFLjEkJMGRdJ0rsIz/fWhh7X4uHs5Ss40wAa8yVGIAJhu6nkZqIZLgFRzQSzF4Q1lO8NuT5hbuRKHagCPGNplunWzLc+UbePkkmnQZodaKBhX4F3G1FoLyd/YPF3smLg9zlFn/ymg8tCUQ92GdTfkbFHyKJ2v9OBFhRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bOLu0r4G; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UXHSNJoM"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4905529b933so53567795e9.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:30:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bOLu0r4G"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490afc47455so24482225e9.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 00:34:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781681432; x=1782286232; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1781681666; x=1782286466; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=E1Eht0yqmtyjKLK+ckWvK3e4AnkyB7fNvSVWTQiIHbk=;
-        b=UXHSNJoMvc7kVKtewuCnr7I7JVGuMUWe6TVC5zX2D4e9btoGMcbLCdeDyrb/lOQNzn
-         YUpiKjplMVzoyR6eJ6gVxcgPlUCykuIXoGQo783E6cptj4MZXGBRCutjS+nGO8Ctc2RZ
-         vGMNo2HyvqVmO/MCkLq+m2tR95DpDJWzD/oIHVt11iqk9EK9EYVbgOhqd3tIvnPpy5Aq
-         wioJAdCXHe2zMiapsHJIwM+4igHS+cqNFkT54WomZDhIydHsr3RgcjzYrJ8eBiI2T/Dw
-         Tl8B3Nj2vAYf4rd6Re8sj7AHJ2UBwTK0fnQ9oIIHg1aah4itxJfJFWzFDl0yZ87vfDL9
-         DnsA==
+        bh=3Uim5pbWVyeQp4JbMjOlnv43bbNh3AaD6WsvZpd9kZ8=;
+        b=bOLu0r4GEoeAXK4H7yFPPwWYXKnFSuDrMZpJyvhuROKf3+tHxmGzoeTAfydAQMLyU5
+         n/ocCTwlaN/mArhdtYrCmacYMKJKK3JKTgblhdi6pBBNTAbEFz3cD+CqEjCGcuonHhBK
+         KuIhU+GGh5Hp2av8v+zzq8a2zhBKUjBFrCywj6dcNY/OaGzKxRF38RE8+TTUJDHoEOfS
+         XqCGI3vGzasP/9SzQkPYrLumktt7OLbP/LHzHN0nFBmYdQGrLD82M1FiYGtc1hCHaCRl
+         5Bnu38MOqZaGZfqpkSkMQarI4iMgqlSVEDY7lfuvv/W/PhGp5lBBZy0GspPNBQnvggX7
+         kzCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781681432; x=1782286232;
+        d=1e100.net; s=20251104; t=1781681666; x=1782286466;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=E1Eht0yqmtyjKLK+ckWvK3e4AnkyB7fNvSVWTQiIHbk=;
-        b=oQzR/3RqT+oAc2QLy6TtJTA2b0tF7z7n1q7SvQls7c2TvxdtpiWFGBdSfho2sGF3sV
-         bQNHN7iYtKk0kXYuFUMiocNdrZgAzBXiiX0tu5RNy3h9DddApZ5AeHopoVq74b28GO45
-         qLC9tNHwuKroHva/EtItA8kKK6can1HZVu3oHgb+KbQBSq3tMd/lR+my1ZOmF1plnfNA
-         VpSbVVCAcyb+JtrLmfSxIHP/hAuY6Mb1T+sbldu5Vjpdq04n7QD2h6q6m6pyZB14KVm3
-         r1b2rPnYeMQszNx0f5wg8NTSpTPp9geryqhwCN2koSkgg4BVCXKKRdXmuIUAcopdxOyy
-         pj2g==
-X-Gm-Message-State: AOJu0YwWQCKT2ANdF5cxPElJyZjN0oKT078jwd7zCleVWymN3y32xWaF
-	j/x5H3Q7wpmEC1icYZRX/TXzRh4bmOPI9y/ShjH03Yb5nWGAB8oU0sFWpvRgwxR/+eI=
-X-Gm-Gg: Acq92OEAiWJRtYWPMH7Pvkx0wKDz/5fMJtuW1RJJiK7xuuwN48MpxPchQrwzfhgyBU/
-	NuYmi7JsvsTgmkcsanSP9CZCC5boaQTOXcGru6Jbs7nDuJIurTQZbiIA8BGEay+4++FA69FhTID
-	/mGlUqVApujRmyn/u6cpNyTBxqYzOh9aA8LCiuvZLbeGcMmp7pZkI9dqN1bX1ERoPzLiGKmbNU5
-	9HY7V3NSc7HJF1qEnYWmI2fbqeu6C4+d5OxgKK8cTzZ1zuq5zeIt0Or1RcWhUl2e473W+2oqGbr
-	gF0PD4o7nwoP9YMOgWMUaaAQu42flFiEX+rPNbXTkJMI5gFhSfG8ehRld5jw95KGe3HycKnNcNF
-	UA4GvdTa834Yu1p5mNW1z4zTc58j01qn6gt9Tz6o5jzJ01iPbhUANWvgAOoQ25wniuWalW6juov
-	EFnG1c+uz6LY8s5w1ZiZTXEw==
-X-Received: by 2002:a05:600c:19cb:b0:490:bb45:79f0 with SMTP id 5b1f17b1804b1-492333ba306mr44593555e9.3.1781681431573;
-        Wed, 17 Jun 2026 00:30:31 -0700 (PDT)
+        bh=3Uim5pbWVyeQp4JbMjOlnv43bbNh3AaD6WsvZpd9kZ8=;
+        b=HFBTiak6f+5MeuBnKmR4nCNYnN/uldl8TK8UNpWLwlhhYWKXCgwLB86mGeiX/FjJX7
+         a8m/WLk59Zb0aw4jfAY0b3liuWYX99f8TF/kFfHmyLWqJrvx1V1+062+22D+eva5SZvc
+         g0EYzy17hTHEM8j6cMHtaCYA7uY9dhkGrDs9na0nW8AQWfLPH79IKMYwiMvsfweCruIU
+         FWazBuD29fEZ4O+LcVSQ4Nk5o1UbX8au7CHqmTRsbZMh2gph9c6wqBMh1XITDi3PuxN8
+         6QIrYQk864ghdBNWZmt75TvOnYFLl4i00Rqk83pEkReFi1JSFnx4I5hUpLMpooXFBtyd
+         NYHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8bbZsOFmxXrjJxNO3hPCw2D5HUrCLYa7ibPVYUhirKS1AUonMKfNJdKT8bfroY0AkQohSmH1TnPho4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNWBLmkwvQWKmZkhikt3uoY7Tbwb74eXGaJUvmipstjcGqo5ot
+	wFc9yf3I8zD3BeuMEcuLDb4yutn8izG1IosNjPDZS4nEO6RB8vLWbph6BJ6Ht39t2+3cToHTLFC
+	73d6V
+X-Gm-Gg: Acq92OHSf2q4lQij+YkS1um1LjsyNzstxvdWwShEHgj46MxiYzpM9swyDhfNgJ9WfYa
+	2pV2OtEjefR5YFgodIHVTcTT8OjmhJTBysWkLNpVG2alFX0DxDdAYOMsEPmH8WvSThbF2Y3N/DD
+	ny/WMmQzKgyLzh9aiNxAoauncYgGewzSphdAMxPDTfACFSma5GMu78agKnmZq1LK9yalTzcFITJ
+	5IOPIM8GdcQy2FsiFrJuzNgzPGJXOxl+D0S6a98G6SQe0uLt6uDgf2yBvs42V619mvy4X+QliJE
+	jgVitSY2anQbq8j+plxX9UVFbdZQjXAv9SZfF1OEjTH1ZCjE88I80RyrNfK9jUEzlMuLlJd9saa
+	tfNWlzlVayt6megi0d0bPTmfy/VTmIt8+qXxJCPoPoxxkCsFcxgWwBxqmz2b+6kcGY5KInuPk0c
+	4yMnAF0ZXBW3RRIQWqa1nXLQ==
+X-Received: by 2002:a05:600c:a305:b0:492:2c87:3d4b with SMTP id 5b1f17b1804b1-492333af19dmr33307215e9.12.1781681665133;
+        Wed, 17 Jun 2026 00:34:25 -0700 (PDT)
 Received: from [10.12.4.106] ([212.133.41.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa47da9sm170120445e9.5.2026.06.17.00.30.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa97a07sm242913335e9.14.2026.06.17.00.34.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 00:30:31 -0700 (PDT)
-Message-ID: <915e4524-d407-4b4b-9e61-e4a2274a6f6b@linaro.org>
-Date: Wed, 17 Jun 2026 09:30:29 +0200
+        Wed, 17 Jun 2026 00:34:24 -0700 (PDT)
+Message-ID: <6726e289-02c8-4267-b8cb-3b4ba2ebae1a@linaro.org>
+Date: Wed, 17 Jun 2026 09:34:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,18 +72,22 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: meson-axg-s400: Enable
- pcie_phy
-To: Jun Yan <jerrysteve1101@gmail.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v3 4/4] Revert "dt-bindings: display: panel: panel-simple:
+ Add lg,sw49410 compatible"
+To: Maxime Ripard <mripard@kernel.org>,
+ Paul Sajna <sajattack@postmarketos.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Arseniy Krasnov <avkrasnov@salutedevices.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260617071604.635627-1-jerrysteve1101@gmail.com>
- <20260617071604.635627-5-jerrysteve1101@gmail.com>
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>,
+ phone-devel@vger.kernel.org, Amir Dahan <system64fumo@tuta.io>
+References: <20260614-judyln-panel-v3-0-07f4134441bd@postmarketos.org>
+ <20260614-judyln-panel-v3-4-07f4134441bd@postmarketos.org>
+ <20260615-amigurumi-kagu-of-prestige-ecae6c@houat>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -108,36 +114,28 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260617071604.635627-5-jerrysteve1101@gmail.com>
+In-Reply-To: <20260615-amigurumi-kagu-of-prestige-ecae6c@houat>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 6/17/26 09:15, Jun Yan wrote:
-> The meson-axg dtsi now disables pcie_phy by default, so enable it
-> for the s400 board to support PCIe functionality.
+On 6/15/26 11:17, Maxime Ripard wrote:
+> On Sun, Jun 14, 2026 at 05:08:01PM -0700, Paul Sajna wrote:
+>> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
+>>
+>> It isn't actually panel-simple-compatible, and we knew as much by the
+>> time this merged, but I guess maintainers needed something to prevent
+>> the dt-bindings error going off while I was working on these patches.
 > 
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> ---
->   arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> index 285c6ac1dd61..7ba249cc3d56 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> @@ -448,6 +448,10 @@ &pcieB {
->   	status = "okay";
->   };
->   
-> +&pcie_phy {
-> +	status = "okay";
-> +};
-> +
->   &pwm_ab {
->   	status = "okay";
->   	pinctrl-0 = <&pwm_a_x20_pins>;
+> I had a look at the patch and discussion that commit was from, and I
+> didn't see anyone bringing up that it wasn't actually panel-simple
+> compatible.
 
-Please squash this one with the previous patch
+I wonder why rob applied this one, I clearly requested a v3...
 
-Thanks,
 Neil
+
+> 
+> If you knew as much back then, why wasn't this brought up?
+> 
+> Maxime
+
