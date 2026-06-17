@@ -1,121 +1,119 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32015361DCB
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE1D361DCB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684139; cv=none; b=b5QcTnsKOURwdiBNCwdXohfGW/jAaSlzHiYKf/RkQi9IutYsUM3PAECtyK3/VxP32vR3R2NFhkG9RRjOMQY0okynYJif7ZYO8bR3Rxca1hi9Wz6PQEgBXZMn6L1iVVwHAEoHOPEp2rxla5rYSuJEbjqCDd93pTX2KpjeQ2H5V7k=
+	t=1781684184; cv=none; b=pXkIKXbk+xCIHibsXBxEB+WXkMOoS6c2O3y1vAtdQk93BkiwCujp4Bb8AM0nGmN7bEnp7fJSBkRNEHUkHaG/HD1m2LMiNIE4o/UsvFFmtj58RQGacYQ4bgAL9lS0U4Myk5HU3F//pT36p5RfVG+E0xMzFaLek20meMaxdpd7Nvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684139; c=relaxed/simple;
-	bh=MhuoXCDcK92PQIGXV4t70bs6vUPWNinRh+wxDPRUMxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hoVHYxWGYFQujKPvwZeCrVCvkVyh75nITRCJyqu6RvljFAkx2F2HEAsUstYoKwQECu6w0KOrHZ7QoxGJYUho8HIi8lnV3R2jTW9KT+4Z6oMBW2e93yrtZ2ujKTBdZrkThODeMI3Gc+S8+KM1Igutzla32GjcAll5u8RaHp+9AfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4T8TuL/; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781684184; c=relaxed/simple;
+	bh=+TAkH8nRV9j2LLZCUpKNfrJa5Md8HV/28lbZPf+5y/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ItNgPOyLEzefJc087JP7g7OZdLH04o+mR9jMqtP788gOqfl+8F9dTy4oxZNebVsvjcj5Yjpc3dbtnmxhVE1FB5keygYbt3NdT/G+fC8OODRliKHuzfNYidLtEi8kZpCBCTqBK0yBBfzU0HUGIUfyBt9YgW2ZSdXG4seFWGFuKOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USh36Gqq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4T8TuL/"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8422871b42dso3358286b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:15:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781684137; x=1782288937; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QxXn1Oj6SL8VleTEBTLmlWInvGgOzp9b11hsJyxGyH4=;
-        b=O4T8TuL/85/6FX1KoKDy45X4bvjYRc50VPTuvzFJJG/2ciPMfuQNXFqzADEPUz07qY
-         Q5VFhEMTu1NTJaNjNAZc9ZcvJKRRq5Ner2mOQb0X5tKr3e00QsmaD3sGpNs4fT5QunMw
-         SK+7kl1IdHR6OR/of0tB0vpJcpYBn1G4mss4NgVRFh9MF7cGklVtGJbl5J1jkWhmNgbE
-         puKQ/I0un4ARPZDg6CJzNfS6oKXOLkglihnnmct92kuZ0d/tIfsyJmdxIAT7QUrfuUUb
-         T+Dm/F6CYfduZjoOKBnLTBehWAa08+W68+w1l6jD1lbvEdgiDXDzj1WEdiOmY4ppMcxp
-         65IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781684137; x=1782288937;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QxXn1Oj6SL8VleTEBTLmlWInvGgOzp9b11hsJyxGyH4=;
-        b=jjxEUgLGHJzXynZmC/T4XQ7GTRX2ayvGhYBfkJDGZcUNIuzr1XJn3fLX9mTKV4sbUJ
-         3NtGHaiQs6R6fZIuMzjLNOQIDH0/YEJ7aHsQRjLgYGEQhaDWGHbOOguVL11a38PYRYEL
-         Cx8kOleGhSZlqFlJnAPCoWyiNYedAMc8/ZuEzor+vQlsR1QtyRYdwZwKvjkbw8trmLFL
-         xwBRSwXT6IhyAgREcl40KmpB683VawomK65y27CrX/R0e6Sln7dr7gV8tPLo4e4V8CSC
-         +PdNWB4NQEUtcTxuG57bQTzQKh9ojGxUH1BavK1P5OlksQeedJ0qov93KiGsohHQj8mx
-         V9NQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9ebtnucCWwkE2g0aCkUUY2rThuk07z09rQoVDzvLVHIPJuTyvTRPzVqSrDgLCNTq4E+WiiD1FA989f@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlEnDvL1jyuMvt2Fu0ijLAuFTzvgKDe67KN4V/frGtsmFR3GiB
-	AjCcOyG732PqURsLa7MCUAzx57p3o2OTLjiJ7NoHQSa3rNLtIsNZFdfr
-X-Gm-Gg: Acq92OGOhgDczwuX6mQwB7xugsoNYIbN8YoM57R4tWIp0BtmrML1UVYiOsKMCyJ7OwK
-	GmkrkdpxG5e4HFeRjLpWF0nupdRFm6vY1hbH8WzBfFXvjqtBAIySSCM6IPXDx+HteTk4Qd2WTFS
-	6QVWEHFOZocTIwo1QB4Gk+GTi5I3mGGEB0k1p+UbmrX/EWdRLgXM9hEQ2CYpn/yVpVbzQWB2sun
-	OQFHj7PXlzLJCfLc7x9r2WfwJ1VbfRf+A7Zhpy54teiAVrl50ZJ5VPWrg6fu5G5RuZ9obljBakh
-	NZgmFEA5PHBZHd64sBWTaMnNYsnrz6Qx4XVolxYxeSzjteQEnY8p2eKsKSPxl0n0e/G5D5HiMGN
-	13/VaAlfOnjiFHvEBJN7GaY+miCNcDH5+muyrN7CkW9QBIvXX6H9TIkQPkfkl11Z0RfICw7fcCa
-	AEMIOZhG+pvQ==
-X-Received: by 2002:a05:6a00:99e:b0:842:6ec3:2352 with SMTP id d2e1a72fcca58-84524484febmr2781503b3a.18.1781684137489;
-        Wed, 17 Jun 2026 01:15:37 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434ac9c474sm14054459b3a.2.2026.06.17.01.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 01:15:37 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: avkrasnov@salutedevices.com,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	jbrunet@baylibre.com,
-	jerrysteve1101@gmail.com,
-	khilman@baylibre.com,
-	krzk+dt@kernel.org,
-	linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	martin.blumenstingl@googlemail.com,
-	robh@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: meson-axg-s400: Enable pcie_phy
-Date: Wed, 17 Jun 2026 16:15:31 +0800
-Message-ID: <20260617081531.644109-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <915e4524-d407-4b4b-9e61-e4a2274a6f6b@linaro.org>
-References: <915e4524-d407-4b4b-9e61-e4a2274a6f6b@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USh36Gqq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA6F1F000E9;
+	Wed, 17 Jun 2026 08:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781684183;
+	bh=4OcL97xrfTE7rUBq9e/XMFoUkkFXURodxoTV3L66j/I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=USh36GqqAVvfJzEVSOtFZmPE1doBm64dGpcD37gvtN5hF9lTRCRRAjcOua/K/TBwA
+	 qznzpv/Nlq4DY7LhS69ERm+CR2orIfvAW9Gb/Z5enP7z0+oorUDZuzAQcujv8N3Mb5
+	 uw5uM6IjFQzrcUgEZtTmqhVto/x/rLWXqYNIhcX7iy61qR6gmmhwvjoGT1eUDGR+TY
+	 x4C0bQxZmodP4crcb822q4zZzg5071qTFJKmAhQ66/dZ2zJlQYIj9afsgXJHwlwU6j
+	 xWLRnhccq/stMuhIXoUDvQXpYV8sFg4MMTdpPi9W9FlkYuEIgO7qCfPhHw9VMzVRse
+	 yyKS/kC9I4ELQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 11/14] video: backlight: lm3533_bl: Improve logic of
+ sysfs functions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260617080031.99156-12-clamor95@gmail.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-12-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 08:16:22 +0000
+Message-Id: <20260617081623.3CA6F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-> > The meson-axg dtsi now disables pcie_phy by default, so enable it
-> > for the s400 board to support PCIe functionality.
-> > 
-> > Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> > ---
-> >   arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> > index 285c6ac1dd61..7ba249cc3d56 100644
-> > --- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> > +++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> > @@ -448,6 +448,10 @@ &pcieB {
-> >   	status = "okay";
-> >   };
-> >   
-> > +&pcie_phy {
-> > +	status = "okay";
-> > +};
-> > +
-> >   &pwm_ab {
-> >   	status = "okay";
-> >   	pinctrl-0 = <&pwm_a_x20_pins>;
-> 
-> Please squash this one with the previous patch
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Sysfs attributes were inadvertently moved from the backlight c=
+lass device to the platform device, breaking userspace ABI.
+--
 
-Sure, will squash with the prior patch in v3
+commit b4eaddced56809e9f87ffe143724f151f0e7013e
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-> 
-> Thanks,
-> Neil
-> 
+mfd: lm3533: Use dev_groups in struct device_driver
 
+This commit replaces manual sysfs attribute creation during probe and
+removal in favor of using dev_groups in struct device_driver. The goal
+is to let the core handle the creation and removal of these attributes
+automatically.
+
+> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
+t/lm3533_bl.c
+> index 4d6f680334802..9ef171d3aaeab 100644
+> --- a/drivers/video/backlight/lm3533_bl.c
+> +++ b/drivers/video/backlight/lm3533_bl.c
+[ ... ]
+> @@ -304,28 +309,17 @@ static int lm3533_bl_probe(struct platform_device *=
+pdev)
+> =20
+>  	platform_set_drvdata(pdev, bl);
+> =20
+> -	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
+
+[Severity: Critical]
+By removing this manual sysfs_create_group() call and moving it to the plat=
+form
+driver's dev_groups, will this change the location of the sysfs attributes?
+
+The original code registers the attributes on the backlight class device's
+kobject (&bd->dev.kobj), meaning they appear under
+/sys/class/backlight/<name>/.
+
+> -	if (ret < 0) {
+> -		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
+> -		return ret;
+> -	}
+> -
+>  	backlight_update_status(bd);
+
+[ ... ]
+
+> @@ -377,6 +370,7 @@ static struct platform_driver lm3533_bl_driver =3D {
+>  	.driver =3D {
+>  		.name	=3D "lm3533-backlight",
+>  		.pm	=3D &lm3533_bl_pm_ops,
+> +		.dev_groups =3D lm3533_bl_attribute_groups,
+
+[Severity: Critical]
+Does moving the attributes to the platform driver's dev_groups inadvertently
+register them on the platform device instead of the backlight class device?
+
+This means attributes like als_channel, als_en, and linear would now be exp=
+osed
+under /sys/bus/platform/devices/lm3533-backlight.<id>/ instead of their
+previous location.
+
+Will this break backward compatibility for userspace tools relying on the
+standard backlight path?
+
+>  	},
+>  	.probe		=3D lm3533_bl_probe,
+>  	.remove		=3D lm3533_bl_remove,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617080031.9915=
+6-1-clamor95@gmail.com?part=3D11
