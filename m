@@ -1,86 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6BA3CAE7F
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188373E4C61
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781688646; cv=none; b=Zu/2TxynmUfm0hFv9IhjuxPwNg2J/1vd+NuYb5P62roDxQv0+hv3IbHQRojnUGA3D4EkEWX0yLHhLRnr5BgEDL/PL0KLd/7QS9ltBWEnxFhP9fpTxmwup8vYO94Zfimal2+kivAG7L/xbkZRk8aSkEhpzxUCbX6/2b4gGbfKSxg=
+	t=1781689047; cv=none; b=f2o6IeQxcOWvYgra3UvcMQBAPiUrCKze80z17w+pxPJhjxbeNR+2Qj84jKv9G0VFBi/Tr5VaFz91heRhhV2tgzb8aZtvZ3ddrEpt/sqWw+kY/rBOm7R75mC4XZ4zGZPcMRK2EZgP+/RISyvm8BLfDgWgecfNIf8Q4uooTFz0qXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781688646; c=relaxed/simple;
-	bh=h7NqFiL/vZAhxbDLER2nG3vWh/Se87PBLNeoY6zZN2M=;
+	s=arc-20240116; t=1781689047; c=relaxed/simple;
+	bh=IB6dX8SYiaGhkj6r/5uY4W+ONZ0hIflMNwbNBhpmTwY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g9Ue3/Br0GRttD8JSEeplq5NCwSJEPGJxEY3RWacDE0oqCAC+dPdQeDfJLuiajmyWp0WFvJfkllgIGn5SvKYR4lzJJgyUbrCYtitIH5/FzMloerlgu5hV97iKQOVx9fV5KwQcro1rGjG3YotQk30tKv7Zl2DFrlKQkO2H/EbOws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ftQQj5X/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EFkHxAGi; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=WUMN2JmPzdYgkFHIg7AsDa4lFthm3uwYqepqbEzQQmdlnJQDHittG0ixZd95reegQUb+CQWobxigvtUEYbegKwUDxUeBy691AJqJLD1RwjvIMWRj7S/Jf7D586uojvwhnvyuHzD3yU1+hH0sujtFsx4/8D97377i5IZB5hsXP7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pZtnU48U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=adKl+VKW; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ftQQj5X/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EFkHxAGi"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UDIK1734962
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:30:44 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pZtnU48U";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="adKl+VKW"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8Vw5H2056596
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mbELSQCe+eLHzp84jgggoNFJ8/wasOftbLaK7oSIbpM=; b=ftQQj5X/9G9fSF45
-	Yq/2s+3OHwxxSyMTC1LXYst8SBO7fq8lJdpwgdpVGK2MXeaJTahnMhHQpZwmO6nT
-	qTC/RYWUxSFUiyCUgMLgaR9V1j11SZLi240Q9+bq765ifD1rCkPHh6Rp4Pbh0+hv
-	4/E6Sw1OEG9zdsNs5rdZWy+NZG3Q3BrB1Q4XoWVlRCz7BvivY12XYVL6q+m0zHOl
-	0VD4Inru3NRMX6h+8l3pUaWIuXWp1sUYZmT3lq5F8CMZwSgXW3THbB50DVP2tYK8
-	xKDTdjYNSPvVTuYZWxDGcK/L3KuWx4n/lXK/dPSm/CzFZlKNJWL8/gGtIhtSAXSq
-	vCti5Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueemjex1-1
+	j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=; b=pZtnU48UluGG0aXu
+	Zv1QYMVllQc7n7CQcjHEd0UlHltbd1l/BgFxwVnVGianLooUp9Ffta6ERwluQqeD
+	k3gI526XqyU2j/Yfuwk3Kl6T/TugGSziYFBwvS5K8Eqd7IlR8feW6Tt5CPO9HzI7
+	3UJeavRnoJAlyPoplF1nbdV1kKjOmpkvsuONQxNNee324GZkUEggImFPzZsw09jo
+	bdhDw2xKL0rkpLGWETHrZYoCbk1oWqeleh+YU8NMaX/VY38/QAi3YQTrcl0+Q5Cr
+	avH7UtgMJdVX9bI585ZQr6QbNUr80uC8/jn3I0S45BpLb+GSd5L+672qgmCgEOB0
+	oEKoJQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eueesafdm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:30:44 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9160006de85so144100385a.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:30:44 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:37:13 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c6a48fb4d5so14532535ad.0
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:37:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781688643; x=1782293443; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781689033; x=1782293833; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=mbELSQCe+eLHzp84jgggoNFJ8/wasOftbLaK7oSIbpM=;
-        b=EFkHxAGisHfi7MbLt37ZxGyInhwBSMyHzhvE6Y33E8uaSFC/po1Yf3Et22uZThBgWL
-         enpsbQzwvW/LfCx9ggHNigEbaBBZvgB2n3Z8Szwtt0T6KDXgvTSbVJL3LEgtQ9hzzAgJ
-         cGgTlIAl/6ihuhBE5Fmc86aJ5SNNb+aIjfngogLWJbLqHjG30FW3FTJ4ifI1sqhXcTD2
-         nCU2VsdkXGx87NKHcdyoJlHFmE14EsbmaPAKjq+ZMArbZ3Y27g2BpBOlpPhePquS48Qf
-         tlb1ccBNqwed3/XLWmMkxAJYldBUESPPyiJ6twAfO3qqvkD+uMXoD0TxRqN+gxaKc430
-         HeBA==
+        bh=j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=;
+        b=adKl+VKWc3TvKvbSnG3Bt2X4TSgOwHnlg+W56Z75c8fsJQuDNL/+u7FmA6oMteNQaY
+         N/xq21MJGxIS7GG1KJYLToN0dl6BPlEtu+CeDg6xY0YA6ftJhyPHiiHYLNwZ0BO+rig8
+         sM47he/Ry7Xlass5RlHFptaq6XEszbiuayYVzpNxutfD6tCyM2qS7NNfJiv0ts/h3SKx
+         f2Hhj8YtBfSYzcC5K2y11wPYsjohE086A3mrlM0MTobFDahRyRI/F+xn6HrIf2HCCsmZ
+         hLNMTNop4RNHvRR59AfagZzHCn/zflXcG3sQNjqaQ48BXEboTdt7pFjZZ/VONmrC33Kr
+         8vbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781688643; x=1782293443;
+        d=1e100.net; s=20251104; t=1781689033; x=1782293833;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mbELSQCe+eLHzp84jgggoNFJ8/wasOftbLaK7oSIbpM=;
-        b=FA3oU+CCwdDdrq9T63Br0kZD8txcYi7UbSqA6KheilG/bCIJ/FeCNT+cNn+KHlRBei
-         pV8aJhzv8ORLcXL789J+HlPtWN0DH739QBr/AAZ8GFeWK6zq9/bMdUWJnCTrkr0M/Ff7
-         XwfPF9T76Ry4eCU4DI9rOGhcOSf0ZOj45e+BK9hH95id/3H01FWRThijrHU+WlkxMwYp
-         KLWB4I5GfR4WfyA03tf9kjd/zD3HE0sL0nPtg6X7z19SDuoH6sZyxU7Mc0hX9ZNCFRPx
-         UzcETK8reIvcChv6we0Z2ysKC0SyAhEI58uxunu/1UxgGDa00x8lgsegVABnYLwnYRb1
-         cpfQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8r7HezA+6IsIiAqyxW0pDDvLC4oTHODhaF19jAuWQCusTfNFF0XP4HzYSabdqQmg7UrRC0K7v9ZdMn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkSblL4SxeeZ61ClZ17lTweUNSGAIwDD1si1rvRsAyR/rikQ7c
-	HeyteWv7kygT59+bqagItiKeG6d5dIFTVeVCqOJoe6LX7nVL9xGkB6GlRTR9GPNRqlEcaFEkK35
-	hIbpYTCoCvNOsp9KlodGQHjHti+eisG9R4XXybaPxBy7+P/J6DLn41EHAGMmNtV+i
-X-Gm-Gg: Acq92OHPnNyeurqWUXvg3DOIIrIX7GjhVDvlo8r32YUxczi1t6oXPWuOp3UGTHN1LE0
-	6Bjp9JW7HMy/ELNjMByPQgL+ffCPAma28XKOmlFuWOpKUiamU3x3XGYWVGBBPwwgLkYWBQ1LCn8
-	eNoXBylMvFj/CJMQEajU3y0n+BwazsSlGpjZ5Hkbv8G6Mtk61qXrBASaW3vR7lSABkMQ7FKtiYl
-	vfwjlx/M3+9YMVoSP0ttFM9ONu34EpTPzhPsqkYAnFd4YOtoY9Z9rTuPPPhHqLCFwNu2UppQcO4
-	13X4IQOzYtkgZD7SbHtgxPcg11ilVvhoihA/P06G2LEHNgiMjX75MPVvsdz0D0o+FaX9UuNtexh
-	RrXYTsnJX42TjXETbyzCrzm5nSNP8iUXfhVM=
-X-Received: by 2002:a05:620a:438b:b0:8f1:9e59:2208 with SMTP id af79cd13be357-91d8acdc8f3mr299014585a.4.1781688643509;
-        Wed, 17 Jun 2026 02:30:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:438b:b0:8f1:9e59:2208 with SMTP id af79cd13be357-91d8acdc8f3mr299012085a.4.1781688643022;
-        Wed, 17 Jun 2026 02:30:43 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb4b22136sm788125566b.15.2026.06.17.02.30.40
+        bh=j5wLSZZ3MeJeiXqoiAePOrkWdu1M+tiBUI6AGF+g4no=;
+        b=WisGXgqbiBjXSAuTe6WddyG4byaaKblzdg9PnO5uWlSpvidSL3ywEhI7PfTf/iZzBz
+         C8F/8gfTVrVAw7imZ/yOuHepSet8GP1xWFP6L9v1xdtc1/OiuYn2M4L5N4JkKhUEeuoz
+         pJRP/M2T28XZxLBnO2UObv/qdpepVg7MRCM8qCQUMUX8qXRpZeEvlOHdav7F2DKYkNuA
+         /u9WDrkNRIRZQ1dp08ESDl1kgtWjXTd3sk3kVSNJimb7bF6vCk8348sIFW8CFSA+S5Ng
+         QmUdKy7QdVIa8ng2P+TxHE0XP4OzXhYqeQc2htS7Ykv+XPr39DvVa0jl0MYlfaWAGnyL
+         J5tg==
+X-Forwarded-Encrypted: i=1; AFNElJ/7mrUPL3siMdah+9c2tZIbqIsYd96HV5QoD31i7YHSwqZCayEL0aFlEjOSowgc4AOi1KQHnS2BhCXi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWG/VxvDYG26+4xrD7AzSFmEzlLEnkLdD83+1VlHbLKCGsv3h7
+	Y7UWus1akDbDa8NqXrswvqNBDGugZerLvw12Fp1knsBsYHhT0MHWyF5FNCT7+MSwdukeZZrzRTq
+	bA+WXHPITCu+pCeOnz1AF94rKc8AiWggpcRxJI1ERJ328o/6SShzGfE2AeSlEA0qi
+X-Gm-Gg: AfdE7clnOnRBpcMmNkPu6d5Vc5oMHtXmeqg+b7iRtKSPEYSohNKOZzBTE68QzQQBri6
+	9bZoEeWu83UHDf+iBdbrErQZKSGw/KXysc/kqEmoX5rCdRcyon84wL/KyeWEcRMM39NV5aFtgqQ
+	h7XHk1M4Ms6SEw6RtoAv1umJf2Vvo6aKLSbUPKu0aG8unlJsSucfhMUADnZbxR0etQVb6Pe3Vnw
+	Y992v83KUhQOZA2VpBCsGNmch4Gxz75ejP76ibXJrVtLB13cL6A6Wn72GFiRgzox6x3PUt2h8aZ
+	MkK62ExAfvF5Eze0Sw6F5xIPcjTOgUDPW/wgwoYz7UZwED/I0TF5Vt6OcNGIpq6YZKUryT9LHtN
+	XMI30s0Yyu5+SsUvg1j2j0tPjxCFtBmrnsfWOc+HqbG4rhL/iUnXdg/eVoxvdwgG3jR7KylO5hS
+	dHlm6f2w==
+X-Received: by 2002:a17:903:2b03:b0:2c6:afa8:c181 with SMTP id d9443c01a7336-2c6bc0b11a9mr31050225ad.1.1781689032561;
+        Wed, 17 Jun 2026 02:37:12 -0700 (PDT)
+X-Received: by 2002:a17:903:2b03:b0:2c6:afa8:c181 with SMTP id d9443c01a7336-2c6bc0b11a9mr31049875ad.1.1781689031977;
+        Wed, 17 Jun 2026 02:37:11 -0700 (PDT)
+Received: from [10.133.33.123] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac7fbsm168941325ad.42.2026.06.17.02.37.07
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 02:30:42 -0700 (PDT)
-Message-ID: <29806448-0588-4590-8540-a689ccf1e7b0@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 11:30:39 +0200
+        Wed, 17 Jun 2026 02:37:11 -0700 (PDT)
+Message-ID: <b8adacd3-a8ab-4f54-b169-bf6b919e6fa9@oss.qualcomm.com>
+Date: Wed, 17 Jun 2026 17:37:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,103 +89,177 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] input: misc: Add Qualcomm SPMI PMIC haptics driver
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Subject: Re: [PATCH v6 5/6] remoteproc: qcom: pas: Add late attach support for
+ subsystems
+To: Stephan Gerhold <stephan.gerhold@linaro.org>,
+        "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
         Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
- <20260616-qcom-spmi-haptics-v1-3-d24e422de6b4@oss.qualcomm.com>
- <eb693705-c0c3-427b-a924-5aa907fd65bb@oss.qualcomm.com>
- <1bcf00ae-2558-4c3a-970d-aee1da0c06f9@oss.qualcomm.com>
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, shengchao.guo@oss.qualcomm.com,
+        tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+        yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+References: <20260519-knp-soccp-v6-0-cf5d0e194b5f@oss.qualcomm.com>
+ <20260519-knp-soccp-v6-5-cf5d0e194b5f@oss.qualcomm.com>
+ <ahBG6jKYdSAboWjs@linaro.org>
+ <6df4c351-7287-4fb9-8af8-83b5deabfa07@oss.qualcomm.com>
+ <aip7feoTn0ncwzL7@linaro.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <1bcf00ae-2558-4c3a-970d-aee1da0c06f9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfX9YidYdmTCeSU
- f7RxLK5WQ6ZbVh+wYXgRi9z69Slvt/EbGUagwO9vqEuDMkH0iWJWnu2sntUpshvpLrIi1L0tSkT
- c/zN4UGfOv95yKENiigSUPt0soTaXD8=
-X-Authority-Analysis: v=2.4 cv=D4d37PRj c=1 sm=1 tr=0 ts=6a326944 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+In-Reply-To: <aip7feoTn0ncwzL7@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfX4esapRBkQGIz
+ 51k7VIkInjLaD5ey4UP0aWoZjMnu+pctW5x8S6gqc4K/hqKXMxjyvz6uXH3JKjNybDjACCTLfYw
+ +XytOSppa9GCDoJMPnos/gitCS8UD6c=
+X-Proofpoint-ORIG-GUID: XxrzGONk5x967QnplIym01i_07u_oKSA
+X-Authority-Analysis: v=2.4 cv=R6oz39RX c=1 sm=1 tr=0 ts=6a326ac9 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=IsPFB7xf8fGKp3IZfZcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: Bx4S8GcpyZ3cWBtqXXmC3K3-K2FHqDnm
-X-Proofpoint-ORIG-GUID: Bx4S8GcpyZ3cWBtqXXmC3K3-K2FHqDnm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfXyKJrUwmSFIew
- M5Pgkqiw7d6AUe9KdJqi/reSkB57Jx4peRDrvJRGHOTN/AweTzLCAWRDhwyg9N9QWzInuuevxRE
- 1NyBQhiYxSLYhrMsvhZdW1q9v47YNrbzhnnRT2exJfvalh6RmPv5jicGX9P/ftTlB5h+IuRroUo
- nCufcx0cmlQp8wk9lJumm0ngqKckXEjvB6PRpzEpodex5zskCp113F2bUlcFYV6tdo5lHtjciQM
- 73NU7xn92rXtfUZcFQPG82Rysw9SQ0q1Q+q87KsDYDWMgvF0hgiCNWUKNrdxUH00YlC4XRUQzvo
- JNAtMiwAjdCt0P586+dRdkCWZYhGN+E6VKv5czC06/VCiWjiXtB1bGXlUK0ziA/kV1ZHtUQlkN4
- LWf7yKK+JIqFtKYWvvZfMmym9Bp/YD63pRcu8ER+vsWTqgxqo4BXpEckij9b13AfD6yhG+7AwkA
- KvFRCfRcO4qGh0OmVVQ==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bdzlAc8VpKKGP06_0pAA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: XxrzGONk5x967QnplIym01i_07u_oKSA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDA4OSBTYWx0ZWRfX1kE3JrtmttU3
+ P9+7KKDH8c3+eTSeDmtCIeame9og+l0ms0hjYfyoNGkcnq5uGubgNY8yrPU2O3oS3OlS6UmEPmR
+ yTEwvLfkP9zCrMyhi1XkthcI/rvprOGAyLi2Uqc2USKEik0PzgXxZJakmu8oAVhhATWY3qerGOW
+ ibwlCa+k9UwTd+8q2zAra+E/NUh9hW2RtpaD9z5HmOqxTu8sp5Sf73Qev1Oz4i1Fi3Fhp27dNoB
+ obDLBFTavxPXeZMbXtLS6oC1tOEUg/C1wUB/gsm6cTII54rWgXFwDx9XsZf1Sw8sSa2WLnA08up
+ 2FuSLZs2HV317ZvnB1GK+VFxQNV4+amKliL2a9xPyiAEgK+jnzYQuVEYq+WWhohzBDAkZdcjwxm
+ jxkuWvSjkwhCJ555MXyIakaskxjbFvhDNb/pqB4/m1mM7d3KIrNcz2h+vxlWq0ro2gmF+A9vKqG
+ pAE7y8brzp8a5WLJTFg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 spamscore=0 adultscore=0 clxscore=1015
- impostorscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2606170089
 
-On 6/17/26 4:31 AM, Fenglin Wu wrote:
->>> +        ret = ptn_bulk_write(h, HAP_PTN_FIFO_DIN_0_REG, &data[i], 4);
->>> +        if (ret)
->>> +            return ret;
->>> +    }
->>> +
->>> +    for (; i < len; i++) {
->>> +        ret = ptn_write(h, HAP_PTN_FIFO_DIN_1B_REG, (u8)data[i]);
->>> +        if (ret)
->>> +            return ret;
->>> +    }
->> So if i'm reading this right, the first loop will always write
->> 4*(len//4) bytes and the second one will be entered at most once,
->> to write len rem 4 bytes.. should this be an if instead?
+
+
+On 6/11/2026 5:10 PM, Stephan Gerhold wrote:
+> On Thu, Jun 11, 2026 at 11:10:25AM +0800, Aiqun(Maria) Yu wrote:
+>> On 5/22/2026 8:07 PM, Stephan Gerhold wrote:
+>>> On Tue, May 19, 2026 at 12:24:23AM -0700, Jingyi Wang wrote:
+>>>> Subsystems can be brought out of reset by entities such as bootloaders.
+>>>> As the irq enablement could be later than subsystem bring up, the state
+>>>> of subsystem should be checked by reading SMP2P bits.
+>>>>
+>>>> A new qcom_pas_attach() function is introduced. if a crash state is
+>>>> detected for the subsystem, rproc_report_crash() is called. If the ready
+>>>> state is detected, it will be marked as "attached", otherwise it could
+>>>> be the early boot feature is not supported by other entities. In this
+>>>> case, the state will be marked as RPROC_OFFLINE so that the PAS driver
+>>>> can load the firmware and start the remoteproc.
+>>>>
+>>>> Co-developed-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>>>> Signed-off-by: Gokul Krishna Krishnakumar <gokul.krishnakumar@oss.qualcomm.com>
+>>>> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+>>>
+>>> Unfortunately, removing the ping-pong functionality that was present in
+>>> previous patch versions makes the whole mechanism a lot more fragile.
+>>> I'm not entirely sure if this has changed in SMP2P v2 or more recent
+>>> firmware versions, but in my experience the SMP2P "ready" bit does not
+>>> tell you if the remoteproc is actually running. The problem is that the
+>>> "ready" bit is asserted by the remoteproc when the firmware is ready,
+>>> but it is not cleared when you shutdown or forcibly stop the remoteproc.
+>>>
+>>> If this is still the case, you can easily reproduce that with the
+>>> following test:
+>>>
+>>>   1. Start the system as usual and let it attach the remoteproc
+>>>   2. Manually stop the remoteproc in sysfs (echo stop > state)
+>>>   3. modprobe -r qcom_q6v5_pas
+>>>   4. modprobe qcom_q6v5_pas
+>>>   5. If the "ready" bit is still set, the driver will try attaching the
+>>>      remoteproc, but it's actually not running. No recovery will happen.
+>>>
+>>> In this situation, it is very difficult to detect the correct remoteproc
+>>> state without relying on an additional query mechanism like the
+>>> ping-pong feature.
+>>
+>> This a valid use case and concern. We had a discussion with Bjorn, and
+>> want to take this scenario into consideration of the separate robustness
+>> improvement series[1].
+>> Stephan could you agree to have the basic function in this series can be
+>> go in firstly.
+>>
+>> [1]
+>> https://lore.kernel.org/all/20260519-rproc-attach-issue-v2-0-caa1eaf75081@oss.qualcomm.com/
+>>
+>>>
+>>> You can make it a bit more reliable if you also check the status of the
+>>> "stop-ack" bit. This would tell you if the remoteproc was cleanly
+>>> stopped with the SMP2P "stop" mechanism. However, that will typically
+>>> still not fix the case above since nowadays remoteprocs are typically
+>>> stopped via the QMI qcom_sysmon and the "stop-ack" is not set in that
+>>> case. I believe this might set the separate "shutdown-ack" bit though
+>>> that is described for some SoCs, I never finished testing that.
+>>>
+>>> And even if you check both "stop-ack" and "shutdown-ack", that doesn't
+>>> tell you if the remoteproc was forcibly killed using
+>>> qcom_scm_pas_shutdown() without gracefully stopping it first. The ideal
+>>> solution would be querying the PAS API to tell us if the remoteproc is
+>>> actively running, but the last time I checked I was unfortunately not
+>>> able to find a documented call that would tell us that.
+>>
+>> It is a state currently kernel don't know whether the remoteproc is
+>> offline or crashed when ready==1 && error==0 && ping-pong==0 scenario.
+>> If it is re-modprob, the software don't have any data and only the
+>> firmware can tell us whether if it is active or not per my understanding.
+>>
+>> Maybe let's have this scenario and solution discussion in the other
+>> series I mentioned before.
+>>
 > 
-> I should put a comment for clarification. Here’s some background: FIFO data writing supports both 4-byte bulk writes using registers [HAP_PTN_FIFO_DIN_0_REG ... HAP_PTN_FIFO_DIN_3_REG], and 1-byte writes using the HAP_PTN_FIFO_DIN_1B_REG register. The 4-byte bulk write is more efficient, especially for waveform which has several Kb data, and it helps to reduce software latency when loading effects and reduce the delay in triggering vibration. It also helps prevent the FIFO from running dry during data refill in FIFO-empty interrupts. Typically, we use 4-byte writes for the initial 4-byte aligned data, and 1-byte writes for any trailing remainder.
+> If you add a new feature upstream, you must make sure that it is
+> reasonably robust and reliable. The other series is about generic
+> limitations in the remoteproc subsystem, so I don't think you should
+> move QC-specific parts over there as well (personally, I would have
+> probably kept all of it in one series to make it easier to understand,
+> but that's subjective).
 > 
-> So it still needs a 'for' loop here since the remainder could be more than 1 byte.
-
-Right, I mentioned len rem 4 but failed to notice it's a
-single-byte write.. anyway, a comment here would be good
-
+> With the current firmware design, it's hard - probably impossible - to
+> make the status detection perfectably reliable. I would therefore choose
+> some reasonable compromise to start with. Given that Shawn (and actually
+> me as well) would like to have attach working without firmware support
+> for the ping-pong functionality, I think it would be reasonable to start
+> with the basic detection scheme discussed above, i.e.
 > 
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +/*
->>> + * Configure the hardware FIFO memory boundary.
->>> + * FIFO occupies addresses [0, fifo_len).
->>> + */
->>> +static int haptics_configure_fifo_mmap(struct qcom_haptics *h)
->>> +{
->>> +    u32 fifo_len, fifo_units;
->>> +
->>> +    /* Config all memory space for FIFO usage for now */
->> What's the not-"for now" endgame for this?
+>    ready==1 && handover==1 && fatal==0 && stop-ack==0 && shutdown-ack==0
 > 
-> The hardware supports more modes than the two currently supported in the driver. One of these, called 'PAT_MEM' mode, also shares memory space with FIFO mode. However, 'PAT_MEM' requires memory to be pre-reserved and waveform data to be pre-loaded. The entire 8K bytes of memory can be divided into partitions, and it is configurable, with FIFO mode always using the first partition [0, fifo_len], where 'fifo_len' is set via the 'MMAP_FIFO_REG' register. 'PAT_MEM' mode plays waveform using data preloaded in a memory bank defined by the registers 'PATX_MEM_START_ADDR_REG' and 'PATTERN_SPMI_PATX_LEN_REG' (they are not defined in the driver). Since PAT_MEM is mainly intended for hardware-triggered vibrations, such as a signal from a dedicated GPIO triggering a short vibration with a preloaded waveform, and although it also supports software triggers, I haven't found a suitable way to support it well into the driver under input FF framework yet. So, I am currently allocating the
-> entire 8K FIFO memory for FIFO mode only. We can adjust this later if we find a better way to incorporate 'PAT_MEM' mode into the driver.
 
-Sounds like a plan.
+Hi Stephan,
 
-For the other mode, would that GPIO trigger need any OS intervention?
-Could you speak a bit more about how that works?
+We did local test, checking stop-ack==0 && shutdown-ack==0 should be able to
+cover graceful shutdown cases.
 
-Konrad
+Would it be redundant to additionally check the handover state here? In our
+observations, the ready and handover bits are usually set together. Meanwhile,
+handover irq is not a necessary condition for pas start.
+
+Thanks,
+Jingyi
+
+
+> The ping-pong functionality could be added later for platforms that
+> support it. It would be good to have the interrupts already defined in
+> the device tree, so you can tweak the driver without making DT changes
+> later.
+> 
+> Thanks,
+> Stephan
+
