@@ -1,183 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638063B4EB3
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347792FB965
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781679029; cv=none; b=V5Ba4JRwMFb3lBO66+LEN/dBGrvybi+evUmBC330amkPDQLkNEhLBElmp7fKRgYkVFNRpMuIAYPky/MMqa5YpxcNRNd/w5liPbyS0/RW7anflKcbdxCu01s3lTylkIbG2qye/2lmdBySLZ0GsuX1xkp5meuvKQKK+yChWn4RLAo=
+	t=1781679049; cv=none; b=LIu4RQAc5x7awAIa7f2wBEHDRRYPeeqN/iAqhSa1TiRypimeB8IBEQBvcroXvUoT6fJU7QaH58yjDjtRAdYsYYe92zinq9RvWdbfNOdKDvg1w9x8pcE8KZUV/eFmN/sJQVkOu9l7Y0tvFun5mg78INJFEDRXMIeD9HBKZZzd9VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781679029; c=relaxed/simple;
-	bh=yw2TGX5++AOIcAUFyF/oJHclSL6HDoiQOf1Bou0S1zU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ESfnPm3EfBkmqm/V6JqeFej6tlZxOHtZvI7wB1lQ9hmOfTxbEfYzPdsZV1u1azoJZp1IfKiFstpau2GL7uFQN11tmdO/TtoGSmI8AmeBH60CZ+zJzrO2btz6OWVHscXC0lmlK4i8303fO/DgJm0mBdbOFekvVsDMdN2+wvZqY1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNmYIla6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781679049; c=relaxed/simple;
+	bh=C7YFZCCu1dOeCsLg6DoF+9ZVtNHvPRq+h+Zo6dLBmB0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DuNjliq3HxMeytqYFNSxprO49CLFXscHSgPwTSFG1OC9WbXuTKQUFJGbYbuzMqxgtKPf+e29kVkyh/Qizq7bE7NwS4tjvn0Y9J60iyj7yUJ5jdEsFRbZ1cgOSFiNjSkH1Awl3AMqWDzarJKb/8SRDRGgchkM/9qL8AaLrSjWTXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WCqJCXi9; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNmYIla6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830301F000E9;
-	Wed, 17 Jun 2026 06:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781679026;
-	bh=Fd94YkPRK8Xtobx3WL6aPBBHPkhVkW6bgzWE7xSI8M4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RNmYIla6MhKbPBTUYo1maSMJrFonXmFr3ksA4zJm0PSZHpA5R8hNqFiTG28RpNRBK
-	 2TahjaHrXE9id1R1v8LU/fZkn1CfgmQ/+5UbzNiJM9VGZLuyIOTVlqnO36NSqjsW04
-	 yVxiODYYVgl2FMjLNvi+aY5tzby6MLnXNB6Xg3i0upyx75ZOEhJuCmgomATdqCEFrU
-	 rHIbf+5ihyH5KC4AZjo94oZ+rx7cFYMCc2svWF3Ss//SsdBQsjuc+zAuzvRx7BjsHW
-	 ylXCrtdirVPZeUkU2elN69Hz1uvD6nxE38vzAJxk+xXI8StKhHZ00AFyrFICh484uo
-	 W3w1Pi7xIZk7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 resend 2/5] reset: cix: add audss support to sky1
- reset driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260617064100.1504617-3-joakim.zhang@cixtech.com>
-References: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
- <20260617064100.1504617-3-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 06:50:26 +0000
-Message-Id: <20260617065026.830301F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WCqJCXi9"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b4a8e28bso40238215e9.1
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 23:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781679047; x=1782283847; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Trq1GUdrJefwFDKO73LEpHAox6MBJ2GUwy+Cih5DopY=;
+        b=WCqJCXi9yibRSJ5D2QIBg96wVMVBsltG7hqEhWSiMMjpnepNe7JZcNqou8TvpStsC5
+         0O2VRVRDsZr8u6wYnVE9CMPpGHdot2XRhpzV5dySGs2ikkqUNBVPnz3FHJ7bZ1+V+TEP
+         aihcJCNbrHAZozcBZVodaoqGw+qhMxEUK8KO5H5WWYnmMpFxSCOLQKtK/fGUyB/z8sxB
+         ijoPo6PGn3OTd36WIVXzLOKNiutmb6rQoKwKI6s7cRcJ/20qJnOCoCpTeuT7D0VkSDkp
+         2SON5gb7viS29bcJumAjOzlr6/idKj4TDUPRF4JNb8d4dR/xoIkC+K73wDSZqiZ4ZhXu
+         aoVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781679047; x=1782283847;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Trq1GUdrJefwFDKO73LEpHAox6MBJ2GUwy+Cih5DopY=;
+        b=pBG27QckBPkYYdFma2YRfXPTU4IymW5ipglVnWa3un/ffCOnX7OHYlSf7YKtyO4erJ
+         3MVh/JV7GXSAQCPNDSlOy3ep17GPPR0akox85Ch9Tt+ita/Sj8ZmSAgUwZKjgQ9AWXIS
+         84bj0AJmISuZUqt2FzS87Qlr/wHp9OGWpJHLWo1nGAgiC1+/mAB4SFHN0vh7i1iVmqz1
+         EyVqH4Crb/yOodKQQepnuX6Bv0UJXosSCx/goLouzGJsiAKGftiJM22f9itKz8/0cerc
+         JOFrN6QJn/kbgjmtre5zJ/C7ziWbkWsLq4z55lmJjyxS6nmoMdNP5JnfurMhkeVRZBzA
+         Augw==
+X-Forwarded-Encrypted: i=1; AFNElJ9BLqkCbrgxrR6yz35GlcTTS+ZmtcFCW2/9DaOoEnNvBIjTabAm4DUZnxVpaknS6/C5LPvHUbfBLMvQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCXEesqX0LwFP/CadxfO5PEABSwDIkMXKt1de1aK80lbxRUomN
+	R/d9oQCf37BjwlQ5rZxTbaTpFKz6vQsb54GIX1VdLabv+RKdk/kCBzBY
+X-Gm-Gg: Acq92OHIGxiFo4Y6iDroHLBEfVFixtgOxQDP0Hx+lXD2RVNg5fZWiNe6gDQWPJ/CbiX
+	LBo1+pihzPtMnLM4XYs3Bk9Mg/IBZtRT1Ki3uK5gzB742YJ6lsnrwBfG3xVKXEfZSk1W64unZb8
+	N8WwX59MOUWrU9GcGPiOas+Zohz84BV/q/eWsTq3hsX6NUvGvElaTgg+jejvrk/F0kxdc62mjd7
+	B94NSLQScsrC8vH1MSEToDnH26OtjrjfSHC5QWi1C9TzsZew/oYPXXIBV9C7J3G1qmbmGwmeRRh
+	4dyDjec7uhCfUeYjQOt1IQ7EHP2OQCmfVCpzY5VNg/jUlVH/is9bmAoKqBUcGrarRyhRrHqL6qu
+	I9Befe8Z9LIV9uaUcwZaZXcweN1YoEVHJJyIMwltg11Se0SfrtTcZtWM/xAhSnzQLtU7Cli61jf
+	jiHza2Fl40p4dv2cdlVgHrIpgRLartE4XHlC/eJiK3mK9GTo3t8BMBQhRig+f627MvADQkvdj0i
+	u0f67rImZ+jrkM=
+X-Received: by 2002:a05:600c:a111:b0:490:e5c1:b89d with SMTP id 5b1f17b1804b1-492333ffd28mr36380385e9.0.1781679046294;
+        Tue, 16 Jun 2026 23:50:46 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f13a:1701:b918:4041:7c7d:eb1d? ([2001:9e8:f13a:1701:b918:4041:7c7d:eb1d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49233bf0881sm41430175e9.2.2026.06.16.23.50.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 16 Jun 2026 23:50:45 -0700 (PDT)
+Message-ID: <36668b89-77ef-406f-9edc-ed57a025754b@gmail.com>
+Date: Wed, 17 Jun 2026 08:50:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: pse-pd: add bindings
+ for Realtek/Broadcom PSE MCU
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
+ =?UTF-8?Q?Bj=C3=B8rn_Mork?= <bjorn@mork.no>
+References: <20260612132944.460646-1-jelonek.jonas@gmail.com>
+ <20260612132944.460646-2-jelonek.jonas@gmail.com>
+ <20260615212959.GA1679454-robh@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260615212959.GA1679454-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] The reset controller operations access hardware registers via =
-regmap without ensuring the reset controller device is active, leading to p=
-otential system crashes.
-- [High] The reset controller is registered before its underlying hardware =
-(NOC reset) is fully initialized and deasserted, creating a race condition =
-that can cause a bus hang.
-- [High] The return value of `reset_control_deassert()` is unchecked, which=
- can lead to silent hardware failures and subsequent bus hangs.
-- [Medium] Using asynchronous `pm_runtime_put()` on the probe error path ra=
-ces with `pm_runtime_disable()`, leaving the hardware active and the reset =
-improperly deasserted.
-- [Low] The `dev_pm_ops` structure is assigned unconditionally without the =
-`pm_ptr()` wrapper, generating dead code when PM support is disabled.
---
+Hi Rob,
 
-commit 44fbafef81df1536ade6d0fdca4767f4c7fc1234
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: reset: cix: add audss support to sky1 reset driver
+On 15.06.26 23:29, Rob Herring wrote:
+> On Fri, Jun 12, 2026 at 01:29:41PM +0000, Jonas Jelonek wrote:
+>> [...]
+>>
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - realtek,pse-mcu-rtk
+> The "rtk" feels redundant.
 
-This commit extends the Sky1 reset controller driver for the AUDSS CRU sysc=
-on.
-It adds support for sixteen active-low software reset bits for audio subsys=
-tem
-peripherals, reusing the existing regmap-based reset operations.
+In the full Realtek case yes. Do you have a suggestion to improve
+that?
 
-> diff --git a/drivers/reset/reset-sky1.c b/drivers/reset/reset-sky1.c
-> --- a/drivers/reset/reset-sky1.c
-> +++ b/drivers/reset/reset-sky1.c
-[ ... ]
-> @@ -343,21 +379,65 @@ static int sky1_reset_probe(struct platform_device =
-*pdev)
->  	sky1src->rcdev.of_node   =3D dev->of_node;
->  	sky1src->rcdev.dev       =3D dev;
-> =20
-> -	return devm_reset_controller_register(dev, &sky1src->rcdev);
-> +	ret =3D devm_reset_controller_register(dev, &sky1src->rcdev);
+>> +      - realtek,pse-mcu-bcm
+> "brcm" is the standard vendor prefix, so use that instead of "bcm". 
+> Though who defined the protocol in this case? Realtek or Broadcom? In 
+> the latter case, I'd argue that "brcm" should be the vendor prefix.
 
-[Severity: High]
-Is it safe to register the reset controller globally before the AUDSS NoC
-reset is deasserted?=20
+I'll switch to brcm.
+As Daniel already mentioned, Realtek defines the firmware and thus
+the protocol, in both cases.
 
-If a consumer driver attempting to probe or wake up concurrently tries to
-assert or deassert a reset line, could the regmap MMIO access stall the bus
-and trigger a synchronous external abort because the AUDSS NoC is still held
-in reset?
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  power-supply:
+>> +    description: Regulator supplying the PoE power rail.
+>> +
+>> +  enable-gpios:
+>> +    maxItems: 1
+>> +
+>> +  realtek,i2c-protocol:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    enum: [ i2c, smbus ]
+>> +    description: |
+>> +      Wire framing the MCU firmware expects on the I2C bus. "smbus" means
+>> +      reads carry a leading command byte (0x00) and a repeated start; "i2c"
+>> +      means bare 12-byte writes and reads with no command prefix. Only
+>> +      applies to the Realtek I2C attachment.
+> I tend to think this should be distinguished by the compatible string. 
+> That would simplify the schema given it only applies to one of the 
+> compatible strings.
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	platform_set_drvdata(pdev, sky1src);
-> +
-> +	if (of_device_is_compatible(dev->of_node, "cix,sky1-audss-system-contro=
-l")) {
-> +		sky1src->rst_noc =3D devm_reset_control_get_exclusive(dev, NULL);
-> +		if (IS_ERR(sky1src->rst_noc))
-> +			return dev_err_probe(dev, PTR_ERR(sky1src->rst_noc),
-> +					     "failed to get audss noc reset");
-> +
-> +		pm_runtime_get_noresume(dev);
-> +		pm_runtime_set_active(dev);
-> +		devm_pm_runtime_enable(dev);
-> +
-> +		reset_control_deassert(sky1src->rst_noc);
+In theory this could also apply to the Broadcom dialect, however I didn't
+have a device with that variant on my desk.
 
-[Severity: High]
-Can reset_control_deassert() fail and return an error code?=20
+If you would go with separate compatibles, do you thought about
+something like "realtek,pse-mcu-rtk-i2c" and
+"realtek,pse-mcu-rtk-smbus" (given we stick with rtk) ?
 
-If it fails and leaves the NoC in reset, will devm_of_platform_populate()
-attempting to probe children over a blocked NoC cause a bus stall or
-system crash? Should the return value be checked and propagated here?
+> Rob
 
-> +
-> +		ret =3D devm_of_platform_populate(dev);
-> +		pm_runtime_put(dev);
-
-[Severity: Medium]
-Does using asynchronous pm_runtime_put() on the error path risk a race with
-pm_runtime_disable() which is called during devres cleanup?=20
-
-If devm_of_platform_populate() fails, the probe function returns an error a=
-nd
-devres will immediately disable PM runtime. This could cancel the pending
-async suspend work, meaning sky1_reset_runtime_suspend() might be skipped,
-leaking rst_noc in a deasserted state.=20
-
-Would using pm_runtime_put_sync() ensure the hardware is properly suspended
-before cleanup continues?
-
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static const struct dev_pm_ops sky1_reset_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(sky1_reset_runtime_suspend, sky1_reset_runtime_resum=
-e, NULL)
-> +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resu=
-me)
-> +};
-
-[Severity: Critical]
-Now that PM runtime support is added and the AUDSS variant's NoC reset can =
-be
-asserted during runtime suspend, do the existing reset controller operations
-(sky1_reset_assert, sky1_reset_deassert, and sky1_reset_status) need to call
-pm_runtime_resume_and_get() before performing regmap accesses?
-
-If a consumer driver toggles a reset line while this controller is runtime
-suspended, will the raw MMIO write to a block held in NOC reset cause a
-synchronous external abort?
-
-> +
->  static struct platform_driver sky1_reset_driver =3D {
->  	.probe	=3D sky1_reset_probe,
->  	.driver =3D {
->  		.name		=3D "cix,sky1-rst",
->  		.of_match_table =3D sky1_sysreg_of_match,
-> +		.pm		=3D &sky1_reset_pm_ops,
-
-[Severity: Low]
-If CONFIG_PM is disabled, will this unconditional assignment cause
-sky1_reset_pm_ops and its callbacks to be compiled but unreachable,
-generating dead code?=20
-
-Should this assignment be wrapped with pm_ptr() to align with standard
-Power Management subsystem guidelines?
-
->  	},
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617064100.1504=
-617-1-joakim.zhang@cixtech.com?part=3D2
+Best regards,
+Jonas
