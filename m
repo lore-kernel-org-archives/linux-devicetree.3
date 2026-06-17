@@ -1,201 +1,147 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43ECD285C91;
-	Wed, 17 Jun 2026 03:00:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843DF2E739F
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781665246; cv=none; b=DpAiBt6icuaq7LCnFjPBX1TdtpwV0nTPopQFADSNGF16zN4g+IvXRjCAOlMvgMvwlObLqecxocRkVcNjg1BVcl9ZmZ8rr+hpEywALnN/uoBj3a1wPXzcbLf3xULqQMoovKGN2QE00fglxiIL8QfWtMzjkEw9J4h1jLiP3lWUWjg=
+	t=1781665750; cv=none; b=i23hn+Qey+nGUiWl7RcFE+laYUgnvmqvVelRblGh0/4LflV+SykdnlmEBxPmgCDxuI8Xel/ujSPjc+tluheoWQVBL6RvlHvQU83fvqRohy4i/7dQ7LwxeM8afa+5iBHbUqhQ06KDwCYdjNDXlzx/LOD/INkOtGwRgJFYET7aqAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781665246; c=relaxed/simple;
-	bh=8+nNaMT70LBIvYV6vy5PdtziyM8pSCgZjkG2/yHbGKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IkQvU75eTRggevAvUdLJXXRHNxxj9DPOQB+niaH9HCxeJWgKgPy4gNrNEByWDl7PalAvajQdYBJTjL5HaAjyxbr41dcHBvPaHAACtzIxmpPY6Xp2Y+SCa4wSO9ZLZupl0eUgtwFmvjo3gh0oRTSmzt/ayK2T+FVePu8smu0ZbR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=klJcQpJN; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nmQbOUcB; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1781665750; c=relaxed/simple;
+	bh=JAD8vh19oFIVK0ryhsPUAYGd5203o6gGYOwQSDFXVLo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=L8yVofPhrn5wzSO64RCvThxmStOwSViKMyF9SPNunAq5J+TvsS7Ik2nsW4RqUX4PvqX3YfuqGkaaeXIhf4gtCXxrxi4hHKBvhD9IDfKhCE7Iyivl9uNRQpsr/FmOO6G446ypP0fwB7ZjzD9Y+SE6K2jRj6+lzygvaT+oEmTqQv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oY3jSRjn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="klJcQpJN";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nmQbOUcB"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gg7s62ZFQz9ts2;
-	Wed, 17 Jun 2026 05:00:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781665242;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A49POi8nN3oUd1qpWc6mG922Z/E7Nqb7ymDT6hWk3jg=;
-	b=klJcQpJNfBMEGKfRMFkwxDnRI1n6yL/PIoupEcDNODaGG6GDVdirECl/mxnrnRsJRGTT1k
-	4dhyNNiC3N6BjzV+qd/Iw3wvICnjdYufGX54fXxMYSu2DS7/QC4treo4wBbSAFTvQB7YGl
-	OWuBNk44Sklz+G9A+O04bzGTLYGAfjGQF2bTg6MRujBIq32mBL++6oAly9nkyYuRihLNkb
-	K3Bpm32jFwgO+zLgjf+ny69V9ab33f7LymcHDauZ8bTXSqV3Dt/JfEzhVjeVOG3WQJfLqw
-	phiskJDD/rfuExY2abQsFUVd5yJecBypgx5WJX6eRfLZOBcDGjUjtOC67rNhDA==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1781665239;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A49POi8nN3oUd1qpWc6mG922Z/E7Nqb7ymDT6hWk3jg=;
-	b=nmQbOUcBEjjTcO4Iqp0im9tT48Uwjt9F3IyhprPrpajvKPrzepGsd2XdmGi3E1PSuCgivi
-	djleLbd7uro7a75NwLX22YsTFUgZMdzZRmXa5sG5rzOxoEc6+yVwR5i4aUorLU6zqGyWq6
-	rIBnylIN9+6v4DOqQeRIgQr6DBjgAyf2UWog09pt7/l1VYQ8fZAlm7UaHnSgNCkH+G7gU6
-	ZErPgCE1ZafoSg5e6Lnvxp9hmKqdZnpCrtWh1PMX/XddON404fT0gi4f5DYaTgrJh6l0W8
-	2en+FIR3BrncLSOzgX3NZc7Gjl3olwq6yuUq7hN5d4CGfw2liNnTmW0sO7g87A==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: renesas: r8a779g0: Add GICv3 ITS and update PCIe nodes
-Date: Wed, 17 Jun 2026 04:59:46 +0200
-Message-ID: <20260617030008.154449-3-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
-References: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oY3jSRjn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68541F000E9;
+	Wed, 17 Jun 2026 03:09:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781665749;
+	bh=ZhZ5uSD3aNcSmm/CdO2KI2x9ez4wBX7Ff38ACkgqM7U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oY3jSRjnm9jU3UTRM5enhu736B07AYC06HQNRIc/FbVdFs8yPnsjRKQd225XPijDw
+	 rMXSwZzEhgvt5INLMLw/Y1c/lGTM9Wuxxi2V7G5+jxEwdM0b3Gefetn1UTpz8rubxY
+	 QejKFPH63s2K03xaGS/DTMsae2s67efMwQDo8MQpyDYTbKKOrLPwkwz4gQ139tnBGH
+	 NtH6YwwasUguWKfaWZIW9e1JNngFNwt8lctrNmTxZMe97ORfL80QIp2UxPFQGPlDNX
+	 nD9Od5otV991aVhiDQTz4QVBQrLTJKYrBN+Dzz2Po4essMTuX1eh7VZIaOXhLOY98Z
+	 UmxjjCaOj3iEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260617025925.2539334-3-cwweng.linux@gmail.com>
+References: <20260617025925.2539334-1-cwweng.linux@gmail.com>
+ <20260617025925.2539334-3-cwweng.linux@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 03:09:08 +0000
+Message-Id: <20260617030908.D68541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: ewq34yboiabci7oz8hnd9ue97xgjut7k
-X-MBO-RS-ID: 57a2861579fa265c5dc
 
-This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
-SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
-and add msi-map into PCIe controller node.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The driver unconditionally clobbers PWM waveform generator and c=
+ontrol registers in probe(), breaking seamless handover for active PWM chan=
+nels.
+--
 
-The GIC ITS does have master interface to issue transactions to RAM.
-The interface does support cacheable transactions, however, it does
-not support shareable attribute, because the AXI port signals are tied
-to inactive in this implementation. Therefore, add "dma-noncoherent"
-DT property into the GIC ITS subnode.
+commit 1c5d12cc5f94bf9ab4e36bc34c306ce883661f7e
+Author: Chi-Wen Weng <cwweng@nuvoton.com>
 
-The GIC redistributor does not have cacheable/shareable, therefore
-add "dma-noncoherent" DT property into the GIC node.
+pwm: Add Nuvoton MA35D1 PWM controller support
 
-Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-NOTE: This would not be possible without prior work from Shimoda-san
-      https://lore.kernel.org/all/20240214052144.1966569-1-yoshihiro.shimoda.uh@renesas.com/
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 31 ++++++++++++++++-------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+Add a PWM framework driver for the Nuvoton MA35D1 PWM controller.
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 3a8af825bb253..82e864acf2601 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -792,6 +792,7 @@ pciec0: pcie@e65d0000 {
- 			resets = <&cpg 624>;
- 			reset-names = "pwr";
- 			max-link-speed = <4>;
-+			msi-parent = <&its>;
- 			num-lanes = <2>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
-@@ -802,10 +803,10 @@ pciec0: pcie@e65d0000 {
- 			dma-ranges = <0x42000000 0 0x00000000 0 0x00000000 1 0x00000000>;
- 			#interrupt-cells = <1>;
- 			interrupt-map-mask = <0 0 0 7>;
--			interrupt-map = <0 0 0 1 &gic GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 2 &gic GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 3 &gic GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 4 &gic GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-map = <0 0 0 1 &gic 0 0 GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic 0 0 GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic 0 0 GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic 0 0 GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>;
- 			snps,enable-cdm-check;
- 			status = "disabled";
- 
-@@ -839,6 +840,7 @@ pciec1: pcie@e65d8000 {
- 			resets = <&cpg 625>;
- 			reset-names = "pwr";
- 			max-link-speed = <4>;
-+			msi-parent = <&its>;
- 			num-lanes = <2>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
-@@ -849,10 +851,10 @@ pciec1: pcie@e65d8000 {
- 			dma-ranges = <0x42000000 0 0x00000000 0 0x00000000 1 0x00000000>;
- 			#interrupt-cells = <1>;
- 			interrupt-map-mask = <0 0 0 7>;
--			interrupt-map = <0 0 0 1 &gic GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 2 &gic GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 3 &gic GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 4 &gic GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-map = <0 0 0 1 &gic 0 0 GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic 0 0 GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic 0 0 GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic 0 0 GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>;
- 			snps,enable-cdm-check;
- 			status = "disabled";
- 
-@@ -2131,11 +2133,22 @@ ipmmu_mm: iommu@eefc0000 {
- 		gic: interrupt-controller@f1000000 {
- 			compatible = "arm,gic-v3";
- 			#interrupt-cells = <3>;
--			#address-cells = <0>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
- 			interrupt-controller;
- 			reg = <0x0 0xf1000000 0 0x20000>,
- 			      <0x0 0xf1060000 0 0x110000>;
- 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-noncoherent;
-+
-+			ranges = <0x0 0x0 0x0 0xf1000000 0x0 0x200000>;
-+
-+			its: msi-controller@40000 {
-+				compatible = "arm,gic-v3-its";
-+				reg = <0x0 0x40000 0x0 0x20000>;
-+				dma-noncoherent;
-+				msi-controller;
-+			};
- 		};
- 
- 		gpu: gpu@fd000000 {
--- 
-2.53.0
+> diff --git a/drivers/pwm/pwm-ma35d1.c b/drivers/pwm/pwm-ma35d1.c
+> new file mode 100644
+> index 0000000000000..c07eedeca035b
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-ma35d1.c
 
+[ ... ]
+
+> +static void nuvoton_pwm_init(struct nuvoton_pwm *nvtpwm)
+> +{
+> +	u32 ctl1_mask =3D 0;
+> +	u32 wgctl0_mask =3D 0;
+> +	u32 wgctl0_val =3D 0;
+> +	u32 wgctl1_mask =3D 0;
+> +	u32 wgctl1_val =3D 0;
+> +	int ch;
+> +
+> +	for (ch =3D 0; ch < MA35D1_PWM_NUM_CHANNELS; ch++) {
+> +		/* CNTTYPEn =3D 00: up counter type */
+> +		ctl1_mask |=3D nuvoton_pwm_ctl1_cnttype_mask(ch);
+> +
+> +		/* CNTMODEn =3D 0: auto-reload mode */
+> +		ctl1_mask |=3D MA35D1_PWM_CTL1_CNTMODE_MASK(ch);
+> +
+> +		/* ZPCTLn =3D 10: output high at zero point */
+> +		wgctl0_mask |=3D nuvoton_pwm_wgctl_zero_mask(ch);
+> +		wgctl0_val |=3D MA35D1_PWM_WGCTL_ZERO_HIGH(ch);
+> +
+> +		/* PRDPCTLn =3D 00: do nothing at period point */
+> +		wgctl0_mask |=3D nuvoton_pwm_wgctl_period_mask(ch);
+> +
+> +		/* CMPUCTLn =3D 01: output low at compare up point */
+> +		wgctl1_mask |=3D nuvoton_pwm_wgctl_cmp_up_mask(ch);
+> +		wgctl1_val |=3D MA35D1_PWM_WGCTL_CMP_UP_LOW(ch);
+> +
+> +		/* CMPDCTLn =3D 00: do nothing at compare down point */
+> +		wgctl1_mask |=3D nuvoton_pwm_wgctl_cmp_down_mask(ch);
+> +	}
+> +
+> +	for (ch =3D 0; ch < MA35D1_PWM_NUM_CHANNELS; ch +=3D 2) {
+> +		/* OUTMODEn =3D 0: independent mode */
+> +		ctl1_mask |=3D MA35D1_PWM_CTL1_OUTMODE_MASK(ch);
+> +	}
+> +
+> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_CTL1, ctl1_mask, 0);
+> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_WGCTL0,
+> +			wgctl0_mask, wgctl0_val);
+> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_WGCTL1,
+> +			wgctl1_mask, wgctl1_val);
+> +}
+
+[ ... ]
+
+> +static int nuvoton_pwm_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	if (nvtpwm->clkrate > NSEC_PER_SEC)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "PWM clock out of range (%lu)\n",
+> +				     nvtpwm->clkrate);
+> +
+> +	nuvoton_pwm_init(nvtpwm);
+
+[Severity: Medium]
+Will this unconditionally clobber the waveform generator and control
+registers for all channels during probe()?
+
+If the bootloader has already enabled a PWM channel (such as for a regulator
+or display backlight) with a different waveform configuration, altering the=
+se
+global control registers while the channel is running might corrupt its out=
+put.
+
+Also, since nuvoton_pwm_get_state() relies on PERIOD and CMPDAT values,
+altering their hardware interpretation here means the PWM core will inherit
+an incorrect initial state.
+
+Should the driver check if channels are already active via CNTEN and POEN
+before modifying their configuration to allow for a seamless handover?
+
+> +
+> +	chip->ops =3D &nuvoton_pwm_ops;
+> +	chip->atomic =3D true;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617025925.2539=
+334-1-cwweng.linux@gmail.com?part=3D2
