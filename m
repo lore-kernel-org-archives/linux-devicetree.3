@@ -1,63 +1,63 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B59F3C4551
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26763B8135
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684593; cv=none; b=sBHnZZ8BrzkdK2JQi33OeUZtC9Fq0md7pfWTzt6yqCg4jWhsEQA6OawzTA0+y38Uqw0CHpaEz6d70QyiBsoR8N1JLk10uzVwU/xFecBL/usfO+AeOXkeRza/PR04mh9vGCsXZCOrwQPMM6UAYxHwTDqLYQSitdbPyTdWsv09jSI=
+	t=1781684603; cv=none; b=rUZYL42KZl5zatoHpdbExh/PECBCK0IxPefW41qK4tCcUZ1MzrjiGN/RiBO8YwMVvgJpT/yC4jUQMgiywDR4+Q8ROBlgr9xafIpCzRiRnaTq5ORfBwigSQpYjTpfk7Xm4hdNwJ97u6/rG61kFnPmZV6pHAVe8gJ1F1lC9JJ4HJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684593; c=relaxed/simple;
-	bh=rb+aNnHYdNqy1IYBy9/+KLzknx32nWz+/xZ4/3QurYg=;
+	s=arc-20240116; t=1781684603; c=relaxed/simple;
+	bh=ZqZCkDmY3c0/kditj/CSeHwbumIJp/ak3XkyRMjjrv8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IkrQ3XxdWpuEd3VKpQTXh8uuXceKbnZrsTToECoevrIW0mKMAFUp58ZOtAW7xBtZ4JvD7IWJ/x+hCzvN/0dXaB0sIFmaFQ/P7+EtpKeggtzPK0FtDOt+OEonk6fO0qk7ocuhFVND41OqEiyXi+10zxKU4gO6YLXkw9+tkZrE4RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmpGAF21; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=lve2Nc6v3Rf8laDuTJqNPm1Dmx6Lxs+OMpq/1fhvCGcW6HbP2XImi85VJvnokFX/xW1/BuV8y6pe+FWFq1apHJHNhFd4uYCuBBilcUF9dddbvJ5/dFHLqLzTg0W/qPolkWhAt+Da66/Vv0P+7C77SuvsfGDijvcFH9VSd61eetw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6QeET6N; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmpGAF21"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2bf125989f2so40912345ad.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:23:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6QeET6N"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2bf2e8ccca1so34910555ad.0
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:23:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781684590; x=1782289390; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781684599; x=1782289399; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xh5Slloxf8WGtp7aR0d3xxTsesmRmOMMsUzMEvdtcDI=;
-        b=GmpGAF21dUROmTB/g+DLsA0Xos6FWbSHRb2jQRSVSq+vri0nHomyZRPAvcenYr+bWN
-         zjpjIS/etwHAQqIT2nnimQ5tUc/aOJktrmb+6vxdBjzJJ3A6ycqt6HUw9JYJgP4tMC03
-         NxDE5LpJjJeUnG7g4vgymc29x5NSIYXh9sZujdf+on1Nb9rQGvE86BnhubS1/iRHpuaI
-         R61gBtmTg4aSHB1aLWOiPJOLSIA3Y0XYilsTCHYUvQs/AlNarzcwU1/yHiUvAdjAvhyi
-         sQfO6qSiz9lBKjGBgB9OhbbVhrUR6NKCvvFa/uyyqSc/0wxQ8xe+5lZDUqwecuV4jRnE
-         UqGA==
+        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
+        b=E6QeET6N7FdTouSdOtfotQWGyBr/Tn6tPniIZysXrcCebtRQXtVYhRVMdwhpTMUzK7
+         c7mnWy9pe3G68eLt0sKnem73UMLQsnC3XQ1nsCBILbOQZOr178bN2eq9pVutOL//hx8f
+         VSljdImDFWYiq5YbdvslEOj5lCEb8/UNdbQrkFpxe5ShjyPu/RVAZN2viYv3YNq86gNE
+         gPnqdiyrZ+HggQyJyXc8Xkw8gg4dZOoORetB802wfUEsMVsbYBAT7KiqwkXqB2nrp/iL
+         Cu+4XQKmR8u7JhL4sgNhi8MYyJ48eyYxqjZhRlcYICKBqOfiJuliKok7r+Bl/HLE3AmW
+         Bs2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781684590; x=1782289390;
+        d=1e100.net; s=20251104; t=1781684599; x=1782289399;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Xh5Slloxf8WGtp7aR0d3xxTsesmRmOMMsUzMEvdtcDI=;
-        b=Yct1baipx8oFwDsKr0EDMcvbO4wnLOY+Ae7uUdR/tnjhWVXqOsmB59NqGUCAboAjl7
-         Rtdqar/D5H4jWe0UzxbZ2+H1vnkBtcHi3vKXHvHZqzHAun6GiDlIxUDQmbLQoHrXcBY9
-         y/e3GHgFoePfG/hs1cWTLJ556sGTVVC4ry4X6tfU0oRr/Oq/l9ky/DKYJzGnA4/k37vW
-         jfrnKtYPaY6uh91Wd44JlF9KAXBET/eqCLWPN+IGKa8PZENnsF733nR3Atcqr6aT8bf2
-         hCvP7pF1a9c+VgFo9R4C0iDr0Zb/QJEinNXLLHLaxu6PzAZrt6t/jKV9SIvXEF3Fpphv
-         RPxA==
-X-Forwarded-Encrypted: i=1; AFNElJ+hXMgKU1n4G6BL6BgNcsTouMG8SijyAt8FxTKf8cAupqGYW4m0IZ6+EAsF4vQoWm3eSjcAJ+Rv7xJB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwtfrFLQfGx+4nCOZUFRwsE0RThudJ9pMi1RlIWVoIE7OPmMAy0
-	Mm7HBx+MdNeqIPOlF7yLRJk593xpR+CgS2YZaTopYAt/XK+IN6MFkBU9
-X-Gm-Gg: AfdE7ckMKwrtajsVKWVkTlRVG2aHcWQH/fcJySJaJvh1omkhmFTHIUoW22k86MiDy7I
-	YJcCC0c1t7jYMrzpFNrn3hqJtT7+XSt22QgX+FAoZyoMMhHP3tnp8vQvT+X2Kf/PyLI/gyL3k+P
-	gVoJKvE3ubbhehyguV8UEJ/6+FIxDPQsJV7loh1sXdnmIYm4lOqLoF4yLdl7fB1q3Oz+LJlF3ch
-	eG/fMVYZGmQZFo458ukVxa9JacnQ+YVuSyff96c6/G6TYwVRKNnOqHiXpiOeWFuuQvr5R13d/TN
-	0SYH3Ox8QyE6RVUQt6F7sLWGvB+UtJ/8zv450keRuUeRKs5Q5YooYBCNMSiU8bguLzc3WdNV+7K
-	anTN2WjX6gmRU3E/lz5CUGi25uVF71wnLU7YQ2OE2s84bAh7xLVfV2GLPMaNmFWBVJshbiQeeBT
-	g4KDWfZRhSzw==
-X-Received: by 2002:a17:902:ecc1:b0:2c6:bb55:4078 with SMTP id d9443c01a7336-2c6bbfa1958mr27798855ad.8.1781684589730;
-        Wed, 17 Jun 2026 01:23:09 -0700 (PDT)
+        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
+        b=M6l7roiBA0oVa1bnMsBPGJRMkw8toeJUC6ZlbNAgoyHCqKwR3cUA6WZfgfg9jF0/6t
+         ZOBwN3rmeStp4MiFjyrkGeYeLfv48p8VvdbQmyxDTmVWbqtczSmXp1d0b3HL4duIoWw6
+         rQVHGzpZFNTg0b+0fbnNFuR79aMyXuVaaUIZ92YyBREMkovc15C4FRcr5NYVf55d+EVE
+         cIz5aN4N4z++p9WCOiPjeWn9O+czzK5B6Y7M+aVjE0+0RTfs4lK9z/WvVRCXxFw3Hrmz
+         pUfSftAv7jrPDLi48AxF5odTYi655ZnG9lty5DOfR2HpcdjYDAP5jPfL/jAP1kwqaxZS
+         qbpw==
+X-Forwarded-Encrypted: i=1; AFNElJ/wA5ZN0v0zz9qzjh/EEjqfscP7h4OzS8SDA7yNoaYNSY9Dnu2+9ZDi79UFT+svqXr678Uo2EUuEDmq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBTZs6CGzb2Kwr2H9ZwaY/Wr/dMXlvLgGArPIh/s3FCN7tZizI
+	TsVH68Om2zZQTkKUd8To1jCAfLFGNj3QfvsoCliKiym2QXvGc1tbLBVty1vyLZLl
+X-Gm-Gg: AfdE7ck8mawo1d9p3uyfUeXl90cR0KwAZRApzww6WMTwo4dejzv/Z4XIxm3t9luxuY9
+	NNzH7A7jqRFsgrCGdUnD+Z5ShKpIpvCj/XO9EDnYvUol+bq0kC8QuNzXWxwknRWM7ya+mQ/AGlO
+	t9KrdBX7KWJd12ML4zcWeE7nsiRjgJqRSE0N7BHg00RSTVQjKPkMxZ3TWt1+3rumhaC8OMi9jvr
+	u/BIHJ90ItQz2uvDzb6CVVGv/zwRguIxxEOeqqtAJTzE7MsEDWEJL8ZHgOzVNPbEfttn8jWzZCa
+	/ZQvMnpEbq/2/U/LUpvybbkdf9i5u/OJ/E5brWnuAATyPpO2JsGK/bEBlmY1bD1uvmSNzVyoG1u
+	l62vmo01k9H/Au/eudILEYq30TDYrXJBmlWghkiXzVYWtguApgrpKM6NLyMfTGJqzxo9ecKgCnO
+	4PDVdQerBubQ==
+X-Received: by 2002:a17:903:3c46:b0:2c0:bcff:e191 with SMTP id d9443c01a7336-2c6bc27199amr27006845ad.36.1781684598761;
+        Wed, 17 Jun 2026 01:23:18 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.23.01
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.23.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 01:23:09 -0700 (PDT)
+        Wed, 17 Jun 2026 01:23:18 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -72,9 +72,9 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] arm64: dts: amlogic: meson-axg: Add missing nand_rb0 pin to nand_all_pins
-Date: Wed, 17 Jun 2026 16:22:33 +0800
-Message-ID: <20260617082239.645562-3-jerrysteve1101@gmail.com>
+Subject: [PATCH v3 3/3] arm64: dts: amlogic: meson-axg: Disable pcie_phy node by default
+Date: Wed, 17 Jun 2026 16:22:34 +0800
+Message-ID: <20260617082239.645562-4-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617082239.645562-1-jerrysteve1101@gmail.com>
 References: <20260617082239.645562-1-jerrysteve1101@gmail.com>
@@ -86,31 +86,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The nand_all_pins pinctrl node was missing the nand_rb0 (ready/busy)
-pin description, which is required for NAND controller operation.
+Set the pcie_phy node to "disabled" as it is not used on some boards
+and should be enabled per-board when necessary.
 
-Add it to the pinmux list.
+This change suppresses the deferred probe warning:
 
-Fixes: be18d53c32b2 ("arm64: dts: amlogic: meson-axg: pinctrl node for NAND")
+platform ff644000.phy: deferred probe pending: (reason unknown)
+
+The meson-axg dtsi now disables pcie_phy by default, so enable it
+for the s400 board to support PCIe functionality.
+
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi     | 1 +
+ 2 files changed, 5 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
+index 285c6ac1dd61..7ba249cc3d56 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
+@@ -448,6 +448,10 @@ &pcieB {
+ 	status = "okay";
+ };
+ 
++&pcie_phy {
++	status = "okay";
++};
++
+ &pwm_ab {
+ 	status = "okay";
+ 	pinctrl-0 = <&pwm_a_x20_pins>;
 diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-index 6457667d974e..8ca3ac09b306 100644
+index 8ca3ac09b306..5b8ef98f6d03 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
 +++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-@@ -481,7 +481,8 @@ mux {
- 							 "nand_ale",
- 							 "nand_cle",
- 							 "nand_wen_clk",
--							 "nand_ren_wr";
-+							 "nand_ren_wr",
-+							 "nand_rb0";
- 						function = "nand";
- 						input-enable;
- 						bias-pull-up;
+@@ -328,6 +328,7 @@ pcie_phy: phy@ff644000 {
+ 			phys = <&mipi_pcie_analog_dphy>;
+ 			phy-names = "analog";
+ 			#phy-cells = <0>;
++			status = "disabled";
+ 		};
+ 
+ 		pdm: audio-controller@ff632000 {
 -- 
 2.54.0
 
