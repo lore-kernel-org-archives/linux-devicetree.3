@@ -1,147 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843DF2E739F
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 03:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F391AAE28;
+	Wed, 17 Jun 2026 04:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781665750; cv=none; b=i23hn+Qey+nGUiWl7RcFE+laYUgnvmqvVelRblGh0/4LflV+SykdnlmEBxPmgCDxuI8Xel/ujSPjc+tluheoWQVBL6RvlHvQU83fvqRohy4i/7dQ7LwxeM8afa+5iBHbUqhQ06KDwCYdjNDXlzx/LOD/INkOtGwRgJFYET7aqAA=
+	t=1781670873; cv=none; b=BDPbFoIbZKIM9+UPt6hB3KYX1TISMGo8G5k8lMdjiNxLWx+FAxzeNi7/xKXM1/vQ4ZpAbbYFZCDMs0UTVQKw9RBH9q/Am+30U2tntV9WNeAZxb/2wW51jJRT5hwn5jsCgyEpiBo1wCll0BmkXwhN8smV6xBPNskk6wJythf0XiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781665750; c=relaxed/simple;
-	bh=JAD8vh19oFIVK0ryhsPUAYGd5203o6gGYOwQSDFXVLo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L8yVofPhrn5wzSO64RCvThxmStOwSViKMyF9SPNunAq5J+TvsS7Ik2nsW4RqUX4PvqX3YfuqGkaaeXIhf4gtCXxrxi4hHKBvhD9IDfKhCE7Iyivl9uNRQpsr/FmOO6G446ypP0fwB7ZjzD9Y+SE6K2jRj6+lzygvaT+oEmTqQv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oY3jSRjn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781670873; c=relaxed/simple;
+	bh=he2cJBBB7awj2DWdAOcbOCB54bWPkkIoNu372dVit/0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QeRlATRB7N9TQHrOwY2paqVuV4xqkk/Hpv5dzcgqpVHU+PtTnpSKq+/tu9+ix4s+LCH2RcwhIJNV1uySzj6fzoOpvigcJoqPmO/Z3YMZMx0Tjj9aG1ugtzOlYI4FwR+hTNIoHkCx4c2SHWsAgn5nxuJhK/8Zlo95kt9Wz35YiFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKHvKp0Q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oY3jSRjn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68541F000E9;
-	Wed, 17 Jun 2026 03:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781665749;
-	bh=ZhZ5uSD3aNcSmm/CdO2KI2x9ez4wBX7Ff38ACkgqM7U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oY3jSRjnm9jU3UTRM5enhu736B07AYC06HQNRIc/FbVdFs8yPnsjRKQd225XPijDw
-	 rMXSwZzEhgvt5INLMLw/Y1c/lGTM9Wuxxi2V7G5+jxEwdM0b3Gefetn1UTpz8rubxY
-	 QejKFPH63s2K03xaGS/DTMsae2s67efMwQDo8MQpyDYTbKKOrLPwkwz4gQ139tnBGH
-	 NtH6YwwasUguWKfaWZIW9e1JNngFNwt8lctrNmTxZMe97ORfL80QIp2UxPFQGPlDNX
-	 nD9Od5otV991aVhiDQTz4QVBQrLTJKYrBN+Dzz2Po4essMTuX1eh7VZIaOXhLOY98Z
-	 UmxjjCaOj3iEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260617025925.2539334-3-cwweng.linux@gmail.com>
-References: <20260617025925.2539334-1-cwweng.linux@gmail.com>
- <20260617025925.2539334-3-cwweng.linux@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 03:09:08 +0000
-Message-Id: <20260617030908.D68541F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKHvKp0Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BFCE6C2BCB0;
+	Wed, 17 Jun 2026 04:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781670872;
+	bh=he2cJBBB7awj2DWdAOcbOCB54bWPkkIoNu372dVit/0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=FKHvKp0QGCo0D7Tu6+u8mbduWgCbx0IS/mM3EL0P+WbdiB7ePmN4fi/+dWJJ/w1Gp
+	 4Ykpo1DUj/q4dlkLDd1jtq7fbFkpfv1r9Pe9Qjh+xZAICcLytMLR8B6gIFFDrgLooJ
+	 hSgizQXcojtGVGeaZYmdsCPJdStzR4795/+y0ebq4YmXefx61///4d/uQrEu2UYslz
+	 m03PEkW5miRwDqs0zRvjh0Na8xBOVIO2AaL/pEFD1fXppCWWxIygcW+EdkjdRfJFIO
+	 ES+ULyfqIY+cBay7pZiLUbcNKgI7g4Me97wiFcaQgnGldR9b2rwR5vXlOL3LhBNZwh
+	 XIxyCCPAo0DWA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B06D8CD98E1;
+	Wed, 17 Jun 2026 04:34:32 +0000 (UTC)
+From: Haritha S K via B4 Relay <devnull+haritha.k.oss.qualcomm.com@kernel.org>
+Date: Wed, 17 Jun 2026 10:04:24 +0530
+Subject: [PATCH] dt-bindings: thermal: qcom-tsens: Document the maili
+ Temperature Sensor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260617-b4-maili-upstream-3-v1-1-1b8cb7e425d8@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAM8jMmoC/yXMTQqEMAxA4atI1hOwOhQ7V5FZpE7UyPhDoyKId
+ 7fq8lu8t4NyEFb4JDsEXkVlHCLMK4GqpaFhlF80ZGlmU2ss+jf2JH/BZdI5MPWYozeuIKLCWVd
+ DLKfAtWz3tfw+1sV3XM3XCo7jBEFi7Md3AAAA
+X-Change-ID: 20260616-b4-maili-upstream-3-b198aaa8969f
+To: Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ manaf.pallikunhi@oss.qualcomm.com, gaurav.kohli@oss.qualcomm.com, 
+ Haritha S K <haritha.k@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781670871; l=998;
+ i=haritha.k@oss.qualcomm.com; s=20260422; h=from:subject:message-id;
+ bh=QERCdXGosQegGLSoxEuG9NnIUKptP7q6k2ZKHvSRHas=;
+ b=WAotvr0uQcjTXhUxvjBHdPDShW9EAAwzrDzxorB7YjD+4SbubRzRH12mhY67qkUAsKJrpgBOH
+ yveHkcYVqh7BLc2W1oKlUfxaVrBbi/gxPisO0eOnLjmdAx71izFrH6F
+X-Developer-Key: i=haritha.k@oss.qualcomm.com; a=ed25519;
+ pk=ivp2P9RgsC6IkOe8JaqweeahT9pd0BVtL2d1YD8ICSg=
+X-Endpoint-Received: by B4 Relay for haritha.k@oss.qualcomm.com/20260422
+ with auth_id=745
+X-Original-From: Haritha S K <haritha.k@oss.qualcomm.com>
+Reply-To: haritha.k@oss.qualcomm.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The driver unconditionally clobbers PWM waveform generator and c=
-ontrol registers in probe(), breaking seamless handover for active PWM chan=
-nels.
---
+From: Haritha S K <haritha.k@oss.qualcomm.com>
 
-commit 1c5d12cc5f94bf9ab4e36bc34c306ce883661f7e
-Author: Chi-Wen Weng <cwweng@nuvoton.com>
+Document the Temperature Sensor (TSENS) on the Qualcomm maili SoC.
 
-pwm: Add Nuvoton MA35D1 PWM controller support
+Signed-off-by: Haritha S K <haritha.k@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Add a PWM framework driver for the Nuvoton MA35D1 PWM controller.
+diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+index f0efaa8349ee..5a8f7673e730 100644
+--- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
++++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+@@ -58,6 +58,7 @@ properties:
+               - qcom,glymur-tsens
+               - qcom,hawi-tsens
+               - qcom,kaanapali-tsens
++              - qcom,maili-tsens
+               - qcom,milos-tsens
+               - qcom,nord-tsens
+               - qcom,msm8953-tsens
 
-> diff --git a/drivers/pwm/pwm-ma35d1.c b/drivers/pwm/pwm-ma35d1.c
-> new file mode 100644
-> index 0000000000000..c07eedeca035b
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-ma35d1.c
+---
+base-commit: a76326dca329a7a738ba367529868dfbafb4a403
+change-id: 20260616-b4-maili-upstream-3-b198aaa8969f
 
-[ ... ]
+Best regards,
+--  
+Haritha S K <haritha.k@oss.qualcomm.com>
 
-> +static void nuvoton_pwm_init(struct nuvoton_pwm *nvtpwm)
-> +{
-> +	u32 ctl1_mask =3D 0;
-> +	u32 wgctl0_mask =3D 0;
-> +	u32 wgctl0_val =3D 0;
-> +	u32 wgctl1_mask =3D 0;
-> +	u32 wgctl1_val =3D 0;
-> +	int ch;
-> +
-> +	for (ch =3D 0; ch < MA35D1_PWM_NUM_CHANNELS; ch++) {
-> +		/* CNTTYPEn =3D 00: up counter type */
-> +		ctl1_mask |=3D nuvoton_pwm_ctl1_cnttype_mask(ch);
-> +
-> +		/* CNTMODEn =3D 0: auto-reload mode */
-> +		ctl1_mask |=3D MA35D1_PWM_CTL1_CNTMODE_MASK(ch);
-> +
-> +		/* ZPCTLn =3D 10: output high at zero point */
-> +		wgctl0_mask |=3D nuvoton_pwm_wgctl_zero_mask(ch);
-> +		wgctl0_val |=3D MA35D1_PWM_WGCTL_ZERO_HIGH(ch);
-> +
-> +		/* PRDPCTLn =3D 00: do nothing at period point */
-> +		wgctl0_mask |=3D nuvoton_pwm_wgctl_period_mask(ch);
-> +
-> +		/* CMPUCTLn =3D 01: output low at compare up point */
-> +		wgctl1_mask |=3D nuvoton_pwm_wgctl_cmp_up_mask(ch);
-> +		wgctl1_val |=3D MA35D1_PWM_WGCTL_CMP_UP_LOW(ch);
-> +
-> +		/* CMPDCTLn =3D 00: do nothing at compare down point */
-> +		wgctl1_mask |=3D nuvoton_pwm_wgctl_cmp_down_mask(ch);
-> +	}
-> +
-> +	for (ch =3D 0; ch < MA35D1_PWM_NUM_CHANNELS; ch +=3D 2) {
-> +		/* OUTMODEn =3D 0: independent mode */
-> +		ctl1_mask |=3D MA35D1_PWM_CTL1_OUTMODE_MASK(ch);
-> +	}
-> +
-> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_CTL1, ctl1_mask, 0);
-> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_WGCTL0,
-> +			wgctl0_mask, wgctl0_val);
-> +	nuvoton_pwm_rmw(nvtpwm, MA35D1_REG_PWM_WGCTL1,
-> +			wgctl1_mask, wgctl1_val);
-> +}
 
-[ ... ]
-
-> +static int nuvoton_pwm_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	if (nvtpwm->clkrate > NSEC_PER_SEC)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "PWM clock out of range (%lu)\n",
-> +				     nvtpwm->clkrate);
-> +
-> +	nuvoton_pwm_init(nvtpwm);
-
-[Severity: Medium]
-Will this unconditionally clobber the waveform generator and control
-registers for all channels during probe()?
-
-If the bootloader has already enabled a PWM channel (such as for a regulator
-or display backlight) with a different waveform configuration, altering the=
-se
-global control registers while the channel is running might corrupt its out=
-put.
-
-Also, since nuvoton_pwm_get_state() relies on PERIOD and CMPDAT values,
-altering their hardware interpretation here means the PWM core will inherit
-an incorrect initial state.
-
-Should the driver check if channels are already active via CNTEN and POEN
-before modifying their configuration to allow for a seamless handover?
-
-> +
-> +	chip->ops =3D &nuvoton_pwm_ops;
-> +	chip->atomic =3D true;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617025925.2539=
-334-1-cwweng.linux@gmail.com?part=3D2
