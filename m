@@ -1,116 +1,160 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010020.outbound.protection.outlook.com [52.101.84.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2BB38655B
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 21:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781732602; cv=none; b=UCHdyn17eYWGCFqc3JX4sqWgr2Ofq18Xie8WWw0OTt5HCCJdShpw6P1JLo+dlGZYGvaeE1tGQTTddwF4tncoCsrUN/xdxSx+PRFVT+c3+eQ05e9FYXXDNvdz9zkXNJFWTonkcxlzmEBzibabOzSnp+Mhn9YJb8sY99aLIfBVYxg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781732602; c=relaxed/simple;
-	bh=STd49iieVtEz/Mng/F8+k4bjVOlJZ0xuDkER0yL5GTQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y9g5Bc5u/g8kEcwg8skMZLzaa7q1YDonS+dw1TZmwozM/xynlg2V9+77qAULslS4eGuaFCpQN3XDwO5JeGmPXQlzvZKRSaP8Il1vo5gZ2naoPlIbVbOa6xBJd5GVa1XZ9aRXJRlT2DH98m2msUR2TpMlnQw+koqUJXg0pS2hs3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=d9GHL7KT; arc=none smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09741388E45;
+	Wed, 17 Jun 2026 21:55:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781733330; cv=fail; b=iFBkgh3VQPbVa8pga3vKRF620vxChhMpuYZ+ufVz37XH225+Gnxrl3BKpKfTvNHnfXAL1ihyeTrGRDRq+9wWlvrs/rQQSMDtsiSe05SNBzljhoqwy+7XOoMMqXElx0x0IPqc5YFt03W3yHYi3v1YFX0wvXeVdUDkRoDoEcrbevE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781733330; c=relaxed/simple;
+	bh=LdnaHrEQpKBi34nVNaSlUhC7snmid40M0DqS2fDDnVA=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=OtO+IJDrTvMJkzJxFWNxiQ6A1GBEuj2y8W7R9JwGSphy7zjP06iC9C73y/WVAiVpvdsK00fwiVt/mr3p5pzPAt9TRj1B9oF48v/sYxMh87JhgeYrzSGGPeKtA8sBlkK+OoUbfCmsTCjYPwvFeh/IzvSKd/RvM5kYn4oTlQAPyTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qXzmh2Jw; arc=fail smtp.client-ip=52.101.84.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="d9GHL7KT"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6a0a38a013eso238025eaf.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 14:43:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781732599; x=1782337399; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=moLf1HfI30fPHYhYl3mY3kuDIYItGKUlS6CPPB51Qa8=;
-        b=d9GHL7KTyxsmYAH/hZulR6JqiSCDRJYTA7O1/h5l83Kj5Z4oP9+aSXHOhTzCSA4grA
-         yjYL4lTjWKJOnW66s7lYNPZSh87bkt5wBJbzAx8pvbs3YryrDCUuvKnToySXjQaJu86q
-         O0b7iHAtFnYPGs0qEM/sfIMo4pj/lWEd/85I5QzL5unUomqMzjYV4fUzPFqUWGiLvDHX
-         9HlaTi8Ak+mx8fSdYGA92uQOvXpnRWHeL+R8kLs8pC7j8t0KXmC1B7uT3G24uTIMR439
-         8ghl9FkxXs5fj3LveZTRhqIcBNrTDiO0gRp6DHMqOYqGDYwT2cF8H2Q/kqq8Jcv4Cpuh
-         9o3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781732599; x=1782337399;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=moLf1HfI30fPHYhYl3mY3kuDIYItGKUlS6CPPB51Qa8=;
-        b=f0+v5+lkWZ6Kanhiql3kBkAxutus9pDbean2+Ywziivg0p4J39pCzP6jfM0k8RwMW+
-         /W2MLZ6a/wX41cCHIVkopSj5RLOKYWBvrFslcFq42AZrCnqmHJqsri7BO0QwDLQ6qjdh
-         OYwIQlqTo6Pvc6o/k77MxzGTPEHnG4BUvkoXPN7tAI3g99tepLN3RmqPzYmBlMG2JUNi
-         5AmSmyIfIbCCBdTil7psyKABnBA6UJmxlTXcivU3f65rV//XFaHKqI1fmYNBl78a8qM4
-         +b5mt/s7BZbiNNhge6TFbdarkSQ0oXSAj/3m9gJ4LyIMEVcUSQpo3krOtOslXoLc4Jgc
-         hZDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8htw1hcyItLQ71aUVIsasaSUKwXKPdTpyv4qoO3BV0YyhyDSwb6SZl1xu7IzG+R5vJ4T90Cm3XjzSm@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtoIJTwrifHQtxUGSs/lDjWqgvCQPh1Y4CIg7HcPAB/d0003qh
-	Z3eW3+0Iw7QZTqdCycA6SMRcC6WkuC8JRC5r2Uk+JPaXKSUXr5hF9dW95HuRLZyVWeo=
-X-Gm-Gg: Acq92OHKuvEP3CN2UpcOZNC57A3hB1rDo72hUQq1XFWu1WBLPB8f/Wq66r41f9BA7sh
-	S5pf/tr0gzVhs62fv+HsAe1BEDnpTT57PUGY1i1OGA9855q6AOqTetvBUWEPiZ/PYJ+3JGn8xrQ
-	WaYxdiWTQGUWI4/koW50NF6ZVsUz7tZ2f+eIXkhEWrIXYv2EfruyfEtqP0BAeOkNwXJ99fPpBx3
-	g84zpmf8AV9o4GsJTwm/w8BIuZ0I7FLDGUBn4wcVWlybY21l/V3pspVveY8+LcxiC6P8/g+blqI
-	1lxJRR68YWwbMZwt3lkpvfRNHbaJsrhfrG41bMmrt7JIlf9sqpyz0j+dAco6MMD+InJw9FmT6Hl
-	Rx102Rdg/3y9ei7tUJ4DJHs4gG8vq1Q6Sxnq9bNRrSvOJl1W5ZrleqJFAyVZFWpzBnS3I6kLpGh
-	wlkBXtWv1jJPZ6a5ymOtFEck5qZ6mzHR4zzMmfbwzBy/RbuK876Va+oBgNMXuuYGzvrkzODldkd
-	g==
-X-Received: by 2002:a05:6820:16a2:b0:69e:b86b:1a9b with SMTP id 006d021491bc7-6a0c73eccf8mr742417eaf.25.1781732599378;
-        Wed, 17 Jun 2026 14:43:19 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:9458:d356:778c:22ac? ([2600:8803:e7e4:500:9458:d356:778c:22ac])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-44308b0057csm5540529fac.8.2026.06.17.14.43.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 14:43:19 -0700 (PDT)
-Message-ID: <3b96ec10-b022-4135-9ade-6fd9eb6e78a6@baylibre.com>
-Date: Wed, 17 Jun 2026 16:43:18 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qXzmh2Jw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bIMEJTqa7oxWSus37RwxnjZqnLfc0hyEOtu886z640XjxfxNfoPd+TtyR48Vcc1cmpT8LfJNey5olNHAJVAmLrz+A2PVGP3nhSw4KLMTUkUqL/DJT5sogG4KaEfIOcfLVvp0bJDMMqwBSSfSMpP/RwKw+SkpyIgJFZNdS4Ck1/vBMFBReQltvUNmgdmp8NdeF2co2fj9tdl4fntCRIChJSq0ZrIqJ90zr2qTP76+tIilC4N8YBn2vBgwzR8pRqeVtM7+kL/IBBBaIgYp804mSFb1cydbUU/oGNeMYkE+9LzAqkcQtYbEvfIQ7n/I6K2bI/PXG5uz8LHnolYNtDJJ8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q6oysZNWNYIk8HixiYkUmpZpjdoFdfV0gj3GlueBTrk=;
+ b=JYm84aJ/XwCsanfEoeBtpG/x5bj9kN6p6cpkgAzT6TxvXbdA/qqeWQ/ALNdIiS0rMXimqXI8tm+wKWse1kf1mB6yfnnY3w63Xes55+Iw+Mc3mZGxsq6bROJcqDTRhhK6wW2BwNrqX+d1q6vOsuJcCm9ayaqp33pJa5uty38Xw/V87hprzaeEXs8B2GwZUFz5m/ZhAMvnwt96UugqapmDK+XVrQDvElUVThsG3dy7ldszKGTTvsrf8zL5vSC+fl/qRjBjaQa1lUMjZRyhoD9GQ+hSKXy8UEzCV5meuwRfEKy1PwKgyM1wSu+/F5s2FOfm8EfB1k6CYedAOXkhE2NW7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q6oysZNWNYIk8HixiYkUmpZpjdoFdfV0gj3GlueBTrk=;
+ b=qXzmh2JwCthxhyt2yVe4VWqwdfXwNKOcmoD4U8cic6iXg5fPzGIE0GQmQ8i869t8tpJxIAFH0nLlrIWGSDRj/o/b3K0Db4FAfwBROSfCUVDIEFvnj17nIP7bPSJE4QEYzsaLTkjbdPRY0R/oJRgGqRv20TR4x+kc5ZTTNNCxLHC47XPmqBVdg5f3RvcXCW5c1Rpyvzuw8PiPCnkLuxawRWE1A3QugWk6R6rGBzChnsLIYi5ySbegbgka4uifo8l1cNcbL7vHgc7y5AZKhM5IPUiRQhcHQWtifQ5YpadE3TrinMUvCXOreYHy3gK/DOXVn2v1Vw5ce4r/jYPkuiwwgg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AS8PR04MB9079.eurprd04.prod.outlook.com (2603:10a6:20b:446::12)
+ by PA4PR04MB7549.eurprd04.prod.outlook.com (2603:10a6:102:e0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Wed, 17 Jun
+ 2026 21:55:25 +0000
+Received: from AS8PR04MB9079.eurprd04.prod.outlook.com
+ ([fe80::9761:3d78:e9db:2308]) by AS8PR04MB9079.eurprd04.prod.outlook.com
+ ([fe80::9761:3d78:e9db:2308%3]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 21:55:25 +0000
+From: han.xu@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Han Xu <han.xu@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] arm64: dts: imx94-xspi: add the DMA channels
+Date: Wed, 17 Jun 2026 16:55:17 -0500
+Message-Id: <20260617215520.3327836-1-han.xu@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA9P223CA0004.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:806:26::9) To AS8PR04MB9079.eurprd04.prod.outlook.com
+ (2603:10a6:20b:446::12)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 3/5] iio: buffer: Extend DMAengine buffer
- interfaces to take extra sysfs attributes
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- pop.ioan-daniel@analog.com, marcelo.schmitt1@gmail.com
-References: <cover.1781661028.git.marcelo.schmitt@analog.com>
- <a09f2cac2d26fe385f1f7790b0db64b7d9953ac6.1781661028.git.marcelo.schmitt@analog.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <a09f2cac2d26fe385f1f7790b0db64b7d9953ac6.1781661028.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR04MB9079:EE_|PA4PR04MB7549:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55c816b3-2bbe-4f60-143f-08deccbb2325
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|7416014|376014|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	yigWWE+g3mqD1bskbIiqOPkZpF3M7w+Yptxa3ZHc1GJ2tcYP8XP7ubcNVOn3DaN0GpDWvQgzhcUq+DUBLW4OHBrWyEugMkMWBdJTKI7gO3h7NlLvdyd4rCEvnGZmyoz/BU8SImvveBS2VmdpALcj5Wm/Nj62PvYpctq17L4e9nmeGakLEO2nNe19oZMQMZXJbgIRWQI2kSXM74eF6IkrrU9/j6KTzSstIiEwo20mgnoNKXhMr1TdzBzyrG7MSzXs0eUVHuJuCV/Yw07ZIgMuJrEogZXiGdY1Tv5EZWA/9M1L8ZuMHGhBJZpZEvPZpMl5w7wM8frq5YHoZAItA5O8x+uf0eUIsyrTUDLPLHD92g+ZRrmqdaMnyuFC37BLV5VzaiEYW0KReE93eb3YTtJZuMLSZ/cc+zoFz2cXXX0I5cGq4IqjiyI9Iveud8rqXO4SMvAw4/JXvS6sCqmY9I9gmplCmbFZoINdABLXGWG1izRRCAG4LcGYX14L7cXMaRFyUmWm9bXUzd25bS/aUbvpTwT/6rQaTo7O65ijDUcpko2oqhEUbrRjyZYq1yl9L3bqhabn72PL5gREM2ZzoDi+cpafjlI+Gp62iS+iLGCiIplVHLfE7692QjdHiKCNAmjrmqavd7EIrjwwQQtIwqDnRddVPpnxVpbL0WDJOwQNYdB1FpaFuLM8A1VOPvFrGVEN
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB9079.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(7416014)(376014)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?IkgdlbKneKnMuR2b86Y1Kaj3r2I6E2gUe3hTXAnjlZSRcnRgBdrqcKM5yXuh?=
+ =?us-ascii?Q?Cn/FDHmpI3om2tBSJFIFLk/KG8xVEQBUzIbDwacWqkZ/tkdHMf7BdWPkMsVB?=
+ =?us-ascii?Q?tIZ6uAXQwDldfzkJmEO3/WG4Z5mQrl9uL5cr+t8bIlQyj1OQrA/oj0Jj5vTh?=
+ =?us-ascii?Q?+Bc3Svgrf5Ccw7zWo3EwPHxzUqIdCIxSm90Z5PviyjMI+e2hg0Is3YejYq/U?=
+ =?us-ascii?Q?Mfi5EXeNOdtdf5kglF+zKYDN6rleI9K8c6epqOu5I4HXNXVBbd79H5vqoBPM?=
+ =?us-ascii?Q?TEHOpt5HxncUejs1vxOQwHexnojiPVKEhenRxAfnuFeWVU7CBsxTzK7+KJdS?=
+ =?us-ascii?Q?fhSM63lrOFp+3w6torCtpd35TKpV0RolUTZdsQIy1Ub7cCUeAhD27yKekPfH?=
+ =?us-ascii?Q?oK1hYvVI/W4aMocoWrLuuHsxz8cwQlG8aa3Lvhog/NvO4ZZKJi9JnthI7Vo9?=
+ =?us-ascii?Q?CROVvFGTci+bvz1CscoNbQQQaDfbaXyUROPAP1v8Q7KfKBsd99vWCAqFkf+3?=
+ =?us-ascii?Q?43g6PdxJebSBiPD5bpsvWqpwUckpajtfV7vbLMThrJ6QcciGTW5cbztsAHkA?=
+ =?us-ascii?Q?G7/eJJ1WgF0IAML13NckBp5SEGq1IiejgUyDTzEBv93xe3S4kdIyB4eXXZF5?=
+ =?us-ascii?Q?f4Rh9vwxIszKkz8HVmTsTICV3xu1J1OF/6N2sE1LqFfl5x74M+U18OIH2zTm?=
+ =?us-ascii?Q?LZ7FjZiUC2vojZ+WFrNEsa9Nir/iMX4v9t0LLoEWmeJO38jCyNbVIaIiXHKS?=
+ =?us-ascii?Q?4HGyrk4Vmcq419WhlVU9qJH0+uMYZlDaQ3xBxxuivCSUpSPc5jvCYiqd2Uwz?=
+ =?us-ascii?Q?34YvfSWa9uQzgYxkCEK76dKhND9JcwctWbmDYAkQfk96TTfNQERdav51z57R?=
+ =?us-ascii?Q?ZHo9JEO0TqiHExfF1VHr858mBuJ/a9oEMOWDlABbO3BdHnkCLHu7+cy0cVKd?=
+ =?us-ascii?Q?YT3OOUP6Wk1bJ2D/CwC0EhQL94Kl5t5QUIgMKE+nhIGgcr592SsrCg5rh3SG?=
+ =?us-ascii?Q?FBaXLuWMVWxdf73FZgtEcQ4IHiaM9Of446KNMu9eixyn+WaVmV15N6wets0m?=
+ =?us-ascii?Q?ZzOzgTY7tLNv5jvFljmiUJ7eSexoAP4ttQAfbTacw9A9mBoFD5h7r85uEgrJ?=
+ =?us-ascii?Q?OL8VkNO7XFSBvh6prXlVbWfsTr0/4zqQeJpoBUIwkxCROFbIo69l1Rjvtw2B?=
+ =?us-ascii?Q?a9YiRcM7G4QNN1tLOoRwELr8hXTY4GnlkNbLOE1sie8LZeKLq6H7vsGMCwnI?=
+ =?us-ascii?Q?w+8Yiq3cXpbl4JE8MMSJjv0MG6y4+QCea9NOz8BwwxHFck3GGT8wnkn4pOT3?=
+ =?us-ascii?Q?EIC+mnDPt91TubySX07rGQcTQ9BEORFvCcaZOpyM/BX9xn2aEcpxWinvJuJV?=
+ =?us-ascii?Q?DmM22B9JdNuo8/0dkKHcG95uWrEuvnM/SXqONg4fP1BXXXD2YsbTUNRPDFoF?=
+ =?us-ascii?Q?C3hrQfHvGpNz3JC8zK7U/3hP09l0YjK6kPPBIkrWl6g+t9foiNNyK56ceKjm?=
+ =?us-ascii?Q?GvVLG9/qJy88HHFFH8zzNzCJiS2P3hWOqpqd5l3LbVuenhS3thMe8w5c28OV?=
+ =?us-ascii?Q?eK/0sriyNNGME7UHRgqzFo0VxFns2MsQqaRo51DMegjYGJF+Dcc4g6zdYQAX?=
+ =?us-ascii?Q?OCS144Sk8k30XFIkyN4HfmSU5JzYgLuI01GsmvZcnttjWYF84nnskCUfUIo9?=
+ =?us-ascii?Q?KXKx50z9b0oKQOIrQdiTG1kX96yONVv8X+y7wLArmAYtFqQtRcG4ochN6WcF?=
+ =?us-ascii?Q?Doy/QyQu6WpvSfg5UAIzEzWZBXWZpkE=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55c816b3-2bbe-4f60-143f-08deccbb2325
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB9079.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 21:55:25.5129
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FF2ipmU5kjM6UvwKlY2o9RFRlBIm+rtAsj0zN3ICyNxc/Iv0CGReKta5UpgMRy6c6DUOtLlBq0Nbiji8IS+Y6Sa6vD0q3GcEUHw7vodHFTM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7549
 
-On 6/16/26 9:03 PM, Marcelo Schmitt wrote:
-> Some devices using DMAengine buffers are connected to extra hardware that
-> allows setting how fast data is transferred to/from the buffer. However,
-> those extra pieces of harwdware are external to the sensor chip such that
-> supporting the transfer speed as a sensor property is a bit of an
-> inaccuracy. Expand IIO DMAengine buffer interfaces to take arguments for
-> extra sysfs attributes, enabling the transfer speed to be configured
-> through the buffer interface.
+From: Han Xu <han.xu@nxp.com>
 
-This message is a bit confusing. It sounds like it is attempting to
-control something about the DMA controller itself. But based on the
-later patches, it looks like this is just so we can add arbitrary
-sysfs attributes to the bufferX directory. And in this specific case,
-a sampling_frequency attribute.
+Add the DMA channels for iMX94 XSPI controller.
 
-> 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> New patch.
-> 
-> Now that I've come to this buffer "solution", I have pretty much convinced
-> myself it would be better to instead have some sort of IIO trigger to control
-> the signal source connected to SPI offloading trigger module.
-> 
-In the other chips with SPI offload we've done already, we just used
-IIO_CHAN_INFO_SAMP_FREQ to control the SPI offload trigger rate.
-Any reason why we can't do that here? In the original SPI offload
-discussions, IIRC the general consensus was that adding a trigger
-just to control that was overkill when I suggested the same.
+Signed-off-by: Han Xu <han.xu@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/imx94.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx94.dtsi b/arch/arm64/boot/dts/freescale/imx94.dtsi
+index c460ece6070f8..9de1b9754450e 100644
+--- a/arch/arm64/boot/dts/freescale/imx94.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx94.dtsi
+@@ -820,6 +820,8 @@ xspi1: spi@42b90000 {
+ 				#size-cells = <0>;
+ 				clocks = <&scmi_clk IMX94_CLK_XSPI1>;
+ 				clock-names = "per";
++				dmas = <&edma2 27 0 0>, <&edma2 28 0 FSL_EDMA_RX>;
++				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+ 
+@@ -836,6 +838,8 @@ xspi2: spi@42be0000 {
+ 				#size-cells = <0>;
+ 				clocks = <&scmi_clk IMX94_CLK_XSPI2>;
+ 				clock-names = "per";
++				dmas = <&edma4 42 0 0>, <&edma4 43 0 FSL_EDMA_RX>;
++				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+ 		};
+-- 
+2.34.1
 
