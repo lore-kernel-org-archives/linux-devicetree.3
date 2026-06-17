@@ -1,142 +1,198 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F393AEF2A
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 06:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F44310777;
+	Wed, 17 Jun 2026 06:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781676020; cv=none; b=GZZ15b6KGy679r0SXLh37/OKBq9N/SJQV6w4Iajcaah+3BRW7/PwfMKJhWC/wHe1p+1XFDvKzKftO5fAMO5ox1yzNUyq2jKTv8xwHxoZcw/11YGq9nxOa8p6VN1tJZjAPLffwVZYwa2mJ1O6loLHVn9QNBN4kdDhezZMcUmxDs4=
+	t=1781676187; cv=none; b=f+k5YiLC8RS5rJzo9gbxDiXxnhWpAgZpi1J6fcnrL44GeI0YUGdkYw6+ZL4mwfPHzEJf/CSaJX8sYHNvuU7kK0clFR6UdcA+kW2YxvYWy/C4mwfmqGUQGkBvupc6cX/8x5mq448bAYOBUJdOpxGbxzuTbG2NVTNvwKKwhNXYcWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781676020; c=relaxed/simple;
-	bh=EPp3+y8U+wDZQ2t1aRvjrkpD6kQKVPXuQaessSYJEI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Yz+C/6t52xDCiCGYM5GQnBECKCfCZ1T0zrgUH+SwoHxHJTTfMZk9SnSeHgTmKeMDG0lD72nCMwHKeHb8HtKEXI5UQ7mogUsSvbKDivcLHSGJOHtSUmXIkZ2rHjSKni3zjZy5R6P2sSbb5WrK6Ce964qjpv82DMrEFULh49gjc60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mnWLM3gZ; arc=none smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781676187; c=relaxed/simple;
+	bh=hY/3QQHOHVFuKRabhluIb6gQuwwEZiJbTyHtZDQOKJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=V3coixaMQfSBQW0kiUGaMPJe3gTshlGkUNT1fI8cjZd5/8FV0ARdpUsuvXWYvAyHQiYX7lRBUKOobjLVEGLaKmM+tkBFoZf/8w0YpNveSuKKQF9VmT7CPyJHsLWrYsFRg/ODH3zqqfHEVj6XMUI890V+5BK9w1WIwBj3sUUtKmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUCBNRfb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mnWLM3gZ"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39676ff4674so45965081fa.0
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 23:00:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781676017; x=1782280817; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Cs8qvTgnQoJy3gVauu2STPsPcaY4YlG12CSyBpLnw6c=;
-        b=mnWLM3gZtYgSJyNKkcRBKGJie8Kedc24tj2wZrcL9WedQl4NSDo621lrdduCydgdUf
-         bLWA+jLhBU6esj3Afwuo52GS/FbjkgoYyAQNe/T7BsPXHlPTQN29+IhSeZgK0Xf/Z1Oh
-         VAjN+61NVecQPz5Dllkhm1+CQSTVpT9sqXmyMJ9dBR2HKJHdAsDNHV0OCzjoKsnxZpXf
-         GRDS7kMi5yH7QB8bm7zoeXzEVYHfGyt8FT0sfnKrCKcRJ3qSJxFJQX48rGiJZzSesV8K
-         nJ3hWN2O9bE0UidR6v6FREPK+suDtH/S05lQ/al7/54i9woLhbAF8otArLhSK9mzsuXO
-         BuGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781676017; x=1782280817;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Cs8qvTgnQoJy3gVauu2STPsPcaY4YlG12CSyBpLnw6c=;
-        b=RjeJI+7RAFyQMIf0h3YxicWsnp1Jl0nxjPlmHq93RVBeB2vnONwzk8JVu3AYktw84q
-         LvjCFwaX8u1P0J6eXqiUP3vcHzHk7jG/TrfZM+FauvMtGTT4SeaMlGd2uYFKoQoZHeF8
-         43hziTCnljiaYlsPh1N13tH1lCW6Hyhw0Kqb7Z6SkCmcphuxHBYkrxBJufI7LWfCVFKT
-         n1IUe/vVAyYp8/DpWmRo+OZIxo4mOOS7y8BSKfX5IFJCbOAPMg7gW1++vdS3ERJexa2f
-         wujxaVDooHdxzHIRfxPwFy8FZLYPGiprXpiWDZ11gYOOFUn8a1mMKzWrkx4VwEqfbIW8
-         L9rg==
-X-Forwarded-Encrypted: i=1; AFNElJ8kZdHuEsR6he4lbeHorDyDBVj0DXQZrTg1oxG4CEscq39qlUMUXJZSiexRfp7Dj5QcJ9i04tZVFCti@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0MrhcmZ15EMZSjkEsYa+9W/P3n+IDCvkVlhxbKfhk9DCHBvpE
-	jxq93A/7N3km1CjL+WrYuUXc50arfxso5axGOjieSZKqrtRrU8OvKsj2
-X-Gm-Gg: Acq92OHfhtpnGU10LnSnpBjXVPkN/ZoDQUH9y7AIpizsastqmlgyL3++Xypeu9B/Saa
-	3oPAt9AwUSaQumA+fNJLQXvGVO+1M+FolzcGFeLLlxJd4yXwL6nYECdRuBPEvrYFfSr1gv4tYjw
-	614TB+V46Ur5EgqIXE8ONwS0zOrOlYSuPTGnPdoLloUs73Q52C2OyCd6VB9tpwgnlhkR0O5lRQr
-	m+fTt5jvlI5Z+DC024P9x/lDjrEUa6pJ6MwETYuKJa12PyQRJxRXcpZRdFQ7TTYAVHddSlL2fNB
-	WX/qFtFaObVI9YQ1qwM2+L9quFp2X9ogKkVJdGnucXr0kMv4cK8hw/HJT4cZGHVlaDMLxvQxwgi
-	8wW1JCKsrL8WIo9cPl5NPWMGk9ZeJlkUroA5+DoV+jBgX4EUHM5cQG0mipJQtJcdA/Va8mm+G+w
-	lJddEl+gBEZslikxYUwTUzT0aN1b02vc6Q1YnNRF3G+BjTGjcYkkRg/m2kXswn+n9GDxOwAA==
-X-Received: by 2002:a05:651c:2124:b0:38b:e464:f047 with SMTP id 38308e7fff4ca-39969ad94b1mr4694531fa.12.1781676015350;
-        Tue, 16 Jun 2026 23:00:15 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3995c04d8b2sm12250531fa.2.2026.06.16.23.00.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 16 Jun 2026 23:00:13 -0700 (PDT)
-Message-ID: <f3562874-1c82-4ba3-b37d-dbb50bb54977@gmail.com>
-Date: Wed, 17 Jun 2026 09:00:12 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUCBNRfb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0FCB2C4AF0E;
+	Wed, 17 Jun 2026 06:03:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1781676187;
+	bh=hY/3QQHOHVFuKRabhluIb6gQuwwEZiJbTyHtZDQOKJE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=TUCBNRfbiXvqCMZlLfu9gVRXq7zPnUb+KDxeCkFSlOKSHX0L6gRHqZYeQDjoD94mN
+	 xFKzk8GRBRINr+oXbhnUELtg7ONHXxExr6hnSVzVIs0MzaHBF9qjKqoaSMTazRkXMk
+	 FR2LVjHM8VNaJOAhcY6PFDmfaFTRzOsvm4+ARMGi7TsmYMQZjzRmBrXL/8D5b/D0TU
+	 68OkiSuslwc+BaG0q9Oo3Bhjhn38yNoyTd5nStX6Y36M8hmdJAQWGc2Cl96T875We5
+	 mPBE9Jh074q1PDudLpNosHcAS1LtjtIkbCBQWiBj9l44vo3c13MtnvVM8yOv2PXb4o
+	 YPV50gmPo1TYg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED578CD98E2;
+	Wed, 17 Jun 2026 06:03:06 +0000 (UTC)
+From: Jia Wang via B4 Relay <devnull+wangjia.ultrarisc.com@kernel.org>
+Date: Wed, 17 Jun 2026 14:02:54 +0800
+Subject: [PATCH v2 1/2] dt-bindings: clock: ultrarisc: Add DP1000 Clock
+ Controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] hwmon: adm1275: Support module auto-loading
-To: Guenter Roeck <linux@roeck-us.net>,
- Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Wensheng Wang <wenswang@yeah.net>,
- Ashish Yadav <ashish.yadav@infineon.com>,
- Kim Seer Paller <kimseer.paller@analog.com>,
- Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
- Charles Hsu <hsu.yungteng@gmail.com>, ChiShih Tsai <tomtsai764@gmail.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <cover.1781591132.git.mazziesaccount@gmail.com>
- <634e76680ed93e58ebeb35db080138b791cb6c27.1781591132.git.mazziesaccount@gmail.com>
- <f080e20e-6ec7-4744-9794-0a92d03f48d8@roeck-us.net>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <f080e20e-6ec7-4744-9794-0a92d03f48d8@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260617-ultrarisc-clock-v2-1-9cb16083e15e@ultrarisc.com>
+References: <20260617-ultrarisc-clock-v2-0-9cb16083e15e@ultrarisc.com>
+In-Reply-To: <20260617-ultrarisc-clock-v2-0-9cb16083e15e@ultrarisc.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jia Wang <wangjia@ultrarisc.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781676184; l=4050;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=vVCLkK2EihbPxfkDInO5gRQRPWbAHIKvf05ItUCUMGU=;
+ b=GLdqaRtSRpDri4G+iOCT6xah1Amebc/fHMR4IJWHLPuz9fF7RasVCjTLM8ejHOFw6sP34EJQI
+ qCcnlKl5XxOAETSc++glti1Cgm8AgFEJ6d2OFyK5mXSSfCOmn8eGSXe
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-Endpoint-Received: by B4 Relay for wangjia@ultrarisc.com/20260515 with
+ auth_id=779
+X-Original-From: Jia Wang <wangjia@ultrarisc.com>
+Reply-To: wangjia@ultrarisc.com
 
-On 16/06/2026 17:04, Guenter Roeck wrote:
-> On 6/15/26 23:47, Matti Vaittinen wrote:
->> From: Matti Vaittinen <mazziesaccount@gmail.com>
->>
->> Populating the spi_device_id -table is not enough to make the
->> driver module automatically load when device-tree node for the bd12780
->> is parsed at boot.
->>
->> Adding the of_device_id tables causes the driver module to be
->> automatically load at boot. Testing has been done with rather old Debian
->> system.
->>
->> When inspecting the generated module-aliases with the insmod, following
->> entries seem to be the difference:
->>
->> alias:          of:N*T*Crohm,bd12780C*
->> alias:          of:N*T*Crohm,bd12780
->>
->> I suspect these are required for the module loading to work.
->>
->> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
->>
->> ---
->>
->> I did not add of_device_ids for other supported ICs as I can't verify it
->> doesn't cause side-effects. Please let me know if you think those IDs
->> should be added as well. I would be glad if I got more educated opinion
->> on adding the of-IDs :) (I can squash this to 3/7 and 6/7 in next
->> revision, and add own patch for adding of-IDs for other ICs if
->> required).
->>
-> 
-> I don't know what those side effects might be. I am much more concerned
-> about side effects of having some of the devices in adm1275_of_match
-> and some in adm1275_id. So, yes, please add a patch to provide
-> adm1275_of_match for all chips supported by the driver.
-It's nice to have an opinion on this as I was really unsure what is the 
-right way forward. Thanks for all the help this far. I'll do that in v2.
+From: Jia Wang <wangjia@ultrarisc.com>
 
-Yours,
-	-- Matti
+Add doc for the clock controller on the UltraRISC DP1000 RISC-V SoC.
+
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+---
+ .../bindings/clock/ultrarisc,dp1000-clk.yaml       | 60 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 +++
+ include/dt-bindings/clock/ultrarisc,dp1000-clk.h   | 27 ++++++++++
+ 3 files changed, 94 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml b/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
+new file mode 100644
+index 000000000000..ede565ec440c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
+@@ -0,0 +1,60 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ultrarisc,dp1000-clk.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: UltraRISC DP1000 Clock Controller
++
++maintainers:
++  - Jia Wang <wangjia@ultrarisc.com>
++
++description: |
++  The UltraRISC DP1000 clock controller is driven from a single external
++  oscillator input. It provides a system PLL with fractional multiplier
++  and post-divider stages, several fixed-ratio derived clocks for
++  the on-chip subsystem, Clock Configuration Register (CCR) divider
++  outputs for GMAC and the UART, I2C, and SPI root clocks, and
++  per-instance gate clocks for UART0-3, I2C0-3, and SPI0-1.
++
++  All available clocks are defined as preprocessor macros in
++  include/dt-bindings/clock/ultrarisc,dp1000-clk.h
++
++properties:
++  compatible:
++    const: ultrarisc,dp1000-clk
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description:
++      External oscillator input clock used as the parent of the PLLs.
++
++  "#clock-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#clock-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/ultrarisc,dp1000-clk.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      clock-controller@11080000 {
++        compatible = "ultrarisc,dp1000-clk";
++        reg = <0x0 0x11080000 0x0 0x1000>;
++        clocks = <&osc>;
++        #clock-cells = <1>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3d6db8cb608f..b7e43313c65f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27439,6 +27439,13 @@ S:	Maintained
+ F:	drivers/usb/common/ulpi.c
+ F:	include/linux/ulpi/
+ 
++ULTRARISC DP1000 CLOCK DRIVER
++M:	Jia Wang <wangjia@ultrarisc.com>
++L:	linux-clk@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/clock/ultrarisc,dp1000-clk.yaml
++F:	include/dt-bindings/clock/ultrarisc,dp1000-clk.h
++
+ ULTRATRONIK BOARD SUPPORT
+ M:	Goran Rađenović <goran.radni@gmail.com>
+ M:	Börge Strümpfel <boerge.struempfel@gmail.com>
+diff --git a/include/dt-bindings/clock/ultrarisc,dp1000-clk.h b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
+new file mode 100644
+index 000000000000..751125f99965
+--- /dev/null
++++ b/include/dt-bindings/clock/ultrarisc,dp1000-clk.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++#ifndef _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
++#define _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H
++
++#define DP1000_CLK_SYSPLL		0
++#define DP1000_CLK_SYSPLL_DIV2		1
++#define DP1000_CLK_SUBSYS		2
++#define DP1000_CLK_GMAC			3
++#define DP1000_CLK_UART_ROOT		4
++#define DP1000_CLK_I2C_ROOT		5
++#define DP1000_CLK_SPI_ROOT		6
++#define DP1000_CLK_PCIE_DBI		7
++#define DP1000_CLK_PCIEX4_CORE		8
++#define DP1000_CLK_PCIEX16_CORE		9
++#define DP1000_CLK_PCIE_AUX		10
++#define DP1000_CLK_UART0		11
++#define DP1000_CLK_UART1		12
++#define DP1000_CLK_UART2		13
++#define DP1000_CLK_UART3		14
++#define DP1000_CLK_I2C0			15
++#define DP1000_CLK_I2C1			16
++#define DP1000_CLK_I2C2			17
++#define DP1000_CLK_I2C3			18
++#define DP1000_CLK_SPI0			19
++#define DP1000_CLK_SPI1			20
++
++#endif /* _DT_BINDINGS_CLOCK_ULTRARISC_DP1000_CLK_H */
 
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+2.34.1
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+
