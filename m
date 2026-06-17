@@ -1,168 +1,292 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013065.outbound.protection.outlook.com [40.107.159.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012BD382284
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 19:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781725567; cv=none; b=X3aj3IZlBkYdXp1KprZtbgJt4+sUBhCVMtX8lXPWj6WrjEoNp+vjm8Uknr/fkEJRWUmujaDDC861RHW7awTqE+MY9jS33iiV0rTLtY4lFBHBKbZq6ldCR9nykR1JiulljTSCjWR6qHPZYKrAnSyEz+xOXyL0SxpcOKwQtlbbtec=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781725567; c=relaxed/simple;
-	bh=qTAaHajTqwY/XvqbDHGn0OIZob55KyKquLi7x0RMCGc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GzflUG0EfBWTVzHR+3MjVsw6OtOtbU3snOQ+VP9BwnzA3MP6oLBUt/2ebYYajIMiYLEwlbiRSWpChE/XrmGthlD8VIR+Mjym7ThD5BK1zcS7rkxM3Tg1w7E1cgbcC38EnmoaNhFrTj6p/3G91vBAk/KiOJI0kK3fxa+k/XZnh7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RVuA/Cex; arc=none smtp.client-ip=74.125.82.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF3D2E7364;
+	Wed, 17 Jun 2026 19:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781725829; cv=fail; b=m8a8+OgHhGmSpyHDFnm8d/7ZCQMERVWRAK+LqbQgYPiSFG7d6IvR3lGAv4pdTty9O6nmttWqgRO5Dxw82EHyv+qxZe7qZ+nsRJthrnHs8yavUgGBhE63skKrxlIhulhjGOLK+KG0obP7mneTGPaGD75KDcarSN8MjRFrVtAlZjQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781725829; c=relaxed/simple;
+	bh=Xbx1oB+qfCuVik5UaeBf9UbNQfcEUdfddpHYOh4aD/o=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=VgS0aivnjwWp3gi1ySRn46oe8r4g56bQly63lwrWF+aoBkckK6fCeLNbyMMCLLNyoOJYBHgUzOGqtUdXf47EondMAbJb0cjyKFpeG/mSUdk3I7iiB5wRz3zJcnjxEiSQUfoFacr3Tdg4g8t4PLyiWV13LCephyarN/FrWGT2v40=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cxtAs4Ez; arc=fail smtp.client-ip=40.107.159.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RVuA/Cex"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-13981833e13so198026c88.1
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 12:46:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781725565; x=1782330365; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=jCIh60LRye+N284J4p7MbAH9a0i1PCeBDLVzI3j+pDY=;
-        b=RVuA/CexYtvKD4Vg1WC4Xz+P3M0Eh3+LQvGRhW4l3m4LOvvx6T/5RbNxwcQM7ZQSBC
-         xPnQjXy46ddMnPUEgNmxDuPgH0choK+ANLolmWStkuYpYJ4TR+7pFsuKJ0o2BNNq9vLb
-         vZz9AAIjhFi7e9g+tUwgVfdn7Idn0HOlDp4QkGxEiHr2AFZC9s8qR4GnKb8mZ0NIC5tZ
-         PT8sZ8y1O0dA0tN+rzp/X7TNf4V8tFTQEcILr7EozIqGqXBpRUz77l3HfsqmxKgShhKX
-         bvkTUXqjj8oucYHKkUotYqm7ckL8py6QLwbg/9EujRaUiMT4n4xbp7fFtp5CvMp3r84U
-         Gwfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781725565; x=1782330365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jCIh60LRye+N284J4p7MbAH9a0i1PCeBDLVzI3j+pDY=;
-        b=HjUQCFsnqQ02M3H/t49JhyX4nq30mzO7gcIbVZ71EM64TcYO/k1ElJALH/vK6qbQDu
-         Zn1jg1xj4XfljiPajqWLVCw0pa0aEHjK4i2GrafAmXVtAqiSsQ+25BseGx4eoK8lHPm1
-         0c/lyVLBXrfyLpvpksAbdwviZPUNoPWndFlFxfmjgkATqdX1uEiRKlOQTP2sFZ7k8cr8
-         Jm7Tskat6ChbwnwtBADIIyO5OeBBwtyQ6T3Z/t+3Nd8VU4ne+XjCPaDIwtQqZDH4+pzt
-         aVO4tVdp2+GEWpI0X5zflbic/j8uOW/wImtbo36X0sxfkLYPcam5Rwt/H0y3JQB4HQLH
-         zrvg==
-X-Forwarded-Encrypted: i=1; AFNElJ9YLsP361TWHoXcnMx0jbRCOETq11UMGP5g4N3romJAGAc0vYdKxWlHqpk9ASrhvjVGt2oSnlO0ZA5G@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfgjCzp5NUWP6GvfudvbLqIuTI2iz63eFLdUX9LirGoGNINjIi
-	T/OtqPnf8PGD1+KGwfgwMtCc9Y7YUaxamRkPPEKnKMB32HKSQY9LLiZb
-X-Gm-Gg: Acq92OGHLIP9PwmL3tgQHXA/gVyIyrQh6U81OwFYvh2rQKMRejWuFZt2Ad/Ek5dOPgG
-	jRfZgTUpc1A4uW520Gl6G56Jx+kYfXJ+W4fwZW24/UYIFyf0rzZ6PP1t9x5Ba+L5kPuPeAUFJux
-	XyUQfRHsI/yewV618YBaMejXCEnbSTDLfbnc3c6FZ89JlV7baH1pd6+jtJCSh3Sh1WX3lVpyw/t
-	5Aa9jVbpOui43CEmW+lQoLL0/WaPpdHVPMUEDg01vxcWrN+15B3CFtV4afTZOiOmqNoDw6TbhYl
-	+Jpnv5DQHVFJe5wq9BLMqPsUDp5Lqb2AMpxf5w+McUD3c4vEYv+o7soa5fgtPOAQjTk8CFAKWFf
-	45FNL9ocIDsGmF2BJSbsz2My6POs0abOpTiXOvQHYljn2Q/RqlREuCQZv3ULFbRG92bAtH/2U8n
-	o/Q0wezyGqiipEWjRO+otIQoZckmPu2pigiIqanOXsiA2rmYnnnR/ykUgypwe6fU6U7lYOfCtK
-X-Received: by 2002:a05:7022:fc07:b0:137:ea00:3f49 with SMTP id a92af1059eb24-1398f6cb641mr2356917c88.35.1781725564958;
-        Wed, 17 Jun 2026 12:46:04 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081eb8f8b2sm24167978eec.27.2026.06.17.12.46.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 12:46:04 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <13836c1e-8f38-4cd3-aa7f-da7c9caf15d5@roeck-us.net>
-Date: Wed, 17 Jun 2026 12:46:02 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cxtAs4Ez"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ozLf3UMrVa+78gNf61+KJdJkOlw6snvV9GgqGbzYflQ4v7sPOf2tuHAXc1b8xe32dzJC/xbu1X8pZ4+xM9cno8H7OD17ISfe/TI18ANo7y10a653BfRT+Zt2E6yAKlyEP2fk+Td5Zqc6hgJDlk2H0DjwZ1F+Byy+lXxg7emP/L/krbsOVRYo4Rza94marQ3JMMrz6U2RsiugO0IvE8maCLJltZSeHGb3JmMKOUZqO4qX8CTurtLIDePyS+aS1jz7zO5uMd1rJWkN1rQQDA6NuBUiXQdA8AuIVAj6LWfHQfsmcJK/QFXaNzvnOHLLfRQDx2HQNqxP3PszDJcWeZmLSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=evDPMBCUU3drjBS43cnz5S5W8AJ7WPADGoxyy5XRafM=;
+ b=MktmwnJ2F4IMe9uJqQ+s+1NVr0G6+cr75At2W11J2Cy5vwjTPp1ZliMwnk3miZu8xIUSTg9Q2t2sT11mrYl6aC4S62mTU/NrU9yrwtvHdO4AJY8R6kDXq61lhc9xyUlQKOKEKKaFd+GQboElC32GbpW/Bd58eqDIucaIWDyibuDR22rKh/nhX/n2ddQF8uiiCpJkobAfY1gqSEJRzwtUTFJ4HCMKOBg3RInD2VncDg7RFh2cs2/K9oF7/dIysv/Ti5G4X4hlScArdyFkl0pyF5QJrVjMii6IgjOuL4uId0OoBnTWoMOKYGHXFLXdp0wS8x4FQ3Xg+tl2cw+N+rqirg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=evDPMBCUU3drjBS43cnz5S5W8AJ7WPADGoxyy5XRafM=;
+ b=cxtAs4EzoiDnAeHQR4UvrKeGGlB9Uqq5ugpTZOzn77v5m/CDPzAFF5PGyZ717QyLaO13x7CZAaoA7BDxi8oe1GmkZymmOKfUdQqfzYS7pN0CzWn48eXRskNBazc2OEU2/aQjnBAdWJTeASv5LGPZJKWVr5ERoVCDCnWMy8opHX5+hzlIKiIz3SbLIhSJPh+VEZJepkzM2yW8vxbyTkRcfziwLj35kCk4SEcEV3hsE0gENNlDCGt5xXJTzmbMCxaNEPF+0fZvCK+A9jipMZU4kX5ml8Ytxd8nfuZOhTFloeDVqaZiSU1thqF6vnKQp3Xh54wOcOF0NAPN+gbFHlZECw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8227.eurprd04.prod.outlook.com (2603:10a6:20b:3b4::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 19:50:23 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 19:50:22 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v5 0/8] media: add new API simple 1to1 subdev register and
+ add imx parallel camera support
+Date: Wed, 17 Jun 2026 15:50:10 -0400
+Message-Id: <20260617-imx8qxp_pcam-v5-0-7fa6c8e7fba7@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHL6MmoC/13MywrCMBCF4VeRrI0kM0mduvI9RKQmE82iF1spl
+ dJ3N4qgZnkOfP8sBu4jD2K3mkXPYxxi26Rh1yvhrlVzYRl92gIUWFVAIWM90W3qTp2raunJakB
+ Cgw5FIl3PIU7v3OGY9jUO97Z/vOujfr2fEKr/0KilkuycR/JlCUrvm6nbuLYWr8wIX7pVmFFIV
+ BOdmWxQRcgo/lLKKCbqyCKyUdbn1PxQKDNqEjU+uMqwh0DbL12W5QkbbPnSVwEAAA==
+X-Change-ID: 20250626-imx8qxp_pcam-d851238343c3
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Frank Li <Frank.Li@nxp.com>, 
+ Martin Kepplinger-Novakovic <martink@posteo.de>, 
+ Rui Miguel Silva <rmfrfs@gmail.com>, Purism Kernel Team <kernel@puri.sm>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Alice Yuan <alice.yuan@nxp.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Zhipeng Wang <zhipeng.wang_1@nxp.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781725817; l=5589;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=Xbx1oB+qfCuVik5UaeBf9UbNQfcEUdfddpHYOh4aD/o=;
+ b=heixdVJmZkGwvXzK5cpd5VUxF3KXKEkKgDmoWSkQx/WMb6T+MX55BO/Mb1RdU2W76LMNFc3wY
+ jVmBGDJmIX4DCnoSOvT+kPPP4bKEctwym42WlM8DS7DepwXGAwtH+4h
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: SN7PR18CA0022.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: watchdog: mediatek: Add MT8127
-To: zkh1@proton.me, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260617-mt8127-amazon-ford-basic-v2-0-6859e29e72a8@proton.me>
- <20260617-mt8127-amazon-ford-basic-v2-1-6859e29e72a8@proton.me>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260617-mt8127-amazon-ford-basic-v2-1-6859e29e72a8@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ce73566-37a9-43ce-8e76-08decca9aaf9
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|19092799006|23010399003|1800799024|18002099003|3023799007|11063799006|56012099006|921020|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ hfzI3ntP+C23M/Iz4Bx5muAhQw9V5IUoMne3TzRAUUUm4o1EyHHbmuGGBZXqmUdF50F2RbEXZOlyrHqQukA+QxIxAe8eZZuhM8LoRm8FJwb/MDPkLjzVtrZYiN8s67rzvcg3Ik5qF7vvoT9xapr8DtSWMlufT1VhlPJf+bZno7K/gaZ4BMJ5Nr5LZEC6TsiE4evl5eUENhqCtI5+EW7vcywawg9YxtSkPWrVCaznPAKAYyNTIX8T7By599qQSDVIxKCXnfRcOfHZzGDtbQGwgOja0XxzGen6trdZs2qoxWb6YoDlx6EH7ZN7844kG889NcNS+G+VDx3RBcpM2J53vb7WPXIQBi9vW9QMrxLoH4BkrBk+brnb2D/ezogCpid19eRdS7pQs5exPn3iLhuaAqsyvTcoF5IXSk2VnJLRBVk/aNSR1pecQNgPNGK2LYtIiwSXEWEsqPuBfVE0ln0EbIjf3kuuhkPFCWE86ASJExQXvborZ+ofYxgN9Q4lu/N/854g/1E1jU9upgnPLHTXzE3M6mHu1ric7CD9D4V5w05SV6SBu/Wg9hs2o0It3gdxCo6jjqYMVmNGmjr74iFWstWEuB2j0Ic3zwgjBkO9LgZk44trSqPFPYTzQ8XZEAMfQqRfEjVqntVpcwqol0ofWYUJD9G9yPSTDc8i1IMWOjll5LxgjJ3Rgf53CEwcdmhkidvSyz1hY7EDJzduDeZPYLBgyc6N9T8hMv0C6BJcn59ZfMNnR75ey/SSnNotJb2w
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(19092799006)(23010399003)(1800799024)(18002099003)(3023799007)(11063799006)(56012099006)(921020)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?aGdiWHhSRGw0ankwVWpVNUdzVXdWN3dzalJDbmpBSFhodlZkc09ITGhMdWtk?=
+ =?utf-8?B?aTFacEVEOXFaSnZqUStTL1JBZHVqNUxTNEU2MlNXRUVSb09sY2NtRlMvVFox?=
+ =?utf-8?B?eDdlUktqS0RpUXV4T0RzbUo0RFIrV3NvaU5zY3R4bGJmMldSM0ZuN3VMMlU3?=
+ =?utf-8?B?YzVROG9oOURWTjlpRXVhYmZTK3ZVemt0MktHUnlub3MyQ1c4Q3hwZmNiS0dF?=
+ =?utf-8?B?QUJYZWQrbUlZTk1wT1AvUkRYRTFBY3NXUWMxaDMvWUNGczQyUlk5OUp1NmI3?=
+ =?utf-8?B?b0UxazN4aXVxOWxZQmF1TGZKbFpJWHE2c0R4djNGbVVibEtQVnNOZUR3VkFm?=
+ =?utf-8?B?KzBnTXJwN2pGRCtENndYRmVScVNsaXc4SEMzVjZRcjlySUdMNDhCRnNMazBK?=
+ =?utf-8?B?RFg4MXZ3eTZmOHRIZFE5a2F2T09ydzR0dFg3RWVPV21ZOWxTZ2hZNXpicXJL?=
+ =?utf-8?B?aTRPcVpGSUN6MjRGUmZ2T3Nid3BPNjQ0Mkkva1dIL2orYnBmTTZmL21yQktq?=
+ =?utf-8?B?NU1Ibi9OVHhVdjM0VTMxbzNqUzArUWJrSWFQUzgzbWcvdW4rRFFXV29FVEc5?=
+ =?utf-8?B?N250NlhzVnJkdHNobHJ0dXJ2akRXVEI3Y1BGajNoSU9lTWE2WUUzTEVwNHRS?=
+ =?utf-8?B?Ull0VlozTVEzV0lQU00wbXVvZHUramF0V2FJTTVnRVk3TGlYYkFlQnRGN1VF?=
+ =?utf-8?B?SWVIbVlRNHJUSTBSdmpxZlhreEEzcC9MVTMrcGRnN2FpbzhCcDZnbUk4R3k1?=
+ =?utf-8?B?Z3J1VHB5cWdiU2cySXZDRGVIRldoMnVXcEtWclFQVVFHSnV0UGNPVzBtTVNr?=
+ =?utf-8?B?OGZENWRteTZISUNUWHlCZ3I1U0dRMEhFRTlLZmVvZkhMN1lsdmpLeTBpVXN4?=
+ =?utf-8?B?YmxYR1JGOXZiZkZVckJocGh6MHM4c2JISHhHdldvU2p4K2dGcjgrMFk2N1pI?=
+ =?utf-8?B?T0xqdmo4OG9iVWhPLy8xemljZnp6QTE4TjhON094elBBZ2dMWjZ6MnBwMW1O?=
+ =?utf-8?B?bUVtRVBmMUdRWXFFdWdzWUtjQTlkTXFZTkxyMitLbzVrcXpFcEc0NlhjR3kz?=
+ =?utf-8?B?Z1dDSEFUL3RIbjl0Q1FyUi9HN2Y2UVEwRzhRbHoyNzltK3BjMmk2M0U3ZlJk?=
+ =?utf-8?B?Uk9BcWxpZGcxR1hick5XaVh6NXdyYlVqcHQxdDFoc2ZWRUhXcHczUFVhN1BP?=
+ =?utf-8?B?RWV3K1dtODdkM2JJQXlqUEVmcUFXV1YzWlhoT0lBV3p0Q0hydFVrRkthNmNZ?=
+ =?utf-8?B?UE9vUS9BbEVHQ0luakR6MmFSNHQwMm9Vdzc4RWpoeXFUdjFvUHNDT3BNaVhY?=
+ =?utf-8?B?d3ppWnh1QmJ6bFFoanhsTzF3a2xkVUw3R21TbUdkLzg2LzB5Uk5WS0N0VUNW?=
+ =?utf-8?B?ZDk1QUxSaXlDQnptZ20xK1BvaTFIdWIzWkk1d0h0VEFVbE1PSFU5amQ2N3RN?=
+ =?utf-8?B?RWlJUFdVeFRXY3UxWTVaUDdtVE5nWVpYNmdTQ2ZqV3FQUVI0MWROVGZWN3NL?=
+ =?utf-8?B?eFhGRWF3SStKRWg5WEx3eE9YcC90Y2doaTBsVUJ2Z3lnZ1N0MkhBbmtMcnRZ?=
+ =?utf-8?B?NnNwTWZkVUVpL1Z4Wk1rUFJrTUUrOFRKRXpaR1FrTDlXZHVqYzB0a3IrWmhL?=
+ =?utf-8?B?RkZaTXlsQmdIcW0xUWJPL2xiWU5ic0toZkVOZ0x3TGs4R1RWUEZzVTNGSUVy?=
+ =?utf-8?B?T2dyWHRyNjVSSUdwMlFJMndNb1BRTXg0T0R5MmV1ZjhpWE5qMHphdDVITFdx?=
+ =?utf-8?B?ZVdzeXRjdFQ2NVkyS3hhZFY4eStKMkdnc2hOeEExUncwWTJIOCtXcWU4Y3VJ?=
+ =?utf-8?B?TTlFVDFWSnE4QitXZzA5UlVBSCtpMGlsNGdsc0lEcnM5aFpuSHZEenlHb2sv?=
+ =?utf-8?B?enFUTXRHQ3p6cW1kRzdjeUVVN1c2WDR1ZXRWUDNwTGN2U01Qc1RLeXRCQXpq?=
+ =?utf-8?B?d2NxUDZKeVg4WER4c1lWUEVVbC9hUnZEYW5JOEJaUGJTaXVrUmxSNU1UR3Ri?=
+ =?utf-8?B?NENKZTJoSE9aSVEwemR3VGYzbFhUU0J2VDBza2RHS1NwRUlRRGdDM0YyYU5B?=
+ =?utf-8?B?YnZFdXRKekVWcnRzanF2MjVFWnFWbW1BdmZtTVgrRG5BR0lLNHptRjVyV25v?=
+ =?utf-8?B?cytqR3g4eU1iT0VBRjBHaXFqNXk1SDJIbTFrZXowVGtwRy9jQ1BiTHZHUFFK?=
+ =?utf-8?B?UTV6N1N6THpaTS8zbk0vYnEvUDVqYVV1S0RxZjIwMWRSZUNxczh5MFBSTll0?=
+ =?utf-8?B?S1FJaS9SSjE3Q1NuTHRQd1A5M0Z2N3p6S0sybUJESVYzSTZXeFRSZXJEUlFx?=
+ =?utf-8?B?OGJiMkhkYXp3VnlwUysrd2hBOXdtM3RTbWltQWNqZnJud2JvMHl2OHg1ZFJZ?=
+ =?utf-8?Q?nQ9XYzdOH9zqgjMmYZRiZP3cuOb65KRl0aK5S?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce73566-37a9-43ce-8e76-08decca9aaf9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 19:50:22.5595
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ARQixUAmRN1SfgI89w+HHA9hT1C2dqHdHLBHPZT/tQLpgmm+4ABJsiEJFdn4d/gRLonDAWv6sl9JxDuIo8stDmiTn5BleXeLKxxjYq7l2PVc8D71+cvDDfkjZg1jF7k8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8227
 
-On 6/17/26 06:36, Zakariya Hadrami via B4 Relay wrote:
-> From: Zakariya Hadrami <zkh1@proton.me>
-> 
-> Add entry for MT8127 SoC's watchdog which is compatible with MT6589's
-> one.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Zakariya Hadrami <zkh1@proton.me>
+This patches base on previous' thread "media: imx8qxp: add parallel camera
+support".
 
-I don't know if I am supposed to pick up this patch. I assume it will
-be picked up with the rest of the series, so
+Add new API media_async_register_subdev_1to1() to simple 1to1 subdev
+register.
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+Many V4L2 subdev drivers implement the same registration and media pad
+setup logic for simple pipelines consisting of a single sink pad and a
+single source pad. As a result, the same boilerplate code is duplicated
+across multiple drivers.
 
-for that.
+Introduce a common helper library for 1-to-1 subdevs to encapsulate the
+registration, media entity initialization, and cleanup paths. Drivers
+can embed a struct v4l2_subdev_1to1 instance and use the provided helper
+APIs instead of open-coding the setup sequence.
 
-Guenter
+This reduces code duplication and simplifies the implementation of
+simple bridge and converter drivers.
 
-> ---
->   Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index 953629cb9558..e6e4546da0aa 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -40,6 +40,7 @@ properties:
->                 - mediatek,mt7622-wdt
->                 - mediatek,mt7623-wdt
->                 - mediatek,mt7629-wdt
-> +              - mediatek,mt8127-wdt
->                 - mediatek,mt8173-wdt
->                 - mediatek,mt8188-wdt
->                 - mediatek,mt8189-wdt
-> 
+    In 1TO1 subdev driver:
+
+    struct your_device {
+            v4l2_subdev_1to1 sd_1to1; // instead of v4l2_subdev sd;
+            ...
+    }
+    ...
+    your_device_probe()
+    {
+            v4l2_subdev_init(&sd_1to1->sd, &dw_mipi_csi2rx_ops);
+            ...
+            return media_async_register_subdev_1to1(sd_1to1);
+    }
+
+    ...
+    your_device_remove()
+    {
+            media_async_subdev_1to1_cleanup();
+    }
+
+This API help reduce over line duplcated code in synopsys/dw-mipi-csi2rx.c.
+And use this API at imx8's parallel CPI driver, which over 90% code now
+hardware related.
+
+And also benefit on going pix format patch
+https://lore.kernel.org/imx/20260525-csi_formatter-v8-0-6b646231224b@oss.nxp.com/
+
+It will also reduce missed media_entity_cleanup() problem at some error path
+https://lore.kernel.org/linux-media/20260614202835.11977-15-birenpandya@gmail.com/
+
+Previous do partial simpilfy at
+https://lore.kernel.org/imx/aaisdJSsFE5-PLx1@lizhi-Precision-Tower-5810/
+
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Michael Riesch <michael.riesch@collabora.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank Li <Frank.Li@nxp.com>
+To: Martin Kepplinger-Novakovic <martink@posteo.de>
+To: Rui Miguel Silva <rmfrfs@gmail.com>
+To: Purism Kernel Team <kernel@puri.sm>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v5:
+- Add media_async_register_subdev_1to1() to simple code.
+- Link to v4: https://lore.kernel.org/r/20250729-imx8qxp_pcam-v4-0-4dfca4ed2f87@nxp.com
+
+Changes in v4:
+- remove imx93 driver support since have not camera sensor module to do test now.
+  Add it later
+- Add new patch
+  media: v4l2-common: Add helper function v4l_get_required_align_by_bpp()
+- See each patche's change log for detail.
+- Link to v3: https://lore.kernel.org/r/20250708-imx8qxp_pcam-v3-0-c8533e405df1@nxp.com
+
+Changes in v3:
+- replace CSI with CPI.
+- detail change see each patch's change logs
+- Link to v2: https://lore.kernel.org/r/20250703-imx8qxp_pcam-v2-0-188be85f06f1@nxp.com
+
+Changes in v2:
+- remove patch media: nxp: isi: add support for UYVY8_2X8 and YUYV8_2X8 bus codes
+  because pcif controller convert 2x8 to 1x16 to match isi's input
+- rename comaptible string to fsl,imx8qxp-pcif
+- See each patches's change log for detail
+- Link to v1: https://lore.kernel.org/r/20250630-imx8qxp_pcam-v1-0-eccd38d99201@nxp.com
+
+---
+Alice Yuan (2):
+      dt-bindings: media: add i.MX parallel CPI support
+      media: nxp: add V4L2 subdev driver for camera parallel interface (CPI)
+
+Frank Li (6):
+      media: v4l2-fwnode: Extract common helper __v4l2_async_register_subdev_fwnode()
+      media: v4l2-fwnode: Add common helper library for 1-to-1 subdev registration
+      media: synopsys: Use v4l2_subdev_get_frame_desc_passthrough()
+      media: synopsys: Use V4L2 1-to-1 subdev helpers
+      arm64: dts: imx8: add camera parallel interface (CPI) node
+      arm64: dts: imx8qxp-mek: add parallel ov5640 camera support
+
+ .../devicetree/bindings/media/fsl,imx93-pcif.yaml  | 126 +++++
+ MAINTAINERS                                        |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-img.dtsi     |  13 +
+ .../boot/dts/freescale/imx8qxp-mek-ov5640-cpi.dtso |  83 +++
+ arch/arm64/boot/dts/freescale/imx8qxp-ss-img.dtsi  |  27 +
+ drivers/media/platform/nxp/Kconfig                 |  12 +
+ drivers/media/platform/nxp/Makefile                |   1 +
+ drivers/media/platform/nxp/imx-parallel-cpi.c      | 614 +++++++++++++++++++++
+ drivers/media/platform/synopsys/Kconfig            |   1 +
+ drivers/media/platform/synopsys/dw-mipi-csi2rx.c   | 194 +------
+ drivers/media/v4l2-core/Kconfig                    |   3 +
+ drivers/media/v4l2-core/Makefile                   |   1 +
+ drivers/media/v4l2-core/v4l2-1to1.c                | 117 ++++
+ drivers/media/v4l2-core/v4l2-fwnode.c              |  17 +-
+ include/media/v4l2-async.h                         |   6 +
+ include/media/v4l2-device-1to1.h                   |  72 +++
+ 17 files changed, 1123 insertions(+), 169 deletions(-)
+---
+base-commit: 7193e493653c9c91b4be159cd919924ec6ad2392
+change-id: 20250626-imx8qxp_pcam-d851238343c3
+
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
