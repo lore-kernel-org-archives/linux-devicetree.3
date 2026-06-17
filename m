@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7F937B407;
-	Wed, 17 Jun 2026 18:52:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9182D37DAD5;
+	Wed, 17 Jun 2026 18:52:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781722324; cv=none; b=U1zY9aq1EvpOIe8t3/pu4YbZdXEi1AahiMJde9X5VasCVDZLf9Tqgown+olvXtHIZRxu31xUc/Wo54tbrv3GnMTy20xfpGRsTgwO10LK8FYhE9BmHp0N5iRWvH3FNg0TBbEHywQk0oW90VIFLfsXe2CYH6SYyrcitlySHC2e/ck=
+	t=1781722327; cv=none; b=oa3gl8NFQaDYNeu1mLDh2OSnXhUHw5uXXURya2CLoJB/EJxDmwKjAUxELYBSlLzJ6JJrcmKA0V4SZ3kCBKcpXB3fPfYOEuru0Tm5uGmyETpIaRi4/sJH+5ruKTqhRb8BppY+c2n1PsD2xhc70o4u1MlURiDIS2Oh1kQnml5Jf7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781722324; c=relaxed/simple;
-	bh=IyvNW+/ztTr/dI69pK7Ue2+dgapYZS+JafsBFsJT7cI=;
+	s=arc-20240116; t=1781722327; c=relaxed/simple;
+	bh=mc/iJTJecDpQy1HLoQDn1uiA/M6P0Kd2A6IS6FgXWcg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NAuE1dRAQ8y/HNyjDitr6U+m/f+cqCVAJ5dtwSIKzlGXENbyKLO/GI83V+UAR/Hv0Fuiuo9cSedcD7i9PPkBQp/w3WRHXcDDRT6J2s2oxqBiXwd5zyEolmKg/d59E5i54mV4GgAvmknk/l9G49lECY2TqfjYkK5koYScDoOYzgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LNv2OAdL; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=EvMLC22BTE8FoDUtD7/xKm/XWo6GRDWoAhEASuUQ5ifeAHK9FMcqe3wzWyS+iKqRENQLl8fYuvbm0gl470cRTBgK6jnRxF4uLpMdEODRS3CHu6UiGLOLUg9nEBFh3YWMFFL096PRhG/C0AAFcUBUCZIwr5vMerudzIQ2U5psCmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CDRSXxgc; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LNv2OAdL"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CDRSXxgc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1781722321;
-	bh=IyvNW+/ztTr/dI69pK7Ue2+dgapYZS+JafsBFsJT7cI=;
+	s=mail; t=1781722322;
+	bh=mc/iJTJecDpQy1HLoQDn1uiA/M6P0Kd2A6IS6FgXWcg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LNv2OAdLlMhPJv4rO/O5fK5SQeR6rxGEdctKFClnC38ebGpbUljYItqNLTE76HooX
-	 2pHIf/JxpJqe8pe0TewHGEZitx91UsKdFQ1CFJBkgZ7JXuq87CN7rZxr388o6gOGS2
-	 xo13PdKIohKoxo1e8tQYy4PnrfoaRrOLpniprqGINNDYgiDtubsI+6K7AiUp1auMKr
-	 XXSAe1aPfPOIIo1o6Vk9h2mJtnZd9xVQeW6mKzPn8c4bwVfbpHX6bB+t7XNpYYkV/Y
-	 wy0M62Ephtaf3FhXey5pLIRHndl+UQoffY3wdCcOfumwRa1o9zgQgYSZoUxri9cRmp
-	 2YAxyZWx4WDDA==
+	b=CDRSXxgc1Xtk47RBBi2V9o6G9EwvnEVyvtPQq46SiPwdjw896G/FRfDMjqTRRSsho
+	 l2a4hy0fvlvSqIJiREFwlct5gdPh6dS89U8NDkrT2tAIgYvWhsOP5DUs3COqoGbnHs
+	 hm1DXBXnGJqK4ey9SK0RCBrG57krA08wFFvBW5M9rXCLvfTA3KUSZNUmnfNAHg5/Y2
+	 ypoXMoVB3DE9HnplmvTeCdxJSgQbsm71g2ZEPqabe/bu4v5oYQ/jldQsrFQ1XSsnAT
+	 gp9znD0XmL1p+4DY1aWxyplnrZXdsZk0Q+99OgNzibxKcdHjmg4/+ElwNHurTOyLVE
+	 z3N4J2uOu7pyg==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B52417E0CA9;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CB35F17E0D6A;
 	Wed, 17 Jun 2026 20:52:01 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:51:56 +0300
-Subject: [PATCH 3/9] drm/rockchip: vop2: Avoid DCLK source switch for
- 10-bit YUV422 output
+Date: Wed, 17 Jun 2026 21:51:57 +0300
+Subject: [PATCH 4/9] drm/rockchip: vop2: Consolidate HDMI PHY PLL clock
+ parent switch
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-3-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-4-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,66 +67,80 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Currently the color depth is always factored into the DCLK source
-decision for HDMI output, which can break certain modes when operating
-with depths greater than 8 bpc.
+The DCLK parent switch logic for HDMI0 and HDMI1 PHY PLLs was
+duplicated, with each endpoint repeating the same clk_get_parent(),
+clk_set_parent() and error handling calls.
 
-When the required transmission rate exceeds the 600 MHz limit of the
-HDMI PHY PLL, e.g. for 4K@60Hz 10-bit RGB output, VOP2 will normally
-fall back to using the less accurate system CRU as a DCLK source,
-assuming HDMI 2.1 FRL is supported by the pipeline, otherwise the mode
-will be rejected.  For YUV420 output format this never happens, as it
-uses half of the RGB bandwidth, hence the rate remains within the PHY
-PLL limits.
-
-On the other hand, YUV422 always transmits two 12-bit components per
-clock cycle, regardless of the color depth, which from a clock-rate
-perspective is equivalent to three 8-bit RGB components.  For example,
-4K@60Hz 10-bit YUV422 requires the same bandwidth as 4K@60Hz 8-bit RGB,
-typically 594 MHz.  However, VOP2 wrongly assumes it needs 742.5 MHz
-(594 * 10 / 8) and ends up switching the DCLK source.
-
-As a consequence, the modes requiring uncommon pixel clocks, such as
-those corresponding to fractional refresh rates, will fail.  An example
-is 3840x2160@59.94Hz, which would likely rely on the 593.407 MHz clock
-rate unsupported by the system CRU.
-
-Note this only affects YUV422 with color depths greater than 8 bpc; for
-8-bit YUV422 the 8/bpc factor is unity and the bandwidth check is
-already correct.
-
-Prevent the incorrect switches of DCLK source to system CRU for YUV422
-output format by forcing 8 bpc when checking the bandwidth.
+Refactor this by first selecting the appropriate PHY PLL clock handle
+based on the active HDMI endpoint, then performing the parent switch in
+a single shared code path.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 36 +++++++++++-----------------
+ 1 file changed, 14 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 2833fb49ad81..17d21e08ad97 100644
+index 17d21e08ad97..df475173dc8e 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1922,8 +1922,17 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
- 	 */
- 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
--		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8,
--							       vcstate->output_bpc);
-+		/*
-+		 * YUV422 always transmits two 12-bit components per clock
-+		 * cycle, regardless of the color depth, which from a rate
-+		 * perspective is equivalent to three 8-bit RGB components.
-+		 * Force 8 bpc here so the bandwidth check reflects the actual
-+		 * TMDS rate and avoids an unnecessary DCLK source switch.
-+		 */
-+		unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
-+					8 : vcstate->output_bpc;
-+		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
-+
+@@ -1932,42 +1932,34 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 		unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
+ 					8 : vcstate->output_bpc;
+ 		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
++		struct clk *pll_hdmiphy = NULL;
+ 
  		if (clock <= max_dclk) {
  			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mask) {
  				struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
+ 
+ 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI0) {
+-					if (!vop2->pll_hdmiphy0)
+-						break;
+-
+-					if (!vp->dclk_src)
+-						vp->dclk_src = clk_get_parent(vp->dclk);
+-
+-					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy0);
+-					if (ret < 0)
+-						drm_warn(vop2->drm,
+-							 "Could not switch to HDMI0 PHY PLL: %d\n",
+-							 ret);
++					pll_hdmiphy = vop2->pll_hdmiphy0;
+ 					break;
+ 				}
+ 
+ 				if (rkencoder->crtc_endpoint_id == ROCKCHIP_VOP2_EP_HDMI1) {
+-					if (!vop2->pll_hdmiphy1)
+-						break;
+-
+-					if (!vp->dclk_src)
+-						vp->dclk_src = clk_get_parent(vp->dclk);
+-
+-					ret = clk_set_parent(vp->dclk, vop2->pll_hdmiphy1);
+-					if (ret < 0)
+-						drm_warn(vop2->drm,
+-							 "Could not switch to HDMI1 PHY PLL: %d\n",
+-							 ret);
++					pll_hdmiphy = vop2->pll_hdmiphy1;
+ 					break;
+ 				}
+ 			}
+ 		}
++
++		if (pll_hdmiphy) {
++			if (!vp->dclk_src)
++				vp->dclk_src = clk_get_parent(vp->dclk);
++
++			ret = clk_set_parent(vp->dclk, pll_hdmiphy);
++			if (ret < 0)
++				drm_warn(vop2->drm,
++					 "Failed to switch DCLK to HDMI PHY PLL: %d\n",
++					 ret);
++		}
+ 	}
+ 
+ 	clk_set_rate(vp->dclk, clock);
 
 -- 
 2.54.0
