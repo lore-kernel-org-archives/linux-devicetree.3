@@ -1,62 +1,64 @@
 Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1FD18BBAE
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E46D309EF9
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781665173; cv=none; b=NAgK/TNxQzhrIWcLRfNQI6jxpsp82WERDuRVDcGWmQ1jvz9GXUUS5x8yaDSDVAEe1t4Y1fUGxaXZ5yhhhw890zzeEu35L0T1xfT6Un4PvDs25ITOVfwuhoDmHb7+GGQ/qmgyjzjgwRpDEx1RW/Plj55Y1eFKGWNMBwra/53jIIQ=
+	t=1781665177; cv=none; b=ccryth7Zp3XnzKYfB0wP6OIInW9hUiS4MtJDyUAUmUK6eBs8kltW7tm5n1+fJrf8okEQHaBf7aWLwunntE4G2cdB+I+fbpDP2aPHoWICBrHlj6DRxEhwT2YVMHrfwsn/7R0gT8lAO0dre2Ze5GHFmhkWHRwRpygDbptxgsFPm8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781665173; c=relaxed/simple;
-	bh=mkBhvigEenoV7hVsKrScF2k37dBKNOTTn+0E9rJ/vAY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Tdo8HHcRmvXT7ei/zVPt1xhO3pupWfCQYNq1txEfP0AVaiu3ZhSFMfmSZ2Nm48fek+4kOn1SVb4NSy1K4bodNp11JWhUPmGvyuagD+ehKMjbnSnvqT45o0UeW+bpQ0MeEVVonCyDcjMCbrIEDL49QDAr0ZC3urmHnztxSKC8NuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNudawiI; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1781665177; c=relaxed/simple;
+	bh=10R457NwGTvH71mGj5Kfmru+y69/XctIcBwhK8pKzak=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kcDJULm93MK5uf4NFvPu7zlFE3ZHwHZLgB6dT9+ywM0lWr2DzcRwWSKH5yj1SHwcweDIvIISyUFWhiUO8lwmAoEbJNWHZ9aywvgUhyhGcqh11RgTzYFoFDSmyh0o1BYG0eGZoOX3gp3+WfCo8qBwEU/ztNM+TKAjSZYsM641RbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCWwinvV; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNudawiI"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-842307472d4so2010730b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 19:59:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCWwinvV"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8423610ec93so4464775b3a.2
+        for <devicetree@vger.kernel.org>; Tue, 16 Jun 2026 19:59:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781665172; x=1782269972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TBin7H0Wt7Oi8P0z8wsZgQQjqhBwvW2vxMHjxdsEcyI=;
-        b=hNudawiICVnvIJbq7BFPLhcs2D6VhH0mROmU56PWBB4gUjIg3/1cluK7wFZPmGQRAK
-         jGRfq1tY+tPaBSw4s3ZTA6Oor3yjsMvtmpMdPiFRYW5jm2ZHx2ncGB1AhPaj2eAuy4aD
-         M0YRGV0A/d6AKwWgEjp+HeduDSUCFsXfJFxQ7P+0/2YlfB2IjsZFX1BPBlhkwPB2A4dH
-         e8hbybM0cHps52NsoDXs57jyFSQ6/bVjjSy9EJLMbTNsc7V4OOL14yaPN+ZmUYcPqhpL
-         LiuGiv34FnQ9VTt8iPstP9kHMK9uRJAwEA7VJRrnVHb53RBZ1uSF2imQAwznLdfyAFSp
-         m84Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781665172; x=1782269972;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781665176; x=1782269976; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TBin7H0Wt7Oi8P0z8wsZgQQjqhBwvW2vxMHjxdsEcyI=;
-        b=YxOh6qgvToTGN3yaSHJ0PshsauF97T9o4tVX++X8/suoGa2LpMH0Z4qjyqRcOSgirj
-         bEQ1iV6N2gb5w1v1N2g/cHLZetye9gbeGmMg3O8FiJYTgjTOcv91AYw3TAiy4b3gqVHz
-         YzFa5yBePWSPiJsKfk/Zz2Vvd4gQ7AXy58r02KGJeYmspRD1hekv7vQrKdEqD61OS1g1
-         Vkm29BNyvnmiaPzsXIK++EXw2mi/N/Yk6GTdvk5M6h8xVjljeb8OwN3zNWlxjR9edaie
-         c/ylesu/cOE08qpBoa/wRAnWXnQIdMW2jf9pSkcmsHu9ezh62eElkqp5s7aYNGzyN1+i
-         dp4w==
-X-Forwarded-Encrypted: i=1; AFNElJ+xtixmsXpTsulDaOVafInMhxAxvJwGFl3hvKqf7TpK40ZslryHrQOMwT9bX+IxXAK/xW8rhtNQsQSU@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXexo2bq9deDjYKlv8CHF0fVwfnuIelfaT2vD8+yrRxmUYy8bS
-	hNM5aM/vLH5FyOLYrG7HzGwn+PGzbShqADiX0X5uzBAqte9d+yUTa49F
-X-Gm-Gg: Acq92OGctBRcfijTUj4MQ7L5FJoom9bCy6IcY7UHDdbKTYfjKYB0DjGJF7Tfhc75R46
-	jWpnw8EKSJLQ3+PjITvx7Ih3lrHrpCm7M4la2v5rMl806zVnk0h3ABpL6B1tBgkCrKKDlfFofeO
-	YUZbd5cAXvAeAHpIK1PVroGz75jWt802CXYHzvdlRDyyeyUKYVsB0KXkqWuJViFioUI2TtoisOm
-	SnRMWp+mMQOk5Ajq2ymLQ9e4JU6ndAq2L7hYxbGYbWz747Mul2gfFH8Sfx3xrv0dlN/SdXs0nZE
-	n6s+BBvwX7uRkYcMb/TYcqNN0ePpNbfoQM7MlgjlUcoXtEhV4OX/tJNW5Wto7m8oN7ZTyMYaWtn
-	z2+JO+ukLaNXJ+52RVQTldO7FoxkSCHlzNttBPxdkGGBai7hH0XoxpbJ6JxB0Y0HH6o1WW0/K3i
-	ITeWvFKgoBxZZmKBn3Fi+efyOlTtN9xaHhVo1eGP/F86EGm2AEA6AOjU5s+6iEXbIt9bhcRuhDB
-	IU=
-X-Received: by 2002:a05:6a00:2987:b0:836:3f6a:3e7a with SMTP id d2e1a72fcca58-8452454cd35mr1655165b3a.26.1781665171696;
-        Tue, 16 Jun 2026 19:59:31 -0700 (PDT)
+        bh=CQu/v9VbPVOFvypxy+vSIVqVZUuLUc8YlsM7QgQ5RmA=;
+        b=GCWwinvVUWDAXeCkgEswHCD7pb6xpAkWoy0hYYvrT4jfRCozjtbtnsMQwha2BJpgWA
+         FZ4v5AHw7ANXY5+4k0x+6pdawwMDw7ZVKg8aeq+6PIRiZoHcfKZpY3U1bbR4TJdd1hBQ
+         kNwgOyCOnBEeO2uJnhHrb0wkNlmLxPgWdK3ZKfQVL0Qs41+eJZOhRLRWiaeq+JQ9RUSC
+         o2QdA2Ztva506XcoPezOBx1X+nDLXZosw5TaUXbO1/Weh5pEyjwtmEACCNYU8lE63l2w
+         IwiJZWsRQRbKL/otZcNZuOT5bTmm+AtKUcZ62NtMCgyoX5RfmQCzX84Y+oAxHYjwycd3
+         8QhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781665176; x=1782269976;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CQu/v9VbPVOFvypxy+vSIVqVZUuLUc8YlsM7QgQ5RmA=;
+        b=TkKCs1beoblo6Y/erCtKIgDw8kcZkqhjFBuoeNXbb9oQVAwbu9VM3IG14wyZukFrAu
+         vbYxew3OYas5gPziAjgH1D9BFKE19Ob4TXeR1toCPfGsaTfihszKMILGG2Y5U3K3aYKw
+         kbyKrFkfhLTKUJdQRu6lHzZRHwMz21vu1h+ToiAKG4Wd/z6RqVLx+LpzYtOgM6buMNtS
+         IFhvuwA9vI3Gl8mJWQhqLM9Ujx2LSCqFZzRmXKo7xkxuNXYDm+LvcBY7nwrriW0zR/NR
+         MOc+L2U7HKTOqC+tzNnkh2zLISvGcgsY0Lg6tpziyvzWiM4YtT6yHXZthTuVHzNxK4Hl
+         VvBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9qcaJIN08HezZRWZe+oJkhjLu6zb0qyOTZu4/nBI/Opr0F/xTGle9YYKpN5ibeuVBcX8dfJvxn9/TP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZx0F+Z5qKoDV/Wa65rop7KbsDJibnrnWdkNTHDLmiIF21fqCb
+	frUYyGIrYBQ3xBeOUqST2mYzhYTWvoWA5buOuLoiCMZFx467Ha/ByJ0u
+X-Gm-Gg: Acq92OGVphQ3EU1I3yyzPVGEAd8jIaWBVwYXfoEOt4aN/4PhyrhCKm3Ve4kwtfXaVuG
+	6k3Jkg47Vr1P1Hof6f/IkX68vGcyWPnKZ1HhvyEok6wlliM33VHdRV6VYl36RYM+yJpncFtgtqp
+	smGHmgTsjsg85uEoJfuXQqRFKjEZGNLrerLJq+HTvMKSPHxmnEw3edz/EGI2L6mkozzqzzpSpAN
+	9oXsl5/sUCVvO1Kyte57vrYZc32owveySZmXVyxxxgfIWi7JTYph3SdagMGfas9KL7W0LUyUIJX
+	pDNJJJqPjtnEUB09NiQM05ku89odEWO2wMwK+g69vcF4piQ+n9zMQUS6FBIYYx+Kf93IXpVkHSj
+	tpLff3WX+SJBBh+Ms8FWehRdR3nnJAlKFEX96ncQ8ZxL8Cq27x0jifCtIzYzff4662cy/wNXm0g
+	mw1a3Nkwb4C07LaELwVHHxC/+nX4SJod7qBH24XBJOIwzkR5eAPOa35rDittzqkixCnnlWEs7fQ
+	tg=
+X-Received: by 2002:a05:6a00:2d81:b0:842:4bb9:5fe0 with SMTP id d2e1a72fcca58-84524442788mr1866187b3a.10.1781665175597;
+        Tue, 16 Jun 2026 19:59:35 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc825csm14212821b3a.36.2026.06.16.19.59.29
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8434afc825csm14212821b3a.36.2026.06.16.19.59.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2026 19:59:31 -0700 (PDT)
+        Tue, 16 Jun 2026 19:59:35 -0700 (PDT)
 From: Chi-Wen Weng <cwweng.linux@gmail.com>
 To: ukleinek@kernel.org,
 	robh@kernel.org,
@@ -67,11 +69,14 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v4 0/2] pwm: Add Nuvoton MA35D1 PWM controller support
-Date: Wed, 17 Jun 2026 10:59:23 +0800
-Message-Id: <20260617025925.2539334-1-cwweng.linux@gmail.com>
+	cwweng.linux@gmail.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v4 1/2] dt-bindings: pwm: Add Nuvoton MA35D1 PWM controller
+Date: Wed, 17 Jun 2026 10:59:24 +0800
+Message-Id: <20260617025925.2539334-2-cwweng.linux@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260617025925.2539334-1-cwweng.linux@gmail.com>
+References: <20260617025925.2539334-1-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,85 +87,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-This series adds support for the Nuvoton MA35D1 PWM controller.
+Add device tree binding for the Nuvoton MA35D1 PWM controller.
 
-The MA35D1 PWM controller provides 6 PWM channels. The hardware supports
-several counter types and output modes. This driver configures the controller
-to use up-counting mode, auto-reload mode and independent output mode. The
-waveform generator is configured to drive the output high at the zero point
-and low at the compare-up point.
+The MA35D1 PWM controller provides 6 PWM channels and uses one register
+region and one functional clock. The binding uses the standard PWM binding
+with three PWM cells.
 
-For the up-counting mode used by this driver, the counter counts from 0 to
-PERIOD inclusive. Therefore, the programmed period is PERIOD + 1 cycles. The
-hardware can generate 0% duty cycle with CMPDAT = 0 and 100% duty cycle with
-CMPDAT > PERIOD. To keep 100% duty cycle representable, the driver limits the
-maximum PERIOD value to 0xfffe and reserves CMPDAT = 0xffff for the full-duty
-case.
-
-The hardware buffers PERIOD and CMPDAT updates when IMMLDENn is disabled. The
-driver keeps IMMLDENn disabled, so period and duty cycle updates take effect
-at the end of the current period. Polarity and waveform-control changes are
-applied directly and may cause transient output changes if the PWM is running.
-
-When the PWM output is disabled by clearing POENn, the output pin is put into
-tri-state according to the MA35D1 reference manual.
-
-Changes in v4:
-- Add a Limitations section to describe the hardware capabilities and driver
-  limitations.
-- Add a link to the MA35D1 reference manual.
-- Replace register address macros containing the base pointer with register
-  offset macros.
-- Add readl/writel/rmw helper functions.
-- Rename TOTAL_CHANNELS to NUM_CHANNELS.
-- Use unsigned long for the cached clock rate.
-- Use devm_clk_rate_exclusive_get().
-- Configure polarity before enabling the counter and output.
-- Add controller initialization for up-counting, auto-reload and independent
-  output mode.
-- Configure the waveform generator for zero-point-high and compare-up-low
-  output.
-- Fix the period conversion because the hardware period is PERIOD + 1 cycles.
-- Limit the maximum PERIOD value to 0xfffe so that CMPDAT = 0xffff can be used
-  to generate 100% duty cycle.
-- Use CNTEN and POEN bits to report the enabled state in .get_state().
-- Disable the PWM by clearing POENn and CNTENn.
-- Fix error message capitalization and trailing newlines.
-- Fix coding style issues reported by review/checkpatch-style tools.
-
-Changes in v3:
-  - Update nuvoton,ma35d1-pwm.yaml
-    - Add maintainers entry
-    - Increse "#pwm-cells" to 3
-  - Update ma35d1 pwm driver
-    - Make include header and macros definitions organized alphabetically
-    - Rename macros REG_PWM_XXXX to MA35D1_REG_PWM_XXXX
-    - Add macros for register address
-
-v2 resend:
-  - Remove wrong 'Reviewed-by' tags.
-
-Changes in v2:
-  - Update nuvoton,ma35d1-pwm.yaml
-    - Fix 'maxItems' of 'reg' to 1.
-    - Remove unused label
-  - Update ma35d1 pwm driver
-    - Remove MODULE_ALIAS()
-    - Add chip->atomic = true
-
-
-Chi-Wen Weng (2):
-  dt-bindings: pwm: Add Nuvoton MA35D1 PWM controller
-  pwm: Add Nuvoton MA35D1 PWM controller support
-
- .../bindings/pwm/nuvoton,ma35d1-pwm.yaml      |  45 +++
- drivers/pwm/Kconfig                           |   9 +
- drivers/pwm/Makefile                          |   1 +
- drivers/pwm/pwm-ma35d1.c                      | 344 ++++++++++++++++++
- 4 files changed, 399 insertions(+)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+---
+ .../bindings/pwm/nuvoton,ma35d1-pwm.yaml      | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/pwm/nuvoton,ma35d1-pwm.yaml
- create mode 100644 drivers/pwm/pwm-ma35d1.c
 
+diff --git a/Documentation/devicetree/bindings/pwm/nuvoton,ma35d1-pwm.yaml b/Documentation/devicetree/bindings/pwm/nuvoton,ma35d1-pwm.yaml
+new file mode 100644
+index 000000000000..47a59bdd14d0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/nuvoton,ma35d1-pwm.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/nuvoton,ma35d1-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 PWM controller
++
++maintainers:
++  - Chi-Wen Weng <cwweng@nuvoton.com>
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,ma35d1-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++
++    pwm@40580000 {
++      compatible = "nuvoton,ma35d1-pwm";
++      reg = <0x40580000 0x400>;
++      clocks = <&clk EPWM0_GATE>;
++      #pwm-cells = <3>;
++    };
 -- 
 2.25.1
 
