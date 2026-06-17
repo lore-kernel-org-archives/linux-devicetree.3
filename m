@@ -1,123 +1,173 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023078.outbound.protection.outlook.com [40.107.159.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1543F0ABC
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 12:19:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781698796; cv=none; b=bH+6zZpjqGO/7TpY22mBseAtgA2QGyXZFfySj7/qSb+V6+vykLEVVSzJQuM+/KgeOtBRH2oqSPh86neoLJhsg76NFn4Mh/NxgSC3hvYXiZiNW7T1NmpV61lAV5nGz1e4QsXWPNqwDTehM6eNNDQMw2nK92RSd6oAP8fcUTD6BxA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781698796; c=relaxed/simple;
-	bh=wo5u5o+P/8to5HqjbitjQ8PWwxZfTG2jaGG3xTLCk/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i9po29Ru27zMNvtVLtka8l6WTjIXBL3fvcbh+4/bnj5/a/+bOKxtalip2ZlEE6UzepcIMNBe06WCYAR/Etq+6Dc4IndP9W8NLP1XHJdhTSP8Gykhj7yumfM4OVZzhmuBXod3rYcA+dALdCPyuK3MmT2jx1ARjZl20c4ElNCnlQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=AxBAGudq; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0613B3C10;
+	Wed, 17 Jun 2026 12:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781699027; cv=fail; b=FddXmzqhXAYrf7NZVB1qs9lZPnhRMHG3Z9zb3uv9DITj5bsSInCCv50EzqkNdsoDgEUJdKCgC8q1PRlVUDdQITl4zC8OHn78zUZIoaWRmSvFCOI+uspj3rcNTNwiNeHXBef5fmfbVcY7U3xBX/kG3pYcoCU7VRZfuHqEWeLEenQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781699027; c=relaxed/simple;
+	bh=O3km8EweAJ6ITjpvGQqs7mWNerFEtBc4hbWpi/uoIz8=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=oeFZsUvQXHCnuwXsBlS/D0OA405ARfA1CZHvkQKGkntFNEZvMXp+5h9d8yNL+4zSBLPMtmZkcjY2DTt+2CMHyPdfEqzmA/rYB+M277BRTiDjLqoJhSjV6khUa2iSCAhCUJRUixtU1GSjh+lSjMmnVPgJwp3FU3hgwLgUNjR8alQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net; spf=pass smtp.mailfrom=wolfvision.net; dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b=ySNg0064; arc=fail smtp.client-ip=40.107.159.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wolfvision.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolfvision.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="AxBAGudq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=/I0l
-	haoFT33pxZ/PYaXqQdGg68ctR9A+xZaGv25YhwU=; b=AxBAGudqHdiCwNzYfqEY
-	lJ2ZIbMuGbXvomikq6tcghpTbaaxvaJMmDAzR51gWdQaEqb3nwxlZi7OJ5epbETb
-	KRtwlSLSG3KOggjVmSNi5qkXvhWueoRiFilTugCCUFqLuBiGghA9YtKlOi2Ouwif
-	H/7yXAtRoUJvT2vmua/qLGcK17Y3ugNvDZpZk8mIpwib8fjQ3UEBlnFngLM5xxGR
-	dW8LwfHamXy1HEHJi4XKzsrmT3t49U22b9+pLx698un1/+167p9z31AcMtlexahR
-	ou3oBIMCQ259Xf9pKR5W9rJZqoCg+dQuFDGRmzQWQVTclRQPNvyCqZMPVw9nA1Ww
-	CQ==
-Received: (qmail 160292 invoked from network); 17 Jun 2026 14:19:48 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 14:19:48 +0200
-X-UD-Smtp-Session: l3s3148p1@gNVeE3JUVKQujnvI
-Date: Wed, 17 Jun 2026 14:19:48 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi: Document
- RZ/G3L (r9a08g046) SoC
-Message-ID: <ajKQ5OzGvWg3kBYa@shikoro>
-References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
- <20260603065731.93243-2-biju.das.jz@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=wolfvision.net header.i=@wolfvision.net header.b="ySNg0064"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=J3lYF6YXDlt6oCphiNpOcBtn2cwo5Mx4rqwms36Htx6jgrEdDNJd/kqkEdmbiiia0wjnjVmUbnYVkmdJr4+wcGuxhLP7Kwq1c6IGz4f9EaVvjEyA70EXA6olX3NQc4M7qfiAIoLk5ruyUu3nCiENh+NRzJPrvTxYZzW/LAP6DaoxQa6ZEFWXTXW20l8s0pZA/HXNZFP3Mdrc7t1KuykSHWMNlGt2yHT2crn5RArhxkk/0bRnzyjbR8NpOX1EmTbFIkYPRd9Nz9X7BGFrz4EBafLpqF7uv7y3Nk7mw5GdSm5Huqxm+XLvXMqZbIQ30S8tkTC/6QoPITN/6Symf6KWBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qIvR4sFhQKjfMWuzkC7VHSr2I1Wqm31qb7WKPippyuA=;
+ b=jULpcR8+dBx30uvBAKpsqWmf7ChoGJ8VCnTAJsc0SV4j7hC/4ypdrBUjxk6fWBAvGSeE2oB93Al+SDhh7a8Acb7ugUR8zE9So0P3FLXdp5W5VfvH/2tSHTFvpI+BfNORpH4DwRbwusHrRr80gQJPXUPvDeW0HpDkTFNHRDJ8Pvzb+whI/Dw3voEg9kR+Lpx5aI0+R5YEoaKlGwRb6bDyTySUQR8mGdqvJMBiGOXnuF9pIHkciPcZg4cQe46myFumsl7ReUDyUR7THejSdF7U3UQQ16ClJcS/76mGb9yr8UV+5L9GA4hL+QliD6kbQno77Q3CO7WBoitRmBMlfKBqyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wolfvision.net; dmarc=pass action=none
+ header.from=wolfvision.net; dkim=pass header.d=wolfvision.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolfvision.net;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qIvR4sFhQKjfMWuzkC7VHSr2I1Wqm31qb7WKPippyuA=;
+ b=ySNg0064TPWtjIjZKXEh4B0gyM6ep/NInXBnRDj12J/fNtW1CCdynvONPASfr4kzlspQj9zUitje4P5/R/s9dGJFukHKBHRs0C+cQNh5PCWWMKTA/aM4nQ+bUMjqWEPtH3ddFupoX2MPPXIIWLEPbBxKV778DVZEQSISeNgemDI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wolfvision.net;
+Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
+ (2603:10a6:150:313::16) by DBBPR08MB10697.eurprd08.prod.outlook.com
+ (2603:10a6:10:52a::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 12:23:38 +0000
+Received: from GVXPR08MB11763.eurprd08.prod.outlook.com
+ ([fe80::8790:5e3:beb2:5bc6]) by GVXPR08MB11763.eurprd08.prod.outlook.com
+ ([fe80::8790:5e3:beb2:5bc6%5]) with mapi id 15.21.0113.015; Wed, 17 Jun 2026
+ 12:23:38 +0000
+From: Gerald Loacker <gerald.loacker@wolfvision.net>
+Subject: [PATCH 0/3] phy: rockchip: inno-csidphy: fix 2500 Mbps support and
+ add clock lane phase tuning
+Date: Wed, 17 Jun 2026 14:23:12 +0200
+Message-Id: <20260617-feature-mipi-csi-dphy-4k60-v1-0-4611ff00b0ff@wolfvision.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALGRMmoC/yXMQQ6CMBAF0KuQWTtJi6SIVzEssP2V0YhNB4yGc
+ HerLt/mraTIAqVjtVLGU1QeU4HdVeTHYbqAJRRTbWpnnG05YpiXDL5LEvYqHNL45ubmDHeHtvP
+ 7YCOaSCVIGVFev/zU/63L+Qo/f0fatg+bU76JfgAAAA==
+X-Change-ID: 20260617-feature-mipi-csi-dphy-4k60-9879c3d1fe4f
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Gerald Loacker <gerald.loacker@wolfvision.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781699017; l=1231;
+ i=gerald.loacker@wolfvision.net; s=20230502; h=from:subject:message-id;
+ bh=O3km8EweAJ6ITjpvGQqs7mWNerFEtBc4hbWpi/uoIz8=;
+ b=xjAjy8FTDPfYgT1IpnXu0a85qz0tqnyTK4Lmjbj3zIA8CQ3FeSaBiMEE3KBRYhIXmor8v+7HE
+ k2Ty+AwitdmAoTDKZ7nxvoShFeHydu4Tzh4hTz7cdKlU7qcTcFZ5nz7
+X-Developer-Key: i=gerald.loacker@wolfvision.net; a=ed25519;
+ pk=UXhp+obGMUOjknszonesnb29P6a2Kk/K5eBuz62ggVE=
+X-ClientProxiedBy: VI1PR04CA0083.eurprd04.prod.outlook.com
+ (2603:10a6:803:64::18) To GVXPR08MB11763.eurprd08.prod.outlook.com
+ (2603:10a6:150:313::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nYIkyYfhRcPpAu3x"
-Content-Disposition: inline
-In-Reply-To: <20260603065731.93243-2-biju.das.jz@bp.renesas.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR08MB11763:EE_|DBBPR08MB10697:EE_
+X-MS-Office365-Filtering-Correlation-Id: db6a1d9b-1d57-4a3e-af96-08decc6b424d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|52116014|376014|7416014|11063799006|38350700014|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	YX0GvzOvgjZkl41UMLjCI9chVdYnRDkpr6Iu4mV3cJeDR1lIoE4asKTTfLN40CUE/vLpvG2zCQrycn4LpwHRYeDnuylQx24JVWDrSyT98tRViht87Za4sb7Accoj2/vQSeJk2bKnPUyvzQ04lgNDFhhw8VpD6XmgW//FlsOyx5YbI2BkuvEKZk1G50ASYqgUiLLw62gW6FpM2/bDvbotcqjOVQWxM/TAE22d9WmhH4LV/E4JtgM2wofZ2K0S2xz/UaFHQCk0WjI08IORjhqOfjDtZClUr2PMKZk7XOsBYER4z6x6wWSXQi5huE+QGlLs4iM2FQP0lS2LGONciDc04OpygeoYlp3kjXd3N/bMSeHwJVsl/5LvQ2F1S2A4D85bc8CdcEk4K0uKw9QA5/3GjC5l30mf17Wl1s7/l5orLicOjydBCwrzxvgrVbDi3565jOPjbuRdT6+tcV90bITrYbXXFjXNAmQz/EsobW2MUK9Nw9xA8TKNVEpawJgGg8VWop7M+qN7D9KKnV+Abiw0UuPIa0Qs2AuvdHxdeK1t/BJOtIBG4qGmkb5/KXBQ1S1DsGBUC9c166zrERqu1b1e5vsehIH/m8EfIW+4bFlOzi8lQT7AjiRn87kiR6J/NjNSHYcraQq96RqU8wCe1n1hMVpfzQ9RTnRMT1YKYPP1KNELzn0oKrRvBIvryjG6VAbNgx/agvprDFXrMVJP1V2HBoCq3dJ1GS7zaczPfWaXoQLu0j+5fLJPM9JVaZFJ56An
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR08MB11763.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(52116014)(376014)(7416014)(11063799006)(38350700014)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aFZRdzBnSlpDeU1GSlp2eVF2YjVBUDhzSzVHQkFFY2ZQQXVtbjIyUmxMYm4z?=
+ =?utf-8?B?eDVURTNQMHBaenpwRVRScU8xWFBnaW42cHA0THJJQURKRUIzVDFETmdSYkZr?=
+ =?utf-8?B?a2hTQXlLclVDT0FMUnhUSVRXZXcrSWNHTzFUMkw4VWNKc05wQlFOd2hVV2to?=
+ =?utf-8?B?TDhUTzN4U29qMzJVQzV4NWMyWFNScHAzZ1RKZTUwYkc3bnpUT1IzUU0vQUFo?=
+ =?utf-8?B?aEp6RHJsV0d5bVNhaU41dWl0VW1hN2RGVHhtQmNJdjVKNGFQbXJMTEx0SEtk?=
+ =?utf-8?B?cWpuUytWc0IrZWFsQjBDQXZqU1pjcmV4ZFNuZ2pMQ1FLcVNHWStvWUE1MTNY?=
+ =?utf-8?B?VStDaXA4K0lpM2ZtUlU5U0YrekMxZWU2ZmxlMkVNSWZyNmJxSldqUVVHS2kv?=
+ =?utf-8?B?Y3NSaDdrVjJHOTlaYm9vVy81L0lMckI5dk55TWtqTVdEVjN6QnVZYlhpZVQ3?=
+ =?utf-8?B?blI1VStRcXBYY3RPY2pYeW9NVytzVEV4OHFtR2hvUEJ6Nm9QQy9BSVVYcyts?=
+ =?utf-8?B?b05wMHBFL1R3Mk55cWlxK1hDQ01oNi9TM3Ywc3BZejFtd0U4NDdhUFBuQzg0?=
+ =?utf-8?B?UWZtQVVHVTFkWHdDcGZ6R1lzSkVNUHBnWkdueldNWjY4VGtvbWl2dHlYU0kz?=
+ =?utf-8?B?YXFadkZuUzRTTG10dUhkYnNrYnFTYXZZSkFoZDJzWFVOTm52VEs3dnhVUGNR?=
+ =?utf-8?B?S2h4M0tzODdIVDRFMSs1a1pVWENUTzFQRXhTd3pYTExLb0ZzOFp1VHdUOUly?=
+ =?utf-8?B?VVNFN3FrK2NMRVdDT1hwdnlVTDlPbjREWkZTcFJGYUdSaTZ2TitXZXE3ZmRM?=
+ =?utf-8?B?OUd5cVMzVmJ1Q2w3eWI4Q3FrdHpOUkVhbWpDTDlRemswSkVuaXZLYmVKcElj?=
+ =?utf-8?B?bXBOOW9XZXVPd0lzeENuZUxIRklXaDVGYVR4UklKYlhUQ21YWGFRekt4ZHIz?=
+ =?utf-8?B?T2RabzdxblYybG1ZTzUydXh5VnNoQmdRZnhiNkZtclJrNm9xZ1J0ZldqY3FD?=
+ =?utf-8?B?VHk3VDdBU0NvZ1dDdXNEN2dFWXVRRHdEWlQ1d056dGowWU5XK1J6UjcyWUlH?=
+ =?utf-8?B?cStkaTBObXFtbHlIZHhxdmo3d3d1TFVUb3Z4WXpzSTVLdm1UQk9rYWh4QTl2?=
+ =?utf-8?B?aENnSCtvQ2k5QnFZbUlWTlhSaUJqRkVGbWRwMDNyRFBDZHZBU0graGxCelVM?=
+ =?utf-8?B?TnBFNnB4RGNNWnlOSjByZnpDVklvTHFXK3VDVzFBREp2SHY1aDl6d0hOZ2dU?=
+ =?utf-8?B?aE4wcTdtNnRpZHRzUE1iVk5kZVU3MmxLcGg1ZDFETWRXUitMclh1ZjYyVjFo?=
+ =?utf-8?B?NGZkWFlJSldBRGVvSWVKWHI1MFQyL0JlMzdTWW5zcUEvdlNodlNyNE5iK1gw?=
+ =?utf-8?B?VnNVaThFdVptaTRGd3lub0JaN2wzNmlrc0dhNHdSeGxrTDdMSzBWSU15bTVt?=
+ =?utf-8?B?MlRDRFJ4WGlKeERRbjQ4UGdnUEJ3dWdQaiswZGtDcUxjaTJwSnI5Ylg0NFl4?=
+ =?utf-8?B?Q05XZ3l6ZFgrZEowb3o3Y3lXUnhURkFWazI3NWx5ZkRKcTJBdkxNTnZUd05S?=
+ =?utf-8?B?U2l2S21UWE5sb0J6eFZCdTYvRTlzZ1hnNGh2b3NBNmw1d3hsdHF0VTFiM1NX?=
+ =?utf-8?B?cXloMll5S1Y5K2VvWWcybXU3TUFUeXFWdUtZb1oxZTlpVzJjbWROU01PRUMr?=
+ =?utf-8?B?bVhlclJqYm1kdlgvQndaS2JqT1FlTkRXUzZ1ZjRYaTVmMGo1TDdRd1lQV3Va?=
+ =?utf-8?B?L0o4OHJjaCt4clFyMjBFTUZXWE90eFJ3c1RmdENjRUlEc3lDUEdBN3poTWE4?=
+ =?utf-8?B?SFRKV2dsblZOWGFyTVBmS29mL2RHd2pCdi9TdHlGd1hvRkhrdkxuQ29aOWdp?=
+ =?utf-8?B?d0NPQlRjMnRDT3gxeEFnZklJTjFnTXBPaUtEcTg1RVQ2Z1l5anRzUUp4eUdw?=
+ =?utf-8?B?YnZQV013V3VUcVZLYnRXNjd4VFlMc0NLdGpkUUI5RStPdExvNWxPZHNVVUZ0?=
+ =?utf-8?B?VzhubjNVb1Zqck5DdTlxam5lSTNDSjhqVmRCTHdWZU5hTUtLRWpYbGZEQnlo?=
+ =?utf-8?B?aE5QaURoZDcreTJyZ2IrZkEvTFVPb3grQXNrSStqcm1rVEZGS2JuR0JNMVcy?=
+ =?utf-8?B?N29odnZUS0puSVJBTG9wTVl6TWRIekdnR0RIYWJ2dVNqT1hVcDl3VGMxejBV?=
+ =?utf-8?B?NlRlSW9lUTZMWFdTczQ4dXpwa041RHU2bXIrTG5LZ2plUldoQmE5UDcxdnZB?=
+ =?utf-8?B?Vmd6WGhjcFRXaG1EdkROZWpESkV3QllYd01OckdHaW04azNlUTJoTis1NGpX?=
+ =?utf-8?B?YnhrQ3QyWUgvMENrUU03VTBOaE5GNFQxdlU4NkFraGFsNlVjNVNyck1UOFdC?=
+ =?utf-8?Q?4SbrHIQVzrgO0P6U=3D?=
+X-OriginatorOrg: wolfvision.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: db6a1d9b-1d57-4a3e-af96-08decc6b424d
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR08MB11763.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 12:23:38.2776
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e94ec9da-9183-471e-83b3-51baa8eb804f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oTHriKW7anHrOC2KCkHHw7r2qSXtHrxfCi4CqUN9T2fYdof3w8TfLdbjMeCxqAM7iCuM+H4BR/fDIQ6ICRElte0+7/LAHIDlpLrjw44A7pg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10697
 
+This series fixes and extends the Rockchip Innosilicon CSI D-PHY driver
+to support data rates up to 2500 Mbps and adds optional board-specific
+clock lane phase tuning for signal integrity.
 
---nYIkyYfhRcPpAu3x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Patch 1 fixes an off-by-one error in the rk1808 hsfreq range table:
+the final entry was capped at 2499 Mbps, causing a rejection of the
+maximum supported rate of 2500 Mbps.
 
-Hi Biju,
+Patches 2 and 3 add an optional rockchip,clk-lane-phase device tree
+property that allows tuning the clock lane sampling phase in ~40 ps
+steps to compensate for board-level signal integrity variations.
 
-On Wed, Jun 03, 2026 at 07:57:01AM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> Document the RZ/G3L (r9a08g046) SDHI controller. The RZ/G3L SDHI
-> controller is similar to RZ/G2L but has five clocks (core, clkh,
-> cd, aclk, aclkm) and three resets (rst, axim, axis), so update the
-> clocks/clock-names maximum to 5 and resets/reset-names maximum to 3.
-> It has an internal divider for all modes except HS400, and a 2048-bit
-> divider compared to 512 on others.
->=20
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Gerald Loacker (3):
+      phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
+      dt-bindings: phy: rockchip-inno-csi-dphy: add rockchip,clk-lane-phase property
+      phy: rockchip: phy-rockchip-inno-csidphy: add clock lane phase tuning
 
-I know you work on v18 already, but some high level remarks already.
+ .../bindings/phy/rockchip-inno-csi-dphy.yaml       |  7 ++++++
+ drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 27 +++++++++++++++++++++-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260617-feature-mipi-csi-dphy-4k60-9879c3d1fe4f
 
-> +              - description: ACLK/IACLKS, SDHI channel bus clock.
-> +              - description: IACLKM, SDHI channel bus clock m.
+Best regards,
+--  
+Gerald Loacker <gerald.loacker@wolfvision.net>
 
-What does 's' and 'm' stand for? Is it mentioned in the docs? Would be
-nice to have here as well, if so.
-
-> +          resets:
-> +            items:
-> +              - description: rst, Core reset.
-> +              - description: axim, SDHI axi bus reset m.
-> +              - description: axis, SDHI axi bus reset s.
-
-Ditto.
-
-Happy hacking,
-
-   Wolfram
-
-
---nYIkyYfhRcPpAu3x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoykOAACgkQFA3kzBSg
-KbZXkRAAlPkxfJBU2AOJai06gq+PcuZ8YuGMnCfztKN1A1YkcHIjKxffWe+QN9f2
-+GzFT8psEN6UFSQOPO7J0zJ19UcLpeP6ly6VlJBhSg9Z5c8oxsS7DJFxZ1PisIZ+
-WEoWLfql4I4OHILot6NCAdsIVM1eXhMp82jSGVb9vUqLGFHhYyDiD+DIOwePGcQJ
-mlR1oSSHmbL4nNcKJzBM4cInKrfOfiNG7kA531rPzKAO7RxUDat1Jr/oBKYqo3z9
-VOd96YgYGqCfuhY7PHtUU43bgNLyGLCdn84eNU+LlOMzDpNLDrsJW4SvZ47jFjOx
-GrYQtn90ouU8BI8Bm2WikzvLgzsuEvDx3nNcgMbCol0H7FPJ3kv5ejOVZKVF3go6
-uxuArNWfRXSnP9pGvrGbsaE1UmMYOXiw2W3/1ShLP+d3Pjm71wsDD9gzIKktKiEr
-CdHQPFj+R+Z/1JfMrMp15yQqHeeLXboy2XA7d0izXmE9D8ukPlsGMiNgVlu3ZBDe
-LDDDDpV1F1+YK4N+GX31Rypmcshf/zTtFq49KgLOViY8oSDnvs/s2yP97iWbr5oS
-yVYcKQE27rKXRpJfzywwRdmdXYn9dv0bgnOo4KwgBifcu+rGySmSoNy0jJC3Zl2a
-I6+EJt8SgIDmYGP8YbM6RfOaWF19V1snDBUeDxh5TDJnhCJGI+o=
-=cLl7
------END PGP SIGNATURE-----
-
---nYIkyYfhRcPpAu3x--
