@@ -1,103 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4D13BCD33
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 07:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1623A16AC;
+	Wed, 17 Jun 2026 07:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781681257; cv=none; b=Wt4X/qSzxG02SjHBgEoQJuyYYcGF9RB9DMnRRgoOF+B3Vu+KoIVenBu7lMvYZPGZtB6ctl5dIGGZyUufegpDKaUR6cHoZ4DvaG26VE3nNF+TI31ptvToB3uncgSn9oOGP/8LnW+QQhQYGCKlAlItPWwc1W6SgRMOXy62xpGzZzo=
+	t=1781681301; cv=none; b=nzkuSEYjqrdtACNy3i2L/iz+9fqOJJmoFp624MiMK7qGJ+hmNiOQS34VHGTbvmkdXcaTAoR9RZDs++dDIthL0coXzvmI+ShxPqGt2ojHwg2hM8lb2tJq5gsWKnFYxphYkmljtLQ+X7EQ6eii4F42R5I8PR8nZztdYfwN0EF18ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781681257; c=relaxed/simple;
-	bh=FYPdOsxL9IPMUciz7Da1pXiS3wC2YQAxV8OpNTTlsvU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pNQlfuYS1ssoA4RURxwIjIaBB7kVAcjeWPGY2wf9HzKk9JPQzxWYKaMYXOZLJuUyQDZecr6OQmhVOiNPTRLXiq4Quznvl0JdmoTaB1bxe7cQd6hixqRlPT1D8DnKj4YUO1kKnu78TLXYylEuZtqqFVvZJ/6043OSBI8LPrLYmW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9/LhKoa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781681301; c=relaxed/simple;
+	bh=nrNhqgLTejpEtWCy9hVGJcFQiX+RjSTNyJuVeRGAxpQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u3Od+KUCIPk2OnnQmQuBZIiIR5IufjGe7oTyC1qxAWHbX18keQFbzfcDLjp8qBBdKC4EFwYAct7VbiJFcwgPv94MiJ4TdFKFbbawa6I/h5BAJme68TvIorVA6lo7sXCOXh9FBOxMWSKr1vWruEtAqBdfFmn2Khs0m2qoK+bTr7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tk/MzqAR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9/LhKoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFB61F00A3A;
-	Wed, 17 Jun 2026 07:27:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tk/MzqAR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7E31F000E9;
+	Wed, 17 Jun 2026 07:28:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781681255;
-	bh=RFFMRNrDpr63REMYhT+UeN5XZg5St62F9FzMJ11+wag=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H9/LhKoamHwEu1prbA9qSzOmp7JY7GHRT7Qw9I6MaNWfxBPdAUMXFMZIzVgbsciRL
-	 S9Zytq8/wTUnWAFlRXT0kTQYu85pPWoEW/NYm2rysKRHsQrICKuFo4F5agzJns2aRE
-	 zvFdBg3mHT+h4Q4rvVC3nffqUzTA5AhwSwtSQHEFIaddS5aBU/NyHKslUMxM4ykQn/
-	 xKVLcjFBVcxmF4xFpoTKEOW0xW5cDkASdK35ulPRnCm++7VFUJxviPz9PY8MUqKCpt
-	 xonYau9Nia+7B0bXvYQ9w9x5JSjDenvPd38Lp/neB0peSqm9xc0+hEeCtlap7iDSiM
-	 XxX50OpANPU8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: amlogic: meson-axg-s400: Enable
- pcie_phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
-In-Reply-To: <20260617071604.635627-5-jerrysteve1101@gmail.com>
-References: <20260617071604.635627-1-jerrysteve1101@gmail.com>
- <20260617071604.635627-5-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 17 Jun 2026 07:27:34 +0000
-Message-Id: <20260617072734.9BFB61F00A3A@smtp.kernel.org>
+	s=k20260515; t=1781681299;
+	bh=oitSDh2idwbTV4wEy6qC2suZE8c7ocMdTmo0GG8WGDo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Tk/MzqARhtO/HndX2786H385m3mP0z4djw5iFO90tSRLvwxL16ywK4URVqkV/4rQy
+	 ep0GYGp4MjJeKgyXQ85tmW6z100V5Bb3GIztO0Ap9raxgu0lZZMGWGpa5PcThHg8Dq
+	 nrkGwQ4pEbrneqbgy1rFm/T7IvWkHVOp/1haoK+NMxgaS0CpAxpluaPDOw2dA1Ok3R
+	 8piupywSCM3pWiKd5owkiMYtu+3mmRlk6kXYvmDhGOlCC7e9ovzkbkGDYTxvklwEZr
+	 rQFwg+XFxycW73LyxVvVtBWG7vMljSYnb9vWbJvIh5adUVvs34ahQ9Ya5jYMBQ6hqY
+	 nMIVkd7RmlVgA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wZkh7-0000000DaBi-3EhI;
+	Wed, 17 Jun 2026 07:28:17 +0000
+Date: Wed, 17 Jun 2026 08:28:17 +0100
+Message-ID: <8633yltylq.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org,	Yoshihiro Shimoda
+ <yoshihiro.shimoda.uh@renesas.com>,	Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?=
+ <kwilczynski@kernel.org>,	Bjorn Helgaas <bhelgaas@google.com>,	Catalin
+ Marinas <catalin.marinas@arm.com>,	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,	Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,	Lorenzo Pieralisi <lpieralisi@kernel.org>,	Manivannan
+ Sadhasivam <mani@kernel.org>,	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/3] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+In-Reply-To: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
+References: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: marek.vasut+renesas@mailbox.org, linux-pci@vger.kernel.org, yoshihiro.shimoda.uh@renesas.com, kwilczynski@kernel.org, bhelgaas@google.com, catalin.marinas@arm.com, conor+dt@kernel.org, geert+renesas@glider.be, krzk+dt@kernel.org, lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Incomplete feature enablement causing permanent probe deferral for=
- PCIe functionality.
---
-
-commit 202349024b583dc874155ce812fb658ddbab6228
-Author: Jun Yan <jerrysteve1101@gmail.com>
-
-arm64: dts: amlogic: meson-axg-s400: Enable pcie_phy
-
-This commit enables the pcie_phy node for the Amlogic meson-axg s400 board
-device tree to support PCIe functionality.
-
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/=
-boot/dts/amlogic/meson-axg-s400.dts
-> index 285c6ac1dd613..7ba249cc3d569 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-> @@ -448,6 +448,10 @@ &pcieB {
->  	status =3D "okay";
->  };
+On Wed, 17 Jun 2026 03:59:44 +0100,
+Marek Vasut <marek.vasut+renesas@mailbox.org> wrote:
+>=20
+> In case MSI are enabled, but DWC built-in iMSI-RX is not in use, the
+> MSI are handled via GIC ITS. Configure all controller MSI registers
+> fully.
+>=20
+> Set or clear MSI capability register MSICAP0 MSI enable MSIE bit and
+> PCIe Interrupt Status 0 Enable register PCIEINTSTS0EN MSI interrupt
+> enable MSI_CTRL_INT bit according to MSI enable state, set both bits
+> if MSI are enabled, clear both bits if MSI are disabled.
+>=20
+> If MSI are disabled, or MSI are enabled and iMSI-RX is used, then
+> deconfigure AXIINTCADDR and AXIINTCCONT to 0, which disables any
+> pass through of MSI TLPs onto the AXI bus and then further into
+> GIC ITS translation registers.
+>=20
+> If MSI are enabled and iMSI-RX is not used, the configure AXIINTCADDR
+> with target address of GIC ITS translation registers, and configure
+> AXIINTCCONT to enable MSI TLP pass through onto AXI bus and into the
+> GIC ITS. This specific configuration allows handling of MSI via the
+> GIC ITS instead of integrated iMSI-RX.
+>=20
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> NOTE: This would not be possible without prior work from Shimoda-san
+> ---
+> Cc: "Krzysztof Wilczy=C5=84ski" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 53 +++++++++++++++++++--
+>  1 file changed, 48 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
+ntroller/dwc/pcie-rcar-gen4.c
+> index 485cfa8bd9692..ba6e3bedd6d0a 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -31,6 +31,10 @@
+>  #define DEVICE_TYPE_RC		BIT(4)
+>  #define BIFUR_MOD_SET_ON	BIT(0)
 > =20
-> +&pcie_phy {
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-This is a pre-existing issue, but does this incomplete enablement cause a
-permanent probe deferral?
-
-The amlogic,axg-pcie-phy driver unconditionally calls devm_phy_get(dev,
-"analog") during probe. This maps to the mipi_pcie_analog_dphy node in
-meson-axg.dtsi, which is set to disabled by default:
-
-arch/arm64/boot/dts/amlogic/meson-axg.dtsi:
-mipi_pcie_analog_dphy: phy {
-	compatible =3D "amlogic,axg-mipi-pcie-analog-phy";
-	#phy-cells =3D <0>;
-	status =3D "disabled";
-};
-
-Since mipi_pcie_analog_dphy is not also overridden to "okay" here in
-meson-axg-s400.dts, won't devm_phy_get() permanently return -EPROBE_DEFER,
-preventing pcie_phy and the dependent pcieA/pcieB nodes from initializing?
-
+> +/* MSI Capability */
+> +#define MSICAP0			0x0050
+> +#define MSICAP0_MSIE		BIT(16)
 > +
->  &pwm_ab {
->  	status =3D "okay";
->  	pinctrl-0 =3D <&pwm_a_x20_pins>;
+>  /* PCIe Interrupt Status 0 */
+>  #define PCIEINTSTS0		0x0084
+> =20
+> @@ -55,6 +59,16 @@
+>  #define APP_HOLD_PHY_RST	BIT(16)
+>  #define APP_LTSSM_ENABLE	BIT(0)
+> =20
+> +/* INTC address */
+> +#define AXIINTCADDR		0x0a00
+> +/* GITS GIC ITS translation register */
+> +#define AXIINTCADDR_VAL		0xf1050000
+
+Wouldn't it be preferable to source the address from the device tree,
+rather than hardcoding this?
+
+Thanks,
+
+	M.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617071604.6356=
-27-1-jerrysteve1101@gmail.com?part=3D4
+Without deviation from the norm, progress is not possible.
