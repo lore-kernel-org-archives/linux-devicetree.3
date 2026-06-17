@@ -1,96 +1,140 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B729F3CA4AF;
-	Wed, 17 Jun 2026 09:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339783D0BEC
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 09:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781689733; cv=none; b=cLTbDkDDI0wGb7MzHcEhrBR1ywbfhQPHPGMXxHIv3sP7ZXwpumLMVUp7TfUdfIckseu+c/6kGogUQaRNPWHmbIDaSxgtKQqL03+Fb5/ca28bIWs/FyMc/tuN8HIKYEHjZoEKABscPM3TzrNHVyQHLBVoC9x9uc75r4/cudFZnrw=
+	t=1781689738; cv=none; b=ZtZrCQbqSXrUxn820jNjZB/hRyj+4a5M+dQ4MWE4h60z231H8kL6c7jZ3GBtVJPrVXqV3T6j0hQWravZYKO/B7xISW4aw7BzEbw79hL0THYD0022L9izwmKroW5rLNfCQ72m8sJC22nMozht0FH2XnmgFjIHik8bJmsmyigNNec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781689733; c=relaxed/simple;
-	bh=ivBiPZmg74a5nDxxY+eIGpOjAe64flnPwAUTBI4BEAw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JlEtvUCwQMiCRz39hon3lW+kZzwlG4K5TNe4Kmv9FvC0yhkfJb9qWsy3eKKekCXV3S4wGn27XARKVx+lgNZVKnjqkdxgQSqupvqrZD05XWuc0y+3PQ9ayGNejXz2e5kFEo9notzSweMW9MrcSGJSpRxY4t9ZGBXhw94vUosX1Rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JhvsVpN6; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JhvsVpN6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=51ctbLbHVsJZs66mKQaf/nxm/2hILs7lsh5HQTHfg+A=; b=JhvsVpN6ej2IBuFi+FcvUae3RP
-	zJMn/wPTk55BILjvxpq/pWgh/RklBIZWU6pLfZ+Y3ns4Ra4TpC/QRfoXWVHYMwQlgfcl1WCbKwvL6
-	U+VelxK06ddcOUHXFtm8pzgMnKoc0HBQDeX8lN3DfcsIqH3vdApWIcUEv0lQiVcBRDR0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wZmsy-0089wF-9C; Wed, 17 Jun 2026 11:48:40 +0200
-Date: Wed, 17 Jun 2026 11:48:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>, linux-arm-msm@vger.kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 8/9] arm64: dts: qcom: shikra-cqs-evk: Enable
- ethernet0
-Message-ID: <621cd205-997f-49f0-bcc9-fa72ba1835a7@lunn.ch>
-References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
- <20260612-shikra_ethernet-v1-8-f0f4a1d19929@oss.qualcomm.com>
- <2cb658f3-f564-4396-884d-d025eaa674a1@oss.qualcomm.com>
- <ajF+xlipLuZtf4HL@oss.qualcomm.com>
- <4f3c6bee-3ccb-467e-a466-89fece0e6a7f@oss.qualcomm.com>
+	s=arc-20240116; t=1781689738; c=relaxed/simple;
+	bh=zgmF4G180wgcf5oiYNf7MKLkwNcY83CQ6T1cSixEe7E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ezM6KmlOWP6NYWeyVN0KMQpC53gm6V4IBCbOuSVBfpaDbH9urtC4iDs43ILj9uYvaClTAx/OzmtSB3YmKSp1ZZYW642sZMq5RZl/yUx765SxLnUT3ErUpiBGqflNbXV36On44wzZ/sTpMDOIzxFMb5fO1ds8nANObeji86lqRmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-72686746814so114089137.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:48:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781689736; x=1782294536;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EzBIHbH3e9z5WB6Uvoc2w5PoH5awp6Q/fBEmuSHqk2M=;
+        b=FNnJYP2FJozu38aLjsyoVaf4qHZUKgUX9Qdy7e0HfXW79Wdo0PROHcKXywVqurOFco
+         DzHz+itrBR9XowwNJDMMQ4OHI8RWhqMOGR4DTafS+2XA6XzfUflAGDIJZXxrweRnTpTt
+         tCBlUDlWJtoijhrktAa1dxCGpLAm4TncMzca2SSkRDc/2p59ZAF/qrGJpddaYkK2ViEd
+         30TFvrcA4+ClCkKBK3M5oMTQNGrAZs4GFU8z+l3mdlQUqbVjA8L9JyGiParuXrGthTZ/
+         sDhjVVoRwagYDfszU5I5btpRFWh2nlNX0iqhzXBNvGDqI2aPmSSB9jkobnfhlNpUn5m7
+         W73A==
+X-Forwarded-Encrypted: i=1; AFNElJ+9syWZlleOpQjTvjHS040lHmyCQJNnByHRv50ZGsW133ROTYW3w5KM8J/exCrq22bjIcuP6dNPLmoU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yya7x8e/JmlApLpQz82vAmdvNZVhEvHz9hziec9VQOxb8zcPFuV
+	nTgHMy2KYYf7UlsHv9ZtR0wF77D/GREWcHbp33FT35Nql2r+OPQJ33QOhYS32Lo8
+X-Gm-Gg: Acq92OE1QQaqToHCbDWZxhSTqrEJeyncogmABurZKHFrsAahuXb8nDtC1g3017CTbvv
+	xyUUH4/RGVm9UHoJ9tmta+zB036N1QcWCTm/sMVQL7XIXQrJtCOlyDevHEMo5JPNxCYeK9QXPVY
+	FNTiRkBqASLjjsycWoNZQgrKC4O54req7ahAT2F89tRDGSMogOXUwrMWP7QUIi80ljB1yYWRAOg
+	40s199uX1Vz2xGYZZncuJKWDbjNye0yg6CuCcqESwI2wTxqdJb84M0FifPTDVVEOISHMuj8oh5L
+	rIxi4lH1h01Rry3zRXcpQ1LqiQz3B6P+mToi9n6y1PibEHIALkXap5w9KNW9Kd8eQ/BD+RtYfpp
+	DjbjxBJeXAnFKQlNYHuQIreOhNLyBm4hdGjn9N1h0cDTptK0s5T+UAuNCvbH5sEXlNOjmm02iOe
+	JYZrFHeAffUK1XiCzh1Hrzalz40SJM5KYWQnukgx52qeHl87fqSg==
+X-Received: by 2002:a05:6102:2907:b0:6d5:91f0:21b4 with SMTP id ada2fe7eead31-7246d74ef8dmr1458953137.29.1781689736172;
+        Wed, 17 Jun 2026 02:48:56 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-720878866dbsm6774048137.11.2026.06.17.02.48.55
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 02:48:55 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-6c3154fa47fso4243263137.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 02:48:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/Zjm5JsYHpqFULXpLJh+MOwRgEDkiLqfM5nnibSCHnq6XaQouJqJFECT/dwE9cxYitCeykRKQw/JHx@vger.kernel.org
+X-Received: by 2002:a05:6102:3588:b0:6e7:5c89:3fc0 with SMTP id
+ ada2fe7eead31-7246d42e08cmr1649434137.25.1781689734943; Wed, 17 Jun 2026
+ 02:48:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f3c6bee-3ccb-467e-a466-89fece0e6a7f@oss.qualcomm.com>
+References: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 17 Jun 2026 11:48:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWBeaTB4QK5vvB0CQm+yrX1ps3V2EtFu0Q4a0JG_94f7g@mail.gmail.com>
+X-Gm-Features: AVVi8CexHI6Cn-7af-3NwS7Fpca-DgZi_9j2_blKzUOte_bydlG-ZNQqhEBgXok
+Message-ID: <CAMuHMdWBeaTB4QK5vvB0CQm+yrX1ps3V2EtFu0Q4a0JG_94f7g@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
+ frequency for calculations
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-> >>> +	emac0_phy_en_hog: emac0-phy-en-hog {
-> >>> +		gpio-hog;
-> >>> +		gpios = <149 GPIO_ACTIVE_HIGH>;
-> >>> +		output-high;
-> >>> +		line-name = "emac0-phy-en";
-> >>> +	};
-> >>
-> >> This looks like a hack - what does this pin actually do?
-> >>
-> > 
-> > The power supply to both PHYs on Shikra is gated by a GPIO pin. I am
-> > unsure whether they should be modelled as a fixed, enable-on-boot
-> > regulator or just like this. They need to be powered on early so that
-> > MDIO can detect them.
-> 
-> If it's a regulator, then it should be described as a regulator.
+Hi Prabhakar,
 
-Agreed.
+On Mon, 15 Jun 2026 at 12:48, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Introduce a per-SoC PLL reference input frequency parameter to avoid
+> relying on a hardcoded 24MHz constant during PLL configuration math.
+>
+> Add an input_fref member to struct rzv2h_pll_limits. In the core
+> calculation helper rzv2h_get_pll_pars(), derive the base input clock
+> rate from limits->input_fref, utilizing the conditional ternary operator
+> to fall back to 24MHz if the struct field is left uninitialized (0), and
+> drop the obsolete macro RZ_V2H_OSC_CLK_IN_MEGA.
+>
+> This abstraction permits the reuse of the common PLL divider logic on
+> newer SoC platforms like the RZ/T2H, which feature a 48 MHz PLL reference
+> clock input instead of the 24 MHz signal used by RZ/V2H(P), without
+> disrupting existing platforms.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> There
-> was some discussion regarding the power resources of PHYs over here:
-> 
-> https://lore.kernel.org/linux-arm-msm/SN7PR19MB67369F7DD02F702437C0F1919D1B2@SN7PR19MB6736.namprd19.prod.outlook.com/
+Thanks for your patch!
 
-MDIO detection is nice to have, but only works well on simple
-boards. I would suggest hard coding the PHY ID in the compatible.
+> --- a/include/linux/clk/renesas.h
+> +++ b/include/linux/clk/renesas.h
+> @@ -53,6 +53,9 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 divider, int target) { }
+>   * various parameters used to configure a PLL. These limits ensure
+>   * the PLL operates within valid and stable ranges.
+>   *
+> + * @input_fref: Reference input frequency to the PLL (in MHz). If set
 
-	Andrew
+"in Hz", as pointed out by Sashiko.
+
+> + * to 0, a default value of 24MHz is used.
+> + *
+>   * @fout: Output frequency range (in MHz)
+>   * @fout.min: Minimum allowed output frequency
+>   * @fout.max: Maximum allowed output frequency
+> @@ -78,6 +81,8 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8 divider, int target) { }
+>   * @k.max: Maximum delta-sigma value
+>   */
+>  struct rzv2h_pll_limits {
+> +       u32 input_fref;
+> +
+>         struct {
+>                 u32 min;
+>                 u32 max;
+
+The rest LGTM, so with the above fixed:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
