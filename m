@@ -1,168 +1,158 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4952015E5BB
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F248B3672AB
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781694314; cv=none; b=Jcn1MQLeQ8swIIqKoGLe2k37TKWMZUZjfMLaB8lU24pdXWI5+xHqKaXV3E2uoQuJkKGgG40fIJW6l5i4JB7ge1vwHyEtrVymvEDnB1Ghs/+iv4/GewpgrK7tCKQYMLa+5YTAP3hFTGHDdUPEki/os+yOSwRipStNrbj360pqEi8=
+	t=1781694383; cv=none; b=CJ2OZLQzAYeOocVDLPGr3Af+myxPM7VdTchlnn0OQJkHmGUY0zh67GRU9xEmVVxgakCvOI8ybpp4nr4LaXXmew8uKpTowE1Pj2KR4FrUK4C1lKXcVqC7YSkZZCApUmsUI6od91HOd+CKIY3Z8buI+IjlibN7jwlhBpx3TjV9tHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781694314; c=relaxed/simple;
-	bh=eEiU8vMu+5O1vd1w6lRUiGs5KR7SZ5QpDvtIFlNlRTo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sMplQqxIhaz7Uu3FM/DBi+iKr9rBczce4tdspJuh3FxbVwlcWOC5p2I+D1Zhps51WndS6WtPU3K8GrINbxsV4y98F3xo5BMWzVfpoidTma2hdNTJahE1Fq5WmZmC0WSeiwo00RT9Tak+VE08pHqy19hLUXTF24cCkUAGvcTV+QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jGa+OMAW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ARSNzosN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781694383; c=relaxed/simple;
+	bh=0THx5+qYRNGW+HxuauuYKf8IJDZsm8bKUYF5njwjDjc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FL5tZZmLZdxI5yF3gyzbpud/ssMFt2UfvmQQ/A1MHlAuTDZZfvBJO8VnxK9iME5YBSxSVrz74U/CNYKgbWfJzTmG7/QmgUWwFmS01ouI3jKCum7RHYqDKzSMLnLYWnwc8ydGoSuqfaPtKNNK6g8OaoxAtA5PwU8DM8wtWLHicuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=ldZ6BhaR; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jGa+OMAW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ARSNzosN"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65H8UslQ2025364
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=; b=jGa+OMAWzW2QNASV
-	RBhcQINUjagf0ZQcla7SH4cLO/fG4+60rqMscZWpAkwf/C2OMNtmHZxWWUKTtSv7
-	/oY/yXoeIcwDjr4AfJN1m9yHnfrDpCWN73Wc/iF0/q17X3FclXRdxDSjjKgCgzRM
-	a1SnLoNeTUbyhEhMhDckcuLOZK6rA6c5SajdnW4DXcEgR84qlcSFBfhxpPkZvqp6
-	GVahBusdh/Ui43hOBMHHX4qt66W5GBK5JOI2Yzvu4mfGTh8CLWDaH+jW8NoaWHWE
-	X1Y0j1xXRuwj+n6/CHANhdCHMWwqRE0FJRODDTaVgX7ra/KtaqyDCiO/XCBVH275
-	fBNA9w==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4euees2sbs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 11:05:12 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-915a547f4b3so69078585a.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 04:05:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781694312; x=1782299112; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=;
-        b=ARSNzosNfpOTWoCL4krVw8RuZm6MdZMMUaHYHbaywZZ79fvBMedYTzzTucqNjl/FC5
-         1sPbSGN6KtkKGz6sObPL0rXapfIyRMFESYT7dBbA11IeWvVJoGFpA8rur5K5IGjUBz3U
-         YP9FYDBDoKkyEullxp1BidaO7RcExFxgMDCBTxaTB7/omH1xKFnTxkhwgLRaO5gnh8Ax
-         7JhuIjBlSJiSrKYrIdSppUupYO/zpJkCeT/7zxckFqopfXUgBg4MBd1wdCSgAwWXS8DD
-         dJNS+d1V4F7AFpQ39zY0vsLASgH0bYzOoAx6hX9HtquM2eBO+r7wKxrKqDEHNJMOtQ70
-         iIKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781694312; x=1782299112;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qj70XiMRBk88XSknFY6Ir5XzqLm8axeDAtiCmENjOvs=;
-        b=AoDmLh5BoIuWNNwbKPykd7piror5MFF2KXg27O9QsVSzHPVMHcigzto4jd11qnbGrs
-         4SrtFXuR9BVLc1mAheQJi77G+cVs8/aLzEYkOTy4vQ8tI6k1T6iTMolZ9TbXU7RzBmU8
-         ZQ6Dlyif2u0ijWk9bjJ1sBKFqxsMribhdBjz/9FYAAyKuZyjV+WJTXiczGbJjQAM171p
-         oCSwWZXgF1tWc2iuto167QlZUvJH2etoi4/QfRRWMF1HgjCzSOPbdMvOcrT975jcd7Dt
-         1yQZzvlfjV1ZPJgyCfhHISC11EUJdXXsIKLcyeImZoJmnfnJWJ9CaPtnvPUpbFDh29hG
-         1zag==
-X-Forwarded-Encrypted: i=1; AFNElJ9262caYKBtXZOXSFxO3buA9X9EMr/rPob4kd6Oso8+z6JsE8eE0j2s3V8Ux3tD2PXVKa7ipJhCNU2I@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfSFEz8+1ttriIG1vMaY1P8lqsOpTzLwKIcLNua/tTMDvoQEqW
-	Ra1BXcjB2a3vzIeUNWqEZfPCfvRuW5tHVOtVXP8PiE4d9M+UWz1ZhvqXB1NmCV6GC8/oRYklXBG
-	bJGzLTP7vDRMEG4aADr+yjrgQSuAyyfIcJH2rbBtz9SFaFtBHBzqzZoYgY8sUYSWw
-X-Gm-Gg: Acq92OHDEzYc5VKqWNJik4NDLxVAryuM62OARXopbFmU8bZfb4j6S+V2D3yGgx2vYmx
-	9MOZoTZ75kvNfzUX3ivRM0agKtIV8MoMVOqinN44qvwDSw7a771Z8MsIsJNjZmBMsIEaX8TCsiB
-	2wFIvyM8vxuRhYnpmgZ6Vsmmmrmm/DThgo/zBj0lr7AwGlhlI1JVBIjXHrWIVGQWefkSa49q0xJ
-	wLHU3Y2H0I5gSk+YUWIAo6UlVzJeKPu015q3hG+8ASNFRr0cz1/J0UJcXx+aLVQS8EL5r7Ii5AO
-	pNCGVKOaS0vYtbHchn/6T/sEpt8YYXqYa6bKKAXQsRJrCi49NgNWWkzofvyS1rOkQve0GPuYhw5
-	P5skWCLYMWTIhFPjBGAwSO+e6Ww1QuQYAuao=
-X-Received: by 2002:a05:620a:6286:b0:914:ea37:6f14 with SMTP id af79cd13be357-91d8aae2593mr337701485a.1.1781694311575;
-        Wed, 17 Jun 2026 04:05:11 -0700 (PDT)
-X-Received: by 2002:a05:620a:6286:b0:914:ea37:6f14 with SMTP id af79cd13be357-91d8aae2593mr337696685a.1.1781694311144;
-        Wed, 17 Jun 2026 04:05:11 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb8b23f8fsm760459866b.53.2026.06.17.04.05.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 04:05:10 -0700 (PDT)
-Message-ID: <d4d01a6d-4c9e-4822-b0f6-b98e8ecf34f5@oss.qualcomm.com>
-Date: Wed, 17 Jun 2026 13:05:07 +0200
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="ldZ6BhaR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=qksj
+	FP+05egnmvGIn5in6IpMSJk0omUlcHLXx1EB7Oc=; b=ldZ6BhaR0u4OI3DbcTu1
+	S3ie/lTSLRPDM9NSGaDAJ3j81vog1h38LjKUkFUQPp5EU3zj4YsUJms9VVzG16DQ
+	MNxfDyj7Rzz3gDECnsqzT6l0qOHYWZsP2Pd5OqyzbGSYHqTsNmRq6/MOA1xuAFlW
+	lGQrQQ9RwvqpGkBdgq4dxo/RMoKB72/dyc1M2sVAmJZgSjCKQOHugUTK1OH62tJV
+	6yt+VPXLbZZHAJejQBRQ1VoGCzud64dGIuG417UDACY+YzKGx35WN9l2J2KnuiYq
+	lbSZg4Cx2V27J7O/P4xY8pecdPBrwSFlsuuirFkh1EYHRJY8KeS0BYjlBDK8vyCS
+	8g==
+Received: (qmail 135587 invoked from network); 17 Jun 2026 13:06:19 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 17 Jun 2026 13:06:19 +0200
+X-UD-Smtp-Session: l3s3148p1@+zuYDHFUOsUujnvI
+Date: Wed, 17 Jun 2026 13:06:19 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 11/12] rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK
+ for register access
+Message-ID: <ajJ_qwXhJbKB3Xli@shikoro>
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615154805.1619693-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] spi: qcom-geni: Enable SPI on SA8255p Qualcomm
- platforms
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, bjorn.andersson@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        mukesh.savaliya@oss.qualcomm.com, aniket.randive@oss.qualcomm.com,
-        chandana.chiluveru@oss.qualcomm.com, jyothi.seerapu@oss.qualcomm.com,
-        chiluka.harish@oss.qualcomm.com
-References: <20260604-enable-spi-on-sa8255p-v3-0-43984eac4c67@oss.qualcomm.com>
- <20260604-enable-spi-on-sa8255p-v3-4-43984eac4c67@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260604-enable-spi-on-sa8255p-v3-4-43984eac4c67@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: itV44Yu0VAB1v8QQod16pD_83doDSJRl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfX0xa/2f1+EzAc
- cCAkjXw8nCUcuZDP/h0j6Dn8ZAkttMB7oXHHzQi3wtQWUWAg7YOj7WnHblKo53Bh9/RlU2So41p
- eJ55jPPVEA768Tq+BNavYPmjvmLku2d4LCSI/D6Ms/0DLK3P3MZLRllinC3QZ3bbH4n8bIrPN24
- sEp+M5X2oskWeIWummD6Pj5QVCmHEaT/7CLTZHsfTR0mGbdAs2Tx6sYbU7j1x4QUst6ztWxaU1g
- m1h2IVb1IWc19f7x86LU5TScBFTOnsrJAtCi3kYHKpWT6d1Xj0Cjhywa2PvgdkyUV0OwSBfr4IN
- fe+n+8z67f/22aXmhQEJbwH3FYM94KKMGq/YJW8QuJQTycqM0IIgg+1BUpTHYw6M0DD4tvg6baz
- ZpUnFye4GJrzX0ORo6rTFaBfOt4Xhy3aOLwp0fFrthTjyaTFL93YfqEPJck0X+eLfCSB4HcXn1g
- /axWGIHrrWOWnAEsAiQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE3MDEwNCBTYWx0ZWRfXwZABCrvCgdmO
- Qvk/QaRlm4TjXoaVCARLzUDiblR7bzQJE//rq9Mgq17pJl7cuP6DznSXEIzWWXbUtXoelbC7nqm
- KCcpTMyzoMdNqD/PjiqrvavYDRQ95a0=
-X-Authority-Analysis: v=2.4 cv=KeTidwYD c=1 sm=1 tr=0 ts=6a327f68 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=Ow8ltAAN0bl1iHkyYvMA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: itV44Yu0VAB1v8QQod16pD_83doDSJRl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_01,2026-06-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0 phishscore=0
- bulkscore=0 malwarescore=0 adultscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606170104
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qoqhCdtVLbZfwI1c"
+Content-Disposition: inline
+In-Reply-To: <20260615154805.1619693-12-prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On 6/4/26 8:50 AM, Praveen Talari wrote:
-> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> platform resources, including clocks, interconnects and TLMM.
-> The driver requests resources operations over SCMI using power
-> and performance protocols.
-> 
-> The SCMI power protocol enables or disables resources like clocks,
-> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-> such as resume/suspend, to control power states(on/off).
-> 
-> The SCMI performance protocol manages SPI frequency, with each
-> frequency rate represented by a performance level. The driver uses
-> geni_se_set_perf_opp() API to request the desired frequency rate.
-> 
-> As part of geni_se_set_perf_opp(), the OPP for the requested frequency
-> is obtained using dev_pm_opp_find_freq_floor() and the performance
-> level is set using dev_pm_opp_set_opp().
-> 
-> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
-> ---
 
-[...]
+--qoqhCdtVLbZfwI1c
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> -	ret = geni_se_resources_init(&mas->se);
-> +	mas->dev_data = device_get_match_data(&pdev->dev);
+Hi,
 
-This really needs to be null-checked
+Sashiko found issues with your patch. I curated the list and left only those
+which I see as valid. Please have a look at these issues.
 
-Perhaps also the functions within that are called unconditionally
+Thank you and happy hacking,
 
-Konrad
+   Wolfram
+
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] Incomplete refactoring: open-coded logic remains for RZN1_RTC_SUB=
+U_RTCA0FX
+> --
+>=20
+> commit 2e16f66c80c483d619655d20fbb859a42e9d1b6d
+> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>=20
+> rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
+>=20
+> This commit replaces open-coded shift and mask operations with the bitfie=
+ld
+> API in the rzn1 RTC driver to improve readability and match the hardware
+> manual.
+>=20
+> > diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+> > index c7ef3c81180f4..9f9cf9882fc49 100644
+> > --- a/drivers/rtc/rtc-rzn1.c
+> > +++ b/drivers/rtc/rtc-rzn1.c
+> [ ... ]
+> > @@ -306,7 +312,7 @@ static int rzn1_rtc_read_offset(struct device *dev,=
+ long *offset)
+> >  	val =3D readl(rtc->base + RZN1_RTC_SUBU);
+> >  	ppb_per_step =3D val & RZN1_RTC_SUBU_DEV ? 1017 : 3051;
+> >  	subtract =3D val & RZN1_RTC_SUBU_DECR;
+> > -	val &=3D 0x3F;
+> > +	val =3D FIELD_GET(RZN1_RTC_SUBU_RTCA0FX, val);
+> > =20
+> >  	if (!val)
+> >  		*offset =3D 0;
+>=20
+> [Severity: Low]
+> Since the stated goal of this patch is to replace open-coded masks with t=
+he
+> bitfield API, should the remaining 0x3F masks for this register be update=
+d as
+> well?
+>=20
+> In rzn1_rtc_read_offset() just below this change, there is still an expli=
+cit
+> mask used when calculating the offset:
+>=20
+> 	*offset =3D -(((~val) & 0x3F) + 1) * ppb_per_step;
+>=20
+> Additionally, it looks like the write path in rzn1_rtc_set_offset() was m=
+issed
+> entirely during the refactoring. It continues to use open-coded logic rat=
+her
+> than FIELD_PREP when constructing the RZN1_RTC_SUBU register:
+>=20
+> 	subu |=3D RZN1_RTC_SUBU_DECR;
+> 	subu |=3D (~(-steps - 1)) & 0x3F;
+>=20
+> Would it make sense to update these locations so the bitfield access is
+> consistent across the driver?
+>=20
+> --=20
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615154805.16=
+19693-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D11
+
+--qoqhCdtVLbZfwI1c
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoyf6sACgkQFA3kzBSg
+KbZi9Q/9GBJ5Di+O1ULPevojmat13Cjt8fiBSizyGqxILP1IBFNY3lZ7dS+ePFpF
+5rfwi2rMD/yspislOtOScWAmI2IvGE3KnC+QYPXRfHNyhRmoTlbtT/HdB4sw4Kj9
+cB8rP7vIoWETJAMeb7lawqIgy9RjTHnjO6g+EJkIjPhR3jB/fFS4igbFpZVOQFSN
+Ch0Lx42yDEB2sVHrgg/k0DaOVLWBD7ccwJC1XLRf8T8HKU0/jZxPvCAGF7dcVeps
+vUsxFEvM1xAuvP+keeTMAv+LYBldaF5/L9s0qGk8UsmO/rCZ4GbMr/dkzQSyKhf4
+//REnqb1G8848MjE8iVPCW1vhMtnbVoDTWrsofGZfgt5m+PQkG+XHZCSimK3v0O/
+icnJjbQIkLZd/+7xg7hC6518hCYW5PIl0Nd255otiVInuiUA/D+IFMh0XXDhKzqM
+8wid6YifYD31Ls8qcJ5G4+hkVrA4BGnHgvoenGxY8kWWqgP3Tkcvv/CwXa6nVrAT
+YaU2ygegxHI9DBTRBLYLteJhWFNb6kXokc5a6odwCKCV4kuS49GvKzzsQ2m+9o9G
+2Bkb71O1Y/Ie6F6riMvvpTSLRuwX0hZkwPRuB2jd3J0B0Q9YbuZHwgTTLPEteqvV
+DQjOuZo0FmwflvVteRPsY0HX5uRjvzObr1RV5IQoCvz/jgSDSyw=
+=dgdV
+-----END PGP SIGNATURE-----
+
+--qoqhCdtVLbZfwI1c--
