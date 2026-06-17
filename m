@@ -1,75 +1,76 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CD649252B
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0964B3A641F
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 15:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781708661; cv=none; b=ISQvmLG/hNYidPb8LqVNPu9wzFYLT9ulccJocpNk8JNrLYIsE/rzBXMzWtwxdUwh/jOhiDAToXCtxDmjQQfICwf6PdwbTYbr8ECpsBIfWQeM1h0ExCBIc4k0dOS8Gtffskorud62EYt4MJD82Y/k7e1FjwjTIrtNdbli0Iwac0U=
+	t=1781708669; cv=none; b=o75OOCMfbSCOGL0F6VviixCDIyDr5frX8koHvWViTP5Q/QkgzgAxyyUvL+wLmcdSS6vKiqGS8oDsr5v7YwcrIE5mIeyYJNQaa8Vv33bz5YJrEzq2lhxKu2+L1j9tHnUTYOEI/mIDKOnA2QWJKCe5LLd6WrubemMHMaFxbWSHGtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781708661; c=relaxed/simple;
-	bh=IJZYeU8nAGhKDiOr/eCSlIvhpsaaTQLsJcvcGm3GJ9o=;
+	s=arc-20240116; t=1781708669; c=relaxed/simple;
+	bh=e/VCvIPN3xEV8dyOzALNT15BGkRomrKEnAP30XoX0ow=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ll5TBM0AFu3Kvfig4drCroi3FdZ+NSe1jfy6p0gDhY+41AAM5trvKv2Io1znDtvQ1gAQUslqbu8P7dilEOasbZYze3CfuPpdZ+AfidRyeFlZSiSxA02ZJfTaBPEuu9/XPHqjH5mllAgoyFFDlMGpvc1uWDbn0v+Hg0v7jo/cmW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RpvZiZE/; arc=none smtp.client-ip=74.125.224.48
+	 MIME-Version; b=OHs8KFyLAvZiuhds4CIFvewubb/7E8Ko9mFHNu8AdVjy7b9qHGCC6TkJtz20wNPQFvmEOIHluSsr//JBHHzfdS4DRsWXmG97f7h/ZCvqSmRerHlTldL18937FpfJ4eBbtlLOMEWDB1e2CRkDtaCQ/Rm2yc7f1bqFXv17EdImCyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I8c00rfF; arc=none smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RpvZiZE/"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66058b880e9so5951170d50.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:04:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I8c00rfF"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-660323f7b27so5949840d50.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:04:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781708659; x=1782313459; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781708667; x=1782313467; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YCNmDDZkyDCvREs0izKIJJ9NBdHLWOor2XurOTFM618=;
-        b=RpvZiZE/BngorazpIaOurds8ENQAhwk9Le1/QrZQAiiBf2Mw4z/prgdGJyTJJUrgA1
-         LIXJvpNEcM86MO3mXuXHqY28pG1Dwir5Q7fMAUef+lsr3AglSLcf0LiDoXSsY5/J6p62
-         2tkLFkRDQaPNo1Vycaxpf82GAiX9VAfZPLbx23SagJ81HuFRSi49aiEIvJOAPJ2WrwgT
-         Vdu3uFS3pMc7g1+Z/p6jUoHxMrxVR9V4j+PiSuHMvAdfi3V3uZmdYGxScW8VeTjWrYAF
-         EcpC3GalfOeqDr86KsQ9322UunJW/wQnyl7Bl4x1dsoKa90DGYRgi5nPo4FrCWjE6ywQ
-         G/Yw==
+        bh=ATCNUvbIHGzcge3S+9KxpJQvKqQ4MLcIrGCywDLxz7I=;
+        b=I8c00rfFYQbcqG+6kYB7EIOjGxopucwZGGDytrciMDBEdVMhel7djs9uSGUQQKZVlW
+         ZODiWAzUoXCamC44l3w4gA8143xTQji1d5Y1U8lWNcke20DqezxIY4zG7/uamyDzLoTq
+         HOezx6/gJmTnkWkLYxOXwbJv9IoOSFvFQXNtYuBLYkJCInDxqzeKgkd7YLJh/D+GKLMK
+         437sQsTW+DV/njGzY4ksH3BlrPU8ez+irUdicIdBYH9pbvT7I0PK5pxICYVIUBR2MZAU
+         Z23sKy4vjtmF/KLS7RmgWHKIqbm5g20qRBKyUEFauy8HqGKsGnf0Jk9noYoFhfrXQM73
+         r0jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781708659; x=1782313459;
+        d=1e100.net; s=20251104; t=1781708667; x=1782313467;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=YCNmDDZkyDCvREs0izKIJJ9NBdHLWOor2XurOTFM618=;
-        b=S+tn6TFtZnXeCXSqrxRikk3yb4cNM1KDN1Hz0J82VSnksOUFI57pUF34B9EwLEPqmm
-         DfptQprknoeI6Ux274lfr+mni1D3JszUJwu6XCkgvMkw0rrWTQMjJq3IYL19iVx9IxDU
-         MycYK8TYt67Ht90YHo289sICsisCaFaU4nJtLjtaWN6yB2EbV9Wf+DDiXqLI5iKbrM8C
-         F8rC5OsEFxd2/ufZUHeeLhuNBwv/2yVgxLISHlrnGzDVsmtp6/N28kYc3/aFwUPOsGET
-         X3NXnbrpVclZ3gMjzhVKb6q4jKG13zGDo8QZT98uuWYPeJNo03Ig8b+3mlK+5g20g1tr
-         d7HQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8Z5iWAd0GWmAUNPUOrNcuvEcxdiUPaup+aPQGSRuuK78WWYc4ZwYzEpen+fNIqXDMVhHbtKh+u7C9p@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/zzrSsp62Bl2YLw+9hWbu71VX6ceOgqjmDTl6MlSBV3grhmFH
-	aTdnchwcK7jIiRst/550kKG+Zta3HlJdtwnZ/J4mjrx93/MBvd5GW74q
-X-Gm-Gg: AfdE7cmpZJXGOsD9EHFEX5WFbFA2PafdRk4/7RqqP505X2PiDymtOR1eN3tr0w+6JHb
-	+8VOgNzb4wxGAK4U3L62SrRshE/nhtsWInSsDUhIDhZLzcIoq+GFO6IB3jiZHXKfJI3DW5buAA6
-	5F2hSl1h7abpCFymyWyyHOHwfCWL3LqvxaVDMS6+dUNFYrXXO9CgIGHsGtmbpx3iRSS+rF66dId
-	VZZ6tSZ0Ukr9qqukLgxcJv7+V3C4Mm5nQXNKUX4qbCD9vLQ4CygPuzGKW9+piwGgrjNT+jucmBE
-	g17bWD/Rjy3EtbPBRCJZNDWuA8qetfgEvOHyAYy+K6pfbIAglHmMYYo8skPPOa1cjQl8VQjeDsu
-	Joc39uJ6lkcDAEzzimLkjk7E902UIlgRKDjWe8sDSG248BwktwvKRig+blYXFVCWUEpW0u6krCf
-	aSkcf7JM2lqQ==
-X-Received: by 2002:a05:690e:d57:b0:660:78f9:7e7f with SMTP id 956f58d0204a3-662cb87eeb4mr3643165d50.3.1781708659378;
-        Wed, 17 Jun 2026 08:04:19 -0700 (PDT)
+        bh=ATCNUvbIHGzcge3S+9KxpJQvKqQ4MLcIrGCywDLxz7I=;
+        b=pNw5Xl0sOzOSRUQItayPKs2Xzo2CooXkWADXI8VFzvdru/Ex7PeXWvlxBpgK5vlOQY
+         fl/pMTL9KiLb/Ek24Hm9OqhPjaZqt9LU9cuLzBGIYC9binK09uYeHfrynF9d5Pb/lDvB
+         ahyTobZRnOeUbVXcV2UAGnZRXrmA/+YpFIX0RpEhsPCSY42pSE47qHGqelRbGsvrZ/8l
+         VCy8uEcfkykggSARHrDuRtP68Wv/LQklZuGc0WfTb58VrmHeQ/fAQ8PAhotYBaJahblV
+         PjU4zsqfgjzTG5nspBCN5QMsxywCESiieZX2xXW49Xxo65yCsvr1fZd5K5WnCH0MuXCD
+         Zl6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9D7GeiylvoIPIKt5bmxzROvgj5FewF//L/tsai2PfY1tn4o4BJ1DjYL89dy62grIjTlx05cESt+3O4@vger.kernel.org
+X-Gm-Message-State: AOJu0YwO4KeZBfuhVYvBwK6ij+UeELeqFGognNece9ceyiddJbuq8VUG
+	P4LtrwOBtsdlw29TyIBt2Uc8dX4hjBsiJUbYtnFXiPy8gwJ0jU0k0gQy
+X-Gm-Gg: AfdE7cnI/4NpirFnO5O0NrbHFLBP6dFd8OEJWOP3vk+c3Bve2NwdETC/eXb/9h7uL49
+	8vhWS67qZ+VU4oBPseOAKDXDQqQD2wHHuX1X4QlwHprdi8j8GRjbT4wLfnIapsxfRpcalfZNorj
+	v9+Yhq3inIcE+T9VI9o5Yl1V8EnCZpoNw8LOn6T6AANn4enbysZVCPeHrDYG91vFf+xy7Eh2nlG
+	1tTQsyDYtFbkF5ZGMgbqo5z/tP5llqWkZrbTQVLwM0Az6FoUsjgZT5/uYb18QYD4FSh5hGbVu6I
+	s1v0QOwU61aYvVIUTz4vEiaaIaj41jRy/KJ1gZpSNMHJlU+gmHfuyPRLdI7SR/rNg70InFydMAG
+	yHzvYjsaKwuEKXkeC/pmHz+ZI84lakrgpfajnLl4PVX+TSMpSGpyA4LFIUjVClQBFcS06/wPc1X
+	+DAamEpzMY5Q==
+X-Received: by 2002:a05:690e:150a:b0:64a:d479:bfbe with SMTP id 956f58d0204a3-662cb8d4500mr3104102d50.11.1781708666886;
+        Wed, 17 Jun 2026 08:04:26 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.04.16
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-662b976e47csm4387677d50.20.2026.06.17.08.04.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 08:04:18 -0700 (PDT)
+        Wed, 17 Jun 2026 08:04:26 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>
 Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
 	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 08/10] Input: cap11xx - guard unsupported DT properties before parsing
-Date: Wed, 17 Jun 2026 23:02:47 +0800
-Message-ID: <20260617150318.753148-9-jerrysteve1101@gmail.com>
+Subject: [PATCH v4 09/10] dt-bindings: input: microchip,cap11xx: Add CAP1114 support
+Date: Wed, 17 Jun 2026 23:02:48 +0800
+Message-ID: <20260617150318.753148-10-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260617150318.753148-1-jerrysteve1101@gmail.com>
 References: <20260617150318.753148-1-jerrysteve1101@gmail.com>
@@ -81,95 +82,136 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check of_property_present() before parsing microchip,calib-sensitivity
-and microchip,signal-guard, so that models which do not support these
-properties (e.g. CAP1114) skip the parsing entirely.
+CAP1114 is a 14-channel capacitive touch sensor with 11 LED outputs
+and hardware reset support.
 
-This prevents a potential buffer overflow in calib_sensitivities[8] and
-signal_guard_inputs_mask when a model with more than 8 channels
-(CAP1114 has 14) would otherwise call of_property_read_u32_array()
-with num_channels as the element count.
+Add the compatible string for CAP1114, add its datasheet URL,
+update the maximum of LED channel reg, and add constraint for
+linux,keycodes.
+
+Previously, the LED reg property had a default maximum of 7 for CAP1188.
+With the addition of CAP1114, the default maximum is now 11.
+An if-then constraint is added to limit the LED count for CAP1188.
+
+Update description for microchip,input-threshold: CAP1114 only provides
+eight threshold entries, which does not match its total channel count.
+
+CAP1114 does not support microchip,signal-guard and
+microchip,calib-sensitivity.
+
+Add CAP1114 to the unsupported enum list.
 
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- drivers/input/keyboard/cap11xx.c | 52 +++++++++++++++++---------------
- 1 file changed, 27 insertions(+), 25 deletions(-)
+ .../bindings/input/microchip,cap11xx.yaml     | 39 +++++++++++++++++--
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/input/keyboard/cap11xx.c b/drivers/input/keyboard/cap11xx.c
-index 0f19ee036e78..275eb79a7193 100644
---- a/drivers/input/keyboard/cap11xx.c
-+++ b/drivers/input/keyboard/cap11xx.c
-@@ -231,10 +231,13 @@ static int cap11xx_init_keys(struct cap11xx_priv *priv)
- 		}
- 	}
+diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+index b97e5b2735f1..2a37ac252c37 100644
+--- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
++++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+@@ -12,6 +12,7 @@ description: |
  
--	if (!of_property_read_u32_array(node, "microchip,calib-sensitivity",
--					priv->calib_sensitivities,
--					priv->model->num_channels)) {
--		if (priv->model->has_sensitivity_control) {
-+	if (of_property_present(node, "microchip,calib-sensitivity")) {
-+		if (!priv->model->has_sensitivity_control) {
-+			dev_warn(dev,
-+				 "This model doesn't support 'calib-sensitivity'\n");
-+		} else if (!of_property_read_u32_array(node, "microchip,calib-sensitivity",
-+						       priv->calib_sensitivities,
-+						       priv->model->num_channels)) {
- 			for (i = 0; i < priv->model->num_channels; i++) {
- 				if (!is_power_of_2(priv->calib_sensitivities[i]) ||
- 				    priv->calib_sensitivities[i] > 4) {
-@@ -254,32 +257,31 @@ static int cap11xx_init_keys(struct cap11xx_priv *priv)
- 				if (error)
- 					return error;
- 			}
--		} else {
--			dev_warn(dev,
--				 "This model doesn't support 'calib-sensitivity'\n");
- 		}
- 	}
+   For more product information please see the links below:
+     CAP1106: https://ww1.microchip.com/downloads/en/DeviceDoc/00001624B.pdf
++    CAP1114: https://ww1.microchip.com/downloads/en/DeviceDoc/00002444A.pdf
+     CAP1126: https://ww1.microchip.com/downloads/en/DeviceDoc/00001623B.pdf
+     CAP1188: https://ww1.microchip.com/downloads/en/DeviceDoc/00001620C.pdf
+     CAP1203: https://ww1.microchip.com/downloads/en/DeviceDoc/00001572B.pdf
+@@ -26,6 +27,7 @@ properties:
+   compatible:
+     enum:
+       - microchip,cap1106
++      - microchip,cap1114
+       - microchip,cap1126
+       - microchip,cap1188
+       - microchip,cap1203
+@@ -62,7 +64,7 @@ properties:
  
--	for (i = 0; i < priv->model->num_channels; i++) {
--		if (!of_property_read_u32_index(node, "microchip,signal-guard",
--						i, &u32_val)) {
--			if (u32_val > 1)
--				return -EINVAL;
--			if (u32_val)
--				priv->signal_guard_inputs_mask |= 0x01 << i;
--		}
--	}
--
--	if (priv->signal_guard_inputs_mask) {
--		if (priv->model->has_signal_guard) {
--			error = regmap_write(priv->regmap,
--					     CAP11XX_REG_SIGNAL_GUARD_ENABLE,
--					     priv->signal_guard_inputs_mask);
--			if (error)
--				return error;
--		} else {
-+	if (of_property_present(node, "microchip,signal-guard")) {
-+		if (!priv->model->has_signal_guard) {
- 			dev_warn(dev,
- 				 "This model doesn't support 'signal-guard'\n");
-+		} else {
-+			for (i = 0; i < priv->model->num_channels; i++) {
-+				if (!of_property_read_u32_index(node, "microchip,signal-guard",
-+								i, &u32_val)) {
-+					if (u32_val > 1)
-+						return -EINVAL;
-+					if (u32_val)
-+						priv->signal_guard_inputs_mask |= 0x01 << i;
-+				}
-+			}
+   linux,keycodes:
+     minItems: 3
+-    maxItems: 8
++    maxItems: 14
+     description: |
+       Specifies an array of numeric keycode values to
+       be used for the channels. If this property is
+@@ -122,6 +124,8 @@ properties:
+       is required for a touch to be registered, making the touch sensor less
+       sensitive.
+       The number of entries must correspond to the number of channels.
++      CAP1114 is an exception where channels 8~14 reuse the eighth entry's
++      threshold, so counts differ.
+ 
+   microchip,calib-sensitivity:
+     $ref: /schemas/types.yaml#/definitions/uint32-array
+@@ -140,7 +144,7 @@ properties:
+       The number of entries must correspond to the number of channels.
+ 
+ patternProperties:
+-  "^led@[0-7]$":
++  "^led@[0-9a]$":
+     type: object
+     description: CAP11xx LEDs
+     $ref: /schemas/leds/common.yaml#
+@@ -149,7 +153,7 @@ patternProperties:
+       reg:
+         description: LED channel number
+         minimum: 0
+-        maximum: 7
++        maximum: 10
+ 
+       label: true
+ 
+@@ -178,6 +182,21 @@ allOf:
+       properties:
+         reset-gpios: false
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - microchip,cap1114
++    then:
++      properties:
++        linux,keycodes:
++          minItems: 14
++    else:
++      properties:
++        linux,keycodes:
++          maxItems: 8
 +
-+			if (priv->signal_guard_inputs_mask) {
-+				error = regmap_write(priv->regmap,
-+						     CAP11XX_REG_SIGNAL_GUARD_ENABLE,
-+						     priv->signal_guard_inputs_mask);
-+				if (error)
-+					return error;
-+			}
- 		}
- 	}
+   - if:
+       properties:
+         compatible:
+@@ -205,12 +224,26 @@ allOf:
+             reg:
+               maximum: 1
  
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - microchip,cap1188
++    then:
++      patternProperties:
++        "^led@":
++          properties:
++            reg:
++              maximum: 7
++
+   - if:
+       properties:
+         compatible:
+           contains:
+             enum:
+               - microchip,cap1106
++              - microchip,cap1114
+               - microchip,cap1126
+               - microchip,cap1188
+               - microchip,cap1203
 -- 
 2.54.0
 
