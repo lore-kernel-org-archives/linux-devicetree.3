@@ -1,134 +1,195 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26763B8135
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB8A388E64
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 08:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781684603; cv=none; b=rUZYL42KZl5zatoHpdbExh/PECBCK0IxPefW41qK4tCcUZ1MzrjiGN/RiBO8YwMVvgJpT/yC4jUQMgiywDR4+Q8ROBlgr9xafIpCzRiRnaTq5ORfBwigSQpYjTpfk7Xm4hdNwJ97u6/rG61kFnPmZV6pHAVe8gJ1F1lC9JJ4HJI=
+	t=1781684807; cv=none; b=pn+KYHf9R5qgBZwje1+jpcKufxguaZwJ2z2orUwzJop+YpexdHLBiVddhwsCZULoHmvRRiRoD6XtFnzKrarKSxIiE5KGbE5oMTgMxio23fTHccZhRSpSVLwzqinLeiJ77orTzqt3UNi8WcAx8GNJ5Yl25xRZWdMd3z6nfb2dzyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781684603; c=relaxed/simple;
-	bh=ZqZCkDmY3c0/kditj/CSeHwbumIJp/ak3XkyRMjjrv8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lve2Nc6v3Rf8laDuTJqNPm1Dmx6Lxs+OMpq/1fhvCGcW6HbP2XImi85VJvnokFX/xW1/BuV8y6pe+FWFq1apHJHNhFd4uYCuBBilcUF9dddbvJ5/dFHLqLzTg0W/qPolkWhAt+Da66/Vv0P+7C77SuvsfGDijvcFH9VSd61eetw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6QeET6N; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1781684807; c=relaxed/simple;
+	bh=C0U+32GwJ4K0nGpIroKkA0XQuytFUnwuQ08KdAJjTbs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EqTYIjlC/DsC/bCN+DcsmwsRHcZp+YPpDyclmEY5AsJsH3aUqwASpeuLMN3IJ9caAEM8y1aXcN/Ht5pRaVI08k42bAtx0+o1rOEuT9dx3aTJ39SXeDqKQi8icQihu21KVa6UQ6idzht+E7p84+kRa8mE9XlJ1EKNl4YyzGXFQ5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6QeET6N"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2bf2e8ccca1so34910555ad.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:23:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781684599; x=1782289399; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
-        b=E6QeET6N7FdTouSdOtfotQWGyBr/Tn6tPniIZysXrcCebtRQXtVYhRVMdwhpTMUzK7
-         c7mnWy9pe3G68eLt0sKnem73UMLQsnC3XQ1nsCBILbOQZOr178bN2eq9pVutOL//hx8f
-         VSljdImDFWYiq5YbdvslEOj5lCEb8/UNdbQrkFpxe5ShjyPu/RVAZN2viYv3YNq86gNE
-         gPnqdiyrZ+HggQyJyXc8Xkw8gg4dZOoORetB802wfUEsMVsbYBAT7KiqwkXqB2nrp/iL
-         Cu+4XQKmR8u7JhL4sgNhi8MYyJ48eyYxqjZhRlcYICKBqOfiJuliKok7r+Bl/HLE3AmW
-         Bs2Q==
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-6cd01f6c11aso1837610137.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:26:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781684599; x=1782289399;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
-        b=M6l7roiBA0oVa1bnMsBPGJRMkw8toeJUC6ZlbNAgoyHCqKwR3cUA6WZfgfg9jF0/6t
-         ZOBwN3rmeStp4MiFjyrkGeYeLfv48p8VvdbQmyxDTmVWbqtczSmXp1d0b3HL4duIoWw6
-         rQVHGzpZFNTg0b+0fbnNFuR79aMyXuVaaUIZ92YyBREMkovc15C4FRcr5NYVf55d+EVE
-         cIz5aN4N4z++p9WCOiPjeWn9O+czzK5B6Y7M+aVjE0+0RTfs4lK9z/WvVRCXxFw3Hrmz
-         pUfSftAv7jrPDLi48AxF5odTYi655ZnG9lty5DOfR2HpcdjYDAP5jPfL/jAP1kwqaxZS
-         qbpw==
-X-Forwarded-Encrypted: i=1; AFNElJ/wA5ZN0v0zz9qzjh/EEjqfscP7h4OzS8SDA7yNoaYNSY9Dnu2+9ZDi79UFT+svqXr678Uo2EUuEDmq@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBTZs6CGzb2Kwr2H9ZwaY/Wr/dMXlvLgGArPIh/s3FCN7tZizI
-	TsVH68Om2zZQTkKUd8To1jCAfLFGNj3QfvsoCliKiym2QXvGc1tbLBVty1vyLZLl
-X-Gm-Gg: AfdE7ck8mawo1d9p3uyfUeXl90cR0KwAZRApzww6WMTwo4dejzv/Z4XIxm3t9luxuY9
-	NNzH7A7jqRFsgrCGdUnD+Z5ShKpIpvCj/XO9EDnYvUol+bq0kC8QuNzXWxwknRWM7ya+mQ/AGlO
-	t9KrdBX7KWJd12ML4zcWeE7nsiRjgJqRSE0N7BHg00RSTVQjKPkMxZ3TWt1+3rumhaC8OMi9jvr
-	u/BIHJ90ItQz2uvDzb6CVVGv/zwRguIxxEOeqqtAJTzE7MsEDWEJL8ZHgOzVNPbEfttn8jWzZCa
-	/ZQvMnpEbq/2/U/LUpvybbkdf9i5u/OJ/E5brWnuAATyPpO2JsGK/bEBlmY1bD1uvmSNzVyoG1u
-	l62vmo01k9H/Au/eudILEYq30TDYrXJBmlWghkiXzVYWtguApgrpKM6NLyMfTGJqzxo9ecKgCnO
-	4PDVdQerBubQ==
-X-Received: by 2002:a17:903:3c46:b0:2c0:bcff:e191 with SMTP id d9443c01a7336-2c6bc27199amr27006845ad.36.1781684598761;
-        Wed, 17 Jun 2026 01:23:18 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a52:c491::1002])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a758a3c6sm35282045ad.52.2026.06.17.01.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 01:23:18 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Arseniy Krasnov <avkrasnov@salutedevices.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] arm64: dts: amlogic: meson-axg: Disable pcie_phy node by default
-Date: Wed, 17 Jun 2026 16:22:34 +0800
-Message-ID: <20260617082239.645562-4-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260617082239.645562-1-jerrysteve1101@gmail.com>
-References: <20260617082239.645562-1-jerrysteve1101@gmail.com>
+        d=1e100.net; s=20251104; t=1781684805; x=1782289605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NH6hocZNylot+M4XVVVgASnxnSv/8JW5bdpWIVIZHYU=;
+        b=HkXUBYg+TSVpipLSJPwIZxDYpb95VFwgSQTLxDhcOAhKqiD9bb/WgNocsxVHP7nPdl
+         FJ49w6dljme1APAU0z5OOVZqJorPiuMdCFcwm6FWDhkPVv9cDQ2dy/dvofbTc6sx91Ws
+         syf9ZlpHvFLrOi1KFBJOnLb3di9PnBw+ijM9fQXiBWv0yjMZxEAXaIen3m5VtZA9/2Oa
+         oPjrzaa00GEw9mO6+oiWSj/qfBOi7kw/1oUYifQjUyATpTPZoWkFyX3PPi8h2N7vDXdF
+         6f/41Roest77U+0SD42qwVz2vJDahY1Igoam6Wx+ogcjh7XN7o3FnEbw6A3vZGiFRlNS
+         E3cA==
+X-Forwarded-Encrypted: i=1; AFNElJ+sCYPau6z9i+HV9JqIAA51qTNdB8HbPrTwL7I/TKTpKsrQFmgpK7o+Tg1HA68siKajidTX5VP3v2sW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwE7zST9PCNaHsSzmSajJDn6UOKnN3mzGU+RMBSpos/ck/RSPZA
+	3pQV60ad6ijXtWU6Rt/scB/cK4qjegCnPeY5TvQ8ZNxoKv3Ed+RK/moJfcgJm1Ae
+X-Gm-Gg: Acq92OG01NP21BPuG5fmTnxt+9n54C+XPuW0jsz13kdD/SQO5A6wKEU6quBC7cORQDI
+	KatmQEKlIGlOqzfozhK/ZJDKkOy78vn1XtjuMjpzFWuYoYcgCMFhA/BW4wCmRgffFJReu0q5Ebu
+	QEnjfr1o7/XUr579vgZwNkaz1EV77r1E5vwVqTyYkD+iUQ/jbPUR7Yh5glakuT4JPNjyReqMiQb
+	Ks9C5UAmTDyZhmvbt+QzfXWpLilMI3zfFPV6JGLqEyTMOmTO/RPyj7XJZOsn4KizbR0P5NZoUhr
+	Jqbh63bC/+0vH9utkw8oMJd9dkAax1AO0ilOR2rD5KptQicpNSySIfHky0vgcXjk2oJ0nEn75C4
+	KOwULpFXMQAh8u4C8/1mwvJX7qDT94pmT5/KM4SwJ9PCX0Mc9HWsSk3LwNzjUAiCSKRj9KzZw44
+	F4BKkXKKx3Kdoer3mqAEN0MleitBdz3ngmio381Fe359DtewnvNA==
+X-Received: by 2002:a05:6102:a50:b0:632:5628:6d8e with SMTP id ada2fe7eead31-7246cde4affmr1308707137.21.1781684804750;
+        Wed, 17 Jun 2026 01:26:44 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966ceca5f6fsm2329688241.1.2026.06.17.01.26.43
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 17 Jun 2026 01:26:44 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-6cd01f6c11aso1837598137.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 01:26:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8s954v07iZHUn49mB+2yNZ8+bJmEtC+dK2oQekTtlIAu4q6eFs6BnaNcyXJg+v+w7Oy/58KOb3ON+t@vger.kernel.org
+X-Received: by 2002:a05:6102:4b03:b0:632:3bb5:95f1 with SMTP id
+ ada2fe7eead31-7246d528766mr1135210137.27.1781684803531; Wed, 17 Jun 2026
+ 01:26:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260617030008.154449-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 17 Jun 2026 10:26:32 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU0SJ0q2hcpu+qZCH3eZ5eFDyo8Z964h9DhuSaQ7QdHSg@mail.gmail.com>
+X-Gm-Features: AVVi8CfAqddoQorfQ6TrjH19DY2WU_w8lZ69fu1Z-CMFemynEW91v1W75EneBEs
+Message-ID: <CAMuHMdU0SJ0q2hcpu+qZCH3eZ5eFDyo8Z964h9DhuSaQ7QdHSg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] PCI: rcar-gen4: Configure AXIINTC if iMSI-RX not used
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Set the pcie_phy node to "disabled" as it is not used on some boards
-and should be enabled per-board when necessary.
+Hi Marek,
 
-This change suppresses the deferred probe warning:
+On Wed, 17 Jun 2026 at 05:00, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> In case MSI are enabled, but DWC built-in iMSI-RX is not in use, the
+> MSI are handled via GIC ITS. Configure all controller MSI registers
+> fully.
+>
+> Set or clear MSI capability register MSICAP0 MSI enable MSIE bit and
+> PCIe Interrupt Status 0 Enable register PCIEINTSTS0EN MSI interrupt
+> enable MSI_CTRL_INT bit according to MSI enable state, set both bits
+> if MSI are enabled, clear both bits if MSI are disabled.
+>
+> If MSI are disabled, or MSI are enabled and iMSI-RX is used, then
+> deconfigure AXIINTCADDR and AXIINTCCONT to 0, which disables any
+> pass through of MSI TLPs onto the AXI bus and then further into
+> GIC ITS translation registers.
+>
+> If MSI are enabled and iMSI-RX is not used, the configure AXIINTCADDR
+> with target address of GIC ITS translation registers, and configure
+> AXIINTCCONT to enable MSI TLP pass through onto AXI bus and into the
+> GIC ITS. This specific configuration allows handling of MSI via the
+> GIC ITS instead of integrated iMSI-RX.
+>
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-platform ff644000.phy: deferred probe pending: (reason unknown)
+Thanks for your patch!
 
-The meson-axg dtsi now disables pcie_phy by default, so enable it
-for the s400 board to support PCIe functionality.
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -31,6 +31,10 @@
+>  #define DEVICE_TYPE_RC         BIT(4)
+>  #define BIFUR_MOD_SET_ON       BIT(0)
+>
+> +/* MSI Capability */
+> +#define MSICAP0                        0x0050
+> +#define MSICAP0_MSIE           BIT(16)
+> +
+>  /* PCIe Interrupt Status 0 */
+>  #define PCIEINTSTS0            0x0084
+>
+> @@ -55,6 +59,16 @@
+>  #define APP_HOLD_PHY_RST       BIT(16)
+>  #define APP_LTSSM_ENABLE       BIT(0)
+>
+> +/* INTC address */
+> +#define AXIINTCADDR            0x0a00
+> +/* GITS GIC ITS translation register */
+> +#define AXIINTCADDR_VAL                0xf1050000
+> +
+> +/* INTC control & mask */
+> +#define AXIINTCCONT            0x0a04
+> +#define INTC_EN                        BIT(31)
+> +#define INTC_MASK              GENMASK(11, 2)
+> +
+>  /* PCIe Power Management Control */
+>  #define PCIEPWRMNGCTRL         0x0070
+>  #define APP_CLK_REQ_N          BIT(11)
+> @@ -305,6 +319,39 @@ static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
+>         return rcar;
+>  }
+>
+> +static void rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
+> +{
+> +       struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+> +       struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+> +       u32 val;
+> +
+> +       /* Make sure MSICAP0 MSIE is configured. */
+> +       val = dw_pcie_readl_dbi(dw, MSICAP0);
+> +       if (pci_msi_enabled())
+> +               val |= MSICAP0_MSIE;
+> +       else
+> +               val &= ~MSICAP0_MSIE;
+> +       dw_pcie_writel_dbi(dw, MSICAP0, val);
+> +
+> +       if (!pci_msi_enabled() || pp->use_imsi_rx) {
+> +               /* Clear AXIINTC mapping. */
+> +               writel(0, rcar->base + AXIINTCADDR);
+> +               writel(0, rcar->base + AXIINTCCONT);
+> +       } else {
+> +               /* Point AXIINTC to GIC ITS and enable. */
+> +               writel(AXIINTCADDR_VAL, rcar->base + AXIINTCADDR);
+> +               writel(INTC_EN | INTC_MASK, rcar->base + AXIINTCCONT);
+> +       }
+> +
+> +       /* Configure MSI interrupt signal */
+> +       val = readl(rcar->base + PCIEINTSTS0EN);
+> +       if (pci_msi_enabled())
+> +               val |= MSI_CTRL_INT;
+> +       else
+> +               val &= ~MSI_CTRL_INT;
+> +       writel(val, rcar->base + PCIEINTSTS0EN);
+> +}
+> +
+>  static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
 
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi     | 1 +
- 2 files changed, 5 insertions(+)
+FTR, this has a contextual dependency on "[PATCH v2] PCI: rcar-gen4:
+Limit Max_Read_Request_Size and Max_Payload_Size to 256 Bytes"
+(https://lore.kernel.org/all/20260519195219.189323-1-marek.vasut+renesas@mailbox.org).
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-index 285c6ac1dd61..7ba249cc3d56 100644
---- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
-@@ -448,6 +448,10 @@ &pcieB {
- 	status = "okay";
- };
- 
-+&pcie_phy {
-+	status = "okay";
-+};
-+
- &pwm_ab {
- 	status = "okay";
- 	pinctrl-0 = <&pwm_a_x20_pins>;
-diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-index 8ca3ac09b306..5b8ef98f6d03 100644
---- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-@@ -328,6 +328,7 @@ pcie_phy: phy@ff644000 {
- 			phys = <&mipi_pcie_analog_dphy>;
- 			phy-names = "analog";
- 			#phy-cells = <0>;
-+			status = "disabled";
- 		};
- 
- 		pdm: audio-controller@ff632000 {
+>                                         struct pci_dev *dev)
+>  {
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.54.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
