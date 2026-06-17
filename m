@@ -1,123 +1,88 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017D0346E51
-	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 17:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F5A374183;
+	Wed, 17 Jun 2026 17:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781718010; cv=none; b=pKdIHromevkYcCvylX9y6+YRr0ztU1g1quR/j3GvSgGNsbE1WxG4fEbgOuQh2jPeoDHTIHgcvTOWVZnBX9CAFOT0BO4pEuNhdFrpzb9FzslGX47EUASVJFdlhzMU6LGX36D5dxY10ucPiWC0n/wnkW7FxZdLESiQfNumt3gtl9Q=
+	t=1781718120; cv=none; b=H8DQj3RA2DljB9OR/bjoxyk2ppZciFnqyYw+PrqasZb+5TRVowsxXngGtL08gBpkpCX1CTuFGuo1TGsN4Kz90rJQp0bvbDpmA7SUT3uIQdpdbfTOo5H0Vfl3Y+DKN1bCqrOtJt6DigvE3mf/BB6+r7FkBnhDpKyFmgbQFXn3QbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781718010; c=relaxed/simple;
-	bh=3H6Tx8GKVFXGcwT6woXKZw4U9eyeRFNU5j+1Z0MDS6o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VdxK/YMxH2TuB6OK9jP9EIZ26L/UV0kULQsOez7x3CluZYOd7MjLas97xSSYwjCmbLC1tDMHKgchKR5gumVSy8K5aa32tZpBng54jMkCK3Ah32wVpfo0o9+ICaRcYPIkhpZjyhNK4uoGLN6rOq2VvQff1lp+t+T11u80Oa4FQZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ME3Wd1Bq; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781718120; c=relaxed/simple;
+	bh=rH11rj5XfrPigCs9y05QCpXMTxgey/fHMocbG34Al1s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Im1zRHzAlwNoNB/BosO5ugG8IRCVLE+wlqqY9CB24PTBmq39EulI7VmULG8cXRikdWFHKGwKr2nLYD3XcivXzxvcdV8u4Vyox18rTM7ZQkMhzqKrIkjT+yLR2AKEQirSkO1jTNg//y8tpkgS9/1b0FyUGNrVlisbpMKnyUqKc6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+Mzdag9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ME3Wd1Bq"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490be29c1c5so63570275e9.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 10:40:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781718007; x=1782322807; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=E4aTYQpCEBfoHlNp/ih1aDYhCnw5Uq36PYKp2Wj/2Xk=;
-        b=ME3Wd1BqunjbXx1jj5Nqrd4ZQ0HbyYsoc4LsCb+zo/c/DY4jbzO6IMvFSQRPn1XW4e
-         0Rm+67aRIPdnLLaLgz7NbLkLKj5rdH46f8vV+PnvkM6lK+GCNg2cOk3Mmh9W/LY9syzO
-         4LXczJCror55fEGYc2TEV1K33AbuuUv1TNchT2WHZe4RMQcSdb0zL5pOK5Zp2M5XAt6e
-         bs/eX2UVglZKgI5FEfSaySKbWhfRHkg3TIk2G/grHGilUdo8Q7Eq48y5lPhY4Cl9KVby
-         yVRXc5o1IV2ecGx+f0DpsHo8V27WjK9w1igw55HDhTLEBapvYxIl0xe15PzQTAl5hZ3k
-         3hzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781718007; x=1782322807;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E4aTYQpCEBfoHlNp/ih1aDYhCnw5Uq36PYKp2Wj/2Xk=;
-        b=DAKCWHQpaPtIWPmt3gmcV5FaKs+EoJrRuICIOhivaD39UuO8kPyZRWCkTIl8zjQtVB
-         q0OoczxIaEvZxhVXWTcpwG1ERx8umRW5NDRHwhl2cgb1EDwMVPLDjLxBNzkRf2zkvN0l
-         cxtNoJZG7O39EsuJ7cRXUfIc3zjfnKhsacv/mIZqb852isuqz3+mhNNTROTDMBBwPPEg
-         t55U/7nCJb1k+N+hr+EaNlUvCUYP2MPMXCHWlhoBKxIYutaKSMz+cVWp3Gp8Q89SvJ4j
-         iRxNWKXnSFwXZ9mGIiyNGWkgHNhrCbeWnLl/g8JICeWmP1igwdP48rAELAOyQdaDPp/u
-         GeqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ987jhQWweltUCXmh0R1vupFshwvRxQzMgyk6SKNRewAT2UBNj60Ak9Cnxq/BgY/O8kvA9WWxnl+QI3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoLGn2dBuuDRxbWK50vAYumrfH8Hmpi9gBd8KS8zoabu1bmFPp
-	87mqkA07g45pVzNUQXIpTni9EpsViy157dKmK+ta3l5V/STfeqVyV1G7
-X-Gm-Gg: Acq92OERURBgTUrOY0ZgAx0yBKeT0ElUJngqyxQUW0ClnL2Vp9GwFy83S6xS45Hdkib
-	2VNWVaYO9isbh0EhXhR0XnE2aSAjRJN+fuuO55XbKSIz8/ZKc74/3NY2oePa8DklZ1l2EAZWTvh
-	aVMaMZoPn7y/TgKuICNzNqghEjFQ0112Adcg1RubxMGs5HJCIYSIDKanZjn9Slod14/UalC5Sy2
-	do9TXo3ssU3H5HJU40ce3A5B50KRVZMZ7L+C3Z9kEhezXQ/Y7e+6swnNDieXU89a708LKy+Qh8K
-	h/pnsGN4OxktTf7r+u867C10kpF3VDgaDceVHwqgU5++LjsMTl0zuaofAyrNu37E4P5GLysYL7k
-	xnLz7mvakQB1rWe0sTTjzuKHZ9hzkRF4vAcvtPEBnNXRmeWCxO937eGc5flG8/MCDuNRXdttGGg
-	bqKNrTRv+PdS2l8oUGtKpvP44ZIOt9lkWrNoXsOfrhCtxzV78EXRPkRKmEqVNstkyUCNIIQTjqs
-	jFVkhyf6lBP+boOGg==
-X-Received: by 2002:a05:600c:3e1a:b0:490:e974:e01f with SMTP id 5b1f17b1804b1-492333ecb80mr88065235e9.28.1781718007311;
-        Wed, 17 Jun 2026 10:40:07 -0700 (PDT)
-Received: from [10.128.11.42] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49234daafc7sm59819515e9.10.2026.06.17.10.40.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 17 Jun 2026 10:40:06 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <0f131ee4-d335-45d2-b6ae-49c18df1353b@gmail.com>
-Date: Wed, 17 Jun 2026 18:40:05 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+Mzdag9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7F281F000E9;
+	Wed, 17 Jun 2026 17:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781718118;
+	bh=9RC8jmYaG6xK0VuQBqROoKrirquMSwIRTfAs/g0x82s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N+Mzdag973iH4hO6Sjg54nL3kg6ofkz0cQfNurdpysbU5SXY/OybFr3meSgPBeGPw
+	 wfc7JmVDLkerB4mclX8PUwiVTc7O4jklyyIuXclD2Bx5XTAR5uQ8SWKX8g2Aw/bcZf
+	 rgggTSpe6fhEYRPoSkxLmQmgd/hqkxfr3VKqIi9gqXYu80iouiWDWiLLrWWAxwoAbu
+	 lCxCY+2R3aZDnnhAx+upRayjijyJmLPe2wdZSyds8EIW4mB5FFxeR3S2Nv4Q6ntixM
+	 MYNQoq3wFKRu/LxhuyF/lnd7l9Qh604Je7hagQs5OqvaOu34TopxyUtf610uLzaBkc
+	 MwTa3tHMZsieQ==
+Date: Wed, 17 Jun 2026 12:41:55 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+Cc: konrad.dybcio@linaro.org, robh+dt@kernel.org, 
+	krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org, dmitry.baryshkov@linaro.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, quic_rajeevny@quicinc.com, quic_vproddut@quicinc.com, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v1] arm64: dts: qcom: sm8750-mtp: Set sufficient voltage
+ for panel nt37801
+Message-ID: <ajLbyqELjduwbKC_@baldur>
+References: <20260409122110.214680-1-ayushi.makhija@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/10] RAS: add firmware-first CPER provider
-To: Ahmed Tiba <ahmed.tiba@arm.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
- Hanjun Guo <guohanjun@huawei.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>,
- Len Brown <lenb@kernel.org>, Saket Dumbre <saket.dumbre@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- Dan Williams <djbw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev, linux-cxl@vger.kernel.org,
- devicetree@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
-References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
- <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-10-91f725174aa0@arm.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-10-91f725174aa0@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260409122110.214680-1-ayushi.makhija@oss.qualcomm.com>
 
-Hi again Ahmed,
+On Thu, Apr 09, 2026 at 05:51:09PM +0530, Ayushi Makhija wrote:
 
-On 6/17/26 14:54, Ahmed Tiba wrote:
-> +config RAS_CPER_ESOURCE
-> +	bool "Firmware-first CPER error source block provider"
-> +	select GHES_CPER_HELPERS
-> +	help
-> +	  Enable support for firmware-first Common Platform Error Record
-> +	  (CPER) error source block providers. The current in-tree user is
-> +	  described by the arm,ras-cper DeviceTree binding. The driver
-> +	  reuses the existing GHES CPER helpers so the error processing
-> +	  matches the ACPI code paths, but it can be built even when ACPI is
-> +	  disabled.
+Here's a link to "v1":
+https://lore.kernel.org/all/20260323102229.1546504-1-quic_amakhija@quicinc.com/
+Which makes this v2.
 
-Yep, sure enough, this patch causes a build error when you enable
-RAS_CPER_ESOURCE without enabling ACPI:
+You also ignored my feedback.
 
-drivers/firmware/efi/cper-x86.c: In function ‘cper_print_proc_ia’:
-drivers/firmware/efi/cper-x86.c:352:21: error: implicit declaration of
-function ‘arch_apei_report_x86_error’ [-Wimplicit-function-declaration]
-  352 |                     arch_apei_report_x86_error(ctx_info,
-proc->lapic_id)) {
-      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+Thank you,
+Bjorn
 
-- Julian Braha
+> The NT37801 Sepc V1.0 chapter "5.7.1 Power On Sequence" states
+> VDDI=1.65V~1.95V, so set sufficient voltage for panel nt37801.
+> 
+> Fixes: 4fca6849864d ("drm/panel: Add Novatek NT37801 panel driver")
+> Signed-off-by: Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8750-mtp.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> index 3837f6785320..6ba4e69bf377 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
+> @@ -462,7 +462,7 @@ vreg_l11b_1p0: ldo11 {
+>  
+>  		vreg_l12b_1p8: ldo12 {
+>  			regulator-name = "vreg_l12b_1p8";
+> -			regulator-min-microvolt = <1200000>;
+> +			regulator-min-microvolt = <1650000>;
+>  			regulator-max-microvolt = <1800000>;
+>  			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+>  			regulator-allow-set-load;
+> -- 
+> 2.34.1
+> 
