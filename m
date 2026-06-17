@@ -1,41 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4522937B015;
-	Wed, 17 Jun 2026 18:52:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFB237EFFB;
+	Wed, 17 Jun 2026 18:52:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781722331; cv=none; b=qhdFQWJq3P1EItyXrK4YyxGasAPRc5yleILfWvfEkDfpyDMcdaTAz0HdZIfzLvTnQtiHNYABCUhDvvpqnecTdI1q5Vdgfprmei6V89Dx2/aR8WapgnWVzC0OGihyiMQuAgKwnRDZebHW++J0WPVZfPtmptsx762o7VByrVGRMss=
+	t=1781722334; cv=none; b=bG2SJo5OUtMufXaQixPpjVdG/4BUMpGQ60VVwdRYF+YLkKGvdw5qdmiJFHEUt87ypNJKUdW7+A5S0Y9Gfz/JJa5GjC+k1z9jc16Fb6ODjawoVsQ+0IvSQOFQPNfHrxRriFMhBifLsexOQabO+zU+7F/XjRpIPp6gbEVZkmA86Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781722331; c=relaxed/simple;
-	bh=C/AphHeqUmYgEpPCNKjM0R3CijmfEx2tuybcOWNfG/g=;
+	s=arc-20240116; t=1781722334; c=relaxed/simple;
+	bh=SsYb54x0tancRWbNRMe9tudgkZipWAm8nxe1GklgbkE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mO9xfhuZ9nAkTtSHhnSEPIlES47wTxXEoG3xxz0+XH9R7w+cHK/so5shWspow9US8HWgcY/qmZibLU1scIKJyY0IMXN1qNhX8TZF1/FddVCw4heZzdmydmYyDJW7s/W8vpBqsvSYOKkPaTmc4nYpF6ZIfb55mqYE7/GKZ5a0AAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=UQ8W+ubZ; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=WG3QN729NplVZ69FCzIBWC0OE0++XIhdib6YHueAHjM4mnwk8ayBlXDIB7Rw4WY0CmUxt8x3LG3MesUAKUNHNiCPK9kYYhovfai6rUn0d+TkyHE5A+b00LoOGGYZJ4EXN0Z5YVuo+zdJjJqnkhLneIypgQhsPxq1YnbBli8QBmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VRVkRt58; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="UQ8W+ubZ"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VRVkRt58"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1781722322;
-	bh=C/AphHeqUmYgEpPCNKjM0R3CijmfEx2tuybcOWNfG/g=;
+	s=mail; t=1781722325;
+	bh=SsYb54x0tancRWbNRMe9tudgkZipWAm8nxe1GklgbkE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=UQ8W+ubZpP133M3xLQmpz7U1GO0LzqC62rTLnNVk+OQ3JIX12gG09317MAabS5im4
-	 3c9zuqQORZpGfERlFdpwcvX/In5U76JJ0iBEWOe1qQW+z3eMvffuVGopcTwLDv+lDQ
-	 fJ+OKdPGezm/GWbzsQxH+aE+22DRLyJwS30hFIlQ0LDn+d/L2ES2Z92Qmd602e1jh/
-	 v+JNFM5Vb65Orrul2gbeewgoRZfwvR0xO+ZX9pJ8mCfVfyW6GlO9oTO1wz5JumuW7e
-	 Pdqpd1Mnu0Do8UycxN8gHOj79MJA7VWs+EaO5RlwvA0X7JArn/CDUFdbw4FyeTcSD2
-	 lM3DOPQN4YTmQ==
+	b=VRVkRt58jd5iw9GVAiv25VuwgZ/sVL5HEYqLUGCjzCx4HsTnqSazwV/3U38v7DrPL
+	 1woS8AcjnthCf7sOx0Gw4WrH41yftJcDRjKz1L0TtBBSiXwXTLyX+ycY/HMP4l9OoU
+	 FrqrxyWEp1hAM7p2JPKU0Yi8Sog9ayuL44dCwNAADg7cLzPvGNRtBIp/kXjV5bkPA2
+	 PQC5f6Ccw9BGQy1JcamcTsaSN0fRyLWRAi5d3JaBAkVwxDMkWiLSvVwC3yepYhx80k
+	 u3EALlTB0T5WpU0JVb3assgNQdXLTbgOKvMMoT7nUy5bjUblOLWSp8kIHPPKK1UU8N
+	 2My6o+wKlqy1A==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 906CE17E0E64;
-	Wed, 17 Jun 2026 20:52:02 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D5CF817E120F;
+	Wed, 17 Jun 2026 20:52:04 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 17 Jun 2026 21:51:58 +0300
-Subject: [PATCH 5/9] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Wed, 17 Jun 2026 21:52:01 +0300
+Subject: [PATCH 8/9] drm/rockchip: dw_hdmi_qp: Enable YUV420 output format
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-dw-hdmi-qp-yuv-v1-5-a665cfd06d7d@collabora.com>
+Message-Id: <20260617-dw-hdmi-qp-yuv-v1-8-a665cfd06d7d@collabora.com>
 References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,51 +66,34 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+Both RK3576 and RK3588 SoCs are capable of driving the YUV420 output
+color format, and the required bus-format handling and VOP2 support are
+already in place.  Advertise it via the platform supported formats so
+the HDMI core can select it.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
+YUV420 halves the TMDS bandwidth compared to RGB/YUV444, which enables
+high-resolution modes such as 4K@60Hz on links that cannot otherwise
+carry the full-bandwidth signal.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index df475173dc8e..e0d6e42fedb1 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 3a1c027aa90b..e29522afc6f0 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -612,7 +612,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
  
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
+ 	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+ 				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+-				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
  
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
- 	}
- 
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
 
 -- 
 2.54.0
