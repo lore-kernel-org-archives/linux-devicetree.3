@@ -1,167 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968203FF8B0;
-	Wed, 17 Jun 2026 12:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7473FD131
+	for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 13:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781701116; cv=none; b=e/4nLbU37yG3JKYIiIA6AFqs8qkOmfl/MRQ/QnN4o27nd936WEYW9xYCpeAudDtY2ZPSEVUSAJ6qu3PInePHNsEAOK+gPvYcLJk+NMf36TuryvPh8cWg0HR/oxobWxfXjD439XTsamBDyM3R8tVfCAJr7xUVPtIlrFes5d/a4Gc=
+	t=1781701369; cv=none; b=g9e2AK+EeoU4kajEUU+n+7lvg3Trq9xU4hdGbUS20yC6XRLo7MasXJfh3lXfiSLYl7qgFBvjrtxRsYJsY3CRmkIM88heb/lrIDldVvBYq9V1Dm1kkn6bVxUeL86oobNTGIQmgph3UaU7e03YjVY4ZGO0BYs49nRRJFEHG2grC/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781701116; c=relaxed/simple;
-	bh=ZwE7QIllR5UjXdD36Vy637TMxtThVapvnR6S8FAuDUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n2LiPtuTrR7W5EsobUzSsq8ihMSWFmetscYHMNULJvmSKTlPQO+7s/xB7kgW9WhRqr9sAxwEPjn9a0aZ8vz72KugNkCxcQQOiSwQwHGqgK+M6NrHk2RSJgOKvETh1klD7+5SphQ32oEHCcmIg5m/QLxSBT8clJejw7Yqm0V/0+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KU1YOTDw; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1781701369; c=relaxed/simple;
+	bh=9+dzI2dN9emuFI2pax5DYoZgXEDqCf7HE8WznzHpk2I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iTRkRhLTswsw1/CJas+sEmbxpZwC/57PXOIOKDT/cFZaRMNLbZUjVhr8a7OxCYzqZfpQZup7IhXrLzHyToLwGClICX9kZlQmMgTvGx8ZyE1ZpyhCXLZr8YbiimblaXiXC21StIIKJA2g5wJyYaQvPQDe+lF6bjrL590iHhhz6GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9Q+1BoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KU1YOTDw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 494AFC4AF15;
-	Wed, 17 Jun 2026 12:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781701116;
-	bh=ZwE7QIllR5UjXdD36Vy637TMxtThVapvnR6S8FAuDUY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KU1YOTDw+2Rbp9JYLM/X5toz84SrCiAiJJd9fs7Gt1YL2XZANdp2NpBwTNoimI7ST
-	 A6D4qK+KjRNE5hThoKjc285XJMs7Vz8G1EIxewiLTLjSBND64yHMCYuGWXdIMdbtaX
-	 sf1j9IWmH5V1Rcw50LtR6DNVI8dYM20Ph3Xw84TOHxVtrXgW47lvipKnH288Op6JXD
-	 /niP7NdOjSocZVzUfY3S3ChBzQ+seaduSPDP1R7G85PBdP5ZiX6ZRQF0A/T24Aipox
-	 4uuww7Xq6c/mh5Tgo81VuCgsYETU/VNZwgQIT+IE1W0ThZvQmgF3oASB07bwjHq0wS
-	 OtQGlHwK2XBtg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B585CD98E2;
-	Wed, 17 Jun 2026 12:58:36 +0000 (UTC)
-From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
-Date: Wed, 17 Jun 2026 14:58:30 +0200
-Subject: [PATCH v4 3/3] arm64: dts: rockchip: describe PCIe RTL8125
- Ethernet on Radxa ROCK 5 family
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9Q+1BoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B571F00A3A;
+	Wed, 17 Jun 2026 13:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781701366;
+	bh=GAiBvawRB02ddy9R83CA5ZZluym5rHGQPF5fxEoW2KI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=f9Q+1BoJRiZy0C8ePygJ6fcBWjb0eyNyYebd5OU0rFwIgTUgZf6A5EUK0fiBj1r68
+	 FWBWsIa/80YjWongGW77n1C2SzyM8hgIBr9klRgUZkyVi3aL3VNoVXWc/W4XTDMSti
+	 rixVZsUpEiSt+l4WqJCsyDtKxSLIR3OkS3wqW6M8p7HsS9oiA/xA4UF7xomwHJziE8
+	 HN7eK8KEbblvH/EjPKoqz4gZqqIfqNIOL/iT0nDJI1K4Eim7rWJ00BnYO7qtDNRl0T
+	 cEv/M7pxhrTl12bPb4HbrsYIc85Nf83z0z0u2OuZuk2arr134E0NmmheCoPSnMbxmD
+	 6UhwSkliyv2PA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/5] arm64: dts: qcom: pmk8550: add VADC node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260617-topic-sm8x50-adc5-gen3-v4-1-4af9251731f1@linaro.org>
+References: <20260617-topic-sm8x50-adc5-gen3-v4-0-4af9251731f1@linaro.org>
+ <20260617-topic-sm8x50-adc5-gen3-v4-1-4af9251731f1@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 13:02:45 +0000
+Message-Id: <20260617130246.65B571F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-3-2bd38922d129@pardini.net>
-References: <20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net>
-In-Reply-To: <20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net>
-To: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, Ricardo Pardini <ricardo@pardini.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2538;
- i=ricardo@pardini.net; h=from:subject:message-id;
- bh=MognxmUJ6xqKPxqxbx7vV1ir4AaICF3oo7pMGUUP9SY=;
- b=owEBiQF2/pANAwAIATteP+Oex+3pAcsmYgBqMpn5nzZFgZCVPzJQ5hejWuqpriuYPqCKN4E+U
- 5NPdJDcxIyJAU8EAAEIADkWIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCajKZ+RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDMACgkQO14/457H7enDYQgAhTEPZa3xyAoVucFR5lfweGyEi+18ig9
- hNb6ty67yz4A3kVZVJCXGioEFpOu+Ax+hJm9ELV/6LyvrlwG1w0pNQOf4rcGdrMLjwqy9E8C39T
- ghQRgAXm6LXw65+9MgOI145DYXEQJJpKQHou7q6z0IAJ9tkruKPBT9emgh/BEZLfbj6fV1MtKk/
- +CdRbKuQtC1Pj/mhR1bpIBhF0dKvZ/7hkzw53fc+Fqr/Yij7vwX4QXY9a04EhtBNovJV0eKMeGn
- LDDq4bteRpWmn0N+xtwtxU77fJtGs80K7qJ3xGyInpOvgpZLx/R9KECSZaZ3PIwLwg0CxiFaSLR
- Ol3DM6fti8Q==
-X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
- fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
-X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
- auth_id=588
-X-Original-From: Ricardo Pardini <ricardo@pardini.net>
-Reply-To: ricardo@pardini.net
 
-From: Ricardo Pardini <ricardo@pardini.net>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch includes a nonexistent header file `"qcom-adc5-gen3.h"` a=
+nd uses undefined parameterized macros, breaking Device Tree compilation.
+--
 
-The Radxa ROCK 5B / 5B+ / 5T all carry on-board Realtek RTL8125 NICs.
+commit 9db08ecceaa2afc05462ac83976c923d21f78ce1
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-Describe the fixed function nodes and attach ethernet0/ethernet1
-aliases, so that U-Boot's fdt_fixup_ethernet() can inject mac-address
-properties from its ethaddr/eth1addr env, for stable MACs across
-boots that both U-Boot and the kernel agree on.
+arm64: dts: qcom: pmk8550: add VADC node
 
-The RTL8125 on pcie2x1l2 is shared by all three variants. The ROCK 5T
-additionally describes pcie2x1l1 with its second RTL8125.
+This commit adds the VADC node and the initial pmk8550 adc channels.
 
-Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
----
- .../arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi | 15 +++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts        | 18 ++++++++++++++++++
- 2 files changed, 33 insertions(+)
+> diff --git a/arch/arm64/boot/dts/qcom/pmk8550.dtsi b/arch/arm64/boot/dts/=
+qcom/pmk8550.dtsi
+> index 3049eb6b46d7a..639c0b1e0c33a 100644
+> --- a/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pmk8550.dtsi
+> @@ -7,6 +7,7 @@
+>  #include <dt-bindings/input/linux-event-codes.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+>  #include <dt-bindings/spmi/spmi.h>
+> +#include "qcom-adc5-gen3.h"
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
-index bf4a1d2e55ca3..b53dfe6848cce 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi
-@@ -10,6 +10,7 @@
- 
- / {
- 	aliases {
-+		ethernet0 = &rtl_eth0;
- 		mmc0 = &sdhci;
- 		mmc1 = &sdmmc;
- 		mmc2 = &sdio;
-@@ -482,6 +483,20 @@ &pcie2x1l2 {
- 	reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc3v3_pcie2x1l2>;
- 	status = "okay";
-+
-+	pcie@0,0 {
-+		reg = <0x400000 0 0 0 0>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
-+		device_type = "pci";
-+		bus-range = <0x41 0x4f>;
-+
-+		rtl_eth0: ethernet@0,0 {
-+			compatible = "pci10ec,8125";
-+			reg = <0x410000 0 0 0 0>;
-+		};
-+	};
- };
- 
- &pcie30phy {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts
-index 425036146b6d9..b1a3e4b2165f9 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts
-@@ -8,6 +8,10 @@ / {
- 	model = "Radxa ROCK 5T";
- 	compatible = "radxa,rock-5t", "rockchip,rk3588";
- 
-+	aliases {
-+		ethernet1 = &rtl_eth1;
-+	};
-+
- 	analog-sound {
- 		compatible = "audio-graph-card";
- 		label = "rk3588-es8316";
-@@ -76,6 +80,20 @@ &pcie2x1l1 {
- 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
- 	vpcie3v3-supply = <&vcc3v3_pcie2x1l1>;
- 	status = "okay";
-+
-+	pcie@0,0 {
-+		reg = <0x300000 0 0 0 0>;
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		ranges;
-+		device_type = "pci";
-+		bus-range = <0x31 0x3f>;
-+
-+		rtl_eth1: ethernet@0,0 {
-+			compatible = "pci10ec,8125";
-+			reg = <0x310000 0 0 0 0>;
-+		};
-+	};
- };
- 
- &pcie30phy {
+[Severity: Low]
+Is this header missing from the patch? It doesn't appear to be present in
+the tree, which causes the C preprocessor to fail with a 'No such file or
+directory' error during Device Tree compilation.
 
--- 
-2.54.0
+[ ... ]
 
+> +		pmk8550_vadc: adc@9000 {
+> +			compatible =3D "qcom,spmi-adc5-gen3";
+> +			reg =3D <0x9000>, <0x9100>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			interrupts =3D <0x0 0x90 0x1 IRQ_TYPE_EDGE_RISING>,
+> +				     <0x0 0x91 0x1 IRQ_TYPE_EDGE_RISING>;
+> +			#io-channel-cells =3D <1>;
+> +			#thermal-sensor-cells =3D <1>;
+> +
+> +			channel@0 {
+> +				reg =3D <ADC5_GEN3_REF_GND(0)>;
 
+[Severity: Low]
+Because the qcom-adc5-gen3.h header is missing, parameterized macros like
+ADC5_GEN3_REF_GND remain undefined. Does this lead to dtc syntax errors
+when attempting to parse these channel properties?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-topic-sm8x=
+50-adc5-gen3-v4-0-4af9251731f1@linaro.org?part=3D1
