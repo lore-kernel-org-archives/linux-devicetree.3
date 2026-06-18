@@ -1,95 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61AA1DDC1D
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 16:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3693431F5
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 16:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781799038; cv=none; b=mmsDpAr7LrgWYTgJYlth8cnXhkYGbJl43nkxDdmyOWDVPB64bW1hX2z5yBgU35cr9HEbKIopgribrNwZZOJ8tegp1itVZ4nRhD6N9Zmfmym2Q/ZfJstUNkQ1r2//KBtkNklOHJEPaH5zNoyBgUl2+WEf+GeGyo9GT8WnQqur0dc=
+	t=1781799268; cv=none; b=W6DnVRjuevPK0Y2sL1haLaVLCYsVS1qIcdBSU53lUL+PTiD/bw2IKd1VkJodr6KdSNAlMHeLLPDmenDU1wPCkLTYzNZjNBvDCwQN2dJ9I/RimQnHlMNMEZYkFNyjwL7QKjJTaDdJ44SC/D1TPjeNp6PZ6qKAVYttwhcR3kSWLTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781799038; c=relaxed/simple;
-	bh=9axRLpJPKjzDysIbQ94KaYEF8vGnh/56ahK/E9Z0IAU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=drBNPw1PtzzQJtg9ug0r4Ar461JTpOJd1jDVF+gI7YLiHfondME+ttF8ERZmsFxkiQHcDpuIvOC8qvtlQLmKOdIRp3KdPYDl8GYXb+4ojxkjJNLo/fFPrEIp7yXxOx/+VkkOmbAIg8t6a9g6PuSCBZN6bpwpB0AyOvfdVIIA0hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxWtOYsJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781799268; c=relaxed/simple;
+	bh=R1gVtYDN5n2fZ9vAVumO58wI1lDs+qlEx2tCz1NSsPs=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EliTLlpt+JDBVr6cUOhOEZ0/bAYiyk8f0mvhuVlPdwzMUP3fuM7L+ZOvnyiFnx44D4Keb0OXO3TMPeo8a5RDSLQGGk0OnzgQoDKdeF/RAAfXjZiVJnd6vG9ozE/qEI9jCGFq6xsfG6rdofDmAXca77q1Y+NcvKlEoUQhRNRpAp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ydjv7Wfc; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxWtOYsJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E95E1F000E9;
-	Thu, 18 Jun 2026 16:10:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781799037;
-	bh=3nXZPgulRa4wuuejmJDYrHu4OhbK+RW7DSL0aGmL+m8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TxWtOYsJpkUt3HmMDFPjFBq6sPeNt7ZKwBTZIzY7TP3Ke3kHaCrxuSRDGd0TaeZt8
-	 ElhKSGkBHcZbRxAUNVsWS/aB0YregJGhoI7zq3NHjGmDnmS70xh/xcMFcO8KoVJLkl
-	 y7tMiAa1/tK5WVrQx0UpaLPWybNWD9ziV0LGND+4I25WzMvuApLST6So2/6KIhi3hP
-	 SGnnO0d2EiAzMwdl0mrY4RWeyrGhdMOo3Z5BQhYF3IMv8Pd7Nrxj0xVX79rvU76i6/
-	 SGs51crktxDsImYiwmo7dG8x2Utx6rwDMdw8fQWj2QWTOs42lwEeK1E3u3ada0xGDb
-	 IFmvK99c10QaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: magnetometer: add Melexis
- MLX90393
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nikhil Gautam" <nikhilgtr@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260618160141.11409-2-nikhilgtr@gmail.com>
-References: <20260618160141.11409-1-nikhilgtr@gmail.com>
- <20260618160141.11409-2-nikhilgtr@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 16:10:36 +0000
-Message-Id: <20260618161037.4E95E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ydjv7Wfc"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490ae94a89eso8719145e9.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:14:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781799265; x=1782404065; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0IWtEiXv9qCkFIqBuOVncrIVNf4UpfLhl+LRYC+5jmc=;
+        b=Ydjv7WfcNupDygwjHKP55HyWwXE5Dja8Xerx5b5tcK9fsStG8yGcwy3ACC+5ke16/X
+         VgDTGgWryNMIHP8+R2QnRPJSDbyaCyYa4OOYI1AfG4+ygzMXSdVLo3r9jxfxeCPbjlq0
+         bmmkPWgwSq8M7950u0hX2u/5dk8AG4h8fihPHSKCiBOQIIY93vfoUqQ+PzHTewf/eZjm
+         GiGlm5RLhj7OjjtEWTr2BlOl27CV9aQTfWCg4T8kDrHrSmXebfsvUUdBBQ1uwCYVCGII
+         EMTgFcwlQ4CqRIq2utb9RhidtKJS5RXuJaItrfYwdwMppkdmgCByzGljTffUHVDOJ07h
+         TY5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781799265; x=1782404065;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0IWtEiXv9qCkFIqBuOVncrIVNf4UpfLhl+LRYC+5jmc=;
+        b=fC8cBF+blZXkCiAWZoA5F+V2uhk9izYcXespCvGzFf+TuMuLxZN0sxQdi9TnIqSJCU
+         N7c53OGIaIJsYqe+527q4TdOx3sFGrDid25DPDtiL2vtmQM/fB6U51VhpE39Ml9W/6OA
+         KIOfhWzVvY2hEf1wUmnDf7SNBzb7YKxzgSNw7D+BHpSmX7VPu4P/dSTE9ALMBG6rQ9rM
+         06FZRDrDEc01VRF9YbYUm7UOVCJVDJR2kYcVyPO0UONPIzIBZPZaR1x9hcHFb+x+l+hH
+         iTCsDYM0wG051l25ZnfrHm30cCYd0st2/1uQImZzXJCskCAfPeK61p+jjatbu1gvwhDn
+         9oMg==
+X-Forwarded-Encrypted: i=1; AFNElJ+KityssciHMV4cHIlsGPYQ3ZJbuplzDRr2qD2ssSwqXM0ineAbGGZ13DzqGSkwLklodAJgiiwmCoUt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRf1WIK47zHy3QO78rt/ZOBFh+uCxV6nmfo7pvSMMaC5Teb8Hi
+	5fy686gntl96N1yUxqOSYbEvnq2vGcYk/wD3Ksa+6szT6BNLpcrofHQT
+X-Gm-Gg: AfdE7cmjJB6PmP6/ZnFgUMwIRl9iDIxFCZdl7SHWUYo/p4nnwJJlaQBV3Q8zEIKXS/7
+	o2EMOgP1RyNvCb86VSEztSb7Jcu4tFvNjnWNpsoCzRodNSHSi0iFa2MX7QIH8cQuy3VpGN2bd62
+	D5/TsskIhdZCA/AD+NPVGJ1VjIrf5NtnfJkCPyvAWd+orgmEEN+n+bjeB74P9fEdO6GTXNhd04u
+	jZtQFP0SLPMh4Cb0xlXbK6MwVeyQYjGfV6iW8BT3cHICasELkG5cwpMX+h/H55kC6hpX6EHHYkb
+	U5S+sT/HzHX88NLosD4hbILsw8NALSXsJRuDNB1QaGWfVBc756vpsgWZtxD7/nXfkth6/KrFvTB
+	Acny2tPhWEN3Co9F8t2Dm1/0/7u7WEMemGRzPewQsNtENFLkxoBb3NnToAEC8vNKAxSpMurlpAJ
+	H2qUTghzcvYisM+R9kNPG+FR9rUw1+hUORhuVEh+XfoNWkKTdHkpzSC4Yq7j9ZP57Z3kD4Dt80e
+	U9Lr9pJXCjFkFXPpf9KioGqt+L/
+X-Received: by 2002:a05:600c:8b24:b0:48a:93f8:dd02 with SMTP id 5b1f17b1804b1-4923f439be6mr4090255e9.14.1781799265192;
+        Thu, 18 Jun 2026 09:14:25 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-462236047c8sm20330838f8f.10.2026.06.18.09.14.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Jun 2026 09:14:24 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Thu, 18 Jun 2026 17:14:19 +0100
+To: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>, 
+	rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 06/16] iio: core: create local
+ __iio_chan_prefix_emit() for reuse
+Message-ID: <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
+ <ajQGTQ1_qcOwfzne@nsa>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ajQGTQ1_qcOwfzne@nsa>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The new entry for 'MELEXIS MLX90393 MAGNETOMETER DRIVER' in the MAI=
-NTAINERS file is inserted out of alphabetical order.
---
+On 18/06/26 16:06, Nuno Sá wrote:
+> On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Move logic to create a channel prefix for naming attribute files into a
+> > separate __iio_chan_prefix_emit() function for reuse.
 
-commit 756049ed43f6fd027532ae2aea78e2889e87ad8e
-Author: Nikhil Gautam <nikhilgtr@gmail.com>
+...
 
-dt-bindings: iio: magnetometer: add Melexis MLX90393
-   =20
-This commit adds devicetree bindings for the Melexis MLX90393 3-axis
-magnetometer and temperature sensor. The initial binding documents the
-I2C interface.
+> > +static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
+> > +				  enum iio_shared_by shared_by,
+> > +				  char *buf, size_t len)
+> > +{
+> > +	const char *dir = iio_direction[chan->output];
+> > +	const char *type = iio_chan_type_name_spec[chan->type];
+> > +	int n = 0;
+> > +
+> > +	switch (shared_by) {
+> > +	case IIO_SHARED_BY_ALL:
+> > +		buf[0] = '\0'; /* empty channel prefix */
+> > +		break;
+> > +	case IIO_SHARED_BY_DIR:
+> > +		n = scnprintf(buf, len, "%s", dir);
+> > +		break;
+> > +	case IIO_SHARED_BY_TYPE:
+> > +		n = scnprintf(buf, len, "%s_%s", dir, type);
+> > +		if (chan->differential)
+> > +			n += scnprintf(buf + n, len - n, "-%s", type);
+> > +		break;
+> > +	case IIO_SEPARATE:
+> > +		if (chan->indexed) {
+> > +			n = scnprintf(buf, len, "%s_%s%d", dir, type,
+> > +				      chan->channel);
+> > +			if (chan->differential)
+> > +				n += scnprintf(buf + n, len - n, "-%s%d", type,
+> > +					       chan->channel2);
+> > +		} else {
+> > +			if (chan->differential) {
+> > +				WARN(1, "Differential channels must be indexed\n");
+> > +				return -EINVAL;
+> > +			}
+> > +			n = scnprintf(buf, len, "%s_%s", dir, type);
+> > +		}
+> > +
+> > +		if (chan->modified) {
+> > +			if (chan->differential) {
+> > +				WARN(1, "Differential channels can not have modifier\n");
+> > +				return -EINVAL;
+> 
+> WARN() looks too much to me. dev_error() as we're treating it as such. I
+> guess you don't want to pass struct device but not really an issue IMHO.
 
-[ ... ]
+__iio_device_attr_init() also used WARN(), probably because it didnt have
+access to a dev pointer. It would not be a problem to add an extra param.
+ 
+> 
+> > +			}
+> > +			n += scnprintf(buf + n, len - n, "_%s",
+> > +				       iio_modifier_names[chan->channel2]);
+> > +		}
+> > +
+> > +		if (chan->extend_name)
+> > +			n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
+> > +		break;
+> > +	}
+> > +
+> > +	if (n > 0 && n < len - 1) { /* prefix termination if not empty */
+> > +		buf[n++] = '_';
+> > +		buf[n] = '\0';
+> > +	}
+> > +
+> 
+> Can't we handle the above in the caller on kasprintf()? Then we could
+> simplify and return in place.
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a92290fffa163..e9ddcd12feb5e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24926,6 +24926,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/magnetometer/ti,tmag5273.yaml
->  F:	drivers/iio/magnetometer/tmag5273.c
-> =20
-> +MELEXIS MLX90393 MAGNETOMETER DRIVER
-> +M:	Nikhil Gautam <nikhilgtr@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/magnetometer/melexis,mlx90393.y=
-aml
-> +
->  TI TRF7970A NFC DRIVER
+I felt like doing this here would get a cleaner logic in the caller, which
+would have to add the '_' conditionally.
 
-[Severity: Low]
-This isn't a bug, but should this new entry be placed earlier in the file?=
-=20
-The MAINTAINERS list is generally sorted alphabetically, and the "MELEXIS"=
-=20
-driver block is currently being inserted in the "T" section, between=20
-"TI TMAG5273" and "TI TRF7970A".
+> 
+> > +	return n;
+> > +}
+> > +
+> >  /**
+> >   * iio_device_id() - query the unique ID for the device
+> >   * @indio_dev:		Device structure whose ID is being queried
+> > @@ -1100,106 +1159,19 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
+> >  						size_t len),
+> >  			   enum iio_shared_by shared_by)
+> >  {
+> > -	int ret = 0;
+> > -	char *name = NULL;
+> > -	char *full_postfix;
+> > +	char prefix[NAME_MAX + 1];
+> > +	int ret;
+> >  
+> >  	sysfs_attr_init(&dev_attr->attr);
+> >  
+> > -	/* Build up postfix of <extend_name>_<modifier>_postfix */
+> > -	if (chan->modified && (shared_by == IIO_SEPARATE)) {
+> > -		if (chan->extend_name)
+> > -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s_%s",
+> > -						 iio_modifier_names[chan->channel2],
+> > -						 chan->extend_name,
+> > -						 postfix);
+> > -		else
+> > -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s",
+> > -						 iio_modifier_names[chan->channel2],
+> > -						 postfix);
+> > -	} else {
+> > -		if (chan->extend_name == NULL || shared_by != IIO_SEPARATE)
+> > -			full_postfix = kstrdup(postfix, GFP_KERNEL);
+> > -		else
+> > -			full_postfix = kasprintf(GFP_KERNEL,
+> > -						 "%s_%s",
+> > -						 chan->extend_name,
+> > -						 postfix);
+> > -	}
+> > -	if (full_postfix == NULL)
+> > +	ret = __iio_chan_prefix_emit(chan, shared_by, prefix, sizeof(prefix));
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
+> > +	if (!dev_attr->attr.name)
+> >  		return -ENOMEM;
+> 
+> I don't oppose the change. Looks like a nice cleanup. But bear in mind
+> this very sensible as any subtle mistake means ABI breakage.
 
->  M:	Mark Greer <mgreer@animalcreek.com>
->  L:	linux-wireless@vger.kernel.org
+Yes! I tried to be careful... this is dangerous stuff!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618160141.1140=
-9-1-nikhilgtr@gmail.com?part=3D1
+-- 
+Kind regards,
+
+Rodrigo Alencar
