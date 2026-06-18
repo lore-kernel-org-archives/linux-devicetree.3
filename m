@@ -1,236 +1,175 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023116.outbound.protection.outlook.com [40.107.159.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8467B2F99B8;
-	Thu, 18 Jun 2026 05:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C70E146A66
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781761945; cv=fail; b=Le8avNRi4CbLoXFA7QRGMPtwqzhtUDO3+IBn/8YdgGZ8KSdBeO8UIumvj92hUYBT2zu4k30wu5NBD1DUQr5swuk3e45s/o4qVSevwQw+1fjSA3Wd5tKAgdYH0Hq4P5R/mU8xyGd+Ys4t6TR8dYAmrQH7khB22WSdxCf06mLOCLU=
+	t=1781763378; cv=pass; b=NofRYow/VCMvSOPXcFsQgTvLcvIe5SnqPKwLNgIcCej79Ews8mpJef/RB7B9FNsWO8JqCkK6p9kl+cApOE1++5Sou2LmSZVfrnRKA8hKtWNS/yWxb9bvgVJbXeHOWNKwVw11or+UetmQLsvCh93Zs1//BpYFAEfpDJ1Ai65QE2E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781761945; c=relaxed/simple;
-	bh=lehm46luom0r5k8HWWuKaCLiI2uotS4n8KQoGB7PUAs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EAQYfTArpKSkS+ZaoGkc65taHFVppX8raC8ZoVRmJsMLQRFdU0kVSNMi11P3mk7nk9cY9K+ugb4+u5qCXv/6Y2nJNCcgynw5xWCzcErHjxZ7s8bbc1j/x6yhvgT/gqCSSAkeL1FzntOIdcQT7wQMcC/1rEvUvMBUcShIBXhaLKQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de; spf=pass smtp.mailfrom=kontron.de; dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b=oqYhEW8Q; arc=fail smtp.client-ip=40.107.159.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kontron.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kontron.de
+	s=arc-20240116; t=1781763378; c=relaxed/simple;
+	bh=6Du4FMFP7UPcAJzlB4al9sH/b35QZkMHKVDjgrhrnV0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N/D4kPPtak2hLqSym9IIOTNS/dZsNrF78ymTRfXjRMb5bBE8RMd/41Vzc8iUR7IBoF62iRnS9e+Dne/Y39IJnaMkhCt/y0d6NjMy+jcTqI8STE0qxhkFlsp5wtyoWCZa9W8rgF0o48qNOI7CQ5hz5HELxMoEcWC9XO0djyr6WB0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=G4hiwl0t; arc=pass smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kontron.de header.i=@kontron.de header.b="oqYhEW8Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GcYvolMq0JVORvh4TqNvgwwEUOxzQi5ZuAEgK70iEpQCKU9/fMUP1Toy1fiwz7dz7RhktuoPETNQj/b9iMx1AHGNs/+MdCBC1Bm3/wzN1HEjoQ6uyGzDUG/P3/KxfrCPQHNrXwy9Bk/vACHfhnGfbQhz6VTw+u9crkuFgBJ5dNdH6rT3piitRe2lT6nViUL/y536oMjUqFFD5eV5mmTnQoIm1CLa7tFNA2ufkZbO+/kSMGSqFmN/q3J6WOKEY9Uc5nZqn2L/RiwRBqREbQ6kLSCs6st25oZf2ACD5S1fS0JzD2r7aTBXzJ+OvVsuaZSvPr5JSn6HsOwd84DYzCSWHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zjczLWXE833rbbPpNh30t1ymlBhuFluiJCou0f/nxFo=;
- b=ie+VDuuNZHy4IYz5xUXcd4fsA5r2JFpAUDoKqYOhpuBlzWwEr8lHGd5rRScLa/meiU1i0ieBthrC4xxP5s+YBjBTddXuvj2DoHdaxT7yOcgQAF2n52/qdFnO7y4NIEQWWiiu91bpifmSP52ppfyYHUUrpsp7W0cfMH9RXSKInxW6Qw1HlAemfGzviR69TARiO1MuPyWD5Ywxp56zac7ivG9c+fizd4lBCuTQfI8ru8+2nNgcvCxMpWL5BzVNuWrOsRALsLMrKVNCEGJXQYx2/QaCpOyx7k75FNk4cFLpx8VoK1acquUTyx71VInUi1t3RFjYlFR4JtPqfO0T0F1woQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
- dkim=pass header.d=kontron.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kontron.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zjczLWXE833rbbPpNh30t1ymlBhuFluiJCou0f/nxFo=;
- b=oqYhEW8Qy4aH9j7XVfDGgEmNGfn0/J2g0Ra1K8BskkgUUU/lmNHGLHZioeHJzlNUGDtNIiniOibp13HvS/7K0FFC/q2P5ijtuct3CUGkRMTqxIjNcQH5DZ/ZLoEH+n9mlajiKzbw5mK6zSoM4XV0vlvH3mGf9eSYrOIEQk+YONaK7/HdepcnXNH2e5cUq1JnhNbFI0VgVJzgix0XEQqUG0UnDiUv82qSrvuCUVhoTFjRVADCSixmaqknveph6XwPEYrtBNFeRy0gXSmEqxd6sj8M90OaRZYxvaYMMqLjS7udReYA9+pZaUjQLBvSVUWIJN4oZUtjdT2Cm+uE79as8A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=kontron.de;
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1fb::23)
- by VI0PR10MB9303.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:2b4::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Thu, 18 Jun
- 2026 05:52:17 +0000
-Received: from AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22]) by AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::a276:4ad7:962:da22%3]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 05:52:17 +0000
-Message-ID: <4f4cc156-7534-4f11-8a45-e4caf083c865@kontron.de>
-Date: Thu, 18 Jun 2026 07:52:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] firmware: imx: ele: Add API functions for OCOTP fuse
- access
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Pankaj Gupta <pankaj.gupta@nxp.com>, "Peng Fan (OSS)"
- <peng.fan@oss.nxp.com>, Frieder Schrempf <frieder@fris.de>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
- <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-3-cb7f3698c3e6@kontron.de>
- <ajFtkysqxuLV8GgF@SMW015318>
- <cea74ed4-1003-419e-8da3-1c62b1ace726@kontron.de>
- <ajGsiglUUbDTIxTh@SMW015318>
- <9c1d34ec-0b96-471e-8b60-6b4c852878bf@kontron.de>
- <ajL7-OqjYuQHyZOI@SMW015318>
-Content-Language: en-US, de-DE
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <ajL7-OqjYuQHyZOI@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0077.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cd::17) To AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:1fb::23)
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="G4hiwl0t"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-69e4adf9ea5so254652eaf.2
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 23:16:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781763375; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KCq09ZahjpRQcq+MtFDYnCQeRyMquQAHoZBHsZWIxbzBPUlTdvJzaDRaabGA289e0C
+         b6djpvClYopqFIb5qr2ClzBTIaX3x6sTVD5tqlk6SGeB3uBExyN6QRa3tBqTsD0F0Uh6
+         xVBhBMLpQIuflowg7XXqa8xIdfYCK8GadKIcC6NhE3+FGcDysNPhjp12wajY1r4LlUte
+         rvvQhM8NMteqs8zJuF+7eaRIikrVzr8HUQpgXer3ejGWGg2FPwcWVygxR0xVch2a6Ifd
+         QGgX59n8qHEP2RvKVteBy7hLbERSUPhFoU+FwAkCVL8DUkeNpc14KCSAMH/PqavxAl0S
+         saVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
+        fh=ZLsACl1ONHQ/na97IdOoJrUsETLUYnFdAfzU8qvDIYk=;
+        b=JlQ/x4pKGUAIXIa4Tx4ldedXxKoXs7rLPAYcxe7pHPY5pPQ9IB3rEMmz3gsG5qCN05
+         vytTbEuxv0QE1LwfXi1B2G+Qostlu88GMskH8FOpdmYd5wIcLrC9W9BF14vG9NGmUW0h
+         TtrorAf2pzIJ/Zoyeu9XxQKOYOq1Gq/REe/tH6moZ0Mfs81NUK6UApMQB3cEW5mLPmcr
+         mOPLf8kwYONrVWLf9iYHphrJ8un6MgGQqgGP9AmAoLWqkswEftCP5GGc2CqQspzhEpe9
+         JIkgAW8Nr98cbnGkgrjhB2JQG4I2cFz+3GQ51P+edi/V7Jwpu7gObmHcwW2Y/0o4KDsw
+         6SjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1781763375; x=1782368175; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
+        b=G4hiwl0tkQde6/q0h/GSJqnBPnze7dsOLtQotRbPFYiLchnhtgOVHe+Tz135jXhEij
+         gI8gmKCIT6CSWye6LJ3vY37Tki0ad8XM5yWTdK92Jq6S8JKIt1D0AF51ieBgLTOPJCjf
+         efzIDwzWyVeeGg6OsRsWSWfjo9TlCHQA928MJKsdggtuuXUyGh23287yV3tP66ODOJSe
+         Dr+XBpSNSMQODFF3XoRBJjC6/opvvx1BG0mpucWe4YALt7kO39F+VTJ+pwaeojErSKVn
+         LQPkSG4/fmXgeqmKYqXJuYoy6ZlaweVfSSn/9xIwXDSrz5ATVqCse2uShp/idSvmS1w8
+         m6aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781763375; x=1782368175;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
+        b=FpAKVT4FIGMBKyNcNhkzWFCQpagg4qjSmf60Rwb6LK77iZaZ5x26ap26xKVpVkNHYQ
+         uI8JINcEEsYwtl71dlSK9aYOqhiHYfmUMW/IIF7QYder5hQOK4Zgxk3GR1dXnCoo1EIf
+         7WAeRRNA9Q5TghwyZYtQZD7tbAGPJWrWhNy8R53wm0DhLcFN+ldeFLvfoLZNP42H32dS
+         t1sp+eaiGj2ZnmpqmCjcFdyJfGF7mzxGWm+i2Pe7t+PufNvW2MJjlnEkByhd1Z+SOu37
+         qPVwQW42eNVBl02JMOBZa8aTpX1tBb+cwSkhNJnBj2XzYbLzC9wiRfVRgY+hUXBVaq/8
+         oZhw==
+X-Forwarded-Encrypted: i=1; AFNElJ/bpz8SVE+yy8Zx6r/BeuqkyBHjAtrYSI5u2pwJDaQ7luEyjNZYHs7iLL1q3QI6peMlxx3jo8z7E4L/@vger.kernel.org
+X-Gm-Message-State: AOJu0YyOAhOtKmVxZfj179krKJRVg0E4dw3D61WwtRtbWjikqu3hhLr/
+	NhAQ8E8j6BjEJnUrXIrV2jpR/ZGhihkDjedLzTHXGpjUi8XFhV4Kp3hhyb0WRmo+05Uz3eVeBZ1
+	CDl0DkkI2CQPIvzmRITh64MjGuKaxLG2XB8jcm+OmAwFQOReLuRhj1lzUjw==
+X-Gm-Gg: Acq92OGhnflhQb/sYUWZBw/zZNAWLc7TJ1O+njwHW0s384mz8zO8wKptMQw/8HDTPl+
+	ehrzL0WnnVaN5O6cTD1lNoeZLas03QCWDgsWb2ZG2AeBg6NZuSmd+2iu9mU+uI8HH+f2KGqjVyd
+	zzyluFOoDK1jRJehWVL6WjHLChQABMfA/jfJQtwIA+devNnLXsZphR3w7jZgEFTq0ctJMj0ZcPG
+	S2u5XAm1ZuxZPFfU1FW8s+s2mvOx+XdPPL2IcmL35EtsZTIHtHS62TrAl62kHTsus+X/+PfDl2j
+	2eI=
+X-Received: by 2002:a05:6820:80c8:b0:69e:39c9:c6d6 with SMTP id
+ 006d021491bc7-6a0b5e3cc18mr5260511eaf.10.1781763374599; Wed, 17 Jun 2026
+ 23:16:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR10MB4277:EE_|VI0PR10MB9303:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9128ae76-dcd5-47ea-9803-08deccfdc121
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|11063799006|6133799003|18002099003|22082099003|3023799007|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	bvChkqqu/65BrPSwR7PfDAfyePEWFJPc89d05JOndsTiyDkt5jDtsRsUoB8NjFknuHi0xwU/Pg3zfcXkdcoT4mITdTNAqAxvpVkznu6hh5gnoiiFDyQZWZyqw1SF4r2NBWtLscjS5cKMQWJG6zgoJPXOapG+0J5Mp/qDTRcMmrHq8vz9VmGnefWgP6EYtn3gBaX/l7/foEb8Dz8qNt+zhYlHrWprdtDUFB8+UzTx8m8yvifmDoa7IkAc4ZhiD6Cgez+4kT5ajOjrtne1wi4XeKRcRmTJbZLpuCWhjjhRMFz9UIEckL6v9KKcGtrGnqY/ZAHVxX1DdiJc3/7KonQuM3/lRJHlgLfV+RG7LyvXBEp5CZhE5lgqvWVk55BTVJklaeX3G0iFDBd5SgkNBkcuB8H2pWmS2NmaAKsXzezlZEfzDT7z6dp4e5zy4TZghJICazhjL2O+p23HDFp8fTxL8JozUXCLsfndlLsi+kJy6ZOKWXNdB0F+J5HwUBqWZOugA6n7A2hOdDOzj0SpzNmpZHFqqA9D6q+fWmPOeZHxOL9Ak2FF9P2Xew+yzMaKlMefIeqnppK6DTV9EO3pEgCTK8Ikmz6At3QuMk8GHOF1cVT1uQ7PH5jKjf0SvVDbBtrB7HXWV/DRXTuywWY27pMyn7I4rUnjUQK4/vHiG7O/rlCQKj1CKHeIv5yBpV/CxqMj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dFhJbmZ3SG5mZm5Fc3lxR1dKbk1Jbm1tMVZycGhTb0pKaUpRaU9MeERVVGxE?=
- =?utf-8?B?WmZkSzBDK3l1aUFrNlBVRlczSTNMa0ZsUEVhUjZoWXZXSFNrSXlPODRyNURH?=
- =?utf-8?B?cjMrcnI3NDFDckh3KzdPaExoYUFoMkttTXYyR2FRZmlnZGZvS1U3Q0Z3Q3Zi?=
- =?utf-8?B?YlVSRWR6ajNIT1dwYlVpS29UbDdRQWd1SE1URHRXR0RNWGlmMWMvNWNKaGtD?=
- =?utf-8?B?RDRpWSsrZHltZUhmcGVXZ01xY2FwNU5nS0UxMFpZZ2t2UkdIMEg5V1lxT3Bo?=
- =?utf-8?B?QTVoVUorNVJuWHB0UGUvUS9UT0QrUGxwMG5yWHBySUtoNTdtZVZnR0RUSGdD?=
- =?utf-8?B?d1BtRzFVMUYxcTUrS0lhdjBybjJaTjRKanlPa2FtWUZVVWtvSURQUGVRejVM?=
- =?utf-8?B?bFBUV2JUR3haMDJTN0xicm0rSzRtTEhIcFBJaitXRUVwYzBFekdrdjBWNm5Z?=
- =?utf-8?B?SGFISWNLbTFobXBXMHNpTExJTUlzQkRlcDlWR2RQUysrMEhkdFprOHJSaGtn?=
- =?utf-8?B?bXlsMGxXeWxyTW9NcDVCVEZvdWN2Ym1PMk1idjhqZ3lxd1lEc3JCeGtkNnNJ?=
- =?utf-8?B?QnVkQ0lhWjhWNlhDQ1lLT3JsTitVdXhwUnVCeGNYVnZLblIyYVRNcGlXV2Ez?=
- =?utf-8?B?WFVQQ3lnMFNPOVVNVzlIc0s0NVNGYXpybnZEY0RiQWhkRldvbkJVSmV2QjJW?=
- =?utf-8?B?RytsYWVMTkhFdCtpMXBMbkN6dU83NU1zRmMxc2puSmN6NWFtNVBvN1FCa3Zn?=
- =?utf-8?B?bmtrZWpMd3ZhTG5GMUdMM1poOFlxMXdZZ0JEOE0rbHlpWkJYVUFsUkc1OHo1?=
- =?utf-8?B?MStNK2JzaXNUbzUvdmhYaEFWcTZnS3ltQ0JzdXhnV05KWEdBbnR6YVpGSHQw?=
- =?utf-8?B?RnRtdDIyRnJwTm5xNVY3UHVTQzZkL0duYlBKd3dzM29Fc214OFdpZG9iaGdK?=
- =?utf-8?B?bWNpRmpkdW9NWXVOc0l3UmZTZ0gxWE1PTHN6SWNSd3pTUmY2Z2VUclFSTjZJ?=
- =?utf-8?B?SWoxTkFpTWFERFljVGswWmg1SXVIb1pQRXZEMy9seUM2Rms2RVVmYlJWc0J1?=
- =?utf-8?B?NlRuZWtQLzN6VnNVMXhNRGQ0eVl5Q2tTd01IUUVNb1cyQ3FqRm1TSFQwZ1FT?=
- =?utf-8?B?cFlMTFBOMFh4WFBpVHMxZXNmSVJmRVI1YVZGRSsrL1hOSnpocGhUWU8wdEc5?=
- =?utf-8?B?a3VkYmpadERXY2h1TjdSZXB4YXliTXlRbTFpa1p5Z3BHZ2JNbHdZOTZOWXRQ?=
- =?utf-8?B?NlF6eFhmbDZ4TlFsaEFTRmlwU2l5SHFma2hsM3llYzBBdlRidHA0V2hvZHlC?=
- =?utf-8?B?OThCQytDWXlpb05ReFQ4cmgvcWVER1IrZ2E4TTVoYjF1aENuc1BGWko0a2Nm?=
- =?utf-8?B?MWRUWjlnMVpTZXRwb0NDcHppa1AvVHBPTWg3TXloTkh3NjN3NEowNGpla3hJ?=
- =?utf-8?B?ZVlHcUZJOGQrRENGOFJYMFM5cDJxV3J4RnRwOU9jOWxDcDk4TzVLaDlQK0R1?=
- =?utf-8?B?UDZjbXpLYjJGSU5NdERZeHArZjMydm1hNlFpSDgrOU5vcDVDNHFqdzYvTDZJ?=
- =?utf-8?B?dHJ2cVZLSWE0bUk5Ri9ab2ltUkd6N0ZyM3krTGVFTklKdHdrMmwzby8vYUJN?=
- =?utf-8?B?Q3Rhc1l5ZlZnRGxKWCtXN2VkMDVQR2pERWxDUlR1d0lGaWFOZG1CUG9sMzVU?=
- =?utf-8?B?VFdoZFRQdzNMZWs0eUNaeEtFQS9zNFMvdnRlUDJ1K3NJZ01IdkxvM3NZUlQx?=
- =?utf-8?B?TUlWZXlrdnpXQWtQTlVrMFh6OWoyZzNLc3pubUFUc2ZLcnZ2NVo3WXdEblpu?=
- =?utf-8?B?d3VYZDhLaHlIM0ZJZVA5S3pOc3NaZnRUaExQVlZVNkVuN1pZdUpjTm5vQjB0?=
- =?utf-8?B?SlR4OGJYK3Y1YXpRMEhWbnBnbWMvOURsTmhCYUdDSzVibVFqVzJMeWRvQXZj?=
- =?utf-8?B?OVFSU2VlT2hMUnQ1TENkeXFxZ2tpODU5dGI4ayt2WWh2S3RzSUZWaHZzYzRM?=
- =?utf-8?B?Z00xRXNYVTJtMmJ3K3ZKQUhFN3JlWWhKVlFnaWZ5ZjlTZW96ODh4bDlRdmlZ?=
- =?utf-8?B?a0pZblZ2ZHpiMkM1SnBLMSs1aVNneXlMNzNSQk1tanNPVWQ2cjFVSDZJSVZ0?=
- =?utf-8?B?SWh1K1RDMDJhMS8wZ2puT0pjM3NQTThsWlBFLzJNL3ZwcHp2N0lOYlpUSHVN?=
- =?utf-8?B?K2RZNDVHUlh4M3g3VUhHVWliRWl6ZUo2cEpnODA4SzdtcFRqbENzd3JhRzdU?=
- =?utf-8?B?bVRka0VPcUQzMFE3aTJvSTZsS3FEb09yNDBFYlBwQ3pGQWUrK0FoM3djbys4?=
- =?utf-8?B?UFlnRjl4Rk45bXBiTW44dFY1bXFpZngybWRpR3d4aEErR09ka0xucjZRUTFZ?=
- =?utf-8?Q?oziPQD0jSGzqTa8I=3D?=
-X-OriginatorOrg: kontron.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9128ae76-dcd5-47ea-9803-08deccfdc121
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR10MB4277.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 05:52:17.3508
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LliGq/DQTQpOq2uJqGWG5MQrCj+qi8+AIQ2eMINpWv5o0ISxrllMncq2+cSv/4c4mnhy9DO2wJLTif+fd4r1cuQvqVyVWp3DF2OXOSyyD/I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9303
+References: <20260609130021.99899-3-cuiyunhui@bytedance.com> <20260609131621.3541C1F00898@smtp.kernel.org>
+In-Reply-To: <20260609131621.3541C1F00898@smtp.kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Thu, 18 Jun 2026 14:16:03 +0800
+X-Gm-Features: AVVi8CfbhIfrfyOhP91UzVJ7Wt3CfSeCLsAl44UT7jOTGHzHjqut50HYYR5OKX8
+Message-ID: <CAEEQ3wnt9wrVvSvdcuyA3wME7oCyRmNrKOKi=LjwKWKzYxWhNg@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH v3 2/3] riscv: track effective hardware PTE
+ A/D updating
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17.06.26 21:56, Frank Li wrote:
-> On Wed, Jun 17, 2026 at 08:54:35AM +0200, Frieder Schrempf wrote:
->> On 16.06.26 22:05, Frank Li wrote:
->>> On Tue, Jun 16, 2026 at 07:59:54PM +0200, Frieder Schrempf wrote:
->>>> On 16.06.26 17:36, Frank Li wrote:
->>>>> On Tue, Jun 16, 2026 at 01:52:18PM +0200, Frieder Schrempf wrote:
->>>>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>>>>>
->>>>>> The ELE S400 API provides read and write access to the OCOTP fuse
->>>>>> registers. This adds the necessary API functions imx_se_read_fuse()
->>>>>> and imx_se_write_fuse() to be used by other drivers such as the
->>>>>> OCOTP S400 NVMEM driver.
->>>>>>
->>>>>> This is ported from the downstream vendor kernel.
->>>>>>
->>>>>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
->>>>>> ---
->>>>>>  drivers/firmware/imx/ele_base_msg.c | 122 ++++++++++++++++++++++++++++++++++++
->>>>>>  drivers/firmware/imx/ele_base_msg.h |   6 ++
->>>>>>  include/linux/firmware/imx/se_api.h |   3 +
->>>>>>  3 files changed, 131 insertions(+)
->>>>>>
->>>>> ...
->>>>>> +++ b/include/linux/firmware/imx/se_api.h
->>>>>> @@ -11,4 +11,7 @@
->>>>>>  #define SOC_ID_OF_IMX8ULP		0x084d
->>>>>>  #define SOC_ID_OF_IMX93			0x9300
->>>>>>
->>>>>> +int imx_se_read_fuse(void *se_if_data, uint16_t fuse_id, u32 *value);
->>>>>> +int imx_se_write_fuse(void *se_if_data, uint16_t fuse_id, u32 value);
->>>>>> +
->>>>>
->>>>> This API should implement in fuse drivers. Other consume should use standard
->>>>> fuse API to get value. If put here, it may bypass fuse driver.
->>>>
->>>> The reason this is here, is the downstream implementation in linux-imx
->>>> and the current code organization.
->>>
->>> Downstream may not good enough, sometime, it is quick solution.
->>
->> Ok, but the code structure and API design has been upstreamed like this
->> and the refactoring could have been done before, if downstream is known
->> to not be well organized.
->>
->>>
->>>> I thought there is some good reason
->>>> to have shared functions and it looks like Pankaj structured it like
->>>> this so all API functions live in ele_base_msg.c and the internal
->>>> structs and defines in ele_base_msg.h and se_ctrl.h are not exposed to
->>>> other drivers.
->>>>
->>>> If I would move this into imx-ocotp-ele.c, then I would also need to
->>>> change how the code is organized and make the internal se_api functions
->>>> exposed to other drivers. I don't know if that is really a good idea.
->>>>
->>>> I get your point but it looks like this contradicts the intention of
->>>> having a clean API in the firmware driver.
->>>
->>> You can refer imx-ocotp-scu.c, structure should be similar, only difference
->>> is that lower transfer APIs.
->> Ok, this would mean that I expose the generic SE functions and structs
->> required for fuse handling. In practice, I would remove
->> imx_se_read_fuse() and imx_se_write_fuse() from se_api.h and instead add
->> the following:
->>
->> struct se_msg_hdr { ... };
->> struct se_api_msg { ... };
->> struct se_if_priv;
->> se_fill_cmd_msg_hdr( ... );
->> se_msg_send_rcv( ... );
->> se_val_rsp_hdr_n_status( ... );
->>
->> Then I would export the functions in ele_common.c and put the fuse
->> read/write functions in the NVMEM driver.
->>
->> Is that what you want me to do?
-> 
-> Yes, Idealy, it should be children device under ele, ELE like a bus, which
-> previous lower level data transfer, ocotp should be base on top then it.
-> like spi/i2c, which provide low level data transfer.
+Hi sashiko,
 
-Ok, please also see the discussion with Krzysztof on the bindings patch.
-The problem is that this driver uses both, MMIO and firmware interface.
-Therefore putting a child node in the ELE device node is probably not
-correct, either!?
 
-In general I think it's a good idea as the fuses actually live inside
-the ELE block so this would properly describe the hardware, but again
-this would create a hard dependency on the closed source ELE firmware
-which I don't like that much.
+On Tue, Jun 9, 2026 at 9:16=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] Incorrect global ISA extension check prevents FWFT enablement on=
+ asymmetric SVADE/SVADU systems.
+> --
+>
+> commit f3d7c0060d5bf449bef26605d30b6a4b56780451
+> Author: Yunhui Cui <cuiyunhui@bytedance.com>
+> Subject: riscv: track effective hardware PTE A/D updating
+>
+> This commit separates the tracking of hardware PTE A/D updating from SVAD=
+U
+> discovery. It enables Firmware Features (FWFT) on all online harts before
+> globally advertising the feature, and requires secondary harts to enable =
+it
+> before they are marked online.
+>
+> > diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeat=
+ure.c
+> > --- a/arch/riscv/kernel/cpufeature.c
+> > +++ b/arch/riscv/kernel/cpufeature.c
+> [ ... ]
+> > @@ -287,15 +291,88 @@ static int riscv_ext_zvfbfwma_validate(const stru=
+ct riscv_isa_ext_data *data,
+> >  static int __init riscv_hw_pte_ad_updating_init(void)
+> >  {
+> >       bool has_svade, has_svadu;
+> >       int ret;
+> >
+> >       has_svade =3D riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADE);
+> >       has_svadu =3D riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADU);
+> >
+> >       if (!has_svadu)
+> >               return 0;
+> >
+> >       if (has_svade) {
+> >               riscv_hw_pte_ad_updating_requires_fwft =3D true;
+> >               ret =3D riscv_set_online_hw_pte_ad_updating(true);
+>
+> [Severity: High]
+> Since riscv_has_extension_unlikely checks the global intersection of
+> extensions, will has_svade evaluate to false on an asymmetric system wher=
+e
+> some CPUs support both SVADE and SVADU, but others only support SVADU?
+
+ Thanks, I'll address this in v4.
+
+
+>
+> If has_svade evaluates to false, FWFT enablement is skipped here, but
+> riscv_set_hw_pte_ad_updating is unconditionally called at the end of this
+> function. Could this cause the kernel to assume hardware A/D tracking is
+> active globally, even though CPUs with both extensions would remain in th=
+eir
+> default software-managed SVADE mode?
+>
+> If the kernel incorrectly assumes hardware A/D tracking is active, would =
+this
+> cause arch_has_hw_pte_young to return true and erroneously expose the SVA=
+DU
+> extension to KVM guests? It seems like this could lead to unexpected VS-s=
+tage
+> page faults and guest crashes if the underlying host CPU traps on missing=
+ A/D
+> bits while the guest OS expects hardware updates.
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609130021.99=
+899-1-cuiyunhui@bytedance.com?part=3D2
+
+Thanks,
+Yunhui
