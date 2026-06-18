@@ -1,140 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B6A30E827;
-	Thu, 18 Jun 2026 19:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4EF327BFB;
+	Thu, 18 Jun 2026 19:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781812498; cv=none; b=Ehta8mXl/sLorHfqIov1Ew+7OpsLL0WG5V6MpPcyvqQrSmZqVeTqldSRgMWVUg+l1otCrig19U4Eml0qI3WkPv8OgRtUTONBcRrJ/jBQlU8i2ooAwcTAMM751F1TkFLFm04W+9TJ+nSJvPLjZvbYVrsjYbdbh1Wu71OpC382XIs=
+	t=1781812546; cv=none; b=RgSpDxJ1vEr3n4uUYwi1gunKpIPGOUTZbVJ4HklBbgzFVQYU8fgljBOJrCNpFUB0r0YnL8SJ4GnzjpykgoRlbIhr5Nsu441Mgs2l3Wq9zfjjfd5nqO1YbOjWoXgWYFvKKWHBQ+/wTUJU5/MEQAHQ9IesIAKxfsDwRC/6L8xuibQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781812498; c=relaxed/simple;
-	bh=ChaR+L+O0umhnKyuHBEkEzYpuHpr3EdQEGRs/zVdoBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LDJgD0JcoBCWMkpEUizm+KNvxjKQGs36Bm2At7SqQUNgKQDhPtXLe8s9CRoL6tTEwgYngDhOnmTC/E8QQTJCZGGe56dO437Q9Rnv+S8xVxbTJj7X6VKeYsDUdfUJrr17Qz4AN3uaVzpqnK+NkJV4rRGSV0MihqN3REjBq2hOFR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iT4lqhEZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781812546; c=relaxed/simple;
+	bh=zU6FOXx5z4txtdJ+aueWYGSWusXejcbbTqIDSLrhTAg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OOKA0vyIaLl8ZcYhodDsrKmF7pFCj7LcTMeJIaQHnGuBOmLJXYGis2BhFxNX0KibQvBbOx2RVahrN09Qs/b2XvFuVu6IzgVljC0zkzp9kckZGuXSwtqkdxNMwHapnDaVz3qXjez0z07u2e3mRmFHA7AJ+msGdGJ3R/UgEhLD1S8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=c+d3IkQD; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iT4lqhEZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3FA1F000E9;
-	Thu, 18 Jun 2026 19:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781812497;
-	bh=ChaR+L+O0umhnKyuHBEkEzYpuHpr3EdQEGRs/zVdoBM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iT4lqhEZBafq/H7aa0u623hrpML7qIWjcWt/HcDXEqgusgZjGUp+VgecJq+NeqHDA
-	 NEeO6RfCOqRZ2BEc0NygLjUdW+3d5Glkq4iSo+iNnCHfUxayrQX3Z4V6Hl+vqzvoaO
-	 zbWP0RQaYgnZXAx6G9VVH1rJRvp/zK65RT90VMuyoSf0gbMzpOsdLTX1GyuYkwUSfk
-	 qttZm7kzqUoBZtF5h3hpq2AI0AWGp2TFbAti/fOOzHUU0J/jPJCCPvU7rpGGfjwUWB
-	 ZMJGXCQEFlzMgTVf68MJ/aZw5k2npCWf+cRO5qhsrcg7gNyoohJbYy7XHyKShAd3SP
-	 SKsVhx96BMEUQ==
-Date: Thu, 18 Jun 2026 20:54:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v4 01/12] dt-bindings: clk: zte: Add zx297520v3 top
- clock and reset bindings
-Message-ID: <20260618-fantasy-estimate-6c52edbc6890@spud>
-References: <20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com>
- <-l2OM6P0RNSYRQfOSObOyw@gmail.com>
- <20260617-deed-snap-4649ffae0e27@spud>
- <BXIzXc2sQ5SGynZ1chd-pw@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="c+d3IkQD"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 82B144E42F31;
+	Thu, 18 Jun 2026 19:55:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 430B7601AC;
+	Thu, 18 Jun 2026 19:55:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DFBD9106C8050;
+	Thu, 18 Jun 2026 21:55:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781812541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DSsiDAHTqCQf9GvQ6aa73VhlYkAcQ9k0oqpj1pemtQA=;
+	b=c+d3IkQD57oDz3QXnVaqp5bTh5sFVnLCVaz1OATwJBm8h7gDKRanGYV5CwjXNdjkErWghj
+	CZzHbkVs/HZCZPkCoV4/0twj/NZTAbANFVnXmsEW5wVuluUIFKqg5/scu2rcifiKa3CZ3q
+	Z6RKnfLYlSoHVwOCcux+TDDxA2QG3awRkv2Zx2i4dssJCuFjhB39y8LzaveSFA8rzpr9Yw
+	was6bXl/f+CdTmM5K+UPXt3AW0P3LhgFuY4Jd0BHMd6LVDuyx7PTuCdaJMhUfChzWtwqdg
+	wjmbj9VbtX6ctAmqv0F07iWKr/uUN2pfpCaoI017F+eqBUg/ufk1puWhjtwiVw==
+Date: Thu, 18 Jun 2026 21:55:35 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ayush Singh <ayush@beagleboard.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org, Hui Pu
+ <hui.pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v2 03/10] tests: asm: Introduce treehdr_vers macro
+Message-ID: <20260618215535.009087aa@bootlin.com>
+In-Reply-To: <ajPFLjQ96nmsPLp2@zatzit>
+References: <20260409115426.352214-1-herve.codina@bootlin.com>
+	<20260409115426.352214-4-herve.codina@bootlin.com>
+	<ajPFLjQ96nmsPLp2@zatzit>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ajFBN5mr9y54BNeo"
-Content-Disposition: inline
-In-Reply-To: <BXIzXc2sQ5SGynZ1chd-pw@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi David,
 
---ajFBN5mr9y54BNeo
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, 18 Jun 2026 20:15:10 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-On Thu, Jun 18, 2026 at 09:59:00PM +0300, Stefan D=F6singer wrote:
-> Am Donnerstag, 18. Juni 2026, 00:23:56 Ostafrikanische Zeit schrieben Sie:
->=20
-> > Do you actually need an aux bus here though? Since you have to add
-> > simple-mfd for your the syscon-reboot and simple-mfd is a real bus, can=
- you
-> > set the reset controller up with an mfd_cell + devm_mfd_add_devices()
-> > instead?
->=20
-> I'll have to read up on devm_mfd_add_devices; The aux bus was the suggest=
-ion=20
-> of Philipp Zabel. At first sight it sounds to me like they do fairly simi=
-lar=20
-> things. I don't see any precedence for [devm_]mfd_add_devices in drivers/=
-clk/.
+> On Thu, Apr 09, 2026 at 01:54:19PM +0200, Herve Codina wrote:
+> > tree.S is used to generate custom dtbs. It uses the treehdr macro to
+> > build the header part.
+> > 
+> > The current definition of this macro doesn't allow to set custom
+> > settings related to version fields.
+> > 
+> > In order to easily generate some dtb with custom version values without
+> > duplicating the full header computation, introduce the treehdr_vers
+> > macro.
+> > 
+> > The modification doesn't introduce any functional changes.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
+> 
+> I just killed the not-very-portable trees.S in the main git tree, so
+> this will need reworking for the new treegen.c system.
 
-I think you don't see it because the driver calling mfd_add_devices()
-probably isn't in drivers/clk and probably also uses an mfd_cell for the
-clock.
-There's some in drivers/soc and some in drivers/mfd (I'll be honest and
-admit to not knowing what actually drives the placement of the mfd
-driver).
+Killing trees.S has been a good idea.
 
-I think aux bus makes perfect sense when you have a clock/reset
-controller, but once you start expanding past that and you have reboot
-or hwmon or hwspinlock then mfd starts to make sense.
+Even if it implies more work on my side, I can only agree with this
+decision.
 
->=20
-> Whatever way I go I'd like to use the same for all 3 clock/reset controll=
-ers.=20
-> So far I only made topclk a simple-mfd. I recently stumbled upon spinlock=
-=20
-> registers in matrixclk, so I guess I can justify a simple-mfd there too. =
-For=20
-
-Just to note, simple-mfd is used when you have child nodes. You don't
-need simple-mfd if a device fills multiple roles but doesn't have
-children.
-Your hwspinlock may not require a child node at all, you can just put
-#hwlock-cells into the main node and use mfd_add_devices().
-
-You'd then have topclock that is a syscon + simple-mfd, matrixclk that is
-a syscon and lsp that's using the aux bus. The topclock and matrixclock
-would have dedicated and trivial drivers somewhere that have the mfd_cells
-and call mfd_add_devices(). The fact that topclock would be a simple-mfd
-has basically no impact - I think the difference is that topclock will
-call of_platform_populate() where matrixclk will not.
-
-Probably the compatibles you've chosen start to make less sense at this
-point though, but probably "topclk" and "matrixclk" are not what the
-documentation for this device calls these register regions?
-
-> lspclk all I can see is clocks and resets and I ran out of unknown regist=
-ers=20
-> in there.
-
-I think the priority is having something that reflects the hardware
-accurately, I wouldn't compromise on that just to have the same design
-for all three drivers.
-
-I guess the problem you have is that the reset driver is shared? You can
-always have more than one way to probe a driver. Because I messed up
-stuff in the past, reset-mpfs.c has both aux bus and mfd probing in it,
-which could serve as an example for how to have both in one file.
-
---ajFBN5mr9y54BNeo
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajRNDAAKCRB4tDGHoIJi
-0p7PAP9ZceOwH+gLo8A2ejco8rW2JkGu3DEB1FMmEaUVRfVCJgD9GgBrmaQwHzJj
-M6a0Db0Bq9oduGTS1qxc4gkCxlmKrQE=
-=P+Eg
------END PGP SIGNATURE-----
-
---ajFBN5mr9y54BNeo--
+Best regards,
+Hervé
