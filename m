@@ -1,156 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F9C3D6CDE
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:57:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EBD2F39B5
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781769448; cv=none; b=NGVb4w7lpmQmePX34PSgpZqgdvYQCbGSTNUwyZidg/+S3hBiTKgEj0tpwLdRxRuG8w050o7tvxxrRWHSNXRl2jFMBNsi+/rT2078Ob95/vF7B7OQShnDTCPfPu4eqlW+dRPB8jujz47M9UrnSwb29zICz9vD+I9uc4I+qoCQOTU=
+	t=1781769459; cv=none; b=bgBrth7cni3kyTGFWxjrSCRShs3UlXtWfOp79fbmrIgv0HUCwAlfdbFAJq1UekPprNw53HyomldXaVVxYEmUYeewKHdUf/GhmBRn1tpzGNj+5or/OjzUryH+0+RgEnfKAOo5gln02E0vvtGpBtisflqEWSPAlhPh4TMEfJjWURE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781769448; c=relaxed/simple;
-	bh=moQihCXDUJRieyqUlr+26FNTokX19FzYKTPkpCN6LJw=;
+	s=arc-20240116; t=1781769459; c=relaxed/simple;
+	bh=S2NF1zAJ6qxyt6Jbb9rYJ/bRdpurn01eFeF55YC7g68=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k+R3Hf1B/UZsFRkrWrUAS9aiXG5mFr/tW7kB/38q8eLvVf8IXyHrZHXDFmYS4IQ9bJTqv5ZkiwG8AXJF41YQwqTXTlLmAFHCQqd3Az8t6f5eIR6lVzXeuE/TPcXfOpQeTJJ7mfjaIyaqHUzIbrUKCgxtENP5M2sw9Q1u66MD8+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoikS7pM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qbGzP9YDxXrqEs5GothErbyS/w8FLjrLxV+x6GOg4iRJyrqzgsmIhK4BkPMwwAV3Q3hcoFgo6uSIR+88vLXpa3n/vL+WcztNDMcmWgQ3X88zfosLGwa6gDktxO0ro11whrYiDeRk50ZcId6iTYb9RYjTfrno/7l3TgP3+U11hIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYDyYMY/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoikS7pM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37D4B1F000E9;
-	Thu, 18 Jun 2026 07:57:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYDyYMY/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59931F000E9;
+	Thu, 18 Jun 2026 07:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781769447;
-	bh=Ygdr1RW415r3qDAjp6EjcLNrh19N1EYJ65qIMa8jGrA=;
+	s=k20260515; t=1781769458;
+	bh=+M8Dia+vFe9BHKPwYGXJ33B0X0KN1ERlk2rQQaa+bYo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HoikS7pMxIsXR8F+FECmw64j1WREHJrUezsEy9Y7wh0AOFjcc2t0E8NOJ+kWB2Y9A
-	 EDly3uPKmSwkK3ZpNFxCQixvUyDNKh8dvQIOSVcRjBTEBVL7iLg1fk/vj7CDTFq7Bd
-	 2jklbfLgkco9FeuFS8yQFmvH738mYh/uJqkjbavzLweEu3b+uQ9PF4+ejEMvs+KDoG
-	 WZlnMwS+c3gUWJAOcHkR57tLW5B2B38NLHywSWEngYNBfr0rxiQKAOX8mPjmzsjnTv
-	 p/kbuDvABGvtB+oiWJnhdNAFZY/IrMXTS9uveu3murXI+Jir8vqfmjfHKdG/DNpyDM
-	 B1VShCo7uO8HA==
+	b=IYDyYMY/VFu5VW0CXPWhgWORSBUImUw3JWFMtht6TGPAVb1XcCpVkNdmNOKHw+fUf
+	 wwg0AbUpkBCta2S6GYhDbjIuhANGksRlfD0pQ3k4h70tO72uF16Ro8tcYfXEiFk2U8
+	 F86Tf+aL0bX+kXDUHo/wdKCH60bf22ZAIYPsw7BbIE9j+1nS0PVf3Myw11z/RgG7Id
+	 G9E8yByHnZ7kv6UsJZMM7YqYVwpOJThLBL8vBd6GZTuORoteIowkV29snQa0Vw+1JR
+	 D2xP/JiW4VlakY/es4pv8iPUNjV8xYpXeznj0qCNUjwNACjLzveirLCQ+OZ/x2I0Kr
+	 iFqJbuHlRAadA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/16] spi: cadence-quadspi: refactor direct read
- path for PHY support
+Subject: Re: [PATCH v4 05/16] spi: spi-mem: add execute_tuning callback and
+ spi_mem_execute_tuning()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260618073725.84733-11-s-k6@ti.com>
+In-Reply-To: <20260618073725.84733-6-s-k6@ti.com>
 References: <20260618073725.84733-1-s-k6@ti.com>
- <20260618073725.84733-11-s-k6@ti.com>
+ <20260618073725.84733-6-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 07:57:26 +0000
-Message-Id: <20260618075727.37D4B1F000E9@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 07:57:37 +0000
+Message-Id: <20260618075737.C59931F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Casting an arbitrary `void *` buffer pointer to `u16 *` and derefe=
-rencing it causes unaligned access faults on strict-alignment architectures.
-- [High] Performing 16-bit unaligned reads from memory-mapped I/O if the fl=
-ash offset is odd causes a Data Abort.
-- [High] Silent degradation to 1-byte I/O reads by memcpy_fromio() violates=
- 8D-8D-8D access size requirements.
+- [High] Missing bus lock in spi_mem_execute_tuning() leads to data corrupt=
+ion and hardware state race conditions.
+- [Medium] spi_mem_execute_tuning() invokes hardware tuning without verifyi=
+ng if a GPIO chip-select is in use, causing spurious tuning failures.
 --
 
-commit d928e9450946bfcaed1dc0c5349081ffad136425
+commit 488642092bb43537c3028baead18a5f59abeb41c
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: refactor direct read path for PHY support
+spi: spi-mem: add execute_tuning callback and spi_mem_execute_tuning()
 
-Extract the DMA transfer code from cqspi_direct_read_execute() into a
-new cqspi_direct_read_dma() helper. Add cqspi_memcpy_fromio() to handle
-non-DMA transfers, with 2-byte-aligned I/O accesses for 8D-8D-8D mode.
-Transfers shorter than CQSPI_PHY_MIN_DIRECT_READ_LEN bytes always use
-the memcpy path; longer transfers use DMA when available.
+This commit adds an execute_tuning callback to struct spi_controller_mem_ops
+and a corresponding spi_mem_execute_tuning() wrapper. This provides a stand=
+ard
+interface for SPI memory drivers to trigger controller tuning procedures
+required for high-speed operation modes.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index c94bb8ad5d1dd..5f992fee790a4 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
+> diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
+> index b0b111642a358..ae9f55f4ef90d 100644
+> --- a/drivers/spi/spi-mem.c
+> +++ b/drivers/spi/spi-mem.c
+
 [ ... ]
-> @@ -1506,8 +1503,61 @@ static int cqspi_direct_read_execute(struct cqspi_=
-flash_pdata *f_pdata,
->  	return ret;
+
+> @@ -653,6 +653,37 @@ u64 spi_mem_calc_op_duration(struct spi_mem *mem, st=
+ruct spi_mem_op *op)
 >  }
+>  EXPORT_SYMBOL_GPL(spi_mem_calc_op_duration);
 > =20
-> +static void cqspi_memcpy_fromio(const struct spi_mem_op *op, void *to,
-> +				const void __iomem *from, size_t count)
+> +/**
+> + * spi_mem_execute_tuning() - Execute controller tuning procedure
+> + * @mem: the SPI memory device
+> + * @read_op: read operation template (mandatory)
+> + * @write_op: write operation template (optional, may be NULL)
+> + *
+> + * Requests the controller to perform tuning for high-speed operation
+> + * using the provided op templates. On success the controller callback
+> + * sets @read_op->max_freq (and @write_op->max_freq when non-NULL) to
+> + * the validated clock rate.
+> + *
+> + * Return: 0 on success, -EINVAL if @mem or @read_op is NULL,
+> + *         -EOPNOTSUPP if controller doesn't support tuning,
+> + *         or a controller-specific error code on failure.
+> + */
+> +int spi_mem_execute_tuning(struct spi_mem *mem, struct spi_mem_op *read_=
+op,
+> +			   struct spi_mem_op *write_op)
 > +{
-> +	if (op->data.buswidth =3D=3D 8 && op->data.dtr) {
-> +		unsigned long from_addr =3D (unsigned long)from;
+> +	struct spi_controller *ctlr;
 > +
-> +		/* Handle unaligned start with 2-byte read */
-> +		if (count && !IS_ALIGNED(from_addr, 4)) {
-> +			*(u16 *)to =3D __raw_readw(from);
+> +	if (!mem || !read_op)
+> +		return -EINVAL;
+> +
+> +	ctlr =3D mem->spi->controller;
+> +	if (!ctlr->mem_ops || !ctlr->mem_ops->execute_tuning)
+> +		return -EOPNOTSUPP;
+
+[Severity: Medium]
+Hardware tuning engines are usually hardwired to toggle the controller's
+dedicated native CS line and cannot natively toggle a GPIO CS.
+
+If we omit checking for a GPIO CS here, could the hardware tuning sequence
+run on a GPIO CS configuration? The hardware sequencer might generate clock
+and data without asserting the GPIO CS, causing the flash device to ignore
+the tuning phase and resulting in a spurious failure.
+
+Should this verify !spi_get_csgpiod(mem->spi, 0) before proceeding to invoke
+the hardware-accelerated callback, similar to spi_mem_exec_op() and
+spi_mem_poll_status()?
+
+> +
+> +	return ctlr->mem_ops->execute_tuning(mem, read_op, write_op);
 
 [Severity: High]
-Will this __raw_readw() cause a Data Abort on ARM architectures if the
-flash offset is odd?
+Does this execute_tuning() callback invocation need to be protected by the
+SPI controller's bus_lock_mutex?
 
-The code assumes from_addr is 2-byte aligned, but userspace MTD reads
-can specify arbitrary odd offsets. If from_addr is odd,
-!IS_ALIGNED(from_addr, 4) evaluates to true and we execute __raw_readw()
-on an odd I/O memory address.
+Hardware-specific tuning implementations often directly perform
+read-modify-write operations on global controller registers to configure PHY
+pipelines without necessarily relying entirely on spi_mem_exec_op() during
+all stages.
 
-Unaligned accesses to device memory strictly cause Alignment Faults on
-ARM, even if the underlying hardware ignores the LSB.
+If the bus lock is not held (via spi_mem_access_start() and
+spi_mem_access_end()), could these unprotected register accesses violently
+race with concurrent SPI transfers occurring on other chip-selects on the s=
+ame
+bus, potentially corrupting hardware states like PHY_EN or ENABLE bits?
 
-Also, can casting the destination buffer to a u16 pointer and dereferencing
-it cause unaligned access faults?
-
-The destination buffer, derived from op->data.buf.in, might be unaligned.
-Casting an unaligned void pointer to a u16 pointer and dereferencing it
-causes an unaligned store exception on strict-alignment architectures.
-Does this need to use put_unaligned() instead?
-
-> +			from +=3D 2;
-> +			to +=3D 2;
-> +			count -=3D 2;
-> +		}
-> +
-> +		/* Use 4-byte reads for aligned bulk (no readq for 32-bit) */
-> +		if (count >=3D 4) {
-> +			size_t len =3D round_down(count, 4);
-> +
-> +			memcpy_fromio(to, from, len);
-
-[Severity: High]
-Does memcpy_fromio() guarantee the 2-byte minimum I/O access size required
-by the 8D-8D-8D hardware?
-
-If the generic memcpy_fromio() fallback is used by the architecture, or
-if the destination buffer is unaligned on architectures like ARM64,
-memcpy_fromio() will silently degrade to byte-wise reads.
-
-Issuing 1-byte read requests on the AHB bus violates the hardware's 2-byte
-minimum access requirement in 8D-8D-8D mode. Should this use an explicit
-loop with ioread32_rep() or __raw_readl() to guarantee the minimum access
-size?
-
-> +			from +=3D len;
-> +			to +=3D len;
-> +			count -=3D len;
-> +		}
-> +
-> +		/* Handle remaining 2 bytes */
-> +		if (count)
-> +			*(u16 *)to =3D __raw_readw(from);
-
-[Severity: High]
-As with the unaligned start handling above, does this unaligned void
-pointer cast risk unaligned access faults on strict-alignment architectures?
-
-> +
-> +		return;
-> +	}
-> +
-> +	memcpy_fromio(to, from, count);
 > +}
+> +EXPORT_SYMBOL_GPL(spi_mem_execute_tuning);
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618073725.8473=
-3-1-s-k6@ti.com?part=3D10
+3-1-s-k6@ti.com?part=3D5
