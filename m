@@ -1,107 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A187E3CA48C;
-	Thu, 18 Jun 2026 11:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46953EB0FA;
+	Thu, 18 Jun 2026 11:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781783251; cv=none; b=lRh2kZikm7uE7cpq89jJQuMDesZZg5de/J3nFm58Tjsrz6ViOwgDVepjq0bH+OaxBCgLO5WJX1bm1i5i+JxRQSuUqXwSHCIqWZp1KeWKExcQvaHc2F3urtDlaZMV/5bYmdz7CvsoTLuJh9Bh6crYD8q3JyD/BF2z6mNXueRrIJo=
+	t=1781783531; cv=none; b=huHF3M4/I9zwWrppwpIZ/08tHw/t2v8tBtxmaAXFdrulv3I5emOPMoCzHT/CiFKk3qKGRGZgEYn766Oa6uNi5oXQFtHwgkppFFCgFoouQYOPXkmnzjM5Lu7AD74SvZ4W41ulYBeD77V5+X58JohLsuqbAF7y1ymr/VgxDKauYuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781783251; c=relaxed/simple;
-	bh=2AyTVEOcfIplggsOzRpCQy1y0t5E3yfRbiMIkx3K1Wc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJNyKBdyCN3oL/w2n7Qd3esFEjgWVYvvHHIOniZqQL6YoPbgkD2i6R3swQZU4ACHZehJojtxEXHfth7n1gN/yvXBJhtenwFJilk/GsjgGDXddSF96Ip6mj9Wu5SsdjDmm6tx41cC9ijAvjf96qC09YcLXjAfo8EhSmz6CZh/UXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d62vWRH0; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d62vWRH0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781783250; x=1813319250;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2AyTVEOcfIplggsOzRpCQy1y0t5E3yfRbiMIkx3K1Wc=;
-  b=d62vWRH0jcvVKRGRR5ZW3TaoKhLBQRTVL5RciQKiLE26evg7nkbAFQkO
-   tNb5jF91xTuu+p/JT+l6tatL4hZZenpPhNCbfJaZj6GPi4cUpMMP9ZYGj
-   rnRhp+31f4muY8+t8PueTkaiKm7uq1Yne/wBD342acNRB+KxdO94CP/Sk
-   5Sqh+vF/ei6Nz/B3Fn8y1XY+v7wYJd+BKcYki5RyZJzNKYLLKEQZiCefp
-   +w5Sska19uEXyA/dZPWwur/EauL3SWkPEA+kKIeRm+7PGaM358CAsz3Wk
-   OkrB5hEhiffuI1pDc71t0h5mtOQ6v+z6C9cDEwu62mguSvpPue7f8gYYA
-   A==;
-X-CSE-ConnectionGUID: hgpTPQB2QIyR+E6OSwK0HQ==
-X-CSE-MsgGUID: w1CEQthBTBSQy4DToQg4tA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="86293066"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="86293066"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:47:29 -0700
-X-CSE-ConnectionGUID: vs5gv65vQ6CdD8E8RulLiw==
-X-CSE-MsgGUID: xiqVDC6hS/qlo/AeqHwgEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="252245369"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.24])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:47:25 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id EF1CB121C36;
-	Thu, 18 Jun 2026 14:47:23 +0300 (EEST)
-Date: Thu, 18 Jun 2026 14:47:23 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-Cc: laurent.pinchart@ideasonboard.com,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	s=arc-20240116; t=1781783531; c=relaxed/simple;
+	bh=/Piv4Qcx2Qq2GR9E81ZUXZrc5Uwstsj7gJI0fqlUWqU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ax2ukxWpXEPnxO6Ki9xmX5oWM/Gy+KICuRPgJSw+3ViY/lk+wpgc6N/jnoezdJoszCHefgI7lO8GvShiUVgs3PiugtRbtY0s3Jw2zW/jQtUGe99W7pSoTe1IFm2srF94Qqt/gct4NBQY/xWZnXIYMglMMHnb3pMIWJOLmtIGDfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6A021200320;
+	Thu, 18 Jun 2026 13:52:06 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1waBHy-003QhG-0z;
+	Thu, 18 Jun 2026 13:52:06 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1waBHy-0000000096F-0jLY;
+	Thu, 18 Jun 2026 13:52:06 +0200
+Message-ID: <604a73b122bd5fb7b35fe5bfeb0352bd9fd99046.camel@pengutronix.de>
+Subject: Re: [PATCH 2/9] drm/rockchip: vop2: Reset AXI and DCLK to improve
+ robustness
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Sandy Huang	
+ <hjc@rock-chips.com>, Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>,  Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman	
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	 <luca.ceresoli@bootlin.com>
+Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] media: i2c: os02g10: implement crop handling with
- set_selection
-Message-ID: <ajPay8NJ233yuCLJ@kekkonen.localdomain>
-References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
- <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
+Date: Thu, 18 Jun 2026 13:52:05 +0200
+In-Reply-To: <302d42b0-108e-4936-bc34-49b9194985f1@collabora.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+	 <20260617-dw-hdmi-qp-yuv-v1-2-a665cfd06d7d@collabora.com>
+	 <7c79f233c863654b0266de4b5ec5a8c72bb17715.camel@pengutronix.de>
+	 <302d42b0-108e-4936-bc34-49b9194985f1@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260424092554.26130-4-elgin.perumbilly@siliconsignals.io>
 
-Hi Elgin,
+On Do, 2026-06-18 at 14:46 +0300, Cristian Ciocaltea wrote:
+> On 6/18/26 12:39 PM, Philipp Zabel wrote:
+> > On Mi, 2026-06-17 at 21:51 +0300, Cristian Ciocaltea wrote:
+> > > Assert the AXI reset in the CRTC disable path, and the VP DCLK reset =
+in
+> > > the enable path.
+> > >=20
+> > > These resets are intended to leave the hardware in a clean state for =
+the
+> > > next use, helping recover from exceptions such as IOMMU page faults, =
+as
+> > > well as to prevent random display output glitches, such as a blank
+> > > image, observed when switching modes that also change the color forma=
+t,
+> > > e.g. from RGB to YUV420 and vice versa.
+> > >=20
+> > > For now this seems to affect only the RK3588, hence the resets are
+> > > optional and will be provided in the device tree for this SoC only.
+> > >=20
+> > > Co-developed-by: Andy Yan <andy.yan@rock-chips.com>
+> > > Signed-off-by: Andy Yan <andy.yan@rock-chips.com>
+> > > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> > > ---
+> > >  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 35 ++++++++++++++++++=
+++++++++++
+> > >  drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  4 ++++
+> > >  2 files changed, 39 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/g=
+pu/drm/rockchip/rockchip_drm_vop2.c
+> > > index 4cce3e336f5b..2833fb49ad81 100644
+> > > --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> > > +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> > > @@ -17,6 +17,7 @@
+> > >  #include <linux/platform_device.h>
+> > >  #include <linux/pm_runtime.h>
+> > >  #include <linux/regmap.h>
+> > > +#include <linux/reset.h>
+> > >  #include <linux/swab.h>
+> > > =20
+> > >  #include <drm/drm.h>
+> > > @@ -860,6 +861,26 @@ static int vop2_core_clks_prepare_enable(struct =
+vop2 *vop2)
+> > >  	return ret;
+> > >  }
+> > > =20
+> > > +static void vop2_clk_reset(struct vop2 *vop2, struct reset_control *=
+rstc)
+> >=20
+> > The _clk part of the function name is misleading ...
+>=20
+> Ack. =20
+>=20
+> We need to make this clearly distinct from another similarly named functi=
+on,
+> vop2_crtc_reset(), hence I'd propose:
+>=20
+> - vop2_reset_assert_deassert()
+> - vop2_reset_cycle()
+> - vop2_do_reset()
+>=20
+> Any preference / alternative suggestions?
 
-On Fri, Apr 24, 2026 at 02:55:47PM +0530, Elgin Perumbilly wrote:
-> From: Tarang Raval <tarang.raval@siliconsignals.io>
-> 
-> Add crop support to os02g10 by implementing .set_selection() and
-> storing the crop rectangle in subdev state.
-> 
-> Initialize the default crop to the active area, make set_fmt() use the
-> current crop, and update the output format when the crop size changes.
-> Also program the sensor window from the active crop/format state instead
-> of using the fixed supported_modes entry.
-> 
-> This allows userspace to configure the sensor crop window explicitly.
+Or vop2_reset_control_reset(). The three above are equally fine.
 
-Please wait for the Common Raw Sensor Model patches to be merged before
-adding this -- we don't have an established way to configure cropping
-before that. Some drivers might do something but it's all a bit haphazard.
-
--- 
-Kind regards,
-
-Sakari Ailus
+regards
+Philipp
