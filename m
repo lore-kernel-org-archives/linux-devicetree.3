@@ -1,115 +1,161 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9ED2BEFFF;
-	Thu, 18 Jun 2026 18:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174A435E925
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 18:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781806455; cv=none; b=qJIVFUSeXX7cya27ENg4r8dsdJ7xS//O7yCwhNKX4SssD6vf8tgbZZelqeJTvZYJBQaF0Nc4apvpBhnzm1kmdzAOJg+7xFs/+Dk4Gtx/rxUK9H3ViMQqKQBdUZR2zGXHyW7/IvM0XdddMBm/YPY5jJwrKSF08uyau9JJoDPx7Jw=
+	t=1781806795; cv=none; b=SjDPVQM02clNgX4xuMoNEECbCHpdlcnefmsqU7a/yvO76B1ipa9dtYB6XKmJmjhQovUp6yEVtCG1vjdhmLJqcT3/ZkRik7HB77knmbZEusVBrHPVrSHhvnf5GMRShdznRrx+wXx33udEmy6Pn2RAyozuLp9uRgMBTnkLXasvI5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781806455; c=relaxed/simple;
-	bh=3RvBOXRU63UpW/H4b39LYurMKFBvGSJTVWUULE93Bx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cIPiRJByDqTdjobb+Gpax6PApym9isljVn+be53WLfSQtKxMPJkVk7wfMsYA5SDYipO+ESYjOIVAKfkwlrPGSRJIy9rg6/6qkyk/+VnxxRPkaNVGD3to2lPbYDyB4etM4maQXMzvOzKZQO+zQss4rV6KMc5iRAe+05LAGlCrhcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CZ7UqX0c; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1781806795; c=relaxed/simple;
+	bh=wyus6jMf6L/ne+kZpMNuO/ZqYEE/vAChmJZBV21nv+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k/8s5robIH2zGw2L13W/7tXPcRRcJKuzj+Oz1TiRfHOmO3yKsX1oA7SdnUFdXpUXQYwhxyxx97kF+iMSrfecDLxQ0ndfBYx/GFnRcCaV1yLNhbVvAzn/t85rv9UzeCZxR8dzArspmmme9CyS7wKGr+wLDtEkCDacVMHdq9EKkIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RrHlSvKn; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CZ7UqX0c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781806454; x=1813342454;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=3RvBOXRU63UpW/H4b39LYurMKFBvGSJTVWUULE93Bx8=;
-  b=CZ7UqX0chX/VoixWARZvPEA0LxdtRQFLoMwW/+MD4QToN79G8QoY8DBL
-   CvdUpgDSPCpipKFs7HtMnAkK5x0fRjyx0vsFM4196naxjOPJ6o5Y9NkwT
-   pxGcT0xCJmgPbPu2GRo4WSLVKd0iEk8wPAVKefMUEvFHEKqVhn4cPlwDn
-   yDLTEVV+DodSVzBPveR9sZwUqqLM9+oHxjRdUj2nOcCpFD2Db6+fIEtOP
-   tTnDx+0+JpdB2YwiaLQAiDbZlzFGVI/D5xBPe1U5rlLsFdSr1+hNSFfCC
-   k9hiaNxvxfbeI4yYClMMfDKbST5iEBE2X45zSKNyg2Z3ShJ1HIq/tOLPD
-   A==;
-X-CSE-ConnectionGUID: iDvMfDc1RSuWr43JOo5mMg==
-X-CSE-MsgGUID: M7LNx2FgTpmP55ztL9Z7YA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82427923"
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="82427923"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 11:14:13 -0700
-X-CSE-ConnectionGUID: JQIlwvKqSU233DTG5fhlmg==
-X-CSE-MsgGUID: WV26cfLWSqSdVdLPo5/zKQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; 
-   d="scan'208";a="272500066"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 11:14:08 -0700
-Date: Thu, 18 Jun 2026 21:14:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>,
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RrHlSvKn"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49222fb062bso11628585e9.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 11:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781806792; x=1782411592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hDx2KOMtLHoOAsbWqrbmN2XtpZ4cl5riM/ynIeqZ12E=;
+        b=RrHlSvKnZ00IwZD0KFKd1d1lz+8jIQ2ze2pPz/xTLrCzQSuKBdJ5OElN+IPqxq13ND
+         KERS3B+5mpqyj+CMLWW2Ooc1ifV3s3WBGBFfU2Q2IlsM/pC7uSOpQ5wl8X8MsPZIstEE
+         Q3/MvyFRwzqii2PU8oRqMPkDMyFDk0b4prvFbmsbtPcBtUs4onNXdIDfUzS9kzG5K9Hv
+         /MMIwhGPBUe/OeiFuGdtRoNGbgsB/jTYfg/WsaztTOEOK3D+M/n4S52jaEv0KQqXSqsa
+         qVRNxqS80bwYQR5S6mgaL4DeLOd5qknNj9bYNZbo6gOkTkOduQjtqQBjtkaIAcGfPgdM
+         cnGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781806792; x=1782411592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hDx2KOMtLHoOAsbWqrbmN2XtpZ4cl5riM/ynIeqZ12E=;
+        b=ATGLXibxsZsEVsMm71bguBksgE8bL9uMCguV9MX4k94eeEWNwJcoydmhrRf+jD44wg
+         D4zFqNJqGRUVDqvS+Mwi6YYCj4ZYCrw0cwApr9PQFuT33G8s42qSmzw5huGKtlDvG8WZ
+         M/6mEXvS/9tq7dmmUoOZGW0Rk1SrRTWJETjUWklPg2SLxcaGZMzFjHkyRvIFuZO9wYT0
+         tZg2uQtEeoi1/MY9dgMcpedyteHBQLLHInl9uNuG2rKKyRQoyIuPBVz6Mkzrs4ttI4u7
+         xuO46EltsE3hzlosemd+nA01aFnyyyDsZqEe/xWEBHZEwXPuGG+DTn9DA/w996IbqjrY
+         eKuQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/YoV3awslcly1Hqwl7enSMpWtBypdrJzhUXFISGCSxtlNxlW7kum4QWSSTVOHKqRKo6RovZ6bsuEsV@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPw4ykVY/Ab+jxqYAsLM6eTpXGq11gy1Fqzslvn/pB6q8CLgJ+
+	QUqV3vvILGB+usCCr9va9xQNnNEJx7tBNb+kR8T0FUhv4c15zUB+RKaW
+X-Gm-Gg: AfdE7clpbJCIxWX0beTo6PoWgWfFXoEPJDwBqwJ4WwP7FUhI8b0onNYA/TGrnr1zD00
+	dMnL0Fz6T7Pg2YQw14v/j0hxIAKi9aL2bKEOKOViJd98BPDXsn+WDNIb0kfYJpR19+tyZMtmAmC
+	G9od/9DGGuxoXXTRTFVLD3yJc25kHuYL/04KGSTKlaKKuVFHlkwAlHzm5zOP+SJOjwdjtBt7sUz
+	zWgTvGYlUo1oOwC5pBr1RZsj05/LHY6K+zbEGT+v0wNnZ8xKqyY/CGMFzHyvBYcTJAZEnC1rzHZ
+	5t3pnpHNRbiIGuHfcFW0YZk9PXjVsS2D3pkDGKSBgHO2zUl+yH9s3z+v7R0Zh2ieQ9+rTWQykO+
+	3Lye7wlnSXfPb5YIyMgQutfH2YhaAa0PFdy+n5JQ02r5pUIWbx7wuOzUhi8gxezOZUx9tbk6+0z
+	Xq5T0s7gpQai2mZF4cAM64VbMMZ8IEDX9Qf2wLv/jlXGCyZzKud6BOiidhorWahMiw3qUNDnmnv
+	cagfO6gUbmZQWYfAcfNfPZBhmw=
+X-Received: by 2002:a05:600c:1f92:b0:490:c2a3:1781 with SMTP id 5b1f17b1804b1-49240eb1519mr96105e9.34.1781806792275;
+        Thu, 18 Jun 2026 11:19:52 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:3bf7:d534:a488:f67d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-465090c42e1sm869435f8f.11.2026.06.18.11.19.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Jun 2026 11:19:51 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 06/16] iio: core: create local
- __iio_chan_prefix_emit() for reuse
-Message-ID: <ajQ1bZSNHQ96pyJx@ashevche-desk.local>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
- <ajQGTQ1_qcOwfzne@nsa>
- <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 0/5] Add PLL3 and LCDC_CLKD support for RZ/T2H and RZ/N2H
+Date: Thu, 18 Jun 2026 19:19:44 +0100
+Message-ID: <20260618181949.3036280-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Jun 18, 2026 at 05:14:19PM +0100, Rodrigo Alencar wrote:
-> On 18/06/26 16:06, Nuno Sá wrote:
-> > On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-...
+Hi all,
 
-> > > +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
-> > > +	if (!dev_attr->attr.name)
-> > >  		return -ENOMEM;
-> > 
-> > I don't oppose the change. Looks like a nice cleanup.
+This series adds support for the PLL3 and LCDC_CLKD clocks on Renesas
+RZ/T2H (R9A09G077) and RZ/N2H (R9A09G087) SoCs. These clocks are essential
+for the display pipeline, specifically feeding the LCD controller.
 
-May I oppose it? I found use scnprintf() is harder to follow in comparison to
-nice kasprintf() that takes care for the dynamically allocated buffer.
+Key Changes:
+  - PLL Reference Flexibility in  the RZ/V2H(P) CPG driver
+  - MSTP Dummy-Read Mechanism
+  - LCDC implementation in the RZ/T2H CPG driver.
 
-Also there is a chance to get a name silently cut due to insufficient space.
-Besides that this function can't be used (again due to 'c') in kasprintf()-like
-wrapper. I do not consider this as a good approach. Have you looked at seq_buf
-instead?
+v3-v4:
+- Fixed MHz to Hz for input_fref in the doc comment for
+  struct rzv2h_pll_limits.
+- Added macros for rzv2h_get_pll_pars and rzv2h_get_pll_divs_pars
+- Added RB tags from Geert.
 
-> > But bear in mind this very sensible as any subtle mistake means ABI breakage.
+v2->v3:
+https://lore.kernel.org/all/20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+- Added export.h include in rzv2h-cpg-lib.c.
+- In r9a09g077_cpg_lcdc_div_determine_rate() made use of 
+  clk_hw_get_parent_by_index() to ensure we retrieve pll3 as the parent.
 
-Which immediately raises a question of test coverage. Do we have one? If not,
-this code must be accompanied with one.
+v1->v2:
+https://lore.kernel.org/all/20260609105924.962573-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+- Dropped RZ_V2H_OSC_CLK_IN_MEGA macro in favor of direct use of the
+  input_fref field with a fallback.
+- Updated the doc to specify the default value of input_freq when it is 0.
+- Updated commit message for patch 1 and 2 to reflect the new approach.
+- Dropped using table based approach in favor of direct conditional checks
+  on the clock index.
+- Added Acked-by and Reviewed-by tags
+- Added new patch#4
+- Switched to use the new library
+- Kconfig now selects CLK_RZV2H_CPG_LIB
+- Renamed CPG_PLLEN to CPG_PLL_EN_EN
+- Renamed LCDCDIV to LCDC_CLKD
+- Changed ctr0/1 in r9a09g077_cpg_pll3_clk_recalc_rate() to use u32
 
-> Yes! I tried to be careful... this is dangerous stuff!
+v1: https://lore.kernel.org/all/20260511191910.1945705-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (5):
+  clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for
+    calculations
+  clk: renesas: cpg-mssr: Implement dedicated MSTP delay logic for
+    RZ/T2H LCDC and RTC
+  dt-bindings: clock: renesas,r9a09g077/87: Add LCDC_CLKD clock ID
+  clk: renesas: Extract RZ/V2H PLL calculation helpers into shared
+    library
+  clk: renesas: r9a09g077: Add LCDC and PLL3 clock support for RZ/T2H
+    display pipeline
+
+ drivers/clk/renesas/Kconfig                   |   6 +
+ drivers/clk/renesas/Makefile                  |   1 +
+ drivers/clk/renesas/r9a09g077-cpg.c           | 373 +++++++++++++++++-
+ drivers/clk/renesas/renesas-cpg-mssr.c        |  20 +-
+ drivers/clk/renesas/rzv2h-cpg-lib.c           | 217 ++++++++++
+ drivers/clk/renesas/rzv2h-cpg.c               | 203 ----------
+ .../clock/renesas,r9a09g077-cpg-mssr.h        |   1 +
+ .../clock/renesas,r9a09g087-cpg-mssr.h        |   1 +
+ include/linux/clk/renesas.h                   |  34 +-
+ 9 files changed, 637 insertions(+), 219 deletions(-)
+ create mode 100644 drivers/clk/renesas/rzv2h-cpg-lib.c
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.54.0
 
