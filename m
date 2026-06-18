@@ -1,83 +1,89 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9993FF1A4;
-	Thu, 18 Jun 2026 15:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF803FA5D4;
+	Thu, 18 Jun 2026 15:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781796112; cv=none; b=GtZD1JUJ9QurzBa2rXeMyITgqxWnXgu/gI7kXEpp96LMT6Vgt7n/TdjoWlc5YZmsPbtO56dmsOd1X7gLisGlst9W2TUizAQ724zUyVa27U7fKcvcpE0wWkkitfvtlpkm6K5HcMow3TBy+5SOe+jqxmy7WbP6PYf9q3FpyUIf6Vc=
+	t=1781796152; cv=none; b=DH+N2cphkdt1SXCwI07jWVn05LBcE/B9CwE7qbpwqlrgqRZx8AugndTg8e6Gz6ZQgEwrBkgNDqNt+UtBswzB4dx+MOMMzvGWKT890vq3TEQCfUFV6iTkIhnXJhxMShYVP1WnwuJ5ExcyOWNBCvVO3NReWXzKBK+NrkmD3w4rdmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781796112; c=relaxed/simple;
-	bh=WVGHvfjDofZzATB4GUy0LRJazQGsFUTWfwfcE0BiNAs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ay/vKPk3uHDXDv/Nkff6mE9pcFzVzrWxZ6pWdT8dtXdZPXvI9OSmIYiy45JBVX/5Jxkr24ekUawyle0MEqWjfHKE6Kym8JJyPqYZdJ8+GJ57nwVjgHMj/Txeu6KNpyoqQ1V21WWbeFFQPdFvSxlfIRz5AMiXS/pNgowk4IwxSC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de; spf=pass smtp.mailfrom=free.fr; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=lht.dlh.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
-Received: from albans-vm.. (unknown [94.134.109.237])
-	(Authenticated sender: albeu@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 77929780368;
-	Thu, 18 Jun 2026 17:21:32 +0200 (CEST)
-From: Alban Bedel <alban.bedel@lht.dlh.de>
-To: driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Zijun Hu <zijun.hu@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	Alban Bedel <alban.bedel@lht.dlh.de>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 2/2] software node: Fix software_node_get_reference_args() with index -1
-Date: Thu, 18 Jun 2026 17:20:35 +0200
-Message-Id: <20260618152035.1600436-2-alban.bedel@lht.dlh.de>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260618152035.1600436-1-alban.bedel@lht.dlh.de>
-References: <20260618152035.1600436-1-alban.bedel@lht.dlh.de>
+	s=arc-20240116; t=1781796152; c=relaxed/simple;
+	bh=jSdlNlpM8SAob/fGvaYLbUYW1FfKn1bUWerBX6EGHS0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ebmCTkb2dzesfOMgXMBGFkEIfNYySrhopvmxK+MXMs9h/kPCdcy95eRfbesYTt9WmK9hzK0gJC8YgKY+ZmEljlFjQ0QYn0k7xriuJPI+N0oUNQ21aq4dAjSHCj5K/f0Mboa0EJsGTrf0CydDXLUyZOsmOsyciPT1W9KeaIp3sOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCYWCXA4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCYWCXA4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDDD1F000E9;
+	Thu, 18 Jun 2026 15:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781796151;
+	bh=jSdlNlpM8SAob/fGvaYLbUYW1FfKn1bUWerBX6EGHS0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BCYWCXA4WBW0a7fOg9IHEBtPOvt4tAiLJQCBJu5A247pvIg6g8zrZqkpCgituH9WU
+	 U4HyXCKQQTCFCbXwePxJLY/YoR84Hz1VyBcO6Hk7Bq++HcYYC+MsXNf+uG2H2QgtzE
+	 tHSYz/hhqbOK8hUycbYK33jM+q6y+Wm5rOLu6OO4yCV+N47cnFbZGP6bimMYALa8Fh
+	 hSrClZbjnhoe6Pkf45gaevjI8voZq2AYTApVrTAuclx+rRW9F35F39tHXUn/6IQ24l
+	 uXWfsd9CyNt2Qa2iDR2RjeK+j8HdGzOaPEAdzdvFV3E5kpiXLuL8SceqVB8ujO/v7k
+	 f9MyiavN9TkdQ==
+Date: Thu, 18 Jun 2026 16:22:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: david@ixit.cz
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH RFC] dt-bindings: sound: Convert cirrus,cs35l36 to DT
+ schema
+Message-ID: <6d0187ac-5b52-43d7-b874-9739a62860aa@sirena.org.uk>
+References: <20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QufLE/0Kc9+EiCqz"
+Content-Disposition: inline
+In-Reply-To: <20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz>
+X-Cookie: This unit... must... survive.
 
-The bounds check for the index passed to
-software_node_get_reference_args() was failing when passed UINT_MAX,
-this in turn would lead to an out of bound access in the property
-array. Fix the bound check to also cover the UINT_MAX case.
 
-Fixes: 31e4e12e0e960 ("software node: Correct a OOB check in software_node_get_reference_args()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-devicetree/20260611103904.7CB131F00893@smtp.kernel.org/
-Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
---
-v2: No changes. Only submit this patch along with the patch that
-    triggered the Sashiko report, to hopefully avoid another useless
-    report.
----
- drivers/base/swnode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--QufLE/0Kc9+EiCqz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-index 869228a65cb36..2bc76f01eb77d 100644
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -537,7 +537,7 @@ software_node_get_reference_args(const struct fwnode_handle *fwnode,
- 	if (prop->is_inline)
- 		return -EINVAL;
- 
--	if ((index + 1) * sizeof(*ref) > prop->length)
-+	if (index >= prop->length / sizeof(*ref))
- 		return -ENOENT;
- 
- 	ref_array = prop->pointer;
--- 
-2.39.5
+On Thu, Jun 18, 2026 at 04:33:28PM +0200, David Heidelberg via B4 Relay wro=
+te:
+> From: David Heidelberg <david@ixit.cz>
+>=20
+> Convert CS35L36 Speaker Amplifier.
 
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--QufLE/0Kc9+EiCqz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo0DTEACgkQJNaLcl1U
+h9DTvwf/ZDqT6lHklGiiZ/2ew8XLNomY7zRAa0SvFY7yLpFRhNuHbhhFE8O6/nVg
+ayPBn+RsMYmy6brd9UIzOMI0p7h+KU9u4VbCsy5dY3IErlqkSzk/sYiJDRNDJeN6
+QQ+93JnormAA/cFEscwNsB2zM94v51AnC8hpTGdPD6uixRi5lWP4/8v387HgkOcp
+64x1dRAghOwQ1pGQsEVQYTGieF5ex/w68MQUabzgzavHOPR2Lgefi4b3LfUjkAre
+eicUeTAd3V7EYaTtaZXwBLi0JsZM9RObcazADuKPcvMDVIdlcZdATYg3DQIi0cJe
+B5Vn5Y2KRtF6HczMRhMfRvaeflUdPw==
+=SS80
+-----END PGP SIGNATURE-----
+
+--QufLE/0Kc9+EiCqz--
