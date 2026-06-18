@@ -1,175 +1,244 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021112.outbound.protection.outlook.com [40.107.57.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C70E146A66
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:16:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000942877C3;
+	Thu, 18 Jun 2026 06:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781763378; cv=pass; b=NofRYow/VCMvSOPXcFsQgTvLcvIe5SnqPKwLNgIcCej79Ews8mpJef/RB7B9FNsWO8JqCkK6p9kl+cApOE1++5Sou2LmSZVfrnRKA8hKtWNS/yWxb9bvgVJbXeHOWNKwVw11or+UetmQLsvCh93Zs1//BpYFAEfpDJ1Ai65QE2E=
+	t=1781763741; cv=fail; b=ExaRIBRcl9FvCeLWf4b90aBoHk8EkxIUu4gOa3dBNlfk+gQ6YuaXe6ScGEhmR17EBQgGOskAy6MzJ6i1MVeBCGVnORI8gb9KmbAZ46M7vrio/NTcUesfuO4feQCdWqPAg8UHEgi0vGhlmn543XYKjOqSPTaqfejt8Yxex7eCWJ0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781763378; c=relaxed/simple;
-	bh=6Du4FMFP7UPcAJzlB4al9sH/b35QZkMHKVDjgrhrnV0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N/D4kPPtak2hLqSym9IIOTNS/dZsNrF78ymTRfXjRMb5bBE8RMd/41Vzc8iUR7IBoF62iRnS9e+Dne/Y39IJnaMkhCt/y0d6NjMy+jcTqI8STE0qxhkFlsp5wtyoWCZa9W8rgF0o48qNOI7CQ5hz5HELxMoEcWC9XO0djyr6WB0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=G4hiwl0t; arc=pass smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1781763741; c=relaxed/simple;
+	bh=u4qvids3R1PRi+AGDR4DTh+q/xxsv9yzo1liKjjKSyw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gAAI7eKiXWaLOhldYILg0rOPdne5aIAuHMUBKLUbWaNLXOFuSlZyPBfU6+K587kQ8kNhrSGqNOTSWFfcVYHZD34TPdUVN5rorlHMbMFXOsS9FDdzMtyqcodv0ZWKeCqKgEbN/iwpXKNZjGvtwdpWlNcDYQoquibKWM5wlhljuKI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=mNY7JK4I reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="G4hiwl0t"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-69e4adf9ea5so254652eaf.2
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 23:16:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781763375; cv=none;
-        d=google.com; s=arc-20240605;
-        b=KCq09ZahjpRQcq+MtFDYnCQeRyMquQAHoZBHsZWIxbzBPUlTdvJzaDRaabGA289e0C
-         b6djpvClYopqFIb5qr2ClzBTIaX3x6sTVD5tqlk6SGeB3uBExyN6QRa3tBqTsD0F0Uh6
-         xVBhBMLpQIuflowg7XXqa8xIdfYCK8GadKIcC6NhE3+FGcDysNPhjp12wajY1r4LlUte
-         rvvQhM8NMteqs8zJuF+7eaRIikrVzr8HUQpgXer3ejGWGg2FPwcWVygxR0xVch2a6Ifd
-         QGgX59n8qHEP2RvKVteBy7hLbERSUPhFoU+FwAkCVL8DUkeNpc14KCSAMH/PqavxAl0S
-         saVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
-        fh=ZLsACl1ONHQ/na97IdOoJrUsETLUYnFdAfzU8qvDIYk=;
-        b=JlQ/x4pKGUAIXIa4Tx4ldedXxKoXs7rLPAYcxe7pHPY5pPQ9IB3rEMmz3gsG5qCN05
-         vytTbEuxv0QE1LwfXi1B2G+Qostlu88GMskH8FOpdmYd5wIcLrC9W9BF14vG9NGmUW0h
-         TtrorAf2pzIJ/Zoyeu9XxQKOYOq1Gq/REe/tH6moZ0Mfs81NUK6UApMQB3cEW5mLPmcr
-         mOPLf8kwYONrVWLf9iYHphrJ8un6MgGQqgGP9AmAoLWqkswEftCP5GGc2CqQspzhEpe9
-         JIkgAW8Nr98cbnGkgrjhB2JQG4I2cFz+3GQ51P+edi/V7Jwpu7gObmHcwW2Y/0o4KDsw
-         6SjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781763375; x=1782368175; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
-        b=G4hiwl0tkQde6/q0h/GSJqnBPnze7dsOLtQotRbPFYiLchnhtgOVHe+Tz135jXhEij
-         gI8gmKCIT6CSWye6LJ3vY37Tki0ad8XM5yWTdK92Jq6S8JKIt1D0AF51ieBgLTOPJCjf
-         efzIDwzWyVeeGg6OsRsWSWfjo9TlCHQA928MJKsdggtuuXUyGh23287yV3tP66ODOJSe
-         Dr+XBpSNSMQODFF3XoRBJjC6/opvvx1BG0mpucWe4YALt7kO39F+VTJ+pwaeojErSKVn
-         LQPkSG4/fmXgeqmKYqXJuYoy6ZlaweVfSSn/9xIwXDSrz5ATVqCse2uShp/idSvmS1w8
-         m6aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781763375; x=1782368175;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XvwDdUwqNB/mJRpzgcLfrzEdZHAgOs9CmXdopX1fav0=;
-        b=FpAKVT4FIGMBKyNcNhkzWFCQpagg4qjSmf60Rwb6LK77iZaZ5x26ap26xKVpVkNHYQ
-         uI8JINcEEsYwtl71dlSK9aYOqhiHYfmUMW/IIF7QYder5hQOK4Zgxk3GR1dXnCoo1EIf
-         7WAeRRNA9Q5TghwyZYtQZD7tbAGPJWrWhNy8R53wm0DhLcFN+ldeFLvfoLZNP42H32dS
-         t1sp+eaiGj2ZnmpqmCjcFdyJfGF7mzxGWm+i2Pe7t+PufNvW2MJjlnEkByhd1Z+SOu37
-         qPVwQW42eNVBl02JMOBZa8aTpX1tBb+cwSkhNJnBj2XzYbLzC9wiRfVRgY+hUXBVaq/8
-         oZhw==
-X-Forwarded-Encrypted: i=1; AFNElJ/bpz8SVE+yy8Zx6r/BeuqkyBHjAtrYSI5u2pwJDaQ7luEyjNZYHs7iLL1q3QI6peMlxx3jo8z7E4L/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOAhOtKmVxZfj179krKJRVg0E4dw3D61WwtRtbWjikqu3hhLr/
-	NhAQ8E8j6BjEJnUrXIrV2jpR/ZGhihkDjedLzTHXGpjUi8XFhV4Kp3hhyb0WRmo+05Uz3eVeBZ1
-	CDl0DkkI2CQPIvzmRITh64MjGuKaxLG2XB8jcm+OmAwFQOReLuRhj1lzUjw==
-X-Gm-Gg: Acq92OGhnflhQb/sYUWZBw/zZNAWLc7TJ1O+njwHW0s384mz8zO8wKptMQw/8HDTPl+
-	ehrzL0WnnVaN5O6cTD1lNoeZLas03QCWDgsWb2ZG2AeBg6NZuSmd+2iu9mU+uI8HH+f2KGqjVyd
-	zzyluFOoDK1jRJehWVL6WjHLChQABMfA/jfJQtwIA+devNnLXsZphR3w7jZgEFTq0ctJMj0ZcPG
-	S2u5XAm1ZuxZPFfU1FW8s+s2mvOx+XdPPL2IcmL35EtsZTIHtHS62TrAl62kHTsus+X/+PfDl2j
-	2eI=
-X-Received: by 2002:a05:6820:80c8:b0:69e:39c9:c6d6 with SMTP id
- 006d021491bc7-6a0b5e3cc18mr5260511eaf.10.1781763374599; Wed, 17 Jun 2026
- 23:16:14 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="mNY7JK4I"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V/xrM7wAUkWB3SW2BBFojjZmTJzSIeCwJDEQFst+dyhRkpV71G6Y7htV0lzH2jQkNJzNbOcWE8iDyBKI+Czppa7bsQK5Ca7skwvsT9BNzv+CzS8x5FmZdKgXr+A8gJogKkLAL6Wl5mspZ2WiG3kZOmRvKNVYtLWJSNXFeAdJN5ZXHaMLcNE8CaExs/MXUXvtqX+R/yvuIaTDofsHhFECtK3FDpHdByWJAbM90ky6e0MD11co2xqBO6T+gqUNcXcDRTwxoQNtMSB6eanfgNiVXWD8L5XUg8GFP4OLsGCPL/FmHKoIEl/0vFYeC6oQsWVciv71qxyTpDUB9iar1F7MJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bA9h6nWtpnirb3kJivPfKWlIGo0I3cNDafxVuC4um6k=;
+ b=JjqlajKG2mPyNurU+2cSOGcZ619p+HiZZShhrNZRvHcOE5hreIbCWNQwjhlAw0TidTtC2Fsi7pcArV6WUxrX4VmJuWhXyTQ4nmIGj1b9aSpgQYJrSAFguZ6cZM8Id/KTPOZWayXHsLZAyF240i+fNGYXptPWNNezVYkCw8vUEB0cNvOLecs0wZm7LgtJnBEsjkH39vHnqPuMg0/Eb5uK9m74OKzpkgHw2L/GE97DiNTWyCawnmkIB1OsEdpVKOCZ5KhN6lnhqJCDhekv91vEfF5VE9QCqBEOL688YTrAEizeoAI86o5ccU2v7SsuqpdBsx6faheDunP5MLmrmNy/3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bA9h6nWtpnirb3kJivPfKWlIGo0I3cNDafxVuC4um6k=;
+ b=mNY7JK4Iia+lknsABsd+ZNlGGKQcokQT9mWAEzpQVwO32Fx3LUaypgyXdjcqpjyQaanGEfscPneeL6zVv4aFd1QShyKtlYgIpuZvwzeuJ3FvzXjeWl49ntvfHDbSCfYAb0mCyjWj+pEZU+gSx+1ROAWV6nsoJmXWf3z8iBj1//6zj94GbyvYTe8SHG4wReLQkM2Rq5N/8ub9phtQWFnbElzOceIo30/bKPr0BQCzlUn+nH4zHgF0FdSKNZAFJJW1xWh9AgAkYDfCUtgOPR4B/iaKjYzFD0B5dZqM2Qp0b55eWMGYRl6IiDgwtLz9W1tx5h2bZp/V4hrWzOODQ/h/Xg==
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by PN0P287MB1817.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:18f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Thu, 18 Jun
+ 2026 06:22:14 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
+ 06:22:14 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>
+CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Benjamin Mugnier
+	<benjamin.mugnier@foss.st.com>, Bryan O'Donoghue
+	<bryan.odonoghue@linaro.org>, Himanshu Bhavani
+	<himanshu.bhavani@siliconsignals.io>, Heimir Thor Sverrisson
+	<heimir.sverrisson@gmail.com>, Jingjing Xiong <jingjing.xiong@intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
+Thread-Topic: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
+Thread-Index: AQHc08x1b9/g16idYEOEV5tDIRsV+7Y7AGGAgAktQL4=
+Date: Thu, 18 Jun 2026 06:22:14 +0000
+Message-ID:
+ <MA0P287MB2178300B0541EC81B91312F588E32@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <20260424092554.26130-3-elgin.perumbilly@siliconsignals.io>
+ <421ae63a-88c6-4e81-8478-7f581357676b@linaro.org>
+In-Reply-To: <421ae63a-88c6-4e81-8478-7f581357676b@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MA0P287MB2178:EE_|PN0P287MB1817:EE_
+x-ms-office365-filtering-correlation-id: dc58f22c-7ca7-43fb-e887-08decd01f031
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|38070700021|18002099003|22082099003|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ cUFad667sFLcxu2hVoeeLfzDv75s8sE4pqghk/FCwiJzbSrGX3cEXhe8GKoqIbwdQHhk/j4o53hWlFoZTEVOrIaPXkRAPL11vq9+xAWb3gf9s6p0DLWEj589DQZ6A6gd3I9gSHYMIFVDU7lXOjvGuJAo+Gv7Nb1Ys4Rl4GBIlNXlu9rJ9u8dry9X5xdqXedG8G9Z0M5vPA94HwwBTyFrdQndVGVIGbfZv7y5syv7eE5y8XoIIlJx/KdFRGrjRVKT/XG+V+IF6EzHYPSelKZDMKQwVG3auIF1T4bopedOO3POJcibgWuZARDokd2g5Vg3VN0N4IirRu1uf5zuExYmMhZ3tHw2qQylWeRaafLQoiekHHNrnF1JhcKtcJ48btJF+0TJ3bHHphecRi0sitX6OfSBbVrCnIGPIZT1sQ1FY4lnMvevZtP/UUhgrdZd8yojCbGsS3Y743JKW/465SO5O80+3HKjiPDCziI15eL+E10oBizSlG1EO5yATEULKKNUakI90FX03kKu6H7Zv7q+Ilt0Dj6Ddwe/ee8EutjwfjhykJLHLBbRpRxLw0aayyP3Wst/AGeTKi52RhlaAhkooPsVbTQIo9qvbph25RjQDzkAvu5pjV3zi/7s4BX97wct26rvVKNRMbVf1v5CxrtPLmtIv4JGFUXjtlW+Ht42HAC8iwtAM4z9sBp/yBmOkpX4PMQGW8Pa8XT2g6s6JjfwOZMhNt5IdHc/hR/5341wHxuRMfNWBAW9OltDXvskVl40
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(38070700021)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?38ZzaFgymiwrK0QbyH9ZV4Nlmo85IFz6gKjkof6D5Z0UeZQl3XuggsOWAx?=
+ =?iso-8859-1?Q?VHmCxPds4vp2l/G2nl0BN6aoEm7vFrHKTxmnmOj9UPseH8xc0He2U3e9Qc?=
+ =?iso-8859-1?Q?Uqp41A+w7SJYMVi+S3MqhX+UAw/g+0VtK6XsreOf4poCO2Dr+BXj1s2bmx?=
+ =?iso-8859-1?Q?riSiQ3DjCDjIh573nP8Kt4HHl+tB6Opdmtbop1p08dRynHbq1WxqBKbYnZ?=
+ =?iso-8859-1?Q?6TnBVMJA1s21puJ6ZN8dR/hm15PXmcxX7Q2txbiUcNAtbj7t1HD84Rdj28?=
+ =?iso-8859-1?Q?8kiJvnePakfgq2voohJOG7PkxS+xfy8jZeyfj2o3DFvLIPlpEQK4i8XS2T?=
+ =?iso-8859-1?Q?e8XhKow6apLDyFNDOr7HBsSOW1lRGsuJe+O6+/+te318WgnAr2ZwoFQhsI?=
+ =?iso-8859-1?Q?cYB7zX1cwR8sPacqPxdfMXwFEPm8ZNqN8UpeXjyALsK+sHXCRJPHVQrJsS?=
+ =?iso-8859-1?Q?Qxp4MtW70EDx6GW0ahlqQ5MxFOaXBeT5D0v7OVmDmDaXL/TjeqeCbyKwuq?=
+ =?iso-8859-1?Q?piJuxqvjcr9Bcx8jv2X0o7LM77HJbEEegUsPscrME7CSejRY/ykYeToV49?=
+ =?iso-8859-1?Q?mKD3VCqYr4TVe5v/Gp4Yo2/2o9ZCiQ6qxgVllY6//B2nd2uuxYHPSP9uGB?=
+ =?iso-8859-1?Q?hf4GkmlDlQgh922Lcff9XDS7i0sbWNdehSDTyZPN8+5kMxo1osv26uOnxf?=
+ =?iso-8859-1?Q?kp284DI0n8Px8H32Bf77PUK5DYz/X6/ilqMERkNEgZq7FsK5FfmTA/prYM?=
+ =?iso-8859-1?Q?BMyczOQn34A/D5m9MpGVRWC7AZpjP/H49urD/ie9fiATnj3kzjdfk9rdkW?=
+ =?iso-8859-1?Q?WO+vWDPOZOS0yyBRvtscFREq+5xWHxGzmexWIhRlydzVFu0HAV8kw2TPzZ?=
+ =?iso-8859-1?Q?+NCCLW+ZTxoeaFa7d9GT+I0dQVAMqDn0rTulrfPqGDAh0GDDfTrQml3R9Q?=
+ =?iso-8859-1?Q?u7dtAU0a8hw5t8sHw0hxVcwG4kzmjdhiweBZkR0BP28z094GCEliC4WKBj?=
+ =?iso-8859-1?Q?0+YVlYvnb1f6kfFAuGjOUTduzwq03LrVKcLGMcsbYJdpFd3bjfuSpnqg/W?=
+ =?iso-8859-1?Q?yOnrixpwzwtYk/YtI2x2Ihvq/lg2xZ2v355Oe03MEuP9Df6NgPUpdcFbiG?=
+ =?iso-8859-1?Q?dgu9XiXjFikRH95Ls/mhVl/aj1tWjhBkjmG/qIKriVvIt3+FBOaiZlivPF?=
+ =?iso-8859-1?Q?OiWTld5b8HoMru6bgMTiRAor0WvvelLRPEVWNMJV43dJzWGMWupXk3SKwx?=
+ =?iso-8859-1?Q?1KGdsUaAh0aBzPbTobQQr2ZOOEs1g8pFYLAuMqYqAD7lUc/luQhRjZriTt?=
+ =?iso-8859-1?Q?YRiDz0hJGmZVhdCfNl0rHRERippETjDk/eufUZvnipeFvQQfs+66sKxeft?=
+ =?iso-8859-1?Q?x9EM5hU+J7omox+uWosedBxYGOrtLYBqDGA3asgaMYEAbSK+Qvb0ygsgr5?=
+ =?iso-8859-1?Q?affNymqXUX0tmHLzeblQp0SEc9osUFqVF1XuDt+8w3d+6QgzT0w9ht8nPn?=
+ =?iso-8859-1?Q?rtIUfRCkx5g/CDArwhpR+kHXrfTuejhdjurnmTsj6ECQrehDkWL756pjcB?=
+ =?iso-8859-1?Q?9cmVxr7ti1MX4pVSByhOXIWlcJP+UQRMIwN3bZoiQazC6k8QpGBgCjH9ZB?=
+ =?iso-8859-1?Q?eL50bDoBJTqobjar0C02+mJ/RoKok/z1Mii4dNEYXU2ezZcxU9sJU21y50?=
+ =?iso-8859-1?Q?QOdghpFktgi0z8CN+kE8oWcewmvnUvrwPgdybudjF8FZ+XJkLX1S6jfQUi?=
+ =?iso-8859-1?Q?d4SCPoPAZ/MqktaYJ29Cu5h69TDz6F/rZ1cLWvUSVOUEi+hLaRXEW7DDOH?=
+ =?iso-8859-1?Q?TamJbsLiYsAkDQCZlGRXOpdcnlvSM6E=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260609130021.99899-3-cuiyunhui@bytedance.com> <20260609131621.3541C1F00898@smtp.kernel.org>
-In-Reply-To: <20260609131621.3541C1F00898@smtp.kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Thu, 18 Jun 2026 14:16:03 +0800
-X-Gm-Features: AVVi8CfbhIfrfyOhP91UzVJ7Wt3CfSeCLsAl44UT7jOTGHzHjqut50HYYR5OKX8
-Message-ID: <CAEEQ3wnt9wrVvSvdcuyA3wME7oCyRmNrKOKi=LjwKWKzYxWhNg@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v3 2/3] riscv: track effective hardware PTE
- A/D updating
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc58f22c-7ca7-43fb-e887-08decd01f031
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 06:22:14.1419
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P9lfhyN3LFHOJiuKxHaJ0mXthm0zOP4J85/F93dw7LGEKSAkyA0h7sRvlTSKepN107V+MDLCrd7GSVQHVwkqPY7m0/7+DJW3db8/YKdFh1lEi8TPx3h6N1r9XGMTwNVq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0P287MB1817
 
-Hi sashiko,
-
-
-On Tue, Jun 9, 2026 at 9:16=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] Incorrect global ISA extension check prevents FWFT enablement on=
- asymmetric SVADE/SVADU systems.
-> --
->
-> commit f3d7c0060d5bf449bef26605d30b6a4b56780451
-> Author: Yunhui Cui <cuiyunhui@bytedance.com>
-> Subject: riscv: track effective hardware PTE A/D updating
->
-> This commit separates the tracking of hardware PTE A/D updating from SVAD=
-U
-> discovery. It enables Firmware Features (FWFT) on all online harts before
-> globally advertising the feature, and requires secondary harts to enable =
-it
-> before they are marked online.
->
-> > diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeat=
-ure.c
-> > --- a/arch/riscv/kernel/cpufeature.c
-> > +++ b/arch/riscv/kernel/cpufeature.c
-> [ ... ]
-> > @@ -287,15 +291,88 @@ static int riscv_ext_zvfbfwma_validate(const stru=
-ct riscv_isa_ext_data *data,
-> >  static int __init riscv_hw_pte_ad_updating_init(void)
-> >  {
-> >       bool has_svade, has_svadu;
-> >       int ret;
-> >
-> >       has_svade =3D riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADE);
-> >       has_svadu =3D riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADU);
-> >
-> >       if (!has_svadu)
-> >               return 0;
-> >
-> >       if (has_svade) {
-> >               riscv_hw_pte_ad_updating_requires_fwft =3D true;
-> >               ret =3D riscv_set_online_hw_pte_ad_updating(true);
->
-> [Severity: High]
-> Since riscv_has_extension_unlikely checks the global intersection of
-> extensions, will has_svade evaluate to false on an asymmetric system wher=
-e
-> some CPUs support both SVADE and SVADU, but others only support SVADU?
-
- Thanks, I'll address this in v4.
-
-
->
-> If has_svade evaluates to false, FWFT enablement is skipped here, but
-> riscv_set_hw_pte_ad_updating is unconditionally called at the end of this
-> function. Could this cause the kernel to assume hardware A/D tracking is
-> active globally, even though CPUs with both extensions would remain in th=
-eir
-> default software-managed SVADE mode?
->
-> If the kernel incorrectly assumes hardware A/D tracking is active, would =
-this
-> cause arch_has_hw_pte_young to return true and erroneously expose the SVA=
-DU
-> extension to KVM guests? It seems like this could lead to unexpected VS-s=
-tage
-> page faults and guest crashes if the underlying host CPU traps on missing=
- A/D
-> bits while the guest OS expects hardware updates.
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260609130021.99=
-899-1-cuiyunhui@bytedance.com?part=3D2
-
-Thanks,
-Yunhui
+Hi Vladimir,=0A=
+ =0A=
+Thank you for the review.=0A=
+ =0A=
+I have addressed all of the comments except for two, where I am not entirel=
+y=0A=
+sure about the requested changes. Could you please take a look at the point=
+s=0A=
+below and let me know your opinion?=0A=
+ =0A=
+> On 4/24/26 12:25, Elgin Perumbilly wrote:=0A=
+> > Add a v4l2 subdevice driver for the Omnivision os02g10 sensor.=0A=
+> >=0A=
+> > The Omnivision os02g10 is a CMOS image sensor with an active array size=
+ of=0A=
+> > 1920 x 1080.=0A=
+> >=0A=
+> > The following features are supported:=0A=
+> > - Manual exposure an gain control support=0A=
+> > - vblank/hblank control support=0A=
+> > - vflip/hflip control support=0A=
+> > - Test pattern control support=0A=
+> > - Supported resolution: 1920 x 1080 @ 30fps (SBGGR10)=0A=
+> >=0A=
+> > Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>=0A=
+> > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+ =0A=
+...=0A=
+ =0A=
+> > +#include <linux/array_size.h>=0A=
+> > +#include <linux/bitops.h>=0A=
+> > +#include <linux/cleanup.h>=0A=
+> > +#include <linux/clk.h>=0A=
+> > +#include <linux/container_of.h>=0A=
+> > +#include <linux/delay.h>=0A=
+> > +#include <linux/err.h>=0A=
+> > +#include <linux/gpio/consumer.h>=0A=
+> > +#include <linux/i2c.h>=0A=
+> > +#include <linux/module.h>=0A=
+> > +#include <linux/mutex.h>=0A=
+> > +#include <linux/pm_runtime.h>=0A=
+> > +#include <linux/property.h>=0A=
+> > +#include <linux/regulator/consumer.h>=0A=
+> > +#include <linux/units.h>=0A=
+> > +#include <linux/types.h>=0A=
+> > +#include <linux/time.h>=0A=
+> > +#include <linux/regmap.h>=0A=
+>=0A=
+> Please sort the list of includes in alphabetical order, also you=0A=
+> may consider to shrink the list by removing quite many inherited=0A=
+> includes.=0A=
+ =0A=
+Some maintainers prefer the "include what you use" approach, like Andy,=0A=
+so I added all the headers that are directly used. Should I now remove=0A=
+any inherited includes?=0A=
+ =0A=
+> > +#include <media/v4l2-cci.h>=0A=
+> > +#include <media/v4l2-ctrls.h>=0A=
+> > +#include <media/v4l2-device.h>=0A=
+> > +#include <media/v4l2-fwnode.h>=0A=
+> > +#include <media/v4l2-mediabus.h>=0A=
+ =0A=
+...=0A=
+ =0A=
+> > +static int os02g10_set_framefmt(struct os02g10 *os02g10,=0A=
+> > +                             struct v4l2_subdev_state *state)=0A=
+> > +{=0A=
+> > +     const struct v4l2_mbus_framefmt *format;=0A=
+> > +     const struct os02g10_mode *mode;=0A=
+> > +     int ret =3D 0;=0A=
+> > +=0A=
+> > +     format =3D v4l2_subdev_state_get_format(state, 0);=0A=
+> > +     mode =3D v4l2_find_nearest_size(supported_modes,=0A=
+> > +                                   ARRAY_SIZE(supported_modes), width,=
+=0A=
+> > +                                   height, format->width, format->heig=
+ht);=0A=
+> > +=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_V_START, mode->y_start, &ret)=
+;=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_V_SIZE, mode->height, &ret);=
+=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_V_SIZE_MIPI, mode->height, &r=
+et);=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_H_START, mode->x_start, &ret)=
+;=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_H_SIZE, mode->width, &ret);=
+=0A=
+> > +     cci_write(os02g10->cci, OS02G10_REG_H_SIZE_MIPI, mode->width, &re=
+t);=0A=
+> > +=0A=
+> > +     return ret;=0A=
+>=0A=
+> Just "return 0" here, and remove the local variable.=0A=
+ =0A=
+Could you clarify why this should return 0? The local ret is passed to all=
+=0A=
+cci_write() calls so that any write error is propagated. Returning 0 here=
+=0A=
+would appear to suppress those errors and always report success.=0A=
+ =0A=
+Best Regards,=0A=
+Elgin=
