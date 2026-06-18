@@ -1,213 +1,181 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1761F30BB;
-	Thu, 18 Jun 2026 05:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781760000; cv=fail; b=sF8/TCbycF3fF76YbC5j7WLWXyhezYNmkY8pSu1t2f/HbKZ2d2LYZpcDwpCZcLlUOr6WwV/XLiK6eewolDbcqWaaxayGSLbHgfnwVgqWHZT/sULVTLy3QqCk+f5/wgcw6rDEZF1n9O96rjULOWq2uo8Y25CLCBMycfyAR86OR8o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781760000; c=relaxed/simple;
-	bh=81OP7boHvC7m5Io7vzk0ff07O95N4qBpYuAwPiKBYyk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=cEsYHbMahnuga+N8TeyVE2dEwhVXBOEVH4tEniqkvOI2OCzyWOLLYRbBRaGe/KpHjOGR4KCNQrVrsBy42JFeB1zNBrOmLvGsPuv6WXdVA9CLUny6oqr90MvUpIRnJgXry2iojdpuGb9of+3JZ1rEFB6j1YPr+eXcpqq9wcs0DvA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GTeQjrg1; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=QOci5uQQ; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA29257854;
+	Thu, 18 Jun 2026 05:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781760207; cv=none; b=ZWQ5eb7G5DzgjQwv66GfGwHQMAd5Bmf/woQGXgzjXI65oR+ERllRuGGAIc5Djbpuiq5o6oheZRvhetX+ybfOHNcDcbI8yFvjTCgySl89jVVEm40UX6lVsV+GmGkoOBpIrLwc67lMAqfviQsBT4bkC5JMs6o91LgGG/9SaXdE6kk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781760207; c=relaxed/simple;
+	bh=3clKl/hQCVZjf7Umdra0PdxIsirw21ClZhnwOyAXf/g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DTm2XWxiKeyphSUMUKEc2c53ns8+48cKhzMR1buaL5xzldyOpT+tJn1mvqPFwNdJEeN4uZjGZjdAGq72gVjpYDntAUZdpxPH0Gz5DgALolaUyrpJ+3aK+iISyOkuNtgyjdkoF+m24H0K3lcwEcweYkLPGaGGRGFHNotdbUstJ14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5tEwIvI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GTeQjrg1";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QOci5uQQ"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I0ORpm3435889;
-	Thu, 18 Jun 2026 00:19:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=7q8Ynj1ghsKsLxANonRIrTbLPNK3rttoQD1RNsPat
-	S4=; b=GTeQjrg1xBisOB5uPhi6wqdpenNFYa+koVjOYuPuZ8OGWpSle4FkF2TGe
-	zkSKWH9FH38JRM8CHQ4P+C33GFbenFFejIynchpdkr0i2uNu9dJjAEdkmboYO78v
-	fHmz0wtbcewYVhMnNf6ffTuCiGyJOoggL9EQVZAGFlwHGPePPZW2Wvp48wKZaWuS
-	ramafHm3DEGxmeqYEowRFrwAGCaHVHAoOT5w7t4NQBlDUxRZk1Ix23SLLVvf7SX5
-	o4NGZOnH58v4KSZWafQFlbERlYjkLtZJJb12A2bKTh+4USdx8P6PXFzeEOsn8g45
-	yAyu3GaeSIca62e8nlO/9/dSX+eng==
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012057.outbound.protection.outlook.com [52.101.43.57])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4ev63rhcq0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 18 Jun 2026 00:19:28 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O3CvpTXeELUZLZBXadL1KH20EOQO/yGQvT1rUmL5fsRtgcU7xkG9zN36DYG8nR0k2+TlbLePCajf8UMsSB+rxcNvWv1/4fTt52NotGKx3BrUKSU3I+KN7FxeXehbmfoAskl2K8/toWf5yVjkuVOeOpkEgOjOhOZhris6Wcua+f6tYjuZBHKcI2K1kXxYwK6BzBRZDZi7umFLRIzx2mv4F0PbpNQoXzbFLX5nZLDj1vnkpSEv+09CD42+oOyrWkdWaBUhKlZN5Rof8HJwQK4aVLim08RsV40Jkmf5/JNwVlFlTzi5sUSBnhuW28M5Ulh2C/ShWW/HRsnSFqci2hlJIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7q8Ynj1ghsKsLxANonRIrTbLPNK3rttoQD1RNsPatS4=;
- b=wlsp4dF8ujq0XWDyZQ+2bKElVUgjtjwtorQZfoBDfcl5nERkYMHZJ6XoFSJAe5rGtKi/azOZdCKCNl8DYfH68jfI0s8jIjQIzvDEsY1Dqjmk2rWFKLmsrDUNIy0iRxtUHImiNRlIUJ4TO5mMUpf6rO1J5ZfJN0cfKHQ5+89MarxQy8z/ZLQxbtRTA0g4pjzaqzOPTfW3IbV5gn/kddWmDNqtBslaAX48C3sC3XMi60qvIPAD1OBB4Hmz1M9fsDGsimmrKTLeSc/xW6+UwSl9jy8thxyBEN97pA4Rs8Gp7wj6/xUXsqtU6dAj0gF9ke2WOb3MWcnO9wXMMKl+viZWwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=nvidia.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7q8Ynj1ghsKsLxANonRIrTbLPNK3rttoQD1RNsPatS4=;
- b=QOci5uQQQ9VyGbpZxxHz6sd5HykhwKV/APPG5P+oYSyKBcxRGZsw/AWsUvxCKpwGDdAW2QstpR/Izn+Ks410txFCUaaUm2CJet67kxnUT0PCoo4PIsvYVz3wUF8/YAQhSxLkV+gG5V4vFpvwUXVWAK67Qs76mXXbn16OAOQFiWM=
-Received: from DS7P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::15) by
- DSVPR10MB244415.namprd10.prod.outlook.com (2603:10b6:8:37a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 05:19:26 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:8:2e:cafe::1b) by DS7P222CA0012.outlook.office365.com
- (2603:10b6:8:2e::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.12 via Frontend Transport; Thu,
- 18 Jun 2026 05:19:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.0 via Frontend Transport; Thu, 18 Jun 2026 05:19:26 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 18 Jun
- 2026 00:19:23 -0500
-Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 18 Jun
- 2026 00:19:23 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 18 Jun 2026 00:19:23 -0500
-Received: from [10.24.68.129] (a0507033-hp.dhcp.ti.com [10.24.68.129])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65I5JHlV3292259;
-	Thu, 18 Jun 2026 00:19:17 -0500
-Message-ID: <667c890d-0bd1-49fc-a4d0-59e33980a0d1@ti.com>
-Date: Thu, 18 Jun 2026 10:49:16 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5tEwIvI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5A11F00A3A;
+	Thu, 18 Jun 2026 05:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781760205;
+	bh=cPAfR4QHvOXIQK3/i6GuTSJit6fDFmI9ld3QIz4yEtA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T5tEwIvIYoFQr7cMulOzqfTy+6Cea9zkER6KMp24IuS3daR0rpoM6R/Zl1oioFzV7
+	 6Q3QF5btavATSvmTF/iLguxeuwsK04HDebfU0Khfpx9kEd/L7+0UiQetk7yOqgL1bh
+	 tUFWMvL9+qtft3RdBoucdPDu/5FlEo/w95+XK8uTeSpwh6huPDXrDNZW+gnDGDqKK6
+	 L50zE25R7wNqG8G/TMVD5OUtM1Jnq0OYCSURVJNLnzYwT8K34cK4aNg6klmVtfGv7e
+	 6dcMGJBcdpGQyN4ptuPgwD34pMJ9lWA2mWMrGlUXi0/nAMO7t0v8iyS3Q6LqIqSdSB
+	 eAuzykrpmTRNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 05:23:24 +0000
+Message-Id: <20260618052325.4F5A11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/4] PCI: Use standard wait times for PCIe link
- monitoring
-To: Thierry Reding <thierry.reding@kernel.org>,
-        Bjorn Helgaas
-	<bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        "Manivannan
- Sadhasivam" <mani@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Thierry
- Reding" <thierry.reding@gmail.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
-        Hou Zhiqiang
-	<Zhiqiang.Hou@nxp.com>,
-        Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-        =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
-        Michal Simek
-	<michal.simek@amd.com>,
-        Kevin Xie <kevin.xie@starfivetech.com>
-CC: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>,
-        Thierry Reding <treding@nvidia.com>
-References: <20260617-tegra264-pcie-v7-0-eae7ae964629@nvidia.com>
- <20260617-tegra264-pcie-v7-2-eae7ae964629@nvidia.com>
-Content-Language: en-US
-From: Aksh Garg <a-garg7@ti.com>
-In-Reply-To: <20260617-tegra264-pcie-v7-2-eae7ae964629@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|DSVPR10MB244415:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb6667e0-3bfe-4408-62b0-08deccf92a9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|376014|7416014|1800799024|36860700016|921020|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	dqCRycxV/JHXT8IEfOgYMAqHtjp4Tu92RNZzc1pQ8SJu6s3wPAK9Ve7f1TN0LC2gUpHjsWxB0S5BKx08SIn8r5brRY84m99bz/zEfIFkbVvls+ttSsUTwCUfNNHgs1hFqsQoZqRLM8bKgB7zm4Ngtlks0k9ttmMZvhN8U5hKyl+nTb2NfpbKsKss2WkCqlE5cdKnWYdh3jmHL+SZ1xQWBWniTAwhjsJmriJ9TzhKoJ75JBhxA+mYlblXsf+OBAokIu5Bb50SZcTpS6Cu3lShQBYQBeRltwxQaabT9578vZH736ei0rsQKJlyhPOeSq3xGimCKJUj3EXNwHA+Qa6U0KksSII0BbRa8SQqL5iD76kablSak1XMQevSusmS8KoirjX0Ka/2120PDzb1fzTEJs3q9Axd+OoG3PI9PHZe3v8BFnLm0Cr/zt+CStNSGmjcxT597eRXK2yo68Og+hshkIpnd7yof3JYlZP5x4lUdlqVh/0XaI+/qYEJBgBnh7jKUAp8trPT9LKX9pgFqwYkWI/ltOIfoe3nJ3UvNKOwLzlfqy01v7FACgUnldNb8g7DE4/Z76coWowDEHATlWesjvRIuha9zg9+a638zAOA369DbroxlU0cMm8aXrwfFwGQXPYKxT+cBLWXPOLaJ1Nt/g+mifLN6UObJGigAcuZ60fwvvvBrSUZg+/Q9mGxXaHrmMmhLaJUDm3zH2sx9XPd/ENHQYjqyKLQFyT7b/oaSO5zRFofsi+i+0mE46DrVpWqRPwQ/x6cTuQ104DmEZTUUQ==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(376014)(7416014)(1800799024)(36860700016)(921020)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hl0ojE8vQ2fnOS3ilgcfoqeokuRtXbwk9yR7zf8+cVlSPM5qGLKwqrhGJO5VVS1OFva3pdIuvPQ4xT2q0UHnyVDTmCdh/mcKwgFkOxeZFcVCqeBTytLeTCQGXXS9KGFxixPhLIyeV2qkQP+0Q1Gw76QTxHjWG/RPAmaKQcUnIBlnub8BR+fWoBRpc3nETj0oe8mGW1RU1XRfkn3QDQNHAB5QYaQXfwBAgdlp2kWdxH+hnNlEnxQqGi2dbPuEVSpErdaHV+PpVlkrLG0J0tC2avzbXy2Txxl6dZpMBGQMUBfUH7B8W64S+wKQ4jFGm1qDBKFRimd1E+K8rnNjb5rLi0hvvS5wuY7kfH04bresmcvoUgLNMgN2gD9d5PZPzZFbpw4i5P7k6VV7mhmSlIdStLESfKDzR4Ol6XAwlBO1Nob5RwprdswRqqTyGJSgXDsV
-X-Exchange-RoutingPolicyChecked:
-	Gi9qVnQkeFvt7pKMAMcNWbMQBWZ94LP0PmWNMX7WxKac8WCgRaW8+xGp8fHL0XH4Td8mvpWsH4d3D+FgdVRqo60Ky3erY66qYuaHruzg3Fhut8lLyvyVrvU4VybDsIybUZnBjcUpiZuIvUcb/aOn18eluNlheSPbTwWEliCa+X0BHo+5ZOFQaJdcnEn+2LV+lF2nsCX4oDhssbI1aAuJCdyjxFQlmH7k92e44N8GCU8zYDceFLIuLf86/nx6F0Y3iSBx9YlAikRcSUxAsAgkZ76bU6B9Lgwu1uMrVkXaMO40dx2c98du5IShhqGefAmDckTC4e8lv8XtIJz1XUatzg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 05:19:26.6014
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb6667e0-3bfe-4408-62b0-08deccf92a9c
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000015.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR10MB244415
-X-Authority-Analysis: v=2.4 cv=LpqiDHdc c=1 sm=1 tr=0 ts=6a337fe0 cx=c_pps
- a=Y/Y9x3HtMOqQL+YbCjVQEg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=Ikd4Dj_1AAAA:8
- a=sozttTNsAAAA:8 a=9pYv5q21Ckep_k857DUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA0NSBTYWx0ZWRfX7teoC0LZtLGW
- gaDNsjjPXEv5qp9CvXlcalZz307caFIX2dJ6EyGrBffRfzOYfNLNQnu8e+/zAZ1PQ6IF57hKdJE
- /UT+QJhI3sfwOSZJ+hJPb4wvw/SBNgkGFYKVRQQGb+Dke950BcM1US217t7hrBwOPFIGPuc3wrn
- TvxAOxWp9hH5EySrGf1XYBfqi8Ew6AzFGEFJDS3nTukgo3gtjIbNZ6BnGaJ8ZQPtaSLUhyd59nc
- /p0GPsYGPsvNQ+gU1CeUracFJsDxHbHQZzQ1ur9B/4YlUHGXcosNqL9SsEQoF1PBi+5ZnfFJHCC
- Clx4PWISL0P/WDZwtSDHoTZ+P1REZlA2PEy9oqmTQx+hrMlySiY7baZPMImQ+LpUYd8eHUjrWQy
- SZ+s7lPoaha9mDsafT1RwL+H/X3Ulsksmk0S6BOY7aP61EY4gNg6VsYoFZ6TGJGWB66gYLaQM0r
- sdeWdN5UdUIRVogP2Kg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA0NSBTYWx0ZWRfXxP8yNXbG8AMe
- e/LyUJW0HEBPSVTVl2UBHAz5AXLj18TKofRUtoreN3LHBuesies96sCfuJT+KqGq41cNjIJpXjg
- wiELW4SQF3vB8uVpIySR5SxIE9HnKd8=
-X-Proofpoint-GUID: Zj21siqmYkbrvvlcj3stp47wVA85BPtk
-X-Proofpoint-ORIG-GUID: Zj21siqmYkbrvvlcj3stp47wVA85BPtk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 suspectscore=0 malwarescore=0 impostorscore=0 spamscore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180045
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] The `db8500_regulator_disable` callback incorrectly treats a retur=
+n value of 1 from `pm_runtime_put_sync_suspend` as an error, causing early =
+abort and state desynchronization.
+- [High] Mismatched Genpd APIs (`of_genpd_add_device` paired with `dev_pm_d=
+omain_detach`) lead to a silent detach failure and Use-After-Free list corr=
+uption.
+- [High] Embedding a `struct device` in a devres-managed structure (`devm_k=
+zalloc`) with an empty release function causes a lifecycle violation and Us=
+e-After-Free.
+- [High] The virtual device is never fully registered with `device_add()`, =
+leading to a memory leak of PM QoS constraints.
+- [High] The driver saves an OF node pointer to the persistent device struc=
+ture without incrementing its reference count, risking a dangling pointer.
+--
 
+commit abd72295748300bd01e4a7216b2321ff24b1a38f
+Author: Linus Walleij <linusw@kernel.org>
 
-On 17/06/26 21:31, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
-> 
-> Instead of defining the wait values for each driver, use common values
-> defined in the core pci.h header file. Note that while most drivers use
-> the usleep_range(), it looks like these were mostly cargo culted and
-> msleep() is a better choice given the fixed delay that the specification
-> calls for. Convert all drivers to msleep() and use the existing
-> definition.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
+regulator: db8500: Add power domain regulators
 
-Reviewed-by: Aksh Garg <a-garg7@ti.com>
+Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility nodes,
+backing the regulator enable state with corresponding power domains.
 
-> Changes in v7:
-> - rebase on top of next-20260615 (resolve pci-aardvark.c conflict)
-> 
-> Changes in v6:
-> - convert all drivers to use msleep() (Lukas Wunner)
-> 
-> Changes in v2:
-> - fix build for Cadence
-> ---
+> diff --git a/drivers/regulator/db8500-regulator.c b/drivers/regulator/db8=
+500-regulator.c
+> new file mode 100644
+> index 0000000000000..c5a9a1baaf8ea
+> --- /dev/null
+> +++ b/drivers/regulator/db8500-regulator.c
+[ ... ]
+> +static int db8500_regulator_disable(struct regulator_dev *rdev)
+> +{
+> +	struct db8500_regulator_info *info =3D rdev_get_drvdata(rdev);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_put_sync_suspend(&info->pd_dev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Does this propagate a success status as an error?
+
+According to the PM subsystem rules, pm_runtime_put_sync_suspend() returns 1
+when the device is already in the RPM_SUSPENDED state. Since this checks
+if (ret) and returns it, won't the regulator core treat this as a failure,
+aborting the disable operation and leaving the regulator's use_count and
+enable_count out of sync?
+
+[ ... ]
+> +static void db8500_regulator_release(struct device *dev)
+> +{
+> +}
+
+[Severity: High]
+Does this empty release function circumvent kobject lifecycle tracking?
+
+The struct device is embedded in devres memory allocated via devm_kzalloc().
+Since put_device() does not guarantee synchronous memory reclamation, will
+devres forcibly free the memory when the driver unbinds, creating a
+use-after-free for any subsystem still holding a reference to pd_dev?
+
+> +
+> +static void db8500_regulator_cleanup(void *data)
+> +{
+> +	struct db8500_regulator_info *info =3D data;
+> +
+> +	pm_runtime_disable(&info->pd_dev);
+> +	dev_pm_domain_detach(&info->pd_dev, true);
+
+[Severity: High]
+Will this detach silently fail?
+
+The device is attached using of_genpd_add_device(), which adds it to
+genpd->dev_list but does not populate the dev->pm_domain->detach callback.
+
+Since dev_pm_domain_detach() checks for that callback, won't it be a no-op,
+leaving the device in the genpd active lists when freed and causing a
+use-after-free?
+
+Should this use pm_genpd_remove_device() instead?
+
+> +	put_device(&info->pd_dev);
+> +}
+[ ... ]
+> +static int db8500_regulator_register(struct platform_device *pdev,
+> +				     struct device_node *np)
+> +{
+[ ... ]
+> +	info =3D devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
+> +	if (!info)
+> +		return -ENOMEM;
+> +
+> +	device_initialize(&info->pd_dev);
+> +	info->pd_dev.parent =3D &pdev->dev;
+> +	info->pd_dev.of_node =3D np;
+
+[Severity: High]
+Could this leave a dangling pointer in info->pd_dev.of_node?
+
+The np pointer is provided by for_each_available_child_of_node() in
+db8500_regulator_probe(), which automatically drops the reference on the
+node when advancing the loop.
+
+Since of_node_get() isn't used here to increment the reference count, will
+the reference be dropped when the loop concludes?
+
+> +	info->pd_dev.release =3D db8500_regulator_release;
+> +	ret =3D dev_set_name(&info->pd_dev, "%s-pd", match->name);
+> +	if (ret)
+> +		goto put_device;
+> +
+> +	ret =3D of_parse_phandle_with_args(np, "power-domains", cells, 0, &pd_a=
+rgs);
+> +	if (ret)
+> +		goto put_device;
+> +
+> +	ret =3D of_genpd_add_device(&pd_args, &info->pd_dev);
+
+[Severity: High]
+Does this leak PM QoS constraints?
+
+The device is initialized with device_initialize() but never fully register=
+ed
+with device_add().
+
+Since of_genpd_add_device() automatically registers a resume latency QoS
+notifier that dynamically allocates PM QoS constraint structures, and those
+are normally freed by device_del(), will these structures leak upon cleanup
+because device_del() is never called?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-ux500-powe=
+r-domains-v7-1-v1-0-eb5e50b1a588@kernel.org?part=3D10
