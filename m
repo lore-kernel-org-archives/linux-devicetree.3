@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6453C5DA1
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:20:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41EC2E7373
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781774439; cv=none; b=llUnczDuRJy5o0/DQ8TjajAhlAgM8k/NUlIYgTlnA8sxTHkrgIwL1KJLvLjm6c84sGbJUcNnrkfE2BUHYdIAWb19g8rGoiav9w+dRl5rqSH4PHL68TCZnCgwAQTYm/fuY+XhDg6Mn1ICZcqNxOk9EJ+33jim0uWJk6eLaHUbf2I=
+	t=1781774501; cv=none; b=XNEawW9NKTWo5TEoxvtrTQyejwrMInlhRWAohNph7VvNkUVu5HMP302uBbL3Ibjzm4W+rXhWfbm7+JHBKZcJQDtlZ4dI/3yjNvv9n7b/VFuZng+VgUyeGS+U8Yq3Yf37Igzp+wKcrOsZoQPFAYmKcffu8NfK+xHYgqgSB5wSpns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781774439; c=relaxed/simple;
-	bh=7smML9Vc6YpfDvSpzbfSTTrpQeYp5UB/6AeWkoTZv50=;
+	s=arc-20240116; t=1781774501; c=relaxed/simple;
+	bh=+JRY2vnLqBy17ZUNig/gTeC7VWgu5aBL7LA3sxl03lU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Nmu5amjHdCS5JIDs85Egyqe32V8gwXbHX/UbyHNFgIpB52kjVj+n7cI8DMrjLYE51jtdTascKDMHy94mEcEM3AfuNVIN8wFrhdFKre/rHg8uHQ82E6S/KjLmE2DUSZrt48OB/jA1nzOPuTnwCHra7aANM2ykfaDkLoYltnWDdt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUBHclHT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=V7M1EZxbSmdU2+EB6AWMx81GSJSFjTG/1TSyxVAu7BToahC1hfs7RcMy6QAunaXUq/ReaxE3cHq046aWBGsflpK9Di4CF4hTstDFZjqTtQuhnBuuEqkvcTq22olvByVzGDQdd8iUwJt+EHwOu+xPH42wOFVlnZT6/cdrzIK4j6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T30ygV/V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUBHclHT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14AF1F00A3A;
-	Thu, 18 Jun 2026 09:20:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T30ygV/V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3BD1F000E9;
+	Thu, 18 Jun 2026 09:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781774437;
-	bh=cJz0SJtZXdsf1GrxBCFRMa395UmybfHcXqZDwsAKp60=;
+	s=k20260515; t=1781774499;
+	bh=kWL5A9H03mVR9PiMIQq7SvbjLk+YRl776lJthu784lI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BUBHclHTP3N/M/R6nRS4K54CmrIRr6GRAPqstl/i9gzPYm+QaenSIpZY2tCXAp2mS
-	 7up/PxaE7xvc5hmTmXIULSPpYlw8SNqXPdPzxlYbYe5znyhkWbjvFojK+owT76JwG6
-	 JLf7eWkvFDL9w3KrNgl3NznTZU3SZiHM6u2w0hV231W6Xs2rDfNp13k/X9cZk0J6GT
-	 bCcA6LMQ6xdqPccv2NBX/wnhvBKd19/CmPF84QQogwSaaxMfZ2z4UmWHucHQEIZeMA
-	 y6ew1HxjbfyM/EX/uqgs87xpIJuET9L38/QNqDUKOZcdZb9exATpm/UwmtDgCuPxoL
-	 0cBM88wJJHnWA==
+	b=T30ygV/Vm7ihT1DWlUOpjMD89kzQnk7VjUKCgvCnOYGF625fZ12g4DHleQNWHUdZJ
+	 f39ZIFlwW4C6u+VgyWmATsAJ+ldETBvM1bzE5mj+VxHgg6ferVcQKLuPnqbZqNQjtb
+	 PVsSJURA7NJLSL7nqUL3x4kYnv3G2PY+9dzC/oS1GmMcRwhJKTZY0DXGM5QS0/S5O5
+	 Hgw0BKUoiEugIKeOhO5vQ+ulgRsdAdPQyd1BCXIatQyKVrfDO9tVEzFP9hOVydFwCu
+	 aMKB1HE6PfB4YxZn3y1d5pNw6LQCaGgqKkPQjiC7BvI2giDKTKqED3IZWg/3ZWxRtW
+	 Wm3d4XYIvf96A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/4] spi: qcom-geni: Use geni_se_resources_init() for
- resource initialization
+Subject: Re: [PATCH v4 3/4] spi: qcom-geni: Use resources helper APIs in
+ runtime PM functions
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260618-enable-spi-on-sa8255p-v4-2-f5b5067e7e1e@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618-enable-spi-on-sa8255p-v4-3-f5b5067e7e1e@oss.qualcomm.com>
 References: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
- <20260618-enable-spi-on-sa8255p-v4-2-f5b5067e7e1e@oss.qualcomm.com>
+ <20260618-enable-spi-on-sa8255p-v4-3-f5b5067e7e1e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 09:20:36 +0000
-Message-Id: <20260618092036.E14AF1F00A3A@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 09:21:39 +0000
+Message-Id: <20260618092139.5C3BD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,86 +49,100 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Low] The `geni_se_resources_init()` function is missing from the kernel =
-tree.
+- [Low] The patch relies on APIs and structure fields that do not exist in =
+the baseline kernel tree or the rest of the patch series, causing fatal com=
+pilation errors.
 
 Pre-existing issues:
-- [High] Asynchronous `pm_runtime_put()` is used on error paths that immedi=
-ately call `pm_runtime_disable()`, risking the hardware being left in an in=
-valid active state.
+- [High] Hardware registers are accessed without checking if `pm_runtime_ge=
+t_sync()` successfully resumed the device.
 --
 
-commit e8e291bf8f15d73b4da4bf256d08b86fec92a093
+commit 8edc09ad870bfce8d07091d2faeae9667787e1f0
 Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
-spi: qcom-geni: Use geni_se_resources_init() for resource initialization
 
-This commit replaces individual resource initializations such as clocks, ICC
-paths, and OPP tables with a common geni_se_resources_init() function. This
-aims to reduce code duplication and ensure consistent resource management
-across GENI SE drivers.
+spi: qcom-geni: Use resources helper APIs in runtime PM functions
+
+This commit updates the geni SPI driver's runtime power management
+functions to use streamlined resource activation and deactivation
+helpers. It aims to eliminate code duplication across drivers.
 
 > diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 26e723cfea61e..09feb6577efcb 100644
+> index 09feb6577efcb..025165c4b9527 100644
 > --- a/drivers/spi/spi-geni-qcom.c
 > +++ b/drivers/spi/spi-geni-qcom.c
-
-[ ... ]
-
-> @@ -1079,17 +1074,10 @@ static int spi_geni_probe(struct platform_device =
-*pdev)
->  	mas->se.dev =3D dev;
->  	mas->se.wrapper =3D dev_get_drvdata(dev->parent);
->  	mas->se.base =3D base;
-> -	mas->se.clk =3D clk;
-> =20
-> -	ret =3D devm_pm_opp_set_clkname(&pdev->dev, "se");
-> +	ret =3D geni_se_resources_init(&mas->se);
-
-[Severity: Low]
-Is this function defined anywhere in the kernel tree?
-
-It doesn't appear to be declared or defined in this commit or the existing
-codebase, which results in an implicit declaration error and linker failure.
-
->  	if (ret)
->  		return ret;
-
-[ ... ]
-
-> @@ -1115,24 +1103,12 @@ static int spi_geni_probe(struct platform_device =
-*pdev)
->  	if (spi->target)
->  		spi->target_abort =3D spi_geni_target_abort;
-> =20
-> -	ret =3D geni_icc_get(&mas->se, NULL);
+> @@ -1130,16 +1130,8 @@ static int __maybe_unused spi_geni_runtime_suspend=
+(struct device *dev)
+>  {
+>  	struct spi_controller *spi =3D dev_get_drvdata(dev);
+>  	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
+> -	int ret;
+> -
+> -	/* Drop the performance state vote */
+> -	dev_pm_opp_set_rate(dev, 0);
+> -
+> -	ret =3D geni_se_resources_off(&mas->se);
 > -	if (ret)
 > -		return ret;
-> -
->  	pm_runtime_use_autosuspend(&pdev->dev);
->  	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
->  	ret =3D devm_pm_runtime_enable(dev);
+> =20
+> -	return geni_icc_disable(&mas->se);
+> +	return geni_se_resources_deactivate(&mas->se);
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential resource leak relat=
-ed
-to how runtime PM is disabled.
+[Severity: Low]
+It appears the geni_se_resources_deactivate() and
+geni_se_resources_activate() functions are not implemented in the baseline
+tree, which could lead to immediate build failures.
 
-If probe fails later on, the devres framework will immediately call
-pm_runtime_disable() to undo devm_pm_runtime_enable().
+Are these new helper APIs defined elsewhere in this patch series?
 
-Does this cause the asynchronous pm_runtime_put() called inside
-spi_geni_init() to have its queued idle/suspend work cancelled? This could
-leave the device permanently powered on after a probe failure.
-
+>  }
+> =20
+>  static int __maybe_unused spi_geni_runtime_resume(struct device *dev)
+> @@ -1148,15 +1140,14 @@ static int __maybe_unused spi_geni_runtime_resume=
+(struct device *dev)
+>  	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
+>  	int ret;
+> =20
+> -	ret =3D geni_icc_enable(&mas->se);
+> +	ret =3D geni_se_resources_activate(&mas->se);
 >  	if (ret)
 >  		return ret;
+> =20
+> -	ret =3D geni_se_resources_on(&mas->se);
+> -	if (ret)
+> -		return ret;
+> +	if (mas->se.has_opp)
+
+[Severity: Low]
+The has_opp field appears to be missing from the definition of
+struct geni_se, which would cause a compilation error.
+
+Does the has_opp field exist in struct geni_se in another patch within
+this series?
+
+> +		return dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz);
+> =20
+> -	return dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz);
+> +	return 0;
+>  }
 
 [ ... ]
 
->  	ret =3D spi_geni_init(mas);
->  	if (ret)
->  		return ret;
+[Severity: High]
+This is a pre-existing issue, but looking at spi_geni_init() in
+drivers/spi/spi-geni-qcom.c:
+
+	pm_runtime_get_sync(mas->dev);
+
+	proto =3D geni_se_read_proto(se);
+
+If pm_runtime_get_sync() fails to resume the device, accessing unclocked
+or powered-off registers via geni_se_read_proto() could trigger a
+synchronous external abort and result in a kernel panic.
+
+Should the return value of pm_runtime_get_sync() be checked before
+accessing hardware registers?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-enable-spi=
--on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com?part=3D2
+-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com?part=3D3
