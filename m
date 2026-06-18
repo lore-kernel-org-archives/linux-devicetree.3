@@ -1,162 +1,166 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568743CEB9A;
-	Thu, 18 Jun 2026 09:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32A93C988E
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781774341; cv=fail; b=o6hu6ot9vENpLtVy+tTPzJ6nECoTYF6oVs24Eh1Y8xmjxZR8XRWOnbWNdMrVBlavTTqHHKyo3ZnAPRe0yo7ov2xl+rzMMREGSsV0zB5rMIrLm4R5i2yWw2xks6wC6GjHfwaGVy7nFDriMAoAvQ0CJH97FQGL/VOynXMsOMy3MYY=
+	t=1781774343; cv=pass; b=nfBvBMrLPoWl9q8m+m19P9G5JScZzsmPO0Dwh02e6nTawob3ipCoOWGrYnbbittip8Fu9IOqCjweB1Ot1wfRlS8rqDHzPd6cuQxZ0Q6kBlfJ/fbfpPlHDPLzXc/hjsKl5zxgzEwVuMKByR5AsuArdJJXpfdjBc/v4+pJdWzkId8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781774341; c=relaxed/simple;
-	bh=ocGFzIqjgedXhmsuYVpVc4Ign5pWwU/PrFoqwkglNfk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=iWQBBWK1Q0EkprxrrCdifBvTrUN13Uxx4rIIQzFnJEyJMMZMqQvDE/jY9mCTFb5eLt7oQKD5cr4d80IqQo6jT0Q05Sm1xTxr2m5Yk70jBiHuV9jYfGGN8QMp+oP6fnJwWKwDSBYVMaFG8SN/jIZ6M/QjMh0z9vzwKKtLp1R74JY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=z/IgQZ8O; arc=fail smtp.client-ip=52.101.201.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1781774343; c=relaxed/simple;
+	bh=iXXS+DdvdpHDISQJAmld4xgdLVhKLH0Jazoj5E1xJKc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FhGTZNaQypvYJrfQm6RK6QjBiK/8sd1XBJmtk8aYTZTFSyzXT0HmcdqivSN7ibQ6yaSutMZCQEvaBeCc5nq6eFcvbxjJMeE3zOOI9xMqWURbyBcQ1xpkKKgdTnb/lwlNcm7Qv4ayMb3m4NFqDxm3EBfsJtugNbe4UN1qOe01/2M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svCHfmjW; arc=pass smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="z/IgQZ8O"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lvf16c4J5OzaBkS23EKn6Q9AC/RqrlppFegLk+hfJhFYwFqLKw+O1WY3PZViDpwRlR+bxo/vJXzadXEK/gCzlGbBv5EXZesEnMg3JUuFtGZkAIhRYpbY0dR/3T8gYQfePdWVXFE0WExZrgCgVHWECeKhaWXElL93hDjceMy1B+BguckK/0b8g790Vuqr+addNR0bFPo/d0xYBk7dws2SIrIpOQzyZekbi2ENMM2LlH5aIHu7U7o+E7B0C3VCRFJWFw8dFr7kH0170zn0Ee86F19s+AipwmbkkW8IU414Tvr1vtHpi/78AUFJM9Vpw8l6o1rtNA0WaXEyel+GGNbZ6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nTXxuWiKQk5NhTcVfjKUUVE2z59Ij1vyKxt6/CQDpAU=;
- b=nKdtEiMKKvs7zmNf4cXfyCOqFc3O8NoYWZ0HV3yvIy78X4tR7+KlbUQg8sHzWW1mCWwRpuTTRjeCJjkMW3AMDC5QriGahh5ZYHYt6yjABFw2haNhT4uMX984soVBQCBhv6c1qu+VdPkrWyEgdg4++ltMgtC7XA+LIRFkILv4Nay6gFDPS/lbY6lPxc1i5LmX7+ruznQSYYNmvBIXDGI7aY11DrnjKFf+e9TasyolnpfWe919Gsshov4WrAqNVHA2VURT+pbOcGVLOrakH2IqvElvnaHnKgx5u5rFPHGKl9PUUyQJKJOxfazdC7nch1T4pf07uYxAOceW6LIQRzpI+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nTXxuWiKQk5NhTcVfjKUUVE2z59Ij1vyKxt6/CQDpAU=;
- b=z/IgQZ8OoozKxKF/1xDtIcbKL32WBowZL8LG2EaHQTVGDyGETngpX3f77I3Is9FWiVp3OK2H0TbPfnit0KqISbIggVDlfsBOq3wHUg4OK0eOl9ZcgbfrnnLFHIUk+pizklZkhiDiN3mOABeo/1bGde6koDCV0bq+C9xHbObHprM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by DM6PR12MB4268.namprd12.prod.outlook.com (2603:10b6:5:223::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 09:18:49 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%5]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 09:18:49 +0000
-Message-ID: <c42b2588-b700-46b2-aead-e31d85ca7ed6@amd.com>
-Date: Thu, 18 Jun 2026 14:48:42 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: usb: ti,tps6598x: add TPS6699x compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, bryan.odonoghue@linaro.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260613162335.1490514-1-radhey.shyam.pandey@amd.com>
- <20260613-adorable-sticky-skua-6eec43@quoll>
- <9825384b-8e36-4c16-a10c-8abe9d000b56@kernel.org>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <9825384b-8e36-4c16-a10c-8abe9d000b56@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0143.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d7::10) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svCHfmjW"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-30bbe98c3f0so238494eec.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 02:18:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781774335; cv=none;
+        d=google.com; s=arc-20240605;
+        b=aobkzLNgkOO7MXYSa7YeSz4yU1ZLo65LtzXAmWPyfikQslA4jJesc02jifdvKwJmYP
+         sw9Nnh4KbqmbzfPij5n3yed+hjDsaJmzuNPJAbDrY012KUFsJKio7XFVzf7V3M1BPesx
+         IVW9BQ0HyTvjLlO2U34XdBp+mbMoCo+HV/PHWDRy9qu/4PXcqKFL+ePba1MIFAPj/ZR9
+         YqjijdhFgR8WUa9ubghaOcGrb3jx0VjyYkiipJk5IIjUtGF9dQ+IPRYejq61avRcnPfU
+         mrwLf7AGp91p7XByDgfPURACk1wcWSdQcbryZLJTn1xIVgknMLDsgXc4vLl4KQN6ynHj
+         75Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iXXS+DdvdpHDISQJAmld4xgdLVhKLH0Jazoj5E1xJKc=;
+        fh=HnH1yLOn3pG6G/VyBTbXJCx9ryWM5Lv77Y+0WkJdoqM=;
+        b=eJeC01Trnh/t8Zl11OAnml7wTqug9OiCu71QiNW0BLYxWRoLgh8RJyDQD50MPudPs6
+         3vU9WkeJ+n9NBlEp/mIoanZxd7Gitx6Xu6HQVIA6X7lK0yPmTIewJaRpWcfM7Gs5/gxT
+         FN6OdUu4H8Gd6ZxCtNv1RVveYTtArgSF3DhtYYCUUveg1I+aP3AgyIMJFxsWT0TO4ifg
+         LWifY7Nu+rzIaRrS79vL+EBfCmN0OGvDAboTpKw8zrmD+8urgwofYTDqWuPOno6F3yit
+         yx1fJ0vMm4cepvLt9N2WgPQynuJR3S2VWg4K8YVNIxsyLdMRe+KSJnlT8blQqG/lF6rs
+         Cwgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781774335; x=1782379135; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iXXS+DdvdpHDISQJAmld4xgdLVhKLH0Jazoj5E1xJKc=;
+        b=svCHfmjWdy9fVHTCYHHVhzuC4EYvs/qch4QmzwA/63gVMZiU4s3jVAoFEM0UM0UmSW
+         bwORU+3vBordIGCRTdOLg8jZxH2uuu/qW2lHQLlZkfZzHdoIFvZ0oZQ5sPe3m49HN88e
+         9MdPgT9CiKFwv9a3MwADBqK6FuKPdw1A602ShMH/PDErDAtZnXYC3Kh/oPHyu3LIUD+R
+         QkV9exODwC7oLGb8Yfj4f1eHMlGLnDyFAX2hvrBrqUtC9A+0ILgsmd9ODY8r6BmUkgUN
+         qUW4h/1nc3FNJvMdLzGQN4zQo/tgyYiOf1Hogt0Qnt1uLnORZ3c5h/nAOemQckpgi/jp
+         bpAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781774335; x=1782379135;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iXXS+DdvdpHDISQJAmld4xgdLVhKLH0Jazoj5E1xJKc=;
+        b=a3qZXFUfOhX0vBt05EWQ/tYLjLPY0CVdla4ixVQtxAgSyX5aJKPkt3iQYJa1/7rJQD
+         oXb8/g8UBgOmGHDTuOm+kwn/71WbO1ZkxgmpY+Ht7WfjaBqpgnawyhcqgncAsSv81xko
+         BXZOwcuIcdj8DSCIjBoNXFEmD16sdsrVtoB6jO1A3EUklKEAZEqpPO1e8qx2qpL7dqv0
+         GPxpw4fv5F2696yh91I+1y3QGSkobch9Rwx/QJZB9vrTX+KndL83MLqJTc3GzyB7XnDn
+         qkfuo6eO5oa3w2uuE/Yd4gMTx9UHsBE1EIop9z3YbPMMP7x8PlP+uW0JipcykAAQ3/aD
+         jiGw==
+X-Forwarded-Encrypted: i=1; AFNElJ+ejTaQXraCoLy5r5wgdPX9WrG8WaE1RgWafJC4uxwF5/pTSa+2ts5FqEpX0gMkW/70UF4z2kxmQJSv@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwxI9GqyKIpEpATm/zBUQ6i6GpDOP+1xsf1XOGmdgDaWiARoPd
+	2QXTUZzFbbS91OUonaC9SmPPzflHKt61anBMKDqet5BZUDZkY61qDzqeyQBAYwr3ekbk7EKTqvR
+	1gQxJnXk74PY/7GFNNjM9ZZj+LtrsytE=
+X-Gm-Gg: AfdE7cllDMNyiT92//SeKKfQW5XfocIIHeEUgkaAIFC8Eyd59KT2T7vx8dD70d2wrg7
+	jnjfcvUPWdFpWIDg2ckzThsl1ad9LSR9HyC8jcac98b3dmR9TbArSTxNxjy5uYfwPomd3sAvPBx
+	q30sSbtXYJtYcJN7+dfWrFSvvbB4DB9Zr5cltoZD1x1JaH3pvX+zAj3N8l4dp2KBsxad+5xpzgV
+	lCPO2ZzBh8FkDsjeeaLncy+SY65AJsmQzrUwggbmNcv+g1vFXr829dkK3TN39TCVdJGAZ16LQ==
+X-Received: by 2002:a05:7300:730b:b0:304:dddb:f8 with SMTP id
+ 5a478bee46e88-30bca20f8damr5812502eec.35.1781774335449; Thu, 18 Jun 2026
+ 02:18:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|DM6PR12MB4268:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b6caca6-69f1-406a-5133-08decd1a9b81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	i0fhP7I5fGOcWHMV8fR/mdyb2T7pUUlx0rJVmFYaVjpAZIwAg2NLoP2z1buCQ2dOxIG5SgoYWkq92gK3FKUM9c2f2CdNvjUvxNbGywIQ+mQraPjlkipmWew7wUHADSNmjPcAnL4prmRx0alTNEJHhFKU9xU9/ixuozOOXUVOk7v88PzEmU7aT0/1R8O7iwRb/TMUtTfDGDUd1GCBjE3G6o6JvNN0uwKzOVhqT0sj7H/F57a7ySYZqwJXPUhP1yHy//81PApl1ByGSni8GFtedssl38S/L4/phrfZOdTqJpXwpQav5UUkFQgGx5mYc4AAhdeRIRK0Uji1jtYmiXxrlZXgb5wEoWT60Ul0kISVgd5OFSxUPTWAqc9Ug9klm607VMKL3jiQ0UriAK5fQ0ZBvT5irge4VvheOIwlVln1gdhuu3JfFc8gxDYA8a8eISV0SKvA3yU9pfKskA6WCj6svRLTIC2VxS3CVmQvC6+BtURp5ssg0TOOmR/X44Z5mHC8bFN6j7rbqnWU5P3X4oxR4R1B7tLra9urmIoCroG7amFeljnVsHHRUDP5exZ7VoHHWuA1GPMfCt+m0u7oEDnEEBqlkHZSBlRxzKMKQ1vF/5nysOf+/7dWuhdwjP5sDLrFQFnbkkTtFHN/t+BWZHRk5rincys29sakelHz9RftL0Fw61fDbuI6D5rr12oUOOZ0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bmRUMCs0K21YeE1kc1BSUFVEbmhjTGc2cEJVTjFqTGJ5Rk9RcU83TzdFOGlT?=
- =?utf-8?B?bW1FL0c3bWRjRE1KbVVBMy85bVBVY2ovbEN3YngxbmJ2bjNsdjRiWWhrcjht?=
- =?utf-8?B?akhGTy9KUnduTGtPQmdLQ2pUeUgxcTRKNlU5bnV5bnVOak4yTCtOaEJrR2xm?=
- =?utf-8?B?dWVUSlFBOUUyaUZqUmxTdGNpRDV5ZTdzZG1QR1FSL0FGMWxGQUp3RVEycUVC?=
- =?utf-8?B?L1JneEEyc3dJZlB5U2NiZFlTd2JHWk9aOEJWRytCOGRpQktKVDZkMnZZY1hH?=
- =?utf-8?B?NW5ZbVNtdFJpblRDV0ZVeVlzbWs1MkpmUFc4OE1TNW56YVpWSU1XRGFqdDVS?=
- =?utf-8?B?NGhmRGR5UjF1dzh3dm5kOStNK2pjbVdIV1B6ZW9OWmM3NTBtTnJtU3ZDQ0hj?=
- =?utf-8?B?ckhrTmdqTkJmQjlGamVCOTF4by95eFFvTm1zOGNCTmIzRDdXb1lnYk5lU3VF?=
- =?utf-8?B?cFltNFFQSkhKMGZjbkh5TnFGQmkvVEppYzgrUWV0RkIvMkN5Y1hEWGFYOFBu?=
- =?utf-8?B?TmVKWU5nSVZJVDE0L09hZjV4MFZnRERwYVUxZnE0QjZ6TWRmSEF5Z0YxWk9K?=
- =?utf-8?B?L25lT1RoZUNhdWh2VVVNSTM0MEVNdDlLSmdxTE5kQ0dtdTk3NGZpU3dZL3ZT?=
- =?utf-8?B?T25QN3FCbWFqMkVIVlZZa29NTktBQUNLbVc5c1Nzbm14OXBYQm45d2QwQnhW?=
- =?utf-8?B?ODk3bXdPeXhOK1RlaFE3RDlqUHpFREtYYTFWQWo3TFlIbTdxd2QxbmpvYzBK?=
- =?utf-8?B?Q3JnUlh4ZXUrQ29uS0xtdmdVSUpDajFPMmJhVlZselgvWjhJOWxnajQyWDdJ?=
- =?utf-8?B?RHVBK3RBNmRQakdydnlmd3Y5L2VmUE9naENENGkwMmtqNWZINlFnbmdrbE1I?=
- =?utf-8?B?ZndvaWx4Y2dReTJSWFd6TlBJZ015WktWK0cvRStkdG1hNDJqd25qYkRmTDh1?=
- =?utf-8?B?ZFBEWitwWmZEK0JaN045L2NQMlhaMlpjdzQ1aTJQc3dTb2MwWWwxcTJzVC9K?=
- =?utf-8?B?MG10UjhlcEVIUnBrS25VZWZsT2V0WTNETm5nNU5sdndWRmJxWUxLK1FjSXN1?=
- =?utf-8?B?MjNnQXBjWXNmZTRYNlJZSkpBdk5EcUVteitOTGhtYUw4MjZBaVRMUmNnVXJK?=
- =?utf-8?B?WWRpd2ZTajUyNlREOUVsV0lGN0RnM1dFcEwzeDR5QUxlU2Q1QlM3L24vb1gr?=
- =?utf-8?B?ckRlUHFObjJhbC9Nci82amNDSndQUVRZVWl2a1pvQlZVOE5Kaml1aTl1cXYw?=
- =?utf-8?B?U2NjZldhZGpRcmdTeHlBWXdWOUJRbEpoYmVzVzl5V2pXb1lqNDhPa01GdE5m?=
- =?utf-8?B?cE12SVlDYzVnbkx4RHRhajZjM0NKUllEbzFmKzdvNWE5Q0FXTTB1bVdZOHhF?=
- =?utf-8?B?NEp4MDR6NmdBb3hsTldWK1JoU1BFYU9VN0l5VFFVYkZETHl6b1lxNUIrUENY?=
- =?utf-8?B?RVVVNnBjVGFqUk92eDdDN3UwWjUrczhjU3JKdDIyN3dTSzFTM3ROeGlkZGx2?=
- =?utf-8?B?QmplakF0MVliSXR5UHEreFZtVGcrL0l6S2lkakgwOFg3SnR3Qld0N1J5MHJ0?=
- =?utf-8?B?ZWxmc1NuWEF2YVVybmxJbndrVGU2Rm1kT1RENFAxSnQ3WXN3Q1pEdCtlQVdD?=
- =?utf-8?B?dk90TWxOblBLSVNyK25TU3A3UHZGWkpzTVA2bkorYlBtVzIxRXhrcmxZcGNC?=
- =?utf-8?B?QU1TVTVyMzNLN1UyT0NFQjdOUTRyeEZBWGZiNEo4UHFvYlJOVnRWZTl0ZkRs?=
- =?utf-8?B?ZEwzSlVpV3UweGg0NDlmVHEvVjNsc2VGc1c3TndQL1B0TVdSb3kzTjZFenhW?=
- =?utf-8?B?bzRVRWlwRVU0TmsrRHhoZms2TytPeTkvT0JDNjVLTjRGaVRxc0hXSlFpYXdM?=
- =?utf-8?B?VkJJeWZRWjlXaGdGTXVGK3FMZ25OSmtFaUtSNjJJTmlMVWVGaTVJWnpuaDE4?=
- =?utf-8?B?WFN3d0JDdEJGYWtoMFltR1dWaFN2RFpxc2ZjZlh6RnZVbXNkNnV6MFNhd3gw?=
- =?utf-8?B?S1lsajFDa1phZ1lwbDFndmNmR2owT1BIZWNJWXNPcWowb1pPeXdRMWg3blZB?=
- =?utf-8?B?YXRzTXduTTNhZjRJdm1lS0tyWkdrN1dUVExBcTdaSk9MVGlDanBHSnFRUnlD?=
- =?utf-8?B?WEZlY205ajk1VTNkd3p1a3NMZXFWVVh6REZEYXlJUGV4aHFGQmJXUGhJczZC?=
- =?utf-8?B?YUtIQytJU3VBbERGQmtFL3JvcjhjWVA1b2xLbmxIL2tpUU1XUmJ2Zy9hU3h1?=
- =?utf-8?B?MXR4V0JUS2FWem1NQnVRcmVPSDNDY2h6MEpmRUtQL2ZXdzVMUTNDaHRwb2x0?=
- =?utf-8?B?M1FFL0VFeGdOSm1QVVdEeWtRcTlFZCs2WUhQQnZFbWxmYWIvU1p4Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b6caca6-69f1-406a-5133-08decd1a9b81
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 09:18:49.7717
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BGUZKw8tNryOI+M2q2BxnlGe5/sjdbNoYMvFTm1ppY3kKN2uhkb2k5Dw1KPkmmht
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4268
+References: <20260528053203.9339-1-clamor95@gmail.com> <20260528053203.9339-5-clamor95@gmail.com>
+ <ajDPtOyr8GJYaVYQ@google.com> <CAPVz0n2fnM6zYtP9bCtsY9mcLdce_R+1UPmMo0o4JRgjnhuhKA@mail.gmail.com>
+ <ajGyejCSRMhY4G2R@google.com>
+In-Reply-To: <ajGyejCSRMhY4G2R@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 18 Jun 2026 12:18:42 +0300
+X-Gm-Features: AVVi8Cf9TbqQeyGuWNgkeGWahIsHp2X0krUtvBhwls2q1omyQtqvEQF6YkA0rCg
+Message-ID: <CAPVz0n0r-1SXH_dfS9HkQJrF7e-6+O5Me2bPjcscnizmfTfjZg@mail.gmail.com>
+Subject: Re: [PATCH v8 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On 13/06/2026 21:08, Krzysztof Kozlowski wrote:
->> On Sat, Jun 13, 2026 at 09:53:35PM +0530, Radhey Shyam Pandey wrote:
->>   +  switch and Power Delivery controller.
->>>   
->>>     A variant of this controller known as Apple CD321x or Apple ACE is also
->>>     present on hardware with Apple SoCs such as the M1.
->>> @@ -19,6 +20,7 @@ properties:
->>>     compatible:
->>>       enum:
->>>         - ti,tps6598x
->>> +      - ti,tps6699x
->>
->> Family compatibles are not allowed. Please use specific models,
->> expressing compatibility (my slides of DTS101 talkmight help you if
->> something is unclear).
+=D1=81=D1=80, 17 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 00:2=
+3 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, Jun 16, 2026 at 09:25:25AM +0300, Svyatoslav Ryhel wrote:
+> > =D0=B2=D1=82, 16 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+07:26 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > Hi Svyatoslav,
+> > >
+> > > On Thu, May 28, 2026 at 08:32:00AM +0300, Svyatoslav Ryhel wrote:
+> > > > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > > >
+> > > > Add support for multimedia top button row of ASUS Transformer's Mob=
+ile
+> > > > Dock keyboard. Driver is made that function keys (F1-F12) are used =
+by
+> > > > default which suits average Linux use better and with pressing
+> > > > ScreenLock + AltGr function keys layout is switched to multimedia k=
+eys.
+> > > > Since this only modifies codes sent by asus-ec-keys it doesn't affe=
+ct
+> > > > normal keyboards at all.
+> > >
+> > > I think using input handler to intercept ScreenLock + AltGr is quite
+> > > awkward. I think this also passes the original key events (unless you
+> > > make it a filter not a regular handler).
+> > >
+> > > I do not see benefit for reacting to AltGr+ScreenLock on other keyboa=
+rds
+> > > to activate the special mode on this one. So given the fact that you
+> > > already mange the data stream when you split it into "serio" ports,
+> > > maybe just intercept this key combo right there and create the input
+> > > device and signal input events right there?
+> > >
+> >
+> > Though it seems awkward at a first glance, media keys are integrated
+> > with a standard keyboard in a detachable dock. It is highly unlikely
+> > that media keys will be used with a different keyboard then the one
+> > that is integrated with dock. Additionally, the ScreenLock key has a
+> > code specific to this driver and is not in general use, so even if any
+> > standard keyboard has AltGr but none has ScreenLock specific to this
+> > driver except the dock itself. Handler is also set as observer so it
+> > should not interfere with work of other input devices.
+>
+> I am not concerned about it interfering with other drivers, I am
+> concerned about it unnecessarily connecting to unrelated devices
+> (anything that declares EV_KEY).
+>
+> Again, I think having input handler is not appropriate here. I would
+> fold this patch into the patch that introduces the 2 serio ports,
+> enhanced the data stream analysis to detect your key combo, and then
+> report through this new input device. You do not need to have the round
+> trip through atkbd and the new input handler for this.
+>
 
-Thanks for pointing it out and the recent DTS 101 talk at OSS India.
-It's clear now , will rename the compatible to match the exact
-device i.e ti,tps66993 and send out v2.
-> 
-> 
-> And where is any user of this? Why do we want this binding in the first
-> place?
+I will try with filtering first if you don't mind. If that will not
+work I'll consider folding. Do you have any good examples of handler
+with filter to use as an inspiration? Thank you.
 
-There is a user of it and will include the driver patch as well in v2.
-
-Thanks,
-Radhey
-
+> Thanks.
+>
+> --
+> Dmitry
