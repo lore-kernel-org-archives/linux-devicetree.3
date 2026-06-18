@@ -1,150 +1,138 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB6037F8AD
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF893C4548;
+	Thu, 18 Jun 2026 07:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781767059; cv=none; b=P9cO4qUg0l4DA36vyRtjdQ31jFEhk9zoEaCvJB9qdOnFrrxjMK+0oqlDM7QGIZlIcmH3pqsfqIYxaV1JZzEQxswr1dJT2JHt0sJQYfBKL85z49lGuI7EnWnV9+hErIYtpna2kDHYBDTn6VqA6x2VvHraiN3S0P2kHXgJwMZaaDg=
+	t=1781767236; cv=none; b=nHYiEZGs61CRV4Y3SXInDZZLVbGQZECq3juWUclv9hBSPFuWwPFmCSn9JWTK7AchPKwKVQkH4xe+1cLaJ+Mi2QvOsdacVN53ZyapysZ/bOk8geAXrX2vD9TC2AAHNwmWu++Cod7zgSQPYmM0a8VKh9ZvE8PgsaHHrQP4pbD0F+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781767059; c=relaxed/simple;
-	bh=tfbcEFHyRGxmt/ZNMjfmkNiTbtmi4aiIGAAer8bH9z4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qVAYoEi+BidjWl8XAHdqlkYT/lUMY5Q6U2MatOcO9xMuIgw8quhYwlUfCZGIhQbBO6KwTcW5uNtqHjdIRMUms4GkqitTIlj82bONn8BmIhLLJkgvqFNAp4evAeypnbbWBwpqbbHdNdbqAGNhNFD1j3DRDfHCoh94oxTotrYiHOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so200723241.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 00:17:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781767057; x=1782371857;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=xzQ4TuItSjjDfqcY5h5uPw4axpJfO2Kzm9zj8eN9JJg=;
-        b=T52ExzF9kPo4N7xFnagSThB2L4aF+bgznEiaznzoPlm6Flr3Z6hbChuyn4bvq6Vso0
-         cPuGI5zWnNwhRlnna9t+pCXsxcu3mzBcwHnMAyCDtWoSC4SVYrxD80HsI73Il0IJRKJr
-         Ewv2IEkw3NPyS8srd7/IEomRM27Vyqj0u97d1eSezCEDofA+YaYeHl8WHrFspX5xi9Un
-         Dje4fwfj7OOfUpX1dwrL4opHmG5ovcJiz8+TaEFH4YA8YKzgOdg7fCGRtAt2W2kJCRxX
-         5zvLl8Nk2ez5TBHol8+jeK4jAE7KEblytMwzpwAfaph/CFK3IOZD+kJB1fvG/Z0fG/F1
-         tWYg==
-X-Forwarded-Encrypted: i=1; AFNElJ8nW/TmxowXzv0VHEX8FMbmghQaOmbuFpmpbx2zzFQG6bzI9bGaksqKbBFSagjPuEfsYPTVNGzBQR75@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHQ6D5HtorGPvR6o17FKS8xdJpD3sRWIaSxQxr/pIE0rwkEw45
-	+/SH1Gixph10/x3OY5obcv9BMetXKgYrkn2wEQXAUI/FvtwrIgmM7NqU1P01wEN2
-X-Gm-Gg: AfdE7cmaKly/twTo+irDy+0shhoeUSuXc4QLxwXaWIOiEvau8ueOkRvsTKpZ50hmQGl
-	xBZAixSxZzedD+MjpXTMPlPELDMdsZLuWwyMBuDIiuXDUbebvhJahonHgHxr2LEVNF1i0clzNMR
-	JUhHHaNxXbAj7ZQ8v0VeTB9ZHlmmKGPuaNWkkGWZfnUS3UZmAp/TIR9/WNkUYlKR0TJSGN5by3w
-	cEWNlAj52vlzZxfvSF1A2rvCTdYfNDmovDvuuxNfRu7TYnzmzif4EOQuZL8HXua4K8qGzyJqFvp
-	QW9RmuRa+v5Er9hOZ8g6A5dkGLRyzrkPByUbI1wCYqL2pGD//PRLtHd83sRJk7rrxh2qp92MiHV
-	Lf06A0mOF0+9luPRPmthxhq0C4j2epaIUiuzKoeHCrAoyoKxlS2rPLBOBw7r6yPSUo70tr+UTnm
-	M+PlMMeOmy+FoG71MDkmqhedlydMYTRzzh7qnII63PMSNuUalAtwh6ULsBHsZg
-X-Received: by 2002:a05:6102:5348:b0:728:572d:80a1 with SMTP id ada2fe7eead31-728572dace9mr910641137.21.1781767057416;
-        Thu, 18 Jun 2026 00:17:37 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966ceca5f6fsm4442625241.1.2026.06.18.00.17.36
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 00:17:36 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-6cfd17e9250so255265137.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 00:17:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+BXCR5D+4pOFNVEpuUeKQeMEknmn/9fqjRz/IJ/v1LLCZ9TfBN3Zz72s5b/vPMSvPbgFrEMQjSfMI7@vger.kernel.org
-X-Received: by 2002:a05:6102:3f51:b0:635:1bc8:3563 with SMTP id
- ada2fe7eead31-7246cde4ab6mr4100174137.20.1781767055966; Thu, 18 Jun 2026
- 00:17:35 -0700 (PDT)
+	s=arc-20240116; t=1781767236; c=relaxed/simple;
+	bh=Jxc1Xt87zK7PJTud6+AF4387hglSIhjNt2Aq/CyZxAc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lNOn1UWrPFmHzL/G5+lvZoClmrtPJzkpMbUrm4UD/G+eMr9FLjVYP3XjUt44qBoG8zo46qP6dR+YNHLqBtkr3DCau+Rg1RHSBXcQSCZASI1JtNEaOYwMmgHT7U6TekG/8GrfPV1ghlOuL20c6HM7iK8Rt1DX9pdUiFuNHFaLuBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZAjktbS; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZAjktbS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A481F000E9;
+	Thu, 18 Jun 2026 07:20:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781767234;
+	bh=As0/LnI6+OcaBsgMP7BjAXMFViZQzf0n7GoqXvf85vc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kZAjktbSuXsFAOziR6q5OgbQNAz+l6OAWeWAhiA3bnRNJxiMKtTSm3vlevOVUPXHq
+	 /N750WW3zg5fPqnxPFwGysaEQkBsXTEbnNJnh2eGkaBsygZGhvYYT4OvIwivozM3Xr
+	 R72A+jeb/YU1bJL61RqNcbyQP8PA8RIGGV6jPQdfkUsgNawKqsot69kQ/jGObKkUFj
+	 JZ6G+n2AMTk+fd8Ory4dC65kODzv2bhrWCA3VQpwAKsK3Cu1FEYe/On2FM0w1izh+m
+	 +oLGUipZ7ViWIh+GqCYYsdgb1LWlJQe5F+xh1KEqxFrLeiJWgybc9zPhdiBropTkKk
+	 Uqy6PCnp9UxPQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/11] ARM: dts: ux500: Remove DB8500 EPOD regulators
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: dmaengine@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, vkoul@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-11-eb5e50b1a588@kernel.org>
+References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
+ <20260618-ux500-power-domains-v7-1-v1-11-eb5e50b1a588@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 07:20:33 +0000
+Message-Id: <20260618072034.20A481F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CAMuHMdWBeaTB4QK5vvB0CQm+yrX1ps3V2EtFu0Q4a0JG_94f7g@mail.gmail.com> <CA+V-a8uixCr+LZ+2SrX1b2p3nNwkq8=ctdpzx=BF9OcR9eJW1w@mail.gmail.com>
-In-Reply-To: <CA+V-a8uixCr+LZ+2SrX1b2p3nNwkq8=ctdpzx=BF9OcR9eJW1w@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 18 Jun 2026 09:17:23 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVx_SS0w=x4H3WUb4BdnOXQOxboeFZwmvhP31HLoQNNkw@mail.gmail.com>
-X-Gm-Features: AVVi8CdwNDnTBvDYfJRjdNKhkzB68fOeQnOFgapo4u-OWjhPO9Gwwv76NFhl4Qg
-Message-ID: <CAMuHMdVx_SS0w=x4H3WUb4BdnOXQOxboeFZwmvhP31HLoQNNkw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/5] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
- frequency for calculations
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Prabhakar,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] Removing the EPOD regulator nodes and consumer supply properti=
+es breaks backwards compatibility with older kernels.
+- [Low] Removed EPOD regulators and `epod-supply` property are still marked=
+ as required in their respective YAML binding schemas, causing `make dtbs_c=
+heck` to fail.
+--
 
-On Wed, 17 Jun 2026 at 22:17, Lad, Prabhakar <prabhakar.csengg@gmail.com> w=
-rote:
-> On Wed, Jun 17, 2026 at 10:48=E2=80=AFAM Geert Uytterhoeven
-> <geert@linux-m68k.org> wrote:
-> > On Mon, 15 Jun 2026 at 12:48, Prabhakar <prabhakar.csengg@gmail.com> wr=
-ote:
-> > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > >
-> > > Introduce a per-SoC PLL reference input frequency parameter to avoid
-> > > relying on a hardcoded 24MHz constant during PLL configuration math.
-> > >
-> > > Add an input_fref member to struct rzv2h_pll_limits. In the core
-> > > calculation helper rzv2h_get_pll_pars(), derive the base input clock
-> > > rate from limits->input_fref, utilizing the conditional ternary opera=
-tor
-> > > to fall back to 24MHz if the struct field is left uninitialized (0), =
-and
-> > > drop the obsolete macro RZ_V2H_OSC_CLK_IN_MEGA.
-> > >
-> > > This abstraction permits the reuse of the common PLL divider logic on
-> > > newer SoC platforms like the RZ/T2H, which feature a 48 MHz PLL refer=
-ence
-> > > clock input instead of the 24 MHz signal used by RZ/V2H(P), without
-> > > disrupting existing platforms.
-> > >
-> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com=
->
-> >
-> > Thanks for your patch!
-> >
-> > > --- a/include/linux/clk/renesas.h
-> > > +++ b/include/linux/clk/renesas.h
-> > > @@ -53,6 +53,9 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8=
- divider, int target) { }
-> > >   * various parameters used to configure a PLL. These limits ensure
-> > >   * the PLL operates within valid and stable ranges.
-> > >   *
-> > > + * @input_fref: Reference input frequency to the PLL (in MHz). If se=
-t
-> >
-> > "in Hz", as pointed out by Sashiko.
-> >
-> Agreed.
->
-> > > + * to 0, a default value of 24MHz is used.
-> > > + *
-> I'll also replace `24MHz` to `24000000 Hz`.
+commit cc40a973d5076813fb2d1de31c4ef7f4d0231e78
+Author: Linus Walleij <linusw@kernel.org>
 
-Personally, I find "24 MHz" easier to read.
-Counting zeroes without thousands-grouping can be hard...
-https://lore.kernel.org/CAMuHMdUp3fOkAttk2FKJTh5svaiMwgu4JZ8utPeHghU4TQLE-w=
-@mail.gmail.com
+ARM: dts: ux500: Remove DB8500 EPOD regulators
 
-Gr{oetje,eeting}s,
+This commit deletes the obsolete DB8500 EPOD regulator nodes from the device
+tree. It retains only the VAPE and VSMPS2 compatibility regulators.
 
-                        Geert
+> diff --git a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi b/arch/arm/boot/dts/st/=
+ste-dbx5x0.dtsi
+> index fd6a075e4c93c..18727953a8630 100644
+> --- a/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> +++ b/arch/arm/boot/dts/st/ste-dbx5x0.dtsi
+> @@ -663,97 +663,17 @@ thermal: thermal@801573c0 {
+>  				#thermal-sensor-cells =3D <0>;
+>  			};
+> =20
+> -			/*
+> -			 * TODO: Delete these bogus regulators and replace with power
+> -			 * domains.
+> -			 */
+>  			db8500-prcmu-regulators {
+>  				compatible =3D "stericsson,db8500-prcmu-regulator";
+
+[Severity: Low]
+Does this commit also need to update the YAML binding schemas?=20
+
+It appears that Documentation/devicetree/bindings/mfd/stericsson,db8500-prc=
+mu.yaml
+still mandates the presence of deleted EPOD nodes (e.g., db8500_varm, db850=
+0_sga)=20
+in its required: block, which could cause dtbs_check to fail.
+
+[ ... ]
+
+> @@ -1215,8 +1127,6 @@ gpu@a0300000 {
+>  			clocks =3D <&prcmu_clk PRCMU_ACLK>, <&prcmu_clk PRCMU_SGACLK>;
+>  			clock-names =3D "bus", "core";
+>  			power-domains =3D <&pm_domains DOMAIN_SGA>;
+> -			/* TODO: delete and replace with power-domain handling */
+> -			mali-supply =3D <&db8500_sga_reg>;
+>  		};
+
+[Severity: Critical]
+Does removing the mali-supply property and its target regulator break=20
+backwards compatibility with older kernels?=20
+
+Device trees are considered a stable ABI, and older kernels lacking the upd=
+ated
+ste-ux500-pm-domain driver might rely entirely on the legacy=20
+db8500-prcmu-regulator driver to power these components.=20
+
+By aggressively removing these regulators, older kernels might fall back to=
+ dummy
+regulators and leave the physical hardware unpowered, leading to crashes wh=
+en
+drivers attempt to access unclocked and unpowered hardware registers.
+
+> =20
+>  		mcde@a0350000 {
+> @@ -1224,8 +1134,6 @@ mcde@a0350000 {
+>  			reg =3D <0xa0350000 0x1000>;
+>  			interrupts =3D <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+>  			power-domains =3D <&pm_domains DOMAIN_B2R2_MCDE>;
+> -			/* TODO: delete and replace with power-domain handling */
+> -			epod-supply =3D <&db8500_b2r2_mcde_reg>;
+
+[Severity: Critical]
+Similar to the mali-supply removal above, does dropping the epod-supply=20
+property break the display subsystem power management on older kernels that=
+=20
+rely on it?
+
+[Severity: Low]
+Additionally, is epod-supply still required by the display subsystem bindin=
+g=20
+schema? Documentation/devicetree/bindings/display/ste,mcde.yaml seems to st=
+ill=20
+mandate epod-supply in its required: block.
 
 --=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-ux500-powe=
+r-domains-v7-1-v1-0-eb5e50b1a588@kernel.org?part=3D11
