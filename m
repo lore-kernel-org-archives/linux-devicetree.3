@@ -1,137 +1,189 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E1A3EF0A8
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781779783; cv=pass; b=DcRdUZ43lrp4tK0seQ+D7U9Ame0Pt/P9QLtExtiWiJuDp3EHZfHjBrtsf0uih2NWsaWhT7368/vDzfOKsxzcZUAEJvjunFKM+TVcWtKvXJHMDo7G7oSnsAtpq5fcwK4vKMmzBYaaxrqBO71ILJ1Uzm5+vhaKtMT8jSOkjbR88pc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781779783; c=relaxed/simple;
-	bh=i0LPAIbHaQDaHzL0HbBEibfN6MdLfmwe/8X8xZtq9KA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MPiU4RzDwFL66VckLkgUpeiZQww8oJDcaXNPfdltJbW+2OYaoERNoVAIIXQgbE9o2uE0h8rmgRZqoROarG8Rlgxw11LNvpeY2r3wb6LF5zpABQYQ4GtolJuvZn15LaRgbIVAJHC2naDAANtd86YLhr39cb4CSleYYXrjGfpuE/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J3wENa60; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A043EFFBA
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781779878; cv=none; b=Q6HEfdViN5QqBx3Tq8oMN1o0JUsUYqETRn8eVDAVbCS6oLHRPd4d34AO2OK4ThP2HodZuYaEGNcMdunn6SLD4rK1gMhJKmX3BI7tFatmSugaMftSNgFsCtoYvHxhPOEiewaRlk9JV/koXuEyZSVWHJFwYUvemUXAxOuHrIEqzIg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781779878; c=relaxed/simple;
+	bh=GtAjYXmPGxnwaGEw/Du49sp6idTnlDczLHJXmY2DajA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nIoOJPcbdWa2uvbs4M8biOng1rN9AeWaxY4qJLis5ibLW9SaZY7Yv7TfuAli/DKj8NuV/YCtEGKG/InUaU3EQ9y/nODNNgojiwRgbmlNcBheHM2YZ6w32PZBo+LHjRnVSVQ1Diz+3BWvm5ATzyIsPvjVUc3QzA78AUgpk54ye8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vituv40R; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J3wENa60"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so14660945e9.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 03:49:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781779779; cv=none;
-        d=google.com; s=arc-20240605;
-        b=CBnxvliiTEgcuJcgpJK36P2peh7vVBxDNuDOsAiM3z4EP5vDgOQN+RpL9CkjALjoHf
-         CesbBLQV13O204xeb9e3pnZ62wP+c3qAqSJWDL5NLYDVRFb092oZk4s2IfDUzeYcurWQ
-         bFlET4Uo9kaGa5vKzLNVGPCVIkXNX0yYwj3R4TfRVF8/wICGr2RPG/G8n8LiUT5ncQWB
-         zT3xRHDODfT5aPp+zSeWnrjr7/4DGwqKA0bwFXXMO5YpK5UTVJjSIRRRWA317FpHpWTb
-         M3CuU3/EDDcZjNtUV3fGsFlvo4Ftvlb/iLM2YzgaIUdkU/eBO1U/m7smLBKmGaL30Esg
-         VYig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i0LPAIbHaQDaHzL0HbBEibfN6MdLfmwe/8X8xZtq9KA=;
-        fh=2Ex9Hjml3PoCfF2aIererOISL9r13TlpfqpE68NhlpI=;
-        b=Bk2xm6QrN79lZbYNARiDJTFC1NbYWcZJkXX20wAX8mX6f+DBHoKGbqZ+SnWDZgMBOs
-         XKRPcXjxctnrS3ND1ETc4VpqqfHeBJr6m0b63s0H1vtNnxM1oli5ROEdMNZCJlgRlwPp
-         4HMRZAPCJ6yBKu9mci6C+KjPTf7UU4ZwZ5ndDOoQ0o8Bo3ZuUEYhXnzaNYD9aBs3MPUO
-         Kg/lMjjGSFRfiDiQgWaQ16guMMeh0b9HoqzsftCJ+btjXysyr3MvYOd8WMJ7i71MNEhs
-         BUXSxX3V0nUdyML4kT4Ii0H8+9aczJJO8AzkP9MEYA0E3/25AexBEESlLSjq76dPElPo
-         r3tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vituv40R"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39666c7c910so458191fa.2
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 03:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781779779; x=1782384579; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1781779874; x=1782384674; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i0LPAIbHaQDaHzL0HbBEibfN6MdLfmwe/8X8xZtq9KA=;
-        b=J3wENa60BJlFNPgu5MC4i8o7aET2JQXdZf0KIVpQfaukhLBv64LQ95aqYHz16NumqO
-         wVs72vDzV/+tbrkOSActWfKatfDdNa4FCH/TmNHeNpc6vOq5l60i5LtJv9I5jvrXmIBZ
-         CrYtRsnxP3qMJoXyJ6uqQXK1rLArAZyVb+bTPeAJ5NVsU7Tl0e0KFtBs6r57HCrkd7Ct
-         pZRbdnf5RLUgZoIrPizosgZCpMNGXKNGTvCp4n/DmzGYxtQKZls/yBBbOF6FlWJ+/5WQ
-         TBb+b780RtxjB+3x80FDQMrZBbu5U9IiBo99s+kCzVcqjaz/lYrKXfakjTsRX7SbKi8B
-         yZPA==
+        bh=KNAKlXEYaxZFctOwMRDsRkHXgZuOff9zmqCb7Yt/btk=;
+        b=vituv40RXz2rbZTD8iv7pmkp5cHQK6eDQgh8xgImIKX1xk1emY5fYwzXzevFZerCCl
+         s3DLxZuOfALLmqcanI6c/jLpi0w4nkyKfYn9GxhyciodTsiRnpOjrBD9NrPgPN4KOwWi
+         Gj3qdm4ZoX5ZhPNSi8PcAF1x1VynNFyC1IXXH5Ql+KeWa4qMBpPg9gt6K5SFSZieEwOd
+         V9mYmKOKkE07dsHdqOMPvtqgQ1iN8430L2SPtPCn+iEC/UDG2lN2JBMxK79Dj2COwhOK
+         kNYCBYqj4ohSndpji/ztM3gz4f7/WvBTpFCXUWzdBNEokZjFaVgqRoIc0CMyZYvH9Ukv
+         hMZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781779779; x=1782384579;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=i0LPAIbHaQDaHzL0HbBEibfN6MdLfmwe/8X8xZtq9KA=;
-        b=lQa2Bu8Vm1fDQ7cEmfVV6PBTfksMh6/y9/Yi5yYOKARHOyyusB/We2fbexl5OEhAnK
-         DbSC676qHGg8LRGQRgLUgl+tRC1v/GhBxh8urA3H/pAKXhgevbexdDIAuXdriMmeopo3
-         CaAiDRiA4mmN1Qw8qz+RSkZxtbpaPpgQGXDicWev8GddEjWsmGXnzMOw9k1jb08iZqJE
-         EgoJE1BLwdUOEWwzQ9LQ7eyZUiLSfRzalr7DEurh7g4IdIjPHMdu2kYjR63/6/b81+Sn
-         Gnp5qxUXpEcYbgkNVa1pi3OGx7hfflAV0vR0lWSWOKh0dDmkR2UoXW+3yWdF2N/e9HzP
-         /ZDw==
-X-Forwarded-Encrypted: i=1; AFNElJ+fzK7jXt6nWg2Qa1BxyD5AoxyergY392iTbFOlJWKpG41r56E6g0lzrv1W8KJr1h4QpV8kJW9ImQET@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxq1l6JPXWHWquE04zztfDQwHGCxtcUUybg24/07bu9ozuCYZPO
-	8GB4sitBspmpSl+d6nncA2CVVlmJCXq/sW+iIRq1nv7qoKfaCXy34etP5CRP3LHpq23lX4/SRQC
-	ouTqlH6gTCQGG3MrPz885PlrZhfTgiYb+E/EsU07YQw==
-X-Gm-Gg: AfdE7cmWwmqs3GDihp0CNsyCgU7F283vw35VP6mEcYPeNbJhDyTAmBYqJRxjWb5gMjX
-	wcfGaMhK4M9PpzbT22on073nkXtxvyB6etjxhYmuQ+YvUAx6EOjuT+CX0VTkWcx1sUlzKH8Zodm
-	TrafvXLnLJWFXZ9effAgyl5Kk1A65WVqOrXym9AjzclT0L5+IQajLcyWll+9Cvnpvp/lkiszp9s
-	+nZr0O21qmDfru8qCC/2kXv/0IOhjJMZ32DmmIm78Y477B2NfaIQ3cmyRFKHXKOjfNCDDxw7LMo
-	g6t+omaE7DpkebqBKttZWzogDh0qcEabQxLAGPwh+5mO77ZzmQbLNS4a5MSiYhi40ZYhs/FV/FK
-	U3PkhPk42n5lZJ8w=
-X-Received: by 2002:a7b:cc18:0:b0:490:af46:5c68 with SMTP id
- 5b1f17b1804b1-49238169164mr41010675e9.7.1781779779249; Thu, 18 Jun 2026
- 03:49:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781779874; x=1782384674;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KNAKlXEYaxZFctOwMRDsRkHXgZuOff9zmqCb7Yt/btk=;
+        b=eo/1WIiop7CjX9Yw8Bf9tYq94jRs+w6fJTAJ5+7WaREtAySesDBLAZi//9P2U7kUQQ
+         b+hGj6quaMwMylD9kpf5BDF5f+IhCauYExOkcK78QFdVXdjaeb0PS7KS7flNjvfTY2v8
+         alqgko/B0KqToOR1T0UfcPrNbwaw36rDXMpCvvWRll+uD8U+EkGpId4sEqcWRO53QqL1
+         J2wRie3dtO66DgdVNiI++tTGFOLo+DE5YAd90U56lGQU8imjE6kVz5cN5q54QK+F1X+/
+         jB+1DBjCXU60yW2rOJiprfmmkCaJJ6J8ALo8QSyAb/Yq0OsvxGREovzn1fyEekjUxfbF
+         ZbTg==
+X-Forwarded-Encrypted: i=1; AFNElJ/b0/xlhjO5VrTIsl6+cMFnrFy5MWl2OGMQuYGzOsI/2e0UUPUtzpDC7DjOyxAck2XLfFwzKKKsIkPJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2kW9F85ZTh+ygs7OdQvFm2w00pTUdwRTKmzpDgyzhSo5nrjwC
+	41hoGFotRqGMnPtVD8MBe7KTFTx22Lt86s6p2JEHuu+i5EP2gkAZYnDp9U9L+yoqWWQ=
+X-Gm-Gg: AfdE7ckGIR6yTtdtJZeu2hNOuDD7DpWMRQEqHA2DQIToZ6fEPEJ4y+zhAK1pgNyeHBl
+	CSWZ8VsaFFbzeJsV9gNCC0OWkDjBawfg84+wem42bVxUGsNig9ouLUhvXS8QnQrunZIDyXQUxEu
+	8QYn3q3UVpFtCeqS96L2awxzPvGpT1csqSqWMMjKdSI35rYNnYClpGzdQ9PbhAbtGSspw7QFSmy
+	85Zc4rUOEay04yFrmnqU/aM8u4nv8pfLmJCFb9axEuY4pRxQmzv4ha/XwhdNZgDpxYqSTL8RuEg
+	OG6tM1mHDKWLDio6Ue4Ag88LArmhjWQikmhbgUkYKpEJhSZuN+OOsiZqRukwI5GVcVSh2A2hqQ4
+	XLGznadCGCoxiLrr5MDO/gaxZHqmbKrqeW8RBd1ffLGZzY2KZ3pkdnZwXsmV38dyNsnwEKNwX4r
+	fGwhmhhW1hfLCFPyp3jJ1f+/la5aZfWb+6Yv1tqy1Y+CsQXjYtTyi2XGuTcbJH/+gJxHQWjf2xD
+	WqpFg==
+X-Received: by 2002:a2e:bd09:0:b0:396:92eb:36a0 with SMTP id 38308e7fff4ca-399776a5fb2mr5207351fa.0.1781779873612;
+        Thu, 18 Jun 2026 03:51:13 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3995c19a6c4sm24284941fa.29.2026.06.18.03.51.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 03:51:13 -0700 (PDT)
+Message-ID: <1a57863c-831a-411c-a0ae-da3d4f1fd6a0@linaro.org>
+Date: Thu, 18 Jun 2026 13:50:58 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615154805.1619693-8-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260617165538dad7e36b@mail.local>
-In-Reply-To: <20260617165538dad7e36b@mail.local>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 18 Jun 2026 11:49:12 +0100
-X-Gm-Features: AVVi8CcVzeG9DZs1UJrNQL_uvR_wiTr31L-zM3pE70n6KHb0bc6nE7Z0AGIpfyA
-Message-ID: <CA+V-a8uHVR0i+3PY_qi3i0H6fMJSUFb=1cwrgw0VeztVQk-dWw@mail.gmail.com>
-Subject: Re: [PATCH 07/12] rtc: rzn1: fix alarm range check truncation on
- 32-bit systems
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-rtc@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: i2c: og0va1b: Add OmniVision OG0VA1B camera
+ sensor
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260618-og0va1b-v1-0-dda71bb83009@oss.qualcomm.com>
+ <20260618-og0va1b-v1-2-dda71bb83009@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260618-og0va1b-v1-2-dda71bb83009@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Alexandre,
+Hello Wenmeng.
 
-On Wed, Jun 17, 2026 at 5:55=E2=80=AFPM Alexandre Belloni
-<alexandre.belloni@bootlin.com> wrote:
->
-> On 15/06/2026 16:48:00+0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > alarm and farest were declared as unsigned long, but
-> > rtc_tm_to_time64() returns time64_t (s64). On 32-bit systems where
-> > unsigned long is 32 bits, the assignment silently truncates the upper
-> > 32 bits of the timestamp.
-> >
-> > Fix by declaring alarm and farest as time64_t and replacing
-> > time_after() with a direct signed comparison, which is correct for
-> > time64_t values that will never realistically overflow.
-> >
->
-> I'd argue that this is never going to overflow ever as unsigned long
-> gets you to 2106 which is way past the usable range of the RTC so there
-> is a trade off between the size you are going to take on the stack and
-> the actual usefulness of the fix.
->
-While it's true that unsigned long lasts until 2106 (well past this
-RTC's practical lifetime), rtc_tm_to_time64() explicitly returns
-time64_t. Using unsigned long causes silent truncation and types
-mismatch with the API, which modern static analyzers flag. Given that
-this function is not deeply nested, the 8-byte stack trade-off seems
-worth it for type cleanliness and consistency. What do you think?
+On 6/18/26 13:37, Wenmeng Liu wrote:
+> Add V4L2 sub device driver for OmniVision OG0VA1B image sensor.
+> OmniVision OG0VA1B is an image sensor, which produces frames in 10-bit
+> raw output format (Y10) over a 1-lane MIPI CSI-2 interface and supports
+> the 640x480 (VGA) resolution.
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   MAINTAINERS                 |   1 +
+>   drivers/media/i2c/Kconfig   |  10 +
+>   drivers/media/i2c/Makefile  |   1 +
+>   drivers/media/i2c/og0va1b.c | 867 ++++++++++++++++++++++++++++++++++++++++++++
+>   4 files changed, 879 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5aa846c8479b20651291d5bd2e316308310f826c..85a06eb9eacc410a565b80d56979eaa565515d0e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19891,6 +19891,7 @@ M:	Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>   L:	linux-media@vger.kernel.org
+>   S:	Maintained
+>   F:	Documentation/devicetree/bindings/media/i2c/ovti,og0va1b.yaml
+> +F:	drivers/media/i2c/og0va1b.c
+>   
+>   OMNIVISION OG0VE1B SENSOR DRIVER
+>   M:	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 5d173e0ecf424f2f204f8d426be818e44357f8e4..56680772f5f47b4629c4e17f5a5feba08b1d94fc 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -363,6 +363,16 @@ config VIDEO_OG01A1B
+>   	  To compile this driver as a module, choose M here: the
+>   	  module will be called og01a1b.
+>   
+> +config VIDEO_OG0VA1B
+> +	tristate "OmniVision OG0VA1B sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the OmniVision
+> +	  OG0VA1B camera.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called og0va1b.
+> +
+>   config VIDEO_OG0VE1B
+>   	tristate "OmniVision OG0VE1B sensor support"
+>   	select V4L2_CCI_I2C
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index e45359efe0e41e13e3c0869e5ead7d6cf4aca3a7..c60851c7fe07e3bdc511c5f482525ba7a044f48e 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -83,6 +83,7 @@ obj-$(CONFIG_VIDEO_MT9V011) += mt9v011.o
+>   obj-$(CONFIG_VIDEO_MT9V032) += mt9v032.o
+>   obj-$(CONFIG_VIDEO_MT9V111) += mt9v111.o
+>   obj-$(CONFIG_VIDEO_OG01A1B) += og01a1b.o
+> +obj-$(CONFIG_VIDEO_OG0VA1B) += og0va1b.o
+>   obj-$(CONFIG_VIDEO_OG0VE1B) += og0ve1b.o
+>   obj-$(CONFIG_VIDEO_OS05B10) += os05b10.o
+>   obj-$(CONFIG_VIDEO_OV01A10) += ov01a10.o
+> diff --git a/drivers/media/i2c/og0va1b.c b/drivers/media/i2c/og0va1b.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f0505b7ba7f329ad57ffafa8f90a24204f002d3c
+> --- /dev/null
+> +++ b/drivers/media/i2c/og0va1b.c
+> @@ -0,0 +1,867 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * OmniVision OG0VA1B Camera Sensor Driver
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <media/v4l2-cci.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-fwnode.h>
+> +#include <media/v4l2-subdev.h>
+> +
+> +#define OG0VA1B_REG_CHIP_ID		CCI_REG16(0x300a)
+> +#define OG0VA1B_CHIP_ID			0xC756
 
-Cheers,
-Prabhakar
+This is the same chip id as of the OG0VE1B sensor device.
+
+What's the difference between these two sensors, and do you find it possible
+to add support of OG0VA1B sensor/modes into OG0VE1B sensor driver? Or is
+it just the same device?
+
+Hardware specifics described in dt changes also does not show a difference
+in comparison to ovti,og0ve1b.yaml.
+
+-- 
+Best wishes,
+Vladimir
