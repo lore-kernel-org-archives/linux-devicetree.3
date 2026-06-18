@@ -1,176 +1,648 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 854AB2EF67A;
-	Thu, 18 Jun 2026 19:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E113F24E4A1;
+	Thu, 18 Jun 2026 19:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781810293; cv=none; b=G6KxX/mkJd1M3zR2WkPFbj+CN11HgXYIX4hlKLKcEZi06z0hJuas2zOc5GgCMx8Wr15+dmZwt0kwfjLtUrCklUQFRijzQqD2AUcuJg8zDsJ3RNvyoXIF9EMcg1po69wPkAVPBLDtNdZSdmIDNllwmDCD41EGW91abEGxSNz5nRw=
+	t=1781810822; cv=none; b=h3w9NniJptzoC03Ge5gBT8NSUNTS94X2vkRf37+UML8b5oaKU/ItuN6fIlkNQiRodj3TuqniYFT20BGppBueaiBLNlHwMHDYQHhvlLWj1aqXE47DBrynSi1gA2818os4Drq+Vm6HlUJ33eKLvHyIVnT/BRcyZFKJBvPtWVIztW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781810293; c=relaxed/simple;
-	bh=MNIb+YEmDBtIWCpYeTzDslh1jQiRsYCuZ7kVA7Iyg+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U6YeeCUWA/lTZYedBevwcodDySrUSm7HRGXoep7/qYwiS58peX42YmsWCURAmgB/ZpEEdHZyX1zH9fq+nZfGsFp3nQd+WEdbwBugvKHAHVLZaYNDvk/mXe74IZX3imEG09I3fks43q5ie3b+gvkS33KT5WvkD0SUk7/hdgWmH9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rSHTdPGh; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1781810822; c=relaxed/simple;
+	bh=gZl7E79zQDlGE4LtabShpnib8u2NkG9HjLdFnbouWzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ScOwV9c/0fncAerA0k1KdsA1q2BV602sqCQfc5oi/VEv7rfWTKnQkCfWYvw/4MpoiVrjY9aysMA6QL8xAH1KAp4bjXMoumi3lU6mXfgw0K+etafrn6HQvtCOjZ0Oc22kJtjQn2YSAXwSUvPBplXq3hBiIH/a5uEehxHj65PKJwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SgRlUiF0; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rSHTdPGh"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 03367C06CCC;
-	Thu, 18 Jun 2026 19:18:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F079601AC;
-	Thu, 18 Jun 2026 19:18:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4472D106C820F;
-	Thu, 18 Jun 2026 21:18:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1781810285; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xm1w6jVGSmCFteRRtw99tFkP43DJCVQ6f37Byyi1jeg=;
-	b=rSHTdPGhHM0cHntyxYYShg54gsHgBjyZ+y3LKPOh6ZJ3skSH5aTiVPN+tb5+DEplCmqDi/
-	8pvApkfioWW2VitVfmA4Ak+w4s2RtFfM29nHmCW84K+kZySAS0x3W+y/i1xRt5BwMpp1Th
-	O8omkYqaQcr2sKJbWlArpxy7Ip+g5AGp+Vhb1eXodLOO71LZg0EcwIFzQ7wbwi3YPo7frp
-	hxKUHtt6WoMushRwbYu4LRNp/Yo8ktN34G2ENd8VHE7z70+7L62npX/KRlcoGf9KK4B3G1
-	P/xJX6/ggsbS3yjwewVHWtIqklwQ2DqNPJuOLiKcH7zzG/eY20xj89VmvjzAXg==
-Date: Thu, 18 Jun 2026 21:17:59 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ayush Singh <ayush@beagleboard.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org, Hui Pu
- <hui.pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 02/10] libfdt: Don't assume that a FDT_BEGIN_NODE tag
- is available at offset 0
-Message-ID: <20260618211759.4db53611@bootlin.com>
-In-Reply-To: <ajPE5eGcOwWMAeiN@zatzit>
-References: <20260409115426.352214-1-herve.codina@bootlin.com>
- <20260409115426.352214-3-herve.codina@bootlin.com>
- <ajPE5eGcOwWMAeiN@zatzit>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SgRlUiF0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781810821; x=1813346821;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gZl7E79zQDlGE4LtabShpnib8u2NkG9HjLdFnbouWzI=;
+  b=SgRlUiF031Xau1sJldkG1155PoyiJcbByCBw6orHTpCTU7ZVX46jClHI
+   5qUnen/Ld395nzyI7fUMITdee34UMEBZxXC1UIrD9CuaT6K7ggT+wbCyL
+   +d8Qi5CK7KRPc/iDDYDxjwWVubM1oR4Wz+cLqztDOWWAWwH0JgrQP3Sm6
+   JeHWqeKVxGnuZ8RBwMRMYXGEmBfCa8EzJdlIKc06Mnf6ub7TqLD6jYUhf
+   l7jB1PvLXfVE6yMJcQszNlQBZyIB9/ySkqrUAafNnLCBHm56eQzCCzCVY
+   HLVLzPvatf0+aFFZXAclJwjpNmDD/DAbSXESCzBBU0Y0m+0PN28oPW5NA
+   g==;
+X-CSE-ConnectionGUID: hLXHh0gdTv2CyDV7zS3Xlg==
+X-CSE-MsgGUID: s++o8dDlSW6iuhvqjfG/tw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82533156"
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; 
+   d="scan'208";a="82533156"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 12:27:00 -0700
+X-CSE-ConnectionGUID: VX26Ufg1TUCbuoXMZf8BDg==
+X-CSE-MsgGUID: cQ9DcmwnTNq+pVbHbOKzPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; 
+   d="scan'208";a="253432874"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.10])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 12:26:57 -0700
+Date: Thu, 18 Jun 2026 22:26:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Message-ID: <ajRGf0YT-fCZA1ih@ashevche-desk.local>
+References: <20260618160141.11409-1-nikhilgtr@gmail.com>
+ <20260618160141.11409-3-nikhilgtr@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618160141.11409-3-nikhilgtr@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi David,
-
-On Thu, 18 Jun 2026 20:13:57 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Thu, Apr 09, 2026 at 01:54:18PM +0200, Herve Codina wrote:
-> > In several places, libfdt assumes that a FDT_BEGIN_NODE tag is present
-> > at the offset 0 of the structure block.
-> > 
-> > This assumption is not correct. Indeed, a FDT_NOP can be present at the
-> > offset 0 and this is a legit case.
-> > 
-> > fdt_first_node() has been introduced recently to get the offset of the
-> > first node (first FDT_BEGIN_NODE) in a fdt blob.
-> > 
-> > Use this function to get the first node offset instead of looking for
-> > this node at offset 0.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>  
+On Thu, Jun 18, 2026 at 09:31:41PM +0530, Nikhil Gautam wrote:
+> Add Industrial I/O subsystem support for the Melexis
+> MLX90393 3-axis magnetometer and temperature sensor.
 > 
-> The problem is real, of course.  But this approach to solving it with
-> a special case just for the root node is really ugly.
+> The driver currently supports:
 > 
-> Granted, it's a problem of my own making - I chose not to create an
-> fdt_root_offset() function in the first place, instead making it part
-> of the API that offset 0 means the root node.  Nonetheless, here we
-> are and the question is whether we can do better.
+> raw magnetic field measurements
+> raw temperature measurements
+> configurable gain/scale selection
+> configurable oversampling ratio
+> direct mode operation
 > 
-> # Straightforward things first
+> The MLX90393 supports both I2C and SPI interfaces. This
+> initial implementation adds support for the I2C interface.
 > 
->  - This patch should be folded with 1/10, they're both harder to
->    understand without the context of the other.
+> The driver is structured around a shared sensor core with
+> a small transport abstraction layer to simplify future SPI
+> support without duplicating sensor logic.
 
-Ok, I will squash, no problem.
+...
 
-> 
->  - If it must exist, the function should be fdt_root_offset(), not
->    fdt_first_node(), for at least three reasons:
->     * "first" in what sense?
->     * "first" amongst what set of nodes?
->     * We have a strong convention to always explicitly say "offset",
->       not just referring to offset values as "node" or "property".
->       This is deliberate: it's an attempt to discourage the otherwise
->       likely misunderstanding that a function getting a "node" gives
->       you some sort of persistent handle.  "offset" makes it clearer
->       that the value will no longer be valid after a modification to
->       the tree.
+> +config MLX90393
+> +	tristate "MELEXIS MLX90393 3-axis magnetometer sensor"
+> +	depends on I2C
 
-Make sense. I will rename to fdt_root_offset()
+Why not a regmap?
 
-> 
->  - The situation described is subtle enough that this *really* needs a
->    testcase.  It shouldn't be that hard: change the existing
->    'nopulate' test tool to add an FDT_NOP before the first tag, not
->    just after
+> +	help
+> +	  Say yes here to build support for the MELEXIS MLX90393 3-axis
+> +	  magnetometer.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called mlx90393.
+> +
+>  config MMC35240
+>  	tristate "MEMSIC MMC35240 3-axis magnetic sensor"
+>  	select REGMAP_I2C
+> diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
+> index 9297723a97d8..542c89d38a59 100644
+> --- a/drivers/iio/magnetometer/Makefile
+> +++ b/drivers/iio/magnetometer/Makefile
+> @@ -14,6 +14,8 @@ obj-$(CONFIG_BMC150_MAGN_SPI) += bmc150_magn_spi.o
+>  
+>  obj-$(CONFIG_MAG3110)	+= mag3110.o
+>  obj-$(CONFIG_HID_SENSOR_MAGNETOMETER_3D) += hid-sensor-magn-3d.o
+> +obj-$(CONFIG_MLX90393)		+= mlx90393_core.o
+> +obj-$(CONFIG_MLX90393)		+= mlx90393_i2c.o
+>  obj-$(CONFIG_MMC35240)	+= mmc35240.o
 
-Yes, will add a test.
+...
+
+> +#ifndef MLX90393_H
+> +#define MLX90393_H
+
+> +#include <linux/bitops.h>
+
+> +#include <linux/bits.h>
+
+Not required, it's covered by bitops.h.
+
+> +#include <linux/types.h>
+
+...
+
+> +#define MLX90393_MEASURE_ALL \
+> +	(MLX90393_MEASURE_TEMP | MLX90393_MEASURE_X | \
+> +	MLX90393_MEASURE_Y | MLX90393_MEASURE_Z)
+
+Split logically.
+
+#define MLX90393_MEASURE_ALL \
+	(MLX90393_MEASURE_TEMP | \
+	 MLX90393_MEASURE_X | MLX90393_MEASURE_Y | MLX90393_MEASURE_Z)
+
+Or just a (long) single line.
+
+...
+
+> +	int (*xfer)(void *context, const u8 *tx, int tx_len,
+> +		    u8 *rx, int rx_len);
+
+One line, it's only 81 characters.
+
+> +};
+> +
+> +int mlx90393_core_probe(struct device *dev,
+
+You want forward declaration for struct device.
+
+> +			const struct mlx90393_transfer_ops *ops,
+> +			void *context);
+> +
+
+...
+
++ array_size.h
++ bitfield.h // FIELD_GET()
+
+> +#include <linux/delay.h>
+
++ errno.h // -Exxx
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+
++ types.h // uXX
+
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+
+IWYU, please (just pointed out a few missing above, there are more).
+
+...
+
+> +/* Datasheet: Table no.17 */
+> +static const int mlx90393_scale_table[MLX90393_AXIS_MAX]
+> +				[MLX90393_GAIN_MAX]
+> +				[MLX90393_RES_MAX] = {
+
+This is broken indentation.
+
+> +	/* XY axis */
+> +	{
+> +		{ 751, 1502, 3004, 6009},
+> +		{ 601, 1202, 2403, 4840},
+> +		{ 451, 901, 1803, 3605},
+> +		{ 376, 751, 1502, 3004},
+> +		{ 300, 601, 1202, 2403},
+> +		{ 250, 501, 1001, 2003},
+> +		{ 200, 401, 801, 1602},
+> +		{ 150, 300, 601, 1202},
+> +	},
+> +	/* Z axis */
+> +	{
+> +		{ 1210, 2420, 4840, 9680},
+> +		{ 968, 1936, 3872, 7744},
+> +		{ 726, 1452, 2904, 5808},
+> +		{ 605, 1210, 2420, 4840},
+> +		{ 484, 968, 1936, 3872},
+> +		{ 403, 807, 1613, 3227},
+> +		{ 323, 645, 1291, 2581},
+> +		{ 242, 484, 968, 1936},
+> +	}
+> +};
+
+...
+
+> +/*
+> + * Calculate total conversion time in microseconds.
+> + *
+> + * Formula derived from datasheet timing equations.
+
+Which formula? Where is datasheet? What if I have no access to it?
+Always repeat the important details in the comment in the code.
+
+> + */
+
+> +
+
+Unneeded blank line.
+
+> +static int mlx90393_get_tconv_us(struct mlx90393_data *data)
+> +{
+> +	const int osr = data->osr;
+> +	const int osr2 = data->osr2;
+> +	const int df = data->dig_filt;
+> +
+> +	int tconvm;
+> +	int tconvt;
+> +
+> +	int m = 3; /* X,Y,Z */
+> +
+> +	/*
+> +	 * Datasheet:
+
+What chapter/section/table name? Page number?
+
+> +	 * TCONVM = 67 + 64 * 2^OSR * (2 + 2^DIG_FILT)
+
+What does this cryptic message mean? Please, accompany this with more English
+plain text.
+
+> +	 */
+> +	tconvm = 67 + (64 * BIT(osr) * (2 + BIT(df)));
+> +
+> +	/*
+> +	 * Datasheet:
+> +	 * TCONVT = 67 + 192 * 2^OSR2
+> +	 */
+> +	tconvt = 67 + (192 * BIT(osr2));
+> +	/*
+> +	 * Total conversion time:
+> +	 * TSTBY + TACTIVE + m * TCONVM + TCONVT + TCONV_END
+> +	 */
+> +	return 220 + 360 + (m * tconvm) + tconvt + 1100;
+> +}
+
+...
+
+> +static int mlx90393_xfer(struct mlx90393_data *data,
+> +			 const u8 *tx, int tx_len,
+> +			 u8 *rx, int rx_len)
+> +{
+> +	return data->ops->xfer(data->bus_context,
+> +			tx, tx_len,
+> +			rx, rx_len);
+
+It's perfectly one line.
+
+Also you might want to have
+
+	if (!...->xfer)
+		return -E...;
+
+> +}
+
+...
+
+> +static int mlx90393_check_status(u8 cmd, u8 status)
+> +{
+> +	/* Always validate error bit */
+> +	if (status & MLX90393_STATUS_ERROR)
+> +		return -EIO;
+> +
+> +	switch (cmd & MLX90393_CMD_MASK) {
+> +	case MLX90393_CMD_RM:
+> +		/*
+> +		 * D1:D0 indicates response availability
+> +		 * 00 means invalid/no measurement
+> +		 */
+> +		if ((status & MLX90393_STATUS_RESP) == 0)
+> +			return -EIO;
+> +		return 0;
+> +	case MLX90393_CMD_RT:
+> +		/* Reset acknowledge */
+> +		if (!(status & MLX90393_STATUS_RT))
+
+For sake of consistency you might want to also compare to 0 here.
+
+> +			return -EIO;
+> +		return 0;
+> +	default:
+> +		return 0;
+> +	}
+> +}
+
+...
+
+> +static int mlx90393_write_reg(struct mlx90393_data *data, u8 reg, u16 val)
+
+Here the variable is named 'reg' there is 'reg_addr'. As I can see the code is
+full of inconsistencies (like 2+ people with different style guidelines wrote
+it). Please. take your time and check the code and make it consistent.
+
+> +{
+> +	u8 tx[4];
+> +	u8 status;
+> +	int ret;
+> +
+> +	tx[0] = MLX90393_CMD_WR;
+> +	put_unaligned_be16(val, &tx[1]);
+> +	/* Register address is encoded in bits [7:2] */
+> +	tx[3] = reg << 2;
+> +
+> +	ret = mlx90393_xfer(data, tx, sizeof(tx), &status, 1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return mlx90393_check_status(tx[0], status);
+> +}
+> +
+> +static int mlx90393_update_bits(struct mlx90393_data *data, u8 reg_addr,
+> +				u16 mask, u16 val)
+> +{
+> +	u16 reg;
+> +	int ret;
+> +
+> +	ret = mlx90393_read_reg(data, reg_addr, &reg);
+> +	if (ret)
+> +		return ret;
+
+> +	reg &= ~mask;
+> +	reg |= (val << __ffs(mask)) & mask;
+
+bitfield.h has macros for this.
 
 
-> 
-> # Is FDT_NOP before the root node actually legitimate?
-> 
-> Arguably the simplest solution here would be to explicitly ban this.
-> Yes, it would be a slightly odd restriction in the spec.  However,
-> avoiding the mess in the library might be worth it.  Note that this
-> situation can never arise from fdt_nop_node(), unless you apply it to
-> the root node, in which case there's no tree left.
+> +	return mlx90393_write_reg(data, reg_addr, reg);
+> +}
 
-We tried to have something robust for future addition (structured tags).
-Maybe a future tag will be nopified by some future tools before being
-processed by libfdt.
+...
 
-IMHO, we should have support for FDT_NOP before the root node.
+> +static int mlx90393_find_osr(int val, int *osr)
+> +{
+> +	for (unsigned int i = 0; i < MLX90393_OSR_MAX;  i++)
+> +		if (mlx90393_osr_avail[i] == val) {
+> +			*osr = i;
+> +			return 0;
+> +		}
 
-> 
-> # Less special casery
-> 
-> Even if we accept the need for FDT_NOP before the root node, I think
-> we can do better.  The below implements this as a special case, just
-> for offset 0.  Instead, we could allow all node operations on a
-> FDT_NOP offset, automatically advancing to the next FDT_BEGIN_NODE
-> tag.  We may be able to do that in check_node_offset_() minimising
-> code duplication.
-> 
+Missing {}.
 
-IHMO, check_node_offset_() should only check that the given offset is a
-node and not trying to find the next node available after possible FDT_NOP.
-Got the feeling that having this kind of search in check_node_offset_() is
-error prone.
+> +	return -EINVAL;
+> +}
 
-I am not sure that a lot of code duplication will be present. On some entry
-points, we have this kind of code:
-   --- 8< ---
-   if (offset == 0) {
-	offset = fdt_root_offset(fdt);
-	if (offset < 0)
-		return offset;
-   }
-   --- 8< ---
+...
 
-It has the benefit to keep things clear and is needed only on some entry
-points (API function). Internal function should receive an offset pointing
-to a node. For those internal function check_node_offset_() should not
-automatically skip FDT_NOP tags but should really return an error if such a
-tag is encountered.
+> +static int mlx90393_get_temp_osr2(struct mlx90393_data *data, int *val)
+> +{
+> +	*val = mlx90393_osr2_avail[data->osr2];
 
-For offsets other than offset 0, FDT_NOP is handled without any extra cost in
-current code implementation.
+Missing blank line.
 
-Best regards,
-Hervé
+> +	return IIO_VAL_INT;
+> +}
+
+...
+
+> +static int mlx90393_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan,
+> +			      int val, int val2,
+> +			      long mask)
+> +{
+> +	struct mlx90393_data *data = iio_priv(indio_dev);
+
+> +	int ret;
+
+Not needed, return directly.
+
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		guard(mutex)(&data->lock);
+> +		ret = mlx90393_set_scale(data, chan, val, val2);
+> +		return ret;
+> +	}
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
+> +		guard(mutex)(&data->lock);
+> +		switch (chan->type) {
+> +		case IIO_TEMP:
+> +			return mlx90393_set_temp_osr2(data, val);
+> +
+> +		case IIO_MAGN:
+> +			return mlx90393_set_osr(data, val);
+> +
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +			/* Datasheet: 22124 millidegC/LSB */
+> +		/* Datasheet: temperature offset */
+
+Again, at least put a page, better to have Section/Table/et cetera title.
+
+...
+
+> +static int mlx90393_read_avail(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       const int **vals,
+> +			       int *type,
+> +			       int *length,
+> +			       long mask)
+> +{
+> +	struct mlx90393_data *data = iio_priv(indio_dev);
+> +	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
+> +	enum mlx90393_axis_type axis;
+> +	u8 res;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		guard(mutex)(&data->lock);
+> +		axis = chan->channel2 == IIO_MOD_Z;
+> +		res = axis ? data->res_z : data->res_xy;
+> +
+> +		for (unsigned int i = 0; i < MLX90393_GAIN_MAX; i++) {
+> +			scale_avail[i][0] = 0;
+> +			scale_avail[i][1] = mlx90393_scale_table[axis][i][res];
+> +		}
+> +
+> +		*vals = &scale_avail[0][0];
+> +		*type = IIO_VAL_INT_PLUS_NANO;
+> +		*length = MLX90393_GAIN_MAX * MLX90393_AXIS_MAX;
+> +		return IIO_AVAIL_LIST;
+> +	}
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		if (chan->type == IIO_TEMP) {
+> +			*vals = mlx90393_osr2_avail;
+> +			*type = IIO_VAL_INT;
+> +			*length = MLX90393_OSR2_MAX;
+> +		} else {
+> +			*vals = mlx90393_osr_avail;
+> +			*type = IIO_VAL_INT;
+> +			*length = MLX90393_OSR_MAX;
+> +		}
+> +		return IIO_AVAIL_LIST;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+
+> +	return -EINVAL;
+
+Besides missing blank line, this is actually a dead code.
+
+> +}
+
+...
+
+> +static int mlx90393_init(struct mlx90393_data *data)
+> +{
+> +	int ret;
+> +	u16 reg;
+> +
+> +	/* Exit mode */
+> +	ret = mlx90393_write_cmd(data, MLX90393_CMD_EX);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for device comes out of reset */
+
+Datasheet? Empirical?
+
+> +	fsleep(1000);
+
+1 * USEC_PER_MSEC
+(will require time.h to be included).
+
+> +	/* Reset device */
+> +	ret = mlx90393_write_cmd(data, MLX90393_CMD_RT);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for device to reset */
+> +	fsleep(6000);
+
+As per above.
+
+> +	ret = mlx90393_read_reg(data, MLX90393_REG_CONF1, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->gain_sel = FIELD_GET(MLX90393_CONF1_GAIN_SEL, reg);
+> +	data->hallconf = FIELD_GET(MLX90393_CONF1_HALLCONF, reg);
+> +
+> +	ret = mlx90393_read_reg(data, MLX90393_REG_CONF3, &reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	data->res_xy = FIELD_GET(MLX90393_CONF3_RES_X, reg);
+> +	data->res_z = FIELD_GET(MLX90393_CONF3_RES_Z, reg);
+> +	data->dig_filt = FIELD_GET(MLX90393_CONF3_DIG_FILT, reg);
+> +	data->osr = FIELD_GET(MLX90393_CONF3_OSR, reg);
+> +	data->osr2 = FIELD_GET(MLX90393_CONF3_OSR2, reg);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +int mlx90393_core_probe(struct device *dev,
+> +			const struct mlx90393_transfer_ops *ops,
+> +			void *context)
+> +{
+> +	struct iio_dev *indio_dev;
+> +	struct mlx90393_data *data;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	devm_mutex_init(dev, &data->lock);
+
+Nonsense. If we don't check the return code of devm_*(), there is a little
+reason to use it in the first place. But then one should not use devm further.
+Easy fix: check for returned errors.
+
+> +	data->dev = dev;
+> +	data->ops = ops;
+> +	data->bus_context = context;
+> +
+> +	indio_dev->name = "mlx90393";
+> +	indio_dev->info = &mlx90393_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = mlx90393_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(mlx90393_channels);
+> +
+> +	ret = mlx90393_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to initialize device\n");
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +EXPORT_SYMBOL_GPL(mlx90393_core_probe);
+
+Make it namespaces.
+
+...
+
++ array_size.h
++ errno.h
+
+> +#include <linux/module.h>
+> +#include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
+
+...and so on.
+
+Same, follow the IWYU principle.
+
+...
+
+> +/*
+> + * MLX90393 commands use repeated-start transfers where
+> + * every command is followed by a status/data response.
+> + */
+> +static int mlx90393_i2c_xfer(void *context,
+> +			     const u8 *tx, int tx_len,
+> +			     u8 *rx, int rx_len)
+> +{
+> +	struct i2c_client *client = context;
+> +	int ret;
+> +	struct i2c_msg msgs[2] = {
+> +		[0] = {
+> +			.addr = client->addr,
+> +			.len = tx_len,
+> +			.buf = (u8 *)tx,
+> +		},
+> +		[1] = {
+> +			.addr = client->addr,
+> +			.flags = I2C_M_RD,
+> +			.len = rx_len,
+> +			.buf = rx,
+> +		},
+> +	};
+> +
+> +	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
+> +	if (ret != ARRAY_SIZE(msgs))
+> +		return ret < 0 ? ret : -EIO;
+
+Please, make this to be the regular pattern
+
+	if (ret < 0)
+		return ret;
+	if (ret != ARRAY_SIZE(msgs))
+		return -EIO;
+
+> +	return 0;
+> +}
+
+...
+
+> +static struct i2c_driver mlx90393_i2c_driver = {
+> +	.driver = {
+> +		.name = "mlx90393",
+> +		.of_match_table = mlx90393_of_match,
+> +	},
+> +	.probe = mlx90393_i2c_probe,
+> +};
+
+> +
+
+Remove this blank line.
+
+> +module_i2c_driver(mlx90393_i2c_driver);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
