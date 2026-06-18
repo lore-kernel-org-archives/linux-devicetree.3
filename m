@@ -1,277 +1,148 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011001.outbound.protection.outlook.com [52.101.65.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9C338A72B
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781765117; cv=none; b=JmTC2CRgSfVo8iL2X1tGi8iCs6BRJqOylHi1WLeV0mITkgZtWn+n8MZoGXclA8zjIigK98LT6gKlwIeD7nYZeBCzajTP+UaexgQolNW1QopLBBmla+8ao1H1aNsmEK6/+vR/uC6KvVc7OZcY/wXBjYpBZrB+LzJhF6/LbTFj5Hs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781765117; c=relaxed/simple;
-	bh=Nlerjuv8zYT6mH29QAsKXwKO76Dvq+OY7opxSWH52kI=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tWOjRkjzB78f8eyYW7kjtrH4jD1V4Onx4/2dyKOpckbwYsZ7D4YQHLcHhpicAUxQp5L9bMptJbTvWGgAxTJQxufILD+x/nGs0a6CXB6wwEHwwOS6bGQSYYNdHdFMQdvBsJfCrjoiFlI8RFiUZDRgVIWSU+svCetbLKVeY8w3kE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=NnUj05gc; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0413A901F;
+	Thu, 18 Jun 2026 06:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781765204; cv=fail; b=cpmIYfkophU8/6n1uLBCRqYve/47pqkMYEYg6HE0+OqzrsU9U10KT4EjqOygt2Rwp+NhrIQvcjmTtiAfouHa8gEcRX70KwJUeiUKtyCgnOHuwdD3HZOBK5396eLwvyHf5Dqb7u9qcalzcwy38UQ+rwrpj2XwxemZPfbaHc64Vc8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781765204; c=relaxed/simple;
+	bh=ICNnoE0SUGDE3bysk9ewOUj6Ly7TrJIVFKIcBm+XxZk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=Im8Ux7P2sgbhTfNNKZkCfjqB+thX+rRMVpQAasN0S+VoCZxnH47PJVgbHDSk1fhs6eUvpspoZOohoGr8ZmXEBa3lk4qMKrHElvTK2d4O/dsB8Vdr908Rs7F8tVAiOra0ZVsUvoh+e1lQc5PTli9zKtE7oqyH+h/9iL57+NS+mmU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=COt5uV97; arc=fail smtp.client-ip=52.101.65.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="NnUj05gc"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2c0aa420401so3762335ad.3
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 23:45:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1781765115; x=1782369915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3mY4IoCKia/XuJ/oNtOCFVHCKeBb5u4W4dO0pcbEY+A=;
-        b=NnUj05gc2K1MPy71HkJlrj/V25xUvqUrAtf6G7Rb4VDwUQwBCcwFUb8jH79C23ale6
-         /UDlU3H8SCrvdJvK2Mfp0i6eFNebPJduXzaMzTErgrHLAPHpOY9zQ2xVonfkAoGw8alc
-         r7axE/7fyGXlt8a1KkdZfjx24G7gxwU8CRld4uZsf4jD/d2XeOdgAo74FkKspHyQ46Bz
-         Og9N+WLY09q+oWENPNZkuAkuFmXyqRvxtJkgGBKLoyNCtf4lao5p/NIiOo/s+k4VLH2F
-         SDFo6D2jGenl41LdZalUxbTwb5WZh3C/1eO1jmw12bBfF4WQHCvV4mN5HAhxdi/9PXDT
-         QPHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781765115; x=1782369915;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3mY4IoCKia/XuJ/oNtOCFVHCKeBb5u4W4dO0pcbEY+A=;
-        b=d0W2G6nCcfJbVmLRoBL+Y5igLP9G0Q40p90EcfgCCHz3HvA1TemolEN4jz7hrglOv5
-         1i7Hu+AxYyYYramrXRL1feSJQtYhheo1Sh/Xmc57XcX3euOGnOO3NYwMbjF5RKTPMDHs
-         nKKqOMCXS2NPpUNsg1vR64QJeR2lSd8ZinqUuxuhGBb+/hqKAqjmGK2D4GDbXcxIAXQO
-         rrNGvIIAIFVOS2+dhUZOtaLSJWQlL+XaOtNSSKQYvtbYWV3XDkHuylJAZRGkhFsymuEv
-         7N/B2apB13YRrwIWNWx41FRVptplg2nYq+n0DS0px8CTGxYc5D0cYSAKS2QZvZg801pu
-         3vBg==
-X-Forwarded-Encrypted: i=1; AFNElJ9VeiIY2N3GNFh8B2DvnceGF4LPjeO3UOutbdJ2B93crjqsU8O+ucRyBgpHsMBusKFbjQcTujapxO9y@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlstMvMeCnqKMB77nQiItEViCJjI+K0Np3WqxpdCmhv+GyaVEa
-	7VCyZAG4kP07EkRkWxCiR07gsl70s0mnHd7C1ZB4MM1rZt4qz5GkRsNuJAyOC3TY4pc=
-X-Gm-Gg: AfdE7cnlzivHlLO66WaVuzz0SQ2WwpxBkogswi7a10mpwRw1UEV9/e73YwVQI1xWUpi
-	X8JPUCJ2c6ADVTN5VC3zcRzxiWOUyTbcOxHYypc4hMhq6vMvfjzAKVCahXkWfoT9kwqJwhD/jOz
-	NW77qoLDo+PLTGC1nZcB73WHC/arj7dU/zgCiODqKjpUBUPO4Ke3ZJ8p7gFEbM2JQUHC5uBwJll
-	Ni4qDxhfPETB6yv5SSAPutJ59hLvIZTNAEdzivYyBKcQYhxzJa75A7X50XIkaVbdOV6F9eKG9FE
-	tV9k3SKCZn8/GF6uAzmN+4gFDVzXIygX7Pqd1aGR5jkA8z5pX8xkAk4EgFl4/JXiO/9LE5n+ctt
-	kE4dAWb/qTYD0R63JQIvepF2X/AhFrkaEgNGxTqjRPQZofmezGvsu9n35UJwn+JszaFo1TjWNc/
-	8iubqyZAqbWvspVZzUgY0Y9b05Q5Tebv3W0VKq6SG4s9QP6w==
-X-Received: by 2002:a17:903:1b6f:b0:2bf:77b2:8b2d with SMTP id d9443c01a7336-2c6bc25ca62mr70159885ad.30.1781765114873;
-        Wed, 17 Jun 2026 23:45:14 -0700 (PDT)
-Received: from L6YN4KR4K9.bytedance.net ([139.177.225.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4328a4c1fsm185275985ad.53.2026.06.17.23.45.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 17 Jun 2026 23:45:14 -0700 (PDT)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: akpm@linux-foundation.org,
-	alex@ghiti.fr,
-	andrew+kernel@donnellan.id.au,
-	aou@eecs.berkeley.edu,
-	apatel@ventanamicro.com,
-	apopple@nvidia.com,
-	atishp@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	cleger@rivosinc.com,
-	conor+dt@kernel.org,
-	cuiyunhui@bytedance.com,
-	debug@rivosinc.com,
-	devicetree@vger.kernel.org,
-	guodong@riscstar.com,
-	hui.wang@canonical.com,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	liu.xuemei1@zte.com.cn,
-	namcao@linutronix.de,
-	nick.hu@sifive.com,
-	palmer@dabbelt.com,
-	pincheng.plct@isrc.iscas.ac.cn,
-	pjw@kernel.org,
-	qingwei.hu@bytedance.com,
-	ritesh.list@gmail.com,
-	rmclure@linux.ibm.com,
-	robh@kernel.org,
-	wangruikang@iscas.ac.cn,
-	zhangchunyan@iscas.ac.cn,
-	zong.li@sifive.com
-Subject: [PATCH v4 3/3] riscv: preserve A/D and soft-dirty state across PTE updates
-Date: Thu, 18 Jun 2026 14:44:06 +0800
-Message-Id: <20260618064406.14508-4-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
-In-Reply-To: <20260618064406.14508-1-cuiyunhui@bytedance.com>
-References: <20260618064406.14508-1-cuiyunhui@bytedance.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="COt5uV97"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IuYu5S3bWp5m5DgPLBdb7zcozW1oAuDamkUV26Pn9r4fN0mroe0R9gNcZ531YE/vDV/DK6pt/ENGO3O23cnyvTzA7uXHEqQt6fGNZT44nIeVA+1mArO+xU/4PXdVGwrmoV/LYE4xBvxDxqUnBTyVZl1rmowXam79uAieFknM+MweJk725yA4JbpYbFxAJoCc8GeYvldP1wqKnPOySC7UVLCeEyRgdkZO4qU02lVCmArPgb4dsMMgrGGprezJvWrLU6MNGvBdw7iFIaAt+GYgj6bfAubv4vSU+QMxlR+SVLeWLWBi0RDg3IDUexnqJbT37lOA/tlqYVXDAiNEfhmMRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oYtMNvW9Xw7V4xV8rViwKBHxvNdU5b3bYhK0upuj6Qk=;
+ b=e08LOvpUD6hO+lEVLVGPXqQl6bklvddon5sBNedZyQqpB5VFSJG1xjTUS7PbNNizaSolCljfuu8o0oX/18RQg0JmotpYWb64IxacTcfj5pTE/wW3FLjcIRVKU1wHZ5o6JOpTjHNtyh+5ssAh4KjNfhQzuEG8PjfGGYbd7LULmYdQODKmjO6CmeXPYMnwOwFGn7JV6E9BStZ2yRM/ldee9Y40YFbPTTaDgvzjvaF1WVpFRKBL3vLGfu6yPUbQsfLsiJ1Cn4Zgr8leRJgfFsLTwueEbA+3obbv6Kp6fAnmNFCyrdvGyX5PsZckaClA/Qe6HrnlKLt0NqJ7NS/GSSPITA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oYtMNvW9Xw7V4xV8rViwKBHxvNdU5b3bYhK0upuj6Qk=;
+ b=COt5uV97XsbKb4nG46UxNNilBf68jyQmFj2tpzShciylcN9Q1ou0B/qKNr47A/FIYueiAULzEXgAyVanSn9w/m2DEOc6io4mNpvjFGD11YOmC+tcVFVcnnbQntvSrg1ubUnzMI0NpM4WzguTn40FDmt0eZT7m89xAcplB7F1oeuvWO8YuSyEaMmhOPMkgcnY147Nn8mWAKQynhpKa7Ufy5A90i70sKkKjfdmkWz3n6S7wr1eu9E4PxTH/fmITTHpFUYrvUg/SmetSzNp5tXrQaLI+J0u+x/vsdlDO21jNN9am2o5W/2uuqfjHmcpaoAp1J3QOPLuo+urwdsx7sgAjg==
+Received: from CWLP123CA0009.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:56::21)
+ by PRAPR10MB5373.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:292::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
+ 2026 06:46:36 +0000
+Received: from AMS0EPF000001A2.eurprd05.prod.outlook.com
+ (2603:10a6:401:56:cafe::88) by CWLP123CA0009.outlook.office365.com
+ (2603:10a6:401:56::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.11 via Frontend Transport; Thu,
+ 18 Jun 2026 06:46:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS0EPF000001A2.mail.protection.outlook.com (10.167.16.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Thu, 18 Jun 2026 06:46:36 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 18 Jun
+ 2026 08:50:40 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 18 Jun
+ 2026 08:46:35 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 18 Jun 2026 08:46:35 +0200
+Subject: [PATCH] dt-bindings: spi: st,stm32-qspi: Add power-domains
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260618-add_power_domain_for_qpsi-v1-1-4d7e57bcfb9a@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAEqUM2oC/yXMTQrCMBBA4auUWRtIsyjRq4iEtDPREUziTP2B0
+ rs31eW3eG8BJWFSOHULCL1ZueSG/tDBdIv5SoaxGZx1gx16byJiqOVDErA8IueQioRnVTb+6NH
+ RmJxNEVpfhRJ/f+/z5W99jXea5n0I67oB4MGtY30AAAA=
+X-Change-ID: 20260618-add_power_domain_for_qpsi-898d2ebf20fa
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Christophe Kerello
+	<christophe.kerello@foss.st.com>
+CC: <linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001A2:EE_|PRAPR10MB5373:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0ad1308-d262-46fd-81b9-08decd0557c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|23010399003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	kSh+SqrRy0gt3gCEkr+GLrwCeDKPoVIoZDWPXMIhdl4q97hohyd/fXJvr335b/CLJFPJvgVkoA37gXH81uN+kQlOBqDTMAu093DleuDFZELw1fL+aL6FgPfF+uvpXUaM7+4XcR2VqZl+Zb6wAp1D3VunKAFYt9XDhsKcP11N0qwFNIGRGQyhszRIVZIaoH8nkGK3rL63N5NkR3usAOwX7Z6uPrG/3MTrdJzDIMAb2qfg386BEj/CDiVPHnKCrPnoZr6JgQyxp4RKNLpupXIm7bg6B+DQuUbud/WLjTxiLRP6FmIHXFiWpE1Qr4TyRos7NsRDAbcir9+N9VLmufxCG4t2C/32kX00LkvzOxfgKbkaFTHl4/XbUGMtepWEJiLzKfpvSfmA1JrLGTJahvBpKpaHNwWLp3NkZN28iO03URVQijavkQJ0qIOtuaeKYzdwNHNpO5+nhbtwwst/97Dqbue11us56bAiHD1bA4LfnAU8eSVrZSqCrsRom7kHn7ADQF/a8pN942ixAJ9FgPsxO/aykFIS9isk6pEE9gxr2SGymuH/rtasNMumk3drzRc/4KUjJa9xMkV+fVH1Tqw5jAzohgRNMHpmRrq+5rGx/78bY5Bd2OmF7fYltYrfCsVjiDqXZQno/hce7rPHu5qfmadrc3ZzcaSv+R+a3uN6KiJWJGZmXQdvqMog2yrpmn2GCF2mida4GRfYxj8ebUq90fG8dh1DQ2mXku42ui12MBA=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(23010399003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	w1Bqostu1zbNpdTrNBxl+rEb6XANUMrApRvscbYd5+2gthwMyteZEGbO0fst4H7sc0ysp01VrmpCTkMWBeTmDka0M0biu4qW4u0CuMHoAltEMs6JEQ0dbuvARnXuU//Dg9G4ctcMIB9cmvxtgeTMwqt6T5cH7xQx/RDrz1fy/WvLyBK1JuDxEyxo6vc5XqOpevAgP0piz13rDwUmhxK6PGeYOYlegVtvHhItPqpfbk5ojHiXMCKtYYWAn4ooKx1Bfhih1o2eLBo89/JA43SeeZN1O8tUoLzDwM8VR0WrzAF+/lVsCUv+PWCx2Tq2PMirlQyTXZVcL6x54Ic4Uo8cAoB+Y1cC8SSdwfwyX6NyjhalupQSKYHzzlITlH/uODGfCb4ARd6WoPMXassnCxRuQ12JandcghAsl8nN1WFmJ3RGk7ps2YkrTvF/JithDNT0
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 06:46:36.3322
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0ad1308-d262-46fd-81b9-08decd0557c3
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001A2.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5373
 
-Use cmpxchg-based PTE updates so software permission changes do not lose
-concurrent A/D updates from hardware. Preserve soft-dirty state as well,
-since RISC-V marks PTEs dirty and soft-dirty together.
+STM32 QSPI may be in a power domain. Allow a single 'power-domains'
+entry for STM32 QSPI.
 
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-Reviewed-by: Qingwei Hu <qingwei.hu@bytedance.com>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/riscv/include/asm/pgtable.h | 27 +++++++++----
- arch/riscv/mm/pgtable.c          | 68 ++++++++++++++++++++++++++------
- 2 files changed, 77 insertions(+), 18 deletions(-)
+ Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 5d5756bda82e3..02286b48dc471 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -678,15 +678,21 @@ static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
- static inline void ptep_set_wrprotect(struct mm_struct *mm,
- 				      unsigned long address, pte_t *ptep)
- {
--	pte_t read_pte = READ_ONCE(*ptep);
-+	pte_t old_pte;
-+	pte_t pte;
- 	/*
- 	 * ptep_set_wrprotect can be called for shadow stack ranges too.
- 	 * shadow stack memory is XWR = 010 and thus clearing _PAGE_WRITE will lead to
- 	 * encoding 000b which is wrong encoding with V = 1. This should lead to page fault
- 	 * but we dont want this wrong configuration to be set in page tables.
- 	 */
--	atomic_long_set((atomic_long_t *)ptep,
--			((pte_val(read_pte) & ~(unsigned long)_PAGE_WRITE) | _PAGE_READ));
-+	pte = READ_ONCE(*ptep);
-+	do {
-+		old_pte = pte;
-+		pte = pte_wrprotect(pte);
-+		pte_val(pte) = cmpxchg_relaxed(&pte_val(*ptep), pte_val(old_pte),
-+					       pte_val(pte));
-+	} while (pte_val(pte) != pte_val(old_pte));
- }
+diff --git a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+index 3f1a27efff80..ee57739b73b8 100644
+--- a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
++++ b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+@@ -50,6 +50,9 @@ properties:
+     minItems: 1
+     maxItems: 2
  
- #define __HAVE_ARCH_PTEP_CLEAR_YOUNG_FLUSH
-@@ -742,14 +748,14 @@ static inline pgprot_t pgprot_writecombine(pgprot_t _prot)
- #define pgprot_dmacoherent pgprot_writecombine
- 
- /*
-- * Both Svade and Svadu control the hardware behavior when the PTE A/D bits need to be set. By
-- * default the M-mode firmware enables the hardware updating scheme when only Svadu is present in
-- * DT.
-+ * Both Svade and Svadu control the hardware behavior when the PTE A/D bits
-+ * need to be set. The core MM code only cares whether hardware updating of
-+ * the accessed/dirty state is currently active.
-  */
- #define arch_has_hw_pte_young arch_has_hw_pte_young
- static inline bool arch_has_hw_pte_young(void)
- {
--	return riscv_has_extension_unlikely(RISCV_ISA_EXT_SVADU);
-+	return riscv_has_hw_pte_ad_updating();
- }
- 
- /*
-@@ -1040,6 +1046,13 @@ static inline void pmdp_set_wrprotect(struct mm_struct *mm,
- 	ptep_set_wrprotect(mm, address, (pte_t *)pmdp);
- }
- 
-+#define __HAVE_ARCH_PUDP_SET_WRPROTECT
-+static inline void pudp_set_wrprotect(struct mm_struct *mm,
-+				      unsigned long address, pud_t *pudp)
-+{
-+	ptep_set_wrprotect(mm, address, (pte_t *)pudp);
-+}
++  power-domains:
++    maxItems: 1
 +
- #define pmdp_establish pmdp_establish
- static inline pmd_t pmdp_establish(struct vm_area_struct *vma,
- 				unsigned long address, pmd_t *pmdp, pmd_t pmd)
-diff --git a/arch/riscv/mm/pgtable.c b/arch/riscv/mm/pgtable.c
-index 9c4427d0b1874..98eed19ea70de 100644
---- a/arch/riscv/mm/pgtable.c
-+++ b/arch/riscv/mm/pgtable.c
-@@ -5,23 +5,55 @@
- #include <linux/kernel.h>
- #include <linux/pgtable.h>
- 
-+#define RISCV_PTE_ACCESS_FLAG_MASK	(_PAGE_READ | _PAGE_WRITE | _PAGE_EXEC | \
-+					 _PAGE_ACCESSED | _PAGE_DIRTY | \
-+					 _PAGE_SOFT_DIRTY)
-+
-+static inline unsigned long riscv_pte_access_flags(unsigned long cur,
-+						   unsigned long entry)
-+{
-+	unsigned long pteval;
-+	unsigned long preserved_flags;
-+
-+	preserved_flags = _PAGE_ACCESSED | _PAGE_DIRTY | _PAGE_SOFT_DIRTY;
-+	pteval = cur & ~RISCV_PTE_ACCESS_FLAG_MASK;
-+	pteval |= entry & (RISCV_PTE_ACCESS_FLAG_MASK & ~preserved_flags);
-+	pteval |= (cur | entry) & preserved_flags;
-+
-+	return pteval;
-+}
-+
- int ptep_set_access_flags(struct vm_area_struct *vma,
- 			  unsigned long address, pte_t *ptep,
- 			  pte_t entry, int dirty)
- {
-+	unsigned long old_pteval;
-+	unsigned long new_pteval;
-+	unsigned long prev_pteval;
-+	bool changed;
-+
-+	old_pteval = pte_val(ptep_get(ptep));
-+	do {
-+		new_pteval = riscv_pte_access_flags(old_pteval, pte_val(entry));
-+		if (new_pteval == old_pteval)
-+			break;
-+
-+		prev_pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval,
-+					      new_pteval);
-+		if (prev_pteval == old_pteval)
-+			break;
-+
-+		old_pteval = prev_pteval;
-+	} while (1);
-+
-+	changed = old_pteval != new_pteval;
- 	if (riscv_has_extension_unlikely(RISCV_ISA_EXT_SVVPTC)) {
--		if (!pte_same(ptep_get(ptep), entry)) {
--			__set_pte_at(vma->vm_mm, ptep, entry);
--			/* Here only not svadu is impacted */
-+		if (changed)
- 			flush_tlb_page(vma, address);
--			return true;
--		}
- 
--		return false;
-+		return changed;
- 	}
- 
--	if (!pte_same(ptep_get(ptep), entry))
--		__set_pte_at(vma->vm_mm, ptep, entry);
- 	/*
- 	 * update_mmu_cache will unconditionally execute, handling both
- 	 * the case that the PTE changed and the spurious fault case.
-@@ -32,9 +64,23 @@ int ptep_set_access_flags(struct vm_area_struct *vma,
- bool ptep_test_and_clear_young(struct vm_area_struct *vma,
- 		unsigned long address, pte_t *ptep)
- {
--	if (!pte_young(ptep_get(ptep)))
--		return false;
--	return test_and_clear_bit(_PAGE_ACCESSED_OFFSET, &pte_val(*ptep));
-+	unsigned long old_pteval;
-+	unsigned long new_pteval;
-+	unsigned long prev_pteval;
-+
-+	old_pteval = pte_val(ptep_get(ptep));
-+	do {
-+		if (!(old_pteval & _PAGE_ACCESSED))
-+			return false;
-+
-+		new_pteval = pte_val(pte_mkold(__pte(old_pteval)));
-+		prev_pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval,
-+					      new_pteval);
-+		if (prev_pteval == old_pteval)
-+			return true;
-+
-+		old_pteval = prev_pteval;
-+	} while (1);
- }
- EXPORT_SYMBOL_GPL(ptep_test_and_clear_young);
- 
--- 
-2.39.5
+ required:
+   - compatible
+   - reg
+
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260618-add_power_domain_for_qpsi-898d2ebf20fa
+
+Best regards,
+--  
+Patrice Chotard <patrice.chotard@foss.st.com>
 
