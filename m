@@ -1,144 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EBD2F39B5
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8338F3D7D8D
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:59:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781769459; cv=none; b=bgBrth7cni3kyTGFWxjrSCRShs3UlXtWfOp79fbmrIgv0HUCwAlfdbFAJq1UekPprNw53HyomldXaVVxYEmUYeewKHdUf/GhmBRn1tpzGNj+5or/OjzUryH+0+RgEnfKAOo5gln02E0vvtGpBtisflqEWSPAlhPh4TMEfJjWURE=
+	t=1781769556; cv=none; b=OY9l4Tgxe8PKeCHkqd67siRIeRTmMw8mDN5zFFSYxBtxTF8On6x5NmARq5vIovmPNqGRrtRzuIPdJ/dwz7TqcWqKxI6/X7IgKEUEBOOM+uXDgbFpqqcaiXCIwd6LLuKE42rv87yVyVX+ocpV4WBC+srWwwMI1mrv3VBhMI7IefU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781769459; c=relaxed/simple;
-	bh=S2NF1zAJ6qxyt6Jbb9rYJ/bRdpurn01eFeF55YC7g68=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qbGzP9YDxXrqEs5GothErbyS/w8FLjrLxV+x6GOg4iRJyrqzgsmIhK4BkPMwwAV3Q3hcoFgo6uSIR+88vLXpa3n/vL+WcztNDMcmWgQ3X88zfosLGwa6gDktxO0ro11whrYiDeRk50ZcId6iTYb9RYjTfrno/7l3TgP3+U11hIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYDyYMY/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781769556; c=relaxed/simple;
+	bh=s2kamytlWkrT0Kam9LTlqx56iBsAA01AIUbZimc5ZiQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=N5LK6w98QrLWMpOnThaiS97Wi5dFbJq/Ja2Q4HI1Yo5Dot9yCCr4i55oKzeaiTt+FtH/7yqKBjrsN94FNnMZGakJ03o3djDQWzzPw/WpY/Rnr48WAG1TbVKTnOUBwXCxlSmA5B+E279zTOlj8a0n45Ot7DJMjZQRJWsYBYo9Lqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=iHsAZ1Jp; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYDyYMY/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59931F000E9;
-	Thu, 18 Jun 2026 07:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781769458;
-	bh=+M8Dia+vFe9BHKPwYGXJ33B0X0KN1ERlk2rQQaa+bYo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IYDyYMY/VFu5VW0CXPWhgWORSBUImUw3JWFMtht6TGPAVb1XcCpVkNdmNOKHw+fUf
-	 wwg0AbUpkBCta2S6GYhDbjIuhANGksRlfD0pQ3k4h70tO72uF16Ro8tcYfXEiFk2U8
-	 F86Tf+aL0bX+kXDUHo/wdKCH60bf22ZAIYPsw7BbIE9j+1nS0PVf3Myw11z/RgG7Id
-	 G9E8yByHnZ7kv6UsJZMM7YqYVwpOJThLBL8vBd6GZTuORoteIowkV29snQa0Vw+1JR
-	 D2xP/JiW4VlakY/es4pv8iPUNjV8xYpXeznj0qCNUjwNACjLzveirLCQ+OZ/x2I0Kr
-	 iFqJbuHlRAadA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 05/16] spi: spi-mem: add execute_tuning callback and
- spi_mem_execute_tuning()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260618073725.84733-6-s-k6@ti.com>
-References: <20260618073725.84733-1-s-k6@ti.com>
- <20260618073725.84733-6-s-k6@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 07:57:37 +0000
-Message-Id: <20260618075737.C59931F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="iHsAZ1Jp"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1781769539;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Vmts3eVcq1AB/MaOX1+dMbZWrM8G02gzaeVnUoYstpY=;
+	b=iHsAZ1Jp6nMQWYrVGGLThRws4MJ9eNCU22+ngX8PXCh56gz2+Vbb24ZIj6VGb6/jM/lMya
+	7u+JmEvYY1JMZM82d6xmfBZcRD77TXUYJe7RDF4Rvhk6o9Y4oUKwc+bcBM43seA8EKzAXD
+	jqJ8XMf6IIrR60MXQaKBLDsvNNEHTWt4MUAG6DUP4bCRjZlgF3DPSSZcWF4biChXaQ2rvJ
+	rMa6+HeOo+GYXNQnVeNDf02rSmTd03tFHgF1wMH8fR/NRxStYWyprrfJFu6hm+FJmrw0Pc
+	98X6LUc1KD/DrZ71YOD/uup/O4qaQgMykCC/fGXLxh8paDGre4D2TXrTsR25LA==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 18 Jun 2026 09:58:52 +0200
+Message-Id: <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
+Cc: <kernel@collabora.com>, "Andy Yan" <andyshrk@163.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
+ properties
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Philipp Zabel" <p.zabel@pengutronix.de>, "Andrzej
+ Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>
+References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
+ <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
+In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing bus lock in spi_mem_execute_tuning() leads to data corrupt=
-ion and hardware state race conditions.
-- [Medium] spi_mem_execute_tuning() invokes hardware tuning without verifyi=
-ng if a GPIO chip-select is in use, causing spurious tuning failures.
---
+Hi Cristian,
 
-commit 488642092bb43537c3028baead18a5f59abeb41c
-Author: Santhosh Kumar K <s-k6@ti.com>
+Thanks for this series :-) Just 1 nit (at the end) ...
 
-spi: spi-mem: add execute_tuning callback and spi_mem_execute_tuning()
-
-This commit adds an execute_tuning callback to struct spi_controller_mem_ops
-and a corresponding spi_mem_execute_tuning() wrapper. This provides a stand=
-ard
-interface for SPI memory drivers to trigger controller tuning procedures
-required for high-speed operation modes.
-
-> diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-> index b0b111642a358..ae9f55f4ef90d 100644
-> --- a/drivers/spi/spi-mem.c
-> +++ b/drivers/spi/spi-mem.c
-
-[ ... ]
-
-> @@ -653,6 +653,37 @@ u64 spi_mem_calc_op_duration(struct spi_mem *mem, st=
-ruct spi_mem_op *op)
->  }
->  EXPORT_SYMBOL_GPL(spi_mem_calc_op_duration);
+On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
+> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
+> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
+> provided only on RK3588.
+>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++=
+++++++
+>  1 file changed, 42 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-=
+vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop=
+2.yaml
+> index 93da1fb9adc4..d3bc5380f910 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.ya=
+ml
+> @@ -82,6 +82,20 @@ properties:
+>        - {}
+>        - {}
 > =20
-> +/**
-> + * spi_mem_execute_tuning() - Execute controller tuning procedure
-> + * @mem: the SPI memory device
-> + * @read_op: read operation template (mandatory)
-> + * @write_op: write operation template (optional, may be NULL)
-> + *
-> + * Requests the controller to perform tuning for high-speed operation
-> + * using the provided op templates. On success the controller callback
-> + * sets @read_op->max_freq (and @write_op->max_freq when non-NULL) to
-> + * the validated clock rate.
-> + *
-> + * Return: 0 on success, -EINVAL if @mem or @read_op is NULL,
-> + *         -EOPNOTSUPP if controller doesn't support tuning,
-> + *         or a controller-specific error code on failure.
-> + */
-> +int spi_mem_execute_tuning(struct spi_mem *mem, struct spi_mem_op *read_=
-op,
-> +			   struct spi_mem_op *write_op)
-> +{
-> +	struct spi_controller *ctlr;
+> +  resets:
+> +    minItems: 5
+> +    maxItems: 6
 > +
-> +	if (!mem || !read_op)
-> +		return -EINVAL;
+> +  reset-names:
+> +    minItems: 5
+> +    items:
+> +      - const: axi
+> +      - const: ahb
+> +      - const: dclk_vp0
+> +      - const: dclk_vp1
+> +      - const: dclk_vp2
+> +      - const: dclk_vp3
 > +
-> +	ctlr =3D mem->spi->controller;
-> +	if (!ctlr->mem_ops || !ctlr->mem_ops->execute_tuning)
-> +		return -EOPNOTSUPP;
-
-[Severity: Medium]
-Hardware tuning engines are usually hardwired to toggle the controller's
-dedicated native CS line and cannot natively toggle a GPIO CS.
-
-If we omit checking for a GPIO CS here, could the hardware tuning sequence
-run on a GPIO CS configuration? The hardware sequencer might generate clock
-and data without asserting the GPIO CS, causing the flash device to ignore
-the tuning phase and resulting in a spurious failure.
-
-Should this verify !spi_get_csgpiod(mem->spi, 0) before proceeding to invoke
-the hardware-accelerated callback, similar to spi_mem_exec_op() and
-spi_mem_poll_status()?
-
+>    rockchip,grf:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+> @@ -148,6 +162,12 @@ allOf:
+>          clock-names:
+>            maxItems: 5
+> =20
+> +        resets:
+> +          maxItems: 5
 > +
-> +	return ctlr->mem_ops->execute_tuning(mem, read_op, write_op);
-
-[Severity: High]
-Does this execute_tuning() callback invocation need to be protected by the
-SPI controller's bus_lock_mutex?
-
-Hardware-specific tuning implementations often directly perform
-read-modify-write operations on global controller registers to configure PHY
-pipelines without necessarily relying entirely on spi_mem_exec_op() during
-all stages.
-
-If the bus lock is not held (via spi_mem_access_start() and
-spi_mem_access_end()), could these unprotected register accesses violently
-race with concurrent SPI transfers occurring on other chip-selects on the s=
-ame
-bus, potentially corrupting hardware states like PHY_EN or ENABLE bits?
-
-> +}
-> +EXPORT_SYMBOL_GPL(spi_mem_execute_tuning);
+> +        reset-names:
+> +          maxItems: 5
 > +
+>          interrupts:
+>            maxItems: 1
+> =20
+> @@ -194,6 +214,12 @@ allOf:
+>              - {}
+>              - const: pll_hdmiphy0
+> =20
+> +        resets:
+> +          maxItems: 5
+> +
+> +        reset-names:
+> +          maxItems: 5
+> +
+>          interrupts:
+>            minItems: 4
+> =20
+> @@ -246,6 +272,12 @@ allOf:
+>              - const: pll_hdmiphy0
+>              - const: pll_hdmiphy1
+> =20
+> +        resets:
+> +          minItems: 6
+> +
+> +        reset-names:
+> +          minItems: 6
+> +
+>          interrupts:
+>            maxItems: 1
+> =20
+> @@ -289,6 +321,16 @@ examples:
+>                                "dclk_vp0",
+>                                "dclk_vp1",
+>                                "dclk_vp2";
+> +                resets =3D <&cru SRST_A_VOP>,
+> +                         <&cru SRST_H_VOP>,
+> +                         <&cru SRST_VOP0>,
+> +                         <&cru SRST_VOP1>,
+> +                         <&cru SRST_VOP2>;
+> +                reset-names =3D "axi",
+> +                              "ahb",
+> +                              "dclk_vp0",
+> +                              "dclk_vp1",
+> +                              "dclk_vp2";
+>                  power-domains =3D <&power RK3568_PD_VO>;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618073725.8473=
-3-1-s-k6@ti.com?part=3D5
+Place reset* props below power-domains (like in patch 9) ?
+So everyone who copies your example has the correct sorting order.
+
+Cheers,
+  Diederik
+
+>                  rockchip,grf =3D <&grf>;
+>                  iommus =3D <&vop_mmu>;
+
