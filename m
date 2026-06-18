@@ -1,252 +1,350 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644E63E92A9;
-	Thu, 18 Jun 2026 09:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC463BCD27;
+	Thu, 18 Jun 2026 09:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781776156; cv=none; b=KIebmB/oxzcivCOp0dVwUWrnD+Jn5PNfvzO8s3lSxjgwRMvkP4UxSR+CS6xzWfiswAKQpGylb1d/LERt7fnTkZ/xrWJL/XQ9iKjQXoI3UNAbKEIJgVjQx2QwyVJYU/O9NfFWnwio0iVgfnVm5hdz4OHKAaBVmuIVhvS0V+AGBIo=
+	t=1781776264; cv=none; b=cYgXlDh49tn4dZnCC+afdjYgoCPFYftovrKmE/Yrnag9FW85cR480Te9+3HQpGn/Rb3UKsIFMyvzt+v+g//6MC5l5NpScFTufTQFutDi99n9HTvNAHhMcCyh1akgBs0+oyQ4ATg0IyVoricQspI7DgqOq3gJp3U2OVVX/Nr26I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781776156; c=relaxed/simple;
-	bh=c/PIQew4CIvgLc9UhZFMzJcfcY8E32gOzQD0mFhpcp0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CJjkJgc3LtRNxCruEtLcwc4oMCjE7J92C4xUOImtiq955qfDYqEPO6HvjZ4ArhRsXWlo9y/nHE0eAiuooY6FaEIJM6HNPuuLz7PHRyEU5F3p9mRrsj/ORGugjnRCMFNYEOKBjcK/vyeQDxYbBUSLNCUXYS/HMSM468UjjSA9a4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cz1RiDa5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1781776264; c=relaxed/simple;
+	bh=hcHgPb498P8dG0Sn5AiKY9+iU4DmVIzjP9mh+8ZIjXI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eUH8ieqpLv4jZ30hVyDdFuo9GO25fal4nfBOGRU0QAycWKOvzOj2ks7Afabat7LjDLTnnDvd/4C8rqOvRZOd55J8iN3X9oPpLjNyukHKbuoOekw/bKjInyRnrn1YTivD+Fz2YSmtoazST8UeuK/GMkG6RkPgGcH+fmBd5Fkd6vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZgGUy0K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cz1RiDa5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC1EEC2BCB8;
-	Thu, 18 Jun 2026 09:49:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781776155;
-	bh=c/PIQew4CIvgLc9UhZFMzJcfcY8E32gOzQD0mFhpcp0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Cz1RiDa5+NmjEzZjPADiMzZvBSuup9DT4s4XKLciISnlqiJEUplT1u6SPjkRvomts
-	 CFDYB+YFiDDuKhkRu0D0mSyOHtc+ILAfwEGtAfUzfOAdsWUPdhLe1Vfpto9IYap/dr
-	 sCyriCZrvHfuLStXf+W2fQ6/beoIsYs19rMvkCCAovq0fts92OFBmJ0DWBBJbrWBTB
-	 JjshT4gImLf4uqXAI5NDfVJsGixc4lIy6yjLSrMWGiQvHNwKmqJVXPDnwzsjCMMgAZ
-	 0BmdeFCa3msBiNUkQihfFmFWsX6UA21tsDimp95qMLc9QQ1vC88zggZ/mdnPT/kHJM
-	 a9q/37QQ6NtNw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C14A5CD98F2;
-	Thu, 18 Jun 2026 09:49:15 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Thu, 18 Jun 2026 17:49:11 +0800
-Subject: [PATCH v4 1/2] dt-bindings: clock: Add Amlogic A9 AO clock
- controller
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZgGUy0K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5BB1F000E9;
+	Thu, 18 Jun 2026 09:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781776262;
+	bh=Px7uBQSwaCKD4AtRlrlKDSY5TFnMd9l5KwkZ0WqeCfg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kZgGUy0KyTKQOA08P7zjHpbjQE2jf36GqkmJRdo0DlDT2VUFfUefO+mEcIlBLIwCn
+	 /zlcXspa33jgI35QU6GRbJnZH0DtM+4LaAEizBBrKx4ALjNua14AA2cJBBqO+OrmCN
+	 x10iciJKjCJKbsI4/rO12XiUsH0bPQ0W30QVeQBgXtvXOQp6bGktuCU2uIQFzlKfB8
+	 NvEtjzphk6T3NTYiOQnpx/cRDfKz+Du3qQ5JOHeZo222UTcNA6ugpyq/r40jCkHX+Z
+	 O+Xty9hU66avSmgIAppts5lxbeme2bcDv/9GdLI0sHbCcCy9PhY/pL7ACGo8SP7NKw
+	 2vQTJ75dhIKxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 4/4] media: nxp: Add i.MX95 CSI pixel formatter v4l2
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: guoniu.zhou@oss.nxp.com
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618-csi_formatter-v10-4-f23830312ba5@oss.nxp.com>
+References: <20260618-csi_formatter-v10-0-f23830312ba5@oss.nxp.com>
+ <20260618-csi_formatter-v10-4-f23830312ba5@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 09:51:01 +0000
+Message-Id: <20260618095102.3D5BB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-a9_aoclk-v4-1-569d0425e50c@amlogic.com>
-References: <20260618-a9_aoclk-v4-0-569d0425e50c@amlogic.com>
-In-Reply-To: <20260618-a9_aoclk-v4-0-569d0425e50c@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Jian Hu <jian.hu@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781776153; l=5339;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=kwn+xLdvWcoIS5pumj6G8ysGe6h8qolt3jz+Yj+ZsB8=;
- b=9e9bmCtE//UGeabd/KdoMDTfkFcIC6EhixYjWLQZx3reKWeUiVgd9X8i65eoDC33/P45ObbVp
- CEDM8DJRiRPA8UTTPJtkxjasIH3PAq9KGzTyG5s9GYrAwfnN8JCLNKR
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
 
-From: Jian Hu <jian.hu@amlogic.com>
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [Critical] SINK and SOURCE stream masks are conflated, leading to a guara=
+nteed NULL pointer dereference.
+- [Critical] Missing NULL pointer checks for `v4l2_subdev_state_get_format(=
+)` allow unprivileged userspace to trigger kernel crashes.
+- [High] Direct register writes to `CSI_VC_PIXEL_DATA_TYPE` corrupt hardwar=
+e state for multiplexed streams sharing the same Virtual Channel.
+- [High] The driver incorrectly bounds logical stream iteration to the hard=
+ware Virtual Channel count, leading to silent stream configuration failures=
+ and out-of-bounds array access potential.
+- [High] Missing `.unbind` callback in the async notifier operations leaves=
+ a dangling pointer to the remote subdevice, resulting in a Use-After-Free.
+- [Medium] The driver breaks UAPI by returning `-EINVAL` when setting a for=
+mat on an unrouted pad, breaking standard userspace pipeline configuration =
+flows.
+- [Medium] Mixing `goto`-based error handling with scope-based cleanup help=
+ers (`__free()` and `guard()`).
+--
 
-Add the Always-On clock controller dt-bindings for the Amlogic A9
-SoC family.
+commit 91d3a7fba60671cec5f0a95a21622c4761779af5
+Author: Guoniu Zhou <guoniu.zhou@nxp.com>
+Date:   Thu Jun 18 09:41:38 2026 +0000
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
----
- .../bindings/clock/amlogic,a9-aoclkc.yaml          | 76 ++++++++++++++++++++++
- include/dt-bindings/clock/amlogic,a9-aoclkc.h      | 76 ++++++++++++++++++++++
- 2 files changed, 152 insertions(+)
+    media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
 
-diff --git a/Documentation/devicetree/bindings/clock/amlogic,a9-aoclkc.yaml b/Documentation/devicetree/bindings/clock/amlogic,a9-aoclkc.yaml
-new file mode 100644
-index 000000000000..1fa9b3a32fbb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/amlogic,a9-aoclkc.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (C) 2026 Amlogic, Inc. All rights reserved
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/amlogic,a9-aoclkc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic A9 Series Always-On Clock Controller
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+  - Jerome Brunet <jbrunet@baylibre.com>
-+  - Jian Hu <jian.hu@amlogic.com>
-+  - Xianwei Zhao <xianwei.zhao@amlogic.com>
-+
-+properties:
-+  compatible:
-+    const: amlogic,a9-aoclkc
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    const: 1
-+
-+  clocks:
-+    minItems: 5
-+    items:
-+      - description: input oscillator
-+      - description: input fclk div 3
-+      - description: input fclk div 4
-+      - description: input fclk div 5
-+      - description: input sys clk
-+      - description: external fixed 32k (optional)
-+
-+  clock-names:
-+    minItems: 5
-+    items:
-+      - const: xtal
-+      - const: fdiv3
-+      - const: fdiv4
-+      - const: fdiv5
-+      - const: sys
-+      - const: ext_32k
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#clock-cells'
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        clock-controller@0 {
-+            compatible = "amlogic,a9-aoclkc";
-+            reg = <0x0 0x0 0x0 0x58>;
-+            #clock-cells = <1>;
-+            clocks = <&xtal>,
-+                     <&scmi_clk 14>,
-+                     <&scmi_clk 16>,
-+                     <&scmi_clk 18>,
-+                     <&scmi_clk 21>;
-+            clock-names = "xtal",
-+                          "fdiv3",
-+                          "fdiv4",
-+                          "fdiv5",
-+                          "sys";
-+        };
-+    };
-diff --git a/include/dt-bindings/clock/amlogic,a9-aoclkc.h b/include/dt-bindings/clock/amlogic,a9-aoclkc.h
-new file mode 100644
-index 000000000000..a7d704d4b58e
---- /dev/null
-+++ b/include/dt-bindings/clock/amlogic,a9-aoclkc.h
-@@ -0,0 +1,76 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C) 2026 Amlogic, Inc. All rights reserved.
-+ */
-+
-+#ifndef __AMLOGIC_A9_AO_CLKC_H
-+#define __AMLOGIC_A9_AO_CLKC_H
-+
-+#define CLKID_AO_XTAL_IN			0
-+#define CLKID_AO_XTAL				1
-+#define CLKID_AO_SYS				2
-+#define CLKID_AO_SYS_I3C			3
-+#define CLKID_AO_SYS_RTC_REG			4
-+#define CLKID_AO_SYS_CLKTREE			5
-+#define CLKID_AO_SYS_RST_CTRL			6
-+#define CLKID_AO_SYS_PAD			7
-+#define CLKID_AO_SYS_RTC_DIG			8
-+#define CLKID_AO_SYS_IRQ			9
-+#define CLKID_AO_SYS_PWRCTRL			10
-+#define CLKID_AO_SYS_PWM_A			11
-+#define CLKID_AO_SYS_PWM_B			12
-+#define CLKID_AO_SYS_PWM_C			13
-+#define CLKID_AO_SYS_PWM_D			14
-+#define CLKID_AO_SYS_PWM_E			15
-+#define CLKID_AO_SYS_PWM_F			16
-+#define CLKID_AO_SYS_PWM_G			17
-+#define CLKID_AO_SYS_I2C_A			18
-+#define CLKID_AO_SYS_I2C_B			19
-+#define CLKID_AO_SYS_I2C_C			20
-+#define CLKID_AO_SYS_I2C_D			21
-+#define CLKID_AO_SYS_SED			22
-+#define CLKID_AO_SYS_IR_CTRL			23
-+#define CLKID_AO_SYS_UART_B			24
-+#define CLKID_AO_SYS_UART_C			25
-+#define CLKID_AO_SYS_UART_D			26
-+#define CLKID_AO_SYS_UART_E			27
-+#define CLKID_AO_SYS_SPISG_0			28
-+#define CLKID_AO_SYS_RTC_SECURE			29
-+#define CLKID_AO_SYS_CEC			30
-+#define CLKID_AO_SYS_AOCPU			31
-+#define CLKID_AO_SYS_SRAM			32
-+#define CLKID_AO_SYS_SPISG_1			33
-+#define CLKID_AO_SYS_SPISG_2			34
-+#define CLKID_AO_PWM_A_SEL			35
-+#define CLKID_AO_PWM_A_DIV			36
-+#define CLKID_AO_PWM_A				37
-+#define CLKID_AO_PWM_B_SEL			38
-+#define CLKID_AO_PWM_B_DIV			39
-+#define CLKID_AO_PWM_B				40
-+#define CLKID_AO_PWM_C_SEL			41
-+#define CLKID_AO_PWM_C_DIV			42
-+#define CLKID_AO_PWM_C				43
-+#define CLKID_AO_PWM_D_SEL			44
-+#define CLKID_AO_PWM_D_DIV			45
-+#define CLKID_AO_PWM_D				46
-+#define CLKID_AO_PWM_E_SEL			47
-+#define CLKID_AO_PWM_E_DIV			48
-+#define CLKID_AO_PWM_E				49
-+#define CLKID_AO_PWM_F_SEL			50
-+#define CLKID_AO_PWM_F_DIV			51
-+#define CLKID_AO_PWM_F				52
-+#define CLKID_AO_PWM_G_SEL			53
-+#define CLKID_AO_PWM_G_DIV			54
-+#define CLKID_AO_PWM_G				55
-+#define CLKID_AO_RTC_DUALDIV_IN			56
-+#define CLKID_AO_RTC_DUALDIV_DIV		57
-+#define CLKID_AO_RTC_DUALDIV_SEL		58
-+#define CLKID_AO_RTC_DUALDIV			59
-+#define CLKID_AO_RTC				60
-+#define CLKID_AO_CEC_DUALDIV_IN			61
-+#define CLKID_AO_CEC_DUALDIV_DIV		62
-+#define CLKID_AO_CEC_DUALDIV_SEL		63
-+#define CLKID_AO_CEC_DUALDIV			64
-+#define CLKID_AO_CEC				65
-+
-+#endif  /* __AMLOGIC_A9_AO_CLKC_H */
+This commit introduces the V4L2 driver for the i.MX95 CSI pixel formatter
+module. It provides support for data formatting, unpacking pixels from the
+CSI-2 interface to match Pixel Link requirements.
 
--- 
-2.47.1
+> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/m=
+edia/platform/nxp/imx95-csi-formatter.c
+> new file mode 100644
+> index 0000000000000..cfe448fedd37e
+> --- /dev/null
+> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
+> @@ -0,0 +1,775 @@
+[ ... ]
+> +struct csi_formatter {
+> +	struct device *dev;
+[ ... ]
+> +	/* Protects enabled_streams */
+> +	struct mutex lock;
+> +	u64 enabled_streams;
+> +
+> +	u8 stream_to_vc[CSI_FORMATTER_VC_NUM];
 
+[Severity: High]
+Does this array statically bound logical streams to the hardware Virtual Ch=
+annel
+limit?
 
+The CSI_FORMATTER_VC_NUM constant is 8, representing the number of hardware=
+ VCs.
+However, this array is later indexed by a logical V4L2 stream ID, which can
+validly be up to 63. If the loop limit in csi_formatter_start_stream() were
+corrected to 64 to resolve the stream ID limitation without changing this a=
+rray
+size, it would cause out-of-bounds writes.
+
+[ ... ]
+> +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *sd_state,
+> +					       struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->pad =3D=3D CSI_FORMATTER_PAD_SOURCE) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		if (code->index > 0)
+> +			return -EINVAL;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, code->pad,
+> +						   code->stream);
+> +		code->code =3D fmt->code;
+
+[Severity: Critical]
+Is it possible for v4l2_subdev_state_get_format() to return NULL here?
+
+The V4L2 core does not pre-validate that the logical stream ID provided by
+userspace exists in the active routing state. If an invalid stream ID is
+requested, the format pointer will be NULL. Reading fmt->code on this NULL
+pointer will cause a kernel oops, potentially enabling a local denial of se=
+rvice.
+
+[ ... ]
+> +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *sd_state,
+> +					struct v4l2_subdev_format *sdformat)
+> +{
+> +	struct csi_formatter_pix_format const *format;
+> +	struct v4l2_mbus_framefmt *fmt;
+[ ... ]
+> +	v4l_bound_align_image(&sdformat->format.width, 1, 0xffff, 2,
+> +			      &sdformat->format.height, 1, 0xffff, 0, 0);
+> +
+> +	fmt =3D v4l2_subdev_state_get_format(sd_state, sdformat->pad,
+> +					   sdformat->stream);
+> +	*fmt =3D sdformat->format;
+
+[Severity: Critical]
+Could this result in a NULL pointer dereference?
+
+Similar to csi_formatter_subdev_enum_mbus_code(), if userspace provides an
+invalid stream ID, v4l2_subdev_state_get_format() returns NULL. Writing
+directly to *fmt will cause a kernel oops.
+
+> +
+> +	/* Set default code if user set an invalid value */
+> +	fmt->code =3D format->code;
+> +
+> +	/* Propagate the format from sink stream to source stream */
+> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat=
+->pad,
+> +							   sdformat->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Should the driver reject setting formats on unrouted pads?
+
+Standard V4L2 subdevice behavior requires drivers to accept the format on t=
+he
+unrouted pad and simply skip propagation if no route exists. Returning -EIN=
+VAL
+here enforces a strict requirement that userspace must establish routing be=
+fore
+setting formats, which breaks standard pipeline configuration flows like th=
+ose
+used by media-ctl.
+
+[ ... ]
+> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
+> +				      u64 stream_mask)
+> +{
+> +	unsigned int i;
+> +	u8 vc;
+> +
+> +	for (i =3D 0; i < CSI_FORMATTER_VC_NUM; ++i) {
+> +		if (!(stream_mask & BIT(i)))
+> +			continue;
+> +
+> +		/* Use the VC that was configured in start_stream */
+> +		vc =3D formatter->stream_to_vc[i];
+> +		if (vc >=3D CSI_FORMATTER_VC_NUM)
+> +			continue;
+> +
+> +		csi_formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), 0);
+
+[Severity: High]
+Does writing 0 abruptly terminate all multiplexed streams on this Virtual
+Channel?
+
+The MIPI CSI-2 specification allows multiple streams with different Data Ty=
+pes
+to be multiplexed onto a single VC. The register acts as a bitmask of enabl=
+ed
+Data Types. Directly writing 0 here tears down all streams on the VC instead
+of just the target stream, breaking hardware multiplexing.
+
+[ ... ]
+> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < CSI_FORMATTER_VC_NUM; ++i) {
+> +		if (!(stream_mask & BIT(i)))
+> +			continue;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(state,
+> +						   CSI_FORMATTER_PAD_SINK, i);
+> +
+> +		pix_fmt =3D csi_formatter_find_format(fmt->code);
+
+[Severity: Critical]
+Will this return NULL if the source stream ID differs from the sink stream =
+ID?
+
+In csi_formatter_subdev_enable_streams(), the streams_mask parameter repres=
+ents
+the bitmask of streams on the source pad, and it is passed verbatim to this
+function.=20
+
+This loop iterates over the source stream bitmask, so i is a source stream =
+ID.
+Calling v4l2_subdev_state_get_format() with CSI_FORMATTER_PAD_SINK but pass=
+ing
+a source stream ID will return a NULL format pointer if that stream ID does=
+ not
+exist on the sink pad (e.g., sink stream 1 routed to source stream 0). The =
+code
+then unconditionally dereferences fmt->code, causing a kernel panic.
+
+Should the driver translate and iterate over the sink_streams mask instead?
+
+[ ... ]
+> +		/* Store the stream to VC mapping for stop_stream */
+> +		formatter->stream_to_vc[i] =3D vc;
+> +
+> +		csi_formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), val);
+
+[Severity: High]
+Does this direct register write clear previously enabled Data Types on the
+shared Virtual Channel?
+
+Because this uses a direct register write instead of updating bits, it will
+unconditionally clear all other active Data Types previously configured for
+this VC, breaking hardware multiplexing.
+
+[ ... ]
+> +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *state,
+> +					       u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
+> +	struct device *dev =3D formatter->dev;
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&formatter->lock);
+
+[Severity: Medium]
+Is it safe to mix guard(mutex) block scoping with goto labels for runtime
+power management rollback?
+
+The kernel's subsystem guidelines for cleanup functions state that the usag=
+e of
+goto and cleanup helpers must never be mixed within the same function due t=
+o the
+risk of confusing ownership semantics and ordering bugs.
+
+[ ... ]
+> +	ret =3D csi_formatter_start_stream(formatter, state, streams_mask);
+
+[Severity: Critical]
+Is the wrong stream mask passed to csi_formatter_start_stream() here?
+
+The variable streams_mask represents the bitmask of streams on the source p=
+ad.
+However, csi_formatter_start_stream() uses this mask to query formats on the
+sink pad.
+
+Should sink_streams be passed to csi_formatter_start_stream() instead to av=
+oid
+querying invalid stream IDs on the sink pad?
+
+[ ... ]
+> +static const struct v4l2_async_notifier_operations formatter_notify_ops =
+=3D {
+> +	.bound =3D csi_formatter_notify_bound,
+> +};
+
+[Severity: High]
+Is an .unbind callback needed to clean up the stale remote subdevice pointe=
+r?
+
+The driver caches a pointer to the bound source subdevice in
+formatter->csi_sd during the .bound callback. However, this operations
+structure does not provide an .unbind callback to set this pointer to NULL
+when the remote subdevice is unbound and removed.=20
+
+If the source driver module is unloaded, the pointer becomes dangling. A
+subsequent streaming operation would dereference the freed memory in
+v4l2_subdev_enable_streams() and cause a kernel oops.
+
+> +
+> +static int csi_formatter_async_register(struct csi_formatter *formatter)
+> +{
+> +	struct device *dev =3D formatter->dev;
+> +	struct v4l2_async_connection *asc;
+> +	int ret;
+> +
+> +	struct fwnode_handle *ep __free(fwnode_handle) =3D
+> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> +						FWNODE_GRAPH_ENDPOINT_NEXT);
+> +	if (!ep)
+> +		return -ENOTCONN;
+> +
+> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
+> +
+> +	asc =3D v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
+> +					      struct v4l2_async_connection);
+> +	if (IS_ERR(asc)) {
+> +		ret =3D PTR_ERR(asc);
+> +		goto err_cleanup_notifier;
+
+[Severity: Medium]
+Does this mix __free(fwnode_handle) with goto-based error tracking?
+
+Using __free() alongside goto-based unwinding in the same function violates
+cleanup function guidelines, which can lead to double-frees or resource lea=
+ks.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-csi_format=
+ter-v10-0-f23830312ba5@oss.nxp.com?part=3D4
