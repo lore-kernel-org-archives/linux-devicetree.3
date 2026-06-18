@@ -1,121 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433133B3895
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:44:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08EF3B3C13
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781772241; cv=none; b=VajT1PfL7NNI2wotrJjRy7fJE0N/rdIQ2cMGWBRXmuebxYzQ98rjVhE2b3aVKxldBIeAVApmEq9LROLB2J21v2k6tQtvPXzFib+9Yw9Lywnh7V/9M1KIK8tjZmi/Xbf7NR9ohW5m+4DFjErTD805hqgjvtfZfFfINBVOWHCW8B8=
+	t=1781772318; cv=none; b=tgY62GVdb4JCLu1U52uvwPlg50+AExZn6jZpjNUhy05XVU2UkfE/6qSIijYr8SebTtKc45vt+kKSuFNsVPm4o1AXsl0ZcvKXBiILs1hC5Q19zhZ6CkfgvDWK/8sp7C6NhoP/4rd1GSUWLT8BdaRFE8a1veSoTrdiDcz7MBwmzQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781772241; c=relaxed/simple;
-	bh=Ol93fPRzg9FKpYNr+B/2p2u/x+/miPH8EbkA6sjBUiw=;
+	s=arc-20240116; t=1781772318; c=relaxed/simple;
+	bh=RFDlKG+eyT/oJfKdVmZd4RolBGDEmU5FlJaxE5+xEbo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RLja2zL0aacAXbHLErqglsZRNJx052KfUlm+bNkW5REP8hBvUJT8yjQU1Vw3zlZZfZTZDAvNkSd71aEbQeXTnh42vDKsm0jO7mTyLivZ8ORFOrlhVhTqBSbueCeRdwD19MrVSUm4Hyo5uUwPNMWMgIly7cqzMWNV+tgZjTM1PD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtLSaZuA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fuMKs2Mtpvx5mFFFb17VSG92apeuUE7ZAtbeXqsYvMymPfSdbybx2bHLWsTQnbOrlBVi2zKi4X3NZs0E7dDWGgaN1wB8fswtNrvAzH7EmMLLxA18UeUiMtAqLQFYo6uUEWnz49ziKUX8yCYpAbAInpJAr3UBj1GSUu/z7DzzGkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/HIcKA1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtLSaZuA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58DC1F000E9;
-	Thu, 18 Jun 2026 08:43:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/HIcKA1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625BE1F000E9;
+	Thu, 18 Jun 2026 08:45:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781772239;
-	bh=kgumC5PE5MFKFt32SyF0G1HXavcqoZX6uY3iQcH/v8A=;
+	s=k20260515; t=1781772316;
+	bh=ivGuEaNWAUqr6Gn0tSYH4j7IQ8U9K7mzsdEeUnMQdRU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MtLSaZuAEpoACwEDhN9SoABoKmHMpG3eQqZxAiL3cLmr8fm+uKT7RJJxxwq888qOH
-	 Io2PkYaEMPBCmhUwjqcgXWbPsofgmZnQALyT9eHkZ1aoU28j6EEWuhNcMUX9BkD7dq
-	 vm0v1RMKicH0jUlDDDaH2KA51nPT2PRYNdplx3sCJkdaf68sLLz/yumGlKPzHUxUkq
-	 XQriqiOl9US0MXfiqu07+k1nhJRNovS9mfxWYdl4eTvfYpSQdoRHA2CPJG7Jytpvye
-	 rKXDTjiw1Xx5n8WXTvojymNsNgqB7FZAoTL0/y37+yYJx5si1bYclM1esQinuWBdZu
-	 1nczmRmkf6+wQ==
+	b=K/HIcKA1GkHmmRYUHW5XdNpW2pT4QhRf4Iwgmf3ct0Ys5Mqe9Ic8CT01wWpuRo4cb
+	 b6hvB4zm/YLiEquPMbDpELZhLre/TFXoqHNNd8xSlwkvSdz98W2/G+cec275zven+j
+	 jZW2Lx8x6KDtT1h6F3cNEmEtLW3tITCD1xCxQKVHVEeVBQ880+yME1cJ5q07rljjwK
+	 nnj23vMyicDxwQwXhzRdT4IIZ5EOvT+6touM1vx4P5vgvVpICwras2+L5xdevJdTJP
+	 nm9xt34Arxys+GhYbJDnOMkgwQk+yJSVMIueIuS4msI/mE9JwUgjms4UOMdhMup2rp
+	 rRYrGQJ8Ibqow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: ES8389: Add members about HPF
- and clock
+Subject: Re: [PATCH v2 2/7] ASoC: codecs: ES8389: Modify volatile_register
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260618082842.2778-2-zhangyi@everest-semi.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618082842.2778-3-zhangyi@everest-semi.com>
 References: <20260618082842.2778-1-zhangyi@everest-semi.com>
- <20260618082842.2778-2-zhangyi@everest-semi.com>
+ <20260618082842.2778-3-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 08:43:59 +0000
-Message-Id: <20260618084359.A58DC1F000E9@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 08:45:15 +0000
+Message-Id: <20260618084516.625BE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Property `everest,mclk-src` uses an unidiomatic `uint8` type to =
-model a boolean flag, which is highly error-prone due to DT endianness.
-- [Low] Property `everest,hpf-frq` lacks the standard `-hz` unit suffix and=
- uses an uncommon abbreviation.
+
+Pre-existing issues:
+- [High] The updated `es8389_volatile_register` list misses critical config=
+uration registers, causing their state to be permanently lost upon resume.
+- [High] Variables passed to `regmap_read` are used without checking for a =
+potential error return, which can leave them uninitialized and result in no=
+n-deterministic hardware behavior.
+- [High] The return value of `es8389_set_bias_level()` is ignored in `es838=
+9_resume()`, potentially leading to silent failures.
 --
 
-commit 733db5a41798dd67759483d1a1aa543394f0ddf2
+commit d39c101472412561134bb4faff5fe29c9d7f7dfb
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: dt-bindings: ES8389: Add members about HPF and clock
+ASoC: codecs: ES8389: Modify volatile_register
 
-Add members related to HPF and mclk_source
+This commit updates the volatile register definitions for the ES8389 codec,
+switching to an allowlist approach for cached registers. It also adjusts
+the cache bypass logic during the resume sequence.
 
-> diff --git a/Documentation/devicetree/bindings/sound/everest,es8389.yaml =
-b/Documentation/devicetree/bindings/sound/everest,es8389.yaml
-> --- a/Documentation/devicetree/bindings/sound/everest,es8389.yaml
-> +++ b/Documentation/devicetree/bindings/sound/everest,es8389.yaml
-> @@ -42,6 +42,21 @@ properties:
->      description:
->        Interface power supply.
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> index 3484c87853cb4..10de2143f8d8f 100644
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+
+[ ... ]
+
+> @@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] =3D {
+>  static bool es8389_volatile_register(struct device *dev,
+>  			unsigned int reg)
+>  {
+> -	if ((reg  <=3D 0xff))
+> -		return true;
+> -	else
+> +	switch (reg) {
+> +	case ES8389_ADCL_VOL:
+
+[ ... ]
+
+> +	case ES8389_ADC_MODE:
+> +	case ES8389_DMIC_EN:
+>  		return false;
+> +	default:
+> +		return true;
+> +	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but by defaulting to true, do we
+miss critical configuration registers like ES8389_MASTER_MODE and
+ES8389_ADC_HPF2?
+
+If these are left as volatile, they are bypassed during regcache_sync().
+Since ASoC doesn't automatically re-invoke set_fmt on resume, and
+es8389_init() overwrites these registers with reset defaults, does this
+permanently lose the configuration across a suspend/resume cycle?
+
+>  }
 > =20
-> +  everest,mclk-src:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      Indicates that SCLK is used as the internal clock.
-> +    minimum: 0
-> +    maximum: 0x01
-> +    default: 0x00
+>  static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
+> @@ -861,13 +880,13 @@ static int es8389_resume(struct snd_soc_component *=
+component)
+>  	regcache_cache_only(es8389->regmap, false);
+>  	regcache_cache_bypass(es8389->regmap, true);
+>  	regmap_read(es8389->regmap, ES8389_RESET, &regv);
 
-[Severity: Medium]
-Since this functions conceptually as a boolean toggle, should this be
-defined as a standard boolean property instead of a uint8?
+[Severity: High]
+This is a pre-existing issue, but should the return value of regmap_read()
+be checked here?
 
-If a developer intuitively writes "everest,mclk-src =3D <1>;" in the Device
-Tree, standard angle-bracket integer cells evaluate to 32-bit big-endian
-integers (0x00 0x00 0x00 0x01).
+If the underlying I2C/SPI read fails, regv remains uninitialized. This
+could result in non-deterministic hardware behavior since the resume
+sequence would evaluate stack garbage in the if (regv =3D=3D 0xff) check be=
+low.
 
-When device_property_read_u8() reads this in the driver:
-    ret =3D device_property_read_u8(component->dev, "everest,mclk-src", &es=
-8389->mclk_src);
+This also appears in other places, for example in es8389_init():
 
-It will read the first byte (0x00) and silently misinterpret the flag as 0.
-To correctly set the flag as a uint8, users would be forced to use the unwi=
-eldy
-syntax "/bits/ 8 <1>;". Using a boolean property (where presence indicates =
-true)
-would prevent this silent configuration failure.
+    regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
+    es8389->version =3D reg;
 
-Also, prior discussions upstream noted a bitmask mismatch (0x40) related to=
- this
-property, but it was resolved in a subsequent patch in this series ("ASoC:
-codecs: ES8389: Fix the issue about mclk_src").
+> -	regcache_cache_bypass(es8389->regmap, false);
+> =20
+>  	if (regv =3D=3D 0xff)
+>  		es8389_init(component);
+>  	else
+>  		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
 
-> +
-> +  everest,hpf-frq:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      The frequency of HPF in Hz.
-> +    maximum: 1020
-> +    default: 16
+[Severity: High]
+This is also a pre-existing issue, but what happens if es8389_set_bias_leve=
+l()
+encounters an error?
 
-[Severity: Low]
-Does this property name need the standard "-hz" unit suffix?
+If clk_prepare_enable() fails inside es8389_set_bias_level(), it returns
+an error code. Since that return value is ignored here, will the function
+silently proceed to regcache_sync() and return success? This might leave
+the hardware unpowered while the system falsely believes it resumed
+correctly.
 
-According to Device Tree schema guidelines, properties representing frequen=
-cies
-should use the "-hz" suffix to be self-documenting (e.g., "everest,hpf-hz").
-Additionally, "frq" is a non-standard abbreviation for frequency.
+> =20
+> +	regcache_cache_bypass(es8389->regmap, false);
+>  	regcache_sync(es8389->regmap);
+> =20
+>  	return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618082842.2778=
--1-zhangyi@everest-semi.com?part=3D1
+-1-zhangyi@everest-semi.com?part=3D2
