@@ -1,258 +1,477 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D84F3F54D4
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5CE1AA1D2
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781786545; cv=none; b=utyUjXV6D98cxBFj+FlC5REqvsxWawVcwsKclB8euooD+BXh9kw003ZVRwfI5izVIxnF4RxbtWefdTEFISlJT4DavtU5k9o7ZGtwgEyYuce9bAv15OKloiNI1MGpEWXKwUpESWnqHXS3QCQ/0UQwF+XlsvRGBkymg7gjc1DWzu0=
+	t=1781786624; cv=none; b=W9qHkk8Eqnwpvqc3P5apnZyzxTSNoE5/lmki0Ssw5e/X71ctYy48jRUETlH7CPIwwLUAYiK3GPgFd5sxlbSgb5/hdnBM/1lqFPcpAe89FCWCqQA2mAAihLctlxyzc3TwKvUb39+j2EO4zDMjqp2uz+vbqGuyXombKMw+2i81GcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781786545; c=relaxed/simple;
-	bh=jI2F/ByiP5loXTu6awXWLF0O1PHvQZ02TY8duJZD+mM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Nwlw5HW/qnxEZ33U0SdkZ5HSX0oHWSkFPdJcWzKGCxvvXOaHibZGGJHDrTJ/BR+KCUmstX4ooF2MtGWja8Qp02c61mtipRc3kmO3GOpmvVvBTUvmcNWZvBHEX48E05z291oOsezwp+nhiaf+A3dquyw2SDciTtwPAY1KHuw1ktg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kX+5H0i7; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781786624; c=relaxed/simple;
+	bh=dlYelIJLOggcvkumlFbjoZM+qpa9euLcPbaxUeQzkHQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BmrBY/XetmGpYhkyHbbZCO4dRvKs3lc+H5KE4TEqbeDvvOQ06s+0vrrhmifhy7fMOXVKzW2NyX/49v4uL634kQLZxYwmVrg+gcbYsyuEruDO2TWP7OcG4IxdrljStDd2el3NOf/M1DjteoWRUqkqc/tvr/eTfBWSlPNFt4UCRWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yX3VX1E4; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kX+5H0i7"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2c6d4851142so9672485ad.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:42:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yX3VX1E4"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4921e4dd62dso7330655e9.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781786536; x=1782391336; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uv/Wqd9A96BxNSdILnrTOWIu5oJDMD/dfSiDHSmHZbY=;
-        b=kX+5H0i7zoH8xu9+xeCO1KwKnmeftOhPeLL6NKyVjCbUiXKaawpHWyV94AFz0b8zM/
-         EmELR/G9FqWqYcoYdmAUYeIT9AswUllqZTG3QuiLZy4Xa8zHJH6kGaPLVukktbOsL9Xo
-         iv1Frjc2Ix8GT+ypH0NQgio8Ndwogl22HYti4Z9/7cwgI50NvDm1+iV3+vzWDNZrTIJ0
-         B0Kde2ivPxd7g8tiky2SdKU4rrg9jkyN8t1zRQmIdPxdsPS4h4YtFESyT2m9iDqbGtP2
-         Jh4M/tpAiBagxNfjcim5BrrQ7B49l0TDqDCavoaS0HnkV9HbDVMOFxwaElmByCPRSIOa
-         dH9A==
+        d=linaro.org; s=google; t=1781786621; x=1782391421; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=x8JZcEbEN9+L4E/fkgdE7qzbLCs2DJHcRzGzneoeNvg=;
+        b=yX3VX1E4ikIgqpC7qSnubkfvqqKimhMcuea7n8qo0rVpxFPuvEtqT+P4m06jv+iIqX
+         gpX6qq3dfa1hyp8odte2H7HTvUc6UA5Dt5WePIL8lzXPhzdxmg5HRCCxP/x3T0jOJIAo
+         F9HdwkKnuqMyigkJ0W8TxGOkpGEKECVcDUiFTIjljqop6KRO5UNO3nvaYK8yVDSRRj5q
+         7hOeG7dklbN8YgzHquS5pFhFedG7NeVaWVmNf4V5VntFMHUMf7FK5yYTG0dUYoCWxMwj
+         DUnunXaYCMtux/04wJjnzMHPVIFUF1GHarPOAQg0igTyjjRI8gc6Y4V7j3/eWUthbK07
+         l5DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781786536; x=1782391336;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uv/Wqd9A96BxNSdILnrTOWIu5oJDMD/dfSiDHSmHZbY=;
-        b=qjrClHl5dLa6eqnsgW54QlzgaINeatvzoSyp+CxMUAohcRBXnvcK5R4wBYhVyA7YIy
-         jSsw2023emI2sYAnr7XTMfTxBcE65vXkXym/wvvit9b/09cOSBJHYj2ygvjr3+pv1o/C
-         /cjySss8CSIEXDNrn+kpzGrN8JhCgrNl4PN98r9GIoUA/S4fLjEyKGIni4RsgXYouan0
-         4I8mSwr/RxllBLfDccPb3dkydqtA7AAKFJaSfmWpDaPL5JGVL1f1keXHq7x09GrHDJ2S
-         5fHwNbVX5/6qogHW/zt+axCG1YpGjLRoWg3UjdVRjMyJd7TOp24BjipVHWSOv4Hd+qh2
-         Sa/g==
-X-Forwarded-Encrypted: i=1; AFNElJ+lxaarWg9dU0jmiC+4frnY92eatyEpgQNn5nb+ttPIAt/leHZOavA/O9Iy0emxz4nDr1fpsFc4e8MN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHttF1dfNGOjJ+VogCapu0RxCR+QYUflNipzHiMfzzESIZLtrK
-	sWxfEyFjqIElHNx1T+k3ePinHg0n8Y/cweb4/LjvZnrlSWxsaTDCZxP9
-X-Gm-Gg: AfdE7ckgKus9qRIO17mnQmRVlROK8RD9/cJKas0tTlq3oaBc0wuBQaVMYYVwZPzClRg
-	G9Fo7p0HiO6fXz4prCJ55yvEonhjokQLH+H5zWyRX2g9gCjONAq4nwLsS/+stzdOIrV9OFyl23Q
-	N0yI+slblFi11LX6pS3AwEbdOrOtMyYTgwfN/1yqzibZ5PXHmhpGm5N3rwF53gtetEK9fSfbFym
-	dDD7Kj/WvrJUY72SF8YX7VCjtuTYe2cDcHt8QgL/5k6Zj5wVPL6qK/D/iZASUaq0O+QywJ3692C
-	NJtG3rL55vkid4uHsncSp5/QNVxeJLAsSsko+W+rq+acsInR0gwaW+R0mqZ3W3h3zSoQqVHCbgq
-	EYDIO6D5oNqyDy/AB4aoti1GC9bj5sv/nIFCtYSwPvGeQGvfv6Wbd+bT5xorVNIVZLtGQhrrrJb
-	5BoBLa24S4pd5pibAHAWkeDV5UvRveuGruFLuFJd4uVKc=
-X-Received: by 2002:a17:903:2a88:b0:2c6:8d95:fd7e with SMTP id d9443c01a7336-2c6de3dffb8mr38361875ad.6.1781786536064;
-        Thu, 18 Jun 2026 05:42:16 -0700 (PDT)
-Received: from Black-Pearl.localdomain ([49.207.61.2])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2c432d8a039sm196299455ad.62.2026.06.18.05.42.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 05:42:15 -0700 (PDT)
-From: Charan Pedumuru <charan.pedumuru@gmail.com>
-Date: Thu, 18 Jun 2026 12:42:07 +0000
-Subject: [PATCH v2] dt-bindings: pwm: st,pwm: convert to DT schema
+        d=1e100.net; s=20251104; t=1781786621; x=1782391421;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=x8JZcEbEN9+L4E/fkgdE7qzbLCs2DJHcRzGzneoeNvg=;
+        b=fy3+YlIyad7oX/4BTyHB16UyiYwfXcW1UBL9SBg+0k7AFE0nL+p+5lgiDpRjZbyTce
+         tmIc/6VuRWo5S5nxfC1h12MNCX0nPNdntH+Gq1XcQQGRtOwTCCsBf3SY1NAfv4tn0TKc
+         3oz5MxC6ZeCblXB6NXLvQqB7eKa/KlL7Vb4muERSWxPGTTgos8lmopErzCpUtmIitCIq
+         zfrZcNy8/iIKHFyiyb0mRh5BuuQOq+6nT91cMgicTggNdtq3VEEkZxmqrU/WTXJ1iMPN
+         tuA9Ax5og7QVjM9sM/+X9vNlV0sUeg5yRmDJL+A0ldbjP4GvFnWLWHChbvGKPrFTenqY
+         FVsA==
+X-Forwarded-Encrypted: i=1; AFNElJ/IWLhyYkV63KwPDahg1Tcyl8XDWudt83hmF8AbGqztwo5NvlkhfBrcncNpE3F+XbiFd6HkR1XjJjBy@vger.kernel.org
+X-Gm-Message-State: AOJu0Yygub8Z6E/NogAQuiZo318VlClS8MMrRFCImej3yyAKzvKnQK62
+	Tv+qiE13BuDeL8dAgJtCSqv0wslSMbItX0ApMjQtDjklX3FvZKPKJPwInH0ecEj9+SY=
+X-Gm-Gg: AfdE7cl65EBUI9QtrVNpBMac2F6xgIp2MECej+IkfZ4m7jMONW5kHMsHXthB+KRdpH3
+	LQKaQz2xJIbhwkaLlb+Lnsehqt5f3hi6Y+JE5FjKPueBuwvoIeSs/cJJ7cmU9jI7dOl12ixbnfp
+	yBACqcpTwp3Mlq9XWlkX0HEmcVhWHB1zQOUCIc7Yn6sxb408EL2wp+9s0hP0zfGhz5qQe3vSHVn
+	nic4Bh5NJwHZNuVeIyFgrDiGCpdf9BoMIDpLcJtfMwyKd4NI2SQCAdquiy6Ud/wzIerAhzCdx+l
+	hp/lFf0+SkKT8f0r/5cXz36bIEhWaiwV31qkcraMw3QlXOTFQ0JXR19U0GT7vOz/h2sEvpDK3WU
+	jOZtBnJPZY3Nls3m8naN+UxeuQIe7vGFPVLwnVbmJu6eH41zio8qvIsnHf8vgFyq4i49rszzPII
+	3ZK6ESY5uHRHw3vXJZYfQ5HK60yYI2H9ueZmNSxVGGsJ2VhNx0gv9AQoo9P56Uot+qjw==
+X-Received: by 2002:a05:600c:4593:b0:490:4b89:5372 with SMTP id 5b1f17b1804b1-4923817fef2mr47961125e9.11.1781786620771;
+        Thu, 18 Jun 2026 05:43:40 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0? ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa510e7sm287233905e9.7.2026.06.18.05.43.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 05:43:39 -0700 (PDT)
+Message-ID: <a014823e-211d-4c16-8b51-36d724c968b6@linaro.org>
+Date: Thu, 18 Jun 2026 14:43:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/2] drm/panel: add Ilitek ILI7807S panel driver
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ayushi.makhija@oss.qualcomm.com, rajeevny@qti.qualcomm.com
+References: <20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com>
+ <20260618-ili7807s-v2-2-b3f0c109b102@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260618-ili7807s-v2-2-b3f0c109b102@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-st-pwm-v2-1-c792d5795ce2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJ7nM2oC/2WNwQ6CMBBEf4Xs2TW0KIIn/8NwqGWBNUJJW1FD+
- u+2ePQ0ecmbmRUcWSYH52wFSws7NlMEuctAD2rqCbmNDDKXZV6KAp3H+TWi6Ei1VOoYBUR5ttT
- xexu6Nj92z9udtE/tZAzsvLGf7WkRyfsbXQQKPBwrLXVVn/JaXfpR8WOvzQhNCOELUKdX2a4AA
- AA=
-X-Change-ID: 20260613-st-pwm-1feade6cfea3
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Pal Singh <ajitpal.singh@st.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Charan Pedumuru <charan.pedumuru@gmail.com>
-X-Mailer: b4 0.15.2
 
-Convert STMicroelectronics STiH41x PWM/Capture controller binding
-to DT schema.
-Changes during conversion:
-- Add 'interrupts' to the required list. The text binding listed it
-  as required and the driver unconditionally calls platform_get_irq().
-- Drop pinctrl-0 from the required list as pinctrl properties are
-  inherited and validated by the pinctrl schema.
+On 6/18/26 12:24, Arpit Saini wrote:
+> Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
+> panel based on the Ilitek ILI7807S display controller.
+> 
+> The panel operates in video burst mode with four data lanes using
+> RGB888 pixel format.
+> 
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                 |  12 ++
+>   drivers/gpu/drm/panel/Makefile                |   1 +
+>   drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 297 ++++++++++++++++++++++++++
+>   3 files changed, 310 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 7450b27622a2..1cbaac1bf545 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -264,6 +264,18 @@ config DRM_PANEL_HYDIS_HV101HD1
+>   
+>   	  If M is selected the module will be called panel-hydis-hv101hd1
+>   
+> +config DRM_PANEL_ILITEK_ILI7807S
+> +	tristate "Ilitek ILI7807S-based panels"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	help
+> +	  Say Y if you want to enable support for panels based on the
+> +	  Ilitek ILI7807S display controller, such as the DLC DLC0697
+> +	  1080x1920 MIPI DSI panel.
+> +
+> +	  If M is selected the module will be called panel-ilitek-ili7807s.
+> +
+>   config DRM_PANEL_ILITEK_IL9322
+>   	tristate "Ilitek ILI9322 320x240 QVGA panels"
+>   	depends on OF && SPI
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index c2c5cf817116..c3002b351cb8 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
+>   obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
+>   obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
+> +obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
+>   obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+> new file mode 100644
+> index 000000000000..bfbb8e29a4aa
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+> @@ -0,0 +1,297 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +struct panel_desc {
+> +	const struct drm_display_mode *mode;
+> +	unsigned int lanes;
+> +	enum mipi_dsi_pixel_format format;
+> +	unsigned long mode_flags;
+> +	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
+> +};
+> +
+> +struct ili7807s {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	const struct panel_desc *desc;
+> +
+> +	struct regulator_bulk_data *supplies;
+> +	struct gpio_desc *reset_gpio;
+> +};
+> +
+> +static const struct regulator_bulk_data ili7807s_supplies[] = {
+> +	{ .supply = "vddi" },
+> +	{ .supply = "avdd" },
+> +	{ .supply = "avee" },
+> +};
+> +
+> +static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct ili7807s, panel);
+> +}
+> +
+> +static void ili7807s_reset(struct ili7807s *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +}
+> +
+> +static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 20);
+> +}
+> +
+> +static int ili7807s_on(struct ili7807s *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	ctx->desc->init(&dsi_ctx);
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ili7807s_off(struct ili7807s *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 20);
+> +
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ili7807s_prepare(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +	if (ret < 0) {
+> +		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	msleep(20);
+> +
+> +	ili7807s_reset(ctx);
+> +
+> +	ret = ili7807s_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +	return ret;
+> +}
+> +
+> +static int ili7807s_unprepare(struct drm_panel *panel)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +	int ret;
+> +
+> +	ret = ili7807s_off(ctx);
+> +	if (ret < 0)
+> +		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +
+> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ili7807s_get_modes(struct drm_panel *panel,
+> +			      struct drm_connector *connector)
+> +{
+> +	struct ili7807s *ctx = to_ili7807s(panel);
+> +
+> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
+> +}
+> +
+> +static const struct drm_panel_funcs ili7807s_panel_funcs = {
+> +	.prepare = ili7807s_prepare,
+> +	.unprepare = ili7807s_unprepare,
+> +	.get_modes = ili7807s_get_modes,
+> +};
+> +
+> +static int ili7807s_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct backlight_ops ili7807s_bl_ops = {
+> +	.update_status = ili7807s_bl_update_status,
+> +};
+> +
+> +static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type           = BACKLIGHT_RAW,
+> +		.brightness     = 0x3fff,
+> +		.max_brightness = 0x3fff,
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &ili7807s_bl_ops, &props);
+> +}
+> +
+> +static const struct drm_display_mode dlc0697_mode = {
+> +	.clock = 131911,
 
-Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
----
-Changes in v2:
-- Add the missing interrupts to the required following the old binding.
-- Modify commit message to explain the changes made.
-- Link to v1: https://patch.msgid.link/20260613-st-pwm-v1-1-458c2c89709a@gmail.com
----
- Documentation/devicetree/bindings/pwm/pwm-st.txt  | 43 -----------
- Documentation/devicetree/bindings/pwm/st,pwm.yaml | 93 +++++++++++++++++++++++
- 2 files changed, 93 insertions(+), 43 deletions(-)
+	.clock = (1080 + 18 + 2 + 16) * (1920 + 26 + 4 + 20) * 60 / 1000,
+> +
+> +	.hdisplay    = 1080,
+> +	.hsync_start = 1080 + 18,
+> +	.hsync_end   = 1080 + 18 + 2,
+> +	.htotal      = 1080 + 18 + 2 + 16,
+> +
+> +	.vdisplay    = 1920,
+> +	.vsync_start = 1920 + 26,
+> +	.vsync_end   = 1920 + 26 + 4,
+> +	.vtotal      = 1920 + 26 + 4 + 20,
+> +
+> +	.width_mm  = 0,
+> +	.height_mm = 0,
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static const struct panel_desc dlc0697_desc = {
+> +	.mode       = &dlc0697_mode,
+> +	.lanes      = 4,
+> +	.format     = MIPI_DSI_FMT_RGB888,
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST,
+> +	.init       = dlc0697_init_sequence,
+> +};
+> +
+> +static int ili7807s_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct panel_desc *desc;
+> +	struct ili7807s *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_drm_panel_alloc(dev, struct ili7807s, panel,
+> +				   &ili7807s_panel_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	desc = of_device_get_match_data(dev);
+> +	ctx->desc = desc;
+> +
+> +	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili7807s_supplies),
+> +					    ili7807s_supplies, &ctx->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> +
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "failed to get reset gpio\n");
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes      = desc->lanes;
+> +	dsi->format     = desc->format;
+> +	dsi->mode_flags = desc->mode_flags;
+> +
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ret = drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!ctx->panel.backlight) {
+> +		ctx->panel.backlight = ili7807s_create_backlight(dsi);
+> +		if (IS_ERR(ctx->panel.backlight))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +					     "failed to create backlight\n");
+> +	}
+> +
+> +	ret = devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to add panel\n");
+> +
+> +	ret = devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "failed to attach dsi\n");
+> +
+> +	return 0;
 
-diff --git a/Documentation/devicetree/bindings/pwm/pwm-st.txt b/Documentation/devicetree/bindings/pwm/pwm-st.txt
-deleted file mode 100644
-index 19fce774cafa..000000000000
---- a/Documentation/devicetree/bindings/pwm/pwm-st.txt
-+++ /dev/null
-@@ -1,43 +0,0 @@
--STMicroelectronics PWM driver bindings
----------------------------------------
--
--Required parameters:
--- compatible :		"st,pwm"
--- #pwm-cells : 		Number of cells used to specify a PWM. First cell
--			specifies the per-chip index of the PWM to use and the
--			second cell is the period in nanoseconds - fixed to 2
--			for STiH41x.
--- reg :			Physical base address and length of the controller's
--			registers.
--- pinctrl-names: 	Set to "default".
--- pinctrl-0: 		List of phandles pointing to pin configuration nodes
--			for PWM module.
--			For Pinctrl properties, please refer to [1].
--- clock-names: 		Valid entries are "pwm" and/or "capture".
--- clocks: 		phandle of the clock used by the PWM module.
--			For Clk properties, please refer to [2].
--- interrupts:		IRQ for the Capture device
--
--Optional properties:
--- st,pwm-num-chan:	Number of available PWM channels.  Default is 0.
--- st,capture-num-chan:	Number of available Capture channels.  Default is 0.
--
--[1] Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt
--[2] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Example:
--
--pwm1: pwm@fe510000 {
--	compatible = "st,pwm";
--	reg = <0xfe510000 0x68>;
--	#pwm-cells = <2>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_pwm1_chan0_default
--		     &pinctrl_pwm1_chan1_default
--		     &pinctrl_pwm1_chan2_default
--		     &pinctrl_pwm1_chan3_default>;
--	clocks = <&clk_sysin>;
--	clock-names = "pwm";
--	st,pwm-num-chan = <4>;
--	st,capture-num-chan = <2>;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/st,pwm.yaml b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
-new file mode 100644
-index 000000000000..a045502e0e70
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/st,pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STiH41x PWM/Capture controller
-+
-+maintainers:
-+  - Ajit Pal Singh <ajitpal.singh@st.com>
-+
-+description:
-+  The STiH41x PWM controller supports both PWM output and input capture
-+  functionality. It provides multiple PWM output channels for generating
-+  variable duty-cycle waveforms, and multiple input capture channels for
-+  measuring external signal periods and pulse widths. PWM output channels
-+  and input capture channels are configured independently via
-+  st,pwm-num-chan and st,capture-num-chan respectively.
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: st,pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+
-+  pinctrl-names:
-+    const: default
-+
-+  clock-names:
-+    items:
-+      enum: [pwm, capture]
-+    minItems: 1
-+    maxItems: 2
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  interrupts:
-+    description: IRQ line for the capture device.
-+    maxItems: 1
-+
-+  st,pwm-num-chan:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of available PWM output channels.
-+    minimum: 0
-+    maximum: 4
-+    default: 0
-+
-+  st,capture-num-chan:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Number of available input capture channels.
-+    minimum: 0
-+    maximum: 4
-+    default: 0
-+
-+required:
-+  - reg
-+  - compatible
-+  - "#pwm-cells"
-+  - pinctrl-names
-+  - clock-names
-+  - clocks
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    pwm@fe510000 {
-+        compatible = "st,pwm";
-+        reg = <0xfe510000 0x68>;
-+        interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>;
-+        #pwm-cells = <2>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&pinctrl_pwm1_chan0_default
-+                     &pinctrl_pwm1_chan1_default
-+                     &pinctrl_pwm1_chan2_default
-+                     &pinctrl_pwm1_chan3_default>;
-+        clocks = <&clk_sysin>;
-+        clock-names = "pwm";
-+        st,pwm-num-chan = <4>;
-+        st,capture-num-chan = <2>;
-+    };
-+...
+Return devm_mipi_dsi_attach() directly
 
----
-base-commit: c425609d6ac4012c8bbf01ec2e10e801b1923a7b
-change-id: 20260613-st-pwm-1feade6cfea3
+> +}
+> +
+> +static const struct of_device_id ili7807s_of_match[] = {
+> +	{ .compatible = "dlc,dlc0697", .data = &dlc0697_desc },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ili7807s_of_match);
+> +
+> +static struct mipi_dsi_driver ili7807s_dsi_driver = {
+> +	.probe  = ili7807s_probe,
+> +	.driver = {
+> +		.name           = "panel-ilitek-ili7807s",
+> +		.of_match_table = ili7807s_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(ili7807s_dsi_driver);
+> +
+> +MODULE_AUTHOR("Arpit Saini <arpit.saini@oss.qualcomm.com>");
+> +MODULE_DESCRIPTION("Panel driver for Ilitek ILI7807S LCD DSI panel");
+> +MODULE_LICENSE("GPL");
+> 
 
-Best regards,
---  
-Charan Pedumuru <charan.pedumuru@gmail.com>
-
+Thanks,
+Neil
