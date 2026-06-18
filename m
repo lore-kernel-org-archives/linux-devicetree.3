@@ -1,86 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FB43F4824
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286BA3A4520
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785253; cv=none; b=IqZRXnMO3Hm4Vrk2x78Qs/6teZqObAhBqI9vAZbB0watawdLHoR2b7h5kX8RzwJRMG5C5RgfjRPkeZt4dh3EJdL+Ugh1S7g6azLGXq6BS3PHlM0m5ixW7ym2S9YbKZkCu/YUHdM2fALEoQMTIoLihzu1SX2NF6IdO/x4yzRmutQ=
+	t=1781785409; cv=none; b=WIxnmTV5fHfu4IkxhR6kSnVS4tMFoJfKWVcftjg5FvO3y9GK+9EEunxACIIMcjYUf85SdNGsHeA2Pn7cpkbvPpJ+stewTWE0ChjvqVZhbpTlJr/Go2Lw0A90avStn0VmiVLcS4Dfh+kKInT7pY/kHZTGWecCMxIA6bjxreGSWCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785253; c=relaxed/simple;
-	bh=GtplIB74PhHYyP/abkhb2MdhJVPsMdyuoG/lp950Tn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QEw7gvQ31EQQORKovSoaJYL6yX/41tmHwuhJ5NftvJUcfFQgjj4D8XYrIO7DftRlfLoqAvA6PvBndHo6XUSgMzF/kfkDADQsIrCOJF8oAFbhhCC5UBsme/VRqzryCaM0nLt51uUdbCzxc5h2A8PHGuW+zhRcS7u9+7qeb78QwEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RyGsABgU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WoT+dGSJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781785409; c=relaxed/simple;
+	bh=uU5OBoufNUDiJYl4uTWoBMLkpvuL5gBwbsY9sZQoC/s=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=MKUP0U0s1SPI+ars9zdA05pTYMtpFl4bXe9lJkzH+QTg0N8ZHRBNFjAdKtw6O05oYXfdjjWc/eD1ajIr9miKVss8d1ZAMVl4A0q5Zo55H+Ts6ykUmFJzW9Io+IW4/C0tcsolwvl2jvp4j5vwJBSvb8KPlajIXnbmBVDsDU1XWO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dFGjZrxW; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RyGsABgU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WoT+dGSJ"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65IAre9k1054879
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:20:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WNC+MjdPQmYRBJXCHlLJ4FXMLy/ssZcMsCeR5gbt2lQ=; b=RyGsABgUW27Ipza2
-	jzyUO7zjzepEd5wwzpJOkds+dUfMfx7iD73wPYnneAcZntBdqoxLZWmgHBxe1E83
-	SDhbfDRmt+88clXpen/wvtV93tFYUDuV19LxCmjoh1dn5vEcJKUmspn6dKr1hoW/
-	Fdm/1/CsdF+1KDoC1QezGisrBLetDc8VIG66elSfFStl0whIB0CtM3lel/fbBufs
-	RsyBup8vktFHAv8MsMdsu5VxIiSAQSOtNUS6muxdW+c+EGBhhcDOUG2xMgwGEsTy
-	rR0yfT+OKQxVWGpPbiiWgn2o1s1sCuHYo8AAk0iDAmMBuBh3DsRGGApN38EXtVaf
-	1O5YeA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eux2cceg3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:20:51 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-6c9239a1dccso65015137.3
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:20:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dFGjZrxW"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b3637b90so6228475e9.3
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:23:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781785251; x=1782390051; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WNC+MjdPQmYRBJXCHlLJ4FXMLy/ssZcMsCeR5gbt2lQ=;
-        b=WoT+dGSJxaqVuRk23KIIJ64NOGm4OOnaCrEnP0enxOsm9dc64ssKwFCZ5O99lsZ7Fi
-         uoieSuuvFaAaFZjX3nI53eDGKKpfFtF5zowXcfAhdmWZUhz3k3AOQZW36Asmm+iZ17Fg
-         mBMBE4YiPhQNbcwtLnRYY7svjR0O1p+5oemZtuS/Hm/mcVIEKIsWE1lc2fujwO2z24gR
-         4dL+JFzNB/vcYc8gT/P4luzGOYmZxcy9eGreddBWwreZFbvv/vmy4HS/7uH3XlXZhOwT
-         BP/BVOUpe1ro8Mn4qdzBjALwupC5ynXBb7L/MgHRuF3UPRUkdKgdP/K0fQNzKao+BLIx
-         +Q5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781785251; x=1782390051;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1781785406; x=1782390206; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=WNC+MjdPQmYRBJXCHlLJ4FXMLy/ssZcMsCeR5gbt2lQ=;
-        b=BCKzqRLRHqnd8sPEC9D9ywqRM4iuFTZvk/OkV4v6NCdnxIAMsU8MRAKAWEtVKMK7nO
-         aRX/aDhvDHtBixXhMQGjxrxmmIO/ZYsbi0W6vD9vyo2JnoXoCeMy45KztQuYuSpsW6YL
-         s/vPlRKt7JsY6oe5hdhDCjd8AzhDMsAv4EkqMPd5fKQi1UfhtaeFqv+Z3Dvbela5/+1l
-         OoY3Ka/MVzBXoqhzSBtHp9Ydrec7bXVfSLarSKyGdjf9p6ghJvBqTqKg3F+WnyCSGljr
-         5HyblVeLGPP39QpAwNGmTFgZgG5HYzdungCfFHAjvL0+7uX4qc7BpE74+Y3/G0lvl3i0
-         RHzw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Z19b+VEkr8RInwFA0pusA/uNe90SVkY/JSKpfkQ5jmeaQaj+YA6Gc/PtnFo5yxovS/2gS32mbO5vU@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjpkuZbqF3s1QoesxXDh995t+Ibcv0gVgTMN1BBtD15HU02BKX
-	twh2lBk2i7ndODKvDxZlkTMbIuij0vArBfq1kDy4yilvTATiJps3E4MQ7PcMiBKYTiHx82t75tV
-	p95k/JqbaHtZAiwuQsw25+it7JmQ+xNT5EwEJySn2Bn6GSJyxjhF+STuGLXf+AWMu
-X-Gm-Gg: AfdE7clk9X8Gsfm/kanLYjuxVmgPgbMYQG3CQRc9zL9U4VDFmYC6sySXbSV5yy+eDzW
-	iscnNabtPi3vHjinYrAaGGj4T6fQ5qqXBNlFlfJpbOgsRS98QChKFmtzr2uMKlPPYENm2OW3hfe
-	Is2TCQ7vTEe3JGhZVaIJYyBrV7HGC3uCvmNMhJBzMTCQfrM5SWyzxp9E5uEIwCBKC5gaSFH11VQ
-	qFIsjw3TueMlX0jtw8x8QsHBHz4zwMo1/4qiX4qKUREkrubMTymGXcOeDi7gOtdRvC/HTz6pdxH
-	qXb8xyg1J7iYq4m/FPDwwOelQJ9R17TxcW66t9UgIPbdlnpgrvZYWj0GxfcsKQCibGB//v+hgau
-	UgvYAQbD7w5phayCLJDa9aqIon/5Lxc3hgac=
-X-Received: by 2002:a05:6102:4bc9:b0:6c2:7d0d:e09f with SMTP id ada2fe7eead31-727c9ceb5bcmr670264137.1.1781785250884;
-        Thu, 18 Jun 2026 05:20:50 -0700 (PDT)
-X-Received: by 2002:a05:6102:4bc9:b0:6c2:7d0d:e09f with SMTP id ada2fe7eead31-727c9ceb5bcmr670248137.1.1781785250503;
-        Thu, 18 Jun 2026 05:20:50 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-695b46f7f39sm1418286a12.27.2026.06.18.05.20.47
+        bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
+        b=dFGjZrxW/rxZ/zBLHiuFUs/WEH2l9BIYv9FzpcuEdDVIp+V7S/qKEVYLWJw+tDsnf3
+         KQ8QCerZjDadselGIdSF4/IRLtozc+wz+iXsrGZW6U5c6rJfwfGfyrLhAyalFne+kjbY
+         Q4qmT9mh4o9EO74speovBsMIlNBNgHlU+7B7wplNVF2IzXjwxLQnAa6sP3sE/JjUsxCR
+         Wj5g6587J9FHaeWyXzukGwbmxOe0Qu4DKx+oV803M7xL8A/z8VYDKWMMKu6RqC66aQEX
+         F12FPhOMCAV6ou789qcV/zqm2x+OgGJrB4l+OEHolQtqNzL2GortHmNJq2UUiatGYCCf
+         fZBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781785406; x=1782390206;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
+        b=IwjaO6zA2KD4wdmjqOD+NbzKR5KJQvoMdFf6c7Mm77kneNNaIoBKYqS0qba6fSMmFt
+         gGQhzsNcDhhPTZUmSF1Ybp/vUR3DUmK3Rpnr7FP3dLyUeVLGUoC9B2wDZVCj956ISW3i
+         IqfVkrWZowt1+RR57wV4oxcqTPoCfrZTKajFvH6Q8dzc1GiujgqtFiH864gcfc8HDq8B
+         nrOdhDSBse3i8J4An4f+RIBHJlwd/EWHRQNgeOBpPVRG4rII5kcPdehx48ZsH1HMJw6z
+         YYYpBj3XUWKlYTWU7gzd522/nshyzbm1Omy9qcM9eiJCbhS3f7mLkmj6dYEa38hUfCVf
+         EgwA==
+X-Forwarded-Encrypted: i=1; AFNElJ8t0d0H6znGykZolfNYUpjGc2yaoL15hg8QkeyjV3RRoD8p1ABblJ5Sx+l58t0VAaoidM3/8xVk7jZf@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBoKEOdKb694um5DqE/IAHQPLKAQEHcJV6yOGKuJI4NZxmnK1D
+	oDHNh+SlK6TBiKXHZKdvT6Yy+HUc1LY2uPVFzMfzG5+VAnkE7MVp92e91YeGKr0FNtE=
+X-Gm-Gg: AfdE7clvjpk1HkK+0TUsGzKYGbUNiPYEvZHDnxS41/kR2B/F2cUkNyI0OYeQGwwcwwX
+	jA3cfXnivATpJ+Abzha9I+JF0wMJFMB5ILk/Yrclj+PpYTvuhZmbzo6rDZd35AcTN3HNBlipHfU
+	6wbDqDN5DC/dUQTekStMpZNpgTg9j5hVchwSdvyi/xIMI7RpGDrB6qpGRuZb2nstxiSHOE5SH7+
+	HuZPp8I/1NFpHzTsj80UiQorD0M+C7jIT1SPjSpEQi9IBDkMMflg7vaL0NCvnLJOU3tTXHv3app
+	MOFTxRc2A4JtNvPQJgSHCCW/9plJpOFtfOMexCBl7qzmTG7W6wkG6WQr7KGx2/hl7nm58yeA7dD
+	XABQG3aX6oOJnqGGTtTUubK2B3XG24dcsaCDghiZnSj4LBoWrhYaiZ1CSHjE6V9RUIIjZXE0M5b
+	RfMWoAAOqE5Z6lrtOcUA0h/NOwVYky+RpBpk494CIJAWydT+SeRg3WhzM0j0CE+k0nMw==
+X-Received: by 2002:a05:600c:4ed4:b0:492:1e36:85dd with SMTP id 5b1f17b1804b1-49238231011mr57313945e9.37.1781785406267;
+        Thu, 18 Jun 2026 05:23:26 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0? ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d275sm19033981f8f.2.2026.06.18.05.23.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 05:20:49 -0700 (PDT)
-Message-ID: <b5287c07-24b1-4011-9805-529f6f51c22f@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 14:20:46 +0200
+        Thu, 18 Jun 2026 05:23:25 -0700 (PDT)
+Message-ID: <d7e482c2-80aa-49ec-b339-8bffbdd7e664@linaro.org>
+Date: Thu, 18 Jun 2026 14:23:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,108 +69,114 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: glymur: add TRNG node
-To: Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260424-glymur_trng_enablement-v2-0-0603cbe68440@oss.qualcomm.com>
- <20260424-glymur_trng_enablement-v2-2-0603cbe68440@oss.qualcomm.com>
- <814cff7c-fc03-42a0-93e6-852598943ac4@oss.qualcomm.com>
- <0debc1fb-f6ae-44c6-aa87-d5ef3e39b47d@oss.qualcomm.com>
- <b4794e93-0fd3-4559-9ecd-02d679bd06b5@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b4794e93-0fd3-4559-9ecd-02d679bd06b5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/3] drm/panel: himax-hx83121a: pass the panel pointer
+ when creating BL
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
+ <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDExNCBTYWx0ZWRfXwWXeRIQUvuH+
- GQeCgtL5YR0YmWfYrZNTV86oopJviiDbeRQj+c0jsk4ly+K0hvPfKh2670JzelJM7sflqTU2wYp
- oPlnpV5q2BYKlKD2hKGR2s4ObnIRRcfqcRVX/yXg9TjmY7bO9K4g2VvT4NRYEZg+RPv7EwRj8+i
- v5tQj50Zxdbiprwxi0BHJPQYEDCaxFR+ZfhkPXawBecOJ8Sx+ZHwVsih71dh+i7OCpfPA1jjXdy
- 566FC9dbaTvAcuRmIpRuGfimwHOmetH+/Et8ICjmvaayjl/LCL1hXIDMSf0GkE7HjJ8POWfa9Nb
- zwSUc9ZLT4IXCAtyYC24YlqGp6HqUPfyLvGxeUlnCRvEHEObQ4fQ+zWa9FRD/dM0bhbPF030Hmr
- daWAqVlgCcdpwSUuNoq2BKqu//3zjDFlx9NAPIvuqWf50uFHI75/shzyLUp+tDsxg0FFvV2dnQB
- o2Plb9AmgzjZU94JgGA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDExNCBTYWx0ZWRfX11Vti7IDRlPu
- Xv5Z7ngDz3HTLY5ybwi98Eb2Qp2gHNTbErn+Pcny6KVIy7KqHx+YQOgtLeTFbr7BTcDYMSkLMHO
- X9kq97K64p3KkVK7tLCeROyoSUm0Sn4=
-X-Proofpoint-GUID: 53uRt6k_hmzIbLlkxGtBOUpg8V2iU8bw
-X-Proofpoint-ORIG-GUID: 53uRt6k_hmzIbLlkxGtBOUpg8V2iU8bw
-X-Authority-Analysis: v=2.4 cv=WN1PmHsR c=1 sm=1 tr=0 ts=6a33e2a3 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=i0djx3qMVQoBlMXpResA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-18_01,2026-06-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180114
 
-On 6/18/26 1:58 PM, Harshal Dev wrote:
-> Hi Bjorn,
+On 6/8/26 18:26, Icenowy Zheng wrote:
+> As backlight powering on/off support will be added, more fields of the
+> panel context will be accessed in the backlight update function.
 > 
-> On 6/9/2026 12:06 PM, Harshal Dev wrote:
->> Hello Bjorn,
->>
->> On 5/18/2026 2:06 PM, Harshal Dev wrote:
->>> Hi Bjorn,
->>>
->>> On 4/24/2026 2:05 PM, Harshal Dev wrote:
->>>> Glymur has a True Random Number Generator, add the node with the correct
->>>> compatible set.
->>>>
->>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->>>> ---
->>>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 5 +++++
->>>>  1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> index f23cf81ddb77..64bbd5691229 100644
->>>> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
->>>> @@ -3675,6 +3675,11 @@ pcie3b_phy: phy@f10000 {
->>>>  			status = "disabled";
->>>>  		};
->>>>  
->>>> +		rng: rng@10c3000 {
->>>> +			compatible = "qcom,glymur-trng", "qcom,trng";
->>>> +			reg = <0x0 0x010c3000 0x0 0x1000>;
->>>> +		};
->>>> +
->>>>  		tcsr_mutex: hwlock@1f40000 {
->>>>  			compatible = "qcom,tcsr-mutex";
->>>>  			reg = <0x0 0x01f40000 0x0 0x20000>;
->>>>
->>>
->>> A gentle reminder to pick this patch for the 7.2 merge window.
->>>
->>
->> Another reminder to pick this patch up in-case you've missed it.
->>
+> Pass the whole panel struct instead of the DSI device when creating the
+> backlight device.
 > 
-> Gentle reminder.
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 13 +++++++------
+>   1 file changed, 7 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> index bed79aa06f46a..1a7e0125bced8 100644
+> --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
+> @@ -193,10 +193,11 @@ static const struct drm_panel_funcs himax_panel_funcs = {
+>   
+>   static int himax_bl_update_status(struct backlight_device *bl)
+>   {
+> -	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	struct himax *ctx = bl_get_data(bl);
+>   	u16 brightness = backlight_get_brightness(bl);
+>   	/* TODO: brightness to raw map table */
+> -	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
+> +							 brightness);
+>   }
+>   
+>   static const struct backlight_ops himax_bl_ops = {
+> @@ -205,9 +206,9 @@ static const struct backlight_ops himax_bl_ops = {
+>   };
+>   
+>   static struct backlight_device *
+> -himax_create_backlight(struct mipi_dsi_device *dsi)
+> +himax_create_backlight(struct himax *ctx)
+>   {
+> -	struct device *dev = &dsi->dev;
+> +	struct device *dev = &to_primary_dsi(ctx)->dev;
+>   	const struct backlight_properties props = {
+>   		.type = BACKLIGHT_RAW,
+>   		.brightness = 512,
+> @@ -215,7 +216,7 @@ himax_create_backlight(struct mipi_dsi_device *dsi)
+>   		.scale = BACKLIGHT_SCALE_NON_LINEAR,
+>   	};
+>   
+> -	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
+>   					      &himax_bl_ops, &props);
+>   }
+>   
+> @@ -646,7 +647,7 @@ static int himax_probe(struct mipi_dsi_device *dsi)
+>   	ctx->panel.prepare_prev_first = true;
+>   
+>   	if (desc->has_dcs_backlight) {
+> -		ctx->backlight = himax_create_backlight(to_primary_dsi(ctx));
+> +		ctx->backlight = himax_create_backlight(ctx);
+>   		if (IS_ERR(ctx->backlight))
+>   			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
+>   					     "Failed to create backlight\n");
 
-Bjorn and I were both out at the time, after we returned it was too
-late to accept new patches.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Currently we're halfway through the merge window (where Torvalds
-receives pull requests to create 7.2-rc1 out of), during which
-contributions are not accepted. They will resume in ~1.5wk after
-7.2-rc1 is tagged, targetting 7.3
-
-Konrad
+Thanks,
+Neil
