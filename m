@@ -1,99 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26547349B15;
-	Thu, 18 Jun 2026 18:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905293546FF
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 18:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781805811; cv=none; b=uZqdBJ0LWYOOMCbQNGXbofMZHB6SAglh/Wt4+6W9rQg30YACzH9Zr4/PBaKDReK2ICQmNhHw4xNJpH897jHLa+Px5lS56vIH3xZnWNIrO5KvFT2cCJQrX8w2ItpTotF6suCkgP92gKEZu3WSngDpy1ecqDLPSvvxQzzgoUF/+b0=
+	t=1781806162; cv=none; b=B5SYP14Z5zA2V7Sj6PNknG4Yn9HZTlJ4eeJmtoQHVghQCbASiBgWhdoxxMLzL87O8z8rKdmFOb3sXdEQW92dXCdagpM4z5wMBi0p95N4lG7Np9YRSqSFf9pyRMmXZ+bY+75ESK0qjr8LCi1evJdlLc8QRi7DbKHJZUFVvml4G0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781805811; c=relaxed/simple;
-	bh=rnQhIhLjUekbeVUcLzE815RUSFmKG8GOjaKoqLSuKas=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rk6ARIcSnFvkZ8llVupsmqdIrZvuPUeEvBh9YIxyIciSLxQAptJeNzq81cs2BZbLtqGyCnXxWrURTaBG23zMjBRuMSuuhEB4/Rzvyd19VTKr9McRg/kd5o7D8/qy75xjljt1OgblB099zX3SURjzKnU8zEo6ZlwUn4jvdKUz4Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=my1lzVyo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781806162; c=relaxed/simple;
+	bh=gC6zWzgcp8IW3lL4PELkADfPt/M8kCKuchaclBIBryg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=myRT3ulW18+rFVw77Ha/5O0m4yEWaa+/rS9pplibQrRjTUsvbY8ANHuxIeVe/2t+4R9joqnddlFNhyv6lFPxnpe1M86qIXu7l0lZW+BNgqIbMuVmP92knBDUWPKOVLc+F0T1IO6euVfDabz1FOjg8NBpTt26qN4FUW317TLZkKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8R6Clm1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="my1lzVyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3521F000E9;
-	Thu, 18 Jun 2026 18:03:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8R6Clm1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E3A1F000E9;
+	Thu, 18 Jun 2026 18:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781805809;
-	bh=TCJanu+C9yPkkIfmCLTiAWEVlukd5W0JlnBZQ6W4Ac4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=my1lzVyobBe+gSUFhL1P9rcxzv1JB6h6dyWJeYYxulFur4V/4gHj4l4cgFaRwsvYe
-	 dxw8H9s+G8kuBQd89PW0NGTXEuQwbuN9hV+1wzBzFlcPHAFlkRAQiXNglVZ4MYaA28
-	 jWmBdhnYI/jZsv0BwNYPdU60bT0SbxHbKBU1mDP9M10lpfIHeQjPLZ9FkdS7PnriR9
-	 lbTSuYUET0mS1GOz2H5hjY+SWUz/ouGuQ822r6YkYFnqdPHKQdDl8xe7kHy+/70ee+
-	 GVvppDVLTKA3LZPq9ABjPwoDBxhhndtojXL6bTAsEjBxsDr+e8XUMWJHitK+E1+XCa
-	 Bt03uOptsBCxA==
-Date: Thu, 18 Jun 2026 19:03:25 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zhang Yi <zhangyi@everest-semi.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, tiwai@suse.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: ES8389: Add members about HPF
- and clock
-Message-ID: <a619312f-55b8-41f4-b288-d7c343f5f9e9@sirena.org.uk>
-References: <20260618082842.2778-1-zhangyi@everest-semi.com>
- <20260618082842.2778-2-zhangyi@everest-semi.com>
+	s=k20260515; t=1781806161;
+	bh=zFdOYlTBvp3DOEvewhYJC0IXX5/THnlrmj7cmPeboZY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F8R6Clm1EUqf7tWHGNxLzHuxqvQ2Ukvn61nvcN/rpZ3ok80vCS/QTW760cZnecGsv
+	 ELq/kjMRo02PM1mnOWO4wqkdOZty7vb1i5WaBg3em59UkKnTa+nnm1fAWoRfpGw/r2
+	 h+befrRPcHr3eSJybC5IQaMybVm0hqcizblFI8TlkAXAbjQ+/6Z1ZRgStmGcy5955k
+	 R39fsxXi8gtMf/3UxKhaLV07f71MFkeCLAgD6Wo4Xt/DRriGaku78s7sXQU7ptq3pB
+	 bDm5Qt4VtR0ef5X7ghvesFl4WFLV1XS/qqW/74iY9lHliLRdpMW1YgTtPXWdbhj+Je
+	 rXnRxKe0Ir+7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] spi: dt-bindings: octeon: Convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ninad Naik" <ninadnaik07@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618180149.475658-1-ninadnaik07@gmail.com>
+References: <20260618180149.475658-1-ninadnaik07@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 18:09:20 +0000
+Message-Id: <20260618180921.09E3A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PkrJ+7oR19bN3hkf"
-Content-Disposition: inline
-In-Reply-To: <20260618082842.2778-2-zhangyi@everest-semi.com>
-X-Cookie: This unit... must... survive.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect maintainer attribution in the converted devicetree bindin=
+g.
+--
 
---PkrJ+7oR19bN3hkf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 4c13bfaa3139030f2d12bf30e37ab22833e428f3
+Author: Ninad Naik <ninadnaik07@gmail.com>
 
-On Thu, Jun 18, 2026 at 04:28:36PM +0800, Zhang Yi wrote:
+spi: dt-bindings: octeon: Convert to DT schema
 
-> +  everest,mclk-src:
-> +    $ref: /schemas/types.yaml#/definitions/uint8
-> +    description:
-> +      Indicates that SCLK is used as the internal clock.
-> +    minimum: 0
-> +    maximum: 0x01
-> +    default: 0x00
+This commit converts the devicetree bindings for the Cavium OCTEON 3010 SPI
+controller from plain text format to YAML schema.
 
-Could this be done by having a clock API property for the MCLK source
-and then falling back to using SCLK if that's absent?  That would feel
-more natural for DT, and you'll probably want the MCLK property at some
-point.  It's also a bit more of a neutral description of the hardware,
-future versions might switch dynamically between MCLK or SCLK based on
-some criteria or something.
+> diff --git a/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi=
+.yaml b/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml
+> new file mode 100644
+> index 0000000000000..f0b708e1ccbbf
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/spi/cavium,octeon-3010-spi.yaml
+> @@ -0,0 +1,61 @@
 
-> +  everest,hpf-frq:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      The frequency of HPF in Hz.
-> +    maximum: 1020
-> +    default: 16
+[ ... ]
 
-Why configure this with a fixed value in the DT - it's the sort of thing
-I'd expect to turn up as an ALSA control so the user can vary it at
-runtime if they want to?
+> +title: Cavium, Inc. OCTEON SoC SPI master controller
+> +
+> +description:
+> +  The Cavium OCTEON SPI controller is an SPI master controller found in
+> +  OCTEON SoCs.
+> +
+> +maintainers:
+> +  - Rob Herring <robh@kernel.org>
 
---PkrJ+7oR19bN3hkf
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Low]
+Is Rob Herring the intended maintainer for this specific hardware binding?
 
------BEGIN PGP SIGNATURE-----
+Typically during text-to-yaml conversions, it is preferred to list the actu=
+al
+hardware maintainer, platform maintainer, or the patch author here rather
+than the core devicetree maintainer. This ensures get_maintainer.pl routes
+future hardware-specific queries and patches correctly without sending
+unnecessary mail to the core devicetree maintainers.
 
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo0MuwACgkQJNaLcl1U
-h9Am1gf4xrk9QyoPVPDOh51h23jRQ6hFgvyAiZJxWWyiWDZ/EA9bbztkgNKIQ4Pd
-EAcLHYnMMzd/mt/NjUGjddGJPiPliC1X8AxPkdJ5gTycsq3bGYQWf0ojyrA/h5OE
-O4nd0XMvzv/wo8oSamcmXrAQ+bdjuTBLWedBazcOhelqC9TMkyKTMTIiVjHSTX2j
-6S9pT/gX0LgXAGwxzEqcNOZdCJJH19KpBMJps8bpJhWOVcYzMPCEZLBFu3FL88cq
-vj/JGvNKMlJWgoR6IYu1TSpPGAL9uBqXcYfIkU4NSF25tcGD54tB2hUw/viJQhMm
-/lEt+nCil0ghd4XggqMgQhrnRLfM
-=bKBO
------END PGP SIGNATURE-----
+> +
+> +allOf:
+> +  - $ref: spi-controller.yaml#
 
---PkrJ+7oR19bN3hkf--
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618180149.4756=
+58-1-ninadnaik07@gmail.com?part=3D1
