@@ -1,86 +1,86 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5CE38E121
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06DA390222
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781770723; cv=none; b=F6HgAhsWCeok+OTfiRM7HiJrpMoStBMQ1rxl4C0diIk1qn5xRE+Wbz9uSfPX47JmjLYcJVt5NakoTUjYl2oI83+E8hxV/QtJPOcHwesGsOjrimAwPc2VF1VzHq5v3MZAdRWaclzBQPm6aUGhtfTOGVwVicwJMN4xm2/YwTsg9Rc=
+	t=1781770768; cv=none; b=KaVNds5N3OG4ARdmzUrIbHcasPo/jkIF61RG5A7ShcAC/OKlQ17B7PWNNHFOC8apWd7u87+Xr4k4Hp31Wqo0bdjULjv6YKIZnpBUKC2sgvrDgrsSZo5A2U5yeMQJqV76R7ju2Yaobw/tcx+hNUTr+8ZNmF2Ed7T+qZeNBlZ1lAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781770723; c=relaxed/simple;
-	bh=gFzDwyt2X6xvExVhZeoNS5S99hvPwFohVyXgPPfmGQY=;
+	s=arc-20240116; t=1781770768; c=relaxed/simple;
+	bh=casli13flH9PnvbWb/Fb1QuAj9WYWOB35EA5rARxoBU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aHLHYrU15c5ye2CqxQXGSxVnvA8UX5/YjNVlnLk9dL9gQuBvOQpuMrsR34XjWM+LpWezUZwK5q8D9Hthz2c2hCWA1dg64yHuP9R0LlmI13IcdKnk67IDvLGxHrUIA+bFmahyZxjlHgB5JDVW3JUxLnjB4UeVvnCBYCnNHn1w2Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G/MAbkOQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y03NhVTB; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=QC6/wQYDVFW2ouucV+JhTqLhc3AgcFSyu9N+VrgLJZhkgI0ZpDC7n+0YKLBDlhFAKR5lDDxjG25NK4XncVzcvv6w9pkH7ijWsr6t7ftPlYv2Lguyod7hhI22rCRPNCcImmzM5y9WOsJj1ZZ+/jsnhluUs9kkMntBU9xF8LK/Csc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=C2iwSgfs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bDJhpieU; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G/MAbkOQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y03NhVTB"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I8G2Ym1253284
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:18:39 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="C2iwSgfs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bDJhpieU"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I8Dr5d2246930
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:19:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nZj09S/BPA0LGOpjmWXCjddpOq0twXITRnAhohphPiU=; b=G/MAbkOQ9ABuri01
-	qfZODnVGS3de2ZDM46Q0ZfNBPCMShSg2etQl/aIrPcceDEYl95YCVUKh6Bp4j3Uq
-	HEmLY/pj0MEV+c3DBc1Svr+uTdlOqk1ToEVINzPjvwkyva1bOqz/Lv+FOLfbY0fp
-	IoUPEQ6w2JI2fFSI/s1S/iXElYi+GQKTty4y7AEeofFdX7qmTUaNbk95ftjRlG9h
-	WYtyeTPXfLOjDmc0WoD9TxfLGqkvnGKc8wA2cSCsAzDq8Qd/Bf+YtCO5sLgctC4m
-	LIRqrTrR86p0WRizVthuAdGqIfKg6fBq3bTa0cZVyfnCZDLDc7cblYh7+r4AsZQY
-	r7VloA==
+	eTNkagoIOzwO6/2hJOr3P2E7MmuHJTIWk3HLRdjPF3U=; b=C2iwSgfsUZn7IBYK
+	mpdA+1mkJtjaVHDcMqIF9GEV9xHO6C82ocYz06yq1d+dnLMRAObd8XGCxMwSc4aF
+	9XtJGMTD457LCmTmTEJpm9fO932BPk1oJMCysja7SbXfScbzu2sTeQh7CckgsRxQ
+	DvCMplfgNw7K0Pb4bHnwEjtgcW7WOjhMAb9aqujdOk3DD03j6N5lmQrrxiqqLhbm
+	q+ojNgXy+Q8YB/1vrancbYMC34x8K8gS8bX69CeCMcQLkVAJusZbdOqsqKhAWJCy
+	W3SlB4MFGs+Iz2+gCZoxej630BR7xPzbgnVaEur36RqmyW6AaO5AuMqCIzkrQxbi
+	cGxDNA==
 Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ev0g7jr5p-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4euw9vm03c-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:18:39 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-915ccc2d4d2so20869985a.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 01:18:39 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:19:24 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-915a547f4b3so18895085a.3
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 01:19:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781770718; x=1782375518; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781770764; x=1782375564; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nZj09S/BPA0LGOpjmWXCjddpOq0twXITRnAhohphPiU=;
-        b=Y03NhVTB8FsUqBbYTRQQWLL+wxRbOXh//wB+edE6Lu1Zbu8rbda/HcExXWruFh1d6B
-         c6S4eOosyOOPvLBwYfNGL7VzLl5liKnUlG3XV0sXU0+OmUzPTNPXmeFKqcpIU+huaEkH
-         OxQa8z0c5K16SFJSTXh5sXkeKpVsjU+6E7wQYsPrywi1C51KZSIN8h9uH2tw17w3GWY1
-         BXaaY0I81rBE2Y2+C7zhWWUIRLsCE7HUJ//xUJVvv7/fSW5oihe3A88DxXhbhlV5j/Os
-         kFs6+byJqW695WsUaq8z3oiR5fyK8fDFcaoNxZ4w5ZOeIRNz1Y4tT3/kH87kZh8ZHPwD
-         tzNg==
+        bh=eTNkagoIOzwO6/2hJOr3P2E7MmuHJTIWk3HLRdjPF3U=;
+        b=bDJhpieUmyZfqVn7YlIaberwO1cMieX/tsme6A19Zbs4enSsuvxBfBVUBbFeO4irU6
+         w4dtksHod5rMj7j+G/jncxikTZgpDFFf3tuO6ldrIwQolWhsk2Nm4yOC8KoITTX1wp7Z
+         fx5iyHPWLfPsxBi7q25KB3O8c0OM/EIN8JBHJRqA1zlRED5klS5TZ5z6/53Dm94mipal
+         A+UGihYLU28y3kTI90FrbKZZ5AgTK5tRI793XfFTyL5ufw5mzG1RuWB6lgWsmc5F7Gl7
+         sJV9socv+NsGVPn5qTYAk2N3a2kD6CiVeQ5B+Ta+1s+RPZaHf37iOAriuFyHZcd5OE6/
+         +BSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781770718; x=1782375518;
+        d=1e100.net; s=20251104; t=1781770764; x=1782375564;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=nZj09S/BPA0LGOpjmWXCjddpOq0twXITRnAhohphPiU=;
-        b=CUp7EAzA0dsAxpMygkRtcZJUv7qg4RWjHT5PLCoPoPNiV1TFtMrTUYgyILKp7eVkOm
-         iE3Bj57hoPzcmFyjHaNFbkaPMmMHKgShjSyY7xC6dkQAH12Y3/LWBYzqz+h8YqbBg+Th
-         cQdoLd4FN9jkcIO79jU3PvubNqGII3CkIcY1txghn9X1x7lwe8v8ejHZyLVhUedOmxmT
-         z8IXbAW09e5vXV8wyUrtKwIBknUh3nuHUpxbsyqUqH3PybNZfROoOorWL9gJCxCSSGqi
-         IH/Iz0QNKfUtBT37p+WAf+T5yPKMkcmkh2F2TpltseKIhWSUjdmtq6gtMst38IaOuwvo
-         OSHQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/As6Bgli0EV3jCkZeAkX+FFY6pG1e5F1iIAXC05O7cR2Ilc8H3PqQjKba7rfl4qb4y5607r2tKQzUT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwM6Db2p5jLU+bS4u9dcyZBj6cWwlVUhOwvKS2gH0r7e+VBPPrg
-	PFvWuOq9Pvv0ywY76HruZnZwcowP9pxJlhtGNi5a0p+dQPyxUa+DzB+pez1f87Z2vi9Q3Ab38I0
-	eL3lCc+AGAbAWaug2mBXb1LHx1yKbkjRFRH1Nb1ZHIgay3B3Ly7tsdKXJCaON33jd
-X-Gm-Gg: Acq92OFDk0MEdghx03rBrKYvZT0ZGi/IRXPkubvvYLMKH6liWaiyEQ3z7tgt24vjPfO
-	AFB+lE3gj/J1SfgZAPppjfdTu2t06dquifrtMSb/ixRz0vgW0e5elQ1TSYX282ugpvMcRhSSC6L
-	pYjspPq5X1sx2iewXV/l5B2ZltMV5Mt2eqvwo7L5Oe3n/z1amdoNeXnzNhUG7ZsQ/WmsEVT3Wq2
-	/zWxzu0sU+lRYcrV2SlTiTZjE80zXjYsyLP67GrPODwZUIUoBFgQq2cOkLxGMMhuNUWYsPcW57h
-	sGuZwJHQqNG6vJodk0y4HEPK6tEEeQXr3PiGgErjHavt5AV0/aLux5tU369255LSJsfF9FERoop
-	pvR92+hZ9EOczaF6zukCqFKBBpmZvQJu7GsE=
-X-Received: by 2002:a05:620a:3721:b0:8f1:9e59:2208 with SMTP id af79cd13be357-91f2a1e4688mr233824985a.4.1781770718381;
-        Thu, 18 Jun 2026 01:18:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:3721:b0:8f1:9e59:2208 with SMTP id af79cd13be357-91f2a1e4688mr233822685a.4.1781770717871;
-        Thu, 18 Jun 2026 01:18:37 -0700 (PDT)
+        bh=eTNkagoIOzwO6/2hJOr3P2E7MmuHJTIWk3HLRdjPF3U=;
+        b=hRbsMltSGh7ZUVpqaZRdFJCt6rMsU6Fqlv1VLCZq+fD9EhBztf2TRf1fqC8+yA72nJ
+         EV+lnO+9T8bji5qpkXtR0VPaovtjCEqvSPn32ZvJBGYvH/wrJfK67Ykh57ffiGMFtgiR
+         GVSOv/dnr4xs/PHqVEK32W+en+tP3mUQLlrifTt0eE7Pbu5ca9+n+Z8JBEXK89tyVJ/h
+         P1yG+AfjFR4W/1570J8bPdSaCWuIY7YMxxZZUHl2YlzuRpeMe4f+XhHjH9XwCgAUoYw/
+         svFJAgBP6sinJiTxJjq5OliG9+EQeR+grpeooCbVhfUi4/MWvCDQKJDDhLWbW7Tk4GOY
+         fo0g==
+X-Forwarded-Encrypted: i=1; AFNElJ+PH/+g7grhVhOZ0tmJcrZyMTPdCH2nwmKtXLDkZx3hOdsrQV7qkEWfy+qDPDvqMLVfs00ZuRW2Xu7M@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0kEkHwnSVy2lVT6996NWsnjAFXB3cLjg4k4RQmF/puAMGkziS
+	ICXNqpYrOyEy7wpAkKRSJqtFi25JD8goxtWJR+i6S2dCceKd1IH7leHihh6PenYur5g1f2AsSts
+	OGMCY4/k/jMHss5d0aUb3YwvVoZVoPX2qz8MD/Zs/VI3EAcbX30zrJye0jGTW5Gj4
+X-Gm-Gg: Acq92OHKUWo77H5PmolgqRvNMlkIFD+a8F2zWztqsOCdzBBqI7UwPjCzgNrOy0SBR5p
+	fRQ+xCqFZYylS7Xgdqq9HkmLDhiXR5EH6bB0BGPPyoRy4ddwAWz8Y3v7Ut6LKsqpp+Y9lksGL2+
+	g/CT7NGVsjohasK7yBEyeVR3JsHD9yebxJ5uc3PrCIKl+Z5ltbpcKbSerBl8oKZ+ipQkXjVQM+8
+	Eix85aK3rhcch8fmqHIoXep37bDa3R5GybLwxNmHLbGyGSDDUXHMKbxqXkeJN9W6HdBsJ72t1T6
+	Qp81ZbE/fQcmgWCmnoXv+cBSoHgIMkZ6hcdlu5U42l8AI+Qq7psid9c8KBYcTgDYnZ6HwPNqWsC
+	G0Qe5cvqz/XbbR5tTUAEW2YFmYkOPrW7e7Kw=
+X-Received: by 2002:a05:620a:6c0d:b0:915:4ca0:1210 with SMTP id af79cd13be357-91f2a9c581dmr253478985a.3.1781770763877;
+        Thu, 18 Jun 2026 01:19:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:6c0d:b0:915:4ca0:1210 with SMTP id af79cd13be357-91f2a9c581dmr253477185a.3.1781770763432;
+        Thu, 18 Jun 2026 01:19:23 -0700 (PDT)
 Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6955acc7597sm1902928a12.9.2026.06.18.01.18.35
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bfdb5318d8dsm875237766b.26.2026.06.18.01.19.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 01:18:37 -0700 (PDT)
-Message-ID: <e513bc4c-ddeb-43b3-aa05-59051136ba4e@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 10:18:34 +0200
+        Thu, 18 Jun 2026 01:19:22 -0700 (PDT)
+Message-ID: <c90884fd-a354-45f3-bbfa-77c58d8d3b1b@oss.qualcomm.com>
+Date: Thu, 18 Jun 2026 10:19:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -107,34 +107,33 @@ From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 In-Reply-To: <20260616-hamoa_pdc_v3-v3-5-4d8e1504ea75@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA3NSBTYWx0ZWRfXzsjk45i5rZLm
- 4dCt1PFDBovCz1QzCVGegNu8hJxAMOm3FSGXVAuj79LpUBR0rHBRp6sD6lotP7vPRkQuedEav2E
- cOS8+aLa/XiKcO4+YkTIMGpE5U3cAwhim78JlG0jkxhbvBxfYlfwtSsv+jgnKXKPx6bbf3EXN8B
- gArH3kXmnf1SS1HXNpaiCQP717JbzYvyS2CFLm6y5S9Y/fG3gIzMHTouI4ulxQomdyjYNusZkey
- HkrWClYWk2YLuQ3skSVWeDKm56BVcDtf3mqjNmR7VwV8M7h7NX42cGooZ/PPsxaFi245VKDzRqA
- IaLAI8suEZ5SQmKu5/t4U3bbwLTmAvqIeeOIJzjksRUH5DO9xJr5Ze1S7zw8YPuY/BaWTzPTT6t
- NDNW5pRlwz3xFYizrDhcKtFoh7SSOWocw88K8ocMoW6jKPJSSfCfXoiK1gSHI2iqxuYAhFDK9Kc
- i2nLUp2bq5z6qisCYeg==
-X-Proofpoint-GUID: RdUpQOf-8y_89fv8JP_jX3cwWbk6jqZG
-X-Proofpoint-ORIG-GUID: RdUpQOf-8y_89fv8JP_jX3cwWbk6jqZG
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA3NSBTYWx0ZWRfX3u3cvfcU/AUu
- k52rSljq9PG1wE/pE5JnpaugTWBwD77Icfet+UH2AlRD254sc1OoebZdw/1c90OkO9kh+brlwAI
- a+FTc14OShKAk17Jma58UfSD8j2Y+1o=
-X-Authority-Analysis: v=2.4 cv=YrI/gYYX c=1 sm=1 tr=0 ts=6a33a9df cx=c_pps
+X-Proofpoint-ORIG-GUID: pBkLXkv8gaBfMCUCZjs2iIOvP4rh5FeF
+X-Proofpoint-GUID: pBkLXkv8gaBfMCUCZjs2iIOvP4rh5FeF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA3NSBTYWx0ZWRfX19TvcWlO7g29
+ +xLmVP0gHjlK9WOjhuVUSoSkIwivpqHbl5tCXzNpV3LpUAX2WrYhUI/TgehPQxb0SRPcWwOC2ns
+ pFtY7tuvR1/qXrqjUKVEw3wkKEGjLsJzi8plNvygx7IYe72DedNMgULTAQ8HAo1H9g1VXHxCEqT
+ YwE02zuHhHUc4t5hHky5+M30GUDydFr4HI/k6Uxf1myDryGVhqkM2782aI5ovvnfRvvRyBC7PpH
+ zgJpGmVUruATA4Qq1pGWI3JucErp3q0c7f3x43apcAPvl9sLXX/RdKx/VfguAlrzpgFjCWPYo7x
+ GuVMGXZBQCaCU9mV9HXwQ+jGQvhHvo7mQecZlSPewSs1VDOXCB2yXvvLc8elQWr3URzHErJukU+
+ CyTxu9RdDxoq94IoEaV9ht4QmQm3G0fuwjlTavEGBzvYrB81jtLvCa37SwSjChQP8w8GeqCvIUE
+ 5hLPUMZ5Ik21t0gxWww==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA3NSBTYWx0ZWRfX83fqLU1TS3SI
+ Xw3PaQQclzrWgr+lITjow4WEkJqRPBq/KOCvN28s92hiw2HtVXOVJtr0qEhjokZoE0UOlYjbrED
+ YZGSEeFDqB1WVEfaEBZcZqo4k8TKxfU=
+X-Authority-Analysis: v=2.4 cv=YJKvDxGx c=1 sm=1 tr=0 ts=6a33aa0c cx=c_pps
  a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=83jgrZZgdiTdjN6bNP8A:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=ZhBa3tV6RTI7cPQeaSoA:9 a=QEXdDO2ut3YA:10
  a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-18_01,2026-06-17_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606180075
+ malwarescore=0 phishscore=0 adultscore=0 impostorscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180075
 
 On 6/16/26 11:25 AM, Maulik Shah wrote:
 > All PDC irqchip supports pass through mode in which both Direct SPIs and
@@ -166,115 +165,26 @@ On 6/16/26 11:25 AM, Maulik Shah wrote:
 
 [...]
 
-> +static int qcom_pdc_gic_secondary_set_type(struct irq_data *d, unsigned int type)
+> +static void pdc_clear_gpio_cfg(int pin_out)
 > +{
-> +	enum pdc_irq_config_bits pdc_type;
-> +	enum pdc_irq_config_bits old_pdc_type;
-> +	int ret;
+> +	unsigned long gpio_sts;
 > +
-> +	switch (type) {
-> +	case IRQ_TYPE_EDGE_RISING:
-> +		pdc_type = PDC_EDGE_RISING;
-> +		break;
-> +	case IRQ_TYPE_EDGE_FALLING:
-> +		pdc_type = PDC_EDGE_FALLING;
-> +		break;
-> +	case IRQ_TYPE_EDGE_BOTH:
-> +		pdc_type = PDC_EDGE_DUAL;
-> +		break;
-> +	case IRQ_TYPE_LEVEL_HIGH:
-> +		pdc_type = PDC_LEVEL_HIGH;
-> +		break;
-> +	case IRQ_TYPE_LEVEL_LOW:
-> +		pdc_type = PDC_LEVEL_LOW;
-> +		break;
-> +	default:
-> +		WARN_ON(1);
-> +		return -EINVAL;
-> +	}
+> +	if (pdc->version < PDC_VERSION_3_0)
+> +		return;
 > +
-> +	old_pdc_type = pdc_reg_read(pdc->regs->irq_cfg_reg, d->hwirq);
-> +	pdc_type |= (old_pdc_type & ~pdc->cfg_fields->irq_type);
-> +	pdc_reg_write(pdc->regs->irq_cfg_reg, d->hwirq, pdc_type);
+> +	gpio_sts = pdc_reg_read(pdc->regs->irq_cfg_reg, pin_out);
+> +	__clear_bit(pdc->cfg_fields->gpio_irq_sts, &gpio_sts);
+> +	pdc_reg_write(pdc->regs->irq_cfg_reg, pin_out, gpio_sts);
+> +}
 > +
-> +	type = IRQ_TYPE_LEVEL_HIGH;
-
-
-Please carry your comment from the previous revision:
-
-/*
- * PDC forwards GPIOs as level high to GIC in secondary
- * mode. Update the type and clear any previously latched
- * phantom interrupt at PDC.
- */
-
-> +	pdc->clear_gpio(d->hwirq);
+> +static void pdc_unmask_gpio_cfg(int pin_out, bool unmask)
+> +{
+> +	unsigned long gpio_mask;
 > +
-> +	ret = irq_chip_set_type_parent(d, type);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * When we change types the PDC can give a phantom interrupt.
-> +	 * Clear it.  Specifically the phantom shows up when reconfiguring
-> +	 * polarity of interrupt without changing the state of the signal
-> +	 * but let's be consistent and clear it always.
-> +	 *
-> +	 * Doing this works because we have IRQCHIP_SET_TYPE_MASKED so the
-> +	 * interrupt will be cleared before the rest of the system sees it.
-> +	 */
-> +	if (old_pdc_type != pdc_type)
-> +		irq_chip_set_parent_state(d, IRQCHIP_STATE_PENDING, false);
+> +	if (pdc->version < PDC_VERSION_3_0)
+> +		return;
 
-This bit and the switch statement above are common between the two paths..
-I'm debating whether we should factor them out as static inline void, but
-neither solution is perfect.. so, up to you
-
-[...]
-
-> @@ -385,20 +547,37 @@ static int qcom_pdc_alloc(struct irq_domain *domain, unsigned int virq,
->  	if (hwirq == GPIO_NO_WAKE_IRQ)
->  		return irq_domain_disconnect_hierarchy(domain, virq);
->  
-> -	ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
-> -					    &qcom_pdc_gic_chip, NULL);
-> -	if (ret)
-> -		return ret;
-> +	/*
-> +	 * PDC secondary chip is only set for the GPIO interrupts as SPIs.
-> +	 * Direct SPI interrupts are still in pass through mode (no latching
-> +	 * at PDC).
-> +	 */
-> +	if (pdc->mode == PDC_PASS_THROUGH_MODE || !pdc_pin_is_gpio(hwirq)) {
-> +		ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
-> +						    &qcom_pdc_gic_chip,
-> +						    NULL);
-> +		if (ret)
-> +			return ret;
->  
-> -	region = get_pin_region(hwirq);
-> -	if (!region)
-> -		return irq_domain_disconnect_hierarchy(domain->parent, virq);
-> +		if (type & IRQ_TYPE_EDGE_BOTH)
-> +			type = IRQ_TYPE_EDGE_RISING;
->  
-> -	if (type & IRQ_TYPE_EDGE_BOTH)
-> -		type = IRQ_TYPE_EDGE_RISING;
-> +		if (type & IRQ_TYPE_LEVEL_MASK)
-> +			type = IRQ_TYPE_LEVEL_HIGH;
-> +	} else {
-> +		ret = irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
-> +						    &qcom_pdc_gic_secondary_chip,
-> +						    NULL);
-> +		if (ret)
-> +			return ret;
->  
-> -	if (type & IRQ_TYPE_LEVEL_MASK)
-> +		/* Secondary mode converts all interrupts to LEVEL HIGH type */
->  		type = IRQ_TYPE_LEVEL_HIGH;
-> +	}
-
-nit: (pdc->mode == PDC_SECONDARY_MODE && pdc_pin_is_gpio(hwirq))
-could be the primary case to better communicate intent
+These version checks should be unnecessary now, given the function pointer
+is only assigned for hamoa
 
 Konrad
