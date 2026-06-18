@@ -1,227 +1,290 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3693431F5
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 16:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7504B298CB2
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 16:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781799268; cv=none; b=W6DnVRjuevPK0Y2sL1haLaVLCYsVS1qIcdBSU53lUL+PTiD/bw2IKd1VkJodr6KdSNAlMHeLLPDmenDU1wPCkLTYzNZjNBvDCwQN2dJ9I/RimQnHlMNMEZYkFNyjwL7QKjJTaDdJ44SC/D1TPjeNp6PZ6qKAVYttwhcR3kSWLTM=
+	t=1781799327; cv=none; b=b0DwPB7b/2eNpnuMluJvyWxAmfB2EdBzCz/nogaiRDDSD6Y/jxPrNfePmHw+GBMGyPulEfZ6RU5JWlsD1WnFgkLIrLAhfxhb3WuSXnnDWkE8cO3KLZM4pviw0oXn4bTfN9bmSm3+7rKuhGnkqJG26YiGrhusAajk0Hy4CkFX+iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781799268; c=relaxed/simple;
-	bh=R1gVtYDN5n2fZ9vAVumO58wI1lDs+qlEx2tCz1NSsPs=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EliTLlpt+JDBVr6cUOhOEZ0/bAYiyk8f0mvhuVlPdwzMUP3fuM7L+ZOvnyiFnx44D4Keb0OXO3TMPeo8a5RDSLQGGk0OnzgQoDKdeF/RAAfXjZiVJnd6vG9ozE/qEI9jCGFq6xsfG6rdofDmAXca77q1Y+NcvKlEoUQhRNRpAp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ydjv7Wfc; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781799327; c=relaxed/simple;
+	bh=L6a/IguoZMSk29JDIFwno+xk6+fquaZybSe+Vex7D8g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NIzY4NcYdM+tI9oj/zW0iuVzfEpbxa4Rmnz0NB7k0hMPvUZnZ7gvuibbA3/UVF2g3uSthdcj+n6m/wiXtltQJEooQW6JQFK8D4sik7AFZoMRqtKaU3/xRbzrus5uEtpaWtWw7qbqqnjitWECJ7qsJT0yn2y8mSMQ7ZtVt2F8XNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XBrS1RLE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ydjv7Wfc"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490ae94a89eso8719145e9.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:14:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781799265; x=1782404065; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0IWtEiXv9qCkFIqBuOVncrIVNf4UpfLhl+LRYC+5jmc=;
-        b=Ydjv7WfcNupDygwjHKP55HyWwXE5Dja8Xerx5b5tcK9fsStG8yGcwy3ACC+5ke16/X
-         VgDTGgWryNMIHP8+R2QnRPJSDbyaCyYa4OOYI1AfG4+ygzMXSdVLo3r9jxfxeCPbjlq0
-         bmmkPWgwSq8M7950u0hX2u/5dk8AG4h8fihPHSKCiBOQIIY93vfoUqQ+PzHTewf/eZjm
-         GiGlm5RLhj7OjjtEWTr2BlOl27CV9aQTfWCg4T8kDrHrSmXebfsvUUdBBQ1uwCYVCGII
-         EMTgFcwlQ4CqRIq2utb9RhidtKJS5RXuJaItrfYwdwMppkdmgCByzGljTffUHVDOJ07h
-         TY5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781799265; x=1782404065;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0IWtEiXv9qCkFIqBuOVncrIVNf4UpfLhl+LRYC+5jmc=;
-        b=fC8cBF+blZXkCiAWZoA5F+V2uhk9izYcXespCvGzFf+TuMuLxZN0sxQdi9TnIqSJCU
-         N7c53OGIaIJsYqe+527q4TdOx3sFGrDid25DPDtiL2vtmQM/fB6U51VhpE39Ml9W/6OA
-         KIOfhWzVvY2hEf1wUmnDf7SNBzb7YKxzgSNw7D+BHpSmX7VPu4P/dSTE9ALMBG6rQ9rM
-         06FZRDrDEc01VRF9YbYUm7UOVCJVDJR2kYcVyPO0UONPIzIBZPZaR1x9hcHFb+x+l+hH
-         iTCsDYM0wG051l25ZnfrHm30cCYd0st2/1uQImZzXJCskCAfPeK61p+jjatbu1gvwhDn
-         9oMg==
-X-Forwarded-Encrypted: i=1; AFNElJ+KityssciHMV4cHIlsGPYQ3ZJbuplzDRr2qD2ssSwqXM0ineAbGGZ13DzqGSkwLklodAJgiiwmCoUt@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRf1WIK47zHy3QO78rt/ZOBFh+uCxV6nmfo7pvSMMaC5Teb8Hi
-	5fy686gntl96N1yUxqOSYbEvnq2vGcYk/wD3Ksa+6szT6BNLpcrofHQT
-X-Gm-Gg: AfdE7cmjJB6PmP6/ZnFgUMwIRl9iDIxFCZdl7SHWUYo/p4nnwJJlaQBV3Q8zEIKXS/7
-	o2EMOgP1RyNvCb86VSEztSb7Jcu4tFvNjnWNpsoCzRodNSHSi0iFa2MX7QIH8cQuy3VpGN2bd62
-	D5/TsskIhdZCA/AD+NPVGJ1VjIrf5NtnfJkCPyvAWd+orgmEEN+n+bjeB74P9fEdO6GTXNhd04u
-	jZtQFP0SLPMh4Cb0xlXbK6MwVeyQYjGfV6iW8BT3cHICasELkG5cwpMX+h/H55kC6hpX6EHHYkb
-	U5S+sT/HzHX88NLosD4hbILsw8NALSXsJRuDNB1QaGWfVBc756vpsgWZtxD7/nXfkth6/KrFvTB
-	Acny2tPhWEN3Co9F8t2Dm1/0/7u7WEMemGRzPewQsNtENFLkxoBb3NnToAEC8vNKAxSpMurlpAJ
-	H2qUTghzcvYisM+R9kNPG+FR9rUw1+hUORhuVEh+XfoNWkKTdHkpzSC4Yq7j9ZP57Z3kD4Dt80e
-	U9Lr9pJXCjFkFXPpf9KioGqt+L/
-X-Received: by 2002:a05:600c:8b24:b0:48a:93f8:dd02 with SMTP id 5b1f17b1804b1-4923f439be6mr4090255e9.14.1781799265192;
-        Thu, 18 Jun 2026 09:14:25 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-462236047c8sm20330838f8f.10.2026.06.18.09.14.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 09:14:24 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Thu, 18 Jun 2026 17:14:19 +0100
-To: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>, 
-	rodrigo.alencar@analog.com
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 06/16] iio: core: create local
- __iio_chan_prefix_emit() for reuse
-Message-ID: <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
- <ajQGTQ1_qcOwfzne@nsa>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XBrS1RLE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEFD1F00A3A;
+	Thu, 18 Jun 2026 16:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781799326;
+	bh=LN0T7THp2CZC68lZQGasdy3GKqMZe6xRHm8PJ/aevDI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XBrS1RLE/h3eM14YzZmMXBA6FVBqc1qWxsemXx2pIoi/Hd7bIufo+X8tHcSyTR113
+	 YP+4VAfkEkAeSHvic/p5sIfF9QfEaPQa/ZJHwXorfJ7RPBxU4wKXBITV37JBTgFhTh
+	 ev8bAPcBbFbVDBNno5ZzYugfIWkAV50Btl597slNAOrA+i6yxhchGShqdUbWYQ1SIf
+	 4lC8L2aYIKKCXh0WcIyKnuxGGl5urLkPcbt6sckb5rFyuviZcXBk0plET4lni7xW6F
+	 l/vIEVSqx/Gg12dUOFUaxBJMRTkY9oILj4HrgDMGjG/2GkIVURL3/leqmC6C58GDs2
+	 rs8h1BEjcQDUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nikhil Gautam" <nikhilgtr@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260618160141.11409-3-nikhilgtr@gmail.com>
+References: <20260618160141.11409-1-nikhilgtr@gmail.com>
+ <20260618160141.11409-3-nikhilgtr@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 16:15:25 +0000
+Message-Id: <20260618161526.2CEFD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ajQGTQ1_qcOwfzne@nsa>
 
-On 18/06/26 16:06, Nuno Sá wrote:
-> On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > 
-> > Move logic to create a channel prefix for naming attribute files into a
-> > separate __iio_chan_prefix_emit() function for reuse.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Data race on statically allocated `scale_avail` array.
+- [High] DMA safety violation due to stack-allocated transfer buffers.
+- [High] Writing to the temperature scale attribute corrupts the magnetomet=
+er gain configuration.
+- [Medium] IIO scale values violate ABI standard (Tesla and Celsius instead=
+ of Gauss and milli-Celsius).
+- [Medium] Missing `id_table` assignment in the I2C driver structure.
+- [Medium] Temperature channel exposes raw register exponent values instead=
+ of true oversampling ratios.
+- [Medium] Lockless state reads in `mlx90393_read_raw` lead to data races.
+--
 
-...
+commit bdec68e57f45f6e35e5c0c76d37b8ee5efa9691b
+Author: Nikhil Gautam <nikhilgtr@gmail.com>
 
-> > +static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
-> > +				  enum iio_shared_by shared_by,
-> > +				  char *buf, size_t len)
-> > +{
-> > +	const char *dir = iio_direction[chan->output];
-> > +	const char *type = iio_chan_type_name_spec[chan->type];
-> > +	int n = 0;
-> > +
-> > +	switch (shared_by) {
-> > +	case IIO_SHARED_BY_ALL:
-> > +		buf[0] = '\0'; /* empty channel prefix */
-> > +		break;
-> > +	case IIO_SHARED_BY_DIR:
-> > +		n = scnprintf(buf, len, "%s", dir);
-> > +		break;
-> > +	case IIO_SHARED_BY_TYPE:
-> > +		n = scnprintf(buf, len, "%s_%s", dir, type);
-> > +		if (chan->differential)
-> > +			n += scnprintf(buf + n, len - n, "-%s", type);
-> > +		break;
-> > +	case IIO_SEPARATE:
-> > +		if (chan->indexed) {
-> > +			n = scnprintf(buf, len, "%s_%s%d", dir, type,
-> > +				      chan->channel);
-> > +			if (chan->differential)
-> > +				n += scnprintf(buf + n, len - n, "-%s%d", type,
-> > +					       chan->channel2);
-> > +		} else {
-> > +			if (chan->differential) {
-> > +				WARN(1, "Differential channels must be indexed\n");
-> > +				return -EINVAL;
-> > +			}
-> > +			n = scnprintf(buf, len, "%s_%s", dir, type);
-> > +		}
-> > +
-> > +		if (chan->modified) {
-> > +			if (chan->differential) {
-> > +				WARN(1, "Differential channels can not have modifier\n");
-> > +				return -EINVAL;
-> 
-> WARN() looks too much to me. dev_error() as we're treating it as such. I
-> guess you don't want to pass struct device but not really an issue IMHO.
+iio: magnetometer: add support for Melexis MLX90393
 
-__iio_device_attr_init() also used WARN(), probably because it didnt have
-access to a dev pointer. It would not be a problem to add an extra param.
- 
-> 
-> > +			}
-> > +			n += scnprintf(buf + n, len - n, "_%s",
-> > +				       iio_modifier_names[chan->channel2]);
-> > +		}
-> > +
-> > +		if (chan->extend_name)
-> > +			n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
-> > +		break;
-> > +	}
-> > +
-> > +	if (n > 0 && n < len - 1) { /* prefix termination if not empty */
-> > +		buf[n++] = '_';
-> > +		buf[n] = '\0';
-> > +	}
-> > +
-> 
-> Can't we handle the above in the caller on kasprintf()? Then we could
-> simplify and return in place.
+Add Industrial I/O subsystem support for the Melexis
+MLX90393 3-axis magnetometer and temperature sensor.
 
-I felt like doing this here would get a cleaner logic in the caller, which
-would have to add the '_' conditionally.
+> diff --git a/drivers/iio/magnetometer/mlx90393_core.c b/drivers/iio/magne=
+tometer/mlx90393_core.c
+> new file mode 100644
+> index 0000000000000..0ad4a30c0be96
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393_core.c
 
-> 
-> > +	return n;
-> > +}
-> > +
-> >  /**
-> >   * iio_device_id() - query the unique ID for the device
-> >   * @indio_dev:		Device structure whose ID is being queried
-> > @@ -1100,106 +1159,19 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
-> >  						size_t len),
-> >  			   enum iio_shared_by shared_by)
-> >  {
-> > -	int ret = 0;
-> > -	char *name = NULL;
-> > -	char *full_postfix;
-> > +	char prefix[NAME_MAX + 1];
-> > +	int ret;
-> >  
-> >  	sysfs_attr_init(&dev_attr->attr);
-> >  
-> > -	/* Build up postfix of <extend_name>_<modifier>_postfix */
-> > -	if (chan->modified && (shared_by == IIO_SEPARATE)) {
-> > -		if (chan->extend_name)
-> > -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s_%s",
-> > -						 iio_modifier_names[chan->channel2],
-> > -						 chan->extend_name,
-> > -						 postfix);
-> > -		else
-> > -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s",
-> > -						 iio_modifier_names[chan->channel2],
-> > -						 postfix);
-> > -	} else {
-> > -		if (chan->extend_name == NULL || shared_by != IIO_SEPARATE)
-> > -			full_postfix = kstrdup(postfix, GFP_KERNEL);
-> > -		else
-> > -			full_postfix = kasprintf(GFP_KERNEL,
-> > -						 "%s_%s",
-> > -						 chan->extend_name,
-> > -						 postfix);
-> > -	}
-> > -	if (full_postfix == NULL)
-> > +	ret = __iio_chan_prefix_emit(chan, shared_by, prefix, sizeof(prefix));
-> > +	if (ret < 0)
-> > +		return ret;
-> > +
-> > +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
-> > +	if (!dev_attr->attr.name)
-> >  		return -ENOMEM;
-> 
-> I don't oppose the change. Looks like a nice cleanup. But bear in mind
-> this very sensible as any subtle mistake means ABI breakage.
+[ ... ]
 
-Yes! I tried to be careful... this is dangerous stuff!
+> +static int mlx90393_write_reg(struct mlx90393_data *data, u8 reg, u16 va=
+l)
+> +{
+> +	u8 tx[4];
+> +	u8 status;
+> +	int ret;
+> +
+> +	tx[0] =3D MLX90393_CMD_WR;
+> +	put_unaligned_be16(val, &tx[1]);
+> +	/* Register address is encoded in bits [7:2] */
+> +	tx[3] =3D reg << 2;
+> +
+> +	ret =3D mlx90393_xfer(data, tx, sizeof(tx), &status, 1);
 
--- 
-Kind regards,
+[Severity: High]
+Is it safe to allocate the transfer buffers on the stack here and in
+mlx90393_read_measurement()?=20
 
-Rodrigo Alencar
+If the I2C host adapter uses DMA and CONFIG_VMAP_STACK is enabled, mapping
+stack memory for DMA operations will fail. Should these buffers be
+dynamically allocated to ensure DMA safety?
+
+[ ... ]
+
+> +static int mlx90393_get_scale(struct mlx90393_data *data,
+> +			      const struct iio_chan_spec *chan,
+> +			      int *val, int *val2)
+> +{
+> +	enum mlx90393_axis_type axis;
+> +	u8 res;
+> +
+> +	if (chan->channel2 =3D=3D IIO_MOD_Z) {
+> +		axis =3D MLX90393_AXIS_TYPE_Z;
+> +		res =3D data->res_z;
+> +	} else {
+> +		axis =3D MLX90393_AXIS_TYPE_XY;
+> +		res =3D data->res_xy;
+> +	}
+> +
+> +	/*
+> +	 * Convert:
+> +	 * =C2=B5T =C3=97 1000 =E2=86=92 nT
+> +	 */
+> +	*val =3D 0;
+> +	*val2 =3D mlx90393_scale_table[axis][data->gain_sel][res];
+> +
+> +	return IIO_VAL_INT_PLUS_NANO;
+> +}
+
+[Severity: Medium]
+Does this return the scale in Gauss as required by the IIO ABI for
+in_magn_scale? Using IIO_VAL_INT_PLUS_NANO with the current scale table yie=
+lds
+Tesla, which is off by a factor of 10,000 compared to Gauss.
+
+[ ... ]
+
+> +static int mlx90393_write_raw(struct iio_dev *indio_dev,
+> +			      const struct iio_chan_spec *chan,
+> +			      int val, int val2,
+> +			      long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		guard(mutex)(&data->lock);
+> +		ret =3D mlx90393_set_scale(data, chan, val, val2);
+> +		return ret;
+> +	}
+
+[Severity: High]
+Can writing to the temperature scale attribute corrupt the magnetometer gain
+configuration?
+
+The IIO_TEMP channel exposes a writable scale attribute, but this case does
+not check chan->type before calling mlx90393_set_scale(). Because the
+temperature channel's channel2 field is 0, it evaluates as an XY magnetomet=
+er
+channel and will reconfigure the global gain_sel register.
+
+[ ... ]
+
+> +static int mlx90393_read_raw(struct iio_dev *indio_dev,
+> +			     const struct iio_chan_spec *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		guard(mutex)(&data->lock);
+> +		ret =3D mlx90393_read_measurement(data, chan->address, val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +		}
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->type) {
+> +		case IIO_MAGN:
+> +			return mlx90393_get_scale(data, chan, val, val2);
+
+[Severity: Medium]
+Is a lock needed here?
+
+Configuration variables like gain_sel, osr, and osr2 are updated while
+holding data->lock in mlx90393_write_raw(), but mlx90393_read_raw() reads
+these properties without acquiring the lock.
+
+Can concurrent updates result in stale or inconsistently-read configuration=
+s?
+
+> +
+> +		case IIO_TEMP:
+> +			/* Datasheet: 22124 millidegC/LSB */
+> +			*val =3D 0;
+> +			*val2 =3D 22124;
+> +			return IIO_VAL_INT_PLUS_MICRO;
+
+[Severity: Medium]
+Does this return the temperature scale in milli-Celsius as required by the =
+IIO
+ABI? Returning 22124 with IIO_VAL_INT_PLUS_MICRO yields Celsius, which is o=
+ff
+by a factor of 1,000.
+
+[ ... ]
+
+> +static int mlx90393_read_avail(struct iio_dev *indio_dev,
+> +			       const struct iio_chan_spec *chan,
+> +			       const int **vals,
+> +			       int *type,
+> +			       int *length,
+> +			       long mask)
+> +{
+> +	struct mlx90393_data *data =3D iio_priv(indio_dev);
+> +	static int scale_avail[MLX90393_GAIN_MAX][MLX90393_AXIS_MAX];
+
+[Severity: High]
+Is it safe to use a statically allocated local array for scale_avail?
+
+The lock is released before the IIO core iterates over the returned pointer.
+Can concurrent sysfs reads across different channels or multiple device
+instances clobber the shared array and return corrupted lists to userspace?
+
+> +	enum mlx90393_axis_type axis;
+> +	u8 res;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE: {
+> +		guard(mutex)(&data->lock);
+> +		axis =3D chan->channel2 =3D=3D IIO_MOD_Z;
+> +		res =3D axis ? data->res_z : data->res_xy;
+> +
+> +		for (unsigned int i =3D 0; i < MLX90393_GAIN_MAX; i++) {
+> +			scale_avail[i][0] =3D 0;
+> +			scale_avail[i][1] =3D mlx90393_scale_table[axis][i][res];
+> +		}
+> +
+> +		*vals =3D &scale_avail[0][0];
+> +		*type =3D IIO_VAL_INT_PLUS_NANO;
+> +		*length =3D MLX90393_GAIN_MAX * MLX90393_AXIS_MAX;
+> +		return IIO_AVAIL_LIST;
+> +	}
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		if (chan->type =3D=3D IIO_TEMP) {
+> +			*vals =3D mlx90393_osr2_avail;
+> +			*type =3D IIO_VAL_INT;
+> +			*length =3D MLX90393_OSR2_MAX;
+
+[Severity: Medium]
+Does this expose raw register exponent values instead of true oversampling
+ratios for the temperature channel?
+
+Returning the register exponents (0, 1, 2, 3) directly violates the IIO ABI
+which dictates reflecting the actual number of hardware samples applied.
+
+[ ... ]
+
+> diff --git a/drivers/iio/magnetometer/mlx90393_i2c.c b/drivers/iio/magnet=
+ometer/mlx90393_i2c.c
+> new file mode 100644
+> index 0000000000000..52233b6295c2b
+> --- /dev/null
+> +++ b/drivers/iio/magnetometer/mlx90393_i2c.c
+
+[ ... ]
+
+> +static struct i2c_driver mlx90393_i2c_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "mlx90393",
+> +		.of_match_table =3D mlx90393_of_match,
+> +	},
+> +	.probe =3D mlx90393_i2c_probe,
+> +};
+
+[Severity: Medium]
+Is the id_table assignment missing here?
+
+The driver defines the mlx90393_id table and exports it, but it is not
+assigned to the id_table field of this structure. Could this prevent the
+driver from binding on systems relying on legacy board-file setups or sysfs
+new_device instantiation?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618160141.1140=
+9-1-nikhilgtr@gmail.com?part=3D2
