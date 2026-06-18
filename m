@@ -1,67 +1,67 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286BA3A4520
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0143F4824
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785409; cv=none; b=WIxnmTV5fHfu4IkxhR6kSnVS4tMFoJfKWVcftjg5FvO3y9GK+9EEunxACIIMcjYUf85SdNGsHeA2Pn7cpkbvPpJ+stewTWE0ChjvqVZhbpTlJr/Go2Lw0A90avStn0VmiVLcS4Dfh+kKInT7pY/kHZTGWecCMxIA6bjxreGSWCU=
+	t=1781785425; cv=none; b=GQcwzCoV186mr9nKPuyubuSJyFkT8kl/d98YNrN03wrAHZS/s9t8x1PPfl+XeNIZSWoo/l2v38U0yn/wiRYVKTns57w9Tkz3Bvy0cjhcK6W3mAp66gHeKipyexYPnN51jMy78friG+EgszpAyB9KQV0pmsPbdOCl9njbPyhODas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785409; c=relaxed/simple;
-	bh=uU5OBoufNUDiJYl4uTWoBMLkpvuL5gBwbsY9sZQoC/s=;
+	s=arc-20240116; t=1781785425; c=relaxed/simple;
+	bh=C3Ue+0dp2+FFHE5z/WmC42l4yMuleDdXt8q4YWy72hE=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=MKUP0U0s1SPI+ars9zdA05pTYMtpFl4bXe9lJkzH+QTg0N8ZHRBNFjAdKtw6O05oYXfdjjWc/eD1ajIr9miKVss8d1ZAMVl4A0q5Zo55H+Ts6ykUmFJzW9Io+IW4/C0tcsolwvl2jvp4j5vwJBSvb8KPlajIXnbmBVDsDU1XWO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dFGjZrxW; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:Content-Type; b=kB/uuiZwUJIPFX8IE6ZNQn7d2rdT3nsms78os0Gw0np1Vnb663LYhdb9Yf9E/qs3uzCkQsUNZEWi2JkR0LjBc7YQ2iXYMZdA3kpX5OhQG+NJBIBrgMzGAddiqvW7ix5JPlGLc8DdN0ys2sJJKFMv4CUzlGdf3Ns5j8jho9o9nvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=l6MfqIvB; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dFGjZrxW"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b3637b90so6228475e9.3
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:23:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="l6MfqIvB"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4921e4dd62dso7162915e9.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:23:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781785406; x=1782390206; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1781785422; x=1782390222; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
-        b=dFGjZrxW/rxZ/zBLHiuFUs/WEH2l9BIYv9FzpcuEdDVIp+V7S/qKEVYLWJw+tDsnf3
-         KQ8QCerZjDadselGIdSF4/IRLtozc+wz+iXsrGZW6U5c6rJfwfGfyrLhAyalFne+kjbY
-         Q4qmT9mh4o9EO74speovBsMIlNBNgHlU+7B7wplNVF2IzXjwxLQnAa6sP3sE/JjUsxCR
-         Wj5g6587J9FHaeWyXzukGwbmxOe0Qu4DKx+oV803M7xL8A/z8VYDKWMMKu6RqC66aQEX
-         F12FPhOMCAV6ou789qcV/zqm2x+OgGJrB4l+OEHolQtqNzL2GortHmNJq2UUiatGYCCf
-         fZBA==
+        bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
+        b=l6MfqIvBk118YafTKVhdMD8lLT9xAO1GHwCCqAVv/auP80oDC9qR6TheKKXGBH6eVr
+         sNDy7Q1AnPcSeM9Mi/ZVml6Ngmcc3waUiT2LKH/BXc65PHHW5qFVjugyNDlYcGS2xr0r
+         JVVyGYOI7COycm/WggWIeDeW0iqa4XACTm3m9Nh7S2jXizci+ASmYIHMTlkjimKm6sSM
+         nqQ3OMaBtyAwGYZU7CNRg3seMbF5XUne94auG3BXmvu+deSJ+mZlTNEOLPbKXJcKMquQ
+         149HQGE4o+cnG/O/TK/rCmauyVpWo3YbpR3Uu8np1364ejPtepmgpPT3g1ptFqbix58c
+         Z4zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781785406; x=1782390206;
+        d=1e100.net; s=20251104; t=1781785422; x=1782390222;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:references:cc:to:subject:reply-to:from:user-agent
          :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=LAtGu/fA9uXxnFye1zu9fsid/L2b+MdGaREMuZCR+iU=;
-        b=IwjaO6zA2KD4wdmjqOD+NbzKR5KJQvoMdFf6c7Mm77kneNNaIoBKYqS0qba6fSMmFt
-         gGQhzsNcDhhPTZUmSF1Ybp/vUR3DUmK3Rpnr7FP3dLyUeVLGUoC9B2wDZVCj956ISW3i
-         IqfVkrWZowt1+RR57wV4oxcqTPoCfrZTKajFvH6Q8dzc1GiujgqtFiH864gcfc8HDq8B
-         nrOdhDSBse3i8J4An4f+RIBHJlwd/EWHRQNgeOBpPVRG4rII5kcPdehx48ZsH1HMJw6z
-         YYYpBj3XUWKlYTWU7gzd522/nshyzbm1Omy9qcM9eiJCbhS3f7mLkmj6dYEa38hUfCVf
-         EgwA==
-X-Forwarded-Encrypted: i=1; AFNElJ8t0d0H6znGykZolfNYUpjGc2yaoL15hg8QkeyjV3RRoD8p1ABblJ5Sx+l58t0VAaoidM3/8xVk7jZf@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBoKEOdKb694um5DqE/IAHQPLKAQEHcJV6yOGKuJI4NZxmnK1D
-	oDHNh+SlK6TBiKXHZKdvT6Yy+HUc1LY2uPVFzMfzG5+VAnkE7MVp92e91YeGKr0FNtE=
-X-Gm-Gg: AfdE7clvjpk1HkK+0TUsGzKYGbUNiPYEvZHDnxS41/kR2B/F2cUkNyI0OYeQGwwcwwX
-	jA3cfXnivATpJ+Abzha9I+JF0wMJFMB5ILk/Yrclj+PpYTvuhZmbzo6rDZd35AcTN3HNBlipHfU
-	6wbDqDN5DC/dUQTekStMpZNpgTg9j5hVchwSdvyi/xIMI7RpGDrB6qpGRuZb2nstxiSHOE5SH7+
-	HuZPp8I/1NFpHzTsj80UiQorD0M+C7jIT1SPjSpEQi9IBDkMMflg7vaL0NCvnLJOU3tTXHv3app
-	MOFTxRc2A4JtNvPQJgSHCCW/9plJpOFtfOMexCBl7qzmTG7W6wkG6WQr7KGx2/hl7nm58yeA7dD
-	XABQG3aX6oOJnqGGTtTUubK2B3XG24dcsaCDghiZnSj4LBoWrhYaiZ1CSHjE6V9RUIIjZXE0M5b
-	RfMWoAAOqE5Z6lrtOcUA0h/NOwVYky+RpBpk494CIJAWydT+SeRg3WhzM0j0CE+k0nMw==
-X-Received: by 2002:a05:600c:4ed4:b0:492:1e36:85dd with SMTP id 5b1f17b1804b1-49238231011mr57313945e9.37.1781785406267;
-        Thu, 18 Jun 2026 05:23:26 -0700 (PDT)
+        bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
+        b=JRwhnWWSj4nhTtC2jJrron5za94RnLaYAwKujhk1EhN+pvkBbgY3VYUFRntzV5Y/h1
+         0HTtOv0gBl2i+NqwfLqbkU0aWBvr3bRxGnUvZp5Ztty+ossBJhOnwByqJihOxKhRygo0
+         1lHpzi6u+jgkSTXWve2qM8x7XED07oEXTyIoR8LImS8Bp9wQ+ur8yHkQVTlBfPIibtv2
+         jNffYXjERecD/rxSlnfNZuovxoreMeNljN1T2tXZYP/3AYHO0/RDyFjuwyXmrf2HEdm1
+         WJYIJuNB9QMkpzwHIdwkM7YfMNOJFLi2fOsARw92NNMoZbq9UrggzngEpNLBQ6QdHyEJ
+         PD7Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/cmiFLrgB6gs+77jAaYBXIx8D/55W2wYWBNIQQxxcotozk3Maug+kmNKjX1nhsKdlyWX/YYwy11N+M@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+Uj+tIwCrsUl0mk6gMpuIYSZTh5HU0wx/CxTgNzzemoLkcDer
+	v40bO74W2V2eYbRTyYm+RpTHOauM5fV89xrkNgJMyTorCw+dKK4a48tQKg1fqGD6wcc=
+X-Gm-Gg: AfdE7cnFRstb4W5gtrlU0BIG6JI0Ffr8aNWdimZrOE6gWoWtiIZ45aABigbCyZWTB+A
+	fTvKqtjJDy+e7r5c6pHD4+Cn4DHUnHlblwM023njbBi7BlGvxoQ3BlJjgZm8gX0BFTA5R8KXGQ/
+	BWOkB0ZQe9mg+ABJGXlmK8h07wgxBAkwoa+o9ttgykAUvMyTRiEfDMYh/j0BZvsmuLnJyewwR9X
+	qu8YIG1EuISSUvYhK2QIVuVGp827Wa6gRz4P8pNLFHM7XGIgXC/v5I9x4nfARtxCZHHnSdx6jPO
+	LrEOuKswH9xrggbigx2QBcgKAUR66qkykQ91NRRGAs/PXAMwnm6EkIUgvQw+501uCyySSJcWNmT
+	D/PpVn4FZ2i2a34bN7F4mxm5HpJallHyt0+4esR1IrrkNrs7w9ZTqIHbWD1ZzeRK3V8cvz3h/sz
+	el7tiybH4fXPQDW7xhKXrsBFxHohN9Fh6jtHSaof4Qo1WYl+dLqCnPSSemSortA3KxVg==
+X-Received: by 2002:a7b:c8d3:0:b0:492:1e36:9a90 with SMTP id 5b1f17b1804b1-492381a2e79mr37585935e9.18.1781785422212;
+        Thu, 18 Jun 2026 05:23:42 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0? ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-461eaa0d275sm19033981f8f.2.2026.06.18.05.23.25
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa96f0esm274863325e9.12.2026.06.18.05.23.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 05:23:25 -0700 (PDT)
-Message-ID: <d7e482c2-80aa-49ec-b339-8bffbdd7e664@linaro.org>
-Date: Thu, 18 Jun 2026 14:23:24 +0200
+        Thu, 18 Jun 2026 05:23:41 -0700 (PDT)
+Message-ID: <716f71ae-4642-4f22-8a9f-5b1c017d9ac2@linaro.org>
+Date: Thu, 18 Jun 2026 14:23:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,8 +71,8 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/3] drm/panel: himax-hx83121a: pass the panel pointer
- when creating BL
+Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
+ support
 To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -84,7 +84,7 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
- <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+ <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -111,70 +111,77 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260608162622.403713-2-zhengxingda@iscas.ac.cn>
+In-Reply-To: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 6/8/26 18:26, Icenowy Zheng wrote:
-> As backlight powering on/off support will be added, more fields of the
-> panel context will be accessed in the backlight update function.
+> The backlight, when managed by the panel controller, could be powered by
+> an external regulator, and shutting down the regulator could power off
+> the backlight.
 > 
-> Pass the whole panel struct instead of the DSI device when creating the
-> backlight device.
+> Add support for such a regulator. It's powered off when the backlight is
+> 0 (either by setting brightness to 0 or setting bl_power), and powered
+> on when the backlight should be operating.
 > 
 > Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 > ---
->   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
+>   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 26 ++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> index bed79aa06f46a..1a7e0125bced8 100644
+> index 1a7e0125bced8..e31e2fba0a787 100644
 > --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
 > +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> @@ -193,10 +193,11 @@ static const struct drm_panel_funcs himax_panel_funcs = {
->   
->   static int himax_bl_update_status(struct backlight_device *bl)
->   {
-> -	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	struct himax *ctx = bl_get_data(bl);
->   	u16 brightness = backlight_get_brightness(bl);
->   	/* TODO: brightness to raw map table */
-> -	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
-> +							 brightness);
->   }
->   
->   static const struct backlight_ops himax_bl_ops = {
-> @@ -205,9 +206,9 @@ static const struct backlight_ops himax_bl_ops = {
+> @@ -34,7 +34,9 @@ struct himax {
+>   	struct drm_dsc_config dsc;
+>   	struct gpio_desc *reset_gpio;
+>   	struct regulator_bulk_data *supplies;
+> +	struct regulator *bl_supply;
+>   	struct backlight_device *backlight;
+> +	bool backlight_enabled;
 >   };
 >   
->   static struct backlight_device *
-> -himax_create_backlight(struct mipi_dsi_device *dsi)
-> +himax_create_backlight(struct himax *ctx)
+>   struct panel_desc {
+> @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct backlight_device *bl)
 >   {
-> -	struct device *dev = &dsi->dev;
-> +	struct device *dev = &to_primary_dsi(ctx)->dev;
->   	const struct backlight_properties props = {
->   		.type = BACKLIGHT_RAW,
->   		.brightness = 512,
-> @@ -215,7 +216,7 @@ himax_create_backlight(struct mipi_dsi_device *dsi)
->   		.scale = BACKLIGHT_SCALE_NON_LINEAR,
->   	};
->   
-> -	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, ctx,
->   					      &himax_bl_ops, &props);
+>   	struct himax *ctx = bl_get_data(bl);
+>   	u16 brightness = backlight_get_brightness(bl);
+> +	int ret = 0;
+> +
+> +	if (!brightness) {
+> +		if (ctx->backlight_enabled)
+> +			ret = regulator_disable(ctx->bl_supply);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ctx->backlight_enabled = false;
+> +
+> +		return 0;
+> +	}
+> +
+>   	/* TODO: brightness to raw map table */
+> +	if (!ctx->backlight_enabled)
+> +		ret = regulator_enable(ctx->bl_supply);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ctx->backlight_enabled = true;
+> +
+>   	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
+>   							 brightness);
 >   }
->   
-> @@ -646,7 +647,7 @@ static int himax_probe(struct mipi_dsi_device *dsi)
+> @@ -647,6 +669,10 @@ static int himax_probe(struct mipi_dsi_device *dsi)
 >   	ctx->panel.prepare_prev_first = true;
 >   
 >   	if (desc->has_dcs_backlight) {
-> -		ctx->backlight = himax_create_backlight(to_primary_dsi(ctx));
-> +		ctx->backlight = himax_create_backlight(ctx);
+> +		ctx->bl_supply = devm_regulator_get_optional(dev, "bl");
+> +		if (IS_ERR(ctx->bl_supply))
+> +			return dev_err_probe(dev, PTR_ERR(ctx->bl_supply),
+> +					     "Failed to get backlight supply\n");
+>   		ctx->backlight = himax_create_backlight(ctx);
 >   		if (IS_ERR(ctx->backlight))
 >   			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
->   					     "Failed to create backlight\n");
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
