@@ -1,181 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA29257854;
-	Thu, 18 Jun 2026 05:23:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D3C35975;
+	Thu, 18 Jun 2026 05:52:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781760207; cv=none; b=ZWQ5eb7G5DzgjQwv66GfGwHQMAd5Bmf/woQGXgzjXI65oR+ERllRuGGAIc5Djbpuiq5o6oheZRvhetX+ybfOHNcDcbI8yFvjTCgySl89jVVEm40UX6lVsV+GmGkoOBpIrLwc67lMAqfviQsBT4bkC5JMs6o91LgGG/9SaXdE6kk=
+	t=1781761921; cv=none; b=XGq/CiP7Urta4wtJMmCfpwS9Es57h62h31WO6cPy/qZkAGAQhhweqOo3CqvZTpvgh11QT+95TSW6Yb1OGKvZw10JYpGTzj25Wcco6k7J/dhfwuvrn2lkt/t6qr+bg/ZMadH8PwUCEqYal+0hyGHF8nyiT/ouc8okEozofWL3lZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781760207; c=relaxed/simple;
-	bh=3clKl/hQCVZjf7Umdra0PdxIsirw21ClZhnwOyAXf/g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DTm2XWxiKeyphSUMUKEc2c53ns8+48cKhzMR1buaL5xzldyOpT+tJn1mvqPFwNdJEeN4uZjGZjdAGq72gVjpYDntAUZdpxPH0Gz5DgALolaUyrpJ+3aK+iISyOkuNtgyjdkoF+m24H0K3lcwEcweYkLPGaGGRGFHNotdbUstJ14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5tEwIvI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781761921; c=relaxed/simple;
+	bh=CJm+5iHv36S+mcIGPUqOydt+593cTsJxADcTFuAuWGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IuHuluX8zl5N9opQ78IMZh5T91Chtz3Sa/EX9Ao+F7rYI4yk5wIaJG/CGEQTDK+a/Umja/jw+qK4a29E9V3lvx9lKPgR5wJi6SHsN/pR0kUZazwElrCpH+m5JSdB/+SKP+5weg150DG8ngo4t6mmKcr3oH7yb3vmnG8utB8y5+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wy/gbv6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5tEwIvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5A11F00A3A;
-	Thu, 18 Jun 2026 05:23:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wy/gbv6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460581F000E9;
+	Thu, 18 Jun 2026 05:51:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781760205;
-	bh=cPAfR4QHvOXIQK3/i6GuTSJit6fDFmI9ld3QIz4yEtA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T5tEwIvIYoFQr7cMulOzqfTy+6Cea9zkER6KMp24IuS3daR0rpoM6R/Zl1oioFzV7
-	 6Q3QF5btavATSvmTF/iLguxeuwsK04HDebfU0Khfpx9kEd/L7+0UiQetk7yOqgL1bh
-	 tUFWMvL9+qtft3RdBoucdPDu/5FlEo/w95+XK8uTeSpwh6huPDXrDNZW+gnDGDqKK6
-	 L50zE25R7wNqG8G/TMVD5OUtM1Jnq0OYCSURVJNLnzYwT8K34cK4aNg6klmVtfGv7e
-	 6dcMGJBcdpGQyN4ptuPgwD34pMJ9lWA2mWMrGlUXi0/nAMO7t0v8iyS3Q6LqIqSdSB
-	 eAuzykrpmTRNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] regulator: db8500: Add power domain regulators
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
-References: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
- <20260618-ux500-power-domains-v7-1-v1-10-eb5e50b1a588@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 05:23:24 +0000
-Message-Id: <20260618052325.4F5A11F00A3A@smtp.kernel.org>
+	s=k20260515; t=1781761920;
+	bh=axBHEvNSq/rktJn+LqcAOdD67WjmrQ2QKEpOJgYtd18=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wy/gbv6TAnZPwMNly24Fpjt1uSwDTRjUoEHcaOw58Q8iGvN18eFRIhzAbGPjGKIaI
+	 /lLWdJsVlXy52u4cD85TBd2MW4ZNkU7PD7/3wdGGbu6V9TQsi/9Vqt+FtjMfdPP5Cv
+	 r8MHhrelhi5mG64JR9HyDmfIoR8C1U0VpdJHq2fjc/59KxqGgka7EYqWgcACBno4Sv
+	 f8Tn3A241PPfqYZq5eRUIn+weuRJaxpX6h7TTUHPSy1Ae0tv04+ghK81lFZ/zRksaJ
+	 BfK1N0UTM7v+TueSliizPPVB6S9RfL6PVTKrFGugdKjlC8unCii+C61IUC5yV5DFyj
+	 hwMuZQZsJvXIg==
+Date: Thu, 18 Jun 2026 07:51:52 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Matthew Leung <matthew.leung@oss.qualcomm.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: PCI: qcom: Document the Hawi PCIe
+ Controller
+Message-ID: <wgecmjy7fxwvbuzfj25gv5azwky44zyhuu6nsfecg33jfogsml@5bjh6wp7e2rv>
+References: <20260529-hawi-pcie-v2-0-de87c6cc230c@oss.qualcomm.com>
+ <20260529-hawi-pcie-v2-1-de87c6cc230c@oss.qualcomm.com>
+ <2tenqkmwcr2gshtjwh44pvban4gtlzcgrm3iibkfrs4zh6vphb@h5losfunylr6>
+ <aiteRU8cWykuhlVO@hu-mattleun-lv.qualcomm.com>
+ <m2kwzigrz4fbdedzr2bj2auqtvafj6qstbplghssato4d6tdnd@ftug3clgxmd6>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <m2kwzigrz4fbdedzr2bj2auqtvafj6qstbplghssato4d6tdnd@ftug3clgxmd6>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The `db8500_regulator_disable` callback incorrectly treats a retur=
-n value of 1 from `pm_runtime_put_sync_suspend` as an error, causing early =
-abort and state desynchronization.
-- [High] Mismatched Genpd APIs (`of_genpd_add_device` paired with `dev_pm_d=
-omain_detach`) lead to a silent detach failure and Use-After-Free list corr=
-uption.
-- [High] Embedding a `struct device` in a devres-managed structure (`devm_k=
-zalloc`) with an empty release function causes a lifecycle violation and Us=
-e-After-Free.
-- [High] The virtual device is never fully registered with `device_add()`, =
-leading to a memory leak of PM QoS constraints.
-- [High] The driver saves an OF node pointer to the persistent device struc=
-ture without incrementing its reference count, risking a dangling pointer.
---
+On Fri, Jun 12, 2026 at 09:22:10AM +0300, Dmitry Baryshkov wrote:
+> On Thu, Jun 11, 2026 at 06:17:57PM -0700, Matthew Leung wrote:
+> > On Sun, Jun 07, 2026 at 11:01:10PM +0300, Dmitry Baryshkov wrote:
+> > > On Fri, May 29, 2026 at 01:10:08AM +0000, Matthew Leung wrote:
+> > > > Add a dedicated schema for the PCIe controllers found on the Hawi
+> > > > platform.
+> > > > 
+> > > > Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
+> > > > ---
+> > > >  .../devicetree/bindings/pci/qcom,hawi-pcie.yaml    | 204 +++++++++++++++++++++
+> > > >  1 file changed, 204 insertions(+)
+> > > > 
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    #include <dt-bindings/clock/qcom,hawi-gcc.h>
+> > > > +    #include <dt-bindings/gpio/gpio.h>
+> > > > +    #include <dt-bindings/interconnect/qcom,icc.h>
+> > > > +    #include <dt-bindings/interconnect/qcom,hawi-rpmh.h>
+> > > 
+> > > Stop referencing clocks and interconnect header files. Replace used nocs
+> > > with ephemeral values.
+> > > 
+> > > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > > > +
+> > > > +    soc {
+> > > > +        #address-cells = <2>;
+> > > > +        #size-cells = <2>;
+> > > 
+> > > Not looking around should be a sin. Take a look at other Qualcomm PCIe
+> > > bindings. Compare them to yours. Then fix yours to follow.
+> > > 
+> > > Hint: the extra soc node is useless. This is just an example, so use the
+> > > default, 1 cells for address and size.
+> > 
+> > Thank you for the feedback. This new binding follows the examples set in
+> > the qcom,pcie-sm8x50 bindings and retains the same formatting (extra soc
+> > node and header references).
+> 
+> Hmm, interesting. Then I'm a sinner :-)
+> 
+> I looked at msm8996, but I didn't notice that the rest of the files use
+> the soc node (and match what you've sent). Please excuse me.
+> 
 
-commit abd72295748300bd01e4a7216b2321ff24b1a38f
-Author: Linus Walleij <linusw@kernel.org>
+Stop looking at MSM8996 and have some compassion for newer SoCs ;)
 
-regulator: db8500: Add power domain regulators
+> > 
+> > I understand the example can be simplified with your suggestions but
+> > want additional confirmation that these will be the convention for new
+> > bindings going forward.
+> 
+> At least, let's keep it for now. The other comment stands. To remove
+> dependencies please use ephemeral nodes instead of depending on DT
+> bindings from other subsystems.
+> 
 
-Add a DB8500 regulator driver for the VAPE and VSMPS2 compatibility nodes,
-backing the regulator enable state with corresponding power domains.
+Agree. Since this series missed 7.2 merge window, the dependency won't matter
+now. But for the sake of correctness, we should use ephemeral nodes going
+forward.
 
-> diff --git a/drivers/regulator/db8500-regulator.c b/drivers/regulator/db8=
-500-regulator.c
-> new file mode 100644
-> index 0000000000000..c5a9a1baaf8ea
-> --- /dev/null
-> +++ b/drivers/regulator/db8500-regulator.c
-[ ... ]
-> +static int db8500_regulator_disable(struct regulator_dev *rdev)
-> +{
-> +	struct db8500_regulator_info *info =3D rdev_get_drvdata(rdev);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_put_sync_suspend(&info->pd_dev);
-> +	if (ret)
-> +		return ret;
+- Mani
 
-[Severity: High]
-Does this propagate a success status as an error?
-
-According to the PM subsystem rules, pm_runtime_put_sync_suspend() returns 1
-when the device is already in the RPM_SUSPENDED state. Since this checks
-if (ret) and returns it, won't the regulator core treat this as a failure,
-aborting the disable operation and leaving the regulator's use_count and
-enable_count out of sync?
-
-[ ... ]
-> +static void db8500_regulator_release(struct device *dev)
-> +{
-> +}
-
-[Severity: High]
-Does this empty release function circumvent kobject lifecycle tracking?
-
-The struct device is embedded in devres memory allocated via devm_kzalloc().
-Since put_device() does not guarantee synchronous memory reclamation, will
-devres forcibly free the memory when the driver unbinds, creating a
-use-after-free for any subsystem still holding a reference to pd_dev?
-
-> +
-> +static void db8500_regulator_cleanup(void *data)
-> +{
-> +	struct db8500_regulator_info *info =3D data;
-> +
-> +	pm_runtime_disable(&info->pd_dev);
-> +	dev_pm_domain_detach(&info->pd_dev, true);
-
-[Severity: High]
-Will this detach silently fail?
-
-The device is attached using of_genpd_add_device(), which adds it to
-genpd->dev_list but does not populate the dev->pm_domain->detach callback.
-
-Since dev_pm_domain_detach() checks for that callback, won't it be a no-op,
-leaving the device in the genpd active lists when freed and causing a
-use-after-free?
-
-Should this use pm_genpd_remove_device() instead?
-
-> +	put_device(&info->pd_dev);
-> +}
-[ ... ]
-> +static int db8500_regulator_register(struct platform_device *pdev,
-> +				     struct device_node *np)
-> +{
-[ ... ]
-> +	info =3D devm_kzalloc(&pdev->dev, sizeof(*info), GFP_KERNEL);
-> +	if (!info)
-> +		return -ENOMEM;
-> +
-> +	device_initialize(&info->pd_dev);
-> +	info->pd_dev.parent =3D &pdev->dev;
-> +	info->pd_dev.of_node =3D np;
-
-[Severity: High]
-Could this leave a dangling pointer in info->pd_dev.of_node?
-
-The np pointer is provided by for_each_available_child_of_node() in
-db8500_regulator_probe(), which automatically drops the reference on the
-node when advancing the loop.
-
-Since of_node_get() isn't used here to increment the reference count, will
-the reference be dropped when the loop concludes?
-
-> +	info->pd_dev.release =3D db8500_regulator_release;
-> +	ret =3D dev_set_name(&info->pd_dev, "%s-pd", match->name);
-> +	if (ret)
-> +		goto put_device;
-> +
-> +	ret =3D of_parse_phandle_with_args(np, "power-domains", cells, 0, &pd_a=
-rgs);
-> +	if (ret)
-> +		goto put_device;
-> +
-> +	ret =3D of_genpd_add_device(&pd_args, &info->pd_dev);
-
-[Severity: High]
-Does this leak PM QoS constraints?
-
-The device is initialized with device_initialize() but never fully register=
-ed
-with device_add().
-
-Since of_genpd_add_device() automatically registers a resume latency QoS
-notifier that dynamically allocates PM QoS constraint structures, and those
-are normally freed by device_del(), will these structures leak upon cleanup
-because device_del() is never called?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-ux500-powe=
-r-domains-v7-1-v1-0-eb5e50b1a588@kernel.org?part=3D10
+-- 
+மணிவண்ணன் சதாசிவம்
