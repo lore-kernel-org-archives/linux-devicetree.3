@@ -1,68 +1,323 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA7B4C6D;
-	Thu, 18 Jun 2026 14:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A463F1AC0
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 15:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781793989; cv=none; b=SJ9f4gb8ak4hCcXrRIlBCy4uKXqVbf94SZjtQknVJvdpiJ92RnDE5QTLHvLIo/JGtCDGPbwjf6Xfiz1VCFukO7OFTRlcFdQ4W6ZsqZYmkrTjZfXRVj9T5RWCasJuIyZF+/3L2fmnhKyL8Q7lIdqd9AhXnOrPh+nrE8qBG7mRwrY=
+	t=1781795130; cv=none; b=filPCQiX4KGUQHuiJcqb8MiMXAYYVBdoDhNacWIRmVlr5KGgNOSoWSuSCTGM36gsHuBbJ6z16+1HYsBEgn1fD2bPV3Qa0fvGvcDE4XtByWEWY9bc1A4UEJnPQFWUI7AySWJdz3qVReA3LDboomNGrHpcdLjH00X7bJa3SjXYcbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781793989; c=relaxed/simple;
-	bh=tIL3N4FCSzxSCcqqit+CwoquJObjshN2ehpATAjGl+o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qHqf/3M8Y9QBv+0E2PYrZ44p7/8oj41guceosNRH9T0N6DbXJQ4ZLLogjE5s8JS3XcLoSTBNPgKvlyUyOTBvgqiK0XxRdXnU+OsR8FewpjG4NzTO+J4TeS5+uY8AHa90lZU4vHKUIfho2aolPLBl9oHOhHKSXxL6zP5kp69fS9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VrZNhReK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781795130; c=relaxed/simple;
+	bh=iaFPE02ZjfpwZAXrnzwWGCxlSDHcJ4IP0+XPAuuEaZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EgSsE+AoluknkB5rNE3yMsRR7FG9vZy7v4ZRVGKK/rNkYwtNa+LiwVJ51pGeSSoc7bZbl9iyvwtS0Dj07Pha62FQnHMdmwCPV+75Wt4BQKFoenI1jfK8zV9owadpdIbkxWgPk+hUaPZ2pfode5WI4LICO/Y83FDUb6BOgDWxlsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EM/W8ZJZ; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VrZNhReK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE901F00A3A;
-	Thu, 18 Jun 2026 14:46:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781793987;
-	bh=f+ggASj4J7LAitcBaDVBbOsJX6UFi2HRZh6EmL+3+t4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=VrZNhReKpBJfzQkOdn1isgU8aY+dTJ3SZYyvJLilYsw/52dQYjylMLSNHebDObeTv
-	 aMjqYZg+1H5gfobQLd33zlkJeSdpjZh1itVP5zLFKMIGOKf0qXzo6UO/UO/pa/ITqp
-	 v9G2CtspU+WTYwkHqe1sSe63N+B+q9Hk42fImDOW2mkCbJwVyj59buSry0HLcPoYmq
-	 QfXIsbm+PwCQwh0N1kJ3jIrwWSqAfxZmCRX6T7W1iCTlshXd2qJNbf+CREgQkkO39b
-	 PQcjSWEAf4dEIBRCZw46ldkZX4kPsVq+M8VXcpUBGOlkQKZdK5qmXzP8bDHoUb2+Fh
-	 IFbPfMj+f/0rg==
-From: Lee Jones <lee@kernel.org>
-To: Karel Balej <balejk@matfyz.cz>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, 
- =?utf-8?q?Duje_Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
-Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, 
- Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <20260613-88pm886-vbus-v2-0-021dfb02c6bb@dujemihanovic.xyz>
-References: <20260613-88pm886-vbus-v2-0-021dfb02c6bb@dujemihanovic.xyz>
-Subject: Re: (subset) [PATCH v2 0/3] 88PM886 Vbus regulator support
-Message-Id: <178179398462.2177198.14068604464612849040.b4-ty@b4>
-Date: Thu, 18 Jun 2026 15:46:24 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EM/W8ZJZ"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so16871665e9.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781795127; x=1782399927; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=WO1FdNyJzLW2jSnS++lTJL7J324nXe0APdtSCk7pTtY=;
+        b=EM/W8ZJZbSLGAIr8t9lW2TTS3qMxVhC4Pv3MahLRt1w1dJqRkU3CVabTo3t/vk6ljV
+         QBLiRiZXuemDLrIdrTzc8hflHhG14gPKZ+WMpkhxfrWO1xLlrWgoSa3ti1M72I4NrPqE
+         TlUhTjPhghMVG3etPrWErC48N649gyVzQCkfXz90MOcKD7+V9BD+4SfOnSND7o645XIz
+         bpTwDF57P7rQoIDfCTDoo6Nl5UOV7LEg9owjeiNJmdaU7bMTuvP0Fe2q2Oit9VKFw/QH
+         Ciirlkhq6/Klr+LWVFpRqlW1OUrfix7utsG740tI2XrRd3v10Qvgzr1gYeRRD3qsITdj
+         EZiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781795127; x=1782399927;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WO1FdNyJzLW2jSnS++lTJL7J324nXe0APdtSCk7pTtY=;
+        b=ikQKNTalIdzRGKZNgSXW21QAaxcADurD/T3xJPbiLZkGxDoqOp/2Ce/EhWsa/DOVal
+         RkvMnj09PBQdKxQjePYfxoNh/aaSsRz9nyvUjD5Fffz4qkXfwfanUlIwwXKXcMEpII93
+         im9VDkSD+apVB+NQGJYd/batwrGmcFW+OJTvjQMZ1Uq2uaREIBSyoibbFnpfwILoyO3p
+         VvHTQKwxHApW2CJKKr+k4U02FNrPHD21O8ORuuHoPnMIWg8jrV248RbqObNuWXUBl4Jw
+         tYu3LUMEip66OugtOwrXeSGWFHwocKcXSlyg6Y1fSnr2tvsrm3QfIuqD3auUVklmAEfX
+         EM5w==
+X-Forwarded-Encrypted: i=1; AFNElJ/WBk3JbDBKfIv6FGb34iQ2jH9tb/lPEwSrgtxLd2WoXiUy2sjq3DbwiE0W8/xpe2pkqueZVWzg6wsN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz+eebx4E6vKAsUUi9lPK3h+c3fw7mLz8BM0FFvmG5O6IEHioPy
+	HE2hwfr90f8oVoCC4rrGirCGw6bLW+8zuZWXlH9PLEMmC3sNiawxi2bW
+X-Gm-Gg: AfdE7clBAxQSVkrmxV2jFas104EaMMsuWzwCRVd2ScmH5KxBMye2f2LcS7W86+48jq4
+	0TE5bxUIgfBgkYt69INd1++EXBET+wq4+NTybeZz7Zd08KSZ73cYjfLsFmrhSzLX4Xv7BBiIhqA
+	O0parRFcE5aAC2ZbIKfmm75TznZ08F4BqDymiK1CDN315WaH8PhzVYXxJPLSf2a6fkMuHYXajG6
+	Lj6KVh4+eZggO4RlIeVgWppxXOjktGM0B7E5do5Ni4P1hIPmPNHaepdyM4+Ns1RjIcyAj5h/oxH
+	I52L51ndxUPyrfrMYD1ZXH4pvkxB/y9A2U5hc6spPqJgw/w/spol/qatzTE2r2EdN3FyO+VtJkI
+	IMUC0eDksEIK0qPQjlB+yEz+2Mz7TSZlM4x2cn3JL3TQhFFnjf5s7RWMA1PYE8HI1/dttkw3mSn
+	QIf5ld
+X-Received: by 2002:a05:600c:4ec6:b0:490:3cf0:8d81 with SMTP id 5b1f17b1804b1-492381864b5mr60597465e9.13.1781795126415;
+        Thu, 18 Jun 2026 08:05:26 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa5120esm264342055e9.8.2026.06.18.08.05.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Jun 2026 08:05:25 -0700 (PDT)
+Date: Thu, 18 Jun 2026 16:06:27 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: rodrigo.alencar@analog.com
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v6 06/16] iio: core: create local
+ __iio_chan_prefix_emit() for reuse
+Message-ID: <ajQGTQ1_qcOwfzne@nsa>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+In-Reply-To: <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
 
-On Sat, 13 Jun 2026 16:20:52 +0200, Duje Mihanović wrote:
-> This series adds support for the USB Vbus regulator found on Marvell's
-> 88PM886 PMIC. The regulator enables USB role switching on boards using
-> the PMIC.
+On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Move logic to create a channel prefix for naming attribute files into a
+> separate __iio_chan_prefix_emit() function for reuse.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  drivers/iio/industrialio-core.c | 167 ++++++++++++++++------------------------
+>  1 file changed, 68 insertions(+), 99 deletions(-)
+> 
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+> index 03019bf9327b..9373006235c8 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/property.h>
+>  #include <linux/sched.h>
+>  #include <linux/slab.h>
+> +#include <linux/sprintf.h>
+>  #include <linux/wait.h>
+>  
+>  #include <linux/iio/buffer.h>
+> @@ -199,6 +200,64 @@ static const char * const iio_chan_info_postfix[] = {
+>  	[IIO_CHAN_INFO_CONVDELAY] = "convdelay",
+>  	[IIO_CHAN_INFO_POWERFACTOR] = "powerfactor",
+>  };
+> +
+> +static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
+> +				  enum iio_shared_by shared_by,
+> +				  char *buf, size_t len)
+> +{
+> +	const char *dir = iio_direction[chan->output];
+> +	const char *type = iio_chan_type_name_spec[chan->type];
+> +	int n = 0;
+> +
+> +	switch (shared_by) {
+> +	case IIO_SHARED_BY_ALL:
+> +		buf[0] = '\0'; /* empty channel prefix */
+> +		break;
+> +	case IIO_SHARED_BY_DIR:
+> +		n = scnprintf(buf, len, "%s", dir);
+> +		break;
+> +	case IIO_SHARED_BY_TYPE:
+> +		n = scnprintf(buf, len, "%s_%s", dir, type);
+> +		if (chan->differential)
+> +			n += scnprintf(buf + n, len - n, "-%s", type);
+> +		break;
+> +	case IIO_SEPARATE:
+> +		if (chan->indexed) {
+> +			n = scnprintf(buf, len, "%s_%s%d", dir, type,
+> +				      chan->channel);
+> +			if (chan->differential)
+> +				n += scnprintf(buf + n, len - n, "-%s%d", type,
+> +					       chan->channel2);
+> +		} else {
+> +			if (chan->differential) {
+> +				WARN(1, "Differential channels must be indexed\n");
+> +				return -EINVAL;
+> +			}
+> +			n = scnprintf(buf, len, "%s_%s", dir, type);
+> +		}
+> +
+> +		if (chan->modified) {
+> +			if (chan->differential) {
+> +				WARN(1, "Differential channels can not have modifier\n");
+> +				return -EINVAL;
 
-Applied, thanks!
+WARN() looks too much to me. dev_error() as we're treating it as such. I
+guess you don't want to pass struct device but not really an issue IMHO.
 
-[1/3] dt-bindings: mfd: 88pm886: Allow vbus regulator
-      commit: a5026999e04d92ec0cf539731ecc56c85f843b3d
-[2/3] mfd: 88pm886: Initialize the battery page
-      commit: a7c4cc8109c386bff04dc3567d92edc0a69d29c2
 
---
-Lee Jones [李琼斯]
+> +			}
+> +			n += scnprintf(buf + n, len - n, "_%s",
+> +				       iio_modifier_names[chan->channel2]);
+> +		}
+> +
+> +		if (chan->extend_name)
+> +			n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
+> +		break;
+> +	}
+> +
+> +	if (n > 0 && n < len - 1) { /* prefix termination if not empty */
+> +		buf[n++] = '_';
+> +		buf[n] = '\0';
+> +	}
+> +
 
+Can't we handle the above in the caller on kasprintf()? Then we could
+simplify and return in place.
+
+> +	return n;
+> +}
+> +
+>  /**
+>   * iio_device_id() - query the unique ID for the device
+>   * @indio_dev:		Device structure whose ID is being queried
+> @@ -1100,106 +1159,19 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
+>  						size_t len),
+>  			   enum iio_shared_by shared_by)
+>  {
+> -	int ret = 0;
+> -	char *name = NULL;
+> -	char *full_postfix;
+> +	char prefix[NAME_MAX + 1];
+> +	int ret;
+>  
+>  	sysfs_attr_init(&dev_attr->attr);
+>  
+> -	/* Build up postfix of <extend_name>_<modifier>_postfix */
+> -	if (chan->modified && (shared_by == IIO_SEPARATE)) {
+> -		if (chan->extend_name)
+> -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s_%s",
+> -						 iio_modifier_names[chan->channel2],
+> -						 chan->extend_name,
+> -						 postfix);
+> -		else
+> -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s",
+> -						 iio_modifier_names[chan->channel2],
+> -						 postfix);
+> -	} else {
+> -		if (chan->extend_name == NULL || shared_by != IIO_SEPARATE)
+> -			full_postfix = kstrdup(postfix, GFP_KERNEL);
+> -		else
+> -			full_postfix = kasprintf(GFP_KERNEL,
+> -						 "%s_%s",
+> -						 chan->extend_name,
+> -						 postfix);
+> -	}
+> -	if (full_postfix == NULL)
+> +	ret = __iio_chan_prefix_emit(chan, shared_by, prefix, sizeof(prefix));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
+> +	if (!dev_attr->attr.name)
+>  		return -ENOMEM;
+
+I don't oppose the change. Looks like a nice cleanup. But bear in mind
+this very sensible as any subtle mistake means ABI breakage.
+
+- Nuno Sá
+
+>  
+> -	if (chan->differential) { /* Differential can not have modifier */
+> -		switch (shared_by) {
+> -		case IIO_SHARED_BY_ALL:
+> -			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
+> -			break;
+> -		case IIO_SHARED_BY_DIR:
+> -			name = kasprintf(GFP_KERNEL, "%s_%s",
+> -						iio_direction[chan->output],
+> -						full_postfix);
+> -			break;
+> -		case IIO_SHARED_BY_TYPE:
+> -			name = kasprintf(GFP_KERNEL, "%s_%s-%s_%s",
+> -					    iio_direction[chan->output],
+> -					    iio_chan_type_name_spec[chan->type],
+> -					    iio_chan_type_name_spec[chan->type],
+> -					    full_postfix);
+> -			break;
+> -		case IIO_SEPARATE:
+> -			if (!chan->indexed) {
+> -				WARN(1, "Differential channels must be indexed\n");
+> -				ret = -EINVAL;
+> -				goto error_free_full_postfix;
+> -			}
+> -			name = kasprintf(GFP_KERNEL,
+> -					    "%s_%s%d-%s%d_%s",
+> -					    iio_direction[chan->output],
+> -					    iio_chan_type_name_spec[chan->type],
+> -					    chan->channel,
+> -					    iio_chan_type_name_spec[chan->type],
+> -					    chan->channel2,
+> -					    full_postfix);
+> -			break;
+> -		}
+> -	} else { /* Single ended */
+> -		switch (shared_by) {
+> -		case IIO_SHARED_BY_ALL:
+> -			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
+> -			break;
+> -		case IIO_SHARED_BY_DIR:
+> -			name = kasprintf(GFP_KERNEL, "%s_%s",
+> -						iio_direction[chan->output],
+> -						full_postfix);
+> -			break;
+> -		case IIO_SHARED_BY_TYPE:
+> -			name = kasprintf(GFP_KERNEL, "%s_%s_%s",
+> -					    iio_direction[chan->output],
+> -					    iio_chan_type_name_spec[chan->type],
+> -					    full_postfix);
+> -			break;
+> -
+> -		case IIO_SEPARATE:
+> -			if (chan->indexed)
+> -				name = kasprintf(GFP_KERNEL, "%s_%s%d_%s",
+> -						    iio_direction[chan->output],
+> -						    iio_chan_type_name_spec[chan->type],
+> -						    chan->channel,
+> -						    full_postfix);
+> -			else
+> -				name = kasprintf(GFP_KERNEL, "%s_%s_%s",
+> -						    iio_direction[chan->output],
+> -						    iio_chan_type_name_spec[chan->type],
+> -						    full_postfix);
+> -			break;
+> -		}
+> -	}
+> -	if (name == NULL) {
+> -		ret = -ENOMEM;
+> -		goto error_free_full_postfix;
+> -	}
+> -	dev_attr->attr.name = name;
+> -
+>  	if (readfunc) {
+>  		dev_attr->attr.mode |= 0444;
+>  		dev_attr->show = readfunc;
+> @@ -1210,10 +1182,7 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
+>  		dev_attr->store = writefunc;
+>  	}
+>  
+> -error_free_full_postfix:
+> -	kfree(full_postfix);
+> -
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  static void __iio_device_attr_deinit(struct device_attribute *dev_attr)
+> 
+> -- 
+> 2.43.0
+> 
+> 
