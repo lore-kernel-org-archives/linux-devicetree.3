@@ -1,171 +1,214 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011016.outbound.protection.outlook.com [52.101.70.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B1E3E7BA9;
-	Thu, 18 Jun 2026 13:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43DB3F8EB7
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 13:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781788161; cv=fail; b=Rytxqq077RyFYfeE9mf1uWmP7QbOC3t2ShKJvLggqMwZGX41ruGyLXiCBhWMbsY+MVfk34fRo74lnpncjJsNEvx1dgCyVb/pOL4/Y1c3A6hDiriksXdfDE6AfR1h63+3lHCJj3agCnAuxV0gnTQ0AEM+DBEovZphI74xCOXjiuc=
+	t=1781788244; cv=pass; b=CzsTDjmdajGMRa6FNnxB0sgz0aMLkhZpOIAvdj6lw/saeIl3foGTlS6zFntPFhMMQNUJ/I9aKgP1yqiixXiDkelFCzK+FLtJV4ksu0txXcBTSL8iELn6ON5nJN7L5DPPB5d3Xe15ElF9EzxihyIrkciApf+SFfK/XPlMJU1F+/k=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781788161; c=relaxed/simple;
-	bh=VZwHrNSxvap8RnyIFkC/3169I+CbCplQw0TyzB2vGJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=adpJaXlAHJGcAoDTQ86xyhzHzkzGhrRnYmctsaZ+sXF8ME/29vYBsv22TOX1aWlmUxsddOn16wrDhhmTktyfs5NF7tnO7jjU/8gXd5T36u8ySF1nQWQFquWdszz4Eu396i8z64G7gnd3PFkf3STWEEgXgiWNQ1fqBOnCrZamk9U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=htTys44l; arc=fail smtp.client-ip=52.101.70.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1781788244; c=relaxed/simple;
+	bh=d+QNhcciioN8943WQueiVIs1K1U1Kqo6ylyvJfyMYfA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s5oA21aDGV+4OTBsaqhfE9/zuGfZ4GvDFIE29/II0sw4CGnV3TIEAHG2bppbH9ITaqzZUCD1I5cIQy68nwoI+92faF5DJUuPfOzmIgkAgwhiE54Z0WzkUf/C6tkLemhgzh27DTyWqeSSq/hbYkmcc/ToHZxATWZ9VTyyvBVXrrA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3GVcUzn; arc=pass smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="htTys44l"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DfrQz+eaH/X9f6axvzPSFcgNV92GWWk46TzrGcUsBhe8DCtdNLp1rmKOYxl7hd8hauELt/K9sNuxYQ2/lbn4qA6Y3K2mhgdOu1/9MThgTDYEpMiKK9itBhByDAg/0muJT/LZTqWqvKXNmT9iwDnjJs8N66xNL/Kt8e6l9w0eLigeltY6N6NkwjQdXj3hFwYYt3pGu5Tz4ctmzx9UcGwCup3/evwlYN2DyitieB73iqy0OSNt1BQKmjyRnkeQw5SGR+lfOwckT9am62f8w+ylNELYxdMvmlKzSeD1NRYnAvJYnMKYmYq6Kh6VrrhEHpPPx9K6FIgzUGuCJH6mFdFz6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o1qxTut6Vb+cteh1Cfn3EXd4EG+dj8X/toBLKhDrVhg=;
- b=m1Li9EwW+E8TDeN67NqcvtKXZhoKBJKJ7LT0GU5HoNewkLT5HyI+bHnFd+1aXq3QctWpHX5egSUi7ohTDbnOMfkx+6mELjNbs7V4q8pV9imzxz9z2U3+me6XJYr2s52RxGEYfTYXcvDhp5RVTtScug19fqzmCfiCxi6UOO2PLA+CYZKgUiNwXpZcebt99B+/XeajMgw6nZxsmGNdsozwtQxofasYexKiS0el5CXIiT9ZJlwhuQGAFEGbMwoj01aKh5bFeWE2I2ggUMPnZjM0Ge1JvNj1Jwifov9Udul5Pl7xwYRtP0S2Tq5NxMkoydfXPpwCxFESs8jx3HiMsgTIcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o1qxTut6Vb+cteh1Cfn3EXd4EG+dj8X/toBLKhDrVhg=;
- b=htTys44lCfAUMk8wZeMtYVeK+tAdBy6EpPZVyGWBE5Sn/Hv9UUH9MFhbSPifqDahwdJ1LWqCoLU3lfH4l0j/wN6oReLHujteTQ+MNTEF4yBTOuqz1IMitK9V0ASlC7vOhYqlbxsh/RhNyDwcKv6scymWCcyk1Dd4YKwhdMit88yQdUbsq+rjkEuDkzEg/nnd+3r8PRaxb5i2SLIxTwPN4FnnRzIcsy2yh4hSfYg1dvbqFTreCIsdIcTvUb5bJ5L3fzmXjZcPJrD7b31hEofbJhsQ+E74jd260sqOfIL33Z4amiS8zBtBhCLsrbGQwWGi3jEBeE2DbDdhdTcYxKMXGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB8PR04MB7196.eurprd04.prod.outlook.com (2603:10a6:10:123::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 13:09:17 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.015; Thu, 18 Jun 2026
- 13:09:17 +0000
-Date: Thu, 18 Jun 2026 08:08:58 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: han.xu@oss.nxp.com
-Cc: Han Xu <han.xu@nxp.com>, Haibo Chen <haibo.chen@nxp.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-spi@vger.kernel.org,
-	imx@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] dt-bindings: spi: nxp,imx94-xspi: add DMA properties
-Message-ID: <ajPt6kSQFNhEJvCO@SMW015318>
-References: <20260617215520.3327836-1-han.xu@oss.nxp.com>
- <20260617215520.3327836-3-han.xu@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617215520.3327836-3-han.xu@oss.nxp.com>
-X-ClientProxiedBy: PH8P223CA0015.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:2db::34) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3GVcUzn"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45fd464d51fso581278f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:10:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781788239; cv=none;
+        d=google.com; s=arc-20240605;
+        b=QswanreN0pbo4HTdOw2IkM0UkgTqXIcBNdKn8LmSiUgTvz5DLaGGRGgZiuwBE6beip
+         tH2rGSx2VOeM3HrLtyisB24q96G47JEImps+E2jn7g5r1K8G9+zsTQ7apodEIEuZfCtB
+         NsCRiz42uL3KTsJwP/N6j9bO4IkhfHVgLcneC61rH6O5JsGaGaAwLOx3aDFJ137L8Or5
+         b/RaC8cKUHK8r6utQdZOApru/174cQQPu35cQ+fWtON4vD5Mi/iXzEwTUcGaGkYgt0aE
+         yKV2ZRWr+2EnH03oegQ+5h8J2aWHQJHQEtRb4ie/pixAdTF22HjzhISoFWSTmSrgIakS
+         bfzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
+        fh=OJOyS9foKcEiNkQnGsiesMLOSRUZDUgo7eIvd6VXHdo=;
+        b=PYCmwyg8KjKDvaCpr8plBUhWgNO31XRSnLhNwCj874UAhjtISZa5O8/bDWo+GVZo89
+         7x2GJCCsPGZFQuM93/T/QnRNYn7ohBl5rnhlduT+fWBAwVNl+KkHeG6QBHBy1N1XQ2e2
+         hoFSbpS00XIRjJHsIpg2I5+t32TWTwn9yspsIuXzHGLagLvbtt3K50/SaDDRfoWr5RSJ
+         y2PUEuLiOYz98rNWDCfRiS8GEHebIF1avbQGamWOeB29jdOsxx2jDuMKof/ZLfHshQZL
+         Z3LzWMOhA7kpev/SgnPsF0+XFenqfSIw9U9S7T2R7zkEqmgr1s4gFu8VjXKz3K1FMgoW
+         VjCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781788239; x=1782393039; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
+        b=b3GVcUznlTFfdK9SwEaQz+tv5zxEyN1t5qL56kCeauLhEgnmcNUTgagNb9ZnV9JdlS
+         5Gfc94Qo2KmN601PI0iEfdmkDNaPG9CL7M+oxg83o/OnYtEbSPoRw8cIcFJKnGTtWzLM
+         8q3ZSomWvSPZR2g1BRarb/77FpqpoD9XdBtiM3phdFx6sGXNP97MI5s+CFlu63xsE7fe
+         5MOXCsL0qVZMdtQXFDtv6cxBi6Y3GVpiW2HgPJtdvyH+OxChoorMWtFpBYIMmSQwyj4R
+         Ww+6GS8gHipmz5nlkLWbyVF/kUz+hKxOswanOOqxWlfNtzfvy6Pua/FbM8tCG2umzkaT
+         t7lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781788239; x=1782393039;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
+        b=sk54N85rTIY8xNbDtk1JMCJT3otd7Gcf/hZB+7UzJySlBawxpIpoPB8+vSc0XodPZ4
+         PPv+zfmra9CA0sDM8CIyEdju2btnZCVpYCcK/pDAow10mleFaLnOa3xF97JErDN9aziM
+         xY58B+W6MI3TyMFtfSTZRF33DwhFmUCHH5fKDFjHxrwfrkC9upXhDcmTvyACfonq0tvo
+         N77o9g8Iyw4xb8/ghDDp5Aen/SPAGcumSJeLytFNShPTbx3Fiz7tiyQdl7A1B1Ej663I
+         sFEHjxJqbV6MrOH8NXYjGqoxGE2TQz8qF6Ex7Hmd9Y831oq1CB57QhHKFH9xaY0VB0Ei
+         KVdw==
+X-Forwarded-Encrypted: i=1; AFNElJ+Uio1z06xMCULhDNR5fVcHA6ld1Rwt1X/Jq8ZXu1pgfJz8eP+A/Em8AoVkuXoLLo1eMSaooZO2rktX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+fD7lI5EsU54TV0A60y9R4Q4iRDJsCti4xFgIw9TebYNo2jC9
+	2K5SBBl9uVxXHjfzXj1vRShuT2cqY0CVHHtfIYOJ4SxPpZzp/Q1XAk4eft/fNdoy5+a34FBhVws
+	qLwPZWULsN1gpopBQ+rzoHYRiYAYII2I=
+X-Gm-Gg: AfdE7cn9dUaE6TYs81c5sVW7fa0usuVcUNAgrMADbBALdPTIaEFuJTN7gWMbuZLWkTH
+	xuFd+Ta62z6kcZHUy/SGYOVVRrP52rlPQpY02ES1lQg7NkunALdebS9NOZRTHXBHd4Nd01oGS5u
+	C1paRI0e//B8gPPW1p93wxvpFbUUCcVO2HZ+do5IvI7/cvr1jATl0QAghhuB/zGb0126GFuJWLd
+	JJWLGPTGJbLLanA0jkpuc3ttyv3ww5INqd6Fy3z3Tt8zDr/nkfHCZC7wMLCSBcVNEUNMoImRTAU
+	DGRIJwoRCu3iakZuy1G27hGBP7X10s9TeZR+oLsD4dfKccZBFEdR3TtzXjqb7KbMEhPqlp30v4R
+	44G6kghG25150hLk=
+X-Received: by 2002:a05:6000:240f:b0:45f:f142:d56f with SMTP id
+ ffacd0b85a97d-463ab7f925bmr6142210f8f.12.1781788238861; Thu, 18 Jun 2026
+ 06:10:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB8PR04MB7196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b61eb90-83ef-44c7-4b60-08decd3acd34
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|19092799006|23010399003|22082099003|18002099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	B1eDyVbTGiwwSadTsYyYBCQs0zkZ9ikgm0uE7WOxZtrz0BSBQ4Icqu1bP/wfLN+xkGg+4G9Z7Zakcg2VOLyTcbJeHqMBs5g4SlMMMl0PU8OQIscbXBRRPtiBrteLT8htdjk3OIelCwpxCyH6Js+fG0u9wcPWvVNL0RbU6BpjnTto+eixaydgidc5I+pmZW29ynP62P0UqP8xI/IsORtJgxRxRu+0Dnp6ECm838Mm12zTU9g/tMzJM3zldDMfcdZqWB9a9cH2eSGXBcPgfOrB+9w3oiIUvRUJ0Dc6d3ajKobpzbtCfNolbDcpvOu/wPuB/E4LwtJ3BTcApc/w9HIKVZSEw1RDmyzZk3FTX/VAoTOMyvNWi5fJKQ1xbt2qwr0sKPcjbauNKvsQ66kaVkXnwLPj4knfo5xYc8CRJpGb0W5D6s1eMkFIlYT2BY9r+z/hOvGN/iBFFrvzkBW+USc8BUMdGuCTfimvdjkPUGitrmImbmgRHDcvck0B/m//fUHW/6DqSA/wh4G3RNe9VPKxXY8cq73H9g4OfB8QWMalFbMC8vJ/8TVtHenBIYZPk6mAmxjXVGYr444Pit3ZNY1kD8ck2etEe2ZezEakz/EFjkaxBh00GkKtNn9ZhcCRl4gSYucag8tXBByefL2jScDI55bcXqbsQMHbW0pntWFiKxUurmrU1+n9yFormURAAqx6
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(19092799006)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jx+XV4dem1WTNxXVi/eJF51RRGUbEoNCe8MBLn7o4I96ymkfm/NZ5vmRv6Lx?=
- =?us-ascii?Q?HJKw8ZNMSJ+dU4DIIOaiJUeMoVt421SgsOXkIvz7OPZHdOwhfP+pdpRZKzeu?=
- =?us-ascii?Q?eBKETm39VsdwLyKIQ0sQnw/DL8hNTnbvW3d4+alR0izNLylFItRLtaK/aCAs?=
- =?us-ascii?Q?lSBodJKeVvR9audj5cmfaTNApdNQUfAnrz73POmPkC8x8Kto21hHZh+Fx05n?=
- =?us-ascii?Q?L1VCp4thnYuP6DV912d4KEugsmTfXTynQLSxpXzBRyDHn15VUgXuL5sU5t3Q?=
- =?us-ascii?Q?RpWFMZKqqiGhuZlX/D4krHB4EgI23Y6qN2n4hE01GQoCYrRBKhIiHjINHeeu?=
- =?us-ascii?Q?JrYshSuUx5IBp/0q8MWicE9TjLO7U0czlaIC5ME1usb05TubAX472cfnEluL?=
- =?us-ascii?Q?IFbZuJmPAvcvblHZOVLfRMbDpM+bDeo0YI6Gd9/eNCgdhTL0xR1JSjpRN90A?=
- =?us-ascii?Q?y99O4DLBorvl7pmCRjDA45qpodKbWRHz8eVqjpnJKr94fTYQDpUWXeXXE1eN?=
- =?us-ascii?Q?WkgrK4JtAMgbAZ29axCQhNbR5C7I/wMwy4sIDN/FhR6ea+Z/2f+QLR3Z+f7h?=
- =?us-ascii?Q?GHR3vNgWoHh51YJZ1Jm8OK8x55bZd8MZ7ec2RXYxSPYT2PaDToLzsTmY44hF?=
- =?us-ascii?Q?WGfwRY6lN0FgMlt7cn6m3ZWCRrp9HoRaZmMeZPBB6A+e3eePKSVy7WpAHc1Z?=
- =?us-ascii?Q?c71uSJimEu2NkybPsh1a7BTHMoaWYKzZKBMCbYciGOy6FFZfE5VHOC4KAu0I?=
- =?us-ascii?Q?eAtfeyOXGS6sXhaPnoVg031pGFxyDJ1peOtpWUazcjhXaQg97WKXHN3+uVa3?=
- =?us-ascii?Q?cTh1jIwajiAmOJgqADX+/W0eZa/j2yrH/Md1TfpjLzYxI7pW+paqG0tAt6ak?=
- =?us-ascii?Q?H2srj24jB5nvHhmjM9fkVcQkMzC3IPjzqUdZ3Odi8HXMkHoLxM+j9CrLYgIK?=
- =?us-ascii?Q?4bk4/gDuXobc3LzdjLh9Z+04OMsVQIEz2LBuX1+m6wPF7RcTNSkHHF9VS1GW?=
- =?us-ascii?Q?frkqjqgO0i8tqTcQUrIYaliliym6emXN4wP8Ghh78cIfoZZ7pzhaZeoQYvWV?=
- =?us-ascii?Q?BuDyj/EJR93s2oqYZ412J8ey5LQMU+xb3my4SJKfQWLcs84r+kDY3CbArHl+?=
- =?us-ascii?Q?KbFf7r55NKkkcGPtcwiOJtmihL1DnuQDCIG7NxBA0/xYR0YkvrSqZpR+OR9O?=
- =?us-ascii?Q?X78F/e+dm8cBSbF2yG/kSv/GT8cmsW4LPcJ7C2u5yd3pKPcLzK37hvzY9NCP?=
- =?us-ascii?Q?jC694CqXL3MLo4Hhi2JK603rbwmiVxwRlBiSYAgku6FTHiMEI9sE+DSknAcB?=
- =?us-ascii?Q?U8zABCTKACrdHEuKVj2B2CbHZqs5rw2hfOX6BLXKhflW3TpC3tXBy9qfadYw?=
- =?us-ascii?Q?owKbr1q2LZ4XdoLuxrLnz6agAROSFc/TVM2OrCPULFq1uP9eM3ikAEJVoPhA?=
- =?us-ascii?Q?YuEr/d5S56t1ItHpW6ZbZtcdgIJGghUuTLuydZ9CKUHkrZS6qhyyK18z/ww3?=
- =?us-ascii?Q?ZBT/O34pzeQIuAPohXB4Wwt2irR4MXUT6H3uN5/4Vxrnez3sDQkbCmCny9yo?=
- =?us-ascii?Q?07eKYFUGg0jpGHycOPqMbB1KDfNVssrtXicX6DiUUlp6FF3kMWnkMu1SmzuA?=
- =?us-ascii?Q?yDk5o8VdQTd6hNECh1TMLrmQQCuPDcdPcO3R3JuLZt828GybAMYUmzEqBMR/?=
- =?us-ascii?Q?tDtgvdG+HeSEg/ucN6Ow0staWQ103hvDCEOjXZWlsv3rtMItZmjz3NBpCGyr?=
- =?us-ascii?Q?SbHOejJfOG30aIU9wAfbUtvsxv6Sba/QGqA6urp+oP8Fsc+zqQyN?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b61eb90-83ef-44c7-4b60-08decd3acd34
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 13:09:17.1168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OAtM3XB02b3Eadfz1icJU+QXz0reaXGqMAHDS5ywTXk38vQaekPhPIn02mAkLtjlgf8vhj9htHkGg8cXDg0KaCBjnK7kxzgPMnW8MosQyw++9vUaY6+LQ/4x7xp/1JuU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7196
+References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615154805.1619693-10-prabhakar.mahadev-lad.rj@bp.renesas.com> <ajKAPJGrea01XVeI@shikoro>
+In-Reply-To: <ajKAPJGrea01XVeI@shikoro>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 18 Jun 2026 14:10:12 +0100
+X-Gm-Features: AVVi8CeIE9Zqpx5xUuMdz4g0V9M0203aYYbu2RDELhF5fjl_rVj_ZIbbsG1xByk
+Message-ID: <CA+V-a8t-phAuaH5g_3Nt=2d=KPw2QqA6r1dqOZv9k-Xhp5q2Zw@mail.gmail.com>
+Subject: Re: [PATCH 09/12] rtc: rzn1: Use temporary variable for struct device
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 17, 2026 at 04:55:19PM -0500, han.xu@oss.nxp.com wrote:
->
+Hi Wolfram,
 
-tags is reversed in spi.
+On Wed, Jun 17, 2026 at 12:08=E2=80=AFPM Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+>
+> Hi,
+>
+> Sashiko found issues, not introduced by your patch, but still. I
+> curated the list and left only those which I think are valid. Do you
+> have time to look at these issues?
+>
+> Thank you and happy hacking,
+>
+>    Wolfram
+>
+> > Thank you for your contribution! Sashiko AI review found 3 potential is=
+sue(s) to consider:
+> >
+> > Pre-existing issues:
+> > - [High] Asynchronous pm_runtime_put() is used instead of pm_runtime_pu=
+t_sync() before runtime PM is disabled, potentially leaving the device powe=
+red on.
+> > - [High] If the optional 'xtal' clock is missing, readl_poll_timeout() =
+loops forever with a 0 timeout, risking a boot hang.
+> > - [High] The driver's `remove` callback prematurely disables hardware i=
+nterrupts and drops the runtime PM reference while the RTC device is still =
+fully registered.
+> > --
+> >
+> > commit b7f73c7d0932a6e78b12419c5912ad3243637b8f
+> > Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > rtc: rzn1: Use temporary variable for struct device
+> >
+> > This patch simplifies the rzn1_rtc_probe function by using a local temp=
+orary
+> > variable for the struct device pointer. This avoids repeated dereferenc=
+es of
+> > pdev->dev throughout the function.
+> >
+> > > diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
+> > > index bc6af59744e48..25cad9213147d 100644
+> > > --- a/drivers/rtc/rtc-rzn1.c
+> > > +++ b/drivers/rtc/rtc-rzn1.c
+> > [ ... ]
+> > >     if (IS_ERR(xtal)) {
+> > >             ret =3D PTR_ERR(xtal);
+> > >             goto dis_runtime_pm;
+> > [ ... ]
+> > > @@ -486,18 +487,18 @@ static int rzn1_rtc_probe(struct platform_devic=
+e *pdev)
+> > [ ... ]
+> > >     device_init_wakeup(dev, true);
+> > >
+> > >     ret =3D devm_rtc_register_device(rtc->rtcdev);
+> >
+> > [Severity: High]
+> > This isn't a bug introduced by this patch, but does registering the RTC
+> > device using devm_rtc_register_device() create a race condition during
+> > teardown?
+> >
+> > In rzn1_rtc_remove(), the driver manually disables interrupts and calls
+> > pm_runtime_put() before devres has unregistered the RTC device:
+> >
+> >       writel(0, rtc->base + RZN1_RTC_CTL1);
+> >       pm_runtime_put(&pdev->dev);
+> >
+> > Could userspace still interact with the RTC during this window via ioct=
+ls
+> > or sysfs, potentially causing synchronous bus faults since the hardware=
+ is
+> > already suspended? Should teardown be bound using
+> > devm_add_action_or_reset() to guarantee correct reverse execution order=
+?
+>
+> [wsa] Or maybe not use devm then?
+>
+Maybe just add two `devm_add_action_or_reset()` calls: one to clear
+interrupts and another to call pm_runtime_put()?
 
-spi: dt-bindings: imx94-xspi ....
+> >
+> > >     if (ret)
+> > > @@ -506,7 +507,7 @@ static int rzn1_rtc_probe(struct platform_device =
+*pdev)
+> > >     return 0;
+> > >
+> > >  dis_runtime_pm:
+> > > -   pm_runtime_put(&pdev->dev);
+> > > +   pm_runtime_put(dev);
+> >
+> > [Severity: High]
+> > This is a pre-existing issue, but does using pm_runtime_put() here (and=
+ in
+> > rzn1_rtc_remove) leave the device powered on indefinitely?
+> >
+> > Since devm_pm_runtime_enable(dev) schedules pm_runtime_disable() to
+> > execute during devres cleanup, calling pm_runtime_put() only queues an
+> > asynchronous idle check. The immediate return triggers devres cleanup,
+> > which executes a barrier that explicitly cancels pending async operatio=
+ns.
+> >
+> > Should this use pm_runtime_put_sync() instead to ensure the device is
+> > synchronously suspended before teardown?
+> >
+Although there were some patches accepted for similar kind of issue
+reported by Sashiko, do you think I should switch to
+pm_runtime_put_sync() (Ive not seen any issues)
 
-you can use git log --oneline Document/devicetree/bindings/spi
-
-Frank
-
-> Add dmas and dma-names to describe TX and RX DMA channels for the i.MX94
-> XSPI controller.
->
-> Signed-off-by: Han Xu <han.xu@nxp.com>
-> ---
->  .../devicetree/bindings/spi/nxp,imx94-xspi.yaml        | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/spi/nxp,imx94-xspi.yaml b/Documentation/devicetree/bindings/spi/nxp,imx94-xspi.yaml
-> index 16a0598c6d033..ccf841f194c06 100644
-> --- a/Documentation/devicetree/bindings/spi/nxp,imx94-xspi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/nxp,imx94-xspi.yaml
-> @@ -30,6 +30,16 @@ properties:
->        - const: base
->        - const: mmap
->
-> +  dmas:
-> +    items:
-> +      - description: Transmit DMA
-> +      - description: Receive DMA
-> +
-> +  dma-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
-> +
->    interrupts:
->      items:
->        - description: interrupt for EENV0
-> --
-> 2.34.1
->
->
+Cheers,
+Prabhakar
