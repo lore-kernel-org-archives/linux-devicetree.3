@@ -1,178 +1,107 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023097.outbound.protection.outlook.com [40.107.162.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905B93EFFC5;
-	Thu, 18 Jun 2026 13:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.97
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781789412; cv=fail; b=cjqTIMfWE6VGHLp3DjIO8E+XOwNpqLC54eBHhmfr8+kqNONbhG6WXJEQ7+Q12+CjpEVjoPj+NNfM7mPUmxTHhgoxKftQ/83gg4Cl4YcZ3xMvuc+0Q099lVR7SM2Twm4m5bUny6/muwzFYV7YEDfun5nvE6cWzrsWph+ebbaXFco=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781789412; c=relaxed/simple;
-	bh=vjamKVOZt3heAMSyoZM1OHnjVI4ZyqHR2VcLhMYp3U0=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dkZwU1lXEuwp3moSJf+lwEHJU5PD++ZUTlH0PXOS+Y7eHhJRol3c5IrUDaYAQoBAPuWivMOQcUsKoviTD8N7vrMB9D6fka9M2izQvc6I9dgpnJ2YRDBuzaMmeJN1t1+EFXpthSSwyAyieVQK4EchO+rUg1QDGSzmknz6Bo0jhOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b=dvfuAyFS; arc=fail smtp.client-ip=40.107.162.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=genexis.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E37C2D7DC8
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 13:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781789638; cv=none; b=RIbwupD2TosqIEF2emmDJP9HogliftWjGH27TSgmKDRUpUc5OX/Jk8sYzUevntVsWdttthlHRnB78x8izE+bq7lw4cbjN6mIGhYsnq1SCoxgzUFBTFMh5X3WpQ5MIsobSUKIhkadlo6JRaCpmb5MyVv81HbdGE79fcQcJM7zFvE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781789638; c=relaxed/simple;
+	bh=P6ATCTrFrhVdRDoJllGsvp3uHPUPE4vhEOPykxdba9Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WIJ3HconKyuwdSVoFDqJ6F+qbgCvkW7k+unxCnUZMz542WA/LHp8XG//ySFlAChfIqlhlCamZQoW1CghbyXIDPW55zsqb39QFCbMtpQUguW8R5lpwQYoTbDFnYMkxHjeNqG/N136DdPNN7O0B/o0M/OZWPV1qJvszoiOwP7R41Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N7hHwa/p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=genexis.eu header.i=@genexis.eu header.b="dvfuAyFS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CFwWqutA8m2SHF7NJ7OpWOJpd5eI0HrVjeTjn7EBc8qgKAKsm8U040dlt7gcWaPErtDRebTsZKmmJ6rWPeKSESYZTXBxUBRRLNJmbqlhI1xlnRJCsdMPQcpmP1GX5sF5Uii7YryhxikzxEWL5ygY3TOQ5mFwYHpOFfoM8CtzOFpmYFt3o9ZpUCtAqsqIu9nVeGzsXk2Tb+dfQ8MzTsvdNuz3ve0LWAFGQIqN2zkef+xwUBFQk4KOUB+vKB5gVdfmQpLwizEhmYfbDzRVy016BHndYUieUubcZV8/hAfLjy1KgJT2XZXsMB+aTQaVjaJAdHBn6/2p5+pblfofificrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NqzVZrxxdtCqsHmvyiTNgkuocxgpVTecJYfn7f0FxYk=;
- b=F0ixFGBZQE7m9TKPFBDT5ibUUUHUO6h9NIJoyCJbZsQB/Nt5Wxxs5hiyOhsqzscSHpc1D8575kbaTY/9YBKvoBlbcUwPJMmdIqCXVNnXu37WhhSbo2yka3piV3LaybJsPFTFLyaLAFq7jYmeNh7ug9PGM0Iex0zpGfQRgGvKWcEBcRWTYTYc3IEJkgctK5DuuBr+cmIxSLz0AFzu+HXLp2MX9S5iBQy8ZOxwQISRr3qJf8oHOADJv8FKnWhxzScPq/qU0HSV5gv8EQ6qt9JNWEMZ8kdOw1gN7PXcBRW7lgN/YK0SqF5LcYgMfCELccI9qhbHnk2T9fG8+d5LTRLMJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=genexis.eu;
- dkim=pass header.d=genexis.eu; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=genexis.eu;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NqzVZrxxdtCqsHmvyiTNgkuocxgpVTecJYfn7f0FxYk=;
- b=dvfuAyFSRxoK9s9lCEQa3DuzHayW5hoF/MktaQ8EVPxkKjsH/Xi2nojOqyjGjUa0w27fXfON8phWhgaa/IYkAJMns6y5+kCj25gRWnFLjqVLpm+Jdj6ddpJXewXNM78nsF8vIZOEN7KynllxeqBilF+/FYXOr7tzujK9FlukTJRar4t7bEXunPVCjaz2O3ds3Gwvfer9s9pr4jdqQjZyzF3Jq31wC90C18SlYYmGD9wUXSG1GMCBknKkIBkD0zuYJRjHlAHRXe/W2dDH4EL+bb6oOXX6z058vMsNkM7QASJ9jinmouNOJyWroKZ0tM3F5JJ4sk9nVmjL7OwdJ9A5dQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=genexis.eu;
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com (2603:10a6:10:2ad::14)
- by DB9PR08MB8628.eurprd08.prod.outlook.com (2603:10a6:10:3d0::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 13:30:06 +0000
-Received: from DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f]) by DB9PR08MB6697.eurprd08.prod.outlook.com
- ([fe80::bdec:3e95:6614:441f%6]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 13:30:06 +0000
-Message-ID: <5a63af84-3f97-47a3-a39d-f0f2839c9f3a@genexis.eu>
-Date: Thu, 18 Jun 2026 15:30:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH net-next v8 11/12] net: pcs: airoha: add PCS driver
- for Airoha AN7581 SoC
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Saravana Kannan <saravanak@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev, Maxime Chevallier <maxime.chevallier@bootlin.com>
-References: <20260618125752.1223-1-ansuelsmth@gmail.com>
- <20260618125752.1223-12-ansuelsmth@gmail.com>
-Content-Language: en-US
-From: Benjamin Larsson <benjamin.larsson@genexis.eu>
-In-Reply-To: <20260618125752.1223-12-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GV2PEPF00023970.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::332) To DB9PR08MB6697.eurprd08.prod.outlook.com
- (2603:10a6:10:2ad::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N7hHwa/p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDF01F000E9;
+	Thu, 18 Jun 2026 13:33:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781789637;
+	bh=ENDPzBBNS+2Sr+55wY+ITTjbxjs/Ncd+ECFADZnmPWM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N7hHwa/pzpM0lsUA7I+oZPRa2Gxr7HTOdcjXdTulleHrTkqaEOo6hXRI5r0MMw5CI
+	 K/y+XHIOcemVOolwVEe1WBL3FGbp2d7VdBMxY1pedFBdwaCH408dVvfAWjO8xASiAn
+	 PujHr93041GThuuv6u06Lf292dGBg8iffGlCAiiwhLOJ7hxai0Y4zTyZ2z0qmsi0QC
+	 9fVpA0phShnEhjTxnY/C97SdO0M6+fH8NCjeboRyNWR1mrX90fIL+3PDtsF/bpfZfX
+	 GGrXIkfnfaWuDUk5UZP2YxZYrfUixBZb7kmocozR7UA4sjolfs/bKvfQsiHvGEVx0J
+	 DZ4C2xN6fAjvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/16] iio: core: add hierarchical channel
+ relationships
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618-ad9910-iio-driver-v6-7-79125ffbe430@analog.com>
+References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
+ <20260618-ad9910-iio-driver-v6-7-79125ffbe430@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 13:33:56 +0000
+Message-Id: <20260618133356.DEDF01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR08MB6697:EE_|DB9PR08MB8628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e2268de-8b3e-42e1-ed66-08decd3db5e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|921020|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	Irmb2hjIIAwBwjVUdCy+Tm17MG0gBpSXCi9Pe2PbOuY2SusbuxGrO3BONobAJdLk0zhkjuLf/VMJfR+6kp5G6k43/BCk7A/0MsMa3/Tk6KJJMCn3bvTtYWf90EAJqZJCPuqEUET4RG0Nl7eKkWeZs86sLNCof9Q96Z+wkbvcDjOr5vTy/X3ocRwR6PX+u+4py4XPcJ2BdiP1wHwQhD0Ic4tZcy54sDp5Hq0p5wivLzyrLFT20slKDuk9MYrXlz8MnI2F/cOmGt9NjAN5tWHsOtKDRxxOjoLrz+LJVAjbj+E8mch6xe41VSu3eu9vQIHdwEVwbfrEM+dS5oeA7Eo4Bohaech6s4/HaKxP8ly8B7uP0zCEN/4Xd0+KuJTlnX/WMMgq0Tz6xulgbLzDX3AZJRUA2I/f0T1zjee9VsrCmkRvJa6XiDLlcXaOiDVd4SxtUy63nbEoffB5AmCFjnZIbOjzl+3ZT9yPTZThtKR6rjCm9tWztZ7u+dR3XnowYxe8eCxOJEdAznHSZPQrl0AYeGws/R0S9NCwYREOYPUD0+TtqmO2y7jlZy+OHAqY2Vah4ZffwVc8Cx6d/I0ueHhIqGigHrlmDkxdusFxcGALlu/6ZEaYuhshEmN8UaD5usJtheC8XPxSuDHKeRITDYe/uZ1OZomB2i5yenkbdXN92Bny/SWhNc5CwXPRmXwNmbE9uncodlmPmUILeXmn4ac5v+jy+wuQ7bD+F5jGWKBZoBg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6697.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUw0VEJ0Y3ZleFBXcDMrUzI3VkhGTysvR2JyME42eWlVdTZrbjRmdmxNUC9h?=
- =?utf-8?B?eDl3dHdZSDlQTXpDZUU3UDUwZFV1a1c2aXN1V0dmRHE0Z0JVSUJCbmY0UFJY?=
- =?utf-8?B?dlJNN2Y0RTNYcFUvb2Q4RUJoSkNvd1NKYm9aQmRxSWZsdkZXNmEzU0cyVWZX?=
- =?utf-8?B?UG5IZ3FDZDdQbHNLWnhHVE5hMVh0SUQzSE5hdldnZ05GRFN0M2ZZS2NQL1Vu?=
- =?utf-8?B?dkI0c0Y0VkYxbk44WmRqcGZHeXEwQlpyRE5GOXBacm42NFNtKzRCKy8yVHg4?=
- =?utf-8?B?RHhScHpnY2d3NHRySGh1Z2l3L1JqZnN4RzFIdzd0emExb3gva2NrSlFFWFBh?=
- =?utf-8?B?d3p5VkZlWU44SWZXZFdZUFNqQVJNSHc1MlNZVTRYdDdROE1ZNnJXKy8vemtY?=
- =?utf-8?B?WDNZK2Nta1FZSE1xMEl6RGdEaExiTlc4K0twZGZva1FhOE1Mc0RYcExqTTY1?=
- =?utf-8?B?NEFleFF4YUJ6NDNtQ2VoYnowTC9TSW1EQmFoN1dWYXlVbDRNbEJBR0Jva0lV?=
- =?utf-8?B?ZWE1VVg4LzQ3R2lIZEVQU3F2MlAzK2Rya1FpRnZvTXFVejJwRTBOUUlIRTBI?=
- =?utf-8?B?Z2xKUWJNeXU1c0J5ZXhCZ3E3YytsSS9MYjE1UmQ3N3dzSHFNZjBKUE9qRG9P?=
- =?utf-8?B?am43SWFRMDFCTnF2aW96T0pJalJVSkl0WlZmLy9tUFArc2cydVBMY1FPTXRo?=
- =?utf-8?B?WlpraUYzOERPbjBxc2szSW1seDhLV1lCWHFXc3hGaHM3K094ZE5xMTVuZEhK?=
- =?utf-8?B?aDY1TFY5NGs3b3g0OWFJTHJvY29ROEo0OWxIQktHalp6SmFwUjBpQ1lxQWt4?=
- =?utf-8?B?bHMzbUxRTkFNM3RsSmJCK2NvTWpKMzBPTmpzRXpqYUJPdUVZQ3B0TDNLSE9J?=
- =?utf-8?B?OXZRVjlFN0F5cDdML3k5NEM2SHBBSStwVUtsQkpGeDRoTW8yZURTVm1INCt6?=
- =?utf-8?B?UzMyem4xODZzS0NmaUN0Vmtxc3pYK2kvcDl5ZGM3WUZUL2NYZ1JDNFFQclk3?=
- =?utf-8?B?NGdmSG9aR1BUaFc3ZVM5dEFFandFOE0wcklRdEhlczhCKzQzb1crUmxlc1d5?=
- =?utf-8?B?MDI0Y1F1S1ViQWhqVURpeVhzVDBBN0ZMalA1RUl1V2dvc3kwSFA3azZ0NGlU?=
- =?utf-8?B?dnRjSk12ZjZMNU45TEtHbGdrOFRpNzhob3hTOW40T3VpYWZiTHRaS3BvN0JF?=
- =?utf-8?B?NC9DMXNSQXlPY0lEdS9pbDlQYkdFUW5YOVQzUEdjZjR3S0UrTkc2TkpjSmFn?=
- =?utf-8?B?OWkwbDQzUURQb0pYTDBSMHllMXdYWm0xbVExaEFMRHRLN1NEMjNTS0RyNHBH?=
- =?utf-8?B?T3lReGZ2aGJJTk8yMFh2RDBNcVFGbHUwSGQ4Q3Vwb252a0VOZDhEY1RaemJn?=
- =?utf-8?B?QitmTjVZR0RUQ1QyOHpoT0x5U3ZRMjVTRjQ2eE1tU0ZrYTZtb29Obi9uVVc3?=
- =?utf-8?B?SktiUFR1L2M5RUtYcXVkcmZjaEFzWGFjQjRLNnhoOGlmcWliTkplNExwdGpk?=
- =?utf-8?B?RXZPM3ZvRFVKWStQZm9obVhMODJzaEo3emJnL2x0K01zMmFtelkyNkdmS3VB?=
- =?utf-8?B?UEYrdldtSVdhUEZ0Ry9QNmdvTDRhU1FIdHJ3cXlsVDczdTZTaDlzSk54TDJy?=
- =?utf-8?B?MUZaTk1ma25UUmYwTzF1eHlGRjhYRWtUOW5Cb2RWdTg2M1JTck5xcWlNNXhZ?=
- =?utf-8?B?dHlCdmpLWHYrS2l6VjNaaThvbjJOY2tpbmkwN0lPSXRkT2xER1RRSGdvMFdM?=
- =?utf-8?B?YjVSTzFwOXBCY0hhYkt2Y0k2NHd0aXdKdndoYWxlZlBDa0o2VHU4Q2NrWms1?=
- =?utf-8?B?cnZzYXRKbFFNRFRwVktxNDlUdWxLeVV1eEFjUWdvWTE4bVBPeFJWWjIrNWxQ?=
- =?utf-8?B?cGVuSjM5SURhQmFFeS9RSHpRR3FBaTMvYlgrRHV4QzNvRGRET0RzaHkxdlBi?=
- =?utf-8?B?b0pHZVVWVlUzWWZ2aHVGTGRUNjZCNkNBUVZSc2ZwUU1QQ2luRjNsTkZocEJp?=
- =?utf-8?B?MzJmaWpwZWV5UjJEN0V5MTlVOHlCSFpYN0lJRmN0UEVMZ2xveW5RcFVqazRM?=
- =?utf-8?B?ZnVxc2VOZVF2RXRkSkxRaWsxa1VsTUZ4emNrYWhCRDBEUWVqYmU4bWhiYkFj?=
- =?utf-8?B?WUpEQUVnNFJDV0JWbE5Dbi9PSmQ5TytJTnY3UlpEWlZCcjB0L09rcWw1VS9w?=
- =?utf-8?B?KzNWT0sxNXVackVtNDhVNzdYUll0U1hBRlV0VWhnMTdySithYjlNNXVDWDZG?=
- =?utf-8?B?QndIRWJkVjRlN3dNQWpUZm1MVFdSaklGdDY2amRyajNoMGV2Q0tza3llZHZz?=
- =?utf-8?B?ZDBvNjVOTldBb3Z0OGdJOHY2b1I0WWJKSjRrejhwbDlQL3VFSzRyTkgwNUll?=
- =?utf-8?Q?HmTINJnhtJ2CUBt0=3D?=
-X-OriginatorOrg: genexis.eu
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e2268de-8b3e-42e1-ed66-08decd3db5e4
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR08MB6697.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 13:30:06.3484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vizWWE/4EaRHshpvi5R2sKa3dJHxEqwucEBMHtjQeLwCYdFf1nf0aSnbXHw3aaOtO2NHq/k7tatr8eX4vixV+20+9Cn7PCxU81V7+/hkdeE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8628
 
-Hi.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message claims the new attribute returns the 'parent =
+channel label', but the implementation actually returns the parent channel'=
+s sysfs prefix.
+--
 
-On 18/06/2026 14:57, Christian Marangi wrote:
-> Add PCS driver for Airoha AN7581 SoC for Ethernet/PON/PCIe/USB SERDES
-> and permit usage of external PHY or connected SFP cage. Supported modes
-> are USXGMII, 10G-BASER, 2500BASE-X, 1000BASE-X and SGMII.
-> 
-> The driver probe and register the various needed registers and register as
-> a PCS provider for fwnode usage.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->   drivers/net/pcs/Kconfig                    |    2 +
->   drivers/net/pcs/Makefile                   |    2 +
->   drivers/net/pcs/airoha/Kconfig             |   12 +
->   drivers/net/pcs/airoha/Makefile            |    7 +
->   drivers/net/pcs/airoha/pcs-airoha-common.c | 1324 +++++++++++++
->   drivers/net/pcs/airoha/pcs-airoha.h        | 1311 ++++++++++++
->   drivers/net/pcs/airoha/pcs-an7581.c        | 2093 ++++++++++++++++++++
->   7 files changed, 4751 insertions(+)
->   create mode 100644 drivers/net/pcs/airoha/Kconfig
->   create mode 100644 drivers/net/pcs/airoha/Makefile
->   create mode 100644 drivers/net/pcs/airoha/pcs-airoha-common.c
->   create mode 100644 drivers/net/pcs/airoha/pcs-airoha.h
->   create mode 100644 drivers/net/pcs/airoha/pcs-an7581.c
-My comment that the files should be renamed now instead of later when 
-support for other airoha platforms are added still stands. The common 
-code is not common among other platforms (EN7523 as example).
+commit 1d085ae0a672cb964aa54dcb759867393a24b06b
+Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-MvH
-Benjamin Larsson
+iio: core: add hierarchical channel relationships
+
+This commit adds a parent-child relationship between IIO channels. It
+introduces a parent pointer field in the iio_chan_spec struct and exposes a
+sysfs attribute for userspace to read the parent channel information.
+
+>     Add parent-child relationship between iio channels by creating a pare=
+nt
+>     pointer field in iio_chan_spec struct and exposing a sysfs attribute =
+that
+>     returns the parent channel label.
+>
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
+ore.c
+> index 9373006235c87..3d12269f26f4a 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+> @@ -854,6 +854,21 @@ static ssize_t iio_read_channel_label(struct device =
+*dev,
+>  					 to_iio_dev_attr(attr)->c, buf);
+>  }
+> =20
+> +static ssize_t iio_read_channel_parent(struct device *dev,
+> +				       struct device_attribute *attr,
+> +				       char *buf)
+> +{
+> +	const struct iio_chan_spec *parent =3D to_iio_dev_attr(attr)->c->parent;
+> +	int len;
+> +
+> +	len =3D __iio_chan_prefix_emit(parent, IIO_SEPARATE, buf, PAGE_SIZE - 1=
+);
+
+[Severity: Medium]
+Is the commit description accurate regarding what this attribute returns?
+
+The commit message states it returns the parent channel label. However,
+looking at iio_read_channel_parent() in drivers/iio/industrialio-core.c,
+this implementation uses __iio_chan_prefix_emit() to return the parent
+channel's sysfs prefix instead (e.g., in_voltage0).
+
+While returning the sysfs prefix makes sense for userspace to locate the
+parent channel, using the term label in the commit message breaks IIO API
+terminology. Could the commit message be updated to state that it returns
+the sysfs prefix rather than the label?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-ad9910-iio=
+-driver-v6-0-79125ffbe430@analog.com?part=3D7
