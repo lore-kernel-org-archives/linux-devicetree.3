@@ -1,142 +1,326 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E533EF64F
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1C23E715A
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781778487; cv=none; b=Mi/P0ZDnpGu28+liutuf9NVZPwRRA1KRSX8gLeHyrrYnwPhppH4l1vzcRHRn+DjnAlgdE7RP1m1UvJEm0avDCNAo4dTNbqeNNUBvfmSWcW5CWfliXYQeZ6EwM1ULWJxDmfimaNcpMNihNsdhnIYRxwCm8gPJTUhVKbuEl4hcqqE=
+	t=1781778499; cv=none; b=R2OHqm/Rs9QRFoA0RhdEvbTOFy7MEBtSBtKOfv5I6bnPV7okf5uHj4anUyrh5sjxQpCXYfmltJJ36w/NM//IzgDnxBvug6bcAXugTsvG1US4V4yHIHT0+yRAPksQrFkyKMMexJRcrrZ0us3rsazTwUUjYODdBwAsPLv0AjA82Zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781778487; c=relaxed/simple;
-	bh=vH15nRvaexShInPq1AKyVt+dnyALHsL9Mtnewj4JDy0=;
+	s=arc-20240116; t=1781778499; c=relaxed/simple;
+	bh=d5CPOlcoSWvZlaTRswhS+5elk9SK5owHfICpVQLGnYQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hPKhBVytTwwJtM2wCSDXqHR9T6HnJEA1ev2vEs9KqVnmD36VUkPmKB+j4rUJXM1dgPjIWjMy3aOIJHd6tUkNRn3eaxFsOY05DO2mdmeznu/Y/Fb3s81e/yZbZPC7yZ/y0lir7mm4xUOLB0X92FjsxRvDYo5P42Gjw5AORaK1pPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dy+eQ0u8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gDytOCt+pa/FskWKkWF0qPgaD0V8GhIbicbVqXkhwq81gIrVZ24BOoSX3JPc/7o/uOmfM+1f4nGxwCW1MJZwnEknc2xIjOiHyiLfUW6vniq6Tfj7tyxE2hhdswtt5oH5yFQSf9WXG2G5w2ZXbcX4pBizbffx6OJ9RwyltzR7goQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EPgNAY5o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dy+eQ0u8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659B01F00A3F;
-	Thu, 18 Jun 2026 10:28:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EPgNAY5o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C041F000E9;
+	Thu, 18 Jun 2026 10:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781778482;
-	bh=iIu+iRChme9fY43gsZBd2els9BnGw56e68zyb1pmIsw=;
+	s=k20260515; t=1781778493;
+	bh=0RxLEYs4Q0Y+7NpGEWKixjtp1BWeL33uRv2f7CD/cmY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dy+eQ0u8TqnGvz5eETeN1z91PZEH/t7U7+LT5FhrEQmgXvrr8U1AfqSuu4055dnIo
-	 vhRSAB+vzs2Mq99qe9DptuP9rAQtCdOFqYJnzMDBeQ7eybQI1lUumFuiPJxu50/Wme
-	 h2iZPmEUSrDryrRzc5XeRbvGl5r1NIMZ8Q2TpiSGQ+7TeT7VJqbwbu14ORPzTXvZwF
-	 G7o9NQvAfJEPiPeyT++vd/Vp+XG5ETVX9PeWm7IUNY3sBkSSO2E8xN46yEIQNu7f0A
-	 tpkFFt11QJTr/kINXtOLKlOwLe1sBe4QrIg2ssXZc2SChYL8hIqHwsQNYRnZIft1ZO
-	 h3VWyoyB6RPfA==
+	b=EPgNAY5oB1QJgDp3TA7j7sdmuq7+545HEvtv4CNtPsQxu15cy4mPbi8zciXcYUw0u
+	 h2OphIeb+5SUDRkNzd6VCpa/DfWcfHb5NA5ZUW9TYnL1+cDPih4nEDwKbpIVOg/RBh
+	 jvuL7dzskoU9kTyPhixcDJ8DtbBSJpqVsaO/Y7PrTfEwK9lifs5jDt7SrA4fDYicXz
+	 MI8VFza4jEBUvyKhLXDFys5+SAS/ovSlTfKvgZtN3ydTkdhQQ5T1dAf7y6HRjnWwCO
+	 p6PioVyflFkzEi92XjRITCv7KVRvP2z8R/D6lcg6HXDh6RZzp0++xZwLQ9JNQX1bxt
+	 Stmy2IOKLycJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/5] iio: adc: versal-sysmon: add I2C driver
+Subject: Re: [PATCH v10 4/5] iio: adc: versal-sysmon: add threshold event
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Salih Erim" <salih.erim@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260618101414.3462934-4-salih.erim@amd.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260618101414.3462934-5-salih.erim@amd.com>
 References: <20260618101414.3462934-1-salih.erim@amd.com>
- <20260618101414.3462934-4-salih.erim@amd.com>
+ <20260618101414.3462934-5-salih.erim@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 10:28:01 +0000
-Message-Id: <20260618102802.659B01F00A3F@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 10:28:13 +0000
+Message-Id: <20260618102813.A7C041F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] I2C transfer buffers are allocated on the stack, which can cause a=
- kernel panic if the underlying I2C adapter driver uses DMA.
-- [High] I2C regmap backend is executed in hardirq and spinlock context if =
-an IRQ is erroneously specified in the device tree, causing a 'scheduling w=
-hile atomic' panic.
+- [High] The delayed worker `sysmon_unmask_worker` silently clears all pend=
+ing hardware interrupts, causing concurrent voltage alarm events to be perm=
+anently dropped.
+- [High] Missing bounds checking in threshold value conversion leads to int=
+eger overflow and hardware register corruption.
+- [High] Race condition between interrupt configuration/teardown and the un=
+mask worker leads to unhandled interrupt storms.
+- [High] Voltage alarm handler incorrectly disables the alarm configuration=
+ and early returns leak ISR status, causing interrupt storms.
+- [High] The hardirq handler `sysmon_iio_irq` takes a spinlock and sleeps w=
+hen using an I2C regmap.
+- [High] Writing a supply voltage threshold silently clears the format (FMT=
+) and mode (MODE) bits in the threshold register.
+- [Medium] Unconditional execution of the delayed worker resets hardware tr=
+acking status on voltage alarms.
 --
 
-commit f508dce27e50e63598a76da221a58f66b1a7c5f1
+commit 4ebb615e40cc90088cf5fe0430223005d0197c79
 Author: Salih Erim <salih.erim@amd.com>
+Subject: iio: adc: versal-sysmon: add threshold event support
 
-iio: adc: versal-sysmon: add I2C driver
+This commit adds threshold event support for temperature and supply voltage
+channels on the Versal Sysmon. It configures hysteresis mode for temperature
+alarms and window mode for supply voltage channels, along with an interrupt
+handler and delayed worker to handle the level-sensitive hardware interrupt=
+s.
 
-Add an I2C transport driver for the Versal SysMon block. The SysMon
-provides an I2C slave interface that allows an external master to
-read voltage and temperature measurements through the same register
-map used by the MMIO path.
-
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
+l-sysmon-core.c
+> index 03a745d3fb4f3..50b5228aa222f 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
 [ ... ]
-> diff --git a/drivers/iio/adc/versal-sysmon-i2c.c b/drivers/iio/adc/versal=
--sysmon-i2c.c
-> new file mode 100644
-> index 0000000000000..e9a7629159ab1
-> --- /dev/null
-> +++ b/drivers/iio/adc/versal-sysmon-i2c.c
-> @@ -0,0 +1,134 @@
-[ ... ]
-> +static int sysmon_i2c_reg_read(void *context, unsigned int reg,
-> +			       unsigned int *val)
+> @@ -52,6 +102,16 @@ static const struct iio_chan_spec temp_channels[] =3D=
+ {
+>  	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
+>  };
+> =20
+> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
 > +{
-> +	struct i2c_client *client =3D context;
-> +	u8 write_buf[8] =3D { };
-> +	u8 read_buf[4];
+> +	*val =3D (raw_data * MILLIDEGREE_PER_DEGREE) >> SYSMON_FRACTIONAL_SHIFT;
+> +}
+> +
+> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
+> +{
+> +	*raw_data =3D (val << SYSMON_FRACTIONAL_SHIFT) / MILLIDEGREE_PER_DEGREE;
+> +}
 
 [Severity: High]
-Is it safe to pass these stack-allocated buffers to i2c_master_send() and
-i2c_master_recv()?
+Can this overflow if a large or negative value is passed from userspace?
 
-If the underlying I2C adapter driver uses DMA for the transfer, it will
-attempt to map these addresses using the DMA API. With CONFIG_VMAP_STACK
-enabled, kernel stacks are placed in vmalloc space which cannot be mapped
-for DMA, leading to a kernel panic.
+If val << SYSMON_FRACTIONAL_SHIFT overflows, or if val is negative, the
+resulting negative integer gets implicitly cast to a u32 without masking. T=
+his
+sign-extends the value, which then gets written directly to the
+SYSMON_TEMP_TH_UP register, potentially corrupting reserved upper bits.
 
-Should these buffers be dynamically allocated, or perhaps embedded in a
-device-managed structure? This same pattern appears to be present in
-sysmon_i2c_reg_write() as well.
+> +
+>  static void sysmon_supply_rawtoprocessed(int raw_data, int *val)
+>  {
+>  	int mantissa, format, exponent;
+> @@ -69,6 +129,33 @@ static void sysmon_supply_rawtoprocessed(int raw_data=
+, int *val)
+>  	*val =3D (mantissa * (int)MILLI) >> exponent;
+>  }
+> =20
+> +static void sysmon_supply_processedtoraw(int val, u32 reg_val, u32 *raw_=
+data)
+> +{
+> +	int exponent =3D FIELD_GET(SYSMON_MODE_MASK, reg_val);
+> +	int format =3D FIELD_GET(SYSMON_FMT_MASK, reg_val);
+> +	int scale, tmp;
+> +
+> +	scale =3D BIT(SYSMON_SUPPLY_MANTISSA_BITS - exponent);
+> +	tmp =3D (val * scale) / (int)MILLI;
 
+[Severity: High]
+Does val * scale overflow the 32-bit signed integer before it reaches the
+clamp() below?
+
+A large positive voltage could map to a negative integer, clamping to 0 and
+inadvertently programming a 0V threshold.
+
+> +
+> +	if (format)
+> +		tmp =3D clamp(tmp, S16_MIN, S16_MAX);
+> +	else
+> +		tmp =3D clamp(tmp, 0, U16_MAX);
+> +
+> +	*raw_data =3D (u16)tmp;
+> +}
+
+[ ... ]
+> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
+> +				    const struct iio_chan_spec *chan,
+> +				    enum iio_event_type type,
+> +				    enum iio_event_direction dir,
+> +				    enum iio_event_info info,
+> +				    int val, int val2)
+> +{
+[ ... ]
+> +	case IIO_VOLTAGE:
+> +		offset =3D sysmon_supply_thresh_offset(chan->address, dir);
+> +		if (offset < 0)
+> +			return offset;
+> +
+> +		ret =3D regmap_read(sysmon->regmap, offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		sysmon_supply_processedtoraw(val, reg_val, &raw_val);
+> +
+> +		return regmap_write(sysmon->regmap, offset, raw_val);
+
+[Severity: High]
+Does casting tmp to u16 in sysmon_supply_processedtoraw() discard the extra=
+cted
+exponent and format bits?
+
+When raw_val is later written via regmap_write() here, won't this zero out =
+the
+SYSMON_FMT_MASK and SYSMON_MODE_MASK fields in the threshold register,
+corrupting the hardware configuration?  Should this use regmap_update_bits()
+instead?
+
+[ ... ]
+> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
+> +{
+> +	u32 alarm_flag_offset =3D SYSMON_ALARM_FLAG + event * SYSMON_REG_STRIDE;
+> +	u32 alarm_reg_offset =3D SYSMON_ALARM_REG + event * SYSMON_REG_STRIDE;
+> +	struct sysmon *sysmon =3D iio_priv(indio_dev);
+> +	unsigned long alarm_flag_reg;
+> +	unsigned int reg_val;
+> +	u32 address, bit;
 > +	int ret;
 > +
-> +	put_unaligned_le16(reg >> 2, &write_buf[SYSMON_I2C_REG_OFS]);
-> +	write_buf[SYSMON_I2C_INSTR_OFS] =3D SYSMON_I2C_INSTR_READ;
+> +	switch (event) {
 [ ... ]
-> +static int sysmon_i2c_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct regmap *regmap;
+> +	case SYSMON_BIT_ALARM0:
+> +	case SYSMON_BIT_ALARM1:
+> +	case SYSMON_BIT_ALARM2:
+> +	case SYSMON_BIT_ALARM3:
+> +	case SYSMON_BIT_ALARM4:
+> +		ret =3D regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
+> +		if (ret)
+> +			return ret;
 > +
-> +	regmap =3D devm_regmap_init(dev, NULL, client, &sysmon_i2c_regmap_confi=
-g);
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
+> +		alarm_flag_reg =3D reg_val;
 > +
-> +	/* I2C has no IRQ connection; events are not supported */
-> +	return devm_versal_sysmon_core_probe(dev, regmap);
+> +		for_each_set_bit(bit, &alarm_flag_reg, SYSMON_ALARM_BITS_PER_REG) {
+> +			address =3D bit + SYSMON_ALARM_BITS_PER_REG * event;
+> +			sysmon_push_event(indio_dev, address);
+> +			ret =3D regmap_clear_bits(sysmon->regmap, alarm_reg_offset, BIT(bit));
+> +			if (ret)
+> +				return ret;
+> +		}
 
 [Severity: High]
-Does this code adequately prevent the core driver from registering an IRQ?
+Does this clear the hardware alarm configuration rather than just masking t=
+he
+interrupt?
 
-The commit message notes that events are not supported because the I2C regm=
-ap
-backend cannot be called from atomic context. However,
-devm_versal_sysmon_core_probe() unconditionally fetches the IRQ from the
-device tree:
+alarm_reg_offset resolves to SYSMON_ALARM_REG, which completely disables the
+alarm and forces the sysfs state out of sync.
 
-devm_versal_sysmon_core_probe()
-    irq =3D fwnode_irq_get(dev_fwnode(dev), 0);
-    if (irq > 0) {
-        ...
-        sysmon_init_interrupt(sysmon, dev, indio_dev, irq);
-    }
+Also, if regmap_clear_bits() fails and returns early, doesn't this skip wri=
+ting
+to alarm_flag_offset to clear the level-sensitive hardware flag? This would
+leave the interrupt unmasked and unhandled, resulting in an immediate inter=
+rupt
+storm.
 
-If a misconfigured device tree provides an interrupts property for the I2C
-node, the core driver will successfully register the hardirq handler
-sysmon_iio_irq(). When the interrupt fires, the handler takes sysmon->irq_l=
-ock
-(which is a spinlock) and calls regmap_read(). This routes back to
-sysmon_i2c_reg_read(). Because the I2C transfer functions can sleep, this
-would result in a 'scheduling while atomic' panic.
+[ ... ]
+> +static void sysmon_unmask_worker(struct work_struct *work)
+> +{
+> +	struct sysmon *sysmon =3D
+> +		container_of(work, struct sysmon, sysmon_unmask_work.work);
+> +	unsigned int isr;
+> +
+> +	/*
+> +	 * If the ISR read fails, skip processing to avoid acting
+> +	 * on undefined data.
+> +	 */
+> +	scoped_guard(spinlock_irq, &sysmon->irq_lock) {
+> +		if (regmap_read(sysmon->regmap, SYSMON_ISR, &isr))
+> +			break;
+> +		regmap_write(sysmon->regmap, SYSMON_ISR, isr);
+> +		sysmon_unmask_temp(sysmon, isr);
+> +	}
 
-Could the I2C probe explicitly inform the core to bypass IRQ initialization,
-instead of relying solely on the device tree being configured correctly?
+[Severity: High]
+Does this silently drop concurrent voltage alarm events?
+
+SYSMON_ISR is a Write-1-to-Clear register. The code reads the entire regist=
+er
+and writes it back verbatim, clearing all pending interrupts. However,
+sysmon_unmask_temp() only processes temperature interrupts.=20
+
+If a supply voltage alarm fires just before this read, it is cleared from t=
+he
+hardware but never dispatched since the worker doesn't call
+sysmon_handle_events().
+
+> +
+> +	if (sysmon->masked_temp)
+> +		schedule_delayed_work(&sysmon->sysmon_unmask_work,
+> +				      msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
+> +	else
+> +		regmap_write(sysmon->regmap, SYSMON_STATUS_RESET, 1);
+> +}
+
+[Severity: Medium]
+Does this unintentionally flush the hardware's internal min/max tracking
+registers for unrelated events?
+
+In sysmon_iio_irq(), schedule_delayed_work() is called unconditionally. If a
+voltage alarm triggers the interrupt, sysmon->masked_temp remains 0. When t=
+his
+worker runs 500ms later, it sees masked_temp is 0 and executes the else bra=
+nch,
+resetting the hardware status on every voltage threshold crossing.
+
+> +
+> +static irqreturn_t sysmon_iio_irq(int irq, void *data)
+> +{
+> +	struct iio_dev *indio_dev =3D data;
+> +	struct sysmon *sysmon =3D iio_priv(indio_dev);
+> +	unsigned int isr, imr;
+> +
+> +	guard(spinlock)(&sysmon->irq_lock);
+> +
+> +	if (regmap_read(sysmon->regmap, SYSMON_ISR, &isr) ||
+> +	    regmap_read(sysmon->regmap, SYSMON_IMR, &imr))
+> +		return IRQ_NONE;
+
+[Severity: High]
+Can this sleep in a hardirq context if the device is attached via I2C?
+
+The driver requests sysmon_iio_irq as a primary hardirq handler via
+devm_request_irq(). Although the commit message mentions I2C won't have an
+interrupt, if an I2C device node provides an "interrupts" property, it will
+be requested.=20
+
+When the IRQ fires, the I2C regmap will attempt to acquire a mutex while
+holding a spinlock in hardirq context, leading to a panic. Should this use
+a threaded IRQ?
+
+[ ... ]
+> +static void sysmon_disable_interrupts(void *data)
+> +{
+> +	struct sysmon *sysmon =3D data;
+> +
+> +	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+> +
+> +	scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +		sysmon->masked_temp =3D 0;
+> +
+> +	cancel_delayed_work_sync(&sysmon->sysmon_unmask_work);
+> +}
+
+[Severity: High]
+Is there a race condition here with sysmon_unmask_worker()?
+
+The driver writes to SYSMON_IDR outside of sysmon->irq_lock. Concurrently,
+sysmon_unmask_worker() calculates the unmask bit under the lock based on the
+software state.
+
+If the worker calculates the unmask state before this teardown path acquires
+the lock to clear sysmon->masked_temp, the worker will write to SYSMON_IER,
+overriding the teardown path's IDR write. This leaves the hardware interrupt
+enabled after driver unbind and IRQ handler removal, resulting in an interr=
+upt
+storm.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618101414.3462=
-934-1-salih.erim@amd.com?part=3D3
+934-1-salih.erim@amd.com?part=3D4
