@@ -1,154 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08EF3B3C13
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EF1271A71;
+	Thu, 18 Jun 2026 08:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781772318; cv=none; b=tgY62GVdb4JCLu1U52uvwPlg50+AExZn6jZpjNUhy05XVU2UkfE/6qSIijYr8SebTtKc45vt+kKSuFNsVPm4o1AXsl0ZcvKXBiILs1hC5Q19zhZ6CkfgvDWK/8sp7C6NhoP/4rd1GSUWLT8BdaRFE8a1veSoTrdiDcz7MBwmzQI=
+	t=1781772573; cv=none; b=HoIopnt1vuBoZI78mPUWVk2x2YuvFocUR8VvJmaw7eMItjF1WJhLkHFXA3fhPC69MSJm5WtHe64S+ed9/vp8RMkzPbo4FJfWSWTnG0rIl7l72USNDzQiVrPtUlcu9XQCxlmn+wCNU2ajLhfki4TaCMBSlFZmJFb7naEVaFFuc5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781772318; c=relaxed/simple;
-	bh=RFDlKG+eyT/oJfKdVmZd4RolBGDEmU5FlJaxE5+xEbo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fuMKs2Mtpvx5mFFFb17VSG92apeuUE7ZAtbeXqsYvMymPfSdbybx2bHLWsTQnbOrlBVi2zKi4X3NZs0E7dDWGgaN1wB8fswtNrvAzH7EmMLLxA18UeUiMtAqLQFYo6uUEWnz49ziKUX8yCYpAbAInpJAr3UBj1GSUu/z7DzzGkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/HIcKA1; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/HIcKA1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625BE1F000E9;
-	Thu, 18 Jun 2026 08:45:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781772316;
-	bh=ivGuEaNWAUqr6Gn0tSYH4j7IQ8U9K7mzsdEeUnMQdRU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K/HIcKA1GkHmmRYUHW5XdNpW2pT4QhRf4Iwgmf3ct0Ys5Mqe9Ic8CT01wWpuRo4cb
-	 b6hvB4zm/YLiEquPMbDpELZhLre/TFXoqHNNd8xSlwkvSdz98W2/G+cec275zven+j
-	 jZW2Lx8x6KDtT1h6F3cNEmEtLW3tITCD1xCxQKVHVEeVBQ880+yME1cJ5q07rljjwK
-	 nnj23vMyicDxwQwXhzRdT4IIZ5EOvT+6touM1vx4P5vgvVpICwras2+L5xdevJdTJP
-	 nm9xt34Arxys+GhYbJDnOMkgwQk+yJSVMIueIuS4msI/mE9JwUgjms4UOMdhMup2rp
-	 rRYrGQJ8Ibqow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/7] ASoC: codecs: ES8389: Modify volatile_register
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260618082842.2778-3-zhangyi@everest-semi.com>
-References: <20260618082842.2778-1-zhangyi@everest-semi.com>
- <20260618082842.2778-3-zhangyi@everest-semi.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1781772573; c=relaxed/simple;
+	bh=Qco/LJBMTkGeaS+CG9RMYVxourHKcGsH5iGN24vmpPg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Kol0fTyw1f8dUoqLM2c+Pu5MQagvJ6gAjC4WGPxpqrMGDsH1qvjo7+BkBQoLUmNe+56mFffBANbIGuAjuLJJM8O/InSPjCQz6s6WHoM+C9S53LUTv4/cAeve/70GTxUmPbBG0+U/Dx7CH8zsIv9HI+UeJxNQej93HoQA6Psj81o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A3BF72002AA;
+	Thu, 18 Jun 2026 10:49:28 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wa8RE-003PSu-1n;
+	Thu, 18 Jun 2026 10:49:28 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wa8RE-000000003qH-1ylc;
+	Thu, 18 Jun 2026 10:49:28 +0200
+Message-ID: <56c99d63c2c1b8116b9fb779b413e3240816b89a.camel@pengutronix.de>
+Subject: Re: [PATCH v4 resend 2/5] reset: cix: add audss support to sky1
+ reset driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: joakim.zhang@cixtech.com, mturquette@baylibre.com, sboyd@kernel.org, 
+	bmasney@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	gary.yang@cixtech.com
+Cc: cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Date: Thu, 18 Jun 2026 10:49:28 +0200
+In-Reply-To: <20260617064100.1504617-3-joakim.zhang@cixtech.com>
+References: <20260617064100.1504617-1-joakim.zhang@cixtech.com>
+	 <20260617064100.1504617-3-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 08:45:15 +0000
-Message-Id: <20260618084516.625BE1F000E9@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] The updated `es8389_volatile_register` list misses critical config=
-uration registers, causing their state to be permanently lost upon resume.
-- [High] Variables passed to `regmap_read` are used without checking for a =
-potential error return, which can leave them uninitialized and result in no=
-n-deterministic hardware behavior.
-- [High] The return value of `es8389_set_bias_level()` is ignored in `es838=
-9_resume()`, potentially leading to silent failures.
---
-
-commit d39c101472412561134bb4faff5fe29c9d7f7dfb
-Author: Zhang Yi <zhangyi@everest-semi.com>
-
-ASoC: codecs: ES8389: Modify volatile_register
-
-This commit updates the volatile register definitions for the ES8389 codec,
-switching to an allowlist approach for cached registers. It also adjusts
-the cache bypass logic during the resume sequence.
-
-> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index 3484c87853cb4..10de2143f8d8f 100644
-> --- a/sound/soc/codecs/es8389.c
-> +++ b/sound/soc/codecs/es8389.c
-
-[ ... ]
-
-> @@ -50,10 +50,29 @@ static const char * const es8389_core_supplies[] =3D {
->  static bool es8389_volatile_register(struct device *dev,
->  			unsigned int reg)
->  {
-> -	if ((reg  <=3D 0xff))
-> -		return true;
-> -	else
-> +	switch (reg) {
-> +	case ES8389_ADCL_VOL:
-
-[ ... ]
-
-> +	case ES8389_ADC_MODE:
-> +	case ES8389_DMIC_EN:
->  		return false;
-> +	default:
-> +		return true;
-> +	}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but by defaulting to true, do we
-miss critical configuration registers like ES8389_MASTER_MODE and
-ES8389_ADC_HPF2?
-
-If these are left as volatile, they are bypassed during regcache_sync().
-Since ASoC doesn't automatically re-invoke set_fmt on resume, and
-es8389_init() overwrites these registers with reset defaults, does this
-permanently lose the configuration across a suspend/resume cycle?
-
->  }
+On Mi, 2026-06-17 at 14:40 +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+>=20
+> Extend the Sky1 reset controller driver for the AUDSS CRU syscon. The
+> AUDSS block provides sixteen active-low software reset bits in one
+> register for audio subsystem peripherals, reusing the existing
+> regmap-based reset ops used by the FCH and S5 system control variants.
+>=20
+> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> ---
+>  drivers/reset/reset-sky1.c | 86 ++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 83 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/reset/reset-sky1.c b/drivers/reset/reset-sky1.c
+> index 78e80a533c39..af32ee005ebc 100644
+> --- a/drivers/reset/reset-sky1.c
+> +++ b/drivers/reset/reset-sky1.c
+[...]
+> @@ -343,21 +379,65 @@ static int sky1_reset_probe(struct platform_device =
+*pdev)
+>  	sky1src->rcdev.of_node   =3D dev->of_node;
+>  	sky1src->rcdev.dev       =3D dev;
 > =20
->  static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9550, 50, 0);
-> @@ -861,13 +880,13 @@ static int es8389_resume(struct snd_soc_component *=
-component)
->  	regcache_cache_only(es8389->regmap, false);
->  	regcache_cache_bypass(es8389->regmap, true);
->  	regmap_read(es8389->regmap, ES8389_RESET, &regv);
+> -	return devm_reset_controller_register(dev, &sky1src->rcdev);
+> +	ret =3D devm_reset_controller_register(dev, &sky1src->rcdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	platform_set_drvdata(pdev, sky1src);
+> +
+> +	if (of_device_is_compatible(dev->of_node, "cix,sky1-audss-system-contro=
+l")) {
 
-[Severity: High]
-This is a pre-existing issue, but should the return value of regmap_read()
-be checked here?
+The compatible was already evaluated by of_device_get_match_data(), you
+could check (variant =3D=3D &variant_sky1_audss) here.
 
-If the underlying I2C/SPI read fails, regv remains uninitialized. This
-could result in non-deterministic hardware behavior since the resume
-sequence would evaluate stack garbage in the if (regv =3D=3D 0xff) check be=
-low.
 
-This also appears in other places, for example in es8389_init():
-
-    regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
-    es8389->version =3D reg;
-
-> -	regcache_cache_bypass(es8389->regmap, false);
-> =20
->  	if (regv =3D=3D 0xff)
->  		es8389_init(component);
->  	else
->  		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
-
-[Severity: High]
-This is also a pre-existing issue, but what happens if es8389_set_bias_leve=
-l()
-encounters an error?
-
-If clk_prepare_enable() fails inside es8389_set_bias_level(), it returns
-an error code. Since that return value is ignored here, will the function
-silently proceed to regcache_sync() and return success? This might leave
-the hardware unpowered while the system falsely believes it resumed
-correctly.
-
-> =20
-> +	regcache_cache_bypass(es8389->regmap, false);
->  	regcache_sync(es8389->regmap);
-> =20
->  	return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618082842.2778=
--1-zhangyi@everest-semi.com?part=3D2
+regards
+Philipp
