@@ -1,377 +1,242 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11022120.outbound.protection.outlook.com [40.107.200.120])
+Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020138.outbound.protection.outlook.com [52.101.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582203F4DC6;
-	Thu, 18 Jun 2026 12:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DD93F4852;
+	Thu, 18 Jun 2026 12:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.138
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785634; cv=fail; b=smm+e5RJyOaj9Rs/h0/nEraMUPqIyRoe1suL90CsfP7J+XZcV0dzX0NsQh/a0bNTPd3aYz7kw5lLkXRf5CI+Q+meDjjMYSMeX8G+10YiBUQHVefxWKEeEGf0GiANdyyj/igDhTKNUDmxiCL+mlDNL1XR3FaF75Sxdf0kILukMtc=
+	t=1781785684; cv=fail; b=Vw7tEQJUlku7bDOlPTkHdBjbIDd5XEBloC4hVonycIemZ8sftylFHHojc7dS+cgc5v4eJPwwPKPtpxlwE5N40AgKnFJpz6wCYqChvAoLFauyD1L+r7K2MCqRVKUkBMyvIiupd/jLw8G6zSzLSoReohN3HL2R5vYupp6otXHftHk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785634; c=relaxed/simple;
-	bh=VBHxefqg+dL1KkEoI4ZuGzcB0ZPsNWn/zEOoZ9ohxB4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e2KjejKG24dqA0UIKvI/+isj49k6O/3Kq0hoJKTVFwnEIIchQRFujAlGZOFIup4UWFSBywQygFRB+GsqFE5zvuUMlVT5PLDAfXRaqP7yqQ0OMc0m4b7RaYZ8XIduThgwUzJpZxv3myUDr5z6Cu71FQBleuU5JqmKk9C6tBPj4fg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=jSHFMZJ0; arc=fail smtp.client-ip=40.107.200.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	s=arc-20240116; t=1781785684; c=relaxed/simple;
+	bh=qLe6qE5HGYqeUjaPdswHIUqAJYh1slqJCm+Sh6T9fDQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=j6p+HjDwG8j9PwptCc8to3aHWF5O5D8/6C0Cy+S9SPzTSC7drOWqopaZf4r73USNoEoGdO+pO4o+WBZkSO60z7g22wH0TesaeP9sGoolEgEtUeb9qg2F7bYbjsv/amizWVuqjZXQCWDA1vsy3Wspdo3bnZBlpHHo0PvtxUfiRqk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=b1i4qU4q reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="jSHFMZJ0"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="b1i4qU4q"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qOzk1vbk6ksXf2YQGFlzA3Q7GqvsXKdvWJGQ/5OphIcAkuF5Bblxf5Sc3L0PREeJSzNRO/UgGxfzxRavyKM61zLxWKEEZYXlwKyi6zqBNrOj4E0bb6Le1nICwM+FzEVeAUbHYr+2p3k9MH2evJgDoFNRTbWQLZ37rXN7j+ac96KO5Bp/bcrgtr54NGmEIsBEFQ6oBPa8ow0Yxst9/6zL4m5dy7i9q8XZpmwf4NuuxC8K3Ogg2yJctWv99HjSDGb3yAmQpe1ePaUzaK3kQtHAtRmzdrMJymBixZfO3V8MQ7bVaWxNs+HjpuicbRiFXcW2s/uP6XTq95nga8V/IBpaNg==
+ b=B1KQSQ/wiyw2FMyujM62QE0FcjZSPTRDb/gR5lOSww/8C2DoRLw61CPTAnt89f4QMMaz9AiCW08AqJTCtWNzwyNX9XWPlA+x9LTnlkKOKrKVzOjqMBii1p37jBD63f4O99RXCUt/TVeyGyYr1SUEFeoeqH/T+tV4paWaq0T6AwKLY2ZXMppbmPBok37yW1rVTN8vSgVjZCskxw0IyjQ7IaTF+KZL2ehOsGFfvv5MzmPKfnTsQ0XT8OxpEhEkrdj8OkaTK7WUKK8atK6RbmS8CKdoPiPzRopWZ+MF2nI4gO35WXcExbC4WFSbfg6Id98zKhuJYbzCOreFj5XMZ9bl2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nad1zDhqi2499qUwW6AvrK3BWVuPBbR8l5pkgAIE+us=;
- b=BrYTJgerQJFj29893o4436VKIZ0F8rMEQ+tCT1rUk+C3tKbsrYq1kk28BvsX7yszqGM46fYEq+FPfAnHN7gx3AqLOnbjCh5aSDvPL1iMoYfZK/L7Bfe8lLWKvp4D8RYAqHWc52dz5zlUdunre2u07Odl6bi7R1QCYwnTSW89q+uKDDCw5QgoONhdLBVJqhuVoTKNPCQ809QljI0hQr39pympnhlIrxbif1CmBPuSE8+nDjcdo+W3if4PQnJiHn26VQvTbujyFhRj2ocVkDWvlcwyS3RQj2/OeaFtI9bn/+l9WzSfEuLzdGAqceaRhICuiIMlqLRuAW6depED8aPbxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ bh=2h+7KUaXnJzzdVxJBi83aQ4ic/S4wWUOj5l2LrZTRKw=;
+ b=DRHlnr2x88ZPyfgOkE1LOcJJRhkz1CzzFFRFx5dbVvpZQTtzyM+LcAeYpkqSXIWx6Rbr9FYRev0GH2HGuIDHHIKyFuH/tdJ+25yqlYf04t8DWm82TnDoyBh+f+T8EJlX1Tla9X7nlgreg935GAc/HXp54/l0JqxoegMyoR0xr3NY9G+zglS1eeAgXHkGo4RDVvKbSGjze6iWgII5gxmWRV0ORSQZKBySEaR/bUVt/vWTdOOuF3TfBoJSaPbr+G1gI5B0u13AX6JBenVKlNujRODK6vRAoNSTC0BtkVK6yLIrYHmJzgHttrBAevTgoYwWVS6f//rUqpeZumkcOxURbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nad1zDhqi2499qUwW6AvrK3BWVuPBbR8l5pkgAIE+us=;
- b=jSHFMZJ02o0Fi0IlyeGBlTWBczYbrCXXG7hJXhrr+un8oNZR8OFgt0Z0H7ullxQWOY+7llcmJSavAit8j2MGEh60n9EGfFKBeuTrLZmjoanbTXHr1yHN47B/+s2vMG/yywQWAX4RBceb+FijuUpnM2AID0XImUbZIS0lD+phK6gAJ+OGWVe4fv25Np1xBngxRMVuj2GgrHi8xKX50p964S3wrkHAEfvjNgnWky0WH926Z9HOagL5pMy7JPZRJXpqdLY5MaszP4UCRSuQu9twQba5ARrVBbmGsBqOvyt31NPON7m/J/2gPpypJOQ78WnfREWSGONHJBNFfoCxcSWReQ==
-Received: from MN0P223CA0008.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::21)
- by DSVPR18MB988341.namprd18.prod.outlook.com (2603:10b6:8:388::17) with
+ bh=2h+7KUaXnJzzdVxJBi83aQ4ic/S4wWUOj5l2LrZTRKw=;
+ b=b1i4qU4qgiVYfOOUuZ2u2etNvKyW/csNaojWPuxG3fUFUibumODDIC+POOZgGEgS80jq8byL7yDwPwvyTmISeszP6TBcqAJUi2D/OxoHU7CE8fMLZJ+mglsFylwcd2Jy7EKevzA0vVu7OHf+4jC/5zRy5dI9WlqykHO21I6XljqXhhtj38CoRwKJx+frgGiO0Yh0HkH8hgp7KpD7E8Y1Xxh3B3OWFfF5HNymmPTlg8UH5npzTNVUWAv+skeZLrO7FNsIwGhBwWrBJXsDAgiUYotJfh0Mirl2hhMx4Eojc9ifepfr6GshQPLKBhCWjsFucRhP/dTUqCNLrZPEOW4n/w==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by PNWP287MB6044.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:335::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
- 2026 12:27:07 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:52b:cafe::8d) by MN0P223CA0008.outlook.office365.com
- (2603:10b6:208:52b::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Thu,
- 18 Jun 2026 12:27:06 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.8
- via Frontend Transport; Thu, 18 Jun 2026 12:27:05 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 2BBAD4186B5B;
-	Thu, 18 Jun 2026 05:24:25 -0700 (PDT)
-From: Petar Stepanovic <pstepanovic@axiado.com>
-Date: Thu, 18 Jun 2026 05:26:57 -0700
-Subject: [PATCH 2/2] pwm: add Axiado AX3000 PWM driver
+ 2026 12:27:58 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%6]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
+ 12:27:58 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Elgin Perumbilly
+	<elgin.perumbilly@siliconsignals.io>
+CC: "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de Goede
+	<johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy
+	<vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Benjamin Mugnier
+	<benjamin.mugnier@foss.st.com>, Bryan O'Donoghue
+	<bryan.odonoghue@linaro.org>, Himanshu Bhavani
+	<himanshu.bhavani@siliconsignals.io>, Heimir Thor Sverrisson
+	<heimir.sverrisson@gmail.com>, Jingjing Xiong <jingjing.xiong@intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
+Thread-Topic: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
+Thread-Index: AQHc08x2ZGEqHlozd0WRfHpJSrJW5LZEh+YAgAAHxas=
+Date: Thu, 18 Jun 2026 12:27:58 +0000
+Message-ID:
+ <PN3P287MB182988E479F79C0979B56BCA8BE32@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
+ <20260424092554.26130-3-elgin.perumbilly@siliconsignals.io>
+ <ajPZ_mURqAFbk59S@kekkonen.localdomain>
+In-Reply-To: <ajPZ_mURqAFbk59S@kekkonen.localdomain>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|PNWP287MB6044:EE_
+x-ms-office365-filtering-correlation-id: dd0366be-6795-45c2-3ce8-08decd350800
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|4143699003|38070700021|6133799003|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 5OybBO5tCGAbYSlJgUy/De34JOxoC2Vx+TyeZkcoGnTILTQhIrNf1jU7r+D6ugHNdWrfA+8zc7xSGlHrH3PtZJjs4/srs6vyEihCpWFzqjyzwnS3FPdVIwqcg+sM6U6MX/1vM4cgsKNP+bebI/DeBj/zOyobPLYW9A+CILJWXZfY0ATDECb8qLayFSqRzTcBJDd+5JctfmLO6dst1Olv2moBC6Nhmz/icu8+mvvjm5caPGTm+29XG+wH//I2EK1Vv6D5h04DHPUm9VfGx7bVr3bkvf+iQmTzIeYjYI+1mGQgaGWs7fvEKU63j0ngFLzJp8nUus7PKc14vyLtS1IlIFsvjDV+aUxmnkI4k6pu7bQPlafB8PR6gfLBArogzRwiH30qB0B0XQQzFUlSNR5He7TKtHc//7C0hGhfjg+Jru178+ON4XteRZsfl3t55ZtvUUqwtOAGUjnYHXK2JZ5Q8KSSqVwLP27no72qujyXSjnYzsVx91wB19pOAWJSPWmbBbg43Q0Xw05cNx5/YWHHfP/lYXWgJ6vs3ZVmASUcW0hbJ6wc/mry9prTdSIOlqQQn0+7jv/ooAFwz4fmfMCTSS0opj0apW939DKN2UoIawvVS7G3ubqcTrmjhUgOaQMyTusf7I6Dk/wKZgXKj7wbXSAFYL89lgXgv3Che02rBCgccmJ3Nl6Lq2jS177b3o5uXN0QQXh1gIaCR53jF/7sp7xITeEgX2ZFCc93cVkO4mfFLaBrLFmDw8mKjmEq2HAm
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(4143699003)(38070700021)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?koi8-r?Q?dtu0WtJtfuzuCtFU+OH4lFjvu8hgTgDSEwWhM3QMuy9d2DxOT2XRHogDhpZBlP?=
+ =?koi8-r?Q?K5L1zylqkvVJcrAdNfLrVEA5z0ojVzqpacwpfwnGDpoDJvtXu9bjTLOvk/J9qz?=
+ =?koi8-r?Q?jJOdkKS0ktQ2aPJtrFgl9WkjiODoxGRMb1EN2UccxJNiw3fk+8zIqrcVMP6L4J?=
+ =?koi8-r?Q?vEvz8IcKn6XXfg+1w4UtQUS34XFFxf3J09l3WC7xn0tmPsbUzuatW/kHzZTTX6?=
+ =?koi8-r?Q?w6So8RuBE0gYPq4T4OKR0Dbk+Bv33n2SgJ94OfS8uK/us8wF05qNNO6Wcl4jNU?=
+ =?koi8-r?Q?Whe0BFG5kY9WuDX01KWmlfn2l/Bja1VErFatNEWCf7zVrCY57V3RvUAj8rMdBn?=
+ =?koi8-r?Q?v1qG56Kg/jMqZ09ZUF1aQcIRHpRrf9wKWGKF2Z2dxFjQ0Jl/KBSGe7lUhoH9ZG?=
+ =?koi8-r?Q?+fYApLHwhWFQr+pGdTVAnvjP37i2Cmxt5OFnt/cBR0ojw/mydTkyd9UlYyeYBV?=
+ =?koi8-r?Q?kfP58h29pjHHwuy1EPdzSjmSzyafLYVFaKun1+vPp/SX5MHAgHr5RKXV+3d1He?=
+ =?koi8-r?Q?pDRr8U6bRSUshAW/yLVgJF9C6uo2xj1s5fPbQfcIRRrNUW6km7GvdxM/SKol/J?=
+ =?koi8-r?Q?IvW591GmaAOpAwEHxVneqHppDCkdxNMFd0Cgwt8bicENIlwtGuVX8PSSn9v5JZ?=
+ =?koi8-r?Q?v2jEbwly48OzxMhrfNEWawVfpG6/162477gLKv4xZkKcWYqqXP61dw/cyOL30r?=
+ =?koi8-r?Q?fJ/ly6w/TolJ468b3eEgaerEdXKlS3Ok442/lxSsLNDA0oW+85+luJOG3LoEu4?=
+ =?koi8-r?Q?K0D2s4ZQO3A5ylt93UPAdy2EnTJhbUTnmrINXKyclhlzG7Slz6dvtzPOn7qgGM?=
+ =?koi8-r?Q?1Vu8mCGc6AviGogNopz9Wqkquc62cFs0aqJ83IVf03ZPg/m4jb2RgZs15j49vC?=
+ =?koi8-r?Q?ghjGoy3AKYtICJw7owqEe0gzs7k4JtS9P7UB/rEsySTJaDTZ8Wbl+733WE5EkO?=
+ =?koi8-r?Q?uBzfwfVjKdCrBUQMS3fFuaDgZarG7EAADy7X3IfmiplwDhr5OmZ2Vwqcv9ybsx?=
+ =?koi8-r?Q?ljxJp/JhSZfNQOb4knFwx6yt+bFM8Fxej0Ox9dD9SWzLk/krNzxAfNwiKk3GLf?=
+ =?koi8-r?Q?DRKpPkpVi4WoOt/XEerfjrxl4B/MmzGV0d2cmBFjhu0DXMkBdg5AHW9EzCMpoF?=
+ =?koi8-r?Q?tjm7o+e37Hdm7ctjtfuQII6rCQI95jyE1nCZ+3F+0mF6CxlKhmM34U92Lu1VIp?=
+ =?koi8-r?Q?JY1y3sy+yWMnMLwboj068cW1V4v0z7BB5lG1PiLASunCpCndr7Uk+J54Kk8om1?=
+ =?koi8-r?Q?0i5Fngfr1Ibfi+hEJghqDQcBqs8oDUJTlGUgiupChnnkuq4SymhHWl92GFCRt0?=
+ =?koi8-r?Q?Oq2THAFP2Thwg56aY0U23mCCymbQd+NXDC/VlemNVDXW61VmpJyij41Q2x5jLK?=
+ =?koi8-r?Q?PCPfR1c3n2e6La6HcBJS9flpBIK079hjJkkc4Y6hZ4L2f93Cd9S0XngqfrF0II?=
+ =?koi8-r?Q?it/orRPDaRnfx3qELn99LNWyXw8z24VPnhRBI6dylkCzeY61AWqceQJIXEa4pa?=
+ =?koi8-r?Q?r06PoPH9nF1vwxYbSIv1c2j9egBOJ+4/e/sY3etgTCtTMkEfwIXT97pTylIswI?=
+ =?koi8-r?Q?1vErrcD71GctMaPAwJFVcrQz+59q3WKStEZL/VQ+/Jl59P0ycvrx5DLuFmMsdJ?=
+ =?koi8-r?Q?mL1hS80MVCGjNctcjQ5VrtYJbHKFZ2zqBwXLEdFAzRos/kv3zqFMJJmXEOcPd8?=
+ =?koi8-r?Q?8wAwG8elQZsUCA=3D=3D?=
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-axiado-ax3000-pwm-v1-2-c9797a909414@axiado.com>
-References: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
-In-Reply-To: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Petar Stepanovic <pstepanovic@axiado.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781785625; l=7670;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=VBHxefqg+dL1KkEoI4ZuGzcB0ZPsNWn/zEOoZ9ohxB4=;
- b=7FlmY8C8jT8GnjsX9uXWCvVhkIf9HA2U15QWbiV4xkax4rlXDL/ip9P80l4LUnhgxopgrdgKU
- CGxIFxKZlMvArO8oL0UvHN8Pfsx1KeEfd6ZBwF8DIGND9ftzByAfXIJ
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|DSVPR18MB988341:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80587ff2-8f6e-4dca-d90a-08decd34e8c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|18002099003|22082099003|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	aYJ9w1/u9N/1/WceNh6qCkQz7ql+kWqz/Gap78MleYv8YxPpAh9+9BtdMLm9REa1KGVMYsfvLMTDTwhuxqpvPQ5xADUoGivyh61iUik45I+NyPcgOGdXuYweQY5W8H4lgTtGcEhOdLVZ5VrjpfgjsE3ecMqW4y/7ax1Fx6TBU4I199awdGKEgGIQ3lZysCB4N7y+4iDQejyzAuAKZOeC7aQVOJFRAbrqdA7EF/KLle69fdNHen+3dI6UZwq0UMzV92reYesZZMvnNmjVyiJvWkyRCRyjDpyJjTvxB7/ASBsMDc8isUYfcmorRNORts4FxJvtnQ3uWK9IKB0SsLkdx29YkQq0SCMVBLEqb4qrXmJKh0UVMnFoa5X8nONJRSz64o4JyaZ2nbDkv6cy1IwjO70Eski6wBocDvZup4lHLh5boOaF0pjXRq/e8iYrIGslHaV9k+HxqvYBy26sKkyctBurpX7PfIlYHb8EEF62VqmgKvUbdbkRQgGzXrt3xTiv07i5ncSIEY9QSm/HT+4is3gGlhJLOpJEWkc1zdQ3oAV3LUdxfP9SpZObKwuelZ7Yz8Ff2zS4UxFT5KwdShFWDnffMIwJECdK7A46MUo1SsU4P2Us+5bUWyCOX0BKBuTRm01opHWIg6vwUWoy/0fs6W3RpzeNoSgzdB55U+/Gzl392Xl0zkcoNoVGtxagRS6Iuzw5ygdWhCHsJNt3exAm1xX69KJZOrILB5T6Fbs4vN0=
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(18002099003)(22082099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	aJUOCLo6xj0yleIV54R2JWEC3bP2XPdOHZ9YECtUzmK3bJnurxnGibDJGrbxoINIXFfmcuKKvXUHS8XQlfTN0nYJYR3BIShzdZBP38OWbslnqo86z4D09l7cLzai7hNPC4HxC7iJXN07QNdZ/f4cIQT+Qxxjd8b4IEqxyjvq+cHGAWtmaNbsCbVvOgRVKyCbldgk+Iiuu0PBtqemztIfikEl5FJSTWzT69LAAzKAj8KO11dILi8rxb5/mVMxg0hdhCQyjCsjoPzm7qzq7edieaY3/+JHIL6Wy7XLL69CMxIgsCSKRQyQawbHzNlj1aHBU2ZSoa9FSFdj42RYy/j2p3azNHD8wy2w3Gt4Lm+XhN0sTlWGXuupwRXCiLLyGIxU1UMR4DJBcdGEQBQMefhg50/LZVZ9ovhApJXYRnphIdPLTUpLfHph4oBKfo3T0xoy
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 12:27:05.8905
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd0366be-6795-45c2-3ce8-08decd350800
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 12:27:58.4027
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80587ff2-8f6e-4dca-d90a-08decd34e8c7
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR18MB988341
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: eD87qlnoIYSEwOJGQDTHQrVlA9bvWE6ZIxoN3g9IW661LFLZNXEDEy5kuoxBt4ipUWaypsl7Sgy/Ffo7M7vuIT1lw3eEH68C5KHNe2Fq55E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6044
 
-The Axiado AX3000 and AX3005 SoCs include PWM controllers that can be
-used to generate configurable PWM output signals.
-
-Add a PWM driver with support for configuring period, duty cycle, and
-enable state through the Linux PWM framework.
-
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
----
- MAINTAINERS              |   1 +
- drivers/pwm/Kconfig      |  11 +++
- drivers/pwm/Makefile     |   1 +
- drivers/pwm/pwm-axiado.c | 193 +++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 206 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 394c4a3527e8..db93fc235c32 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4319,6 +4319,7 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
- L:	linux-pwm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
-+F:	drivers/pwm/pwm-axiado.c
- 
- AXIS ARTPEC ARM64 SoC SUPPORT
- M:	Jesper Nilsson <jesper.nilsson@axis.com>
-diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-index 6f3147518376..76f6c04b0e23 100644
---- a/drivers/pwm/Kconfig
-+++ b/drivers/pwm/Kconfig
-@@ -129,6 +129,17 @@ config PWM_ATMEL_TCB
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called pwm-atmel-tcb.
- 
-+config PWM_AXIADO
-+	tristate "Axiado PWM support"
-+	depends on ARCH_AXIADO || COMPILE_TEST
-+	depends on HAS_IOMEM
-+	help
-+	  PWM framework driver for the PWM controller found on Axiado
-+	  AX3000 and AX3005 SoCs.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called pwm-axiado.
-+
- config PWM_AXI_PWMGEN
- 	tristate "Analog Devices AXI PWM generator"
- 	depends on MICROBLAZE || NIOS2 || ARCH_ZYNQ || ARCH_ZYNQMP || ARCH_INTEL_SOCFPGA || COMPILE_TEST
-diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-index 0dc0d2b69025..4466a29e780a 100644
---- a/drivers/pwm/Makefile
-+++ b/drivers/pwm/Makefile
-@@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
- obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
- obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+= pwm-atmel-hlcdc.o
- obj-$(CONFIG_PWM_ATMEL_TCB)	+= pwm-atmel-tcb.o
-+obj-$(CONFIG_PWM_AXIADO)	+= pwm-axiado.o
- obj-$(CONFIG_PWM_AXI_PWMGEN)	+= pwm-axi-pwmgen.o
- obj-$(CONFIG_PWM_BCM2835)	+= pwm-bcm2835.o
- obj-$(CONFIG_PWM_BCM_IPROC)	+= pwm-bcm-iproc.o
-diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
-new file mode 100644
-index 000000000000..db197886c5c4
---- /dev/null
-+++ b/drivers/pwm/pwm-axiado.c
-@@ -0,0 +1,193 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021-2026 Axiado Corporation.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/pwm.h>
-+
-+/* Register offsets */
-+#define AX_PWM_CNTRL_REG     0x0000
-+#define AX_PWM_PERIOD_REG    0x0004
-+#define AX_PWM_HIGH_REG      0x0008
-+
-+/* PWM channels */
-+#define AX_PWM_NUM 1
-+
-+/* Period and duty cycle limits */
-+#define AX_PWM_PERIOD_MIN       2
-+#define AX_PWM_PERIOD_MAX       0xfffffffeU
-+#define AX_PWM_DUTY_MIN         1
-+#define AX_PWM_DUTY_MAX         0xfffffffdU
-+
-+/* Control register bits */
-+#define AX_PWM_CTRL_ENABLE BIT(0)
-+#define AX_PWM_CTRL_DISABLE 0x0
-+
-+struct axiado_pwm_chip {
-+	struct clk *clk;
-+	void __iomem *base;
-+};
-+
-+static int axiado_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
-+			     u64 duty_ns, u64 period_ns)
-+{
-+	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
-+	unsigned long rate;
-+	u64 period_cycles, duty_cycles;
-+
-+	/*
-+	 * The hardware does not support a zero period, 0% duty cycle, or
-+	 * 100% duty cycle. The caller should handle 0% duty cycle by
-+	 * disabling the PWM.
-+	 */
-+	if (!period_ns || !duty_ns || duty_ns >= period_ns)
-+		return -EINVAL;
-+
-+	rate = clk_get_rate(axpwm->clk);
-+	if (!rate)
-+		return -EINVAL;
-+
-+	period_cycles = mul_u64_u64_div_u64(period_ns, rate, NSEC_PER_SEC);
-+	if (period_cycles < AX_PWM_PERIOD_MIN ||
-+	    period_cycles > AX_PWM_PERIOD_MAX)
-+		return -EINVAL;
-+
-+	duty_cycles = mul_u64_u64_div_u64(duty_ns, rate, NSEC_PER_SEC);
-+	if (duty_cycles < AX_PWM_DUTY_MIN ||
-+	    duty_cycles > AX_PWM_DUTY_MAX)
-+		return -EINVAL;
-+
-+	if (duty_cycles >= period_cycles)
-+		return -EINVAL;
-+
-+	writel((u32)period_cycles, axpwm->base + AX_PWM_PERIOD_REG);
-+	writel((u32)duty_cycles, axpwm->base + AX_PWM_HIGH_REG);
-+
-+	return 0;
-+}
-+
-+static int axiado_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
-+			    const struct pwm_state *state)
-+{
-+	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
-+	int ret;
-+
-+	if (state->polarity != PWM_POLARITY_NORMAL)
-+		return -EINVAL;
-+
-+	if (!state->enabled || !state->duty_cycle) {
-+		if (pwm->state.enabled)
-+			writel(AX_PWM_CTRL_DISABLE, axpwm->base + AX_PWM_CNTRL_REG);
-+
-+		return 0;
-+	}
-+
-+	ret = axiado_pwm_config(chip, pwm, state->duty_cycle, state->period);
-+	if (ret)
-+		return ret;
-+
-+	if (!pwm->state.enabled)
-+		writel(AX_PWM_CTRL_ENABLE, axpwm->base + AX_PWM_CNTRL_REG);
-+
-+	return 0;
-+}
-+
-+static int axiado_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
-+				struct pwm_state *state)
-+{
-+	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
-+	unsigned long rate;
-+	u32 period_cycles;
-+	u32 duty_cycles;
-+	u32 ctrl;
-+
-+	rate = clk_get_rate(axpwm->clk);
-+	if (!rate)
-+		return -EINVAL;
-+
-+	ctrl = readl(axpwm->base + AX_PWM_CNTRL_REG);
-+	period_cycles = readl(axpwm->base + AX_PWM_PERIOD_REG);
-+	duty_cycles = readl(axpwm->base + AX_PWM_HIGH_REG);
-+
-+	state->enabled = !!(ctrl & AX_PWM_CTRL_ENABLE);
-+	state->period = mul_u64_u64_div_u64(period_cycles, NSEC_PER_SEC, rate);
-+	state->duty_cycle = mul_u64_u64_div_u64(duty_cycles, NSEC_PER_SEC, rate);
-+	state->polarity = PWM_POLARITY_NORMAL;
-+
-+	return 0;
-+}
-+
-+static const struct pwm_ops axiado_pwm_ops = {
-+	.get_state = axiado_pwm_get_state,
-+	.apply = axiado_pwm_apply,
-+};
-+
-+static void axiado_pwm_disable(void *data)
-+{
-+	struct axiado_pwm_chip *axpwm = data;
-+
-+	writel(AX_PWM_CTRL_DISABLE, axpwm->base + AX_PWM_CNTRL_REG);
-+}
-+
-+static int axiado_pwm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct axiado_pwm_chip *axpwm;
-+	struct pwm_chip *chip;
-+	int ret;
-+
-+	chip = devm_pwmchip_alloc(dev, AX_PWM_NUM, sizeof(*axpwm));
-+	if (IS_ERR(chip))
-+		return PTR_ERR(chip);
-+
-+	axpwm = pwmchip_get_drvdata(chip);
-+
-+	axpwm->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(axpwm->base))
-+		return dev_err_probe(dev, PTR_ERR(axpwm->base),
-+				     "failed to map registers\n");
-+
-+	ret = devm_add_action_or_reset(dev, axiado_pwm_disable, axpwm);
-+	if (ret)
-+		return ret;
-+
-+
-+	axpwm->clk = devm_clk_get_enabled(dev, "pwm");
-+	if (IS_ERR(axpwm->clk))
-+		return dev_err_probe(dev, PTR_ERR(axpwm->clk),
-+				     "failed to get/enable clock\n");
-+
-+	chip->ops = &axiado_pwm_ops;
-+
-+	ret = devm_pwmchip_add(dev, chip);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to add PWM chip\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id axiado_pwm_match[] = {
-+	{ .compatible = "axiado,ax3000-pwm" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, axiado_pwm_match);
-+
-+static struct platform_driver axiado_pwm_driver = {
-+	.driver = {
-+		.name =  "axiado-pwm",
-+		.of_match_table = axiado_pwm_match,
-+	},
-+	.probe = axiado_pwm_probe,
-+};
-+
-+module_platform_driver(axiado_pwm_driver);
-+
-+MODULE_AUTHOR("Axiado Corporation");
-+MODULE_DESCRIPTION("Axiado PWM driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
-
+Hi Sakari, Elgin=0A=
+=0A=
+> > +static int os02g10_power_on(struct device *dev)=0A=
+> > +{=0A=
+> > +     struct v4l2_subdev *sd =3D dev_get_drvdata(dev);=0A=
+> > +     struct os02g10 *os02g10 =3D to_os02g10(sd);=0A=
+> > +     int ret;=0A=
+> > +=0A=
+> > +     ret =3D regulator_bulk_enable(ARRAY_SIZE(os02g10_supply_name),=0A=
+> > +                                 os02g10->supplies);=0A=
+> > +     if (ret) {=0A=
+> > +             dev_err(os02g10->dev, "failed to enable regulators\n");=
+=0A=
+> > +             return ret;=0A=
+> > +     }=0A=
+> > +=0A=
+> > +     /* T4: delay from DOVDD stable to MCLK on */=0A=
+> > +     fsleep(5 * USEC_PER_MSEC);=0A=
+>=0A=
+> Does the sensor really require this? Typically no delays are required=0A=
+> before lifting xshutdown.=0A=
+=0A=
+The 5 ms delay for T4 (DOVDD stable to ECLK on) is required by the=0A=
+datasheet.=0A=
+=0A=
+However, T3 and T4 are independent timing requirements, not sequential=0A=
+ones. The current implementation introduces an unnecessary extra 5 ms=0A=
+delay before deasserting XSHUTDN.=0A=
+=0A=
+The comment could also be updated to:=0A=
+/* Wait for T3/T4 timing requirements after supplies become stable */=0A=
+=0A=
+=0A=
+Power-up Sequence:=0A=
+=0A=
+DOVDD    ________/=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=80=80=80=80=80=0A=
+                 |=0A=
+                 |<------ T4 =3D 5 ms ------>|=0A=
+                 |                         |=0A=
+                 |                         +------ ECLK ON=0A=
+=0A=
+AVDD     ________________/=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=0A=
+                      ^=0A=
+                      |=0A=
+                    T1 >=3D 0 ms=0A=
+=0A=
+DVDD     ________________________/=80=80=80=80=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=0A=
+                               |=0A=
+                               |<------ T3 =3D 5 ms ------>|=0A=
+                               |                         |=0A=
+                               |                         +------ XSHUTDN Re=
+lease=0A=
+=0A=
+XSHUTDN  ____________________________________/=80=80=80=80=80=80=80=80=80=
+=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=80=0A=
+=0A=
+ECLK     __________________________________________/\/\/\/\/\/\/\/\/=80=80=
+=80=0A=
+=0A=
+SCCB     ____________________________________________________XXXXXXXXXX=0A=
+                                                 ^=0A=
+                                                 |=0A=
+                                 T5 =3D 5 ms ------+=0A=
+=0A=
+> > +=0A=
+> > +     ret =3D clk_prepare_enable(os02g10->xclk);=0A=
+> > +     if (ret) {=0A=
+> > +             dev_err(os02g10->dev, "failed to enable clock\n");=0A=
+> > +             goto err_regulator_off;=0A=
+> > +     }=0A=
+> > +=0A=
+> > +     /* T3: delay from DVDD stable to sensor power up stable */=0A=
+> > +     fsleep(5 * USEC_PER_MSEC);=0A=
+>=0A=
+> The supplies were enabled before the clock so right now there's already 5=
+=0A=
+> ms delay here. Consider with the above comment.=0A=
+>=0A=
+> > +=0A=
+> > +     gpiod_set_value_cansleep(os02g10->reset_gpio, 0);=0A=
+> > +=0A=
+> > +     /* T5: delay from sensor power up stable to SCCB initialization *=
+/=0A=
+> > +     fsleep(5 * USEC_PER_MSEC);=0A=
+> > +=0A=
+> > +     return 0;=0A=
+> > +=0A=
+> > +err_regulator_off:=0A=
+> > +     regulator_bulk_disable(ARRAY_SIZE(os02g10_supply_name), os02g10->=
+supplies);=0A=
+>=0A=
+> A newline here would be nice.=0A=
+>=0A=
+> > +     return ret;=0A=
+> > +}=0A=
+=0A=
+Best Regards,=0A=
+Tarang=0A=
