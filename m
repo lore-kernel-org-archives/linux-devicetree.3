@@ -1,332 +1,222 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021095.outbound.protection.outlook.com [52.101.100.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB3A2FDC3C
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 17:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781802041; cv=none; b=M9ueRchKQX6aTU4LrxkwP/T9R8a4J/bFFpBkCgUQWGMu1309+m8yfaWfQAMMYCDHVoTwxD5cDc7lAUFPIJUDtt6xndUcrll2mpMz6wFEsSOET7zQhAl7Zr2t9n/oatt6vbqAuEXKpyVO0wNFmTlHdR9qs54Yyg0RpzNqxvMViuE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781802041; c=relaxed/simple;
-	bh=/mutgZL9lgn7/Kt30wwqo3XImwb5c0U6/NKTa9jeqqU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jokv4iz+7dAOxmEJkzbh0yj4pLhT23ubgloHnLe0MO0+9LxmRXehc17IFPZwi442Oy8Cxr9MHhExPtDPth7qwg7ElzOCJOQyLbR8RvLpu1ANwsymSybBbX8MQCacZ9Ps8FW2XtfbAvp1jljYbf7qXg7rvjG9iyTQvXEbDd9ciys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Y+mULUnx; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB1A258EDA;
+	Thu, 18 Jun 2026 17:04:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781802289; cv=fail; b=P+T9FXkvXBR73SSx43LhSd+GVzti6Z+P7Gr/VqIJswbiIpFOyQ72wTmJoi81UgyAllCNfsueciimBjDc3RTpa+gxlBu0+KMvCilNyY2jhXvFEA6RTZxhxTOmkR+xGRrCqXnTzIxR5DlSUKoYzoVFEc2XuoBw0oqXjvGruF3uzPs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781802289; c=relaxed/simple;
+	bh=CDWUnJAJ+rH6PqrYdhE9HnqkWK8hkgoOdYipk+Gk8gQ=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=P2R58GgiTP92sVrVE6Xm7BqXVU7dWOSXpMy1UFJWPNjOnuqle6T5GZ63obt2kxOixYsdjqdu+FDymsulv8szcaAv0zmZEXzbw/1iNCMSnyjSyBMnxZ/yMzvE5nclL5QHycTjjUXXkoX8nahkY6UKQt/5yjK7RyDGbIyf5WRMYN4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=OsrKObNZ; arc=fail smtp.client-ip=52.101.100.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Y+mULUnx"
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-59ecd51117dso979287e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:00:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1781802039; x=1782406839; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZcqBl9MGo5keDsaGunZf7Kbn8uQHXFUIROLGD7+Cdxs=;
-        b=Y+mULUnxzaCXQpwtpntDnlem3giltkHwA4Q3s9skYRmhQ7yDwOjMBP+Aqk64dheDrO
-         1tVMBhf2QS/ThrlxKr1+ofMbP8eMlQI1la6CtbgJwiavqPZ/VNeEAdpQg7qhHjd26Y60
-         hor/H5UjIaXDrmxwiRMkTKE9bvmofGCqSAOVM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781802039; x=1782406839;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ZcqBl9MGo5keDsaGunZf7Kbn8uQHXFUIROLGD7+Cdxs=;
-        b=OeEA1+l13MkOgfcYOXcyW7pmC1tzcFt08QH54WNxkk58GRNTcGZreM6gtVUj1V6Zfe
-         X7wfR8c43YUbkvIqDoduRFrZ/7vK96lboB+z3+NsGNYEE2esZTiYib3JsZ1AcnmMQRge
-         KegqhEOvv+68GFYyuG5nJuIs09XbJ+yAupUeGVzfZkw2H6U+C1Mv5u7B6GGSFq1WRt/v
-         tbsNO5okOdWzAjGj8fNZMKV8pUwW0w3MqduwYecOXpRyjGO5a1UlnjSL9J+7F9tLNNA9
-         TOKyLjeL/YB8N0kOz1IYf1DmRdaWUkCl2rnWfDuiLdq7+svMpU7vLdGW+qEKNL5dR2yQ
-         f4fw==
-X-Forwarded-Encrypted: i=1; AFNElJ+B9qLJh0l5usFT+nK28+8LCynIFoPt1QHJf2O53vAaouRiR7NUNybOdgbSlf2SNziUEWBzcsI1V32I@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzypOv2DnmGBF7CfAtTyiWnDToXQQA0v3JAysQJ1SbtpgeyIDr
-	k8luAbqTY4wDtiYnCXo8heKH7d0H1Anktp17L3A1d3cCpbbei16V7z+4vf7XJdIph3sN0uPShvm
-	coF0=
-X-Gm-Gg: AfdE7ck41Ioz+D+IM0n4RLnV8tSWwccb4ylCcT4NfXiL2jd/+w9uZtxz6IqMxBjk43m
-	o8XajLPfumA9/DQsZSMGz6XhyJMu4MPJP6h60wiMQHLljh1SQSu0Tg0f2+2ju+ynEVNUfm1LkZR
-	ygMleH22z6hcv0cfcsvyoMPsJqobbdHNoSnrSpPQPznzS47eslGAQegKWk6Ch1h/5vd0wHvUuyx
-	ygbJa76ZGKDy/4KLO8dp060dikqUBG+xp0gpxVnq8nb/JTQK//RLPkhuR/8C4TEz3mVdcK0Lqm+
-	ejZp4M4UZDJCs/EGMqWQ+jfuErAkx1cE67mu1tHeqz3mzWmWodW/GamUOWgv08eqPn00o1H1nel
-	vPdrfl5qRBvfkvJfiqCaODTNef94MCfcHfCKihmg+njbeoxyVTm9CYNMW6sbcd44tRMHnQRpQJF
-	4EXjaUTIjW5EhexLoJOysaam0mb5XQrGpKViaxoqbV5B9hcvqz9P+amEk=
-X-Received: by 2002:a05:6122:e20e:b0:575:f155:8cd4 with SMTP id 71dfb90a1353d-5bbd27276famr2102730e0c.0.1781802033160;
-        Thu, 18 Jun 2026 10:00:33 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbea3b46f6sm72052e0c.14.2026.06.18.10.00.31
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 10:00:31 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bbe617d624so267602e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 10:00:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8k7MHwl+KcrIf6neBh3BSooXfHEDB02PhhG6xg9y/ekh2d08eJyUEhN3+espT+dUTKxKKeXcAXxUMU@vger.kernel.org
-X-Received: by 2002:a05:6122:630c:10b0:5a2:497:328e with SMTP id
- 71dfb90a1353d-5bbd2b3cf4bmr1469561e0c.6.1781802030784; Thu, 18 Jun 2026
- 10:00:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="OsrKObNZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fl1bxgHc72ExxcpJkiDtQ9urQPXiV5AaAbUROj9Dxk0IlIkK7ajksrVModPjm7Rq8KP4sP9kyVM/eqM+NJemSi11aDFjOi4GpsBp2xhsfzruqu53q2DWl8gZhL9vOzl1BxBHGs5j6MHDnysmPoLqwcIZ4n14Iauk8EzhSV7rZIVLRaRIfaNOk8BUzQRNmIe3XYXyq/iUSV9/rSrhlVomzgjlZxRBPZALhvfdxmk2kpaH1dlUvAVjYArKRibuQJmxrhvjGsSpTviy7KGfUplfkag6IoMaD6z3SNwDHurCrfFXtAl+BeqOyo249S/a3gOQV5G/E7cXyjEd1X54nh+JaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nfGgWH+/m/wnv/umrTyOPhln6+pFG+Sqa5avNpKldSI=;
+ b=Y5efKDaiAYk488sXfacJEPgjuMDKR7eE76s0wQLYu4plxWbvzEhry5SpfkWxK0CKdFQcPKitg1WQrLPylzgaZdDeb0xEREVDinSKCGqtynvLu9/IZ7f2nBqlGHn8lK84OyAZw2m0pe2LnChUyzAY1fsg3B8lSvHAy+UHnJtUjXQXn8x78t7YE/34mNRtaxR/2eT31KGOBPNxzdxkkwx6Nyr1bATdBdF3YnTDnAR/59Hamj0kXmeAJcYg330QBh730DbTsRv+8HjfrqJMAQK1a23uSJgcIMg1eCVfPRSzfhzGdYzKCheAjE17qwDFOgYJR2dxbiIkI3e1zIiJYPe91Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nfGgWH+/m/wnv/umrTyOPhln6+pFG+Sqa5avNpKldSI=;
+ b=OsrKObNZQyzck3ZLmHZfbruGQNpF/+56UcnQoMbDEi1RGb/rIxskXRr1aMdonRX+QDADgI6sA0xi5qKLHILfO1o1cnzyhUa8PJZhOsfPXDH+aylJyu84UhhJ0U3PLUwmL3O89cNZGm57QISDWbbDHGOXS3t0dZ79of/rtXFBToI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO4P265MB6966.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Thu, 18 Jun
+ 2026 17:04:43 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
+ 17:04:43 +0000
+From: Gary Guo <gary@garyguo.net>
+Subject: [PATCH 00/10] rust: driver: use pointers instead of indices for ID
+ info
+Date: Thu, 18 Jun 2026 18:03:37 +0100
+Message-Id: <20260618-id_info-v1-0-96af1e559ef9@garyguo.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOkkNGoC/yXM0QpAQBCF4VfRXFMMLXkVSWvMMi6WdpGSd7e4/
+ Oo/5wLPTthDHV3g+BAviw3I4gho0nbkRIZgwBRVqjIM7MSaJcGcSRclEg0VhHp1bOT8npr2t9/
+ 7mWl753DfDxB+litrAAAA
+X-Change-ID: 20260612-id_info-23eca472ccd8
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Dave Ertman <david.m.ertman@intel.com>, 
+ Ira Weiny <iweiny@kernel.org>, Leon Romanovsky <leon@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Igor Korotin <igor.korotin@linux.dev>, 
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>, 
+ Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
+ Fu Wei <wefu@redhat.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org, 
+ Gary Guo <gary@garyguo.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781802282; l=2475;
+ i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
+ bh=CDWUnJAJ+rH6PqrYdhE9HnqkWK8hkgoOdYipk+Gk8gQ=;
+ b=JWv2t7kglzdUdALpK8VAlAf++FtvLSSLPTYQ2od+u83f1jgP7T3MiyT03aV1TPKnS02lstOfq
+ FfEHiBEgma7DIGdMO0mC5pIkIOiYin4z4bC0Fr9Ly736bQ0amaKsUdb
+X-Developer-Key: i=gary@garyguo.net; a=ed25519;
+ pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
+X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org>
- <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
-In-Reply-To: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 18 Jun 2026 10:00:19 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=W5FgXGznH1+SA74WOfAUXaAggaJi=ds8udqZ69K3i=Ow@mail.gmail.com>
-X-Gm-Features: AVVi8Ce_ut-32lQvTeJIIrgccY3EJcV-YqwYkYCDQTO3z8hfvNAAO1n3hS3X_Xs
-Message-ID: <CAD=FV=W5FgXGznH1+SA74WOfAUXaAggaJi=ds8udqZ69K3i=Ow@mail.gmail.com>
-Subject: Re: [PATCH v7 2/2] drm: panel: add support for the Renesas R63419
- based dual-DSI video mode Display Panels
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, KancyJoe <kancy2333@outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6966:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21adea04-fbf3-499c-ecce-08decd5bb162
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|376014|366016|7416014|921020|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	MJf3iRDNLJ9cGXL+5Iqn9jBjblQESWCoPtgvWbbUO1eNEGOs9dSOwU/YKr50MrCxmi6GeAFrUbPVPXdUdgDi9Pqy4PnwT/Gc6odUORR5fODap/dXaxOcC5GPyFZ2sDySp+2Xnnm0iidMaIc2b6m95I/2A9OERftkwxG/vJ73P6JlL7ftbqPh9w5XFtn/mU5Im6PziTT4Ehc1O2RImzefeu9zIT/X3RHeZ0YGhIqaUu0OQhKS6Xw89y9uwo+EEqiWwmzz70thkmb0O/Hzs/Cxkrpdgon1O+r5e4x23DfH2PaSoWaTRZbpRZCfgbsf//0PisbHn0rLbMBmQdsTrDHw3BZGgkMoRhwzJV7czkyBtQdjKG26A1q28//HUSqRVt186Wf0ShNCIktYG/hE0WKbGtmlW9obVGyue2k9k53uLFldZUT5oB5L6Wczup9sGWGHrulkIqGes3qGYtAwQ3sIwxvbQeeTA0LwsGodKQQAyzQLH7kiw+tyKDeWXU5bCJi28WR+rlyTOCpxK2VANBtzktxC+EL4zpLTxxE231ay9KTmksl8roRdti6tk8BSN6Y2qbPdk1szv3NhBBuqgd6EOvywQ/NdQF9f0+qTOEI1syF9ZbSAGEShg4V8oPdbZd7Rg3Hp2WyiByvby1SjjfA+0/fUlv9LafO85iGgPw5mTHx4aCQVIJ9ssChyb3OBY+V3OhHlsw4DrFlfbGFVvv7z/cnCJxy+0RVBJCuTs2Q5o8Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(376014)(366016)(7416014)(921020)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2VOcUhiUGZmQ2FMNTNISUpzakp4RU11RHluc0RyV2dXQ3pXU2tOUHYrVjBa?=
+ =?utf-8?B?TmxSWXZackc0Y0M0ZjBZWVZ1RUx0UkwzWmptWEhJb1EwUlE2YXVRbzYySkN0?=
+ =?utf-8?B?QktVcnVwcnZVdElzam43QUJoM1BieWkwMHBuTW8wRnQxME5sU0E0dVhkQW1z?=
+ =?utf-8?B?SCszU0hPaUxWTXpQaXlBSmROc25ZdmZ4Vm1nWmx3cTV1SzdoT0pBTEVsRjFk?=
+ =?utf-8?B?bVUxL3BsUTVXQ29RSVhsaVRvMU1PQ1ZrL0tvOGlrbkorTERVL3hlVEdaZFl5?=
+ =?utf-8?B?UTJFYUhKT1dZblNBTVZkZTNJYWxFWlpHQ3RlWUxaNk5QY0Z5MjlTTTJROXJy?=
+ =?utf-8?B?ejRpTndBQ0E1bE1lVUJRTWNyMTB6cEtoQjF5VStLOElTbXRjOFk3UCtkYUQ1?=
+ =?utf-8?B?MmFITVlrTkYvWnNtSEcyMXcxUHNyNFpPanBNdmJEOUJHZEpXbFBvU0lCS3FG?=
+ =?utf-8?B?RTE5UXB2bFdtS21hTHFtcE5IbDZnMmgyTm1CRjlYNTVGNU1XQmo4ZnMvd1JF?=
+ =?utf-8?B?RjVFWlFGQWpWcXVnRWdJMGN0WFVPNmRHM2xpRnBkVFpIcWRIemtobWtTMVdV?=
+ =?utf-8?B?U3hUd1U1N1pVS2VBM2xqRzVnY3N3YlFGOG5oN05LNXBnV2VXRE5xSWozQmpo?=
+ =?utf-8?B?cWxSM0Z5VlkxakVrOExpdSt1aXVsTlR1Z05PR3FaMUpPQWJEMkFXbDZ5OUxy?=
+ =?utf-8?B?V2FCNmFrK1ZFeUJOMXMrL3FUNFRIL0d0cW5hRTkrR0xjOEpCUVhVTktmVDRX?=
+ =?utf-8?B?L2dLL0FvNzduUXlyRnpsRzc0aG1KSkRpN05RMWl6R2lGOXNIZGFSaUt0b2Rq?=
+ =?utf-8?B?WEdFdGVRM3RlYzRmTTJHaHNoL21ZczQwSTUrVVRHdmdTZzVId1RRalBPVVdK?=
+ =?utf-8?B?TE9TcnNDZGd5bWg1KzFORSsvRVRabVF3QUNFNFZEV0JHeWFFcTBUMUtoTkhZ?=
+ =?utf-8?B?RmVod2RHaDVGZWhiem5PU3NRdUlTL3RhVy9QUGM3cTJZMVpUU3k2VFBZRk9u?=
+ =?utf-8?B?K1ZuNWkwZ1dpcVFrc3RSdTBMSkZSNHh0OGEydzRseGVtTHp1b2hMWjg0NW56?=
+ =?utf-8?B?T0Z0em5hOExiRFpwQUVhU3NraDZDeE01M2JxTW93T05rcnBoZGZEV0RBdDZK?=
+ =?utf-8?B?VHo1YmRGQlczaWdSMTVQZXVWVFpEVU9VU1duMnVyb0hONGZGcHlpUXpjY3g1?=
+ =?utf-8?B?MWgzQW0yQTdqc3UzRzBKbzlkS2ZCNlpQYlUrbm1jVllzSEM4SFpaMDNSQUhI?=
+ =?utf-8?B?VDA5Q2NhMm5LZWd5a1VQVTZoc2draGtqRFRZOU9YZkZoM2N2NWpxVDRrbWVD?=
+ =?utf-8?B?U3dub25KZTZHQ3pVa1p2Y2hnMVlvZEJJVXZta0hmZU1kbDlmaUhxU1hXUVo4?=
+ =?utf-8?B?TWgzSzRSQmk2TVlIc1ZDWnN5VDljQlpmdlMxclpSOXczdjc4ZjlJRW04cFdH?=
+ =?utf-8?B?SU96eUZVK09XeW5aMS9TTHRlaDNVQWZaRjhiU3FLZmZxQnFQUU5ldWV6ck5C?=
+ =?utf-8?B?Q1RCREhqM1duMllPMmV3eUEyK29PdDhtK3JlL0NoMkgyZGt1TEFHblJ2UmJz?=
+ =?utf-8?B?MXpnd1FiUml2R3lJeVVhbWE0c2J2ZVJGZVF4WHJHYm5LZjFZaFhrdzdObkwr?=
+ =?utf-8?B?NEUycnlqcTdaWStHZ2VvZ2ZuUnRaNW9CeThudEtXUWdjN3owZHF6czhHQmRr?=
+ =?utf-8?B?RXNaUkRLaHVHQVluRE96ajE2YXlqQ1FCYTJyUzVnQlV5d0xPRGF4d09TWHVy?=
+ =?utf-8?B?ZTFtYWppd1ZYeDZIbm1OSGYwRlh6bXdNKzdOR0pBSllLdDZxSTNTWlZMOUVo?=
+ =?utf-8?B?YXNnSlZkc0o5SC9VeFUxVzBZQjhaRjVQd3djckxCY25oa3k4endaUnVxQnhZ?=
+ =?utf-8?B?VldXQjFuUFFZVko4blBRY21JN1pYSVFZLzIwQVFKdzJLVEE5ellhQXZqa2Ex?=
+ =?utf-8?B?Q1pXZG9wMEVFa0pkT216dm41eXA4TUV4SSt4Y0ROYVd2MWJGdXdmaHl3MnBs?=
+ =?utf-8?B?endsU3YxSDRKbjdWYzJkS2JSclphdFFBRjNPWHpUamd6WlpMVE5uVkV2MmlQ?=
+ =?utf-8?B?clFyZmlPblQvbmhmQjZobGdFbW80KzQrOHZIZ1o0YnRnMWt0SHdxc0U3R2lk?=
+ =?utf-8?B?N21FME1pNHY1RWtmYzVNUFpyNDh5UGVBMCtHOGVRdUJtck83SllxWWgyN0o4?=
+ =?utf-8?B?emJZRi94TFZNK3B6ejBSNGR0WXgxTllpQm1RVGlERnlkSEpJRks5Tis3SkxZ?=
+ =?utf-8?B?amwvRFd2NmRBR3ptMGl0c0o5Tit1c3VzcWZvRStLc0dhR0NJN2ZQQm1tV2M4?=
+ =?utf-8?B?QXkxSmprbHdMQVptUFFzQXNVb0k5TlN4RWtaMHdCeUtqNTNsekRndz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21adea04-fbf3-499c-ecce-08decd5bb162
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2026 17:04:43.5945
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: agVaPw6lEKGPQH7EV8t7IsbLTWJ+Kip5sn9Mu8iB395w/LUFfgiUsXy/tGWz7ry3YtQ0sR/oa0IsbiPtQVb2Lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6966
 
-Hi,
+Most C drivers use a pointer (and cast to kernel_ulong_t) for driver_data
+fields in device_id. Rust code currently does not do this, but rather use
+indices. These indices then needs to be translated to `&IdInfo` separately
+and this is by a side table.
 
-On Fri, Jun 5, 2026 at 7:51=E2=80=AFAM Neil Armstrong <neil.armstrong@linar=
-o.org> wrote:
->
-> From: KancyJoe <kancy2333@outlook.com>
->
-> Implement support for the Renesas 63419 based dual-DSI video mode
-> Display Panels found in the Ayaneo gaming handled devices.
->
-> Signed-off-by: KancyJoe <kancy2333@outlook.com>
+This leads to open-coded ACPI/OF handling in driver.rs, which is not
+desirable. Convert the code to use pointers (or rather, static references)
+instead.
 
-I notice "Kancy Joe" has a space in the source files, but not in the
-signoff. I guess Signed-off-by isn't necessarily required to be real
-names these days, but still seems odd...
+Signed-off-by: Gary Guo <gary@garyguo.net>
+---
+Gary Guo (10):
+      rust: driver: remove `IdTable::id`
+      rust: driver: simplify `IdArray::new_without_index`
+      rust: pci: use `Option<&IdInfo>` for device ID info
+      rust: net/phy: remove expansion from doc
+      rust: driver: centralize device ID handling
+      rust: driver: remove `$module_table_name` from `module_device_table`
+      rust: driver: store pointers in `DeviceId`
+      rust: driver: remove open-coded matching logic
+      rust: driver: remove duplicate ID table
+      RFC: rust: driver: support map-like syntax for ID table
 
+ drivers/cpufreq/rcpufreq_dt.rs        |   1 -
+ drivers/gpu/drm/nova/driver.rs        |   1 -
+ drivers/gpu/drm/tyr/driver.rs         |   1 -
+ drivers/gpu/nova-core/driver.rs       |   3 +-
+ drivers/pwm/pwm_th1520.rs             |   1 -
+ rust/kernel/acpi.rs                   |  14 +--
+ rust/kernel/auxiliary.rs              |  18 +--
+ rust/kernel/device_id.rs              | 205 +++++++++++++++++++---------------
+ rust/kernel/driver.rs                 | 114 ++-----------------
+ rust/kernel/i2c.rs                    |  26 ++---
+ rust/kernel/net/phy.rs                |  66 +----------
+ rust/kernel/of.rs                     |  14 +--
+ rust/kernel/pci.rs                    |  24 ++--
+ rust/kernel/platform.rs               |   5 +-
+ rust/kernel/usb.rs                    |  18 +--
+ samples/rust/rust_debugfs.rs          |   1 -
+ samples/rust/rust_dma.rs              |   3 +-
+ samples/rust/rust_driver_auxiliary.rs |   4 +-
+ samples/rust/rust_driver_i2c.rs       |   3 -
+ samples/rust/rust_driver_pci.rs       |  11 +-
+ samples/rust/rust_driver_platform.rs  |   2 -
+ samples/rust/rust_driver_usb.rs       |   1 -
+ samples/rust/rust_i2c_client.rs       |   2 -
+ samples/rust/rust_soc.rs              |   2 -
+ 24 files changed, 166 insertions(+), 374 deletions(-)
+---
+base-commit: 4fa3f5fabb30bf00d7475d5a33459ea83d639bf9
+change-id: 20260612-id_info-23eca472ccd8
 
-> +/*
-> + * Helper to switch between DSI links, so we share a single dsi_ctx
-> + * for both links, so in case of an error all writes & sleep for
-> + * both links are ignored.
-> + */
-> +static inline void dsi_link_switch(struct renesas_r63419_panel *ctx,
-> +                                  struct mipi_dsi_multi_context *dsi_ctx=
-,
-> +                                  unsigned int link)
-> +{
-> +       dsi_ctx->dsi =3D ctx->dsi[link];
-> +}
-> +
-> +static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
-> +{
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +
-> +       /* Panel registers are loaded from DDIC Non Volatile Memory */
-> +
-> +       dsi_link_switch(ctx, &dsi_ctx, 0);
-> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +       dsi_link_switch(ctx, &dsi_ctx, 1);
-> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+Best regards,
+--  
+Gary Guo <gary@garyguo.net>
 
-Instead of dsi_link_switch(), can't you use the mipi_dsi_dual()
-function? I think it would be:
-
-mipi_dsi_dual(mipi_dsi_dcs_exit_sleep_mode_multi, dsi_ctx,
-ctx->dsi[0], ctx->dsi[1]);
-
-
-> +static int renesas_r63419_disable(struct drm_panel *panel)
-> +{
-> +       struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(pane=
-l);
-> +       struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
-> +
-> +       dsi_link_switch(ctx, &dsi_ctx, 0);
-> +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +       dsi_link_switch(ctx, &dsi_ctx, 1);
-> +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +       mipi_dsi_msleep(&dsi_ctx, 50);
-> +
-> +       dsi_link_switch(ctx, &dsi_ctx, 0);
-> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +       dsi_link_switch(ctx, &dsi_ctx, 1);
-> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +       mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +       return dsi_ctx.accum_err;
-
-I'm not sure we've been terribly consistent, but should the above be
-"return 0"? I'm not actually sure there's any benefit to a panel's
-disable() function returning an error to begin with.
-drm_panel_disable() doesn't return an error, so all this does is skip
-setting "panel->enabled" to false and make it harder for the system to
-recover.
-
-
-> +static int renesas_r63419_prepare(struct drm_panel *panel)
-> +{
-> +       struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(pane=
-l);
-> +       int ret;
-> +
-> +       ret =3D regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_suppl=
-ies),
-> +                                   ctx->vdd_supplies);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       usleep_range(1000, 2000);
-> +
-> +       ret =3D regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_suppl=
-ies),
-> +                                   ctx->vcc_supplies);
-> +       if (ret < 0) {
-> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supp=
-lies),
-> +                                      ctx->vdd_supplies);
-> +               return ret;
-> +       }
-> +
-> +       usleep_range(1000, 2000);
-> +
-> +       gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +
-> +       usleep_range(3000, 4000);
-> +
-> +       ret =3D renesas_r63419_on(ctx);
-> +       if (ret < 0) {
-> +               dev_err(panel->dev, "Failed to initialize panel: %d\n", r=
-et);
-> +
-> +               /* Power off sequence from the r63419 datasheet */
-> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supp=
-lies),
-> +                                      ctx->vcc_supplies);
-> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supp=
-lies),
-> +                                      ctx->vdd_supplies);
-> +
-> +               gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-
-To make de-init opposite to init, shouldn't the reset come before you
-turn the regulators off? Depending on the design of the panel, I'd
-imagine this could prevent back-powering some logic?
-
-I'd also expect vdd supplies to be turned off first?
-
-
-> +static int renesas_r63419_unprepare(struct drm_panel *panel)
-> +{
-> +       struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(pane=
-l);
-> +
-> +       /* Power off sequence from the r63419 datasheet */
-> +       regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), c=
-tx->vcc_supplies);
-> +       regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), c=
-tx->vdd_supplies);
-> +
-> +       gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-
-Similar: shouldn't the reset come before the regulators to make
-power-off the opposite of init.
-
-
-> +static int renesas_r63419_get_modes(struct drm_panel *panel,
-> +                                   struct drm_connector *connector)
-> +{
-> +       struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(pane=
-l);
-> +       const struct drm_display_mode *mode =3D ctx->desc->mode;
-> +
-> +       drm_connector_set_panel_orientation(connector, ctx->orientation);
-
-IIRC, the above was a workaround that caused a warning splat. Is your
-panel used on a system that actually needs it? Could your DRM driver
-be fixed rather than persisting this hack? For context, see commit
-47bef230225b ("drm/panel: panel-edp: Implement .get_orientation
-callback")
-
-
-> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
-> +{
-> +       struct mipi_dsi_device_info info =3D { };
-> +       struct device *dev =3D &dsi->dev;
-> +       struct renesas_r63419_panel *ctx;
-> +       struct device_node *dsi1_node;
-> +       struct mipi_dsi_host *dsi1_host;
-> +       int ret, i;
-> +
-> +       ctx =3D devm_drm_panel_alloc(dev, struct renesas_r63419_panel, pa=
-nel,
-> +                                  &renesas_r63419_panel_funcs, DRM_MODE_=
-CONNECTOR_DSI);
-> +       if (IS_ERR(ctx))
-> +               return PTR_ERR(ctx);
-> +
-> +       ctx->desc =3D of_device_get_match_data(dev);
-> +       if (!ctx->desc)
-> +               return dev_err_probe(dev, -ENODEV,
-> +                                    "Failed to get panel description\n")=
-;
-> +
-> +       ret =3D devm_regulator_bulk_get_const(&dsi->dev,
-> +                                           ARRAY_SIZE(renesas_r63419_vdd=
-_supplies),
-> +                                           renesas_r63419_vdd_supplies, =
-&ctx->vdd_supplies);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       ret =3D devm_regulator_bulk_get_const(&dsi->dev,
-> +                                           ARRAY_SIZE(renesas_r63419_vcc=
-_supplies),
-> +                                           renesas_r63419_vcc_supplies, =
-&ctx->vcc_supplies);
-> +       if (ret < 0)
-> +               return ret;
-
-It seems like both sets of supplies are always enabled / disabled
-together with no delay between them. Do you truly need two lists, or
-can this be combined to one list of regulators. That would simplify a
-bunch of logic.
-
-
-> +       ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-> +       if (IS_ERR(ctx->reset_gpio))
-> +               return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-> +                                    "Failed to get reset gpio\n");
-> +
-> +       /* Get second DSI host */
-> +       dsi1_node =3D of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
-> +       if (!dsi1_node)
-> +               return dev_err_probe(dev, -ENODEV,
-> +                                    "Failed to get remote node for secon=
-d DSI\n");
-> +
-> +       dsi1_host =3D of_find_mipi_dsi_host_by_node(dsi1_node);
-> +       of_node_put(dsi1_node);
-> +       if (!dsi1_host)
-> +               return dev_err_probe(dev, -EPROBE_DEFER,
-> +                                    "Failed to find second DSI host\n");
-> +
-> +       /* Copy current DSI info, do not provide OF node since no driver =
-needs to be attached */
-> +       strscpy(info.type, dsi->name, sizeof(info.type));
-
-Can't you use the two-argument form of strscpy()?
-
-FWIW, I also notice that the Sashiko AI bot had some comments. Did you
-already look all of those over and decide they don't need fixing? I
-have a vague recollection that there's no need to worry about someone
-calling disable() and then enable() without going through the
-unprepare() / prepare(). If my memory is correct, I guess that would
-be nice to document... I didn't analyze some of the other claims that
-the AI bot had.
-
-
--Doug
