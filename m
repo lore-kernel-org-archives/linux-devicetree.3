@@ -1,197 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8663B42E9
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C133B42FD
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781772079; cv=none; b=Ag8agibqdkhkU32wkCbTuzFPlPlRXsYvaYdFP+Ko74+9joppTEpEhv/omUJLHv/BFLQ2TlbG5pXRQsdt7akyt+g4XewZuMVaGjchqMdJfzCnItFGIgd8lLB62/3UlyD8y9oNEJNc3Xl8tG+pFVGZztYZwyvAPkGZ64by74p1pqs=
+	t=1781772126; cv=none; b=mxzOsj6B9tSruz3uMwNFr05Xd1A39TbbPVmAEQ2u60MfIW2/0j27KQmsyeGY4NbFG1L5BBYpthM4O63ZVSgwAELLt2YEg5hMzgBxN9TmwAsINPJsE7Ia1m9sgQeSbDFsDdiJEoyauQolWQUMZfGCiAVWDWgI9Key07fGQZLU7j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781772079; c=relaxed/simple;
-	bh=azaEvRhKENh4NuxoGpcwWEhUr1ILqEyCh0h1getcE5M=;
+	s=arc-20240116; t=1781772126; c=relaxed/simple;
+	bh=J6e8rNiFqIOMc7LL5MXSQXuuuTKRLNQTPSsQRJOJ7gw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eIAGBPGhh98xT0Wzb7e4O/EXlhZ60xFq2ki1A6aR8gbQe/A7+ngRhYpGGUnL9Zf6Poqaq91y89nF0r6NJq/zWQxbBxhzyRnzxIXGS1YoQt3foUJGn2nhvUeBRCNMWW9igiJYiOUBIEZO0P4aWA0xymBtwn+DO2k0HfM7GKinCUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eY+BwuWA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VHkFLYFuNDxwCiXnHMge0/oYwLtliuXUdYsFO3+9J0IyVjxsyXd4KuiXVqjHlqevUgUxtFnSsQ/OKaQI5XrH5itD7tzVcw6uV1pqXukpPz9a26ImPtqDpbFbON8LNubXOv3gAE5y4tgGmlTY9TPYieILgdY3xXEdP1qSIi8OaEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=coGgeTaf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eY+BwuWA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1BD1F000E9;
-	Thu, 18 Jun 2026 08:41:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="coGgeTaf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73C31F00A3A;
+	Thu, 18 Jun 2026 08:42:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781772078;
-	bh=lJJ1ASISe2uB2beywQ5rO64MMViqFHOhAeaYAutIB7k=;
+	s=k20260515; t=1781772125;
+	bh=aN/p6dHLlQgtyw2tRBETMb2fuJGO9OjUQBrVojvqxhs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eY+BwuWAqQNxksT89InjOUBZYKrggTMBz1F/iDXoaBSZCw6XlLXx0C+tT2lAeghi7
-	 tYIGRF7Kbg46pRZyvoTZoNKKthNa0lOszF3mEiCvhv0qUuzF5ahlcyTZZ9yaFBDppt
-	 4hM9+leMSWUQ1WU5cG0iEmlFGXizU0w6QQVWHxgB16h5Mid9A/l6qtMDCT/VHfW/lx
-	 UEikm+m/TsgH9O39hK4EH/QVoYp1qGbz2Ujl6aZ22mSwFpURnEV/pW+yFko+6acww+
-	 mTn/n3e9uHeL7EasIoqGQNLNXmPU64lMHqxQ+2N1iN6Fzd1prGF3D8oTYbyyf/JxH/
-	 A1+jp/FhDD+RQ==
+	b=coGgeTafXQ5sFbHd5pREGVzBeFCZ3YClZZgiav+CnWB+/dGecO22eE/DzmzrYoEIU
+	 Or3G5NGyF1Aw+LrAtV+xmvCRFF9VWHZ/OAY0+qmI0xVmP3o2pCsh/Y00DQ+Rdbm1CO
+	 MsP/jb+evZcs1H6fx8xRkLX+u8zp0RCSHBGKMoJOoXbhp8Clb9tM2tExJ3vqAwWnwR
+	 0x+6OMljTTi3MlHEPhPwkWtwqtOoqbuUrNYxIKMrdPPa96rO788PpxSZYzvuoMbozF
+	 oIdM9JWU4z+0EIoXjLd+wpnZt99u1f8Z8VcrL599lv2To643B9AEGJ66dJMocIVWPX
+	 cxjcpsbizAcrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] ASoC: codecs: ES8389: Modify the initial
- configuration
+Subject: Re: [PATCH v2 3/7] ASoC: codecs: ES8389: Fix the issue about
+ mclk_src
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhang Yi" <zhangyi@everest-semi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260618082842.2778-6-zhangyi@everest-semi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260618082842.2778-4-zhangyi@everest-semi.com>
 References: <20260618082842.2778-1-zhangyi@everest-semi.com>
- <20260618082842.2778-6-zhangyi@everest-semi.com>
+ <20260618082842.2778-4-zhangyi@everest-semi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 08:41:17 +0000
-Message-Id: <20260618084118.5B1BD1F000E9@smtp.kernel.org>
+Date: Thu, 18 Jun 2026 08:42:04 +0000
+Message-Id: <20260618084204.D73C31F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Critical] Modifying device tree property interpretation breaks existing =
+configurations.
+
 Pre-existing issues:
-- [High] Regulators enabled in component probe are never disabled, leading =
-to a refcount leak on module removal.
-- [High] Unbalanced clock prepare/enable calls in bias level handling cause=
- clock refcount underflows.
-- [High] The return value of `regmap_read` is ignored, leading to the use o=
-f uninitialized stack variables if the I2C read fails.
-- [High] If the codec was reset during suspend, es8389_resume re-initialize=
-s it but fails to turn on the clocks and bias.
+- [High] Incorrect BCLK (sysclk) calculation for mono streams.
 --
 
-commit 15d74449bde5fe0d61c65b106c592477686df171
+commit 97d350d02faf890bb7862a3fb657b9cbe4613b33
 Author: Zhang Yi <zhangyi@everest-semi.com>
 
-ASoC: codecs: ES8389: Modify the initial configuration
+ASoC: codecs: ES8389: Fix the issue about mclk_src
 
-This commit modifies the initial configuration for the ES8389 codec by
-updating the values written to ES8389_ISO_CTL and ES8389_OSC_CLK during
-initialization.
+Fix the issue with incorrect modifications to mclk_src.
+When the system needs to be configured to use the MCLK from the SCLK pin,
+the code still sets the relevant registers to use the MCLK from the MCLK
+pin.
 
-> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
-> index dc3410459f39d..09257687bb84c 100644
-> --- a/sound/soc/codecs/es8389.c
-> +++ b/sound/soc/codecs/es8389.c
-> @@ -793,7 +793,7 @@ static void es8389_init(struct snd_soc_component *com=
-ponent)
+> diff --git a/sound/soc/codecs/es8389.h b/sound/soc/codecs/es8389.h
+> --- a/sound/soc/codecs/es8389.h
+> +++ b/sound/soc/codecs/es8389.h
+[ ... ]
+> @@ -116,9 +116,11 @@
+>  #define ES8389_TDM_SLOT               (0x70 << 0)
+>  #define ES8389_TDM_SHIFT              4
 > =20
->  	regmap_read(es8389->regmap, ES8389_MAX_REGISTER, &reg);
->  	es8389->version =3D reg;
-
-[Severity: High]
-This is a pre-existing issue, but what happens if regmap_read() fails here?
-
-If the underlying I2C transfer fails, regmap_read() returns an error and
-leaves reg uninitialized. This uninitialized stack variable is then blindly
-assigned to es8389->version.
-
-This same pattern occurs in multiple places, such as es8389_resume():
-
-sound/soc/codecs/es8389.c:es8389_resume() {
-    ...
-	regmap_read(es8389->regmap, ES8389_RESET, &regv);
-
-	if (regv =3D=3D 0xff)
-    ...
-}
-
-and es8389_mute():
-
-sound/soc/codecs/es8389.c:es8389_mute() {
-    ...
-		regmap_read(es8389->regmap, ES8389_CSM_STATE1, &regv);
-		if (regv !=3D ES8389_STATE_ON) {
-    ...
-}
-
-Should the return value of regmap_read() be checked to prevent using
-uninitialized stack variables and causing random device state
-misconfigurations?
-
-> -	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x00);
-> +	regmap_write(es8389->regmap, ES8389_ISO_CTL, 0x56);
+> -#define ES8389_MCLK_SOURCE            (1 << 6)
+> -#define ES8389_MCLK_PIN               (1 << 6)
+> -#define ES8389_SCLK_PIN               (0 << 6)
+> +#define ES8389_MCLK_MASK              (3 << 6)
+> +#define ES8389_MCLK_FROM_SCLK         (1 << 6)
+> +#define ES8389_MCLK_SOURCE            ES8389_MCLK_PIN
+> +#define ES8389_MCLK_PIN               0
+> +#define ES8389_SCLK_PIN               1
 
 [ ... ]
 
-[Severity: High]
-This is a pre-existing issue, but does this driver leak regulator references
-on module removal?
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+[ ... ]
+> @@ -607,9 +607,9 @@ static int es8389_pcm_hw_params(struct snd_pcm_substr=
+eam *substream,
+>  	regmap_update_bits(es8389->regmap, ES8389_ADC_FORMAT_MUTE, ES8389_DATA_=
+LEN_MASK, state);
+>  	regmap_update_bits(es8389->regmap, ES8389_DAC_FORMAT_MUTE, ES8389_DATA_=
+LEN_MASK, state);
+> =20
+> -	if (es8389->mclk_src =3D=3D ES8389_SCLK_PIN) {
+> +	if (es8389->mclk_src) {
 
-In es8389_probe(), the core regulators are enabled:
+[Severity: Critical]
+Does changing this condition and redefining the pin macros break existing
+device tree configurations?
 
-sound/soc/codecs/es8389.c:es8389_probe() {
-    ...
-	ret =3D regulator_bulk_enable(ARRAY_SIZE(es8389_core_supplies),
-				    es8389->core_supply);
-    ...
-}
+Previously in es8389.h, ES8389_SCLK_PIN was 0. If an existing device tree
+explicitly selected SCLK using <0>, it would match the old condition.
+Because ES8389_SCLK_PIN is now redefined as 1, an existing legacy DT passing
+<0> will evaluate as false here and incorrectly fall back to MCLK.
 
-However, es8389_remove() fails to call regulator_bulk_disable():
+Similarly, if a legacy configuration used <64> for MCLK, it would now
+evaluate as true and incorrectly select SCLK. Is there a need for
+compatibility fallback logic to prevent ABI breakage for deployed platforms?
 
-sound/soc/codecs/es8389.c:es8389_remove() {
-	struct es8389_private *es8389 =3D snd_soc_component_get_drvdata(component);
-
-	regmap_write(es8389->regmap, ES8389_MASTER_MODE, 0x28);
-    ...
-}
-
-When the component is unbound, the devres framework will free the regulator
-structure while its enable count is unbalanced. Does this cause a regulator
-core warning and a permanent resource leak?
-
-
-[Severity: High]
-This is a pre-existing issue, but do we have unbalanced clock prepare/enable
-calls in the bias level handling?
-
-es8389_set_bias_level() unconditionally disables mclk in the standby case:
-
-sound/soc/codecs/es8389.c:es8389_set_bias_level() {
-    ...
-	case SND_SOC_BIAS_STANDBY:
-        ...
-		clk_disable_unprepare(es8389->mclk);
-		break;
-    ...
-}
-
-Then in es8389_suspend(), the driver explicitly forces a standby transition:
-
-sound/soc/codecs/es8389.c:es8389_suspend() {
-    ...
-	es8389_set_bias_level(component, SND_SOC_BIAS_STANDBY);
-    ...
-}
-
-If the ASoC core had already transitioned the bias to standby prior to
-component suspend, does this force a double-disable of the clock and cause a
-clock underflow?
-
+>  		regmap_update_bits(es8389->regmap, ES8389_MASTER_CLK,
+> -					ES8389_MCLK_SOURCE, es8389->mclk_src);
+> +					ES8389_MCLK_MASK, ES8389_MCLK_FROM_SCLK);
+>  		es8389->sysclk =3D params_channels(params) * params_width(params) * pa=
+rams_rate(params);
 
 [Severity: High]
-This is a pre-existing issue, but does es8389_resume() correctly bring the
-device out of standby?
+This is a pre-existing issue, but does this calculation result in an
+incorrect sysclk for mono streams?
 
-If the codec was reset during suspend, it re-initializes the codec via
-es8389_init():
+By using params_channels() in es8389_pcm_hw_params(), the physical clock
+rate is derived from the logical channel count. For a mono stream, this
+returns 1. However, on standard I2S buses, the physical frame always
+contains 2 slots (left and right), meaning the actual physical bit clock on
+the wire should be 2 * width * rate.
 
-sound/soc/codecs/es8389.c:es8389_resume() {
-    ...
-	if (regv =3D=3D 0xff)
-		es8389_init(component);
-	else
-		es8389_set_bias_level(component, SND_SOC_BIAS_ON);
-    ...
-}
+Could this cause the sysclk calculation to be halved, making it fail to
+find a matching frequency and breaking mono playback?
 
-However, es8389_init() only configures registers without transitioning the
-bias state or enabling mclk. By skipping the es8389_set_bias_level(...,
-SND_SOC_BIAS_ON) call, does the device remain unclocked and in a powered-off
-bias state?
-
-If so, a subsequent ASoC state transition to standby might try to unprepare
-the already disabled clock.
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618082842.2778=
--1-zhangyi@everest-semi.com?part=3D5
+-1-zhangyi@everest-semi.com?part=3D3
