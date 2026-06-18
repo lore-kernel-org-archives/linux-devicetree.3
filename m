@@ -1,214 +1,192 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43DB3F8EB7
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 13:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781788244; cv=pass; b=CzsTDjmdajGMRa6FNnxB0sgz0aMLkhZpOIAvdj6lw/saeIl3foGTlS6zFntPFhMMQNUJ/I9aKgP1yqiixXiDkelFCzK+FLtJV4ksu0txXcBTSL8iELn6ON5nJN7L5DPPB5d3Xe15ElF9EzxihyIrkciApf+SFfK/XPlMJU1F+/k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781788244; c=relaxed/simple;
-	bh=d+QNhcciioN8943WQueiVIs1K1U1Kqo6ylyvJfyMYfA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=s5oA21aDGV+4OTBsaqhfE9/zuGfZ4GvDFIE29/II0sw4CGnV3TIEAHG2bppbH9ITaqzZUCD1I5cIQy68nwoI+92faF5DJUuPfOzmIgkAgwhiE54Z0WzkUf/C6tkLemhgzh27DTyWqeSSq/hbYkmcc/ToHZxATWZ9VTyyvBVXrrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3GVcUzn; arc=pass smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3GVcUzn"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45fd464d51fso581278f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:10:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781788239; cv=none;
-        d=google.com; s=arc-20240605;
-        b=QswanreN0pbo4HTdOw2IkM0UkgTqXIcBNdKn8LmSiUgTvz5DLaGGRGgZiuwBE6beip
-         tH2rGSx2VOeM3HrLtyisB24q96G47JEImps+E2jn7g5r1K8G9+zsTQ7apodEIEuZfCtB
-         NsCRiz42uL3KTsJwP/N6j9bO4IkhfHVgLcneC61rH6O5JsGaGaAwLOx3aDFJ137L8Or5
-         b/RaC8cKUHK8r6utQdZOApru/174cQQPu35cQ+fWtON4vD5Mi/iXzEwTUcGaGkYgt0aE
-         yKV2ZRWr+2EnH03oegQ+5h8J2aWHQJHQEtRb4ie/pixAdTF22HjzhISoFWSTmSrgIakS
-         bfzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
-        fh=OJOyS9foKcEiNkQnGsiesMLOSRUZDUgo7eIvd6VXHdo=;
-        b=PYCmwyg8KjKDvaCpr8plBUhWgNO31XRSnLhNwCj874UAhjtISZa5O8/bDWo+GVZo89
-         7x2GJCCsPGZFQuM93/T/QnRNYn7ohBl5rnhlduT+fWBAwVNl+KkHeG6QBHBy1N1XQ2e2
-         hoFSbpS00XIRjJHsIpg2I5+t32TWTwn9yspsIuXzHGLagLvbtt3K50/SaDDRfoWr5RSJ
-         y2PUEuLiOYz98rNWDCfRiS8GEHebIF1avbQGamWOeB29jdOsxx2jDuMKof/ZLfHshQZL
-         Z3LzWMOhA7kpev/SgnPsF0+XFenqfSIw9U9S7T2R7zkEqmgr1s4gFu8VjXKz3K1FMgoW
-         VjCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781788239; x=1782393039; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
-        b=b3GVcUznlTFfdK9SwEaQz+tv5zxEyN1t5qL56kCeauLhEgnmcNUTgagNb9ZnV9JdlS
-         5Gfc94Qo2KmN601PI0iEfdmkDNaPG9CL7M+oxg83o/OnYtEbSPoRw8cIcFJKnGTtWzLM
-         8q3ZSomWvSPZR2g1BRarb/77FpqpoD9XdBtiM3phdFx6sGXNP97MI5s+CFlu63xsE7fe
-         5MOXCsL0qVZMdtQXFDtv6cxBi6Y3GVpiW2HgPJtdvyH+OxChoorMWtFpBYIMmSQwyj4R
-         Ww+6GS8gHipmz5nlkLWbyVF/kUz+hKxOswanOOqxWlfNtzfvy6Pua/FbM8tCG2umzkaT
-         t7lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781788239; x=1782393039;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/QSBzVEzraYQDEb/IQn/Kcl5edw3AQ6HF2dH6T+QYIs=;
-        b=sk54N85rTIY8xNbDtk1JMCJT3otd7Gcf/hZB+7UzJySlBawxpIpoPB8+vSc0XodPZ4
-         PPv+zfmra9CA0sDM8CIyEdju2btnZCVpYCcK/pDAow10mleFaLnOa3xF97JErDN9aziM
-         xY58B+W6MI3TyMFtfSTZRF33DwhFmUCHH5fKDFjHxrwfrkC9upXhDcmTvyACfonq0tvo
-         N77o9g8Iyw4xb8/ghDDp5Aen/SPAGcumSJeLytFNShPTbx3Fiz7tiyQdl7A1B1Ej663I
-         sFEHjxJqbV6MrOH8NXYjGqoxGE2TQz8qF6Ex7Hmd9Y831oq1CB57QhHKFH9xaY0VB0Ei
-         KVdw==
-X-Forwarded-Encrypted: i=1; AFNElJ+Uio1z06xMCULhDNR5fVcHA6ld1Rwt1X/Jq8ZXu1pgfJz8eP+A/Em8AoVkuXoLLo1eMSaooZO2rktX@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+fD7lI5EsU54TV0A60y9R4Q4iRDJsCti4xFgIw9TebYNo2jC9
-	2K5SBBl9uVxXHjfzXj1vRShuT2cqY0CVHHtfIYOJ4SxPpZzp/Q1XAk4eft/fNdoy5+a34FBhVws
-	qLwPZWULsN1gpopBQ+rzoHYRiYAYII2I=
-X-Gm-Gg: AfdE7cn9dUaE6TYs81c5sVW7fa0usuVcUNAgrMADbBALdPTIaEFuJTN7gWMbuZLWkTH
-	xuFd+Ta62z6kcZHUy/SGYOVVRrP52rlPQpY02ES1lQg7NkunALdebS9NOZRTHXBHd4Nd01oGS5u
-	C1paRI0e//B8gPPW1p93wxvpFbUUCcVO2HZ+do5IvI7/cvr1jATl0QAghhuB/zGb0126GFuJWLd
-	JJWLGPTGJbLLanA0jkpuc3ttyv3ww5INqd6Fy3z3Tt8zDr/nkfHCZC7wMLCSBcVNEUNMoImRTAU
-	DGRIJwoRCu3iakZuy1G27hGBP7X10s9TeZR+oLsD4dfKccZBFEdR3TtzXjqb7KbMEhPqlp30v4R
-	44G6kghG25150hLk=
-X-Received: by 2002:a05:6000:240f:b0:45f:f142:d56f with SMTP id
- ffacd0b85a97d-463ab7f925bmr6142210f8f.12.1781788238861; Thu, 18 Jun 2026
- 06:10:38 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABA4368287;
+	Thu, 18 Jun 2026 13:12:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781788370; cv=none; b=pnif7n2MR+8TBYZmzi3ecUOPKk5fZ0AsNBMwi7B9RONuEsuQx1vX2zYgCr/W8mPdIgEgd/XDmWscN5l2cvH+/sI/lsCkZnoxPFiFcSUhfZJcnjFTgE323glzfuZkwBPoB6I8usCfKord4+T2mdDtZNw6QgwjdA7FRC0TDOngF20=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781788370; c=relaxed/simple;
+	bh=o+hWvHSHJKjbm+xQUPcCIEkB7/6jEEPh/7kR3Xc2ed4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=c78a5nhV6qJFRjkmj8xHfmHOgDziJ2Tz5Ai94gOrBqAMiqc9SiRfc+vaEwyOe3E8CUQvKvumsQWDtra5mO5KecCO3i1jB1+83P8Dn0uYUla0ZD1hoLwqscHvunxXB3drAmXNtC6VYM5/fZX6bo2pUOJ9GYf58xAoDimxSBjzsgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5440220071A;
+	Thu, 18 Jun 2026 15:12:41 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1waCXx-003RXD-0m;
+	Thu, 18 Jun 2026 15:12:41 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1waCXx-00000000B3O-0Xsr;
+	Thu, 18 Jun 2026 15:12:41 +0200
+Message-ID: <b84c8940187da3a493c8334bb50a992be7553092.camel@pengutronix.de>
+Subject: Re: [PATCH v4 08/12] i3c: dw-i3c-master: Add a quirk to skip clock
+ and reset
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Akhil R <akhilrajeev@nvidia.com>, Alexandre Belloni
+	 <alexandre.belloni@bootlin.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,  Guenter Roeck <linux@roeck-us.net>,
+ Jon Hunter <jonathanh@nvidia.com>, Thierry Reding	
+ <thierry.reding@kernel.org>, linux-i3c@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 18 Jun 2026 15:12:40 +0200
+In-Reply-To: <20260616095429.3947205-9-akhilrajeev@nvidia.com>
+References: <20260616095429.3947205-1-akhilrajeev@nvidia.com>
+	 <20260616095429.3947205-9-akhilrajeev@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615154805.1619693-10-prabhakar.mahadev-lad.rj@bp.renesas.com> <ajKAPJGrea01XVeI@shikoro>
-In-Reply-To: <ajKAPJGrea01XVeI@shikoro>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 18 Jun 2026 14:10:12 +0100
-X-Gm-Features: AVVi8CeIE9Zqpx5xUuMdz4g0V9M0203aYYbu2RDELhF5fjl_rVj_ZIbbsG1xByk
-Message-ID: <CA+V-a8t-phAuaH5g_3Nt=2d=KPw2QqA6r1dqOZv9k-Xhp5q2Zw@mail.gmail.com>
-Subject: Re: [PATCH 09/12] rtc: rzn1: Use temporary variable for struct device
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-rtc@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Wolfram,
+On Di, 2026-06-16 at 09:54 +0000, Akhil R wrote:
+> Some ACPI-enumerated devices like Tegra410 do not have clock and reset
+> resources exposed via the clk/reset frameworks. Unlike device tree,
+> ACPI on Arm does not model such provider functions. The hardware is
+> expected to be brought out of reset and have its clocks enabled by the
+> firmware before the OS takes over. Any data to be shared with the OS is
+> passed using the _DSD property.
+>=20
+> Add match data for such devices to skip acquiring clock and reset control=
+s
+> during probe and read the clock rate from the "clock-frequency" _DSD
+> property. Note that the "clock-frequency" here is the controller's core
+> clock and not the bus speed. I3C specifies the bus speed separately using
+> "i3c-scl-hz" and "i2c-scl-hz" and hence this should not cause any conflic=
+t.
+>=20
+> Also, move match data parsing before clock/reset acquisition so the quirk
+> is available early enough.
+>=20
+> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> ---
+>  drivers/i3c/master/dw-i3c-master.c | 66 ++++++++++++++++++++----------
+>  1 file changed, 44 insertions(+), 22 deletions(-)
+>=20
+> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
+3c-master.c
+> index 3e510fddf06c..a2a4b88c2017 100644
+> --- a/drivers/i3c/master/dw-i3c-master.c
+> +++ b/drivers/i3c/master/dw-i3c-master.c
+> @@ -242,6 +242,7 @@
+>  /* List of quirks */
+>  #define AMD_I3C_OD_PP_TIMING		BIT(1)
+>  #define DW_I3C_DISABLE_RUNTIME_PM_QUIRK	BIT(2)
+> +#define DW_I3C_ACPI_SKIP_CLK_RST		BIT(3)
+> =20
+>  struct dw_i3c_cmd {
+>  	u32 cmd_lo;
+> @@ -556,13 +557,28 @@ static void dw_i3c_master_set_intr_regs(struct dw_i=
+3c_master *master)
+>  	writel(IBI_REQ_REJECT_ALL, master->regs + IBI_MR_REQ_REJECT);
+>  }
+> =20
+> +static unsigned long dw_i3c_master_get_core_rate(struct dw_i3c_master *m=
+aster)
+> +{
+> +	unsigned int core_rate_prop;
+> +
+> +	if (!(master->quirks & DW_I3C_ACPI_SKIP_CLK_RST))
+> +		return clk_get_rate(master->core_clk);
+> +
+> +	if (device_property_read_u32(master->dev, "clock-frequency", &core_rate=
+_prop)) {
+> +		dev_err(master->dev, "missing clock-frequency property\n");
+> +		return 0;
+> +	}
+> +
+> +	return core_rate_prop;
+> +}
+> +
+>  static int dw_i3c_clk_cfg(struct dw_i3c_master *master)
+>  {
+>  	unsigned long core_rate, core_period;
+>  	u32 scl_timing;
+>  	u8 hcnt, lcnt;
+> =20
+> -	core_rate =3D clk_get_rate(master->core_clk);
+> +	core_rate =3D dw_i3c_master_get_core_rate(master);
+>  	if (!core_rate)
+>  		return -EINVAL;
+> =20
+> @@ -615,7 +631,7 @@ static int dw_i2c_clk_cfg(struct dw_i3c_master *maste=
+r)
+>  	u16 hcnt, lcnt;
+>  	u32 scl_timing;
+> =20
+> -	core_rate =3D clk_get_rate(master->core_clk);
+> +	core_rate =3D dw_i3c_master_get_core_rate(master);
+>  	if (!core_rate)
+>  		return -EINVAL;
+> =20
+> @@ -1577,18 +1593,33 @@ int dw_i3c_common_probe(struct dw_i3c_master *mas=
+ter,
+>  	if (IS_ERR(master->regs))
+>  		return PTR_ERR(master->regs);
+> =20
+> -	master->core_clk =3D devm_clk_get_enabled(&pdev->dev, NULL);
+> -	if (IS_ERR(master->core_clk))
+> -		return PTR_ERR(master->core_clk);
+> -
+> -	master->pclk =3D devm_clk_get_optional_enabled(&pdev->dev, "pclk");
+> -	if (IS_ERR(master->pclk))
+> -		return PTR_ERR(master->pclk);
+> +	if (has_acpi_companion(&pdev->dev)) {
+> +		quirks =3D (unsigned long)device_get_match_data(&pdev->dev);
+> +	} else if (pdev->dev.of_node) {
+> +		drvdata =3D device_get_match_data(&pdev->dev);
+> +		if (drvdata)
+> +			quirks =3D drvdata->flags;
+> +	}
+> +	master->quirks =3D quirks;
+> =20
+> -	master->core_rst =3D devm_reset_control_get_optional_exclusive_deassert=
+ed(&pdev->dev,
+> -										"core_rst");
+> -	if (IS_ERR(master->core_rst))
+> -		return PTR_ERR(master->core_rst);
+> +	if (master->quirks & DW_I3C_ACPI_SKIP_CLK_RST) {
+> +		master->core_clk =3D NULL;
+> +		master->pclk =3D NULL;
+> +		master->core_rst =3D NULL;
+> +	} else {
+> +		master->core_clk =3D devm_clk_get_enabled(&pdev->dev, NULL);
+> +		if (IS_ERR(master->core_clk))
+> +			return PTR_ERR(master->core_clk);
+> +
+> +		master->pclk =3D devm_clk_get_optional_enabled(&pdev->dev, "pclk");
+> +		if (IS_ERR(master->pclk))
+> +			return PTR_ERR(master->pclk);
+> +
+> +		master->core_rst =3D devm_reset_control_get_optional_exclusive_deasser=
+ted(&pdev->dev,
+> +											"core_rst");
+> +		if (IS_ERR(master->core_rst))
+> +			return PTR_ERR(master->core_rst);
 
-On Wed, Jun 17, 2026 at 12:08=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
-> Hi,
->
-> Sashiko found issues, not introduced by your patch, but still. I
-> curated the list and left only those which I think are valid. Do you
-> have time to look at these issues?
->
-> Thank you and happy hacking,
->
->    Wolfram
->
-> > Thank you for your contribution! Sashiko AI review found 3 potential is=
-sue(s) to consider:
-> >
-> > Pre-existing issues:
-> > - [High] Asynchronous pm_runtime_put() is used instead of pm_runtime_pu=
-t_sync() before runtime PM is disabled, potentially leaving the device powe=
-red on.
-> > - [High] If the optional 'xtal' clock is missing, readl_poll_timeout() =
-loops forever with a 0 timeout, risking a boot hang.
-> > - [High] The driver's `remove` callback prematurely disables hardware i=
-nterrupts and drops the runtime PM reference while the RTC device is still =
-fully registered.
-> > --
-> >
-> > commit b7f73c7d0932a6e78b12419c5912ad3243637b8f
-> > Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > rtc: rzn1: Use temporary variable for struct device
-> >
-> > This patch simplifies the rzn1_rtc_probe function by using a local temp=
-orary
-> > variable for the struct device pointer. This avoids repeated dereferenc=
-es of
-> > pdev->dev throughout the function.
-> >
-> > > diff --git a/drivers/rtc/rtc-rzn1.c b/drivers/rtc/rtc-rzn1.c
-> > > index bc6af59744e48..25cad9213147d 100644
-> > > --- a/drivers/rtc/rtc-rzn1.c
-> > > +++ b/drivers/rtc/rtc-rzn1.c
-> > [ ... ]
-> > >     if (IS_ERR(xtal)) {
-> > >             ret =3D PTR_ERR(xtal);
-> > >             goto dis_runtime_pm;
-> > [ ... ]
-> > > @@ -486,18 +487,18 @@ static int rzn1_rtc_probe(struct platform_devic=
-e *pdev)
-> > [ ... ]
-> > >     device_init_wakeup(dev, true);
-> > >
-> > >     ret =3D devm_rtc_register_device(rtc->rtcdev);
-> >
-> > [Severity: High]
-> > This isn't a bug introduced by this patch, but does registering the RTC
-> > device using devm_rtc_register_device() create a race condition during
-> > teardown?
-> >
-> > In rzn1_rtc_remove(), the driver manually disables interrupts and calls
-> > pm_runtime_put() before devres has unregistered the RTC device:
-> >
-> >       writel(0, rtc->base + RZN1_RTC_CTL1);
-> >       pm_runtime_put(&pdev->dev);
-> >
-> > Could userspace still interact with the RTC during this window via ioct=
-ls
-> > or sysfs, potentially causing synchronous bus faults since the hardware=
- is
-> > already suspended? Should teardown be bound using
-> > devm_add_action_or_reset() to guarantee correct reverse execution order=
-?
->
-> [wsa] Or maybe not use devm then?
->
-Maybe just add two `devm_add_action_or_reset()` calls: one to clear
-interrupts and another to call pm_runtime_put()?
+Why does this need to move around at all?
 
-> >
-> > >     if (ret)
-> > > @@ -506,7 +507,7 @@ static int rzn1_rtc_probe(struct platform_device =
-*pdev)
-> > >     return 0;
-> > >
-> > >  dis_runtime_pm:
-> > > -   pm_runtime_put(&pdev->dev);
-> > > +   pm_runtime_put(dev);
-> >
-> > [Severity: High]
-> > This is a pre-existing issue, but does using pm_runtime_put() here (and=
- in
-> > rzn1_rtc_remove) leave the device powered on indefinitely?
-> >
-> > Since devm_pm_runtime_enable(dev) schedules pm_runtime_disable() to
-> > execute during devres cleanup, calling pm_runtime_put() only queues an
-> > asynchronous idle check. The immediate return triggers devres cleanup,
-> > which executes a barrier that explicitly cancels pending async operatio=
-ns.
-> >
-> > Should this use pm_runtime_put_sync() instead to ensure the device is
-> > synchronously suspended before teardown?
-> >
-Although there were some patches accepted for similar kind of issue
-reported by Sashiko, do you think I should switch to
-pm_runtime_put_sync() (Ive not seen any issues)
+The reset control is already optional, so I would expect this to set
+core_rst to NULL on missing reset, no quirk necessary.
 
-Cheers,
-Prabhakar
+Same question for pclk. Wouldn't it be enough to make core_clk optional
+as well?
+
+regards
+Philipp
