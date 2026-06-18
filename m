@@ -1,267 +1,150 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51D432BF5C
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB6037F8AD
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781767042; cv=none; b=roCTRA+SIsuhdJHjxbom7B9zCGoU2X8OUKeQdo7YsBNI06RSiD8Nb7NCcysOdMxIlzgEF33Z/DZjxD9+vdMKRsd3+2KLRGhhghx5DkjJmOTA1XkGarCG46eDe9DKf3ECSCaHHAyJbZSA68QxBLwrtFMwlUkk6MwwfzYpi3EAhvA=
+	t=1781767059; cv=none; b=P9cO4qUg0l4DA36vyRtjdQ31jFEhk9zoEaCvJB9qdOnFrrxjMK+0oqlDM7QGIZlIcmH3pqsfqIYxaV1JZzEQxswr1dJT2JHt0sJQYfBKL85z49lGuI7EnWnV9+hErIYtpna2kDHYBDTn6VqA6x2VvHraiN3S0P2kHXgJwMZaaDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781767042; c=relaxed/simple;
-	bh=8E5qzq+mZ2iFEEVvuk30mGz2SpkrQKNDsaBE7t3Hf5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eF6BwOuALPyZlRZCC/y+2MRKVFYTJWW0W1AjVIU6VOffrTIwXI+npZK4UprwlL/o5d/gbJLS2/erNGcW7cOtG0/Otc+qgdPen28Kn87SmMGHNdJx9oUfq5QKbBAqlup2k07+wha4Kz4d7dRnUdqCtxgSn7HpY/UHD/YgTrCGAwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UvtMUwOx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ashXPWVl; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UvtMUwOx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ashXPWVl"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I4UAk33588851
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:17:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t7cu/kThVOp61khadvlTa0ooRt2HujLje7priNd4Ua8=; b=UvtMUwOx+IBw1L42
-	6Vx/3Jt9wIEbq1W3cy4jzghi9EIUr2I98o1Xip77t/5rGDmy+0rPIPGnnoOBxFy3
-	qKwdu8vlJI9GNln/DNllB1BVC4bQneecQsvu5yga0JMalJHqFQl/DAxiFdn5/3Dv
-	VxE/CgMDGRf3OboxAgtogVAfEC6aK5EMUvpczIzOV/6QYcGVhimzs8BhiA2NEU0F
-	fxwQaWLSHz6oFLTc1SSzV7P71b03lf8Ds+BrWr8+R+rI1EjGDGRE9c4+j8zcUfGY
-	V3E2bkE0kd7GkIzYmaHMk4atgy5EEwF1rjxTMsOthHZScdWFnvMZqxRNmHjVlyyW
-	7cVCmw==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ev12kja7q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:17:20 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8dc0a6ab3bbso25402706d6.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 00:17:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781767040; x=1782371840; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=t7cu/kThVOp61khadvlTa0ooRt2HujLje7priNd4Ua8=;
-        b=ashXPWVl6T+i0V4j0v7sbbJcG1L13M2EoZOcNqScaLbTjSR64EbvjAqYRjwR5/79Ed
-         txQNTJ3EF8XJr69FEGa+dI0PmFTDyGzYpk9z5ZwFfUoUyVme7tHg9pYgu8AHbYNp8UsS
-         YDTg2VEfO2W/FdfDA3I9ivy5J23R5Fmqf8pBZuBNhiw6Xi9LHq0rBB2U7aiaQSsKG6Pt
-         GNqzQiz2fAeBusyupe7PiL46JNIPRWduyfTF5m2lUAXjUmqkzVpNkCdnFgBwnfnsU1ML
-         SvepDZfAO2y36JiNee4GABJDHHFmg2GEdq2qWbGdag2tpc8/OZin6yNeYkTzUq3+adWr
-         kedA==
+	s=arc-20240116; t=1781767059; c=relaxed/simple;
+	bh=tfbcEFHyRGxmt/ZNMjfmkNiTbtmi4aiIGAAer8bH9z4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qVAYoEi+BidjWl8XAHdqlkYT/lUMY5Q6U2MatOcO9xMuIgw8quhYwlUfCZGIhQbBO6KwTcW5uNtqHjdIRMUms4GkqitTIlj82bONn8BmIhLLJkgvqFNAp4evAeypnbbWBwpqbbHdNdbqAGNhNFD1j3DRDfHCoh94oxTotrYiHOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so200723241.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 00:17:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781767040; x=1782371840;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t7cu/kThVOp61khadvlTa0ooRt2HujLje7priNd4Ua8=;
-        b=g9hDMbbdIk7biPyLz6C36Ngz/VC6KXALttVGQuCphp7oGBeHiXFeZnhGKgHJIQiOof
-         ZEqF1sz/Xws5GfZ4WbDkWy89omIbWnwAJNG5sUGNfQXTLq7nR+c+HqNJhUD2tenqVqHo
-         2ULpK0MKSZObUcYLHX5MJ1XJ4hgtR7WPhdsVmBWItY8zLS8ae+sDgY5Tv/Cb1/AaraFY
-         JVhKOiUA6cdJUVn9HtjG23uIH+Yd8wzUL3TV04REKVRWaF8Yh+t3WwuaYOhtzfc4Xw6B
-         fjO/hSCtgTEIuwZCQ5Mob5Gbbsc1A3S2rCzBRYj82cNWw1f1D5ujm3Q8tCQY58uH/Y08
-         Qk4g==
-X-Forwarded-Encrypted: i=1; AFNElJ+2KXDHUmPeSaKDjxOJW/9g/lVd13GZRKiF7OOtmKsKxo3/wEGVgh0CXg1O1msjIU7IvGta4gWM86Q1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKgA7rO2yg9lx0wT/0VDty1l7lzWQicHd4aOoJJuaZFs5CGMye
-	cnIXrTMPBUaV+xGEHY4QRxucoh63S2wzDQOOctlKz57swUrZs8v0g/tOeOBp6KaTd44SgqAdhjH
-	agYM/RPyKyict8HZGTsaZqKfcE8+cjMQjrBidbnMu4wkWn2gZ0X/aeng6oqVfZByV
-X-Gm-Gg: Acq92OE1+iwjZGHAdQK6nScO8LoF47W3Zey4zHPsjRwca3RsF9GCv8MAlTQrsuTD0ZT
-	uXpX4ZxlMmon73JFdSHbdBZun2XVTuO39Kq1an1Vtgoc9i2HZqn8in234whS5fiQ9VMhccB49+I
-	KqD4LvlryU1tt/y4MqhAfYhrfQkR66fVzqtpymem16YxEvB+Gag+Q8VRHz9SoHzAZWq6qhxbyFM
-	i1aJ9/VOl2JQ3P7xNKLQ5VS080DOgo64kMUs4/ar21nwmEv54oR7rUJPcxHEV4EOmxIJzS6kVAO
-	sBqWZc2M8vgOg68zD32ginJHCtlmbQ1VCPww53osL9yT5CMjT45Br9y/plVsZ9mVukr+cUGtect
-	HLGU7JHgZ6tQLdF/t2g3UkTR36vOKG/f19qF4AVM6Cn2vAUP1C0AjJBBycY4f/+P4zpxCwBggkA
-	==
-X-Received: by 2002:a05:620a:4722:b0:915:8502:f808 with SMTP id af79cd13be357-91f27600dc1mr350112385a.25.1781767039519;
-        Thu, 18 Jun 2026 00:17:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:4722:b0:915:8502:f808 with SMTP id af79cd13be357-91f27600dc1mr350109585a.25.1781767039081;
-        Thu, 18 Jun 2026 00:17:19 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:5ac4:8c5e:b742:f9c9? ([2a05:6e02:1041:c10:5ac4:8c5e:b742:f9c9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4606f2c3782sm55095264f8f.25.2026.06.18.00.17.17
+        d=1e100.net; s=20251104; t=1781767057; x=1782371857;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xzQ4TuItSjjDfqcY5h5uPw4axpJfO2Kzm9zj8eN9JJg=;
+        b=T52ExzF9kPo4N7xFnagSThB2L4aF+bgznEiaznzoPlm6Flr3Z6hbChuyn4bvq6Vso0
+         cPuGI5zWnNwhRlnna9t+pCXsxcu3mzBcwHnMAyCDtWoSC4SVYrxD80HsI73Il0IJRKJr
+         Ewv2IEkw3NPyS8srd7/IEomRM27Vyqj0u97d1eSezCEDofA+YaYeHl8WHrFspX5xi9Un
+         Dje4fwfj7OOfUpX1dwrL4opHmG5ovcJiz8+TaEFH4YA8YKzgOdg7fCGRtAt2W2kJCRxX
+         5zvLl8Nk2ez5TBHol8+jeK4jAE7KEblytMwzpwAfaph/CFK3IOZD+kJB1fvG/Z0fG/F1
+         tWYg==
+X-Forwarded-Encrypted: i=1; AFNElJ8nW/TmxowXzv0VHEX8FMbmghQaOmbuFpmpbx2zzFQG6bzI9bGaksqKbBFSagjPuEfsYPTVNGzBQR75@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHQ6D5HtorGPvR6o17FKS8xdJpD3sRWIaSxQxr/pIE0rwkEw45
+	+/SH1Gixph10/x3OY5obcv9BMetXKgYrkn2wEQXAUI/FvtwrIgmM7NqU1P01wEN2
+X-Gm-Gg: AfdE7cmaKly/twTo+irDy+0shhoeUSuXc4QLxwXaWIOiEvau8ueOkRvsTKpZ50hmQGl
+	xBZAixSxZzedD+MjpXTMPlPELDMdsZLuWwyMBuDIiuXDUbebvhJahonHgHxr2LEVNF1i0clzNMR
+	JUhHHaNxXbAj7ZQ8v0VeTB9ZHlmmKGPuaNWkkGWZfnUS3UZmAp/TIR9/WNkUYlKR0TJSGN5by3w
+	cEWNlAj52vlzZxfvSF1A2rvCTdYfNDmovDvuuxNfRu7TYnzmzif4EOQuZL8HXua4K8qGzyJqFvp
+	QW9RmuRa+v5Er9hOZ8g6A5dkGLRyzrkPByUbI1wCYqL2pGD//PRLtHd83sRJk7rrxh2qp92MiHV
+	Lf06A0mOF0+9luPRPmthxhq0C4j2epaIUiuzKoeHCrAoyoKxlS2rPLBOBw7r6yPSUo70tr+UTnm
+	M+PlMMeOmy+FoG71MDkmqhedlydMYTRzzh7qnII63PMSNuUalAtwh6ULsBHsZg
+X-Received: by 2002:a05:6102:5348:b0:728:572d:80a1 with SMTP id ada2fe7eead31-728572dace9mr910641137.21.1781767057416;
+        Thu, 18 Jun 2026 00:17:37 -0700 (PDT)
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-966ceca5f6fsm4442625241.1.2026.06.18.00.17.36
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 00:17:18 -0700 (PDT)
-Message-ID: <61765401-3397-497d-a0ca-e9bf9d76cc6a@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 09:17:17 +0200
+        Thu, 18 Jun 2026 00:17:36 -0700 (PDT)
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-6cfd17e9250so255265137.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 00:17:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+BXCR5D+4pOFNVEpuUeKQeMEknmn/9fqjRz/IJ/v1LLCZ9TfBN3Zz72s5b/vPMSvPbgFrEMQjSfMI7@vger.kernel.org
+X-Received: by 2002:a05:6102:3f51:b0:635:1bc8:3563 with SMTP id
+ ada2fe7eead31-7246cde4ab6mr4100174137.20.1781767055966; Thu, 18 Jun 2026
+ 00:17:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: remoteproc: qcom,pas: add thermal
- mitigation properties
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
-References: <20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com>
- <20260609-qmi-tmd-v3-1-291a2ff4c634@oss.qualcomm.com>
- <20260610-ocelot-of-stimulating-excellence-bcb0fe@quoll>
- <03d863ee-2caa-41f2-94b5-7332fc930b42@oss.qualcomm.com>
- <d81bc78e-2c1d-45fd-90c9-f7ec462183a0@kernel.org>
- <7f1e46fb-15e3-4638-9930-8abc1dd5a778@oss.qualcomm.com>
- <fcf93e0f-a2f0-4070-86ec-8a34e9344b76@kernel.org>
- <ec65893d-873a-4a62-b0e2-5008b2130545@oss.qualcomm.com>
- <3cbcaf8c-357e-42d2-91c1-9d1a32c55ed0@oss.qualcomm.com>
- <ae43a691-4879-4bfa-8c7c-1be16945480c@oss.qualcomm.com>
- <9a31bb29-75d7-42fa-b8a8-4155cf85cadf@oss.qualcomm.com>
- <c32e263c-ba4e-4899-a935-e129de0f1269@kernel.org>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <c32e263c-ba4e-4899-a935-e129de0f1269@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA2NSBTYWx0ZWRfX/zg1Gp40jPUb
- zM/Rjn+Hjr6QsbUzETQIgQHLcTlC3Wo5OsTo3z/HmZ2/yVEhIrwlFutpgvdNgzphNmIoIxretlT
- zcWLiFhWzxoBA/V120Cxwl5hp2hi1bqetkcKDHqlIU/ElGwee1l8FZ7uOlaDsfocjISajp+dggY
- LfnRO2GzpAg/z+kj5ekM1A8T7dAUkrfJYyD4PwxO4Mwh6V/cZxSQsK78U7gp6ffnz9RiXINR3uR
- FOO6j1gjQ5nqaBkvFavlcVHYL5FzqFXopAW5dqct0mcy0/JEtxTs7I1a2RG+fqamKjUd3BJwGgS
- Kdp+l29ejjiAqlirM76BQ38j+etQHav5RG1IiFJ8zoXHpp+bIX0ZqW1bvcAoH2Y8yjOQunQ5YQT
- 7t4LRBm7CMtBjUBhUzYekA8BGiLloIYShmHFBpQ0LpFjsLBTe6Lvay/4OXEzVMA6XcSF9+x2knd
- ZAVZ6eP+O91YEYTzatQ==
-X-Proofpoint-GUID: 78K-9_KX-IfusSblC9z3fEDrPb0ctseX
-X-Authority-Analysis: v=2.4 cv=HpVG3UTS c=1 sm=1 tr=0 ts=6a339b80 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=kCrNj1x4bCXofucgv5AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: 78K-9_KX-IfusSblC9z3fEDrPb0ctseX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA2NSBTYWx0ZWRfX8xpqefvqAkdQ
- /MxhMSvkNtwT83vVHYyJFAnuQFCE7cxGeOu8tA69jUG2FOrG5zgAabVduhdE8NWDefQTFdaVba9
- xMBL5g48voo5m3M4h9GXuPLizRQm5Pg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 adultscore=0 phishscore=0 bulkscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606180065
+References: <20260615104845.4122868-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260615104845.4122868-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CAMuHMdWBeaTB4QK5vvB0CQm+yrX1ps3V2EtFu0Q4a0JG_94f7g@mail.gmail.com> <CA+V-a8uixCr+LZ+2SrX1b2p3nNwkq8=ctdpzx=BF9OcR9eJW1w@mail.gmail.com>
+In-Reply-To: <CA+V-a8uixCr+LZ+2SrX1b2p3nNwkq8=ctdpzx=BF9OcR9eJW1w@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 18 Jun 2026 09:17:23 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVx_SS0w=x4H3WUb4BdnOXQOxboeFZwmvhP31HLoQNNkw@mail.gmail.com>
+X-Gm-Features: AVVi8CdwNDnTBvDYfJRjdNKhkzB68fOeQnOFgapo4u-OWjhPO9Gwwv76NFhl4Qg
+Message-ID: <CAMuHMdVx_SS0w=x4H3WUb4BdnOXQOxboeFZwmvhP31HLoQNNkw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/5] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
+ frequency for calculations
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/16/26 06:21, Krzysztof Kozlowski wrote:
-> On 15/06/2026 14:30, Daniel Lezcano wrote:
->> Hi Gaurav,
->>>>> thanks for review, shall i use driver data, which is basically pas
->>>>> data structure like below:
->>>>>
->>>>> static const struct qcom_pas_data {
->>>>>       .crash_reason_smem = 601,
->>>>>       .firmware_name = "cdsp.mdt",
->>>>>       .tmd_names = (const char *[]){"xyz", NULL},
->>>>>       .num_tmds = 1,
->>>>>
->>>>> Is something like above acceptable? and this will also help to filter
->>>>> tmd names as well?
->>>>
->>>>
->>>> How the thermal framework will bind the thermal zone with the TMD ?
->>>> (node pointer, id) ?
->>>>
->>>
->>> Hi Daniel,
->>>
->>> thanks for review.
->>>
->>> With id only, in this case instead of taking tmd names from device tree,
->>> qmi_tmd will take tmd name from pas_data(driver) and register with the
->>> cooling framework with id only. Please let us know if this looks fine.
->> May be I'm missing something but:
->>
->>    - The QMI TMD returns a list of names, not ids
->>    - The QMI TMD may return the list in different order than assumed
->>    - The cooling map index points to the name of the TMD in the DT
->>    - This name is used to match the name in the aformentionned list
->>    - The index in the list and the id in the DT can differ
->>
->> Krzysztof , I don't get why having the TMD names as properties is wrong,
->> they describes the existing TMDs on the system and the cooling maps
->> index points to the one to be connected with thermal zone.
-> 
-> 
-> 'xxx-names' have a fixed meaning in DT by convention - assign
-> identifiable strings to the 'xxx'. I miss the property 'tmd' in such
-> case - its definition and meaning. Where is it?
-> 
-> But maybe you just want list of strings, so I am open to discuss it - I
-> don't understand the need for this property and commit and property
-> description tell me nothing.
-> 
-> Really, this commit message is basically non-existing. It explains what
-> it did and provides that much explanation WHY:
-> 
-> "- tmd-names (thermal mitigation device names)"
-> 
-> Really? This is the explanation why this change is being made, why this
-> property is needed?
-> 
-> So sure, describe the problem being solved and WHY this problem is being
-> solved that way. Maybe it will fit DT.
+Hi Prabhakar,
 
-Ok, I understand
+On Wed, 17 Jun 2026 at 22:17, Lad, Prabhakar <prabhakar.csengg@gmail.com> w=
+rote:
+> On Wed, Jun 17, 2026 at 10:48=E2=80=AFAM Geert Uytterhoeven
+> <geert@linux-m68k.org> wrote:
+> > On Mon, 15 Jun 2026 at 12:48, Prabhakar <prabhakar.csengg@gmail.com> wr=
+ote:
+> > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > >
+> > > Introduce a per-SoC PLL reference input frequency parameter to avoid
+> > > relying on a hardcoded 24MHz constant during PLL configuration math.
+> > >
+> > > Add an input_fref member to struct rzv2h_pll_limits. In the core
+> > > calculation helper rzv2h_get_pll_pars(), derive the base input clock
+> > > rate from limits->input_fref, utilizing the conditional ternary opera=
+tor
+> > > to fall back to 24MHz if the struct field is left uninitialized (0), =
+and
+> > > drop the obsolete macro RZ_V2H_OSC_CLK_IN_MEGA.
+> > >
+> > > This abstraction permits the reuse of the common PLL divider logic on
+> > > newer SoC platforms like the RZ/T2H, which feature a 48 MHz PLL refer=
+ence
+> > > clock input instead of the 24 MHz signal used by RZ/V2H(P), without
+> > > disrupting existing platforms.
+> > >
+> > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com=
+>
+> >
+> > Thanks for your patch!
+> >
+> > > --- a/include/linux/clk/renesas.h
+> > > +++ b/include/linux/clk/renesas.h
+> > > @@ -53,6 +53,9 @@ static inline void rzg2l_cpg_dsi_div_set_divider(u8=
+ divider, int target) { }
+> > >   * various parameters used to configure a PLL. These limits ensure
+> > >   * the PLL operates within valid and stable ranges.
+> > >   *
+> > > + * @input_fref: Reference input frequency to the PLL (in MHz). If se=
+t
+> >
+> > "in Hz", as pointed out by Sashiko.
+> >
+> Agreed.
+>
+> > > + * to 0, a default value of 24MHz is used.
+> > > + *
+> I'll also replace `24MHz` to `24000000 Hz`.
 
-Let me try to clarify.
+Personally, I find "24 MHz" easier to read.
+Counting zeroes without thousands-grouping can be hard...
+https://lore.kernel.org/CAMuHMdUp3fOkAttk2FKJTh5svaiMwgu4JZ8utPeHghU4TQLE-w=
+@mail.gmail.com
 
-When the QMI TMD protocol is initialized, the list of available TMDs 
-provided by the service is requested. They are identified by a *string* 
-not a numerical id.
+Gr{oetje,eeting}s,
 
-We can not assume the list is always in the same order because the QMI 
-TMD is a separate subsystem and the interface is the protocol. The 
-protocol does not refer to any TMD with an index but its name. 
-Hardcoding an index here is not possible.
+                        Geert
 
-The name identifies the TMD we connect to and in return we receive a 
-handler to use when sending the QMI messages.
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-That is for the driver part.
-
-I understand for the DT, it is possible to not give the tmd-names 
-because the it can go into the driver's data structure.
-
-But the thermal framework won't be able to associate a cooling device 
-(one TMD) with a thermal zone because the cooling mapping must point to 
-a cooling device in the DT.
-
-Initially, Gaurav sent a description where each TMD was a child node of 
-the remote proc node. And you rightfully told us it is no longer the way 
-to go as stated in the documentation. And you suggested to replace the 
-child nodes with an array with the tmd-names and add an index in the 
-cooling map pointing to this array.
-
-The thermal framework has been extended to support this new format and 
-associate the cooling device with the thermal zone. This change is now 
-upstream for v7.2 [1]
-
-The resulting implementation is the driver gets the tmd-names array 
-property. For each name, it connects to the QMI TMD and register the 
-cooling device with the index corresponding to the name position on the 
-tmd-names array.
-
-On the other side, the thermal framework parses the cooling-map, gets 
-the index and do the association (binding).
-
-The tmd-names array property replaces the child nodes and allows to do 
-the mapping between the string based identifier with a numerical id.
-
-I hope that clarifies the approach.
-
-   -- Daniel
-
-[1] 
-https://lore.kernel.org/all/20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com/
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
