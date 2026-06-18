@@ -1,156 +1,137 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8A03DC4D9;
-	Thu, 18 Jun 2026 09:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF6D3E1218;
+	Thu, 18 Jun 2026 09:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781775637; cv=none; b=eH3CQMPUZpADdRlssM0LB0YsuoVc/jGorhywbByBn8v0pbbvrG80Mq2RILed+bxsFbXqoK7we7AaPHRBvq5cf/nJR2lMUMvOKPDZxtISp5EEvoGKujGz6rAA31CAVorBr/GeQl4C5kuy23NjDe7rMkxdBBFLhOLMtYR3YRvB2SE=
+	t=1781775928; cv=none; b=ADnYg/W3jK8jotcUvqWkpFCiEW18fIKa9O+NTPKaMrjgGgfUr9xkbyVxCuDy5AzKi6x5iw/9BEvwdLC06ecO2MgIY/sWggu5cRJ5loKwqJ3XczishG8xbRTSxNg3tZwp4NAUBtVYWaW7fnbZlOLeEcSFrsjBwIiFE8OJoCbDotA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781775637; c=relaxed/simple;
-	bh=JG8R3S5e1QwIudxrT6fGQGg3ItczRuN1weOLoZlDnis=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gR/Iii9HBJWgDgEp2St8F24126Rx5/QVx7DZTyP+p5N/9hVHt4xCEe66OsoSiJfgcVNb3gPX5pX4/oyxnA8s2CpI1wwxWuCjEqslOC44ozPIfeOd9PGMN7/E1H87Z2hBSQ8sEXiMB9TGeNSAgrl0N8n/dRPQP+MzrE/ojX4xFh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ahBwpylr; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ahBwpylr"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93E73DF3;
-	Thu, 18 Jun 2026 11:39:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1781775596;
-	bh=JG8R3S5e1QwIudxrT6fGQGg3ItczRuN1weOLoZlDnis=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ahBwpylrq43dMlpGrGFcBy46fIoU9jCt4vug1S2akpVxH49CyxPdUOKxcmfPdUuQl
-	 1E0gOjDGOT7neA+ZCatYgasUwXWwATxVfGDUCI2tEco/Y1HpSujdLK+vFENM7oxdov
-	 RGDyUWv8uWZ6m7tkQlAVR1QWVycborrlKQ4qIvyc=
-Message-ID: <9c09b125-1d7f-459c-9896-72f16759684a@ideasonboard.com>
-Date: Thu, 18 Jun 2026 12:40:27 +0300
+	s=arc-20240116; t=1781775928; c=relaxed/simple;
+	bh=soFFhd/e1EcbC4o2H1GFX24/KTFjL6ZkTmQXbrKQIrY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mWaI6FWLCdN9Z0NKvRurhBYjW3tohxo9gQVNUfkr1bw3MnqTn6uOVrTIYfcRuqPJGjhCcQreLGBgnpjMTVXyfAMvVXI1v10i7sYdXJoInap1+ARP4McI7BUeCtlfTaoc8DaTcMTwOSlMr+pmRuAOeFOtG+mBhrxVyPqqpRfHqkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id ABAD62002AA;
+	Thu, 18 Jun 2026 11:45:24 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wa9JM-003PsA-20;
+	Thu, 18 Jun 2026 11:45:24 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wa9JM-000000005Ev-2Glm;
+	Thu, 18 Jun 2026 11:45:24 +0200
+Message-ID: <0bec40ded4ca98136064c2f158551e4269d51944.camel@pengutronix.de>
+Subject: Re: [PATCH v4 3/5] dt-bindings: clock: cix,sky1-audss-clock: add
+ audss clock controller
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Joakim Zhang <joakim.zhang@cixtech.com>, Conor Dooley <conor@kernel.org>
+Cc: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"	
+ <sboyd@kernel.org>, "bmasney@redhat.com" <bmasney@redhat.com>, 
+ "robh@kernel.org"	 <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>,  "conor+dt@kernel.org"	 <conor+dt@kernel.org>, Gary
+ Yang <Gary.Yang@cixtech.com>, cix-kernel-upstream	
+ <cix-kernel-upstream@cixtech.com>, "linux-clk@vger.kernel.org"	
+ <linux-clk@vger.kernel.org>, "devicetree@vger.kernel.org"	
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>
+Date: Thu, 18 Jun 2026 11:45:24 +0200
+In-Reply-To: <SEYPR06MB6226B25BA7652287C752E4C782E32@SEYPR06MB6226.apcprd06.prod.outlook.com>
+References: <20260617060437.1474816-1-joakim.zhang@cixtech.com>
+		 <20260617060437.1474816-4-joakim.zhang@cixtech.com>
+		 <20260617-clinic-blank-61289f8fc1c2@spud>
+		 <SEYPR06MB62262C0F7823337CA9496DE982E32@SEYPR06MB6226.apcprd06.prod.outlook.com>
+	 <cd63c1ab9831fdfd39aad8d1a40c4702a9cbb158.camel@pengutronix.de>
+	 <SEYPR06MB6226B25BA7652287C752E4C782E32@SEYPR06MB6226.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: ti: j721e-csi2rx: Minor cleanup of loop variables
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: y-abhilashchandra@ti.com, devarsht@ti.com, s-jain1@ti.com,
- vigneshr@ti.com, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- p.zabel@pengutronix.de, conor+dt@kernel.org, sakari.ailus@linux.intel.com,
- hverkuil-cisco@xs4all.nl, jai.luthra@ideasonboard.com,
- changhuang.liang@starfivetech.com, jack.zhu@starfivetech.com,
- sjoerd@collabora.com, dan.carpenter@linaro.org, hverkuil+cisco@kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, jai.luthra@linux.dev,
- laurent.pinchart@ideasonboard.com, mripard@kernel.org
-References: <20260520135705.661455-1-r-donadkar@ti.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260520135705.661455-1-r-donadkar@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+On Do, 2026-06-18 at 09:27 +0000, Joakim  Zhang wrote:
+> Hello,
+>=20
+>=20
+> > -----Original Message-----
+> > From: Philipp Zabel <p.zabel@pengutronix.de>
+> > Sent: Thursday, June 18, 2026 4:30 PM
+> > To: Joakim Zhang <joakim.zhang@cixtech.com>; Conor Dooley
+> > <conor@kernel.org>
+> > Cc: mturquette@baylibre.com; sboyd@kernel.org; bmasney@redhat.com;
+> > robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org; Gary Yang
+> > <Gary.Yang@cixtech.com>; cix-kernel-upstream <cix-kernel-
+> > upstream@cixtech.com>; linux-clk@vger.kernel.org;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-
+> > kernel@lists.infradead.org
+> > Subject: Re: [PATCH v4 3/5] dt-bindings: clock: cix,sky1-audss-clock: a=
+dd audss
+> > clock controller
+> >=20
+> > EXTERNAL EMAIL
+> >=20
+> > CAUTION: Suspicious Email from unusual domain.
+> >=20
+> > On Do, 2026-06-18 at 01:43 +0000, Joakim  Zhang wrote:
+> > > Hello,
+> > >=20
+> > >=20
+> > > > -----Original Message-----
+> > > > From: Conor Dooley <conor@kernel.org>
+> > > > Sent: Wednesday, June 17, 2026 11:56 PM
+> > > > To: Joakim Zhang <joakim.zhang@cixtech.com>
+> > > > Cc: mturquette@baylibre.com; sboyd@kernel.org; bmasney@redhat.com;
+> > > > robh@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
+> > > > p.zabel@pengutronix.de; Gary Yang <gary.yang@cixtech.com>;
+> > > > cix-kernel- upstream <cix-kernel-upstream@cixtech.com>;
+> > > > linux-clk@vger.kernel.org; devicetree@vger.kernel.org;
+> > > > linux-kernel@vger.kernel.org; linux-arm- kernel@lists.infradead.org
+> > > > Subject: Re: [PATCH v4 3/5] dt-bindings: clock:
+> > > > cix,sky1-audss-clock: add audss clock controller
+> > > >=20
+> > > > On Wed, Jun 17, 2026 at 02:04:35PM +0800, joakim.zhang@cixtech.com
+> > wrote:
+> > > > > From: Joakim Zhang <joakim.zhang@cixtech.com>
+> > > > >=20
+> > > > > The AUDSS CRU contains an internal clock tree of muxes, dividers
+> > > > > and gates for DSP, I2S, HDA, DMAC and related blocks. The clock
+> > > > > provider is a child node of the cix,sky1-audss-system-control
+> > > > > syscon and accesses registers through the parent MMIO region.
+> > > >=20
+> > > > Why can this not just be part of the parent syscon node?
+> > >=20
+> > > The clock and reset blocks are handled by different subsystems and
+> > maintainers (clk vs reset). Putting the clock provider on the parent sy=
+scon node
+> > would mean a single driver has to register both the reset controller an=
+d the
+> > clock provider on one device, which doesn't fit well.
+> >=20
+> > There are many examples of clock and reset drivers sharing the same nod=
+e, by
+> > using platform_driver for one (usually clk) and auxiliary_driver for th=
+e other
+> > (usually reset).
+>=20
+> OK, I will have a look.  If you are also prefer to this, I will refactor =
+the patch.
 
-On 20/05/2026 16:57, Rishikesh Donadkar wrote:
-> Replace open-coded `i--; for (; i >= 0; i--)` patterns with the
-> idiomatic `while (i--)` in the error unwind paths of
-> csi_async_notifier_complete() and ti_csi2rx_probe().
-> 
-> Also scope loop variables directly in the for statement instead of
-> declaring them at the top of the function in ti_csi2rx_suspend(),
-> ti_csi2rx_resume() and ti_csi2rx_remove(). Change the type to
-> unsigned int in the first two to match csi->num_ctx.
-> 
-> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+The hardware should dictate this, not the driver/subsystem/maintainer
+boundaries. Looking at the register numbers used by the drivers, and
+assuming that the audss_cru label in the dts patch means the TRM also
+calls this a single Clock-Reset-Unit, I'd say Conor has a point.
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-  Tomi
-
-> ---
-> This patch depends on [1]
-> 
-> [1]: https://lore.kernel.org/all/20260520120022.539913-1-r-donadkar@ti.com/
-> 
->   .../platform/ti/j721e-csi2rx/j721e-csi2rx.c     | 17 +++++++----------
->   1 file changed, 7 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> index 21388284cbaa..ef74e2da19b6 100644
-> --- a/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> +++ b/drivers/media/platform/ti/j721e-csi2rx/j721e-csi2rx.c
-> @@ -485,8 +485,7 @@ static int csi_async_notifier_complete(struct v4l2_async_notifier *notifier)
->   	return 0;
->   
->   unregister_dev:
-> -	i--;
-> -	for (; i >= 0; i--) {
-> +	while (i--) {
->   		media_entity_remove_links(&csi->ctx[i].vdev.entity);
->   		video_unregister_device(&csi->ctx[i].vdev);
->   	}
-> @@ -1552,7 +1551,7 @@ static int ti_csi2rx_suspend(struct device *dev)
->   	struct ti_csi2rx_ctx *ctx;
->   	struct ti_csi2rx_dma *dma;
->   	unsigned long flags = 0;
-> -	int i, ret = 0;
-> +	int ret = 0;
->   
->   	/* If device was not in use we can simply suspend */
->   	if (pm_runtime_status_suspended(dev))
-> @@ -1564,7 +1563,7 @@ static int ti_csi2rx_suspend(struct device *dev)
->   	 */
->   	writel(0, csi->shim + SHIM_CNTL);
->   
-> -	for (i = 0; i < csi->num_ctx; i++) {
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++) {
->   		ctx = &csi->ctx[i];
->   		dma = &ctx->dma;
->   
-> @@ -1604,7 +1603,7 @@ static int ti_csi2rx_resume(struct device *dev)
->   	struct ti_csi2rx_buffer *buf;
->   	unsigned long flags = 0;
->   	unsigned int reg;
-> -	int i, ret = 0;
-> +	int ret = 0;
->   
->   	/* If device was not in use, we can simply wakeup */
->   	if (pm_runtime_status_suspended(dev))
-> @@ -1614,7 +1613,7 @@ static int ti_csi2rx_resume(struct device *dev)
->   	reg = SHIM_CNTL_PIX_RST;
->   	writel(reg, csi->shim + SHIM_CNTL);
->   
-> -	for (i = 0; i < csi->num_ctx; i++) {
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++) {
->   		ctx = &csi->ctx[i];
->   		dma = &ctx->dma;
->   		spin_lock_irqsave(&dma->lock, flags);
-> @@ -1755,8 +1754,7 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->   err_notifier:
->   	ti_csi2rx_cleanup_notifier(csi);
->   err_ctx:
-> -	i--;
-> -	for (; i >= 0; i--)
-> +	while (i--)
->   		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->   	ti_csi2rx_cleanup_v4l2(csi);
->   err_dma_chan:
-> @@ -1768,12 +1766,11 @@ static int ti_csi2rx_probe(struct platform_device *pdev)
->   static void ti_csi2rx_remove(struct platform_device *pdev)
->   {
->   	struct ti_csi2rx_dev *csi = platform_get_drvdata(pdev);
-> -	unsigned int i;
->   
->   	if (!pm_runtime_status_suspended(&pdev->dev))
->   		pm_runtime_set_suspended(&pdev->dev);
->   
-> -	for (i = 0; i < csi->num_ctx; i++)
-> +	for (unsigned int i = 0; i < csi->num_ctx; i++)
->   		ti_csi2rx_cleanup_ctx(&csi->ctx[i]);
->   
->   	ti_csi2rx_cleanup_notifier(csi);
-
+regards
+Philipp
