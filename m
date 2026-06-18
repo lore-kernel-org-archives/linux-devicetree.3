@@ -1,244 +1,145 @@
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021112.outbound.protection.outlook.com [40.107.57.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000942877C3;
-	Thu, 18 Jun 2026 06:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781763741; cv=fail; b=ExaRIBRcl9FvCeLWf4b90aBoHk8EkxIUu4gOa3dBNlfk+gQ6YuaXe6ScGEhmR17EBQgGOskAy6MzJ6i1MVeBCGVnORI8gb9KmbAZ46M7vrio/NTcUesfuO4feQCdWqPAg8UHEgi0vGhlmn543XYKjOqSPTaqfejt8Yxex7eCWJ0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781763741; c=relaxed/simple;
-	bh=u4qvids3R1PRi+AGDR4DTh+q/xxsv9yzo1liKjjKSyw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gAAI7eKiXWaLOhldYILg0rOPdne5aIAuHMUBKLUbWaNLXOFuSlZyPBfU6+K587kQ8kNhrSGqNOTSWFfcVYHZD34TPdUVN5rorlHMbMFXOsS9FDdzMtyqcodv0ZWKeCqKgEbN/iwpXKNZjGvtwdpWlNcDYQoquibKWM5wlhljuKI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=mNY7JK4I reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF26A2E6CA8
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 06:29:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781764156; cv=none; b=GAIFxEk/69uyJPDQFSsktKMK/NMjSmSs8nDH9nYGzdvlVyB4QqtdYY7mEkhg6kEjuJp3QHYhcR0U3Ptu8CfxcpqazIvxcKvTaXLQ6zZ6hsCeOjmR+8L6QVVhm/ej4f953HMJPfOKFAKQJ5isIzqvOHwRlLFJ91yBfgBPGlXhGdE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781764156; c=relaxed/simple;
+	bh=6uEUT4qP1wOmOU/2p/3q3dn23U+/yYEA6rSJUqAvQ8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bj1yzmW+zFO63P85mBkyRQ45jHfb9j35d9HFa9WPVmqJbcWIMXAU2wiljBobg4FOQBHkS4kE01Y20JgX4MWNUN71v34q9lxDOuQ9Bir9NuJVpDoH7+nI7+4f8BZJGB0/Dr7LH+TFvN9QWMIkKvlf6yJc290eNxfSUZ2CHJ2dZ/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EqmCezUi; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="mNY7JK4I"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V/xrM7wAUkWB3SW2BBFojjZmTJzSIeCwJDEQFst+dyhRkpV71G6Y7htV0lzH2jQkNJzNbOcWE8iDyBKI+Czppa7bsQK5Ca7skwvsT9BNzv+CzS8x5FmZdKgXr+A8gJogKkLAL6Wl5mspZ2WiG3kZOmRvKNVYtLWJSNXFeAdJN5ZXHaMLcNE8CaExs/MXUXvtqX+R/yvuIaTDofsHhFECtK3FDpHdByWJAbM90ky6e0MD11co2xqBO6T+gqUNcXcDRTwxoQNtMSB6eanfgNiVXWD8L5XUg8GFP4OLsGCPL/FmHKoIEl/0vFYeC6oQsWVciv71qxyTpDUB9iar1F7MJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bA9h6nWtpnirb3kJivPfKWlIGo0I3cNDafxVuC4um6k=;
- b=JjqlajKG2mPyNurU+2cSOGcZ619p+HiZZShhrNZRvHcOE5hreIbCWNQwjhlAw0TidTtC2Fsi7pcArV6WUxrX4VmJuWhXyTQ4nmIGj1b9aSpgQYJrSAFguZ6cZM8Id/KTPOZWayXHsLZAyF240i+fNGYXptPWNNezVYkCw8vUEB0cNvOLecs0wZm7LgtJnBEsjkH39vHnqPuMg0/Eb5uK9m74OKzpkgHw2L/GE97DiNTWyCawnmkIB1OsEdpVKOCZ5KhN6lnhqJCDhekv91vEfF5VE9QCqBEOL688YTrAEizeoAI86o5ccU2v7SsuqpdBsx6faheDunP5MLmrmNy/3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bA9h6nWtpnirb3kJivPfKWlIGo0I3cNDafxVuC4um6k=;
- b=mNY7JK4Iia+lknsABsd+ZNlGGKQcokQT9mWAEzpQVwO32Fx3LUaypgyXdjcqpjyQaanGEfscPneeL6zVv4aFd1QShyKtlYgIpuZvwzeuJ3FvzXjeWl49ntvfHDbSCfYAb0mCyjWj+pEZU+gSx+1ROAWV6nsoJmXWf3z8iBj1//6zj94GbyvYTe8SHG4wReLQkM2Rq5N/8ub9phtQWFnbElzOceIo30/bKPr0BQCzlUn+nH4zHgF0FdSKNZAFJJW1xWh9AgAkYDfCUtgOPR4B/iaKjYzFD0B5dZqM2Qp0b55eWMGYRl6IiDgwtLz9W1tx5h2bZp/V4hrWzOODQ/h/Xg==
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
- by PN0P287MB1817.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:18f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Thu, 18 Jun
- 2026 06:22:14 +0000
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0139.009; Thu, 18 Jun 2026
- 06:22:14 +0000
-From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>
-CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Sylvain Petinot
-	<sylvain.petinot@foss.st.com>, Benjamin Mugnier
-	<benjamin.mugnier@foss.st.com>, Bryan O'Donoghue
-	<bryan.odonoghue@linaro.org>, Himanshu Bhavani
-	<himanshu.bhavani@siliconsignals.io>, Heimir Thor Sverrisson
-	<heimir.sverrisson@gmail.com>, Jingjing Xiong <jingjing.xiong@intel.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
-Thread-Topic: [PATCH v3 2/3] media: i2c: add os02g10 image sensor driver
-Thread-Index: AQHc08x1b9/g16idYEOEV5tDIRsV+7Y7AGGAgAktQL4=
-Date: Thu, 18 Jun 2026 06:22:14 +0000
-Message-ID:
- <MA0P287MB2178300B0541EC81B91312F588E32@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-References: <20260424092554.26130-1-elgin.perumbilly@siliconsignals.io>
- <20260424092554.26130-3-elgin.perumbilly@siliconsignals.io>
- <421ae63a-88c6-4e81-8478-7f581357676b@linaro.org>
-In-Reply-To: <421ae63a-88c6-4e81-8478-7f581357676b@linaro.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MA0P287MB2178:EE_|PN0P287MB1817:EE_
-x-ms-office365-filtering-correlation-id: dc58f22c-7ca7-43fb-e887-08decd01f031
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|38070700021|18002099003|22082099003|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- cUFad667sFLcxu2hVoeeLfzDv75s8sE4pqghk/FCwiJzbSrGX3cEXhe8GKoqIbwdQHhk/j4o53hWlFoZTEVOrIaPXkRAPL11vq9+xAWb3gf9s6p0DLWEj589DQZ6A6gd3I9gSHYMIFVDU7lXOjvGuJAo+Gv7Nb1Ys4Rl4GBIlNXlu9rJ9u8dry9X5xdqXedG8G9Z0M5vPA94HwwBTyFrdQndVGVIGbfZv7y5syv7eE5y8XoIIlJx/KdFRGrjRVKT/XG+V+IF6EzHYPSelKZDMKQwVG3auIF1T4bopedOO3POJcibgWuZARDokd2g5Vg3VN0N4IirRu1uf5zuExYmMhZ3tHw2qQylWeRaafLQoiekHHNrnF1JhcKtcJ48btJF+0TJ3bHHphecRi0sitX6OfSBbVrCnIGPIZT1sQ1FY4lnMvevZtP/UUhgrdZd8yojCbGsS3Y743JKW/465SO5O80+3HKjiPDCziI15eL+E10oBizSlG1EO5yATEULKKNUakI90FX03kKu6H7Zv7q+Ilt0Dj6Ddwe/ee8EutjwfjhykJLHLBbRpRxLw0aayyP3Wst/AGeTKi52RhlaAhkooPsVbTQIo9qvbph25RjQDzkAvu5pjV3zi/7s4BX97wct26rvVKNRMbVf1v5CxrtPLmtIv4JGFUXjtlW+Ht42HAC8iwtAM4z9sBp/yBmOkpX4PMQGW8Pa8XT2g6s6JjfwOZMhNt5IdHc/hR/5341wHxuRMfNWBAW9OltDXvskVl40
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(38070700021)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?38ZzaFgymiwrK0QbyH9ZV4Nlmo85IFz6gKjkof6D5Z0UeZQl3XuggsOWAx?=
- =?iso-8859-1?Q?VHmCxPds4vp2l/G2nl0BN6aoEm7vFrHKTxmnmOj9UPseH8xc0He2U3e9Qc?=
- =?iso-8859-1?Q?Uqp41A+w7SJYMVi+S3MqhX+UAw/g+0VtK6XsreOf4poCO2Dr+BXj1s2bmx?=
- =?iso-8859-1?Q?riSiQ3DjCDjIh573nP8Kt4HHl+tB6Opdmtbop1p08dRynHbq1WxqBKbYnZ?=
- =?iso-8859-1?Q?6TnBVMJA1s21puJ6ZN8dR/hm15PXmcxX7Q2txbiUcNAtbj7t1HD84Rdj28?=
- =?iso-8859-1?Q?8kiJvnePakfgq2voohJOG7PkxS+xfy8jZeyfj2o3DFvLIPlpEQK4i8XS2T?=
- =?iso-8859-1?Q?e8XhKow6apLDyFNDOr7HBsSOW1lRGsuJe+O6+/+te318WgnAr2ZwoFQhsI?=
- =?iso-8859-1?Q?cYB7zX1cwR8sPacqPxdfMXwFEPm8ZNqN8UpeXjyALsK+sHXCRJPHVQrJsS?=
- =?iso-8859-1?Q?Qxp4MtW70EDx6GW0ahlqQ5MxFOaXBeT5D0v7OVmDmDaXL/TjeqeCbyKwuq?=
- =?iso-8859-1?Q?piJuxqvjcr9Bcx8jv2X0o7LM77HJbEEegUsPscrME7CSejRY/ykYeToV49?=
- =?iso-8859-1?Q?mKD3VCqYr4TVe5v/Gp4Yo2/2o9ZCiQ6qxgVllY6//B2nd2uuxYHPSP9uGB?=
- =?iso-8859-1?Q?hf4GkmlDlQgh922Lcff9XDS7i0sbWNdehSDTyZPN8+5kMxo1osv26uOnxf?=
- =?iso-8859-1?Q?kp284DI0n8Px8H32Bf77PUK5DYz/X6/ilqMERkNEgZq7FsK5FfmTA/prYM?=
- =?iso-8859-1?Q?BMyczOQn34A/D5m9MpGVRWC7AZpjP/H49urD/ie9fiATnj3kzjdfk9rdkW?=
- =?iso-8859-1?Q?WO+vWDPOZOS0yyBRvtscFREq+5xWHxGzmexWIhRlydzVFu0HAV8kw2TPzZ?=
- =?iso-8859-1?Q?+NCCLW+ZTxoeaFa7d9GT+I0dQVAMqDn0rTulrfPqGDAh0GDDfTrQml3R9Q?=
- =?iso-8859-1?Q?u7dtAU0a8hw5t8sHw0hxVcwG4kzmjdhiweBZkR0BP28z094GCEliC4WKBj?=
- =?iso-8859-1?Q?0+YVlYvnb1f6kfFAuGjOUTduzwq03LrVKcLGMcsbYJdpFd3bjfuSpnqg/W?=
- =?iso-8859-1?Q?yOnrixpwzwtYk/YtI2x2Ihvq/lg2xZ2v355Oe03MEuP9Df6NgPUpdcFbiG?=
- =?iso-8859-1?Q?dgu9XiXjFikRH95Ls/mhVl/aj1tWjhBkjmG/qIKriVvIt3+FBOaiZlivPF?=
- =?iso-8859-1?Q?OiWTld5b8HoMru6bgMTiRAor0WvvelLRPEVWNMJV43dJzWGMWupXk3SKwx?=
- =?iso-8859-1?Q?1KGdsUaAh0aBzPbTobQQr2ZOOEs1g8pFYLAuMqYqAD7lUc/luQhRjZriTt?=
- =?iso-8859-1?Q?YRiDz0hJGmZVhdCfNl0rHRERippETjDk/eufUZvnipeFvQQfs+66sKxeft?=
- =?iso-8859-1?Q?x9EM5hU+J7omox+uWosedBxYGOrtLYBqDGA3asgaMYEAbSK+Qvb0ygsgr5?=
- =?iso-8859-1?Q?affNymqXUX0tmHLzeblQp0SEc9osUFqVF1XuDt+8w3d+6QgzT0w9ht8nPn?=
- =?iso-8859-1?Q?rtIUfRCkx5g/CDArwhpR+kHXrfTuejhdjurnmTsj6ECQrehDkWL756pjcB?=
- =?iso-8859-1?Q?9cmVxr7ti1MX4pVSByhOXIWlcJP+UQRMIwN3bZoiQazC6k8QpGBgCjH9ZB?=
- =?iso-8859-1?Q?eL50bDoBJTqobjar0C02+mJ/RoKok/z1Mii4dNEYXU2ezZcxU9sJU21y50?=
- =?iso-8859-1?Q?QOdghpFktgi0z8CN+kE8oWcewmvnUvrwPgdybudjF8FZ+XJkLX1S6jfQUi?=
- =?iso-8859-1?Q?d4SCPoPAZ/MqktaYJ29Cu5h69TDz6F/rZ1cLWvUSVOUEi+hLaRXEW7DDOH?=
- =?iso-8859-1?Q?TamJbsLiYsAkDQCZlGRXOpdcnlvSM6E=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EqmCezUi"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36d630c0e35so490955a91.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 23:29:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781764154; x=1782368954; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=v3rT78+mh94p30fmddvTsOsxlBAZusjF98/VgMVvL8Y=;
+        b=EqmCezUiIoAyhonpK6XDX+5dLcNRbP8M2R/v77ileoMnKS1xeWYVS9mRDwd5S3SAB7
+         pOS/K8qfGa/Ahl4VTp/Fm+pgMilsccanm75AIQTpZt1VXlg3qlYtRuFov+mL9tsNR5gW
+         cq9h1yyvuDgrXfxvhiaSr5youy+2U3PtSzAA4NaiRZNd7XtqDZS9IuDz9+j/R/4VBR/2
+         DU0ZpAwNtIomEwQwFnh19jKCHvvXHyn6k1lC4bsXPT5RBQ4wd4sLNL9PCOhRwkCF6oa4
+         uI3P8qcfT4iUz3+FzcKrtLHNfsa4n+zhplOjTqs4fR1Bqmcj6PXLblVkCYV1NPljNbXp
+         5kFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781764154; x=1782368954;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=v3rT78+mh94p30fmddvTsOsxlBAZusjF98/VgMVvL8Y=;
+        b=o1LgbXVSOvW38828HhMynjdhLf66eFS0PSoB1HBXqjDUn3ITj9U8KY+i8InV4S5jUE
+         chm2F6LNwmu06w22MCqcmCD01D2449e1mkV7iybRNZ0x2zZnPLzd7y3vfga9DpZg9R6S
+         GuEx5byiILM0aJGR7+DuncXoDlJZ6Y4/Ib3G3YN7x+L5c4a1KHRJUOgu5Yvr2kLiEjyh
+         4gv1khfqQkK+CmNW+vJJSCqjuRaIZw/6c1+dHZzl1VcbKoYk/1Ipgk5H4fzrLuArM2mA
+         F06rnesnpnnthLfRPO9CvGXwkeC0kfgoiBytlPHUGabz4UcDBLZtu9gqbwp9aDg4Evqp
+         BOJw==
+X-Forwarded-Encrypted: i=1; AFNElJ8B03wQPUD2xPVZN4A44bRwYLZSBKyvWhJyYgOdLDD1OJUxgVRpbdbZCRdbsefeAPqkU3qXCOKW/+bl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRozLTTYg+s2/X3Lyq6TMPIYQg+GmhCCvueLK9BOKkl70xXVp7
+	iKUIV9NJ5nWN3wJLqll8mDZcxLkujp0QKJ2QtB+MBlqTTmSPdj7C2YbR
+X-Gm-Gg: AfdE7ckFhkaAsglNHxIwBirqRvXXrkbSGzac9LrSTfNq1Vp3p5jE9dTUq1D+Pjd5hfN
+	hk+vTuGCQaWczvy1RFc8I8ve/YKhKhnbWp2RUrZ37SYAUSt7wKEhIqQ/stlxLnFvRaDVrmdmTPK
+	mU2JJ/00kb39OZzc48wQnreMCE/T1NY70awMvlVATY3uu8bQ8s3OvsXwQeoDj85fupx5F3bQWqB
+	CKuF/2PF6zDNSsNE9vvUN5J/MvVuKH8Hr2gkwj/FYc94OIj0t75kCUbJeg4up63Cl9YxMvDcrCl
+	pRiIFDxxIW67UoOHDBVgn+FIMI7GLZjczyAZzHD88dsHAldyT4CtSSVb2EFe4opKe0k3WJ4siUw
+	llkVIRRAQovGENHPJlSueV0NJvKDeXiiRxF4SpKZtrU424O59eSypykLhtIiNxmnjf8DEJELWQg
+	6m18DhbBgq6IvFSYhav7xcHROVlz7aVzRnEAFT/ozEJ8M=
+X-Received: by 2002:a17:90b:4b89:b0:36a:a16b:5f6d with SMTP id 98e67ed59e1d1-37ce449eb62mr2607325a91.7.1781764154038;
+        Wed, 17 Jun 2026 23:29:14 -0700 (PDT)
+Received: from page.local ([2402:a00:163:2ce9:b105:207e:b570:6867])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37c521efb10sm8200881a91.9.2026.06.17.23.29.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 23:29:13 -0700 (PDT)
+Date: Thu, 18 Jun 2026 11:59:06 +0530
+From: Ajit Singh <blfizzyy@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: Add Vicharak Axon Mini
+Message-ID: <ajOO6bx3KmYzhVdy@page.local>
+References: <20260607113658.25117-1-blfizzyy@gmail.com>
+ <20260607113658.25117-4-blfizzyy@gmail.com>
+ <39228ace-9404-4ade-bcb1-28e763548b7f@oss.qualcomm.com>
+ <aiuGjH4qeOIXXgqq@page.local>
+ <5c80c430-8bc7-4d03-be7e-c6dd518705e7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc58f22c-7ca7-43fb-e887-08decd01f031
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jun 2026 06:22:14.1419
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: P9lfhyN3LFHOJiuKxHaJ0mXthm0zOP4J85/F93dw7LGEKSAkyA0h7sRvlTSKepN107V+MDLCrd7GSVQHVwkqPY7m0/7+DJW3db8/YKdFh1lEi8TPx3h6N1r9XGMTwNVq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0P287MB1817
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5c80c430-8bc7-4d03-be7e-c6dd518705e7@oss.qualcomm.com>
 
-Hi Vladimir,=0A=
- =0A=
-Thank you for the review.=0A=
- =0A=
-I have addressed all of the comments except for two, where I am not entirel=
-y=0A=
-sure about the requested changes. Could you please take a look at the point=
-s=0A=
-below and let me know your opinion?=0A=
- =0A=
-> On 4/24/26 12:25, Elgin Perumbilly wrote:=0A=
-> > Add a v4l2 subdevice driver for the Omnivision os02g10 sensor.=0A=
-> >=0A=
-> > The Omnivision os02g10 is a CMOS image sensor with an active array size=
- of=0A=
-> > 1920 x 1080.=0A=
-> >=0A=
-> > The following features are supported:=0A=
-> > - Manual exposure an gain control support=0A=
-> > - vblank/hblank control support=0A=
-> > - vflip/hflip control support=0A=
-> > - Test pattern control support=0A=
-> > - Supported resolution: 1920 x 1080 @ 30fps (SBGGR10)=0A=
-> >=0A=
-> > Signed-off-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>=0A=
-> > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
- =0A=
-...=0A=
- =0A=
-> > +#include <linux/array_size.h>=0A=
-> > +#include <linux/bitops.h>=0A=
-> > +#include <linux/cleanup.h>=0A=
-> > +#include <linux/clk.h>=0A=
-> > +#include <linux/container_of.h>=0A=
-> > +#include <linux/delay.h>=0A=
-> > +#include <linux/err.h>=0A=
-> > +#include <linux/gpio/consumer.h>=0A=
-> > +#include <linux/i2c.h>=0A=
-> > +#include <linux/module.h>=0A=
-> > +#include <linux/mutex.h>=0A=
-> > +#include <linux/pm_runtime.h>=0A=
-> > +#include <linux/property.h>=0A=
-> > +#include <linux/regulator/consumer.h>=0A=
-> > +#include <linux/units.h>=0A=
-> > +#include <linux/types.h>=0A=
-> > +#include <linux/time.h>=0A=
-> > +#include <linux/regmap.h>=0A=
->=0A=
-> Please sort the list of includes in alphabetical order, also you=0A=
-> may consider to shrink the list by removing quite many inherited=0A=
-> includes.=0A=
- =0A=
-Some maintainers prefer the "include what you use" approach, like Andy,=0A=
-so I added all the headers that are directly used. Should I now remove=0A=
-any inherited includes?=0A=
- =0A=
-> > +#include <media/v4l2-cci.h>=0A=
-> > +#include <media/v4l2-ctrls.h>=0A=
-> > +#include <media/v4l2-device.h>=0A=
-> > +#include <media/v4l2-fwnode.h>=0A=
-> > +#include <media/v4l2-mediabus.h>=0A=
- =0A=
-...=0A=
- =0A=
-> > +static int os02g10_set_framefmt(struct os02g10 *os02g10,=0A=
-> > +                             struct v4l2_subdev_state *state)=0A=
-> > +{=0A=
-> > +     const struct v4l2_mbus_framefmt *format;=0A=
-> > +     const struct os02g10_mode *mode;=0A=
-> > +     int ret =3D 0;=0A=
-> > +=0A=
-> > +     format =3D v4l2_subdev_state_get_format(state, 0);=0A=
-> > +     mode =3D v4l2_find_nearest_size(supported_modes,=0A=
-> > +                                   ARRAY_SIZE(supported_modes), width,=
-=0A=
-> > +                                   height, format->width, format->heig=
-ht);=0A=
-> > +=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_V_START, mode->y_start, &ret)=
-;=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_V_SIZE, mode->height, &ret);=
-=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_V_SIZE_MIPI, mode->height, &r=
-et);=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_H_START, mode->x_start, &ret)=
-;=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_H_SIZE, mode->width, &ret);=
-=0A=
-> > +     cci_write(os02g10->cci, OS02G10_REG_H_SIZE_MIPI, mode->width, &re=
-t);=0A=
-> > +=0A=
-> > +     return ret;=0A=
->=0A=
-> Just "return 0" here, and remove the local variable.=0A=
- =0A=
-Could you clarify why this should return 0? The local ret is passed to all=
-=0A=
-cci_write() calls so that any write error is propagated. Returning 0 here=
-=0A=
-would appear to suppress those errors and always report success.=0A=
- =0A=
-Best Regards,=0A=
-Elgin=
+On Tue, Jun 16, 2026 at 02:10:44PM +0530, Konrad Dybcio wrote:
+> On 6/12/26 6:16 AM, Ajit Singh wrote:
+> > On Wed, Jun 10, 2026 at 02:58:19PM +0530, Konrad Dybcio wrote:
+> >> On 6/7/26 1:36 PM, Ajit Singh wrote:
+> >>> Add DTS for the Vicharak Axon Mini board based on the Qualcomm
+> >>> QCS6490 SoC.
+> >>>
+> >>> This adds debug UART, eMMC, UFS, SDIO WLAN, USB 2.0 host, PCIe
+> >>> support along with regulators.
+> >>>
+> >>> The UFS ICE block is kept disabled because enabling it currently causes
+> >>> an SError during qcom_ice_create() on this board. UFS works without ICE.
+> >>>
+> >>> Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
+> >>> ---
+> >>
+> >> [...]
+> >>
+> >>> +		vreg_l12c_1p8: ldo12 {
+> >>> +			regulator-name = "vreg_l12c_1p8";
+> >>> +			regulator-min-microvolt = <1800000>;
+> >>> +			regulator-max-microvolt = <2000000>;
+> >>> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> >>> +
+> >>> +			/*
+> >>> +			 * VREG_L12C_1P8 supplies the Ampak WLAN/BT module
+> >>> +			 * VDDIO and the external 32.768 kHz oscillator.
+> >>> +			 */
+> >>
+> >> Sorry for the long review timelines on the previous patch, many of us
+> >> were out for conferences..
+> >>
+> >> Is the oscillator used for that WLAN module? Would you ideally like to
+> >> be able to turn it on/off?
+> > 
+> > yes, oscillator is used for WLAN modules. Oscillator is powered from the same
+> > VREG_L12C rail as WLAN VDDIO, so there is no separate regulator control to put
+> > in pwrseq. So I think this will work fine?
+> 
+> Probably? My point is that you marked it as always-on, so it will *never*
+> turn off right now. For e.g. Qualcomm wifi, there's some timing spec that
+> needs to be met wrt delays between toggling various regulators and GPIOs
+> going to the module, hence I suggested you may need some pwrseq inbetween
+> to achieve reliable powering on/off
+> 
+Right, I checked the module timing requirements.
+
+The module requires VBAT to be present before or at the same time as VDDIO, and
+WL_REG_ON to be asserted only after VBAT/VDDIO are valid, around 2 sleep-clock
+cycles later.
+
+On this board, VBAT is the shared VCC_3V3 rail and is enabled by hardware, so
+it is already present before VDDIO. VREG_L12C supplies WLAN/BT VDDIO and is
+kept on. The WL_REG_ON timing is handled by the existing mmc-pwrseq-simple
+reset GPIO/delay before SDIO enumeration.
+
+So I think the current sequencing matches the module timing requirement.
+
+> Konrad
+
+Ajit
