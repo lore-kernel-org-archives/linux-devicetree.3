@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CADA3B14B7
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7450E3B38B4
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781773629; cv=none; b=qd8V8V8nU5W7zZdyWHAZM0XMN7o7+7VyUY5M25KjSdgPln/mM7l3RDV5zUwqlOQQBhJhjrOr9Fx1Zek8A7ahFZqN0nM25xL9i7UbHCcReMNoj/s+VfdhzScIaeEhWtHbJP3meWAOq5/x3MnCl4ran78V2HoCf0dFeEVs7JeBi3w=
+	t=1781773636; cv=none; b=DLI0xnXbDoh7mvZ3bzWWXNN1yR3KPDVesNlaPr42P3ZiD6OMaWX3/AZkbZ36ZutQD+XhOtirDDG5psNjElS/a6SgvF5kfzZfAmIX0j7qK0rPfgueFxwQgj1mWlVrx/YLa67JO7vdAj2h/Gd2Q3soYoCCUID7AjaG6qsblKnT0Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781773629; c=relaxed/simple;
-	bh=9YWKqHG9h+azs7B5xT1AGSTkv5a4OvLQRAny2OdFtmg=;
+	s=arc-20240116; t=1781773636; c=relaxed/simple;
+	bh=/txVxAvLF9aMAGkR9CXzGeWqGotHA5mWrN9Q3pLZeUQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KhCpJfVH2O0GTCKap7rXvmWNcvJ7HrBDaKckwN0FmlgQZ5XPPwiUGYcvpvOaGD5LzY83sKAF3U1Mc+EXbo6XvOJuDIm8s8VSPoQL8ZwWkZXL8gIbxcXugcsqgtilXkqf7AFykc+Xezc5S3ex+pF6QkWKdAJhsxcb6DS/c5puUhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ab9ZY0S/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TTPytgBp; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=U7xXlI3K4WN6QxRYxUZHTHPMGLR+AH1dyuhFcjHcZEQA8Trc98g7uuQnmISdex740H7Ev1mY1U0eIO5C1rxZS/7W5HMxHbUwTn+sckZNLbLZVIMQXIvwHzMEAipwhGaGN1vuY2tvLcFCAqUZfOylYUsjEpnJWTQz2Tsv7VG20p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZSzMwuFa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZuTSjRjk; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ab9ZY0S/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TTPytgBp"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I8FOeH1177641
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:06 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZSzMwuFa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZuTSjRjk"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I8G1ge1157448
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4Czs6WvmW4eC+XZ3qTBqPqvwU0TrJ6OjIZ+EZ/8XjiU=; b=Ab9ZY0S/VgFjCrwy
-	aWBhllKfjuhMjFY+8zxesXfn5PDrVrNNrjgAsaR9gLudSHLGHB3X4mMR7SRZVV/V
-	U9OlqOrfn0mGdnLDPNJBEz4kt2Gdm6k8co8cph0BoRyXnBPUb5RcW21Ri0vPG0El
-	Mqhm95WPmppQjR6MfVcfGaO3ICQCd+AMjdQYuc4jhpBpwyh+4rFlYiFJ5scMvUVz
-	TBKbDoPaBM+Qgyzuw1/rdVvgHzv5DqtMYf2on+rt7ArEgQZSSSzw0CxCnJmhD4k1
-	DhrJ1DDQK96JU4/fP8sAYtogTZ3qvowjf2hSkJpvArHWHRfK3hiRUGE9+QE/ibWf
-	Afo8hA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ev12kjqwx-1
+	FNTRNEjUl2bB1SNxPHc/nBXY2g2gOYZl5SKxQ13yWaY=; b=ZSzMwuFabmz+Foca
+	YJGRHEaoDe9xSh5MWdsbu2cyVGxP5SsFiLiVC+7DPUwyxMpXjp01PkxCQw3FTisL
+	LRuTa6qiUKFW6G5ZQt2LKWxAJAtreiZNESjxPQuoNwbferRxZsvbgbtN6Eo1B31o
+	o29kCqt4PJ+9PPWcQOBzI5qjfQZb4IgZWVQdfTYv1a01BIv1LNLYXC/Q+ImtVCzt
+	9Ob/FFGmRoQnKZYxivtj3yGXhdnuBt+7p3rHG4SJyAQJw++SCUctiaMwcaVuZv2Q
+	zmn2NEblxvM8yOd1cv4DUNpPerwLlokwryOtdRoPkzijmbcOm5nPblciOfCrXN1E
+	k5mekw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ev19a2nxe-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:06 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c6a2ee8cc9so7091555ad.3
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 02:07:06 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 09:07:11 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c88da04b71dso504922a12.3
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 02:07:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781773625; x=1782378425; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1781773630; x=1782378430; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=4Czs6WvmW4eC+XZ3qTBqPqvwU0TrJ6OjIZ+EZ/8XjiU=;
-        b=TTPytgBp6hnedSG/5nOIg542atSsNLcNZHF11K2fKDQ/iEZ9KppA/z6U8cGairy0Q9
-         4Hu1qY6I7g+RzkK433bOT+xM4ue7DJgNiuinjb8LsCHHs2gxH5ybBKaUsKD4h2lraY1i
-         gDpUEkvy7KfWJaxCy1ET0FWLOqJP0Bi/7ZEIv7RHf4Chb2T8i29s60Km8ycFOzBVRFyL
-         w3dPna6g85/H3IVhO4RzjkVyixyq+ZrDAd89yxAN1Q1hJgwIys6K5AaeYjWfrzAEOIUY
-         59LCLt6Q/Ay7d2TEPbl4A4oXYJnFrjP4SGxea844QWLqnzz0JTmAXvI0o//aq3oY4Ju2
-         wvQQ==
+        bh=FNTRNEjUl2bB1SNxPHc/nBXY2g2gOYZl5SKxQ13yWaY=;
+        b=ZuTSjRjk1KOqohHEryWUU2K2N56wsQg/z/e3nX3fYZzXrB9pWqhxtARsN+W4xLqfHJ
+         VHSSisIj4M+x+Vt9aHT3+RoL8Pqb/iVGjYspTto65rdceqm5w3q37FeAe/UMokLG6T+2
+         N8u3slfvgaeHgBpGtzJNwb6TuEffX4wSRc5CGYKAexFqAkK+0a2aLW8LTIohKjJEnGrP
+         7A9ZYAc6wGoM3L6vvb92MXing3mfaStIu+zueNB5PBsaRRMOkAlcz/A+pnyQft9CakJG
+         GwQQnRHmj7poVUTrmP8EiyyJU9+zRPMfk7CONeNhDmjUa1ehLvtjLgKLDxg9YIFOzGBH
+         q2XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781773625; x=1782378425;
+        d=1e100.net; s=20251104; t=1781773630; x=1782378430;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=4Czs6WvmW4eC+XZ3qTBqPqvwU0TrJ6OjIZ+EZ/8XjiU=;
-        b=po8lMR9nn67CWCuhIWqXx9BPm4j7r4bJ4qkf+iQuJ+9QU8ws+Xo3Z3vf1v36YnQBIQ
-         9rBG7SWkziN4cWcLrPrLysvD50QKYqaa6UrDC6zr2PjV09sHRj6fm+xsqfKNTGOk19wX
-         9Sc/QahB9gPqWm/qH7YiLACQGEDDfZRZiNPhoAo5L3vb3ndY8eQ53vf25aO3ZEn8xLt2
-         /Zq3ZUKqHnndLwE9/wYhC0so17fbmPQVnfG6Bupkp8gRcyU49vxtADqClKr42dDBX3lv
-         0OGi3ba8pInflrVNrjjb/moGLNOPETVoctvI288lu0D9exXd/c5panIVu/DPaU7SF1c/
-         7PVA==
-X-Forwarded-Encrypted: i=1; AFNElJ+65RYQ2htihx7NYf9n0LDW9EVQLp03II0P1wBvBqrMq9bV6LKkMPKUbSYZLxneFLfJL3Eean1j8xL3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxu6NT1WcoV5Wm00kpU3QFzzSTh8x0LBqZA9LNyJqOsePyAAC1B
-	+ZyxA4MVeak9TzHgZKcgbA1yoRnDrHwSpY3LlDXEcWL+Rr8gMYisKOsDJDNJ8M3uFoVIC72C7j6
-	Y6ESULBn0vg/p/BaReXQlTqAdRxSbYNGVXy+oADK5LmXfyvwZ2CPa5euXhVtuOpAI
-X-Gm-Gg: AfdE7cnfw9JfgfBF7ccV6NYTwq/R1xG0mjHcCF8EkSVkkFMlth/UoVBygYMULyj/cEZ
-	BB/WjU52MHfcls+2Hf5/c2TMdlrAfGgDzt+6ueIY+7ABQPjBIQ8CCjhYl1w9ZH/4kdBwSp1N8tT
-	hUiKpKLkqkCtGhJxadBztzn55RM0o8ofVlCwXEACprJ9NqgWMZhZ92CiOKON6GA6iJQ+OPVVwVt
-	AltAfOoHAt8370Lkp4FJ4vx4zzu/noyI6AP/GwYfNIAyVZOyQoGh4817drHRq+kzeLqp9u2ijvU
-	hP4+pv1M5TJ0T6634rhdrFH5HWy4ZkszC9EP304dXQw4/mk/9rxAeMFLDgnO494NwIPcF3c5E08
-	KrqNCD9dzyEj2MzQluzTYFrzn5oCr6jdmKhvMQV6vTkP8
-X-Received: by 2002:a17:902:e844:b0:2bf:2015:5b94 with SMTP id d9443c01a7336-2c6f340c894mr18082575ad.3.1781773625461;
-        Thu, 18 Jun 2026 02:07:05 -0700 (PDT)
-X-Received: by 2002:a17:902:e844:b0:2bf:2015:5b94 with SMTP id d9443c01a7336-2c6f340c894mr18081975ad.3.1781773624753;
-        Thu, 18 Jun 2026 02:07:04 -0700 (PDT)
+        bh=FNTRNEjUl2bB1SNxPHc/nBXY2g2gOYZl5SKxQ13yWaY=;
+        b=gjEFTiUI4qoZI7nputyN5wBuauY0Ta5MteRl/TsHW7m7bP/W9OARxNhYSvjgfl0flJ
+         dtAj/APqRNsICD4V04V8Xh9cqVMM3evqLLzjYqYpjOAwjlFZREdstABh0SFzeaS4Pveg
+         g6lQ7047yvn2MRBUufIOQshmAA4U9EI45EvobzkR3Wqw2dzJ/4yOaieXHbY1kICQjLXW
+         ItvCYd13/nzJJXjnX97shq21XFMGVXhTosuNFblOqnAqms8wiwrCnNDTqS70KB6xeDmc
+         sorDQNEON6nd8sIWVnZuE6hohZlPIbA3crxfIKd43RiKhV9oX1jLmg6NGZqy8lWKI3vJ
+         Oiew==
+X-Forwarded-Encrypted: i=1; AFNElJ99Ds5t0xweV/wp+kgHd3m4eC1jWqnKITJNZ5lvLmq3+i+zoJ6upWGXiA3jNOdBAurNJGn5O9zCAfnd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxV5LDfiwMepctBVyWXKr+G7vJBEqgEz4nXEBcJE9nxU12k69NX
+	P3UOm3p0mI3XOXxgNquoGGEgqmbE0xOcg6k6TwIF6McpOfTl4auDKHcG4uJ1zpBEaVMg/d1rpfz
+	EVy/lwWouJOXOcHWnOfX9oOKKjebKTQjJE7P50VhAEA2jUpZAfMUbSnLt3Ihl2PwF
+X-Gm-Gg: AfdE7cn9DzyOP5sUB1Jsusp4MDExWfx3d9q8E157vnFC+5vqGHrh8DIdu6ukQ5B+LHT
+	nA1a7mOp10shfG60kOoja6uJHn9uWDqiUf1g7LT03C7s8qe/3VF5kjWXPWRLp4+avghZ91ElHdS
+	1rvjPWaqg3wxVF4Nl2jJLFGOBLS8ZyEypidJGHqrZLjLY+kc8FAVYsjH//i/wY/eYQESRMmg9Ll
+	Nek92glxB/zWgxIQptqvw6enLf0wsGoNl7j2k1E9Wk8Nyz1SBWKWtUAtd1uh+6r/E4ctt7AmE/u
+	cZwdLLKY0iP4Jb11T5j1/oMFKBSqKARkNOffA01JUr7O/MXPxFpjhqSd/8zZpqkJUtllbsCgvzz
+	uY0EE06n8mZ2TW+mkXvLGtQb/RpJTk3Hc5owHz9PTvaGG
+X-Received: by 2002:a17:902:f790:b0:2c2:21e9:5a7d with SMTP id d9443c01a7336-2c6f347dbc7mr20749575ad.34.1781773630391;
+        Thu, 18 Jun 2026 02:07:10 -0700 (PDT)
+X-Received: by 2002:a17:902:f790:b0:2c2:21e9:5a7d with SMTP id d9443c01a7336-2c6f347dbc7mr20749005ad.34.1781773629882;
+        Thu, 18 Jun 2026 02:07:09 -0700 (PDT)
 Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac794sm192112835ad.46.2026.06.18.02.07.00
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c4327ac794sm192112835ad.46.2026.06.18.02.07.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 02:07:04 -0700 (PDT)
+        Thu, 18 Jun 2026 02:07:09 -0700 (PDT)
 From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Date: Thu, 18 Jun 2026 14:36:40 +0530
-Subject: [PATCH v4 2/4] spi: qcom-geni: Use geni_se_resources_init() for
- resource initialization
+Date: Thu, 18 Jun 2026 14:36:41 +0530
+Subject: [PATCH v4 3/4] spi: qcom-geni: Use resources helper APIs in
+ runtime PM functions
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260618-enable-spi-on-sa8255p-v4-2-f5b5067e7e1e@oss.qualcomm.com>
+Message-Id: <20260618-enable-spi-on-sa8255p-v4-3-f5b5067e7e1e@oss.qualcomm.com>
 References: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
 In-Reply-To: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -105,123 +105,99 @@ Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
         chandana.chiluveru@oss.qualcomm.com, jyothi.seerapu@oss.qualcomm.com,
         chiluka.harish@oss.qualcomm.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1781773609; l=2697;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781773609; l=2053;
  i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
- bh=9YWKqHG9h+azs7B5xT1AGSTkv5a4OvLQRAny2OdFtmg=;
- b=J4I53N1i41tzyPhhs7ATLMiLulNR4q3N5bXGGJ7vdCNkUxLqQrvApk0P5NSUI0hMVkZBGVQNs
- EeqeBruvSUzCMou64jZwjB1ExfXxtj9Dt5F6GnlliksNvvmFimAiG8/
+ bh=/txVxAvLF9aMAGkR9CXzGeWqGotHA5mWrN9Q3pLZeUQ=;
+ b=XlCL9PArLwZ+b4O6accMSjXrsls6A1CgsKC/2t4RXFFnqwlual08eHzfbWc2FWVDll/pB/6By
+ 7+lhi25hJ1gD9X4x/vC/oXmZXeC3rnqwZXxmsXYcM/sEom/Ct4RyfGb
 X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
  pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA4MyBTYWx0ZWRfX635ocaGGLjRB
- YnYPvNahrDePnoctVRUVvoMV3qzW1HIcsKKuWxJnIVTUB1rEyB+5q9AyfCxvbZJZM/0ldQltRHj
- 115yj7XW+MwjfI7nzENz+9OATIVJbovEcFRydnAVuieUWcheXqcJ9f6UzOLUrpS10o1K/edpmoY
- 4H+X85/d+SpuGXCZbAlCF8Gw9athJq5RqIGEN+9s6pUnUtI+KpuN0WI30yvfWyThnQTDBNeGr1q
- 7zEz6/HJZ5aDxEUlGJoXuy0X5XKd/yEjiTorhWBr51sXZffK8IoeS0PaA6135tKgNhXL17Jazq6
- 5Cr3slhms2jeBn4ji6HyemjPjsJQgr4gn5+pko4hh5Y9Xgz4q7gNDU27v3YYKGGAYmZcYmlwp4v
- U/1Z5G+KlUXrm6NeQZSIwegtum/Si4ujCpOAUphvHEVDAesMpO1VBaFXCxAXXI/Mx56EhTDHZ5B
- kj96KpEsgZma6XE1PAA==
-X-Proofpoint-GUID: YhPvzbAC3K7jqN1JFqRUNph7oDiAnKQ4
-X-Authority-Analysis: v=2.4 cv=HpVG3UTS c=1 sm=1 tr=0 ts=6a33b53a cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=YbmNIQRf c=1 sm=1 tr=0 ts=6a33b53f cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=TXo2QnZ9t29hVJcr6pMA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: YhPvzbAC3K7jqN1JFqRUNph7oDiAnKQ4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA4MyBTYWx0ZWRfX0nm+GkRbhORR
- R4elDeVFxmxyy9xKol2++hktwCtb9tnkS8jNQ+5PoIccD3KNG9XxanbQMTsee5teOepEEK5X0l5
- hvS+0pJ4nZM3Rp5sRo7zjOid9E2Ylr4=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=i7xoKaWEWnc8ZE6DH4sA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA4MyBTYWx0ZWRfX9VClNfBteXJj
+ 0hAIlRAzHbgv+gYakOviXvv1H7UgCmv9ggIDKBipF2OCUIgftlfx4Ee1A/diB0kxCGtp9AAjEwT
+ lGNr1pDdQPwfF8x49Lg8eXteeXODv4w=
+X-Proofpoint-GUID: txXBzjeuwZLypIjM_N0oxhv5iASzblhv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA4MyBTYWx0ZWRfX5btoFvkOxU+0
+ oAhWbrzfr10C5ZJMadqrzGfim6mXA06qSD+HBfUlFvog4ALNE1fqE5SCEwKkksZO1Ji48IfkwZq
+ I+1Drbxyv6d+y1zUWwkpL6bBN9s3g24C02ThqCpJa31UnZMUMUdPh9eQvVXOvwvs2bu18P4m0le
+ fy7ln3AwSI1QU+pwPSLJevfzSU075Kfk9zuYqxPW/dsT9dUerdoDlMD/EFhW1Y10PGlfLirLQ4m
+ c8GodQwh73j+wn98pMaKRy2w4SWNnH31xxSpVuKOnypuM2Re5/p6Y5UYBTZO8g9u8w7Q5C6Ek1O
+ 79fPy8eF517DnZDWg07oYy336Kp7YF4SJnAdch0Ipe0SBkNeNqUc6twMtixbSBZfxFMH7N89k9N
+ 9R42NSBGst5vz5iBqXIYThD8cfVWD2wRSQOMkO4yv4hA8XUjAQhS3hWUVuXduYwaIkiJROCJnGO
+ mU55KTZ/CZRCqABmWkA==
+X-Proofpoint-ORIG-GUID: txXBzjeuwZLypIjM_N0oxhv5iASzblhv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-18_01,2026-06-17_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 malwarescore=0
- clxscore=1015 adultscore=0 phishscore=0 bulkscore=0 spamscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606180083
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606180083
 
-Replace resources initialization such as clocks, ICC path and OPP with the
-common geni_se_resources_init() function to avoid code duplication across
-all drivers.
+To manage GENI serial engine resources during runtime power management,
+drivers currently need to call functions for ICC, clock, and
+SE resource operations in both suspend and resume paths, resulting in
+code duplication across drivers.
 
-The geni_se_resources_init() function handles all these resources
-internally, reducing code duplication and ensuring consistent resource
-management across GENI SE drivers.
+The new geni_se_resources_activate() and geni_se_resources_deactivate()
+helper APIs addresses this issue by providing a streamlined method to
+enable or disable all resources based, thereby eliminating redundancy
+across drivers.
 
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 ---
- drivers/spi/spi-geni-qcom.c | 26 +-------------------------
- 1 file changed, 1 insertion(+), 25 deletions(-)
+ drivers/spi/spi-geni-qcom.c | 19 +++++--------------
+ 1 file changed, 5 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-index 26e723cfea61..09feb6577efc 100644
+index 09feb6577efc..025165c4b952 100644
 --- a/drivers/spi/spi-geni-qcom.c
 +++ b/drivers/spi/spi-geni-qcom.c
-@@ -1045,7 +1045,6 @@ static int spi_geni_probe(struct platform_device *pdev)
- 	struct spi_controller *spi;
- 	struct spi_geni_master *mas;
- 	void __iomem *base;
--	struct clk *clk;
- 	struct device *dev = &pdev->dev;
- 
- 	irq = platform_get_irq(pdev, 0);
-@@ -1060,10 +1059,6 @@ static int spi_geni_probe(struct platform_device *pdev)
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
- 
--	clk = devm_clk_get(dev, "se");
--	if (IS_ERR(clk))
--		return PTR_ERR(clk);
+@@ -1130,16 +1130,8 @@ static int __maybe_unused spi_geni_runtime_suspend(struct device *dev)
+ {
+ 	struct spi_controller *spi = dev_get_drvdata(dev);
+ 	struct spi_geni_master *mas = spi_controller_get_devdata(spi);
+-	int ret;
 -
- 	if (device_property_read_bool(dev, "spi-slave"))
- 		spi = devm_spi_alloc_target(dev, sizeof(*mas));
- 	else
-@@ -1079,17 +1074,10 @@ static int spi_geni_probe(struct platform_device *pdev)
- 	mas->se.dev = dev;
- 	mas->se.wrapper = dev_get_drvdata(dev->parent);
- 	mas->se.base = base;
--	mas->se.clk = clk;
- 
--	ret = devm_pm_opp_set_clkname(&pdev->dev, "se");
-+	ret = geni_se_resources_init(&mas->se);
- 	if (ret)
- 		return ret;
--	/* OPP table is optional */
--	ret = devm_pm_opp_of_add_table(&pdev->dev);
--	if (ret && ret != -ENODEV) {
--		dev_err(&pdev->dev, "invalid OPP table in device tree\n");
--		return ret;
--	}
- 
- 	spi->bus_num = -1;
- 	spi->mode_bits = SPI_CPOL | SPI_CPHA | SPI_LOOP | SPI_CS_HIGH;
-@@ -1115,24 +1103,12 @@ static int spi_geni_probe(struct platform_device *pdev)
- 	if (spi->target)
- 		spi->target_abort = spi_geni_target_abort;
- 
--	ret = geni_icc_get(&mas->se, NULL);
+-	/* Drop the performance state vote */
+-	dev_pm_opp_set_rate(dev, 0);
+-
+-	ret = geni_se_resources_off(&mas->se);
 -	if (ret)
 -		return ret;
--
- 	pm_runtime_use_autosuspend(&pdev->dev);
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, 250);
- 	ret = devm_pm_runtime_enable(dev);
+ 
+-	return geni_icc_disable(&mas->se);
++	return geni_se_resources_deactivate(&mas->se);
+ }
+ 
+ static int __maybe_unused spi_geni_runtime_resume(struct device *dev)
+@@ -1148,15 +1140,14 @@ static int __maybe_unused spi_geni_runtime_resume(struct device *dev)
+ 	struct spi_geni_master *mas = spi_controller_get_devdata(spi);
+ 	int ret;
+ 
+-	ret = geni_icc_enable(&mas->se);
++	ret = geni_se_resources_activate(&mas->se);
  	if (ret)
  		return ret;
  
--	/* Set the bus quota to a reasonable value for register access */
--	mas->se.icc_paths[GENI_TO_CORE].avg_bw = Bps_to_icc(CORE_2X_50_MHZ);
--	mas->se.icc_paths[CPU_TO_GENI].avg_bw = GENI_DEFAULT_BW;
--
--	ret = geni_icc_set_bw(&mas->se);
+-	ret = geni_se_resources_on(&mas->se);
 -	if (ret)
 -		return ret;
--
- 	ret = spi_geni_init(mas);
- 	if (ret)
- 		return ret;
++	if (mas->se.has_opp)
++		return dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz);
+ 
+-	return dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz);
++	return 0;
+ }
+ 
+ static int __maybe_unused spi_geni_suspend(struct device *dev)
 
 -- 
 2.34.1
