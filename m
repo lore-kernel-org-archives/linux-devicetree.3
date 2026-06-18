@@ -1,235 +1,149 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6838F2E62D9
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 04:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3791A8F7B;
+	Thu, 18 Jun 2026 05:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781757871; cv=none; b=nxgCyCNS/KvvqiFsw1xyz7EtcOWORs7oZtiCfuB+hFQjE1MRvXqC7YaSy9WE5chLvNgHeodqf7V943u3M6B9p8avBvNQuvFsTd+AVAgFC4pyFRVbKX6vIhbSg+/9Mq4HeMdSrn0CaWvZMZV3OnpINnKItCVtHfOGn2K4QlSRg5c=
+	t=1781758854; cv=none; b=V0XhEL0/SnIdImUqs8t4sGhcYJOMcqKLF4lzYDypw2VXoZWWbm+05EO4g67ig6qI3l27tCEBOEZ9sfXlSsPdb2abNqlJHtrPjcS5npw+2v5367uvSWD29y18/ZY2sufiDx768Z8Q+Es3FDzlSyABd1PZ9CUhjVisdV/k5/7rZLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781757871; c=relaxed/simple;
-	bh=e2X3uLyEyJwxM5HjZMv7HNmigKfP2gEwrUoXrdaESkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H5xCoNFjHvO9GX0MRWr5rMPHGPlVTIaJxetuvUc/MJzQKn3ZnFj5/SwP4j3+JGs5RUbMr6B3REDC77UkO2NEF69ieAv+zkisESu3wdClVzvOU7NHhGXwCD2Va6/LSG1fiT9Vq9CUGU2nfhBm4wrVvmWmFZGV0HkxwEppnfxSIXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cbiO7uKu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NW/VVPgT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1781758854; c=relaxed/simple;
+	bh=kJQzE8Q4Y5nxamJ3QCFApDJnkW7yvfCIB1dtuLl4GoI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ets8r6jllc+7HfvjEKALtoCVBosAalj+M3fvujbCoHYtj6yNtZ4wykTRTUT1By7vqEWzMDBXHSLwqd46iAdIa1LejNGr9MZGUVDmEPyai71rHIzM0ZNsGpE0FV1NoShVRmhR0Xot16JWJl7kqdms2ZO4X8XCvgzLQIFrN1Dtt1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VklzBwsc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cbiO7uKu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NW/VVPgT"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65I4NfaM3577354
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 04:44:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=TTyZtbn6rwu4RjX2VYmmyUvR
-	qm9Y3D608YZqL4TcQDg=; b=cbiO7uKuI7iG/4dvMRCT91ZpwfANL9HtWo5FsymJ
-	DUza1/WQRp58RU6yBxST6QoirvbOcYMJTrfE+FacjmOOVUxpFwwJ+eTX7ZxFeTwl
-	kp/p2hIyxglfjXQE3Ovg2r0y+KTvDOmlKLxrcOS61mzepZWMMfV0fQyv7AWJgF0p
-	BX6orKnRo+c9m2hp3mgVabTBGxm8oSJi08DJc/0jGK+eifPnCufXM5sUvfftKPIM
-	MbRibK1wSQrleVouV+/yPW41hKxRlSMVl2zkG/QngLtjet33ZrrQI0H245ctn3Uq
-	cm/tvqvP4nFQ8K+/UJ0yAQVldMs0185nQiHQzzR8RkC32w==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ev0g7j0sj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 04:44:29 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-13992d6a729so1643172c88.0
-        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 21:44:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781757868; x=1782362668; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=TTyZtbn6rwu4RjX2VYmmyUvRqm9Y3D608YZqL4TcQDg=;
-        b=NW/VVPgTR+eL045c1omPCxGWh4PgadN/OyzVyULba+szg0Stpxn5l2qmZtyLLrF6/w
-         m2FkylvRYSRK42V7u7ux3GF8T33FyVcfT/Wp6fNGLTWadh4uMMJIQVrolpFFtc2lssX4
-         87cKqtUnYE3PVS0PWA+P+Wt5+JyrkG5lo2MoA/9aBBAvXfhjduh/p2ubGDa84WjJwGX1
-         Jh6VJn43Ob5ibr6LLGkSLhbdF1u73T4ZJSKFvgl4r2Y4qomWAcM7U6120ydmdm5kP3mz
-         RedjFQbvExGy3psHQPSNdmZ/FSY/zubdmfOdK/3wIwF/zSU82jqGcyGifqlN7Bb5KvsD
-         4i1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781757868; x=1782362668;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TTyZtbn6rwu4RjX2VYmmyUvRqm9Y3D608YZqL4TcQDg=;
-        b=AekHJTgAfHKtDVRqBMVmyVhohhGjzBl6aKWq1buCGhsQriHZs8fMD8xMPM4LSnQtDN
-         ZskYzEw1J6J/tub+SHJ2fNG5hShZtegc7Jqq1S0XpJxxmWsRpsmlIAYhOblVrBRrYqwo
-         yRsYQJXByEskzC7zCFIgfiQ0dwkCdaYNA58ox3mGe7JX6mUrGZ07pnOYBq5+MdVff6o2
-         s32Wd4l/2YEzIGTI1cixOasjVwqHpWz6aQxvrEmXzy7CoDWY+K7vVDWKz9OpEP+BjpFn
-         PEAdnihr3nWELQJjlEHs5FuVw6bGr/4ywGqlOCTcmmtogtr0AhykzI5ptA47uSvC4sR3
-         Ni+A==
-X-Forwarded-Encrypted: i=1; AFNElJ+zutfaugOkiFl58ZGJxExegk4vzxgYmoi2fTLhC48Pmt2x0LXaJJ3mTAUXK6xHgQ02GsjgjJZkeLA6@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFsOX5Zirgp3HCWAFLxucC4Vtuwo75pP4gJ7zr7R6SfKYfbM6S
-	Cfe0YR7EipHK5t74wDlNU7GH5/yrbR5JgLSiyg2OThf58nGIZ8MZOcOdJCO6V2YC5W/fUUAJcVO
-	PCyvIUBvO7uGN2OZ58/UB7VluOISPmWRBz8m7NSfZ1sSILqgBrJ88bV/wk8pU3f0B
-X-Gm-Gg: Acq92OGrlvLDjRpAozj7MzF35d85MgHwFaIKQYRZoI29RqKxBsOOhMI9JdFC6ZCSJf9
-	tsOnhyJnEETRcylR+c8q5z2NpBwrNLLBgH03kdrjxYFB3r2QHuNQl5rDLdQws7QOf//tyCXiVGG
-	9Gj7EbnEJZN79BbE6TFMOtYrJWByp2/Kccp/umlMmZ23/Ov2h+2b+jkaQTnKH0Gs+93/WkqZzWW
-	zmxLzLmpQ6vYlG4hv0Svj9G3MavXyfkZGLphqWostchSWTam1tALjw7csdU1aVblgs2cIiqAxJt
-	Rotr2R842oys9T8vIlybJvHRs7aCpH0pmgUm5wKrXdl2SljcvmBhzlnIydWGUnLwOZxABw3JX2U
-	30+tMm1VJ9+mnh6UYvkmgbrMVVvhI3qvdNwWNapSE+qrblJkII1dT5eD7WanMCFJMlsk=
-X-Received: by 2002:a05:7022:493:b0:138:2a54:f6d9 with SMTP id a92af1059eb24-13997c79011mr1185374c88.25.1781757868347;
-        Wed, 17 Jun 2026 21:44:28 -0700 (PDT)
-X-Received: by 2002:a05:7022:493:b0:138:2a54:f6d9 with SMTP id a92af1059eb24-13997c79011mr1185341c88.25.1781757867797;
-        Wed, 17 Jun 2026 21:44:27 -0700 (PDT)
-Received: from hu-mattleun-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30bd23401ecsm4461963eec.25.2026.06.17.21.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 21:44:27 -0700 (PDT)
-Date: Wed, 17 Jun 2026 21:44:25 -0700
-From: Matthew Leung <matthew.leung@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: PCI: qcom: Document the Hawi PCIe
- Controller
-Message-ID: <ajN3qfWV75SqNzgo@hu-mattleun-lv.qualcomm.com>
-References: <20260529-hawi-pcie-v2-0-de87c6cc230c@oss.qualcomm.com>
- <20260529-hawi-pcie-v2-1-de87c6cc230c@oss.qualcomm.com>
- <2tenqkmwcr2gshtjwh44pvban4gtlzcgrm3iibkfrs4zh6vphb@h5losfunylr6>
- <aiteRU8cWykuhlVO@hu-mattleun-lv.qualcomm.com>
- <m2kwzigrz4fbdedzr2bj2auqtvafj6qstbplghssato4d6tdnd@ftug3clgxmd6>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VklzBwsc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133171F000E9;
+	Thu, 18 Jun 2026 05:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781758853;
+	bh=vyUxyP5gZaT2qGm7a08VKFmvCfpvDeHxeR+PC1uIn3c=;
+	h=From:Subject:Date:To:Cc;
+	b=VklzBwsc01IeU3y5Q0U1iZ/UkbtV1eyaMSg+wVFiJfs1m7m4j+q32rwlNmGKAyGJn
+	 7XG9QIn+F79kTNk8tURp4j7m2DZnv/BOX6McqRfFCP7ZaRn5ezVHhasMuRYXFvkrW0
+	 i9zTKd2Qd1B+h+zKfgnYuNQVmo0+zSBeC2n/It+6lXH4wHpu4kfyXa0gWBo3XcEAO1
+	 GBcqq97y7zqUDgfWditNHqzfZkX4iLA92BZHQEjVUmtaBuEAnd5v4pcJNAuFWEc999
+	 5pAXNhHfwLRPUQTCNz5BZ/2Yq1qY0RFFe7df+GZvj88bkjTXUOH3leAa/SE7oWJo1N
+	 6McfzbHRndf7A==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 00/11] pmdomain: st: ux500: Implement ux500 power domains
+Date: Thu, 18 Jun 2026 07:00:46 +0200
+Message-Id: <20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <m2kwzigrz4fbdedzr2bj2auqtvafj6qstbplghssato4d6tdnd@ftug3clgxmd6>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE4MDA0MCBTYWx0ZWRfX/+qGaTnmSQIW
- sIZbRr0B4k40FFMvYUXk784+cx3OkyCbdAAA270i48HcVNcnoW1Mc8/wuD9FxjoAQCXCz+34h1Y
- Fpay+m//UEqbElScrJuYAda+InMuyf34LqXMxOcs7cF04LG8QVZ2I0Sk4apRXWfHUiAo3uFEPzC
- vneRTd9xqEpoocpYm/et8pPVHY+Ci4AGtMp3Se5H0Hng5DoZerjOEdu6Zq5QdgAunGKuMGzC72U
- pBTd2pMymzcki1/+YDP6sxa1duVHSbOL6di5NAr5Ogj8MhTB+JhVtq5OGeL6ldGGcrrCsdSRKpV
- /NbM5RXGaEMQwCPUBFbD3G9Zg7ROcmsbNrvWmU5BMYZDtAhP066E+m61X6nyVR1LFAHE5b7zwZ5
- DWUpISINuVaAo+NUQg3191a5ff2tkgDCeZ2bKuAx03wHgW6LSMIlyN3771UEOHdAkLRzlmVxfju
- /prMrdMXt18wm56nJaQ==
-X-Proofpoint-GUID: RSyszhXliatVFWkA_y70_YP1K1CrVAqk
-X-Proofpoint-ORIG-GUID: RSyszhXliatVFWkA_y70_YP1K1CrVAqk
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE4MDA0MCBTYWx0ZWRfXzQMjwmkG0osx
- GF2hRYnIjBYKVUrtd8He5/QCeE9GgX/fnqdLqQv8XicdAgL6pxXFVziEPjAqvyWRE2WxkukmMl8
- ZWHKooRVUHKQS2Oy5s8uVou2c0svAS4=
-X-Authority-Analysis: v=2.4 cv=YrI/gYYX c=1 sm=1 tr=0 ts=6a3377ad cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=8dstwiPKDIhgTtwZBQUA:9 a=CjuIK1q_8ugA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-17_02,2026-06-17_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606180040
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MPQqAMAxA4atIZgNpRa1eRRykjZrBVlr8AfHuF
+ sdveO+BxFE4QV88EPmUJMFnqLIAu05+YRSXDZp0Q40yeNw1Ee7h4ogubJP4hGeLCivbOepqo43
+ VkPM98iz3vx7G9/0APODuGmoAAAA=
+X-Change-ID: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.14.3
 
-On Fri, Jun 12, 2026 at 09:22:10AM +0300, Dmitry Baryshkov wrote:
-> On Thu, Jun 11, 2026 at 06:17:57PM -0700, Matthew Leung wrote:
-> > On Sun, Jun 07, 2026 at 11:01:10PM +0300, Dmitry Baryshkov wrote:
-> > > On Fri, May 29, 2026 at 01:10:08AM +0000, Matthew Leung wrote:
-> > > > Add a dedicated schema for the PCIe controllers found on the Hawi
-> > > > platform.
-> > > > 
-> > > > Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
-> > > > ---
-> > > >  .../devicetree/bindings/pci/qcom,hawi-pcie.yaml    | 204 +++++++++++++++++++++
-> > > >  1 file changed, 204 insertions(+)
-> > > > 
-> > > > +
-> > > > +examples:
-> > > > +  - |
-> > > > +    #include <dt-bindings/clock/qcom,hawi-gcc.h>
-> > > > +    #include <dt-bindings/gpio/gpio.h>
-> > > > +    #include <dt-bindings/interconnect/qcom,icc.h>
-> > > > +    #include <dt-bindings/interconnect/qcom,hawi-rpmh.h>
-> > > 
-> > > Stop referencing clocks and interconnect header files. Replace used nocs
-> > > with ephemeral values.
-> > > 
-> > > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > > > +
-> > > > +    soc {
-> > > > +        #address-cells = <2>;
-> > > > +        #size-cells = <2>;
-> > > 
-> > > Not looking around should be a sin. Take a look at other Qualcomm PCIe
-> > > bindings. Compare them to yours. Then fix yours to follow.
-> > > 
-> > > Hint: the extra soc node is useless. This is just an example, so use the
-> > > default, 1 cells for address and size.
-> > 
-> > Thank you for the feedback. This new binding follows the examples set in
-> > the qcom,pcie-sm8x50 bindings and retains the same formatting (extra soc
-> > node and header references).
-> 
-> Hmm, interesting. Then I'm a sinner :-)
-> 
-> I looked at msm8996, but I didn't notice that the rest of the files use
-> the soc node (and match what you've sent). Please excuse me.
+Today the Ux500 SoC specifically DB8500 is using what is called
+"EPOD regulators" (EPOD = Electric POwer Domain) to control its power domains.
+This was done like this because at the time, power domains did not exist as a
+concept in the Linux kernel.
 
-It's all good! :)
+This patch series completes the ambitious work started in
+commit cd931dcfda5e ("ARM: ux500: Initial support for PM domains") which added
+a dummy domain driver for Ux500 in the following steps:
 
-> 
-> > 
-> > I understand the example can be simplified with your suggestions but
-> > want additional confirmation that these will be the convention for new
-> > bindings going forward.
-> 
-> At least, let's keep it for now. The other comment stands. To remove
-> dependencies please use ephemeral nodes instead of depending on DT
-> bindings from other subsystems.
+- Convert the old Ux500 power domain text DT bindings to YAML schema.
 
-Agree. Will update in next version.
+- Extend the bindings with all the 16 power domains actually existing
+  in the hardware.
 
-> 
-> > 
-> > > 
-> > > > +
-> > > > +        pcie@1c00000 {
-> > > > +            compatible = "qcom,hawi-pcie";
-> > > > +            reg = <0 0x01c00000 0 0x3000>,
-> > > > +                  <0 0x40000000 0 0xf1d>,
-> > > > +                  <0 0x40000f20 0 0xa8>,
-> > > > +                  <0 0x40001000 0 0x1000>,
-> > > > +                  <0 0x40100000 0 0x100000>;
-> > > > +            reg-names = "parf", "dbi", "elbi", "atu", "config";
-> > > > +            ranges = <0x01000000 0x0 0x00000000 0x0 0x40200000 0x0 0x100000>,
-> > > > +                     <0x02000000 0x0 0x40300000 0x0 0x40300000 0x0 0x3d00000>;
-> > > > +
-> > > > +            bus-range = <0x00 0xff>;
-> > > > +            device_type = "pci";
-> > > > +            linux,pci-domain = <0>;
-> > > > +            num-lanes = <2>;
-> > > > +
-> > > > +            #address-cells = <3>;
-> > > > +            #size-cells = <2>;
-> > > > +
-> > > > +            clocks = <&gcc GCC_PCIE_0_AUX_CLK>,
-> > > 
-> > > <&gcc_pcie_0_aux_clk>, etc.
-> > > 
-> > > > +                     <&gcc GCC_PCIE_0_CFG_AHB_CLK>,
-> > > > +                     <&gcc GCC_PCIE_0_MSTR_AXI_CLK>,
-> > > > +                     <&gcc GCC_PCIE_0_SLV_AXI_CLK>,
-> > > > +                     <&gcc GCC_PCIE_0_SLV_Q2A_AXI_CLK>,
-> > > > +                     <&gcc GCC_AGGRE_NOC_PCIE_AXI_CLK>,
-> > > > +                     <&gcc GCC_CNOC_PCIE_SF_AXI_CLK>;
-> > > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
-> 
-> -- 
-> With best wishes
-> Dmitry
+- Add these domains to the existing ux500 power domain driver (still as dummy
+  domains).
+
+- Add the power domains to the DB8500 SoC DTSI file.
+
+- Move code over from the EPOD regulators to the actual power domain driver.
+  Since the two drivers now control the same hardware, make the drivers
+  mutually exclusive.
+
+- Modify the MCDE display driver to use the power domain instead of
+  the EPOS regulators.
+
+- Modify the DMA40 DMA controller to use the power domain instead of
+  the EPOD regulators.
+
+- Delete the old EPOD regulators.
+
+- Implement regulators activating the VANA and VSMPS2 power domains for the
+  power domain voltage rails that are routed off-chip as external supplies,
+  re-using the existing EPOD regulator bindings.
+
+- Delete the references to the unused EPOD regulators from the device tree,
+  keeping the references to VANA and VSMPS2.
+
+This is a bit of brain transplant on the Ux500, and the series is not very
+boot-bisectable.
+
+For simplicity, the series can be merged in separate paths and subsystems as
+there are no build-time dependencies, as long as the result ends up in kernel
+v7.3. Once the concept and patches are ACKed by the power domain folks, I will
+send the patches that can be split out individually to each maintainer and
+it can all be merged in parallel.
+
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (11):
+      dt-bindings: power: Convert Ux500 PM domains to schema
+      dt-bindings: Add the actual power domains on U8500
+      pmdomain: st: ux500: Implement more power domains
+      ARM: dts: ux500: Rename power domains node
+      ARM: dts: ux500: Add power domains
+      pmdomain: st: ux500: Control DB8500 EPODs
+      drm/mcde: Use power domain for display power
+      dmaengine: ste_dma40: Use power domain for LCLA SRAM
+      regulator: db8500-prcmu: Remove EPOD regulators
+      regulator: db8500: Add power domain regulators
+      ARM: dts: ux500: Remove DB8500 EPOD regulators
+
+ .../devicetree/bindings/arm/ux500/power_domain.txt |  35 --
+ .../power/stericsson,ux500-pm-domains.yaml         |  46 ++
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 134 ++----
+ arch/arm/mach-ux500/Kconfig                        |   2 +-
+ drivers/dma/ste_dma40.c                            |  97 ++--
+ drivers/gpu/drm/mcde/mcde_clk_div.c                |   4 +-
+ drivers/gpu/drm/mcde/mcde_display.c                |  11 +-
+ drivers/gpu/drm/mcde/mcde_drm.h                    |   2 -
+ drivers/gpu/drm/mcde/mcde_drv.c                    |  63 +--
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 -
+ drivers/mfd/db8500-prcmu.c                         | 239 +---------
+ drivers/pmdomain/st/ste-ux500-pm-domain.c          | 353 ++++++++++++++-
+ drivers/regulator/Kconfig                          |  22 +-
+ drivers/regulator/Makefile                         |   3 +-
+ drivers/regulator/db8500-prcmu.c                   | 501 ---------------------
+ drivers/regulator/db8500-regulator.c               | 221 +++++++++
+ drivers/regulator/dbx500-prcmu.c                   | 155 -------
+ drivers/regulator/dbx500-prcmu.h                   |  55 ---
+ include/dt-bindings/arm/ux500_pm_domains.h         |  17 +-
+ include/linux/regulator/db8500-prcmu.h             |  38 --
+ 21 files changed, 748 insertions(+), 1252 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
+
