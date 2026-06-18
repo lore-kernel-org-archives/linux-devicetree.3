@@ -1,63 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D4E800;
-	Thu, 18 Jun 2026 00:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05FF40D56F;
+	Thu, 18 Jun 2026 00:42:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781741471; cv=none; b=qPB/iURWzgK9h2T2HmXX0l6LZmebVHzRznjSLy6+bX4VVKvwc7nJAYngnb/wJm4umjzfpXD1Xo3hjZUoLFE18o9Ei4nuTlLliNtK01MC87nJggKrxkbLlGc51DoZ9kL0Qfvh1b1P3Z+jstrYGvEoZMiDQ0fAtfXs3+QnuELURJ8=
+	t=1781743344; cv=none; b=VmnNeQb1PZikR1jsR9ggYItJPvHu/1P2YiBV984rhp1NHOH1BkYWgrtZT8Geym5aKzaYsJ80OdoVDk2Tz753iZbhGxTO2N8T8RAi5AftrpAqkSJAoNvGVDsWoHgnmzptVZJgWo5A8SgKZ7opNf1s4Gg1uuO6I3zDfZagGX5k4ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781741471; c=relaxed/simple;
-	bh=dzwf6C30U+S3XZlPHCXkMqhVx4umM5UNhj73oBkRKrM=;
+	s=arc-20240116; t=1781743344; c=relaxed/simple;
+	bh=LrpFbr4vBbChDMmR0Imvu3H50KZqhmElh6040CgIB2A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hyZ92eWGoTVOXk1pt7HZCnV3wWKiUSmAGRnmxMeia2H7lGdzPlfg6o9VDWVypuzIwgeADmn5/oxga0bJYetK5z14W7WqOqziRTzpNswqi/I0u4DjMZdSFpNoQKPCq1i9sfydSQjl79RFokxMWNLYyLUsZxyczDgPdWXn7kunzKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ac+2uviU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZPFYTO6VpphEPY+odSgWOy9zautkS1d8kT5GYezF08m52Me3tgUMpyOFxOuVseGBRN455OXHIvuWrrMDrK6URPqge/e5KG7G8O1Mq+yHbMzk9KTQzUVXsUDnhN1j3k7siUMPy6DSKXmJlFIih+bf1k0W2NHse+w1tyorNn0qqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=V9/MYriX; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ac+2uviU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D0A1F000E9;
-	Thu, 18 Jun 2026 00:11:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781741470;
-	bh=BthPJgZpS1+N4wzOR0iD8v+QR4QpG3XPDyaK2/42WLo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ac+2uviUL8lBCBMVEfaABvD4ML7bAXbfqi03SRHtS43JdZpuIdcBX7XSLu1DwOtbO
-	 SSFvg6lQqWd9pGQojIeu7mWJxqMpegjbgEGXlJ8EEX/FSsDzsWzilhaxDscDuGWuz1
-	 NwJi8qgEqOkYKbigdvZ+8P7HNvmzSAoT9uSkKxQXNmfm9erfYGwgUTB4SSD++n3ri2
-	 Gaqccil4QlJqaUdG6bg118KJD+bZfi4FQlxkRHOiNE+dVhnrzrxzFZCQqXQgtFGCEy
-	 +URqrzHA9EQLodhdLRZBMDOi4H9lV6P55Eno7Kn3/I0QAHr2eNKmGj0oV5ThZsCp3v
-	 YxY0kliYWm3Pg==
-Date: Thu, 18 Jun 2026 02:11:05 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
-Cc: wsa@kernel.org, thor.thayer@linux.intel.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: i2c: convert altera i2c to dt-schema
-Message-ID: <ajM3eOzcq7g_VGjF@zenone.zhora.eu>
-References: <20260505053201.5795-1-chaitanya.msabnis@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="V9/MYriX"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5878340E01C9;
+	Thu, 18 Jun 2026 00:42:19 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id YS4gZm3My4eS; Thu, 18 Jun 2026 00:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1781743333; bh=IBHrtVXmPuRWQ7uBhktFTKcch7hAhRcfTxyn7mn7O4k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V9/MYriXywS0hZanHFwwPwHTRJ7pTlal7SUCalcLgv7ntOufAz/28XqFVfI6uKyYI
+	 QOLvxM7ASQ95LAHtjtKQQSW5hRFWqG+Fvm3quBJrqpCYacEpBCfDudcD5TpKxYnvZo
+	 jNW2AguPUE125tOpIJbJKnbPZfOdFjNmXWtJtg63elp1Q41omZP/GgbbwBjA8nAloc
+	 PfGz8IIVcrme12XEvNdKQ2rv/GJag/unT3FlgXHVllVf0VJmtzm0IKtqLKpvRH2wud
+	 N8ImwjHLKfpq4lXe+fjyh782pmKmP87f26PxEGVjPzocmND+8U8oZGxvs6gpq3HXsZ
+	 RRdY/zh3823W1VfUzlz9XQHpfyKj3SugSAPLBNINUSipf0eUCFnf/ASD0chGphO2wd
+	 33XUogK9sPdnD3sSmcICjzmOBuNMU2bfQmSk8K3+YNoAcCC5j9/trjk57f1Z1l85fX
+	 sbPK3s36Q4+q3Rp8+7TUHJs/vXdR8gu2di4PbQr9EcAMuKEYesCn08iPjUwCw7VNCD
+	 XvHeVcsZsQz0RLmL5/C1IdWqyRSi8anYr36UHtEYZc5Ih+oxGgNdo8Nwmeh6BJ3ht2
+	 tqkphneIWVsqRJSVfAq1ynFwyWUfOHhtgqB+aDCAQiIvDR9Ri+cXHuftygbTEx6Z0P
+	 o2dtfp1sQOOLVA3iM8/qRkMM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E63DE40E015B;
+	Thu, 18 Jun 2026 00:41:08 +0000 (UTC)
+Date: Wed, 17 Jun 2026 17:41:06 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
+	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
+	robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
+	bhe@redhat.com, rppt@kernel.org, pasha.tatashin@soleen.com,
+	pratyush@kernel.org, ruirui.yang@linux.dev, rdunlap@infradead.org,
+	peterz@infradead.org, feng.tang@linux.alibaba.com,
+	dapeng1.mi@linux.intel.com, kees@kernel.org, elver@google.com,
+	kuba@kernel.org, lirongqing@baidu.com, ebiggers@kernel.org,
+	paulmck@kernel.org, leitao@debian.org, coxu@redhat.com,
+	Liam.Howlett@oracle.com, ryan.roberts@arm.com, osandov@fb.com,
+	jbohac@suse.cz, cfsworks@gmail.com, tangyouling@kylinos.cn,
+	sourabhjain@linux.ibm.com, ritesh.list@gmail.com,
+	adityag@linux.ibm.com, liaoyuanhong@vivo.com, seanjc@google.com,
+	fuqiang.wang@easystack.cn, ardb@kernel.org, chenjiahao16@huawei.com,
+	guoren@kernel.org, x86@kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org
+Subject: Re: [PATCH v16 05/10] x86: kexec_file: Use crash_prepare_headers()
+ helper to simplify code
+Message-ID: <20260618004106.GCajM-oofpxU2jDsy0@fat_crate.local>
+References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
+ <20260608073459.3119290-6-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260505053201.5795-1-chaitanya.msabnis@gmail.com>
+In-Reply-To: <20260608073459.3119290-6-ruanjinjie@huawei.com>
 
-Hi Chaitanya,
+On Mon, Jun 08, 2026 at 03:34:54PM +0800, Jinjie Ruan wrote:
 
-On Tue, May 05, 2026 at 11:02:01AM +0530, Chaitanya Sabnis wrote:
-> Convert the Altera SoftIP I2C Controller bindings from legacy text
-> format to modern dt-schema (YAML).
+> Subject: Re: [PATCH v16 05/10] x86: kexec_file: Use crash_prepare_headers() helper to simplify code
+
+Use proper subject prefix: "x86/crash: ..."
+
+> Use the newly introduced crash_prepare_headers() function to replace
+> the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
+> memory in the crash core, which reduce code duplication.
 > 
-> The hardware constraints and properties remain identical. The example
-> node was updated to use a standard 32-bit address space to clear
-> compilation warnings.
+> Only the following three architecture functions need to be implemented:
+> - arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
+>   to pre-count the max number of memory ranges.
 > 
-> Signed-off-by: Chaitanya Sabnis <chaitanya.msabnis@gmail.com>
+> - arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
+>   to collect the memory ranges and fills them into cmem.
+> 
+> - arch_crash_exclude_ranges(). Exclude the low 1M for x86.
+> 
+> By the way, remove the unused "nr_mem_ranges" in
 
-merged to i2c/i2c-for-7.2
+s/By the way/While at it/
 
-Thanks,
-Andi
+> arch_crash_handle_hotplug_event().
+> 
+> Cc: Thomas Gleixner <tglx@kernel.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Vivek Goyal <vgoyal@redhat.com>
+> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+> Acked-by: Baoquan He <bhe@redhat.com>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/x86/kernel/crash.c | 89 +++++------------------------------------
+>  1 file changed, 11 insertions(+), 78 deletions(-)
+
+With those nitpicks above addressed:
+
+Acked-by: Borislav Petkov (AMD) <bp@alien8.de>
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
