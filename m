@@ -1,189 +1,393 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0143F4824
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B623B2FE9;
+	Thu, 18 Jun 2026 12:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781785425; cv=none; b=GQcwzCoV186mr9nKPuyubuSJyFkT8kl/d98YNrN03wrAHZS/s9t8x1PPfl+XeNIZSWoo/l2v38U0yn/wiRYVKTns57w9Tkz3Bvy0cjhcK6W3mAp66gHeKipyexYPnN51jMy78friG+EgszpAyB9KQV0pmsPbdOCl9njbPyhODas=
+	t=1781785572; cv=none; b=cY9IFHPIIPVhhxqi+5VFNJmYz9f0vQobqWTYHq49kdQOTMiECXpX2FUU+u3VW9z1bMkiIS0YN2qkvJjGR+yq3QkMLZKr1cqc9G8/U/OKTXIDgECqPZxv13oSWpPKP3ZlabBwhURx0LsFrs9y+ZfiSNhiCBadQoMSg5cTwddIu4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781785425; c=relaxed/simple;
-	bh=C3Ue+0dp2+FFHE5z/WmC42l4yMuleDdXt8q4YWy72hE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kB/uuiZwUJIPFX8IE6ZNQn7d2rdT3nsms78os0Gw0np1Vnb663LYhdb9Yf9E/qs3uzCkQsUNZEWi2JkR0LjBc7YQ2iXYMZdA3kpX5OhQG+NJBIBrgMzGAddiqvW7ix5JPlGLc8DdN0ys2sJJKFMv4CUzlGdf3Ns5j8jho9o9nvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=l6MfqIvB; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781785572; c=relaxed/simple;
+	bh=117WUoPJJVKNpNS7sQNiPEvrJOc1PB/NlsExRLSSHCM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EEYnsZ/b7BjXhFDWL3gGPMBBX+NeatxDl9i+x+CxoeH7dq0URkTTZNiM80tAzzKkLMGxSjkBWR366nlAHmL6czhbRUU3KKgYXmJpb+QuiPSdrc0kRZ8yiSw8QaGbHegyU6jSTborXrqluBc5rdSyZb7hKeMxFhqjYl3kW998N3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4eHq5Ei; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="l6MfqIvB"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4921e4dd62dso7162915e9.0
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:23:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781785422; x=1782390222; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
-        b=l6MfqIvBk118YafTKVhdMD8lLT9xAO1GHwCCqAVv/auP80oDC9qR6TheKKXGBH6eVr
-         sNDy7Q1AnPcSeM9Mi/ZVml6Ngmcc3waUiT2LKH/BXc65PHHW5qFVjugyNDlYcGS2xr0r
-         JVVyGYOI7COycm/WggWIeDeW0iqa4XACTm3m9Nh7S2jXizci+ASmYIHMTlkjimKm6sSM
-         nqQ3OMaBtyAwGYZU7CNRg3seMbF5XUne94auG3BXmvu+deSJ+mZlTNEOLPbKXJcKMquQ
-         149HQGE4o+cnG/O/TK/rCmauyVpWo3YbpR3Uu8np1364ejPtepmgpPT3g1ptFqbix58c
-         Z4zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781785422; x=1782390222;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=D5FEcOXjp/hefaowFGFjzfPrPE1kEo+L375WErKUiNc=;
-        b=JRwhnWWSj4nhTtC2jJrron5za94RnLaYAwKujhk1EhN+pvkBbgY3VYUFRntzV5Y/h1
-         0HTtOv0gBl2i+NqwfLqbkU0aWBvr3bRxGnUvZp5Ztty+ossBJhOnwByqJihOxKhRygo0
-         1lHpzi6u+jgkSTXWve2qM8x7XED07oEXTyIoR8LImS8Bp9wQ+ur8yHkQVTlBfPIibtv2
-         jNffYXjERecD/rxSlnfNZuovxoreMeNljN1T2tXZYP/3AYHO0/RDyFjuwyXmrf2HEdm1
-         WJYIJuNB9QMkpzwHIdwkM7YfMNOJFLi2fOsARw92NNMoZbq9UrggzngEpNLBQ6QdHyEJ
-         PD7Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/cmiFLrgB6gs+77jAaYBXIx8D/55W2wYWBNIQQxxcotozk3Maug+kmNKjX1nhsKdlyWX/YYwy11N+M@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+Uj+tIwCrsUl0mk6gMpuIYSZTh5HU0wx/CxTgNzzemoLkcDer
-	v40bO74W2V2eYbRTyYm+RpTHOauM5fV89xrkNgJMyTorCw+dKK4a48tQKg1fqGD6wcc=
-X-Gm-Gg: AfdE7cnFRstb4W5gtrlU0BIG6JI0Ffr8aNWdimZrOE6gWoWtiIZ45aABigbCyZWTB+A
-	fTvKqtjJDy+e7r5c6pHD4+Cn4DHUnHlblwM023njbBi7BlGvxoQ3BlJjgZm8gX0BFTA5R8KXGQ/
-	BWOkB0ZQe9mg+ABJGXlmK8h07wgxBAkwoa+o9ttgykAUvMyTRiEfDMYh/j0BZvsmuLnJyewwR9X
-	qu8YIG1EuISSUvYhK2QIVuVGp827Wa6gRz4P8pNLFHM7XGIgXC/v5I9x4nfARtxCZHHnSdx6jPO
-	LrEOuKswH9xrggbigx2QBcgKAUR66qkykQ91NRRGAs/PXAMwnm6EkIUgvQw+501uCyySSJcWNmT
-	D/PpVn4FZ2i2a34bN7F4mxm5HpJallHyt0+4esR1IrrkNrs7w9ZTqIHbWD1ZzeRK3V8cvz3h/sz
-	el7tiybH4fXPQDW7xhKXrsBFxHohN9Fh6jtHSaof4Qo1WYl+dLqCnPSSemSortA3KxVg==
-X-Received: by 2002:a7b:c8d3:0:b0:492:1e36:9a90 with SMTP id 5b1f17b1804b1-492381a2e79mr37585935e9.18.1781785422212;
-        Thu, 18 Jun 2026 05:23:42 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0? ([2a01:e0a:106d:1080:6e1b:5a5:b2b5:b2c0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa96f0esm274863325e9.12.2026.06.18.05.23.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 05:23:41 -0700 (PDT)
-Message-ID: <716f71ae-4642-4f22-8a9f-5b1c017d9ac2@linaro.org>
-Date: Thu, 18 Jun 2026 14:23:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4eHq5Ei"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF59D1F000E9;
+	Thu, 18 Jun 2026 12:26:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781785570;
+	bh=KWMmbg3fdKU/LLPkt6+H2CKMwjevnSKk96lM6E2waW4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e4eHq5EiuU8HejW20Oe3HCnRjkId5NxXYoj8XPY+/du1tCt99TL8TXgYLIh7+sjgX
+	 3oP/gWi2USDEz6rymuzBOCVozwYOCVq/vc7eLecSAPcGKhPKrlO6s6XBICxe7q+4CC
+	 9aq2QuOUn2U4P7/xGXtyg1izceuMiUQexAOPoGBNri0AzJdkVHoIXJKPGlPz6v4Uz2
+	 3xItMWiqv8dbljRCQuiwWhsx4W7MUJqNQ7WI9sbEmOLm8BbxLqqtA0YFBvz6Db4E0J
+	 SRhs8skiHH0jhGWf7t4Y5GrUAmtsXUEpbLkwbniE0A30DjNgX09RdNGvt/TF8XldIH
+	 ommrS8TsweflA==
+Date: Thu, 18 Jun 2026 13:26:05 +0100
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+	Ion Agorria <ion@agorria.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v8 2/7] mfd: Add driver for ASUS Transformer embedded
+ controller
+Message-ID: <20260618122605.GH1672911@google.com>
+References: <20260528053203.9339-1-clamor95@gmail.com>
+ <20260528053203.9339-3-clamor95@gmail.com>
+ <20260611111732.GN4151951@google.com>
+ <CAPVz0n0caBBt6A+AFeUpGdxvb3Qhoui7khLCt3747bPUKmMXhQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/3] drm/panel: himax-hx83121a: add backlight regulator
- support
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260608162622.403713-1-zhengxingda@iscas.ac.cn>
- <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260608162622.403713-3-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n0caBBt6A+AFeUpGdxvb3Qhoui7khLCt3747bPUKmMXhQ@mail.gmail.com>
 
-On 6/8/26 18:26, Icenowy Zheng wrote:
-> The backlight, when managed by the panel controller, could be powered by
-> an external regulator, and shutting down the regulator could power off
-> the backlight.
-> 
-> Add support for such a regulator. It's powered off when the backlight is
-> 0 (either by setting brightness to 0 or setting bl_power), and powered
-> on when the backlight should be operating.
-> 
-> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ---
->   drivers/gpu/drm/panel/panel-himax-hx83121a.c | 26 ++++++++++++++++++++
->   1 file changed, 26 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> index 1a7e0125bced8..e31e2fba0a787 100644
-> --- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> +++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-> @@ -34,7 +34,9 @@ struct himax {
->   	struct drm_dsc_config dsc;
->   	struct gpio_desc *reset_gpio;
->   	struct regulator_bulk_data *supplies;
-> +	struct regulator *bl_supply;
->   	struct backlight_device *backlight;
-> +	bool backlight_enabled;
->   };
->   
->   struct panel_desc {
-> @@ -195,7 +197,27 @@ static int himax_bl_update_status(struct backlight_device *bl)
->   {
->   	struct himax *ctx = bl_get_data(bl);
->   	u16 brightness = backlight_get_brightness(bl);
-> +	int ret = 0;
-> +
-> +	if (!brightness) {
-> +		if (ctx->backlight_enabled)
-> +			ret = regulator_disable(ctx->bl_supply);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ctx->backlight_enabled = false;
-> +
-> +		return 0;
-> +	}
-> +
->   	/* TODO: brightness to raw map table */
-> +	if (!ctx->backlight_enabled)
-> +		ret = regulator_enable(ctx->bl_supply);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ctx->backlight_enabled = true;
-> +
->   	return mipi_dsi_dcs_set_display_brightness_large(to_primary_dsi(ctx),
->   							 brightness);
->   }
-> @@ -647,6 +669,10 @@ static int himax_probe(struct mipi_dsi_device *dsi)
->   	ctx->panel.prepare_prev_first = true;
->   
->   	if (desc->has_dcs_backlight) {
-> +		ctx->bl_supply = devm_regulator_get_optional(dev, "bl");
-> +		if (IS_ERR(ctx->bl_supply))
-> +			return dev_err_probe(dev, PTR_ERR(ctx->bl_supply),
-> +					     "Failed to get backlight supply\n");
->   		ctx->backlight = himax_create_backlight(ctx);
->   		if (IS_ERR(ctx->backlight))
->   			return dev_err_probe(dev, PTR_ERR(ctx->backlight),
+On Thu, 11 Jun 2026, Svyatoslav Ryhel wrote:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> чт, 11 черв. 2026 р. о 14:17 Lee Jones <lee@kernel.org> пише:
+> >
+> > On Thu, 28 May 2026, Svyatoslav Ryhel wrote:
+> > > From: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> > >
+> > > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
+> > > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock
+> > > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
+> > > detection and common operations for EC's functions.
+> > >
+> > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+> > > ---
+> > >  drivers/mfd/Kconfig                     |  16 +
+> > >  drivers/mfd/Makefile                    |   1 +
+> > >  drivers/mfd/asus-transformer-ec.c       | 542 ++++++++++++++++++++++++
+> > >  include/linux/mfd/asus-transformer-ec.h |  92 ++++
+> > >  4 files changed, 651 insertions(+)
+> > >  create mode 100644 drivers/mfd/asus-transformer-ec.c
+> > >  create mode 100644 include/linux/mfd/asus-transformer-ec.h
 
-Thanks,
-Neil
+[...]
+
+> > > +static void asus_ec_clear_buffer(struct asus_ec_data *ddata)
+> > > +{
+> > > +     int ret, retry = ASUSEC_RSP_BUFFER_SIZE;
+> > > +
+> > > +     /*
+> > > +      * Read the buffer till we get valid data by checking ASUSEC_OBF_MASK
+> > > +      * of the status byte or till we reach end of the 256 byte buffer.
+> > > +      */
+> > > +     while (retry--) {
+> > > +             ret = i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_READ_BUF,
+> > > +                                                 ASUSEC_ENTRY_SIZE,
+> > > +                                                 ddata->ec_buf);
+> > > +             if (ret < ASUSEC_ENTRY_SIZE)
+> > > +                     continue;
+> > > +
+> > > +             if (ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK)
+> > > +                     continue;
+> > > +
+> > > +             break;
+> > > +     }
+> > > +}
+> > > +
+> > > +static int asus_ec_log_info(struct asus_ec_data *ddata, unsigned int reg,
+> > > +                         const char *name, const char **out)
+
+If we can avoid points to pointers, then please do.
+
+We already have ddata, so we can just set the name?
+
+It will remove a lot of the following complexity / ugliness.
+
+> > > +{
+> > > +     struct device *dev = &ddata->client->dev;
+> > > +     u8 buf[ASUSEC_ENTRY_BUFSIZE];
+> > > +     int ret;
+> > > +
+> > > +     memset(buf, 0, ASUSEC_ENTRY_BUFSIZE);
+> > > +     ret = i2c_smbus_read_i2c_block_data(ddata->ec.dockram, reg,
+> > > +                                         ASUSEC_ENTRY_SIZE, buf);
+> > > +     if (ret < ASUSEC_ENTRY_SIZE)
+> > > +             return ret;
+> >
+> > Same here.  These should be negative.
+> >
+> 
+> return ret < 0 ? ret : -EIO same as above
+> 
+> > > +
+> > > +     if (buf[0] > ASUSEC_ENTRY_SIZE) {
+> > > +             dev_err(dev, "bad data len; buffer: %*ph; ret: %d\n",
+> > > +                     ASUSEC_ENTRY_BUFSIZE, buf, ret);
+> > > +             return -EPROTO;
+> > > +     }
+> > > +
+> > > +     if (!ddata->logging_disabled) {
+> > > +             dev_info(dev, "%-14s: %.*s\n", name, buf[0], buf + 1);
+> > > +
+> > > +             if (out) {
+> > > +                     *out = devm_kasprintf(dev, GFP_KERNEL, "%.*s",
+> > > +                                           buf[0], buf + 1);
+> > > +                     if (!*out)
+> > > +                             return -ENOMEM;
+> > > +             }
+> > > +     }
+> >
+> > FWIW, I hate this!  What does it give you now that development is done?
+> >
+> 
+> We have already discussed this, and you agreed that EC and firmware
+> prints may stay! This prints EC model and firmware info as well as EC
+> firmware behavior. It allows identify possible new revisions of EC -
+> Firmware combo and address possible regressions (check if it is chip
+> malfunction or firmware needs a new programming model) without
+> rebuilding kernel and digging downstream kernel for needed bits of
+> code.
+
+Right, so just print it out and remove all of the 'logging_disabled' and
+'out' nonsense.
+
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static int asus_ec_reset(struct asus_ec_data *ddata)
+> > > +{
+> > > +     int retry, ret;
+> > > +
+> > > +     guard(mutex)(&ddata->ecreq_lock);
+> > > +
+> > > +     for (retry = 0; retry < ASUSEC_RETRY_MAX; retry++) {
+> >
+> > for (int retry = ... is generally preferred for throwaway variables.
+> >
+> 
+> Not that I care too much, but I am defining ret anyway, why not add
+> retry too there?
+
+This is the new and preferred way to use throw-away variables.
+
+ret is not a throw-away variable.
+
+[...]
+
+> > > +static int asus_ec_set_factory_mode(struct asus_ec_data *ddata,
+> > > +                                 enum asusec_mode fmode)
+> > > +{
+> > > +     dev_info(&ddata->client->dev, "Entering %s mode.\n",
+> > > +              fmode == ASUSEC_MODE_FACTORY ? "factory" : "normal");
+> > > +
+> > > +     return asus_dockram_access_ctl(ddata->ec.dockram, NULL,
+> > > +                                    ASUSEC_CTL_FACTORY_MODE,
+> > > +                                    fmode == ASUSEC_MODE_FACTORY ?
+> > > +                                    ASUSEC_CTL_FACTORY_MODE : 0);
+> >
+> > Why not create make:
+> >
+> > ASUSEC_MODE_FACTORY == ASUSEC_CTL_FACTORY_MODE
+> >
+> > What happens to NORMAL?
+> >
+> 
+> ASUSEC_CTL_FACTORY_MODE is a bit in the ctl register. For NORMAL mode
+
+I get that, but if the values can be shared, it make the code simpler.
+
+> bit is cleared,
+> for FACTORY bit it set, for NONE bit is ignored.
+> 
+> > > +}
+> > > +
+> > > +static int asus_ec_detect(struct asus_ec_data *ddata)
+> > > +{
+> > > +     int ret;
+> > > +
+> > > +     ret = asus_ec_reset(ddata);
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     asus_ec_clear_buffer(ddata);
+> > > +
+> > > +     ret = asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_MODEL, "Model",
+> > > +                            &ddata->ec.model);
+
+Where is this model used?
+
+> > You can use 100-chars and make the code look beautiful! :)
+> >
+> 
+> Not every subsystem permits 100 chars, some stick to 80 as a strict
+> rule, so it is better be safe.
+
+Right, but we are forward thinking here.
+
+You can and should use 100-chars in this subsystem.
+
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     ret = asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_FW, "FW version",
+> > > +                            NULL);
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     ret = asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_CFGFMT, "Config format",
+> > > +                            NULL);
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     ret = asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_HW, "HW version",
+> > > +                            NULL);
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     /* Disable logging on next EC request */
+> >
+> > Why, but why?
+> >
+> 
+> Cause EC requests are frequent (handshake/reset) and constant logging
+> same data is not acceptable.
+
+Then rid the prints entirely or do them at a more appropriate point like
+during probe?
+
+Or maybe consider dev_info_once() and friends.
+
+> > > +     ddata->logging_disabled = true;
+> > > +
+> > > +     /* Check and inform about EC firmware behavior */
+> > > +     ret = asus_ec_susb_on_status(ddata);
+> > > +     if (ret)
+> > > +             goto err_exit;
+> > > +
+> > > +     ddata->ec.name = ddata->info->name;
+> > > +
+> > > +     /* Some EC require factory mode to be set normal on each request */
+> > > +     if (ddata->info->fmode)
+> > > +             ret = asus_ec_set_factory_mode(ddata, ddata->info->fmode);
+> > > +
+> > > +err_exit:
+> > > +     if (ret)
+> > > +             dev_err(&ddata->client->dev, "failed to access EC: %d\n", ret);
+> > > +
+> > > +     return ret;
+> > > +}
+> > > +
+> > > +static void asus_ec_handle_smi(struct asus_ec_data *ddata, unsigned int code)
+> > > +{
+> > > +     switch (code) {
+> > > +     case ASUSEC_SMI_HANDSHAKE:
+> > > +     case ASUSEC_SMI_RESET:
+> > > +             asus_ec_detect(ddata);
+> > > +             break;
+> > > +     }
+> > > +}
+> > > +
+> > > +static irqreturn_t asus_ec_interrupt(int irq, void *dev_id)
+> > > +{
+> > > +     struct asus_ec_data *ddata = dev_id;
+> > > +     unsigned long notify_action;
+> > > +     int ret;
+> > > +
+> > > +     ret = i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_READ_BUF,
+> > > +                                         ASUSEC_ENTRY_SIZE, ddata->ec_buf);
+> > > +     if (ret < ASUSEC_ENTRY_SIZE ||
+> > > +         !(ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK))
+> >
+> > Unwrap for readability.
+> >
+> > Also, I think a comment would be helpful.
+> >
+> 
+> if (ret < ASUSEC_ENTRY_SIZE)
+>     return IRQ_NONE;
+> 
+> ret = ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK;
+> if (!ret)
+>     return IRQ_NONE;
+> 
+> This would be acceptable? (I will add comments later on)
+
+Yes, better.
+
+If you're not using ret again, you could just put 'ddata.." inside the if().
+
+> > > +             return IRQ_NONE;
+> > > +
+> > > +     notify_action = ddata->ec_buf[ASUSEC_IRQ_STATUS];
+> > > +     if (notify_action & ASUSEC_SMI_MASK) {
+> > > +             unsigned int code = ddata->ec_buf[ASUSEC_SMI_CODE];
+> > > +
+> > > +             asus_ec_handle_smi(ddata, code);
+> > > +
+> > > +             notify_action |= code << 8;
+> > > +     }
+> > > +
+> > > +     blocking_notifier_call_chain(&ddata->ec.notify_list,
+> > > +                                  notify_action, ddata->ec_buf);
+> > > +
+> > > +     return IRQ_HANDLED;
+> > > +}
+> > > +
+> > > +static void asus_ec_release_dockram_dev(void *client)
+> > > +{
+> > > +     i2c_unregister_device(client);
+> > > +}
+> > > +
+> > > +static struct i2c_client *devm_asus_dockram_get(struct device *dev)
+> > > +{
+> > > +     struct i2c_client *parent = to_i2c_client(dev);
+> > > +     struct i2c_client *dockram;
+> > > +     struct dockram_ec_data *ddata;
+> > > +     int ret;
+> > > +
+> > > +     dockram = i2c_new_ancillary_device(parent, "dockram",
+> > > +                                        parent->addr + 2);
+> >
+> > Could we define a macro for the address offset '2' here to avoid using a magic
+> > number?
+> >
+> 
+> It seems that you are excessively concerned with "magic numbers".
+
+Bingo!  I HATE magic numbers.
+
+https://lore.kernel.org/all/?q=%22Lee+Jones%22+magic
+
+~900 messages!  =:-D
+
+[...]
+
+> > > +static const struct asus_ec_chip_info asus_ec_tf600t_pad_data = {
+> > > +     .name = "pad",
+> > > +     .variant = ASUSEC_TF600T_PAD,
+> > > +     .fmode = ASUSEC_MODE_NORMAL,
+> > > +};
+> >
+> > Any reason not to just pass the identifier (variant) and add the name
+> > and fmode attribues to the switch() above?
+> 
+> Why not set it here, I am not passing any mfd or any other API via of data.
+
+I get that, and you're not breaking any of my golden rules.
+
+However, I just think doing everything in one place, usually a which
+based off of the 'variant' which you pass as a single value, is a nicer,
+more consolidated way of doing things.
+
+-- 
+Lee Jones
