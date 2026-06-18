@@ -1,86 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1022E1C4E;
-	Thu, 18 Jun 2026 20:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BD1221F20
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 20:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781813154; cv=none; b=up9Vtzt0IO8J9EKvkdhTCHW3pOvPRN4RU3R90+3M915YLk0iG7rm2pwp3tKDesFwtC+YnxDO811DIxSumSLoPz++k11wVtzUAqgwGbXhXYd4UV0r3NX/1SBY2uwj+v4wQIPp4t11Cj3CGAFdhRnp6KE/lHgd2Vu36e9G8bHx56A=
+	t=1781814156; cv=none; b=BVSBuheVDkp7rxPsgXCas7GfOGtICUvu4HSW40/xczIfKfm3DwSK3v1rEZCEknDe+ZaznoG8cJ0JydCOJC+BFC/Ks8p5HbmqEnC2vx0IEJypeEwuY/RBthhIgF2yCG6PGe/3PcVp9mbnB9q/8nfI/8FLxSzagaaCxRKE/5BTPCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781813154; c=relaxed/simple;
-	bh=iSIb+Xnhtkh4603gGlMIYyjgq7gUwu78nAHoewAyslE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MYPbMxIGHJe6PUPNMLu4t5wwsG4uQpw7/7x17fc5lQnqVycK7mCco+lnNa92YhK7SU4y1G33lgfmRswXIgbR7EqSPEvxvHi+oXsAGvKugBbgC77KYo1StAg5LgCQcdIx7x2zCSnZiSobIomqWdG773oJeaHyMBMtsLCoHUOS99o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2vhPadK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781814156; c=relaxed/simple;
+	bh=0vCetBQc/RgR282rGyH6o5vXIBU7+7jTBsdkWgjaAkY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k9r+OKNSeGi7weivJKtAI5vNto/4zgJAUUzfcgNkS6ap7N5sePwhpwJrwFMrrYGjbkHK8PlhzO/nQ6qPbJog8392HDYe5X3YVw64SQAxtv9sI7R8nPJLGuoiFK2IFpTw3+OPG4FVdnHWBRMdsRleh6AajUQ3hu2KbLoLqBxVpR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bq0cSHpC; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2vhPadK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647281F000E9;
-	Thu, 18 Jun 2026 20:05:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781813152;
-	bh=iSIb+Xnhtkh4603gGlMIYyjgq7gUwu78nAHoewAyslE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J2vhPadKpAycrCWyQ4VoIP0RnhoBUVb5CokPhYoGcHyMRVnKVYzuzsff/lA5O6tiw
-	 JPEbNxYeAmQk3+hnfD7ClJ64gGyrmapE5Hkhf3H31Jo26QAQHMSK2mFbQfTNS4eKcb
-	 12E3Ph5ZP31mqde5wMDysHCn3LUTtgY3ZigiAhRSDTF/iL5QyAC/k/D8ndDLaWuiHT
-	 o4UyYQBBUA1rXAfbzjobbc0llbl1mgsb+tnn4IibEmVCwqVnIlR/Isg9Q/FrTCUBRz
-	 g85oMpqZOL3DRb8/wmA9V97Tjl7PdXUeryUIeNTDGsqJQXthf9tqYdtnnq0lwCddYB
-	 SMVrLhXreABVg==
-Date: Thu, 18 Jun 2026 21:05:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Kerello <christophe.kerello@foss.st.com>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: spi: st,stm32-qspi: Add power-domains
- property
-Message-ID: <2389579c-cde4-420e-8755-44cf4de10bd2@sirena.org.uk>
-References: <20260618-add_power_domain_for_qpsi-v1-1-4d7e57bcfb9a@foss.st.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bq0cSHpC"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2bf1f074a12so13829445ad.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 13:22:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781814155; x=1782418955; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GvYpMoq3VW0fKqjPGnaW7LsX6jXZOIA+8rdGT75spEY=;
+        b=Bq0cSHpC/V+OCdzZglYdppH+kal0UvqVlUIgw5THV3RY13/Z0Db3N/HRoto2kffH/p
+         YUXiUyrOEXS4bPzCBfjNgzS3HkyFKITFcRAilFrSNkZT5lRHRdsXEsNtBrdo9HawSXJb
+         YspGM9Pe19AXhVBQasroCs1NjD2GafZW6ROmP0/QaK3JZ9mZyGlZhcj/7NXphrA+ifUO
+         OOKG8rJd5nvryJhNHpi+bryWvBYMgJpIURqHSa6WuSqOuHwDXP0ERQKJbuy6p0T+KQ1t
+         T0hzFNLA52iF3j1TgbbD1HJiTpAK+iMCZ2S7PIoPoP3OM3QCgqWQrJogsBvSQYgF2zyt
+         T7ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781814155; x=1782418955;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GvYpMoq3VW0fKqjPGnaW7LsX6jXZOIA+8rdGT75spEY=;
+        b=d/W8edrPzePiDyV+KvBxfz6d/L5UC9JvGMeGb0RHxZxF8r2ErE0ISOrVqlBOppwDzC
+         xxvjCMiyy6yAzbDATkNJCaLWfgP/n3jbcUy4LrQJFTt4YUZ68RrA6dvkm4LWTbVsv/IC
+         9ZUFk1ZqxNKXDAt+jwyzPHF71q3KChpoe9P2xOcEpEf2Db6vaMuSCSWPXOUTVV8VJpv4
+         AdyQvjlZXScMghnWBXG4j0Ba6J6ImT7R+KKVHs2Z8MQXpqgW3XxV1STJYvDl7PnkDi80
+         HD8iAXDyxAzd2AREMpVzt7ugm1en0ID8bGBYIJQmVf6iiLxbu+/HhXT9pjb716EaFcQo
+         6Iqw==
+X-Forwarded-Encrypted: i=1; AFNElJ8pjYFFy01PRUqbaZzJ9i45Ev74g8EuZMrm1zhJgNx8f6vrxRE/a1ges23i4sGZkQtr/bAua8OBRt0x@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/RfpKa9ZjO4rwFNkbnkHMBjJHJ18JYbOrmTHKATWqlnG4Nt8W
+	0dV7OIUmux9UQd0cLUvumebEExRiahYgvgPeQPSMZ/6s7VxxZUz3mLw=
+X-Gm-Gg: AfdE7cm7g+mCufT2yV69fXVbUg/pndWfDNF9+VfesHLcTUot6QGlPvbl/EcVyuwlGo0
+	q18eMdyhmYu+ZrPq6IDfdN24I71De2b5ZYFIhc1QEzTPlw/l+E/BlM9PhTxs/scj7ZgnG55S0SF
+	SlWiw+S3ZXn4X2OQMopbeLLDWhtJBVjsq199OS4NmQWD8R7B+aq+tPEqHXQ9nXGFidCAr5Zakxt
+	FBpIBCp2hI0b3U7LjPcKjlGrWWtFEU+slsKWQNSWlxz2POC8Mw7wDpFkABXMJKxMuus83vXA/KE
+	P4RfWMBdpk9wRHzeajWtyVMxnRy4EcBJYBRJ91eWKbZ9CGKiWh2yMH0bRBPGEvYIazUh0//QMfC
+	yzUvHiZ8bMQM4+jyncgaPY7q0zEvQWK5CzAQPEuEM0COJ+LJKTKJynDveLVA1dJFUO9Tf45wYXF
+	XzZ2EnuWv4unN7x1zNtCLouauDwCCNpJ+3g/+2ktXoBLPT9SRkn4Adj/56aQ==
+X-Received: by 2002:a17:903:1248:b0:2c1:42d2:40a with SMTP id d9443c01a7336-2c718cc902bmr9301895ad.9.1781814155016;
+        Thu, 18 Jun 2026 13:22:35 -0700 (PDT)
+Received: from [192.168.1.45] ([101.0.62.180])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c72089c1e1sm116205ad.11.2026.06.18.13.22.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 13:22:34 -0700 (PDT)
+Message-ID: <d8b7df8c-56ae-47f0-9d92-830110511252@gmail.com>
+Date: Fri, 19 Jun 2026 01:52:30 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hafQDUbp9k6UCBdI"
-Content-Disposition: inline
-In-Reply-To: <20260618-add_power_domain_for_qpsi-v1-1-4d7e57bcfb9a@foss.st.com>
-X-Cookie: This unit... must... survive.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] iio: magnetometer: add support for Melexis
+ MLX90393
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+ nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260618160141.11409-1-nikhilgtr@gmail.com>
+ <20260618160141.11409-3-nikhilgtr@gmail.com> <ajQpq1yzA-ig2c7s@monoceros>
+Content-Language: en-US
+From: Nikhil Gautam <nikhilgtr@gmail.com>
+In-Reply-To: <ajQpq1yzA-ig2c7s@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---hafQDUbp9k6UCBdI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 18-06-2026 10:55 pm, Uwe Kleine-König wrote:
+> Hello,
+>
+> On Thu, Jun 18, 2026 at 09:31:41PM +0530, Nikhil Gautam wrote:
+> Please make that:
+>
+> 	{ .name = "mlx90393" },
+Thanks for pointing this out. I'll update it in v3.
+> I guess you want
+>
+> 	.id_table = mlx90393_id,
+Yes, that's correct. I'll add the missing .id_table entry in the next 
+version.
 
-On Thu, Jun 18, 2026 at 08:46:35AM +0200, Patrice Chotard wrote:
-> STM32 QSPI may be in a power domain. Allow a single 'power-domains'
-> entry for STM32 QSPI.
+Thanks for the review!
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
-
---hafQDUbp9k6UCBdI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo0T5sACgkQJNaLcl1U
-h9A/pwf/SgEVdnoxmkZ3v4Lyil4/JLjj62RdAJuYela8TOThYKaczHP/cCRFLOa2
-VM6Ff64DIyUiv+VIdyPVSXlXKZ2GwkN9bUd4pIYMeiP9CP2Te6CpPweUwWqv4TKT
-vykhSMZ5f3B4vksMlzzsGxX7778ffQjhXUal/yAyPcPwFEaXv2ybKHRFKt+y3Cfg
-qd3MY51PLoIu2Chxrg3X1lQSGDlQ9zblJeKnrj00jxVsOO0kWqVNZBZEdr1jCZtf
-MFbY+41CDZtsKRZC3aHMseSePvIuSnBnBXm4c1AwYfbbDOcKNWj+4sy8p585PDX1
-O7HG+47vGWB5sXxWe2C42ESsdb3yfw==
-=8xSh
------END PGP SIGNATURE-----
-
---hafQDUbp9k6UCBdI--
+Best regards,
+Nikhil
