@@ -1,493 +1,154 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7705738D017
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781787295; cv=pass; b=TRGC8owAvYLaEzf8Yv+UM8OCG+h43NQkJBGMw+wexrdSpGfVXbgTS2oXXXukyzRodSjTAatVLje4PBpNRcnvDi3HZfkJbGvgK9ueRxRr129IccEFqP9lj2OR5OV+tvocCbvTZEmgqL2DK5OTgeURnp9j0h4ducJ7Tlc2mcFJjRY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781787295; c=relaxed/simple;
-	bh=J7eeWyqbGcyQ83kRIeqIYu9zZpto9qa/3uEOVb05eGw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lCW6vICNKjqbyymw2yxvpeKMtWCyCGWVTpk7MErPp/rQArM9M9POYhrkBmn1iuFeI44K22ZGffvVvJ6EElo/AM8veC7GkmQ/h0j7lrAh9gVy53ncavCvyjQTOz+me3ozaVTQHNVxNXLBr2dIOVYQo2fKd4ObPwckD8z6B6mA248=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hJy5wH0J; arc=pass smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D233B4EAD
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 12:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781787316; cv=none; b=vEhKoepROUp6MKd4EryyH+TUkXHssxLhbPmaR/4GSp8RsqZO39XEejon6ZJwO0CUIYb+UPoW26LO52CRKipUn3pipme09cdC3J/g7WqbATg2LLSnWJYAHG9BJ7xCyKa7b7dEmX/X4Ji7msrQ87uVXFjNZ8zmiOznLHy3TI0QnhU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781787316; c=relaxed/simple;
+	bh=XsKpGPjqz6wlYoFn3nBSAZfc+0H0ekZJHLCHC1CCZVs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LAyeLytbfdQHmRvbxc9DG73Q94nltIZ7L6ZiDUd3W56vZi5WCbXcJWZZoJw84wwXfcNNyTn4/Gy2xsSUc2MI1LY49Jg4nxR/WYU+IiK6vYoSngHT2VUII191wMKIv5h00hrbfe1kRnagybQmIydqNFSUddJidr4ZB1wkWmaEjJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TS4RHkTe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hJy5wH0J"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-30bbe98c3f0so747981eec.0
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 05:54:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781787292; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XGqdLwIeHSWxR2wJTqI7Ra54f2nShlceb76QsdOwhwArkw2bZ1I8/2k5VL/n9e6yC2
-         i3ls7Ojtl0U6tu6IkMG7YH974I2+aTjZqs7I5UU51zfxPUVuxYJJVMc+oc17Z+4EbliM
-         NgPmiZm8zcQhTIi//hdzHzaYRLXUfsWOeQnAno/5Y9ORsnTpBZUh8+Q7IhF/8ym3Fbia
-         /4V79TYRJfFzmWxiRgosaVfpu/cfnlu+aRa4V21ir8FTWffoTZ+LODlbdq/B6UZb2saa
-         Sjko3R/Jnj7Ie8Mj07YY8B4C2hdU7RkmQi6mrmc2Dzhh1tlvk6NS7bW1tXqF7Rmr8OZ0
-         oJLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TCZ2aNL11hbP4R4kkuDPj9FfQ/WKus/j+epI04FrrLM=;
-        fh=35cDdwgpWQhoKRGvVHt3uYiukrgbIvgP1gTIlHsYC34=;
-        b=N81d/Xh42qLjt+gN67ZxR4cKoUvV87yKY7j8La1OJ2r9bIef1TPBenxleP5meiSdmM
-         jNj1oc1PIpy7awpPv+xXIUBe1MkVdNUSZXr3n60fL5yhziId5OoVhlX/od2lcAt5EE4+
-         19Bnu77rVNbyqwaQySR02OelQ+Feit304O2doAQD20Bx3T/nXwun/89BCLpGlRAoU1JW
-         tr11NtUHCPI1MdezTF+fXprijAW4g8wjc0+raVq30Qz4EdUqNqxW9UiTwImA7Mpyuqpk
-         hIj6rjzDt9k8MJnbxA3+y08LBwIu/VE1UMTY0ef2sFiuwbzC24QLluV+LPUrf5HhwnWn
-         im1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781787292; x=1782392092; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TCZ2aNL11hbP4R4kkuDPj9FfQ/WKus/j+epI04FrrLM=;
-        b=hJy5wH0JUl3DgQQXDNw/4JEpQa/D8t5EiFqXSuau9gq9K5KY+LEXa2R33bjjw5p8l2
-         E/pqcPtSbmxnu2rHTkka7GpMnOoHgEEZirOA0kZdgS7wIHFPBGh84K9BHKaPKGpGTbcR
-         F5ArIeqG41vW5iYw1in+X7zGprR92MzdBvi0+erJBAZueS7YAR02h1d3MKpxoKNr4mS4
-         4PVfhiiNQ17XEbs3GcJ44VVUocWWiQ8juHHfYInXY73jJ4mPE7Mn/eM3ZRFTjkeuJDQC
-         BLGqcHVRXlwibsrXXj+ylzIyGfjYFS4rM3c8tOQbqjgfq3ALxU4ctfY8l0fCh17kE9ZL
-         Igbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781787292; x=1782392092;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=TCZ2aNL11hbP4R4kkuDPj9FfQ/WKus/j+epI04FrrLM=;
-        b=JKeqog3u5ZFFRw69cTAltdhQLGrxLReVvQdsy38t0a/PpKC0ouJh3B4tq5O+ShXLGn
-         2kzzIQTif5h1LmmhfhEjLWM4kTHouzaxHhrerLoUh4dfYNOI30VdQbYogI4UXwf0crOT
-         0kmA89Pj4OUxt3+9es+gTPihE7/udMUeVAe3KfJIruU8T7fVo8u8KrU2rpkQycTMqdHW
-         gJgKc/DBUvUNhbFsH4C6Ef9i+It6URed0MdnS2540hb/hkyQi5gA2/YAuv8BC+KiKYRK
-         /oFoXsk1EcXiHZhXYxWJyEvg2XMiXWt7ngaBxSMRh1fZFFbysmUpGGbiMNLp6b53e7P+
-         nEkA==
-X-Forwarded-Encrypted: i=1; AFNElJ80jdV6aO8ZsWibOfnGJ8y2pOkGicVGLKCAOFSy6w8JJxOkLeM5C3Ml0wiMiA5gDCCEtaPQGPmY/LlC@vger.kernel.org
-X-Gm-Message-State: AOJu0YwGjeOPQubW4PSMrL2A8vgkzAwV9ZDSyiTD38Z7x7JZ5whcnNZM
-	EbUWNv2dcTTbbw8mMmGYDkCeviNBuOcRtuW7glGLVBpV0ERBW3JC4lV4E69xIrx7iMUjXiu8Ny0
-	veMV2k9p7zIZxe9G0JyaHkfv9PefTT78=
-X-Gm-Gg: AfdE7cl+ea0zS/NUV7dLCP2N4L/ANwbKSxuRiKpjcAkXdju2/Bra090UFkkSB+q3y6e
-	2FcZPfxFOigAOoCAQ5O75CX4sIYT1NXbDuyVCV4Fc1bJQjwvW+OAmnnvMbudXWzT8D7lZPIyB/1
-	0K7ZKALZBKpreeBx88tAb8RWLqIZBkWkrZlJqMWbo5N19WbwMi/JCBP2mRbQ4snJKPBKL4YfiMB
-	Zox0Hiiq7xO0sGor0sw2SwZ8IUWIkHpVQ9bU4YBB9/zRkQcARAjGiIPJtJO739puHytKSvsYw==
-X-Received: by 2002:a05:7301:1298:b0:30b:ab02:9e52 with SMTP id
- 5a478bee46e88-30bca0f5296mr4761901eec.30.1781787292416; Thu, 18 Jun 2026
- 05:54:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TS4RHkTe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E7A1F000E9;
+	Thu, 18 Jun 2026 12:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781787315;
+	bh=G9ItqgSWgOQguOBvD4d8OGh5J8DqggxMj126QLiBmsU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TS4RHkTeEHRXnHPrJ4j83rZyH/38endx1g9BNixhFNYIRNRROGhme8MmAgp93eQPM
+	 S/mCcfzXlZsI5Zv8uvqEIe/s+kOTALLuO01yKyGnGA7BP10d0H7jW3qPDSm5o6AlBT
+	 H8ZukqsAM0Cnhs5rM+moRCF14WYhocrr4X1VPlueVAaMiAIDJokg72IHXOrMuL9RSn
+	 udWNuOZhySCvWj73hXYKgVR3RKe/Y+tYhnRTR7bBQwtl9hc5d5APhlaDbJ3traXGNh
+	 p4fqYpbMHluNEUCCj3VwsrAywLxIqFk1Pg9c9QL4QlYb7cuL0Vr+VjXRl6gTiNGIBh
+	 ZzGE9GKxXJzfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: pwm: st,pwm: convert to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Charan Pedumuru" <charan.pedumuru@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618-st-pwm-v2-1-c792d5795ce2@gmail.com>
+References: <20260618-st-pwm-v2-1-c792d5795ce2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 12:55:14 +0000
+Message-Id: <20260618125515.09E7A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260528053203.9339-1-clamor95@gmail.com> <20260528053203.9339-3-clamor95@gmail.com>
- <20260611111732.GN4151951@google.com> <CAPVz0n0caBBt6A+AFeUpGdxvb3Qhoui7khLCt3747bPUKmMXhQ@mail.gmail.com>
- <20260618122605.GH1672911@google.com>
-In-Reply-To: <20260618122605.GH1672911@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 18 Jun 2026 15:54:40 +0300
-X-Gm-Features: AVVi8CfTnDAfpuPP0d_Z_jltkx8Vj-c5slqF9qsZ7cxFL8qnNDx9bMszb50n8ZE
-Message-ID: <CAPVz0n3ZiWVLstiZat7-Tp06G_Tji=d_C45V8iqO4PgH9zfj+Q@mail.gmail.com>
-Subject: Re: [PATCH v8 2/7] mfd: Add driver for ASUS Transformer embedded controller
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D1=87=D1=82, 18 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 15:2=
-6 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, 11 Jun 2026, Svyatoslav Ryhel wrote:
->
-> > =D1=87=D1=82, 11 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-14:17 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, 28 May 2026, Svyatoslav Ryhel wrote:
-> > > > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > > >
-> > > > Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201=
-,
-> > > > TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 =
-dock
-> > > > and TF600T, P1801-T and TF701T pad. This is a glue driver handling
-> > > > detection and common operations for EC's functions.
-> > > >
-> > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > > > ---
-> > > >  drivers/mfd/Kconfig                     |  16 +
-> > > >  drivers/mfd/Makefile                    |   1 +
-> > > >  drivers/mfd/asus-transformer-ec.c       | 542 ++++++++++++++++++++=
-++++
-> > > >  include/linux/mfd/asus-transformer-ec.h |  92 ++++
-> > > >  4 files changed, 651 insertions(+)
-> > > >  create mode 100644 drivers/mfd/asus-transformer-ec.c
-> > > >  create mode 100644 include/linux/mfd/asus-transformer-ec.h
->
-> [...]
->
-> > > > +static void asus_ec_clear_buffer(struct asus_ec_data *ddata)
-> > > > +{
-> > > > +     int ret, retry =3D ASUSEC_RSP_BUFFER_SIZE;
-> > > > +
-> > > > +     /*
-> > > > +      * Read the buffer till we get valid data by checking ASUSEC_=
-OBF_MASK
-> > > > +      * of the status byte or till we reach end of the 256 byte bu=
-ffer.
-> > > > +      */
-> > > > +     while (retry--) {
-> > > > +             ret =3D i2c_smbus_read_i2c_block_data(ddata->client, =
-ASUSEC_READ_BUF,
-> > > > +                                                 ASUSEC_ENTRY_SIZE=
-,
-> > > > +                                                 ddata->ec_buf);
-> > > > +             if (ret < ASUSEC_ENTRY_SIZE)
-> > > > +                     continue;
-> > > > +
-> > > > +             if (ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MAS=
-K)
-> > > > +                     continue;
-> > > > +
-> > > > +             break;
-> > > > +     }
-> > > > +}
-> > > > +
-> > > > +static int asus_ec_log_info(struct asus_ec_data *ddata, unsigned i=
-nt reg,
-> > > > +                         const char *name, const char **out)
->
-> If we can avoid points to pointers, then please do.
->
-> We already have ddata, so we can just set the name?
->
-> It will remove a lot of the following complexity / ugliness.
->
-> > > > +{
-> > > > +     struct device *dev =3D &ddata->client->dev;
-> > > > +     u8 buf[ASUSEC_ENTRY_BUFSIZE];
-> > > > +     int ret;
-> > > > +
-> > > > +     memset(buf, 0, ASUSEC_ENTRY_BUFSIZE);
-> > > > +     ret =3D i2c_smbus_read_i2c_block_data(ddata->ec.dockram, reg,
-> > > > +                                         ASUSEC_ENTRY_SIZE, buf);
-> > > > +     if (ret < ASUSEC_ENTRY_SIZE)
-> > > > +             return ret;
-> > >
-> > > Same here.  These should be negative.
-> > >
-> >
-> > return ret < 0 ? ret : -EIO same as above
-> >
-> > > > +
-> > > > +     if (buf[0] > ASUSEC_ENTRY_SIZE) {
-> > > > +             dev_err(dev, "bad data len; buffer: %*ph; ret: %d\n",
-> > > > +                     ASUSEC_ENTRY_BUFSIZE, buf, ret);
-> > > > +             return -EPROTO;
-> > > > +     }
-> > > > +
-> > > > +     if (!ddata->logging_disabled) {
-> > > > +             dev_info(dev, "%-14s: %.*s\n", name, buf[0], buf + 1)=
-;
-> > > > +
-> > > > +             if (out) {
-> > > > +                     *out =3D devm_kasprintf(dev, GFP_KERNEL, "%.*=
-s",
-> > > > +                                           buf[0], buf + 1);
-> > > > +                     if (!*out)
-> > > > +                             return -ENOMEM;
-> > > > +             }
-> > > > +     }
-> > >
-> > > FWIW, I hate this!  What does it give you now that development is don=
-e?
-> > >
-> >
-> > We have already discussed this, and you agreed that EC and firmware
-> > prints may stay! This prints EC model and firmware info as well as EC
-> > firmware behavior. It allows identify possible new revisions of EC -
-> > Firmware combo and address possible regressions (check if it is chip
-> > malfunction or firmware needs a new programming model) without
-> > rebuilding kernel and digging downstream kernel for needed bits of
-> > code.
->
-> Right, so just print it out and remove all of the 'logging_disabled' and
-> 'out' nonsense.
->
-> > > > +     return 0;
-> > > > +}
-> > > > +
-> > > > +static int asus_ec_reset(struct asus_ec_data *ddata)
-> > > > +{
-> > > > +     int retry, ret;
-> > > > +
-> > > > +     guard(mutex)(&ddata->ecreq_lock);
-> > > > +
-> > > > +     for (retry =3D 0; retry < ASUSEC_RETRY_MAX; retry++) {
-> > >
-> > > for (int retry =3D ... is generally preferred for throwaway variables=
-.
-> > >
-> >
-> > Not that I care too much, but I am defining ret anyway, why not add
-> > retry too there?
->
-> This is the new and preferred way to use throw-away variables.
->
-> ret is not a throw-away variable.
->
-> [...]
->
-> > > > +static int asus_ec_set_factory_mode(struct asus_ec_data *ddata,
-> > > > +                                 enum asusec_mode fmode)
-> > > > +{
-> > > > +     dev_info(&ddata->client->dev, "Entering %s mode.\n",
-> > > > +              fmode =3D=3D ASUSEC_MODE_FACTORY ? "factory" : "norm=
-al");
-> > > > +
-> > > > +     return asus_dockram_access_ctl(ddata->ec.dockram, NULL,
-> > > > +                                    ASUSEC_CTL_FACTORY_MODE,
-> > > > +                                    fmode =3D=3D ASUSEC_MODE_FACTO=
-RY ?
-> > > > +                                    ASUSEC_CTL_FACTORY_MODE : 0);
-> > >
-> > > Why not create make:
-> > >
-> > > ASUSEC_MODE_FACTORY =3D=3D ASUSEC_CTL_FACTORY_MODE
-> > >
-> > > What happens to NORMAL?
-> > >
-> >
-> > ASUSEC_CTL_FACTORY_MODE is a bit in the ctl register. For NORMAL mode
->
-> I get that, but if the values can be shared, it make the code simpler.
->
-> > bit is cleared,
-> > for FACTORY bit it set, for NONE bit is ignored.
-> >
-> > > > +}
-> > > > +
-> > > > +static int asus_ec_detect(struct asus_ec_data *ddata)
-> > > > +{
-> > > > +     int ret;
-> > > > +
-> > > > +     ret =3D asus_ec_reset(ddata);
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     asus_ec_clear_buffer(ddata);
-> > > > +
-> > > > +     ret =3D asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_MODEL, "M=
-odel",
-> > > > +                            &ddata->ec.model);
->
-> Where is this model used?
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Model is passed to cells to form names, particularly input device names.
+New issues:
+- [High] The YAML binding strictly validates against `st,pwm`, but the hard=
+ware driver and actual device trees use `st,sti-pwm`.
+- [Medium] The schema drops `pinctrl-0` from the required list but keeps `p=
+inctrl-names` as required, creating an inconsistent configuration requireme=
+nt.
 
-> > > You can use 100-chars and make the code look beautiful! :)
-> > >
-> >
-> > Not every subsystem permits 100 chars, some stick to 80 as a strict
-> > rule, so it is better be safe.
->
-> Right, but we are forward thinking here.
->
-> You can and should use 100-chars in this subsystem.
->
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     ret =3D asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_FW, "FW v=
-ersion",
-> > > > +                            NULL);
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     ret =3D asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_CFGFMT, "=
-Config format",
-> > > > +                            NULL);
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     ret =3D asus_ec_log_info(ddata, ASUSEC_DOCKRAM_INFO_HW, "HW v=
-ersion",
-> > > > +                            NULL);
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     /* Disable logging on next EC request */
-> > >
-> > > Why, but why?
-> > >
-> >
-> > Cause EC requests are frequent (handshake/reset) and constant logging
-> > same data is not acceptable.
->
-> Then rid the prints entirely or do them at a more appropriate point like
-> during probe?
->
-> Or maybe consider dev_info_once() and friends.
->
+Pre-existing issues:
+- [High] The driver requests the IRQ before fully initializing the regmap f=
+ields used by the interrupt handler, creating a race condition that can lea=
+d to a NULL pointer dereference.
+--
 
-I totally forgot about dev_info_once(), thank you.
+commit e38e89bd06d5e023d198bb6e9fb8add957cdf8e9
+Author: Charan Pedumuru <charan.pedumuru@gmail.com>
 
-> > > > +     ddata->logging_disabled =3D true;
-> > > > +
-> > > > +     /* Check and inform about EC firmware behavior */
-> > > > +     ret =3D asus_ec_susb_on_status(ddata);
-> > > > +     if (ret)
-> > > > +             goto err_exit;
-> > > > +
-> > > > +     ddata->ec.name =3D ddata->info->name;
-> > > > +
-> > > > +     /* Some EC require factory mode to be set normal on each requ=
-est */
-> > > > +     if (ddata->info->fmode)
-> > > > +             ret =3D asus_ec_set_factory_mode(ddata, ddata->info->=
-fmode);
-> > > > +
-> > > > +err_exit:
-> > > > +     if (ret)
-> > > > +             dev_err(&ddata->client->dev, "failed to access EC: %d=
-\n", ret);
-> > > > +
-> > > > +     return ret;
-> > > > +}
-> > > > +
-> > > > +static void asus_ec_handle_smi(struct asus_ec_data *ddata, unsigne=
-d int code)
-> > > > +{
-> > > > +     switch (code) {
-> > > > +     case ASUSEC_SMI_HANDSHAKE:
-> > > > +     case ASUSEC_SMI_RESET:
-> > > > +             asus_ec_detect(ddata);
-> > > > +             break;
-> > > > +     }
-> > > > +}
-> > > > +
-> > > > +static irqreturn_t asus_ec_interrupt(int irq, void *dev_id)
-> > > > +{
-> > > > +     struct asus_ec_data *ddata =3D dev_id;
-> > > > +     unsigned long notify_action;
-> > > > +     int ret;
-> > > > +
-> > > > +     ret =3D i2c_smbus_read_i2c_block_data(ddata->client, ASUSEC_R=
-EAD_BUF,
-> > > > +                                         ASUSEC_ENTRY_SIZE, ddata-=
->ec_buf);
-> > > > +     if (ret < ASUSEC_ENTRY_SIZE ||
-> > > > +         !(ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK))
-> > >
-> > > Unwrap for readability.
-> > >
-> > > Also, I think a comment would be helpful.
-> > >
-> >
-> > if (ret < ASUSEC_ENTRY_SIZE)
-> >     return IRQ_NONE;
-> >
-> > ret =3D ddata->ec_buf[ASUSEC_IRQ_STATUS] & ASUSEC_OBF_MASK;
-> > if (!ret)
-> >     return IRQ_NONE;
-> >
-> > This would be acceptable? (I will add comments later on)
->
-> Yes, better.
->
-> If you're not using ret again, you could just put 'ddata.." inside the if=
-().
->
+dt-bindings: pwm: st,pwm: convert to DT schema
 
-I thought about this, but that would require combining it with (!)
-which will not help with readabilty.
+This commit converts the STMicroelectronics STiH41x PWM/Capture controller
+text binding to DT schema. It updates the required list by adding
+'interrupts' and dropping 'pinctrl-0'.
 
-> > > > +             return IRQ_NONE;
-> > > > +
-> > > > +     notify_action =3D ddata->ec_buf[ASUSEC_IRQ_STATUS];
-> > > > +     if (notify_action & ASUSEC_SMI_MASK) {
-> > > > +             unsigned int code =3D ddata->ec_buf[ASUSEC_SMI_CODE];
-> > > > +
-> > > > +             asus_ec_handle_smi(ddata, code);
-> > > > +
-> > > > +             notify_action |=3D code << 8;
-> > > > +     }
-> > > > +
-> > > > +     blocking_notifier_call_chain(&ddata->ec.notify_list,
-> > > > +                                  notify_action, ddata->ec_buf);
-> > > > +
-> > > > +     return IRQ_HANDLED;
-> > > > +}
-> > > > +
-> > > > +static void asus_ec_release_dockram_dev(void *client)
-> > > > +{
-> > > > +     i2c_unregister_device(client);
-> > > > +}
-> > > > +
-> > > > +static struct i2c_client *devm_asus_dockram_get(struct device *dev=
-)
-> > > > +{
-> > > > +     struct i2c_client *parent =3D to_i2c_client(dev);
-> > > > +     struct i2c_client *dockram;
-> > > > +     struct dockram_ec_data *ddata;
-> > > > +     int ret;
-> > > > +
-> > > > +     dockram =3D i2c_new_ancillary_device(parent, "dockram",
-> > > > +                                        parent->addr + 2);
-> > >
-> > > Could we define a macro for the address offset '2' here to avoid usin=
-g a magic
-> > > number?
-> > >
-> >
-> > It seems that you are excessively concerned with "magic numbers".
->
-> Bingo!  I HATE magic numbers.
->
-> https://lore.kernel.org/all/?q=3D%22Lee+Jones%22+magic
->
-> ~900 messages!  =3D:-D
->
+> diff --git a/Documentation/devicetree/bindings/pwm/st,pwm.yaml b/Document=
+ation/devicetree/bindings/pwm/st,pwm.yaml
+> new file mode 100644
+> index 0000000000000..a045502e0e704
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pwm/st,pwm.yaml
+> @@ -0,0 +1,93 @@
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: st,pwm
 
-AHAHAH, ok, this makes things clearer. Lemmy have a note about this quirk.
+[Severity: High]
+Does this compatible string match the hardware driver and actual device tre=
+es?
 
-> [...]
->
-> > > > +static const struct asus_ec_chip_info asus_ec_tf600t_pad_data =3D =
-{
-> > > > +     .name =3D "pad",
-> > > > +     .variant =3D ASUSEC_TF600T_PAD,
-> > > > +     .fmode =3D ASUSEC_MODE_NORMAL,
-> > > > +};
-> > >
-> > > Any reason not to just pass the identifier (variant) and add the name
-> > > and fmode attribues to the switch() above?
-> >
-> > Why not set it here, I am not passing any mfd or any other API via of d=
-ata.
->
-> I get that, and you're not breaking any of my golden rules.
->
-> However, I just think doing everything in one place, usually a which
-> based off of the 'variant' which you pass as a single value, is a nicer,
-> more consolidated way of doing things.
->
+If existing in-kernel device trees and the matching driver
+(drivers/pwm/pwm-sti.c) use "st,sti-pwm" instead of "st,pwm", will
+make dtbs_check silently skip validation for them?
 
-Well, I would need to pass OF data regardless, so why not bundle it
-with all required info and leave probes switch for strictly mfd cell
-assignment. I suppose this is more a personal preference issue. I hope
-you will not mind if I leave this as it is?
+[ ... ]
+> +  st,capture-num-chan:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Number of available input capture channels.
+> +    minimum: 0
+> +    maximum: 4
+> +    default: 0
+> +
+> +required:
+> +  - reg
+> +  - compatible
+> +  - "#pwm-cells"
+> +  - pinctrl-names
 
-All other comments you have left and I did not answer directly were
-read and acknowledged. Thank you!
+[Severity: Medium]
+Since 'pinctrl-0' was dropped from the required list, should 'pinctrl-names'
+also be removed?
 
-> --
-> Lee Jones
+Retaining 'pinctrl-names' in the required list while making 'pinctrl-0'
+optional forces device trees that do not define any pinctrl configuration
+to include a meaningless pinctrl-names =3D "default"; just to pass schema
+validation.
+
+> +  - clock-names
+> +  - clocks
+> +  - interrupts
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    pwm@fe510000 {
+> +        compatible =3D "st,pwm";
+
+[Severity: High]
+Does this example propagate an incorrect compatible string?
+
+If the hardware actually uses "st,sti-pwm", using "st,pwm" here might misle=
+ad
+future device tree authors.
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but can the interrupt fire before the regmap
+fields are fully initialized?
+
+Looking at drivers/pwm/pwm-sti.c:sti_pwm_probe(), the IRQ is requested earl=
+y:
+
+	ret =3D devm_request_irq(&pdev->dev, irq, sti_pwm_interrupt, 0, ...);
+
+Later, the regmap fields crucial for the IRQ handler are initialized:
+
+	ret =3D sti_pwm_probe_regmap(pc);
+
+If a pending interrupt from the bootloader fires immediately after
+devm_request_irq(), sti_pwm_interrupt() will execute and call
+regmap_field_read(pc->pwm_cpt_int_stat, ...). Since pc->pwm_cpt_int_stat
+is NULL before sti_pwm_probe_regmap() initializes it, would this cause a
+kernel panic due to a NULL pointer dereference?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-st-pwm-v2-=
+1-c792d5795ce2@gmail.com?part=3D1
