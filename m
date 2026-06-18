@@ -1,133 +1,188 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902CE3B4E8B;
-	Thu, 18 Jun 2026 08:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1013D967A
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781771959; cv=none; b=s0M6LuP0JnHH4kF8M8aYufq90D5oUq+HdfTMD+qGAJo3wO6Zo4M3P2WXFQPBXTCy8zJ8rqsWrlryQLvPvuiquImGFnw6bazHos9liP60yCL7WHzLKct5pYJzGHDaptVtjlvqz1HHXEHfIZ8XNsjG/CeHfTMPm3qJuRROi1wRczc=
+	t=1781771991; cv=none; b=psrRxRit3g8ABSx0gUHWRSDHdlSz7WHOCRjC9oPo4+XCpjXinLQunVQZgxL407Y97MXAROyQz19VPZq9Qttr1kAFMRZpCJtfZTBynibBhNaVYCVGkWxoQx0u6NdvNvdjtarvLGOFCHvYldLiZ3r7lvbzyUvUeCzOgPZdPkPbp1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781771959; c=relaxed/simple;
-	bh=00Sh3h7guBWY5L2puvf4zlaEaH/SsYgyBTF6Tbvqf10=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UuZZqrbNPi2kAfr9a/M8EIKkQD8jCaVSKEkTZNnMJ2dA4op6hYAx5AvTBUpBL/Kaf8WcB8fg0meLxn1declv9qTh6Cbl/uucaMc9WwOcuXthE0+oW/yh2XGSIUQVZ75l9fBHaqM4fewwpTumKx7HaXQamJvIw7HlntGW5ZLc4+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hzcvqf7G; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1781771991; c=relaxed/simple;
+	bh=8r2z3TsisrCeqJAdsCsjAlFcLZcV2E1O6rAacLocUrs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ca29vgZsPo+9cxg14l8MFW81lcC35RyGCIep/IvsEF23EGH/cq1bcDE1IMbLYEj+bHqOUlngVgMgL6/hoU2StmzeGKZ5aleVOFIWydcusUJzr+y+DSt4GhSHNAtD7agwGuPpbv6xgZabT6hCY5xpPyF+Ti3HgbBgQB9n93zOI+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ns59mnqf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hzcvqf7G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1781771955;
-	bh=00Sh3h7guBWY5L2puvf4zlaEaH/SsYgyBTF6Tbvqf10=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hzcvqf7GuKHpdHlXk2wp0uWxEnywUQE5XOLR4Qi5aLbyJU5+IpgYUYwTwNWqBRnr4
-	 lXDy+UR9gQb4JO5rI0JuckPmTPgC1ZhGImgZ1BrEZLq3BFNWOb8rH9LHUh6fYqSOWA
-	 AoTCuEB3aW8WJfm/O0fJdxn+24bVVqy3Mw+0ibEcrP5btrCOCYrjst8zWINPzouYsk
-	 uld2UHSmgRmuGyblJP51TUv784fFUvdhTDnK4GNVyg3VkGSiPRJIFTmyvH7xZkD+om
-	 4xXsiDMLuZ/SjppHamWcOXOFAXxvU9jbGJfMDjPDCFqFKocc8pSQLhZQNAXlREwnj4
-	 mAsGjpwQx0m8w==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AC13917E05DE;
-	Thu, 18 Jun 2026 10:39:14 +0200 (CEST)
-Message-ID: <fe8038fe-940a-4c61-a551-082534ef9c51@collabora.com>
-Date: Thu, 18 Jun 2026 11:39:14 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ns59mnqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BA871F000E9;
+	Thu, 18 Jun 2026 08:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781771990;
+	bh=kk0PSBhGLuUBUpJhIES7NmTiLcPvE8lDA70TYeq68sw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ns59mnqfwuc1m5fbyiBFEOSj3QvOgEl3kxYi+sHQgDQYkj6LdOppAc3vYXktcDhCI
+	 N8euwb/6L8kLr3e8UCs47GfJ2nHPCvToNpcec7iIIT99YlandPGxk8DhwUI4lHZ/aM
+	 /IDpoUgvuGQZnZ53Nv/bSmowMhASBVHXO48224CN4sCKTB6D+D2rZmo8/mZU8arfre
+	 AXTic6QWVX4J8USfqq3v65mNmKgK4veLAQK/BQdCE1RXQfMGMLU405xLmvwzIhAeQ8
+	 q3lPUVuwLHFxrlGph+MEob5o0Yl4qbZoudbzY4sDmQ+hXx/wSypQbuMMapMfvjfj63
+	 SU8xlXNoqt4IQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 6/7] ASoC: codecs: ES8389: Add private members about
+ HPF
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhang Yi" <zhangyi@everest-semi.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260618082842.2778-7-zhangyi@everest-semi.com>
+References: <20260618082842.2778-1-zhangyi@everest-semi.com>
+ <20260618082842.2778-7-zhangyi@everest-semi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Jun 2026 08:39:49 +0000
+Message-Id: <20260618083950.2BA871F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: display: vop2: Add missing reset
- properties
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <20260617-dw-hdmi-qp-yuv-v1-1-a665cfd06d7d@collabora.com>
- <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <DJC0L3CRJ0WL.IZEYVLPROMM1@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Diederik,
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The fallback logic for a missing `everest,hpf-frq` DT property is =
+broken, causing an integer overflow and an impossible `u8` to `U32_MAX` com=
+parison.
+- [High] The ADC High-Pass Filter parameters `hpfl` and `hpfr` are used wit=
+hout being initialized during probe, leading to incorrect hardware configur=
+ation.
+- [High] Playback stream operations silently corrupt the ADC (capture) High=
+-Pass Filter state due to missing stream direction checks.
+- [Medium] The newly introduced device tree property `everest,hpf-frq` cont=
+ains a typo ('frq' instead of 'freq').
+--
 
-On 6/18/26 10:58 AM, Diederik de Haas wrote:
-> Hi Cristian,
-> 
-> Thanks for this series :-) Just 1 nit (at the end) ...
-> 
-> On Wed Jun 17, 2026 at 8:52 PM CEST, Cristian Ciocaltea wrote:
->> Document the VOP2 resets corresponding to the AXI, AHB and DCLK_VP0..2
->> clocks, which are common to all supported SoCs, plus DCLK_VP3 which is
->> provided only on RK3588.
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  .../bindings/display/rockchip/rockchip-vop2.yaml   | 42 ++++++++++++++++++++++
->>  1 file changed, 42 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
->> index 93da1fb9adc4..d3bc5380f910 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip-vop2.yaml
-[...]
+commit 5aa70910dd654fd778ac694838a2c5d06ae7cd64
+Author: Zhang Yi <zhangyi@everest-semi.com>
 
->> @@ -289,6 +321,16 @@ examples:
->>                                "dclk_vp0",
->>                                "dclk_vp1",
->>                                "dclk_vp2";
->> +                resets = <&cru SRST_A_VOP>,
->> +                         <&cru SRST_H_VOP>,
->> +                         <&cru SRST_VOP0>,
->> +                         <&cru SRST_VOP1>,
->> +                         <&cru SRST_VOP2>;
->> +                reset-names = "axi",
->> +                              "ahb",
->> +                              "dclk_vp0",
->> +                              "dclk_vp1",
->> +                              "dclk_vp2";
->>                  power-domains = <&power RK3568_PD_VO>;
-> 
-> Place reset* props below power-domains (like in patch 9) ?
-> So everyone who copies your example has the correct sorting order.
+ASoC: codecs: ES8389: Add private members about HPF
 
-The example doesn't strictly follow that ordering either — see e.g. the iommus
-property — so I placed the resets right after the clocks, which keeps the
-related properties grouped together.
+This commit adds HPF (High-Pass Filter) related private members to the
+ES8389 codec. It includes a helper function to match the set HPF frequency
+and accesses the HPF frequency set by the user from the Device Tree.
 
-That said, I don't have a strong preference. 
+> diff --git a/sound/soc/codecs/es8389.c b/sound/soc/codecs/es8389.c
+> index 09257687bb84c..bcec9d9200dbe 100644
+> --- a/sound/soc/codecs/es8389.c
+> +++ b/sound/soc/codecs/es8389.c
+[ ... ]
+> @@ -504,6 +507,48 @@ static inline int get_coeff(u8 vddd, u8 dmic, int mc=
+lk, int rate)
+[ ... ]
+> +static bool find_best_hpf_freq(u32 target_hz, u8 *hpf1, u8 *hpf2)
+> +{
+> +	int best_row =3D -1, best_col =3D -1;
+> +	u32 min_diff =3D U32_MAX;
+> +	u32 f, diff;
+> +	int i, j;
+> +
+> +	if ((*hpf1 =3D=3D ES8389_HPF_INVALID) | (*hpf2 =3D=3D ES8389_HPF_INVALI=
+D))
 
-Heiko, is there a convention you'd like the Rockchip bindings to follow here?
-Happy to reorder if so.
+[Severity: High]
+Does this code correctly evaluate the fallback condition?
 
-Regards,
-Cristian
+hpf1 and hpf2 are pointers to u8. Dereferencing them yields a maximum value=
+ of
+255, so comparing them against ES8389_HPF_INVALID (which is U32_MAX) will
+always evaluate to false. This prevents the fallback path from ever executi=
+ng.
 
-> 
-> Cheers,
->   Diederik
-> 
->>                  rockchip,grf = <&grf>;
->>                  iommus = <&vop_mmu>;
-> 
+> +		return false;
+> +
+> +	for (i =3D 0; i < 10; i++) {
+> +		for (j =3D i; j < 10; j++) {
+> +			f =3D hpf_table[i][j];
+[ ... ]
+> @@ -663,6 +710,14 @@ static int es8389_pcm_hw_params(struct snd_pcm_subst=
+ream *substream,
+>  		return -EINVAL;
+>  	}
+> =20
+> +	freq =3D (es8389->target_freq * 48000) / params_rate(params);
+
+[Severity: High]
+If the Device Tree property is missing, target_freq is set to U32_MAX.
+Could this cause an integer overflow here, resulting in a garbage freq valu=
+e?
+
+Additionally, since the High-Pass Filter is an ADC (Capture) specific featu=
+re,
+does this code safely avoid overwriting the ADC configuration during playba=
+ck
+stream operations?
+
+If es8389_pcm_hw_params() is called for a playback stream, it appears it
+will unconditionally recalculate the capture stream's filter configuration
+using the playback rate. Could this update logic be restricted by checking
+the stream direction?
+
+> +	hpf =3D find_best_hpf_freq(freq, &es8389->hpfl, &es8389->hpfr);
+> +	if (!hpf) {
+> +		dev_dbg(component->dev, "Can't find best freq. Use the default setting=
+");
+> +		es8389->hpfl =3D ES8389_HPF_DEFAULT;
+> +		es8389->hpfr =3D ES8389_HPF_DEFAULT;
+> +	}
+> +
+>  	return 0;
+>  }
+> =20
+> @@ -743,8 +798,8 @@ static int es8389_mute(struct snd_soc_dai *dai, int m=
+ute, int direction)
+>  			regmap_update_bits(es8389->regmap, ES8389_DAC_FORMAT_MUTE,
+>  						0x03, 0x00);
+>  		} else {
+> -			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF1, 0x0f, 0x0a);
+> -			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF2, 0x0f, 0x0a);
+> +			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF1, 0x0f, es8389->hpf=
+l);
+> +			regmap_update_bits(es8389->regmap, ES8389_ADC_HPF2, 0x0f, es8389->hpf=
+r);
+
+[Severity: High]
+Are hpfl and hpfr properly initialized before they are used here?
+
+Since they are dynamically allocated and zero-initialized, if es8389_mute()
+is called prior to es8389_pcm_hw_params() (for instance during stream start=
+up
+or idle states), this will write uninitialized 0x00 values to the hardware
+registers instead of the previously hardcoded 0x0A default.=20
+
+Should they be explicitly initialized in es8389_probe()?
+
+>  			regmap_update_bits(es8389->regmap, ES8389_ADC_FORMAT_MUTE,
+>  						0x03, 0x00);
+>  		}
+> @@ -906,6 +961,12 @@ static int es8389_probe(struct snd_soc_component *co=
+mponent)
+>  		es8389->mclk_src =3D ES8389_MCLK_SOURCE;
+>  	}
+> =20
+> +	ret =3D device_property_read_u32(component->dev, "everest,hpf-frq", &es=
+8389->target_freq);
+
+[Severity: Medium]
+This isn't a bug, but there's a typo in the newly introduced device tree
+property name ("frq" instead of "freq"). Since Device Tree bindings become
+permanent ABI, could this be corrected before it becomes baked into the ker=
+nel?
+
+> +	if (ret !=3D 0) {
+> +		dev_dbg(component->dev, "hpf-freq return %d\n", ret);
+> +		es8389->target_freq =3D ES8389_HPF_INVALID;
+> +	}
+> +
+>  	for (i =3D 0; i < ARRAY_SIZE(es8389_core_supplies); i++)
+>  		es8389->core_supply[i].supply =3D es8389_core_supplies[i];
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618082842.2778=
+-1-zhangyi@everest-semi.com?part=3D6
