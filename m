@@ -1,138 +1,102 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7BF2E7380
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 18:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF47F33F383;
+	Thu, 18 Jun 2026 19:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781809162; cv=none; b=YeA1uuLhJXPGvdhiELCuJXRbNdILuklf/4001h+5978NqCvU1BkVE9Bgt0dffkK/XFBRaCiCKO6HHaUnqcpnnsTULJSDLBbwAqF0DwY82o+fMCyWI/pCPddjKzzadBcH9hMYigXgr2Z4hfaG9U9fMXx7HB8bc8+omS6NCw7ANc8=
+	t=1781809233; cv=none; b=HuagPj+jSaXl7/6BZ3uxW6gNOx1geNEa322SeYWFo76RaMkCEfZfJTzXHO7fEVDmWQcrkRVtrE4V8HozRyJPLu5rDBdg9ThsPU+c7idpQZw+zQavw3bCbOCrjAcGhyayG+vPHIGHAL7wu7/u7UNJzaZ1K+RYeeNaczffMBlJfuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781809162; c=relaxed/simple;
-	bh=eNDRczsn4J+WbbVGQc5sTpLlLQ5/BifWzbSsnl1wjrI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tiEQCnlO+f6l6bcTjVxXlADhSOUU4XP1H4zb8VW9nD3CKPWmBajUlhVIOblXXSyIA38OY+M2Xon3QBhsoLLZ1gHrkMS7sU0P+lLUEaWXhYBqXTJHdNUby6cQOk63EpMTWsBFu5ToCuLzjS73N4N2I4oP+IFgrQunU1W+yhr1WCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pthWNMLE; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781809233; c=relaxed/simple;
+	bh=uwrKGooD/XFWVSoz9Nbrm3hYukYYWRsR61eew9SX6QY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j5Sqam79KcmA1KOHKfQzzCc0QX5GDqNxIG6FQ7orHRkc4tAKR2+uWaMztSMXUfp7Xw7GM8PwuniJCM9QifRgdhq/xi3qUCV5mDupxFSV7ZEhAVX0bnlPSb2ayUCK2UzimorxrMoumsOOJ7VZSI5ntZwZZ3GurZVe7FOthazeCQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nWAlu7vq; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pthWNMLE"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4908b92904fso16502185e9.0
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 11:59:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781809159; x=1782413959; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ML15MaQcznPpWlTthGJ5ZAccE6wQ2/6XSoOTMeOi5c0=;
-        b=pthWNMLEXvLwf9OmJ/OOFZ8hoRrI62u1JrjFMplgdL2pWB14bX5IDemUtRR3Bfeubj
-         9PsRZIMZMzcScewJ4BqhBbeo/DSK14FsF4DH2m1RRk1V6xZpLwsaYeKmkOps2Vkj8B6y
-         o3nr5C7JuONF9qjrYgAGAqrfxMWDv+N4+uyPOCY38aAdeNSOrPw0aXCJqBnvAor5Xun3
-         Ek+ntdwFjGyu+YRzDJUpRhiKKxnugDRVNMRDBWtAGqirFhQMs6OGFZKekqgn+rb3QCw2
-         tnJJ0DFKevjCQjMqTwtysvUhn+DeXRgwpIEZJKdgEYf1apiObWhT7ftcGMW6jzph6QU0
-         KiDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781809159; x=1782413959;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ML15MaQcznPpWlTthGJ5ZAccE6wQ2/6XSoOTMeOi5c0=;
-        b=OVu+Nn1fb/LVZBATZEaw4xIci7t1gg7aaRARRRMvYqDKSOGpWGIBCyGTXNxR1zg9Ci
-         GgdV1EN/5QWdy0iuXVzjDUoJHPsHj4fY5ViJrbCHxs4wdZ5kkGpTgrbc65XkiiSVZpIX
-         252fGYqvTCNoz78kFdtVd4yQ7EyVOsvfPk9VoLfzpxsguRTl5TLhPK0p9+aIP8IKoSOX
-         Gxv+Ys56M4qdpiPBHSCvQZxIjLkjemqBFQoqHmQ1fvaxNpyzHIPr9vJXn/u62Sgd+AF4
-         xWJ40lMvbKCZ3lwFpEaDLBvBD1L5G3ZMezJ1lmpYc9u+RY4WvaQuPyM6nYMRb/HCXA5Y
-         WeEg==
-X-Forwarded-Encrypted: i=1; AFNElJ9rKeFQfW9qhWNME4/NIGbd8VvitxeCtSgquYJGUBIPgBhOwOqjnVxmQiX4P6GFgahUcRPvJkn2x9K+@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywb8l3JcNzPeERAmUrm46Gu/zsLaM9lxaFkLb+J516lu5x2i6d9
-	Fg96AGuSNmSAl89JdkTZ8IDKoojjjWhVf1uMfHihOp1//AR2pnE673uC
-X-Gm-Gg: AfdE7cmHmwyHiIJfEUA3CweIQNZO7GbsMzEETOTcteA9taP3EvrS0G+Purz+Aj+lZhT
-	+EsFTiYtFpEjD1Kp6b7WML3SWqTfWh7tMfBPrl0GJit61+IhSlXeFi8F9A6xv+4xXuu5Lr+e3W1
-	7a2aWv9UUXJy8EO4T0yy0js+CEGMXf9o7GUtOWAQOnUxr/OVuanIvMOxGKIJY3ynBxEZtCST45N
-	cWuAOOi6gQms37YtMM1i8VtUN4p7VuKZzVruKd3dIab8mym1syQqYyPEw8igXKyxXtXx2lWIrfs
-	areCqIwI/wEyxHVgfViKFGCa4UwDyoDSXDi2lt+dxpMDiBCY7iC2bX9Eci2MQmaRKAd8bEOQhw3
-	MzNlK1yBesaIaQCysOrCqSmkpl5ZXVk/L1BDHQ5xvz6EECzp7KC6rR60pLskqMzBKUJ2KtNkY6A
-	n0zmhLbl+iddvPTDnjBUzkcA==
-X-Received: by 2002:a05:600c:1552:b0:490:cdb2:fb5e with SMTP id 5b1f17b1804b1-4923f5a2c9dmr13330905e9.22.1781809159062;
-        Thu, 18 Jun 2026 11:59:19 -0700 (PDT)
-Received: from strix.localnet ([197.250.96.160])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fcfee57sm7910205e9.7.2026.06.18.11.59.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 11:59:18 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject:
- Re: [PATCH RFC v4 01/12] dt-bindings: clk: zte: Add zx297520v3 top clock and
- reset bindings
-Date: Thu, 18 Jun 2026 21:59:00 +0300
-Message-ID: <BXIzXc2sQ5SGynZ1chd-pw@gmail.com>
-In-Reply-To: <20260617-deed-snap-4649ffae0e27@spud>
-References:
- <20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com>
- <-l2OM6P0RNSYRQfOSObOyw@gmail.com> <20260617-deed-snap-4649ffae0e27@spud>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nWAlu7vq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1781809230; x=1813345230;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=uwrKGooD/XFWVSoz9Nbrm3hYukYYWRsR61eew9SX6QY=;
+  b=nWAlu7vqO0cmYkbNuC1+I533oavx43lVCdLjLzDhpxieSIvZVEWuHX6o
+   1RL1KbZnoCEVGx/ZcdzGokHr1bFDNHADwkODgcbkySLQ+T4vjaeTWQklM
+   KzQSGMk0BgFqmvUjIfT/VOm9InnJBjVuRA0+/gm0fm9Bl9QDI/pcTTfI5
+   J3u0TP9pbJh/Xx541vrwB3+ktIYld+JCQhsYrH90agyMFuBFLr7Afpsqi
+   jcr8lbUAfXHyoN3GltfBLuyZFhoSCSRZyeDz46e/TU2y76mlOIT02Kgsk
+   WFELQlbzbXf8jH114snYB+AkTNdBLLZOYUv4bFrxri89sBRheZONryzks
+   g==;
+X-CSE-ConnectionGUID: NrNmKyIVScGgTACgaG9plA==
+X-CSE-MsgGUID: iZhQjb57THKDqW+S1CRRkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11821"; a="82665150"
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; 
+   d="scan'208";a="82665150"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 11:59:08 -0700
+X-CSE-ConnectionGUID: lXTew5dLR0OP2mG8IS4NDQ==
+X-CSE-MsgGUID: HIIPBauwR4K4zZ4S+j6RXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,212,1774335600"; 
+   d="scan'208";a="248524360"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.10])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 11:59:04 -0700
+Date: Thu, 18 Jun 2026 21:59:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nikhil Gautam <nikhilgtr@gmail.com>
+Cc: linux-iio@vger.kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: magnetometer: add support for Melexis
+ MLX90393
+Message-ID: <ajQ_9uHMcTY2Hnmx@ashevche-desk.local>
+References: <20260618160141.11409-1-nikhilgtr@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextParthL3pgqDQSWeNUtue9c8aVA";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260618160141.11409-1-nikhilgtr@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---nextParthL3pgqDQSWeNUtue9c8aVA
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Date: Thu, 18 Jun 2026 21:59:00 +0300
-Message-ID: <BXIzXc2sQ5SGynZ1chd-pw@gmail.com>
-In-Reply-To: <20260617-deed-snap-4649ffae0e27@spud>
-MIME-Version: 1.0
+On Thu, Jun 18, 2026 at 09:31:39PM +0530, Nikhil Gautam wrote:
+> Hi,
+> 
+> This series adds initial Industrial I/O subsystem support for the
+> Melexis MLX90393 3-axis magnetometer and temperature sensor.
+> 
+> The MLX90393 supports both I2C and SPI interfaces. This series
+> implements support for the I2C interface while keeping the driver
+> structure transport-independent to simplify future SPI support.
+> 
+> Currently supported features:
+> 
+> * Raw magnetic field measurements for X/Y/Z axes
+> * Raw temperature measurements
+> * Configurable gain/scale selection
+> * Configurable oversampling ratio
+> * Direct mode operation through the IIO subsystem
+> * I2C interface support
+> 
+> The driver has been tested on Raspberry Pi 5 hardware using an
+> MLX90393 sensor connected over I2C. Magnetic field and temperature
+> measurements were verified through the IIO sysfs interface.
 
-Am Donnerstag, 18. Juni 2026, 00:23:56 Ostafrikanische Zeit schrieben Sie:
+This doesn't answer to two important questions:
+- why do we need a brand new driver?
+  Can't one of the existing be updated to cover this HW?
 
-> Do you actually need an aux bus here though? Since you have to add
-> simple-mfd for your the syscon-reboot and simple-mfd is a real bus, can you
-> set the reset controller up with an mfd_cell + devm_mfd_add_devices()
-> instead?
+- where to find the datasheet? Any Links or other means to get it?
 
-I'll have to read up on devm_mfd_add_devices; The aux bus was the suggestion 
-of Philipp Zabel. At first sight it sounds to me like they do fairly similar 
-things. I don't see any precedence for [devm_]mfd_add_devices in drivers/clk/.
-
-Whatever way I go I'd like to use the same for all 3 clock/reset controllers. 
-So far I only made topclk a simple-mfd. I recently stumbled upon spinlock 
-registers in matrixclk, so I guess I can justify a simple-mfd there too. For 
-lspclk all I can see is clocks and resets and I ran out of unknown registers 
-in there.
---nextParthL3pgqDQSWeNUtue9c8aVA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmo0P/QbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoi5REQAIpu/GpQwqP141DKI5xB
-0EX5THPKx0mZqlnsa5AmllX6jbbRJcefVucQDGcsxnml1o9AqqACwyzLbIzgV3CU
-FiVw0dgZWFXvbMDJd86ag1NtaL98vcw9PgHX36TyILPVYGH040BrZWuyQsqmCxcV
-BCJ+yUzmZOxADojGR3teu73O58q/y9xKsCmYM/jTZ0NWqNZNOpJ0jIbGmUUiXwtY
-XToDOH4k6LQWdvAJzoLQ5pnmczX0RLYh2BLgNIGnJTzwF/XgTOXyi1Bvllmy7aii
-kkqyQuWuB8QtL3dEmaCgKCpUZqA960h+lk+79kX/sg9fjSszclPVfvk7WbaSD4+f
-cwB6tdnagJdbK9OmFR0xixHnuSb3XU/H7uAy83vobGGHd+SK+ciBTF7U6Evo/ehF
-nB/6A1RUjcnereGiUykzsVoWEVvnw2yAGfCQ7KUJ+yqgxuYTNEFLNhIAGoG8t2Hf
-DryFswSWkeUZXxKqscW5QxanDRIMFYX0CblVyHxIp0CMGkccSuT5yVCvGUB07ueT
-gH2c+RQTNf2ZXD6wD1Y38T6w0yqIrIZSeBu6ts59Q65/CjWQWjp2LsRrnVfRm2Ei
-PwyZhtTSoLH/p+5FYioCjjUhpTfB2bLT9suvALpaSo6ePJALSyRMQNwG/YVEoxp4
-4pCAFEovLsxAtKS+bcDZW2ce
-=ut2t
------END PGP SIGNATURE-----
-
---nextParthL3pgqDQSWeNUtue9c8aVA--
-
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
