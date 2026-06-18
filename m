@@ -1,208 +1,114 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B612E03E4
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 01:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1432D0C64
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 02:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781747711; cv=none; b=jWp8ghRIBugkb2DKop/muDkwAxLUIfCvEUSHQbuFP7os/0B98w9OMajSf7vTHYe0Jp74j+PYGzCF9Djo/fJw4cnH3ngxZLvDrMzN3u1hG4bwqy3giVCNaqej2ekavvlZ+s9iNwO8JquFIyPFMtiaTL98DyIGL7icHSZO5xer3eg=
+	t=1781750027; cv=none; b=Se3PK4QG7ABWKjmGC8Fx02p0jhLDuILZkHFeZFGShNuXFc9WimkjMsi9i/IcaOqLEYwveIUS3NDRwrtjFTwR0zOc0o/jceMqvYrRFoj75on1sYfhtbaOColPN4f3R/9CS/EYpKNY1zAdiSBsLcpMBlkM5mMsCObJ66RgxwkSPj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781747711; c=relaxed/simple;
-	bh=2xVUDeu7m5v732YAAonOHjgizv9iOHbiDq/qEfMgCkI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=R3v1nAEGibkBZ54ncCutGj9Sp/gO+UhI6kgfNvkiSNURmlKaGmJf73CZaKCsiOocuwZQWCuatwA++NaH7GZVymhWBHajXPeMZ3vl4butCKhzufIGbtRLLeywm+cnuHHh8DqjDBHn4/E82mA7fM5KZXhHdMGn9+RGZc0AzTAnyA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=35QD5KYB; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1781750027; c=relaxed/simple;
+	bh=iIlS5jhtZMjuo8gglp6tVBsS03VnKU3kEreZFvvVOkg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=f/d07AF0zIV4rv3M5DpX2bqvLEN+NKZqxr4mDUSW6tbb7JxjyuvVhPWgq6PVJ9w0YHjB/oJf4GMpl4EDoi9Cs0wKQ30h+wE2khD8BqL4HOow8rDq+m61nvDOa6P/eeqlySoYFUL485EFTIUSH552B6H4aFuns0WlP994R1wJzpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WL3CgYfv; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="35QD5KYB"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=UOH0r2GKmZinHZXHsCVUvBFIRyCZaXIIn59yPqlKYRQ=;
-	b=35QD5KYBf8iWm3rSHGgu5lrD1IM1oRlAbbVOXF6oMi5OW7M8yZlBjxwAJDI7B4dZe3/wWYw3i
-	u1FsPuVNCgRGRIq4XPKt8ko5A2ZywXPGblpb9i9d6ACKRzVYyCRKVU0tJtsMiLrk1LIdelLq3nq
-	AYJjys3AV3rY6Q7icuxh40k=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4ggk934xsfzcbNM;
-	Thu, 18 Jun 2026 09:46:31 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id A97B840561;
-	Thu, 18 Jun 2026 09:54:57 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 18 Jun 2026 09:54:53 +0800
-Message-ID: <7d8492c5-fc17-4c94-bc88-e77d6c1a849d@huawei.com>
-Date: Thu, 18 Jun 2026 09:54:52 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WL3CgYfv"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-845369f60faso182128b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 17 Jun 2026 19:33:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781750026; x=1782354826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iIlS5jhtZMjuo8gglp6tVBsS03VnKU3kEreZFvvVOkg=;
+        b=WL3CgYfv9b+sSsNLWmgBFHzLEiRc6m980+0F8cFoXLJBC2idmsh8B19BmLuvkqb8uH
+         ONa5xUUhElkE2VVjTU/yE5nh94ZuO6XXgr/Mqq18HnM/TQEUqRkAMsd1a74+85muEeWO
+         5/cmqGUgPCsyurQgg8npg9ptyUvNtASc7inKRUJTE1WnSsEbVXC1Rj16UijXUTCiLtC3
+         gsnc2Ty7DiDErQ5NJFz5vkW92RZzCED41DS8+jS/R3BrZr+ZWEuoAYMkYMk3IvMh2aAo
+         bExPDG7ag/TJPGz344EELp+OO4jfgR0NBTCBI/5tQImOOylVQi5LvYPEd9qV0HDFjECh
+         1Pfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781750026; x=1782354826;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iIlS5jhtZMjuo8gglp6tVBsS03VnKU3kEreZFvvVOkg=;
+        b=FehgJp9GdQrvHJfghHvEeZnegTPiFyNtViSPBG5ZQoNegbI4LTp14vsYh22W94lVfX
+         8FaMqQDmPG7L6l5TwLSBPE38Ra0UOj9rBJUPMLcCj2csv6NIgt31cxZUq7QjUpisHQfW
+         8/EN3Wagxl5K+34LOJLt6Kyg1OoF8TchOf0agLxkMsXdHrNopB5I/6bGu/EqjmI0/PMC
+         siboWKyljbrcK96A3r1PkiufchJYgKfTPBaZnmZEJML2O3KUiZ4kIB4ZajsvPk9IV1bg
+         iH8xi3yyXSIyKxLQzYleNGwICgjABui8k1S+96obwsds/r3UnC4o+hDmETdrODtNcMja
+         d0bA==
+X-Forwarded-Encrypted: i=1; AFNElJ9oGcK8aFLbJjod1EhMI22+gNd0LVEjPK/nU2pvXPrlTK/S5QjE/7sn0YygZzBt+Yr/8TXl4LJOU6bK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5mOVsIbGCLs3jLewZGpe8gNJWEt34HtVbEP+AplHzk/RP6pdH
+	2BmKryUZkrSNz0plP5zL77y6gg7dPzvYXSGX+9k3zX+NareP9w4eSFLUtN016DirEjs=
+X-Gm-Gg: Acq92OHw9jykWAn1WacvxRxMAZuIdukpLTCidATFYIn9x/6dArh+nrPrOCqkq5G3L34
+	gL0Vw+iF5h3JJv2C6kBuW/EqtE9W1djI6fxLNW02CmXQ50aOJkBbKddrBxNVn/+TFbr8yIfqr67
+	duqQwXy5TBdw0u+PhT55gTn5xnQ66xffhih4EjQ9PWbUnL5vcUa4yPoHBYur61N6y/8H51NP4Mf
+	y562mzGxfc1unKUKzloCl2KViFV+O5aptmZM1friSBjc4MSRuK3qw+JkH9tg3SRpAN8D2s6ZUF9
+	/ZNsGIdkQgfHotz8loLg8TsLVtIoVVZ6jtR0XTieis7TZzMswVw9NBVAq8kHj4HxQmRMB4mvFNE
+	/P4PAJdUsI2fKRPi7fj9KEfQ6WXAFIhWOQhZBLh1gjuETy/k8+JdFugxhv/zfUHoFkOucxmrB1o
+	bRzk/gxpfwxzD8Y+5IRN7ztsstf1u0JtZlSCjSKPfxXyv5Kf+Pr4ibTh1Qpnmgqa3tBiw/6P2k+
+	asVNRal2i4Ii2DyHUCvVPhy
+X-Received: by 2002:a05:6a00:2d96:b0:837:80a:5abe with SMTP id d2e1a72fcca58-84524595b14mr6044974b3a.37.1781750025763;
+        Wed, 17 Jun 2026 19:33:45 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845353d096dsm1722242b3a.59.2026.06.17.19.33.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 17 Jun 2026 19:33:44 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+	Devarsh Thakkar <devarsht@ti.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wig Cheng <onlywig@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+Date: Thu, 18 Jun 2026 10:33:38 +0800
+Message-Id: <20260618023338.26630-1-zaq14760@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <9fb7915b-dc46-45af-bba1-a3d3a59b5e49@suse.de>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <9fb7915b-dc46-45af-bba1-a3d3a59b5e49@suse.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 06/10] riscv: kexec_file: Use crash_prepare_headers()
- helper to simplify code
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <peterz@infradead.org>,
-	<feng.tang@linux.alibaba.com>, <dapeng1.mi@linux.intel.com>,
-	<kees@kernel.org>, <elver@google.com>, <kuba@kernel.org>,
-	<lirongqing@baidu.com>, <ebiggers@kernel.org>, <paulmck@kernel.org>,
-	<leitao@debian.org>, <coxu@redhat.com>, <Liam.Howlett@oracle.com>,
-	<ryan.roberts@arm.com>, <osandov@fb.com>, <jbohac@suse.cz>,
-	<cfsworks@gmail.com>, <tangyouling@kylinos.cn>, <sourabhjain@linux.ibm.com>,
-	<ritesh.list@gmail.com>, <adityag@linux.ibm.com>, <liaoyuanhong@vivo.com>,
-	<seanjc@google.com>, <fuqiang.wang@easystack.cn>, <ardb@kernel.org>,
-	<chenjiahao16@huawei.com>, <guoren@kernel.org>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
-References: <20260608073459.3119290-1-ruanjinjie@huawei.com>
- <20260608073459.3119290-7-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260608073459.3119290-7-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Transfer-Encoding: 8bit
 
+Hi Thomas,
 
+Thanks for the review, and no worries about the timing.
 
-On 6/8/2026 3:34 PM, Jinjie Ruan wrote:
-> Use the newly introduced crash_prepare_headers() function to replace
-> the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
-> memory in the crash core, which reduce code duplication.
-> 
-> Only the following two architecture functions need to be implemented:
-> - arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
->   to pre-counts the max number of memory ranges.
-> 
-> - arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
->   to collects the memory ranges and fills them into cmem.
+Before I spin a v4 for these comments, I'd like to confirm the overall
+direction, since it affects whether this should remain a standalone driver
+at all.
 
-Hi Paul, Palmer, Albert, Alexandre and RISC-V maintainers,
+In parallel, Devarsh Thakkar is adding a generic Solomon SSD16xx e-paper
+driver (panel-ssd16xx.c, currently v1 in review). The PIXPAPER 4.26 uses an
+SSD1677, which is part of that family; Devarsh has said he will add SSD1677
+support in the next revision (v2) of his series, after which this panel
+could be supported there as a panel entry rather than as a separate driver.
+That work isn't posted yet, but I had agreed that consolidating under
+panel-ssd16xx.c is the better long-term direction.
 
-Sorry for the interruption.
+I'd appreciate your guidance on how to proceed -- whether it is better to
+keep iterating on this standalone driver, or to hold it and add the
+PIXPAPER 4.26 panel to panel-ssd16xx.c once that driver supports SSD1677.
+I'm happy to go whichever way you prefer.
 
-This patch set aims to clean up and refactor the crash memory allocation
-and the exclusion logic of crashk_res, crashk_low_res, and crashk_cma.
-Currently, these  routines are almost identical across different
-architectures, leading to a lot of duplicated code.
-
-This series consolidates the logic into the generic crash core, removing
-redundant implementations from architecture-specific directories,
-including arch/riscv.
-
-There are no functional changes intended for RISC-V.
-
-The patches will be queued in the liveupdate tree for wider testing.
-Could you please take a look at the RISC-V side and consider providing
-an Acked-by?
-
-The patch series can be reviewed here:
-
-https://lore.kernel.org/all/20260608073459.3119290-1-ruanjinjie@huawei.com/
-
-Thank you very much for your time and review!
-
-Best regards,
-Jinjie
-
-> 
-> Cc: Paul Walmsley <pjw@kernel.org>
-> Cc: Palmer Dabbelt <palmer@dabbelt.com>
-> Cc: Albert Ou <aou@eecs.berkeley.edu>
-> Cc: Alexandre Ghiti <alex@ghiti.fr>
-> Cc: Guo Ren <guoren@kernel.org>
-> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Acked-by: Baoquan He <bhe@redhat.com>
-> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/riscv/kernel/machine_kexec_file.c | 47 +++++++-------------------
->  1 file changed, 12 insertions(+), 35 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
-> index 3f7766057cac..439cbc50dfa6 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -44,6 +44,15 @@ static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
->  	return 0;
->  }
->  
-> +unsigned int arch_get_system_nr_ranges(void)
-> +{
-> +	unsigned int nr_ranges = 2; /* For exclusion of crashkernel region */
-> +
-> +	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> +
-> +	return nr_ranges;
-> +}
-> +
->  static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
->  {
->  	struct crash_mem *cmem = arg;
-> @@ -55,41 +64,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
->  	return 0;
->  }
->  
-> -static int prepare_elf_headers(void **addr, unsigned long *sz)
-> +int arch_crash_populate_cmem(struct crash_mem *cmem)
->  {
-> -	struct crash_mem *cmem;
-> -	unsigned int nr_ranges;
-> -	int ret;
-> -
-> -	nr_ranges = 2; /* For exclusion of crashkernel region */
-> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
-> -
-> -	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
-> -	if (!cmem)
-> -		return -ENOMEM;
-> -
-> -	cmem->max_nr_ranges = nr_ranges;
-> -	cmem->nr_ranges = 0;
-> -	ret = walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
-> -	if (ret)
-> -		goto out;
-> -
-> -	/* Exclude crashkernel region */
-> -	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
-> -	if (ret)
-> -		goto out;
-> -
-> -	if (crashk_low_res.end) {
-> -		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
-> -		if (ret)
-> -			goto out;
-> -	}
-> -
-> -	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
-> -
-> -out:
-> -	kfree(cmem);
-> -	return ret;
-> +	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
->  }
->  
->  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
-> @@ -281,7 +258,7 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
->  	if (image->type == KEXEC_TYPE_CRASH) {
->  		void *headers;
->  		unsigned long headers_sz;
-> -		ret = prepare_elf_headers(&headers, &headers_sz);
-> +		ret = crash_prepare_headers(true, &headers, &headers_sz, NULL);
->  		if (ret) {
->  			pr_err("Preparing elf core header failed\n");
->  			goto out;
-
+Regards,
+LiangCheng
