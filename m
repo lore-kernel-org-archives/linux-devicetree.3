@@ -1,513 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F3B2222D0;
-	Thu, 18 Jun 2026 14:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781793215; cv=none; b=CS/brvkQAJF3OzpCZlNGZbBKbHmj1vp7NyZStESkMN91wrjJC0iTby0UCr5vc0DP2KvCWz5cOzlOmzguzxeB45yWVwNL0smgY8jCsgWzf27JVaw4QYVngiylF89wQ2faLnFjVmXZtSBSZENv78loQ2Z/bzHpK/1DxEzXziKLw34=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781793215; c=relaxed/simple;
-	bh=kpFp/5QIN5fInWcdaxHciAgsvqqY0uzNzxON96M+ozA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jveYBzNuYxeXUBdeIpDFGtGgIrkCPyXkJ+1XTYZcrIjFZbmKjp1s+EOMsLrf4I7tY47eYsn2bo3424eYboefLXTI2wjjeMRJ+zN3Why1G9wbfI9FUMQr9wdQD8mTr0qaHs7Ze6MWvoW9cnLwKugyRvQgsucwPWO4X/9log5mQMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ko7ZYNgc; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5907308F39
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 14:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781793601; cv=pass; b=aZ6obKjWz5DgJWKl+qnYFzJKKxJnXD/vUx9iU7CZOqsZagto540hkFgq0zSVYJw46d58+0+samYoFzHuhDLjoMKpn5GAX9WDKn/fBLdWD3ru8X/KpZ5fvnbHiI1woYUoOULY2fVjv4nGPEq93NZYrl1wmyzWv/7WUiL9NtT3CWc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781793601; c=relaxed/simple;
+	bh=UkpsRRzdvfZ2ngOuRswzY3Iyir7MwU52PzLXrSQ4q5A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EOO/+KxRU+NHDgDN+DlwB9N0vbZ8XMrypxkx34zvdiESWkwAKFeEJImB+Ww7sqLjHR8CRZ0sO4AwGBg/Wz6pnBI+aXDZI3mHyvW8cVg/Yhjsh/CKjmpZOVX10auLagXCYsMQW97hUqbWyg26jIa/DRBzlCTRT+k9CqxzPJ27oyo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=WK/YJrWy; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ko7ZYNgc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1FC0EC2BCB0;
-	Thu, 18 Jun 2026 14:33:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1781793215;
-	bh=kpFp/5QIN5fInWcdaxHciAgsvqqY0uzNzxON96M+ozA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ko7ZYNgcSktM3S0zpd4MWjSAD5gxuARd7KcxVigow6eue1YdR4UYvKcohGdGDco1A
-	 s+S+giOrPY72KqFNDVQHxbZlf7P53dXHZKmQmFV0RTVvDWTNpYC0CG8e+ZZPZuxf+R
-	 N2ygK0s5LdYOljvsoMhavYVtDwm+FaJEYBzRLqaOeBSVgEopZBLu8xUXpnQn4aABGo
-	 1SfFSDOTyWLX2dxEpDX3P7gwZpoH6yxhhXwUWVPUxNrrzKO4/TYcERjxPuMqLnBPZa
-	 nPhDUKvJwE6NTZMYHR2VHOT5WiqfbU6udoZX0xG2rUhRzkPg2Lj/mhlCVMppMUCXUB
-	 RlsMvhjRwSy4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE3ACCD98F6;
-	Thu, 18 Jun 2026 14:33:34 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 18 Jun 2026 16:33:28 +0200
-Subject: [PATCH RFC] dt-bindings: sound: Convert cirrus,cs35l36 to DT
- schema
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="WK/YJrWy"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c07fcdd75d3so68186366b.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 07:39:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781793598; cv=none;
+        d=google.com; s=arc-20240605;
+        b=fKGtRcKHqDeDFSw/6zA/kdFX7A9hdD+ivYhvSocQYUo0lGS1MqyjJG1UkBTiZxreXP
+         K7+gmME9c8UdqgciOy3BPK5W/7KRCNo8mt9/Cyj56OppnR3nXuD4eqn27K0nc2g49Zxv
+         3ivdWEbhvJ2WRPbW3s63BXOxcqNrUa4mSt2Jm3OwyOxDmTuGsNonJ9UuO/YbrkoEDGU7
+         m9CHOIOh51iUvj42Yxubk3yaO94A8xvSWaq0jdCRUr/qgiTrAsF/fZ8BH/1sWrrZ4ef7
+         +Rp8s/LwTlaUR+ROaPbT0iRtv/ZbeyEdg8680fmK4IwTHUvs839oBpIQN1n7U6LfqCep
+         /e+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=klc37y86Bp+o8UgyvGFZJuEx2h0iQwGBFLogZZiStCY=;
+        fh=pHj+q6B/yIF2QpjTRgok5ynUEdryUkJDrJqXQqxn/uY=;
+        b=FFp8FoPB5jIQWxazDa0SL9zyvntOjcx/Bv1Fvc4HJpriSUZhQYaYytfIHpESZGBG6u
+         N/kTqAvyz6a8lJsGj2uPLuxdEKsBY+9v7ysBc/e46b9uEsTFq9UrPvDTvg2vXVs+SwJB
+         lGHO31NRRgnkTJbf3TlOlRzVskRNOZOvIoj14YB1/Ygqb+5om7Mx0yR+bwWnDyc0dgs3
+         RP/OajonKKvjT8agYv8nQxreVJ3dKwBR3w2uw2N1W/2+pvPdZtwcSnJlkKapFh/PKZra
+         zXLJ5I03VkTW18P2m+B050me0kI4kbccZMkipizS07a9rDsKo1a7sn/6VWLGhi2dj1Ym
+         Gg9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1781793598; x=1782398398; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=klc37y86Bp+o8UgyvGFZJuEx2h0iQwGBFLogZZiStCY=;
+        b=WK/YJrWyNAN7pt6wUal1bZmiGaxB/Xl10dOxSI/b7JxE40wrB35AKoDoA4dkW3DImi
+         xNE5noq/XfA6WTSzZ/MUVZIWoChWCpziV8leOWnGus+C2bmXP9JZN6MYBr2ArpLIDqJ2
+         L4ybxDrC4yfqgSXgbr8OUzSfHtnk+7ws0DWLxDLsbdey7I8A8Onc46BxPYPNXJdhya27
+         tWnyRooRgZETznuDpPLofO/ALExB+0FEqFy6N0sT+Q8jZKc6TotsP7jKNEzaaIdEUNaB
+         HwTVu1FjDQt7+qs/0f018poZ+O1shnOYJByVJ+y8rl34HnxtqvRU+A2F+qY/klAPvbVs
+         wS7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781793598; x=1782398398;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=klc37y86Bp+o8UgyvGFZJuEx2h0iQwGBFLogZZiStCY=;
+        b=ThmSObw7ddGg5M/W4yaZLATIb9WjKhTEFjVHrAceVitamPQGcWKbFD7hRLEhZXc6BB
+         mrCGVM3OsbLxxZxZ71PaA+MGo5HYOAmk1MLVuSELzfRmAuhkOip86xw4NigE4Pm6aLmM
+         coZZFOeMCz+PLAZcj6rmZ7mdC87HLwcuoQFamF+JdmVC/+9xSqrNm2QL+9AKnawlprmD
+         qhhzZnvUnPdOAp4q9ElMkvKQxB5z3ym6bNjbXbdRNc3ohlq4uC18laspfVKanmIyDVxE
+         H+dN2KeAIv5fwJefs7HBxiRz5QFgAz7AKRfQ7BXTYEPSRaZguHa53FCYR4nB+YnWd9sw
+         i2Yw==
+X-Forwarded-Encrypted: i=1; AFNElJ+RbMA+qFiX18PRzMlDrh+2yh+APegdQbyWKvX81Ce6ftlTzInOGcsnOLDlshMT3qN4IhASdZIap13w@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw6viKfrCQaevUFZzdLNiRsIwtgCwk+bIow3PqchdDjTRtd8LX3
+	lTJstV5SbpecO+Ah+8meyjYIR9iL5cm3hsi3u/EWqDFoVssv7ccH2jvy2V1Lu6KxGo2NrpEpLmJ
+	WCHVeS8jz3YbHxHa3+MQ+sMAv3o1AMDRZ5raS1VrCsw==
+X-Gm-Gg: AfdE7cm7ecQskEN3JawDfKbiU7ovJ/tuJ4mPjjoGnNzti1AKF9Uu99Cs73wWVE0/2Cc
+	4vm81oEbciQgkkfZnUrRj4cFAT6iAl4FiJdbtvIcPqbGWM+O/bEWB8T8w++1zIKA9du5hBpDp1X
+	gwhq0jM8SFP5PCg2xCzBsnEmv7QL4iEz8022HtAeSxB1YE6moYni5hCjvQJ4CKvYaPxCUVe+NHg
+	zALUuf6YKCOx61R0L00wtPF185BMfZxxmybbCp4/4cOWa+v6fXTGoYJKtcHRgQ4H4KtWKeLdz6t
+	LqgVnUIabwyfVwzkELhjk/WxhCyd/w==
+X-Received: by 2002:a17:906:209a:b0:c07:6950:4490 with SMTP id
+ a640c23a62f3a-c07695ff1c8mr122729166b.42.1781793598164; Thu, 18 Jun 2026
+ 07:39:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIALcBNGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDM0ML3ZQS3eTMoqLSYt3kYmPTHGMzXUvLZBMzs7QkQ+O0FCWgvoKi1LT
- MCrCZ0UpBbs5KsbW1APrRZxNoAAAA
-X-Change-ID: 20260618-dt-cirrus-cs35l36-99c466fb13fd
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com, 
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14156; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=g23zOnCMQPaNqnE58HL52klKPYJXZPiR6z567szNqJM=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqNAG9dPZMDGKaT5u1kZEGxxTXMntUtokuCqaXW
- lj5fTqroDGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCajQBvQAKCRBgAj/E00kg
- ciBMD/0eaLmO5Eq6JKW/NNoodMaqDdqHF6I+ZPVQQJV10/D3Oa+4xsYASxfJzaDyZrMhNRTxfwi
- OKVEyPF6CpXeXpNIOKOEpRUju4L9sIpJWViYXyWO9CF0ixxWbCeMcCYvZa8kQJ3nsF0TWz6hQgJ
- TTLXFJzBkyTgUrxlrA1GVn2Tki5Iuj2rpAVK81KuZDMEiAv7/R0yY5U3wDZTQUctqUK9hCnYKDh
- gLXEuSlza3FK0cFaPXbTV8e8DCts1l6O+ZdCnsgoxY/0wNDCfN7OCzHiW2pR4KxT2QePDucQZsL
- G0tdFrCR+1mBvuSVKA//bfRhCcwOPR0rAfFDH50pRhrcOG1tdKQOWgGpOBPtjg3QdApx7NSjQZd
- 2poTx08bYpmn2wlrzKdm1VkdXSZs6JT5LybrIg//J+Zr1aX/jQGsvILUsQ5B0S6MBAt8MrhPjug
- pB4VR5G8QIJiRSeXkNDiaM20aNamzRed+mMfdXo3nU+pKYKJSZ0I9ljUYhrzemn8stm7DJ8ZVBk
- 0uv0YdSVP3EvzJ3jj3yku592wi7PtE5TXFaQZkWit6FxOPiFFTngntwLQ5LHUUxyLTOqEXUzFyg
- Dez39tfsNZgb7UCdg8hxl9xHxsOg3KLtnaCpXzX+qozrv5v+0VR4Yv4LON8ou3y4m5zU4+spH4V
- q7KOiFcX2qTR4Yw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+References: <20260612-dh2300-mcu-v1-0-ab8db1617bc0@flipper.net>
+ <20260612-dh2300-mcu-v1-3-ab8db1617bc0@flipper.net> <20260618124034.GI1672911@google.com>
+In-Reply-To: <20260618124034.GI1672911@google.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 18 Jun 2026 18:39:51 +0400
+X-Gm-Features: AVVi8Ccbf4bgucBpzfdBMYf6dTmoR9eMWMyjmKeq_8LMA4KsT1l7bFz4pMkxg6A
+Message-ID: <CAKTNdwEta01QjuaqfJ339pCTKMT_4K9QbmvFu9OBt=M8-JSDKQ@mail.gmail.com>
+Subject: Re: [PATCH 3/4] mfd: Add support for UGREEN NASync DH2300 MCU
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Heidelberg <david@ixit.cz>
+On Thu, Jun 18, 2026 at 4:40=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+>
+> On Fri, 12 Jun 2026, Alexey Charkov wrote:
+>
+> > Add a driver for the HC32F005 MCU used as an embedded controller on the
+> > UGREEN NASync DH2300 NAS.
+> >
+> > This part provides the shared I2C regmap to be used by function-specifi=
+c
+> > sub-devices, and instantiates the SATA drive-bay power gate regulator.
+> > Implemented as an MFD to allow for other functions of the MCU to be add=
+ed
+> > later: vendor binaries imply that it also provides a hardware watchdog
+> > and somehow serves as a wake source, but so far only the SATA power gat=
+ing
+> > function has been confirmed in absence of documentation and sources for=
+ the
+> > vendor firmware.
+> >
+> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> > ---
+> >  MAINTAINERS                     |  1 +
+> >  drivers/mfd/Kconfig             | 16 +++++++++++
+> >  drivers/mfd/Makefile            |  1 +
+> >  drivers/mfd/ugreen-dh2300-mcu.c | 60 +++++++++++++++++++++++++++++++++=
+++++++++
+> >  4 files changed, 78 insertions(+)
+>
+> Did you see: drivers/mfd/simple-mfd-i2c.c ?
 
-Convert CS35L36 Speaker Amplifier.
+Oh. Now I did :-D
 
-Changes:
- - maintainers email to the generic Cirrus email
- - Both the codec and downstream worked just fine without
-   VP-supply provided. Align with datasheet for similar models.
- - add dai-common.yaml to cover for '#sound-dai-cells',
-   'sound-name-prefix'
-
-Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Relevant for Pixel 3 / 3XL / 4.
----
- .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 224 +++++++++++++++++++++
- .../devicetree/bindings/sound/cs35l36.txt          | 168 ----------------
- 2 files changed, 224 insertions(+), 168 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
-new file mode 100644
-index 0000000000000..af0acaaefb68e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
-@@ -0,0 +1,224 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/cirrus,cs35l36.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Cirrus Logic CS35L36 Speaker Amplifier
-+
-+maintainers:
-+  - patches@opensource.cirrus.com
-+  - Bjorn Helgaas <bhelgaas@google.com>
-+
-+description: |
-+  CS35L36 is a boosted mono Class D amplifier
-+
-+allOf:
-+  - $ref: /schemas/sound/dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - cirrus,cs35l36
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  VA-supply:
-+    description: Voltage regulator of analog internal section
-+
-+  VP-supply:
-+    description: Voltage regulator of boost converter
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  cirrus,boost-ctl-millivolt:
-+    description: Boost converter output voltage in millivolts (step 50)
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 2550
-+    maximum: 12000
-+
-+  cirrus,boost-peak-milliamp:
-+    description: Boost-converter peak current limit in mA (step 50)
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 4500
-+    minimum: 1600
-+    maximum: 4500
-+
-+  cirrus,boost-ind-nanohenry:
-+    description: Initial inductor estimation reference value in nanohenry (1000=1μH, 1200=1.2μH)
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 1000
-+
-+  cirrus,multi-amp-mode:
-+    description: Hi-Z ASP port when more than one amplifier in system.
-+    type: boolean
-+
-+  cirrus,boost-ctl-select:
-+    description: Boost converter control source selection
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 0x01
-+    enum:
-+      - 0x00 # Control Port
-+      - 0x01 # Class
-+      - 0x10 # Sync
-+
-+  cirrus,amp-pcm-inv:
-+    description: Invert incoming PCM data when true.
-+    type: boolean
-+
-+  cirrus,imon-pol-inv:
-+    description: Invert polarity of outbound IMON feedback when true.
-+    type: boolean
-+
-+  cirrus,vmon-pol-inv:
-+    description: Invert polarity of outbound VMON feedback when true.
-+    type: boolean
-+
-+  cirrus,dcm-mode-enable:
-+    description: Enable boost converter automatic Discontinuous Conduction Mode.
-+    type: boolean
-+
-+  cirrus,weak-fet-disable:
-+    description: Reduce output driver strength in Weak-FET Drive Mode when true.
-+    type: boolean
-+
-+  cirrus,classh-wk-fet-delay:
-+    description: Weak-FET entry delay in ms
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 100
-+    enum:
-+      - 0 # 0
-+      - 1 # 5
-+      - 2 # 10
-+      - 3 # 50
-+      - 4 # 100
-+      - 5 # 200
-+      - 6 # 500
-+      - 7 # 1000
-+
-+  cirrus,classh-weak-fet-thld-millivolt:
-+    description: Weak-FET drive threshold in mV
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700]
-+
-+  cirrus,temp-warn-threshold:
-+    description: Overtemperature warning threshold
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 2
-+    enum:
-+      - 0 # 105°C
-+      - 1 # 115°C
-+      - 2 # 125°C
-+      - 3 # 135°C
-+
-+  cirrus,irq-drive-select:
-+    description: Interrupt output driver type
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    default: 1
-+    enum:
-+      - 0 # open-drain
-+      - 1 # push-pull
-+
-+  cirrus,irq-gpio-select:
-+    description: Programmable IRQ pin selection
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # PDM_DATA/SWIRE_SD/INT
-+      - 1 # GPIO
-+
-+  cirrus,vpbr-config:
-+    description: Brownout prevention configuration sub-node
-+    type: object
-+    additionalProperties: false
-+
-+    properties:
-+      cirrus,vpbr-en:
-+        description: VBST brownout prevention enable
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        default: 0
-+        enum:
-+          - 0 # disabled
-+          - 1 # enabled
-+
-+      cirrus,vpbr-thld:
-+        description: Initial VPBR threshold voltage
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-atk-rate:
-+        description: Attenuation attack step rate
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-atk-vol:
-+        description: VP brownout prevention step size
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-max-attn:
-+        description: Maximum attenuation during VP brownout prevention
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-wait:
-+        description: Delay between brownout clearance and attenuation release
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-rel-rate:
-+        description: Attenuation release step rate
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      cirrus,vpbr-mute-en:
-+        description: Mute audio if maximum attenuation reached
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - VA-supply
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        codec@40 {
-+            compatible = "cirrus,cs35l36";
-+            reg = <0x40>;
-+            VA-supply = <&dummy_vreg>;
-+            VP-supply = <&dummy_vreg>;
-+            reset-gpios = <&gpio0 54 GPIO_ACTIVE_HIGH>;
-+            interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
-+
-+            cirrus,boost-ind-nanohenry = <1000>;
-+            cirrus,boost-ctl-millivolt = <10000>;
-+            cirrus,boost-peak-milliamp = <4500>;
-+            cirrus,boost-ctl-select = <0x00>;
-+            cirrus,weak-fet-delay = <4>;
-+            cirrus,weak-fet-thld = <0x01>;
-+            cirrus,temp-warn-threshold = <1>;
-+            cirrus,multi-amp-mode;
-+            cirrus,irq-drive-select = <1>;
-+            cirrus,irq-gpio-select = <0x01>;
-+
-+            cirrus,vpbr-config {
-+                cirrus,vpbr-en = <0>;
-+                cirrus,vpbr-thld = <0x05>;
-+                cirrus,vpbr-atk-rate = <0x02>;
-+                cirrus,vpbr-atk-vol = <0x01>;
-+                cirrus,vpbr-max-attn = <0x09>;
-+                cirrus,vpbr-wait = <0x01>;
-+                cirrus,vpbr-rel-rate = <0x05>;
-+                cirrus,vpbr-mute-en = <0x00>;
-+            };
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/sound/cs35l36.txt b/Documentation/devicetree/bindings/sound/cs35l36.txt
-deleted file mode 100644
-index d34117b8558e5..0000000000000
---- a/Documentation/devicetree/bindings/sound/cs35l36.txt
-+++ /dev/null
-@@ -1,168 +0,0 @@
--CS35L36 Speaker Amplifier
--
--Required properties:
--
--  - compatible : "cirrus,cs35l36"
--
--  - reg : the I2C address of the device for I2C
--
--  - VA-supply, VP-supply : power supplies for the device,
--  as covered in
--  Documentation/devicetree/bindings/regulator/regulator.txt.
--
--  - cirrus,boost-ctl-millivolt : Boost Voltage Value.  Configures the boost
--  converter's output voltage in mV. The range is from 2550mV to 12000mV with
--  increments of 50mV.
--  (Default) VP
--
--  - cirrus,boost-peak-milliamp : Boost-converter peak current limit in mA.
--  Configures the peak current by monitoring the current through the boost FET.
--  Range starts at 1600mA and goes to a maximum of 4500mA with increments of
--  50mA.
--  (Default) 4.50 Amps
--
--  - cirrus,boost-ind-nanohenry : Inductor estimation LBST reference value.
--  Seeds the digital boost converter's inductor estimation block with the initial
--  inductance value to reference.
--
--  1000 = 1uH (Default)
--  1200 = 1.2uH
--
--Optional properties:
--  - cirrus,multi-amp-mode : Boolean to determine if there are more than
--  one amplifier in the system. If more than one it is best to Hi-Z the ASP
--  port to prevent bus contention on the output signal
--
--  - cirrus,boost-ctl-select : Boost converter control source selection.
--  Selects the source of the BST_CTL target VBST voltage for the boost
--  converter to generate.
--  0x00 - Control Port Value
--  0x01 - Class H Tracking (Default)
--  0x10 - MultiDevice Sync Value
--
--  - cirrus,amp-pcm-inv : Boolean to determine Amplifier will invert incoming
--  PCM data
--
--  - cirrus,imon-pol-inv : Boolean to determine Amplifier will invert the
--  polarity of outbound IMON feedback data
--
--  - cirrus,vmon-pol-inv : Boolean to determine Amplifier will invert the
--  polarity of outbound VMON feedback data
--
--  - cirrus,dcm-mode-enable : Boost converter automatic DCM Mode enable.
--  This enables the digital boost converter to operate in a low power
--  (Discontinuous Conduction) mode during low loading conditions.
--
--  - cirrus,weak-fet-disable : Boolean : The strength of the output drivers is
--  reduced when operating in a Weak-FET Drive Mode and must not be used to drive
--  a large load.
--
--  - cirrus,classh-wk-fet-delay :  Weak-FET entry delay. Controls the delay
--  (in ms) before the Class H algorithm switches to the weak-FET voltage
--  (after the audio falls and remains below the value specified in WKFET_AMP_THLD).
--
--  0 = 0ms
--  1 = 5ms
--  2 = 10ms
--  3 = 50ms
--  4 = 100ms (Default)
--  5 = 200ms
--  6 = 500ms
--  7 = 1000ms
--
--  - cirrus,classh-weak-fet-thld-millivolt : Weak-FET amplifier drive threshold.
--  Configures the signal threshold at which the PWM output stage enters
--  weak-FET operation. The range is 50mV to 700mV in 50mV increments.
--
--  - cirrus,temp-warn-threshold :  Amplifier overtemperature warning threshold.
--  Configures the threshold at which the overtemperature warning condition occurs.
--  When the threshold is met, the overtemperature warning attenuation is applied
--  and the TEMP_WARN_EINT interrupt status bit is set.
--  If TEMP_WARN_MASK = 0, INTb is asserted.
--
--  0 = 105C
--  1 = 115C
--  2 = 125C (Default)
--  3 = 135C
--
--  - cirrus,irq-drive-select : Selects the driver type of the selected interrupt
--  output.
--
--  0 = Open-drain
--  1 = Push-pull (Default)
--
--  - cirrus,irq-gpio-select : Selects the pin to serve as the programmable
--  interrupt output.
--
--  0 = PDM_DATA / SWIRE_SD / INT (Default)
--  1 = GPIO
--
--Optional properties for the "cirrus,vpbr-config" Sub-node
--
--  - cirrus,vpbr-en : VBST brownout prevention enable. Configures whether the
--  VBST brownout prevention algorithm is enabled or disabled.
--
--  0 = VBST brownout prevention disabled (default)
--  1 = VBST brownout prevention enabled
--
--  See Section 7.31.1 VPBR Config for configuration options & further details
--
--  - cirrus,vpbr-thld : Initial VPBR threshold. Configures the VP brownout
--  threshold voltage
--
--  - cirrus,cirrus,vpbr-atk-rate : Attenuation attack step rate. Configures the
--  amount delay between consecutive volume attenuation steps when a brownout
--  condition is present and the VP brownout condition is in an attacking state.
--
--  - cirrus,vpbr-atk-vol : VP brownout prevention step size. Configures the VP
--  brownout prevention attacking attenuation step size when operating in either
--  digital volume or analog gain modes.
--
--  - cirrus,vpbr-max-attn : Maximum attenuation that the VP brownout prevention
--  can apply to the audio signal.
--
--  - cirrus,vpbr-wait : Configures the delay time between a brownout condition
--  no longer being present and the VP brownout prevention entering an attenuation
--  release state.
--
--  - cirrus,vpbr-rel-rate : Attenuation release step rate. Configures the delay
--  between consecutive volume attenuation release steps when a brownout condition
--  is not longer present and the VP brownout is in an attenuation release state.
--
--  - cirrus,vpbr-mute-en : During the attack state, if the vpbr-max-attn value
--  is reached, the error condition still remains, and this bit is set, the audio
--  is muted.
--
--Example:
--
--cs35l36: cs35l36@40 {
--	compatible = "cirrus,cs35l36";
--	reg = <0x40>;
--	VA-supply = <&dummy_vreg>;
--	VP-supply = <&dummy_vreg>;
--	reset-gpios = <&gpio0 54 0>;
--	interrupt-parent = <&gpio8>;
--	interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
--
--	cirrus,boost-ind-nanohenry = <1000>;
--	cirrus,boost-ctl-millivolt = <10000>;
--	cirrus,boost-peak-milliamp = <4500>;
--	cirrus,boost-ctl-select = <0x00>;
--	cirrus,weak-fet-delay = <0x04>;
--	cirrus,weak-fet-thld = <0x01>;
--	cirrus,temp-warn-threshold = <0x01>;
--	cirrus,multi-amp-mode;
--	cirrus,irq-drive-select = <0x01>;
--	cirrus,irq-gpio-select = <0x01>;
--
--	cirrus,vpbr-config {
--		cirrus,vpbr-en = <0x00>;
--		cirrus,vpbr-thld = <0x05>;
--		cirrus,vpbr-atk-rate = <0x02>;
--		cirrus,vpbr-atk-vol = <0x01>;
--		cirrus,vpbr-max-attn = <0x09>;
--		cirrus,vpbr-wait = <0x01>;
--		cirrus,vpbr-rel-rate = <0x05>;
--		cirrus,vpbr-mute-en = <0x00>;
--	};
--};
-
----
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-change-id: 20260618-dt-cirrus-cs35l36-99c466fb13fd
+It's exactly what I needed, thanks a lot for the pointer. Will drop
+the boilerplate in v2 and instead instantiate my tiny child device
+from there.
 
 Best regards,
--- 
-David Heidelberg <david@ixit.cz>
-
-
+Alexey
