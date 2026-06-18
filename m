@@ -1,323 +1,316 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A463F1AC0
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 15:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9E719F137
+	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 15:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781795130; cv=none; b=filPCQiX4KGUQHuiJcqb8MiMXAYYVBdoDhNacWIRmVlr5KGgNOSoWSuSCTGM36gsHuBbJ6z16+1HYsBEgn1fD2bPV3Qa0fvGvcDE4XtByWEWY9bc1A4UEJnPQFWUI7AySWJdz3qVReA3LDboomNGrHpcdLjH00X7bJa3SjXYcbs=
+	t=1781795542; cv=none; b=MbebZ9jl1pkWFZ9Yj9WUCsh/Hono1/MhFWRKCDJ8VacWAKU5d5yBoG3ti3HVsnTMqCn4Y2qMaNlJwl5HBHgNN0Aij9yhQ6I+YMwM9F39/s1IQJqSVQaL+sB4Hz5rHvXNLmUmwcTE+aIaREy7SrTLTgUm0dPPL1B9bTK9arN9MUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781795130; c=relaxed/simple;
-	bh=iaFPE02ZjfpwZAXrnzwWGCxlSDHcJ4IP0+XPAuuEaZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EgSsE+AoluknkB5rNE3yMsRR7FG9vZy7v4ZRVGKK/rNkYwtNa+LiwVJ51pGeSSoc7bZbl9iyvwtS0Dj07Pha62FQnHMdmwCPV+75Wt4BQKFoenI1jfK8zV9owadpdIbkxWgPk+hUaPZ2pfode5WI4LICO/Y83FDUb6BOgDWxlsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EM/W8ZJZ; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1781795542; c=relaxed/simple;
+	bh=xao/PM+dLebBf9eocHSK34bKkz22pMdg8MgULXlTBpk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aUM1O+hpVjK2IQsPU7qVt7ZX7pgMF58VWHK6fiV2c18cuN35BqmgM8Zpx1pyNKKzeeO8VgImVVsoUmZvN3us0+tFJQIzFpySkyTy+QRWqFrWbIL9jExP12t4fbrVPW3BQpxFIp84Q/c/a7hWWPvKT8/mgM4MhrzgxeQzyiDiAms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=In/kzqJW; arc=none smtp.client-ip=209.85.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EM/W8ZJZ"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so16871665e9.1
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:05:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="In/kzqJW"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c0c1e0d00bso11045095ad.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 08:12:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781795127; x=1782399927; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WO1FdNyJzLW2jSnS++lTJL7J324nXe0APdtSCk7pTtY=;
-        b=EM/W8ZJZbSLGAIr8t9lW2TTS3qMxVhC4Pv3MahLRt1w1dJqRkU3CVabTo3t/vk6ljV
-         QBLiRiZXuemDLrIdrTzc8hflHhG14gPKZ+WMpkhxfrWO1xLlrWgoSa3ti1M72I4NrPqE
-         TlUhTjPhghMVG3etPrWErC48N649gyVzQCkfXz90MOcKD7+V9BD+4SfOnSND7o645XIz
-         bpTwDF57P7rQoIDfCTDoo6Nl5UOV7LEg9owjeiNJmdaU7bMTuvP0Fe2q2Oit9VKFw/QH
-         Ciirlkhq6/Klr+LWVFpRqlW1OUrfix7utsG740tI2XrRd3v10Qvgzr1gYeRRD3qsITdj
-         EZiw==
+        d=gmail.com; s=20251104; t=1781795540; x=1782400340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RJJdoVxmLVIvm3uOxyz7DAX29AU538dCpjlpNEjNa20=;
+        b=In/kzqJWRGLp0kqrXTGsBqQGMQ4XQnwYu7AKMgCCnsJsAOO+C0PDLYK1olgAUum9oh
+         69brFVkak9OfOYX7TrVOTqkwiwZxBXGAVxGLqNv4x5iS7CigPxxXXhBXBjqwBXiUT9QN
+         vn7UKlsO6JS+uT6H7EtvSDqMTQ8jagWDMWUzYzWkHBxfS+bZZRpSRCM6hTj8ZONl75ph
+         XJu/4bq79uZZs6+ZJex1tpmtJj7MmVCcX/2ToYZ7rsfedkYKrd625RxJTCPH5CViU8vl
+         EWiS1pzj0bgW1LKw8hIWz7Rk3O026McSoIpFpt3+kNARCz09J9Yu1DB18mMSa3s6j9Gf
+         QpRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781795127; x=1782399927;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WO1FdNyJzLW2jSnS++lTJL7J324nXe0APdtSCk7pTtY=;
-        b=ikQKNTalIdzRGKZNgSXW21QAaxcADurD/T3xJPbiLZkGxDoqOp/2Ce/EhWsa/DOVal
-         RkvMnj09PBQdKxQjePYfxoNh/aaSsRz9nyvUjD5Fffz4qkXfwfanUlIwwXKXcMEpII93
-         im9VDkSD+apVB+NQGJYd/batwrGmcFW+OJTvjQMZ1Uq2uaREIBSyoibbFnpfwILoyO3p
-         VvHTQKwxHApW2CJKKr+k4U02FNrPHD21O8ORuuHoPnMIWg8jrV248RbqObNuWXUBl4Jw
-         tYu3LUMEip66OugtOwrXeSGWFHwocKcXSlyg6Y1fSnr2tvsrm3QfIuqD3auUVklmAEfX
-         EM5w==
-X-Forwarded-Encrypted: i=1; AFNElJ/WBk3JbDBKfIv6FGb34iQ2jH9tb/lPEwSrgtxLd2WoXiUy2sjq3DbwiE0W8/xpe2pkqueZVWzg6wsN@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+eebx4E6vKAsUUi9lPK3h+c3fw7mLz8BM0FFvmG5O6IEHioPy
-	HE2hwfr90f8oVoCC4rrGirCGw6bLW+8zuZWXlH9PLEMmC3sNiawxi2bW
-X-Gm-Gg: AfdE7clBAxQSVkrmxV2jFas104EaMMsuWzwCRVd2ScmH5KxBMye2f2LcS7W86+48jq4
-	0TE5bxUIgfBgkYt69INd1++EXBET+wq4+NTybeZz7Zd08KSZ73cYjfLsFmrhSzLX4Xv7BBiIhqA
-	O0parRFcE5aAC2ZbIKfmm75TznZ08F4BqDymiK1CDN315WaH8PhzVYXxJPLSf2a6fkMuHYXajG6
-	Lj6KVh4+eZggO4RlIeVgWppxXOjktGM0B7E5do5Ni4P1hIPmPNHaepdyM4+Ns1RjIcyAj5h/oxH
-	I52L51ndxUPyrfrMYD1ZXH4pvkxB/y9A2U5hc6spPqJgw/w/spol/qatzTE2r2EdN3FyO+VtJkI
-	IMUC0eDksEIK0qPQjlB+yEz+2Mz7TSZlM4x2cn3JL3TQhFFnjf5s7RWMA1PYE8HI1/dttkw3mSn
-	QIf5ld
-X-Received: by 2002:a05:600c:4ec6:b0:490:3cf0:8d81 with SMTP id 5b1f17b1804b1-492381864b5mr60597465e9.13.1781795126415;
-        Thu, 18 Jun 2026 08:05:26 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4922fa5120esm264342055e9.8.2026.06.18.08.05.25
+        d=1e100.net; s=20251104; t=1781795540; x=1782400340;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RJJdoVxmLVIvm3uOxyz7DAX29AU538dCpjlpNEjNa20=;
+        b=GiHqJY7Tglmi+QufSN0dIeCgKnXmIEJRzKdHkxsDOCp/hsYspOyrLv3b5W7UalJsjO
+         5aS0kM1LMlRm7oG2DB9MBr07lIH7jYq46l824wN0JpfDvv6qtSMWDpE9SjTx03aKFeoy
+         QzU97N1EN+uI/C7igis3YRuSCgKhItr0xsOhwEI985R2QGM5JLfY2+BClsnjImmG2tdb
+         1tMz9xtsDZBAhCss3qholumsTl9Tz2ngbCVAC0m2WUrZbKWDnk05h16mzZagqVBOnDrd
+         yFnlT9AxN86L9jfIfPAuvgjsmf0mX+vFtoWTJtrvp9o5fDY4i688qTDCrEXGk6vg3dfV
+         XzIQ==
+X-Gm-Message-State: AOJu0YzZuJ8TpqjAa9TjvIfao+GT8hFzNzPXZTuyQwubli3coEfm/yva
+	svD5dAdKY5YzI0gI6S/xyD5GtVzaerObc2otYC1vgIE+gjsl4w4Lk+i7Kc75edkj
+X-Gm-Gg: AfdE7cnQHIBm5sSpA0gKFR/+14docI3CTaM2r5ijAvil48cXPUHujyUvKWF3tTm5UiW
+	/pZ+SRPtflb/cA4SaEV3zKwktVMFn4hOyI2fA+LBRzqIuzziddYK6u6yyjlYNs9TbMMinF9XKX1
+	2KAg9dbQpX5g/wuo3Dsa5ylTueg3uMD3UZSEpnTw4bwbBey6pNCmzuELxsVc5wOfu28WYlaFi+H
+	13odAf1fKXq35HMDpV88qXnSP6pol9uWJcZVYN9bE8GbG4Us5zehg3PAFdAW0qIXFtaY3uPV4p3
+	pM02RQTU09M9OY6cffSX1JH8p7sDP2TFx+qNn79qVH/T6fvXGmMohiA0xJdv9UKUUFyZ2rBNvJC
+	Tpv3bE6M35kwtmkQPRSEIBnwAe+/XrV+qo88VXr1qILSbjEtDcuV6NfEswotf63cEyrSE/LG0np
+	vwLzHPrKR7i+7YmQgwyqKxCPAZx0c=
+X-Received: by 2002:a17:902:f548:b0:2c0:d4a8:85d0 with SMTP id d9443c01a7336-2c6bc24236amr97026625ad.32.1781795539673;
+        Thu, 18 Jun 2026 08:12:19 -0700 (PDT)
+Received: from vbox ([117.251.163.66])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c6a403b242sm82450325ad.31.2026.06.18.08.12.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2026 08:05:25 -0700 (PDT)
-Date: Thu, 18 Jun 2026 16:06:27 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 06/16] iio: core: create local
- __iio_chan_prefix_emit() for reuse
-Message-ID: <ajQGTQ1_qcOwfzne@nsa>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
+        Thu, 18 Jun 2026 08:12:19 -0700 (PDT)
+From: Tejas Mutalikdesai <tejasmutalikdesai@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	sstabellini@kernel.org,
+	Tejas Mutalikdesai <tejasmutalikdesai@gmail.com>
+Subject: [PATCH v5 1/2] dt-bindings: arm: xen: Convert to DT schema
+Date: Thu, 18 Jun 2026 20:41:46 +0530
+Message-ID: <20260618151147.9438-1-tejasmutalikdesai@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
 
-On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Move logic to create a channel prefix for naming attribute files into a
-> separate __iio_chan_prefix_emit() function for reuse.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
->  drivers/iio/industrialio-core.c | 167 ++++++++++++++++------------------------
->  1 file changed, 68 insertions(+), 99 deletions(-)
-> 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> index 03019bf9327b..9373006235c8 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -26,6 +26,7 @@
->  #include <linux/property.h>
->  #include <linux/sched.h>
->  #include <linux/slab.h>
-> +#include <linux/sprintf.h>
->  #include <linux/wait.h>
->  
->  #include <linux/iio/buffer.h>
-> @@ -199,6 +200,64 @@ static const char * const iio_chan_info_postfix[] = {
->  	[IIO_CHAN_INFO_CONVDELAY] = "convdelay",
->  	[IIO_CHAN_INFO_POWERFACTOR] = "powerfactor",
->  };
-> +
-> +static int __iio_chan_prefix_emit(const struct iio_chan_spec *chan,
-> +				  enum iio_shared_by shared_by,
-> +				  char *buf, size_t len)
-> +{
-> +	const char *dir = iio_direction[chan->output];
-> +	const char *type = iio_chan_type_name_spec[chan->type];
-> +	int n = 0;
-> +
-> +	switch (shared_by) {
-> +	case IIO_SHARED_BY_ALL:
-> +		buf[0] = '\0'; /* empty channel prefix */
-> +		break;
-> +	case IIO_SHARED_BY_DIR:
-> +		n = scnprintf(buf, len, "%s", dir);
-> +		break;
-> +	case IIO_SHARED_BY_TYPE:
-> +		n = scnprintf(buf, len, "%s_%s", dir, type);
-> +		if (chan->differential)
-> +			n += scnprintf(buf + n, len - n, "-%s", type);
-> +		break;
-> +	case IIO_SEPARATE:
-> +		if (chan->indexed) {
-> +			n = scnprintf(buf, len, "%s_%s%d", dir, type,
-> +				      chan->channel);
-> +			if (chan->differential)
-> +				n += scnprintf(buf + n, len - n, "-%s%d", type,
-> +					       chan->channel2);
-> +		} else {
-> +			if (chan->differential) {
-> +				WARN(1, "Differential channels must be indexed\n");
-> +				return -EINVAL;
-> +			}
-> +			n = scnprintf(buf, len, "%s_%s", dir, type);
-> +		}
-> +
-> +		if (chan->modified) {
-> +			if (chan->differential) {
-> +				WARN(1, "Differential channels can not have modifier\n");
-> +				return -EINVAL;
+Convert the Xen ARM device tree binding documentation from the legacy
+plain-text format (Documentation/devicetree/bindings/arm/xen.txt) to
+the DT schema format, as required by the modern DT binding process.
 
-WARN() looks too much to me. dev_error() as we're treating it as such. I
-guess you don't want to pass struct device but not really an issue IMHO.
+The "hypervisor" node is named without a unit-address. The name is part
+of the Xen ABI and is matched verbatim by the kernel using strcmp() in
+arch/arm/xen/enlighten.c and arch/arm64/kernel/acpi.c, so $nodename uses
+'const: hypervisor'. The node has a reg but no unit-address, so dtc emits
+a non-fatal unit_address_vs_reg warning on the example; this is inherent
+to the existing binding and is not introduced by the conversion.
 
+Signed-off-by: Tejas Mutalikdesai <tejasmutalikdesai@gmail.com>
+---
+The bare node name "hypervisor" (no unit-address) is deliberate:
 
-> +			}
-> +			n += scnprintf(buf + n, len - n, "_%s",
-> +				       iio_modifier_names[chan->channel2]);
-> +		}
-> +
-> +		if (chan->extend_name)
-> +			n += scnprintf(buf + n, len - n, "_%s", chan->extend_name);
-> +		break;
-> +	}
-> +
-> +	if (n > 0 && n < len - 1) { /* prefix termination if not empty */
-> +		buf[n++] = '_';
-> +		buf[n] = '\0';
-> +	}
-> +
+1. The legacy binding (xen.txt, commit c43cdfbc4ceb, authored by the Xen
+   ARM maintainer in 2012) documents the node and its example as a bare
+   "hypervisor".
 
-Can't we handle the above in the caller on kasprintf()? Then we could
-simplify and return in place.
+2. The kernel locates the node by exact name, not by unit-address:
+     arch/arm/xen/enlighten.c:   strcmp(uname, "hypervisor")
+     arch/arm64/kernel/acpi.c:   strcmp(name,  "hypervisor")
+   fdt_get_name() returns the full name including any "@unit", so a
+   "hypervisor@..." node would fail these comparisons and Xen init would
+   silently not find the node.
 
-> +	return n;
-> +}
-> +
->  /**
->   * iio_device_id() - query the unique ID for the device
->   * @indio_dev:		Device structure whose ID is being queried
-> @@ -1100,106 +1159,19 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
->  						size_t len),
->  			   enum iio_shared_by shared_by)
->  {
-> -	int ret = 0;
-> -	char *name = NULL;
-> -	char *full_postfix;
-> +	char prefix[NAME_MAX + 1];
-> +	int ret;
->  
->  	sysfs_attr_init(&dev_attr->attr);
->  
-> -	/* Build up postfix of <extend_name>_<modifier>_postfix */
-> -	if (chan->modified && (shared_by == IIO_SEPARATE)) {
-> -		if (chan->extend_name)
-> -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s_%s",
-> -						 iio_modifier_names[chan->channel2],
-> -						 chan->extend_name,
-> -						 postfix);
-> -		else
-> -			full_postfix = kasprintf(GFP_KERNEL, "%s_%s",
-> -						 iio_modifier_names[chan->channel2],
-> -						 postfix);
-> -	} else {
-> -		if (chan->extend_name == NULL || shared_by != IIO_SEPARATE)
-> -			full_postfix = kstrdup(postfix, GFP_KERNEL);
-> -		else
-> -			full_postfix = kasprintf(GFP_KERNEL,
-> -						 "%s_%s",
-> -						 chan->extend_name,
-> -						 postfix);
-> -	}
-> -	if (full_postfix == NULL)
-> +	ret = __iio_chan_prefix_emit(chan, shared_by, prefix, sizeof(prefix));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
-> +	if (!dev_attr->attr.name)
->  		return -ENOMEM;
+3. The in-tree template arch/arm/boot/dts/xen/xenvm-4.2.dts uses a bare
+   "hypervisor" node and has done so since it was added.
 
-I don't oppose the change. Looks like a nice cleanup. But bear in mind
-this very sensible as any subtle mistake means ABI breakage.
+4. The dtc unit_address_vs_reg warning is pre-existing: compiling
+   xenvm-4.2.dts today already emits it. Mandating a unit-address in the
+   schema would instead regress dtbs_check for that in-tree DTB and
+   describe a node form the kernel cannot consume.
 
-- Nuno Sá
+Per the DT spec a unit-address is grammatically permitted (node-name is
+the part before '@'), but making it mandatory is not viable until the
+kernel matchers and the Xen-generated FDT are updated in lockstep, which
+is out of scope for this binding conversion.
 
->  
-> -	if (chan->differential) { /* Differential can not have modifier */
-> -		switch (shared_by) {
-> -		case IIO_SHARED_BY_ALL:
-> -			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
-> -			break;
-> -		case IIO_SHARED_BY_DIR:
-> -			name = kasprintf(GFP_KERNEL, "%s_%s",
-> -						iio_direction[chan->output],
-> -						full_postfix);
-> -			break;
-> -		case IIO_SHARED_BY_TYPE:
-> -			name = kasprintf(GFP_KERNEL, "%s_%s-%s_%s",
-> -					    iio_direction[chan->output],
-> -					    iio_chan_type_name_spec[chan->type],
-> -					    iio_chan_type_name_spec[chan->type],
-> -					    full_postfix);
-> -			break;
-> -		case IIO_SEPARATE:
-> -			if (!chan->indexed) {
-> -				WARN(1, "Differential channels must be indexed\n");
-> -				ret = -EINVAL;
-> -				goto error_free_full_postfix;
-> -			}
-> -			name = kasprintf(GFP_KERNEL,
-> -					    "%s_%s%d-%s%d_%s",
-> -					    iio_direction[chan->output],
-> -					    iio_chan_type_name_spec[chan->type],
-> -					    chan->channel,
-> -					    iio_chan_type_name_spec[chan->type],
-> -					    chan->channel2,
-> -					    full_postfix);
-> -			break;
-> -		}
-> -	} else { /* Single ended */
-> -		switch (shared_by) {
-> -		case IIO_SHARED_BY_ALL:
-> -			name = kasprintf(GFP_KERNEL, "%s", full_postfix);
-> -			break;
-> -		case IIO_SHARED_BY_DIR:
-> -			name = kasprintf(GFP_KERNEL, "%s_%s",
-> -						iio_direction[chan->output],
-> -						full_postfix);
-> -			break;
-> -		case IIO_SHARED_BY_TYPE:
-> -			name = kasprintf(GFP_KERNEL, "%s_%s_%s",
-> -					    iio_direction[chan->output],
-> -					    iio_chan_type_name_spec[chan->type],
-> -					    full_postfix);
-> -			break;
-> -
-> -		case IIO_SEPARATE:
-> -			if (chan->indexed)
-> -				name = kasprintf(GFP_KERNEL, "%s_%s%d_%s",
-> -						    iio_direction[chan->output],
-> -						    iio_chan_type_name_spec[chan->type],
-> -						    chan->channel,
-> -						    full_postfix);
-> -			else
-> -				name = kasprintf(GFP_KERNEL, "%s_%s_%s",
-> -						    iio_direction[chan->output],
-> -						    iio_chan_type_name_spec[chan->type],
-> -						    full_postfix);
-> -			break;
-> -		}
-> -	}
-> -	if (name == NULL) {
-> -		ret = -ENOMEM;
-> -		goto error_free_full_postfix;
-> -	}
-> -	dev_attr->attr.name = name;
-> -
->  	if (readfunc) {
->  		dev_attr->attr.mode |= 0444;
->  		dev_attr->show = readfunc;
-> @@ -1210,10 +1182,7 @@ int __iio_device_attr_init(struct device_attribute *dev_attr,
->  		dev_attr->store = writefunc;
->  	}
->  
-> -error_free_full_postfix:
-> -	kfree(full_postfix);
-> -
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void __iio_device_attr_deinit(struct device_attribute *dev_attr)
-> 
-> -- 
-> 2.43.0
-> 
-> 
+Changes since v4:
+- Revert the v4 $nodename unit-address requirement to 'const: hypervisor'
+  (see rationale above).
+
+Changes since v2:
+- s/YAML schema/DT schema/ in the commit text
+- Drop unnecessary '|' block scalars from descriptions
+- Split the arch/arm/xen/enlighten.c doc-reference update into patch 2/2
+
+ Documentation/devicetree/bindings/arm/xen.txt |  62 ----------
+ .../devicetree/bindings/arm/xen.yaml          | 109 ++++++++++++++++++
+ 2 files changed, 109 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/arm/xen.txt
+ create mode 100644 Documentation/devicetree/bindings/arm/xen.yaml
+
+diff --git a/Documentation/devicetree/bindings/arm/xen.txt b/Documentation/devicetree/bindings/arm/xen.txt
+deleted file mode 100644
+index f925290d4641..000000000000
+--- a/Documentation/devicetree/bindings/arm/xen.txt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-* Xen hypervisor device tree bindings
+-
+-Xen ARM virtual platforms shall have a top-level "hypervisor" node with
+-the following properties:
+-
+-- compatible:
+-	compatible = "xen,xen-<version>", "xen,xen";
+-  where <version> is the version of the Xen ABI of the platform.
+-
+-- reg: specifies the base physical address and size of the regions in memory
+-  where the special resources should be mapped to, using an HYPERVISOR_memory_op
+-  hypercall.
+-  Region 0 is reserved for mapping grant table, it must be always present.
+-  The memory region is large enough to map the whole grant table (it is larger
+-  or equal to gnttab_max_grant_frames()).
+-  Regions 1...N are extended regions (unused address space) for mapping foreign
+-  GFNs and grants, they might be absent if there is nothing to expose.
+-
+-- interrupts: the interrupt used by Xen to inject event notifications.
+-  A GIC node is also required.
+-
+-To support UEFI on Xen ARM virtual platforms, Xen populates the FDT "uefi" node
+-under /hypervisor with following parameters:
+-
+-________________________________________________________________________________
+-Name                      | Size   | Description
+-================================================================================
+-xen,uefi-system-table     | 64-bit | Guest physical address of the UEFI System
+-			  |	   | Table.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-start       | 64-bit | Guest physical address of the UEFI memory
+-			  |	   | map.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-size        | 32-bit | Size in bytes of the UEFI memory map
+-                          |        | pointed to in previous entry.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-desc-size   | 32-bit | Size in bytes of each entry in the UEFI
+-                          |        | memory map.
+---------------------------------------------------------------------------------
+-xen,uefi-mmap-desc-ver    | 32-bit | Version of the mmap descriptor format.
+---------------------------------------------------------------------------------
+-
+-Example (assuming #address-cells = <2> and #size-cells = <2>):
+-
+-hypervisor {
+-	compatible = "xen,xen-4.3", "xen,xen";
+-	reg = <0 0xb0000000 0 0x20000>;
+-	interrupts = <1 15 0xf08>;
+-	uefi {
+-		xen,uefi-system-table = <0xXXXXXXXX>;
+-		xen,uefi-mmap-start = <0xXXXXXXXX>;
+-		xen,uefi-mmap-size = <0xXXXXXXXX>;
+-		xen,uefi-mmap-desc-size = <0xXXXXXXXX>;
+-		xen,uefi-mmap-desc-ver = <0xXXXXXXXX>;
+-        };
+-};
+-
+-The format and meaning of the "xen,uefi-*" parameters are similar to those in
+-Documentation/arch/arm/uefi.rst, which are provided by the regular UEFI stub. However
+-they differ because they are provided by the Xen hypervisor, together with a set
+-of UEFI runtime services implemented via hypercalls, see
+-http://xenbits.xen.org/docs/unstable/hypercall/x86_64/include,public,platform.h.html.
+diff --git a/Documentation/devicetree/bindings/arm/xen.yaml b/Documentation/devicetree/bindings/arm/xen.yaml
+new file mode 100644
+index 000000000000..4eeadb8ae106
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/xen.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/xen.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xen hypervisor
++
++maintainers:
++  - Stefano Stabellini <sstabellini@kernel.org>
++
++description:
++  Xen ARM virtual platforms shall have a top-level "hypervisor" node with
++  the properties defined below.
++
++properties:
++  $nodename:
++    const: hypervisor
++
++  compatible:
++    description:
++      Specifies the Xen hypervisor. The version of the Xen ABI is encoded
++      in the first item as "xen,xen-<version>", followed by the generic
++      "xen,xen" string.
++    items:
++      - pattern: "^xen,xen-[0-9]+\\.[0-9]+$"
++      - const: xen,xen
++
++  reg:
++    description: |
++      Base physical address and size of the regions in memory where special
++      resources should be mapped to, using a HYPERVISOR_memory_op hypercall.
++
++      Region 0 is reserved for mapping the grant table and must always be
++      present. The memory region must be large enough to map the whole grant
++      table (it is larger or equal to gnttab_max_grant_frames()).
++
++      Regions 1...N are extended regions (unused address space) for mapping
++      foreign GFNs and grants. They might be absent if there is nothing to
++      expose.
++    minItems: 1
++
++  interrupts:
++    description:
++      The interrupt used by Xen to inject event notifications.
++      A GIC node is also required.
++    maxItems: 1
++
++  uefi:
++    type: object
++    description:
++      Node populated by Xen to support UEFI on Xen ARM virtual platforms.
++      The format and meaning of the "xen,uefi-*" parameters are similar to
++      those in Documentation/arch/arm/uefi.rst, but are provided by the Xen
++      hypervisor together with a set of UEFI runtime services implemented via
++      hypercalls.
++    properties:
++      xen,uefi-system-table:
++        description: Guest physical address of the UEFI System Table.
++        $ref: /schemas/types.yaml#/definitions/uint64
++
++      xen,uefi-mmap-start:
++        description: Guest physical address of the UEFI memory map.
++        $ref: /schemas/types.yaml#/definitions/uint64
++
++      xen,uefi-mmap-size:
++        description: Size in bytes of the UEFI memory map pointed to by xen,uefi-mmap-start.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      xen,uefi-mmap-desc-size:
++        description: Size in bytes of each entry in the UEFI memory map.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      xen,uefi-mmap-desc-ver:
++        description: Version of the mmap descriptor format.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++    required:
++      - xen,uefi-system-table
++      - xen,uefi-mmap-start
++      - xen,uefi-mmap-size
++      - xen,uefi-mmap-desc-size
++      - xen,uefi-mmap-desc-ver
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    hypervisor {
++        compatible = "xen,xen-4.3", "xen,xen";
++        reg = <0xb0000000 0x20000>;
++        interrupts = <1 15 0xf08>;
++
++        uefi {
++            xen,uefi-system-table = /bits/ 64 <0x1301415>;
++            xen,uefi-mmap-start = /bits/ 64 <0x7591400>;
++            xen,uefi-mmap-size = <0x1800>;
++            xen,uefi-mmap-desc-size = <0x30>;
++            xen,uefi-mmap-desc-ver = <1>;
++        };
++    };
++...
+-- 
+2.54.0
+
