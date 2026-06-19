@@ -1,100 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C85F372EF1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD86D3783A1
 	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 14:11:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781878271; cv=none; b=FgmF7x89MRx13EHlrWlxY3yl9UlxGB3r/Ms4U5Iw+ez/355Znv8i4va1r3i6ml56yczzA02+Mgu+8ysRlwctbulWDOSTV7F4onVw5KLbXgWZjJM9yiZeO7RAATRqRQ4nirtJLSIQoK4SeT6bBtsZUqg7YEvfG2J1hwigu/525Ns=
+	t=1781878272; cv=none; b=WUBkYkbihwfAyRBluCJhfuBR4tAz3K2tCez77h3Bby4FLVEMX7l5xPpAFWTBIhc+gL21/q98iD1PnsW9dlqohqWmb0JNWE7ajV3LOdeH+PMqBEEFeMdtCMVLyfx5XjtNz7ze7ielUzoYU7c1GmelvXn4h6plqorpN/rdy7tyd/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781878271; c=relaxed/simple;
-	bh=KHAkjGEa7B8RwMoBqLNhKHe4WnIOJ0AqNNv4cjxEeMo=;
+	s=arc-20240116; t=1781878272; c=relaxed/simple;
+	bh=XgjNESYgLGZMpP784wE2Qp3THyw8X/D40ZG454MxiK4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZerbWPcZcAQ0jeN+8xXASIYtg91O8MUekCJefVrlwvkqV2liaryqBTnBWA7R+uLXifwNMNPjGaNe6//I+Dv4QfoHdGFcLfXMqQN60aC0IvavFDwgRZr1KWplh/Sa489wh58d2UgGqj5SEOOz8mGMXcquc16q/1DdxsKgMSjB414=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIxTGGCf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GJ/103Gfowu8+dX8cG3PGR//WGvD1e/+D7anaHsYIGBVnxd8wLiljUP5nk93KQ/sBK+5BtNRSKt7vB6rimV18Ht/2bJn515Z71LnZGM86bBXgmILSPcRzegbshOkph2RjfuUIKs6lhVavNX9TAUcNIuli5DJCht8RWBthofpgy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UiKxNQGg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIxTGGCf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AA631F000E9;
-	Fri, 19 Jun 2026 14:11:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UiKxNQGg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4451F00A3A;
+	Fri, 19 Jun 2026 14:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1781878270;
-	bh=oJMhjGGLS67mEVytagF04OJoCp1RkhCpKwOWuyFKZQg=;
+	bh=Rl19mVG6eFVr/1LLwWW0pRWCZnuVfLWmVhBY9nHDsJE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XIxTGGCfzWqhjhqs9XZG0QMPssIIoPVqFEPGZaZDdJlPuoC40gwyjtsxGQEHnDfPw
-	 XTUKpMiw5bbTPiD+FpSjYvGGBE2AaehmX/RCHCP0FWM2jJ+zwuWohbnNe6iMG1rQ5h
-	 B/dbR2Ua5A4Ct7zpiYQsNQME8mTCqbLtgd0faA/15AaDDbSYYZdzaZ1oK2bnwtkwuS
-	 EhV6f4kXR9ey0YMQSYAnv4MCoFe0wmTkGTzTiBB/FbKN6KCGYdv0PLsG7Wfurewx4A
-	 t7f28nhQO++BglETKT5Zg7JewyX795DEmH6+v8XNhyyLTycYKHOmY0Yp+CyuBloIA9
-	 k8k1U+r/P1S6Q==
+	b=UiKxNQGgDyQNz3R4FnZyJ0koIFdhqpka+oVglz55cakxVJbBAu4av9/72PG0b0eqM
+	 EKbxfZz6/0a8afL5TqAOF6sVyRQJjDg4PnDfu1Mv2N673cbttXDZubOEv9HTYHE5SS
+	 cP1q+ytT22v/z25R8lvJNPmbX5jZIkDGxjhnVfr42bamKHdHOLBe6GaXrjcXg10vIe
+	 +J72iffjk+Ci/l4+bu07F+uWz7UatFSVmEQBaPQ7QpgayKFSvlBEiF5+WYVgSj6QWk
+	 03o9IASVEbYmZPXPzAMfkKCq5qr7BQlC+ymypDsJ7OIe+8etq1a0EW91IlAGQAOLWq
+	 ejdGq4at114SQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH net-next v8 08/12] of: property: fw_devlink: Add
- support for "pcs-handle"
+Subject: Re: [RFC PATCH net-next v8 04/12] net: pcs: implement Firmware node
+ support for PCS driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260618125752.1223-9-ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260618125752.1223-5-ansuelsmth@gmail.com>
 References: <20260618125752.1223-1-ansuelsmth@gmail.com>
- <20260618125752.1223-9-ansuelsmth@gmail.com>
+ <20260618125752.1223-5-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 14:11:08 +0000
-Message-Id: <20260619141109.0AA631F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 14:11:10 +0000
+Message-Id: <20260619141110.6F4451F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] fwnode_property_get_reference_args() usage in newly added pcs.c =
-causes -EINVAL on existing DTs due to lacking a cell count fallback.
+- [High] The PCS provider framework lacks module reference counting, exposi=
+ng consumers to Use-After-Free crashes during concurrent driver removal.
+- [Medium] `fwnode_phylink_pcs_count()` silently truncates the PCS count on=
+ Device Tree errors instead of propagating them.
+- [Low] Dead code and illogical condition in `fwnode_parse_pcsspec`.
 --
 
-commit 91acc7e182a01f5abd0ae44dd757caf24a80257a
+commit 31d56c9668ba31e1d161e00a93f5481143830f95
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-of: property: fw_devlink: Add support for "pcs-handle"
+net: pcs: implement Firmware node support for PCS driver
 
-Add support for parsing PCS binding so that fw_devlink can
-enforce the dependency with Ethernet port.
+Implement the foundation of Firmware node support for PCS driver.
+This implements a simple Provider API where a PCS driver can
+expose multiple PCS with an xlate .get function.
 
-> diff --git a/drivers/of/property.c b/drivers/of/property.c
-> index 136946f8b746f..e6584a2f705d2 100644
-> --- a/drivers/of/property.c
-> +++ b/drivers/of/property.c
-> @@ -1392,6 +1392,7 @@ DEFINE_SIMPLE_PROP(access_controllers, "access-cont=
-rollers", "#access-controller
->  DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
->  DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
->  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
-> +DEFINE_SIMPLE_PROP(pcs_handle, "pcs-handle", "#pcs-cells")
+> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
+> new file mode 100644
+> index 0000000000000..0cc4daf7beeae
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs.c
+[ ... ]
+> +static int fwnode_parse_pcsspec(const struct fwnode_handle *fwnode,
+> +				int index, const char *name,
+> +				struct fwnode_reference_args *out_args)
+> +{
+> +	int ret;
+> +
+> +	if (!fwnode)
+> +		return -EINVAL;
+> +
+> +	if (name) {
+> +		index =3D fwnode_property_match_string(fwnode, "pcs-names",
+> +						     name);
+> +		if (index < 0)
+> +			return index;
+> +	}
+> +
+> +	ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
+> +						 "#pcs-cells",
+> +						 -1, index, out_args);
+> +	if (ret || (name && index < 0))
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+[Severity: Low]
+Is the condition (name && index < 0) needed here?=20
+
+The earlier check:
+
+	if (name) {
+		index =3D fwnode_property_match_string(fwnode, "pcs-names",
+						     name);
+		if (index < 0)
+			return index;
+	}
+
+already returns early if name is present and index is less than zero, so
+index will always be >=3D 0 when we reach this final check.
+
+[ ... ]
+> +static struct phylink_pcs *
+> +fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
+> +{
+> +	struct fwnode_pcs_provider *provider;
+> +	struct phylink_pcs *pcs =3D ERR_PTR(-ENODEV);
+> +
+> +	if (!pcsspec)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	mutex_lock(&fwnode_pcs_mutex);
+> +	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
+> +		if (provider->fwnode =3D=3D pcsspec->fwnode) {
+> +			pcs =3D provider->get(pcsspec, provider->data);
+> +			if (!IS_ERR(pcs))
+> +				break;
+> +		}
+> +	}
+> +	mutex_unlock(&fwnode_pcs_mutex);
+> +
+> +	return pcs;
+> +}
+
+[Severity: High]
+Is there a way to prevent the provider module from being unloaded while the
+consumer is actively using the PCS?
+
+It looks like this framework doesn't capture the module owner (e.g. by pass=
+ing
+THIS_MODULE to fwnode_pcs_add_provider) or use try_module_get() when handing
+the pointer to the consumer in fwnode_pcs_get_from_pcsspec().
+
+If a consumer calls fwnode_pcs_get() but hasn't yet linked the PCS to its
+pl->pcs_list (meaning pcs->phylink is still NULL), and the provider unbinds
+during this window, phylink_release_pcs() might act as a no-op. The provider
+could free the PCS memory while the consumer still holds the pointer, leadi=
+ng
+to a use-after-free crash.
+
+[ ... ]
+> +unsigned int fwnode_phylink_pcs_count(struct fwnode_handle *fwnode)
+> +{
+> +	struct fwnode_reference_args out_args;
+> +	int index =3D 0;
+> +	int ret;
+> +
+> +	while (true) {
+> +		ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
+> +							 "#pcs-cells",
+> +							 -1, index, &out_args);
+> +		/* We expect to reach an -ENOENT error while counting */
+> +		if (ret)
+> +			break;
+> +
+> +		fwnode_handle_put(out_args.fwnode);
+> +		index++;
+> +	}
+> +
+> +	return index;
+> +}
 
 [Severity: Medium]
-While this fw_devlink integration correctly falls back to 0 cells (via
-parse_prop_cells()) when #pcs-cells is missing, the newly added API in
-drivers/net/pcs/pcs.c does not.
+Does this function silently truncate the count on malformed device tree nod=
+es?
 
-In drivers/net/pcs/pcs.c:fwnode_parse_pcsspec(), the fallback cell count is
-hardcoded to -1:
+If fwnode_property_get_reference_args() returns a critical error like -EINV=
+AL,
+the loop breaks and returns the current index. Because the function returns=
+ an
+unsigned int, negative error codes aren't propagated to the caller.=20
 
-	ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
-						 "#pcs-cells",
-						 -1, index, out_args);
-
-Similarly, in drivers/net/pcs/pcs.c:fwnode_phylink_pcs_count():
-
-		ret =3D fwnode_property_get_reference_args(fwnode, "pcs-handle",
-							 "#pcs-cells",
-							 -1, index, &out_args);
-
-Passing -1 as the fallback cell count causes parsing to fail with -EINVAL on
-existing devicetrees where the pcs-handle property points to a node without
-#pcs-cells.
-
-Could this create a regression for the pcs-handle binding, causing existing
-MAC drivers that migrate to this new API to fail discovery of their PCS?
+Could this mask actual configuration errors and cause the MAC driver to pro=
+ceed
+with an incomplete PCS configuration instead of failing the probe?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618125752.1223=
--1-ansuelsmth@gmail.com?part=3D8
+-1-ansuelsmth@gmail.com?part=3D4
