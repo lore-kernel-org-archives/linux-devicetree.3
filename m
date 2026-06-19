@@ -1,108 +1,241 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087163B19D1
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 17:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4D139F160;
+	Fri, 19 Jun 2026 18:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781891199; cv=none; b=gqsGqgYUGZ8OyDPnRoGTAPsajBhmmad5jqGKWglvSEKxK/A932biTOON1aMrPujdaiPrFE7YJi4sthWYFR5rjOw06yKev2B3MmS8h6fIeWEACxFsAICv0HmvBlyUtJvae5UeExSHqj/fFTAIhU8OXx16c0VnuO7CGqSLf0z3VX4=
+	t=1781892625; cv=none; b=sFKhbXSLoR/dpOfLHBEB7dlku4ouaiT63Fqr7z1Pf5qRRbmDXBgMloONfYOTACZT3Mla1r+An9J3cc6wnG0ZwvV5poIjHFX4H2+U9E7W7yXwtG7EaLb0jAB0KzaQaFG15IzLLo6Qx8TYN1612DZxQ0rrC07V5AQVZHp5c9dTf0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781891199; c=relaxed/simple;
-	bh=H7f14CYwNP46ECpdeY80MJ+vB0wytZ/WUeIVEgw1f+A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i03CR3On5I/ZkA6/3i2SAz9R3o4ucFB7SoDG9zMnrlrLILXZ4ABhHp6tjTEddVY0rPqEwMc8ryQywODt1aRmK34/UIwSi5jr4FkC0VE889PyRYlRIO6kCP0i3141ax2RQQtjbOBRXH8csdR14/t6pYTOr0hEXZ8xdfhCp0GSFD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/eQFjIG; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781892625; c=relaxed/simple;
+	bh=PFyKBNDWBYjB8zWNDrsT7rKZVdoLKZOHw4AYe4w64Ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dW0TLASdtqf1Qg3X/AYC4SmQziuyIxDst+xN97M7N/2tE19vCzGMMcOUF2cQ5WAeDFMlbQyrl018VhFBebZ2FQnXlHNlCRHVBQLBI87oDlgh43lijZAXMMmTpQ9io43nOp6Hi5nP0xpQuorCrW071uhWtf9ZncSmc0ErzM01J2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=T3g3BzIs; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/eQFjIG"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b7866869so22588525e9.2
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781891196; x=1782495996; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=H7f14CYwNP46ECpdeY80MJ+vB0wytZ/WUeIVEgw1f+A=;
-        b=R/eQFjIGJOmwIPpGAgwCpcPD7gX90JNhp63BcLpbxsSmEfYWhC23L8ze/2dfcH9zMN
-         KJIGipk/2pZUHiSDNn6As+WfrOIekJ+SNEGKEK6+YnM6mX47b5wMXv77XGvIN1zaqIWw
-         WGUekG7wyIg7AfKUrV/HQ+VswK4gC7W4UgCknjghxhb12acvDOKqh1Ffi8QHWyUMbCnw
-         mPg6vw/nkHpOJLF1wurbV8ZZPiOmTu3Stw0F5Rlyf4fUFBZ9e5RULvZG9K0yzI3mlkSA
-         57owJPUssf1JYAjTUpI8kqH+VJ+GYZbxgzEgDoQWenMso/gtj/Kbh6nISmYtAn3pGASU
-         WqZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781891196; x=1782495996;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=H7f14CYwNP46ECpdeY80MJ+vB0wytZ/WUeIVEgw1f+A=;
-        b=mHOiNWYgUmwg2yrrXImi6FqpG+pm9CoO/X02AI1mR7FzIoJZxrVoWYdxx7pz0V1je+
-         fAfDHlPZnfMlw3011XJRBCOGR8/eZyGawg6SFNIwjX3rORV/IemmLaWpdFM9rryjAD1E
-         PHPoWWA7OLdPnw9SmSQeyp7WMJXlPhcKI+SCX45j1J8oh7TTV86dZ2Z4qwslii/+Hh07
-         qOBs2PlcgUN/OqE6s33dpcerkcXLfhmLN51u2X6nknKoTWEo/2b3p3aJXBSCSFf6Rgmf
-         oBzU3N3ZWg/xYUCNFBwq4P6YZihFtJZu7ho0I1JhskRB95L/b6CeXADvLLqBafS5ii/Q
-         Y/IA==
-X-Forwarded-Encrypted: i=1; AFNElJ/u2wnJ4LhY3GEYHbD/0Nq0pi89ibUoAmPYhmmdQFa4wmzrp4zU5pEC4LFay5n2g9T+E984jViBxHe4@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx2gOFq4ObvOXJ+Gz1GJrUoT4HwbJyu0ch6sNtNP9SRlvlYPsw+
-	2I0nM8rk9bkDQkAdzQ8/ziRVPOP7T83AKf3b7uMXqckpuGDUK4rujcxK
-X-Gm-Gg: AfdE7ck0hCeZujWj3sOuGHhJvqGIrliSyL2ASEEmPNhgMv0BKsdnrPiblCWoQv2eOWn
-	85m1B/GKynFcD2jgA9gO5U3ZjiUS0MS2Oug7LsOjgvdOhhJs1GdYIPNMynD1RQYv2hph1ex0leh
-	AeNMbDXljVERVsk9XXmg5zTZn8w2kWXr8dfXPU4n4rAhnY7mMwT5G/cmIUNLXAyWMRfnSYw50p9
-	mBmCntMnTM3DmAtdrE27p2dqNvJMVqeL6xLY2Jko/gcv1bDcv0sjZRLcWemSxoWs8zAOhSRRiUT
-	x7nskDl3KL7XBzvXQEElC8VNyJvYYM4I3myAIAL7i9scKtlv7IB6p3jipMcsp2b6/2PY6nyqKgQ
-	3ymkOMjJRCHa8H8LE0WTKezePp/GWn4a2HhBU7twH8d5AweaUz70oIoOt5sV91U10zPUcdsa7PA
-	ZhAMoA2Fyf3+cIUu7gspXcQEYI9c5wviNG6YdY7CXmMPuJlVYudI6ZSwMCGSzg8nsFwL/MiI4ph
-	Fw59lM=
-X-Received: by 2002:a05:600c:a15:b0:492:39b6:5a30 with SMTP id 5b1f17b1804b1-49242591d5dmr53790795e9.35.1781891196410;
-        Fri, 19 Jun 2026 10:46:36 -0700 (PDT)
-Received: from [10.128.11.42] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49249238bfbsm1569755e9.5.2026.06.19.10.46.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2026 10:46:36 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <84dabe49-8405-4213-8b73-433cf736ded9@gmail.com>
-Date: Fri, 19 Jun 2026 18:46:34 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="T3g3BzIs"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JHSibI3569211;
+	Fri, 19 Jun 2026 18:10:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=oADIH0atf+C
+	hHud3oTfXN4f4TjJebhfNtjQi0SMfK78=; b=T3g3BzIs8y8VMpOVSm0MKD4I/d2
+	zp+XzUncqNO0RS+8nVSQ2fGTbj82iCbtsXybpjWMCizkHTAz4gLrnz/81ORiYZiu
+	ZYAS9ITBMTMbfeLwLnxMxDUe58WyEzpmEsd0R3diL+JPi2ehWipLcSsL/KqToKRx
+	2suNUal4Gck7oidErCoBVLebB4JHqKN51Us+EOuB1Kub1gBCa530OeLj8A9RKFVG
+	UME1r+Qr1r3NSi6eGer/kpGJSSqoHHFTu1bcK/i83aLEivwQ6ty3MyT2fpbRtLvR
+	t1rMRywBIxM0sONWiMIQA6Pb/Rn2sWQeSzoSngpQVLWRogjo2luvKvl+q9w==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evmyrcq8v-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 18:10:22 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
+	by NALASPPMTA03.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JIALPf021249;
+	Fri, 19 Jun 2026 18:10:21 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 4ew7x11c17-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 18:10:21 +0000 (GMT)
+Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65JIALo7021232;
+	Fri, 19 Jun 2026 18:10:21 GMT
+Received: from las-colo41-d19-19.qualcomm.com (las-colo41-d19-19.qualcomm.com [10.37.19.116])
+	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 65JIALPD021217
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 18:10:21 +0000 (GMT)
+Received: by las-colo41-d19-19.qualcomm.com (Postfix, from userid 3978420)
+	id DFFC35ED; Fri, 19 Jun 2026 11:10:20 -0700 (PDT)
+From: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+To: andersson@kernel.org
+Cc: vudupa@qti.qualcomm.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
+        kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
+        lminier@qti.qualcomm.com,
+        Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+Subject: [PATCH v2] arm64: dts: qcom: install DT overlays via dtbs_install
+Date: Fri, 19 Jun 2026 11:09:51 -0700
+Message-ID: <20260619180951.325272-1-vishwas.udupa@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
+References: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/10] ACPI: APEI: introduce GHES helper
-To: Ahmed Tiba <ahmed.tiba@arm.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
- Hanjun Guo <guohanjun@huawei.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>,
- Len Brown <lenb@kernel.org>, Saket Dumbre <saket.dumbre@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
- Dan Williams <djbw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
- acpica-devel@lists.linux.dev, linux-cxl@vger.kernel.org,
- devicetree@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
-References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
- <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-7-91f725174aa0@arm.com>
- <58f7163f-2fce-41e9-bc35-d1d8e6f4a298@gmail.com>
- <81dd6d0d-427f-49ae-9573-fbe84dc2185a@arm.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <81dd6d0d-427f-49ae-9573-fbe84dc2185a@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=RZWgzVtv c=1 sm=1 tr=0 ts=6a35860e cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=8fCnAp95bUwIBqsXEYIA:9
+X-Proofpoint-ORIG-GUID: wS6E8d1tp6538ReCVajNPKN8ZOyyII0s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDE3MyBTYWx0ZWRfX6wjxvPbYlNGX
+ /OD1sLKi8GP1KWkCY/ecF2FSbofLOYDugIC4eHcUElnWyTFpbsNNZra4Zmf04D4LdY4qnJIYYB3
+ +2oN4Fbd3P1KbBS/gBZadKRlyxNjUWvBsPlwuEbj9Pa89JqbybN3vrZErfc1IEPd4fDnsdtk0Cr
+ 5gM1vPhVfbTW0GqCU2cUX5HqCsr7dRdI5IOSOyV+mW2wYdLdNTE8/EO5SS4vPQs8hVw6WcBKitn
+ OqvStoEuGoRrIH0r6Z2NFY5k6TIrVcwHaRb1uI4Av/hB39MEFq4oPpyjEkLbVzzBN5JvvugwJ0o
+ ahpnHmYyU4yY8EAP/UvVMHGMJ9MXqYf29I+apgOFyg3qotFsaKuVC/Gkbqkcy1YBWGDXOvjEHda
+ 2Ej4VVadO6zPkb4hlqmh/X1BOQQdfQcaMGxndeY0SiGDN5pAgkgG5rZQAZb/f97L3EwTbvLu7YB
+ k8uKPaai/80ns4zv5XQ==
+X-Proofpoint-GUID: wS6E8d1tp6538ReCVajNPKN8ZOyyII0s
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDE3MyBTYWx0ZWRfX/ivMty88t2bA
+ f7domQIByKWm5oZhEAzr+CZxSR75fAi3/iyXVaSz+wi9WlggTwkBuqXBgAnz8N38wrH5swBQLBf
+ 967t8ZW2hRqe9oR9/Bucj4e5lDhxn4Q=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_04,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606190173
 
-On 6/19/26 16:45, Ahmed Tiba wrote:
-> GHES_CPER_HELPERS is intended for both the ACPI GHES path and the DT
-> firmware-first provider, so I do not want to tie it to ACPI.
+Overlay binaries (.dtbo) are currently only built implicitly as
+dependencies of composite firmware images and are therefore absent from the
+kernel install output.
 
-So what's the plan to fix the build error when ACPI is disabled:
-https://lore.kernel.org/all/0f131ee4-d335-45d2-b6ae-49c18df1353b@gmail.com/
+Even when final DTBs are produced at build time, some distributions rely on
+standalone DTBOs for runtime selection and application by bootloaders or
+firmware. Without explicit install targets, DTBOs are not picked up by the
+standard dtbs_install flow and therefore cannot be packaged alongside DTBs.
 
-- Julian Braha
+Add explicit dtb-$(CONFIG_ARCH_QCOM) entries for all DT overlays defined in
+this Makefile so they are installed via dtbs_install, matching existing
+DTB install behaviour.
+
+Signed-off-by: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+---
+Changes in v2:
+- Address review feedback from Krzysztof Kozlowski
+- Drop inclusion of EL2 DTBOs
+- Link to v1: https://lore.kernel.org/all/20260428123725.3457865-1-vudupa@qti.qualcomm.com/
+
+ arch/arm64/boot/dts/qcom/Makefile | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 4ba8e7306419..44ed2b591363 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -7,7 +7,9 @@ apq8016-sbc-usb-host-dtbs		:= apq8016-sbc.dtb apq8016-sbc-usb-host.dtbo
+ dtb-$(CONFIG_ARCH_QCOM) += sar2130p-qar2130p.dtb
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-d3-camera-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-d3-camera-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-usb-host.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-usb-host.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-schneider-hmibsc.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8039-t2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8094-sony-xperia-kitakami-karin_windy.dtb
+@@ -47,13 +49,16 @@ lemans-evk-camera-csi1-imx577-dtbs	:= lemans-evk.dtb lemans-evk-camera-csi1-imx5
+ lemans-evk-camera-dtbs	:= lemans-evk.dtb lemans-evk-camera.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera-csi1-imx577.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera-csi1-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera.dtbo
+ 
+ lemans-evk-el2-dtbs := lemans-evk.dtb lemans-el2.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+ lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
+@@ -61,12 +66,14 @@ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk.dtb
+ 
+ monaco-evk-camera-imx577-dtbs	:= monaco-evk.dtb monaco-evk-camera-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-camera-imx577.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-camera-imx577.dtbo
+ 
+ monaco-evk-el2-dtbs := monaco-evk.dtb monaco-el2.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-el2.dtb
+ monaco-evk-ifp-mezzanine-dtbs	:= monaco-evk.dtb monaco-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8216-samsung-fortuna3g.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-acer-a1-724.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-alcatel-idol347.dtb
+@@ -175,7 +182,9 @@ qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vis
+ qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-minipc-g1iot.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride.dtb
+@@ -199,6 +208,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
+ qrb2210-rb1-vision-mezzanine-dtbs	:= qrb2210-rb1.dtb qrb2210-rb1-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb4210-rb2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5.dtb
+@@ -206,6 +216,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5.dtb
+ qrb5165-rb5-vision-mezzanine-dtbs	:= qrb5165-rb5.dtb qrb5165-rb5-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5-vision-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
+@@ -308,6 +319,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c.dtb
+ sdm845-db845c-navigation-mezzanine-dtbs	:= sdm845-db845c.dtb sdm845-db845c-navigation-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c-navigation-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c-navigation-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-crosshatch.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-blueline.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-lg-judyln.dtb
+@@ -372,7 +384,9 @@ sm8550-hdk-rear-camera-card-dtbs	:= sm8550-hdk.dtb sm8550-hdk-rear-camera-card.d
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
+@@ -386,7 +400,9 @@ sm8650-hdk-rear-camera-card-dtbs	:= sm8650-hdk.dtb sm8650-hdk-rear-camera-card.d
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+@@ -395,12 +411,14 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+ talos-evk-usb1-peripheral-dtbs := talos-evk.dtb talos-evk-usb1-peripheral.dtbo
+ dtb-$(CONFIG_ARCH_QCOM) += talos-evk-usb1-peripheral.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-usb1-peripheral.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtbo
+ talos-evk-camera-imx577-dtbs	:= talos-evk.dtb talos-evk-camera-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtb
+ talos-evk-lvds-auo,g133han01-dtbs	:= \
+ 	talos-evk.dtb talos-evk-lvds-auo,g133han01.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-lvds-auo,g133han01.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-lvds-auo,g133han01.dtbo
+ x1e001de-devkit-el2-dtbs	:= x1e001de-devkit.dtb x1-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= x1e001de-devkit.dtb x1e001de-devkit-el2.dtb
+ x1e78100-lenovo-thinkpad-t14s-el2-dtbs	:= x1e78100-lenovo-thinkpad-t14s.dtb x1-el2.dtbo
+-- 
+2.43.0
+
