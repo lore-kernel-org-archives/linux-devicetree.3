@@ -1,147 +1,120 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D181333F8D6
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 09:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62B12E6CB8
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 09:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781860798; cv=none; b=L7duHYZOWPxXpaCOBfbv8jj/yVO/1Wxu4ANhYqnG5cxvuD1hEZBaslAVHzv7BvEPiZ5Yx2CE7gVDIS3sBpGhZVbHvzytqci0CdMd0ofVTMSQQciH0wEhmQyIsvnPEOfQeL2zzuZy2ZWPgNAFNWK6BRzbf/e3+MtHSOVBJnSnb2E=
+	t=1781860983; cv=none; b=tn89D6w4gn97dPb7FTK0D22l43HhO7Ow3tGkFWnSSiWy9XPq5o5tKKZRE1WCRKuZKfUgDAPoGDEubSw7TCYiQN0NhfL+Ap7sLs12K+3PJsLiTt5n7R4LXjUnqFDP8NEVZb810fg4TzDjw5ntS7Ua4VQO4FDt16zzWT3Zsg3MfeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781860798; c=relaxed/simple;
-	bh=ITR0EAJV4oH/5cLUjFuPZRjTNCAbDIVCQcL/xBUnjtc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hMmyNEr77cIG4AEE+y8uXt3LBGYtQVloYEDJp4xZQ0dMSZKxcxxmnhecllusMKdUPnrVujzowzscr95sfklfij6NZmNzWB69LZndwH3KdkrjjuprPAKxbK3OsJr7hjQk7JtNji5Qyae1JRenBewamnoVveMYl07Y3mlhHzQUeBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEEMN7Fa; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781860983; c=relaxed/simple;
+	bh=UY5Z7R4xiCUf5x+eAeUbKyxqPiU5eNzFIhaVUOkjPLQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ajHN7P5mJTBUoKjhj/+bha5Fg/lNzgZ7yq5VQaIt6F+KnTwgGw/ezEbkrAFe7ZwdwENd6mynMR4q2xBzQth7QWJgHs8KvtCbDJSOrv2U58SPw/toOkKG4s+3Y9PwJWxvhpYtnRkNqHZlNVC85bLrqt/zgjOzbOYZTF1zPqUSeIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrQdIYPZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEEMN7Fa"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45ef189aa1cso1343538f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 02:19:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781860795; x=1782465595; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+fYbHkWsaW2PxLYmY+byBPAizGKwZAbaivlyPXKvt1s=;
-        b=sEEMN7FatB2HLbvfDCtkiP42Q43Q5jT65moL8M4yTtPlunzB2ToPomZIyPogg0lWtT
-         hqJM+KYtNMfwH5Bq7RekCOA2AhYYn58W8XGXm6BM74f9+wjI0fEztqX+sVWKWLfl0U3x
-         1yEa2uNLt37v2V1qZWBxo+E/IyQ+e6ToXHyy0Qch0pRUNVfrh4SiK/2y/eIDK/PRzKrL
-         IlVz4ar8H1UH1HuI4yt3TEMF/w2TVrRBqpyUH7RgbDCziGMEmkK6SLIP13h+a5xpRMqM
-         YaMYvyejRMr30xQ6w9Z4JA1Z7SZJ+B1EqWBKZqTxuvAAGmat54Owc+hRE6n3ytteqKlo
-         OwNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781860795; x=1782465595;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+fYbHkWsaW2PxLYmY+byBPAizGKwZAbaivlyPXKvt1s=;
-        b=jaDJJ5Ty5lz/avbD9y8Srj+s5sTmd6K9t3g8U2a9S/FVT9V495VC9vfkNXzLH3Qd3t
-         MY/wD9QU1lQQCtrKiZd0Tjwg9q/88DLK6qy1g9ijO9dJemvp/ycu+VvIVd2N1ese/vKi
-         3x+NJdTXMSaALfBZPCFNq5jiW9P9k8OYFEQdMsodLnJpxNwF5hzolxiqHp1xPMbzU+AB
-         Em0Mh7dkUVSxEfynSQqKYJabPzjtmp5Z5aG4dnnQ7y7FF/IBVenYajTZ2CC6jwx6u4pw
-         sbkjmldHr14rwaDN8fWOCL4DrrJ6HeNpmenifdIT/DQqLONRxj/6dg6ctj/0BPbhpQhT
-         Cgig==
-X-Forwarded-Encrypted: i=1; AFNElJ/b4ns5IFTjBmn+2ksGQ9cOMunDonVnLeWq+ul3iHKEkEmSL2kXExm/0ROd3qZZv9zv22eKMPlZ8InR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy49heI8l9od1CpZL47EnwCaxdKJeeIVg9olc+nUu95D61FP0yd
-	sXh0dKigZ0JUF6ul+wZvTZU5emZbHzF5f04Dn/ueCp/XHHhV8vve0ix9
-X-Gm-Gg: AfdE7cmwM8p4egsg9u5o5SQsZeVKJ5+cVmRbagUX2+V9u7L2XIFBJ4eIPe/Vb0qFBZv
-	zYT6ZDDpHV1/6IoTg/DKxWjj7q1iR7SCkmdeRNmPNe/vmVPro8vefT+cb63l4z2v/fFffrtipsv
-	eQWx4NKZYgJ/enu+q95xKExbAVMvd8rhhTtWSbNlqmb7kGzoyI/XpW8PRfGalBdcRNyHKIpEq42
-	gihjF1oJyCE2HiNvpjyL+eTloMciWcuv4AMZun64ZTZx9VaG1HEJNRzfAq/ie4uOiKZVGBf7+7m
-	REbIJU8C4L6sBAlhfmdLCCVflLC87q4remw1iCA6BwlxtUwbkzHr/6xGI78c5xk2n7AEhO+PJ60
-	dJGExe1V9wiZMCcb6pfi7kakiqZCFDHoRMo1b5TMFEszBOcRDib41K9ZNQA8kJlDdNj1csxH2f0
-	ma8mjz
-X-Received: by 2002:a05:6000:46d6:b0:460:3233:66fd with SMTP id ffacd0b85a97d-465097891bamr3238584f8f.40.1781860795025;
-        Fri, 19 Jun 2026 02:19:55 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4650bc41d01sm6304049f8f.25.2026.06.19.02.19.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 02:19:54 -0700 (PDT)
-Date: Fri, 19 Jun 2026 10:20:56 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 06/16] iio: core: create local
- __iio_chan_prefix_emit() for reuse
-Message-ID: <ajUJm_Q6Mm3o2NlL@nsa>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
- <ajQGTQ1_qcOwfzne@nsa>
- <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
- <ajQ1bZSNHQ96pyJx@ashevche-desk.local>
- <dlisetsssjoyodmv5ubl4rzhxtla3g46mrrzv2f65nqecel5fu@dqiqsayr4aip>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrQdIYPZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68CF1F000E9;
+	Fri, 19 Jun 2026 09:23:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781860982;
+	bh=GXT9765pqnJW1/eGdkBIUUJJq+xEimrZNw0fwIVJj3g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OrQdIYPZLVqJ9oFt2GDSczuLNCSe7lk4ctNURkArtWvRyCC0fjEF83YiYWz10tzqv
+	 ws4CEsE2POIO/cLpUl2yXEO+A7hfnx7CcG7m27rfENXXqppN5d/gh/2leTzEZ5bR6A
+	 X5rSsxceWGjSBml7TZhVknfcp1a2twcbwLGAF3HpHJWUTTPB+hpph1qXG2SqR0ERbC
+	 TU6nG1cEVm85zAEyvREaGlzcOex4Vxv6YWSBXOL6sQkgPqqCBEQsft7O8shw6SfPna
+	 13aCaczy+wioRZK2VZL3l7gl4zDIf2x2EUS5ygEwNVkgEDNMc6Pb5PzqsA9d9dZWPb
+	 eoADc1c2ftbqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix
+ rk1808 hsfreq table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gerald Loacker" <gerald.loacker@wolfvision.net>
+Cc: olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260619-feature-mipi-csi-dphy-4k60-v2-1-323356c2cc2e@wolfvision.net>
+References: <20260619-feature-mipi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net>
+ <20260619-feature-mipi-csi-dphy-4k60-v2-1-323356c2cc2e@wolfvision.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 19 Jun 2026 09:23:00 +0000
+Message-Id: <20260619092301.D68CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dlisetsssjoyodmv5ubl4rzhxtla3g46mrrzv2f65nqecel5fu@dqiqsayr4aip>
 
-On Fri, Jun 19, 2026 at 08:43:24AM +0100, Rodrigo Alencar wrote:
-> On 18/06/26 21:14, Andy Shevchenko wrote:
-> > On Thu, Jun 18, 2026 at 05:14:19PM +0100, Rodrigo Alencar wrote:
-> > > On 18/06/26 16:06, Nuno Sá wrote:
-> > > > On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> > 
-> > ...
-> > 
-> > > > > +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
-> > > > > +	if (!dev_attr->attr.name)
-> > > > >  		return -ENOMEM;
-> > > > 
-> > > > I don't oppose the change. Looks like a nice cleanup.
-> > 
-> > May I oppose it? I found use scnprintf() is harder to follow in comparison to
-> > nice kasprintf() that takes care for the dynamically allocated buffer.
-> 
-> In the next patch the function is reused in a sysfs attribute read handler,
-> a context wich would not be nice to have dynamic allocation. vscnprintf() is
-> the main building block of sysfs_emit() which limits the buffer length to
-> a page size, so I used scnprintf() trying not to deviate much from that. 
-> 
-> kasprintf() it is still used in the caller, where the logic was a bit confusing
-> as it tried to avoid multiple allocations.
->  
-> > Also there is a chance to get a name silently cut due to insufficient space.
-> > Besides that this function can't be used (again due to 'c') in kasprintf()-like
-> > wrapper. I do not consider this as a good approach. Have you looked at seq_buf
-> > instead?
-> 
-> NAME_MAX is not the maximum length a filename can have? I suppose there should be
-> enough space for the channel-prefix. Indeed, seq_buf can be used and it cleans up
-> things a bit as it tracks the the position in the buffer.
-> 
-> > 
-> > > > But bear in mind this very sensible as any subtle mistake means ABI breakage.
-> > 
-> > Which immediately raises a question of test coverage. Do we have one? If not,
-> > this code must be accompanied with one.
-> 
-> Agreed. Will see to have tests for v7.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-libiio now has an emulator backend. Maybe something that can be used to
-test this. But ideally we can have some kunit for validation.
+Pre-existing issues:
+- [High] Valid lowest frequency ranges are incorrectly rejected because `hs=
+freq =3D=3D 0x00` is treated as an error by the `if (!hsfreq)` check.
+--
 
-- Nuno Sá
+commit d7a2518a95d2ab7b8f2baea0da9f35646ffb6136
+Author: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-> 
-> > > Yes! I tried to be careful... this is dangerous stuff!
-> 
-> -- 
-> Kind regards,
-> 
-> Rodrigo Alencar
+phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
+
+The rk1808 hsfreq table previously capped at 2499 Mbps, preventing a data r=
+ate
+of exactly 2500 Mbps. This commit extends the final entry to 2500 Mbps to
+fully support this rate, which is also essential for RK3588 as it reuses
+this array.
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/p=
+hy/rockchip/phy-rockchip-inno-csidphy.c
+> index c79fb53d8ee5c..5281f8dea0ad3 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> @@ -170,7 +170,7 @@ static const struct hsfreq_range rk1808_mipidphy_hsfr=
+eq_ranges[] =3D {
+>  	{ 299, 0x06}, { 399, 0x08}, { 499, 0x0b}, { 599, 0x0e},
+>  	{ 699, 0x10}, { 799, 0x12}, { 999, 0x16}, {1199, 0x1e},
+>  	{1399, 0x23}, {1599, 0x2d}, {1799, 0x32}, {1999, 0x37},
+> -	{2199, 0x3c}, {2399, 0x41}, {2499, 0x46}
+> +	{2199, 0x3c}, {2399, 0x41}, {2500, 0x46}
+>  };
+> =20
+>  static const struct hsfreq_range rk3326_mipidphy_hsfreq_ranges[] =3D {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the configuration logic
+reject valid low frequency ranges?
+
+Looking at rk3326_mipidphy_hsfreq_ranges[], the first entry configures low
+data rates using 0x00:
+
+    { 109, 0x00 }, ...
+
+In rockchip_inno_csidphy_configure(), hsfreq is initialized to 0 and valida=
+ted
+with:
+
+	for (i =3D 0; i < drv_data->num_hsfreq_ranges; i++) {
+		if (drv_data->hsfreq_ranges[i].range_h >=3D data_rate_mbps) {
+			hsfreq =3D drv_data->hsfreq_ranges[i].cfg_bit;
+			break;
+		}
+	}
+	if (!hsfreq)
+		return -EINVAL;
+
+When a low data rate is requested (e.g., <=3D 109 Mbps for rk3326), the loop
+correctly assigns hsfreq =3D 0x00. However, the subsequent if (!hsfreq) che=
+ck
+treats this valid configuration as an error state and returns -EINVAL.
+
+This same pattern appears in drivers/phy/rockchip/phy-rockchip-dphy-rx0.c
+during rk_dphy_configure() where low-speed configurations are similarly
+rejected.
+
+Could the validation check be updated to differentiate between an uninitial=
+ized
+value and a valid 0x00 configuration?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-feature-mi=
+pi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net?part=3D1
