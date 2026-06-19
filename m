@@ -1,180 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500B937189A;
-	Fri, 19 Jun 2026 10:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8E6372ED0;
+	Fri, 19 Jun 2026 10:21:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781864192; cv=none; b=ZraxPkpkie2RvmAb5oPcjVH6raNyxpb2BmkO3JX7zFHpLWnFwjXtqIj8YObeYPXpJZgs5plQu2tw3PpM5CZSPo5Fl/8Yn2oDnBoXPS77HEGNHzAJxQjAQtYrgIsob3ck1eKWHevuAAMuuvS5lNpQB44fwFcSRED4l+lDBmA0zeM=
+	t=1781864490; cv=none; b=kKbdauvfv0csSxsUmFJS+Qi/7Hye77JFJjXTR0iOCvHg2e7GzEQ7iXQyp1bvn8zfFb8oXcwkfJwAg5iymdRmz8ocNkx0gulAL0k8XiuLEiK+ZUipeYWOcvzsEKOrWz5b6GuEybDA+yqjvhK6XHHKnMlbtMPO7UxFDJTtUcRoMFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781864192; c=relaxed/simple;
-	bh=X+cBU7Sh2zfHj0A4Kx+gUFN8SXH8Q+m7AttIi8T6IVo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OEwFrLJnp7Zx4efFnA7DpMPo4M0U75p42N/4FDPmYfwHkwv1C7acL+hXoxeNn0iFcMjnukfxIoInaHnXmajTUwMc9Cm68uu4NA7ZWOkbnygtNLhZIk92T6tA0EggumcaYr9Uf+OVc1NMSM5PyAXaY5KOFRiqYkrC/RSZZKio/14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmaU3EDF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781864490; c=relaxed/simple;
+	bh=0eNx5l5qHG422Sr8QCZ1/IoQaex/Evo4j/h2gENgaHM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ahxMKqQYUEHBkts75OhfTKZUE0EF/YDE4Kji2p4eg5uxbfOV8oVjerQSOCzvdD02GUkEwdDaISFFwZKg8Qsownb2ri5BGth8f2eLOv0o+xtzpigiVcwudxBLE9Ks68/k3Mfigi6NWAoMRM4hkDgG44u+DL2c16ri2kNfUl44uUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DJGYGqLh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmaU3EDF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A6C1F000E9;
-	Fri, 19 Jun 2026 10:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781864190;
-	bh=AXhMXnBpV1PcHrrbnnVg6HiUPRNNnXPEIicioDDy2BE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JmaU3EDFB83HNW5jzyEEP2TTX/k4jckDvm/+44oEts1tfRWJZXZrx5g4a2uDkVEYG
-	 LTooxfY+HoY/XKq3gxEQgh9R+JakCEQ8BHHfQ3AjZpkKJaXv/Lczw4kFmMM8jdfRL6
-	 VjVivHE2vCRKKqI1BhoIG5CucmS+xNkl6YGwmOfSifhL4+rlu0imStnWkQ6wV7gz4i
-	 JEWr1E39R/4Wnsmp9cUE5KauJ0ptDOnBqvkJT8u7EmO7CUiooNN0WMjbe+CBLxbVi+
-	 87pf2TqvRL3AQu0V5Rw49slqo4R1MJ7i7cQoNCxUqZSdCvE0qzz6DaOqW3rrnv03p7
-	 TiQy604Qu7pSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] media: i2c: ov5640: Add reset controller support
- with GPIO fallback
-Reply-To: sashiko-reviews@lists.linux.dev
-To: robby.cai@oss.nxp.com
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260619100532.3779934-3-robby.cai@oss.nxp.com>
-References: <20260619100532.3779934-1-robby.cai@oss.nxp.com>
- <20260619100532.3779934-3-robby.cai@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:16:29 +0000
-Message-Id: <20260619101629.E5A6C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DJGYGqLh"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65J7Oh0N1104961;
+	Fri, 19 Jun 2026 10:21:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ezZdBqyd8xED9xUllBd0Xm
+	1o9oKAoTJBpBxkp5rE9nw=; b=DJGYGqLhYS8Q4FSVbMa0fJ7aIL+aZecBTSLKOB
+	fJKyn8ze2ehb0ua3SBD2LzhqsLURjBUrv9aZomVQMJbgQ+dENoDkAhTh3X3wjim0
+	EixDQ3tmXbhaugrV+vKSEP76scOAjxGokUFAp7Q8Smd86s1cjQ/+hqsfz82iQ3iP
+	oVtsVomSXUX8ge9k3skYmtCnjfJfOIlH8C4IhBB8Tu5yG43sd+2dAEMosaO2kWgY
+	m+/LSHlXo9qDpqUXlkIO+7k7HjG+4MtJuoQqvfX92oROfhHDTtCLJa3l6PYxh3Ld
+	dhfIg6DaS/HJ2QuV/kZvwTj7iymAYWEqaY8jViUjKCqDyhKg==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evgtmmam1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 10:21:16 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JALCDS004187;
+	Fri, 19 Jun 2026 10:21:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4es09m6eu4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 10:21:12 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65JALCvF004179;
+	Fri, 19 Jun 2026 10:21:12 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-hsk-hyd.qualcomm.com [10.147.246.125])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65JALC39004175
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 10:21:12 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4540518)
+	id 4CCAB653; Fri, 19 Jun 2026 15:51:11 +0530 (+0530)
+From: Haritha S K <haritha.k@oss.qualcomm.com>
+To: dipa.mantre@oss.qualcomm.com, Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Haritha S K <haritha.k@oss.qualcomm.com>, linux-pm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
+        gaurav.kohli@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2] dt-bindings: thermal: qcom-tsens: Document the Maili Temperature Sensor
+Date: Fri, 19 Jun 2026 15:50:59 +0530
+Message-Id: <20260619-b4-maili-upstream-3-v2-1-e54516c37022@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260616-b4-maili-upstream-3-b198aaa8969f
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781864444; l=1220; i=haritha.k@oss.qualcomm.com; s=20260422; h=from:subject:message-id; bh=0eNx5l5qHG422Sr8QCZ1/IoQaex/Evo4j/h2gENgaHM=; b=uBYTBLJrS+lsQ/ZkBVcG1ZANR2b2OGWpt8wzLTGy7quiVnQi9awjcSFyFMSsuBwhPvkAEvlG8 OcGz/AQXb6MDKFCFCbmX5UEDqvnDVPd5o3F3wH20agwkjx+AAVVXIHA
+X-Developer-Key: i=haritha.k@oss.qualcomm.com; a=ed25519; pk=ivp2P9RgsC6IkOe8JaqweeahT9pd0BVtL2d1YD8ICSg=
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: I4IpFZvjHqqgX0FMZ1jmmOhDXnViFYdX
+X-Proofpoint-ORIG-GUID: I4IpFZvjHqqgX0FMZ1jmmOhDXnViFYdX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDA5NiBTYWx0ZWRfX80oS4X7hKVFX
+ k3ZwuqgZeyjtvxcmsN1g/1cYB/KzqXQluAxk1addNTRezHdsJtMOym5JQV9zjRI14yqnuD0ini3
+ f+KOwk3RJFqYf0WNw2bVsfQ5ww683tEW7lrjg+8GRCxODqZp/AZZmW7XJdxljlZjEowqrxi81Ln
+ TcUT7mJ0jjp9Op6yopJfnU6GwrEe1/qixJitiKtYWHbmYZt8J2DBQr4Wb+clDEDqSThdOKkJBIe
+ RhzMDMO1vIuoDXmnwEPHNm6WB6QmikptN6I2MnqqBzbURs85F15Zgooq/33HSmbyaKcsKjcwGk2
+ BPSPLfPaALFHjck5xEoNmOlsaoqRDkki5st3MFJdroJlrTso0QzRngRnFP4TH9sg6nTS43ZyncN
+ eCr+ts2z+//uRh2vC7fyXvr0NuDb0OriNgDRmxKLl22C2H2KjhXaL4LAbRxj/2YCxwbxhWeKhd6
+ LtgA6GiILwxhI7exvag==
+X-Authority-Analysis: v=2.4 cv=Qb9WeMbv c=1 sm=1 tr=0 ts=6a35181c cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=EJ9l39Lyh2RndnSoSJAA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDA5NiBTYWx0ZWRfX867W6lSPWhCC
+ mT7jL6WKNewU6F1Cy/LTTRc7N897sbCZ/Hk3ydNVTOw9vGlZy0ipf46RDEG51kwmJWN/k0oEFFy
+ pbFde4kOdV/qHZzetRqJ3qukmv3km8I=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_02,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 impostorscore=0 adultscore=0 phishscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 clxscore=1011 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190096
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Misuse of the shared reset controller API violates hardware power-=
-up sequencing, risking sensor damage via latch-up, and causes a power manag=
-ement resource leak.
-- [Medium] Unbalanced shared reset control deassert_count triggers a kernel=
- WARN_ON on the `ov5640_reset_deassert()` error path.
---
+Document the Temperature Sensor (TSENS) on the Qualcomm Maili SoC.
 
-commit 08ff61c49c74c476ab99932a1e24e30024577ace
-Author: Robby Cai <robby.cai@nxp.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Haritha S K <haritha.k@oss.qualcomm.com>
+---
+Changes in v2:
+- Updated commit message.
+- Link to v1: https://patch.msgid.link/20260617-b4-maili-upstream-3-v1-1-1b8cb7e425d8@oss.qualcomm.com
+---
+ Documentation/devicetree/bindings/thermal/qcom-tsens.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-media: i2c: ov5640: Add reset controller support with GPIO fallback
+diff --git a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+index f0efaa8349ee..5a8f7673e730 100644
+--- a/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
++++ b/Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+@@ -58,6 +58,7 @@ properties:
+               - qcom,glymur-tsens
+               - qcom,hawi-tsens
+               - qcom,kaanapali-tsens
++              - qcom,maili-tsens
+               - qcom,milos-tsens
+               - qcom,nord-tsens
+               - qcom,msm8953-tsens
 
-Add support for the reset controller framework by acquiring the reset
-line using devm_reset_control_get_optional_shared_deasserted(). This
-allows the driver to handle reset lines provided by a reset controller,
-including shared ones, while avoiding unbalanced deassert counts.
+---
+base-commit: a76326dca329a7a738ba367529868dfbafb4a403
+change-id: 20260616-b4-maili-upstream-3-b198aaa8969f
 
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 85ecc23b35877..5e6db8aacb118 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
+Best regards,
+--  
+Haritha S K <haritha.k@oss.qualcomm.com>
 
-[ ... ]
-
-> @@ -2431,6 +2433,48 @@ static int ov5640_restore_mode(struct ov5640_dev *=
-sensor)
->  	return ov5640_set_framefmt(sensor, &sensor->fmt);
->  }
-> =20
-> +static int ov5640_get_reset(struct device *dev, struct ov5640_dev *senso=
-r)
-> +{
-> +	/* use deasserted version to avoid unbalanced deassert counts */
-> +	sensor->reset =3D
-> +	    devm_reset_control_get_optional_shared_deasserted(dev, NULL);
-
-[Severity: High]
-Does acquiring the reset control in the deasserted state risk hardware
-damage and cause a power management leak?
-
-Because this API call deasserts the reset line during probe, it pulls the
-reset IO line HIGH before VDD regulators are enabled in
-ov5640_set_power_on(). Applying voltage to the reset pin while VDD is off
-can cause a destructive latch-up condition.
-
-Additionally, because devm_reset_control_get_optional_shared_deasserted()
-acquires a base deassert vote, and the driver never explicitly asserts the
-reset line during ov5640_set_power_off() on runtime PM suspend, does this
-permanently prevent the reset controller and parent power domains from
-suspending?
-
-Also, the inline comment below claims GPIOD_OUT_HIGH ensures a deasserted
-state for an ACTIVE_LOW reset, but GPIOD_OUT_HIGH sets the logical value
-to 1, which drives an ACTIVE_LOW line physically LOW (asserted).
-
-> +	if (IS_ERR(sensor->reset))
-> +		return dev_err_probe(dev, PTR_ERR(sensor->reset),
-> +				     "Failed to get reset\n");
-> +	else if (sensor->reset)
-> +		return 0;
-> +
-> +	/*
-> +	 * fallback to legacy reset-gpios
-> +	 * GPIOD_OUT_HIGH ensures deasserted state for ACTIVE_LOW reset
-> +	 */
-> +	sensor->reset_gpio =3D devm_gpiod_get_optional(dev, "reset",
-> +						     GPIOD_OUT_HIGH);
-
-[ ... ]
-
-> -static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
-> +static int ov5640_powerup_sequence(struct ov5640_dev *sensor)
->  {
-> +	int ret;
-> +
->  	if (sensor->pwdn_gpio) {
-> -		gpiod_set_value_cansleep(sensor->reset_gpio, 1);
-> +		ret =3D ov5640_reset_assert(sensor);
-
-[Severity: High]
-If the reset line is shared with an active device, will this actually
-assert the reset line?=20
-
-For shared reset controls, reset_control_assert() merely drops the local
-vote. If another device is keeping the line deasserted, the physical pin
-will remain HIGH.
-
-Since the driver proceeds to power-cycle the OV5640's VDD regulators below:
-
-> +		if (ret) {
-> +			dev_err(&sensor->i2c_client->dev,
-> +				"Failed to assert reset: %d\n", ret);
-> +			return ret;
-> +		}
-> =20
->  		/* camera power cycle */
->  		ov5640_power(sensor, false);
-
-Doesn't power-cycling the sensor while the shared reset pin is driven HIGH
-violate hardware sequencing and risk latch-up?
-
->  		usleep_range(5000, 10000);	/* t2 */
->  		ov5640_power(sensor, true);
->  		usleep_range(1000, 2000);	/* t3 */
-> =20
-> -		gpiod_set_value_cansleep(sensor->reset_gpio, 0);
-> +		ret =3D ov5640_reset_deassert(sensor);
-> +		if (ret) {
-> +			dev_err(&sensor->i2c_client->dev,
-> +				"Failed to deassert reset: %d\n", ret);
-> +			ov5640_power(sensor, false);
-> +			return ret;
-> +		}
-
-[Severity: Medium]
-If ov5640_reset_deassert() fails here, does this cause a WARN_ON in the
-reset core during cleanup?
-
-The devm_reset_control_get_optional_shared_deasserted() call during probe
-initializes the deassert_count to 1. The ov5640_reset_assert() call above
-drops it to 0.
-
-If this function returns an error without reclaiming the vote, the count
-remains at 0. When probe subsequently fails, the devm framework will call
-reset_control_assert() to balance the initial acquisition. Since the count
-is already 0, this will underflow the counter and trigger a kernel warning
-in drivers/reset/core.c.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619100532.3779=
-934-1-robby.cai@oss.nxp.com?part=3D2
