@@ -1,253 +1,646 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAE135E937;
-	Fri, 19 Jun 2026 11:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C7AE2BE7CD
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 11:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781870110; cv=none; b=XOLUcLzAzyIF+o99M7o8beKatFmGjkoG2hUiIAoYCyxEebUo+FP2Pxx1jfhYoQX0b2+/oxFsvLPeTBXEVbZd9j/T3+OYHWVccOazqhOkiwMydI1Y/8p3BcjCLeUJfqo0VB1ufox4+Vqlz56HYB+bzw8qSrbFI5OsdTspmHG4Lpk=
+	t=1781870229; cv=none; b=SFM4kJoBAzEycBWRojkCZRHZ3MdFqkJv+IEMS3EbWWsncDlODaahEqI50y5mZKswepu8XeCcPrFBCNsjoXEgGPwA6f+Lj8L9uAgcDRsvXC0CsMtWasoMqi9hEKbLkA3xX9kaqp20pseBIgz5iRrhxcdsSJrYquMhGHFqZMvma+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781870110; c=relaxed/simple;
-	bh=KE8S8l1lDv25HI792aYMZQwO68tcN1aDY/K0o470h6o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D7yvR8sK1QlNxZ92WTWKNwwvUPML53gtzMPaVZwNgom/aq7Fb0ZGGdzHvex/PINifIhZvn6/xz6ibdRCV1+20YF1B0TEF0XahI+1Thhm+4D7+AtdUDKlgzqVyADfr9T0wlXyMC3poY2auv/hnRiXoLiZnrxn0LaaAwA7st/yxK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJa7fI+T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781870229; c=relaxed/simple;
+	bh=Aon7Zcn11yCVIq0HijDRZ2j+yxLrGvyOjHufl6t/S5I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pa6cRa3Gy33q2eoiNq6KRZNmL/cX9uPgqGiQOHPysgFYDyauwoqtJNGrb80xXO00rWzw8B5v99OunAF3DxhaV3nz8e2bQIRDkmbdbAdaky8yTyj7q97QkbUuC50vcW9hILJTiqzbTvsRxRbY/uZL7jrGpw2r3yuiqAaZJKZTxJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ccqaPsts; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJa7fI+T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601D21F00A3D;
-	Fri, 19 Jun 2026 11:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781870108;
-	bh=qVIOJZ4fN8Xgxy0kWf2sWG0eFQFB1h2eq/cTGPl9qYM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SJa7fI+TOP+bV1IGEzGq46vgzfePiyzyZSal/sODxnW3hFpA37o4Yuz52+qZwJRXg
-	 QiCPwdgBHd0k6Jcueq1cJVJIZEdzMIczbTWqtFCzw9lHK4u34DxNPh46GHn1yK2g/Q
-	 blnDdwgwGIaBjVi/4TB8LY/o250FSbi9HZ8/gaZBmUvcBrTPQMLzB3NZVpw9N8yJk6
-	 3YaaoDA91vX5jMiIy92cKJInra7trrsxaeKvLNXy2UWWqcfxbsW5jwp+PijDu97bBx
-	 XwHsJaFAsOZebvj4Z9vg8RtpC5CtWNr/K7PLYO5jjP5XjxwOGgo923kXNFjiRh/Wji
-	 zeTaDaaP2J38g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] hwmon: add Stratix 10 SoC FPGA hardware monitor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: tze.yee.ng@altera.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <081650bc4d92e9497b7a5a926e79a067cca3519f.1781861409.git.tze.yee.ng@altera.com>
-References: <cover.1781861409.git.tze.yee.ng@altera.com>
- <081650bc4d92e9497b7a5a926e79a067cca3519f.1781861409.git.tze.yee.ng@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 11:55:07 +0000
-Message-Id: <20260619115508.601D21F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ccqaPsts"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-45eeea039ebso1168471f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 04:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781870226; x=1782475026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NE3v919Fvnp/QNyz6/xfKRe/kKFUqg5W4siq8MyqdpQ=;
+        b=ccqaPstsUnXCr3Q2fXbVYFHcHT7QvAz7UuofWX+RiKe+1flo3z0eKy+GKg8jhh6Rce
+         amH54Lrfw4eROTkmdK+AT/01Q6x5qYmPx2WSLSaQ9ZIynw2WX6R2puWwqAWe4CbPLPIX
+         yLFlVDYgmvcTz7gTMX7uXuqNrrvoO6yocJEZvq/cR+Q9a19zsdT5gpqzeCy95PSumKC6
+         xKQqGiByz4oPVGEh1ZcA8XYaHR9dxgtD49zwVeZuJOfdbjGxxvV1kSXCMDncwFZMGZ8b
+         sCYHrz2vVkv6M4zD1M6fN12sWTVtpqlc8EJSX1cJHJJ+7zLYaBNhDjobvjvUGc99HTuB
+         AQWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781870226; x=1782475026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NE3v919Fvnp/QNyz6/xfKRe/kKFUqg5W4siq8MyqdpQ=;
+        b=h7SD/3tr6yOcwd8Wpj6olKsEhizgy9ZbBIVpAsqfhbMgL7WTARkepVyYmSF+g8m/Ch
+         ZAzdz6Kz3TpvTqt9+8Nb99b8jxAZXkQj73+YPV3VG/+riwUMvYzEzYXm7PdkaW3tpElu
+         9OE57A4BMwq/uGCW0J9qeRYPqyWeabMxum8w4T5AK0SaMFG0BMaFWgCXJYVaioFNqNBC
+         cxnU1GTAHE/nYoNSetj20fG61WA/U6EjkB9Qjqx4WJrv6+dzVi8CTYAHxoNyPYQaTbCi
+         RBmfA08GX3NMtNsFl7nJXjmQreNMk24mlV7SXH5Quj3hNU4uJdxbQ+os07udnvWWJd4f
+         h4UA==
+X-Forwarded-Encrypted: i=1; AFNElJ+DLYl0d7w693gFYgJ8fS8YjBMtS64ga85tgCydlnm3ogAAinWvE6RBsnEc5mQDbYZgmWEUaaJOn73l@vger.kernel.org
+X-Gm-Message-State: AOJu0YzQhFS3/M1gvIgmiWYhkNvxmvVyt9FXdU84c73q6XXbV4Jia4Sv
+	SkOzh7ZXYZigdbP1EsPODAFiLotL0arjEh8Q+9ay0etWgEUuU8iImTto
+X-Gm-Gg: AfdE7clTMNhZ+5EuK/Aik1m5Fenm145IA5FNuDrBdSyUt+cmzKmOUOtrdZC1PP2ZJlR
+	N6KZAbuqHvfS4SQPiB7bhsoZxdGX+g0f/Ufu2QCkgvTyR58UOTxvd6N3Tiw9BpoathBFUcEO3Rl
+	j7XSDdjhE6qYp2PCjwwGbnRasVW4Pa/naPy8AtUWIm7Ki7L3IHK/g7lFHpCkAFn4J3whhvwhH6F
+	IU7nJ4qPm/bRNCFcQqePvsxk95rGrYL8wMzr1pGaOOlyXMrKMVg2FT6oO+L8rO3WNc20ONS5/wu
+	5p5mUbBkbTbn4hDNHLbXH5KP/DEvMzc9sdBHRoIDskpbZ85x+MHVbl176pwD6wLzcV9neKSCs4e
+	+qQbiYxOwA4Xt5CggQCgcQtH58X23N7XX8jqjzb6w4lpwQbHP0dUfxvnG23UqXzSPZ9Sn8O6xPJ
+	d59UzAmoOyIVdKGkAnLCL6xAjdm99L2xjQ2Re3iOpW3Qu0EilFYm76bxwA30/4hSaFbWk=
+X-Received: by 2002:a5d:42cf:0:b0:460:6731:6165 with SMTP id ffacd0b85a97d-46502bb13b7mr4233500f8f.22.1781870225646;
+        Fri, 19 Jun 2026 04:57:05 -0700 (PDT)
+Received: from fedora ([196.112.134.221])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4650b67a3f3sm8326131f8f.20.2026.06.19.04.57.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 04:57:05 -0700 (PDT)
+From: Jad Keskes <inasj268@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Eric Piel <eric.piel@tremplin-utc.net>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jad Keskes <inasj268@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: misc: convert lis302.txt to YAML
+Date: Fri, 19 Jun 2026 12:56:48 +0100
+Message-ID: <20260619115649.840676-1-inasj268@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Use-After-Free due to improper devm lifecycle management during mo=
-dule removal.
-- [High] Negative temperatures are miscalculated as massive positive values=
- due to an implicit unsigned arithmetic promotion.
-- [High] Synchronous read timeouts abandon requests in the FIFO, permanentl=
-y desynchronizing responses.
-- [Medium] Synchronous reads silently mask hardware failures and return sta=
-le sensor data instead of errors.
-- [Low] Improper initialization of a stack-allocated completion variable.
-- [Low] Incorrect error code returned for hardware failure.
---
+Replace the old lis302.txt with a YAML binding covering all four
+compatibles (st,lis3lv02d, st,lis302dl-spi, st,lis331dlh,
+st,lis33de) and their ~35 DT properties.
 
-commit 6b98d9d7f6f87d18500b9518e6aa77d54c53dc50
-Author: Tze Yee Ng <tze.yee.ng@altera.com>
-Subject: hwmon: add Stratix 10 SoC FPGA hardware monitor driver
+The old txt documented st,click-thresh-* and st,click-click-time-limit
+but the code reads st,click-threshold-* and st,click-time-limit.
+Keep the old names as deprecated so existing DTBs don't break.
 
-This commit adds a hardware monitoring driver for Altera Stratix 10 SoC FPGA
-devices. It supports reading temperature and voltage sensors via the Stratix
-10 service layer. The driver defaults to asynchronous interfaces but falls
-back to synchronous reads if necessary.
+Add a select: so the misc schema only applies to nodes with
+misc-exclusive compatibles. Standalone st,lis3lv02d nodes that go
+to the IIO driver validate against the IIO schema instead.
 
-> diff --git a/drivers/hwmon/stratix10-hwmon.c b/drivers/hwmon/stratix10-hw=
-mon.c
-> new file mode 100644
-> index 0000000000000..7ed1116e57b87
-> --- /dev/null
-> +++ b/drivers/hwmon/stratix10-hwmon.c
-> @@ -0,0 +1,575 @@
+Tested: dt_binding_check, dtbs_check against 7 omap/am335x DTBs
+(am335x-evm, am335x-evmsk, am335x-pepper, am437x-sk-evm, omap3-n900,
+omap3-n950, omap3-gta04a3). All clean.
 
-[ ... ]
+Signed-off-by: Jad Keskes <inasj268@gmail.com>
+---
+ .../devicetree/bindings/iio/accel/lis302.txt  | 119 ------
+ .../bindings/misc/st,lis3lv02d.yaml           | 396 ++++++++++++++++++
+ MAINTAINERS                                   |   1 +
+ 3 files changed, 397 insertions(+), 119 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/accel/lis302.txt
+ create mode 100644 Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
 
-> +#define STRATIX10_HWMON_ATTR_VISIBLE	0444
-> +/* Temperature from SDM is signed Q8.8 millidegrees Celsius (8 fractiona=
-l bits). */
-> +#define STRATIX10_HWMON_TEMP_FRAC_BITS	8
-> +#define STRATIX10_HWMON_TEMP_FRAC_DIV	BIT(STRATIX10_HWMON_TEMP_FRAC_BITS)
-> +/* Voltage from SDM is unsigned Q16 (millivolts, 16 fractional bits). */
+diff --git a/Documentation/devicetree/bindings/iio/accel/lis302.txt b/Documentation/devicetree/bindings/iio/accel/lis302.txt
+deleted file mode 100644
+index 457539647f36..000000000000
+--- a/Documentation/devicetree/bindings/iio/accel/lis302.txt
++++ /dev/null
+@@ -1,119 +0,0 @@
+-LIS302 accelerometer devicetree bindings
+-
+-This device is matched via its bus drivers, and has a number of properties
+-that apply in on the generic device (independent from the bus).
+-
+-
+-Required properties for the SPI bindings:
+- - compatible: 		should be set to "st,lis3lv02d-spi"
+- - reg:			the chipselect index
+- - spi-max-frequency:	maximal bus speed, should be set to 1000000 unless
+-			constrained by external circuitry
+- - interrupts:		the interrupt generated by the device
+-
+-Required properties for the I2C bindings:
+- - compatible:		should be set to "st,lis3lv02d"
+- - reg:			i2c slave address
+- - Vdd-supply:		The input supply for Vdd
+- - Vdd_IO-supply:	The input supply for Vdd_IO
+-
+-
+-Optional properties for all bus drivers:
+-
+- - st,click-single-{x,y,z}:	if present, tells the device to issue an
+-				interrupt on single click events on the
+-				x/y/z axis.
+- - st,click-double-{x,y,z}:	if present, tells the device to issue an
+-				interrupt on double click events on the
+-				x/y/z axis.
+- - st,click-thresh-{x,y,z}:	set the x/y/z axis threshold
+- - st,click-click-time-limit:	click time limit, from 0 to 127.5msec
+-				with step of 0.5 msec
+- - st,click-latency:		click latency, from 0 to 255 msec with
+-				step of 1 msec.
+- - st,click-window:		click window, from 0 to 255 msec with
+-				step of 1 msec.
+- - st,irq{1,2}-disable:		disable IRQ 1/2
+- - st,irq{1,2}-ff-wu-1:		raise IRQ 1/2 on FF_WU_1 condition
+- - st,irq{1,2}-ff-wu-2:		raise IRQ 1/2 on FF_WU_2 condition
+- - st,irq{1,2}-data-ready:	raise IRQ 1/2 on data ready condition
+- - st,irq{1,2}-click:		raise IRQ 1/2 on click condition
+- - st,irq-open-drain:		consider IRQ lines open-drain
+- - st,irq-active-low:		make IRQ lines active low
+- - st,wu-duration-1:		duration register for Free-Fall/Wake-Up
+-				interrupt 1
+- - st,wu-duration-2:		duration register for Free-Fall/Wake-Up
+-				interrupt 2
+- - st,wakeup-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
+-				upper/lower limit
+- - st,wakeup-threshold:		set wakeup threshold
+- - st,wakeup2-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
+-				upper/lower limit for second wakeup
+-				engine.
+- - st,wakeup2-threshold:	set wakeup threshold for second wakeup
+-				engine.
+- - st,highpass-cutoff-hz=:	1, 2, 4 or 8 for 1Hz, 2Hz, 4Hz or 8Hz of
+-				highpass cut-off frequency
+- - st,hipass{1,2}-disable:	disable highpass 1/2.
+- - st,default-rate=:		set the default rate
+- - st,axis-{x,y,z}=:		set the axis to map to the three coordinates.
+-				Negative values can be used for inverted axis.
+- - st,{min,max}-limit-{x,y,z}	set the min/max limits for x/y/z axis
+-				(used by self-test)
+-
+-
+-Example for a SPI device node:
+-
+-	accelerometer@0 {
+-		compatible = "st,lis302dl-spi";
+-		reg = <0>;
+-		spi-max-frequency = <1000000>;
+-		interrupt-parent = <&gpio>;
+-		interrupts = <104 0>;
+-
+-		st,click-single-x;
+-		st,click-single-y;
+-		st,click-single-z;
+-		st,click-thresh-x = <10>;
+-		st,click-thresh-y = <10>;
+-		st,click-thresh-z = <10>;
+-		st,irq1-click;
+-		st,irq2-click;
+-		st,wakeup-x-lo;
+-		st,wakeup-x-hi;
+-		st,wakeup-y-lo;
+-		st,wakeup-y-hi;
+-		st,wakeup-z-lo;
+-		st,wakeup-z-hi;
+-	};
+-
+-Example for a I2C device node:
+-
+-	lis331dlh: accelerometer@18 {
+-		compatible = "st,lis331dlh", "st,lis3lv02d";
+-		reg = <0x18>;
+-		Vdd-supply = <&lis3_reg>;
+-		Vdd_IO-supply = <&lis3_reg>;
+-
+-		st,click-single-x;
+-		st,click-single-y;
+-		st,click-single-z;
+-		st,click-thresh-x = <10>;
+-		st,click-thresh-y = <10>;
+-		st,click-thresh-z = <10>;
+-		st,irq1-click;
+-		st,irq2-click;
+-		st,wakeup-x-lo;
+-		st,wakeup-x-hi;
+-		st,wakeup-y-lo;
+-		st,wakeup-y-hi;
+-		st,wakeup-z-lo;
+-		st,wakeup-z-hi;
+-		st,min-limit-x = <120>;
+-		st,min-limit-y = <120>;
+-		st,min-limit-z = <140>;
+-		st,max-limit-x = <550>;
+-		st,max-limit-y = <550>;
+-		st,max-limit-z = <750>;
+-	};
+-
+diff --git a/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml b/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
+new file mode 100644
+index 000000000000..85eb74c264bc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
+@@ -0,0 +1,396 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/misc/st,lis3lv02d.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics LIS3LV02D and similar accelerometers (misc driver)
++
++maintainers:
++  - Eric Piel <eric.piel@tremplin-utc.net>
++
++description:
++  This binding describes the STMicroelectronics accelerometers supported by
++  the misc/lis3lv02d driver. This driver provides input (joystick) and
++  hardware monitoring support, in contrast to the IIO st-accel driver which
++  also supports some of these devices.
++  Refer to Documentation/devicetree/bindings/iio/st,st-sensors.yaml for the
++  IIO binding.
++
++select:
++  anyOf:
++    - properties:
++        compatible:
++          contains:
++            const: st,lis302dl-spi
++    - properties:
++        compatible:
++          contains:
++            const: st,lis331dlh
++    - properties:
++        compatible:
++          contains:
++            const: st,lis33de
++  required:
++    - compatible
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - st,lis331dlh
++              - st,lis33de
++          - const: st,lis3lv02d
++      - const: st,lis331dlh
++      - const: st,lis3lv02d
++      - const: st,lis302dl-spi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    minItems: 1
++    maxItems: 2
++
++  spi-max-frequency:
++    description: SPI bus frequency; should be set to 1000000 unless
++      constrained by external circuitry.
++    maximum: 1000000
++
++  Vdd-supply:
++    description: The input supply for Vdd.
++
++  Vdd_IO-supply:
++    description: The input supply for Vdd_IO.
++
++  st,click-single-x:
++    description: Issue an interrupt on single click events on the X axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-double-x:
++    description: Issue an interrupt on double click events on the X axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-single-y:
++    description: Issue an interrupt on single click events on the Y axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-double-y:
++    description: Issue an interrupt on double click events on the Y axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-single-z:
++    description: Issue an interrupt on single click events on the Z axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-double-z:
++    description: Issue an interrupt on double click events on the Z axis.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,click-thresh-x:
++    description: X axis click threshold (deprecated spelling, use st,click-threshold-x).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    deprecated: true
++
++  st,click-thresh-y:
++    description: Y axis click threshold (deprecated spelling, use st,click-threshold-y).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    deprecated: true
++
++  st,click-thresh-z:
++    description: Z axis click threshold (deprecated spelling, use st,click-threshold-z).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    deprecated: true
++
++  st,click-threshold-x:
++    description: X axis click threshold.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  st,click-threshold-y:
++    description: Y axis click threshold.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  st,click-threshold-z:
++    description: Z axis click threshold.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  st,click-click-time-limit:
++    description: Click time limit (deprecated spelling, use st,click-time-limit).
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++    deprecated: true
++
++  st,click-time-limit:
++    description: Click time limit, from 0 to 127.5 msec with step of 0.5 msec.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,click-latency:
++    description: Click latency, from 0 to 255 msec with step of 1 msec.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,click-window:
++    description: Click window, from 0 to 255 msec with step of 1 msec.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,irq1-disable:
++    description: Disable IRQ 1.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq1-ff-wu-1:
++    description: Raise IRQ 1 on FF_WU_1 condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq1-ff-wu-2:
++    description: Raise IRQ 1 on FF_WU_2 condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq1-data-ready:
++    description: Raise IRQ 1 on data ready condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq1-click:
++    description: Raise IRQ 1 on click condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq2-disable:
++    description: Disable IRQ 2.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq2-ff-wu-1:
++    description: Raise IRQ 2 on FF_WU_1 condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq2-ff-wu-2:
++    description: Raise IRQ 2 on FF_WU_2 condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq2-data-ready:
++    description: Raise IRQ 2 on data ready condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq2-click:
++    description: Raise IRQ 2 on click condition.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq-open-drain:
++    description: Consider IRQ lines open-drain.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,irq-active-low:
++    description: Make IRQ lines active low.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wu-duration-1:
++    description: Duration register for Free-Fall/Wake-Up interrupt 1.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,wu-duration-2:
++    description: Duration register for Free-Fall/Wake-Up interrupt 2.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,wakeup-x-lo:
++    description: Set wakeup condition on X axis for lower limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-x-hi:
++    description: Set wakeup condition on X axis for upper limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-y-lo:
++    description: Set wakeup condition on Y axis for lower limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-y-hi:
++    description: Set wakeup condition on Y axis for upper limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-z-lo:
++    description: Set wakeup condition on Z axis for lower limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-z-hi:
++    description: Set wakeup condition on Z axis for upper limit.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup-threshold:
++    description: Set wakeup threshold.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,wakeup2-x-lo:
++    description: Set wakeup condition on X axis for lower limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-x-hi:
++    description: Set wakeup condition on X axis for upper limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-y-lo:
++    description: Set wakeup condition on Y axis for lower limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-y-hi:
++    description: Set wakeup condition on Y axis for upper limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-z-lo:
++    description: Set wakeup condition on Z axis for lower limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-z-hi:
++    description: Set wakeup condition on Z axis for upper limit for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,wakeup2-threshold:
++    description: Set wakeup threshold for second wakeup engine.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 255
++
++  st,highpass-cutoff-hz:
++    description: Highpass cut-off frequency. Valid values are 1, 2, 4 or 8.
++    enum: [1, 2, 4, 8]
++
++  st,hipass1-disable:
++    description: Disable highpass filter 1.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,hipass2-disable:
++    description: Disable highpass filter 2.
++    $ref: /schemas/types.yaml#/definitions/flag
++
++  st,default-rate:
++    description: Set the default output data rate.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  st,axis-x:
++    description: Set the X axis mapping. Negative values can be used for inverted axis.
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,axis-y:
++    description: Set the Y axis mapping. Negative values can be used for inverted axis.
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,axis-z:
++    description: Set the Z axis mapping. Negative values can be used for inverted axis.
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,min-limit-x:
++    description: Minimum limit for X axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,min-limit-y:
++    description: Minimum limit for Y axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,min-limit-z:
++    description: Minimum limit for Z axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,max-limit-x:
++    description: Maximum limit for X axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,max-limit-y:
++    description: Maximum limit for Y axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++  st,max-limit-z:
++    description: Maximum limit for Z axis (used by self-test).
++    $ref: /schemas/types.yaml#/definitions/int32
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          not:
++            contains:
++              const: st,lis302dl-spi
++    then:
++      required:
++        - Vdd-supply
++        - Vdd_IO-supply
++    else:
++      properties:
++        Vdd-supply: false
++        Vdd_IO-supply: false
++      required:
++        - spi-max-frequency
++        - interrupts
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        accelerometer@18 {
++            compatible = "st,lis331dlh", "st,lis3lv02d";
++            reg = <0x18>;
++            Vdd-supply = <&lis3_reg>;
++            Vdd_IO-supply = <&lis3_reg>;
++            interrupt-parent = <&gpio2>;
++            interrupts = <18 0>;
++
++            st,click-single-x;
++            st,click-single-y;
++            st,click-single-z;
++            st,click-threshold-x = <10>;
++            st,click-threshold-y = <10>;
++            st,click-threshold-z = <10>;
++            st,irq1-click;
++            st,irq2-click;
++            st,wakeup-x-lo;
++            st,wakeup-x-hi;
++            st,wakeup-y-lo;
++            st,wakeup-y-hi;
++            st,wakeup-z-lo;
++            st,wakeup-z-hi;
++            st,min-limit-x = <120>;
++            st,min-limit-y = <120>;
++            st,min-limit-z = <140>;
++            st,max-limit-x = <550>;
++            st,max-limit-y = <550>;
++            st,max-limit-z = <750>;
++        };
++    };
++  - |
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        accelerometer@0 {
++            compatible = "st,lis302dl-spi";
++            reg = <0>;
++            spi-max-frequency = <1000000>;
++            interrupt-parent = <&gpio>;
++            interrupts = <104 0>;
++
++            st,click-single-x;
++            st,click-single-y;
++            st,click-single-z;
++            st,click-threshold-x = <10>;
++            st,click-threshold-y = <10>;
++            st,click-threshold-z = <10>;
++            st,irq1-click;
++            st,irq2-click;
++            st,wakeup-x-lo;
++            st,wakeup-x-hi;
++            st,wakeup-y-lo;
++            st,wakeup-y-hi;
++            st,wakeup-z-lo;
++            st,wakeup-z-hi;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9ec290e38b44..4cffabbabf0e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14858,6 +14858,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/
+ LIS3LV02D ACCELEROMETER DRIVER
+ M:	Eric Piel <eric.piel@tremplin-utc.net>
+ S:	Maintained
++F:	Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
+ F:	Documentation/misc-devices/lis3lv02d.rst
+ F:	drivers/misc/lis3lv02d/
+ F:	drivers/platform/x86/hp/hp_accel.c
+-- 
+2.54.0
 
-[ ... ]
-
-> +static int stratix10_hwmon_parse_temp(long *val, u32 temperature)
-> +{
-> +	switch (temperature) {
-> +	case ETEMP_INACTIVE:
-> +	case ETEMP_NOT_PRESENT:
-> +	case ETEMP_CORRUPT:
-> +	case ETEMP_NOT_INITIALIZED:
-> +		return -EOPNOTSUPP;
-> +	case ETEMP_TIMEOUT:
-> +	case ETEMP_BUSY:
-> +	case ETEMP_TOO_OLD:
-> +		return -EAGAIN;
-> +	default:
-> +		/* Convert Q8.8 millidegrees Celsius to millidegrees for hwmon. */
-> +		*val =3D (long)(s32)temperature / STRATIX10_HWMON_TEMP_FRAC_DIV;
-
-[Severity: High]
-Will negative temperatures be miscalculated as massive positive values here?
-
-The macro STRATIX10_HWMON_TEMP_FRAC_DIV is defined using BIT(), which expan=
-ds
-to an unsigned long literal.
-
-When dividing a signed long by an unsigned long, C promotion rules convert
-the signed operand to unsigned. This means a negative temperature is conver=
-ted
-into a huge positive integer prior to division, entirely corrupting the
-resulting sensor reading.
-
-[ ... ]
-
-> +static int stratix10_hwmon_async_read(struct device *dev,
-> +				      enum hwmon_sensor_types type,
-> +				     struct stratix10_svc_client_msg *msg)
-> +{
-> +	struct stratix10_hwmon_priv *priv =3D dev_get_drvdata(dev);
-> +	struct stratix10_svc_cb_data data =3D {};
-> +	struct completion completion;
-> +	unsigned long wait_ret;
-> +	void *handle =3D NULL;
-> +	int status, index, ret;
-> +
-> +	init_completion(&completion);
-
-[Severity: Low]
-Should this use init_completion_onstack() instead?
-
-Initializing a stack-allocated completion with init_completion() can trigger
-false positive circular locking dependency warnings from lockdep.
-
-[ ... ]
-
-> +	if (ret) {
-> +		dev_err(dev, "Failed to get async response\n");
-> +		goto done;
-> +	}
-> +
-> +	if (data.status) {
-> +		dev_err(dev, "%s returned 0x%x from SDM\n", __func__,
-> +			data.status);
-> +		ret =3D -EFAULT;
-
-[Severity: Low]
-Is -EFAULT the correct error code here?
-
-In the kernel, -EFAULT typically denotes a bad user-space memory address.
-Returning it for a hardware or firmware failure incorrectly implies that
-user-space passed a bad pointer to a syscall. A more standard error code
-such as -EIO or -ENODATA might be more appropriate.
-
-> +		goto done;
-> +	}
-
-[ ... ]
-
-> +static int stratix10_hwmon_sync_read(struct device *dev,
-> +				     enum hwmon_sensor_types type,
-> +				    struct stratix10_svc_client_msg *msg)
-> +{
-> +	struct stratix10_hwmon_priv *priv =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	reinit_completion(&priv->completion);
-> +
-> +	if (type =3D=3D hwmon_temp)
-> +		priv->client.receive_cb =3D stratix10_hwmon_readtemp_cb;
-> +	else
-> +		priv->client.receive_cb =3D stratix10_hwmon_readvolt_cb;
-> +
-> +	ret =3D stratix10_svc_send(priv->chan, msg);
-> +	if (ret < 0)
-> +		goto status_done;
-> +
-> +	ret =3D wait_for_completion_interruptible_timeout(&priv->completion,
-> +							HWMON_TIMEOUT);
-> +	if (!ret) {
-> +		dev_err(priv->client.dev, "timeout waiting for SMC call\n");
-> +		ret =3D -ETIMEDOUT;
-> +		goto status_done;
-> +	}
-
-[Severity: High]
-Does a timeout here permanently desynchronize responses?
-
-The timeout path abandons the unread request in chan->svc_fifo without
-flushing it.
-
-When a subsequent sysfs read triggers a new request, a new kthread is spawn=
-ed
-and immediately pops the abandoned request off the queue. When the response
-arrives, the driver signals the new read's completion with the old read's
-data, permanently shifting all subsequent reads.
-
-> +	if (ret < 0) {
-> +		dev_err(priv->client.dev, "error %d waiting for SMC call\n", ret);
-> +		goto status_done;
-> +	}
-> +
-> +	ret =3D 0;
-> +
-> +status_done:
-> +	stratix10_svc_done(priv->chan);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Could this silently mask hardware failures?
-
-If the transaction completes but the hardware rejects the command,
-stratix10_hwmon_readtemp_cb() logs an error without modifying the cached
-temperature or storing an error state.
-
-This function then unconditionally returns 0 (success), causing the driver
-to return the previously cached stale sensor value to user-space instead
-of returning an error code.
-
-[ ... ]
-
-> +static void stratix10_hwmon_remove(struct platform_device *pdev)
-> +{
-> +	struct stratix10_hwmon_priv *priv =3D platform_get_drvdata(pdev);
-> +
-> +	if (priv->async)
-> +		stratix10_svc_remove_async_client(priv->chan);
-> +	stratix10_svc_free_channel(priv->chan);
-> +}
-
-[Severity: High]
-Can this result in a use-after-free crash during module unbind?
-
-The sysfs attributes are registered using
-devm_hwmon_device_register_with_info(), so they are removed by devres only
-after this remove function returns.
-
-Freeing the SVC channel manually here creates a race condition window where
-the sysfs files are still active and readable, but the backend channel has
-been destroyed. A concurrent sysfs read during driver unbinding will access
-the freed channel.
-
-Should the channel teardown be deferred using devm_add_action_or_reset()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1781861409.gi=
-t.tze.yee.ng@altera.com?part=3D4
