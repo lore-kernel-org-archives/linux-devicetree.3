@@ -1,113 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16BB372B2B
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F23373C0B
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781865136; cv=none; b=aXhwX3J5d85JZ3B+J38iCRtZsITu86IS0inKieNRB2zW8DzOG8n9bUHNpxbV4AzKLI8+trfVvZLfah+tjr2v2oPGxUutGQuxGWdEjaZ+Qb1t7jLPV2UOviZo0Bh6ihKmC1g12mjKpiaVww0FetvDbZuQt7Oj9tmpp+LQkKXI8p0=
+	t=1781865148; cv=none; b=UOy7J+OuRfEqjFbsNNK5ckT4Frfhdz7vRRJN2vatfaIdnXHuFy0WAuLQXvCF+wqm81hCpAxkgXNlOI4Y88LwsugKN36p/6L8cT2Ge2UUbVImdS94Y6Yr/eVjabFrrK88Ddzwm5P8/i6BpXYW97C6tV0TNe3icEt6KfXWOHAv34g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781865136; c=relaxed/simple;
-	bh=d66S3c/ubA31aPZAw669bukf4TsrNsPeB1UZ05NPRx4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o89SPtkVRVXtbty2mrmMmsrv2gPuGuHoqBEqO5ag/KrrQXfynaOCT2fI4QuQGZGkV0ybqrKddf6h1xsRamdYio3Luao9xE/P7ST5/yHfCVzXgds0pepnD/aYdQuCd+68hJyipG7RK4B15uMraB5JkvtcqiObweqUrcFNaE0AqCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTsKlHtq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781865148; c=relaxed/simple;
+	bh=VEnQVtwZkIU7RBSHiSyT7NGob5OOuJi2SIKdnJrA1CE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D+NQsrNmhQjOXl706rVus/PuXtbgJZW6Z2DXXqP/Lr6EW4t96NgMAWinLn9S0j0kpykRRvQzqSGgtjEozObHC+gB//D/7iS2TD7rsATq5HRf58Foxqh/B8IGCOAlEkaNNtMLx+cOpfPeeF3DRi2QDupeymd4RAyPCqGRPm09Gwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZFR7WXAJ; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTsKlHtq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63331F000E9;
-	Fri, 19 Jun 2026 10:32:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781865134;
-	bh=dtiY2EiYjV+/LBXO2HBVTR6K42NNumUdJYZS4iqpFHg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hTsKlHtqJMdj0RoX/D1hlWzrnhBg5pYkv+1LUbzHIHM0r5QZcLvR7W3mA7iqqOH1Y
-	 Zo5JV/R80QR014pR3x1sazaWnPhPxit67md6JxHxK+s789REgNtGcNtbzbR8qphlyL
-	 CB4zjI0ZCDhU7skCsUB9rNo9n2maiQevf8qfnv0eRt8NLKKBo+da/DMKle7yYpl0td
-	 9tJR7OBnjojJX7jdrmBR0LHGdlovFlPNYwpxEu/dDWIl1S2cYCiQRk5W6GpynknxV4
-	 g+8i+BZNNoPXv5KcURymk3DUtB1bRA2duM9/0I5u2Hg6EZ3hIMpAE0lg8/k7BUa1H8
-	 lj+TZOC1Vnq8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm: dts: xilinx: Add support for MYIR MYS-7Z020-V2
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Yu" <f78fk@live.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <SY3PPF19552C607A65588339A2CED9E2AFDC7E22@SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM>
-References: <20260619102214.223121-1-f78fk@live.com>
- <SY3PPF19552C607A65588339A2CED9E2AFDC7E22@SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:32:12 +0000
-Message-Id: <20260619103214.A63331F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZFR7WXAJ"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c07a6520cafso210205966b.0
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:32:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781865145; x=1782469945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yWdatNxPt/OSZnGzSt5RKlWyXLWzuEupMhedHxPLM4I=;
+        b=ZFR7WXAJpO6xikfbQnyaz4HBl9CSM5PhdFfUa1IhzVoR2UW3hMt8Xgwgzc5BFayI2S
+         cUXt6o0NKBrdSeKOZ1j1mpBDKYI0DTb3WKZ3cJZY/H8VWAjymYAsk2ziN2SXJzZuY6AQ
+         fDsNvhIDBhl8sZounmG3rQ2xjaRC5h5KmZtu/kvcyZGEfewsh3beTUZTw4Q3Drzxoln2
+         xxwJLTSLjpLYOTd9sQt4eKG9FBeWn6bWbISIknWXrmJulbV5oZQsI0H4vq4WIY/70RyH
+         dCYFfY5h3CJ6qvZtxsa7A1RpCc0HIOUkf2mT8io5KIUKYt50XtTXlzHuEvbZVLfaymF/
+         x4Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781865145; x=1782469945;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yWdatNxPt/OSZnGzSt5RKlWyXLWzuEupMhedHxPLM4I=;
+        b=IyCHLUc6nw2vhMc4l33jvNoCHShXm7OJ9NpdetpmCToomR1aBT/bFlV4bAHFSwpgNm
+         SiFVEOMqIL7He2W1VB+OqdYNtCrbl6VIqTm4QGpqGnDUBfq3U/J2nkmLz3OUJ8bA3PbP
+         Oz3LiNfPc0Ky7a4axcdTFhd8Ht4JWYEmNGgRCc40tflweG73/TB9BzJm9YESZeFLDxo+
+         xSipndoXM6ID2mmnyoNiCNBiHwbQ2brC8aj7JgsfGMqUqgSmr4n+vY5t8pZac039LA8X
+         wmCCRcXKrTCBfugQbTH4I1pezcGz78LcT2j3K0F70Sw2BG/DnYTdKcqZZRlRUjNFOTfo
+         Jm9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/UWB3iuYytYUsE0KZ0eqVwXbl8zT5xrM6Htr6BHQ29agC21eYd7xn5GeLvEwW8Mb0EeMMg6FGhEpHP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIExwhWldpRzeJHYxM2QRFQsDWf2oq9qIcHZY64LmjAeGMB6Xr
+	fVBUkH6Itw2jke/VfzZbYvmxF9tAPLI/oxz7MvIqX+8QAt70uLIlpGUG
+X-Gm-Gg: AfdE7cnljZMCsoYxa4nV07f2ywMtV9mXCegf4K9IJ9e56haHVU2l9q/3vDzmTFP4lJx
+	N2sysBnpEvchOz+cvUjNymPFVXKcYawpgL0+pZ6QMGXfssVOrjbGdyFgNw89ktHGJXnr+lN0fhH
+	xB7baMqLFFLhRx3pXYKm9du3AwhM3n0un+xjKIW4d2lh7PoZ3FBl4C5kQamkW+X4Oqe+A4RfoF6
+	i7sX9DO5uX++1xvrNh7RH+BJEj6hihcm308LhFk5GgBesCXWekK3CThrxop82k32auaEsh33dZA
+	3vbbJalWn5k1YniJBB3xPS4eBjq+R+rrCJa5+8hZmh7ayFdhVIuCzpkI6ZCwsQK2+yrdfpWZ4Ix
+	X7ZYew1vKbaySlUjPyA7aJcWoPAc5USKgAFcMXuOCqL81dcXtrD0WBk5jbVCa5J0wyZsVAgnsww
+	eR7smbdxqNxGzZ+Fpqd/T1eI9Pe9Q9t9U+yg==
+X-Received: by 2002:a17:907:9302:b0:c07:5319:4c32 with SMTP id a640c23a62f3a-c097ae487b4mr145500666b.8.1781865144713;
+        Fri, 19 Jun 2026 03:32:24 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0a8490cd59sm76702466b.16.2026.06.19.03.32.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 03:32:24 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Jean Delvare <jdelvare@suse.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] hwmon: emc1403: Convert to use OF bindings and add regulator support
+Date: Fri, 19 Jun 2026 13:31:50 +0300
+Message-ID: <20260619103153.216444-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing function multiplexing for SD card detect (CD) pin, causing=
- SD card detection to fail.
---
+Document, add OF and regulator support to EMC14XX thermal sensor family.
 
-commit d502783eb06999075d769495567d3ef9a776e3f7
-Author: Liu Yu <f78fk@live.com>
+Schema file was separated from LM90 since according to Guenter Roeck[1]
+these sensors are incompatible with LM90. Proposed schema has basic
+hardware description. All registers Guenter Roeck mentioned may be added
+later on, when/if driver would need to work with them. As for now driver
+successfully works as is.
 
-arm: dts: xilinx: Add support for MYIR MYS-7Z020-V2 board
+[1] https://lore.kernel.org/lkml/a0c5c1e8-9a36-4835-a5d9-7bafda79c36f@roeck-us.net/
 
-Add device tree support for the MYIR MYS-7Z020-V2 board based on
-the Xilinx Zynq-7000 XC7Z020 SoC.
+---
+Changes in v2:
+- schema separated into a dedicated file
+- dropped chip id check
+- fixed match data casting
+- adjusted regulator name
+---
 
-Link: https://www.myirtech.com/list.asp?id=3D708
+Jonas Schwöbel (1):
+  hwmon: (emc1403) Convert to use OF bindings
 
-> diff --git a/arch/arm/boot/dts/xilinx/zynq-mys-7z020-v2.dts b/arch/arm/bo=
-ot/dts/xilinx/zynq-mys-7z020-v2.dts
-> new file mode 100644
-> index 0000000000000..39bd864ca358d
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/xilinx/zynq-mys-7z020-v2.dts
+Svyatoslav Ryhel (2):
+  dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
+  hwmon: (emc1403) Add regulator support
 
-[ ... ]
+ .../bindings/hwmon/smsc,emc1403.yaml          | 191 ++++++++++++++++++
+ drivers/hwmon/emc1403.c                       |  23 ++-
+ 2 files changed, 212 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
 
-> +&pinctrl0 {
+-- 
+2.53.0
 
-[ ... ]
-
-> +	pinctrl_sdhci0_default: sdhci0-default {
-> +		mux {
-> +			groups =3D "sdio0_2_grp";
-> +			function =3D "sdio0";
-> +		};
-> +		conf {
-> +			groups =3D "sdio0_2_grp";
-> +			slew-rate =3D <0>;
-> +			io-standard =3D <1>;
-> +			bias-disable;
-> +		};
-> +		conf-cd {
-> +			pins =3D "MIO46";
-> +			bias-pull-up;
-> +			slew-rate =3D <0>;
-> +			io-standard =3D <1>;
-> +		};
-
-[Severity: High]
-Does this pin configuration properly route the SD card detect signal to the
-SDHCI controller?
-
-The conf-cd block sets the electrical properties for MIO46, but it appears
-to lack the required multiplexing configuration. In the Zynq pinctrl driver,
-routing the SD card detect signal requires explicitly requesting the
-sdio0_cd function.
-
-Without defining a mux node (such as adding a mux-cd block with
-groups =3D "gpio0_46_grp" and function =3D "sdio0_cd"), the Linux pinctrl
-driver will not route the internal SDHCI controller's CD line to MIO46.
-Unless the bootloader pre-configures this mux and the configuration
-survives suspend and resume cycles, the SD controller will likely fail
-to detect card insertion or removal.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619102214.2231=
-21-1-f78fk@live.com?part=3D2
