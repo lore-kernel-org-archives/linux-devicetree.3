@@ -1,126 +1,138 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from out16-185.antispamcloud.com (out16-185.antispamcloud.com [185.201.18.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F7D331EB3;
-	Fri, 19 Jun 2026 22:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0CA146A66
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 22:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.18.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781906415; cv=none; b=qDjECY6jGyRcCo1Q+wmRtgZhyTBivxVWe8vpXEaNf0X/EURC/iWF8slX96ZC1MofJA7uly2b4RHiQwLxFPy+KuWpg0ad5O9o1aGPbqXz/2dgG3AmQSQmfrVf09dUbiavNlGdOD3CxdUnDcMGqcgecj9w+yjmJkwhP2Mt/dsRCUA=
+	t=1781907470; cv=none; b=fLo3DGmnCAWNrqiPmnHIjsEjw8IbxQK7Ka7hWPuQ0Yf0brKjIJDQfETy+xtUX7aIE8iVVg/pB3F/ieYerlzFa/W65xXvOJ9yXE8Bkc6KjFJ2R0YY+D7Q/O5Rgs9JfOl29/mZ+yAvqUkblmPwhln2x/DHye/WAEJ7IP20YBVRM1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781906415; c=relaxed/simple;
-	bh=nssLUTVnVO04MDF5pkbnkd8EvgLXqZJUat6g7/5Dr9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LWXrUx357Wzn/wVAGb+IDJwURyXu31OxBOVX+ip3TKWhTIhGiW7/vMPULSPIBclGcDyQTuYKB4MQA9am6GwzZSD5Upr5a02+pnFTkq7wHWU4uadpSq0sYGd/6DZpgJ6v8hQ5C/GIY0TBY5U0NG8Mc/Q0gDBGnxVavgb1hlfFoxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LCIXw9Pz; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1781907470; c=relaxed/simple;
+	bh=Ijcd6LGlaePLYjfet1XKQXRWzUhtZnk8JHhdn8+GK8w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QfH/922kAGC4Ykt8yZxi8LmNrkpiL1I/VxV8AXc6IKSySunYlnCiVIQucMZroqVaM4UzB8QQPx8qSYG0HI5w5Ik2KG77/8HV9BqU/odxaINuy7mLvvjs00jayoBjhNp1lwasiGRXCcjDESHuoa4r8J6Q0qIDF5bVd6whWtDUee4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=w4jyc6Uy; arc=none smtp.client-ip=185.201.18.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LCIXw9Pz"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JLmgph3358207;
-	Fri, 19 Jun 2026 21:59:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=1P6ALL
-	33Rdvx7OHFEo8qsaz3m4CsS4iDLaS8DwZULJg=; b=LCIXw9PzW/CeER7t/ldOnH
-	xVuG//UWP4HNpcwKGuL0qWGa3Th4f1D3Ljd97sAXSTTjv51FE+1KolWHy6DO5M/7
-	VK6lJMiiRrPBp1jSmh2AWKKYgPBa5AYrfas1Zk/NiQ6WG9n9j/BenKKmia1ZF29Q
-	mX+6eBrf0ZK34ctVopk90tiuJqTW3Xbj+VqSWAIc8Jz7D+ncFquag3Ep4pn1pr3P
-	YTl8LGwb+wkNV4Z5vRbTl0JrwkleHH0VI0tEsNLjrrw2EBSlQrN0/j2FVe13efil
-	RNWC0YD6ICT/QhdMqbhNbGrkZAlROPkdBI+pinNFeHp3KIjHhUsrcO2c7LLPqxdg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqxfg3j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 19 Jun 2026 21:59:52 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JLnepn016860;
-	Fri, 19 Jun 2026 21:59:51 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ev172jrxg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 19 Jun 2026 21:59:51 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65JLxn0h57016764
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 19 Jun 2026 21:59:49 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 59D4B20043;
-	Fri, 19 Jun 2026 21:59:49 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DDBB920040;
-	Fri, 19 Jun 2026 21:59:46 +0000 (GMT)
-Received: from Linuxdev (unknown [9.43.77.5])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 19 Jun 2026 21:59:46 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        =?UTF-8?q?J=2E=20Neusch=C3=A4fer?= <j.ne@posteo.net>
-Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org,
-        Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH v4] powerpc: dts: Build devicetrees of enabled platforms
-Date: Sat, 20 Jun 2026 03:29:28 +0530
-Message-ID: <178190618780.653308.14086216574686034625.b4-ty@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="w4jyc6Uy"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx197.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1wag93-00890c-3C; Fri, 19 Jun 2026 22:49:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=+39Us0l8jzl2sSkZosAXigE21lGynPqD4B+AFWDahxw=; b=w4jyc6Uyz0ac36MGyhdcAceZ3B
+	yP4lSimBquYRufa/0PJjMOABI+YHEAczg2KnLkzVnyoQfUrS6lcCj4D14QQsl71lR8wqA5acz2OM1
+	FVqQP3xljDg3rFoA1rtpE4xzyHOcmmoCU1QHGGMRPzPtlBNdBmXv9iyKtNZrLb8pn6pwrlfI9QjSk
+	2dcfpKPzvxWiW5IyVGrXhvVcUOQnOVFy/kqhRbkMt0qg1qyoBy3YImSstWEaT3Kgj0OT/BgTPzM3p
+	5XBTVo5+iaHZpmxSILssUYvFcIjbzzsU2J7OxCH5j4U6gqcMcEYwrYyCbVds8JRGOQ3S5qvpGKtGh
+	QC6R/Jnw==;
+Received: from [188.251.249.2] (port=44192 helo=numbers)
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.4)
+	(envelope-from <dan@reactivated.net>)
+	id 1wag8u-00000004qzj-19aO;
+	Fri, 19 Jun 2026 20:48:48 +0000
+From: Daniel Drake <dan@reactivated.net>
+To: maz@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	florian.fainelli@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com
+Cc: devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	m.szyprowski@samsung.com,
+	andrea.porta@suse.com,
+	Daniel Drake <dan@reactivated.net>
+Subject: [PATCH] arm64: dts: broadcom: bcm2712: Remove non-functional EL2 virtual timer
+Date: Fri, 19 Jun 2026 21:48:32 +0100
+Message-ID: <20260619204832.586079-1-dan@reactivated.net>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260315-mpc83xx-dtb-v4-1-243849be4280@posteo.net>
-References: <20260315-mpc83xx-dtb-v4-1-243849be4280@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: YED3CuEAm-Iwmx3_kVZNhhUJMVoIvU8r
-X-Authority-Analysis: v=2.4 cv=Le0MLDfi c=1 sm=1 tr=0 ts=6a35bbd8 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=N9c1d4F_mCcFyk3_0iEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfXwvvZa1+hNZzo
- Eoo9UwEZWJ7W1HT/ezuRWnoL1H2YJbtwcwo+5o877LeS+/waS0zDXgeageku4ZeokHtwRC+cIP2
- U79ocY4qP/j/AP2/7LZHZgx9FGCMblI=
-X-Proofpoint-ORIG-GUID: T4i0-4syPXiQV7MOYC63z3Ig47lXUosu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfX4ggJ5TCBzX3L
- iM+fARe44PuhUrVIyvFs42eB/P7TJxlNB/sIeZBSj7Vzzu+z4/dEX7Vuz74UnBBWg1lQStc1eOn
- yhn9MdPlsT2LMj5b/O0Yl72uKiDBSnc/AztQ6hN6IF0UwMtvHUxYUsMAL5Zua6XzhlIuP0TrI9K
- rJ9lGBznD1DRVIiVOiz3D6Rcx2JxdGlt147XbwZdZ7ncr9OVu4oFAuSh/DxS49D9fQPPtCTTRlN
- 6k+a71AH8jAw0ChrpGASNxfIelS0XwUmgJ5KBqhXBtLJ5LUkWUQtymAbF4ANf8xqssBMjB+x9Zi
- +6kQDy51YUA2jPy7bODTNewez2LnOa4O48MpBv3JC2LP9Pg82+lew9JNqa4FLSFrV+gzUzqMGPi
- 1lgKfLvg51SrqqqqTWWC39FChZJJPKglmlksl7eblgOfjO9ejl4aqVZT7KdEdy+xn6SimotRVd0
- ULEmbjZlcsQmPmo+FeA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-19_05,2026-06-18_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190210
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: Combined (0.01)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuXx7vJpnF6lBq6hkdASV9+OkedQUW0QyFWx
+ GFqKMLRWBiu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVIP2mhp3lwZCcR+loQ9rUxFdGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWCulNo0fvnzmZPW3MC2/ZtQeB7itP8hgjDRserKv4bhb4U5wM0P14+8nxGHhzXnVJtWBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKclZzoe+TZdeH39wA4E
+ grA4pE2PuLHIFQdBY9qb1rRWgyz0f29FZkQs6Ir87R/YNAtTbKw/GxYwf231heSaMVJD3jtYeKQZ
+ QbovbfYtT7PWp8pdSgmbkvrIIacvajJHtO3S72G/q9ziRoPKvNmo60WYDMXZ5YhhGUSWFJu3WKou
+ EwQMVfCztWYwHh5jFD6dTwPfWGjEg64G/H9xJ2Y/CUklmGXi9rEnl1nptmzo1mQZBXsCNnEIDr2r
+ S37r3RSowsgpmnyhr47o3f4p0IoMTDhsttxEE84eFRPQDFeOmeRXGFNiLZt/QXQnOBRD+jq1HsLJ
+ QaIV/mxT7GP4i/LIyHAmHyxxk8Sjs3o9/k8nLBnptKmIYbwfwINR1tlyGDj4wlKVL5CXNSk/Azmi
+ JysF8dLHRyryw85/rAZb27+VZ3biGmceXSkEeDVzkpbfiUL+7qzaJBtZgkO5qAu/YKHH207PElLT
+ oU/bGYmMXNUpR96ykJejswBocUyWLb+nt4o5Q7Da0TeEmYYYhwjEmZXEzeR1vCrJPmnnTHzVkpyb
+ MK7ZTcjS0BktKCLK+lOkK/WEj0VIEqAi0wzqTkXDhL9Md9nbUE2RN8rvsyYrGXJTMg5Y0yoXKI6k
+ 1yFeXmpEy95koyRa37QZnmyww5QtT8/R8Y596J1fhOzjF0b4LXcjJZ5lou7aqQiaNW3qhwBx9vcu
+ F5G5dCB5dSrZK3Ai42bfKZFGHA0x+xwl3YvXKx4bI5c+WWiFcbBNf9Y5mOHdufFntjUUUv+K3yJx
+ eej3LRclw6ozvoGUBjUvvpdX+2T7XXXOS8oCG7c9HKFAousr1fg0ssl+6RlO7s/UIdgWJf6ThYnP
+ 9TX9YPaVQqjeGKYJQApZcII8LuKYpMHXESnLscDyjGqrGhRTt2THEelqjltfp0dGXPWlFdaGOH19
+ 1uXjgjQN/afWw0QpVLSzwSAqmb7CWzsSvlypk4kswkWqo94gxix+ipXGdBzoZlVYBe5JAbg73gCe
+ IZyBg7HvH2nIa17LbgjKuFO+2mEj3Ei2hTvWconvG7gOvC4mGrn5xNl9tGvdjUoh2dM359Vvgmke
+ Sgio/ZYij6tMUpMEVczC0SBn8klXnJ8JIFnbEDUJ7Rx+lCO8WACeIZyBg7HvH2nIa17LbgjKuFO+
+ 2mEj3Ei2hTvWconvAtuK2cz9C7Kez+6+t8E/BA==
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-On Sun, 15 Mar 2026 22:45:13 +0100, J. Neuschäfer wrote:
-> Follow the same approach as other architectures such as Arm or RISC-V,
-> and build devicetrees based on platforms selected in Kconfig. This makes
-> it unnecessary to use CONFIG_OF_ALL_DTBS on PowerPC in order to build
-> DTB files.
-> 
-> This makes it easier to use other build and test infrastructure such as
-> `make dtbs_check`, and is a first step towards generating FIT images
-> that include all the relevant DTBs with `make image.fit`.
-> 
-> [...]
+Commit d87773de9efe1 ("clocksource/drivers/arm_arch_timer: Default to
+EL2 virtual timer when running VHE") causes boot to hang on
+Raspberry Pi 5. The newly-selected EL2 virtual timer does not generate
+any interrupts, even though the GIC_DIST_ENABLE_SET flag has been
+confirmed set via readback.
 
-Applied to powerpc/next.
+The reasons for this failure are unknown, however it is likely that
+this timer was never tested. Raspberry Pi's original devicetree did
+not include this timer interrupt; it was only introduced via a
+suggestion[1] made in code review as part of the upstreaming process.
+(Current RPi firmware versions do include this timer, but only because
+they rebased on top of the upstreamed devicetree starting with
+Linux 6.12)
 
-[1/1] powerpc: dts: Build devicetrees of enabled platforms
-      https://git.kernel.org/powerpc/c/2442f10c6eae63392452ab84a813dbc1f87c724d
+Until more is known about this non-firing timer interrupt, remove
+the devicetree entry to enable RPi5 devices to boot.
 
-cheers
+[1] https://lore.kernel.org/all/12363be5b11c752b7155cc0c416fdfd2@kernel.org/
+
+Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Closes: https://lore.kernel.org/all/ea15cce1-b393-43f6-8d58-3d6f90f0c0cd@samsung.com/
+Signed-off-by: Daniel Drake <dan@reactivated.net>
+---
+ arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
+index 761c59d90ffc..09ff5e9959d3 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
++++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
+@@ -678,8 +678,6 @@ IRQ_TYPE_LEVEL_LOW)>,
+ 			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) |
+ 					  IRQ_TYPE_LEVEL_LOW)>,
+ 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) |
+-					  IRQ_TYPE_LEVEL_LOW)>,
+-			     <GIC_PPI 12 (GIC_CPU_MASK_SIMPLE(4) |
+ 					  IRQ_TYPE_LEVEL_LOW)>;
+ 	};
+ 
+-- 
+2.54.0
+
