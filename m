@@ -1,162 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3011E19D092
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEE036EAA4
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781866652; cv=none; b=l7jCfXtxdXaG41VCZtmWEeYj0s/7++9bDJ4Nwz7bXPc+gm2Awu8kgphpWlA6dyT9tNHBGZJKCdXlbdRHRTvN84e1xzdQwhL8JxksirG6G8sZJSVKa/MxOBhRYbVyHZ6JR20l/mzoXHfhKJyRossXDOY3l0b/IeU6Dwg+QKPWusw=
+	t=1781866771; cv=none; b=eZBZCVIGnN/lnG2LdW0tCkMCuH7OG0uPC5bGJESkBUJAFl1lrsJSS4gtZwTIAokcRNWrRK2fqE6wnNlNXOwhVLxyqkPmW/5bWqRIHlYByjDZCYnuvaErG4sheUnWbupegXN8AhoXSWzmBCiTaKUEL1Ej3QLxBsehBlBHyx0afCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781866652; c=relaxed/simple;
-	bh=qa++woPKzYNeEvJ/48W99TbEdvx7Td6TBZc/QYqF/0s=;
+	s=arc-20240116; t=1781866771; c=relaxed/simple;
+	bh=upEHbb0uAGC5oHKuMZNTc91v43HnSTMnQ1Q+jvgQh+k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nWSyFZNposPJ5KD9Q25GcNl9nAyjAJajzRuZNVDm1f9FwIPxhkhD+KpKsRf8CkWvv4HweFqb1OFDiitseSOfd5W1Jz9o0HxK8NPvJpL770Mo0iDkoL4j2gF5PxDLDhF2U1y4yu50wgt19Lsa60dyJIMeszymY5nEhxbMH8Fo+TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWZ4c4VU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MeR/Yas345drm4TcMAkJl8p/Syp0X6hrrZKPk9VQfAoASAD3b2d9mIu5djG2/DgxV2vNemVDrzljdehtz0APXL3hgkHT3SdCbnsNyoe23XQ7cThJayrN/GUhlBTCyeh8Ei+p6bCWGXdcAyk2ThluLHPaEfd1OXKOXmEq3XsHWE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xt1zPX4v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWZ4c4VU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE121F000E9;
-	Fri, 19 Jun 2026 10:57:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xt1zPX4v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2711F000E9;
+	Fri, 19 Jun 2026 10:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781866650;
-	bh=6bWz2r9c8jz2qGryRs8xH5ugDD189e2j0a8pPFoyCKI=;
+	s=k20260515; t=1781866769;
+	bh=dslPb430IX/pHl/4hcyIY4aKfD4eGLG9Ll+BSv8UsdM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gWZ4c4VUVWnnBGNKGq+mDuSfROEf6ArASXZ+kbp7oPPyGj6yQUdgce0YUcXru+dGO
-	 GQxsDOYH87elXWWMGHXMTzHs9NqZCLRQKaRPfQsIchX53C+0y+sDux+cMNUxbNXgNv
-	 aSeNdzp6FuXqEE/wT5kBu4egK2wDfCjGjt8bi+eQcdL5XEMXSX7Qv/pIGcCQkeL+Vx
-	 tQ3iGEsaXbk8tjOnidXkeVafaCG5v3gyX7FhdT0VIzoew+3RTJWgs/9wER5arhALmB
-	 zAZ9FD91Q1bQIGSJK0nNBkL97h6+1OmSh5Xebaftb3sJGgE06csmYwmnTIG14lZson
-	 Ie0iRejEmPZYg==
+	b=Xt1zPX4vTSvhJt4ptOxEUXLV4Jv78dr0bysW0yrKqpmNDMkshVqjV6YGpeiuvuRA2
+	 JqRjetuA0Bl3zFrspvF14P/fMZ0j25MjVI3rKFD1yjo4WoaTOle5qfX83db3QjJ1Gc
+	 xVxZ80KI/sJQ3imzppAf82YhJM5pVE/esX0xK/AIQuTkiMr17GOOOMp/TuYFr3ZVcE
+	 Wzfv0RxiZ9wtoQm95MVnUlKvU7gFeqve++uvIcehfWRe1xg/O616aW/7ImHYBoMFyl
+	 v28gEi6CEQxwzXZ5bKJPrDLTYDLPpAOQe4YVb20i7aof5tcdbXk7d88QTXSTyVCVz5
+	 apslxHqqvCeew==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 1/3] dt-bindings: riscv: Add Worlds ISA extensions
+Subject: Re: [RFC PATCH 2/3] dt-bindings: riscv: Add Worlds per-hart
+ properties
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yu-Chien Peter Lin" <peter.lin@sifive.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260619105834.1277302-2-peter.lin@sifive.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260619105834.1277302-3-peter.lin@sifive.com>
 References: <20260619105834.1277302-1-peter.lin@sifive.com>
- <20260619105834.1277302-2-peter.lin@sifive.com>
+ <20260619105834.1277302-3-peter.lin@sifive.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:57:30 +0000
-Message-Id: <20260619105730.9CE121F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 10:59:29 +0000
+Message-Id: <20260619105929.6B2711F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The descriptions for the newly added RISC-V Worlds ISA extension=
-s use placeholder 'TBD' text instead of a valid specification commit hash.
-- [Low] The newly added multi-letter ISA extensions `smlwid` and `smlwidlis=
-t` are not sorted alphanumerically.
+- [Medium] Incorrect and unnecessary schema reference: `cpus.yaml` (which v=
+alidates child `/cpus/cpu@*` nodes) improperly includes a `$ref` to `worlds=
+.yaml` (which validates the parent `/cpus` container node). This erroneousl=
+y bleeds parent constraints into the child schema.
 --
 
-commit 16fbfa5650f850f6481cd820aa9d7deb379f7452
+commit 2b4a193c4b5716c3f96b6ae87becc46dcf104835
 Author: Yu-Chien Peter Lin <peter.lin@sifive.com>
 
-dt-bindings: riscv: Add Worlds ISA extensions
+dt-bindings: riscv: Add Worlds per-hart properties
 
-This commit adds device tree bindings for the RISC-V Worlds ISA extensions.
-These extensions are used to tag transactions with World IDs that hardware
-uses to enforce isolation across execution contexts.
+This commit adds per-hart device tree properties for the RISC-V Worlds
+architecture, such as riscv,pmwid and riscv,pmwidlist. These platform-defin=
+ed
+values are used by M-mode firmware to configure World ID CSRs and restrict
+usage across privilege levels.
 
-> diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Do=
-cumentation/devicetree/bindings/riscv/extensions.yaml
-> index 2b0a8a93bb214..1bc8b1aa67c06 100644
-> --- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-> @@ -193,12 +193,35 @@ properties:
->              ratified at commit d70011dde6c2 ("Update to ratified state")
->              of riscv-j-extension.
-> =20
-> +        - const: smlwid
-
-[Severity: Low]
-This isn't a bug, but are these extensions placed in the correct alphabetic=
-al
-order? Multi-letter extensions are typically required to be sorted
-alphanumerically, and "smlwid" appears to be inserted out of order relative
-to other "sm" extensions.
-
-> +          description: |
-> +            The standard Smlwid extension for M-mode control of lower
-> +            privilege World ID via the mlwid CSR as ratified at commit
-> +            TBD ("TBD") of riscv-worlds.
+> diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Document=
+ation/devicetree/bindings/riscv/cpus.yaml
+> index 5feeb2203050a..4b5778b6d3e70 100644
+> --- a/Documentation/devicetree/bindings/riscv/cpus.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
+> @@ -26,6 +26,7 @@ description: |
+>  allOf:
+>    - $ref: /schemas/cpu.yaml#
+>    - $ref: extensions.yaml
+> +  - $ref: worlds.yaml
 
 [Severity: Medium]
-Is the "TBD" placeholder intended to be kept in the final binding? Device t=
-ree
-bindings usually require a specific commit hash to reference a frozen or
-ratified specification.
+Does this reference unintentionally bleed the parent container properties i=
+nto
+the child hart nodes?
 
-> +
-> +        - const: smlwidlist
-> +          description: |
-> +            The standard Smlwidlist extension for M-mode control of lower
-> +            privilege World IDs via the mlwidlist CSR as ratified at com=
-mit
-> +            TBD ("TBD") of riscv-worlds.
+The schema worlds.yaml is designed to validate the system-wide /cpus node
+via its select: pattern: "^cpus$", while cpus.yaml validates the individual
+/cpus/cpu@* nodes. By referencing worlds.yaml here, properties meant for
+the parent container leak into the child schema. Any future properties added
+to worlds.yaml would implicitly bypass unevaluatedProperties strict
+evaluation on the cpu@* nodes.
 
-[Severity: Medium]
-Does this also need to be updated with the actual ratification commit hash
-instead of the placeholder?
-
-> +
->          - const: smstateen
->            description: |
->              The standard Smstateen extension for controlling access to C=
-SRs
->              added by other RISC-V extensions in H/S/VS/U/VU modes and as
->              ratified at commit a28bfae (Ratified (#7)) of riscv-state-en=
-able.
-> =20
-> +        - const: smwdeleg
-> +          description: |
-> +            The standard Smwdeleg extension for M-mode delegation of low=
-er
-> +            privilege World ID control to S-mode via the mwiddeleg CSR, =
-as
-> +            ratified at commit TBD ("TBD") of riscv-worlds.
-
-[Severity: Medium]
-Is the exact specification commit hash available to replace the placeholder
-text here?
-
-> +
-> +        - const: smwid
-> +          description: |
-> +            The standard Smwid extension for M-mode World ID control via=
- the
-> +            mwid CSR as ratified at commit TBD ("TBD") of riscv-worlds.
-
-[Severity: Medium]
-Can we include the specific commit hash of riscv-worlds here instead of
-using the temporary text?
+>    - if:
+>        not:
 
 [ ... ]
 
-> @@ -262,6 +285,12 @@ properties:
->              ratified in RISC-V Profiles Version 1.0, with commit b1d8066=
-05f87
->              ("Updated to ratified state.")
-> =20
-> +        - const: sswid
-> +          description: |
-> +            The standard Sswid extension for S-mode control of lower
-> +            privilege World IDs via the slwid CSR as ratified at commit
-> +            TBD ("TBD") of riscv-worlds.
+> @@ -120,11 +121,31 @@ properties:
+>        thead systems where the vector register length is not identical on=
+ all harts, or
+>        the vlenb CSR is not available.
+
+[ ... ]
+
+>    # RISC-V requires 'timebase-frequency' in /cpus, so disallow it here
+>    timebase-frequency: false
+> +  # RISC-V requires 'riscv,nworlds' in /cpus, so disallow it here
+> +  riscv,nworlds: false
 
 [Severity: Medium]
-Is the placeholder expected to be replaced with the actual ratification
-commit before this is merged?
+Is this explicit disallowance a workaround for pulling in the parent schema
+via the reference above?
 
-> +
->          - const: supm
->            description: |
->              The standard Supm extension for pointer masking support in u=
-ser
+If the reference to worlds.yaml is removed from the allOf block, this manual
+workaround shouldn't be necessary. Removing the reference would also prevent
+future parent properties from silently sneaking into the child node schemas.
+
+> =20
+>    interrupt-controller:
+>      type: object
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619105834.1277=
-302-1-peter.lin@sifive.com?part=3D1
+302-1-peter.lin@sifive.com?part=3D2
