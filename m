@@ -1,161 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E111DF74F
-	for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 22:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B03F1D63F3
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781823362; cv=none; b=cTzRab16TXHkRX62EBg4NqjbWkiOqK7cYUPtuvyQhfvBGP/irmamlzg0O9VJ5pzpS9smVhcI5ZQ1/Dngg5bukZxq60OCyrxsR/qz3gxrnVnxgO/ePxIG2tkQXn9VLEHMbNPumkkmgVBrnvYVWPVWHnsoOOXEwZ++Cqi7C6q/vsE=
+	t=1781829197; cv=none; b=Ra1vVvUwqRa/hXr+VXoLyOuRISFi0gtopTiOm0ZE07nKzCjcUCiZw1pfjAcuR+A1tmZlZsnA6q1jSYJFIvygyy/YWH+bJFw+u3vrprK/z6y7IzOO9HvZ1BwR6k43i/x7MtA5MW+Ibcm3h3seDznZAxVSZgWwuyPjeyraquASQ0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781823362; c=relaxed/simple;
-	bh=6gkZ1I8xNdk9iceT5byejwOM6484oH1ttQ5Gt7nxL+Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=khsaVmMVHDQPsFM9NVX2IKORhnb4efE+8c2PcQJOEY78BalxbVJHmbs1E88HWGnQmFcjF1HZ0dbYz5OAD8TNFXI7Zuh4Ds6zeeDrDWkt/ak6DUJDlv1M5+6hDc/N9QasJqJNVeJgVXYT3PCCv3wfqC+zMNPjtc9/a1KqFxQBmX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3Ztkemn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781829197; c=relaxed/simple;
+	bh=HfDwPSM3AgwjPehs4wPAUk58oPTdqwzoGiKVwh6DUPs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MxcMl2WEYJVl9fPt3RA6bkhdbCs6rz6zKldIAr8TtQPDWMg0j9YRwJpcISt+1l0TpyAzZRDJJBNoWnZ4crGOEZ0q6/SxIB6AA/zhotPC7NPkE1Q6K90X/NhZ8x7Odi8219/rDxBeycslwNcEqG/e49Rs7i5/4flGdR6cJvZRSO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L1QvTRoH; arc=none smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3Ztkemn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F407F1F000E9;
-	Thu, 18 Jun 2026 22:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781823361;
-	bh=NBne0h5nzSTokm+9qSA9iWn4Y4FDs1jVA5qkFLsgb0A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k3Ztkemnsz7EXvywzr1XZIzCyOX87DyMX2NQ2kMmucj5oO7XGY3yil0AEaKfqurks
-	 +SfVMGSf2oZ5QlgjsSrmRajkgPaAJ6RcmyeW+yYJCjndRuVPVRBYq0LqzfAg9znLw9
-	 /rv9jiJHTwEBDqXqBoJd/Bu9tCHCHkRww1tGLsC6giI6VsIDI1y1gZz8HqtJuwVvND
-	 n7vQPj+I5aycIPZCPbO+y2FdsIPWjvRut+hhc03rfxUysOG4k+mRpCJhAKKmDf19iH
-	 3eLIyH5Qg3MZwZikjjw7FtQtCkYXIBeSVbK9AxdGKoU6Qhf+UclLStFz8SqBPgC/mV
-	 PfjDSLeoaAAog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] leds: ltc3208: Add driver for LTC3208
- Multidisplay LED Driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jan Carlo Roleda" <jancarlo.roleda@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260619-upstream-ltc3208-v5-2-075d18060606@analog.com>
-References: <20260619-upstream-ltc3208-v5-0-075d18060606@analog.com>
- <20260619-upstream-ltc3208-v5-2-075d18060606@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 Jun 2026 22:56:00 +0000
-Message-Id: <20260618225600.F407F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L1QvTRoH"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-59d07df448bso1116713e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 17:33:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781829195; x=1782433995; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=znQu5cFGcYeDF1LB9ZZhOnWvhk6kupYFyYu/ENFjpMc=;
+        b=L1QvTRoHnjNmxzN2X48ewA4jCHcNbQ6ccDX5volKUW8f3FcjRhT6LSdB0GP/kT+8Rj
+         /ZJL/xO1OLOv0BogOOv67X3U1U3xL/u7W3ltub5Cv85umlruysA2c2wO30Va/vwrrJp6
+         AsxHGuk6equBXebPO9hboZcpTL4ZDTcD/X1gKl/2GEVGiQzUg8zKqdE+iy0UsGB6pSol
+         lDHb0IDQFeknphtOapqG5ZnurnQOho3USYwdl6A6dGsVfpj6hh0NuXTjrqPNNx4QW+IV
+         GOA540oIRD6YuKt8TX3SUD1Vehe6YIpPlW7VxyMRYNKIBefAWGyP/A0GIuR5oP93/Kuj
+         iomQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781829195; x=1782433995;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=znQu5cFGcYeDF1LB9ZZhOnWvhk6kupYFyYu/ENFjpMc=;
+        b=XQk0jX6OkwCMk9ZgaqE8Ee4LQBP2A5Z2liypFOsf6xD/YIllqqEEjAWD2iiTfeSKus
+         /mQDCd8WsG1ngzLgm/j/nnHVduRqPhYY9RoNyJwEFxew9nNS3kFE00o2zUe658S2kIjQ
+         4UO1kEqJtwVkEgh6v+/iR2KUKPn7kCheRZdIT6WU3EnHlEawZZ1QmqbJAG+UX4OgWtWm
+         jUAXGqoBdc0mU61H+AmUnC7W7xCmuHJ3MPhrlz+BkFSpEX2axc0GTMug24BGpli9uiz9
+         bFIaN83VWar1cx4Oy+IUZWcTUAHLlKNoiefcpJJSjXtBQOeSmZ9K6n+QUXdzKG197Uqt
+         D3Lw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Tzl2JUNEjmJHJabW92B9k3v0PAs8/221d8YipNfnKo+7VeRsE+gDtl1b5WHtgGDfCMzCWlzgPFce4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1b9k5q4jxQZt9OqUqBQV7ew93coYndrFEWhLWzE8hdDjoXQMi
+	VSMlpsyuK2RuxVEOEC+Eab7WeU9jRHNJYotzcenRbNB1Xjt36GJ7Zs3jiY5d9A==
+X-Gm-Gg: AfdE7clLCczFowPdDuiUaaEW3zbG9M0UiCeyLh7y7aZgJJwnD8NuthknqZa/YYuhOv8
+	P9BvvTuUiz6e5ZWX+eoP6gRXqCeGKYBH+5GCuEH+xrFzDdu7zD/eO5K4DeVhjIQ22qVLNkfza7Z
+	FN9iB2ataKh6ptr081ucMMvnKzyRXsWvGHT4mWe5P8D7pib6rkaNV7cla//Tw9exeiDtP9Vlgj2
+	nbR3L1ne/0sgzRr4DmjrKBmPr4MbMfJV/368AsJrr7T/OWvibIF34SKVy8R75y270JiX/gsnaDE
+	vYuv/hiOTW/X1IQsgfbx0QKKovAymr3Ts4/E25hchC1pDA1KN+j/chxa6huHdjgX1Qg2Yxs9WsJ
+	hpxfhOuvxWJbUZ792RyJH+yajoJ8aP6Y0wRZQ79ZFsu9gJslvkB/c5Ub8xKR84SWY+ssYj6dzUL
+	MBSYdnn0rWUJX17/CE8IwzhlXcfQ==
+X-Received: by 2002:a05:6122:4886:b0:59d:8734:e801 with SMTP id 71dfb90a1353d-5bbebc30bb9mr702133e0c.14.1781829195253;
+        Thu, 18 Jun 2026 17:33:15 -0700 (PDT)
+Received: from [192.168.100.222] ([2800:bf0:177:563:8f3c:3421:b12:7a09])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbea36b5e6sm861581e0c.9.2026.06.18.17.33.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Jun 2026 17:33:14 -0700 (PDT)
+From: Kurt Borja <kuurtb@gmail.com>
+Subject: [PATCH RFC 0/3] dt-bindings: iio: adc: Add reference, excitation
+ and burn-out properties
+Date: Thu, 18 Jun 2026 19:33:00 -0500
+Message-Id: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDM0ML3bzUcl2QTF5qjm5BUX5Bsa5JWlKKKVDeICXRSAmor6AoNS2zAmx
+ mtFKQm7NSLESwuDQpKzW5BGSaUm0tAFaVyeN6AAAA
+X-Change-ID: 20260618-new-channel-props-4fbd52020da2
+To: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Kurt Borja <kuurtb@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2083; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=HfDwPSM3AgwjPehs4wPAUk58oPTdqwzoGiKVwh6DUPs=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkmfc5Wl7WF7UtMBX5sMp7B4Wj36VXujJcVHJs1bc4Kc
+ byuz5bvKGVhEONikBVTZGlPWPTtUVTeW78Dofdh5rAygQxh4OIUgImcns3wz+TD6oxHsfEqed8/
+ ej0UXJ+ovW1J5yRhfknnhzNL2/Zxnmdk6J/2vyYmdcl17YSnMU9T9h8WXxV5kfsEk+IqaYY3B4/
+ u5wQA
+X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
+ fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Duplicate `reg` property values in the device tree cause global `l=
-eds_list` corruption due to registering the exact same `led_classdev` objec=
-t multiple times.
-- [Medium] The `aux_channels` stack array can be left uninitialized if devi=
-ce tree properties fail to match due to errors other than `-EINVAL` (e.g., =
-`-ENOENT` or `-ENODATA`), leading to uninitialized memory being used to con=
-figure the register.
-- [Medium] Falsely successful probe and premature loop abortion when an inv=
-alid LED ID is encountered because `ret` is strictly 0.
---
+Hi all,
 
-commit b568fbfe98ac0a2fda2a035cd233d75353b8718c
-Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-Subject: leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+After submitting a patch series adding support for TI ADS126X ADCs [1],
+I was made aware by David [2] that at least two more chip families,
+ads1220 [3] and ads1x2c14, share very similar features (though these
+chips are not really compatible between them). After that, I found one
+more chip with the same features which is already upstream, the
+AD4170-4.
 
-Kernel driver implementation for LTC3208 Multidisplay LED Driver.
-The LTC3208 is a Multi-display LED driver, designed to control up to
-7 distinct LED channels.
+As David explained in [2], these chips are intended to be used with
+RTDs, thermocouples or other resistive sensors so they share the
+following per-channel features:
 
-> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-> new file mode 100644
-> index 0000000000000..fa2b6c6acc713
-> --- /dev/null
-> +++ b/drivers/leds/leds-ltc3208.c
+  - Configurable reference selection
+  - Burn-out Current Sources (BOCS) for diagnostic purpuses
+  - Excitation current sources (usually called IDACs TI) for sensor
+    current biasing
 
-[ ... ]
+Given that these three features are present in all four devices and
+three of these drivers are still under review, my proposal is to have
+these features be described in adc.yaml and have this series merged
+before the three others [1] [2] [3].
 
-> +	/* Initialize aux channel configurations */
-> +	for (int i =3D 0; i < LTC3208_NUM_AUX_LEDS; i++) {
-> +		ret =3D device_property_match_property_string(
-> +			&client->dev, ltc3208_dt_aux_channels[i],
-> +			ltc3208_aux_opt, LTC3208_NUM_AUX_OPT);
-> +		/* Fallback to default value (AUX) if not found */
-> +		if (ret =3D=3D -EINVAL)
-> +			aux_channels[i] =3D LTC3208_AUX_CHAN_AUX;
-> +		else if (ret >=3D 0)
-> +			aux_channels[i] =3D ret;
-> +	}
-> +
-> +	reg_val =3D FIELD_PREP(LTC3208_AUX1_MASK, aux_channels[0]) |
-> +		  FIELD_PREP(LTC3208_AUX2_MASK, aux_channels[1]) |
-> +		  FIELD_PREP(LTC3208_AUX3_MASK, aux_channels[2]) |
-> +		  FIELD_PREP(LTC3208_AUX4_MASK, aux_channels[3]);
+This series is sent as RFC because I still don't have much experience
+with dt-bindings and I don't know if this approach or the properties are
+general enough to be described like this.
 
-[Severity: Medium]
-What happens to aux_channels[i] if device_property_match_property_string()
-returns an error code other than -EINVAL, such as -ENODATA?
+No dependencies between properties were provided because not all devices
+may be able to configure each one of them.
 
-It appears aux_channels[i] would remain uninitialized on the stack, and
-this uninitialized memory would then be passed to FIELD_PREP() and
-written to the LTC3208_REG_E_AUX_SELECT register.
+[1] https://lore.kernel.org/linux-iio/20260612-ads126x-v1-0-894c788d03ed@gmail.com/
+[2] https://lore.kernel.org/linux-iio/20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com/
+[3] https://lore.kernel.org/linux-iio/20260610151342.44274-1-zizuzacker@gmail.com/
 
-Would it be safer to have a default catch-all else branch, or to fully
-initialize the aux_channels array when it is declared?
+Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+---
+Kurt Borja (3):
+      dt-bindings: iio: adc: Add reference-source property
+      dt-bindings: iio: adc: Add excitation current sources properties
+      dt-bindings: iio: adc: Add burn-out current properties
 
-[ ... ]
+ Documentation/devicetree/bindings/iio/adc/adc.yaml | 47 ++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+---
+base-commit: a50909aa46dec46de3c73235fc15a7d6f763d996
+change-id: 20260618-new-channel-props-4fbd52020da2
 
-> +	device_for_each_child_node_scoped(&client->dev, child) {
-> +		struct ltc3208_led *led;
-> +		struct led_init_data init_data =3D {};
-> +		u32 chan;
-> +
-> +		ret =3D fwnode_property_read_u32(child, "reg", &chan);
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret,
-> +					    "Failed to get reg value of LED\n");
-> +		else if (chan >=3D LTC3208_NUM_LED_GRPS)
-> +			return dev_err_probe(&client->dev, ret,
-> +					     "%d is an invalid LED ID\n", chan);
+-- 
+Thanks, 
+ ~ Kurt
 
-[Severity: Medium]
-Does this return a success code of 0 instead of an error?
-
-Because the preceding fwnode_property_read_u32() call succeeded, ret is
-exactly 0 in this else if branch.
-
-Calling dev_err_probe() with a 0 return code will cause the probe function
-to abort iterating through the children but return a success status to the
-driver core, masking the probe failure.
-
-Should this return an explicit error like -EINVAL instead?
-
-> +
-> +		led =3D &ddata->leds[chan];
-> +
-> +		led->rfield =3D
-> +			devm_regmap_field_alloc(&client->dev, ddata->regmap,
-> +						ltc3208_led_reg_field[chan]);
-
-[ ... ]
-
-> +		ret =3D devm_led_classdev_register_ext(&client->dev, &led->cdev,
-> +						     &init_data);
-
-[Severity: High]
-Can duplicate reg properties in the device tree corrupt the led_classdev
-list?
-
-If a malformed device tree provides multiple children with the same reg
-value, the driver will reuse the exact same struct ltc3208_led object
-from the ddata->leds array without checking if it is already in use.
-
-Calling devm_led_classdev_register_ext() multiple times with the identical
-&led->cdev pointer would cause the LED core to add the same node to the
-global leds_list twice, corrupting the doubly-linked list.
-
-Could we add a check to verify if the channel has already been populated
-before proceeding with registration?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-upstream-l=
-tc3208-v5-0-075d18060606@analog.com?part=3D2
