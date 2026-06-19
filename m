@@ -1,163 +1,195 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E16732A3D7;
-	Fri, 19 Jun 2026 19:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE29235E1CD
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 20:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781896734; cv=none; b=s8HR3s2KhkrQO5ebR1zEUDQEsU00EihKHUfN53PaDWBGht9okiy9Tg7mNPoOWXSH5Sv2kUs3zeFKFK5rMsrMONFpZxEnY8GMpeQV4nVVyJ/1u/RObQ8RUq5UmCHfwEfD9qJWUMHpOMjyPj9B97U6AjjZTVLJVDkOVQjvkkURKrk=
+	t=1781901569; cv=none; b=VOnR2AIBoiMS8PXJjUPOWtm1mvDrNHicg59VpPDhvmFwJuzFLgze0agjNcEpPLvAdIKRSGnGkFUOGDlib/6EquQhrMzzjL+2c7pHPp6oFrbYLwzDfSCsCLKmOczmsSA8UWjnxTWsg6Nzms/VoYo3fd9Tng0K9R2k+rK0CsgzFSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781896734; c=relaxed/simple;
-	bh=hN0ePi8N+Z7F/p9FDSPQHQnzENbJwFsntwUrrMsv3WE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=SgYSzdI3tqYmlFIfGbcWZXREWxt07lF/Txvey/9w++Ihp4n/Rjg3vslDTLTjIx6pOUlm1ezXQuLmaTAJQvdbcB5mbqy0GenHER9FZPnRdziF1V0ePKTMpvMWCsaSYr8oCYpHuCgzSsVdt+a3EyjxEWBkmVV93db/F10l88PjI20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=MGWyBY0b; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aAUb1mLn; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1781901569; c=relaxed/simple;
+	bh=mzAivGquTuxKJRNPNyBa88Cm3gzCu0h5ZhS95ueAnpQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RFeO5jO3KD2nvWTj/kOJ3EiJLhOVqhuDCdWNml3aV/DcS7QPE/TCShXgUhq80HPNKbPkkO+cHvgVypcSg1m1QX+3+NzzBA2cQUZqola8CBFexG+hKV+k1+vZTI2X5PH9uGNXqf5XD4gquEFWiQVvR609dSGBjA+mrxOVfmfPWW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SXvc9/4G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JFneWPWq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="MGWyBY0b";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aAUb1mLn"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 802641D000D2;
-	Fri, 19 Jun 2026 15:18:50 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Fri, 19 Jun 2026 15:18:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1781896730;
-	 x=1781983130; bh=WMmaYqcpj5qFPBbHXMKSxFB7Wq+hKotmwq9lR4Zk+sg=; b=
-	MGWyBY0b2Vpa5SbeOoCaHd7LeP1XXkLZl2I0hco03NvQpBHKRGMqk9uaJu29E4ES
-	ZSptCouPNO3K1BbIITyL7tl81AVtIHMJOHBQbuCPgecXCKmv/yEnV/CS6HQ2PpCB
-	N3uXtZIgil16ogc+o/IpOKRjbWSuYXdxWecPR3BYMv+2s+fqQk6qveFmqFJvw2rD
-	EG6YLk2RCgOEcsVRV/MYGWmxzY2TnX439brV300W6EV3Udrc7fYgwAZcFnD4p4dX
-	k7ufO75RVLll3ql5jo9bfVm0BTgLYx7iCwFl4RJzdmegIOldoA+bpe4HUK7ljS2w
-	VSOUseCetYaNb6CdlnHn+Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781896730; x=
-	1781983130; bh=WMmaYqcpj5qFPBbHXMKSxFB7Wq+hKotmwq9lR4Zk+sg=; b=a
-	AUb1mLnG3NRW+BTlcQ6gE7agaiElxEsjlSsOEFQv7TmStYThsonUub+Y9wmhq/UX
-	w5FQXavNfgOPLGScgIedj0P4L7cHMmK5U7dj7nZeHAF2Vch9ATME9FaUqt1rLzoG
-	BzpenwWYNt0HhJ7ClUQ5lS/QCD+6IViNV1GshFNAG/UFMRbcqTeygT2/PzEMxH35
-	75S5ahevfnRo+ANx4csygvKhYQcWly2+gJ9Q4gHTcNO8QpzQKs3QxhR7IoCDzV1u
-	TpwULVn0KQ+/bVlv11QAWjP1y9QKLFX74/Y9sqzzre5F6lnSdLj9mA7LNxedYlRV
-	RVy5Cr6YxHy9vEo8HIxKA==
-X-ME-Sender: <xms:GJY1ail0oQF4zqflss_nqWzFvweWbFuhrTHF-nZRwd7hhkaJBbkE-w>
-    <xme:GJY1akofdj9rdg4BYOVAoYiljcFLCywCTd-7p4hyKIyunbHUzvS-btKZVKRFAHNfM
-    Kdt1xksGs3OwM9ML3pflo65LyLAggQHqXFFT6QONswTfHcI_Ah9kJc>
-X-ME-Proxy-Cause: dmFkZTFxwm0eoO/ubQ6vEXwkN7gu9uih52cTPfdC2KKT/YbaCqdV74DUlwbxDlQ1eX/AJb
-    LKb64YTQgPoISp+PTWQdWzNil+OmtwAWnWyYjnoOczuy+3cPAlZux6RZHQSXuI/Lp4KgjK
-    vUGwLuxoK1IU5E412htHREbsHNYpd18q6ckMVLTC0jYuOf7BdKrn8fqXTW2QSUhnN0FoHN
-    vFues5Pfb92i6pWuaydZ/Uo/4AQp6Rq/0sAI5c02HEfElIpkJL80Of7lf9BTo3h4exQOxC
-    UjmlHkR5kc48/ma9mjCkyCStVFntqnJK+EKBJLZ5D0y9EiaAnIyl1w7s9xoryHn6uTXFhQ
-    TxDoRPTd4rLyrL1T2oMFZ5b4W4Iefc6tzVZtsT2VU/wqmt5WZin87Ho7gR+ktYrDsYAgmF
-    9/i9UaRN3uKxf3V4HhnlKsoOHyGA7QUii5kQGXVjcLwErJHdHDTgD6+4gTHPX9C9V9PCcv
-    Flr8I0ITlQWAMeH55hIqIfjDzHlE5pyLPDsZpmlKny3BojEHwDhdgt/iLyT7JnflRTGFlF
-    4Ee10aS1Viq8noR1nzW+Cs9T2IPvdmaRoeD0idLVGnvgIVi8JclG8MRxJ9ClSZdQtekUnq
-    W4lE2Q7q1ZSPjwDdxAzVyt/Tzo7IO5huzk//IKNJgVyUQyLK7ftY1V2pw8hg
-X-ME-Proxy: <xmx:GJY1apQVZQn0fUcUg_pMom8vHeGZJkSGXDUKzHwMPbGLRnxlHdz0bg>
-    <xmx:GJY1ascKauvynt-2QyEb_BVfCFip285HKqf535gjQf5J_sdu57LFwQ>
-    <xmx:GJY1auKhqgL-MEwStOIXYdL9FMrRYQXXXUSRus05CsUPS2CJIzZ37Q>
-    <xmx:GJY1apEXcbi2cM1z-xp4ZZYMsbvr2qayLkPROzh-xwsRcf1Cznogkg>
-    <xmx:GpY1auf-tP02Dc0COI_6I8-4aasP8pZuMJc-VIkKF2q0n_Vmi11zrxjR>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id CD722182007E; Fri, 19 Jun 2026 15:18:48 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SXvc9/4G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JFneWPWq"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JHUi2w1320868
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 20:39:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=1LGsZZQGHjPFgChcl2b+wr
+	rmhmSGdGUPrKtAPR68/hA=; b=SXvc9/4G06P1rvR5AKZ/HM6mwLZceIQFPMxbif
+	093N7oZCdd3kRgdtNsddI/Uph0FFq6NayCvRiJQbU3T3jTgPD3YSqfraWghXQVN0
+	mc4/6M6l846Cjoq3lZ94iWcfGw3dY919ts2D2aT3zdILzA5GL8wrSPh4Hxj/3mt2
+	JR3V8EcDTtu+90WEyTYV1/xvU7biuNeXJRyoW1Q24d2euSx5y13BL7bzQYcXRH/x
+	TzJbmB70imCHzAivuxBzvxR2Je6aQOBDGCIzKa/IXZ349xt5leos6raG7LVSLhhv
+	9v22eK2o/eJYb1dLj1oYWdmet5WmaSzwtnS8Mm57IgBjsJJg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ew5hp9rd8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 20:39:26 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-845338eb797so2354555b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781901566; x=1782506366; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1LGsZZQGHjPFgChcl2b+wrrmhmSGdGUPrKtAPR68/hA=;
+        b=JFneWPWqIKwt76JaoySf4N3j2s3OjJC8ejBlvRF7HYQWUyfSiavnp6rnCbcDStzfxd
+         SnJ2a94Uzq/suEEjF8c8wnv3ULLLC3BKYYGhyQGP0kk31wM6tQ76X7Cqht08cv5CU46t
+         R8fPD67jyXw7RNZTiykQ3AY6JsCxS+UMiI1JxSuVfA5Sv9I5CI5FNXgVNLbILQ5zoFKD
+         R3MybJDGJyGLtyjT1Q05ornLMu7prC/zeMaUKkdghVPNSgTh8ybbBIoMQxKKj6IvKZDZ
+         VzhVZy7zG3VqxVyMLqDnRd9BR/rSrZubDmME3rQGkxV/9VMV7DnEIjLDxcRo0WzSXRXW
+         KFyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781901566; x=1782506366;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1LGsZZQGHjPFgChcl2b+wrrmhmSGdGUPrKtAPR68/hA=;
+        b=HFzgWDFAbyoiHC15rBOOok6EaqWXN6qDeSvO4H6SqCAGJW2kCzQodoukm0jhmnFuni
+         NC0gslOgC5SVTXfw3l1/taHJ6Iqvkmm9BZJDki0Y4g+uurptWZXEJ4mQrE2FxBGNzG6z
+         CnOCn9V3Eljq7xqSZ/dNuJyj88beCaskSjkf6nlE8d3SRFl8onFJFncRBy0FP/i/8TP5
+         iJhtgZnyAdIqZDOJ7yBshaDpJ71zlrPA0BpA2U+1jQcQSZ+nsmT49sqZztktsK+MTQVD
+         MOCpo48JuzsFaVeAL7/1SoPpOP/HJttI9rU/gHUu5dMKEw0t4XlGDEWv8xbfrNKDEffS
+         brdw==
+X-Forwarded-Encrypted: i=1; AFNElJ9JAv/uNZMG/V9ky4aiEP1F/b+3/RvufffMvXNlGYVrnJttOV0FgWUpz0pxCZAHtuGDTPudKO57BzkC@vger.kernel.org
+X-Gm-Message-State: AOJu0YzWqCjkGWiBrDrdfDS/x3UzIdrhBkRK8lGZYk2VkI5sWfscn6To
+	2Je+beh/+8ddXztPCE4DBYe2vMk1qe06XSbLwkJlJyYXlZ5UAyW5ZXJtzf8letNdC53j11OKjud
+	tF9Mi9Ea+u/G5QHuFiuLQicU0EyCmTlZ5Cqs7Vh0DlGmzR/An+VNhQItcN07qy2a1
+X-Gm-Gg: AfdE7ckh4zEgoSz7KYrDUdfrOpkj/Pmy79EH1sIsc+igw/upuvI9VWZtHKPtgqeEQWD
+	cpcvZRvgR8IPIFCcgMGDbMQXc0PTYGQJRPYDcm1i/s/C4Gk7g6E0ufKMplxiaUVaV4nCjJ6IU2j
+	mR2JH+C849HTosYC/ucufCUSqnw67KI4p2dbUIvmr7ame/FKGwlC46JanutRpUTW1C835g2W6DJ
+	1Wg1g/ZWskU06DjG5vKmXYLx9jdG0H8sB0dEU83R1odOl//2ie8GU0PkIAzG7XC8jfTnpUq1MlA
+	718/Rd3IRAV2RMjkjs+uIR20FJhB32XvB9egSNQuptajQjKddKpDf5E11zLLH40zixz8WPZMw34
+	7OS8F2F2+mNXhWMDtjGwdL5bGuJIOaosJFDNGf3dfsIt6rw==
+X-Received: by 2002:a05:6a00:9a7:b0:837:8342:abe5 with SMTP id d2e1a72fcca58-8455023798fmr4319444b3a.18.1781901565694;
+        Fri, 19 Jun 2026 13:39:25 -0700 (PDT)
+X-Received: by 2002:a05:6a00:9a7:b0:837:8342:abe5 with SMTP id d2e1a72fcca58-8455023798fmr4319427b3a.18.1781901565110;
+        Fri, 19 Jun 2026 13:39:25 -0700 (PDT)
+Received: from hu-manafm-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564ecd779sm94190b3a.53.2026.06.19.13.39.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 13:39:24 -0700 (PDT)
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] Add Qualcomm SPEL powercap driver
+Date: Sat, 20 Jun 2026 02:09:07 +0530
+Message-Id: <20260620-qcom_spel_driver_upstream-v2-0-a3ee6837c18f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A7dmd8TY8zEF
-Date: Fri, 19 Jun 2026 21:17:58 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Vladimir Zapolskiy" <vz@kernel.org>, "Frank Li" <Frank.Li@oss.nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Stefan Agner" <stefan@agner.ch>, "Fabio Estevam" <festevam@gmail.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Russell King" <linux@armlinux.org.uk>,
- "Abel Vesa" <abelvesa@kernel.org>, "Peng Fan" <peng.fan@nxp.com>,
- "Michael Turquette" <mturquette@baylibre.com>,
- "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
- "Aisheng Dong" <aisheng.dong@nxp.com>, "Jacky Bai" <ping.bai@nxp.com>,
- "NXP S32 Linux Team" <s32@nxp.com>, "Linus Walleij" <linusw@kernel.org>,
- "Piotr Wojtaszczyk" <piotr.wojtaszczyk@timesys.com>,
- "Kees Cook" <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hardening@vger.kernel.org, "Frank Li" <Frank.Li@nxp.com>
-Message-Id: <06498d0e-662a-4c09-b1b0-2a70b6168acb@app.fastmail.com>
-In-Reply-To: <7d946861-c3cb-4512-9d5f-9f4cb9b7ee8a@kernel.org>
-References: <20260619-dts_cleanup_arm_mcore-v1-0-0101795a2662@nxp.com>
- <7d946861-c3cb-4512-9d5f-9f4cb9b7ee8a@kernel.org>
-Subject: Re: [PATCH 00/11] ARM: NXP: Drop NOMMU platform support
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOuoNWoC/43NQQ6CMBAF0KuQri3pVFvAlfcwhkA7SBOh0EKjI
+ dzdwsaNMW4m+T/5bxbi0Rn05JwsxGEw3tg+Bn5IiGqr/o7U6JgJZ1wyAQUdle1KP+Cj1M4EdOU
+ 8+Mlh1VEAbHSucoESSdwPDhvz3O3rLebW+Mm61/4qwNb+owagjGbiKKSGOmuK08V6n45z9YiTL
+ o2HbHjgH1BC9gvkGyhloQEkU7X8Aq7r+gZlLNwBGgEAAA==
+X-Change-ID: 20260519-qcom_spel_driver_upstream-11efd8c85e6e
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781901560; l=2710;
+ i=manaf.pallikunhi@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
+ bh=mzAivGquTuxKJRNPNyBa88Cm3gzCu0h5ZhS95ueAnpQ=;
+ b=wZNSWCLWJySoGaPwV0dKLloCPK6whcIsD4RLJBATv4QwY1VfvwTagxlXN/RrcMCjd0cUcZoJM
+ v87SaWd/HGKAIc2b2VlebU+np/iNYBkJ6E6vIqnnS4RhcOVqeC58Ncu
+X-Developer-Key: i=manaf.pallikunhi@oss.qualcomm.com; a=ed25519;
+ pk=oZ3x9jh+FDyPwxHmCbyzEMQHMzKqrH6hUbbL7dEBe2g=
+X-Proofpoint-GUID: R-6axwZKQIYaj1LMyLH-e2EL-Cipo1CQ
+X-Authority-Analysis: v=2.4 cv=aOHAb79m c=1 sm=1 tr=0 ts=6a35a8fe cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tfgfb8oKCnp2c5w_Q-EA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: R-6axwZKQIYaj1LMyLH-e2EL-Cipo1CQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDE5OCBTYWx0ZWRfX7zvsCUCdbwpw
+ 1yeK15yrGI2ez7fQ74FOFHxunxl4L7CIIKtCj5zkoOHtezrHq0r6ggG+EnKKurkgfvMScBVhgJa
+ HtCV/Il/zPZE0X2ve+5zb+a8E32237U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDE5OCBTYWx0ZWRfX2fbWsKYauUPm
+ SGtf3ox2RH2rwVbK20xiV1R6ab8Qk5vtVteqhR6ltDvOatMgW2HNQAhE20iGHwK5yBgC+Q7wb3/
+ olEFqXY0SgkT2nODqqV9EzsHnDPboL7CJex1lmxylSB4WtbNgg7aDucvWXWseIJQggwVlT2lUzI
+ Ak1vT6GfhoiwgW5/+TALcADUe9euMZaxFcN1cWVjxBLgSR5rAFFzxOCjuFNAWuiAHp0nusd3NQ4
+ VbxHchbpALj01hKMfnOlmYzwFqvfkBkgkVvYKnch0CRxX3rWoCb52OKiE1aCH3pYg2TK+F5+XPo
+ 6hWqTTXyM/b1S7LoGYg29PBNcoX+WF5q68mtxOvYUGYasBkKoGSV7nUyaWy7h7Gc4SUoayAX7vd
+ OhEZllU8I+sSuoYTyDh/Wb5NUTBZUwkp6dOV3G4lqcdLXx+g1DC6IsksBg/UW/ATe3wnt9FH/1U
+ +2tNfV8S6Ie7eZa3Opg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_04,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190198
 
-On Fri, Jun 19, 2026, at 18:07, Vladimir Zapolskiy wrote:
-> On 6/19/26 18:40, Frank.Li@oss.nxp.com wrote:
->> Commercial users and hardware vendors migrated to Zephyr or other RTOS
->> solutions years ago, leaving the NOMMU platform support effectively
->> unused and unmaintained.
->> 
->> Remove the obsolete support to reduce maintenance burden and simplify the
->> Freescale/nxp platform code.
->> 
->> Some driver code still be kept and may clean up later since it is possible
->> reused by other SoC.
+This patch series introduces support for Qualcomm's SPEL (SoC Power
+and Electrical Limits) hardware, which provides power monitoring and
+limiting capabilities for various power domains in Qualcomm SoCs.
 
-Thanks a lot for going through these already!
- 
->> Signed-off-by: Frank Li <Frank.Li@nxp.com>
->
-> This change is a bit too early to happen, I prefer to get it orchestrated
-> by Arnd. So, as for today I NAK the change for its NXP LPC part.
+The SPEL hardware enables:
+- Real-time energy consumption monitoring across multiple power domains
+- Hardware-enforced power limits with configurable time windows
+- Support for up to 4 power limits (PL1-PL4) per domain
+- Hierarchical power domain organization (SYS -> SOC -> subsystems)
 
-I am planning to post a series of deprecation notices for platforms
-that I would like to remove for one reason or another. Since it's only
-one more merge before the next (S)LTS kernel, my idea was to post
-the series once v7.2-rc1 is out, merge it into 7.3-LTS and remove
-the deprecated code early next year once the LTS release is announced.
+The driver integrates with the Linux powercap framework, exposing SPEL
+capabilities through standard sysfs interfaces. This allows userspace
+applications and thermal management daemons to monitor energy consumption
+and configure power limits for optimal power/performance balance.
 
-I have rebased uploaded my current draft to
-https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=rfc-arm-deprecation-7.2
+Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+---
+Changes in v2:
+- Fixed DT issues: corrected unit-address mismatch and made compatible
+  platform-specific.(Konrad/Krzysztof)
+- Cleaned up bitfield handling: switched to GENMASK, FIELD_* macros.(Konrad)
+- Converted hex values to lowercase and simplified array definitions.(Konrad)
+- used devm_platform_ioremap_resource_byname().(Konrad)
+- Refactored data structures: merged domain data into spel_domain_info
+  and removed hardcoded limits using ARRAY_SIZE().(Daniel)
+- Added bounds checks (TIME_WINDOW_MAX) and fixed time window RMW
+  handling (preserving reserved bits + firmware notify).(Sashiko)
+- Resolved use-after-free, replaced allocation strategy, and
+  added proper cleanup in .release().(Sashiko)
+- Updated time window calculation logic.
+- Removed cyclic dependency, improved validation logic, and aligned
+  naming consistency.(Daniel)
+- Link to v1: https://lore.kernel.org/r/20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com
 
-None of those are finalized of course, and we can do any part
-of it earlier or later (or not at all) if there is a good reason.
+---
+Manaf Meethalavalappu Pallikunhi (3):
+      dt-bindings: power: limits: Describe Qualcomm SPEL hardware
+      powercap: qcom: Add SPEL powercap driver
+      arm64: dts: qcom: glymur: Enable SPEL powercap driver
 
-If you to remove the vf610m4/imx7d-cm4/lpc43xx/lpc18xx portions
-earlier, that is definitely fine with me. For imxrt1050, there a
-slightly higher chance that this is still used, so I would
-prefer to wait for the LTS kernel on that one.
+ .../bindings/power/limits/qcom,spel.yaml           |  47 ++
+ MAINTAINERS                                        |   7 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi               |  10 +
+ drivers/powercap/Kconfig                           |  13 +
+ drivers/powercap/Makefile                          |   1 +
+ drivers/powercap/qcom_spel.c                       | 776 +++++++++++++++++++++
+ 6 files changed, 854 insertions(+)
+---
+base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
+change-id: 20260519-qcom_spel_driver_upstream-11efd8c85e6e
 
->> Frank Li (11):
->>        ARM: dts: vf610m4: Remove NOMMU platform support
->>        ARM: dts: imxrt1050: Remove NOMMU platform support
->>        ARM: imx: Remove NOMMU platform support
->>        clk: imx: imxrt1050: Remove NOMMU platform support
->>        pinctrl: freescale: IMXRT: Remove NOMMU platform support
->>        ARM: imxrt_defconfig: Remove NOMMU platform support
->>        ARM: dts: lpc: Remove NOMMU platform support
->>        ARM: mach-lpc: Remove NOMMU platform support
->>        ARM: configs: lpc*: Remove NOMMU platform support
->>        clk: nxp: lpc: Remove NOMMU platform support
->>        pinctrl: nxp: lpc: Remove NOMMU platform support
+Best regards,
+-- 
+Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
->
-> NXP LPC32xx is ARMv5 and it has MMU, hence it's plainly out of scope of
-> the proposed "dropping NOMMU platform support".
-
-Agreed. There are a few more platforms with MMU that I would like
-to drop because they were never converted to devicetree support,
-but there is nothing wrong with lpc32xx. 
-
-      Arnd
