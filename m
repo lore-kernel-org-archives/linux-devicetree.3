@@ -1,183 +1,113 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C582DC321
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B456335BDB
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781854464; cv=none; b=CFiSIjMaaJ9pHlhsxyBDK8qTujqgW3cpHK6abkd3hXeypO9f5H/9ea0Iqgf1yX4Bq5Lb9FM6NpAQMx2xpqp7Q1kzKTLFKRKbyldrR+0OMG7VdvUP3SwDxLwZNkVwY923hxZfD2gfCAfaF14SJsoSY+8a/4IQi9MIxI8+368z13c=
+	t=1781854641; cv=none; b=jMe2klVQLMsZuAAj/KZRkLfl0///vdsKAcgHM3W7MKPESkJF4pBI0GGSRKfQcmLJiTn0WnZ0UNzCBRcMFTUpJozAKPbgK0zx9QGS2fOl0IeX1NTBSxqtUR+pBcrOa72OGnO1cYCTI+gsQSJUAQL4u47GVrhDQKLrfcD02O/YdFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781854464; c=relaxed/simple;
-	bh=oo2NwlXdoGMZAGZzoEFlNNPoHpWW5TOnQNct4wkenfA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CxVjrFn03yWwspUMkDeAiLh22SpCRExahrzaAqaTMBlTZtm6tz/3gGfzMxzEo8R7TBz9Cpv8sfjoVc7ToHxbiBr38/vS3UAcVaRqyTD2Zc1vbCdRvGPynsb+weXpGcP+BRijVqp71y7o8SZwwJ3Rg5tpdLtv4iqsQf1AnSyEKGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=E2B1jUeK; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1781854641; c=relaxed/simple;
+	bh=wkXMErwKUGut4lkZUQYLlPySSXb7zjQW250Sqk2EsT0=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZT0kkcqjqwtbVHgQId5tl/7qDt8OLNgVjmy/AtQBeF2MGNAMnS7MuPvXJ+pr5GMKF11flLcOPTqTbNpBOLsReN9BMy6AcMpzqGVIoqAqulhWNbr81YQ8ygumn73cGZayFdoiq61f/ZFSo/5nMV/JgLaNSHRQ0KcCzssrIfRTUA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g1f9jlX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="E2B1jUeK"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4602e2a0372so1427987f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:34:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781854461; x=1782459261; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=C6ROwWS+BraRmUYYx28pn3bvnZE1QcDyqCuuK0v9v/Y=;
-        b=E2B1jUeKrs6hsgGv7Cgs7Vb4DaJwy2xrvDUqXNic1m8YwiSKvomX1kNvm1Kdus7pF3
-         hHTWuCAPIF3Iwsd2oBT4jFamjtK3Jg/kJG8FcV+gu5xiDUGVwN03znhsK1YYiyB7IwBn
-         azCPUPYKmeSdrzkPc8+tEE3Ze+GE+18U6CpZvkpVCw3mXSpQ4E6pWNhC4tvHdg3Vc4je
-         j8O31Bkm3uM/3xSG7OOtQblnW4XmSBXumCGeLT78T9O9YvBC0gwGeebSSIUx/BSe/Iug
-         xIdud/U32A1X3dOLF9ov5jHi5J0hA2Lxsjufb4elQCP3sYQvvH2OxTxiVdF5cqoxZ4Sn
-         G6Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781854461; x=1782459261;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=C6ROwWS+BraRmUYYx28pn3bvnZE1QcDyqCuuK0v9v/Y=;
-        b=FnXmTLMyylvPRrpU+HZ2Q73cqif33z29snV5pI6tCubqIFSIHRRh8XqkH1taGNB/ym
-         JrMVlr8amJq9N88rNyWS6kQD9MIltrpmxYXvtSjpzFJxE/tD1zbw3UGlz5plv5itKZ5o
-         sXj8mGvO+7IVngzLrFztBnTzS4yewrMoaqRLK1zLK5NkkxcBRv8xcsWn+Q4NhifgEJq/
-         lcc0igQFWTQ/vs9Sn6rwFp6eMXzhfNQBvk25lFbG8gPTOCfwTEoT9iv2vNqkyQ7unCyF
-         BJZq0ZHWhELWMm5GDm62DIHzu/WAI2lEuBlecr+7wUZuOZG/pSdXKofHSZyyfCLxPoPp
-         GPNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8hhT33q7RL9OMa1/thGfseS4+at3zBf5htICZq4HFNAF7N6TUZQ652QsFVal4feIjR+rRqn/1GTXCL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxhiAjRwF2jC+SlreAs8+zL2rctdPfuB2i0FdQiOby5tmyhstD1
-	cZWMeK74SnQqbc94XiE0+V7iHYjHtuY3/VTHzh126PkHvsij2fbR8Ycc9FGf7/+2mkM=
-X-Gm-Gg: AfdE7cn/HUbgIXJfzZPnmq86VwZrPJgJx58dq79WO2i44e96ZYlTx7xpMgQ1EuD1JZx
-	FlMN+vFsJr2yg0tBrP8o9j91OqhYV6ilzgwhsiJL8t1TFQI19N/qmDInwo0sI/1yzXTxLAiff/t
-	ofKhGQWWaGlGAbPXhDb41S6rIy+fA3nqdlG9RUB8OT2c3TCXk7+PA2EXVNvpIi7B79OsbYs3SK8
-	ZKvFsUz1jJRd+egbCfKFcynef+Fi/cHqeMRlX52Q1HPN0AjfxEeOYCPyFp0aH0rT0c50QSy1phG
-	aP3ATfMmWaoB8nZzlt7/rm3wxYESvuLQxpW+XtOR4l4OeNJyz1hTJTc6IHJ0tTrWepvm1cdzWHO
-	6KtbIQKO+Wq3w+B07ePxCUiZ2qdbCdJv1ts5EMC6OmWhiRdQn/2QbE1mDPaZeUdwWl6+GWLr+ti
-	llOM/yaqGutZ9L5qpS9XHOPw==
-X-Received: by 2002:a05:600c:8b73:b0:490:c682:e37d with SMTP id 5b1f17b1804b1-4924258f728mr21532045e9.32.1781854461201;
-        Fri, 19 Jun 2026 00:34:21 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:95ed:eac1:5731:4e21])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49240084928sm47909745e9.15.2026.06.19.00.34.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 00:34:20 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-bot@kernel.org
-Cc: "Jian Hu via B4 Relay" <devnull+jian.hu.amlogic.com@kernel.org>,
-  sashiko-reviews@lists.linux.dev,  linux-amlogic@lists.infradead.org,
-  neil.armstrong@linaro.org,  robh@kernel.org,  devicetree@vger.kernel.org,
-  conor+dt@kernel.org
-Subject: Re: [PATCH v4 2/2] clk: amlogic: Add A9 AO clock controller driver
-In-Reply-To: <20260618100341.0A42F1F00A3A@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Thu, 18 Jun 2026 10:03:40
-	+0000")
-References: <20260618-a9_aoclk-v4-0-569d0425e50c@amlogic.com>
-	<20260618-a9_aoclk-v4-2-569d0425e50c@amlogic.com>
-	<20260618100341.0A42F1F00A3A@smtp.kernel.org>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Fri, 19 Jun 2026 09:34:18 +0200
-Message-ID: <1j33yjc7b9.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g1f9jlX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284D41F0155E
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781854639;
+	bh=YnQ9MPAYpd0fxk76rGMZS9hOaWFlYma1+sDSqr8GlGA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=g1f9jlX8G5K3xqMhw6dOWrgEVlni/Ezpn3Gza1D7DzGz0+7SPYXkoDwsul1rCZfLI
+	 k0YFuXUB8ijYEzn9d5zccJ0oK/9KcY45dhv9S9C+lUZWfIiBDLNAmCUIQmzlWTUXUN
+	 VskVK7wvA+0hx7VsjwUVDIdsgSyWBofCtMb3QCZSPxMHlOpjlzgW4njp9RxNNLo0Tc
+	 IVf4G7xIioy+BPMzuKeLDioPxtCFnUg8AZz8uMolB6SLW+pNRVhLyS0Wv8uTmqVqlN
+	 x5FMNQaWiEdbz0mZ9qW0kCQuUdkw9q8PuCwtxyB0oW7H/iDHnnOQ5ZzQagMa5QaQTf
+	 DBLBbu7uIto5A==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-396669329fbso25764611fa.0
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:37:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+knqQhop+whcRojEvALA1QC9545kiIIE7EjnD6ivQIhixLOiMHf7eubAx6XRoYFl2N+34KxNJ+Hh06@vger.kernel.org
+X-Gm-Message-State: AOJu0YzlaD8JlVmZ6an+Oos8KVPtCQNwlLRijt1VKvqcJy98g2dIF2Qi
+	3mK+3azFZo6sYqGx1sKCHfXF2gZCA1mRn8qa/F8u/+7vsnBtYWXhLs4jXYMVV16Tp/mr00u8nZQ
+	Cu04nNlKGdcHPHHOSBwLO0Ey7j+udZ0PbuDL2ByXZYA==
+X-Received: by 2002:a05:6512:61c5:20b0:5a8:73c2:c90b with SMTP id
+ 2adb3069b0e04-5ad57229d41mr401564e87.20.1781854637750; Fri, 19 Jun 2026
+ 00:37:17 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 19 Jun 2026 02:37:15 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 19 Jun 2026 02:37:15 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260618101047.4185497-1-sherry.sun@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260618101047.4185497-1-sherry.sun@oss.nxp.com>
+Date: Fri, 19 Jun 2026 02:37:15 -0500
+X-Gmail-Original-Message-ID: <CAMRc=MfsNa4itdpyGtR16wMb+wMkJwg+9=QJF2-oOoVVfFCF3g@mail.gmail.com>
+X-Gm-Features: AVVi8CfCeqYM86-ykNLbU8hxtvU1LP7wSiVMnCr70BLSiKSY_mF23r-WT1fp8gY
+Message-ID: <CAMRc=MfsNa4itdpyGtR16wMb+wMkJwg+9=QJF2-oOoVVfFCF3g@mail.gmail.com>
+Subject: Re: [PATCH 0/8] Add PCIe M.2 Key E connector support for NXP i.MX boards
+To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Cc: imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	linux-pm@vger.kernel.org, sherry.sun@nxp.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
+	amitkumar.karwar@nxp.com, neeraj.sanjaykale@nxp.com, marcel@holtmann.org, 
+	luiz.dentz@gmail.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, 
+	bhelgaas@google.com, brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On jeu. 18 juin 2026 at 10:03, sashiko-bot@kernel.org wrote:
+On Thu, 18 Jun 2026 12:10:39 +0200, "Sherry Sun (OSS)"
+<sherry.sun@oss.nxp.com> said:
+> From: Sherry Sun <sherry.sun@nxp.com>
+>
+> This series adds support for NXP Wi-Fi/BT combo chips (88W9098, AW693)
+> inserted into PCIe M.2 Key E connectors on several i.MX EVK/MEK boards.
+>
+> For M.2 cards that rely on PCIe L2 link state and wake-up mechanisms, the
+> card must remain powered during suspend. Patch 1 uses the existing
+> dw_pcie_rp::skip_pwrctrl_off flag to skip power-off during suspend and skip
+> power-on during the init path.
+>
+> Alsp the btnxpuart driver is extended to obtain a pwrseq descriptor via the
+> OF graph on the UART controller device in patch 2.
+>
+> Sherry Sun (8):
+>   PCI: imx6: Add skip_pwrctrl_off flag support
+>   power: sequencing: pcie-m2: Add PCI ID for NXP 88W9098 and AW693
+>     Bluetooth
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Medium] The AO PWM clocks are registered without an `ao_` or `a9_ao_`
-> prefix, which will cause global namespace collisions with the main clock
-> controller.
-> - [Low] Typographical error in the clock name string literal for the RTC
-> dualdiv input gate: `ao_rtc_duandiv_in` instead of `ao_rtc_dualdiv_in`.
-> - [Low] Missing `#include <linux/module.h>` for `MODULE_*` macros.
+Can this be applied independently without build-time issues?
+
+Bart
+
+>   Bluetooth: btnxpuart: Add M.2 Bluetooth device support using pwrseq
+>   arm64: dts: imx8mq-evk: Describe the PCIe M.2 Key E connector
+>   arm64: dts: imx95-19x19-evk: Describe the PCIe M.2 Key E connector
+>   arm64: dts: imx8dxl-evk: Describe the PCIe M.2 Key E connector
+>   arm64: dts: imx8qm-mek: Describe the PCIe M.2 Key E connector
+>   arm64: dts: imx8qxp-mek: Describe the PCIe M.2 Key E connector
+>
+>  arch/arm64/boot/dts/freescale/imx8dxl-evk.dts | 56 +++++++++++++-----
+>  arch/arm64/boot/dts/freescale/imx8mq-evk.dts  | 44 ++++++++++++--
+>  arch/arm64/boot/dts/freescale/imx8qm-mek.dts  | 58 ++++++++++++++-----
+>  arch/arm64/boot/dts/freescale/imx8qxp-mek.dts | 54 ++++++++++++-----
+>  .../boot/dts/freescale/imx95-19x19-evk.dts    | 55 +++++++++++++-----
+>  drivers/bluetooth/btnxpuart.c                 | 33 ++++++++++-
+>  drivers/pci/controller/dwc/pci-imx6.c         | 36 +++++++-----
+>  drivers/power/sequencing/pwrseq-pcie-m2.c     |  4 ++
+>  8 files changed, 264 insertions(+), 76 deletions(-)
+>
 > --
+> 2.50.1
 >
-> commit ef5998ff087b6faed09d9eed4f59078d2b2f0a60
-> Author: Jian Hu <jian.hu@amlogic.com>
 >
-> clk: amlogic: Add A9 AO clock controller driver
->     
-> Add the Always-on clock controller driver for the Amlogic A9 SoC family.
->
->> diff --git a/drivers/clk/meson/a9-aoclk.c b/drivers/clk/meson/a9-aoclk.c
->> new file mode 100644
->> index 0000000000000..88aa8cf3f5d00
->> --- /dev/null
->> +++ b/drivers/clk/meson/a9-aoclk.c
->> @@ -0,0 +1,488 @@
->> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +/*
->> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
->> + */
->> +
->> +#include <dt-bindings/clock/amlogic,a9-aoclkc.h>
->> +#include <linux/clk-provider.h>
->> +#include <linux/platform_device.h>
->
-> [Severity: Low]
-> Should this file explicitly include <linux/module.h>?
->
-> The file relies on several module macros at the end (such as MODULE_DESCRIPTION,
-> MODULE_AUTHOR, and MODULE_LICENSE). Although it currently compiles successfully
-> due to transitive includes from <linux/platform_device.h>, standard kernel
-> practice is to include the header explicitly.
-
-Yes please fix this
-
->
-> [ ... ]
->
->> +static const struct clk_parent_data a9_ao_pwm_parents[] = {
->> +	{ .hw = &a9_ao_xtal.hw },
->> +	{ .fw_name = "fdiv5", },
->> +	{ .fw_name = "fdiv4", },
->> +	{ .fw_name = "fdiv3", }
->> +};
->> +
->> +static A9_COMP_SEL(pwm_a, AO_PWM_CLK_A_CTRL, 9, 0x7, a9_ao_pwm_parents);
->
-> [Severity: Medium]
-> Will this cause a clock name collision with the main clock controller?
->
-> Because the A9_COMP_SEL macro uses the #_name stringification operator inside
-> MESON_COMP_SEL, this will generate the clock name as exactly "pwm_a_sel"
-> (and similarly "pwm_a_div" and "pwm_a" for the others), without any "ao_" or
-> "a9_ao_" prefix.
-
-I think AI got it wrong and missed the prefix addition. Unless I missed
-something my self, I think you are fine here
-
->
-> If the main clock controller conventionally registers a "pwm_a" clock, failing
-> to prefix the Always-On clocks will lead to global namespace collisions in the
-> Common Clock Framework and debugfs.
->
->> +static A9_COMP_DIV(pwm_a, AO_PWM_CLK_A_CTRL, 0, 8);
->> +static A9_COMP_GATE(pwm_a, AO_PWM_CLK_A_CTRL, 8);
->> +
->> +static A9_COMP_SEL(pwm_b, AO_PWM_CLK_B_CTRL, 9, 0x7, a9_ao_pwm_parents);
->
-> [ ... ]
->
->> +static struct clk_regmap a9_ao_rtc_dualdiv_in = {
->> +	.data = &(struct clk_regmap_gate_data){
->> +		.offset = AO_RTC_BY_OSCIN_CTRL0,
->> +		.bit_idx = 31,
->> +	},
->> +	.hw.init = &(struct clk_init_data) {
->> +		.name = "ao_rtc_duandiv_in",
->
-> [Severity: Low]
-> This isn't a bug, but there's a typo in the clock name literal. Should
-> "ao_rtc_duandiv_in" be "ao_rtc_dualdiv_in"?
-
-Yes
-
->
->> +		.ops = &clk_regmap_gate_ops,
->> +		.parent_hws = (const struct clk_hw *[]) {
->> +			&a9_ao_xtal.hw
->> +		},
-
--- 
-Jerome
