@@ -1,120 +1,362 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2453749EF
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A87374730
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781865153; cv=none; b=PiuGs0zOhTMDSRgulSZ/m2Lp0X8iy3rQ9Sh97vpZP/DykTVXXC5mr8LLLvbgvM/Oxl5msOZdu3rOs/DvzzTOfPU1c3U+HHE4VB74DwgMT77h+E/XAIVfUtiOC3w6s2Dfvn4sjmclAxy9a4l3lA1kO2CCVFz4qrKFCTIYDsTemqE=
+	t=1781865198; cv=none; b=hvdUlVskUEROk8hhzf0iV5ODcDrfQBbgjN9yxNLjI7FrxQLaigxt8GF/26zubPiXyIHQE6XKiBmMXq387Hp+2RAa1WB8TenYRR2a9L3oxgSg2v1/xXxZGv1sKVaz11ME2qoB4cbKaFJhaeqVBSWUxzPt/W+VR/azYS8+y222qpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781865153; c=relaxed/simple;
-	bh=J9wG/Cdl4USpUhFpFKP+Y2sEB08duLUmbk9/DdufrWk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fK6Sg6Lba7zAxFupS9IijJPcpxrw3nWiVdzE2YmAqEMLZRK8vAz49LQ4TKyFAWC+fDnvIm4vrP6j1taV+C8+eHLEXLOl2dqSW3wiC/nGLfjb0HMtncdGpQx9OX+SnKajxaeWyr9QeNZTLwibZv5WppmEcLc5s9leA/O8P48nm0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hb/DZ/Ge; arc=none smtp.client-ip=209.85.218.41
+	s=arc-20240116; t=1781865198; c=relaxed/simple;
+	bh=ww1AWBauQ0C8q90nsvZajGEEp7cRi76uQP7EtuMOh8k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ft68eH994XhRe/c8wFLQAXMCdt5nTmOCxu+/8AQZPK2taie/shz/DqqcUSAAxogYaFiUuKVYSSQU20/UtD3zSH/IFDVlebuvE3dNtRBIUMHHL5mpGrqvgNcEIa68sYOePUP2D2O5b8iZy6/qt+7vg+5IMbpDXF6WWd66rJR8ZlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smjXlOKn; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hb/DZ/Ge"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c08306ae1ccso170258466b.1
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:32:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smjXlOKn"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4627adcf4d6so1297424f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781865148; x=1782469948; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kRx+fJTG2hf5P891qLhNE1tVHHb4cammpBgE+COZX/Q=;
-        b=Hb/DZ/GemoxwhjrP5vxR0ieXRg1tbzDJz1wViX+lXsK9YNqj1beTDyLM9ipcPhW+qG
-         0gj7qL0I8hfVqY7zRe1YfT3oipSKsrtPQpTthWQMfewx9anXp2OGmXpNG8ZyD68etUPQ
-         10E72Fr7HhoYaWAYWWXSS4N9dK6md0AkRT12Lug3KSpv0WqZQi1MAESYTyYPZz3pRNUN
-         J7OJJLgzoegPYMcQ2MfWdQqMCKCQ/HbKZd6Csb2K7dOszvA5hCczmzxjgV/vfEaS3hGP
-         ZzL1ULWCLMI0oJ40VslQJLMXXLpS67QnHD5G70nQS5F16RtJ8cfehIkjMQ/BYYON0lhN
-         5Pvw==
+        d=gmail.com; s=20251104; t=1781865194; x=1782469994; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=woHL+tMyNRNr6hk72r0ayu96UqFzq9L0anUGreDsb2g=;
+        b=smjXlOKnZ5KbH2Y3chivO/TLvG5gxjdzPfKjSGj0ICNZrtSK7KJKeAkCXLyiMOroPt
+         xh72olaaunXIIX1x8vqIxYpEeQeWd8tiIdz4igkNcx2ZSvrOgs1VCa7Hu+M/b1anS/4n
+         Uh5Ao5Xphz9tP+Srj0aQDdsj1+Vl7JsgLWP+RaKE4ApqtGzFwibHrDnI60w8JnYbuulo
+         Hy+8HWZ5a2dyIj0AOZbI/IAlhN8J5Nr+46FBWEg/rtB+Z4pzPKJcMx6zqJSqUwVjC5A8
+         xTbEFxvx5grqBLTZvdsSfDJRBdYbrk4c5Oz6iKeO17eUs3zh5vDWoqwbcvbxs23gacGc
+         9J/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781865148; x=1782469948;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kRx+fJTG2hf5P891qLhNE1tVHHb4cammpBgE+COZX/Q=;
-        b=WrhbB3tCwUpiavJc4hOXilVQCch211SEZOTW1yCcrA3eORVOo/XpDyy4ouEC4QQlog
-         Fht3XLdfXhUH4hpgjjjaYCSspdenSKWkJWn7eRQYWW+5PIZ0wuLu9cMLNQ5J+t/l78Ne
-         VBwWdxEwFBAA1ym+vcsrJs090LkQap5ILZ76byjEB15o4i5YaYvoZhMdxcQ4xbAvh1Gy
-         V7Vmpq77jRTlzUJMVP7sWHiq382Okrja+1He7mlTvto1WQohqMuLZCM17UeG56uAzu0K
-         0AcvPnPSuuQWBi73i3HTkexZHu8ENiopsfCNe3yKTz1D26Sr4aaDFLMKjCPPHJu8WuYM
-         ddzA==
-X-Forwarded-Encrypted: i=1; AFNElJ+68PCbO9uQG0N8HXSBlqWc007sQH8qU/blq/S+R9ydMg6SMlt5ILfhvJEBbb/NZ/XpkPWEshIhZk0u@vger.kernel.org
-X-Gm-Message-State: AOJu0Yycm7m9t8Pr+Bq8HzNOcmR5NFfgYX+sWoLzzf2AOYXM1qWrle1P
-	aADvvHrwbE9di3bSVLHsaFudby1Pnm54KhgWJz035t4kqwTs9jIp7mRy
-X-Gm-Gg: AfdE7clTNaImeIi1Kb1XfGbJQj3UQJJv4mjq0ng5jbFEqd34RiQdWhl6vG5TJugw09i
-	1k49/8wGzmCKjH+Ulhw1VzNaMVZAgebTiBM2qIo8RgZWGr6IxRvUUIidAziOJiuyXI5GYaEEkRw
-	1FRKDb/BTGcqr9A2VDHnu0sHCF3oXiSr6CoicrihnSGB6A6J7sIXnoDAl0t53gRcEsbSZ5dCFXv
-	zqopPoOTMM2UT/MTkNJ5F3TFtpSHDEJrdBVS1Y9sI9ufdJQm6ZrEKS5VVB1BMkm3uLnt1uD2cE6
-	4gSJ4tjuNzTua69I7Qo19naxZeojdIi3JJEgHOjRWh7h1soY5c1jRxBRq9R1cAZ+EFefbwG8538
-	mP0pLDOF1wSYViLp5NKwZbZ4mi05Yepy4Po3Ae+l53pW2IsGX8ZkHKisOJ1CBjKpl20Sb9tjAI0
-	VkbkvaeHpbictoDKg+AmfbgyC1Qf904U7vxw==
-X-Received: by 2002:a17:907:a0a:b0:bd9:20b:5117 with SMTP id a640c23a62f3a-c097cccb107mr151829666b.41.1781865147946;
-        Fri, 19 Jun 2026 03:32:27 -0700 (PDT)
-Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0a8490cd59sm76702466b.16.2026.06.19.03.32.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 03:32:27 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Jean Delvare <jdelvare@suse.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] hwmon: (emc1403) Add regulator support
-Date: Fri, 19 Jun 2026 13:31:53 +0300
-Message-ID: <20260619103153.216444-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260619103153.216444-1-clamor95@gmail.com>
-References: <20260619103153.216444-1-clamor95@gmail.com>
+        d=1e100.net; s=20251104; t=1781865194; x=1782469994;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=woHL+tMyNRNr6hk72r0ayu96UqFzq9L0anUGreDsb2g=;
+        b=iwnmnR9tD5HKHLe2H5tA6zgBwb+dqBtZQ2znb9Q4PD0IxQOA0tel2d+HTWzdu5kwhF
+         Kp4uH5CUeJZgPrd4nwmYG+a+iqBxywFFR+ENM19h5nC8wc9ByeMQ1mtA/JcBpG9DBx0z
+         iTR7U4jHwdEfKtIvE+hu0BbH0V2WKR9z9Ql7gt14KCHD9OaFlDW/7G3bHSKvORLmazH6
+         1P1Nud4zVcXNHgKZobY1xFGSRSZtZrdYR4mXsYvSvPDTLHhgH7wf26YZ3VrPdWYQF/+a
+         KvGE3cPBpSvCooruflCK9zNPjuucEtMWNp7u9jIUYR5w4nTbGebotlywL35M/k37CWA7
+         DsiQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/DDbHOzF7zW9aQKmFXNQ+FWkdRNvCk85X2lUKnlxM9uAxMvnyebGn7PfSJ6kHhXL0/HxOEGOOCLSTo@vger.kernel.org
+X-Gm-Message-State: AOJu0YzErT6dfJWT5Jsmh4lfumzxAmdzAc9WL1XKqRGPPsiJxA4Oq1W7
+	8hKrqZlW7/uMuunZMHZu6TIqrvPK9luXiFs5+lRzrs86xM6Rwtha5naq
+X-Gm-Gg: AfdE7cnTmfIZc/GefKgCYBYjzhYgtLGYBfF4cM6g39noK3yKCw4nMUPztBsvR9kmJT/
+	5wy32lWJj3SqaR+jcy9Ing0jgYq1a8qQJmUXBJDrYD0qtWQVrwO4H2qSpJYKMbEruGMlIuubDik
+	BM2GeMbDnrQxWqNOFV5IDsKNdEpcRXYde+4m6BvwDOlXSvFdKAWx6JiA4e0so4WracsGCqQ5Y8s
+	Obfxvhd0pO22L6qrNiYck9nV8ZXBzBsd/21JDodOSsyF+q04pkcGwF9G/DXOk1PKhj/WNWzWaGv
+	ohpljfaGLLmDUDjkRYGy/CqiVsEJET17PC2FPz+hZtulW77i1YOod/cZEE5GCHsCvWmDaETcI2i
+	Qgm9HD3paoobu68d3EcJ6L87S6KKgFoldx5HS9BRJQhNANVbV5/B0bVw9Zg/pzJOju3dBiD0Xox
+	1oQtM38rKk5xSnko/4sDkCoZoMX3845CisC1P47IfMbJRVO43yxfQcMaWVGMzmJqAsmkk=
+X-Received: by 2002:a5d:6143:0:b0:460:67b0:7544 with SMTP id ffacd0b85a97d-465071f9c24mr4055283f8f.7.1781865193657;
+        Fri, 19 Jun 2026 03:33:13 -0700 (PDT)
+Received: from ?IPV6:2a00:1e:db84:b301:2dd5:b6ee:bd0f:4c9f? ([2a00:1e:db84:b301:2dd5:b6ee:bd0f:4c9f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-465090c5176sm6709556f8f.12.2026.06.19.03.33.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 19 Jun 2026 03:33:13 -0700 (PDT)
+Message-ID: <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
+Date: Fri, 19 Jun 2026 12:33:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
+ Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
+ <20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
+ <25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3ce3oqzqz56ehi@le72iqv7ye3d>
+ <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
+ <20260614204455.408c4d40@jic23-huawei>
+Content-Language: en-US
+From: Janani Sunil <jan.sun97@gmail.com>
+In-Reply-To: <20260614204455.408c4d40@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add support for VDD power supply for this sensor. It is required on some
-devices for the sensor to start up and work properly.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/hwmon/emc1403.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+On 6/14/26 21:44, Jonathan Cameron wrote:
+> On Tue, 9 Jun 2026 16:47:23 +0200
+> Janani Sunil <jan.sun97@gmail.com> wrote:
+>
+>> On 5/26/26 15:11, Rodrigo Alencar wrote:
+>>> On 26/05/19 05:42PM, Janani Sunil wrote:
+>>>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+>>>> buffered voltage output digital-to-analog converter (DAC) with an
+>>>> integrated precision reference.
+>>> ...
+>>> Probably others may comment on that, but...
+>>>
+>>> This parent node may support device addressing for multi-device support through
+>>> those ID pins. I suppose that each device may have its own power supplies or
+>>> other resources like the toggle pins or reset and enable.
+>>>
+>>> That way I suppose that an example would look like...
+>>>   
+>>>> +
+>>>> +patternProperties:
+>>>> +  "^channel@([0-9]|1[0-5])$":
+>>>> +    type: object
+>>>> +    description: Child nodes for individual channel configuration
+>>>> +
+>>>> +    properties:
+>>>> +      reg:
+>>>> +        description: Channel number.
+>>>> +        minimum: 0
+>>>> +        maximum: 15
+>>>> +
+>>>> +      adi,output-range-microvolt:
+>>>> +        description: |
+>>>> +          Output voltage range for this channel as [min, max] in microvolts.
+>>>> +          If not specified, defaults to 0V to 5V range.
+>>>> +        oneOf:
+>>>> +          - items:
+>>>> +              - const: 0
+>>>> +              - enum: [5000000, 10000000, 20000000, 40000000]
+>>>> +          - items:
+>>>> +              - const: -5000000
+>>>> +              - const: 5000000
+>>>> +          - items:
+>>>> +              - const: -10000000
+>>>> +              - const: 10000000
+>>>> +          - items:
+>>>> +              - const: -15000000
+>>>> +              - const: 15000000
+>>>> +          - items:
+>>>> +              - const: -20000000
+>>>> +              - const: 20000000
+>>>> +
+>>>> +    required:
+>>>> +      - reg
+>>>> +
+>>>> +    additionalProperties: false
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - vdd-supply
+>>>> +  - avdd-supply
+>>>> +  - hvdd-supply
+>>>> +
+>>>> +dependencies:
+>>>> +  spi-cpha: [ spi-cpol ]
+>>>> +  spi-cpol: [ spi-cpha ]
+>>>> +
+>>>> +allOf:
+>>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+>>>> +
+>>>> +unevaluatedProperties: false
+>>>> +
+>>>> +examples:
+>>>> +  - |
+>>>> +    #include <dt-bindings/gpio/gpio.h>
+>>>> +
+>>>> +    spi {
+>>>> +        #address-cells = <1>;
+>>>> +        #size-cells = <0>;
+>>>> +
+>>>> +        dac@0 {
+>>>> +            compatible = "adi,ad5529r-16";
+>>>> +            reg = <0>;
+>>>> +            spi-max-frequency = <25000000>;
+>>>> +
+>>>> +            vdd-supply = <&vdd_regulator>;
+>>>> +            avdd-supply = <&avdd_regulator>;
+>>>> +            hvdd-supply = <&hvdd_regulator>;
+>>>> +            hvss-supply = <&hvss_regulator>;
+>>>> +
+>>>> +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+>>>> +
+>>>> +            #address-cells = <1>;
+>>>> +            #size-cells = <0>;
+>>>> +
+>>>> +            channel@0 {
+>>>> +                reg = <0>;
+>>>> +                adi,output-range-microvolt = <0 5000000>;
+>>>> +            };
+>>>> +
+>>>> +            channel@1 {
+>>>> +                reg = <1>;
+>>>> +                adi,output-range-microvolt = <(-10000000) 10000000>;
+>>>> +            };
+>>>> +
+>>>> +            channel@2 {
+>>>> +                reg = <2>;
+>>>> +                adi,output-range-microvolt = <0 40000000>;
+>>>> +            };
+>>>> +        };
+>>>> +    };
+>>> ...
+>>>
+>>> 	spi {
+>>> 		#address-cells = <1>;
+>>> 		#size-cells = <0>;
+>>>
+>>> 		multi-dac@0 {
+>>> 			compatible = "adi,ad5529r-16";
+>>> 			reg = <0>;
+>>> 			spi-max-frequency = <25000000>;
+>>>
+>>> 			#address-cells = <1>;
+>>> 			#size-cells = <0>;
+>>>
+>>> 			dac@0 {
+>>> 				reg = <0>;
+>>> 				vdd-supply = <&vdd_regulator>;
+>>> 				avdd-supply = <&avdd_regulator>;
+>>> 				hvdd-supply = <&hvdd_regulator>;
+>>> 				hvss-supply = <&hvss_regulator>;
+>>>
+>>> 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+>>>
+>>> 				#address-cells = <1>;
+>>> 				#size-cells = <0>;
+>>>
+>>> 				channel@0 {
+>>> 					reg = <0>;
+>>> 					adi,output-range-microvolt = <0 5000000>;
+>>> 				};
+>>>
+>>> 				channel@1 {
+>>> 					reg = <1>;
+>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
+>>> 				};
+>>>
+>>> 				channel@2 {
+>>> 					reg = <2>;
+>>> 					adi,output-range-microvolt = <0 40000000>;
+>>> 				};
+>>> 			}
+>>>
+>>> 			dac@1 {
+>>> 				reg = <1>;
+>>> 				vdd-supply = <&vdd_regulator>;
+>>> 				avdd-supply = <&avdd_regulator>;
+>>> 				hvdd-supply = <&hvdd_regulator>;
+>>> 				hvss-supply = <&hvss_regulator>;
+>>>
+>>> 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
+>>>
+>>> 				#address-cells = <1>;
+>>> 				#size-cells = <0>;
+>>>
+>>> 				channel@0 {
+>>> 					reg = <0>;
+>>> 					adi,output-range-microvolt = <0 5000000>;
+>>> 				};
+>>>
+>>> 				channel@1 {
+>>> 					reg = <1>;
+>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
+>>> 				};
+>>> 			}
+>>> 		};
+>>> 	};
+>>>
+>>> then you might need something like:
+>>>
+>>> 	patternProperties:
+>>> 		"^dac@[0-3]$":
+>>>
+>>> and put most of the things under this node pattern.
+>>>
+>>> So the main driver that you're putting together might need to handle up to four instances.
+>>> Even if your current driver cannot handle this, the dt-bindings might need cover that.
+>>>
+>>> Need to double check if each dac node needs a separate compatible, so you would maybe populate
+>>> a platform data to be shared with the child nodes, which would be a separate driver.
+>>> (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).
+>> Hi Rodrigo,
+>>
+>> Thank you for looking at this.
+>>
+>> For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
+>> hardware/use case we have only needs one device node and the driver is written around that model as well.
+>> While the device addressing pins could allow multi-device topology, we do not have an actual platform using
+>> that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
+>> speculatively without a validating use case.
+> Interesting feature - kind of similar to address control on a typical i2c bus device, or
+> looking at it another way a kind of distributed SPI mux.
+>
+> Challenge of a binding is we need to anticipate the future.  So I think we do need something
+> like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
+> That would leave the path open to supporting the addressing at a later date.
+> An alternative might be to look at it like a chained device setup. In those we pretend there
+> is just one device with a lot of channels etc.  The snag is that here things are more loosely
+> coupled whereas for those devices it tends to be you have to read / write the same register
+> in all devices in the chain as one big SPI message.
+>
+> +CC Mark Brown as he may know of some precedence for this feature. For his reference..
+> - Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
+> value that matches that or they are ignored.  Thus a single bus + 1 chip select can
+> be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
+> longer term how to support it cleanly in SPI.
+>
+> Jonathan
 
-diff --git a/drivers/hwmon/emc1403.c b/drivers/hwmon/emc1403.c
-index ef1ccb40ed6c..d14bd90ce424 100644
---- a/drivers/hwmon/emc1403.c
-+++ b/drivers/hwmon/emc1403.c
-@@ -19,6 +19,7 @@
- #include <linux/mod_devicetable.h>
- #include <linux/sysfs.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/util_macros.h>
- 
- #define THERMAL_PID_REG		0xfd
-@@ -660,6 +661,12 @@ static int emc1403_probe(struct i2c_client *client)
- {
- 	struct thermal_data *data;
- 	struct device *hwmon_dev;
-+	int ret;
-+
-+	ret = devm_regulator_get_enable(&client->dev, "vdd");
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "Failed to enable regulator\n");
- 
- 	data = devm_kzalloc(&client->dev, sizeof(struct thermal_data),
- 			    GFP_KERNEL);
--- 
-2.53.0
+Hi Jonathan, Rob, Krzysztof, Conor,
+
+One possible model that would also allow mixing the 12-bit and 16-bit variants would be to treat the parent node
+as the shared SPI transport only, and let each dac@N child carry its own compatible.
+
+Rob, Krzysztof, Conor — wanted to get your input on whether this is an acceptable binding pattern.
+
+properties:
+   compatible:
+     const: adi,ad5529r-bus
+
+patternProperties:
+   "^dac@[0-3]$":
+     type: object
+     properties:
+       compatible:
+         enum:
+           - adi,ad5529r-16
+           - adi,ad5529r-12
+       reg:
+         minimum: 0
+         maximum: 3
+
+With a DT example such as:
+
+ad5529r@0 {
+         compatible = "adi,ad5529r-bus";
+         reg = <0>;
+
+         dac@0 {
+                 compatible = "adi,ad5529r-16";
+                 reg = <0>;
+         };
+
+         dac@1 {
+                 compatible = "adi,ad5529r-12";
+                 reg = <1>;
+         };
+};
+
+The downside is that it introduces adi,ad5529r-bus as a compatible that does not correspond to an actual
+standalone device variant - it would require a parent driver to manage the shared SPI transport and enumerate the
+child devices. The actual DAC functionality is handled by the matching per-child compatibles(12 or 16 bit).
+Is this an acceptable pattern, or is there a preferred way to model this type of addressing scheme?
+
+Regards,
+Janani Sunil
 
