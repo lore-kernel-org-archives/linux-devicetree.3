@@ -1,307 +1,255 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013042.outbound.protection.outlook.com [52.101.83.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD51369D4B;
-	Fri, 19 Jun 2026 10:03:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781863408; cv=fail; b=RnAqbkB55kXJJWAtT13sj4hKUJW/CSWMY2UnDn8Dj9CgoUhHpcWHL2bPSwQRocGJRMl66hN7k9tLzjYAgzSowXUbD6ZT8jXQp+nC1Fs0a4VqrxoP7B0W9b+FUZSWsM3bQ5KvjINTRgrnKfFgqfCgU47Eflb4qs4kPb/UkjA8lBs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781863408; c=relaxed/simple;
-	bh=5NshE+sfAvoIPXs4kyEmgMjsvyiRBqrgCLP6Nz4CF3o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EfMPrvm9cChUQo9TVhGf59FF5Bcc5j7F2xoo/wimkSLuuDMnKwW4MAm3Ag6VnuVLNfm1hYrKfzMmzu8BCIyvLXxtoq0JUuGAYZc2TfX5D0BVNtZ9Ch1g4pzaFv6EaMI7xCjmugo3114cnBrYPzfTR0Ff1aiafhfnkvIlFjuGO5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZSuff5gI; arc=fail smtp.client-ip=52.101.83.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFB936EAA2
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781863835; cv=none; b=X6BETpT6QFtZe5H1FntUKzJIr0LRTf/AlZOu8cv9h1+0xzlzA5XQ3He0CwJEQgRNZqX9DpwB6Kx3TbaDfmKA7lh33MfJXvgfqjhGEpmkTH8cKi8pg+tBDqId4kj/CU/FISyZ4qDlfXafplf1JPA03mUfJAN1IKUAkEKcdshXfUs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781863835; c=relaxed/simple;
+	bh=ynBdAg45QWZz3pyG1uSkLFOP8GHOovwfLcLE7dEfSa4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dTt6cn59TxD3uK36C4MQtI5MBx8KD5FhkT0tt7A00yHLqvyduDYai6o8Jma6mi5Oak2jEcFGdOj5GgLAN8P5UFY58si+LScO77puEW4DgJGdo/J9xmpE/B42axDv8tBLk/L8ndzDkORx+IkyUQiV0csnAon6IXpO3YlRA7LILrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hn7cowuZ; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZSuff5gI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nBPSEoDNlEbZHaZIL56hS19Z7ZlPCXxBG5pgM18csKms3uK7LMC7KMDp9ljZGo3ra+7TNXo2k/rX183pJPWJhavnX7c/k1efuPDSSYge4iEyRXOZFYFCQ+8HevgGgWP+4xLtoOHeO2PnYrrFj0qMUCpn5Il6mbnRejqEFqqagaFtp+/mNrRRbyru89JIIdlXnfnPU/idKRQOdAOkYtqwyhIE23cTenDTblshi7owdSKY0cm6s/9nhOAjozZPBfb2qBzg8xKVoCMFdwazRQUZUXN7E84EhNDRTpgj1jGcPZUtImLpKg+lyNJMuCsZcoefpztXTg19YGjbBoOtnQaL9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gg/HF0kDsh0FDwMC3ZMXewITu6TpSB9evhKrGvquT7U=;
- b=fceyRS+3LQsGgy13YaSzpQil3luKbfzYtgzON0kRPhMQbhlB0Mm3decKu4BXCAdqf2+olG5Gn0ZdA/5cXcD9+rWl+6ub85D0w8ISh7R9g/17r+frgDepyw+kR/SCIvqfy3OosSiEo6EErvfkOWb/Xsdo06lVBdfTxTM26JWSc46LtLXWg/icLznLXz6PcggOB22Q23Sh2QJqdQVSo7xJ1L4vjR1fZd5XT8tftaBAwhrOgvAAlyrXTxmj03igl8Jhlu5tjuNSyIvb15noY4TNSbwadjfecr0ZUzPs54Yz9U/qlDBeqP2U3T3znVI/XhrUFi6edSyOlp0GM5+VwTSXsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gg/HF0kDsh0FDwMC3ZMXewITu6TpSB9evhKrGvquT7U=;
- b=ZSuff5gI19wJlzgkeB1R5K9z9AdEWmg0iyW1wPWxYxfrp7FIMT8fAGmw5x9lPoXEKsFlDMk4rhAHnIsvMrSfOqO0LOxMPxWTBgbwkM1Eee/msiArL33U4Qn6g84KIPoay/GkoaTi7aO/1vXI4GyetIjzql8RMEzKFD38szuaEeUVdF3lx6y5SDOlvfdULJp/JAKlLgCSwwjmLZjfTie1D1YgPLhnd0PISH0zOI8DT3CRmKuG4MFl7XpPhcbIzRaF36SNjIkP5pMhrridWSuKIbb5SSPRe1AKIL2FR9fnRBi3KmWyTyVK4TKzJ/eF39uo+dkg02Kz62f4u0w57sAYMw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from VI1PR04MB9738.eurprd04.prod.outlook.com (2603:10a6:800:1dc::10)
- by GV4PR04MB11425.eurprd04.prod.outlook.com (2603:10a6:150:299::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 10:03:17 +0000
-Received: from VI1PR04MB9738.eurprd04.prod.outlook.com
- ([fe80::33e2:39d5:e3f4:580c]) by VI1PR04MB9738.eurprd04.prod.outlook.com
- ([fe80::33e2:39d5:e3f4:580c%6]) with mapi id 15.21.0139.011; Fri, 19 Jun 2026
- 10:03:17 +0000
-From: robby.cai@oss.nxp.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	festevam@gmail.com,
-	sebastian.krzyszkowiak@puri.sm,
-	slongerbeam@gmail.com,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	p.zabel@pengutronix.de,
-	kieran.bingham@ideasonboard.com
-Cc: kernel@pengutronix.de,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hn7cowuZ"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490afc47455so7805785e9.2
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:10:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781863830; x=1782468630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xxommcvayRSmRZH5CG3ACXxOwllN7Vo1/cLsPn9rijE=;
+        b=Hn7cowuZgLvFtzcGQxj/SOyWMXWib19n30Obg3nsw8Hzj4u8jfzs8XeFC8LobUtaIb
+         vYx43lp6Y4t2DHxeoEQ511mwg/6HsU2JIVeKe7a0T4qvrtdH1+B6TMFcWy9ucLlZ8ElA
+         WjoNBPjUgM4ZuTsrycmZwTORdZ+XCl/pcPNOad6NxLUFvRukcMteiAUt9TzyZJBUJYWj
+         qQO44PeU831erbjRAZYrjTcUSmb6ctyzfi7vjICF6ml0ce0BKopHxtSKnoIDdUMjHZjx
+         RyKJgTkCj5iuRDtsLRBdqKJW4EQIMG9fkmH0Ek7IK2QETMmMp9E13u5UmJ93/kqay3+h
+         mGoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781863830; x=1782468630;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xxommcvayRSmRZH5CG3ACXxOwllN7Vo1/cLsPn9rijE=;
+        b=luPV2td3jO9K24TMVIHIhaXpjE48zeWP3oNsk6kqcJX5vnwUbUg2BGcDCAeNW8bEzq
+         +qh3x+Fld551ZWNgENalAg2iqnoaySFTLh5SPNvkWzA3cTNNTslDh1fmpQwvLVgn7DKO
+         i+GcmSgswsivn5ZrxNk3rHG+XenXOj6ldWcWTecoIS2f6B9vz856Nt5ckNudGpWXpWtS
+         asaZ0VnjDcHJBVnMkUG+D2F3XBpzVet75CkEdtwbkbEnNMsWWzhwihLNyCZMoxxH4gU3
+         IISR9gMOsq76Uv/9Jfn62WXncrVXERDWpx2wF9jjln0i0HOwlcMO9p3yEk7pggSbjLL8
+         SNhQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/LyT9QQkECeDqHXpOGpDb7iJcnBuyk6Ssp7qqdV3ytQey2vezIIRYUa6DlVpjUVRsCW/htw8hvJMN6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/UTELOhbtkwhOPy/pKhiD0DXEQXa1UY5wGBQVKdvQMhkyWAgC
+	1BLVCqn735BEYaba6hXUve8zE30Hp/2ouRo30MiqFl8h2hA5sz8VKc1x
+X-Gm-Gg: AfdE7cnPINGi+bjUpZ3kVmhSP0PxlAP52dzZiZC+DCV+qkSvQEWhGvBSAWxqYtK8HFF
+	gTn5Uh7QO676ENGwQfocTsddruqimcLrbqUdL4n5fZeulybgeTAJpkiayQuXG6G9JRBSCB7xDCP
+	3F3FGAczxacZ/+T9t789C0Nd97GBpSa5+Vx9sqw31CMoHyYbDZjCB0zTcqe0ssC4Eold3bTn6OO
+	qM064RLbWzLpUatfyVvtq0cik+HDWR4wig4G7PAL1V0TV4s0lEOurPCdCknTwQWM3hEmCLTP3sb
+	0ssU1BypEuMEg6u/U/a1xvVyBXmIjgSYCUAGyKaeVKvSdkolaWcbSuA/T18gJ66m7QxcjN0gPo9
+	xQhUTGfhdn3ok4TfdlDCQaZEeOR3FJDNwjfFWsTga3lwT1mIwj4yplkzQyXEG5QG19wXO0Iaxyz
+	q83e5X+gZtEsI6pDT25g==
+X-Received: by 2002:a05:600c:4ec8:b0:490:44eb:c1e0 with SMTP id 5b1f17b1804b1-4923f57187fmr55703405e9.21.1781863829640;
+        Fri, 19 Jun 2026 03:10:29 -0700 (PDT)
+Received: from biju.lan ([2a00:23c4:a702:d301:435:f63f:6fb:bfa4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fcdd08esm34577555e9.0.2026.06.19.03.10.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 03:10:29 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/2] media: i2c: ov5640: Add reset controller support with GPIO fallback
-Date: Fri, 19 Jun 2026 18:05:32 +0800
-Message-Id: <20260619100532.3779934-3-robby.cai@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260619100532.3779934-1-robby.cai@oss.nxp.com>
-References: <20260619100532.3779934-1-robby.cai@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5PR01CA0205.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b0::14) To VI1PR04MB9738.eurprd04.prod.outlook.com
- (2603:10a6:800:1dc::10)
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+Date: Fri, 19 Jun 2026 11:10:16 +0100
+Message-ID: <20260619101026.323633-2-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
+References: <20260619101026.323633-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB9738:EE_|GV4PR04MB11425:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40466bda-c988-4aef-1301-08decde9fbe1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|376014|366016|23010399003|1800799024|921020|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Kpk0jmVfihfSPM1UTu/R5Z5qbvSsZxy99uatt9kIRcBLZwIFhFwbJEBXrk2vjk4BP/dX+BTeX2LORwhBBgvrHL6zi9eIx9mvwiXxt8qPkSSQpbYQRrtsIHLZg8CNkHR5fkg1M3mW7T9qfeRyq8m2duyJ/WnuniNtqSO+ImTy9R9vi8ESlfOQf+v+75mrY+AMtgbOU99+E5lEl14LcFyMDk6tuL/AelBGWMzpyPr5Uc+S0a1Oxg5XBD0aPtGfxBi6AL3IjZuNOhk/MkJAT4Rn5BXJsRE2FJyySSrKIBwo9Qd7S6J9FPROwJ6RMr8u3Zuqk7LiqRpAhXsX1G6pz+gGVwlnoSpgLbPow72RtKOXeocVVeMfp4F5scWa8ktYMmDhGc+1/Rf9UMS9BV7NQtcN6RDdukbVeHtcr+Ib64WqXCSBmEZ2xHXNzzKZDE8XGPtV8ZI/F+JWM0vpYxbnYhMdGc5OJMPU6deM/6BB4pLeW6NZ9sOaFMQqGyVETxaXLmN1Z7xq9Ai7vLspVbGC65cG5MG638w7pGMDMc/8S1bW8BdOJceFrPgYXg6TwfLJnkYKMJyJkEgHXRx53E6qLkrGnR5WkkraPT1MpOZuBS8I7x+ngv/ZoOmZ8lIN/RLhJIRpYf0EPu4C/rLo6+e4ICK5tN9Hwovsm+ntXDoS32efxLn+fjrPTjd1sWEgKAwyRIc7rmOE4vIyg+QgSkuINjuXyw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB9738.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(366016)(23010399003)(1800799024)(921020)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?L6guaUhKrphig+CfHerD4N+IsK5+2WRMDUZK0HBd5OmbdRQx60ZDxGPOG2WY?=
- =?us-ascii?Q?JglU9cl/hfzKa0fA0HCVv12UYgAWZeDktc2bw5IJt1CScYBF2altx/Ur2/TE?=
- =?us-ascii?Q?9/swAk9cEEtSKLjLgkhlZpM999KHH7i0jTO8VdEIt984KjvcRJmK+BsDkrqe?=
- =?us-ascii?Q?8A8nms3L8jR7cV3EGuWRpy81EQG3QKG+uvQztx2G2rrcQLf3/eF5QtRsi5YN?=
- =?us-ascii?Q?WSWySyN5TVwUfTo/JKaXgpHn6nXbWWcTrqRk+i18y5pr4NVU7n6sXhXjLAnm?=
- =?us-ascii?Q?djUp7eD9CYZUiSytruYkGx1Ts5k68DuwpFZhzhZ0wq9XiSnz5/1TsDV0pZZy?=
- =?us-ascii?Q?3r259GP6FgZhrgEqHsuyDRg9rZ6FsHyasC/aQPQDX35DBQocdsl6dhwLHuqN?=
- =?us-ascii?Q?4Nr23vdCg61VEeyNZYci55PEjxFbp7TuviRtmD++x68miJT8iWl+KcGeF70P?=
- =?us-ascii?Q?7qWNrPh2k7P7UAVbJlw7jN21U1s5o7+9HMjGUyqnKdazkOfVek/XO/5raQ8I?=
- =?us-ascii?Q?mEM/XshFyk0NlFIJ/iqJPyJorrsXqAuIOzHY6JqcOIUezyf323RkVO7EowqG?=
- =?us-ascii?Q?INXX1/WRRyCWet5PovctfIvgnVQurGfxSPzkoXc2KixVAUsSFpiOAEyioWfL?=
- =?us-ascii?Q?CnXF2WPDGvBX0S70UxSLkwi6+bs23pKlspPHPh1GDJa020Q62uHryVUMCq7K?=
- =?us-ascii?Q?3uFgL2o5TYFPiOaeOYfSsb30Jqe6Rrp5fv8JMpV1BBOnGifzywVto+g5s9LQ?=
- =?us-ascii?Q?rIbW1eHJySbqMBlaHevwYI95BGXI+yQKI3mqLC65YJLWRAm2Ms1yZ+Z3+ANx?=
- =?us-ascii?Q?TgNzR+AnYOcm58kn/XbVPNlExBdVxIPG8BST15+ogvqRdMDwFWBWuU2iVp6g?=
- =?us-ascii?Q?GjImSCyUYbbZEJmAPSmuIN9l9PlNb/ZBzcF9nE6X0pWB7uzYBlLOgISQnk+8?=
- =?us-ascii?Q?YC7WrUzGTIK2mTyuAbdW1g6h3JaeIjTvW69zbv+9Nkygy6o3mLaNb2qu8D3d?=
- =?us-ascii?Q?FznjrJZE3JFvpa2i84/W/ajQ91VGZsrWGQei4e9hOP6euNTiwAod4vHZ7Xv2?=
- =?us-ascii?Q?16hM9+Ca8GGXJJcoM/+MXMGEdALJXz4cv6JMAk+KpFslH4limoxMhbBF7CeB?=
- =?us-ascii?Q?a0Iq6DFfcDcx0D9KtYvAzG0j2N5lgn0ECTmEUdzseNVBLRPze/PRi6Ev5oJ1?=
- =?us-ascii?Q?32A07ba2fSBHj6yd3neophP7JtdM9WvWSGaCESbEBhgEg+m17NalrXhPsiQB?=
- =?us-ascii?Q?mlvQyq4m4CwesB0jVgCBvmo06vEU3S+EvbSTt17Z9q/8g6DvwAD49Y8n+AZt?=
- =?us-ascii?Q?HtlWC/VaCnSldw6nmgipyDDF7Z2CeNjNEXItdvmzhhsEWxIs1N1QPfVsv6CM?=
- =?us-ascii?Q?aqXziV95331g4m+Od7CL0exG2lfIJ9t8HSyO4LvcDh79hfItG6vBmhnuS696?=
- =?us-ascii?Q?W8qTkuTnTvWxcCzr9LSrKkwyFIxv4Y6bjztrlByuQnOfWqu/WSk3LC91oesz?=
- =?us-ascii?Q?Cb/UwHqIuZHdM83rQ80/gN2fkudevgroAMPoIfpqmI8SBq2XGU7LkCJCUziH?=
- =?us-ascii?Q?Bkk+Ed7npIkVgMLUj6m8eSzD4lcvA3oxrVq3CNOUhmVRhxNL/f3ljJ3RUkT8?=
- =?us-ascii?Q?mehyDXttPi7wUa9huviZt1+b0b+V8UASyVw59EMy5fd66BkE5pTEpXfTXrLG?=
- =?us-ascii?Q?uL+bmB87FkNG5L+wOCZfIF5yNxEAHdTsGb2jai8A8me/opWPL/GDz5sfOpSE?=
- =?us-ascii?Q?3hSEEzK4ePSxjQJBrAIv0em/ysZdQBDt4XPlqKFrkCcVji2/PedU?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40466bda-c988-4aef-1301-08decde9fbe1
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB9738.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 10:03:17.2483
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pJyh8YGaZn+CVdn6m8g+t2ajI0uBabx2YAqEXlajJoArozRhCqrYzSVF3ZBIs9nMg0uSR/reofMY8Dw678a0KA5ayNsty5juliHIl1JyzEP3jggfLZPGvSg9RICds9UA
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11425
+Content-Transfer-Encoding: 8bit
 
-From: Robby Cai <robby.cai@nxp.com>
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for the reset controller framework by acquiring the reset
-line using devm_reset_control_get_optional_shared_deasserted(). This
-allows the driver to handle reset lines provided by a reset controller,
-including shared ones, while avoiding unbalanced deassert counts.
+Document the LVDS encoder IP found on the RZ/G3L SoC. It supports
+single-link mode. LVDS and the DSI interface share a peripheral clock and
+the MIPI_DSI_PRESET_N reset signal. However, the LVDS module cannot be
+used at the same time as MIPI-DSI.
 
-Retain support for legacy reset-gpios as a fallback when no reset
-controller is defined. In that case, request the GPIO and keep it in the
-deasserted state as the initial configuration.
-
-This enables the driver to support both reset-controller-backed reset
-lines and older GPIO-based descriptions while preserving the existing
-power-up sequencing behavior.
-
-Signed-off-by: Robby Cai <robby.cai@nxp.com>
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
- drivers/media/i2c/ov5640.c | 80 +++++++++++++++++++++++++++++++++-----
- 1 file changed, 70 insertions(+), 10 deletions(-)
+v3->v4:
+ * Dropped the tags as it is a rework dropping parent node that contains
+   simple-mfd and syscon.
+v2->v3:
+ * Collected tag.
+v2->v2[1]:
+ * No change.
+[1] https://lore.kernel.org/all/20260524195829.960401F000E9@smtp.kernel.org/
+v1->v2:
+ * Collected tag.
+---
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 120 ++++++++++++++++++
+ 1 file changed, 120 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
 
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 85ecc23b3587..5e6db8aacb11 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -17,6 +17,7 @@
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
- #include <linux/slab.h>
- #include <linux/types.h>
- #include <media/v4l2-async.h>
-@@ -442,6 +443,7 @@ struct ov5640_dev {
- 	u32 xclk_freq;
- 
- 	struct regulator_bulk_data supplies[OV5640_NUM_SUPPLIES];
-+	struct reset_control *reset;
- 	struct gpio_desc *reset_gpio;
- 	struct gpio_desc *pwdn_gpio;
- 	bool   upside_down;
-@@ -2431,6 +2433,48 @@ static int ov5640_restore_mode(struct ov5640_dev *sensor)
- 	return ov5640_set_framefmt(sensor, &sensor->fmt);
- }
- 
-+static int ov5640_get_reset(struct device *dev, struct ov5640_dev *sensor)
-+{
-+	/* use deasserted version to avoid unbalanced deassert counts */
-+	sensor->reset =
-+	    devm_reset_control_get_optional_shared_deasserted(dev, NULL);
-+	if (IS_ERR(sensor->reset))
-+		return dev_err_probe(dev, PTR_ERR(sensor->reset),
-+				     "Failed to get reset\n");
-+	else if (sensor->reset)
-+		return 0;
+diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+new file mode 100644
+index 000000000000..4cd7b688fbf7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+@@ -0,0 +1,120 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/renesas,r9a08g046-lvds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	/*
-+	 * fallback to legacy reset-gpios
-+	 * GPIOD_OUT_HIGH ensures deasserted state for ACTIVE_LOW reset
-+	 */
-+	sensor->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(sensor->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(sensor->reset_gpio),
-+				     "Failed to get reset gpio");
++title: Renesas RZ/G3L LVDS Encoder
 +
-+	return 0;
-+}
++maintainers:
++  - Biju Das <biju.das.jz@bp.renesas.com>
++  - Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 +
-+static int ov5640_reset_assert(struct ov5640_dev *sensor)
-+{
-+	if (sensor->reset)
-+		return reset_control_assert(sensor->reset);
++description: |
++  This binding describes the LVDS encoder embedded in the Renesas RZ/G3L
++  SoC. The encoder can operate in LVDS Single-link mode with 4 lanes
++  (Data) + 1 lane (Clock).
 +
-+	gpiod_set_value_cansleep(sensor->reset_gpio, 1);
-+	return 0;
-+}
++properties:
++  compatible:
++    const: renesas,r9a08g046-lvds
 +
-+static int ov5640_reset_deassert(struct ov5640_dev *sensor)
-+{
-+	if (sensor->reset)
-+		return reset_control_deassert(sensor->reset);
++  reg:
++    maxItems: 1
 +
-+	gpiod_set_value_cansleep(sensor->reset_gpio, 0);
-+	return 0;
-+}
++  clocks:
++    items:
++      - description: Peripheral clock
++      - description: PHY clock
++      - description: Dot clock
 +
- static void ov5640_power(struct ov5640_dev *sensor, bool enable)
- {
- 	gpiod_set_value_cansleep(sensor->pwdn_gpio, enable ? 0 : 1);
-@@ -2448,12 +2492,19 @@ static void ov5640_power(struct ov5640_dev *sensor, bool enable)
-  *
-  * In such cases, this gpio should be mapped to pwdn_gpio in the driver, and we
-  * should still toggle the pwdn_gpio below with the appropriate delays, while
-- * the calls to reset_gpio will be ignored.
-+ * reset handling (via reset controller or GPIO) will be ignored.
-  */
--static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
-+static int ov5640_powerup_sequence(struct ov5640_dev *sensor)
- {
-+	int ret;
++  clock-names:
++    items:
++      - const: pclk
++      - const: phyclk
++      - const: dotclk
 +
- 	if (sensor->pwdn_gpio) {
--		gpiod_set_value_cansleep(sensor->reset_gpio, 1);
-+		ret = ov5640_reset_assert(sensor);
-+		if (ret) {
-+			dev_err(&sensor->i2c_client->dev,
-+				"Failed to assert reset: %d\n", ret);
-+			return ret;
-+		}
- 
- 		/* camera power cycle */
- 		ov5640_power(sensor, false);
-@@ -2461,7 +2512,13 @@ static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
- 		ov5640_power(sensor, true);
- 		usleep_range(1000, 2000);	/* t3 */
- 
--		gpiod_set_value_cansleep(sensor->reset_gpio, 0);
-+		ret = ov5640_reset_deassert(sensor);
-+		if (ret) {
-+			dev_err(&sensor->i2c_client->dev,
-+				"Failed to deassert reset: %d\n", ret);
-+			ov5640_power(sensor, false);
-+			return ret;
-+		}
- 	} else {
- 		/* software reset */
- 		ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0,
-@@ -2475,6 +2532,8 @@ static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
- 	 */
- 	ov5640_write_reg(sensor, OV5640_REG_SYS_CTRL0,
- 			 OV5640_REG_SYS_CTRL0_SW_PWDN);
++  resets:
++    items:
++      - description: LVDS_RESET_N
++      - description: MIPI_DSI_PRESET_N
++      - description: MIPI_DSI_CMN_RSTB
++      - description: MIPI_DSI_ARESET_N
 +
-+	return 0;
- }
- 
- static int ov5640_set_power_on(struct ov5640_dev *sensor)
-@@ -2497,7 +2556,9 @@ static int ov5640_set_power_on(struct ov5640_dev *sensor)
- 		goto xclk_off;
- 	}
- 
--	ov5640_powerup_sequence(sensor);
-+	ret = ov5640_powerup_sequence(sensor);
-+	if (ret)
-+		goto regulator_off;
- 
- 	ret = ov5640_init_slave_id(sensor);
- 	if (ret)
-@@ -2507,6 +2568,7 @@ static int ov5640_set_power_on(struct ov5640_dev *sensor)
- 
- power_off:
- 	ov5640_power(sensor, false);
-+regulator_off:
- 	regulator_bulk_disable(OV5640_NUM_SUPPLIES, sensor->supplies);
- xclk_off:
- 	clk_disable_unprepare(sensor->xclk);
-@@ -3914,11 +3976,9 @@ static int ov5640_probe(struct i2c_client *client)
- 	if (IS_ERR(sensor->pwdn_gpio))
- 		return PTR_ERR(sensor->pwdn_gpio);
- 
--	/* request optional reset pin */
--	sensor->reset_gpio = devm_gpiod_get_optional(dev, "reset",
--						     GPIOD_OUT_HIGH);
--	if (IS_ERR(sensor->reset_gpio))
--		return PTR_ERR(sensor->reset_gpio);
-+	ret = ov5640_get_reset(dev, sensor);
-+	if (ret)
-+		return ret;
- 
- 	v4l2_i2c_subdev_init(&sensor->sd, client, &ov5640_subdev_ops);
- 	sensor->sd.internal_ops = &ov5640_internal_ops;
++  reset-names:
++    items:
++      - const: lvdrst
++      - const: prst
++      - const: rst
++      - const: arst
++
++  power-domains:
++    maxItems: 1
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Input channel, directly connected to the Display Unit.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: |
++          Output channel, directly connected to the LVDS panel or bridge.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - power-domains
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
++
++    lvds@108a0000 {
++        compatible = "renesas,r9a08g046-lvds";
++        reg = <0x108a0000 0x10000>;
++        clocks = <&cpg CPG_MOD R9A08G046_MIPI_DSI_PCLK>,
++                 <&cpg CPG_MOD R9A08G046_LVDS_PLLCLK>,
++                 <&cpg CPG_MOD R9A08G046_LVDS_CLK_DOT0>;
++        clock-names = "pclk", "phyclk", "dotclk";
++        resets = <&cpg R9A08G046_LVDS_RESET_N>,
++                 <&cpg R9A08G046_MIPI_DSI_PRESET_N>,
++                 <&cpg R9A08G046_MIPI_DSI_CMN_RSTB>,
++                 <&cpg R9A08G046_MIPI_DSI_ARESET_N>;
++        reset-names = "lvdrst", "prst", "rst", "arst";
++        power-domains = <&cpg>;
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++                lvds0_in: endpoint {
++                    remote-endpoint = <&du_out_lvds0>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++                lvds0_out: endpoint {
++                    remote-endpoint = <&panel_in>;
++                };
++            };
++        };
++    };
++...
 -- 
-2.50.1
+2.43.0
 
