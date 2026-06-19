@@ -1,102 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com [95.215.58.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A092367B68;
-	Fri, 19 Jun 2026 10:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A22E437702A
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781865948; cv=none; b=HNwM1S2en1HbSZC+Sv5wMPTjQ2yc2Bnlrl2on0c1EL2e3MxXlBKWSlcoJbqQfXcd41nUCnHjdA5NrWQsgfkqioe25+hA0AHXrP3VUUVz2lc9ODbgchOyuaxS52O2kXBW/ZkNZqULOfulfysvk/iplpXbAGGIoYjIwySXsCoy9y4=
+	t=1781866191; cv=none; b=hyO0R+iRple/9xy2u/pg4n6OE7zlsTRwwjxv8dQrg1Sf6gZMQtYckiDwTtCKGOdTMuKrOIsvhC6NJzkR9eyqnGExkVMpo7kGoGZZ2+Mb4w8GKLY4RJYh7jlGUHpMwbGDhgZJPZtdLacioxHLct7MDk6/uX+L8k2YSA85hKpadss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781865948; c=relaxed/simple;
-	bh=KdXzDjTLpnxpVkWE9x9D8pJ8MayklCRx7qHaq5NphXg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NX01EvNIpRVpBwMjjysqsXQfkDiz3mlqbLyXcKeUbf/T9eVfTWjOSNupvZqeTxtk+5JGKd669Dfs9dmZybZJrABfxO3Xja0mTFwhGctOsSF9/Bdhu5sLG68r/u6JXpUOs54be4cCnlBFQ/XFS27Re650/ShCrdGlUCtErYfINIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMyXRNqG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781866191; c=relaxed/simple;
+	bh=Kkjgn6lxKvMHZb5UZ+giBB47q4tMxB9uz1DlQ63bAEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u2Ku4Jwv+H9uy7PWVA3R1s/t8wnW3dp4APfiKf0D4u+ZG2VIB11KBLtEGV6PZS7Cg9CLWiKwMJXHRgQddBgZgMkZMTPYkCcQ2WescVGXhH7hcTzfiY8MHwmhUFM+XgLEhSD5bUoygn6wF/BffRUIJvgMChsm4sNlTvMmJgmJuk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aweK/oHR; arc=none smtp.client-ip=95.215.58.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMyXRNqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDEA01F000E9;
-	Fri, 19 Jun 2026 10:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781865947;
-	bh=kFLxJHuZIkL7mP0MqmEZEpKAP6QIPqaToZrJqKHDVT8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WMyXRNqGjYGZ5BgpP50bbelM+ISXbu17Y7kOdO84NXjJyFhLmp0x1SGrZvpFISrG5
-	 hEXPlSoC2h6QtXYXknX9diG23K085XXwhEuW5/EsC3/of4DcakVhc8UQNtkuZHI7RB
-	 4yDYYU1GAR10WLfjX/QdJOqa9T/yxK2CkVA2Ov9pp/DHNx2JRhPCrTG6BMBpLLsaw5
-	 JE6HSZ0OO9CoOvgphQ7BoEhCGBiXMxoESReRod4bHM76MNi/rMNgzx244xObMa382D
-	 8ncneewXIxn0iltpkmmosnk2fG9m0arwvcpvoqxCep+/zvtENtYuhXJ8Xe6j7NofAu
-	 4uyznLfDmfStQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] hwmon: (emc1403) Convert to use OF bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260619103153.216444-3-clamor95@gmail.com>
-References: <20260619103153.216444-1-clamor95@gmail.com>
- <20260619103153.216444-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:45:46 +0000
-Message-Id: <20260619104546.CDEA01F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aweK/oHR"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1781866187;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2BBm3mPlMh+SOJi+AUYaxyeokxNjz3c7hH7SzkYJo9Q=;
+	b=aweK/oHRQJswFEHYNbQxAeQ2/lUeot27+5mF6A0DQBn1IsnJx9PnVvUTirYyBeiQPkQarA
+	iLeWxbKKwPcUYNrgk6a0L3uPd3IMLgis75FkG+uaV9L+t5DtRi+B0/nJPUgsShoWLYQjwX
+	T2wlhkwnlpqdSzE3pnCLBBdRmqpfagc=
+From: Siratul Islam <siratul.islam@linux.dev>
+To: jic23@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: siratul.islam@linux.dev,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 1/3] dt-bindings: add entry for qstcorp
+Date: Fri, 19 Jun 2026 16:45:04 +0600
+Message-ID: <20260619104524.10172-2-siratul.islam@linux.dev>
+In-Reply-To: <20260619104524.10172-1-siratul.islam@linux.dev>
+References: <20260619104524.10172-1-siratul.islam@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Ambiguous OF match data value (0) prevents error handling for un=
-supported devices.
---
+Add an entry for QST Corporation Limited
+Link: https://www.qstcorp.com/
 
-commit 7ef40c1ea161b005037b0b33a8e16b1f9bf6d41a
-Author: Jonas Schw=C3=B6bel <jonasschwoebel@yahoo.de>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Siratul Islam <siratul.islam@linux.dev>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-hwmon: (emc1403) Convert to use OF bindings
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 28784d66ae7b..11aac47f90ce 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1355,6 +1355,8 @@ patternProperties:
+     description: Shenzhen QiShenglong Industrialist Co., Ltd.
+   "^qnap,.*":
+     description: QNAP Systems, Inc.
++  "^qstcorp,.*":
++    description: QST Corporation Limited
+   "^quanta,.*":
+     description: Quanta Computer Inc.
+   "^radxa,.*":
+-- 
+2.54.0
 
-This commit adds an OF match compatible table to the emc1403 driver
-to enable device tree support.
-
-> --- a/drivers/hwmon/emc1403.c
-> +++ b/drivers/hwmon/emc1403.c
-[ ... ]
-> @@ -659,14 +660,14 @@ static int emc1403_probe(struct i2c_client *client)
-[ ... ]
-> -	data->chip =3D id->driver_data;
-> +	data->chip =3D (uintptr_t)i2c_get_match_data(client);
-> +
-
-[Severity: Medium]
-Will this cast silently hide error conditions?
-
-If an unsupported device is manually bound via sysfs, i2c_get_match_data()
-will return NULL (no match found). Since emc1402 evaluates to 0 in the
-emc1403_chip enum, casting NULL to uintptr_t assigns 0 to data->chip. This
-causes the driver to proceed as if an emc1402 device was found, rather than
-safely aborting and returning -ENODEV.
-
-[ ... ]
-> @@ -682,10 +683,21 @@ static const unsigned short emc1403_address_list[] =
-=3D {
-[ ... ]
-> +static const struct of_device_id emc1403_of_match[] =3D {
-> +	{ .compatible =3D "smsc,emc1402", .data =3D (void *)emc1402 },
-> +	{ .compatible =3D "smsc,emc1403", .data =3D (void *)emc1403 },
-
-[Severity: Medium]
-Does assigning 0 as the match data here cause ambiguity during device match=
-ing?
-
-Because emc1402 is 0, when device_get_match_data() matches "smsc,emc1402",
-it returns NULL. This forces i2c_get_match_data() to fall back to
-i2c_match_id().
-
-While this happens to succeed for valid DT nodes because the I2C core strips
-the vendor prefix (allowing the id_table to match), it removes the ability
-to distinguish between a successful emc1402 match and an error where no
-match was found at all.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619103153.2164=
-44-1-clamor95@gmail.com?part=3D2
