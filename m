@@ -1,112 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76B42F851
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D708322B8F
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781829934; cv=none; b=bxo6YMor4ZEhJ0UluaOaVJwvq6Ycwr0IBeWHbAcIg4QouJu5hFJkUpU5MoyQTDOrmxKPajaHWP6qG38972Y9gk7KwL5YS8D8MrCj+aZD3PKBLZYNj38uaRR4Zg4uWv81zeFC5sXkh+Z4fS0rQjPCIveq7IiWajEAsfyULeguE98=
+	t=1781840319; cv=none; b=RQRODMemzuSEGeH/O6ZvN2qJbKA5sEzArmig/0u95Qu9CaM46MIT54oX5s+hfQrPwxxWkvlThxNSb3x/KysjgRXpD1+1NA0xhFLo9JoSjG/IX1+rXuJFzHTQaBuOgmA21G1ZuW9OmrhNW/nwzOmTYtTEyjQLEU/dVV3qQxtj7E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781829934; c=relaxed/simple;
-	bh=JjxKqZiibVqZTryWYilDOKYN4k5f+LWh3bSVktb4jMk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=js3TplWTrawlud0GaXBOihPw/9Eoyze3oVurDOWO/4sKIiDow3IyZechg1d7AGGsTbnO7QVZLo8AQCo/TZhQ2bNqbO/uEjx6b3aZb1qCJaqcfkvqKjHmBtbsSpDQfc30CbW9jqb6XteCCTQXaZvMVC2/Fpx2pzs33bIlOlhiIek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKBmqvJq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781840319; c=relaxed/simple;
+	bh=6I8FyXeCCWe3tQCxApHyEyXz99IduHe0b/S5cxaOHaY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SSZI1es54qfCF5iDqzbiyUBsCG0pgN+IMwcgX9fo3spR3Y6k1KHapvq/Jugwhd7Mg5fEIssWG8mr3j9hgkjIScXp2gBxyT9JCAe77B9FqQ+FPy6nnXs7aQQtNRXycFSoOWPLHZFziIALdaZ8EWowQjpspNz47ugL+UK24HfBHWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YWpHj3Bu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PBtMyuze; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKBmqvJq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 203551F000E9;
-	Fri, 19 Jun 2026 00:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781829933;
-	bh=gUFLC5qbzE/IzVRZHEWIV+GH6lh6wGOV4UDPuFB1CTg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MKBmqvJqDpSdrdt4tJTJzHO1vDBpNg2M0T247GkrDn/qmlNzdTLotC8rpksvKgFyw
-	 Hnd4YFgjSLwbVm/qL5KOYm6CZC4QmZ25HLh/2qQVYGLmptFPdxATfPDU2oby4m5HT4
-	 VkmPtpkBTw9TPPbv2R4pbuCvVScU2njYBowEbVh1/jKdDYZHItlxQvfJFWgqIp8YUd
-	 uQnEBhWoR+7etKglFPEVt/FZAcIpCvQpUgWp1AHw1hgYmJKAlzWX8/id+0nD85WuIj
-	 4VbAbVj3Be9Pkk34w+Xq6vZN0r2XO4RBde+lKr+wtNdU9WPNC2U3GhUkubCO96fMu/
-	 RSkTneNQbpL/Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 3/3] dt-bindings: iio: adc: Add burn-out current
- properties
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260618-new-channel-props-v1-3-963c1b5cf40a@gmail.com>
-References: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
- <20260618-new-channel-props-v1-3-963c1b5cf40a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 00:45:32 +0000
-Message-Id: <20260619004533.203551F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YWpHj3Bu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PBtMyuze"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65J2uS1o3702728
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:38:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	H8M/0W0fDZglg9470q+DR9bzvfomYGwHSgp+ozjijcw=; b=YWpHj3Buqcpj4cES
+	kpEWWZJiuBajn9ZoIBWok2owGqb9idwDV3TPdwBZ5GoUiZ7EhQIYlUEk8iTtiwhG
+	ECRfHNR8+H5Pg7BQPUtbw/cRRML96B705FwkWlAgIqX6abXsjzu3GjlvVH0NsFvW
+	W83aPZDpJ/osn27idsMq4e+OWjBjTuXGOKHdfedrhE1Px8qfb0URquiRgYgOnPcH
+	MtcQl4PkRR+x4rUiBOSPI59xLAfxqtQadbIUfXuc58Yj0p3QP4lhCmwuhRX7qztF
+	Wf/gCwCveIqe0Ll8zXuJ1okpldHCyF1hUoSzStKt+wbFzMRyojOrrOuTJ1mmlsVy
+	RnuXzg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evmtja47r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:38:37 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8453cbd38c6so1325001b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 20:38:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781840316; x=1782445116; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=H8M/0W0fDZglg9470q+DR9bzvfomYGwHSgp+ozjijcw=;
+        b=PBtMyuzeKg8dICjiy8biDAmnpi/KQEzkQ5f65jefWCIIh/XbQLRmGg2Pi1Gh1bBzG0
+         tJiFe7PqXnXUZMxcKipFv5hwF8C8H9NuIrFtFOo+38mJSM1szjfobzagqFKdmEpFec9b
+         SIIYmBRuSDkR6A5aJdJDV2ZGgMVcscswEKM/x1NAKOexEHlsoCAW3TRreF3/lpUGk10q
+         TsLRh3BwB8QUdJ1y0C6uH05DDNzE0DHGOAxA9IPPxyj7wYAAu/Vj/2vAx+H94WMZLfrw
+         DQZRcGhquFDAbMtVZsXY20goKsyrwG/lxA8Vq8sqYBlWt533EMItUF9mu/XkoylPoTmP
+         o+NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781840316; x=1782445116;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=H8M/0W0fDZglg9470q+DR9bzvfomYGwHSgp+ozjijcw=;
+        b=YabzwGgK+ye/7HNqvmiE5PQ+/ms3LVmfRadIuLhH7JaUDTWLJpeft53h9IBp/lnWNH
+         1iJ8JGNXJg2x8KyxXWQ8hxHGPik5+yLoc+oeyN5CYGa/tP6sFYO7PmqlBvKe8q7izDn1
+         4DGvS3pjHoDLskW9XB9C3278L62xMuk9cZqrj92QSBnP7Kj2krBSQbB/Goy1/8ckOiEd
+         vy+quPlFkyqyTWIncjXk9eyYVoU7MbBRZiPcQ8YLfXrKDbft4VygQi38wjbTxMoYVN4e
+         tT4hhxYEU1lRFbgP478Wq3R+juBJrgR4iinH2C9f2YRiO+hambpf+cnr1o9Ld5qwQRVJ
+         T44g==
+X-Forwarded-Encrypted: i=1; AFNElJ/81Ny9e3N7CPR2Lmmb0WmfaPlbyBqf+RIKAOiTKGGUCW6tWGpFwgc6S9i6ArWOUpcFqJogRaSrDa2Y@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2TuOJMmgV3cHE6aj0Opq6fY/v2MEIfOH2LqLV9LytBWd6x9Wp
+	paKAuyiZ8ZFEzXrb3JIo2TDQiSZ2Xa3mvuN9ZjpWAc58JmKwS9OquP4cAT3vkebVNZkgE5Zrupx
+	GqMkEPZeXJhzCdm2u/3UhzIOVKiVZPE9tGW8TxLhPFkwBmSbJ3coedDMS3fgGhnat
+X-Gm-Gg: AfdE7ck4rxhv2A6LRMNUNU/Oi69ixyQj+8b8jfNEJGBqp3SuT31LEIparuUje69RHcE
+	JpqDVfhA9WgwyKY8M8tdxCz6jmFP1gnXEr0BjzDpetrEY4tFjw5iTsMOGwjNDawlT/bRq/P7i1I
+	hZ3cK3EFkDn1PX9APEwCh6BHZu7U1KiCXIMerXw9J5qkU0k3UjzJDcpL5sDoIAPvXfj+YrWf2Co
+	grFULwncVK5kxkdpKGAzO8OEnkMSL8hHkISPsXJMjmUIhXQ8w+qrL87rKVIfmefSY3W40I1e6pd
+	tYOalU4GPHqjg4daFmVEmywM90D4YJ/uGU18qGdVB4LLyPx5NgL9mgPZ2QmYDmZSRNejJiqLfSY
+	W1RmdrioJv09pBqMSBH4B0cVGxdwI9B1ZCg4zZA7laEK5
+X-Received: by 2002:a05:6a00:1ac6:b0:842:72af:b3b7 with SMTP id d2e1a72fcca58-845508bbcf2mr1852180b3a.33.1781840316434;
+        Thu, 18 Jun 2026 20:38:36 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1ac6:b0:842:72af:b3b7 with SMTP id d2e1a72fcca58-845508bbcf2mr1852144b3a.33.1781840315903;
+        Thu, 18 Jun 2026 20:38:35 -0700 (PDT)
+Received: from [192.168.29.100] ([49.43.194.141])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8455364c24esm697557b3a.12.2026.06.18.20.38.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 18 Jun 2026 20:38:35 -0700 (PDT)
+Message-ID: <264b10a3-26bb-645d-d594-b73f50b91879@oss.qualcomm.com>
+Date: Fri, 19 Jun 2026 09:08:27 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3 1/3] dt-bindings: media: qcom,qcm2290-venus: document
+ shikra Iris compatible
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260618-shikra_vpu-v3-0-1a32e26a35a1@oss.qualcomm.com>
+ <20260618-shikra_vpu-v3-1-1a32e26a35a1@oss.qualcomm.com>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260618-shikra_vpu-v3-1-1a32e26a35a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDAyOCBTYWx0ZWRfX6tGCLJBte0yR
+ CGw8rY51mJlusR3O/soptx8pAVU6hgShvtVw14V1HTcRxoLPCoI7iRhp+yj+BHGda7EdsM1hAAu
+ zV232h4dxbkbm3FxuKrZWqXBqHljSC0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDAyOCBTYWx0ZWRfXxydLduaxQG+H
+ EdsqRWyjvqamD1r7huuAv7K0UehegXtmrcQZQVsm29uNBJROraD9EczMIwtY0+ezBTkezCFZAtK
+ 5UcgfHdbHOVEfTaVizTEp5pq39GE5ANIScSXyWoNXm15OjBPsisP/6tezxdFwmUr1PSgy/qyUyo
+ m/eRLGO7rq9Rg01I5hBtPH+78pjap6oxsuDZwC1P/qQkRg1jBEvrOPvDggym3QebZdX6wpjD7Tf
+ wBArLfneMimch8qdaBrQneIR8ExQj+km15PH4mvWM5thqqyMVPPQHbUQBA41z0mZnTyFakTWD9E
+ YJ6pdi39jYESNXzW9erQHeuleGaV/kM346ooGBzbKUyVHKJT4qPRTGSwRwO5m8RxN+m4XSzCks+
+ ZjBasi3orP7mRbun1JnvD4j/HO6qP6/m4BhTphs/hiuxRrpzgtB9jKeMfapUzQLk5fMMoUTv7EN
+ YGX3oh+pqlmhXImY79g==
+X-Proofpoint-GUID: yX5mz3HLRqB6zmpIyDkdlKB1o7pmaTrv
+X-Proofpoint-ORIG-GUID: yX5mz3HLRqB6zmpIyDkdlKB1o7pmaTrv
+X-Authority-Analysis: v=2.4 cv=OM8XGyaB c=1 sm=1 tr=0 ts=6a34b9bd cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=LrD0L7TPytbPiIQqxktYyw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=gomYnHnAK4kzn5urjScA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 adultscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190028
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `burn-out-current-microamp` property lacks array bounds (e.g=
-., `maxItems`), allowing unbounded arrays to silently pass schema validatio=
-n.
-- [Low] The description for `burn-out-current-polarity` is incorrectly copy=
--pasted from `burn-out-current-microamp` and fails to describe the polarity=
- property itself.
---
 
-commit a77887c22cdfb0d199c09b61e65157768374c14a
-Author: Kurt Borja <kuurtb@gmail.com>
-
-dt-bindings: iio: adc: Add burn-out current properties
-
-This commit adds the burn-out-current-microamp and burn-out-current-polarity
-properties to the generic IIO ADC bindings to allow configuration of burn-o=
-ut
-current sources.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documen=
-tation/devicetree/bindings/iio/adc/adc.yaml
-> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-> @@ -106,6 +106,20 @@ properties:
->        This array describes the current configuration of the excitation c=
-urrent
->        sources or the single matched current for all sources.
-> =20
-> +  burn-out-current-microamp:
-> +    description:
-> +      Burn-out current sources provide current to the channel's input pi=
-ns for
-> +      open-circuit or short-circuit detection.
-
-[Severity: Medium]
-Since standard device tree schema tools automatically map properties ending=
- in
-"-microamp" to an array structure, does this property need an array bound l=
-ike
-maxItems? Without bounds, the schema validator might incorrectly accept an
-array of arbitrary size instead of enforcing a single configuration value p=
-er
-channel.
-
+On 6/18/2026 4:09 PM, Vikash Garodia wrote:
+> Document the iris video accelerator used on shikra platforms by adding
+> the qcom,shikra-iris compatible.
+>
+> Although QCM2290 and shikra share the same video hardware and overall
+> integration, their SMMU programming differs. QCM2290 exposes separate
+> stream IDs for the video hardware and the Xtensa path, requiring two
+> explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
+> equivalent stream IDs into a single mapping. Due to QCM2290’s SID layout
+> and Xtensa isolation requirements, such SMR masking is not applicable on
+> QCM2290 platforms.
+> Since shikra uses the same video hardware as QCM2290 and shares the same
+> programming model and capabilities, it is added as a fallback compatible
+> to qcom,qcm2290-venus, with conditional handling to allow either one or
+> two IOMMU entries.
+>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  .../bindings/media/qcom,qcm2290-venus.yaml         | 26 ++++++++++++++++------
+>  1 file changed, 19 insertions(+), 7 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> index 5977e7d0a71b4fb5681f1c2094439c251366f01f..b27899ebf164229ceff1ca5cda50ee30d875e953 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
+> @@ -13,14 +13,13 @@ description:
+>    The Venus AR50_LITE IP is a video encode and decode accelerator present
+>    on Qualcomm platforms.
+>  
+> -allOf:
+> -  - $ref: qcom,venus-common.yaml#
+> -
+>  properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> -          - const: qcom,sm6115-venus
+> +          - enum:
+> +              - qcom,shikra-venus
+> +              - qcom,sm6115-venus
+>            - const: qcom,qcm2290-venus
+>        - const: qcom,qcm2290-venus
+>  
+> @@ -45,9 +44,6 @@ properties:
+>        - const: vcodec0_core
+>        - const: vcodec0_bus
+>  
+> -  iommus:
+> -    maxItems: 2
+> -
+>    interconnects:
+>      maxItems: 2
+>  
+> @@ -65,6 +61,22 @@ required:
+>    - power-domain-names
+>    - iommus
+>  
+> +allOf:
+> +  - $ref: qcom,venus-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,shikra-venus
+> +    then:
+> +      properties:
+> +        iommus:
+> +          maxItems: 1
+> +    else:
+> +      properties:
+> +        iommus:
+> +          maxItems: 2
 > +
-> +  burn-out-current-polarity:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Burn-out current sources provide current to the channel's input pi=
-ns for
-> +      open-circuit or short-circuit detection.
+>  unevaluatedProperties: false
+>  
+>  examples:
 
-[Severity: Low]
-This isn't a bug, but it looks like this description was copy-pasted from
-burn-out-current-microamp. Could the description be updated to explain what
-the polarity configuration (pull-up/pull-down) actually does?
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-> +    enum:
-> +      - pull-up
-> +      - pull-down
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618-new-channe=
-l-props-v1-0-963c1b5cf40a@gmail.com?part=3D3
