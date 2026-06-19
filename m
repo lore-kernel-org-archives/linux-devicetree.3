@@ -1,197 +1,173 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B37F17A309
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 16:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DDA3B47DE;
+	Fri, 19 Jun 2026 16:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781885203; cv=none; b=HVNeLRo8tEjhSIPcE5jgFlKggqFpev183x7LDCHWaJNd3Qyp8xBajTaBtFfY48TJZtqCzAahKHMdYPeV772+Mf8ImcUtW5b3/EnhwupjwwQCnzGBjWfemxQwEDvXX8loS4xxg1UONSUX4R0rEw+Pxt26jX6yt+FEoFacKlFWjj8=
+	t=1781885301; cv=none; b=rgNCHO7kdRZaw2NOfxEwVT25Pu2eo9Fd10HnoH40nAgssZ0uoYHsGBkbq2wpQkDCAgjuNtmOgUToTchJmysA0oIGwy1c1MYWth3BTWZazSRhxdxETeY9ZjsjaK9Uk+qr6Z7XH4oOdZ5kpZlP4lTPIzUoQ3MOBmNb8iNpoHPKLJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781885203; c=relaxed/simple;
-	bh=+0nQqVuRMPQjg4Pni4V87Dju+ww99YTd3QIwXeLMiCY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=eodLjiA6zqelTkperQ82sqg7nKe1VKN6EdmuVzz1wBYZ8k6PG9NGVj+TIrM9Br2cBlCm442b/kZCTOZKfBp6fO7Ts1EB2x6r1OntApALf1WBoZynw8GoQTFvq4DnuXk27VV5sOr+3M1yp/047mLh+sHuQPUiwof8aDrD/6OLVW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=YHcwm+KB; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1781885301; c=relaxed/simple;
+	bh=ewmJBY17hkH/VguQHRP/zj7Y05CAqxAqWVAiogzG4iI=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=HPiTMWu2juwxUH/5A48XeX+O5qgHYJn6CQzFo7/o1nxzRmBYVwgAbYDQz0t+x/fRL5eM2gD/nGFeeRSCCMqv7Zf71O6qs7LPdoEhdcgLG3drREY/ZPkWuGkCLW96d5L4a28ccRQ1cyYKSg+UQtDbFoT2D/LEr2hx5RKM6f33FQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=jJHAgnrx; arc=none smtp.client-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="YHcwm+KB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1781885196;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+0nQqVuRMPQjg4Pni4V87Dju+ww99YTd3QIwXeLMiCY=;
-	b=YHcwm+KBkUtmFxvnS9tDvaTTfGklrSX58yiDpy4x3+9TuCYCLr1Yc2Te27fYuwXjreDG65
-	VqWUAeN2r4PYXykmygkMXY/iKjXwMdXwfLx5KETQTfVbBE8z9wvk/Z0j0mBT86Q/JB3ywB
-	Eg+CY256El5IDabg1f42yLFEGT0Pzq/C2Ck3pGjaX1XK2BqCYNcgvaCQc1AHM5l96hhQz9
-	+x/a6npEIuewiBn5eHMzNOAtQUlUWyjmYIkwFUzwHIenhmetijjFckYlyx7qS5zIb2gmbS
-	vHdRu86jo24KX7R85DfFdB/XURBZFRXsZqKXs3FCgmNuDWSGQ1FIHott6jGGqQ==
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013001.outbound.protection.outlook.com
- [40.93.201.1]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-62-xztO_NosMG22vJW1eUHhZw-1; Fri, 19 Jun 2026 09:05:24 -0700
-X-MC-Unique: xztO_NosMG22vJW1eUHhZw-1
-X-Mimecast-MFC-AGG-ID: xztO_NosMG22vJW1eUHhZw_1781885119
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by DS0PR02MB9151.namprd02.prod.outlook.com (2603:10b6:8:13f::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 16:05:15 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0139.009; Fri, 19 Jun 2026
- 16:05:15 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-CC: Andrew Lunn <andrew@lunn.ch>, Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew
- Lunn <andrew+netdev@lunn.ch>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Richard Cochran
-	<richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
- Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, Jerry Ray <jerry.ray@microchip.com>
-Subject: RE: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Topic: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Thread-Index: AQHc/B9qR/Obe4EEv0yRbQBFI3q6zrZF73MAgAAi23A=
-Date: Fri, 19 Jun 2026 16:05:15 +0000
-Message-ID: <CYYPR02MB98283966554323E452EFA65583E22@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
- <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
- <ajVKfBKPuNk9zN7b@monoceros>
-In-Reply-To: <ajVKfBKPuNk9zN7b@monoceros>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|DS0PR02MB9151:EE_
-x-ms-office365-filtering-correlation-id: b23f145f-176b-4f38-c7bf-08dece1c8d25
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|56012099006|11063799006|6133799003|22082099003|18002099003|4143699003|38070700021
-x-microsoft-antispam-message-info: u9ymMLuTSQlOdf5+Cj24mMZkEjqyVfpEjPsgqN7Z+xbGHdd1CrSb2P68rfOwCXOOls+Ba4nVcGkYs0x6iR3d3e6IMlyIOe75yYWv5waW6c05UA3HXQNGdaPLrQTQLpUdXaCDPW0Fxyq/3PCjeJqXPW6M1msjCW0kzUGxdKLrxlbRF07A2huXAyzoYYPaHAEIQgkj1Ntk8qqqQf242LHzkwjZqcxXdxMkTd8bqOS30cpF2QMnqycpz286IY7aIfHSu7eB7vxKrXngbYhsUP9H6WXLUzMfENs/7M4AY2UpdsVIuEgZOl/MvFdw13HArD1cmLrMYqoXu/aukt444rKD4xuu+Guh6CLrRHzSVNeViX+KVAXLONX0c8elK4vr2Af7ipdn0o1IV5EAHAHAMr2krJ+Q8rWfwdmpn9plCIxFlcZOlz4cPP0ddA9SkuO8KEXpjoaSpDKmaJ+GzoW/ubT2Q50Di6f9O4AugaWFcWZG1YmBAB2ZkEbw9xsTCM2JWIJzO0/fcZG3rJeEtNrOO1dU4kEJs5sQMNhJE3D/cixWky8XdnOWRwVjQIaBrgRKMyqyLAzs7WHDvzc619ettX6LCvlvkYR5PZGceD7R9lPVRJa2X22AMrVhIdlJsi9YzYBiaMoZVGBgjccHoNwT9Yq75irI9HStAJIPyB/0sbFxFliaO8auQg+2RW6JzMv1+8NtWXXTV8H+OBJ85yYfyN1NQVcSKTFr2ysrStGUW9LgjWE=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?VUPeUEAqgJo/+3MxnMbEsLmLeFDPykTB4MACW4j6OphQMTm5T7bsoCY+x9?=
- =?iso-8859-1?Q?e8bUnOOm65O/OvztUGPZ4Bj6Iz8l4EzKXa2CvvX6anJScWZXrKSXvZ2dGu?=
- =?iso-8859-1?Q?WMBKzZwVSIfSxVTJ6s8uQPh6RTqi1wcC9RJ7n800fpMXzFQgMuiXXA8r01?=
- =?iso-8859-1?Q?cR6A33bJpdV1NLUqULC7vrjg3HX2r35/143/Jv0f8hUq8qtTNFl19rKMEX?=
- =?iso-8859-1?Q?TwsqHPgiWxp+PbUgF/e9wPm1mEptkfZ5KGKn2sDa6vhCuCiUQeZFJT4Dlo?=
- =?iso-8859-1?Q?3oc+8jZ8S0VoiIb6XBsaaaPEpyn/XqSinLsemcYziUnskxFjBIHeG5VZpA?=
- =?iso-8859-1?Q?tdOlWjQRckPg+hjO/1oGAmBFti+GOaIZ12O+NTiMZzU4qeLQR3S4bpyTKZ?=
- =?iso-8859-1?Q?KqgOfHP7eyxN5K7X/e7ML2AbeBx2qo+BNPA0Y8HgDG4W0rN+XK94q+wPPA?=
- =?iso-8859-1?Q?IlTaERNqv6dDMIV/S7LCzDmAcoy0sdT1YMQ125dJYDt8N0ZPF8R38RL4xl?=
- =?iso-8859-1?Q?0DH6aYB7350zJQWmIb9Oe3nFvtVUPFzpWQM8otpBNd9gXRfTy6NDVtMIuT?=
- =?iso-8859-1?Q?wVtjfXzYyoeGIJoAWFf56vxqGJTuSeEeRvpr12fCZATG1KM3jTgTF5lvwM?=
- =?iso-8859-1?Q?aJaDCkxuW7AIksWp9FklEFNwhb5TKb6fcl00+NN4ppprRrgUHlirW7bsDY?=
- =?iso-8859-1?Q?SrPtwupRPqwcuacF3l5nAFZRfezZ14hvbeqrZoBxv2paRa6SyQa7i/c5ok?=
- =?iso-8859-1?Q?mf0O8pYiKTy5VdSQKOOmGxqdCs01FgM0UzfhVHJGbt3yBvtXbHFgLQrpeD?=
- =?iso-8859-1?Q?OX04DppIVEc8+zTVUlYypTRqPjLjJHpptqY+voOwnvwUZDYv1leZ1aDzd2?=
- =?iso-8859-1?Q?JjMJEI/rvxnS/ONUynN9vOc7sNl2Kk17YLL5Oqls7jS7HqpIhVMARd3w4A?=
- =?iso-8859-1?Q?85cqlg0xzJzV8BdIgb5wRjFWWNPT5DV2dFMWApdBU0eXsc/pwIJk/KnCW8?=
- =?iso-8859-1?Q?dwsOtUhI7r6mpDn8/ALuNf4BNvHlvSbiM6/cSWODx1B1HeIjh6nneiN9NT?=
- =?iso-8859-1?Q?cSuhH3ij4OQO1pz9zZoiyaFoBxkEbQWu+ROBtQubvEeFkSBbgrBKx1fmsj?=
- =?iso-8859-1?Q?MkvyfeEZ2UBErOz2ws7+QMDm4STW7pvQhhEBf2wC8JID9bBM4Vu5XDiwlk?=
- =?iso-8859-1?Q?U6ACgC4owfRYkHy0LOpmKgO2yBxtLnom8iyVd1iryiANvEpwl5zwmSfimU?=
- =?iso-8859-1?Q?OyTLKuaHTF49UCijtWnZ4klaDxHyvzDvXzqVrToN5LMnQrWKc9No7aKRUH?=
- =?iso-8859-1?Q?Y+lofIZ7/Qy5SMuOhznI7DctXksrJFDVJ1BtYkonFD0dzRTtOM6KnCzutj?=
- =?iso-8859-1?Q?+xjCV7M4JCD5wUPMuZKrbNz8hyb0QsRI+iTBYBzwQtjzT/O57BuzNXqOFw?=
- =?iso-8859-1?Q?tGOvSnDmveeeLhq2QUfTGh8P95sDvw75ScNCcObwhTAaWm9DGhi2Gh7HXn?=
- =?iso-8859-1?Q?Js74dcWVlCvKL0DRzDrOofTwwv8lCPLFMOAiCQJFim1yJL9qmHZf7jf0cW?=
- =?iso-8859-1?Q?iZ6pq0wECXUc5RR0M6Fj/l04V/W8zS0G72hHK9NuWTW9S/E/KEyK3GXt3U?=
- =?iso-8859-1?Q?Q4SOj/E+2JWnJvebtTuDX7UFTBa/d2Ll1+Ndr4FxJZyHnDgOTHYcDyfDuW?=
- =?iso-8859-1?Q?77whMSLoG8Up7Ma/jgA/ygpmOKSyw6p8P7bjIOpsL8WTkamXnx1UcebDA7?=
- =?iso-8859-1?Q?WH1gRq/fUZDxx6G5k+/QjYCK4K3gqnM6TETUKvSGOJgmQ073uyho6lWFsA?=
- =?iso-8859-1?Q?+NZ++69Fxw=3D=3D?=
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="jJHAgnrx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1781885290; bh=3e2tdmTzxXO2g2AIkPPMDDrzYTIKNlWPDCSBeA8+bM8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jJHAgnrxjvVHYd68x0hHaUDNdOkmHbepsV3DIq/KNu9G2mUOfq8VFKWXOeMjnKvUu
+	 RBcwxEBsavjoYXtdkPNrAM5napIB3JFJUr1AYWsez86eJwMSXWkw+/dLeFKCG1oGn2
+	 ZiC4xPssjMUmRY1CuPKK/1S+N/ZAkXWMB1DCLeAc=
+Received: from 8qyomHQF3vPjMe ([240e:3b3:62d6:a3f0:1216:88ff:fe19:9e1d])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id 1F7B88CB; Sat, 20 Jun 2026 00:07:55 +0800
+X-QQ-mid: xmsmtpt1781885277tj8hdzo2u
+Message-ID: <tencent_1E24D1D0EF248A4B3A3A9E258AD4217A7805@qq.com>
+X-QQ-XMAILINFO: NfH6lijP3t2qTJ8ObAeDy9lkl3G6ABjml5vrN1Nlh4ZNtQ3K4vi13ywNPJKoxr
+	 4mhzIWqLeRDRVslMDqXzpEIBtI47ZX9S1qkaUv8DwjrVPtrPuowQXEPTpPifLTG9ERgxsuuxNYGk
+	 mZBZwNJJKb14qdQbMevHatX2s5VImIVWRKB5n5NabhlKLTuArJNsGCepyisDLoMhbrBI3u1KzISB
+	 El+jNrYJFOOy7Kzydssb3wHO+5wspdbi52Qd9rt414eiYOiBfM+JkBQkc8gZX3fblnTRAYHuiJuz
+	 JcJCyO7Hr3kCerFai5GisTAGFkghn5yCDGm1Y/Rfymxinfe1BoxTC+nTju6iVvIpyJdYBJ1d45Di
+	 B0qURWgqMQh7PAhoWAKZpk5lN6aJ1/UU9XLiumtxQOX1c1YZi2C5KT1OqXf/aWueIf1sgnQibI63
+	 YM6Au8zSuVug/Mr4DaioNu9Gap0N0hMZQ7Kr5hCWxG5JBRywnQCuyPb1k+c70zYtNCP9GP/0MFyH
+	 7gsUH1RnzfemhtSnX8aU4mdpqR4rafGFM3ZoIvxRF7toMjFNzc1nNoDuYacgjLnXDTqgGupiEeMa
+	 gANCf++OZdxzeqggfIc4KRu8u55/xaVXl8E7Om/Gyk5quPeNRKIVqW7ledG4Ed03CNQguh3Y16RW
+	 CoEp0BRZj3+Cf0qOElwnMeaDPZgC3BEvqxZetuKlg6H0Fe7U2LWzIoFrb56mZXkcKDcBKyZWAt76
+	 5B4EE3HBo9woAqcC4EzqQmnpBNIuzw808mvqEyKnyGDNNL6apGxBgJPUh1v+uHsvahI7lgaon7qs
+	 Tr11Dfz6S25970V5wvBfudnS7rzgrqjxrOWvf19DUTeg4/X1QxwPtVSYGDf/lEMCBTVqb5xZy1bJ
+	 +3uIFp3ESWzloVoqVj7EjpyT6HbKNuUtn9NlZVBLzmbo98bhW0q0l9r6nM5L98V2iM/HsxKom7Hx
+	 dhurtnPpkpmvlZAOeDuJr6PqxpytrqD6BZpddxa2eqsVHjK7/wVF2KODkdQ9WwLZKwBwOsor3nHn
+	 OAkB8xTki+pqU/dpa30h5+xeKFEaVPR4WXO0NUsPJRX2GAEBGcoCyV94SjLsJ0+/5/YnjdxyHuc8
+	 4hzCdETt1aSuYTzrRAhXRaCh9ubuOrWAp2viHGQY5ejVUVDsIdRbiBVie5Gnn/D54Mw1h4
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Xin Xu <xxsemail@qq.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xin Xu <xxsemail@qq.com>
+Subject: [PATCH 2/2] arm64: dts: qcom: sm8250-xiaomi-elish: add ov8856 front camera
+Date: Sat, 20 Jun 2026 00:07:38 +0800
+X-OQ-MSGID: <20260619160738.107502-2-xxsemail@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260619160738.107502-1-xxsemail@qq.com>
+References: <20260619160738.107502-1-xxsemail@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: ibPKggffYkec9Zbobr4i/Bmb0fKy0/4jDr8euB5/Nv1TDSvanXw15HsfXcUiPDuyO5W/vGdUBPA7wFkPbwH84htwl2on1tNyvVMM+1gjdm/ZSCC+uEcbtp5DFrzlHYXcwaxxxnYeUNW0O74m3pZRwk0IUft+vMk30IJijYk8vnTiYwTUBkb07D91J/xpqTfokCiIVb/zMnLlWMDgQM273CAhAjrvCTv+xR4xnPwAJBnFscg4ItKDYdd0I7SfRcN14gK8knVfDuu6FdgGnaWgHNXwD27kgBa8qyaixmqMLydyYKOy9eZ04inJZZ2ZlAj4HpPMTJU6TbFkCR7v1/ZBlw==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b23f145f-176b-4f38-c7bf-08dece1c8d25
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2026 16:05:15.5100
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7OUuyAcX4hSNLHWUcl4vsAzjAlKnCGhdBnGqkXvrLUXs7zHN7zaDAuRPgVxAjPaANiCKOv4DJRlfcv0U3/cV74R9GvIGBJ32BCm/SAbRsUg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR02MB9151
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CzabABAtmXLja2TjV-GdGNU7bc81GcAVU4veJynMq7g_1781885119
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+Add the ov8856 front camera, connected on CCI1 to CSIPHY4 and
+powered by pm8008 LDOs and other supplies.
 
-Thanks for your feedback. Will take care of all the three comments.
+Signed-off-by: Xin Xu <xxsemail@qq.com>
+---
+ .../dts/qcom/sm8250-xiaomi-elish-common.dtsi  | 70 +++++++++++++++++++
+ 1 file changed, 70 insertions(+)
 
-> -----Original Message-----
-> Subject: Re: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support =
-for TS2500
-> MAC-PHY
->=20
-> On Sun, Jun 14, 2026 at 10:00:28AM -0700, Selvamani Rajagopal via B4 Rela=
-y wrote:
-> > +static const struct of_device_id s2500_of_match[] =3D {
-> > +=09{ .compatible =3D "onnn,s2500" },
-> > +=09{}
->=20
-> s/{}/{ }/
->=20
-> > +};
-> > +
-> > +static const struct spi_device_id s2500_ids[] =3D {
-> > +=09{ "s2500" },
-> > +=09{}
-> > +};
->=20
-> Please make this:
->=20
-> static const struct spi_device_id s2500_ids[] =3D {
-> =09{ .name =3D "s2500" },
-> =09{ }
-> };
->=20
-> > +MODULE_DEVICE_TABLE(spi, s2500_ids);
-> > +
-> > +static struct spi_driver s2500_driver =3D {
-> > +=09.driver =3D {
-> > +=09=09.name=09=3D DRV_NAME,
-> > +=09=09.of_match_table =3D s2500_of_match,
-> > +=09},
-> > +=09.probe=09=09=3D s2500_probe,
-> > +=09.remove=09=09=3D s2500_remove,
-> > +=09.id_table=09=3D s2500_ids,
->=20
-> Tastes are different, but the idea to align =3D is usually screwed by
-> follow up patches. Here it's broken from the start. If you ask me: Use a
-> single space before each =3D.
->=20
-> > +};
-> > +
-> > +module_spi_driver(s2500_driver);
->=20
-> Usually there is no empty line between the driver struct and the macro
-> registering it.
->=20
->>=20
-> Best regards
-> Uwe
+diff --git a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
+index 2687a2a8dda4..6d2cbb0b9fa6 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <dt-bindings/arm/qcom,ids.h>
++#include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/phy/phy.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/usb/pd.h>
+@@ -531,6 +532,61 @@ vreg_l7f_1p8: ldo7 {
+ 	};
+ };
+ 
++&camss {
++	vdda-phy-supply = <&vreg_l5a_0p88>;
++	vdda-pll-supply = <&vreg_l9a_1p2>;
++
++	status = "okay";
++
++	ports {
++		port@4 {
++			csiphy4_ep: endpoint {
++				clock-lanes = <7>;
++				data-lanes = <0 1>;
++				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++				remote-endpoint = <&ov8856_front_ep>;
++			};
++		};
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c1 {
++	camera_front: camera@10 {
++		compatible = "ovti,ov8856";
++		reg = <0x10>;
++
++		avdd-supply = <&vreg_l5p>;
++		dovdd-supply = <&vreg_l1c_1p8>;
++		dvdd-supply = <&vreg_l1p>;
++
++		clocks = <&camcc CAM_CC_MCLK3_CLK>;
++		clock-names = "xvclk";
++		assigned-clocks = <&camcc CAM_CC_MCLK3_CLK>;
++		assigned-clock-rates = <19200000>;
++
++		reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
++
++		orientation = <0>; /* Front facing */
++		rotation = <270>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&mclk3_active &camera_front_active>;
++
++		port {
++			ov8856_front_ep: endpoint {
++				link-frequencies = /bits/ 64
++					<720000000 360000000>;
++				data-lanes = <1 2>;
++				remote-endpoint = <&csiphy4_ep>;
++			};
++		};
++	};
++};
++
+ &cdsp {
+ 	firmware-name = "qcom/sm8250/xiaomi/elish/cdsp.mbn";
+ 	status = "okay";
+@@ -877,6 +933,20 @@ bt_en_state: bt-default-state {
+ 		bias-pull-up;
+ 	};
+ 
++	camera_front_active: camera-front-active-state {
++		pins = "gpio109";
++		function = "gpio";
++		bias-disable;
++		drive-strength = <2>;
++	};
++
++	mclk3_active: mclk3-active-state {
++		pins = "gpio97";
++		function = "cam_mclk";
++		bias-disable;
++		drive-strength = <4>;
++	};
++
+ 	pm8008_default: pm8008-default-state {
+ 		int-pins {
+ 			pins = "gpio84";
+-- 
+2.53.0
 
