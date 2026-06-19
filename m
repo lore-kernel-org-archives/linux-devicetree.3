@@ -1,344 +1,214 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316461E4AF
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781848856; cv=none; b=RF7MB7tfDudGmSFdwUhULFVO6xRmUu3+YH2ksyOy4rZNFcAPAXS9PbVB/VtWdhBjyW48lQjpCOnDRQApiUDhbpGm8MFbStmIoN61jwPReJT3fEXmU0ffexoOT+wvyDWDmFArnY6tinmG75vi/1ilH2mCOFQcY6GV6RK1rEPnzfk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781848856; c=relaxed/simple;
-	bh=GOWJ/89oyAiSHVd1jrrIu3EI/VVX0OmtAF3VMc69KdE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hXXFzjI7biUvi017IOoShgt3qhhJyM9QhRUaN/U6vjRwssI525w/BsAKeuKL/qFPtRmtU4+XZH4CY0qvMkqqQAmOTeV2EwUDnNJXesulqYvuo24uOLx+r2XDST9pQmj6heWe2wQgPBtcG909HUImg8bv3r7aGXZuz/UZ5m+zfbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IX98iZ2Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kXcpyLD1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36CF2F8EAF;
+	Fri, 19 Jun 2026 06:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781850486; cv=fail; b=DYxfbA6rDHXXY4yfEvvMHbM0jQZbnpCZsOJfnzl3AEGI3wRQ+R05XfixGlfn3TRxDlTHvKFcFEYJw5hgDWOWguojTFCVVkgfs4wet9FBG+6IGkCv0qljKkN9kndKH5xCY4hshTN5CGRiiiDOqQzZ+jlvH0FIBRVHWwvPHc7arCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781850486; c=relaxed/simple;
+	bh=cfnUhLAFB7CK7qF2H+MZZQogVFEXFxLGYVPpt+gP5u0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YDfPXibCQyGl/HfYiOm/wEjCGbrPuTqzAMUjgqmdCuxFZ/OnVAm40jLICjnlcAvE8cPL8RLB0mNKwmdP50+lq1aPU9vQGWUqe3gkOZOlJFz/hf6VTlyd2LovxefVqu7Yl86IEOfuCi0WpTn/iPsVxM2khh6Bu/JIRVd1ndNEb5U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=m50TBLMU; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=E2RxIpJq; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IX98iZ2Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kXcpyLD1"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65J2u2iZ3629148
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:00:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gQt0BGCoj085u0yk/A7JdFuPj5T9+RUYXPXfTT33xHw=; b=IX98iZ2QUL0Eus8P
-	EeA3vwxs3JCjnFsNIAj3iHE2wtB4xnXaeyRe2DJ40DVJUKZP2PIzxaSuJDUtKHBs
-	VtNwLbBrPef/z/dc//DnABfy08TzVS4GDBIN1ayLnIfYCPpa5Eu4fzf6OU5LSe7E
-	2kbD8VzNuM2463Z6yWMAGD+8HtYD5rsuOl/lrLzOGUYNecINn5/guwMcAW0SqVdw
-	E7h2SaNkvdMRcw7kmIGDYyAYJ213hYTtd0kllA1nEFCisXeBN0chlQD7FvQ8jVof
-	C2ZCfpttzWUYKyCftphbbrn/uUhvCinnyNkCfv3uOPehUz/pTaVmMKTSIbO6xrgJ
-	yohWVg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evm20jt01-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:00:53 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c891055e060so1263726a12.3
-        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 23:00:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781848853; x=1782453653; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gQt0BGCoj085u0yk/A7JdFuPj5T9+RUYXPXfTT33xHw=;
-        b=kXcpyLD1KtqMPS3rXNFYubBuTIcIuOz+W0gaOswyvTlTeU/UYrKnYTzkzBq7k1JsEQ
-         wsSKT1AswxZ5fZunJes5pNDXmLKmkO4th4seA1I+IWP+FRFBwTMUvBpSgpFYfs91J3sx
-         kSb23i1YQu9mD5QRc/V0ds2hVQcJivAQ4kG43e97svAiKyi6X7ltvH7NZXwl8nx2yP1p
-         C9Mwb/wVqmwVkdfJ3g522fQ44/20txN0JHZhRNCClv1jnTkl3PQZrQwi7AUwvcPR78O3
-         UGdzMR3ialL9mhHX3IGrkPMi/VcqRQ6EIJv2Z6EuajYEQTzfV+n5v0nz3btKVxqAuNZW
-         YvFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781848853; x=1782453653;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gQt0BGCoj085u0yk/A7JdFuPj5T9+RUYXPXfTT33xHw=;
-        b=kqc0GE8YHIJhMYgPSSCjxO9liwCzS7r95vS10StFF+hGNxj1bkYADVA1dskL0WvPGc
-         +KKviGDPq15qOMKlF4IbGQboAj5Y5IOjVusPmh5z1/vgw6Yqa0xAv+W4aeULsWu9E0gY
-         xTOrnPaayU/W3hq6mWCcrFhntDq3ga+rcsrOuxLhIjm09XzQzQs/nrnWkFmRxtA9JvO5
-         /rkRvN5Meh4mLBcQH50+tkdMM0BmbEp0QrhrArYDK3ViaRi5wRHkR8rV6UpvGtfXlzD/
-         +qJpmz4QX9Qt8oCzb3IHPH77AkzXrQwjP+I1shVyLJE2Wy7J1HZqC7NDkYG7A4VKFGaV
-         qV3g==
-X-Forwarded-Encrypted: i=1; AFNElJ8P/UmJknmI0H20Blevm+zsdw5oIkhZozJn8fGAoWfBh34okQqayjnoOxLMqPNBZyGihmBWQJu0OGrT@vger.kernel.org
-X-Gm-Message-State: AOJu0YxWeW+NBK+neseVYfijYtt2DgaR6VmM8CWyPr1ELv99xxeO0k/U
-	YW3n0CBg1SV1MfDTfCEkVlwbi2nNoAkhuK/Ug1Csx2tIBTKnFsC2wGdwcnFKm8DTlou5GzF6tH0
-	uMTGQWXznabkOKFFt68rXh588P4Ql98FcBConkUykGG5PJmPuGpZvBhWzvKeySlWS
-X-Gm-Gg: AfdE7cni1I6y3yoy7hQSIa5PimC+LV4n0vp4ACuweYRH5GbZsW6Vy4RyF25TKps94j5
-	z87EgOJkl00QYxGKETWoKKlqPbIu5CIY2tRUo95ZOGOybPE0ygajd34Vk/QxVELJ3be1RrL2tc6
-	o6EmV0j0wxucpRqWUPBOynhF1AHMnlSIg2q3Id30hiDPy37kUY4eq1MvErRHU2ZQ26Vx3n7SakB
-	fz2vqAFf8sa9p0DPQsxSzTFeNcSGobizlL+QabUISEn0Xz9RfQORTwcdbbkGl6lCkTWZr92ZeU3
-	XmkXKlCR7ZZlbfDAUileYW64sZ4bFfdhv9NYHp2hilE4YKyUcojdyohs7U5eGcjSuPG7L+PpgjY
-	PdZmyEOgQXoSBU5HYhQ5zl6TF3nplc8dq4z2J/aqu
-X-Received: by 2002:a05:6a20:b786:b0:3b4:80db:f1b6 with SMTP id adf61e73a8af0-3bb319dbfcemr2771689637.6.1781848852616;
-        Thu, 18 Jun 2026 23:00:52 -0700 (PDT)
-X-Received: by 2002:a05:6a20:b786:b0:3b4:80db:f1b6 with SMTP id adf61e73a8af0-3bb319dbfcemr2771631637.6.1781848852021;
-        Thu, 18 Jun 2026 23:00:52 -0700 (PDT)
-Received: from [10.92.184.233] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8a887ea5e0sm1324538a12.20.2026.06.18.23.00.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 18 Jun 2026 23:00:51 -0700 (PDT)
-Message-ID: <ede03b43-d95a-4eda-8054-1dce35fa17d9@oss.qualcomm.com>
-Date: Fri, 19 Jun 2026 11:30:48 +0530
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="m50TBLMU";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="E2RxIpJq"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65J2ucIv974945;
+	Fri, 19 Jun 2026 01:27:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=QyeEI5OGWzc5J
+	STdXFh5wVFtJ5UF/sE2+36u3mI4LIw=; b=m50TBLMUPBUYARYBGMbn0IzVE4dq+
+	SivWBbzdzlr++omrnqxpZcDBpZZiD+GubqKW6topGOD0ltGz7ctKrBMwJv9ERAte
+	4gblLCVpf5oNO+9/yBDtg8BGMw8END3Qsd9HQweo11XxKF5SKQfO8orgIck4erMk
+	lUOloUp9CpxGr80k/c8cmeHwua+M0EPazSAzvfBlIV3FLIBMTBYIV6tmIer/UQ1X
+	4XW50HSlG65BmXtBIPIWDeOc9RJDG1RCnvr+VHj4/QhEDwnozEU3EkZCcILO5MkT
+	gps7hRqvMWlJQ2YOVGWw3Vg7dueVB6PEYhsM26PMw0mE17A0tCUIBMKVQ==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012022.outbound.protection.outlook.com [40.107.209.22])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4evfmme8fe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 01:27:59 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Iv+Q+o149pRp/JWQ55ZNiqP1LPG8r/76bbhaBu9KSQhfP+hnzXhSbPCu9pdSI1g5OWzbg6Wa/j8fQXjRyvrS1m8K6LpR73wkWJ90o6TbxW5qyVb8BO34FzOn2K4MksbIOTo5IHAioHu7ymnT9v82x6T8vDsvBQEZS/Z3kXhvQ1I/C+Ybjx9LUtgepmnJFc4kdyCtiI6inv2qX8aEAMSzKu0U/O0xcL2dcn16YNxgagTSTBLQ9GaXrKVrEIkdD9Ei6blbWHTN+OTU0LytMLqc4P+Vb4VVS/pBqhCvWETwyS5D11PSWHKQPP4f9tHl7c2Pz/hyHjj8MfZBYq9Ee0PNtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QyeEI5OGWzc5JSTdXFh5wVFtJ5UF/sE2+36u3mI4LIw=;
+ b=G5TX4GP7Oe30ug3rxJAz7ExA0IMKdnyumQ5rPLw2/U/FxWWXRUSiYQLdOJiyhCWbIbQXxT3vxjW/Y4YsvIQqx0AkKHUQD2+mikOZADIBsSZVujkncgRkv2ga0u/CKHoONR/bxWEaxiySsVRJg+z9054zGjwdAeHNCy5GnriX9Uv0YxWixEt9def51N2MCDiMcTxrDoDzuRNIuMWQ6pcCHUPHeaERjaRJCLY6mL9XbKj5VMbWmDG/NJtA1OOGUHBok+tmp6HI6pREHmmQ3qcQBEaBUt32WVnhTk961YyJCeJgd0KBWIKr5ou4GQiZ2U6ElHqmRCm8QIX8PKt2+vVa/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QyeEI5OGWzc5JSTdXFh5wVFtJ5UF/sE2+36u3mI4LIw=;
+ b=E2RxIpJqKcWWkubFpuccKY6A5p471dD3i4WEXv96ytzOjY9N7EuQNs45PbnfAW+KynyvR4IdJpjWmk90iP2xH+YzDlAQBXVCeXd3S/d+A0TGvfu1W7dMBb6kBA9xwUt/7qsKC+p+CfGg6i232zCJ6TJpbu/AGvabtJY9bMN2BLE=
+Received: from CH2PR05CA0051.namprd05.prod.outlook.com (2603:10b6:610:38::28)
+ by DM3PPF2867093BF.namprd10.prod.outlook.com (2603:10b6:f:fc00::c13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 06:27:55 +0000
+Received: from CH2PEPF00000144.namprd02.prod.outlook.com
+ (2603:10b6:610:38:cafe::36) by CH2PR05CA0051.outlook.office365.com
+ (2603:10b6:610:38::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.13 via Frontend Transport; Fri,
+ 19 Jun 2026 06:27:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 06:27:55 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 19 Jun
+ 2026 01:27:54 -0500
+Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 19 Jun
+ 2026 01:27:54 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 19 Jun 2026 01:27:54 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65J6RnDF2097702;
+	Fri, 19 Jun 2026 01:27:50 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>,
+        <gehariprasath@ti.com>, <y-abhilashchandra@ti.com>, <m-shah@ti.com>,
+        <sen@ti.com>
+Subject: [PATCH v6 0/2] Enable audio support for J721S2 EVM
+Date: Fri, 19 Jun 2026 11:57:47 +0530
+Message-ID: <20260619062749.1575066-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] thermal: qcom: Add support for Qualcomm MBG thermal
- monitoring
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260601-spmi-mbg-driver-v1-2-b4892b55a17f@oss.qualcomm.com>
- <20260601114035.2D9A81F00893@smtp.kernel.org>
-Content-Language: en-US
-From: Sachin Gupta <sachin.gupta@oss.qualcomm.com>
-In-Reply-To: <20260601114035.2D9A81F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDA1MiBTYWx0ZWRfX/YfRCmfF31P0
- /NdaxKDeBrP4uHp9HY97BlopDS9WpzUUjffvVCKMjFEO/ZLj1pT3bJeh1/pMyjjd/DH9zfNbybV
- fynjpBJ7cclCztsUtLxpr1OQPaT4mxvjOu7oNPCUhL2ZLoPmRSkP2aAP4q4MXK5wNvLsADNHRxO
- 25chGZWTqsaFstbRSBFvNp5GoVNBBXe0rJfL9sYmlQ0g/vrJEmZ+JSc5ruyHpPnlHnQhQkOjXSH
- sNErqs+gVtQ6k2j+FssMp2fqCTgnULRltbFoKkmmsU2wCOp0OhZb+jUPsTF1t97xoJAIafP0x1o
- ogEKVtKK24b5VZOHPoTDyfGwpBEGJOA0cb3gjDaZzopRXC55umB+Bu3fgjcncyot4qYNJITK+j3
- N9rafm0WqvncOhZ4txhW94XzJw1qdBHSsgyAQZia8/4lodTCF+EY6sVvCmqWIEmrWvByrEq5TAZ
- fG3cDy2xgaj4QywI2+A==
-X-Authority-Analysis: v=2.4 cv=GKw41ONK c=1 sm=1 tr=0 ts=6a34db16 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=zo2K64OUA6rPPm9ls2MA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDA1MiBTYWx0ZWRfX5ExLcny1VGnB
- uX/KkU22kLCtKizzwmZwvHVaDLHh0Yz8rpQOeOoHOCR/H6U5uqHjZugndi/nzmP2TZ+eiwVRTfc
- TdN0FlkiRZpVXgPZxweovUxJwN8O2bc=
-X-Proofpoint-GUID: XeMGkqLX8ao_SbXYCtheY-5Uk-eXWEBo
-X-Proofpoint-ORIG-GUID: XeMGkqLX8ao_SbXYCtheY-5Uk-eXWEBo
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|DM3PPF2867093BF:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06ea1afa-5116-4eae-11b3-08decdcbe603
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|13003099007|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ZgRU2lqqLdE15TLjy6exYk6ujtXowFZmx20XhFcwcaGNMtIIBLNjfP1jJCLnSkr22e2NYrx6oUSINUZPHLvFwaTduViM+vQf8fnbb5xttJynab3tldTVmuvGrv95b37g8zc1i6F6DmoYAUx5/NL2kc/eLtvTTIGPR7cbtTEZJeMpSnV7z3idGaTH00iw2/WfRzJwSNhq6UWjTLBgbaSc99HvduTDG3FnVdXta7o2gi5O4GENzSfRlDnCSrEsnExBKQdnyr2dOKeIpQZcoR/UaaNqxemR9XOnvlqOIoL9v0U5qgWdCs4dxFVZBV5MmRfVaTsprefb1D4/nn0Go0reTA7r85CpvZpsY5r4wxH2h2VJM0MPS41z+1k6k6MU+UrncX4KC68G9Tyc/4oaZqXtsQXh6NzWrLtRueE/iShPUcSQH45OKxiBovSO3DbISFYyV2UqfZNzxXekNhUtW3U4Ob0quAL126D4ZvSAZXjanwH12EpuK7QmMmorGND9eMWTP+LI9butpnFcPLL4Q4R5IhT8eXj6m+a+bJwVLmFOXJos3oBs9A6bEVwgEWzH1pCRzlCGzKbq2JvT6u5aK8Nfa3lHyge7aT12/OUGyCixeXYUad6wm7VkIizvqC8bP+5NHCTSqahKbbBS6XrB6oQZH2V4ErefAOwVsuXdZru5wmBhEdc0W3ZwPbfBMkla4rGuKOkF9Orwf4cAAUu3AftusA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(13003099007)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WdwGO5DxF9roVU0PL+1Z4cgvJVy/iNBWK8KE+ZSQ8iE9DjtHu4PBkxXhYxwypAc817HqrULZ4l44S+wjwssfetvaqpD/LfEtExSsF5Nj23FOh1TPMWY1MoAyjJkN48UnEyPND9dV0y0iQMgFIq/7+WLjpkWvZ6y1xF3YWu3vGU5bMLhMCwVclguWhcULvyG9FFtwY6G3lVGoL/7vKLQCbyBx0lbppQCYjKYKh2NaDBQEobyjJRKMIkO8f4gDt6vIUdsS8Hgj9knxGcxkv1j9bq1tX/fBF5sWS/iNWEbZXYAesmBTRrCZ/BKKgeyMkd2sNC8E5WI4vrlIgwaRB8t5aWl86BletDJ+S3QKXmp7NJsNOkEfsQEAjvT9HTwXNKde+axWFW8Ap1ss5GWnBop2W/r3YCf8Cw69zjUrOWQ2uIlHX/XeYTPRRWqOQOhWcCg5
+X-Exchange-RoutingPolicyChecked:
+	AcGRdUMArU+oQwMOYY8L3ErnV6B7tgyu9UJDGJmQWAoctH3RMOk4o9IqSwhaJYzefOfrEyx2DE/0sv7GyBVqPmRdMEj7QR+NMTXYJE8uJQIpVfxh6co7j7JMWEozMujRE5Su5nSc3mw881ncpMouRkbDs3scI31Dn+H8yzdTyJPQ1X6Hg+sDvlrDEZfe0QGywHZUFtBE/NYohg7sIsLSCRQvL9yvhDCmH0uXvoK/Rk2mfpy/lQzF2I13BdtegOgng9paNUvOkNUkbchGar023KsK9SssWXRfHluyGP3ofCz7HObs3ax6NaBhcruh1c7Af4kT0fmh9ge0oj3DmIZ32g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 06:27:55.3180
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06ea1afa-5116-4eae-11b3-08decdcbe603
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000144.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF2867093BF
+X-Proofpoint-GUID: tNHn4TgIvMp641Ey1nTrcAlH_SsmXTET
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDA1NyBTYWx0ZWRfX/PsCbbWyjTeP
+ t/I4TUnyCDf384SIBiXS1qFKtAHC79cA0wSLRh3Ub+NeRCgaLWrQDN8KoENu/KTWbFyR7nN9+HC
+ PW2grp5CwR0i55fH8b8l2x4dmsa9vEmfRiWHvRJVoOVgmSIb/Xd1w+xouT6a7Iu1U+NSnwKdmGM
+ HgpqC32d6HurW3PCxWRbv1lQPYmsC7Ut34FKQIMtetWc+fGpHpM0GKBwHUAvI8/amXndDgosxLP
+ OTNXSUUWJeXvIbCduBE2FqXzB8/UKh+WDlFkRvZv+qk6cNwmPpJYpvlUy8n7O9TDjbHxEOBUGYl
+ VC3EVH9MaHMmZbqj3nRyhK2+coWI13Gd7Qg7Bsgt3emzaq3S+15chURZ9Yyc2EhU1NnRsqIQkeW
+ 57/9Qwj8bbujDJLn1gvcV9PgbJFnLxnJWWLmH80JjVhGhMa83R6ga82ORBdjicQpvxucCkA/3hC
+ QCesqUu2oBk8Mx/YSQQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDA1NyBTYWx0ZWRfXwObElozAxyd9
+ HDZZP7PL9aHrNF+cyJt6oGNTfK+MIKkB1imhyZ/byY6w43hjCVWRaja/fu/fs4+lg2XwQEQQJ11
+ s6x0bbL3DwVAbbGiGqgPOwafQimJo+4=
+X-Proofpoint-ORIG-GUID: tNHn4TgIvMp641Ey1nTrcAlH_SsmXTET
+X-Authority-Analysis: v=2.4 cv=Z//c2nRA c=1 sm=1 tr=0 ts=6a34e16f cx=c_pps
+ a=LdSsacNKwWtvIYfRw5AjOg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=FelO9ux0wxsA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=NEAV23lmAAAA:8
+ a=8__9IKA1ZvyzrIITXxQA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-19_01,2026-06-18_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 phishscore=0 malwarescore=0
+ malwarescore=0 phishscore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ adultscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1011
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190052
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190057
 
+Earlier version of the patchset sent upstream[0] was rejected as
+its dependency[1], which resolves the DTBS check errors introduced
+by [0] also got rejected on the grounds of ABI breakage.
 
+Another solution to fix the DTBS check errors introduced by [0] is
+to modify the ti,j721e-system-controller.yaml binding to allow
+audio-refclk as clock-controller child. This is done in the first
+patch of this series.
 
-On 6/1/2026 5:10 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] Data race and TOCTOU window on `last_thres_crossed` leading to missed thermal violations.
-> - [High] Potential NULL pointer dereference accessing `node->name` on non-OF platforms.
-> - [High] Incorrect bitwise AND used to check a 4-bit fault status enumeration.
-> - [High] Silent disablement of supported thermal trips.
-> - [Medium] Hardware threshold interrupt is enabled before configuring the threshold value.
-> - [Low] Incompatible pointer type passed to `regmap_read`.
-> --
-> 
-> commit 59e6da95c48d5200129439570e254b1f9180acf4
-> Author: Satya Priya Kakitapalli <quic_skakitap@quicinc.com>
-> Subject: thermal: qcom: Add support for Qualcomm MBG thermal monitoring
-> 
-> This patch adds a driver for the Qualcomm MBG thermal monitoring device.
-> It monitors the die temperature and notifies the thermal framework when a
-> level 1 upper threshold violation occurs via an SPMI interrupt.
-> 
->> diff --git a/drivers/thermal/qcom/qcom-spmi-mbg-tm.c b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
->> new file mode 100644
->> index 0000000000000..60190b341fc7c
->> --- /dev/null
->> +++ b/drivers/thermal/qcom/qcom-spmi-mbg-tm.c
-> 
-> [ ... ]
-> 
->> +static int mbg_tm_get_temp(struct thermal_zone_device *tz, int *temp)
->> +{
->> +	struct mbg_tm_chip *chip = thermal_zone_device_priv(tz);
->> +	int ret, milli_celsius;
->> +
->> +	if (chip->last_thres_crossed) {
->> +		dev_dbg(chip->dev, "last_temp: %d\n", chip->last_temp);
->> +		chip->last_thres_crossed = false;
->> +		*temp = chip->last_temp;
->> +		return 0;
->> +	}
-> 
-> [Severity: High]
-> Could this lockless read and clear of chip->last_thres_crossed cause missed
-> thermal violations?
-> 
-> If a user-space sysfs read occurs concurrently with the thermal worker
-> execution (which is triggered by the ISR), the sysfs read might consume the
-> flag by setting it to false.
-> 
-> When the thermal worker subsequently calls mbg_tm_get_temp(), it would see
-> false and read the raw ADC value. Because ADC readings can fluctuate and
-> lag, it might read a value below the threshold, entirely missing the
-> violation.
-> 
+Changes since v5:
+Link to v5:
+https://lore.kernel.org/all/20260520115603.2662930-1-m-shah@ti.com/
+- Move audio_refclk1 clock node from the overlay (k3-j721s2-evm-audio.dtso)
+  to the main DTSI (k3-j721s2-main.dtsi) so it is always available
+  independent of the overlay being applied
+- Drop the &scm_conf block from the overlay since it is now in main.dtsi
 
-I will address this by adding proper locking for this state in the next 
-patch series.
+Changes since v4:
+Link to v4:
+https://lore.kernel.org/all/20260519142341.2531948-1-m-shah@ti.com/
+- Explicitly disable main_mcan3 and main_mcan5 as they will silently
+  break mcasp audio routing
 
-> [ ... ]
-> 
->> +static int mbg_tm_set_trip_temp(struct thermal_zone_device *tz, int low_temp,
->> +				int temp)
->> +{
->> +	struct mbg_tm_chip *chip = thermal_zone_device_priv(tz);
->> +	int ret = 0;
->> +
->> +	guard(mutex)(&chip->lock);
->> +
->> +	/* The HW has a limitation that the trip set must be above 25C */
->> +	if (temp > MBG_MIN_TRIP_TEMP && temp < MBG_MAX_SUPPORTED_TEMP) {
->> +		ret = regmap_set_bits(chip->map, chip->base + MBG_TEMP_MON2_MISC_CFG,
->> +				      MON2_UP_THRESH_EN);
->> +		if (ret < 0)
->> +			return ret;
->> +
->> +		ret = regmap_write(chip->map, chip->base + MON2_LVL1_UP_THRESH,
->> +				   temp_to_vtemp_mv(temp));
-> 
-> [Severity: Medium]
-> Is it safe to enable the threshold comparator before programming the new
-> threshold value?
-> 
-> If the hardware retains a stale threshold from a prior state that is lower
-> than the current temperature, enabling the comparator first could
-> immediately trigger a spurious interrupt.
-> 
-> Would it be better to write the threshold value before enabling the
-> interrupt?
-> 
+Link to v3:
+https://lore.kernel.org/all/20260330094459.128648-1-m-shah@ti.com/
+Link to v2:
+https://lore.kernel.org/all/20260205130707.2033197-1-m-shah@ti.com/
+Link to v1:
+https://lore.kernel.org/all/20260112104536.83309-1-m-shah@ti.com/
 
-You are right that enabling the comparator before programming 
-MON2_LVL1_UP_THRESH can allow a stale threshold to trigger a spurious 
-interrupt. I will update the programming sequence to write the threshold 
-first and enable the comparator afterward in the next patch series.
+Bootlogs:
+https://gist.github.com/Jamm02/8ee551c2c8db3a58a9aa7976e049fa28
 
->> +		if (ret < 0)
->> +			return ret;
->> +	} else {
->> +		dev_dbg(chip->dev, "Set trip b/w 25C and 160C\n");
->> +		ret = regmap_clear_bits(chip->map, chip->base + MBG_TEMP_MON2_MISC_CFG,
->> +					MON2_UP_THRESH_EN);
->> +		return ret;
->> +	}
-> 
-> [Severity: High]
-> When the requested temperature falls outside the hardware's supported bounds,
-> the driver disables the threshold interrupt and returns 0.
-> 
-> By returning 0, does the driver deceptively signal to the thermal core that
-> the trip has been successfully configured?
-> 
-> Because the interrupt is disabled, the core will never be notified when the
-> temperature violates the trip point. Should this return an error code like
-> -ERANGE instead?
-> 
+[0]: https://lore.kernel.org/linux-arm-kernel/20250604104656.38752-1-j-choudhary@ti.com/
+[1]: https://lore.kernel.org/all/20250603095609.33569-4-j-choudhary@ti.com/
 
-I agree returning 0 here is not correct for an out-of-range request, 
-since the trip is not actually configured. I will return -ERANGE for 
-unsupported trip temperatures and update this in the next patch series.
+Jayesh Choudhary (1):
+  arm64: dts: ti: Add audio overlay for k3-j721s2-evm
 
-> [ ... ]
-> 
->> +static irqreturn_t mbg_tm_isr(int irq, void *data)
->> +{
->> +	struct mbg_tm_chip *chip = data;
->> +	int ret, val;
-> 
-> [Severity: Low]
-> The regmap_read() function expects an unsigned int pointer for the value
-> parameter, but val is declared as a signed int here.
-> 
+Moteen Shah (1):
+  dt-bindings: ti: Update audio-refclk binding and j721e system
+    controller
 
-We can keep this as-is for now to stay consistent with the surrounding 
-driver style, where int is commonly used for temporary readback 
-variables with regmap_read(). Since the value is only used for bit 
-checks and not sign-sensitive arithmetic, this does not cause a 
-functional issue. I plan to keep it unchanged in this series for 
-consistency.
+ .../bindings/clock/ti,am62-audio-refclk.yaml  |   8 +-
+ .../soc/ti/ti,j721e-system-controller.yaml    |   6 +-
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../boot/dts/ti/k3-j721s2-evm-audio.dtso      | 157 ++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-j721s2-main.dtsi    |   9 +
+ 5 files changed, 180 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j721s2-evm-audio.dtso
 
->> +
->> +	scoped_guard(mutex, &chip->lock) {
->> +		ret = regmap_read(chip->map, chip->base + MBG_TEMP_MON2_FAULT_STATUS, &val);
->> +		if (ret < 0)
->> +			return IRQ_HANDLED;
->> +	}
->> +
->> +	if (FIELD_GET(MON_FAULT_STATUS_MASK, val) & MON_FAULT_LVL1_UPR) {
-> 
-> [Severity: High]
-> Does this bitwise AND correctly check the 4-bit fault status enumeration?
-> 
-> MON_FAULT_LVL1_UPR is defined as 0x5 (binary 0101). A bitwise AND against
-> 0x5 will evaluate to true if either bit 0 or bit 2 is set, matching
-> unrelated fault states like 0x1, 0x4, or 0x7.
-> 
-> Should this use an exact equality check (==) instead?
-> 
-
-I’ll correct this to use == in the next patch series.
-
->> +		chip->last_thres_crossed = true;
-> 
-> [Severity: High]
-> This sets chip->last_thres_crossed to true outside of the mutex. As
-> mentioned earlier in mbg_tm_get_temp(), this flag is read and cleared
-> locklessly.
-> 
-> Could this lead to a data race if mbg_tm_get_temp() executes concurrently?
-> 
-
-Agree updating last_thres_crossed outside the lock can race with 
-concurrent reads in mbg_tm_get_temp(). I will move this update under the 
-lock in the next patch series.
-
->> +		dev_dbg(chip->dev, "Notifying Thermal, fault status=%d\n", val);
->> +		thermal_zone_device_update(chip->tz_dev, THERMAL_TRIP_VIOLATED);
->> +	} else {
->> +		dev_dbg(chip->dev, "Lvl1 upper threshold not violated, ignoring interrupt\n");
->> +	}
->> +
->> +	return IRQ_HANDLED;
->> +}
->> +
->> +static int mbg_tm_probe(struct platform_device *pdev)
->> +{
->> +	struct mbg_tm_chip *chip;
->> +	struct device_node *node = pdev->dev.of_node;
-> 
-> [ ... ]
-> 
->> +	chip->tz_dev = devm_thermal_of_zone_register(chip->dev, 0, chip, &mbg_tm_ops);
->> +	if (IS_ERR(chip->tz_dev))
->> +		return dev_err_probe(chip->dev, PTR_ERR(chip->tz_dev),
->> +				     "Failed to register sensor\n");
->> +
->> +	return devm_request_threaded_irq(&pdev->dev, chip->irq, NULL, mbg_tm_isr, IRQF_ONESHOT,
->> +					 node->name, chip);
->> +}
-> 
-> [Severity: High]
-> Will node->name cause a NULL pointer dereference on non-OF platforms?
-> 
-> Because the driver uses device_property_read_u32(), it can be instantiated
-> via ACPI or MFD without a device tree node, meaning pdev->dev.of_node
-> could be NULL.
-> 
-> Would it be safer to use dev_name(&pdev->dev) instead?
-> 
-
-This driver is intended to support DT-only instantiation, so of_node is 
-expected to be present for valid platforms. In that context, using 
-node->name is consistent with the intended usage model.
-
-Thanks,
-Sachin Gupta
+-- 
+2.34.1
 
