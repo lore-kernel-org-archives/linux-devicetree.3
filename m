@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62B12E6CB8
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 09:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA54223E320
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 09:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781860983; cv=none; b=tn89D6w4gn97dPb7FTK0D22l43HhO7Ow3tGkFWnSSiWy9XPq5o5tKKZRE1WCRKuZKfUgDAPoGDEubSw7TCYiQN0NhfL+Ap7sLs12K+3PJsLiTt5n7R4LXjUnqFDP8NEVZb810fg4TzDjw5ntS7Ua4VQO4FDt16zzWT3Zsg3MfeE=
+	t=1781861179; cv=none; b=TPgwE+B5EIgLetZvBIpm1k7wC+ok5YmkpSRpaoO1o7E1gLtdJ30jiGlPAzJ1gNnFLhHNCloteRnynUjsT1iMWI64UKP0F4LwyRgIjC+GqSaYFJiUZBod8RmMFtfQJdRBM9eYcLT8mBV/io17Y7Z7F/uhxReN0qz05R1FBQdckOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781860983; c=relaxed/simple;
-	bh=UY5Z7R4xiCUf5x+eAeUbKyxqPiU5eNzFIhaVUOkjPLQ=;
+	s=arc-20240116; t=1781861179; c=relaxed/simple;
+	bh=ZRwOxmLghH+92+bH+15sYinnHRNf/pc7l9zM/e9bNDg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ajHN7P5mJTBUoKjhj/+bha5Fg/lNzgZ7yq5VQaIt6F+KnTwgGw/ezEbkrAFe7ZwdwENd6mynMR4q2xBzQth7QWJgHs8KvtCbDJSOrv2U58SPw/toOkKG4s+3Y9PwJWxvhpYtnRkNqHZlNVC85bLrqt/zgjOzbOYZTF1zPqUSeIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrQdIYPZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T/PDSAv4FwLlnYNdJgDf1aRUcBSHAnBVUWkCIkOo4P/XNEvE6/+IpXIjauv3QEafhGR/yNyaxd9BgFCNYcr+O3fDxDQVULWNcAWOaBTt1isVYUPBFRwmmXPCoLTzOjMFnBRpdj90+ydZ9szPlWgw9nBfTQUa3fPu3RABGPXWf3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNdSu98C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrQdIYPZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68CF1F000E9;
-	Fri, 19 Jun 2026 09:23:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNdSu98C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 084AF1F000E9;
+	Fri, 19 Jun 2026 09:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781860982;
-	bh=GXT9765pqnJW1/eGdkBIUUJJq+xEimrZNw0fwIVJj3g=;
+	s=k20260515; t=1781861178;
+	bh=+P5p9k72S8q+YTzkrLgiEcs+pVCG5sNbfVoh3h/B56c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OrQdIYPZLVqJ9oFt2GDSczuLNCSe7lk4ctNURkArtWvRyCC0fjEF83YiYWz10tzqv
-	 ws4CEsE2POIO/cLpUl2yXEO+A7hfnx7CcG7m27rfENXXqppN5d/gh/2leTzEZ5bR6A
-	 X5rSsxceWGjSBml7TZhVknfcp1a2twcbwLGAF3HpHJWUTTPB+hpph1qXG2SqR0ERbC
-	 TU6nG1cEVm85zAEyvREaGlzcOex4Vxv6YWSBXOL6sQkgPqqCBEQsft7O8shw6SfPna
-	 13aCaczy+wioRZK2VZL3l7gl4zDIf2x2EUS5ygEwNVkgEDNMc6Pb5PzqsA9d9dZWPb
-	 eoADc1c2ftbqg==
+	b=jNdSu98C1x0HvIJSeJ26o++JVVgWwxLIgJTZg1NnFWadxjNEBeE0AR+F11T39sdIl
+	 OM1OEXkEknmql6qQIsm4CzlJ3S7zH1a98+CyG0dbBFphYIagF0VoyY2XpNsHMLwvaW
+	 +JhigQ3+JwUyQF2/hGhzTnLctLCp4CbeK728MjU339js2Pk4vnIYXJDk1bxwljYCFv
+	 tZwUf80VJeZKRfvmOFN1JF6iTSVo/emNmVBmq0PEnPWX8wMLWwkeNr6ztpCkiW5gaX
+	 FVJ4p2pxfbWPp7ue+BmLjNb6nn5gAI+nz+KmEVEntvHrbAm1Gng0mUqn3pl3n3Czba
+	 pBn5CP59M/7yQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] phy: rockchip: phy-rockchip-inno-csidphy: fix
- rk1808 hsfreq table
+Subject: Re: [PATCH v2 3/3] phy: rockchip: phy-rockchip-inno-csidphy: add
+ clock lane phase tuning
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gerald Loacker" <gerald.loacker@wolfvision.net>
-Cc: olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260619-feature-mipi-csi-dphy-4k60-v2-1-323356c2cc2e@wolfvision.net>
+Cc: neil.armstrong@linaro.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org
+In-Reply-To: <20260619-feature-mipi-csi-dphy-4k60-v2-3-323356c2cc2e@wolfvision.net>
 References: <20260619-feature-mipi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net>
- <20260619-feature-mipi-csi-dphy-4k60-v2-1-323356c2cc2e@wolfvision.net>
+ <20260619-feature-mipi-csi-dphy-4k60-v2-3-323356c2cc2e@wolfvision.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 09:23:00 +0000
-Message-Id: <20260619092301.D68CF1F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 09:26:17 +0000
+Message-Id: <20260619092618.084AF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Valid lowest frequency ranges are incorrectly rejected because `hs=
-freq =3D=3D 0x00` is treated as an error by the `if (!hsfreq)` check.
+- [Low] The macro `CSIDPHY_CLK_PHASE_DEFAULT` is defined but never used.
 --
 
-commit d7a2518a95d2ab7b8f2baea0da9f35646ffb6136
+commit 47571c2082c0165537db96312865f3a9805e768d
 Author: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-phy: rockchip: phy-rockchip-inno-csidphy: fix rk1808 hsfreq table
+phy: rockchip: phy-rockchip-inno-csidphy: add clock lane phase tuning
 
-The rk1808 hsfreq table previously capped at 2499 Mbps, preventing a data r=
-ate
-of exactly 2500 Mbps. This commit extends the final entry to 2500 Mbps to
-fully support this rate, which is also essential for RK3588 as it reuses
-this array.
+This commit adds support for parsing the 'rockchip,clk-lane-phase' device
+tree property to adjust the clock lane sampling phase. It enables
+board-specific tuning to optimize link stability at high data rates, falling
+back to hardware defaults if the property is absent.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/p=
 hy/rockchip/phy-rockchip-inno-csidphy.c
-> index c79fb53d8ee5c..5281f8dea0ad3 100644
+> index 5281f8dea0ad3..3a15840e86cad 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> @@ -170,7 +170,7 @@ static const struct hsfreq_range rk1808_mipidphy_hsfr=
-eq_ranges[] =3D {
->  	{ 299, 0x06}, { 399, 0x08}, { 499, 0x0b}, { 599, 0x0e},
->  	{ 699, 0x10}, { 799, 0x12}, { 999, 0x16}, {1199, 0x1e},
->  	{1399, 0x23}, {1599, 0x2d}, {1799, 0x32}, {1999, 0x37},
-> -	{2199, 0x3c}, {2399, 0x41}, {2499, 0x46}
-> +	{2199, 0x3c}, {2399, 0x41}, {2500, 0x46}
->  };
+> @@ -69,6 +69,10 @@
+>  #define RK1808_CSIDPHY_CLK_CALIB_EN		0x168
+>  #define RK3568_CSIDPHY_CLK_CALIB_EN		0x168
 > =20
->  static const struct hsfreq_range rk3326_mipidphy_hsfreq_ranges[] =3D {
+> +#define CSIDPHY_LANE_CLK_3_PHASE		0x38
+> +#define CSIDPHY_CLK_PHASE_MASK			GENMASK(6, 4)
+> +#define CSIDPHY_CLK_PHASE_DEFAULT		3
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the configuration logic
-reject valid low frequency ranges?
+[Severity: Low]
+Is this macro intended to be used somewhere?=20
 
-Looking at rk3326_mipidphy_hsfreq_ranges[], the first entry configures low
-data rates using 0x00:
+It appears to be defined but never used, since the driver falls back to the
+hardware default by initializing priv->clk_phase to -1 in
+rockchip_inno_csidphy_probe() and conditionally skipping the register write=
+ in
+rockchip_inno_csidphy_power_on():
 
-    { 109, 0x00 }, ...
-
-In rockchip_inno_csidphy_configure(), hsfreq is initialized to 0 and valida=
-ted
-with:
-
-	for (i =3D 0; i < drv_data->num_hsfreq_ranges; i++) {
-		if (drv_data->hsfreq_ranges[i].range_h >=3D data_rate_mbps) {
-			hsfreq =3D drv_data->hsfreq_ranges[i].cfg_bit;
-			break;
-		}
+	if (priv->clk_phase >=3D 0) {
+		val =3D readl(priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
+		...
 	}
-	if (!hsfreq)
-		return -EINVAL;
 
-When a low data rate is requested (e.g., <=3D 109 Mbps for rk3326), the loop
-correctly assigns hsfreq =3D 0x00. However, the subsequent if (!hsfreq) che=
-ck
-treats this valid configuration as an error state and returns -EINVAL.
-
-This same pattern appears in drivers/phy/rockchip/phy-rockchip-dphy-rx0.c
-during rk_dphy_configure() where low-speed configurations are similarly
-rejected.
-
-Could the validation check be updated to differentiate between an uninitial=
-ized
-value and a valid 0x00 configuration?
+Can CSIDPHY_CLK_PHASE_DEFAULT be safely removed?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-feature-mi=
-pi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net?part=3D1
+pi-csi-dphy-4k60-v2-0-323356c2cc2e@wolfvision.net?part=3D3
