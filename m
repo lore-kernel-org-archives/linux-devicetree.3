@@ -1,362 +1,102 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A87374730
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF96375F7B;
+	Fri, 19 Jun 2026 10:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781865198; cv=none; b=hvdUlVskUEROk8hhzf0iV5ODcDrfQBbgjN9yxNLjI7FrxQLaigxt8GF/26zubPiXyIHQE6XKiBmMXq387Hp+2RAa1WB8TenYRR2a9L3oxgSg2v1/xXxZGv1sKVaz11ME2qoB4cbKaFJhaeqVBSWUxzPt/W+VR/azYS8+y222qpc=
+	t=1781865643; cv=none; b=VB+pmQvLEBW2QIjg5MGAi+eOl+rJMzFS8EhPSmdw2J5f256gLKADolt5gHVV6PVilaec3MeEW2s/dbzHzUtpt5HGBMa7WCsAJzLXx4wVRlyJSkId7Nx7+tLnaYpXVG3VfwDoyQ9ymCTdTCllV5sNJQnaOfRfkMsK48WlKsHDCTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781865198; c=relaxed/simple;
-	bh=ww1AWBauQ0C8q90nsvZajGEEp7cRi76uQP7EtuMOh8k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ft68eH994XhRe/c8wFLQAXMCdt5nTmOCxu+/8AQZPK2taie/shz/DqqcUSAAxogYaFiUuKVYSSQU20/UtD3zSH/IFDVlebuvE3dNtRBIUMHHL5mpGrqvgNcEIa68sYOePUP2D2O5b8iZy6/qt+7vg+5IMbpDXF6WWd66rJR8ZlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smjXlOKn; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781865643; c=relaxed/simple;
+	bh=G5S3yYiin/z0EOfr+MSWdQ7+d2ulY5cBDUQ8yp63oDw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WraZa4K49d0/khFZkyfct152rblWFIQ3bEHdeSy5Y8k5+btehB3UtwqMVd7hhGKsPsNBu7NGrgP1pcviPXhAb4DMutIMm1mnrCGJwf9fMkN+1s9M4TQt5BZsZbt9Q+nMG2JwZIgTzy32AdDoJ9a2xUMt0aKoLL8ryV9mh+VICUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAWDVJR9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smjXlOKn"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4627adcf4d6so1297424f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 03:33:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781865194; x=1782469994; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=woHL+tMyNRNr6hk72r0ayu96UqFzq9L0anUGreDsb2g=;
-        b=smjXlOKnZ5KbH2Y3chivO/TLvG5gxjdzPfKjSGj0ICNZrtSK7KJKeAkCXLyiMOroPt
-         xh72olaaunXIIX1x8vqIxYpEeQeWd8tiIdz4igkNcx2ZSvrOgs1VCa7Hu+M/b1anS/4n
-         Uh5Ao5Xphz9tP+Srj0aQDdsj1+Vl7JsgLWP+RaKE4ApqtGzFwibHrDnI60w8JnYbuulo
-         Hy+8HWZ5a2dyIj0AOZbI/IAlhN8J5Nr+46FBWEg/rtB+Z4pzPKJcMx6zqJSqUwVjC5A8
-         xTbEFxvx5grqBLTZvdsSfDJRBdYbrk4c5Oz6iKeO17eUs3zh5vDWoqwbcvbxs23gacGc
-         9J/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781865194; x=1782469994;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=woHL+tMyNRNr6hk72r0ayu96UqFzq9L0anUGreDsb2g=;
-        b=iwnmnR9tD5HKHLe2H5tA6zgBwb+dqBtZQ2znb9Q4PD0IxQOA0tel2d+HTWzdu5kwhF
-         Kp4uH5CUeJZgPrd4nwmYG+a+iqBxywFFR+ENM19h5nC8wc9ByeMQ1mtA/JcBpG9DBx0z
-         iTR7U4jHwdEfKtIvE+hu0BbH0V2WKR9z9Ql7gt14KCHD9OaFlDW/7G3bHSKvORLmazH6
-         1P1Nud4zVcXNHgKZobY1xFGSRSZtZrdYR4mXsYvSvPDTLHhgH7wf26YZ3VrPdWYQF/+a
-         KvGE3cPBpSvCooruflCK9zNPjuucEtMWNp7u9jIUYR5w4nTbGebotlywL35M/k37CWA7
-         DsiQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/DDbHOzF7zW9aQKmFXNQ+FWkdRNvCk85X2lUKnlxM9uAxMvnyebGn7PfSJ6kHhXL0/HxOEGOOCLSTo@vger.kernel.org
-X-Gm-Message-State: AOJu0YzErT6dfJWT5Jsmh4lfumzxAmdzAc9WL1XKqRGPPsiJxA4Oq1W7
-	8hKrqZlW7/uMuunZMHZu6TIqrvPK9luXiFs5+lRzrs86xM6Rwtha5naq
-X-Gm-Gg: AfdE7cnTmfIZc/GefKgCYBYjzhYgtLGYBfF4cM6g39noK3yKCw4nMUPztBsvR9kmJT/
-	5wy32lWJj3SqaR+jcy9Ing0jgYq1a8qQJmUXBJDrYD0qtWQVrwO4H2qSpJYKMbEruGMlIuubDik
-	BM2GeMbDnrQxWqNOFV5IDsKNdEpcRXYde+4m6BvwDOlXSvFdKAWx6JiA4e0so4WracsGCqQ5Y8s
-	Obfxvhd0pO22L6qrNiYck9nV8ZXBzBsd/21JDodOSsyF+q04pkcGwF9G/DXOk1PKhj/WNWzWaGv
-	ohpljfaGLLmDUDjkRYGy/CqiVsEJET17PC2FPz+hZtulW77i1YOod/cZEE5GCHsCvWmDaETcI2i
-	Qgm9HD3paoobu68d3EcJ6L87S6KKgFoldx5HS9BRJQhNANVbV5/B0bVw9Zg/pzJOju3dBiD0Xox
-	1oQtM38rKk5xSnko/4sDkCoZoMX3845CisC1P47IfMbJRVO43yxfQcMaWVGMzmJqAsmkk=
-X-Received: by 2002:a5d:6143:0:b0:460:67b0:7544 with SMTP id ffacd0b85a97d-465071f9c24mr4055283f8f.7.1781865193657;
-        Fri, 19 Jun 2026 03:33:13 -0700 (PDT)
-Received: from ?IPV6:2a00:1e:db84:b301:2dd5:b6ee:bd0f:4c9f? ([2a00:1e:db84:b301:2dd5:b6ee:bd0f:4c9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-465090c5176sm6709556f8f.12.2026.06.19.03.33.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2026 03:33:13 -0700 (PDT)
-Message-ID: <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
-Date: Fri, 19 Jun 2026 12:33:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAWDVJR9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED151F000E9;
+	Fri, 19 Jun 2026 10:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781865641;
+	bh=I6nYe2KbGP2oRm9jLDA21qTDRbxOSiqz77dbI6yQWkI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DAWDVJR9Vons3bOyrOF1WNtKRIIdfl1Ixm/bZoIbfEaZCtoGIni4999QTl3Fcw8fd
+	 J2go863/3Ho2o/aHhdEkUEdNjzRQZoOf3ObZu+CdFjqKKiRGXpPItM40AMg1XKO5Rr
+	 5lQMgL9KvTww95Xc7nh6WEgXGiGGZzuEISsoFr8fXBLDeRuN+tHc/IGHzr4Tf/I6fx
+	 ywyHrkM1Kbmfk/jtrCH3HR42IXTANWRi11uSEBKOuNhB3E5K83zTka5n9P04ds1KOn
+	 ophDW8inJzk/F9u5Yjp1X8Y5ZNhyGHHa+wy0jMfYqpq3PWkKPPtFYopIQk7o0QxbhY
+	 vnxWVZuGfmtgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: hwmon: Document SMSC
+ EMC1402/1403/1404/1428
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260619103153.216444-2-clamor95@gmail.com>
+References: <20260619103153.216444-1-clamor95@gmail.com>
+ <20260619103153.216444-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 19 Jun 2026 10:40:41 +0000
+Message-Id: <20260619104041.8ED151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
- Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
- <20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
- <25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3ce3oqzqz56ehi@le72iqv7ye3d>
- <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
- <20260614204455.408c4d40@jic23-huawei>
-Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <20260614204455.408c4d40@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The device tree binding schema fails to correctly restrict the maxi=
+mum number of channels for the `smsc,emc1402` and its variants (emc1412, em=
+c1422, emc1442). By grouping it alongside `emc1403` under the `not` conditi=
+on for `emc1404`/`emc1428`, it inadvertently sets the channel `reg` maximum=
+ to 2 instead of 1.
+--
 
-On 6/14/26 21:44, Jonathan Cameron wrote:
-> On Tue, 9 Jun 2026 16:47:23 +0200
-> Janani Sunil <jan.sun97@gmail.com> wrote:
->
->> On 5/26/26 15:11, Rodrigo Alencar wrote:
->>> On 26/05/19 05:42PM, Janani Sunil wrote:
->>>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
->>>> buffered voltage output digital-to-analog converter (DAC) with an
->>>> integrated precision reference.
->>> ...
->>> Probably others may comment on that, but...
->>>
->>> This parent node may support device addressing for multi-device support through
->>> those ID pins. I suppose that each device may have its own power supplies or
->>> other resources like the toggle pins or reset and enable.
->>>
->>> That way I suppose that an example would look like...
->>>   
->>>> +
->>>> +patternProperties:
->>>> +  "^channel@([0-9]|1[0-5])$":
->>>> +    type: object
->>>> +    description: Child nodes for individual channel configuration
->>>> +
->>>> +    properties:
->>>> +      reg:
->>>> +        description: Channel number.
->>>> +        minimum: 0
->>>> +        maximum: 15
->>>> +
->>>> +      adi,output-range-microvolt:
->>>> +        description: |
->>>> +          Output voltage range for this channel as [min, max] in microvolts.
->>>> +          If not specified, defaults to 0V to 5V range.
->>>> +        oneOf:
->>>> +          - items:
->>>> +              - const: 0
->>>> +              - enum: [5000000, 10000000, 20000000, 40000000]
->>>> +          - items:
->>>> +              - const: -5000000
->>>> +              - const: 5000000
->>>> +          - items:
->>>> +              - const: -10000000
->>>> +              - const: 10000000
->>>> +          - items:
->>>> +              - const: -15000000
->>>> +              - const: 15000000
->>>> +          - items:
->>>> +              - const: -20000000
->>>> +              - const: 20000000
->>>> +
->>>> +    required:
->>>> +      - reg
->>>> +
->>>> +    additionalProperties: false
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +  - reg
->>>> +  - vdd-supply
->>>> +  - avdd-supply
->>>> +  - hvdd-supply
->>>> +
->>>> +dependencies:
->>>> +  spi-cpha: [ spi-cpol ]
->>>> +  spi-cpol: [ spi-cpha ]
->>>> +
->>>> +allOf:
->>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
->>>> +
->>>> +unevaluatedProperties: false
->>>> +
->>>> +examples:
->>>> +  - |
->>>> +    #include <dt-bindings/gpio/gpio.h>
->>>> +
->>>> +    spi {
->>>> +        #address-cells = <1>;
->>>> +        #size-cells = <0>;
->>>> +
->>>> +        dac@0 {
->>>> +            compatible = "adi,ad5529r-16";
->>>> +            reg = <0>;
->>>> +            spi-max-frequency = <25000000>;
->>>> +
->>>> +            vdd-supply = <&vdd_regulator>;
->>>> +            avdd-supply = <&avdd_regulator>;
->>>> +            hvdd-supply = <&hvdd_regulator>;
->>>> +            hvss-supply = <&hvss_regulator>;
->>>> +
->>>> +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
->>>> +
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>> +
->>>> +            channel@0 {
->>>> +                reg = <0>;
->>>> +                adi,output-range-microvolt = <0 5000000>;
->>>> +            };
->>>> +
->>>> +            channel@1 {
->>>> +                reg = <1>;
->>>> +                adi,output-range-microvolt = <(-10000000) 10000000>;
->>>> +            };
->>>> +
->>>> +            channel@2 {
->>>> +                reg = <2>;
->>>> +                adi,output-range-microvolt = <0 40000000>;
->>>> +            };
->>>> +        };
->>>> +    };
->>> ...
->>>
->>> 	spi {
->>> 		#address-cells = <1>;
->>> 		#size-cells = <0>;
->>>
->>> 		multi-dac@0 {
->>> 			compatible = "adi,ad5529r-16";
->>> 			reg = <0>;
->>> 			spi-max-frequency = <25000000>;
->>>
->>> 			#address-cells = <1>;
->>> 			#size-cells = <0>;
->>>
->>> 			dac@0 {
->>> 				reg = <0>;
->>> 				vdd-supply = <&vdd_regulator>;
->>> 				avdd-supply = <&avdd_regulator>;
->>> 				hvdd-supply = <&hvdd_regulator>;
->>> 				hvss-supply = <&hvss_regulator>;
->>>
->>> 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
->>>
->>> 				#address-cells = <1>;
->>> 				#size-cells = <0>;
->>>
->>> 				channel@0 {
->>> 					reg = <0>;
->>> 					adi,output-range-microvolt = <0 5000000>;
->>> 				};
->>>
->>> 				channel@1 {
->>> 					reg = <1>;
->>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
->>> 				};
->>>
->>> 				channel@2 {
->>> 					reg = <2>;
->>> 					adi,output-range-microvolt = <0 40000000>;
->>> 				};
->>> 			}
->>>
->>> 			dac@1 {
->>> 				reg = <1>;
->>> 				vdd-supply = <&vdd_regulator>;
->>> 				avdd-supply = <&avdd_regulator>;
->>> 				hvdd-supply = <&hvdd_regulator>;
->>> 				hvss-supply = <&hvss_regulator>;
->>>
->>> 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
->>>
->>> 				#address-cells = <1>;
->>> 				#size-cells = <0>;
->>>
->>> 				channel@0 {
->>> 					reg = <0>;
->>> 					adi,output-range-microvolt = <0 5000000>;
->>> 				};
->>>
->>> 				channel@1 {
->>> 					reg = <1>;
->>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
->>> 				};
->>> 			}
->>> 		};
->>> 	};
->>>
->>> then you might need something like:
->>>
->>> 	patternProperties:
->>> 		"^dac@[0-3]$":
->>>
->>> and put most of the things under this node pattern.
->>>
->>> So the main driver that you're putting together might need to handle up to four instances.
->>> Even if your current driver cannot handle this, the dt-bindings might need cover that.
->>>
->>> Need to double check if each dac node needs a separate compatible, so you would maybe populate
->>> a platform data to be shared with the child nodes, which would be a separate driver.
->>> (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).
->> Hi Rodrigo,
->>
->> Thank you for looking at this.
->>
->> For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
->> hardware/use case we have only needs one device node and the driver is written around that model as well.
->> While the device addressing pins could allow multi-device topology, we do not have an actual platform using
->> that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
->> speculatively without a validating use case.
-> Interesting feature - kind of similar to address control on a typical i2c bus device, or
-> looking at it another way a kind of distributed SPI mux.
->
-> Challenge of a binding is we need to anticipate the future.  So I think we do need something
-> like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
-> That would leave the path open to supporting the addressing at a later date.
-> An alternative might be to look at it like a chained device setup. In those we pretend there
-> is just one device with a lot of channels etc.  The snag is that here things are more loosely
-> coupled whereas for those devices it tends to be you have to read / write the same register
-> in all devices in the chain as one big SPI message.
->
-> +CC Mark Brown as he may know of some precedence for this feature. For his reference..
-> - Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
-> value that matches that or they are ignored.  Thus a single bus + 1 chip select can
-> be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
-> longer term how to support it cleanly in SPI.
->
-> Jonathan
+commit 5a834c50ed998e304e4c00fb64e4e434cbd93896
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Hi Jonathan, Rob, Krzysztof, Conor,
+dt-bindings: hwmon: Document SMSC EMC1402/1403/1404/1428
 
-One possible model that would also allow mixing the 12-bit and 16-bit variants would be to treat the parent node
-as the shared SPI transport only, and let each dac@N child carry its own compatible.
+This commit documents the basic hardware layout of SMSC (now Microchip)
+EMC1402/1403/1404/1428 thermal sensors.
 
-Rob, Krzysztof, Conor — wanted to get your input on whether this is an acceptable binding pattern.
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/smsc,emc1403.yaml
 
-properties:
-   compatible:
-     const: adi,ad5529r-bus
+[ ... ]
 
-patternProperties:
-   "^dac@[0-3]$":
-     type: object
-     properties:
-       compatible:
-         enum:
-           - adi,ad5529r-16
-           - adi,ad5529r-12
-       reg:
-         minimum: 0
-         maximum: 3
+> +allOf:
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - smsc,emc1404
+> +                - smsc,emc1428
+> +    then:
+> +      patternProperties:
+> +        "^channel@([0-7])$":
+> +          properties:
+> +            reg:
+> +              items:
+> +                maximum: 2
 
-With a DT example such as:
+[Severity: Low]
+Does this conditional block correctly restrict the channel limits for the
+smsc,emc1402 device and its variants (emc1412, emc1422, emc1442)?
 
-ad5529r@0 {
-         compatible = "adi,ad5529r-bus";
-         reg = <0>;
+By grouping the emc1402 variants with the emc1403 under the fallback
+condition (not containing emc1404/emc1428), it applies a maximum reg value
+of 2. This appears to allow up to 3 channels (0, 1, 2) to pass schema
+validation.
 
-         dac@0 {
-                 compatible = "adi,ad5529r-16";
-                 reg = <0>;
-         };
+Since the emc1402 hardware only supports 2 channels (local and 1 remote),
+should there be a separate conditional for the emc1402 family setting the
+maximum to 1?
 
-         dac@1 {
-                 compatible = "adi,ad5529r-12";
-                 reg = <1>;
-         };
-};
-
-The downside is that it introduces adi,ad5529r-bus as a compatible that does not correspond to an actual
-standalone device variant - it would require a parent driver to manage the shared SPI transport and enumerate the
-child devices. The actual DAC functionality is handled by the matching per-child compatibles(12 or 16 bit).
-Is this an acceptable pattern, or is there a preferred way to model this type of addressing scheme?
-
-Regards,
-Janani Sunil
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619103153.2164=
+44-1-clamor95@gmail.com?part=3D1
