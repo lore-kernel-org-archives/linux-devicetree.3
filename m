@@ -1,130 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D40B19CCF7;
-	Fri, 19 Jun 2026 18:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E16732A3D7;
+	Fri, 19 Jun 2026 19:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781894755; cv=none; b=QbcmSR5+PPkEqFmfEUqaiEuIcuQVZNHh7wevOk0W8Mix8NCXZ3nwHTbR+zAfU1rmSekbisthzRc9XLRzodhyX8wUpmCMbKvo0m0+iYNvojaPq4WG4RUEuHRIkpIStxahNL007I6klX5IVZ0j1aeJgqF/c6c0yKaBsGWyxIF7IOQ=
+	t=1781896734; cv=none; b=s8HR3s2KhkrQO5ebR1zEUDQEsU00EihKHUfN53PaDWBGht9okiy9Tg7mNPoOWXSH5Sv2kUs3zeFKFK5rMsrMONFpZxEnY8GMpeQV4nVVyJ/1u/RObQ8RUq5UmCHfwEfD9qJWUMHpOMjyPj9B97U6AjjZTVLJVDkOVQjvkkURKrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781894755; c=relaxed/simple;
-	bh=HQ99ZkS2qP/Mk+I1kjfZqngN2creNnXkqbm5DxCDnXk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ivY2A8BEVsseQS55xE67ZWpQOlJWOcEMLAB70jpqzWAaZZe6jslZhXHxxIQApbz/3azUa7K7r+apgkmjiWQLrk76xh0U94ufzM1ngeXg2KSv9MsbbqJF0b4KCi2HeJg9HLDfq/lyoTtwrlcuDt/Z+VLb0QFZU/ioUJb4uMVLcBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKdQKpG6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781896734; c=relaxed/simple;
+	bh=hN0ePi8N+Z7F/p9FDSPQHQnzENbJwFsntwUrrMsv3WE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=SgYSzdI3tqYmlFIfGbcWZXREWxt07lF/Txvey/9w++Ihp4n/Rjg3vslDTLTjIx6pOUlm1ezXQuLmaTAJQvdbcB5mbqy0GenHER9FZPnRdziF1V0ePKTMpvMWCsaSYr8oCYpHuCgzSsVdt+a3EyjxEWBkmVV93db/F10l88PjI20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=MGWyBY0b; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aAUb1mLn; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKdQKpG6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75661F000E9;
-	Fri, 19 Jun 2026 18:45:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781894753;
-	bh=JHW9Oobia66U/IDrDEv1ebncGijX/JFks8QgO3nE+FU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aKdQKpG63jwwPPXG1whkv68rsYkROUJkV/FV1na9dqQa8u9yoHMjZ8uFj8nnHF1j/
-	 c4Xzhihe0Aotu3VqqwYaRuQgIr11s0JBd6PhApYoZEGwXUnXJzdxJHVjRFJzlQ5biQ
-	 DhO0LF052fx41KNWOIzwM21GvCLZeAsTTqdbSJDcxnlLzA1X4tQfal8HCZub0n6LgF
-	 oHQCdSAGPGkwWGozYAekkshhMdI0oTrjvfius3ZisbMSrsTy7kLO4cefM4h2NfGMGD
-	 mfPrtN28uardjos3xSnu0eBaMwvw9Zdu+lQ5fGA9dG7uwfBzNeS9XVfo+NCodesqys
-	 sEYDJCmGat2Vw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/8] riscv: Enable resctrl filesystem for Ssqosid
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260619-dfustini-atl-sc-cbqri-dt-v1-6-e79a7723fab0@kernel.org>
-References: <20260619-dfustini-atl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org>
- <20260619-dfustini-atl-sc-cbqri-dt-v1-6-e79a7723fab0@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 18:45:53 +0000
-Message-Id: <20260619184553.A75661F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="MGWyBY0b";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aAUb1mLn"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 802641D000D2;
+	Fri, 19 Jun 2026 15:18:50 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+  by phl-compute-04.internal (MEProxy); Fri, 19 Jun 2026 15:18:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1781896730;
+	 x=1781983130; bh=WMmaYqcpj5qFPBbHXMKSxFB7Wq+hKotmwq9lR4Zk+sg=; b=
+	MGWyBY0b2Vpa5SbeOoCaHd7LeP1XXkLZl2I0hco03NvQpBHKRGMqk9uaJu29E4ES
+	ZSptCouPNO3K1BbIITyL7tl81AVtIHMJOHBQbuCPgecXCKmv/yEnV/CS6HQ2PpCB
+	N3uXtZIgil16ogc+o/IpOKRjbWSuYXdxWecPR3BYMv+2s+fqQk6qveFmqFJvw2rD
+	EG6YLk2RCgOEcsVRV/MYGWmxzY2TnX439brV300W6EV3Udrc7fYgwAZcFnD4p4dX
+	k7ufO75RVLll3ql5jo9bfVm0BTgLYx7iCwFl4RJzdmegIOldoA+bpe4HUK7ljS2w
+	VSOUseCetYaNb6CdlnHn+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1781896730; x=
+	1781983130; bh=WMmaYqcpj5qFPBbHXMKSxFB7Wq+hKotmwq9lR4Zk+sg=; b=a
+	AUb1mLnG3NRW+BTlcQ6gE7agaiElxEsjlSsOEFQv7TmStYThsonUub+Y9wmhq/UX
+	w5FQXavNfgOPLGScgIedj0P4L7cHMmK5U7dj7nZeHAF2Vch9ATME9FaUqt1rLzoG
+	BzpenwWYNt0HhJ7ClUQ5lS/QCD+6IViNV1GshFNAG/UFMRbcqTeygT2/PzEMxH35
+	75S5ahevfnRo+ANx4csygvKhYQcWly2+gJ9Q4gHTcNO8QpzQKs3QxhR7IoCDzV1u
+	TpwULVn0KQ+/bVlv11QAWjP1y9QKLFX74/Y9sqzzre5F6lnSdLj9mA7LNxedYlRV
+	RVy5Cr6YxHy9vEo8HIxKA==
+X-ME-Sender: <xms:GJY1ail0oQF4zqflss_nqWzFvweWbFuhrTHF-nZRwd7hhkaJBbkE-w>
+    <xme:GJY1akofdj9rdg4BYOVAoYiljcFLCywCTd-7p4hyKIyunbHUzvS-btKZVKRFAHNfM
+    Kdt1xksGs3OwM9ML3pflo65LyLAggQHqXFFT6QONswTfHcI_Ah9kJc>
+X-ME-Proxy-Cause: dmFkZTFxwm0eoO/ubQ6vEXwkN7gu9uih52cTPfdC2KKT/YbaCqdV74DUlwbxDlQ1eX/AJb
+    LKb64YTQgPoISp+PTWQdWzNil+OmtwAWnWyYjnoOczuy+3cPAlZux6RZHQSXuI/Lp4KgjK
+    vUGwLuxoK1IU5E412htHREbsHNYpd18q6ckMVLTC0jYuOf7BdKrn8fqXTW2QSUhnN0FoHN
+    vFues5Pfb92i6pWuaydZ/Uo/4AQp6Rq/0sAI5c02HEfElIpkJL80Of7lf9BTo3h4exQOxC
+    UjmlHkR5kc48/ma9mjCkyCStVFntqnJK+EKBJLZ5D0y9EiaAnIyl1w7s9xoryHn6uTXFhQ
+    TxDoRPTd4rLyrL1T2oMFZ5b4W4Iefc6tzVZtsT2VU/wqmt5WZin87Ho7gR+ktYrDsYAgmF
+    9/i9UaRN3uKxf3V4HhnlKsoOHyGA7QUii5kQGXVjcLwErJHdHDTgD6+4gTHPX9C9V9PCcv
+    Flr8I0ITlQWAMeH55hIqIfjDzHlE5pyLPDsZpmlKny3BojEHwDhdgt/iLyT7JnflRTGFlF
+    4Ee10aS1Viq8noR1nzW+Cs9T2IPvdmaRoeD0idLVGnvgIVi8JclG8MRxJ9ClSZdQtekUnq
+    W4lE2Q7q1ZSPjwDdxAzVyt/Tzo7IO5huzk//IKNJgVyUQyLK7ftY1V2pw8hg
+X-ME-Proxy: <xmx:GJY1apQVZQn0fUcUg_pMom8vHeGZJkSGXDUKzHwMPbGLRnxlHdz0bg>
+    <xmx:GJY1ascKauvynt-2QyEb_BVfCFip285HKqf535gjQf5J_sdu57LFwQ>
+    <xmx:GJY1auKhqgL-MEwStOIXYdL9FMrRYQXXXUSRus05CsUPS2CJIzZ37Q>
+    <xmx:GJY1apEXcbi2cM1z-xp4ZZYMsbvr2qayLkPROzh-xwsRcf1Cznogkg>
+    <xmx:GpY1auf-tP02Dc0COI_6I8-4aasP8pZuMJc-VIkKF2q0n_Vmi11zrxjR>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id CD722182007E; Fri, 19 Jun 2026 15:18:48 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-ThreadId: A7dmd8TY8zEF
+Date: Fri, 19 Jun 2026 21:17:58 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Vladimir Zapolskiy" <vz@kernel.org>, "Frank Li" <Frank.Li@oss.nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Stefan Agner" <stefan@agner.ch>, "Fabio Estevam" <festevam@gmail.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Russell King" <linux@armlinux.org.uk>,
+ "Abel Vesa" <abelvesa@kernel.org>, "Peng Fan" <peng.fan@nxp.com>,
+ "Michael Turquette" <mturquette@baylibre.com>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
+ "Aisheng Dong" <aisheng.dong@nxp.com>, "Jacky Bai" <ping.bai@nxp.com>,
+ "NXP S32 Linux Team" <s32@nxp.com>, "Linus Walleij" <linusw@kernel.org>,
+ "Piotr Wojtaszczyk" <piotr.wojtaszczyk@timesys.com>,
+ "Kees Cook" <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-hardening@vger.kernel.org, "Frank Li" <Frank.Li@nxp.com>
+Message-Id: <06498d0e-662a-4c09-b1b0-2a70b6168acb@app.fastmail.com>
+In-Reply-To: <7d946861-c3cb-4512-9d5f-9f4cb9b7ee8a@kernel.org>
+References: <20260619-dts_cleanup_arm_mcore-v1-0-0101795a2662@nxp.com>
+ <7d946861-c3cb-4512-9d5f-9f4cb9b7ee8a@kernel.org>
+Subject: Re: [PATCH 00/11] ARM: NXP: Drop NOMMU platform support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The CBQRI cache controllers lose their MMIO configurations (Capaci=
-ty Block Masks) across system suspend, but the driver implements no mechani=
-sm to restore them on resume.
-- [High] The per-CPU `CSR_SRMCFG` hardware register is not restored upon CP=
-U wakeup from low-power states, allowing execution with an invalid RCID.
---
+On Fri, Jun 19, 2026, at 18:07, Vladimir Zapolskiy wrote:
+> On 6/19/26 18:40, Frank.Li@oss.nxp.com wrote:
+>> Commercial users and hardware vendors migrated to Zephyr or other RTOS
+>> solutions years ago, leaving the NOMMU platform support effectively
+>> unused and unmaintained.
+>> 
+>> Remove the obsolete support to reduce maintenance burden and simplify the
+>> Freescale/nxp platform code.
+>> 
+>> Some driver code still be kept and may clean up later since it is possible
+>> reused by other SoC.
 
-commit eb40435445d4659ca3c62bd3e4e35f35a4c254c5
-Author: Drew Fustini <fustini@kernel.org>
+Thanks a lot for going through these already!
+ 
+>> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>
+> This change is a bit too early to happen, I prefer to get it orchestrated
+> by Arnd. So, as for today I NAK the change for its NXP LPC part.
 
-riscv: Enable resctrl filesystem for Ssqosid
+I am planning to post a series of deprecation notices for platforms
+that I would like to remove for one reason or another. Since it's only
+one more merge before the next (S)LTS kernel, my idea was to post
+the series once v7.2-rc1 is out, merge it into 7.3-LTS and remove
+the deprecated code early next year once the LTS release is announced.
 
-This commit enables the CBQRI driver for RISC-V when the Ssqosid ISA extens=
-ion
-is enabled. It links the RISC-V architecture support with the generic resct=
-rl
-filesystem logic.
+I have rebased uploaded my current draft to
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=rfc-arm-deprecation-7.2
 
-> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> index 9eb65d0eaa070..cc261de01107f 100644
-> --- a/arch/riscv/Kconfig
-> +++ b/arch/riscv/Kconfig
-> @@ -595,6 +595,7 @@ config RISCV_ISA_SSQOSID
->  	depends on 64BIT
->  	default n
->  	select ARCH_HAS_CPU_RESCTRL
-> +	select RISCV_CBQRI_DRIVER
+None of those are finalized of course, and we can do any part
+of it earlier or later (or not at all) if there is a good reason.
 
-[Severity: High]
-Does enabling this driver introduce a regression in power management?
+If you to remove the vf610m4/imx7d-cm4/lpc43xx/lpc18xx portions
+earlier, that is definitely fine with me. For imxrt1050, there a
+slightly higher chance that this is still used, so I would
+prefer to wait for the LTS kernel on that one.
 
-Looking at the CBQRI driver in drivers/resctrl/cbqri_capacity.c, the platfo=
-rm
-driver cbqri_capacity_driver is registered but doesn't implement any
-dev_pm_ops:
+>> Frank Li (11):
+>>        ARM: dts: vf610m4: Remove NOMMU platform support
+>>        ARM: dts: imxrt1050: Remove NOMMU platform support
+>>        ARM: imx: Remove NOMMU platform support
+>>        clk: imx: imxrt1050: Remove NOMMU platform support
+>>        pinctrl: freescale: IMXRT: Remove NOMMU platform support
+>>        ARM: imxrt_defconfig: Remove NOMMU platform support
+>>        ARM: dts: lpc: Remove NOMMU platform support
+>>        ARM: mach-lpc: Remove NOMMU platform support
+>>        ARM: configs: lpc*: Remove NOMMU platform support
+>>        clk: nxp: lpc: Remove NOMMU platform support
+>>        pinctrl: nxp: lpc: Remove NOMMU platform support
 
-drivers/resctrl/cbqri_capacity.c:
-	static struct platform_driver cbqri_capacity_driver =3D {
-		.probe	=3D cbqri_capacity_probe,
-		.driver =3D {
-			.name		=3D "cbqri-capacity",
-	...
+>
+> NXP LPC32xx is ARMv5 and it has MMU, hence it's plainly out of scope of
+> the proposed "dropping NOMMU platform support".
 
-During deep system suspend, power to the SoC cache controllers is typically
-gated, causing the partitioned Capacity Block Masks (CBMs) managed in
-drivers/resctrl/cbqri_devices.c to revert to default permissive values.
+Agreed. There are a few more platforms with MMU that I would like
+to drop because they were never converted to devicetree support,
+but there is nothing wrong with lpc32xx. 
 
-Since the driver lacks PM callbacks (like dev_pm_ops or syscore_ops) to
-restore the software-configured state on resume, will cache partitioning
-guarantees be broken across suspend/resume cycles?
-
-
-[Severity: High]
-Does this also introduce a regression with restoring the CPU CSR_SRMCFG
-register after low-power transitions?
-
-In arch/riscv/kernel/qos.c:riscv_srmcfg_pm_notify(), the CPU_PM_EXIT handler
-invalidates the software cache by writing U32_MAX to cpu_srmcfg:
-
-	case CPU_PM_EXIT:
-	case CPU_PM_ENTER_FAILED:
-		__this_cpu_write(cpu_srmcfg, U32_MAX);
-		break;
-
-However, it does not explicitly rewrite the hardware CSR_SRMCFG register
-itself.
-
-Since the Ssqosid extension leaves the CSR state implementation-defined
-across low-power transitions, could the CPU resume execution with the
-reset value (0)?
-
-This would mean memory accesses are performed with an incorrect RCID until
-the next context switch invokes __switch_to_srmcfg(), which would
-temporarily break cache partitioning guarantees.
-
->  	help
->  	  Adds support for the Ssqosid ISA extension (Supervisor-mode
->  	  Quality of Service ID).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-dfustini-a=
-tl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org?part=3D6
+      Arnd
