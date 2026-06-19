@@ -1,394 +1,223 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23769396579
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 15:02:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CBC285CAE
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 15:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781881378; cv=none; b=Rq2zl/PUWNnSDdIOMSutpsrn8IaTR4xvZb7yOu9mj7kFCgf4VI0O/UPbK2PVaLc4fNj7l//jX9JJZcyR9lhcrmFLi/TJvCmodBqujvpFw0Y/v81sPcTZ1EIvXkxB/hG/+PKBwyt+UntRaFRGNw6hWHzOe/Q/cvrj8yNVEziLDGU=
+	t=1781881580; cv=none; b=JEwNP727ANVkdCiUIoW7OoJ1u153YYFSWqBwdXJ6pnfh1gOtakBOHllCvwpTa6kx+cHEsrCj773dBzyXx37PiMWs7nvcNiogI65RNkjGPYlNuDuHBYHQ6axsYn/Z19bEK/cIuWJKiduNChogCXuiEuxCMtPgWNWakQJTYF4VYQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781881378; c=relaxed/simple;
-	bh=Vpmy8qPQ1U/lbVT3s/Aj5LfOgkOrnGAeHebnaA85Av4=;
+	s=arc-20240116; t=1781881580; c=relaxed/simple;
+	bh=NMhZl6yzZoPaPFC2r9TvSTe5OyQpJXA02ZqRNou92qA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K0SRCIyf2/NzywyxmDRdbKyhmBO2SGQDek/49jT0tQafDBpd2QsHHG1yeI7NblvgC3V2epKqXxb7pVYliS4OWa3G6yA082KwikmC5bI6pDYGEfcR4m4XjoE6VzTiFQUzRnd89cHEuVOB6luDwQ+Uylz12yrEAPPX/aIk/SICRS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SflXGKbO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=g74JOqKL01ZRrY1FIB9mKaXgC3k+LJxTmTob1FlaC8WSsZijKEn4JYi3kms9yY43tcHrr/8A153F29LF5DqvoOJfkhslGvFPlX9g+ca5vUmuVqv2tJvSaNUbckVMBe8D04MexK+lmrk2wTqTpQSFvzL4bBE8KkPdFw3c0TMe6Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFzmLfAW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SflXGKbO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5421F00A3A;
-	Fri, 19 Jun 2026 15:02:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFzmLfAW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE42E1F000E9;
+	Fri, 19 Jun 2026 15:06:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781881374;
-	bh=YhggJNjnAbs7itaOx9WPDbCA2x/3vcHE7pc3gmzrjd8=;
+	s=k20260515; t=1781881579;
+	bh=aGmF5dkkuzfieo3opwwh+/44lapJmysqRFe154qDPZs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SflXGKbOoolDl+PIGDzZDFiGI3rNGyKfuSxX93Qwwi8Ik4CpFkqH1EOgcD1MvcBoy
-	 MwDJEkaAoA4CGHXL3IDUE4li2d7kFG5dpeT/VH9hvC+oUJopKr72x9sA3SrXtNyYRL
-	 tvAh3yDKV21I3/QlPcaeH95ht2FdY+gXp3rXgcsggdHAVZTtH9sDM6t9sLmyC+AELT
-	 pvsdfWM/loKcVGqVq1o3PH9YEmpdEwTySZ/kV0KnvvE9DAZJYiFMpsS7HXPbOo2P0n
-	 ODpeD7UmWXcQgI4sbtL7QEgJDoOQEi14ffGaxqZS56owtP72Ogqenx7ZJ9N1pUjAI5
-	 sEWlOU5JmLx+A==
+	b=KFzmLfAW/HeSjtuzvkmi9VG/8jrASSFO8UI3x8zvivnpasO0jzALKYxtMiEU7P6o7
+	 0mAu7lKwYjvn+mVnR8/OU59GeTbDqN4DaS0/jfjgwh1dnzGr/WTTgOooVYTZ7h+U4r
+	 BXyFD13Hb8sSAQVAErdG9rVSgfqPorgA3a2unEd5VC6mCKOC+6kt3ml/k/3Yp0SG8l
+	 YahXBu5uQkdA2uKlnjNZRtN+7ECxsiwdzz34QeiBJ1p+WiIOUZD3h+2swLPzUmj8Gv
+	 lvy4iXIR5XmiyGBb03a2q9tM7RATfELX5qIPxd/vduiIGQVWZAego2oyae0+VKG4Kw
+	 pvPAx00RmeHaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/4] crypto: spacc - Add SPAcc ahash support
+Subject: Re: [PATCH v14 3/4] crypto: spacc - Add SPAcc AUTODETECT Support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260619144558.1868995-3-pavitrakumarm@vayavyalabs.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260619144558.1868995-4-pavitrakumarm@vayavyalabs.com>
 References: <20260619144558.1868995-1-pavitrakumarm@vayavyalabs.com>
- <20260619144558.1868995-3-pavitrakumarm@vayavyalabs.com>
+ <20260619144558.1868995-4-pavitrakumarm@vayavyalabs.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 15:02:54 +0000
-Message-Id: <20260619150254.8E5421F00A3A@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 15:06:18 +0000
+Message-Id: <20260619150618.CE42E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
-(s) to consider:
-- [Critical] Heap buffer overflow in `spacc_hash_setkey` when processing ov=
-ersized CMAC keys via userspace AF_ALG.
-- [High] Global DMA pools in `spacc_hal.c` prevent multi-device support and=
- cause use-after-free on device unbind.
-- [High] Cryptographic keys are corrupted on big-endian systems due to inco=
-rrect byte-swapping I/O accessors.
-- [High] Race condition in teardown due to `devm_request_irq` and `destroy_=
-workqueue` leads to Use-After-Free.
-- [High] Device driver teardown fails to stop or synchronize with in-flight=
- hardware operations.
-- [High] Software fallback path in `spacc_hash_do_one_request` hashes exces=
-s data beyond `req->nbytes`.
-- [High] DMA Use-After-Free and state corruption when `spacc_compute_xcbc_k=
-ey()` is interrupted by a signal.
-- [High] `dma_addr_t` is explicitly truncated to 32 bits without enforcing =
-a 32-bit DMA mask.
-- [Medium] Hardware job context (`new_handle`) is leaked when DMA setup fai=
-ls.
-- [Medium] Device reference count leak in `spacc_hash_do_one_request`.
-- [Medium] DMA descriptors are written in native CPU endianness instead of =
-a fixed device endianness.
-- [Low] `spacc_sg_to_ddt()` calls `dma_sync_sg_for_device()` with the mappe=
-d segment count instead of the original scatterlist length.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+
+New issues:
+- [Critical] Missing algorithm size adjustment causes integer underflow and=
+ massive out-of-bounds stack read for SM4_XCBC.
+- [High] `spacc_autodetect()` silently masks failures from `spacc_check_mod=
+es()`, leaving untested algorithms fully enabled.
+- [High] Algorithms unsupported by older hardware are incorrectly left full=
+y enabled.
+- [High] Hardware jobs are not aborted on timeout or signal interruption du=
+ring autodetect, causing DMA and stack Use-After-Free.
+- [High] Autodetect enqueues zero-length MAC/ICV jobs and sends fake keys t=
+o raw hash modes, risking hardware hangs.
+
+Pre-existing issues:
+- [High] Stale entries in the `job_lookup` array cause cross-talk and prema=
+ture wakeups when jobs time out.
+- [High] Autodetect key size validation is completely bypassed for all hash=
+ algorithms.
+- [High] Hardware jobs are not aborted on signal interruption during XCBC k=
+ey setup, causing Use-After-Free.
 --
 
-commit ea0f852aa7f5a1432e0e841a15fc1ab659a9de28
+commit e6db4de2a591df230531fe22f63687d19f34dfb0
 Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Date:   Fri Jun 19 14:45:56 2026 +0000
 
-    crypto: spacc - Add SPAcc ahash support
-   =20
-    Add ahash support to SPAcc driver.
-    Below are the hash algos supported:
-    - cmac(aes)
-    - xcbc(aes)
-    - cmac(sm4)
-    - xcbc(sm4)
-    - hmac(md5)
-    - md5
-    - hmac(sha1)
-    - sha1
-    - sha224
-    - sha256
-    - sha384
-    - sha512
-    - hmac(sha224)
-    - hmac(sha256)
-    - hmac(sha384)
-    - hmac(sha512)
-    - sha3-224
-    - sha3-256
-    - sha3-384
-    - sha3-512
+crypto: spacc - Add SPAcc AUTODETECT Support
 
-> diff --git a/drivers/crypto/dwc-spacc/spacc_ahash.c b/drivers/crypto/dwc-=
-spacc/spacc_ahash.c
-> new file mode 100644
-> index 0000000000000..644d9401289c3
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_ahash.c
-[ ... ]
-> @@ -222,6 +222,8 @@ static int spacc_hash_init_dma(struct device *dev, st=
-ruct ahash_request *req)
-> =20
->  err_free_dst:
->  	pdu_ddt_free(&ctx->dst);
->  err_free_digest:
->  	dma_pool_free(priv->hash_pool, ctx->digest_buf, ctx->digest_dma);
+SPAcc is configurable and it supports the below modes:
+1. AUTODETECT configuration - Autodetects the supported algos.
+2. Static configuration - The algo support is defined statically.
 
-[Severity: Medium]
-Is a spacc_close() call missing on this error path?
-
-Earlier in spacc_hash_init_dma(), a hardware context handle is acquired via
-spacc_ctx_clone_handle(). If mapping the scatterlist to the device fails,
-the function jumps to err_free_dst to clean up.
-
-Without a spacc_close() call here, it looks like this leaks the hardware
-context semaphore count and job slot.
-
-> =20
->  	return rc;
->  }
-[ ... ]
-> @@ -253,6 +253,8 @@ static int spacc_hash_setkey(struct crypto_ahash *tfm=
-, const u8 *key,
->  		keylen =3D digest_size;
->  		dev_dbg(salg->dev, "updated keylen: %u\n", keylen);
->  	} else {
->  		memcpy(tctx->ipad, key, keylen);
->  	}
-
-[Severity: Critical]
-Is it possible for a user to provide a key larger than 128 bytes here?
-
-When userspace configures a CMAC algorithm via the AF_ALG netlink socket,
-it can pass a key of arbitrary length. The logic in spacc_hash_setkey()
-bypasses key hashing for CRYPTO_MODE_MAC_CMAC and unconditionally executes
-the memcpy().
-
-Since tctx->ipad is a fixed 128-byte array, passing a key larger than
-128 bytes would cause a heap buffer overflow.
-
-Could we validate the key length before copying? I notice the
-spacc_is_mode_keysize_supported() check happens after this memory copy.
-
-> =20
->  	if (!spacc_is_mode_keysize_supported(&priv->spacc, salg->mode->id,
-[ ... ]
-> @@ -342,6 +342,8 @@ static int spacc_hash_do_one_request(struct crypto_en=
-gine *engine, void *areq)
->  	tctx->tmp_sgl[0].length =3D 0;
-> =20
->  	if (tctx->handle < 0 || !tctx->ctx_valid) {
->  		priv =3D dev_get_drvdata(salg->dev);
->  		tctx->dev =3D get_device(salg->dev);
-
-[Severity: Medium]
-Does this path leak a device reference?
-
-During spacc_hash_do_one_request(), if the context handle needs to be
-reopened, tctx->dev gets a new reference. Because spacc_hash_setkey() sets
-tctx->ctx_valid =3D false after already taking a reference to the device, t=
-he
-next hash operation fetches a new reference and overwrites tctx->dev.
-
-Will this prevent the device from ever being cleanly removed since
-put_device() isn't called on the old reference?
-
-> =20
->  		/*
-[ ... ]
-> @@ -484,6 +484,8 @@ static int spacc_hash_do_one_request(struct crypto_en=
-gine *engine, void *areq)
->  				       sg_nents_for_len(req->src, req->nbytes),
->  				       SG_MITER_ATOMIC | SG_MITER_FROM_SG);
->  			while (sg_miter_next(&miter)) {
->  				rc =3D crypto_shash_update(desc,
->  							 miter.addr,
->  							 miter.length);
->  				if (rc)
-
-[Severity: High]
-Can this software fallback loop process more data than requested?
-
-Unlike standard fallback loops, miter.length isn't clamped to the
-remaining req->nbytes. If req->nbytes indicates a partial segment
-(for example, 10 bytes), but the underlying scatterlist element length
-is larger (like a 4096-byte page), it seems the entire 4096 bytes will
-be hashed.
-
-Would this cause an incorrect digest and potentially read out-of-bounds
-page data into the hash context?
-
->  					break;
->  			}
 > diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
 pacc/spacc_core.c
-> new file mode 100644
-> index 0000000000000..bfbd6624e9268
-> --- /dev/null
+> index bfbd6624e9268..f95059ba00377 100644
+> --- a/drivers/crypto/dwc-spacc/spacc_core.c
 > +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+> @@ -201,6 +201,909 @@ static const unsigned char template[] =3D {
+>  	[CRYPTO_MODE_MAC_SM4_CMAC]      =3D 242,
+>  };
+> =20
+> +#if IS_ENABLED(CONFIG_CRYPTO_DEV_SPACC_AUTODETECT)
+> +static const struct {
+> +	unsigned int min_version;
+> +	struct {
+> +		int outlen;
+> +		unsigned char data[64];
+> +	} test[7];
+> +} testdata[CRYPTO_MODE_LAST] =3D {
 [ ... ]
-> @@ -423,6 +423,8 @@ int spacc_compute_xcbc_key(struct spacc_device *spacc=
-, int mode_id,
->  			if (err !=3D 0)
->  				goto xcbc_err;
-> =20
->  			wait_event_interruptible(job->waitq, job->job_done);
->  			job->job_done =3D 0;
->  			err =3D job->job_err;
-> =20
->  			if (err !=3D 0)
->  				goto xcbc_err;
+> +	[CRYPTO_MODE_HASH_MD5] =3D {
+> +		.min_version =3D 0x65,
+> +		.test[1].outlen =3D 16, .test[1].data =3D { 0x70, 0xbc, 0x8f, 0x4b,
+> +			0x72, 0xa8, 0x69, 0x21, 0x46, 0x8b, 0xf8, 0xe8, 0x44,
+> +			0x1d, 0xce, 0x51,  }
+> +	},
 
 [Severity: High]
-What happens if wait_event_interruptible() is interrupted by a signal?
+Does assigning bitmask 242 in the template array to raw hash modes like
+MD5 cause issues here?
 
-It returns -ERESTARTSYS, and the driver checks err =3D job->job_err,
-which would still be -EINPROGRESS. The code then jumps to the error path,
-frees the DMA buffer, and closes the job handle.
+It appears that autodetect will test four non-existent key sizes for these
+raw hashes. For unpopulated tests where testdata.test[y].outlen is 0,
+could passing 0 to spacc_set_operation() as icvsz and sending dummy
+128-byte keys to the hardware lock up the cryptographic accelerator?
 
-However, the hardware DMA might still be actively running. If the job
-handle is released, could it be re-allocated to a new request while the
-hardware subsequently corrupts the freed memory and finishes asynchronously?
-
->  		}
 [ ... ]
-> @@ -1137,6 +1137,8 @@ int spacc_sg_to_ddt(struct device *dev, struct scat=
-terlist *sg,
->  		pdu_ddt_add(dev, ddt, sg_dma_address(sg_entry),
->  			    sg_dma_len(sg_entry));
->  	}
-> =20
->  	dma_sync_sg_for_device(dev, sg, nents, dma_direction);
+> +		spacc_write_context(spacc, rc, SPACC_HASH_OPERATION,
+> +				hash_key, keysizes[1][keysz_idx] +
+> +				(algo_mode =3D=3D CRYPTO_MODE_MAC_XCBC ? 32 : 0),
+> +				hash_key, 16);
 
-[Severity: Low]
-Is this DMA sync call necessary, and is it using the correct segment count?
+[Severity: Critical]
+Is the + 32 size adjustment missing for CRYPTO_MODE_MAC_SM4_XCBC here?
 
-dma_map_sg() implicitly transfers ownership to the device and performs
-necessary cache synchronization. Immediately calling dma_sync_sg_for_device=
-()
-appears redundant.
+When CRYPTO_MODE_MAC_SM4_XCBC is used, keysize appears to be passed as 16
+instead of 48. Later in spacc_write_context(), both XCBC modes compute
+ksz - 32, which would underflow to -16. Since spacc_write_to_buf()
+evaluates length as a signed integer, would this trigger an out-of-bounds
+stack read and leak uninitialized kernel memory to the hardware?
 
-Additionally, it is called using nents (the mapped segments) instead of
-orig_nents (the original scatterlist size), which violates the DMA API
-contract for syncing.
-
-> =20
->  	return orig_nents;
->  }
-> diff --git a/drivers/crypto/dwc-spacc/spacc_device.c b/drivers/crypto/dwc=
--spacc/spacc_device.c
-> new file mode 100644
-> index 0000000000000..deade3a8f2529
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_device.c
 [ ... ]
-> @@ -205,6 +205,10 @@ static void spacc_crypto_remove(struct platform_devi=
-ce *pdev)
->  	spacc_irq_glbl_disable(&priv->spacc);
->  	spacc_unregister_algs(priv);
-> =20
->  	if (priv->engine)
->  		crypto_engine_exit(priv->engine);
+> +	if (err =3D=3D 0) {
+> +		long ret;
+> +
+> +		ret =3D wait_event_interruptible_timeout(job->waitq,
+> +				job->job_done, msecs_to_jiffies(500));
+> +		if (ret =3D=3D 0) {
+> +			spacc->config.modes[algo_mode] &=3D ~(1 << keysz_idx);
+> +			spacc_close(spacc, rc);
+> +			return -ETIMEDOUT;
+> +		} else if (ret =3D=3D -ERESTARTSYS) {
+> +			spacc->config.modes[algo_mode] &=3D ~(1 << keysz_idx);
+> +			spacc_close(spacc, rc);
+> +			return -EINTR;
+> +		}
 
 [Severity: High]
-Does this teardown path properly synchronize with in-flight hardware
-operations?
+When a timeout or signal occurs, does the hardware operation continue runni=
+ng?
 
-During driver removal, crypto_engine_exit() stops the engine. However,
-if the hardware queue isn't empty, it can fail and the driver proceeds
-to free all DMA buffers and unmap memory via devres.
-
-Because the hardware engine was not explicitly reset or halted, could it
-continue executing and perform DMA operations into freed memory?
-
-> =20
->  	if (priv->spacc_wq)
->  		destroy_workqueue(priv->spacc_wq);
+If the software job slot is closed and spacc_autodetect() frees the DMA
+memory, could the ongoing hardware operation asynchronously write crypto
+results to the freed memory and dereference the destroyed ddt stack
+pointer?
 
 [Severity: High]
-Is there a race condition between the workqueue destruction and the
-devres-managed IRQ handler?
+This is a pre-existing issue, but when spacc_close() calls
+spacc_job_release(), does it leave a stale entry in the job_lookup array?
 
-spacc_crypto_remove() tries to silence interrupts and then destroys the
-workqueue. Because the IRQ handler was registered with devm_request_irq()
-and IRQF_SHARED, it remains fully registered until after the remove
-function completes.
+If spacc_job_release() frees the job_idx for reuse but fails to clear
+spacc->job_lookup[job->job_swid], could a subsequent job receive the same
+job_idx and be incorrectly woken up when the timed-out hardware job
+finally completes?
 
-If the shared interrupt fires, spacc_irq_handler() may execute and call
-queue_work() on the already destroyed workqueue, leading to a Use-After-Fre=
-e.
+[Severity: High]
+This isn't a bug introduced by this patch, but spacc_compute_xcbc_key()
+seems to have a similar issue with wait_event_interruptible().
 
-> =20
->  	spacc_remove(pdev);
->  }
-> diff --git a/drivers/crypto/dwc-spacc/spacc_hal.c b/drivers/crypto/dwc-sp=
-acc/spacc_hal.c
-> new file mode 100644
-> index 0000000000000..b3c1fcda4df2a
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/spacc_hal.c
+If interrupted by a signal, it jumps to the error path and frees the DMA
+buffer and ddt structure without aborting the hardware DMA transaction.
+Can this lead to a Use-After-Free if the hardware continues executing?
+
 [ ... ]
-> @@ -160,6 +160,9 @@ static void pdu_to_dev_little(void __iomem *addr_, co=
-nst unsigned char *src,
->  	__le32 val;
-> =20
->  	while (nword--) {
->  		data =3D *((u32 *)src);
->  		val =3D __cpu_to_le32(data);
-> =20
->  		__raw_writel((u32 __force)val, addr);
-
-[Severity: High]
-Does casting the byte array to a 32-bit integer corrupt keys on
-big-endian systems?
-
-The code casts an arbitrary unaligned byte array to u32 * and
-dereferences it. This causes a crash on architectures that trap
-unaligned accesses like ARM or SPARC.
-
-Furthermore, reading bytes as a native 32-bit integer means the byte
-order within the word changes depending on CPU endianness. On big-endian
-systems, writing this word to the device registers causes the key or IV
-bytes to be reversed within every 4-byte chunk.
-
->  		src +=3D 4;
->  		addr++;
->  	}
->  }
+> +int spacc_autodetect(struct spacc_device *spacc)
+> +{
 [ ... ]
-> @@ -229,6 +229,8 @@ int pdu_mem_init(void *device)
->  {
->  	if (ddt_device)
->  		return 0; /* already setup */
-> =20
->  	/* max of 64 DDT entries */
->  	ddt_device =3D device;
->  	ddt_pool =3D dma_pool_create("spaccddt", device,
->  				   DDT_MAX_ENTRIES, 8, 0);
+> +	for (x =3D 0; x < ARRAY_SIZE(template); x++) {
+> +		spacc->config.modes[x] =3D template[x];
+> +		if (template[x] && spacc->config.version >=3D
+> +				testdata[x].min_version) {
 
 [Severity: High]
-Do these global DMA pools prevent multi-device support?
+If the hardware version is older than testdata[x].min_version, does the
+unsupported algorithm remain fully enabled in spacc->config.modes?
 
-pdu_mem_init() creates DMA pools using static global variables (ddt_pool,
-ddt_device). If a second SPAcc instance probes, it reuses the first
-instance's pools, which breaks DMA on systems with IOMMUs.
-
-If the first instance is unbound, pdu_mem_deinit() destroys the global
-pools, leaving any remaining instances with dangling pointers. This would
-result in a use-after-free crash on subsequent crypto requests.
-
-> =20
->  	if (!ddt_pool)
-[ ... ]
-> @@ -336,6 +336,8 @@ int pdu_ddt_add(struct device *dev, struct pdu_ddt *d=
-dt, dma_addr_t phys,
->  	if (ddt->idx =3D=3D ddt->limit)
->  		return -EINVAL;
-> =20
->  	ddt->virt[ddt->idx * 2 + 0] =3D (uint32_t)phys;
->  	ddt->virt[ddt->idx * 2 + 1] =3D size;
+Since the bitmask is initialized to its default template value and never
+cleared if the test loop is bypassed, would the driver attempt to use
+unsupported algorithms on older hardware?
 
 [Severity: High]
-Does this truncate the DMA address on systems with memory above 4GB?
+This is a pre-existing issue, but does spacc_is_mode_keysize_supported()
+unconditionally bypass validation for all hash algorithms?
 
-The 64-bit phys DMA address is cast to uint32_t and written into the
-descriptor, but the driver does not appear to call
-dma_set_mask_and_coherent() during probe to enforce a 32-bit restriction.
-This could result in silent memory corruption.
+Because the template array initializes all hashes with bit 128 set, and
+autodetect only clears bits 0-6, bit 128 is never cleared. Would this allow
+invalid key sizes to pass validation and cause hardware errors?
 
-[Severity: Medium]
-Are these descriptors being written in the native CPU endianness?
+> +			for (y =3D 0; y < (ARRAY_SIZE(keysizes[0])); y++) {
+> +				if (spacc_check_modes(spacc, x, y, virt, key,
+> +							&ddt) < 0)
+> +					goto out_free_dma;
+> +			}
+> +		}
+> +	}
+> +
+> +out_free_dma:
+> +	pdu_ddt_free(&ddt);
+> +	dma_free_coherent(get_ddt_device(),
+> +			SPACC_TEST_DMA_BUFF_SIZE, virt, dma);
+> +	spacc->autodetect =3D false;
+> +
+> +	return 0;
+> +}
 
-Because the hardware DMA descriptor is written directly to coherent memory
-using uint32_t, running the driver on a big-endian architecture will result
-in the hardware reading byte-swapped values for addresses and lengths.
+[Severity: High]
+If spacc_check_modes() fails, is the negative error code swallowed here?
 
-Should this explicitly enforce endianness via cpu_to_le32()?
-
->  	ddt->virt[ddt->idx * 2 + 2] =3D 0;
->  	ddt->virt[ddt->idx * 2 + 3] =3D 0;
+By jumping to out_free_dma and returning 0, the driver appears to succeed
+the probe while bypassing the remaining capability checks. Could this leave
+untested algorithms enabled and lead to system instability when the crypto
+API attempts to use them?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619144558.1868=
-995-1-pavitrakumarm@vayavyalabs.com?part=3D2
+995-1-pavitrakumarm@vayavyalabs.com?part=3D3
