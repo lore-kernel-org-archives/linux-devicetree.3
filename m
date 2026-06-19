@@ -1,133 +1,158 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012069.outbound.protection.outlook.com [52.103.72.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5473932E3
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:17:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781875024; cv=none; b=IJv9l+n0JJ4okaL59qMdklE9x0h63CUCBdyiflm42agJ+ioHzRlyeeGLvvnuPlupQURejaUYIVp7N9PkNlnB7tbb9eHGJadvs+xIF1Vh1VEEYM2Bunpt810ssDq9kw0/PeIjjxCAH8EV6ofrnDVc3ouVKA20QoWDJ0XSktzTQ4Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781875024; c=relaxed/simple;
-	bh=iPVKEaL/sDhtjxjiJ4ovC7cycjNBtMDP+R44lrz4ljQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=amde6tmGX4vUgartiskvX3XZxKWmIrtDbc4cdKXqp4hstHCCfedPCgC8A2eClES79REDW5mZSEXUvxd14T4soyWd3BQAWFb71cOT7D+H2JzumsyCr8ft5V0WbUGxh1rQ7BmWBJW6zEi/kqRbxDpGX7jR7+NWaRPByOpvbNAHLJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iwp3A8uA; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509AB24B28
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781875458; cv=fail; b=YZUU1stn1o6DtWomZ7p68cA8vXtukTWNyfHESSF7MZDCmJhirjKbEkIyIaSlO+muH55gVVa3CFQ33JMZmSvdX+L6qQq1yt8NNCiPfzILODRroWYHBe8IK27l6FxrJ35zrOeTdioFsQ16mZqu84uZsAt3pv2PS5W7iYNKRYmmEg0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781875458; c=relaxed/simple;
+	bh=3QoJc7iDqknwlmhkUmxR3z8oY6w8nrSQ/du9/jWzOQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pHeF8ZqB8koZ8y/y6jQQspL4ntE3TfnKODWvz7YxNi/TEyYNHD91+qOwTjk8Igy6xQu+TRdeM3tMtgQ1HlgUzD0K0jtENADCI/pYwZxJOlWyr6cbEQK7zfy5+d/MxFli7CCbjPjGp4zlkc7ZWay/uE3ZKKCrzR+/MyI7a7tABig=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=live.com; spf=pass smtp.mailfrom=live.com; dkim=pass (2048-bit key) header.d=live.com header.i=@live.com header.b=MtkVYQFd; arc=fail smtp.client-ip=52.103.72.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=live.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=live.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iwp3A8uA"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66061993121so2231221d50.0
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:17:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781875022; x=1782479822; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ccV2VXwAWn79HMfOu8BYWCMbmbtC3czR+CKDR5g5+lg=;
-        b=iwp3A8uAiIvAF9lIpLMisywqTS+JzhsXpCWltqej+lYc/vGtWHa/KuO4p2ahcxhPL9
-         SNPMleaBBqc+bM+ggfaFpdrE74phjj5irxTzGUkoOvzpLMqZQm/FGuL6hYO0Z4KkNaRU
-         HKFz4w+H+LWhtjAaeMjnJvtQ1I4jZNROenVeja38lQpnpDs25cb03y6Ezdseeiwva5XF
-         4gCyhVHQOYq++BLgnWjcJPFoe/DtKLo1SVswA5ODTlkbLNOCe6NmHNNa9plCW5pj4zBk
-         JwFALsd9kNf09zgmG/VQ/Ao/Qx/HqqjQxVMBVjOIDnHq6oWVZAlfPTsgGbTDnCHV00nC
-         vocQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781875022; x=1782479822;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ccV2VXwAWn79HMfOu8BYWCMbmbtC3czR+CKDR5g5+lg=;
-        b=N4eGPqmeDsM7tXefkPaW/Ihf0KprAY3GNr1Cq3ybm0NnRgd5NWfErJwgfc9HT4xs/q
-         lqbsTZHjYqPomEdvAPb1JD6c7q9eLa2w3j5AIeIDJnQaP4SJg65BC65s/luGvFzCrtGi
-         epwy6tpUevPTEFtyp0BbfNM5+eLn1oATbrue86Mpc4fcdJRQPhyXKfWzzyHwesfNznPE
-         O5cc2u/DKtNjYSCQIg2Xwc58NRyrRAS5OiWT80xou2oaj9KLERhJpUVZ2a3E0ZQP1pZ+
-         J61G81qgay5Q4c/TjOYx0YQ0D16/pCCZIetHVejwV6bsuYKPVzhtZKc/1BmURJ8FLJBL
-         wihQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+hS6qB6Bhnb8+1TVsskF4zvPG8t6RJfm+ezREFKPVnl7xXraIcvl6n1jkPRYClUmVe0ABFvzb2I/WO@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLTchs6aq2er2Vi687LhtyT8W2e+UJPabmaQBb6GJd6TLQqOMj
-	XtLwPKe9eY2R/QRjvbHVhIXUxwL5lKK1kbuciE92+G87SLDcXbPzGw5SLE/R/NpmTD8=
-X-Gm-Gg: AfdE7clwkasftuIP1VJ1ZgKP/hqlJhbBq5QQ6lDOlt9cfTpf8y9bC0aT7tSLg0mqWjJ
-	eS/4QW6dW/lf03/ZAKjjLbLoU7COBPpmVflNZxyux28gO/g2+amzQ2gYLS1h19PndIDlQxzj5YP
-	2XpGV0+KgFCljw3wB3lmFLkw9OjDBn9OonJn/KkMAoqPHoLE+l7i+9GPGR+FgzMSoTBPQm3pWNk
-	dxbAO2FqmBU2LJjxHdAcwGdJD2SDOUvTANniHFdMQggBouJT4DslFFBWQo4tD+q48kFzaZX3gZ1
-	LRe/x+l/WgHYvLNGyANDRTaGFR93ZqHUcFuFZl4UztYUFqJBwS/u/fdXdom/mFfgvXJ7xKG4a11
-	MPN6n609OqBA1Q95nDu+WgkadHyq/kkfZS3ywkJJu2UkdLur2p50QbsqsbZ/IiPySsmjc5Ze7ZE
-	UfxWHLCv21GVYhvfB09p1kdj+Tm9HxXHFg
-X-Received: by 2002:a05:690e:1553:10b0:662:d8cc:6b2c with SMTP id 956f58d0204a3-662fc91fe6cmr3377503d50.25.1781875022447;
-        Fri, 19 Jun 2026 06:17:02 -0700 (PDT)
-Received: from localhost ([2804:30c:1f0a:b600:e457:1a16:4082:3e0a])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8de61d36f0dsm22122186d6.27.2026.06.19.06.17.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 06:17:01 -0700 (PDT)
-Date: Fri, 19 Jun 2026 10:17:40 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, pop.ioan-daniel@analog.com
-Subject: Re: [PATCH v3 1/5] dt-bindings: iio: adc: Add ltc2378
-Message-ID: <ajVBdImL-S-YEx9O@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1781661028.git.marcelo.schmitt@analog.com>
- <f9e88abdbd23df8039282497a81d3c8698a10665.1781661028.git.marcelo.schmitt@analog.com>
- <76d39d2a-051d-4706-8433-3d3eb97e7f2a@baylibre.com>
+	dkim=pass (2048-bit key) header.d=live.com header.i=@live.com header.b="MtkVYQFd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mvRZoIjWmIcah8+v2lWWHKrRyKqNHKZWXg69GRtyU5Dyyqp6suYVuBEAsTXPrL/+Q8JmARFsf7JoXPxh5WZhqgDVn6AK4lkbNnjJMkNTp/49EK+qqYJzCt3I8vDkeeA+5Z6iWs3APdnz8pLGcKpy76RnxapAd8G9eTDT1t12JEZeNubJmRbgnXH/Kga/tqlVGVw25wziaGOhjkRyVBtSGwSSQbn6veKqWVp0KH2hyTu5x4LwESdOIqmgijrmwChd0JFelG92/AfcRQ/f6Rt648vjnahZdYkTw7hvGfyjRe2CYwe+DlMrO1coPqG9RGuPpXRCKTAu73DucER/Y+BT/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MrilDPEhMxGPltj8nuJnK8T6lu1ulC6Xe6RRT/JoWaU=;
+ b=Jd1QIWm1w+PA5yVxGlc3aTBroktYMgVgnU/YpzS/9bgo4Ci3jciUB36nFkZMfHmtfl/qXsbchWWYw7Zcp6qu4eGmzR0i9r14j4D3O5+xgqgyU3N1yyZAy7ISh1l3NFxcKs27F13Jsh53x0VNJE5kqdIrf/VQVrehMLByVzbSNrn0OCa/c6YrphENmfXMqDqBiUk2EQ500OVt85GM8+caAmKjZ2w8EmSo5xblVmu4BULDOjTmhUO0vGDCgscLhCHNq586KTAhzW/jwQDpUZTxcqE9PQh8A/SsNPdk05uUPDpKZtztxixdT9EGukeSCyCoHvlq6l6lU2eXi8/ebD6okQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=live.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MrilDPEhMxGPltj8nuJnK8T6lu1ulC6Xe6RRT/JoWaU=;
+ b=MtkVYQFdVNiXzNhcjJp3UjOMncoXeVBdDNMDmsvlnY3rfHySvk+1uCgh1u8XFuIsS/XeWyeF4MhFRdKbLPEmkpa5NfQmB+puzPMUJrDrb2fpp8A2iCGZuIiJAU+I6NCbcbrxD/+M2VgMToxKmkVEFaQwoPqGWwE9H/YUeS5WGsB3Mb5ylHbYbiXAWKMozdwdgbYNXPwZu4b5TlxtZaGj/whD5BKTMofVNQD2dLUlB5YoxrQjCYs8AxZG6LdpAI9ow8KjoSuaVIWexOUDafZlCDq33Mk0sRFI4eXln/M9gLPoT9rnBzd55ygfn5MCAJTlQmDQGUwt6avBO5CdMuvYeQ==
+Received: from SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM (2603:10c6:18::488) by
+ SY7P300MB1372.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:2c4::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.13; Fri, 19 Jun 2026 13:24:13 +0000
+Received: from SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::4853:f60:ab7c:d57a]) by SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::4853:f60:ab7c:d57a%7]) with mapi id 15.21.0139.011; Fri, 19 Jun 2026
+ 13:24:13 +0000
+From: Liu Yu <f78fk@live.com>
+To: Michal Simek <michal.simek@amd.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Liu Yu <f78fk@live.com>
+Subject: [PATCH v2 0/2] arm: dts: xilinx: Add MYIR MYS-7Z020-V2 board support
+Date: Fri, 19 Jun 2026 21:23:53 +0800
+Message-ID:
+ <SY3PPF19552C607B378CD51B6C083116CE1C7E22@SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260619102214.223121-1-f78fk@live.com>
+References: <20260619102214.223121-1-f78fk@live.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: OSTPR01CA0070.jpnprd01.prod.outlook.com
+ (2603:1096:604:21a::18) To SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:18::488)
+X-Microsoft-Original-Message-ID: <20260619132355.1776-1-f78fk@live.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <76d39d2a-051d-4706-8433-3d3eb97e7f2a@baylibre.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY3PPF19552C607:EE_|SY7P300MB1372:EE_
+X-MS-Office365-Filtering-Correlation-Id: bee573f2-fe63-4c48-d8fc-08dece060d8a
+X-MS-Exchange-SLBlob-MailProps:
+	laRBL560oLSPhlJ95/U7v6W/AahuugGaT73AOJjOZf/1fj0DnwZwvEyAs50rm8Boci7vudXLh+L0zsnFQqABxXK1z3RV8VuAGBdYuW700O0BDDz3JfCzXvyzxQKQdP4QItWNozTGXmLHRNzM2BXDo29KlygkD8Or/ffCTBiwXo/f82nP5DlsQr1vp0MvUq8hy6iT+uXrmzEgJrvw1C9/fBbGr4hIKmsV0ZVM0KFAqxfIqyqe9o+Djchya4El06OHuDHwNsIYzj6iTmYBbJii++AEjRCNT3kvVjamIiRWEfkxh4uypw9dI2CdSxQ9sAnyOMRRayTXCpFssOt0sEKh0DLApYpqmC3tAgTNhzf/zshf51TBcw4Wmn5sT0JyCpuRcPKfgOgA68GwmzMCWhdt5Zck7Z2cqJXlfd/icqxb6ofn28TwJmfYpluAvD6+vp1iVPLA3N5LJJEP+AwLqCyDaNnwwtsFXfD8sLjXnmhtW12nnJJP4WkQt6N3JvypQinjU6jCSBAsROxXyUkImubMW+xBGer76diUHSb/iHCnLlylImVh/L1kJ04VG3+Vk+XP9PMNRQ6iqE4oPyC3MY4232RXuUMR1aYmbu2sNjh1hG6RkxUWhkYAH4W5HFEsb3zjmfThv7GVEd+ruy0R6bDwNjfMQX8+X8UFm6lTeCrQ25xcufCBkUaF49hIm5orI0tZf+ZIUcWNeKTQARL5ZS1eJf1g3Ddk4LgZyXt7Gbsr2d3+CRf0ZlnqWiXSKe1iFB7LUiA9XmQdy645rGeyBkyRopNpi7f7C4Uq
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|15080799012|25010399006|23021999003|51005399006|25031999004|24021099003|19110799012|8060799015|5072599009|440099028|3412199025|40105399003|26104999009|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?2PUTQeU7wTiSd3i6f0USmcRCdT7Mp/0vN+dRqTJ0t3H2yvZod9ST1LvNRDJw?=
+ =?us-ascii?Q?xl4zyqRwPNHry8qNDmCVH5i3Xs4x6f37u6y5ykWGWKdeeKJvkWnDORU2HAsE?=
+ =?us-ascii?Q?q1iDLQGjNImTdZK0A6C/k9/F2WQtEUgFOfosqtyi0c2NcjFW0mYqHOVWXfcg?=
+ =?us-ascii?Q?E/1xacCq+eNhMkVlPgO1Ywb+BwNbwNhN0uc+NYBrq7jVLubVv7dfwELLQ4tk?=
+ =?us-ascii?Q?MGkv3zWaydrUahSGHsaY1LTzO8Krxjtt/tt1+67UlYHY+GEjzbgovGv/pxi4?=
+ =?us-ascii?Q?AklpgCFlz1fG0EucxvS2kfsldI5X+EWsTCht/bYMigJ1v8Bu8KWypIJMa8io?=
+ =?us-ascii?Q?ulbEvPD12YE5vB+6DmZgOVCJXA5DfYg+ErkEkdnxSr3kgQaYpfI01btM6RuT?=
+ =?us-ascii?Q?r5LPqYYARMetZ6Y5bF9TmKv/er3Snq4pYc4wg37CuFetdJs36H6i7O8hwvQo?=
+ =?us-ascii?Q?31fZ6v4C+ftC4x4RaNQmdW31dWfCKhrX+fZpyBI45EGVZ4Jp8SFAYVJWdbqs?=
+ =?us-ascii?Q?aY9V9RaSN46MdNgQAUJPzHARajPxRu34mkEDtrkfVZlWMBgpcA19W8i6jZgg?=
+ =?us-ascii?Q?P85xzEAmM10nZr/eXTnR+ncEV7gmm43DM/nd2oh36k0WhUIyYYNxX1OhWi81?=
+ =?us-ascii?Q?uihTOfObXNyMXYSy8dXDKAMGufbxMWHVJ2votFpSBJvt/H+P1CivCs0GersN?=
+ =?us-ascii?Q?c7nzfO+MQMJxXVhsNiDoW0UZ9YIRvWLyygnBfzjChiHfJwRxtJoreBbr357F?=
+ =?us-ascii?Q?jXmONUlw3QOqB+ujquyavD96osm4imDhULfys50NCiGYec6mwQ2w6IVsB2Ar?=
+ =?us-ascii?Q?03Qn4C+GEFNB20XiiW2/r7tVyw6S85Aqi2xuXsa77TaxLn4ZhstDRJ60blbf?=
+ =?us-ascii?Q?lyK1eFaj/gmAZMUv//3cxjRwjFuMWCzVCBpP7W4FWz2bpfy9Z6rL+NX4Bqof?=
+ =?us-ascii?Q?iV9g824Jp9mFi3oei1hHaHLucD1NYHzzAzBClavXCy7ZcZGy7fm0kZhNgb4w?=
+ =?us-ascii?Q?dmdd?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kIXL+L4K9OAbrSWRYlYdgQla+d89eNZu54UQOE2OJ+NhX1tQWEFNO34TkE+y?=
+ =?us-ascii?Q?EHR/A3qPJ+Oahv4LSdmk54DiQHQKmXzMEcN3nNZQ00kkJlYQmoUjI1KMf9Sh?=
+ =?us-ascii?Q?Kv2gn888BhbU81B08hfP/t0u2lIwa0qgfnQV1XHFTk3R4M7zZDybjFtNQskP?=
+ =?us-ascii?Q?gtFZl6ul+fke1JJUtq4chNnDbZ+nPqAoJXjv3RvaJt2pz4e/i0yn/fAVPMyO?=
+ =?us-ascii?Q?HczSSF1DErJgG0R5RsCDZYQc6DgE9dKLBgzuzFWNlIEQwb8WwvKBVq5wEa53?=
+ =?us-ascii?Q?pJN9HMymsD5F/SniLvpVCsTmHNRrL0puZcLdIud0NsuW4iQVQ0pDnyHQWpo1?=
+ =?us-ascii?Q?xRb9xxgwh0IkFdDUahCb0gptygTRMDpYtodUcoeL8Zd5jxghMAjZZvHVThVv?=
+ =?us-ascii?Q?duXSbNVw+OGtCN/YRx+g35iTUF6p//ksSz4V3ob1SUBInWw3K77+dk/eXh59?=
+ =?us-ascii?Q?U1eBfMon2TtMpGlS0I3P7QA1HoqJiEoS+Gh8k8I0puA2XAK0sCGMjIiwf1IJ?=
+ =?us-ascii?Q?GlgRZUQbJf1rpvO7Qcx+i+OCQ1+3j/tRmukx/zcqMHVJH0ZsInLmOsDLikKP?=
+ =?us-ascii?Q?V2rfot2K/qwFSTS+xSaKm2Me+ySSWx3pFo94VaQDyT5pafCzuZgbfTP5Y43z?=
+ =?us-ascii?Q?PUh3/YfK086Bo1CygxVuAR3bc1Q47uTLbTa7KZb4NUfXhW1QaPPRqB/MtT73?=
+ =?us-ascii?Q?ceLJeJwQiesKJFju6NPbV8TsZFO80vF6XHnsulH2Q7d7t+HG1sbERR53LPwY?=
+ =?us-ascii?Q?bLh12sxFw+Oa+yAUlKC4px+FYSubBrWQVk16ArqFELNjz0RfZjLiDDtqSRXe?=
+ =?us-ascii?Q?cyqyVKTPABlslU3ia9nPJxec2qiaXCevcCeSOOP1jDf/pQLDqdL7M+qAeK0R?=
+ =?us-ascii?Q?Sh6/rG8pm1af83rwVVdNA9S7BRQwsw0hzfPrciSZtvtYbmsz0QNwacBpiHx7?=
+ =?us-ascii?Q?U8QFwBRCCwZ4QwWf3nULrWNyq/rMdknM/2m6vGWLFmTWb0zJRI7ZCi8O+ipX?=
+ =?us-ascii?Q?LtnHAxlqEhHR3LM2XHi9NNvWkQhpy8vgGhlZLM8ubVuNmBr580RNoYCdDDu/?=
+ =?us-ascii?Q?CLpRqS/pdNPhONN2hVWa85PG6hST1IRygcDJWRJfY6sLIk9ysWdiSbN0SrCq?=
+ =?us-ascii?Q?EspEuuc5Ce0W/sVZOssNegdv/Ua9TBC+6xBpXeVNBkgZUNS/jZeCsnHIH/TA?=
+ =?us-ascii?Q?2VFg/HF5gDm1jNmZHOIUhoAl1pzntR/NW5JFDjCb9BtYttpiw44xmMnx7js2?=
+ =?us-ascii?Q?Rv7gpaRn9SEWpVs3p+0wXebOXvb/GeT+Qr7dI+9xe7I0J/JSTz8K/EKMzOu6?=
+ =?us-ascii?Q?94MRFnD0CgupEXFHSzqtzw7j77wQs76ocLRsRbH16ZqjH+b9JC2bcyjmYv8v?=
+ =?us-ascii?Q?V+M7b2A=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-4606f.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: bee573f2-fe63-4c48-d8fc-08dece060d8a
+X-MS-Exchange-CrossTenant-AuthSource: SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 13:24:12.9247
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P300MB1372
 
-On 06/17, David Lechner wrote:
-> On 6/16/26 9:03 PM, Marcelo Schmitt wrote:
-> > Document how to describe LTC2378-20 and similar ADCs in device tree.
-> > 
-> 
-> ...
-> 
-> > +  vdd-supply:
-> > +    description: A 2.5V supply that powers the chip (VDD).
-> > +
-> > +  ovdd-supply:
-> > +    description:
-> > +      A 1.71V to 5.25V supply that sets the logic level for digital interface.
-> > +
-> > +  ref-supply:
-> > +    description:
-> > +      A 2.5V to 5.1V supply for the reference input (REF).
-> > +
-> > +  cnv-gpios:
-> > +    description:
-> > +      When provided, this property indicates the GPIO that is connected to the
-> > +      CNV pin.
-> > +    maxItems: 1
-> 
-> Missing pwms property for when CNV pin is connected to PWM.
+This series adds basic device tree and binding documentation support
+for the MYIR MYS-7Z020-V2 development board, which is based on the
+Xilinx Zynq-7000 (XC7Z020) SoC.
 
-Ah, thanks for pointing that out. Will add that in v4.
+The first patch introduces the device tree file enabling essential
+hardware support such as the serial console, MicroSD, Gigabit Ethernet,
+QSPI flash, and user LEDs/buttons. The second patch adds the corresponding
+compatible string to the Xilinx SoC bindings documentation.
 
-> 
-> > +
-> > +  interrupts:
-> > +    description:
-> > +      Interrupt for signaling the completion of conversion results. The active
-> > +      low signal provided on the BUSY pin asserts when ADC conversions finish.
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vdd-supply
-> > +  - ovdd-supply
-> > +  - ref-supply
-> 
-> I only looked at LTC2338-18, but it has a REFIN, which is optional.
-> Nothing named REF that is required.
-> 
-Hmm, I think that's the only device that has it differently. Will add allOf/if
-properties to differentiate these.
+Changes in v2:
+  - Add missing pinmux configuration (sdio0_cd) for MIO46 to correctly
+    route the hardware SD card detect signal, resolving the automated
+    review warning.
 
-Thanks,
-Marcelo
+Liu Yu (2):
+  dt-bindings: soc: xilinx: Add MYIR MYS-7Z020-V2 board
+  arm: dts: xilinx: Add support for MYIR MYS-7Z020-V2 board
+
+ .../bindings/soc/xilinx/xilinx.yaml           |   1 +
+ arch/arm/boot/dts/xilinx/Makefile             |   1 +
+ .../arm/boot/dts/xilinx/zynq-mys-7z020-v2.dts | 232 ++++++++++++++++++
+ 3 files changed, 234 insertions(+)
+ create mode 100644 arch/arm/boot/dts/xilinx/zynq-mys-7z020-v2.dts
+
+-- 
+2.43.0
+
