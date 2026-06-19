@@ -1,211 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46227306743;
-	Fri, 19 Jun 2026 05:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078AD40D57F
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 05:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781846023; cv=none; b=ndnYfCoAEfzASVIngJUXnu5rcNYyujPi5PLEyiF+ZJiwEVN2yP2U35QXTa7PSym/nsEQ8BlkodKCo2DNdfXpuoy9Pa/whJjyGuMVMSFYiuATjxYGc8zvVTLaisNINGsibFy1uQ+HJVnDn1AToF0Fwi7juVxhmhtijJ3qTfTqBnM=
+	t=1781848076; cv=none; b=ryVQ9JCUfNzoBaShM00mPBeFvgfBMARJ13ytSHqS55QdTf0uZX8m/MwXQhJdJEpUtiLpUgkKcEW2mPNaBd5To97edHU12HPN0pDzfpYQbMwxkIm1Qs6/eZtH5d1zv5lkhVuolvfkFzdqiKF0PRrXEmI7a9eQBXS3KetWujpPtZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781846023; c=relaxed/simple;
-	bh=YeDhLsmSHpuldpoUsL46AW9cIzzlYHOGkAPxh7EgYJI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YMZZgub9VZPPvuit7VUJvfDopOrQuNd8VQwKPzBnRgcDP3LkALZCTEG6P7u9KRBviCwAgwZH7wll+62ZTL4nHFMHnjTfrbl0pr+lCS3102r/ih8YpW12plZSK6/TkR+RtzTm5vOWVb+t3EaairJyKiBKp9VUaNO4a4Io9/da0vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXPT8gDI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781848076; c=relaxed/simple;
+	bh=dxTYm7+fCcOtc1WgE33c7W7bydqY0UAaS/so9EHmsNg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EBP2vTRkTwit2k/7HgN9VvcbwuRgK6nOgRcKESZ69Zo1NKBLO5TlxuUknAQHFBFkgTNNOD/8sppc+buiXKZQinPEr1QoWh0QQ1Lt7cH5MP9wPxVHs4Chg3aneV5ffqT6jt8Wn9R1hr1Q6mtIWp8NRcA2NNWgNNykNuTAv/1Izok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lsw1vQKV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V6NvNj+3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXPT8gDI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8166C1F000E9;
-	Fri, 19 Jun 2026 05:13:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781846021;
-	bh=jlFuPad2Awrm3osmtp+zkZ1LvIWE0pE6oPvkZeQoJ2o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZXPT8gDICosgIblWuO9EYZvXbMae2olwRQjlH62SAHrH8JwZOKm6em6zJ7RUy4cu5
-	 mBTyVg1hqIUng+LGfS7fXj4wtLLON7azSGuKzzsA9mBVeH2ir9djFbscK9V357plb3
-	 WKIUo0vfN8iaJaaOiWF5+9yarBoTil7pYoWU3u/K9q/aTy/rVpN8d61RFlTVcQyFdc
-	 1sJUZhLBnxYQ5RLuZ/hA294BDCeI5c/XSPSp66pRDUb/y9ba2PxLAoZDdRxw/EcfUZ
-	 58pKxZFd5FZWivIqX+LWnQXnjhSe3iHMv3uUEyDkisKtnUuHnEb71buJJTNrFkwOFG
-	 b1fxK990fJvpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] dmaengine: sun6i-dma: Refactor to support A733
- interrupt and register handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yuanshen Cao" <alex.caoys@gmail.com>
-Cc: dmaengine@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260619-sun60i-a733-dma-v1-1-da4b649fc72a@gmail.com>
-References: <20260619-sun60i-a733-dma-v1-0-da4b649fc72a@gmail.com>
- <20260619-sun60i-a733-dma-v1-1-da4b649fc72a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 05:13:41 +0000
-Message-Id: <20260619051341.8166C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lsw1vQKV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V6NvNj+3"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65J2v4fP3428287
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 05:47:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=6erC4mvveZnx8ekE3IpeKh
+	+4kGF9HErlXeDjtyEV3fo=; b=Lsw1vQKVDY4g18tGgB3OJGSnx4bcjYYGYcOcRw
+	XPBLYYyj91pQpKZ51BV6NHnvV2Yf170U5iBRCM4MiN7bI/5fWvbVP/RRlogxatyj
+	zq09IGG/pQv5WUijn8MWLxRK/op3GL4Uqp1usl3KgeXXspvGBZ7GWVWrUmam5H3s
+	8je91lSYfngzMAD4SBQq1knv73t2rVj9GcnrkDEcoEqGK2rQvCim+4DSNzsVUWT3
+	hpnYHdcn/YTDazp4qZI2ATk6zYQtoegxkbHL2E6jvG07N6gg8nZ6ilEJp3vnXfpU
+	91ikmcHkN8qqWBQdea90pGaWkqxe5ZUmFiK4mmTvwL4LkIuw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evpyussy8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 05:47:52 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8453e61d6f0so1353968b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 18 Jun 2026 22:47:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781848072; x=1782452872; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6erC4mvveZnx8ekE3IpeKh+4kGF9HErlXeDjtyEV3fo=;
+        b=V6NvNj+3PhfALvOvD+50Km370WQs0f5iuFXBWLXfvi2nxLoWi1lbDSvDdAtkGxbWCc
+         Hwjb8fGB1Rcdy0L5HSNDwVknQ9I71D5+8VikWl+UvXYgN6RZuEYSTymT/n05m/CwRsSN
+         So87g7JC1aWDF1mNJpQE6AyKWfdTx+bxX6CluzXhK2aDTOedlhh1w7BabjpYPaArngg2
+         X0EapySs/rLwMVwyZJA3r6hDER4mvEtEV6YF8up8b4FotSwz9CfxlB37RWL6BKk/I2pO
+         o20G+N4QKaobGhBJAkkbEKG4bMmlUluo3lXAVVcJXDAjZdDC1mb936krUNOs4/upzWvD
+         V8sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781848072; x=1782452872;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6erC4mvveZnx8ekE3IpeKh+4kGF9HErlXeDjtyEV3fo=;
+        b=SOksmn9BUflnpilsjq07axjrSCHo42tmvyxKZQYDSLH3/BBV6yX0COyfgFlF367wKG
+         KfJHylni1kvXVAcJ5GwOCiv9ntSfzMHCSikO94QeVO1Nl1qn8pdP2JuT9ZudbMg0v61y
+         W8L8amv3UEmPftNV+fa1/9cTQp+MX26woLUrwE+egTp7ixpBWCHsR5iSU/XORB8HUE3a
+         ibIpJI+701biFeMPzxbfv0sixKpS/eK+ec86M6J8aksm8u+rkWMkUJ/5H5xtQWEzxK1l
+         LydOaVvy/1dmNIfuns6xyzs/vxdxg3jjdwHeEqUque3pethIiWJsKwbbYMYYhJVRdW2y
+         1KtA==
+X-Forwarded-Encrypted: i=1; AFNElJ/YFQmW6eKfntVsLG6wdBFzCytIxP1Kw1JzhMmjhG+ot3JJFM3K/6REPKX/up0gkiuwqmBw3VCmoHSO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwQH7mj4qDr4VQSNYdeJnXVkHfrwQVFnENoWA/5HVtLRn6HccPu
+	XzOmO2LUTVKQtHJtbdgcufglzPNFuxI11r7vDHB2bBgMkUESiZkBMsPcPFL4tzu0NL2ePU/XOeg
+	up0F6JUx5c0YCWy+AJbDDGPOSEMZnTyuIWTcvxLFNtrSrHwEpSVD5gWC62BP/yspS
+X-Gm-Gg: AfdE7cl+WPDHyMVufw7/eYEJqzTW8y3UoI/Lgk6R933ZghahdZ490LBjZQSLGiN4NeV
+	xeIf9Inik+xT49OMyR8GTkSXxZwcLACuAjoRP0z+vbj/4iFm0wxi8TCbm3cJYBRe5k+LleydSnN
+	diNX9Z7PkkalotLXSkvqaHL1JgT8eaH91LK3Yhps3EZzg09sXqAQbiSvm0BqkqHMoWcRdTAdZMJ
+	v4zJw+MEEz7JaFT2p8309xdZsSZ1dl4BrQ8GpoYEvpO07o27bu5uDXM8g3w2xbN/dAFenbYi1p9
+	RqT6hlH2pFK5x5F78oBwF6UZ803UsqepOW5CiaJkAF7Z2RZR7KXktPnIO1gs9+ytqfJKTqhcett
+	4Fr4QuQe9KiwSrZPX0KwZ7Uov6ULkmChXnA/6HMTWaTcg+Q==
+X-Received: by 2002:a05:6a00:6017:b0:842:6fce:6171 with SMTP id d2e1a72fcca58-8455077c299mr2148079b3a.3.1781848071955;
+        Thu, 18 Jun 2026 22:47:51 -0700 (PDT)
+X-Received: by 2002:a05:6a00:6017:b0:842:6fce:6171 with SMTP id d2e1a72fcca58-8455077c299mr2148051b3a.3.1781848071494;
+        Thu, 18 Jun 2026 22:47:51 -0700 (PDT)
+Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8455364c24esm1076840b3a.12.2026.06.18.22.47.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Jun 2026 22:47:51 -0700 (PDT)
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Date: Fri, 19 Jun 2026 11:16:47 +0530
+Subject: [PATCH] of: Fix RST inline emphasis warnings in of_map_id()
+ kernel-doc
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260619-iommu_map_kdoc_fix-v1-1-9573e1cf30b3@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMfXNGoC/yXMUQqFIBCF4a3EPCdogVRbiRDTqaYwQysuRHu/V
+ o/fgfNfEDEQRmiyCwKeFMmvCSLPwEx6HZGRTYaCF5JLUTPyzh3K6U0t1hs10I/VXGpb6bIchIV
+ 03AKm+Y223ed49DOa/SnBff8Bpcwe+3YAAAA=
+X-Change-ID: 20260619-iommu_map_kdoc_fix-906ad8a33f1d
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781848068; l=2629;
+ i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
+ bh=dxTYm7+fCcOtc1WgE33c7W7bydqY0UAaS/so9EHmsNg=;
+ b=pvgpYCPRLHSLBojBYicqa3PrHvI/H+OtyTj6y5c0Phfb6zsiE35HGspiGhSnxXEfP7uuoQtTb
+ BD/zLp5WzSSBhPRiKwRhpRpQ/37UCSRCwtn3byM8ht6pKivqVz9cuhm
+X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
+ pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDA1MCBTYWx0ZWRfX4zbAR2ixvGlT
+ eaL4nhIdbmWvsRZTunBBb4NVKR8h4LQHliFu8YbyPLLZg561+dYnbBEjjYJHQvMyj5gmBcwE4BL
+ MWt2yOSoVZMlK5IeAwMIhyAOs2UkBNs=
+X-Proofpoint-GUID: UlOCCGXNw305QrxwFRCx6qDTgcI7Efjf
+X-Proofpoint-ORIG-GUID: UlOCCGXNw305QrxwFRCx6qDTgcI7Efjf
+X-Authority-Analysis: v=2.4 cv=cY3iaHDM c=1 sm=1 tr=0 ts=6a34d808 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=2AyYK9INLeoGlSRvxWAA:9
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDA1MCBTYWx0ZWRfXwEAU5358lKUL
+ djgdbWvpf+cORtB/hZWm7E1n+Ckt/iJDayiZcgz+1OdE+znaP3gHgUEToZyS23ti8Ok+1u/Bkg7
+ ZrnuZxZWYkrExnLaECtoyr79hllqkI2u2k9z+cDgrED23Q8rsPJNG9ery2jtTW0PsFwKk/TWRw9
+ FwYC7gnieVEvjWB0o3j2EZuGVTzaSZzdJN5/FqQsrDZI4H1mniTsX2Is/rG4ikjmluKI6qPvoBh
+ adlVZVYhaqK/sx7ahkflXalRVvDtw2xLLjk7ayRgSjznLH94fqb1W/T4bMHfXPhGf8By3HjsCTd
+ R9GanRoeFbgh8FYOFR6es7KGfL2xiYAZTON09OdGLPByeK7c9j8cHBpt3nceBCYDRCOgXCoa3VM
+ MABHdAoKMcUBu8lASRiUu2ls+2xoAx7S6K8F9QZhu7s7QM7zE+3TnLoy6969wS2cuIciPNcZ59T
+ btJsMmFARP6hqX3Ma1g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190050
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+The @filter_np parameter descriptions in of_map_id() and of_map_msi_id()
+contained the text '*filter_np' in prose. Docutils interprets a leading
+'*' as the start of RST emphasis (italic), but finds no closing '*',
+triggering:
 
-New issues:
-- [Low] The parameter `chan_num` in the newly introduced `read_irq_en` and =
-`write_irq_en` callbacks is highly misleading because it expects a register=
- index, not a channel number.
+  Documentation/devicetree/kernel-api:11: ./drivers/of/base.c:2134:
+  WARNING: Inline emphasis start-string without end-string. [docutils]
 
-Pre-existing issues:
-- [Critical] `sun6i_dma_interrupt` incorrectly maps interrupts for higher c=
-hannels to the wrong physical channel structs because it ignores the outer =
-register index.
-- [High] Integer division truncation in the `sun6i_dma_interrupt` loop boun=
-d completely ignores interrupts for higher channels on SoCs where the chann=
-el count is not a multiple of the channels per register.
-- [High] `sun6i_dma_terminate_all` and `sun6i_dma_pause`/`resume` acquire `=
-sdev->lock` without disabling softirqs, creating a deadlock with the DMA ta=
-sklet.
-- [High] `sun6i_dma_interrupt` accesses `vchan->cyclic` and dereferences `p=
-chan->desc` without holding `vc.lock`, racing with channel teardown.
---
+  Documentation/devicetree/kernel-api:11: ./drivers/of/base.c:2260:
+  WARNING: Inline emphasis start-string without end-string. [docutils]
 
-commit 47f7d45b0543fc62a4eb37d06b46eeffe4dd06c6
-Author: Yuanshen Cao <alex.caoys@gmail.com>
+Fix by wrapping '*filter_np' in double backticks (*filter_np) to
+render it as an RST inline code literal, which is also the correct
+kernel-doc convention for pointer expressions.
 
-dmaengine: sun6i-dma: Refactor to support A733 interrupt and register handl=
-ing
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202606130111.ldC96rqf-lkp@intel.com/
+Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+---
+ drivers/of/base.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This patch refactors the sun6i-dma driver to support the Allwinner A733 DMA
-controller. It moves interrupt handling and register dumping functions into
-the sun6i_dma_config structure to handle different register layouts.
+diff --git a/drivers/of/base.c b/drivers/of/base.c
+index 7cb0d7e88247b..6e7a42dedad3f 100644
+--- a/drivers/of/base.c
++++ b/drivers/of/base.c
+@@ -2160,7 +2160,7 @@ static bool of_check_bad_map(const __be32 *map, int len)
+  * @map_mask_name: optional property name of the mask to use.
+  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
+  *	If non-NULL, the map property must exist (-ENODEV if absent). If
+- *	*filter_np is also non-NULL, only entries targeting that node match.
++ *	``*filter_np`` is also non-NULL, only entries targeting that node match.
+  * @arg: pointer to a &struct of_phandle_args for the result. On success,
+  *	@arg->args_count will be set to the number of output specifier cells
+  *	as defined by @cells_name in the target node, and
+@@ -2350,7 +2350,7 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
+  *      stream/device ID) used as the lookup key in the msi-map table.
+  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
+  *	If non-NULL, the map property must exist (-ENODEV if absent). If
+- *	*filter_np is also non-NULL, only entries targeting that node match.
++ *	``*filter_np`` is also non-NULL, only entries targeting that node match.
+  * @arg: pointer to a &struct of_phandle_args for the result. On success,
+  *	@arg->args_count will be set to the number of output specifier cells
+  *	and @arg->args[0..args_count-1] will contain the translated output
 
-> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-> index a9a254dbf8cb9..d92e702320d9f 100644
-> --- a/drivers/dma/sun6i-dma.c
-> +++ b/drivers/dma/sun6i-dma.c
-> @@ -138,6 +138,11 @@ struct sun6i_dma_config {
->  	void (*set_burst_length)(u32 *p_cfg, s8 src_burst, s8 dst_burst);
->  	void (*set_drq)(u32 *p_cfg, s8 src_drq, s8 dst_drq);
->  	void (*set_mode)(u32 *p_cfg, s8 src_mode, s8 dst_mode);
-> +	void (*dump_com_regs)(struct sun6i_dma_dev *sdev);
-> +	u32 (*read_irq_en)(struct sun6i_dma_dev *sdev, u32 chan_num);
-> +	void (*write_irq_en)(struct sun6i_dma_dev *sdev, u32 chan_num, u32 irq_=
-val);
+---
+base-commit: 598c7067dd8b65b93f3ccada47e9014a13137f1b
+change-id: 20260619-iommu_map_kdoc_fix-906ad8a33f1d
 
-[Severity: Low]
-Is the chan_num parameter name misleading here?
+Best regards,
+--  
+Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
 
-Looking at sun6i_dma_start_desc(), the value passed to these callbacks is
-actually the register index (irq_reg), not the physical channel number.
-
-Could this cause confusion for future implementers who might try to use it
-as a literal channel index?
-
-[ ... ]
-
-> @@ -549,14 +573,14 @@ static irqreturn_t sun6i_dma_interrupt(int irq, voi=
-d *dev_id)
->  	u32 status;
-> =20
->  	for (i =3D 0; i < sdev->num_pchans / DMA_IRQ_CHAN_NR; i++) {
-
-[Severity: High]
-This is a pre-existing issue, but does this loop bound properly handle
-platforms where the channel count is not a multiple of the channels per
-register?
-
-Because integer division truncates, a platform like sun8i-h3 (which defines
-nr_max_channels =3D 12) will evaluate 12 / 8 as 1.
-
-Does this mean the loop only runs for i =3D 0 (handling channels 0-7) and
-completely drops interrupts for channels 8-11, potentially leading to an
-unhandled hardware interrupt storm? Should this use DIV_ROUND_UP?
-
-> -		status =3D readl(sdev->base + DMA_IRQ_STAT(i));
-> +		status =3D sdev->cfg->read_irq_stat(sdev, i);
->  		if (!status)
->  			continue;
-> =20
->  		dev_dbg(sdev->slave.dev, "DMA irq status %s: 0x%x\n",
->  			str_high_low(i), status);
-> =20
-> -		writel(status, sdev->base + DMA_IRQ_STAT(i));
-> +		sdev->cfg->write_irq_stat(sdev, i, status);
-> =20
->  		for (j =3D 0; (j < DMA_IRQ_CHAN_NR) && status; j++) {
->  			pchan =3D sdev->pchans + j;
-
-[Severity: Critical]
-This is a pre-existing issue, but does this correctly calculate the physical
-channel pointer for higher channels?
-
-Inside this interrupt loop, i represents the interrupt register index and j
-is the local bit offset within that register. By calculating the physical
-channel as sdev->pchans + j, it completely ignores the outer register index
-offset.
-
-If an interrupt triggers on physical channel 8 (i=3D1, j=3D0), won't the co=
-de
-incorrectly assign it to sdev->pchans + 0?
-
-Could this incorrectly complete the active transfer for channel 0, causing
-use-after-free issues and DMA state corruption? Should the assignment be
-sdev->pchans + j + i * sdev->cfg->num_channels_per_reg?
-
-
-[Severity: High]
-This is a pre-existing issue, but does sun6i_dma_interrupt() have a race
-condition with channel teardown?
-
-In the hardirq handler sun6i_dma_interrupt(), vchan->cyclic is checked
-locklessly:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_interrupt() {
-	...
-	if (vchan->cyclic) {
-		vchan_cyclic_callback(&pchan->desc->vd);
-	}
-	...
-}
-
-Concurrently, sun6i_dma_terminate_all() can run on another CPU, acquire
-vchan->vc.lock, set vchan->cyclic =3D false, set pchan->desc =3D NULL, and =
-free
-the descriptors:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_terminate_all() {
-	...
-	vchan->cyclic =3D false;
-	...
-}
-
-If the IRQ handler checks vchan->cyclic just before it is modified, could it
-proceed to dereference pchan->desc after it has been nulled or freed?
-
-
-[Severity: High]
-This is a pre-existing issue, but do sun6i_dma_terminate_all(),
-sun6i_dma_pause(), and sun6i_dma_resume() have a deadlock window?
-
-These functions acquire sdev->lock using a plain spin_lock() from process
-context:
-
-drivers/dma/sun6i-dma.c:sun6i_dma_terminate_all() {
-	...
-	spin_lock(&sdev->lock);
-	...
-}
-
-However, sdev->lock is also acquired by sun6i_dma_tasklet(), which runs in
-softirq context.
-
-If a hard interrupt occurs on the same CPU while this lock is held, and the
-interrupt handler returns and processes pending softirqs (including the
-scheduled sun6i_dma_tasklet()), won't the tasklet attempt to acquire
-sdev->lock using spin_lock_irq(), resulting in a same-CPU ABBA deadlock?
-
-Should process context use spin_lock_bh() or spin_lock_irqsave() when locki=
-ng
-resources shared with softirqs?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-sun60i-a73=
-3-dma-v1-0-da4b649fc72a@gmail.com?part=3D1
