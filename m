@@ -1,663 +1,268 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C73337882E
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:25:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEF837C0EB
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781871906; cv=none; b=KHJU+bs5W+tRyXxqaNzXhMx4ulF2we1mjWzmDuDM6o3SQEQUTxtEJ61q2waET1bnjjCr/20NaWKH6QnU7Zh6QCXdmzPVodmC040ZqqTjRFr7Y45uMXgGTARU/h6FpvfTytYGsV9cFn518jw0eqXZMsJAmh963/Zk6BhyEzy92P4=
+	t=1781872047; cv=none; b=IkMfuhgvXuZy5htB8lgY+Kn3GjYv05QR+dY+Qn6c8L69HK1PMUpwWCIkYBvmFKcBx74t9bad3yxkTaspZdTtaxRHKK8y/+gWE9l9fyQFiL9WpVWV1Qui11Fyy8as5ejm8QSKECf5Gfntec6m1/E+6RoFs7ICKqbFSPRGdNQ32M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781871906; c=relaxed/simple;
-	bh=gH/u+RZN8eMepaumaqfBAinDE+ZzpUyw9i+pIqN05GU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LzN1IdT+gngtND9EBCpDu95J+5pUvJguWxxZ5xZ5r1lRjWe/BjEW1Kc6RTjLa/yhurXlTopl7KPeEnycKBZG6edIkoArLWzSF+/akxIV4HDcarXOMl6BOD3c+rDqWl4icYhrwN9uMAy1Iv//LANoSOa9eTH97dtTGc8mx+nqgxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UdvZCrzZ; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781872047; c=relaxed/simple;
+	bh=fWcd8x9WRUM4AyT61kXPm9zIVnVRJBvv2UiCOqbzvhk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oS96W9Sst0beEwi5kCzQYREyQqB6KC1rwlCv/2xiw4/bzaGilSVbh3vfFbXz65knxwXFdtudipQ9lBRfHujsnmGi/gAi+kL6qEgKLay49cWc8/yh2XFgTHapxpJQcvutj1gR1erNiIaRPyKkV866uOoep0yXZc5WBHic8xHpBrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DIJvPqJF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ccNPBiet; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UdvZCrzZ"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4633193af19so1556513f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 05:25:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DIJvPqJF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ccNPBiet"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65J7Q6am4033854
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:27:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XJtzor6hok/hXCz+J7+lfRaLPvh76kZDiiQ4BelNFZA=; b=DIJvPqJFgI116vxc
+	RwF4jnWvLaUmPOjFuJqAahDqbDbSqrgS6IK3sEJM3Tk5q5F0M3MXXOCPf7soNuDr
+	ufo1mB16b9AsMc7UVli9xUiL0aMtwVRgDa9f/48QZ0BnlPXNFMLCaEprSQwcG2bX
+	78C1vPZUSCsgsGYdzKCG6l1ZwZp3hHnxaVIAvLvFIFy1ycjpk+aJ8nNTSODzAFOq
+	GuRspN+8RCr7GJOdzCmyiiOOYrTLhi6dZ67issct/VS+xLhBln4qH5nD3PDL4iuQ
+	wZhK579TN+cKOtNSv/m7CINhZ+hf1zRdIzv6pqbDFjdtozRXlplmqQYAklxTuOrz
+	sQnGuA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4evp6sb61n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:27:24 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-915a4ca0a4aso52596885a.1
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 05:27:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781871903; x=1782476703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WS7p+2PJEwQ5Z4MKDBX10ZbmeaWdJR5gpPbEoXuBxAI=;
-        b=UdvZCrzZe/St16OSzqiB/YYUHBACNKzLtZEy10rQnLWwvcjQL0Vpt6kPoUO2/RyVNT
-         I/lOnqXfH8OkgiC+Jjm+XaHtFiFrnmk7Qt68vjIunjQri2R3H0820RyLuo2S3wRn3oZu
-         WBZUNJgJkLlamWFj2f7VmnSJJqJPPiECNJq0zSDHagj6ge7OPoR7IxcJ3lRNFQRGbr4j
-         P+exRExarCo4KLMeJdgXT1o734LSiNtUlqjuIPLpu9kDyirIKta0g1QzTgq+bLf8Sehc
-         orh784Zax5JlZQWjBpfmLGUQOjCcH0zult00yCAskvdvibFqqEY5J1ERgoZ5Rm+uZrmg
-         bqUA==
+        d=oss.qualcomm.com; s=google; t=1781872044; x=1782476844; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XJtzor6hok/hXCz+J7+lfRaLPvh76kZDiiQ4BelNFZA=;
+        b=ccNPBietZsIZGgSTKn+qNQMO1agLKT4Jz30VHHtXot5wzXxj805+NnAeKquXXYJbKZ
+         IM49NW5STJxinz5K+MH7XMsXtgntvWGtk6aAYw/fsQdzwlztlUdOULcZv7GIQQNGkPtL
+         Ml3VCsRewmTtKwe07WbtmyGKTAkBGKzJAWlxTaR1B84llcgUt9lmdNdwHF7Fj+OzDshB
+         V9FBoTpWY7Vr4YexlSRr7vIHKE6DrIxXdBAtzHUsTYR+HP4zqvVSjwWd5DPIDdEr15+O
+         /Anx5KFgWgcxMnE/c4H98RmhZu8ZwTu118Jor+IOr3l11/9TJrit4/O60LD2NSVAW3um
+         7hnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781871903; x=1782476703;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WS7p+2PJEwQ5Z4MKDBX10ZbmeaWdJR5gpPbEoXuBxAI=;
-        b=IpTpcbk+PWArC957oysnkXfucT7EoGtzOM1n/AAYyNVaGcVvYn63bbzjDP6z4dBNvU
-         jU11l3vpyE6AZHWNOesmyIe/76GaT5pxoNqoAFlA880QIVHVgzfqVC/4LLwvUXr+H2Bx
-         B7vIuW7SV+UG1sOIzlKmn7+cPOxUH3mf9UbCXfRBufJWZCVk+gtz/D5Xa6LGSrkIr8tO
-         /hgmi3/x4O47vyDryhvCdAjz5x6kaEZCkOLctqpc9kpuh+GA2sLXGmrUYcHvZkQkvaxH
-         LloyoFxtqLa58qc/g3k8lxPzo5hMvzusmbQfcd2SpVPTEE/W3OZcchnWPKnAHvaKbznj
-         qMKA==
-X-Gm-Message-State: AOJu0Ywt7KSTsPqg5T2kgZVVijPV+DVgnlJEZE1lk8atEDRX8GOnves/
-	19K+eyBtTpuf38ke0oefSjnOvu+MyKoy/fKL9XRqm/6V22uJ/sSZutWG
-X-Gm-Gg: AfdE7cmW31vLslun5NiPR1HlDQgm7DEVJZ/Uo5LPBFlOLb5qgBNTRFStiKl0RNojACi
-	Dsr4nWpyjJ1mr3ibcjcHkerUtZgijfLiKWpbdYud4Y4FI/fgMMpNLAby/FWY2bdFGb49LUVbXkp
-	QCGulKPZv9K3IHKqLiwubcNSJPEPqiDhvV3xdAeqw6MfCnXYqkToIQ1iYDTYr2pGgiOXbkHU93p
-	11Yj8YJsos5LAy1eUzUGO3Y2xUlEmigfhy7uAOPVmuGzqI9e+f99a48anTLqFYNNn7vOK0241OA
-	v/KltS3VzsvJ46zC5OfJZMCGFriMvKRrOA2VHkMGuDO0cF6tGMNAudc5qxg6dWnd/kBJQ2fjNZX
-	3S9eLvSCqdv5HFNKjztpwxbmJDsBQUqhE5ypteH6oIfjt6BSvpHuiDqzB79qVwtMajPhknaOjs4
-	zIY4WJ4sJhjbs66iaBkT5kJGs6Dkx9Ax5BwGjPjJ8IY3/wGkGbWSLJdJLobFiYpj7cauU=
-X-Received: by 2002:a5d:5914:0:b0:454:a41f:d082 with SMTP id ffacd0b85a97d-464ffa953a0mr4813842f8f.3.1781871902490;
-        Fri, 19 Jun 2026 05:25:02 -0700 (PDT)
-Received: from fedora ([196.112.134.221])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4650bc426e1sm7711243f8f.29.2026.06.19.05.25.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 05:25:01 -0700 (PDT)
-From: Jad Keskes <inasj268@gmail.com>
-To: Eric Piel <eric.piel@tremplin-utc.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jad Keskes <inasj268@gmail.com>
-Subject: [PATCH v3] dt-bindings: misc: convert lis302.txt to YAML
-Date: Fri, 19 Jun 2026 13:24:46 +0100
-Message-ID: <20260619122446.867091-1-inasj268@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260619115649.840676-1-inasj268@gmail.com>
-References: <20260619115649.840676-1-inasj268@gmail.com>
+        d=1e100.net; s=20251104; t=1781872044; x=1782476844;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XJtzor6hok/hXCz+J7+lfRaLPvh76kZDiiQ4BelNFZA=;
+        b=GRhYGonh1J4iJRCfIaPkca68Y7PInZoh9pe6tu3mF3RibhcQhEkeSA3tlLXpjOianL
+         mHQs9zqZuiqqSZW0OZ49EotvvykwL2lqLkjnUa9p27Je9IvPzTUAY5CMkhWYeOZ6yQi+
+         OFf7mQJRZG8ugZacz9yJ37v9mcfDDeK/+7QFwckZY21pvekQYkToo4c/qtlMDDfkRZ/t
+         z1+2pctyXnsIeld+41U/FumJ6+al75aDY1oZ1+02saN6PdHD4/fTcowGC4BvtAIEpFmi
+         YI+MbVSxkpHcMLJxfqusmvawvmlNhRhSFWOrnsv1cYiA3rEQ8MIoJxJ/hUQOwRl0zlKn
+         sO1g==
+X-Forwarded-Encrypted: i=1; AFNElJ8HxnQ784vlkK9Y90njn+n/eUQmE4yF1HHm7kATCMYPjOaMQevsKfzMwyGWt4jlHVLBcPJA7KVNOh/A@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7F9oR6NKjfmaoPX/Gs0C0MxSk9cI0tn6A/d1Y8kgT4d/qIqZl
+	TAkOgTOZSHMYfbf02j65s6NubetDZI84QdxlsA8quMbQkwZ0aDNj6WzJJtklwLLvNqUCDN6xp0J
+	FonhjvvE1r8mFWO/1aHn1cxyrxjIjIyOyejnneP5rCZyXRcag5gnnJv7AgElY06XN
+X-Gm-Gg: AfdE7cm2dWmHaFIuP/TQFiZtM2yu/bCWgDdbix2xWYMDhRHXXsv4YZtHq0pm/dgQcqf
+	WoI5eCbcyU+TlXBahpg4uam4d6ap3sgfhKUh4+6PuIBVSp6v5AUFtQ1Hdshq9f4dLZ8M4b57JCh
+	8oWt5uPW6cLJ6KYIY2Lrro7+V3vh1irNJgAAw0jd+KbPZXNB5gCqZocRL96b7tQ2rXG61kLPEB4
+	88AoXAi8wIyMIiOPfQaEYjK4ImvrreaxKdn1xuRNeg5jM/DR541YMmG+9lXGIvsrfb/638hUDvX
+	WBuEshc/Y6dyAQ05QddPNrqydFSdGIWnn/cf25z6otZItWG+kGyKAcmkWdQz4VJ/4XgT6mdq5XA
+	gcooXAx5+1wyf2bA/xzbtMWaMcsE4rWNsK1Q=
+X-Received: by 2002:a05:620a:45aa:b0:915:79da:a898 with SMTP id af79cd13be357-9208ddc459amr314791485a.8.1781872043989;
+        Fri, 19 Jun 2026 05:27:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:45aa:b0:915:79da:a898 with SMTP id af79cd13be357-9208ddc459amr314789385a.8.1781872043521;
+        Fri, 19 Jun 2026 05:27:23 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-696edc75eb7sm848648a12.2.2026.06.19.05.27.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 19 Jun 2026 05:27:22 -0700 (PDT)
+Message-ID: <5621f70b-984e-4a65-add8-a9bf42e6c0c2@oss.qualcomm.com>
+Date: Fri, 19 Jun 2026 14:27:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
+ according to DSDT
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+        Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+ <178040480680.1778078.1165164069560552075.b4-review@b4>
+ <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+ <178073773007.397244.9871455646149843167.b4-reply@b4>
+ <7ecda3d0f91b0d96bcec44ddf485ed5146788220.camel@iscas.ac.cn>
+ <178073918523.417326.15121723011916371966.b4-reply@b4>
+ <1c33b1dd7d187b17b21b17339a4f1990e59d2f77.camel@iscas.ac.cn>
+ <CAH2e8h7y9PivdMh-h78VSqMf8i2vSR2fvVaO0P1eYBT8qgEdUA@mail.gmail.com>
+ <bd5ad1b53eb009377d0ee492b0e007e45d36f6a1.camel@iscas.ac.cn>
+ <12a8cc4f-3c45-471b-8a0c-f7473cefa190@oss.qualcomm.com>
+ <926a0fe9224d73e0f5e3f58f3769c6247b1cabd4.camel@iscas.ac.cn>
+ <7ac67f89-c6b4-4e0c-8eec-1e5c757777ce@oss.qualcomm.com>
+ <ab5c5f53-4119-4bbe-88ac-e2933bf6f8d8@oss.qualcomm.com>
+ <cd1910faf5b7b20d9154798b05449fe30cb1cba1.camel@iscas.ac.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <cd1910faf5b7b20d9154798b05449fe30cb1cba1.camel@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 2EtfEsTRMoifsQXDvD8tHY40OTDp3LnG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDExNiBTYWx0ZWRfX4L65a6crDYoO
+ GGGzZ1XkRmKJkE8eLvIY5ds9APCQud8GhcW8rgk8vYy4F+fQUAZielnAeKv22mhvszjaZhWikyX
+ IBt/7SpTidNftvWYrxTEceHTZoUn1SqSnCO1L7aq30k4w1CBGKlyKCoMxIK7/0PiIY+FanIXRNg
+ bjO/3orkmTAj3PNY10XfqltB2JWxkcX9dmBK455Ezqp8R8RGEXVyO+f0OOGDvuJ35FZT6Gg+3BP
+ 2LuHFh+yfwbTM4N7j8l02rmaI4Bro8uSlrab0d+tDuAoqWANtgjWy6zCCLy/ilr5HDcsU4R19h7
+ lVfatw+ybbrY5nVwGFKmbvUG3gAwQmGHeguEbtrkI4+hXS1kZp28dFHPkwJ2aSutQYBD5oZVV3Q
+ npW/w9c4HLZpFtMniqNIlJdmC5PyxwGYTbnVDQ2TgoPY7OVGvtqGxllJFEtg2wryDABoa/j9vA7
+ T2/ucWNblpnzAtAZfOw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDExNiBTYWx0ZWRfX6mE52b/jYlw6
+ IevONJ85ExvVnx3dryZ2YqgkUj1XeXe9dUbpk6pCujfd48f5bqp0aaJE28GtH6DwupW+DiaDhzg
+ zsmxByyURCiUIF78if5N6ba38LER9wc=
+X-Proofpoint-ORIG-GUID: 2EtfEsTRMoifsQXDvD8tHY40OTDp3LnG
+X-Authority-Analysis: v=2.4 cv=KbzidwYD c=1 sm=1 tr=0 ts=6a3535ac cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=fGO4tVQLAAAA:8 a=yin6UPGNur1Ke3XWWOoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_02,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 spamscore=0 impostorscore=0 adultscore=0 phishscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606190116
 
-Replace the old lis302.txt with a YAML binding covering all four
-compatibles (st,lis3lv02d, st,lis302dl-spi, st,lis331dlh,
-st,lis33de) and their ~35 DT properties.
+On 6/18/26 12:34 PM, Icenowy Zheng wrote:
+> 在 2026-06-18四的 11:05 +0200，Konrad Dybcio写道：
+>> On 6/18/26 11:04 AM, Konrad Dybcio wrote:
+>>> On 6/9/26 5:54 PM, Icenowy Zheng wrote:
+>>>> 在 2026-06-09二的 14:23 +0200，Konrad Dybcio写道：
+>>>>> On 6/7/26 10:49 AM, Icenowy Zheng wrote:
+>>>>>> 在 2026-06-06六的 21:51 +0800，Pengyu Luo写道：
+>>>>>>> On Sat, Jun 6, 2026 at 9:21 PM Icenowy Zheng
+>>>>>>> <zhengxingda@iscas.ac.cn> wrote:
+>>>>>>>>
+>>>>>>>> 在 2026-06-06六的 17:46 +0800，Pengyu Luo写道：
+>>>>>>>>> On 2026-06-06 17:28:35+08:00, Icenowy Zheng wrote:
+>>>>>>>>>> 在 2026-06-06六的 17:22 +0800，Pengyu Luo写道：
+>>>>>>>>>>
+>>>>>>>>>>> On 2026-06-02 21:21:27+08:00, Icenowy Zheng wrote:
+>>>>>>>>>>>
+>>>>>>>>>>> The magnetic keyboard (USB HID) can't be connected
+>>>>>>>>>>> somehow,
+>>>>>>>>>>> others
+>>>>>>>>>>> are
+>>>>>>>>>>> fine, such as the spi touchscreen (not upstream
+>>>>>>>>>>> yet),
+>>>>>>>>>>> which
+>>>>>>>>>>> utilizes
+>>>>>>>>>>> DMA definitely. My config is here
+>>>>>>>>>>> https://pastebin.com/SdjuyJYk
+>>>>>>>>>>
+>>>>>>>>>> Is this a defconfig?
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Yes.
+>>>>>>>>>
+>>>>>>>>>> BTW it seems that CONFIG_ASYNC_TX_DMA needs to be
+>>>>>>>>>> selected
+>>>>>>>>>> too
+>>>>>>>>>> for
+>>>>>>>>>> exhibiting the problem (because there should be
+>>>>>>>>>> "public"
+>>>>>>>>>> GPI
+>>>>>>>>>> DMA
+>>>>>>>>>> consumers to trigger the stuck/reset).
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> Is this still necessary? I checked the fedora
+>>>>>>>>> discussion and
+>>>>>>>>> your
+>>>>>>>>> GPI
+>>>>>>>>> DMA fix. And GPI DMA is only for the QUP-supported
+>>>>>>>>> peripherals as
+>>>>>>>>> the
+>>>>>>>>> binding mentioned,
+>>>>>>>>> devicetree/bindings/dma/qcom,gpi.yaml
+>>>>>>>>
+>>>>>>>> The devicetree without this fix seems to be still
+>>>>>>>> incorrect,
+>>>>>>>> because
+>>>>>>>> with the device tree fix even if the GPI DMA driver
+>>>>>>>> misbehaves
+>>>>>>>> the
+>>>>>>>> system won't be stuck (although it will iterate all GPI
+>>>>>>>> channels
+>>>>>>>> and
+>>>>>>>> then fail to function at all).
+>>>>>>>>
+>>>>>>>
+>>>>>>> Back to the start. You said some GPI interfaces aren't
+>>>>>>> available
+>>>>>>> to
+>>>>>>> HLOS, your mask is 0xb(0b1011), so I use 0x4(0b100) did a
+>>>>>>> quick
+>>>>>>> test,
+>>>>>>> and spi6 consumed it, no stuck or reset. Could you give me
+>>>>>>> a
+>>>>>>> unavailable channel?
+>>>>>>
+>>>>>> I think channel 0b10000 of gpi_dma2 could be an example?
+>>>>>>
+>>>>>> It seems that 4 channels are tried on gpi_dma2 before hang on
+>>>>>> my
+>>>>>> gaokun3, but as gaokun3 has no known serial access, it's
+>>>>>> possible
+>>>>>> that
+>>>>>> 0b100000 or 0b1000 is problematic.
+>>>>>>
+>>>>>> (The reason gpi_dma2 is checked first is because it's the GPI
+>>>>>> DMA
+>>>>>> controller with the smallest address)
+>>>>>>
+>>>>>> BTW I just took the values from Windows DSDT, which is quite
+>>>>>> conservative.
+>>>>>
+>>>>> So, with DMA_PRIVATE set, is this series made redundant?
+>>>>
+>>>> I assume technically the trustzone is still protecting some
+>>>> channels,
+>>>> although the system stuck issue is fixed.
+>>>>
+>>>> This series should still be relevant, although not so emergent.
+>>>
+>>> So now we're down to the case of the TZ reserving some of the GPI
+>>> channels (presumably for locked down/TZ-driven QUPs) crashing the
+>>> device on access, is that right?
+>>
+>> i.e. now, is requesting these channels through (wrongfully) enabling
+>> the devices in DT the only remaining concern?
+> 
+> Yes, I think so; although I think few devices will use GPI on these
+> devices (usually only one or two SPI controllers according to the
+> DSDTs).
 
-The old txt documented st,click-thresh-* and st,click-click-time-limit
-but the code reads st,click-threshold-* and st,click-time-limit.
-Keep the old names as deprecated so existing DTBs don't break.
+IIRC there's a configuration table that lets OEMs decide which ones
+should fall under the secure umbrella (although most never seem to
+change the defaults).
 
-Use a select block that matches only nodes with misc-driver
-compatibles (including standalone st,lis3lv02d for omap3-n950-n9
-and similar), paired with the IIO schema which handles the IIO
-side. This avoids both schemas validating the same node.
+I don't think we need to care too much about the mask being ultra-correct,
+since as we've established only QUPs are "valid" consumers and we're not
+going to enable them globally by default, since there are conflicting pin
+assignments (i.e. there are many more QUPs than allocated GPIOs)
 
-Tested: dt_binding_check. dtbs_check against 7 omap/am335x DTBs
-(am335x-evm, am335x-evmsk, am335x-pepper, am437x-sk-evm, omap3-n900,
-omap3-n950, omap3-gta04a3) — no misc schema errors. Pre-existing
-IIO schema errors on paired compatible nodes unchanged.
-
-Signed-off-by: Jad Keskes <inasj268@gmail.com>
----
-
-v3:
-  - Add st,lis3lv02d to select block (fixes Sashiko review #1)
-  - Drop Patch 2 entirely (fixes Sashiko review #2 — IIO SPI driver still matches st,lis302dl-spi)
-  - Single patch, no IIO schema changes
-v2:
-  - Rebase onto Linux 7.1-rc6
-  - Drop IIO changes, this is a single patch now
- .../devicetree/bindings/iio/accel/lis302.txt  | 119 ------
- .../bindings/misc/st,lis3lv02d.yaml           | 400 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 3 files changed, 401 insertions(+), 119 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/accel/lis302.txt
- create mode 100644 Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
-
-diff --git a/Documentation/devicetree/bindings/iio/accel/lis302.txt b/Documentation/devicetree/bindings/iio/accel/lis302.txt
-deleted file mode 100644
-index 457539647f36..000000000000
---- a/Documentation/devicetree/bindings/iio/accel/lis302.txt
-+++ /dev/null
-@@ -1,119 +0,0 @@
--LIS302 accelerometer devicetree bindings
--
--This device is matched via its bus drivers, and has a number of properties
--that apply in on the generic device (independent from the bus).
--
--
--Required properties for the SPI bindings:
-- - compatible: 		should be set to "st,lis3lv02d-spi"
-- - reg:			the chipselect index
-- - spi-max-frequency:	maximal bus speed, should be set to 1000000 unless
--			constrained by external circuitry
-- - interrupts:		the interrupt generated by the device
--
--Required properties for the I2C bindings:
-- - compatible:		should be set to "st,lis3lv02d"
-- - reg:			i2c slave address
-- - Vdd-supply:		The input supply for Vdd
-- - Vdd_IO-supply:	The input supply for Vdd_IO
--
--
--Optional properties for all bus drivers:
--
-- - st,click-single-{x,y,z}:	if present, tells the device to issue an
--				interrupt on single click events on the
--				x/y/z axis.
-- - st,click-double-{x,y,z}:	if present, tells the device to issue an
--				interrupt on double click events on the
--				x/y/z axis.
-- - st,click-thresh-{x,y,z}:	set the x/y/z axis threshold
-- - st,click-click-time-limit:	click time limit, from 0 to 127.5msec
--				with step of 0.5 msec
-- - st,click-latency:		click latency, from 0 to 255 msec with
--				step of 1 msec.
-- - st,click-window:		click window, from 0 to 255 msec with
--				step of 1 msec.
-- - st,irq{1,2}-disable:		disable IRQ 1/2
-- - st,irq{1,2}-ff-wu-1:		raise IRQ 1/2 on FF_WU_1 condition
-- - st,irq{1,2}-ff-wu-2:		raise IRQ 1/2 on FF_WU_2 condition
-- - st,irq{1,2}-data-ready:	raise IRQ 1/2 on data ready condition
-- - st,irq{1,2}-click:		raise IRQ 1/2 on click condition
-- - st,irq-open-drain:		consider IRQ lines open-drain
-- - st,irq-active-low:		make IRQ lines active low
-- - st,wu-duration-1:		duration register for Free-Fall/Wake-Up
--				interrupt 1
-- - st,wu-duration-2:		duration register for Free-Fall/Wake-Up
--				interrupt 2
-- - st,wakeup-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
--				upper/lower limit
-- - st,wakeup-threshold:		set wakeup threshold
-- - st,wakeup2-{x,y,z}-{lo,hi}:	set wakeup condition on x/y/z axis for
--				upper/lower limit for second wakeup
--				engine.
-- - st,wakeup2-threshold:	set wakeup threshold for second wakeup
--				engine.
-- - st,highpass-cutoff-hz=:	1, 2, 4 or 8 for 1Hz, 2Hz, 4Hz or 8Hz of
--				highpass cut-off frequency
-- - st,hipass{1,2}-disable:	disable highpass 1/2.
-- - st,default-rate=:		set the default rate
-- - st,axis-{x,y,z}=:		set the axis to map to the three coordinates.
--				Negative values can be used for inverted axis.
-- - st,{min,max}-limit-{x,y,z}	set the min/max limits for x/y/z axis
--				(used by self-test)
--
--
--Example for a SPI device node:
--
--	accelerometer@0 {
--		compatible = "st,lis302dl-spi";
--		reg = <0>;
--		spi-max-frequency = <1000000>;
--		interrupt-parent = <&gpio>;
--		interrupts = <104 0>;
--
--		st,click-single-x;
--		st,click-single-y;
--		st,click-single-z;
--		st,click-thresh-x = <10>;
--		st,click-thresh-y = <10>;
--		st,click-thresh-z = <10>;
--		st,irq1-click;
--		st,irq2-click;
--		st,wakeup-x-lo;
--		st,wakeup-x-hi;
--		st,wakeup-y-lo;
--		st,wakeup-y-hi;
--		st,wakeup-z-lo;
--		st,wakeup-z-hi;
--	};
--
--Example for a I2C device node:
--
--	lis331dlh: accelerometer@18 {
--		compatible = "st,lis331dlh", "st,lis3lv02d";
--		reg = <0x18>;
--		Vdd-supply = <&lis3_reg>;
--		Vdd_IO-supply = <&lis3_reg>;
--
--		st,click-single-x;
--		st,click-single-y;
--		st,click-single-z;
--		st,click-thresh-x = <10>;
--		st,click-thresh-y = <10>;
--		st,click-thresh-z = <10>;
--		st,irq1-click;
--		st,irq2-click;
--		st,wakeup-x-lo;
--		st,wakeup-x-hi;
--		st,wakeup-y-lo;
--		st,wakeup-y-hi;
--		st,wakeup-z-lo;
--		st,wakeup-z-hi;
--		st,min-limit-x = <120>;
--		st,min-limit-y = <120>;
--		st,min-limit-z = <140>;
--		st,max-limit-x = <550>;
--		st,max-limit-y = <550>;
--		st,max-limit-z = <750>;
--	};
--
-diff --git a/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml b/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
-new file mode 100644
-index 000000000000..c73371b754a1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
-@@ -0,0 +1,400 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/st,lis3lv02d.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics LIS3LV02D and similar accelerometers (misc driver)
-+
-+maintainers:
-+  - Eric Piel <eric.piel@tremplin-utc.net>
-+
-+description:
-+  This binding describes the STMicroelectronics accelerometers supported by
-+  the misc/lis3lv02d driver. This driver provides input (joystick) and
-+  hardware monitoring support, in contrast to the IIO st-accel driver which
-+  also supports some of these devices.
-+  Refer to Documentation/devicetree/bindings/iio/st,st-sensors.yaml for the
-+  IIO binding.
-+
-+select:
-+  anyOf:
-+    - properties:
-+        compatible:
-+          contains:
-+            const: st,lis302dl-spi
-+    - properties:
-+        compatible:
-+          contains:
-+            const: st,lis331dlh
-+    - properties:
-+        compatible:
-+          contains:
-+            const: st,lis33de
-+    - properties:
-+        compatible:
-+          contains:
-+            const: st,lis3lv02d
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - st,lis331dlh
-+              - st,lis33de
-+          - const: st,lis3lv02d
-+      - const: st,lis331dlh
-+      - const: st,lis3lv02d
-+      - const: st,lis302dl-spi
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    minItems: 1
-+    maxItems: 2
-+
-+  spi-max-frequency:
-+    description: SPI bus frequency; should be set to 1000000 unless
-+      constrained by external circuitry.
-+    maximum: 1000000
-+
-+  Vdd-supply:
-+    description: The input supply for Vdd.
-+
-+  Vdd_IO-supply:
-+    description: The input supply for Vdd_IO.
-+
-+  st,click-single-x:
-+    description: Issue an interrupt on single click events on the X axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-double-x:
-+    description: Issue an interrupt on double click events on the X axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-single-y:
-+    description: Issue an interrupt on single click events on the Y axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-double-y:
-+    description: Issue an interrupt on double click events on the Y axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-single-z:
-+    description: Issue an interrupt on single click events on the Z axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-double-z:
-+    description: Issue an interrupt on double click events on the Z axis.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,click-thresh-x:
-+    description: X axis click threshold (deprecated spelling, use st,click-threshold-x).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,click-thresh-y:
-+    description: Y axis click threshold (deprecated spelling, use st,click-threshold-y).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,click-thresh-z:
-+    description: Z axis click threshold (deprecated spelling, use st,click-threshold-z).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    deprecated: true
-+
-+  st,click-threshold-x:
-+    description: X axis click threshold.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  st,click-threshold-y:
-+    description: Y axis click threshold.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  st,click-threshold-z:
-+    description: Z axis click threshold.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  st,click-click-time-limit:
-+    description: Click time limit (deprecated spelling, use st,click-time-limit).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+    deprecated: true
-+
-+  st,click-time-limit:
-+    description: Click time limit, from 0 to 127.5 msec with step of 0.5 msec.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,click-latency:
-+    description: Click latency, from 0 to 255 msec with step of 1 msec.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,click-window:
-+    description: Click window, from 0 to 255 msec with step of 1 msec.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,irq1-disable:
-+    description: Disable IRQ 1.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq1-ff-wu-1:
-+    description: Raise IRQ 1 on FF_WU_1 condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq1-ff-wu-2:
-+    description: Raise IRQ 1 on FF_WU_2 condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq1-data-ready:
-+    description: Raise IRQ 1 on data ready condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq1-click:
-+    description: Raise IRQ 1 on click condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq2-disable:
-+    description: Disable IRQ 2.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq2-ff-wu-1:
-+    description: Raise IRQ 2 on FF_WU_1 condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq2-ff-wu-2:
-+    description: Raise IRQ 2 on FF_WU_2 condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq2-data-ready:
-+    description: Raise IRQ 2 on data ready condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq2-click:
-+    description: Raise IRQ 2 on click condition.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq-open-drain:
-+    description: Consider IRQ lines open-drain.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,irq-active-low:
-+    description: Make IRQ lines active low.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wu-duration-1:
-+    description: Duration register for Free-Fall/Wake-Up interrupt 1.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,wu-duration-2:
-+    description: Duration register for Free-Fall/Wake-Up interrupt 2.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,wakeup-x-lo:
-+    description: Set wakeup condition on X axis for lower limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-x-hi:
-+    description: Set wakeup condition on X axis for upper limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-y-lo:
-+    description: Set wakeup condition on Y axis for lower limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-y-hi:
-+    description: Set wakeup condition on Y axis for upper limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-z-lo:
-+    description: Set wakeup condition on Z axis for lower limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-z-hi:
-+    description: Set wakeup condition on Z axis for upper limit.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup-threshold:
-+    description: Set wakeup threshold.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,wakeup2-x-lo:
-+    description: Set wakeup condition on X axis for lower limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-x-hi:
-+    description: Set wakeup condition on X axis for upper limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-y-lo:
-+    description: Set wakeup condition on Y axis for lower limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-y-hi:
-+    description: Set wakeup condition on Y axis for upper limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-z-lo:
-+    description: Set wakeup condition on Z axis for lower limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-z-hi:
-+    description: Set wakeup condition on Z axis for upper limit for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,wakeup2-threshold:
-+    description: Set wakeup threshold for second wakeup engine.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+
-+  st,highpass-cutoff-hz:
-+    description: Highpass cut-off frequency. Valid values are 1, 2, 4 or 8.
-+    enum: [1, 2, 4, 8]
-+
-+  st,hipass1-disable:
-+    description: Disable highpass filter 1.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,hipass2-disable:
-+    description: Disable highpass filter 2.
-+    $ref: /schemas/types.yaml#/definitions/flag
-+
-+  st,default-rate:
-+    description: Set the default output data rate.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  st,axis-x:
-+    description: Set the X axis mapping. Negative values can be used for inverted axis.
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,axis-y:
-+    description: Set the Y axis mapping. Negative values can be used for inverted axis.
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,axis-z:
-+    description: Set the Z axis mapping. Negative values can be used for inverted axis.
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,min-limit-x:
-+    description: Minimum limit for X axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,min-limit-y:
-+    description: Minimum limit for Y axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,min-limit-z:
-+    description: Minimum limit for Z axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,max-limit-x:
-+    description: Maximum limit for X axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,max-limit-y:
-+    description: Maximum limit for Y axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+  st,max-limit-z:
-+    description: Maximum limit for Z axis (used by self-test).
-+    $ref: /schemas/types.yaml#/definitions/int32
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          not:
-+            contains:
-+              const: st,lis302dl-spi
-+    then:
-+      required:
-+        - Vdd-supply
-+        - Vdd_IO-supply
-+    else:
-+      properties:
-+        Vdd-supply: false
-+        Vdd_IO-supply: false
-+      required:
-+        - spi-max-frequency
-+        - interrupts
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        accelerometer@18 {
-+            compatible = "st,lis331dlh", "st,lis3lv02d";
-+            reg = <0x18>;
-+            Vdd-supply = <&lis3_reg>;
-+            Vdd_IO-supply = <&lis3_reg>;
-+            interrupt-parent = <&gpio2>;
-+            interrupts = <18 0>;
-+
-+            st,click-single-x;
-+            st,click-single-y;
-+            st,click-single-z;
-+            st,click-threshold-x = <10>;
-+            st,click-threshold-y = <10>;
-+            st,click-threshold-z = <10>;
-+            st,irq1-click;
-+            st,irq2-click;
-+            st,wakeup-x-lo;
-+            st,wakeup-x-hi;
-+            st,wakeup-y-lo;
-+            st,wakeup-y-hi;
-+            st,wakeup-z-lo;
-+            st,wakeup-z-hi;
-+            st,min-limit-x = <120>;
-+            st,min-limit-y = <120>;
-+            st,min-limit-z = <140>;
-+            st,max-limit-x = <550>;
-+            st,max-limit-y = <550>;
-+            st,max-limit-z = <750>;
-+        };
-+    };
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        accelerometer@0 {
-+            compatible = "st,lis302dl-spi";
-+            reg = <0>;
-+            spi-max-frequency = <1000000>;
-+            interrupt-parent = <&gpio>;
-+            interrupts = <104 0>;
-+
-+            st,click-single-x;
-+            st,click-single-y;
-+            st,click-single-z;
-+            st,click-threshold-x = <10>;
-+            st,click-threshold-y = <10>;
-+            st,click-threshold-z = <10>;
-+            st,irq1-click;
-+            st,irq2-click;
-+            st,wakeup-x-lo;
-+            st,wakeup-x-hi;
-+            st,wakeup-y-lo;
-+            st,wakeup-y-hi;
-+            st,wakeup-z-lo;
-+            st,wakeup-z-hi;
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9ec290e38b44..4cffabbabf0e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14858,6 +14858,7 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/
- LIS3LV02D ACCELEROMETER DRIVER
- M:	Eric Piel <eric.piel@tremplin-utc.net>
- S:	Maintained
-+F:	Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
- F:	Documentation/misc-devices/lis3lv02d.rst
- F:	drivers/misc/lis3lv02d/
- F:	drivers/platform/x86/hp/hp_accel.c
--- 
-2.54.0
-
+Konrad
