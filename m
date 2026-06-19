@@ -1,226 +1,197 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010020.outbound.protection.outlook.com [52.101.69.20])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7103B47FA;
-	Fri, 19 Jun 2026 16:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781884948; cv=fail; b=Rr/k+ginl3VZh0XANWBEx8r+l+c75MTK6c5NF4NJBmrb7jFDsdNaPh30nv/4y5EWMlhEiolL63yOm9l39IRfp7DhLGgwmxT2bVoDBGu59SDJr6dUki0Z5tYNDOHRkRaO60xznu31Mo21gFK0p4nh8wfl0UGnRc49EI8oujGIR2Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781884948; c=relaxed/simple;
-	bh=EcvUf7OdLsXPAGu/GF5aPTt7ytQkImAnI/H6rd85EJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=jSpvBem1WqpBN0YhjvijnaWEg8Sil1fNZqFgDTSLJj6cT7zhbuCxqUTJufy3ipbp2vn/Zd3s3XWeK21sOFbCQ5kU+4jyGZNIp7VjURtU6MAgFB8bRfNr9Fg5YqPYdb/nADqyP00+80VvYXR62x0OJn5+Vf55gJu3GGCWMLyrgv8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QFqNh7Nu; arc=fail smtp.client-ip=52.101.69.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B37F17A309
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 16:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781885203; cv=none; b=HVNeLRo8tEjhSIPcE5jgFlKggqFpev183x7LDCHWaJNd3Qyp8xBajTaBtFfY48TJZtqCzAahKHMdYPeV772+Mf8ImcUtW5b3/EnhwupjwwQCnzGBjWfemxQwEDvXX8loS4xxg1UONSUX4R0rEw+Pxt26jX6yt+FEoFacKlFWjj8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781885203; c=relaxed/simple;
+	bh=+0nQqVuRMPQjg4Pni4V87Dju+ww99YTd3QIwXeLMiCY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=eodLjiA6zqelTkperQ82sqg7nKe1VKN6EdmuVzz1wBYZ8k6PG9NGVj+TIrM9Br2cBlCm442b/kZCTOZKfBp6fO7Ts1EB2x6r1OntApALf1WBoZynw8GoQTFvq4DnuXk27VV5sOr+3M1yp/047mLh+sHuQPUiwof8aDrD/6OLVW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=YHcwm+KB; arc=none smtp.client-ip=170.10.151.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QFqNh7Nu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hrS1DNZx3TWjAZz8cWsdK6MBzIas2vz/6v5DakemkCj3D7yuFsg406YMcxFf0zE5N6Z6W7PgwGF8kaWRo9GdvigMETZxxzWIV8J4qrHFunLEOk8cepk9t7M8T43bIKayF9l7QLZZakXRk6hktyzEVw0k30bfEePtfZfrAKokp4hptmtlyQodWtYQB1u6vYYfjBkPPe3x2hs3hryQa8hBjnNxMgZzsc3c8SRtZoVDqPuYTlEiDrGwhowS39x7GeKx/Huwg6yiLRZUcXJT29k9yESUKcuqOVo4A1TQHTjR2fDbRM6L84Q8qViDEiM1P4qQHurLVvLBtj6SR0QmUe8Gfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sPwHTx/13kS/vXqI49rzgNcOFLeBv41/aD2yzWxYUgo=;
- b=YJaVU1ZsyKWXzw9bIsI90KlmvKy6fw6D1DaL0xlFsvgGWD6fqK42MtcWBGX9xlh6GqgA8XgW8RnYKTjGsAV+qPG5pTcQl724/8lc8GAx04u9FZ/la5f0LnzbPLF2uKd/HNjFIb/q/XMEJ9UvwjFmIzdML5ZlyQHi5bepeJ2dxo4ePuIaQBPWVRVe+NhXYekFw2HhuDkzvYz1ndmI9EstuxDocqjbA6TO5upu3fnjl21XkbeQ7kL/jiPtCz2IKI6I9m03IwvEBxYxHIp7m32U+ywYIiFWTbJFKElfVYuLXXDfd4kai2xXG6VZ1n4k/iWnyz3CXlqVvMVer1yzsEsgeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sPwHTx/13kS/vXqI49rzgNcOFLeBv41/aD2yzWxYUgo=;
- b=QFqNh7NuPJPzby7PTtMN399Ll1IG4KrTvQSigHXxKIiKM6QpWCg6wiALhkvgrjufKTAvt6zQOkRjOebtDMk/wp/ynRLqf1dJCHiwkjzqcoQ6YtDHGfBLzYNgqMcOC7k8RfBDGefGvg2nBJ+qQ02+C1fu7mtbZf1OZ2uVA+2DlFENTYDFJWMOKzNyGeWxHapavw2LC8zNUNahsBSqG4W7GEwVBiVxmjdZyv/d72pjnEaRbKLjMtqBhYFtFP8dG4EjrrwBX15CtF4pl3mhY0anmHumYOpbDzsKjW/C183VBqIaez8iZNDV4SWmGa8IigNzvwOd0fYsSjojl+ty12XD3w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA4PR04MB9223.eurprd04.prod.outlook.com (2603:10a6:102:2a2::15) with
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="YHcwm+KB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1781885196;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+0nQqVuRMPQjg4Pni4V87Dju+ww99YTd3QIwXeLMiCY=;
+	b=YHcwm+KBkUtmFxvnS9tDvaTTfGklrSX58yiDpy4x3+9TuCYCLr1Yc2Te27fYuwXjreDG65
+	VqWUAeN2r4PYXykmygkMXY/iKjXwMdXwfLx5KETQTfVbBE8z9wvk/Z0j0mBT86Q/JB3ywB
+	Eg+CY256El5IDabg1f42yLFEGT0Pzq/C2Ck3pGjaX1XK2BqCYNcgvaCQc1AHM5l96hhQz9
+	+x/a6npEIuewiBn5eHMzNOAtQUlUWyjmYIkwFUzwHIenhmetijjFckYlyx7qS5zIb2gmbS
+	vHdRu86jo24KX7R85DfFdB/XURBZFRXsZqKXs3FCgmNuDWSGQ1FIHott6jGGqQ==
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013001.outbound.protection.outlook.com
+ [40.93.201.1]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ usb-mta-62-xztO_NosMG22vJW1eUHhZw-1; Fri, 19 Jun 2026 09:05:24 -0700
+X-MC-Unique: xztO_NosMG22vJW1eUHhZw-1
+X-Mimecast-MFC-AGG-ID: xztO_NosMG22vJW1eUHhZw_1781885119
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
+ by DS0PR02MB9151.namprd02.prod.outlook.com (2603:10b6:8:13f::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.13; Fri, 19 Jun
- 2026 16:02:19 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0113.015; Fri, 19 Jun 2026
- 16:02:19 +0000
-Date: Fri, 19 Jun 2026 11:02:10 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Yuanshen Cao <alex.caoys@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/5] dmaengine: sun6i-dma: Add set_addr function pointer
- for variable address widths
-Message-ID: <ajVoArSGiUybjk3a@SMW015318>
-References: <20260619-sun60i-a733-dma-v1-0-da4b649fc72a@gmail.com>
- <20260619-sun60i-a733-dma-v1-2-da4b649fc72a@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619-sun60i-a733-dma-v1-2-da4b649fc72a@gmail.com>
-X-ClientProxiedBy: SA9PR13CA0021.namprd13.prod.outlook.com
- (2603:10b6:806:21::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 16:05:15 +0000
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0139.009; Fri, 19 Jun 2026
+ 16:05:15 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: =?iso-8859-1?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+CC: Andrew Lunn <andrew@lunn.ch>, Piergiorgio Beruto <Pier.Beruto@onsemi.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, Parthiban Veerasooran
+	<parthiban.veerasooran@microchip.com>, Richard Cochran
+	<richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
+ Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	<skhan@linuxfoundation.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, Jerry Ray <jerry.ray@microchip.com>
+Subject: RE: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
+ TS2500 MAC-PHY
+Thread-Topic: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
+ TS2500 MAC-PHY
+Thread-Index: AQHc/B9qR/Obe4EEv0yRbQBFI3q6zrZF73MAgAAi23A=
+Date: Fri, 19 Jun 2026 16:05:15 +0000
+Message-ID: <CYYPR02MB98283966554323E452EFA65583E22@CYYPR02MB9828.namprd02.prod.outlook.com>
+References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
+ <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
+ <ajVKfBKPuNk9zN7b@monoceros>
+In-Reply-To: <ajVKfBKPuNk9zN7b@monoceros>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|DS0PR02MB9151:EE_
+x-ms-office365-filtering-correlation-id: b23f145f-176b-4f38-c7bf-08dece1c8d25
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|56012099006|11063799006|6133799003|22082099003|18002099003|4143699003|38070700021
+x-microsoft-antispam-message-info: u9ymMLuTSQlOdf5+Cj24mMZkEjqyVfpEjPsgqN7Z+xbGHdd1CrSb2P68rfOwCXOOls+Ba4nVcGkYs0x6iR3d3e6IMlyIOe75yYWv5waW6c05UA3HXQNGdaPLrQTQLpUdXaCDPW0Fxyq/3PCjeJqXPW6M1msjCW0kzUGxdKLrxlbRF07A2huXAyzoYYPaHAEIQgkj1Ntk8qqqQf242LHzkwjZqcxXdxMkTd8bqOS30cpF2QMnqycpz286IY7aIfHSu7eB7vxKrXngbYhsUP9H6WXLUzMfENs/7M4AY2UpdsVIuEgZOl/MvFdw13HArD1cmLrMYqoXu/aukt444rKD4xuu+Guh6CLrRHzSVNeViX+KVAXLONX0c8elK4vr2Af7ipdn0o1IV5EAHAHAMr2krJ+Q8rWfwdmpn9plCIxFlcZOlz4cPP0ddA9SkuO8KEXpjoaSpDKmaJ+GzoW/ubT2Q50Di6f9O4AugaWFcWZG1YmBAB2ZkEbw9xsTCM2JWIJzO0/fcZG3rJeEtNrOO1dU4kEJs5sQMNhJE3D/cixWky8XdnOWRwVjQIaBrgRKMyqyLAzs7WHDvzc619ettX6LCvlvkYR5PZGceD7R9lPVRJa2X22AMrVhIdlJsi9YzYBiaMoZVGBgjccHoNwT9Yq75irI9HStAJIPyB/0sbFxFliaO8auQg+2RW6JzMv1+8NtWXXTV8H+OBJ85yYfyN1NQVcSKTFr2ysrStGUW9LgjWE=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003)(38070700021);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?VUPeUEAqgJo/+3MxnMbEsLmLeFDPykTB4MACW4j6OphQMTm5T7bsoCY+x9?=
+ =?iso-8859-1?Q?e8bUnOOm65O/OvztUGPZ4Bj6Iz8l4EzKXa2CvvX6anJScWZXrKSXvZ2dGu?=
+ =?iso-8859-1?Q?WMBKzZwVSIfSxVTJ6s8uQPh6RTqi1wcC9RJ7n800fpMXzFQgMuiXXA8r01?=
+ =?iso-8859-1?Q?cR6A33bJpdV1NLUqULC7vrjg3HX2r35/143/Jv0f8hUq8qtTNFl19rKMEX?=
+ =?iso-8859-1?Q?TwsqHPgiWxp+PbUgF/e9wPm1mEptkfZ5KGKn2sDa6vhCuCiUQeZFJT4Dlo?=
+ =?iso-8859-1?Q?3oc+8jZ8S0VoiIb6XBsaaaPEpyn/XqSinLsemcYziUnskxFjBIHeG5VZpA?=
+ =?iso-8859-1?Q?tdOlWjQRckPg+hjO/1oGAmBFti+GOaIZ12O+NTiMZzU4qeLQR3S4bpyTKZ?=
+ =?iso-8859-1?Q?KqgOfHP7eyxN5K7X/e7ML2AbeBx2qo+BNPA0Y8HgDG4W0rN+XK94q+wPPA?=
+ =?iso-8859-1?Q?IlTaERNqv6dDMIV/S7LCzDmAcoy0sdT1YMQ125dJYDt8N0ZPF8R38RL4xl?=
+ =?iso-8859-1?Q?0DH6aYB7350zJQWmIb9Oe3nFvtVUPFzpWQM8otpBNd9gXRfTy6NDVtMIuT?=
+ =?iso-8859-1?Q?wVtjfXzYyoeGIJoAWFf56vxqGJTuSeEeRvpr12fCZATG1KM3jTgTF5lvwM?=
+ =?iso-8859-1?Q?aJaDCkxuW7AIksWp9FklEFNwhb5TKb6fcl00+NN4ppprRrgUHlirW7bsDY?=
+ =?iso-8859-1?Q?SrPtwupRPqwcuacF3l5nAFZRfezZ14hvbeqrZoBxv2paRa6SyQa7i/c5ok?=
+ =?iso-8859-1?Q?mf0O8pYiKTy5VdSQKOOmGxqdCs01FgM0UzfhVHJGbt3yBvtXbHFgLQrpeD?=
+ =?iso-8859-1?Q?OX04DppIVEc8+zTVUlYypTRqPjLjJHpptqY+voOwnvwUZDYv1leZ1aDzd2?=
+ =?iso-8859-1?Q?JjMJEI/rvxnS/ONUynN9vOc7sNl2Kk17YLL5Oqls7jS7HqpIhVMARd3w4A?=
+ =?iso-8859-1?Q?85cqlg0xzJzV8BdIgb5wRjFWWNPT5DV2dFMWApdBU0eXsc/pwIJk/KnCW8?=
+ =?iso-8859-1?Q?dwsOtUhI7r6mpDn8/ALuNf4BNvHlvSbiM6/cSWODx1B1HeIjh6nneiN9NT?=
+ =?iso-8859-1?Q?cSuhH3ij4OQO1pz9zZoiyaFoBxkEbQWu+ROBtQubvEeFkSBbgrBKx1fmsj?=
+ =?iso-8859-1?Q?MkvyfeEZ2UBErOz2ws7+QMDm4STW7pvQhhEBf2wC8JID9bBM4Vu5XDiwlk?=
+ =?iso-8859-1?Q?U6ACgC4owfRYkHy0LOpmKgO2yBxtLnom8iyVd1iryiANvEpwl5zwmSfimU?=
+ =?iso-8859-1?Q?OyTLKuaHTF49UCijtWnZ4klaDxHyvzDvXzqVrToN5LMnQrWKc9No7aKRUH?=
+ =?iso-8859-1?Q?Y+lofIZ7/Qy5SMuOhznI7DctXksrJFDVJ1BtYkonFD0dzRTtOM6KnCzutj?=
+ =?iso-8859-1?Q?+xjCV7M4JCD5wUPMuZKrbNz8hyb0QsRI+iTBYBzwQtjzT/O57BuzNXqOFw?=
+ =?iso-8859-1?Q?tGOvSnDmveeeLhq2QUfTGh8P95sDvw75ScNCcObwhTAaWm9DGhi2Gh7HXn?=
+ =?iso-8859-1?Q?Js74dcWVlCvKL0DRzDrOofTwwv8lCPLFMOAiCQJFim1yJL9qmHZf7jf0cW?=
+ =?iso-8859-1?Q?iZ6pq0wECXUc5RR0M6Fj/l04V/W8zS0G72hHK9NuWTW9S/E/KEyK3GXt3U?=
+ =?iso-8859-1?Q?Q4SOj/E+2JWnJvebtTuDX7UFTBa/d2Ll1+Ndr4FxJZyHnDgOTHYcDyfDuW?=
+ =?iso-8859-1?Q?77whMSLoG8Up7Ma/jgA/ygpmOKSyw6p8P7bjIOpsL8WTkamXnx1UcebDA7?=
+ =?iso-8859-1?Q?WH1gRq/fUZDxx6G5k+/QjYCK4K3gqnM6TETUKvSGOJgmQ073uyho6lWFsA?=
+ =?iso-8859-1?Q?+NZ++69Fxw=3D=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB9223:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95dd88d7-5df0-43e9-a359-08dece1c2425
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|19092799006|56012099006|11063799006|6133799003|18002099003|22082099003|3023799007|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	QojBj8arlAhpJtHnMSUFAHVMa3oovPcasYznks74re0vxnREYmzZU/ho9YtHQG2cgdK6wXkhjpQbanhtGkL+dICgHRTJhwFzPm4U6oLr4V/tMTTGwEt2Qvb9zsD820vRQUCf0yyuE24aHVnbRH2KcCQDsUVWlxuPWxrewC7qLOFXxuBIOXRvT8+l06kT6g5WchZXGmuACY0fRo8cbg3aNd3j+rA5ZOgifgdPOR7nyo8gzoeljsKGzJS7wKEaBXiGUGnizX83uPD3nFYvjsJ9TOh2EaQbQvlcv8fgyfDMO3sH2RYZ1pG79oXHJHc/GOo/oWMLUcgtr9eRHEUDgaa5XAlr9ZB412n7uVkS75DMAjC+qJKsjvI9dNz5k6UgkQZ6KV4CD/d8aTnwCdND2NKmHxk6/ddurQQAVY8YLhHV4txzTHZncMwfgMdHiUZsnKk+9VLR8mih1wvvVyB1vFHjXah/zhI6MSgJz2TSMvcEHz3v/5LDdzOdZsoNjk0v3LzAUKwpjvMVx/sJBLZe81TbBtGbCbXGNz3XhjhnjtSw70iZxtJnt0JbpMrFgZswNIIbIlsWZoTu0z2HdcbXOsUytyH5ai8+B/l6P9dBuI2klalnQW2iDhUgrAVsqe4p0ufYBew7Yzf++AMhanQjU/H7yK9ZYLTxlfTDs+Uh9k4gAd4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(19092799006)(56012099006)(11063799006)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2RnLaHwktOzSClU5fY6ywiAr6j8EgQG0UPmkivvtgc0UomUTLGo9USW9WBHE?=
- =?us-ascii?Q?tOpt7WRUlfeGisoOvYKy3j/eAUcA9obkDhHxweL+pKM8HiOgkb0jY/QMmjYo?=
- =?us-ascii?Q?kkv04AUZVsEa0LRo72Qbi9+uUDA6i9zPn4BBJMDnw8rtfckhFpZcktzO6Mza?=
- =?us-ascii?Q?gXSTfHUnbAJq3R6hkIKuX9aAkjsc0xbmCFENIodESat2kWqNa1hp2AIxjaJc?=
- =?us-ascii?Q?3A/Ls6fcj34CzWK42e+9xplcojxeta4pFDkLO8S6jyCZOrFkyN5/OBCWqIYd?=
- =?us-ascii?Q?eexidsFpcG7ZsZAcFOkhwgavptsVJH5NKUfFaXAnxbhY4ToDRpRi8KjRVoP2?=
- =?us-ascii?Q?KAaVhGn03I2ckEUEru/Ez5YefXJEIZ1HMsfp2V1q7uwmGcmQm4BBpsjdF6Xu?=
- =?us-ascii?Q?65DyxONtqDZ+cTXonKLcJ/KHbOFrQGKUbL14vUWKoID9MUxoXWqAlhbIreAw?=
- =?us-ascii?Q?07gI6GXACLT1rTcMQgABADBWb/ogCqYRBtVO+zWlo5k8ANr/aqJt/RweJRo3?=
- =?us-ascii?Q?P1/ABM6b9BK/xCLjSzWc7Si/3ZfKI1xRIGWhSvjlFxW0hulRzhkvfOzaDLRj?=
- =?us-ascii?Q?WcDi777dw4uHcTjUJ92TqTZFpEAjgLCIZjBU9ELyHZJ4ITLro9XmvTZBZYO/?=
- =?us-ascii?Q?Jpgh0bq8PiRA/nUo6yPUFQSkQVI6+ZfFbGNqDV1viw5ohpI6EoHPuBnV5/O2?=
- =?us-ascii?Q?lXRlWqtHA3FQKaL/y2us9qmqjzBrIfvhdjygLv+j49wx0K6Zq83mkVFEpOwc?=
- =?us-ascii?Q?uk2VKoWOTt7PF/Fh6E2yUSQxdmWRUUo0YvfZSqyz8YISTANru+GRWG5XFraG?=
- =?us-ascii?Q?8qKWMvOOUeGnpvQx9ZtBv1GR1YU8YpBEd5SaJ6aMFuJTRaArJcspIZy43ZyP?=
- =?us-ascii?Q?rvMrjnqWiAhuYCRWI2MSGcvXsJ/iYDnmQjoOQxEIqjgANw04+QRN5aAhMF1a?=
- =?us-ascii?Q?aUQDQP9hK2sYVky4bAyI374sgp9+ubsUCrH8fVtR9FRvuFI+iavmEHoIuo9a?=
- =?us-ascii?Q?acgSiuFsQ5MLtLUhXmE8qlWUusPVTqDupnyXi+J0ed4eAlecv/6+R/MZFJYH?=
- =?us-ascii?Q?C4qHRmAkHTUEW77lcu1ni8nPkJFYW1p1bHuHarnNAP6s3MHDML1BdnVJKetD?=
- =?us-ascii?Q?npUcitgRTF2zGcSAuZT/XSkaA8OHnT9+9Si0CjUNrrti3Gtu2FOZWTTg80Di?=
- =?us-ascii?Q?zfDt5ERGSqhlOMXkc+YScqKuiG+nCN5c+2C4rjtKwNEy4Y9UQ7upvwi9H1Zg?=
- =?us-ascii?Q?teCfGodo9DM9q0mA+fPlCi6mJzSAMo9mSpK7xnrzoejOvIaHKErSSUPkjckw?=
- =?us-ascii?Q?AI1vMrz2s2esGf0/nJDbkPW+OtgBSPc5qhrPD5U0y9zgTXj82Yw1oPZIX4No?=
- =?us-ascii?Q?Ub547coYejrSuDECcnKKrEu6mNXjlRZDoHHkgrGWrS8Tr/l+SuOmVZFw5sEP?=
- =?us-ascii?Q?5Z8SS+jVXJ0dKd61oppKgPs/xM6WpWJzAwZzMGr+4fDBcFFMoeM96oAJWVPB?=
- =?us-ascii?Q?GuRdc1Al+kSMuGsfi9JUyqVL3dljHWYeefveYQQJ6ZwBzhknZ44N+Mog/Njg?=
- =?us-ascii?Q?OLx8riytXmcasuKMhrN231z7R6U83kr9EVJVQbhvxvcsmDx0xs/V+/Bi6gEZ?=
- =?us-ascii?Q?tM3SO++E8trk9nL+3B8/aTjNr7Ai6mSdTO+gKrtNBHbZg4bcZ/0o9Lhq1Ca+?=
- =?us-ascii?Q?4q+qS2lI9xXZo48Gzy2h/LsOYg6FYP7tB1chQjmLqGcG87hnRwOR1deKPWuX?=
- =?us-ascii?Q?V4VhrzYpzGlPAjCc+lFx0zjy8tQaXI9CmViJSDquZgq9C/XZGs5J?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95dd88d7-5df0-43e9-a359-08dece1c2425
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-Exchange-RoutingPolicyChecked: ibPKggffYkec9Zbobr4i/Bmb0fKy0/4jDr8euB5/Nv1TDSvanXw15HsfXcUiPDuyO5W/vGdUBPA7wFkPbwH84htwl2on1tNyvVMM+1gjdm/ZSCC+uEcbtp5DFrzlHYXcwaxxxnYeUNW0O74m3pZRwk0IUft+vMk30IJijYk8vnTiYwTUBkb07D91J/xpqTfokCiIVb/zMnLlWMDgQM273CAhAjrvCTv+xR4xnPwAJBnFscg4ItKDYdd0I7SfRcN14gK8knVfDuu6FdgGnaWgHNXwD27kgBa8qyaixmqMLydyYKOy9eZ04inJZZ2ZlAj4HpPMTJU6TbFkCR7v1/ZBlw==
+X-OriginatorOrg: onsemi.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 16:02:19.6948
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b23f145f-176b-4f38-c7bf-08dece1c8d25
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2026 16:05:15.5100
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CkjQoJ53iKxcv75c1e7i67zGzZWuOFPDqUTzOq5Kh2ulXm4Yokas4NFrOZm9DpaULR9PcMNSw3RZxBZ6a3eeDcxrn93haHJQVqvVTOofhR6NVMKIlQxuQyUvhmMfVBxk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9223
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7OUuyAcX4hSNLHWUcl4vsAzjAlKnCGhdBnGqkXvrLUXs7zHN7zaDAuRPgVxAjPaANiCKOv4DJRlfcv0U3/cV74R9GvIGBJ32BCm/SAbRsUg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR02MB9151
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: CzabABAtmXLja2TjV-GdGNU7bc81GcAVU4veJynMq7g_1781885119
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 19, 2026 at 04:53:31AM +0000, Yuanshen Cao wrote:
->
-> The A733 DMA controller supports higher address (up to 32G) compared to
-> previous generations. The existing `sun6i_dma_set_addr` function uses a
-> hardcoded logic for setting the high-address bits in the LLI parameters.
->
-> By moving `set_addr` into the `sun6i_dma_config` structure, we can
-> provide specialized implementations for different hardware. This allows
-> the A733 to use a version of `set_addr` that correctly handles its
-> specific `SRC_HIGH_ADDR_32G` and `DST_HIGH_ADDR_32G` in the `set_addr`
-> register later in the series.
->
-> Changes:
-> - Added `set_addr` function pointer to `struct sun6i_dma_config`.
-> - Refactored `sun6i_dma_set_addr` and introduced
->   `sun6i_dma_set_addr_a100` (keeping the logic for high address
->   support).
-> - Updated all existing configuration structs to include the new
->   `set_addr` pointer.
-> - Removed `has_high_addr` since the logic is replaced by
->   `sun6i_dma_set_addr_a100`.
->
-> Signed-off-by: Yuanshen Cao <alex.caoys@gmail.com>
-> ---
->  drivers/dma/sun6i-dma.c | 36 ++++++++++++++++++++++++++----------
->  1 file changed, 26 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-> index d92e702320d9..059455425e19 100644
-> --- a/drivers/dma/sun6i-dma.c
-> +++ b/drivers/dma/sun6i-dma.c
-> @@ -112,6 +112,7 @@
->
->  /* forward declaration */
->  struct sun6i_dma_dev;
-> +struct sun6i_dma_lli;
->
->  /*
->   * Hardware channels / ports representation
-> @@ -138,6 +139,8 @@ struct sun6i_dma_config {
->         void (*set_burst_length)(u32 *p_cfg, s8 src_burst, s8 dst_burst);
->         void (*set_drq)(u32 *p_cfg, s8 src_drq, s8 dst_drq);
->         void (*set_mode)(u32 *p_cfg, s8 src_mode, s8 dst_mode);
-> +       void (*set_addr)(struct sun6i_dma_dev *sdev, struct sun6i_dma_lli *v_lli,
-> +               dma_addr_t src, dma_addr_t dst);
->         void (*dump_com_regs)(struct sun6i_dma_dev *sdev);
->         u32 (*read_irq_en)(struct sun6i_dma_dev *sdev, u32 chan_num);
->         void (*write_irq_en)(struct sun6i_dma_dev *sdev, u32 chan_num, u32 irq_val);
-> @@ -147,7 +150,6 @@ struct sun6i_dma_config {
->         u32 dst_burst_lengths;
->         u32 src_addr_widths;
->         u32 dst_addr_widths;
-> -       bool has_high_addr;
->         bool has_mbus_clk;
->  };
->
-> @@ -675,13 +677,20 @@ static int set_config(struct sun6i_dma_dev *sdev,
->  static inline void sun6i_dma_set_addr(struct sun6i_dma_dev *sdev,
->                                       struct sun6i_dma_lli *v_lli,
->                                       dma_addr_t src, dma_addr_t dst)
-> +{
-> +       v_lli->src = lower_32_bits(src);
-> +       v_lli->dst = lower_32_bits(dst);
-> +}
-> +
-> +static inline void sun6i_dma_set_addr_a100(struct sun6i_dma_dev *sdev,
-> +                                     struct sun6i_dma_lli *v_lli,
-> +                                     dma_addr_t src, dma_addr_t dst)
->  {
->         v_lli->src = lower_32_bits(src);
->         v_lli->dst = lower_32_bits(dst);
->
-> -       if (sdev->cfg->has_high_addr)
-> -               v_lli->para |= SRC_HIGH_ADDR(upper_32_bits(src)) |
-> -                              DST_HIGH_ADDR(upper_32_bits(dst));
-> +       v_lli->para |= SRC_HIGH_ADDR(upper_32_bits(src)) |
-> +                               DST_HIGH_ADDR(upper_32_bits(dst));
->  }
->
->  static struct dma_async_tx_descriptor *sun6i_dma_prep_dma_memcpy(
-> @@ -714,7 +723,7 @@ static struct dma_async_tx_descriptor *sun6i_dma_prep_dma_memcpy(
->
->         v_lli->len = len;
->         v_lli->para = NORMAL_WAIT;
-> -       sun6i_dma_set_addr(sdev, v_lli, src, dest);
-> +       sdev->cfg->set_addr(sdev, v_lli, src, dest);
 
-can you move sdev->cfg->set_addr into helper function  sun6i_dma_set_addr())
-so need't change other place.
+Thanks for your feedback. Will take care of all the three comments.
 
-Old sun6i_dma_set_addr() rename sun6i_dma_set_addr_<name>()
+> -----Original Message-----
+> Subject: Re: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support =
+for TS2500
+> MAC-PHY
+>=20
+> On Sun, Jun 14, 2026 at 10:00:28AM -0700, Selvamani Rajagopal via B4 Rela=
+y wrote:
+> > +static const struct of_device_id s2500_of_match[] =3D {
+> > +=09{ .compatible =3D "onnn,s2500" },
+> > +=09{}
+>=20
+> s/{}/{ }/
+>=20
+> > +};
+> > +
+> > +static const struct spi_device_id s2500_ids[] =3D {
+> > +=09{ "s2500" },
+> > +=09{}
+> > +};
+>=20
+> Please make this:
+>=20
+> static const struct spi_device_id s2500_ids[] =3D {
+> =09{ .name =3D "s2500" },
+> =09{ }
+> };
+>=20
+> > +MODULE_DEVICE_TABLE(spi, s2500_ids);
+> > +
+> > +static struct spi_driver s2500_driver =3D {
+> > +=09.driver =3D {
+> > +=09=09.name=09=3D DRV_NAME,
+> > +=09=09.of_match_table =3D s2500_of_match,
+> > +=09},
+> > +=09.probe=09=09=3D s2500_probe,
+> > +=09.remove=09=09=3D s2500_remove,
+> > +=09.id_table=09=3D s2500_ids,
+>=20
+> Tastes are different, but the idea to align =3D is usually screwed by
+> follow up patches. Here it's broken from the start. If you ask me: Use a
+> single space before each =3D.
+>=20
+> > +};
+> > +
+> > +module_spi_driver(s2500_driver);
+>=20
+> Usually there is no empty line between the driver struct and the macro
+> registering it.
+>=20
+>>=20
+> Best regards
+> Uwe
 
-sun6i_dma_set_addr()
-{
-	sdev->cfg->set_addr(sdev, v_lli, src, dest)
-}
-
-Frank
