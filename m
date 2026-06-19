@@ -1,155 +1,71 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B883B19AC
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 14:57:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F1A18A6CF;
+	Fri, 19 Jun 2026 15:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781881070; cv=none; b=PTJdNfggg6l7V+8pKYy7mO7O3017pYuQIP7Qt0zDjlNTQPCXTQsKeEoaxr8G016bVnEJA7F1aFc6btZ2+NzsbhoJLUtwJPZ4/IlzdzMq66fXBBBOMffxWV+OdN0flWqpMwiw0aEdX8L1yjk7CVUwiw+s2QpZCjuJBjHSQRNW2ZQ=
+	t=1781881242; cv=none; b=KpU5vgCZLHurA73uWBeR7eyZzQOdDGk/mtelamfZxmjnzEsGY6DUA+l23UFKWSaQp8tRFERQPXraszJ4TXo+uAJksmSwiu4w+gxv2EklFV4QCGbyVOngII+dz3S4i9GNBq+P/ffAqAxhYYDxRAWyTKKqAky9TvMshDRSMkcVpj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781881070; c=relaxed/simple;
-	bh=r+Vx8bE9bzuOFwGqKWOBdk/pvY5QcwTgaH/iYD/LprU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fgTj3/3U6sZKXuP3w7y34zzUhT4F9jtOLKB5Swru2iEGAfq5Lai7ga2iIlOhr9yKcA9rsgQpgBYg8IAGb6hJGil3CMf+uvDAP7k2pa+inL8hrzVV01+row3pUFaACoZS7GaQIYV7jV+DYLv8XzgGwpIg9IUCAFc3voqn9Q38E7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=q9N/eMvJ; arc=none smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781881242; c=relaxed/simple;
+	bh=dLseSs2Wm9SPVKWJJ3iGGuTBRDibOYCNjz4WJ+yAxjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uV34iKD5Bq1K8VWy8N0UdeFoBgwdfioKAWFKzEyI81IAtLjuKnS9JDGBFKePO4BnlwMjRzOsIkHqc5pYCzKXTvQNTCqfCPnUjdEm/bi1BekfI42pdRqlSvIKgtnMZt+p8DKhPmLXAdq3yX3YknKBF8bv0cfkW9fyzDj3Od6JwGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YnF+vQSl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="q9N/eMvJ"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3966e5e7cebso3174511fa.2
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:57:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781881067; x=1782485867; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wqar4JczNNOg75V9/pJCCBRYnOJd819Em91TzN50JyI=;
-        b=q9N/eMvJq5hm3/IJqOlwRwwlWEAXsvlFvpfcry2qK+FEUoywHH+SbJ+5/PC/2ku2lO
-         vC0d4EYHVqqnYqudzShfT45J+oJ14P6sYGsHaOvPQrhcRrg6EaHD9rcz0svEe/QG3Xvw
-         bTFSQZN+8Yqe/nGCWbia6/H6Ie9nx5/Us5xtBwMLSQVd4CoZGmGYMPOhjiyxc1eIxOr9
-         QaoH/sgWr/uGZ2vjWXmLCcLDmBrPAinv00gQGBWG74A4tPdk+3Xa3PPTPiPoIW8FF0gh
-         W5PdMGXS4kbTpTthcDkRNOEhMTvuuWvkCKBW/7tE+5JMToJnbldD6eV+qmIsy2ub6dz3
-         h/mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781881067; x=1782485867;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=wqar4JczNNOg75V9/pJCCBRYnOJd819Em91TzN50JyI=;
-        b=gRX4loYkh5kRp2UnSfSROgzfncdCXZw1m8xLmmlRr/pG6F+tDAwExI/e1TuoDaGJWX
-         p+PvSCnfQCZIgioXzTFFGjC30/WHXfdsQ4DxQQfqPWuAT6uVQZStyefIEkngIZX3R0y1
-         fY5UqfQTdvtTVd+pZuo1pYdxjrv6olfYkrtSwshXbjatITC4ZLqJAInP5EYrMl47SN9/
-         rVN2bzs5FFek47FDjZ2HDAM1bQ96xtyFvbzThun5QSK8FCqbFZmqeus4QNjZt3WpfENe
-         Lpv6w1SrSdOu+7AR9/Rg+uP1YJrVcXKkafXfFc3BUFCa+ZoxPkwFI6Etxi9I1wTtnZJK
-         ab1g==
-X-Forwarded-Encrypted: i=1; AFNElJ/0jRNi0p81Ni3DDpYe9R29Pb9nzlnxWzLTR3sotbCpD6wyIFcrMriprCe35caZo9VgvJBC8/sJxipC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzfK3DSqvFTYARdFXWUOnpN0FjzUGVJlCqvxc0Lqap+sTFSReuD
-	F/MbTNMBHlBPPRHsobyX9GqZENRcNaL3/TKFm2MlfjEZ7b0MAmybketQj9wwhavrGmw=
-X-Gm-Gg: AfdE7cmPM9u7Nx08+hOQcah1CqaoFtU2VPPOOKPD3+lZ+tqmyUfmMZUk4meOF32b3f1
-	ejhbtKuIOUfAe5iTokS7/qcyQd/GOH8hUbV45D1vpNGXvKHcIc/7O6ZYyWgREE7qwhGCOyPhRtI
-	pmfwxKkdtInxhKI1Xb7KuwqXzudToN2trNa022HgrzWppu8X2vovhZqluC3hMkhghJRLBg8R3c8
-	Be9uiQjyqN1NHX9xQiwLD+jpWAuBflFC3G538k2NtlhzzGlnfSFEIqIfRRt8XHNrCA1QTUt7ABC
-	BWnK3ZP67JKeMes1sKY2zZakyOH0fjIhQ2hXqK6MT81dQXje4lgF1wD/y9kxNY6/5IBNCuj9o7b
-	x84A+NJNEXXzP8TkLMRWh2z11eWUxe3g1HelJtQfdZQy7swx7J6C+iKONnJu2SPRUg2inAQoMbr
-	/80YY017wkvlJFe2caozU6fYSgWnkA0aDhALhod0Z0rJJRqqIMQbALuoDwRSOALJ3sPoQ=
-X-Received: by 2002:a2e:a884:0:b0:396:8d4f:573d with SMTP id 38308e7fff4ca-3998a306993mr5773511fa.4.1781881066524;
-        Fri, 19 Jun 2026 07:57:46 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3998bec969esm5732211fa.6.2026.06.19.07.57.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2026 07:57:45 -0700 (PDT)
-Message-ID: <45a4b138-0fbd-4c55-bccd-83858d95df5d@linaro.org>
-Date: Fri, 19 Jun 2026 17:57:44 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YnF+vQSl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B5A1F000E9;
+	Fri, 19 Jun 2026 15:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781881241;
+	bh=dLseSs2Wm9SPVKWJJ3iGGuTBRDibOYCNjz4WJ+yAxjk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YnF+vQSl8PpRFYny8vN1Sk/FNkz2tx1qvgKApCej7HKSecwB05eI7ScM+iZzPaX7x
+	 oy5Bt8XyqRjmS134KhORjcg31hJZCRs9lqtc/S7zZznO7m5GPVlqp/r8laVSoGfli+
+	 G5ELsUWdk0dLL7mFOvRHapMZ6W4WXC0GVF+G50kjNmpM6dmu8f5bsbdZxXLQOV97r2
+	 B3WJFT3/I6ZnN9/rB/vlfS2F/WpeV0AIDf8RZPZ8H3iqcmXe59tRcn6fPLGB9T8i4Z
+	 grW3LsLwrX8NEK3wSDMhuAg6rPaDSbLTgK2LZm9+zQc9oqIQMTNODwcJs6XemmuXXx
+	 LLXhADs44gQ2Q==
+Date: Fri, 19 Jun 2026 16:00:37 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] spi: dt-bindings: snps,dw-apb-ssi: Add
+ starfive,jhb100-spi
+Message-ID: <20260619-monkhood-imbecile-7e56b57158a6@spud>
+References: <20260619143443.22267-1-changhuang.liang@starfivetech.com>
+ <20260619143443.22267-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/4] arm64: dts: qcom: sm8550: Add JPEG encoder node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>, linux-media@vger.kernel.org
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
- <n0iPW9ltP_HyfKgagM8MIvaGg_NF7KvUV834b6MPuE3llz9v6B1jdn6wEvXMkIHS_zLRsjnb7pXY3dURUOSs9g==@protonmail.internalid>
- <20260612194417.1737009-3-atanas.filipov@oss.qualcomm.com>
- <8d230cca-2023-4a13-876f-d5db8eb200a1@kernel.org>
- <Y69RNi5x51R9xs6wvf1lRTwKww7gu_-s3WDlGvLpDuZ4YEhg4lrXnuwn4V2p9bSGUQRM5x-vVsDTNt29kOst3w==@protonmail.internalid>
- <3d4e0147-8e62-4872-b881-1452f5e09e85@oss.qualcomm.com>
- <f754c28c-2d0f-4e10-b542-37eca70b091e@kernel.org>
- <ehUvd-M9IX-H_rtmYz4jHzPTzKqm9thaBhx9C145BsCT6P_YaSRD1L2jC_B2EWH_2m4WZ_Zoms_7Yx106I6kMg==@protonmail.internalid>
- <9fab1877-976b-4495-86de-a8c853b9ba24@oss.qualcomm.com>
- <f862ff70-c42d-4be5-a7aa-3d0470106aef@kernel.org>
- <c0017e02-ff6d-42bc-b02b-d51eec65736a@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <c0017e02-ff6d-42bc-b02b-d51eec65736a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ng5/tWqnwV/9AP26"
+Content-Disposition: inline
+In-Reply-To: <20260619143443.22267-2-changhuang.liang@starfivetech.com>
 
-On 6/19/26 17:38, Konrad Dybcio wrote:
-> On 6/14/26 3:13 AM, Bryan O'Donoghue wrote:
->> On 13/06/2026 12:16, Atanas Filipov wrote:
->>> Thank you for the detailed explanation. Let me share my understanding of
->>> the shared upper-level blocks. They are exactly the reason we have
->>> frameworks like ICC with aggregate bandwidth voting, reference counting
->>> in the clock framework, and so on — the same applies to power domains. I
->>> do not think using shared resources is a problem when the drivers are
->>> correctly designed.
->>>
->>> We have actually validated this: we got CAMSS working alongside the
->>> Qualcomm downstream camera stack after fixing the shared resource
->>> management — something everyone considered nearly impossible at the time.
->>>
->>> On the CAMNOC and CPAS concern: if that coordination becomes necessary,
->>> the right fix is to address the resource management in both drivers
->>> independently, using the aggregate capabilities of the existing
->>> frameworks — not to introduce a
->>> hierarchical dependency between them. Moving JPEG under CAMSS does not
->>> solve the CAMNOC, clock and power domain coordination problems, it just
->>> papers over them.
->>>
->>> IMO the problem you are pointing at is more general than just CAMNOC — I
->>> would add priorities, QoS and other shared resources to the list as
->>> well. The answer to all of them is the same: correct use of the existing
->>> frameworks, not driver
->>> merging.
->>>
->>> On the idea of putting JPEG inside CAMSS with an external API:
->>
->> I haven't remotely suggested that.
->>
->>> no engine or pipeline that produces YUV output, which is what the JPEG
->>> encoder needs as input. If JPEG moves into CAMSS without an external
->>> API, it becomes
->>> inaccessible to userspace. If it does expose one, we end up with a
->>> standalone interface anyway, just with an extra layer of indirection on top.
->>
->> This is a very long winded way of saying no without acknowledging the core point that the DT should scribe the hardware the way it really is, as opposed to following software architecture preference.
->>
->> It is the case JPEG lives inside of CAMSS. This is a fact of the hardware, the DT should express those facts not software preferences.
-> 
-> That's also precisely what the "Tree" part is about - CAMSS is essentially
-> a bus (as evidenced by the existence of a set of resources, like the
-> AHB/CPAS clocks, the TITAN_TOP GDSC and the interconnect paths that gate
-> access to everything on it), just like MDSS essentially is a bus. The JPEG
 
-I also agree that CAMSS should be thought as a bus, and therefore a child IP
-shall both a) be described as a subnode, b) get shared resources on parent's
-side like PDs and clocks avoiding unnecessary repeated description in its
-own node.
+--ng5/tWqnwV/9AP26
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I believe this general notice should be applicable to all CAMSS IPs, and I
-repeat it here, because there was a disagreement about it somewhere else.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> encoder, just like all the other blocks are then devices on that bus,
-> logically belonging to the CAMSS node
-> 
+--ng5/tWqnwV/9AP26
+Content-Type: application/pgp-signature; name=signature.asc
 
--- 
-Best wishes,
-Vladimir
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajVZlQAKCRB4tDGHoIJi
+0uscAPsHhWou5nHvVuNchzj8wGZLoj6oDK5OnUyFTYCM1qvReAEAvIjgVwaqSCOi
+CX2nNeYwL9+VpsNjreBAJIbt8U9WogM=
+=4OYZ
+-----END PGP SIGNATURE-----
+
+--ng5/tWqnwV/9AP26--
