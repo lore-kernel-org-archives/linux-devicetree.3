@@ -1,110 +1,197 @@
-Received: from outbound3.mail.transip.nl (outbound3.mail.transip.nl [136.144.136.12])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010030.outbound.protection.outlook.com [52.101.228.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E2B30E82C;
-	Fri, 19 Jun 2026 08:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781856659; cv=none; b=ujOMyWZI5xPE3fcZn/YlhEURole5KEzbmv8pImA/oe5zbpjlBcOqHxIMMDt8BP5NTyFayOhSQ5+/YwIcpQVQfw5vXUgZZSLSGU+BNxAfJE72uJ8KvdJmdtjNTpsoHBhAbluAyFTNFqqp+qjY21flhBPev3dF4vZtkcXbdtYIXQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781856659; c=relaxed/simple;
-	bh=BpBGkCSu7+PzRSqdV+sqhQ62LthPAHGqeO4TeM6FeFU=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=lmyOzXdwsy6UZqnyC5psKIUoTVDs2GndONyx1sL8DyXEg70gVEau1z0H2eYcoM3dN88Zw88c/UBDVw/2qhAj3Px+uHIHjUvMUy+axjZIyUh39cXzJiTuxwfTxV5WvyXfv5i/F/pFANS77mzI3/ckl2ENMjCj14Y2kNDPAUX5zuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=VfZbndLn; arc=none smtp.client-ip=136.144.136.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18A831E825;
+	Fri, 19 Jun 2026 08:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781858442; cv=fail; b=lZWFbGQEIwPSL4SQhOynO4n2ySw6Af0FZxWymTy4a9pT3yXs13Ve1DvcCP3tChQh25+0tb7G6O5aMSsauBFQZ9DepDgJ544inTAVJql91N9W7JxWWg0KBCYnkMWeBLtng0VakkRPkiF+oPtzMw1alQsyaegkOVF/9ZeByqw5xjM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781858442; c=relaxed/simple;
+	bh=lXKN2Ed3ON4hcTg13BmGU4VzeyPn0Y3MgwGybIfeCIs=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=j/wazFeULq39tKj+jJXMOGfKlRTapxJidDdwwiEGjTBgoX1gJ1mw8ooJNxXIFlmlCv/bX/Yi1Csnwc26hAoWJWeRRmrofV9Z5nIhY0yIfyKUK18D0bHt83qr0O9xIe2RCgiCFzQRonh3wz/BK6SWP2MiDqbDjvzkTLTnGUsmsSU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=aPhA16k8; arc=fail smtp.client-ip=52.101.228.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="VfZbndLn"
-Received: from submission5.mail.transip.nl (unknown [10.103.8.156])
-	by outbound3.mail.transip.nl (Postfix) with ESMTP id 4ghVdw5ZntznFBj;
-	Fri, 19 Jun 2026 10:10:44 +0200 (CEST)
-Received: from transip.email (unknown [10.100.8.81])
-	by submission5.mail.transip.nl (Postfix) with ESMTPA id 4ghVdw1ryxz2pRDjr;
-	Fri, 19 Jun 2026 10:10:44 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="aPhA16k8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c17M+cySi24DTqXrr/AIIJRK6l7VP2hkzDFUquGW4jyIECAX5rUThNaAjjCpjnAKvDK5E3tv+4MweRn2JvtJq3m4YuPErE4MwYGB5iH8X66s1FWYvxHB9GOgomIFs0xDlP6WxA+IOoHMH+S8n8Gau8W/dwhP6arREqlgbpCy5MEu43Nx/sRw/Nx5BPRWHtNDeV88DlI8/DPsoXR+cTvn+OgjMKBXolnyDJl6sWX2X4CaiGs9lzegvKRMerPpWs7i7NLzhpXhc8i+1yK3B4Efwe5UB71qWSDPQFyaONKZMliJ+ogz9QfZGN5TDF616lyF6dvDAum19u5VW2zQhHH8gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tjzdTmLJhFRSnYSwxiBL+ygZNBBxe8YPPqKGiMWMrq0=;
+ b=JV6h9XSzaO9BtXQoC0q82Ef0K4YFRqVtg2s0zYnoom7OcRbUcORUCpT6Ps4HNydK2zMRCvvnJZWLHk3MKLbbAejfPVgz56TAae/+qhyoumHAbGVDGkPTNdj86hnlVsdMeFQDawYwCLE5J+WZ2s8hShqQGyf8UwDDKZYj9zlTVXRH+tDCTYUJzNJPVGAN7I/HtjfmOKsfQS0o0ERE4MR6gnvYfBc0apCZOUMjk/qpwE1PPXWkbCOTBTGZnDIB6ThUihFNA+dEQD0faAJusdbe2MLylRLDSfmjha5BFRuXSWt5kKps9ToRY3fiwzDEEv9Y3956pV8b7bEHeO4WI7xGWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tjzdTmLJhFRSnYSwxiBL+ygZNBBxe8YPPqKGiMWMrq0=;
+ b=aPhA16k8zZ3RWd+2l36vJmnObkxdYKwNbgtkckQZrmO/un9quHyhZQQ0jTXQyMnPw3LwA4/zQYSjVVUuTwl/ENdzAfG+n9yw5tRCMnBl+beqnTw3TFZ74U88KJ3iqfhzafGE1Z0awGNLzQN46+CbIwJfk4mgJufOhNHPpul9D0c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TY4PR01MB13920.jpnprd01.prod.outlook.com (2603:1096:405:1fc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
+ 2026 08:40:37 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.21.0139.009; Fri, 19 Jun 2026
+ 08:40:37 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: geert+renesas@glider.be,
+	magnus.damm@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	john.madieu@gmail.com,
+	biju.das.jz@bp.renesas.com,
+	John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH v6 0/4] arm64: dts: renesas: Add RZ/G3E audio enablement
+Date: Fri, 19 Jun 2026 08:39:47 +0000
+Message-Id: <20260619083951.3777556-1-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PR1P264CA0066.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2ca::20) To TY6PR01MB17377.jpnprd01.prod.outlook.com
+ (2603:1096:405:35b::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 19 Jun 2026 10:10:44 +0200
-From: me@herrie.org
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Herman van Hazendonk <github.com@herrie.org>, Georgi Djakov
- <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] interconnect: qcom: add MSM8x60 NoC driver
-Reply-To: github.com@herrie.org
-Mail-Reply-To: github.com@herrie.org
-In-Reply-To: <ff72dd25-926b-4a51-99ad-4535f6025dcc@oss.qualcomm.com>
-References: <20260606-submit-interconnect-msm8660-v3-0-f9da0158cdf8@herrie.org>
- <20260606-submit-interconnect-msm8660-v3-2-f9da0158cdf8@herrie.org>
- <ff72dd25-926b-4a51-99ad-4535f6025dcc@oss.qualcomm.com>
-User-Agent: Webmail
-Message-ID: <3b8fe2ee8abb8a58939d5ded029bd08c@herrie.org>
-X-Sender: me@herrie.org
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: ClueGetter at submission5.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1781856644; h=from:reply-to:subject:to:
- cc:references:in-reply-to:date:mime-version:content-type;
- bh=oaGtO+PMEUVOUfZirfkTBA88JHbSfN8UYKkF58Svw5g=;
- b=VfZbndLnRf6Q7kt8O9+SPfJYmof/AW7GdY3AbGavOjPyjdj6+3QAJJ+x9k8H5AhvU65EL4
- VL5HSQqJP40bRkAVqOZlEPh0NRBR8Tu/VHisHTkD+0/+UflEKHXbrRdTX1AwKsJhg2Lz6S
- RP50cSpZylRZ6K6V7XNE386LGnsJ2htfBDbki//uOOmrnhGGuOITPZs5EHFPRy8WPbaqZV
- 3QZ4tvCF4THHrvjQp825U+EOyumMb1t3tusMxdP9aQbfjSsTExTurVyIlO4E5BKdD9UUv3
- 2pwX4u/Tb5bZpS7G9ctSdj5KT02X3T9+lfSZ1d0n82TZWcLTSDtK3MYlvERG6g==
-X-Report-Abuse-To: abuse@transip.nl
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY6PR01MB17377:EE_|TY4PR01MB13920:EE_
+X-MS-Office365-Filtering-Correlation-Id: 254ecc8d-f462-468d-6ced-08decdde6f4d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|52116014|376014|18002099003|3023799007|38350700014|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	6AEvAAy45k517aKnTcHbd2VMYsYZsmiWhAt55DQzVdlVTIPSIvqhnfwoWmqesF98nGOuKIGlsqFchexKMdV+/LA7LBbWxPpL0Y7urVuuXw/ftCY7MLo7Hbg1yitePaHjQi8eupFdVY+A2UmskU+v3mQFzKzFayqFcb3WRg1K3jG/HTMr6AgEfeWhwVWtQHaEw7UdOMnlXn7z7O5Ri70DhhBAFfAKB+XzsujmahAUh3mUxVDcVNab4FRLlHowaI4ykurqACQPTn3r/yPUQx/ePIaUL1lbcPmKgqbIfoT482mROkg3AepVZFYCMLsOkWPl67x70RHFmKdgkP1xMn0M27CDRiGG3yD1gZGgfc0Uou96Qmi4GyGEVNb07LLJWaYVqegUt9gSqdgiyCJ02Zai+p9pgU2YFcpVlJVOfnrpkRUiERBs7+JuJ1ozerRKE2QLttOAlRuLNpZEvCPF3FKXtP2AHDuevNML/BF1QGox1ESxoO87F5vBxJzHYnowe6H+HfojKNXgdAf+gG2cmv2Khk8NK3BKT2h0gNEaSk6gQfjqKz1cipmert/QfVdNmL1VPEjKjmirJpbf6XNvQb+1ZDMwx54mPQaYmtsIXbcUKIvG5BelLI+NJqraGOVg7dF2GdncfMsZ1AWGn0ukcJ2RZLnIjtjCvsfKZ+UvRwEvKe+Vk4BEi6aGzmBgxjT8HAF6HhNPhDtR1MeZJO71dWbX5NVdmidP6jrz4y9LFGOXBgU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(52116014)(376014)(18002099003)(3023799007)(38350700014)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SF5ykJaEGrSPtqgeZpXqyzQAYSCcLHbAZQjWTRcLG+r9a/AS157mTh03FV6U?=
+ =?us-ascii?Q?jWSa3YUZ35phdrNNeRdrFKDFs2j5EAjF8CnKy7sJjc9R+Dve47bQQgqMowV4?=
+ =?us-ascii?Q?ZaBheJ5qXhbj9kd5mpvLlwJcTgrNvzHwexOBGboFCJcOQRrLJIYThWxe3EbF?=
+ =?us-ascii?Q?DXkp7GHHQXhqSEeDoEGTXZziPr03j9Tv88DAiZ9Ptfx+9VJY/dyoitljuMmD?=
+ =?us-ascii?Q?4rQxXm0cnGnnoCJNtWFlz4evhpaFdrZMrj5kHT3Z635Oxtd6H+2dihtCz30o?=
+ =?us-ascii?Q?bSdnUeyp8q9/tIryT2XFFDcEYQJRoA9eYWYDa37bDi2rBRvS+0tqb12OIpLB?=
+ =?us-ascii?Q?J4gX/k1r3xcgmiquwy172V29L0iXaXC31onNgpzKikm3ugJyFM+AXHK0p8oG?=
+ =?us-ascii?Q?jjnqVldbOVsQJ9QUs7SqvsbTQZClyb9cLesTX7VsVvvRWzkNCSpcQBsNR9L+?=
+ =?us-ascii?Q?N1BtwLt4QRSz9HD8erVX0tezbk/w/VIzKKP2NJYLNC2TbSltl/Sr1KG0MmAo?=
+ =?us-ascii?Q?rT8vm8LPnY4P2u0ZcR4ov+IZCQVyabkyR0kDXmEAJsfk9WPR1P+xmYhU+/9o?=
+ =?us-ascii?Q?jSfEY9iFyIeArFZ72HOF2BK056HcYL0wwXhR88l+KHR1AwAHJF1w+Sj0xcXq?=
+ =?us-ascii?Q?TSHCKOBIwV9w6CHLT3Sgg5CT/Y6GT+1GshOnZX5gjikQ/09ChHbxYd6gQvNJ?=
+ =?us-ascii?Q?/PVoYKP4qw2kntJyy9f0V4fla3ttOoQ5Op5A2EH8ZNYsFpDjlcqZOtkbHu+k?=
+ =?us-ascii?Q?fK1P4Eeywl9barZEb7LBx/D8cHUwASJZ28H5UyzOyv6lJDh28L6scwEZYU/Z?=
+ =?us-ascii?Q?4Tfl/qk2jqOBf3/tR9VQVOAi9XTqYNWAGfLqndJGA8GRZR6FjmYoeCuEjvMB?=
+ =?us-ascii?Q?xd73tmYHI+AISKkDmZOGi10199kWwCI04U2xph3WAaT25mSa3DMWVSw3gYsh?=
+ =?us-ascii?Q?aFjp4Wi6RvPqsRvuW53KQ35m7aiyQkjjF+ZngM1xzlHBhe+89C0K92enF7Ed?=
+ =?us-ascii?Q?qBgWekuUpPCGFUT1yDON/SzZ3Fu8BzevapYkXncILv2zxkZRKNC2MlBYzS1b?=
+ =?us-ascii?Q?Eh/x0C050nr4FP6JQFhkBcri2i1AwhQ7S3eTpHi5R4whRngFqnR6G9lw3eKd?=
+ =?us-ascii?Q?3X3kcROiGwcm+QQIqw9PffTF3XbDB2jN7E1xA+jH2SafjGSuv2KjCLhAiOtd?=
+ =?us-ascii?Q?LLyEYCWC1Tlf/0ti5SVMHDD/Ema0p/nfYj6jI+2sancZsht3jqQaVP2F50AV?=
+ =?us-ascii?Q?kKYGO4JY/7qSyTlh9EgIZvKiEKGvz4HOsZ3JdtEIb3LPGuMcstPYroy/cjNn?=
+ =?us-ascii?Q?0bcxL6PLQSWKT8rgo1GuV9U6pUnzIpwRA05shwD79D02fjiZ1M6mw18PA4ks?=
+ =?us-ascii?Q?ftuq4rgkkxLB34kTfBuIcy6pKEoh1zvmEnucgvJ/EimzkAYHAkmrnf8eDBo9?=
+ =?us-ascii?Q?Mx+mwjAT56T79tE17sIDWfX0Dc519s6YWwOVsXmmvMb7XsP03ayNL1SiPTjN?=
+ =?us-ascii?Q?kKrEa1fp8nBkwYMU0XI7KZX1ATptECtrrXmSid9r8kAKi/8uE1dpbgQi1gJB?=
+ =?us-ascii?Q?Q65RfmTBxPMjs+LLBUrgdufO9sF6k7q59nXsGQtEfofOXkt5kN8sDJqlgZY2?=
+ =?us-ascii?Q?TvkZeWUQPcYuGOlhNzLbrx1XC3QivRHdEjxySkqgUBrk99Bmxi/IWN93jxpL?=
+ =?us-ascii?Q?kbIBCbvMxAMpNOPWYRw5ZK3GwcGypgXlcV0uwW+palyakmd6eCHauIJTsAFt?=
+ =?us-ascii?Q?6ZJdbZdznDAL94ZezFRHy2lhNzEu9/w=3D?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 254ecc8d-f462-468d-6ced-08decdde6f4d
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 08:40:37.1029
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j9I38DFM+d7ChqBj4udCuZxZ+6uR6/y2Cpij89KcRiOhhrus+NoJo0hPeh6x9X31dQhmT00EaIPJicTen2LtqVR7Zss9MjGj47xRnPLdKDY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13920
 
-On 2026-06-17 12:36, Konrad Dybcio wrote:
-> On 6/6/26 2:34 PM, Herman van Hazendonk wrote:
->> Add a Qualcomm interconnect driver for the MSM8x60 family modelling 
->> the
->> four NoC fabrics (APPSS, System, MMSS, Daytona) that connect masters
->> and slaves on these Scorpion-class SoCs.  The driver implements the
->> interconnect-provider API to manage bandwidth between specific masters
->> and slaves via the RPM arbitration tables.
-> 
-> [...]
-> 
-> 
->> +/*
->> + * Minimum fabric clock rate to prevent bus starvation.
->> + *
->> + * When no consumers request bandwidth, the rate calculation yields 
->> 0,
->> + * causing fabric clocks to drop to minimum. This creates bimodal
->> + * performance: fast when other subsystems (like display) happen to
->> + * request bandwidth, slow otherwise.
->> + *
->> + * 384 MHz keeps fabric fast during concurrent MDP display scanout
->> + * and USB gadget traffic. legacy vendor kernel docs: "AXI bus 
->> frequency needs to be
->> + * kept at maximum value while USB data transfers are happening."
->> + * 266 MHz was insufficient - USB crashed during display activity.
->> + */
->> +#define MSM8660_FABRIC_MIN_RATE		384000000UL	/* 384 MHz */
-> 
-> Can you ensure that through a vote in the USB driver?
-> 
-> Konrad
-Hi Konrad,
+This is the remainder of the RZ/G3E audio enablement series. In v4, Geert
+queued the clock and clock-input groundwork for v7.3, so it is not resent
+here:
 
-I'm reworking the interconnect driver based on earlier feedback, but 
-running
-into some regressions I need to tackle first. The driver I had was 
-stable,
-the reworked one has some issues that I'm trying to tackle before 
-submitting
-another version. The minimum rate will probably disappear as a result of 
-that
-anyway.
+  - dt-bindings: clock: renesas: Add audio clock inputs for RZ/V2H family
+    -> renesas-clk
+  - clk: renesas: r9a09g047: Add audio clock and reset support
+    -> renesas-clk
+  - arm64: dts: renesas: rzv2h: Add audio clock inputs
+    -> renesas-devel
+  - arm64: dts: renesas: rzg3e-smarc-som: Add I2C1 support
+    -> renesas-devel
 
-Thanks,
-Herman
+This series carries only the four patches that were reviewed but not
+queued. The sound node in 1/4 references the audio module clocks and
+resets added by the queued clk patches, so this series depends on the
+renesas-clk queue and is based on renesas-devel for v7.3.
+
+v6 is a single fix: the Versa3 patch (2/4) now actually drops the
+unconnected DIFF2 output from assigned-clocks/assigned-clock-rates, which
+in v5 was described in the commit message but left in the DTS. The other
+three patches are unchanged from v5.
+
+v5:
+ - Resend only the four patches not queued for v7.3 (the four above are
+   dropped from the series).
+ - Sound node: hexadecimal module clock/reset numbers, lowercase 0x1f000
+   SSI size, SCU reg extended to 0x20000 to cover the SCU DMAC, per-line
+   clock/reset comments dropped.
+ - Versa3: document DIFF1/Ethernet, intended to drop the unconnected
+   DIFF2 output (the description was updated but the DTS still listed
+   output 5; fixed in v6).
+ - Pinmux: hyphenate node names, sort entries by GPIO number.
+ - Codec: drop the unnecessary #address-cells/#size-cells on codec@1a
+   (sashiko-bot); add Geert's Reviewed-by.
+
+v4:
+ - Link to v4 at [1]
+ - Sound node: dotted clock/reset names moved to hyphenated form, legacy
+   rcar_sound,* sub-nodes renamed to unprefixed ctu/dvc/mix/src/ssi/ssiu,
+   clocks/resets reordered ascending, explanatory comment blocks dropped,
+   dmas continuation lines aligned, commit message corrected (snd_rzg3e).
+ - Versa3, pinmux, codec: no changes.
+
+v3:
+ - Sound node: commit description typo fix.
+ - Versa3, pinmux, codec: no changes.
+
+v2:
+ - Sound node: drop the 2-cells specifier on the audio DMA assignment and
+   stop updating DMAC #dma-cells.
+ - Versa3, pinmux, codec: no changes.
+
+[1] https://lore.kernel.org/r/20260525110603.4018170-1-john.madieu.xa@bp.renesas.com
+
+
+John Madieu (4):
+  arm64: dts: renesas: r9a09g047: Add RZ/G3E Sound support
+  arm64: dts: renesas: rzg3e-smarc-som: Add Versa3 clock generator
+  arm64: dts: renesas: rzg3e-smarc-som: add audio pinmux definitions
+  arm64: dts: renesas: r9a09g047e57-smarc: add DA7212 audio codec
+    support
+
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi    | 462 ++++++++++++++++++
+ .../boot/dts/renesas/r9a09g047e57-smarc.dts   | 112 +++++
+ .../boot/dts/renesas/rzg3e-smarc-som.dtsi     |  32 ++
+ 3 files changed, 606 insertions(+)
+
+-- 
+2.25.1
+
