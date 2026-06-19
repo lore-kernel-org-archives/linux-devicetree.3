@@ -1,58 +1,58 @@
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D133CFF4C;
-	Fri, 19 Jun 2026 22:00:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F7D331EB3;
+	Fri, 19 Jun 2026 22:00:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781906411; cv=none; b=pnAEmsTpu94SIB+gyh1XJjiRaxDrRqfEK6Bz5nxc+c2A6HQn5jtE1Mwxf23MMOTkfJ104F1Ax//r7Kz3fohlHaFtEyYaW96e2tC3RGmLuc30U87/Voqcf9COYIlS91x9htt36I2cpt5RPOOOnIpvbVNnnrYNmlCC0wswRmNX2N0=
+	t=1781906415; cv=none; b=qDjECY6jGyRcCo1Q+wmRtgZhyTBivxVWe8vpXEaNf0X/EURC/iWF8slX96ZC1MofJA7uly2b4RHiQwLxFPy+KuWpg0ad5O9o1aGPbqXz/2dgG3AmQSQmfrVf09dUbiavNlGdOD3CxdUnDcMGqcgecj9w+yjmJkwhP2Mt/dsRCUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781906411; c=relaxed/simple;
-	bh=+Xhbd99YTn0r/RNR8I6isfKfqrxghVZ6y5JaLdPHWE8=;
+	s=arc-20240116; t=1781906415; c=relaxed/simple;
+	bh=nssLUTVnVO04MDF5pkbnkd8EvgLXqZJUat6g7/5Dr9o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ie+jx3PrzhNEjWWNhzTsSgNTFxsMKa9Fcblatph/rbG0aRKuBWq1uLjZdRv/dH72zsDqex+HYEGHZTUWd0Nv6vjV3kNTffQGMGSEB8a3UXFs9+v0WhEsBtYlfrIhAyR6tWOWXwGkMngK2cJQIejkvwONWwn2bs85DodBkoTYLbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fL38MuVX; arc=none smtp.client-ip=148.163.158.5
+	 MIME-Version:Content-Type; b=LWXrUx357Wzn/wVAGb+IDJwURyXu31OxBOVX+ip3TKWhTIhGiW7/vMPULSPIBclGcDyQTuYKB4MQA9am6GwzZSD5Upr5a02+pnFTkq7wHWU4uadpSq0sYGd/6DZpgJ6v8hQ5C/GIY0TBY5U0NG8Mc/Q0gDBGnxVavgb1hlfFoxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LCIXw9Pz; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fL38MuVX"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JLmX8f3363088;
-	Fri, 19 Jun 2026 21:59:49 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LCIXw9Pz"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JLmgph3358207;
+	Fri, 19 Jun 2026 21:59:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=3bbdnG
-	J7I7BnUNBUNgIKTcohPRf6DpGUxEmEmgqlaiY=; b=fL38MuVXHX1N3fQ9EFUSKB
-	Pbek3kK64FlaSej0LbyEJy5Hxd2juLFA6sUzPst4h8BT151CrqykiRIo06OOn0nC
-	mt++49vF8Mmo1t527/1N67VnYo+ThhirVA3FLXevgMhII/vxtbnVm5+WptjAFPwE
-	znREvoRiwRjTR55srdCY9AS/v3jboGlr8Oi5WWf2gA83L8LMUR4a8W5AKb0BRw0T
-	6Bj8QFb8CKeJw89shxzQKj2UqNKQyUWWXMVe9ZN4Hc27hoNW2LcyPWYBeKxjPVEq
-	uySsBKKlqi2o4EgWLgnH2XQFnNZ68/hOINHvs9tJrhzpxLWIm6KwNErrex2JDi0g
+	:message-id:mime-version:references:subject:to; s=pp1; bh=1P6ALL
+	33Rdvx7OHFEo8qsaz3m4CsS4iDLaS8DwZULJg=; b=LCIXw9PzW/CeER7t/ldOnH
+	xVuG//UWP4HNpcwKGuL0qWGa3Th4f1D3Ljd97sAXSTTjv51FE+1KolWHy6DO5M/7
+	VK6lJMiiRrPBp1jSmh2AWKKYgPBa5AYrfas1Zk/NiQ6WG9n9j/BenKKmia1ZF29Q
+	mX+6eBrf0ZK34ctVopk90tiuJqTW3Xbj+VqSWAIc8Jz7D+ncFquag3Ep4pn1pr3P
+	YTl8LGwb+wkNV4Z5vRbTl0JrwkleHH0VI0tEsNLjrrw2EBSlQrN0/j2FVe13efil
+	RNWC0YD6ICT/QhdMqbhNbGrkZAlROPkdBI+pinNFeHp3KIjHhUsrcO2c7LLPqxdg
 	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqxfgqx-1
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqxfg3j-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 19 Jun 2026 21:59:48 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JLnafc026087;
-	Fri, 19 Jun 2026 21:59:47 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ev172as9m-1
+	Fri, 19 Jun 2026 21:59:52 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JLnepn016860;
+	Fri, 19 Jun 2026 21:59:51 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ev172jrxg-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 19 Jun 2026 21:59:47 +0000 (GMT)
+	Fri, 19 Jun 2026 21:59:51 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65JLxjE442467678
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65JLxn0h57016764
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 19 Jun 2026 21:59:45 GMT
+	Fri, 19 Jun 2026 21:59:49 GMT
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A6BBB20040;
-	Fri, 19 Jun 2026 21:59:45 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 59D4B20043;
+	Fri, 19 Jun 2026 21:59:49 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4F6E62004B;
-	Fri, 19 Jun 2026 21:59:43 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id DDBB920040;
+	Fri, 19 Jun 2026 21:59:46 +0000 (GMT)
 Received: from Linuxdev (unknown [9.43.77.5])
 	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 19 Jun 2026 21:59:43 +0000 (GMT)
+	Fri, 19 Jun 2026 21:59:46 +0000 (GMT)
 From: Madhavan Srinivasan <maddy@linux.ibm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -61,13 +61,14 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
         =?UTF-8?q?J=2E=20Neusch=C3=A4fer?= <j.ne@posteo.net>
 Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add missing model properties to PowerPC DTs
-Date: Sat, 20 Jun 2026 03:29:24 +0530
-Message-ID: <178190618779.653308.915690556470586356.b4-ty@linux.ibm.com>
+        linux-kernel@vger.kernel.org,
+        Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH v4] powerpc: dts: Build devicetrees of enabled platforms
+Date: Sat, 20 Jun 2026 03:29:28 +0530
+Message-ID: <178190618780.653308.14086216574686034625.b4-ty@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260313-ppc-model-v1-0-bf19b3d1b65d@posteo.net>
-References: <20260313-ppc-model-v1-0-bf19b3d1b65d@posteo.net>
+In-Reply-To: <20260315-mpc83xx-dtb-v4-1-243849be4280@posteo.net>
+References: <20260315-mpc83xx-dtb-v4-1-243849be4280@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,49 +79,48 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfX1ZVqHVwIFKOO
- 8LNUCqlF7bvaACPE7xkhxaGg4t3uHODoaeeJMMxWZ9Q2BRiRdgBLMSwFq50mv5H2UUgcBQP1ZOw
- y/0RYxOny+i1cqFWbLCP3WVcVRnL6ywrJkuMhozVCnQGhaAXZt1RbAZXQv6lCzMORyJt4pMDksn
- l/923+0IBBYOUvLW+mxZvGVE4+qXeblC6FmN0rFx+k9nofAJ1l2qICiWxSkxuooxtv635QcuZED
- fl007DXQ2SXOww4SYmeS4sds3YVd3SvFfq72pjOHZtiK1Xwji4nun1PSmPJAAQSx89ADI4NJxLV
- lnxrtRQdVliKiKMKi80YDWP2/bi6QZVinhJXUo/JRjW39IytGqNH324kZO18TAj1fcLz8iDDA1v
- cdHmc0FcB/tJLIOVBanjIWZTBIs05JtxQqdLV/nfTaVHSW4wmvoSjdYkF6gk0XRswA+K9TcAMWO
- r8MZBZIjsc1R3p+2rMg==
-X-Proofpoint-GUID: 0v2-9zPx--cCSXKp2_K6ORc9vLIuwBOx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfXwafsOa7BveEP
- fAKTbeDzrXFEMwDnI9N7LKshehVRSUIGw5x+J/vlzUhcNqeOi3R9Kxa1GrsmgEbPclXE3qElTfr
- S7/3xjjCvqY2yVUYyOf5+L7UCW/08RY=
-X-Proofpoint-ORIG-GUID: 3pgbGjrn1UcjsLTlT_r6vcQTrf1z1Gui
-X-Authority-Analysis: v=2.4 cv=auGCzyZV c=1 sm=1 tr=0 ts=6a35bbd4 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-GUID: YED3CuEAm-Iwmx3_kVZNhhUJMVoIvU8r
+X-Authority-Analysis: v=2.4 cv=Le0MLDfi c=1 sm=1 tr=0 ts=6a35bbd8 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=QcKy4yMqzQW6tn8UXNQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=zZCYzV9kfG8A:10
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=N9c1d4F_mCcFyk3_0iEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfXwvvZa1+hNZzo
+ Eoo9UwEZWJ7W1HT/ezuRWnoL1H2YJbtwcwo+5o877LeS+/waS0zDXgeageku4ZeokHtwRC+cIP2
+ U79ocY4qP/j/AP2/7LZHZgx9FGCMblI=
+X-Proofpoint-ORIG-GUID: T4i0-4syPXiQV7MOYC63z3Ig47lXUosu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfX4ggJ5TCBzX3L
+ iM+fARe44PuhUrVIyvFs42eB/P7TJxlNB/sIeZBSj7Vzzu+z4/dEX7Vuz74UnBBWg1lQStc1eOn
+ yhn9MdPlsT2LMj5b/O0Yl72uKiDBSnc/AztQ6hN6IF0UwMtvHUxYUsMAL5Zua6XzhlIuP0TrI9K
+ rJ9lGBznD1DRVIiVOiz3D6Rcx2JxdGlt147XbwZdZ7ncr9OVu4oFAuSh/DxS49D9fQPPtCTTRlN
+ 6k+a71AH8jAw0ChrpGASNxfIelS0XwUmgJ5KBqhXBtLJ5LUkWUQtymAbF4ANf8xqssBMjB+x9Zi
+ +6kQDy51YUA2jPy7bODTNewez2LnOa4O48MpBv3JC2LP9Pg82+lew9JNqa4FLSFrV+gzUzqMGPi
+ 1lgKfLvg51SrqqqqTWWC39FChZJJPKglmlksl7eblgOfjO9ejl4aqVZT7KdEdy+xn6SimotRVd0
+ ULEmbjZlcsQmPmo+FeA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-19_05,2026-06-18_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 priorityscore=1501 suspectscore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ clxscore=1011 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190210
 
-On Fri, 13 Mar 2026 11:14:22 +0100, J. Neuschäfer wrote:
-> The devicetree spec requires a /model property, but many of the powerpc
-> devicetrees don't have one. This series is an attempt to fix it.
+On Sun, 15 Mar 2026 22:45:13 +0100, J. Neuschäfer wrote:
+> Follow the same approach as other architectures such as Arm or RISC-V,
+> and build devicetrees based on platforms selected in Kconfig. This makes
+> it unnecessary to use CONFIG_OF_ALL_DTBS on PowerPC in order to build
+> DTB files.
 > 
-> One practical advantage is that scripts/make_fit.py will no longer throw
-> an error when invoked with the powerpc DTs.
-> 
+> This makes it easier to use other build and test infrastructure such as
+> `make dtbs_check`, and is a first step towards generating FIT images
+> that include all the relevant DTBs with `make image.fit`.
 > 
 > [...]
 
 Applied to powerpc/next.
 
-[1/2] powerpc: dts: mpc8315erdb: Add missing model property
-      https://git.kernel.org/powerpc/c/d16cb0a9a42f7478c039ecaeba241872bc0b567a
-[2/2] powerpc: dts: Add missing model properties
-      https://git.kernel.org/powerpc/c/ec07a2f1d337dd5a816431724a876026296369a8
+[1/1] powerpc: dts: Build devicetrees of enabled platforms
+      https://git.kernel.org/powerpc/c/2442f10c6eae63392452ab84a813dbc1f87c724d
 
 cheers
