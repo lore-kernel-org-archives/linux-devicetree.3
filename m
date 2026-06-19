@@ -1,82 +1,78 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41CC3148C5
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C582DC321
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781854196; cv=none; b=DvsbFZER11qHYQ7XsiuJlcwiAa5ZYaovIRokmocOYThu+wUor001ADyLVqLd4puinK0D27HbBi+FtyXIHPAf9lcTXz6TfMFbVE1UKN1j6A+8pHHSe6YnffXOM13HNEgpVB5HIYiQcNw0qEpTzb8652vvbtd9TI/E8dZ4tXQLsvs=
+	t=1781854464; cv=none; b=CFiSIjMaaJ9pHlhsxyBDK8qTujqgW3cpHK6abkd3hXeypO9f5H/9ea0Iqgf1yX4Bq5Lb9FM6NpAQMx2xpqp7Q1kzKTLFKRKbyldrR+0OMG7VdvUP3SwDxLwZNkVwY923hxZfD2gfCAfaF14SJsoSY+8a/4IQi9MIxI8+368z13c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781854196; c=relaxed/simple;
-	bh=XBcuO4HXyLC72ANXStPSUqeOoQMNYhUkr4zFsbzLeBs=;
+	s=arc-20240116; t=1781854464; c=relaxed/simple;
+	bh=oo2NwlXdoGMZAGZzoEFlNNPoHpWW5TOnQNct4wkenfA=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=f6Asy63QXEELtH9W8lcF4qd3Dr9FEvs2ycvSoU7NUTZ86kWWsxJY7HuXVhZgZi96O7SpfO6TNRkalk7fZ3E9KC5iONxf+QmTWLJnL3PTSLpWKVmstQC1d2Xjqbh6umfuJ/EO+yYVYhq88J1pYmpRskiiUGU3wJdzqQRShK3B1L0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZqsP797F; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version:Content-Type; b=CxVjrFn03yWwspUMkDeAiLh22SpCRExahrzaAqaTMBlTZtm6tz/3gGfzMxzEo8R7TBz9Cpv8sfjoVc7ToHxbiBr38/vS3UAcVaRqyTD2Zc1vbCdRvGPynsb+weXpGcP+BRijVqp71y7o8SZwwJ3Rg5tpdLtv4iqsQf1AnSyEKGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=E2B1jUeK; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZqsP797F"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b7866869so16820665e9.2
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:29:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="E2B1jUeK"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4602e2a0372so1427987f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:34:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781854193; x=1782458993; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781854461; x=1782459261; darn=vger.kernel.org;
         h=mime-version:message-id:date:user-agent:references:in-reply-to
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wPDHyNrMcgujLZEScT9ZWB7ZjuOqeA69xZgdQn0M0M4=;
-        b=ZqsP797F6XLkR+rnv544/0Z2J9AHZEidCvwksOT7YmqlfRDsDnrlQwaSdz4iqjmfue
-         6pxQa2rzMqRnOZIUoh1F+G/hjjYhhwIprse8jJGHpwhMvy8ZajKNHWz37QtjZvRr69fY
-         vNe8e13khAYZ7nXe4E8kpi9rlNUdt1PBksiKnX3R26ItgYlf6u/45BViaEyjnpAS0GIy
-         5zH04LAVoOYIYmio4MQJ/F3dZ4yJNBUsCrMxxBZ2hoithQJqH7r55Zzxb0NNnvwd9YCG
-         avRzGJumv01XjvB4mCZduiYsDGVTPo3Q+GhQG2xGz3elx8wuQ6WajvBFcuAch1I5/KAs
-         4XLA==
+        bh=C6ROwWS+BraRmUYYx28pn3bvnZE1QcDyqCuuK0v9v/Y=;
+        b=E2B1jUeKrs6hsgGv7Cgs7Vb4DaJwy2xrvDUqXNic1m8YwiSKvomX1kNvm1Kdus7pF3
+         hHTWuCAPIF3Iwsd2oBT4jFamjtK3Jg/kJG8FcV+gu5xiDUGVwN03znhsK1YYiyB7IwBn
+         azCPUPYKmeSdrzkPc8+tEE3Ze+GE+18U6CpZvkpVCw3mXSpQ4E6pWNhC4tvHdg3Vc4je
+         j8O31Bkm3uM/3xSG7OOtQblnW4XmSBXumCGeLT78T9O9YvBC0gwGeebSSIUx/BSe/Iug
+         xIdud/U32A1X3dOLF9ov5jHi5J0hA2Lxsjufb4elQCP3sYQvvH2OxTxiVdF5cqoxZ4Sn
+         G6Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781854193; x=1782458993;
+        d=1e100.net; s=20251104; t=1781854461; x=1782459261;
         h=mime-version:message-id:date:user-agent:references:in-reply-to
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=wPDHyNrMcgujLZEScT9ZWB7ZjuOqeA69xZgdQn0M0M4=;
-        b=BpE0VP/GxNKrOF/dHsPu/Jf1u3L85c2YeJ/0nVJHNpQTERRC29zhQ8fW4CldMxDFJg
-         Lkatk7ee1hZuaAk3SZE441NfoncZgFVj5Ix9llqgk3TKsdT7cCTCyFOlgSCP5F0yHhP3
-         COLEMKIaDdKISj5N3Z8h8wS8vbQnIPPMvgNNimLxDwTgsP566fhEKz7UdQBcb4ErQlRF
-         4o+OoNp2dTOQTIeiAax71/ovGPT3qB8B2PWH5o6dLCt9oyGRuUftItzWB3NniF/vZxpR
-         pfckLKwF/I7wkUFUMCBjyFSAuU0nVptF1N61TswwKoORBF4kh/j5WrDKaBNf82KVD9X/
-         wjow==
-X-Forwarded-Encrypted: i=1; AFNElJ91frfzPn5qRUDnUioPU60bfX2r+iKc1eZYmC5cimrChrgUexxJkic/8E2kBmYQzP0+x/KvUGPQxUVg@vger.kernel.org
-X-Gm-Message-State: AOJu0YyG4++pLzkLCh/IuKCiREqLazu5OBMGdHGgAAWlCvH7O7hEMpJ6
-	IBPyOayO0oN5Czjn/7AarPI4UXgUIEOQxIiCMTyysi6q4/sDrOktEEAVVac7YIcGQb0=
-X-Gm-Gg: AfdE7clHQY7PXiZZlz9YgPUAGV7GuhAS6otSg0Cn3JkQMmBGLxWY1BrNoft8Uatwme/
-	hzmDH43RWRbq3CtNDtfrmOzWet+1u5fcqrVQlZZpN+kqDI0CaGid/yX1e9aph7JCdbDyWVeWHWG
-	UUtcUAtp+HigOZPjNKiVSlKBnmaRg7JAFw2CVNUluCK8NT4CkukPRyUM5dfCw52BkK8JwoWBDF+
-	tENpelHeXUjZyehs4BzKB3Vi7WEN4uA3kJ6W5tjQaWrjbi0DWGgsA7yVHsZEUAUjXXwc+QWbf5l
-	+BVxA689wcGRseRj1gR4n75C+JYq4ux/swwuWscOdtdE9Te8mADDuzgULFImfCNNZTxQUsJavsZ
-	w/bNcQbfssh+arWg1cHtT4yRAgsZ0+VISNtbuPp9MJof4eOrwNRZR6XrZuqMcWWRztgc/HDqwdW
-	9bFAfSPOK0LVE=
-X-Received: by 2002:a05:600c:46d4:b0:490:b58b:a8ca with SMTP id 5b1f17b1804b1-4924257c483mr21687735e9.27.1781854193037;
-        Fri, 19 Jun 2026 00:29:53 -0700 (PDT)
+        bh=C6ROwWS+BraRmUYYx28pn3bvnZE1QcDyqCuuK0v9v/Y=;
+        b=FnXmTLMyylvPRrpU+HZ2Q73cqif33z29snV5pI6tCubqIFSIHRRh8XqkH1taGNB/ym
+         JrMVlr8amJq9N88rNyWS6kQD9MIltrpmxYXvtSjpzFJxE/tD1zbw3UGlz5plv5itKZ5o
+         sXj8mGvO+7IVngzLrFztBnTzS4yewrMoaqRLK1zLK5NkkxcBRv8xcsWn+Q4NhifgEJq/
+         lcc0igQFWTQ/vs9Sn6rwFp6eMXzhfNQBvk25lFbG8gPTOCfwTEoT9iv2vNqkyQ7unCyF
+         BJZq0ZHWhELWMm5GDm62DIHzu/WAI2lEuBlecr+7wUZuOZG/pSdXKofHSZyyfCLxPoPp
+         GPNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8hhT33q7RL9OMa1/thGfseS4+at3zBf5htICZq4HFNAF7N6TUZQ652QsFVal4feIjR+rRqn/1GTXCL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhiAjRwF2jC+SlreAs8+zL2rctdPfuB2i0FdQiOby5tmyhstD1
+	cZWMeK74SnQqbc94XiE0+V7iHYjHtuY3/VTHzh126PkHvsij2fbR8Ycc9FGf7/+2mkM=
+X-Gm-Gg: AfdE7cn/HUbgIXJfzZPnmq86VwZrPJgJx58dq79WO2i44e96ZYlTx7xpMgQ1EuD1JZx
+	FlMN+vFsJr2yg0tBrP8o9j91OqhYV6ilzgwhsiJL8t1TFQI19N/qmDInwo0sI/1yzXTxLAiff/t
+	ofKhGQWWaGlGAbPXhDb41S6rIy+fA3nqdlG9RUB8OT2c3TCXk7+PA2EXVNvpIi7B79OsbYs3SK8
+	ZKvFsUz1jJRd+egbCfKFcynef+Fi/cHqeMRlX52Q1HPN0AjfxEeOYCPyFp0aH0rT0c50QSy1phG
+	aP3ATfMmWaoB8nZzlt7/rm3wxYESvuLQxpW+XtOR4l4OeNJyz1hTJTc6IHJ0tTrWepvm1cdzWHO
+	6KtbIQKO+Wq3w+B07ePxCUiZ2qdbCdJv1ts5EMC6OmWhiRdQn/2QbE1mDPaZeUdwWl6+GWLr+ti
+	llOM/yaqGutZ9L5qpS9XHOPw==
+X-Received: by 2002:a05:600c:8b73:b0:490:c682:e37d with SMTP id 5b1f17b1804b1-4924258f728mr21532045e9.32.1781854461201;
+        Fri, 19 Jun 2026 00:34:21 -0700 (PDT)
 Received: from localhost ([2a01:e0a:3c5:5fb1:95ed:eac1:5731:4e21])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4923fd30078sm46219025e9.7.2026.06.19.00.29.52
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49240084928sm47909745e9.15.2026.06.19.00.34.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 00:29:52 -0700 (PDT)
+        Fri, 19 Jun 2026 00:34:20 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: jian.hu@amlogic.com,  Neil Armstrong <neil.armstrong@linaro.org>,
-  Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Xianwei Zhao
- <xianwei.zhao@amlogic.com>,  Kevin Hilman <khilman@baylibre.com>,  Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>,
-  linux-amlogic@lists.infradead.org,  linux-clk@vger.kernel.org,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org
+To: sashiko-bot@kernel.org
+Cc: "Jian Hu via B4 Relay" <devnull+jian.hu.amlogic.com@kernel.org>,
+  sashiko-reviews@lists.linux.dev,  linux-amlogic@lists.infradead.org,
+  neil.armstrong@linaro.org,  robh@kernel.org,  devicetree@vger.kernel.org,
+  conor+dt@kernel.org
 Subject: Re: [PATCH v4 2/2] clk: amlogic: Add A9 AO clock controller driver
-In-Reply-To: <79b1a519-5723-4e0c-904c-b7fdf9564ee1@gmail.com> (Julian Braha's
-	message of "Thu, 18 Jun 2026 19:56:12 +0100")
+In-Reply-To: <20260618100341.0A42F1F00A3A@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Thu, 18 Jun 2026 10:03:40
+	+0000")
 References: <20260618-a9_aoclk-v4-0-569d0425e50c@amlogic.com>
 	<20260618-a9_aoclk-v4-2-569d0425e50c@amlogic.com>
-	<79b1a519-5723-4e0c-904c-b7fdf9564ee1@gmail.com>
+	<20260618100341.0A42F1F00A3A@smtp.kernel.org>
 User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Fri, 19 Jun 2026 09:29:50 +0200
-Message-ID: <1jbjd7c7ip.fsf@starbuckisacylon.baylibre.com>
+Date: Fri, 19 Jun 2026 09:34:18 +0200
+Message-ID: <1j33yjc7b9.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,28 +81,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-On jeu. 18 juin 2026 at 19:56, Julian Braha <julianbraha@gmail.com> wrote:
+On jeu. 18 juin 2026 at 10:03, sashiko-bot@kernel.org wrote:
 
-> Hi Jian,
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [Medium] The AO PWM clocks are registered without an `ao_` or `a9_ao_`
+> prefix, which will cause global namespace collisions with the main clock
+> controller.
+> - [Low] Typographical error in the clock name string literal for the RTC
+> dualdiv input gate: `ao_rtc_duandiv_in` instead of `ao_rtc_dualdiv_in`.
+> - [Low] Missing `#include <linux/module.h>` for `MODULE_*` macros.
+> --
 >
-> On 6/18/26 10:49, Jian Hu via B4 Relay wrote:
+> commit ef5998ff087b6faed09d9eed4f59078d2b2f0a60
+> Author: Jian Hu <jian.hu@amlogic.com>
 >
->> +config COMMON_CLK_A9_AO
->> +	tristate "Amlogic A9 SoC AO clock controller support"
->> +	depends on ARM64 || COMPILE_TEST
->> +	default ARCH_MESON
->> +	select COMMON_CLK_MESON_REGMAP
->> +	select COMMON_CLK_MESON_CLKC_UTILS
->> +	select COMMON_CLK_MESON_DUALDIV
+> clk: amlogic: Add A9 AO clock controller driver
+>     
+> Add the Always-on clock controller driver for the Amlogic A9 SoC family.
 >
-> Selecting COMMON_CLK_MESON_REGMAP is unnecessary since you're already
-> selecting COMMON_CLK_MESON_DUALDIV here.
+>> diff --git a/drivers/clk/meson/a9-aoclk.c b/drivers/clk/meson/a9-aoclk.c
+>> new file mode 100644
+>> index 0000000000000..88aa8cf3f5d00
+>> --- /dev/null
+>> +++ b/drivers/clk/meson/a9-aoclk.c
+>> @@ -0,0 +1,488 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+>> +/*
+>> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
+>> + */
+>> +
+>> +#include <dt-bindings/clock/amlogic,a9-aoclkc.h>
+>> +#include <linux/clk-provider.h>
+>> +#include <linux/platform_device.h>
+>
+> [Severity: Low]
+> Should this file explicitly include <linux/module.h>?
+>
+> The file relies on several module macros at the end (such as MODULE_DESCRIPTION,
+> MODULE_AUTHOR, and MODULE_LICENSE). Although it currently compiles successfully
+> due to transitive includes from <linux/platform_device.h>, standard kernel
+> practice is to include the header explicitly.
 
-No, regmap clock are directly used so this is necessary.
-Relying on other module dependencies is not enough
+Yes please fix this
 
 >
-> - Julian Braha
+> [ ... ]
+>
+>> +static const struct clk_parent_data a9_ao_pwm_parents[] = {
+>> +	{ .hw = &a9_ao_xtal.hw },
+>> +	{ .fw_name = "fdiv5", },
+>> +	{ .fw_name = "fdiv4", },
+>> +	{ .fw_name = "fdiv3", }
+>> +};
+>> +
+>> +static A9_COMP_SEL(pwm_a, AO_PWM_CLK_A_CTRL, 9, 0x7, a9_ao_pwm_parents);
+>
+> [Severity: Medium]
+> Will this cause a clock name collision with the main clock controller?
+>
+> Because the A9_COMP_SEL macro uses the #_name stringification operator inside
+> MESON_COMP_SEL, this will generate the clock name as exactly "pwm_a_sel"
+> (and similarly "pwm_a_div" and "pwm_a" for the others), without any "ao_" or
+> "a9_ao_" prefix.
+
+I think AI got it wrong and missed the prefix addition. Unless I missed
+something my self, I think you are fine here
+
+>
+> If the main clock controller conventionally registers a "pwm_a" clock, failing
+> to prefix the Always-On clocks will lead to global namespace collisions in the
+> Common Clock Framework and debugfs.
+>
+>> +static A9_COMP_DIV(pwm_a, AO_PWM_CLK_A_CTRL, 0, 8);
+>> +static A9_COMP_GATE(pwm_a, AO_PWM_CLK_A_CTRL, 8);
+>> +
+>> +static A9_COMP_SEL(pwm_b, AO_PWM_CLK_B_CTRL, 9, 0x7, a9_ao_pwm_parents);
+>
+> [ ... ]
+>
+>> +static struct clk_regmap a9_ao_rtc_dualdiv_in = {
+>> +	.data = &(struct clk_regmap_gate_data){
+>> +		.offset = AO_RTC_BY_OSCIN_CTRL0,
+>> +		.bit_idx = 31,
+>> +	},
+>> +	.hw.init = &(struct clk_init_data) {
+>> +		.name = "ao_rtc_duandiv_in",
+>
+> [Severity: Low]
+> This isn't a bug, but there's a typo in the clock name literal. Should
+> "ao_rtc_duandiv_in" be "ao_rtc_dualdiv_in"?
+
+Yes
+
+>
+>> +		.ops = &clk_regmap_gate_ops,
+>> +		.parent_hws = (const struct clk_hw *[]) {
+>> +			&a9_ao_xtal.hw
+>> +		},
 
 -- 
 Jerome
