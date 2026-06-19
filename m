@@ -1,129 +1,163 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C05135AC13
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 20:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CB63168E1
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 20:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781902134; cv=none; b=D6FXsk8BXLEh1+Z51Hvvn6JtcpuF3HOzwS0eG2qMTnC8B581G6cAQOWXUcoYMCAxvQ2EGtf3TaNkl0Vf1/7KJvtAlmzKhT99HOxx3+Y54CKwgOhplddRY5x/QWO4gt+uVxM4V9vaEz/CLnc3lsyDh7iubB4JMh1I2YF6SuSOT64=
+	t=1781902216; cv=none; b=crnelCm6XJMLPG7k1p1lFTUqbq1Iwc6un6ZrWFVFZMAx8nCbP+I8TduGnT4H9FFvJZSUfl96gwDUzHiZfGShJFCOAHyr8Xw5x9kHAmnjcpGNWE7cDeC5ZmfBnD5W+/2hCzk2Hzix6XYec+wyUPnd2ZI6Xu4zQYqUenu4gWPcnj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781902134; c=relaxed/simple;
-	bh=/DhohJZGTz9abykatRmBdgN8Jg9E90Yf3gikqPNftfo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sRInlrsO2yssNCzDILcYtwxY3DiOSWX7Wplq2lPCoG8/6xdbZtX48e+ETT/9pt5y9uY586RDfDDaOMdDEq0twKD2b9JQOmzgNE8vfz4KbW+mOSECpQPH+l702VGDgh9B8tfhnnm4A7piV6vczq14lWMprYfdSsATHc3YrTDYfjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=iM2VLsOK; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1781902216; c=relaxed/simple;
+	bh=A1B/O+1C58ahYzlOJUH3XJVbsvQQp0czwmWQwOfrDD0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Bb2k/lXhvC5LVAhLi0WfeJaqJs9VVHGhjwFBLlOxC97pAlbj7PlVcqGSK1t8iKJ34c/+sabfDjKceVNLSU4t26M17TtTlRb7EKnQnF8EIPHe0yHIMweLuqchTELhkAHFZzhGfGRO6bGqf/XTyrlKHDpVU1dWSL1f43N7Ue/c2zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/Q+dmLI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="iM2VLsOK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=djwa
-	D7/2v543piX+m0B8KYh8jLWg+1EPgr0osKN70mg=; b=iM2VLsOK27d5MQ2pkggG
-	SFQn+JvEtRNH9I6TJs1gWt/d9PdOVzJaFBVEKmQmEu3H7wCRh13VIJEZDxsDFJ+9
-	MOG4g1KTW/A34NeALkAv8JwlV0l5upmWADOOlFVVexOnN02EqLo0i5R/rBejIws0
-	nN4S0IFIFLSAINRpkuY/KHZCwWKuYIGhsxJuWHZQ2UhIZSfhBgsXELDuaoOFeBh1
-	tbaaA/nTYsrhH4LlORuNcN+dK8JKJ7y4TghcNYj8JDp4bROiDWZSE8zh04E2xxJ+
-	vvU7EjWGQMagkDXuROrkInjittaH+nh7DlW6Kw/NOAjdM6/02bK/JJFt7hGCVfRa
-	LQ==
-Received: (qmail 1078737 invoked from network); 19 Jun 2026 22:48:51 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 19 Jun 2026 22:48:51 +0200
-X-UD-Smtp-Session: l3s3148p1@wseMa6FUENEujnu2
-Date: Fri, 19 Jun 2026 22:48:50 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH 09/12] rtc: rzn1: Use temporary variable for struct device
-Message-ID: <ajWrMuCaUEFJSbkF@shikoro>
-References: <20260615154805.1619693-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260615154805.1619693-10-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <ajKAPJGrea01XVeI@shikoro>
- <CA+V-a8t-phAuaH5g_3Nt=2d=KPw2QqA6r1dqOZv9k-Xhp5q2Zw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/Q+dmLI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CB81F000E9;
+	Fri, 19 Jun 2026 20:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781902215;
+	bh=3iH4IyNw11GpCvkGUanssK3xJlGXuKwfQLpmjdD3Dww=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Z/Q+dmLIEwzkBmOwuewvWU4xeqNzOqw/g41E/5Pth6L7wAG7GBKUYPa0H5FJRIOJk
+	 oOTJx0kGfVYl2chpCGnGBxo9W+t1IlR6MXkjpknP6t4hbm6RlGrYjHhLuxr6UwI2Lj
+	 Wo5ZUXgdP6Inn30S6Clz6aPcnAYLmmPvDCl7cZihYru/sff90MabAZ+aB+Ct+koqV+
+	 O8gd2jlZZsQorvCZrun9AOGZ0dCZX/bJyHDy9ID2boZeoLNhp/re8BN/Ot96SDUc3y
+	 NSCVsxtMnpqZIybkkrSR02UOCImT3Dg1OAWzzBx/z6n1hBwU6ZpRQlo3Yz0V3v6NGe
+	 TpBIea3A9az9w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] powercap: qcom: Add SPEL powercap driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260620-qcom_spel_driver_upstream-v2-2-a3ee6837c18f@oss.qualcomm.com>
+References: <20260620-qcom_spel_driver_upstream-v2-0-a3ee6837c18f@oss.qualcomm.com>
+ <20260620-qcom_spel_driver_upstream-v2-2-a3ee6837c18f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 19 Jun 2026 20:50:15 +0000
+Message-Id: <20260619205015.61CB81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="TTgDSYB9X45Zj4L1"
-Content-Disposition: inline
-In-Reply-To: <CA+V-a8t-phAuaH5g_3Nt=2d=KPw2QqA6r1dqOZv9k-Xhp5q2Zw@mail.gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The devm-allocated `sp` structure is dereferenced in the asynchron=
+ous `spel_release_zone` callback, causing a Use-After-Free when the driver =
+is unbound.
+- [High] Manual kfree of the dynamically allocated `sp->domains` array lead=
+s to a Use-After-Free when devres attempts to run `mutex_destroy` on its em=
+bedded devm-managed mutexes.
+- [Medium] The driver incorrectly exposes phantom powercap constraints for =
+domains lacking hardware support, breaking UAPI expectations.
+- [Medium] The formula used to calculate `sp->time_unit` contradicts the dr=
+iver's own documentation and standard scaling logic, resulting in incorrect=
+ time unit conversion.
+--
 
---TTgDSYB9X45Zj4L1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 53ea37bb963bb111e31263f8aaab73464a037f7d
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+Subject: powercap: qcom: Add SPEL powercap driver
 
-Hi Prabhakar,
+This commit adds support for the Qualcomm SoC Power and Electrical Limits
+(SPEL) hardware. It enables power limits to be enforced and monitored on
+Qualcomm SoCs across multiple domains using the powercap framework.
 
-> > > Could userspace still interact with the RTC during this window via ioctls
-> > > or sysfs, potentially causing synchronous bus faults since the hardware is
-> > > already suspended? Should teardown be bound using
-> > > devm_add_action_or_reset() to guarantee correct reverse execution order?
-> >
-> > [wsa] Or maybe not use devm then?
-> >
-> Maybe just add two `devm_add_action_or_reset()` calls: one to clear
-> interrupts and another to call pm_runtime_put()?
+> diff --git a/drivers/powercap/qcom_spel.c b/drivers/powercap/qcom_spel.c
+> new file mode 100644
+> index 0000000000000..4dd91cf36ccca
+> --- /dev/null
+> +++ b/drivers/powercap/qcom_spel.c
+[ ... ]
+> +static int spel_release_zone(struct powercap_zone *power_zone)
+> +{
+> +	struct spel_domain *sd =3D power_zone_to_spel_domain(power_zone);
+> +	struct spel_system *sp =3D sd->sp;
+> +
+> +	/* Free the domains array when the last zone (SYS domain) is released */
+> +	if (sd->id =3D=3D SPEL_DOMAIN_SYS)
+> +		kfree(sp->domains);
 
-Why two? I wouldn't think it matters much if the two are separated. Main
-problem seems to me the disabled clocks because of pm_runtime_put()? But
-maybe I am overlooking sth?
+[Severity: High]
+If the device is unbound while a sysfs file is held open, devres will free
+the devm_kzalloc allocated sp structure immediately. When the user later
+closes the sysfs file, the powercap framework will asynchronously call this
+release function. Does accessing sp->domains here cause a use-after-free
+read?
 
-> > > [Severity: High]
-> > > This is a pre-existing issue, but does using pm_runtime_put() here (and in
-> > > rzn1_rtc_remove) leave the device powered on indefinitely?
-> > >
-> > > Since devm_pm_runtime_enable(dev) schedules pm_runtime_disable() to
-> > > execute during devres cleanup, calling pm_runtime_put() only queues an
-> > > asynchronous idle check. The immediate return triggers devres cleanup,
-> > > which executes a barrier that explicitly cancels pending async operations.
-> > >
-> > > Should this use pm_runtime_put_sync() instead to ensure the device is
-> > > synchronously suspended before teardown?
-> > >
-> Although there were some patches accepted for similar kind of issue
-> reported by Sashiko, do you think I should switch to
-> pm_runtime_put_sync() (Ive not seen any issues)
+[Severity: High]
+Also, earlier in spel_init_system(), devm_mutex_init() is called on sd->lock
+which is embedded inside this dynamically allocated sp->domains array:
 
-I am not a PM expert, so I can't guide you. The report from Sashiko
-sounds reasonable to me. But you'd have to look up the code path to
-verify the reasoning. Or ask an PM expert.
+spel_init_system() {
+        ...
+        ret =3D devm_mutex_init(dev, &sd->lock);
 
-Happy hacking,
+If sp->domains is manually freed here with kfree(), will devres trigger a
+use-after-free write when it later runs mutex_destroy() on the embedded
+locks during device removal or probe failure?
 
-   Wolfram
+[ ... ]
+> +static void spel_init_domains(struct spel_system *sp)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(domain_info); i++) {
+> +		struct spel_domain *sd =3D &sp->domains[i];
+> +
+> +		sd->sp =3D sp;
+> +		snprintf(sd->name, SPEL_DOMAIN_NAME_LENGTH, "%s",
+> +			 domain_info[i].name);
+> +		sd->id =3D i;
+> +		sd->status_reg =3D sp->node_base + domain_info[i].offset;
+> +
+> +		/* PL1 is always supported (required for powercap registration) */
+> +		sp->limits[i] =3D BIT(POWER_LIMIT1);
 
+[Severity: Medium]
+Is it strictly required for all domains to have PL1 enabled?
 
---TTgDSYB9X45Zj4L1
-Content-Type: application/pgp-signature; name="signature.asc"
+The powercap framework supports zones with zero constraints for purely
+monitoring purposes. Since hardware limits are only defined for the SYS and
+SOC domains in the constraints array, unconditionally setting PL1 for other
+domains (like CL0 or IGPU) causes constraint sysfs files to be created that
+will always fail with an error when read or written. Does this expose a
+broken UAPI?
 
------BEGIN PGP SIGNATURE-----
+> +	}
+> +}
+> +
+> +static void spel_update_unit(struct spel_system *sp)
+> +{
+> +	u32 value, shift;
+> +
+> +	/* Read power_unit and time_unit from offset 0x0 */
+> +	value =3D readl(sp->config_base);
+> +
+> +	/*
+> +	 * Unit calculation: 1 / (2^shift)
+> +	 * Masks limit: TIME_UNIT (4 bits, max 15), POWER_UNIT (3 bits, max 7).
+> +	 */
+> +	shift =3D FIELD_GET(POWER_UNIT_MASK, value);
+> +	sp->power_unit =3D 1000000 / (1 << shift);
+> +
+> +	shift =3D FIELD_GET(TIME_UNIT_MASK, value);
+> +	/*
+> +	 * Time window in register is in milliseconds.
+> +	 */
+> +	sp->time_unit =3D 1000 * (1 << shift);
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmo1qzIACgkQFA3kzBSg
-Kbb1LQ/+JlXsCm6AwwIQftLvmKNpZmsL7YUrP3rt3fR5tKZJNMsg+4+as36AEEAh
-XWlRIvvvxgIHLhF1HOb52Mxfn3Fzdxiq3a1+wYSqfZQ30dTvq8CQA9CZC7oaHQzN
-EfooGbxN+2A9ypbp+Y3uIChoAUB02Kxy0DHtIpwCY1mU3wvQ+lgQFKHPvfLPI/zD
-4GWw6GGb6XWrV4dgSdG3EuLk7NtfFkUDmkMCMONTLKkoyT3U20v7cbj/jhgTroKt
-z6ZRIdU+hgzCLYRj3tmvsZi7dSN8EJjsLecidu0cJcBVHBOGs/khV41C7IVyLo08
-Rh3yrSTGlI3mxt08bYpxpKeR+OrmFCcecc0m5Mu/irmLmn8DWgblcISEPdstwKgC
-4O86JrNswWgjUOs8BtFsFn/rEtkrzyYI1LK7WL0etbmWfe/87oKvYhul5CCn3iHH
-+kBxZ88enMSOAZf9kz/IuiJkACBRLNyQrLRkHw63W7hE7rHVtNOWNobK42Uo76F5
-hQRBqvxtVc27EzXAtn1TsQ1zYOdJ+hqIriEho3zU2VSpIMVaWqp2JRJKaW7Mpys9
-IWoNQCVktyXkXSjl3O/5TmCaWhdCtxtu1/38BHcWnMCKmweA9xa04CPMwj1Bpekg
-5Dq6hoA6eatnLscgo2KozH/nvp2gDdI/w9csYJi4nQT0EvPixn8=
-=TgdY
------END PGP SIGNATURE-----
+[Severity: Medium]
+The comment above states the unit calculation is 1 / (2^shift).
 
---TTgDSYB9X45Zj4L1--
+For the power unit, the driver correctly divides. However, for the time unit
+it multiplies by the shift value instead. Should this be a division
+(1000 / (1 << shift)) to correctly scale the time unit into microseconds?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620-qcom_spel_=
+driver_upstream-v2-0-a3ee6837c18f@oss.qualcomm.com?part=3D2
