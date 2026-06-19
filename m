@@ -1,82 +1,47 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44D12857FA
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7373655DB;
+	Fri, 19 Jun 2026 14:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781877575; cv=none; b=o82pNs5uIn44rI05GCgN4n6SojrYcXzbTE2fQhA8Kq+Zlxkr4JFSA5RbrWu4JPIGVjZXNqNdhrv/ro7wof/SQiPG+Kh0G3bxaX3PpOyNDEtpZvpeWcr/IJ5rCNLW+bTR/aLHd1RQGVEKQLJc3GwRCMyoUQu2lsfXBve+L8BvxeA=
+	t=1781878041; cv=none; b=bz3oGH/ZJtb2C07Ckuvv0boz/lliRXMvC4UglMrj1M8TckkT7NnrPkCWjQ19pQ7r/CpcrIsGN4Sbg4z6+dygtKeTUWktRIheHiCDZe5Xff3ELuLlEiE683QbBFlMzZ23ufLFmsU2Dy/6GB1kAtOxuwSVyyd98zgzB6BKMzaxwrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781877575; c=relaxed/simple;
-	bh=M6XOBVqYNCyAP2+UukgzLFzwR8WmlzWVSsGzneKY1Qw=;
+	s=arc-20240116; t=1781878041; c=relaxed/simple;
+	bh=OnmjZprV81VdXfIiMoCVV49KGLZwelIZ8VrOHXHo6gM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MT8M6cpXs+FbM+LGVky1q3bTHU5EXCVLLsa3od3WqAygTqRdc4ZZaQs4dilwxrsEuTpRViU8LXEgFwojjGjz9uymRLVdipDfhfSGRq2MeFp/LyBZm7l8Z3xAKE2qeIAbzohPnz5+L/8o9/VPZ8e5/0qFpvQZv+E2f9L5FaGIne0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TtJGaiEr; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=K8xVeQ5MuzRoFoN0KatWFS8Yp9CCFQz4LsMOfoaovxhjGd+csTqZwyepAJ4AuRIYHpS0CCIeIbeACbXcTyxqfrMeIzIZYwMJCr/Vk0duquD4r904sLnXPB3RlAvRqE3sHC+5hFuaZHWmSa08Pat45arQJhDxXXggvSueKi65qGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NDNNQsWv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TtJGaiEr"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-461edb387ddso2146691f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:59:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781877572; x=1782482372; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=IFmcgWo6u0bUP8TJiUQg2GCEaR02GLGc4w/zuv0CGcI=;
-        b=TtJGaiEr+E4AM8Dqd9RNvM3VZvErBB+WUxnQQ6Pz73m7JQtitfPK/bdFXT2RIx1/IP
-         Hu7Q3UAQU2FQNvTfppWMcVVi4MpQSlO6qD3JWpA7UdnBxQXyv52+bVMuPHcQGO3sML37
-         hwprvGZWZUZdZeDbhfC4W7Hy7wto8jKQojuekDSEGJuZK4l5BMNisoHxkbz6NCYQEVzC
-         CJKL09jBE682+PO03uJrcA+/aWo9a7DfJA/m9Myi784dQdxOKoCfxRvD0bdmEX82dtHd
-         +54pV98H1++414qQTGcYndYr/3x74y+h+BJ6AsqKmnaJu1KA8yN7qYU0/g28ldsDY8kV
-         ZMgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781877572; x=1782482372;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IFmcgWo6u0bUP8TJiUQg2GCEaR02GLGc4w/zuv0CGcI=;
-        b=JpZbE2DpsGpOnwqEf6AdevRZRvItEPllgV85CpUFyHfyuKckEvSCq7EraqK3SjB+hw
-         oj2xQwA8mUxcDcomqDqndWzD+aUepoXlM10DQPXmqvNfNuaQ6rtGkfO1bJ38H38P3EUR
-         GTU+ZfRgcoXYLoMYKbAldSf5GuhBwdus6S+So3cZk07JzINCGYZ4ua+Vv03P5nGu2kgF
-         xhKE/QovtmWZL4ZCwtNudlmjaYaQj23RIaH6kYb5pM1kVWpvJ/YK9FA/dDLLnyneWBwm
-         u3BsbbMr8klNQP2U+tBmv3ZCaWIJRq9EI84PWkXdvRRaiTgjqqtzWNDZlbn2FYTOS+2a
-         Vkgg==
-X-Forwarded-Encrypted: i=1; AFNElJ9UmsdBWhuDS7cW0HY67CrQPt0FH2UsbGWEzcLU+Uaq9Ws/rRjXWypVIWMl69k3O4B317/x0Z5oapef@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+cJyd7ObPCeh0JudD2IyOZH7AIU/aopEtX0KR1kweqEwpqv1n
-	GPXBuCMHrWiyKexs3r0+Tky1BoTMqkAgyB19Vi9f2O+JlQzxyn/DNna2l+hRhac0JFY=
-X-Gm-Gg: AfdE7ck9xbKS2AOQtEnPcxfYIOVyfmgt37G/gO3rR+/kFSHrJxSLy7lsZ5TGhP/lOZ6
-	qjm21ao8s0mduz4kJhp5r0CsXn+BQMQikyY+m616j9oae/Bg2rkComdpXpouHVt0QDMb01OZ5bd
-	X46aV7y+V0yKVcZx/ZScnrep5gIuiFvMQtqGYk4pU+mmfH1Rqp8THaZCCGJGz6ceH1hshC7EQnG
-	Y52D92SA7xIbJIXLXfW98Oj1Cna18T9z0PNhfG6LXHNCin+5STVSBI4vG0gouGTofGlzYCBP50l
-	pc+bveJQyZLbL7T6cFL3vOma5d8ONDe0MGWdeM5s8WncSPMlC1JahhF5QJVAfGEKetc65WHFVfw
-	EBYcklipOHKc7c4PwfdtwPV0RVUQvVb9PvUJ/7LimkssIRe/4TSAKm4EZkcBd6N0WCveQgE4yvb
-	FQkVz3s1ysAlVd93hDAkCIPVUlPeFdvQTYU4TYCHUjGI5z3pPzkfDuqIfa8toCVDZIcgDrFiM04
-	Kc=
-X-Received: by 2002:adf:f6cd:0:b0:45e:ec17:430a with SMTP id ffacd0b85a97d-46507102de3mr5698705f8f.11.1781877572252;
-        Fri, 19 Jun 2026 06:59:32 -0700 (PDT)
-Received: from localhost (p200300f65f47db04359fc0e70763236f.dip0.t-ipconnect.de. [2003:f6:5f47:db04:359f:c0e7:763:236f])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4650bc429a1sm8133882f8f.30.2026.06.19.06.59.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 06:59:31 -0700 (PDT)
-Date: Fri, 19 Jun 2026 15:59:30 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Selvamani.Rajagopal@onsemi.com
-Cc: Andrew Lunn <andrew@lunn.ch>, 
-	Piergiorgio Beruto <pier.beruto@onsemi.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jerry Ray <jerry.ray@microchip.com>
-Subject: Re: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-Message-ID: <ajVKfBKPuNk9zN7b@monoceros>
-References: <20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com>
- <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NDNNQsWv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395B11F000E9;
+	Fri, 19 Jun 2026 14:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781878039;
+	bh=kW4v1Mu78MCErakvtUQ3kmAC8dtPDlYD27Od9rpdrII=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NDNNQsWvXwc7MkdRrEIR/B1vtI3T7/u2XYGbvagzhKFCfp8Q0SAaUDKs3QD1B7KYF
+	 gPJ00wYBQ+fbm1GiVOvo3ARk8q2Y0RVzbdsbQYMKSWcM7Af+Rqaasls97z0VAUsZMx
+	 YhGNzxTBASKw5gFLAckGXJP57X4e5DihTNYIDa/+sxDuLUBbEki/t74rooR1BkvKRK
+	 Bu4lXE8rUEy4twuc/uUXvTt1uIQo6yX3quPrvxXDyjJMqHnQEi4RzqFMDZQQQ4JGnq
+	 MBTQlwh6s0Uf8zbr5UDW0Psm3I64DvjLunXnwcRNhuC28yDYUjLOGqiZsiqLd8Mv56
+	 r8Blgz7rdRrsg==
+Date: Fri, 19 Jun 2026 15:07:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, pop.ioan-daniel@analog.com
+Subject: Re: [PATCH v3 1/5] dt-bindings: iio: adc: Add ltc2378
+Message-ID: <20260619-barbecue-vascular-29c714614e0e@spud>
+References: <cover.1781661028.git.marcelo.schmitt@analog.com>
+ <f9e88abdbd23df8039282497a81d3c8698a10665.1781661028.git.marcelo.schmitt@analog.com>
+ <20260617-bok-gains-9a1af41cf0de@spud>
+ <ajLV-O60lCdlIbXR@debian-BULLSEYE-live-builder-AMD64>
+ <20260617-oat-handclasp-ddd3135c5b84@spud>
+ <ajU-_j1SWYbfjWla@debian-BULLSEYE-live-builder-AMD64>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,83 +49,182 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vgihchiky4pi5wmr"
+	protocol="application/pgp-signature"; boundary="AivW+dRtBBf6OE2L"
 Content-Disposition: inline
-In-Reply-To: <20260614-s2500-mac-phy-support-v5-12-89874b72f725@onsemi.com>
+In-Reply-To: <ajU-_j1SWYbfjWla@debian-BULLSEYE-live-builder-AMD64>
 
 
---vgihchiky4pi5wmr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--AivW+dRtBBf6OE2L
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH net-next v5 12/15] onsemi: s2500: Add driver support for
- TS2500 MAC-PHY
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jun 14, 2026 at 10:00:28AM -0700, Selvamani Rajagopal via B4 Relay wrote:
-> +static const struct of_device_id s2500_of_match[] = {
-> +	{ .compatible = "onnn,s2500" },
-> +	{}
+On Fri, Jun 19, 2026 at 10:07:10AM -0300, Marcelo Schmitt wrote:
+> On 06/17, Conor Dooley wrote:
+> > On Wed, Jun 17, 2026 at 02:14:32PM -0300, Marcelo Schmitt wrote:
+> > > On 06/17, Conor Dooley wrote:
+> > > > On Tue, Jun 16, 2026 at 11:03:11PM -0300, Marcelo Schmitt wrote:
+> > > > > Document how to describe LTC2378-20 and similar ADCs in device tr=
+ee.
+> > > > >=20
+> > > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > > ---
+> > > > > Change log v2 -> v3:
+> > > > > - Re-added device tree fallback compatibles for LTC2378 chips, no=
+w with options
+> > > > >   to provide a single compatible string or a pair of single compa=
+tible string
+> > > > >   plus a fallback string to a slower sample rate spec in case a d=
+river for the
+> > > > >   specific part is not found.
+> > > > >=20
+> > > > >  .../bindings/iio/adc/adi,ltc2378.yaml         | 160 ++++++++++++=
+++++++
+> > > > >  MAINTAINERS                                   |   7 +
+> > > > >  2 files changed, 167 insertions(+)
+> > > > >  create mode 100644 Documentation/devicetree/bindings/iio/adc/adi=
+,ltc2378.yaml
+> > > > >=20
+> > > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ltc237=
+8.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..7d30a2cade8f
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+> > > > > @@ -0,0 +1,160 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/iio/adc/adi,ltc2378.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: Analog Devices LTC2378 and similar Analog to Digital Conv=
+erters
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > > > +
+> > > > > +description: |
+> > > > > +  Analog Devices LTC2378 series of ADCs.
+> > > > > +  Specifications can be found at:
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/233818fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236416fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236418f.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236716fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236718f.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236816f.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236818f.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/236918fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237016fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237616fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237618fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237620fb.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237716fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237718fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237720fb.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237816fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237818fa.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237820fb.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/237918fb.pdf
+> > > > > +    https://www.analog.com/media/en/technical-documentation/data=
+-sheets/238016fb.pdf
+> > > > > +
+> > > > > +$ref: /schemas/spi/spi-peripheral-props.yaml#
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    oneOf:
+> > > > > +      # Single compatible string match.
+> > > > > +      - enum:
+> > > > > +          - adi,ltc2338-18
+> > > > > +          - adi,ltc2364-16
+> > > > > +          - adi,ltc2364-18
+> > > > > +          - adi,ltc2367-16
+> > > > > +          - adi,ltc2367-18
+> > > > > +          - adi,ltc2368-16
+> > > > > +          - adi,ltc2368-18
+> > > > > +          - adi,ltc2369-18
+> > > > > +          - adi,ltc2370-16
+> > > > > +          - adi,ltc2376-16
+> > > > > +          - adi,ltc2376-18
+> > > > > +          - adi,ltc2376-20
+> > > > > +          - adi,ltc2377-16
+> > > > > +          - adi,ltc2377-18
+> > > > > +          - adi,ltc2377-20
+> > > > > +          - adi,ltc2378-16
+> > > > > +          - adi,ltc2378-18
+> > > > > +          - adi,ltc2378-20
+> > > > > +          - adi,ltc2379-18
+> > > > > +          - adi,ltc2380-16
+> > > > > +
+> > > > > +      # Low sample rate fallback for 16-bit unipolar sensors.
+> > > > > +      - items:
+> > > > > +          - enum:
+> > > > > +              - adi,ltc2370-16 # 2 MSPS
+> > > > > +              - adi,ltc2368-16 # 1 MSPS
+> > > > > +              - adi,ltc2367-16 # 500 kSPS
+> > > > > +          - const: adi,ltc2364-16 # fallback (250 kSPS)
+> > > >=20
+> ...
+> > > > What actually is the impact of the sample rate on the programming m=
+odel?
+> > > If the user tries to set a sample rate beyond the maximum supported, =
+software
+> > > can throw an error to indicate that.
+> >=20
+> > I think you have misunderstood this. I was asking how the driver
+> > interacts with the hardware. Do all devices come out of reset with the
+> > minimum sampling rate? Or a per-device default rate? Do the faster
+> > devices support all slower rates? If they do, do the registers have the
+> > same meaning and the same value sets 2370-16 device to 1 MSPS as
+> > 2368-16.
+>=20
+> Ah, the sampling rate is indirectly dictated both by how fast the CNV pin=
+ is
+> toggled and how fast SPI transfers run. Each rising edge of CNV starts a =
+new
+> ADC conversion. Software may take spi-max-frequency as default but it wil=
+l also
+> need to set a pace for CNV, and there is no default for that. The CNV pin=
+ may
+> also toggled on demand (e.g. single-shot read) and so I'd say all devices
+> support all slower sample rates. What software ought to do is orchestrate=
+ CNV
+> and SPI transfers to meet the timing requirements. No configuration regis=
+ters
+> to be set.
 
-s/{}/{ }/
+I forget if I asked for other changes, but the compatible setup then is=20
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
-> +};
-> +
-> +static const struct spi_device_id s2500_ids[] = {
-> +	{ "s2500" },
-> +	{}
-> +};
-
-Please make this:
-
-static const struct spi_device_id s2500_ids[] = {
-	{ .name = "s2500" },
-	{ }
-};
-
-> +MODULE_DEVICE_TABLE(spi, s2500_ids);
-> +
-> +static struct spi_driver s2500_driver = {
-> +	.driver = {
-> +		.name	= DRV_NAME,
-> +		.of_match_table = s2500_of_match,
-> +	},
-> +	.probe		= s2500_probe,
-> +	.remove		= s2500_remove,
-> +	.id_table	= s2500_ids,
-
-Tastes are different, but the idea to align = is usually screwed by
-follow up patches. Here it's broken from the start. If you ask me: Use a
-single space before each =.
-
-> +};
-> +
-> +module_spi_driver(s2500_driver);
-
-Usually there is no empty line between the driver struct and the macro
-registering it.
-
-> +
-> +MODULE_AUTHOR("Piergiorgio Beruto <pier.beruto@onsemi.com>");
-> +MODULE_AUTHOR("Selva Rajagopal <selvamani.rajagopal@onsemi.com>");
-> +MODULE_DESCRIPTION("onsemi MACPHY ethernet driver");
-> +MODULE_LICENSE("GPL");
-
-Best regards
-Uwe
-
---vgihchiky4pi5wmr
-Content-Type: application/pgp-signature; name="signature.asc"
+--AivW+dRtBBf6OE2L
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmo1Sz8ACgkQj4D7WH0S
-/k50xAf/Zh/5TUve8B01NSTYsEN/FHNN2Ll/KSVNoRTgKx8ImFNr2/o/BEgi6GhK
-pfNVfy1Xf+GanFXibebKU1VQX7LuHvcyYGXnkzwA+qObF81/JvZWwiqHK6NykReC
-tPMNc83BEKNMA764MoqvoZaSukhGUvby5CBMSqupfKgxZ+c/b2FC6E8Hk977oKEZ
-J1nZQGEdCQ+b2/m4sQLbwxIZpra7CFVd9q6ke8JkqV29pA0koqFQwfaB1r0LGIIr
-jTGPN/so0SIMhZulEk/kK3T0f3Z71a3YD7xc3O9tJE5MYexsTK49ZJNV+aGtvirE
-zLZ+IsKQC1b+FCzKBDKhYFsysIB2Mg==
-=Joyu
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajVNEwAKCRB4tDGHoIJi
+0sotAQCQcVebqtg8ICHEifSetaw82FpVZXXT9t219LG9X/l1yQD/fk87IEmu2/gs
+9yJTIxK62jUapNCX0eeURqfsOBCOhwU=
+=rHCT
 -----END PGP SIGNATURE-----
 
---vgihchiky4pi5wmr--
+--AivW+dRtBBf6OE2L--
