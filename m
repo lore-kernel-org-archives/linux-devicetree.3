@@ -1,172 +1,133 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1BD38237B
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5473932E3
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 13:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781875003; cv=none; b=akqJTgCGIMfvCY7MbtKdQ2NWEOiev8isPFAXeFYQghyBuHRIBUpRmZlZLg5On9ZadQOaNt7PxbQBqe35210W0F/ymTGSphycViswo3atfi3xu0jR9Nv4vcMOnqRtvxAJCnTDGqmG5+3w4hm4RZth/U1L5HSNxHvYWRWMT3oxyeA=
+	t=1781875024; cv=none; b=IJv9l+n0JJ4okaL59qMdklE9x0h63CUCBdyiflm42agJ+ioHzRlyeeGLvvnuPlupQURejaUYIVp7N9PkNlnB7tbb9eHGJadvs+xIF1Vh1VEEYM2Bunpt810ssDq9kw0/PeIjjxCAH8EV6ofrnDVc3ouVKA20QoWDJ0XSktzTQ4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781875003; c=relaxed/simple;
-	bh=4sgAZRMpN+E4EFV/WjC2hK1lLof0TXc2GUU3wBWck9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ymz9FBxDHetVbE84DI+3x8klCn5U8sLZXRsAjZpiiSG9Ra9KuedTLS455qEPGQZeFZLAqkYpFmuZzBNT0oXbMT7MysYaIe9qAGABnKnwPEMU01gBRIYIvcocw72fWlcVeTT7taa/ujD0NtHEMkLXqOJhD8M5w08v7T6dPfeEWCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Hv2I2P55; arc=none smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1781875024; c=relaxed/simple;
+	bh=iPVKEaL/sDhtjxjiJ4ovC7cycjNBtMDP+R44lrz4ljQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=amde6tmGX4vUgartiskvX3XZxKWmIrtDbc4cdKXqp4hstHCCfedPCgC8A2eClES79REDW5mZSEXUvxd14T4soyWd3BQAWFb71cOT7D+H2JzumsyCr8ft5V0WbUGxh1rQ7BmWBJW6zEi/kqRbxDpGX7jR7+NWaRPByOpvbNAHLJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iwp3A8uA; arc=none smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Hv2I2P55"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ad4c966e63so276607e87.3
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:16:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iwp3A8uA"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66061993121so2231221d50.0
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 06:17:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1781875001; x=1782479801; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pgcSYa5jaMnEPZ3HUYjkicq09TjBCnm74Jqw35loCI4=;
-        b=Hv2I2P55R9TuDnUNArOg0uQyLd83K1vnyVWf4tWVfcdqhO91rIZqXRpTw7z2y7e4Xg
-         zSmK039nzfVrmXwJN4bWbNLEE04bcfRh0oyNmgIGQ1bzPiHkGRjobojbTx931T6Cz5TA
-         Wbjqx/iVipc0shqSCGRqVGLrDnhHpEr2AklKGyNWOK9W9fWYwSl+EX0tVx7enTFCNHtG
-         560f/Re5c0NbctZdZjixz9hDpHCokh99FggpZVu+cGz/3BuSjs4QAy/E8jUcqoFAjE90
-         J5rrUIUmcivQMRSsrJ7AutdMZXKfIL0iVhRNAatF/cOqClhuYpbGr/bmqaGcOvowvdIw
-         2TKA==
+        d=gmail.com; s=20251104; t=1781875022; x=1782479822; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ccV2VXwAWn79HMfOu8BYWCMbmbtC3czR+CKDR5g5+lg=;
+        b=iwp3A8uAiIvAF9lIpLMisywqTS+JzhsXpCWltqej+lYc/vGtWHa/KuO4p2ahcxhPL9
+         SNPMleaBBqc+bM+ggfaFpdrE74phjj5irxTzGUkoOvzpLMqZQm/FGuL6hYO0Z4KkNaRU
+         HKFz4w+H+LWhtjAaeMjnJvtQ1I4jZNROenVeja38lQpnpDs25cb03y6Ezdseeiwva5XF
+         4gCyhVHQOYq++BLgnWjcJPFoe/DtKLo1SVswA5ODTlkbLNOCe6NmHNNa9plCW5pj4zBk
+         JwFALsd9kNf09zgmG/VQ/Ao/Qx/HqqjQxVMBVjOIDnHq6oWVZAlfPTsgGbTDnCHV00nC
+         vocQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781875001; x=1782479801;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pgcSYa5jaMnEPZ3HUYjkicq09TjBCnm74Jqw35loCI4=;
-        b=SkzLZvsl4nBgpiU1m/8uqKrfMDPeDkh5ihImokO8KZS7DdvVx8URhqmXXJhEH0Ocas
-         0A3zk7N992kBQ8zWqd6p1GODd6afT3stFgxGzGzSeOx8m0g/LpKClrBYIfiRVduIwBvO
-         55YrqnMBinhjZLTGrCQkWxjdWUkx8OksVkDSNruD5DLT9MUyC9LHWjic88iDMpwWwb8d
-         t0Bsty83pRa/SSOb5tTHcXGdqAeq6KhCmmaQBGCzjwEBdxjhEzBa8Un8G22IZPhEAfer
-         ZvkjT8Rs0wwr3Ksa4Mhje4XEjURyBxAQjVdpiaX+m+TcQqLq0OcHX8YX87GkwRON5cvW
-         FBtw==
-X-Forwarded-Encrypted: i=1; AFNElJ/8H5JYNLunSuze233FVXDvyEqPCmTCasA2iFcCuMC2zDk2JHwUPddHS895EC8izGZ2pnYejkmahcyy@vger.kernel.org
-X-Gm-Message-State: AOJu0YxcXBfHEaoFpoSvhLBEAm0bd7gdXXdGDfVclmpglsALy4TfJ4e9
-	saQRB4O82uyUeN6RPBWCP+R+ob1r1cp2hV5GHX1uPSfc610IsCOBLf8KwfhxDP+iHCHoyrXpf+M
-	4HiCTJHs=
-X-Gm-Gg: AfdE7ckPMobHGuEI7t+pDUmP2r+I8ic7fHIJYuI9e7cYZH0B/oYOP2xwkIX3rhVmTea
-	X+BjH0dm20oQvEShqGvf69YW+SkkB7zVUFDOIVukXrrB1MEiQfIoQFAk31cpuqoWxo2gumw11Ty
-	WQjy7o7sSzzHejXZSkmZbhkN5rrtNNMQLOp2XBjhVZKbjw32UuDcJLikty1iOFBS2JXUfrYvJyH
-	KQQAtNPx93b+UeMeDLqdqRfb0mtIGqdau9San4gxjQfNBmCS0aLm5mmIyhLafbNCw6Zezcaappw
-	k/H78qUoQfrOo9bGawalJ0FvqjzahMrK9huGHWpuzw1h8j3LttUbr99H5EGrG7/UCvUAFfrS7VQ
-	ij/+XBHhu9wCepgJijBccVI9egWdk6XmVwJpA3qtnHltpLBEyAFFIZ364a/QTfTMiPzZv1E6Xyj
-	lRpHObJ0cmYE9SFTPvJBiBeHEiECpOOsq7KweR5Kf6ahHdpjOcBTwdB45SMhZesQIxCj4=
-X-Received: by 2002:a05:6512:118d:b0:5a8:7317:540b with SMTP id 2adb3069b0e04-5ad562e8a19mr557862e87.7.1781875000383;
-        Fri, 19 Jun 2026 06:16:40 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad57246020sm583518e87.21.2026.06.19.06.16.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 19 Jun 2026 06:16:39 -0700 (PDT)
-Message-ID: <97105c63-4e6d-4bde-9053-6f795c2477d1@linaro.org>
-Date: Fri, 19 Jun 2026 16:16:38 +0300
+        d=1e100.net; s=20251104; t=1781875022; x=1782479822;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ccV2VXwAWn79HMfOu8BYWCMbmbtC3czR+CKDR5g5+lg=;
+        b=N4eGPqmeDsM7tXefkPaW/Ihf0KprAY3GNr1Cq3ybm0NnRgd5NWfErJwgfc9HT4xs/q
+         lqbsTZHjYqPomEdvAPb1JD6c7q9eLa2w3j5AIeIDJnQaP4SJg65BC65s/luGvFzCrtGi
+         epwy6tpUevPTEFtyp0BbfNM5+eLn1oATbrue86Mpc4fcdJRQPhyXKfWzzyHwesfNznPE
+         O5cc2u/DKtNjYSCQIg2Xwc58NRyrRAS5OiWT80xou2oaj9KLERhJpUVZ2a3E0ZQP1pZ+
+         J61G81qgay5Q4c/TjOYx0YQ0D16/pCCZIetHVejwV6bsuYKPVzhtZKc/1BmURJ8FLJBL
+         wihQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+hS6qB6Bhnb8+1TVsskF4zvPG8t6RJfm+ezREFKPVnl7xXraIcvl6n1jkPRYClUmVe0ABFvzb2I/WO@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLTchs6aq2er2Vi687LhtyT8W2e+UJPabmaQBb6GJd6TLQqOMj
+	XtLwPKe9eY2R/QRjvbHVhIXUxwL5lKK1kbuciE92+G87SLDcXbPzGw5SLE/R/NpmTD8=
+X-Gm-Gg: AfdE7clwkasftuIP1VJ1ZgKP/hqlJhbBq5QQ6lDOlt9cfTpf8y9bC0aT7tSLg0mqWjJ
+	eS/4QW6dW/lf03/ZAKjjLbLoU7COBPpmVflNZxyux28gO/g2+amzQ2gYLS1h19PndIDlQxzj5YP
+	2XpGV0+KgFCljw3wB3lmFLkw9OjDBn9OonJn/KkMAoqPHoLE+l7i+9GPGR+FgzMSoTBPQm3pWNk
+	dxbAO2FqmBU2LJjxHdAcwGdJD2SDOUvTANniHFdMQggBouJT4DslFFBWQo4tD+q48kFzaZX3gZ1
+	LRe/x+l/WgHYvLNGyANDRTaGFR93ZqHUcFuFZl4UztYUFqJBwS/u/fdXdom/mFfgvXJ7xKG4a11
+	MPN6n609OqBA1Q95nDu+WgkadHyq/kkfZS3ywkJJu2UkdLur2p50QbsqsbZ/IiPySsmjc5Ze7ZE
+	UfxWHLCv21GVYhvfB09p1kdj+Tm9HxXHFg
+X-Received: by 2002:a05:690e:1553:10b0:662:d8cc:6b2c with SMTP id 956f58d0204a3-662fc91fe6cmr3377503d50.25.1781875022447;
+        Fri, 19 Jun 2026 06:17:02 -0700 (PDT)
+Received: from localhost ([2804:30c:1f0a:b600:e457:1a16:4082:3e0a])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8de61d36f0dsm22122186d6.27.2026.06.19.06.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 06:17:01 -0700 (PDT)
+Date: Fri, 19 Jun 2026 10:17:40 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, pop.ioan-daniel@analog.com
+Subject: Re: [PATCH v3 1/5] dt-bindings: iio: adc: Add ltc2378
+Message-ID: <ajVBdImL-S-YEx9O@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1781661028.git.marcelo.schmitt@analog.com>
+ <f9e88abdbd23df8039282497a81d3c8698a10665.1781661028.git.marcelo.schmitt@analog.com>
+ <76d39d2a-051d-4706-8433-3d3eb97e7f2a@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: sc8280xp: Add camera MCLK pinctrl
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260607160435.36546-1-mitltlatltl@gmail.com>
- <280402c0-57bd-46a3-b95c-f9ae02122a09@oss.qualcomm.com>
- <CAH2e8h7aGiF1g_LgG4WxEj1eGbUp-T_U-yZVpoHgU8FsMOrWTg@mail.gmail.com>
- <423b4e86-3837-4d69-8f56-d8259be53ff5@oss.qualcomm.com>
- <12a89ab8-dc43-4b55-9c95-36d44c75dcab@linaro.org>
- <162da512-1142-48fa-bf7d-0b2393467a75@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <162da512-1142-48fa-bf7d-0b2393467a75@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <76d39d2a-051d-4706-8433-3d3eb97e7f2a@baylibre.com>
 
-On 6/19/26 16:03, Konrad Dybcio wrote:
-> On 6/19/26 2:59 PM, Vladimir Zapolskiy wrote:
->> On 6/19/26 15:35, Konrad Dybcio wrote:
->>> On 6/11/26 7:29 AM, Pengyu Luo wrote:
->>>> On Tue, Jun 9, 2026 at 8:17 PM Konrad Dybcio
->>>> <konrad.dybcio@oss.qualcomm.com> wrote:
->>>>>
->>>>> On 6/7/26 6:04 PM, Pengyu Luo wrote:
->>>>>> Define pinctrl definitions to enable camera master clocks on sc8280xp.
->>>>>>
->>>>>> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->>>>>> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
->>>>>> ---
->>>>>>    arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 56 ++++++++++++++++++++++++++
->>>>>>    1 file changed, 56 insertions(+)
->>>>>>
->>>>>> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->>>>>> index a2bd6b10e475..0dbcd3069a3b 100644
->>>>>> --- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->>>>>> +++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
->>>>>> @@ -5484,6 +5484,62 @@ tlmm: pinctrl@f100000 {
->>>>>>                         gpio-ranges = <&tlmm 0 0 230>;
->>>>>>                         wakeup-parent = <&pdc>;
->>>>>>
->>>>>> +                     cam_mclk0_default: cam-mclk0-default-state {
->>>>>> +                             pins = "gpio119";
->>>>>> +                             function = "cam_mclk";
->>>>>> +                             drive-strength = <6>;
->>>>>
->>>>> Other platforms set this to 2 by default.
->>>>>
->>>>> What's the value set on Windows when the camera is in use?
->>>>>
->>>>
->>>> It is 6mA.
->>>>
->>>> Let us get ctl_reg first on Windows
->>>>
->>>> lkd> !dd f111000 L8
->>>> # f111000 00000284 00000002 000000e2 00000000
->>>> # f111010 00000001 00000801 00000000 00000000
->>>>
->>>> ctl_reg => 0x284
->>>>
->>>> in msm_gpio_dbg_show_one()
->>>> ...
->>>> drive = (ctl_reg >> g->drv_bit) & 7; // (0x284 >> 6) & 7 == 2
->>>> ...
->>>> seq_printf(s, " %dmA", msm_regval_to_drive(drive)); // (drive + 1) * 2 == 6;
->>>> ...
->>>>
->>>> x13s should be the same as gaokun3 in this part.
->>>
->>> I confirmed as much and I'm willing to believe this is a default for
->>> all 8280 devices
->>>
->>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>
->>> for the second patch, please mention in the commit message that the value
->>> will now match windows and please add a fixes tag
->>>
->>
->> I believe the second change cannot be tagged as Fixes in sense that it
->> strictly depends on a not going to be backported non-fix commit, and thus
->> backporting of just 2/2 change as is will break the matter. Reordering of
->> the commits placing the fix commit as the first one should be fine though.
+On 06/17, David Lechner wrote:
+> On 6/16/26 9:03 PM, Marcelo Schmitt wrote:
+> > Document how to describe LTC2378-20 and similar ADCs in device tree.
+> > 
 > 
-> The Fixes tag makes the patch eligible for backporting through AUTOSEL
-> but is itself not the same as "please backport"
+> ...
 > 
+> > +  vdd-supply:
+> > +    description: A 2.5V supply that powers the chip (VDD).
+> > +
+> > +  ovdd-supply:
+> > +    description:
+> > +      A 1.71V to 5.25V supply that sets the logic level for digital interface.
+> > +
+> > +  ref-supply:
+> > +    description:
+> > +      A 2.5V to 5.1V supply for the reference input (REF).
+> > +
+> > +  cnv-gpios:
+> > +    description:
+> > +      When provided, this property indicates the GPIO that is connected to the
+> > +      CNV pin.
+> > +    maxItems: 1
+> 
+> Missing pwms property for when CNV pin is connected to PWM.
 
-That's correct, and due Documentation/process/stable-kernel-rules.rst it
-would make sense to add Cc: <stable+noautosel@kernel.org> to the next
-version of the change to help stable tree maintainers, since it is known
-in advance that the unmodified and Fixes tagged 2/2 change shall not be
-considered as a candidate change to the stable tree. Or is it excessive?
+Ah, thanks for pointing that out. Will add that in v4.
 
-IMHO here it might be better to properly arrange the changes and backport
-the fix.
+> 
+> > +
+> > +  interrupts:
+> > +    description:
+> > +      Interrupt for signaling the completion of conversion results. The active
+> > +      low signal provided on the BUSY pin asserts when ADC conversions finish.
+> > +    maxItems: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - vdd-supply
+> > +  - ovdd-supply
+> > +  - ref-supply
+> 
+> I only looked at LTC2338-18, but it has a REFIN, which is optional.
+> Nothing named REF that is required.
+> 
+Hmm, I think that's the only device that has it differently. Will add allOf/if
+properties to differentiate these.
 
--- 
-Best wishes,
-Vladimir
+Thanks,
+Marcelo
