@@ -1,158 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866DB391E7B
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 15:50:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF85B3B52F1;
+	Fri, 19 Jun 2026 15:50:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781884223; cv=none; b=G3RvocN4F51/0MxIcIfA0t07Q/jb11nkG6d6zQduEAyPiwT7qrNF+XCbMpxBLlXKr90hD5yySSOLX8fZ01L9M9jMx2DcrKKIUq4Wwp4EGNBw6xBvkLMRIhefDmdMwZs38rf4DQ4g2pdrAtux7ZosOvkdvepyg7fWFGePejT2n5w=
+	t=1781884260; cv=none; b=AFJr//7fU6UZESpuaJQ0hVPpi1wzBse2iHgr715YzD1I3OICA3VbDgAIknIwitLtgbhh3d0I02GgqSd8OsofJnjQ8e4VH7gWt8jFfzyVRp1qOpgogocfW5lZLazwHxhcV4UODiBzk7JnrugbnofeKcKBa42+8TL/73UibWBP0F4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781884223; c=relaxed/simple;
-	bh=TTjKUrb7ZSkaPK1Td8vnCEYp8e5zp2kFoNA6DeiQtLg=;
+	s=arc-20240116; t=1781884260; c=relaxed/simple;
+	bh=TSeu3rE5n8w/czIW09y1C5wFGxSRYEn91h2EK4+x32E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kkGVtCpdO1R5UXtDCFt8IEtBdrNgYYv9iJvFX7JyER0j9DYaZNJndXsc5w9k71VXPvCjoo0vlJ7vpTrEpmrIgaHslT9l6VpFaSS88LSdujYJPOljUOeN5KL7HazEUvZ1qNwmGkeC+u4q0YU+CMe9mrIk2EYZbTCQ7tkxJkZuPRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATck1WP4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Azz/x9+auVrvRg14c7iw+KjBOmGG6/q70lPr6IMMh3pK5lO2riolEjj/EB7b2lJ9dFfd8Tr+bdSFDGrV3vuJzTA/aLpdPht8v6jKXOjQJ83kEqrsBx7sqFT20Y8Osu+MUZib9Fu305HtIiMecMehub7H4VmxwSokpefZBxxDZbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdrXRznQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATck1WP4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7361F000E9;
-	Fri, 19 Jun 2026 15:50:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdrXRznQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06AA31F000E9;
+	Fri, 19 Jun 2026 15:50:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781884221;
-	bh=1KvQgX8Mt6MMz28IkS5EbsgiiuX0uc0jyn+gHbQ2bqA=;
+	s=k20260515; t=1781884257;
+	bh=ZhkMgvcOtDmOyhLbS8PdntIwJ3/SiixsrVqkgLuiaOU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ATck1WP4MCrlCVQhb41eKpRBb1jvqUKUHfnCwLF9kiNanbNuj2zCULBGxGIqiqleI
-	 oDT3y2AiywprdZZ6eGbsPh5KgcgJPtgLp/x0ssQwRus+db51VkUuyGuhscFExGeZPR
-	 XcSvMj7ixw9Tse/4zLD/fHIPIX9ef4C3zQbzaKg93R6vxkjbaGdeIT9x0xWzQiScr1
-	 k6cj+72RGpfYj9hW/CtgeRP/1pEo29pqFbi6lF4rrYACczo1rECtKtwKj8GdDnzaus
-	 agsIZphUkK38vkr6nnP3tKNL1RRSl7nvP2d56Qjh7+J3dO0HTdJmWQy/p85kdXYtOg
-	 Q2aeC9rtJ945g==
+	b=mdrXRznQvVFCY2axSnVp74H4X6Sv7l8q5+qJMRADf0PZnEMMCZveaMO6GkeOj3ZiO
+	 N1ClsEA9KVEaieDF2l2m2DwnTxjpQPQXOf9FG6rjZF+lEmDUNFErTK37JXWOszM2w6
+	 Mg55TVuYcjy5k7kc0OvHIS2edzRzWURoYatykHKaviDdBzuwXHqz66Hn4LcH07ncS+
+	 MRa20WB1if8W++i2IWc5OSNbHcd1sz/nOMLi/B1KZnkR9+haHt96JSDtT/85oHglie
+	 iGjqr1secXfjLTIb4Ha2hKLcAhWwoXbXbmMrP628KF20zCQsTwfvWO2OY1zslmBZqb
+	 HVPT/JbAhi66Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/23] phy: rockchip: usbdp: Keep clocks running on
- PHY re-init
+Subject: Re: [PATCH 07/11] ARM: dts: lpc: Remove NOMMU platform support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org
-In-Reply-To: <20260619-rockchip-usbdp-cleanup-v6-7-3bb1f54b3f35@collabora.com>
-References: <20260619-rockchip-usbdp-cleanup-v6-0-3bb1f54b3f35@collabora.com>
- <20260619-rockchip-usbdp-cleanup-v6-7-3bb1f54b3f35@collabora.com>
+To: Frank.Li@oss.nxp.com
+Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260619-dts_cleanup_arm_mcore-v1-7-0101795a2662@nxp.com>
+References: <20260619-dts_cleanup_arm_mcore-v1-0-0101795a2662@nxp.com>
+ <20260619-dts_cleanup_arm_mcore-v1-7-0101795a2662@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 15:50:20 +0000
-Message-Id: <20260619155020.CC7361F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 15:50:56 +0000
+Message-Id: <20260619155057.06AA31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The Type-C mux callback completely ignores non-DP AltMode events, =
-failing to reset lane mapping on AltMode exit.
-- [High] Asynchronous `udphy->mode` updates cause `phy_exit` and `phy_power=
-_off` to skip teardown, resulting in permanent clock and reset leaks.
+- [High] Unintended removal of the MMU-capable LPC32xx platform under the f=
+alse premise of removing NOMMU support, along with an inaccurate commit mes=
+sage.
 --
 
-commit ea283780e749d528861fc2fe55f998d22454a53b
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+commit d19b47e78b74813c8413198ab7ec32784181d8d8
+Author: Frank Li <Frank.Li@nxp.com>
+Subject: ARM: dts: lpc: Remove NOMMU platform support
 
-phy: rockchip: usbdp: Keep clocks running on PHY re-init
+This commit removes the arch/arm/boot/dts/nxp/lpc directory, stating the
+intention is to remove unused NOMMU platform support. It drops the build
+targets for LPC platforms to simplify the codebase.
 
-When a mode change is required rk_udphy_power_on() disables
-the clocks and then calls rk_udphy_setup(), which then enables
-all the clocks again before continuing with rk_udphy_init().
-
-Considering that rk_udphy_init() does assert the reset lines,
-re-enabling the clocks is just delaying things. Avoid it by
-directly calling rk_udphy_init().
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 6dff4dfc9363e..c05ee65a9f73a 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1011,8 +1011,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
-> =20
-> -		rk_udphy_disable(udphy);
-> -		ret =3D rk_udphy_setup(udphy);
-> +		ret =3D rk_udphy_init(udphy);
+>     ARM: dts: lpc: Remove NOMMU platform support
+>    =20
+>     Commercial users and hardware vendors migrated to Zephyr or other RTOS
+>     solutions years ago, leaving the NOMMU platform support effectively
+>     unused and unmaintained.
+>    =20
+>     Remove the obsolete support to reduce maintenance burden and simplify=
+ the
+>     i.MX platform code.
 
 [Severity: High]
-This is a pre-existing issue, but the Type-C mux callback completely ignores
-non-DP AltMode events, failing to reset lane mapping on AltMode exit.
+Does this commit unintentionally remove the MMU-capable LPC32xx platform?
+While the LPC18xx and LPC43xx series are Cortex-M NOMMU parts, the LPC32xx
+series uses an ARM926EJ-S processor, which features a full MMU and runs a
+standard Linux kernel.
 
-When exiting DP AltMode (e.g., via sysfs or renegotiation without a physical
-cable unplug), the Type-C subsystem calls typec_mux_set() with state->mode =
-=3D
-TYPEC_STATE_SAFE or TYPEC_STATE_USB and state->alt =3D NULL.
+This mistake appears to cascade through the rest of the patch series, where
+mach-lpc32xx is also deleted under the same 'NOMMU' premise.
 
-However, rk_udphy_typec_mux_set() immediately returns 0 if !state->alt:
+Also, this isn't a bug, but there appears to be a copy-paste error in the
+commit message where it mentions simplifying the "i.MX platform code" inste=
+ad
+of LPC.
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_typec_mux_set() {
-    ...
-	if (!state->alt || state->alt->svid !=3D USB_TYPEC_DP_SID)
-		return 0;
-    ...
-}
-
-Does this leave udphy->mode stuck in the previous DP configuration (e.g.,
-UDPHY_MODE_DP with 4 DP lanes), which breaks subsequent USB3 initialization
-because rk_udphy_usb3_phy_init() checks udphy->mode and skips powering on
-the U3 port?
+> diff --git a/arch/arm/boot/dts/nxp/lpc/Makefile b/arch/arm/boot/dts/nxp/l=
+pc/Makefile
+> deleted file mode 100644
+> index 56b9a0ebb9179..0000000000000
+> --- a/arch/arm/boot/dts/nxp/lpc/Makefile
+> +++ /dev/null
+> @@ -1,9 +0,0 @@
+> -# SPDX-License-Identifier: GPL-2.0
+> -dtb-$(CONFIG_ARCH_LPC18XX) +=3D \
+> -	lpc4337-ciaa.dtb \
+> -	lpc4350-hitex-eval.dtb \
+> -	lpc4357-ea4357-devkit.dtb \
+> -	lpc4357-myd-lpc4357.dtb
+> -dtb-$(CONFIG_ARCH_LPC32XX) +=3D \
+> -	lpc3250-ea3250.dtb \
+> -	lpc3250-phy3250.dtb
 
 [Severity: High]
-This is a pre-existing issue, but asynchronous udphy->mode updates cause
-phy_exit() and phy_power_off() to skip teardown, resulting in permanent clo=
-ck
-and reset leaks.
+Does the removal of these targets improperly disable the LPC32XX platform,
+which relies on an MMU-capable core?
 
-udphy->mode tracks the target hardware mux state and is updated asynchronou=
-sly
-by Type-C events. However, rk_udphy_usb3_phy_exit() checks this current
-udphy->mode rather than the initialized state (udphy->status) to decide
-whether to power off:
+> diff --git a/arch/arm/boot/dts/nxp/lpc/lpc32xx.dtsi b/arch/arm/boot/dts/n=
+xp/lpc/lpc32xx.dtsi
+> deleted file mode 100644
+> index e94df78def18a..0000000000000
+> --- a/arch/arm/boot/dts/nxp/lpc/lpc32xx.dtsi
+> +++ /dev/null
+> @@ -1,540 +0,0 @@
+[ ... ]
+> -	cpus {
+> -		#address-cells =3D <1>;
+> -		#size-cells =3D <0>;
+> -
+> -		cpu@0 {
+> -			compatible =3D "arm,arm926ej-s";
+> -			device_type =3D "cpu";
+> -			reg =3D <0x0>;
+> -		};
+> -	};
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_usb3_phy_exit() {
-    ...
-	/* DP only or high-speed */
-	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
-		return 0;
-    ...
-}
-
-The phy_power_off() implementation also suffers from this flaw,
-short-circuiting before it can update udphy->status and tear down resources:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_power_off() {
-    ...
-	if (!(udphy->mode & mode)) {
-		dev_info(udphy->dev, "mode 0x%02x is not support\n", mode);
-		return;
-	}
-    ...
-}
-
-If the Type-C mux switches from a DP+USB mode to a DP-only mode while USB3
-is active, UDPHY_MODE_USB is cleared from udphy->mode. When the USB3
-controller later shuts down and calls phy_exit(), rk_udphy_usb3_phy_exit()
-sees the bit missing and returns 0 early, skipping rk_udphy_power_off().
-
-This prevents UDPHY_MODE_USB from being cleared from udphy->status. When the
-DP controller subsequently calls phy_power_off(), udphy->status remains
-non-zero, skipping rk_udphy_disable().
-
-Since there is no driver removal cleanup fallback, do the clock enable
-references get permanently leaked?
-
->  		if (ret)
->  			return ret;
->  		udphy->mode_change =3D false;
+[Severity: High]
+Since this node defines cpu@0 as an ARM926EJ-S, a core that features a full
+MMU, does this contradict the commit's justification for removing this
+platform as 'NOMMU'?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-rockchip-u=
-sbdp-cleanup-v6-0-3bb1f54b3f35@collabora.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-dts_cleanu=
+p_arm_mcore-v1-0-0101795a2662@nxp.com?part=3D7
