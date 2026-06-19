@@ -1,118 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4BB3BBFAE;
-	Fri, 19 Jun 2026 15:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903C93B47F5
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 16:00:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781884715; cv=none; b=oywpGTXYPPsf0Bd5qnP0iZIc5VvIopqfVZKZUQpQ6v/vg9G2VH3pDQpKL6bghsmFrv2+/BLF4sYafaQHxEenLcC4ypdKCDACOSO4yhJrlP4x9KAK5UN5ixRd/G1B05sPLSfO7CiLDD8XDxlsI5QN23CzRm2yF/FZsnPdq9wj/UM=
+	t=1781884806; cv=none; b=PvEEAhzkvLUlmpVUs8FkgKAxfOCu2LMkfMGDl0sT4yVL13FcIpozCjWdB7hKsqx/8C/2ZrGmba+V1/mBLDSWiqITjhgvSaSuizwu9HL9hmiTRzOlJ3j2K4YnO1RUPymIEiW6EI+JwbP8h2HqdhSyYv2g03xl4JodpaCz5p9l+ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781884715; c=relaxed/simple;
-	bh=neaoHP0DdzOqg8VJKaHlvLcHwAw0V6DR2kt11BgxxxM=;
+	s=arc-20240116; t=1781884806; c=relaxed/simple;
+	bh=k8J4YR61sOUs0BtKRRhz+XzPZOM/G+DZ0+LuxwbaVxA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ye6vGOcegpMqTuEp9hUFzzPAiD4PFyeE6sBz5MKkbpjBM9G1sFdt3Dil//ZBu0n4VHGJkBDqSGougAar+DSHu0cil0vYpIdVxmEbfOG9adPkjuID+h8qBYssK1656N1nQK3FjWEfgaueQl+PfBC29hLFjZrqfawTPqX3w3/pMkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ij5DgqOk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=diQq1b/lxdkfaxjR6OxcBZyRHeHx55gQvBIk3JKGMYsnjXkRqoIXbgabwk/Oh8KknKhg1eMJl9QeKHApugzJhDJRFf4yhPSRSv2wuf5NAv10+vWFKwlFl5Djs+7r2bKzFgv0L2pgoIV12SLXVio/JluoQujpBGVB36HRPyJkQxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Au2s3gnY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ij5DgqOk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE1391F000E9;
-	Fri, 19 Jun 2026 15:58:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Au2s3gnY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA9F1F000E9;
+	Fri, 19 Jun 2026 16:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781884710;
-	bh=0wAOnGC8oGBID3hwEqJxyDArdffKa48tt1T3wslR4eA=;
+	s=k20260515; t=1781884802;
+	bh=QE2e0FbnZmc268BVIWUqcSPxyLNNKO/HCPWndbYLYAc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ij5DgqOk9Xx+QdQD1pg64MuGySRc/ivghz0Ft6TaMG53RCw4kyufs9vDK6NvySK+r
-	 ccdZJzmpwSixMu2dlrP45HfmJ2veyX9krHe0wIuOAKJBapp1BtxyPiTnOFMChMuDhe
-	 4PGaS7eqEHz1ljmuJewmKTSm1NViHcX2prfDXwIYgxz4D0OQgs35A66J6mK6fdZD2Z
-	 TEnsX2TnQEZJtfzPruF39iDCVYmYVWVNdlK9JT5ZJ7cQ0CWLgcgNEUblPiIjws9/qD
-	 Paa8n+8/mvheKJOgOozCjO/Tokv8wEBVNJKwt6vqjSjpesNPLoOMNqtuWC/tOv6/z+
-	 JFIvzub2HjNHw==
+	b=Au2s3gnYlLBhxu4qVh7O98BTmpufKM4YlFnQ3CbXe8i+DXNZ/BtiWjL+VjlI+OnFj
+	 y62Vl/o60gCp3VtSvx4fv1jji19/7/P+f2Q92B9pGKfjbl3j+pGh+NTkfkfRx3udU+
+	 v2wuVmEGz6h9tTB59Wc6BViBh2/gEnY/6mF8j0tPPjdbCtsCwnB0R4wMyYwGu0eTJT
+	 7qlM/0gBKtUAPGw9RRffUocUz+wwQNQMewrCsO0s5XeJ8alGMOZotUIZkt+6IcueUj
+	 6HwtdvswyUXOSkSukjwUwAzjEdFq8EAUVDX3gkL493ds0kilLHjJ4L73Ez0viLV3TH
+	 rXUWKJwQ73zEA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/11] clk: nxp: lpc: Remove NOMMU platform support
+Subject: Re: [PATCH v6 16/23] phy: rockchip: usbdp: Drop DP HPD handling
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260619-dts_cleanup_arm_mcore-v1-10-0101795a2662@nxp.com>
-References: <20260619-dts_cleanup_arm_mcore-v1-0-0101795a2662@nxp.com>
- <20260619-dts_cleanup_arm_mcore-v1-10-0101795a2662@nxp.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260619-rockchip-usbdp-cleanup-v6-16-3bb1f54b3f35@collabora.com>
+References: <20260619-rockchip-usbdp-cleanup-v6-0-3bb1f54b3f35@collabora.com>
+ <20260619-rockchip-usbdp-cleanup-v6-16-3bb1f54b3f35@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 15:58:28 +0000
-Message-Id: <20260619155829.BE1391F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 16:00:01 +0000
+Message-Id: <20260619160001.9BA9F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Mischaracterized platform deletion: LPC32xx is an MMU-enabled plat=
-form, not NOMMU.
-- [Low] Incomplete architecture removal leaves orphaned peripheral drivers =
-as dead code.
+
+Pre-existing issues:
+- [High] Potential Use-After-Free of the `udphy` struct when the driver is =
+unbound, triggered by active Type-C consumers.
 --
 
-commit 6253e432d16195a0666c33f89bdf6509acf7cdf3
-Author: Frank Li <Frank.Li@nxp.com>
+commit 709452eb1097435563d2642eb88ed81ae54361f2
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-clk: nxp: lpc: Remove NOMMU platform support
+phy: rockchip: usbdp: Drop DP HPD handling
 
-This commit removes the NXP LPC clock drivers to reduce maintenance burden,
-stating that the NOMMU platform support is obsolete, unused, and
-unmaintained as users have migrated to other RTOS solutions.
+This patch drops the HPD handling logic from the USBDP PHY. The registers
+involved require the display controller power domain being enabled and thus
+the HPD signal should be handled by the displayport controller itself.
 
-> clk: nxp: lpc: Remove NOMMU platform support
->=20
-> Commercial users and hardware vendors migrated to Zephyr or other RTOS
-> solutions years ago, leaving the NOMMU platform support effectively
-> unused and unmaintained.
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index b75c190a4311f..383e68b245060 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
 
 [ ... ]
 
-> diff --git a/drivers/clk/nxp/Makefile b/drivers/clk/nxp/Makefile
-> deleted file mode 100644
-> index 2cf6317d28531..0000000000000
-> --- a/drivers/clk/nxp/Makefile
-> +++ /dev/null
-> @@ -1,5 +0,0 @@
-> -# SPDX-License-Identifier: GPL-2.0-only
-> -obj-$(CONFIG_ARCH_LPC18XX)	+=3D clk-lpc18xx-cgu.o
-> -obj-$(CONFIG_ARCH_LPC18XX)	+=3D clk-lpc18xx-ccu.o
-> -obj-$(CONFIG_ARCH_LPC18XX)	+=3D clk-lpc18xx-creg.o
-> -obj-$(CONFIG_ARCH_LPC32XX)	+=3D clk-lpc32xx.o
+> @@ -1333,6 +1291,14 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
+_dev *mux,
+>  	struct rk_udphy *udphy =3D typec_mux_get_drvdata(mux);
+>  	u8 mode;
+> =20
+> +	/*
+> +	 * Ignore mux events not involving DP AltMode, because
+> +	 * the mode field is being reused, e.g. state->mode =3D=3D 4
+> +	 * could be either TYPEC_MODE_USB4 or TYPEC_DP_STATE_C.
+> +	 */
+> +	if (!state->alt || state->alt->svid !=3D USB_TYPEC_DP_SID)
+> +		return 0;
+> +
+>  	mutex_lock(&udphy->mutex);
 
 [Severity: High]
-Is this justification accurate for all removed platforms? The commit message
-states this is removing NOMMU platform support, but the LPC32xx platform
-uses an ARM926EJ-S core. This core features a full Memory Management Unit
-(MMU) and runs standard virtual-memory Linux.
+This is a pre-existing issue, but could this code lead to a use-after-free
+of the udphy struct when the driver is unbound?
 
-Was LPC32xx swept up by mistake because it resided in the same directory as
-the NOMMU LPC18xx platform, or is the commit message mischaracterizing an
-MMU platform deletion?
+The udphy structure is allocated using devm_kzalloc() in rk_udphy_probe(),
+tying its lifetime to the device's binding lifecycle.
 
-[ ... ]
+On driver unbind, devres calls typec_mux_unregister() and
+typec_switch_unregister(), which run device_unregister(), and then frees
+udphy.
 
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index cc108a75a9008..23b14a934635d 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -136,7 +136,6 @@ obj-y					+=3D mstar/
->  obj-y					+=3D mvebu/
->  obj-$(CONFIG_ARCH_MXS)			+=3D mxs/
->  obj-$(CONFIG_ARCH_MA35)			+=3D nuvoton/
-> -obj-$(CONFIG_COMMON_CLK_NXP)		+=3D nxp/
+However, device_unregister() only drops the core reference. If a Type-C
+consumer (like the tcpm port driver) holds a reference to these Type-C
+devices via fwnode_typec_mux_get(), the mux_dev and sw_dev objects stay
+alive.
 
-[Severity: Low]
-Does this incomplete architecture removal leave orphaned peripheral drivers
-as dead code elsewhere in the tree?
+The consumer can still asynchronously invoke rk_udphy_typec_mux_set() or
+rk_udphy_orien_sw_set() after the phy driver has been unbound.
 
-Because the ARCH_LPC18XX and ARCH_LPC32XX Kconfig symbols have been deleted,
-their associated peripheral drivers (e.g., in drivers/gpio, drivers/pwm,
-drivers/net, drivers/iio) can now only be built when COMPILE_TEST is
-enabled and will never be executed. Could these peripheral drivers be
-removed atomically alongside the platform deletion?
+Because udphy has already been freed by devres, does this mean any
+subsequent call will dereference the freed udphy pointer when attempting to
+lock udphy->mutex here, potentially resulting in memory corruption?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-dts_cleanu=
-p_arm_mcore-v1-0-0101795a2662@nxp.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619-rockchip-u=
+sbdp-cleanup-v6-0-3bb1f54b3f35@collabora.com?part=3D16
