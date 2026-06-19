@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3CA2ECD3A
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:06:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FFC368D67
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 12:09:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781870773; cv=none; b=mSuHSz08B7HDYB75M7VS0UCKLcnoMgKG3eanbbkuw0XqeQ5FLD6YAX+L+hxaKDzpBUXemqaMVmVgRVrOm11Y2t2BxFfugkQiFnLz/nvYJ3XNezgTQyGlrXSOf2pfpN/nPSqxJIgv/JX/hqK/BIRwlucbu+WXW6Q1pJwPhg1ZX7E=
+	t=1781870950; cv=none; b=KrzhzzR/EEPKbkQawHM72HR/e6g3FG8+bDXfkVm2NB4/vNTBxMULwnt2dFxSroF11lSDUy4jQCmm95ZM4UaxktkNnaUptxV30sNg6+rgEDf8BBB0k+1bLE2z3zZbizao0LxMC2iPcVQK5eTilv1XbB7ACVoxQbtYF/1Eg2WpbYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781870773; c=relaxed/simple;
-	bh=bjbQoJQwSShHrEApvL4AyvfbvrOmpsSPjZePRQwdfbo=;
+	s=arc-20240116; t=1781870950; c=relaxed/simple;
+	bh=Yoyl/gPRJ7Xt7vCw/iBMFFgZfyLa745iyVrQ4uStNRE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bw5/oVrJxqe6609wC2thn/Cw/CRGGf83tMQTNxYcleCXTPJKogKZFVdEU/iIjmLPS0EAiWs3KC7iPmSF9eAsYSI9ZYk7SaYlPoj5J7bXfvSLnOVqeAWBuZHeMk3kUI+LKZzoDXqOzdfhDqYXo57xpdOKmlkfKaNfXB1p4d7IC70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OcYLC0Yg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Jflmp/x6zO3t8BE35nXU+iHMiPAueUYvSbnY9Blx2BIEbS7NMixCMvrNNN12jQQraIyc5HmexJQmWJ4Wb7UC5prrXgukenyFcsIzaQ6/9g4AMBxnuvhJCedrgKlWb+ZJ5/c3vtY77tB/4dn/58FyqCle4iCE7ki83kBkZn6EuSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dE5YHfla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OcYLC0Yg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3861F000E9;
-	Fri, 19 Jun 2026 12:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dE5YHfla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 934801F000E9;
+	Fri, 19 Jun 2026 12:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781870771;
-	bh=2oKQFj9Up89LG3dHooMV/thXuAnzkujJkL+jOp+W2Z4=;
+	s=k20260515; t=1781870948;
+	bh=vbwjkfmIQbQWKwYpvdjuPZp5ZGYRa6jaA+b+twxRzCg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OcYLC0Ygq4lUIMci5WSevL2T9ZQs6HZpONYJZciMlgUon0IZ4H5vvat4MEZJ3UTLX
-	 gFYqKjpdEQ28nyc6fb2LF/VOI5rKPXa67WFFJV6BO8UA9Ngra5qanE9jS0XUTjd6Ii
-	 j3o+D3hQXADxIBXQh7hdXg/lFiL/7VUsvuyEEOd8T9UZpDnmWlt2W6nLKo6+hwI4S8
-	 rn+RlWjLRygauSQ3MUATuNmjngq2Trnh7tQU7rqhl44Hv6sQKAqzZqTTrF0fRZ4vTe
-	 gYfBOHKSk8Xoix9kmR1H2xn2aVUsq+F++8BLvu5RZmv9zB1I/P0IXl907o1h+GRbnc
-	 95KL4zk3UPODg==
+	b=dE5YHflavLnbXOHznVwvq2WmsR0VuQGx/xH1m/6twvQb8UkdEhTUuK8G6+dCTLqaT
+	 Efpp4lkdMnTOc3uCM7xbcBKgQRuXo1Ro5DCEaSw6S0vo5xMmBHsoTcX7+/XR5Qhx1J
+	 DXVLSDF6ByCTKBF+VT5EC8Aw+xWnTj9nbr5FgwV8OItxQ+usl7LpqmqhuWYnfY2qlu
+	 0yUMud4S7qsEX7qhXti7isCKGXiOSfktc66gPB0BM4IdwHxIGYv122ImwGDgiBIPUs
+	 Dtl7e2uwE2rgilayQQNWbPmnLQGxqE4mcsrTo79VL/JV5v0SN1el1Q3HetCCZSlo93
+	 nM/jhKRFFk6RQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: iio: st-sensors: drop lis302dl-spi
- from deprecated list
+Subject: Re: [PATCH 1/2] dt-bindings: misc: convert lis302.txt to YAML
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jad Keskes" <inasj268@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260619115649.840676-2-inasj268@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260619115649.840676-1-inasj268@gmail.com>
 References: <20260619115649.840676-1-inasj268@gmail.com>
- <20260619115649.840676-2-inasj268@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 12:06:11 +0000
-Message-Id: <20260619120611.9F3861F000E9@smtp.kernel.org>
+Date: Fri, 19 Jun 2026 12:09:08 +0000
+Message-Id: <20260619120908.934801F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,62 +45,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Incorrect Schema Removal / Broken Validation for st,lis302dl-spi
+- [Medium] The `select` block incorrectly excludes standalone `st,lis3lv02d=
+` nodes, breaking schema validation for in-tree boards and creating dead co=
+de.
 --
 
-commit 23c740836661eab02e0a98566f673ed373f8b4d3
+commit 4d572cc896007c912787ebc5396d56f2920edb3d
 Author: Jad Keskes <inasj268@gmail.com>
 
-dt-bindings: iio: st-sensors: drop lis302dl-spi from deprecated list
+dt-bindings: misc: convert lis302.txt to YAML
 
-This commit removes the st,lis302dl-spi compatible string from the deprecat=
-ed
-list in the IIO st-sensors binding. It claims the compatible string is only
-used by the misc driver.
+This patch replaces the legacy lis302.txt binding with a YAML schema for the
+LIS3LV02D family of accelerometers. It introduces a select block intended to
+restrict the schema to misc-driver-exclusive compatibles, under the assumpt=
+ion
+that standalone st,lis3lv02d nodes belong to the IIO subsystem.
 
-> st,lis302dl-spi is only used by the misc/lis3lv02d driver. Its
-> binding is now in Documentation/devicetree/bindings/misc/.
+> diff --git a/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml b/D=
+ocumentation/devicetree/bindings/misc/st,lis3lv02d.yaml
+> new file mode 100644
+> index 0000000000000..85eb74c264bc0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/st,lis3lv02d.yaml
+> @@ -0,0 +1,396 @@
+[ ... ]
+> +select:
+> +  anyOf:
+> +    - properties:
+> +        compatible:
+> +          contains:
+> +            const: st,lis302dl-spi
+> +    - properties:
+> +        compatible:
+> +          contains:
+> +            const: st,lis331dlh
+> +    - properties:
+> +        compatible:
+> +          contains:
+> +            const: st,lis33de
+> +  required:
+> +    - compatible
 
 [Severity: Medium]
-Is this statement accurate? Looking at drivers/iio/accel/st_accel_spi.c, the
-IIO SPI driver still explicitly matches st,lis302dl-spi:
+The commit message claims standalone st,lis3lv02d nodes only go to the
+IIO driver, but could this select block incorrectly exclude valid standalone
+st,lis3lv02d nodes used by the misc driver?
 
-drivers/iio/accel/st_accel_spi.c:st_accel_of_match[] =3D {
-	{
-		/* An older compatible */
-		.compatible =3D "st,lis302dl-spi",
-		.data =3D LIS3LV02DL_ACCEL_DEV_NAME,
-	},
+For example, arch/arm/boot/dts/ti/omap/omap3-n950-n9.dtsi uses a standalone
+st,lis3lv02d compatible while relying heavily on misc-driver-specific
+properties like st,click-threshold-x and Vdd-supply.
 
-> diff --git a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml b/D=
-ocumentation/devicetree/bindings/iio/st,st-sensors.yaml
-> index a1a958215cdb7..2a5451589fabf 100644
-> --- a/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-> +++ b/Documentation/devicetree/bindings/iio/st,st-sensors.yaml
-> @@ -90,10 +90,8 @@ properties:
->            - st,lsm9ds0-imu
->        - description: Deprecated bindings
->          enum:
-> -          - st,lis302dl-spi
+Because this block explicitly omits st,lis3lv02d, that valid DT node bypass=
+es
+the misc schema entirely. It instead falls back to the IIO schema
+(st,st-sensors.yaml), which specifies additionalProperties: false and does
+not recognize misc properties, leading to validation errors.
+
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - st,lis331dlh
+> +              - st,lis33de
+> +          - const: st,lis3lv02d
+> +      - const: st,lis331dlh
+> +      - const: st,lis3lv02d
 
 [Severity: Medium]
-If st,lis302dl-spi is removed from the IIO binding, won't dtbs_check fail f=
-or
-any valid device tree that pairs this compatible string with standard IIO
-properties (such as vdd-supply or mount-matrix)?
-
-Since the misc binding (st,lis3lv02d.yaml) enforces additionalProperties: f=
-alse,
-it would reject these IIO properties. It appears st,lis3lv02d was kept in t=
-he
-schema for the exact same reason that st,lis302dl-spi should be kept.
-
->            - st,lis3lv02d
->          deprecated: true
-> -
->    reg:
->      maxItems: 1
+Is the standalone const: st,lis3lv02d option rendered unreachable dead code,
+since any node matching just st,lis3lv02d is excluded by the select block
+above?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619115649.8406=
-76-1-inasj268@gmail.com?part=3D2
+76-1-inasj268@gmail.com?part=3D1
