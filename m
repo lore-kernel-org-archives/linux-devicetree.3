@@ -1,156 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008F8367F39
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 10:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E8A367F31
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 11:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781866799; cv=none; b=IF0cRBiufN5pGHEod4ofBBmEZlD3FmA3P/0AF5VvakGKAGoX5yw6Y7GzURwZ7X/y+KwZEQEH0E71YvdVmpAsHgZH4yX19nV9YAmw4/7tUVXiw0lsPIjZT+FYNoaFenRZBD1AQha456hLLxz3dvcoftyTTzuXCh4dSREA/t0CC9A=
+	t=1781868639; cv=none; b=h9RHTyAQFijlCjNyR0tpLse8KsFUaFaM8fWd5WOHr9FE46ez8DPWvWKadvs3d6A7M/1V/fzkag5gQshR4rXfGMverSj5AJbOJ9U0A+FAiZWlNDyPBYO/y24jvon2ucT3xBiBW+NCQykOdynz+j8hLZq4zY5oUeg3gv5OU2SKyto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781866799; c=relaxed/simple;
-	bh=zyf7p75LpLhtPU5GUUjOwQH/et8egNKJo+pqaIMDkbE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n+fPe9znxJHm8sgDczgRnbU1s19uaNk4r8AlFbyNxUSI2JiJD6qf5yKHl7tjvN3jLsHFwu+kVGJPYC1zkaFq7DzZamglbX2fac39ZuLcHnfYk7dJhXUljyq74Uh8p/roLU+w2bMzraSaW5/1LEv+g+LDsx5RGyLRyBG9vKI6KSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NwjiP6JQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781868639; c=relaxed/simple;
+	bh=tKL3KAbOmbB0KsPGhd6YoyVBMOUEnR4k+bBexPz+8pg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=neTCfl33SdlevMRREkCugJ04jiE92U43dt85mfq1xx1W+MrPUXqMlom/7s34VAnFleMAVCbZ8kFJKMIIP4DrfUDEywBHy6RGm5Ah16Sj4RI4YlzimeHWGj57CoGmS/IQH5CabgB3EKeXEY2iYFVIfcUrFUWxbGYXRNqct2i8Xrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Etz52wTW; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NwjiP6JQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444AB1F000E9;
-	Fri, 19 Jun 2026 10:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781866797;
-	bh=nQHF/tY2fdZWh46HKt4F63Tt6cyNSn4fpDVeTuTS7Rk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NwjiP6JQ0Yxjrm1g+wg8Er21rntBvDTVWduuCtBPHL5bzqE2/uWZo7PeWsC6hlCtv
-	 rZYXljJpsKUAJC+3f5bnoGSs81ygUt3Rv6h0hgZUVYyx4Ueut4sXgAFDGZRP/S9o3c
-	 r14u1taTi/mDcxfXJ4xxjOZS795nhL9mE7gGx4kHsBq45/Q3ptBlAZb9jAwor3DKo8
-	 K4wifb8OegsmRkLNK03vv0mkA0onsHojLVksZY3CbICVc9neZLF7vxEXEFzYQN70Ni
-	 QDFQ/2Fbir77ueWr2dj9qjMqGOJ0BJ011U+xUGugHyi9+xQNCV4uGXfsVE5hiA4aTB
-	 O4Whz8+BW2SXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/3] dt-bindings: sifive: Add WorldGuard Checker
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chien Peter Lin" <peter.lin@sifive.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260619105834.1277302-4-peter.lin@sifive.com>
-References: <20260619105834.1277302-1-peter.lin@sifive.com>
- <20260619105834.1277302-4-peter.lin@sifive.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jun 2026 10:59:56 +0000
-Message-Id: <20260619105957.444AB1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Etz52wTW"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c029505b389so548225466b.1
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 04:30:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781868636; x=1782473436; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TucRX2gfPFMDDoN8Mlfxd7xl20UMCrUn0QTYPFwhHT0=;
+        b=Etz52wTWkI4bhj0CdKng9/R/gYBfj6UDCv7MldiXXYV605g2pZhhKnR1hD5ht9ZRFG
+         SIA/dKbfkPhB4w860ycLxihr6pn8o+UygBUrt5lRxsR/ObvXXTVTGVR89QRxZFzJvAXT
+         EDeL5acLO2xO3WWMWvWjXVhBWM0e1sJJQLpLywh1xe4tDgFFzrZqhQCK2VfFphbnFFkZ
+         ftrSVNRuAforeADike9HYoagXpNN2+GSmrPhHrb+0PqTb9pPQhPId5W2VWX3QldniHsZ
+         rSSzP37uijWvpInZ5IORu33HZceVZylUTpVej0S7rYPWv20qI15uAeXMQ/M/k/rihdrC
+         Tpmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781868636; x=1782473436;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TucRX2gfPFMDDoN8Mlfxd7xl20UMCrUn0QTYPFwhHT0=;
+        b=NaifDD7+E5x39G2iB5RmxoHO49c82KUb3UCWTaZ5iYItNGMKpllxFgQn1Ja9zSFArn
+         B14Rgzgr8u1gYRCnDO7u/jEuzZZLJ3DeEzjT1ThE0okRM/W6jzwgskkTckcC8oj9CfG3
+         uCsfTegGNpZMkLCU9o3gKXmQTsc5Iop7HtfP+dbQViuBfQXReZ+iY6d+7pMaTfuOFn3R
+         2lr/YWfD1CTPRRei9isxl0URwqRQzIo+KBE6MqM3T6uKBVNZNTay1s7QAhxc56dkhCf3
+         /SpYua8Xa2SmzInCZJcOaT+rG9WxCxDY1nyCSusbwY73t3shxp3YOQNLxbOLmJl4BTYg
+         Wnjg==
+X-Forwarded-Encrypted: i=1; AFNElJ9D4acbO6GDh8jfPIpjxd7ymcZqmixJSiVbuTuPXEdeF1S+fM5TXne3WynJHC2vqEvyZZiHrD2fPAfO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzdy9gLU6j/tBIsjnN/LUZ1lIXIaqgHFy9PPECnYn5xwCKEl7gp
+	1fMzSbeXHfeT6tUEdh15y9uyviq62L3blYqIbwqAq0L2YqTT8+4quwqoWDUqOA==
+X-Gm-Gg: AfdE7cmwwZOiakDo3b2JB49JEYmqmvKwRM15H3sEmJUTbUexZgUKiNTMqRIbIDnnmDm
+	4jdc+L7bk1kLQLbSJVL0xsxYSA8MGLT+6BwCwyEuBbdnDAP3/Gr4aOCNVVfbQ2oETB/hV1qzBms
+	9Jsuu/GbHsltbwLDhaLz6bfeQPIHoa2D3tz+5J9TXpKtnfMsgOArjttldp0A/kW1534E1gHc1LX
+	gdkZH+BnMLwZuVQ+fY7rD3A3qSM9DU4weI+Bfw+y1MADp4RIRevUsM38lPGxTDzVlWiedsCaCXy
+	tZPUy9BAJ8DgW/j8HAzEQuhMawn1cPHhuYfQVFGJn3gR0CozapkzIC4OjpvKW1aGa6pUMPcbxTp
+	O985s+IADztXU7A+MwF2gbX6+8mjAMUm0s6OTxFBf0uhDa6k3htav9kmMf9ivNLr35cdz+uktP7
+	0MK1Zy
+X-Received: by 2002:a05:600d:84ca:10b0:490:e180:2e0 with SMTP id 5b1f17b1804b1-492409fbfb9mr28275055e9.3.1781868623638;
+        Fri, 19 Jun 2026 04:30:23 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49245711032sm16710165e9.0.2026.06.19.04.30.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 04:30:23 -0700 (PDT)
+Date: Fri, 19 Jun 2026 12:31:24 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Janani Sunil <jan.sun97@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, Janani Sunil <janani.sunil@analog.com>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <ajUniw8HEuAIBr-a@nsa>
+References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
+ <20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
+ <25mh6grzh7zh3b4uytcqnusyv5zjuf6ia4if3ce3oqzqz56ehi@le72iqv7ye3d>
+ <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
+ <20260614204455.408c4d40@jic23-huawei>
+ <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The `#access-controller-cells` specifier inappropriately encodes 6=
-4-bit absolute physical addresses and sizes, bypassing Devicetree's native =
-address translation.
-- [Low] The schema examples reference an undefined label `&aplic_m`, causin=
-g a `dt_binding_check` compilation failure.
-- [Low] The `sifive,trustedwid` property is not explicitly disallowed in `r=
-iscv/cpus.yaml`, allowing it to bypass schema validation if erroneously pla=
-ced in a `cpu@*` node.
-- [Low] The examples in `sifive,wgchecker2.yaml` omit the required `interru=
-pt-controller` child node in their `cpu@0` definitions, leading to a schema=
- validation error.
---
+On Fri, Jun 19, 2026 at 12:33:11PM +0200, Janani Sunil wrote:
+> 
+> On 6/14/26 21:44, Jonathan Cameron wrote:
+> > On Tue, 9 Jun 2026 16:47:23 +0200
+> > Janani Sunil <jan.sun97@gmail.com> wrote:
+> > 
+> 
+> Hi Jonathan, Rob, Krzysztof, Conor,
+> 
+> One possible model that would also allow mixing the 12-bit and 16-bit variants would be to treat the parent node
+> as the shared SPI transport only, and let each dac@N child carry its own compatible.
+> 
+> Rob, Krzysztof, Conor — wanted to get your input on whether this is an acceptable binding pattern.
+> 
+> properties:
+>   compatible:
+>     const: adi,ad5529r-bus
+> 
+> patternProperties:
+>   "^dac@[0-3]$":
+>     type: object
+>     properties:
+>       compatible:
+>         enum:
+>           - adi,ad5529r-16
+>           - adi,ad5529r-12
+>       reg:
+>         minimum: 0
+>         maximum: 3
+> 
+> With a DT example such as:
+> 
+> ad5529r@0 {
+>         compatible = "adi,ad5529r-bus";
+>         reg = <0>;
+> 
+>         dac@0 {
+>                 compatible = "adi,ad5529r-16";
+>                 reg = <0>;
+>         };
+> 
+>         dac@1 {
+>                 compatible = "adi,ad5529r-12";
+>                 reg = <1>;
+>         };
+> };
+> 
+> The downside is that it introduces adi,ad5529r-bus as a compatible that does not correspond to an actual
+> standalone device variant - it would require a parent driver to manage the shared SPI transport and enumerate the
+> child devices. The actual DAC functionality is handled by the matching per-child compatibles(12 or 16 bit).
+> Is this an acceptable pattern, or is there a preferred way to model this type of addressing scheme?
+> 
 
-commit 26cbbd0f7310c04b5d6fe920375466bc89dd2479
-Author: Yu-Chien Peter Lin <peter.lin@sifive.com>
+At some point, I wondered if we can't just have this at spi level? Like
+(in the simplest terms) a new spi-peripheral property that would allow
+devices to share the same CS. Then we would need an adi,pin-id kind of
+property for this device but the bindings would be pretty much as if we
+only supported one device.
 
-dt-bindings: sifive: Add WorldGuard Checker
+I see Mark is already in the loop, maybe he has seen this kind of things
+before.
 
-This commit adds a Device Tree binding for the SiFive wgChecker2, a
-hardware firewall enforcing World ID (WID) based access control. It enables
-spatial partitioning of memory and memory-mapped devices by providing check=
-er
-slots to program per-WID permissions.
+- Nuno Sá
 
-Link: https://github.com/riscvarchive/security/blob/main/papers/worldguard%=
-20proposal.pdf
-
-> diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Docume=
-ntation/devicetree/bindings/riscv/worlds.yaml
-> index cc8b3747591eb..c39a06c2dd8d3 100644
-> --- a/Documentation/devicetree/bindings/riscv/worlds.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> @@ -34,6 +34,14 @@ properties:
->      minimum: 2
->      maximum: 64
-> =20
-> +  sifive,trustedwid:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-
-[Severity: Low]
-Because riscv/cpus.yaml includes worlds.yaml via $ref, does this
-allow the property to be erroneously placed on individual cpu@* nodes
-without failing validation?
-
-To enforce correct usage, should sifive,trustedwid: false be explicitly
-added to riscv/cpus.yaml, similar to riscv,nworlds: false?
-
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.y=
-aml b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-> new file mode 100644
-> index 0000000000000..043c748385ed4
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
-[ ... ]
-> +  '#access-controller-cells':
-> +    const: 7
-> +    description: |
-> +      Specifier for one access-control rule, encoded as seven u32 cells:
-> +        <addr-hi addr-lo size-hi size-lo perm-hi perm-lo config>
-
-[Severity: High]
-Does encoding absolute physical addresses and sizes directly into the
-access-controllers array bypass Devicetree's native address translation?
-
-If the protected device is behind a bus with a translation mapping, or if
-a bootloader dynamically patches reg sizes, the hardcoded addresses in the
-firewall configuration might be incorrect since they are opaque to DT
-address translation APIs.
-
-[ ... ]
-> +    cpus {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +        timebase-frequency =3D <1000000>;
-> +        riscv,nworlds =3D <4>;
-> +        sifive,trustedwid =3D <3>;
-> +
-> +        cpu@0 {
-> +            device_type =3D "cpu";
-> +            reg =3D <0>;
-> +            compatible =3D "riscv";
-> +            riscv,isa =3D "rv64imac";
-> +        };
-
-[Severity: Low]
-Will this omission cause a dt_binding_check failure?
-
-When validated against riscv/cpus.yaml, the schema strictly mandates an
-interrupt-controller child node for cpu@0 nodes with compatible =3D "riscv".
-
-[ ... ]
-> +        wgchecker0: wgchecker@1c2000 {
-> +            compatible =3D "sifive,wgchecker2";
-> +            reg =3D <0x0 0x001c2000 0x0 0x1000>;
-> +            #access-controller-cells =3D <7>;
-> +            interrupts =3D <80 IRQ_TYPE_LEVEL_HIGH>;
-> +            interrupt-parent =3D <&aplic_m>;
-
-[Severity: Low]
-Is the aplic_m label defined anywhere in these examples?
-
-It appears missing, which might cause make dt_binding_check to fail with a
-"Reference to non-existent node or label" error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260619105834.1277=
-302-1-peter.lin@sifive.com?part=3D3
