@@ -1,100 +1,120 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F973B7B84;
-	Fri, 19 Jun 2026 16:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE833BAD92
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 16:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781885841; cv=none; b=kPkebuuugqRPgBPaoC163rWAujFm8dJmbeOo7vEP9Khbfktc39Z9wrjF4IL4wqOTCSoYIRywMhjtYa8Bp4i6sun0a0FQ5fTeAhf6I4LQnTsor3vniKaha1n8dlqsi59sJCOLJHwWSxTMTPWFkTAzJdKjVb+cjitlfQOlqiwYDOM=
+	t=1781885868; cv=none; b=J4c2Vi0YqMfRdHr7AlPiE+u97hL7QcfEfFAP1NerUYFTW+9jtUrk2yAKbb3fgVXKylJ1Pl73giu+6+86Gr7Pm5/tQKIWkClUB/6AiupvoUlAoKdY/B82SRBkAU5tAhpwYEN68fuyjIz1rZGO57WIPGkXosUCbjC1DK5fva0PmPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781885841; c=relaxed/simple;
-	bh=Hez/6THJzlNXGiz/OjgNp3YP/wptBZbyvAYu93ZLYJg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SKVG3WIGtdnupFfiqnfbK+JkDAofctq980eHO1AeVk9w1F1P9MRmdCVQgpKDkOxqsLhVpAPftpbQQRIJWHsOUHrlZX0WcsFr0T8jYXo7HVifsgUp49d4UHX5SjHJrb2B5BVm5QadXRjdKv7EqhngFRpAB1xCbT3oXXrfM4H9eYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=FbFcWs3f; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1781885868; c=relaxed/simple;
+	bh=juKFP4M3ulZMZvtYnJO+EyGKkoHe95cLoiQ9GeTdJzw=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qwr2EU8eBb0pKjwOivUxBsF1ObF+QqUK0tB9yiK05JoLPrf/enarVU0TVchPK0Gat2CMt1LGKDO7QLYcz6OPDarlSRANFlO1LtoyP0yWmO7JMCwv8U9SuD2/0VAWnGoEkE+6ohb+375Ofwq2eT6D5k88TZoeIntSyAVO+Jofl4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JKx0kjzu; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="FbFcWs3f"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id EE47740E00C0;
-	Fri, 19 Jun 2026 16:17:11 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id CsVRI4SkSUaf; Fri, 19 Jun 2026 16:17:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1781885822; bh=0NbenZSMXYebM0Gsy498bp9VLyj7xrVg223GYzgur9k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FbFcWs3fCT+DOLcODMx5M/yVEJZdNzuoawHCl1GWlb3q3WvRGXUm2KvJlevmVFMZL
-	 tL7TxH01Onso0WohYbvzLPMCSl3kTfxO8eTfAuqQWLSUmKOsg59gM/uJ9N+9mzGRx3
-	 ksfljx+eViwR7yB+f8OJPGScVVl0B+o0ZvXnRvz9cFoGlPWVEbe7PSIoVZTgBF/xPj
-	 BmocnXhL2JHAfEwTYTKeuD9tYymxd4meODFtB5D1PEO9534K4APooZhOp4Vsmhh7ev
-	 yp3W5t2X/r8mgSvP4y/3EwCEYoQRRMY9Ct39i7czoHxBsc4EJb9WKVFo+bhdteAgk4
-	 Hd0X+oD4Y6sZ5/J6pQ1l9Oabw/FHU0dYcesErG4rN5NsqBfJMX8ufJj8N9h1+Fe/aE
-	 u4JU/HO+Z41xW3uIROhBROSJm+RKgPMvJxus0Jg0+hjWUzGd26c5EAYyGhcmqoqcPS
-	 FI883ZndyvWyfSx7ng6dWWD+cQbLFTCFcwjEu8zwIX7/i90FBcNkHSjxNNiLCnIuMv
-	 KuW5+QNqhlqLngdHCvwu0ovDm2BOs4WctgZ6SG/HZcuhSdILDLj/AOPjYHikvu54Nu
-	 lM9/oDOH2UZ1tSifvg2PzGpMItuQLQNHyEK9NaZjs4deQdg7LSMdaeelOMnhflahLp
-	 FD6yNSBYpTKHOXq5Q4fVdj/I=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 35D8140E0140;
-	Fri, 19 Jun 2026 16:16:33 +0000 (UTC)
-Date: Fri, 19 Jun 2026 09:16:30 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ahmed Tiba <ahmed.tiba@arm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Tony Luck <tony.luck@intel.com>, Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>,
-	Saket Dumbre <saket.dumbre@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>, Dan Williams <djbw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev, linux-cxl@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-edac@vger.kernel.org,
-	linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
-Subject: Re: [PATCH v6 00/10] ACPI: APEI: share GHES CPER helpers and add DT
- FFH provider
-Message-ID: <20260619161630.GAajVrXuZ3XWvK83G7@fat_crate.local>
-References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
- <20260618164807.GAajQhR9J_00j4LxaC@fat_crate.local>
- <eccbf574-a145-47af-889b-ca6dd80f98f2@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JKx0kjzu"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4629051c9d1so1709636f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 09:17:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781885864; x=1782490664; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NHhY6r7tYGyh00foyp4fyhhHDc2Zg99GnNa/YDtNxNU=;
+        b=JKx0kjzuaL5MgQCNxoqYE+gI3UeRXYeWKa7Y9C1Fih8uARcV1fyU17AnN4MVGkDryu
+         d27V19+qTwpY0pMFWBgFPq3u9xtqFIdl+6WtsnUL68ELEpcyPXoP8+4Izdg1hbC1TpiR
+         qRUvkNK+VHWDx/eei9sruZw2eJ0NMkQ2Hi80wFreEDd493iW5SsRjvOLAMdB4sJTxC6d
+         E1I8Ty2GHIB7aOqMoxMngskkTYv5yvFP2ld5elA3GzYh7dsK32W0jajVVau4JQDlz+bh
+         /f++z4iUNqBR8h5SRMBLAiBEtbwlSDolkA87DIHsUko6otg+itAIywwX0TQemzskcdBA
+         TfSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781885864; x=1782490664;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NHhY6r7tYGyh00foyp4fyhhHDc2Zg99GnNa/YDtNxNU=;
+        b=rT4CN9GJrO6ZYhQCg5rpb+ZAGyOSHMzl9IHAAwz2nyiLNBpHyBIOYXPdwlQB7X/RBi
+         Y2QOK/OlGoSteBKGT+mivZ9Pb5Y1M8UvU5/jB1lLTF4tMZ4DdJiYvLnAigj4AsckCoxC
+         uQc6tptZNpxQFfBG7Pf3DbQcPvNgfkezJGgNKPsPxeiXc6UwtuGLTM857+68DPmW6spu
+         tQaXN7OkJ6IDal47r/1OsEoHSZPt1UN3xeWWQ7Or8Qmfpz+3dGqJYwdejAcFso3Aj1QO
+         JoFV8oSWf1a8K6kcBrPv2mNURZVqw2WNjAkQbylbJJTBJRIoCtNIqRaYA7wxu+/G7L1c
+         DjrQ==
+X-Forwarded-Encrypted: i=1; AFNElJ96Ph8tF6yyrLvx4vUTKegrYUTtkmKGTA23TVfmotnK7A7kA4U9CgunjWBPVmkaTXwXpsXgddn06qr7@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9iOBmFImd6AEHoSGw1lndMkdN+gLLNcqTAlumn8eQL7+KUzEv
+	5BQMP4+gTCoKsL9MFlOKb4oksGosp6FcAjcc+U/kShQlvNKsKJALR/2t
+X-Gm-Gg: AfdE7clxBdqwEKvPcVOcbfl8dQ+AMKqBLwyGinQ6+coKadmBwWdtdw9p/qU36qnHZ0H
+	yjrQJcx9fcxzslwg+d3Ylz4tZoqXt8NjhT3mQJOOQJKzd02bj0I4f/NIyy/YP6+lGj6kWO4u0Di
+	3irSKR5iQk9IatVnwTIVKmuHYwq5Jfxycg3t09Nv12V7n72RfBNiTrLyew6WLbwnQdawQxzYT2u
+	Qs1k3nPOTi+VXnBOyRLdGpXVq86eOowE+7XMsISq9GJybrfGvUIj3lOuX1FmdKUu4YCId6yVZ7O
+	NbWPLf3h7HSSHM9xqFl5e/3PCMTzXvblNF+EXO+E+tKnRFi9EIAT3UhjMj9aJHBhhmA8v918iub
+	wrjKfVB88zq8pONZ9R9hjwR9/c95pHUrNx7kkd6IKQ48KFFqJsiV+DPGPCPV/r0mgqapKLK6YgP
+	8bF6TSEI4YfL7ptOM84igTrCzp8z2cQWBP9hxNkq7UOhn12oXIz2uZe6ra6gYguaRfSQmWEVdDj
+	MGsIu3mp1c5ufkbWeLCwjc/Ptvo
+X-Received: by 2002:a05:600c:1f92:b0:492:3670:85a7 with SMTP id 5b1f17b1804b1-49240eb1347mr71855945e9.35.1781885864196;
+        Fri, 19 Jun 2026 09:17:44 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46666c57b8asm131866f8f.26.2026.06.19.09.17.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 19 Jun 2026 09:17:43 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Fri, 19 Jun 2026 17:17:37 +0100
+To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
+	rodrigo.alencar@analog.com
+Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v3 12/12] iio: dac: ad5686: add gain control support
+Message-ID: <jcn5gqsjezxrnk74hrsujp56e2iqlr2iw3nwvtwd26zvexri5p@a25egmpppagh>
+References: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
+ <20260616-ad5686-new-features-v3-12-f829fb7e9262@analog.com>
+ <ajEppnu-AWSbbihS@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <eccbf574-a145-47af-889b-ca6dd80f98f2@arm.com>
+In-Reply-To: <ajEppnu-AWSbbihS@ashevche-desk.local>
 
-On Fri, Jun 19, 2026 at 04:41:40PM +0100, Ahmed Tiba wrote:
-> I will address the issues introduced by this series. Pre-existing
-> behaviour is carried forward unchanged.
+On 16/06/26 13:47, Andy Shevchenko wrote:
+> On Tue, Jun 16, 2026 at 09:21:18AM +0100, Rodrigo Alencar via B4 Relay wrote:
+> 
+> > Most of the supported devices rely on a GAIN pin to control a 2x
+> > multiplier applied to the output voltage. Other devices, e.g. the
+> > single-channel ones, provides a gain control through a bit field in
+> > the control register. Some designs might have the GAIN pin hardwired
+> > to VDD/VLOGIC or GND, which would have no "gain-gpios" device property,
+> > being able to set "adi,range-double" if it is hardwired to VDD. The
+> > vref_mv field is moved down in the struct ad5686_state, so that the
+> > overall size increase is reduced.
+> 
+> ...
+> 
+> > +static void ad5686_init_scale_avail(struct ad5686_state *st)
+> > +{
+> > +	int realbits = st->chip_info->channels[0].scan_type.realbits;
+> > +	s64 tmp = 2ULL * st->vref_mv * NANO >> realbits;
+> 
+> As Nuno noticed in other patch review, this can probably use mul_u64_u32_shr().
 
-So you carve out that code, you use it for your use case while *knowing* there
-are preexisting bugs. Wonderful.
-
-Sorry, first bug fixes then features.
+This would be need in case the multiplication overflows, which is not the case
+here.
+ 
+> > +	st->scale_avail[2] = div_s64_rem(tmp, NANO, &st->scale_avail[3]);
+> > +	st->scale_avail[0] = div_s64_rem(tmp >> 1, NANO, &st->scale_avail[1]);
+> > +}
 
 -- 
-Regards/Gruss,
-    Boris.
+Kind regards,
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Rodrigo Alencar
