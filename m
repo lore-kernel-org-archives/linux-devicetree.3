@@ -1,67 +1,66 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010022.outbound.protection.outlook.com [52.101.84.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68AD8337B81;
-	Fri, 19 Jun 2026 14:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781878851; cv=fail; b=W6OczenzPa1TuNHyISFS2s8QsKbdKpjpRyevJaCMqMPmnPgRxPPRCTwusLb3jccO5rnmoxnGFzc62SvdV4xjh8J4hPxPt7IjWqhKhGxyhD1WY4NG9zH/Rf3sb0O3/HKaIFjQYA6nQ03FrXRWSegFl7LzpgCFMq0++x07BGmkmeo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781878851; c=relaxed/simple;
-	bh=n+JNPyooet+myogZIsxIfet2UQ1EVk8BnFf19GK39tc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kr2U7nFjI/nbYRDZ1hVZN216q+euhJtPbTvYMqwrdYvJgZeCQwFqij4ddpHZrpbJHa6wU3bdJrwioatyQxc+1+qpbnL4aw6DDWD/bSRd1O2g64DcFEM7fePGoIvAc3RkLTqJYMLJST53y0GW3uedq0fMmhoEHCsJyCkqWtPG6Ts=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=YHXwa86F; arc=fail smtp.client-ip=52.101.84.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106211A08A3
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 14:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781879012; cv=none; b=ucenmTY7MZV1ltuPp6Siq6enDSjciZIjmHyg+K1mKZ37GjXdN7hXjX/+jyrOb9cNbF3K4wTMZlLol1VjnTv01SRpRRAP7O/4MUgJprOHWaCMyEdKmGkRxn0ulUHDm4ezaxkkpw7GYi+27bweFogwJtbcFfaOXRcj+ocOGXPK1+4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781879012; c=relaxed/simple;
+	bh=0KgKbB/LFgHIVH+5Cu5vvnaBcTgSf1gspm8zvn8rEZ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OVoZ1vYMw18Xrl1vm+FbOGYErir/DqCiN9PhYQmbIlROl/IBQuPqFVZ4A+v2vtGTft8dsiC0u+ItAK1OgalrBDP+x6Ffaqj40bkSSJ9mVa6yDv78fiEas7JXdOyf563NA16vnhF61xqKM47YtzM78gFjdTSbDhhpTcP7vpLjPa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JEF7vM+p; arc=none smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="YHXwa86F"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iMfksfsI3n8DBm3y2UDHwgUVFK78J3r9TPS5gdxQxam6FkORUL7OTTUE7BcPa6r/d9hubVE8cyffTpb0p/6eoEt2p2ODXZVakkfP96MfuaYB4P/WHgVqd3j8tfkRerHBt/CWbkZUkjL/qlOwz+Gf8NlrYtd7db+h9/ao4yYYCLLcknptLOJzZd+NdSPrpG1PMxo/uEQxv1VvsnqqI7c4SIfs1r7CnxvjhL0AaXYIQJAmk015yASv6uI6vo0ABwv+H5plmwj96HoRb1hvDkR5jEWDtxAuU5BdYyrjkfRUi0vZMfRUPai/TEVZVhjrk3ycrof3Jt5F2HdJNbW312PYNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VIPHHULlNEKIcH7cSlFLAnkO8TQhULfoKXdEMBRrJQA=;
- b=QKOC0RYM36yyDInMspOPwb9dAM7YoXcqkfMqGjcEMRJfAmiehgc41jagncCqqpjfJ/18zCmv0p3Lno4hVQIxM+ahB5WGLSw/5OiEOzIb9SlAYDjb+BphAJ2mtLwin83bqyVn9ZEASAxnwdJY9zU+UhHNwq2qFvHk2uVygk8pfrUjzxXQSgkiUOiD3B5nWtFZG1MfFtfuO0jIxUXR1lLuPkw+M3rW6GPIUFJ63IGtKdyB9fQx8c4MVEF7Rdx1RPo70U6ecyRKj76SILSB66mkK7X3dIOg7VwBslip9PGXnOozLcBzdM9128PAoQwo0q2ATpu5bkiGcWDsBrQusiS/7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VIPHHULlNEKIcH7cSlFLAnkO8TQhULfoKXdEMBRrJQA=;
- b=YHXwa86FnKLBs/IDErKP0/myexgnPHHP3TEQMRvCQJyhwGX4Zs4oHz3eoK9zPV/h+gGSuFUQdCcbThdBFdbL3lo6VYFZdD6p2dHkZlfJXx60dgrlglXxJI3TIX/J0btKwDoAerS7N8B/NzyhKL1lbL2C6/MyAXjRsTEFC73QlQVC34CBvCT1Gd/b6/O4QuRTXPfRm6irApOIfaDGXIqRnFI2U1baTOi976BgW8QyxpcAZj67afmtNzrIb9rzdnO/xsfKjJ3LN8Uy++6s/bRTCU6m/rejRO+BlQZ8Iz7qnVkYxFNhU3I9jvwM/R86lmvDbeiI8qwVStVAvokg5koskQ==
-Received: from DB8PR06CA0063.eurprd06.prod.outlook.com (2603:10a6:10:120::37)
- by FRZPR10MB9918.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:d10:1c9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 14:20:47 +0000
-Received: from DU6PEPF0000952A.eurprd02.prod.outlook.com
- (2603:10a6:10:120:cafe::48) by DB8PR06CA0063.outlook.office365.com
- (2603:10a6:10:120::37) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.15 via Frontend Transport; Fri,
- 19 Jun 2026 14:20:46 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU6PEPF0000952A.mail.protection.outlook.com (10.167.8.11) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Fri, 19 Jun 2026 14:20:44 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
- 2026 16:24:49 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 19 Jun
- 2026 16:20:43 +0200
-Message-ID: <00851f14-1ac4-4faa-bfb3-b5b7341fe530@foss.st.com>
-Date: Fri, 19 Jun 2026 16:20:44 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JEF7vM+p"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-69e8aa31e9fso1100739eaf.2
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:23:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1781879009; x=1782483809; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=afdKuEOlRvpeeu7or0T+Pz7xBujPRD0ovV3SVztW73U=;
+        b=JEF7vM+p4k9PbK5L8j19y+f6CwbZnMOmtTaurNEHhHm/wAtk6bFydwJKpAuCZNO+wl
+         B4V0drZJbEebODdjeZz+7PDsD+nldq7VA+oazaRf9cT3j9Xptx/4sLLwjiMgiNOCxPvr
+         DYk4AvITHGQeI7RAH4zJTqJ83EBtdPMGR19jAxvk9G0YF0usGZTr+/8Rq66wPiIewTMR
+         yiJEAKIwpazkPX5Z+bsogu7ZfiWWBod1m7TXZD5IYcz3wWmL69wLXc1DXsKOx/pbSJkM
+         WDfN8Lz39GHiJPDBaU88lE61OeEDqt5PTgiuZLL3ZBw7b/OP43pGImuqtx3DS85mYO3B
+         AoHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781879009; x=1782483809;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=afdKuEOlRvpeeu7or0T+Pz7xBujPRD0ovV3SVztW73U=;
+        b=jT5ZKTvFB0sU8NXPIcXfS4xPI6i9BBEIFjIhPeIsHWvfS5BhIEpz2NB4sdShO6KtGA
+         r1WqCf78zppCHdWoDltK+16Friyv9KCuYk0HbrFkZVJmdTgLpcleZIVxH8EsT10Awweo
+         /lhxe9O2P8sxmYQhSs5WDdzb2aIDPyLuEb8OCbyn4UgUg4QBhmByuITxUMggpqpx071L
+         Dk66avwiz0VX8wQdC2vTBClTI2BnqX98svxHG+QMILGCbDqF/pdpq4dvjVClRtI9ITZB
+         kekjCo/AK288NGH7yt1DtQzrs7FgejE6MsoXkbVOIs6z/BE04XiYQYerUxkysGBlu0eX
+         oCSQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+CRhr6q+tSgo2WD8hNjIYark8kapiRxaQNJ0YuPYDvE8P1p9NgKX/PKB6A4OHyiA8m6ZZiGm7noh7Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXYVlatVYGWy+m3KEEDVFi5zEIonuG+0+kvQ4ubxkV1Egjrfr3
+	6ehlsqnBdbqN+mza5t/Z5SsCtUuW53ntlD6c7PQ3RFefiaTmKtZektQSx/kqTXVubIM=
+X-Gm-Gg: AfdE7cne7hFZ/NF5zgEW6Hiby5TeYnsivbqG0VsHJCSaLe/KQO3TUtfwM2Ljq2jUkih
+	1takQHSW6c1WDr6SYiNcpSFnbRjUZ0g/cYxxVzjq5ix4EBWdumyuZU79LY+bi+W8y0GxJgWD5v0
+	85wnMTAg17266QcCZVQhc23JTxEebXaY+dEdM30ZEjSjmLuLQNg0d5YRZ/VhQf8KsnrVM0JA/vN
+	7cjiK15eShONSpDhNg1ArGgE7Qn7km4L+LOEppoT55q6r9gqK9N/mdv4YCa+vJpG/on/eATd6xl
+	cX9KztnExlCsGls+cDQo+AIch/LfhJ5chyFx2LR5L/shxLrXLDrKTdO/07nJ1cP31PNQQf3wtlg
+	4LNjBOkLGbU1bKZH7sjqO4AOnsKDS8Zsx3NplKJPP7uubBSRSygM7HyXrIOP9ZljSecVbCiCbLu
+	FkcndAWaaJtHZtgPjWmz2rnHI1V0YhSRm0eWV6/ekcqnAIJVThax8NyKM/JQ==
+X-Received: by 2002:a05:6820:1f06:b0:69e:b788:36da with SMTP id 006d021491bc7-6a0de0dab5amr1962410eaf.37.1781879008926;
+        Fri, 19 Jun 2026 07:23:28 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:dd8:d93b:3cde:c07? ([2600:8803:e7e4:500:dd8:d93b:3cde:c07])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472e79af8fsm15862fac.0.2026.06.19.07.23.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 19 Jun 2026 07:23:28 -0700 (PDT)
+Message-ID: <7b93cd3a-8aae-494a-a0fa-540bafcbccaf@baylibre.com>
+Date: Fri, 19 Jun 2026 09:23:28 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,82 +68,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] media: i2c: vd55g1: Add vd55g4 support and various
- fixes
-To: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>
-CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000952A:EE_|FRZPR10MB9918:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c810af7-e832-4b07-5fa5-08dece0df3ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|18002099003|22082099003|56012099006|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	y5IYUS9wJzeoNyrYeEmeMtuhdB9e4+IdlUGUg/ZUI+m1yHWaBINx8LH639E22IaZmMh06wOoFLab/xs+jdtnTzOmww4kuJYUd7/fZpaT+2GSnFK+6j7peZHZ72Dcbfg16yTxJnbYerc6aHNCgI57zopZpSbQb2bSf+IEmmbtUv6W4t0zUik+ydghnBPIv/BYpWbHNNIWHlcZfPun+mA+2GIjvjwLVBJ+8yMKXyGDd9RCSdW1PSh1WX7yUOrLge/oHfQjjMpZ23N8o2ljBt+M2oAG6JywUH43dJ6NcFZGKPiTkkLwrnoE3Kc1Kbx78hZBcmo0P2Dw3OjArqMARvmxOu+w4YMAKq6SIw6VoMOdkl6sWpVKt6xgMhvmtf5N+03p1bHR5xqqzyasAr5QYoPehaCD+t0vQzFgzvW3qUEHR2JZCBWKrgW+N+UtttKib6eMRuOYo+tLInY2VH1kSNKMhC99AD6RYY4/hsMsN5L1LpPYx4lLL3hZnstp0vlSiygbAXUdip0bsUOl0QF3vMPeS+U3a/iKYZE3woPfxmExhgcrYQWXp4i2FbLzVrZBzZnvBzbV1AiRiQRkCKYjMbz92l+iPLeooCjSDEjJokMQt6eQrZPoIhVmoMyKr1loHMDHWQp0XkoZqEG7/Ts4+8hxd6G9+dgGgLLWaQrNyKzOr9PklidjpcrLK7hOkNNe7kmXv+XvZz6pFD+6PppycTzwMg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	R/y2ggzAjBHazM1/ihXMdUQ3M8w+RBh22Yamet2XcdM1LFUx3IJRmiubX6w71AXHhhRE+kyomb8DnFx0cZepo0z/RwKG39rZjL2XarbbmosRLFBOEhIoLllXG3hkRhj90bqeC+VcGf0jqKmmft3dpWCXuyRIt/Ri23tszIkBWIP8/FFL/M+KgW4x63r3ekYsUuS05xSQ3IaUFBLnU2WpWil3DlPKKdELccdA9T9/OqE2wksb3Hv3eZIkiH0tWUuDmYtqMjA4GGrcR3kx7ts6HkXPiiYDrX8HSz+OhAxFT7JGUpKiOjHpZT0bofNrEtJMXXa4tc2IgZMm1Myxl7y8iHFNHB2tX2iYetgSTJAshIZiSRYUvmR86TZfPrsTIqb92MwP7YffY5hSBuwTdzEcqRvYu7+wRW3rCF1QRjJARnz4TrtJbScRLuMMl5puoS6R
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 14:20:44.9995
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c810af7-e832-4b07-5fa5-08dece0df3ab
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000952A.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRZPR10MB9918
+Subject: Re: [PATCH RFC 0/3] dt-bindings: iio: adc: Add reference, excitation
+ and burn-out properties
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-Gentle ping so it doesn’t get lost in limbo :)
-
-Le 28/04/2026 à 10:40, Benjamin Mugnier a écrit :
-> The vd55g4 is the monochrome variant of the vd56g4. This series adds the
-> necessary code in the driver to probe and stream from the sensor
-> in the correct format, and a new compatible in device tree bindings.
+On 6/18/26 7:33 PM, Kurt Borja wrote:
+> Hi all,
 > 
-> This series also fixes some issues I encountered while developing.
+> After submitting a patch series adding support for TI ADS126X ADCs [1],
+> I was made aware by David [2] that at least two more chip families,
+> ads1220 [3] and ads1x2c14, share very similar features (though these
+> chips are not really compatible between them). After that, I found one
+> more chip with the same features which is already upstream, the
+> AD4170-4.
 > 
-> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+> As David explained in [2], these chips are intended to be used with
+> RTDs, thermocouples or other resistive sensors so they share the
+> following per-channel features:
+> 
+>   - Configurable reference selection
+>   - Burn-out Current Sources (BOCS) for diagnostic purpuses
+>   - Excitation current sources (usually called IDACs TI) for sensor
+>     current biasing
+> 
+> Given that these three features are present in all four devices and
+> three of these drivers are still under review, my proposal is to have
+> these features be described in adc.yaml and have this series merged
+> before the three others [1] [2] [3].
+> 
+> This series is sent as RFC because I still don't have much experience
+> with dt-bindings and I don't know if this approach or the properties are
+> general enough to be described like this.
+
+Generally, we don't propose bindings without users in the same series.
+I was going to wait to see what feedback Jonathan gave on my series
+before proposing this.
+
+> 
+> No dependencies between properties were provided because not all devices
+> may be able to configure each one of them.
+> 
+> [1] https://lore.kernel.org/linux-iio/20260612-ads126x-v1-0-894c788d03ed@gmail.com/
+> [2] https://lore.kernel.org/linux-iio/20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com/
+> [3] https://lore.kernel.org/linux-iio/20260610151342.44274-1-zizuzacker@gmail.com/
+> 
+> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 > ---
-> Benjamin Mugnier (5):
->       media: i2c: vd55g1: Fix media bus code initialization
->       media: i2c: vd55g1: Remove spurious pad format update on init_state()
->       media: i2c: vd55g1: Fix manual digital gain on color variant
->       media: i2c: vd55g1: Add support for vd55g4
->       media: dt-bindings: vd55g1: Add vd55g4 compatible
+> Kurt Borja (3):
+>       dt-bindings: iio: adc: Add reference-source property
+>       dt-bindings: iio: adc: Add excitation current sources properties
+>       dt-bindings: iio: adc: Add burn-out current properties
 > 
->  .../devicetree/bindings/media/i2c/st,vd55g1.yaml   |   3 +-
->  drivers/media/i2c/vd55g1.c                         | 141 ++++++++++++++-------
->  2 files changed, 99 insertions(+), 45 deletions(-)
+>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 47 ++++++++++++++++++++++
+>  1 file changed, 47 insertions(+)
 > ---
-> base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
-> change-id: 20260428-vd55g4_and_fixes-97dc23b6f266
+> base-commit: a50909aa46dec46de3c73235fc15a7d6f763d996
+> change-id: 20260618-new-channel-props-4fbd52020da2
 > 
-> Best regards,
-> --  
-> Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-> 
-
--- 
-Regards,
-Benjamin
 
