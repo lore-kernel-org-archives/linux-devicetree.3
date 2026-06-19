@@ -1,142 +1,375 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FA034D3A9
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3A9314D26
+	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 07:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781855028; cv=none; b=V7OqH1qeXj9pq6xrUq5kAIXdyVMJyaUp5l59lJyY19vu//yn6Pzx+o90+9b6ULUIL8qENffvjND3HHOpE0kGsZtRuAZtKxFc2ZWH69easSkik8QYb9O5YdINwfSEdgftenbQp0h+Hrq7CxREbE6NAHRRTVSBeoV1fi07Tul/0X0=
+	t=1781855254; cv=none; b=rSogq3YKl50MrTcagXzmi4Ht/8qFyUxImUJKNnZwkCDLr80BnCzx4uM5fH6gH+rjnjajjMb4VoWdqaLEkhU6fQcEUGj70kyqCdn9sD9oYMoGtNe/mLAbb4Es28pyWkQ6fGEzJBaronawffmn66OiqfPQd9zhTkMuZFH0Y+IA02I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781855028; c=relaxed/simple;
-	bh=JtwQD+WieKqcogcMHWpjbsbEMyUOZdEqFz8nYzUh7VM=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jT3iLmiQVZ09qoB/fACtizotVyjFQAHuCIxjW4aWlxFXxDjq2OGbYKOEX3iTzg1Hb3TGJPzfJpEG18/vEGaemBFobQa0Pj2Ec/i5bHlPe65+bL15eEcmONM+ZSrq1U+F/8EHxiGtNcVF2TQMVtaR+nc+zvrf/rKJVQnO6H3D+j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTzJfeNP; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781855254; c=relaxed/simple;
+	bh=N1yog0rss69VFmdIideNOv2cs7B85veMewiChi2HpEE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nNQm0fL8gbZF8UqeWR3qRb5130xir73qjCsoc5fcYIgyGobdNy/gI2ecamXI94VjiV6AgZ/88Aw6EtFOmnSDYVLZ0akW3AyWKmtEy7uWIxQ0dqDamwytZbgWRasULeZ5uiExvy18ViAxg2dvuDXEEm4Y/CQhYhm8dWzltacNw5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=naL+wMgM; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTzJfeNP"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2c40397e746so11775945ad.3
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:43:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="naL+wMgM"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4629d80fa08so1764835f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 00:47:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781855027; x=1782459827; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/CJyPY47191DNK2I5FV8tH3A2JiB8r3XI4Ww1d0nJQE=;
-        b=JTzJfeNP86y6ShPISQBwgECqNb1la4It+H6oAl+3bd1wGP49meeHZ+TC6oxa5qm+X8
-         V1aq/HwgTYREZSz1AOuIcytOOOy312PdW5/TqO5idUgQwS0pZS3tiBV1EOUebVzmRO2N
-         seHwxCGj11oXzS9XRcYGO3O3NwTUbPqr3/g9j5Bugwzxd2lBPNpTBfrUHOKxrP4zU+wn
-         0pK1hcawnEKUecYiQWN55hOun8u3/h4HgrMHJV6KhCojXOyRrFDif3zPG0D22RmWhRi0
-         LP61/H8d1+3ueVlFGt/Z4lvmRC25UzhrutfOgmpOMSKZQSUM1SrSg86ayYKKvDdooE1P
-         uLKw==
+        d=linaro.org; s=google; t=1781855251; x=1782460051; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nH28/Om8Ss0rdBR726jh0dxFJDusTqEawXLpUiRuPsw=;
+        b=naL+wMgM7EuE5pXr0zyn1FTAAYwPdVGR7ayvSNRPe1bNbGufT9ywqDoUeWZBGaVKsB
+         SS//HQfSNOjO6yVen6Ho1fbiVviv7QXfHDZMvBlhzfvcz3uuXA30ETGQmv/crzTeFVm3
+         7NDHK9OJ89USD2SvzPHJ7Dg+4PLZkTm3aQuy73yccDOo1NBIYXr1foV21iUtlIIzAAEi
+         fmQyxoZLOkKKZNfRJGgjsrvQta50Aw5dZ1/3jPoP7Vgcu8+aPSS8G/TW8mXnRfMWDzde
+         WVs4tFPo7Javd56xvrt5V+txSuOFfNCtH/fVAnWTGRechcH1GBQ45KdrS3eQDJObbv/i
+         N6Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781855027; x=1782459827;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/CJyPY47191DNK2I5FV8tH3A2JiB8r3XI4Ww1d0nJQE=;
-        b=VZZfxIfDabiWOYD92lTStsoM9r1MyQc5vpYV9n/GTcHlzSvfec6eVGEx1JPXc1A1YX
-         Sw5hLthn20j277+6LFRQR1PPzYi1CJW0fp8aODQ7NzNdSnUZ+apN9VaFaz23idR+DOeN
-         xJarr5vjzN8IgL90vVD9yEMgvR4cGGGuoR7qgbgnaLqRIylt6rEUgHM2liItG1HQE8Ib
-         2DAF6oW+5v2fwBCEUJqGWFfxslVir3Mxf54c1m9CEwAqCS6YjqeWfUJme+OmBhhcV12d
-         xTUgEOj2QEJL+u22J8W2l0ZGIbsQAvb/D/ty2cTFlYh/6QzD00YDm22uIKth06CBOn8O
-         vJzQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+ll2npNd3nuriLlh2kGmQcNUKZ6yPiT5QmU0aOuYZ7jQNYxlBqX709UqUJsEpkJte+ZdyTXlAO/x+T@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYWBoahL5G5vS3l07K/2yV1urwuMXomd+YCAVJgGFO7HsyOMJG
-	JZwJwmhtoaCj08KWqJSeTr24SBJ5a5rupp7Kb6YWs0JAH9lwhCjWda6+
-X-Gm-Gg: AfdE7ck4JWpJNFAH2uVGPACE5lAaQNTKxx6R3YdqxeBlhKLH0+5FEkRjQEnvi6y04N2
-	AZROx03g009+0ItDm5slRmhlEY6iEQHYHv4BL7FP5v+hV/SQoZXVjKM66OZ/14BvG8JE3rx2a2i
-	9ZClwNA254w6lyZ4ms9Bo4YEpmIqeCi9tZQVAd8dioz1acM7kOuE6tvsvNdYJal2VttOELHuKZj
-	upTKkQ45DyuydFj3efGqWpVPoqHxbT2/B4p2btey9/dvcMDVxcUeDLegBpmGIi1PZsd5xn+X4OV
-	p3Plrb3qyuhZ+T6xNMcU9tMEOvOMiJm+nw3qnT3o1dQCf5wrHBZKoIWWfein0LYNbVt+XsVJSam
-	oz6tx91PenQyp6RHabF+4/V+EUU+GBXlZ5WL5wLCBPbYXZ0ew9sfjzlteVS189Y2bys3dpzE4QV
-	NjX/T9YqLGUjkoS/5aWlLAGzZJ5gTtzCKYiaEjV7hPeI4BJbB9ou1xtGrj0yw2HbSGc7Y6p9LxI
-	jnsRh4H69XgcYspqLLmNtnG6+Ye
-X-Received: by 2002:a17:902:e5c3:b0:2c6:6926:8968 with SMTP id d9443c01a7336-2c718fc3191mr28913805ad.20.1781855026787;
-        Fri, 19 Jun 2026 00:43:46 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c72089c1cdsm14474145ad.17.2026.06.19.00.43.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 00:43:46 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Fri, 19 Jun 2026 08:43:24 +0100
-To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>, 
-	rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v6 06/16] iio: core: create local
- __iio_chan_prefix_emit() for reuse
-Message-ID: <dlisetsssjoyodmv5ubl4rzhxtla3g46mrrzv2f65nqecel5fu@dqiqsayr4aip>
-References: <20260618-ad9910-iio-driver-v6-0-79125ffbe430@analog.com>
- <20260618-ad9910-iio-driver-v6-6-79125ffbe430@analog.com>
- <ajQGTQ1_qcOwfzne@nsa>
- <x3aijvc4buo7aqbchikuoyyrgiq3afidtkla37h2rg4tvfdbc3@h42qp3estg2s>
- <ajQ1bZSNHQ96pyJx@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1781855251; x=1782460051;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nH28/Om8Ss0rdBR726jh0dxFJDusTqEawXLpUiRuPsw=;
+        b=kHj4kmYoWcZnBay1Llv/cgR4DiV3C335CW4uUfLd5zYqAVFhn5fN9o4Iy+D0sgZHW8
+         mEJDdojscPh3ny0qLUEyzoVQT+JXSJezijSHHa3vdwxs9zCXhAnLXjh3bJ2XHcfPk2JS
+         /1ppCnSkX4707S9MRj4IVpNwPdTrnPpvx5/PzJuZBjjHZyhspVj6q2yjBIbRfku8k4TN
+         VDyH0xWcQOQtUjqg74LiWSbIYvhWhMSANYAz9u+WdIWvWPCl2CrefuBCfl/NySFdEnGB
+         bH8gE37bq788+CjOfIqouOSAXQafcDP7ZWvuVY1vjQ5JejPMiTNvlz97TiuFkpCYPXYE
+         /Cvg==
+X-Forwarded-Encrypted: i=1; AFNElJ8bTGx2jRCehHUe9P10c3CStqvDYsraCO5WdW+A0wVMXH1+SUQrG5oPBVHjh9Gp7H67zOI1OC9/894Q@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5jlNHlJBdp6A6fAfkO+uXeGdufNlhdsxUPNMQHXQcauNrrwNG
+	Hrq78QdbVyZz2E83G3R28lJPmD1Dmw9gMToLAaU3U3/yxlAX91JEmAB3Iy6N47TBqtw=
+X-Gm-Gg: AfdE7cmGpT/iK9hZwCFEhCPIgOEM4JG8z9lXiCdNCdiREtRqDcbYRS8YwS1W8Ny/P4z
+	gZUvY1SOoBu6E/kMr8XjXmMy6K6KBi8lmdQiyRZ5aHyiXd51e+rlYcDXqbvvTCMMkGcitYeFryd
+	FtUMUYbsp0mcNkAp4wE/AbIWZISq7lCOoucjg9ZKMMzh4DbOJb+v8I3SdjLHyT0EJ75ar5Edla3
+	3uMnOgZBQjdia64njDIDii18Y2ySQFBTAr7Wjrm8TuiUZRK1X75jQyGuFQMFYzTUGxVvadi0eUE
+	H0bFLChYUV2SKreJZbOKVM/oJOwULn/Z2OL8iXSi+1t64TrfMM8pW6AlmLVYlswLbUSovMwU8K/
+	9wKHRL1MVVcjmJ1qANC+LZe6uem08iD3O/OR+/v40egpWJOFbgkaOOv+MaAc7DSB1eDm4scP4eo
+	IdwScLkDlkVPcsqabe2vh70A==
+X-Received: by 2002:a05:600c:2305:b0:492:2f59:4969 with SMTP id 5b1f17b1804b1-49240e5b469mr30410745e9.22.1781855251337;
+        Fri, 19 Jun 2026 00:47:31 -0700 (PDT)
+Received: from [172.20.10.2] ([37.167.16.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fd1fe8esm54076915e9.13.2026.06.19.00.47.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 19 Jun 2026 00:47:30 -0700 (PDT)
+Message-ID: <d1d81638-3d7b-4613-9e49-3cb236002f9a@linaro.org>
+Date: Fri, 19 Jun 2026 09:47:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+To: Doug Anderson <dianders@chromium.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ KancyJoe <kancy2333@outlook.com>
+References: <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org>
+ <20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-2-b84b6da84293@linaro.org>
+ <CAD=FV=W5FgXGznH1+SA74WOfAUXaAggaJi=ds8udqZ69K3i=Ow@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAD=FV=W5FgXGznH1+SA74WOfAUXaAggaJi=ds8udqZ69K3i=Ow@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ajQ1bZSNHQ96pyJx@ashevche-desk.local>
 
-On 18/06/26 21:14, Andy Shevchenko wrote:
-> On Thu, Jun 18, 2026 at 05:14:19PM +0100, Rodrigo Alencar wrote:
-> > On 18/06/26 16:06, Nuno Sá wrote:
-> > > On Thu, Jun 18, 2026 at 02:27:22PM +0100, Rodrigo Alencar via B4 Relay wrote:
+On 6/18/26 19:00, Doug Anderson wrote:
+> Hi,
 > 
-> ...
+> On Fri, Jun 5, 2026 at 7:51 AM Neil Armstrong <neil.armstrong@linaro.org> wrote:
+>>
+>> From: KancyJoe <kancy2333@outlook.com>
+>>
+>> Implement support for the Renesas 63419 based dual-DSI video mode
+>> Display Panels found in the Ayaneo gaming handled devices.
+>>
+>> Signed-off-by: KancyJoe <kancy2333@outlook.com>
 > 
-> > > > +	dev_attr->attr.name = kasprintf(GFP_KERNEL, "%s%s", prefix, postfix);
-> > > > +	if (!dev_attr->attr.name)
-> > > >  		return -ENOMEM;
-> > > 
-> > > I don't oppose the change. Looks like a nice cleanup.
-> 
-> May I oppose it? I found use scnprintf() is harder to follow in comparison to
-> nice kasprintf() that takes care for the dynamically allocated buffer.
+> I notice "Kancy Joe" has a space in the source files, but not in the
+> signoff. I guess Signed-off-by isn't necessarily required to be real
+> names these days, but still seems odd...
 
-In the next patch the function is reused in a sysfs attribute read handler,
-a context wich would not be nice to have dynamic allocation. vscnprintf() is
-the main building block of sysfs_emit() which limits the buffer length to
-a page size, so I used scnprintf() trying not to deviate much from that. 
-
-kasprintf() it is still used in the caller, where the logic was a bit confusing
-as it tried to avoid multiple allocations.
- 
-> Also there is a chance to get a name silently cut due to insufficient space.
-> Besides that this function can't be used (again due to 'c') in kasprintf()-like
-> wrapper. I do not consider this as a good approach. Have you looked at seq_buf
-> instead?
-
-NAME_MAX is not the maximum length a filename can have? I suppose there should be
-enough space for the channel-prefix. Indeed, seq_buf can be used and it cleans up
-things a bit as it tracks the the position in the buffer.
+Yeah I kept all the signoff and names as in the the source files,
+it wasn't an issue for other patches, so I left it....
 
 > 
-> > > But bear in mind this very sensible as any subtle mistake means ABI breakage.
 > 
-> Which immediately raises a question of test coverage. Do we have one? If not,
-> this code must be accompanied with one.
+>> +/*
+>> + * Helper to switch between DSI links, so we share a single dsi_ctx
+>> + * for both links, so in case of an error all writes & sleep for
+>> + * both links are ignored.
+>> + */
+>> +static inline void dsi_link_switch(struct renesas_r63419_panel *ctx,
+>> +                                  struct mipi_dsi_multi_context *dsi_ctx,
+>> +                                  unsigned int link)
+>> +{
+>> +       dsi_ctx->dsi = ctx->dsi[link];
+>> +}
+>> +
+>> +static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
+>> +{
+>> +       struct mipi_dsi_multi_context dsi_ctx = { 0 };
+>> +
+>> +       /* Panel registers are loaded from DDIC Non Volatile Memory */
+>> +
+>> +       dsi_link_switch(ctx, &dsi_ctx, 0);
+>> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>> +       dsi_link_switch(ctx, &dsi_ctx, 1);
+>> +       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> 
+> Instead of dsi_link_switch(), can't you use the mipi_dsi_dual()
+> function? I think it would be:
+> 
+> mipi_dsi_dual(mipi_dsi_dcs_exit_sleep_mode_multi, dsi_ctx,
+> ctx->dsi[0], ctx->dsi[1]);
 
-Agreed. Will see to have tests for v7.
+Right, indeed will switch
 
-> > Yes! I tried to be careful... this is dangerous stuff!
+> 
+> 
+>> +static int renesas_r63419_disable(struct drm_panel *panel)
+>> +{
+>> +       struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
+>> +       struct mipi_dsi_multi_context dsi_ctx = { 0 };
+>> +
+>> +       dsi_link_switch(ctx, &dsi_ctx, 0);
+>> +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+>> +       dsi_link_switch(ctx, &dsi_ctx, 1);
+>> +       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+>> +       mipi_dsi_msleep(&dsi_ctx, 50);
+>> +
+>> +       dsi_link_switch(ctx, &dsi_ctx, 0);
+>> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>> +       dsi_link_switch(ctx, &dsi_ctx, 1);
+>> +       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>> +       mipi_dsi_msleep(&dsi_ctx, 120);
+>> +
+>> +       return dsi_ctx.accum_err;
+> 
+> I'm not sure we've been terribly consistent, but should the above be
+> "return 0"? I'm not actually sure there's any benefit to a panel's
+> disable() function returning an error to begin with.
+> drm_panel_disable() doesn't return an error, so all this does is skip
+> setting "panel->enabled" to false and make it harder for the system to
+> recover.
 
--- 
-Kind regards,
+Yep you're right, there's no sense to return the error here.
 
-Rodrigo Alencar
+> 
+> 
+>> +static int renesas_r63419_prepare(struct drm_panel *panel)
+>> +{
+>> +       struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
+>> +       int ret;
+>> +
+>> +       ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
+>> +                                   ctx->vdd_supplies);
+>> +       if (ret < 0)
+>> +               return ret;
+>> +
+>> +       usleep_range(1000, 2000);
+>> +
+>> +       ret = regulator_bulk_enable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
+>> +                                   ctx->vcc_supplies);
+>> +       if (ret < 0) {
+>> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
+>> +                                      ctx->vdd_supplies);
+>> +               return ret;
+>> +       }
+>> +
+>> +       usleep_range(1000, 2000);
+>> +
+>> +       gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>> +
+>> +       usleep_range(3000, 4000);
+>> +
+>> +       ret = renesas_r63419_on(ctx);
+>> +       if (ret < 0) {
+>> +               dev_err(panel->dev, "Failed to initialize panel: %d\n", ret);
+>> +
+>> +               /* Power off sequence from the r63419 datasheet */
+>> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies),
+>> +                                      ctx->vcc_supplies);
+>> +               regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies),
+>> +                                      ctx->vdd_supplies);
+>> +
+>> +               gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> 
+> To make de-init opposite to init, shouldn't the reset come before you
+> turn the regulators off? Depending on the design of the panel, I'd
+> imagine this could prevent back-powering some logic?
+> 
+> I'd also expect vdd supplies to be turned off first?
+
+I did follow the DDIC spec here, and yeah Sashiko already
+pointed it to me but reset needs to be switched to low _after_
+the vdd supplies goes low. Perhaps indeed the vcc one should be
+turned off after the reset. I'll do that.
+
+> 
+> 
+>> +static int renesas_r63419_unprepare(struct drm_panel *panel)
+>> +{
+>> +       struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
+>> +
+>> +       /* Power off sequence from the r63419 datasheet */
+>> +       regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vcc_supplies), ctx->vcc_supplies);
+>> +       regulator_bulk_disable(ARRAY_SIZE(renesas_r63419_vdd_supplies), ctx->vdd_supplies);
+>> +
+>> +       gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> 
+> Similar: shouldn't the reset come before the regulators to make
+> power-off the opposite of init.
+
+Yep I'll move vcc disable after the reset to match the spec more closely.
+
+> 
+> 
+>> +static int renesas_r63419_get_modes(struct drm_panel *panel,
+>> +                                   struct drm_connector *connector)
+>> +{
+>> +       struct renesas_r63419_panel *ctx = to_renesas_r63419_panel(panel);
+>> +       const struct drm_display_mode *mode = ctx->desc->mode;
+>> +
+>> +       drm_connector_set_panel_orientation(connector, ctx->orientation);
+> 
+> IIRC, the above was a workaround that caused a warning splat. Is your
+> panel used on a system that actually needs it? Could your DRM driver
+> be fixed rather than persisting this hack? For context, see commit
+> 47bef230225b ("drm/panel: panel-edp: Implement .get_orientation
+> callback")
+
+No need, I'll drop it
+
+> 
+> 
+>> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
+>> +{
+>> +       struct mipi_dsi_device_info info = { };
+>> +       struct device *dev = &dsi->dev;
+>> +       struct renesas_r63419_panel *ctx;
+>> +       struct device_node *dsi1_node;
+>> +       struct mipi_dsi_host *dsi1_host;
+>> +       int ret, i;
+>> +
+>> +       ctx = devm_drm_panel_alloc(dev, struct renesas_r63419_panel, panel,
+>> +                                  &renesas_r63419_panel_funcs, DRM_MODE_CONNECTOR_DSI);
+>> +       if (IS_ERR(ctx))
+>> +               return PTR_ERR(ctx);
+>> +
+>> +       ctx->desc = of_device_get_match_data(dev);
+>> +       if (!ctx->desc)
+>> +               return dev_err_probe(dev, -ENODEV,
+>> +                                    "Failed to get panel description\n");
+>> +
+>> +       ret = devm_regulator_bulk_get_const(&dsi->dev,
+>> +                                           ARRAY_SIZE(renesas_r63419_vdd_supplies),
+>> +                                           renesas_r63419_vdd_supplies, &ctx->vdd_supplies);
+>> +       if (ret < 0)
+>> +               return ret;
+>> +
+>> +       ret = devm_regulator_bulk_get_const(&dsi->dev,
+>> +                                           ARRAY_SIZE(renesas_r63419_vcc_supplies),
+>> +                                           renesas_r63419_vcc_supplies, &ctx->vcc_supplies);
+>> +       if (ret < 0)
+>> +               return ret;
+> 
+> It seems like both sets of supplies are always enabled / disabled
+> together with no delay between them. Do you truly need two lists, or
+> can this be combined to one list of regulators. That would simplify a
+> bunch of logic.
+
+You need a delay between enabling vcc and vdd according to the spec,
+this is why I did a split.
+
+> 
+> 
+>> +       ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+>> +       if (IS_ERR(ctx->reset_gpio))
+>> +               return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+>> +                                    "Failed to get reset gpio\n");
+>> +
+>> +       /* Get second DSI host */
+>> +       dsi1_node = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
+>> +       if (!dsi1_node)
+>> +               return dev_err_probe(dev, -ENODEV,
+>> +                                    "Failed to get remote node for second DSI\n");
+>> +
+>> +       dsi1_host = of_find_mipi_dsi_host_by_node(dsi1_node);
+>> +       of_node_put(dsi1_node);
+>> +       if (!dsi1_host)
+>> +               return dev_err_probe(dev, -EPROBE_DEFER,
+>> +                                    "Failed to find second DSI host\n");
+>> +
+>> +       /* Copy current DSI info, do not provide OF node since no driver needs to be attached */
+>> +       strscpy(info.type, dsi->name, sizeof(info.type));
+> 
+> Can't you use the two-argument form of strscpy()?
+
+Yeah sure
+
+> 
+> FWIW, I also notice that the Sashiko AI bot had some comments. Did you
+> already look all of those over and decide they don't need fixing? I
+> have a vague recollection that there's no need to worry about someone
+> calling disable() and then enable() without going through the
+> unprepare() / prepare(). If my memory is correct, I guess that would
+> be nice to document... I didn't analyze some of the other claims that
+> the AI bot had.
+
+Yep I fixed the real issues, the remaining issues are about the init
+sequence and some impossible init sequence between drm and dsi.
+
+Thanks,
+Neil
+
+> 
+> 
+> -Doug
+
