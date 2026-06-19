@@ -1,187 +1,100 @@
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D173B3899;
-	Fri, 19 Jun 2026 16:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F973B7B84;
+	Fri, 19 Jun 2026 16:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781885360; cv=none; b=gDtM6NQGO822fuOSuHYHK1Zbe8RQvm7nL1a1y21MEP0nSw137E2+VSaqf90M0tiNIEuVpFuhr3oQOJj60LpZO+Ox6Uul2KDN31CA/rXh2D5Cw3fX1MSw5vUQ2PbLIvAsW3rTCKBf/CC7D/Q266y1myiJlCc2wQFXuGVoKC/Nb/4=
+	t=1781885841; cv=none; b=kPkebuuugqRPgBPaoC163rWAujFm8dJmbeOo7vEP9Khbfktc39Z9wrjF4IL4wqOTCSoYIRywMhjtYa8Bp4i6sun0a0FQ5fTeAhf6I4LQnTsor3vniKaha1n8dlqsi59sJCOLJHwWSxTMTPWFkTAzJdKjVb+cjitlfQOlqiwYDOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781885360; c=relaxed/simple;
-	bh=A3GsCiJRCGCQJn7g3c8QC+jzXSOJChCifd0CegMXt28=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=gpfeSVySCtBA4QlT6YC3u1rAcHMcTY9I60rje4XxhHtQcwVneXhM52PyvHVHfwHbOF4aNpZSziLRb6Hfy+8EKlbW/naNK587kxbtV1sgdvMkS1xTD0wzws+gAv2h/g3yDyZZYjLzeSUdEnODkZj1cxkw7EGqVcL2RoPupRiJycw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=vVd2vL0z; arc=none smtp.client-ip=162.62.57.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1781885841; c=relaxed/simple;
+	bh=Hez/6THJzlNXGiz/OjgNp3YP/wptBZbyvAYu93ZLYJg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SKVG3WIGtdnupFfiqnfbK+JkDAofctq980eHO1AeVk9w1F1P9MRmdCVQgpKDkOxqsLhVpAPftpbQQRIJWHsOUHrlZX0WcsFr0T8jYXo7HVifsgUp49d4UHX5SjHJrb2B5BVm5QadXRjdKv7EqhngFRpAB1xCbT3oXXrfM4H9eYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=FbFcWs3f; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="vVd2vL0z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1781885347; bh=7/lnaOHto/qPkD7B/xXr1vBIxzc7V4NYacvDA84b27c=;
-	h=From:To:Cc:Subject:Date;
-	b=vVd2vL0zSth/5SBX1JS3CyWcKnJ2e8kRjNaTihBOYCgG+GhCa5DgHup63m5GEYCb7
-	 jO+xfTMDYiizJZnCHmQ4QvvLBKIVzO5k2bF1pt4fB9FVBlqK2I1X4d9KzB5nADOwBx
-	 PlFfGs6YCCsxiqQKezZrCgM9mmA6aEAaAk+o7jnM=
-Received: from 8qyomHQF3vPjMe ([240e:3b3:62d6:a3f0:1216:88ff:fe19:9e1d])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 1F7B88CB; Sat, 20 Jun 2026 00:07:55 +0800
-X-QQ-mid: xmsmtpt1781885275tc6vaha2e
-Message-ID: <tencent_598E543ABA6624DF90EE8492CB23BA904505@qq.com>
-X-QQ-XMAILINFO: N8i9SvusUD3byyZ5b+Ih1rzwc/zcKhCpGsd8SWqXm0xyEsWBEMRSYI4Dj9eN4m
-	 uooDrU5gR7FOkjve9xW4oQHIWjwcqdNgQXWGkVLTsVbIvb7rQTPZRKNju6VvRfYI7cyfbm4vpBev
-	 N2ui0OEIRT69ldaQRwKuJ5m7DdM3ttYx0+hVzdEfBiGJCUVZNXDbmLWuaEQ8eItpOV4PS0s9YRRo
-	 lF9oZfj8jy6JbIM+kLdM8HbU16XWKeb3VjjE59pL0FJCk4WClqz2MZ247SIp2/1zg+6eXiAsmE93
-	 senuo8f4j7O+8FS/u7tLEN7drpcK591u6+1+vo0RkivUzEw935Pq5ztQuI7hHOP3JaribmqCXvDK
-	 06xVc5jFbfjFgZKfX0NcSK8Kg0AAyyikaQougr8Cl++BXz5TPDiG5eQt257o+A/0pi1ED9iQaBDu
-	 1gzOE02U7qU5e2pkENv0JtcFpYEWGW8PGT+CU+Huw7Ic3+Omt5qcwf+gvN7B+bJRUSGgCeXd5ng0
-	 2IWHWzmpCfGVPtGUgAKyliR5Nkx9dmpY7SHE0P1J8QUTyN7rx0kbqFExCitJCEcIO2seL/68HVfu
-	 g97pml2tABlJEP2OvlEMUBGCQtq7BBuivNgW6BMjJaxMEdh2yqNZ6pBa1XQoslZmhe22ycW09ESl
-	 G27cPsHT0JGVu/OQfRbYQEnGmg01Ep7disVH4wu1Q9hxVcHuJ/cnlKpvqegUu5lKu2xdi8As5C7O
-	 rp7KkrzUH07JTV+1/3Uh0FlWJag1u66t9FPB8gokWLT7JAscu4fetu0IJnBMXPvtt+vK9DxJ5dcP
-	 VjOQFEytevPi8gPPa5ykFs04IVxxQZ+zrz9bSOfaKW8XCEqAB9/8jccPeAaR481Rhr/nPJmp+Aj3
-	 qsTLQ5uS27eUx06+NB/oewBnercF5V+djl+oEtKaFzgkdpBeJE9qPPBPqoQFa1rqPd2pYXjoTUt/
-	 m6pGDanIivhgkrRXCn0bype4+YbRgdpcCfnqa7yxie9D/mU+XZNdCh8ri4wXVWm0OhNj+bMRY6K1
-	 mAmXFZpOsjDaELEmyVSrrrFqL6ut8zsfV/DTVRxknEaNptK2UqEuqXFSGDmCIDA9HSGb2ThQr3cm
-	 lZ46tnJczgzmkvJy0lA2npdwLEM9Hu9dr4E/pE
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Xin Xu <xxsemail@qq.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xin Xu <xxsemail@qq.com>
-Subject: [PATCH 1/2] arm64: dts: qcom: sm8250-xiaomi-elish: Add pm8008 PMIC
-Date: Sat, 20 Jun 2026 00:07:37 +0800
-X-OQ-MSGID: <20260619160738.107502-1-xxsemail@qq.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="FbFcWs3f"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id EE47740E00C0;
+	Fri, 19 Jun 2026 16:17:11 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id CsVRI4SkSUaf; Fri, 19 Jun 2026 16:17:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1781885822; bh=0NbenZSMXYebM0Gsy498bp9VLyj7xrVg223GYzgur9k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FbFcWs3fCT+DOLcODMx5M/yVEJZdNzuoawHCl1GWlb3q3WvRGXUm2KvJlevmVFMZL
+	 tL7TxH01Onso0WohYbvzLPMCSl3kTfxO8eTfAuqQWLSUmKOsg59gM/uJ9N+9mzGRx3
+	 ksfljx+eViwR7yB+f8OJPGScVVl0B+o0ZvXnRvz9cFoGlPWVEbe7PSIoVZTgBF/xPj
+	 BmocnXhL2JHAfEwTYTKeuD9tYymxd4meODFtB5D1PEO9534K4APooZhOp4Vsmhh7ev
+	 yp3W5t2X/r8mgSvP4y/3EwCEYoQRRMY9Ct39i7czoHxBsc4EJb9WKVFo+bhdteAgk4
+	 Hd0X+oD4Y6sZ5/J6pQ1l9Oabw/FHU0dYcesErG4rN5NsqBfJMX8ufJj8N9h1+Fe/aE
+	 u4JU/HO+Z41xW3uIROhBROSJm+RKgPMvJxus0Jg0+hjWUzGd26c5EAYyGhcmqoqcPS
+	 FI883ZndyvWyfSx7ng6dWWD+cQbLFTCFcwjEu8zwIX7/i90FBcNkHSjxNNiLCnIuMv
+	 KuW5+QNqhlqLngdHCvwu0ovDm2BOs4WctgZ6SG/HZcuhSdILDLj/AOPjYHikvu54Nu
+	 lM9/oDOH2UZ1tSifvg2PzGpMItuQLQNHyEK9NaZjs4deQdg7LSMdaeelOMnhflahLp
+	 FD6yNSBYpTKHOXq5Q4fVdj/I=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 35D8140E0140;
+	Fri, 19 Jun 2026 16:16:33 +0000 (UTC)
+Date: Fri, 19 Jun 2026 09:16:30 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ahmed Tiba <ahmed.tiba@arm.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Tony Luck <tony.luck@intel.com>, Hanjun Guo <guohanjun@huawei.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>,
+	Saket Dumbre <saket.dumbre@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Ira Weiny <ira.weiny@intel.com>, Dan Williams <djbw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev, linux-cxl@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-edac@vger.kernel.org,
+	linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
+Subject: Re: [PATCH v6 00/10] ACPI: APEI: share GHES CPER helpers and add DT
+ FFH provider
+Message-ID: <20260619161630.GAajVrXuZ3XWvK83G7@fat_crate.local>
+References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
+ <20260618164807.GAajQhR9J_00j4LxaC@fat_crate.local>
+ <eccbf574-a145-47af-889b-ca6dd80f98f2@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <eccbf574-a145-47af-889b-ca6dd80f98f2@arm.com>
 
-Add the pm8008 PMIC node on i2c15 with seven LDOs,
-using GPIO84 as interrupt and GPIO76 as reset.
+On Fri, Jun 19, 2026 at 04:41:40PM +0100, Ahmed Tiba wrote:
+> I will address the issues introduced by this series. Pre-existing
+> behaviour is carried forward unchanged.
 
-Signed-off-by: Xin Xu <xxsemail@qq.com>
----
- .../dts/qcom/sm8250-xiaomi-elish-common.dtsi  | 94 +++++++++++++++++++
- 1 file changed, 94 insertions(+)
+So you carve out that code, you use it for your use case while *knowing* there
+are preexisting bugs. Wonderful.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-index 51b57c697a75..2687a2a8dda4 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-@@ -599,6 +599,82 @@ fuel-gauge@55 {
- 	};
- };
- 
-+&i2c15 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	pm8008: pmic@8 {
-+		compatible = "qcom,pm8008";
-+		reg = <0x8>;
-+
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <84 IRQ_TYPE_EDGE_RISING>;
-+		reset-gpios = <&tlmm 76 GPIO_ACTIVE_LOW>;
-+
-+		vdd-l1-l2-supply = <&vreg_s8c_1p35>;
-+		vdd-l3-l4-supply = <&vreg_bob>;
-+		vdd-l5-supply = <&vreg_bob>;
-+		vdd-l6-supply = <&vreg_bob>;
-+		vdd-l7-supply = <&vreg_bob>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pm8008_default>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+		gpio-ranges = <&pm8008 0 0 2>;
-+
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		#thermal-sensor-cells = <0>;
-+
-+		regulators {
-+			vreg_l1p: ldo1 {
-+				regulator-name = "vreg_l1p";
-+				regulator-min-microvolt = <1152000>;
-+				regulator-max-microvolt = <1152000>;
-+			};
-+
-+			vreg_l2p: ldo2 {
-+				regulator-name = "vreg_l2p";
-+				regulator-min-microvolt = <1152000>;
-+				regulator-max-microvolt = <1152000>;
-+			};
-+
-+			vreg_l3p: ldo3 {
-+				regulator-name = "vreg_l3p";
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+			};
-+
-+			vreg_l4p: ldo4 {
-+				regulator-name = "vreg_l4p";
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+			};
-+
-+			vreg_l5p: ldo5 {
-+				regulator-name = "vreg_l5p";
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+			};
-+
-+			vreg_l6p: ldo6 {
-+				regulator-name = "vreg_l6p";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+			};
-+
-+			vreg_l7p: ldo7 {
-+				regulator-name = "vreg_l7p";
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2900000>;
-+			};
-+		};
-+	};
-+};
-+
- &mdss {
- 	status = "okay";
- };
-@@ -801,6 +877,24 @@ bt_en_state: bt-default-state {
- 		bias-pull-up;
- 	};
- 
-+	pm8008_default: pm8008-default-state {
-+		int-pins {
-+			pins = "gpio84";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+			input-enable;
-+		};
-+
-+		reset-pins {
-+			pins = "gpio76";
-+			function = "gpio";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+			output-high;
-+		};
-+	};
-+
- 	wlan_en_state: wlan-default-state {
- 		pins = "gpio20";
- 		function = "gpio";
+Sorry, first bug fixes then features.
+
 -- 
-2.53.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
