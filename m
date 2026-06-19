@@ -1,98 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A873CAE94
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 21:08:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D133CFF4C;
+	Fri, 19 Jun 2026 22:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781903327; cv=none; b=Xaf2ACabZQEsMGObyksI4xieQzD0psIVHvZF9U5x4VVa+FUbQhEm0PAM2UJDpzC+0qwf7Ecr7yRpub+GoYMoYK6LDU3A0+SJq4iAO49/e0iuMxL/bVJq8EZ0cV9GPuZoqHpYSHBCtRx7sAJ3jyvO22LulZLTOfdWDKPFAmTA93k=
+	t=1781906411; cv=none; b=pnAEmsTpu94SIB+gyh1XJjiRaxDrRqfEK6Bz5nxc+c2A6HQn5jtE1Mwxf23MMOTkfJ104F1Ax//r7Kz3fohlHaFtEyYaW96e2tC3RGmLuc30U87/Voqcf9COYIlS91x9htt36I2cpt5RPOOOnIpvbVNnnrYNmlCC0wswRmNX2N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781903327; c=relaxed/simple;
-	bh=FMSWI+gloufB0h0HTiPPqBp7P4ZIS2lTWu/Igajet9s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KK8Sc3TQLNEAMwLwULIPgdshr9u4S+JmJ6rbX4hCp0UF/LNf7ejM3EjJr9/N78CoH8WQuuOujJIIETrFsxLgupm6QxdrU/DVS8+6r7bK3SyCA2qvJL+B18C9d1ePN0s9fLjmzKpe68BqeWQkxljeHfwHc8YGTBM2tKYL+hNeLwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMmbUbYf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781906411; c=relaxed/simple;
+	bh=+Xhbd99YTn0r/RNR8I6isfKfqrxghVZ6y5JaLdPHWE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ie+jx3PrzhNEjWWNhzTsSgNTFxsMKa9Fcblatph/rbG0aRKuBWq1uLjZdRv/dH72zsDqex+HYEGHZTUWd0Nv6vjV3kNTffQGMGSEB8a3UXFs9+v0WhEsBtYlfrIhAyR6tWOWXwGkMngK2cJQIejkvwONWwn2bs85DodBkoTYLbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=fL38MuVX; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMmbUbYf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57FF41F00ADB
-	for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 21:08:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781903324;
-	bh=FMSWI+gloufB0h0HTiPPqBp7P4ZIS2lTWu/Igajet9s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cMmbUbYfwQO5CI8iSeh+6t2SUNKHya5glLSJCb8DV6CntMMsxIktcwYeUmvlKQvmO
-	 ybB8ISM0w+kC9HyTbwLa3hR8N8oPyCXMMxYGJGAiV7pG7cRvGlNmk/oM+gZQ0C7IqG
-	 VFgAGvVR0MMXgLVZKqm2tfLtf7KYNqnzBOd6lNvphwkuSLkrZuKbfwzhVKfDWh8Jin
-	 +qFWl5S01GulWeCaSveSolV7YyO8Mm4k8Zqag5H1SPHluISqIep7t8/+5DRRKL5u8R
-	 HD0uaF/HZibyqylXS6ZVwDwDuUOnQSO+bUVjQvD+rNyE50XfyOX95o1K9oWDnB4LpI
-	 ZAwBSrYj+sajw==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5ad58351784so947250e87.1
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 14:08:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8u5LA0763JnuJ/UIBHWjahj0SzcajCcaLpEk25yVI2XDUrJxzkl8bG6iL+8cBXv/26Rns4LbLmO9XM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwE8qcSU/vKGjvInCxEzS5w4nAbsVplsUlaeWE9Qk0T5Ml5mphW
-	6jVVCxl2tr5vmrvYGpjl0TSr5d+vkAqn36Xl04xWbQDVq4icdxB3hOck9gjPckrBDEu/CzV9mgJ
-	UwF63nh5ehiPDsuvRmGEUoQck1YlXBUU=
-X-Received: by 2002:a05:6512:239d:b0:5ad:4eac:f6d2 with SMTP id
- 2adb3069b0e04-5ad58f3506amr1312078e87.23.1781903323139; Fri, 19 Jun 2026
- 14:08:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="fL38MuVX"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65JLmX8f3363088;
+	Fri, 19 Jun 2026 21:59:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3bbdnG
+	J7I7BnUNBUNgIKTcohPRf6DpGUxEmEmgqlaiY=; b=fL38MuVXHX1N3fQ9EFUSKB
+	Pbek3kK64FlaSej0LbyEJy5Hxd2juLFA6sUzPst4h8BT151CrqykiRIo06OOn0nC
+	mt++49vF8Mmo1t527/1N67VnYo+ThhirVA3FLXevgMhII/vxtbnVm5+WptjAFPwE
+	znREvoRiwRjTR55srdCY9AS/v3jboGlr8Oi5WWf2gA83L8LMUR4a8W5AKb0BRw0T
+	6Bj8QFb8CKeJw89shxzQKj2UqNKQyUWWXMVe9ZN4Hc27hoNW2LcyPWYBeKxjPVEq
+	uySsBKKlqi2o4EgWLgnH2XQFnNZ68/hOINHvs9tJrhzpxLWIm6KwNErrex2JDi0g
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4eueqxfgqx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 21:59:48 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 65JLnafc026087;
+	Fri, 19 Jun 2026 21:59:47 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ev172as9m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 19 Jun 2026 21:59:47 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 65JLxjE442467678
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 19 Jun 2026 21:59:45 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A6BBB20040;
+	Fri, 19 Jun 2026 21:59:45 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4F6E62004B;
+	Fri, 19 Jun 2026 21:59:43 +0000 (GMT)
+Received: from Linuxdev (unknown [9.43.77.5])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 19 Jun 2026 21:59:43 +0000 (GMT)
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        =?UTF-8?q?J=2E=20Neusch=C3=A4fer?= <j.ne@posteo.net>
+Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Add missing model properties to PowerPC DTs
+Date: Sat, 20 Jun 2026 03:29:24 +0530
+Message-ID: <178190618779.653308.915690556470586356.b4-ty@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260313-ppc-model-v1-0-bf19b3d1b65d@posteo.net>
+References: <20260313-ppc-model-v1-0-bf19b3d1b65d@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
- <20260512033317.1602537-3-eleanor.lin@realtek.com> <agMM9soiqpG-TRSb@ashevche-desk.local>
- <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com> <ah92oEavMu4QRn8y@ashevche-desk.local>
- <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com> <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
-In-Reply-To: <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 19 Jun 2026 23:08:30 +0200
-X-Gmail-Original-Message-ID: <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
-X-Gm-Features: AVVi8CciIShnYrkvWiar3ZeR88iI32EVeKlpP07bMr3Ga2S3qThBGTGjlcJfumA
-Message-ID: <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip() accessor
-To: Michael Walle <mwalle@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "afaerber@suse.com" <afaerber@suse.com>, 
-	"wbg@kernel.org" <wbg@kernel.org>, 
-	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>, "lars@metafoo.de" <lars@metafoo.de>, 
-	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>, "jic23@kernel.org" <jic23@kernel.org>, 
-	"nuno.sa@analog.com" <nuno.sa@analog.com>, "andy@kernel.org" <andy@kernel.org>, 
-	"dlechner@baylibre.com" <dlechner@baylibre.com>, =?UTF-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>, 
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, =?UTF-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>, 
-	=?UTF-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>, 
-	=?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>, 
-	=?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfX1ZVqHVwIFKOO
+ 8LNUCqlF7bvaACPE7xkhxaGg4t3uHODoaeeJMMxWZ9Q2BRiRdgBLMSwFq50mv5H2UUgcBQP1ZOw
+ y/0RYxOny+i1cqFWbLCP3WVcVRnL6ywrJkuMhozVCnQGhaAXZt1RbAZXQv6lCzMORyJt4pMDksn
+ l/923+0IBBYOUvLW+mxZvGVE4+qXeblC6FmN0rFx+k9nofAJ1l2qICiWxSkxuooxtv635QcuZED
+ fl007DXQ2SXOww4SYmeS4sds3YVd3SvFfq72pjOHZtiK1Xwji4nun1PSmPJAAQSx89ADI4NJxLV
+ lnxrtRQdVliKiKMKi80YDWP2/bi6QZVinhJXUo/JRjW39IytGqNH324kZO18TAj1fcLz8iDDA1v
+ cdHmc0FcB/tJLIOVBanjIWZTBIs05JtxQqdLV/nfTaVHSW4wmvoSjdYkF6gk0XRswA+K9TcAMWO
+ r8MZBZIjsc1R3p+2rMg==
+X-Proofpoint-GUID: 0v2-9zPx--cCSXKp2_K6ORc9vLIuwBOx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE5MDIxMCBTYWx0ZWRfXwafsOa7BveEP
+ fAKTbeDzrXFEMwDnI9N7LKshehVRSUIGw5x+J/vlzUhcNqeOi3R9Kxa1GrsmgEbPclXE3qElTfr
+ S7/3xjjCvqY2yVUYyOf5+L7UCW/08RY=
+X-Proofpoint-ORIG-GUID: 3pgbGjrn1UcjsLTlT_r6vcQTrf1z1Gui
+X-Authority-Analysis: v=2.4 cv=auGCzyZV c=1 sm=1 tr=0 ts=6a35bbd4 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=QcKy4yMqzQW6tn8UXNQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=ZXulRonScM0A:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-19_05,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1011 priorityscore=1501 suspectscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606190210
 
-On Mon, Jun 8, 2026 at 4:41=E2=80=AFPM Michael Walle <mwalle@kernel.org> wr=
-ote:
+On Fri, 13 Mar 2026 11:14:22 +0100, J. Neuschäfer wrote:
+> The devicetree spec requires a /model property, but many of the powerpc
+> devicetrees don't have one. This series is an attempt to fix it.
+> 
+> One practical advantage is that scripts/make_fit.py will no longer throw
+> an error when invoked with the powerpc DTs.
+> 
+> 
+> [...]
 
-> >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrie=
-ve the
-> >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requirem=
-ents in our
-> >>> map() function.
->
-> Why is gpiochip_irq_reqres() called in the first place? Isn't that
-> only called if the irq handling is set up via gc->irq.chip and not
-> via gpiochip_irqchip_add_domain() like in gpio-regmap?
+Applied to powerpc/next.
 
-Not really, the gpiochip_irq_reqres() is called to mark that a
-GPIO line is used for IRQ, so the gpiolib cannot turn this
-GPIO into an output line, gpiod_direction_out() will fail
-on lines used for IRQ. So it's a failsafe.
+[1/2] powerpc: dts: mpc8315erdb: Add missing model property
+      https://git.kernel.org/powerpc/c/d16cb0a9a42f7478c039ecaeba241872bc0b567a
+[2/2] powerpc: dts: Add missing model properties
+      https://git.kernel.org/powerpc/c/ec07a2f1d337dd5a816431724a876026296369a8
 
-You can live without it of course, but then you don't get
-this failsafe.
-
-Yours,
-Linus Walleij
+cheers
