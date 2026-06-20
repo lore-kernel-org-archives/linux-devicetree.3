@@ -1,66 +1,66 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A66B396587
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 15:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4317039099A
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 15:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781970911; cv=none; b=U5FvEVF7GDctZzUXOaOoxBBktyCpyt8shOZSxP3Ypx1Mt2zZH/yM7/f9DeMlSHAX3zZbe4+DZHzrNVrTkJHl3urBOwrlbrER15I4x+hPlXuUquRmki9wI6j1VqH6M9HOmQD++gFebH71GTpPLBtOo/We5drJAMOmWxDyVh8cShU=
+	t=1781971078; cv=none; b=uo9WSFAk17f503zZV0pUB0fapmEKfXdIaKNH1sIBrafnH02mJ05MbIm0sGpXrnAw3hsxnRifg1E++wOLDpIxKdahdcH8fkIbwHjnFR+M8hKCS4qDPrLmm1mqAxBV5PxmQz6wn0mL+oA+O+EcmZw0EdMJGNoLDSH47Mhjg2wFLlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781970911; c=relaxed/simple;
-	bh=0lKUIQs4DLFpG6UCv+ZxvYRPrJFW3LayDbvZZjnGGfg=;
+	s=arc-20240116; t=1781971078; c=relaxed/simple;
+	bh=SnUl6nZJxfSQP03DU9uUzt56TPsVlO2EkZ/eB7TD1rk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R8OcYVz2yrLBiQtBvj5+GlGV5vnCMdC0EoI3TgfGv1LnvEbL3rN8QjRhsOmfjpZMvtULs5Tg9Yx7EuiAp0JYjUjcrDJw0Rz7mP7DUmn+pOausr0ocLw1glIra/bh6wfaVPj92FbFVvlP/xzAejz1MnmiP1B2ySbQjwAUYEo2MOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FSXZ2moA; arc=none smtp.client-ip=209.85.210.53
+	 In-Reply-To:Content-Type; b=eBVWR+DwkDzxd6++wGkjrN5FQ7AYRvgaSe7udDHd8CVNKmFHpfbAEZuQx6t8LblP4u3pXD+L/rmwIORh5UWZJNc8pXdsZa/5aW46qSkAXa3sLCohxxet7sEzRCzOOjoeqFNFywaeQ4W7vZA+rdnh6CPVaR0k9voObKmz7OQXk4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=EV1qdZqj; arc=none smtp.client-ip=209.85.210.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FSXZ2moA"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7e93b04a142so483770a34.1
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:55:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="EV1qdZqj"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e6deacafa8so2181158a34.0
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:57:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781970908; x=1782575708; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781971076; x=1782575876; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/fx7vYMUQVtCy9nnWfrav0HhwbfUcy6nnm5W3QuvNFk=;
-        b=FSXZ2moAP4pTCO8QBDbU4XlN6f3VjKikNdemewpi9BelC+eW+FcHkRzvziNuawX+AH
-         OcWCQpeD8byjKsx5j0+5ChOidK1kk/X7S5D4Fmupnp58wBBuXv1FwGWGkyVNDt2XlDrE
-         FWRcuI25zBmkPQ5Dz+4INGaUANk9J8WxiUXXBMV9TDZrdMLhqH8NssNOe/NZsF4foHHh
-         ZA6q3Nam4jhqO3/iTwzdswwLG1k46dwfJa3evqOu3z11TSMO5huk9sLlzrLKeTFZrQus
-         9acYeVxfzkpTPOdF5aptlWY/uuLyId01NAnxaKREWVjsPhu9CEyL+6KbN0msBpypWdTh
-         +mBQ==
+        bh=Tjiqg9IV/7gI3LqSgJF+5/50ztX9TOXe4tB+YHLxznw=;
+        b=EV1qdZqjceHi8BzVLYqSTW5c7YW6nlC8Ppn9znew7q8d4nF2POjyxGRk0EPAe1Bd4g
+         PrYslhPW1uArc5HsaUcvI10dZVaTsaUuay/V/tuvL8430emQzAGzx2dgwML/5lQf3fAl
+         bmGATZqPrszInlYqTOe4hDCgJGjSqJ8ts8xlHfVrF3gRSY41pUtXO5WzDWCL9mTN1dAo
+         UyX56HPUKhULK60B+KI3QTE27H2TcucW1d/dIrTiuBrv/Nyyh9mVBu9LDLkOnRpZXh10
+         x9KjtnNn6AgWmNXBDBGIFWxLOX819Jy6q7fuXkLm1rCXfkhzI8vhIRi7PYuO10+r8rvQ
+         /HlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781970908; x=1782575708;
+        d=1e100.net; s=20251104; t=1781971076; x=1782575876;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=/fx7vYMUQVtCy9nnWfrav0HhwbfUcy6nnm5W3QuvNFk=;
-        b=s/afHuSK4oehfrsD5L/3XFckGvq7QC50ybTcZyKA/eAzaaXCsmsZbnV1C9Ud8AelQr
-         02OktAsHLF1uqUoL6UJHkIvysYLvkZgyRojZzn16eNCbNpHV4NIRWZroF0xyKGy2/iOa
-         JCxwBS7rlU7hvQkrNWOqLjzk+VobdkTB3vLT3MpxceOfviHAmDcwN5c2RZXb0FAlMoAk
-         BFXxDXJuPAKEVbvL08k3pejcK4RSirvcfSYE1WgwNd2wgRmuUhK9lz60o3C/6JSF89ZI
-         HHTVBzJpd1XbYFIhMageqR8ZEnSlTGqwWwxBdIhsyI5AynPXKSQwY6kT3f0wYpI37Lg9
-         r2HA==
-X-Forwarded-Encrypted: i=1; AFNElJ9L362DVyUFV8ipOJ+Z2dnLs4BtzfTVZuRLgqHyfNvCnmnCsjDUTg2K0Shi2SyJdsS9G7U278vCoNmK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK7uwt8x4vQO2bM+rDIgPSa+yK12HxPRJnuqjcuPgA8RCPsyZm
-	LbbImJh0WH8Yxl5FlIX25HjXaS5W3k+pGjJReI3LEyRZ/WUV3ARQ1mHlP75SjW9OAfw=
-X-Gm-Gg: AfdE7cnUUgJLr7YIrW0S1svjLmiEk48Wg+RuA1106L87b2jFGSoTfgcRDbpns7fYIsg
-	ZoLCkfYKflwmnPcQV9fH+J67Aw71/4azlXPjxmcPmXSXbweROqeetVVQJnVcZgRJe97HpagaP8q
-	efnvf3P+097nqm4YL2Tx1zqn8zyXFvLWkkP+qLkXajG5ypRJKDW5/cafIXurb/7JlgYoOkPRC3P
-	7SwqduFBIkqw7mRi8CV3Z8AtKouLCtjlZMPmCYb/jJc+pw4OFlN6t+eNC0UYMfuVNowNgH+etMZ
-	UX1iEY3w+ph9Yeunk/uREN2JLIYQep6u5OgPmMsyjp4Qld21q/wCyvC06C+JQf7kcFpo7Y0Xf7h
-	8voZ7ChFTnkYHopF2Aiah/N/It/HwP5t3B5Ngv7BTyGfjIgyJhEftNVoohv8PBSlBLQzDhz5WGz
-	InW1n4GMjIbql2LRyudNmdQwnj0PnV1+pru9oiSEuM+kX1AiljpZ36bPDLbEo20bw=
-X-Received: by 2002:a05:6830:6313:b0:7e6:c752:3f0c with SMTP id 46e09a7af769-7e92d917c2emr7106818a34.24.1781970907729;
-        Sat, 20 Jun 2026 08:55:07 -0700 (PDT)
+        bh=Tjiqg9IV/7gI3LqSgJF+5/50ztX9TOXe4tB+YHLxznw=;
+        b=VxDC8R1bNlpy0W8Jp/1pGjE2hW5QL71M4bnd8TODGYrHf8jr5sARJ5NCpDP8JRfqEj
+         ZbdBBvfZCNU6y42xWNsCO8QUwASpL+nVdLMJPLt88r4+5ETixkUaXMFU/52IlRp2DOBO
+         eUokI4Aff4a/YswECmPqbDmVUGy46qytsrx90jslHyZ21RW0SLDhfMgYjIBLw446AM6z
+         A2h7uNR8fLg+3xI0owoSgNFp9DFbtAMZZLOQnNGAfOfZW7TlYRh1DiSok3vhgEolfg/F
+         nXXI19g8/ngrAk6h50jYEb+kR8rbqXZkYTDRD97tc7vRQiG4lVwndkFl/pUaZvHf7Xq9
+         9R6w==
+X-Forwarded-Encrypted: i=1; AFNElJ/VeTufRfvr4hye+4J3MTJRQtEU/ZgGGgF64/QLrSl2r8H6WtbYhPrQSh/qGgIvXFySWOWewxqhQ1sF@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrAse3jKWaLyiBLoNBJd8Ij6F1+j1QIZHqGiEhWEQlfF8pKHPM
+	Ms7JvAnJRqx9ipArNDOeOJOwFhJSg/hG9h/YMsKgOxyQjaG/lGoYQyeGgUr44vcqGN4=
+X-Gm-Gg: AfdE7clZa+RR992vzkO9GXMRzukzrH3nH+n4txZpZQqPz8nj0QrMQVm8Mig7ioSXcTZ
+	Cj70HJFud2j68v7deOLsSYh+xcNzHSd7DXqy4cwQbwy0JG/Bn+J2N8fMa4vNjnuLrEoDOvpFPCX
+	azftNtrIjVD8W8gvjLcmjFG4QMW4H43159Km9/bYzYNKFHBF36+/Lds716cD4yX33RaNec2km+c
+	ZtzNMK+QLGF6O6Uv8vJDK4PWqsrX7SLz2V8C39JFDx6IiYFuGswC/66i99eV9C49F999hlzU6qe
+	9XuWhadG5/PqiteAoEht9SvF/p0YsMGtx77g29pslnP+EsWbEOZLN8UxpoWpC/HLGdYXma9A5ZC
+	jEQUg+ML+Y0X0UfgPo7M56osu7/+wZGqj1WF3+Xsxj2lmG95SPp4WfH251oO9JLHkjWpy/at+sk
+	TIuLD1DlFindxPZEkdLsllhkHnPZ61yCcHpWGp3s3vkVYShY9KsqUPPGZ5dvb/xx0=
+X-Received: by 2002:a05:6820:2011:b0:69e:a233:6154 with SMTP id 006d021491bc7-6a0d9fb7e9emr5016081eaf.8.1781971076292;
+        Sat, 20 Jun 2026 08:57:56 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:3ad0:4082:8242:2d72? ([2600:8803:e7e4:500:3ad0:4082:8242:2d72])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e944007d74sm1994044a34.5.2026.06.20.08.55.06
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec5fd4csm2267384fac.2.2026.06.20.08.57.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Jun 2026 08:55:07 -0700 (PDT)
-Message-ID: <1d4092c4-5d28-4f92-96a5-c337bfd27093@baylibre.com>
-Date: Sat, 20 Jun 2026 10:55:06 -0500
+        Sat, 20 Jun 2026 08:57:56 -0700 (PDT)
+Message-ID: <38c5e5eb-2113-4a5c-ad14-348dc7966a1c@baylibre.com>
+Date: Sat, 20 Jun 2026 10:57:55 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/3] dt-bindings: iio: adc: Add excitation current
- sources properties
+Subject: Re: [PATCH RFC 3/3] dt-bindings: iio: adc: Add burn-out current
+ properties
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
@@ -77,34 +77,59 @@ Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
- <20260618-new-channel-props-v1-2-963c1b5cf40a@gmail.com>
- <073b0a89-65af-4a21-837d-851d35e3e294@baylibre.com>
- <DJD6EB7J90AR.20Z61X02BHAZT@gmail.com>
+ <20260618-new-channel-props-v1-3-963c1b5cf40a@gmail.com>
+ <0831356f-76ff-4eed-befa-7a35ffce921d@baylibre.com>
+ <DJD6FJQUX2V7.SZWF8VSKBCPX@gmail.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DJD6EB7J90AR.20Z61X02BHAZT@gmail.com>
+In-Reply-To: <DJD6FJQUX2V7.SZWF8VSKBCPX@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/19/26 11:44 AM, Kurt Borja wrote:
-> On Fri Jun 19, 2026 at 9:27 AM -05, David Lechner wrote:
+On 6/19/26 11:46 AM, Kurt Borja wrote:
+> On Fri Jun 19, 2026 at 9:28 AM -05, David Lechner wrote:
 >> On 6/18/26 7:33 PM, Kurt Borja wrote:
->>> Some ADCs incorporate current sources that provide excitation current to
->>> resistive temperature devices (RTDs), thermistors diodes and other
->>> resistive sensors that require constant current biasing.
+>>> Some ADCs incorporate burn-out current sources that provide current to
+>>> the channel's input pins for open-circuit or short-circuit detection.
 >>>
->>> The maxItems constraint of 16 is arbitrary but should be big enough for
->>> most devices.
+>>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 14 ++++++++++++++
+>>>  1 file changed, 14 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>>> index 106b1e317411d5..6b63aac9ac04dd 100644
+>>> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>>> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>>> @@ -106,6 +106,20 @@ properties:
+>>>        This array describes the current configuration of the excitation current
+>>>        sources or the single matched current for all sources.
+>>>  
+>>> +  burn-out-current-microamp:
+>>> +    description:
+>>> +      Burn-out current sources provide current to the channel's input pins for
+>>> +      open-circuit or short-circuit detection.
+>>> +
+>>> +  burn-out-current-polarity:
+>>> +    $ref: /schemas/types.yaml#/definitions/string
+>>> +    description:
+>>> +      Burn-out current sources provide current to the channel's input pins for
+>>> +      open-circuit or short-circuit detection.
+>>> +    enum:
+>>> +      - pull-up
+>>> +      - pull-down
+>>> +
+>>>  anyOf:
+>>>    - oneOf:
+>>>        - required:
+>>>
 >>
->> I wouldn't put an arbitrary limit here. The bindings that include it
->> can extend it to add a limit that makes sense instead.
+>> This doesn't really work with chips that just have and enable bit to
+>> enable or disable the feature.
 > 
-> I agree.
+> Maybe those devices can use burn-out-current-microamp with a const
+> value? Is that okay or should another approach be taken?
 > 
-> This was partly a misunderstanding. I thought -microamp properties fall
-> back to uint32 not uint32-array but it's the other way around right?
-> 
-Standard units are uint32-array. Defined in [1].
 
-[1]: https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/property-units.yaml
+Maybe better to just leave this one out of the common file?
 
