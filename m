@@ -1,61 +1,63 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249FE1459FA
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 04:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC83C256C6D
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 04:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781930414; cv=none; b=haJL/h76Bud4GznKY+gdQOu3enfV3yk9QdYEJAG4IACII06JbrOzZOkKIMYxbTG5EN7kODe7rETsOlNNhIHNoNWdklOKsPCNs9DyjkiF1dKdS/VsH8mPGMDIsC9ezCWlTIwRIdB7mCHNAcbJcJj39YLED/A9kb2MISHSFqHgTDY=
+	t=1781930417; cv=none; b=GD6tW083A26q1AiqVM0M9iDAsVzzoJdEJc9Cbag+CofQrWaHpWEIpTY623/yNGEPBwLVmiWB3n+eMn57Gd4ZBCQD/ESRfCA8H8Mv0ckta35sdqJazuddL59SVJfxDrA+vN8li02z+z0cM9j2EplbeO3ztO+/0SAk0jQdAA1mdrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781930414; c=relaxed/simple;
-	bh=j/KlcuqTGo4rbWXi3VJtgHO0cb10VIMP0agIXghvbZI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=m5TC5Hn3jMpHu+mg7h6LLnkjaqB5eJm8q15OiSCLiRnCJs36OKS5Q27WN3kzoGAOMESpGg1Yf4qaIdNwE5gc5ZL5pFEg8qlxQe7Q3Ypwz4MgSBkIBLp+zkbHDC+okKA8OuZnt9azoVHLph8rbjyJ6XDtusRAsb77q/0i1Y14tsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJpywN1F; arc=none smtp.client-ip=209.85.167.174
+	s=arc-20240116; t=1781930417; c=relaxed/simple;
+	bh=s4uGUDCNIZcuL67jmQB+Q6rJHyfc0sUokTYu0rPht9w=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P6NFku5EwKJyFP/kMWZeR/RySZ3BZaE4DZlpqB2mM/jPxwOtbdNN0Q14SMNAdVFqGQ7Oex+yvM9t+iXFCYDdTza82XuVchom7J3yOJhxHocmDuKlnaJYomP69PUanleI0WqBt2v/nuOKvi262zsaAf/LeyNdM/Z3elD5iUcLuKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mVCe7jNk; arc=none smtp.client-ip=209.85.210.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJpywN1F"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-486852c7b68so1588749b6e.2
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 21:40:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mVCe7jNk"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7e6e21c47e6so1641784a34.1
+        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 21:40:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781930412; x=1782535212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=FJeeU9eoXdSFt5ADMYLY67sHZOm5Ehw4SyZLtOa9Yzw=;
-        b=dJpywN1F/Rlzf93Nzv92+iinhn7bYEcUztekYMIkHR3gZtu838O5lEn+nLPcq4ymji
-         8IFxZg6jRPsDFXSDZaEjkVhyIuLGEIuRB07Qsl6zy7e+wxeqykwBr4S2hjLwFsyUP5JJ
-         FLsLKebt/xgziQZueS1qIdZoVilQ37M6OTMgC5oFhoA97FHy7Na8aGuqKBGQ1BrDbmMr
-         6VzdT+SDcWUHRboWKodNlKLeifSlMIz6CNAvVmqOF+tRJxBMxeTxDNdxzQDdN/5asFrT
-         nr65iPp6WwQSyfytevq4gF8yCr+IGtEljPJlQ9vQVTwVWKyCqRnoZf6ikaICxZgtNX05
-         uz8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781930412; x=1782535212;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1781930414; x=1782535214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=FJeeU9eoXdSFt5ADMYLY67sHZOm5Ehw4SyZLtOa9Yzw=;
-        b=Yg1/3urEs5YWFISZECwDQiJSTtglnTl2BJJqkH+o2VMRqZxaamwyrdOagiKjAW1w0F
-         pmjsqRGHx1NObYYBYwY9wHwe6vuZM21CoAut9uxGAcqlw9/rKPUi97UrVbzdJsXgw+aH
-         0N7McHbUs11vnSErZmDBjs8L1uYOyDH5bkExPzGLeTkQpvTS+uHoxBq+6AAdO1PLHgM6
-         qSmhI9m6ubvTYKvu04Qp2nGl3UjLuS7IoCJ2F3kedExoRcw/dMhMWrKvH2Q8ndIYtSVe
-         OWRL1/okH0HZ32JcO1ogP1KM9g7h4WZbRqH47DFsR0WJOs89oSndu4ZqpQoh8+NQwS++
-         qE9A==
-X-Forwarded-Encrypted: i=1; AFNElJ/xCOqo7D73nzRIG7oLmiNIYmoJDrWQWlB1SdFNIisuKjPUdCSQMIdCnB/9I+DmjmeYoyDi7sPc9yVG@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmFFE2ZO/08FqQ+Cxkrwqo98h7Th6SwIJgsEOIFRIl29iqHQum
-	9mt1LQl1NYEu95TBBgPrZPuBlmNSs+Fr2z+nWLMLceqH8gWRCIqpxeot
-X-Gm-Gg: AfdE7cnIOKjK54rPJ470azXKx86maHsx2LTI2YHjskC5NDbu6apmGGO7XTwZCdGLL/I
-	B3qcAwbvXDAsBmqFoZmK1LL2+gQbhJ7F/B0PF7Ud/j2IP33yn6e5V/bUuaLg0DKl+F/LB7phsVL
-	yGf+Nuy3vQ4kUvCilmzyALYzy9lYr36B49c5MS0SCsESTf+LxLnGTq9KTGDr0ga9u9XkQJnSdGy
-	e57RBhX1uAP5WIOwBe0XlGxjKUCrinxU8kWEZ/qWCh3F0Qpb6RjO59duLIphWIM0MkBDlIfYTOv
-	41doLL1kyKRS2Sopzb3vBBKGZbipSSFa+/g28O196eRQvaIrQ1JHAJhpAPtXKLwCkX6jalrLfkv
-	M6GUvWvQM2NjadVzRQ8Y8+qnJWISKnNyv9Gvj6iZS9aBvJWP2pmX9/1b/7RjTTco+bNvB6W7wxi
-	WFJiDqjFea+lLpLH8enp6eTJxv75muC4Wr5z92+v7h47k5zty7YGp3QRXB5A==
-X-Received: by 2002:a05:6808:2519:b0:48a:8dfa:5219 with SMTP id 5614622812f47-48a8dfa5859mr2516921b6e.3.1781930412044;
-        Fri, 19 Jun 2026 21:40:12 -0700 (PDT)
+        bh=ZK6YFlyAvt6yked5wvEFfbmqGCX0V5PCrDLneg6SZt0=;
+        b=mVCe7jNkbF0jAtTp+xZdhTKjtZYEHhLTwmeIWXKqu4/otQwfE4ffcRJBnVKEiARhvg
+         LpWFdX8Io3HheXEixMEkuJ8CehmZyp8cUPcRhoRDbhXrxE4JCSmVcVMSW3/vs8o3q1mg
+         t2W5yTwfqW8meuUpQpVL703NxL3OBuRAJVL4z9BH3AGlmen77R3147jxllfWp+A69Lhn
+         teJY1qmEJvrGQlMH24jIYWgKWHfNdhvUP1iySR///dt80mpBhY3bEsVza3PSagWOcU9d
+         IYKQKGrqpjTmREvgprH6k2CwtLT4PaOxuMq6Tb7fD81EJw2ANl25xm7y1pjSIl8SpSJ5
+         3DEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781930414; x=1782535214;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZK6YFlyAvt6yked5wvEFfbmqGCX0V5PCrDLneg6SZt0=;
+        b=jTZSuu0ZcsDnEiteZM5LbVXx8kBSA9nrBhIvoNdQGTulo6lU010Cot7UCj2wrv/TYP
+         2YmPAksOG2EGghAPC4vHenHhKL/EG3GCa0FpmVBsnj/yzgjC3rPEcJIn/dLafEaM4HZA
+         pS/ZX1cWmJ/1XylTbMFrOIkxrCbyetGrpperxlPTev2OxcxxXeGSWk4bOeRhDyjsArfs
+         N6rSejvfIfRcMROR2KDbGLgHwwnNGkfEkBmqQdaGReiVQG/L0rAdxfVo6gzTbFBNAOtw
+         +4mhE/qC7gHZMKNJT/0nhiMLEDlyNB90PVtR+jZDyUB5TfCDGSwS97hXceNqPA+8LIH6
+         iN2A==
+X-Forwarded-Encrypted: i=1; AFNElJ8AlMAOcDSZID4H/SeNYnXTwtQ8XIOzs0QsZSNy0HGCeAHmfOiMzLXTatbmsAxk+eeCSrdqHhuRcL23@vger.kernel.org
+X-Gm-Message-State: AOJu0YxymHBmQrHvA7dpxhjvAvyTiaUjGi3k5/ZXoqcDy36/3MimU2H9
+	fwhMN+rGtvyH80dPUcMFEnggRFPUDnaQy7+7A6fasaXwnR5gFxJEbQFI
+X-Gm-Gg: AfdE7ckUhUusDAKEnlnGsyTNFStvyyW5FOfq7HvtkVxTA7NutFAYn+7gyj5/ALmbxuK
+	Y7pJmwNeVwd/7JAqHbSXqOqu7Tw/HvD5KAjWYrHozXHe4f5JijaEoOM1MTfQNj/IhL9Kj3DR2WA
+	0lNC6CZIlNr+Jg3jqX0k88Yal6VSWWaWaHuqZy9JKa0SVZvEw98IMGTaz+hekjh0bDeyEuc4gOB
+	XX9DMqTHeCSucX6NU75yjE+ti/uycAPtK5xT7IhBLcTs37K03cQ0yeb3g0BodRl4TKDWdtUzVf3
+	3AVmnTEXgykr2HYl9znOrvChdriwihT6+JVFrs0jiQU3jJnCAqc3AA7eYuyzDsVIBDZFx7cir2M
+	/GQWI8vcS9f835dEB6o/tUGk+jgLoMbPrasJhmKPf5aqYXblvnW7v2wYkHOltdHc+aFAwzv3HDT
+	Up4+4rU2s9D1dhGeI4XuxSiVocuJ8MA7hcY2hd44poHjM97i0=
+X-Received: by 2002:a05:6808:c2c3:b0:489:5dc8:1d61 with SMTP id 5614622812f47-4896aa57359mr5850543b6e.13.1781930413798;
+        Fri, 19 Jun 2026 21:40:13 -0700 (PDT)
 Received: from linuxescape.lan (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-48aec0ddd7bsm679754b6e.7.2026.06.19.21.40.10
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-48aec0ddd7bsm679754b6e.7.2026.06.19.21.40.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 21:40:11 -0700 (PDT)
+        Fri, 19 Jun 2026 21:40:13 -0700 (PDT)
 From: Maxwell Doose <m32285159@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -67,10 +69,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 0/3] Add Sensirion STS30 temperature sensor driver
-Date: Fri, 19 Jun 2026 23:40:04 -0500
-Message-ID: <20260620044010.1082621-1-m32285159@gmail.com>
+Subject: [RFC PATCH 1/3] dt-bindings: iio: temperature: Add STS30 devicetree bindings
+Date: Fri, 19 Jun 2026 23:40:05 -0500
+Message-ID: <20260620044010.1082621-2-m32285159@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260620044010.1082621-1-m32285159@gmail.com>
+References: <20260620044010.1082621-1-m32285159@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,37 +83,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Add the devicetree bindings for the STS30 family of temperature sensors.
+The STS30 family of sensors includes the STS30, STS31, and STS35.
 
-This patch adds support for the Sensirion STS30 family of temperature
-sensor drivers. It currently supports single-shot non-clock stretched
-readings as well as the entirety of the STS30 family.
+All devices in the STS30 family share the same commands, timings, etc.
+The only difference between them is their measurement accuracy and
+tolerance.
 
-I'm sending this as an RFC patch as I unfortunately do not have the
-hardware right now. I have compile-tested it successfully and have done
-a tad bit of testing on QEMU, with it properly registering with no
-errors reported in dmesg. Unfortunately due to the way I had compiled
-the kernel used to test the driver it did not expose the I2C bus to
-userspace properly and I was not able to retrieve values from the
-driver, but I can continue more testing over the next few days and am
-happy to answer any questions anyone may have. Additionally, regarding
-dmesg logs, I neglected to save them while in my testing, but as stated
-previously, I can continue more testing over the next couple of days.
-
-Maxwell Doose (3):
-  dt-bindings: iio: temperature: Add STS30 devicetree bindings
-  iio: temperature: Add STS30 temperature sensor driver
-  MAINTAINERS: Add entry for Sensirion STS30 driver
-
- .../iio/temperature/sensirion,sts30.yaml      |  49 +++
- MAINTAINERS                                   |   6 +
- drivers/iio/temperature/Kconfig               |  11 +
- drivers/iio/temperature/Makefile              |   1 +
- drivers/iio/temperature/sts30.c               | 321 ++++++++++++++++++
- 5 files changed, 388 insertions(+)
+Signed-off-by: Maxwell Doose <m32285159@gmail.com>
+---
+ .../iio/temperature/sensirion,sts30.yaml      | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
- create mode 100644 drivers/iio/temperature/sts30.c
 
+diff --git a/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml b/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
+new file mode 100644
+index 000000000000..dc0c6b7832fb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
+@@ -0,0 +1,49 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/temperature/sensirion,sts30.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STS30, STS31, and STS35 temperature iio sensors
++
++maintainers:
++  - Maxwell Doose <m32285159@gmail.com>
++
++description: |
++  Family of digital temperature sensors from Sensirion with I2C interface.
++  All devices are compatible with each other, their only differences are
++  their levels of accuracy.
++
++  Datasheet available at:
++  https://sensirion.com/media/documents/1DA31AFD/65D613A8/Datasheet_STS3x_DIS.pdf
++
++properties:
++  compatible:
++    enum:
++      - sensirion,sts30
++      - sensirion,sts31
++      - sensirion,sts35
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        temperature@4a {
++          compatible = "sensirion,sts30";
++          reg = <0x4a>;
++          vdd-supply = <&reg_3v3>;
++        };
++      };
 -- 
 2.54.0
 
