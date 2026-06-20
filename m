@@ -1,374 +1,170 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435D0349CD7
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 07:43:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF99732B12F
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781941402; cv=none; b=gcvNJRt+ml0Z0R6sAootPKM5PHqGx9GWiceN+8Z5KITfo+SvrL9+JqXnyIjS4U1KBEbXunOOvl6R6SGrTr7uxTrgA44uoghBR6Hpc8nrx12192IOmAz9KI+Gzjes713eazGe60rXpMBL7XUBW5R97IJq3JRFKB7HMAtj0/ZxqU0=
+	t=1781945290; cv=none; b=AE04EvAn407bkeVycXpewiBFoIS5Tnsv2qDxLtVQa/ytGTZEW69ebkKWIUE4Yby6KcSiElWBUtOrtkpksk+ge5xNhYn3aBmRjTiZtpbolyDHMWlc3x223mQo79tBfxd5bu0FQOZ2P2XCVZ1htXkpDXpgj1mhBrwBUsOWyOpoIGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781941402; c=relaxed/simple;
-	bh=vdfnhw3YRthYLW7NoZkxwLQDENYWZHxfnzLd1ME8oFM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BvZ3fj6Uc2TO+gQg4J6eaargXJDmZdcLDEc9TM4RpT7qdKXXUVVwnPc5xaAanOLCgeCYQThRaOspf2ITbktIXr4yUyTg2xmr40Iyz2n2/sqAX4O5pNxR85r1ZfaCbf/OMu9unB2K9N5JV4Jhtuf3KxjOHUVfW4Gx7DvpV96c9r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jl2raJ3n; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781945290; c=relaxed/simple;
+	bh=s+g1BaX0QXkb0cD6nA4lQP8G0Uw+jxac9zWRe4qF7Gs=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dGYj0VUBYl1BfRgQGWdAkmCz05IampMwRKHLBYCAOPPmckDMRpoDc50OYoD0j++86Ghj9zCPAniwvBqWS2vhIaxO/JgLduf1DfmfJYPM/U1Qqv2wwiOAOLpT2UFzBQMkYOK7l5Dxq+NxLTHPTge9qyRaDs8uDU+BTia6qaw5xhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5KtmN+i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jl2raJ3n"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso17870065e9.1
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 00:43:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781941400; x=1782546200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GXS8t5npxhKaIsgGfv/VQGf/gDm2d4sf6lLIFq0N37A=;
-        b=jl2raJ3n4GgVOsrjL0NP377U0t3NomUYeHhZFZum4fqrJO0Jv5P4WJn0cOpHbpzV/H
-         WmkzZavSU7KxBMPexGLm4RJJODJ/qou4ZwRu1ca+MLToIAN47mGkyOnPjHsWuQ+f9YwB
-         eksx0KEPbA3tjWfAwceyxTHYzWwGan+AiV/1Anz3fN7Yxjd9eNvUJEGh6LHWCQIR9aUd
-         RT1PJoxC+8+Z4a12HAWKyyIoAXuPquyYPdjIKbnMYMZyBarUtgbDeITIFzub56/I9BeE
-         QGbSv1+BdlexfwGIuS5rCFPgZobtKOb1i0Z7KtnGKfHH53OuzNsV+D/1qxU8PkR7+Cc+
-         dGXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781941400; x=1782546200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GXS8t5npxhKaIsgGfv/VQGf/gDm2d4sf6lLIFq0N37A=;
-        b=Yzu9fE+cA24ELtAmRhVx+dWi4aOfg6q01fmk4IJJxZNXdlDAdWAOMgFC88KfaOHFPx
-         1lm1hoDNTPxfTT/nRxRk9I7NNmhX/bc4+J4v9geuaidoyeX0yGqzucjD2uaLX74sLJdT
-         sk9468gvo7jGRi9SQKF6PNz0JoGUUaZxiSybsnW1x3FLQNk01BoYjzX9md+V2WePAsUz
-         9RrNakvZcBkfO1s//J5W8LRtfNRatXdV7LFkCkDHpXPiGk9/kU6O+b/TG3LjWCRw1Vw/
-         Z1ePc5NSW2cBQun2wHWc0KXX6k+bSIleW2Ln1zzRLIkdDjC/zGSTjnKyre7hHjnUI2xJ
-         TPqA==
-X-Forwarded-Encrypted: i=1; AFNElJ8mJeqkcsE4Qiy2Z8ySJXIBAhFK5A659AkhlCopXhQjOSLOFRLNP+xFmSRHtWhOCm2dPyt+xHa4ayiW@vger.kernel.org
-X-Gm-Message-State: AOJu0YyhwRJWITN2d6UUyHZW9FyXaa8PbIwpFfG1hIUADACT9lYaEfer
-	z1/gcDn4Gj0x8RYeoPBtPpvogZgQu6alX1Da2IDiTEhieYfH9539LcPi
-X-Gm-Gg: AfdE7cnFjlWvg1ht5r9L6jjFRfehyUTOdBtd+OrhE4CQCX1BQOLShhgRIhpqt4B77Qn
-	CFLfv32aZF26rrs5LgjgYliz+9OltNlGgjUrST8zNK9JgmqKbcMe0Wj8mX/xdueuymYHint/nt3
-	TBPu3WEt8M9KWBYD+XLNcWpIznNfhSlEUPEaZupQkYWQZvZTtljWNTOVvylLoiu5CsV3wWF/1EB
-	u/LrlImocu8LrNHI6JjDuUsBe4Zuxiavh/Qy68ZDgsTiNWNOHtsQe2YV4rZqiFCpQIZKr49mfIA
-	4SxkqgdP/LC3vHVFRYzB6n+KgsUTiaCXSYEGZNOzG/FC3WkSTJbkXLv0TGCONYe5BgrGW/X4nOc
-	NCCbbR8tichzjNJOn2ORyvFk/GHVkNC3zffNK3NyPyMNOnrGz9l6i0EJwTGFHZS34JRoZkZIUvQ
-	Hi1D+TCsv7D0CLVrUvljrOOPjy525KO1oZLUNVlceTpz1HTbj8TySYr/X2xJ95V227JRmTWGP+o
-	ZbrikoxGiijQniu25Ro7hLrNt6I6jyAl/XKFLtBY1IRPFKnJJFP9uJIL1he6MAmVnmHmRyaNsv4
-	bOZvHA==
-X-Received: by 2002:a05:600c:6990:b0:490:b189:212d with SMTP id 5b1f17b1804b1-492490b7ea3mr32101455e9.33.1781941399416;
-        Sat, 20 Jun 2026 00:43:19 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c5413sm5922063f8f.11.2026.06.20.00.43.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 00:43:19 -0700 (PDT)
-Date: Sat, 20 Jun 2026 09:43:17 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Maxwell Doose <m32285159@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
- devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE
- TREE BINDINGS), linux-kernel@vger.kernel.org (open list)
-Subject: Re: [RFC PATCH 2/3] iio: temperature: Add STS30 temperature sensor
- driver
-Message-ID: <20260620094317.4e503b7d@systembl0wer>
-In-Reply-To: <20260620044010.1082621-3-m32285159@gmail.com>
-References: <20260620044010.1082621-1-m32285159@gmail.com>
-	<20260620044010.1082621-3-m32285159@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5KtmN+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FFFC1F00A3A;
+	Sat, 20 Jun 2026 08:48:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781945289;
+	bh=pChRParA4h9txJxRD2Y/ykZeyn6BMFeYT/V2eKH1xSU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H5KtmN+ijbdyuzPesz3it5iE+TRcUsm8EBBF0YPuy3T6a3ZYfxIJmmzWNTF5RWMoH
+	 /nDLQpsr0zo18vFJbeY21BNv2HrZrRscDd8OQKzHUZMW48the48nmBkBYiCn2LDNzJ
+	 cUfNJen6wZn1R5f3CAZ20ImCxZYEJUq8oPTp8yv55fhr++qQGkaexAH8xXUjIgjG0U
+	 OII6ilcjRhHIB3/EdjD0s4tSHEOObaLoYTiVSgjsNQtr8TNlBDCokBwq4HItemnFYH
+	 WlV7rO9ryBU5aRXVgKZdPa7EFg7szpqqvpGn5rL+GczMb1D9yxNlyGF842RJiERJHY
+	 dz6G0Q3XSOp2Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1warN1-0000000EUQb-1aCO;
+	Sat, 20 Jun 2026 08:48:07 +0000
+Date: Sat, 20 Jun 2026 09:49:14 +0100
+Message-ID: <878q898ulx.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Daniel Drake <dan@reactivated.net>
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	florian.fainelli@broadcom.com,
+	bcm-kernel-feedback-list@broadcom.com,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	m.szyprowski@samsung.com,
+	andrea.porta@suse.com
+Subject: Re: [PATCH] arm64: dts: broadcom: bcm2712: Remove non-functional EL2 virtual timer
+In-Reply-To: <20260619204832.586079-1-dan@reactivated.net>
+References: <20260619204832.586079-1-dan@reactivated.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: dan@reactivated.net, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com, andrea.porta@suse.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Max,
+Hi Daniel,
 
-comments inline, some nits, some more serious, some Sashiko reviews.
+Thanks for posting this.
 
-Josh
+On Fri, 19 Jun 2026 21:48:32 +0100,
+Daniel Drake <dan@reactivated.net> wrote:
+>=20
+> Commit d87773de9efe1 ("clocksource/drivers/arm_arch_timer: Default to
+> EL2 virtual timer when running VHE") causes boot to hang on
+> Raspberry Pi 5. The newly-selected EL2 virtual timer does not generate
+> any interrupts, even though the GIC_DIST_ENABLE_SET flag has been
+> confirmed set via readback.
+>=20
+> The reasons for this failure are unknown, however it is likely that
+> this timer was never tested. Raspberry Pi's original devicetree did
 
-On Fri, 19 Jun 2026 23:40:06 -0500
-Maxwell Doose <m32285159@gmail.com> wrote:
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2026 Maxwell Doose
-> + *
-> + * Sensirion STS30 temperature sensor driver
-> + *
-> + * Datasheet: https://sensirion.com/media/documents/1DA31AFD/65D613A8/Datasheet_STS3x_DIS.pdf
-> + *
-> + * Author: Maxwell Doose <m32285159@gmail.com>
+The timer is part of the CPU, and there are enough A76 implementations
+around to prove that it actually works. The same can be said for the
+GIC400 this is (supposedly) attached to.
 
-Nit, but this is probably unnecessary since you already have
-the copyright statement above.
+> not include this timer interrupt; it was only introduced via a
+> suggestion[1] made in code review as part of the upstreaming process.
+> (Current RPi firmware versions do include this timer, but only because
+> they rebased on top of the upstreamed devicetree starting with
+> Linux 6.12)
+>=20
+> Until more is known about this non-firing timer interrupt, remove
+> the devicetree entry to enable RPi5 devices to boot.
 
-> + */
-> +
+I'd like to understand the reason why the timer interrupt isn't being
+delivered *before* we paper over it, and not the other way
+around. Each of the CPUs definitely have an EL2 virtual timer, the GIC
+has a per-CPU interrupt, but somehow the two don't seem to be linked.
 
-You're missing array_size.h, as used in probe.
+Since DT is supposed to describe the HW, I'd expect someone from
+Broadcom or RPi to shine a light on this issue. Integration mistakes
+happen, and we work around them (see the handful of Samsung SoCs where
+the timer interrupt was simply not wired). But we absolutely need to
+know what we are dealing with beforehand.
 
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/crc8.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/export.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/types.h>
+Finally, just hacking the DT is not enough. Assuming that the timer is
+indeed unusable, we need to cope with the fact that there are DTs
+describing it in the wild, as nobody should be forced to upgrade their
+DT in lockstep with the kernel. For that, you'd also need something
+like the patch below (untested, and in need of a proper commit
+message, which I expect the SoC vendor to provide).
 
-Move the IIO specific headers below the generic linux headers
-and group them separately.
+Thanks,
 
-> +#include <linux/i2c.h>
-> +#include <linux/kernel.h>
+	M.
 
-Don't use kernel.h for new entries, you should include what
-you actually use instead of relying on this. (there is a tool
-that can help with this, it's called `iwyu-tool`).
+=46rom 9de354b472e28112d73fdb63be986f68fb3c91a9 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Sat, 20 Jun 2026 09:32:09 +0100
+Subject: [PATCH] clocksource/drivers/arm_arch_timer: Workaround RPi5 broken
+ EL2 virtual timer
 
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +
-> +/* Amount of bytes received from the STS30 after a read command */
-> +#define STS30_MEAS_SIZE 3
-> +
-> +#define STS30_COMMAND_READ_HIGH_REPEAT 0x2C06
-> +#define STS30_COMMAND_READ_MED_REPEAT 0x2C0D
-> +#define STS30_COMMAND_READ_LOW_REPEAT 0x2C10
-> +
-> +/* Soft reset command */
+Insert $REASON here.
 
-No point in having a comment if your macro is sensibly named.
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ drivers/clocksource/arm_arch_timer.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-> +#define STS30_COMMAND_RESET 0x30A2
-> +
-> +/*
-> + * sts30 includes a CRC8 checksum at the end of its i2c responses. The polynomial
-> + * is used to generate the CRC8 table and the seed is the starting value.
-> + */
-> +#define STS30_CRC8_POLYNOMIAL 0x31
-> +#define STS30_CRC8_SEED 0xFF
-> +
-> +DECLARE_CRC8_TABLE(sts30_crc_table);
-> +
-> +enum sts30_read_delays {
-> +	STS30_REPEAT_LOW = 4500,
-> +	STS30_REPEAT_MED = 6000,
-> +	STS30_REPEAT_HIGH = 15000
-> +};
-> +
-> +/**
-> + * struct sts30_data - data structure for STS30 driver
-> + *
-> + * @client: underlying i2c client data structure
-> + * @lock: mutex for serialized communication on the i2c bus
-> + * @delay: measurement duration for the current repeatability mode
-> + */
+diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm=
+_arch_timer.c
+index 4adf756423de9..de9007a30a923 100644
+--- a/drivers/clocksource/arm_arch_timer.c
++++ b/drivers/clocksource/arm_arch_timer.c
+@@ -1090,6 +1090,16 @@ static int __init arch_timer_common_init(void)
+ 	return arch_timer_arch_init();
+ }
+=20
++static bool __init has_broken_el2_vtimer(void)
++{
++	static const char * const broken_el2_vtimer[] __initconst =3D {
++		"brcm,bcm2712",
++		NULL
++	};
++
++	return of_machine_compatible_match(broken_el2_vtimer);
++}
++
+ /**
+  * arch_timer_select_ppi() - Select suitable PPI for the current system.
+  *
+@@ -1115,7 +1125,8 @@ static int __init arch_timer_common_init(void)
+ static enum arch_timer_ppi_nr __init arch_timer_select_ppi(void)
+ {
+ 	if (is_kernel_in_hyp_mode()) {
+-		if (arch_timer_ppi[ARCH_TIMER_HYP_VIRT_PPI])
++		if (arch_timer_ppi[ARCH_TIMER_HYP_VIRT_PPI] &&
++		    !has_broken_el2_vtimer())
+ 			return ARCH_TIMER_HYP_VIRT_PPI;
+=20
+ 		pr_warn_once(FW_BUG "VHE-capable CPU without EL2 virtual timer interrupt=
+\n");
+--=20
+2.47.3
 
-I'd remove this comment altogether and just add a comment on why
-you need a mutex.
 
-> +struct sts30_data {
-> +	struct i2c_client *client;
-> +	struct mutex lock;
-> +	/*
-> +	 * sts30 has three potential repeatability/measurement durations. We need to
-> +	 * account for them while reading the i2c bus.
-> +	 *
-> +	 * See section 2.2 in the datasheet for more info on processing times.
-> +	 */
-> +	enum sts30_read_delays delay;
-> +};
-> +
-> +static int sts30_verify_crc8(struct sts30_data *data, u8 buf[STS30_MEAS_SIZE])
-> +{
-> +	int crc;
-> +
-> +	crc = crc8(sts30_crc_table, buf, 2, STS30_CRC8_SEED);
-
-Please use sizeof() instead of hard coding the buffer length.
-
-> +	if (crc != buf[2]) {
-> +		dev_err(&data->client->dev, "Expected CRC8 value of 0x%02x, got 0x%02x\n",
-> +			buf[2], crc);
-> +		return -EIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int sts30_read(struct sts30_data *data, u16 command, u16 *val)
-> +{
-> +	u8 tmp[2];
-> +	u8 buf[STS30_MEAS_SIZE];
-	
-Reverse christmas tree order.
-
-> +	int ret;
-> +
-> +	put_unaligned_be16(command, tmp);
-> +
-> +	ret = i2c_master_send(data->client, tmp, sizeof(tmp));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(tmp))
-> +		return -EIO;
-> +
-> +	fsleep(data->delay);
-
-Adding Sashiko's comment:
-
-Will sending a STOP condition here abort the measurement? Since
-i2c_master_send() issues a STOP condition rather than a Repeated START,
-this sequence violates the protocol for the Clock Stretching Enabled
-commands (0x2Cxx) defined above.
-Should this use the "Clock Stretching Disabled" commands (e.g., 0x2400)
-instead, or alternatively use a single i2c_transfer() with a Repeated START?
-
-> +
-> +	ret = i2c_master_recv(data->client, buf, sizeof(buf));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(buf))
-> +		return -EIO;
-> +
-> +	*val = get_unaligned_be16(buf);
-> +
-> +	ret = sts30_verify_crc8(data, buf);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int sts30_reset(struct sts30_data *data)
-> +{
-> +	int ret;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	ret = sts30_write(data, STS30_COMMAND_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> +	fsleep(1500);
-
-Add a comment or change this to a macro to explain why 1500
-specifically.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int sts30_read_raw(struct iio_dev *indio_dev,
-> +			  struct iio_chan_spec const *chan, int *val, int *val2,
-> +			  long mask)
-> +{
-> +	struct sts30_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +	u16 tmp;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		switch (data->delay) {
-> +		case STS30_REPEAT_LOW:
-> +			ret = sts30_read(data, STS30_COMMAND_READ_LOW_REPEAT, &tmp);
-> +			break;
-> +		case STS30_REPEAT_MED:
-> +			ret = sts30_read(data, STS30_COMMAND_READ_MED_REPEAT, &tmp);
-> +			break;
-> +		case STS30_REPEAT_HIGH:
-> +			ret = sts30_read(data, STS30_COMMAND_READ_HIGH_REPEAT, &tmp);
-> +			break;
-> +		default:
-> +			dev_warn(&data->client->dev, "Repeatability state corrupted, got: %d\n",
-> +				 data->delay);
-
-Do we need this warning? Returning -EINVAL is sufficient
-enough.
-
-> +			return -EINVAL;
-> +		}
-> +
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = tmp;
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_OFFSET:
-> +		/*
-> +		 * We use this constant -16852 as calculated using the formula
-> +		 * in the datasheet. See section 4.12 in the data sheet for more
-> +		 * info.
-> +		 */
-> +		*val = -16852;
-
-Okay, this would definitely be better if it were a macro. I'd even
-be tempted to add the formula in a comment for safe keeping.
- 
-...
-
-> +static const struct i2c_device_id sts30_id[] = {
-> +	{ "sts30" },
-> +	{ "sts31" },
-> +	{ "sts35" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, sts30_id);
-
-Move the struct i2c_device_id struct after probe(). Additionally,
-use the `.name` named initializer when defining the IDs (this reflects
-on Uwe Kleine-Konig's effort in IIO).
-
-> +
-> +static int sts30_probe(struct i2c_client *client)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct sts30_data *data;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	indio_dev->name = client->name;
-> +	indio_dev->info = &sts30_info;
-> +	indio_dev->channels = sts30_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(sts30_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->client = client;
-> +	data->delay = STS30_REPEAT_HIGH;
-> +
-> +	ret = devm_mutex_init(&client->dev, &data->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	i2c_set_clientdata(client, indio_dev);
-> +
-> +	ret = sts30_reset(data);
-
-You're not checking ret here.
-
-> +
-> +	return devm_iio_device_register(&client->dev, indio_dev);
-> +}
-> +
-
--- 
-Kind regards
-
-CJD
+--=20
+Jazz isn't dead. It just smells funny.
