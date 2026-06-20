@@ -1,66 +1,66 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4317039099A
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 15:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDF9397332
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 16:14:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781971078; cv=none; b=uo9WSFAk17f503zZV0pUB0fapmEKfXdIaKNH1sIBrafnH02mJ05MbIm0sGpXrnAw3hsxnRifg1E++wOLDpIxKdahdcH8fkIbwHjnFR+M8hKCS4qDPrLmm1mqAxBV5PxmQz6wn0mL+oA+O+EcmZw0EdMJGNoLDSH47Mhjg2wFLlA=
+	t=1781972069; cv=none; b=olpBpX5RvTDH5kMv8HSeJ1u8eiqt0BEegtMB0gxwDkeL+h7Qkdte+rHDtp5b4nonvThowOiAWqGrOuanMqm8JP6SIFJF5qY0aqoLGsiIcTO/WbIFOeOBHbySYFgPcoEsSRFThG+7BR5vzvGD0jlvB/yjXr2vx4KK7RQtvpq/DVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781971078; c=relaxed/simple;
-	bh=SnUl6nZJxfSQP03DU9uUzt56TPsVlO2EkZ/eB7TD1rk=;
+	s=arc-20240116; t=1781972069; c=relaxed/simple;
+	bh=VDtfdO15TmSPd1YLF4tUzPuukTeoidBLVzbiod0dE00=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eBVWR+DwkDzxd6++wGkjrN5FQ7AYRvgaSe7udDHd8CVNKmFHpfbAEZuQx6t8LblP4u3pXD+L/rmwIORh5UWZJNc8pXdsZa/5aW46qSkAXa3sLCohxxet7sEzRCzOOjoeqFNFywaeQ4W7vZA+rdnh6CPVaR0k9voObKmz7OQXk4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=EV1qdZqj; arc=none smtp.client-ip=209.85.210.47
+	 In-Reply-To:Content-Type; b=DxBccJiuLSaT3QqhQQmjtyBuNwrrhd65TVbhDgACDgBeDYG5Iib+XO7fzTp0MJj6tkg05crtZMl5A/FL0Cnz3sl8P5gn3C41bVRT64ZoN1TE712pGAhQaiIi4DrAbgHGHCMnA1c2rMwkZ2mxj0AR8irbZuA0KVvlSD9i3rQZNBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=SDZ03XKK; arc=none smtp.client-ip=209.85.210.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="EV1qdZqj"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e6deacafa8so2181158a34.0
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:57:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="SDZ03XKK"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7e615efd7d7so2684024a34.2
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 09:14:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1781971076; x=1782575876; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1781972066; x=1782576866; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Tjiqg9IV/7gI3LqSgJF+5/50ztX9TOXe4tB+YHLxznw=;
-        b=EV1qdZqjceHi8BzVLYqSTW5c7YW6nlC8Ppn9znew7q8d4nF2POjyxGRk0EPAe1Bd4g
-         PrYslhPW1uArc5HsaUcvI10dZVaTsaUuay/V/tuvL8430emQzAGzx2dgwML/5lQf3fAl
-         bmGATZqPrszInlYqTOe4hDCgJGjSqJ8ts8xlHfVrF3gRSY41pUtXO5WzDWCL9mTN1dAo
-         UyX56HPUKhULK60B+KI3QTE27H2TcucW1d/dIrTiuBrv/Nyyh9mVBu9LDLkOnRpZXh10
-         x9KjtnNn6AgWmNXBDBGIFWxLOX819Jy6q7fuXkLm1rCXfkhzI8vhIRi7PYuO10+r8rvQ
-         /HlQ==
+        bh=stc9e+NuTJE390Jhi5x3KXowpSGWUhAucrUQzkG/9Rw=;
+        b=SDZ03XKKcfO/O04ALEvwuwqdEXBk+jOYzB89SvCsht9gA8SKqn76eNznYPuWM4UQbJ
+         sPA1oVDRrMymwuWIsCR4E+AIVr+EGwifiaZCwZFx8YpmMNKYO0IG+aCy/qHEB833nZzo
+         eJfr+/V1Zj/mant2RCEaorgygEt5xZAJSj0DA9Ile3Jmur91kTpwB795LdEgF+wUG0/R
+         LmXPG0i+GucraZPzGmP1CNvP74FsDFiYk1j8HWlt4t6Ks4f1uwt1Zehbb9BCAN7ZK6op
+         RTaoxpwfwIU/SWgDm3WRyOJI87Ep24Xc9kkI1OBr6l2hoUs7SzmAggbeHUL4ASsuNkap
+         RZ7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781971076; x=1782575876;
+        d=1e100.net; s=20251104; t=1781972066; x=1782576866;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Tjiqg9IV/7gI3LqSgJF+5/50ztX9TOXe4tB+YHLxznw=;
-        b=VxDC8R1bNlpy0W8Jp/1pGjE2hW5QL71M4bnd8TODGYrHf8jr5sARJ5NCpDP8JRfqEj
-         ZbdBBvfZCNU6y42xWNsCO8QUwASpL+nVdLMJPLt88r4+5ETixkUaXMFU/52IlRp2DOBO
-         eUokI4Aff4a/YswECmPqbDmVUGy46qytsrx90jslHyZ21RW0SLDhfMgYjIBLw446AM6z
-         A2h7uNR8fLg+3xI0owoSgNFp9DFbtAMZZLOQnNGAfOfZW7TlYRh1DiSok3vhgEolfg/F
-         nXXI19g8/ngrAk6h50jYEb+kR8rbqXZkYTDRD97tc7vRQiG4lVwndkFl/pUaZvHf7Xq9
-         9R6w==
-X-Forwarded-Encrypted: i=1; AFNElJ/VeTufRfvr4hye+4J3MTJRQtEU/ZgGGgF64/QLrSl2r8H6WtbYhPrQSh/qGgIvXFySWOWewxqhQ1sF@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrAse3jKWaLyiBLoNBJd8Ij6F1+j1QIZHqGiEhWEQlfF8pKHPM
-	Ms7JvAnJRqx9ipArNDOeOJOwFhJSg/hG9h/YMsKgOxyQjaG/lGoYQyeGgUr44vcqGN4=
-X-Gm-Gg: AfdE7clZa+RR992vzkO9GXMRzukzrH3nH+n4txZpZQqPz8nj0QrMQVm8Mig7ioSXcTZ
-	Cj70HJFud2j68v7deOLsSYh+xcNzHSd7DXqy4cwQbwy0JG/Bn+J2N8fMa4vNjnuLrEoDOvpFPCX
-	azftNtrIjVD8W8gvjLcmjFG4QMW4H43159Km9/bYzYNKFHBF36+/Lds716cD4yX33RaNec2km+c
-	ZtzNMK+QLGF6O6Uv8vJDK4PWqsrX7SLz2V8C39JFDx6IiYFuGswC/66i99eV9C49F999hlzU6qe
-	9XuWhadG5/PqiteAoEht9SvF/p0YsMGtx77g29pslnP+EsWbEOZLN8UxpoWpC/HLGdYXma9A5ZC
-	jEQUg+ML+Y0X0UfgPo7M56osu7/+wZGqj1WF3+Xsxj2lmG95SPp4WfH251oO9JLHkjWpy/at+sk
-	TIuLD1DlFindxPZEkdLsllhkHnPZ61yCcHpWGp3s3vkVYShY9KsqUPPGZ5dvb/xx0=
-X-Received: by 2002:a05:6820:2011:b0:69e:a233:6154 with SMTP id 006d021491bc7-6a0d9fb7e9emr5016081eaf.8.1781971076292;
-        Sat, 20 Jun 2026 08:57:56 -0700 (PDT)
+        bh=stc9e+NuTJE390Jhi5x3KXowpSGWUhAucrUQzkG/9Rw=;
+        b=b7B19Jya4G0RnLuEjOzSPsBrK3Aa+VosvOwKt/PG0+I5zS969PpGvxDpeGPjrhvtnc
+         DPGwubdb03JIFtQAI1xVdUKyChZulpQkHC99+WTeR/Ivk8g3I6HMglvRdt3lUaCNBH41
+         uH5yCOWty8JszeZfomS91Yu8npjFgqGC62ov2k8ShJGoY3nhh7spE3yDdqdpPW2DFPZm
+         hGd82ITo+sJhzpgU9jlIfv9bT1nARYUGx+Gsa3TNOcwN46solzj09Gyq0K/X2woxaEvN
+         5gELxEpSYAQk3Wg+3DgHkFQwwM2xuQHMJqFoHIeAtgoKLCoIsd3+n/6XZZyjPHnszGXb
+         CJpQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+2rO0zAlBw0VTaHZ749JKvTln6qwG5PXm9IRxIW8/oYA+Yry1OxmQli6QmRaXzbGtC6f/3ZU3Mqi8V@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxgn1lIyRfraw0mXWAhnaZ6jtwNJQQh6es8/p7GnJrVghFpo2rH
+	aTYKjtXu6OzYq4bnn8s/50R5UMbdlk62BlnQ3YBjO2fHUjd13QnzhXm+mwE5aiq33E8=
+X-Gm-Gg: AfdE7clH20Mf+sUmF8G9Aoli24Yu+qAE+ECf51zkvSDZnMiu2pjDrOJGXBJpFgXlMqR
+	jb5+Z/GyLqFJa87xKT6AWnlCw+0llj2rjAhBz2WylsnSjqI7JP3kincyNM1uvnnPNpRcEk6GVo0
+	9EBGBHsytSEZqXESzZ1LeKk3ff/3BS/5h5jIKgHaO5BoCAM1essDb2M27KX6gxvHpoF/g0MBwkh
+	j9JWvKoE8xU1ePzto/sk80lYszVu0D73NvtjiuVa3rnFdB5zZ7NqPCNKptlRS290SqGyCff/6Qc
+	QQYLyIOKoQ8cJcJ9yO3okKnGfSqbHJaFEDEG7BKBny8thQHg9FoF6trPYOshcxpRgG75iB84E4v
+	ageHneD5zLaG8ZHCSBCh3nkedGhMpSKs9lMGE4sVtBTngE9ojqJJc7gRAv7fRyAi3z1dXSLAoJE
+	fLzfQPI/e0DWj0KvUiav8eIbDexIS+F5BrDDZoFYu++asd7yMncOYolfL0oBrR3oU=
+X-Received: by 2002:a05:6830:3749:b0:7de:84b5:88e3 with SMTP id 46e09a7af769-7e92d879fdfmr6842830a34.8.1781972065809;
+        Sat, 20 Jun 2026 09:14:25 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:3ad0:4082:8242:2d72? ([2600:8803:e7e4:500:3ad0:4082:8242:2d72])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec5fd4csm2267384fac.2.2026.06.20.08.57.55
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e94424c93fsm2202181a34.14.2026.06.20.09.14.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Jun 2026 08:57:56 -0700 (PDT)
-Message-ID: <38c5e5eb-2113-4a5c-ad14-348dc7966a1c@baylibre.com>
-Date: Sat, 20 Jun 2026 10:57:55 -0500
+        Sat, 20 Jun 2026 09:14:25 -0700 (PDT)
+Message-ID: <d2e4e716-da13-48aa-8a71-155ed90e593a@baylibre.com>
+Date: Sat, 20 Jun 2026 11:14:24 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,68 +68,91 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 3/3] dt-bindings: iio: adc: Add burn-out current
- properties
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+Subject: Re: [PATCH v3 07/12] iio: dac: ad5686: add ldac gpio
+To: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko <andy@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
- <20260618-new-channel-props-v1-3-963c1b5cf40a@gmail.com>
- <0831356f-76ff-4eed-befa-7a35ffce921d@baylibre.com>
- <DJD6FJQUX2V7.SZWF8VSKBCPX@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+References: <20260616-ad5686-new-features-v3-0-f829fb7e9262@analog.com>
+ <20260616-ad5686-new-features-v3-7-f829fb7e9262@analog.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DJD6FJQUX2V7.SZWF8VSKBCPX@gmail.com>
+In-Reply-To: <20260616-ad5686-new-features-v3-7-f829fb7e9262@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 6/19/26 11:46 AM, Kurt Borja wrote:
-> On Fri Jun 19, 2026 at 9:28 AM -05, David Lechner wrote:
->> On 6/18/26 7:33 PM, Kurt Borja wrote:
->>> Some ADCs incorporate burn-out current sources that provide current to
->>> the channel's input pins for open-circuit or short-circuit detection.
->>>
->>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
->>> ---
->>>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 14 ++++++++++++++
->>>  1 file changed, 14 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
->>> index 106b1e317411d5..6b63aac9ac04dd 100644
->>> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
->>> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
->>> @@ -106,6 +106,20 @@ properties:
->>>        This array describes the current configuration of the excitation current
->>>        sources or the single matched current for all sources.
->>>  
->>> +  burn-out-current-microamp:
->>> +    description:
->>> +      Burn-out current sources provide current to the channel's input pins for
->>> +      open-circuit or short-circuit detection.
->>> +
->>> +  burn-out-current-polarity:
->>> +    $ref: /schemas/types.yaml#/definitions/string
->>> +    description:
->>> +      Burn-out current sources provide current to the channel's input pins for
->>> +      open-circuit or short-circuit detection.
->>> +    enum:
->>> +      - pull-up
->>> +      - pull-down
->>> +
->>>  anyOf:
->>>    - oneOf:
->>>        - required:
->>>
->>
->> This doesn't really work with chips that just have and enable bit to
->> enable or disable the feature.
+On 6/16/26 3:21 AM, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 > 
-> Maybe those devices can use burn-out-current-microamp with a const
-> value? Is that okay or should another approach be taken?
-> 
+> If wired LDAC, should be held low when unused (pin is active-low), which
 
-Maybe better to just leave this one out of the common file?
+Would better match the implementation if this said "asserted" instead of
+"held low" (code says GPIOD_OUT_HIGH which should be read as "asserted").
+
+> allows for synchronous DAC updates. This will be used to update all the
+> channels at the same time when adding buffer support.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> ---
+>  drivers/iio/dac/ad5686.c | 6 ++++++
+>  drivers/iio/dac/ad5686.h | 3 +++
+>  2 files changed, 9 insertions(+)
+> 
+> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
+> index a48acedff51c..73105c197964 100644
+> --- a/drivers/iio/dac/ad5686.c
+> +++ b/drivers/iio/dac/ad5686.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/dev_printk.h>
+>  #include <linux/errno.h>
+>  #include <linux/export.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/kstrtox.h>
+>  #include <linux/module.h>
+>  #include <linux/regulator/consumer.h>
+> @@ -515,6 +516,11 @@ int ad5686_probe(struct device *dev,
+>  		return dev_err_probe(dev, PTR_ERR(rstc),
+>  				     "Failed to get reset control\n");
+>  
+> +	st->ldac_gpio = devm_gpiod_get_optional(dev, "ldac", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(st->ldac_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(st->ldac_gpio),
+> +				     "Failed to get LDAC GPIO\n");
+> +
+>  	reset_control_assert(rstc);
+>  	fsleep(1); /* reset pulse: comfortably bigger than the spec */
+>  	reset_control_deassert(rstc);
+> diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+> index a06fe7d89305..f3110410d89b 100644
+> --- a/drivers/iio/dac/ad5686.h
+> +++ b/drivers/iio/dac/ad5686.h
+> @@ -60,6 +60,7 @@ enum ad5686_regmap_type {
+>  	AD5686_REGMAP,
+>  };
+>  
+> +struct gpio_desc;
+>  struct ad5686_state;
+>  
+>  /**
+> @@ -119,6 +120,7 @@ extern const struct ad5686_chip_info ad5679r_chip_info;
+>   * @dev:		device instance
+>   * @chip_info:		chip model specific constants, available modes etc
+>   * @ops:		bus specific operations
+> + * @ldac_gpio:		LDAC pin GPIO descriptor
+>   * @vref_mv:		actual reference voltage used
+>   * @pwr_down_mask:	power down mask
+>   * @pwr_down_mode:	current power down mode
+> @@ -131,6 +133,7 @@ struct ad5686_state {
+>  	struct device			*dev;
+>  	const struct ad5686_chip_info	*chip_info;
+>  	const struct ad5686_bus_ops	*ops;
+> +	struct gpio_desc		*ldac_gpio;
+>  	unsigned short			vref_mv;
+>  	unsigned int			pwr_down_mask;
+>  	unsigned int			pwr_down_mode;
+> 
 
