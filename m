@@ -1,112 +1,138 @@
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54201372B45
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 04:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FD01A267
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 04:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781930419; cv=none; b=k+U3+V5tI1j25Xh/Tt3YUH/o7trhaD/HIIqRgCJfg3H7wgvn7z5Zgdha8+tvkPt776dWCUmOck5Zc6m808vbJDigUHt/m/FniLMb7sUQSz11A3bIm+SMLhVfksSMA7+UjN3cXQkiY9rDn7W2ssDx3Vl4v0OprQjc+oNRERR4/mo=
+	t=1781930894; cv=none; b=aNlQ0CSTvhNNIjwfquT7CNVFyZ4xDuHgbp08MibD/xed1q5RCIq2LACw4HsNustrLL54I50qrEGIOCPek+Miu12eK7buUikeHwckixRu3Hnp+ftNOvOhd6jvMXzwusxuXQ4X8YKZWcZBN2cCJR18pI+XybgvRsy0cE7Zy3IJGPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781930419; c=relaxed/simple;
-	bh=JBNIqf2eTrRXZ9/TbvTv1ucjbReEIe0UVXxGsCJYL8A=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cxVE51iy4VO6k45xn7TZ5XT/TztYF0uqkAfH7hXh37XhoQJ2KtzQkHomXieIyS1oAY1uCcJTsmBGKdQnGRPadMx2E0Zi82+1NcIj8CQIhEkpVq7pdar7dQ+22LLb0t8Kj0T6NAyo6eJwRTRYRpH2/yMt4k/F/OzTYvYt/kj753I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D+c+VP6p; arc=none smtp.client-ip=209.85.167.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1781930894; c=relaxed/simple;
+	bh=CtwOYY7YE2qPkvPxUfrp+pcKbtOabVaE+KyGoK0b1Vk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UFik3bhRIwzy6poLq4z5LcDhY/NVkDvNWLF7IvsnPFZ2tHR4E1wVU4OY4qT+NH5ME9UAHri04C3q17KTS5Lwqbx4bbJ7R+zigNcxcJIirmEMfssHVknwKEJUC6ntiGPNofcLNaFYhxifQ1JFTQYlYEgrnisIy/5s4kgPrSzXXSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dpz5QwoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D+c+VP6p"
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-4896ae35be9so721286b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 19 Jun 2026 21:40:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781930417; x=1782535217; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p903FzlWhZFqXdoaSbD95bQ1EP9oEVzNqhz/9QS+ytE=;
-        b=D+c+VP6pkba9ufzIIcBqbloqJmRyDd+lxhRLa24pcWze362yc+rqddxtQY79q8kWKV
-         MHVfd3qfjR2vej9WLCErApEu5WI7VRCKx9t3bJTOiIG2AOzJ9E741sxDpFoc0Yr6Jp5f
-         ylxE/uho95dvRi+TbJ59GcIHWcc8KI920iZDhEmexAwkIFzeGvy3dsFSLxsJpvhsNIOn
-         lf556cxZz6IOeU6KBFuY4+drRtGI+eWtxGjP5RyVgEIJ547wMtje/It2qDii4/KbSfRM
-         Ss0QC4lPcBDQhh7xEOYd8KZLvPMm7xHtd5ol9mMdrMRc+5nVleOGKNlX1MDD052sgnT8
-         JqNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781930417; x=1782535217;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=p903FzlWhZFqXdoaSbD95bQ1EP9oEVzNqhz/9QS+ytE=;
-        b=jN6IXAifnETeY75n89IJi2UVBK/lIXKaBWNtDkQFkxwb7IEHTiwO25hBGJi/r7yVGh
-         E8COQyW7eXd4JrIUasW8fhtirihOTvtjMjHovOPP6Ew86BYO05bdRZjb2nEIwHvskll8
-         WNTCEXd+7s5vjkU5DEP5+KSQpbPczhpN5H/WEkek49sCM2Qx0hmuxNBWU7A65u/PlWAb
-         UCcdf49Y2rgebvsyt6HcEf7V1EhA27ITmoFC14E/jjcoUCIV/hV2nSDPijDrstI3dhey
-         dZnfxtbARga3K3plx8o/v4z8Z2j3HXFSZzTTw/jDRYgPKUDHg1Mv6meMwKdKB4hpWix3
-         r0Ow==
-X-Forwarded-Encrypted: i=1; AFNElJ/OwZyuPuFTH5+Zngv838cSkHA0GMwcyuiBCQzyx5lyhhcmjs2oLtnNoYlVV4V4JNUNPUerAGcHw/pE@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywg1+GxEvP5E8z3whsMDZrSYKkSc3wElzw0BE2SODYBiYvbvd7J
-	NmhUA5ftzvj7mN1a32ca+ct65ib19/Q1Oa9uDGXRjtC2u1KeSD/1xVc4
-X-Gm-Gg: AfdE7ckVptj4HXrL71VSm46a91I+ErG9INcR0MAH0JiOONuQmaTP56/UR7uWo5x06jq
-	du3fcai2rDNmnC0xKE97bQOf0ASWsperjBzGG4cCJTMQxWrl/zxp15jsu3z+F1WcEZ7xRft9Lef
-	IKsjLyUDA/qgeNSU7eTpQsB5TAXrVdFTy8aYlcLtHnlZzv3NavF1Z/n1uBuCWk6JRAwUYq/FDva
-	fIpmcCvnN+nlyXUHNa6f090te7mWV/YqJvwCpX4Ob9ag4aOz1qMvIuyCROKEDcNjmDprxrPswrD
-	hD+wbpRH/9OINJ851qxZr2XQtsc5uSdsiCExNxNpIaql/2DrqtHQ+ZeKK9yQPNafvAMy09ZLXu3
-	HVwDa6QvVsPriX3LBxoBSknQhtRp0yObEmuWUt9oL8PWMMYSEdKqQV9MQhXqNnuzMD4WPYwcEsU
-	w4BQzH74bnKzm6e3+W2ThMpXhYyEd68YEHlTftumzv3Ntohlk=
-X-Received: by 2002:a05:6808:4f08:b0:489:5dc7:dc55 with SMTP id 5614622812f47-4896ac76486mr4978993b6e.40.1781930417349;
-        Fri, 19 Jun 2026 21:40:17 -0700 (PDT)
-Received: from linuxescape.lan (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-48aec0ddd7bsm679754b6e.7.2026.06.19.21.40.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 19 Jun 2026 21:40:16 -0700 (PDT)
-From: Maxwell Doose <m32285159@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [RFC PATCH 3/3] MAINTAINERS: Add entry for Sensirion STS30 driver
-Date: Fri, 19 Jun 2026 23:40:07 -0500
-Message-ID: <20260620044010.1082621-4-m32285159@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260620044010.1082621-1-m32285159@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dpz5QwoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13B31F000E9;
+	Sat, 20 Jun 2026 04:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781930893;
+	bh=ngrGAt3vyccEOuLxH5aYARtQ0rKSIbTVSdpEQSaB27U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dpz5QwoCuvdOZrkYww7bTv8XEUhZLTwXltWcyjNwn8XwDf0qxAunkQ1snqb49ZWjG
+	 iG3vk3tZCvT4gR6GQTLEV78go2YTTB2HqrsVL/IQMh2dH5JR/ZPSYrQmaxPe1K38f7
+	 +UK05OgM5qfTHjqObKsT06Su4fiMb6KbRvQrYy1w5+uhVxv/nubPTED4PSneE3J3Ol
+	 VyTDe5bZyjWEOqDDh6C/uNe6JeV2uTGEkbQuLAuabRBZbB1U2TcfpY4VsNnYZ+hH8O
+	 5BzmDmPtP9v3WKgBXyVIFNeeXKU701L2Uv/pDf1u4WxQ/TkiP6oskKljNSnH7ezJIc
+	 /U2xI0HU7oKVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 2/3] iio: temperature: Add STS30 temperature sensor
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Maxwell Doose" <m32285159@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260620044010.1082621-3-m32285159@gmail.com>
 References: <20260620044010.1082621-1-m32285159@gmail.com>
+ <20260620044010.1082621-3-m32285159@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 20 Jun 2026 04:48:12 +0000
+Message-Id: <20260620044812.E13B31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add the entry for the STS30 temperature sensor driver in MAINTAINERS.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The return value of `sts30_reset()` is ignored during probe, allow=
+ing phantom device registration on failure.
+- [High] The driver implements a Clock Stretching Disabled I2C sequence but=
+ uses Clock Stretching Enabled command codes, resulting in a protocol misma=
+tch.
+--
 
-Signed-off-by: Maxwell Doose <m32285159@gmail.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+commit 1a183c37bbba5fe87dfcc6019f964e51526fec2b
+Author: Maxwell Doose <m32285159@gmail.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d95d3ef77773..6bb361ac213f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24487,6 +24487,12 @@ F:	drivers/iio/chemical/sps30.c
- F:	drivers/iio/chemical/sps30_i2c.c
- F:	drivers/iio/chemical/sps30_serial.c
- 
-+SENSIRION STS30 TEMPERATURE SENSOR DRIVER
-+M:	Maxwell Doose <m32285159@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
-+F:	drivers/iio/temperature/sts30.c
-+
- SERIAL DEVICE BUS
- M:	Rob Herring <robh@kernel.org>
- L:	linux-serial@vger.kernel.org
--- 
-2.54.0
+iio: temperature: Add STS30 temperature sensor driver
 
+Add a driver for the Sensirion STS30 family of temperature sensor
+drivers over I2C. The driver supports single-shot non-clock stretched
+readings using a specified delay based on the repeatability/delay.
+
+> diff --git a/drivers/iio/temperature/sts30.c b/drivers/iio/temperature/st=
+s30.c
+> new file mode 100644
+> index 0000000000000..b49deb1d62c21
+> --- /dev/null
+> +++ b/drivers/iio/temperature/sts30.c
+
+[ ... ]
+
+> +#define STS30_MEAS_SIZE 3
+> +
+> +#define STS30_COMMAND_READ_HIGH_REPEAT 0x2C06
+> +#define STS30_COMMAND_READ_MED_REPEAT 0x2C0D
+> +#define STS30_COMMAND_READ_LOW_REPEAT 0x2C10
+
+[Severity: High]
+The commit message mentions using non-clock stretched readings, but are
+these the correct commands? According to the STS3x datasheet, the 0x2Cxx
+series commands are for "Clock Stretching Enabled", which require a
+Repeated START condition between the write and read phases.
+
+[ ... ]
+
+> +static int sts30_read(struct sts30_data *data, u16 command, u16 *val)
+> +{
+> +	u8 tmp[2];
+> +	u8 buf[STS30_MEAS_SIZE];
+> +	int ret;
+> +
+> +	put_unaligned_be16(command, tmp);
+> +
+> +	ret =3D i2c_master_send(data->client, tmp, sizeof(tmp));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret !=3D sizeof(tmp))
+> +		return -EIO;
+> +
+> +	fsleep(data->delay);
+
+[Severity: High]
+Will sending a STOP condition here abort the measurement? Since
+i2c_master_send() issues a STOP condition rather than a Repeated START,
+this sequence violates the protocol for the Clock Stretching Enabled
+commands (0x2Cxx) defined above.
+
+Should this use the "Clock Stretching Disabled" commands (e.g., 0x2400)
+instead, or alternatively use a single i2c_transfer() with a Repeated START?
+
+[ ... ]
+
+> +static int sts30_probe(struct i2c_client *client)
+> +{
+> +	struct iio_dev *indio_dev;
+> +	struct sts30_data *data;
+> +	int ret;
+
+[ ... ]
+
+> +	ret =3D sts30_reset(data);
+> +
+> +	return devm_iio_device_register(&client->dev, indio_dev);
+> +}
+
+[Severity: High]
+Is it intentional to ignore the return value of sts30_reset() here?
+
+If the reset fails due to the hardware being missing or a broken I2C bus,
+this will unconditionally register a phantom device to userspace. Should we
+check 'ret' and return the error code instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620044010.1082=
+621-1-m32285159@gmail.com?part=3D2
