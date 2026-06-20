@@ -1,100 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2283330641
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 06:29:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D973603D7;
+	Sat, 20 Jun 2026 06:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781936989; cv=none; b=h+8+xpFV6TmfkS8AvocjqtbyuNIJbkbUwkuxiF6qD8hZ4k2tJ6W1IqyDz2F1xJWOnSh0Gzx79ojpXhC4M9fKVy4qRcvVD1KCcmoj3JX5mnfI5Bqvl+HX5u0YFDfkzWHvBt2ifqdCMkANkSgDn1FBmUJOvIEst2KPwFhGhW9HpvI=
+	t=1781938259; cv=none; b=UwoEyAIVuP5wTosWSe0GTEG418ymNsiqHQ3o88VWAUYodRAT06qtdSENRDQtuMA9hbwJm/ML988sCksRQvzcWMIIQdqfX43zEpBBfVIVyIR3NpbEp+JwYABThXjVp1+2WEEw1APuTCmY1nr3rfvQK0Sl95wJHQ0x2OsdxDMaQpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781936989; c=relaxed/simple;
-	bh=0g9A+TLfn/vlgSmQeJ+nB3NrvclfAGAMzYdHLRx0ktY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ptPucRdR/xuNZ3/7o10YRtYJh7xpDM6gxZpay0+yHPE/o4OL0BF66AZD9/PsH9WztEhwSQQZjh3BfTMcuTBf5ggXwrZStR6ixmdK4WpJkXwCExwDZ4XE9dj2oSqO5+M+TdbDGyx8V6YsKYFrf+cH2JnOZCN3/0c9vMKTtQrs5LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=klScQcSi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781938259; c=relaxed/simple;
+	bh=YEL/PgtG9CJxPalkrRDkd4g6pTV9pVtSpKYqOFpW7ZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OQCMOrxv9lDsU0h0uYyycltRpcuHenXdqdJI9mrIhFdEkY4W5qinqtNT4uqMP1DmwJgaQJBfJZYP1L3qbKBIEdkxISX2rqpcPgsn6/pKk6I6IlxLqFejUfRJXuwF6jxGYVAy24346uTYWbvIoZVUNNcssjDn4DwI+A6JWqH5+QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=N8o7YjXn; arc=none smtp.client-ip=195.154.119.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="klScQcSi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1161F000E9;
-	Sat, 20 Jun 2026 06:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781936988;
-	bh=5Q8fwDlXxMZREjLgDpLnygeQsF4qO3MNCdBAy7HrNO0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=klScQcSiOiEo79BWfUwCPF3NXLP/fo+vfsBFi/ortVMOlfuH2hbEEIpXUaDZ27t/4
-	 YtEr/bcVilZccMyvyc7hadIOb2B4snUtzDWr42wpK+suxDBDL3Nce5ItT38Eh4aRPa
-	 +QlPglzNY6BACtnA4k3rzBlCFGdCz1BuWhG5CvikqumD36DEpv9aZEAUXTZcxBw+pD
-	 KnDmqtN/qFcxO/c0h1l0v26o+ZghznHJA3SLF/nbe17CrFCKqoISZIsQdhGd0cE4Rz
-	 ckwIxrapNlfBDgKeohJ6xoqYSfQs7I0dFVkw7jqMWMgo/PnUe0hmfkzco/ZkXfY/AD
-	 4OKjNsruluDfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] riscv: dts: spacemit: enable the i2c2 adapter on K3
- Pico-ITX board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aurelien Jarno" <aurelien@aurel32.net>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260620062238.3199108-3-aurelien@aurel32.net>
+	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="N8o7YjXn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Content-Type:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=tROYkmU4fHW2liLJr2fdOl3XmpMuw693HPJxJNUuxvE=; b=N8o7YjXnWei+quY1zVnWPrbvhf
+	4UGHV6Q3lxVvXw4VYqjSBOiSEY0EiROa7kYJCa6AyZETwD+AzfSVOGC8Uvap5yajVeDzz3Kq3IKnD
+	1F/NIZWEf7CdBnc/nN7Hj7XSYzxP2mAgeaF3UpiXiMqXzcObbcLNND9CF5BJte76odu5FC48Dba15
+	Xc3qEyOriVm8ZIO1amgWwU3eTvSqP4+bIzooC600IT0SwIwLVVPId6yMUMLSBbTz0C1oWm76iiM6l
+	lsKeX5QFVNSwGJlYooAGYfvfPyn+3+qZMMRWn2tJ59WJz0EbJemsYD8U1PIn9tQjLVURT+lmTpZ0r
+	d2odhs4Q==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1wap6T-000000006dl-26zo;
+	Sat, 20 Jun 2026 08:22:53 +0200
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: Aurelien Jarno <aurelien@aurel32.net>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-riscv@lists.infradead.org (open list:RISC-V ARCHITECTURE),
+	spacemit@lists.linux.dev (open list:RISC-V SPACEMIT SoC Support)
+Subject: [PATCH 3/5] riscv: dts: spacemit: add 24c02 eeprom on K3 Pico-ITX board
+Date: Sat, 20 Jun 2026 08:22:04 +0200
+Message-ID: <20260620062238.3199108-4-aurelien@aurel32.net>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260620062238.3199108-1-aurelien@aurel32.net>
 References: <20260620062238.3199108-1-aurelien@aurel32.net>
- <20260620062238.3199108-3-aurelien@aurel32.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 06:29:47 +0000
-Message-Id: <20260620062948.0A1161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The pinctrl subnode is named `i2c2-0-pins` but belongs to the `i2c2=
--1-cfg` parent node.
-- [Low] Missing space before the assignment operator in `bias-pull-up=3D <0=
->;`.
---
+The K3 Pico-ITX board includes a 24c02 eeprom, that stores the product
+name, the part name, the MAC address of the network interfaces and the
+board's serial number. These values are also exposed via an
+onie,tlv-layout nvmem layout.
 
-commit 4dc6c92d42831e85b38f3350c15707d0e2b3af18
-Author: Aurelien Jarno <aurelien@aurel32.net>
+The eeprom is marked as read-only since its contents are not supposed to
+be modified.
 
-riscv: dts: spacemit: enable the i2c2 adapter on K3 Pico-ITX board
+Signed-off-by: Aurelien Jarno <aurelien@aurel32.net>
+---
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 30 ++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-This commit defines the I2C2 pinctrl properties and enables the adapter
-on the K3 Pico-ITX board. It will be used by the 24c02 eeprom.
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index 5fe9041ec5702..0a0c221c99e74 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -47,6 +47,36 @@ &i2c2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c2_1_cfg>;
+ 	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c02";
++		reg = <0x50>;
++		pagesize = <8>;
++		read-only;
++		size = <256>;
++		status = "okay";
++
++		nvmem-layout {
++			compatible = "onie,tlv-layout";
++
++			mac-address {
++				#nvmem-cell-cells = <1>;
++			};
++
++			num-macs {
++			};
++
++			part-number {
++			};
++
++			product-name {
++			};
++
++			serial-number {
++			};
++
++		};
++	};
+ };
+ 
+ &i2c8 {
+-- 
+2.53.0
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k3-pinctrl.dtsi
-> index 23899d3f308a0..c9fe9c2e5aeee 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-
-[ ... ]
-
-> @@ -45,6 +45,17 @@ gmac0-phy-0-pins {
->  		};
->  	};
-> =20
-> +	/omit-if-no-ref/
-> +	i2c2_1_cfg: i2c2-1-cfg {
-> +		i2c2-0-pins {
-
-[Severity: Low]
-This isn't a bug, but should this subnode be named i2c2-1-pins to match
-the i2c2-1-cfg parent node? It seems to diverge from the standard naming
-pattern where the suffix of the parent and child matches.
-
-> +			pinmux =3D <K3_PADCONF(46, 5)>,	/* i2c2 scl */
-> +				 <K3_PADCONF(47, 5)>;	/* i2c2 sda */
-> +
-> +			bias-pull-up=3D <0>;
-
-[Severity: Low]
-This isn't a bug, but there is a missing space before the equals sign
-here, which diverges from the spacing used in the surrounding code.
-
-> +			drive-strength =3D <25>;
-> +		};
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620062238.3199=
-108-1-aurelien@aurel32.net?part=3D2
