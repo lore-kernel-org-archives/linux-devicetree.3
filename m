@@ -1,187 +1,457 @@
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1EF391E74
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 14:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781965435; cv=none; b=OntFAwRZD1FdXavarXIrHIfrhCChTye6cfS2qEVT5xOE0ay7jJhS8N7aBhZKudxP8DXJMOrLDB1kMH8f5nJcspN7imdh6VaUK+MX+WtD9fe1ug1eDfIGqv9XX4jqOqwrsasK3LVbjZxXh5E66pc6bMBwXh5f82bnKA1xSzEqPzE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781965435; c=relaxed/simple;
-	bh=1A3yRBCyiXnf2+7dCdstiNNFsshcbr96SxsOGFDoLtY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VZxkU233vsAgi3Eg0Yt6XQdRuw2cGRyfsOIS95uf10DS7EfS5L3JEUlge7Iyd9xPXKbSrpaLWAmItKDHrRZzT6WegSx9kSChXyefoRQTiiLII6IUyL//bUH25Pm8NApffM/kWefH1qAt1L3XomgOt3XJlyosyc7Xn0n3xBRRhN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JX+0N1Fn; arc=none smtp.client-ip=209.85.216.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A2838947F
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 15:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781968535; cv=pass; b=QRIDXkDZfTXY04jMJmvwHT/06g+yRg8TsR///SEv3YB+FroJbpWHwM7UjBoETOwnc06fpqfKp0SOtFCTELbMOzu+tT1ExtppyagYRkrubuhv1ZwUcD23eAkcRxJahB0SpV8Hs7qcUqFd2d3PKFK+S8EZTkm7zN5uxrazmgxMddw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781968535; c=relaxed/simple;
+	bh=voUGKn1kwkr35JjtSbFiOfaYj3b3dz7+sDFcj4+OCxo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gnnJDRf6+4Nai8tL6s9838oyF9L1liyN5N22oiEwRSBRMW3Ogx9AHe7swaghSwZhwMn6ukve3ckS31T1MZdEs5jbNF6bKDfBMGEZ6jCnQeIw5G3hEBs8MR62pFtJnrAietHbw+bdeoLCEs4m9N3vQ/qJMIC6vRE/wzAsU4I2xqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gB36RibH; arc=pass smtp.client-ip=209.85.128.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JX+0N1Fn"
-Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-37c8e7c8185so1728660a91.3
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 07:23:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gB36RibH"
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8000e21f014so30262117b3.2
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:15:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781968533; cv=none;
+        d=google.com; s=arc-20240605;
+        b=B1l6ZxJQWsghYcrxc3JDtWCMHZu4x9NqhQ64MZqLxDTPJ9v2oAI3JsdBjkLM1yNINr
+         Q+OpdBnVcW9W8zH0tLcglcHvnrH3at1B1PbAxg1wK9EBaysszjM8B3SNGEnCi1QzOB7d
+         hRgzAr7AouF4auvHMeYnOj2RUzfQ/QxSv+ylR9P6R6gy7FTxOL7ugKsdnSzCY4fo9tLi
+         EvFvtb/K1u68O2/o7lFKDYyw06mqj/8+eqX30Dr8Quh1+BRkmad/tMFduALxOxJSZ5M1
+         OyWGfuH1LJD2V+YICsHfnI+Pdl3NZTUVhJYgRh/7swTAuJcb97K0awSHFHo1Q4IcVSUK
+         /ciA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=auwPm3OvisImI6MUxCT5+ZrF+goA+v1DqyU5w8mEumA=;
+        fh=3UqoB5ZNBgAnA28ulLCyErS3mg1BPYUYCyhBAAVFrxY=;
+        b=Lu4btTS5pUqEwMqxJqfa7oNjAuCXjRR7v9dSG7Vmagh29w0dz7sLd+cFABpqcQsvEd
+         iQ2EVsfbI79uk3dQ8adZBVVkx4FApobcKPefxCj03vHepaf9d3NFbUTxOjUPdq6f7NeB
+         Sp5VJRR1+t6lq+3fgp4+9nn42Rz0AVmKSU6D32XV0kgHGkDzpCKoc8SRWJd1mpvaueaJ
+         ltFmxC3WHJYsujuGlzxCOCdLLlx+xmVivSx8Da/kCI53zNP+AzLBK9zIBbs5yYWF7vAE
+         UDYTn/te0u/j5Dqwv9/T11gB8ZWptaiq3INwdhtTo21brWZ0HDNaxeSm7mmET46+LU5q
+         RNqg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781965434; x=1782570234; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781968533; x=1782573333; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X2ppqhiXhC3WFA2wZf37Gep+L6TyBObHMBsyL7sziZw=;
-        b=JX+0N1FnhFQWBSzU2Yqy1Zxw8YcBFw6h/BRT2zeyCxx8DRyZxrdXUmwhb395gCxhqU
-         TJvvwhd+xBtA+vtf5IvqeR+uDnYWgUyeAy9QvflfV1uou6NUmV68hNkOZAPGk9F5i9v7
-         3WruKdJP5thLrp5AVku6m1GZsNsurdjIM6cMXpqiBl1cmTLNoBrlgyfrPLEbAng4vm/U
-         2tuJRquF6wY1b0OzNCd+N7BucQNLtaLNjwHbFvxAYWkw0FrJnPe6BoZZ9PBd2EVy+6+f
-         0nqT851W2Aao2jcKDCnbNaD1+UGdHtdZbOFolnFmphcYIlK9cO9ES1m3Ghxps1bOxLI6
-         ULBw==
+        bh=auwPm3OvisImI6MUxCT5+ZrF+goA+v1DqyU5w8mEumA=;
+        b=gB36RibHsZoqTnXbi41PfSIw459wne1cMl9SeWCQnA8VOWVsWAj9j9YHGpVrK84Jfb
+         X6apjjEUm1wpcjFvcN2o3l8GjgjH5UK+ukltb5bczS7GRbBkViukzqna7DLD5RemQi46
+         e085Rqj2B2FaYG4ikxml/F/U2xuKXCLg8tdF+VhQupFgvBCpjIf4XnzYB8a5z81xz0BO
+         dnJDgVyK+Fk5j4s8syQCR3IZ0mmn4WCn0F1fkK1SIFXxaNws3h5BW+nNrJPrNYQ7x91g
+         0Aribmo0TyQ/EBeEk0MiEVe3XgYLvcHOOshktl+J12LAhMq+cf7/ZX60/rP91i8CdLVH
+         j0qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781965434; x=1782570234;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=X2ppqhiXhC3WFA2wZf37Gep+L6TyBObHMBsyL7sziZw=;
-        b=bOii3/RonwqWRaHF66O+Rd97GuveS4UvCyJ/fl0p3qBchWwgguF6I27UPlemB7nIlD
-         BxJ7jRenK5fNihiAnJcERPU3uTvdBcGyMVKZ2FE+FgVSPrLwqDc58nYOPyzK8P8VkVmJ
-         pCgTRr7YXfjvhdsBfudvj6zxYz+OjRoU+zTQ18EPvbV3twQvF2Ixx/B42LEyx5uim83H
-         IxnGytOhXX86FIDq35mJBXIerhRK5KNrGPmVe0GYJUu5kDQBLBCiuxGhM42mkzrCD21g
-         A/CIY7LHmliu650hZYNTqbIJZDjM1cfzK+IWfTlEq6OZ2XSmnR3qHq80e1m1cNoXteRC
-         SyzA==
-X-Forwarded-Encrypted: i=1; AFNElJ/IFgl65J+fKABQsho7Lvwjh1kCfZmLVhOl6NrfyjrhDPVKuIgYSFXimO2uM/pb3UudeZGg4wlMDxqt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoObgyJlEQf3pHhr3ew9Crptas3kLuDIHBo8C+kEc4ZiHirqv6
-	OpgfBA+npiK61eeBD+nkWpWv1LFFcmeDrqwlxMQ/LvXrs0ox0vmwPyX2
-X-Gm-Gg: AfdE7cn4pRZxZCN4gz7RxmCMRrZG3lUtyHFTNsxFYUGfVIGfd66FkaCdyOcsw91nPED
-	kyzREsPEmj7MEMbFJMRapyQPSrDAPnBmYdL2z6cIUnvi/mToVlqzL+PjYt3ZbVGT5q8DvNT7Jth
-	bmavCf+/xy3z3tfI6PAJalJfkQ+rqRqAPfm8S541S0Zow9+kvRrVkHxOgvEEZ7lAHhvLAfZeeGP
-	SDYrO8kzybL5duQJVHF9i7jSXSqcikZtGuGYEzx47inEy11GK/2U8AxfdRbz/iWaN9xw8fmgwAj
-	cYUKcMlObEOVl4qpsaMd+xEJbRupRB0/6Y2PDOQoI91LaLlnmnHPLj6auOAVm7EeNidqS4nwk6G
-	UzPFbRaDhNSWg5nG2Xg7+iDmykkUsQMP2M0/H+cVvbdhFoAMRbsLY0IDxzR48v6MUrUM4H8O2AC
-	dDNOVZ/U1gn/HGuhI/YPAGwoJfp8V2JLpWQLAishlTfVXpsiYQ1i8lXDCef9gubXBP
-X-Received: by 2002:a05:6a20:6a0f:b0:3b4:7c33:296b with SMTP id adf61e73a8af0-3bb3564431fmr7384251637.32.1781965433512;
-        Sat, 20 Jun 2026 07:23:53 -0700 (PDT)
-Received: from ?IPV6:240e:304:27f3:cf00:402d:ef5b:4082:aa65? ([240e:304:27f3:cf00:402d:ef5b:4082:aa65])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc563c406sm2556778a12.19.2026.06.20.07.23.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 20 Jun 2026 07:23:52 -0700 (PDT)
-Message-ID: <bae98712-2d0c-4831-8142-bb1318d147b1@gmail.com>
-Date: Sat, 20 Jun 2026 22:23:44 +0800
+        d=1e100.net; s=20251104; t=1781968533; x=1782573333;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=auwPm3OvisImI6MUxCT5+ZrF+goA+v1DqyU5w8mEumA=;
+        b=EwHpBlCvO0AtL5rO7/wrNBBeYSU5r2kOZnD1ERybaEXu0q0QtNrpENtyJpm2i/CVmr
+         DQGRMe62E5jYuIhzjM/jOkJLCuzQO0iOtXJIDdsBRH4WKSMpoflerwrlgcQ9j3uihsEe
+         u9fqofswQPjvw5h5IBjLiEWjtwlE7/9mkr5iobKwchm7LlWzO8+jSXsm0SqRRUibRwQv
+         G+UceisQByZGfYHP5qV8+j7AKI7SU6jpd04DRiu2RGe4iQYG6UghyV2UemIBnRUsa81r
+         ReXlab5yk/a7Q/DL0xULPoBUP421w7V3oB9FsbHGV/h+Nuyoh1zW0FeXbsPeadD1kPY2
+         OfFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5eDhkoWeuWrNAcFJWTD1DfCXGv1EwX2C3wHt8BdTuUoFypPjzxvtRARF3/tDsXQbFzys8uzUUzf9Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGeikA6ViuW0pnY8SVxBx50/agMOwgYHb8rSGoIfELUoKufMjf
+	2x4YCiDy/OL99CUZToMghE93cUxAPcltciohdi7NY37vV46oSJwDuYFpBCNaVtRu/28TZINYlJl
+	kJ/n+ozRyksA4M9L1PY6yGhoPY854oDEJwkVn
+X-Gm-Gg: AfdE7ck0Lxb7ZrwZPdcqpiJNO0ewUZcXS8mdTyx4vgMvVu8NsHeADVHKhTOgRRdmkzG
+	X0sNS/OuyP2ME3KdNIHDh3W9Vwz8WlhZx/rTryeMabsivdGbacq9FheyV7x1l8qtu8npT1CvNFX
+	Z7OY/2fC43z5qmjLBbbUwOe7d/89tODSP4fVqeIZ3KpQn/1YMKrz2zrLFNXq0yzrpDzRPtSn5uZ
+	5FAFWx3id4XhdPcFA+jjwnRmK8XRFhfewhQHgT51z8MMLlrJ8lK+4XnkP2aUPWVF3ELjQ==
+X-Received: by 2002:a05:690c:4b09:b0:7ff:1399:7e69 with SMTP id
+ 00721157ae682-80137a6ca4emr80001337b3.25.1781968532759; Sat, 20 Jun 2026
+ 08:15:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] cpufreq: spacemit: Add cpufreq support for K1 SoC
-To: Shuwei Wu <shuwei.wu@mailbox.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>,
- Vincent Legoll <legoll@online.fr>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- devicetree@vger.kernel.org
-References: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
-From: Gong Shuai <gsh517025@gmail.com>
-In-Reply-To: <20260612-shadow-deps-v3-0-2f3ba88611ff@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260620044010.1082621-1-m32285159@gmail.com> <20260620044010.1082621-3-m32285159@gmail.com>
+ <20260620094317.4e503b7d@systembl0wer>
+In-Reply-To: <20260620094317.4e503b7d@systembl0wer>
+From: Maxwell Doose <m32285159@gmail.com>
+Date: Sat, 20 Jun 2026 10:15:22 -0500
+X-Gm-Features: AVVi8CdRnIFuGs8OJ7cGVREwgwXJ4qg_mdEGMlZAKc953mBObX9PJhNVEZcbdUw
+Message-ID: <CAKqfh0Fe_9VQ0kLRDZdJvCsiT8cBY83iJ1CuSEY8=SJ4SjkUxQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/3] iio: temperature: Add STS30 temperature sensor driver
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 6/12/2026 5:51 PM, Shuwei Wu wrote:
-> This series enables CPU frequency scaling for the SpacemiT K1 SoC.
-> 
-> K1 has two CPU cluster clocks but one shared CPU voltage rail. Add a
-> small K1-specific cpufreq driver so the two clocks and the shared OPP
-> transition can be handled together.
-> 
-> Tested on Banana Pi BPI-F3. The system boots with all eight CPUs online,
-> the K1 cpufreq driver registers one policy for CPUs 0-7, and both CPU
-> cluster clocks follow the selected cpufreq rate.
-> 
-> ~ # cat /sys/devices/system/cpu/online
-> 0-7
-> 
-> ~ # ls /sys/devices/system/cpu/cpufreq
-> policy0
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy0/affected_cpus
-> 0 1 2 3 4 5 6 7
-> 
-> ~ # cat /sys/devices/system/cpu/cpufreq/policy0/scaling_available_frequencies
-> 614400 819000 1000000 1228800 1600000
-> 
-> With the userspace governor:
-> ----------------------------------------------------------------------------
-> Frequency    | scaling_cur | cpu_c0_core | cpu_c1_core | Real    | User
-> (kHz)        | (kHz)       | (Hz)        | (Hz)        | (s)     | (s)
-> -------------+-------------+-------------+-------------+---------+----------
-> 1,600,000    | 1,600,000   | 1600000000  | 1600000000  | 1.80s   | 1.80s
-> 1,228,800    | 1,228,800   | 1228800000  | 1228800000  | 2.33s   | 2.33s
-> 1,000,000    | 1,000,000   | 1000000000  | 1000000000  | 2.88s   | 2.87s
->    819,000    |   819,000   |  819200000  |  819200000  | 3.53s   | 3.52s
->    614,400    |   614,400   |  614400000  |  614400000  | 4.72s   | 4.72s
-> ----------------------------------------------------------------------------
-> 
-> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
-> ---
-> Changes in v3:
-> - Add a K1-specific cpufreq driver for the shared-rail, dual-clock topology
-> - Use one shared CPU OPP table and one cpufreq policy for all CPUs
-> - Link to v2: https://lore.kernel.org/r/20260410-shadow-deps-v2-0-4e16b8c0f60e@mailbox.org
-> 
-> Changes in v2:
-> - Move OPP tables to dedicated k1-opp.dtsi
-> - Enable OPP only on BPI-F3 with cpu-supply present
-> - Link to v1: https://lore.kernel.org/r/20260308-shadow-deps-v1-0-0ceb5c7c07eb@mailbox.org
-> 
-> ---
-> Shuwei Wu (2):
->        cpufreq: spacemit: Add K1 cpufreq driver
->        riscv: dts: spacemit: Add cpu scaling for K1 SoC
-> 
->   arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++-
->   arch/riscv/boot/dts/spacemit/k1-opp.dtsi        |  70 +++++++
->   arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 +
->   drivers/cpufreq/Kconfig                         |   4 +
->   drivers/cpufreq/Kconfig.riscv                   |  15 ++
->   drivers/cpufreq/Makefile                        |   3 +
->   drivers/cpufreq/cpufreq-dt-platdev.c            |   2 +
->   drivers/cpufreq/spacemit-k1-cpufreq.c           | 251 ++++++++++++++++++++++++
->   8 files changed, 387 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 5164e95565d3fd508ca8a95351323f5716dfb695
-> change-id: 20260307-shadow-deps-3582a78aa756
-> prerequisite-patch-id: 154bd4f720ce5065d58b988de8f273207b44572e
-> prerequisite-message-id: <20260206-spacemit-p1-v4-0-8f695d93811e@riscstar.com>
-> prerequisite-patch-id: 5da3e75b18291a5540d4f66d7a0600fb8975ef62
-> prerequisite-patch-id: bcf41917414ecef8cf743095d130f6004c32f6a5
-> prerequisite-patch-id: cfe3800f8c791ec4c63e070af9628e88e0fc31b9
-> prerequisite-message-id: <20260305-k1-clk-fix-v1-1-abca85d6e266@mailbox.org>
-> prerequisite-patch-id: 7c7fb9f87dba019ece4c97c45750349a7cd28f3a
-> 
-> Best regards,
+Hi Joshua,
 
+Sorry about the bugs, this is my first driver submission.
 
-Hi Shuwei and Vincent,
+On Sat, Jun 20, 2026 at 2:43=E2=80=AFAM Joshua Crofts <joshua.crofts1@gmail=
+.com> wrote:
+>
+> Hi Max,
+>
+> comments inline, some nits, some more serious, some Sashiko reviews.
+>
+> Josh
+>
+> On Fri, 19 Jun 2026 23:40:06 -0500
+> Maxwell Doose <m32285159@gmail.com> wrote:
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2026 Maxwell Doose
+> > + *
+> > + * Sensirion STS30 temperature sensor driver
+> > + *
+> > + * Datasheet: https://sensirion.com/media/documents/1DA31AFD/65D613A8/=
+Datasheet_STS3x_DIS.pdf
+> > + *
+> > + * Author: Maxwell Doose <m32285159@gmail.com>
+>
+> Nit, but this is probably unnecessary since you already have
+> the copyright statement above.
+>
 
-I have tested this series on the OrangePi RV2 board (4GB) on top of
-linux-next (next-20260619), with the v3 cpufreq series and Vincent's
-patch "k1-orangepi-rv2: Add cpu scaling" applied.
+Fair, will remove.
 
-The driver works as expected: all 8 CPUs are online and share a single
-policy (policy0). Writing to
-/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed
-correctly changes the frequency for all cores simultaneously, and all
-scaling_setspeed files show the same value. The frequency transitions
-are smooth, and performance (tested with a simple awk loop, following
-Vincent's approach) scales linearly with the set frequency.
+> > + */
+> > +
+>
+> You're missing array_size.h, as used in probe.
+>
 
-Both of you can add my tag:
+Nice catch, I didn't see that in my final compilation.
 
-Tested-by: Gong Shuai <gsh517025@gmail.com> # OrangePi-RV2
+> > +#include <linux/bits.h>
+> > +#include <linux/cleanup.h>
+> > +#include <linux/crc8.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/device.h>
+> > +#include <linux/errno.h>
+> > +#include <linux/export.h>
+> > +#include <linux/iio/iio.h>
+> > +#include <linux/iio/types.h>
+>
+> Move the IIO specific headers below the generic linux headers
+> and group them separately.
+>
 
-If you send a new version, I'm also willing to test it again.
+Will do.
 
-Thanks for the work.
+> > +#include <linux/i2c.h>
+> > +#include <linux/kernel.h>
+>
+> Don't use kernel.h for new entries, you should include what
 
-Regards,
-Shuai
+Righty oh, will remove. I guess that's why it compiled fine on my end
+because it's a catch-all.
 
+> you actually use instead of relying on this. (there is a tool
+> that can help with this, it's called `iwyu-tool`).
+>
 
+I've heard of iwyu-tool, I just don't know how to configure it :(
+
+> > +#include <linux/module.h>
+> > +#include <linux/mutex.h>
+> > +#include <linux/types.h>
+> > +#include <linux/unaligned.h>
+> > +
+> > +/* Amount of bytes received from the STS30 after a read command */
+> > +#define STS30_MEAS_SIZE 3
+> > +
+> > +#define STS30_COMMAND_READ_HIGH_REPEAT 0x2C06
+> > +#define STS30_COMMAND_READ_MED_REPEAT 0x2C0D
+> > +#define STS30_COMMAND_READ_LOW_REPEAT 0x2C10
+> > +
+> > +/* Soft reset command */
+>
+> No point in having a comment if your macro is sensibly named.
+>
+
+Fair point, I'll see about renaming it and removing the comment in v2.
+
+> > +#define STS30_COMMAND_RESET 0x30A2
+> > +
+> > +/*
+> > + * sts30 includes a CRC8 checksum at the end of its i2c responses. The=
+ polynomial
+> > + * is used to generate the CRC8 table and the seed is the starting val=
+ue.
+> > + */
+> > +#define STS30_CRC8_POLYNOMIAL 0x31
+> > +#define STS30_CRC8_SEED 0xFF
+> > +
+> > +DECLARE_CRC8_TABLE(sts30_crc_table);
+> > +
+> > +enum sts30_read_delays {
+> > +     STS30_REPEAT_LOW =3D 4500,
+> > +     STS30_REPEAT_MED =3D 6000,
+> > +     STS30_REPEAT_HIGH =3D 15000
+> > +};
+> > +
+> > +/**
+> > + * struct sts30_data - data structure for STS30 driver
+> > + *
+> > + * @client: underlying i2c client data structure
+> > + * @lock: mutex for serialized communication on the i2c bus
+> > + * @delay: measurement duration for the current repeatability mode
+> > + */
+>
+> I'd remove this comment altogether and just add a comment on why
+> you need a mutex.
+>
+
+Alright then.
+
+> > +struct sts30_data {
+> > +     struct i2c_client *client;
+> > +     struct mutex lock;
+> > +     /*
+> > +      * sts30 has three potential repeatability/measurement durations.=
+ We need to
+> > +      * account for them while reading the i2c bus.
+> > +      *
+> > +      * See section 2.2 in the datasheet for more info on processing t=
+imes.
+> > +      */
+> > +     enum sts30_read_delays delay;
+> > +};
+> > +
+> > +static int sts30_verify_crc8(struct sts30_data *data, u8 buf[STS30_MEA=
+S_SIZE])
+> > +{
+> > +     int crc;
+> > +
+> > +     crc =3D crc8(sts30_crc_table, buf, 2, STS30_CRC8_SEED);
+>
+> Please use sizeof() instead of hard coding the buffer length.
+>
+
+I suppose that we can do sizeof(buf) - 1 since we know the last byte
+in the buffer has to be the checksum.
+
+> > +     if (crc !=3D buf[2]) {
+> > +             dev_err(&data->client->dev, "Expected CRC8 value of 0x%02=
+x, got 0x%02x\n",
+> > +                     buf[2], crc);
+> > +             return -EIO;
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int sts30_read(struct sts30_data *data, u16 command, u16 *val)
+> > +{
+> > +     u8 tmp[2];
+> > +     u8 buf[STS30_MEAS_SIZE];
+>
+> Reverse christmas tree order.
+>
+
+Sounds good.
+
+> > +     int ret;
+> > +
+> > +     put_unaligned_be16(command, tmp);
+> > +
+> > +     ret =3D i2c_master_send(data->client, tmp, sizeof(tmp));
+> > +     if (ret < 0)
+> > +             return ret;
+> > +     if (ret !=3D sizeof(tmp))
+> > +             return -EIO;
+> > +
+> > +     fsleep(data->delay);
+>
+> Adding Sashiko's comment:
+>
+> Will sending a STOP condition here abort the measurement? Since
+> i2c_master_send() issues a STOP condition rather than a Repeated START,
+> this sequence violates the protocol for the Clock Stretching Enabled
+> commands (0x2Cxx) defined above.
+> Should this use the "Clock Stretching Disabled" commands (e.g., 0x2400)
+> instead, or alternatively use a single i2c_transfer() with a Repeated STA=
+RT?
+>
+
+Yea, I accidentally mixed up the commands, I saw this on sashiko when
+I submitted it last night. It seems like a five minute fix in any case
+though.
+
+> > +
+> > +     ret =3D i2c_master_recv(data->client, buf, sizeof(buf));
+> > +     if (ret < 0)
+> > +             return ret;
+> > +     if (ret !=3D sizeof(buf))
+> > +             return -EIO;
+> > +
+> > +     *val =3D get_unaligned_be16(buf);
+> > +
+> > +     ret =3D sts30_verify_crc8(data, buf);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     return 0;
+> > +}
+>
+> ...
+>
+> > +static int sts30_reset(struct sts30_data *data)
+> > +{
+> > +     int ret;
+> > +
+> > +     guard(mutex)(&data->lock);
+> > +
+> > +     ret =3D sts30_write(data, STS30_COMMAND_RESET);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     fsleep(1500);
+>
+> Add a comment or change this to a macro to explain why 1500
+> specifically.
+>
+
+Alright. Can also explain here:
+Datasheet dictates that maximum soft reset time is 1.5ms or 1500us. We
+fsleep() here to ensure that the device is ready before we continue.
+
+> > +
+> > +     return 0;
+> > +}
+> > +
+> > +static int sts30_read_raw(struct iio_dev *indio_dev,
+> > +                       struct iio_chan_spec const *chan, int *val, int=
+ *val2,
+> > +                       long mask)
+> > +{
+> > +     struct sts30_data *data =3D iio_priv(indio_dev);
+> > +     int ret;
+> > +     u16 tmp;
+> > +
+> > +     guard(mutex)(&data->lock);
+> > +
+> > +     switch (mask) {
+> > +     case IIO_CHAN_INFO_RAW:
+> > +             switch (data->delay) {
+> > +             case STS30_REPEAT_LOW:
+> > +                     ret =3D sts30_read(data, STS30_COMMAND_READ_LOW_R=
+EPEAT, &tmp);
+> > +                     break;
+> > +             case STS30_REPEAT_MED:
+> > +                     ret =3D sts30_read(data, STS30_COMMAND_READ_MED_R=
+EPEAT, &tmp);
+> > +                     break;
+> > +             case STS30_REPEAT_HIGH:
+> > +                     ret =3D sts30_read(data, STS30_COMMAND_READ_HIGH_=
+REPEAT, &tmp);
+> > +                     break;
+> > +             default:
+> > +                     dev_warn(&data->client->dev, "Repeatability state=
+ corrupted, got: %d\n",
+> > +                              data->delay);
+>
+> Do we need this warning? Returning -EINVAL is sufficient
+> enough.
+>
+
+Since this is read_raw() the warning might help the user resolve the
+error rather than just getting "Invalid argument".
+
+> > +                     return -EINVAL;
+> > +             }
+> > +
+> > +             if (ret)
+> > +                     return ret;
+> > +
+> > +             *val =3D tmp;
+> > +             return IIO_VAL_INT;
+> > +     case IIO_CHAN_INFO_OFFSET:
+> > +             /*
+> > +              * We use this constant -16852 as calculated using the fo=
+rmula
+> > +              * in the datasheet. See section 4.12 in the data sheet f=
+or more
+> > +              * info.
+> > +              */
+> > +             *val =3D -16852;
+>
+> Okay, this would definitely be better if it were a macro. I'd even
+> be tempted to add the formula in a comment for safe keeping.
+>
+
+At this point I agree, it's probably a good idea to put our constants
+at the top of the file as macros and put the formula there :/
+
+> ...
+>
+> > +static const struct i2c_device_id sts30_id[] =3D {
+> > +     { "sts30" },
+> > +     { "sts31" },
+> > +     { "sts35" },
+> > +     { }
+> > +};
+> > +MODULE_DEVICE_TABLE(i2c, sts30_id);
+>
+> Move the struct i2c_device_id struct after probe(). Additionally,
+> use the `.name` named initializer when defining the IDs (this reflects
+> on Uwe Kleine-Konig's effort in IIO).
+>
+
+Right. When I was first writing up the driver I'd ended up using
+i2c_match_id() but after removing it I'd forgotten to put it back at
+the bottom. Will fix (alongside the named initializers).
+
+> > +
+> > +static int sts30_probe(struct i2c_client *client)
+> > +{
+> > +     struct iio_dev *indio_dev;
+> > +     struct sts30_data *data;
+> > +     int ret;
+> > +
+> > +     indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
+> > +     if (!indio_dev)
+> > +             return -ENOMEM;
+> > +
+> > +     indio_dev->name =3D client->name;
+> > +     indio_dev->info =3D &sts30_info;
+> > +     indio_dev->channels =3D sts30_channels;
+> > +     indio_dev->num_channels =3D ARRAY_SIZE(sts30_channels);
+> > +     indio_dev->modes =3D INDIO_DIRECT_MODE;
+> > +
+> > +     data =3D iio_priv(indio_dev);
+> > +     data->client =3D client;
+> > +     data->delay =3D STS30_REPEAT_HIGH;
+> > +
+> > +     ret =3D devm_mutex_init(&client->dev, &data->lock);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     i2c_set_clientdata(client, indio_dev);
+> > +
+> > +     ret =3D sts30_reset(data);
+>
+> You're not checking ret here.
+>
+
+Also saw that from sashiko, and will fix.
+
+--=20
+best regards,
+max
