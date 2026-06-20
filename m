@@ -1,66 +1,66 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A531372063
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 07:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435D0349CD7
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 07:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781938850; cv=none; b=q41v+PuHq1h6nZ5Z7VroCf+ICzQgHB+t6iUmehVY1sFN3RJ5e5D9DiQnOy9Y77eYlhzY4bESOZRJ8/i+QG+nYiSVxiFfVkMNGN7/hTX4dDWCHh8RVjbR1aoJKeSJtd/PuBgI5XwTNic2GaPB7tzhz8uBgWY3ugQwjbiF+DI+jzQ=
+	t=1781941402; cv=none; b=gcvNJRt+ml0Z0R6sAootPKM5PHqGx9GWiceN+8Z5KITfo+SvrL9+JqXnyIjS4U1KBEbXunOOvl6R6SGrTr7uxTrgA44uoghBR6Hpc8nrx12192IOmAz9KI+Gzjes713eazGe60rXpMBL7XUBW5R97IJq3JRFKB7HMAtj0/ZxqU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781938850; c=relaxed/simple;
-	bh=djuARFPUgpWQ+2QCx6otv9OxDbelpVEruhktlJ/lOSk=;
+	s=arc-20240116; t=1781941402; c=relaxed/simple;
+	bh=vdfnhw3YRthYLW7NoZkxwLQDENYWZHxfnzLd1ME8oFM=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V/m/GqcNOhlAjLWRv0J8ghnJuyNXdILyAYqOSewyXgSLPJ9muLIbf5aSqVKV1qdJumXAN/NUiTUORXW5RY/NNnYiN/PRVJX4KALqP6GWAF99Fzj3j6zqy+LzwbinbG5rv5sMGUvIH4+ywQtpZeCrj1ibHhIxZTDRxHNwiBXjJss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TWdA0U1a; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version:Content-Type; b=BvZ3fj6Uc2TO+gQg4J6eaargXJDmZdcLDEc9TM4RpT7qdKXXUVVwnPc5xaAanOLCgeCYQThRaOspf2ITbktIXr4yUyTg2xmr40Iyz2n2/sqAX4O5pNxR85r1ZfaCbf/OMu9unB2K9N5JV4Jhtuf3KxjOHUVfW4Gx7DvpV96c9r0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jl2raJ3n; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TWdA0U1a"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4626fdc829aso1999349f8f.3
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 00:00:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jl2raJ3n"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso17870065e9.1
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 00:43:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781938848; x=1782543648; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1781941400; x=1782546200; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gDqfvOGsdlB3BZC/2DeF2hYu+XrbBaFGRVONyocXsLE=;
-        b=TWdA0U1aaD0jRPkRO8qDS2FSqs/DJLxUG5dgo6DgRInykQ+RjYt2tqhCin3KJS+qVn
-         PrriwTtnd3x9u1VnTK+TjYaBPQ3SAsaje0RuzkNoGcy1q0r0Rg4jCa0kbMTznKF/I5Gr
-         857GTqOWuoYGk1WKZUbxPPqCSJnkxrAiJqrXG8X7Rg/cZzG6oEakYlXADtrHGD4t2ZxA
-         5YMoXZCKcII3V4va+b5SFj5QxYHUpdqiL9rJSpZ3Ec2ZaRHp2SiVroBDbVwXrhg59Z6t
-         GBysaeXCmGWW0s5kfwvavq2kuBG8OXmKJ85saPrSD7LTv8uMJXSrvik/VHMJ8Pd+Uwmi
-         A0Kw==
+        bh=GXS8t5npxhKaIsgGfv/VQGf/gDm2d4sf6lLIFq0N37A=;
+        b=jl2raJ3n4GgVOsrjL0NP377U0t3NomUYeHhZFZum4fqrJO0Jv5P4WJn0cOpHbpzV/H
+         WmkzZavSU7KxBMPexGLm4RJJODJ/qou4ZwRu1ca+MLToIAN47mGkyOnPjHsWuQ+f9YwB
+         eksx0KEPbA3tjWfAwceyxTHYzWwGan+AiV/1Anz3fN7Yxjd9eNvUJEGh6LHWCQIR9aUd
+         RT1PJoxC+8+Z4a12HAWKyyIoAXuPquyYPdjIKbnMYMZyBarUtgbDeITIFzub56/I9BeE
+         QGbSv1+BdlexfwGIuS5rCFPgZobtKOb1i0Z7KtnGKfHH53OuzNsV+D/1qxU8PkR7+Cc+
+         dGXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781938848; x=1782543648;
+        d=1e100.net; s=20251104; t=1781941400; x=1782546200;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=gDqfvOGsdlB3BZC/2DeF2hYu+XrbBaFGRVONyocXsLE=;
-        b=pSK55VRX4lNaazk9RQBfSbUEL7CS/rFZbr504dtMjKUH+DPYKh5d+OOxGmk0CA9xIP
-         mNN7slFJjoPcu9FwIx7E333DQiQsAbeNvCMEYQCEgUiQu/ynif5eAIaU5i/h0BdYP/cH
-         dDpCLNteu9hkFxnogZJuH1PzH4UzDXbG9kbTSuXHQwbuQu6RGYDjnzpSVo+XAxM8kwR3
-         Qu9K337U0uvzOifoz1E70TfX38/PhuHwE8VJxoGe5Y/JzJfO93hdl0yx9zOzNnecBxEp
-         VuHznQyB1U4mj7ntBSl+YW3j+e/FsblQMUuaqWTG1eeeafUGudRe7FwazbSVP45r4HA8
-         nbEA==
-X-Forwarded-Encrypted: i=1; AFNElJ9UE/3ynZ/ftaxpYkL767nN2alsvM9n7Tqd/NON+hnFr/IPmfTyqwcZiJicMxzQKkHO4tqnS1ri6IpF@vger.kernel.org
-X-Gm-Message-State: AOJu0YztCQcKbmm4PDc+XDxFmQgMb6luP+5fAHHYCORnT/ite9OwleM0
-	8vPRTU7zJ+auerGv0DIQZ46vbmu6uQR9GdtTD7iJYWBDuQRf33fniI+0
-X-Gm-Gg: AfdE7clLSJvqPajKWxGEn/v00Ckz/VhiIBNX8y+3YdpXDFq9pvLj9Gbo1nP1Gtyt75f
-	0Gq32BuYpEx4NmHmgOPEKCjTsndAtLiezN0tAsfZa4aGPjnU01bHasRLht2pjtlvz6BJvYeyuVy
-	YzkAYMSySuHF59dOMahRVpn/uSnMW5LySzGpe5kYhNQB1tYrofT+2whxQo4Od5whFKV8c7CGcjH
-	mMop6SXARr4GB+JtMcbCyrqGQ0bHx7r2J8hi3Czn0adgYqwO+PTMasWFONF8z2ye+zqp7aPGrxb
-	SpYuSmIkqEnOHG3P1VHDHvyjNd+yq3kqs4OgK9Akc4/1C4AwkY7w3MnvyRLjBq0EBI0P4Vg9mVP
-	Je+xq62YjOv4J7O9pGu8K/m/pAuI9o3MEX/v4E6x4OtKw5VgE/NMI4LOQuFiRJ+yOpaO0ZWe8sh
-	lZih54fh4++6eTZ4L4zORc2L521s+1w6OrvmLkPiCadB6FK/Vch21Ic9IBiz8k28OiC0C6n1arB
-	wjW89FXpojek7lcyf3RBQVnjI7lDWiwR950FFt+jkI50IFEhYtuIiayhc9tRhicBY92j64XTC+E
-	7fbjaEu0dL+LKQmP
-X-Received: by 2002:a05:6000:25f8:b0:461:a1c4:9fa9 with SMTP id ffacd0b85a97d-4656a375912mr7847306f8f.0.1781938847397;
-        Sat, 20 Jun 2026 00:00:47 -0700 (PDT)
+        bh=GXS8t5npxhKaIsgGfv/VQGf/gDm2d4sf6lLIFq0N37A=;
+        b=Yzu9fE+cA24ELtAmRhVx+dWi4aOfg6q01fmk4IJJxZNXdlDAdWAOMgFC88KfaOHFPx
+         1lm1hoDNTPxfTT/nRxRk9I7NNmhX/bc4+J4v9geuaidoyeX0yGqzucjD2uaLX74sLJdT
+         sk9468gvo7jGRi9SQKF6PNz0JoGUUaZxiSybsnW1x3FLQNk01BoYjzX9md+V2WePAsUz
+         9RrNakvZcBkfO1s//J5W8LRtfNRatXdV7LFkCkDHpXPiGk9/kU6O+b/TG3LjWCRw1Vw/
+         Z1ePc5NSW2cBQun2wHWc0KXX6k+bSIleW2Ln1zzRLIkdDjC/zGSTjnKyre7hHjnUI2xJ
+         TPqA==
+X-Forwarded-Encrypted: i=1; AFNElJ8mJeqkcsE4Qiy2Z8ySJXIBAhFK5A659AkhlCopXhQjOSLOFRLNP+xFmSRHtWhOCm2dPyt+xHa4ayiW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhwRJWITN2d6UUyHZW9FyXaa8PbIwpFfG1hIUADACT9lYaEfer
+	z1/gcDn4Gj0x8RYeoPBtPpvogZgQu6alX1Da2IDiTEhieYfH9539LcPi
+X-Gm-Gg: AfdE7cnFjlWvg1ht5r9L6jjFRfehyUTOdBtd+OrhE4CQCX1BQOLShhgRIhpqt4B77Qn
+	CFLfv32aZF26rrs5LgjgYliz+9OltNlGgjUrST8zNK9JgmqKbcMe0Wj8mX/xdueuymYHint/nt3
+	TBPu3WEt8M9KWBYD+XLNcWpIznNfhSlEUPEaZupQkYWQZvZTtljWNTOVvylLoiu5CsV3wWF/1EB
+	u/LrlImocu8LrNHI6JjDuUsBe4Zuxiavh/Qy68ZDgsTiNWNOHtsQe2YV4rZqiFCpQIZKr49mfIA
+	4SxkqgdP/LC3vHVFRYzB6n+KgsUTiaCXSYEGZNOzG/FC3WkSTJbkXLv0TGCONYe5BgrGW/X4nOc
+	NCCbbR8tichzjNJOn2ORyvFk/GHVkNC3zffNK3NyPyMNOnrGz9l6i0EJwTGFHZS34JRoZkZIUvQ
+	Hi1D+TCsv7D0CLVrUvljrOOPjy525KO1oZLUNVlceTpz1HTbj8TySYr/X2xJ95V227JRmTWGP+o
+	ZbrikoxGiijQniu25Ro7hLrNt6I6jyAl/XKFLtBY1IRPFKnJJFP9uJIL1he6MAmVnmHmRyaNsv4
+	bOZvHA==
+X-Received: by 2002:a05:600c:6990:b0:490:b189:212d with SMTP id 5b1f17b1804b1-492490b7ea3mr32101455e9.33.1781941399416;
+        Sat, 20 Jun 2026 00:43:19 -0700 (PDT)
 Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46666c57afasm5582025f8f.29.2026.06.20.00.00.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c5413sm5922063f8f.11.2026.06.20.00.43.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 00:00:47 -0700 (PDT)
-Date: Sat, 20 Jun 2026 09:00:45 +0200
+        Sat, 20 Jun 2026 00:43:19 -0700 (PDT)
+Date: Sat, 20 Jun 2026 09:43:17 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
 To: Maxwell Doose <m32285159@gmail.com>
 Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
@@ -70,12 +70,12 @@ Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
  linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
  devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE
  TREE BINDINGS), linux-kernel@vger.kernel.org (open list)
-Subject: Re: [RFC PATCH 3/3] MAINTAINERS: Add entry for Sensirion STS30
+Subject: Re: [RFC PATCH 2/3] iio: temperature: Add STS30 temperature sensor
  driver
-Message-ID: <20260620090045.5c84eb28@systembl0wer>
-In-Reply-To: <20260620044010.1082621-4-m32285159@gmail.com>
+Message-ID: <20260620094317.4e503b7d@systembl0wer>
+In-Reply-To: <20260620044010.1082621-3-m32285159@gmail.com>
 References: <20260620044010.1082621-1-m32285159@gmail.com>
-	<20260620044010.1082621-4-m32285159@gmail.com>
+	<20260620044010.1082621-3-m32285159@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -86,21 +86,287 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 19 Jun 2026 23:40:07 -0500
-Maxwell Doose <m32285159@gmail.com> wrote:  
-> +SENSIRION STS30 TEMPERATURE SENSOR DRIVER
-> +M:	Maxwell Doose <m32285159@gmail.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
+Hi Max,
 
-Fold the above changes into your dt-bindings patch.
+comments inline, some nits, some more serious, some Sashiko reviews.
 
-> +F:	drivers/iio/temperature/sts30.c
+Josh
 
-This change then goes into the driver code patch. If you're
-adding new files, ensure that your patch also adds a mention
-to said file to MAINTAINERS (IIRC b4 actually checks for this
-when you run prep --check).
+On Fri, 19 Jun 2026 23:40:06 -0500
+Maxwell Doose <m32285159@gmail.com> wrote:
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026 Maxwell Doose
+> + *
+> + * Sensirion STS30 temperature sensor driver
+> + *
+> + * Datasheet: https://sensirion.com/media/documents/1DA31AFD/65D613A8/Datasheet_STS3x_DIS.pdf
+> + *
+> + * Author: Maxwell Doose <m32285159@gmail.com>
+
+Nit, but this is probably unnecessary since you already have
+the copyright statement above.
+
+> + */
+> +
+
+You're missing array_size.h, as used in probe.
+
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/crc8.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+> +#include <linux/export.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/types.h>
+
+Move the IIO specific headers below the generic linux headers
+and group them separately.
+
+> +#include <linux/i2c.h>
+> +#include <linux/kernel.h>
+
+Don't use kernel.h for new entries, you should include what
+you actually use instead of relying on this. (there is a tool
+that can help with this, it's called `iwyu-tool`).
+
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +
+> +/* Amount of bytes received from the STS30 after a read command */
+> +#define STS30_MEAS_SIZE 3
+> +
+> +#define STS30_COMMAND_READ_HIGH_REPEAT 0x2C06
+> +#define STS30_COMMAND_READ_MED_REPEAT 0x2C0D
+> +#define STS30_COMMAND_READ_LOW_REPEAT 0x2C10
+> +
+> +/* Soft reset command */
+
+No point in having a comment if your macro is sensibly named.
+
+> +#define STS30_COMMAND_RESET 0x30A2
+> +
+> +/*
+> + * sts30 includes a CRC8 checksum at the end of its i2c responses. The polynomial
+> + * is used to generate the CRC8 table and the seed is the starting value.
+> + */
+> +#define STS30_CRC8_POLYNOMIAL 0x31
+> +#define STS30_CRC8_SEED 0xFF
+> +
+> +DECLARE_CRC8_TABLE(sts30_crc_table);
+> +
+> +enum sts30_read_delays {
+> +	STS30_REPEAT_LOW = 4500,
+> +	STS30_REPEAT_MED = 6000,
+> +	STS30_REPEAT_HIGH = 15000
+> +};
+> +
+> +/**
+> + * struct sts30_data - data structure for STS30 driver
+> + *
+> + * @client: underlying i2c client data structure
+> + * @lock: mutex for serialized communication on the i2c bus
+> + * @delay: measurement duration for the current repeatability mode
+> + */
+
+I'd remove this comment altogether and just add a comment on why
+you need a mutex.
+
+> +struct sts30_data {
+> +	struct i2c_client *client;
+> +	struct mutex lock;
+> +	/*
+> +	 * sts30 has three potential repeatability/measurement durations. We need to
+> +	 * account for them while reading the i2c bus.
+> +	 *
+> +	 * See section 2.2 in the datasheet for more info on processing times.
+> +	 */
+> +	enum sts30_read_delays delay;
+> +};
+> +
+> +static int sts30_verify_crc8(struct sts30_data *data, u8 buf[STS30_MEAS_SIZE])
+> +{
+> +	int crc;
+> +
+> +	crc = crc8(sts30_crc_table, buf, 2, STS30_CRC8_SEED);
+
+Please use sizeof() instead of hard coding the buffer length.
+
+> +	if (crc != buf[2]) {
+> +		dev_err(&data->client->dev, "Expected CRC8 value of 0x%02x, got 0x%02x\n",
+> +			buf[2], crc);
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int sts30_read(struct sts30_data *data, u16 command, u16 *val)
+> +{
+> +	u8 tmp[2];
+> +	u8 buf[STS30_MEAS_SIZE];
+	
+Reverse christmas tree order.
+
+> +	int ret;
+> +
+> +	put_unaligned_be16(command, tmp);
+> +
+> +	ret = i2c_master_send(data->client, tmp, sizeof(tmp));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(tmp))
+> +		return -EIO;
+> +
+> +	fsleep(data->delay);
+
+Adding Sashiko's comment:
+
+Will sending a STOP condition here abort the measurement? Since
+i2c_master_send() issues a STOP condition rather than a Repeated START,
+this sequence violates the protocol for the Clock Stretching Enabled
+commands (0x2Cxx) defined above.
+Should this use the "Clock Stretching Disabled" commands (e.g., 0x2400)
+instead, or alternatively use a single i2c_transfer() with a Repeated START?
+
+> +
+> +	ret = i2c_master_recv(data->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(buf))
+> +		return -EIO;
+> +
+> +	*val = get_unaligned_be16(buf);
+> +
+> +	ret = sts30_verify_crc8(data, buf);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int sts30_reset(struct sts30_data *data)
+> +{
+> +	int ret;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	ret = sts30_write(data, STS30_COMMAND_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(1500);
+
+Add a comment or change this to a macro to explain why 1500
+specifically.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int sts30_read_raw(struct iio_dev *indio_dev,
+> +			  struct iio_chan_spec const *chan, int *val, int *val2,
+> +			  long mask)
+> +{
+> +	struct sts30_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +	u16 tmp;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		switch (data->delay) {
+> +		case STS30_REPEAT_LOW:
+> +			ret = sts30_read(data, STS30_COMMAND_READ_LOW_REPEAT, &tmp);
+> +			break;
+> +		case STS30_REPEAT_MED:
+> +			ret = sts30_read(data, STS30_COMMAND_READ_MED_REPEAT, &tmp);
+> +			break;
+> +		case STS30_REPEAT_HIGH:
+> +			ret = sts30_read(data, STS30_COMMAND_READ_HIGH_REPEAT, &tmp);
+> +			break;
+> +		default:
+> +			dev_warn(&data->client->dev, "Repeatability state corrupted, got: %d\n",
+> +				 data->delay);
+
+Do we need this warning? Returning -EINVAL is sufficient
+enough.
+
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = tmp;
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_OFFSET:
+> +		/*
+> +		 * We use this constant -16852 as calculated using the formula
+> +		 * in the datasheet. See section 4.12 in the data sheet for more
+> +		 * info.
+> +		 */
+> +		*val = -16852;
+
+Okay, this would definitely be better if it were a macro. I'd even
+be tempted to add the formula in a comment for safe keeping.
+ 
+...
+
+> +static const struct i2c_device_id sts30_id[] = {
+> +	{ "sts30" },
+> +	{ "sts31" },
+> +	{ "sts35" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, sts30_id);
+
+Move the struct i2c_device_id struct after probe(). Additionally,
+use the `.name` named initializer when defining the IDs (this reflects
+on Uwe Kleine-Konig's effort in IIO).
+
+> +
+> +static int sts30_probe(struct i2c_client *client)
+> +{
+> +	struct iio_dev *indio_dev;
+> +	struct sts30_data *data;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	indio_dev->name = client->name;
+> +	indio_dev->info = &sts30_info;
+> +	indio_dev->channels = sts30_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(sts30_channels);
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +	data->delay = STS30_REPEAT_HIGH;
+> +
+> +	ret = devm_mutex_init(&client->dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	i2c_set_clientdata(client, indio_dev);
+> +
+> +	ret = sts30_reset(data);
+
+You're not checking ret here.
+
+> +
+> +	return devm_iio_device_register(&client->dev, indio_dev);
+> +}
+> +
 
 -- 
 Kind regards
