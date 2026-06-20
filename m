@@ -1,226 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA8E175A80
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 18:11:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781979115; cv=none; b=DVtBJda4IqmCmvjTGh1PiZaPLR75LHqi9BMh6uk3Ew1V77pgwLqdDpg4fo4iGAunxEak4NrI/wWVx2WgschTv5Ts79iolKIYnhRmm0V0s+TWeyLqvkZtqI/FAtzDrLGj306EZOo3LxHxDLl4jI40DdgSUSvQQWS7g/VzZGZIvKg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781979115; c=relaxed/simple;
-	bh=XfxcKTRVsyVzNykx5duP9hxSYvdoF0joiSMoF9atB+Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SXD3hS2u1nWGzUCoKfzrTDFSkPk9QPd6plP9zpnX1JtsQxlNJRHMUskL+jKTjdmns+mF1dxfWK3mmoxr5THXUqMbhrRef72RBJ+HSvZQMRJW8yyXxYkS69NgGLW6WXt6re/TLJtecJm6gmdRpAEjOTh+giGYClnGu36gGlS/lkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rifr1314; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F7224DD15
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 18:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1781980703; cv=pass; b=ANM04oN7P+5z4yrnhCh/rBLbi1yR1bQS71oqD4mk4Wl5Ft600oiFWaJZiLtAgNzszMV1mGCMy93DLaRYwecx6PNDJ5hg0J+WCLsOaTSdvCV2RFeu89PUiCuM8Xxy9teogDXsPzxSTDj/ifNucnx6XzKpk9/+ROnRI6eVQIN9Kww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1781980703; c=relaxed/simple;
+	bh=Aa9P/Mi41OD3Kc2puae9QfPotZPZLSNTcSaoGs68Ang=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mREIFUrfQxBkG/Y2jG8WwdhZ1OyJL1dkLxsvNdOWD1jw4Vh7WS51TvcN2CLw3jtEKGLZAzGq9lpdg+vPK7p7bGM+c1nFsc1YSpHZ16jic172gpgKMZ74Sr8+0v9kNDHAOcU3pS8o4ZzMEzwxptjHUY+yQ/l/GShKgmQC/Mu8mOU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6uSUQNE; arc=pass smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rifr1314"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806A71F000E9;
-	Sat, 20 Jun 2026 18:11:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781979113;
-	bh=N88guNxdcPRjk7EgmxKKMu7/Ke6ITk/xgSnFZFK3Lps=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rifr1314m3q6R4oFkSZUPE50223qux6+7KzTXgehRM0x+St7LnDBgLb+FfjCxy635
-	 u2f87EWgVWHGoK/E5n4VbfRZ/4Alkt6011U5jhM5oIhZczPtgaqx9KSlNjTFCGaSfM
-	 2aelLxftseSp19floFer+eGH3beWU6AOtwj2s7uvmJfknd+20fAH0OOaq9NguHTlYp
-	 oajbvjojVqu0AQcx0H+zBQq6YQiGBi8kRhoy3qMfmPkzVnckOumfuORNoYdgRfBioc
-	 6GtGAU8GJv6QgWLI/BMaZkwykwtU3GmQ+yrcKBKwDXPLNOJGmRDPCeReyEe4Js0toI
-	 3GEfv4mtZcWmg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: qcom: Add HONOR MagicBook Art 14
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konstantin Shabanov" <mail@etehtsea.me>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260620175210.19563-4-mail@etehtsea.me>
-References: <20260620175210.19563-1-mail@etehtsea.me>
- <20260620175210.19563-4-mail@etehtsea.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 Jun 2026 18:11:53 +0000
-Message-Id: <20260620181153.806A71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6uSUQNE"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-c88b7c92577so1369062a12.3
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 11:38:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781980702; cv=none;
+        d=google.com; s=arc-20240605;
+        b=icFdZZGnhTD2NQuZnhqvuzSe0GYSG3xWG+ct2I3xhqpw17qM5OXVk+FGePvqo0++XP
+         rDzVbBfbM24wFz0V6OQbs22VcLEA6JW1m0e0hFiKK2pha58gUUd26kaFw7OvFu4h9C8a
+         WCYWb7AwtqUKx0qMQs8Whg9JB0xJMpaT0HFOQ0B1xAd/SDQ3LNEi0zvivdjE3LakmNqu
+         1t/+p0Devqa9JTcoD9AY15D8EvaGC//PxmWsf+0+ya/vTBCAbWjjnrqomd+g5mEgYGWA
+         XgX/2sLTLGCMQF6fscK1BxfRoIFdIeaNrK3KpK9eDT9xrwrRrJhDtuH1TUszxZviv0JI
+         4C7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Aa9P/Mi41OD3Kc2puae9QfPotZPZLSNTcSaoGs68Ang=;
+        fh=2qlGzLN2Ca7jev+RIFcDs0GFegUIETq101KfAn/9ut8=;
+        b=Fq1Bw+x1ik84XXcpzTa2lKw4Qqcz/94cmWPvymuQEFTW8UBjqTp7gsHi6CbLCmMzxO
+         8HBPoGtR49wW+1mo0DyxnyIlcam8A9q2SFAmlo5qmDs7Xhvh5/kAf9gl1Ox52vYrDxtE
+         Aa1LtaO/FhaGwDGgo6NSMzJ8EMRRkezTbzghrdiHfAyz5C9wgNxC6oD5yIQdGgFZLJAz
+         jgHg3ZID7JFcAbJ3JDJ/dpz1dToeoh+Z6nzPBiQwecfB3pKKK75aTocnmmW7IMoxKMIl
+         +kjOJP8Asn691SZ/OOXKPQhzPlgroyHKQf3ozl0is/I7T6kt9hAxKwbX3X73UrKwDyua
+         EhPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781980702; x=1782585502; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Aa9P/Mi41OD3Kc2puae9QfPotZPZLSNTcSaoGs68Ang=;
+        b=W6uSUQNEncvPBsnoagqtqZDCPPoUtHAmiiIMp60HKJKSStm6mpwRdus5IJISYJCGW3
+         AZKnvf0WOzWXHBXMSU8BOcxVHbFuR+FPySF7LtmkIKBWJ2XlC1bNznBkIlaB26zV8ALq
+         evy9FcB/Ujl1Y4PuaMZnJWeaL8zPbrRUcuCEmc+G1FdgRucenC0HB2odrExqHQ9K0j7l
+         Jzi5EUtNIJFcbBpHEMH1sLSWN7F0MOb+Og6FvzTqCK0FuthBpnV8eAAn9Cn2WCdzyzh2
+         GCaCXsjOrzFszdN2WcMUElv3KNPMn18zoCFlX/37ZsJ1tTcNtCKoM/n/VCoS6a+L1uT6
+         oviQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781980702; x=1782585502;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Aa9P/Mi41OD3Kc2puae9QfPotZPZLSNTcSaoGs68Ang=;
+        b=fjicHSWatzStngCyuXK1dxdgzcxMAI0MpttAzQ+SpSdlDz0J/OplWr9KprbDbvHSdj
+         E2QEI9074PWEMZDz7Pl6IRjd8lq1YKr1IbLnkyeuyWYbykXycUat322pKSSIGuNt3u9o
+         FHGHYgpZirPp6PXg8THqmr0pag+rHjC2taNT4yPu6eLcGCWOqdgpJCEpEoX2blAB+D6d
+         j7E8XbdM70FuzsS22DqONp4O8/58uU3B84kWOPF0Gg98aHz1O9V5TujLokj28nbLkhuE
+         xGKtC/ju/4YyVwCMN2zEV71f0u33GB0sRT8noTelPlmZqM7lyOvfq4Ph6SRyyeRqTLcL
+         1/ow==
+X-Forwarded-Encrypted: i=1; AHgh+RrcWHgJuX01KdBStcImcWw1hlcABrG574935zu/qpEk2gennMaRlWXRLllwleDJPK3JUNjU9WB+7IV1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz298frZZrkAzFftJr5E3DXHr3Eo9QJYLbjA9//k9x9t9Q83J1Q
+	GiEgMpS7FYJrqRy30r37I1R0W+ULJDZb0Kde4pkP3sJ1w8izbomxBfdV6GikS5Q9u7UcCp2yM4s
+	kMd0ezROFIAvx+3ql6XED89Hw5I8J4O4=
+X-Gm-Gg: AfdE7cl6urYEDvaFcm2luxfyGXtUpkxf2Q/BIK/CS6Z3b9sCOd1WwlCrZDT+3qExDj6
+	UEnh0DhVdB0ROHSn4ceMpsjSm9dUCbxRs6Q7VvlUx37ySOz5PsLmJ31cK2YmOGr7ZNE8a3Olzvl
+	gAeFyi1dRDZXZCKaDnItZjzuZsK6wCOuuLg9i2SmE+4Bq6WbL+1YRmLP5K6B0qY0c0B1uThCOlL
+	IKnoqYuVcnzfUZW5/4u61Vwdfl2CHNhigLgCs3JtYR4MyYdiRy1uLGMpGmDySUnGP/PkXNOBsnW
+	NhgdWUW5+EnUGdWx18aGrtHQpQiR6fU=
+X-Received: by 2002:a17:902:ccd0:b0:2c2:bd05:dac5 with SMTP id
+ d9443c01a7336-2c718f1da13mr85666705ad.19.1781980701844; Sat, 20 Jun 2026
+ 11:38:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260613190957.654798-1-jakubszczudlo40@gmail.com>
+ <20260613190957.654798-4-jakubszczudlo40@gmail.com> <a0e19dd9-c2de-489f-a727-dbc42e5b36da@baylibre.com>
+In-Reply-To: <a0e19dd9-c2de-489f-a727-dbc42e5b36da@baylibre.com>
+From: =?UTF-8?Q?Jakub_Szczud=C5=82o?= <jakubszczudlo40@gmail.com>
+Date: Sat, 20 Jun 2026 20:38:09 +0200
+X-Gm-Features: AVVi8CcwN3JA29B8Cxd1bF8JqRYySlAWpmR-3qka3_VEtMqSg_tSpJ1FT3_uzkE
+Message-ID: <CA+gq5Jhv_ZvESipg2AtRSN9ov3ALbOnUZ9yhJeM=2xBp7TtxBA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
+To: David Lechner <dlechner@baylibre.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, antoniu.miclaus@analog.com, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, duje@dujemihanovic.xyz, 
+	jic23@kernel.org, jishnu.prakash@oss.qualcomm.com, jorge.marques@analog.com, 
+	krzk+dt@kernel.org, linusw@kernel.org, linux-kernel@vger.kernel.org, 
+	marcelo.schmitt@analog.com, mazziesaccount@gmail.com, mike.looijmans@topic.nl, 
+	nuno.sa@analog.com, robh@kernel.org, sakari.ailus@linux.intel.com, 
+	wens@kernel.org, joshua.crofts1@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Missing SBU routing and multiplexers for DisplayPort Alternate Mod=
-e over USB-C.
-- [High] Missing DisplayPort and HDMI audio routing in the sound card.
-- [High] Duplicate audio routing for Right Woofer and Right Tweeter breaks =
-channel separation.
-- [Medium] QMP DP PHY output directly connected to hdmi-connector without a=
-n HDMI bridge.
-- [Low] Invalid `vddl-supply` property in generic `hid-over-i2c` nodes.
-- [Low] Invalid property placement: `dr_mode =3D "host"` placed on DWC3 wra=
-pper instead of core.
---
+>
+> On 6/13/26 2:09 PM, Jakub Szczudlo wrote:
+> > When device is suspended and it is in single mode then changing
+> > datarate doesn't make it actual wait for new measurement, so to
+>
+> s/actual/actually/
+>
+> > be sure that read after change is correct functions that changes
+> > datarate and gain will wait for new data.
+>
+> s/datarate/data rate/g
+>
+Thanks for that I will correct it in next patch
 
-commit c44972cad74464a55d079d27d560d3a648a72db6
-Author: Konstantin Shabanov <mail@etehtsea.me>
+>
+> The commit message isn't very clear to me. Is the point that the
+> changes don't actually take effect in the ADC until a conversion
+> is done?
 
-arm64: dts: qcom: Add HONOR MagicBook Art 14 device tree
+When changes are done when ADC is in single mode the first read
+after change are still with old settings that are not desired.
 
-Introduce support for the HONOR MagicBook Art 14 laptop. This version
-is based on initial work by Kirill A. Korinsky and Valentin Manea.
-
-Link: https://lore.kernel.org/all/871px910m1.wl-kirill@korins.ky/
-Link: https://github.com/vamanea/linux-magicbook/blob/x1e80100-magicbook-6.=
-19/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
-Link: https://github.com/alsa-project/alsa-ucm-conf/pull/755
-
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts=
- b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
-> new file mode 100644
-> index 0000000000000..c472d844429b3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
-
-[ ... ]
-
-> +	hdmi-connector {
-> +		compatible =3D "hdmi-connector";
-> +		type =3D "a";
-> +
-> +		pinctrl-0 =3D <&hdmi_hpd_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		port {
-> +			hdmi_con: endpoint {
-> +				remote-endpoint =3D <&usb_1_ss2_qmpphy_out_dp>;
-> +			};
-> +		};
-> +	};
-
-[Severity: Medium]
-The QMP combo PHY natively outputs DisplayPort signaling, but this
-hdmi-connector node strictly expects TMDS signaling.
-
-Since the X1E80100 DP blocks lack DP++ support, does this direct connection
-violate DRM DT graph bindings by omitting the active DP-to-HDMI bridge
-needed to convert the signal?
-
-[ ... ]
-
-> +	pmic-glink {
-> +		compatible =3D "qcom,x1e80100-pmic-glink",
-> +			     "qcom,sm8550-pmic-glink",
-> +			     "qcom,pmic-glink";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		orientation-gpios =3D <&tlmm 121 GPIO_ACTIVE_HIGH>,
-> +				    <&tlmm 123 GPIO_ACTIVE_HIGH>;
-> +
-> +		/* Left-side port, closer to the screen */
-> +		connector@0 {
-> +			compatible =3D "usb-c-connector";
-> +			reg =3D <0>;
-> +			power-role =3D "dual";
-> +			data-role =3D "dual";
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +
-> +					pmic_glink_ss0_hs_in: endpoint {
-> +						remote-endpoint =3D <&usb_1_ss0_dwc3_hs>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-
-[Severity: High]
-Is it possible that the SBU routing is missing here?
-
-The commit claims support for DisplayPort over USB-C, but this configuration
-omits port@2 for the SBU endpoints, and there are no SBU multiplexers or
-retimers defined.
-
-Will this prevent the UCSI Alt Mode driver from routing SBU and break
-DisplayPort Alternate Mode?
-
-[ ... ]
-
-> +	sound {
-> +		compatible =3D "qcom,x1e80100-sndcard";
-> +		model =3D "X1E80100-HONOR-MagicBook-Art-14-Snapdragon";
-
-[Severity: High]
-The commit mentions support for HDMI and DP over USB-C, but this sound node
-omits the displayport-X-dai-link blocks.
-
-Without these DAI links, won't audio routing to external monitors over
-DisplayPort and HDMI fail?
-
-> +		audio-routing =3D "WooferLeft IN", "WSA WSA_SPK1 OUT",
-> +				"TweeterLeft IN", "WSA WSA_SPK2 OUT",
-> +				"WooferRight IN", "WSA2 WSA_SPK2 OUT",
-> +				"TweeterRight IN", "WSA2 WSA_SPK2 OUT",
-
-[Severity: High]
-Does mapping both WooferRight and TweeterRight to WSA2 WSA_SPK2 OUT
-accidentally leave the WSA2 WSA_SPK1 OUT widget unused?
-
-If the first channel of the WSA2 macro is never powered on, could this
-break channel separation or cause the right woofer to fail?
-
-[ ... ]
-
-> +	touchpad@5d {
-> +		compatible =3D "hid-over-i2c";
-> +		reg =3D <0x5d>;
-> +
-> +		hid-descr-addr =3D <0x1>;
-> +		interrupts-extended =3D <&tlmm 24 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		vdd-supply =3D <&vreg_misc_3p3>;
-> +		vddl-supply =3D <&vreg_l12b_1p2>;
-
-[Severity: Low]
-According to the hid-over-i2c dt-bindings, the driver parses vddio-supply
-rather than vddl-supply.
-
-Will this trigger dtbs_check errors and cause the upstream i2c-hid-of
-driver to ignore the supply? Should this be renamed to vddio-supply?
-
-[ ... ]
-
-> +	keyboard@3a {
-> +		compatible =3D "hid-over-i2c";
-> +		reg =3D <0x3a>;
-> +
-> +		hid-descr-addr =3D <0x1>;
-> +		interrupts-extended =3D <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +		vdd-supply =3D <&vreg_misc_3p3>;
-> +		vddl-supply =3D <&vreg_l12b_1p2>;
-
-[Severity: Low]
-Similarly, should vddl-supply be renamed to vddio-supply here for the keybo=
-ard
-to conform to the hid-over-i2c dt-bindings?
-
-[ ... ]
-
-> +&usb_1_ss0 {
-> +	dr_mode =3D "host";
-> +
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-The dr_mode property is placed on the DWC3 wrapper node rather than the
-core node (e.g., usb_1_ss0_dwc3).
-
-Since the core DWC3 driver parses dr_mode exclusively from its own node,
-won't this be ignored and cause the core to fall back to OTG mode?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260620175210.1956=
-3-1-mail@etehtsea.me?part=3D3
+My change make it wait for new conversion with new setting so reading
+will be correct
