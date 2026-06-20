@@ -1,169 +1,174 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA16124677B
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 17:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EA52E7623
+	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 17:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781976248; cv=none; b=Vmvj8JHm3xM5lgBFj28A6w3V+TOOvPe+X6mYvJvMwsfpyoJUToCPcmM/39xE4MCa/69IV2gWpRC2qkb5OJAv/EguRJ5C8Gv28HzZL1CxHFDiMWxJ5AAz63ebN3/fwPq+tNB/eishP+Zzpqr4EIY7nbVSk1cYqqSFE256StCoGF0=
+	t=1781976498; cv=none; b=aUyQPeaSCfJVNX3dH6tIFk1L38qBIZMgxOy7qVOX8YAyRf2b2XSMeuLDlwHYOjfKUSYu5BDltP+AdRJNlvKZFriTlBh3vV5f8ReqgVXV/VyAKn7T9VlsVDxGHTZmGSvva0Ep7IxqGLoAOXdbZDx7LeZ5fDsUEJ3C0sYvQZpKkCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781976248; c=relaxed/simple;
-	bh=OrG173MpmokmQwAQnBCzHM3/1E6eo3eaEAN1nJggyq0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iicWJB823LEEkjMs0CUF3+yzVcRgiSHSyER7U1bXe7ecDnE/FZUMWHYmAUwa/EMzKbMD8SsfET15Le+BrWgrGgnqgpHxGeVu2rFuWYV0Vpjc+wvk9yLZzjP9DjqLl4xwLpANwAFpC89iPqfedT9IpxAKzswRzd2ugW/9WfuiHL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMwPyswu; arc=none smtp.client-ip=209.85.216.52
+	s=arc-20240116; t=1781976498; c=relaxed/simple;
+	bh=nM5yehFKra88Qfal5zlQkUu6h12HqXiJIL0q08sT7nU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UtwLip124cPN6uyQ4EcpvaIPqyciceREBl4WKpBdY17IChzlTj/vHhWEbhUporsmaz80mUCll9YrzKygy/aewaBTyuVQGpix87wcN3UXHy1lgmVlev6uhbnC1c136lcbuJ/2kaXptVd4zmHFcyoAGEcsHWdBd2gsdr0UYF/EiRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jB61f7lp; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMwPyswu"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36babe2c4bdso1599109a91.1
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 10:24:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jB61f7lp"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4645995069bso1712341f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 10:28:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781976247; x=1782581047; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VjVcopPtCu5wMI8L2H0z+lagnebo1hucNi83hHVH/j0=;
-        b=SMwPyswuMb4j1/r5qsBc/VBaGKeizc+7B4VAkw4IDmsUc4I3XHIir7ep4hPdb5F0+M
-         fWYnPJ9geKF2UwKrCfGCcbV/bGZqw8LEyYiU/nrgmuO+T8hM8YQ1hFBQofWWhKa/+zCi
-         OWcVpuxivH3j7BrmxyqzbrY9m67EcrT4nj0UfnD+aM9DE2PUUTHhRBCF68Kqb9lluez3
-         8MXJXR57L14laQzxF03T1U5a1UBGvyoN0MIe1OVtnXu6n+PF/t5BK3R+/pXZw5Y56gj/
-         haXiuoJTYRvGq/cq3Wuk6Ylmp3AS327zn9cQ3ByFddcZPGYgTH8YskGCbbH2uRHRT7e/
-         Drvw==
+        d=gmail.com; s=20251104; t=1781976495; x=1782581295; darn=vger.kernel.org;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=f/6fDvnIguDHo3k7rp3ZTnWwimeNwTtivMzdauHwuVo=;
+        b=jB61f7lppmVBZGkKBtcJaZCSkm9hC3ba6fNnuGFpbsu5ILAsvceXsbtlJzQevYsV+x
+         fo7AmHwC8ug+s09Os2ZXQWboeHE4sEU4+C06+XWAws2Gp/CvQMCe2UjcE6rsJV7Q79Lj
+         ykYfjIGdLGVvPmp1fjc8J//yuYBo2DCAimNvEbSSqY/+RIbrEmtEmcVm9FwY1E9hJmk8
+         xwlU3O9/+ByeuvePqDLiSR13kfjTLfmcLgSmFoFXiN2nUQe2sRzTAGx2weogkFGesqe/
+         khQ//xr4sKUclN46CAmQHKRa7wI+yqNLEGTcp9O0bS5WTB3m0qKb5C7agYqEGQYp+W1A
+         3NkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781976247; x=1782581047;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VjVcopPtCu5wMI8L2H0z+lagnebo1hucNi83hHVH/j0=;
-        b=U1B6OH4s8SM9Yq6sHpg50Q6k/NWbrAO5nBFWHsS9+wa6OAM0keFNnqe1yqPMp1ni7m
-         LsAakvzJ7c/idzrP+bIZ855MUp5bU9N39+2eb7iI7myl+ieT3zWfIbPWm5XZx/jozVnj
-         VoOV/LMjniq7DOCPBOsE2VN5mITBgNcomo7FLhKGYdeok5kqbTeqfQDOLGm6Io/yuSpg
-         wyUvQQpWea5+I3xZEhALFD6qvEUGyODSOfnTv04KUumP09+5mk0OmK2HD1QaejYttCCM
-         SqYuuWDl4ChhNslCXKRoEIRV4/yEaqPcJTkbCfqaGV6zro2UxNlAkrpZOrIjKKGmKHHz
-         +hLA==
-X-Forwarded-Encrypted: i=1; AHgh+RpOydxCnb3cul+qC1K02bJiaWgDFXr9cow9wLq1uVeUFNYQ4UZ9MahVeazZsZ/0BUtU5NmpD8br4DGP@vger.kernel.org
-X-Gm-Message-State: AOJu0YyI3IKYL01w2S8CLtNMTmE2DLaY1rC/EtGuE5uk9bMXVNkI7bbi
-	7u8xyqJ+UlVUXhcdj5aYK5NKe7hA00zmwY/gdDhxqF5Dj4OQ1fXwmo2y
-X-Gm-Gg: AfdE7cmFh1ozVnUMdRqSm2RGp+dfBVUozGPENSyUTsE42+SilRFeiIhezlzPJc3b9mC
-	rDj3XJbRjRiKwNq6YPWCr4Z9Eky9QEv732NLjtHgy7gp0YrQ0sJkB2wudTbcdk5cedGbolstQk6
-	LGuday24qfB2Jf2w7fprvDaHS1+MyiMCMxxjiAp1ScYYScQEkBvhzM1Y25KEupA7FuMNqe4JdV/
-	kIYINKYz8jdC7PKaPRQ3jIhbo/d4S9/h5nGSM0quIi2dHLTNiMvnTZQBZp9sz7NpxUd/94wUQLi
-	QKhNpHhlKCs0WsxmJ1F0tACFF/p6DaHzOj/RuZtgYhqNsiM+iYv1/s2+DLgh3tZTlssgJOX3RuL
-	BtJWFKuAEVNd5wnOJVR33ADWgKOFswf7MF4i/STHI5BhmTrw+qvz5QugHJRuwdmnhHf7zOqLvKY
-	RDz0pRDgvRr64rKQZWxKbmKJPcIxDePmgBxw==
-X-Received: by 2002:a17:90b:4b86:b0:36d:f28b:72e0 with SMTP id 98e67ed59e1d1-37d161465admr7528238a91.12.1781976246960;
-        Sat, 20 Jun 2026 10:24:06 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([2409:40f0:303b:e45d:521c:1231:d388:dc73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37d15de5d3dsm6109920a91.10.2026.06.20.10.24.01
+        d=1e100.net; s=20251104; t=1781976495; x=1782581295;
+        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=f/6fDvnIguDHo3k7rp3ZTnWwimeNwTtivMzdauHwuVo=;
+        b=EaEdzDDyCV8Rd9mtKDDMgGu21ql+/4TOgLJnVA+HSUZQk1mhwq1U2cR08peVgCN9Xm
+         s/JqsV37duy8eGyGUc7JRTbdAzKDG2srPsbM58C2tL1kbevjMASLJl15vroFb7qYxodV
+         U6v4PA44JaiZtfek7a1V2W5fMVdpgm82qxBYxLZlmmK61py8fnTKLn8h++VkX0VmUrI4
+         FcIvgKhboLVTmovCo4tRwF1UOye5KYhP01ST+pQ9akbB0yttn5sLuhWxInGTu8AnKFCm
+         vZI4VNQK7/gnoIeZ3w3P3ovFlyWKyCSHrUBlpKIUaRrH1cdZyA/bny/4EeYe/ZCWmSwk
+         4fIw==
+X-Forwarded-Encrypted: i=1; AFNElJ9xa3gphxuxsZwv3KfegtXlFTHEKWD0IypBnowblxqkWuF/scWb/KQi69eRJbqwcIZTLko5hkBkU4rv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzo/nJNBz+t99u//s1AANYnJle21G0St0UTQfm24zEBUBGnH+q+
+	tpKNn9MKNsWTji+2XvawJRb7WhqAZfSw5MMBvGUfmjQiIsW3augttqSv
+X-Gm-Gg: AfdE7ckbLbOcR8z1skl065kd9zYDkKS3NJ428q7DEQByve7KJAm6bR8XQu3ZHnvHV1W
+	4ELmHjmWWY/3xOro6vK2ZpILYYjR5FBL5Y2SCg7jcXniUYxPV2SqMGs+7KBa4xPza4+CmJy+77r
+	me1Dps42dLJsQADQB4QsfaD1YDDwbnkkYnGaDZYIWqGy9dtPh3LzY4ERYjnZfcOfiJxoTzESohZ
+	gsGwVsrxF1y2ApLVG9eiXFd7kaztqUx0R9dLcHcbZvK2IeM0Tv+5ht9BkxsN/3YSFmJV9oulNVV
+	FqPFgt6F50JKT95p6DCgZ4/Cgulc5JjK6leHrpzpCos4VNjaSQLguq+VNWCg/AveZ+dB/M5PI7T
+	QV0dwWjaR2UXwMM50wHAkNttLbMnZhpPvMrIRNSZhWH2g1TbNQv1BTw3N1A+4emqIQ1g66ij5Yi
+	vb79T/pbrKEFczLa+hRAx3Og4vrA==
+X-Received: by 2002:a05:6000:41ea:b0:464:5df5:332a with SMTP id ffacd0b85a97d-465026e230fmr13924863f8f.34.1781976495283;
+        Sat, 20 Jun 2026 10:28:15 -0700 (PDT)
+Received: from strix.localnet ([197.250.226.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c4fd2sm9661404f8f.14.2026.06.20.10.28.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 10:24:06 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: tsbogend@alpha.franken.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH] dt-bindings: watchdog: microchip,pic32mzda-wdt: Convert to DT schema
-Date: Sat, 20 Jun 2026 22:53:54 +0530
-Message-Id: <20260620172354.155565-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Sat, 20 Jun 2026 10:28:14 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject:
+ Re: [PATCH RFC v4 01/12] dt-bindings: clk: zte: Add zx297520v3 top clock and
+ reset bindings
+Date: Sat, 20 Jun 2026 20:28:03 +0300
+Message-ID: <vYm1twErR8mp-Fjgbvf-MQ@gmail.com>
+In-Reply-To: <20260618-fantasy-estimate-6c52edbc6890@spud>
+References:
+ <20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com>
+ <BXIzXc2sQ5SGynZ1chd-pw@gmail.com>
+ <20260618-fantasy-estimate-6c52edbc6890@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="nextPartj8KIpuwSTluwcOdB0G_0rg";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Convert Microchip PIC32 Watchdog Timer devicetree binding
-from legacy text format to DT schema.
+--nextPartj8KIpuwSTluwcOdB0G_0rg
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Date: Sat, 20 Jun 2026 20:28:03 +0300
+Message-ID: <vYm1twErR8mp-Fjgbvf-MQ@gmail.com>
+In-Reply-To: <20260618-fantasy-estimate-6c52edbc6890@spud>
+MIME-Version: 1.0
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
- .../bindings/watchdog/microchip,pic32-wdt.txt | 18 --------
- .../watchdog/microchip,pic32mzda-wdt.yaml     | 44 +++++++++++++++++++
- 2 files changed, 44 insertions(+), 18 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/watchdog/microchip,pic32-wdt.txt
- create mode 100644 Documentation/devicetree/bindings/watchdog/microchip,pic32mzda-wdt.yaml
+Hi Conor,
+Am Donnerstag, 18. Juni 2026, 22:54:53 Ostafrikanische Zeit schrieb Conor 
+Dooley:
 
-diff --git a/Documentation/devicetree/bindings/watchdog/microchip,pic32-wdt.txt b/Documentation/devicetree/bindings/watchdog/microchip,pic32-wdt.txt
-deleted file mode 100644
-index f03a29a1b323..000000000000
---- a/Documentation/devicetree/bindings/watchdog/microchip,pic32-wdt.txt
-+++ /dev/null
-@@ -1,18 +0,0 @@
--* Microchip PIC32 Watchdog Timer
--
--When enabled, the watchdog peripheral can be used to reset the device if the
--WDT is not cleared periodically in software.
--
--Required properties:
--- compatible: must be "microchip,pic32mzda-wdt".
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- clocks: phandle of source clk. Should be <&rootclk LPRCCLK>.
--
--Example:
--
--	watchdog@1f800800 {
--		compatible = "microchip,pic32mzda-wdt";
--		reg = <0x1f800800 0x200>;
--		clocks = <&rootclk LPRCCLK>;
--	};
-diff --git a/Documentation/devicetree/bindings/watchdog/microchip,pic32mzda-wdt.yaml b/Documentation/devicetree/bindings/watchdog/microchip,pic32mzda-wdt.yaml
-new file mode 100644
-index 000000000000..5d91a7e22f17
---- /dev/null
-+++ b/Documentation/devicetree/bindings/watchdog/microchip,pic32mzda-wdt.yaml
-@@ -0,0 +1,44 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/watchdog/microchip,pic32mzda-wdt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC32MZDA Watchdog Timer
-+
-+maintainers:
-+  - Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-+
-+description:
-+  The PIC32 watchdog timer can be used to reset the device if software fails
-+  to periodically service the watchdog.
-+
-+allOf:
-+  - $ref: watchdog.yaml#
-+
-+properties:
-+  compatible:
-+    const: microchip,pic32mzda-wdt
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/microchip,pic32-clock.h>
-+
-+    watchdog@1f800800 {
-+        compatible = "microchip,pic32mzda-wdt";
-+        reg = <0x1f800800 0x200>;
-+        clocks = <&rootclk REF2CLK>;
-+       };
--- 
-2.34.1
+I think I get the gist of your suggestions. I have a few follow-up questions 
+to make sure I understand things right:
+
+> I think aux bus makes perfect sense when you have a clock/reset
+> controller, but once you start expanding past that and you have reboot
+> or hwmon or hwspinlock then mfd starts to make sense.
+
+At what point does it make sense to move the bindings from bindings/clock to 
+bindings/mfd? The controllers are still very clock-heavy. allwinner,*-
+prcm.yaml look like clock, reset, misc controllers in mfd/ whereas 
+ingenic,cgu.yaml, sprd,sc9863a-clk.yaml and da8xx-cfgchip.txt are clock + misc 
+drivers in clock/.
+
+Likewise for the node names: syscon@ or clock-controller@?
+
+> You'd then have topclock that is a syscon + simple-mfd, matrixclk that is
+> a syscon and lsp that's using the aux bus. The topclock and matrixclock
+> would have dedicated and trivial drivers somewhere that have the mfd_cells
+> and call mfd_add_devices().
+
+Do I even need simple-mfd? It seems I can add the syscon-reboot node via 
+mfd_cells too by setting .of_compatible. It seems once it has a driver (even a 
+very short one) simple-mfd is misplaced.
+
+What about syscon? Topclk needs it for syscon-reboot and the watchdog 
+controls. For the other two I only want a regmap. Afaiu device_node_to_regmap 
+works without a "syscon" compatible. There's also regmap_init_mmio, but afaics 
+I only want this when my driver is the only one using the regmap.
+
+> Probably the compatibles you've chosen start to make less sense at this
+> point though, but probably "topclk" and "matrixclk" are not what the
+> documentation for this device calls these register regions?
+
+Yeah I'll rename them top topcrm / matrixcrm / lspcrm. I just stuck to the old 
+names for this email.
+
+> I think the priority is having something that reflects the hardware
+> accurately, I wouldn't compromise on that just to have the same design
+> for all three drivers.
+
+As far as I can see the primary difference between mfd_add_devices and simple-
+mfd + child nodes is that the latter makes the MFD composition visible in the 
+device tree and the former keeps it a driver implementation detail. My sense 
+is that the latter is preferred unless a subcomponent of the MFD might be 
+reused in other components - e.g. an ADC is used in PMIC-abc and PMIC-xyz and 
+thus the driver can be reused as well.
+
+--nextPartj8KIpuwSTluwcOdB0G_0rg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmo2zaMbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiA8sP/iDCZo9JCPTXlknep41Z
+EiXNNHm4yYRiVaWnovL3ahmlVRNEQnKpkhizLzvFtmvkwpJPPWe+PQuZGKh1xfHX
+j4l43lj0EiP9ZkpSFoJgHzskpiLVoCzt8IzYLzY5/miAhJCRVkVhudLZXb9AWTAN
+5Kg2jCv4/s6gp4viQkwA58GEomii5C43k2D+j8/UBf4rz9mWrMuMRaezj7F0YqCG
+Nik4IrBIHuDGWJyThgQ2mTluCQcBroaA3V/+jhDMTPg12FmhY4A5M1fpW33iN3B6
+fo65LBzVwmhdjICendnz9go3I3ZEjqnlERFhlEqywbZBjNxFxhV0Jg7XAuVN9YOw
+EFYuyNbzZy+u7KYvgzW8pswUYhOjAUupEU2EOY3+kKzmpkB+0hXeP10rTawXot4d
+GKJFdt9emZh4/xFtEyeVovXR2bq6Kk40uZsgwDEf1KS+QtANtA3vstQn9rEhIPFZ
+vVopjQLE45hhxKiWjXqUZaA0iJg+bmmy5HeI03X9b6jXgfaEhJBBAH0bRW9smBoK
+OJ0wIe1JnGd0RnGM/1DjWedhXVq2RMfVgXCozzyFiETgXhYr++4Y57h/NgHzoNm0
+nIN2gqG3q7T+OOkziGJmmcMyvONlYqcyy2F9bnJ1AgtGwdYhMWC159JK54VhAd6S
+sFQ9rZwU2zMAjJ7YPlocj67G
+=JozV
+-----END PGP SIGNATURE-----
+
+--nextPartj8KIpuwSTluwcOdB0G_0rg--
+
+
 
