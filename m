@@ -1,170 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from srv01.abscue.de (abscue.de [89.58.28.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF99732B12F
-	for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 08:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B87F18EFD1;
+	Sat, 20 Jun 2026 08:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.58.28.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1781945290; cv=none; b=AE04EvAn407bkeVycXpewiBFoIS5Tnsv2qDxLtVQa/ytGTZEW69ebkKWIUE4Yby6KcSiElWBUtOrtkpksk+ge5xNhYn3aBmRjTiZtpbolyDHMWlc3x223mQo79tBfxd5bu0FQOZ2P2XCVZ1htXkpDXpgj1mhBrwBUsOWyOpoIGk=
+	t=1781945652; cv=none; b=owcBfxjzX6etiKeGTYeE6uhfFJcWJaTctcuGkt3Jd6p83wR2PSuII2kLjg6OnK9WaL2sfDIIP/mdnXGaaSwJwPw3jmZdFeMSDwE4fxeEXQgeWEaMNr3BtR7xVlGD7jCa7evtAaYP+vKIVQUpMQNDnDp3JWBro/KvTgNy+9Qetok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1781945290; c=relaxed/simple;
-	bh=s+g1BaX0QXkb0cD6nA4lQP8G0Uw+jxac9zWRe4qF7Gs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dGYj0VUBYl1BfRgQGWdAkmCz05IampMwRKHLBYCAOPPmckDMRpoDc50OYoD0j++86Ghj9zCPAniwvBqWS2vhIaxO/JgLduf1DfmfJYPM/U1Qqv2wwiOAOLpT2UFzBQMkYOK7l5Dxq+NxLTHPTge9qyRaDs8uDU+BTia6qaw5xhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5KtmN+i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1781945652; c=relaxed/simple;
+	bh=ydOZUlt4v1Nu5KD5JP8Wqh0M3BwFvsLsYCXGZlFjX0g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LlrArGJvUQ2hUNkJotKoSzc7ZZh2bOmIf/gXztF2hv2ygzXfXpVUeshy1bkTO7tAt/oYVQYkkjocbWUMml4TkaRfhNlZitbdHbs3S4/Y/be49ev7tVQmKZvekIbbZBqRKEL0u64N7xlAvee2yjITpcbYo1YWM6BWaQUx/feUAAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de; spf=pass smtp.mailfrom=abscue.de; dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b=qG9muSsb; arc=none smtp.client-ip=89.58.28.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=abscue.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=abscue.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5KtmN+i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FFFC1F00A3A;
-	Sat, 20 Jun 2026 08:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781945289;
-	bh=pChRParA4h9txJxRD2Y/ykZeyn6BMFeYT/V2eKH1xSU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=H5KtmN+ijbdyuzPesz3it5iE+TRcUsm8EBBF0YPuy3T6a3ZYfxIJmmzWNTF5RWMoH
-	 /nDLQpsr0zo18vFJbeY21BNv2HrZrRscDd8OQKzHUZMW48the48nmBkBYiCn2LDNzJ
-	 cUfNJen6wZn1R5f3CAZ20ImCxZYEJUq8oPTp8yv55fhr++qQGkaexAH8xXUjIgjG0U
-	 OII6ilcjRhHIB3/EdjD0s4tSHEOObaLoYTiVSgjsNQtr8TNlBDCokBwq4HItemnFYH
-	 WlV7rO9ryBU5aRXVgKZdPa7EFg7szpqqvpGn5rL+GczMb1D9yxNlyGF842RJiERJHY
-	 dz6G0Q3XSOp2Q==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1warN1-0000000EUQb-1aCO;
-	Sat, 20 Jun 2026 08:48:07 +0000
-Date: Sat, 20 Jun 2026 09:49:14 +0100
-Message-ID: <878q898ulx.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Daniel Drake <dan@reactivated.net>
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	florian.fainelli@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	m.szyprowski@samsung.com,
-	andrea.porta@suse.com
-Subject: Re: [PATCH] arm64: dts: broadcom: bcm2712: Remove non-functional EL2 virtual timer
-In-Reply-To: <20260619204832.586079-1-dan@reactivated.net>
-References: <20260619204832.586079-1-dan@reactivated.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=abscue.de header.i=@abscue.de header.b="qG9muSsb"
+Received: from fluffy-mammal.metal.fwg-cag.de (unknown [IPv6:2001:9e8:cdf0:7400:2cd7:7cb2:ecde:c017])
+	by srv01.abscue.de (Postfix) with ESMTPSA id 601801C6F2A;
+	Sat, 20 Jun 2026 10:54:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abscue.de; s=dkim;
+	t=1781945647;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+yCXhxYi8a8HBXGPqqFX3Of1HmfR00C217g7dHBLQFs=;
+	b=qG9muSsbU/cPkiEzCy301H9e+Y9FxKBjgaP8mUlE3OmWQ2obOvz9KUU7xkv3Z9FOMgXhRx
+	LIwnr8E7CF1Dy7xYVlZWu7yLEJNDD0/GVO9EDfaYbeWFzg7Tl6R0lOhiXnWnmx6dtYt+lX
+	zK1OQngMicIyREkz9RnPcjP/RWe7fGKy8w9ip3Z6HMiHG+3YPweqob5t4BGZHsH+Ctdeue
+	vOrHMChjMyTkNMbMDT3+EPvNHYJQr4RO5QFmuom96ry/Gcb2+iL1WK9FQTwzypFPupqkHW
+	TLytrzhql7j6UqIU0zO9hRoJpb1BM7UvYXZqr9Pk5+gtQ0Bm4WK9pDp2LxORIA==
+From: =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>
+Subject: [PATCH v6 0/3] regulator: Add support for Unisoc SC2730 PMIC
+ regulators
+Date: Sat, 20 Jun 2026 10:53:59 +0200
+Message-Id: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dan@reactivated.net, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, florian.fainelli@broadcom.com, bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com, andrea.porta@suse.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIACdVNmoC/23OTWoDMQwF4KsEr+tiyX/jrnqP0oXs0SSGkgS7G
+ RLC3L1OKGQYvHxC75PuonLJXMXH7i4Kz7nm07EF97YT6UDHPcs8tixQoVMITtaEXitZeH/5od9
+ TqRJ0JD8EZ4CMaL1z4Slfn+bXd8uHXNve7Xlihsf0X0PV0WaQSuoJY0yB0wTmk2JNF34fWTy0G
+ V+ChaEnYBMC2ajJR2ATtoJeC6En6CbYOClWaJVnvRXMSkDoCaYJQGkgHS2PA24F+xJc/wfbBEV
+ okufRU/BrYVmWP1m21LC6AQAA
+X-Change-ID: 20260216-sc2730-regulators-13ba789641a4
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ =?utf-8?q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Zhongfa Wang <zhongfa.wang@unisoc.com>
+X-Mailer: b4 0.14.3
 
-Hi Daniel,
+Add device tree bindings and a driver for the regulators found in the
+Spreadtrum/Unisoc SC2730 PMIC.
 
-Thanks for posting this.
-
-On Fri, 19 Jun 2026 21:48:32 +0100,
-Daniel Drake <dan@reactivated.net> wrote:
->=20
-> Commit d87773de9efe1 ("clocksource/drivers/arm_arch_timer: Default to
-> EL2 virtual timer when running VHE") causes boot to hang on
-> Raspberry Pi 5. The newly-selected EL2 virtual timer does not generate
-> any interrupts, even though the GIC_DIST_ENABLE_SET flag has been
-> confirmed set via readback.
->=20
-> The reasons for this failure are unknown, however it is likely that
-> this timer was never tested. Raspberry Pi's original devicetree did
-
-The timer is part of the CPU, and there are enough A76 implementations
-around to prove that it actually works. The same can be said for the
-GIC400 this is (supposedly) attached to.
-
-> not include this timer interrupt; it was only introduced via a
-> suggestion[1] made in code review as part of the upstreaming process.
-> (Current RPi firmware versions do include this timer, but only because
-> they rebased on top of the upstreamed devicetree starting with
-> Linux 6.12)
->=20
-> Until more is known about this non-firing timer interrupt, remove
-> the devicetree entry to enable RPi5 devices to boot.
-
-I'd like to understand the reason why the timer interrupt isn't being
-delivered *before* we paper over it, and not the other way
-around. Each of the CPUs definitely have an EL2 virtual timer, the GIC
-has a per-CPU interrupt, but somehow the two don't seem to be linked.
-
-Since DT is supposed to describe the HW, I'd expect someone from
-Broadcom or RPi to shine a light on this issue. Integration mistakes
-happen, and we work around them (see the handful of Samsung SoCs where
-the timer interrupt was simply not wired). But we absolutely need to
-know what we are dealing with beforehand.
-
-Finally, just hacking the DT is not enough. Assuming that the timer is
-indeed unusable, we need to cope with the fact that there are DTs
-describing it in the wild, as nobody should be forced to upgrade their
-DT in lockstep with the kernel. For that, you'd also need something
-like the patch below (untested, and in need of a proper commit
-message, which I expect the SoC vendor to provide).
-
-Thanks,
-
-	M.
-
-=46rom 9de354b472e28112d73fdb63be986f68fb3c91a9 Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Sat, 20 Jun 2026 09:32:09 +0100
-Subject: [PATCH] clocksource/drivers/arm_arch_timer: Workaround RPi5 broken
- EL2 virtual timer
-
-Insert $REASON here.
-
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
 ---
- drivers/clocksource/arm_arch_timer.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Changes in v6:
+- Use dev_err_probe() to simplify error handling
+- Specify .name field explicitly in ID table
+- Simplify regulator list by removing the min_sel parameter, which is
+  always set to 0 for sc2730
+- Link to v5: https://lore.kernel.org/r/20260619-sc2730-regulators-v5-0-0a24c7ed7a97@abscue.de
 
-diff --git a/drivers/clocksource/arm_arch_timer.c b/drivers/clocksource/arm=
-_arch_timer.c
-index 4adf756423de9..de9007a30a923 100644
---- a/drivers/clocksource/arm_arch_timer.c
-+++ b/drivers/clocksource/arm_arch_timer.c
-@@ -1090,6 +1090,16 @@ static int __init arch_timer_common_init(void)
- 	return arch_timer_arch_init();
- }
-=20
-+static bool __init has_broken_el2_vtimer(void)
-+{
-+	static const char * const broken_el2_vtimer[] __initconst =3D {
-+		"brcm,bcm2712",
-+		NULL
-+	};
-+
-+	return of_machine_compatible_match(broken_el2_vtimer);
-+}
-+
- /**
-  * arch_timer_select_ppi() - Select suitable PPI for the current system.
-  *
-@@ -1115,7 +1125,8 @@ static int __init arch_timer_common_init(void)
- static enum arch_timer_ppi_nr __init arch_timer_select_ppi(void)
- {
- 	if (is_kernel_in_hyp_mode()) {
--		if (arch_timer_ppi[ARCH_TIMER_HYP_VIRT_PPI])
-+		if (arch_timer_ppi[ARCH_TIMER_HYP_VIRT_PPI] &&
-+		    !has_broken_el2_vtimer())
- 			return ARCH_TIMER_HYP_VIRT_PPI;
-=20
- 		pr_warn_once(FW_BUG "VHE-capable CPU without EL2 virtual timer interrupt=
-\n");
---=20
-2.47.3
+Changes in v5:
+- Drop conditional binding patch, will be sent separately
+- Rebase on next-20260618
+- Link to v4: https://lore.kernel.org/r/20260521-sc2730-regulators-v4-0-1ac8a3b5ed82@abscue.de
 
+Changes in v4:
+- Add missing patch for MFD cell registration
+- Use conditional binding for referencing the regulators now that the
+  child node cannot be distinguished by its compatible for validation
+  purposes.
+- Drop requirement for removed compatible property (sorry, should have
+  double-checked this before sending v3)
+- Link to v3: https://lore.kernel.org/r/20260519-sc2730-regulators-v3-0-5bf0e02507e3@abscue.de
 
---=20
-Jazz isn't dead. It just smells funny.
+Changes in v3:
+- Drop compatible property
+- Drop unused VDDSIM0 and VDDSIM1 IDs
+- Link to v2: https://lore.kernel.org/r/20260518-sc2730-regulators-v2-0-9a5b3a7b1e49@abscue.de
+
+Changes in v2:
+- Use lowercase names without underscores for device tree nodes
+- Use oneOf for binding reference instead of making it conditional
+- Remove some excess line breaks
+- Fix author name in driver and add original Signed-off-by
+- Link to v1: https://lore.kernel.org/r/20260220-sc2730-regulators-v1-0-3f2bbc9ecf14@abscue.de
+
+---
+Otto Pflüger (3):
+      regulator: dt-bindings: Add Unisoc SC2730 PMIC
+      mfd: sprd-sc27xx: Add SC2730 regulator cell
+      regulator: Add regulator driver for Unisoc SC2730 PMIC
+
+ .../bindings/regulator/sprd,sc2730-regulator.yaml  |  44 +++
+ drivers/mfd/sprd-sc27xx-spi.c                      |   1 +
+ drivers/regulator/Kconfig                          |   7 +
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/sc2730-regulator.c               | 375 +++++++++++++++++++++
+ 5 files changed, 428 insertions(+)
+---
+base-commit: 598c7067dd8b65b93f3ccada47e9014a13137f1b
+change-id: 20260216-sc2730-regulators-13ba789641a4
+
+Best regards,
+-- 
+Otto Pflüger <otto.pflueger@abscue.de>
+
