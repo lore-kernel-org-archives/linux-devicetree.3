@@ -1,80 +1,62 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86629221D96
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 00:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7976411CA9;
+	Sun, 21 Jun 2026 02:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782002796; cv=none; b=qQtQaUHMyLI3eeHDIH4q3V18QtE43Lta+py2HXP/17FSaY0V9DunAwkWRtJM5SYVy6MpKcYslrZCwOv0baPouwSk9xrCC4lh6rlVS35d5zoF0FAOb20JIk60NnCVA+ONHsd79kHhXvGDx+m59Mwj5h837k4yXMCUX51Bo3bVm7k=
+	t=1782010263; cv=none; b=JBnlF2XOsFTqwi1vaoYvN8IJSrmAq2H8tD72fi7V6Dz00H5a/GIUEk09Yq1ooimPbdjRoxsQ5YTDj5tBiFA2GqUTOioJyOu6hIiiWqeaEPIRc626/2y4lT7Kw+G0aDdRLD3cPJLosp1DhahLiJLwUhTpoizr+Wf1PQgVKQWRPNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782002796; c=relaxed/simple;
-	bh=5TTxQ3I91yDsizRvGxC6wGurDup/AtF5mbCDjYKei1M=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KleGFGVQ6lPxiJzmJqoND/LE1WOyRUNWm/RMi8+REMfVAjH795JR+xkksCwcDjT0KHC1I3vJfSDJJvMnLlMFgPcKHr/prYD8olVOL1jXtzRCUp3vtFRLhpnkuD+URKNhQSitUP+33K42FMnshCCiWJsGsk8j8jSxct61Eg/g59Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQ+PYWpe; arc=none smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782010263; c=relaxed/simple;
+	bh=I+rRvQ9DvPg4MepXgTXUoaYKsK8CS0g+Ro7TSTvZtLE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r779U+dIZrGiAmmrh8j0q1adeOqx72FkjFFzlw5yUIAUyHmYckvPd925ceoMsWu33ue/VMuDORjmsXOa0gbWBwXEAcfHOqJMt6+fprmvPSTezhHhwIm9f8EL6w6IGMc6DO2A+dGptjz/h/qV0WJwVoyfGUhbEb8eYYHF8k6xeQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TEpLUK3n; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AXeibP7d; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQ+PYWpe"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-447134764f7so1402422fac.2
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 17:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782002790; x=1782607590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6UcOBkVQ+LuwHq0/corgNyTz2DMj/Og0DSgHE/NFxEw=;
-        b=QQ+PYWpetG9zk+hisGM4B2Xa3x4V3uLwp9TShUJLa/29KnYerBghnhlDxw6UAUbjHB
-         0D/V/VMjTnue43rnDYXc4nci5HHvtawBUKrNl7hGHXmZ7C3Nt/mgPVjmPJLz9kaeMIRi
-         fcAeynmVeUzkE2HZ4mGnFGIEs6L4hoVZouAE7/LBtWWwnVTS33t+N2Z1kTgTA7Dvi+d9
-         uK9BKF7pIKmdMpBQVKJKE5rO1YYkolSzdJw/GinPfXYtbPKrUY2gx2qgz+1UH5B0Qk1s
-         WXJWG8Zjrz1cU0oyFzmb/XGi63UKTo2RWmJGoXKV8Nn1KDWxDMq9aNU7mpa7JA4mZz+w
-         dNAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782002790; x=1782607590;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6UcOBkVQ+LuwHq0/corgNyTz2DMj/Og0DSgHE/NFxEw=;
-        b=I8zZrRdfqOCu62x8DyJkMFFxZ6hK+COEIh9u6O6C/DOwYhPHSq15cgY/MWbHNwmvxc
-         T2RlSGQHvdw2M8fBWms1G6fwdWSRvxRlg4w5s2BB7lh8Lo2L320S3nLHQNbhCn2yYqeM
-         t19OQuOEnPMhPni7ef6RYGyNqeDnaejg5Q2yhB7tITQY3kHT6C9YeeXaT84cB8wV4bPm
-         kxqYPUVKEszwk8zIlFFFW22qK4LdfxesSR/dIvuI+TBKrFaJYkJr8GOTqp9krRJyBG37
-         NB2A4AnsktjLcl9+mWmo/J38ObjbOmz4I3AgmLM5G9LyWKQVGMCWi9tdiuORa+oNRcvl
-         N2rQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+i6+bB9bJ8iuYred8mraL3krOUlDWVOPBT75uIaPM/skH+JtSv9DizGMkibz3vCjcKUmYmneBcSMF@vger.kernel.org
-X-Gm-Message-State: AOJu0YygZt+qmMLeebJiTi1v4q9iEB/HYh+Ovnj4bNvc1X3hl34sTFDk
-	HpzEiWStiIpQJY7yudhdYdwUxLhdLaO+hDBNCPQChyowuokfGifpj05w
-X-Gm-Gg: AfdE7cnRqd9SI+6aU85mTq0qF5cgyD8dE47sUCxw+CwT7brfCSvj83F4U878R+3X2u7
-	/SEtFBh30PQMqT7QckPe6xAEZvLbYhGEYVFC8Q55zFm026yqQ80Ce9HQnRzsL2avDEehXtBA+fV
-	sJoLRYin++6r4+c59W9xc+Ai/qUU3MuIlcLQqvLgzyG5nqq7T4sCiEuBiZj2K9+7+8Hm9WUfVSU
-	Etu1eX8vjSEQ8KVwMWpHoo/W7R8/9uRQWyEOlW7IfxksyyHng19z+eoB9BZOBw1PjvfYEMsrm0Z
-	Mmo7UR0UF/y1pkVifctsU7POXhO3YTBL23qlOGWzFSXAOzvMU/pNhfzv219iGIju57+HrGrQhL4
-	BBQtAtfACcXpG8nkVA7mZtB2NLLuDVAYOChQGbtKPAwZcAtYjReTNr+53tsPLVow9daNXHsWPRT
-	GArXKK89bXzE7EDnTwGHx4cH4TLDk9V1m0Pg0XxeromTWkEhY=
-X-Received: by 2002:a05:6870:e386:b0:430:3ddf:9712 with SMTP id 586e51a60fabf-44707c309dfmr7829163fac.5.1782002790326;
-        Sat, 20 Jun 2026 17:46:30 -0700 (PDT)
-Received: from linuxescape.lan (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec5fd4csm3080457fac.2.2026.06.20.17.46.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 17:46:30 -0700 (PDT)
-From: Maxwell Doose <m32285159@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TEpLUK3n";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AXeibP7d"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4gjbS325vsz9tQr;
+	Sun, 21 Jun 2026 04:50:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782010259;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kSewyVdrq5Z8GYr/rDJoeSXs5aNZIEnD4cWp+G2/tF8=;
+	b=TEpLUK3nfD/QD9EAX4MjZabWcP3GEACdRIm5f9F8DiaxtfAYQBIb0ILayNGLBmto/9CPQq
+	eckqhADRhAkqB67MWbZPnNFL5uNC4+GHm3Y+CYXPhKb9LI2olUXeeOubyWFzDRiW6mPnSb
+	uOG9i/YUha/oW8XShNIbzyLsGYmyeEA9ZpbsEaVEbaJaqD0FByLPFyaXw2SU3yDYIC4Xds
+	qj1/pRE81hnobdpfRnUOUkRdClZBa0WIwSJZcWbiiIxZm5HgGBWPxRLfzNWbiy33o5ES4P
+	Lvni1hL7rujd+RvWf7BhFx5N/dnmv2cwkFqaY8FbaYKE/zm4DwPIYx5E/QfrSw==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782010257;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kSewyVdrq5Z8GYr/rDJoeSXs5aNZIEnD4cWp+G2/tF8=;
+	b=AXeibP7dFiyq6WkCd9SOkrtu1OgQFBteCICEsSfJz+00zDHmFdjgBraPKW6x0N007M/DKx
+	JNeWNiSFQXwF1sj0EM9TIeTJFOM027PrDu84iHdsN/7gFm6ghrFti8nQkhRhf5GBdBNU9R
+	NfFxLK8XNq297WFLR4oYxyZ+2xXFNETPe4424yF24y1U3TgELXe83pyiThop5FpgzWnymm
+	fURnb5kyoBtRYzzNDoM/lzIPMyPeBUZ/6SwXUTPQOLwxyiPOB7jBrjjtjWqTEVkKSSoqXx
+	cGTdsomu6RjsZPVpJ3N45SNcPGV10F5sadtoZ/hxK5TsFIvU/uXjUSVOYyXrwQ==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 1/2] dt-bindings: iio: temperature: Add STS30 devicetree bindings
-Date: Sat, 20 Jun 2026 19:46:23 -0500
-Message-ID: <20260621004626.66629-2-m32285159@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260621004626.66629-1-m32285159@gmail.com>
-References: <20260621004626.66629-1-m32285159@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 1/9] arm64: dts: renesas: r8a774a1: Add soc: label to soc node
+Date: Sun, 21 Jun 2026 04:50:21 +0200
+Message-ID: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,104 +64,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: a9cff52d3331e015f21
+X-MBO-RS-META: gkbhokzjgongtik374dd5xwnmpyrmonp
 
-Add the devicetree bindings for the STS30 family of temperature sensors.
-The STS30 family of sensors includes the STS30, STS31, and STS35.
+Add soc: label to the /soc {} node to align the DT with r8a77951.dtsi
+which already has that soc: label. The soc: label is useful in U-Boot
+where it is used in U-Boot extras DT fragments.
 
-All devices in the STS30 family share the same commands, timings, etc.
-The only difference between them is their measurement accuracy and
-tolerance.
-
-Additionally add MAINTAINERS entry for the driver.
-
-Signed-off-by: Maxwell Doose <m32285159@gmail.com>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 ---
-Changes since v1:
-- Squashed parts of the MAINTAINERS commit into this commit.
-- Added ALERT pin as an interrupt and in the examples.
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm64/boot/dts/renesas/r8a774a1.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- .../iio/temperature/sensirion,sts30.yaml      | 55 +++++++++++++++++++
- MAINTAINERS                                   |  5 ++
- 2 files changed, 60 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
-
-diff --git a/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml b/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
-new file mode 100644
-index 000000000000..9bb0f04795d4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/temperature/sensirion,sts30.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STS30, STS31, and STS35 temperature iio sensors
-+
-+maintainers:
-+  - Maxwell Doose <m32285159@gmail.com>
-+
-+description: |
-+  Family of digital temperature sensors from Sensirion with I2C interface.
-+  All devices are compatible with each other, their only differences are
-+  their levels of accuracy.
-+
-+  Datasheet available at:
-+  https://sensirion.com/media/documents/1DA31AFD/65D613A8/Datasheet_STS3x_DIS.pdf
-+
-+properties:
-+  compatible:
-+    enum:
-+      - sensirion,sts30
-+      - sensirion,sts31
-+      - sensirion,sts35
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        temperature@4a {
-+            compatible = "sensirion,sts30";
-+            reg = <0x4a>;
-+            vdd-supply = <&reg_3v3>;
-+            interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d95d3ef77773..7f94b8cac3e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24487,6 +24487,11 @@ F:	drivers/iio/chemical/sps30.c
- F:	drivers/iio/chemical/sps30_i2c.c
- F:	drivers/iio/chemical/sps30_serial.c
+diff --git a/arch/arm64/boot/dts/renesas/r8a774a1.dtsi b/arch/arm64/boot/dts/renesas/r8a774a1.dtsi
+index 36675f5bcdeaf..e66d86db6e6c4 100644
+--- a/arch/arm64/boot/dts/renesas/r8a774a1.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a774a1.dtsi
+@@ -262,7 +262,7 @@ scif_clk: scif {
+ 		clock-frequency = <0>;
+ 	};
  
-+SENSIRION STS30 TEMPERATURE SENSOR DRIVER
-+M:	Maxwell Doose <m32285159@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
-+
- SERIAL DEVICE BUS
- M:	Rob Herring <robh@kernel.org>
- L:	linux-serial@vger.kernel.org
+-	soc {
++	soc: soc {
+ 		compatible = "simple-bus";
+ 		bootph-all;
+ 
 -- 
-2.54.0
+2.53.0
 
