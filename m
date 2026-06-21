@@ -1,199 +1,123 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB9219CD1D;
-	Sun, 21 Jun 2026 17:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF9BB640;
+	Sun, 21 Jun 2026 17:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782061913; cv=none; b=A90cH6n8uLQeBaS2i8u9TrMzShAtq16jvJm5a4nB/MnSuuX1IvIVvD6cisnVhWe4eOeNJ27D0jb8j6Er73F9KN285zcQhrx6FXtwVEDPBrnpjfhaldQUy9hOHfFam5YcnNVxt6lXMuABBu8oXcrKhKJF1ZBGLGFsJQ2qQew+WWk=
+	t=1782062296; cv=none; b=qB0oRFt4AZVDGFuFVWdgpdww9Gbm+GzEILt5v9qv5tcTOqziBVwmMpqYj+0MGUjchl6rTnszgLNr4bb+GCBuuZw7LQbBqQnRvn8UxjG/IOUsx2SwfKE7zVcUTyd6cnDo15HkD/k92zcP7Rwq9lAHa7KwMK3NQoaLGMSLl6zvfvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782061913; c=relaxed/simple;
-	bh=MIXzP6z3IJlflBPzTDZAqFAWGWJuUfaQFqcEUGDSMPo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=P3krvsG9mpIY0VAWJyYB4gFbpxsc0BZvgRBu6csWZCOvJ5s4NM5rDs+2Bt8URDQNQDK5AzkWpzOrUgwPbPiYVKQPKirvh17QXuPgoVGQE98IjhPTNNbMQcDKskVyPCoycXTxeRrTSDNGTxMWd5nIRIGGNJNzrcWqYU8uROjibG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=1606aFCw; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1782062296; c=relaxed/simple;
+	bh=Rf+La8jFVT95KkIR0ldQb6LhrquOwNjriq1Vi5P8ngk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=d1gAn18xulOsNGXDTByxxjSDItz94c6PuX4bK/cCLMc5Gqbf0z0Jrzj/ntGkh8JA/gWIAO/fnll8ZpzDVYJkNNJRk6+HPNqMbZX96FcXU12hgW6eEaISKbi1oK+KsUfd3pwJ7VRGlC/++mVX4vZj4IWMW+i7uDZ1iesC/UGleqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hUiDDge9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="1606aFCw"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id BC72F5340414;
-	Sun, 21 Jun 2026 19:11:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1782061906;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tKZWV1qa3iWpS/GlfPS3WgV/fVjbIu/pDZ53OQskYG0=;
-	b=1606aFCwHjlKbkDtqEgnA7jMFXPFD6NwmrTYEb4Ab4xUZKIumNsW4M24AHVBJZOXH2TSSt
-	BwBxC6vhCIARzeXaAX/A61aI5zCKVOVOdAJx3JXr6/wj88AoZ1qY9imZy4m0I4fu8KgEZI
-	CU4q7PDrvY2UNUpZYaa8CYRg8i3DjGk=
-Message-ID: <742c7a13-9465-40e8-8990-e679712e9784@ixit.cz>
-Date: Sun, 21 Jun 2026 19:11:45 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hUiDDge9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6B11F00A3A;
+	Sun, 21 Jun 2026 17:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782062295;
+	bh=OGWHEfZZb2DOcBU3QFV2hDPwohTz7bPGX7NOarWIQ8k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hUiDDge9qOtiRkbOIMHx6VZGGg1bjX1POvsJq5bafa4MzrdJ0TTNVnYRWnmLnriAp
+	 FzEUuXJ7IGBsoUdnxzvNTo6PZKH9v01GsruGsn0oaa0SXy3HkdGGkqrf9olS1ghDxK
+	 BsRTASY1gJ/wc4b7KrVatmGFMFr2Pq1ku90G0gAJeVwDz1k1lQLutzDIJ1E7kUzy20
+	 q40Drb1ovZjra8mDCP4Ni4A45jzxSHxbKJwqOV9eG036TX0mLitjYxRcpG9MJR76vs
+	 WMlLVMIJVokfA//YLpVHgILnM/Xt+in0Ls7eA9Yt/ElcpUS1TwzcY/4Okk4hGH0++O
+	 vFOsONABDzzvg==
+Date: Sun, 21 Jun 2026 18:18:04 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH V13 2/9] dt-bindings: iio: imu: icm42600: Add icm42607
+Message-ID: <20260621181804.27b44942@jic23-huawei>
+In-Reply-To: <20260615172554.160910-3-macroalpha82@gmail.com>
+References: <20260615172554.160910-1-macroalpha82@gmail.com>
+	<20260615172554.160910-3-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
- compatible to include model
-From: David Heidelberg <david@ixit.cz>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Vincent Huang <vincent.huang@tw.synaptics.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
- <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
- <ahdoBl3qCTyvlYJf@google.com> <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
-Content-Language: en-US
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 28/05/2026 00:13, David Heidelberg wrote:
-> On 27/05/2026 23:56, Dmitry Torokhov wrote:
->> Hi David,
->>
->> On Sat, May 23, 2026 at 11:45:35AM +0200, David Heidelberg via B4 Relay wrote:
->>> From: David Heidelberg <david@ixit.cz>
->>>
->>> We know the driver is reporting s3706b, introduce the compatible so we
->>> can more easily introduce quirks for weird touchscreen replacements in
->>> followup series.
->>>
->>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>> ---
->>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/ 
->>> arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>> index 6b7378cf4d493..148164d456a5a 100644
->>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>> @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
->>>       };
->>>   };
->>>   &i2c12 {
->>>       status = "okay";
->>>       clock-frequency = <400000>;
->>>       synaptics-rmi4-i2c@20 {
->>> -        compatible = "syna,rmi4-i2c";
->>> +        compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
->>
->> So I believe we established that this device (s3706b) does not in fact
->> implement rmi4 protocol properly. Why do we have "syna,rmi4-i2c" as a
->> fallback? Shouldn't it be just "syna,rmi4-s3706b"?
+On Mon, 15 Jun 2026 12:25:45 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
+
+> From: Chris Morgan <macromorgan@hotmail.com>
 > 
-> The vendor supplies s3706b which does implement the RMI4 properly.
+> Add the ICM42607 and ICM42607P inertial measurement unit.
 > 
-> The 3rd party replacement impersonating original parts may not implement it 
-> properly, but I don't address this issue in this initial submission.
-> 
-> With this compatible we know which original part is used by the vendor and 
-> installed in the phones, so later we can deduct specific sequences for the 
-> replacement aftermarket parts to keep phone touchscreen working same as they do 
-> on Android without affecting other devices.
+> This device is functionally very similar to the icm42600 series with a
+> very different register layout. The driver does not require an
+> interrupt for these specific chip revisions.
 
-Hello Dmitry.
+This talks about how they are different from other parts already
+supported, but I think we need something on how they are different
+from each other. 
 
-May I ask what is currently preventing this series from moving forward?
+I'm kind of assuming one is a subset of the other? If that is the
+case the ideal might be the more complex part falling back to the
+simpler one.
 
-The first version was posted in 2023 [1]. I picked it up again in 2025 [2] and 
-am now on the 9th iteration (this patchset). At this point, the series has been 
-under discussion for well over a year, with relatively little feedback and 
-increasingly long gaps between review rounds.
+Thanks,
 
-The current approach is based on the guidance I have received so far, including 
-suggestions from the device-tree maintainers. When concerns were raised, I tried 
-to address them and rework the series accordingly.
+Jonathan
 
-What I am struggling with is understanding what specific issue still needs to be 
-resolved before these patches can be accepted. If there are remaining 
-requirements, objections to the approach, or technical concerns that I have not 
-addressed, I would appreciate having them stated explicitly so I can work on them.
-
-I also split out the straightforward, self-contained changes in the hope that at 
-least those could progress independently while I continued working on any 
-follow-up requirements. However, even those patches do not appear to be moving 
-forward.
-
-Could you please clarify what outcome you would like to see from this series, 
-and what concrete changes would be required to get it accepted?
-
-Thank you,
-David
-
-
-[1] 
-https://lore.kernel.org/all/20230929-caleb-rmi4-quirks-v1-0-cc3c703f022d@linaro.org/
-[2] https://lore.kernel.org/all/20250402-synaptics-rmi4-v4-0-1bb95959e564@ixit.cz/
 
 > 
-> David
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../bindings/iio/imu/invensense,icm42600.yaml  | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
 > 
->>
->> Thanks.
->>
-> 
-
--- 
-David Heidelberg
+> diff --git a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> index 9b2af104f186..81b6e85decd5 100644
+> --- a/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> +++ b/Documentation/devicetree/bindings/iio/imu/invensense,icm42600.yaml
+> @@ -30,6 +30,8 @@ properties:
+>        - invensense,icm42600
+>        - invensense,icm42602
+>        - invensense,icm42605
+> +      - invensense,icm42607
+> +      - invensense,icm42607p
+>        - invensense,icm42622
+>        - invensense,icm42631
+>        - invensense,icm42686
+> @@ -67,10 +69,24 @@ properties:
+>  required:
+>    - compatible
+>    - reg
+> -  - interrupts
+>  
+>  allOf:
+>    - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - invensense,icm42600
+> +              - invensense,icm42602
+> +              - invensense,icm42605
+> +              - invensense,icm42622
+> +              - invensense,icm42631
+> +              - invensense,icm42686
+> +              - invensense,icm42688
+> +    then:
+> +      required:
+> +        - interrupts
+>  
+>  unevaluatedProperties: false
+>  
 
