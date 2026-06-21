@@ -1,67 +1,66 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBF9273D6D
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 08:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFFF2641FC
+	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 08:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782029900; cv=none; b=g4gjvBsnBQ8LRQ2dh6q+R0xt9mJsfDpIbAxF2zSvM3MMjzImKgmu3mdHr4b7/jOJGpqTQsDnw20gLEyq3na54eg6bHE8F2XKeRoFB3wHmyLwdFTdpYbsGBdsm2q1AiOxcAmtwRy+IZrEbA1/XPfBpl8EfGwIFscFRWl/aqGXEbo=
+	t=1782029914; cv=none; b=sZHaKQlc286o4fpQ6u+naLWc3Upa350n7B2dAXhMzcT1fum/52QUx7J8cbjbucOLjI8VVBSJYsCJBQfRtu3upSwMEnlhYbL6KWcOAkyloGtrJKPv8gkbIv6K270cJ/lZpPE264gZkbFkCgFwLPYoQXJjYrfUhanM3omO3k3QIuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782029900; c=relaxed/simple;
-	bh=2bZt2a2zRVSBV3MA0JWJ6SLazOmmGt1tpatOsImPFW4=;
+	s=arc-20240116; t=1782029914; c=relaxed/simple;
+	bh=qTaF7TRiZkTD1hP7KOH8ckvyLCF0n7wFHby0gHb6G+s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PZO+hRj5Ut0ZyGoXmXlJXx9a15XUoMjsPrHDOXact0dQSKwwnZD96IerT7jyC2/XkacaAyhxxrYdvDrKog3AOqrybihi2zqrTK2WxCo637xyt24blo5axe5T3HP3EGqruysm4kXt/jeIv27GlzchOB0Lj1Od1ZhFYnFmkaVovX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0eLtDjo; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=kO0GYMc9idfswHrXMHWhHkpePPsjDLijlSi1MRY1qINra8z3ZHPuUyNZgIEiXnk9l+cBw8b9yQaFUa35GT1ghI2SmjEp/J5abYsOJQoLWFxIl98YTcg+v6kXle0v6xypQNgrqDRuBwQAeE1VZ4pk0nFfxDQ8zDqt1m0JlVdrg/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bIKd/OJQ; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0eLtDjo"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-490b9318997so23006885e9.2
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 01:18:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bIKd/OJQ"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-490bc6a7958so32977485e9.1
+        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 01:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782029897; x=1782634697; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782029912; x=1782634712; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RzvCFyjr8bx4d2LvTNFN/pQ0QZHT1mGXGPc+CarTw40=;
-        b=H0eLtDjo1M6DTs34J++HTmOYKpyPhHLh1+QF4GHZfdTgFP0VdggJs0p5ngDTQyrb8z
-         jj01noAzjOVngeJYgxlVHPkeC1MYsLIGkGZU0hj3qQM/TLjn49OTd7Ub2CJVsoomDnZH
-         yr0V+HL+w71Xm3vujFUK0Gtx3ZvKv6HDO+iA5iojOjBciaPgZZQ2om1ctumPKUIX+aTw
-         zf9f4zfqnVewMo4eub52t15EqhPBxSSU4YVwNQEVmDczMrGLcDZMsB/sIx0DsTUQc3Lc
-         kuDxq7MsHaPqATHMd14VKeLrFr2rgw8PgRcBRmmL4yov4AgnKzsF0rsLfU8XB+6u7kS7
-         otQw==
+        bh=nG1MlD4PN9leIlB74vSBgHn1juhdOfLFrGDifVzjZsw=;
+        b=bIKd/OJQnsTKiBhG+4NCJp5GUWWprO32SN2z2vb8yS8k8ZItlda8rB96RIk2RABHP7
+         ypt+PaoX5rZsq0vHb/a/ZlX3gJp6BclnZs1NCUTWp8ZvStumWsCyKvQBCnWD+tV483eU
+         LpG2qg0ZTzS5gVPGRw+8cf9NwCNFYcOtaSmqfM5OkcWpmiKcvGn0jtzhJIAo8zXe1aff
+         jk9XdgePfz0G3Z0IcLTUmGHm4ujtWiRxhemaSBnNwMqywFdbCR/u+EPDgzxdi9FKNwku
+         gIIM5a6VzREwioNDpYCTRpGJTJzBKnpo6KYEIHn60Y/9eEz3RgFqr3ahggF91tMUUmFA
+         x4/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782029897; x=1782634697;
+        d=1e100.net; s=20251104; t=1782029912; x=1782634712;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RzvCFyjr8bx4d2LvTNFN/pQ0QZHT1mGXGPc+CarTw40=;
-        b=WZsgRu6nQKMSsbKbZYXy1/Awkh0JW7hJTxJRY2I9we+OaQrTWgBoPMordn/pBNNeG1
-         0NJttxwIquwREnrFxLqzxWUigIsBv4K649DpVrvzvcRye0AKFqZ//aW1CJPRgVQeTsY8
-         cQrBNRnJARVKBR/YLGqKf9fgcPkAyNoehbP4C0fWJ7ypLqoyUBnzKOII43otnv0CmQG+
-         4bN0tpaFzoBpJJJ/eS9KIq1yllCJmgPc5DxFbHZUdV9WxGhHIZfczycwYt0+VChs5UJ4
-         O6x9bCNvPf/ici1r+HIuHAVLphXzusucH2OEvDbd3tbQ/7XFB/bbg1078P/T2PtcV4/s
-         +GjA==
-X-Forwarded-Encrypted: i=1; AFNElJ86phmhy1smtTNhYveG8xQFa2rmyOdcKLBUkjWNxs+SUck/U8uqm1HPK42AaLiPJ5K/uIfVOBK/WHCL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUr4UFiEwolexZXGtMJdsuQ4LG3MODRwrYbdFbfMalbKRU4R5g
-	BQ6ioQ5vR3Jgdv4L/u4GQSgmISElpjYtjOi+8AJopJ3ehF3VPb4Uo/UW
-X-Gm-Gg: AfdE7cnblSXbHcDrNnOqCaw9oIEy+IbKUJYqq9KBu8wU8hvXYmQPrOxwSBY3S26TjIC
-	g+8OFGRDNq6rtWdGjSOaJ2f5+VilRjSdl9NUZrk31d+YguDQIYMqyKEYAZrDztXGJ/Yud+iAlSL
-	CfLsh34g8RG/qpRF5qnHsiY1VOIyGrn8nCG7E41oLecGdGS5jARhEn45e/CeOY1g2YB2RTTs885
-	sQSk+tVYuCcUer3OlUacSI7fuDNQT3jBxcGoHgtEoS73jCS6DlGkOnLZFOYl2XZk3ZQM2olZ95z
-	PcStg9Eqz3B493QVlRTwoVC9GO6LmDJC1aMxM26B+oREZSGzhUk3cCfyiUP0/2Qe8nZJpgYLr5m
-	7YT04s3eFX7vmwBE2LfnZPkRGYyqlk6r4tX2qURa+vU+zhnm7SReode+ZNVxIWpnidI4jX1EtYo
-	Cxur2QbA==
-X-Received: by 2002:a05:600c:45d2:b0:492:1e36:85dd with SMTP id 5b1f17b1804b1-4923f596bbbmr163549115e9.37.1782029897128;
-        Sun, 21 Jun 2026 01:18:17 -0700 (PDT)
+        bh=nG1MlD4PN9leIlB74vSBgHn1juhdOfLFrGDifVzjZsw=;
+        b=harQkBEHhf3vQm0oUA6ylR0fxEqa5z2wYjtqAasy8iRj9zdWX6DdNWXYQCQfvY03xl
+         +GG4tCHy9vkzHxDQdYEU0T6YsVp25WxehlhuHu3IQ3ZQ97BvcJtlYE1XV8B0MWEJDCto
+         EZdMMUBDfmqaJCvYUw+fNv8Pj7YW9pmLWF7FlyyQt/1bs/AEvvU+YVjrN2+3DhvsDGZe
+         Vqi6RRqFtn5b8okrAqOn51JPw1KfgoSzK+4L5wYbe+UIJLRZ02gVhtlti9nCDz81POOv
+         Lxh4iw2KQ50Hmwdq6MfDciiKB94G5hcnrzZ3NogGIEC9PmQ3lYs5d8tVpiTRH67N/qFW
+         YNyQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+iy5nMpx+KhHrv0J9eXHv57H7c7oLKXVYRIeZe870a9USQfFHo+rioZjTir5j9NNm9oQ1ptmamyY91@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2u4ptH7+5mBj4n9JRxV+Z3TFHzsAk6WKFrq2o0caU6MXC2mlm
+	Xmy9ZijLv6GtWtwNFqb6xp8sLeU9WAQsmhGxUfpIhFzScKE39/1gxent
+X-Gm-Gg: AfdE7ckqSXIMRHf7kogBiPuM5ioSOt+D5df1FJLITcEphQB6+SgGQCApa2gju61n4+M
+	e/TsYNzw++iNFIbC3CPDvJw+NBUZycYhN3iSe9+nY44/L8a424Yk3fwSzV23yJNNwbaJvvzMjTh
+	ITyoF8Az12XOq/S+tJpIqivwjY1qfHpJZRCuakaOpXKfrBeJtBPk+kKGS0QXwTY4G3Ee7ok/w0h
+	vhJRIvJjGts4xo1Av/e6/Z0v9ueGYkQXBJ7CevppvUj78wCYK1y6RNcy+DAgicXw1nUAGA6gkUo
+	cSBanEKnpCMhxs7mHHz8j5AJ0xI9nhg4BNx04Ag/Gegr3A5HkHbCjmiTU8ZCbtjFXf1DRqwKzKm
+	7yzJ1E1w2xUzXyT+WRLg0fPQK/GcweL3/eCh60knq7LD1sUyEcyT4u1Zn9E+4tkFVFlUAb2cxA6
+	WVkguawA==
+X-Received: by 2002:a05:600d:84ca:10b0:490:e180:2e0 with SMTP id 5b1f17b1804b1-492409fbfb9mr89262695e9.3.1782029911807;
+        Sun, 21 Jun 2026 01:18:31 -0700 (PDT)
 Received: from luca-vm.. ([81.56.18.151])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fe7b9e5sm194100445e9.10.2026.06.21.01.18.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fe7b9e5sm194100445e9.10.2026.06.21.01.18.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 01:18:16 -0700 (PDT)
+        Sun, 21 Jun 2026 01:18:30 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
-Cc: Val Packett <val@packett.cool>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
@@ -77,6 +76,7 @@ Cc: Val Packett <val@packett.cool>,
 	Linus Walleij <linusw@kernel.org>,
 	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
 	Julien Massot <julien.massot@collabora.com>,
+	Val Packett <val@packett.cool>,
 	Fabien Parent <parent.f@gmail.com>,
 	Akari Tsuyukusa <akkun11.open@gmail.com>,
 	Chen Zhong <chen.zhong@mediatek.com>,
@@ -86,9 +86,9 @@ Cc: Val Packett <val@packett.cool>,
 	linux-pm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v9 6/9] input: keyboard: mtk-pmic-keys: Add MT6392 support
-Date: Sun, 21 Jun 2026 10:13:31 +0200
-Message-ID: <20260621081634.467858-7-l.scorcia@gmail.com>
+Subject: [PATCH v9 7/9] pinctrl: mediatek: mt6397: Add MediaTek MT6392
+Date: Sun, 21 Jun 2026 10:13:32 +0200
+Message-ID: <20260621081634.467858-8-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260621081634.467858-1-l.scorcia@gmail.com>
 References: <20260621081634.467858-1-l.scorcia@gmail.com>
@@ -100,60 +100,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Val Packett <val@packett.cool>
+Add support for the MT6392 pinctrl device, which is very similar to
+MT6397 with a handful of different property values and its own pins
+definition.
 
-Add support for the MT6392 PMIC to the keys driver.
+Update the MT6397 driver to retrieve device data from the match table and
+use it for driver init.
 
-Signed-off-by: Val Packett <val@packett.cool>
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/input/keyboard/mtk-pmic-keys.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/pinctrl/mediatek/pinctrl-mt6397.c     | 37 ++++++++++-
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h | 64 +++++++++++++++++++
+ 2 files changed, 99 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
 
-diff --git a/drivers/input/keyboard/mtk-pmic-keys.c b/drivers/input/keyboard/mtk-pmic-keys.c
-index c78d9f6d97c4..8b4a89fce4fb 100644
---- a/drivers/input/keyboard/mtk-pmic-keys.c
-+++ b/drivers/input/keyboard/mtk-pmic-keys.c
-@@ -13,6 +13,7 @@
- #include <linux/mfd/mt6357/registers.h>
- #include <linux/mfd/mt6358/registers.h>
- #include <linux/mfd/mt6359/registers.h>
-+#include <linux/mfd/mt6392/registers.h>
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mt6397.c b/drivers/pinctrl/mediatek/pinctrl-mt6397.c
+index 03d0f65d7bcc..8ba02e70595c 100644
+--- a/drivers/pinctrl/mediatek/pinctrl-mt6397.c
++++ b/drivers/pinctrl/mediatek/pinctrl-mt6397.c
+@@ -12,10 +12,32 @@
  #include <linux/mfd/mt6397/core.h>
- #include <linux/mfd/mt6397/registers.h>
- #include <linux/module.h>
-@@ -69,6 +70,19 @@ static const struct mtk_pmic_regs mt6397_regs = {
- 	.rst_lprst_mask = MTK_PMIC_RST_DU_MASK,
- };
  
-+static const struct mtk_pmic_regs mt6392_regs = {
-+	.keys_regs[MTK_PMIC_PWRKEY_INDEX] =
-+		MTK_PMIC_KEYS_REGS(MT6392_CHRSTATUS, 0x2,
-+				   MT6392_INT_MISC_CON, 0x10,
-+				   MTK_PMIC_PWRKEY_RST),
-+	.keys_regs[MTK_PMIC_HOMEKEY_INDEX] =
-+		MTK_PMIC_KEYS_REGS(MT6392_CHRSTATUS, 0x4,
-+				   MT6392_INT_MISC_CON, 0x8,
-+				   MTK_PMIC_HOMEKEY_RST),
-+	.pmic_rst_reg = MT6392_TOP_RST_MISC,
-+	.rst_lprst_mask = MTK_PMIC_RST_DU_MASK,
+ #include "pinctrl-mtk-common.h"
++#include "pinctrl-mtk-mt6392.h"
+ #include "pinctrl-mtk-mt6397.h"
+ 
+ #define MT6397_PIN_REG_BASE  0xc000
+ 
++static const struct mtk_pinctrl_devdata mt6392_pinctrl_data = {
++	.pins = mtk_pins_mt6392,
++	.npins = ARRAY_SIZE(mtk_pins_mt6392),
++	.dir_offset = (MT6397_PIN_REG_BASE + 0x000),
++	.ies_offset = MTK_PINCTRL_NOT_SUPPORT,
++	.smt_offset = MTK_PINCTRL_NOT_SUPPORT,
++	.pullen_offset = (MT6397_PIN_REG_BASE + 0x020),
++	.pullsel_offset = (MT6397_PIN_REG_BASE + 0x040),
++	.dout_offset = (MT6397_PIN_REG_BASE + 0x080),
++	.din_offset = (MT6397_PIN_REG_BASE + 0x0a0),
++	.pinmux_offset = (MT6397_PIN_REG_BASE + 0x0c0),
++	.type1_start = 7,
++	.type1_end = 7,
++	.port_shf = 3,
++	.port_mask = 0x3,
++	.port_align = 2,
++	.mode_mask = 0xf,
++	.mode_per_reg = 5,
++	.mode_shf = 4,
 +};
 +
- static const struct mtk_pmic_regs mt6323_regs = {
- 	.keys_regs[MTK_PMIC_PWRKEY_INDEX] =
- 		MTK_PMIC_KEYS_REGS(MT6323_CHRSTATUS,
-@@ -301,6 +315,9 @@ static const struct of_device_id of_mtk_pmic_keys_match_tbl[] = {
- 	{
- 		.compatible = "mediatek,mt6397-keys",
- 		.data = &mt6397_regs,
+ static const struct mtk_pinctrl_devdata mt6397_pinctrl_data = {
+ 	.pins = mtk_pins_mt6397,
+ 	.npins = ARRAY_SIZE(mtk_pins_mt6397),
+@@ -40,13 +62,24 @@ static const struct mtk_pinctrl_devdata mt6397_pinctrl_data = {
+ static int mt6397_pinctrl_probe(struct platform_device *pdev)
+ {
+ 	struct mt6397_chip *mt6397;
++	const struct mtk_pinctrl_devdata *data;
++
++	data = device_get_match_data(&pdev->dev);
++	if (!data)
++		return -ENOENT;
+ 
+ 	mt6397 = dev_get_drvdata(pdev->dev.parent);
+-	return mtk_pctrl_init(pdev, &mt6397_pinctrl_data, mt6397->regmap);
++	return mtk_pctrl_init(pdev, data, mt6397->regmap);
+ }
+ 
+ static const struct of_device_id mt6397_pctrl_match[] = {
+-	{ .compatible = "mediatek,mt6397-pinctrl", },
++	{
++		.compatible = "mediatek,mt6392-pinctrl",
++		.data = &mt6392_pinctrl_data
 +	}, {
-+		.compatible = "mediatek,mt6392-keys",
-+		.data = &mt6392_regs,
- 	}, {
- 		.compatible = "mediatek,mt6323-keys",
- 		.data = &mt6323_regs,
++		.compatible = "mediatek,mt6397-pinctrl",
++		.data = &mt6397_pinctrl_data
++	},
+ 	{ }
+ };
+ 
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+new file mode 100644
+index 000000000000..e7241af28fdb
+--- /dev/null
++++ b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6392.h
+@@ -0,0 +1,64 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __PINCTRL_MTK_MT6392_H
++#define __PINCTRL_MTK_MT6392_H
++
++#include <linux/pinctrl/pinctrl.h>
++#include "pinctrl-mtk-common.h"
++
++static const struct mtk_desc_pin mtk_pins_mt6392[] = {
++	MTK_PIN(PINCTRL_PIN(0, "INT"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO0"),
++		MTK_FUNCTION(1, "INT"),
++		MTK_FUNCTION(5, "TEST_CK2"),
++		MTK_FUNCTION(6, "TEST_IN1"),
++		MTK_FUNCTION(7, "TEST_OUT1")
++	),
++	MTK_PIN(PINCTRL_PIN(1, "SRCLKEN"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO1"),
++		MTK_FUNCTION(1, "SRCLKEN"),
++		MTK_FUNCTION(5, "TEST_CK0"),
++		MTK_FUNCTION(6, "TEST_IN2"),
++		MTK_FUNCTION(7, "TEST_OUT2")
++	),
++	MTK_PIN(PINCTRL_PIN(2, "RTC_32K1V8"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO2"),
++		MTK_FUNCTION(1, "RTC_32K1V8"),
++		MTK_FUNCTION(5, "TEST_CK1"),
++		MTK_FUNCTION(6, "TEST_IN3"),
++		MTK_FUNCTION(7, "TEST_OUT3")
++	),
++	MTK_PIN(PINCTRL_PIN(3, "SPI_CLK"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO3"),
++		MTK_FUNCTION(1, "SPI_CLK")
++	),
++	MTK_PIN(PINCTRL_PIN(4, "SPI_CSN"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO4"),
++		MTK_FUNCTION(1, "SPI_CSN")
++	),
++	MTK_PIN(PINCTRL_PIN(5, "SPI_MOSI"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO5"),
++		MTK_FUNCTION(1, "SPI_MOSI")
++	),
++	MTK_PIN(PINCTRL_PIN(6, "SPI_MISO"),
++		NULL, "mt6392",
++		MTK_EINT_FUNCTION(NO_EINT_SUPPORT, NO_EINT_SUPPORT),
++		MTK_FUNCTION(0, "GPIO6"),
++		MTK_FUNCTION(1, "SPI_MISO"),
++		MTK_FUNCTION(6, "TEST_IN4"),
++		MTK_FUNCTION(7, "TEST_OUT4")
++	),
++};
++
++#endif /* __PINCTRL_MTK_MT6392_H */
 -- 
 2.43.0
 
