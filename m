@@ -1,93 +1,153 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D3622A80D;
-	Sun, 21 Jun 2026 22:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97A129D27D
+	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 23:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782081995; cv=none; b=qqYKuvzXiKPg/bYNs1zl6FM+IWHXAVWGoGO+xmqF0D5jR3iXZoKYTAFFDyUCBGRcBj/MpQn21Kzosuna2HidXTFfuZZn9xDDcs0rew0s20SCaHdZddoc5mzPHQVjaelatzzGPO90gqPBLPoVST/HiWnmQXepu3Idk0jhVj3vcME=
+	t=1782085446; cv=none; b=Z9lv2pnMAcNyp4O0kgwXQx6TX3B6a6tL+GTNkj6cCGB54WxmgVgiVrxV/mL1rDX93T4x7/pxSvCXsZF4cngQzcgDHY+jer/jYtMifAh2DZ/3foqQ/6PLDugmqSvRp2ywJcj1oARgG+M/ieY9vQ+JEK0zeVp/ZqUf2HMmHsY6Z5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782081995; c=relaxed/simple;
-	bh=+pmHWMM8sggC9q3HIshbjnGSzbhp5UITxK7VniY563k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GXI0GL89LE42O81y9yiqIGKcc83d++IEXJxqKNRi9oelcwwbfQ98HCKJYcyvFcyCgyluq2xF9iBIg/wXayUybQMUf5oETfkOGmFxpB8+pBboxbGt5jx7TfV59LulhuhyZH9A0c6ZD3eEAEDP81trI7Cf2jZZSOoquy3T8G7XUHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=YuKr0L4w; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1782085446; c=relaxed/simple;
+	bh=qC4ItL5aFduGXaZLJdmviE/chPrLA9OluRNtb03xoBM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=sqdWLvAsHKBfxCsFc1OJsvO/qkzSBVp+KLvuF1miVUN1379pyGjSu+O1DNFjT/CKVif75uGHcTyFHs2EZRP6CBHGucA/I7Upz/rbg3ZxQIFIM3hNthfipwe6fbl4MvqszZSTa/TLkj8idND8JFRvnkwcMtRhhC6JRJTzlLsLedg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdBDrtA7; arc=none smtp.client-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="YuKr0L4w"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gk5zT6T4Vz9tnx;
-	Mon, 22 Jun 2026 00:46:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782081989;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gEt6DTuBzI0+FzGS8r7ZT6Ohyc5Y63Le4qa6MCGvfow=;
-	b=YuKr0L4wCdBvR6PEHbJBHWgcBIr4EUYEj7DgkSyARftTpwWKTcttWJue4QRFTnT2XLRw8F
-	URVVqNoAXGTy82KmgEGt6GxYxqyjn88uvd9jzQSc8K7xXasz9G3QRWBP8At6u3Asu6RZUK
-	34ceq07SUILwfmMA9sTLigAJLFIroByMbhHUq0i5a4P/yhl/B/tXlyml7gOhkZTeQrShnm
-	3Af+2x0NxVL5aS27Ll+AGlpAcP+qPaQ+vj3paPetTDn9pK7a8ohT6sTYOfqMlccUSXzlYm
-	LI3/pPLB23QBVV3bejKFgZMeXsHDFPOGglROgwUPRMXftSFdzSs4lOvewbHbaw==
-Message-ID: <d6fce333-4353-4e49-873f-eb3187a631e4@mailbox.org>
-Date: Mon, 22 Jun 2026 00:46:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdBDrtA7"
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-59d7db12342so1158903e0c.0
+        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 16:44:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782085444; x=1782690244; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rMTEZuuJVYsmFX5xK+dFlO+dYqsMUYWoJOQqbQ9vGyA=;
+        b=MdBDrtA7yti3wdyYxt358jnfjrl3ONeaSjROjPbBzqrpOrfmAyui46fPFzJW3D7unD
+         4i2+NphgSzfUMeeL3gDy5lIPxNfSju1NXgcd2X4FXQrFsr1dAy2/+tVzpamQT0WgECQF
+         Z5OwtXdUyEDaHxg47ywJyDKUInj0hYcNThwUmdcIfo6SAnihIpjjIQoFT3CI+PQEi6so
+         /Uo0fgQjRvCxfkI69dYP2hkq7InxsVw0F0tzpEm/9k8fhhbQ1stICEj3cJ6MRNZUtEdx
+         b7nu+4Vk763OWYpBRqhKZXkaqkNSJDH7ZNJ7FHUNlOipr8U8J/piRST/2Bv+2WihT9aV
+         oU8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782085444; x=1782690244;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rMTEZuuJVYsmFX5xK+dFlO+dYqsMUYWoJOQqbQ9vGyA=;
+        b=ORIr0HJ17KF59rLfLuBLPEUNNzujmkd+FEZQk2RmxOSDoUzkJZIR7Il9tGd4N9qMDE
+         3jl0vQLkWCswMBhN0A1VlMtvUuq4rjeWaSC/IjcE5A5S1UVTLC2eywalJRcbSZ0FiS55
+         sHYDwvHhMSHySx05v+eo9gWqwJ8MxVziu4OVgQjEV2yIb5mhg78emMyXioxS+v6G30nG
+         L/cmaRQVeaJh4V66XkeMnrGWA9Yawxb8CPNSRRnQk1raDdxIrij3HNJYTmKIZOSLaebJ
+         Ve9+0i9cdWFE7z0o408/f+DVhVhclGhfsRO+SFoBQn0DrAgWb6j7/ufkmkEdDhd6AJFV
+         moJg==
+X-Forwarded-Encrypted: i=1; AFNElJ80SSCc+Y5xIxDvVAZ9oYUanWhH+lLaKp8AahN5GBVuQFxc4JykBY+iZ5JnqDqBwALNmiaqZ+v6k3Jc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9JpPKxLCjIwh8pIMJ2/QYYgJSOoQmHmR1BTSQJe+lmr2OGyeY
+	h3qbEzCIB6i7vJEDHkGOrzlZPKpL4pt3+2fFYmZnBk2ell2TryucQ0dk
+X-Gm-Gg: AfdE7cmB0RQcSuSTnVErw7vt6PxiOxxjP+UZ5KQATUSd6DVNOqJ9/k3sDIz8g4g6/ZK
+	pG64jJGs0/0Gkxax5X4RV5U5H8RbRnUE+6MGz8UlcGEp9XzjFhyLMAV9qPCQZwKZ34PF1CGMTyP
+	Ga+67okWHvyARRAe0CxKhKlJwbAUERjbAcRjmwMZno0MlvPZvk/jy9ba7fDhe0K9odA33XvPg4L
+	KAnTrr9oCkzlfqiOHM30BIyHZOpx9NyBpvQFeixzyahTij3EOi6CiEbjADlIoya84J48LPG1Hlj
+	SINQv7mrU9EI7h3f1qSvGHU9RhaeAe09PJmHHB8dnM82/SdeepMRxqX8TPI1mElA1FOsBfYbkIA
+	Cxf1Xrz49d3xLg8vpodnJwKbsbnIFYSc250/IcaOl6putQp4UB2DD5nRjZ5hEMN85n47Xt71YVB
+	1McWk=
+X-Received: by 2002:a05:6122:d22:b0:575:352f:eac0 with SMTP id 71dfb90a1353d-5bbebb8debcmr5801964e0c.7.1782085443832;
+        Sun, 21 Jun 2026 16:44:03 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbfb7d30besm5441275e0c.2.2026.06.21.16.44.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 21 Jun 2026 16:44:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v2 3/4] irqchip/gic-v3: Add Renesas R-Car Gen4 erratum
- workaround
-To: Thomas Gleixner <tglx@kernel.org>, linux-pci@vger.kernel.org
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
- <20260618220427.14325-4-marek.vasut+renesas@mailbox.org>
- <87cxxkma5p.ffs@fw13>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <87cxxkma5p.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: n8czsugnw3z1ybb5adzw75f9b7bgn1xy
-X-MBO-RS-ID: 9459b256e9c9aa6c616
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 21 Jun 2026 18:43:55 -0500
+Message-Id: <DJF4KBA0LX3K.Q3XDAO3J1HMP@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC 3/3] dt-bindings: iio: adc: Add burn-out current
+ properties
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260618-new-channel-props-v1-0-963c1b5cf40a@gmail.com>
+ <20260618-new-channel-props-v1-3-963c1b5cf40a@gmail.com>
+ <0831356f-76ff-4eed-befa-7a35ffce921d@baylibre.com>
+ <DJD6FJQUX2V7.SZWF8VSKBCPX@gmail.com>
+ <38c5e5eb-2113-4a5c-ad14-348dc7966a1c@baylibre.com>
+In-Reply-To: <38c5e5eb-2113-4a5c-ad14-348dc7966a1c@baylibre.com>
 
-On 6/21/26 12:59 PM, Thomas Gleixner wrote:
-> On Fri, Jun 19 2026 at 00:02, Marek Vasut wrote:
->> Renesas R-Car S4/V4H/V4M GIC600 integration has address width for AXI
->> or APB interface configured to 32 bit, it can therefore access only
->> the first 4 GiB of physical address space. This information comes from
->> R-Car V4H Interface Specification sheet, there is currently no technical
->> update number assigned to this limitation. Further input from hardware
->> engineer indicates that this limitation also applies to R-Car S4 and V4M.
->> Name the limitation GEN4GICITS1, and add a driver quirk to mitigate this
->> limitation.
->>
->> The quirk is keyed on the combination of the GIC implementation
->> and the platform identification in the device tree.
->>
->> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> This SOB chain is broken.
+Hi David,
 
-Broken ? I don't understand , could you please elaborate ?
+On Sat Jun 20, 2026 at 10:57 AM -05, David Lechner wrote:
+> On 6/19/26 11:46 AM, Kurt Borja wrote:
+>> On Fri Jun 19, 2026 at 9:28 AM -05, David Lechner wrote:
+>>> On 6/18/26 7:33 PM, Kurt Borja wrote:
+>>>> Some ADCs incorporate burn-out current sources that provide current to
+>>>> the channel's input pins for open-circuit or short-circuit detection.
+>>>>
+>>>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+>>>> ---
+>>>>  Documentation/devicetree/bindings/iio/adc/adc.yaml | 14 +++++++++++++=
++
+>>>>  1 file changed, 14 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Docu=
+mentation/devicetree/bindings/iio/adc/adc.yaml
+>>>> index 106b1e317411d5..6b63aac9ac04dd 100644
+>>>> --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>>>> +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+>>>> @@ -106,6 +106,20 @@ properties:
+>>>>        This array describes the current configuration of the excitatio=
+n current
+>>>>        sources or the single matched current for all sources.
+>>>> =20
+>>>> +  burn-out-current-microamp:
+>>>> +    description:
+>>>> +      Burn-out current sources provide current to the channel's input=
+ pins for
+>>>> +      open-circuit or short-circuit detection.
+>>>> +
+>>>> +  burn-out-current-polarity:
+>>>> +    $ref: /schemas/types.yaml#/definitions/string
+>>>> +    description:
+>>>> +      Burn-out current sources provide current to the channel's input=
+ pins for
+>>>> +      open-circuit or short-circuit detection.
+>>>> +    enum:
+>>>> +      - pull-up
+>>>> +      - pull-down
+>>>> +
+>>>>  anyOf:
+>>>>    - oneOf:
+>>>>        - required:
+>>>>
+>>>
+>>> This doesn't really work with chips that just have and enable bit to
+>>> enable or disable the feature.
+>>=20
+>> Maybe those devices can use burn-out-current-microamp with a const
+>> value? Is that okay or should another approach be taken?
+>>=20
+>
+> Maybe better to just leave this one out of the common file?
 
-Should I sort this alphabetically or is that something else ?
+IMO burn-out-current-microamp would be nice to have. I don't know how
+common it is for bindings to describe this kind of properties with a
+single const value though.
 
-Thank you for your help !
+On the other hand I do think we should drop burn-out-current-polarity,
+maybe it's too specific.
+
+--=20
+Thanks,
+ ~ Kurt
