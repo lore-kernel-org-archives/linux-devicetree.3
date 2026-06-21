@@ -1,194 +1,152 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D683C07A
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 14:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB74367B99;
+	Sun, 21 Jun 2026 14:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782052791; cv=none; b=Y70jsHHRCL4KB4mBBdIMSJWynjvdHb/KXQpcyisxAiMUO23DhRds9Qfz+j8oMstuZqwH4xBPxXn4qjRWWDFR5yd0EsFDGGC5qz/vhV95BJXYaqB9PmZO19yWIkdqmy3K0Mz8OwSvMAd1BoSXMdTgaiPTKLonwVagCTw1iFPLrn8=
+	t=1782052901; cv=none; b=gP34jhoEN0GZ/K/rf6vNfGv3UBpw2fnMXJiZ87UUTy0vtkNeQcoyGXTs+akCKqV9p4EhUDyxpSe5XvvUVfK7IRKrnQOJPIIfkltNO7z7EitQTDj4lugQqeiMP0k4RRFUojYi+M6aOUeq0h9eP//bA7UYvJ1M84i1od64kg1zPd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782052791; c=relaxed/simple;
-	bh=UlCH6re1y9Fapb8X6Rc6PiyK62fkQbehVv9MCHAlc1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fh6248n+M/ojzsIpG4F7y5ARtwfvoNxTsnZEQYOkkhXXf67YOAsst7wOe53aIGHwVBGj4ZJfeRNCWco9HPcTPJdDaVgY8uiSTeW0i4GbD7WT4sirNGKhPwK29nY3d/sX1W9dGCkr7GQEfVnZq53hUHf5AD9D84WM2NiUdzPtK4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eFGXJOZ1; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782052901; c=relaxed/simple;
+	bh=yp+sIk9yALlIj+VKcGTGTjpa0RdGNUGktVaWhU6eVRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sUr5o+5D8tuJTxrD2Yc8ALEgAJn23gyieV+SuandJmpw9Y/pmMzQxQiXN6PC3ji+WvFeqEbnJ6cZWYHDOclMa991oVfUxH2nShcb+41Z3z9a4F/YpWyphYIVjTiVdk9wsKJBlHo5Rga6zewWOahnf6JXxSi5OWspI7P8dg0dFtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8dVECjk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eFGXJOZ1"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c89636920a3so1182980a12.1
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 07:39:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782052790; x=1782657590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=sw03Q+FDlzlLHLnjuioG37OR3sMNfP521hE1rg3xAcY=;
-        b=eFGXJOZ1o5IzRy3aW6LbTXKKxdO58ZJUKwYVuxXWsSVLzinb9RonAm3hZMhwlatxOe
-         rmxyi8ScdM3H73D9L9gjw5vmfXtO/MF74TRb8mysXAbTcvqxDggjAfxDjcqyOYg0/IpV
-         2yvyMAglB8MHjDnqUL0WRVa4qcRCsh9uRBNZKkn1V0ARXXJpdUfisHA8h1R10WD2BAoT
-         pwPUmxEJ/JfNnMT06n0cvGr7hYPedHTNPFe0/sE5MZ/CmKIXrRQzKIgw00b1kE1mgOIT
-         b5ZcN7k0TbTWokItHps7n1/nlfUWNT84Idc7MKHHAvsiaOVm5oci6aHhxPb0asqGlqkF
-         tfVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782052790; x=1782657590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sw03Q+FDlzlLHLnjuioG37OR3sMNfP521hE1rg3xAcY=;
-        b=Cd4FxtYNGqmHMxHHuaxsNZ1IWKOLHfx2dyQ03+G1Q9+ct1Z2+YdmFCV2gLDwN8TapK
-         E/qbK5DlNKEoInC7NpbRpMyB8A57HMAFMyTBbmhideHzh81zkmZbImc2OPH0w9lJrC2n
-         SnokWctd6FlzHuQ+DFzZrUEsoy4/rHFGir0Fv+TMudtK2zbGnPrgEQ+Lfu1GdXGuexOp
-         NZprJPkmdIHWgCpwrmyKS2bkhJCx6mcscjw7muxQq6nml8cbhQhIRc8Z0bJn0LBusLz1
-         QSkeMguCvjZ4uYJBHPJSe15SRlK5lhe/OW7iy15rFkdOEo5TVdkskE/acWhRZwyCw1uW
-         eBYA==
-X-Forwarded-Encrypted: i=1; AFNElJ+XmSBLImA641fkyqfStfkkdxxhxixc3CH2MWUHV3zFOM6LAv5pM0gytFdctA8ooMnSIo2FYBsawlIu@vger.kernel.org
-X-Gm-Message-State: AOJu0YylR0T5cOPV2a0xRM7k+js9FlWqQO+a/0s55vIcYQyxzpE8qCHG
-	j0D4iWkldZCIEAjrgEReMkziHgRv4c7mkjmnHVNs1j+f0JzqNP1vWbFI
-X-Gm-Gg: AfdE7ck6kyTEEb2c4/jo66FxxKxxs53NEtjD+3DL6V5AxcaRzE97/Bqtr8aSxvVEF5d
-	p7wLjRHXodCnlCmqRHcJazb/zg4II/2v8oAHKKhTvhsTwDhq9frMdbYI3rbiwXCBl0Udw2VX8iy
-	767I+RRM8nQ3GO6Wz2hALLcmtoz1B2ZrKCvRSVEyZMeoCQ1TmGhiB4HqkseKH56/4hG5AnhY4Yb
-	Xq7Tkh91z02JVXF4z5Kxy7b63mMfEeZJ1nlsPjxyTtrUJcqXLXkEC0xMug5kzhIDziNokyuWZ88
-	3Ixlu/Euq4I1Uj/GKEDIMUaj8/qp29JSHq5ReAq+/AlbXYU4E+eubcMhfvdNiEJKWTKE1YZbzK7
-	/PMBtVrDH24usRQRAN7PrGK93r2kP4SZLBnPa4FX2Qu9bBiWbhZPHvJDj2NFFp0J4lbER+uJrOI
-	PIyoXQ9bc=
-X-Received: by 2002:a05:6a20:2d26:b0:3b3:241f:66c6 with SMTP id adf61e73a8af0-3bb34459436mr11795909637.26.1782052789606;
-        Sun, 21 Jun 2026 07:39:49 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc5d04858sm4606714a12.28.2026.06.21.07.39.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 07:39:49 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dan Williams <djbw@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	devicetree@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: [PATCH] of_numa: fix return -EINVAL when numa-node-id is not found in last node
-Date: Sun, 21 Jun 2026 23:39:18 +0900
-Message-ID: <20260621143919.4176646-1-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8dVECjk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09281F000E9;
+	Sun, 21 Jun 2026 14:41:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782052900;
+	bh=F5LbvTecvbBdJ9yzQfjwuA/kQDxTfBSlE2s6Wv6K5ak=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=n8dVECjknZCRt5ioje01CDUjJZHK/NPbTS4c1iChn/yh6be7FTCLJBc7nX+SGp0WL
+	 Vmzdj6FawrC2GtFhiDJ5g4zkXV3T10KAelORUB9LF92Td+4BDKPDQS+UU0NR0Zrbs5
+	 jAHFMYAs9U62ZDRr6j3X248U5jNbo3moIgU8kAECplGXp02ykPJNK5K2y/kcyEoS8i
+	 aYxFp+xRrPzs2Tjczi75DY+zksDW89MCSkDD8UKvPodKNS0MtWN15eJXvNMQwFPI0T
+	 kLTXlSLEZ3/kRt2qMsRqM8ytpj5wXhexRFavbHaIizgtIiFFSp6eX+lKQwRESklD+t
+	 sC9GQbFbSUcCw==
+Date: Sun, 21 Jun 2026 15:41:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "David
+ Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 5/5] iio: adc: Add ti-ads1263-adc2 driver
+Message-ID: <20260621154129.30cf7d94@jic23-huawei>
+In-Reply-To: <DJ92CLJIJ04T.3HSUHGGSF8EPG@gmail.com>
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+	<20260612-ads126x-v1-5-894c788d03ed@gmail.com>
+	<20260613151047.57cd074f@jic23-huawei>
+	<DJ92CLJIJ04T.3HSUHGGSF8EPG@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-When the numa-node-id property is not found in the last memory node,
-of_property_read_u32() returns -EINVAL, which then becomes the return
-value of of_numa_parse_memory_nodes(), even though earlier memory nodes
-were parsed successfully.
+On Sun, 14 Jun 2026 15:43:49 -0500
+"Kurt Borja" <kuurtb@gmail.com> wrote:
 
-Commit 7e488677a54a ("of, numa: return -EINVAL when no numa-node-id is
-found") meant -EINVAL to be returned only when the numa-node-id property
-is not found at all, not when it is found in an earlier memory node but
-not in the last.
+> On Sat Jun 13, 2026 at 9:10 AM -05, Jonathan Cameron wrote:
+> > On Fri, 12 Jun 2026 17:46:23 -0500
+> > Kurt Borja <kuurtb@gmail.com> wrote:
+> >  
+> >> The TI ADS1263 includes an auxiliary, 24-bit, delta-sigma ADC (ADC2).
+> >> ADC2 operation is independent of ADC1, with independent selections of
+> >> input channel, reference voltage, sample rate, and channel gain
+> >> 
+> >> Add support for this ADC as an independent IIO device, through the
+> >> auxiliary bus API.  
+> >
+> > A few things inline.
+> >  
+> >> 
+> >> Signed-off-by: Kurt Borja <kuurtb@gmail.com>  
+> >  
+> >> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+> >> index b33505e7fdc7..1a4b2f934d43 100644
+> >> --- a/drivers/iio/adc/ti-ads1262.c
+> >> +++ b/drivers/iio/adc/ti-ads1262.c  
+> >  
+> >> +static int ads1262_aux_device_setup(struct ads1262 *st)
+> >> +{
+> >> +	struct device *dev = &st->spi->dev;
+> >> +	struct ads1263_adc2_channel *chans;
+> >> +	struct auxiliary_device *adev;
+> >> +	struct ads1263_adc2_ctx *ctx;
+> >> +	struct fwnode_handle *node;
+> >> +	int id, ret;
+> >> +
+> >> +	node = device_get_named_child_node(dev, "adc");
+> >> +	if (!node)
+> >> +		return 0;
+> >> +
+> >> +	ctx = kzalloc_obj(*ctx);
+> >> +	if (!ctx) {
+> >> +		ret = -ENOMEM;
+> >> +		goto out_node_put;
+> >> +	}
+> >> +
+> >> +	id = ida_alloc(&ads1262_ida, GFP_KERNEL);
+> >> +	if (id < 0) {
+> >> +		ret = id;
+> >> +		goto out_free_adc2;
+> >> +	}
+> >> +
+> >> +	chans = kcalloc(st->num_channels, sizeof(*chans), GFP_KERNEL);
+> >> +	if (!chans) {
+> >> +		ret = -ENOMEM;
+> >> +		goto out_free_id;
+> >> +	}
+> >> +
+> >> +	for (unsigned int i = 0; i < st->num_channels; i++) {
+> >> +		chans[i].negative_input = st->channels[i].negative_input;
+> >> +		chans[i].positive_input = st->channels[i].positive_input;
+> >> +	}
+> >> +
+> >> +	ctx->chip = st;
+> >> +	ctx->num_channels = st->num_channels;
+> >> +	ctx->channels = chans;
+> >> +	ctx->enable = ads1263_adc2_enable;
+> >> +	ctx->start = ads1263_adc2_start;
+> >> +	ctx->stop = ads1263_adc2_stop;
+> >> +	ctx->read = ads1263_adc2_read;
+> >> +	mutex_init(&ctx->chan_lock);  
+> > devm_mutex_init()  
+> 
+> I actually call mutex_destroy() on device .release.
+> 
+> I think it makes more sense that way, otherwise we would UAF?
+It does indeed make more sense there.
 
-Check whether at least one memory node was parsed successfully, and return
-0 in that case, -EINVAL otherwise, so the return value of
-of_property_read_u32() for the last memory node no longer corrupts the
-overall return value.
+Whether it ends up as a UAF will depend on how the mutex is used.
+I 'think' you are fine either way because it is always in an
+IIO callback which depending on call path is ether from sysfs
+removed in the devm_iio_device_unregister() path or gated on
+the iio_dev->info being set to NULL for in kernel users.
 
-Also include other minor changes for readability improvement with no
-functional change.
+Handing over lifetime ownership to the device is absolutely fine
+and a bit easier to reason about so ok to leave it like this.
 
-Fixes: 7e488677a54a ("of, numa: return -EINVAL when no numa-node-id is found")
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
-QEMU-based test results
 
-DTB memory nodes defined in DT
-  - memory@80000000 (0x80000000-0x9fffffff) numa-node-id = <0>
-  - memory@c0000000 (0xc0000000-0xdfffffff) numa-node-id = <0>
-  - memory@e0000000 (0xe0000000-0xffffffff) numa-node-id = <1>
-  - memory@a0000000 (0xa0000000-0xbfffffff) (no numa-node-id)
-
-1) AS-IS (before fix)
-[    0.000000] NUMA: Faking a node at [mem 0x0000000080000000-0x00000000ffffffff]
-[    0.069152] futex hash table entries: 512 (32768 bytes on 1 NUMA nodes, total 32 KiB, linear).
-
-...
-
-2) TO-BE (after fix)
-[    0.000000] NUMA: Node 0 [mem 0x80000000-0x9fffffff] + [mem 0xc0000000-0xdfffffff] -> [mem 0x80000000-0xdfffffff]
-[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x00000000dfffffff]
-[    0.000000] Initmem setup node 1 [mem 0x00000000e0000000-0x00000000ffffffff]
-[    0.076854] futex hash table entries: 256 (16384 bytes on 2 NUMA nodes, total 32 KiB, linear).
-
-...
-
-Tested the scenarios below to confirm no regression, and all produced
-the same result on AS-IS and TO-BE:
-  - all / no memory nodes tagged
-  - untagged memory node exist, but not last
-  - empty / out-of-range numa-node-id
-  - memory node without reg
-
----
- drivers/of/of_numa.c | 29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/of/of_numa.c b/drivers/of/of_numa.c
-index cd2dc8e825c9..13f2f6d238c9 100644
---- a/drivers/of/of_numa.c
-+++ b/drivers/of/of_numa.c
-@@ -42,7 +42,8 @@ static int __init of_numa_parse_memory_nodes(void)
- 	struct device_node *np = NULL;
- 	struct resource rsrc;
- 	u32 nid;
--	int i, r = -EINVAL;
-+	int i, r;
-+	bool found = false;
- 
- 	for_each_node_by_type(np, "memory") {
- 		r = of_property_read_u32(np, "numa-node-id", &nid);
-@@ -53,26 +54,32 @@ static int __init of_numa_parse_memory_nodes(void)
- 			 * "numa-node-id" property
- 			 */
- 			continue;
-+		if (r)
-+			goto err;
- 
- 		if (nid >= MAX_NUMNODES) {
- 			pr_warn("Node id %u exceeds maximum value\n", nid);
--			r = -EINVAL;
-+			goto err;
- 		}
- 
--		for (i = 0; !r && !of_address_to_resource(np, i, &rsrc); i++) {
-+		for (i = 0; !of_address_to_resource(np, i, &rsrc); i++) {
- 			r = numa_add_memblk(nid, rsrc.start, rsrc.end + 1);
--			if (!r)
--				node_set(nid, numa_nodes_parsed);
-+			if (r)
-+				goto err;
-+			node_set(nid, numa_nodes_parsed);
- 		}
-+		if (!i)
-+			goto err;
- 
--		if (!i || r) {
--			of_node_put(np);
--			pr_err("bad property in memory node\n");
--			return r ? : -EINVAL;
--		}
-+		found = true;
- 	}
- 
--	return r;
-+	return found ? 0 : -EINVAL;
-+
-+err:
-+	of_node_put(np);
-+	pr_err("bad property in memory node\n");
-+	return r ?: -EINVAL;
- }
- 
- static int __init of_numa_parse_distance_map_v1(struct device_node *map)
--- 
-2.43.0
+> > 	},
+> >  
+> >> +	{ }
+> >> +};
+> >> +MODULE_DEVICE_TABLE(auxiliary, ads1263_adc2_auxiliary_match);  
+> 
+> Thanks for your feedback, Jonathan! Apologies if this version was a
+> little rough... I'm a bit embarrased by the bugs found by Sashiko.
+> 
+Lol. We all have that problem - sometimes it is irritatingly good
+at spotting silly mistakes ;)
 
