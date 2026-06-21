@@ -1,86 +1,68 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38632459FE
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 15:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12627224F3
+	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 15:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782055468; cv=none; b=jMUULr6YfW5TFzGSjILw3nFmeMjbYeaSG+XWbNfbBVyHMSesnnw086Hbqg8F2fLUtiqRf8Nytv0pw8qoH18QZkQwEnccAnrEuQn0xwaQBl74yQHRn6CHOfCAqnOTA57xOAuVJC7jzrMDkFGyrNLPriJl8zcvQLu153TwvKhDy7M=
+	t=1782056048; cv=none; b=AzzKVa/821Hvnv1xalKihAkyUlfC/TX42SZFU12flJDdFiOWoqJAYzDUyjQ5b1L7WuCIYrgVA3P2vqsk2bks1RhfvNFPPrD4yNlDPRw9/xtaDT+V2LhEA7uJyGW2gDTqHmyS96tWo7g0+aIx86l0Jiuzc6mceX7WnlbeVxw1mrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782055468; c=relaxed/simple;
-	bh=S6iMoD5mIVGD5N0Aczx+kmg62+jsu4Dmf1ROr3bsP+s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sS17bsjE8RU4NufhmQ2BSSLKxwlji57V5XTYoXclYZ2m/HZxETHDQekYHsTlVqTzHuGcMz/t8fhAxE6bCmD4J0jx48MY3tk67bIPa2D+bMmXkEf8vYkvWP6Atkn6Zk2RjCdXKCD+5946Hdyj4GiR0vHkbe6bWrP1B8z3io2sTwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AjsaiBjv; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782056048; c=relaxed/simple;
+	bh=pKFWflkKD3e/9kroo1CgZu7WYpM/zMCO7/zVUjmYO/I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=f2H1vfT9geJ5v8X1QnY0mf4EBeS7ZVz2/3xWRw4vgIYg9qiGm+iPzowvljYD+YVekqdTvcdpuqaXDSkqcjYRltw7WrTgEAzmlO6V5/ZAJtgVTeoFreWQSNMJxgaMM+k9Ulz/99dpbSS4nnsNhORcuT+oj7fGIM3vdRtsJJeRGAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d318P30C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AjsaiBjv"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c8deb37737dso112347a12.1
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 08:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782055466; x=1782660266; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YvEQ7rH1GQaXLoA200lLxhYP67p8h3i3QuzT03ZUuQQ=;
-        b=AjsaiBjvmO8HN7kRrRmF9ZPjOlyhZZBSIk0dahqp6eOR5LVn8e4TGMTF5FgNYu5yQL
-         5I/+8uHwfIH7VUKMrC3KuHzKOgQ41B9IRQfBtoMmtEe/MnRRCuFpbgUt+xN2jR7tColF
-         +BxBnn0F11J1niX7ACe/DUAVbnSpQutYOspwUCbzxPpSD5r4OXIWfuiob5pkcMPoRWaD
-         tKPDCA/xo4NwWz3N82A1g+MZjukQkN94Nw+RmmuCgqm41WrLKmgCfJYphzun1fOWHX1o
-         ker3CKjihL6XOK7dXQ66WA7HXiVLPXSX20RG0/JOsJyNPzcvLtpNiS6O9dMNuBbTQ057
-         sO2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782055466; x=1782660266;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=YvEQ7rH1GQaXLoA200lLxhYP67p8h3i3QuzT03ZUuQQ=;
-        b=SxDUd0dBQphzVtpP26wJjvei5ye8ho08z5hFdOjN2+RPbTEooaMI6mVChNv+I3Cj5G
-         3gEPeD2H0yU6lW/jUfXR2Xyj9P2cBGT7TnuoDZ7ftA7xDvd8Ddoq7ixxBVJGJvwgRXeu
-         WFewx+Tcg4cX5sYvcFbDr3+fb3Do3BF3C7lEaCLirpbZMe2lyf2kdm/L8yaKR02E29Dw
-         tz2P722qecFjI+adycMKLV7g/spHGpPI9D/kz50tz+QwtCA3lZDQ2FVAgQLVfglZZ7cD
-         p656PNgfY/d6IFa8ePC6580tXWlRQAlngFxt9sGmPHaPJZZMyKYOKOrbJrK263DUahqH
-         k0UQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/rBprjGOWwq6oe8hMb7CIt4fTaMK/LDPmE3eFcdZyWrBpCYnzIf8uFeTcwp+hsBN1mRaBinBEmrs0z@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfdIwm4PYCXGCmun33TypMAPV8XLpTuHhqUbU6DJeOC8n9a8tW
-	oEKv6+85QWHrRaIYfnPS7z1rL9W88+b6b7NvuVkmNb7W/zcJODsFUjnw
-X-Gm-Gg: AfdE7cmje75xZnLbPa3ZAvgD8pgOOXzE9HfAwcETzwRz93Hoh9q2BmwOciVngBZ+tJ6
-	2aDeIo7gND9UAzyvO+dDxkDA9uDRmJvTkOLSU7DfTaIhn74gpSqiyzzhHD/LJWG5D800PBuPuv1
-	huy40qdQjvMbB4xHANw/wzcVju/QIK7nLfC05th9FhhDdlUD6eg0JgsGDyo39oNs6JN1ZSj95T3
-	rIkJ786CGKk+D2DGOCFda6DPz4+LP2sJ7vOPA//4PlDci5KitUVyddxqeHwo70mpHuTolWzm3/M
-	f79G6Hp4xA3QtHbbs+YGhIC3m3JPTTeZek97aYYMenEcIzA5shBdO6DbGPEtnODEHs+/ErECQbZ
-	zPAj+6dSXhu9PktuemYNPUaJn4vYMCkA9L2jqyqD48J88Ox79gHTdXJJygv2Xz+C9tIyy6QWhaW
-	rQEzKaIEK5Wd/AOIU5tGwE6iTf4rXBqKG2jzUtLsxcEQ==
-X-Received: by 2002:a05:6a21:4598:b0:3b4:60e3:a1d5 with SMTP id adf61e73a8af0-3bb3210a569mr13348674637.13.1782055465771;
-        Sun, 21 Jun 2026 08:24:25 -0700 (PDT)
-Received: from kernel-dev ([49.36.101.14])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc374375csm4846868a12.13.2026.06.21.08.24.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2026 08:24:25 -0700 (PDT)
-From: Aditya Chari <adi25charis@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: jacobsfeder@gmail.com,
-	devicetree@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Aditya Chari <adi25charis@gmail.com>
-Subject: [PATCH v2] dt-bindings: misc: add binding for Xilinx AXI-Stream FIFO
-Date: Sun, 21 Jun 2026 14:49:53 +0530
-Message-ID: <20260621091953.53281-1-adi25charis@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260621085209.52651-1-adi25charis@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d318P30C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81E4A1F00A3A;
+	Sun, 21 Jun 2026 15:34:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782056046;
+	bh=tN5SKMF+ylOxwoiNM5ZTTLUdXHeyVihmDnOx44NdGtA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d318P30CU98+YXE/KKjNoDgcX8FFuvsD/S3kmg1CMb9/MrnQ3F51ptHN/h9hHNmLH
+	 PZWWeXPLFDV6PKZC1bY/FWxRrXk3ERPXPDQusxGGmj2j2zwwD4nQBbIftvmgYvTDkO
+	 50bmg86AqsYbDpNKX0zU1sAzxavSKlLKrBOqvyXy2iDuvCiBMktiOU5Ng08U9RZDlD
+	 nJopn9N6kA8TvArESggIoN8f6Rq48FoZXiSUiILt720sEgoKDpGmC5bjA4mqyMaLgF
+	 lFcFYPrxHXljZybfxWg0IhNxIvE2R3CEd5O8ifIotBasyMLssKXx+jgsEjjFJ4ENJL
+	 FGVOZycyT0b4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: misc: add binding for Xilinx AXI-Stream
+ FIFO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aditya Chari" <adi25charis@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260621091953.53281-1-adi25charis@gmail.com>
 References: <20260621085209.52651-1-adi25charis@gmail.com>
+ <20260621091953.53281-1-adi25charis@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 21 Jun 2026 15:34:06 +0000
+Message-Id: <20260621153406.81E4A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+
+New issues:
+- [Low] Missing `$ref` type definition for custom string properties in DT b=
+inding.
+
+Pre-existing issues:
+- [Critical] Use-After-Free on device unbind due to lack of synchronization=
+ with open file descriptors.
+- [High] Integer underflow in bounds check allows bypassing transmit packet=
+ size restriction.
+--
+
+commit 97e86b437f0cf66fc60eec47c4742a54db8053f8
+Author: Aditya Chari <adi25charis@gmail.com>
+
+dt-bindings: misc: add binding for Xilinx AXI-Stream FIFO
 
 The axis-fifo driver's compatible strings were undocumented, flagged
 by checkpatch.pl as UNDOCUMENTED_DT_STRING. Add a YAML devicetree
@@ -88,354 +70,99 @@ binding document for drivers/staging/axis-fifo, converted from and
 replacing the existing free-form text binding (axis-fifo.txt), which
 this patch removes.
 
-Signed-off-by: Aditya Chari <adi25charis@gmail.com>
----
+> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
+ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> @@ -0,0 +1,221 @@
+[ ... ]
+> +  xlnx,axi-str-rxd-protocol:
+> +    description: AXI-Stream receive data protocol. Ignored by the driver.
+> +    enum: [ XIL_AXI_STREAM_ETH_DATA ]
+> +
+> +  xlnx,axi-str-txd-protocol:
+> +    description: AXI-Stream transmit data protocol. Ignored by the drive=
+r.
+> +    enum: [ XIL_AXI_STREAM_ETH_DATA ]
+> +
+> +  xlnx,axi-str-txc-protocol:
+> +    description: AXI-Stream transmit control protocol. Ignored by the dr=
+iver.
+> +    enum: [ XIL_AXI_STREAM_ETH_CTRL ]
 
-Changes since v1:
-- Fixed xlnx,rx/tx-fifo-depth: depth is in 32-bit words, not bytes,
-  matching the driver's overflow check in axis_fifo_write() and the
-  wording of the original text binding.
-- Restored the full set of hardware-generated properties (interrupt-
-  names, AXI-Stream protocol/width properties, has-axis-t* feature
-  flags, fifo threshold properties, etc.) so that additionalProperties:
-  false does not reject valid device trees generated for real hardware.
-- Removed the now-superseded axis-fifo.txt text binding.
+[Severity: Low]
+Do these custom string properties need a $ref to types.yaml?
 
- .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 221 ++++++++++++++++++
- drivers/staging/axis-fifo/axis-fifo.txt       |  96 --------
- 2 files changed, 221 insertions(+), 96 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
- delete mode 100644 drivers/staging/axis-fifo/axis-fifo.txt
+Device tree schema validation (dt_binding_check) requires custom properties
+to explicitly specify their type. Providing an enum of strings might not be
+sufficient for dt-schema to infer the type, which could cause type missing
+or unknown schema validation errors.
 
-diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-new file mode 100644
-index 000000000..f4606b13c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-@@ -0,0 +1,221 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx AXI-Stream FIFO (axis-fifo)
-+
-+maintainers:
-+  - Jacob Feder <jacobsfeder@gmail.com>
-+
-+description:
-+  The AXI-Stream FIFO (AXIS-FIFO) IP core provides a memory-mapped AXI4-Lite
-+  interface for sending and receiving data over an AXI4-Stream interface
-+  using FIFO buffers. Currently supports only store-forward mode with a
-+  32-bit AXI4-Lite interface; cut-through mode and full AXI4 are not
-+  supported. See Xilinx PG080 for IP details.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,axi-fifo-mm-s-4.1
-+      - xlnx,axi-fifo-mm-s-4.2
-+      - xlnx,axi-fifo-mm-s-4.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    items:
-+      - const: interrupt
-+
-+  xlnx,axi-str-rxd-tdata-width:
-+    description:
-+      Width in bits of the AXI4-Stream receive data interface. Only a
-+      width of 32 is currently supported by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+
-+  xlnx,axi-str-txd-tdata-width:
-+    description:
-+      Width in bits of the AXI4-Stream transmit data interface. Only a
-+      width of 32 is currently supported by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+
-+  xlnx,axi-str-txc-tdata-width:
-+    description:
-+      Width in bits of the AXI4-Stream transmit control interface.
-+      Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,axi-str-rxd-protocol:
-+    description: AXI-Stream receive data protocol. Ignored by the driver.
-+    enum: [ XIL_AXI_STREAM_ETH_DATA ]
-+
-+  xlnx,axi-str-txd-protocol:
-+    description: AXI-Stream transmit data protocol. Ignored by the driver.
-+    enum: [ XIL_AXI_STREAM_ETH_DATA ]
-+
-+  xlnx,axi-str-txc-protocol:
-+    description: AXI-Stream transmit control protocol. Ignored by the driver.
-+    enum: [ XIL_AXI_STREAM_ETH_CTRL ]
-+
-+  xlnx,axis-tdest-width:
-+    description: AXI-Stream TDEST width. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,axis-tid-width:
-+    description: AXI-Stream TID width. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,axis-tuser-width:
-+    description: AXI-Stream TUSER width. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,data-interface-type:
-+    description: Data interface type. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,has-axis-tdest:
-+    description:
-+      Whether the AXI-Stream interface has TDEST. This feature is not
-+      supported by the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,has-axis-tid:
-+    description:
-+      Whether the AXI-Stream interface has TID. This feature is not
-+      supported by the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,has-axis-tkeep:
-+    description:
-+      Whether the AXI-Stream interface has TKEEP. This feature is not
-+      supported by the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,has-axis-tstrb:
-+    description:
-+      Whether the AXI-Stream interface has TSTRB. This feature is not
-+      supported by the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,has-axis-tuser:
-+    description:
-+      Whether the AXI-Stream interface has TUSER. This feature is not
-+      supported by the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,rx-fifo-depth:
-+    description:
-+      Depth in 32-bit words of the receive FIFO, as configured in the
-+      IP core.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,rx-fifo-pe-threshold:
-+    description: RX programmable empty interrupt threshold. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,rx-fifo-pf-threshold:
-+    description: RX programmable full interrupt threshold. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,s-axi-id-width:
-+    description: AXI4-Lite ID width. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,s-axi4-data-width:
-+    description: AXI4-Lite data width. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,select-xpm:
-+    description: Whether XPM macros are used. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,tx-fifo-depth:
-+    description:
-+      Depth in 32-bit words of the transmit FIFO, as configured in the
-+      IP core.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,tx-fifo-pe-threshold:
-+    description: TX programmable empty interrupt threshold. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,tx-fifo-pf-threshold:
-+    description: TX programmable full interrupt threshold. Ignored by the driver.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  xlnx,use-rx-cut-through:
-+    description:
-+      Whether RX cut-through mode is used. Not supported by the driver
-+      and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,use-rx-data:
-+    description:
-+      Indicates whether the receive data path is present, as configured
-+      in the IP core. A value of 1 enables the receive path, 0 disables it.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1 ]
-+
-+  xlnx,use-tx-ctrl:
-+    description:
-+      Whether the transmit control interface is used. Not supported by
-+      the driver and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,use-tx-cut-through:
-+    description:
-+      Whether TX cut-through mode is used. Not supported by the driver
-+      and must be 0.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+
-+  xlnx,use-tx-data:
-+    description:
-+      Indicates whether the transmit data path is present, as configured
-+      in the IP core. A value of 1 enables the transmit path, 0 disables it.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1 ]
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - xlnx,axi-str-rxd-tdata-width
-+  - xlnx,axi-str-txd-tdata-width
-+  - xlnx,rx-fifo-depth
-+  - xlnx,tx-fifo-depth
-+  - xlnx,use-rx-data
-+  - xlnx,use-tx-data
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    axi_fifo_mm_s_0: axi-fifo-mm-s@40000000 {
-+        compatible = "xlnx,axi-fifo-mm-s-4.1";
-+        reg = <0x40000000 0x10000>;
-+        interrupts = <0 29 IRQ_TYPE_LEVEL_HIGH>;
-+        xlnx,axi-str-rxd-tdata-width = <32>;
-+        xlnx,axi-str-txd-tdata-width = <32>;
-+        xlnx,rx-fifo-depth = <512>;
-+        xlnx,tx-fifo-depth = <32768>;
-+        xlnx,use-rx-data = <1>;
-+        xlnx,use-tx-data = <1>;
-+    };
-diff --git a/drivers/staging/axis-fifo/axis-fifo.txt b/drivers/staging/axis-fifo/axis-fifo.txt
-deleted file mode 100644
-index 413b81a53..000000000
---- a/drivers/staging/axis-fifo/axis-fifo.txt
-+++ /dev/null
-@@ -1,96 +0,0 @@
--Xilinx AXI-Stream FIFO v4.1 IP core
--
--This IP core has read and write AXI-Stream FIFOs, the contents of which can
--be accessed from the AXI4 memory-mapped interface. This is useful for
--transferring data from a processor into the FPGA fabric. The driver creates
--a character device that can be read/written to with standard
--open/read/write/close.
--
--See Xilinx PG080 document for IP details.
--
--Currently supports only store-forward mode with a 32-bit
--AXI4-Lite interface. DOES NOT support:
--	- cut-through mode
--	- AXI4 (non-lite)
--
--Required properties:
--- compatible: Should be one of:
--    "xlnx,axi-fifo-mm-s-4.1"
--    "xlnx,axi-fifo-mm-s-4.2"
--    "xlnx,axi-fifo-mm-s-4.3"
--- interrupt-names: Should be "interrupt"
--- interrupt-parent: Should be <&intc>
--- interrupts: Should contain interrupts lines.
--- reg: Should contain registers location and length.
--- xlnx,axi-str-rxd-protocol: Should be "XIL_AXI_STREAM_ETH_DATA"
--- xlnx,axi-str-rxd-tdata-width: Should be <0x20>
--- xlnx,axi-str-txc-protocol: Should be "XIL_AXI_STREAM_ETH_CTRL"
--- xlnx,axi-str-txc-tdata-width: Should be <0x20>
--- xlnx,axi-str-txd-protocol: Should be "XIL_AXI_STREAM_ETH_DATA"
--- xlnx,axi-str-txd-tdata-width: Should be <0x20>
--- xlnx,axis-tdest-width: AXI-Stream TDEST width (ignored by the driver)
--- xlnx,axis-tid-width: AXI-Stream TID width (ignored by the driver)
--- xlnx,axis-tuser-width: AXI-Stream TUSER width (ignored by the driver)
--- xlnx,data-interface-type: Should be <0x0> (ignored by the driver)
--- xlnx,has-axis-tdest: Should be <0x0> (this feature isn't supported)
--- xlnx,has-axis-tid: Should be <0x0> (this feature isn't supported)
--- xlnx,has-axis-tkeep: Should be <0x0> (this feature isn't supported)
--- xlnx,has-axis-tstrb: Should be <0x0> (this feature isn't supported)
--- xlnx,has-axis-tuser: Should be <0x0> (this feature isn't supported)
--- xlnx,rx-fifo-depth: Depth of RX FIFO in words
--- xlnx,rx-fifo-pe-threshold: RX programmable empty interrupt threshold
--	(ignored by the driver)
--- xlnx,rx-fifo-pf-threshold: RX programmable full interrupt threshold
--	(ignored by the driver)
--- xlnx,s-axi-id-width: Should be <0x4> (ignored by the driver)
--- xlnx,s-axi4-data-width: Should be <0x20> (ignored by the driver)
--- xlnx,select-xpm: Should be <0x0> (ignored by the driver)
--- xlnx,tx-fifo-depth: Depth of TX FIFO in words
--- xlnx,tx-fifo-pe-threshold: TX programmable empty interrupt threshold
--	(ignored by the driver)
--- xlnx,tx-fifo-pf-threshold: TX programmable full interrupt threshold
--	(ignored by the driver)
--- xlnx,use-rx-cut-through: Should be <0x0> (this feature isn't supported)
--- xlnx,use-rx-data: <0x1> if RX FIFO is enabled, <0x0> otherwise
--- xlnx,use-tx-ctrl: Should be <0x0> (this feature isn't supported)
--- xlnx,use-tx-cut-through: Should be <0x0> (this feature isn't supported)
--- xlnx,use-tx-data: <0x1> if TX FIFO is enabled, <0x0> otherwise
--
--Example:
--
--axi_fifo_mm_s_0: axi_fifo_mm_s@43c00000 {
--	compatible = "xlnx,axi-fifo-mm-s-4.1";
--	interrupt-names = "interrupt";
--	interrupt-parent = <&intc>;
--	interrupts = <0 29 4>;
--	reg = <0x43c00000 0x10000>;
--	xlnx,axi-str-rxd-protocol = "XIL_AXI_STREAM_ETH_DATA";
--	xlnx,axi-str-rxd-tdata-width = <0x20>;
--	xlnx,axi-str-txc-protocol = "XIL_AXI_STREAM_ETH_CTRL";
--	xlnx,axi-str-txc-tdata-width = <0x20>;
--	xlnx,axi-str-txd-protocol = "XIL_AXI_STREAM_ETH_DATA";
--	xlnx,axi-str-txd-tdata-width = <0x20>;
--	xlnx,axis-tdest-width = <0x4>;
--	xlnx,axis-tid-width = <0x4>;
--	xlnx,axis-tuser-width = <0x4>;
--	xlnx,data-interface-type = <0x0>;
--	xlnx,has-axis-tdest = <0x0>;
--	xlnx,has-axis-tid = <0x0>;
--	xlnx,has-axis-tkeep = <0x0>;
--	xlnx,has-axis-tstrb = <0x0>;
--	xlnx,has-axis-tuser = <0x0>;
--	xlnx,rx-fifo-depth = <0x200>;
--	xlnx,rx-fifo-pe-threshold = <0x2>;
--	xlnx,rx-fifo-pf-threshold = <0x1fb>;
--	xlnx,s-axi-id-width = <0x4>;
--	xlnx,s-axi4-data-width = <0x20>;
--	xlnx,select-xpm = <0x0>;
--	xlnx,tx-fifo-depth = <0x8000>;
--	xlnx,tx-fifo-pe-threshold = <0x200>;
--	xlnx,tx-fifo-pf-threshold = <0x7ffb>;
--	xlnx,use-rx-cut-through = <0x0>;
--	xlnx,use-rx-data = <0x0>;
--	xlnx,use-tx-ctrl = <0x0>;
--	xlnx,use-tx-cut-through = <0x0>;
--	xlnx,use-tx-data = <0x1>;
--};
--- 
-2.53.0
+Should these properties include a $ref: /schemas/types.yaml#/definitions/st=
+ring
+constraint?
 
+[ ... ]
+> +  xlnx,tx-fifo-depth:
+> +    description:
+> +      Depth in 32-bit words of the transmit FIFO, as configured in the
+> +      IP core.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+[Severity: High]
+This isn't a bug introduced by this patch, but should we add a minimum: 4
+constraint here to protect against an integer underflow in the driver?
+
+In drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_write(), the bounds check
+assumes tx_fifo_depth is at least 4:
+
+    if (!words_to_write || (len % sizeof(u32)) ||
+        (words_to_write > (fifo->tx_fifo_depth - 4)))
+        return -EINVAL;
+
+If the device tree configures xlnx,tx-fifo-depth to a value less than 4, th=
+is
+subtraction underflows to a massive unsigned integer, bypassing the bounds
+check. This could allow an oversized packet to trigger a Transmit Packet
+Overrun Error in the hardware.
+
+[ ... ]
+
+[Severity: Critical]
+This is a pre-existing issue in the driver documented by this binding, but =
+is
+there a use-after-free vulnerability during device unbind?
+
+The driver allocates its core state using devm_kzalloc():
+
+drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_probe() {
+    ...
+    fifo =3D devm_kzalloc(dev, sizeof(*fifo), GFP_KERNEL);
+    ...
+}
+
+During removal, it deregisters the misc device but doesn't wait for active
+VFS file references to be dropped:
+
+drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_remove() {
+    ...
+    misc_deregister(&fifo->miscdev);
+    ...
+}
+
+When axis_fifo_remove() returns, the devres layer automatically frees the
+axis_fifo structure. If a user process holds an open file descriptor and
+subsequently calls write() or read(), it will dereference the freed pointer:
+
+drivers/staging/axis-fifo/axis-fifo.c:axis_fifo_write() {
+    struct axis_fifo *fifo =3D f->private_data;
+    ...
+}
+
+Should the driver use a different allocation and reference counting strategy
+to ensure the memory remains valid as long as the file descriptor is open?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260621091953.5328=
+1-1-adi25charis@gmail.com?part=3D1
