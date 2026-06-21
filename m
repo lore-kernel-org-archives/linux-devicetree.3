@@ -1,86 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F228F23536B;
-	Sun, 21 Jun 2026 16:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020431FF1DA;
+	Sun, 21 Jun 2026 16:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782060580; cv=none; b=hPRzou0kb0y23bQDWaebEsctA6lL0mbaZBzjR49pVpqknrAYssEwUcA1G7+uAeKZ7SoHIp2/NrMDFVGkcD45p5mQfc6ylFXMRHcA4pFNGK6ByCtOnZiYt0iukTEH+0GUnkU5do8dARChCLlQSMdFcG/idzR+5FTe861/M3xh1Cc=
+	t=1782061168; cv=none; b=e0UHRPPBpbqQ4cjVuuy9NTkiL7LPeXi4PTKHPeAVAuWEOXAxe4fybCsNmC/nZm3vsfYUhFv/qXoO72yqnJhLWacFH5zK6AHorTEVCFrtY3I1KQBfhsnBDatHp+gokSPBGTJKP67rLTYUBOkxgZ+w7SoYNGyauH4hsR/86nU/IYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782060580; c=relaxed/simple;
-	bh=K8RXR5JOKZ5wuu+0t6hkQ9SXM0nRwS3lf0XfhZwBSEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HR7yQHKywJUnEL9uRKbGSA5xyBWjIZxtwgNJeABgXPbiIHsYl1KIUhJON19y8fjZcixPZljKXAcpoqWeIG6Ft1bE8rUQ9As5OEGYXRwOEt9Dib3QoomYTDK8Fs8TlbI4Chav2rfVKblHzLm2LmhtBb+J4knzVP3osM4HwBt8EIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ozSv+6fc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782061168; c=relaxed/simple;
+	bh=2Dkj6xJ3zKUpRS5/l6EwbTeGw+cedsUfbRRH23BFbFo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=W9C49YQN3G72Rclyb2WZRJU5Mf3HjXHdAW5F/oSLyrAx01gxGcD1JSiNRJAupaD3fqX2UoWBrRwNhPWc7Pr+nZBc6Ef3x/QLhu1HBQRDzyCvubrunW2tNJ3N1D7IoBbnoGg0dsYy1P1IT9GLn3u6ZoYj4MIJwOcl+pNW6f6/biQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDc2XvPm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ozSv+6fc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91FE51F000E9;
-	Sun, 21 Jun 2026 16:49:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDc2XvPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864D91F000E9;
+	Sun, 21 Jun 2026 16:59:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782060579;
-	bh=CmfzyDDUjqNwA27f2RUYLxlzUocZI66hlzMjI6ItgNo=;
+	s=k20260515; t=1782061166;
+	bh=626Pu+3MWCl6GFK1K+rzSFPcpCcWzeny/X+/kz7vSpQ=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ozSv+6fcDTo1ZyR5F//Kl9+MU5JipTFlFuXwCGReIrq43wW0yDlC8cOlCjwhnEbi6
-	 6o55a8wxT3vhe0trV7UvYvUKRSbLWbi/jypOwkaEtvBSqJ1Gbnfd4oIBdgKQ2MOUlR
-	 Mmq9rJMCHvjRUXG86r0ZZn2FT5UzBobQWw+266qLLPfBASPPUHDCQNaCtyzkAJQi9c
-	 ytRgV+JxHZepOy4TQ/6tl3pS45ddFoVGQ9VqwuddTM7cIwhF6bWtgn3IbHmVPs40c3
-	 hE3hatk/7HzVtFAMIVF1gFScCEptbz5DECEhdu7vE2L9lj0DfI9vkZfhPYj7Z4HZU/
-	 j+tuOpOprRwUg==
-Date: Sun, 21 Jun 2026 17:49:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kim Seer Paller <kimseer.paller@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Michael
- Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>,
- <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 1/4] iio: dac: ad3530r: Refactor setup to
- table-driven register bank approach
-Message-ID: <20260621174930.35c2091f@jic23-huawei>
-In-Reply-To: <20260615-iio-ad3532r-support-v2-1-84a0af8b83fa@analog.com>
-References: <20260615-iio-ad3532r-support-v2-0-84a0af8b83fa@analog.com>
-	<20260615-iio-ad3532r-support-v2-1-84a0af8b83fa@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=DDc2XvPmtDQ78cpXHp1Z6mVjoSBTaPWJsYxTEQXZWc85iHEImIMtvkmXIQKnOr4nB
+	 5KHLtbYoqVV8nl+jUB7bW1CPI820m9xeXMPOYMXEpGjQpsIi/NVaMG1d/Vqth23kqz
+	 Af34NOc+7WjDgZDF/dLzKMdS2Fk6SXtHVAgB5lDJ1oGkwIBdqzxEfU0DNsMe9sn86t
+	 pqyr9YF88w5BS68RmrKxHIjPnT9DZ5fl770dB6lV7ju7WPGatXZr4dOUM9SWBYnviD
+	 gBsIOBLbgXcG80Up8WPPC1B/jirPoQG77yzu79b4JCVpLBORzOMGZxtH9nA1dZaBor
+	 c5dv/J/tHM8yQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wbLW0-0000000EhrH-1Gue;
+	Sun, 21 Jun 2026 16:59:24 +0000
+Date: Sun, 21 Jun 2026 17:59:23 +0100
+Message-ID: <865x3bsuc4.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org,	Krzysztof =?UTF-8?B?V2lsY3p5xYRza2k=?=
+ <kwilczynski@kernel.org>,	Bjorn Helgaas <bhelgaas@google.com>,	Catalin
+ Marinas <catalin.marinas@arm.com>,	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,	Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,	Lorenzo Pieralisi <lpieralisi@kernel.org>,	Manivannan
+ Sadhasivam <mani@kernel.org>,	Rob Herring <robh@kernel.org>,	Yoshihiro
+ Shimoda <yoshihiro.shimoda.uh@renesas.com>,	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] irqchip/gic-v3: Refactor GIC600 limited to 32bit PA erratum handling
+In-Reply-To: <20260618220427.14325-3-marek.vasut+renesas@mailbox.org>
+References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
+	<20260618220427.14325-3-marek.vasut+renesas@mailbox.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: marek.vasut+renesas@mailbox.org, linux-pci@vger.kernel.org, kwilczynski@kernel.org, bhelgaas@google.com, catalin.marinas@arm.com, conor+dt@kernel.org, geert+renesas@glider.be, krzk+dt@kernel.org, lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, yoshihiro.shimoda.uh@renesas.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, 15 Jun 2026 14:20:15 +0800
-Kim Seer Paller <kimseer.paller@analog.com> wrote:
-
-> Replace direct register calls in ad3530r_setup() with per-chip register
-> address arrays and bank helpers (ad3530r_set_reg_bank_bits,
-> ad3530r_write_reg_banks). Convert sw_ldac_trig_reg from a static
-> register address to a function pointer for per-bank LDAC trigger
-> register selection. Switch spi_device_id to named initializers.
+On Thu, 18 Jun 2026 23:02:00 +0100,
+Marek Vasut <marek.vasut+renesas@mailbox.org> wrote:
 > 
-> Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
-
->  
->  static const struct spi_device_id ad3530r_id[] = {
-> -	{ "ad3530", (kernel_ulong_t)&ad3530_chip },
-> -	{ "ad3530r", (kernel_ulong_t)&ad3530r_chip },
-> -	{ "ad3531", (kernel_ulong_t)&ad3531_chip },
-> -	{ "ad3531r", (kernel_ulong_t)&ad3531r_chip },
-> +	{ .name = "ad3530", .driver_data = (kernel_ulong_t)&ad3530_chip },
-> +	{ .name = "ad3530r", .driver_data = (kernel_ulong_t)&ad3530r_chip },
-> +	{ .name = "ad3531", .driver_data = (kernel_ulong_t)&ad3531_chip },
-> +	{ .name = "ad3531r", .driver_data = (kernel_ulong_t)&ad3531r_chip },
-
-There is a high chance this will cross with Uwe's series that does
-this change for all SPI drivers.  Before you send each version have
-a quick look to see if I've already picked that up.  Or perhaps
-better to just pick that up your self as a dependency to make
-life easy. Just say you have done that in the cover letter.
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(spi, ad3530r_id);
+> The GIC600 implementation is now known to be used on multiple 64-bit
+> SoCs, where it has address width for AXI or APB interface configured
+> to 32 bit, and it can access only the first 4GiB of physical address
+> space.
 > 
+> Rework the handling of the quirk to work around this limitation such
+> that new entries can be added purely as new compatible strings, with
+> no need to add additional functions or new its_quirk array entries.
+> 
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
