@@ -1,53 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C506F3655E9;
-	Sun, 21 Jun 2026 13:51:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F0336A03B;
+	Sun, 21 Jun 2026 14:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782049888; cv=none; b=lRxL5wQDlrjtR6hqP91N4LMAxhxxqzJiLmc2PR99slQ/LOdRhtMLFg0reMv+9quWvWDwXbybVH3JwUdOu9rMTdu5zOREIb5jnJvwGliq8GrJt7aFFT+apQb+KjoWcoDW0fvnR2rCaLqHP3OUjieOeSLTcacfZczUQ/l7fK4nylY=
+	t=1782051963; cv=none; b=rxJs1MX9VwKZnOitbiSE6MUYXUoQFk2G0kwaXjFGoYTE3kzQFJHaaNEIsVKNw9MYZwuJwwtvz2wMP1eThvdbfJBjLsBI/YCRjYdZoPJLmZfKpfs3qDzOuSHKf4ArwdZ5gOK43gFyxFBsLxMluFtXt9oqmysf9oPZQlnhK/c7nts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782049888; c=relaxed/simple;
-	bh=mp+ma+hjjHBZOAfrB+QHkBSWFOPrOVkao8fixXcGBMY=;
+	s=arc-20240116; t=1782051963; c=relaxed/simple;
+	bh=lt5+qyrI5LA9cHOzb8k/ijAuDuiNo4c81PGYT7Wultw=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZwpoJx5JO0Zbw4h9mzOliUBaLeEmu/9V8lIpdQhYZqSnr9KEm8KGbWdQcFnFsGCgY2kbpRJBJbX7qPQFn/gbN08VvVtDu4E3qoeIHO8FmDOu26EdVtqAaFbZbhA9xWw8UFGtEAwoDebuRBrCf8fEsGqrGVaRoxwC6Ik2XN2iXoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4sODF21; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=bCcGGCIGgRbSXxvYG8c2ZIGwfhvtFxhAbpTSlbdYYXl81M2F4yakiYUysDaoM0taNiVLm+tyXrjq+8Ba3q4e2tHJkN241dyjUJ/VW+ZCEMn2/K0x0OGUX8NKIPTerqyINoK1GxrRo9gJ9l3MH0jvsyu0QRk7vOqjLxW47OAKev0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW3o59y7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4sODF21"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9F11F000E9;
-	Sun, 21 Jun 2026 13:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW3o59y7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE7B1F000E9;
+	Sun, 21 Jun 2026 14:25:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782049887;
-	bh=2oHArOQEj+3jpOwU/zuzZvGwBkHN5/HKN4d9j5Z5Y5U=;
+	s=k20260515; t=1782051961;
+	bh=1uvY5XDgU6syIvNn2GdaPP2IZGYVcEX4rjROu2JWywU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=L4sODF219bNV0vXeAu16ri8EHB6p/ZzR0zAnd02hxJsf2AkofLxxw9kj0sRUw3N/0
-	 GExVbRbDXwBJLswszqPCrHSCMIl93r2tnB8GQPrPk9+mq7REaxrxuCJvgyrgVTIukl
-	 pPLJjaW8Ekdq1RkyvxarChBmEJXFLhDRp5AfoptzWPV/jo9gsQ304s1TemIxzjuQ4F
-	 Ku59UnwYqtrz+1t7lN26zJ8yduYmS6+qmSdRSVFmbRxoWNt6DgpIFgFYK8wZ29IoYn
-	 Oy4C1+w+t+U2dXNsF4RpdVyip60KWph5IQvAxEQGOPnCIOKFwfIHLrC5lgnDM27JYX
-	 +INrDfSiTC6ew==
-Date: Sun, 21 Jun 2026 14:51:17 +0100
+	b=YW3o59y7Zxei5lpnvSqHgun0kPOEm8SdP/b7jJsavLLcCi52CrPXFyx74r4fUJFXp
+	 1V1ll5+xvrWbYAcBq8Br2k2fgIRyO4LyX6jJbPQew4+Az2tm5aDxvMAkTKgbX8on+s
+	 kZtDye6EYVtGTvqDj3hz7QTsUye/kXwsqS6zRolKiCniwfWgc2S3gwN79HPneSZdwG
+	 olLANSb3kxUZ1jM1UwUUZUezUpMyuuhyBpg2b2otyli+RMhp+S3S6NcZdgkvPHGnvr
+	 sbOn/1Sr/zPLujrIpFQKFrqOHuhnk2aA/v9E05FlMBThTw2Kls7oi5lmK2Y97jqrPz
+	 rWHtd1Txok1wQ==
+Date: Sun, 21 Jun 2026 15:25:51 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Wadim Mueller <wafgo01@gmail.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Marcelo Schmitt
- <marcelo.schmitt1@gmail.com>, Rodrigo Alencar
- <455.rodrigo.alencar@gmail.com>
-Subject: Re: [PATCH v4 4/4] iio: flow: add Sensirion SLF3S liquid flow
- sensor driver
-Message-ID: <20260621145117.70b2d50e@jic23-huawei>
-In-Reply-To: <84503093-4bff-4c93-aff8-aa07e1a6a1a1@kernel.org>
-References: <20260611132700.671322-1-wafgo01@gmail.com>
-	<20260611132700.671322-5-wafgo01@gmail.com>
-	<e01d100b-9809-4af3-8f21-055f687ca6c6@kernel.org>
-	<20260612184729.795e0e84@jic23-huawei>
-	<4e4ef1ae-62e7-4639-914c-19f49930be02@kernel.org>
-	<20260614161011.7f7946f1@jic23-huawei>
-	<84503093-4bff-4c93-aff8-aa07e1a6a1a1@kernel.org>
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Linus Walleij"
+ <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>, "David
+ Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 2/5] iio: adc: Add ti-ads1262 driver
+Message-ID: <20260621152551.733729fe@jic23-huawei>
+In-Reply-To: <DJ91ZV8FQOMZ.YLIC552K4G5D@gmail.com>
+References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
+	<20260612-ads126x-v1-2-894c788d03ed@gmail.com>
+	<20260613144544.0594a7f0@jic23-huawei>
+	<DJ91ZV8FQOMZ.YLIC552K4G5D@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -58,165 +53,191 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 15 Jun 2026 06:27:00 +0200
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Sun, 14 Jun 2026 15:27:11 -0500
+"Kurt Borja" <kuurtb@gmail.com> wrote:
 
-> On 14/06/2026 17:10, Jonathan Cameron wrote:
-> > On Sat, 13 Jun 2026 09:51:13 +0200
-> > Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >   
-> >> On 12/06/2026 19:47, Jonathan Cameron wrote:  
-> >>> On Thu, 11 Jun 2026 16:01:12 +0200
-> >>> Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >>>     
-> >>>> On 11/06/2026 15:27, Wadim Mueller wrote:    
-> >>>>> +
-> >>>>> +static const struct of_device_id slf3s_of_match[] = {
-> >>>>> +	{ .compatible = "sensirion,slf3s-0600f", .data = &slf3s_variants[0] },
-> >>>>> +	{ .compatible = "sensirion,slf3s-1300f", .data = &slf3s_variants[1] },
-> >>>>> +	{ .compatible = "sensirion,slf3s-4000b", .data = &slf3s_variants[2] },      
-> >>>>
-> >>>> You should have only 1300f here and detect the variants. That was my
-> >>>> point when I suggested to use the fallback.
-> >>>>    
-> >>>
-> >>> I'm lost. How does that work?  They cannot fallback to that part because
-> >>> it relies on in driver detection of the fact that they are incompatible.
-> >>>     
-> >>
-> >> I am lost too. Then why were they made compatible in the binding?
-> >>
-> >> Entire discussion was that these are FULLY compatible due to variant
-> >> detection. That was the entire point of discussing more generic
-> >> fallback. Using specific fallback does not change that - it is the same
-> >> concept.
-> >>
-> >> If devices are not detectable, why were we discussing any compatibility?  
-> > 
-> > They are detectable, but the feature set is not, so to me there is zero valid
-> > in a generic fallback, we have to update the driver every time a new part comes
-> > along. (i.e. I agree with Conor's reply to the previous version thread).
-> > A specific fallback to a completely compatible part would be fine as there
-> > would be sufficient info to not need the ID lookup.  
+> Hi Jonathan,
 > 
-> This patch has specific fallback and we discuss this now.
+> On Sat Jun 13, 2026 at 8:45 AM -05, Jonathan Cameron wrote:
+> > On Fri, 12 Jun 2026 17:46:20 -0500
+> > Kurt Borja <kuurtb@gmail.com> wrote:
+> >  
+> >> Add ti-ads1262 driver for TI ADS1262 and ADS1263 ADCs with initial
+> >> support for the following features:
+> >> 
+> >>   - Power management
+> >>   - IIO direct and buffer modes
+> >>   - Channel hot-reloading
+> >>   - Internal or external oscillator
+> >>   - Internal or external voltage reference
+> >>   - Filter configuration
+> >>   - Sensor bias configuration
+> >>   - IDAC configuration
+> >>   - Level-shift voltage configuration
+> >>   - Auxiliary ADC interoperability considerations
+> >> 
+> >> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+> >> ---
+> >>  MAINTAINERS                  |    1 +
+> >>  drivers/iio/adc/Kconfig      |   13 +
+> >>  drivers/iio/adc/Makefile     |    1 +
+> >>  drivers/iio/adc/ti-ads1262.c | 1816 ++++++++++++++++++++++++++++++++++++++++++  
+> >
+> > That is rather too big. I think you'll have to work out how to split this
+> > up into more manageable chunks.  Staying under a 1000 (preferably a lot less)
+> > per patch makes it much easier for people to review.
+> >
+> > Given the complexity of the device this might be one that has to go
+> > in as several series, building up functionality as we go.  
 > 
-> > 
-> > The case in the binding for this version is the worst of all options because
-> > it implies it is valid to fallback to something that gives a false impression
-> > of being specific when it's relying on ID matching to say actually it's something
-> > else.
-> > 
-> > So definitely not
-> > +  compatible:
-> > +    oneOf:
-> > +      - const: sensirion,slf3s-1300f
-> > +      - items:
-> > +          - enum:
-> > +              - sensirion,slf3s-0600f
-> > +              - sensirion,slf3s-4000b
-> > +          - const: sensirion,slf3s-1300f
-> > +
-> > 
-> > Falling back to slf3s is better than this, but I'd rather not have a fallback
-> > at all, thus allowing correct fallback to the parts listed here in future.  
+> I'll split it up as much as possible for next version.
 > 
-> Why? These devices are fully detectable thus fully compatible.
+> I was thinking of taking out the hot-reloading stuff for a follow-up
+> series. In that case I would also add IIO_ACQUIRE_BUFFER_MODE().
+> What do you think?
+Sure, bring it in when needed.  I just missread the code completely ;(
+> 
+> >
+> > I'll ignore all the DT stuff as sounds like that may radically change and
+> > just take a fairly superficial first look at this.  
+> 
+> Yes, I will just address Krzysztof comments and leave that patch until
+> we can discuss it with David.
+> 
+> >
+> > Jonathan
+> >  
+> 
+> [...]
+> 
+> >> +#include <linux/lockdep.h>  
+> >
+> > Fairly unusual to see that header in a driver.
+> > What's it here for?  
+> 
+> I included it for lockdep_assert_held().
+Ah ok.
+> 
+> [...]
+> 
+> >> +/* IDACMAG constants */
+> >> +#define ADS1262_IDACMAG_OFF			0
+> >> +#define ADS1262_IDACMAG_COUNT			11
+> >> +
+> >> +/* REFMUX constants */  
+> >
+> > Naming is good enough I'm not sure I'd bother with the comments
+> > to say what these are.
+> >
+> > On option is to just group them with the register they are about
+> > and using extra indenting to visually separate them from the register
+> >
+> > #define ADS1262_REFMUX_REG			0xxx
+> > #define   ADS1262_REFMUX_RMUXP_MASK		GENMASK(5, 3)
+> > #define     ADS1262_RMUX_INTER				0
+> > #define     ADS1262_RMUX_AIN0_AIN1			1
+> > #define     ADS1262_RMUX_AIN2_AIN3			2
+> > #define     ADS1262_RMUX_AIN4_AIN5			3
+> > #define     ADS1262_RMUX_AVDD_AVSS			4
+> > #define     ADS1262_RMUX_COUNT				5  
+> 
+> I like this...
+> 
+> > However, if you are going to have a terminating entry, an anonymous enum might be better
+> > with that just as the last item.  
+> 
+> ...but this sounds good too. I'll go for what looks more organized.
+> 
+> >
+> > #define   ADS1262_REFMUX_RMUXN_MASK		GENMASK(2, 0)
+> >
+> >  
+> >> +#define ADS1262_RMUX_INTER			0
+> >> +#define ADS1262_RMUX_AIN0_AIN1			1
+> >> +#define ADS1262_RMUX_AIN2_AIN3			2
+> >> +#define ADS1262_RMUX_AIN4_AIN5			3
+> >> +#define ADS1262_RMUX_AVDD_AVSS			4
+> >> +#define ADS1262_RMUX_COUNT			5
+> >> +
+> >> +struct ads1262_channel {  
+> >
+> > As a general rule we tend to avoid bitfields because of all the problems
+> > with how loose the C spec is on how these actually get laid out.
+> > I'd just have this as a suitable 32 bit value and then have
+> > defines for masks within that.  
+> 
+> Are you suggesting storing this whole struct data as a u32 and
+> reading/writing with FIELD_*() helpers? I think that may be less
+> readable but it would save memory. I don't know if I understood
+> correctly though.
 
-Ok. We aren't really making progress.  Let me layout the three approaches.
-+ advantages and disadvantages as I understand it.
 
-What we have here:
-  compatible:
-    oneOf:
-      - const: sensirion,slf3s-1300f
-      - items:
-          - enum:
-             - sensirion,slf3s-0600f
-             - sensirion,slf3s-4000b
-          - const: sensirion,slf3s-1300f
+Yes.  It's a pity that bitfields are loosely defined in C :(
 
-Advantages: Fallback to a real part.
-Disadvantages:
-- Requires a driver change even for drop in replacements (which will have
-  different WHOAMI IDs.
-- To me it implies that a driver that supports slf3s-1300f should just
-  work with parts we haven't seen yet if they have that in their fallback
-  lists. I appreciate you think that we shouldn't put effort into supporting
-  that case, but to me it seems more or less free to support and is useful.
+> 
+> I'm dropping the bitfield approach for next version anyway.
+> 
+> [...]
+> 
+> >> +struct ads1262 {
+> >> +	struct spi_device *spi;
+> >> +	struct regmap *regmap;
+> >> +	struct iio_dev *indio_dev;
+> >> +	struct iio_trigger *trig;
+> >> +	struct gpio_desc *reset_gpiod;
+> >> +	struct gpio_desc *start_gpiod;
+> >> +
+> >> +	void *scan_buffer;  
+> > I think this is always accessed as a __be32. If so just type it as that.  
+> 
+> I was hesitant to do that because of the space reserved at the end for
+> the timestamp. Didn't feel right to assign __be32 when it would actually
+> be something like
+> 
+> 	struct {
+> 		__be32 buff;
+> 		aligned_s64 ts;
+> 	};
+> 
+> But I have no problem doing it.
 
-Generic compatible for fallback.
-  compatible:
-    - items:
-        - enum:
-           - sensirion,slf3s-0600f
-           - sensirion,slf3s-1300f
-           - sensirion,slf3s-4000b
-        - const: sensirion,slf3s
+I looked again.  For this case we have some magic macros and generally
+it's not worth the effort of making this dynamically sized unless you
+have hundreds of channels.  Here I would move it to the end of
+struct ads1262 (so the _DMA_ part of this does the right thing) and use
+	IIO_DECLARE_DMA_BUFFER_WITH_TS(__be32, scan, DEFINE_FOR_MAX_CHANNELS);
+That will declare a __be32 array but with the timestamp + padding etc.
 
-Advantages: Fallback to something that doesn't imply the post fix is coming from
-            DT. So kind of hints we need detection code.
-Disadvantages: requires driver changes for each fully compatible drop in part.
-Note I'm not sure what this brings us over just having one compatible... Maybe
-we'll some day get a non detectable difference where we need to use the binding
-but seems fairly unlikely (I've seen that happen once when a manufacturer failed
-to update a WHOAMI reg value for a new part).
+> >> +static int ads1262_read_chip_name(struct ads1262 *st, char **name)
+> >> +{
+> >> +	struct device *dev = &st->spi->dev;
+> >> +	u8 dev_id;
+> >> +	unsigned int val;
+> >> +	int ret;
+> >> +
+> >> +	ret = regmap_read(st->regmap, ADS1262_ID_REG, &val);
+> >> +	if (ret)
+> >> +		return ret;
+> >> +
+> >> +	dev_id = FIELD_GET(ADS1262_DEV_ID_MASK, val);
+> >> +
+> >> +	switch (dev_id) {
+> >> +	case ADS1262_DEV_ID_ADS1262:
+> >> +		*name = "ads1262";  
+> >
+> > Given, at somepoint I would guess you'll want to support the auxiliary adc
+> > on the 1263, I'd start with a struct chip_info  (with the name in there)
+> > and pick that rather than just the name here.  
+> 
+> Makes sense. In that case I can add a dev_warn if the name doesn't match
+> the internal model. Would that be ok or would you prefer dev_dbg?
 
-No fallbacks
-  compatible:
-    enum:
-      - sensirion,slf3s-0600f
-      - sensirion,slf3s-1300f
-      - sensirion,slf3s-4000b
-
-Advantages: (Common!) a future drop in compatible part works with old kernels
-            as the driver knows a match + part information to use if the ID
-            match fails.
-Disadvantages:  Not sure I see any... However I'm guessing I'm missing something.
-
-Note for this topic I think it would be great to capture some best practice
-information somewhere so we can improve consistency.  I've looked around and
-there are some bits of feedback in numerous threads but those are hard to track
-down.
-
-The Dt spec refers to these as being about programming mode + driver selection.
-I will note that we have very broad families of devices that have a somewhat
-standard register interface + do always put the WHOAMI in the same place.
-In the vendor  drivers those match a single hydra of a driver; upstream we
-have multiple drivers as devices do very different things and hence in
-practice almost no code would have been shared - so I have no idea what
-we should have done for those more commplex cases.  Following your logic
-(I may have it wrong!) I think we would have had a generic compatible
-for the whole family but in upstream Linux no driver would have bound
-to that. I guess there are  different extremes:
-
-1) This case - register interfaces is consistent for all registers,
-   we are just matching on constant tables needed to interpret the
-   data in those tables.
-2) Similarish.  Main register interface shared, but optional additional
-   parts.  If one device is a strict superset, a fallback is
-   appropriate (in my view) but if I follow your points here then they
-   should all have a single fallback compatible.
-3) Not particularly similar, but still detectable in a consistent
-   way.  To me not appropriate to have a common fallback as based on
-   the dt-spec thing about matching drivers, they will typically
-   match different drivers.  Maybe we should have a common fallback
-   but typically not bind to it?
-4) Detection code becomes a mess and is different for each part
-   (see the old i2c_detect stuff)   So hopefully no one thinks we
-   should use a fallback once we reach
-   this level of complexity (unless part are genuinely compatible)
-
-I'm a little bothered by the fuzzy boundaries between those cases
-so would ideally like rules that say 1-3 need fallbacks or none do
-but we live in a fuzzy world, so maybe best we can do is leave things
-flexible.
+dev_info() probably as if we do see this it isn't supposed to be a problem
+(unless DT is broken). Note there is an ongoing discussion with Kryzsztof about
+what we should do for detectable parts like this.  So my mental model
+of this might not be where that ends up. (See the various versions of the SLF3S
+flow sensor driver).
 
 Jonathan
 
-
-
-> 
-> Best regards,
-> Krzysztof
 
