@@ -1,61 +1,63 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16441F91D6
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 00:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8951522B8DF
+	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 00:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782002793; cv=none; b=X3fomQentTZ4PlrZqVtGHQPt2czmfr1RJGR9oWAeBYJCxeHAHspVKSv4NLQWyWrwKH9SPeI0GDwnmgtUuMEnE+3uNYxLQl1h9jLY3tTc0iMmGQgizWJ5OIqpkHcZxHfAb5tWlRzzngZengLeutybO7w1AfT6DXeV0gpG9zaYHw0=
+	t=1782002796; cv=none; b=hlv9db0aY7x3GaVDgVxwvDv9VTbsCPGnJzqlNpCLOJlSlzTtXGabttvwtrTrb9MB35YyTE7PlkQg2mEcGwtAd1UPegh+GGOqJOWuhUMzoDrgUSj0g/q99x9k+AilmaRXbPyoTEOtnldMe0cDBZYjxCmgM1qxvqRsnaJKAXSZy6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782002793; c=relaxed/simple;
-	bh=/9dz4QviX5eZ/DcvAaf4DKmZZS/7wY5B4acWBsr3MXA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=p3nHH0P3YhI8oB0PCwWw+3LrvBBq5k7h2je2z7g0BCjsjdg1C9g+5FHbNXKB2lf/CAwPqrqjXOTph1qNs/dKJ35uwlWPW6TBP2LgySKD3RUGK1CXNAICSyeU/XELGR91dft++ZVa88lG9ucEP6uQgbn9TmuLxhW3HXrgF9tLi28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJeOuglU; arc=none smtp.client-ip=209.85.161.51
+	s=arc-20240116; t=1782002796; c=relaxed/simple;
+	bh=l7mHdO04LVSS3d8xjKFPHHbnSH0Vip0EhaqadJeukpM=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dzn6jC6cZftnbZFwjvZwJuODf+kwAdIiYcw9+he2XRhVn/Em5PqQcHol0azlYW9wiyUDCRgueWbU1VdXicimy47Bf57Q9GDdIYfSfU7qqWZVdOTMChE9s1MpxC3FvcautB2txzzImFRsTVNas2C9mFMN5viND//1sOv4Jv+vv9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k3RBLezp; arc=none smtp.client-ip=209.85.161.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJeOuglU"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6a0eb19ff49so762844eaf.1
-        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 17:46:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k3RBLezp"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-69de9bc590aso2599339eaf.1
+        for <devicetree@vger.kernel.org>; Sat, 20 Jun 2026 17:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782002789; x=1782607589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TI9LIWoTUwIdAN+9blNOOm/EKtO+7hwNGRKe2i/GtZ8=;
-        b=rJeOuglU18PZillaEbKXCn5B7z6TZf7VF2skBrVYsf88AjI0UEanvto+hY5jwhRJE3
-         6+Xu9WOQtkhha5tR6K3Fz7U4t3LvyAnf7MrtuToixCVNQcL5HN25RDOYHcXr8wYjc01X
-         dtDwwxxeDXdllGZxZ/ADLM9eK/9QBr5vcn4PniwMQ7TWNGvWAImwG+Ry02RNXI1A+UlM
-         bRPbqEG0ulE7YgMXRuV1SWlY1vdGNadFoisfL5T0MRTbSHJrROGJOK8F4SycOEMKYh8v
-         sL0GjfxoE3mkDmMsN3tlXQqA3L1DBCiWlyTQkzyvLf8LW16I9kg00PRKRfItgj8jriMi
-         P/6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782002789; x=1782607589;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1782002792; x=1782607592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=TI9LIWoTUwIdAN+9blNOOm/EKtO+7hwNGRKe2i/GtZ8=;
-        b=HQJDue+IATmBGo3Qi1wpXDRF89ZhRxbiE538vmgTeyPqSDakckY3vKVgE79yIOL4Qy
-         t+D4in9jrmRfUt6ykqVAlB4vsMF2WKhlzycKg6J9V46vyxA7joYHW9slCKQggo+ORo8W
-         L+XECzUpmssWRGaDHybNppWP/yfO2XJQ3vwr2dwajneg/a3Y7FACc5zyBxqxBQxQuPMj
-         shYy6oGuo7swZZBVZdOhBZc4ZV//vqi8FUx0yH9L6hqpfWrRcL+pIT/MEErSU/OXDY79
-         6IC6E1SnpTg8j0J0730rLgS7HdDtDf6Bwh5o3eN+KtWbgg4nwQTDY/fAhpP5xPevAm7I
-         EV5w==
-X-Forwarded-Encrypted: i=1; AFNElJ9XPzOfzZtCY1w5JKm+Yc8m98ueuE641lN3K+RCJGsuZMS9ctJ59za9ZV8Nup/Bu4aVC3wO/ei7+h+h@vger.kernel.org
-X-Gm-Message-State: AOJu0YyWieoo1CUvGYL6w+bX+5xyUA1jBX7mcV0VhlleivdhUNZPyuaG
-	3eFLdJ9mNeodkpOPaJffPLXmJvFo3jDhYu0361Mjqe2i/7r9Na0hpZtt
-X-Gm-Gg: AfdE7ckoFEqGxo2lTRJKDW8Juk8MFxLQFpl0cqwXCfccaro3+LtniOgloA/iqQevZpJ
-	9cScFFq1LptxAKSXmX9q58e4pPDTai/JIFYlOXH94HP4OYreBazg9hno41/Ieh6WOnUiLkAcgOY
-	FxXJjsc1SGVnMDQsiqCEizwMZvj6LeMOJ9RkoCZHfQ7cVS6hTYETlmsTI5AQYBQehS1NB8DCizd
-	iXT5CqN6pqp510iwUFs3xdXAqj3IADShvMygIlHln6PpGS3MnsQ8FoIuetZmOCIrNbGbRgbYf4E
-	ZatQ1pDYoL31Tc/ttiIbwSMPZ538LqJtjSYKaLQrLPOMtAIfWCOhLmJyY+4y61H2dwQPYp6Nyxd
-	qhO3Wfc/w1lBjzSDpKxBMOD3h3MosccRqeoUmXmogTq50adnrtkLMTgt6K7T12NuqkqIWKwdbYF
-	QjsK976zsrq6ewJZvVekvFyG1rqyuhNNxLaApZXSiT+6QOOzVpf2l4SZcaeQ==
-X-Received: by 2002:a05:6820:2d43:b0:69e:219:603f with SMTP id 006d021491bc7-6a0d8999ef5mr7698515eaf.42.1782002788867;
-        Sat, 20 Jun 2026 17:46:28 -0700 (PDT)
+        bh=IhmKD0rjdssQNbMQQrxwrasxhIABHPuvnpVZkgFEOmk=;
+        b=k3RBLezplPB7zmas29z18bfQ+1bGn+gT3DpYd6NYioe0BXSLknyOgFWLg5G9WEugq5
+         ZUDsVpHNLK+B0JwibWp+Nxl6XSoVx5KzGmrIMZoi/eF5KGfKTBpwpbOGSBOCpN81AcrR
+         AV8rekOvsWJ0u0GBoJPco20EZ4FadZDTbNQjaGf188EbIlVT9CvY3yz3i/cTjN1pnNx2
+         eEeWUttD7C3OtWK7R1VuWhe4uKd8u+VytLHr1kk/PNIJU0M7nfvTpCQiEaXCRJ5T5Wht
+         06RonQhcTJkeAcmbkG080QFjlag0peph+OVKetyzhyqFJr+oS0mEQoTNZuYTAFwGs10S
+         M5IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782002792; x=1782607592;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IhmKD0rjdssQNbMQQrxwrasxhIABHPuvnpVZkgFEOmk=;
+        b=OfsoJcz0MHa5zCuVAXB0Ix6slUqbe5173Xuwoyo4CPjuqqp6h48kx5QMmUExdznQOx
+         Ib9PWBVWes8OdNhLKJNDmb98LTifWZypOTjpX+OsdWzEbyriXjlfNlPVsnshmA2BVFyS
+         lrphiKfQv1xMPpafpJsVFecXLihAYcb/6EiiaYZT7hj+QTcNBfpdlAqVCNN1trCVzWKM
+         2GLzCxINsdZBHG7nJ6cBf6SHU44plgmux4TQr2jEjhyZ0t4QtBwKLCDz2l/nzjivzUHv
+         259ht8PPP/+LcQ8UtAFS96KjyHbPFstE8GMihQwkh5bCvKktZ2Hyy4lYFhCetiayQiSK
+         vDvg==
+X-Forwarded-Encrypted: i=1; AFNElJ/o3vcfSAr9dy30pglH8nFuxM+wpqdwVLE1uA+s8js/irue7xr9xI/jK5/V+PwGk/YSjyUV2oNm/ik5@vger.kernel.org
+X-Gm-Message-State: AOJu0YxwxioOb8E+A8AjhpqUrZdyBJF1cTR+IA4+lhhR2txVORcBLrOv
+	mYFK+F18BcHYjTAzlFQMi01FkE1B1ADjbAXaz3GltSINRxVfvTiaTX8e
+X-Gm-Gg: AfdE7clAsGPoKhdNMjACDw+S6AzjSWRQUA7YJFVqZ1e3v6mh2lT12UHZCIgg7Bt3UNy
+	Xg2G1GoPXPu6ZCc33OQD19hriZnTuP4IXpdm5KRE/P24YbVeAkDXzJj52eKS6v311xbrk0Fdi/p
+	QMd3dgbroT85kzjgpw9/OE0NSOvuGG6JK/+wUBpwkO6OyrjOksm8Hqo3QdZxBWf1BYwMIsefP2v
+	mw+PidzaPh38mAcFgma/jXPNE2WK6NPFlkXfwLvTBaTaSHm7LGFqc10fngNpan828w3fefkNROq
+	uRSi/nlKD/1Oh8BkXTaX2PSVxPxsVJKR9VcLuFvcrEqYG+Hmx9EkTaV9ocmmjYiSrK+g7bN9sxD
+	p1JSyyokCSAbNBlIJRJ2lu7YJWDzvaFJrng95oDeKMPuj9lIVloL1JHIHzdzvoX56eDiNqcut0d
+	c4PeKnPf8w2ODIeyp3rMYXzCW92SgU+VXN4SKwmIxvLNxZqQ8PWw1ll+OIdQ==
+X-Received: by 2002:a05:6820:1b14:b0:69d:e2fc:361a with SMTP id 006d021491bc7-6a0d90260f2mr7086804eaf.35.1782002792361;
+        Sat, 20 Jun 2026 17:46:32 -0700 (PDT)
 Received: from linuxescape.lan (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec5fd4csm3080457fac.2.2026.06.20.17.46.27
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec5fd4csm3080457fac.2.2026.06.20.17.46.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2026 17:46:28 -0700 (PDT)
+        Sat, 20 Jun 2026 17:46:31 -0700 (PDT)
 From: Maxwell Doose <m32285159@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -67,10 +69,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 0/2] iio: temperature: Add support for the STS30 temperature sensor
-Date: Sat, 20 Jun 2026 19:46:22 -0500
-Message-ID: <20260621004626.66629-1-m32285159@gmail.com>
+Subject: [PATCH v2 2/2] iio: temperature: Add STS30 temperature sensor driver
+Date: Sat, 20 Jun 2026 19:46:24 -0500
+Message-ID: <20260621004626.66629-3-m32285159@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260621004626.66629-1-m32285159@gmail.com>
+References: <20260621004626.66629-1-m32285159@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,24 +83,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Add a driver for the Sensirion STS30 family of temperature sensor
+drivers over I2C. The STS30 family of sensors includes the STS30, STS31,
+and STS35, all of which are supported by this driver, since they all
+share the same commands, etc. and only differ in accuracy and tolerance.
 
-This patch series adds support for the Sensirion STS30 temperature
-sensor family. This driver currently supports non clock stretched single
-shot measurements.
+The driver currently supports single-shot non-clock stretched readings,
+by using a specified delay based on the repeatability/delay specified
+by the user. The repeatability/delay can be changed at any time through
+sysfs.
 
-Given there were very little issues found with the v1 submission, I've
-decided to make this a regular patch series rather than an RFC patch.
+Additionally add Kconfig and Makefile entries for the driver as well as
+a MAINTAINERS entry.
 
+Signed-off-by: Maxwell Doose <m32285159@gmail.com>
+---
 Changes since v1:
-* whole series:
-- Squashed MAINTAINERS updates into both the dt-bindings commit and the
-  driver commit.
-
-* dt-bindings:
-- Added ALERT pin as an interrupt and in the examples.
-
-* driver:
+- Squashed parts of the MAINTAINERS commit into this commit.
 - Fixed a mixup between the clock-stretched and non-clock stretched
   commands.
 - Fixed an issue where the return value of sts30_reset() was ignored.
@@ -109,19 +112,394 @@ temperature in Celsius alongside a macro.
 - Removed unneeded comments.
 - Used named initializers for sts30_id and moved above _probe().
 
-Maxwell Doose (2):
-  dt-bindings: iio: temperature: Add STS30 devicetree bindings
-  iio: temperature: Add STS30 temperature sensor driver
-
- .../iio/temperature/sensirion,sts30.yaml      |  55 +++
- MAINTAINERS                                   |   6 +
- drivers/iio/temperature/Kconfig               |  11 +
- drivers/iio/temperature/Makefile              |   1 +
- drivers/iio/temperature/sts30.c               | 329 ++++++++++++++++++
- 5 files changed, 402 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
+ MAINTAINERS                      |   1 +
+ drivers/iio/temperature/Kconfig  |  11 ++
+ drivers/iio/temperature/Makefile |   1 +
+ drivers/iio/temperature/sts30.c  | 329 +++++++++++++++++++++++++++++++
+ 4 files changed, 342 insertions(+)
  create mode 100644 drivers/iio/temperature/sts30.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7f94b8cac3e2..6bb361ac213f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24491,6 +24491,7 @@ SENSIRION STS30 TEMPERATURE SENSOR DRIVER
+ M:	Maxwell Doose <m32285159@gmail.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/temperature/sensirion,sts30.yaml
++F:	drivers/iio/temperature/sts30.c
+ 
+ SERIAL DEVICE BUS
+ M:	Rob Herring <robh@kernel.org>
+diff --git a/drivers/iio/temperature/Kconfig b/drivers/iio/temperature/Kconfig
+index 9328b2250ace..c23a9c40c725 100644
+--- a/drivers/iio/temperature/Kconfig
++++ b/drivers/iio/temperature/Kconfig
+@@ -88,6 +88,17 @@ config MLX90635
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called mlx90635.
+ 
++config STS30
++	tristate "STS30/STS31/STS35 temperature sensor"
++	depends on I2C
++	select CRC8
++	help
++	  If you say yes here you get support for the Sensirion STS30,
++	  STS31, and STS35 temperature sensors over I2C.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called sts30.
++
+ config TMP006
+ 	tristate "TMP006 infrared thermopile sensor"
+ 	depends on I2C
+diff --git a/drivers/iio/temperature/Makefile b/drivers/iio/temperature/Makefile
+index 07d6e65709f7..9c9bf8d1b70e 100644
+--- a/drivers/iio/temperature/Makefile
++++ b/drivers/iio/temperature/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_MCP9600) += mcp9600.o
+ obj-$(CONFIG_MLX90614) += mlx90614.o
+ obj-$(CONFIG_MLX90632) += mlx90632.o
+ obj-$(CONFIG_MLX90632) += mlx90635.o
++obj-$(CONFIG_STS30) += sts30.o
+ obj-$(CONFIG_TMP006) += tmp006.o
+ obj-$(CONFIG_TMP007) += tmp007.o
+ obj-$(CONFIG_TMP117) += tmp117.o
+diff --git a/drivers/iio/temperature/sts30.c b/drivers/iio/temperature/sts30.c
+new file mode 100644
+index 000000000000..dcfe3435ae5a
+--- /dev/null
++++ b/drivers/iio/temperature/sts30.c
+@@ -0,0 +1,329 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) 2026 Maxwell Doose
++ *
++ * Sensirion STS30 temperature sensor driver
++ *
++ * Datasheet: https://sensirion.com/media/documents/1DA31AFD/65D613A8/Datasheet_STS3x_DIS.pdf
++ */
++
++#include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/cleanup.h>
++#include <linux/crc8.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++
++#include <linux/iio/iio.h>
++#include <linux/iio/types.h>
++
++/*
++ * STS30 measurement to Celsius conversion formula:
++ *
++ * T = -45 + 175(S[T]/(2^16 - 1)
++ *
++ * Where S[T] is the raw sensor output. We use this formula to calculate the offset.
++ * Using this we can calculate the offset to be -16852.
++ *
++ * See section 4.12 in the datasheet for more info.
++ */
++#define STS30_TEMP_OFFSET -16852
++
++/* Amount of bytes received from the STS30 after a read command */
++#define STS30_MEAS_SIZE 3
++
++/* Size of the temperature measurement data received after a read command */
++#define STS30_TEMP_MEAS_SIZE 2
++
++#define STS30_COMMAND_READ_HIGH_REPEAT 0x2400
++#define STS30_COMMAND_READ_MED_REPEAT 0x240B
++#define STS30_COMMAND_READ_LOW_REPEAT 0x2416
++
++#define STS30_COMMAND_RESET 0x30A2
++
++/*
++ * sts30 includes a CRC8 checksum at the end of its i2c responses. The polynomial
++ * is used to generate the CRC8 table and the seed is the starting value.
++ */
++#define STS30_CRC8_POLYNOMIAL 0x31
++#define STS30_CRC8_SEED 0xFF
++
++DECLARE_CRC8_TABLE(sts30_crc_table);
++
++enum sts30_read_delays {
++	STS30_REPEAT_LOW = 4500,
++	STS30_REPEAT_MED = 6000,
++	STS30_REPEAT_HIGH = 15000
++};
++
++struct sts30_data {
++	struct i2c_client *client;
++	struct mutex lock; /* Mutex for serialized communication on the i2c bus */
++	/*
++	 * sts30 has three potential repeatability/measurement durations. We need to
++	 * account for them while reading the i2c bus.
++	 *
++	 * See section 2.2 in the datasheet for more info on processing times.
++	 */
++	enum sts30_read_delays delay;
++};
++
++static int sts30_verify_crc8(struct sts30_data *data, u8 buf[STS30_MEAS_SIZE])
++{
++	int crc;
++
++	crc = crc8(sts30_crc_table, buf, STS30_TEMP_MEAS_SIZE, STS30_CRC8_SEED);
++	if (crc != buf[2]) {
++		dev_err(&data->client->dev, "Expected CRC8 value of 0x%02x, got 0x%02x\n",
++			buf[2], crc);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++static int sts30_read(struct sts30_data *data, u16 command, u16 *val)
++{
++	u8 buf[STS30_MEAS_SIZE];
++	u8 tmp[2];
++	int ret;
++
++	put_unaligned_be16(command, tmp);
++
++	ret = i2c_master_send(data->client, tmp, sizeof(tmp));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(tmp))
++		return -EIO;
++
++	fsleep(data->delay);
++
++	ret = i2c_master_recv(data->client, buf, sizeof(buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(buf))
++		return -EIO;
++
++	*val = get_unaligned_be16(buf);
++
++	ret = sts30_verify_crc8(data, buf);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static int sts30_write(struct sts30_data *data, u16 command)
++{
++	u8 buf[2];
++	int ret;
++
++	put_unaligned_be16(command, buf);
++
++	ret = i2c_master_send(data->client, buf, sizeof(buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(buf))
++		return -EIO;
++
++	return 0;
++}
++
++static int sts30_reset(struct sts30_data *data)
++{
++	int ret;
++
++	guard(mutex)(&data->lock);
++
++	ret = sts30_write(data, STS30_COMMAND_RESET);
++	if (ret)
++		return ret;
++
++	/*
++	 * Datasheet dictates that the maximum time for a soft reset is 1.5ms.
++	 *
++	 * See section 2.2 for more info on timing.
++	 */
++	fsleep(1500);
++
++	return 0;
++}
++
++static int sts30_read_raw(struct iio_dev *indio_dev,
++			  struct iio_chan_spec const *chan, int *val, int *val2,
++			  long mask)
++{
++	struct sts30_data *data = iio_priv(indio_dev);
++	int ret;
++	u16 tmp;
++
++	guard(mutex)(&data->lock);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		switch (data->delay) {
++		case STS30_REPEAT_LOW:
++			ret = sts30_read(data, STS30_COMMAND_READ_LOW_REPEAT, &tmp);
++			break;
++		case STS30_REPEAT_MED:
++			ret = sts30_read(data, STS30_COMMAND_READ_MED_REPEAT, &tmp);
++			break;
++		case STS30_REPEAT_HIGH:
++			ret = sts30_read(data, STS30_COMMAND_READ_HIGH_REPEAT, &tmp);
++			break;
++		default:
++			dev_warn(&data->client->dev, "Repeatability state corrupted, got: %d\n",
++				 data->delay);
++			return -EINVAL;
++		}
++
++		if (ret)
++			return ret;
++
++		*val = tmp;
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_OFFSET:
++		*val = STS30_TEMP_OFFSET;
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		*val = 175000;
++		*val2 = 65535;
++		return IIO_VAL_FRACTIONAL;
++	case IIO_CHAN_INFO_INT_TIME:
++		*val = 0;
++		*val2 = data->delay;
++		return IIO_VAL_INT_PLUS_MICRO;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int sts30_write_raw(struct iio_dev *indio_dev,
++			   struct iio_chan_spec const *chan, int val, int val2,
++			   long mask)
++{
++	struct sts30_data *data = iio_priv(indio_dev);
++
++	if (val)
++		return -EINVAL;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_INT_TIME: {
++		guard(mutex)(&data->lock);
++
++		switch (val2) {
++		case STS30_REPEAT_LOW:
++			data->delay = STS30_REPEAT_LOW;
++			break;
++		case STS30_REPEAT_MED:
++			data->delay = STS30_REPEAT_MED;
++			break;
++		case STS30_REPEAT_HIGH:
++			data->delay = STS30_REPEAT_HIGH;
++			break;
++		default:
++			return -EINVAL;
++		}
++
++		return 0;
++	}
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info sts30_info = {
++	.read_raw = sts30_read_raw,
++	.write_raw = sts30_write_raw
++};
++
++static const struct iio_chan_spec sts30_channels[] = {
++	{
++		.type = IIO_TEMP,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_OFFSET) |
++				      BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_INT_TIME)
++	},
++};
++
++static int sts30_probe(struct i2c_client *client)
++{
++	struct iio_dev *indio_dev;
++	struct sts30_data *data;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	indio_dev->name = client->name;
++	indio_dev->info = &sts30_info;
++	indio_dev->channels = sts30_channels;
++	indio_dev->num_channels = ARRAY_SIZE(sts30_channels);
++	indio_dev->modes = INDIO_DIRECT_MODE;
++
++	data = iio_priv(indio_dev);
++	data->client = client;
++	data->delay = STS30_REPEAT_HIGH;
++
++	ret = devm_mutex_init(&client->dev, &data->lock);
++	if (ret)
++		return ret;
++
++	i2c_set_clientdata(client, indio_dev);
++
++	ret = sts30_reset(data);
++	if (ret)
++		return ret;
++
++	return devm_iio_device_register(&client->dev, indio_dev);
++}
++
++static const struct i2c_device_id sts30_id[] = {
++	{ .name = "sts30" },
++	{ .name = "sts31" },
++	{ .name = "sts35" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, sts30_id);
++
++static const struct of_device_id sts30_of_match[] = {
++	{ .compatible = "sensirion,sts30" },
++	{ .compatible = "sensirion,sts31" },
++	{ .compatible = "sensirion,sts35" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, sts30_of_match);
++
++static struct i2c_driver sts30_driver = {
++	.driver = {
++		.name = "sts30",
++		.of_match_table = sts30_of_match,
++	},
++	.probe = sts30_probe,
++	.id_table = sts30_id,
++};
++
++static int __init sts30_init(void)
++{
++	crc8_populate_msb(sts30_crc_table, STS30_CRC8_POLYNOMIAL);
++
++	return i2c_add_driver(&sts30_driver);
++}
++module_init(sts30_init);
++
++static void __exit sts30_exit(void)
++{
++	i2c_del_driver(&sts30_driver);
++}
++module_exit(sts30_exit);
++
++MODULE_AUTHOR("Maxwell Doose <m32285159@gmail.com>");
++MODULE_DESCRIPTION("Sensirion STS30 temperature sensor driver");
++MODULE_LICENSE("GPL");
 -- 
 2.54.0
 
