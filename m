@@ -1,169 +1,197 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE9925B0A0
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 13:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB6E242910
+	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 13:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782048776; cv=none; b=a33k9Ed9WiSwGc8kmCPC+n6FH1YJFEyiod3CIuIAfD8qN+bamSLTGWTBWpLfjjOwv7s9x+TAghPEMsMTyQHY5AIj2iloM0zSGCSjJlmu8X/p3YputsrgCEHMvTqAQ+KfhmUTkKrc0xNUbzRgY40jANu8kD524z6hvvXQm/m4Z0U=
+	t=1782048924; cv=none; b=F+bKJE9GRvXhXWFBjLtSanOuHRYxIo+1YBJLazoQoSdRdjNj+69Tv7rLeeSsLNbtftk+NGD/VCUNUm7x4gwSdBON+dmtp+FLc6++KAXL+1eYYuhrgt7LQpq0EYHhqhX3+0me6c4LP21Y+FYmivVUMYwK7MInEfBPzhCLOag5sb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782048776; c=relaxed/simple;
-	bh=ipa76yU2Zw2tR6ryZjmIAUocwMFzX+D5OAP1yIQC2TQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QT0EWhGDazBBEFpR7vR3N8Nztc1N5ER6azXasHFV/Cn0XpQGibe1HMEKsjG0FSkA7t/AkK+4kbDl+BxoDwipvjGxGMu/pDshW+oW+zCjWNj7gJe992k9k2SqTsxnqdv5I+XVACwhbxiZ51YCPdxla0+1QRxhAQRQZnwgx6P/crk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FAX3WVq1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FcEYgKGc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782048924; c=relaxed/simple;
+	bh=7JCnVAFhFlMcb0l+PNAP37agEA9T5pW/doTDbUhu+Mg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GYiNEHl00Wq0C4IsVZY4F/zhKmfCcN7Qpmx1NMGe7ovHl+eJdIQ+A3iRmCWH2vJ6H1AYAPetF7Mddird8AaDuukfXYncUQmAU5AynSzNGy6YQ5DwdU6ax01yeQuTgMeIIiXK6mUniVKyf8Fq9mO+cv+HsXlwDZA589SPv5pPE8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTas8wc6; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FAX3WVq1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FcEYgKGc"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65LBF57L2164429
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 13:32:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fs6NaHP7AmEMbNJiFexcpcvlroCJD3XXYlYKwSLAvFM=; b=FAX3WVq1SoL6yjNv
-	AQywfDqvT7JbCuHP/KBgkO+iAyKEtH5eNs+FS3a852P/F4jlVaOzn3oJvTuHjdnI
-	614BgeK42S9XWXwt9Q4xxty240TzHc6VbbefLaJms7YWAIUTs2VVjBLZRPfaMlZY
-	G5BJ7tQbqhhpEF5KVmwTtHwIp3a4ps6fCBG+qipT9fAeZSHydApbm5kJQvaCsq3T
-	K3eGUzgdAy7oKH/R5NKfysI1O8LG6/ZbBjDn06uICtemjHR+Yx+H2K/u6W9YeIGM
-	nx7A9hoZ7XQ9dZWP5RhazwwKwARkNEGxjpBvjOZs6lses1cNqUb3BTf4rxTB/cKI
-	4Ot+IQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewg7mkdh3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 13:32:54 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-37d4f1f836aso730376a91.3
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 06:32:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTas8wc6"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84347ad88edso2927035b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 06:35:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782048773; x=1782653573; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fs6NaHP7AmEMbNJiFexcpcvlroCJD3XXYlYKwSLAvFM=;
-        b=FcEYgKGcXvFBl5ozOfEMTcxrzTrhkLgKAae51tab0ClLKvJvZIxiW7OTLtL6BIacp+
-         cQU91kVWDA/zfO/0XZ8Xq3HAsPdQQGVCgA++mh1fx8wlAIfLLuSBpJ/A1Zph65dNIcso
-         Nmi5wTsNSWHYrNVIuTwAMY/j7PHjUuWxHAqDjPKHiWk9lgib4tJbvuUcFxL62ptvsrPd
-         zhtJpsfmWktCF6AMAmtmVygP/6vXE6S6X9FnPD0fh0eVQdzbcJ6jEbVdNgz8B/WEvUwF
-         R+RUBPDJDY4P7uKXLPUtbhQv7rwieMMbwe+jQZoqaSs1XI4zMkfmpWH0VY43kaiyA2KE
-         Uprw==
+        d=gmail.com; s=20251104; t=1782048921; x=1782653721; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=B2yda05V6cTcWFnExOApx6SpU7sKiC7KgPbiEUoNzwo=;
+        b=DTas8wc6N2RUOUAi3Oyu73qEl+bN0C5ylatO38lZX+fu4bsF83LmGJ5g8czyMfbB/7
+         SDWI0KVpgRLRNsTIw52jcglW6aB4y3HeDJbCWV0loJI++OlAESsEDpO033Ywvb96sGF7
+         3n0agdyx/E2R7ClqibaJi/F2sIAznlP9okMDlHvUG8xmGSbToX6mgUbYeenqkG30H28i
+         Q2LGqtRtODSgsdqCnkm0vkG8ClIIr9+pQaPPHg6Q47ZvMkcPnfQr7wja3OCr+APPbv4D
+         Z1bP5odHR+57KSjz7O//U8YA0D6TfZZv3V4RTISRv3PcDPYRhip9OdC1ngjGompVwZSc
+         IwaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782048773; x=1782653573;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fs6NaHP7AmEMbNJiFexcpcvlroCJD3XXYlYKwSLAvFM=;
-        b=gMFd7/GAufeBDTVIW4JKkiK63raxgB0dP5NQSubKRtx6OfmTgVtxVqInXYgEXxV6VJ
-         Ht16+mDsaNUnK10x4N6y5Un8YwR000ySbVWQLo4zMfU2iT3sj0hTkVosCjWgvqYGH+bc
-         Qe+KhXaHKzick+t7HSQ4VHn1lyPhKYs3I1htpeokYSCT5oF+iTwZrAz4kGeOiqcqCHyj
-         /a0EQ9SNN365oPEQSr6qtF1ZnbFVV/sAc2kreyNhCcox9lJVYxi35FkWfrzCh5FR+LN1
-         ZkGdS3rV2MNjooGJtP1RliTBgXiJKHqlxJNtJ9NehRBI6IQ3ylIX5Ulk+ATBCEqbwcWQ
-         rQBA==
-X-Forwarded-Encrypted: i=1; AHgh+RqQj+/fmeIAzWTqGfbH421w3Vpboos4HDgqsb+pRrw04yIY+nhm+RclqfXl0IwE03Vy7o91p2bCtAiM@vger.kernel.org
-X-Gm-Message-State: AOJu0YyihfqqsC7Q80UoVqyrtu2EerlgpKxDyv0eNQaE+8Xq6E1W1IiG
-	e0bNUB/mLjwGQiX2G/iYS8jeixuplESeSRAawgU9ey0OdcH49wf/VpeXUj1joEnO/gcwRST+bcr
-	hQlEc36yJwsVhkfz+lFdpWsgcp+uXyvF56DNFKkaYcct6KWzWvm8tiBww9ZUZbgjB
-X-Gm-Gg: AfdE7cm6qWMc8DbD620vCvm7uSHngOLGVjuDvbjx6YAf867tpIsZHxD1/UWyNuo/KlZ
-	LLTvOm2Db8TzGrYDJiU+54uSCJ0uw2y5CC6wzXdTnNpFWBpVJXNzfOG31I4ZHnSRlImAcyn0W+h
-	iV2+kp7kja0gVWNsKqk6suALqt8uc5gTxO/URzYa8MkQTbFG3FEMWgqqfwFqTy4IjGoGE6Nx6ju
-	9stHTieGDrrW75w1rG8N7ZSd/69oE5DaloC3DVLycuhPmCtGuRgeLpycL4oLLRs9IqkdFq5T5eq
-	J8cPaDgiPkknnvPH3cHytkMqOT32dmceRdcoqZDz1V1AkZWHEUY/bOUaNXa/8ohH/jaXaL5rBwM
-	BYZRxoRrZBVHOCXrdgkYsRrn6ucH9n2n3JgX6foBe
-X-Received: by 2002:a17:90b:48:b0:36d:5d1c:c4ad with SMTP id 98e67ed59e1d1-37d160e49f9mr10095815a91.9.1782048773229;
-        Sun, 21 Jun 2026 06:32:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:48:b0:36d:5d1c:c4ad with SMTP id 98e67ed59e1d1-37d160e49f9mr10095791a91.9.1782048772761;
-        Sun, 21 Jun 2026 06:32:52 -0700 (PDT)
-Received: from [192.168.29.32] ([49.43.225.115])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc563c406sm4527649a12.19.2026.06.21.06.32.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Jun 2026 06:32:52 -0700 (PDT)
-Message-ID: <86441f81-05c0-4561-93df-53783e5b9674@oss.qualcomm.com>
-Date: Sun, 21 Jun 2026 19:02:44 +0530
+        d=1e100.net; s=20251104; t=1782048921; x=1782653721;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B2yda05V6cTcWFnExOApx6SpU7sKiC7KgPbiEUoNzwo=;
+        b=aJ8b2DNlFsDfToNwL52xt1/NYq0JEcfplhHLJErPoM0XU4L2SrSxGR6rkAGJyZdl0d
+         jUv9uR/5ASlEvh45/yFiUiXtfTOIifU89r4OEveyBa4zVmqpsAw8WyLAu6bRnpiH/dei
+         thxzsE0fmiRpLJR6b/QFDLULUF8ysZyS89W8Ku4ecJC1gKYO/vzJ8KYS9SXL+vcTAz/O
+         ZuDiCm6dDCNr7XU6G8Z4auM4a1CdQxlQqi6ZhAfaAQkOJ4S84fdoyXCLE9ox+kVLSDau
+         /K0/fxezaf3eMvEOy2EjeCxDP+GXazAWPg3NPaosSMfDmjULvKB0pf/io/AFmwxsQiFS
+         nK2g==
+X-Forwarded-Encrypted: i=1; AFNElJ8uu5/RzrlmClfXy/wta8yF0J+wdiYKxR6cX3itp6Wq918BgeDJg5LSj+RTmWSKj/DL/EFB+B4BDtGA@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzu8jsA7ei5vS+etqDWh57eK+cclYXSWYIYCI8LBIF9zqQZrx6z
+	ncHetiHirLodhqmhUE/CsO5+lVkYeC089Ltpcdn1Bk0EFUJMHt0WYxwPKFNz7DmawWE=
+X-Gm-Gg: AfdE7ckFgo6Haf8FQWgoISBaVdcvZEJoZPskIkjJTGLEh5PTLsdPWiHdNUgXGY8rejV
+	UeQD3+i+k3XUgvYLdEBVDlal7f/RtVFPFOqRIUe6nw0/AmWeMa/sB4P5+TGzlE++hMydrf5XHYg
+	oIO9DaRO0xvDI4wlegMjSb3cDZmUVIdq11QMUrhgAdJc9azbeWmwM2+Mj2evWxOlJ0+OUXIBMDG
+	jGZqAFs27GPSxuwqDkf8VGtwc2qs2V/t96D1Vua12dlix/5lxnirqlSwMvvpXMaBAbogajMx7tf
+	zmgbBHnbSXKgaL9yeu4IlaEx87m/iDr98LyZ883Pf/Z77XCO1+0qN9jMv+h3zJeHjgWcrBaVhWz
+	sR9D79Xzz+hrp34qKkxJsP5u4SXQbXgknmZVYCvWrHvym6+h/ZyKNCakp4+Ga9lVDrPOn2VMJaT
+	8KppnX255O09Bi+QgXOB6jWaK1ozKv6ILvlsStt8tG/w==
+X-Received: by 2002:a05:6a00:2789:b0:842:6fec:1297 with SMTP id d2e1a72fcca58-8455078a336mr11186859b3a.9.1782048921205;
+        Sun, 21 Jun 2026 06:35:21 -0700 (PDT)
+Received: from kernel-dev ([49.36.101.14])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564d6c5dbsm4502601b3a.12.2026.06.21.06.35.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 21 Jun 2026 06:35:20 -0700 (PDT)
+From: Aditya Chari <adi25charis@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: jacobsfeder@gmail.com,
+	devicetree@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Aditya Chari <adi25charis@gmail.com>
+Subject: [PATCH] dt-bindings: misc: add binding for Xilinx AXI-Stream FIFO
+Date: Sun, 21 Jun 2026 14:22:09 +0530
+Message-ID: <20260621085209.52651-1-adi25charis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/13] clk: qcom: gpucc-qcm2290: Update GDSC *wait_val
- values and flags
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Brian Masney <bmasney@redhat.com>,
-        Ajit Pandey
- <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260604-shikra-dispcc-gpucc-v4-0-8204f1029311@oss.qualcomm.com>
- <20260604-shikra-dispcc-gpucc-v4-10-8204f1029311@oss.qualcomm.com>
- <xcujjo7qdgoupayq5zrddl7gii7s2ljhunvav2jjzynykg7za4@ifykyjburvea>
-Content-Language: en-US
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-In-Reply-To: <xcujjo7qdgoupayq5zrddl7gii7s2ljhunvav2jjzynykg7za4@ifykyjburvea>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIxMDEzNyBTYWx0ZWRfXzV85nJUJBxMM
- D7wuh3yBJ16tEPprZ6HOEPG+AcgmJTmyZWbvn084TvqZrSASUOp99EIM0EwNDiqPeyZ2sCLOGf5
- Leh7INxDvDMpUCanQFhrC3tY/CUUVZJry57TyaAgyTosLQxjbZMtHkD8vApvPfkGZRKLZAAqrQm
- hvs8plW2tO38zsE03dwXEIV9cqrcD/0BlqcMy/OEY7Q/hE+kXUS2PbpeOhJYl1JI3AdGPzD0gOr
- faVYNUMvrduN/E3gl3WXTml5WTD7+/YapMz64pfJGbop5QThrXUK92X/Q8PhPz7Wl1U/CK0VA94
- QLHzdmKgQwkuIt9b0cn3+Jlooo/myh3jvTo3JFmuFTA+5opzrlDKi1M7nC2x3lhot8dBOnWgszn
- RRFHi7zYpPkmBIpGFzMLICFa/C5XK/FuvA/AP6ozhKl8q7upjKsVlL483up65VaesUToNm2NKdI
- mGfSMR+8pZyH1a6EvBg==
-X-Authority-Analysis: v=2.4 cv=IOMyzAvG c=1 sm=1 tr=0 ts=6a37e806 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=HwFTmRh04JSsUSWzyQ2edw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=r43F9ePfV2yG36ZfAfQA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIxMDEzNyBTYWx0ZWRfX/QYFQUaGnfqD
- esUC4tLHxa2DA2q0+3ME77OMrcj4QmVSE1EK1h2Y3Zbu6Du5ka9XKmA8aepjCLqnVqKOWYMyKsL
- 8yfsSMJANQv2EqfahmtjUWyiyCaVW/Q=
-X-Proofpoint-ORIG-GUID: vM6ZITH7mxMy2fv3A0kl3hEcj0yxtaH5
-X-Proofpoint-GUID: vM6ZITH7mxMy2fv3A0kl3hEcj0yxtaH5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-21_01,2026-06-18_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606210137
+Content-Transfer-Encoding: 8bit
 
+The axis-fifo driver's compatible strings were undocumented, flagged
+by checkpatch.pl as UNDOCUMENTED_DT_STRING. Add a devicetree
+binding document describing the required properties
+for drivers/staging/axis-fifo, derived from the properties
+the driver reads via of_property_read_u32()
+in axis_fifo_parse_dt().
 
+Signed-off-by: Aditya Chari <adi25charis@gmail.com>
+---
+ .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 95 +++++++++++++++++++
+ 1 file changed, 95 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 
-On 06-06-2026 05:01 pm, Dmitry Baryshkov wrote:
-> On Thu, Jun 04, 2026 at 10:56:16AM +0530, Imran Shaik wrote:
->> Update the QCM2290 GPUCC GDSC wait_val fields to match the hardware default
->> values. Incorrect settings can cause the GDSC FSM to stuck, leading to
->> power on/off failures. And update the GPUCC GDSC flags to retain the
->> registers, and poll for the CFG GDSCR as applicable.
-> 
-> Separate commits, explanations, justification, etc. E.g. why are the
-> flags being set only to the one of the GDSCs?
-> 
-
-Sure Dmitry, I will split the patches and update the commit text with 
-justification details in the next series.
-
->>
->> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->> ---
->>   drivers/clk/qcom/gpucc-qcm2290.c | 10 ++++++++--
->>   1 file changed, 8 insertions(+), 2 deletions(-)
->>
-> 
+diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+new file mode 100644
+index 000000000..8ef0adde3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx AXI-Stream FIFO (axis-fifo)
++
++maintainers:
++  - Jacob Feder <jacobsfeder@gmail.com>
++
++description:
++  The AXI-Stream FIFO (AXIS-FIFO) IP core provides a memory-mapped AXI4-Lite
++  interface for sending and receiving data over an AXI4-Stream interface
++  using FIFO buffers. See Xilinx PG080 for IP details.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,axi-fifo-mm-s-4.1
++      - xlnx,axi-fifo-mm-s-4.2
++      - xlnx,axi-fifo-mm-s-4.3
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  xlnx,axi-str-rxd-tdata-width:
++    description:
++      Width in bits of the AXI4-Stream receive data interface. Only a
++      width of 32 is currently supported by the driver.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++
++  xlnx,axi-str-txd-tdata-width:
++    description:
++      Width in bits of the AXI4-Stream transmit data interface. Only a
++      width of 32 is currently supported by the driver.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++
++  xlnx,rx-fifo-depth:
++    description:
++      Depth in bytes of the receive FIFO, as configured in the IP core.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,tx-fifo-depth:
++    description:
++      Depth in bytes of the transmit FIFO, as configured in the IP core.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  xlnx,use-rx-data:
++    description:
++      Indicates whether the receive data path is present, as configured
++      in the IP core. A value of 1 enables the receive path, 0 disables it.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [ 0, 1 ]
++
++  xlnx,use-tx-data:
++    description:
++      Indicates whether the transmit data path is present, as configured
++      in the IP core. A value of 1 enables the transmit path, 0 disables it.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [ 0, 1 ]
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - xlnx,axi-str-rxd-tdata-width
++  - xlnx,axi-str-txd-tdata-width
++  - xlnx,rx-fifo-depth
++  - xlnx,tx-fifo-depth
++  - xlnx,use-rx-data
++  - xlnx,use-tx-data
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    axi_fifo_mm_s_0: axi-fifo-mm-s@40000000 {
++        compatible = "xlnx,axi-fifo-mm-s-4.1";
++        reg = <0x40000000 0x10000>;
++        interrupts = <0 29 IRQ_TYPE_LEVEL_HIGH>;
++        xlnx,axi-str-rxd-tdata-width = <32>;
++        xlnx,axi-str-txd-tdata-width = <32>;
++        xlnx,rx-fifo-depth = <2048>;
++        xlnx,tx-fifo-depth = <2048>;
++        xlnx,use-rx-data = <1>;
++        xlnx,use-tx-data = <1>;
++    };
+-- 
+2.53.0
 
