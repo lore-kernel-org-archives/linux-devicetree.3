@@ -1,183 +1,211 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58FD221FB6
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 17:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BFA34252B
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 17:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782150696; cv=none; b=sRctCLvzB5ESaiTMGYcm/CwHbCwkAFtevmGDbLud025BXaY29uSAcikH3/7yrkke3nrcZIZLJnb+TNXaVbjsW+3T5L+/sfg+a1bcwd6NY9txiAwG5dPdi9Hl+cE/d9Ib/nzft7fhhPPbmcwoJM5QADOkMLKzfkwofL2rzK5FWvs=
+	t=1782150734; cv=none; b=RXmX8mnhY1N8TFukjuruhkB0NOmG8dFGlh6NuKzvZ+YH4yfDq0ocpa0srkCwNLohm4YRRJ/NHCbBzS6a8OrcvpFcefSLPhoqSPc3xkBURZBXckH3uJ+Vz4lFeQeFGZ8F8WWU6oKUgQ19HBR0ZUQljU+1HGNFjoswNPKxlfo09Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782150696; c=relaxed/simple;
-	bh=rU66pNh3eSQsYT3HOOaM/C4NT969liCxZxRQ7WDslT8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NEBJK5lXwcy7CufkOH3IS1RDL0yAkzvTy8Y2696vmGtPL3+QeI0qdYVPedViGoyhAhcneYBnLwVCjtvbYUewhmOWBDtWdoVZ/0qwf0FSPXbAwrtDQWCbnhHkV0if5Do7O8Eu/q6Cda9w16N4PKdLGdlbwc2q9si4OZZW0dClBfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OO9HTXEO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O6XXPEP3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782150734; c=relaxed/simple;
+	bh=phde+2c+y1PP9o+vu6bFzca28DkhbqXg0K330uAMoyM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PsAJuyyIEVek4mHRxnrd+StVXRWhMcft5N7yLnYlyhX/iqsN0+JK0eMPdXCmagRp2q4+UmT5aaKXTwg4b2mlUjSvC4oyhUnXsgrTxS+JGOKgzDYNIAJ7Fkygd2wGszBez6R78gcZQP9ETkPnAS/LAarkmRWFRHB2Nn7LVZ9QVY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgddHNaa; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OO9HTXEO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O6XXPEP3"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65MFXFXL1675287
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 17:51:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2dLP+TVO4tZ92+I0qsy0dTT+zkkqGwfMz4MJYSPYxO4=; b=OO9HTXEOxIEIIcYC
-	kf514nYXGtehIG9U2CEeACRC2QsKKZfA1CwRVO+RSPzeFihmrbTnnuFx0URXowBa
-	TW3tspECGsqsNkKoW+XkUO2hu/iiHusICluQpKqEuQoSInG+aGV8iTz9vabvaYUj
-	lGfkil2VlDGS1EKwJd6cV05WZ+wBT+9rwRalKqwir9NSOYnXyy8BWUbiVRiHWJjA
-	IvXd6uzCWbtyKTthHzn9zgjK4gpOaYRmLGLtFihfltSToI2mGzsK9MfCQzYqPq48
-	nGlOKp5CxvUWHPtvTZ3UnMoYan4i8rs2QgKPy7KXaRuFERMt8gMGlPGCTGy8FDy2
-	Dxp8rw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey6tmrtny-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 17:51:33 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c8923722247so7072379a12.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:51:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgddHNaa"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2c7ab2b9dceso1196375ad.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782150692; x=1782755492; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2dLP+TVO4tZ92+I0qsy0dTT+zkkqGwfMz4MJYSPYxO4=;
-        b=O6XXPEP3uX4e7eXteiV10Y+subYEonpYsTY2vzvkg9/lQtKnynhsljqb63y0lYfu6e
-         kfZli2dAfGYw2iHW9DqHUQO4Pb3QtytpB15mt+RiWq45vVao3PTV1J7LdGQ2iZrldw0v
-         k29qb4BA8cW+BXN0GG2CLWejLSPTJrFcQmbnGzQYaZxsaJIvWzHSI9ezZmPr4U8Yvy6P
-         xUaKiiLou4ZqCXnwf8o6RjDZt0vXHBSVY//uQPvtwMBMVMwCHCuk0J7/BCWUi1LL0B1D
-         wMDNxlXmt//ITEz6QHbjIpuEtXbLT67qHvbRs/9iGh7bpmV3H8hQG4eJTnK7iPWMSaRN
-         Gi4w==
+        d=gmail.com; s=20251104; t=1782150732; x=1782755532; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KSigCuJhChrryg/5t7v6p4ZT2/27JuKuCTrTzEE2KgY=;
+        b=QgddHNaa67xI6PxrrVT8mraS+LSYMbo0hOll07XeQHMTFrqnw/sASeGrqLKaaZuO9y
+         rQkDoyILcif/nW65CtrlGCxg6tgLgxr69Nn/FhRPYHFLGJhIKtYgKIIPgXnFqx0saSG2
+         YidXGUV04crfkMac6+r1uBOtA8OWWjDbDBnCV51jXqKumF1jz+WrMuUhjpoSWZ9rbX7b
+         1fbzCtjQtsUIqhQYwuDS63vyXYqe30qW4sBRcgVpCqIX8Livhl261BgnJI/3zWQWAtVR
+         0JNoy2jHvSGg6s9BdAMmnlyZK5H20w09iQw9mlB3SH4kNKluq61Q3z3NidOUPXrwzhh9
+         zfPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782150692; x=1782755492;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2dLP+TVO4tZ92+I0qsy0dTT+zkkqGwfMz4MJYSPYxO4=;
-        b=XMIigpLUFvSkGxDhKY4UVtfwklZLow2R2DHKjnPFv5yyKPGAnOzMm+VOlQdmFvSMW2
-         qXbhpvoV2Yiw/VLCd4p9/qVQWW+7yJ1KDh2jNHDG2VHPLQ1YJolG4gWdx94G7B+SPhok
-         9hmkpqmSSBPPaHmuHbw8rc8Ugve7KQ3xAr06cNLl8g1+gh81d3nZxs8UvVbGAN1uUFAW
-         h8c0YsF5Q/AHPCJrBv245sA0Q2o2DVVBdLQ7VxS2qe9zUYoVOyqkjOHPA2GqrfSa8a/H
-         AWwULNdIdWIyfGwYp6KcwkzzA/4uub8wdtdanDmUeoW78hite4tfUiuBDo8F8nvwqjEh
-         QHhQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+lN94VaqJ434qRsWJHTfSSVXIp+VBMVd5waVnL/gRIDFS6dK/6VhbYumbTUx9UIA/7qLeErZV272sV@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCDcnFoUKO92b5BabtB06VjF5DJn45++HGwepQmY0TLWW/HrNU
-	E1bDJZCsFFoduF0FEm62IjPpbOOaxJqQC62F/rziCfSKSRFRSm64rk5kQ0EQHBivLg9mGZbU+kO
-	HvINQPS5Bt4jJ5+uvIqC9pupMgQmZfLlsUOT9gVyLRMBUH/VoBcsgz1mQ7k48jKUP
-X-Gm-Gg: AfdE7cklRfjawkBg9Z3vodDfmaF9aAhIFgUHfPQ4kdFn+IucV0fBSF1Q/b1h3vE7Ixy
-	rKgNiT2CynLro2E/PZY8edZLy4JQrF7/sOg6zcG+tfSvUBfhoX6KZSAF/VKuYgo5dVCy1bJklSM
-	obzDQihanXRJad3dh2Nl5hgHemh6p4hIHoBoYpvS9xmNUX9XLxVuPncorh6hMbGq5twXlgqHvRU
-	lf+j7YFGalg9+M1fe98DKrGNnUFCxzZKlate9Kw7SMP8D/MN34T1I02vbzJDBskIQFXK/cRqXsO
-	+/onXMPIRAARUUYq5TI4dRB87QXTk8SjRNd8MDhPDKzdmFPtxh6xd1NPPr1wKwH36E2YM8v9fyS
-	/B71FsgqQOdXSKwDYMHGZBnaW4iaD0MF1Tkl5gAU=
-X-Received: by 2002:a05:6a00:2789:b0:842:6fec:1297 with SMTP id d2e1a72fcca58-8455078a336mr15737994b3a.9.1782150692326;
-        Mon, 22 Jun 2026 10:51:32 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2789:b0:842:6fec:1297 with SMTP id d2e1a72fcca58-8455078a336mr15737963b3a.9.1782150691759;
-        Mon, 22 Jun 2026 10:51:31 -0700 (PDT)
-Received: from [192.168.0.195] ([49.204.26.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564d89dd8sm8300360b3a.15.2026.06.22.10.51.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 10:51:31 -0700 (PDT)
-Message-ID: <23e910f0-f996-49b4-9ba8-5acc3bef2172@oss.qualcomm.com>
-Date: Mon, 22 Jun 2026 23:20:56 +0530
+        d=1e100.net; s=20251104; t=1782150732; x=1782755532;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KSigCuJhChrryg/5t7v6p4ZT2/27JuKuCTrTzEE2KgY=;
+        b=GXlplQW0U878ywmGAtGVFeGDFVN9oHTclWCSUClf0MNzhkqmuEdPVr88oHLiHcLX6+
+         JCG1ESFzwOQCPjQv4p6eF80AETBtr683jHCHl2a8XglBrQh+yUUkPe8YBGIUOPlGoeqx
+         hrKy7O+6SAmDvkFi/gRhnhwBuBdHJDkd7OmUuVcU7HlKKhyrhpAZz8oU/RMLQwZ0yU66
+         FPZXeM+qxSHTFbY8GzR0CpkJuERpwBV7eMLETaXVtalMLea0I7yhlSLx1qiKHkhh4qJZ
+         hbHUo6R/7NClVdx0rGc4n7nsuJHfKJ5H0qpHeSdIhc3zCluILK9yApIRYw7em/YINAVo
+         AY3Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rrf/NBCxWfugkBJT6bgANJiPAM/jxbNYcl3tzCk1ft9gSe1OGvEuq3R0KYnrV4th3fiQidrUywn97lq@vger.kernel.org
+X-Gm-Message-State: AOJu0YysXX7ItCfkeWJoM9dWQt5IeoCPTRBn0shD6hY32Y1C1czTDf34
+	KxdNib2l3vUOenjEvfgtek4r84e2qeGdGjTyU+iyGXwKaY4JyWkUgB8a
+X-Gm-Gg: AfdE7clMr6R4uKk+z+ZxkIW5zeeJQB0SVPpgmbZ7cpowpDwrDjNulbV599k2lyWhO/L
+	vTdObZdQoI/JqASDKQppKvHGTHzhCpauuNBpVE7QawD24FAoEBzgmSGqLjdbYSdOKILd+Dwir58
+	JM62PzZb63vWJCledC+JVujlUpUs3m+t1hGFbdyniiJonj0TlCQAAIZsyUBoi3f0qGLh6vwlkGo
+	yxZeoIvUflbjKvIzq49/0Y9wBCZP7pVtGYDqUKMNrf8LP1XDZKpkIY2alX5wzbJsnM81eyK3W13
+	uqYWrz5Y1aGsDxAj9+kJeaNKturpGZJBHj18kYHTdluojne3xWgGWxulU2tKzk+F33MZkeHzaTs
+	XL1ycJaNijmYbfhHZnJx/5IOsnYpgOHwUrnH7sAn65sKxmvMaZanJYdO5Wx9Ku5jdOxIYr7x8Vq
+	vQoPD4uBGLHT9/lyYakomuFMOw
+X-Received: by 2002:a17:903:19ec:b0:2bd:5b20:a5dd with SMTP id d9443c01a7336-2c7bf10bd08mr7272175ad.1.1782150732201;
+        Mon, 22 Jun 2026 10:52:12 -0700 (PDT)
+Received: from [10.30.232.252] ([2409:40c2:7415:f49b:1d79:b65e:e5e5:aa4c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7c4a482a5sm1661075ad.25.2026.06.22.10.52.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 10:52:11 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Mon, 22 Jun 2026 23:21:33 +0530
+Subject: [PATCH v2] dt-bindings: clock: ti,clockdomain: Convert to DT
+ schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] clk: qcom: camcc-glymur: Add camera clock
- controller driver
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260517-glymur_camcc-v4-0-9d00acffdbf7@oss.qualcomm.com>
- <20260517-glymur_camcc-v4-2-9d00acffdbf7@oss.qualcomm.com>
- <8bd4365e-0171-425c-9738-0b186047cb15@kernel.org>
- <upcLoSPzJejUNhFiNYlTVH4d8Sh_Pv2o9OZfXsY-CMCDKw19_ci2gL9B3ZwqL1hV1pQeQMLDL8tNLbPzs0JIIg==@protonmail.internalid>
- <2a496bdf-4728-47b9-84ba-063712a6e5b6@oss.qualcomm.com>
- <0a197b43-a672-4849-91c7-6e5bfe3175f7@kernel.org>
- <amL4e4IHe75_j1HTIsmqE_GyurvudlyHQCPW14zs7ivHz0UnalN-yoknJwzaVRgHTT6ftSRCqDyCodh6ABCLxw==@protonmail.internalid>
- <66335474-d600-45ab-9ac6-e946f24142c8@oss.qualcomm.com>
- <639c94f9-6f62-4502-ad7e-5ae60f5f6d02@kernel.org>
- <WdjOMNZ2o-UF6xXKW4LiVgNZB10ZaGze3YWNriL-f1jf7LgBzprN9bqqMYcvMJH8KUF5wtRpyOB0aL_7HEk-yA==@protonmail.internalid>
- <10c2e008-74fe-4dac-99bf-194a1767bc16@oss.qualcomm.com>
- <1de2f9bf-b48c-4acb-882c-9e35a8582d0b@kernel.org>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <1de2f9bf-b48c-4acb-882c-9e35a8582d0b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDE3NCBTYWx0ZWRfX/PtlefY8T+te
- lxV4SHTvM/NrUiHVeV1e834MW8TkSB+vZ46mIbTc0008hEroHK7jRoyp9Btp96tUqk88YkrBNAe
- amz+iCUs+zwqh+RJBeX8S8pyj++HHdA=
-X-Proofpoint-GUID: E9GJO1EJOnCKEbczq1W2qduRkvielkGW
-X-Proofpoint-ORIG-GUID: E9GJO1EJOnCKEbczq1W2qduRkvielkGW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDE3NCBTYWx0ZWRfXzUiM/f0LTr0T
- 9/drFEOyLq6QOE1W77Fm8h+Qx3Hp0IQ+s7v1f0pZikveQ2BnE+y7R6RVeUFnRiNb6CuiSxz+GsR
- yTeRCXKsCbXUFtKRmvFW4iCUGnLKIlCBVfbVpba85geThLla+G+4qz/iiMhD+j2MDOvH2XUEKgt
- U6pTfF4pqJueANtPBEBcRDNFa8ZkDO6Cj2MxLnAo8qHLfF7Agb5E965at7mbEGHaJiMOgYRWe0h
- xO7hy7JmorPB2rCb8VzqS91gx8J07tp9tFkpudW9pXia4ToQ8AJZxdCsSFb2reJHG1z6vWRvKUS
- QB0jCBbAUdFNH/Hlm2NlVcU+4CoI3AKo1xT9tlLcgnufQsk7PgXD4xDbceI0I/Qrv+rsqi6BOMc
- nmcb3jcYjannrNbocw57GIymtiYsIOjZqDBE2AotVRrC3VVjpZbZM1+z1U9tOwOqkjxcS0NB/UD
- QjfhXPL3HWhPrk0XIpg==
-X-Authority-Analysis: v=2.4 cv=H4HrBeYi c=1 sm=1 tr=0 ts=6a397625 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=QCTWhj6wmzAtHfIuGYgeNA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=oDMe_2bG_2z3vvWk9CsA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-22_03,2026-06-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606220174
+Message-Id: <20260622-ti-clockdomain-v2-1-434dbe0789e2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13MQQqDMBCF4avIrJuSCWhrV72HuBiSUYeqKYmEF
+ sndm0pXXf4P3rdD5CAc4VbtEDhJFL+WMKcK7ETryEpcaTDaNLpBrTZRdvb24fxCsioyF+f0QEi
+ uhnJ6Bh7kdYBdX3qSuPnwPvyE3/VHGfynEipU3LZUNzS0V6b7WPb5bP0Cfc75A0Tai0ysAAAA
+X-Change-ID: 20260610-ti-clockdomain-a27dd0fa1ad5
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tero Kristo <kristo@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782150724; l=4363;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=phde+2c+y1PP9o+vu6bFzca28DkhbqXg0K330uAMoyM=;
+ b=MOi6XTlhYsHiLRYt3SRrvqgVyslJ9itphnNCoCdKo24Y5Pk+w6Ex1dzoNYof5VuJwUQbjIrXL
+ phAuxaWB/EdBAm7n8gPvI8LsGXk6X5zqZ0/Nx0+xtY6X+EERawkK3yg
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
+Convert TI clockdomain to yaml DT schema. Drop '#clock-cells' from the
+required list as this binding doesn't define a new clock binding type,
+it is used to group existing clock nodes under hardware hierarchy. Most
+existing dts omit '#clock-cells'.
 
+Update the reference to the old legacy text binding in the description
+of bindings/clock/ti/ti,gate-clock.yaml to point to the new YAML file.
 
-On 6/12/2026 4:44 PM, Bryan O'Donoghue wrote:
-> That's an argument against changing the values, not naming the values.
-> Hexwork in upstream code is a public black box and should be avoided
-> where possible.
-> 
-> How about, take these fixed hex but someone on the clock-side in qcom
-> agrees to update the script to write defined bitfields not hexwork in
-> future deliveries. AFAIU its a script that mostly spits out these clock
-> descriptors so, it should be possible to fix that script once @ source,
-> without committing to fixing everything _currently_ in flight.
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v2:
+- updating the stale reference to the legacy .txt file inside
+  bindings/clock/ti/ti,gate-clock.yaml to fix make refcheckdocs error
+- Link to v1: https://lore.kernel.org/r/20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com
+---
+ .../devicetree/bindings/clock/ti/clockdomain.txt   | 25 -------------
+ .../bindings/clock/ti/ti,clockdomain.yaml          | 41 ++++++++++++++++++++++
+ .../bindings/clock/ti/ti,gate-clock.yaml           |  2 +-
+ 3 files changed, 42 insertions(+), 26 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt b/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+deleted file mode 100644
+index edf0b5d42768..000000000000
+--- a/Documentation/devicetree/bindings/clock/ti/clockdomain.txt
++++ /dev/null
+@@ -1,25 +0,0 @@
+-Binding for Texas Instruments clockdomain.
+-
+-This binding uses the common clock binding[1] in consumer role.
+-Every clock on TI SoC belongs to one clockdomain, but software
+-only needs this information for specific clocks which require
+-their parent clockdomain to be controlled when the clock is
+-enabled/disabled. This binding doesn't define a new clock
+-binding type, it is used to group existing clock nodes under
+-hardware hierarchy.
+-
+-[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+-
+-Required properties:
+-- compatible : shall be "ti,clockdomain"
+-- #clock-cells : from common clock binding; shall be set to 0.
+-- clocks : link phandles of clocks within this domain
+-
+-Optional properties:
+-- clock-output-names : from common clock binding.
+-
+-Examples:
+-	dss_clkdm: dss_clkdm {
+-		compatible = "ti,clockdomain";
+-		clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
+-	};
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+new file mode 100644
+index 000000000000..9494cbb1a942
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+@@ -0,0 +1,41 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti/ti,clockdomain.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments clockdomain
++
++maintainers:
++  - Tero Kristo <kristo@kernel.org>
++
++description:
++  This binding uses the common clock binding in consumer role. Every clock on TI
++  SoC belongs to one clockdomain, but software only needs this information for
++  specific clocks which require their parent clockdomain to be controlled when
++  the clock is enabled/disabled. This binding doesn't define a new clock binding
++  type, it is used to group existing clock nodes under hardware hierarchy.
++
++properties:
++  compatible:
++    const: ti,clockdomain
++
++  "#clock-cells":
++    const: 0
++
++  clocks: true
++
++  clock-output-names: true
++
++required:
++  - compatible
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    dss_clkdm {
++        compatible = "ti,clockdomain";
++        clocks = <&dss1_alwon_fck_3430es2>, <&dss_ick_3430es2>;
++    };
+diff --git a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
+index eaa727ab0d7f..438e190d1067 100644
+--- a/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
++++ b/Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml
+@@ -19,7 +19,7 @@ description: |
+   that is used.
+ 
+   [1] Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+-  [2] Documentation/devicetree/bindings/clock/ti/clockdomain.txt
++  [2] Documentation/devicetree/bindings/clock/ti/ti,clockdomain.yaml
+ 
+ properties:
+   compatible:
 
-Thanks for the suggestion, Bryan. We should probably skip adding these
-definitions because the approach just doesn't scale across our various
-PLL architectures. The bitfields vary widely between different flavors
-of alpha PLLs, and the SW driver doesn't interact with these fields
-post-initialization anyway.
+---
+base-commit: acb7500801e98639f6d8c2d796ed9f64cba83d3a
+change-id: 20260610-ti-clockdomain-a27dd0fa1ad5
 
-Even if we generate them through scripts, it provides no practical
-benefit. The field names aren't meaningful to the end user, and the
-software never decodes these bits at any stage beyond the core PLL bits
-we already have defined.
-
-I recommend leaving them as simple fixed hex values. This keeps the code
-straightforward and perfectly aligns with the format our hardware team
-uses to pass these values to us.
-
+Best regards,
 -- 
-Thanks,
-Taniya Das
+Bhargav
 
