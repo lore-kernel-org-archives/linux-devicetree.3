@@ -1,159 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918651A9FB7;
-	Mon, 22 Jun 2026 01:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E6C052641C6;
+	Mon, 22 Jun 2026 02:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782093272; cv=none; b=CdO0Om8IeaMuzd24FbNbtD/CcVRoPeX1U/wrgHMU/zXCEcPfv2g1BQ+EHwG0xPR6shVeMJaJ0FcrTQ5JlWoA2wbktAckD9xuvrWgQSfTvD1QV7JCV9JMwQGbXW9s6bQqyi8GZM/DVeTGEGyb4jNBPiK954TxTq4sdlBCkln4A9U=
+	t=1782094838; cv=none; b=pJHtHHHPxJj2vxpWIUZ4blzWHs2eiAY1bhp+C4XCxl54Z6O1UhheQQ0joSgwMY2RGgrcIRK488b30E/rn2CxqB6iDL6lupqBm9w2Bx4KHGFWipPggO693Xfe9zHRXEI8hXzqRYDncIyR5HmjMGM+YgM4bo3qYQvhsmxjQhe95Wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782093272; c=relaxed/simple;
-	bh=PlklY/IpzFyXfv37Sn9oCQbFJiSvX+lLW9uKUPZRQF4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I1Y7Wt/NZ3drioIYbu+mzL4HQpemXbaAQqKx2RHbd1ZxG40zZ/IILn4TRMm4MXch0Iqnb2lrC+XUtZIWVliLnIkslGQqFj/exMJrH3bCY7JS8OlZ4obFbOtacRmMJ6jSi5tcqVIrrNktNoqXgIjL7i6J3Hgp4EIxjDesNt6L+YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bImxTYcW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bImxTYcW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0091F000E9;
-	Mon, 22 Jun 2026 01:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782093271;
-	bh=Ecfz4mA83WT7F/AZKptu6avpYNvT/o0NMdfAAmc8McM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bImxTYcWIZss1dP+6Tj2+1zYyPPwFCmW8w2WF1Ee4VR4SuQiyyBg9CIgtFwea+Ern
-	 9d0pIFRsSglDGHvVdORTHLw7f+M3PANgm7YzGJXQKooqef10IS+O65VaqDmCEVsYS7
-	 8nDfJQMA+IWLef+4GsgwCF59mlyk7+vjukP87xSxQI4ULge3bxjeU06/PLq1BpOu4Q
-	 nNVDd2YilA5e6wnqGetB+PdxXcXKbPJILxxYCnJwk932ivyD8DK5Tz4yAoO+qkA6wy
-	 LDApwzOHd8b3DW8Xavaw0X5sRDM/uQhXQ/8fEYYau7G+3UPqzBIWuIsfdlPMYX/p5j
-	 0Zz6gy9rpBSvQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] dmaengine: sun6i-dma: Refactor to support A733
- interrupt and register handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yuanshen Cao" <alex.caoys@gmail.com>
-Cc: Frank.Li@kernel.org, vkoul@kernel.org, robh@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260622-sun60i-a733-dma-v3-1-f697ef296cbc@gmail.com>
-References: <20260622-sun60i-a733-dma-v3-0-f697ef296cbc@gmail.com>
- <20260622-sun60i-a733-dma-v3-1-f697ef296cbc@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 01:54:30 +0000
-Message-Id: <20260622015430.7C0091F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782094838; c=relaxed/simple;
+	bh=zNzXLGPbgjHjVIZkEPXI0gjusig9YVEFyMRzgKCkUvc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=GJY8tEAiz4ktt0kC23pDsN1zMPyZkQpi5VhQDNsjA/243NVMcTNl5L3FWWJ4O94vBcM/ife47NasRnSq7tm+1+TWMqdPxdlzw0ToGzSZJHj8JHpGo1vik8AEvdvjVJLIraoHh7qvNQgpPzsTWBm8cZd2533UvlOteXN8Cj9BfTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 22 Jun 2026 10:19:50 +0800 (GMT+08:00)
+Date: Mon, 22 Jun 2026 10:19:50 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Andrew Lunn" <andrew@lunn.ch>
+Cc: "Maxime Chevallier" <maxime.chevallier@bootlin.com>,
+	devicetree@vger.kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	netdev@vger.kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	ningyu@eswincomputing.com, linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com, horms@kernel.org, lee@kernel.org
+Subject: Re: Re: [PATCH net-next v8 3/6] net: stmmac: eic7700: make RGMII
+ delay properties optional
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <30229cfe-b395-4d0f-81ef-eb780ac26599@lunn.ch>
+References: <20260610012727.848-1-lizhi2@eswincomputing.com>
+ <20260610012937.911-1-lizhi2@eswincomputing.com>
+ <eaa645fc-be06-4a15-8c2f-6e82129c4715@bootlin.com>
+ <30229cfe-b395-4d0f-81ef-eb780ac26599@lunn.ch>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <512b77d5.993b.19eed207fc9.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:TAJkCgDHW3DHmzhqEvksAA--.8326W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEGDGo4EpcWfAACs2
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Integer division truncates the channel check in the interrupt hand=
-ler, causing interrupts for channels >=3D 8 to be completely ignored on SoC=
-s where the number of channels is not a multiple of 8.
-- [High] Incorrect calculation of the physical channel pointer in the inter=
-rupt handler aliases upper hardware channels to lower software channels, ca=
-using Use-After-Free and data corruption.
-- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition in `sun6i_k=
-ill_tasklet` allows a concurrent tasklet to re-enable interrupts after they=
- were intentionally disabled, causing an unhandled interrupt storm after th=
-e IRQ is freed.
---
-
-commit 4e47cdc0e212cbdd5c17510fa923b572eb14fb54
-Author: Yuanshen Cao <alex.caoys@gmail.com>
-
-dmaengine: sun6i-dma: Refactor to support A733 interrupt and register handl=
-ing
-
-Refactor to support the Allwinner A733 DMA controller by moving interrupt
-handling and register dumping functions into the sun6i_dma_config structure.
-This allows a polymorphic approach determined by hardware configuration
-during device probing.
-
-> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-> index a9a254dbf8cb9..ef3052c4ab363 100644
-> --- a/drivers/dma/sun6i-dma.c
-> +++ b/drivers/dma/sun6i-dma.c
-> @@ -347,6 +352,26 @@ static void sun6i_set_mode_h6(u32 *p_cfg, s8 src_mod=
-e, s8 dst_mode)
-[ ... ]
-> +static void sun6i_write_irq_en(struct sun6i_dma_dev *sdev, u32 irq_reg, =
-u32 irq_val)
-> +{
-> +	writel(irq_val, sdev->base + DMA_IRQ_EN(irq_reg));
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but does disabling interrupts leave a race
-condition?
-
-In sun6i_kill_tasklet(), hardware interrupts are disabled via write_irq_en(=
-0)
-before tasklet_kill() is called:
-
-sun6i_kill_tasklet()
-    for (i =3D 0; i < ...; i++)
-        sdev->cfg->write_irq_en(sdev, i, 0);
-    atomic_inc(&sdev->tasklet_shutdown);
-    devm_free_irq(sdev->slave.dev, sdev->irq, sdev);
-    tasklet_kill(&sdev->task);
-
-If sun6i_dma_tasklet() runs concurrently and calls sun6i_dma_start_desc(),
-could it perform a read-modify-write on the IRQ_EN register without a lock?
-
-This could re-enable the interrupt after sun6i_kill_tasklet() explicitly
-disabled it. When devm_free_irq() is called, an active DMA channel might
-then assert an unhandled IRQ, leading to an interrupt storm.
-
-[ ... ]
-> @@ -549,14 +574,14 @@ static irqreturn_t sun6i_dma_interrupt(int irq, voi=
-d *dev_id)
->  	u32 status;
-> =20
->  	for (i =3D 0; i < sdev->num_pchans / DMA_IRQ_CHAN_NR; i++) {
-
-[Severity: High]
-This is a pre-existing issue, but does integer division truncate the channel
-check here?
-
-If num_pchans is not a multiple of 8 (like 12 on H3), dividing by 8 yields =
-1.
-This would mean the loop only checks channels 0-7 and ignores the second
-interrupt register for channels 8-11.
-
-Could this cause unacknowledged level-triggered interrupts from those upper
-channels, leading to an interrupt storm?
-
-> -		status =3D readl(sdev->base + DMA_IRQ_STAT(i));
-> +		status =3D sdev->cfg->read_irq_stat(sdev, i);
->  		if (!status)
->  			continue;
-> =20
->  		dev_dbg(sdev->slave.dev, "DMA irq status %s: 0x%x\n",
->  			str_high_low(i), status);
-> =20
-> -		writel(status, sdev->base + DMA_IRQ_STAT(i));
-> +		sdev->cfg->write_irq_stat(sdev, i, status);
-> =20
->  		for (j =3D 0; (j < DMA_IRQ_CHAN_NR) && status; j++) {
->  			pchan =3D sdev->pchans + j;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the physical channel
-pointer calculation alias upper hardware channels to lower software channel=
-s?
-
-The calculation sdev->pchans + j ignores the register index i.
-
-For upper channels (where i =3D 1, meaning channels 8-15), would the handler
-map the active hardware interrupt back to software channels 0-7?
-
-It seems this might cause the driver to process and complete descriptors for
-the wrong channels while the hardware is still writing to them, potentially
-causing data corruption and use-after-free conditions.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-sun60i-a73=
-3-dma-v3-0-f697ef296cbc@gmail.com?part=3D1
+CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiAiQW5kcmV3IEx1bm4iIDxh
+bmRyZXdAbHVubi5jaD4KPiBTZW5kIHRpbWU6U2F0dXJkYXksIDEzLzA2LzIwMjYgMTU6NDg6NDYK
+PiBUbzogIk1heGltZSBDaGV2YWxsaWVyIiA8bWF4aW1lLmNoZXZhbGxpZXJAYm9vdGxpbi5jb20+
+Cj4gQ2M6IGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20sIGRldmljZXRyZWVAdmdlci5rZXJuZWwu
+b3JnLCBhbmRyZXcrbmV0ZGV2QGx1bm4uY2gsIGRhdmVtQGRhdmVtbG9mdC5uZXQsIGVkdW1hemV0
+QGdvb2dsZS5jb20sIGt1YmFAa2VybmVsLm9yZywgcm9iaEBrZXJuZWwub3JnLCBrcnprK2R0QGtl
+cm5lbC5vcmcsIGNvbm9yK2R0QGtlcm5lbC5vcmcsIG5ldGRldkB2Z2VyLmtlcm5lbC5vcmcsIHBh
+YmVuaUByZWRoYXQuY29tLCBtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tLCBhbGV4YW5kcmUudG9y
+Z3VlQGZvc3Muc3QuY29tLCBybWsra2VybmVsQGFybWxpbnV4Lm9yZy51aywgcGp3QGtlcm5lbC5v
+cmcsIHBhbG1lckBkYWJiZWx0LmNvbSwgYW91QGVlY3MuYmVya2VsZXkuZWR1LCBhbGV4QGdoaXRp
+LmZyLCBsaW51eC1yaXNjdkBsaXN0cy5pbmZyYWRlYWQub3JnLCBsaW51eC1zdG0zMkBzdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tLCBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5v
+cmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcsIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5j
+b20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5jb20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBz
+LmNvbSwgcHJpdGVzaC5wYXRlbEBlaW5mb2NoaXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29t
+cHV0aW5nLmNvbSwgaG9ybXNAa2VybmVsLm9yZywgbGVlQGtlcm5lbC5vcmcKPiBTdWJqZWN0OiBS
+ZTogW1BBVENIIG5ldC1uZXh0IHY4IDMvNl0gbmV0OiBzdG1tYWM6IGVpYzc3MDA6IG1ha2UgUkdN
+SUkgZGVsYXkgcHJvcGVydGllcyBvcHRpb25hbAo+IAo+IE9uIFdlZCwgSnVuIDEwLCAyMDI2IGF0
+IDEwOjI2OjUwQU0gKzAyMDAsIE1heGltZSBDaGV2YWxsaWVyIHdyb3RlOgo+ID4gSGksCj4gPiAK
+PiA+IE9uIDYvMTAvMjYgMDM6MjksIGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20gd3JvdGU6Cj4g
+PiA+IEZyb206IFpoaSBMaSA8bGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbT4KPiA+ID4gCj4gPiA+
+IE1ha2UgcngtaW50ZXJuYWwtZGVsYXktcHMgYW5kIHR4LWludGVybmFsLWRlbGF5LXBzIG9wdGlv
+bmFsIGluIHRoZQo+ID4gPiBFSUM3NzAwIERXTUFDIGRyaXZlci4KPiA+ID4gCj4gPiA+IFRoZSBk
+cml2ZXIgcHJldmlvdXNseSByZXF1aXJlZCBib3RoIHByb3BlcnRpZXMgdG8gYmUgcHJlc2VudCBh
+bmQgd291bGQKPiA+ID4gZmFpbCBwcm9iZSB3aGVuIHRoZXkgd2VyZSBtaXNzaW5nLiBUaGlzIHJl
+c3RyaWN0cyB2YWxpZCBoYXJkd2FyZQo+ID4gPiBjb25maWd1cmF0aW9ucyB3aGVyZSBSR01JSSB0
+aW1pbmcgaXMgaW5zdGVhZCBwcm92aWRlZCBieSB0aGUgUEhZIG9yCj4gPiA+IGJvYXJkIGRlc2ln
+bi4KPiA+ID4gCj4gPiA+IFVwZGF0ZSB0aGUgZHJpdmVyIHRvIHRyZWF0IG1pc3NpbmcgZGVsYXkg
+cHJvcGVydGllcyBhcyB6ZXJvIGRlbGF5LAo+ID4gPiBhbGxvd2luZyBzeXN0ZW1zIHdpdGhvdXQg
+ZXhwbGljaXQgTUFDLXNpZGUgZGVsYXkgdHVuaW5nIHRvIG9wZXJhdGUKPiA+ID4gY29ycmVjdGx5
+Lgo+ID4gPiAKPiA+ID4gVGhpcyBhbGlnbnMgdGhlIGRyaXZlciBiZWhhdmlvciB3aXRoIHRoZSB1
+cGRhdGVkIGRldmljZSB0cmVlIGJpbmRpbmcKPiA+ID4gYW5kIHByb3ZpZGVzIGEgc2FmZSBkZWZh
+dWx0IGNvbmZpZ3VyYXRpb24gd2hlbiBNQUMtc2lkZSBkZWxheQo+ID4gPiBwcm9ncmFtbWluZyBp
+cyBub3QgcmVxdWlyZWQuCj4gPiA+IAo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBaaGkgTGkgPGxpemhp
+MkBlc3dpbmNvbXB1dGluZy5jb20+Cj4gPiA+IC0tLQo+ID4gPiAgZHJpdmVycy9uZXQvZXRoZXJu
+ZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jIHwgNiAtLS0tLS0KPiA+ID4gIDEgZmls
+ZSBjaGFuZ2VkLCA2IGRlbGV0aW9ucygtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYyBiL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYwo+ID4gPiBpbmRleCA0
+YWM5NzlkODc0ZDYuLmVjOTliNTk3YWVhZiAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9uZXQv
+ZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jCj4gPiA+ICsrKyBiL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYwo+ID4gPiBAQCAt
+MTY1LDkgKzE2NSw2IEBAIHN0YXRpYyBpbnQgZWljNzcwMF9kd21hY19wcm9iZShzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gPiAgCQlkd2NfcHJpdi0+ZXRoX2Nsa19kbHlfcGFyYW0g
+Jj0gfkVJQzc3MDBfRVRIX1JYX0FESl9ERUxBWTsKPiA+ID4gIAkJZHdjX3ByaXYtPmV0aF9jbGtf
+ZGx5X3BhcmFtIHw9Cj4gPiA+ICAJCQkJIEZJRUxEX1BSRVAoRUlDNzcwMF9FVEhfUlhfQURKX0RF
+TEFZLCB2YWwpOwo+ID4gPiAtCX0gZWxzZSB7Cj4gPiA+IC0JCXJldHVybiBkZXZfZXJyX3Byb2Jl
+KCZwZGV2LT5kZXYsIC1FSU5WQUwsCj4gPiA+IC0JCQkibWlzc2luZyByZXF1aXJlZCBwcm9wZXJ0
+eSByeC1pbnRlcm5hbC1kZWxheS1wc1xuIik7Cj4gPiA+ICAJfQo+ID4gPiAgCj4gPiA+ICAJLyog
+UmVhZCB0eC1pbnRlcm5hbC1kZWxheS1wcyBhbmQgdXBkYXRlIHR4X2NsayBkZWxheSAqLwo+ID4g
+PiBAQCAtMTg3LDkgKzE4NCw2IEBAIHN0YXRpYyBpbnQgZWljNzcwMF9kd21hY19wcm9iZShzdHJ1
+Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gPiAgCQlkd2NfcHJpdi0+ZXRoX2Nsa19kbHlf
+cGFyYW0gJj0gfkVJQzc3MDBfRVRIX1RYX0FESl9ERUxBWTsKPiA+ID4gIAkJZHdjX3ByaXYtPmV0
+aF9jbGtfZGx5X3BhcmFtIHw9Cj4gPiA+ICAJCQkJIEZJRUxEX1BSRVAoRUlDNzcwMF9FVEhfVFhf
+QURKX0RFTEFZLCB2YWwpOwo+ID4gPiAtCX0gZWxzZSB7Cj4gPiA+IC0JCXJldHVybiBkZXZfZXJy
+X3Byb2JlKCZwZGV2LT5kZXYsIC1FSU5WQUwsCj4gPiA+IC0JCQkibWlzc2luZyByZXF1aXJlZCBw
+cm9wZXJ0eSB0eC1pbnRlcm5hbC1kZWxheS1wc1xuIik7Cj4gPiA+ICAJfQo+ID4gCj4gPiBJIHRo
+aW5rIHRoZW4geW91IG5lZWQgdG8gaGFuZGxlIFJHTUlJLCBSR01JSV9JRCwgUkdNSUlfUlhJRCBh
+bmQgUkdNSUlfVFhJRCwKPiA+IGJ5IHVzaW5nIGRlZmF1bHQgZGVsYXlzIGZvciB0aGVzZSAodXN1
+YWxseSBhcm91bmQgMm5zKSwgYXMgaGVyZSBhbGwgZGVsYXlzCj4gPiB3aWxsIGJlIHNldCB0byAw
+LCByZWdhcmRsZXNzIG9mIHRoZSBSR01JSSBtb2RlIGluIHVzZS4KPiAKPiBOby4gQnkgZGVmYXVs
+dCwgdGhlIE1BQyBhZGRzIDBucyBkZWxheSwgYW5kIHBhc3NlcyB0aGUgcGh5LW1vZGUgdG8gdGhl
+Cj4gUEhZLiBJdCB3aWxsIHRoZW4gYWRkIHRoZSAybnMgZGVsYXkuIEl0IGlzIHBvc3NpYmxlIHRv
+IHVzZSB0aGUKPiB0eC1pbnRlcm5hbC1kZWxheS1wcyBhbmQgcngtaW50ZXJuYWwtZGVsYXktcHMg
+aW4gdGhlIE1BQyB0byBhZGQgc21hbGwKPiB0dW5pbmcgZGVsYXlzLCBidXQgbm90IHRoZSBmdWxs
+IDJucy4KPiAKPiBodHRwczovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92Ni4xNS9zb3VyY2Uv
+RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9ldGhlcm5ldC1jb250cm9sbGVy
+LnlhbWwjTDI4Nwo+IAoKVGhhbmtzIGZvciB0aGUgZWFybGllciBkaXNjdXNzaW9uIGFuZCBmb3Ig
+aGVscGluZyBjbGFyaWZ5IHRoZSBldGgwCmRlc2lnbi4KCkknbSBwcmVwYXJpbmcgYSB2OSBvZiB0
+aGUgc2VyaWVzLiBUaGUgbmV4dCByZXZpc2lvbiB3aWxsIGFkZHJlc3MgdGhlCmlzc3VlcyByZXBv
+cnRlZCBieSBTYXNoaWtvIHJldmlldywgbWFpbmx5IERUIGJpbmRpbmcgc2NoZW1hIGFuZCBEVFMK
+d2FybmluZ3MuCgpCZWZvcmUgSSBwb3N0IHY5LCBJJ2QgbGlrZSB0byBjaGVjayB3aGV0aGVyIHlv
+dSBoYXZlIGFueSBjb25jZXJucyBvcgpzdWdnZXN0aW9ucyByZWdhcmRpbmcgdGhlIGRyaXZlciBj
+aGFuZ2VzLgoKVGhhbmtzLApaaGkK
