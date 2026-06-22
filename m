@@ -1,308 +1,124 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011056.outbound.protection.outlook.com [40.93.194.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE75A3905E4;
-	Mon, 22 Jun 2026 08:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782116601; cv=fail; b=PS3I7E2xUVM4axNDn+FcauWRph2O1HaaW9HK9UZIkm4VW9HPCzQUt0hXvwpHkxKDcO16ZsSqLzk9kARWauK5aViqf4L4WYao0xGKt8kJ5FWWnhmLTnig/7I4rtJ0z5pXuBCzn1j1BY/0Eihaw362hr5WeJB99thJ5voPXYBVobU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782116601; c=relaxed/simple;
-	bh=L/f1TOCICdGcR+ENhU/ReHbezSKCwEdDiEJRRrCIOP8=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=XNtA4sO5jJwF+ryGN0FgjCfjPI6bOH5QyrSgmcZYiaeFI0JOZBdbArB777tKEuF5ZcchDSzHux9z2s9B4bZMfAjRL8d3g0J1neqn0hx/W1HVo5KKeo4mJgIQ9u92MAdLzUaYM1JiKjnvh5NXIQ36sw6RCd36m9rADKY64mxlJ0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=l650I2tb; arc=fail smtp.client-ip=40.93.194.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405DA38F927
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782116628; cv=none; b=Oe3AyAB4VddYXc6gNOZn4yEoqN2IZzhcRZHLi1IGyI7TlK/fkehg3e5LOya1+cA3OEzmZ4H/rjtTiCX28oqcZU9ey68/qyPUiCtGu/imZaJ/5Y5F5JnCThJIZ5OGojFkpf65xM47FNJIm3m5ZUszInVA/x3MrnamwQe0ix8Td6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782116628; c=relaxed/simple;
+	bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=ndSZarN13RFpFFoSUc4kd9tCqH/o3w5fyS5rKuW77GyuHmWG+xSTsuM9fUkg2m5rR5TmN1dlOnyZYcks3A1fuwbqug7iJk1Mz0FS8hQKa60U5HV9B60FmVRqGNFbAkHeWf7vbDToTvd5QgUURDl0m0TUDDJv9E+xXvhlyGqGguM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=tJlpr39N; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="l650I2tb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UHICkxB7FgptjjtXQzRqH8Fgfw44p/N/vGN1oqUWNae8huNkepPHl9UbJamb6pz1XVr1+7kZU5s8osxn6DL4QScwRSoMIRAHCJVJ4+ZG2XsdaeQobjTp8wSTrX2DxaHqcA8n1ZDAYoTVqSrYAggukJo1yO/EsUBdXB+XxEKe+8rAPjc59edIa9JFIypdDoAZHLygcEbBMJUVEqZeMtcywbVPhKNjdkCzJiXLJYC8359I3Yp6Z16aHxGO1SmV4hbwF2iLHbCkQTT0X2s9XUM6fOQgV71SCT9rYLMiIpxIulIyGv2YtNx3e4cjs1yiiabjoKEv6LI2ZdoHllIXIX/OKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+u3Nvf/0Xx6qXsKgYyeMjWVAkktSVyNL0+tyZyimBw0=;
- b=pvUQ3d1xcwsa4VdQ9ihhBzY+ApO/YT26Uv/kOt+ovi4bfKpAVTQ9fQbx79k777OisdFb4VhlquswJmP4dBLyFmD3M8f62I/i0e+jqhRX/IbzJjUV9V1siE0inlAYX+1ZW/Mgaiz1EdRbvDvKN4zdgAbcmKjTPEn8n9/fih03YioNbqyc0gvkP0SGuHUc+TLmrwwFubE0yPRbPzjjb5Za2VuweDyJp+GTllU+sKOv9FO8H8jVudgQ8W0DPw44cYMMt5dUBRsDmu+WXVUmEhmRAcf+borc7NiQfb22o0s2r/g/fO0OF0FmJKEyHvvRHSk4Vw3j7w0o5BeOb3SQIUaxOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+u3Nvf/0Xx6qXsKgYyeMjWVAkktSVyNL0+tyZyimBw0=;
- b=l650I2tbuK+LDJwyeHuJ+JxjhbySBOGdA56XBDipQbI/47L3595rZyvlcVO1AVxjbJTJxqIMMnjAmZmbjA16UfCP1XQjy3awJvho5aYlYrSHAyHq+sDDUPeD4uq6jdxMvZSu0H1FkNLDhpjdRJMEuLKza82NUiFvzQ8K+HRjiilzcRX3wfqak/8nOZEy+gZF6cy2RpCIz6z8LeHjDXpdod5t0d/kuljAK6l4kLdndLhKrzbzawuCiv4i1RxnyUcaNzUuHEp8ZVQSVqM2wqIClEb22KY2nw44VPk3Av0fVUWcKE1ok89nvVurYGAnvGFVPeTTDpKo9IbzX+Svj4SAyw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by CH1PPFC908D89D1.namprd12.prod.outlook.com (2603:10b6:61f:fc00::623) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 22 Jun
- 2026 08:23:14 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 08:23:14 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Mon, 22 Jun 2026 17:22:53 +0900
-Subject: [PATCH 4/4] gpu: host1x: Allow limiting usable channel and
- syncpoint ranges
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
-References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
-In-Reply-To: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: OS0PR01CA0118.jpnprd01.prod.outlook.com
- (2603:1096:604:9b::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="tJlpr39N"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c0c15bd6b8fso230271466b.0
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 01:23:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1782116626; x=1782721426; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
+        b=tJlpr39NE7yGwJMaIA+4fM/aUP1Hj/FhwSsW4fmioS66ZE3OOwUcuWDkxxKVorhLis
+         ZMgOkPIMXJQe+NTG5ZYUFKC1TkiBSBqKtGC7VCVYnihn2NP+AObCyhcwr0k99YRahxiN
+         Ut8EEBIEMisEfVkXJO51acgdZVEq5FvPCJIR11zF6xQfdRy6LBjqUIw6qH2RoIglLiIF
+         FqgRTlmv6E9iS5OQu8dskQDGJ+6Gp4luIohKuR30FITZCi48YwX3TgPH/IQ2nMW2uXcJ
+         1DfMYK0YHbESilAQa+voh/KPbAutCuxeBgfUBsg9UNj/I5+5DrwJvBlGwqm7pL/rbVom
+         oesA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782116626; x=1782721426;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
+        b=As7zmRawV16nldAZbCvn4W+sp0aZDSHlBM8tpuJiiFcjnykZwYNUM3iw+Y4mZyLOE1
+         jSyhQKGlqhl5RzjeUasjMSMSFcprcwRmILRgE8UQZih1tUu8g8qguI0ORoDKiLSc8OP0
+         wyDr7WIy6/leZmdo3Lpkw+i701QLnVz9PAQOe2OjtSuyqBAYQFyOL2BPkQbSJICBlfeZ
+         XCLLQL37ePShQ9sVSjYLHRtCOK+D+7vXbP7WnHk5aUwrzdMeGiytsHeUBNnVoDA7wMFv
+         aj9+87QLrzgB7Yc98Aukit216CUIoKJkcrygwoUuCYEMr5f4iOucFdQB4gfgzvYFIIFy
+         U3WA==
+X-Forwarded-Encrypted: i=1; AFNElJ8G54IFXWY7FMC9npzy95/OQjEU8WN65WurFSgk8kwKWAjhW2a9rx088N5708ALGXaLl9nPQ2o5pE05@vger.kernel.org
+X-Gm-Message-State: AOJu0YzG7psO1tTJFIOOz+O9C2w9vtm9GVR+eQ6lAMaPaIeYPrbh1Kne
+	FGDLlxzMho4aK2f4G+IAmLVHJ3JbaLaBPfBn55vidF4a/LKE78dpehxc1Nq9+H9yXnI=
+X-Gm-Gg: AfdE7cmjNVGCF8JE7kmZZQ+dRqATmtquq305GCHNf4T7Yp6HP/FGrG2LmUMdoJbzeI+
+	OJnm8letH00RYaF6SmbB135vQ63+RhuN3RYKFQHDrxj8JyT8V5YL8eQYPGF2tAHnEt4iLZwbzz7
+	ofnQSSdpQPnZnGDidV+I2JIprhN1R9ewFcuRlV1VGpZiSa8nHh8wg3vv8rlpLfxEES7CnsziUZy
+	V1wCLVxXle+Nr4LNh1lKBGNR6A+j7vxEQ64+aw8y6nKtjMiEqB6e8CSms0cU7wvRX9rvVu4fIlr
+	eLU2//HjHf/MqYtTNU7pmGrulZd+AzG6FH9eMLnvT2zCEH9psPORNc3TaFkeDMurZqdN1QGDSVP
+	Apf9rK9NcteYj+sYZX+TcF8KIIbFFrPrFVc1K3EuuNwaooQXfqI6C6oTgpPHTNPXGtHAoJHaPo6
+	R0jH3JhUEyeleHEWUCmkvoCCWfEDu7FKbKhyY+f5oDiBjQNqfeRGs2LxLBsm4VVFp3kthQvhqbz
+	+CJDztLXhZL0+ZDI9nIyyhLFys=
+X-Received: by 2002:a17:907:3e9a:b0:bfe:ed74:524 with SMTP id a640c23a62f3a-c098f33a0f1mr679421766b.51.1782116625717;
+        Mon, 22 Jun 2026 01:23:45 -0700 (PDT)
+Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac97aesm310087666b.30.2026.06.22.01.23.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 01:23:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CH1PPFC908D89D1:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3de006b-1991-41ee-64cc-08ded0378116
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10070799003|921020|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Xmb3ZjpsjT5zU37X6csXVklzDbUruGRNrhEDjOPcfdRJ9vqOqJSCnk1MaoD12OhIgyNn1M5CUKZt+KST9Dsrukl2W3G6rDq4XDKAlivPEIf09yMpw/kLoYOtrtmOnxzLApchmGft/P8aHQ7pKNTBP8n6HD9CGLIuaKk/QoH06mOswiuCPqiHug8MQOv8i9IFTBW6lAyDZb9iAIsn9SbocMp4/xBXBF1DdItElb25/Yb2VX0l6AR+PJcD0+/fUCgWhDf3zxYmX2wWRnXh3Z81rectjXMKErd6Z01FXP3P1lJzmA+bs+R/d/fUQamATk5C7lHw09DbQj+d2hsTBkaEfhVhaQ0TjyNIpcGQDxHocg+BpWML9sOse3fbLMsP9WHQElEqObZ1Eubn8boG1bVgtNaWpU5jlojj6Tl6Ssg4EssaqdgkXdzCbNfnCloDAfLU06+qg8YZsmtvLDx7IY5nA3S/gHFZ7MFS/BGAlVlofjIXcZL8VAlTbto9jqMPeBf4j6GpF6VffalVvdTqcYJdWeoQkx8Rz5w5q/vTiyw4tvjEdt+EoT+2ZObIfo4Gd7F0hA3OXfvVCF4YaEb34qtWM6zH6L+WAbNuNuJ9w6rowoF2AJDWZM2v61VLcN7vlh2CwZWBRQREXd1j97xPB4thD9/IIFbqRBS0PFgm3phQCgoUmqbPraPjMUiiBrScRuJghtUt/bEs0f7VzyzFBQUDBg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10070799003)(921020)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RzQzN05zcDBIRTVxdXhwVTNqeVZFcmEzekRiL01iMTRrU3lrQlJ6NnRISTNR?=
- =?utf-8?B?d1RydGhINytkVVBhMEhzdzArRFBzVHoxK2xWN1NFNzRjazhIbEhnRlZ0aFJY?=
- =?utf-8?B?RDZQdlBkdlRJRFlzREdWYlJKOTEzOGlmN3BzZUVYWm8xYTJuOFRlWjdwREtw?=
- =?utf-8?B?VytmeTV5djVWeGdZM0RPMmtnQVQ4TGhRa3NqRWJDWVRCeHo0YWtxLzBQK0Zl?=
- =?utf-8?B?K1hTaXRwdzNqL005U2NXMDYrNndtY1JwNDJBWFNNZEFBTmhYS1VSOG5vQlZ1?=
- =?utf-8?B?YXR2RnAxMnJFYlJCSWlhRWVlQ21XTjBTZG9LdGFOT2lnMXdPcE9UajBKSFd3?=
- =?utf-8?B?VHJBNHNoaFBxTkwrQUVmNXd3cXBvbVBOZmRCcmFUZUk3K1pPSWFNaEUvd2xZ?=
- =?utf-8?B?T05pdkxmL2daOVRnQUhub3dibkFUY09wc2pwVEpOQzZvK3VkUkNLemNZejNQ?=
- =?utf-8?B?WXlMcXkrcjJ2eUtQUithRFk2N2lNZiswOUZqcHdYeXl1S0haMTBGK08xdHZV?=
- =?utf-8?B?WFB3aU53REVpMHpiMXEvakk4dGxQZW4xRExzRGkzaGFNaVVCLy9WOHN0Znpy?=
- =?utf-8?B?MHZYRlpYWjU4dWZab3BQaXVJZTArcUtNWDNOSVh2Q0dYSS8yRHU2K2NXSSt2?=
- =?utf-8?B?SHNzR2phbTFpc3hEMUxTRU9GT1BIWG4vWC9uWEdGdGFKdVlPbkRvQmRKL1RI?=
- =?utf-8?B?azNVTG95cUd2TWc4QmpBSVJmd21GSVZKY2xhcXZUdGVtd3dOZ0R4eEdNbU9t?=
- =?utf-8?B?RVlMS25DOFhBNEVocUVHS3pnSUh5T3RKa0xUdHY5Sk9Xd1hHT2FLWWdmYWNU?=
- =?utf-8?B?aEw3N1VvWk5qMGh4dEJIazV2WnhlQlZ6WFZpWlBONFBYVTJ0YnF5Yk15OXJ1?=
- =?utf-8?B?M1o4U3pZSjhqc1M1YU8yVFQ1NzhYNXpFSkZyamYyTWdpc0FYek5CclNOT1B5?=
- =?utf-8?B?aHl3cTVQMklrK3cyOThueXR0SG51WkdZM2N0RDVqRzhjK1V6Rmhkd2N0UWZa?=
- =?utf-8?B?SlIxQ1VGV3QvV2psZHZiNGhQUy9RcGhobjFBWkQvREc4bFhvek9YRndqenVw?=
- =?utf-8?B?USsxY1A2Rkk4MEU5WUF0SFRYdGdpa2tnUlM0eVJVZ1BnMm9LS2R1ZFYwSmxJ?=
- =?utf-8?B?ZS85QnpoV2FxcXhpb2UwcVFkS1VBQWM5UE1seXNVSXhDcVpsUjdQYlVhRlBJ?=
- =?utf-8?B?NkR3TU5UbWQ5OUI1T1U5Rmg1ZTc2dHpEZGljRDBrcXZjbWU1NzZTWVZ0eEQx?=
- =?utf-8?B?cnNJbEdRNHNFRzFTR1RXMjE1OGdNNVQ5Z29QbjdwSUVGeTkyM1VsdUtYMFM1?=
- =?utf-8?B?OUdqRUtmWU9QRlF6NmcrRlVRcGc2SGlqZmo5dG1mK05nQlJtc0N2czF5OGVl?=
- =?utf-8?B?dkxLbXNjTWlENGRQZURJTU5KWkdEMG1zSlJlSGdBSU1tLzkyWjhLZDAzV3h5?=
- =?utf-8?B?YVEvK0pBWWpqMWhJRDZsczY5RHVVcU83Z3NKcUdCbzZaSmV5eHE1S2oyR3VU?=
- =?utf-8?B?S0xHTitUemozc0h0UnBTaXg4SE9HclVNZjZpaTQ2MXM0Tk1UYmZjeWZkbVN5?=
- =?utf-8?B?QnhHNEFpNTV1Y1BpZ2JPemZacmZJVnVUaWpJOXJTajYwZG93OE5Bc1BtVkpD?=
- =?utf-8?B?bjNZRlRLK0c5RmRTdWQ3SmxRbGJCdTZPTUg2MHlvKzFuaHQvZzBURDRZazQy?=
- =?utf-8?B?L0J2U3BRLzE0UVVqb2pPOXY0R1RIekQxbFJUU29Xc3ZUZk1ZSy9tRGkvTUxI?=
- =?utf-8?B?ZnVkMnc3M0MzTGFaRWdtb1RmV3hIU2hEU0hDN1NNbTlFV0FVbHdNL1ZoS3Ji?=
- =?utf-8?B?YS9nWklUYitpQmw1cThQSEpldys1akZUbEZWTTRQME00T2hhYnRUQkZqMUhN?=
- =?utf-8?B?Rk52WVNnbkNIeWNMbDJhMXEwVEZKUlhNTkxLNnk4RTZqU0hSblhFODlpTGVF?=
- =?utf-8?B?azlTdzczTndkZzRhY2F6Z25sNGg4bEZ0UlRzZW9KcFd3V1JsVnlTbVowME9V?=
- =?utf-8?B?M2FxVmRycVo1ZzA4M1BpNXJKV1ZNM1duUHBnL1lYaUltQXp5WGFCOTBrVFRr?=
- =?utf-8?B?bWRJYlJqSE40WGJIUlJBR29zYU9IUVh5NlpQU0RjQVdLcDdiZEpFK0hLSlpL?=
- =?utf-8?B?WEk3RFh2UVQzcTlaMTBUVnVUdFUrNUpRTXhxbTIxSWIwU1Q5NTV3QVEvR0F5?=
- =?utf-8?B?TDA0eTdVTFJWT0gzK2JHVXpua2FZcko0S0QrYnY3TmRUd2IxQ3hFdmhSTkpJ?=
- =?utf-8?B?aFlCVXFQMTlFVnZvSyttWUNSVWRVbkdLWm13NDd4dDFrSkJDZWhJdGhIY3RS?=
- =?utf-8?B?dnJrWFluYURNb0lxemNJZlZlWHBQNkFHbVlvdzFablJHUmRyR1QycVlvSWo2?=
- =?utf-8?Q?/Viipar4IJhCnd3+m6RwMP4pTrN49Xz8IO3Kfaqs8ZgdZ?=
-X-MS-Exchange-AntiSpam-MessageData-1: umwDeAzyA7f1Dg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3de006b-1991-41ee-64cc-08ded0378116
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 08:23:14.2642
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wa2XtFWZviC9js3LY8hJjS0A0LV9MwkQPeOe7By9tp8Q4t39ElJI4gC8vvl4sJZSDwDnuQpJ7EhkDo+JnQkaCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFC908D89D1
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 10:23:44 +0200
+Message-Id: <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
+ <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
+In-Reply-To: <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
 
-Allow specifying usable channel, and allocatable syncpoint ranges
-through the device tree. This is necessary when Host1x resources
-are shared between multiple operating systems or independent hardware
-units and Linux has limited access to them.
+On Wed Jun 17, 2026 at 12:05 PM CEST, Konrad Dybcio wrote:
+> On 5/22/26 4:46 PM, Luca Weiss wrote:
+>> Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
+>> some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
+>> and power-domains for the LPASS RX/TX/WSA/VA macros.
+>>=20
+>> Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
+>> equivalents in its place. The qcs6490-audioreach.dtsi file can also drop
+>> deletion of power-domains properties then.
+>>=20
+>> This follows previous commits moving Chrome-specific configuration to
+>> the correct file, leaving kodiak.dtsi for Elite and
+>> qcs6490-audioreach.dtsi for AudioReach.
+>>=20
+>> No functional change intended. The clock-output-names property will now
+>> exist for both Chrome and AudioReach devices but this shouldn't have any
+>> relevant effect. And WSA macro clocks weren't added to Chrome because I
+>> don't believe this would've ever worked given it already referenced
+>> q6afecc and the nodes were originally added during AudioReach bringup.
+>
+> I think it's better to keep them, if only to make sure that the result
+> of dtx_diff isn't outside the expectation of a commit that claims to
+> only reshuffle data for these platforms
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/host1x/channel.c |  6 +++---
- drivers/gpu/host1x/dev.c     | 37 +++++++++++++++++++++++++++++++++++++
- drivers/gpu/host1x/dev.h     |  3 +++
- drivers/gpu/host1x/syncpt.c  | 21 +++++++++++++--------
- 4 files changed, 56 insertions(+), 11 deletions(-)
+I documented this in the commit message for this purpose.
 
-diff --git a/drivers/gpu/host1x/channel.c b/drivers/gpu/host1x/channel.c
-index ca5d0f51cf7d..38fcdda8388a 100644
---- a/drivers/gpu/host1x/channel.c
-+++ b/drivers/gpu/host1x/channel.c
-@@ -121,13 +121,13 @@ EXPORT_SYMBOL(host1x_channel_put);
- static struct host1x_channel *acquire_unused_channel(struct host1x *host)
- {
- 	struct host1x_channel_list *chlist = &host->channel_list;
--	unsigned int max_channels = host->info->nb_channels;
- 	unsigned int index;
- 
- 	mutex_lock(&chlist->lock);
- 
--	index = find_first_zero_bit(chlist->allocated_channels, max_channels);
--	if (index >= max_channels) {
-+	index = find_next_zero_bit(chlist->allocated_channels,
-+				   host->channel_end, host->channel_base);
-+	if (index >= host->channel_end) {
- 		mutex_unlock(&chlist->lock);
- 		dev_err(host->dev, "failed to find free channel\n");
- 		return NULL;
-diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
-index 545fa2e3f180..7103f018cb1b 100644
---- a/drivers/gpu/host1x/dev.c
-+++ b/drivers/gpu/host1x/dev.c
-@@ -331,6 +331,39 @@ static void host1x_setup_virtualization_tables(struct host1x *host)
- 	}
- }
- 
-+static int host1x_get_assigned_resources(struct host1x *host)
-+{
-+	struct device_node *np = host->dev->of_node;
-+	u32 vals[2];
-+	int err;
-+
-+	err = of_property_read_u32_array(np, "nvidia,channels", vals, 2);
-+	if (err == 0) {
-+		host->channel_base = vals[0];
-+		host->channel_end = vals[0] + vals[1];
-+	} else if (err == -EINVAL) {
-+		host->channel_base = 0;
-+		host->channel_end = host->info->nb_channels;
-+	} else {
-+		dev_err(host->dev, "invalid nvidia,channels property: %d\n", err);
-+		return err;
-+	}
-+
-+	err = of_property_read_u32_array(np, "nvidia,syncpoints", vals, 2);
-+	if (err == 0) {
-+		host->syncpt_base = vals[0];
-+		host->syncpt_end = vals[0] + vals[1];
-+	} else if (err == -EINVAL) {
-+		host->syncpt_base = 0;
-+		host->syncpt_end = host->info->nb_pts;
-+	} else {
-+		dev_err(host->dev, "invalid nvidia,syncpoints property: %d\n", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
- static bool host1x_wants_iommu(struct host1x *host1x)
- {
- 	/* Our IOMMU usage policy doesn't currently play well with GART */
-@@ -602,6 +635,10 @@ static int host1x_probe(struct platform_device *pdev)
- 	if (IS_ERR(host->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(host->clk), "failed to get clock\n");
- 
-+	err = host1x_get_assigned_resources(host);
-+	if (err)
-+		return err;
-+
- 	err = host1x_get_resets(host);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/host1x/dev.h b/drivers/gpu/host1x/dev.h
-index ef44618ed88a..89f1fc838a1c 100644
---- a/drivers/gpu/host1x/dev.h
-+++ b/drivers/gpu/host1x/dev.h
-@@ -141,6 +141,9 @@ struct host1x {
- 	struct reset_control_bulk_data resets[2];
- 	unsigned int nresets;
- 
-+	unsigned int syncpt_base, syncpt_end;
-+	unsigned int channel_base, channel_end;
-+
- 	struct iommu_group *group;
- 	struct iommu_domain *domain;
- 	struct iova_domain iova;
-diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-index acc7d82e0585..fe27a386cc0c 100644
---- a/drivers/gpu/host1x/syncpt.c
-+++ b/drivers/gpu/host1x/syncpt.c
-@@ -59,7 +59,7 @@ struct host1x_syncpt *host1x_syncpt_alloc(struct host1x *host,
- 					  unsigned long flags,
- 					  const char *name)
- {
--	struct host1x_syncpt *sp = host->syncpt;
-+	struct host1x_syncpt *sp = host->syncpt + host->syncpt_base;
- 	char *full_name;
- 	unsigned int i;
- 
-@@ -68,10 +68,10 @@ struct host1x_syncpt *host1x_syncpt_alloc(struct host1x *host,
- 
- 	mutex_lock(&host->syncpt_mutex);
- 
--	for (i = 0; i < host->info->nb_pts && kref_read(&sp->ref); i++, sp++)
-+	for (i = host->syncpt_base; i < host->syncpt_end && kref_read(&sp->ref); i++, sp++)
- 		;
- 
--	if (i >= host->info->nb_pts)
-+	if (i >= host->syncpt_end)
- 		goto unlock;
- 
- 	if (flags & HOST1X_SYNCPT_HAS_BASE) {
-@@ -138,7 +138,7 @@ void host1x_syncpt_restore(struct host1x *host)
- 	struct host1x_syncpt *sp_base = host->syncpt;
- 	unsigned int i;
- 
--	for (i = 0; i < host1x_syncpt_nb_pts(host); i++) {
-+	for (i = host->syncpt_base; i < host->syncpt_end; i++) {
- 		/*
- 		 * Unassign syncpt from channels for purposes of Tegra186
- 		 * syncpoint protection. This prevents any channel from
-@@ -296,6 +296,9 @@ int host1x_syncpt_init(struct host1x *host)
- 	for (i = 0; i < host->info->nb_pts; i++) {
- 		syncpt[i].id = i;
- 		syncpt[i].host = host;
-+
-+		/* Default to client managed for syncpoints not owned by us */
-+		syncpt[i].client_managed = true;
- 	}
- 
- 	for (i = 0; i < host->info->nb_bases; i++)
-@@ -305,10 +308,12 @@ int host1x_syncpt_init(struct host1x *host)
- 	host->syncpt = syncpt;
- 	host->bases = bases;
- 
--	/* Allocate sync point to use for clearing waits for expired fences */
--	host->nop_sp = host1x_syncpt_alloc(host, 0, "reserved-nop");
--	if (!host->nop_sp)
--		return -ENOMEM;
-+	/* Prevent syncpoint 0 from being allocated by users */
-+	if (host->syncpt_base == 0) {
-+		host->nop_sp = host1x_syncpt_alloc(host, 0, "reserved-nop");
-+		if (!host->nop_sp)
-+			return -ENOMEM;
-+	}
- 
- 	if (host->info->reserve_vblank_syncpts) {
- 		kref_init(&host->syncpt[26].ref);
+But I'd argue not putting (likely incorrect) wsa_macro overrides there
+is the better thing to do. Probably somebody should've taken care of the
+Chrome platforms when adding the wsa nodes in the first place.
 
--- 
-2.53.0
+>
+> It looks OK as-is for Elite and Audioreach platforms (for the record, I
+> checked rb3gen2 and FP5)
 
+Thanks!
+
+Regards
+Luca
