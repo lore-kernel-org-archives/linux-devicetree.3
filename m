@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6643932D8;
-	Mon, 22 Jun 2026 08:42:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76306156F45
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782117769; cv=none; b=D653V6w8yd/yGX5QU/EpfQHD5FkSfSPf471HmF0QUyb1oPK1+xzTOrl2+2i4+69P0yxhkFO2N1VPXXzqB9OuJssKBnsH1i1AaKhbPYcerrpWOO3xJStEM7ioEporVTh4EujdJgwjWS4GCiHe3YF4KkF5f/jU+PL+dLHuXPCgHgY=
+	t=1782118108; cv=none; b=ftOtA4M47leOPjV+aDFrd1XQz2XCVfD1wh8T2M+E+TaQxp2AltVOSOQhLwLjbg6SluvxVP5PKK5lvTKQKrwAyULWFxfl1XrLBKHGdHb8hiDRUDPfQmcAOYTbpy86hJ+BQYxXbb2uvmzAfL8mYgXureFEQnvBiTFLEL7rJxvF8bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782117769; c=relaxed/simple;
-	bh=NoIkgHjmiX4KCOnXdO+bozw96BGxwWSTYJxUK1g+uak=;
+	s=arc-20240116; t=1782118108; c=relaxed/simple;
+	bh=n3dAg9ZZRSYsYmE/UJNiFbor0LAzkd7l3NCA2bsCw80=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jPv1JjhmVcvt+vmvZAT7rox/YzEXGhEMk5VElT8PVObv5YxB9RNXmCTuv6X6e7GExm/YBraXAOidArNsn7+OMzqRuOchtogFQWglbJb5CkLdVCbiFoG9hcFtPdcYReJUiZizy5znvfgiSwMN5UPsrUYKwxnkdT+QQuL1RsJiepI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/t0jXdD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Cm9CQwdmJlxJ+71IQf7p+dckoSA/HVxT/q0ESwUe+0ARDQ/eU3jYcD3h8m7DMpxNgqzrkIN/eJ7CVM8Atbwjk+tX9mNduHAxxmJ4s6qz3rQ+OrKvkPoaKtvHelSte8a9k3R2cd6wI2iGV6k/GcjWFDsWhsdO9sUwa5lcFaakqwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bexvx1+e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/t0jXdD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01A91F00ADF;
-	Mon, 22 Jun 2026 08:42:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bexvx1+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9742A1F000E9;
+	Mon, 22 Jun 2026 08:48:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782117767;
-	bh=+Gp76w+0+T8PWIg87+yLuN/MbpfjdvEty2/M9YOxick=;
+	s=k20260515; t=1782118106;
+	bh=Ip851X7bkgURMoyrElEEM17vIHpXT3xsP2yIrtuWlUM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z/t0jXdDV6EUOYb6y5FcXqKGsOM55HhS8lUkoFmQXTx+8OuPaS7A6fhZxlJ0iemiC
-	 j9CfGAxvJHz6UGLJgcrJ8jUSPXIzX8rCoviQ+wCSmSa0fsYtgclEzVy0hn1ePmavoW
-	 9QQtpHuLOAEcJH1lvSoOEs/q28scVtcM77jLVF4IJ/jfhidrtZPfeNaBKbj2O8O+Gb
-	 bDxzSDkLd8wq8YZSRgHsraelTLNxn2I/Gz/ll4Rb1HoA4huN4Sok/GXIZmpoMbgpXA
-	 nYJEnNplem4vBMJOmy2x9OheLy0EDoHP0s4dkwBnHq3Sxr8Y/lt7jj1q84dBQFPqCD
-	 zc65byleTaC6A==
+	b=bexvx1+ekowZ+J9+FtgudKx+fAndkkYoeBjR1uM8TTO6zXt1t0uAwbwXcKn31dCmL
+	 9iy3LwJ2Zti2f3oX9L9laPtCGwR9I2XXtbEE0m/6m83DK86zt4kMSyX0VCmMX//PdG
+	 rhMoBBQMaSeaWlEfTgGhyjWddQ+uKOVNVYodHKct/zfjIBmID62sZeOiXl3kG/x9ro
+	 m1LMHDdhbzLhF9y3UKm1sCn8G1wpQUrYCyLaEzVcRFrjdj8/aDI9SIry40bOD38z5v
+	 7goqZoxXZOlXTKuj5gdaXXko4nqDLBDHN50/er3ITHyPeat7bHud6xyVMgIZ+2zAGU
+	 ssA0Z6MStxO/Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] watchdog: npcm: add bootstatus support
+Subject: Re: [PATCH 4/4] gpu: host1x: Allow limiting usable channel and
+ syncpoint ranges
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomer Maimon" <tmaimon77@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org
-In-Reply-To: <20260622083046.3189603-4-tmaimon77@gmail.com>
-References: <20260622083046.3189603-1-tmaimon77@gmail.com>
- <20260622083046.3189603-4-tmaimon77@gmail.com>
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <20260622-host1x-nohv-v1-4-65bc682a617f@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 08:42:46 +0000
-Message-Id: <20260622084246.D01A91F00ADF@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 08:48:26 +0000
+Message-Id: <20260622084826.9742A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,104 +47,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The first watchdog instance on NPCM750 clears the global RESSR reg=
-ister without caching it, causing subsequent watchdog instances to permanen=
-tly lose their reset status.
-- [High] Non-atomic read-modify-write of the shared INTCR2 register clobber=
-s concurrent modifications and incorrectly handles W1C semantics.
+- [High] Unvalidated device tree properties allow out-of-bounds array acces=
+s and memory corruption.
+- [High] Unconditional hardware state reset clobbers interrupt states and w=
+ait bases for unowned syncpoints.
 --
 
-commit dafe1267618ef0158376caf5f3acee9d7fe7b1b7
-Author: Tomer Maimon <tmaimon77@gmail.com>
+commit bdd04d3945b8f8760d8be70ce0ab1595927b08f4
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-watchdog: npcm: add bootstatus support
+gpu: host1x: Allow limiting usable channel and syncpoint ranges
 
-The NPCM750 uses RESSR and the NPCM845 uses INTCR2 to latch reset
-indications. Read those bits during probe and map them into watchdog
-bootstatus flags.
+Allow specifying usable channel, and allocatable syncpoint ranges
+through the device tree. This is necessary when Host1x resources
+are shared between multiple operating systems or independent hardware
+units and Linux has limited access to them.
 
-> diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
-> index e62ea054bc618..98660419ec3f0 100644
-> --- a/drivers/watchdog/npcm_wdt.c
-> +++ b/drivers/watchdog/npcm_wdt.c
+> diff --git a/drivers/gpu/host1x/channel.c b/drivers/gpu/host1x/channel.c
+> index ca5d0f51cf7da..38fcdda8388ad 100644
+> --- a/drivers/gpu/host1x/channel.c
+> +++ b/drivers/gpu/host1x/channel.c
+> @@ -121,13 +121,13 @@ EXPORT_SYMBOL(host1x_channel_put);
+>  static struct host1x_channel *acquire_unused_channel(struct host1x *host)
+>  {
+>  	struct host1x_channel_list *chlist =3D &host->channel_list;
+> -	unsigned int max_channels =3D host->info->nb_channels;
+>  	unsigned int index;
+> =20
+>  	mutex_lock(&chlist->lock);
+> =20
+> -	index =3D find_first_zero_bit(chlist->allocated_channels, max_channels);
+> -	if (index >=3D max_channels) {
+> +	index =3D find_next_zero_bit(chlist->allocated_channels,
+> +				   host->channel_end, host->channel_base);
+
+[Severity: High]
+Does this code allow out-of-bounds memory accesses if the device tree values
+exceed the hardware limits?
+
+Since chlist->channels and chlist->allocated_channels are allocated based on
+host->info->nb_channels, could a large value in the nvidia,channels device
+tree property cause an out-of-bounds access here when host->channel_end is
+passed to find_next_zero_bit()? Should host->channel_end be validated
+in host1x_get_assigned_resources()?
+
 [ ... ]
-> @@ -169,6 +250,92 @@ static bool npcm_is_running(struct watchdog_device *=
-wdd)
->  	return readl(wdt->reg) & NPCM_WTE;
+
+> diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
+> index 545fa2e3f180c..7103f018cb1bf 100644
+> --- a/drivers/gpu/host1x/dev.c
+> +++ b/drivers/gpu/host1x/dev.c
+> @@ -331,6 +331,39 @@ static void host1x_setup_virtualization_tables(struc=
+t host1x *host)
+>  	}
 >  }
 > =20
-> +static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device *d=
-ev,
-> +				  const struct npcm_wdt_data *data,
-> +				  resource_size_t start)
+> +static int host1x_get_assigned_resources(struct host1x *host)
 > +{
-[ ... ]
-> +	if (of_device_is_compatible(dev->of_node, "nuvoton,npcm845-wdt")) {
-> +		ret =3D regmap_read(gcr_regmap, NPCM_INTCR2_OFFSET, &rstval);
-> +		if (ret) {
-> +			dev_warn(dev, "Failed to read INTCR2 reset status: %d\n",
-> +				 ret);
-> +			return;
-> +		}
+> +	struct device_node *np =3D host->dev->of_node;
+> +	u32 vals[2];
+> +	int err;
 > +
-> +		if (rstval & NPCM8XX_RST) {
-> +			ret =3D regmap_write(gcr_regmap, NPCM_INTCR2_OFFSET,
-> +					   rstval & ~NPCM8XX_RST);
-
-[Severity: High]
-Does this non-atomic read-modify-write risk clobbering concurrent modificat=
-ions
-to the shared INTCR2 register?
-
-Since INTCR2 is a shared global control register accessed by multiple drive=
-rs,
-using regmap_read() followed by regmap_write() drops the regmap lock between
-operations. Any concurrent modifications to INTCR2 by other drivers could be
-overwritten.
-
-Also, if INTCR2 contains Write-1-to-Clear (W1C) status bits, writing
-`rstval & ~NPCM8XX_RST` might incorrectly write 1s to all other active bits
-(clearing them) and 0s to the watchdog bits.
-
-Could regmap_update_bits() or a W1C-safe write be used here instead?
-
-> +			if (ret) {
-> +				dev_warn(dev,
-> +					 "Failed to clear INTCR2 reset status: %d\n",
-> +					 ret);
-> +				return;
-> +			}
-[ ... ]
-> +		}
-> +	} else if (of_device_is_compatible(dev->of_node, "nuvoton,npcm750-wdt")=
-) {
-> +		ret =3D regmap_read(gcr_regmap, NPCM_RESSR_OFFSET, &rstval);
-> +		if (ret) {
-> +			dev_warn(dev, "Failed to read RESSR reset status: %d\n",
-> +				 ret);
-> +			return;
-> +		}
-> +
-> +		ret =3D regmap_write(gcr_regmap, NPCM_RESSR_OFFSET, rstval);
-
-[Severity: High]
-Will the first watchdog instance on NPCM750 clear the global RESSR register
-without caching it, causing subsequent instances to lose their reset status?
-
-The NPCM750 SoC has three watchdog instances that share the global RESSR
-register. When the first watchdog probes, it reads RESSR and immediately
-clears it by writing the value back. Because the value is not cached
-(unlike the SCRPAD10 mechanism used for NPCM845), when the remaining
-watchdogs probe, they will read 0 from RESSR and permanently lose their
-boot status indications.
-
-> +		if (ret) {
-> +			dev_warn(dev, "Failed to clear RESSR reset status: %d\n",
-> +				 ret);
-> +			return;
-> +		}
+> +	err =3D of_property_read_u32_array(np, "nvidia,channels", vals, 2);
+> +	if (err =3D=3D 0) {
+> +		host->channel_base =3D vals[0];
+> +		host->channel_end =3D vals[0] + vals[1];
+> +	} else if (err =3D=3D -EINVAL) {
+> +		host->channel_base =3D 0;
+> +		host->channel_end =3D host->info->nb_channels;
+> +	} else {
+> +		dev_err(host->dev, "invalid nvidia,channels property: %d\n", err);
+> +		return err;
 > +	}
+> +
+> +	err =3D of_property_read_u32_array(np, "nvidia,syncpoints", vals, 2);
+> +	if (err =3D=3D 0) {
+> +		host->syncpt_base =3D vals[0];
+> +		host->syncpt_end =3D vals[0] + vals[1];
+
+[Severity: High]
+Similarly, could large values for nvidia,syncpoints cause out-of-bounds rea=
+ds
+and writes?
+
+Arrays like host->syncpt are allocated based on host->info->nb_pts.
+If host->syncpt_end exceeds this limit without validation, functions like
+host1x_syncpt_alloc() that iterate up to host->syncpt_end might access
+memory out of bounds.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
+> index acc7d82e0585e..fe27a386cc0c8 100644
+> --- a/drivers/gpu/host1x/syncpt.c
+> +++ b/drivers/gpu/host1x/syncpt.c
+[ ... ]
+> @@ -138,7 +138,7 @@ void host1x_syncpt_restore(struct host1x *host)
+>  	struct host1x_syncpt *sp_base =3D host->syncpt;
+>  	unsigned int i;
+> =20
+> -	for (i =3D 0; i < host1x_syncpt_nb_pts(host); i++) {
+> +	for (i =3D host->syncpt_base; i < host->syncpt_end; i++) {
+>  		/*
+>  		 * Unassign syncpt from channels for purposes of Tegra186
+>  		 * syncpoint protection. This prevents any channel from
+
+[Severity: High]
+Does this clobber the hardware state for unowned syncpoints?
+
+Right after this loop, the code in host1x_syncpt_restore() unconditionally
+restores wait bases for syncpoints 0 to nb_bases-1:
+
+	for (i =3D 0; i < host1x_syncpt_nb_bases(host); i++)
+		host1x_hw_syncpt_restore_wait_base(host, sp_base + i);
+
+Similarly, host1x_intr_disable_all_syncpt_intrs() unconditionally disables =
+and
+clears threshold interrupts for all syncpoints across the entire hardware.
+
+Since this patch restricts Linux to a specific range of syncpoints to allow
+sharing the Host1x device, will overwriting the wait bases and interrupt st=
+ates
+unconditionally break synchronization for other operating systems or hardwa=
+re
+units sharing the device?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622083046.3189=
-603-1-tmaimon77@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-host1x-noh=
+v-v1-0-65bc682a617f@nvidia.com?part=3D4
