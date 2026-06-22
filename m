@@ -1,227 +1,181 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013067.outbound.protection.outlook.com [40.93.196.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D7F360EF9;
-	Mon, 22 Jun 2026 06:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782111505; cv=fail; b=sD90Q/EIWMufooKvlmodmEzHMWXX85ENIAXVdEg3DhZAHFxqB9pKGPMjUd3KRoWGnc3WRP/5oqHzlrMPMxBXebEUAeNSW7/tDzWDeH77c/1zkOySLSSGYVW/YAU9WNYbTKwCPC8Ri3rrf5wi5c/T9OCl3KN5BgI2DUzL2YCKXkk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782111505; c=relaxed/simple;
-	bh=ICTGLdyiqmwKPUfH0vqrSqcpVCraGVcP8YW3zIzikI0=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=QBDH3ezcZCrKh8Tcqt9REsqjfac8EYw7BEusGb3N2egCHRI+MGKzP3nISAjq1g+Oten11dQeePtMxBzVnintFrCrjJ/fJEFj3a9UxQWpuXv/BJyON7VYqa/60rWrZAdhuGcxu3RSIZSDEvgbWpicBd5emdWYSCznuNcsgtmXVB0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=s9TDvGn/; arc=fail smtp.client-ip=40.93.196.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D7C233943
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782111928; cv=none; b=VtQU2SpYL3QEAHZyaS8diKBsbQL9TciXT8rE/mM0omcYAlvqNmZjQDLRI3TasgFvX9cVFmWvb/x1PoyPAIJJFhBGTgQeA6RZqzqKMlgqxTN0p8Nl/toU93msPFnCKU1lFNaOcYsZg7McNrLrUeSOY5ozi4a+A61W4bZwCSdEyL4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782111928; c=relaxed/simple;
+	bh=/sPH/4yOVljlqRqNUbXxHIhT6Bka9y5KCIYoKxZjVgs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=I0GXxUvFZ9+tDzsN7RWG37MaXo2g+208ya/aUbPZDytJOUFa0LJW/3hOzPoCEgKnOhFK8pz8RCXUfOjZCnXCeGnyAoNRGZiMkZiPNyGOu71CKXduvw15nj3tcEXJZ14zUlMXZ43nvX5Z9dWbO3x1HOXBBKeYHhW04IsoSpvq77c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=RFX9AYCi; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="s9TDvGn/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ft4HWLqYL4/Hsr0RG9KuEwmRJqNDG8QoMScQ2bkltwJAU0BPXbuON/xkWSTseKGy18rq9U8KN7VoeUHbqvyeJEtmkBZnhAMdG7H35jwZE5XomiPbQ1twLLAg+CdugKd1nrQWn2sTmYL8DDpwXqjo5br9ayUn9TktrfhEQWsAqU4LcZD3cm3s83wSBd4tTGWMaNOFXC0AColBPZoufioSLiRH1IfUQYLKwHWhtQ7P96UcNQPU0Rod+cdeLV2yM5KAEJp7XpYrRmIA+ughuecPeV1XLFksRdfYIw7bYyV95OlZyrFgXlK/MBAQWujR110C5tzKWY4tpK8aMZuzqPhxdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ymUZrYfSjvrlL5OogdzOq8mOP2t71G9cn2W+itZmkCY=;
- b=bnXwLpCDEFz2Afuok7n5pPUckaSrZ4gUTTVAkhjJ7AoFvFmzN7rNQH1T1vyCU2DPNSEwUFhIa/5LdNu3fX0CHg8xWMZOOU/zW9AG/eyvgfiaMyzMUsqe1zY+ExlIfCOzUs3CJD97n2Z3otMxYvyaUcYLFJ+X1/KCQyaUBZGrpOVNoP1Rqeqe2I8xrogCD1if8BdmnSf5PBCKu3TlPpD0DZgbU+2eHMdeOSvKlFg7wGgaktEDjrlDdmEIszew3aMP6ZCVjIFj/fo5+Oky3+eC3O8uC7fZx4yKFI4svao5iXHah1VSZYRmrYDwa0zVKNlFp3F/8jQdGASiU4kf429xdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ymUZrYfSjvrlL5OogdzOq8mOP2t71G9cn2W+itZmkCY=;
- b=s9TDvGn/4GilvXe2Xyv2Ihqb49ebhHWKt1lzz1sz605Ytis0ZyGIBsUW9KiS88xSl1wF3Ln44vNd1XkmUaDjux9VplT94WQwP6GMvuBBOGP3+bS9SBxM6t0J02a25QCLevoJJfGXml1NEoFiF4tar37zq1sVos2C033Ejyx7Srd1IAl6aTKchRd5vHF3+iL+HMBaA7i+ZNLCgbpwONyhPqgOmNWnM3Q+layH3FlXEKBzhQEEUlRrEQ49Dv7D9MX5eurIVWzgYAevijLVX6fUSBAQ7Te4y1HjzlXg57WKMlt4B0tExNTSR1uKk5K29tHGYBkU3tzjktlZI/R9mNGgYQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
- 2026 06:58:20 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 06:58:20 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Mon, 22 Jun 2026 15:57:44 +0900
-Subject: [PATCH v2 7/7] arm64: tegra: Add Host1x and VIC on Tegra264
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-t264-host1x-v2-7-ff7364d9ff7b@nvidia.com>
-References: <20260622-t264-host1x-v2-0-ff7364d9ff7b@nvidia.com>
-In-Reply-To: <20260622-t264-host1x-v2-0-ff7364d9ff7b@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: OS7PR01CA0006.jpnprd01.prod.outlook.com
- (2603:1096:604:251::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="RFX9AYCi"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6977c0814d1so2516613a12.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 00:05:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1782111924; x=1782716724; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A2dGSrY6zQBJiyRE8tkOjBJN/7dRnPUdVyyrkCIBUgQ=;
+        b=RFX9AYCig7Ub66hNakKuO+CUDa8Rph3pfR2X896WQDDtJThzBrIBLUurEFdkcfvqid
+         wNj1iw3m9z4HVSRrbGI9crpkm7iQ1/YQbaTjReqsyw1aZOLoab+vJ+5ePH8n1uPXLglS
+         eqDktRevvmv6VnkOryWKuhNJ6GEKvobqoIMykzgAWlGTQ/h2oTYKqYoWSYo/gVMlCrQs
+         V25lVdDS6z+MpwnRGdIjM8esbrwAN3jREdnYWLp0GfSdkLqA9GHkNxSfaG9KJo967ynF
+         n9MeEnDMERLJchiSZ19bnEW/h19sLkoehg0RS49UHa7RkcXzBxLCQUjewD7isxF7PuqP
+         IxSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782111924; x=1782716724;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=A2dGSrY6zQBJiyRE8tkOjBJN/7dRnPUdVyyrkCIBUgQ=;
+        b=SyBwzaDGB1wosjgTm1+l8TczLgacOxuyBy+V43zcqE0+xqxDcIN0S2bymxximhGdNO
+         uXWZl5gnsP6tUNBOhMZEKpnH2t+1la1/q6qlBrTF0a/pAgyZr1lp0zhYjgwuDiqdXT9s
+         lsOy53gVzRePh8q0xWCqqJjJKcVPCed+lQo2nBVGBu6SXKu+LXrW6WG/WNTExmDeWFfP
+         HGHSPG+wZl6RhXObH9Ojy7MCJHr27FODBr4RT7RQncBg5SISjc1ykXOp4Su+iQ9Db4fZ
+         5b2dJPclFTrvHi+GsOCYjbIEdLRHSgqHSvrcoz+zIhSkkWHOm6J0i4wb7XEXKSoG9r4v
+         7BUA==
+X-Forwarded-Encrypted: i=1; AFNElJ9M8Rc26Wl8UTXKVQhl8TAh++B1u8RENxANYklqjaoWbXTy18t7kZkTQJ1XrjfstAFvBkyS/tdPXp7d@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyv1bhhLy4DHQVYL6rfx7yH695pqgra3euo0VnH+vBSavl0Gmvc
+	IOw8FdPnW4yLAqrASlPPFdTMQd6KBOuZJQuNAK3bC0jlpBI9V52ZXSztsVP+wsIQz60=
+X-Gm-Gg: AfdE7ckxerSo0sIC5hsph78mgyd/3nb7K7mTacaWx3po/cfzUWii2pOs4mbqp98Z5KE
+	s0qqbda2HWRKo9lmKVJE4gQm/DKsbdfDL1+IycMg1QqpRyaSADcaEUQJWCsSVhWxS0TRcL9WWqe
+	Cxx3RCUXiSOkgx4KRLaPqt7xN7hfi+6RbO/0a6cpJCwBn7AjEHfJdH5Bn7It53TSLVeXnKLm8EZ
+	yRjlRb/sRXjxXc6kKqCvuGV4WAyzIsFolTBgCG8LrREHwB6wEO8XwyCBDVjX4hqiXZe3dFsOWrA
+	JLIo9FXGJgmvtmXofEuhG3GD5OxoXiCB33CoY1sMCRE1Vjh4ELJuScaGcCC8lsov06PZoEaqWEs
+	YbDYWRDcLfLUHinpAB2IDvuPqtkTE7CEWoVNI+QlP5ClC3fhKE7QZF8fiWVoE+yQjiE4EqJ2IHp
+	EaY4fght9zw8I1tC4y2sJIAB+LiEgCcCY3EA27Lpfj9Lr4lxBOvh7ekZrW+mMeKHl1FqjRp1X+8
+	xP9Yt3g2ad6QWIWY9apbC83THc=
+X-Received: by 2002:a05:6402:3886:b0:691:b5aa:5a5b with SMTP id 4fb4d7f45d1cf-696e5211752mr5971797a12.17.1782111922988;
+        Mon, 22 Jun 2026 00:05:22 -0700 (PDT)
+Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697b8780d08sm701001a12.0.2026.06.22.00.05.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 00:05:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN2PR12MB4286:EE_
-X-MS-Office365-Filtering-Correlation-Id: 403eabdf-3492-4038-e484-08ded02ba520
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|366016|7416014|376014|23010399003|56012099006|11063799006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	EPxb0sZ62GEzYAzfqPkbied0M1eZ00Vce/qSmjQhgLfdttYU/Uxp72zFX5m++ng65Wg3Q4832zAm039E1q0sngplSZkrRse6UGWI4Rs2YCjVsIcUxz6ql45Ev6QwpMe1BYT3dadK3Q16P0/bQEniqHbRfMbCC849kvaYclTxkTZnbvMb0rQqv4Jd6PMVJaOFghUDsAt0r1qZ2SWBF0SG4pDE5RuNi71lF0GgUbGLTcs6w0MQ1ykhDdXnVc6+DdLV820oSF5C3hao3/yXVT/2xwXCQDWtrl8/ufn0X0SEJmyJ6Kpt0HMargtElQiBChrfYME9UbPWhs5sfAHuYzDNHfsFnS0R5ZhIzvLKJOxfAZsMvfrBkYjEkb7ajWqKpz2vzRX48b4xxxyzPWGLs4hZKd+Hhr/HIuYPIyIlDb+kpPhCpWKXakMX8moAX0aTU/UMk1lWYs7tqqk0jRVLnF3wgPYFFVV20V5BSC0ebjwmhDmHUifYXvrER+KDIzqt9ULypkToWzoIOpcvqAMIpYju10Fp4otcS89JVIvMZ6yzWy2Xa4BRtS/MS4S4XnpZa3pbeEZNOC4oLMpavwiGVTlYXDtkHwUO5tybygBFbHqfMEPOXPiizfvqh4eHlj6KcMYepo1110q+JgzffrxKpBxhkX1CuyaMrLK50nURBqFEF12/UcoDwYmbQ2mvzVnJsLHd5qCk7J/tDKs7weTaQNDlbQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWVJdVh3czlYV2g0SktHc2hKeUtCWnpqV1JvbUlDU3Bma3ZTNlVDSStSTEZ0?=
- =?utf-8?B?VExxT0JmWlZuWWw3VmNBSzdZbWp3cVZwUzcvWHBsYUZhTUVUb2dCMFJBeStq?=
- =?utf-8?B?OFRYRGhpY1JWQ0c2MVZUN3RISUU2VVlybHlNRFZHc2RIcTNiMlN6VGl0VzBn?=
- =?utf-8?B?RlU1WmFTL0czMmNoNEQxVzY3cVNPSDh6bmhkZW1pOXNreCt4cnZUUk9nVVdq?=
- =?utf-8?B?cG9FbGFUd0RYSkJxQlprMjRNS3N1VzljYVBSdi9lMlZDTTdyemMvOXJpYkht?=
- =?utf-8?B?MzJsWG5za0ZINElPV3Jvc0FwVG5vS3E1d084bGJDWkhBcmRPY1N4QTFxQlQ5?=
- =?utf-8?B?K2k2cWtHclh5ekdIZzhlUVM0Qm5RQXhUNUxYV3JFd3UrVVAzdkFSVUJneHdK?=
- =?utf-8?B?YXJabHZrcEgwSFpHRmRVVTZualM1V3ZUUmR3dVY5enp4czlvY2pVK1QyY0Ux?=
- =?utf-8?B?UVMxcHdjSEo3REkrNnlCbEtXbUtFQkozRDFLbGJDZ1YwR3MyOG9kUDFFUk8y?=
- =?utf-8?B?OUFtZVhPY2VXUVE4VmJKRTVCOFg5aUd0NnRzL0JORkNGbUpmZ2plSDljT29Z?=
- =?utf-8?B?OCt1ZGFIU20zTGVLR1pZQlpQcDFYSkJjUTkwOTlaMkdxTVFCcXpMbkVYM0Vt?=
- =?utf-8?B?Qi9XeDVVdDh3Kzkrc09BRXVTUWgxTkQySUdLRkl3a2RUWWIwc0w1eFNGL0Fh?=
- =?utf-8?B?aDVjUVlGaksvZjAxNHNEbXFhb0xWYkhnRDVESHV3dmFNdnNNWGxFeTdRZklh?=
- =?utf-8?B?TFZNcnVqekZvOWJLMm5JRjlBUVBOTVQyVEpHSUNXK0d4Z2dadUJkZWZQMVdN?=
- =?utf-8?B?ME1vVi9zMTN6TENoS1dadHhYQTlxZUtucitHK3VnZDZmditiT3hHTzNweFdo?=
- =?utf-8?B?MFF3bkc0bWZDTUw1ZWFFTDVDNXVPQldWVHQ3K05NbUVOZDF4bmdDZmptSFgz?=
- =?utf-8?B?d2cvSFgvWEtKaW1laUczWUJ4U2F0SkVKVllEdDk1M0ZzMTlUVUpZU2N5c3lP?=
- =?utf-8?B?WjNQc0hEOXlBeEE0Vm9PRlhFWFJmbDdwTkZOdHkvVHpjRTg2ejdHZFViVnUy?=
- =?utf-8?B?QlpEMXFjcFhJYU9PSXBhR0RKSlp3VG1LcFlGU1YxdFRleDJXTkZVUXNibWxl?=
- =?utf-8?B?Y3d5bksxaXUxOERpYjJpd09VdUlCU0ZOam52ZGkyemZmbzRReWdxVVlqRUwv?=
- =?utf-8?B?YmxhVEFDZVpnV0Joa0pHQnpmSGY1OHBlcDFpa01NNTBOT1FVNTM4TG15djhV?=
- =?utf-8?B?MGNVRkF3MHJIbmE4MXdRbWxOTGU3dlhTQUxTdE15QVk2cnFpTDQxL1ZPYUNq?=
- =?utf-8?B?Vzc4YTlaZlFyTWxETDZ1R3g3djVrdW5LWHFielRKOFkrTDAza1Z3ZDdWYWFv?=
- =?utf-8?B?TUlPc3BYTXczT3J6bWhHVm1ZQjVIczErOUVyT3l1NFNacVVyOGNDZkttN0FY?=
- =?utf-8?B?WjF2UG5IK0Z6TTNFa1RHWUdVS3EydjdvK2FNN0xQVWxYZXVUVEFqSVhVZEwx?=
- =?utf-8?B?bVVMUG9hcjdQSVdzYmphSzBscVNOelkrZ3hWZlNmZEVudmxueVJsRGFUUGky?=
- =?utf-8?B?OFFwSWZUODFJKzgrUTBUQXVCOTd0b0J5UEswRSsxTnFoQm8zYTJCYnF2Yjd5?=
- =?utf-8?B?dGZ4QzFOalBqcE8wbUJCRllLQmdxUW9qNElqYll4Undoa3ZZRWVvSnF4cXpF?=
- =?utf-8?B?bVE0eDNLUnZnNmtBM1RRVXFJUnFDM016QlhsVEVJTWFmZFdjTGtOUEUxVVRk?=
- =?utf-8?B?dmNLU3RtdUM4SE1YbWpsNytadXA0Rlh0Y1E1YVJkcEVGV3pLK1picmpQSEpR?=
- =?utf-8?B?VVR3Z09RNHZTTmNzR3kxYko0cVVGYlFFOUNuUGV5OGxKcGdHRk14YjJ3dDFw?=
- =?utf-8?B?U0VTaEd3cHUweE82b2xKSFMrMU56dFhYT1ZOQ1J3OXRKSmtpZDRuSldOUWlj?=
- =?utf-8?B?Rml5L01iZGFjeWR3WGc1ZjMvUEpTN2hTc094VTRGOUhZSk9XNnc1YVIwNE5P?=
- =?utf-8?B?Qld0VUs0T0p4OG9Db0paVnAxUGx3aEhVdHNtYTkyK3JMRmFWRm93N2YrTW5s?=
- =?utf-8?B?YkpRZTZudlhZSlhtNzVpSFVyQW5iMVJTcy9FNUJTc0o0WlFsY2JCQnNVSzNu?=
- =?utf-8?B?NHdsaVNjVkg0ZVhrQ0UybjF6Q0RKbDgxSktIUGJFaGV0aEtaNHdtZ1Z5QXdX?=
- =?utf-8?B?bjJFeEgvYXh3RldBUlBJSForZ05oalh0Q2J0cUxDQUNxRjlCRG1pZ1lYdk1v?=
- =?utf-8?B?NlhSV0RUQUVpQmM1OXB5bE9Ed3ZPWkswUS9JeXJKOHpzSFVsa011dW9tbWZl?=
- =?utf-8?B?REk0UUZKcUZ4c1FZYzRBNzMvdjQvZ09nQjhNZnN0OWV3blN2TFozWWFRVTNo?=
- =?utf-8?Q?oMdOW/hqR6+KZNFJ0aWKy02r6IHlJZlfKN6S2g1QBM/C+?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8SOTNCNIoOggQQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 403eabdf-3492-4038-e484-08ded02ba520
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 06:58:20.7677
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hk9jW0S4HG9gQ8uvBOesR9hO+osGdwAHiCYHGyufO5hyswm3ZIhTFQPCjMUkMhoSuUk2mLn9esNzEzFHYUlQIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 09:05:21 +0200
+Message-Id: <DJFDYAS1AY8Z.3GD4A5UMWLAUC@fairphone.com>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
+ <luca.weiss@fairphone.com>, "Vladimir Zapolskiy"
+ <vladimir.zapolskiy@linaro.org>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by
+ pins
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com>
+ <f05ad4ae-140a-40a7-a6ef-9ac2ddb0a939@linaro.org>
+ <DJ747VLQEHIN.Q3SS1FFC9I3L@fairphone.com>
+ <ba0e9f93-fd2b-4895-b8a7-8e38eeff9bcb@oss.qualcomm.com>
+In-Reply-To: <ba0e9f93-fd2b-4895-b8a7-8e38eeff9bcb@oss.qualcomm.com>
 
-Tegra264 has a host1x instance with a VIC (video image compositor).
-Other multimedia engines have moved outside host1x. Stream IDs are
-now namespaced by device rather than being defined globally --
-however, the only engine we have using context isolation is VIC so
-we only define VIC's range of context devices.
+On Mon Jun 15, 2026 at 2:09 PM CEST, Konrad Dybcio wrote:
+> On 6/12/26 3:46 PM, Luca Weiss wrote:
+>> On Fri Jun 12, 2026 at 2:59 PM CEST, Vladimir Zapolskiy wrote:
+>>> As documented in the "Devicetree Sources (DTS) Coding Style" document,
+>>> pinctrl subnodes should be sorted by the pins property. Do this once fo=
+r
+>>> kodiak.dtsi so that future additions can be added at the right places.
+>>>
+>>> No functional change intended, verified with dtx_diff.
+>>>
+>>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/kodiak.dtsi | 1382 +++++++++++++++++--------=
+---------
+>>>   1 file changed, 691 insertions(+), 691 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts=
+/qcom/kodiak.dtsi
+>>> index fa540d8c2615..62daef726d32 100644
+>>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>=20
+>> <snip>
+>>=20
+>>> +			qup_uart12_cts: qup-uart12-cts-state {
+>>> +				pins =3D "gpio48";
+>>> +				function =3D "qup14";
+>>> +			};
+>>> +
+>>> +			qup_uart12_rts: qup-uart12-rts-state {
+>>> +				pins =3D "gpio49";
+>>> +				function =3D "qup14";
+>>> +			};
+>>> +
+>>> +			qup_uart12_tx: qup-uart12-tx-state {
+>>> +				pins =3D "gpio50";
+>>> +				function =3D "qup14";
+>>> +			};
+>>>
+>>> I understand and support the intention to keep this change non-function=
+al,
+>>> but this pad "gpio50" is for qup16 also, right?
+>>=20
+>> According to my QCM6490 data sheet, GPIO_50 has these functions:
+>> * UART for qup14 (OK)
+>> * SPI for qup14 (OK)
+>> * SPI for qup16 (no pinctrl)
+>
+> "no pinctrl" meaning "not defined in the upstream dt as of today"?
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 63 ++++++++++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+Correct.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 06d8357bdf52..fc398975a830 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -3807,6 +3807,69 @@ its: msi-controller@40000 {
- 		};
- 	};
- 
-+	/* VISION MMIO */
-+	bus@8180000000 {
-+		compatible = "simple-bus";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		ranges = <0x000 0x00000000 0x81 0x80000000 0x00 0x10000000>, /* MMIO (256 MiB) */
-+			 <0x100 0x00000000 0x00 0x20000000 0x00 0x40000000>, /* non-prefetchable memory (32-bit) */
-+			 <0x200 0x00000000 0xa8 0x80000000 0x57 0x80000000>; /* I/O, ECAM, prefetchable memory (64-bit) */
-+
-+		host1x@1200000 {
-+			compatible = "nvidia,tegra264-host1x";
-+			reg = <0x0 0x1200000 0x0 0x10000>,
-+			      <0x0 0x1210000 0x0 0x10000>,
-+			      <0x0 0x1240000 0x0 0x10000>;
-+			reg-names = "common", "hypervisor", "vm";
-+			interrupts = <GIC_SPI 327 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 328 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 329 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 330 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 331 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 332 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 333 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 334 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 325 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "syncpt0", "syncpt1", "syncpt2", "syncpt3", "syncpt4",
-+					  "syncpt5", "syncpt6", "syncpt7", "host1x";
-+			clocks = <&bpmp TEGRA264_CLK_HOST1X>;
-+			clock-names = "host1x";
-+
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+
-+			ranges = <0x000 0x00000000 0x00 0x08000000 0x00 0x01000000>,
-+				 <0x000 0x02800000 0x00 0x0a800000 0x00 0x00800000>;
-+
-+			interconnects = <&mc TEGRA264_MEMORY_CLIENT_HOST1XR &emc>;
-+			interconnect-names = "dma-mem";
-+			iommus = <&smmu1 TEGRA264_SID_HOST1X>;
-+			dma-coherent;
-+
-+			/* Context isolation domains */
-+			iommu-map = <0 &smmu1 (TEGRA264_SID_VIC + 1) 16>;
-+
-+			vic@50000 {
-+				compatible = "nvidia,tegra264-vic";
-+				reg = <0x0 0x50000 0x0 0x40000>;
-+				interrupts = <GIC_SPI 468 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&bpmp TEGRA264_CLK_VIC>;
-+				clock-names = "vic";
-+				resets = <&bpmp TEGRA264_RESET_VIC>;
-+				reset-names = "vic";
-+				power-domains = <&bpmp TEGRA264_POWER_DOMAIN_VIC>;
-+				interconnects = <&mc TEGRA264_MEMORY_CLIENT_VICR &emc>,
-+						<&mc TEGRA264_MEMORY_CLIENT_VICW &emc>;
-+				interconnect-names = "dma-mem", "write";
-+
-+				iommus = <&smmu1 TEGRA264_SID_VIC>;
-+				dma-coherent;
-+			};
-+		};
-+	};
-+
- 	/* DISP_USB MMIO */
- 	bus@8800000000 {
- 		compatible = "simple-bus";
+>>> Similarly pads "gpio54"/"gpio55" for qup14 function, "gpio62"/"gpio63"
+>>> for qup16 function, I find all of these are missing on the original lis=
+t.
+>>=20
+>> GPIO_54:
+>> * UART qup15 (OK)
+>> * SPI qup15 (OK)
+>> * SPI qup14 (no pinctrl)
+>>=20
+>> GPIO_55:
+>> * UART qup15 (OK)
+>> * SPI qup15 (OK)
+>> * SPI qup14 (no pinctrl)
+>>=20
+>> GPIO_62:
+>> * UART qup17 (OK)
+>> * SPI qup17 (OK)
+>> * SPI qup16 (no pinctrl)
+>>=20
+>> GPIO_63:
+>> * UART qup16 (?)
+>> * SPI qup16 (lane 3) (?)
+>> * SPI qup16 (lane 5) (?)
+>>=20
+>> But the GPIO_63 looks weird, is the data sheet wrong?! Where would
+>> UART_RX of QUP1 SE7 go? Maybe it should be UART qup17 and SPI qup17 and
+>> then SPI qup16 ??
+>
+> GPIO63:
+>
+> QUP1_SE6 SPI_CS2
+> QUP1_SE7 UART_RX/SPI_CS0
 
--- 
-2.53.0
+That matches pinctrl driver and kodiak.dtsi at least. Still, the data
+sheet is just wrong there. If you have any contact to relevant people
+there, please let them know!
 
+Regards
+Luca
