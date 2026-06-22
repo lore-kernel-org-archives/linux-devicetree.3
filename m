@@ -1,165 +1,128 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com [209.85.214.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3389B33B6CC;
-	Mon, 22 Jun 2026 20:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782160684; cv=pass; b=dEWCxhcSPuFGjV5I31Hld3/evmZrknGQzrqJpt7F08Y9C/DTJ4B4xnwzFVweZFUdejQQ3yvRdOdyEOsGZoagj0P6PsWTiCpFAXtv1/j3lPuahzrv50iJW6pKt59vcqjoRSjK5V2IVZMvMgfUXeogHjx4VmNYFjnhlUCNpJrC+PE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782160684; c=relaxed/simple;
-	bh=WsDcKuA1gvo2wPOxdvdHPc1d4sATgEmk4SH3WC2S+lA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AuHfawblQAsmmC2AS2ckOmnyll1we17CddoDP43mjee5zU4gwFUbOAS32xEbvuPlfRFBKn+iyPasQnVz5E/dOp1Jmubztoq7L9s/s7Wf7wvGxY9hL2JUhzlYVHEL0H4H1lO02i4GsRzZmKt1ZRbNbTlEEgtWYPM7RH5k/qNUpJo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=ftenAF2p; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E21B352F95
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 20:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.228
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782160733; cv=none; b=h44D2UgkyHvu30HIq+unzuSBHJcPwyLIzJr+nRi9juVM9IV0DOV0ryqfvvzCJhIl2zQV+0rnadACcjj2msc3OzDWbtoAUB45lJ4qIQpHuNnKkfNJ6mBD6obhgGU4VnGN8vqCByQ9mc1xHLO0On8KTow8LUC5oI0fQ0BYrwXS0Rw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782160733; c=relaxed/simple;
+	bh=f/eI1igp0jhTQQcKbkxniVkr0wAf2k+Z91+811cqNa0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HzO5zf7zjQmMMG7LOmSo6J72rJV3qmBZO78Dk8I9mRxcrYzdj51uFpIGz/8B3ZobstuuyKXVAMSc0Q6GozlRjrgItadjgQ9+c0qAml9CXIRtDicBawLPLS8Ads4GhOqAXVfhZMEEnfrBFZ48JUray/wycNNkQr8oFhHm4g2cGRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=eOy8hlSe; arc=none smtp.client-ip=209.85.214.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ftenAF2p"
-ARC-Seal: i=1; a=rsa-sha256; t=1782160644; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=NbZ03RwDUpsPUGMBrvUdLdu9YwvBtwbJnzp1KGgnOw8bmxFm308mN3AT9TQxGf0hTvg6NQG4C2vMqEG28Kk9TYtSAwUBIsPuLMENiboDJ821z6UtEvkeDwz5+Jcm+re9M7ZFaWtEkR9uOKdar4YVHKXBp3rQHmkoCuJ+yoWpc4o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1782160644; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mN91JuTXlP9yH/fF2WAYmfPvIPkIj7NLhNIGrphtGFQ=; 
-	b=cdn/QOUYXHEVxnnOG0Xz+v5hgIFdWmFnUWGGBrXE0BkN+/Y/SSTnkF8DIdXeHmsun1N1bTnfVSATEUntE3qlia7Tu2OXutygr1K/pScuMkRUqb8jzru748kl9eSG9NgAF6EAKY/Eq7kqq5AHGgy4zYxnRNwUhOnHfiaIKQmZ7Ec=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782160644;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=mN91JuTXlP9yH/fF2WAYmfPvIPkIj7NLhNIGrphtGFQ=;
-	b=ftenAF2pLAzRlyNVRan8mKVLwnie2DhUAR+YqxoXAcc93rbXBpyH//u6VQz6uvu5
-	NVnB16FfAhcMzP72FH86ULWAFvMa3rYocIFntWDDFHxLa7uuG26U7HA2MLbmUYNgfOb
-	uJogOLlRuf0JNK3ahPODVSRWU84ISRiZWge9esxY=
-Received: by mx.zohomail.com with SMTPS id 1782160642430172.91971762131618;
-	Mon, 22 Jun 2026 13:37:22 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 6EF1E1824A2; Mon, 22 Jun 2026 22:37:11 +0200 (CEST)
-Date: Mon, 22 Jun 2026 22:37:11 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Sam Protsenko <semen.protsenko@linaro.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Inki Dae <inki.dae@samsung.com>, 
-	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	Andi Shyti <andi.shyti@kernel.org>, Georgi Djakov <djakov@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Linus Walleij <linusw@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, Javier Martinez Canillas <javier@dowhile0.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Srinivas Kandagatla <srini@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Jonathan Marek <jonathan@marek.ca>, Taniya Das <quic_tdas@quicinc.com>, 
-	Robert Marko <robimarko@gmail.com>, Christian Marangi <ansuelsmth@gmail.com>, 
-	Stephan Gerhold <stephan@gerhold.net>, Adam Skladowski <a_skl39@protonmail.com>, 
-	Sireesh Kodali <sireeshkodali@protonmail.com>, Barnabas Czeman <barnabas.czeman@mainlining.org>, 
-	Imran Shaik <quic_imrashai@quicinc.com>, Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
-	Anusha Rao <quic_anusha@quicinc.com>, Luo Jie <quic_luoj@quicinc.com>, 
-	Tomasz Figa <tomasz.figa@gmail.com>, Chanho Park <chanho61.park@samsung.com>, 
-	Sunyeal Hong <sunyeal.hong@samsung.com>, Shin Son <shin.son@samsung.com>, 
-	Krishna Manikandan <quic_mkrishn@quicinc.com>, Jacek Anaszewski <jacek.anaszewski@gmail.com>, 
-	Jaehoon Chung <jh80.chung@samsung.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Alina Yu <alina_yu@richtek.com>, Andy Gross <agross@kernel.org>, 
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, linux-i2c@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-leds@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, linux-phy@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-serial@vger.kernel.org, linux-sound@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-Message-ID: <ajmcsfEXiTfFh-XH@venus>
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="eOy8hlSe"
+Received: by mail-pl1-f228.google.com with SMTP id d9443c01a7336-2bf125989f2so30471885ad.3
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:38:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782160732; x=1782765532;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=f/eI1igp0jhTQQcKbkxniVkr0wAf2k+Z91+811cqNa0=;
+        b=PPdz+inxN8zrvVS4Bu6kk57vkG2U89jqOA0YeBk2erckR9LHgJB3kiDlGutfKVG4GW
+         xUgdiQL58Ox/jU3wyQh5KuwCzx7B66L853T5O/NpzTLcrj2udceNxqvSGxRIudgbKA15
+         dPU5DwWMhajuQDTdKW4guOa9A07L7x2QrkbJt9Ay6f7XpTJqsjWOf7NBKSFwaZONpOTD
+         PtwqqrB6ea1CCdZaiitP4sBBkF+i0kIcaivzfQYhQ5ODob8CuPq13gOdAcJ6LMJfUg8G
+         0YjWvjEamD6uYySl1uDj3aLzQwGVcXYvQwVnR8B0pU2ZKMqGWmP1xBscqMBQ7Qm04STJ
+         50cA==
+X-Forwarded-Encrypted: i=1; AHgh+RoHoqRVhbgQcCy8g3/E0OnIuuO5IExsMcHbN6oxHH4HEoPqA8I2WTVVYxG/lgdPFO7Xsx7rAnux+Dc4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWQYCaKIbs0L3ojIYfOjQZojagVWfqGLndINQrLHYPi3ti1OZM
+	nE6WUlpULdeCCq6+E6yyne3ReJ41JZ3u0j892a3tkSm9StSivc/rs9vMxZcR93vmMCb3B9WUykI
+	KVsO7T+tblxguix9kChAXfqgpMbrX3UAsKj1/2JHFDEinT9ER9D7Pxn/ouqGD9tJ5757DipxZVp
+	OyEeVkBWM66+PqJkRoJabkd2s/pIj0EsLMpG8LywxQPQizeDfO0Ez+vfTlLdLarW3ET1OJC1xYl
+	jyVxg2deEhmOVdyI6U=
+X-Gm-Gg: AfdE7cmDJ13GgCjtXSCLxwSpJrPnMB9XnLPuwh3Lr3Eom2KqJcJNaWaprSYeQ0rDjOE
+	ssh0Dg/nqFIoF2PP1h+Vr7xQATqWk9hI1JYPo6xpYj74hbGA3L9yz8z/tAjFClxBdyA5wH6TsWY
+	iCMI2GOPCN8hIdEgk4XN12frS77NFZhaXuEThlUNKOrnQ6Kn8//ojqtN9VsmcTzcWNBTs/1zkeP
+	vbkEZ2aURUglNVXic6LDfwYASplCSRRMuZ1hxQRUSQSQNXkcl/Wb+vSbkdIrK2UuPVohvSUCRDS
+	K2TKdt2y7UpwF1NObFLXWDb8VRcxjx+WeZ4cqkoQ5Gjlh7Fb6exCwG7Ldfs3j77HhtZXHObemzx
+	CRxuFOWH4MZgv9aNBxPJnF/KRHhrBMo9cl7xo+uJzud7B5xIC8UY3CulDL3X5AhhlcXsWgCf50R
+	jEkvHVkqz1hxRE8DIZXRymaX3zlVPLSGEJ4AsvYBGH4MMxandO
+X-Received: by 2002:a17:902:cf03:b0:2c3:bab9:4961 with SMTP id d9443c01a7336-2c718f856ebmr181332605ad.34.1782160731372;
+        Mon, 22 Jun 2026 13:38:51 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-117.dlp.protect.broadcom.com. [144.49.247.117])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2c7439cc38dsm6939795ad.21.2026.06.22.13.38.50
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 22 Jun 2026 13:38:51 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-696057a75d0so4565332a12.0
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:38:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1782160729; x=1782765529; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=f/eI1igp0jhTQQcKbkxniVkr0wAf2k+Z91+811cqNa0=;
+        b=eOy8hlSeglB0zra+mmRodiLy+WAEoXSHFldpEpQyYKr5qWQdkGj0Nf4L4YAzQlycQS
+         f+K+kwQN48HmWszYYlOcS4w2/BxRRZ8q3s2Mv5v+NcQ/syVLWbTHeoV1nFzaFJY8X8Z+
+         hbkTbpUBxOambYiJqDjXnrShe+VekN9okZ+Ok=
+X-Forwarded-Encrypted: i=1; AFNElJ9BWerVjbRxvLkyNgik8fvfRCk6/jSk8+P3R9KirrCEJXw2+VAyNo1attt32/d7VQfRuzDVgVDJ2gqk@vger.kernel.org
+X-Received: by 2002:a17:907:60c9:b0:c07:6a7e:3a4c with SMTP id a640c23a62f3a-c097cbc92c0mr971238166b.40.1782160729185;
+        Mon, 22 Jun 2026 13:38:49 -0700 (PDT)
+X-Received: by 2002:a17:907:60c9:b0:c07:6a7e:3a4c with SMTP id
+ a640c23a62f3a-c097cbc92c0mr971236666b.40.1782160728684; Mon, 22 Jun 2026
+ 13:38:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="he6mgtsui5z5w5dr"
-Content-Disposition: inline
-In-Reply-To: <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/282.152.77
-X-ZohoMailClient: External
+References: <20231205184741.3092376-1-mmayer@broadcom.com> <20231205184741.3092376-4-mmayer@broadcom.com>
+ <e63906cf-9f76-4fed-91b0-1a9168b179bd@linaro.org> <12f3c515-71cf-46a5-ad92-15bf6c4c2f2c@broadcom.com>
+ <c483e962-a565-45b0-91e2-41f47e2cf4bb@linaro.org> <CAGt4E5smwohGsPkvFOY8o270mNQnTkSWz8UKh3un2=XtEibzAg@mail.gmail.com>
+ <CAGt4E5tGHJFXswic6vTx-ThN2K9xBtO8oA4ybrXg+q5cA6GYCA@mail.gmail.com>
+In-Reply-To: <CAGt4E5tGHJFXswic6vTx-ThN2K9xBtO8oA4ybrXg+q5cA6GYCA@mail.gmail.com>
+From: Markus Mayer <mmayer@broadcom.com>
+Date: Mon, 22 Jun 2026 13:38:36 -0700
+X-Gm-Features: AVVi8Cdf8blAzch-m_uqCV7tC2oS17aknTGmI48yeh3qAuFBG7a4R9Q-ey1Q_vU
+Message-ID: <CAGt4E5vemtkfpdz8k8mS5LeZF4SzZSgm0d7OORtDonagF=hwYA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] memory: brcmstb_dpfe: support DPFE API v4
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Rob Herring <robh+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	Linux ARM Kernel List <linux-arm-kernel@lists.infradead.org>, 
+	Device Tree Mailing List <devicetree@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+On Thu, 28 May 2026 at 14:45, Markus Mayer <mmayer@broadcom.com> wrote:
 
---he6mgtsui5z5w5dr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-MIME-Version: 1.0
+> > > Thanks for providing justification, quite reasonable. A pity that none
+> > > of the commit msgs answered this way.
+> >
+> > The real pity is how this API was designed, making all of this
+> > necessary in the first place.
+> >
+> > We can definitely spell out more clearly in the commit messages what
+> > is going on and why all of this is needed. I'll pull all the pieces
+> > together from the various responses. As long as there's a way we can
+> > reasonably implement what we need, we'll be happy.
+>
+> It has been a minute, but we'd like to resume this effort[1] to
+> upstream these changes or some variation thereof.
+>
+> What are the best steps to resume this undertaking? There are still a
+> few topics where I am not entirely clear on how to better explain
+> things or how to address the feedback provided. My apologies for that.
+> I will do my best to address whatever concerns there are.
+>
+> Should I put together a new pull request that contains improved commit
+> messages and addresses some of the feedback and we hash out whatever
+> questions remain on the new thread? Or would it be better for me to
+> reply to the old thread with some of the questions that remain before
+> sending a revised series?
 
-Hi,
+Any advice on how to best proceed from here?
 
-On Mon, Jun 22, 2026 at 12:16:08PM +0200, Krzysztof Kozlowski wrote:
-> There is no use of double colon '::' in YAML. OTOH, the literal style
-> block, e.g. using '|' treats all characters as content [1] therefore
-> single use of ':' in descriptions is perfectly fine, whenever '|' is
-> used.
->=20
-> Cleanup existing code, so the confusing style won't be re-used in new
-> contributions.
->=20
-> Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->=20
-> ---
->=20
-> Intention for this patch is to go via Rob's tree.
-> ---
+Thanks,
+-Markus
 
-[...]
-
->  .../bindings/power/reset/restart-handler.yaml |  8 ++++----
-
-Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-[...]
-
-Greetings,
-
--- Sebastian
-
---he6mgtsui5z5w5dr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmo5nPIACgkQ2O7X88g7
-+pqv2Q/+LMhPKKkmgsVnMejKBphG4p2N/zVrnMgxmg8lVO8rwgA7Kxo2wlLqu2H5
-iapTV4a2dMXB0SUw8UGbt9Lt6JjHaORZnybu95mZEZMS+G7HRl5M8DE+LWMJXLX0
-S+G43Cv1O/d5dV/rM2nJqOItOK+KIbHQI4+oY/O8P7ENnU2h3X2HxOtWxtg6+9gz
-UNPZgoZdEE38SJVzhHrCO1+NfGikbo7vUZC0BmyxiNuVTK9eFjie/eIS3ST4W5T9
-3v2n+F2fD7+xsfSzUyjRc3p+zLyweImjiS6J5GAmTf4qxL9hQ3nXEW2gtRQQvB2l
-W62s4eZt9jFlQjhXVjUeIkEPkORE4RrDInyktgSc6BKm/D5SylQgwytebDtJC2s4
-QceoYrV7CHNsQ0vr9oITDlBN4Ik2TTsqhK2Sw0/2P0W7VU7y8uoHsm2xHPkf17l+
-svy9/UvPf4f5kyBIPwySRFS4IUXcdP8MhscNstvyw1GJqxtCNNRfDX6z0isLIU6Q
-yfIbxBsgCdHQMyM3HekxaofPcGx9LRJtbbNt2YA4SbqEKnzci/ToUY+z8a2svvDM
-Ko5OrYJ/yAjPYjcoQ7ajynJC+BxvFRMTtfCEQmDLiaxN9+ueXJJMXe26hLYClF9g
-ADHM+PuYvQrF2GfU9DgvPXkJHh3yEtyPk1rE6O1f4Q9xvKZMblg=
-=cVKh
------END PGP SIGNATURE-----
-
---he6mgtsui5z5w5dr--
+> [1] https://lore.kernel.org/all/20231205184741.3092376-1-mmayer@broadcom.com/
