@@ -1,121 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7323833D4E5;
-	Mon, 22 Jun 2026 16:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A51929C328
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 16:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782147201; cv=none; b=IV/BrN1q5CCYfpDlhRXd9RYQyNfZTLrhy6LR5B9THIEJautdBLC+pWRXHNR5uAcCwdrBSkxibDRkKCO7VHPnRnusr4rZeEFDzjY7ukUgtB+TIYYyvW1Vx4zcdgEdIk1NDvcA5wuuWMwdU5kkzCIufqG9fZKn8AwC0qLCiX6USt8=
+	t=1782147562; cv=none; b=fTrIRxZ/H6e9bhJnpTsesXxagG6VtT6ljR/HIZz1QrgeagiQTgmEFFbn08ZG5+SuDDtKaERrp9Bd01HKCJozaino73PeTmFBnINDJG7wKlUJNm341JM0x8BJdlAy9w4ufaBU8w15Fgqg7FCzkTVX74+6h5RJy+ANlVuAhM97lS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782147201; c=relaxed/simple;
-	bh=FxJjpsxvkAqSPrNMDbSXqBAMpUNiZ2cgt/xlzF6tb/E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c9dCv1DnZaQ0chIBwPsLFaLyEgJj4uCVmYgqL/cKb/LmKh9asuI78hTMsEGg6Peir9bG03WTpp5W+BEnaN2CGOdIlMjMJqlSPUF2Ghuw1Oi92Dp7apDUW+gPtY05QupxF3sQ+VNrap3sjWrqZVlz74vXsW2CznWmK0FXiUB5D1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7u1+3XD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782147562; c=relaxed/simple;
+	bh=VwLgvQ79ZYX2f+aOk6E45c43BgvC+vyBko2Cz5vJ+KQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TDfsOH5YI8WM0pOFrWAIV4tU/T32CxBchC/ypong5nbO79pZBMKRrJ7q+/01BbAyKIyZjCQSE5G/hCkFWKDO6zTBWDSdftZ4EgrmTu4VZreGzdClrFR19Bo7G1HlZGmuDHby5DA4E2GHpgFXYDKSfIiceRe2M7q3+EHbHOj2UBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=A7SEhHJ3; arc=none smtp.client-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7u1+3XD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BCD1F000E9;
-	Mon, 22 Jun 2026 16:53:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782147200;
-	bh=9eH6Ui0cecxJPS3dEn05LRmx18eKSljEw+pMdE0wLdw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W7u1+3XDrrbufHbrH6ZQe6V3qFGjUCGYVkJOqAL4vlLVLIMPJx5d+eL10ZeODs278
-	 pSssncH7yv5gMuVsUIuShNLX6bWMWFV426SKDvVvL+IweFeqbJK+5hI012bIBjT3rs
-	 SsEKofTvCEYTyY72aPkkwwDurWsSBjrzr8mr3olukQd2rW+7pBLu1HZQNWxKNQ0ZKY
-	 aDrQJiySg4JIyM4ytXMcuvXkZhIZ4w2w5uVvgOUb7zYf6U0GQRwQEQ1ptI0ErIe/Xc
-	 Ew9HPNFffTspmZ5U1P3K+1+pntc9YZ/YHLvD8DpC7UCIyN7jCKrDU/aZLwKkuzK6NI
-	 zTm7dcinwYsmw==
-Date: Mon, 22 Jun 2026 17:53:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev, neil.armstrong@linaro.org,
-	vkoul@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
-	conor+dt@kernel.org, linux-phy@lists.infradead.org,
-	olteanv@gmail.com, devicetree@vger.kernel.org,
-	wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH 2/2] dt-bindings: Drop incorrect usage of double '::'
-Message-ID: <20260622-sullen-botch-6a131a218bbe@spud>
-References: <20260622101606.485961-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101606.485961-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20260622101959.37DB41F00A3D@smtp.kernel.org>
- <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="A7SEhHJ3"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7e6e9408e30so4085696a34.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782147559; x=1782752359; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LgjPu8EjLkNonMouFLLepbJvfLSQfkmj1LSsNNlmiCw=;
+        b=A7SEhHJ3bTDgTFtOLfjzVo+enj32EmRN7j9vN8mfVTLTFBbFTQoP1NNWZLIxDMIdFf
+         8rGbvLK5qEA84k08RntU8Nqb6SYvzP3oV69vbQOi5nTBSypzEFWOXzlsap2nPRPuOivW
+         VFZguAQJrr8HtWuWJf2+xmEb9zVOU/XPQ8YOKGVkIDMLIMPeFVD1Jo66alTdg6r7IUhT
+         m8nPZyEC/6/fSYX7nhtf57t9Skt5FJjwsaV7v6zlBZhMGHdOk0x5aN2jbO8JFO3pql1A
+         nn8rQvedogk9ksTzGl4R8QNKZexSHbw1GE1H4/pJK42pi3ZSu+S+4+KEQ59+c4RFPoAv
+         Va1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782147559; x=1782752359;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LgjPu8EjLkNonMouFLLepbJvfLSQfkmj1LSsNNlmiCw=;
+        b=c0w5PXjFMT5TlvkD/RfZ3mvB/0f4qGOBIddU6WB9Qbmfa6DDh+T6SlUa+g+NUAk83P
+         a6a9WsbG0lxncCdDSfsQ+yPr7u2tKOWZE+sGcl03de6IUv6TYSywWe1TTHt+iof42JD1
+         1T35ZZzz8OWA3r4ebbJICTVBCXjQ1pGI0nPWLlj1vFqlXb+mV1Intp4d3TiX6JamSEdK
+         1shTuBBSyWYDwlGXjxhAPFUYNQCN9jFBoaS8uc0Hp7kXb4TRSKzgoSBdVAUxFUPNVN2x
+         HocHIPaGgTNe7k93qhO2PJLZigb40KMpaM6UJnlI62xl8NCe7O+7pE7UHHa9vLbaFf4C
+         S+aA==
+X-Forwarded-Encrypted: i=1; AFNElJ9raLoKdguV+OPHVwH8R+qF6YeOlF9qgKMLlrLZ534EWKrKsiI+F7PDI4w0TpvhChsTwx6V/wFgqDoL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwPvIjDHEIgXs+mJksJUMlWTq+0G0FD+tjLcqzFuJz4vhk5ydgK
+	hLB85hIkAZNesQlPoOuP+5UarGQeGz+C3rDFTJXI7JtafAwn4k138CoK1fGnZA/K/vQ=
+X-Gm-Gg: AfdE7cnL1hI4301rDKc3Ine3DByWYVdu+NZrTwt5/X20Rk95x08nNkaqBoL/RvSEQPG
+	taH6onhP1+44zQq1JW6GX7LKUWBat3EXZWD/87S9olnEG2rHNt2QJhdlPwyw07tM2NEDGEBBogC
+	hhZRTJf0Umpbx41s4h1bcGrnq/RoK+ZskvsfgX2YV4fCB3kUFFwdI7Sxw5wTnvnpuoLlxPLGTJ6
+	bI2V6fYOu6lDUuzHvqldU5Vnebei1l5BPPcX+gPigQVXzXd6RhSD1bZs+eLkTwhpWs44jmGejf+
+	WAmnlUQL9TJ238yeDIPo0GB0DHMa4aFDQqcCVsxKVyG41mCJmPBXIwndeAoniHWUqd9jxmK04hR
+	mZuY0LRP+qO7y4RFKJoWClS3TAWIrNq+WzmF5pW2Wn4J/HF7V5Q0j0wCaZEMIxMo0C7fHOAmM96
+	itJfvEBJB0L4tda+SIQEikckuv914GOSuwpMxIIpSVWs30pmAABSiNoCB13Wm+PQM=
+X-Received: by 2002:a05:6830:3892:b0:7e6:ece3:80ed with SMTP id 46e09a7af769-7e92d9c6f71mr13440607a34.21.1782147559630;
+        Mon, 22 Jun 2026 09:59:19 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b69c:5a77:b8fb:a5cf? ([2600:8803:e7e4:500:b69c:5a77:b8fb:a5cf])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e944007d74sm6772717a34.5.2026.06.22.09.59.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 09:59:19 -0700 (PDT)
+Message-ID: <78d859ed-61a6-413e-9ecb-6af177f2f9ae@baylibre.com>
+Date: Mon, 22 Jun 2026 11:59:18 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SwqP7sa7vCVgtsLA"
-Content-Disposition: inline
-In-Reply-To: <0a6f92ba-de8c-48ae-9025-a7570e53e453@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: iio: adc: add ti,ads122c14
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kurt Borja <kuurtb@gmail.com>,
+ Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+ <20260615-iio-adc-ti-ads122c14-v1-1-e6bdadf7cb2b@baylibre.com>
+ <20260621194102.08d7fdd6@jic23-huawei>
+ <da875b00-6f93-444b-982c-30b8001dd8e0@baylibre.com>
+ <20260622105546.69c6b4bb@jic23-huawei>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260622105546.69c6b4bb@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 6/22/26 4:55 AM, Jonathan Cameron wrote:
+> On Sun, 21 Jun 2026 16:14:57 -0500
+> David Lechner <dlechner@baylibre.com> wrote:
+> 
+>> On 6/21/26 1:41 PM, Jonathan Cameron wrote:
+>>> On Mon, 15 Jun 2026 16:59:59 -0500
+>>> "David Lechner (TI)" <dlechner@baylibre.com> wrote:
+>>>   
 
---SwqP7sa7vCVgtsLA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+...
 
-On Mon, Jun 22, 2026 at 03:23:05PM +0200, Krzysztof Kozlowski wrote:
-> On 22/06/2026 12:19, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Low] Unintended replacement of BNF notation `::=3D` with `:=3D`.
-> > --
-> >=20
-> > commit a9fdd0b065eb5b6394a9c33ffba0fd5194e80115
-> > Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> >=20
-> > dt-bindings: Drop incorrect usage of double '::'
-> >=20
-> > This commit cleans up device tree binding schemas by removing the redun=
-dant
-> > double colons at the end of descriptions inside YAML literal style bloc=
-ks.
-> >=20
-> > Link: https://yaml.org/spec/1.2.2/#literal-style [1]
-> >=20
-> >> diff --git a/Documentation/devicetree/bindings/mux/mux-consumer.yaml b=
-/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> index 9e2d78a78e409..769243a2bf046 100644
-> >> --- a/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> +++ b/Documentation/devicetree/bindings/mux/mux-consumer.yaml
-> >> @@ -13,8 +13,8 @@ description: |
-> >>    Mux controller consumers should specify a list of mux controllers t=
-hat they
-> >>    want to use with a property containing a 'mux-ctrl-list':
-> >> =20
-> >> -    mux-ctrl-list ::=3D <single-mux-ctrl> [mux-ctrl-list]
-> >> -    single-mux-ctrl ::=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
-> >> +    mux-ctrl-list :=3D <single-mux-ctrl> [mux-ctrl-list]
-> >> +    single-mux-ctrl :=3D <mux-ctrl-phandle> [mux-ctrl-specifier]
-> >=20
-> > [Severity: Low]
-> > Does this unintentionally change the standard Backus-Naur Form (BNF) ::=
-=3D
-> > operator to :=3D? It looks like a global search-and-replace for :: might
->=20
->=20
-> I wasn't sure about that... and indeed this should not be changed. I
-> will send a v2.
+>>>> +        description: The current output of the excitation channels in microamps.
+>>>> +        minimum: 1
+>>>> +        maximum: 1000
+>>>> +
+>>>> +      current-chopping:
+>>>> +        $ref: /schemas/types.yaml#/definitions/flag
+>>>> +        description:
+>>>> +          If provided, the two excitation channels are to be used with current
+>>>> +          chopping enabled.  
+>>>
+>>> Can I have a reference for that? My initial read suggests it's the input channels  
+>>
+>> No. :-)
+>>
+>> I must have got two ideas mixed together in my head to come up with
+>> this. Clearly this should be `input-channel-rotation` or something like
+>> that (we discussed in another thread already). Also curious if you thing
+>> any of these properties are common enough to promote to adc.yaml or if we
+>> should just make them e.g. `ti,input-channel-rotation` (you might not have
+>> had time to read the threads on that yet).
+> 
+> It's turned up in a couple of drivers and the concept is fairly standard I think
+> so I'm fine with promoting this to a top level property if the definition can
+> be generic enough.
+> 
+> For a non TI example, the LTC2893 has this as well for it's thermistor settings.
+> It might be worth comparing the approach given here with what we have there.
+> In that case there are specific node types for different types of things that
+> are wired up with constraints on things like excitation currents.
+> It kind of constrains things to the sane known use cases.  However that is
+> partly because that device does (I think) more type specific handling than
+> we have here.
 
-Other than this one that I agree shouldn't be changed to a single :,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+LTC2983 has current source rotation, so it has a adi,current-rotate property
+which would be the same as the excitation-current-rotation property that
+we have proposed here (named current-chopping in the patch, but better name
+was suggested in later discussion).
 
-(Although I find the syntax used here to be really confusing and a good
-example in the text would be a lot clearer. OTOH, how to write consumers
-is, I think, well understood, since they all work the same.)
+So not quite the same as the input-rotation property that we would need for
+this chip. Although ti,ads1262 that Kurt is working on will have both.
 
---SwqP7sa7vCVgtsLA
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajloewAKCRB4tDGHoIJi
-0kPnAQD8eVHaFulgAbHw35l/IQzDimQ2fqS5h0DH2KihcqqTKQD/fyaz/rNP6xCD
-y8UHn2H90kJhQjjmt/NRIZ/YFpGyEg0=
-=SCA7
------END PGP SIGNATURE-----
-
---SwqP7sa7vCVgtsLA--
+> 
+>>
+>>> that are chopped.  For GC_EN
+>>> "When enabled, the device automatically swaps
+>>> the analog inputs and takes the average of two consecutive conversions to
+>>> cancel the internal offset voltage"
+>>>
+>>>   
