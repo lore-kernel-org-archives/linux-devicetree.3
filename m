@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388C13793A9;
-	Mon, 22 Jun 2026 11:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258B82E1746;
+	Mon, 22 Jun 2026 11:04:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782126184; cv=none; b=TguU/ZOYzIAiDTGRMJEtv6E6yJUkwPXo7NUlOXCztLHSIRbVOkyPsGUti2f4KzaG3rHyoiR5uBhblAQdZuqYlHMURPQfiNJE453OrR6UCIDHgmmx8OXei4kMwQTae714Pi6KPXZ2/kHEmGPaiFmGkFEry64KiipPtdqdCbw2p5Y=
+	t=1782126273; cv=none; b=W4mBZGxTmQdNEcl80+jdMEjwGFLoJIOWQvMDaTRR7MmPDjnx2cPihwe2fWsvDoieEQ8ZnONphMCNEQ12l8b0tAgimo5OCVc8nJ0RWlQI3J3MCFjdY/qLcGI/aDFySm7EBjuojtufLkc3OFglBGuTASoZrV7gFy38Rtr/Qi48BG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782126184; c=relaxed/simple;
-	bh=soCCb/qqcor7YOsqcDgZpD4kqOQExcgQHIU/hxZoPnY=;
+	s=arc-20240116; t=1782126273; c=relaxed/simple;
+	bh=ul3KPSH68nxfJgvRe0DktHRdrkKajBUPjqLwYjvXXM4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QMyXcg6IC/xvXxZhLHjdAhgqRsXTAjMnTP6YCtn5v1CtujqHe/kz4lU5SN08+RnXF/++EjOCi7LPApotJE7RvkOS3Hg5+6fbvDHT7svzGyu0rI5ZpToVZNOakcThitgDRiG6yQ1+/1npKJE134ChLE4M04OzyilPLmv3/qAIovU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUuWXWvv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qkNyU3hgUQrdKWjmJ2+yMmAgGXn2Ohz01L2Q66yZe5crb0idBeyI69BNUGRnWy5x3yjSocHqTQwlt3npxTPAd1kUjah+IQsQ7o8GbN6TVPkzmXxkmO7itgZ6bND0PCIhR5uJdN5PV+VNDQg9KDijjW5v5dRtVyhFOW/JUlm+7V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+7eGbWw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUuWXWvv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BBF1F000E9;
-	Mon, 22 Jun 2026 11:03:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+7eGbWw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8E31F000E9;
+	Mon, 22 Jun 2026 11:04:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782126182;
-	bh=soCCb/qqcor7YOsqcDgZpD4kqOQExcgQHIU/hxZoPnY=;
+	s=k20260515; t=1782126271;
+	bh=YSs58y/GFP40wa2ZLv0++iuUUCeFyDMAOw4QyEvLl/s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cUuWXWvvFScX3vy2Lk1wKqpow2Zs9ZYXoikPy5C6W5tbFCu2SRdG3YnaiOsAKg//4
-	 dFIXSXeDBzxwCXrwPWi3qwz6kSEubHpik5M5VKneb/zCcrPxN+TSkxFwQtyZDNKsm1
-	 BjDXupe4EH+0dGL16Uswz8RZEhLUykLy2DZfzM8GOGO1H6vKgjLoI7ZYmdWteS91wU
-	 ZMn+js6raYOT38MILewRnhqvRolEEx5pXyTFirmMo/7mz6q0BM7ozBTIfFSOvEjE2P
-	 2gykRRSsR53SGY2kuppFumaSUUwwgA4KjBULaOjWk8EDiswboRD83xZa9moml+6dzs
-	 NGtjRRVVjCyPA==
-Date: Mon, 22 Jun 2026 13:02:58 +0200
+	b=U+7eGbWwC1BuJt9yXHJSoGrPm9GrXLcfa0L2cSuJ5hyI5ocfhj7HDDu665jv+BJH7
+	 SxWF8HHYc6JlZ1o4UEDCfcyIDKlBHg/GWGKg6O8ncugO0xsbM4m1Fg6FOQDx4sjzXv
+	 VHBr22BqqsqlLbdmdA9MQEHqEkQR+rhoFtEsH4feXBHwCuRveUma9HmZQtFmBeCDvZ
+	 keMJlsSMkN31IDeWd+MGAa+rtEgKOIWBGF/vuzbRQJDxRta5QPJcPG/lMDIZ4RNQz9
+	 UvYg6kGuqfzghtAI5HjxCLCDs5kAvIqwG7git16HOmFNhXDBrB5nb6cj6XUr1cP4pt
+	 yNTcMcRW/oOVg==
+Date: Mon, 22 Jun 2026 13:04:27 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, michal.simek@amd.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	jay.buddhabhatti@amd.com, harini.katakam@amd.com, m.tretter@pengutronix.de, 
-	radhey.shyam.pandey@amd.com, abin.joseph@amd.com, kees@kernel.org, 
-	sakari.ailus@linux.intel.com, git@amd.com, dmaengine@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2 1/3] dt-bindings: dma: xilinx: Add optional resets
- property for ZDMA
-Message-ID: <20260622-ubiquitous-emerald-manul-daa5bb@quoll>
-References: <20260618071056.2024286-1-nagendra.golla@amd.com>
- <20260618071056.2024286-2-nagendra.golla@amd.com>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com, rajeevny@qti.qualcomm.com
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
+ panel controller
+Message-ID: <20260622-grateful-hypnotic-grasshopper-9de3f4@quoll>
+References: <20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com>
+ <20260618-ili7807s-v2-1-b3f0c109b102@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,23 +49,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260618071056.2024286-2-nagendra.golla@amd.com>
+In-Reply-To: <20260618-ili7807s-v2-1-b3f0c109b102@oss.qualcomm.com>
 
-On Thu, Jun 18, 2026 at 12:40:54PM +0530, Golla Nagendra wrote:
-> From: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
->=20
-> Newer SoCs such as Versal Gen2 and Versal=E2=80=91Net expose a reset line
-> for ZDMA. Older SoCs do not have this provision. Add an optional
-> resets property to describe this reset.
+On Thu, Jun 18, 2026 at 03:54:02PM +0530, Arpit Saini wrote:
+> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
+> 
+> The panel requires a reset GPIO, I/O voltage supply (vddi), positive
+> LCD bias supply (avdd) and negative LCD bias supply (avee). The panel
+> operates in video burst mode with four data lanes using RGB888 pixel
+> format.
+> 
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>  .../bindings/display/panel/ilitek,ili7807s.yaml    | 71 ++++++++++++++++++++++
+>  1 file changed, 71 insertions(+)
 
-It should be then restricted further per each variant/device in
-allOf:if:then: (see example-schema for syntax - ": false").
-
->=20
-> Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
-> Co-developed-by: Golla Nagendra <nagendra.golla@amd.com>
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
