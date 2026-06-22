@@ -1,114 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08C721ABC9;
-	Mon, 22 Jun 2026 10:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168D926980F;
+	Mon, 22 Jun 2026 10:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782122548; cv=none; b=lVECKg+grQtFTC6oORTDFMR7t8E3y+uD1U2pinpC63jzzAO4Zg9SIjYhIXTAzg5s10N35+I7FP3FHoYFimeBCKCjRoxZj62Cm9iC7L98s9jKX/fDh95b+e59UqdBc0QVA94W3R8dczQLe2fltkK71SxobnAy9nj7EC86yT9hndk=
+	t=1782122555; cv=none; b=HCiDGFcmXULIi3h5dUpqCXH75s8M2pjuPtav7xdCLfhc7TEC+JGZIqKzTvfUqwpeIdbHX6WrkEJIhLVK74/e032lgf58F2C/FQJ8MHz8r5AJvPljKgYS/yErR9gGi5Go16byib/NpQ7FL4Pbi1W1IPSUDj4PcSKSruCJvaJnWCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782122548; c=relaxed/simple;
-	bh=uMqtIObQAqDv1lgzwvSvQKtZBxKHOYzZdmppSPyl2HY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gwkPwmSk75doQhO2TQUdiXeIFsBPIvYPstthR9782swV4D12sxFBM43QiPdRugTfoCGGUjJldDwrkQUHjQWz1EBHFjtGOMaahoHZMIk7FnYfKDk4pF2ZbXsFPjx0159/e3O818JOYsrMbKcbmPRZNMrqPUB0llhOONKOZNdDS6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuU21bDv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782122555; c=relaxed/simple;
+	bh=uJ6xfrthPRo4iAVkc3LYOHjfMuL1yu3hgBF/D3qS6AM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=unPoLhQ5xiN7UR7Mg4JZOjgNH4rqrzS/I+PGSYVtWNUQGI8HNlFQY7jXmLJRtB2WEF1How8qw+C1SxBszV1LbDcodnmofghOQySq4xgOre9v8rSm8AGPpiMsEHonxaIHwyiIHqa28voa4596ROLEm8iH9jaxu2VKHZtrevhmm7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+Rwzdkc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuU21bDv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8872F1F00A3A;
-	Mon, 22 Jun 2026 10:02:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+Rwzdkc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A00091F00A3A;
+	Mon, 22 Jun 2026 10:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782122547;
-	bh=ogGOxnJk3KR/bX75jN7D4WY6r2fkYbCdNtHYLbjUBEk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RuU21bDvD4zmuAag0rX45fLaeGE0rdORK1zDEZ4mzlk5cSClE+YuyCL2b7tuMxSfS
-	 RTWAzxS+Kja4TXEk0BedLZ1iocmvCtYZU22iOIgQmPBH1rgRk0Hx11VZardAoRUj/1
-	 P2h0OGQ3eqH+kNtx2HVOpt4bUVvQOz7CNwDsr0yYbRIJKR0XMjri7AK1LRElPi6Rbn
-	 vROH4ZGLhmRSkwrDE5EiFogmPCiJBft9rU9MozczaW2tlMVryZA4eW3NNq6y5vDw3G
-	 u9fVdl6w+OkKMKchmKb4r+EfaZTCazjChwyod8Tg6R0CtjKO0BLyYU/kdfKoQ1bQAb
-	 zWhuOXOnm3dUQ==
-Message-ID: <2e2a93c7-6bf9-49f2-95ed-f44cf767e9fd@kernel.org>
-Date: Mon, 22 Jun 2026 12:02:18 +0200
+	s=k20260515; t=1782122553;
+	bh=sgnV9b33LJlANpB3dzslfoDuod+2n+fH4n9BXQl4avc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=W+RwzdkcOHkhlclqrzghh8dPQWmINSnGQisn1uLQHUPgYqQIw7LaAvB8NqhH9ce9t
+	 0Ukqj/+m1lg9Vkun/MXuadCLr3eLS7AwJzHmggoPgdUj6zOZl4XmCD3g621Y7DoLS8
+	 gAgZ0UkF3gpIFG32Y7PEqlEcLG6oTsKVrN52Mydvc0o/IhTNZMfYK1ydDI7ks7aGrO
+	 qk0iSCfuOXDH6NpuU9Lipcn+WsbQfFXWy1An15doEjdxxQ+FV/mw1ar2oeeiK9fESP
+	 bS/jeCJOTKR3d3sd64R9iHcICAjIga5UldVg2+8Mie4wOPpysRT0JFIbsy1EKdFnSW
+	 I0XmURej5fXXQ==
+Date: Mon, 22 Jun 2026 11:02:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Kurt Borja" <kuurtb@gmail.com>
+Cc: "David Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Nguyen Minh Tien" <zizuzacker@gmail.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/4] iio: adc: new ti-ads112c14 driver
+Message-ID: <20260622110223.7e854dde@jic23-huawei>
+In-Reply-To: <DJF5LHOE6368.2QCY5LIPT8098@gmail.com>
+References: <20260615-iio-adc-ti-ads122c14-v1-0-e6bdadf7cb2b@baylibre.com>
+	<DJA1J8D91ESA.2XU7OCVKN7LXU@gmail.com>
+	<d3270250-ae18-4c0f-a0fe-e0fdabfce046@baylibre.com>
+	<DJANEYYA4QTA.1JBN2L78PNXDD@gmail.com>
+	<9b8d5cfc-e392-45aa-9adc-867c364dd36e@baylibre.com>
+	<20260621201412.0ce54fa8@jic23-huawei>
+	<DJF5LHOE6368.2QCY5LIPT8098@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/8] dt-bindings: thermal: amlogic: Add support for T7
-To: linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260424-add-thermal-t7-vim4-v5-0-9040ca36afe2@aliel.fr>
- <20260424-add-thermal-t7-vim4-v5-1-9040ca36afe2@aliel.fr>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260424-add-thermal-t7-vim4-v5-1-9040ca36afe2@aliel.fr>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 24/04/2026 17:45, Ronald Claveau via B4 Relay wrote:
-> +  - |
-> +    temperature-sensor@20000 {
-> +        compatible = "amlogic,t7-thermal";
-> +        reg = <0x0 0x20000 0x0 0x50>;
-> +        interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
+On Sun, 21 Jun 2026 19:32:29 -0500
+"Kurt Borja" <kuurtb@gmail.com> wrote:
 
+> On Sun Jun 21, 2026 at 2:14 PM -05, Jonathan Cameron wrote:
+> > On Tue, 16 Jun 2026 13:16:46 -0500
+> > David Lechner <dlechner@baylibre.com> wrote:
+> >  
+> >> On 6/16/26 12:26 PM, Kurt Borja wrote:  
+> >> > On Tue Jun 16, 2026 at 10:21 AM -05, David Lechner wrote:    
+> >> >> On 6/15/26 7:18 PM, Kurt Borja wrote:    
+> >> >>> On Mon Jun 15, 2026 at 4:59 PM -05, David Lechner (TI) wrote:    
+> >> 
+> >> ...
+> >>   
+> >> >>>> All of these chips have in common that they are designed for use with
+> >> >>>> RTDs and thermocouples and so they look very similar to each other in
+> >> >>>> terms of wiring and feature set, even if the register maps are
+> >> >>>> different. They are in the gray area where we could either keep them
+> >> >>>> separate because they are just different enough, or we could do like
+> >> >>>> we've done before with ad_sigma_delta and have a bit of an abstraction
+> >> >>>> layer for the register differences and otherwise try to share as much
+> >> >>>> code as possible. Normally, I would lean towards keeping them separate,
+> >> >>>> but in this case, I'm considering trying to share code because the
+> >> >>>> devicetree bindings for the inputs is complex and is going to be mostly
+> >> >>>> the same across all of these chips.    
+> >> >>>
+> >> >>> The channel configuration is indeed very similar for the three chips.
+> >> >>> All three have IDAC, BOC and VREF configurations.    
+> >> >>
+> >> >> Hmm... I forgot to include the burnout current in the DT bindings. Following
+> >> >> the channel = "conditions for measurement" pattern that I have set out here
+> >> >> I guess that would mean that we would need to have the same inputs twice
+> >> >> when using the burnout. One "channel" would be the one used to do a "precision"
+> >> >> measurement and the other would be the one to do open/short circuit detection.
+> >> >>
+> >> >>
+> >> >>     i2c {
+> >> >>         #address-cells = <1>;
+> >> >>         #size-cells = <0>;
+> >> >>
+> >> >>         adc@40 {
+> >> >>             compatible = "ti,ads112c14";
+> >> >>             reg = <0x40>;
+> >> >>
+> >> >>             avdd-supply = <&avdd>;
+> >> >>             dvdd-supply = <&dvdd>;
+> >> >>
+> >> >>             refp-supply = <&avdd>;
+> >> >>
+> >> >>             #address-cells = <1>;
+> >> >>             #size-cells = <0>;
+> >> >>
+> >> >>             channel@0 {
+> >> >>                 reg = <0>;
+> >> >>                 diff-channels = <1>, <2>;
+> >> >>                 excitation-channels = <0>, <3>;
+> >> >>                 excitation-current-microamp = <500>;
+> >> >>                 current-chopping;
+> >> >>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+> >> >>                 label = "rtd-precision";
+> >> >>             };
+> >> >>
+> >> >>             channel@1 {
+> >> >>                 reg = <0>;
+> >> >>                 diff-channels = <1>, <2>;
+> >> >>                 excitation-channels = <0>, <3>;
+> >> >>                 excitation-current-microamp = <500>;  
+> > Maybe use an example with more stuff changing? Do we want same excitation
+> > for burn out? I've no idea.
+> >  
+> >> >>                 burnout-current-nanoamp = <1000>;
+> >> >>                 ti,vref-source = <ADS112C14_VREF_SOURCE_EXTERNAL>;
+> >> >>                 label = "rtd-diagnostic";
+> >> >>             };    
+> >> > 
+> >> > This would mean we wouldn't be able to use iio_chan_spec .channel and
+> >> > .channel2 to describe inputs because of duplicate sysfs attributes, no?
+> >> >     
+> >> 
+> >> Yes, that is a bit unfortunate. At least there the labels to tell them
+> >> apart. I guess we would just need to use consecutive channel and channel2
+> >> when dynamically allocating the channels to avoid conflict.   
+> >
+> > From a very initial look, maybe do something similar to the folk have
+> > been looking at for the more complex DDS devices where we have lots
+> > of channels that are on the same 'wires'.  Basically add a numbering
+> > scheme to keep them reasonably separate - channel numbers are cheap.
+> > Maybe first channel is 10->1f, second 20-2f etc.  They are differential
+> > so it will get ugly.  Perhaps have a play around and see if there is
+> > a reasonable channel naming scheme for this 'same inputs, different thing
+> > being measured case'  
+> 
+> May I also suggest having some sort of IIO_VOLTAGE_DIAGNOSTIC channel
+> type? Would that be worth the trouble?
 
-This wasn't ever even built! Really, it fails immediately. I will send
-fixes, but quite disappointing that contributor does not test its own code.-
+Nope. That would get messy fast as any channel type could have a diagnostic
+variant.   If we only ever want to poll it from sysfs we could use
+an info_mask element so in_voltageX_burnoutraw or something like that.
 
-Best regards,
-Krzysztof
+> 
+> We could also maybe just drop burn-out current completely from
+> dt-bindings and add IIO_CHAN_INFO_BURNOUT_CURRENT. Given that this
+> feature is only used ocasionally for diagnostic purposes (I assume...).
+
+I did wonder if we just push this either into debugfs, or into an
+events type interface.  So poll it every now and then or on demand.
+
+> 
+
