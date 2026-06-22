@@ -1,181 +1,90 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D7C233943
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4102DC791
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782111928; cv=none; b=VtQU2SpYL3QEAHZyaS8diKBsbQL9TciXT8rE/mM0omcYAlvqNmZjQDLRI3TasgFvX9cVFmWvb/x1PoyPAIJJFhBGTgQeA6RZqzqKMlgqxTN0p8Nl/toU93msPFnCKU1lFNaOcYsZg7McNrLrUeSOY5ozi4a+A61W4bZwCSdEyL4=
+	t=1782111944; cv=none; b=cbsCNZgIH9+AUeLtwn67EipubtmNnIqHENMIjf6QeaWFzyPf4ZpXqbnrxIUOYxZOSL3RZ/0Ni54qZl8QPCGmvPD7/S3RK3/mD0epNq4ZZwZqfR8EAa1ze56miOhctAVEZ4irtCszjlosIh0AK3lCW9WYbeAAakWEiQv4giyYClY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782111928; c=relaxed/simple;
-	bh=/sPH/4yOVljlqRqNUbXxHIhT6Bka9y5KCIYoKxZjVgs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=I0GXxUvFZ9+tDzsN7RWG37MaXo2g+208ya/aUbPZDytJOUFa0LJW/3hOzPoCEgKnOhFK8pz8RCXUfOjZCnXCeGnyAoNRGZiMkZiPNyGOu71CKXduvw15nj3tcEXJZ14zUlMXZ43nvX5Z9dWbO3x1HOXBBKeYHhW04IsoSpvq77c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=RFX9AYCi; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1782111944; c=relaxed/simple;
+	bh=HbAwRpaLFaILJXiEF+GSvD/X+qrIPflB0YHPjal1qog=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=o9nl02pnh+1/kLkAoVIqbkeXyZ3mpSrkXuR/921AAeQV6SVdZjfZ1npPQyv8PjLfan5xOiTF4pauEdf4J6Iag8UBWubRxcHCLvOpzsue5VVovVKv8kYIhaVuu3iVc6T8gSJy56VgFDDoV8jQfS5wkAa0eKzGOHzoMF/t7ZPTto0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TrMFtab3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="RFX9AYCi"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6977c0814d1so2516613a12.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 00:05:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1782111924; x=1782716724; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=A2dGSrY6zQBJiyRE8tkOjBJN/7dRnPUdVyyrkCIBUgQ=;
-        b=RFX9AYCig7Ub66hNakKuO+CUDa8Rph3pfR2X896WQDDtJThzBrIBLUurEFdkcfvqid
-         wNj1iw3m9z4HVSRrbGI9crpkm7iQ1/YQbaTjReqsyw1aZOLoab+vJ+5ePH8n1uPXLglS
-         eqDktRevvmv6VnkOryWKuhNJ6GEKvobqoIMykzgAWlGTQ/h2oTYKqYoWSYo/gVMlCrQs
-         V25lVdDS6z+MpwnRGdIjM8esbrwAN3jREdnYWLp0GfSdkLqA9GHkNxSfaG9KJo967ynF
-         n9MeEnDMERLJchiSZ19bnEW/h19sLkoehg0RS49UHa7RkcXzBxLCQUjewD7isxF7PuqP
-         IxSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782111924; x=1782716724;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=A2dGSrY6zQBJiyRE8tkOjBJN/7dRnPUdVyyrkCIBUgQ=;
-        b=SyBwzaDGB1wosjgTm1+l8TczLgacOxuyBy+V43zcqE0+xqxDcIN0S2bymxximhGdNO
-         uXWZl5gnsP6tUNBOhMZEKpnH2t+1la1/q6qlBrTF0a/pAgyZr1lp0zhYjgwuDiqdXT9s
-         lsOy53gVzRePh8q0xWCqqJjJKcVPCed+lQo2nBVGBu6SXKu+LXrW6WG/WNTExmDeWFfP
-         HGHSPG+wZl6RhXObH9Ojy7MCJHr27FODBr4RT7RQncBg5SISjc1ykXOp4Su+iQ9Db4fZ
-         5b2dJPclFTrvHi+GsOCYjbIEdLRHSgqHSvrcoz+zIhSkkWHOm6J0i4wb7XEXKSoG9r4v
-         7BUA==
-X-Forwarded-Encrypted: i=1; AFNElJ9M8Rc26Wl8UTXKVQhl8TAh++B1u8RENxANYklqjaoWbXTy18t7kZkTQJ1XrjfstAFvBkyS/tdPXp7d@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyv1bhhLy4DHQVYL6rfx7yH695pqgra3euo0VnH+vBSavl0Gmvc
-	IOw8FdPnW4yLAqrASlPPFdTMQd6KBOuZJQuNAK3bC0jlpBI9V52ZXSztsVP+wsIQz60=
-X-Gm-Gg: AfdE7ckxerSo0sIC5hsph78mgyd/3nb7K7mTacaWx3po/cfzUWii2pOs4mbqp98Z5KE
-	s0qqbda2HWRKo9lmKVJE4gQm/DKsbdfDL1+IycMg1QqpRyaSADcaEUQJWCsSVhWxS0TRcL9WWqe
-	Cxx3RCUXiSOkgx4KRLaPqt7xN7hfi+6RbO/0a6cpJCwBn7AjEHfJdH5Bn7It53TSLVeXnKLm8EZ
-	yRjlRb/sRXjxXc6kKqCvuGV4WAyzIsFolTBgCG8LrREHwB6wEO8XwyCBDVjX4hqiXZe3dFsOWrA
-	JLIo9FXGJgmvtmXofEuhG3GD5OxoXiCB33CoY1sMCRE1Vjh4ELJuScaGcCC8lsov06PZoEaqWEs
-	YbDYWRDcLfLUHinpAB2IDvuPqtkTE7CEWoVNI+QlP5ClC3fhKE7QZF8fiWVoE+yQjiE4EqJ2IHp
-	EaY4fght9zw8I1tC4y2sJIAB+LiEgCcCY3EA27Lpfj9Lr4lxBOvh7ekZrW+mMeKHl1FqjRp1X+8
-	xP9Yt3g2ad6QWIWY9apbC83THc=
-X-Received: by 2002:a05:6402:3886:b0:691:b5aa:5a5b with SMTP id 4fb4d7f45d1cf-696e5211752mr5971797a12.17.1782111922988;
-        Mon, 22 Jun 2026 00:05:22 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697b8780d08sm701001a12.0.2026.06.22.00.05.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 00:05:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TrMFtab3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C501F000E9;
+	Mon, 22 Jun 2026 07:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782111943;
+	bh=VNr2kMcS63Kfa6/RJUT/pS+jcnBmTYd/r8tSTzYy1as=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TrMFtab32SLFRfqB9/6ecPr/r//jhrVUCjCPiEJMx8s7rKB3m/eNz+xps1Bt7kGnD
+	 ulCOy0+RzoQ1h/RVjL0qAFpVwNqAlTLRThLTfYUiIT6EDSqrYgmrEFxCBR0dezqF1n
+	 oOnpI3ox8nRDPUBEH3TaNF8b52DzBwozOaTSjRJWCphg/0FS1Z4vdoMmsAZHgLVYB8
+	 VwohgWYV2tt7qQUBx4C+5L8TshV9DGmpmA41p/YCYXgaw5pcfDsBI36ibz1uaPeUX5
+	 3AsujIlK4llBm1Xz/btFrNbadiXohSY0cJMTMDPv+37zCZB+pW51y1QYIEe3pAL38H
+	 YLW20Pj87PbzA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/7] gpu: host1x: Add Tegra264 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260622-t264-host1x-v2-4-ff7364d9ff7b@nvidia.com>
+References: <20260622-t264-host1x-v2-0-ff7364d9ff7b@nvidia.com>
+ <20260622-t264-host1x-v2-4-ff7364d9ff7b@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 07:05:42 +0000
+Message-Id: <20260622070543.58C501F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 22 Jun 2026 09:05:21 +0200
-Message-Id: <DJFDYAS1AY8Z.3GD4A5UMWLAUC@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Vladimir Zapolskiy"
- <vladimir.zapolskiy@linaro.org>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: kodiak: Sort pinctrl subnodes by
- pins
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612-kodiak-cam-mclk-v1-0-fd294ff003a2@fairphone.com>
- <f05ad4ae-140a-40a7-a6ef-9ac2ddb0a939@linaro.org>
- <DJ747VLQEHIN.Q3SS1FFC9I3L@fairphone.com>
- <ba0e9f93-fd2b-4895-b8a7-8e38eeff9bcb@oss.qualcomm.com>
-In-Reply-To: <ba0e9f93-fd2b-4895-b8a7-8e38eeff9bcb@oss.qualcomm.com>
 
-On Mon Jun 15, 2026 at 2:09 PM CEST, Konrad Dybcio wrote:
-> On 6/12/26 3:46 PM, Luca Weiss wrote:
->> On Fri Jun 12, 2026 at 2:59 PM CEST, Vladimir Zapolskiy wrote:
->>> As documented in the "Devicetree Sources (DTS) Coding Style" document,
->>> pinctrl subnodes should be sorted by the pins property. Do this once fo=
-r
->>> kodiak.dtsi so that future additions can be added at the right places.
->>>
->>> No functional change intended, verified with dtx_diff.
->>>
->>> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->>> ---
->>>   arch/arm64/boot/dts/qcom/kodiak.dtsi | 1382 +++++++++++++++++--------=
----------
->>>   1 file changed, 691 insertions(+), 691 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts=
-/qcom/kodiak.dtsi
->>> index fa540d8c2615..62daef726d32 100644
->>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
->>=20
->> <snip>
->>=20
->>> +			qup_uart12_cts: qup-uart12-cts-state {
->>> +				pins =3D "gpio48";
->>> +				function =3D "qup14";
->>> +			};
->>> +
->>> +			qup_uart12_rts: qup-uart12-rts-state {
->>> +				pins =3D "gpio49";
->>> +				function =3D "qup14";
->>> +			};
->>> +
->>> +			qup_uart12_tx: qup-uart12-tx-state {
->>> +				pins =3D "gpio50";
->>> +				function =3D "qup14";
->>> +			};
->>>
->>> I understand and support the intention to keep this change non-function=
-al,
->>> but this pad "gpio50" is for qup16 also, right?
->>=20
->> According to my QCM6490 data sheet, GPIO_50 has these functions:
->> * UART for qup14 (OK)
->> * SPI for qup14 (OK)
->> * SPI for qup16 (no pinctrl)
->
-> "no pinctrl" meaning "not defined in the upstream dt as of today"?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] In `hw_host1x10_uclass.h`, the macro definition following `host1x_u=
+class_indoff_rwn_read_v` incorrectly redefines `HOST1X_UCLASS_INDOFF_INDROF=
+FSET_F` instead of defining `HOST1X_UCLASS_INDOFF_RWN_READ_V`.
+--
 
-Correct.
+commit 6528bd5a94c6539553c675b4b4c0ced0e30024a6
+Author: Santosh BS <santoshb@nvidia.com>
 
->>> Similarly pads "gpio54"/"gpio55" for qup14 function, "gpio62"/"gpio63"
->>> for qup16 function, I find all of these are missing on the original lis=
-t.
->>=20
->> GPIO_54:
->> * UART qup15 (OK)
->> * SPI qup15 (OK)
->> * SPI qup14 (no pinctrl)
->>=20
->> GPIO_55:
->> * UART qup15 (OK)
->> * SPI qup15 (OK)
->> * SPI qup14 (no pinctrl)
->>=20
->> GPIO_62:
->> * UART qup17 (OK)
->> * SPI qup17 (OK)
->> * SPI qup16 (no pinctrl)
->>=20
->> GPIO_63:
->> * UART qup16 (?)
->> * SPI qup16 (lane 3) (?)
->> * SPI qup16 (lane 5) (?)
->>=20
->> But the GPIO_63 looks weird, is the data sheet wrong?! Where would
->> UART_RX of QUP1 SE7 go? Maybe it should be UART qup17 and SPI qup17 and
->> then SPI qup16 ??
->
-> GPIO63:
->
-> QUP1_SE6 SPI_CS2
-> QUP1_SE7 UART_RX/SPI_CS0
+gpu: host1x: Add Tegra264 support
 
-That matches pinctrl driver and kodiak.dtsi at least. Still, the data
-sheet is just wrong there. If you have any contact to relevant people
-there, please let them know!
+This commit adds device data and chip headers for Tegra264.
 
-Regards
-Luca
+> diff --git a/drivers/gpu/host1x/hw/hw_host1x10_uclass.h b/drivers/gpu/hos=
+t1x/hw/hw_host1x10_uclass.h
+> new file mode 100644
+> index 0000000000000..abe83e67fa837
+> --- /dev/null
+> +++ b/drivers/gpu/host1x/hw/hw_host1x10_uclass.h
+[ ... ]
+> +static inline u32 host1x_uclass_indoff_indroffset_f(u32 v)
+> +{
+> +	return (v & 0xffff) << 2;
+> +}
+> +#define HOST1X_UCLASS_INDOFF_INDROFFSET_F(v) \
+> +	host1x_uclass_indoff_indroffset_f(v)
+> +static inline u32 host1x_uclass_indoff_rwn_read_v(void)
+> +{
+> +	return 1;
+> +}
+> +#define HOST1X_UCLASS_INDOFF_INDROFFSET_F(v) \
+> +	host1x_uclass_indoff_indroffset_f(v)
+
+[Severity: Low]
+Does this code accidentally redefine HOST1X_UCLASS_INDOFF_INDROFFSET_F?
+
+It looks like this might be a copy-paste error where
+HOST1X_UCLASS_INDOFF_RWN_READ_V should have been defined instead, calling
+host1x_uclass_indoff_rwn_read_v().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-t264-host1=
+x-v2-0-ff7364d9ff7b@nvidia.com?part=3D4
