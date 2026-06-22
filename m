@@ -1,124 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782CC27603C;
-	Mon, 22 Jun 2026 10:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78A3372064;
+	Mon, 22 Jun 2026 10:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782124523; cv=none; b=eRsQHMRbAsB83A5aQ13bKG1ij8Y0OwDiwgi8erIeAAbr95CYpohBcXKIZxs16av+Ra0UbHXYblfnWAeoDiss6FAnFoe0OZhkZtTzjyqCj+S+Vs278Euo+k1psbrFKfxzEojDj7zi9LDHHjj8AujZMRpxzYA3mvP6YSHgjpRVuVQ=
+	t=1782124675; cv=none; b=Ya0j2f1pmQUi3gzz7KzLg6ZEKqWklfap0szcF/2b4w901NItiNhZSyyaVZZ1OgS9VmbbKqTuAfwE83imqYnv21yGKLTvoYBUuvn/MyP8COKUq2nPUSR9c3Gis/5/nLUgeqvKGffRG0QpnqIcEWr2LcFR2+y8/ocpYvWbJ4I9gR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782124523; c=relaxed/simple;
-	bh=nKS4zwQM+VFl+KcVzgjEHYMtbkj7E74mVR7te08Yyu8=;
+	s=arc-20240116; t=1782124675; c=relaxed/simple;
+	bh=SlXpapcESob2oMAX1fFCfcRVVrRmMpw/0lMMJyMoXZY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOMOnXHulxvImCALD4O/QGUnGTWho3kI8ieO8OCsS6+h0Xq9hKMvn/bKdrhNrq3k4dm5LVh2TKwcXVJdKdF5+dn9Zt6GW6msgSzFlFLJRhFtoVnGGxLph9GpxUs1ezaP3ZSJI7ezUxKsDPjjVBaR4xpM8TpGgrTud434DcH562E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OnulI88y; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XUJpNSUGNU0NYtdBPUkQRKYgcRkTTay5W2c6HaUO0c797WhOWAfJt/1e40z2nlFo2Pka1cxOoAG17U0jTgrwSoiPG3MpNI75hW6mQ/QA1CsGgN+EYsLm6BzFMGS5+PHSJQ0qMHzEYE30jIDdI7ihqeiodKvK3IekKTwTIM9V78g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjA84rh2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OnulI88y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782124521; x=1813660521;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=nKS4zwQM+VFl+KcVzgjEHYMtbkj7E74mVR7te08Yyu8=;
-  b=OnulI88yX0QSSucq/j1BKh6psinhnzMa+6iVYioE4Byy50/FLIQH92q3
-   7TwrS8eFCNYEiUQgejlf/nrXeO5xlnXj9QNlj2mZC7qZrZMz5ZeymbLY7
-   98QwhURC83bAFsOHX5T+hQ0yWG0O3r083PFeR0j2RAo/0HWSEGh9tHQ+P
-   vYeab96A84CETpnVaj1lHm/W4HLimqiaKWNMrFfafkqbdxqbnv4ILckCN
-   TnqszfxD3RDc5Jf/nywPs6W37AyuUC1/Y2ACN4tiClyZ7CVA6j3OU2Qr8
-   nS/InqYaBtxmHsBfxwNfxZhLlOKX7Qjlq2c8HBflJE3PKDGoZ/7d1hFkX
-   w==;
-X-CSE-ConnectionGUID: fCFYSwzLQhqRaWQ7XDJeMA==
-X-CSE-MsgGUID: fZkXNCwMTri+69p6CGQqPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11824"; a="70365448"
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
-   d="scan'208";a="70365448"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 03:35:21 -0700
-X-CSE-ConnectionGUID: NiAuEHaXRFyoiUSZMBV95Q==
-X-CSE-MsgGUID: pwp5A8wfRVaZLysDxupkNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
-   d="scan'208";a="248046762"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.152])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 03:35:15 -0700
-Date: Mon, 22 Jun 2026 13:35:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Michael Walle <mwalle@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	"wbg@kernel.org" <wbg@kernel.org>,
-	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
-	"lars@metafoo.de" <lars@metafoo.de>,
-	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"andy@kernel.org" <andy@kernel.org>,
-	"dlechner@baylibre.com" <dlechner@baylibre.com>,
-	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
-	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
-	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
- accessor
-Message-ID: <ajkP4DHN4JPjr6yb@ashevche-desk.local>
-References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
- <20260512033317.1602537-3-eleanor.lin@realtek.com>
- <agMM9soiqpG-TRSb@ashevche-desk.local>
- <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
- <ah92oEavMu4QRn8y@ashevche-desk.local>
- <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
- <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
- <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjA84rh2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5B81F000E9;
+	Mon, 22 Jun 2026 10:37:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782124673;
+	bh=4JaDzGEOq8RviwvqFH3apYO55x+BKM/GmrtegVUEYwo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SjA84rh2vGNpApF7xb/8/QboyqkViBsFqkxGtE93XASJ+6cAjHWGMYiaqrRp/pSwq
+	 nAURq2pW5oZK+5kztm9oQ/j9SKS2UNBEdMeWO9RhLcnT1zJAaz+BD/7G4aqFCvVY4x
+	 QHjPHYeIsBIaY32IwlZUhlFi1+/nLUdPptY22FEUURtZfP4gIY5r57Dig5yPyGWO6W
+	 PSt5y3KkRLPjlfNLCab0Yw1tso96epHP2NtLYknAw8EpAV0q/Tzyg6NBTOlCmVCRNz
+	 ZbyDjiLdaDqPPWkSrczxDGEZC2xL9ZfHm2u9lKJT1zSb47tP99cDSw/BDAWR7yf+Km
+	 VEJxhJdxJ5q7A==
+Date: Mon, 22 Jun 2026 11:37:49 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Zhang Yi <zhangyi@everest-semi.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-sound@vger.kernel.org, robh@kernel.org, tiwai@suse.com
+Subject: Re: [PATCH v2 1/7] ASoC: dt-bindings: ES8389: Add members about HPF
+ and clock
+Message-ID: <65a1d2ba-0790-4c6f-9c00-39ee8b4db7bf@sirena.org.uk>
+References: <a619312f-55b8-41f4-b288-d7c343f5f9e9@sirena.org.uk>
+ <20260622063318.3535-1-zhangyi@everest-semi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qo2N2fpRNvMdPVCU"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Jun 19, 2026 at 11:08:30PM +0200, Linus Walleij wrote:
-> On Mon, Jun 8, 2026 at 4:41 PM Michael Walle <mwalle@kernel.org> wrote:
-> 
-> > >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve the
-> > >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requirements in our
-> > >>> map() function.
-> >
-> > Why is gpiochip_irq_reqres() called in the first place? Isn't that
-> > only called if the irq handling is set up via gc->irq.chip and not
-> > via gpiochip_irqchip_add_domain() like in gpio-regmap?
-> 
-> Not really, the gpiochip_irq_reqres() is called to mark that a
-> GPIO line is used for IRQ, so the gpiolib cannot turn this
-> GPIO into an output line, gpiod_direction_out() will fail
-> on lines used for IRQ. So it's a failsafe.
-> 
-> You can live without it of course, but then you don't get
-> this failsafe.
-
-So, when we instantiate our own domain in regmap GPIO, we should have those
-callbacks be defined somewhere?
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <20260622063318.3535-1-zhangyi@everest-semi.com>
+X-Cookie: Now I am depressed ...
 
 
+--qo2N2fpRNvMdPVCU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jun 22, 2026 at 02:33:18PM +0800, Zhang Yi wrote:
+> > > +  everest,mclk-src:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint8
+> > > +    description:
+> > > +      Indicates that SCLK is used as the internal clock.
+> > > +    minimum: 0
+> > > +    maximum: 0x01
+> > > +    default: 0x00
+> >=20
+> > Could this be done by having a clock API property for the MCLK source
+> > and then falling back to using SCLK if that's absent?  That would feel
+> > more natural for DT, and you'll probably want the MCLK property at some
+> > point.  It's also a bit more of a neutral description of the hardware,
+> > future versions might switch dynamically between MCLK or SCLK based on
+> > some criteria or something.
+
+> Does the implementation below match what you described?
+
+>=20
+> es8389->mclk =3D devm_clk_get_optional(component->dev, "mclk");
+> 	if (IS_ERR(es8389->mclk))
+> 		es8389->mclk_src =3D ES8389_SCLK_PIN;
+
+Yes.
+
+> > > +  everest,hpf-frq:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > > +    description:
+> > > +      The frequency of HPF in Hz.
+> > > +    maximum: 1020
+> > > +    default: 16
+
+> > Why configure this with a fixed value in the DT - it's the sort of thing
+> > I'd expect to turn up as an ALSA control so the user can vary it at
+> > runtime if they want to?
+
+> I don't want users to be able to change the HPF value at any time,
+> as this would affect the codec's startup.
+> Or I can use SOC_SINGLE_EXT to define HPF-related controls
+> and write the modified values to cache when writing to the hardware is no=
+t permitted.
+
+Some devices have custom controls like that already, you could also
+prevent writes while audio is running.
+
+--qo2N2fpRNvMdPVCU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo5EHwACgkQJNaLcl1U
+h9Ao7gf7By5U0QbeSqltgEe3rmQc/pjTB0u4wp2KBHSYRrwoM6NCiM8V/xI14EqS
+daXlg2i/W4mJMdadyz9Yhb/85pYexqUb9IlIHSiheBOCJ/HMFpTROnVuUgu/LXMV
+00zgMFzgga90YkP7sUW/KxgeMclhhBlkbek4bD+WL0AJE/V73kPlk+BatwQ830aP
+7vn0MRV3XqkXsg2LNUrdS5jtG1QBGznKLKTe1y5+ixDOGJxWioA1h/HLKIjWRTbA
+iQcP8wUY8OL+seDcD4m57FyD3EKA5/zM/x2L5S4AH7dWvZatj5JQoraByQ4z7X8j
+s36VjkEXVY6RHDC5vk6dQzCVYSbgYw==
+=Ddoj
+-----END PGP SIGNATURE-----
+
+--qo2N2fpRNvMdPVCU--
