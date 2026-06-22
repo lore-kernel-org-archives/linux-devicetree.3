@@ -1,166 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C223A1684;
-	Mon, 22 Jun 2026 09:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DDE39C621
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782121659; cv=none; b=eWCbos/N9LJBLQQrd5ImUupAOoS8nsekQOiJYsPPrNtbceM8+4zGRMMEx5YfcLZ5eLVFgu0USd5bqsOu36MMrclddFmjS3TJi4LE1k4Qt10SYngSZk+5uqwwOjTKOInOr/TU3kBrs7eNGQonY6aTWu9avBxuOThBvBQSLwxk0Jc=
+	t=1782121684; cv=none; b=ApnHzw7auADkrfkIBpHxv4XBocyX6zSl9KNjk2xHEz4vcHSXiTF7HSo0f3+oYc/G0eVrsm8QR8UFnxFdC9yRi8TOCow0iszCD2RKjQCPCh/u67F5OlyvJiBtYCsqvAoFjMSuh/9VVQAy9DEnxm5rSNJJG5tSWzDXjR7qVjVyGXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782121659; c=relaxed/simple;
-	bh=kq1TWWaWz4JxuT486DLHsuubNhsLfiudA7mhq6tfj2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sZUPtasDxqjAwrlQvuRBo1L7goY/M6LkmjseBIo+J6lA1CwcIOhWF2SMmpXB0fdlHgUdPm1xnUAsJ/+XEOF5cAWX1S7yz72mpSmlyTDczfJZlyP5kxt26166nU2tW1YLf6hXbkEqPxwFCwqn8RnaDYGTfjtRciqV/XmFAYkutdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vr7PVhbv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782121684; c=relaxed/simple;
+	bh=VYinWnQae4+B7P9giZn89VNsIC55c8o48r0FuxCS1fw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fJKNno/gTfHZT9Lb4sT4JQs+YFxjq97S7jDco160yYNPYxpLAtFJUZj6BuyvDIhaTwTysKIedGKSq6PteA1cJKphwnI3plnJ4LnRRLOZiMRVpG+FL6XgnectNeAaAb6m1wC77o3pGcymoOaXm0R5YU07gYM/3rc9ErP7qtdtxDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GDpfwImt; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vr7PVhbv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796FF1F000E9;
-	Mon, 22 Jun 2026 09:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782121655;
-	bh=bWE7qvAYRYKI3hRdY2piIWvs0fVbJcPJuA/ePpRA8nY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Vr7PVhbvG/1UgKbHFvt58Wz4jeQ4diPANr6q+zYuH6HY1dh7euxOCK9Saq7GjpUo2
-	 yTU246ojHyZtR7baACzNequfN1CFzLtlWK38M/ZQRx0PHjOTfuNVu4Z4Ne7CepW4qn
-	 egIKpCDOtEAv8KtKo6zm8mwGn/zRO9MdfzPJAUhNg/SWAHCIQBE3Yr42M/iRZOpntN
-	 RJxWs+vedD/ohe022/LBbYNGWslyjfsDA1oHDfQH0LaR3wwjnR1u1uSVi/ZrSMmaPG
-	 Vxv1RYi82ct+Oj2yYeqp6lHsgjhiy7VI4rLVIOHqbslfeNmpOR2E/wbKWgjPVYKQJS
-	 bBVwb1UjlEoWg==
-Date: Mon, 22 Jun 2026 10:47:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH 2/5] iio: adc: Add ti-ads1262 driver
-Message-ID: <20260622104728.039a5ea2@jic23-huawei>
-In-Reply-To: <DJF5ATR2RPDJ.3LSN8DY58E6RO@gmail.com>
-References: <20260612-ads126x-v1-0-894c788d03ed@gmail.com>
-	<20260612-ads126x-v1-2-894c788d03ed@gmail.com>
-	<20260613-sparkling-naughty-tuna-3e9bf1@quoll>
-	<DJ92M0ZMSI2C.2I39LHFRNQS7W@gmail.com>
-	<a994993e-7459-48a2-a8d7-823c1b0c9545@kernel.org>
-	<20260621153318.4a723e3b@jic23-huawei>
-	<DJF5ATR2RPDJ.3LSN8DY58E6RO@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GDpfwImt"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso1873458f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:48:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1782121681; x=1782726481; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ePKCrCfHq5Y2KE2FBQXmlLc3ZGDked2vfFdF5rmVAmI=;
+        b=GDpfwImt5qjA5n3wEDm9T3ARzIekakf42LXNbdSNZ1uBA8gIvMhuhxinKpjSxHuBLC
+         cZ6X+AhUw1/f8tu4zHdfrI7XupYrB0TLONV/zq4O2tiPoEsXXpMI4dGgGEgNYLdKcQ/m
+         SsR5SQb5mZsEsXW7WyjtfijyYC+MzIgZA5k3IzT9S14ivdAoSBfUeSvLCr6Jxyjq4php
+         O0kq/MKLlWk42ibyQSA7f8L01nZXTRcxtdR9x3UvqUdYSJNC2IhKuMI8X5CP4CYQIGmW
+         TCidNEu24mV76Ni1Tdi51joJtbYH1oDHIfSu1mStySQHHv7qzp1k6R1lihOsJsjPZ9zP
+         z+YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782121681; x=1782726481;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ePKCrCfHq5Y2KE2FBQXmlLc3ZGDked2vfFdF5rmVAmI=;
+        b=DsL7XFSZ+E/iywq4BpoQqit5u/w1bdteLKsLytUxryP/kiJPDTNApD9OJa/cAtXHEM
+         ZXAyIT2qgkZ0kp2BCIWxC2J4ScpeGBBkSEuVScoXIj4my/K6EEwEwfZcNXqZlK6uki3s
+         9PE2wysMG8/C9YzN8CXIBrHPCxnk+qSiL/LFX3rdUuD5IGg47w1YIUz6y3YfhqmFzIfx
+         fjDfVkeuiAN7+/F5/CtmH73PyO8QyhX7w0rOXHmoRPLCWmLIYxk8F4Tdx24T2PVl1pJb
+         ZHdXUFLXpGaNkjq1wuXjVfbxCbCdGkrDu3+xIlvMJJLKiPxeMsEGgw1nlJa/CJtFpoS9
+         M5Gg==
+X-Forwarded-Encrypted: i=1; AFNElJ/2rb5O70DxqhUVqfVH4JhukGJEWMNcztG5QhckJda6FkUPAVy37211ITHhHXS4qY4+K1cqR0mINCX4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTjfLXtv52cWYGBa8nIsQw3ao2/UIik++gozfHa34AE8PjH52I
+	x9Bqf+0rT9KY/+uTVH15w6Z4x5zc0PSd389UMALHovSV0KPsMev6jq1vAV2w9Fa0ZF4=
+X-Gm-Gg: AfdE7cmhE/2jaNsXQwYYP8z7sHcbEHZY1YbHuRB7fi0/HH7x+rgo2IxRlDcKOI8Pf6q
+	5uWuu09gyKpjzJ/Itsz+mAsse5pQ1JI1dT57uIMFrXdx/zQ5vJja+Y5pMFNUT8bPw1Twt5lyTew
+	5WYxV89YjVBah7dGcHo741OjnYi4PfjuCAE0ElEOdqPkCC4oEqsgLWD4roBU1ET17wQ0Lo6NZaS
+	4OFZmwHUlBCVsyU4bfdKxJAJH/l81R6AHXzKPr7riNMPQYjMXzJ6ncIsAZlNck/jq8sGloslFtV
+	Gc6K+r3MfBKJ2nmgLdOCWus9NCnbmwsCYN2QX8iGGdoAfUXOQxBFb8NuOP7exBVNMWXFRfPQhwa
+	MYKSY2vQB2+fbt2+Q1SHiOmRN3mbtxPACAUh4QVMdraL6dWKlT795EOjxdKjC+hp/qIfFSvki3e
+	uSvNGHdwKw30+D9YKCIojBHkjy0NHTKJ9ra99yrhLEWdn9a87j5f4iWtsT285RhkAClgrgl0U4y
+	QHG
+X-Received: by 2002:a05:600c:3b20:b0:490:e196:e8df with SMTP id 5b1f17b1804b1-4923f5730cemr270851925e9.23.1782121680570;
+        Mon, 22 Jun 2026 02:48:00 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:9f24:cdc:bb10:65f9? ([2a01:e0a:106d:1080:9f24:cdc:bb10:65f9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46667221da1sm24089038f8f.36.2026.06.22.02.47.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 02:48:00 -0700 (PDT)
+Message-ID: <5686c654-8627-422d-8726-aafe63c2dfe2@linaro.org>
+Date: Mon, 22 Jun 2026 11:47:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] arm64: dts: qcom: install DT overlays via dtbs_install
+To: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>, krzk@kernel.org
+Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
+ linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
+ vudupa@qti.qualcomm.com
+References: <0f045b88-94fc-46b5-8a49-8a53235fc8fc@kernel.org>
+ <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun, 21 Jun 2026 19:18:33 -0500
-"Kurt Borja" <kuurtb@gmail.com> wrote:
+Hi Vishwas or Claude ?
 
-> On Sun Jun 21, 2026 at 9:33 AM -05, Jonathan Cameron wrote:
-> > On Mon, 15 Jun 2026 06:30:28 +0200
-> > Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >  
-> >> On 14/06/2026 22:56, Kurt Borja wrote:  
-> >> > On Sat Jun 13, 2026 at 1:59 PM -05, Krzysztof Kozlowski wrote:
-> >> > 
-> >> > [...]
-> >> >     
-> >> >> Functions used by probe() should be before probe(), not somewhere in the
-> >> >> middle of the code. IOW, entire probe is together.    
-> >> > 
-> >> > I they all are, it's just that regmap stuff takes a huge chunk. I'll
-> >> > check how to reorganize.
-> >> > 
-> >> > [...]
-> >> >     
-> >> >>> +static const struct of_device_id ads1262_of_match[] = {
-> >> >>> +	{ .compatible = "ti,ads1262" },
-> >> >>> +	{ .compatible = "ti,ads1263" },    
-> >> >>
-> >> >> So devices are fully compatible? Then it should be expressed in the
-> >> >> binding and drop one entry here.    
-> >> > 
-> >> > Not fully compatible as Jonathan said. One is a subset of the other.    
-> >> 
-> >> This is THE meaning of compatible!  
-> >
-> > This one I'm in agreement with. It is a strict subset, so should be
-> > using a fallback.  If the fallback is used, you just get support of the
-> > stuff in the simpler chip (or if you can override it with a chip ID
-> > you might still 'upgrade' to the more complex driver support).
-> > If you do end up with properties that only apply to 'new' parts of
-> > the more complex chip then they should be verified as part of the
-> > binding (assuming you can do that without the verifier complaining
-> > - I haven't checked!)  
+On 6/15/26 18:27, Vishwas Udupa wrote:
+> EL2 DTBOs are used at build time to construct DTBs corresponding to
+> an EL2 (hypervisor-enabled) boot configuration. These DTBs are included in
+> distributions [1] as complete boot configurations (e.g. EL1 and EL2).
 > 
-> In v1 I had the "adc" subnode which was specific to ADS1263. Then I
-> agreed to drop the subnode but I'm having second thoughts...
+> The EL2 configuration is not enabled by default and is typically selected
+> after the initial boot by updating a UEFI runtime variable from userspace.
+> Once set, firmware selects the prebuilt EL2 DTB on subsequent boots.
 > 
-> If we dropped it, then we would still have some specific stuff.
-> #io-channel-cells would be "const: 2" in ADS1263 chips. Also ADS1263's
-> channels would have an extra ti,vref-adc2 prop, for ADC2 voltage
-> reference selection. I should maybe also add a vref-adc2-supply.
+> Although EL2 DTBOs are not used directly at runtime during initial boot,
+> they are required to generate and package the EL2 DTBs in the image so that
+> firmware can switch to EL2 when the configuration variable is enabled. Hence, el2 dtbo's
+> need to be retained.
 > 
-> Maybe it's better to keep the subnode or, again, go for something like:
-> 
->     spi {
->         multi-adc@0 {
->             adc@0 {
->                 ...
->                 vref-suppy = <&adc1-vref>;
-> 
->                 channel@0 {
->                     ...
->                     reference-source = <ADS1262_VREF_AIN0_AIN1>;
->                 };
->             };
->             adc@1 {
->                 ...
->                 vref-suppy = <&adc2-vref>;
-> 
->                 channel@0 {
->                     ...
->                     reference-source = <ADS1262_VREF_AIN2_AIN3>;
->                 };
->             };
->         };
->     };
-> 
-> In this case we would have to kinda duplicate channel description, but I
-> don't think it's that bad.
-> 
-> Jonathan, Krzysztof, David, thoughts?
-> 
-> IMO the ADC2 specific voltage reference stuff is a strong argument for a
-> subnode or the above solution.
+> 1: https://github.com/qualcomm-linux/qcom-dtb-metadata/blob/main/qcom-next-fitimage.its#L273
 
-Given you end up with channel specific stuff that differs I think it probably
-makes sense - though I do wonder a bit if that is real.  What's the use case
-for using a different reference for the monitoring / debug than the main one?
-I could imagine some dynamic use where you want to sanity check against
-a wider reference range, but maybe that needs userspace control rather than
-in here?  
+Pretty sure we can directly ask the question to an AI assistant ourselves,
+and I'm rather sure Krzysztof which is maintaining and reviewing DT for years doesn't
+need a lesson from Claude or any AI assistant you use to assist you.
 
-Jonathan
-
-
-> 
-> >
-> > The SLF3F discussion is about (to me) less obvious case of not a strict
-> > subset, but rather being detectable parts with different channel related
-> > properties.  In that case the ID match is necessary for anything to work.
-> > Anyhow, that discussion is in a different thread and not really relevant
-> > here.
-> >
-> > Jonathan
-> >  
-> >> 
-> >> 
-> >> Best regards,
-> >> Krzysztof  
-> 
-
+Neil
