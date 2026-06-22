@@ -1,405 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20002FFF8B;
-	Mon, 22 Jun 2026 16:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570F633B6F1
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 16:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782145782; cv=none; b=lBU83E4fQJ9HbX66wF+zdz5b8Oe7X2/98F0wBwf07FaXD6e7e01u8ROLZ9WgaIc5qnHqTMDDddgUV271o5lIOzQ3zv2m2/J04i1qIArxg8+CxuuqxyydzLrzQoabAUCYjAtLfIyLqZnHWclASX5enU4SL2zedtMicCuf3/R8YQE=
+	t=1782145786; cv=none; b=pU6QY1k4UxJi5NXXRYCh0SliD5+DLC9AsuH3VkmCYwdQu5IYBn2yCUVKSzl+XlEl4W3nT28gGixsdbg4E47xe2/T2jeKbMq606YNLo1V1gr6cuiF7D/p4lJDk54U5/G/YXl0nYyDYDJ9skjnkAo8DXpiBcBP104UBu/a4SR/R0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782145782; c=relaxed/simple;
-	bh=osmF6oxzcB2rHRidxMuZ/vdC2DVmCpVYN5vr4IRuHlI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NUY0aWNip1p6n+SSaJDVnLilQ5yILIbja0AlFidb1co+MVD/MTV+NIpr8Pbw/59IAuE3kt/Z9ncqcYdxNEG4RyUcqKafmlRmipO3Fr3gAfS1l7JzBYHlAuc5SmJasw7mMtZtH2p1VPw0ToR1LF31pq3tSE67/kV4N9T+TZeBf9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+cSt5zd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782145786; c=relaxed/simple;
+	bh=mvGpKlrwFHncD5jl964V4rj3HmMHhcnqhB2Wf1vJ2q8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=VDJ+yilospL0xjCsUfN6XP+9A8rEXpE/2NcDyYABSmXozPuKNm62hcRLk6mm23jkQbeHlOaH0AC7s1kJTVrnrMSHzb8BL29gkVx77ZDU6Mle5mvg2O0q70s8jYVv4VkzB/A9d+JfVuRW4AnWV/PUs7x4oE4xPnCwRf4cXiipwk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VSfIdpPZ; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+cSt5zd"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 371F01F000E9;
-	Mon, 22 Jun 2026 16:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782145780;
-	bh=xB+xdkB0MbbV0hANSD1KBPCKOPjowcAhl3O/CZ4a47o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z+cSt5zd7k0aBcBY9UFo0OOk/TsdA2vygY/dBIKJazVr22qbISFJkxjia6yokF8MF
-	 8rvRSuUbA2PpP9u32cN/jFgKjfyO//WGAN277ZC1SpI2pZOXuKz1/joanFoXKVX7vI
-	 qg38AaxkWlEVvhd7x3ii/VpcCZ3C4YPlfn66LCs++DTuUF4liPDFTjRfD1/L9MVgVE
-	 AxXzXt/WFBY2CNhGn1SkPWiUUQYMXRFbMCiFvYfpMOQQrWN/XafXQbPT4qUML+iNu9
-	 n30AHtPSHGr/N75wEzbABDEkeFvARr7y9VhY0CNCIZ0zuzuUAvwPaOuLUP0oEybWxU
-	 J7zaYW67ZqpcA==
-Date: Mon, 22 Jun 2026 18:29:38 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] pwm: add Axiado AX3000 PWM driver
-Message-ID: <ajlf4t_tuuX-Eplc@monoceros>
-References: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
- <20260618-axiado-ax3000-pwm-v1-2-c9797a909414@axiado.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VSfIdpPZ"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4924f8db066so9904105e9.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:29:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782145784; x=1782750584; darn=vger.kernel.org;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GT4x9AYClT9t28+ozEWKPRC7uYmzULjZEqq+oeNUuIc=;
+        b=VSfIdpPZUJAkSGCIwK4lc66oUqaaZ/ASg4NFZcmPx61DCf32+U7NWWFoFMngZxdqwm
+         gzx7185jIe5oWVl8MUt67eyfEnixBWqBDulfiVs16VTs6zbOsC4XWX+B/9hwnZyr8bbd
+         kZ6FJOKn8IJQtZbgpdNaJDaZvAOiJ9GSYjQpAXQnmOqeGeUcS+DZ7nb2sBp/m2sEg+Hm
+         NqyzlQ1OMb/GljNANQXmfYJlmMqhmWFfht/k6anc7+KH9Age9wf4LQdEQpSwhCyo4kC4
+         KmlexAkrxCrD5KjVo5H/4VcmRoXsK1YIeAjfc2aVYfMs6EohRyb78dj5xGcPtiPWNool
+         4DaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782145784; x=1782750584;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GT4x9AYClT9t28+ozEWKPRC7uYmzULjZEqq+oeNUuIc=;
+        b=YCh+BQx/dcJb+qzfXXbL7jfJYz3Eo2AyaFx1jUKL36dI20LzafVM+hdk37TTQ9uUqg
+         D2cJUX7EnheAQgnJ/wSCZ30fLcoTFF5GrMuGMAZqCFv4q+3NESyylW1Zg8LOXwB20ddE
+         7U7h1xuePfsZEsNkMKrUrNOG962R74SOmar12aBQtvU9Ny/xs1KeKI5pJv5stgIYxLFw
+         qwghAx3IQO40tAjYtEewIcmgcojQR6eeHfFszwJW1Tq/NLAMG45VqV9MxvouIKAGHkhb
+         3SX5ZtWUt0xxAlBwD6jShJrgxLkc7f1tJgg4rgQL3FnA9eYRISHdAD/bdFTrlUYZu2AD
+         4WCQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8kI/sbhFlFas9SrJF+f6MLrq/wSf84Y6JdM/si8mZFo6Dm1fN4lY6dCoeg0OE2W2Rblqd9bBrPD3ko@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6ltca7DJDUkLW24VAHLzRZVj4tvsmteL+KAM4Xh/M3xsr+E+1
+	IduJVRK0AFHPNqMy9+6nRkiiCv6REtRuhOPMC+wkMoMTVEW14zEoJZ4x
+X-Gm-Gg: AfdE7clQjD48/FUKpHOQeyBAv78YKYQk29C0lZSul8JG0R2PAmQgA6u8NN8q9432g6V
+	kKjEZ1INvU4aSKJauU6k0uxsB7sVaJQ9vJWxE3HFzlhRfY6vXMjnu+uFmRpiE+bW48VJaP5pWDO
+	RNVHmSl/9gUYG5g8Eav7t9GYVHTO6EO50c/saBL1RF2I8niKn8rCtRvlVAaRkahvWgg9gfB2p1+
+	r0ftTLjPGLbxrNCWLhIZ5yX28ByQLlYTT1s+jO8l2lKBltIcEwV5T3q7IMCvifZXDiHote6+HCH
+	GS6M4pizBUBM2iqb97Fkso2eDE4typXwzGSXAgO1UDVL/eQakHySzRYwnQ7YYxW2eohW2arf/4r
+	iuax3y61s7U0pEuCmCMruqi9YmoaRFH8ONbw7ZEsgjrDy5UH1AEru3DCngGzE3UI/U9R04uX5vY
+	fXZ8Nu39f/9IA5DXxHgYOpyJOV8Q==
+X-Received: by 2002:a05:600c:4fc4:b0:490:b58a:dcc1 with SMTP id 5b1f17b1804b1-49242582235mr223592595e9.29.1782145783378;
+        Mon, 22 Jun 2026 09:29:43 -0700 (PDT)
+Received: from localhost ([2001:4bb8:19f:d19a:c1d2:e9fd:1b2b:136b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c5ddbsm28998960f8f.12.2026.06.22.09.29.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 09:29:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7u3zpdkvzxvxdj6a"
-Content-Disposition: inline
-In-Reply-To: <20260618-axiado-ax3000-pwm-v1-2-c9797a909414@axiado.com>
-
-
---7u3zpdkvzxvxdj6a
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] pwm: add Axiado AX3000 PWM driver
-MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 18:29:39 +0200
+Message-Id: <DJFPYCV2FXW7.1BFG9DURPZRCC@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: chipcap2: Add label property
+Cc: <linux-hwmon@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-doc@vger.kernel.org>
+To: "Flaviu Nistor" <flaviu.nistor@gmail.com>, "Guenter Roeck"
+ <linux@roeck-us.net>, "Javier Carrasco" <javier.carrasco.cruz@gmail.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260622122200.14245-1-flaviu.nistor@gmail.com>
+In-Reply-To: <20260622122200.14245-1-flaviu.nistor@gmail.com>
 
-Hello Petar,
-
-Just a very high-level review:
-
-On Thu, Jun 18, 2026 at 05:26:57AM -0700, Petar Stepanovic wrote:
-> The Axiado AX3000 and AX3005 SoCs include PWM controllers that can be
-> used to generate configurable PWM output signals.
->=20
-> Add a PWM driver with support for configuring period, duty cycle, and
-> enable state through the Linux PWM framework.
->=20
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+On Mon Jun 22, 2026 at 2:21 PM CEST, Flaviu Nistor wrote:
+> Add support for an optional label property similar to other hwmon devices=
+.
+> This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
+> distinct names to each instance.
+>
+> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
 > ---
->  MAINTAINERS              |   1 +
->  drivers/pwm/Kconfig      |  11 +++
->  drivers/pwm/Makefile     |   1 +
->  drivers/pwm/pwm-axiado.c | 193 +++++++++++++++++++++++++++++++++++++++++=
-++++++
->  4 files changed, 206 insertions(+)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 394c4a3527e8..db93fc235c32 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4319,6 +4319,7 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
->  L:	linux-pwm@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
-> +F:	drivers/pwm/pwm-axiado.c
-> =20
->  AXIS ARTPEC ARM64 SoC SUPPORT
->  M:	Jesper Nilsson <jesper.nilsson@axis.com>
-> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> index 6f3147518376..76f6c04b0e23 100644
-> --- a/drivers/pwm/Kconfig
-> +++ b/drivers/pwm/Kconfig
-> @@ -129,6 +129,17 @@ config PWM_ATMEL_TCB
->  	  To compile this driver as a module, choose M here: the module
->  	  will be called pwm-atmel-tcb.
-> =20
-> +config PWM_AXIADO
-> +	tristate "Axiado PWM support"
-> +	depends on ARCH_AXIADO || COMPILE_TEST
-> +	depends on HAS_IOMEM
-> +	help
-> +	  PWM framework driver for the PWM controller found on Axiado
-> +	  AX3000 and AX3005 SoCs.
+>  .../devicetree/bindings/hwmon/amphenol,chipcap2.yaml         | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.ya=
+ml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+> index 17351fdbefce..f00b5a4b14dd 100644
+> --- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+> @@ -33,6 +33,10 @@ properties:
+>    reg:
+>      maxItems: 1
+>
+> +  label:
+> +    description:
+> +      A descriptive name for this channel, like "ambient" or "psu".
 > +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called pwm-axiado.
-> +
->  config PWM_AXI_PWMGEN
->  	tristate "Analog Devices AXI PWM generator"
->  	depends on MICROBLAZE || NIOS2 || ARCH_ZYNQ || ARCH_ZYNQMP || ARCH_INTE=
-L_SOCFPGA || COMPILE_TEST
-> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-> index 0dc0d2b69025..4466a29e780a 100644
-> --- a/drivers/pwm/Makefile
-> +++ b/drivers/pwm/Makefile
-> @@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+=3D pwm-argon-fan-hat.o
->  obj-$(CONFIG_PWM_ATMEL)		+=3D pwm-atmel.o
->  obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+=3D pwm-atmel-hlcdc.o
->  obj-$(CONFIG_PWM_ATMEL_TCB)	+=3D pwm-atmel-tcb.o
-> +obj-$(CONFIG_PWM_AXIADO)	+=3D pwm-axiado.o
->  obj-$(CONFIG_PWM_AXI_PWMGEN)	+=3D pwm-axi-pwmgen.o
->  obj-$(CONFIG_PWM_BCM2835)	+=3D pwm-bcm2835.o
->  obj-$(CONFIG_PWM_BCM_IPROC)	+=3D pwm-bcm-iproc.o
-> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
-> new file mode 100644
-> index 000000000000..db197886c5c4
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-axiado.c
-> @@ -0,0 +1,193 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (c) 2021-2026 Axiado Corporation.
+>    interrupts:
+>      items:
+>        - description: measurement ready indicator
+> @@ -72,6 +76,7 @@ examples:
+>                           <5 IRQ_TYPE_EDGE_RISING>,
+>                           <6 IRQ_TYPE_EDGE_RISING>;
+>              interrupt-names =3D "ready", "low", "high";
+> +            label =3D "somelabel";
+>              vdd-supply =3D <&reg_vdd>;
+>          };
+>      };
 
-Please add a Limitations paragraph here like the ones found in the newer
-driver files. It should answer:
+Hello Falviu, thank you for your patch.
 
- - Is a period completed on configuration change?
- - Is a period completed on disable?
- - How does the output behave when disabled? (Low? Inactive? Freeze? High-Z=
-?)
+Should we not add a reference to hwmon-common.yaml (with
+unevelautedProperties instead of additionalProperties), as label is
+defined there? I believe that Krzysztof Kozlowski did something similar
+for the shunt-resistor-micro-ohms property. Could we follow suit here?
 
-Also mention special properties, like being unable to set 0% or 100%
-relative duty.
+I am also not a big fan of a name like "somelabel", and a more
+meaningful name from a "real" example would look better. I know that
+some examples have already used "somelabel" as an example, but others
+have used more meaningful names too.
 
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/io.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pwm.h>
-> +
-> +/* Register offsets */
-> +#define AX_PWM_CNTRL_REG     0x0000
-> +#define AX_PWM_PERIOD_REG    0x0004
-> +#define AX_PWM_HIGH_REG      0x0008
-> +
-> +/* PWM channels */
-> +#define AX_PWM_NUM 1
-
-This is only used once, and having
-
-	chip =3D devm_pwmchip_alloc(dev, 1, sizeof(*axpwm));
-
-below simplifies grepping for channel numbers.
-
-> +
-> +/* Period and duty cycle limits */
-> +#define AX_PWM_PERIOD_MIN       2
-> +#define AX_PWM_PERIOD_MAX       0xfffffffeU
-> +#define AX_PWM_DUTY_MIN         1
-> +#define AX_PWM_DUTY_MAX         0xfffffffdU
-
-The U suffix is not needed for hex constants (AFAIK).
-
-> +
-> +/* Control register bits */
-> +#define AX_PWM_CTRL_ENABLE BIT(0)
-> +#define AX_PWM_CTRL_DISABLE 0x0
-> +
-> +struct axiado_pwm_chip {
-> +	struct clk *clk;
-> +	void __iomem *base;
-> +};
-
-If you use axiado_pwm_ as prefix for structs and functions, please use
-AXIADO_PWM_ as prefix for #defines.
-
-> +
-> +static int axiado_pwm_config(struct pwm_chip *chip, struct pwm_device *p=
-wm,
-> +			     u64 duty_ns, u64 period_ns)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	unsigned long rate;
-> +	u64 period_cycles, duty_cycles;
-> +
-> +	/*
-> +	 * The hardware does not support a zero period, 0% duty cycle, or
-> +	 * 100% duty cycle. The caller should handle 0% duty cycle by
-> +	 * disabling the PWM.
-> +	 */
-> +	if (!period_ns || !duty_ns || duty_ns >=3D period_ns)
-> +		return -EINVAL;
-> +
-> +	rate =3D clk_get_rate(axpwm->clk);
-> +	if (!rate)
-> +		return -EINVAL;
-> +
-> +	period_cycles =3D mul_u64_u64_div_u64(period_ns, rate, NSEC_PER_SEC);
-> +	if (period_cycles < AX_PWM_PERIOD_MIN ||
-> +	    period_cycles > AX_PWM_PERIOD_MAX)
-> +		return -EINVAL;
-> +
-> +	duty_cycles =3D mul_u64_u64_div_u64(duty_ns, rate, NSEC_PER_SEC);
-> +	if (duty_cycles < AX_PWM_DUTY_MIN ||
-> +	    duty_cycles > AX_PWM_DUTY_MAX)
-> +		return -EINVAL;
-> +
-> +	if (duty_cycles >=3D period_cycles)
-> +		return -EINVAL;
-> +
-> +	writel((u32)period_cycles, axpwm->base + AX_PWM_PERIOD_REG);
-> +	writel((u32)duty_cycles, axpwm->base + AX_PWM_HIGH_REG);
-> +
-> +	return 0;
-> +}
-> +
-> +static int axiado_pwm_apply(struct pwm_chip *chip, struct pwm_device *pw=
-m,
-> +			    const struct pwm_state *state)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	int ret;
-> +
-> +	if (state->polarity !=3D PWM_POLARITY_NORMAL)
-> +		return -EINVAL;
-> +
-> +	if (!state->enabled || !state->duty_cycle) {
-> +		if (pwm->state.enabled)
-> +			writel(AX_PWM_CTRL_DISABLE, axpwm->base + AX_PWM_CNTRL_REG);
-> +
-> +		return 0;
-> +	}
-> +
-> +	ret =3D axiado_pwm_config(chip, pwm, state->duty_cycle, state->period);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!pwm->state.enabled)
-
-Ideally check hardware state and not PWM internal variables.
-
-> +		writel(AX_PWM_CTRL_ENABLE, axpwm->base + AX_PWM_CNTRL_REG);
-> +
-> +	return 0;
-> +}
-> +
-> +static int axiado_pwm_get_state(struct pwm_chip *chip, struct pwm_device=
- *pwm,
-> +				struct pwm_state *state)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	unsigned long rate;
-> +	u32 period_cycles;
-> +	u32 duty_cycles;
-> +	u32 ctrl;
-> +
-> +	rate =3D clk_get_rate(axpwm->clk);
-> +	if (!rate)
-> +		return -EINVAL;
-> +
-> +	ctrl =3D readl(axpwm->base + AX_PWM_CNTRL_REG);
-> +	period_cycles =3D readl(axpwm->base + AX_PWM_PERIOD_REG);
-> +	duty_cycles =3D readl(axpwm->base + AX_PWM_HIGH_REG);
-> +
-> +	state->enabled =3D !!(ctrl & AX_PWM_CTRL_ENABLE);
-> +	state->period =3D mul_u64_u64_div_u64(period_cycles, NSEC_PER_SEC, rate=
-);
-> +	state->duty_cycle =3D mul_u64_u64_div_u64(duty_cycles, NSEC_PER_SEC, ra=
-te);
-> +	state->polarity =3D PWM_POLARITY_NORMAL;
-
-Please test your driver with PWM_DEBUG enabled, the rounding is wrong
-here.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct pwm_ops axiado_pwm_ops =3D {
-> +	.get_state =3D axiado_pwm_get_state,
-> +	.apply =3D axiado_pwm_apply,
-
-Please implement the waveform callbacke instead of .get_state() and
-=2Eapply()
-
-> +};
-> +
-> +static void axiado_pwm_disable(void *data)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D data;
-> +
-> +	writel(AX_PWM_CTRL_DISABLE, axpwm->base + AX_PWM_CNTRL_REG);
-> +}
-> +
-> +static int axiado_pwm_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct axiado_pwm_chip *axpwm;
-> +	struct pwm_chip *chip;
-> +	int ret;
-> +
-> +	chip =3D devm_pwmchip_alloc(dev, AX_PWM_NUM, sizeof(*axpwm));
-> +	if (IS_ERR(chip))
-> +		return PTR_ERR(chip);
-> +
-> +	axpwm =3D pwmchip_get_drvdata(chip);
-> +
-> +	axpwm->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(axpwm->base))
-> +		return dev_err_probe(dev, PTR_ERR(axpwm->base),
-> +				     "failed to map registers\n");
-
-Start error messages with a capital letter please.
-
-> +
-> +	ret =3D devm_add_action_or_reset(dev, axiado_pwm_disable, axpwm);
-> +	if (ret)
-> +		return ret;
-
-This isn't supposed to happen. It's the responsibility of the consumer
-to disable the PWM before it's freed.
-
-> +
-> +
-
-Single empty line only.
-
-> +	axpwm->clk =3D devm_clk_get_enabled(dev, "pwm");
-> +	if (IS_ERR(axpwm->clk))
-> +		return dev_err_probe(dev, PTR_ERR(axpwm->clk),
-> +				     "failed to get/enable clock\n");
-
-Please ensure that the clk rate doesn't change while the PWM is enabled.
-Then you can cache the clk rate and set chip->atomic.
-
-> +
-> +	chip->ops =3D &axiado_pwm_ops;
-> +
-> +	ret =3D devm_pwmchip_add(dev, chip);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add PWM chip\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id axiado_pwm_match[] =3D {
-> +	{ .compatible =3D "axiado,ax3000-pwm" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, axiado_pwm_match);
-> +
-> +static struct platform_driver axiado_pwm_driver =3D {
-> +	.driver =3D {
-> +		.name =3D  "axiado-pwm",
-> +		.of_match_table =3D axiado_pwm_match,
-> +	},
-> +	.probe =3D axiado_pwm_probe,
-> +};
-> +
-> +module_platform_driver(axiado_pwm_driver);
-
-No empty line between the driver struct and the module_platform helper
-please.
-
-> +
-> +MODULE_AUTHOR("Axiado Corporation");
-> +MODULE_DESCRIPTION("Axiado PWM driver");
-> +MODULE_LICENSE("GPL");
-
-Best regards
-Uwe
-
---7u3zpdkvzxvxdj6a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmo5YvAACgkQj4D7WH0S
-/k6iZgf9FZNSIp7jKBztkT1RSuqEn0oI1F4XpHV3DCVQADUdYjSEINV/0Eiy8NgI
-SPOf44shKAePL2csxgaLhg80NZaTLmFvj1AcF/ayHa8Z1bCl+wP+/GF7jln0KE+N
-zUe2sr6ng8dEC2/MjphXReUOXkY0zB3R1vzrtHR2JWKfNrVZNp6FYehRjDdZypm/
-GDYHYIaEKZSgpa/6JvkmXZ+s14HahyNA4NHvA/Ey6jG7Yt56jl/JpDb9X0Zw84K3
-5wkebSa3t/jZPGfjndlR8T1Ia6z988sLaI6wqWPD9JY3nJZzpVq/zSGT9HsyVH99
-l+fbWVn+7x6VuV7VXEnBd+n+k1DzKQ==
-=JhcT
------END PGP SIGNATURE-----
-
---7u3zpdkvzxvxdj6a--
+Best regards,
+Javier Carrasco
