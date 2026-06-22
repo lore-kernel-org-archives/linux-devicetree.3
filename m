@@ -1,85 +1,107 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0D73905EA;
-	Mon, 22 Jun 2026 09:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316D636654F
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782120927; cv=none; b=jE0icj9wJ9M7KMhvUFDWL9Wal6dqiR2XmRom2NAMv3bXzmoXlL5c+scPzRrQeu3WoR/uLHA8hKhaoFSgVJIgWiE39ZjApA2EMDeDApLvKHNGIgRCXq8AJRzcYi7oAVIx/Bzn8pq/jvf3W90xk0t2VpFJVvseiLRK8siq9VRYzAE=
+	t=1782121165; cv=none; b=MxIyhWg/FIhYxAqoGDw+C6IMpObptp8UBFdVg59DhATJDJ09n82G8l0tJRwWgFIOgdh6UROBE089amP7M3XlltW1I3CwLYCJfOebnLc6hWOuiXL9oL2enotga6UuCntiKqCxTzDvnQ8ryyMVEhie+HbEh1j6Lp1tuhbauqYLl9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782120927; c=relaxed/simple;
-	bh=ZIo82ep7GovsrR8A2jpkssVrywg877Z3OT53FyuTn0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mLGJqBqEq7Rc4UyVOoipn7z/D4UjwP7LZKTH8pPASKBJReBACkKMEgoBVfEl/pCoyGqEhkb+yx8DH8ku7MsJoIX7h6CcHMHyjQPYO6arvtfM9kxm9vBgTF5V9C5jpoGnSTJl4/f6PJEmh0Z4IljdOtnk91PJ21svpPHyWIHV7uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=lMpDLwRt; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1782121165; c=relaxed/simple;
+	bh=kKj8uPxAYsg41xBtgAyKzDOYzPziCYf0c2MnLTv1ss4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qnt3HUxUUx8g4K4jyAANzbgx1YPSp9EunGBakt8VymwV3yEzndY45V3qEF7AMuor7eHjfjzPT+HbIjcOgly9yd4MOXkCjiWIRwq13sqxoQQ+A7A4t6lBLE8gB5u+YPvVSROCzXdliTA5KzAzJGrFEpM4Jq42t6ll4/l7gZW0yKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhxTz+1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="lMpDLwRt"
-Received: from francesco-nb.. (xcpe-178-82-120-96.dyn.res.sunrise.net [178.82.120.96])
-	by mail11.truemail.it (Postfix) with ESMTPA id B0C2E1FE54;
-	Mon, 22 Jun 2026 11:35:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1782120916;
-	bh=QDh8cyCuG0BvRFs/KskkYUXoHG61lWt4Q8mGTanX63I=; h=From:To:Subject;
-	b=lMpDLwRto8FVTIVQFZ5qHScNPQEX4h6jcz7YL6kReq40+Yahq+8YmrBihWAQfbc0X
-	 Y0kUQZAI29s7i3gqQkWUGmtfxMcryYE2MLUpykI20cHVAAQTwdXq5+Tx4QQYTuyRr0
-	 DTv2yvV2l+kIYdonILIpiw8j6GLKURnHalAXJ34PAmF+omiLK9cnLR1PrKYYXvLp6/
-	 kKvjlNzYSq2dloEwDUkh68UVzuLPUS2n9e/E5ypjgvzyUwMCyUvv3uGPhT9MQmxntg
-	 zD6kYYtK7s0aP1JoRasSuqZ+G6aYel95NNNycys5atONlV8L88uQeDpTyCbKR9W7Vm
-	 UJhZYA0tdBdLQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: add alias for lpuart5
-Date: Mon, 22 Jun 2026 11:35:06 +0200
-Message-ID: <20260622093507.44132-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhxTz+1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD8E1F00A3A;
+	Mon, 22 Jun 2026 09:39:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782121163;
+	bh=FA1zIG9t9UX8iueBnMuL8+gE547HOG5RO4KyhyTwGoY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mhxTz+1Fsbc+jI2hPZfCIU91y48/ymPP1juNMIetMC/JneK9Td8IRkS11ID5k0Ltj
+	 KF/MUJomaqTAXn4RHAF9JhZw18vJBAU2jEO7BMs8g7UzcjvHBzYELPNO6W2Ze+QaA5
+	 wReWo4YdtVth+qUhkZpGL3gaIG5u3iYnO4HhnyRr6ZaAxkkBYVTt9mYgcCUpTCvG97
+	 7m30pEP6ndUOcbqFEaYOjdMZAcAiKNXb7j+21uZ3sKFtzVb1sdcyexrFFbLR2sbBop
+	 JwUIPwYPHrVsf86KYtkwbgMnWuYgIIEuHgzj5vXBFcNGYKhjFOi+PtXGX7UB8lZLZu
+	 ZJMJ2cG515/xA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/4] dt-bindings: gpio: realtek: Add
+ realtek,rtd1625-gpio
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260622092335.1166876-2-eleanor.lin@realtek.com>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
+ <20260622092335.1166876-2-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 09:39:23 +0000
+Message-Id: <20260622093923.BFD8E1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The binding defines the GPIO controller as an interrupt controll=
+er but fails to include `interrupt-controller` and `#interrupt-cells` in th=
+e `required` list.
+--
 
-Add alias for lpuart5 so the UART gets a stable line number.
-Without this alias, the lpuart driver fails:
+commit c069bdfb1e6325b567084e608f2dc45bf15e2fcf
+Author: Tzuyi Chang <tychang@realtek.com>
 
-  fsl-lpuart 42590000.serial: failed to get alias id, errno -19
+dt-bindings: gpio: realtek: Add realtek,rtd1625-gpio
 
-This prevents the Bluetooth controller connected to this UART from
-working.
+This commit adds the device tree bindings for the Realtek DHC RTD1625 GPIO
+controllers. It introduces support for a new per-pin register architecture
+that includes separate register blocks for configuration and interrupt cont=
+rol.
 
-Fixes: 104a391bb6ff ("arm64: dts: freescale: imx95-toradex-smarc: Enable bluetooth on lpuart5")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> diff --git a/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.=
+yaml b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
+> new file mode 100644
+> index 0000000000000..f13c910b73c69
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/realtek,rtd1625-gpio.yaml
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-index 7d760470201f..a6c5398a81e3 100644
---- a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
-@@ -24,6 +24,7 @@ aliases {
- 		serial1 = &lpuart1;
- 		serial2 = &lpuart6;
- 		serial3 = &lpuart3;
-+		serial4 = &lpuart5;
- 	};
- 
- 	chosen {
--- 
-2.47.3
+[ ... ]
 
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  gpio-ranges: true
+> +
+> +  gpio-controller: true
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - gpio-ranges
+> +  - gpio-controller
+> +  - "#gpio-cells"
+
+[Severity: Medium]
+Since this binding defines the hardware as an interrupt controller, should
+interrupt-controller and #interrupt-cells be included in this required list=
+?=20
+Omitting these provider properties might allow incomplete device tree nodes=
+=20
+to pass schema validation, which could then cause runtime failures for=20
+drivers attempting to use the undocumented functionality.
+
+> +
+> +additionalProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622092335.1166=
+876-1-eleanor.lin@realtek.com?part=3D1
