@@ -1,122 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B96357CE0
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 05:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C8023643F
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 05:24:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782105738; cv=none; b=u6gpvxujpFbdaQl6h/pQv7uzeZ3XZcCUExa4f6g+iDIu+//hZ8P+aam27SekzBxQCEKU7vWbW7HJJc6MuxXGlDinBpNsTOxYFYfN4EtPFc80ty1cJxBr3c/veu9+yhLKZNnfPLR/+rfLn+eHj5EeQAqxuxplNOqK7sHosvECwLc=
+	t=1782105860; cv=none; b=c2sJLm5UQ98RfDoZDS5fSSKnbicEgLDC/j9/II8e/OufbBbQUZPLn9OYdft6N40GH+hoUgOWfbMcEN5zUpRJAe5YEOUzrRAoDm5U8nXSYGYwB2dyb3n+G+B7nZTaGmLKVQzZbQSInrYu3Szq+JLeSvs5UQkG6UNOvS2wsohJY5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782105738; c=relaxed/simple;
-	bh=A+zYnyr7/ej3amFx34CbwtE9mwyGXndrDcwX8O6GEFo=;
+	s=arc-20240116; t=1782105860; c=relaxed/simple;
+	bh=KfL7LI/j/ayPKHMnxIrb87Md4CJUDGvtrsVdDUUDvBg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IPgflisHg+2MQOtl61k1Iy5k4tYtHKNAOFdOwaaqkr+NBholqfUjvJAgjtAapdmrjNlEduYazYawC3mNPPMNDH5Po0KGBP6g2+7PXOL2y2vLfDfpHTQoxaJEPJmaqRfnqUHKyI5c4Vntsx0icjB26vLUlfLNSJWaGrjfMAcComQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SP2POHFc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WgKSZkLy9fvFKGhh7q9MtLtjwCztwHDdTUUIhUbFv+OV8DIs4g37VNMcfZHm/OCHGEGy0uB/UCQTscqkpDXmpdP7cWudFcwwyP2dOgo6OeYvZi0JWih/3NoMwP4KSx/pQfu/zP55QRjNjJ4+a+Q6vsfNdZEEzqay0WOwx2qrGwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TrKRlr9z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SP2POHFc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774641F000E9;
-	Mon, 22 Jun 2026 05:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TrKRlr9z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF5F01F000E9;
+	Mon, 22 Jun 2026 05:24:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782105736;
-	bh=itbPwxSCnmiuH/PzaYrBaL0iwLWgVp9T/qeIXW9SYn0=;
+	s=k20260515; t=1782105858;
+	bh=zRtdqiWjlFr0e2npMkeXNNbXoKnhCzsrkqTi2fmBWUQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SP2POHFcuiNl1bHLoKHTqY7EBedq8FvKJqXHcZifd3q2n11Gfb+xEq2o5Hw2Yplf6
-	 9pxh+p3nIpdejJX1pADVYk0YpUULMUDbZj+ZID1XMz1xTxahQpW/xpdDSNhH3uPJCu
-	 16p6n+TOQhU6DqOx13Y45axOhAGs2n3zxKeNLmNhOEasZTKXjX9bVnwcc7iyW33gwK
-	 KDcuW/3ftrOQcz3MrrsdHBCpz65osAjC3zeKIh0nqz9RNiMn3P+NVGE+GKLGe2UArD
-	 3AMKhAjhI+BLlD9Celw+Gks5VoYeoS7sXT5BP228XsubcjXRDUaSBu/Dnk63eW4Flm
-	 g3UH2+FcJ3Ykg==
+	b=TrKRlr9zpjQkivNoiWQ53Hlz7pzgD/dkKEmcGS9vahSPA2A421DPMLqydUcNt+JZr
+	 8EC7ZSP+biqxaBoIRk9+jQZ6bX4Yk+PKn7qkjVEDurhp5fO0pl37LELCq7hS/sc8pm
+	 VGtLUpiWt901LPVeZYT2mGjvkkKxkwjvYsdojmhLC9mg1Gv/ZMy/LMxEXTj0VUe8V2
+	 A9LIjBTsff3HAqKpEL2o69So/E2MLZEl8L7rNmC1ccIEHf7sAhoTc/w2Mb9UEOiFd2
+	 OzYFqVjPI4VZC/Wcjfc1F157QUJzjKrkb0+k2Kqb0vqqqKirY4dtVm233lCZX6tZfF
+	 sUnOXb3T1bsdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/8] arm64: dts: qcom: mahua: Add QREF regulator
- supplies to TCSR
+Subject: Re: [PATCH v6 3/8] clk: qcom: Add generic clkref_en support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260621-tcsr_qref_0622-v6-7-c939c22ded0c@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260621-tcsr_qref_0622-v6-3-c939c22ded0c@oss.qualcomm.com>
 References: <20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com>
- <20260621-tcsr_qref_0622-v6-7-c939c22ded0c@oss.qualcomm.com>
+ <20260621-tcsr_qref_0622-v6-3-c939c22ded0c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 05:22:16 +0000
-Message-Id: <20260622052216.774641F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 05:24:18 +0000
+Message-Id: <20260622052418.AF5F01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The device tree patch wires up `vdda-qrefrpt3-0p9-supply`, `vdda-q=
-refrpt4-0p9-supply`, `vdda-qrefrpt5-0p9-supply`, and `vdda-qrefrx3-0p9-supp=
-ly` for the Mahua TCSR node, and the DT binding explicitly lists them as re=
-quired properties for `qcom,mahua-tcsr`. However, the driver implementation=
- (`tcsrcc-glymur.c`) defines Mahua's regulator arrays (`mahua_tcsr_tx1_rpt0=
-1_rx1_regulators` and `mahua_tcsr_tx1_rpt012_rx2_regulators`) without inclu=
-ding these supplies. As a result, no clock descriptors in `tcsr_cc_mahua_cl=
-k_descs` consume these regulators, and they will never be requested or enab=
-led by the clock driver.
+- [Medium] The `qcom_clk_ref_probe` API maps memory resource 0 exclusively,=
+ preventing its reuse by parent drivers like TLMM that already map their re=
+gister space.
+- [Medium] Missing `args_count` validation in the clock provider getter lea=
+ds to an uninitialized stack memory read.
 --
 
-commit 9b4597bbc60b4b7a8b61f25b5d65fb4f6eb028c9
+commit 425b78640ada4c9c7a746a68fc9313af14a52bae
 Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-arm64: dts: qcom: mahua: Add QREF regulator supplies to TCSR
+clk: qcom: Add generic clkref_en support
 
-This commit wires up the required LDO supplies for the PCIe clkref paths
-on the Mahua CRD board by overriding the TCSR compatible and adding the
-regulators to the tcsr node.
+This patch introduces generic support for Qualcomm clkref_en clocks. It
+provides a dedicated clk_ref clock type and a common registration API to be
+reused across different blocks like TCSR and TLMM.
 
-> diff --git a/arch/arm64/boot/dts/qcom/mahua-crd.dts b/arch/arm64/boot/dts=
-/qcom/mahua-crd.dts
-> --- a/arch/arm64/boot/dts/qcom/mahua-crd.dts
-> +++ b/arch/arm64/boot/dts/qcom/mahua-crd.dts
+> diff --git a/drivers/clk/qcom/clk-ref.c b/drivers/clk/qcom/clk-ref.c
+> new file mode 100644
+> index 0000000000000..8132e510f43c0
+> --- /dev/null
+> +++ b/drivers/clk/qcom/clk-ref.c
+
 [ ... ]
-> @@ -19,3 +19,18 @@ / {
->  	model =3D "Qualcomm Technologies, Inc. Mahua CRD";
->  	compatible =3D "qcom,mahua-crd", "qcom,mahua";
->  };
+
+> +static struct clk_hw *qcom_clk_ref_provider_get(struct of_phandle_args *=
+clkspec, void *data)
+> +{
+> +	struct qcom_clk_ref_provider *provider =3D data;
+> +	unsigned int idx =3D clkspec->args[0];
+
+[Severity: Medium]
+What happens if the provider node is misconfigured with #clock-cells =3D <0=
+>?
+
+If clkspec->args_count is 0, won't this read uninitialized stack memory from
+clkspec->args[0] and potentially grant access to a random valid clock?=20
+
+Should this validate that clkspec->args_count is at least 1 before accessing
+the arguments array?
+
 > +
-> +&tcsr {
-> +	vdda-qrefrpt0-0p9-supply =3D <&vreg_l2f_e1_0p83>;
-> +	vdda-qrefrpt1-0p9-supply =3D <&vreg_l2f_e1_0p83>;
-> +	vdda-qrefrpt2-0p9-supply =3D <&vreg_l2f_e1_0p83>;
-> +	vdda-qrefrpt3-0p9-supply =3D <&vreg_l1f_e1_0p82>;
-> +	vdda-qrefrpt4-0p9-supply =3D <&vreg_l2h_e0_0p72>;
-> +	vdda-qrefrpt5-0p9-supply =3D <&vreg_l2h_e0_0p72>;
-> +	vdda-qrefrx1-0p9-supply =3D <&vreg_l2f_e1_0p83>;
-> +	vdda-qrefrx2-0p9-supply =3D <&vreg_l2f_e1_0p83>;
-> +	vdda-qrefrx3-0p9-supply =3D <&vreg_l2h_e0_0p72>;
+> +	if (idx >=3D provider->num_refs)
+> +		return ERR_PTR(-EINVAL);
 
-[Severity: High]
-Will these supplies actually be enabled by the clock driver?
+[ ... ]
 
-While they are properly wired up here in the device tree, looking at the
-underlying driver implementation in drivers/clk/qcom/tcsrcc-glymur.c, the
-regulator arrays for Mahua seem to omit several of these supplies:
+> +int qcom_clk_ref_probe(struct platform_device *pdev,
+> +		       const struct regmap_config *config,
+> +		       const struct qcom_clk_ref_desc *descs,
+> +		       size_t num_clk_refs)
+> +{
+> +	struct qcom_clk_ref_provider *provider;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct regmap *regmap;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
 
-drivers/clk/qcom/tcsrcc-glymur.c:mahua_tcsr_tx1_rpt01_rx1_regulators[] =3D {
-        "vdda-refgen3-0p9",
-        "vdda-refgen3-1p2",
-        "vdda-qreftx1-0p9",
-        "vdda-qrefrpt0-0p9",
-        "vdda-qrefrpt1-0p9",
-        "vdda-qrefrx1-0p9",
-};
+[Severity: Medium]
+Will this fail with -EBUSY when used by TLMM?
 
-Because vdda-qrefrpt3-0p9, vdda-qrefrpt4-0p9, vdda-qrefrpt5-0p9, and
-vdda-qrefrx3-0p9 aren't included in the driver's regulator lists or
-clock descriptors (tcsr_cc_mahua_clk_descs), it appears the driver will
-never request or enable them.
+The commit message mentions this API will be used for TLMM on SM8750. Howev=
+er,
+devm_platform_ioremap_resource() requests exclusive ownership of the memory
+region. The TLMM driver already maps its entire register space during probe.
 
-Could this prevent the reference clock from reaching the PHY and cause
-initialization failures for the dependent hardware block?
+If TLMM has already mapped the region, won't this subsequent attempt to map
+the same region fail?
 
-> +	vdda-qreftx1-0p9-supply =3D <&vreg_l1f_e1_0p82>;
-> +	vdda-refgen3-0p9-supply =3D <&vreg_l1f_e1_0p82>;
-> +	vdda-refgen3-1p2-supply =3D <&vreg_l4f_e1_1p08>;
-> +};
+Would it be better to have the caller pass an already instantiated struct
+regmap pointer instead of mapping the region inside the generic probe?
+
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260621-tcsr_qref_=
-0622-v6-0-c939c22ded0c@oss.qualcomm.com?part=3D7
+0622-v6-0-c939c22ded0c@oss.qualcomm.com?part=3D3
