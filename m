@@ -1,152 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022129.outbound.protection.outlook.com [52.101.126.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC2B345CAF
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782109039; cv=none; b=Ew++6dly7JwBBQ8r7pHkpemgpWlOYcL1aCqjcz6tAlgh0aFUV74vLXA7gwwVn0Dr7V8SuxFYmusWzGm/ekr6MfaVqZvyMeyokboIfMLL5Ork/Tgqxd6iUbik2e6T146yQ7ldw65IH46DT0FqRUBDNb8NHR9ldxYuk7t43VwOuUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782109039; c=relaxed/simple;
-	bh=swSvTniacKgZNNHmUkdg2n8Gpi6tlucmSm8zLCHDkVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J+RlH9pAQBYdZc8Y2a70GdjxuGc58fQ3hBoZbOZlOdpZE2ahHzpPemW8yar2N2ilF1BBhgFuUXdqoLPQrYIMIJmiDSz9jzw+ZQJnhlMQmbWfjY4JHjUwrAMmH2JnTee7EMRbbnC4T6Rq7ig6KXT9xncC8vl1MKeuCtVcKf1usjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b518jjJP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07E73546C0
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:20:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782109207; cv=fail; b=JcKyOz8soTQ1I1QZ1NFNXz/fmY7jplZkrZVuk4unAxz040XjuaBAoHp2CpqJ81GGfqdODksJwp+VW2LKPZncGSFYMVceuBcQddzRhBAk1/qHpRSzbNGd1pPWSCtbJHw0cpR+bdTgcRvM4MNcsC6AGUYSZH1vWSp8Qh6klAaT4J8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782109207; c=relaxed/simple;
+	bh=0Jh9QPV67APO4dbhAdqa0ZR9WBTWPRhvXbiczzXiMU0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rSC5vZgPuY4Bm6tac5dbsKQc0JTUnBzBL5kaYg1Y0xbAzsk2HOYvVX0qMq4jSU1KhyiT2uoFua5QVAsUGC8AA5EbNsJ7p7fAF4WwWMD22lvN4vEP/6IG7iRt3PkoyFDm/zOju+3kiQ5z6nEc1rVH2QmbaBb+ncRfB28y2aCBb6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=j6sjG9x6; arc=fail smtp.client-ip=52.101.126.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b518jjJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0737F1F000E9;
-	Mon, 22 Jun 2026 06:17:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782109038;
-	bh=QW3m594sBahJYv0/fsKNgG7U/h7oPvv5M4/lCA6chTc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b518jjJPozHIy6QGEu6Y0eJ0mAtCQuuHeZ3xDkPCjrhDm5vIdYUiUPQecCT/ITjMg
-	 JE3sPtLxzW+FbdX1lW9r2QHuZJBi4gYg5iRPo8Md5UdxOYWCh0hbUmOSK3a7h+Iprb
-	 ZKR3Ydb+mJRZ9vfI/y6oeV5YHrIgFHpJXXOojfw6dDouZagAXMHFPpEVk02eZiYVry
-	 UFLdihSWaXJHjIHQ264F4gpETyHF6JRN23mLv4PBkTh4vJcIifxheAhyT1obTI5Hzo
-	 Wv8/Lxkh6nqJ+2JJVjBXDscueQ/yvMAZrMZh9orPev0gemn9T0pHibmsLkEphXy38f
-	 rugGGLkKcTqkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] interconnect: qcom: add Maili interconnect provider
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Raviteja Laggyshetty" <raviteja.laggyshetty@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260622-maili_icc-v1-2-0aa8286e6748@oss.qualcomm.com>
-References: <20260622-maili_icc-v1-0-0aa8286e6748@oss.qualcomm.com>
- <20260622-maili_icc-v1-2-0aa8286e6748@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 06:17:17 +0000
-Message-Id: <20260622061718.0737F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="j6sjG9x6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fbD3OvefVeDb6iBsz11fop91fwju4b2w3FbSkOqlcfJVEqDu2h4ajk4+o7uH5DHBdzRCi/GToZioEbN6HbfAy/TFSGHZvuE4xGlt+ls/eiHtSULxd+HFttfHtV1z9wSH1dfLTj22luGVK9ANRez/uaI82Jsc38gIQZA1OY/pnDiduusoJhhYX+y38ctOrm63fAnwiDNA5ngg1hyhc/82RsaCGUkx934YfdYVGyD5VNLITA5yxVDvx7sUhUbC/Pa7VDAEHBxC8wM3KYa5zq7asuA8uX1XRD85dp6PJpzkjEnr5Ee5VHGyrdmEpUSF2s1OgHX8ZVbdB0Xe2FnuFL+BXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v0WQs1J82XrgCVLeRm5Euo1rqVjIttoGQvQGGRH9GV0=;
+ b=hycft32HvMMp7oDzTP6FW8Cu5Vd2MhVnOvBIxIy5H6KEI7dHEomsFc3S6Qx6mtcrzTFKO3W+2hKsj7sh3vgTFoaqyJmEDnBxikGKRFtVFYFJDQxeWfD27wmHR1yTgNt6HKflBBEGRtUWns5mGWrwXxafJcpdqXp/dRE8KMu9YES5tfUwm/VuGqtxkBjHedhkm4cdlKfespDuooDny4Wk0vhWZSIaj5hq9u+y98tTAB/tege2eFjaNfaNcn9HVji8vfReUyOI3bAvMyKJmk1ZwneH0KlHRfCc8d8+4Yc0LX0oo3Ej3lfopBDUpK8CuqFcOsG9fbDlpqL8Ouh2JH72vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v0WQs1J82XrgCVLeRm5Euo1rqVjIttoGQvQGGRH9GV0=;
+ b=j6sjG9x6WedRTnJaxYc2r471Z7I4H3kWjY48jTDI7HGVStjmLOzruoFV9xjfovP1hb75nvmDPoxv1UUYe3TQRJJ1AKudOwcXcxSOfYI/1U39CWAzc/tBuhRjKlcZD503+zwNGwnKpNtRTQAiLTu0dLsnlL3FqMBxGFVfz8Bw44EBZWB8VjFmlxCAxEgVrGwl2r13OvdC/YdypAh12REr2yrex702dQDxo8e0uGPoJYHmxzl/LxPkcXmYGUs79nvAjUORaqqwEnY7Djrty7t+IJgK/tAVZpDzpb8qahsYguZRfHc4k26HXHoC0e+E+PrlWaegqC0H/jP3ImGG1GQUQw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by SE1PPF73DA7E6F9.apcprd03.prod.outlook.com (2603:1096:108:1::854) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.7; Mon, 22 Jun
+ 2026 06:20:02 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0159.007; Mon, 22 Jun 2026
+ 06:20:01 +0000
+Message-ID: <167ab529-1588-4f8a-9297-cecdb16fa0c9@amlogic.com>
+Date: Mon, 22 Jun 2026 14:19:59 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] clk: amlogic: Add A9 AO clock controller driver
+To: Jerome Brunet <jbrunet@baylibre.com>, sashiko-bot@kernel.org
+Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,
+ sashiko-reviews@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org
+References: <20260618-a9_aoclk-v4-0-569d0425e50c@amlogic.com>
+ <20260618-a9_aoclk-v4-2-569d0425e50c@amlogic.com>
+ <20260618100341.0A42F1F00A3A@smtp.kernel.org>
+ <1j33yjc7b9.fsf@starbuckisacylon.baylibre.com>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <1j33yjc7b9.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2P153CA0011.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::14) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|SE1PPF73DA7E6F9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 485f5dc8-4a66-4b77-85ff-08ded0264ae0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|22082099003|56012099006|5023799004|11063799006|4143699003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	luGxcplGPWdpEWWCUZgVBas4aE7DWju2D2jXeASRLlvYDstrF+FON3WIwTNvNzhL3AuaA/x4qNDq4LNsxd9JFnSmegGm4QpuvJxr/WkLiKLLEH2SdeHpqH5ZQvmoGGrgFL5rRBoI+sTgWKSuu99v4PRTDNNMh187Mb0w66jyaBn9jq6GVLk6WbmP3Bq5Adhzcjb1C9EWI/NjlLX/3qPPkLifIeZwXdoeQ8PrY1ju1puM33LUGZvPwhLFNwABs2ZUOh2UZKikSA4eRs3HEpCge/N16QNNFkLRKALeYJbTVIjGyx4bI7cEiWb9Uk4A7QWydm6rdyyYoGjieK1qCvhPcM5I7ZL6tnOvH5c0Hislyke73O5h8rajQVL15McqcLQZJzZT+WWHMznhCDNjZj4jiGf64z38XkXcn3R5E+OIEVTzEL3X1u4zkdzjKTpv2G1UjLE9jpIu0MU8QtWZ5oy9gaX2cLe13bF4zqO2pJdRCVpMX9Y7UPPHUnBrMI7CU4+CJpV6t344nzKhOpev03a06aFgbftkxtnkfSAWFuGqIhqC1x9wxNNg4/M/QICddlenBMSAiWc1razpAGxm6cWEITV2ZphABp2bfzuTPQieEBjtnL+gzUqdkuHZ7pLRYGqfLvQJijO7E1redmQ4dS/REd30rIviCh4QP/NVHuWKqWY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(22082099003)(56012099006)(5023799004)(11063799006)(4143699003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NmFucXp4Y1BkK3JLWFhVOEtpZWR1RW9XZVlzTHgvbGpKTE0zY3NWS1dvbEVW?=
+ =?utf-8?B?WWlzZVhGK1ZNSUxFb1J5azg1QlFZMmlCa1FzTkJscll0YlJyMmpaSTA5Rmg4?=
+ =?utf-8?B?WDFHdmFHVnlWRmQvdDhtTkpNamlCYU44b2ppdzNFQ1B6NDNXL3N5aEQzdTBk?=
+ =?utf-8?B?NEFTL0ltYWNxZGdXU044QTVDbmRJNWxmeXdLSUY5V214aFBnbXFGOHBaZWxt?=
+ =?utf-8?B?Z3VoUmVtRHhISlVyWEQrd3g4S05nRWtJbllkSThRYzdQY3ROcWxsbVprdTBs?=
+ =?utf-8?B?cVhLUUhhWEhZeGxFL0ZVSzlLWHRyWFBteVBVd2ZGUTN5QXNKYjVEN2RvVzdV?=
+ =?utf-8?B?Nkozc1o3NTBqRDNLWUIvQ0pIcENFcFkwR1pQWnd0KzdNUWh3WFVoV09HbmpL?=
+ =?utf-8?B?L1FxNmorc1dxdEFXQkttTkpNMlVkTWhZNlF5NDhhcndzMk5VVkFmT1FUNzVY?=
+ =?utf-8?B?SE13alYzczU1NVkyNTU4dk03dStsaVpjMHN0VHFPdWJ1bXQ2bllXOGJFb1ZM?=
+ =?utf-8?B?aElJcUh1KzY3L1cvRlFsUEQ2aTdRQlFNZUg0STAyYWNZOVJMYy9NenE5MjJ0?=
+ =?utf-8?B?SWJDTjgzeE9PUjg5TEVVRDdCT3ViL2p6SnB3a1FJN2NLUUlFQW5xMmVJYkpy?=
+ =?utf-8?B?YzZhZS9selBwb3d2V3k3ZDdVQnBRdTMxcXpVTjFXcFRkQ2lCTXZvMEhhcktC?=
+ =?utf-8?B?RHM0MHl2Z0pBMzgwOTV4c1pZcVdKSk02UmFtTEtIckNhc1RRc2pCenFpMkc0?=
+ =?utf-8?B?TnVxbmVCUXp3SHlUZzNSWFlHcWRjelVJNEszdldjK01vMGo1c1JyMEdmOGNI?=
+ =?utf-8?B?L2w5SzhBSnVENUxqOWsvUnpsYWFxVVB2UTlBQVQ0MDhYcFVYWGpEY3VEQkxW?=
+ =?utf-8?B?YUlnd1JneFVkVGs3Z29saytKckJvV3FMYklZbGo5TG82TFR4aHNzajUvT3pj?=
+ =?utf-8?B?ZS94WHQxZDJMVWNraGgyY0JpMW9td3FOUUg2dXJnc1QwaXB5aGlFY0JpZXVx?=
+ =?utf-8?B?RDgwODBrWFE2OVZqOTNwcnRrZjFtblN3b082bFFqNzlHRWVsa2lnaDZwUFk2?=
+ =?utf-8?B?OXpNWmk1eXQ0REFwaWhPeGplNHpvN2tjekhuMWZlam5Ba1BFMUNvOElCdzVF?=
+ =?utf-8?B?a2l1MWpwSUdzZHM0YmRMVlFFTzUrL0kwOGx0Y3JTME5kVk5YeGg5VXhweURM?=
+ =?utf-8?B?WEJscm1wVUs1T3NEUTRpOEplM21RYmIrdCthZ3FOdVE2VnBxRklaTkpMNjJN?=
+ =?utf-8?B?MXJndHJTNzRGZVpJS2R2alBIWmd4S3VsRVRqZll4SkMrT0JtY1dpTlA2TndB?=
+ =?utf-8?B?NDRHNTZXUHMxaGE5R1EyY1JqcDZ3UzJkZXVkd1RsVitJYnFKdHBwWGl0ZkZW?=
+ =?utf-8?B?TG5sM0hoWU40eTdpeVF3S05NaGN6dE5GYW5zb0RLYXo4ckc1aEZCc29UWWZs?=
+ =?utf-8?B?c1FabUZQNHRCOENKNEFGY2pTL1diVkRVTktpeTdyTjNYRGpyekNzWjY0WmJR?=
+ =?utf-8?B?Zkk0ZlhIYm1PNEkyQWQxQ2dZQnVWUmRsQms3WXlvbzMzMzRHT2V0RE1RcUxu?=
+ =?utf-8?B?L0x6SmUwNXhnTTZsdkVvTkV4TzFoMTNQRWNxN05ZQUFTWXZmZnk4WHZYclFp?=
+ =?utf-8?B?SkFWRnBHWUhraEtwQVEzZ3NTeG5GN1Z1TktxS0Jkall6MmdDcHFkYmVqQ2dG?=
+ =?utf-8?B?Mkc2ZmJid2VSNng2RGtaQ3R0RUNNVWthazF0RU9EbmxmcWlncDlSYUdna2dV?=
+ =?utf-8?B?RnRIYk1ham1PSHFrMk4wa2xHOFBZdWJOcmpHZ2JJelo3TktPOEx4cG56UkRT?=
+ =?utf-8?B?SWVpT2JXZ1NjbDN2WTBqN0wvOXFaUStHaTBpS1BWY3o4eU50ZGZKVE9XclNX?=
+ =?utf-8?B?L2dhVmZySzhtWCtIZnlxSWd2RVYwUlU2UU8xWEtpMXNkUE1TQnlqams5RXBm?=
+ =?utf-8?B?UEQwckRVNGdnUUwyTnRlOFZZZUpkYmVDaVNaZHlPa1dPR3k5YXYrQjVJaE14?=
+ =?utf-8?B?MVZNSXlhbSszNm9qTnRXWnhQTHN3bGVaY0wzUDBtRlBqbEV5dk4wNEtZQXpt?=
+ =?utf-8?B?dDJaWkxHSWxnNHVVK201cVgrQ25KQWkvRHkwQ0Z0VnFDcDZyTXJ2cjFHYUNY?=
+ =?utf-8?B?cDRjbDhBVHRNSnN1aFEzeXUxRS9xdHloOW83THhvUHhIVHdRY0t2NUtqcW5Q?=
+ =?utf-8?B?YVN5aS9mRmlTN3JHTmpLdmNhZHhDZEdSQTBPNHFOMmZJa0RmVnZXOW9mT2JF?=
+ =?utf-8?B?RGc2Z2pNTys2SlZHaU9MSlphdkZiS3ZEdHRuVjF1S0poOW1yRjdORGUrc3l5?=
+ =?utf-8?B?czlsMTFXVWUrdlJXVC9pNDVuYWZ0SldpWXZCeHNhNEZWZ1F6OHJiUT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 485f5dc8-4a66-4b77-85ff-08ded0264ae0
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 06:20:01.8139
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pTh9vaqBbpdjQ0mXggKIwNkCjTNC2yzaoyl4ikyMqP/lvEvrcyr5W27Pcz0WGROBW5NTo8CAlMEEwu1hX2X1ag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPF73DA7E6F9
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Overlapping array indices in `mmss_noc_nodes` due to unsequential =
-DT binding macros.
-- [Low] INTERCONNECT_QCOM_MAILI Kconfig entry deviates from standard subsys=
-tem patterns by missing architecture dependencies and improperly adding `de=
-fault ARCH_QCOM`.
+Hi Jerome,
+
+
+Thanks for your review.
+
+On 6/19/2026 3:34 PM, Jerome Brunet wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On jeu. 18 juin 2026 at 10:03, sashiko-bot@kernel.org wrote:
+>
+>> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+>> - [Medium] The AO PWM clocks are registered without an `ao_` or `a9_ao_`
+>> prefix, which will cause global namespace collisions with the main clock
+>> controller.
+>> - [Low] Typographical error in the clock name string literal for the RTC
+>> dualdiv input gate: `ao_rtc_duandiv_in` instead of `ao_rtc_dualdiv_in`.
+>> - [Low] Missing `#include <linux/module.h>` for `MODULE_*` macros.
+>> --
+>>
+>> commit ef5998ff087b6faed09d9eed4f59078d2b2f0a60
+>> Author: Jian Hu <jian.hu@amlogic.com>
+>>
+>> clk: amlogic: Add A9 AO clock controller driver
+>>
+>> Add the Always-on clock controller driver for the Amlogic A9 SoC family.
+>>
+>>> diff --git a/drivers/clk/meson/a9-aoclk.c b/drivers/clk/meson/a9-aoclk.c
+>>> new file mode 100644
+>>> index 0000000000000..88aa8cf3f5d00
+>>> --- /dev/null
+>>> +++ b/drivers/clk/meson/a9-aoclk.c
+>>> @@ -0,0 +1,488 @@
+>>> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
+>>> +/*
+>>> + * Copyright (C) 2026 Amlogic, Inc. All rights reserved
+>>> + */
+>>> +
+>>> +#include <dt-bindings/clock/amlogic,a9-aoclkc.h>
+>>> +#include <linux/clk-provider.h>
+>>> +#include <linux/platform_device.h>
+>> [Severity: Low]
+>> Should this file explicitly include <linux/module.h>?
+>>
+>> The file relies on several module macros at the end (such as MODULE_DESCRIPTION,
+>> MODULE_AUTHOR, and MODULE_LICENSE). Although it currently compiles successfully
+>> due to transitive includes from <linux/platform_device.h>, standard kernel
+>> practice is to include the header explicitly.
+> Yes please fix this
+
+
+Ok, I will fix it in the next version.
+
+>> [ ... ]
+>>
+>>> +static const struct clk_parent_data a9_ao_pwm_parents[] = {
+>>> +    { .hw = &a9_ao_xtal.hw },
+>>> +    { .fw_name = "fdiv5", },
+>>> +    { .fw_name = "fdiv4", },
+>>> +    { .fw_name = "fdiv3", }
+>>> +};
+>>> +
+>>> +static A9_COMP_SEL(pwm_a, AO_PWM_CLK_A_CTRL, 9, 0x7, a9_ao_pwm_parents);
+>> [Severity: Medium]
+>> Will this cause a clock name collision with the main clock controller?
+>>
+>> Because the A9_COMP_SEL macro uses the #_name stringification operator inside
+>> MESON_COMP_SEL, this will generate the clock name as exactly "pwm_a_sel"
+>> (and similarly "pwm_a_div" and "pwm_a" for the others), without any "ao_" or
+>> "a9_ao_" prefix.
+> I think AI got it wrong and missed the prefix addition. Unless I missed
+> something my self, I think you are fine here
+
+
+Thanks for confirming. That was my understanding as well,
+so I'll keep the current implementation unchanged.
+
+>> If the main clock controller conventionally registers a "pwm_a" clock, failing
+>> to prefix the Always-On clocks will lead to global namespace collisions in the
+>> Common Clock Framework and debugfs.
+>>
+>>> +static A9_COMP_DIV(pwm_a, AO_PWM_CLK_A_CTRL, 0, 8);
+>>> +static A9_COMP_GATE(pwm_a, AO_PWM_CLK_A_CTRL, 8);
+>>> +
+>>> +static A9_COMP_SEL(pwm_b, AO_PWM_CLK_B_CTRL, 9, 0x7, a9_ao_pwm_parents);
+>> [ ... ]
+>>
+>>> +static struct clk_regmap a9_ao_rtc_dualdiv_in = {
+>>> +    .data = &(struct clk_regmap_gate_data){
+>>> +            .offset = AO_RTC_BY_OSCIN_CTRL0,
+>>> +            .bit_idx = 31,
+>>> +    },
+>>> +    .hw.init = &(struct clk_init_data) {
+>>> +            .name = "ao_rtc_duandiv_in",
+>> [Severity: Low]
+>> This isn't a bug, but there's a typo in the clock name literal. Should
+>> "ao_rtc_duandiv_in" be "ao_rtc_dualdiv_in"?
+> Yes
+
+
+Ok, I will fix it in the next version.
+
+>>> +            .ops = &clk_regmap_gate_ops,
+>>> +            .parent_hws = (const struct clk_hw *[]) {
+>>> +                    &a9_ao_xtal.hw
+>>> +            },
+> --
+> Jerome
+
+
 --
 
-commit 8dd65bdb718ff52c61f92fb6eb9e65eee995529e
-Author: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Jian
 
-interconnect: qcom: add Maili interconnect provider driver
-
-Add driver for the Qualcomm interconnect buses found in Maili based platfor=
-ms.
-The topology consists of several NoCs that are controlled by a remote proce=
-ssor
-that collects the aggregated bandwidth for each master-slave pairs.
-
-> diff --git a/drivers/interconnect/qcom/Kconfig b/drivers/interconnect/qco=
-m/Kconfig
-> index 5b8a094ca4ede..5b57f111c63c0 100644
-> --- a/drivers/interconnect/qcom/Kconfig
-> +++ b/drivers/interconnect/qcom/Kconfig
-> @@ -47,6 +47,16 @@ config INTERCONNECT_QCOM_KAANAPALI
->  	  This is a driver for the Qualcomm Network-on-Chip on kaanapali-based
->  	  platforms.
-> =20
-> +config INTERCONNECT_QCOM_MAILI
-> +	tristate "Qualcomm MAILI interconnect driver"
-> +	depends on INTERCONNECT_QCOM_RPMH_POSSIBLE
-> +	select INTERCONNECT_QCOM_RPMH
-> +	select INTERCONNECT_QCOM_BCM_VOTER
-> +	default ARCH_QCOM
-
-[Severity: Low]
-Does this Kconfig definition miss the standard "depends on ARM64 || COMPILE=
-_TEST"
-constraint found in other Qualcomm interconnect drivers?
-
-Also, by specifying "default ARCH_QCOM", does this unconditionally force the
-driver to build on all Qualcomm targets rather than relying on defconfigs,
-potentially causing unnecessary bloat?
-
-> +	help
-> +	  This is a driver for the Qualcomm Network-on-Chip on maili-based
-> +	  platforms.
-> +
->  config INTERCONNECT_QCOM_MSM8909
->  	tristate "Qualcomm MSM8909 interconnect driver"
->  	depends on INTERCONNECT_QCOM
-
-[ ... ]
-
-> diff --git a/drivers/interconnect/qcom/maili.c b/drivers/interconnect/qco=
-m/maili.c
-> new file mode 100644
-> index 0000000000000..e5eed7f998f92
-> --- /dev/null
-> +++ b/drivers/interconnect/qcom/maili.c
-
-[ ... ]
-
-> +static struct qcom_icc_node * const mmss_noc_nodes[] =3D {
-> +	[MASTER_CAMNOC_HF] =3D &qnm_camnoc_hf,
-> +	[MASTER_CAMNOC_NRT_ICP_SF] =3D &qnm_camnoc_nrt_icp_sf,
-> +	[MASTER_CAMNOC_RT_CDM_SF] =3D &qnm_camnoc_rt_cdm_sf,
-> +	[MASTER_CAMNOC_SF] =3D &qnm_camnoc_sf,
-> +	[MASTER_MDP] =3D &qnm_mdp,
-> +	[MASTER_MDSS_DCP] =3D &qnm_mdss_dcp,
-
-[Severity: High]
-Does mmss_noc_nodes[] have overlapping array indices due to how the
-dt-bindings are defined?
-
-Looking at dt-bindings/interconnect/qcom,maili-rpmh.h:
-
-#define MASTER_CAMNOC_HF                0
-#define MASTER_MDP                      1
-...
-#define MASTER_CAMNOC_NRT_ICP_SF        0
-#define MASTER_CAMNOC_RT_CDM_SF         1
-#define MASTER_CAMNOC_SF                2
-
-Because these macros share the same values, the later designated initialize=
-rs
-in mmss_noc_nodes[] will silently overwrite the earlier ones.
-
-Does this unintentionally drop qnm_camnoc_hf, qnm_mdp, and qns_mem_noc_hf f=
-rom
-the provider array, breaking interconnect requests that target them?
-
-> +	[MASTER_CDSP_HCP] =3D &qnm_vapss_hcp,
-> +	[MASTER_VIDEO_CV_PROC] =3D &qnm_video_cv_cpu,
-> +	[MASTER_VIDEO_EVA] =3D &qnm_video_eva,
-> +	[MASTER_VIDEO_MVP] =3D &qnm_video_mvp,
-> +	[MASTER_VIDEO_V_PROC] =3D &qnm_video_v_cpu,
-> +	[SLAVE_MNOC_HF_MEM_NOC] =3D &qns_mem_noc_hf,
-> +	[SLAVE_MNOC_SF_MEM_NOC] =3D &qns_mem_noc_sf,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-maili_icc-=
-v1-0-0aa8286e6748@oss.qualcomm.com?part=3D2
