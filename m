@@ -1,172 +1,112 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C853A1E7E
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71F739E6C6;
+	Mon, 22 Jun 2026 10:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782122564; cv=none; b=UU9ugcOOfuPaCPH+HQWcBYleWesN/3zFWXoKIncyK765iL2/4zcNstrupEfA7uep/OBkoT8J6whY4lI6asTRS7Z2wQlORIpGFG/FimgOY7HozcbU20RfDlEGIyuJmfbPSHyXTGGMUuPRZ1S2Gxr0dU4Zi37A/GvlrzdUusnkwMk=
+	t=1782123004; cv=none; b=jIFZFf7/v4g1yHGEugAYPb9E4X/U947v4IZY3nMbOkb/NkYWg5uPEYg5MI68y4ddBJr9vOyW1CBUSgGlcokU4FrD/BJO3xSW8mDhusPlH04rs7JdRtApTiBnCWUnExL/82/WwLZ6YcumnL35mVUSgxQSC0nykOwUWTYnYf0bmkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782122564; c=relaxed/simple;
-	bh=jrr75z3xkwFfMtmeu+zIMvJs/ytHfPd20ml8wylasTo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lohW/NtS7X05FdYscs92XwXZQOYyt0RUwLYNpmOx4tqushq397fhscqPwUb3WNUGOR4TTSNIigySa2ImlI1WumVZ3GfYyxi/VHQ7hxn5ylllUr9AfEoYchc7H/u09YrrYAu+M4rT459MsFSNamDo8xFJwA3/laxNss+J1ZuGmfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YA8pEFwa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cNi5QucF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782123004; c=relaxed/simple;
+	bh=xlGP4DjItDD30vN2Dc4eIfR0Dla4Nh2sRUt+TIMo67w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B5DQRg1dRpzhAnHWgOUV+qCv06hEABJ0TFu9reMequW4Xe+5zE1bn0wGgwAMKXRYanGNnpVcz4P5TG1qirGgg2xvmlbcANFgWL+e2PV2eysdzsGe+dw9fYJStvclT5a5X27F4niakDN/2FoVhu1qRVTiYbtdRwj/vfTaokw9+dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Wu9fNPsH; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YA8pEFwa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cNi5QucF"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M5B9nL156679
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:02:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=0sYMNzaE0WX
-	yJdKP90e/gCaHJORjnNxy6zzXtaHf/7Q=; b=YA8pEFwaOmPxxU5UrMlI+ajv9DL
-	YgftcUlWbo8PE9lNgX3uERMiTZaCazR5n0EG68U4g7lTDjJnHDSJNm5pxo+WWAzw
-	zYy2y23Rr8tOgGYfMxZ7fpylElqiTEO3/22y6POt7PJZYGzGRZGnQHR1jcgojKj4
-	7zBn8Ph8heaPMFnBGoGssXzNQljeolwhZnyXIglbjL++J7D14HpR6Mqy8eZUB6y1
-	3f4fRDWypAWyQQjbfbBm76VwEz17PLrs9nzx1nvJtG4i5jsvLPOOxvhLml6V0Ifj
-	WPxpXPWkcDDf1T46gIYJGm8GLTWXjDqbKUHqg7vaWGhVyF3Qc+pwijmr4Fw==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewg7mp9dh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:02:41 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e71adbb398so8541929a34.3
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:02:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782122560; x=1782727360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0sYMNzaE0WXyJdKP90e/gCaHJORjnNxy6zzXtaHf/7Q=;
-        b=cNi5QucFsPtvHdx6sL4IeIWeCGJ2yGQR8XklbSel78JdjnBOymdlH0E3Fcs6/wSt20
-         G8cbwSz69a3f0UPuyBoNFJ47Ri3voygxAiEH4M615CdTM0rY89rl4VumXdYofI2+dPCD
-         uOrgVMyckDrH9pEUR4lShLRwgUtOTitEwZL/XJ1hGikC/8Gz7divFzVweek6g+QxS6kc
-         xfcw35y8hpYqB12RasrDwrHIzw/350g1jzxHcVZ310fHgWT7snVsk0G9OhkRhIiwV+FY
-         5seWwEYqjJudX5+ipaqvvvpUnh4k+mcFC1iIW8Ddstbie274P85PkjZBjuIPAMb4cE4b
-         RzoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782122560; x=1782727360;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=0sYMNzaE0WXyJdKP90e/gCaHJORjnNxy6zzXtaHf/7Q=;
-        b=ikGdl+sGh+reYyyVH/aijb6vfdfGkIXVYjQLj2DYefXfaqWJExaZyCXbmSG7xCOakZ
-         yjd3kLekwwE02yuZJ9zRQdweODvMuHA48UcTJlbhBHevSpQYUW0RaS8+E7OuaFVAYjrM
-         9ocAdXtbmf1A6Q4aPxXJUY5xys8YbgokCP2TmPPiTCUNAeC+1dYNVk2a5p89rA4eq4Q5
-         MYmNBr7+lYpxa8cZk38zxFssQyRu99pM72t67r9kuGLcGerIaobzEg8igzlp6tFWy22T
-         iJbQ+hjZRDPYTu98r7A+kUz0KsHA07T0LJr5J5HpXCjT41VeMOg6T3IS4jBBkoCYq6Fm
-         FmPw==
-X-Forwarded-Encrypted: i=1; AFNElJ92OpJ8SGdW9GmXLyJgsUm7VzguLaP6Vcv+ynShNKDHSKlSC+rS0Iv7uHGn7URnQMvJK0DacPqm+m6e@vger.kernel.org
-X-Gm-Message-State: AOJu0YybE3Q6Q/VJQXJkHjPuV/eZLLqf5S09z3P3LBLCM7av2MXY2TKL
-	yL0fY8rby31ybrNq6t936hKa0IPV2aAl2YOK1h+hbFnfCOZUqM2evyjAmF8tCCcwX7QfJZbBbAx
-	ORgHqd08ZB6PnK52V8bKQoFggRzfH11EsEKn66iUfL03DQaIo9+VP2VSGKika57nS
-X-Gm-Gg: AfdE7cnfGnc1Uhov9RLWnt/FCb/66kcnA+Y0JV1HHpjQJm86KvlH5kinM7o3p4RW0Se
-	ZIThz3O6duJWDMbODQzpdHMo+mne+kDNMS5WQd6MvSGLXY/Q2YWDKqHZ3HPdieTasan9cBpK3ju
-	niaWZvBlGV44VLlogJJIRYfY683IKPYbMWGzOy0TmpWLMSXJLR/trQcA4e5LDivLbUHrCpkQO47
-	vPvq88tpjSmI8bAe1J0mJLNtpG5GvBW0wgQvwhilsiVXlrtNoNL/bJQEAE6GcJ/qwC4/o8nrTxx
-	OBPL8+UxVLykHGvCyNworu3wc48sjFe2VhbMyTQEeviW352bBb+NWA0EQ5ZHxymv+zBYLoSMh3Y
-	MapVKByWbw4IjoszKrr+K2yH6fXE=
-X-Received: by 2002:a05:6830:640b:b0:7e6:deb1:485b with SMTP id 46e09a7af769-7e92d9c74camr12345323a34.16.1782122560493;
-        Mon, 22 Jun 2026 03:02:40 -0700 (PDT)
-X-Received: by 2002:a05:6830:640b:b0:7e6:deb1:485b with SMTP id 46e09a7af769-7e92d9c74camr12345302a34.16.1782122560130;
-        Mon, 22 Jun 2026 03:02:40 -0700 (PDT)
-Received: from quoll ([178.197.218.240])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466643f4e93sm26969074f8f.7.2026.06.22.03.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 03:02:39 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Guillaume La Roque <glaroque@baylibre.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org,
-        linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH 2/2] dt-bindings: thermal: amlogic: Correct 'reg' in the example
-Date: Mon, 22 Jun 2026 12:02:33 +0200
-Message-ID: <20260622100231.438435-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260622100231.438435-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260622100231.438435-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Wu9fNPsH"
+Received: from ideasonboard.com (mob-109-113-9-173.net.vodafone.it [109.113.9.173])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C764C874;
+	Mon, 22 Jun 2026 12:09:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782122963;
+	bh=xlGP4DjItDD30vN2Dc4eIfR0Dla4Nh2sRUt+TIMo67w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Wu9fNPsHhQqJUUxU1Msh1Rj2HwEj0YrE2W2M8SWT4GVnFyZfLIinRCDffCwGsBlBr
+	 TbV1F2WmsokOXowdKwaBUIUhywuu/tkiyIqsU0vyI2zrAnBVtuQZGHXgVrJlpHdEOF
+	 hfmGKJ5uslGJ4cvmcAHJBMA7cA2Mn/CqLuAgi7TE=
+Date: Mon, 22 Jun 2026 12:09:57 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/5] media: i2c: vd55g1: Fix manual digital gain on color
+ variant
+Message-ID: <ajkJ3u4VdXHWEePt@zed>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+ <20260428-vd55g4_and_fixes-v1-3-4f745a83b87e@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1204; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=jrr75z3xkwFfMtmeu+zIMvJs/ytHfPd20ml8wylasTo=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqOQg4ygfRlLfcSEVBjglg2VauG9hcRR2aVageS
- CsxVfmm0ueJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCajkIOAAKCRDBN2bmhouD
- 19RCD/4/GnAM75B/sN3PSowYPUr2PmRH0S053tH85DKbVynKh69/2umobq4B8rLav4o5bJMVTAj
- jNdo227SUa8yBFB/n8KSD8MlpcrGjIFMgXuuxeZGf+2mD53jApTsS8/9Y6nQuvPtHFS2kPzB1in
- wZBBGY+BT/vrsSsyJCiSWOOXiuZ3tfc5tISQk2wj8TmUGaTlxWhguQ7vQsXWp2WklWh5Codhj71
- dUbdNyOWsY7hGssZydqUvNPkU4lMMotQVHMf/4qi9SBEzJLJfGfQ7xJlFD4flUDgyQgOPvxgPRg
- /mDEen+bTlkBHRnWUD+dTbvgrXzWYHChrOoZiUrB+hRZ6LOLertNL+sJn1xo8Qu8a5p8/wN/lNi
- p4VV7sh5zgDxcZY1syh2nriKunYjd0aWVHgNXFYV9mXT7j49n6eCEETSZTtwUpbkzml48mRuR/Y
- EuPY2DQai1DA+wyzNQCn/FEZ96ZeJjTtClE9IZHYQKW30D8fXchKXKT7Jksd4/AYf4A2r6OHg6E
- qXU5hMvIhv+gLfBbWVdjvp+E2uow61LSdvs7i3LTUvLefyXH8KwxahSTnJrazBgtqbNepWk8o1P
- 1xgHl2KfhK3vUFWNU5LjpLGXxU84mN/NBet/4FugqvE+HcXmaxMQfq6cvXYqDM+S/q5pJIV82x4 AZz7/Z4ctp3JJFQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA5OCBTYWx0ZWRfXyeKxdnH0hEtR
- XiiDgIur247yeI5hXdxVwjnYSCtKvKZ5wuKDg1ZLV8NtyVH+eBhfrWGZ3M+Oo9A+c4+pADn3Bd+
- bvYdfgZSE9FHVSiccJuehjrTU7fWDp55CvBaJVnkzv/bsu4hN4QstIjxH7UmiY2zvxjq5OBr6wX
- SGk6p8p6Jq9V4eTePIsQ5A6j5hGreKTrjyAUsuQ+9o07pcduw9rjsxgNioNOgwM4m2ebphql1Ks
- E/m3DQ7jAoaptQFiBrmL+T8otnxaNPXBnr20gOZi0DhOYUyItEkg6HXEKyZh6oKqOM6mElFLuth
- W6f2/kPC3pUb/cddELDptfxQseKPDib97Eo7yhcBiiNNazfNx3PE69MJhPNnNvnmrhG70atNd9z
- uAcsmVUlUSTaknWcvRU99YcxjNLLw4l7XUL7cAFU8lhzyEODbpV3txMstXeQCbH2DJSfMg/C4p3
- AxnmExDYgw9VWWjWoEA==
-X-Authority-Analysis: v=2.4 cv=IOMyzAvG c=1 sm=1 tr=0 ts=6a390841 cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=qMZSjPy+XpteAuilWfML4g==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=wgRPBKK9NZbZ-O_S2bQA:9 a=eYe2g0i6gJ5uXG_o6N4q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA5OCBTYWx0ZWRfX4/W2nGZyuxA2
- 9VsygpYpuUYMkehigtGlMkUe8C3K9nt+ebG/1Z7hohcSFrQpEKpD0KzfEbiKvl5MJO7gHlcJZxM
- j3xrhaPqt4EF8lXVvisMABMfkZXGbn4=
-X-Proofpoint-ORIG-GUID: PvEiNF2_0fkyKOHClqbU7QC8L7DMJ8BN
-X-Proofpoint-GUID: PvEiNF2_0fkyKOHClqbU7QC8L7DMJ8BN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220098
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260428-vd55g4_and_fixes-v1-3-4f745a83b87e@foss.st.com>
 
-The example DTS is tested in a wrapped node with address/size-cells=1,
-thus reg had incorrect entry leading to dt_binding_check fails:
+Hi Benjamin
 
-  thermal/amlogic,thermal.example.dtb: temperature-sensor@20000 (amlogic,t7-thermal): reg: [[0, 131072], [0, 80]] is too long
+On Tue, Apr 28, 2026 at 10:40:57AM +0200, Benjamin Mugnier wrote:
+> Apply digital gain to all channels, each channel representing a color.
+>
+> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
 
-Fixes: b1c8ccdbd4e9 ("dt-bindings: thermal: amlogic: Add support for T7")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Also cc stable here
 
-diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-index d8f7f3eb7ae2..8cfa44dcda58 100644
---- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-@@ -92,7 +92,7 @@ examples:
- 
-     temperature-sensor@20000 {
-         compatible = "amlogic,t7-thermal";
--        reg = <0x0 0x20000 0x0 0x50>;
-+        reg = <0x20000 0x50>;
-         interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
-         clocks = <&clkc_periphs CLKID_TS>;
-         #thermal-sensor-cells = <0>;
--- 
-2.53.0
+>
+> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+Thanks
+  j
+
+> ---
+>  drivers/media/i2c/vd55g1.c | 16 +++++++++++++---
+>  1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index e44174056ace..2c962fcb41d2 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -60,7 +60,10 @@
+>  #define VD55G1_PATGEN_ENABLE				BIT(0)
+>  #define VD55G1_REG_MANUAL_ANALOG_GAIN			CCI_REG8(0x0501)
+>  #define VD55G1_REG_MANUAL_COARSE_EXPOSURE		CCI_REG16_LE(0x0502)
+> -#define VD55G1_REG_MANUAL_DIGITAL_GAIN			CCI_REG16_LE(0x0504)
+> +#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0		CCI_REG16_LE(0x0504)
+> +#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1		CCI_REG16_LE(0x0506)
+> +#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2		CCI_REG16_LE(0x0508)
+> +#define VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3		CCI_REG16_LE(0x050a)
+>  #define VD55G1_REG_APPLIED_COARSE_EXPOSURE		CCI_REG16_LE(0x00e8)
+>  #define VD55G1_REG_APPLIED_ANALOG_GAIN			CCI_REG16_LE(0x00ea)
+>  #define VD55G1_REG_APPLIED_DIGITAL_GAIN			CCI_REG16_LE(0x00ec)
+> @@ -850,9 +853,16 @@ static int vd55g1_update_expo_cluster(struct vd55g1 *sensor, bool is_auto)
+>  		vd55g1_write(sensor, VD55G1_REG_MANUAL_ANALOG_GAIN,
+>  			     sensor->again_ctrl->val, &ret);
+>
+> -	if (!is_auto && sensor->dgain_ctrl->is_new)
+> -		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN,
+> +	if (!is_auto && sensor->dgain_ctrl->is_new) {
+> +		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH0,
+>  			     sensor->dgain_ctrl->val, &ret);
+> +		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH1,
+> +			     sensor->dgain_ctrl->val, &ret);
+> +		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH2,
+> +			     sensor->dgain_ctrl->val, &ret);
+> +		vd55g1_write(sensor, VD55G1_REG_MANUAL_DIGITAL_GAIN_CH3,
+> +			     sensor->dgain_ctrl->val, &ret);
+> +	}
+>
+>  	return ret;
+>  }
+>
+> --
+> 2.43.0
+>
+>
