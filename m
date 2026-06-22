@@ -1,76 +1,88 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9EB382F23;
-	Mon, 22 Jun 2026 07:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD45838331F
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782114802; cv=none; b=qS3CZBV1i2AJUrNdy2SkEAqqvk0XESiPrVY8hnfwQzjvnNjBRh1UYTZw984WE07sd3xwRjMzGrH/pr70apqH2LvqDygGd0TRu5YvcrX9VAnL0efMIymMLQK3nla+AH2MtGCO2nQBERNe9U09Woh/Atbfxx3y3gOlyAXAC0mydBI=
+	t=1782114837; cv=none; b=ndaJfKjNhQWqck9rKBkYXWXH1e21IoMCM/tkBdfFyUtniLY1J98BM1ddXEM4auWA+J2wNDEjKQyKsoYmn/M8dAqFE6EiwD8bqdBbu66FpYXPYjBzry1E1Js8K0+/BtcxtjYo6ufWbWIEex8giP2ZL2n+xqPjV4IE+d23yW1Ooe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782114802; c=relaxed/simple;
-	bh=UmA0D3P5yXy8cz+l5TjF7yGYD0zR8vUtdjgx4efnqLY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ga4CF2P2OvNBnXCLJr17ecEhfEhs7F/roghFtRmu9PYMR5hr31szlEs9RNIBSsXjXNroKS7xDjjMmdDgq8D/SmWAufcvYS//3QCAVkTYjvL4YuP9uuX+o4cRUw8qOxs+x2v48CbODJuGUyVNrdpHKOltKCJ8cyiDfbdevZlLmio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VLKldH54; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1782114837; c=relaxed/simple;
+	bh=t17gu4yMU3FuF4L51YWSp82BGqiZ9I6mOFZjfE5+VR4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WVXpDGEez2zMQalK6hyMwn1MsB38+S4GILJjkzPMEz4KGJgvjxgKjMssVmPCJuOrR8votvYWH4Tz0Gbr36cGpH7nlw86IX4Qf+yknzlR+akHbFD4THniLbhFk2V4J5FZyxCgIF/MSStx7e4icn3vR7ezJBCv8TPcREoFKWXMoDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4DZkxUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VLKldH54"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=F9jNnyNYGY1NcwfEUerNCQvkVxFVg9qCMrtvtRAXFJA=; b=VLKldH5485znscUBJ7jdzHIRV9
-	n3k6ppQ//qWUe8aHhkIJM1rhZmDzzgK0MH7+bOtdKrEThTsyIk6mgKsY9+Kxhcjjfm4bRqSv38eVJ
-	hT7NMgTUR/IE2lzo9XUFveK5Rt4wa8O0LGiGrr7f19UDell2Z/QiLD9fJjGC7F4MPPgA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wbZSe-008nM7-NQ; Mon, 22 Jun 2026 09:52:52 +0200
-Date: Mon, 22 Jun 2026 09:52:52 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	devicetree@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	netdev@vger.kernel.org, pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	ningyu@eswincomputing.com, linmin@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com,
-	weishangjuan@eswincomputing.com, horms@kernel.org, lee@kernel.org
-Subject: Re: Re: [PATCH net-next v8 3/6] net: stmmac: eic7700: make RGMII
- delay properties optional
-Message-ID: <4eb42700-c46e-4d21-8db5-dbd65f83d57f@lunn.ch>
-References: <20260610012727.848-1-lizhi2@eswincomputing.com>
- <20260610012937.911-1-lizhi2@eswincomputing.com>
- <eaa645fc-be06-4a15-8c2f-6e82129c4715@bootlin.com>
- <30229cfe-b395-4d0f-81ef-eb780ac26599@lunn.ch>
- <512b77d5.993b.19eed207fc9.Coremail.lizhi2@eswincomputing.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4DZkxUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5241F000E9;
+	Mon, 22 Jun 2026 07:53:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782114832;
+	bh=ZEsFU/x3PzzbAkfC5cDRQrkFi2d1a/Tsug4d0KShVBg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G4DZkxUUCOomfxyYAWxVIfOnVgFTNyZzfC1F1or8IXh0m2b8i6fvWeCSxV+mIdM2/
+	 jrKfDZg1b/jjLIUyC5Dm5shBIWLiUpDPXwPSGSdBuPTpCyJQsnHIRfz6eMBCng3Mv1
+	 JWra6tTMl1frP6AooP9TI1ooqv46ieeY4C3kaoR4OEkB7c6qT1MrSStZr8rmUZE06w
+	 1qTYjk/RkrSnjLxaleHewL6oqBAS7A5z3N7KIo47Z1BMLIgbPv8OcFPAQ1hyc9Kdb7
+	 UJuViGdp+pUd0Wuij8NMpag8uRSbqLTbODUhqTfJ/cXcl0vtRN59taTDS3xU8Xz6Rq
+	 10SNT+KGVwqjw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: add Axiado AX3000/AX3005
+ SARADC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petar Stepanovic" <pstepanovic@axiado.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260622-axiado-ax3000-ax3005-saradc-v3-1-e57c7c7ae675@axiado.com>
+References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
+ <20260622-axiado-ax3000-ax3005-saradc-v3-1-e57c7c7ae675@axiado.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 07:53:51 +0000
+Message-Id: <20260622075351.CA5241F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <512b77d5.993b.19eed207fc9.Coremail.lizhi2@eswincomputing.com>
 
-> I'm preparing a v9 of the series. The next revision will address the
-> issues reported by Sashiko review, mainly DT binding schema and DTS
-> warnings.
-> 
-> Before I post v9, I'd like to check whether you have any concerns or
-> suggestions regarding the driver changes.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing IIO mailing list in MAINTAINERS entry.
+--
 
-From what i remember, i think the patch was O.K, but i've looked at
-100s of other patches since then. The commit message sounds like the
-basic design is correct.
+commit 474cfbabb6190ddd4a26c0a176ce44e7335b5716
+Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-     Andrew
+dt-bindings: iio: adc: add Axiado AX3000/AX3005 SARADC
+
+This commit documents the compatible strings, register regions, clocks, and
+other properties for the 10-bit SAR ADC controller on the Axiado AX3000
+and AX3005 SoCs. It also adds a new entry to the MAINTAINERS file.
+
+[ ... ]
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3d6db8cb608f3..963ac23a0a21e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4336,6 +4336,13 @@ S:	Orphan
+>  F:	Documentation/devicetree/bindings/sound/axentia,*
+>  F:	sound/soc/atmel/tse850-pcm5142.c
+> =20
+> +AXIADO SARADC DRIVER
+> +M:	Petar Stepanovic <pstepanovic@axiado.com>
+> +M:	Akhila Kavi <akavi@axiado.com>
+> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
+
+[Severity: Low]
+Should this entry include the IIO subsystem mailing list?
+
+Typically, IIO ADC drivers direct patches and discussions to the IIO
+mailing list by including an "L: linux-iio@vger.kernel.org" entry in
+their MAINTAINERS block.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-axiado-ax3=
+000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com?part=3D1
