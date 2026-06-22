@@ -1,221 +1,172 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7C433F582
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 16:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597472C21C7;
+	Mon, 22 Jun 2026 16:49:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782146911; cv=none; b=kEFV8orlYkJx4KUNinrnk177OtOe7y6vrbCePHrbilZ9oY1G4ApdXi60H/3Ak7tFADoNjnWZP0xSppRASsp1nCqy1DCPdRdAV+08lfQdtMYiH6provC4TSNNK8dWGoZOpeJzHsLFcx/Z4mUYj6T4QROVJwXX08GLaLgipEYCjYw=
+	t=1782146999; cv=none; b=dB6cx04OYpflfGK5+Szlh17PliQ2fhWVFYPdjhehtCrClcdw5UyVzs+bhGVDzHzpndD83Rdg+AaW+ZvecgE00sRYCk82BIjblxVYdkL96vFCQ5ys6zT5LeYxMPK9O1VM3PW04jOo5TnpU2v2V8LtMvPdPCtEQxwGHSB66CMdmME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782146911; c=relaxed/simple;
-	bh=tEzkyeq2CxaE+rDQ5OZ6mvROU+0M61o/GFfr374yK2U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SQQtBXFBS7JQPogvjxx6w8zbjxD9n114r9sb7JStt6BAoV3k1iEgqDOtkn48VarJwnlSXHdrA73BW37jG7svhuZKyLVk3+GUg2+N8qirY+HkBCEAF2YK2VNuuuz7EJYYPMoF2IndWrdxpFLkNcUqtPAnl3fnGgIdGL1i90ezSSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kI/RLvSn; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782146999; c=relaxed/simple;
+	bh=SASbNBgHfUe2piqd/bAGqGGSZSSvGEyVmzsyV8nAOjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ETucSPVrEhIQY2FbtB9KZNrW8UOdFrAQyofnyVH4ayIdp9nysJQr/kIYC71cuv8jGOtd2wQhGhhKFKA6uh2rN+wcXPAt6LKNfhub0Qkq96H3/+SQyJxJPZJE7xGQOjsHfAi3Wn3qIIVj6jtHfArCOo5RsfYQPfDQCJAykTBjnrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lub6w4me; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kI/RLvSn"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so49075245e9.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:48:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782146908; x=1782751708; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oWemi1JQP1onVuqSA7PX4iDLmsF0kujfUg9hfw45kLA=;
-        b=kI/RLvSnRvZKbWHN8DKKyZHD+K9cYXq4KvqT6BtE8Q83QjzPzpvDKPbnuFtO/ocy5x
-         6moiDHnXvL7XKYcsvbJXNmggxgsReLhJRNn2ZfQ48+ee3N3YrwL1G3ZRDYryCBi/n4BH
-         kfRxw8oKTYK/K0bXz3R1U+7dKNKl6Oewku2KulhbLZ1XqtwTiFJR6hevqMS576dASHLe
-         s1dgCA3d0ejp6gB4rcLqy6wY2ErCOoW2eqOUS67B475L2XZjtWK+0XiCrnsQ/oM0Uzsb
-         U9gNiz9EvZ7bmI/FbSbnZVoHn+XDybdJfloz35VDwi2M19579mlbFm+Tb17nBDEEQ9cp
-         sryQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782146908; x=1782751708;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=oWemi1JQP1onVuqSA7PX4iDLmsF0kujfUg9hfw45kLA=;
-        b=Uy6jFV73X8QoGS766BgG68qeK6Bqahj3mGmQtxgu9p6vlwkNxzo5alTvhm3mdvgitZ
-         oYbmMzkkhbd4D7C886iiPpEaBXxh3D+EeJjUUu93DnupL8jyuSX+VPjS3yFwr7ozQgVX
-         ioyEnRHI8WflrEIoJriF+hF7CsVdh4ZEfU2/iAlK1r1b5N72UcVSaUhe/TYY5N0W2xzp
-         W4EOxAnrT5iLeQRmnMsbQd2P06njUERuO7S765vWRN+D09ZsRPMB/u6BFYnr69kdSgqN
-         wDQs5MFlgINnhG0Z8Z9sAy28Fa4TU/fCVH5tj8C5D7gUES5PIsW4qeVW8t/0LiSmcghm
-         e1BA==
-X-Forwarded-Encrypted: i=1; AFNElJ+1mlt1M90ufJhLuDn+U4YbpzljOFDKrDAX74jqNMl10tF4OQeEqHqXBUCEYooM8N03nvn1ezLfc3S3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwxU6SCG+eviLu+wBY3gQhmj49wJFDG4UFyEM//vvpHapyZaFl
-	/uHYPC9lpFmBbkycs3mKG3W5UW4dq9bAAXE0OxTVN1POoNRUZP5LgRd1
-X-Gm-Gg: AfdE7cl3Uj/yLBTZ/mmaBusjL9mMJZBOdhKxlVh70Y4UJLCzKHRI2HdjmNdkO5iDoGc
-	C8zd3EFz88aobm/l/tHpZcgLhvDci9dXsQm6ajEABAiIGmmPIRlKdc1VizVpgmneOgjhJqzZ104
-	DS4iH7OAWhLviVU4l6/KqarHUFMsUqi/duK9AdijSJRg8kq+y9ujTOQIs2yXF++MAqYX7i/aC0u
-	uj5ywztwp4Spf7XronzPga5gOmJ16gYcpxfm2+fjDfv1NORhlGC55ujNMr/jwQRp8SgBOztuE0w
-	jH0tUHcX0DbK7CcTNClaPXTqQNjjrD/9CzTJDaUy05Vy62YCLvcoPOBeigg6b8nyW8EPgE1X4du
-	+iy3Mk5IZGE2FkfZxmSRzqmjc8pMuSwkS6raXFuI7eXGvQcTRE32Xvp3NWor7pv8ffEaKTTiDmu
-	z/zZz6sKj16dnXDmvGVzrg
-X-Received: by 2002:a05:600c:314f:b0:490:a298:3859 with SMTP id 5b1f17b1804b1-492425706b9mr212689045e9.24.1782146908209;
-        Mon, 22 Jun 2026 09:48:28 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a702:d301:fdf9:c68d:5fce:b1ef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466643f56aasm27433872f8f.6.2026.06.22.09.48.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 09:48:27 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v18 4/4] arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
-Date: Mon, 22 Jun 2026 17:48:14 +0100
-Message-ID: <20260622164819.184674-5-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260622164819.184674-1-biju.das.jz@bp.renesas.com>
-References: <20260622164819.184674-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lub6w4me"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF601F000E9;
+	Mon, 22 Jun 2026 16:49:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782146998;
+	bh=4wFkFlh6o8UtfgoYDfjZ3TFyAJB1QqVMPT3MDZ0e1cw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Lub6w4meU4xrbEEmbNwFhUL0t8fJWgzNHBrLU0YaB1iaFEgC7bXUsgjCNgjXs6C8b
+	 t/DS8QvVU6iJJIP6cakYETLY/NZXca3bpu41C+1gKKF/fUUeER3wICN+Uz6KjpaRyt
+	 U5pvI6SoC/qUV4NS/bNgXLUyx8h/gOK5kfshmWg6k+wSRpTFP2Qp2o8RDsbAQP6paM
+	 N64+duq227RsETRNmARaBMTxvbyOoz9hM0J0gjEdFSAmF2Ue43wt8NU7m/GHDvlGtY
+	 bC2JfGjnRkbO3ZBNqaJKDZnLXFvg2r4Q8anGnUz45Rg6p77GGMwIJcxgDQ0tRL8MkU
+	 7ptoFSGsYq3Qg==
+Date: Mon, 22 Jun 2026 17:49:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v5 5/6] iio: osf: add UART transport
+Message-ID: <20260622174948.4b7032ca@jic23-huawei>
+In-Reply-To: <20260616072242.3942-6-kimjinseob88@gmail.com>
+References: <20260616072242.3942-1-kimjinseob88@gmail.com>
+	<20260616072242.3942-6-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Tue, 16 Jun 2026 16:22:41 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-Enable SDHI2 on the RZ/G3L SMARC EVK platform using the internal
-voltage regulator for voltage switching. SDHI2 signals are muxed
-with I2S0; the selection is controlled by the SW_SD2_EN macro in
-the board DTS, which must match the position of switch SYS.4 on
-the SoM. By default, I2S0 is enabled.
+> Add the serdev UART transport and the initial OSF core receive path.
+> 
+> Enable the required vcc regulator with devm_regulator_get_enable()
+> before opening the UART, keeping power handling limited to the simple
+> probe-time requirement for this RFC.
+> 
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+A few things inline.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v17->v18:
- * No change.
-v1->v17:
- * No change.
----
- .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 88 +++++++++++++++++++
- 1 file changed, 88 insertions(+)
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index 446c7780cb30..3d5e6b8489a9 100644
---- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -42,6 +42,7 @@ aliases {
- 		ethernet1 = &eth1;
- 		i2c0 = &i2c0;
- 		mmc0 = &sdhi0;
-+		mmc2 = &sdhi2;
- 	};
- 
- 	memory@48000000 {
-@@ -296,6 +297,74 @@ sd0-data {
- 			power-source = <1800>;
- 		};
- 	};
-+
-+	sdhi2_pins: sd2 {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
-+		};
-+
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <3300>;
-+		};
-+
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
-+			input-enable;
-+			power-source = <3300>;
-+		};
-+
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
-+			input-enable;
-+			power-source = <3300>;
-+		};
-+
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
-+		};
-+
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
-+		};
-+	};
-+
-+	sdhi2_pins_uhs: sd2-uhs {
-+		sd2-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
-+		};
-+
-+		sd2-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
-+			power-source = <1800>;
-+		};
-+
-+		sd2-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd2-data {
-+			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
-+				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
-+				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
-+				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd2-iovs {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
-+		};
-+
-+		sd2-pwen {
-+			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
-+		};
-+	};
- };
- 
- #if (SW_SD0_DEV_SEL)
-@@ -329,6 +398,25 @@ &sdhi0 {
- };
- #endif
- 
-+#if SW_SD2_EN
-+&sdhi2 {
-+	pinctrl-0 = <&sdhi2_pins>;
-+	pinctrl-1 = <&sdhi2_pins_uhs>;
-+	pinctrl-names = "default", "state_uhs";
-+
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&sdhi2_vqmmc>;
-+	bus-width = <4>;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	status = "okay";
-+};
-+
-+&sdhi2_vqmmc {
-+	status = "okay";
-+};
-+#endif
-+
- &wdt0 {
- 	timeout-sec = <60>;
- 	status = "okay";
--- 
-2.43.0
+Jonathan
+
+> diff --git a/drivers/iio/opensensorfusion/Kconfig b/drivers/iio/opensensorfusion/Kconfig
+> new file mode 100644
+> index 000000000..d393eb3aa
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/Kconfig
+> @@ -0,0 +1,15 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config OPEN_SENSOR_FUSION
+> +	tristate "Open Sensor Fusion UART IIO driver"
+> +	depends on IIO
+> +	depends on SERIAL_DEV_BUS
+> +	select CRC32
+> +	help
+> +	  Build the Open Sensor Fusion UART receive path.
+> +
+> +	  The driver receives OSF protocol frames over a serdev UART.
+> +	  Frames are decoded and validated before being passed to the
+> +	  driver core.
+> +	  This patch only adds the transport path.
+> +	  IIO device registration is added separately.
+
+Don't talk about a patch in here.  Talk about what is supported then
+if you really want to add the other bits in later patches.  Mostly
+this help is generic enough we don't need to modify it more than
+once in a series.
+
+> diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opensensorfusion/osf_core.c
+> new file mode 100644
+> index 000000000..137fb7166
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_core.c
+> @@ -0,0 +1,99 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/errno.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +
+> +#include "osf_core.h"
+> +#include "osf_protocol.h"
+> +
+> +#define OSF_RESERVED_MSG_FIRST		0x7f00
+> +#define OSF_RESERVED_MSG_LAST		0x7fff
+> +#define OSF_VENDOR_PRIVATE_FIRST	0x8000
+> +
+> +void osf_core_init(struct osf_device *osf, struct device *dev)
+> +{
+> +	memset(osf, 0, sizeof(*osf));
+	*osf = (struct osf_device){
+		.dev = dev,
+	};
+
+is guaranteed to also clear all other fields (new C spec as
+well as the options the kernel has long been built with)
+so is how I would always do cases of zero then set stuff like
+this.
+
+> +	osf->dev = dev;
+> +}
+
+
+> diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/opensensorfusion/osf_serdev.c
+> new file mode 100644
+> index 000000000..624cb01fe
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_serdev.c
+
+> +
+> +static void osf_serdev_remove(struct serdev_device *serdev)
+> +{
+> +	struct osf_serdev *osf_uart = serdev_device_get_drvdata(serdev);
+> +
+> +	serdev_device_close(serdev);
+> +	osf_stream_reset(&osf_uart->stream);
+> +	osf_core_unregister_iio(&osf_uart->osf);
+
+My gut feeling is this should be first to tear down the device
+interfaces as soon as possible.  They will have been initialized
+after the serdev was opened so should be unregistered before it is closed.
+If there is a reason for this specific order add a comment.
+
+> +}
+
+> +
+> +static struct serdev_device_driver osf_serdev_driver = {
+> +	.probe = osf_serdev_probe,
+> +	.remove = osf_serdev_remove,
+> +	.driver = {
+> +		.name = "open-sensor-fusion-uart",
+> +		.of_match_table = osf_serdev_of_match,
+> +	},
+> +};
+> +
+
+No blank line here as the macro is extremely tightly coupled
+with the structure and it is nice to have the visual cue.
+
+> +module_serdev_device_driver(osf_serdev_driver);
+> +
+> +MODULE_DESCRIPTION("Open Sensor Fusion IIO driver");
+> +MODULE_LICENSE("GPL");
 
