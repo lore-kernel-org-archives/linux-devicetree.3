@@ -1,161 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864553546D7;
-	Mon, 22 Jun 2026 12:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9223ACEF2;
+	Mon, 22 Jun 2026 12:50:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782132649; cv=none; b=lzPCGVXkXgzVlSQ0zeO4m7S5KmIc46PIpo8TuPJvQ0JvLFu5RXeTszdCzdXJ4ItCa0ZyAACcAXaiDjj0j3H5vO8CJUKTgcRbO7SryI7p7V4no9sWIjJj8gW4jy9LpKe6UFhrE177WIQhcVNh0eOBOG9Yn7F0fIQ7Q33qpLTjFtE=
+	t=1782132655; cv=none; b=BAQZ3OzAU1sARzyuBlD/G1+G+1iDf30z3PNSZLrFUC7FO9MAtpUnJBIc6r+fguMBFPmLpOB8IW7h2nNo229VhxoTLmsaJNxQwx8xPwTpQluGRIT8az1fl9VGX2CYGmJmN2ZqsHU5v2P3SNHDrs1B9fgY/QKhxYenBzrnAabZbkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782132649; c=relaxed/simple;
-	bh=fu9bEtkJj9duWj6ks7ux2DCbG6QYjrkTwoW2J9kj36c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ibZLIYjtNKsy7cUqLOXiY4HDLklsIYgyUJJK/Od7Yf8KA99wHyJqtoaWyOCyj48iczGxmmFjbZdZW4ChNtIj55AWU+YQOnY/NiEgBoNRIGcYxji6WDr3kkadEKur06eHtQGOe3Mgrm02wZ/t1+lQLwXl+yDr9itEp2OrwMqVazs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5xm4koM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782132655; c=relaxed/simple;
+	bh=6mVp55jaNHYB6u9dji7txDTXgSi8y+ZJ//lp4OG77cY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MtcDbbjaqcMFqmdmVOnzHJkVFiMWuYIeGnR1FuemSGChtkq1NtqfQvbkixPiWKsMMW1im8uOtk9F8cAcCGEUNDvLLD2fN+a6zps6Ix67izTPvpKVRBr1RCA779ltqsUCZbl506diw8j8ym6urPtY8V8R3cG3IGragS6O7cgQ5Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9G5hKJL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5xm4koM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1CD1F000E9;
-	Mon, 22 Jun 2026 12:50:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9G5hKJL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AAF51F000E9;
+	Mon, 22 Jun 2026 12:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782132648;
-	bh=EpjspqPc8RVanqUWBXpsjH+3t5K2Bpf7z7MqwPHi8OM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l5xm4koM1i9Prv60WRscchHrytUzdKgIXHfC3b5ex2g5VKalmLlqPqBI8vheu5iQE
-	 p6A2NtnGgAHKOGz4+KdSv7dn+HqeLTtqlkj2HfqxMVBQEqnU/+U8/lQme9+wMcdtNj
-	 FcQPysOu4/LmsccZYTX57qRSiig4uIw5Evfc3cgUfebzCN1uG//PhWPcGiRPa9Ypc8
-	 L14ZpLUjPw+yIZFgamD5yAXyRxeHcujZ5IUwK0E20RpVo2Xq+/WDpD7fcTzVF06Wmi
-	 tdBus+ruXWqqNP/UzvGG4aD1QwX1O5qW7AYDvIa1x/50WEC8fPbsrqifyuQ8/9yK7+
-	 QrCRPyrUIbKWw==
-Date: Mon, 22 Jun 2026 13:50:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Janani Sunil <jan.sun97@gmail.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260622-gnat-system-a8902ba75a59@spud>
-References: <20260619-concierge-doozy-9c161533c369@spud>
- <ajVlD-j0nIGrRVow@nsa>
- <20260621153330.79b6600c@jic23-huawei>
- <20260621-nutmeg-coauthor-715189372230@spud>
- <ajj6nEb4tATM3C7b@nsa>
- <20260622102722.5900592f@jic23-huawei>
- <ajkILRPq_g24g4dH@nsa>
- <caa54d52-72db-4c58-ae3f-1d1343bd7845@gmail.com>
- <20260622-overbid-yonder-3fdfee9eda7a@spud>
- <013aba24-c30c-44a8-8511-96278edb3f4a@gmail.com>
+	s=k20260515; t=1782132653;
+	bh=ouMp2yyZxWKwMQKl3ZNhNzaFAfZkyrWvKLzTPUCYZAc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A9G5hKJL2lUGfy+z/rbTm+qLW9omUpA8n1ga9o/uUZFPyRPOfmAjsb1J9g0Dcj5KZ
+	 uy1v/NRI+FzNbuzpR0iUiVbEYcj6wLW0JnhyT9YPbuLtcoHvtmbxyGRCxmzxN0d+ez
+	 SzwVI3iP1ch/OGYmSWcl+XzbLZonr1gOmNpSvwQ+6uBjbBO4h7N+RtN3bUh/LDjTYh
+	 B7SbDjBujcn3QXK0CyqDdxJDi15UgaTxDkZEd6jEMSTthpoAG4PPhy58bpQ59sTkjP
+	 Mxs6gX+WOvFlWJTWwsqJYAdOofJct5bgIqVepPLmexpJbZRh9ZTtXfdPG2KG801j29
+	 UvbwhotCL0Bzw==
+Message-ID: <c4f3875c-4f39-44bf-857f-10c50a2ca6f4@kernel.org>
+Date: Mon, 22 Jun 2026 14:50:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WwNZbhc224ofLOvu"
-Content-Disposition: inline
-In-Reply-To: <013aba24-c30c-44a8-8511-96278edb3f4a@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
+To: Petar Stepanovic <pstepanovic@axiado.com>, Akhila Kavi
+ <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
+ <20260618-axiado-ax3000-pwm-v1-1-c9797a909414@axiado.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260618-axiado-ax3000-pwm-v1-1-c9797a909414@axiado.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 18/06/2026 14:26, Petar Stepanovic wrote:
+> +
+> +description:
+> +  The Axiado PWM controller found on AX3000 and AX3005 SoCs.
+> +
+> +allOf:
+> +  - $ref: pwm.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: axiado,ax3000-pwm
+
+Description mentions AX3005, but there is no ax3005 compatible here.
+This is confusing.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    const: pwm
+
+Drop clock-names, not really useful if it has block's name.
+
+> +
+> +  "#pwm-cells":
+> +    const: 2
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +
+> +additionalProperties: false
+> +
 
 
---WwNZbhc224ofLOvu
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 22, 2026 at 02:39:21PM +0200, Janani Sunil wrote:
->=20
-> On 6/22/26 14:14, Conor Dooley wrote:
-> > On Mon, Jun 22, 2026 at 01:54:25PM +0200, Janani Sunil wrote:
-> > > > > > > Why do you think the microchip devices won't work? Does the s=
-pi core
-> > > > > > > reject multiple devices with the same chip select being regis=
-tered or
-> > > > > > > something like that?
-> > > > > > Not sure how things work atm. But I'm fairly sure it used to be=
- like
-> > > > > > that. SPI would reject devices on the same controller and CS. N=
-ow that
-> > > > > > we support more than one CS per controller, not sure how things=
- work.
-> > > > > We always supported more than one per CS per controller. I guess =
-you mean
-> > > > > per device.
-> > > > Obviously :)
-> > > > > > Janani, maybe you can give it a try?
-> > > > > I think we'd need to get it to work with shared gpio proxy which =
-maybe
-> > > > > will just get set up under the hood.  This used to be opt in, but=
- seems
-> > > > > that changed fairly recently so maybe some of us are working with=
- out
-> > > > > of date knowledge!  I haven't played with it yet, so might not be
-> > > > > that simple.
-> > > > >=20
-> > > > What I meant for Janani was basically testing two devices on the sa=
-me CS
-> > > > as in my pseudo DT. For the GPIO, you mean having a way to select
-> > > > between devices on the same CS?
-> > > >=20
-> > > > For these devices the pin id numbers get's setted up as part of the=
- spi message
-> > > > so my assumption is that all of them will receive the message but o=
-nly one acks it.
-> > > >=20
-> > > > - Nuno S=E1
-> > > Hi Everyone,
-> > >=20
-> > > I tested the case where there are two devices on the same CS. The SPI=
- core does reject it at spi_dev_check_cs():
-> > > https://github.com/torvalds/linux/blob/master/drivers/spi/spi.c#L631
-> >=20
-> > Can you try again, but delete that check and allow the code to continue?
-> > Worth knowing if the problem is policy (which makes sense for 99.99% of
-> > devices that cannot share a chip select) or actually not supported by
-> > the spi core code.
->=20
-> Hi Conor,
->=20
-> The CS conflict check is only a part of the problem. Even after removing =
-it, the second device fails at the sysfs layer.
-> The device naming in spi_dev_set_name() produces spi{bus}.{cs}. Both devi=
-ces register as spi0.0 here, making it a duplicate directory.
-
-That doesn't seem insurmountable, since these devices would really need
-to be registered with a flag that notes sharing the cs is okay to solve
-the problem in spi_dev_check_cs() which could be re-employed in
-spi_dev_set_name() to append something.
-Something could very well be the top bits of the address field used for
-differentiation for spi{bus}.{cs}.{addr7..6}.
-
-Whatever about this being the correct approach for your devices, there's
-existing devices for which this would be needed to fully support, and
-that doesn't seem like all that much work to do, if that's all that
-prevents it.
-
-Cheers,
-Conor.
-
---WwNZbhc224ofLOvu
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajkvogAKCRB4tDGHoIJi
-0hypAP9yug04tHXlo6sfoC/lgZrrM44rbRRqOQ+w25dYPMKE3QD+NGyPNxyRom9v
-jW+/ddS672+HvdUdN2L1T/P4W7nYRwY=
-=kiqN
------END PGP SIGNATURE-----
-
---WwNZbhc224ofLOvu--
+Best regards,
+Krzysztof
