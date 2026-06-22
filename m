@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD45838331F
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:53:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EAB3815D2
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782114837; cv=none; b=ndaJfKjNhQWqck9rKBkYXWXH1e21IoMCM/tkBdfFyUtniLY1J98BM1ddXEM4auWA+J2wNDEjKQyKsoYmn/M8dAqFE6EiwD8bqdBbu66FpYXPYjBzry1E1Js8K0+/BtcxtjYo6ufWbWIEex8giP2ZL2n+xqPjV4IE+d23yW1Ooe8=
+	t=1782114899; cv=none; b=iAiHCrtKjNrfMwCr256WQQGObGrwpHSRBFXKFXbDht0HASsAHthnRfCysDudwCciYgJB76YYN1ossYnK/hsCoN00oJdIaddwAJdNQux/LTGzPlbjS5tDe3bD2Ubdp1mfMMyyrHMQRxmF7deUWtVWDshm63r5qoihw/PvFkd38P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782114837; c=relaxed/simple;
-	bh=t17gu4yMU3FuF4L51YWSp82BGqiZ9I6mOFZjfE5+VR4=;
+	s=arc-20240116; t=1782114899; c=relaxed/simple;
+	bh=fjgCiZHdtnSk1zr89/B4Cl3GHhqiNpUos1fWQvLGm5o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WVXpDGEez2zMQalK6hyMwn1MsB38+S4GILJjkzPMEz4KGJgvjxgKjMssVmPCJuOrR8votvYWH4Tz0Gbr36cGpH7nlw86IX4Qf+yknzlR+akHbFD4THniLbhFk2V4J5FZyxCgIF/MSStx7e4icn3vR7ezJBCv8TPcREoFKWXMoDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4DZkxUU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XURsf+VEomXbRwhU/u2igb3mkRhTtgVTN8a9PnTjNsZTpSidcjUVsZZqgpFsJgWUsPCUWktZ8ntymI9mwm1bTXrz79+D/wPyBTdCDTLNdtjDtHzzXVFgAuyAeR9UG7FKTwF1JvXsMqSEWSIQmLmiHmfzKkq/xKcaL0iPKnP/hRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2WzPta7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4DZkxUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5241F000E9;
-	Mon, 22 Jun 2026 07:53:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2WzPta7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6661F000E9;
+	Mon, 22 Jun 2026 07:54:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782114832;
-	bh=ZEsFU/x3PzzbAkfC5cDRQrkFi2d1a/Tsug4d0KShVBg=;
+	s=k20260515; t=1782114897;
+	bh=mnJCUTmkoIqbzjhjdxTlQXz73gwO5yBgPl2SgDGiaHM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G4DZkxUUCOomfxyYAWxVIfOnVgFTNyZzfC1F1or8IXh0m2b8i6fvWeCSxV+mIdM2/
-	 jrKfDZg1b/jjLIUyC5Dm5shBIWLiUpDPXwPSGSdBuPTpCyJQsnHIRfz6eMBCng3Mv1
-	 JWra6tTMl1frP6AooP9TI1ooqv46ieeY4C3kaoR4OEkB7c6qT1MrSStZr8rmUZE06w
-	 1qTYjk/RkrSnjLxaleHewL6oqBAS7A5z3N7KIo47Z1BMLIgbPv8OcFPAQ1hyc9Kdb7
-	 UJuViGdp+pUd0Wuij8NMpag8uRSbqLTbODUhqTfJ/cXcl0vtRN59taTDS3xU8Xz6Rq
-	 10SNT+KGVwqjw==
+	b=R2WzPta7AFOq6upVLnB7vuA5HM+Fo4U+0uqC7oEFlvFfOjESLVnSL+Rojqk0kBqCB
+	 XinNOzVRc5yFp4PiNl4SUNrcUIeqFCbx1epva9aVbFPPLYRq8Jz+DfumTuRfMSPyCZ
+	 Lzvb044W5kdr55MUSgOvqLSucC4TTviPovk9FMVFA1Z3KA202kTz1MXXOgWb2PkBoK
+	 6eXzTACXDCHJ8SHw917upmg//uT/aDzytpifoThaeZ8OL7VVgqq0dtJI2QKGu3wpaB
+	 mLqnqMOGqwegiWO46pfEQiPNCyCVZv4Q9f1nB6HKlNU7VMnp3wP7uFmojTFooyvsRl
+	 uhRHQXCGOVY/w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: add Axiado AX3000/AX3005
- SARADC
+Subject: Re: [PATCH v3 2/2] iio: adc: add Axiado SARADC driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260622-axiado-ax3000-ax3005-saradc-v3-1-e57c7c7ae675@axiado.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
 References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
- <20260622-axiado-ax3000-ax3005-saradc-v3-1-e57c7c7ae675@axiado.com>
+ <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 07:53:51 +0000
-Message-Id: <20260622075351.CA5241F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 07:54:57 +0000
+Message-Id: <20260622075457.7E6661F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,42 +46,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Missing IIO mailing list in MAINTAINERS entry.
+- [High] Incorrect error code passed to dev_err_probe() causes probe to inc=
+orrectly succeed on regulator failure, leading to a zombie device.
 --
 
-commit 474cfbabb6190ddd4a26c0a176ce44e7335b5716
+commit e9d35c0c4f9ed7b92e86089b5cd8263bb84313d2
 Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-dt-bindings: iio: adc: add Axiado AX3000/AX3005 SARADC
+iio: adc: add Axiado SARADC driver
 
-This commit documents the compatible strings, register regions, clocks, and
-other properties for the 10-bit SAR ADC controller on the Axiado AX3000
-and AX3005 SoCs. It also adds a new entry to the MAINTAINERS file.
+This patch adds support for the SARADC controller found on Axiado AX3000
+and AX3005 SoCs. The driver supports single-shot voltage reads through
+the IIO subsystem, using SoC match data to determine the available input
+channels.
 
+> diff --git a/drivers/iio/adc/axiado_saradc.c b/drivers/iio/adc/axiado_sar=
+adc.c
+> new file mode 100644
+> index 0000000000000..12efe814318c5
+> --- /dev/null
+> +++ b/drivers/iio/adc/axiado_saradc.c
 [ ... ]
+> +static int axiado_saradc_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	info->clk_rate =3D clk_get_rate(info->clk);
+> +	if (!info->clk_rate)
+> +		return dev_err_probe(dev, -EINVAL, "invalid clock rate\n");
+> +
+> +	ret =3D devm_regulator_get_enable_read_voltage(dev, "vref");
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, info->vref_uV,
+> +				     "failed to get vref voltage\n");
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3d6db8cb608f3..963ac23a0a21e 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4336,6 +4336,13 @@ S:	Orphan
->  F:	Documentation/devicetree/bindings/sound/axentia,*
->  F:	sound/soc/atmel/tse850-pcm5142.c
-> =20
-> +AXIADO SARADC DRIVER
-> +M:	Petar Stepanovic <pstepanovic@axiado.com>
-> +M:	Akhila Kavi <akavi@axiado.com>
-> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
+[Severity: High]
+Does this error path incorrectly return 0 on failure?
 
-[Severity: Low]
-Should this entry include the IIO subsystem mailing list?
+Because info was allocated via devm_iio_device_alloc(), info->vref_uV is 0
+before being assigned. Passing info->vref_uV to dev_err_probe() instead of
+ret causes dev_err_probe() to return 0.
 
-Typically, IIO ADC drivers direct patches and discussions to the IIO
-mailing list by including an "L: linux-iio@vger.kernel.org" entry in
-their MAINTAINERS block.
+Will this result in the probe function returning success on regulator
+failure, leaving the driver bound to a non-functional device and
+silently dropping valid probe deferrals?
+
+> +	info->vref_uV =3D ret;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-axiado-ax3=
-000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com?part=3D1
+000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com?part=3D2
