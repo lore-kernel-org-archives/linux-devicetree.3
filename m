@@ -1,61 +1,63 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355243438A8
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 22:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8497D378D8B
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 22:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782166573; cv=none; b=h7ZfxtHv2F3vhPE8kW6tkEv23scU3LdKiJs/NYDFGUe37Gmi3wd5CXs06jp0BrnCbtLXiDK8lRPF0HsFjwpZxhazmxxtaTvXU353akPsttavX8p4g9iAiE6VsqF3CVMzLnUA+MY6etahOTqES5DZ4p3eioxDIOHxZFl3kGeAn8o=
+	t=1782166576; cv=none; b=D0ktNuCJ7HluRPvGLQiebQ0s449Cs5rFLjzpQc1PrXOxYrmJqarRTqvf1Jc1KugV8cflPf2+UPErb7sHfrLpnfRJT7Ab9JMMQSCNGqbQDCF83l2qV4LsEYCSyOcV7tzFEn+TXCMmR69eFtxlvYm3adGcir1TQIgpjv+Ac5j2lVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782166573; c=relaxed/simple;
-	bh=8ofovIchq8LhZfbkDIA+PMJXPYWidRkJzVPPzStsXGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPaYA8HwXUxOtDpu15q0tKS9ScI8iHI6CgROmg+oJJzt3glGgYRu1L/C3mEVpmrZG5wVjbbwiMUoyc6surrEgAzY7kW4IIesY/+dg0YwU0EO9fDERx2jIWZpcLZ/hTXq+HT7SSQSzJBKvZw/JvGWD/iJn0AAy7tX3wlWUXxmPho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=khmJyh8b; arc=none smtp.client-ip=209.85.221.43
+	s=arc-20240116; t=1782166576; c=relaxed/simple;
+	bh=Kn4F5KWEk/qmEp4CXKmcI43JoTG6Txr3sNUChHnbdmE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ThIHuo2Ux243GxgudGJNOUrhaF23TpO6hu8WzcOttmEWLJZ7v4kX0LleaFO7ZcHllIXq/BKDRykT4a9YPNm8Yvo3LRDC58bz0CDcBP6kgMjTC3G1x15X8Q+/0fbsHUZEwB4wXfSDMk425pbKjEODyG7O9mFobM1doiKrIkvKgZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1+oKhRz; arc=none smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="khmJyh8b"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-462342ac290so5415687f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 15:16:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1+oKhRz"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-462ebd5d37dso4761182f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 15:16:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782166570; x=1782771370; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=A/5Vow282wNBoHiNek7VDSfC4rzQpZ0v0yruM2P1GnM=;
-        b=khmJyh8beBVAqNrJU3V0P8fjXcEulkI1kEO+H9X48QF0Fbgq9ClzI9AxxJcPjPcUUq
-         Rvc6OTbuRWDNrL4LTGWFjW3nJhBeilHX7Mx7ur6R/g7/WNZYYO52JjLeS0J/2YWLbTuV
-         0NndpkwfDWa61WPMBos/md1KdBcyu5fhShkMT7wgtCd3HE8ZmxysMnbZzPl9madP+N3H
-         aSGVoVo0QpF6SOVtl4du+BJcqOcLnuFUktWcg4xmL1yO0lsb9WJ/9l2fIku53r3xSIbW
-         whVMG5Zvi+YtJx9vgV1sjZTwMQSPEmxP/A9Q3rk4nSOPHqB4bb1PC9NC1Iw2oWF/iZFP
-         QNPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782166571; x=1782771371;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782166573; x=1782771373; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A/5Vow282wNBoHiNek7VDSfC4rzQpZ0v0yruM2P1GnM=;
-        b=LF4Lr2EsgpPrLeBjwUhPtlkWJ7oS6URCXgS97D4i+o3sZTA5Sm1t+Z53BlHqSnDb+9
-         0UKHHnxaJlqoxHWbYhcD+bX68A+u51ys+O4vkQM2G010IO+/fqrQYzUiG3B6LyS/giNc
-         yA33NdFFdJR9qaaW1gLnp/KtU0K8c7jzO8rLnzWm6efOdKrkb6mH/FX6K4YBxoSAvVvd
-         ACsGFZozXq1j1KMoMsv2DuAjC/bEwXjcNuyHcSraN+VBxTYgY35rjKWr17mdG5xWvDfk
-         v+RKha7PGKpS3tdhWGOJKquVJmsT7sBQFtTCFB7mlOHbpag0VosuxRpeU3Q7HUq0kePp
-         f+bA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3xzhk7mUTJsWvZt7A46+nOX8SY4H+zebniGDzBd4nph1sfXXGFyS1vEZPD3ep7XEVWtc5isA7ki94@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiqVnMRLQ/0D0fH85jLTneag3EyTF6H5AxrJLUZWXhVQWJwHEx
-	S+QTESSSDmLHi3swixornbMeJWPUYrUDnP+4jZc5illkv6UP4PWCvYPI
-X-Gm-Gg: AfdE7clbLZnmvIy2IKPQeu71Qk3uqLeUbah0VRtiGVeW5h5IeRgQ9FKfXPcxS+yKKj8
-	j9pmTypvz6DOheSJAfCHD7PfLFBJtLKf1xmcllg7zZGOWNMBbVZGQhNCevDU4YHzwTH36mLCf9s
-	R9ga85cFTCJ8WK+a2bx1x6gzr68HZfs0NG2hQIkqH0j3hDAbbfDdALWuutMznAFzTyKTZkZBkkZ
-	JuUd4vWCEUb/JKI0dGfi/nNnc+FN/SFqNAeFOO/AA5iU+LFblNgKPXAq+6O3QkGfqEGhfKctEJL
-	Drq9+CSr5wVswsd2Mxh3YO2SyORJGiRMHltAoPXffuqFjG2Cr0ddpbEt2R0ImXaBsK2bImt8KiK
-	fCyLfY/zZ9HJ03JzG1iIQi5ulqBAg13u87Qr1AfDrDVLjifxAfMP8hTAW8TxcTfAvM2YpBEKMq/
-	mM1TtTUwyFjAy8zR6iIkRFPlCMt7hnyhUKBCEZ1K8=
-X-Received: by 2002:a05:6000:2004:b0:45e:dacb:8885 with SMTP id ffacd0b85a97d-46adb0b697emr83476f8f.35.1782166570380;
-        Mon, 22 Jun 2026 15:16:10 -0700 (PDT)
+        bh=fQgx3z51gSeAl7SybMiSanpyxKloY3+DDUxB8bVZDcg=;
+        b=E1+oKhRzLVjB535Za/2rD1L+Y0me9H6KnMiY6CBmrVuVLGAJl6FTQDFnBCS04MHJV9
+         3ixzA8LomwwQ4JCaOHlLPFRJlprvFR/TOPzgOQo0c+6JAuOgiq04WgzRAjbdyz8+Fxvd
+         Le7Ob3pkq83nOsqiRKogbALsIgVfsy6KUV/IjvnVxizvsqUSV8YjbCC7us3fWTxgAhXa
+         41V0ewJUgGWkv6ySELX5RihL4Us13+VrPXtM0p8kcFKoJnwuuIKTQ33tb09DG5+4BlWY
+         RkRf5MGlu6b/kdeqRklowBHcMciL0b0qIx9NFdOSBXtKEh8udANJJpwa4l0ieU2n8RNo
+         G8Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782166573; x=1782771373;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fQgx3z51gSeAl7SybMiSanpyxKloY3+DDUxB8bVZDcg=;
+        b=D/ddshtO97bprCQQa6xdTnQy0tCiSq6utmuav7DWJkqvAkTrHv61xisoE0EktSxibD
+         vAQJ3joLaI93cvlFGCSqZa8c35CsKbWXdoNl4VPcbpi58rC8klMb4hUuq2t/TmTlwYHv
+         XiZGVXSHRxscZZsLlTpt9Ausb1ouB0O87kmXMhTAvPBH20sddlOvP7/kezsLMCNYBMJ8
+         WwWeRoRBjaFBRsMvk8cn/Qb626fipzP0bTUsVb+utfc7Ng+PoK42jfS+wqj0XUpUuSgx
+         0yyP0nTOFPhfSBp80e3jfIDY5rmHiCHAIiV/ZEAjApC6rQF9RYLEE7ZZqAXrPJyiV98/
+         sjaw==
+X-Forwarded-Encrypted: i=1; AHgh+RomA64SemkhZ8kafzYlSUHmRc3vUAL28drKuYaXvL68TUqa1UO8eUVGLyJZkqKJHu7TFjHcl5JRzzHq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPjBDE3yAnZeHgHV1aMe1aUt4BsS0elDWsGqgnq6mlM+TJUif9
+	PMyKY4UWiDWFc4o+Zx6W4Xx6lFEuNAXCv711UzdeFzKMjonfzODxFpme19YXnb5x
+X-Gm-Gg: AfdE7cmkey5cIGGjxSorrKwt2G312ZLFJ7l0HdQZL+hAZZ6zgXCW2nNNV4RcZ2yIze2
+	T2i5z//2cKeIkGQ4C9Aw09mdXsmVY0iBvZqPMnkKUmvqyZQiJOfz5NZcxcDA3UgTMKWWkhhAgx+
+	fjL3xTNlTKPYiBgUlFM/Qf12qpf4+EQxC6ydJEbZR2wyo9XRZQrMVmU4UM/87BoSzM2dsTs0OmD
+	H18LV913wty4HPNX1gWpbRPQbKDXsRuXMY+zmBTOTg5kGdeZmSIH7OwGV7+V/+Gumuc24cfZc1m
+	eJyBeiwxrLuXfEgWTdyDuZEJzS6dCBKS+ld31WgJmFa8yBpf1/GfldcC5uaSt6XbASi9E8CUz4r
+	HdV89DzjXXp6y3h4lVtAPwX+KqETswwrrqEWtfXH3DAqHjAPhIz5MTvn5DGpkdRrVg3Rt+rPgPR
+	IgfJ+m7iwS5r0ols603mRrxRUaH18Q
+X-Received: by 2002:a05:6000:184c:b0:461:e27d:5690 with SMTP id ffacd0b85a97d-46adcda85e1mr43430f8f.26.1782166572948;
+        Mon, 22 Jun 2026 15:16:12 -0700 (PDT)
 Received: from Nitro5-JS.kielce.vectranet.pl ([2a02:2a40:27ec:2900::3ab6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c53fdsm31319845f8f.10.2026.06.22.15.16.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466648c53fdsm31319845f8f.10.2026.06.22.15.16.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 15:16:09 -0700 (PDT)
+        Mon, 22 Jun 2026 15:16:12 -0700 (PDT)
 From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: andy@kernel.org,
@@ -79,10 +81,12 @@ Cc: andy@kernel.org,
 	robh@kernel.org,
 	sakari.ailus@linux.intel.com,
 	wens@kernel.org
-Subject: [PATCH v4 0/3] iio: adc: Add support for TI ADS1110 to  ti-ads1100 driver
-Date: Tue, 23 Jun 2026 00:15:47 +0200
-Message-ID: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
+Subject: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate changed in single mode
+Date: Tue, 23 Jun 2026 00:15:48 +0200
+Message-ID: <20260622221550.374235-2-jakubszczudlo40@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
+References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,44 +95,143 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the TI ADS1110 to the existing ADS1100 ADC IIO driver.
-The ADS1110 is pin-to-pin compatible with the ADS1100 while providing
-higher resolution and an internal voltage reference. This patch series
-extends driver support for ADS1110, updates device tree bindings and
-Kconfig text, and improves the overall hardware description for the
-TI ADS1100 family.
+When device is suspended and it is in single mode then changing
+datarate doesn't make it actual wait for new measurement, so to
+be sure that read after change is correct functions that changes
+datarate and gain will wait for new data.
 
-Tested on: Raspberry pi 3b+ with 7.0 stable kernel
-
+Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
 Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-
 ---
-V3 -> V4:
-- make fixes patch the first change in the series
-- correct error handling when short read
-- use ACQUIRE macros from pm_runtime.h in new functions
-- Link to v3: https://lore.kernel.org/linux-iio/20260613190957.654798-1-jakubszczudlo40@gmail.com/
+ drivers/iio/adc/ti-ads1100.c | 74 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 70 insertions(+), 4 deletions(-)
 
-V2 -> V3:
-- clean patch from unreleated changes
-- divide adding support for ads1110 into separate patch
-- add missing changelog
-- Link to v2: https://lore.kernel.org/linux-iio/20260607183542.368184-1-jakubszczudlo40@gmail.com/
-
-V1 -> V2:
-- go from creating new driver to extending ADS1100 driver to support ADS1110
-- Link to v1: https://lore.kernel.org/linux-iio/20260527164312.355729-1-jakubszczudlo40@gmail.com/
-
-Jakub Szczudlo (3):
-  iio: adc: Fix incorrect reading when datarate changed in single mode
-  dt-bindings: iio: adc: ti,ads1100: add support for ADS1110
-  iio: adc: Add ti-ads1110 support to ti-ads1100 driver
-
- .../bindings/iio/adc/ti,ads1100.yaml          |  10 +-
- drivers/iio/adc/Kconfig                       |   6 +-
- drivers/iio/adc/ti-ads1100.c                  | 153 +++++++++++++++---
- 3 files changed, 140 insertions(+), 29 deletions(-)
-
+diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+index 9fe8d54cce83..e3c801381434 100644
+--- a/drivers/iio/adc/ti-ads1100.c
++++ b/drivers/iio/adc/ti-ads1100.c
+@@ -15,6 +15,7 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
++#include <linux/iopoll.h>
+ #include <linux/mutex.h>
+ #include <linux/property.h>
+ #include <linux/pm_runtime.h>
+@@ -43,6 +44,9 @@
+ static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+ static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+ 
++/* Timeout based on the minimum sample rate of 8 SPS (7.5s) */
++#define ADS1100_MAX_DRDY_TIMEOUT_US	7500000
++
+ struct ads1100_data {
+ 	struct i2c_client *client;
+ 	struct regulator *reg_vdd;
+@@ -123,10 +127,49 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+ 	return 0;
+ }
+ 
++static bool ads1100_new_data_not_ready(struct ads1100_data *data)
++{
++	int ret;
++	u8 buffer[3];
++
++	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
++		return true;
++	} else if (ret < 3) {
++		dev_err(&data->client->dev, "Short I2C read\n");
++		return true;
++	}
++
++	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
++}
++
++static int ads1100_poll_data_ready(struct ads1100_data *data)
++{
++	int ret;
++	u8 buffer[3];
++	bool data_ready;
++	int datarate = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->config)];
++	/* To be sure we wait 5 times more than datarate */
++	unsigned long wait_time = DIV_ROUND_CLOSEST(MICRO, 5 * datarate);
++
++	/* To be sure that polled value will have value after config change */
++	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
++		return ret;
++	}
++
++	return read_poll_timeout(ads1100_new_data_not_ready, data_ready,
++				 !data_ready, wait_time,
++				 ADS1100_MAX_DRDY_TIMEOUT_US, false, data);
++}
++
+ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ {
+ 	int microvolts;
+ 	int gain;
++	int ret;
+ 
+ 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
+ 	if (val)
+@@ -135,6 +178,12 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	if (!val2)
+ 		return -EINVAL;
+ 
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(&data->client->dev, pm);
++
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
+ 	microvolts = regulator_get_voltage(data->reg_vdd);
+ 	/*
+ 	 * val2 is in 'micro' units, n = val2 / 1000000
+@@ -149,19 +198,36 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 
+ 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+ 
+-	return 0;
++	ret = ads1100_poll_data_ready(data);
++
++	return ret;
+ }
+ 
+ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ {
+ 	unsigned int i;
+ 	unsigned int size;
++	int ret;
+ 
+ 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+ 	for (i = 0; i < size; i++) {
+-		if (ads1100_data_rate[i] == rate)
+-			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
+-						       FIELD_PREP(ADS1100_DR_MASK, i));
++		if (ads1100_data_rate[i] != rate)
++			continue;
++
++		PM_RUNTIME_ACQUIRE_AUTOSUSPEND(&data->client->dev, pm);
++
++		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++		if (ret)
++			return ret;
++
++		ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
++					      FIELD_PREP(ADS1100_DR_MASK, i));
++		if (ret)
++			return ret;
++
++		ret = ads1100_poll_data_ready(data);
++
++		return ret;
+ 	}
+ 
+ 	return -EINVAL;
 -- 
 2.47.3
 
