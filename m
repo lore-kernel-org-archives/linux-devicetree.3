@@ -1,184 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021117.outbound.protection.outlook.com [52.101.62.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EFC36D9EB
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782113896; cv=none; b=TZORtUjdmTcIKOmTkhNa2dimevOUmwxBPEPSOuDkOnheH39HM+QGeHJ+JFNO8ok/ExyhxU4Hiq/Y8XRLprsL7ysaj3ErtNnsSA3VbMoamQ221OfnT2kvuZ1r4/SPBiwDRY77bQ/UTIdwNa8UJOcSxTpxgvn2kVklf2PLhSlz+EU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782113896; c=relaxed/simple;
-	bh=BS9AQVWy8TOmpnea/+4LmE8sR3+CCphPYN6ZLhsapag=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fVJm/llnTDjHkbUp87UPq+hTi0Tl2KNmaj0jDG6zFQL6Z8GUTxy45TC3ic8+Plithr2wvGNb4kpeFRimSCShG/+8r9EAgZ/5ky+v/fFzbwCbTX5RH++2Zip7kfWSMjlReRqvz1GihAIjw23HLa9H8eELiUsXqnnKYe1zgT+IfgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kVCoqM4i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PDOr2BaW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED730371860;
+	Mon, 22 Jun 2026 07:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.117
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782114462; cv=fail; b=tp2KRAX/r/3e9MXwX1nwwgxIx6LBDKbj71NMZsezJVMJ4wQVnWPbMoxoPf18iFDp06oPp4EwXxNlkooi3eLPvNCTxgnCvkx3WpBTZl9GM2gMVO06F7XOVtZtAXXa+fC4766OGHt2H2BALp7XCCzj4Ims+ztkctS9OiXJfjM9DsE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782114462; c=relaxed/simple;
+	bh=zgwg2AJEkWQtTpM9pezBIhlY6adMOZTm53TsH8TfmAg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U5uepKhUT2dAicY7p5FDWJzQbSzCJ+f5xZOHQaIGfZ2kbTr0DOFUpx0b+PyRTPEQ/n79Op/zjDJxZIwpiDboSQZNQ5MkffIty7sdxUoiSDL6KNeH0w/JwJpq/NRkhXDx+3oIOyD1s2vxdfbwFjPaHZQgpb/EkxSNRaVq6fODof4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=VBTBx7Wh; arc=fail smtp.client-ip=52.101.62.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kVCoqM4i";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PDOr2BaW"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M5BZc64183506
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=M4jwyS0eGc3NAZijuRwJeMg7
-	4OO8FYkEkOVQqhLxmf0=; b=kVCoqM4iNHQz3go2qKGZLbB3EcI7Xyc/5KnZTPHv
-	8gpyeqFc7pXuVPF1Z04D9VJ2ZvY2vPam4tmE9nt5x+YBVfgeT2y8ywRoKiT0pPiP
-	8Q75dFj6vupc9aBAFh/JORxAH9QHTCJGxLxLxT3wYja39Lmsohpwyx2F7cku2MgD
-	zpZOzv5FA5P881fLpZAlEpjaep6RYKsw3WkqCktmdEUnRTzzA3J++VwUonvY72yF
-	3o53NvLie+Jl7FYbHm/ejC+SGS2q/MerWV66paukdJjyueNkAP9M3x1T9fKxvWGQ
-	rPldabPpEU8R63orQ5T2I3/j4il3KaRxDRzcXxIB3RD6LA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewj6h5cny-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:13 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84256bee9a9so2924180b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 00:38:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782113893; x=1782718693; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=M4jwyS0eGc3NAZijuRwJeMg74OO8FYkEkOVQqhLxmf0=;
-        b=PDOr2BaW8eWC4jVyGukIUWNn4iIwJla7QfIhDg9PSEECZkYDkSfLDRlO3bOAHWGyG8
-         8b6Zr8hYpaDAC4k5zw8yNw1Wkaw0mlROcBFgOilv1TLVEMuq+MxBf//dAX0fG8XoPyu7
-         rhmda0XDYvowEnmTeQc5XGynQMBevoWNsVefsPwSG+0WiUTSusZcDjGP+5wHC+UndTUi
-         MnNwoTL/Ty9tlrjlhK8iv3x/ghc2ysfIeokgIhbPanyt6i05U+KYiiB/f+c0ZK1SBD3f
-         jpvSaj9CSyA5j/JitK47y8Thp0V83MtUC1rUC2Bb4lqWeyAiZ6nHfSwrTqfwxBvIq+5p
-         AkTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782113893; x=1782718693;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=M4jwyS0eGc3NAZijuRwJeMg74OO8FYkEkOVQqhLxmf0=;
-        b=dmgEk3ymggfxUs99swE/b9qKPAzrkpfifh5epiDF1akEbvJwmIYaMAqQwoixgPv0LC
-         b5r7yDo32RrRd54QV+omTqmEVJ+oOAg0C20F2wM4KzkMfnjCq8G8KeW0wA5wkYli/vDE
-         DYpdcOS9MTob9F8lmfy7PYVMoxxBMUrdIvzdgzrKLZwKrlmOXHEOmy6lDsSjs3DW4N14
-         qld8GOicU+BDdY4jr7gP3acmDyTpcxLk2AMglTTfHZN18iQ0NiFYQd4qnMKmeAPEU/tR
-         yYHL0tGorfUH3D6cHFGuM1i5BappQENRFP5DgkTJ5JRAtBK5yc7yvh6RumT0bNinLM8u
-         Geww==
-X-Forwarded-Encrypted: i=1; AFNElJ8BiY+38DzJKUkD9G779zU8OTp23AwFNeXlpaOxXOcfFdFe3UGwZBG7+S1uP5QI7pIrh4usVkjJnOHL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxuqNjvMDz7LN2IsRZfDVpxVXA8v1HEP3MoTgURBhsHQW++LYHF
-	Q8bpnCkgmsvmlNiLA/MGIE90J6UnVlRsXjb1LqjU4esOlgnxJcxcsUgahICOUp3Ou9BwVVLG5w6
-	WaRey3MjQIGOXqaeSBQQftIiOjkdXWvk7SjQm5WM8lRsUqZlp8n67meM7GmNiRjKo
-X-Gm-Gg: AfdE7cm0CWRjTkwxMVjkjTeTZlKfEtl/RICGD7YiDl04csum+WypkSbXnCQ8Z1vhYlV
-	5uR9GftolLMD61pPnBVE+fd3yIMHaI8GnOufHESrJSPl1gYOzeiUwkdW7+Qfff1rTHtQWkdyfcQ
-	01j7fCNq+FB5Agogff+Otz4sN7JFKRtl0+WNNi3NQ52ISS+Cd0JQJcwsHhIIZplT2g3Ma11Xp/G
-	lHxSDXgw6yFD6LIIpYD5pUrQI+m4EXioOOheZTa1Z94JhOBjkmVgiE1i2f7Bl21KAz5SqSReGpv
-	m8Jhq44rRhx6AYqN5djKOu57DfeeqzQ6TdyTgdJwPfONgqeEdCgBAyRREx7nLBFTAqVYzviQoaA
-	30hGUVNaQVpi2y9xb/UcEGrLm1OFMF60lj8q9LeMsgKFOJB0D
-X-Received: by 2002:a05:6a00:1ad2:b0:838:a46:ce96 with SMTP id d2e1a72fcca58-8455087235amr14531867b3a.27.1782113892889;
-        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1ad2:b0:838:a46:ce96 with SMTP id d2e1a72fcca58-8455087235amr14531837b3a.27.1782113892422;
-        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
-Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564e745besm6303006b3a.28.2026.06.22.00.38.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
-Date: Mon, 22 Jun 2026 13:08:04 +0530
-From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v11 5/6] arm64: dts: qcom: monaco: Add OPP-table for ICE
- UFS and ICE eMMC nodes
-Message-ID: <ajjmXMKdWzae5qqk@hu-arakshit-hyd.qualcomm.com>
-References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
- <20260609-enable-ice-clock-scaling-v11-5-1cebc8b3275b@oss.qualcomm.com>
- <d8fd7888-cf7d-47e2-8e77-3ba705c88502@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="VBTBx7Wh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l1ejsfiVco78ORsQ/xur9CD66JRGbMc0svz1ZpfglIlF41nSLkNS1JcJszzAvqh682xMCGJvO5GI9jozK+f3lNMtKqqM1VM9gDy0AUM+uG9L8JFdqXYB7PbidVPkWKf+EPrij7OlaBR1UsFX/wGAmtEZYwyaiK0e/A1bcpG9VLNwC3fR17fZ1bnpw/U/doAGke5Rz9cavs8cPQCF6igEOky6uMI6O0wvlQrknns4Pv/pNVECASCYFEVoLm9v2eUUFaZ2wBXHV2Ly3JUBGkKnojzKz1UFiR0POYIigoMej8e7nRGNumFOrz1VkkQp3Q/YgpphP+i9SsFCoB2caF/zog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N702aeBwDDytF1ECUGHxXJi3iz1NV7sVXVCPjS1b6Rs=;
+ b=UV02GObU7fTnK9UKBTU1DsErOq5fMVC8nVHTJnir6kiKkyTKgF940YBbPHgBcg5NRYE5F8u3YjLiUFcWEsorcIw76tj/XmPBHhxm4wFU0d0/FSWmNomKXXzRrBJYv6gco/nSViY0o76tQzPCVt4AKAFOUaIXO2nKv7N4bEUgKzJR3TTG1Tf1U3m/N9xuUxWqykJLZ7V9hZYnicKP8IK7uHpV32UzVi6l0H08yCGeh4dYNrWJhXFp+g/NAvvz0u9hAR8aMXlQnTCDnaWIcJp8r3x9ykybaw6ZG7ADct7LRAwC871PYuIg0+T/PoxLHUhbCTAUor605zbqkhqLiJS5kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=analog.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N702aeBwDDytF1ECUGHxXJi3iz1NV7sVXVCPjS1b6Rs=;
+ b=VBTBx7WhEc11Uog1XfRrVz5BVbJbqTRCMKBZHAq4ufKks9QUaS63Jz0aRqsAHR/N/e7tkFJLQB4wF7WzoBrT+V3VG6P3lNc0aaS6dZCLj0hBpJPeJ5zdB1o2G+TG1pcHEFdyFmHaheKARWwV/yuZF9oW+cDmQi3c7ggiQPxt0MwtMZG0B6TW2nbPun6HWbnNuxjfY2qMVbsh8fPOOZ5KB7BcOpqUFTfcL4pSmuaKSd/6bJmDTuqwwM+cs/zJtl1WOEarmvO2BwMSlMsd7wSfZj/gfZX3ERjH36JckwrLPLxvqK4tdLo/8lmW5+cuvNnAVTQvEb8IwVT0dfiDt1oXtw==
+Received: from CH5P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::16)
+ by CO1PR18MB4697.namprd18.prod.outlook.com (2603:10b6:303:e4::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 22 Jun
+ 2026 07:47:33 +0000
+Received: from CH2PEPF00000099.namprd02.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::77) by CH5P220CA0004.outlook.office365.com
+ (2603:10b6:610:1ef::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.20 via Frontend Transport; Mon,
+ 22 Jun 2026 07:47:33 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ CH2PEPF00000099.mail.protection.outlook.com (10.167.244.20) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.10
+ via Frontend Transport; Mon, 22 Jun 2026 07:47:33 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 6C7A04186B58;
+	Mon, 22 Jun 2026 00:44:48 -0700 (PDT)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Subject: [PATCH v3 0/2] iio: adc: Add Axiado SARADC driver
+Date: Mon, 22 Jun 2026 00:47:26 -0700
+Message-Id: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d8fd7888-cf7d-47e2-8e77-3ba705c88502@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA3NCBTYWx0ZWRfX3FZazXw2S0BK
- cOKa7VbbSzmFer0KeRWjKA/MoSQfo1v8zR+RN4GQmG4pJ18CpQm8QS5gswpydPKU1cabLqRQvE1
- QMJYK2UDOr8eob0CpyEvLoQbvBujkTGDGagk/tH/t+eWnPxdKNMX8GiTNOIDvQxhqRQeR6aEtzD
- dueuCGL6NxbfyiLmi71JqlpyYBcxwGPn6Qr8lqxq1RIUxt75WwsE9RfD7j8giAG2XzO2ggFj5PX
- MGNmwDQQDq00NVHFY4RCPm2HpQsE0wTs3WMRuXm+4bUCDmbQrt5Vezq2WnVgc8b2F8oTgaGQkod
- UHDbOJZsjY1VAseX36CnZ5o+0/wFFWJC7GjvD9cmKGk2ZS7jf3qEh0qWn52ehuFVHZzXY2i4iAS
- 8nhkwkjuezc+HQeETULO1TCATDhiOEwGZknriqC76mpD0jg6LtOrorvHcvCnQJy7UJmuW7viVWY
- KxVhYfrLVoVrWOIOVJw==
-X-Proofpoint-ORIG-GUID: -YiR4F03vx9XIlDsgK1MwM2sLzxpGQb2
-X-Authority-Analysis: v=2.4 cv=E7P9Y6dl c=1 sm=1 tr=0 ts=6a38e665 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=FjpnKfaMezcxXxbuv6AA:9 a=CjuIK1q_8ugA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA3NCBTYWx0ZWRfXyN0YXu+AL0rW
- Ym6mNFHihj6S5pY++pfH6lp1OzI2aQ/jf+XpMOYzVQTGesluNrqlzizKyZMiycJCVYUa9jneB3J
- SJdZFkcmZkqmLcvgoKexOe1pMWlhRUI=
-X-Proofpoint-GUID: -YiR4F03vx9XIlDsgK1MwM2sLzxpGQb2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 suspectscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606220074
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI/oOGoC/33NQQrCMBAF0KuUrI1Mkia2rryHuBgyqc3CRhIJl
+ dK7m7aCuOnq84fPm4klF71L7FxNLLrskw9DKepQMdvjcHfcU+lMgjSgoeE4eqRQQgHAFponjEi
+ WCy3QkSapCVkRntF1flz166303qdXiO/1WRbL9evKfTcLDlzVmkh3xkCDl219tOHBFjjLH2aE2
+ MdkwVqhbEvuZE1t/7B5nj8Vzju/FAEAAA==
+X-Change-ID: 20260508-axiado-ax3000-ax3005-saradc-151aed5d25da
+To: Akhila Kavi <akavi@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Petar Stepanovic <pstepanovic@axiado.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782114452; l=3721;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=zgwg2AJEkWQtTpM9pezBIhlY6adMOZTm53TsH8TfmAg=;
+ b=CoansZqYHwWkKgrlwW4eadMfDJ11y5V/XXI8Hg56h6jdcVf3Ew2mbu7SvydXF5bjRB2rhpynQ
+ TcQbuiF7j/jAwwA+CT4ue4vUzHvxMIqJUFpu0Uf2aWSj2/4br1mkrZP
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000099:EE_|CO1PR18MB4697:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e553c1d-bd2d-4bc6-38ed-08ded0328527
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|7416014|13003099007|18002099003|921020|6133799003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	eovUFtDETRzRMWjJbZrERqfixSuQkIGhnb9vBIeO6CWhhpcXmNMijIgmLEWo1efY/ovHv0SQEZQIHJzZCcQs7rCWrKmYTLMmnSUUBi3HH2Cgy60A3Ge/jqNHYFENakRNlCVtvmGPtaGEG5w+W1Yr1ds2iGoGd7fAAsSJ4kFD6VDnU0XkF+FrwFuP2eM2v1cFPStVvZiyJuK0C80/qHl3UlnmzN3k2h9ehb/8UDL+bfSuVduhbrw7IzQDyq54ioq0wRSs/7dwu/9DNVgWuEKVF89jriDbZ1bYWL/bzExntevHV6p0GPSIdcTQCICJK2IiV65wiIu7Pvcb1UYPmxllOISBMNFCNKUH1O0dgTK7d1LTH0xtUrsFqFp00GkFp2diMXKez6DxVDf+ksoNgibdaLpZwEv251bCK/18iycCLyuB9pNSaTTfWfXejHhK9bPOZAPvFukj1PA1ck3EX7j8AwEMndRew385AcuXyzy88dZ68uxUMFar5RJc5oZgKi+5ZzERQkCBUS6ArrIfARUmzxKe7TAivW3PUld2mW2WRg9pwqOvhI9tdnBh2GjCYQ1CAJN7wSu31SXIMVdGwRL84G+G3M8MehZ8CHTlwz+mh4G3+cLzo/v/0a2CFn4GwGxnIe6VIgGPiHJcPqLv4pPFlFibZ6psBK1ToOZnk+XLvem54oPuu63cCNGaSbKJJyx1vOjRn9hvHAu53rS1EOuzvA==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(7416014)(13003099007)(18002099003)(921020)(6133799003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hna5o8/YzbEY+mWzY/AmAFTFVflf9CguKHCIanor93piZXtwGz38/FAK2UMmD+5XLaKcpY3PnjeUtql8tC9/QPcidFTeOxedq2Qt68pWc4YjKKUlHTxnB2K+vSyIPIjVdRQWpy7S/4UunzFkSV6RRizGAcRDALpZyvW7s/+4fYp2jvOFxNleGsXC+BNkBaHT+a4j08geKU9BaX/UOgTVXABwocqnJCkYY6Y44YabJPzTTKFbane07DkAGFdmUdjFmL7kXvSK4DWJKBJWzur7XDA10hNYdkp+QL6/tJXfCHIDacz6WXE0dHkw6Fjpws7UAvWBEqx4SLsOnR0lk9IStIcH5hnf0QJ8RIhCoWlmBGha9ledeLP5PWU1sW9XPZzeWt1Ew//61PzeGjUB7nTQazkn5ZHMKY2Fl+zAmfKywn3av+uweDELgaOUhvt3xBAh
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 07:47:33.1244
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e553c1d-bd2d-4bc6-38ed-08ded0328527
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000099.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR18MB4697
 
-On Thu, Jun 18, 2026 at 03:04:57PM +0200, Konrad Dybcio wrote:
-> On 6/8/26 11:47 PM, Abhinaba Rakshit wrote:
-> > Qualcomm Inline Crypto Engine (ICE) platform driver now, supports
-> > an optional OPP-table.
-> > 
-> > Add OPP-table for ICE UFS and ICE eMMC device nodes for Monaco
-> > platform.
-> > 
-> > Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
-> > ---
-> >  arch/arm64/boot/dts/qcom/monaco.dtsi | 37 ++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 37 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> > index a1b6e6211b84d0d5008231c55613a0ccd61b9450..d9298d8b7874b8669b2cded2a28a99dce6eadbda 100644
-> > --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> > @@ -2742,6 +2742,27 @@ ice: crypto@1d88000 {
-> >  			clock-names = "core",
-> >  				      "iface";
-> >  			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
-> > +
-> > +			operating-points-v2 = <&ice_opp_table>;
-> > +
-> > +			ice_opp_table: opp-table {
-> > +				compatible = "operating-points-v2";
-> > +
-> > +				opp-75000000 {
-> > +					opp-hz = /bits/ 64 <75000000>;
-> > +					required-opps = <&rpmhpd_opp_svs_l1>;
-> > +				};
-> > +
-> > +				opp-201600000 {
-> > +					opp-hz = /bits/ 64 <201600000>;
-> > +					required-opps = <&rpmhpd_opp_svs_l1>;
-> > +				};
-> 
-> Since 75 MHz and 201.6 Mhz require the same power level, is the former
-> OPP any useful?
+This series adds support for the SAR ADC controller found on Axiado
+AX3000 and AX3005 SoCs.
 
-Yes, both use the same power requirements. However recommended by the ICE team,
-the DT should include all opp/freq supported by the hardware.
+A new driver is needed because this SAR ADC controller is a SoC-specific
+hardware block used on Axiado SoCs. It has its own register layout,
+channel enable handling, conversion control, and data readout sequence,
+and it does not match any existing upstream IIO ADC driver.
 
-Abhinaba Rakshit
+AX3000 provides sixteen input channels, while AX3005 provides eight
+input channels. The driver uses SoC match data to select the number of
+available channels for each compatible.
+
+The driver supports single-shot voltage reads through the IIO subsystem
+and uses the reference voltage regulator for scale calculation.
+
+The datasheet is not publicly available. Public high-level product
+information is available at:
+
+  https://axiado.com/products/#AX3080
+
+The register definitions and programming sequence used by this driver
+are based on Axiado internal SoC documentation.
+
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+---
+Changes in v3:
+- Fixed vref regulator error handling.
+- Added linux/units.h and used MICRO / MILLI in scale calculation.
+- Reordered struct axiado_saradc members to improve the structure
+  layout.
+- Fixed indentation/alignment of multi-line FIELD_PREP(), GENMASK(), and
+  writel() expressions.
+- Removed the blank line before module_platform_driver().
+- Link to v2: https://lore.kernel.org/r/20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com
+
+Changes in v2:
+- Fixed the devicetree example node name to use the generic ADC node name.
+- Removed the explicit `depends on OF` from Kconfig.
+- Cleaned up and reordered header includes.
+- Added missing includes for `bits.h`, `clk.h`, `cleanup.h`, and `err.h`.
+- Removed unused `linux/kernel.h` include.
+- Renamed register offset macros to use the `_REG` suffix.
+- Renamed register bitfield macros to include the register name prefix.
+- Added separate macros for `GLOBAL_CTRL` and `MANUAL_CTRL` register
+  fields and values.
+- Replaced `iowrite32()` / `ioread32()` with `writel()` / `readl()`.
+- Moved ADC conversion locking into `axiado_saradc_conversion()` using
+  `guard(mutex)`.
+- Replaced `usleep_range()` with `fsleep()`.
+- Renamed `vref_uv` to `vref_uV`.
+- Added SoC-specific device names in `axiado_saradc_soc_data`.
+- Used the fixed SoC-specific name for `indio_dev->name`.
+- Removed unused buffered scan configuration from IIO channels.
+- Added a managed cleanup action to disable the SARADC hardware on driver
+  unbind or probe failure.
+- Switched to a local `struct device *dev` helper in probe.
+- Used `devm_mutex_init()` for mutex initialization.
+- Simplified error handling by using `dev_err_probe()`.
+- Updated probe variable declarations to follow reverse Christmas tree
+  order.
+- Fixed the `of_device_id` terminator style.
+- Replaced `KBUILD_MODNAME` with a fixed driver name string.
+- Link to v1: https://lore.kernel.org/r/20260528-axiado-ax3000-ax3005-saradc-v1-0-345dd5f6608a@axiado.com
+
+---
+Petar Stepanovic (2):
+      dt-bindings: iio: adc: add Axiado AX3000/AX3005 SARADC
+      iio: adc: add Axiado SARADC driver
+
+ .../bindings/iio/adc/axiado,ax3000-saradc.yaml     |  63 ++++++
+ MAINTAINERS                                        |   8 +
+ drivers/iio/adc/Kconfig                            |  10 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/axiado_saradc.c                    | 245 +++++++++++++++++++++
+ 5 files changed, 327 insertions(+)
+---
+base-commit: 51f0c0b8545b23963afd5d43a8f56ee05bfa54da
+change-id: 20260508-axiado-ax3000-ax3005-saradc-151aed5d25da
+
+Best regards,
+-- 
+Petar Stepanovic <pstepanovic@axiado.com>
+
