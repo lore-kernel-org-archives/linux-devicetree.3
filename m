@@ -1,121 +1,114 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8933A48CA
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08C721ABC9;
+	Mon, 22 Jun 2026 10:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782122161; cv=none; b=bqh/VwgDn1AYCpv/2bh/fJ6hs6tUWHEGCGfSeYisTq0TlSbNvDbc51WtUGAApYjLMiBV4onxXLOIiW46pfT3LbfspPzoxLf/iJzQ45TUG9zi7vgBNHRfOTeJYYOvP6LVDsh19p5f+NCypRG0LRo6hbWMyRDIcqsaRXk2I7n64ZE=
+	t=1782122548; cv=none; b=lVECKg+grQtFTC6oORTDFMR7t8E3y+uD1U2pinpC63jzzAO4Zg9SIjYhIXTAzg5s10N35+I7FP3FHoYFimeBCKCjRoxZj62Cm9iC7L98s9jKX/fDh95b+e59UqdBc0QVA94W3R8dczQLe2fltkK71SxobnAy9nj7EC86yT9hndk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782122161; c=relaxed/simple;
-	bh=8BETki/jQ5baBxbQcFwkgeSsOIXzQof1N3Fqfu96PVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fTLFiNZAqeOjXCZ08O3Wjtumv+jw1CiURF51yFZ80RXffkrdqhnPrdUoJZkxsoYDKy8FAdehe0gI8xqYw7yzJNWEjAMykdqkCb+k+GcdJtm2MTuZATGtLvojYIIoe01yIvWj8FK0WgZooW2q4g/DXLDPgrrK/oIv5OWjojCKZlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zuu8hF4n; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782122548; c=relaxed/simple;
+	bh=uMqtIObQAqDv1lgzwvSvQKtZBxKHOYzZdmppSPyl2HY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gwkPwmSk75doQhO2TQUdiXeIFsBPIvYPstthR9782swV4D12sxFBM43QiPdRugTfoCGGUjJldDwrkQUHjQWz1EBHFjtGOMaahoHZMIk7FnYfKDk4pF2ZbXsFPjx0159/e3O818JOYsrMbKcbmPRZNMrqPUB0llhOONKOZNdDS6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuU21bDv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zuu8hF4n"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4633193af19so2877126f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782122154; x=1782726954; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=P0E0JBlSRaUIEWVL2hII2Z9BSAc+EUsy9g19G1CKGLw=;
-        b=Zuu8hF4nPp9nD2umAtReOwK9izswYY0MJIN6LZNNZcT+zXe49MtUUcNNAMHOPvP0Ty
-         nUQmZqKS3LFIZei0V0G1Xcp4JIVuyZjmRBTEfnVK/CHOwhDIFld3qqrKzOegiaxqgapj
-         SA5xFEPzXSqFV1vROPsqm+SgD6aD9l96DDFoR03lZoL9I9wtZGCEO4ekl8EuonHVv6ne
-         So4+RsqLDKtX3dzJQou6Ayam5IxxNJA5FljormrbPKjxeOEP14QtQnq/lI8+rL/PXsAb
-         Y1qRHjPKc/h5YSrBo+3XJmbASLDyBuijtulJ3zeEcKk+yUPSo2flaK+e5C9VxgUKWJdp
-         iJtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782122154; x=1782726954;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=P0E0JBlSRaUIEWVL2hII2Z9BSAc+EUsy9g19G1CKGLw=;
-        b=XxQgj0LkFedPYX3b0EzsVT/02LwWn2Icwl0vX099vggNLh0/lKOhOUM04gfXPIjlB+
-         XPUo8NDLlvV7iPJaEYoqF/akJuTjTkFDU44PXfJjCEJy7tiDu284Gz+hj4UJQonY1XXH
-         qj4ldOPAAqZN+zScaSf2Ihm6cQOJhzje3Dj2BOgUho8NVylLJvfhs5MxhGdsPwVHlvAB
-         hBaLq/ju3b+rPGcSFGpvBT1XM0krjrGYhVpCuBPLOBuKSwpguXNkeh27gtlPIty/18MR
-         YIxuaMWiTeXK46UGevuizeTSx7XWXJpGY9NCboqfuVZ/m6iqNvJ+MDr3Z4BLu4zVqFqP
-         uwTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/+p/R93jIn0i0uAGE3/3OANEjIPXGLO6ce0o+p86QrATix956wdrRM2LmE/EI9vK0YFgr2eCgOtj3a@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1vNsRJiq3aGcpnATAxDFxj87oRCoZq77tT5PmxEsZXliteN2H
-	RVf9TwQ6o474yyj0mFqHiZbdIuiXN8k1Thgbd2wde2Dk95/e1AX9ogow
-X-Gm-Gg: AfdE7cl3kicXUjdIvMx6iDS7PjmO3PTSYWhXE9W1IKYOUTETCPhQGbR6jKpwyQQeBpb
-	XvErJ4lVArNfd/F4NgnUYJHK08x7Y/8xjsk8NIdpjMfq1f3V+xBPCKlOnonWDwiqJnx8PtSRPkT
-	MwPc4HoPHwgEW7rQBxNdGP/sB4F5nerpz/MXFtuYYdExwU4zselWeY7mUauJf20hQKomI5CNeXN
-	6uCX0Ny9FDC7YNd0CrIxWAjc1f28J7zbPSa6rcam3kuQZK3KR3EnCujT2DY3MLR8U7LviToadrw
-	sHpcYbirXI5zZK5CIeh6+nWTvhMUXZV05AO7CkRnhOjCund5oLyrJ3iw47xnT5A0a2XWmBs0VmV
-	UXVQgf9tzHByOuUvx26ga46Ak3IuEPdIT/hZlp+J22x450ptducG5Q15+Eq6PnhA94WW9rtGa1s
-	0GZDtYDjcH5LTsEkczXbe5LMDquD/ycjo5WO0ol4RFw1KHLPTKsE9CzqKBnLXdjUOLKnKcF7ukW
-	1N72qU32VOd4iYWL9ojC5NCjs/59aih/w3UkIu/ZZzEO1Bqi1iKYQBD7Rg+rkOu71Cea9k3kIqo
-	X5Yc67l4q2uBANo8ODC+/cJxpQHeE83pvZ2kNhcPvwO6XSW7ukgCiuY=
-X-Received: by 2002:a05:600c:6288:b0:490:e18f:d108 with SMTP id 5b1f17b1804b1-492490a7778mr137140915e9.19.1782122154243;
-        Mon, 22 Jun 2026 02:55:54 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fd15535sm313817465e9.3.2026.06.22.02.55.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 02:55:53 -0700 (PDT)
-Date: Mon, 22 Jun 2026 11:55:54 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty
- <pbolisetty@axiado.com>, Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Harshit
- Shah <hshah@axiado.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: adc: add Axiado SARADC driver
-Message-ID: <20260622115554.000036a9@gmail.com>
-In-Reply-To: <20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
-References: <20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com>
-	<20260622-axiado-ax3000-ax3005-saradc-v3-2-e57c7c7ae675@axiado.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuU21bDv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8872F1F00A3A;
+	Mon, 22 Jun 2026 10:02:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782122547;
+	bh=ogGOxnJk3KR/bX75jN7D4WY6r2fkYbCdNtHYLbjUBEk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RuU21bDvD4zmuAag0rX45fLaeGE0rdORK1zDEZ4mzlk5cSClE+YuyCL2b7tuMxSfS
+	 RTWAzxS+Kja4TXEk0BedLZ1iocmvCtYZU22iOIgQmPBH1rgRk0Hx11VZardAoRUj/1
+	 P2h0OGQ3eqH+kNtx2HVOpt4bUVvQOz7CNwDsr0yYbRIJKR0XMjri7AK1LRElPi6Rbn
+	 vROH4ZGLhmRSkwrDE5EiFogmPCiJBft9rU9MozczaW2tlMVryZA4eW3NNq6y5vDw3G
+	 u9fVdl6w+OkKMKchmKb4r+EfaZTCazjChwyod8Tg6R0CtjKO0BLyYU/kdfKoQ1bQAb
+	 zWhuOXOnm3dUQ==
+Message-ID: <2e2a93c7-6bf9-49f2-95ed-f44cf767e9fd@kernel.org>
+Date: Mon, 22 Jun 2026 12:02:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/8] dt-bindings: thermal: amlogic: Add support for T7
+To: linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260424-add-thermal-t7-vim4-v5-0-9040ca36afe2@aliel.fr>
+ <20260424-add-thermal-t7-vim4-v5-1-9040ca36afe2@aliel.fr>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260424-add-thermal-t7-vim4-v5-1-9040ca36afe2@aliel.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 22 Jun 2026 00:47:28 -0700
-Petar Stepanovic <pstepanovic@axiado.com> wrote:
+On 24/04/2026 17:45, Ronald Claveau via B4 Relay wrote:
+> +  - |
+> +    temperature-sensor@20000 {
+> +        compatible = "amlogic,t7-thermal";
+> +        reg = <0x0 0x20000 0x0 0x50>;
+> +        interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
 
-> Add support for the SARADC controller found on Axiado AX3000 and
-> AX3005 SoCs.
-> 
-> The driver supports single-shot voltage reads through the IIO
-> subsystem. The number of available input channels is selected from
-> the SoC match data, allowing AX3000 and AX3005 variants to use the
-> same driver.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
-> +	info->clk_rate = clk_get_rate(info->clk);
-> +	if (!info->clk_rate)
-> +		return dev_err_probe(dev, -EINVAL, "invalid clock rate\n");
-> +
-> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, info->vref_uV,
-> +				     "failed to get vref voltage\n");
 
-Sashiko raised an issue that I've missed on previous reads - why
-are you using info->vref_uV in dev_err_probe()? The info struct
-is not zeroed out on initialization, which means that dev_err_probe
-will return a different value each time when read_voltage() fails.
-It was designed to accept the retval from whatever function we're
-checking. 
+This wasn't ever even built! Really, it fails immediately. I will send
+fixes, but quite disappointing that contributor does not test its own code.-
 
--- 
-Kind regards
-
-CJD
+Best regards,
+Krzysztof
