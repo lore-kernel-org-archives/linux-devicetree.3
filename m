@@ -1,160 +1,422 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A1A368968;
-	Mon, 22 Jun 2026 09:05:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E193239E194
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782119148; cv=none; b=oNHJWpZL1CEUdxil5CJ9qGWWWuESy+3uI3zWM/gFCULtdMq/eerFJj+iLROQubAUwHKOp1H2Ky+pixYNphu7//h4P/RFZkM9fqjfqqqgA5j3r4NrP1uqmwa7MtL4X0pAT7X6SihVSmYoAZ4anHuvMwvCzPKlpmZZWshKzlrqwks=
+	t=1782119166; cv=none; b=YDBrtEmoe8GMwde5e6afKIpp7eysyNfqYx8ifeXPnJxNtY/RL1qxAj8gerDeGSxn7ZZGCcNx7hQOrBwsrpCa3FCuEY1toRiYhz5/eoDI4WueAfVZy30xYOPtXfU8Ju0wn1EJigltxD81Pc2ElTySjsJZpc2qQjo9A+Mwp82P30I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782119148; c=relaxed/simple;
-	bh=CRvHUMaPERdvIZaqTgWAAfdNC4myYpz/V1coR8bSrtg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=a+hqIEbN+6AVSwP1zhDqTU4wXsSnPlLipd2sMVBszlwgxlfnx8/RFW1B0zpWz8tmKJfF8tIyObn5NpUi40871ZiTMRhPlsc/SZOMUJZJ/PKJt0aamVPGw6ZC4pxPL32xbrGop99OYkrIW9XEZkMMecThMXd4La4qEWrKYilCIRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 64BAA200669;
-	Mon, 22 Jun 2026 11:05:34 +0200 (CEST)
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wbab0-0043kt-13;
-	Mon, 22 Jun 2026 11:05:34 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wbab0-000000008iF-0wHT;
-	Mon, 22 Jun 2026 11:05:34 +0200
-Message-ID: <7ee62b699c5cabb00cd7706ea42573da81c5bc84.camel@pengutronix.de>
-Subject: Re: [PATCH v4 2/2] media: i2c: ov5640: Add reset controller support
- with GPIO fallback
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Frank Li <Frank.li@oss.nxp.com>, robby.cai@oss.nxp.com
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- Frank.Li@nxp.com, 	s.hauer@pengutronix.de, festevam@gmail.com,
- sebastian.krzyszkowiak@puri.sm, 	slongerbeam@gmail.com,
- sakari.ailus@linux.intel.com, mchehab@kernel.org, 
-	kieran.bingham@ideasonboard.com, kernel@pengutronix.de, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 22 Jun 2026 11:05:34 +0200
-In-Reply-To: <ajVPzoWVBi1vsqRQ@SMW015318>
-References: <20260619100532.3779934-1-robby.cai@oss.nxp.com>
-	 <20260619100532.3779934-3-robby.cai@oss.nxp.com>
-	 <ajVPzoWVBi1vsqRQ@SMW015318>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1782119166; c=relaxed/simple;
+	bh=hwdGpN+YuI7295XUHzNlj4uD4XQqwyp2oYR2qSRusqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cYDsmEHbN+rNuvJCPUXaz4T66Gj4cZppTRK8p+0OAKbwUyqEqVOHdF7gaHf9CKdcNCGZ0ND5or2pKpRRnZRL/oT4vhNpZV8xN6ZdYxhxfnnUg7/xqq9qOfCeRFSwgND9MtOi1+oNs5T8v/zYKY8noksb2sE7lAb4xcqHxepmD1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OogoStSM; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OogoStSM"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso62051525e9.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:06:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782119160; x=1782723960; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=doiKkbE8UCT0dzInQZcd5SgdSvQWImdKbYlUEZ0q1TY=;
+        b=OogoStSMqWRecIdkSunhbC++bGu43DHG13W7FGj189AhbuxNfr853F16xpYgxvbqnf
+         FDBhU9HY7cUfqgPHH4V+k98foZI31ufACNQduPTv5l+7ea9BBtwrmMoOEkO7XiIntEGP
+         FtqT3arFtBGwvzLAhmLo1AuiBqn2Nc+ynBvyWANRLXFAtqsDOjYB9qboUOkzMZOQVlho
+         Tr37EzH+0a8Kd/uEicCg73IKU6RjtJjVxMMRT2/FSkjmhgD3MTGk8DawQpaQxFD/J3Qa
+         gG9ycc6lXudXOzikZI4WCB+RK55fJ1g329oE1MYbyYKkblHIRTVRoD7xM6rx9RIVAHZo
+         BO2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782119160; x=1782723960;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=doiKkbE8UCT0dzInQZcd5SgdSvQWImdKbYlUEZ0q1TY=;
+        b=ZwHV5xzbQK7VX5IFPVHaH54ZQ2lxzcMprbbnd2K1r1nVQCL7NpPefyt3S8YqjWyqrl
+         0lI6P1gZ/Mg4EHjpn4T0wRQuAZGGfvsAFSyG9suuotJudF1GXbTjUw+aXOE/jJTONOOx
+         ggCrMxlQ/i2nT/EqOyOgWz1CC3Bund2wAVzEVGjTycL/K+r5aeaJ813W3fck0DqR15JL
+         jRp7P1riRkOjV4GFWchTBfVc3ZecxvCwdeaBmfkUlIg+ybcO5Ku4rM7528TDPg5pDUlM
+         qXoRk5k6yHRZAxD3nJFWeQBeHSF0+GvvRo/4toF4tZwDpCjiZAlDC0tLmtBv2W4KGPAl
+         cFgg==
+X-Forwarded-Encrypted: i=1; AFNElJ94Yq4MdJIj32h1wJaNgvfOmCmRRTMyIe1WcEGJps0B+n8yZxuy36mu5b1mOEvQbkv+VqRW9hErlSKJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxm+ztcB6DTm7hhBeJc8Ipd42B9jlRmlFedCPT8v1GBkXloQmo8
+	H2AWnMvjG6joqQ0m6vYz0OgsfRA2InzUmsO7KIV5j4ZGpI6AeoB2xoZs
+X-Gm-Gg: AfdE7cl5lkqlbuy4O4E/e6aDKEytbFCGeymRvYLGWJTPeoq9XQcmdy2TRsg/dkDORTl
+	So2nyRho5g9BsWsR8jFwUR5lKEM7AWkPsV3uQM6ToIE2LhrUOz/uBPYTHcDWCvTAXlL9H3/X31r
+	9nVLKg2g72vzpdTO11A1IkZe/jngM8UQ5zuaqFKmNj49Mv7M8ZwPE8V/VrhpS3QgJaXrpbVZV+T
+	Xg1y0QiLejqPnxPj0MN47RTbbWP6t+Lk8xAfw9/vNzJ3Ed+dGy8d6GqDIzgzb0h3TrQn1Foc6qh
+	ElA0uPLcC2YuRCpJJjbOpOYz3Oy6Ao8mvMgGnZ8R4oI7OLmKozCZJYP3Q5R8TiMb8wlwFA1bx+v
+	68pSe4ep8IVW/sElgzb969iMi8BAHP5jZA7vXkVzpco5q5jbNv4iJ7ox94kQgnAVNmTcv31W82K
+	238d0c
+X-Received: by 2002:a05:600c:5489:b0:492:4668:27b5 with SMTP id 5b1f17b1804b1-4924668299emr183268385e9.6.1782119159754;
+        Mon, 22 Jun 2026 02:05:59 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240ee9bc2sm200592695e9.1.2026.06.22.02.05.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 02:05:59 -0700 (PDT)
+Date: Mon, 22 Jun 2026 10:07:01 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Janani Sunil <jan.sun97@gmail.com>, Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
+	Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <ajj6nEb4tATM3C7b@nsa>
+References: <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
+ <20260614204455.408c4d40@jic23-huawei>
+ <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
+ <20260619-obstinate-polo-a230bef97fda@spud>
+ <20260619-bunch-diocese-dd7805cc17ff@spud>
+ <ajU73_TkKrSbqD4f@nsa>
+ <20260619-concierge-doozy-9c161533c369@spud>
+ <ajVlD-j0nIGrRVow@nsa>
+ <20260621153330.79b6600c@jic23-huawei>
+ <20260621-nutmeg-coauthor-715189372230@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260621-nutmeg-coauthor-715189372230@spud>
 
-On Fr, 2026-06-19 at 09:18 -0500, Frank Li wrote:
-> On Fri, Jun 19, 2026 at 06:05:32PM +0800, robby.cai@oss.nxp.com wrote:
-> > [You don't often get email from robby.cai@oss.nxp.com. Learn why this i=
-s important at https://aka.ms/LearnAboutSenderIdentification ]
-> >=20
-> > From: Robby Cai <robby.cai@nxp.com>
-> >=20
-> > Add support for the reset controller framework by acquiring the reset
-> > line using devm_reset_control_get_optional_shared_deasserted(). This
-> > allows the driver to handle reset lines provided by a reset controller,
-> > including shared ones, while avoiding unbalanced deassert counts.
-> >=20
-> > Retain support for legacy reset-gpios as a fallback when no reset
-> > controller is defined. In that case, request the GPIO and keep it in th=
-e
-> > deasserted state as the initial configuration.
-> >=20
-> > This enables the driver to support both reset-controller-backed reset
-> > lines and older GPIO-based descriptions while preserving the existing
-> > power-up sequencing behavior.
-> >=20
-> > Signed-off-by: Robby Cai <robby.cai@nxp.com>
-> > ---
-> >  drivers/media/i2c/ov5640.c | 80 +++++++++++++++++++++++++++++++++-----
-> >  1 file changed, 70 insertions(+), 10 deletions(-)
-> >=20
-> > diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> > index 85ecc23b3587..5e6db8aacb11 100644
-> > --- a/drivers/media/i2c/ov5640.c
-> > +++ b/drivers/media/i2c/ov5640.c
-> > @@ -17,6 +17,7 @@
-> >  #include <linux/module.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regulator/consumer.h>
-> > +#include <linux/reset.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/types.h>
-> >  #include <media/v4l2-async.h>
-> > @@ -442,6 +443,7 @@ struct ov5640_dev {
-> >         u32 xclk_freq;
-> >=20
-> >         struct regulator_bulk_data supplies[OV5640_NUM_SUPPLIES];
-> > +       struct reset_control *reset;
-> >         struct gpio_desc *reset_gpio;
-> >         struct gpio_desc *pwdn_gpio;
-> >         bool   upside_down;
-> > @@ -2431,6 +2433,48 @@ static int ov5640_restore_mode(struct ov5640_dev=
- *sensor)
-> >         return ov5640_set_framefmt(sensor, &sensor->fmt);
-> >  }
-> >=20
-> > +static int ov5640_get_reset(struct device *dev, struct ov5640_dev *sen=
-sor)
-> > +{
-> > +       /* use deasserted version to avoid unbalanced deassert counts *=
-/
-> > +       sensor->reset =3D
-> > +           devm_reset_control_get_optional_shared_deasserted(dev, NULL=
-);
-> > +       if (IS_ERR(sensor->reset))
-> > +               return dev_err_probe(dev, PTR_ERR(sensor->reset),
-> > +                                    "Failed to get reset\n");
-> > +       else if (sensor->reset)
-> > +               return 0;
-> > +
-> > +       /*
-> > +        * fallback to legacy reset-gpios
-> > +        * GPIOD_OUT_HIGH ensures deasserted state for ACTIVE_LOW reset
-> > +        */
-> > +       sensor->reset_gpio =3D devm_gpiod_get_optional(dev, "reset",
-> > +                                                    GPIOD_OUT_HIGH);
-> > +       if (IS_ERR(sensor->reset_gpio))
-> > +               return dev_err_probe(dev, PTR_ERR(sensor->reset_gpio),
-> > +                                    "Failed to get reset gpio");
->=20
-> I think needn't fallback here, NO ABI change, just change to use reset-gp=
-io
-> driver.
+On Sun, Jun 21, 2026 at 07:35:42PM +0100, Conor Dooley wrote:
+> On Sun, Jun 21, 2026 at 03:33:40PM +0100, Jonathan Cameron wrote:
+> > On Fri, 19 Jun 2026 16:54:11 +0100
+> > Nuno Sá <noname.nuno@gmail.com> wrote:
+> > 
+> > > On Fri, Jun 19, 2026 at 03:12:07PM +0100, Conor Dooley wrote:
+> > > > On Fri, Jun 19, 2026 at 02:01:08PM +0100, Nuno Sá wrote:  
+> > > > > On Fri, Jun 19, 2026 at 12:40:54PM +0100, Conor Dooley wrote:  
+> > > > > > On Fri, Jun 19, 2026 at 12:36:55PM +0100, Conor Dooley wrote:  
+> > > > > > > On Fri, Jun 19, 2026 at 12:33:11PM +0200, Janani Sunil wrote:  
+> > > > > > > > 
+> > > > > > > > On 6/14/26 21:44, Jonathan Cameron wrote:  
+> > > > > > > > > On Tue, 9 Jun 2026 16:47:23 +0200
+> > > > > > > > > Janani Sunil <jan.sun97@gmail.com> wrote:
+> > > > > > > > >   
+> > > > > > > > > > On 5/26/26 15:11, Rodrigo Alencar wrote:  
+> > > > > > > > > > > On 26/05/19 05:42PM, Janani Sunil wrote:  
+> > > > > > > > > > > > Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> > > > > > > > > > > > buffered voltage output digital-to-analog converter (DAC) with an
+> > > > > > > > > > > > integrated precision reference.  
+> > > > > > > > > > > ...
+> > > > > > > > > > > Probably others may comment on that, but...
+> > > > > > > > > > > 
+> > > > > > > > > > > This parent node may support device addressing for multi-device support through
+> > > > > > > > > > > those ID pins. I suppose that each device may have its own power supplies or
+> > > > > > > > > > > other resources like the toggle pins or reset and enable.
+> > > > > > > > > > > 
+> > > > > > > > > > > That way I suppose that an example would look like...  
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +patternProperties:
+> > > > > > > > > > > > +  "^channel@([0-9]|1[0-5])$":
+> > > > > > > > > > > > +    type: object
+> > > > > > > > > > > > +    description: Child nodes for individual channel configuration
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +    properties:
+> > > > > > > > > > > > +      reg:
+> > > > > > > > > > > > +        description: Channel number.
+> > > > > > > > > > > > +        minimum: 0
+> > > > > > > > > > > > +        maximum: 15
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +      adi,output-range-microvolt:
+> > > > > > > > > > > > +        description: |
+> > > > > > > > > > > > +          Output voltage range for this channel as [min, max] in microvolts.
+> > > > > > > > > > > > +          If not specified, defaults to 0V to 5V range.
+> > > > > > > > > > > > +        oneOf:
+> > > > > > > > > > > > +          - items:
+> > > > > > > > > > > > +              - const: 0
+> > > > > > > > > > > > +              - enum: [5000000, 10000000, 20000000, 40000000]
+> > > > > > > > > > > > +          - items:
+> > > > > > > > > > > > +              - const: -5000000
+> > > > > > > > > > > > +              - const: 5000000
+> > > > > > > > > > > > +          - items:
+> > > > > > > > > > > > +              - const: -10000000
+> > > > > > > > > > > > +              - const: 10000000
+> > > > > > > > > > > > +          - items:
+> > > > > > > > > > > > +              - const: -15000000
+> > > > > > > > > > > > +              - const: 15000000
+> > > > > > > > > > > > +          - items:
+> > > > > > > > > > > > +              - const: -20000000
+> > > > > > > > > > > > +              - const: 20000000
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +    required:
+> > > > > > > > > > > > +      - reg
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +    additionalProperties: false
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +required:
+> > > > > > > > > > > > +  - compatible
+> > > > > > > > > > > > +  - reg
+> > > > > > > > > > > > +  - vdd-supply
+> > > > > > > > > > > > +  - avdd-supply
+> > > > > > > > > > > > +  - hvdd-supply
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +dependencies:
+> > > > > > > > > > > > +  spi-cpha: [ spi-cpol ]
+> > > > > > > > > > > > +  spi-cpol: [ spi-cpha ]
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +allOf:
+> > > > > > > > > > > > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +unevaluatedProperties: false
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +examples:
+> > > > > > > > > > > > +  - |
+> > > > > > > > > > > > +    #include <dt-bindings/gpio/gpio.h>
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +    spi {
+> > > > > > > > > > > > +        #address-cells = <1>;
+> > > > > > > > > > > > +        #size-cells = <0>;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +        dac@0 {
+> > > > > > > > > > > > +            compatible = "adi,ad5529r-16";
+> > > > > > > > > > > > +            reg = <0>;
+> > > > > > > > > > > > +            spi-max-frequency = <25000000>;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            vdd-supply = <&vdd_regulator>;
+> > > > > > > > > > > > +            avdd-supply = <&avdd_regulator>;
+> > > > > > > > > > > > +            hvdd-supply = <&hvdd_regulator>;
+> > > > > > > > > > > > +            hvss-supply = <&hvss_regulator>;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            #address-cells = <1>;
+> > > > > > > > > > > > +            #size-cells = <0>;
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            channel@0 {
+> > > > > > > > > > > > +                reg = <0>;
+> > > > > > > > > > > > +                adi,output-range-microvolt = <0 5000000>;
+> > > > > > > > > > > > +            };
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            channel@1 {
+> > > > > > > > > > > > +                reg = <1>;
+> > > > > > > > > > > > +                adi,output-range-microvolt = <(-10000000) 10000000>;
+> > > > > > > > > > > > +            };
+> > > > > > > > > > > > +
+> > > > > > > > > > > > +            channel@2 {
+> > > > > > > > > > > > +                reg = <2>;
+> > > > > > > > > > > > +                adi,output-range-microvolt = <0 40000000>;
+> > > > > > > > > > > > +            };
+> > > > > > > > > > > > +        };
+> > > > > > > > > > > > +    };  
+> > > > > > > > > > > ...
+> > > > > > > > > > > 
+> > > > > > > > > > > 	spi {
+> > > > > > > > > > > 		#address-cells = <1>;
+> > > > > > > > > > > 		#size-cells = <0>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 		multi-dac@0 {
+> > > > > > > > > > > 			compatible = "adi,ad5529r-16";
+> > > > > > > > > > > 			reg = <0>;
+> > > > > > > > > > > 			spi-max-frequency = <25000000>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 			#address-cells = <1>;
+> > > > > > > > > > > 			#size-cells = <0>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 			dac@0 {
+> > > > > > > > > > > 				reg = <0>;
+> > > > > > > > > > > 				vdd-supply = <&vdd_regulator>;
+> > > > > > > > > > > 				avdd-supply = <&avdd_regulator>;
+> > > > > > > > > > > 				hvdd-supply = <&hvdd_regulator>;
+> > > > > > > > > > > 				hvss-supply = <&hvss_regulator>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				#address-cells = <1>;
+> > > > > > > > > > > 				#size-cells = <0>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				channel@0 {
+> > > > > > > > > > > 					reg = <0>;
+> > > > > > > > > > > 					adi,output-range-microvolt = <0 5000000>;
+> > > > > > > > > > > 				};
+> > > > > > > > > > > 
+> > > > > > > > > > > 				channel@1 {
+> > > > > > > > > > > 					reg = <1>;
+> > > > > > > > > > > 					adi,output-range-microvolt = <(-10000000) 10000000>;
+> > > > > > > > > > > 				};
+> > > > > > > > > > > 
+> > > > > > > > > > > 				channel@2 {
+> > > > > > > > > > > 					reg = <2>;
+> > > > > > > > > > > 					adi,output-range-microvolt = <0 40000000>;
+> > > > > > > > > > > 				};
+> > > > > > > > > > > 			}
+> > > > > > > > > > > 
+> > > > > > > > > > > 			dac@1 {
+> > > > > > > > > > > 				reg = <1>;
+> > > > > > > > > > > 				vdd-supply = <&vdd_regulator>;
+> > > > > > > > > > > 				avdd-supply = <&avdd_regulator>;
+> > > > > > > > > > > 				hvdd-supply = <&hvdd_regulator>;
+> > > > > > > > > > > 				hvss-supply = <&hvss_regulator>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				#address-cells = <1>;
+> > > > > > > > > > > 				#size-cells = <0>;
+> > > > > > > > > > > 
+> > > > > > > > > > > 				channel@0 {
+> > > > > > > > > > > 					reg = <0>;
+> > > > > > > > > > > 					adi,output-range-microvolt = <0 5000000>;
+> > > > > > > > > > > 				};
+> > > > > > > > > > > 
+> > > > > > > > > > > 				channel@1 {
+> > > > > > > > > > > 					reg = <1>;
+> > > > > > > > > > > 					adi,output-range-microvolt = <(-10000000) 10000000>;
+> > > > > > > > > > > 				};
+> > > > > > > > > > > 			}
+> > > > > > > > > > > 		};
+> > > > > > > > > > > 	};
+> > > > > > > > > > > 
+> > > > > > > > > > > then you might need something like:
+> > > > > > > > > > > 
+> > > > > > > > > > > 	patternProperties:
+> > > > > > > > > > > 		"^dac@[0-3]$":
+> > > > > > > > > > > 
+> > > > > > > > > > > and put most of the things under this node pattern.
+> > > > > > > > > > > 
+> > > > > > > > > > > So the main driver that you're putting together might need to handle up to four instances.
+> > > > > > > > > > > Even if your current driver cannot handle this, the dt-bindings might need cover that.
+> > > > > > > > > > > 
+> > > > > > > > > > > Need to double check if each dac node needs a separate compatible, so you would maybe populate
+> > > > > > > > > > > a platform data to be shared with the child nodes, which would be a separate driver.
+> > > > > > > > > > > (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).  
+> > > > > > > > > > Hi Rodrigo,
+> > > > > > > > > > 
+> > > > > > > > > > Thank you for looking at this.
+> > > > > > > > > > 
+> > > > > > > > > > For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
+> > > > > > > > > > hardware/use case we have only needs one device node and the driver is written around that model as well.
+> > > > > > > > > > While the device addressing pins could allow multi-device topology, we do not have an actual platform using
+> > > > > > > > > > that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
+> > > > > > > > > > speculatively without a validating use case.  
+> > > > > > > > > Interesting feature - kind of similar to address control on a typical i2c bus device, or
+> > > > > > > > > looking at it another way a kind of distributed SPI mux.
+> > > > > > > > > 
+> > > > > > > > > Challenge of a binding is we need to anticipate the future.  So I think we do need something
+> > > > > > > > > like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
+> > > > > > > > > That would leave the path open to supporting the addressing at a later date.
+> > > > > > > > > An alternative might be to look at it like a chained device setup. In those we pretend there
+> > > > > > > > > is just one device with a lot of channels etc.  The snag is that here things are more loosely
+> > > > > > > > > coupled whereas for those devices it tends to be you have to read / write the same register
+> > > > > > > > > in all devices in the chain as one big SPI message.
+> > > > > > > > > 
+> > > > > > > > > +CC Mark Brown as he may know of some precedence for this feature. For his reference..
+> > > > > > > > > - Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
+> > > > > > > > > value that matches that or they are ignored.  Thus a single bus + 1 chip select can
+> > > > > > > > > be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
+> > > > > > > > > longer term how to support it cleanly in SPI.  
+> > > > > > > 
+> > > > > > > I'd swear I have seen this before, from some Microchip devices. Let me
+> > > > > > > see if I can find what I am thinking of...  
+> > > > > > 
+> > > > > > 
+> > > > > > microchip,mcp3911 and microchip,mcp3564 both seem to do this with
+> > > > > > slightly different properties.
+> > > > > > 
+> > > > > >   microchip,device-addr:
+> > > > > >     description: Device address when multiple MCP3911 chips are present on the same SPI bus.
+> > > > > >     $ref: /schemas/types.yaml#/definitions/uint32
+> > > > > >     enum: [0, 1, 2, 3]
+> > > > > >     default: 0
+> > > > > > 
+> > > > > > and
+> > > > > > 
+> > > > > > 
+> > > > > >   microchip,hw-device-address:
+> > > > > >     $ref: /schemas/types.yaml#/definitions/uint32
+> > > > > >     minimum: 0
+> > > > > >     maximum: 3
+> > > > > >     description:
+> > > > > >       The address is set on a per-device basis by fuses in the factory,
+> > > > > >       configured on request. If not requested, the fuses are set for 0x1.
+> > > > > >       The device address is part of the device markings to avoid
+> > > > > >       potential confusion. This address is coded on two bits, so four possible
+> > > > > >       addresses are available when multiple devices are present on the same
+> > > > > >       SPI bus with only one Chip Select line for all devices.
+> > > > > >       Each device communication starts by a CS falling edge, followed by the
+> > > > > >       clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
+> > > > > >       which is first one on the wire).
+> > > > > > 
+> > > > > > This sounds exactly like the sort of feature that you're dealing with
+> > > > > > here?
+> > > > > >   
+> > > > > 
+> > > > > The core idea yes but for this chip, things are a bit more annoying (but
+> > > > > Janani can correct me if I'm wrong). Here, each device can, in theory,
+> > > > > have it's own supplies, pins and at the very least, channels with maybe
+> > > > > different scales. That is why Janani is proposing dac nodes. Given I
+> > > > > honestly don't like much of that "adi,ad5529r-bus" compatible I wondered
+> > > > > about solving this at the spi level.
+> > > > > 
+> > > > > Ah and to make it more annoying, we can also mix 12 and 16 bits variants
+> > > > > together in the same bus.  
+> > > > 
+> > > > I'm definitely missing something, because that property for the
+> > > > microchip devices is not impacted what else is on the bus. AFAICT, you
+> > > > could have an mcp3911 and an mcp3564 on the same bus even though both
+> > > > are completely different devices with different drivers. They have
+> > > > individual device nodes and their own supplies etc etc. These aren't
+> > > > per-channel properties on an adc or dac, they're per child device on a
+> > > > spi bus.  
+> > > 
+> > > Maybe I'm the one missing something :). IIRC, spi would not allow two
+> > > devices on the same CS right? Because for this chip we would need
+> > > something like:
+> > > 
+> > > spi {
+> > > 	dac@0 {
+> > > 		reg = <0>;
+> > > 		adi,pin-id = <0>;
+> > > 	};
+> > > 
+> > > 	dac@1 {
+> > > 		reg = <0>; // which seems already problematic?
+> > > 		adi,pin-id <1>;
+> > > 	};
+> > > 
+> > > 	...
+> > > 
+> > > 	//up to 4
+> > > };
+> > Yeah. It's not clear to me how that works for the microchip devices
+> > (I suspect it doesn't!)
+> > 
+> > Just thinking as I type, but could we do something a bit nasty with
+> > a gpio mux that doesn't actually switch but represents the GPIO being
+> > shared?  Given this is all tied to the spi bus that should all happen
+> > under serializing locks. 
+> > 
+> > Agreed though that this would be nicer as an SPI thing that let
+> > us specify that a single CS is share by multiple devices and their
+> > is some other signal acting to select which one we are talking to.
+> 
+> Whether it works or not, I think it is the more correct approach. Messing
+> with gpio muxes seems completely wrong, given the chip select may not be
+> a gpio at all.
+> 
+> Why do you think the microchip devices won't work? Does the spi core
+> reject multiple devices with the same chip select being registered or
+> something like that?
 
-Please keep the gpiod fallback, the reset-gpio driver may not be
-available on all platforms using ov5640.
+Not sure how things work atm. But I'm fairly sure it used to be like
+that. SPI would reject devices on the same controller and CS. Now that
+we support more than one CS per controller, not sure how things work. 
 
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +static int ov5640_reset_assert(struct ov5640_dev *sensor)
-> > +{
-> > +       if (sensor->reset)
-> > +               return reset_control_assert(sensor->reset);
->=20
-> needn't check sensor->reset, reset_control_assert() is no ops if NULL.
->=20
-> > +
-> > +       gpiod_set_value_cansleep(sensor->reset_gpio, 1);
->=20
-> Needn't fallback, directly replace.
+Janani, maybe you can give it a try?
 
-See above.
+- Nuno Sá
 
-
-regards
-Philipp
