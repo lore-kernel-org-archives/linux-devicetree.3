@@ -1,220 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71AE39022A;
-	Mon, 22 Jun 2026 08:24:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D716390226
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782116692; cv=none; b=CPSnYxNszMx0IQrwZ426ANYjRWP93aDvE+DhCt8Be9lnshuLcH9JmnpMfJnXN3v/HXIMrAt9vjhM2DHF7EbZgNB9J+EPJMNPIqv9uB6QdmIlT8aXu5krZZXWeANC0wi5T40T3eBievRnMx2bGR9r04t80ilda82F9Qw4tJm9XfA=
+	t=1782116718; cv=none; b=ZQz4caiBF06btNs+X/dzG77SXU7i5vOwWFy1/S0tThSvuBCIQKTIRHN3tq9EcChs31d+PKbVcUPnl9N4bWsz0HJF+YKE5GlLJKpiUjfOv//MJfvPTunpb5oD7AtID+b1HbXmBCM0+9J2rzbA/wTNNsLVtG3ZXG5hp9ezC2kQCdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782116692; c=relaxed/simple;
-	bh=3F3SzcmX5K7tfwdbobEWoIO3z8bnGQ9unBaBZ9hAYME=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dqyXdZxmRyqLfvWUHyBz6qorwB9u7+pXSzWXQjpNZPJR2F42awX/6CjBgV8mABVs1Mx/sO8sSzB759xa/QkZHFzXByxC0PhiQ2TheoiOcna18VXfKPlvl2g3tba2OR08nMCkSneCUxBqOJtdgIg9yreLVff3BKMC/XxbgJbs5/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFBiyeeP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782116718; c=relaxed/simple;
+	bh=X/OpTbuthlVusCSOnihn3WAb4xYSqe+YlVeJG6hFE4A=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lgRZH5yyoK3vNdN4qJU4DdVrpaSwH0pckRDY6tnHhYyDYPp+YxcbZuc1ggvj8IqO2OwsDqDipkQX4uZ95Df1p/Qix1vVcEj7kRz79iWpVTeMz/O3pYoax6ElNkzZ7caCxp9r3f1d70hxJT7ETpdhn1QY2adxz1CaUf6tWdiVQas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSC4F7Fj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFBiyeeP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DC51F000E9;
-	Mon, 22 Jun 2026 08:24:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSC4F7Fj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A051A1F00ACF
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782116688;
-	bh=9g9LmK/2gQjWHmu1Ix4POCgGHt3oEHeL5Rsd484EacY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AFBiyeePK5xBrviQXAEW/H7rjXPUVUvpzT4LE8hdpmntishQeK4494XrTFDsM31u5
-	 fb7NlIRKkqxXu43fQ9hTijGYXhowQPmW0Embhiu44GkaNfyRCO3vEAm1OKyZYRMEfY
-	 C05Og02JQuTiKcCtR7iERvxqFQjdIw6YoDV7EFPj3gfz95ct5VMhOP696c3TxoJEKn
-	 ARA/GR3TABEh0Dwj1EsukF8fyXhgd1LHCoz9eyC3GTZ14ZSOWBGfRSH0OR6rgwtMlw
-	 z/yAxB76BWc/VdNbCBn3m2dY/OOBK5GnI998dsRXfgoabhRMLSDu6XfqeMd96xaCFS
-	 zJQdZwTZn8zqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/22] RISC-V: perf: Modify the counter discovery
- mechanism
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260622-counter_delegation-v7-12-0ba2fd34614e@meta.com>
-References: <20260622-counter_delegation-v7-0-0ba2fd34614e@meta.com>
- <20260622-counter_delegation-v7-12-0ba2fd34614e@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 08:24:47 +0000
-Message-Id: <20260622082447.D0DC51F000E9@smtp.kernel.org>
+	s=k20260515; t=1782116715;
+	bh=dGzB8a7uRXU43VC5H/RJSltTtPvZBBro4QCVA4GdtP4=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=QSC4F7Fjsb6UDa4UQFHkpPf01msyxFA6Bx6zSIx11l5u2hRCTnsJJsqnnKWwfS90U
+	 Gvc8JsZemI27tAmK7IUkxys4/vM7INW1OqlmD73hg6M5RtME5mNP6BMdr3O0h9QprD
+	 m2M3gqpc8fhwYahDbMuqFarZ3/sqhfHTlE0cp5r4S45q1yeMB4yn28bLomdxxzDF/Y
+	 /W66RlS48R912piU1q4bGvht4vyavZU5QNwTBcoeiX0Kctwkcwhboe5OJks6p/cglw
+	 eRhLs4bf03IZAZlREfqTjXhEl73c6B9+3rtyYPvSBz5wICmFKHlGa6wJMbzMAegEBj
+	 sdlEn6pZhMJrA==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39983214844so35818511fa.3
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 01:25:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9fLvrlZNXjC+tyT7qa2D95R12oCJAKzIwkiBSbZ8wqKIKPOY6tq5s0QjBkM/QwDc8FKcRFvuiHti9i@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE+nLtkI8Dpkzg+bPw4JyxPrcKtP6HtNQnW8Vb2e/6ujg+tX9w
+	JDcwEaAAkwpxjbyHp+Mt05KPc9AV/cfzp8KZNJrni/29kaPs2zO76HVId/jt7+RK37ZK5+Q47MR
+	TSPYvQw0YsVY+vfq2napV6xOuWYSwbdCZ/cZ/gXc04A==
+X-Received: by 2002:a2e:a815:0:b0:393:b365:6e24 with SMTP id
+ 38308e7fff4ca-3998bc52fb3mr30333831fa.4.1782116714327; Mon, 22 Jun 2026
+ 01:25:14 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 22 Jun 2026 04:25:12 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 22 Jun 2026 04:25:12 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260619164506.GA3223@sol>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com>
+ <53b1fa61-9692-42fd-a295-98bbeacbcd9a@oss.qualcomm.com> <20260619164506.GA3223@sol>
+Date: Mon, 22 Jun 2026 04:25:12 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MdJJRPBeNtAUr82b4zv7vLjrRQ76Q3bJHQYEigaE2Hqog@mail.gmail.com>
+X-Gm-Features: AVVi8CeAxt9KMOL095y2v4UTrPSzivkzFWS7f7st5RqKHpq1WC_YJZWgEPbn2QE
+Message-ID: <CAMRc=MdJJRPBeNtAUr82b4zv7vLjrRQ76Q3bJHQYEigaE2Hqog@mail.gmail.com>
+Subject: Re: [PATCH 0/5] Shikra: Add DT support for ice, rng and qce
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Harshal Dev <harshal.dev@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, 19 Jun 2026 18:45:06 +0200, Eric Biggers <ebiggers@kernel.org> said:
+> On Fri, Jun 19, 2026 at 02:13:28PM +0530, Kuldeep Singh wrote:
+>> On 21-05-2026 18:47, Kuldeep Singh wrote:
+>> > This patchseries attempt to enable sdhc-ice, rng and qce on shikra
+>> > platform similar to other platforms.
+>> >
+>> > Previously, the 3 dt-bindigs/DT changes were sent as individual series
+>> > and with feedback received, clubbed them together as all belong to same
+>> > crypto subsystem.
+>> >
+>> > Here's link to old patchsets.
+>> > QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
+>>
+>> Hi Eric,
+>>
+>> As selftests issues for QCE are now fixed[1], so shikra series should be
+>> good to proceed? as your concerns[2] are now addressed.
+>> I am waiting for merge window to end and will send next rev post that.
+>>
+>> [1]
+>> https://lore.kernel.org/linux-arm-msm/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com/
+>> [2] https://lore.kernel.org/lkml/20260522024912.GC5937@quark/
+>
+> If you think that then it sounds like you need to read what I actually
+> said.  The fixes are appreciated but don't change the big picture.
+>
+> - Eric
+>
 
-New issues:
-- [High] Hardware counter physical indices and SBI logical counter indices =
-for firmware counters can overlap, causing array overwrites and state clobb=
-ering in `pmu_ctr_list` and the per-CPU `events` array.
-- [Medium] Firmware counters are not stopped in `rvpmu_sbi_stop_all()` when=
- counter delegation is disabled, leaving them running unexpectedly.
+Eric,
 
-Pre-existing issues:
-- [High] `cmask` and `firmware_cmask` are defined as `unsigned long` and ac=
-cessed via `BIT(i)` and `for_each_set_bit()`, causing shift overflow and ou=
-t-of-bounds memory reads on 32-bit architectures.
-- [High] Missing `.remove` hook combined with global `pmu_ctr_list` overwri=
-te causes a memory leak and a subsequent NULL pointer dereference on re-pro=
-be failure.
---
+I mentioned it in another thread[1]. This series is not adding any new features
+to the QCE driver, it describes the hardware. The SoC *does have* this IP and
+no matter the state of the support in the kernel, there's nothing wrong in
+extending the existing bindings and adding new dts nodes.
 
-commit 98634f15c972a5ad2282dff7c8f2da3bfc47efa8
-Author: Atish Patra <atishp@rivosinc.com>
+Thanks,
+Bartosz
 
-RISC-V: perf: Modify the counter discovery mechanism
-
-If both counter delegation and SBI PMU are present, counter delegation
-is used for hardware counters while the SBI PMU is used for firmware
-counters. The driver is updated to probe via SBI PMU to distinguish
-the firmware counters and cache the discovery info.
-
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 80c7249ee1662..d44f47613aa1a 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-[ ... ]
-> @@ -101,6 +116,8 @@ static unsigned int riscv_pmu_irq;
-> =20
->  /* Cache the available counters in a bitmask */
->  static unsigned long cmask;
-> +/* Cache the available firmware counters in another bitmask */
-> +static unsigned long firmware_cmask;
-
-[Severity: High]
-This is a pre-existing issue, but on 32-bit architectures (RV32), unsigned
-long is 32 bits wide, while RISCV_MAX_COUNTERS is 64.
-
-Does this cause shift overflows when accessed via BIT(i) where i can reach
-up to 63?
-
-Additionally, does using for_each_set_bit() with this 32-bit mask cause
-out-of-bounds memory reads, as the macro expects an array large enough for
-64 bits?
-
-[ ... ]
-> @@ -868,34 +885,38 @@ static int rvpmu_sbi_find_num_ctrs(void)
-[ ... ]
-> -static int rvpmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
-> +static int rvpmu_sbi_get_ctrinfo(u32 nsbi_ctr, u32 *num_fw_ctr, u32 *num=
-_hw_ctr)
->  {
-[ ... ]
-> -	for (i =3D 0; i < nctr; i++) {
-> +	for (i =3D 0; i < nsbi_ctr; i++) {
->  		ret =3D sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_GET_INFO, i, 0, 0, =
-0, 0, 0);
->  		if (ret.error)
->  			/* The logical counter ids are not expected to be contiguous */
->  			continue;
-> =20
-> -		*mask |=3D BIT(i);
-> -
->  		cinfo.value =3D ret.value;
-> -		if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_FW)
-> -			num_fw_ctr++;
-> -		else
-> -			num_hw_ctr++;
-> -		pmu_ctr_list[i].value =3D cinfo.value;
-> +		if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_FW) {
-> +			/* Track firmware counters in a different mask */
-> +			firmware_cmask |=3D BIT(i);
-> +			pmu_ctr_list[i].value =3D cinfo.value;
-
-[Severity: High]
-Can the hardware counter physical indices and the SBI logical counter
-indices overlap, causing array overwrites in pmu_ctr_list?
-
-When both counter delegation and the SBI PMU are available, pmu_ctr_list
-is first populated using hardware physical CSR indices (0-31) in
-rvpmu_deleg_find_ctrs().
-
-Then, rvpmu_sbi_get_ctrinfo() populates firmware counters using the SBI
-logical index i. Because the SBI specification allows logical indices to
-start at 0, an SBI implementation might assign logical indices to firmware
-counters that overlap with the physical CSR indices.
-
-Could this silently overwrite the hardware counter definitions in
-pmu_ctr_list[i], and later corrupt the active cpuc->events[idx] array when
-both types of counters share overlapping indices?
-
-[Severity: Medium]
-Does splitting firmware counters into firmware_cmask and intentionally
-excluding them from cmask leave firmware counters running unexpectedly?
-
-In rvpmu_sbi_stop_all(), the code only stops counters present in pmu->cmask:
-
-static inline void rvpmu_sbi_stop_all(struct riscv_pmu *pmu)
-{
-	...
-	sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
-		  0, pmu->cmask, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
-}
-
-When counter delegation is disabled, the fallback path calls
-rvpmu_sbi_stop_all(pmu), which now exclusively stops hardware counters.
-
-Could this leave firmware counters running across CPU hotplug and PMU
-initialization, potentially leading to stale counts and unexpected overflow=
-s?
-
-> +			*num_fw_ctr =3D *num_fw_ctr + 1;
-> +		} else if (cinfo.type =3D=3D SBI_PMU_CTR_TYPE_HW &&
-> +			   !riscv_pmu_cdeleg_available_boot()) {
-> +			*num_hw_ctr =3D *num_hw_ctr + 1;
-> +			cmask |=3D BIT(i);
-> +			pmu_ctr_list[i].value =3D cinfo.value;
-> +		}
->  	}
-[ ... ]
-> @@ -1159,16 +1180,48 @@ static void rvpmu_ctr_stop(struct perf_event *eve=
-nt, unsigned long flag)
-[ ... ]
-> -static int rvpmu_find_num_ctrs(void)
-> +static int rvpmu_find_ctrs(void)
->  {
-> -	return rvpmu_sbi_find_num_ctrs();
-> -	/* TODO: Counter delegation implementation */
-> -}
-> +	int num_sbi_counters =3D 0;
-> +	u32 num_deleg_counters =3D 0;
-> +	u32 num_hw_ctr =3D 0, num_fw_ctr =3D 0, num_ctr =3D 0;
-> +	/*
-> +	 * We don't know how many firmware counters are available. Just allocate
-> +	 * for maximum counters the driver can support. The default is 64 anywa=
-ys.
-> +	 */
-> +	pmu_ctr_list =3D kcalloc(RISCV_MAX_COUNTERS, sizeof(*pmu_ctr_list),
-> +			       GFP_KERNEL);
-
-[Severity: High]
-This is a pre-existing issue, but does missing a .remove hook combined with
-this global pmu_ctr_list overwrite cause a memory leak and subsequent NULL
-pointer dereference on re-probe failure?
-
-The platform driver lacks a .remove callback and does not set
-suppress_bind_attrs, meaning it can be unbound via sysfs, leaving the PMU
-registered and active.
-
-If the driver is rebound, rvpmu_device_probe() executes again and calls
-rvpmu_find_ctrs(), which unconditionally allocates pmu_ctr_list via kcalloc,
-overwriting the global pointer and leaking the original memory.
-
-When perf_pmu_register() then fails because the PMU is already registered,
-the error path in rvpmu_device_probe() calls kfree(pmu_ctr_list) and sets it
-to NULL.
-
-Could the still-active PMU from the first probe then dereference this NULL
-pointer during any subsequent perf event operations?
-
-> +	if (!pmu_ctr_list)
-> +		return -ENOMEM;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-counter_de=
-legation-v7-0-0ba2fd34614e@meta.com?part=3D12
+[1] https://lore.kernel.org/all/CAMRc=MfY-tmMCdw9FVBgfkX-FvB5Nx2X06S023GhASenSCQSNA@mail.gmail.com/
