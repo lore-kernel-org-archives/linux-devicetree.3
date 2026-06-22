@@ -1,36 +1,35 @@
-Received: from out-181.mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C70038E8B0
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A29D30674E
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782115530; cv=none; b=BOsWG+x0ZB02OZu5IwkHeNiFHVuAYl8eYIZ1M6jwDvCqHtTgrn0253MvG8g1kPL7qm3GULEAHH6VchePMJqyKpx9a5MShJRIRT/V8HKh/Sb/2mE5dIgYUo0Q3klduKDK75uxlxkiHvyKMWceosK0qwNbhe823RxdiC/kwpuiyFE=
+	t=1782115538; cv=none; b=tvZ42Vhi5f6uzoPxu7zyC+pFWuNzDnQf8DjQhDbcBRA2vhKhUDhvwVBzeILA8ygN22ERtOkH4Y2hhEu6SRya+jpz1P9BiEgGpqUgVALj0EwZtD68tk4mUl+mmcwdg5w/EKe76DyNiRsqd7mwR5rbZjSPjlD7+80iHtRq1oPCB10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782115530; c=relaxed/simple;
-	bh=3OO28ccJEwCgkWwCOHvCmAYVgiOqJBRQW0AyXwGFpog=;
+	s=arc-20240116; t=1782115538; c=relaxed/simple;
+	bh=PhrnjQNoHHekVxD7lhFqNH8ZhNIYm6hdQS1My0ZyNtc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jjd1QkngptvWzkHHR+EvMs57HT625e4VIQbGfgla3F6q5XuKvCY/Yu5ub7F+ZapgF7k+OCvtwQVuPkh2dFpKWNZBt3NGzZ4dHHV6xuahoZjBwA5z80HFO2qqtI28vn8OznZrJ2p6aXAJDpBRpvGKo1YErjszzmvO/9TZWdXzlz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YfgKULrZ; arc=none smtp.client-ip=91.218.175.181
+	 In-Reply-To:To:Cc; b=cG6OjOgmHVLBRoOpuUk6Zv/O4Sa8Zki+thEqZ/xyRXulmt3bvmX/oawncHhKvHzGVbyavZH4jpccj5KMZcLY6dz53SdUsF6w5skuFJmdeFanJ92La5WXeeqrEBCb5T8/E6rvmbjZrEq0iEyQklpnnGpnsYTaG7pSC7laJFISdX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Dn+Loc3D; arc=none smtp.client-ip=95.215.58.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YfgKULrZ"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Dn+Loc3D"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782115523;
+	t=1782115533;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8bnW4aRchUEMVnjaS3sJtvhYx7e7VZaYZUym5ODbnk8=;
-	b=YfgKULrZp/PM/nIP8eMY6Lz5xJp98gKCORQY3LKm0um+I6jCZHs7zItRwVslBp6J5mF1e8
-	FwzWkUEwoHvk7w68GitONkowxgpIf5gUjyRCXJz841DZs7pPlgzLnNCRVPQmG50hznICwq
-	Wfhrp1kn0wJe2AwQoIfFnRHasECw3Ns=
+	bh=VQXL+H2+WehLdwmI2owi3GLpWwMtdQ4h0ysYeLBCJ7Q=;
+	b=Dn+Loc3DTv57R6tdh3zjIz9KHtrTL3P40Lnn8HoOtNhC5m9V2WqxsIsHeRIW55xF6g7oJb
+	rzNhflLkumzGwkt+cUVo84lQG5SkWNMb1wHqxUOI2A28dnSMyKohAgNmcyXXeU2rji62vh
+	TOZY1HJs/fHPDc8zFYOJKZqY92CkYd8=
 From: Atish Patra <atish.patra@linux.dev>
-Date: Mon, 22 Jun 2026 01:04:19 -0700
-Subject: [PATCH v7 07/22] dt-bindings: riscv: add Smcntrpmf ISA extension
- description
+Date: Mon, 22 Jun 2026 01:04:20 -0700
+Subject: [PATCH v7 08/22] RISC-V: Add Sscfg extension CSR definition
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,8 +37,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260622-counter_delegation-v7-7-0ba2fd34614e@meta.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260622-counter_delegation-v7-8-0ba2fd34614e@meta.com>
 References: <20260622-counter_delegation-v7-0-0ba2fd34614e@meta.com>
 In-Reply-To: <20260622-counter_delegation-v7-0-0ba2fd34614e@meta.com>
 To: Jiri Olsa <jolsa@kernel.org>, James Clark <james.clark@linaro.org>, 
@@ -53,33 +52,64 @@ Cc: devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
 X-Migadu-Flow: FLOW_OUT
 
-From: Atish Patra <atishp@rivosinc.com>
+From: Kaiwen Xue <kaiwenx@rivosinc.com>
 
-Add the description for Smcntrpmf ISA extension
+This adds the scountinhibit CSR definition and S-mode accessible hpmevent
+bits defined by smcdeleg/ssccfg. scountinhibit allows S-mode to start/stop
+counters directly from S-mode without invoking SBI calls to M-mode. It is
+also used to figure out the counters delegated to S-mode by the M-mode as
+well.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Atish Patra <atishp@rivosinc.com>
+Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
+Reviewed-by: Clément Léger <cleger@rivosinc.com>
 ---
- Documentation/devicetree/bindings/riscv/extensions.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/riscv/include/asm/csr.h | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-index 15cf0e2ee3ed..2493766e956d 100644
---- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-+++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -181,6 +181,12 @@ properties:
-             changes to interrupts as frozen at commit ccbddab ("Merge pull
-             request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
- 
-+        - const: smcntrpmf
-+          description: |
-+            The standard Smcntrpmf machine-level extension for the machine mode
-+            to enable privilege mode filtering for cycle and instret counters as
-+            ratified in the 20240326 version of the privileged ISA specification.
+diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
+index b4551a6cf7cb..26cb78dee2fd 100644
+--- a/arch/riscv/include/asm/csr.h
++++ b/arch/riscv/include/asm/csr.h
+@@ -241,6 +241,31 @@
+ #define SMSTATEEN0_HSENVCFG		(_ULL(1) << SMSTATEEN0_HSENVCFG_SHIFT)
+ #define SMSTATEEN0_SSTATEEN0_SHIFT	63
+ #define SMSTATEEN0_SSTATEEN0		(_ULL(1) << SMSTATEEN0_SSTATEEN0_SHIFT)
++/* HPMEVENT bits. These are accessible in S-mode via Smcdeleg/Ssccfg */
++#ifdef CONFIG_64BIT
++#define HPMEVENT_OF			(BIT_ULL(63))
++#define HPMEVENT_MINH			(BIT_ULL(62))
++#define HPMEVENT_SINH			(BIT_ULL(61))
++#define HPMEVENT_UINH			(BIT_ULL(60))
++#define HPMEVENT_VSINH			(BIT_ULL(59))
++#define HPMEVENT_VUINH			(BIT_ULL(58))
++#else
++#define HPMEVENTH_OF			(BIT_ULL(31))
++#define HPMEVENTH_MINH			(BIT_ULL(30))
++#define HPMEVENTH_SINH			(BIT_ULL(29))
++#define HPMEVENTH_UINH			(BIT_ULL(28))
++#define HPMEVENTH_VSINH			(BIT_ULL(27))
++#define HPMEVENTH_VUINH			(BIT_ULL(26))
 +
-         - const: smcsrind
-           description: |
-             The standard Smcsrind machine-level extension extends the
++#define HPMEVENT_OF			(HPMEVENTH_OF << 32)
++#define HPMEVENT_MINH			(HPMEVENTH_MINH << 32)
++#define HPMEVENT_SINH			(HPMEVENTH_SINH << 32)
++#define HPMEVENT_UINH			(HPMEVENTH_UINH << 32)
++#define HPMEVENT_VSINH			(HPMEVENTH_VSINH << 32)
++#define HPMEVENT_VUINH			(HPMEVENTH_VUINH << 32)
++#endif
++
++#define SISELECT_SSCCFG_BASE		0x40
+ 
+ /* mseccfg bits */
+ #define MSECCFG_PMM			ENVCFG_PMM
+@@ -322,6 +347,7 @@
+ #define CSR_SCOUNTEREN		0x106
+ #define CSR_SENVCFG		0x10a
+ #define CSR_SSTATEEN0		0x10c
++#define CSR_SCOUNTINHIBIT	0x120
+ #define CSR_SSCRATCH		0x140
+ #define CSR_SEPC		0x141
+ #define CSR_SCAUSE		0x142
 
 -- 
 2.53.0-Meta
