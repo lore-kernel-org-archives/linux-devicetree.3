@@ -1,152 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CBE346E5D
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 22:31:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A169927B32C
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 22:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782167494; cv=none; b=ZEju6++y7VKG0ELi8ikMITaDPe54OVxEiX9G62+gubGpYFGrnrk06UIXNAY/FYRnJ2Zz9FW1JqN3y80xLwzsXQoUtLkSkQfiyTI5GMIvE5r25OnzBih7aYWBnWIBjz0zzUf47cMBh2hSmjEAZCsAEblBX1FKS4HILdP52GiizbI=
+	t=1782167591; cv=none; b=KxayHBGGSf0uGlK+o8wXM9JhSRKhpso5D3A5SIF4hv9io8nWvU9WM9sIGnE9MCb7/4FnetfLE5q/KiuddPKdwga0tOHvsbDlvtAuXxy0Dpp7DQ6lAvSJm6PA2j2+YzIpgf2rPmYqjtzumNm8GPcjdMcaMW5PlP71Y7ORu88mH48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782167494; c=relaxed/simple;
-	bh=JTqgF1Y6HSqdPmpX1iLo7BuQH24xS6fAtuk0fZBcrh4=;
+	s=arc-20240116; t=1782167591; c=relaxed/simple;
+	bh=CmKtrhCXxkUiPDAmyyDEhlMkJHsX+Mc9L6MwqNgcmIc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VZkMMyk2tb87LI6yULi+oqtOCzBNXfUN8S/ArUWLGA1D1+Ncv4zcpPvHfR7JcsLPMLo9xUp4n2sOl+V5Lj5JnnLsCLX8hq73vvnTqfRfMSggOEYbr//Ft7oIJBAL5umg84Ne6cOacDfxI1phjv8vMWwxItMAPJd6/XCrrupCC+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+rqAx00; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bY4spT3V9hq2bzU3joMKHf5nypB7iY2D99KctXYZsnAEtProA+lo32tb6LMmnmKnuYveDcfRbzi2H4RtioEzeS5dniLe/mBANPftyTnc3XGFMpV3vVaKVAZSDrGDBrU8dsDrLflnb+BCus4A2ci6fK8M1xpOlvY1ingjOb3MebM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ja1sSoDM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+rqAx00"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C2F1F000E9;
-	Mon, 22 Jun 2026 22:31:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ja1sSoDM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C83D1F01564;
+	Mon, 22 Jun 2026 22:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782167493;
-	bh=qCZxK8Xazg5bZqP5RWc6RoIT9tqp1FOLKIE4P+ogXZE=;
+	s=k20260515; t=1782167590;
+	bh=0Q11RlCwxbac/Gd9JBd9iJy8XlrY0GiFJ3Yebo9v6SY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q+rqAx00lonxFjc5hsHww0Z35ZwNCHTxB6p2YjQGSfqjSSzWcUa0dgUSXESFo/tie
-	 xjmEQt9tnyGAbVGZNvKyBjiRLlxr+jmkwsnD38iktgMf0gqwe/fHoteU9xSXLXg1Cd
-	 lAuo+JWQS8j+HpmzeIWNf5S2rDf7pw3EqcHcu0fK4zV32hlNTjkj3mDX9fFBETbbNr
-	 IGodWd0geI0an9AkLDCG1NtzE7Du303M6EjR2rtvIix65pHhx3pRpFYl7amXQ8x7bY
-	 kAk74J4V8FBqk2WtBb+cwnocuvj+j950KFSnl6GStqZnQYc1ndK/C3SNB/KTwbhRO/
-	 uObkVxz5JR5pQ==
+	b=ja1sSoDMfJWOU8sLPzYuZywnIetO8MZH0DaMmsQpNToL57Y4EFsU1zpD2pxTH2O7y
+	 rK6Kvh6AHPZbCgvoDJK8SgfSFrFSONq4ip9Gzr+j5fvsf+4IDriVpugYDzSoFHkRar
+	 UnKRDb7up6yyGH/KLl7H7manyd7OTwesTnVRqvWJ/w+9XGMvWPsaucwSg0CkrrUu8X
+	 kJRtOFfp1mSTCqQnWgF/S9ClTBJ+6Za6Lv2oV7Y1UtGkHrKeerSRA/mzJMvynFlhxQ
+	 oq8mCuDxaXmQhluuRmnH/nWHn1zU128snrWeS/GhIt2Zfi+i+DQB590uRLgqW3nRpH
+	 P/d63IogzGjWg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] iio: adc: Add ti-ads1110 support to ti-ads1100
- driver
+Subject: Re: [PATCH v4 1/3] iio: adc: Fix incorrect reading when datarate
+ changed in single mode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260622221550.374235-4-jakubszczudlo40@gmail.com>
+In-Reply-To: <20260622221550.374235-2-jakubszczudlo40@gmail.com>
 References: <20260622221550.374235-1-jakubszczudlo40@gmail.com>
- <20260622221550.374235-4-jakubszczudlo40@gmail.com>
+ <20260622221550.374235-2-jakubszczudlo40@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 22:31:32 +0000
-Message-Id: <20260622223133.24C2F1F000E9@smtp.kernel.org>
+Date: Mon, 22 Jun 2026 22:33:09 +0000
+Message-Id: <20260622223310.0C83D1F01564@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] Hardcoded IIO device name ignores the newly added device configu=
-ration name.
-- [Medium] Hardcoded ads1100_data_rate array used instead of config-specifi=
-c data_rate in ads1100_poll_data_ready.
+- [High] I2C read failures inside the polling loop are improperly mapped to=
+ 'device busy', causing a 7.5-second hang and massive dmesg log flooding.
+- [High] The data ready polling logic fails to synchronize because the ST/B=
+SY bit is likely static in continuous conversion mode.
+- [Medium] The `ads1100_poll_data_ready` function performs a completely red=
+undant I2C read that wastes bus bandwidth.
 
 Pre-existing issues:
-- [High] Missing PM runtime resume on device removal causes an unbalanced r=
-egulator_disable() call.
+- [High] The return value of `ads1100_set_config_bits` is ignored in `ads11=
+00_set_scale`, leading to silent configuration failures.
+- [High] Reading the ADC result immediately after runtime resume returns an=
+ invalid or stale conversion.
+- [High] I2C read functions allocate transfer buffers on the stack, which i=
+s unsafe for DMA operations.
 --
 
-commit d015d54867f4b919a8e4d7c10d3727993b652f65
+commit 06506d1fcb678ffc0137dbc1df3913f95ce47327
 Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Subject: iio: adc: Fix incorrect reading when datarate changed in single mo=
+de
 
-iio: adc: Add ti-ads1110 support to ti-ads1100 driver
-
-Add ADS1110 support that have faster datarate than ADS1100, it also uses
-internal voltage reference of 2.048V for measurement.
+This commit attempts to fix incorrect ADC readings after changing
+datarate or gain while suspended in single mode. It introduces a
+polling loop to wait for new data before returning from the configuration
+functions.
 
 > diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-> index e3c801381434d..ec79a89464fb6 100644
+> index 9fe8d54cce83c..e3c801381434d 100644
 > --- a/drivers/iio/adc/ti-ads1100.c
 > +++ b/drivers/iio/adc/ti-ads1100.c
-> @@ -40,20 +40,44 @@
->  #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
-> =20
->  #define ADS1100_SLEEP_DELAY_MS	2000
-> +#define ADS1110_INTERNAL_REF_mV 2048
-> =20
->  static const int ads1100_data_rate[] =3D { 128, 32, 16, 8 };
-> +static const int ads1110_data_rate[] =3D { 240, 60, 30, 15 };
-
-[Severity: Medium]
-Will this result in using the slower ads1100_data_rate array for the ADS1110
-when polling for data readiness?
-
-Looking at ads1100_poll_data_ready(), it still accesses the hardcoded
-ads1100_data_rate array directly:
-
-static int ads1100_poll_data_ready(struct ads1100_data *data)
-{
-	...
-	int datarate =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->config=
-)];
-	/* To be sure we wait 5 times more than datarate */
-	unsigned long wait_time =3D DIV_ROUND_CLOSEST(MICRO, 5 * datarate);
-	...
-}
-
-Should this be updated to use data->ads_config->data_rate instead?
-
 [ ... ]
-
-> @@ -404,6 +436,13 @@ static int ads1100_probe(struct i2c_client *client)
->  	if (ret)
->  		return ret;
-> =20
-> +	model =3D i2c_get_match_data(client);
-> +	if (!model)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Can't get device data from firmware\n");
-> +
-> +	data->ads_config =3D (struct ads1100_config *)model;
-> +
-
-[Severity: Medium]
-Does this ignore the newly added device configuration name for the IIO devi=
-ce?
-
-In ads1100_probe(), indio_dev->name is hardcoded earlier in the function:
-
-	indio_dev->name =3D "ads1100";
-
-Should this be updated to use data->ads_config->name so the user-space
-sysfs name correctly identifies the ADS1110?
+> @@ -123,10 +127,49 @@ static int ads1100_get_adc_result(struct ads1100_da=
+ta *data, int chan, int *val)
+>  	return 0;
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but does the lack of a PM runtime resume on
-device removal cause an unbalanced regulator disable?
+This is a pre-existing issue, but doesn't reading the ADC result immediately
+after runtime resume return an invalid or stale conversion?
 
-If the device auto-suspends during runtime idle, the vdd regulator is disab=
-led
-via ads1100_runtime_suspend():
+Looking at ads1100_get_adc_result():
 
-static int ads1100_runtime_suspend(struct device *dev)
-{
-	...
-	regulator_disable(data->reg_vdd);
-	...
-}
+	ret =3D pm_runtime_resume_and_get(&data->client->dev);
+	if (ret < 0)
+		return ret;
 
-When the driver is unbound, devres calls pm_runtime_disable() (which does n=
-ot
-resume the device), followed by ads1100_reg_disable() which attempts to call
-regulator_disable() again on the already-disabled regulator, triggering a
-kernel WARNING.
+	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
 
-Could we ensure the device is resumed during driver unbind to prevent this?
+When the device auto-suspends, a subsequent sysfs read of in_voltage0_raw
+calls pm_runtime_resume_and_get(), which transitions the ADC to continuous
+mode and starts a new conversion. However, ads1100_get_adc_result()
+immediately reads the I2C output register without waiting for the conversion
+to complete, which can take up to 125ms at 8 SPS.
+
+> +static bool ads1100_new_data_not_ready(struct ads1100_data *data)
+> +{
+> +	int ret;
+> +	u8 buffer[3];
+> +
+> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to use
+stack-allocated buffers for I2C transfers?
+
+Using stack-allocated buffers for I2C transfers violates subsystem rules and
+can lead to memory corruption or kernel panics on architectures where
+CONFIG_VMAP_STACK is enabled and the underlying I2C controller utilizes DMA.
+
+> +	if (ret < 0) {
+> +		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
+> +		return true;
+
+[Severity: High]
+Does returning true on hard I2C errors trap the driver in an infinite polli=
+ng
+loop?
+
+Returning true signals to the read_poll_timeout() macro that the device is
+merely not ready, causing it to endlessly retry for up to 7.5 seconds inste=
+ad
+of aborting. This masks the actual I2C error code with -ETIMEDOUT and
+generates massive dmesg log flooding.
+
+> +	} else if (ret < 3) {
+> +		dev_err(&data->client->dev, "Short I2C read\n");
+> +		return true;
+> +	}
+> +
+> +	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
+
+[Severity: High]
+Will this polling logic synchronize properly in continuous conversion mode?
+
+When changing scale or datarate, PM_RUNTIME_ACQUIRE_AUTOSUSPEND() is called,
+transitioning the ADC to continuous conversion mode. In continuous conversi=
+on
+mode on these TI ADCs, the ST_BSY bit does not pulse to indicate new data;
+it is typically static.
+
+If ST_BSY reads as 0, ads1100_new_data_not_ready() returns false, breaking =
+the
+loop instantly. If it reads as 1, the driver would hang for 7.5 seconds.
+
+> +}
+> +
+> +static int ads1100_poll_data_ready(struct ads1100_data *data)
+> +{
+> +	int ret;
+> +	u8 buffer[3];
+> +	bool data_ready;
+> +	int datarate =3D ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK, data->con=
+fig)];
+> +	/* To be sure we wait 5 times more than datarate */
+> +	unsigned long wait_time =3D DIV_ROUND_CLOSEST(MICRO, 5 * datarate);
+> +
+> +	/* To be sure that polled value will have value after config change */
+> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+
+[Severity: Medium]
+Is this initial I2C read redundant?
+
+Executing ads1100_poll_data_ready() triggers this initial i2c_master_recv(),
+discards the populated local buffer, and immediately enters
+read_poll_timeout() with sleep_before_read =3D false. This instantly perfor=
+ms
+another identical i2c_master_recv() inside ads1100_new_data_not_ready(),
+needlessly occupying the I2C bus.
+
+[ ... ]
+> @@ -149,19 +198,36 @@ static int ads1100_set_scale(struct ads1100_data *d=
+ata, int val, int val2)
+> =20
+>  	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+> =20
+> -	return 0;
+> +	ret =3D ads1100_poll_data_ready(data);
+> +
+> +	return ret;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but does ads1100_set_scale() ignore the return
+value of ads1100_set_config_bits()?
+
+If the I2C write to update the hardware PGA scale fails, the error is
+discarded. The function proceeds to poll for new data and may eventually
+return success to userspace.
+
+This leads to silently corrupted or miscalculated voltage measurements beca=
+use
+the sysfs attribute appears to have updated while the ADC is physically
+operating with the old scale.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622221550.3742=
-35-1-jakubszczudlo40@gmail.com?part=3D3
+35-1-jakubszczudlo40@gmail.com?part=3D1
