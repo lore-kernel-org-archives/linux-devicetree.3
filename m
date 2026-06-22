@@ -1,139 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021091.outbound.protection.outlook.com [40.107.51.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480C83793B8;
-	Mon, 22 Jun 2026 09:17:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782119874; cv=none; b=HZ0Ty1qUy6Sr9DqTdNPmJp36V6V9EvqaIxVogv1KRR88gBFQesFCZ+QCQ19/WfiEeMEsJvFrf+ttVkpSwN0NoDVcLWl6qUvQ7N05OTL80Pi2Q9btjEJuo4w3UgE3BW//XOO9rla+/azd38Pin3G3ZCLtwMiJor/y7NqIrH25kvQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782119874; c=relaxed/simple;
-	bh=CFW9CQabn5S96U0a/L6dO/zOrFz9X7QPd9GDacA/uMU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DaQ65Gvkd7oPz9GS1vMAyofSeQOZ3iDr8U7+pjiHTQaOtaDg2TMGwvCb4+zyQwMpljywpD0BrzIPthkPpV7ICutoU/tyA9a4UmuQrNrF51EMfQWzcc7lbXjr91ysBTKBQukhxj1VyPMjErmo+KaWPboNEP3IfPQql5P98/JaWic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/YCPKRa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D65397E64;
+	Mon, 22 Jun 2026 09:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.91
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782119928; cv=fail; b=DA8flDFvr9jyepxcGtg5iuKNa7izkDheVbJCQhhYM4FGo2QXHwKCSK3Wuu7bAKjQTzc47d05uPwZHkdb+xVM28oTeOKabErVNmWr9RUDkuU5v+iaEF967RQJDvgaJLrhaAW/ljLETGsLTDymI0IPmouuLgLnqOrjwVZ2Clg0PJw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782119928; c=relaxed/simple;
+	bh=PcpYa72zbk0lPqvQQbkX45BJxkyDzYgp2vxzqHRgZnI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UR1E4WeHfOYvNlrOtDzfs5a/EHfZ23HzTf753ElTw0jUwDx46SjGPWiJjDfxGxwpwSp/DxpP9Al5ylsa2az/AAmNCZHuF5wDrfEeJH3hRvIC/69VhFa0bfHP7J4QxIrZoagKq6jBDVJmahWlpGMYCLRCCBZcbj7OsH/FNzwkMdk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=RoLguuZN reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/YCPKRa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3A861F000E9;
-	Mon, 22 Jun 2026 09:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782119870;
-	bh=75WkuDbFDwK34b3F1MyX5oE8FFFopksL8cNu00Zpxfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R/YCPKRa+xIx11buTQlPiQBzl7DId8G1PzPC7UL7S64waj7Db1cVNTC7Hi9J6NufN
-	 tfLNQCkOk2+Yiwd2g7Kff+K3jd/9vIIonnHKSRVleviBvCPzKyfkesEkNeFagjkK10
-	 VlNe10Saz2+IaCtgnSOTLjhnDLM9E2bqqpZs1N7Z9/CUXGJSIqMZTeJOlwKDh8eVRI
-	 bwmzkNag9rTvKXB25wYsQELubrYvUKmZdOS7adccZYlpk5Ep0/qklu0bh21fg3c0up
-	 WhIZL2LfHchOLmyINMWA5XipKHmj7QesrgbmeSf7nuYM03VPyvZiizBRh/80FJLrwA
-	 9ms6gjyj3DJYg==
-Date: Mon, 22 Jun 2026 11:17:47 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, 
-	pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, praneeth@ti.com, u-kumar1@ti.com, a-dutta@ti.com
-Subject: Re: [PATCH v4 02/16] spi: dt-bindings: add spi-phy-pattern-partition
- property
-Message-ID: <20260622-jasmine-mandrill-of-emphasis-eebb4c@quoll>
-References: <20260618073725.84733-1-s-k6@ti.com>
- <20260618073725.84733-3-s-k6@ti.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="RoLguuZN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TALZLl90pBvinlxwQ7cTr3K+ePX2fR00ftaUQQStemtTjlwB1zOd7rtKoCKB/2XhjxPJaZ7BCkG2L46KBIVZawHHHt2fRixGVkKm5Ncy54tqlB4IObUQbfG15o7u6hzVqbr6BS2IysEFRhQwGYOOdMA2ib8v97dLj9qN+gUE2niGS8lWiPABN654u+gdmdJJmZMrTt+YHHIbGFcigqFEr4VHFJvWxwbtRn0rMrqO96ht2QeyuNK8r5W+sR7fjodAnoqPZA8C0uBxbJcTUUQVyhQ8egwPUQP4+DNOmqubk6bZZbyo2zhnQ92i1M/+EuDjtV1c2a9IJ056bqqA+0l6Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PcpYa72zbk0lPqvQQbkX45BJxkyDzYgp2vxzqHRgZnI=;
+ b=VoiKgtI4WfU+f9Gj3iY6OvORs7IAsE8CqEi+U9F16rmNc2YvMC0AgXXzw5desmDLbPRUsY5FgSI2Odi21SnXwVKu/uuHBf3X9aSR0lsWNxA3OJ3HrBoj5PUX7e8xfQ6eK1u/AGtr+D3js8B0pEjKAr9nci+g9G4FkdUKfeUpssLquBMB8P1i3kGIURPQmZsuWGXm+y4kaLWQPuknW1ajacaTCy5b3sii6wWZQZ+iBiS7oQXgax28NtbL74ictzMvMwZPmeZL2uosk2ZGt4dzwbmHDf5B4N8ZPn0iFtxVigLbb5hgqRGslkYC1+sDprF5z+Z0MjNiqHH37iMlotE7tQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PcpYa72zbk0lPqvQQbkX45BJxkyDzYgp2vxzqHRgZnI=;
+ b=RoLguuZNqTNn+riAbr8yOMv2YBHArRNgTlN5zGKKZY+BQE921vW5ny+z38sm99Z0Ukaq4qZ5fdS1chxca/KB7eKA6GdTds+Tuo8DCKkq+owHjKXMuMjx9JFfvTSBpicmr8X8VHxC3FnCPTxWvnMNweHvgpn2LnUgWb9ia8LfVzdQEeowlxzTeI2ydQ0rESqpW/v1qMezr+E6IjqLPM6r/abPxXrKFSdBHxdT2uzVpZi5vGqRIx9GH+1YExpX+DhUcbmQ/BeO/MyzW6dcI881Y/eFNsizEWfyBLNZ/4HE6GOkp7FHQKs0swxWVOILoIVQtN+LN8V6LZyFSqQeGZS1cg==
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
+ by PN3P287MB1108.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:173::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.14; Mon, 22 Jun
+ 2026 09:18:40 +0000
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 09:18:40 +0000
+From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+CC: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+	"luca.weiss@fairphone.com" <luca.weiss@fairphone.com>, Hardevsinh Palaniya
+	<hardevsinh.palaniya@siliconsignals.io>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson
+	<andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Elgin Perumbilly
+	<elgin.perumbilly@siliconsignals.io>, Walter Werner Schneider
+	<contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Svyatoslav Ryhel
+	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] media: i2c: add imx576 image sensor driver
+Thread-Topic: [PATCH v2 2/3] media: i2c: add imx576 image sensor driver
+Thread-Index: AQHc/+rjlKGWpG0n2UqPle5J3Ir6S7ZHcVeAgAKoCP2AADMSAIAAAwww
+Date: Mon, 22 Jun 2026 09:18:40 +0000
+Message-ID:
+ <PN0P287MB201958C9169499B93C50ABC49AEF2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+References: <20260619125439.55311-1-himanshu.bhavani@siliconsignals.io>
+ <20260619125439.55311-3-himanshu.bhavani@siliconsignals.io>
+ <20260620132749.GE3552167@killaraus.ideasonboard.com>
+ <PN0P287MB20199A3EF8F3183176AC1E559AEF2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+ <20260622090432.GL3552167@killaraus.ideasonboard.com>
+In-Reply-To: <20260622090432.GL3552167@killaraus.ideasonboard.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN0P287MB2019:EE_|PN3P287MB1108:EE_
+x-ms-office365-filtering-correlation-id: 5788b443-d5ec-46f3-1f27-08ded03f3f97
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|38070700021|22082099003|18002099003|56012099006|4143699003;
+x-microsoft-antispam-message-info:
+ M3fCbT3DADFU10BDrNTlEKF62r1QYA93FU7JSgdR1G2pSZXQRugldpVCPTc4ekQw+Bghne3S48m8xHDELvQWoEULW/EFDwd2X0PEENT0vNQryY8qb6PZoGtnCrV9cA8jqT6OyeVve+ypmkQydJwIPjwXaVBfMAHpWptSxNb+wCnFlg5mMhsRpc2OSnHf7NxFB0sIrpEJchxO5kpy9lQF7NZY9gLaRYvDXqgFBCX3VSAVMQiLj/0SsQdO9cQJwfRLqifx3NYbfmzDfS+lExlF5agPNI0fnovAGuWTr99Rcc7qAzlBd5Or1SHO5pTrKA4u9TGnNI09c7HXp718MnmFAvFZNjuTb+15+0+vzapaN3qYxsTm8+g5djcKYEPzLBk/Tv2KMrv9GZoLQVmrT8nddzUikwAIyJzgeuP3d5DZfCpGV9pVFDJJP+ToW1H1FDxS3FJ1XqN0GUwiIa/y9QCvn8T7x++YXUqmkXq32O30G1AErsLg5sF+43nRIeutNI8MZDFCJbtsUaGlAsywh9Gx0Jb8h5HqykKpebBfSxBOppl+17snEHTdGaamlvUjy9PxC7/ZQ1hOZQGGeF2bRuOgXQxlg9ekGoGcQ36UnqUM4yHO56rUzLx/QuUcfDSpt2VdF2DLCPDyznkh6LA88q96cHl4UO9FWXDoCSIZEuG7R5fsfXksBGwSWMKYR1UvqleWlTW6zBW/+zcSFGKBqDfupoPq8LFPKmTyoiyQBdDi2gQ=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(38070700021)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?jM6pNN4UE3kjV/UUfWN5RjFQZSIun5sOHRSboZaznInIA4N2bXYX0SwOcp?=
+ =?iso-8859-1?Q?GX0A+5xqdbrdkSsKY+KXi3CqKeuO7fQU0ZTBlQ4QIaCNa5y+7hEcL4XgGv?=
+ =?iso-8859-1?Q?Y+U45BSmDX5fUR7Xya3Bl9QBQqBmQKNGasOnMzS56P4FuJpyxipfGEtzKg?=
+ =?iso-8859-1?Q?HV+SJpxuxiFDu/wjI1BYM1PGNDUvucLRWZlCpHz3aYudmyOeeAPU8we0L3?=
+ =?iso-8859-1?Q?BH5RQreskDGdTEVrl3MH9F79sQYQwsXJXdOEUOtB4yYaJHyu2MMjfMunc7?=
+ =?iso-8859-1?Q?qpoqon7kJbXEr5qcVm8b1l3crACqKUUA7Up8II9DQ8b+fVcicXxN+3shXb?=
+ =?iso-8859-1?Q?nuPfwZhBz5xy5OF0NysbacJjISYxE4uKcnokzP65bF33y+K2GU9IgKi4yY?=
+ =?iso-8859-1?Q?gkM1XK6UdIdvETCBf4M0IcCabtxQDxc+mbzWsSgT0IsyIXGZri9t4oDs7B?=
+ =?iso-8859-1?Q?zJYoyBEZjq0lcpC9KKhJXxXEGi+V7rB+2NZ9koB9On89QM00QubQVP2RBd?=
+ =?iso-8859-1?Q?8/haPXr56inrr0xJi/8pMn46cFOEK52Wm/3U5Wqu8VqIXzbb2//JHBSU1l?=
+ =?iso-8859-1?Q?NJoPZZVCnrWLxgJWDrIFIpgifjH64t6fCbAO1eoIq+eEWi6sX0zqrumzgu?=
+ =?iso-8859-1?Q?3LJj4D+OwrjymJcNeqR6Oc7DdcCpXh170B8LaxbErwCcIBmSPWByhP3PTg?=
+ =?iso-8859-1?Q?CQTCZXfOwHmxuGrd4B72ilGbalg4B/fN9UHu0ZHN3GXu6xnVqKooCaF9TW?=
+ =?iso-8859-1?Q?KPFcvatNCLmIqPL78uwUjEKvzqThFWClivF1nN0w3ApuaeQzaP95YOVEEP?=
+ =?iso-8859-1?Q?ot9xsnU0XYqmrqjBHQW323Z4vaii+m2zBYi0WSlvZgreX7EjdF08LMDPCF?=
+ =?iso-8859-1?Q?44cb08QBsTuGJGUGqeZg1izUaL4+35tO7xG34HC2cft7olP5N0eh1AOGld?=
+ =?iso-8859-1?Q?rpCZa5USpkjRYor/U/DoHbVKVlCL1eE1lNbbiSAdvxC+5vOGG7DJgc112M?=
+ =?iso-8859-1?Q?y0iXao3opmcnB0kpI526URldA6ARo5Uj/k+WKCSmuN3vaLi8gbVCacZ7CM?=
+ =?iso-8859-1?Q?zOSj49Je4ZTvhTANgjbNx+mdMj+/sLdfWVxoiwhD62GdG5DSQ8PabbUQZF?=
+ =?iso-8859-1?Q?wjwzympnZasfPelFliYnXC9dOZddUPLo/b+sAwP0uWY25FzN9UdtwQarxe?=
+ =?iso-8859-1?Q?n0fzmAkFMNMMCe6+RYEyFLheLJkenqFeKJL1l/+bE3r2wkf8JJ4Rf7YMZJ?=
+ =?iso-8859-1?Q?OvqrKwXbYCBUoubXIjNZr0lfz/pySu54/dysXZFgCFHpbQRf12C68TUYW/?=
+ =?iso-8859-1?Q?zDF7ywNIAypASamacsTkcxZ8bVgyx64HmT9PZ+/orhb9GE81I8k0LcZKUL?=
+ =?iso-8859-1?Q?OSF5mWx0+HWm2E/OIO2Dp2lnPrMpTOPzT3IfWW/ogQfvC0+memOvMa51Md?=
+ =?iso-8859-1?Q?7/RELYHk+4g6XXJ0TJ6tFgXnDYLmMK9OoUTzg4zyZCmGx9/ShS1JHvn8O0?=
+ =?iso-8859-1?Q?IYOxIua1o6ycgLDZwuO3qdNavnqOkeIIT9qtZPeFCyhYfZS8ISIVRru//w?=
+ =?iso-8859-1?Q?susR2RAMdrSEYpyVosJVXlpxmgPyJg0RF8NNs5KWkiO+iMT12WMIEDcALE?=
+ =?iso-8859-1?Q?dh2QRceMZyz+KjF5axJtB1DyJl9EppmzLpveEb8jd61QXwFDStInQnhEZf?=
+ =?iso-8859-1?Q?ilVPAlOBIr1gUm4t4xuTYwAZ5ZMLpj+KrjJdU+336VPo0Mg5eLT/kemv/3?=
+ =?iso-8859-1?Q?DmpKRnP4vBNmD4j/Z8IJfUVAFdfX7mUuGWn1stE95EksQv6dPhgTADI27Q?=
+ =?iso-8859-1?Q?Gd/UOWYQXDq7HrGxTVwH+DZIB5HDMiw=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260618073725.84733-3-s-k6@ti.com>
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5788b443-d5ec-46f3-1f27-08ded03f3f97
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2026 09:18:40.1481
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OO3NPDT/pp5pywgfUBC3WX22ykz+wwQhH4EctJmuBOUPFd7g5fK/Ry6iLpuzQ4qUM/flIdBGfDF20gxcRMYVXACnOpFoM6z/ZOfTwtBaOoyi3E+dqs2+8VcfqyZrqF/d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB1108
 
-On Thu, Jun 18, 2026 at 01:07:11PM +0530, Santhosh Kumar K wrote:
-> Add spi-phy-pattern-partition, a per-device phandle property on the
-> flash sub-node that allows the DT author to directly reference the
-> partition holding the PHY tuning pattern. Used to locate the pattern
-> data during PHY tuning when the device cannot load the pattern
-> dynamically.
-> 
-> "Read PHY tuning" works by reading a known data pattern from the device
-> repeatedly while sweeping controller delay parameters until the
-> capture window is stable. For SPI NAND, the driver loads the pattern
-> into the page cache once using write-to-cache opcodes, then reads it
-> during the sweep. SPI NOR devices have no equivalent opcode, so the
-> pattern must be pre-programmed in a dedicated flash partition. One
-> partition per device is required to keep the procedure unambiguous
-> when multiple devices share a bus.
-> 
-> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-> ---
->  .../bindings/spi/cdns,qspi-nor.yaml           | 19 +++++++++++++++++++
->  .../bindings/spi/spi-peripheral-props.yaml    |  7 +++++++
->  2 files changed, 26 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/cdns,qspi-nor.yaml b/Documentation/devicetree/bindings/spi/cdns,qspi-nor.yaml
-> index 891f578b5ac4..c6f1b1d1251d 100644
-> --- a/Documentation/devicetree/bindings/spi/cdns,qspi-nor.yaml
-> +++ b/Documentation/devicetree/bindings/spi/cdns,qspi-nor.yaml
-> @@ -204,10 +204,29 @@ examples:
->          flash@0 {
->              compatible = "jedec,spi-nor";
->              reg = <0x0>;
-> +            #address-cells = <1>;
-> +            #size-cells = <1>;
-
-This is neither needed, nor correct.
-
->              cdns,read-delay = <4>;
->              cdns,tshsl-ns = <60>;
->              cdns,tsd2d-ns = <60>;
->              cdns,tchsh-ns = <60>;
->              cdns,tslch-ns = <60>;
-> +            spi-phy-pattern-partition = <&phy_pattern>;
-> +
-> +            partitions {
-> +                compatible = "fixed-partitions";
-> +                #address-cells = <1>;
-> +                #size-cells = <1>;
-> +
-> +                partition@0 {
-> +                    label = "data";
-> +                    reg = <0x0 0x3fc0000>;
-> +                };
-> +
-> +                phy_pattern: partition@3fc0000 {
-> +                    label = "phy-pattern";
-> +                    reg = <0x3fc0000 0x40000>;
-> +                };
-> +            };
->          };
->      };
-> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> index ece86f65930f..38708f8197f9 100644
-> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> @@ -123,6 +123,13 @@ properties:
->      description:
->        Delay, in microseconds, after a write transfer.
->  
-> +  spi-phy-pattern-partition:
-
-Is this specific to SPI-based MTD/NAND or rather broader - specific to
-MTD/NAND memories, regardless of interface? Feels like the second, thus
-maybe should be placed into the NAND bindings.
-
-If the first, then in below description:
-
-s/PHY/SPI PHY/ to be clear that this is about SPI, not the memory
-itself.
-
-
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the flash partition holding the pre-programmed PHY tuning
-> +      pattern. Used when the device cannot load the pattern dynamically during
-> +      PHY tuning.
-
-Best regards,
-Krzysztof
-
+>On Mon, Jun 22, 2026 at 06:02:24AM +0000, Himanshu Bhavani wrote:=0A=
+>> > On Fri, Jun 19, 2026 at 06:24:32PM +0530, Himanshu Bhavani wrote:=0A=
+>> >> Add a v4l2 subdevice driver for the Sony imx576 sensor.=0A=
+>> >>=0A=
+>> >> The Sony IMX576 image sensor with an active=0A=
+>> >> array size of 5760 x 4312=0A=
+>> >>=0A=
+>> >> The following features are supported:=0A=
+>> >> - Manual exposure an gain control support=0A=
+>> >> - vblank/hblank control support=0A=
+>> >> - Supported resolution: 2880 x 2156 30fps (SRGGB10)=0A=
+>> >=0A=
+>> >You've been asked in v1 to make this driver dynamically compute=0A=
+>> >registers instead of hardcoding modes. Please do so in v3. Nack on v2.=
+=0A=
+>>=0A=
+>> As I mentioned earlier, I don't have the full datasheet yet, so I=0A=
+>> can't implement this now.=0A=
+>=0A=
+>You have been given a link to the datasheet in a private reply.=0A=
+=0A=
+Sorry, I missed that e-mail, Just checked.=0A=
+=0A=
+However, the datasheet is the same that I have, but still I will check the =
+reference's as suggested by Dave.=0A=
+=0A=
+Thanks & BR,=0A=
+Himanshu Bhavani=0A=
