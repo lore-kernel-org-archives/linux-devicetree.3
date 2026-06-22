@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9522335BDC7;
-	Mon, 22 Jun 2026 07:29:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFF635BDC7;
+	Mon, 22 Jun 2026 07:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782113365; cv=none; b=O+i9Z6EerKoW8HepvENETTOjBtUGs2n0KNe3bOSK+yB4pT5UHw8Iuf2U6IVwZbss/gqpJwfUirURoUEzyuhpvVIJH6tiobyx42OL2Mx+f5+1YYA8DYJNrOV1pq8D3TcmikMm0ASk1nLLwOQ4TI1v4ayO8l4EVwJw35wxgI8nFzg=
+	t=1782113392; cv=none; b=S8Q/xJ7nRr5jH4K5/COfgr4uMjYyKtgXjTNXZcNKNaAGyj34P53jKjxYJMNIeFDqmTnPVgNIscyU8o+cDiSx76vSqGTGfgHNkMro2WEOwL8zfX+HKiai6UpoJdRLCjofDCVKXJSoidMXvb5w6eEXseyg0cTnmf/KLfgVFD8irBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782113365; c=relaxed/simple;
-	bh=gMun5/pW2BN5KtElQA6aieOPOsLyAsjsTYCd1xDYDuc=;
+	s=arc-20240116; t=1782113392; c=relaxed/simple;
+	bh=3XGFnjNNwQ0DgUxnBLbLN5bawW+GulGIgmgo3jZNi6U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hPSNCGFpEZgLS5Xtvwpvj1CsQlyrJSH4EwfOOlAnrEywqjLi9hdr9KNHAe8AJYyPdVUzlQ95DRYzbCqwLABpmaKaZtYSs87p7fh7UyKCPuCxKAPB3QlY4bM92viqjC29ar1yP929oQ3F1iUJCQI4XhJi6cvY7nmhdmnGOkI3TKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRHqSEK7; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BtzQgNldfGzxc8oxpeSFgs3Z6+7v28AJOglgOXNCKgwBgzKWYsHakwM2GsrdBrjJ3smPpXgvDBnBlne2iBGQ7ZCLyuvCge/3w8e/VE73FQuljk9CzUKhuyrZwDVXSGHKB7RGM3qbgwHVsO6boU3+RrFpQzvqhD3LwwhhapmHW5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOUKMf8l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRHqSEK7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1681F000E9;
-	Mon, 22 Jun 2026 07:29:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOUKMf8l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2C11F000E9;
+	Mon, 22 Jun 2026 07:29:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782113364;
-	bh=wvRWeZiPgMIADH0MW15ulVfcdstHE6I70smWSPph5gY=;
+	s=k20260515; t=1782113391;
+	bh=F0WSUvVH35ZlfPX0H0C4RQzArqTL2PmbydtZQym0o8g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hRHqSEK7Y4tXt9hQiqv/bqDsVUFQ49G1X/5zgOaRkTiLx/Nc3tl9QEkBgQV7ccrxd
-	 PNrT2VjSwsWXYjXqHolaxaR5I4xE5u3GSJeHsxl13X1CKLmrr+SZVBlwocd5SdLhbD
-	 NbXCkkGAmPvnlSH53QACdDbnmJcVJitGw0dis/+PRddOMGIoxfYs+30pHOveuSAxOJ
-	 +rdO7BkIIEzCdpu0ygfxbf/AunHPZ8RHUYOk6uln5aKZ4j4gvpXnYjmCUrfXfqgmk5
-	 NnUgbcWa7TsBw7B4kKIFGLE3qETxn180os1nlY6FOVKpYGJTesXh01+CEqAVNswG+C
-	 fZejEgQ03ilSA==
-Date: Mon, 22 Jun 2026 09:29:20 +0200
+	b=JOUKMf8lz4bTcN18n6o3m/MstV0+Qvl8HLdwksxzul58S/4pIvPVAfeziPRpscjmQ
+	 RxB8kSL9mCQKupGu7XYEmCvKi9ltHIxmnTeRFw0cTXYR4E6sEw2F5E1J9KEnsvhECi
+	 RZ/ld16BRO1/1KfoLnSVeY3ZucjFINYQGoy202zMvIuNVKxw2Q6PGgqf1FOCiAk6SF
+	 HZoiMilRzbr9imFeekYwEWfrPzXBQQBKt4dfjEpDYJtn8E4ectEX8+tb/PRUu0SXl8
+	 kDefVQNIrsRs62MPozDVLNnOLd0cCMt21pCkJaAp/eRLn+YYwnEywzAAppdDF+Ohon
+	 dzpOjZLWgPjMQ==
+Date: Mon, 22 Jun 2026 09:29:47 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Otto =?utf-8?Q?Pfl=C3=BCger?= <otto.pflueger@abscue.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Orson Zhai <orsonzhai@gmail.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 1/3] regulator: dt-bindings: Add Unisoc SC2730 PMIC
-Message-ID: <20260622-mindful-civet-of-refinement-02d3da@quoll>
-References: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
- <20260620-sc2730-regulators-v6-1-bbd2db395231@abscue.de>
+To: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
+Subject: Re: [PATCH v6 1/8] dt-bindings: clock: qcom: Move glymur TCSR to own
+ binding
+Message-ID: <20260622-exotic-educational-raccoon-c1639a@quoll>
+References: <20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com>
+ <20260621-tcsr_qref_0622-v6-1-c939c22ded0c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,23 +49,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260620-sc2730-regulators-v6-1-bbd2db395231@abscue.de>
+In-Reply-To: <20260621-tcsr_qref_0622-v6-1-c939c22ded0c@oss.qualcomm.com>
 
-On Sat, Jun 20, 2026 at 10:54:00AM +0200, Otto Pfl=C3=BCger wrote:
-> Add bindings for the regulators found in the Spreadtrum/Unisoc SC2730
-> PMIC, used e.g. with the UMS512 and UMS9230 SoCs.
->=20
-> Signed-off-by: Otto Pfl=C3=BCger <otto.pflueger@abscue.de>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Sun, Jun 21, 2026 at 10:11:24PM -0700, Qiang Yu wrote:
+> The QREF block supplies reference clocks to PCIe PHYs and requires
+> dedicated LDO supplies to operate. The digital control interface for QREF
+> (clkref_en registers) resides in TCSR on glymur. Since QREF has no
+> dedicated DT node of its own, these supply properties are placed in the
+> TCSR node which acts as the control interface for QREF.
+> 
+> Add a dedicated binding file for qcom,glymur-tcsr and document the supply
+> properties.
+> 
+> Mark the relevant supplies as required per compatible using allOf/if/then
+> conditionals.
+> 
+> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 > ---
->  .../bindings/regulator/sprd,sc2730-regulator.yaml  | 44 ++++++++++++++++=
-++++++
->  1 file changed, 44 insertions(+)
->=20
+>  .../bindings/clock/qcom,glymur-tcsr.yaml           | 114 +++++++++++++++++++++
+>  .../bindings/clock/qcom,sm8550-tcsr.yaml           |   2 -
+>  2 files changed, 114 insertions(+), 2 deletions(-)
 
-Sashiko has good point - where is any user of this binding (through
-reference)? Without $ref, this won't match thus is a noop for validation.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
