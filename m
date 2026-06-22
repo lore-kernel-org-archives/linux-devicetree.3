@@ -1,124 +1,186 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405DA38F927
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF6C390219;
+	Mon, 22 Jun 2026 08:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782116628; cv=none; b=Oe3AyAB4VddYXc6gNOZn4yEoqN2IZzhcRZHLi1IGyI7TlK/fkehg3e5LOya1+cA3OEzmZ4H/rjtTiCX28oqcZU9ey68/qyPUiCtGu/imZaJ/5Y5F5JnCThJIZ5OGojFkpf65xM47FNJIm3m5ZUszInVA/x3MrnamwQe0ix8Td6M=
+	t=1782116672; cv=none; b=MkXG81u3OoizObTDl4Z9vYo28a+jouAGB/341IDIGV2lCMgO2QCONX7Rk6PBX+3h9HcmmEB9ZjvcJ4GXmwd6/oGx8ZRtiRveweD3TOypUWdfm8CB63fwSCL/seyjoWsNJtFxi+EWmc1py056qvOEPOs2l6Rdcuc+Jz6F8mSjb6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782116628; c=relaxed/simple;
-	bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=ndSZarN13RFpFFoSUc4kd9tCqH/o3w5fyS5rKuW77GyuHmWG+xSTsuM9fUkg2m5rR5TmN1dlOnyZYcks3A1fuwbqug7iJk1Mz0FS8hQKa60U5HV9B60FmVRqGNFbAkHeWf7vbDToTvd5QgUURDl0m0TUDDJv9E+xXvhlyGqGguM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=tJlpr39N; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1782116672; c=relaxed/simple;
+	bh=fw+WNctlKjdJfOLKXr90LFf0YYPvjxV7vNXyMg++45o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bya0pVGKb006kiC6uwE577GLbaMI9As8Rz1vT9gI3lQrdHYqcyjb6OyAR1Z21hTYgNhY2u5c2gMqDEILx7CUr5i47CyxkNc/aEjwAqqmffHDuJu5hmwHC8b2HMuAa8/v1D86+WoUIz9+JIsswvl15iw3DAXOSzMmcS9R8Vu9Gz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZlFl1Xd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="tJlpr39N"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c0c15bd6b8fso230271466b.0
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 01:23:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1782116626; x=1782721426; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
-        b=tJlpr39NE7yGwJMaIA+4fM/aUP1Hj/FhwSsW4fmioS66ZE3OOwUcuWDkxxKVorhLis
-         ZMgOkPIMXJQe+NTG5ZYUFKC1TkiBSBqKtGC7VCVYnihn2NP+AObCyhcwr0k99YRahxiN
-         Ut8EEBIEMisEfVkXJO51acgdZVEq5FvPCJIR11zF6xQfdRy6LBjqUIw6qH2RoIglLiIF
-         FqgRTlmv6E9iS5OQu8dskQDGJ+6Gp4luIohKuR30FITZCi48YwX3TgPH/IQ2nMW2uXcJ
-         1DfMYK0YHbESilAQa+voh/KPbAutCuxeBgfUBsg9UNj/I5+5DrwJvBlGwqm7pL/rbVom
-         oesA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782116626; x=1782721426;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QayaNVYMdk0y95PRvg6tdQ2LISbdzw2ou3QRiLXOzkc=;
-        b=As7zmRawV16nldAZbCvn4W+sp0aZDSHlBM8tpuJiiFcjnykZwYNUM3iw+Y4mZyLOE1
-         jSyhQKGlqhl5RzjeUasjMSMSFcprcwRmILRgE8UQZih1tUu8g8qguI0ORoDKiLSc8OP0
-         wyDr7WIy6/leZmdo3Lpkw+i701QLnVz9PAQOe2OjtSuyqBAYQFyOL2BPkQbSJICBlfeZ
-         XCLLQL37ePShQ9sVSjYLHRtCOK+D+7vXbP7WnHk5aUwrzdMeGiytsHeUBNnVoDA7wMFv
-         aj9+87QLrzgB7Yc98Aukit216CUIoKJkcrygwoUuCYEMr5f4iOucFdQB4gfgzvYFIIFy
-         U3WA==
-X-Forwarded-Encrypted: i=1; AFNElJ8G54IFXWY7FMC9npzy95/OQjEU8WN65WurFSgk8kwKWAjhW2a9rx088N5708ALGXaLl9nPQ2o5pE05@vger.kernel.org
-X-Gm-Message-State: AOJu0YzG7psO1tTJFIOOz+O9C2w9vtm9GVR+eQ6lAMaPaIeYPrbh1Kne
-	FGDLlxzMho4aK2f4G+IAmLVHJ3JbaLaBPfBn55vidF4a/LKE78dpehxc1Nq9+H9yXnI=
-X-Gm-Gg: AfdE7cmjNVGCF8JE7kmZZQ+dRqATmtquq305GCHNf4T7Yp6HP/FGrG2LmUMdoJbzeI+
-	OJnm8letH00RYaF6SmbB135vQ63+RhuN3RYKFQHDrxj8JyT8V5YL8eQYPGF2tAHnEt4iLZwbzz7
-	ofnQSSdpQPnZnGDidV+I2JIprhN1R9ewFcuRlV1VGpZiSa8nHh8wg3vv8rlpLfxEES7CnsziUZy
-	V1wCLVxXle+Nr4LNh1lKBGNR6A+j7vxEQ64+aw8y6nKtjMiEqB6e8CSms0cU7wvRX9rvVu4fIlr
-	eLU2//HjHf/MqYtTNU7pmGrulZd+AzG6FH9eMLnvT2zCEH9psPORNc3TaFkeDMurZqdN1QGDSVP
-	Apf9rK9NcteYj+sYZX+TcF8KIIbFFrPrFVc1K3EuuNwaooQXfqI6C6oTgpPHTNPXGtHAoJHaPo6
-	R0jH3JhUEyeleHEWUCmkvoCCWfEDu7FKbKhyY+f5oDiBjQNqfeRGs2LxLBsm4VVFp3kthQvhqbz
-	+CJDztLXhZL0+ZDI9nIyyhLFys=
-X-Received: by 2002:a17:907:3e9a:b0:bfe:ed74:524 with SMTP id a640c23a62f3a-c098f33a0f1mr679421766b.51.1782116625717;
-        Mon, 22 Jun 2026 01:23:45 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-b4d0-bc9f-f60e-913a.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:b4d0:bc9f:f60e:913a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac97aesm310087666b.30.2026.06.22.01.23.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 01:23:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZlFl1Xd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC881F000E9;
+	Mon, 22 Jun 2026 08:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782116666;
+	bh=U9aEBx+5pcbVcq6P1mFr85/POApeaMz/aRqzYaYr4RA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jZlFl1XdxcjBDnxS5vdTuHJC/TxxmPx5JQa3J3wBCadOQ6UO+AbDV/dApt4WlPry6
+	 wPNAIPEX+HPOTwkP9vANZWHJ6IONOAf1xf36+tv6NC+KFqbjG393jdaA3ZAMc/eSte
+	 58ZoMBFS2ovWZ0q+mnNKWUJU9r7k45jnjwh6HjyUjA9JUOlTjzppPR/1yVXE76RhhF
+	 /+mnVz9/Ua+2REoa3/U7qqFT/d5GWbHSZlZYWYpF9XpTZvQDl8qzSglX2jSo4Z67tA
+	 /3/VqLDtOrhykVBHWuRJXbpjgzAoJML7COQQ4wKRwwag4aqzSfaUXYJEHYEpdzQExQ
+	 xBo9rgVm91TzA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 01/22] RISC-V: perf: fix resource cleanup on driver
+ probe failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: linux-perf-users@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260622-counter_delegation-v7-1-0ba2fd34614e@meta.com>
+References: <20260622-counter_delegation-v7-0-0ba2fd34614e@meta.com>
+ <20260622-counter_delegation-v7-1-0ba2fd34614e@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 08:24:25 +0000
+Message-Id: <20260622082426.3EC881F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 22 Jun 2026 10:23:44 +0200
-Message-Id: <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
- <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
-In-Reply-To: <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
 
-On Wed Jun 17, 2026 at 12:05 PM CEST, Konrad Dybcio wrote:
-> On 5/22/26 4:46 PM, Luca Weiss wrote:
->> Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
->> some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
->> and power-domains for the LPASS RX/TX/WSA/VA macros.
->>=20
->> Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
->> equivalents in its place. The qcs6490-audioreach.dtsi file can also drop
->> deletion of power-domains properties then.
->>=20
->> This follows previous commits moving Chrome-specific configuration to
->> the correct file, leaving kodiak.dtsi for Elite and
->> qcs6490-audioreach.dtsi for AudioReach.
->>=20
->> No functional change intended. The clock-output-names property will now
->> exist for both Chrome and AudioReach devices but this shouldn't have any
->> relevant effect. And WSA macro clocks weren't added to Chrome because I
->> don't believe this would've ever worked given it already referenced
->> q6afecc and the nodes were originally added during AudioReach bringup.
->
-> I think it's better to keep them, if only to make sure that the result
-> of dtx_diff isn't outside the expectation of a commit that claims to
-> only reshuffle data for these platforms
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-I documented this in the commit message for this purpose.
+Pre-existing issues:
+- [Critical] Premature PMU registration exposes the PMU to userspace before=
+ all initialization steps are complete, risking a Use-After-Free in the err=
+or path.
+- [High] Global flag `riscv_pmu_use_irq` is not cleared when IRQ setup fail=
+s, causing a kernel panic during CPU hotplug initialization.
+- [High] Probe failure leaves a dangling PMU snapshot physical page configu=
+red in the firmware for the boot CPU, leading to UAF and kernel memory corr=
+uption.
+- [High] The CPU PM notifier is unregistered on error paths, but PMU struct=
+ures are freed immediately without waiting for concurrent readers, leading =
+to Use-After-Free.
+--
 
-But I'd argue not putting (likely incorrect) wsa_macro overrides there
-is the better thing to do. Probably somebody should've taken care of the
-Chrome platforms when adding the wsa nodes in the first place.
+commit e8a230ead53ac1c197ed8d75659a624a38133975
+Author: Atish Patra <atishp@meta.com>
 
->
-> It looks OK as-is for Elite and Audioreach platforms (for the record, I
-> checked rb3gen2 and FP5)
+RISC-V: perf: fix resource cleanup on driver probe failure
 
-Thanks!
+This commit reorganizes the error paths in pmu_sbi_device_probe() to
+fix several resource cleanups. It ensures previously registered PMUs
+and per-cpu IRQs are released appropriately on failure.
 
-Regards
-Luca
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 385af5e6e6d0d..8753007cc57ec 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+
+[ ... ]
+
+> @@ -1452,6 +1454,7 @@ static int pmu_sbi_device_probe(struct platform_dev=
+ice *pdev)
+>  		pmu->pmu.capabilities |=3D PERF_PMU_CAP_NO_INTERRUPT;
+>  		pmu->pmu.capabilities |=3D PERF_PMU_CAP_NO_EXCLUDE;
+>  	}
+> +	irq_requested =3D (ret =3D=3D 0);
+
+[Severity: High]
+This is a pre-existing issue, but when IRQ setup fails in
+pmu_sbi_setup_irqs(), the global flag riscv_pmu_use_irq is not cleared.
+
+Since the driver continues probing even if ret < 0 here, could this lead to=
+ a
+kernel panic later during CPU hotplug?  When pmu_sbi_starting_cpu() runs, it
+will check riscv_pmu_use_irq and call enable_percpu_irq(riscv_pmu_irq, ...).
+Because the IRQ was never successfully requested, its desc->action is NULL,
+which would cause a panic when handle_percpu_devid_irq() dereferences it.
+
+[ ... ]
+
+> @@ -1515,9 +1518,17 @@ static int pmu_sbi_device_probe(struct platform_de=
+vice *pdev)
+>  	return 0;
+> =20
+>  out_unregister:
+> +	perf_pmu_unregister(&pmu->pmu);
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does ignoring the return val=
+ue
+of perf_pmu_unregister() here risk a use-after-free?
+
+Because the PMU was registered earlier in the probe sequence, userspace mig=
+ht
+have already opened a perf event by the time we hit an error (such as faili=
+ng
+to add the CPU hotplug instance).
+
+If an event is active, perf_pmu_unregister() will return -EBUSY and leave t=
+he
+PMU fully registered.
+
+kernel/events/core.c:perf_pmu_unregister() {
+    ...
+    if (pmu->event_unmapped && !pmu_empty(pmu)) {
+        ...
+        return -EBUSY;
+    }
+    ...
+}
+
+Because the error path ignores the return value and proceeds to free the PMU
+structures, userspace could continue interacting with the active perf event=
+s,
+triggering a use-after-free of the PMU data structures.
+
+> +
+> +out_destroy:
+>  	riscv_pmu_destroy(pmu);
+
+[Severity: High]
+This is a pre-existing issue, but does this error path properly handle PMU
+snapshot cleanup on the boot CPU?
+
+In pmu_sbi_device_probe(), the snapshot is manually configured for the boot
+CPU using an SBI ecall inside pmu_sbi_snapshot_setup(), after which
+preemption is enabled.
+
+If a subsequent step fails, riscv_pmu_destroy() calls
+pmu_sbi_snapshot_disable() which only disables the snapshot on the current
+CPU. If the task migrated due to preemption, the snapshot would be disabled
+on the wrong CPU.=20
+
+This would leave the boot CPU with a snapshot pointing to a physical page
+that gets freed shortly after, allowing the firmware to silently overwrite
+freed kernel memory.
+
+[Severity: High]
+This is also a pre-existing issue, but could this cause a use-after-free
+during CPU PM transitions?
+
+riscv_pmu_destroy() unregisters the CPU PM notifier using
+riscv_pm_pmu_unregister(). Since cpu_pm_notifier is a raw notifier chain,
+concurrent traversals during cpu_pm_enter() do not use RCU and do not block
+unregistration.
+
+Because the driver immediately calls kfree(pmu) and free_percpu() after thi=
+s,
+another CPU entering idle and traversing the notifier chain could dereferen=
+ce
+the freed notifier_block and pmu struct.
+
+> +	if (irq_requested)
+> +		free_percpu_irq(riscv_pmu_irq, pmu->hw_events);
+> =20
+>  out_free:
+> +	free_percpu(pmu->hw_events);
+> +	kfree(pmu_ctr_list);
+> +	pmu_ctr_list =3D NULL;
+>  	kfree(pmu);
+>  	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-counter_de=
+legation-v7-0-0ba2fd34614e@meta.com?part=3D1
