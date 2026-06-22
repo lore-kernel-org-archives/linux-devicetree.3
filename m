@@ -1,135 +1,205 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DDE39C621
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BDE2D5C68
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:48:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782121684; cv=none; b=ApnHzw7auADkrfkIBpHxv4XBocyX6zSl9KNjk2xHEz4vcHSXiTF7HSo0f3+oYc/G0eVrsm8QR8UFnxFdC9yRi8TOCow0iszCD2RKjQCPCh/u67F5OlyvJiBtYCsqvAoFjMSuh/9VVQAy9DEnxm5rSNJJG5tSWzDXjR7qVjVyGXE=
+	t=1782121718; cv=none; b=mFVEQIzumzWshcOmjQSK6j7EiDljRGVNwffm6B+MAzKzdRQOsxF2YxStNpW85b0d78JTibfFfS2t7+49ugbFPox78PMLq8kLi1nVgX5DnkbmcgVFJ0iUByPC4k5cNSXZcBLWnlepHWcLv3R6LQcGSuAVhFnLanbop21g6fhHeSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782121684; c=relaxed/simple;
-	bh=VYinWnQae4+B7P9giZn89VNsIC55c8o48r0FuxCS1fw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fJKNno/gTfHZT9Lb4sT4JQs+YFxjq97S7jDco160yYNPYxpLAtFJUZj6BuyvDIhaTwTysKIedGKSq6PteA1cJKphwnI3plnJ4LnRRLOZiMRVpG+FL6XgnectNeAaAb6m1wC77o3pGcymoOaXm0R5YU07gYM/3rc9ErP7qtdtxDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GDpfwImt; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1782121718; c=relaxed/simple;
+	bh=4xc5Kzrp6peOB528xcC8p86lgC0NwDdqu7Etv1FVpQQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l8yX37kv+yBgIy1ghmZ0G9ZoY8koLBm3dopwakktyRHGAqETMvjwxjYRUNfoXMuR8MSOBXI2YEC1TJqDWcQANw0iw1RyPeL0qqJVMWk6B4qGCUAGvgNRf2qqJLen5xKTpH90TQGE5QFU4SRVN/XPCHIvJi39AFX2UOiKZ15gbyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DA3UyqUj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GDpfwImt"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso1873458f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:48:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782121681; x=1782726481; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ePKCrCfHq5Y2KE2FBQXmlLc3ZGDked2vfFdF5rmVAmI=;
-        b=GDpfwImt5qjA5n3wEDm9T3ARzIekakf42LXNbdSNZ1uBA8gIvMhuhxinKpjSxHuBLC
-         cZ6X+AhUw1/f8tu4zHdfrI7XupYrB0TLONV/zq4O2tiPoEsXXpMI4dGgGEgNYLdKcQ/m
-         SsR5SQb5mZsEsXW7WyjtfijyYC+MzIgZA5k3IzT9S14ivdAoSBfUeSvLCr6Jxyjq4php
-         O0kq/MKLlWk42ibyQSA7f8L01nZXTRcxtdR9x3UvqUdYSJNC2IhKuMI8X5CP4CYQIGmW
-         TCidNEu24mV76Ni1Tdi51joJtbYH1oDHIfSu1mStySQHHv7qzp1k6R1lihOsJsjPZ9zP
-         z+YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782121681; x=1782726481;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ePKCrCfHq5Y2KE2FBQXmlLc3ZGDked2vfFdF5rmVAmI=;
-        b=DsL7XFSZ+E/iywq4BpoQqit5u/w1bdteLKsLytUxryP/kiJPDTNApD9OJa/cAtXHEM
-         ZXAyIT2qgkZ0kp2BCIWxC2J4ScpeGBBkSEuVScoXIj4my/K6EEwEwfZcNXqZlK6uki3s
-         9PE2wysMG8/C9YzN8CXIBrHPCxnk+qSiL/LFX3rdUuD5IGg47w1YIUz6y3YfhqmFzIfx
-         fjDfVkeuiAN7+/F5/CtmH73PyO8QyhX7w0rOXHmoRPLCWmLIYxk8F4Tdx24T2PVl1pJb
-         ZHdXUFLXpGaNkjq1wuXjVfbxCbCdGkrDu3+xIlvMJJLKiPxeMsEGgw1nlJa/CJtFpoS9
-         M5Gg==
-X-Forwarded-Encrypted: i=1; AFNElJ/2rb5O70DxqhUVqfVH4JhukGJEWMNcztG5QhckJda6FkUPAVy37211ITHhHXS4qY4+K1cqR0mINCX4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyTjfLXtv52cWYGBa8nIsQw3ao2/UIik++gozfHa34AE8PjH52I
-	x9Bqf+0rT9KY/+uTVH15w6Z4x5zc0PSd389UMALHovSV0KPsMev6jq1vAV2w9Fa0ZF4=
-X-Gm-Gg: AfdE7cmhE/2jaNsXQwYYP8z7sHcbEHZY1YbHuRB7fi0/HH7x+rgo2IxRlDcKOI8Pf6q
-	5uWuu09gyKpjzJ/Itsz+mAsse5pQ1JI1dT57uIMFrXdx/zQ5vJja+Y5pMFNUT8bPw1Twt5lyTew
-	5WYxV89YjVBah7dGcHo741OjnYi4PfjuCAE0ElEOdqPkCC4oEqsgLWD4roBU1ET17wQ0Lo6NZaS
-	4OFZmwHUlBCVsyU4bfdKxJAJH/l81R6AHXzKPr7riNMPQYjMXzJ6ncIsAZlNck/jq8sGloslFtV
-	Gc6K+r3MfBKJ2nmgLdOCWus9NCnbmwsCYN2QX8iGGdoAfUXOQxBFb8NuOP7exBVNMWXFRfPQhwa
-	MYKSY2vQB2+fbt2+Q1SHiOmRN3mbtxPACAUh4QVMdraL6dWKlT795EOjxdKjC+hp/qIfFSvki3e
-	uSvNGHdwKw30+D9YKCIojBHkjy0NHTKJ9ra99yrhLEWdn9a87j5f4iWtsT285RhkAClgrgl0U4y
-	QHG
-X-Received: by 2002:a05:600c:3b20:b0:490:e196:e8df with SMTP id 5b1f17b1804b1-4923f5730cemr270851925e9.23.1782121680570;
-        Mon, 22 Jun 2026 02:48:00 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:9f24:cdc:bb10:65f9? ([2a01:e0a:106d:1080:9f24:cdc:bb10:65f9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46667221da1sm24089038f8f.36.2026.06.22.02.47.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 02:48:00 -0700 (PDT)
-Message-ID: <5686c654-8627-422d-8726-aafe63c2dfe2@linaro.org>
-Date: Mon, 22 Jun 2026 11:47:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DA3UyqUj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869CE1F000E9;
+	Mon, 22 Jun 2026 09:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782121716;
+	bh=SRFpGCgwjrAskeh6pbO5IO2gRzGTpuC1M04DWmzHGgM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DA3UyqUjbzhWPyo9nI3Idk7wFVL/JcG7/ZQKqgS6Yrlh19iayH29JDsOufGKkRde9
+	 vzRqnhYGe2nICHy4tSBoZtIUSgeSrXaPqw7zz8idHU87Xc4G+itQGPiOcH7DBIJK5r
+	 ejLcxzf64PYdUeE1bXxVtmZFrUnbizaisBOaf1T5ZW33kBfojqtUjkrEy3sgjXPCea
+	 bUO3DCpPv9DPXbsu/UYOBVv8AeqbP3HMihqwODd5Vv5f20rhJAou06rHzti8UL0zbC
+	 ciYIjSULXo3o/cVq35xyfqwHZjHgZiBk0TwuCjgaySqY44mgf39McW7WoPyHakTILz
+	 o5hXBbi5EEX4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] gpio: realtek: Add driver for Realtek DHC
+ RTD1625 SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260622092335.1166876-4-eleanor.lin@realtek.com>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
+ <20260622092335.1166876-4-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 09:48:36 +0000
+Message-Id: <20260622094836.869CE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] arm64: dts: qcom: install DT overlays via dtbs_install
-To: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>, krzk@kernel.org
-Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
- vudupa@qti.qualcomm.com
-References: <0f045b88-94fc-46b5-8a49-8a53235fc8fc@kernel.org>
- <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260615162739.787779-1-vishwas.udupa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Vishwas or Claude ?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Incorrect hardware configuration and filtering for IRQ_TYPE_EDGE_B=
+OTH causes missed falling edges and spurious double-interrupts.
+- [High] Unmapped level interrupts are not masked, causing an infinite inte=
+rrupt storm.
+- [High] Clearing the hardware interrupt status in the .irq_unmask callback=
+ causes lost edge interrupts.
+- [Medium] The driver uses a global raw_spinlock_irqsave for all register a=
+ccesses, causing severe unnecessary contention.
+--
 
-On 6/15/26 18:27, Vishwas Udupa wrote:
-> EL2 DTBOs are used at build time to construct DTBs corresponding to
-> an EL2 (hypervisor-enabled) boot configuration. These DTBs are included in
-> distributions [1] as complete boot configurations (e.g. EL1 and EL2).
-> 
-> The EL2 configuration is not enabled by default and is typically selected
-> after the initial boot by updating a UEFI runtime variable from userspace.
-> Once set, firmware selects the prebuilt EL2 DTB on subsequent boots.
-> 
-> Although EL2 DTBOs are not used directly at runtime during initial boot,
-> they are required to generate and package the EL2 DTBs in the image so that
-> firmware can switch to EL2 when the configuration variable is enabled. Hence, el2 dtbo's
-> need to be retained.
-> 
-> 1: https://github.com/qualcomm-linux/qcom-dtb-metadata/blob/main/qcom-next-fitimage.its#L273
+commit 2c67ad7ec485f951d81fe09ef1853cbf7ebd2d95
+Author: Tzuyi Chang <tychang@realtek.com>
 
-Pretty sure we can directly ask the question to an AI assistant ourselves,
-and I'm rather sure Krzysztof which is maintaining and reviewing DT for years doesn't
-need a lesson from Claude or any AI assistant you use to assist you.
+gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
 
-Neil
+Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
+The RTD1625 introduces a per-pin register architecture with a dedicated
+32-bit control register per GPIO line. Interrupt support is optional.
+
+> diff --git a/drivers/gpio/gpio-rtd1625.c b/drivers/gpio/gpio-rtd1625.c
+> new file mode 100644
+> index 0000000000000..409e540bf40b3
+> --- /dev/null
+> +++ b/drivers/gpio/gpio-rtd1625.c
+
+[ ... ]
+
+> +static int rtd1625_gpio_set(struct gpio_chip *chip, unsigned int offset,=
+ int value)
+> +{
+> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
+> +	u32 val =3D RTD1625_GPIO_WREN(RTD1625_GPIO_OUT);
+> +
+> +	if (value)
+> +		val |=3D RTD1625_GPIO_OUT;
+> +
+> +	guard(raw_spinlock_irqsave)(&data->lock);
+> +
+> +	writel_relaxed(val, data->base + GPIO_CONTROL(offset));
+> +
+> +	return 0;
+> +}
+> +
+> +static int rtd1625_gpio_get(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
+> +	u32 val;
+> +
+> +	guard(raw_spinlock_irqsave)(&data->lock);
+> +
+> +	val =3D readl_relaxed(data->base + GPIO_CONTROL(offset));
+
+[Severity: Medium]
+Since the RTD1625 hardware features a dedicated control register per GPIO
+line and uses a Write-Enable bitmask design, do we need this global raw
+spinlock?
+
+It seems updates to individual bits are independent and atomic, and
+readl_relaxed is inherently an atomic bus operation. Does wrapping these
+operations in a single global lock across all 166 GPIOs unnecessarily
+serialize all GPIO operations globally?
+
+[ ... ]
+
+> +static void rtd1625_gpio_irq_handle(struct irq_desc *desc)
+> +{
+
+[ ... ]
+
+> +		for_each_set_bit(j, &status, 32) {
+> +			hwirq =3D i + j;
+> +			girq =3D irq_find_mapping(domain, hwirq);
+> +			irq_type =3D irq_get_trigger_type(girq);
+
+[Severity: High]
+If a level interrupt fires on a pin that has no mapping (for example, if it
+was left enabled by the bootloader), irq_find_mapping() returns 0 and
+generic_handle_domain_irq() will return -EINVAL.
+
+Because the child handler is never invoked, the active level interrupt is
+never cleared or masked. Once the parent IRQ is unmasked, will the pending
+level interrupt immediately re-trigger and cause an interrupt storm?
+
+> +
+> +			/*
+> +			 * Filter out the hardware-forced de-assert interrupt unless
+> +			 * the user explicitly requested IRQ_TYPE_EDGE_BOTH.
+> +			 */
+> +			if (irq =3D=3D data->irqs[RTD1625_IRQ_DEASSERT] &&
+> +			    irq_type !=3D IRQ_TYPE_EDGE_BOTH)
+> +				continue;
+> +
+> +			generic_handle_domain_irq(domain, hwirq);
+> +		}
+
+[Severity: High]
+For IRQ_TYPE_EDGE_BOTH, does this filter intentionally let the duplicate
+de-assert interrupt through?
+
+Due to the hardware quirk where a single edge triggers both the assert and
+de-assert IRQ lines, it appears this would cause generic_handle_domain_irq()
+to be called twice sequentially for the exact same physical rising edge.
+
+[ ... ]
+
+> +static void rtd1625_gpio_enable_edge_irq(struct rtd1625_gpio *data, irq_=
+hw_number_t hwirq)
+> +{
+> +	int gpda_reg_offset =3D rtd1625_gpio_gpda_offset(data, hwirq);
+> +	int gpa_reg_offset =3D rtd1625_gpio_gpa_offset(data, hwirq);
+> +	u32 clr_mask =3D BIT(hwirq % 32);
+> +	u32 val;
+> +
+> +	guard(raw_spinlock_irqsave)(&data->lock);
+> +
+> +	writel_relaxed(clr_mask, data->irq_base + gpa_reg_offset);
+> +	writel_relaxed(clr_mask, data->irq_base + gpda_reg_offset);
+> +	val =3D RTD1625_GPIO_EDGE_INT_EN | RTD1625_GPIO_WREN(RTD1625_GPIO_EDGE_=
+INT_EN);
+> +	writel_relaxed(val, data->base + GPIO_CONTROL(hwirq));
+> +}
+
+[Severity: High]
+This explicitly clears any pending hardware interrupts. Since this function
+is called via the irq_unmask callback (mapped to rtd1625_gpio_enable_irq),
+will this cause edge interrupts to be permanently lost if a hardware edge
+occurs while the IRQ is temporarily masked?
+
+Could status clearing be restricted to irq_startup or irq_ack?
+
+[ ... ]
+
+> +static int rtd1625_gpio_irq_set_type(struct irq_data *d, unsigned int ty=
+pe)
+> +{
+> +	switch (type & IRQ_TYPE_SENSE_MASK) {
+> +	case IRQ_TYPE_EDGE_RISING:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
+> +
+> +	case IRQ_TYPE_EDGE_FALLING:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 0);
+> +
+> +	case IRQ_TYPE_EDGE_BOTH:
+> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
+
+[Severity: High]
+Does this map IRQ_TYPE_EDGE_BOTH to the exact same hardware polarity
+configuration as IRQ_TYPE_EDGE_RISING?
+
+It seems the hardware will only detect rising edges and completely miss
+falling edges. When combined with the filter in rtd1625_gpio_irq_handle(),
+does EDGE_BOTH miss all falling edges and duplicate all rising edges?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622092335.1166=
+876-1-eleanor.lin@realtek.com?part=3D3
