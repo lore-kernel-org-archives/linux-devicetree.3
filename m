@@ -1,246 +1,175 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAA930F7E8
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7676F13959D
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782095445; cv=none; b=koGOn3s5s/VhKsTVHEmm13FGfuzVKZUZbjZ99IqIIogtOe2UN9Q0i/P7+bXHbHG6oidZxlCUFzst/P1g0KHzH4QriLrd0K0R6KNi901OglQ0JIPyK5tdZBi1d2WTOjFSEenWeHEeOrMJbym15LU2wVQfQchBb3efqYLkHu/yGLQ=
+	t=1782095728; cv=none; b=YwHenHIyfegAggyY2wMMy/Lf9RdrP8hl5KAxWzeFbRrLZ1Q5Q8cdws8jYJ4V6O2Mpm0sAY56sCshk/pxwRKz79OmwVY6Y/zBhsS6YUnTANIwXrVtsQDupsAKETkjOZyOjhX6iNjPlyvaOsf906v7xCTd69e+gGAQkeii1MDw5Ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782095445; c=relaxed/simple;
-	bh=ScO7RBq/KolPYjNRfRqcuR3AUL95RysnVAALa01G0/s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IUXqIsft7juKObUIWTFm/8MtE/WHmOvUt0xFVuYbKXozbzLIbiY3KRbh7AHr+5zmajVH2Sa2WpFx7q0n/GP3vhTxwA251BaXJnqzpeXIZqSbnz9JLEfdAawQd8/skqaBaO8rPwkjUvMfBdJf/MayLQo2JiwDTnYMVsnb+JDW0Y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAtFS60Y; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782095728; c=relaxed/simple;
+	bh=1tVsoPjJWHrSZww0djm4iqzuTQmt5MMEvOfL3nj5lQQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sirZPJPyAYb+85I7QTzxvJoOXq5pm1g+dqHu3uyDOByNJeG+QIx236ZoQKCf/lYxTn7acOlFjG9doDFE5D7VH6DU97ECmYToWkE4QiBv3OjQ1b76t3Wx5mWEJDUDZ4dsVUL2z4rOFJEMLSlE/gYYtAAbB8LCmRqVAISVv+8M+1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=osE6xlSA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAtFS60Y"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2c6be9cd7afso15846245ad.1
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 19:30:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782095444; x=1782700244; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ipKRVPzkC3/bLO3loiWzGU9J/nN5jU3SnxMn7jqpCwk=;
-        b=MAtFS60YObAAfZAnwIUrnTfYtbd2b2l9RaVKdfvlGJvxkycReC2UgygiRnWnGBZM+U
-         WdNJo5RGjCFuGEz1OQ1Z1y48mIhx5ObLDJAxxbmdLYKvo+pFwNLj+PN9PUqhjBMXub2x
-         8Dd33BMNZ8cUMizDQsO1SktfNmmcuvSH1Yf48D9C+/wPlduw7F14+gh4aHpZ8y09mqSy
-         4rDwzoSTB0L0QqVwITDaKo4fe9CXx866mWhxM0VddzMlSW3HcV5IhlPxTRO/CFqjCPGZ
-         pg8nvQHjyJ99U4ChK7fN1MpJAy3sUbsOiWd1SuaEPQSNWWCpFgoJ9LaRHcT71Z93Ws7q
-         AEHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782095444; x=1782700244;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ipKRVPzkC3/bLO3loiWzGU9J/nN5jU3SnxMn7jqpCwk=;
-        b=SN9Wyfkq/X1l+QDZmwfGSOfvcT4AgzRVdTysMbHzVPOc7o64MipaP1IJ/oEWiY3RCJ
-         LJbeOZfz0TT7hz8/U5ffBcT0vl7b5zWG+C33cue+Ei/O1AVny5fhrc7FhH/pIVRhJAbL
-         /BwBGklm4vqGpXwBkOPcLS6c2w5zuexueeg9lzxlW1FDp9QswidKlfUeCphCUMRJNpJX
-         8qucUv+sx9xFy5F8r5ckNFfLn2BKJ4PWcxXcz0KvWD7MeRn3l6nKw9V5fzRtGEirnVW9
-         tT8c4FAGaAFpZ9Ya9JPaVSiZ40feJwCXBeC3vhxNlFD7wTPG8LSr1hhCZhI1tk3B5l3m
-         yi+A==
-X-Forwarded-Encrypted: i=1; AHgh+RpL0YhZZPybCO+Y2QUhzdgL1qjsGbrCTqZtO7jKfrt8RVzbacWM4SaNLSY3fcwMu1XoiN+RES1XZ6UE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2pvpzFh4xbQqtKHPZRnlGXOjgEm/YKSVrJtplpgM3+Ow1m0Ia
-	RCEzheeDjNW75us8x96TS2ocJQ5PE4JKC+BsOSzF/ujoWpJ4tBjIvAub
-X-Gm-Gg: AfdE7cl0NG13hX5JGGAhxIG0yefmkWL0Dh1Jf1KKgF6rHcct9BBuuk5hDO4BO7boe5U
-	bQN1oQ6LEBCBYgBUfZTRK88gYSXT6fhoJEEkFe1RkNEyyLe2xfLPYUL+S9DK1UW0UWfH4tQF9pQ
-	5GitWfXTMvXMulKubez6cHeecxaheQoQYBrgy9E12rZVWfSPs7wKuxccC9pTX00FPm4d0MepLaa
-	v7l0hY2VadEMaZxy9h2Ycb99+a1wAgQSfwKIUi0iBAwh0X1HHaV0RYJbkogDIfWlJewFhUrqO9k
-	S/Xz/x/EvNG9rOIHxQWIx5WgRobBtfZ2Q2yxwwkyoLoB7ndNxF13kwaF4is424GcqTSrdaCNRB+
-	28AOVbK80eQ1QLe1rS8x8hpmihlHmTg4EqhdHiGMH5hOV71HJhG3q1QbXsgRsDwL5x33jqFLzqQ
-	02ohgPX9w6+/HamSyBx7jQiiVWsB1BIoY6RHMYbU8LNkoFThZPVKxjcsTXFJkr6TcdZA==
-X-Received: by 2002:a17:903:b47:b0:2c6:a487:f431 with SMTP id d9443c01a7336-2c718fe2eb1mr137529215ad.23.1782095443621;
-        Sun, 21 Jun 2026 19:30:43 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c742fdd411sm64398555ad.0.2026.06.21.19.30.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 21 Jun 2026 19:30:43 -0700 (PDT)
-Message-ID: <6d6dd8d0-292a-43f6-a94a-dedebe22c582@gmail.com>
-Date: Mon, 22 Jun 2026 10:30:39 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="osE6xlSA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D837F1F000E9;
+	Mon, 22 Jun 2026 02:35:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782095727;
+	bh=Fe003+s0qybvqH1FrDpTJ6W3wcHyNtm2mczRLWxbtzQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=osE6xlSAQPjo0bJLKOtyc6GyZ2IRx0q+xJJMA61uc4jEfLQb4P3TDfzIxJDtx2XUP
+	 Iwh3gzBKrOrF5Nmv3XH3ALwBSzSBNWqQAWn8OcNEIGBNNj969XsMLV7JCND78OxSmc
+	 WVLJXwqLlWMQJH65KKf1pQyd+0CxTgIvnMBy9QyBh22BviwvO5pR7ebY0jJEee3JiB
+	 SqwqTB/AK7gb/dy8ZmdljOpmkX7UM+PR/4/yX/Gt14zJ+85N5DpXxm/lvSFzC2rhWl
+	 rOspWIEFu++HSI6mT1OFjr1yL94yt9q6W26/Rgfub+kObp12c1ObCZgNygx48ygxHa
+	 +SdB9j7wox36g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] reset: cix: add sky1 audss auxiliary reset
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: joakim.zhang@cixtech.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260622022520.3127103-4-joakim.zhang@cixtech.com>
+References: <20260622022520.3127103-1-joakim.zhang@cixtech.com>
+ <20260622022520.3127103-4-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 02:35:26 +0000
+Message-Id: <20260622023526.D837F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/6] drm/verisilicon: add DC8000 (DCUltraLite) display
- controller support
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org
-References: <20260615065003.76661-1-a0987203069@gmail.com>
- <20260615065003.76661-5-a0987203069@gmail.com>
- <d5df0e9df3a9a68aae982f2fce830a4b10468476.camel@iscas.ac.cn>
- <df7363be-0e3f-4459-be4a-43ffb0a5366c@gmail.com>
- <0bb460aefb97e44cc0890a7841b8d217349143de.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <0bb460aefb97e44cc0890a7841b8d217349143de.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The reset status callback returns inverted logic compared to the a=
+ctive-low hardware state.
+- [High] The `sky1_audss_reset_status()` callback ignores the return value =
+of `regmap_read()`, leading to the use of an uninitialized variable on read=
+ failures.
+- [High] Hardware update failures are silently ignored in the `assert`, `de=
+assert`, and `reset` callbacks.
+- [High] Reset operations access hardware registers without holding a PM ru=
+ntime reference to the parent device.
+--
 
-On 6/18/2026 6:33 PM, Icenowy Zheng wrote:
-> (CC'ed clk maintainers for weird clock gate bit)
->
-> 在 2026-06-17三的 18:35 +0800，Joey Lu写道：
->> On 6/15/2026 4:51 PM, Icenowy Zheng wrote:
->>> 在 2026-06-15一的 14:50 +0800，Joey Lu写道：
->>>> The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite
->>>> display
->>>> controller whose register layout differs from the DC8200 in
->>>> several
->>>> important ways:
->>>>
->>>> 1. No CONFIG_EX commit path: framebuffer updates use the enable
->>>> (bit
->>>> 0)
->>>>      and reset (bit 4) bits in FB_CONFIG instead of the DC8200
->>>> staging
->>>>      registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
->>>>      FB_BLEND_CONFIG, PANEL_CONFIG_EX).
->>>>
->>>> 2. No PANEL_START register: panel output starts when
->>>>      PANEL_CONFIG.RUNNING is set; there is no multi-display sync
->>>> start
->>>>      register.
->>>>
->>>> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA
->>>> (0x147C) /
->>>>      DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
->>>>      TOP_IRQ_EN (0x0014).
->>>>
->>>> 4. Per-frame commit cycle: DCUltraLite requires the VALID bit in
->>>>      FB_CONFIG to be set at the start of each atomic commit
->>>> (crtc_begin)
->>>>      and cleared after (crtc_flush).
->>>>
->>>> 5. Simpler clock topology: only 'core' (bus gate) and 'pix0'
->>>> (pixel
->>>>      divider) clocks; no axi or ahb clocks required.  Make axi_clk
->>>> and
->>>>      ahb_clk optional (devm_clk_get_optional_enabled) so DC8000
->>>> nodes
->>>>      without those clocks are handled gracefully.
->>>>
->>>> Add vs_dc8000.c implementing the vs_dc_funcs vtable for the above
->>>> differences.  The probe now selects vs_dc8000_funcs when the
->>>> identified
->>>> generation is VSDC_GEN_DC8000 (DCUltraLite reads model 0x0,
->>>> revision 0x5560, customer_id 0x305).
->>>>
->>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->>>> ---
->>>>    drivers/gpu/drm/verisilicon/Makefile    |  2 +-
->>>>    drivers/gpu/drm/verisilicon/vs_dc.c     |  9 ++-
->>>>    drivers/gpu/drm/verisilicon/vs_dc.h     |  1 +
->>>>    drivers/gpu/drm/verisilicon/vs_dc8000.c | 78
->>>> +++++++++++++++++++++++++
->>>>    4 files changed, 86 insertions(+), 4 deletions(-)
->>>>    create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
->>>>
->>>> diff --git a/drivers/gpu/drm/verisilicon/Makefile
->>>> b/drivers/gpu/drm/verisilicon/Makefile
->>>> index 9d4cd16452fa..d2fd8e4dff24 100644
->>>> --- a/drivers/gpu/drm/verisilicon/Makefile
->>>> +++ b/drivers/gpu/drm/verisilicon/Makefile
->>>> @@ -1,6 +1,6 @@
->>>>    # SPDX-License-Identifier: GPL-2.0-only
->>>>    
->>>> -verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
->>>> vs_drm.o vs_hwdb.o \
->>>> +verisilicon-dc-objs := vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o
->>>> vs_dc8000.o vs_drm.o vs_hwdb.o \
->>>>    	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
->>>>    
->>>>    obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon-dc.o
->>>> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c
->>>> b/drivers/gpu/drm/verisilicon/vs_dc.c
->>>> index 9729b693d360..9499fffbca58 100644
->>>> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
->>>> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
->>>> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device
->>>> *pdev)
->>>>    		return PTR_ERR(dc->core_clk);
->>>>    	}
->>>>    
->>>> -	dc->axi_clk = devm_clk_get_enabled(dev, "axi");
->>>> +	dc->axi_clk = devm_clk_get_optional_enabled(dev, "axi");
->>>>    	if (IS_ERR(dc->axi_clk)) {
->>>>    		dev_err(dev, "can't get axi clock\n");
->>>>    		return PTR_ERR(dc->axi_clk);
->>>>    	}
->>>>    
->>>> -	dc->ahb_clk = devm_clk_get_enabled(dev, "ahb");
->>>> +	dc->ahb_clk = devm_clk_get_optional_enabled(dev, "ahb");
->>> Please make the clock change a separated patch for atomicity.
->>>
->>> BTW the MA35D1 manual's clock tree shows that DCUltra appears on
->>> AXI2
->>> ACLK, AHB_HCLK2, behind a mux of SYS-PLL/EPLL-DIV2 (which seems to
->>> be
->>> the core clock), and behind a divider (which seems to be the pixel
->>> clock).
->>>
->>> However it's weird that only one DCUltra Clock Enable Bit exists
->>> despite both bus clocks have "ICG" (I think it means "Integrated
->>> Clock
->>> Gating"). In addition the linux clk-ma35d1 driver assigns
->>> "dcu_gate" as
->>> a downstream of "dcu_mux", although the Figure 6.5-2 in the TRM
->>> shows
->>> no ICG after the "Display core CLK" mux.
->>>
->>> Is the two bus clocks controlled by a single gate bit, and is the
->>> bit
->>> also gating DC core clock?
->>>
->>> Thanks,
->>> Icenowy
->> I will split the axi/ahb optional-clock change into its own patch in
->> v5
->> for atomicity.
->> Regarding the MA35D1 clock tree: from the TRM, the single "dcu_gate"
->> bit
->> gates both bus clocks (AXI ACLK and AHB HCLK) together with the
->> display
->> core clock through the same ICG cell. The clk-ma35d1 driver exposes
->> only
->> "dcu_gate" (downstream of "dcu_mux") and does not provide separate
-> Then it's one of the case that the clock tree doesn't properly
-> represent the hardware, which is bad. However, as three gates share the
-> same bit, I am not sure how to represent such kind of thing in the
-> common clk framework.
->
->> axi/ahb clock entries. Therefore the MA35D1 DT binding will use only
->> two
->> clocks ("core" and "pix0"); making axi and ahb optional in the driver
->> is the correct approach, and this will be stated clearly in the
->>   split-out patch.
-> I agree to make them optional, although these two clocks do exist in
-> the hardware of MA35D1.
->
-> Thanks,
-> Icenowy
-As mentioned in the DT binding reply, the absence of separate AXI/AHB 
-clock entries for DCU in clk driver is due to the hardware design 
-constraint of a single shared enable bit, not a driver oversight. In v5, 
-the axi and ahb clock fetches in `vs_dc_probe` will be split into their 
-own patch and made optional via `devm_clk_get_optional_enabled`, with a 
-comment explaining that on MA35D1 the AXI and AHB bus clocks share the 
-single `dcu_gate` enable bit and are therefore not separately exposed by 
-the clock driver.
->>>>    	if (IS_ERR(dc->ahb_clk)) {
->>>>    		dev_err(dev, "can't get ahb clock\n");
->>>>    		return PTR_ERR(dc->ahb_clk);
+commit ea91702e5e9b052b10549ef50f1a521b588916ef
+Author: Joakim Zhang <joakim.zhang@cixtech.com>
+
+reset: cix: add sky1 audss auxiliary reset driver
+   =20
+Add an auxiliary reset controller driver for the AUDSS CRU. Sixteen
+software reset lines for audio subsystem peripherals are controlled
+through one register in the CRU register map.
+
+> diff --git a/drivers/reset/reset-sky1-audss.c b/drivers/reset/reset-sky1-=
+audss.c
+> new file mode 100644
+> index 0000000000000..f29fe3554ec17
+> --- /dev/null
+> +++ b/drivers/reset/reset-sky1-audss.c
+
+[ ... ]
+
+> +static int sky1_audss_reset_set(struct reset_controller_dev *rcdev,
+> +				unsigned long id, bool assert)
+> +{
+> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
+> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
+> +	unsigned int value =3D assert ? 0 : signal->mask;
+> +
+> +	return regmap_update_bits(priv->regmap, signal->offset, signal->mask, v=
+alue);
+> +}
+
+[Severity: High]
+Does this regmap access need to be protected by holding a runtime PM
+reference on the parent device? If the parent device implements runtime PM,
+can it suspend and disable clocks while a consumer calls this reset functio=
+n,
+potentially causing a bus hang?
+
+> +
+> +static int sky1_audss_reset_assert(struct reset_controller_dev *rcdev,
+> +				   unsigned long id)
+> +{
+> +	sky1_audss_reset_set(rcdev, id, true);
+
+[Severity: High]
+Is it intentional to discard the error code returned by sky1_audss_reset_se=
+t()?
+If the underlying regmap_update_bits() fails, this will unconditionally rep=
+ort
+success.
+
+> +	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
+> +	return 0;
+> +}
+> +
+> +static int sky1_audss_reset_deassert(struct reset_controller_dev *rcdev,
+> +				     unsigned long id)
+> +{
+> +	sky1_audss_reset_set(rcdev, id, false);
+
+[Severity: High]
+Should this also propagate the return value of sky1_audss_reset_set() inste=
+ad
+of ignoring potential hardware update failures?
+
+> +	usleep_range(SKY1_RESET_SLEEP_MIN_US, SKY1_RESET_SLEEP_MAX_US);
+> +	return 0;
+> +}
+> +
+> +static int sky1_audss_reset(struct reset_controller_dev *rcdev,
+> +			    unsigned long id)
+> +{
+> +	sky1_audss_reset_assert(rcdev, id);
+> +	sky1_audss_reset_deassert(rcdev, id);
+
+[Severity: High]
+Does this code need to capture and propagate errors from the assert and
+deassert steps? It seems hardware faults might be masked from caller driver=
+s.
+
+> +	return 0;
+> +}
+> +
+> +static int sky1_audss_reset_status(struct reset_controller_dev *rcdev,
+> +				   unsigned long id)
+> +{
+> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
+> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
+> +	unsigned int value;
+> +
+> +	regmap_read(priv->regmap, signal->offset, &value);
+
+[Severity: High]
+If regmap_read() fails, it leaves value uninitialized. Should this check
+the return value of regmap_read() and return the error code to avoid using
+uninitialized stack memory?
+
+Also, similar to sky1_audss_reset_set(), does this register access need
+pm_runtime_get_sync(dev->parent) to prevent reading from a suspended hardwa=
+re
+block?
+
+> +	return !!(value & signal->mask);
+
+[Severity: High]
+Since sky1_audss_reset_set() writes 0 to assert the reset line, the hardware
+appears to use an active-low scheme. However, this returns 0 when the bit is
+cleared. The reset controller framework requires the status callback to ret=
+urn
+a positive value when asserted. Will this report inverted states to consumer
+drivers?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622022520.3127=
+103-1-joakim.zhang@cixtech.com?part=3D3
