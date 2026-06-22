@@ -1,449 +1,195 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7662DC32A
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 11:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02C23369D63
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 12:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782129273; cv=none; b=puvz2oy+aTYe4nj51JK5vvEoWprZap8ZdoaJ4ubhBFHES2KIfrFWTSRve8uqgE9MsSAR4M5PfbwYxlKQyWk9ceXK9/PREaQeQcb3O1NZFtGHb64HB2KKCiXJsu+5fggDQw6t9TuxlLr5mKH8NoyvM9G8jpmcG7ruIBKylBnwk60=
+	t=1782129710; cv=none; b=njTBV/CDvZH+KtHvDAM36Bw0ma4zMIS5HffgBVvFmdQ6y6KhmBhIpZgW6yxVnAft87SkPjAige4LRBgGaqDrsbQYzwr3i2t0SyykqwOwG1NifGDEubbTvIdVc5nTtpTBLoNfRAc21tDJOzVmdHwSeUACSeBKs1GQu6xxH53rnhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782129273; c=relaxed/simple;
-	bh=9mtBIJDUrb1XyeJpw+ZrJUakYThOVEsJb5GfyCDWFNo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mJYsvb9T3w6y24717UJQQd8pTTmG7BDXMQ1OdCQVFx5i/1k0rO6hXpTApFhZw5y0QNHIDL0pAeRuey4Pi2eJIwGoXQfJj9cubM3+Pcm8+EW6ltFVFRrrsvCJINpATesebgtIxveKnmTcKFkqKgPIJSofOyeUaqFmrOlov8Gs3Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U3ncLWM6; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782129710; c=relaxed/simple;
+	bh=uD0QZs7VddbIkPpXuaeKB0CRTKrerIXmBiXWi39VyX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qdofWr0faBnZjFTWxuW1JAIW+xowJbai9UXzxSOPPzhqnz0TPq/Z5bxvmKvM1CeFcGechbdiMrsRmJMff2EOVUWKkpRqf6ncTWwBnL7Gmx5uqBVC9LqJRQDOV/0M/pdN1T/ME99YHnn7x8P6QSWUtkPHDAj0KnsO4YXD5SWqMuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EYyjg16p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=diwm+Lcf; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U3ncLWM6"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4924f8db066so7988675e9.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 04:54:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EYyjg16p";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="diwm+Lcf"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65MAn6G1452379
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 12:01:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wLg98q58XffM+jX/2zG7PwjP
+	TKcG9BHbX0CTkaDmaTw=; b=EYyjg16pIRKO4mH5JpZt4gpxoDvkygXDItJBkS3s
+	I1Eg3Vm2PlHrh355jSNb2bjm5519ry4zClClNFaQBdlOT3o/NnFcdotHo+MMHpbc
+	Y8WWPfIpHuDPICKZuilIivlxs3Kr1UKaw4WHo0pZBpjqJ6a+FNahQnXsDbEkblTl
+	EpReYUFYhMIylQ+3YdSb8aas2pKHnuPQK/1vPjSWNvnWcbDgPYx6WQDzq6Ci4Ktt
+	lYu4cfynSt/1g8jFrfSaFI8pImvkUBOm8utL/p+ELD/14gPZF4MtcutOUUSrU8gw
+	UCm+OXaNEqC9rtNBOQekhg+z3yl9TqNU/EK7YUEiiAGzVg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey2yj8cf8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 12:01:48 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-c8ab01bc3d3so2081180a12.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 05:01:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782129269; x=1782734069; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SVmok++Db2ftqtQ1X1PAbf0zofQ8TM19Nofvq+BJRbM=;
-        b=U3ncLWM6OoR0OKiVALfiNp8eA6LfsiUddw1b6zrl1ZoIprHNJtfeQAp61VuJyWbndz
-         dP7PpgzX47nReo39b5jsagsCrfIMra6rXsrAa5kjMf/P5G0oUPTlsnmxpxhiMEgEuZlz
-         0sTDkmVMoAYA6qFh6wemnUPvaIMaZnMTmdIRoh0YtCRnDb1LHwt8MtYkPC7GbIFY4Nib
-         scVRcoifwbSGGNKg7eyqAsnWV/COPMAnDeXWDmmYxGQg2rCSjZj3cqibLi8YFGMXW9Zu
-         IrhIheA2Oz4w54+f3/wD78pGhM5qmg3l5QmBMZUMfs3n64kh36+1CuMoYH+EndNqix2a
-         1umQ==
+        d=oss.qualcomm.com; s=google; t=1782129707; x=1782734507; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wLg98q58XffM+jX/2zG7PwjPTKcG9BHbX0CTkaDmaTw=;
+        b=diwm+LcfAR2oOR3EkrYoSNz3WMO7WJwQmcGIAqo95nj8JCuRihXrCV2prWVGNv3uhQ
+         kwsmJbOYwInyzcv4y9L+IdqGXjk8v/a5fOmc5kqHz+8qvUA31lJH3keDmqArsnjZnpnC
+         jwAvfla9FW9nsbKEGfHOu0FljgddQ5zbDuye6QHrzlJBebe/ndBK/h03VXYEYj9MNVrw
+         JdgQ8ilRsfzT9qAVZGld17f5FCkH9w1DYsNbIFyivMPYro85/kWv7/IluCyLAJu/XE/A
+         +9fHKxja/qjQ7/w3xPFuwxqsTYjDKcmFCUnrnR0eYsa3/fTWnAkuGAz7xchNFO7lfAcw
+         qVzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782129269; x=1782734069;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SVmok++Db2ftqtQ1X1PAbf0zofQ8TM19Nofvq+BJRbM=;
-        b=bX1nd5+Er7pr88/UyfokjJcL24aNSqDhhU0P63TfCAUYOb4dpkfqCS2Pbdo4p/h07p
-         AS+fk/abUrC7yKHkKuPNG7/bL9eborlZb7CZgocAaN2coy3U7uT0ouI+MPagE6uB5WRk
-         3I4dq0O9Eo41tEJciGFuXWMmtd/5jKnemu1jFFX64rvG8r7aVm3+sf7IJtZDySTb7wiC
-         QgQLkwpeeq8TG1TJSMvJPzsuwCUGiVk8zL10vVHsMlSy675j/pGScKk3FdjAj+6P5Gbr
-         KyoAB6dNpmsKU4/tIMPhLKiY40mDNFjWH44MD0lgLeVRITaQAUuMvwzSrTc3HnlfHGJ9
-         2lHg==
-X-Forwarded-Encrypted: i=1; AFNElJ91OCcm3zwV0aIMbnjAIrLr8B7+lH0ePIUpcELvlwYlZiwgVKM8Valj2HBtbUIUjdiSFB56enRDlBsW@vger.kernel.org
-X-Gm-Message-State: AOJu0YwN2EGRG5auIhOSFzoxmiEE0VSZdZxw5pJL7oF96yVtoIjE6RtS
-	qTdv5YObavrTOjn+khMJVqUXuUZ9whxtVKadWwZOatpi0HzNPxoBGFGc
-X-Gm-Gg: AfdE7ckXnku+NIuJ1PV6AWOPVo5zSD6eIwIF5oJl/3lAPFoWa+ymweO3oyiYEWquuqy
-	ImKjDQ1lVY7zc7fD74YAoh5Ez1iX/0R14wMErlzHEyfRJDwSTe3MS8SQrqklBuTw96/C05nuIhJ
-	aTJqaAhzhMMmB7+vdndRMb3j+4eawCINp5y7DrgGiTme6Zs/+rkihc3iFsLp1gM+95VSc095Qoo
-	N80DkQd20/u2JtfjziVsiDTqpdvhRQ3C/FewwLxLrG384rdqAmyT2uO0qHIWIU2dWMUHgRyXY6K
-	TjIqfMCD285H+48E5XO9BX8mWP9ZFvbVoJfJPlPdiJ458zNie5wZRjrdgk0LTtemtiitPuc3Rb6
-	1nWpX0S5RKHq+z6H2QIGDAMBMWnkv0fRLtjMoUXiAtVBw63WtF+xaPADllZrDkOilHb/ix9IBEi
-	tEo+OMzvILvRam1LK4pEQ+LZMXtSItneSVk6SAfcQHCVEsNko7EQSQSg==
-X-Received: by 2002:a05:600c:c0c3:10b0:492:488c:f630 with SMTP id 5b1f17b1804b1-492488cf777mr112632345e9.34.1782129269052;
-        Mon, 22 Jun 2026 04:54:29 -0700 (PDT)
-Received: from ?IPV6:2a02:3038:288:e57:59d:91ae:1c45:fb41? ([2a02:3038:288:e57:59d:91ae:1c45:fb41])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49249455302sm211953905e9.15.2026.06.22.04.54.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 04:54:28 -0700 (PDT)
-Message-ID: <caa54d52-72db-4c58-ae3f-1d1343bd7845@gmail.com>
-Date: Mon, 22 Jun 2026 13:54:25 +0200
+        d=1e100.net; s=20251104; t=1782129707; x=1782734507;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wLg98q58XffM+jX/2zG7PwjPTKcG9BHbX0CTkaDmaTw=;
+        b=KzqMGfqgYjVFDc3+7l5xvNCgemK3V9rtOlZrtYDgZWhRcqkmKiam5tufiJC8Z/kU2D
+         z9hkndkwvQOiFLhPKR19stEA+EMRUG1W0YbJxFeI7YCUuzd8Eb0/CF1ut/LHgJQL+KkK
+         XBpP/krT3/YICqTzcLyCmhZQ4nXuh8TvQDFG5j59IbMivMUs+qho/L+hW0lNMTtCdJc9
+         W882R/lbKN7dwNJ9hf0Dna/bzef8y9lRCWJe8QehK/xMxXtwuV3H8Fvj+7bcdOl0H33X
+         TUeQp4RGNCuOxBCTjcfWfTdjnpbIRaaQ+cz6fs1/gOwQCLki/vcAZZgXoJT84a382bbt
+         w5mw==
+X-Forwarded-Encrypted: i=1; AFNElJ9lVy0wog5al17rR4I13f+oUIU47dA4wVqm2AL4dBLsIfwXVJkE/KmtJ5E3nz/tt8Mslfg5Q0ZCjQqq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTYRY6K3/Dpc3P1+JHSS0qcRSP8SDYFd/7g6CDKYbg0sHpMWdZ
+	9YbfWgy+Mwoh8eo+MZfeubT6r74GV/CcB2hzDKAFau2COzW5i9Mptsf5JMXAUitVbGFtw/XX+9x
+	ysueDbYvvZ7R8owvjxcSJ0Y2j5Hx43CBFZovGlrC4wBc/UMpcioIko9KhtjMO7dc3
+X-Gm-Gg: AfdE7cnRlRN+xOjtDJ6126e9aVgz20v6DQR+pDgvA5XXi7c1xPjWHkCg1jCez3ltGrI
+	I2bBw+0NBt8EVM3/tJ9vXxCIPB/JpSjPwJkR0qybgeeBAOmPZP1fy6RM/N3OEpTsVW8tyRGgD2L
+	3jFcuPLnckxByz2T2SoEOfvHp2lmiH6gxwbdgan9AzjSRcPw6d0SkJwlc8rUxPvCOBJmHrsiei5
+	rZABKz5S/8EiaWYGixy5u8/+6WiF1RxK6sQ3ZURmozwSlV3Oq4SbasRbIB4c67NcnhArhXUIgHA
+	cWffkgAE7InbBf6ZYRIRKMyoprST5kXC4NbYtYUzoMJq5IuC8ABbXJ9qDF7e8N7yP7dUr6KbuWU
+	2lC7h9ask/vf+UabpcXNg+xTffErceFABlcOO
+X-Received: by 2002:a05:6a21:1493:b0:3a8:800:bdf4 with SMTP id adf61e73a8af0-3bb3608225amr12571602637.33.1782129707303;
+        Mon, 22 Jun 2026 05:01:47 -0700 (PDT)
+X-Received: by 2002:a05:6a21:1493:b0:3a8:800:bdf4 with SMTP id adf61e73a8af0-3bb3608225amr12571433637.33.1782129705662;
+        Mon, 22 Jun 2026 05:01:45 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc2c8f392sm7019090a12.3.2026.06.22.05.01.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 05:01:45 -0700 (PDT)
+Date: Mon, 22 Jun 2026 17:31:36 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, boss@oss.qualcomm.com,
+        qc-display-maintainer@oss.qualcomm.com
+Subject: Re: [PATCH 1/4] dt-bindings: brige: lt9611c: add port-select
+ property for LT9611C
+Message-ID: <ajkkINI1PzxArMzL@hu-mdsor-hyd.qualcomm.com>
+References: <20260611-lt9611-b4-send-v1-0-42abbcd3bb1e@oss.qualcomm.com>
+ <20260611-lt9611-b4-send-v1-1-42abbcd3bb1e@oss.qualcomm.com>
+ <20260611-burrowing-fervent-serpent-584cac@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: Conor Dooley <conor@kernel.org>,
- Rodrigo Alencar <455.rodrigo.alencar@gmail.com>,
- Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-References: <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
- <20260619-obstinate-polo-a230bef97fda@spud>
- <20260619-bunch-diocese-dd7805cc17ff@spud> <ajU73_TkKrSbqD4f@nsa>
- <20260619-concierge-doozy-9c161533c369@spud> <ajVlD-j0nIGrRVow@nsa>
- <20260621153330.79b6600c@jic23-huawei>
- <20260621-nutmeg-coauthor-715189372230@spud> <ajj6nEb4tATM3C7b@nsa>
- <20260622102722.5900592f@jic23-huawei> <ajkILRPq_g24g4dH@nsa>
-Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <ajkILRPq_g24g4dH@nsa>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260611-burrowing-fervent-serpent-584cac@quoll>
+X-Proofpoint-ORIG-GUID: IjLMB9M2s_9Hpx4Buql_pRnvSC2AEhbN
+X-Proofpoint-GUID: IjLMB9M2s_9Hpx4Buql_pRnvSC2AEhbN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDExOSBTYWx0ZWRfX3p4A5uHpOxbe
+ FmjRxFr0tdOE+mdGguKqDUrcGHGEijvXf+q144dq2HAwM10vZfd+SI38Xv6aFTGSM5zaCbjILg8
+ JnLNJr11k7LsTyUAw1TxiiK69ZrP5C0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDExOSBTYWx0ZWRfX4P33nka0ZEoM
+ OIf+wJ+Zy/6AMKmpb8fqW4PsqNPUD7gbkNNtsmrovtS789g53AzPlmxNEcDBux87Q087PPuqHqx
+ hWCEc3ZQBBIE7lszdEVPu98a66+4k75P+3nuMF7bx1TcoE7enRSDvLkZjfGOqS89TMLCFeq/nOB
+ YV31Q7Eul1AoQGkyWjvJkdjD6SadBP/UR4pL46RnVcnw8YZCh6rTHlSc4K3RZ1YutfKfUzy5dy6
+ dpEdtBcXLvN/4+fbCyK1OKGkQBs4E9Muo3XcGzfZ8pfWkInvyDY/UilIlZeiuY/dMLxAlCdUidu
+ Kn1nR0kv7mnFr6zj/4bTZt9wYnBNhdEd/18dQ+BmHGU2DGjAx2Uu70cx9YsU0ybcDrAmm2KDobO
+ NVdJsX1jrfBGYnwoMKl0NBgw4U8+pGl2zb5HjFdhuhpSy/uWAD911tezvphRk7roPn7rYY3tap/
+ GJt70sqKAX2tvmAG3Vg==
+X-Authority-Analysis: v=2.4 cv=YLSvDxGx c=1 sm=1 tr=0 ts=6a39242c cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=biyRtXT4hMIPAN2vSTIA:9 a=CjuIK1q_8ugA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_02,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
+ adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220119
 
-
-On 6/22/26 12:17, Nuno Sá wrote:
-> On Mon, Jun 22, 2026 at 10:27:22AM +0100, Jonathan Cameron wrote:
->> On Mon, 22 Jun 2026 10:07:01 +0100
->> Nuno Sá <noname.nuno@gmail.com> wrote:
->>
->>> On Sun, Jun 21, 2026 at 07:35:42PM +0100, Conor Dooley wrote:
->>>> On Sun, Jun 21, 2026 at 03:33:40PM +0100, Jonathan Cameron wrote:
->>>>> On Fri, 19 Jun 2026 16:54:11 +0100
->>>>> Nuno Sá <noname.nuno@gmail.com> wrote:
->>>>>    
->>>>>> On Fri, Jun 19, 2026 at 03:12:07PM +0100, Conor Dooley wrote:
->>>>>>> On Fri, Jun 19, 2026 at 02:01:08PM +0100, Nuno Sá wrote:
->>>>>>>> On Fri, Jun 19, 2026 at 12:40:54PM +0100, Conor Dooley wrote:
->>>>>>>>> On Fri, Jun 19, 2026 at 12:36:55PM +0100, Conor Dooley wrote:
->>>>>>>>>> On Fri, Jun 19, 2026 at 12:33:11PM +0200, Janani Sunil wrote:
->>>>>>>>>>> On 6/14/26 21:44, Jonathan Cameron wrote:
->>>>>>>>>>>> On Tue, 9 Jun 2026 16:47:23 +0200
->>>>>>>>>>>> Janani Sunil <jan.sun97@gmail.com> wrote:
->>>>>>>>>>>>      
->>>>>>>>>>>>> On 5/26/26 15:11, Rodrigo Alencar wrote:
->>>>>>>>>>>>>> On 26/05/19 05:42PM, Janani Sunil wrote:
->>>>>>>>>>>>>>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
->>>>>>>>>>>>>>> buffered voltage output digital-to-analog converter (DAC) with an
->>>>>>>>>>>>>>> integrated precision reference.
->>>>>>>>>>>>>> ...
->>>>>>>>>>>>>> Probably others may comment on that, but...
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> This parent node may support device addressing for multi-device support through
->>>>>>>>>>>>>> those ID pins. I suppose that each device may have its own power supplies or
->>>>>>>>>>>>>> other resources like the toggle pins or reset and enable.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> That way I suppose that an example would look like...
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +patternProperties:
->>>>>>>>>>>>>>> +  "^channel@([0-9]|1[0-5])$":
->>>>>>>>>>>>>>> +    type: object
->>>>>>>>>>>>>>> +    description: Child nodes for individual channel configuration
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +    properties:
->>>>>>>>>>>>>>> +      reg:
->>>>>>>>>>>>>>> +        description: Channel number.
->>>>>>>>>>>>>>> +        minimum: 0
->>>>>>>>>>>>>>> +        maximum: 15
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +      adi,output-range-microvolt:
->>>>>>>>>>>>>>> +        description: |
->>>>>>>>>>>>>>> +          Output voltage range for this channel as [min, max] in microvolts.
->>>>>>>>>>>>>>> +          If not specified, defaults to 0V to 5V range.
->>>>>>>>>>>>>>> +        oneOf:
->>>>>>>>>>>>>>> +          - items:
->>>>>>>>>>>>>>> +              - const: 0
->>>>>>>>>>>>>>> +              - enum: [5000000, 10000000, 20000000, 40000000]
->>>>>>>>>>>>>>> +          - items:
->>>>>>>>>>>>>>> +              - const: -5000000
->>>>>>>>>>>>>>> +              - const: 5000000
->>>>>>>>>>>>>>> +          - items:
->>>>>>>>>>>>>>> +              - const: -10000000
->>>>>>>>>>>>>>> +              - const: 10000000
->>>>>>>>>>>>>>> +          - items:
->>>>>>>>>>>>>>> +              - const: -15000000
->>>>>>>>>>>>>>> +              - const: 15000000
->>>>>>>>>>>>>>> +          - items:
->>>>>>>>>>>>>>> +              - const: -20000000
->>>>>>>>>>>>>>> +              - const: 20000000
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +    required:
->>>>>>>>>>>>>>> +      - reg
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +    additionalProperties: false
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +required:
->>>>>>>>>>>>>>> +  - compatible
->>>>>>>>>>>>>>> +  - reg
->>>>>>>>>>>>>>> +  - vdd-supply
->>>>>>>>>>>>>>> +  - avdd-supply
->>>>>>>>>>>>>>> +  - hvdd-supply
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +dependencies:
->>>>>>>>>>>>>>> +  spi-cpha: [ spi-cpol ]
->>>>>>>>>>>>>>> +  spi-cpol: [ spi-cpha ]
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +allOf:
->>>>>>>>>>>>>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +unevaluatedProperties: false
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +examples:
->>>>>>>>>>>>>>> +  - |
->>>>>>>>>>>>>>> +    #include <dt-bindings/gpio/gpio.h>
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +    spi {
->>>>>>>>>>>>>>> +        #address-cells = <1>;
->>>>>>>>>>>>>>> +        #size-cells = <0>;
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +        dac@0 {
->>>>>>>>>>>>>>> +            compatible = "adi,ad5529r-16";
->>>>>>>>>>>>>>> +            reg = <0>;
->>>>>>>>>>>>>>> +            spi-max-frequency = <25000000>;
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            vdd-supply = <&vdd_regulator>;
->>>>>>>>>>>>>>> +            avdd-supply = <&avdd_regulator>;
->>>>>>>>>>>>>>> +            hvdd-supply = <&hvdd_regulator>;
->>>>>>>>>>>>>>> +            hvss-supply = <&hvss_regulator>;
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            #address-cells = <1>;
->>>>>>>>>>>>>>> +            #size-cells = <0>;
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            channel@0 {
->>>>>>>>>>>>>>> +                reg = <0>;
->>>>>>>>>>>>>>> +                adi,output-range-microvolt = <0 5000000>;
->>>>>>>>>>>>>>> +            };
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            channel@1 {
->>>>>>>>>>>>>>> +                reg = <1>;
->>>>>>>>>>>>>>> +                adi,output-range-microvolt = <(-10000000) 10000000>;
->>>>>>>>>>>>>>> +            };
->>>>>>>>>>>>>>> +
->>>>>>>>>>>>>>> +            channel@2 {
->>>>>>>>>>>>>>> +                reg = <2>;
->>>>>>>>>>>>>>> +                adi,output-range-microvolt = <0 40000000>;
->>>>>>>>>>>>>>> +            };
->>>>>>>>>>>>>>> +        };
->>>>>>>>>>>>>>> +    };
->>>>>>>>>>>>>> ...
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 	spi {
->>>>>>>>>>>>>> 		#address-cells = <1>;
->>>>>>>>>>>>>> 		#size-cells = <0>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 		multi-dac@0 {
->>>>>>>>>>>>>> 			compatible = "adi,ad5529r-16";
->>>>>>>>>>>>>> 			reg = <0>;
->>>>>>>>>>>>>> 			spi-max-frequency = <25000000>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 			#address-cells = <1>;
->>>>>>>>>>>>>> 			#size-cells = <0>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 			dac@0 {
->>>>>>>>>>>>>> 				reg = <0>;
->>>>>>>>>>>>>> 				vdd-supply = <&vdd_regulator>;
->>>>>>>>>>>>>> 				avdd-supply = <&avdd_regulator>;
->>>>>>>>>>>>>> 				hvdd-supply = <&hvdd_regulator>;
->>>>>>>>>>>>>> 				hvss-supply = <&hvss_regulator>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				#address-cells = <1>;
->>>>>>>>>>>>>> 				#size-cells = <0>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				channel@0 {
->>>>>>>>>>>>>> 					reg = <0>;
->>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 5000000>;
->>>>>>>>>>>>>> 				};
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				channel@1 {
->>>>>>>>>>>>>> 					reg = <1>;
->>>>>>>>>>>>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
->>>>>>>>>>>>>> 				};
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				channel@2 {
->>>>>>>>>>>>>> 					reg = <2>;
->>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 40000000>;
->>>>>>>>>>>>>> 				};
->>>>>>>>>>>>>> 			}
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 			dac@1 {
->>>>>>>>>>>>>> 				reg = <1>;
->>>>>>>>>>>>>> 				vdd-supply = <&vdd_regulator>;
->>>>>>>>>>>>>> 				avdd-supply = <&avdd_regulator>;
->>>>>>>>>>>>>> 				hvdd-supply = <&hvdd_regulator>;
->>>>>>>>>>>>>> 				hvss-supply = <&hvss_regulator>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				#address-cells = <1>;
->>>>>>>>>>>>>> 				#size-cells = <0>;
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				channel@0 {
->>>>>>>>>>>>>> 					reg = <0>;
->>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 5000000>;
->>>>>>>>>>>>>> 				};
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 				channel@1 {
->>>>>>>>>>>>>> 					reg = <1>;
->>>>>>>>>>>>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
->>>>>>>>>>>>>> 				};
->>>>>>>>>>>>>> 			}
->>>>>>>>>>>>>> 		};
->>>>>>>>>>>>>> 	};
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> then you might need something like:
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> 	patternProperties:
->>>>>>>>>>>>>> 		"^dac@[0-3]$":
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> and put most of the things under this node pattern.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> So the main driver that you're putting together might need to handle up to four instances.
->>>>>>>>>>>>>> Even if your current driver cannot handle this, the dt-bindings might need cover that.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Need to double check if each dac node needs a separate compatible, so you would maybe populate
->>>>>>>>>>>>>> a platform data to be shared with the child nodes, which would be a separate driver.
->>>>>>>>>>>>>> (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).
->>>>>>>>>>>>> Hi Rodrigo,
->>>>>>>>>>>>>
->>>>>>>>>>>>> Thank you for looking at this.
->>>>>>>>>>>>>
->>>>>>>>>>>>> For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
->>>>>>>>>>>>> hardware/use case we have only needs one device node and the driver is written around that model as well.
->>>>>>>>>>>>> While the device addressing pins could allow multi-device topology, we do not have an actual platform using
->>>>>>>>>>>>> that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
->>>>>>>>>>>>> speculatively without a validating use case.
->>>>>>>>>>>> Interesting feature - kind of similar to address control on a typical i2c bus device, or
->>>>>>>>>>>> looking at it another way a kind of distributed SPI mux.
->>>>>>>>>>>>
->>>>>>>>>>>> Challenge of a binding is we need to anticipate the future.  So I think we do need something
->>>>>>>>>>>> like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
->>>>>>>>>>>> That would leave the path open to supporting the addressing at a later date.
->>>>>>>>>>>> An alternative might be to look at it like a chained device setup. In those we pretend there
->>>>>>>>>>>> is just one device with a lot of channels etc.  The snag is that here things are more loosely
->>>>>>>>>>>> coupled whereas for those devices it tends to be you have to read / write the same register
->>>>>>>>>>>> in all devices in the chain as one big SPI message.
->>>>>>>>>>>>
->>>>>>>>>>>> +CC Mark Brown as he may know of some precedence for this feature. For his reference..
->>>>>>>>>>>> - Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
->>>>>>>>>>>> value that matches that or they are ignored.  Thus a single bus + 1 chip select can
->>>>>>>>>>>> be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
->>>>>>>>>>>> longer term how to support it cleanly in SPI.
->>>>>>>>>> I'd swear I have seen this before, from some Microchip devices. Let me
->>>>>>>>>> see if I can find what I am thinking of...
->>>>>>>>>
->>>>>>>>> microchip,mcp3911 and microchip,mcp3564 both seem to do this with
->>>>>>>>> slightly different properties.
->>>>>>>>>
->>>>>>>>>    microchip,device-addr:
->>>>>>>>>      description: Device address when multiple MCP3911 chips are present on the same SPI bus.
->>>>>>>>>      $ref: /schemas/types.yaml#/definitions/uint32
->>>>>>>>>      enum: [0, 1, 2, 3]
->>>>>>>>>      default: 0
->>>>>>>>>
->>>>>>>>> and
->>>>>>>>>
->>>>>>>>>
->>>>>>>>>    microchip,hw-device-address:
->>>>>>>>>      $ref: /schemas/types.yaml#/definitions/uint32
->>>>>>>>>      minimum: 0
->>>>>>>>>      maximum: 3
->>>>>>>>>      description:
->>>>>>>>>        The address is set on a per-device basis by fuses in the factory,
->>>>>>>>>        configured on request. If not requested, the fuses are set for 0x1.
->>>>>>>>>        The device address is part of the device markings to avoid
->>>>>>>>>        potential confusion. This address is coded on two bits, so four possible
->>>>>>>>>        addresses are available when multiple devices are present on the same
->>>>>>>>>        SPI bus with only one Chip Select line for all devices.
->>>>>>>>>        Each device communication starts by a CS falling edge, followed by the
->>>>>>>>>        clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
->>>>>>>>>        which is first one on the wire).
->>>>>>>>>
->>>>>>>>> This sounds exactly like the sort of feature that you're dealing with
->>>>>>>>> here?
->>>>>>>>>      
->>>>>>>> The core idea yes but for this chip, things are a bit more annoying (but
->>>>>>>> Janani can correct me if I'm wrong). Here, each device can, in theory,
->>>>>>>> have it's own supplies, pins and at the very least, channels with maybe
->>>>>>>> different scales. That is why Janani is proposing dac nodes. Given I
->>>>>>>> honestly don't like much of that "adi,ad5529r-bus" compatible I wondered
->>>>>>>> about solving this at the spi level.
->>>>>>>>
->>>>>>>> Ah and to make it more annoying, we can also mix 12 and 16 bits variants
->>>>>>>> together in the same bus.
->>>>>>> I'm definitely missing something, because that property for the
->>>>>>> microchip devices is not impacted what else is on the bus. AFAICT, you
->>>>>>> could have an mcp3911 and an mcp3564 on the same bus even though both
->>>>>>> are completely different devices with different drivers. They have
->>>>>>> individual device nodes and their own supplies etc etc. These aren't
->>>>>>> per-channel properties on an adc or dac, they're per child device on a
->>>>>>> spi bus.
->>>>>> Maybe I'm the one missing something :). IIRC, spi would not allow two
->>>>>> devices on the same CS right? Because for this chip we would need
->>>>>> something like:
->>>>>>
->>>>>> spi {
->>>>>> 	dac@0 {
->>>>>> 		reg = <0>;
->>>>>> 		adi,pin-id = <0>;
->>>>>> 	};
->>>>>>
->>>>>> 	dac@1 {
->>>>>> 		reg = <0>; // which seems already problematic?
->>>>>> 		adi,pin-id <1>;
->>>>>> 	};
->>>>>>
->>>>>> 	...
->>>>>>
->>>>>> 	//up to 4
->>>>>> };
->>>>> Yeah. It's not clear to me how that works for the microchip devices
->>>>> (I suspect it doesn't!)
->>>>>
->>>>> Just thinking as I type, but could we do something a bit nasty with
->>>>> a gpio mux that doesn't actually switch but represents the GPIO being
->>>>> shared?  Given this is all tied to the spi bus that should all happen
->>>>> under serializing locks.
->>>>>
->>>>> Agreed though that this would be nicer as an SPI thing that let
->>>>> us specify that a single CS is share by multiple devices and their
->>>>> is some other signal acting to select which one we are talking to.
->>>> Whether it works or not, I think it is the more correct approach. Messing
->>>> with gpio muxes seems completely wrong, given the chip select may not be
->>>> a gpio at all.
->>>>
->>>> Why do you think the microchip devices won't work? Does the spi core
->>>> reject multiple devices with the same chip select being registered or
->>>> something like that?
->>> Not sure how things work atm. But I'm fairly sure it used to be like
->>> that. SPI would reject devices on the same controller and CS. Now that
->>> we support more than one CS per controller, not sure how things work.
->> We always supported more than one per CS per controller. I guess you mean
->> per device.
-> Obviously :)
->>> Janani, maybe you can give it a try?
->> I think we'd need to get it to work with shared gpio proxy which maybe
->> will just get set up under the hood.  This used to be opt in, but seems
->> that changed fairly recently so maybe some of us are working with out
->> of date knowledge!  I haven't played with it yet, so might not be
->> that simple.
->>
-> What I meant for Janani was basically testing two devices on the same CS
-> as in my pseudo DT. For the GPIO, you mean having a way to select
-> between devices on the same CS?
+On Thu, Jun 11, 2026 at 12:40:38PM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Jun 11, 2026 at 02:44:56AM +0530, Mohit Dsor wrote:
+> > Add a new optional `lontium,port-select` property to describe the DSI
+> > input port configuration for the LT9611C variant, which supports
+> > single-port (A or B) and dual-port (A+B) operation.
+> > 
+> > This property allows explicitly selecting the active DSI input port(s):
+> >   0 = port A (default)
+> >   1 = port B
+> >   2 = ports A and B (dual-port)
+> > 
+> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/display/bridge/lontium,lt9611.yaml  | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> > index e0821a63d9d7..77220f893bf8 100644
+> > --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> > +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+> > @@ -41,6 +41,17 @@ properties:
+> >    vcc-supply:
+> >      description: Regulator for 3.3V IO power.
+> >  
+> > +  lontium,port-select:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    enum: [0, 1, 2]
+> > +    default: 0
+> > +    description: |
+> > +      Selects which DSI input port(s) the bridge uses. Only relevant for
+> > +      the lontium,lt9611c compatible.
+> > +        0 = PORT_SELECT_A  - single DSI port A (default)
+> > +        1 = PORT_SELECT_B  - single DSI port B
+> > +        2 = PORT_SELECT_AB - dual DSI ports A and B
+> 
+> Why graph is not enough? Seems exactly duplicating the graph ports.
+> 
+> Best regards,
+> Krzysztof
 >
-> For these devices the pin id numbers get's setted up as part of the spi message
-> so my assumption is that all of them will receive the message but only one acks it.
->
-> - Nuno Sá
+Hi Krzysztof,
 
-Hi Everyone,
+Thanks for the review.
 
-I tested the case where there are two devices on the same CS. The SPI core does reject it at spi_dev_check_cs():
-https://github.com/torvalds/linux/blob/master/drivers/spi/spi.c#L631
+The graph describes the physical connectivity between endpoints, however it does not fully capture the internal mode of operation of the LT9611C. This variant supports multiple functional configurations (single-port A, single-port B, or dual-port A+B), which affect how the hardware internally combines or selects DSI inputs.
 
--Janani Sunil
+In particular:
+- The graph can describe connections to both ports, but it does not indicate whether the device should operate in single-port or dual-port aggregation mode.
+- For single-port use, both ports may be described in DT for board consistency, while the driver still needs to know which port is actively selected.
+- Dual-port mode requires explicit configuration even when both endpoints are present in the graph.
 
->
->> Jonathan
->>
->>> - Nuno Sá
->>>
+So, this property is not duplicating connectivity, but rather describing the *operational mode* of the device, which cannot be reliably inferred from the graph alone.
+
+Thanks,
+Mohit
