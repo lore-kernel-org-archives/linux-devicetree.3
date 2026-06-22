@@ -1,121 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5032FE0F;
-	Mon, 22 Jun 2026 06:55:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782111307; cv=none; b=st1Q6yQcPW8SDQNsliTxoTBMKmJwJVasMwZUHQ0X+bbqE/CcnoOUW2X6Ck+1rXCLR5z7aF1/EjpMSU06E64IevFViBpjDLk0yeaQQ0sUAiOxrGgLL5JrRIkpDG6b4tTocuo7LeZfsqOiFcoW6E1Tm0xumsroWXSYRv7C+xWrQlE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782111307; c=relaxed/simple;
-	bh=D5x1kSmJK5SGdStf4cGnyBRqbu7Z2PCwTSTXsDBTtfs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DygqwIkGD0wBoLYGshExBCfs/Q/C1O9lMY4odeVV74eVUrBw3bxIq9mestCO8k80afFc4ybghi0+nV74AVbtvx9NjGsJL6E+qSCUbSW1z3vF5QK6OMjMHuJXgy6HvIbrAgNqNamYPolrIDwnxwhPUHhM+u0+cFrTMJrMSYcMnUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ikvFlJzf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2356A35677D;
+	Mon, 22 Jun 2026 06:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782111479; cv=fail; b=XCJSmUq5BNQLR/XR5II92tYsmvUxHVDY41+9vQgJ1EDgqvI3UMngrvRf0BH2JgPeN9acuoY/ZqLpnUKfuEeFqe2K6+lNiEq/pbqGKQ5I+rZBJZ6xo8xF6djNh40BXMP+8N0RWdKAuJAz8blNH5vLsvInK3H+qbmr5Kqv8AXr4cw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782111479; c=relaxed/simple;
+	bh=S69g04vvjBGmY+bjB3QC4CFr3hCJg37SroOTGRd3SIY=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=IsXkwQrMpCxhX7K04QVMNpQSxIIRlNm6PQvMdHyB3C+tVQ9AXG1LcrDHpDZgflNYM1sO503wZbnDnVWCCtE1Hfm7OumXqFfLaQ5YyksEG7q5RFgC0B757P7x9eDBhSgfu5FGhRJgEW8IgcxMk1jw4Ka6+c7ksieDnC+NYkS3Pvw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=p25/tZ7B; arc=fail smtp.client-ip=52.101.201.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ikvFlJzf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F15EE1F000E9;
-	Mon, 22 Jun 2026 06:55:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782111306;
-	bh=ZG+FlhsVlEBxS0bsxSZ646KiQA9erOt9LJfgN0fiaPY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ikvFlJzfxPPr76gMlDohagJy/DrSM6dLOR9BUHjD9G0RlR3hEa/g/2fUQcQEwt2PL
-	 jnWQ/jY+QzuqD2tq3Bp5W8di53S5nymamNb6+hFxKbqFMW7zKKwBtRwE/EUmtvk8U/
-	 U0Kyl7gvnK7IxqRugBzijQKJ+Y2fHY4TFHp5aMk2+I8e+hDRz41pHzCHtnLzOsY9Y0
-	 9SkXxa5PR4ui/1mpyc9X7OsOqe/5k5J1i7uD6Ku/+UjW1pAxjQCeGl/Y97F6xtAXbK
-	 L1Ey1C0rtMmfFaAuoRvyhkO3ttBhk3UvLuOj4kimTYHrUK6zVLFxFvyBe1uGdjcOG3
-	 tRbxbrmxL4N/A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wbYYh-0000000EoYq-2tzO;
-	Mon, 22 Jun 2026 06:55:03 +0000
-Date: Mon, 22 Jun 2026 07:55:03 +0100
-Message-ID: <8633yfrrnc.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Thomas Gleixner <tglx@kernel.org>,	linux-pci@vger.kernel.org,	Yoshihiro
- Shimoda <yoshihiro.shimoda.uh@renesas.com>,	Krzysztof =?UTF-8?B?V2lsY3p5?=
- =?UTF-8?B?xYRza2k=?= <kwilczynski@kernel.org>,	Bjorn Helgaas
- <bhelgaas@google.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Conor
- Dooley <conor+dt@kernel.org>,	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Lorenzo Pieralisi
- <lpieralisi@kernel.org>,	Manivannan Sadhasivam <mani@kernel.org>,	Rob
- Herring <robh@kernel.org>,	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] irqchip/gic-v3: Add Renesas R-Car Gen4 erratum workaround
-In-Reply-To: <d6fce333-4353-4e49-873f-eb3187a631e4@mailbox.org>
-References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
-	<20260618220427.14325-4-marek.vasut+renesas@mailbox.org>
-	<87cxxkma5p.ffs@fw13>
-	<d6fce333-4353-4e49-873f-eb3187a631e4@mailbox.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="p25/tZ7B"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TqSHPSS8l4JqZKIHRSObgtdaCrsYYGT5G5Pab/gpOnySNgNvLLRadlbnQb8qV8jC94POGEWKyTNRpipVJpW/s5QuONBjU37BitQa7IENg0PZ0vZ0NfHanWUaGSi07ZDngqmRzDYq9KgyQRbloms/DvnyW15DEO1eITS3kBdJp5ZZzFq8eawbmnmJO7CXgEKysYUt43C33coqMTfxtifQIwtWc78WkoJWOyxGlHQbnDcy2orEtrTvBYCck/dqkyzzCTmtlyHxE9N4EpZmZpproIYifDX7bDYYhfQrXt9JYBQ9yon+dMlfC6tk+9kTC71690jTFmozmdtNATbxrxM8kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0gYY50BNeFE2SYGzOiG7NUjStROGcMU1HL8X4cJj65s=;
+ b=mdE3vvEuuNSubA9nD7PsdXLG4HatiEj7mww0jiHPW1Fn6pL+bw/TniPK+VmqcK1PotWYBxppu5tF81F4GBfvTG4PFH81EGHO007Su/NkCuqYfIz0ThozvAMoNyWxclmg5w80RVZOqvo1w3UCBUNDdEKY9WdZxY4LnlCXtv2M36lC5bjPieU/Qw+qsnZScF6OmOhJUh50mPapG4nJ3gfVHOlBJ7Qs6CUWmiHH1hSA3bqfR49PmUVSrNTKrk+kO7ql/hb+0c+efgzTUiMQUvX53O86bwbPJ3IhCYN2HN6kK/j2o/pLD9GKGsDn4FRZQFxuOmoQEiOAna6wZyIGKIxlfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0gYY50BNeFE2SYGzOiG7NUjStROGcMU1HL8X4cJj65s=;
+ b=p25/tZ7B0QtWxReC22NLKDnGEcQ9K38w+dKEYJjwRmtaRuUOoW2LwTfRa3Z/z9v9zTaxQ9GTwLd3gLJPi3f8X33mGpX/N1XX0G9OJW1Zb2fx9fIBBLftdNKduvJxDZFoDsjuS9QMwhbyjn2oqH7t7nCjnLYqV6aVPNcYzyA+5m4x4CcHiVVgZc7zacUY04tzUjmwUPBKi+UUA12RZ3yJlCj3iHG8zdE+ngyVwPUB/DouBOSmFepCsnaWl+m/jchiTWs++ZR9Q0LOjpGSLw/2w+Li8quMqAmxLk5xdJBUWxmvp6YA+sXF9rGXj54gkvcS1IZrknItqVdGn399gEeDAg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
+ 2026 06:57:54 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 06:57:54 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+Subject: [PATCH v2 0/7] Host1x/VIC support on Tegra264
+Date: Mon, 22 Jun 2026 15:52:13 +0900
+Message-Id: <20260622-t264-host1x-v2-0-cdbb730165c4@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XMQQ6DIBCF4auYWZfGQQPSlfdoXBgYyywKDRhiY
+ 7x7qV11+b/kfTtkSkwZbs0OiQpnjqGGvDRg/RweJNjVBtlK1XbYiVWqXviYV9yENRo1Ls6R1lA
+ fr0QLb6d2n2p7zmtM7xMv+F1/jkL55xQUrRic6XozaEdKj6Gw4/lq4xOm4zg+K9jP3qcAAAA=
+X-Change-ID: 20260313-t264-host1x-c97171fdde77
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Santosh BS <santoshb@nvidia.com>
+X-Mailer: b4 0.16-dev
+X-ClientProxiedBy: OSTP286CA0008.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:223::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: marek.vasut@mailbox.org, tglx@kernel.org, linux-pci@vger.kernel.org, yoshihiro.shimoda.uh@renesas.com, kwilczynski@kernel.org, bhelgaas@google.com, catalin.marinas@arm.com, conor+dt@kernel.org, geert+renesas@glider.be, krzk+dt@kernel.org, lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN2PR12MB4286:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec22e4e0-db6c-40df-a27a-08ded02b94d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|366016|7416014|376014|23010399003|56012099006|11063799006|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	Qmi+MSOk9myJWFpGhKuE3zN2H26nDYYMEZUNi61gXicl3lXpFrqf3p9a8K4/aZ9a9zfg94SGcqyfr/g1rSNC+sqM8mJNjygl/Gitm7wxxvKW37KDwKaj5Kr0GEe9g0jnMSVqZSP9Mz0JTl9c6/vyrTG8HiqKvmhhRUqFLCOka22k4lkPHNsIKWRKnBiUrErV57do/uB6cCgrChtA/8mCpV5U84DDKgZieJcqYacerFg2H3XDSuDFO2elpUOYmLQ5UAE3BWaZlvR4DPrhScfvhcpYjcCf+YN/+DjQEc9i/Cv6cPBkki/qbOZxelvr8KJo8/xrvQQ7nlUbCsW0Bn0DhpKbS6YGl+1SzUiRdNscB50QholqtYQk6wJF2QT6BZudpez0kcZIpa9nF6+kMY5g+iXSeIvikSwiJ0idef2o/CiqtUXAusRVcvmdUoL9AefMwZv01dvgM9f6bVimZNgiC0YMX0j7XC0AbxJp7yqJPf7e07deKR+JJavUM6I01FsT2sqmcnlk6jnpukWsoZZHPQQIdBdKfKmcwfs2wCS17/OoKR5xTUNWNOKROUHzRggnQMo8SUMzc2vKrcUzsuoFo+XPLjiLyqDy2/jyf9VbZbn6JudaEAmrbgB956w2/gzkvdkfZS5LWjFb6P/57GBR4EASW5r2V2tl5QQR+zZA2Sij3UPX7Hsz1cBHF5w5uLBT1yBEI9ILyjPbSAJJ1ZJohA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(23010399003)(56012099006)(11063799006)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QkQwQmRrd0pMUDNJeDZqNDFRVE9OUnpBRzZOeE9qbW1QMTBWUStMS29NY2ty?=
+ =?utf-8?B?czZxWmFpT0ZDcXJyTnVHbW5CWkVNREsxM1duYngvcU90Si8wNVloK1d3QlMv?=
+ =?utf-8?B?cVpKUXFNazNZNlhMK3I1bHpyUzdqcFdIZ2x0azBjcHBKa1RldkgrT3Z0Y1Nq?=
+ =?utf-8?B?SUovMXNNR3ZDbStZM0NJb3dGTXBFMFplMmMyVFJLdWJrWGY3SUtRLzdqYWI0?=
+ =?utf-8?B?cVl3bTN6dEJWRXRPZE40WS9rUnI1d2JPZG5sTHl1d3ZvSy94ZlBTcjRVTkhC?=
+ =?utf-8?B?eWxzWk9wZkVhcW1hczl5VEVFd2F2Ums5cHVPMWMxZ3FIR082TzZYdm4wUmtD?=
+ =?utf-8?B?T2JVWmRiVnpJRVpPUXZOK2JZSUlXR2VvSDRMWEtOdE5ZK0FzU3B4MDF1Sm5h?=
+ =?utf-8?B?V3FEcXVpdXc4QmUwcHlVS01LWmQyRWY1YUxOSjhTMXF6OGI2ZGFoWjMwRjlU?=
+ =?utf-8?B?RC9FRUpwbmlvQWZNaTlqR2U2RGZ0dDVCTW1wUEp1cFg2dEx5eDRkVVQwUkpK?=
+ =?utf-8?B?YUFKRW1OUkZweUwyajhjbDUzM1lLQ3VXZFM4NjFsc1RCWS9rTkJLRy9neU9w?=
+ =?utf-8?B?MnV6RVNibjJ3S3BZVmxuM1dsNWlVaUFaemFDaUFENjdFTzFjZlgwRGJ1V0lO?=
+ =?utf-8?B?bjNuQlJRWk5uR0xabThEaVZHSUtwVm0vQjRvcjc3blZ5b2J2dHYxU3NSaHBT?=
+ =?utf-8?B?YTB6ekorMG5QVXk2djFRTlN5SmNub2t1Z3pPb2tNV0pLUk1SMDBVeW1pam94?=
+ =?utf-8?B?ZmwzUS9JN2p1NWw0WExwcE5rN2kxYzBIQjYwRWUyRlV5NG5uSzZ4Z2ExTG9P?=
+ =?utf-8?B?OWE4enM1bDBGQTB3MmNtUlA3R1I0dmk0bmRKRHZFNy9JeEVZcVQ1bWEyaENo?=
+ =?utf-8?B?OGZLZ1d6TlVCdDJUK0MzY25ReENUam1Nd2hydDdNVUJnTDJ3TlFmbkJsQ21N?=
+ =?utf-8?B?aUQxVkk4bGdHTTZqRXhvOFBneS8zUEhJbHU2SUFsYU4wY1ZnVEppNjVIRzZw?=
+ =?utf-8?B?YVRKR3FHa2pGSk5FNU1YRXlwK2JMOHREUnNHc3FRTXU1UmVxL04wUTNsbllu?=
+ =?utf-8?B?NlVISmY0dHliaEcySlFOVkc3d0FIdi8wRWlTc1NmNGVEcGRnQXBRUW5LVThp?=
+ =?utf-8?B?cVNvcXVBUUpKdVQ3SVpacjRZSkh5a0Y2Nyt5SmVnSno0Z3hrMXZGMU5jbUFi?=
+ =?utf-8?B?UWdxTVpEV3J6akJXcXNvc25mMWRmSSsvbWFYVVpreldNMkxoY2FxTnRtSm1o?=
+ =?utf-8?B?eXV4NkdqcEpBZXBWa1I3M3ovU1o0ZmxZa0xvVW5KRlp2VWJhNUFzUmQyOUVE?=
+ =?utf-8?B?YjlpWlF4dVluaW9xRkVNbXFZVHlsWXpUL1hsaVFsT1V0am9qSTh2eG82blBT?=
+ =?utf-8?B?NGFNRzIrWWJpWk4vRVhKYVNqQ1IxL2w0NmpZV1lRNGFsVDlnaThmYjVSZGNU?=
+ =?utf-8?B?UXFLbUNNSGNaS2VtSkU5UTdhOXUxRnhYMXgvdnBFdDRsUFJtNXFhNE1mb0VM?=
+ =?utf-8?B?cjQvZElNUnF3SityckZZSWJzaVJ1VEhrSHkrMGg4UmlYeEZFQTFtdGtNUFZR?=
+ =?utf-8?B?VHBud3J3UWJhVVN6T2h3WnQ1RDdDTTY2NlRwZlplQ2JBaDZxR2NYS2FoaVp6?=
+ =?utf-8?B?czYvUXRGNkhka1JCK2pWSmpVNUNjdmxMZG5SbldBaFovSmVYb0UxWkJpckFX?=
+ =?utf-8?B?ejlLQnFhaUVtTnZBMS9TTml3eStZZWdPdXJINFNIRGg2T29NOGlUcXZZSnFx?=
+ =?utf-8?B?TDFiaGtDR2RHbWJwdGl4cWdpSUFIRHN5YnJVS1phako2bVovNmdmSmFHUi8v?=
+ =?utf-8?B?TmxRaGhkOTRYelEwbkpsd0lxd3orS1JpRXk5QTdaVW16QlJ1V1Z5dFBZc0Vx?=
+ =?utf-8?B?YVZtYW9mUzRVSWNuSWd5RWpUWitIY1NXclp1dklYdTlmRTlVc1k4YzROUkgy?=
+ =?utf-8?B?VUpPYXFFaXBXT0pjck52Wm5uQU5XZXVRVngwTVhnd3pKMzZYYXRCNDd1d2Jm?=
+ =?utf-8?B?MmdUZmxtQnpVdWVrc2FuUjlMMGJaYUZLT2ZpSzdSZ09Rc3F4N2o3Z3FvVEFD?=
+ =?utf-8?B?TFVraHFqNk1DaVJpa01idExyNjkrb2Nyc3YwdFoyUDRUMHBWdnFRTThXcWJM?=
+ =?utf-8?B?cjNpT0kwSEI0eDl2dThGWUt0QW9EWm56YXNOZ0JrdUYzc3haUWc4ZVo2Tk8r?=
+ =?utf-8?B?Z2ZreWhia0hscmdHQndRcUZYUjg2RFFSZHJwZEhJbm1jdXZ2bWRGQ290cXBs?=
+ =?utf-8?B?MlV1bFRRY0FrT0wxN0xZUE5MdUtBQ0NFcUpWMXBNOWx4UCtuWkcyYm5xOGdu?=
+ =?utf-8?B?U1dlOUM5NnpCSVVrMERZV0hucDBNeTdXNVQ4aFhIZ0gyT1dLb0RUMXdEOXNG?=
+ =?utf-8?Q?VF7HQuzYoDlZp47XyBEfEu8cIOQw0+KCzVRxeGHL6cP5k?=
+X-MS-Exchange-AntiSpam-MessageData-1: ovVw56V8qQaXbQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec22e4e0-db6c-40df-a27a-08ded02b94d0
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 06:57:53.4334
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DM6Bwa3tb1datTIaFNWPWbFhM4z1sS/WUgxwx4jjPMWTyoP0i9MuRVdicYiU9ksmIJoKEKI3Xkvr66vk2SyBGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
 
-On Sun, 21 Jun 2026 23:46:25 +0100,
-Marek Vasut <marek.vasut@mailbox.org> wrote:
-> 
-> On 6/21/26 12:59 PM, Thomas Gleixner wrote:
-> > On Fri, Jun 19 2026 at 00:02, Marek Vasut wrote:
-> >> Renesas R-Car S4/V4H/V4M GIC600 integration has address width for AXI
-> >> or APB interface configured to 32 bit, it can therefore access only
-> >> the first 4 GiB of physical address space. This information comes from
-> >> R-Car V4H Interface Specification sheet, there is currently no technical
-> >> update number assigned to this limitation. Further input from hardware
-> >> engineer indicates that this limitation also applies to R-Car S4 and V4M.
-> >> Name the limitation GEN4GICITS1, and add a driver quirk to mitigate this
-> >> limitation.
-> >> 
-> >> The quirk is keyed on the combination of the GIC implementation
-> >> and the platform identification in the device tree.
-> >> 
-> >> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> >> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > 
-> > This SOB chain is broken.
-> 
-> Broken ? I don't understand , could you please elaborate ?
+Hello everyone,
 
-Either Shimoda-san is the sole author of the change and you are
-posting their work, then the first line of the patch should say:
+this series adds support for Host1x and VIC on Tegra264 SoCs.
+The Host1x side is not very interesting, just adding the usual register
+definitions and other information. One thing of note is that multimedia
+engines apart from VIC have moved away from Host1x on this generation.
 
- From: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+On the VIC side, there is a bit more of a change, as the VIC Falcon is
+now RISC-V based. Unlike NVDEC, VIC is still "externally booted", so
+the boot sequence is very similar to before.
 
-with your own SoB immediately following their SoB (see [1]).
+host1x uapi-test[1] has been updated for Tegra264. Necessary headers for 
+constructing VIC jobs have been added to open-gpu-doc[2].
 
-Or this has been co-developed, and both of you should be credited as
-authors. then Shimoda-san's SoB should be preceded by their
-Co-developed-by: tag (see [2]).
+Patches 1 and 2 add new compatible strings to Host1x and VIC device tree
+bindings.
 
- Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
- Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
- Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Patch 3 fixes the context device device tree parsing code to handle
+iommu-map entries with length more than 1.
 
-This shows exactly who did what, who forwarded whose patch, and forms
-the base of the DCO which is documented at [3].
+Patch 4 adds Tegra264 support to the Host1x driver.
 
-Thanks,
+Patches 5 and 6 add Tegra264 support to the VIC driver.
 
-	M.
+Patch 7 adds Host1x and VIC nodes to the Tegra264 device tree.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst#n449
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst#n503
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst#n396
+Thank you,
+Mikko
 
--- 
-Without deviation from the norm, progress is not possible.
+[1] https://github.com/cyndis/uapi-test
+[2] https://github.com/NVIDIA/open-gpu-doc/blob/master/classes/video/clceb6.h
+    https://github.com/NVIDIA/open-gpu-doc/blob/master/classes/video/vic_ceb6_types.h
+
+---
+Changes in v2:
+- Updated dt-bindings changes to be chip-specific
+- Link to v1: https://patch.msgid.link/20260612-t264-host1x-v1-0-8d934987de67@nvidia.com
+
+---
+Mikko Perttunen (6):
+      dt-bindings: display: tegra: Changes to support Tegra264
+      dt-bindings: display: tegra: Add Tegra264 compatible for VIC
+      gpu: host1x: Correctly parse linear ranges of context devices
+      drm/tegra: falcon: Add support for RISC-V external boot
+      drm/tegra: vic: Add Tegra264 support
+      arm64: tegra: Add Host1x and VIC on Tegra264
+
+Santosh BS (1):
+      gpu: host1x: Add Tegra264 support
+
+ .../display/tegra/nvidia,tegra124-vic.yaml         |   1 +
+ .../display/tegra/nvidia,tegra20-host1x.yaml       |  20 ++-
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |  63 +++++++
+ drivers/gpu/drm/tegra/drm.c                        |   1 +
+ drivers/gpu/drm/tegra/falcon.c                     |  66 ++++++--
+ drivers/gpu/drm/tegra/falcon.h                     |  23 +++
+ drivers/gpu/drm/tegra/vic.c                        |  95 ++++++++---
+ drivers/gpu/drm/tegra/vic.h                        |   9 +-
+ drivers/gpu/host1x/Makefile                        |   3 +-
+ drivers/gpu/host1x/context.c                       |  13 +-
+ drivers/gpu/host1x/dev.c                           |  41 +++++
+ drivers/gpu/host1x/hw/cdma_hw.c                    |  12 +-
+ drivers/gpu/host1x/hw/host1x10.c                   |  33 ++++
+ drivers/gpu/host1x/hw/host1x10.h                   |  15 ++
+ drivers/gpu/host1x/hw/host1x10_hardware.h          |  21 +++
+ drivers/gpu/host1x/hw/hw_host1x10_common.h         |   6 +
+ drivers/gpu/host1x/hw/hw_host1x10_hypervisor.h     |  10 ++
+ drivers/gpu/host1x/hw/hw_host1x10_uclass.h         | 181 +++++++++++++++++++++
+ drivers/gpu/host1x/hw/hw_host1x10_vm.h             |  36 ++++
+ 19 files changed, 601 insertions(+), 48 deletions(-)
+---
+base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+change-id: 20260313-t264-host1x-c97171fdde77
+
