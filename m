@@ -1,100 +1,124 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29362270EC3
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782CC27603C;
+	Mon, 22 Jun 2026 10:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782124522; cv=none; b=qO8KcRO3jpJVyV8M+2iRe6EQcz5vHmobr81FnsejZ1Igyam4heWM8FdQKzVzc8GNvIgaF2Mx3nqFNIWNEqs3o5oWz695BEyykeH6XxBoPpsDD7NL+cw9nxZNteVq6CT0QwIx0j71R82pWcTO90cTulJbddaU1IAZUmwIo0tISpU=
+	t=1782124523; cv=none; b=eRsQHMRbAsB83A5aQ13bKG1ij8Y0OwDiwgi8erIeAAbr95CYpohBcXKIZxs16av+Ra0UbHXYblfnWAeoDiss6FAnFoe0OZhkZtTzjyqCj+S+Vs278Euo+k1psbrFKfxzEojDj7zi9LDHHjj8AujZMRpxzYA3mvP6YSHgjpRVuVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782124522; c=relaxed/simple;
-	bh=oMPdsikacqtzYTFY2QxLAR1WVtrEJqjXLr9DFz6PV3o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eD8OF2DrwgKrOkf7clzY+1CSXTj3O0LiQLF4/fWYsfgpVkVcpUJImJ9UdU0ZvkAcnlNms9USNWHriZ3pjugP6Yn5u/qL6qD9Rf9JG0qKXltyPH8gV7w1QXVBksq9JM5NNU7Ly17Cm2hVBt2t5McewoskFfkUOVoWUdyz3miytoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-59e8ededf4dso3065242e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:35:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782124520; x=1782729320;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CbT9MfaCjQT3Ym3J/HtdCmcThbQYXtUBVcRrZ9h8JX8=;
-        b=g5/ffmPY/P5wFCzfZ4m9s+Mv7i6GklUwIe5eEs1YR7aCp2PHjer/6kYORpLTrdrYH3
-         MdI7K8eFIlBBvz65raile1lzRzKNsk26feheytWHjhGTuapk1qUf4OGcMpdwJLV7FOby
-         ZLEjp5XP74+D1HL/8sFmICzs/65Xs0RsRNbXYAJF8Q9Z5K9zVr6zkmlMp+rK00szwViF
-         iIFcZ4uNeFJjNaBpTYzPcgvi3ibnrJ7WabAUpIvANMSR6RSLH9eeShIHb6+QxBdjtCqV
-         dOz8m1cG6aU0nhgI8DI2NqtztE6r5etVi8TVBSfdJHe5/UqeRy2y+LnnpWX2+yQmZYqn
-         YwMg==
-X-Forwarded-Encrypted: i=1; AFNElJ8m9oEVETRuPf8SS8JG+DdfhEQvqbBd9tLOXicuJYV6tAjOrj83pjsm1Weu9powY5kNV9nDfZcTldOy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUJIiQUSRb+UdvFLiCbDaDIcdiBylNVPET8dD0ak9q/f9/Sg0e
-	9tsSi82E7d+UCdvkJEFAb8CU82Wh/Y41loCEwxHKGhhzRJBtT2cBNV42ER+dVwCd
-X-Gm-Gg: AfdE7cnF+icyGWUN6gbGx+JVgvpaG2P9GAVyA4KDAVR4/dli7FVdUO6cWst1tQ+vGiT
-	ApXRJFlj/K0PTGEt2l6cLA2oDMQgIhNnsDpxKKiHSdDH5ApMYbabDn9dIx6pMT1IiWAl9WRMb0e
-	GGlHUVDBPdCjqT03yHsQZNUV2PZtlYaO9y0d+jsJDkEu/zo98ogCR8/HLawfxxo5YIZG0Trt+BO
-	H20Sh7CQocncgF6eQ3qY6b55ic8aeCyA7T5rN3xkiQwg2kpJSlV49kUPk4FUzVaUZceU9PFICUt
-	nP7a9rPFriAUANfJyUCcMht1EeNXUUpSNZFFlQahZTpPsB2oFO588jOje49nx276eVmjsiFsvYY
-	yVC8uajIY9gUKUmXIqqQqA1pHqwFvXQe+KeBLwvwR8IB2rnTegTeCREp0Thh3CLFhEb0rh7ESmP
-	zEmV7neB3Y8tDuN5Y3ElvjglrYtXn0dL0KrHeMcBj45ZGaVp//+Q==
-X-Received: by 2002:a05:6122:8607:b0:5bb:fb24:5782 with SMTP id 71dfb90a1353d-5bbfb245793mr4042620e0c.14.1782124520074;
-        Mon, 22 Jun 2026 03:35:20 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbfbab451bsm6232103e0c.18.2026.06.22.03.35.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 03:35:19 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-966c991e6b1so1765215241.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:35:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/jSpmUBH0rkTWQm1FmPHZUAKsfuboP9yev8EFBf+JEU5XrpQn4AAVd+iDxiuSwyb3ajCXm6ThhPivP@vger.kernel.org
-X-Received: by 2002:a05:6102:324c:20b0:729:4c16:b4f4 with SMTP id
- ada2fe7eead31-72a767f94a8mr4675989137.2.1782124519443; Mon, 22 Jun 2026
- 03:35:19 -0700 (PDT)
+	s=arc-20240116; t=1782124523; c=relaxed/simple;
+	bh=nKS4zwQM+VFl+KcVzgjEHYMtbkj7E74mVR7te08Yyu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MOMOnXHulxvImCALD4O/QGUnGTWho3kI8ieO8OCsS6+h0Xq9hKMvn/bKdrhNrq3k4dm5LVh2TKwcXVJdKdF5+dn9Zt6GW6msgSzFlFLJRhFtoVnGGxLph9GpxUs1ezaP3ZSJI7ezUxKsDPjjVBaR4xpM8TpGgrTud434DcH562E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OnulI88y; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OnulI88y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782124521; x=1813660521;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=nKS4zwQM+VFl+KcVzgjEHYMtbkj7E74mVR7te08Yyu8=;
+  b=OnulI88yX0QSSucq/j1BKh6psinhnzMa+6iVYioE4Byy50/FLIQH92q3
+   7TwrS8eFCNYEiUQgejlf/nrXeO5xlnXj9QNlj2mZC7qZrZMz5ZeymbLY7
+   98QwhURC83bAFsOHX5T+hQ0yWG0O3r083PFeR0j2RAo/0HWSEGh9tHQ+P
+   vYeab96A84CETpnVaj1lHm/W4HLimqiaKWNMrFfafkqbdxqbnv4ILckCN
+   TnqszfxD3RDc5Jf/nywPs6W37AyuUC1/Y2ACN4tiClyZ7CVA6j3OU2Qr8
+   nS/InqYaBtxmHsBfxwNfxZhLlOKX7Qjlq2c8HBflJE3PKDGoZ/7d1hFkX
+   w==;
+X-CSE-ConnectionGUID: fCFYSwzLQhqRaWQ7XDJeMA==
+X-CSE-MsgGUID: fZkXNCwMTri+69p6CGQqPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11824"; a="70365448"
+X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
+   d="scan'208";a="70365448"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 03:35:21 -0700
+X-CSE-ConnectionGUID: NiAuEHaXRFyoiUSZMBV95Q==
+X-CSE-MsgGUID: pwp5A8wfRVaZLysDxupkNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,218,1774335600"; 
+   d="scan'208";a="248046762"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.152])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Jun 2026 03:35:15 -0700
+Date: Mon, 22 Jun 2026 13:35:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Michael Walle <mwalle@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"afaerber@suse.com" <afaerber@suse.com>,
+	"wbg@kernel.org" <wbg@kernel.org>,
+	"mathieu.dubois-briand@bootlin.com" <mathieu.dubois-briand@bootlin.com>,
+	"lars@metafoo.de" <lars@metafoo.de>,
+	"Michael.Hennerich@analog.com" <Michael.Hennerich@analog.com>,
+	"jic23@kernel.org" <jic23@kernel.org>,
+	"nuno.sa@analog.com" <nuno.sa@analog.com>,
+	"andy@kernel.org" <andy@kernel.org>,
+	"dlechner@baylibre.com" <dlechner@baylibre.com>,
+	=?utf-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	Stanley =?utf-8?B?Q2hhbmdb5piM6IKy5b63XQ==?= <stanley_chang@realtek.com>,
+	James Tai =?utf-8?B?W+aItOW/l+WzsF0=?= <james.tai@realtek.com>,
+	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+Subject: Re: [PATCH v3 2/7] gpio: regmap: add gpio_regmap_get_gpiochip()
+ accessor
+Message-ID: <ajkP4DHN4JPjr6yb@ashevche-desk.local>
+References: <20260512033317.1602537-1-eleanor.lin@realtek.com>
+ <20260512033317.1602537-3-eleanor.lin@realtek.com>
+ <agMM9soiqpG-TRSb@ashevche-desk.local>
+ <adff3a2d21a64d3ea3b408d62157ee1e@realtek.com>
+ <ah92oEavMu4QRn8y@ashevche-desk.local>
+ <CAMRc=MdA24z-tB_D8CTw68Di8e4OVQJ1QH4+rDskFzq=xjJ5BQ@mail.gmail.com>
+ <DJ3QVMZ6XLW9.1M9W541O92QWJ@kernel.org>
+ <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 22 Jun 2026 12:35:08 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
-X-Gm-Features: AVVi8Cfb4mv2QoVmKeKaT0JRkwbOlUFA4xPaWe_fn-8CnsZR_T46Ke01ntwYiSg
-Message-ID: <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
-Subject: Re: [PATCH 1/9] arm64: dts: renesas: r8a774a1: Add soc: label to soc node
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLncD2ZjH3aedOkGNYP3FyZ=i7Pb0OcKKZKuMOPGNjM_nQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Marek,
+On Fri, Jun 19, 2026 at 11:08:30PM +0200, Linus Walleij wrote:
+> On Mon, Jun 8, 2026 at 4:41 PM Michael Walle <mwalle@kernel.org> wrote:
+> 
+> > >>> Without an accessor like gpio_regmap_get_gpiochip(), we cannot retrieve the
+> > >>> gpio_chip instantiated inside gpio-regmap.c to fulfill these requirements in our
+> > >>> map() function.
+> >
+> > Why is gpiochip_irq_reqres() called in the first place? Isn't that
+> > only called if the irq handling is set up via gc->irq.chip and not
+> > via gpiochip_irqchip_add_domain() like in gpio-regmap?
+> 
+> Not really, the gpiochip_irq_reqres() is called to mark that a
+> GPIO line is used for IRQ, so the gpiolib cannot turn this
+> GPIO into an output line, gpiod_direction_out() will fail
+> on lines used for IRQ. So it's a failsafe.
+> 
+> You can live without it of course, but then you don't get
+> this failsafe.
 
-On Sun, 21 Jun 2026 at 04:51, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Add soc: label to the /soc {} node to align the DT with r8a77951.dtsi
-> which already has that soc: label. The soc: label is useful in U-Boot
-> where it is used in U-Boot extras DT fragments.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-
-For the whole series:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.3, squashed into a single
-commit. Unfortunately there is no cover letter, so I will have to add
-all nine Link-tags.
-
-Gr{oetje,eeting}s,
-
-                        Geert
+So, when we instantiate our own domain in regmap GPIO, we should have those
+callbacks be defined somewhere?
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
