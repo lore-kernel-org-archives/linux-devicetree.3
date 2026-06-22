@@ -1,127 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C982233956;
-	Mon, 22 Jun 2026 19:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3217346784
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 19:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782157605; cv=none; b=MOL7nUPKSVeJNv0IeHVgAfcM5vhJ/A6BpP7LL4DrEMbQmET7dVnxngrE8p3DLiIiMHLV87cJ21jUV5NOWkQGb0iB6p3KI7jMrqzzInHT2eIPPHPGqxkllKCIxz5asQHwmnza+NxR792aNzPU+gf+z9nc0FAKrFwsKvI2yyu1wvc=
+	t=1782158311; cv=none; b=baYUR2GQCrJvIo+oo6ujHA+2N0Z8QVUAOMXY4y9EoeeBmKfEx/O/ED8KHad97NLf1wLOHhNVi3ya/VhBoD0BU7qY8c2g3PNIaZqh0UECO565lR94qG+b1VW7TmxzQTtpntLeETiWpyYwbMzGz1kdQcZ08IzdgxBcynT0CBwQ7V4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782157605; c=relaxed/simple;
-	bh=kgwMBXGGvHy1EtVKvRTgShEaEM1atd0VxGwjFSma1EY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BLkE4NhOlu+QXZ3HDrrGf4AV9LCMF4jkXCatJo/2lOf0llfT+h/3MEYTv4hvvI3u+bt6J/QBRFWGLWDwFsrBbLU1Ioq2ASfdDJhyLpdIF0cQSHpysUcbxabKiWUtAJgfH+36Cee+eDv6rXL5QMIo1/BUu7HbFIq7xEQAworME88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCM+BPJS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782158311; c=relaxed/simple;
+	bh=57iPWVB8HpWp0SdT4SzBj6beLry4v517MZiKZKOMruo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=FDDLb7XSl7YxsbcJVgyKN+RM9IUYrbcLkZEVrjR6pAU4zURCl6g71Z+XuxjEDKwLE5Enmg2dkq8gf9R00TZr3K5DnTSwKJxQ7CrFgx4vKaYC+zCqxure6M/A8Gci5R9epZ1PyQ4peUAIuVb6n8IatHP7AE0XJQYavshZR7lAm20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edadIgwU; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCM+BPJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A721F000E9;
-	Mon, 22 Jun 2026 19:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782157604;
-	bh=iBmRIEo0Y3C537nc7m+qdd+Xo7/WqHEC+VjWqzHuMHk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iCM+BPJSYS2QMN3UtoBbVOX95l2Flr6TD/yiI8GOs3NGy+Rn3WiYq9chlfTsIZOgW
-	 Y0218U+9VLmVogcC0MGI8TOk09omHOz8Dh7ENWjNy70OdK9kQdFXYQf6ZUDFf0JE/U
-	 3vn8alKNYKf03Mfyl4S6FiNBFCAkMAeMKmQRDlvb0COhk887SM8XTHpU5fph5ecoEY
-	 iSsiFsVXuDmVIBI1N1exHAGGNzzDyXgdIzJKgN2vFH1U+wNYtziSY/ErYlBWN3olSY
-	 oG8CTscy4sBOiTzFtghzJAbBqaZ/k/TtHD2gx30uk0uT9qAJlYUm9ILX+dQLyekSim
-	 Stl4jW1qW7d8Q==
-Date: Mon, 22 Jun 2026 20:46:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, miquel.raynal@bootlin.com,
-	richard@nod.at, vigneshr@ti.com, pratyush@kernel.org,
-	mwalle@kernel.org, takahiro.kuwano@infineon.com,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org,
-	praneeth@ti.com, u-kumar1@ti.com, a-dutta@ti.com
-Subject: Re: [PATCH v4 01/16] spi: dt-bindings: add
- spi-max-post-config-frequency property
-Message-ID: <20260622-cartridge-foam-f3bdc9a1311f@spud>
-References: <20260618073725.84733-1-s-k6@ti.com>
- <20260618073725.84733-2-s-k6@ti.com>
- <20260622-private-curly-fennec-7e1ad0@quoll>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edadIgwU"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-59e2b96e3d3so3844837e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 12:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782158309; x=1782763109; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UPcWyCPirypMBAoOJux8HWZTXODBq4tSyUnE2Pwfp0M=;
+        b=edadIgwUcMBqe6BVas9DmhERkFZM3K3iTBsqRqqILvHOxFHu07wwwqokVFDys43cms
+         b0uIXze6A8ccdzZtI/4bbjjw04kiefg0Z33Sre5V3sWQYM3fLBJe5NKl05EgkOqkEMc9
+         5eDuaYYIElFN9HUN2fohKit/oK35/GZW6ONhVIAXU4tEBkYpR8Y20/0Xrb1LaqImn2VB
+         1PNxAK/K4a5ARqPdUbLz41S+4xEnmekc5sXoFhWqyzkOYyWZRC0O27ePgs25JF6b3bNT
+         5LpyIpvhoYO9Exk7rW0VbQrGGjOsNSR2S2SZSERKBMsftf2vWO5XRSpHCEXDuwAdsc+Z
+         VDRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782158309; x=1782763109;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UPcWyCPirypMBAoOJux8HWZTXODBq4tSyUnE2Pwfp0M=;
+        b=e8/3a66oGNoVwbq2/oK1Fh9BcQfMFSVZ5aT59qSVOcdahvWEezbmpHOhjYqFosP67o
+         wx5sD6SgQ1VZnuWEzPGK9oaMIPuRm8Rkd/DqSvwcKjqs9ETcapcWIt13J7/t2Ns+0thL
+         DWaJREG5y688M98tfFXaMufbt/dPMs1Dg3FAB9ooGUL28/GEqcLBVh+6qosfVn0CGHRp
+         QsawZysCn4DoriOy1JXxyGE22zfy189SzmsAta+Y/KI9PBeTZFnfFo3oY1SK0Ga0zblM
+         PdH/SKMabfFwY8LMJa3GgjanWQ1bg2yXztfn8/lwtUhr6k37r70LPrAo57Zm+6aUPOB5
+         13TQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8CmLvHq6YrNg1Ju8KPmCfd++OfygakgJS4j06p+OFNnzLeN8dhJteL1MoofZcFTXkbSFo3ly96Otp7@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzuR/cPae4Qgt/jgN1JOTBjJmHvI2pHNUt0FAQwGAIL8dFAVYf
+	8TpI3FBqWFKJZoILHK35Jj+d7ZHhSN42Db5vJiYCWvtgTJiJ+0ck1gV6
+X-Gm-Gg: AfdE7ckpr5R/FBrr6+0FzZiUksl04lmrfzQSZ5DUYt8Lj0I12xgBs73FBn+nDD3+mf8
+	JJ0ShCOB6YeaqN+/79q4KvGx0z+bM6TmsHRfx9Ux1v/UO8J4OxIbVwRIj3hHRf2vtNan0xFy1KH
+	d6xORErZ7b/DLQ2d8VwqC7ZWV4/yfOCdJ5R5BjCfedbtjPzNKb7BrVj6N6/LsNxJmg/cqQ7g34t
+	d5/SV4Oa5Edec6bV2v2hJ2P5A1wkP3RYFFpNF34p82ZeWnd2y+3IYKMMkFzfXjiNj7OEQBY6Hk0
+	LaTVFIaCGq2qzt5WDLzs1CrVEJ0SdTdpGzg+vRYj+itFK52T7i03spF8AQY+3AgDVdoHobJA8+9
+	lLKCeIxLkXjONP0OsXv54moGCFh9nBTE3WwEr/9R/FkIU/sOCuYdB2PxkJeBXIOpxYHhB4L5RkO
+	/mRZG7
+X-Received: by 2002:a05:6122:3a0c:b0:577:51e4:ef20 with SMTP id 71dfb90a1353d-5bbebb85e52mr7675795e0c.10.1782158309668;
+        Mon, 22 Jun 2026 12:58:29 -0700 (PDT)
+Received: from localhost ([2800:bf0:177:563:8f3c:3421:b12:7a09])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbfb878c91sm7631669e0c.6.2026.06.22.12.58.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 12:58:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ejSyi9hdaBgCwCQ8"
-Content-Disposition: inline
-In-Reply-To: <20260622-private-curly-fennec-7e1ad0@quoll>
-
-
---ejSyi9hdaBgCwCQ8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 22 Jun 2026 14:58:27 -0500
+Message-Id: <DJFUE81GZEEG.35TP4FFBVE63B@gmail.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH RFC v2 0/3] dt-bindings: iio: adc: Add reference,
+ excitation and burn-out properties
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
+ <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260622-new-channel-props-v2-0-aafd5369f253@gmail.com>
+ <42e544b8-f2da-450b-92bb-99c41f1c72fe@baylibre.com>
+In-Reply-To: <42e544b8-f2da-450b-92bb-99c41f1c72fe@baylibre.com>
 
-On Mon, Jun 22, 2026 at 11:14:32AM +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jun 18, 2026 at 01:07:10PM +0530, Santhosh Kumar K wrote:
-> > Add spi-max-post-config-frequency, a generic uint32 property for SPI
-> > peripherals that support two distinct clock rates: a conservative rate
-> > always reachable without controller configuration, and a higher rate
-> > reachable only after controller-side configuration such as PHY tuning.
-> >=20
-> > When both properties are present, spi-max-frequency gives the
-> > conservative pre-configuration rate and spi-max-post-config-frequency
-> > gives the higher post-configuration target.
-> >=20
-> > Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-> > ---
-> >  .../devicetree/bindings/spi/spi-peripheral-props.yaml       | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props=
-=2Eyaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > index 880a9f624566..ece86f65930f 100644
-> > --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
-> > @@ -45,6 +45,12 @@ properties:
-> >      description:
-> >        Maximum SPI clocking speed of the device in Hz.
-> > =20
-> > +  spi-max-post-config-frequency:
->=20
-> -hz
+On Mon Jun 22, 2026 at 2:38 PM -05, David Lechner wrote:
+> On 6/22/26 2:30 PM, Kurt Borja wrote:
+>> Hi all,
+>>=20
+>> After submitting a patch series adding support for TI ADS126X ADCs [1],
+>> I was made aware by David [2] that at least two more chip families,
+>> ads1220 [3] and ads1x2c14, share very similar features (though these
+>> chips are not really compatible between them). After that, I found one
+>> more chip with the same features which is already upstream, the
+>> AD4170-4.
+>>=20
+>> As David explained in [2], these chips are intended to be used with
+>> RTDs, thermocouples or other resistive sensors so they share the
+>> following per-channel features:
+>>=20
+>>   - Configurable reference selection
+>>   - Burn-out Current Sources (BOCS) for diagnostic purpuses
+>>   - Excitation current sources (usually called IDACs TI) for sensor
+>>     current biasing
+>>=20
+>> Given that these three features are present in all four devices and
+>> three of these drivers are still under review, my proposal is to have
+>> these features be described in adc.yaml and have this series merged
+>> before the three others [1] [2] [3].
+>>=20
+>> This series is sent as RFC because I still don't have much experience
+>> with dt-bindings and I don't know if this approach or the properties are
+>> general enough to be described like this.
+>
+> It will probably be easier if I just include these patches when I do
+> v2 of my series (if you don't mind me tweaking them a bit).
 
-Ah d'oh. I was hung up on matching the existing property that I didn't
-include -hz in my original suggestion, sorry!
+Sure, that's fine by me. I'll add a dependency to your series with b4.
 
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pr=
-operty-units.yaml
->=20
-> and you need maxItems: 1.
->=20
-> Now, please take time and think if this should not be an array instead
-> (maxItems: ...) to cover other possible cases, e.g. different tuning
-> levels? IOW, having single spi-max-frequency turned out to be
-> insufficient. You address that insufficiency with one more frequency,
-> but what if this is going to be insufficient next month as well?
->=20
-> I don't know, answer is rather for domain experts.
->=20
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description:
-> > +      Maximum SPI clock frequency in Hz achievable post controller-side
-> > +      configuration.
->=20
-> Best regards,
-> Krzysztof
->=20
+Want me to send one more version addressing your comments before you
+take it in?
 
---ejSyi9hdaBgCwCQ8
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajmRHgAKCRB4tDGHoIJi
-0umiAQCjDW5YPRvTWr8AmnJrT5KWog4MKK7CNWqLvCUUEmQq+QEA8S2hYQBmi9Pb
-MYrjEqkaB0aZF/Os83V8DkGjn39+wQU=
-=qY+b
------END PGP SIGNATURE-----
-
---ejSyi9hdaBgCwCQ8--
+--=20
+Thanks,
+ ~ Kurt
