@@ -1,182 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDD83B14A1;
-	Mon, 22 Jun 2026 13:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7953D3B14D9
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782133953; cv=none; b=tw0M8AYtWYtr37IiI2GmGE21qrs0o8G9N8WS2kZIoEnexccLnEtpAr/Ocx3ktSBBZmPo6xZcgEZJwZ4WgJo9/gMEGEMVT0UW6DwVQsz54wmQJEXO6cBUA8uTUFd1Ezc4fW1sMisNbU7eVQZtMcLrA8X8CAwhfa75+9zwrs8pBFo=
+	t=1782134002; cv=none; b=rKoGseNx48vdRt/hWenRHXPSPNXLTZ++bietUViJKwtDMbKwJ2wTL87P5OxJ43xMsaKHzpupFmUVZ6eYBBOw2nGcNTb6H909UowZ3q0LDFD84VcCcATTIRxaFfxVqHjMwagC1yIyvT0sZEp5M7Mlw4maw+XemU9FO4vV3vXnCmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782133953; c=relaxed/simple;
-	bh=ZzsheSfI80KF001phM/l6Q6/kuFBmhuyr2vvThi6qSE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LPSWfUxLkS8hy3vYj0mEU8yVHAV0vE8eTaKuRcfjZ88LAhoicUbslL+WqNpbKA1lYUQQ3O4jL59NF9vVXrE0a2mNsKCmkY2+cNSI86x1ZPeMFPMJALiZdkg03HU9/xoRGJIlU5N/wGkcvZuQi21ody+fqQqLD7+yyJOwTGmgTv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE1Xg9xv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE1Xg9xv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5F41F000E9;
-	Mon, 22 Jun 2026 13:12:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782133951;
-	bh=cNdjL00WBqqYfozOsasxypzA3JammtyHrJgX4pryvkQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TE1Xg9xv0dMhSVDV5EGq5eKodXJMYui/TMChcbqljfUPdkceLsZtHN6K+Uy5lz6oN
-	 XV0PADg1y3LvGChpVWDNFSTtWWzamFznR92drIVfrEgXfi3MpEmCf9xv20yM5NizZ1
-	 g4U4MQ9YSV+Wrz17Li4BGRcxeeHtVK2H8lOnrzlhniSq/luzXn2VRMLRS/OMnP/ZkR
-	 0J6YjaNvUS4tRewTPiHJZ7kRDgkHEYrimS6S/FAZAczQIxAa3ExY8khWQ0tdX3Wxkg
-	 hDa43bZZJccGs/ETsTtxqBKm5VLK+NqpD4VqdSRQ3keP+s0CVVpNWm6fUIQoxxLltR
-	 rIPwzvfusfodw==
-Message-ID: <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
-Date: Mon, 22 Jun 2026 15:12:23 +0200
+	s=arc-20240116; t=1782134002; c=relaxed/simple;
+	bh=XcEOJh31PWonfR0DQ8W+3Ki764YdjB5fZsLG4UFUAQw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OHpl1IIcdWKkd7smzpa3VzYnfcDFSPg0Z3I/DVcY6XoI1mjXC/lrLwBaH2cPaSFmC6rP5HntqgiYIrE8HxDw3Z7TN0SZNcdk57OR00ZEPVCfwYQFB4M6/ePb4JERC0pvYyoz1H1sPAMAT1z7fZo4JEdLYySfj/ggZzJhNCXGJzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c074ac8adaaso523755166b.3
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:13:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782134000; x=1782738800;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9cPiOkbmgHnl7iVDXe5O/aM/qhQ7nF1KGFxDUd/gPMA=;
+        b=sKPj4adOqN2Aq53OAHpm/LqYyeZaxhQuWSvZGYlM0jc0gh6dkxKctCkwBOiueUnPyR
+         9usMee7vE7tqsuUDNRjbcSav5iTtXEdF6HM11mGEsgcUhA1jYvCQvKETPSVtnCTQudx5
+         XstngqRM2dgoV/1AJuo6Sf7nfjx6E2CdFEodlJPTXkAKBTV+3teIZrQXbhS4rnAI3YBO
+         mIwxi5o3NMGa+3R4gj1SQKRdIh3B9UGvsC/kdx3ylHSmK1OetsCFGdhwAKmrwh3wA+oU
+         9/EdOYE9m7Uk4Hr6EZ2rJj8dt6wq6if9LJKd2dHsM78hld4I+FvHFvXWoCqVmajNAhjl
+         6VkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8lTp7g8S87sPGWbmepYWocE+p/vE7Z8OJcNN9DWUtPzykvWEahIkmMAsTR6Zu1jYAQLajqCIyGepX6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyqx7b5MDWC80R4enN6AOnFShDwswXQ33aAVGwHoxC4O99Y8vw2
+	/sj/3V/XmuGpHK7MUokz9wKvDNrZnd2bnsqC7b9yzHn5O6rWh3Yes6qzEb/2/keJqkU=
+X-Gm-Gg: AfdE7ck9fA9OD0I68890Fat7wnnOPANM+/OLwtAB0s7Ltl1Yhjf9NO74mdGl+RQU0Ly
+	Pn4/FKTNU2wWyjgCscpc/GgCB2/C2RVbW3t0bc3eQZpMX0dmdyjdkFerLdI5pISekXZ4v7TZ1jU
+	3ttOXBz51UWZpKZx3f83mjbZO+ebYMW1o76cRRYFL25P8BnFQRXWAbTxOIehH1YqU3s2J+/0HJI
+	WmkUCFv6KZK838O7ElkJ7BxkY4CjW9o/oqH5tFz3b/eJ4292zsAbLiRwbL8n3HtCZrlT15DYvC7
+	hiivRLKr7asgA7dJ9Q1Vdo7su2R8FHRzNPV/bM14W6IEehocgaiFZ/sDNBHehVA/I4i0pE66R6F
+	ar2lJMYRumEj1hw1O8KEwaUTs5dJr8HKDTuHAHbfJxGqPfSuwd2pw4zOEZfjQvjE9iVmp8O3JtA
+	bLbV9V3HvKvMIxKv/4PpSjijs7h6fHRM1Wj0EgAllZnvYKSU4+2vFv7NByzewD
+X-Received: by 2002:a17:907:78e:b0:bb8:b593:edba with SMTP id a640c23a62f3a-c097ccc02eemr734934766b.38.1782133999871;
+        Mon, 22 Jun 2026 06:13:19 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac92c6sm359910066b.41.2026.06.22.06.13.16
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 06:13:17 -0700 (PDT)
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6974f511dd3so4186271a12.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:13:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9A3pGojW1PPykeDeU+5Hdix6z6st4kiQ99JNFbtbtD/E3WnWZ0im5uwv/rrDOr0ge/HzFXkieHmHqW@vger.kernel.org
+X-Received: by 2002:a05:6402:3547:b0:697:ce0e:9243 with SMTP id
+ 4fb4d7f45d1cf-697ce0e9559mr540539a12.13.1782133996242; Mon, 22 Jun 2026
+ 06:13:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: nvmem: imx-ocotp: Add support for
- secure-enclave
-To: Frieder Schrempf <frieder.schrempf@kontron.de>,
- Frieder Schrempf <frieder@fris.de>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
- <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-1-cb7f3698c3e6@kontron.de>
- <20260617-prodigious-private-inchworm-beae1e@quoll>
- <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260618181949.3036280-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260618181949.3036280-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260618181949.3036280-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 22 Jun 2026 15:13:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXX-3ddkTmHGQOySZygRmvhnG6snk7uv4xmA8NjM9MsDw@mail.gmail.com>
+X-Gm-Features: AVVi8CcUH8u1TOdYYuE-qFfJh-2q3W4LZYrwKknGe4DqOfHPr71m4gxhWY1vJh4
+Message-ID: <CAMuHMdXX-3ddkTmHGQOySZygRmvhnG6snk7uv4xmA8NjM9MsDw@mail.gmail.com>
+Subject: Re: [PATCH v4 5/5] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
+ support for RZ/T2H display pipeline
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 17/06/2026 13:36, Frieder Schrempf wrote:
-> On 17.06.26 12:49, Krzysztof Kozlowski wrote:
->> On Tue, Jun 16, 2026 at 01:52:16PM +0200, Frieder Schrempf wrote:
->>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
->>>
->>> Some SoCs like the i.MX9 family allow full access to the fuses only
->>> through the secure enclave firmware API. Add a property to reference
->>> the secure enclave node and let the driver use the API.
->>>
->>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
->>> ---
->>>  Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 4 ++++
->>>  1 file changed, 4 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>> index a8076d0e2737..14a6429f4a4c 100644
->>> --- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>> +++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
->>> @@ -53,6 +53,10 @@ properties:
->>>    reg:
->>>      maxItems: 1
->>>  
->>> +  secure-enclave:
->>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>> +    description: A phandle to the secure enclave node
->>
->> Two things here:
->> 1. Here you describe what for is that phandle, how it is used by the
->> hardware. Currently the description repeats the property name and type,
->> so not much useful.
-> 
-> Ok, agree.
-> 
->>
->> 2. If you access OTP via firmware, then this is completely different
->> interface than MMIO, thus:
->> A. reg is not appropriate
->> B. Device is very different thus it has different compatible and I even
->> claim should be in different binding. Devices having completely
->> different SW interface should not be in the same binding, at least
->> usually.
->>
->> If any of above is not accurate, then your commit msg should answer why
->> and give some background.
-> 
-> Thanks for the feedback!
-> 
-> The driver currently uses the limited MMIO (FSB) interface to access the
-> OTPs. The intention is to support the firmware interface alongside the
-> MMIO interface so the driver can pick the interface that is available
-> (firmware might not be loaded) and fallback to MMIO.
-> 
-> Following your argument would mean a driver deciding by itself which
-> interface to use at runtime is not something we want to have in general,
-> right?
+Hi Prabhakar,
 
-No, the property fits DT, but above information should be in commit msg.
-If this SoC has indeed both interfaces - MMIO and firmware calls - then
-everything is in general fine. I assumed that is not the case and MMIO
-is not really working.
+On Thu, 18 Jun 2026 at 20:19, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Add the clock definitions and PLL logic required to supply the LCDC
+> (VSPD/FCPVD/DU) blocks on the RZ/T2H (R9A09G077) SoC. The RZ/T2H display
+> subsystem depends on a dedicated PLL (PLL3) and a set of new derived
+> clocks.
+>
+> Introduce a new PLL clock type and implement rate recalculation,
+> programming and locking sequences for PLL3 using the RZ/T2H specific
+> divider and VCO limits. Add the corresponding muxes and divider entries,
+> expose the LCDC core clock, and register the LCDC module clock using the
+> correct PCLK parent.
+>
+> This enables the RZ/T2H clock driver to generate the display pipeline
+> clocking tree needed by the DU and VSP-based composition engines, allowing
+> upcoming display support to be integrated without duplicating CPG logic.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v3->v4:
+> - Added RB tag from Geert.
 
-What was confusing is that it feels like you are changing existing
-interface, but why wasn't all this documented in the beginning? There is
-imx9 in this binding already, so was it working? Was it not working at
-all? Commit msg must clarify that.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.3.
 
-> 
-> In turn this would mean we need two drivers, or at least two
-> compatibles/bindings for something that is effectively the same hardware.
+> +       rate_millihz = mul_u32_u32(req->rate, MILLI);
 
-Driver design is orthogonal choice here.
+The issue pointed out by Sashiko (req->rate is unsigned long, i.e. can
+be larger than u32 on 64-bit) is valid, but I believe it can't happen
+in practice.  Still, would be good to fix it in a subsequent patch.
 
-It can reside in separate binding, if MMIO is still valid, but till
-everything is not yet too complex can be also this binding file.
+Gr{oetje,eeting}s,
 
-If it stays in this binding, then you need to restrict properties per
-variant, so add if:then: block which will disallow the phandle for other
-variants.
-Best regards,
-Krzysztof
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
