@@ -1,201 +1,235 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013038.outbound.protection.outlook.com [40.107.159.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563133101A5
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 14:54:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D191F23B61B;
+	Mon, 22 Jun 2026 15:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.38
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782140067; cv=pass; b=J6RNa68nRWTMkoHsX+wVik4U9UTg+HCIiUwH1UBk0w/QPOQUhj5f6hCVkfRJf51ERp/hku7dWZ9ooBD18oAXHP3WG8tQ4TxbvT16HboHIn+O5aizquPVuAalG7+l589f2r4rPtBnu1MePB1aZB/gnYB8lCG7il7sGHtKE4zxnys=
+	t=1782140548; cv=fail; b=Qdu+/3NJM7hX28qmOu4qtK5/kMmtVFuIn/HssRnC7AVvWokVwt6HtV9FksxjYhUedhzuNkx4LoQrBNgzWX9j4pvPFP8hGOa0svjsBxH0X2YDea5dApezQLZIMofunE5SJ9+hZD1apYWjWAqp3wZNaMrtqHNKpi+izz4vUzoykl8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782140067; c=relaxed/simple;
-	bh=U1089BIw7iIyDBnxBwST4w5ZSkTY2BwrC/I7xAP7GTQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aP1f/bVq+Xe0VBvPPKt/RtD62bOpqpJlR8P/c4RYGb201Qdq+GPFtaiWkPD4RkT/5GGzwvLzGlC1LAktoTQOufHBTHLpgLlXx2OqjzEnjAvDJpegIrbcQbcFpokeHObkCiAEpahGMTiWySo9l/Df4KUYw/1opd3BfhmLWP/KkiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnnMZjUG; arc=pass smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782140548; c=relaxed/simple;
+	bh=e/8CdHzSaeELw9Mozi7IknOEv0sE5Q5IKxHr0mNHyTU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=fSjXsGuJ3Q5NLnKGQU3cI6u1V/56nFpclCxuDQ+3dXyDEZyegMe9FJbf0bS0AXhdmqC2MbxKVDX5pk08o5ESca5od5h4MikBSWOd7KMPjOIqUTfVu/WUwUuXAPJlbIkzMy4fsw+y2fRZTiCT6pi1pMOJVXmL34hdBQjK/T5MXL0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=f8NWfvDK; arc=fail smtp.client-ip=40.107.159.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnnMZjUG"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4922244f7c7so39191645e9.0
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:54:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782140065; cv=none;
-        d=google.com; s=arc-20240605;
-        b=i5+u/irgDWzA9fJ7Ja4W5E2+BrmESssrwUaA8wh7XN+byCckQmutE1Ot7DnSsPdMc1
-         nD76UsDF0giRRQ0yV4Mc3ge2NnHjLyQyN8hLR12VVVxk145yfz7VMVpfyipW5HNgk2C6
-         Mi9F5ESXOZL4BLdTAV/VO9vd1YjX+C4JhjWQun3IhU+RX+j/fRmpLkyaQzgdYQ84f7oK
-         Z6tZ2nps0sDX7c1ARE+yF+1KtuiEpWeQN5XKsxCIbvOqFz1ZCnAR7kDWSRlbM91ZExBJ
-         QQcpYVMF5aJWqk/tSdrGF5pNspT/4YWOvojAEfXaX/c0/gIU3QMttaIhVrwr3QFAZvr8
-         TkYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EverwGFGy7q/WGbEqhoYn+l8o6lObHXXPInFSiUXHk4=;
-        fh=edVXPwCofq4586U/hllioOYy0/zL+SjJInVA5XvJSfc=;
-        b=L4eX6/mJkgnQgp5ssghk8HnqGiby/kpfuGR4sYGrov13KrxpVdvTr/GLiadtKqIOVD
-         Yu8P0+BEIN5TWIpC0gCHl2/KfXbLbUNEMMufd8eqr2L2gzZQJ8BWszXtizE8C3XwQafY
-         YUFq6I9vQxwgqJPfvgHcYx+WLPZzK9Yld+4o789HbmJhQOIQC8QLCH4ZP1GCLljJC+IK
-         ++ZxN7ooJW0I1vcxF2SV0MsFmhNpNAh1OLvBIKy/iOWxqueimPAYhWjmRosmjbfkh+dp
-         GVX6eaOyXZ8Ncc5IzsqssbaA/Co0b6ZaJFirMDzr0wB5jDFCguNjM5MzzMNbiHGRkg+C
-         iYHQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782140065; x=1782744865; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EverwGFGy7q/WGbEqhoYn+l8o6lObHXXPInFSiUXHk4=;
-        b=OnnMZjUGLY8Vd9Jq11a3ICcakyWkDJbmxP5GXQv8OrX0LMYVTGoi1cYdFdj9gMCXav
-         aHeyFiqFvIOLHtNJ8bnKLwI/iF9IlinIRw5PcZ+eJm7eTjPYajVYjpeDx2KOgK4TRnjD
-         kq8FmWyAfTTYQyK4GkXR/SfqDzWq4lzu8y+1GcYMOorwvPnVsNfJIfIVWVoEEjsB9fJe
-         bfxFI0SNFSNlwpwgmy4I+q1Rso+eDayHBmmE29Ds5BnVfgRjEmYP+bIdj8vbab9nr+Pp
-         trmJByfEbRTo40U9t7Yr4sWWA1rmKhqr5VIx4gqRjAhDJCZor80608z1iFzwJZO8ybIh
-         3PeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782140065; x=1782744865;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=EverwGFGy7q/WGbEqhoYn+l8o6lObHXXPInFSiUXHk4=;
-        b=b9RI2bTBNWvgLeFr6NAn+l3M/CRvd4lVhXEtT8KNojs7/1g2JZXrGgCU4VvCP9S3GY
-         IhSP4bq5NjkNhvT/hV8nlnViq5lFTCxSaWf/nPEwva3SHzFj1tllb2KbzT1DI8g4Zvhy
-         ZBA2PHAfDCPL9YdYhV+TIogdWfywTZ1iFZo6g9BC9Jg4EO6Nyd6104FxlWiR+m11FdXb
-         70lMDcGmjGRoJ9wwtR7o6tToQ3dy4HREASnAjbc8UvmNwjyHIjo50Pjy+pn3rdmlqjw7
-         97xZQyp13cXD7NI5/IxQR9V7mKGQ6lNOO3S+Cjt+/EnaTaxh0gujgvwMDCKS6fqG0Odv
-         lL0g==
-X-Forwarded-Encrypted: i=1; AFNElJ9KLJdlbnEkg1NRd9TjHxLpv4qC55/hW0nJFljbWug3us+RX0dqArfdLONNJSRqkbf4cyvcGKkvYVRH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3OFC/aEyMn00xdUJEGTv+XtlKobZDvPzq4NzFDF8rVlqwBsKh
-	ja9gVvF8hqXbS1TLq12JdVcjcarSMNVXz+N68J4vkDfZdGLRyACfbfXfgNlwlr5NJ1ohkHVupvG
-	+tsLCQ0CYQQXqm4V52x7PUFG/CbSkXoI=
-X-Gm-Gg: AfdE7cnxJ2tAzw/lqyBnftteRUEyQUzNR0JBRH2fkDVmskbI9tPdbosKaU72ZwzA6A6
-	r7vSg75+NEXz2GOOT9gJ3FoM7FovYAnjlIeQT9eKBZY++TwZ38BRWos+RazDDE6ltek3rbGDehZ
-	/VsqQr12R6oi2tVFt6HBZ+hbel5826EqlgSWw9vN8BHWryFxXdxjEQ+2wS7Vq2jSUoVW3cbwe1X
-	llAATOazjL5yjl54dZGEQ2dtrQHl8CZ94svvy/hYL+jEiME68z9vw0rRKDCr0lak6G3K67iTfR3
-	KSp9ARJ2jhWSJWH4uTY2UWdF1VwO3MjJ3mMlUupgly2rM4xl9KdGAdIStg==
-X-Received: by 2002:a05:600c:5489:b0:492:4668:27b5 with SMTP id
- 5b1f17b1804b1-4924668299emr206639315e9.6.1782140064335; Mon, 22 Jun 2026
- 07:54:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="f8NWfvDK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JeYWkMXjDxEkwktoi8AMlY/KYOHXezkWL51SJnp1hEMutpj0CRLGujnI3kGuy43wHZWnTiKN0XYmKxkOaKcPMfxtDtqsy72ZzjfDTO46JVYq8zg64t/Lr6bygvUTRz38eBPwtQMQGJdtInrnG3WvF8mt+fRLUhnEOOV85gZ70Pvg+VT1XpPqLKzL6jotqXTD6ljg/zegPVU+dy0Tj32eOzppEL/Nh/5yzRcUpCEhotaeKy3gOwnNc2QQYnGNlQuse+W2tJ7bSkUXYPzJaZc/W9rTFHuh+3uO3k9IxCor1xfC2Q+sIJOSZ7xtNwvYUtxtaMUXrx369dWdzBgxXl+xvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rK2okpeBMxKtRFRcvfsyhPUOrkB618YP/GeneZSOcfc=;
+ b=RHNbKhP3mGMQj7EWtzFwUBQ/s18STzXUYbLdRwL4F5LKEqVYwK/3XqO1d64gBu7dLSvn2dI1zWVp7vtDIYWgHdu46p29jK3uE4pHDcMby1khTVIF2ETvFi+yqNqDFf2KFGuHtpkmfa+WouaOaCpNeWyLyDx2rLHf2v7k+ijLwbQ02d9FfnngU9XOD2ZXj/DvBJqMLpY1lrln0RdtFt2x0YU0gU3rse37xPE9L5IIG0lz2gsayy306NCgMJfjbM2hrYWFYD1AofVlkcko++9qgtNCRRBh7R5D+q2jId6+zaN2XF3P0nfIN9kcoO0CKN2GwSxo9H4sYLJayMkg9qzZfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rK2okpeBMxKtRFRcvfsyhPUOrkB618YP/GeneZSOcfc=;
+ b=f8NWfvDK3x/vQhdJrGMIn6kV9fVpyTF+5rFn8gLVcpyDDjlTQJEU9n67H8oolDoxPfFVzMYRkd/713JYpyzSDwySQ572rmg2yzGtLuNOJYktkG0++U2Wv/tvn+smXXoK5QfGyX9zbBt8KjfraeM8EUcPfD5AyGrl5TuOIbHhTEmjd0pbmaEFemtorQZSF3pW9ussgHpUg6/kFagIZU3PD5z9Ul5+D/cyuB96Hv3hSIk5yHMhQM5WV5f+tUhTF5GHNKq76jalhawIfuzcOeSoNTLSCn86BNC0r46p56Yq1mKANMfgFK8OH1w7P+Ap4zTWX9gFISrzgyH0owli9y56Fg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB9643.eurprd04.prod.outlook.com (2603:10a6:102:241::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Mon, 22 Jun
+ 2026 15:02:19 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 15:02:19 +0000
+Date: Mon, 22 Jun 2026 10:02:07 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: robby.cai@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+	festevam@gmail.com, sebastian.krzyszkowiak@puri.sm,
+	slongerbeam@gmail.com, sakari.ailus@linux.intel.com,
+	mchehab@kernel.org, kieran.bingham@ideasonboard.com,
+	kernel@pengutronix.de, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] media: i2c: ov5640: Add reset controller support
+ with GPIO fallback
+Message-ID: <ajlObz4UiIVGdBsP@SMW015318>
+References: <20260619100532.3779934-1-robby.cai@oss.nxp.com>
+ <20260619100532.3779934-3-robby.cai@oss.nxp.com>
+ <ajVPzoWVBi1vsqRQ@SMW015318>
+ <7ee62b699c5cabb00cd7706ea42573da81c5bc84.camel@pengutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7ee62b699c5cabb00cd7706ea42573da81c5bc84.camel@pengutronix.de>
+X-ClientProxiedBy: PH7PR13CA0007.namprd13.prod.outlook.com
+ (2603:10b6:510:174::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602195019.1798126-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260602195019.1798126-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <50a908557bb3ce5f14b67396d1e73e70289a583a.camel@pengutronix.de>
- <CA+V-a8uGho2RMhreDgieOOZTggUALoF0bGyjdEEDvyL_75sAyw@mail.gmail.com> <fuefvecgjdqbnbvpvam4gmewmpmhofllyq2ootwi6cjqhnyoys@edjzqlh6fjw4>
-In-Reply-To: <fuefvecgjdqbnbvpvam4gmewmpmhofllyq2ootwi6cjqhnyoys@edjzqlh6fjw4>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 22 Jun 2026 15:53:57 +0100
-X-Gm-Features: AVVi8CfxL1LYbXI4i0sLlo6UNgqoA-R9n854OJS7t3HTOGk64xjVruCWhx7GIqc
-Message-ID: <CA+V-a8sRxoR96TRM2V3cFXS5NPiQUVrUJCWwkh7o10cGYPU9_w@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] PCI: rzg3s-host: Use shared reset controls for
- power domain resets
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c975a04-c6c0-4add-eca4-08ded06f4178
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|23010399003|18002099003|22082099003|11063799006|4143699003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	/sQvuK5tVri3/XMEtFl6Tk9/ryh1AYjLQjih0YRyLj4NbYz4HgZtRsjBGdwyNg+EYhbfi2hVYw68O2U4C2oNEvya1Sguu7PaH7j1j5nKS/qYxuwWEQ3xBeVzhayYvUemrG+TfpF1SSsJA0Wu/B4mOkbHYE5M5r2LfgvzJs0hliK8111N4s8u9wbBXS4JEMwsob79xLOyyrxajfSna4DBlv2Ke5DS+WNhbCSD4q+yMbe7AD1yK0dsZ6+eEr8VqGbO2Tx40VX3dl1kLpvntRXdFUGF1ROdiV6LHCsUIWTzILxW8+20QP98N3vGzNTIdaWU7l0c+FjSmifoyLviNkU+z7RpiP3FqHhvVOQgic+qDTdTsuJ7QmD/A5zZ8+ym5yU7gh2HgmAIIg4LoLM7jDuhbe01NKAA0gry2EDPya/JbTXDDiVhP4PkjfXBA28L/OFq0qkHTWEHK4AK7yIc0XL05SJt25axQ8yYQVeqTW0e/noPYv5vGklP3i8iStXwc0lEN9OhRPxTF/hGe9HX5HbVJiC7ZYCxtJcLNPpPJOYqOhnsjHyN06LAO4cyEglFmU61h/MJjv2SJw2wQqURWhHc/0/mLN9FVpE5ZigLLzkk4ix//hPrifREjf63dwx8WLIvqDfUMcTyc8cYdaEsrlUmFlBk77f2YAl/7+hkKXjxrQ4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YNpXqSVPem/GXsWh0q0TWExHz6MH3PeVa8eh/zQpqv6sebqocAQXWkzKzzSX?=
+ =?us-ascii?Q?D3BM13HJ5W0jTgbTxgN1IHZwEhXKhH+fNS3JtkKrrXqLhQeOtdyuEOeYVGP/?=
+ =?us-ascii?Q?aTMZU/U8OEQ4BZRyR1aX17hzVH0e2vYhdnnxFB46kil+dRm7j/aUEfDpGM+4?=
+ =?us-ascii?Q?qwjAYAW9T8q/WYW8dOhepCT3LKiyKmrCNuGqaqFDVYbpcuF3qQxWeWMX/c5/?=
+ =?us-ascii?Q?e0zMu5pcBXtniQbgBmvw5+Njmx7hiXngNfsKBxRIb58xhvrSyEGJeQOKShuI?=
+ =?us-ascii?Q?MAictL20G3QckQmt8wtBgce6SaqE9ABqnfwpRhBDu0KsxOpjsr54bwperCL9?=
+ =?us-ascii?Q?fY8thD1tO2RmD6KGode2KH6SAGjLzEpiFcb0ArlbpX+wilRFML7qkfp7Myjz?=
+ =?us-ascii?Q?RtzxA39F81gltbpQb/lCMwxyj0R493PpLkvK83mPi1JRoZDST7rOJBCdMxwH?=
+ =?us-ascii?Q?Fuz31PgIoUqjjvj0Ya9JeE//b36ewhKF7Fu7QC+YW2B1fPYJrXUUi7WGdvJ+?=
+ =?us-ascii?Q?asBNUAK7Jv20ttdBOM5gvsqmVaWhyOvil6+V3RC7uAHWbwA/3rOJnJXJfUP1?=
+ =?us-ascii?Q?3R3IiXxkUTmrWZU6kfO41Y+qAMe3nYuZAMBVwiJPO5zH1kFqnb3VINvdvBTq?=
+ =?us-ascii?Q?6br1Fmoy5x77b4rb8vztFIXhpuDY3YjBV3eDPB2idpISnpu3WeRnnmQs8QNB?=
+ =?us-ascii?Q?rOyazab1r5ZKJUSQa8iNyTZohkIrQ4qyKA7P+ANJ41+v2PMf1BG7Q4+8n09E?=
+ =?us-ascii?Q?Xnw2REd2LHwdv8EgtHtrXbdCIMhz4/C6O5sUT5H+LFMlrj/3KO2fPBdWGDZj?=
+ =?us-ascii?Q?lx/alAdDbV9KHH3hGkWJbUwmIkEmlLZb+FIV4jEPz3amweHad1zWFsLZSRIC?=
+ =?us-ascii?Q?DoFFALpzjho+B0voVS4BMuXCmeCaVlKj9TWl9UguV+ugepGZZHTC5JNKjUyw?=
+ =?us-ascii?Q?QbF810BclxMXqFe1xZ3LfdBWLuA3sg6iZ9HgZ4es/Mf83wAikOZiwEzHGPk+?=
+ =?us-ascii?Q?TccH93UV7CXLK+h0MDL9sDvICAggH6l8Wl+W8hbN1l0cOxu9gEMywPPfbep9?=
+ =?us-ascii?Q?KgzjgT3mry0rslkl9d2gKCTDhgLnJIQ9o+/hkoS0XzkYUCgUMEKTKMEa6E+Q?=
+ =?us-ascii?Q?zdPRKL53+KK2OBmji2B92H8C9NzT2iRLBBeQEbiJUOAFu2jFm1IF2mvX3nkq?=
+ =?us-ascii?Q?pMCwqleCN1Pvoyc9ZzAF/mmm88b343ftuoYzRx9nk3f+DNhPossa5/8wIXyc?=
+ =?us-ascii?Q?kR7fWk6oZ9nsWBuZB4MHzO5mgBWq+BhXm8nxTGaeJ5/4W3HeBPS+o66DxQEo?=
+ =?us-ascii?Q?qBv+nmpruy1kbaWgNgdbh1N61htZc36aY4d7Fx7b7Kl/+ux+r3oxPlji6PG4?=
+ =?us-ascii?Q?uGAszmlG3M2jBTWY9EUT68FuKJOjI+pd9YAPAlUzF9llnH/PHUmv6zOu0il2?=
+ =?us-ascii?Q?sR1oLb7ppDpkft0Bs+l7nIejFhcSNv8A34B5V/O9/DvsosVSzg0Z08wWFkxt?=
+ =?us-ascii?Q?r8V0rWbJVqJnlzUgbB3DOuEIFQaZPnif30fH22ON/NOiw/tK1P6W8q8iq70e?=
+ =?us-ascii?Q?2Ja3QUtwRPlk1jtExpJLl73tkPJA7MUOD51aL85bQz1PNgjDADYK9kLk9f+1?=
+ =?us-ascii?Q?Z20bQMNXK3p2wZHpCVq3EpEqiSOaECJPPlMejD8iSvWg7GA42p3cAjW3fDag?=
+ =?us-ascii?Q?QDl2s2RQMNaXHgKtFxQ0+dyiv1LzpiVYOhmWsisFzAvImBKklu2rqi1F+6g2?=
+ =?us-ascii?Q?LbjbDJ756vCr+QMAJtkZGFIM9pBXFeMvZ9JtHh7xcw8QKc8sZb6s?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c975a04-c6c0-4add-eca4-08ded06f4178
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 15:02:19.5915
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6P0R7Rc7yXKJZlrrpkAFfV6i643mSyW0WkCzJgDtfBgNIa8wEcvxNaLUWDDx2UCeLdaJGQoB5/ltd57s7SN/GNN3dFUetyDn2V0bh9D6UrcW1sEZOEwYHIeqMhmBTvwH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9643
 
-Hi Manivannan,
-
-On Mon, Jun 22, 2026 at 3:30=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.=
-org> wrote:
->
-> On Fri, Jun 05, 2026 at 12:54:46PM +0100, Lad, Prabhakar wrote:
-> > Hi Philipp,
+On Mon, Jun 22, 2026 at 11:05:34AM +0200, Philipp Zabel wrote:
+> On Fr, 2026-06-19 at 09:18 -0500, Frank Li wrote:
+> > On Fri, Jun 19, 2026 at 06:05:32PM +0800, robby.cai@oss.nxp.com wrote:
+> > > [You don't often get email from robby.cai@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > >
+> > > From: Robby Cai <robby.cai@nxp.com>
+> > >
+> > > Add support for the reset controller framework by acquiring the reset
+> > > line using devm_reset_control_get_optional_shared_deasserted(). This
+> > > allows the driver to handle reset lines provided by a reset controller,
+> > > including shared ones, while avoiding unbalanced deassert counts.
+> > >
+> > > Retain support for legacy reset-gpios as a fallback when no reset
+> > > controller is defined. In that case, request the GPIO and keep it in the
+> > > deasserted state as the initial configuration.
+> > >
+> > > This enables the driver to support both reset-controller-backed reset
+> > > lines and older GPIO-based descriptions while preserving the existing
+> > > power-up sequencing behavior.
+> > >
+> > > Signed-off-by: Robby Cai <robby.cai@nxp.com>
+> > > ---
+> > >  drivers/media/i2c/ov5640.c | 80 +++++++++++++++++++++++++++++++++-----
+> > >  1 file changed, 70 insertions(+), 10 deletions(-)
+> > >
+> > > diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> > > index 85ecc23b3587..5e6db8aacb11 100644
+> > > --- a/drivers/media/i2c/ov5640.c
+> > > +++ b/drivers/media/i2c/ov5640.c
+> > > @@ -17,6 +17,7 @@
+> > >  #include <linux/module.h>
+> > >  #include <linux/pm_runtime.h>
+> > >  #include <linux/regulator/consumer.h>
+> > > +#include <linux/reset.h>
+> > >  #include <linux/slab.h>
+> > >  #include <linux/types.h>
+> > >  #include <media/v4l2-async.h>
+> > > @@ -442,6 +443,7 @@ struct ov5640_dev {
+> > >         u32 xclk_freq;
+> > >
+> > >         struct regulator_bulk_data supplies[OV5640_NUM_SUPPLIES];
+> > > +       struct reset_control *reset;
+> > >         struct gpio_desc *reset_gpio;
+> > >         struct gpio_desc *pwdn_gpio;
+> > >         bool   upside_down;
+> > > @@ -2431,6 +2433,48 @@ static int ov5640_restore_mode(struct ov5640_dev *sensor)
+> > >         return ov5640_set_framefmt(sensor, &sensor->fmt);
+> > >  }
+> > >
+> > > +static int ov5640_get_reset(struct device *dev, struct ov5640_dev *sensor)
+> > > +{
+> > > +       /* use deasserted version to avoid unbalanced deassert counts */
+> > > +       sensor->reset =
+> > > +           devm_reset_control_get_optional_shared_deasserted(dev, NULL);
+> > > +       if (IS_ERR(sensor->reset))
+> > > +               return dev_err_probe(dev, PTR_ERR(sensor->reset),
+> > > +                                    "Failed to get reset\n");
+> > > +       else if (sensor->reset)
+> > > +               return 0;
+> > > +
+> > > +       /*
+> > > +        * fallback to legacy reset-gpios
+> > > +        * GPIOD_OUT_HIGH ensures deasserted state for ACTIVE_LOW reset
+> > > +        */
+> > > +       sensor->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> > > +                                                    GPIOD_OUT_HIGH);
+> > > +       if (IS_ERR(sensor->reset_gpio))
+> > > +               return dev_err_probe(dev, PTR_ERR(sensor->reset_gpio),
+> > > +                                    "Failed to get reset gpio");
 > >
-> > Thank you for the review.
-> >
-> > On Wed, Jun 3, 2026 at 9:16=E2=80=AFAM Philipp Zabel <p.zabel@pengutron=
-ix.de> wrote:
-> > >
-> > > On Di, 2026-06-02 at 20:50 +0100, Prabhakar wrote:
-> > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > > >
-> > > > Switch to shared reset controls for PCIe power resets to prepare fo=
-r
-> > > > RZ/V2H(P) support. On this platform, multiple PCIe controllers shar=
-e
-> > > > the same reset line, requiring shared ownership of the reset contro=
-l.
-> > > >
-> > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.c=
-om>
-> > > > Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> > > > Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> > > > ---
-> > > > v3->v4:
-> > > > - Added RB/TB tags.
-> > > >
-> > > > v2->v3:
-> > > > - No change.
-> > > >
-> > > > v1->v2:
-> > > > - Updated commit message.
-> > > > ---
-> > > >  drivers/pci/controller/pcie-rzg3s-host.c | 6 +++---
-> > > >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > > >
-> > > > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci=
-/controller/pcie-rzg3s-host.c
-> > > > index d86e7516dcc2..a5192e4b58df 100644
-> > > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> > > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> > > > @@ -1276,9 +1276,9 @@ static int rzg3s_pcie_resets_prepare_and_get(=
-struct rzg3s_pcie_host *host)
-> > > >       for (i =3D 0; i < data->num_cfg_resets; i++)
-> > > >               host->cfg_resets[i].id =3D data->cfg_resets[i];
-> > > >
-> > > > -     ret =3D devm_reset_control_bulk_get_exclusive(host->dev,
-> > > > -                                                 data->num_power_r=
-esets,
-> > > > -                                                 host->power_reset=
-s);
-> > > > +     ret =3D devm_reset_control_bulk_get_shared(host->dev,
-> > > > +                                              data->num_power_rese=
-ts,
-> > > > +                                              host->power_resets);
-> > > >       if (ret)
-> > > >               return ret;
-> > > >
-> > >
-> > > I have a few questions about this.
-> > >
-> > > Can you move rzg3s_pcie_resets_prepare_and_get() and
-> > > rzg3s_pcie_power_resets_deassert() up before setting
-> > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B in
-> > > rzg3s_pcie_probe() without ill effect?
-> > >
-> > > Can you move rzg3s_pcie_power_resets_deassert() up before setting
-> > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B
-> > > rzg3s_pcie_resume_noirq()?
-> > >
-> > > Those would have the same effect as the reset already being deasserte=
-d
-> > > by the other controller.
-> > >
-> > Yes to both. I have reordered the sequences as suggested, and it works
-> > perfectly without any ill effects.
-> >
+> > I think needn't fallback here, NO ABI change, just change to use reset-gpio
+> > driver.
 >
-> Are you going to respin the patches incorporating the review comments?
+> Please keep the gpiod fallback, the reset-gpio driver may not be
+> available on all platforms using ov5640.
+
+Maybe try promote reset-gpio is default build in / as module. Leave such
+fallback every where make code complex.
+
+Krysztof:
+	Any suggestion?
+
+Frank
+
 >
-If I have not mistaken, no code changes were requested; it was just
-that Philipp wanted to ensure the shared reset worked correctly after
-shuffling the code around.
-
-I can respin the series if it fails to apply on top of pci/next.
-
-Cheers,
-Prabhakar
+> > > +
+> > > +       return 0;
+> > > +}
+> > > +
+> > > +static int ov5640_reset_assert(struct ov5640_dev *sensor)
+> > > +{
+> > > +       if (sensor->reset)
+> > > +               return reset_control_assert(sensor->reset);
+> >
+> > needn't check sensor->reset, reset_control_assert() is no ops if NULL.
+> >
+> > > +
+> > > +       gpiod_set_value_cansleep(sensor->reset_gpio, 1);
+> >
+> > Needn't fallback, directly replace.
+>
+> See above.
+>
+>
+> regards
+> Philipp
