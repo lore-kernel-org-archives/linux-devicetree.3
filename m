@@ -1,118 +1,92 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939AA3A5E65
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29362270EC3
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 10:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782124195; cv=none; b=bv+IRHkKceKey4R92OyyR76g7/BUnlaoHdM79zXJ2SWWtiV7FDDBnuVY2JWaOyxBIxCgHVDq4nEtnSRwYqFcxznXSeKMhN7CoS0/gS9LauVsdItCpVmMtMKUBkft63ISREAi5kMZkZDNShbIY9CYnCUvYWhdCWEhZxvyzrCcU6c=
+	t=1782124522; cv=none; b=qO8KcRO3jpJVyV8M+2iRe6EQcz5vHmobr81FnsejZ1Igyam4heWM8FdQKzVzc8GNvIgaF2Mx3nqFNIWNEqs3o5oWz695BEyykeH6XxBoPpsDD7NL+cw9nxZNteVq6CT0QwIx0j71R82pWcTO90cTulJbddaU1IAZUmwIo0tISpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782124195; c=relaxed/simple;
-	bh=mEIkMOtMjOdnwR3+nT8uGH34yBj5roHB3yKHlaR5JIU=;
+	s=arc-20240116; t=1782124522; c=relaxed/simple;
+	bh=oMPdsikacqtzYTFY2QxLAR1WVtrEJqjXLr9DFz6PV3o=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SCwZtXUEB8PA7DQk4kNnl11gxhyUwd8UtwTtl5U2IDZWCmLhGylNFr9Ue9ihts6+8XPt07dS4UM7cP1OFbT8rXR0S8hNZHvCNpfy2yM1hKSVh01bmICVWTf/pagjPaA+Rw7iTxNKwB1KL9gkaZNwW/xDPpX5AJUhoACtXglmMWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.45
+	 To:Cc:Content-Type; b=eD8OF2DrwgKrOkf7clzY+1CSXTj3O0LiQLF4/fWYsfgpVkVcpUJImJ9UdU0ZvkAcnlNms9USNWHriZ3pjugP6Yn5u/qL6qD9Rf9JG0qKXltyPH8gV7w1QXVBksq9JM5NNU7Ly17Cm2hVBt2t5McewoskFfkUOVoWUdyz3miytoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-9672199c9ddso768344241.0
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:29:54 -0700 (PDT)
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-59e8ededf4dso3065242e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:35:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782124193; x=1782728993;
+        d=1e100.net; s=20251104; t=1782124520; x=1782729320;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aC0iMxF0nVG/U59uAaaQJUNktvAjxn1h5vRBJBxTc9E=;
-        b=RUXLi7IYGK21/31YKDWXKt70P2a07DhbRvGWZ0G2KnoFIRt1rqEorWAp9KL9fnhSqw
-         x8WGem5/JlAfwnxFyae1WOidW+O7nXDDBnQeHVXxnCDvmvXZVeEs6P2+Ps9TuamguGm+
-         SPeLHFaMUiJD+BOJhAFnQPOgMnqRsHyX3EVZri/Y6pfA+i33amcE8ITdQm8DnLgAHA0V
-         J85fxkoje0tOll86QrZBVNoZUazIjJB5LPtvx+x6cK4nTFu0exZFMcGBfFealRHHx7Ro
-         R2XPYREG5o3cTcvY0DTefpAexBhfzJzSte28SnAH5VOT9Uiqmhr4mKimocysyPsoB08v
-         n6Bg==
-X-Forwarded-Encrypted: i=1; AFNElJ+o3hRXdkeEWjc2sg2hRWsMZbbBZjNPryKS3ZTYFDe+U/HUb20W6b+TcPratA7RxJ585mDjd55Lcrgm@vger.kernel.org
-X-Gm-Message-State: AOJu0YyJAyJvTaGksXyQ9yyKihVQbMA9EzMM3Qpy55wFt0TWs/xk1z9v
-	4AEQmE8wuEeFde7vVhnGFdYKSa16aQJwFFmRx1YLgd8Bz8Nm4KO0FEMbrdU90btO
-X-Gm-Gg: AfdE7cmb2x2GNdnglLCa4RufOFmuUj6406Z5RtZ484UI93pqzamb+CUNmLnGHBkN/6p
-	IvdRlVtleIEce9OASScDaToJUpcaASZjflEWlP338lbHihQkMOvwqdgIrSnzcK3ARY5IrjNGtVW
-	+prZwy9zsfL8ZJPfUgz3Pstqhaz+kE9ueQA7ZRosgGLU+TX64AvxwDj4Z5VkYyAjMFuv88naqZ+
-	f3AH8Ze2bsnCWp64CtJtLwQyEC/UXet4rOzfhxhmIHielOELfQmDDjRThOJsCHOgDTE8zvkMLre
-	PEto3CcaxQHVDRO00P5ewkDvlX3N55/Fb44T1DpzZIDFfEofjzS04CDc+OR8UsyBOYfIPOdOppD
-	5gYlmKS0/jTrlvDQvvOLtvravWJJLA/nlNYQJQVdfHpv2MYZQTNPMnzWxw/Mfq4JMi/1zr1cqPM
-	XEL7e4tZUSgJldR7m1bjR0rqoUB0V03HXQiUmkIx/xosAMgKzFzw==
-X-Received: by 2002:a05:6102:6cc:b0:729:c168:ea9a with SMTP id ada2fe7eead31-72a7980741fmr7287813137.29.1782124193557;
-        Mon, 22 Jun 2026 03:29:53 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-72b9f7b1e4esm5771315137.0.2026.06.22.03.29.49
+        bh=CbT9MfaCjQT3Ym3J/HtdCmcThbQYXtUBVcRrZ9h8JX8=;
+        b=g5/ffmPY/P5wFCzfZ4m9s+Mv7i6GklUwIe5eEs1YR7aCp2PHjer/6kYORpLTrdrYH3
+         MdI7K8eFIlBBvz65raile1lzRzKNsk26feheytWHjhGTuapk1qUf4OGcMpdwJLV7FOby
+         ZLEjp5XP74+D1HL/8sFmICzs/65Xs0RsRNbXYAJF8Q9Z5K9zVr6zkmlMp+rK00szwViF
+         iIFcZ4uNeFJjNaBpTYzPcgvi3ibnrJ7WabAUpIvANMSR6RSLH9eeShIHb6+QxBdjtCqV
+         dOz8m1cG6aU0nhgI8DI2NqtztE6r5etVi8TVBSfdJHe5/UqeRy2y+LnnpWX2+yQmZYqn
+         YwMg==
+X-Forwarded-Encrypted: i=1; AFNElJ8m9oEVETRuPf8SS8JG+DdfhEQvqbBd9tLOXicuJYV6tAjOrj83pjsm1Weu9powY5kNV9nDfZcTldOy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUJIiQUSRb+UdvFLiCbDaDIcdiBylNVPET8dD0ak9q/f9/Sg0e
+	9tsSi82E7d+UCdvkJEFAb8CU82Wh/Y41loCEwxHKGhhzRJBtT2cBNV42ER+dVwCd
+X-Gm-Gg: AfdE7cnF+icyGWUN6gbGx+JVgvpaG2P9GAVyA4KDAVR4/dli7FVdUO6cWst1tQ+vGiT
+	ApXRJFlj/K0PTGEt2l6cLA2oDMQgIhNnsDpxKKiHSdDH5ApMYbabDn9dIx6pMT1IiWAl9WRMb0e
+	GGlHUVDBPdCjqT03yHsQZNUV2PZtlYaO9y0d+jsJDkEu/zo98ogCR8/HLawfxxo5YIZG0Trt+BO
+	H20Sh7CQocncgF6eQ3qY6b55ic8aeCyA7T5rN3xkiQwg2kpJSlV49kUPk4FUzVaUZceU9PFICUt
+	nP7a9rPFriAUANfJyUCcMht1EeNXUUpSNZFFlQahZTpPsB2oFO588jOje49nx276eVmjsiFsvYY
+	yVC8uajIY9gUKUmXIqqQqA1pHqwFvXQe+KeBLwvwR8IB2rnTegTeCREp0Thh3CLFhEb0rh7ESmP
+	zEmV7neB3Y8tDuN5Y3ElvjglrYtXn0dL0KrHeMcBj45ZGaVp//+Q==
+X-Received: by 2002:a05:6122:8607:b0:5bb:fb24:5782 with SMTP id 71dfb90a1353d-5bbfb245793mr4042620e0c.14.1782124520074;
+        Mon, 22 Jun 2026 03:35:20 -0700 (PDT)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5bbfbab451bsm6232103e0c.18.2026.06.22.03.35.19
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 03:29:51 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-6c25b040555so3260134137.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:29:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9tsQwEY6EZkaFhO2z4USRdBk2SXxOw9rCQSWq2d1friZWtBS4MC1eqrXtoDPnlJ6vWXR/cZ/vFpP/q@vger.kernel.org
-X-Received: by 2002:a05:6102:3913:b0:726:8813:2078 with SMTP id
- ada2fe7eead31-72a7709766amr6890168137.11.1782124189286; Mon, 22 Jun 2026
- 03:29:49 -0700 (PDT)
+        Mon, 22 Jun 2026 03:35:19 -0700 (PDT)
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-966c991e6b1so1765215241.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 03:35:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/jSpmUBH0rkTWQm1FmPHZUAKsfuboP9yev8EFBf+JEU5XrpQn4AAVd+iDxiuSwyb3ajCXm6ThhPivP@vger.kernel.org
+X-Received: by 2002:a05:6102:324c:20b0:729:4c16:b4f4 with SMTP id
+ ada2fe7eead31-72a767f94a8mr4675989137.2.1782124519443; Mon, 22 Jun 2026
+ 03:35:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260619083951.3777556-1-john.madieu.xa@bp.renesas.com> <20260619083951.3777556-2-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260619083951.3777556-2-john.madieu.xa@bp.renesas.com>
+References: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 22 Jun 2026 12:29:38 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXjNkpmDqHBhROjJj=+GfahCo4H+cBfn+VnJtuj1aAS_Q@mail.gmail.com>
-X-Gm-Features: AVVi8Ce6deDQyZfxT0Du3-E4B8hQQW2OCjySypNIB9xUTqhsKTdfcfI_rV_X8l8
-Message-ID: <CAMuHMdXjNkpmDqHBhROjJj=+GfahCo4H+cBfn+VnJtuj1aAS_Q@mail.gmail.com>
-Subject: Re: [PATCH v6 1/4] arm64: dts: renesas: r9a09g047: Add RZ/G3E Sound support
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	john.madieu@gmail.com, biju.das.jz@bp.renesas.com
+Date: Mon, 22 Jun 2026 12:35:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
+X-Gm-Features: AVVi8Cfb4mv2QoVmKeKaT0JRkwbOlUFA4xPaWe_fn-8CnsZR_T46Ke01ntwYiSg
+Message-ID: <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
+Subject: Re: [PATCH 1/9] arm64: dts: renesas: r8a774a1: Add soc: label to soc node
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 19 Jun 2026 at 10:40, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
->
-> Add the snd_rzg3e node for the RZ/G3E SoC with all sub-components:
->
-> - SSI (Serial Sound Interface) units 0-9
-> - SSIU (Serial Sound Interface Unit) units 0-27
-> - SRC (Sample Rate Converter) units 0-9
-> - CTU (Channel Transfer Unit) units 0-7
-> - DVC (Digital Volume Control) units 0-1
-> - MIX (Mixer) units 0-1
->
-> Sub-node names follow the new RZ/G3E sound binding: unprefixed
-> 'ssi', 'ssiu', 'src', 'dvc', 'mix', 'ctu' wrapper nodes instead of
-> the legacy 'rcar_sound,xxx' R-Car prefix.
->
-> Wire up all 5 DMA controllers (dmac0-dmac4) for each audio sub-node
-> with repeated channel names, so that the DMA core can pick the first
-> available controller.
->
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> ---
->
-> Chqnges:
->
-> v6: No changes.
+Hi Marek,
 
-You did adjust the size of the SCU register block.
-
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> @@ -912,6 +912,468 @@ rsci9: serial@12803000 {
->                         status = "disabled";
->                 };
+On Sun, 21 Jun 2026 at 04:51, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Add soc: label to the /soc {} node to align the DT with r8a77951.dtsi
+> which already has that soc: label. The soc: label is useful in U-Boot
+> where it is used in U-Boot extras DT fragments.
 >
-> +               snd_rzg3e: sound@13c00000 {
-> +                       compatible = "renesas,r9a09g047-sound";
-> +                       reg = <0 0x13c00000 0 0x20000>, /* SCU */
-> +                             <0 0x13c20000 0 0x10000>, /* ADG */
-> +                             <0 0x13c30000 0 0x1000>,  /* SSIU */
-> +                             <0 0x13c31000 0 0x1f000>, /* SSI */
-> +                             <0 0x13c50000 0 0x10000>; /* Audio DMAC peri peri */
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+For the whole series:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3, squashed into a single
+commit. Unfortunately there is no cover letter, so I will have to add
+all nine Link-tags.
 
 Gr{oetje,eeting}s,
 
