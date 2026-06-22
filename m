@@ -1,106 +1,91 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7153390CBA;
-	Mon, 22 Jun 2026 14:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B533ACEF9;
+	Mon, 22 Jun 2026 14:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782138808; cv=none; b=OD1Jsg1/Y32VgmLzrDyzF1RnQXB88O6inKTmzTAV4DJNXgCGpJ1fu4T90Rh2VIgGXi4FXGJahaEvVOzWthiRta6WipifrIN1Kv2mFDUcqx8rdSfretwOGQhanETZvrGSG2SWe0a2VOmdN50BMqWzVAS1QhFgWXYc8O453TE5n00=
+	t=1782138912; cv=none; b=FrQqS5K3GS1BVAhCnQTk5mK+oeMDDAiKgpdXoyeNUdfuom7l4jby70bOMKvHP0G2ItA1PjJNzUQsSGPmA2nWg6sYd/1X46OLEAyEX1oYdUrBNA8iIUXHRRuGGAILayh0mYLsyU5OZ1K4+ZisL/A/oUESe0Qi3bV+JrLayxGbRt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782138808; c=relaxed/simple;
-	bh=BBRO4BaVZPNZInZLfWHLLV56eOKNHVltJgJCKNoCM2g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t9MBjNPiyHTuUh6T1Z5LGKxNshrjjr2fcwxDPob7QlI9wBUZ88ZnJ9sI/1CZnvXnpZy/tV1gW4gEuETlcfeJ19nlqbaoKPY1viZSCakxNDb+ppja7YuP1NpKbT95JV3kLG7Qrwjx4Ulc28kfpyUYXGLEYEwl5RURdW0cRVS9FX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=h1dZNLrq; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FdCx3pp8; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1782138912; c=relaxed/simple;
+	bh=HbTEvtfHJvtJMI1UvzoPnhwDnpcBu5HFaS5iDJxt1i0=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=VAD2Usc4XvlRg9V+cG/QWf4ZBgZCM648iODRiyS29V9N9y8TXLv3k1aVt2EA+FcEszui8tWbJUPU9r/siAVDz6hMovU4F7sodK4A00wkCMeWuoOzrt2AZt8MOxLyY/zRRS/QvrIoI8EPbYm3ow9o19ORC8zjVQowdL+cTD/CnoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lojd9c8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="h1dZNLrq";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FdCx3pp8"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gkVqF3tyGz9vGs;
-	Mon, 22 Jun 2026 16:25:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782138345;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OIgTdG49SDgzzqZu1X0DrxQsOeL+D74IHpuZMcKgJbQ=;
-	b=h1dZNLrqpWihL5Z8j1HgL/7ltb6LGPc5pnvJ7XfUHI6k6ZxssabXl7UbT4ktm6cUT1muJS
-	E5e4FWh5MfNKVPP1Bza4lSvQyfoTM8Qm+u4nblJZSn1yim96Bt3+dog+UwkUeY9p1ZIEzW
-	8w6Sh74i/8K3fpU0eiUEiPxwlHuzz4taRDanKOkYTbq49Gg/PzrYB4QcsLi2vWgzYuMSFJ
-	qWylKWtFCh8S8YVKg1t0U9E+8stoyXoULsY97EdAaxobxbSw7IvTMmIz3ObGj9uTn22JCQ
-	hrT9VW2aESvwsZa0Ywkbzn8ht3y+Ztqi2AHMRwxe7VmD6BIgJ+fBCMnK/X4hDg==
-Message-ID: <f980c840-bdf7-4c00-bbdc-ced7b1b9f63f@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1782138343;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OIgTdG49SDgzzqZu1X0DrxQsOeL+D74IHpuZMcKgJbQ=;
-	b=FdCx3pp8lU9ekFGj1xizyWveLlHlfBotiaxbTE7vDgY4F1qMp1UkTG0ENBC8av8OG2LltY
-	88VltbsPZan62gDpBmDWIbQH5hSyTccgvoLwUDoYFlcEN3bfmaHj6p3l9MJ8mUakdpy+Na
-	apB2EBBt522Z8ZMAZp+5rMK1uI3jdWYTqdsbcvoJ66N4/CAC+8dPzNjRvO66DbzW876cnq
-	2Q2ZBbU5Z7bYt7dIA2cChr3jV/3dXzRPODl54Vz2cLEvbHvpShOCPuSno0U3QGNfbR1kil
-	bMHdz4L5GRFX+eG0VUtF64/VlstCduExqUrMhARHXYUeTeImQNyp+7pSSwrmVA==
-Date: Mon, 22 Jun 2026 16:22:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lojd9c8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139DA1F000E9;
+	Mon, 22 Jun 2026 14:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782138911;
+	bh=J3VI6K4Teqzsm2sKMe8rHV7pKAq8W0GA/5k5u98EvI0=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=lojd9c8FWt5AS92ts5N/TipcA7rXB2al6ESrLqtsYdS34kdGcyJsgCNYcmYwevK2R
+	 5oGCNUhLATdEigGO0hWi4ge2GMvb0CL/bAQF0jxewe1+CVDjVR2ajd9RWcghnih6nu
+	 HeB2tkyB6eJfTkQxeG0HslxUCZdWuWufRrEIpw7XeOLC2GfLb+d5Fwf8F6KIyyt0ZM
+	 YKBUVgfy/pJVoJU3Yb7BL2j6oMx4EU7a2xlELQ+SoHrbvlN+xmbsBwLjA5W7ZKs9E9
+	 m0Y7fxOgP3l/ftUPUo/huFVXj52RJp7cRIjQyCyPpe0WvuTnRua2V3pcjL/pteNrNL
+	 /bWFFl6rYgxFw==
+Date: Mon, 22 Jun 2026 09:35:10 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/4] irqchip/gic-v3: Refactor GIC600 limited to 32bit
- PA erratum handling
-To: Geert Uytterhoeven <geert@linux-m68k.org>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260618220427.14325-1-marek.vasut+renesas@mailbox.org>
- <20260618220427.14325-3-marek.vasut+renesas@mailbox.org>
- <CAMuHMdUxT87M1oQvPP_h4YX4vXFaVbbG+LCG8EdmuLTuHNtybQ@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdUxT87M1oQvPP_h4YX4vXFaVbbG+LCG8EdmuLTuHNtybQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: h9ynyzsu8mzdxzd9637onuq1ybxfbah7
-X-MBO-RS-ID: 86ebaccfe5fcbdd292f
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: simona.toaca@nxp.com, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-clk@vger.kernel.org, Brian Masney <bmasney@redhat.com>, 
+ devicetree@vger.kernel.org, Tero Kristo <kristo@kernel.org>, 
+ daniel.baluta@gmail.com, Michael Turquette <mturquette@baylibre.com>, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+In-Reply-To: <20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com>
+References: <20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com>
+Message-Id: <178213891030.2584896.380168466122492657.robh@kernel.org>
+Subject: Re: [PATCH] dt-bindings: clock: ti,clockdomain: Convert to DT
+ schema
 
-On 6/22/26 11:52 AM, Geert Uytterhoeven wrote:
 
-Hello Geert,
-
->> +++ b/drivers/irqchip/irq-gic-v3-its.c
->> @@ -4890,10 +4890,17 @@ static bool __maybe_unused its_enable_quirk_hip09_162100801(void *data)
->>          return true;
->>   }
->>
->> -static bool __maybe_unused its_enable_rk3568002(void *data)
->> +static const char * const dma_32bit_impaired_platforms[] = {
->> +#ifdef CONFIG_ROCKCHIP_ERRATUM_3568002
->> +       "rockchip,rk3566",
->> +       "rockchip,rk3568",
->> +#endif
->> +       NULL,
->> +};
->> +
->> +static bool __maybe_unused its_enable_dma32(void *data)
+On Sun, 21 Jun 2026 21:23:35 +0530, Bhargav Joshi wrote:
+> Convert TI clockdomain to yaml DT schema. Drop '#clock-cells' from the
+> required list as this binding doesn't define a new clock binding type,
+> it is used to group existing clock nodes under hardware hierarchy. Most
+> existing dts omit '#clock-cells'.
 > 
-> __maybe_unused can be dropped...
-I will fix that in V3. Thank you !
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../devicetree/bindings/clock/ti/clockdomain.txt   | 25 -------------
+>  .../bindings/clock/ti/ti,clockdomain.yaml          | 41 ++++++++++++++++++++++
+>  2 files changed, 41 insertions(+), 25 deletions(-)
+> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+
+
+doc reference errors (make refcheckdocs):
+Warning: Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml references a file that doesn't exist: Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+Documentation/devicetree/bindings/clock/ti/ti,gate-clock.yaml: Documentation/devicetree/bindings/clock/ti/clockdomain.txt
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260621-ti-clockdomain-v1-1-e99a56af98ea@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
