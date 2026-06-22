@@ -1,384 +1,459 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7D337998B
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 15:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31C03BF69C
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 15:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782141931; cv=none; b=djk4n9xgrNOQrV33W0qHIHCvce3XifyMn1mxh0IJnMMeoADf655BpXryO/9c2DEz9Mr3FMyecQ6d+42JfBCi+JG4MQ7hr2XndMX5UlK+I/TKUlIKbobZX6uvSrKmuafHusXBzHzXDLqBMdG8g/8wBAU3Gsu0+T7PR7en1dxFuSQ=
+	t=1782142599; cv=none; b=O1zaww5Yo5EgDlzXcq6lHqzJCqsaEYsLImL6yhgoCFGnO4k2mAnIpC7mhwjFGPk2ZT/GqLV0PhHbKLceUP7FaSyZP+vPRhIXr/+53rjNueWuByk/p9zyunNXffy2BlUh7cFJR3H2vZFh6QE3aYr0spDRwW54bp/xoYv5ikf9Qio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782141931; c=relaxed/simple;
-	bh=UCCfXZMcMcEqgqVI6OLL/m0AKWbn2PnFEVkzPy7MuGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gVlnXw3zSITeUYm7uUiI7ndP4XVxym74j0o+l8Tt9ytIiLJCd03uuOx4U6cMOGu9obwSaGDv7g1KlV+s0euGODjDl5XPTjzsqYRnwylZRkBm9qn8p4Q6MigmAZ9xWQEYf9F8a9C5NAbJtVMdWk2Wj5iBoXenFHqdeiBFtpKqkY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Md8AR45t; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782142599; c=relaxed/simple;
+	bh=NN1x4bduHWywBTP3A17Xb800FFKFymoe+Y51BU3GYIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rO1Ms29qiMPMm6mKzBALSVbz0J7LOvrYO8t8q27GBYWzmA7O5m/0vLssQ8D01gts2Wg65mVbenQfJXt+hvtFW6UGfbfDUqGLniCCpkso+3J/GaW0hz3cgWBCGjduNka/gbpAdPYcSMQc0oq67Z38N7dYhcZDozvNYRHjrQKWywo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UYP3dZZU; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Md8AR45t"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490b8ac62baso54095e9.0
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:25:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UYP3dZZU"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e93f93ed01so1937648a34.3
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 08:36:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782141928; x=1782746728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FubD6UUHNGPZZFitz5KoKNPu5pJn+5BFMUFMa6xOq3M=;
-        b=Md8AR45t4S0mSvw/qz2aTM6kKpY4KTwdBJ91MOiDfzpHEM4J07ogCKohxYT5NsB4fS
-         mhfJuDSFLgI6gtwxpl9nSFLogzlxsRqLim8dNAbpJb9Px99Xv2xqyBhBrB/kas3CbCSn
-         x08qoTs/JiDuo46W/DMEbEvTwvIvNQxhmGSd4OWLovO/QN3XdXeIx2LvK/EGrwVaWqqB
-         fk+oK/UnQEdoiO50iuGYhwdxdM/uYTITymlsDr9051kI2cNRHLJuR40ymaVgT0P6wCmx
-         3XUkUETmPsP+L070v4kwu/EJx29p5JL40NpKvEmIjJ5cHhnjtaR9Phy5EmCQSp/r07Q5
-         c0rw==
+        d=baylibre.com; s=google; t=1782142596; x=1782747396; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kFxRPxlqok3SsADYFnqQ3+pPQOCQu1xA1nu6rX+ZDGo=;
+        b=UYP3dZZUdoHtX64GxFW89LDfw8LILVvgJDEXKxIN8Gc8fEkIr4ZngfrzD2yUqUCw2H
+         SgI6vsY6gz4Q29m8HZRJ5vWIQ6xf8OBn5E0Ehmec3hAkv/T7u9aPyKKI8Z0EGdoiDDv4
+         S8J4LkVCKB/EC/OrN6LgKOzprntmoJ+BBT8vskkIS5vUrDjgK/jTFCXecHCrHIZLqOv2
+         eNxlIZD5B2A2wGTnH50UWjcgqQYYYQT/EGq9cxglNNzKOVfgCRtLr7OduWeTSSvouukQ
+         cuIe9quk+usnTeq+eSwPtZXlI8aglD2iorDF5QLPGyPk0nUJICEA1zj6gHb/ZL7d0kBd
+         Dt9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782141928; x=1782746728;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=FubD6UUHNGPZZFitz5KoKNPu5pJn+5BFMUFMa6xOq3M=;
-        b=EsPnMyAETQXcJCi/COk+o+iTe6XGpM3jCwEqe6r1CT5z/IKNBCoYuiVk6XlwjLuazP
-         DUTmhqUAKyD7shFh+fJkRfxlHaQYIiwEfQU/m3ihxopbmXlBY7y3yyizWG/rx80WGFR8
-         te7Y2RvvY/DrIHygKiAOpW3+IQPM8jKuQAdx3lv9W0SPWuUlMqW9gu87FizrtSkPfhT7
-         BYj0HSLGskwLRi0KxQYXIH2v4I/QlwJy+Eoh0HquH4HitkR4YPZkyRg+EipdY0yVuBh9
-         jz2ImjgBiowmmh1pJk64l3PfuZZ4q4zEbIQB26JwNReYDLFfjAila0SiGVs7ulknspEk
-         gzBA==
-X-Forwarded-Encrypted: i=1; AFNElJ+VTZX0q5CMl3gJMMZvUoDKrSOJBB8u/R5ktCAJJyvZGxRkbyXDB+w5HdgeOeCI5E1Fe8atEPuAJZfu@vger.kernel.org
-X-Gm-Message-State: AOJu0YwP9V7wOVx3vfi7jGJ1yA5Tz8ARcg7f8rXn4oz4Iftv0IGuyzxq
-	ArdiiR87D3JGa6uci7YjJcVUgbJUBpTSvfw3EmhGhpO31/LG1hZQEcRo
-X-Gm-Gg: AfdE7ck9eE8ewReBNuIeFMBDeT3F69Ww39fof63grjL5MkE2ZO+MRSo01wkG52LGvbT
-	eNlaonQefNXl/jN82pUsjAo6d9TW4hTR0w6MMFKUW9dpTVule7n1LKvZTe/nMyx3agkN9+tsK1A
-	h8emfRz9NsTa85e4IEuAMv7SsWOEAR+LuoWXmq/4UcJhUGNMKf+StOc3gKM4NxXsMlV5ooXVhnc
-	pHbVtrdt0oJ0sRboEhvOjfaMPbthgas69Yt7Vi0PI7prEH3Zqdo7VNnqCHHnvgMbhoZQjjvhXzS
-	c+isqLsJd30zglLWUBasw+ssudtILn/nx/urDMVL9AeQAH7guhsitKefCmzzednzfzD5KJOBADp
-	eOEE6fBydGo4N1ay9u8C+PGH1PVUv7ZN2Ys7O1Rbf2VEwhCH9v/V5Mq+rli3nfBR9FDgs8C0laF
-	92cnmj8+WdMzieUSSd7XNtvl35GQc=
-X-Received: by 2002:a05:600d:4448:20b0:489:32b:ac0b with SMTP id 5b1f17b1804b1-49240a09f71mr161160105e9.6.1782141927772;
-        Mon, 22 Jun 2026 08:25:27 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492492338dasm217883655e9.1.2026.06.22.08.25.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 08:25:27 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: javierm@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	deller@gmx.de
-Cc: azuddinadam@gmail.com,
-	chintanlike@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
-Date: Mon, 22 Jun 2026 18:25:06 +0300
-Message-ID: <20260622152506.78627-5-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260622152506.78627-1-amit.barzilai22@gmail.com>
-References: <20260622152506.78627-1-amit.barzilai22@gmail.com>
+        d=1e100.net; s=20251104; t=1782142596; x=1782747396;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kFxRPxlqok3SsADYFnqQ3+pPQOCQu1xA1nu6rX+ZDGo=;
+        b=kisvHUb896eF6cqqgcjkxJanJ8HHCPmeA00hFPvUVuRPblwd4shuJb+hiLC8V5Rbp4
+         h9qoGY/RSFD2bipFs8S/jWinNNa0af8NZyM2hXFvEip9m0yKlGNrc79devU2Jp5IUMOv
+         brj1KAmeRyw7wrJYa4/5IgwYQr4PkQbVSZyfkf4nV4JF7OWwj8/sXibrSgjBOCmK+RD3
+         DYfQUE1DEN1getyTjf1sdWA1IzlEK4cTK8b/3D5tNJHX0Og4tBBB81crNxpCjSKMew7T
+         876ifeuMcnRacgESXq+A7LKKlc7Iry1hLIBaBeAVVaBmeZ7VwW2yIcgTAZwYvYsyjcVA
+         rD1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+gxaEBQZ+8/rw0o5zdaCER1/S+mOReAm+p0Y/mGooHn/U4QxOsWCwTQM34Snc7cCvHpA1a4cBtz/Ts@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxgXrSqrrjdxqQhDr6brto0/Nln1xaFn+yb3gMo0EQDF0UMbNE
+	O5zBR9O7m80oNLdHwlgc6eSaUfpiXvmW5xpkG8sddBQJ4b1ErGLV6o8rGgxjFYQn1LE=
+X-Gm-Gg: AfdE7cnxueyaCW3zmbuKE+bYzKEPbi7beI+fd+oLATeHBo0W+ArF9GE5ye4iwSueTBx
+	5Qto5XXSHIHwb0SOKYyQFc6g/MW5OdG/GzxYt/Chl+rzcBczECQ/ePWr041kJ5PXj47gorbyN8K
+	eCXCwEycs4XI3R91kOpTDqUCUoB1OcGAdXaQNxZ8GaHoAD804EogdTNgmgCdX4iMBhUCbMsuU7m
+	4exHmjgZlEWpSeDi3QI3Sq+aH2QmaI+8QM0eWnWiFxZq3rtFk/ZehrtXQXAnp85YN6q6R/wwxsN
+	4rYlVoOzsKm0le8EmZbGE2iBJJr1xGEvT248NfePdydiGpXa9zh/VUFEEK2xT7DmDG4bkR4S5ji
+	R1emo+eydS47IvrzZWRgHbLrkhDzNQTkKVQh6DSxsBEx37JBFEuU+ipTBG3qrrRaFieIX/cShEs
+	RRWpG1mCPlD0Feow/iB9DtwP2RE3gmozgJOdqARt5v1mP0wW3p9tYRH3csA1W2BQk=
+X-Received: by 2002:a05:6808:c143:b0:48b:627c:131 with SMTP id 5614622812f47-48b627c09b8mr7592313b6e.37.1782142595700;
+        Mon, 22 Jun 2026 08:36:35 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b69c:5a77:b8fb:a5cf? ([2600:8803:e7e4:500:b69c:5a77:b8fb:a5cf])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e94429778csm6685004a34.20.2026.06.22.08.36.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 08:36:35 -0700 (PDT)
+Message-ID: <c72fb508-05a4-429a-9ca7-86e42a115fa8@baylibre.com>
+Date: Mon, 22 Jun 2026 10:36:34 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
+ Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Janani Sunil <jan.sun97@gmail.com>, Janani Sunil <janani.sunil@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+References: <076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
+ <20260619-obstinate-polo-a230bef97fda@spud>
+ <20260619-bunch-diocese-dd7805cc17ff@spud> <ajU73_TkKrSbqD4f@nsa>
+ <20260619-concierge-doozy-9c161533c369@spud> <ajVlD-j0nIGrRVow@nsa>
+ <20260621153330.79b6600c@jic23-huawei>
+ <5u4dnsgxwcwie45f24cacyzf3dko4srhyyyhcpom6tsvhqtmpc@y7d7gmex6n7k>
+ <ajkMBh-R_7pYaoAn@nsa>
+ <pifhwgj3cp2vc7ia4m6penh52iekzjljrp75y5b7j57vvtooad@32wfqruiqqjl>
+ <ajklksIDLsj0BZul@nsa>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <ajklksIDLsj0BZul@nsa>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The SSD1351 support was added to the ssd130x DRM driver. To avoid
-confusion and irrelevant updates, the staging fb_ssd1351 driver is
-removed.
+On 6/22/26 7:20 AM, Nuno Sá wrote:
+> On Mon, Jun 22, 2026 at 12:51:20PM +0100, Rodrigo Alencar wrote:
+>> On 22/06/26 11:29, Nuno Sá wrote:
+>>> On Mon, Jun 22, 2026 at 10:24:05AM +0100, Rodrigo Alencar wrote:
+>>>> On 21/06/26 15:33, Jonathan Cameron wrote:
+>>>>> On Fri, 19 Jun 2026 16:54:11 +0100
+>>>>> Nuno Sá <noname.nuno@gmail.com> wrote:
+>>>>>
+>>>>>> On Fri, Jun 19, 2026 at 03:12:07PM +0100, Conor Dooley wrote:
+>>>>>>> On Fri, Jun 19, 2026 at 02:01:08PM +0100, Nuno Sá wrote:  
+>>>>>>>> On Fri, Jun 19, 2026 at 12:40:54PM +0100, Conor Dooley wrote:  
+>>>>>>>>> On Fri, Jun 19, 2026 at 12:36:55PM +0100, Conor Dooley wrote:  
+>>>>>>>>>> On Fri, Jun 19, 2026 at 12:33:11PM +0200, Janani Sunil wrote:  
+>>>>>>>>>>>
+>>>>>>>>>>> On 6/14/26 21:44, Jonathan Cameron wrote:  
+>>>>>>>>>>>> On Tue, 9 Jun 2026 16:47:23 +0200
+>>>>>>>>>>>> Janani Sunil <jan.sun97@gmail.com> wrote:
+>>>>>>>>>>>>   
+>>>>>>>>>>>>> On 5/26/26 15:11, Rodrigo Alencar wrote:  
+>>>>>>>>>>>>>> On 26/05/19 05:42PM, Janani Sunil wrote:  
+>>>>>>>>>>>>>>> Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+>>>>>>>>>>>>>>> buffered voltage output digital-to-analog converter (DAC) with an
+>>>>>>>>>>>>>>> integrated precision reference.  
+>>>>>>>>>>>>>> ...
+>>>>>>>>>>>>>> Probably others may comment on that, but...
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> This parent node may support device addressing for multi-device support through
+>>>>>>>>>>>>>> those ID pins. I suppose that each device may have its own power supplies or
+>>>>>>>>>>>>>> other resources like the toggle pins or reset and enable.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> That way I suppose that an example would look like...  
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +patternProperties:
+>>>>>>>>>>>>>>> +  "^channel@([0-9]|1[0-5])$":
+>>>>>>>>>>>>>>> +    type: object
+>>>>>>>>>>>>>>> +    description: Child nodes for individual channel configuration
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +    properties:
+>>>>>>>>>>>>>>> +      reg:
+>>>>>>>>>>>>>>> +        description: Channel number.
+>>>>>>>>>>>>>>> +        minimum: 0
+>>>>>>>>>>>>>>> +        maximum: 15
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +      adi,output-range-microvolt:
+>>>>>>>>>>>>>>> +        description: |
+>>>>>>>>>>>>>>> +          Output voltage range for this channel as [min, max] in microvolts.
+>>>>>>>>>>>>>>> +          If not specified, defaults to 0V to 5V range.
+>>>>>>>>>>>>>>> +        oneOf:
+>>>>>>>>>>>>>>> +          - items:
+>>>>>>>>>>>>>>> +              - const: 0
+>>>>>>>>>>>>>>> +              - enum: [5000000, 10000000, 20000000, 40000000]
+>>>>>>>>>>>>>>> +          - items:
+>>>>>>>>>>>>>>> +              - const: -5000000
+>>>>>>>>>>>>>>> +              - const: 5000000
+>>>>>>>>>>>>>>> +          - items:
+>>>>>>>>>>>>>>> +              - const: -10000000
+>>>>>>>>>>>>>>> +              - const: 10000000
+>>>>>>>>>>>>>>> +          - items:
+>>>>>>>>>>>>>>> +              - const: -15000000
+>>>>>>>>>>>>>>> +              - const: 15000000
+>>>>>>>>>>>>>>> +          - items:
+>>>>>>>>>>>>>>> +              - const: -20000000
+>>>>>>>>>>>>>>> +              - const: 20000000
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +    required:
+>>>>>>>>>>>>>>> +      - reg
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +    additionalProperties: false
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +required:
+>>>>>>>>>>>>>>> +  - compatible
+>>>>>>>>>>>>>>> +  - reg
+>>>>>>>>>>>>>>> +  - vdd-supply
+>>>>>>>>>>>>>>> +  - avdd-supply
+>>>>>>>>>>>>>>> +  - hvdd-supply
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +dependencies:
+>>>>>>>>>>>>>>> +  spi-cpha: [ spi-cpol ]
+>>>>>>>>>>>>>>> +  spi-cpol: [ spi-cpha ]
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +allOf:
+>>>>>>>>>>>>>>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +unevaluatedProperties: false
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +examples:
+>>>>>>>>>>>>>>> +  - |
+>>>>>>>>>>>>>>> +    #include <dt-bindings/gpio/gpio.h>
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +    spi {
+>>>>>>>>>>>>>>> +        #address-cells = <1>;
+>>>>>>>>>>>>>>> +        #size-cells = <0>;
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +        dac@0 {
+>>>>>>>>>>>>>>> +            compatible = "adi,ad5529r-16";
+>>>>>>>>>>>>>>> +            reg = <0>;
+>>>>>>>>>>>>>>> +            spi-max-frequency = <25000000>;
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            vdd-supply = <&vdd_regulator>;
+>>>>>>>>>>>>>>> +            avdd-supply = <&avdd_regulator>;
+>>>>>>>>>>>>>>> +            hvdd-supply = <&hvdd_regulator>;
+>>>>>>>>>>>>>>> +            hvss-supply = <&hvss_regulator>;
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            #address-cells = <1>;
+>>>>>>>>>>>>>>> +            #size-cells = <0>;
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            channel@0 {
+>>>>>>>>>>>>>>> +                reg = <0>;
+>>>>>>>>>>>>>>> +                adi,output-range-microvolt = <0 5000000>;
+>>>>>>>>>>>>>>> +            };
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            channel@1 {
+>>>>>>>>>>>>>>> +                reg = <1>;
+>>>>>>>>>>>>>>> +                adi,output-range-microvolt = <(-10000000) 10000000>;
+>>>>>>>>>>>>>>> +            };
+>>>>>>>>>>>>>>> +
+>>>>>>>>>>>>>>> +            channel@2 {
+>>>>>>>>>>>>>>> +                reg = <2>;
+>>>>>>>>>>>>>>> +                adi,output-range-microvolt = <0 40000000>;
+>>>>>>>>>>>>>>> +            };
+>>>>>>>>>>>>>>> +        };
+>>>>>>>>>>>>>>> +    };  
+>>>>>>>>>>>>>> ...
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 	spi {
+>>>>>>>>>>>>>> 		#address-cells = <1>;
+>>>>>>>>>>>>>> 		#size-cells = <0>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 		multi-dac@0 {
+>>>>>>>>>>>>>> 			compatible = "adi,ad5529r-16";
+>>>>>>>>>>>>>> 			reg = <0>;
+>>>>>>>>>>>>>> 			spi-max-frequency = <25000000>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 			#address-cells = <1>;
+>>>>>>>>>>>>>> 			#size-cells = <0>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 			dac@0 {
+>>>>>>>>>>>>>> 				reg = <0>;
+>>>>>>>>>>>>>> 				vdd-supply = <&vdd_regulator>;
+>>>>>>>>>>>>>> 				avdd-supply = <&avdd_regulator>;
+>>>>>>>>>>>>>> 				hvdd-supply = <&hvdd_regulator>;
+>>>>>>>>>>>>>> 				hvss-supply = <&hvss_regulator>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				#address-cells = <1>;
+>>>>>>>>>>>>>> 				#size-cells = <0>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				channel@0 {
+>>>>>>>>>>>>>> 					reg = <0>;
+>>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 5000000>;
+>>>>>>>>>>>>>> 				};
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				channel@1 {
+>>>>>>>>>>>>>> 					reg = <1>;
+>>>>>>>>>>>>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
+>>>>>>>>>>>>>> 				};
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				channel@2 {
+>>>>>>>>>>>>>> 					reg = <2>;
+>>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 40000000>;
+>>>>>>>>>>>>>> 				};
+>>>>>>>>>>>>>> 			}
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 			dac@1 {
+>>>>>>>>>>>>>> 				reg = <1>;
+>>>>>>>>>>>>>> 				vdd-supply = <&vdd_regulator>;
+>>>>>>>>>>>>>> 				avdd-supply = <&avdd_regulator>;
+>>>>>>>>>>>>>> 				hvdd-supply = <&hvdd_regulator>;
+>>>>>>>>>>>>>> 				hvss-supply = <&hvss_regulator>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				reset-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				#address-cells = <1>;
+>>>>>>>>>>>>>> 				#size-cells = <0>;
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				channel@0 {
+>>>>>>>>>>>>>> 					reg = <0>;
+>>>>>>>>>>>>>> 					adi,output-range-microvolt = <0 5000000>;
+>>>>>>>>>>>>>> 				};
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 				channel@1 {
+>>>>>>>>>>>>>> 					reg = <1>;
+>>>>>>>>>>>>>> 					adi,output-range-microvolt = <(-10000000) 10000000>;
+>>>>>>>>>>>>>> 				};
+>>>>>>>>>>>>>> 			}
+>>>>>>>>>>>>>> 		};
+>>>>>>>>>>>>>> 	};
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> then you might need something like:
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> 	patternProperties:
+>>>>>>>>>>>>>> 		"^dac@[0-3]$":
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> and put most of the things under this node pattern.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> So the main driver that you're putting together might need to handle up to four instances.
+>>>>>>>>>>>>>> Even if your current driver cannot handle this, the dt-bindings might need cover that.
+>>>>>>>>>>>>>>
+>>>>>>>>>>>>>> Need to double check if each dac node needs a separate compatible, so you would maybe populate
+>>>>>>>>>>>>>> a platform data to be shared with the child nodes, which would be a separate driver.
+>>>>>>>>>>>>>> (not sure if it would make sense to mix and match ad5529r-16 and ad5529r-12).  
+>>>>>>>>>>>>> Hi Rodrigo,
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Thank you for looking at this.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> For now, I would prefer to keep the binding scoped to a single AD5529R device instance. The current
+>>>>>>>>>>>>> hardware/use case we have only needs one device node and the driver is written around that model as well.
+>>>>>>>>>>>>> While the device addressing pins could allow multi-device topology, we do not have an actual platform using
+>>>>>>>>>>>>> that configuration at the moment, so I would prefer not to introduce an extra parent/child binding structure
+>>>>>>>>>>>>> speculatively without a validating use case.  
+>>>>>>>>>>>> Interesting feature - kind of similar to address control on a typical i2c bus device, or
+>>>>>>>>>>>> looking at it another way a kind of distributed SPI mux.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Challenge of a binding is we need to anticipate the future.  So I think we do need something
+>>>>>>>>>>>> like Rodrigo is suggesting even if we only (for now) support a single instance in the driver.
+>>>>>>>>>>>> That would leave the path open to supporting the addressing at a later date.
+>>>>>>>>>>>> An alternative might be to look at it like a chained device setup. In those we pretend there
+>>>>>>>>>>>> is just one device with a lot of channels etc.  The snag is that here things are more loosely
+>>>>>>>>>>>> coupled whereas for those devices it tends to be you have to read / write the same register
+>>>>>>>>>>>> in all devices in the chain as one big SPI message.
+>>>>>>>>>>>>
+>>>>>>>>>>>> +CC Mark Brown as he may know of some precedence for this feature. For his reference..
+>>>>>>>>>>>> - Each of these device has 2 ID pins.  The SPI transfers have to contain the 2 bit
+>>>>>>>>>>>> value that matches that or they are ignored.  Thus a single bus + 1 chip select can
+>>>>>>>>>>>> be used to talk to 4 devices.  Question is what that looks like in device tree + I guess
+>>>>>>>>>>>> longer term how to support it cleanly in SPI.  
+>>>>>>>>>>
+>>>>>>>>>> I'd swear I have seen this before, from some Microchip devices. Let me
+>>>>>>>>>> see if I can find what I am thinking of...  
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> microchip,mcp3911 and microchip,mcp3564 both seem to do this with
+>>>>>>>>> slightly different properties.
+>>>>>>>>>
+>>>>>>>>>   microchip,device-addr:
+>>>>>>>>>     description: Device address when multiple MCP3911 chips are present on the same SPI bus.
+>>>>>>>>>     $ref: /schemas/types.yaml#/definitions/uint32
+>>>>>>>>>     enum: [0, 1, 2, 3]
+>>>>>>>>>     default: 0
+>>>>>>>>>
+>>>>>>>>> and
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>   microchip,hw-device-address:
+>>>>>>>>>     $ref: /schemas/types.yaml#/definitions/uint32
+>>>>>>>>>     minimum: 0
+>>>>>>>>>     maximum: 3
+>>>>>>>>>     description:
+>>>>>>>>>       The address is set on a per-device basis by fuses in the factory,
+>>>>>>>>>       configured on request. If not requested, the fuses are set for 0x1.
+>>>>>>>>>       The device address is part of the device markings to avoid
+>>>>>>>>>       potential confusion. This address is coded on two bits, so four possible
+>>>>>>>>>       addresses are available when multiple devices are present on the same
+>>>>>>>>>       SPI bus with only one Chip Select line for all devices.
+>>>>>>>>>       Each device communication starts by a CS falling edge, followed by the
+>>>>>>>>>       clocking of the device address (BITS[7:6] - top two bits of COMMAND BYTE
+>>>>>>>>>       which is first one on the wire).
+>>>>>>>>>
+>>>>>>>>> This sounds exactly like the sort of feature that you're dealing with
+>>>>>>>>> here?
+>>>>>>>>>   
+>>>>>>>>
+>>>>>>>> The core idea yes but for this chip, things are a bit more annoying (but
+>>>>>>>> Janani can correct me if I'm wrong). Here, each device can, in theory,
+>>>>>>>> have it's own supplies, pins and at the very least, channels with maybe
+>>>>>>>> different scales. That is why Janani is proposing dac nodes. Given I
+>>>>>>>> honestly don't like much of that "adi,ad5529r-bus" compatible I wondered
+>>>>>>>> about solving this at the spi level.
+>>>>>>>>
+>>>>>>>> Ah and to make it more annoying, we can also mix 12 and 16 bits variants
+>>>>>>>> together in the same bus.  
+>>>>>>>
+>>>>>>> I'm definitely missing something, because that property for the
+>>>>>>> microchip devices is not impacted what else is on the bus. AFAICT, you
+>>>>>>> could have an mcp3911 and an mcp3564 on the same bus even though both
+>>>>>>> are completely different devices with different drivers. They have
+>>>>>>> individual device nodes and their own supplies etc etc. These aren't
+>>>>>>> per-channel properties on an adc or dac, they're per child device on a
+>>>>>>> spi bus.  
+>>>>>>
+>>>>>> Maybe I'm the one missing something :). IIRC, spi would not allow two
+>>>>>> devices on the same CS right? Because for this chip we would need
+>>>>>> something like:
+>>>>>>
+>>>>>> spi {
+>>>>>> 	dac@0 {
+>>>>>> 		reg = <0>;
+>>>>>> 		adi,pin-id = <0>;
+>>>>>> 	};
+>>>>>>
+>>>>>> 	dac@1 {
+>>>>>> 		reg = <0>; // which seems already problematic?
+>>>>>> 		adi,pin-id <1>;
+>>>>>> 	};
+>>>>>>
+>>>>>> 	...
+>>>>>>
+>>>>>> 	//up to 4
+>>>>>> };
+>>>>> Yeah. It's not clear to me how that works for the microchip devices
+>>>>> (I suspect it doesn't!)
+>>>>>
+>>>>> Just thinking as I type, but could we do something a bit nasty with
+>>>>> a gpio mux that doesn't actually switch but represents the GPIO being
+>>>>> shared?  Given this is all tied to the spi bus that should all happen
+>>>>> under serializing locks. 
+>>>>>
+>>>>> Agreed though that this would be nicer as an SPI thing that let
+>>>>> us specify that a single CS is share by multiple devices and their
+>>>>> is some other signal acting to select which one we are talking to.
+>>>>>
+>>>>
+>>>> If the device-addressing on the same chip-select is to be handled
+>>>> by the spi framework, wouldn't we lose device-specific features?
+>>>>
+>>>> I understand that this multi-device feature is there mostly to extend the
+>>>> channel count from 16 to 32, 48 or 64. I suppose the command:
+>>>>
+>>>> 	"MULTI DEVICE SW LDAC MODE"
+>>>>
+>>>> exists so that software can update channel values accross multiple devices.
+>>>
+>>> Right! You do have a point! I agree the main driver for a feature like
+>>> this is likely to extend the channel count and effectively "aggregate"
+>>> devices.
+>>>
+>>> But I would say that even with the spi solution the MULTI DEVICE stuff
+>>> should be doable (as we still need a sort of adi,pin-id property). 
+>>
+>> I don't think we can have something like an IIO buffer shared by multiple
+>> devices. Synchronizing separate devices would be doable with proper hardware
+>> support for this (probably involving an FGPA).
+> 
+> True!
+> 
+>>  
+>>> But yes, I do feel that the whole feature is for aggregation so seeing
+>>> one device with 32 channels is the expectation here? Rather than seeing
+>>> two devices with 16 channels.
+>>
+>> Yes, I think aggregation is the whole point there... so that the IIO driver
+>> is multi-device-aware.
+> 
+> Which makes me feel that different pins per device might be possible
+> from an HW point of view but does not make much sense. For example, for
+> the buffer example I would expect LDAC to be shared between all the
+> devices.
+> 
+> - Nuno Sá
 
-Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
----
- drivers/staging/fbtft/Kconfig      |   5 -
- drivers/staging/fbtft/Makefile     |   1 -
- drivers/staging/fbtft/fb_ssd1351.c | 240 -----------------------------
- 3 files changed, 246 deletions(-)
- delete mode 100644 drivers/staging/fbtft/fb_ssd1351.c
-
-diff --git a/drivers/staging/fbtft/Kconfig b/drivers/staging/fbtft/Kconfig
-index 92943564cb91..c8ea1a0f3fb0 100644
---- a/drivers/staging/fbtft/Kconfig
-+++ b/drivers/staging/fbtft/Kconfig
-@@ -133,11 +133,6 @@ config FB_TFT_SSD1331
- 	help
- 	  Framebuffer support for SSD1331
- 
--config FB_TFT_SSD1351
--	tristate "FB driver for the SSD1351 LCD Controller"
--	help
--	  Framebuffer support for SSD1351
--
- config FB_TFT_ST7735R
- 	tristate "FB driver for the ST7735R LCD Controller"
- 	help
-diff --git a/drivers/staging/fbtft/Makefile b/drivers/staging/fbtft/Makefile
-index e9cdf0f0a7da..c230bf008fc7 100644
---- a/drivers/staging/fbtft/Makefile
-+++ b/drivers/staging/fbtft/Makefile
-@@ -28,7 +28,6 @@ obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1305.o
- obj-$(CONFIG_FB_TFT_SSD1306)     += fb_ssd1306.o
- obj-$(CONFIG_FB_TFT_SSD1305)     += fb_ssd1325.o
- obj-$(CONFIG_FB_TFT_SSD1331)     += fb_ssd1331.o
--obj-$(CONFIG_FB_TFT_SSD1351)     += fb_ssd1351.o
- obj-$(CONFIG_FB_TFT_ST7735R)     += fb_st7735r.o
- obj-$(CONFIG_FB_TFT_ST7789V)     += fb_st7789v.o
- obj-$(CONFIG_FB_TFT_TINYLCD)     += fb_tinylcd.o
-diff --git a/drivers/staging/fbtft/fb_ssd1351.c b/drivers/staging/fbtft/fb_ssd1351.c
-deleted file mode 100644
-index 6736b09b2f45..000000000000
---- a/drivers/staging/fbtft/fb_ssd1351.c
-+++ /dev/null
-@@ -1,240 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--
--#include <linux/backlight.h>
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/init.h>
--#include <linux/spi/spi.h>
--#include <linux/delay.h>
--#include <linux/string_choices.h>
--
--#include "fbtft.h"
--
--#define DRVNAME		"fb_ssd1351"
--#define WIDTH		128
--#define HEIGHT		128
--#define GAMMA_NUM	1
--#define GAMMA_LEN	63
--#define DEFAULT_GAMMA	"0 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2 2 " \
--			"2 2 2 2 2 2 2" \
--
--static void register_onboard_backlight(struct fbtft_par *par);
--
--static int init_display(struct fbtft_par *par)
--{
--	if (par->pdata &&
--	    par->pdata->display.backlight == FBTFT_ONBOARD_BACKLIGHT) {
--		/* module uses onboard GPIO for panel power */
--		par->fbtftops.register_backlight = register_onboard_backlight;
--	}
--
--	par->fbtftops.reset(par);
--
--	write_reg(par, 0xfd, 0x12); /* Command Lock */
--	write_reg(par, 0xfd, 0xb1); /* Command Lock */
--	write_reg(par, 0xae); /* Display Off */
--	write_reg(par, 0xb3, 0xf1); /* Front Clock Div */
--	write_reg(par, 0xca, 0x7f); /* Set Mux Ratio */
--	write_reg(par, 0x15, 0x00, 0x7f); /* Set Column Address */
--	write_reg(par, 0x75, 0x00, 0x7f); /* Set Row Address */
--	write_reg(par, 0xa1, 0x00); /* Set Display Start Line */
--	write_reg(par, 0xa2, 0x00); /* Set Display Offset */
--	write_reg(par, 0xb5, 0x00); /* Set GPIO */
--	write_reg(par, 0xab, 0x01); /* Set Function Selection */
--	write_reg(par, 0xb1, 0x32); /* Set Phase Length */
--	write_reg(par, 0xb4, 0xa0, 0xb5, 0x55); /* Set Segment Low Voltage */
--	write_reg(par, 0xbb, 0x17); /* Set Precharge Voltage */
--	write_reg(par, 0xbe, 0x05); /* Set VComH Voltage */
--	write_reg(par, 0xc1, 0xc8, 0x80, 0xc8); /* Set Contrast */
--	write_reg(par, 0xc7, 0x0f); /* Set Master Contrast */
--	write_reg(par, 0xb6, 0x01); /* Set Second Precharge Period */
--	write_reg(par, 0xa6); /* Set Display Mode Reset */
--	write_reg(par, 0xaf); /* Set Sleep Mode Display On */
--
--	return 0;
--}
--
--static void set_addr_win(struct fbtft_par *par, int xs, int ys, int xe, int ye)
--{
--	write_reg(par, 0x15, xs, xe);
--	write_reg(par, 0x75, ys, ye);
--	write_reg(par, 0x5c);
--}
--
--static int set_var(struct fbtft_par *par)
--{
--	unsigned int remap;
--
--	if (par->fbtftops.init_display != init_display) {
--		/* don't risk messing up register A0h */
--		return 0;
--	}
--
--	remap = 0x60 | (par->bgr << 2); /* Set Colour Depth */
--
--	switch (par->info->var.rotate) {
--	case 0:
--		write_reg(par, 0xA0, remap | 0x00 | BIT(4));
--		break;
--	case 270:
--		write_reg(par, 0xA0, remap | 0x03 | BIT(4));
--		break;
--	case 180:
--		write_reg(par, 0xA0, remap | 0x02);
--		break;
--	case 90:
--		write_reg(par, 0xA0, remap | 0x01);
--		break;
--	}
--
--	return 0;
--}
--
--/*
-- * Grayscale Lookup Table
-- * GS1 - GS63
-- * The driver Gamma curve contains the relative values between the entries
-- * in the Lookup table.
-- *
-- * From datasheet:
-- * 8.8 Gray Scale Decoder
-- *
-- *	there are total 180 Gamma Settings (Setting 0 to Setting 180)
-- *	available for the Gray Scale table.
-- *
-- *	The gray scale is defined in incremental way, with reference
-- *	to the length of previous table entry:
-- *		Setting of GS1 has to be >= 0
-- *		Setting of GS2 has to be > Setting of GS1 +1
-- *		Setting of GS3 has to be > Setting of GS2 +1
-- *		:
-- *		Setting of GS63 has to be > Setting of GS62 +1
-- *
-- */
--static int set_gamma(struct fbtft_par *par, u32 *curves)
--{
--	unsigned long tmp[GAMMA_NUM * GAMMA_LEN];
--	int i, acc = 0;
--
--	for (i = 0; i < 63; i++) {
--		if (i > 0 && curves[i] < 2) {
--			dev_err(par->info->device,
--				"Illegal value in Grayscale Lookup Table at index %d : %d. Must be greater than 1\n",
--				i, curves[i]);
--			return -EINVAL;
--		}
--		acc += curves[i];
--		tmp[i] = acc;
--		if (acc > 180) {
--			dev_err(par->info->device,
--				"Illegal value(s) in Grayscale Lookup Table. At index=%d : %d, the accumulated value has exceeded 180\n",
--				i, acc);
--			return -EINVAL;
--		}
--	}
--
--	write_reg(par, 0xB8,
--		  tmp[0],  tmp[1],  tmp[2],  tmp[3],
--		  tmp[4],  tmp[5],  tmp[6],  tmp[7],
--		  tmp[8],  tmp[9],  tmp[10], tmp[11],
--		  tmp[12], tmp[13], tmp[14], tmp[15],
--		  tmp[16], tmp[17], tmp[18], tmp[19],
--		  tmp[20], tmp[21], tmp[22], tmp[23],
--		  tmp[24], tmp[25], tmp[26], tmp[27],
--		  tmp[28], tmp[29], tmp[30], tmp[31],
--		  tmp[32], tmp[33], tmp[34], tmp[35],
--		  tmp[36], tmp[37], tmp[38], tmp[39],
--		  tmp[40], tmp[41], tmp[42], tmp[43],
--		  tmp[44], tmp[45], tmp[46], tmp[47],
--		  tmp[48], tmp[49], tmp[50], tmp[51],
--		  tmp[52], tmp[53], tmp[54], tmp[55],
--		  tmp[56], tmp[57], tmp[58], tmp[59],
--		  tmp[60], tmp[61], tmp[62]);
--
--	return 0;
--}
--
--static int blank(struct fbtft_par *par, bool on)
--{
--	fbtft_par_dbg(DEBUG_BLANK, par, "(%s=%s)\n",
--		      __func__, str_true_false(on));
--	if (on)
--		write_reg(par, 0xAE);
--	else
--		write_reg(par, 0xAF);
--	return 0;
--}
--
--static struct fbtft_display display = {
--	.regwidth = 8,
--	.width = WIDTH,
--	.height = HEIGHT,
--	.gamma_num = GAMMA_NUM,
--	.gamma_len = GAMMA_LEN,
--	.gamma = DEFAULT_GAMMA,
--	.fbtftops = {
--		.init_display = init_display,
--		.set_addr_win = set_addr_win,
--		.set_var = set_var,
--		.set_gamma = set_gamma,
--		.blank = blank,
--	},
--};
--
--static int update_onboard_backlight(struct backlight_device *bd)
--{
--	struct fbtft_par *par = bl_get_data(bd);
--	bool on;
--
--	fbtft_par_dbg(DEBUG_BACKLIGHT, par, "%s: power=%d\n", __func__, bd->props.power);
--
--	on = !backlight_is_blank(bd);
--	/* Onboard backlight connected to GPIO0 on SSD1351, GPIO1 unused */
--	write_reg(par, 0xB5, on ? 0x03 : 0x02);
--
--	return 0;
--}
--
--static const struct backlight_ops bl_ops = {
--	.update_status = update_onboard_backlight,
--};
--
--static void register_onboard_backlight(struct fbtft_par *par)
--{
--	struct backlight_device *bd;
--	struct backlight_properties bl_props = { 0, };
--
--	bl_props.type = BACKLIGHT_RAW;
--	bl_props.power = BACKLIGHT_POWER_OFF;
--
--	bd = backlight_device_register(dev_driver_string(par->info->device),
--				       par->info->device, par, &bl_ops,
--				       &bl_props);
--	if (IS_ERR(bd)) {
--		dev_err(par->info->device,
--			"cannot register backlight device (%ld)\n",
--			PTR_ERR(bd));
--		return;
--	}
--	par->info->bl_dev = bd;
--
--	if (!par->fbtftops.unregister_backlight)
--		par->fbtftops.unregister_backlight = fbtft_unregister_backlight;
--}
--
--FBTFT_REGISTER_DRIVER(DRVNAME, "solomon,ssd1351", &display);
--
--MODULE_ALIAS("spi:" DRVNAME);
--MODULE_ALIAS("platform:" DRVNAME);
--MODULE_ALIAS("spi:ssd1351");
--MODULE_ALIAS("platform:ssd1351");
--
--MODULE_DESCRIPTION("SSD1351 OLED Driver");
--MODULE_AUTHOR("James Davies");
--MODULE_LICENSE("GPL");
--- 
-2.54.0
+I think I mentioned this on a previous revision, but I still think the
+simplest way to go about it would be to assume that all chips treated
+as an aggregate device have everything wired in parallel and just add
+support for per-chip wiring on an as-needed basis. This is how we have
+handled daisy-chained devices so far.
 
