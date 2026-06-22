@@ -1,124 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576CB36B043;
-	Mon, 22 Jun 2026 09:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE00639A7F4
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782120715; cv=none; b=P0HUcLb/psHFPyW0SF0HfWBIBlM0sMiAUNr8BXbaGvqhuBbnSWjBXrK6rEkwnVwMxl8BNLR72XDTR8ag8ATsP1pTqcjmmZsPFHcR+7MRZ2ztEbtZyaoxoyB6c3zk6zgzmOKPqqV3kKEpZrFeykvua1lFovS9+zF3TvoYuJ6aT34=
+	t=1782120840; cv=none; b=GJ46Z/18tz+kccoAMR3L2D/bwGpkJNNubWdkjQ3tfg9tWgvvNKZze3KqlkeuMpHLtWIndUenxh4DGroW4udtjTJgXC07Cqcvq78mrNOY/9V+zZJ4k4ExRJYdUC1UdNgFG9gVkhI1Sc9FQfGl8P94PebmKyPNYEwm0GN0iBPJNro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782120715; c=relaxed/simple;
-	bh=UnPOkMHd8BdlyvKoh71myAbOqirYWTq1WL7l4K6f9XQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ekgh81xPEPGCc565ZBz7ObQoEgMQNbzqMoNYffPwqlPKlf7GPvQbzr8lZZfKUWuRn0C8JarAJdBoVvuK2RokqOxVa4l6xuTKbzc4q/ld2NZdW98QQoCJHKE55Tz1jhPxBa6JxkJeQsnQoA6vqrA5DJ1nr8IopXO0UwV4XzDjueg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VeXe5Ab5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782120840; c=relaxed/simple;
+	bh=0iGkx5cwZg7ESD/ve9ZgPq335l/pOYBudqpoC72Vk8I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EoZII2vHCqxggakYZTYDoVcpeCx39AQ9hEC97VvAuckRxXA+ml2bnlTBvKXWuymJR1zu+lST2bY+/6xv5yv5Z1AWq2IysnVZh5K4qSc9fvvSU/+wxbTjpCFPwSMij+P4jVCgjW4q5RsNuDf7EjBsrnjbV8nnybz6rCtYXVwQf2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OtUjeRPR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bn8wHpyM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VeXe5Ab5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4A01F000E9;
-	Mon, 22 Jun 2026 09:31:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782120714;
-	bh=/wMrvTFn+e96PT0RdnbzBYhT8emMG2peC8487LRRtEo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VeXe5Ab5e+QhHiix2HoTicpbtNT94rMahMAl0j1PTPC0WOz/Lo3IyT5Eap0VbvU3r
-	 gQKDXu5FKAnj+fkk2MeyqgGWlQOpPnVTLCSoCa0yprclnfBlHKED8lqY9pHdbIjqlk
-	 cduC91pF593Y6++eIvBYShaIYtUOGwyMKBz57ZzWYS8yVu0BmMcoIaUgOiBsvS0Iu7
-	 Vwp+1TnpSyVDD1R2wbd5P8pvPzUpY6+VX9FQ1N7WK/oaTQh/kK8kUi0Sk6uNbs9481
-	 WTI9maGJtI9/fP2H+8pAxy8bzb7sWad9hIMjLkqqfrH1iE3pEnWiLatbmMcK0i04pu
-	 2te4rpy/NBU3g==
-Date: Mon, 22 Jun 2026 10:31:42 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
- <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, David
- Lechner	 <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko	 <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet	 <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Janani Sunil  <jan.sun97@gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: dac: Add AD5529R DAC driver support
-Message-ID: <20260622103142.0cf5dc2d@jic23-huawei>
-In-Reply-To: <9c5104eb504e390c2267e0a17762fdb6d73d75a4.camel@pengutronix.de>
-References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
-	<20260519-ad5529r-driver-v3-2-267c0731aa68@analog.com>
-	<9c5104eb504e390c2267e0a17762fdb6d73d75a4.camel@pengutronix.de>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OtUjeRPR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bn8wHpyM"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M59QPx3800850
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:33:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bYutGgsfO2AN1trsSrxGaYnXS03MJi3F08rSkRm1PWk=; b=OtUjeRPR8VNetq7W
+	YmycshRN3TdLLy+vKtg7/eoRbgn7FzhbshagB8geZRZcwCHeGoKa2iWqDv0BKl7c
+	31EdLyTCjMnks4xCf6Y65Z03aN8Oqp6uXOGbdzVJYsN7gNbuH2+i5cLF/+zsF4cl
+	7XJw7I2dbS0hIz7poR7KxABLtWO1dEWW+qsFi+F3qsxmoMkXPEcZ0LTBxnwCv/Iv
+	A5haOm/a9I6hoqgxTithxBSWknn5Mm6pwIG+dM7FRmzvET5+f5HD940vuwbzi/51
+	hCZGzqet65hekVjYVlZ1QLHu12gT/6Le9WXMWFmTjCk2lRoHPTOfY82SF80vgEVz
+	lNB0wQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewm1k5prj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:33:58 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8dd70b510a3so9415686d6.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:33:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782120837; x=1782725637; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bYutGgsfO2AN1trsSrxGaYnXS03MJi3F08rSkRm1PWk=;
+        b=bn8wHpyM7ZZeNIKOqMCh5h2vIQnMayGmcPTyCCv02QtCoc6HZdwLyp5QdrJPQK3ueY
+         PweteTzRHUYNBIOZzdyAcMv4jL7FoQ1H/iCFeqlPe1b4FJXYnuRlI+HuDH/526iHdlJM
+         clxsn2VORGM4QKEyr8D/FDDZbL4R5QjJzoMGfzdG377VPMfPiEBZzfuJTs33lpYv6wul
+         hVed696laXm1vlbAt0ne7fqrBQwTP/cairBCpKMXJCF58GsHcIPpetZXAfozsWidH9FW
+         o1HZSbf7ENRNlXW/s5NsfHALpppGP0PkCdw2OtR6UBlJhctnOW0610xFfq8FfkgnQaY+
+         eRrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782120837; x=1782725637;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bYutGgsfO2AN1trsSrxGaYnXS03MJi3F08rSkRm1PWk=;
+        b=G+66XdX5JLhaQ6DRH2tJrJ2bhTdOSPL1njNOor9ollNlTfjg9GANvhhEAspXcSBJ/C
+         ZDtiT/r28Ap5Kq7oIwa/aPAX+PhuKcIje2Br5W4W7X1b/XHAECnxFOtVeGo6rPJJG7X0
+         UH6rKq+dr/fHVYUSEmIFrhJw3jFt0Xfg6ggXBOeEX8pI5QCT/oLYlLN/1yc5r3N/sXkU
+         vF0G724pFWaAydBNcZI+qdu/T9aetZDI6GLWFN8ieGzwgWfieyXJLBWTwQ64TzqxD7lF
+         Pe4w7l39DrKGXhbyM8wgkLKIfuGcYMVk5kc8sHP01asv7uEONDzZ4BYhaVo5w/qOCi7U
+         GZTw==
+X-Forwarded-Encrypted: i=1; AFNElJ/hqaDFD6wSUZlPN0mQCzKK3NGqG/maXbLXMG5ES6V9wimsBxOtSHc+XnMme5koftBD80OUNrwSfOZb@vger.kernel.org
+X-Gm-Message-State: AOJu0YzLWuqFzv04VwWcTZdYEPt8xj11Cmd1lZcrmzcrovInEeaz018p
+	bASwHhLUHxeW8dBJXn35V+HOGypc514hSQ/whhnAtRLZ2hURdwwTIFThYTi4jAFS+Fd/sDmiVuv
+	tVT6t5ddH0DzHWWI5NQpKU7jC2xSE7ngXtu/QtYQYbJCi/f13nMEJzXaXuVH0AGAi
+X-Gm-Gg: AfdE7ckDCuG05RAKL5c7E/KofDSeLrivrByBbWfWn8gI5HlB6A2quye03vDWW5ODjnd
+	YlMKPpr/dMCRIt0CsMROnctL0eHypzGvUrbaxhIrSBuD82EHoSooF2lgCXsD2KHUYDCSmNTyfh2
+	j+Yskkj64t3hs8erQDanyRIYzY/PYzdnE95oLVc1NG7i3CUc9h+7kRUsLLmyY+XYAGV4fUeTQuT
+	frgntsP574qHiQc/lZE69/Y+2okrLSJ5i7s5QeVfMDtD+gDQPrFOJv69Gtx6M010gPOcyXBa0aM
+	T64OfqJ8lJ1iKIMImvQVrhwAKwiziR7WuNM7WMj5Jm8luonVT11eLliV7i295Xb2Wcy/OCvdM47
+	hW55NDCZkVmaXS3KdsatiyfnkCiNTNsaA6DY=
+X-Received: by 2002:a05:620a:27d5:b0:90d:11b2:80f3 with SMTP id af79cd13be357-9208d5f227fmr1213620685a.7.1782120837083;
+        Mon, 22 Jun 2026 02:33:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:27d5:b0:90d:11b2:80f3 with SMTP id af79cd13be357-9208d5f227fmr1213618385a.7.1782120836583;
+        Mon, 22 Jun 2026 02:33:56 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c610e48ddsm333515466b.50.2026.06.22.02.33.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 02:33:55 -0700 (PDT)
+Message-ID: <32948426-7148-424e-91be-0a313aa8e0d3@oss.qualcomm.com>
+Date: Mon, 22 Jun 2026 11:33:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
+To: Jason Pettit <jason.pettit@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ananthu C V <ananthu.cv@oss.qualcomm.com>
+References: <20260620-glymur-send-v1-0-fc4a2cfd107c@oss.qualcomm.com>
+ <20260620-glymur-send-v1-2-fc4a2cfd107c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260620-glymur-send-v1-2-fc4a2cfd107c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: JyITAPoUSzQCAzGsnnm0rnxel2DuI9nt
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA5NCBTYWx0ZWRfX3dTGJFl9a68C
+ 0CXsTd4xZl27rjfr8j0G8ZskEfE1VwU+LKJl8aTN4zLTfK/CvNQLGGt1+VX3cDaxbqVclYFKTEN
+ rSrCtgkI6nlL+DxPRKH3maYBsUPiVJM=
+X-Authority-Analysis: v=2.4 cv=T6S8ifKQ c=1 sm=1 tr=0 ts=6a390186 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=cH6R9-kdAAAA:8 a=2HuRI5RJ3cZe6tb9nYkA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA5NCBTYWx0ZWRfX1QYOE6S9E+6E
+ ziNkQ+EjQD3K4FjQe/KU27EFz4K8j7JjDNwFg7JsmgjDwlWJnjbuFurdmydxyFjCAgy+Esvfap1
+ cScrP0qY3m6roLtgoZYcaB0FqnmVTLxqFXLdbOog1pfjovmVlNcO/D5oQOKkG6XcMo+RnPT7BfP
+ mClgssMdHkGkETDdsziLwoSfpSAS/puyyLkqTdU17FHf8BzcGEMCUzFf+h/f14gdWNmyFdwQ/u8
+ V0pmCHW/Wuo3XIOk9jRTxHzI1R1fUa5s6xekHy7DwnK20cg8VVUQBadqPuAyDbk5304jl1sT8qL
+ +2MpYcdqvt0wybou0j61KISz1aTXs8IRNYfPxoBiocnH+janLLcECJTakWs1n5kcrtbOfyOsugN
+ b26wDPZU8/bPueI5xbGXoulXT/t9l8gI98UK2ZrgeDc7KHGcLYTNS8bT5jCPTyROu5rMLm0nRR7
+ jtQQrSaKa7Kht98V0YQ==
+X-Proofpoint-ORIG-GUID: JyITAPoUSzQCAzGsnnm0rnxel2DuI9nt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220094
 
-On Mon, 22 Jun 2026 11:12:19 +0200
-Philipp Zabel <p.zabel@pengutronix.de> wrote:
-
-> On Di, 2026-05-19 at 17:42 +0200, Janani Sunil wrote:
-> > Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> > 
-> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > ---
-> >  MAINTAINERS               |   1 +
-> >  drivers/iio/dac/Kconfig   |  17 ++
-> >  drivers/iio/dac/Makefile  |   1 +
-> >  drivers/iio/dac/ad5529r.c | 527 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  4 files changed, 546 insertions(+)
-> >   
-> [...]
-> > diff --git a/drivers/iio/dac/ad5529r.c b/drivers/iio/dac/ad5529r.c
-> > new file mode 100644
-> > index 000000000000..9bb63030db95
-> > --- /dev/null
-> > +++ b/drivers/iio/dac/ad5529r.c
-> > @@ -0,0 +1,527 @@  
-> [...]
-> > +static int ad5529r_reset(struct ad5529r_state *st)
-> > +{
-> > +	struct reset_control *rst;
-> > +	int ret;
-> > +
-> > +	rst = devm_reset_control_get_optional_exclusive(&st->spi->dev, NULL);  
+On 6/21/26 6:50 AM, Jason Pettit wrote:
+> Add board support for the HP EliteBook X G2q 14" Next Gen AI PC
+> (product SKU C4JG0AV, board 8E91), a Snapdragon X2 Elite (Glymur)
+> laptop, using the "hp,elitebook-x-g2q" / "qcom,glymur" compatible.
 > 
-> Consider using devm_reset_control_get_optional_exclusive_deasserted()
-> to save a few lines, and to make sure the reset line is asserted again
-> when the driver is unbound.
-
-Given we can't assume it's a gpio reset at this level (it is but meh,
-we shouldn't use the API that way), we can't guarantee it was ever asserted
-so we probably have to do a dance of assert then deassert.
-
-This is one of Sashiko's favourite things to complain about so
-we ended up doing some digging into that path a few weeks back.
-
-I'd really like that not to be the case so maybe that analysis is wrong.
-
-Jonathan
-
-
-
-
+> Enabled by this device tree:
 > 
-> > +	if (IS_ERR(rst))
-> > +		return PTR_ERR(rst);
-> > +
-> > +	if (rst) {
-> > +		ret = reset_control_deassert(rst);
-> > +		if (ret)
-> > +			return ret;  
-> 
-> This branch could then be removed.
-> 
-> > +	} else {
-> > +		ret = regmap_write(st->regmap_8bit, AD5529R_REG_INTERFACE_CONFIG_A,
-> > +				   AD5529R_INTERFACE_CONFIG_A_SW_RESET);
-> > +		if (ret)
-> > +			return ret;
-> > +	}  
-> 
-> regards
-> Philipp
+>   - internal eDP panel (samsung,atna33xc20)
+>   - 2x USB Type-C with DisplayPort alt-mode and USB
+>   - chassis HDMI output
+>   - chassis USB-A host port (usb_mp multiport controller)
+>   - internal eUSB2 host with the Elan fingerprint reader
+>   - NVMe SSD on PCIe5
+>   - Wi-Fi and Bluetooth
+>   - HID-over-I2C keyboard, touchpad, touchscreen; lid switch
+>   - Adreno GPU and GMU (Freedreno GL on Mesa)
+>   - audio playback and capture
 
+[...]
+
+> +		/* Left side display-adjacent port */
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint = <&usb_0_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in: endpoint {
+> +						remote-endpoint = <&usb_0_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Left side user-adjacent port */
+
+"left/right side port?"
+
+https://support.hp.com/pl-pl/document/ish_14499364-14499440-16
+
+[...]
+
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible = "qcom,pmh0101-rpmh-regulators";
+> +		qcom,pmic-id = "B_E0";
+> +
+> +		vreg_l1b_e0_1p8: ldo1 {
+
+I find these voltage suffixes not very useful (although you're free to
+keep them if you prefer)
+
+[...]
+
+> +&i2c0 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	keyboard@3a {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x3a>;
+> +
+> +		hid-descr-addr = <0x1>;
+> +		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		pinctrl-0 = <&kybd_default>;
+> +		pinctrl-names = "default";
+> +
+> +		wakeup-source;
+> +	};
+> +
+> +	touchpad@2c {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x2c>;
+
+Let's sort these nodes by address (i.e. touchpad@2c < keyboard@3a)
+
+Konrad
