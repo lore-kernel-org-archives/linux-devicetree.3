@@ -1,135 +1,84 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A2635CB89
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782109345; cv=pass; b=bfHBOWdiEketnK/3i96XgXZVJ4F5XjSr5X8U65MAP5DZmx7gJbtZIIZ1ntEptJ445Bli/xSGmdfOrofWAIOHGQC4q/fYgKZAuS08PS/QrOPKbJ7I05KWJPz+77SbYe1MGmsnDpMB7Z92pxKhv+RdkaEZJbpcQkdxcVrMEFht/TI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782109345; c=relaxed/simple;
-	bh=zFtLe7bHlDNyqiN9o7mOWwbiL0VxRTwL1H2qBgvovpU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DA0c8VVFCh5u2hrVVJMsV5jYFWKe4tQ6uW4wavLv2Y0zhvvkd55laGSmmP6m/DnmIy9NJX1ijkOlEnsHJ7KRmUxqcOr2ucagg2yFiEU7fNM+iID6Nkh24QsdUhxxI6D47BkF9DtJYVdBkOKb1+IjPn4pYPpcbNjxiHH5zG7Bcso=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5vO+E/H; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E2C233956
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782109759; cv=none; b=D0+1+nAf6LXb/nqdhjxeW/nbHJ99HS6Pml4+jU5AtWgTwXdERigIq8Vef6STIzQ13qU7/Rraeb0qeLZrA6yi+WjqYhOBdERrBe19+5klk8w+J/Aw23Naan68IpDRR8425WFfJdqse0qdI/i88Xb/gPXcBotllrHvaVR6UcCG100=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782109759; c=relaxed/simple;
+	bh=QW4Ss1L/OGfZ3u/0zdQn50a9kbyNJzQ0jGJJk/74oTY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=nkEK/fAuCTjib/DxP0KEccEf/diOr/QUAezVYu0qkczZhalRYiwsxmofTmShBkFWEJqnPOrxekBRPJfnJSzHubSNWNvS3iCf5phQk1xOn54ksJl9BC2RxbgjYvEaPDNd0zhufAoOMu33ncCswNIWvhb1/R5S2rRguFUw++yUapc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=BzrEI3rl; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5vO+E/H"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-69531108f25so7330808a12.2
-        for <devicetree@vger.kernel.org>; Sun, 21 Jun 2026 23:22:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782109342; cv=none;
-        d=google.com; s=arc-20240605;
-        b=fAOstmunwLz6saPbEVwenWmIhnjmqI01eLHarlGbUa+2pB+uxOKH8YVE5F9Y5KaSv7
-         9N40NSng8Sm2V42xh8mqt8jx2VQz/UX4GvEWGPPdCPqSoxDeL5tYgCPLjtMaSUpHpNfI
-         u+WxKKxxempHZMALZfUPk5MzS9Cf1FvpQToAepNIcF9Gc5UbudcTdwjI8QNozzI7LXqN
-         xdZA2VxCxbyXhLWBNtyK4BinVCKyVcYolSzSenn2f2VG+afQEoi/kRUAdQPgnixO1WI/
-         TOCPsUG5fOcecjJlOLJWhEtDOgk7tFB8MfsP0rFURampmDOU4Kb3hSbdWAU6M8um9K73
-         v6vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zFtLe7bHlDNyqiN9o7mOWwbiL0VxRTwL1H2qBgvovpU=;
-        fh=NVOoRp0xHTUf2iOxgwOhIxIezZOWcQhYnpj0lCp1Cns=;
-        b=jMhtmRuNu6FRFK8ak0EPacFe167j4IQX5/QNVSWKBEIO27eTeiIGxOhDxbhDIfDFUQ
-         XMHnDBPXifqI79KBzGBjEh6/KBTrcAT/Ofv1aqjEq9haD1We2QJEGgN5N4MIjG1khpF2
-         mtZGw0/dibtuCGpwJYDSXDC2Yba/oT8PVlk5HIgNm76nNwqtsTWrpcSsj0K27z7rwpV3
-         Nl1TyC7c9BZHXh2RVQkQvJ0Ngk9uaX/6x5nuuzN6Mo9ofvYBqKdB4vTaz7LIgffJ4E4G
-         2y2axKfQA/bGX7zmul/a3ZdqMKg0QtfJFcUJz93onXV7nZy6M3ZzpRMCkSBxZszM/0gJ
-         0+8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782109342; x=1782714142; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zFtLe7bHlDNyqiN9o7mOWwbiL0VxRTwL1H2qBgvovpU=;
-        b=h5vO+E/HgXDkmH7vpHrVw/tiPcpGWTM1+78jvGZcuZy0fFT1Bglm2fxCLOq0a6KIXx
-         AEoppfTqNelWq1PvAxJSpl8j84foZFKRw1kTmtzT72Uo3l+kr5QeLQNp288spA1tRf04
-         eYWPtUqRyh5z41J03K9O5bQL+cWAhh/dyFGkE2YAho4SNQw1WzB+xJiHswNgth826jkO
-         yNlZtKF4+yJGLf0A6Ybobd2Uyhk/soj2kV356VbPTRKy7TzBcf0ZLNEntI3SOLEPi1VT
-         FxNUxvNZHCPJKskWspxVIpNqjcfryR1gQigq0Rfb5Lkew3x5JJh/V0/lnw+4of900t/G
-         LPzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782109342; x=1782714142;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=zFtLe7bHlDNyqiN9o7mOWwbiL0VxRTwL1H2qBgvovpU=;
-        b=jFLjU04ygm0ctfxDmMusLnvmYZgj1OU72uAb1JGYnUrn1yaInU0Xu4t2ox/wIEuv0V
-         CSwY926ereOQqH2+ymrQzCW8dgfvF2FnQd/b830lmt6zGda7TUgmUh9puX+JScsP3MQ3
-         LX6BY6tEK223Xomd6FIMxLclJwP5VW+wc3ElHaV2U+taPa3Kr8IAQp0W7hiE/B91AQNF
-         dE6HtYk71DNIvUirhdPI/nnU7snL2yEJGNX3sgvBm4ATIEd9rrqB38fiml0J8Raq83vB
-         QY4PJN6Z+it91VSVzlbtl0YEuTDHOLQuAUWpoWK/iiZXpb/6aHQ9UWO1hlKJF5fzJg0w
-         JLsA==
-X-Forwarded-Encrypted: i=1; AFNElJ+5XILlRiFdJhSc6kfqBkKHm5zY+/tWU20TotXcWfuobSfjiW1WhVpTu/oTI0fnNIEdlQhwOYq/jHuD@vger.kernel.org
-X-Gm-Message-State: AOJu0YxKQQtZDdwMtsGK67d1jvSnyi+zioqEClDXXpJ4FlgwVILuuH20
-	VZrAtoQA8H1+I3w6IipwRDFSB6wEvzONnrlKXTsqKPcqPH+0+rkNk8k6H3CnvBDilYMB+v44EGx
-	EjW8TCrmiW33U+MT+v1QvuV2eS9X5VFU=
-X-Gm-Gg: AfdE7cmIC0E7FkW0S4Ck3NZX35vXI02hCo0EYfbHgfkEwSTpxLEpg2uMhWkv4RvBMyD
-	icd1bjQfPSMMI2vldmhtbN+duYlKsl68QtmbYEgSdWe8/AbAMY5qjteG3PatZQIETdCe2ymuTpl
-	5yQLds2BsT1POp2dM3cRyIeGBJlfYh5Zfyrl2NYnxi6RPjo9XvMcdWL/WCBwG36OVP0DT1MzJr/
-	9OrtwB3xMb5dhCMwPaVy+SBYPk5AEAImBFKkrzk0ffbM3bpYB1Jc60SpFOk+MvKeiI95CbCaeEx
-	lNdP8VeKvpOcJa6o6t/22jFFfZRa+mR9VPiWcA==
-X-Received: by 2002:a17:906:ef0a:b0:bfe:ed35:e85d with SMTP id
- a640c23a62f3a-c098f33f303mr589087666b.53.1782109342002; Sun, 21 Jun 2026
- 23:22:22 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="BzrEI3rl"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260622062041euoutp01efade855e1cfd9739a8c14ac8ef444ba~7UunJ4V5q1895518955euoutp01I
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:20:41 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260622062041euoutp01efade855e1cfd9739a8c14ac8ef444ba~7UunJ4V5q1895518955euoutp01I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1782109241;
+	bh=9VxvGuHBm7QRMgH1+UXtZriiR1pff3l1vGhukdnKhsI=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=BzrEI3rlT7Cut3revlqskhFZzAscF8tJ0GJY3STuZ8lA4OKymLfOO41Y39dLHWGSZ
+	 s1xAn6sC0OewpBdDlD9UPZ6LjMUMCcnusX6rGQAsdj/ZW4vVLvyklYtSLFOsX4Bu/b
+	 X0FeCniXtB1R7ZWNBq/RQuDMW5EZmwQ6mf6VDfrU=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260622062041eucas1p1ee4fe04e8101bb5b94a29aa0f679b133~7Uum5HyCD2305623056eucas1p1p;
+	Mon, 22 Jun 2026 06:20:41 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260622062040eusmtip1c9e2845d4956b74ea376cf286db45bf8~7UumZGOdy3122931229eusmtip1b;
+	Mon, 22 Jun 2026 06:20:40 +0000 (GMT)
+Message-ID: <14c67cf2-d252-4b49-80f1-fa1c711a0b11@samsung.com>
+Date: Mon, 22 Jun 2026 08:20:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260621085209.52651-1-adi25charis@gmail.com> <20260621094312.53655-1-adi25charis@gmail.com>
- <548d66ce-d01e-4c6a-a77e-7d61378a1c74@kernel.org> <CAKt_FXsiXv7dai+F7cT=GNvETa5_42su9G1ev8+_fph0Bg5EbA@mail.gmail.com>
- <37006444-95a7-41f1-a5a3-58d116c10c14@kernel.org>
-In-Reply-To: <37006444-95a7-41f1-a5a3-58d116c10c14@kernel.org>
-From: Aditya Chari S <adi25charis@gmail.com>
-Date: Mon, 22 Jun 2026 11:52:10 +0530
-X-Gm-Features: AVVi8CdDWH2N71lg_P-oMu90jHTjmjLYatrFS5MA4jG1EpXkKA4hwiirjhgvaE0
-Message-ID: <CAKt_FXvjHshej+BG+CQQbdQ68+RE3pKns8Xq5dKCZKH0uioK3w@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: misc: add binding for Xilinx AXI-Stream FIFO
-To: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, gregkh@linuxfoundation.org
-Cc: jacobsfeder@gmail.com, devicetree@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	michal.simek@amd.com, lucas.fariamo08@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] arm64: dts: broadcom: bcm2712: Remove non-functional
+ EL2 virtual timer
+To: Daniel Drake <dan@reactivated.net>, Florian Fainelli
+	<florian.fainelli@broadcom.com>, Marc Zyngier <maz@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	bcm-kernel-feedback-list@broadcom.com, devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	andrea.porta@suse.com
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <89a39670-c459-4467-a032-a965bc1dea6b@reactivated.net>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260622062041eucas1p1ee4fe04e8101bb5b94a29aa0f679b133
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260621205817eucas1p24b92a3dbb913783a205d435e9077e61b
+X-EPHeader: CA
+X-CMS-RootMailID: 20260621205817eucas1p24b92a3dbb913783a205d435e9077e61b
+References: <20260619204832.586079-1-dan@reactivated.net>
+	<878q898ulx.wl-maz@kernel.org>
+	<223cd514-41b3-45b9-8617-b54d379d5091@broadcom.com>
+	<CGME20260621205817eucas1p24b92a3dbb913783a205d435e9077e61b@eucas1p2.samsung.com>
+	<89a39670-c459-4467-a032-a965bc1dea6b@reactivated.net>
 
-On Mon, Jun 22, 2026, Krzysztof Kozlowski wrote:
-> The main point is that driver is in staging, so we don't take bindings
-> for it.
-
-Understood, thanks for clarifying.
-
-Regards,
-Aditya
-
-
-On Mon, Jun 22, 2026 at 10:48=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
+On 21.06.2026 22:58, Daniel Drake wrote:
+> On 21/06/2026 21:03, Florian Fainelli wrote:
+>> Daniel, do you happen to know which 2712 SoC revision you have, whether this is a C0 or D0 stepping?
+>>
+>> We have an internal bug tracker item pertaining exactly to the virtual timer interrupt connection however it affected a sister chip (77122) and not 2712 AFAICT, now checking with the design team whether the same happened on 2712.
+> Thanks for looking into this! I am using Raspberry Pi 500 with D0 stepping.
 >
-> On 22/06/2026 06:21, Aditya Chari S wrote:
-> > Sorry about the pace - jumped from automated lint feedback straight to
-> > a new version without waiting for an actual reviewer. Won't happen
-> > again.
-> >
-> > On the staging binding question - I found the driver-removal thread
-> > from June 2 and read through it. Michal Simek's reply makes clear this
-> > driver isn't going anywhere (their networking team has plans that
-> > depend on it), and that there's already an in-flight binding
-> > conversion from Lucas Faria Mendes that he's actively tracking. I
-> > wasn't aware of that series when I started this.
-> >
-> > Given that, I'll withdraw mine rather than duplicate work that's
-> > already further along and already has the relevant maintainer's eyes
-> > on it.
-> >
->
-> The main point is that driver is in staging, so we don't take bindings
-> for it.
->
-> Best regards,
-> Krzysztof
+Here it happens on one of the first shipped Raspberry Pi5, so probably C0 stepping.
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
