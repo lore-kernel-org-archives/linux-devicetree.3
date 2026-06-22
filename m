@@ -1,255 +1,246 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011024.outbound.protection.outlook.com [52.101.70.24])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF263126D6;
-	Mon, 22 Jun 2026 05:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782107541; cv=fail; b=umqd7YOHV5cjaBIOffMt+5ta1bIWAGym2WcTFFKye+G9rp/zlkd2LKdIsfYaW8feUDNTYvK2std834c+SI6haVuPUbM7Vz3+NlYQmnEaBY1IphZ2LJAHRipAlHc0yhy/8C/u4FBVGT0PHPgS/W+IeEAN2ju1tgdhYOSF+dve1dY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782107541; c=relaxed/simple;
-	bh=KSL3pwUiA+QCoBB28BR4YtdvSsquJ7nLvpSSWu3FHaI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AT+tJwqmx6HL/ujYucY9l8HxTo2LTcx/4rfA+eTB8mimTXe/i5lR+ncdYWQV3/C28WcoRYNG2sncGwdogVbMu3KZzIa7Xqi/8wJYR6b82HGGK9EQVz9KLWVQbfF1VFg/KUCS7v27EfHpbPAkON0gjBoD/TcjA7RmvjCZUAydMEI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=hnY995Y/; arc=fail smtp.client-ip=52.101.70.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53D13126D6;
+	Mon, 22 Jun 2026 05:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782107562; cv=none; b=CA0kRerit8ZIkvcjrN0AOuk4lBqtWtq6mmujjzCY1Q1eAD1BjAgF7BWDPpP8j9nQFoqEpY12VLImfnajNuLcMuWT5vnX6eUg/hvU3Wrzb2QSwF8siHW5DKa5I4QYe/UQPXr4dmZ6FOgc6Fe4NQvq+cpATvH+Iylc8ve+7RSos+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782107562; c=relaxed/simple;
+	bh=UswUcCBuz6YkMAzX++Z5RK+C4hIKcHXCIeaToEoY4UU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ha62CjOk15MOl2L3ajdOvSrb44iGUOq1EAgRrY5oUOL5zdE9Bxm5d4vuZJ6WMsj8nTeI9zlfpCozTSmRTmP+7cRZJseXwd2TnVBbpE3I0x+7atgTzz09/ZlcK24DvuNY7SEFeWxF2TuSINffy8jTh+2HcBuXimNVR0Nq+Exf8H0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZXEuMsn2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="hnY995Y/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wn773tCE4kgxFxjy0YHBwkAiPObrw0wKUwcjNy8yHAW5aXrbAFnjPDzgMjdgsI5cGrhRAqrXa3gC1VWWnkj3omU5BQ+8pGOUm/YhJLbIsTNFNH7lxf4m/y7dq2M1FWdOoTLaOTTQHV0BwK57Zygg49R5jKQDbv4P98YGBzuUx+R+0Uxz0Cu70CuADbR1jfDAPN1p9ACw2DoCbp2jBET2B+6mVGeneolOYesroHfWGzBOPbK400Co2M21U7j85BN27Crw+lBZxzjcw9HwaY7rdGfPqAWmBLcX3m4v0BiKHxtfhSxP1vd9gOzzArXyvhjW/kvgSvuSCSfb6mDYVJRbjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PDM3fvTKzjZ9oc9rw4GcXDI3iSesQf7qCX53jsL2qXM=;
- b=ygBhcvwAame4AycIu05WJPm3JuqKJjqFtUGeHXL2kJOZNKukrhTKszru8L510VeTsnZn8dGuRkCCOmc6tDNUw/aETiMI6SEdwTEXgn3ZTfFaxnAkbUEnYOjdmBb5/wHo8CEgnM/zm7oBw50N2aSRw0Jxi2I7gxsko/UVSm5kVAizbKpzvXnXe4wUw4FCFa84ku+es5kCRqHP7qNym98rNkJkKv80ll+eJX8+P6lL6RoYKQG00ZLmVUPvKwxqtsv1OWKPAWg89ABE6ih3lRfBEuahYIcn8A0tLXaZ2XLmMofTYo6rGmc5dKIFPn5V4bgAIQdDc+NSopdp3JMoAhMTCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PDM3fvTKzjZ9oc9rw4GcXDI3iSesQf7qCX53jsL2qXM=;
- b=hnY995Y/OPPcrkIzYY2jJCQ9HiJ4LopAdwZxeTtWE9mjxqVjjyGxY7zlRjLWXhUDdTBm72/OBYGLt21ihz6McosV65l0lnlhgzEi3JlMGfbo4pfgbeXx2amOownphWOC+ADe41cr5XODCB39BVwmwUbXe90b9oA4uCArTCA2fWpAuPHwzjtucIsKFqu0UUM3IEGYjLDwN5WVLL/iMMj3/2yxzs8YQurQI9R8ar5Ug/f2CLBu6JcLGdzJeSc5UO09wMlwrm1SqaXfZUrw4kbCOm6VWVLrnPFZOS0/H0nzp4o3TLYPgfbrYTo4i6OcL0KMrRkryry4kDLFS9N7AgOGwA==
-Received: from GV2PR04MB12102.eurprd04.prod.outlook.com (2603:10a6:150:30c::7)
- by VI0PR04MB10736.eurprd04.prod.outlook.com (2603:10a6:800:25c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Mon, 22 Jun
- 2026 05:52:15 +0000
-Received: from GV2PR04MB12102.eurprd04.prod.outlook.com
- ([fe80::ba38:9cef:8457:c944]) by GV2PR04MB12102.eurprd04.prod.outlook.com
- ([fe80::ba38:9cef:8457:c944%5]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 05:52:15 +0000
-From: Sherry Sun <sherry.sun@nxp.com>
-To: "Frank Li (OSS)" <frank.li@oss.nxp.com>, "Sherry Sun (OSS)"
-	<sherry.sun@oss.nxp.com>
-CC: "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, Frank Li
-	<frank.li@nxp.com>, "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>, "festevam@gmail.com"
-	<festevam@gmail.com>, Amitkumar Karwar <amitkumar.karwar@nxp.com>, Neeraj
- Sanjay Kale <neeraj.sanjaykale@nxp.com>, "marcel@holtmann.org"
-	<marcel@holtmann.org>, "luiz.dentz@gmail.com" <luiz.dentz@gmail.com>,
-	Hongxing Zhu <hongxing.zhu@nxp.com>, "l.stach@pengutronix.de"
-	<l.stach@pengutronix.de>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
-	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "mani@kernel.org"
-	<mani@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>,
-	"brgl@kernel.org" <brgl@kernel.org>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-bluetooth@vger.kernel.org"
-	<linux-bluetooth@vger.kernel.org>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>
-Subject: RE: [PATCH 1/8] PCI: imx6: Add skip_pwrctrl_off flag support
-Thread-Topic: [PATCH 1/8] PCI: imx6: Add skip_pwrctrl_off flag support
-Thread-Index: AQHc/wp8x9g+aPXO20GYXbwWY4Cp3bZEpOmAgAVSGHA=
-Date: Mon, 22 Jun 2026 05:52:14 +0000
-Message-ID:
- <GV2PR04MB121027AF682B10DC55E9A503892EF2@GV2PR04MB12102.eurprd04.prod.outlook.com>
-References: <20260618101047.4185497-1-sherry.sun@oss.nxp.com>
- <20260618101047.4185497-2-sherry.sun@oss.nxp.com>
- <ajQ64ZswbmTceIGO@SMW015318>
-In-Reply-To: <ajQ64ZswbmTceIGO@SMW015318>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB12102:EE_|VI0PR04MB10736:EE_
-x-ms-office365-filtering-correlation-id: a3ae6233-81b0-4481-212b-08ded022697e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|19092799006|376014|7416014|23010399003|1800799024|22082099003|18002099003|38070700021|56012099006|11063799006|4143699003;
-x-microsoft-antispam-message-info:
- 4Gb8lXsGYIAjhUym8Jgxrhf9y+kzzn63AlDZJB7Q8FZUSYD7n92Wp+rfijYwR6lrBRC1+8SAnRiNI1L9RYYD3aCGBRnOSQUWBczDJ1IcqZdmc3wJRpFoILs0cdM4kuKt9VRZqaEBPE+3+3UU5Y9UU36MdVLD0VkzbaLUjGpnR1KqlZqD54pvcOX6RmejBtyrA+2Pq/tRsDNW3C/YGI5+PDiPxvKX8mTXRFG1ObB/scvBHY70lJgZul0nr4p8ykpKA7wsJIbwGg/7tqHVmiCfpXpXjtp8+KmoaF+FivS2Nw3y8weoBjnevIc2XPiPNrTHdHKB9XAlP0WGvbjXFDxn7VDP6OW4jYRe0ey8nD6Vcl21VFZwHJySK+zmGyZG1voXp8+j67q6i1UEcZ7XopDsSD4Xy5WWKC0cnm1s6s4NxjI6WMAJ0D0LI3leysmXnDQihtj0JApsDiuxDGfQtAl7U1D87aGFXchkR8eSLZG9Y/j7Qesx/oWw8URLbTdWRBvTfD1FgmG9v8F7UELePRrL6iZDqiBPmYA8d3Bz60ucTwOysQfFetmh8EHokCCb7AElOEMEvPCZYuzHnVa8wYTLvVmvR+ufD9sIt3TSc0vXiuwluV4ioPadcY54/4aRXVc3iaClDyTRciplIf1cIMlv+Yerw+yPGNoB2Xt0mk2FV0jYslpCvI5iggaAOdxLgdZotbhdTJsy3+YUfMb08OaD+Ue2rIOIPKfAlAY8vKo+40w=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12102.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?2YFOzR/UuI6krq+sUNiEp+kdQp0bocS2UB6hH5u+uoX8PZBK35ITO1vJK3Az?=
- =?us-ascii?Q?AoIJDGFiF83XFnAmX1SB2xI3DUSpbV3Q7m9NachGV4ILBLXkwToE2NmFMC1M?=
- =?us-ascii?Q?WE8MGUUIy8HMh2kiI07xU1QXS81AnDWv5X/3NKseFGW+Knz5JiJiWCblkIQx?=
- =?us-ascii?Q?K5+U1aiPWvkw/eQ6KEgmbne9RdIZi3MyHWy+lUIsjPfN4IiwQ9B8q3ACbzV5?=
- =?us-ascii?Q?ABJJhnF4i2zLIntsKOsKje0GdV+YQik+J2y5wMNmMzdB/TZIWUAS/y8SsLLx?=
- =?us-ascii?Q?IQWI0g5D4hMUTMzQkWiFz1frvBvVLeulw9iwPG686FPHlVjiWcc8oSjOPGk4?=
- =?us-ascii?Q?0OZM1ijMVGLLWNSBqsF5PVCNAcnqt3PYRuA6YiTg4r7NGspuyYnt/69jCwBQ?=
- =?us-ascii?Q?X3IV5HYHcwYf5Dh3EDw7pH+0KviXW7D/nEZenk4Vb6gWXmJDL13euQM7Vh3R?=
- =?us-ascii?Q?bPlV5ga4yImht9PxbfJBEU0PrLCp/Z6ULU3cRxq36PQD+CHaA6sPKru8z9+z?=
- =?us-ascii?Q?D9+LFOapxduQup5bi/5NAItr9LzZgDht7nEQgMG3QpDLv7uB6xC666T9hdFF?=
- =?us-ascii?Q?PWDy6oV31pvAm0hcVdF2FBIegaMaJnB6fJ6sVrq8N6rCMwVm+tsw4rnJrBWU?=
- =?us-ascii?Q?l6JXmPpirIkQovjBXRFAOMTXM7WRwpLFeZ5HN/OZ432Tl54LRBnLwVped/v+?=
- =?us-ascii?Q?p71axpKWDyaTJKDqLe8HxQHnJwdrQ+YL30+/4lcNlWx8hK6Qu2YJ4beRLhI4?=
- =?us-ascii?Q?KdrXR0xr1R45dBLQmBZOo1ZDm6jpci5UJXKfZASRVQsqapdK8X0hV/ZfDssl?=
- =?us-ascii?Q?Tp6yvEzSMtLmo3r/rB449LGWYeUfjeFxHgoGl4Jjw2b5yCCt21N3GPKF6EJe?=
- =?us-ascii?Q?2yAIVZFw+v7L1Qr4Qy6EAEBETjXWO5N4vrvj5F4RdHZMqG8F2rLpqCCD79lp?=
- =?us-ascii?Q?T8FFfz3Lcv1pzFfxeFE/JZ6havTQ4mQcPU8RgV1uqIe4wFg7hy2TmR8od5qM?=
- =?us-ascii?Q?Ske7b9zXnZKefgHDNO88YbDZW7ZzjpWjKSx5yADxpMbdF4MMiAfERtFq5pOR?=
- =?us-ascii?Q?dKPUmRnUc1gu5EWEh0CbGn9Siu5kbo/Od3w3YDH2a89hq098xOGKck7/UIk3?=
- =?us-ascii?Q?ccmzxFkKnMnb9SzS5WrnsXBKtP6fnByD/U9ZFmw9j4HjUKXKk8afNmzNMfge?=
- =?us-ascii?Q?h0u7mMIay6SmiC3/7gWAjguGP/4bxs/kM9SAzFMO8yU4NUioeaGycgSDhDD5?=
- =?us-ascii?Q?NtW0asS7QfFh4EDbgDWG+TgycU8/LzqmhKjAsXwq4vZUoVsVS15RD52KpWoo?=
- =?us-ascii?Q?Ttz6eBXIF7te0l20jEOnlLueCEUVgXiHXzLLmCo+T0GKGtOEcGgImLzu6YuG?=
- =?us-ascii?Q?7nmRu41AA2geDG/JCDEkC97Vah4t8g5/apifROYOz51UH/ecy/dyvOS8A+c7?=
- =?us-ascii?Q?uzwffb+8CwyuUE9Mi7UcvAvBKnpMUW/cXMa37ymu2tXaEmB5oZzys8axvi1k?=
- =?us-ascii?Q?arkFJH+8pgX+147Vnvqyl+TXdlQEXFnyN955S0CcyrCr6RMwGCmrwxxKd1iZ?=
- =?us-ascii?Q?R1dSNMS7eLWfWgsDd54J/OB/IsnMYQ/brfTz4l8Fx7GxPOi6zDq0SZRa0/de?=
- =?us-ascii?Q?0xANFcuDcQUdtcI8+fLA5b4Fo0T2sa47x9U9BVDsmRAMO5vsa64n0HvPdWy+?=
- =?us-ascii?Q?n1oxlqCRwYUMxx5aHpwIP0djiGUmG/V7Be2CvEPCkGqlxcJG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZXEuMsn2"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M5BeQi4183639;
+	Mon, 22 Jun 2026 05:52:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=CVRc+Y0rwza
+	6gSkxu04Fw7lTdNuCh4IdLTzrJCQVPtk=; b=ZXEuMsn27ssFHTG6fmr0TgDK7Xv
+	QLbAmTekZVPt+WHUGtjPpPv2jwnfGfLxzxIAg5XAsmTcPcwOeeA8N4e6wy6I7Hzs
+	EBbx7FSLPeggJqqJYhvdNHRvPbQoav0C/FJAeEXEl1069JQrxw4Kl7KIAO34QKvF
+	OTb4bbzOv2Y//Fdm/ozTGCu4+jmnxLHPh/tekF1ereDo6FLEKv9iA5VUfOQ3wzYw
+	KYw0KcNkVDXFnqj/JL8QEzNSI0ngKoPc/XOJHBoasc+mEifOCZl3hSr10NZ+K8pv
+	EY3bLyJfJm535N2TFPlZEL+DVFRrpp0VuP/R/QQl7zk5uN3SuH5O45Vj2xQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewj6h5111-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 Jun 2026 05:52:37 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA03.qualcomm.com [127.0.0.1])
+	by NALASPPMTA03.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65M5qa28031963;
+	Mon, 22 Jun 2026 05:52:36 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 4exx92rhku-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 Jun 2026 05:52:36 +0000 (GMT)
+Received: from NALASPPMTA03.qualcomm.com (NALASPPMTA03.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65M5qa4W031952;
+	Mon, 22 Jun 2026 05:52:36 GMT
+Received: from las-colo41-d19-19.qualcomm.com (las-colo41-d19-19.qualcomm.com [10.37.19.116])
+	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 65M5qaC2031936
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 22 Jun 2026 05:52:36 +0000 (GMT)
+Received: by las-colo41-d19-19.qualcomm.com (Postfix, from userid 3978420)
+	id 3286F5EA; Sun, 21 Jun 2026 22:52:36 -0700 (PDT)
+From: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+To: andersson@kernel.org
+Cc: vudupa@qti.qualcomm.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
+        kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
+        linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
+        lminier@qti.qualcomm.com,
+        Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+Subject: [PATCH v3] arm64: dts: qcom: install DT overlays via dtbs_install
+Date: Sun, 21 Jun 2026 22:52:26 -0700
+Message-ID: <20260622055226.4085891-1-vishwas.udupa@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
+References: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12102.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a3ae6233-81b0-4481-212b-08ded022697e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2026 05:52:15.0258
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +ODPNNbPBQ3nzEUz3ZvY/2lxkhke4OQwIu45bFh3qSM4k30I3DhgoocyJZNNTSI8uUSITHGZoRkskURB9yWW0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10736
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA1NSBTYWx0ZWRfX8E50z1WIdE6Y
+ 0CIk//1HxJabmKe73pk7LHaHCysY21su+brpfa0u3CNRDskct0kLt1nQnrvzdLJO9T7nz9l1fPk
+ 8bySfWl2mq8a6P+fq0A3H/N3lyMuYBmbhgjWpzaFt9g2oHblRluR2qxD+VvukuJovrafTW/En+Z
+ h7BBQ+3wUHVlOvZYu2nddEeOpLHy3ZH+OJvKqB1M8He3UP+faVBHOzkLGn5nYdtsBrdA0rQTguc
+ kjGQ57T/gKQ21G0rfT6hnvkBdIpXwGT+uZw5i3isQc3WTLFTucPp/B3IHpyQcBodF8njfcH2SZf
+ tkFKGIkamRyl802mGsVfSSPT/7im6+zQCf5nRTvoXcS0oNmUswTa1n2ghFLvyeaFGvQdG4rVLvS
+ +S3+42JXs6uIwNL+tbN1KsBEN4t+e+ujV7/Fhg9vm2GMXGQPFVYr96NoXPqPBOmNujYxPA/R2XN
+ zMrGzRX43yjK/lEBXFA==
+X-Proofpoint-ORIG-GUID: 1nNc9zSh2ExbKmIr95hOgfOsT3e7jLaK
+X-Authority-Analysis: v=2.4 cv=E7P9Y6dl c=1 sm=1 tr=0 ts=6a38cda5 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=8fCnAp95bUwIBqsXEYIA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA1NSBTYWx0ZWRfX3v85muh3GGlJ
+ CpSYSGXR62E9M8swhdVzNrBmr91+wCECxx0P9q8dNJan+3Tk2yarXU/V9ddPGCkY/4mJ7omhjdT
+ O+6+hoh8Tyx7E/tdYJsLFjnIQvyrGV8=
+X-Proofpoint-GUID: 1nNc9zSh2ExbKmIr95hOgfOsT3e7jLaK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 priorityscore=1501
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606220055
 
-> On Thu, Jun 18, 2026 at 06:10:40PM +0800, Sherry Sun (OSS) wrote:
-> > From: Sherry Sun <sherry.sun@nxp.com>
-> >
-> > Use dw_pcie::skip_pwrctrl_off to avoid powering off devices during
-> > suspend to preserve wakeup capability of the devices and also not to
-> > power on the devices in the init path.
-> > This allows controller power-off to be skipped when some devices(e.g.
-> > M.2 cards key E without auxiliary power) required to support PCIe L2
-> > link state and wake-up mechanisms.
-> >
-> > Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
-> > ---
-> >  drivers/pci/controller/dwc/pci-imx6.c | 36
-> > +++++++++++++++++----------
-> >  1 file changed, 23 insertions(+), 13 deletions(-)
-> >
-> > diff --git a/drivers/pci/controller/dwc/pci-imx6.c
-> > b/drivers/pci/controller/dwc/pci-imx6.c
-> > index 0fa716d1ed75..ff5a9565dbbf 100644
-> > --- a/drivers/pci/controller/dwc/pci-imx6.c
-> > +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> > @@ -1382,16 +1382,20 @@ static int imx_pcie_host_init(struct dw_pcie_rp
-> *pp)
-> >  		}
-> >  	}
-> >
-> > -	ret =3D pci_pwrctrl_create_devices(dev);
-> > -	if (ret) {
-> > -		dev_err(dev, "failed to create pwrctrl devices\n");
-> > -		goto err_reg_disable;
-> > +	if (!pci->suspended) {
-> > +		ret =3D pci_pwrctrl_create_devices(dev);
-> > +		if (ret) {
-> > +			dev_err(dev, "failed to create pwrctrl devices\n");
-> > +			goto err_reg_disable;
-> > +		}
->=20
-> supposed create_devices only do once.
->=20
-> pci_pwrctrl_power_on_devices() controller on and off for difference case.
->=20
+Overlay binaries (.dtbo) are currently only built implicitly as
+dependencies of composite firmware images and are therefore absent from the
+kernel install output.
 
-Hi  Frank,
-Yes, pci_pwrctrl_create_devices() is currently only called once
-during imx_pcie_probe.
-pci_pwrctrl_power_on_devices() is called during imx_pcie_probe
-and during suspend/resume (depending on skip_pwrctrl_off flag).
+Even when final DTBs are produced at build time, some distributions rely on
+standalone DTBOs for runtime selection and application by bootloaders or
+firmware. Without explicit install targets, DTBOs are not picked up by the
+standard dtbs_install flow and therefore cannot be packaged alongside DTBs.
 
-Best Regards
-Sherry
-> >  	}
-> >
-> > -	ret =3D pci_pwrctrl_power_on_devices(dev);
-> > -	if (ret) {
-> > -		dev_err(dev, "failed to power on pwrctrl devices\n");
-> > -		goto err_pwrctrl_destroy;
-> > +	if (!pp->skip_pwrctrl_off) {
-> > +		ret =3D pci_pwrctrl_power_on_devices(dev);
-> > +		if (ret) {
-> > +			dev_err(dev, "failed to power on pwrctrl devices\n");
-> > +			goto err_pwrctrl_destroy;
-> > +		}
-> >  	}
-> >
-> >  	ret =3D imx_pcie_clk_enable(imx_pcie); @@ -1460,9 +1464,10 @@
-> static
-> > int imx_pcie_host_init(struct dw_pcie_rp *pp)
-> >  err_clk_disable:
-> >  	imx_pcie_clk_disable(imx_pcie);
-> >  err_pwrctrl_power_off:
-> > -	pci_pwrctrl_power_off_devices(dev);
-> > +	if (!pp->skip_pwrctrl_off)
-> > +		pci_pwrctrl_power_off_devices(dev);
-> >  err_pwrctrl_destroy:
-> > -	if (ret !=3D -EPROBE_DEFER)
-> > +	if (ret !=3D -EPROBE_DEFER && !pci->suspended)
-> >  		pci_pwrctrl_destroy_devices(dev);
-> >  err_reg_disable:
-> >  	if (imx_pcie->vpcie)
-> > @@ -1482,7 +1487,8 @@ static void imx_pcie_host_exit(struct dw_pcie_rp
-> *pp)
-> >  	}
-> >  	imx_pcie_clk_disable(imx_pcie);
-> >
-> > -	pci_pwrctrl_power_off_devices(pci->dev);
-> > +	if (!pci->pp.skip_pwrctrl_off)
-> > +		pci_pwrctrl_power_off_devices(pci->dev);
-> >  	if (imx_pcie->vpcie)
-> >  		regulator_disable(imx_pcie->vpcie);
-> >  }
-> > @@ -1990,12 +1996,16 @@ static int imx_pcie_probe(struct
-> > platform_device *pdev)  static void imx_pcie_shutdown(struct
-> > platform_device *pdev)  {
-> >  	struct imx_pcie *imx_pcie =3D platform_get_drvdata(pdev);
-> > +	struct dw_pcie *pci =3D imx_pcie->pci;
-> > +	struct dw_pcie_rp *pp =3D &pci->pp;
-> >
-> >  	/* bring down link, so bootloader gets clean state in case of reboot =
-*/
-> >  	imx_pcie_assert_core_reset(imx_pcie);
-> >  	imx_pcie_assert_perst(imx_pcie, true);
-> > -	pci_pwrctrl_power_off_devices(&pdev->dev);
-> > -	pci_pwrctrl_destroy_devices(&pdev->dev);
-> > +	if (!pp->skip_pwrctrl_off)
-> > +		pci_pwrctrl_power_off_devices(&pdev->dev);
-> > +	if (!pci->suspended)
-> > +		pci_pwrctrl_destroy_devices(&pdev->dev);
-> >  }
-> >
-> >  static const struct imx_pcie_drvdata drvdata[] =3D {
-> > --
-> > 2.50.1
-> >
-> >
+Add explicit dtb-$(CONFIG_ARCH_QCOM) entries for DT overlays defined in
+this Makefile so they are installed via dtbs_install, matching existing DTB
+install behaviour, while excluding EL2 DTBOs as they are not intended for
+independent use and are only meaningful in conjunction with their base DTBs.
+
+Signed-off-by: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+---
+Changes in v3:
+- Address review feedback from sashiko on commit message
+- Link to v2: https://lore.kernel.org/all/20260619180951.325272-1-vishwas.udupa@oss.qualcomm.com/
+ 
+Changes in v2:
+- Address review feedback from Krzysztof Kozlowski
+- Drop inclusion of EL2 DTBOs
+- Link to v1: https://lore.kernel.org/all/20260428123725.3457865-1-vudupa@qti.qualcomm.com/
+
+ arch/arm64/boot/dts/qcom/Makefile | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 4ba8e7306419..44ed2b591363 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -7,7 +7,9 @@ apq8016-sbc-usb-host-dtbs		:= apq8016-sbc.dtb apq8016-sbc-usb-host.dtbo
+ dtb-$(CONFIG_ARCH_QCOM) += sar2130p-qar2130p.dtb
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-d3-camera-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-d3-camera-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-usb-host.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-sbc-usb-host.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8016-schneider-hmibsc.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8039-t2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= apq8094-sony-xperia-kitakami-karin_windy.dtb
+@@ -47,13 +49,16 @@ lemans-evk-camera-csi1-imx577-dtbs	:= lemans-evk.dtb lemans-evk-camera-csi1-imx5
+ lemans-evk-camera-dtbs	:= lemans-evk.dtb lemans-evk-camera.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera-csi1-imx577.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera-csi1-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-camera.dtbo
+ 
+ lemans-evk-el2-dtbs := lemans-evk.dtb lemans-el2.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+ lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
+@@ -61,12 +66,14 @@ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk.dtb
+ 
+ monaco-evk-camera-imx577-dtbs	:= monaco-evk.dtb monaco-evk-camera-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-camera-imx577.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-camera-imx577.dtbo
+ 
+ monaco-evk-el2-dtbs := monaco-evk.dtb monaco-el2.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-el2.dtb
+ monaco-evk-ifp-mezzanine-dtbs	:= monaco-evk.dtb monaco-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-ifp-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= monaco-evk-ifp-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8216-samsung-fortuna3g.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-acer-a1-724.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8916-alcatel-idol347.dtb
+@@ -175,7 +182,9 @@ qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vis
+ qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-minipc-g1iot.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8300-ride.dtb
+@@ -199,6 +208,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1.dtb
+ qrb2210-rb1-vision-mezzanine-dtbs	:= qrb2210-rb1.dtb qrb2210-rb1-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb2210-rb1-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb4210-rb2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5.dtb
+@@ -206,6 +216,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5.dtb
+ qrb5165-rb5-vision-mezzanine-dtbs	:= qrb5165-rb5.dtb qrb5165-rb5-vision-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5-vision-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= qrb5165-rb5-vision-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= qru1000-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8155p-adp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
+@@ -308,6 +319,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c.dtb
+ sdm845-db845c-navigation-mezzanine-dtbs	:= sdm845-db845c.dtb sdm845-db845c-navigation-mezzanine.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c-navigation-mezzanine.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-db845c-navigation-mezzanine.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-crosshatch.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-google-blueline.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sdm845-lg-judyln.dtb
+@@ -372,7 +384,9 @@ sm8550-hdk-rear-camera-card-dtbs	:= sm8550-hdk.dtb sm8550-hdk-rear-camera-card.d
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-display-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
+@@ -386,7 +400,9 @@ sm8650-hdk-rear-camera-card-dtbs	:= sm8650-hdk.dtb sm8650-hdk-rear-camera-card.d
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-display-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
+@@ -395,12 +411,14 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+ talos-evk-usb1-peripheral-dtbs := talos-evk.dtb talos-evk-usb1-peripheral.dtbo
+ dtb-$(CONFIG_ARCH_QCOM) += talos-evk-usb1-peripheral.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-usb1-peripheral.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtbo
+ talos-evk-camera-imx577-dtbs	:= talos-evk.dtb talos-evk-camera-imx577.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-camera-imx577.dtb
+ talos-evk-lvds-auo,g133han01-dtbs	:= \
+ 	talos-evk.dtb talos-evk-lvds-auo,g133han01.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-lvds-auo,g133han01.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk-lvds-auo,g133han01.dtbo
+ x1e001de-devkit-el2-dtbs	:= x1e001de-devkit.dtb x1-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= x1e001de-devkit.dtb x1e001de-devkit-el2.dtb
+ x1e78100-lenovo-thinkpad-t14s-el2-dtbs	:= x1e78100-lenovo-thinkpad-t14s.dtb x1-el2.dtbo
+-- 
+2.43.0
+
