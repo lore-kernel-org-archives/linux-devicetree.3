@@ -1,124 +1,203 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010066.outbound.protection.outlook.com [40.93.198.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7953D3B14D9
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782134002; cv=none; b=rKoGseNx48vdRt/hWenRHXPSPNXLTZ++bietUViJKwtDMbKwJ2wTL87P5OxJ43xMsaKHzpupFmUVZ6eYBBOw2nGcNTb6H909UowZ3q0LDFD84VcCcATTIRxaFfxVqHjMwagC1yIyvT0sZEp5M7Mlw4maw+XemU9FO4vV3vXnCmI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782134002; c=relaxed/simple;
-	bh=XcEOJh31PWonfR0DQ8W+3Ki764YdjB5fZsLG4UFUAQw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OHpl1IIcdWKkd7smzpa3VzYnfcDFSPg0Z3I/DVcY6XoI1mjXC/lrLwBaH2cPaSFmC6rP5HntqgiYIrE8HxDw3Z7TN0SZNcdk57OR00ZEPVCfwYQFB4M6/ePb4JERC0pvYyoz1H1sPAMAT1z7fZo4JEdLYySfj/ggZzJhNCXGJzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c074ac8adaaso523755166b.3
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:13:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782134000; x=1782738800;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9cPiOkbmgHnl7iVDXe5O/aM/qhQ7nF1KGFxDUd/gPMA=;
-        b=sKPj4adOqN2Aq53OAHpm/LqYyeZaxhQuWSvZGYlM0jc0gh6dkxKctCkwBOiueUnPyR
-         9usMee7vE7tqsuUDNRjbcSav5iTtXEdF6HM11mGEsgcUhA1jYvCQvKETPSVtnCTQudx5
-         XstngqRM2dgoV/1AJuo6Sf7nfjx6E2CdFEodlJPTXkAKBTV+3teIZrQXbhS4rnAI3YBO
-         mIwxi5o3NMGa+3R4gj1SQKRdIh3B9UGvsC/kdx3ylHSmK1OetsCFGdhwAKmrwh3wA+oU
-         9/EdOYE9m7Uk4Hr6EZ2rJj8dt6wq6if9LJKd2dHsM78hld4I+FvHFvXWoCqVmajNAhjl
-         6VkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8lTp7g8S87sPGWbmepYWocE+p/vE7Z8OJcNN9DWUtPzykvWEahIkmMAsTR6Zu1jYAQLajqCIyGepX6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyqx7b5MDWC80R4enN6AOnFShDwswXQ33aAVGwHoxC4O99Y8vw2
-	/sj/3V/XmuGpHK7MUokz9wKvDNrZnd2bnsqC7b9yzHn5O6rWh3Yes6qzEb/2/keJqkU=
-X-Gm-Gg: AfdE7ck9fA9OD0I68890Fat7wnnOPANM+/OLwtAB0s7Ltl1Yhjf9NO74mdGl+RQU0Ly
-	Pn4/FKTNU2wWyjgCscpc/GgCB2/C2RVbW3t0bc3eQZpMX0dmdyjdkFerLdI5pISekXZ4v7TZ1jU
-	3ttOXBz51UWZpKZx3f83mjbZO+ebYMW1o76cRRYFL25P8BnFQRXWAbTxOIehH1YqU3s2J+/0HJI
-	WmkUCFv6KZK838O7ElkJ7BxkY4CjW9o/oqH5tFz3b/eJ4292zsAbLiRwbL8n3HtCZrlT15DYvC7
-	hiivRLKr7asgA7dJ9Q1Vdo7su2R8FHRzNPV/bM14W6IEehocgaiFZ/sDNBHehVA/I4i0pE66R6F
-	ar2lJMYRumEj1hw1O8KEwaUTs5dJr8HKDTuHAHbfJxGqPfSuwd2pw4zOEZfjQvjE9iVmp8O3JtA
-	bLbV9V3HvKvMIxKv/4PpSjijs7h6fHRM1Wj0EgAllZnvYKSU4+2vFv7NByzewD
-X-Received: by 2002:a17:907:78e:b0:bb8:b593:edba with SMTP id a640c23a62f3a-c097ccc02eemr734934766b.38.1782133999871;
-        Mon, 22 Jun 2026 06:13:19 -0700 (PDT)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac92c6sm359910066b.41.2026.06.22.06.13.16
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 06:13:17 -0700 (PDT)
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6974f511dd3so4186271a12.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:13:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9A3pGojW1PPykeDeU+5Hdix6z6st4kiQ99JNFbtbtD/E3WnWZ0im5uwv/rrDOr0ge/HzFXkieHmHqW@vger.kernel.org
-X-Received: by 2002:a05:6402:3547:b0:697:ce0e:9243 with SMTP id
- 4fb4d7f45d1cf-697ce0e9559mr540539a12.13.1782133996242; Mon, 22 Jun 2026
- 06:13:16 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF6934E761
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782134166; cv=fail; b=ro0I/Sjn/C0UjKmZGHki1VjDm5PLpZm4wB015P9YrrFdXjx9eirf3MRYqlZDpSs5UbSoF5zIGSezmLZHTfyBI0CU61AmX9Ds7z+c2OH06wejZegBDJR51FARG/ISFDIr+6AWNKM7ioXkedlsT6HISrFB9Gh5KzqiTMO1ob3PeUo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782134166; c=relaxed/simple;
+	bh=B7ZKDnCzqHRHFiLl3DvTUxqLdeU17VSXf47e7dQRoLQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mSanwadDMzMWzs9ZuaotG6cZw/ZqtAmr1/3G8JWbArJS1DRoc31ta3XqH+HgXG4IlqyWYawKbBcmtWpYGC9dPeqNDkVjtNHF4nwbU2m61LRQg2YxpTSxQ0kSoDl7DHtNU0zx6TeF1peLXoM9oEtREVkbRJrqbA9+AyeElO1WjnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=j6hE6QVM; arc=fail smtp.client-ip=40.93.198.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="j6hE6QVM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=seu9/xfEyBH4AHZQzHlsyi2Ib2EH0eM0B65FHlPFQyqNV//DB7KfeRvxMXC8eUkCenh0kom+QzDKqp94dOx9B6i22Kfjn1aCZMlFvzkNt4bkVST3ToYLxCYQpB6fNRW8MNp+RpPYVcbr7Gpw0J3udPXbfcoIVOPw4NR4IhGJEt6AuBbQAY5U6Auq4iW8I6uW3V2Y2lrwWlQ9RJVcgW84qq6cJID16DFFflnUiY+KfnlX+frIzsr9FcFHfhvZKNyn6WtLeTtt4x6LXS3mUGL5ybzsbAS/AHintn8FRa00T8WwLavpWDwiVG7rEpx3f0i2rHw1gyPkPB5yZJ39SgrqSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EAph1O3z9xAfjyT+g8aJSecL/XoSiDHgNv3rjIwaIK0=;
+ b=mqyB4Ddv3uIaW6MO3ZDtU2kLS6ly1AxZ3T6C5jMy7alskGzt3RfGxENxxKqwkeB6fPEsDfMFLRjhnZzxVhavVlcc/r4uLYlFYoA3vepCeYR/NO9pFwYpXnl0TkAQEy/Y3OKYFbwRU9/Yz4E5wypfgiv6YAAcAaxlJO0rdXJvZ6xyiVroVrgOV1EWY0qgM4AIk0c84VWtkW5Wc0qEPqV0bvZ9pHzq1wcWQBgo55sU1OmJghTpegQfWGiJVHmuh58nrwvQzhCVM/9pRj71PYNbDI/mrZ8HNPwnbbMh3wh5DU5Pjfq7ZR640E5FqW3HbU4waqZdvlsyHgEpw/XuHQirBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EAph1O3z9xAfjyT+g8aJSecL/XoSiDHgNv3rjIwaIK0=;
+ b=j6hE6QVM24SWlfyNXt1JoP8jUGJCHc4G2lPqvvUuDix7E2oZuNpUl23SWZ8e9QK7j16HpoZNxq3XqUJMTrcbjEHdUtyjrCNH90RyG6DTTFrl5I22nYq9qlAvnNR0yn4KCTENt4bIrq7uTok54vQQxUrCP62TmqjxJTXZgvs23Lk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 22 Jun
+ 2026 13:16:00 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%3]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
+ 13:15:58 +0000
+Message-ID: <7a21e206-c9c3-4299-a26d-f23abcf38b6b@amd.com>
+Date: Mon, 22 Jun 2026 15:15:49 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm: dts: xilinx: Add support for MYIR
+ MYS-7Z020-V2 board
+To: Liu Yu <f78fk@live.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260619102214.223121-1-f78fk@live.com>
+ <20260619132355.1776-1-f78fk@live.com>
+ <SY3PPF19552C60735AFA1041A0183DCA07CC7E22@SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ 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
+ mpwx1d8=
+In-Reply-To: <SY3PPF19552C60735AFA1041A0183DCA07CC7E22@SY3PPF19552C607.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR0202CA0023.eurprd02.prod.outlook.com
+ (2603:10a6:803:14::36) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260618181949.3036280-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260618181949.3036280-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260618181949.3036280-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 22 Jun 2026 15:13:03 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXX-3ddkTmHGQOySZygRmvhnG6snk7uv4xmA8NjM9MsDw@mail.gmail.com>
-X-Gm-Features: AVVi8CcUH8u1TOdYYuE-qFfJh-2q3W4LZYrwKknGe4DqOfHPr71m4gxhWY1vJh4
-Message-ID: <CAMuHMdXX-3ddkTmHGQOySZygRmvhnG6snk7uv4xmA8NjM9MsDw@mail.gmail.com>
-Subject: Re: [PATCH v4 5/5] clk: renesas: r9a09g077: Add LCDC and PLL3 clock
- support for RZ/T2H display pipeline
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|LV8PR12MB9133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b5aa7d3-9c73-4524-bf9c-08ded0606607
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	f+DNEgXZeQjOvThVaFmrqmv607ihlXIFa76nIU3YSw0W+3difHJLizwaOLAbFC9gR/usuQ9GEJ/PWG7KIGfDWdZ/HhtZv8G57+6XXLWG52AzEFgiJns+a+HQL+11Kz0sOaxH6A2wLOMt/IkttYr15r4uiRv8JxBeDPfWK4eFr1OEoCy/ePNgxqPsV/BHFHTXkjn5qMUbhvLgcj3bSfG0eBn2odSNL4eeK4aKwz836yFbEx7YaqWXnt97nuy/eipYdkrw0tL2Nxvtmi9ld3dYMgtHYbkgOJ2WdI/u94vcGYb54MZ9HlGHO7p7qGFTsNHzHGI67VSLb1PauwHyEGvzUZxyyNkbNjd8WvAjgsuM5CcXV9eYKpa611gkPeKYLmsQ8b7sW/AfPHsLqi5v+/G0DmbtXu7524oInxd86dMae2BrMMhkm8fDrvuwlZU1jL4/aGnB5uJX8jDjcOyhwAKRQNni4Fkevn8xyxsAwwTTvJXAD/ZD/6dIrEPzwWxwewlFQpaOWyUyozekRf41ZfSzT5fL2J6VXWd1ykonuUS2BdwNNGxwV2dqOemn6e2xPzc2eqsfhBBx0VSRLL3JcQHiwc3Elh2bP5cVEqlZ0DQiwEmccvjfojreEu3oRgYdYMoZ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d0JiSklobXVaSkxwSU14WCtqS2I3RXBBaHFOYzRDK3ltYWhPcDVDaDBjNVlu?=
+ =?utf-8?B?Y2VXRUU3TXRmUFFOemRXSGl6YVBGMStuTGpLd1lwdXVmeUliNU9vN1dxVnpG?=
+ =?utf-8?B?T2VCbC9ELzdHT2hvWlZpaFhHaUN5cUYzSnRaYjdkRDNrRXphVmRrOW5FUXY3?=
+ =?utf-8?B?Yk9OempPU0NoMG5RR045M0hrOW13ZmZSeGhiZkhTTXhtdisycmhyajZpaDdO?=
+ =?utf-8?B?dXlPQ1E5SlBWOFE0MnZVQ1hUZU1OZ3VRVFZrZ3lNcFNyL2Z0Q1lIZklXQWF6?=
+ =?utf-8?B?WTNtcWF0dXFZVDBoc1FOdk16ZFZmMktBcHdxRDBIbVp6WTRkZyt6SEdjS2JI?=
+ =?utf-8?B?SXkybUcrVDlWRjI0cVZRQWhuNWJwK3RkYlRqaWdyT0FnRHcwYWJTbHRTWkVY?=
+ =?utf-8?B?NTlrek9DOWdPVkRhTGVETC9XOWtFcVhLRXJ0aTFpSDFvdW4zR01wcGpMNjM5?=
+ =?utf-8?B?SnZ0R2s3WitCWUdSY2pZMnVYN2QzWU9HWk1iVmxPS2JFWWtKUXJpRTZYZUFk?=
+ =?utf-8?B?ZzFGSXNwdVoySWgxLzhFK1o2eFN1ck5ucm04YklDdzlsdmRCNEorNnBDSkhO?=
+ =?utf-8?B?SHBmRWRYR1hHakgwbDUxSnRBVWUveFZBdnM2MDRZVFI3eG1TSjN1UmV2WFRP?=
+ =?utf-8?B?b3liV1pXWEpyTVZBUG9KSUxmODBwdjJPMDZlY2pFSkcvTGdlNVVpU1labWhm?=
+ =?utf-8?B?MERrTldINXdTSG11NXp0REIvSTAxcEtDbzJtMFRzcGxXZmRaVkdJMHpOOGta?=
+ =?utf-8?B?M0MwSXJ5MkliUzY0SE05blBBOUx0bzIxd295ZmhPaEY2ZVU5QSthOW00ZDhC?=
+ =?utf-8?B?VlJpbGlXRUNqNHR5YXk3eWVuVGVZOWhKa1hoSHU3S3VWRWUvYzZGdDJId1pp?=
+ =?utf-8?B?dWhzS0IvVnRjc2NOR0tzdGxoa1J5Rk1mZFRFUnJqRFVYN0dwRSt0WUJLTHpV?=
+ =?utf-8?B?cllwOTJtNnNFY2RmUlU3d2RyMWdTVlZhYkJzcHZTWGNTdXZldEM2MFV1dURt?=
+ =?utf-8?B?cTlPZUV4N015ZWVIQStlMDJVQVFjTE0yVEhMdTNXUlNCdTlyK3N0QSt0eDRp?=
+ =?utf-8?B?RlJNaWRnNjhEM0w5ZGVjeWNhRXZNQXhnd1AyMFM4UEd0MkpGbThqR3ViZURr?=
+ =?utf-8?B?UmNscWFYTFFQaUloc0NiVUd5K0lTbWppV05uS3pqZFV5bVJVMjh1dFkrMnFm?=
+ =?utf-8?B?aE5kbVNqK1pPdW1DWXNLbHlmNU5JMHZndEM0eCtDaU9xWEcrU1R6Zm5wQ3A0?=
+ =?utf-8?B?dHcxTUJlQVJsZGRQeldMaFdhejZJc2l5VWw1bkxaaHRIQmVzelVRUjBhYlM2?=
+ =?utf-8?B?RFhPcVdsQ1RmQVN3VCtVTmF2dHRpdU8yNGlYOTVZZGlWN2h2Mk9KQmtCcGpm?=
+ =?utf-8?B?b0RnUk1NcldRanIrYzNzOU1ZLytVSHU4cVpRMFNwczFQejA4MGNlZDRKdkc3?=
+ =?utf-8?B?bkIxNHhkdmFGSXBNbGdoQmdLL2NNTDFpRTNKTHhHay9PU2NWUy9qZDRDT3Z5?=
+ =?utf-8?B?UENOU1JJd3NWTDNkR1lreXpRK1F6UjhML2JlTitGU1hSRG03UTJsdTgxRmRu?=
+ =?utf-8?B?eHJoOVM1WmpsMmQzZGM2TEZqVjg2bXVaZ0g2UWpYdExwQVBHSDRxdGFKc3hh?=
+ =?utf-8?B?MVNOMUlqV1hDa2VHNHJjTlloTVBnT2NMWEhybXBMWW0yeFZEK1VIb2VIZUwr?=
+ =?utf-8?B?bG53Nm5Yb1JOUW13VWFsSzdTa1ZramowdE01dmRFMzI4WFN3L2tDR2RkdlhW?=
+ =?utf-8?B?MWpqNEZXeW9oejdjQVkraHdCNmIySktLTjZOd0hpREQ2TThZbDMvTGNudUlo?=
+ =?utf-8?B?Tk1IamdkMzF4S2VDUGx5LzBQcFpSNTlPSHdCZm9FZnV2a1VKcVRsZi9IVyt1?=
+ =?utf-8?B?RzFxbU91Rk00WGo4SHhmeWViQzY4aG5xR0x1aDZNU0JiUE83QnJHQ2l0TWJk?=
+ =?utf-8?B?L09ueTVReGxxcnZsbG1ScXdZeHJRWFMraVRBUDlMZDE4a3lhYk16TWFldENH?=
+ =?utf-8?B?a1ZlcC9QZU9OTzY1U1J2Tk0ycHRVU2hZbGowUkcyWG1MQ21TTWJrRjBJVWNm?=
+ =?utf-8?B?QTJHNFc0cVBpUlYvdEIwK1VPQTVKNW84SnJjYXVxd2VmazloV05uWWZEZDcx?=
+ =?utf-8?B?ZGRGdGNJNnZrQU5KNWNJR1VYbEdUSm9UdWxKUXpaS3FpU2Z6S2YxeTBaWW1s?=
+ =?utf-8?B?T2paUndYUzdRdWEvOGlUd3BsaTU2dlRGckFBSlU1TEpQeTYxRFZ3SmNpVm9q?=
+ =?utf-8?B?Z1NKZjczQWtybTUxMUpEbEFRVGNsYTVwdVNWYnZOakhrbm5kWVFDYksyWkI2?=
+ =?utf-8?B?RCtaN3FiN0ZobElMZnF3ODVJSHdkNE9OODVYTjJKUDQwejJVVzR1UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b5aa7d3-9c73-4524-bf9c-08ded0606607
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 13:15:58.2266
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OZdcLgxcw+A4loXLh9EN0gJgsDJlhMFhxwk+cjiuOXGBv+MQs+zfj2CSh9CUlPpB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9133
 
-Hi Prabhakar,
 
-On Thu, 18 Jun 2026 at 20:19, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Add the clock definitions and PLL logic required to supply the LCDC
-> (VSPD/FCPVD/DU) blocks on the RZ/T2H (R9A09G077) SoC. The RZ/T2H display
-> subsystem depends on a dedicated PLL (PLL3) and a set of new derived
-> clocks.
->
-> Introduce a new PLL clock type and implement rate recalculation,
-> programming and locking sequences for PLL3 using the RZ/T2H specific
-> divider and VCO limits. Add the corresponding muxes and divider entries,
-> expose the LCDC core clock, and register the LCDC module clock using the
-> correct PCLK parent.
->
-> This enables the RZ/T2H clock driver to generate the display pipeline
-> clocking tree needed by the DU and VSP-based composition engines, allowing
-> upcoming display support to be integrated without duplicating CPG logic.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
-> v3->v4:
-> - Added RB tag from Geert.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-clk for v7.3.
+On 6/19/26 15:23, Liu Yu wrote:
+> Add device tree support for the MYIR MYS-7Z020-V2 board based on
+> the Xilinx Zynq-7000 XC7Z020 SoC.
+> 
+> The board supports:
+> - UART serial console
+> - MicroSD card interface
+> - Gigabit Ethernet
+> - QSPI NOR flash
+> - GPIO-based user LEDs and push-button
+> 
+> Link: https://www.myirtech.com/list.asp?id=708
 
-> +       rate_millihz = mul_u32_u32(req->rate, MILLI);
 
-The issue pointed out by Sashiko (req->rate is unsigned long, i.e. can
-be larger than u32 on 64-bit) is valid, but I believe it can't happen
-in practice.  Still, would be good to fix it in a subsequent patch.
+this is pointing to Z-turn Board V2 and above you are using MYS-7Z020-V2
+which is not available on this link.
 
-Gr{oetje,eeting}s,
+Why should this be merged? What's so special about this board?
 
-                        Geert
+Zynq went to production in 2013. Why should we merge description for "unknown" 
+board using 13 years old chip?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Michal
