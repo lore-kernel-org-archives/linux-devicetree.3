@@ -1,43 +1,59 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353C23955C3;
-	Mon, 22 Jun 2026 09:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A468139A067;
+	Mon, 22 Jun 2026 09:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782118978; cv=none; b=dWNYWll9H0odRdJdOqrybRFgHdb2G/4orlWiuk8Ft/BIkDVGOZywNOWL8StiZljbY//5GOyRke1jONGoiF7KffjRMfQrfFbyF51ALEx8L8mE9Tv6nm20N3b5uhu6NOvhKUOEB3XQ1KjcYpaQfyYBBS64iKqT9rtZWcyy2lN/Vns=
+	t=1782119084; cv=none; b=gTWSluhzQmjCLjNANcstIWX52oOu1VKTQJqo4+NZTNZw4YcmeqjEoPA+FDdhYustNi9swOSoUpEYQhtOEg5BrGC7ByNRHN2wCJLx2Vup7LhAjuGP8yYR9hIlg6EWdTTRGASrtrhleE2hXjmgBU42GqUfYbnurAsRYkr64OUipvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782118978; c=relaxed/simple;
-	bh=bof2RftABQM0VW5dqtozp5h4V8Fl6nfu+ykwzqfqVVI=;
+	s=arc-20240116; t=1782119084; c=relaxed/simple;
+	bh=+l20Gakqj5SaWpf6y3GLgwyC4XvPjzneg+BqMMRN7Fg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zde62zvz5EeZYdgp+sQXuGuG1Xp/SI22SX7H390eeRpvPdoZOQbWeqPBuqx6zrtKJgsKF3zG1vUq5D5EXgo5pXDblM78+wXIL4ZlytcGrikZuIo9qq0BCosqBzJTcgNsWSaS1BsHuuDWGFnYoQCqKtE40fmtU7CvDXBFCXM3gzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2zzXMRb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gHn052G4nFMB7ZYAzewgiw7I0PEf46jDNCDEaBMVaeaEevnzJkv2Ufd5sKpXHMO6i5Ew6K0G8Oz2VXSYu98Y++axCq6mgsnzQxNUdIyqrxdPHqhtYOxAbhr9avkiOobG2Hyz6iwECknjP4dDsfFJmSOtmljJYGIZLXC0FJmGyhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=AFin6F0M; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2zzXMRb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8061F000E9;
-	Mon, 22 Jun 2026 09:02:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782118975;
-	bh=37JW7K3sg07SL4BlJiD2RoB54WDCii+ode2jFNVJxNo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k2zzXMRbaAgtx4A9VTmvyk+GhkLCzkMlCr6+OXPPplDlPFcqL2XHR9tBZW8Vwazty
-	 ihfQXyTKWaxxIn7Wx9qxA6RkKgO2VY4SPbwCxP+kE8hzBZgWnfvr0kIZOvZznfk+as
-	 qjijR9aaZPZpY7J9wYgjhaIs0L0qGbJ+wi/1+qdFyCMClpeHUh2pt1V9IWps/MBoB0
-	 LLE54H8slDEVL3JlZVAnW/08m6oEKuFva/dJBe0GaI6+MvYYtcv1xWqLNg5u3hV/cR
-	 MBn0nbBxaaRcMBT6iaLT2FV9FfhVAqHr4wvPRQJaL4LDs5hJb43gejFx85KQAScnpC
-	 SXg+TcGUpEwwA==
-Date: Mon, 22 Jun 2026 11:02:51 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de, 
-	gary.yang@cixtech.com, cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 4/4] arm64: dts: cix: sky1: add audss cru
-Message-ID: <20260622-dramatic-worm-of-radiance-adf731@quoll>
-References: <20260622022520.3127103-1-joakim.zhang@cixtech.com>
- <20260622022520.3127103-5-joakim.zhang@cixtech.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AFin6F0M"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F40EA9CE;
+	Mon, 22 Jun 2026 11:03:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782119036;
+	bh=+l20Gakqj5SaWpf6y3GLgwyC4XvPjzneg+BqMMRN7Fg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AFin6F0MOeNIqBrLEkhwIwUz3pfXNmbLIEZFdh+8XVt4d4qaVIFXPQSl/UlVwjjEZ
+	 mL9HqYsYRgMfkeRIFZs8/+xi+gUoHuzjNZH/UQ8iB9HkAn5kjxbg5/38nk+jI6f67K
+	 elVMZgVVemUrCTUeBHzaW4ot0NwHly3BxLPAT/U8=
+Date: Mon, 22 Jun 2026 12:04:32 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+	"luca.weiss@fairphone.com" <luca.weiss@fairphone.com>,
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Kate Hsuan <hpa@redhat.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] media: i2c: add imx576 image sensor driver
+Message-ID: <20260622090432.GL3552167@killaraus.ideasonboard.com>
+References: <20260619125439.55311-1-himanshu.bhavani@siliconsignals.io>
+ <20260619125439.55311-3-himanshu.bhavani@siliconsignals.io>
+ <20260620132749.GE3552167@killaraus.ideasonboard.com>
+ <PN0P287MB20199A3EF8F3183176AC1E559AEF2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,30 +62,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260622022520.3127103-5-joakim.zhang@cixtech.com>
+In-Reply-To: <PN0P287MB20199A3EF8F3183176AC1E559AEF2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
 
-On Mon, Jun 22, 2026 at 10:25:20AM +0800, joakim.zhang@cixtech.com wrote:
->  
-> +		audss_cru: clock-controller@7110000 {
-> +			compatible = "cix,sky1-audss-cru";
-> +			reg = <0x0 0x07110000 0x0 0x10000>;
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +			clocks = <&scmi_clk CLK_TREE_AUDIO_CLK0>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK2>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK4>,
-> +				 <&scmi_clk CLK_TREE_AUDIO_CLK5>;
-> +			clock-names = "x8k", "x11k", "sys", "48m";
-> +			power-domains = <&smc_devpd SKY1_PD_AUDIO>;
-> +			resets = <&s5_syscon SKY1_AUDIO_HIFI5_NOC_RESET_N>;
+On Mon, Jun 22, 2026 at 06:02:24AM +0000, Himanshu Bhavani wrote:
+> > On Fri, Jun 19, 2026 at 06:24:32PM +0530, Himanshu Bhavani wrote:
+> >> Add a v4l2 subdevice driver for the Sony imx576 sensor.
+> >>
+> >> The Sony IMX576 image sensor with an active
+> >> array size of 5760 x 4312
+> >>
+> >> The following features are supported:
+> >> - Manual exposure an gain control support
+> >> - vblank/hblank control support
+> >> - Supported resolution: 2880 x 2156 30fps (SRGGB10)
+> >
+> >You've been asked in v1 to make this driver dynamically compute
+> >registers instead of hardcoding modes. Please do so in v3. Nack on v2.
+> 
+> As I mentioned earlier, I don't have the full datasheet yet, so I
+> can't implement this now.
 
-> +			status = "okay";
+You have been given a link to the datasheet in a private reply.
 
-Drop.
+> Link to discussion:
+> https://lore.kernel.org/linux-media/PN0P287MB2019AFCBDF0E24BFEF8E0E399A0F2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM/
 
-> +		};
-> +
+-- 
+Regards,
 
-Best regards,
-Krzysztof
-
+Laurent Pinchart
