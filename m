@@ -1,472 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40099378D77;
-	Mon, 22 Jun 2026 09:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D067398915;
+	Mon, 22 Jun 2026 09:28:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782120457; cv=none; b=BXaZBMD4kFGsy3DD/os42AERTNCLLzw0TkEfihP+sVvGT93Iw2H0d/J97kCPrzS0Zi3MpOJP0CfJT+hgZ6U96pOpox71SPENFqf4nJpSKNKSsmLsm8gSDlTOHk1nBS7XRkNo0/LUety8rg3WEwJhVJSqIPYPQg8CJ8NAtfYI7M8=
+	t=1782120524; cv=none; b=WLVyO84IXHJ/vXj5VnDoMvCpPzDV/7DkcsXutOczrBQkiMpvFHxM/7qPEywWCCSzMfzenDHN8LWDPcL5J/sh2T1qLJ8+5aAJdUq7aGAfLmGErLiHOZwbIc2L4EIOdQb/7yZDCIOJpenjyIxrh0vb8COmg0LltxvZWqWMb7XqvBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782120457; c=relaxed/simple;
-	bh=0GdnO/lq6a51OJFHFbwZSHS64GMvYjbQB1axbyxIzMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=igHB9pzmytDciKNMXw9jQTUvVbLqwPC8h05ZYWc7rRn2o8NCg42u0EIk2tekONNjUKNR2EUAybWKI8FIJIUQdv0EglExlKbpobeZ5yhj8jJaV6tkFWOverYFupDxXLY1j/NiKoNe18XXm4CaSnJx/ee9tY0UwYdlqutYlSevF1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5TVvaIJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782120524; c=relaxed/simple;
+	bh=egNH3vTU4xmEij+/L/1okAs/oQa67gvHTg/999c3JJM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dos4bbq5oIlmJ8ShgPtZNx4XiuRvAB8Fnx9gr/BCr4CcT149ULY/eSsS30ByTjj/odUJSzk55oJmHHSMcAyDi+7hfciqDqg4lPRh4ikrWdxaH/DgY09NiKwxdRlIYbmfFN544Lk2WxkkjSeU2qx/ZLZNGg2SHbh8AS6P5dd9nS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Hu0D2IuB; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5TVvaIJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284451F000E9;
-	Mon, 22 Jun 2026 09:27:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782120456;
-	bh=4vTOg91y+FZzqgfT2GUqEljyuKVYRYt3GdggKayPfKg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G5TVvaIJl64ZCDIDQqEbgwSQX97tP9DR72L2TAbS5IPRpgBKFSForDqyr0MY/69XM
-	 zQmvDQ6jTB75rVozcbhakXdMRGFA3s9+hb8QdQ84CP/wSXl+RDn0fFImpDn4uAc5Mn
-	 LOgG4qYJE6re0azXZXEEMgoMiy9UbZB6hDjTINrUTGPSQ8zh8g2klkIc+I+2atXRpB
-	 xcg49qll+BV3n80ZRF7SY9Mry0q1d1ChK/VK74NRqYif8XIzKvUJjyhA0foNVWEfO2
-	 cNALfLdJkVfgOySHiCf3fUeEC5j0oXhprLbLZKevD0fN8GgK9t2bc5j74KyDWWQ0M+
-	 D5l1Ttb0BpXKg==
-Date: Mon, 22 Jun 2026 10:27:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, Janani Sunil <jan.sun97@gmail.com>,
- Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, Janani Sunil
- <janani.sunil@analog.com>, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
- Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260622102722.5900592f@jic23-huawei>
-In-Reply-To: <ajj6nEb4tATM3C7b@nsa>
-References: <603473ac-30e6-45e5-8a3b-c9902715cc9e@gmail.com>
-	<20260614204455.408c4d40@jic23-huawei>
-	<076d7d2d-81a0-49c2-af94-bd65ead66c09@gmail.com>
-	<20260619-obstinate-polo-a230bef97fda@spud>
-	<20260619-bunch-diocese-dd7805cc17ff@spud>
-	<ajU73_TkKrSbqD4f@nsa>
-	<20260619-concierge-doozy-9c161533c369@spud>
-	<ajVlD-j0nIGrRVow@nsa>
-	<20260621153330.79b6600c@jic23-huawei>
-	<20260621-nutmeg-coauthor-715189372230@spud>
-	<ajj6nEb4tATM3C7b@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Hu0D2IuB"
+Received: from ideasonboard.com (mob-109-113-9-173.net.vodafone.it [109.113.9.173])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C0CE99CE;
+	Mon, 22 Jun 2026 11:28:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782120484;
+	bh=egNH3vTU4xmEij+/L/1okAs/oQa67gvHTg/999c3JJM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Hu0D2IuBXoe2rTFXVMG7jRcQFath5jng0bE3Rs/wWhjD80fmaWcxshn9V9UaNaD+c
+	 QU2JU4NemneotFA5XvR0/oOlQaChWjpfGES/0XohHTsgk37Miod71kt329FIMNkuvM
+	 9tjA0d3vljXiAWCH++lAW/3r7DVppyDt9VRcmi5o=
+Date: Mon, 22 Jun 2026 11:28:37 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/5] media: i2c: vd55g1: Fix media bus code initialization
+Message-ID: <ajj90hhNwx7bLkOZ@zed>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+ <20260428-vd55g4_and_fixes-v1-1-4f745a83b87e@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260428-vd55g4_and_fixes-v1-1-4f745a83b87e@foss.st.com>
 
-On Mon, 22 Jun 2026 10:07:01 +0100
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+Hi Benjamin
 
-> On Sun, Jun 21, 2026 at 07:35:42PM +0100, Conor Dooley wrote:
-> > On Sun, Jun 21, 2026 at 03:33:40PM +0100, Jonathan Cameron wrote: =20
-> > > On Fri, 19 Jun 2026 16:54:11 +0100
-> > > Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
-> > >  =20
-> > > > On Fri, Jun 19, 2026 at 03:12:07PM +0100, Conor Dooley wrote: =20
-> > > > > On Fri, Jun 19, 2026 at 02:01:08PM +0100, Nuno S=C3=A1 wrote:   =
-=20
-> > > > > > On Fri, Jun 19, 2026 at 12:40:54PM +0100, Conor Dooley wrote:  =
- =20
-> > > > > > > On Fri, Jun 19, 2026 at 12:36:55PM +0100, Conor Dooley wrote:=
-   =20
-> > > > > > > > On Fri, Jun 19, 2026 at 12:33:11PM +0200, Janani Sunil wrot=
-e:   =20
-> > > > > > > > >=20
-> > > > > > > > > On 6/14/26 21:44, Jonathan Cameron wrote:   =20
-> > > > > > > > > > On Tue, 9 Jun 2026 16:47:23 +0200
-> > > > > > > > > > Janani Sunil <jan.sun97@gmail.com> wrote:
-> > > > > > > > > >    =20
-> > > > > > > > > > > On 5/26/26 15:11, Rodrigo Alencar wrote:   =20
-> > > > > > > > > > > > On 26/05/19 05:42PM, Janani Sunil wrote:   =20
-> > > > > > > > > > > > > Devicetree bindings for AD5529R 16 channel 12/16 =
-bit high voltage,
-> > > > > > > > > > > > > buffered voltage output digital-to-analog convert=
-er (DAC) with an
-> > > > > > > > > > > > > integrated precision reference.   =20
-> > > > > > > > > > > > ...
-> > > > > > > > > > > > Probably others may comment on that, but...
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > This parent node may support device addressing for =
-multi-device support through
-> > > > > > > > > > > > those ID pins. I suppose that each device may have =
-its own power supplies or
-> > > > > > > > > > > > other resources like the toggle pins or reset and e=
-nable.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > That way I suppose that an example would look like.=
-..   =20
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +patternProperties:
-> > > > > > > > > > > > > +  "^channel@([0-9]|1[0-5])$":
-> > > > > > > > > > > > > +    type: object
-> > > > > > > > > > > > > +    description: Child nodes for individual chan=
-nel configuration
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +    properties:
-> > > > > > > > > > > > > +      reg:
-> > > > > > > > > > > > > +        description: Channel number.
-> > > > > > > > > > > > > +        minimum: 0
-> > > > > > > > > > > > > +        maximum: 15
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +      adi,output-range-microvolt:
-> > > > > > > > > > > > > +        description: |
-> > > > > > > > > > > > > +          Output voltage range for this channel =
-as [min, max] in microvolts.
-> > > > > > > > > > > > > +          If not specified, defaults to 0V to 5V=
- range.
-> > > > > > > > > > > > > +        oneOf:
-> > > > > > > > > > > > > +          - items:
-> > > > > > > > > > > > > +              - const: 0
-> > > > > > > > > > > > > +              - enum: [5000000, 10000000, 200000=
-00, 40000000]
-> > > > > > > > > > > > > +          - items:
-> > > > > > > > > > > > > +              - const: -5000000
-> > > > > > > > > > > > > +              - const: 5000000
-> > > > > > > > > > > > > +          - items:
-> > > > > > > > > > > > > +              - const: -10000000
-> > > > > > > > > > > > > +              - const: 10000000
-> > > > > > > > > > > > > +          - items:
-> > > > > > > > > > > > > +              - const: -15000000
-> > > > > > > > > > > > > +              - const: 15000000
-> > > > > > > > > > > > > +          - items:
-> > > > > > > > > > > > > +              - const: -20000000
-> > > > > > > > > > > > > +              - const: 20000000
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +    required:
-> > > > > > > > > > > > > +      - reg
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +    additionalProperties: false
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +required:
-> > > > > > > > > > > > > +  - compatible
-> > > > > > > > > > > > > +  - reg
-> > > > > > > > > > > > > +  - vdd-supply
-> > > > > > > > > > > > > +  - avdd-supply
-> > > > > > > > > > > > > +  - hvdd-supply
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +dependencies:
-> > > > > > > > > > > > > +  spi-cpha: [ spi-cpol ]
-> > > > > > > > > > > > > +  spi-cpol: [ spi-cpha ]
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +allOf:
-> > > > > > > > > > > > > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +unevaluatedProperties: false
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +examples:
-> > > > > > > > > > > > > +  - |
-> > > > > > > > > > > > > +    #include <dt-bindings/gpio/gpio.h>
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +    spi {
-> > > > > > > > > > > > > +        #address-cells =3D <1>;
-> > > > > > > > > > > > > +        #size-cells =3D <0>;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +        dac@0 {
-> > > > > > > > > > > > > +            compatible =3D "adi,ad5529r-16";
-> > > > > > > > > > > > > +            reg =3D <0>;
-> > > > > > > > > > > > > +            spi-max-frequency =3D <25000000>;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            vdd-supply =3D <&vdd_regulator>;
-> > > > > > > > > > > > > +            avdd-supply =3D <&avdd_regulator>;
-> > > > > > > > > > > > > +            hvdd-supply =3D <&hvdd_regulator>;
-> > > > > > > > > > > > > +            hvss-supply =3D <&hvss_regulator>;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            reset-gpios =3D <&gpio0 87 GPIO_ACTI=
-VE_LOW>;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            #address-cells =3D <1>;
-> > > > > > > > > > > > > +            #size-cells =3D <0>;
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            channel@0 {
-> > > > > > > > > > > > > +                reg =3D <0>;
-> > > > > > > > > > > > > +                adi,output-range-microvolt =3D <=
-0 5000000>;
-> > > > > > > > > > > > > +            };
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            channel@1 {
-> > > > > > > > > > > > > +                reg =3D <1>;
-> > > > > > > > > > > > > +                adi,output-range-microvolt =3D <=
-(-10000000) 10000000>;
-> > > > > > > > > > > > > +            };
-> > > > > > > > > > > > > +
-> > > > > > > > > > > > > +            channel@2 {
-> > > > > > > > > > > > > +                reg =3D <2>;
-> > > > > > > > > > > > > +                adi,output-range-microvolt =3D <=
-0 40000000>;
-> > > > > > > > > > > > > +            };
-> > > > > > > > > > > > > +        };
-> > > > > > > > > > > > > +    };   =20
-> > > > > > > > > > > > ...
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 	spi {
-> > > > > > > > > > > > 		#address-cells =3D <1>;
-> > > > > > > > > > > > 		#size-cells =3D <0>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 		multi-dac@0 {
-> > > > > > > > > > > > 			compatible =3D "adi,ad5529r-16";
-> > > > > > > > > > > > 			reg =3D <0>;
-> > > > > > > > > > > > 			spi-max-frequency =3D <25000000>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 			#address-cells =3D <1>;
-> > > > > > > > > > > > 			#size-cells =3D <0>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 			dac@0 {
-> > > > > > > > > > > > 				reg =3D <0>;
-> > > > > > > > > > > > 				vdd-supply =3D <&vdd_regulator>;
-> > > > > > > > > > > > 				avdd-supply =3D <&avdd_regulator>;
-> > > > > > > > > > > > 				hvdd-supply =3D <&hvdd_regulator>;
-> > > > > > > > > > > > 				hvss-supply =3D <&hvss_regulator>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				reset-gpios =3D <&gpio0 87 GPIO_ACTIVE_LOW>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				#address-cells =3D <1>;
-> > > > > > > > > > > > 				#size-cells =3D <0>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				channel@0 {
-> > > > > > > > > > > > 					reg =3D <0>;
-> > > > > > > > > > > > 					adi,output-range-microvolt =3D <0 5000000>;
-> > > > > > > > > > > > 				};
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				channel@1 {
-> > > > > > > > > > > > 					reg =3D <1>;
-> > > > > > > > > > > > 					adi,output-range-microvolt =3D <(-10000000) 10=
-000000>;
-> > > > > > > > > > > > 				};
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				channel@2 {
-> > > > > > > > > > > > 					reg =3D <2>;
-> > > > > > > > > > > > 					adi,output-range-microvolt =3D <0 40000000>;
-> > > > > > > > > > > > 				};
-> > > > > > > > > > > > 			}
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 			dac@1 {
-> > > > > > > > > > > > 				reg =3D <1>;
-> > > > > > > > > > > > 				vdd-supply =3D <&vdd_regulator>;
-> > > > > > > > > > > > 				avdd-supply =3D <&avdd_regulator>;
-> > > > > > > > > > > > 				hvdd-supply =3D <&hvdd_regulator>;
-> > > > > > > > > > > > 				hvss-supply =3D <&hvss_regulator>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				reset-gpios =3D <&gpio0 88 GPIO_ACTIVE_LOW>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				#address-cells =3D <1>;
-> > > > > > > > > > > > 				#size-cells =3D <0>;
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				channel@0 {
-> > > > > > > > > > > > 					reg =3D <0>;
-> > > > > > > > > > > > 					adi,output-range-microvolt =3D <0 5000000>;
-> > > > > > > > > > > > 				};
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 				channel@1 {
-> > > > > > > > > > > > 					reg =3D <1>;
-> > > > > > > > > > > > 					adi,output-range-microvolt =3D <(-10000000) 10=
-000000>;
-> > > > > > > > > > > > 				};
-> > > > > > > > > > > > 			}
-> > > > > > > > > > > > 		};
-> > > > > > > > > > > > 	};
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > then you might need something like:
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > 	patternProperties:
-> > > > > > > > > > > > 		"^dac@[0-3]$":
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > and put most of the things under this node pattern.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > So the main driver that you're putting together mig=
-ht need to handle up to four instances.
-> > > > > > > > > > > > Even if your current driver cannot handle this, the=
- dt-bindings might need cover that.
-> > > > > > > > > > > >=20
-> > > > > > > > > > > > Need to double check if each dac node needs a separ=
-ate compatible, so you would maybe populate
-> > > > > > > > > > > > a platform data to be shared with the child nodes, =
-which would be a separate driver.
-> > > > > > > > > > > > (not sure if it would make sense to mix and match a=
-d5529r-16 and ad5529r-12).   =20
-> > > > > > > > > > > Hi Rodrigo,
-> > > > > > > > > > >=20
-> > > > > > > > > > > Thank you for looking at this.
-> > > > > > > > > > >=20
-> > > > > > > > > > > For now, I would prefer to keep the binding scoped to=
- a single AD5529R device instance. The current
-> > > > > > > > > > > hardware/use case we have only needs one device node =
-and the driver is written around that model as well.
-> > > > > > > > > > > While the device addressing pins could allow multi-de=
-vice topology, we do not have an actual platform using
-> > > > > > > > > > > that configuration at the moment, so I would prefer n=
-ot to introduce an extra parent/child binding structure
-> > > > > > > > > > > speculatively without a validating use case.   =20
-> > > > > > > > > > Interesting feature - kind of similar to address contro=
-l on a typical i2c bus device, or
-> > > > > > > > > > looking at it another way a kind of distributed SPI mux.
-> > > > > > > > > >=20
-> > > > > > > > > > Challenge of a binding is we need to anticipate the fut=
-ure.  So I think we do need something
-> > > > > > > > > > like Rodrigo is suggesting even if we only (for now) su=
-pport a single instance in the driver.
-> > > > > > > > > > That would leave the path open to supporting the addres=
-sing at a later date.
-> > > > > > > > > > An alternative might be to look at it like a chained de=
-vice setup. In those we pretend there
-> > > > > > > > > > is just one device with a lot of channels etc.  The sna=
-g is that here things are more loosely
-> > > > > > > > > > coupled whereas for those devices it tends to be you ha=
-ve to read / write the same register
-> > > > > > > > > > in all devices in the chain as one big SPI message.
-> > > > > > > > > >=20
-> > > > > > > > > > +CC Mark Brown as he may know of some precedence for th=
-is feature. For his reference..
-> > > > > > > > > > - Each of these device has 2 ID pins.  The SPI transfer=
-s have to contain the 2 bit
-> > > > > > > > > > value that matches that or they are ignored.  Thus a si=
-ngle bus + 1 chip select can
-> > > > > > > > > > be used to talk to 4 devices.  Question is what that lo=
-oks like in device tree + I guess
-> > > > > > > > > > longer term how to support it cleanly in SPI.   =20
-> > > > > > > >=20
-> > > > > > > > I'd swear I have seen this before, from some Microchip devi=
-ces. Let me
-> > > > > > > > see if I can find what I am thinking of...   =20
-> > > > > > >=20
-> > > > > > >=20
-> > > > > > > microchip,mcp3911 and microchip,mcp3564 both seem to do this =
-with
-> > > > > > > slightly different properties.
-> > > > > > >=20
-> > > > > > >   microchip,device-addr:
-> > > > > > >     description: Device address when multiple MCP3911 chips a=
-re present on the same SPI bus.
-> > > > > > >     $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > > >     enum: [0, 1, 2, 3]
-> > > > > > >     default: 0
-> > > > > > >=20
-> > > > > > > and
-> > > > > > >=20
-> > > > > > >=20
-> > > > > > >   microchip,hw-device-address:
-> > > > > > >     $ref: /schemas/types.yaml#/definitions/uint32
-> > > > > > >     minimum: 0
-> > > > > > >     maximum: 3
-> > > > > > >     description:
-> > > > > > >       The address is set on a per-device basis by fuses in th=
-e factory,
-> > > > > > >       configured on request. If not requested, the fuses are =
-set for 0x1.
-> > > > > > >       The device address is part of the device markings to av=
-oid
-> > > > > > >       potential confusion. This address is coded on two bits,=
- so four possible
-> > > > > > >       addresses are available when multiple devices are prese=
-nt on the same
-> > > > > > >       SPI bus with only one Chip Select line for all devices.
-> > > > > > >       Each device communication starts by a CS falling edge, =
-followed by the
-> > > > > > >       clocking of the device address (BITS[7:6] - top two bit=
-s of COMMAND BYTE
-> > > > > > >       which is first one on the wire).
-> > > > > > >=20
-> > > > > > > This sounds exactly like the sort of feature that you're deal=
-ing with
-> > > > > > > here?
-> > > > > > >    =20
-> > > > > >=20
-> > > > > > The core idea yes but for this chip, things are a bit more anno=
-ying (but
-> > > > > > Janani can correct me if I'm wrong). Here, each device can, in =
-theory,
-> > > > > > have it's own supplies, pins and at the very least, channels wi=
-th maybe
-> > > > > > different scales. That is why Janani is proposing dac nodes. Gi=
-ven I
-> > > > > > honestly don't like much of that "adi,ad5529r-bus" compatible I=
- wondered
-> > > > > > about solving this at the spi level.
-> > > > > >=20
-> > > > > > Ah and to make it more annoying, we can also mix 12 and 16 bits=
- variants
-> > > > > > together in the same bus.   =20
-> > > > >=20
-> > > > > I'm definitely missing something, because that property for the
-> > > > > microchip devices is not impacted what else is on the bus. AFAICT=
-, you
-> > > > > could have an mcp3911 and an mcp3564 on the same bus even though =
-both
-> > > > > are completely different devices with different drivers. They have
-> > > > > individual device nodes and their own supplies etc etc. These are=
-n't
-> > > > > per-channel properties on an adc or dac, they're per child device=
- on a
-> > > > > spi bus.   =20
-> > > >=20
-> > > > Maybe I'm the one missing something :). IIRC, spi would not allow t=
-wo
-> > > > devices on the same CS right? Because for this chip we would need
-> > > > something like:
-> > > >=20
-> > > > spi {
-> > > > 	dac@0 {
-> > > > 		reg =3D <0>;
-> > > > 		adi,pin-id =3D <0>;
-> > > > 	};
-> > > >=20
-> > > > 	dac@1 {
-> > > > 		reg =3D <0>; // which seems already problematic?
-> > > > 		adi,pin-id <1>;
-> > > > 	};
-> > > >=20
-> > > > 	...
-> > > >=20
-> > > > 	//up to 4
-> > > > }; =20
-> > > Yeah. It's not clear to me how that works for the microchip devices
-> > > (I suspect it doesn't!)
-> > >=20
-> > > Just thinking as I type, but could we do something a bit nasty with
-> > > a gpio mux that doesn't actually switch but represents the GPIO being
-> > > shared?  Given this is all tied to the spi bus that should all happen
-> > > under serializing locks.=20
-> > >=20
-> > > Agreed though that this would be nicer as an SPI thing that let
-> > > us specify that a single CS is share by multiple devices and their
-> > > is some other signal acting to select which one we are talking to. =20
-> >=20
-> > Whether it works or not, I think it is the more correct approach. Messi=
-ng
-> > with gpio muxes seems completely wrong, given the chip select may not be
-> > a gpio at all.
-> >=20
-> > Why do you think the microchip devices won't work? Does the spi core
-> > reject multiple devices with the same chip select being registered or
-> > something like that? =20
->=20
-> Not sure how things work atm. But I'm fairly sure it used to be like
-> that. SPI would reject devices on the same controller and CS. Now that
-> we support more than one CS per controller, not sure how things work.=20
-We always supported more than one per CS per controller. I guess you mean
-per device.
+On Tue, Apr 28, 2026 at 10:40:55AM +0200, Benjamin Mugnier wrote:
+> In the driver initialization, the index of the default media bus code
+> from the supported media bus code array is passed directly to the
+> vd55g1_get_fmt_code() function instead of the proper media bus code.
+>
+> This works correctly as a proper media bus code is set after
+> initialization but could not have been the case. This also resulted in
+> mutliple "Unsupported mbus format" error messages.
+>
+> Retrieve the media bus code from the media bus code array, and pass this
+> media bus code to vd55g1_get_fmt_code() instead of the code index.
+>
+> Rename VD55G1_MBUS_CODE_DEF to VD55G1_MBUS_CODE_IDX_DEF and
+> VD55G1_MODE_DEF to VD55G1_MODE_IDX_DEF while at it to avoid future
+> confusions. Display the guilty error code in warning message.
+>
+> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
+>
+You should cc stable for fixes
 
->=20
-> Janani, maybe you can give it a try?
+Cc: stable@vger.kernel.org
 
-I think we'd need to get it to work with shared gpio proxy which maybe
-will just get set up under the hood.  This used to be opt in, but seems
-that changed fairly recently so maybe some of us are working with out
-of date knowledge!  I haven't played with it yet, so might not be
-that simple.
 
-Jonathan
+The CI should have flagged that, but for some reason it didn't run
+properly on your series
+https://gitlab.freedesktop.org/linux-media/users/patchwork/-/pipelines/1655147
 
->=20
-> - Nuno S=C3=A1
->=20
+> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+> ---
+>  drivers/media/i2c/vd55g1.c | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index 78d18c028154..1e9db21322e3 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -114,9 +114,9 @@
+>
+>  #define VD55G1_WIDTH					804
+>  #define VD55G1_HEIGHT					704
+> -#define VD55G1_MODE_DEF					0
+> +#define VD55G1_MODE_IDX_DEF				0
+>  #define VD55G1_NB_GPIOS					4
+> -#define VD55G1_MBUS_CODE_DEF				0
+> +#define VD55G1_MBUS_CODE_IDX_DEF			0
+>  #define VD55G1_DGAIN_DEF				256
+>  #define VD55G1_AGAIN_DEF				19
+>  #define VD55G1_EXPO_MAX_TERM				64
+> @@ -634,7 +634,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
 
+Unrelated, but it seems you now have 2 codes for MONO. Does
+
+	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+		return code;
+
+need an update ?
+
+>  				goto adapt_bayer_pattern;
+>  		}
+>  	}
+> -	dev_warn(sensor->dev, "Unsupported mbus format\n");
+> +	dev_warn(sensor->dev, "Unsupported mbus format: 0x%x\n", code);
+>
+>  	return code;
+>
+> @@ -1347,6 +1347,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>  {
+>  	struct vd55g1 *sensor = to_vd55g1(sd);
+>  	struct v4l2_subdev_format fmt = { 0 };
+> +	int code;
+>  	struct v4l2_subdev_route routes[] = {
+>  		{ .flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE }
+>  	};
+> @@ -1361,9 +1362,13 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		return ret;
+>
+> -	vd55g1_update_pad_fmt(sensor, &vd55g1_supported_modes[VD55G1_MODE_DEF],
+> -			      vd55g1_get_fmt_code(sensor, VD55G1_MBUS_CODE_DEF),
+> -			      &fmt.format);
+> +	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+> +		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
+> +	else
+> +		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
+
+Being this a multi-dimensional array, I don't seem much value in
+defining VD55G1_MBUS_CODE_IDX_DEF if this is the only place where it
+is used. What's the meaning of VD55G1_MBUS_CODE_IDX_DEF for
+vd55g1_mbus_formats_bayer ? Does it represent the bitwidth or does it
+represent the bayer pattern ?
+
+I would rather define a
+VD55G1_DEF_MBUS_CODE_MONO       MEDIA_BUS_FMT_Y8_1X8
+VD55G1_DEF_MBUS_CODE_BAYER      MEDIA_BUS_FMT_SRGGB8_1X8
+
+Or maybe do
+
+		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF]
+                                                [VD55G1_MBUS_CODE_IDX_DEF];
+
+if easier.
+
+I understand it's a minor, so up to you.
+
+
+
+> +	vd55g1_update_pad_fmt(sensor,
+> +			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
+> +			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
+>
+>  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
+>  }
+>
+> --
+> 2.43.0
+>
+>
