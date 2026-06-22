@@ -1,205 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37BDE2D5C68
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBBA39DBE4
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782121718; cv=none; b=mFVEQIzumzWshcOmjQSK6j7EiDljRGVNwffm6B+MAzKzdRQOsxF2YxStNpW85b0d78JTibfFfS2t7+49ugbFPox78PMLq8kLi1nVgX5DnkbmcgVFJ0iUByPC4k5cNSXZcBLWnlepHWcLv3R6LQcGSuAVhFnLanbop21g6fhHeSM=
+	t=1782121885; cv=none; b=XAQdk+TNrswMYjjRlZC2ckDkzmgpxlefdiXhbg7CIUb2NzsFXpWcHlWipIZElfjfafQJ95mHyOy7kVMALu7dvtC4PInpr+fE4rb4y+9wFwrHDDjkH/IVesGn4kmFt8g+ghykeSGT4MkwTFH92qRb1ZN+J8ZPi6yAMvsLQoD6BYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782121718; c=relaxed/simple;
-	bh=4xc5Kzrp6peOB528xcC8p86lgC0NwDdqu7Etv1FVpQQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l8yX37kv+yBgIy1ghmZ0G9ZoY8koLBm3dopwakktyRHGAqETMvjwxjYRUNfoXMuR8MSOBXI2YEC1TJqDWcQANw0iw1RyPeL0qqJVMWk6B4qGCUAGvgNRf2qqJLen5xKTpH90TQGE5QFU4SRVN/XPCHIvJi39AFX2UOiKZ15gbyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DA3UyqUj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782121885; c=relaxed/simple;
+	bh=aE4FsBnNJvaWhU93PJqxU50S8JsmJ5NhDPXl/TgYFPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UyNl2Y6/ABWFYfTK9e07OlOBoy3UAhllcGK/MxBOXd48/izW2db2nU1ZYpCL4/PN1YsSz4Cdwf1VPezz9sLuZZX5AFqONLryHwas5oAo4YPEYa6lLKsRHZUZWod7RllIeckwSuGYlDYqjCjq3AjUuq/9xbgH2isP4vHSABHZ8m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W2bfUqfi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Syg8QKNi; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DA3UyqUj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869CE1F000E9;
-	Mon, 22 Jun 2026 09:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782121716;
-	bh=SRFpGCgwjrAskeh6pbO5IO2gRzGTpuC1M04DWmzHGgM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DA3UyqUjbzhWPyo9nI3Idk7wFVL/JcG7/ZQKqgS6Yrlh19iayH29JDsOufGKkRde9
-	 vzRqnhYGe2nICHy4tSBoZtIUSgeSrXaPqw7zz8idHU87Xc4G+itQGPiOcH7DBIJK5r
-	 ejLcxzf64PYdUeE1bXxVtmZFrUnbizaisBOaf1T5ZW33kBfojqtUjkrEy3sgjXPCea
-	 bUO3DCpPv9DPXbsu/UYOBVv8AeqbP3HMihqwODd5Vv5f20rhJAou06rHzti8UL0zbC
-	 ciYIjSULXo3o/cVq35xyfqwHZjHgZiBk0TwuCjgaySqY44mgf39McW7WoPyHakTILz
-	 o5hXBbi5EEX4w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] gpio: realtek: Add driver for Realtek DHC
- RTD1625 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260622092335.1166876-4-eleanor.lin@realtek.com>
-References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
- <20260622092335.1166876-4-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 22 Jun 2026 09:48:36 +0000
-Message-Id: <20260622094836.869CE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W2bfUqfi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Syg8QKNi"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M5AN6x227673
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:51:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fRd6CaAcKy06xjZY74/JRE6n
+	wNpgYi3kG87QOpxLYP8=; b=W2bfUqfiw39gTEX46O9qiXkaDmMqplS5w5+W5eWT
+	WtOpbTsqMChqWZukoQZKv1UnWkk3+Pyr1hFfWufP+Mz5/FQiBqQTFph54NS/Jwz1
+	vQkzoBHFXumHA5lQ1RzxAoudrTInt6RW2L4hXbpyPyq+gQhz2TdcBlNmW0+FLrOo
+	vvDeiert0JoY3lkxAJ8eoNEN65FOfDLBF865zLGKxUWduf/Hgyuu0vJ5uvfTvPu/
+	eicqzLu4oeiJNyTrva5iYLkXOy1/5ChJFMUS5yOMKgAaXmMb22XNwIVCutT3FIsO
+	+E5XPktuHrN0Xci4lf7JlXxFHKipilLr6LCwESjH6x3qqQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewjxudvxt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 09:51:23 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c1f6c5559so4514942eec.0
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 02:51:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782121882; x=1782726682; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=fRd6CaAcKy06xjZY74/JRE6nwNpgYi3kG87QOpxLYP8=;
+        b=Syg8QKNiWIsBz++n7Gjafw3RuOPqjx+5hbNLcXwMEmk+Uf3Z+3G71Nt4qzkWpqufAV
+         xA76+B4oFkK2/fwF/QCyL0XZUgqsbS8DRSkh9md8/vuWzQF3oBq3a+DqRe4P/KPAmTim
+         M1yOzPGV+oZLi/3bh3anOMNSwtU7833s3aViy5cc7Rtk5PnpJJIFWQbblxGvLs3hTS/H
+         +BtJk6LAUe5uU84IZeOK4/LyFcNZUS5bSXxpLLOdVpFzyU4rdzVkSnPd+w790LFYYmrn
+         7j8kQCnhkKY92UtzgAxarVupEt6GDb04EfbfdPCdfBXlF0wC/jXZQIoVdKQgFgjO0oYm
+         uqyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782121882; x=1782726682;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=fRd6CaAcKy06xjZY74/JRE6nwNpgYi3kG87QOpxLYP8=;
+        b=sguLJkDp8te81jACNbvgHIttp9Ks11GHr2gxvs2NcZLIzbj0KqsU7J9aoIIwsfKTfS
+         NRCun3S1LpLaMaTau4Ewq0wIAP4mJe4x5l5TIxd1MHJjZ79h4p5Mni5dVBP2JvGWi8Si
+         KQojMdwnzFlfJ16quKyNmCCnahuVqVnCSL5MQPwYPVQq7IdB/BzoW848M1cW+z5+xtx5
+         E+SqDUz6rcfOGdA4qPEnV37g/VN5n9KQzcNVyVdy790Lk1FORiLug9+ctn5ZUisKvwRL
+         jeofaS5HOluVtbGD3cC6hXjFEktVd7UMud5+3TAoeD+BjaSNBfN1tPWWCCN4St1KJTVa
+         vHIg==
+X-Forwarded-Encrypted: i=1; AFNElJ8J+0ZaqV5DxQlx/RMK/52dVOkfzGqSt7rD/uT2qw5dwHnP0O8alfKiqt9vzY21Xs1jEdW/swkZP5ZU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+LvUT/Svknjp98kVJUth+04PU0mfVf/vyOB9fklZXLj1kGSFi
+	tgmzBu1zLHrNiZJ9ZwMPD3Cgu25mij1d4BztszjW9s4CdUVBuldBlsV1f9zjssysua//uUSd1iV
+	EeDEtYDMtc7gCnEmGh0DWH7gMUplwVVhPqKFgEhwL1LLrZIateRll4/Ht74WnlSjP
+X-Gm-Gg: AfdE7ck43Jz1pvwxics/ZetJ2w/TT1uiI+3lJXe/yxzswMhTBqj02Tq5F8furLiWhuy
+	J7dHiGKeDgd71gqvEzDtFyPyjawR1+3aHKfPv7617sbl9XF0HX7Bo1iJG3TwxCxFpvSu8TaCMGQ
+	06ms6ZK1oz7m98i0UIp8EO5o62iuy70Bgw4b/ggKrOfumNcWGvWEKyoncHTVBZDurkP7a4Cb6Br
+	H2aX+eg7HqtE3+DJk7gOJXObNTVWdX6PaQAGM+jMUuuO3OB509fuhL2pAIRdAunKLOkqo13OP14
+	Y9M3iIcob1RevZcK+4XRiAwKv6FxjwlRPp/Hd7xpwEArRGldjIV2sOIk91oqE4btbThdijtL2NU
+	u5JZ/axAQrGkksO7J24Xgu0mD0a5batn7iiyGi4kpeL/b1F33WZ4U4aBM+g==
+X-Received: by 2002:a05:7022:ec2:b0:132:fac:2fb2 with SMTP id a92af1059eb24-139a202ec66mr8670839c88.8.1782121882234;
+        Mon, 22 Jun 2026 02:51:22 -0700 (PDT)
+X-Received: by 2002:a05:7022:ec2:b0:132:fac:2fb2 with SMTP id a92af1059eb24-139a202ec66mr8670810c88.8.1782121881525;
+        Mon, 22 Jun 2026 02:51:21 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139adcce488sm6774074c88.8.2026.06.22.02.51.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 02:51:20 -0700 (PDT)
+Date: Mon, 22 Jun 2026 02:51:18 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
+Subject: Re: [PATCH v6 2/8] dt-bindings: clock: qcom,glymur-tcsr: Add mahua
+ support
+Message-ID: <ajkFljva7c/FuaSk@hu-qianyu-lv.qualcomm.com>
+References: <20260621-tcsr_qref_0622-v6-0-c939c22ded0c@oss.qualcomm.com>
+ <20260621-tcsr_qref_0622-v6-2-c939c22ded0c@oss.qualcomm.com>
+ <20260622-legendary-graceful-goat-3b5d56@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622-legendary-graceful-goat-3b5d56@quoll>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA5NiBTYWx0ZWRfXwZvVfCNJDU6J
+ z26lRGDCgDhaAVpehNZC2aVNn6r7IUj14TsClaiPySUWG18ejtFsDb0fbYd0Foh6ACIlcyLlJtt
+ L+PLafgU0tp10CW6KLNnrCmCBF+PxEM=
+X-Authority-Analysis: v=2.4 cv=G/ws1dk5 c=1 sm=1 tr=0 ts=6a39059b cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=j0q-cQmEjkG7pVFzz6UA:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-ORIG-GUID: tNpZe2_78P9yN6FUAr1lYOh_0nYfmp4S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA5NiBTYWx0ZWRfXxddOLeieYnTu
+ hA9cd9N9jy+hl7GKGrICNX2WgEonPx90LyLMUJrMeffm2oUWuoznDPqxf0n0D9Faf80aJRPeO5e
+ Sxkh/BfTwFdXUG5PLADyjF4aNFlPPfh6XbtltAjM8//BlEmN8kkXy5pG7y0NHHa00oYhemdIURd
+ 8Fa8cueQ8hAFQlPZ/PcJLoUIz2jH00i0Bri+lRrv6U4ApKAOvE8GW0WmPE2gquD7Lrc+OcYEYs7
+ VMziSjVtGxHi0dZ0Z3PMNUktFc9JBMj9lslh57WwMPilUuR7agPnn1PpAcHZZa85k6QP+d0X9Dt
+ GGWRL7D/CncjwThn8qEq3DY+c591++peELH1fwOS+w8u0DtQN7LXOdNWYheeSYsN7z7OlsE5jy8
+ cX/OO7M5p+N1agwGEKo+LuFDeHsBpQrbk8qT7Zbxdd/opzNOWpPPRvlOFKKxsCL+dHLeXip9agv
+ tH8h/Fpmy8V0gvqXcuA==
+X-Proofpoint-GUID: tNpZe2_78P9yN6FUAr1lYOh_0nYfmp4S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 phishscore=0 impostorscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606220096
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Incorrect hardware configuration and filtering for IRQ_TYPE_EDGE_B=
-OTH causes missed falling edges and spurious double-interrupts.
-- [High] Unmapped level interrupts are not masked, causing an infinite inte=
-rrupt storm.
-- [High] Clearing the hardware interrupt status in the .irq_unmask callback=
- causes lost edge interrupts.
-- [Medium] The driver uses a global raw_spinlock_irqsave for all register a=
-ccesses, causing severe unnecessary contention.
---
+On Mon, Jun 22, 2026 at 09:32:34AM +0200, Krzysztof Kozlowski wrote:
+> On Sun, Jun 21, 2026 at 10:11:25PM -0700, Qiang Yu wrote:
+> > Mahua shares the same QREF TX/RPT/RX component naming as Glymur, but
+> > has a different topology: a single QREF block fed by REFGEN3 only,
+> > rather than the two independent blocks fed by REFGEN3 and REFGEN4 on
+> > Glymur.
+> > 
+> > Add qcom,mahua-tcsr compatible and document its required supply
+> > properties.
+> > 
+> > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > ---
+> >  .../bindings/clock/qcom,glymur-tcsr.yaml           | 68 ++++++++++++++++------
+> >  1 file changed, 50 insertions(+), 18 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> > index 16fc6ab87f9b..2b6422627165 100644
+> > --- a/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/qcom,glymur-tcsr.yaml
+> > @@ -20,7 +20,9 @@ description: |
+> >  properties:
+> >    compatible:
+> >      items:
+> > -      - const: qcom,glymur-tcsr
+> > +      - enum:
+> > +          - qcom,glymur-tcsr
+> 
+> You could have made this enum in the first patch, so you would avoid
+> changing the same line twice. Usually adding line in patch #1 and then
+> removing it in patch #2 is indication of something to improve.
+>
+Okay, will use  
+	- enum:
+	- qcom,glymur-tcsr
+in the first patch in next version.
 
-commit 2c67ad7ec485f951d81fe09ef1853cbf7ebd2d95
-Author: Tzuyi Chang <tychang@realtek.com>
+- Qiang Yu
+> > +          - qcom,mahua-tcsr
+> >        - const: syscon
+> >  
+> >    clocks:
+> > @@ -41,9 +43,11 @@ properties:
+> >    vdda-qrefrpt2-0p9-supply: true
+> >    vdda-qrefrpt3-0p9-supply: true
+> >    vdda-qrefrpt4-0p9-supply: true
+> > +  vdda-qrefrpt5-0p9-supply: true
+> >    vdda-qrefrx0-0p9-supply: true
+> >    vdda-qrefrx1-0p9-supply: true
+> >    vdda-qrefrx2-0p9-supply: true
+> > +  vdda-qrefrx3-0p9-supply: true
+> >    vdda-qrefrx4-0p9-supply: true
+> >    vdda-qrefrx5-0p9-supply: true
+> >    vdda-qreftx0-0p9-supply: true
+> > @@ -54,26 +58,54 @@ properties:
+> >    vdda-refgen4-0p9-supply: true
+> >    vdda-refgen4-1p2-supply: true
+> >  
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: qcom,glymur-tcsr
+> > +    then:
+> > +      required:
+> > +        - vdda-qrefrpt0-0p9-supply
+> > +        - vdda-qrefrpt1-0p9-supply
+> > +        - vdda-qrefrpt2-0p9-supply
+> > +        - vdda-qrefrpt3-0p9-supply
+> > +        - vdda-qrefrpt4-0p9-supply
+> > +        - vdda-qrefrx0-0p9-supply
+> > +        - vdda-qrefrx1-0p9-supply
+> > +        - vdda-qrefrx2-0p9-supply
+> > +        - vdda-qrefrx4-0p9-supply
+> > +        - vdda-qrefrx5-0p9-supply
+> > +        - vdda-qreftx0-0p9-supply
+> > +        - vdda-qreftx0-1p2-supply
+> > +        - vdda-qreftx1-0p9-supply
+> > +        - vdda-refgen3-0p9-supply
+> > +        - vdda-refgen3-1p2-supply
+> > +        - vdda-refgen4-0p9-supply
+> > +        - vdda-refgen4-1p2-supply
+> 
+> It is fine, although this you could as well keep like that in first
+> patch and mention in commit msg, that binding will grow, thus you
+> already define if:then: block to accommodate future changes.
+>
+Okay, I will add the if:then: block in first patch and add some
+description in commit msg. Then I also don't need to remove 'Mark the
+relevant supplies as required per compatible using allOf/if/then
+conditionals' in commit msg of first patch.
 
-gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
-
-Add support for the GPIO controller found on Realtek DHC RTD1625 SoCs.
-The RTD1625 introduces a per-pin register architecture with a dedicated
-32-bit control register per GPIO line. Interrupt support is optional.
-
-> diff --git a/drivers/gpio/gpio-rtd1625.c b/drivers/gpio/gpio-rtd1625.c
-> new file mode 100644
-> index 0000000000000..409e540bf40b3
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-rtd1625.c
-
-[ ... ]
-
-> +static int rtd1625_gpio_set(struct gpio_chip *chip, unsigned int offset,=
- int value)
-> +{
-> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
-> +	u32 val =3D RTD1625_GPIO_WREN(RTD1625_GPIO_OUT);
-> +
-> +	if (value)
-> +		val |=3D RTD1625_GPIO_OUT;
-> +
-> +	guard(raw_spinlock_irqsave)(&data->lock);
-> +
-> +	writel_relaxed(val, data->base + GPIO_CONTROL(offset));
-> +
-> +	return 0;
-> +}
-> +
-> +static int rtd1625_gpio_get(struct gpio_chip *chip, unsigned int offset)
-> +{
-> +	struct rtd1625_gpio *data =3D gpiochip_get_data(chip);
-> +	u32 val;
-> +
-> +	guard(raw_spinlock_irqsave)(&data->lock);
-> +
-> +	val =3D readl_relaxed(data->base + GPIO_CONTROL(offset));
-
-[Severity: Medium]
-Since the RTD1625 hardware features a dedicated control register per GPIO
-line and uses a Write-Enable bitmask design, do we need this global raw
-spinlock?
-
-It seems updates to individual bits are independent and atomic, and
-readl_relaxed is inherently an atomic bus operation. Does wrapping these
-operations in a single global lock across all 166 GPIOs unnecessarily
-serialize all GPIO operations globally?
-
-[ ... ]
-
-> +static void rtd1625_gpio_irq_handle(struct irq_desc *desc)
-> +{
-
-[ ... ]
-
-> +		for_each_set_bit(j, &status, 32) {
-> +			hwirq =3D i + j;
-> +			girq =3D irq_find_mapping(domain, hwirq);
-> +			irq_type =3D irq_get_trigger_type(girq);
-
-[Severity: High]
-If a level interrupt fires on a pin that has no mapping (for example, if it
-was left enabled by the bootloader), irq_find_mapping() returns 0 and
-generic_handle_domain_irq() will return -EINVAL.
-
-Because the child handler is never invoked, the active level interrupt is
-never cleared or masked. Once the parent IRQ is unmasked, will the pending
-level interrupt immediately re-trigger and cause an interrupt storm?
-
-> +
-> +			/*
-> +			 * Filter out the hardware-forced de-assert interrupt unless
-> +			 * the user explicitly requested IRQ_TYPE_EDGE_BOTH.
-> +			 */
-> +			if (irq =3D=3D data->irqs[RTD1625_IRQ_DEASSERT] &&
-> +			    irq_type !=3D IRQ_TYPE_EDGE_BOTH)
-> +				continue;
-> +
-> +			generic_handle_domain_irq(domain, hwirq);
-> +		}
-
-[Severity: High]
-For IRQ_TYPE_EDGE_BOTH, does this filter intentionally let the duplicate
-de-assert interrupt through?
-
-Due to the hardware quirk where a single edge triggers both the assert and
-de-assert IRQ lines, it appears this would cause generic_handle_domain_irq()
-to be called twice sequentially for the exact same physical rising edge.
-
-[ ... ]
-
-> +static void rtd1625_gpio_enable_edge_irq(struct rtd1625_gpio *data, irq_=
-hw_number_t hwirq)
-> +{
-> +	int gpda_reg_offset =3D rtd1625_gpio_gpda_offset(data, hwirq);
-> +	int gpa_reg_offset =3D rtd1625_gpio_gpa_offset(data, hwirq);
-> +	u32 clr_mask =3D BIT(hwirq % 32);
-> +	u32 val;
-> +
-> +	guard(raw_spinlock_irqsave)(&data->lock);
-> +
-> +	writel_relaxed(clr_mask, data->irq_base + gpa_reg_offset);
-> +	writel_relaxed(clr_mask, data->irq_base + gpda_reg_offset);
-> +	val =3D RTD1625_GPIO_EDGE_INT_EN | RTD1625_GPIO_WREN(RTD1625_GPIO_EDGE_=
-INT_EN);
-> +	writel_relaxed(val, data->base + GPIO_CONTROL(hwirq));
-> +}
-
-[Severity: High]
-This explicitly clears any pending hardware interrupts. Since this function
-is called via the irq_unmask callback (mapped to rtd1625_gpio_enable_irq),
-will this cause edge interrupts to be permanently lost if a hardware edge
-occurs while the IRQ is temporarily masked?
-
-Could status clearing be restricted to irq_startup or irq_ack?
-
-[ ... ]
-
-> +static int rtd1625_gpio_irq_set_type(struct irq_data *d, unsigned int ty=
-pe)
-> +{
-> +	switch (type & IRQ_TYPE_SENSE_MASK) {
-> +	case IRQ_TYPE_EDGE_RISING:
-> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
-> +
-> +	case IRQ_TYPE_EDGE_FALLING:
-> +		return rtd1625_gpio_irq_set_edge_type(d, 0);
-> +
-> +	case IRQ_TYPE_EDGE_BOTH:
-> +		return rtd1625_gpio_irq_set_edge_type(d, 1);
-
-[Severity: High]
-Does this map IRQ_TYPE_EDGE_BOTH to the exact same hardware polarity
-configuration as IRQ_TYPE_EDGE_RISING?
-
-It seems the hardware will only detect rising edges and completely miss
-falling edges. When combined with the filter in rtd1625_gpio_irq_handle(),
-does EDGE_BOTH miss all falling edges and duplicate all rising edges?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622092335.1166=
-876-1-eleanor.lin@realtek.com?part=3D3
+- Qiang Yu
