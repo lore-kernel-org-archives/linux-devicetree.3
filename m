@@ -1,74 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3991A36D9EB;
-	Mon, 22 Jun 2026 07:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EFC36D9EB
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782113881; cv=none; b=K6CZWrYAdf0MzdXc0Xp7/LeL5YcR3m0cXTd/J8n1bx7Fl7FYn7i/+mmiuEEO4dm0ao8ctztLNRyzFniMYaYqiaO1S3SCforqJM+SV2RXo0La9mqJ9m8yxIWRWSP3bzylqCDGvInfm4F5CcLIORKWMPwHWWT5RnuIqkRmySjrqFE=
+	t=1782113896; cv=none; b=TZORtUjdmTcIKOmTkhNa2dimevOUmwxBPEPSOuDkOnheH39HM+QGeHJ+JFNO8ok/ExyhxU4Hiq/Y8XRLprsL7ysaj3ErtNnsSA3VbMoamQ221OfnT2kvuZ1r4/SPBiwDRY77bQ/UTIdwNa8UJOcSxTpxgvn2kVklf2PLhSlz+EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782113881; c=relaxed/simple;
-	bh=2JnZp7M49poI/fSZ0yf26kQj+a0PRFmsz1BVhRR/bks=;
+	s=arc-20240116; t=1782113896; c=relaxed/simple;
+	bh=BS9AQVWy8TOmpnea/+4LmE8sR3+CCphPYN6ZLhsapag=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tNZdQMMhYLG2AGmSLwyRb6UvMF6bwWsuQQu8O9M3mh83q3+NigmKiZL+YLTyMOQqi1uWW+yb2kXkEC5RqHMuOZpVfhLv3mRR16Sq7kHFweOWJXw4RJ04EYXxMlB23glHv1ZxtW0x1xx2MgiR7e2zM/RQaEkS/7XGwAiQET04iTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyuWmIlz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fVJm/llnTDjHkbUp87UPq+hTi0Tl2KNmaj0jDG6zFQL6Z8GUTxy45TC3ic8+Plithr2wvGNb4kpeFRimSCShG/+8r9EAgZ/5ky+v/fFzbwCbTX5RH++2Zip7kfWSMjlReRqvz1GihAIjw23HLa9H8eELiUsXqnnKYe1zgT+IfgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kVCoqM4i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PDOr2BaW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyuWmIlz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F221F000E9;
-	Mon, 22 Jun 2026 07:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782113879;
-	bh=moTbx0RFo+uvT+Pxb32XDw9nJ+Mu1YWJBEYCVjzKA+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gyuWmIlzux+LBkkR4jhe2TAl1Hs2vJWj4OJdIJ3+TcUw0MFBJX5fc2iZobWTqYi+T
-	 D8VhnGvQTp9tk+Nl55mE0e60KT+Ph+JO5NOluxLJ84I3tCtFPZCykz9mMqiiZT28pq
-	 ziR+ABsRpqibaA8KgpwgzF9r31Fov1L206e4RA0lFkE9LXJVvkyXSrr5O/i57fhtnu
-	 GdEWIdVhX8ICzRiM1uA37DW9La0xdpu1LSx8hqxRIHbNL343H6VUdW5rrNVNmVqlVL
-	 XR0lZ7M0DLP01Uzvhly5ZeSiYOksBxY3vGELdOc1Cunxdhmg/R5WkHzfDUWo15o/+d
-	 gAZQ+/GJ3GwSQ==
-Date: Mon, 22 Jun 2026 09:37:55 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jad Keskes <inasj268@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivia Mackall <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	Alexander Clouter <alex@digriz.org.uk>, devicetree@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] hw_random: timeriomem-rng: add configurable read
- width and data mask
-Message-ID: <20260622-exotic-seagull-from-neptune-bb5f97@quoll>
-References: <20260618120110.36439-1-inasj268@gmail.com>
- <20260618120110.36439-2-inasj268@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kVCoqM4i";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PDOr2BaW"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65M5BZc64183506
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=M4jwyS0eGc3NAZijuRwJeMg7
+	4OO8FYkEkOVQqhLxmf0=; b=kVCoqM4iNHQz3go2qKGZLbB3EcI7Xyc/5KnZTPHv
+	8gpyeqFc7pXuVPF1Z04D9VJ2ZvY2vPam4tmE9nt5x+YBVfgeT2y8ywRoKiT0pPiP
+	8Q75dFj6vupc9aBAFh/JORxAH9QHTCJGxLxLxT3wYja39Lmsohpwyx2F7cku2MgD
+	zpZOzv5FA5P881fLpZAlEpjaep6RYKsw3WkqCktmdEUnRTzzA3J++VwUonvY72yF
+	3o53NvLie+Jl7FYbHm/ejC+SGS2q/MerWV66paukdJjyueNkAP9M3x1T9fKxvWGQ
+	rPldabPpEU8R63orQ5T2I3/j4il3KaRxDRzcXxIB3RD6LA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ewj6h5cny-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 07:38:13 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84256bee9a9so2924180b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 00:38:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782113893; x=1782718693; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=M4jwyS0eGc3NAZijuRwJeMg74OO8FYkEkOVQqhLxmf0=;
+        b=PDOr2BaW8eWC4jVyGukIUWNn4iIwJla7QfIhDg9PSEECZkYDkSfLDRlO3bOAHWGyG8
+         8b6Zr8hYpaDAC4k5zw8yNw1Wkaw0mlROcBFgOilv1TLVEMuq+MxBf//dAX0fG8XoPyu7
+         rhmda0XDYvowEnmTeQc5XGynQMBevoWNsVefsPwSG+0WiUTSusZcDjGP+5wHC+UndTUi
+         MnNwoTL/Ty9tlrjlhK8iv3x/ghc2ysfIeokgIhbPanyt6i05U+KYiiB/f+c0ZK1SBD3f
+         jpvSaj9CSyA5j/JitK47y8Thp0V83MtUC1rUC2Bb4lqWeyAiZ6nHfSwrTqfwxBvIq+5p
+         AkTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782113893; x=1782718693;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=M4jwyS0eGc3NAZijuRwJeMg74OO8FYkEkOVQqhLxmf0=;
+        b=dmgEk3ymggfxUs99swE/b9qKPAzrkpfifh5epiDF1akEbvJwmIYaMAqQwoixgPv0LC
+         b5r7yDo32RrRd54QV+omTqmEVJ+oOAg0C20F2wM4KzkMfnjCq8G8KeW0wA5wkYli/vDE
+         DYpdcOS9MTob9F8lmfy7PYVMoxxBMUrdIvzdgzrKLZwKrlmOXHEOmy6lDsSjs3DW4N14
+         qld8GOicU+BDdY4jr7gP3acmDyTpcxLk2AMglTTfHZN18iQ0NiFYQd4qnMKmeAPEU/tR
+         yYHL0tGorfUH3D6cHFGuM1i5BappQENRFP5DgkTJ5JRAtBK5yc7yvh6RumT0bNinLM8u
+         Geww==
+X-Forwarded-Encrypted: i=1; AFNElJ8BiY+38DzJKUkD9G779zU8OTp23AwFNeXlpaOxXOcfFdFe3UGwZBG7+S1uP5QI7pIrh4usVkjJnOHL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuqNjvMDz7LN2IsRZfDVpxVXA8v1HEP3MoTgURBhsHQW++LYHF
+	Q8bpnCkgmsvmlNiLA/MGIE90J6UnVlRsXjb1LqjU4esOlgnxJcxcsUgahICOUp3Ou9BwVVLG5w6
+	WaRey3MjQIGOXqaeSBQQftIiOjkdXWvk7SjQm5WM8lRsUqZlp8n67meM7GmNiRjKo
+X-Gm-Gg: AfdE7cm0CWRjTkwxMVjkjTeTZlKfEtl/RICGD7YiDl04csum+WypkSbXnCQ8Z1vhYlV
+	5uR9GftolLMD61pPnBVE+fd3yIMHaI8GnOufHESrJSPl1gYOzeiUwkdW7+Qfff1rTHtQWkdyfcQ
+	01j7fCNq+FB5Agogff+Otz4sN7JFKRtl0+WNNi3NQ52ISS+Cd0JQJcwsHhIIZplT2g3Ma11Xp/G
+	lHxSDXgw6yFD6LIIpYD5pUrQI+m4EXioOOheZTa1Z94JhOBjkmVgiE1i2f7Bl21KAz5SqSReGpv
+	m8Jhq44rRhx6AYqN5djKOu57DfeeqzQ6TdyTgdJwPfONgqeEdCgBAyRREx7nLBFTAqVYzviQoaA
+	30hGUVNaQVpi2y9xb/UcEGrLm1OFMF60lj8q9LeMsgKFOJB0D
+X-Received: by 2002:a05:6a00:1ad2:b0:838:a46:ce96 with SMTP id d2e1a72fcca58-8455087235amr14531867b3a.27.1782113892889;
+        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1ad2:b0:838:a46:ce96 with SMTP id d2e1a72fcca58-8455087235amr14531837b3a.27.1782113892422;
+        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
+Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84564e745besm6303006b3a.28.2026.06.22.00.38.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2026 00:38:12 -0700 (PDT)
+Date: Mon, 22 Jun 2026 13:08:04 +0530
+From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v11 5/6] arm64: dts: qcom: monaco: Add OPP-table for ICE
+ UFS and ICE eMMC nodes
+Message-ID: <ajjmXMKdWzae5qqk@hu-arakshit-hyd.qualcomm.com>
+References: <20260609-enable-ice-clock-scaling-v11-0-1cebc8b3275b@oss.qualcomm.com>
+ <20260609-enable-ice-clock-scaling-v11-5-1cebc8b3275b@oss.qualcomm.com>
+ <d8fd7888-cf7d-47e2-8e77-3ba705c88502@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260618120110.36439-2-inasj268@gmail.com>
+In-Reply-To: <d8fd7888-cf7d-47e2-8e77-3ba705c88502@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIyMDA3NCBTYWx0ZWRfX3FZazXw2S0BK
+ cOKa7VbbSzmFer0KeRWjKA/MoSQfo1v8zR+RN4GQmG4pJ18CpQm8QS5gswpydPKU1cabLqRQvE1
+ QMJYK2UDOr8eob0CpyEvLoQbvBujkTGDGagk/tH/t+eWnPxdKNMX8GiTNOIDvQxhqRQeR6aEtzD
+ dueuCGL6NxbfyiLmi71JqlpyYBcxwGPn6Qr8lqxq1RIUxt75WwsE9RfD7j8giAG2XzO2ggFj5PX
+ MGNmwDQQDq00NVHFY4RCPm2HpQsE0wTs3WMRuXm+4bUCDmbQrt5Vezq2WnVgc8b2F8oTgaGQkod
+ UHDbOJZsjY1VAseX36CnZ5o+0/wFFWJC7GjvD9cmKGk2ZS7jf3qEh0qWn52ehuFVHZzXY2i4iAS
+ 8nhkwkjuezc+HQeETULO1TCATDhiOEwGZknriqC76mpD0jg6LtOrorvHcvCnQJy7UJmuW7viVWY
+ KxVhYfrLVoVrWOIOVJw==
+X-Proofpoint-ORIG-GUID: -YiR4F03vx9XIlDsgK1MwM2sLzxpGQb2
+X-Authority-Analysis: v=2.4 cv=E7P9Y6dl c=1 sm=1 tr=0 ts=6a38e665 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=FjpnKfaMezcxXxbuv6AA:9 a=CjuIK1q_8ugA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIyMDA3NCBTYWx0ZWRfXyN0YXu+AL0rW
+ Ym6mNFHihj6S5pY++pfH6lp1OzI2aQ/jf+XpMOYzVQTGesluNrqlzizKyZMiycJCVYUa9jneB3J
+ SJdZFkcmZkqmLcvgoKexOe1pMWlhRUI=
+X-Proofpoint-GUID: -YiR4F03vx9XIlDsgK1MwM2sLzxpGQb2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-22_01,2026-06-18_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 priorityscore=1501
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606220074
 
-On Thu, Jun 18, 2026 at 01:01:10PM +0100, Jad Keskes wrote:
-> The TODO for supporting read sizes other than 32 bits and masking has
-> been sitting in this driver since 2009.  Implement it.
-
-And who - which driver/platform - uses or needs that? We are not really
-doing things because someone wrote TODO in 2009. Quite likely notes
-from 2009 are way outdated...
-
+On Thu, Jun 18, 2026 at 03:04:57PM +0200, Konrad Dybcio wrote:
+> On 6/8/26 11:47 PM, Abhinaba Rakshit wrote:
+> > Qualcomm Inline Crypto Engine (ICE) platform driver now, supports
+> > an optional OPP-table.
+> > 
+> > Add OPP-table for ICE UFS and ICE eMMC device nodes for Monaco
+> > platform.
+> > 
+> > Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/monaco.dtsi | 37 ++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 37 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> > index a1b6e6211b84d0d5008231c55613a0ccd61b9450..d9298d8b7874b8669b2cded2a28a99dce6eadbda 100644
+> > --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> > @@ -2742,6 +2742,27 @@ ice: crypto@1d88000 {
+> >  			clock-names = "core",
+> >  				      "iface";
+> >  			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
+> > +
+> > +			operating-points-v2 = <&ice_opp_table>;
+> > +
+> > +			ice_opp_table: opp-table {
+> > +				compatible = "operating-points-v2";
+> > +
+> > +				opp-75000000 {
+> > +					opp-hz = /bits/ 64 <75000000>;
+> > +					required-opps = <&rpmhpd_opp_svs_l1>;
+> > +				};
+> > +
+> > +				opp-201600000 {
+> > +					opp-hz = /bits/ 64 <201600000>;
+> > +					required-opps = <&rpmhpd_opp_svs_l1>;
+> > +				};
 > 
-> Add reg-io-width (1, 2, or 4 bytes) and mask support.  The read loop
-> dispatches on width using readb/readw/readl so a configured 1-byte
-> access does not trigger a bus error on hardware that rejects 32-bit
-> reads to that address.  The mask is ANDed with the value before storing.
-> 
-> These are platform properties, not runtime policy -- width depends on
-> SoC integration, mask reflects which output bits carry entropy.
-> 
-> The alignment check in probe is updated to verify the resource is
-> aligned to the configured width instead of hardcoding 4-byte alignment.
+> Since 75 MHz and 201.6 Mhz require the same power level, is the former
+> OPP any useful?
 
-Best regards,
-Krzysztof
+Yes, both use the same power requirements. However recommended by the ICE team,
+the DT should include all opp/freq supported by the hardware.
 
+Abhinaba Rakshit
