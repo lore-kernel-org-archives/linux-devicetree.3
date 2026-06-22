@@ -1,161 +1,182 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7A83B14A1
-	for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 13:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDD83B14A1;
+	Mon, 22 Jun 2026 13:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782133651; cv=none; b=t4+DKJhfJWdvXLBA8zvs7zvPWcT8ZMVC7Ie1sU5GVGi+y8Qt5g/Kf4WK38niBlibdKYcuSex6EmfFLfG8RqI98Y/3PnKx1UuaTIs9OKycnhNl4eP67TpKZ5/gXlV8LWnDzDHJ6zbxrMc/yItamOpXsv+hxfTw4eoN6pltB4yvD0=
+	t=1782133953; cv=none; b=tw0M8AYtWYtr37IiI2GmGE21qrs0o8G9N8WS2kZIoEnexccLnEtpAr/Ocx3ktSBBZmPo6xZcgEZJwZ4WgJo9/gMEGEMVT0UW6DwVQsz54wmQJEXO6cBUA8uTUFd1Ezc4fW1sMisNbU7eVQZtMcLrA8X8CAwhfa75+9zwrs8pBFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782133651; c=relaxed/simple;
-	bh=1etyWsaiUeb9zM/M27udCVQPp+0lo8G8Gomb4RFTGHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gfervDFRaZLJbvblFjA/QWd03c0hVBWum9gu55M9zQUdVFwxSZxXXa/nJdUvsoR2CcAafU/NNx0O5T8GFO3CVBtjNiUkVbtFJg7yzy9zVghBi0mJOPdIqqghP5iRKOfvluizKazByNtLNcDs1D3UdOt4KBuMcjWgaiXbMOZe/rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-697ce8cfe65so282711a12.3
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:07:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782133647; x=1782738447;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JZq4bH2MyvWfP84B8pnnxe0yT9Gu/blfmP5NcpwNQ1A=;
-        b=FGAXGU79HUqZ+CYjQiv+l8fsqQyu5wDFGC/kYN2NpjeOQD4yDK+RO/9k2VYuchITTF
-         dK+qeUSFiOJNvlT+7ynKTBZFRZHrdyIfp+I/3xCiNpJI3/UYF2/BHqRNpCz8n+i3aGBF
-         YL2dBx4JNdoKD/R0/yFtGys3xaWIayg1K2VtCJeU/XtHjJupf6mgu3zBzUz5G3X7UeyO
-         MfMif7MEcFSOZCRmCvV7qG1+oCoF19b252RusPFjg9GDrR4yeB4jaOjphFAOu5G7/5NX
-         FAqGm1fo8UNnlF3WYZcmWHFF2/3vMnJG4ZR1zSLrFcNLOcPCl+W4oi7Mrzm8qFhFmg3v
-         iWfg==
-X-Forwarded-Encrypted: i=1; AFNElJ9b8K7GRonhBnaXYBPulJYxaUQeo/RpMEskjkU7jXIzCbpLM6Wwc3szRon8V/QLPmFWPNNwlsp5Dggk@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYVvr4MKWI5RIgp0/XRzdrIp7aVGBcoUiVLBqfudfEwBRefwyz
-	PNR+L+4swZAlLNLeNieVTD2RriNQTbfDsUvWtAKh4GpxGKqTeuixDiYlczgpiPNq9yI=
-X-Gm-Gg: AfdE7cnwupcXRL1tt3uIGVOFjyOQC8bYnQ3mz5qQ7Um1YgQ29A6iIXQIAURfKzF/EBw
-	kOgK4ZREhIDo0hOXCiFFROH8Wco8snFfYuayzdvcnX/9K0BKw6fu6u5pn+Tq00jhcSoDxcpi35w
-	RiL2m1ZxB7Ad6hgquCVOTNni8Fj+/l1Dp7+xK0vqShnDiWonp8n/0seCGTKWp/1VAYs2OLEdG+x
-	zA9HoZopd3SSYFve4a2Ms2GDPHbdNYQ1NTd2u1RWsMh3kwTGFau5SEh/MQTNrECxB5cowhdzPom
-	B/P+6+pSt76JQIWaZbkEFqjem8OSIAbdZyUnInsBg5OcQkBbmsA3evDFBguMPJu7GJRya4ZwR9m
-	fxrDSzEu+n6GIdUeROfdpgH/68mQnYyIAWH1dGtob8LfIzG9xYReRqQAdr9OISLy/T73VNKOAAq
-	QcfRbNYPoHdc2Jxd7UVgIThdFbGVSHXPxuklXxsK0HTwf+YA0edUdMazEUCIC1
-X-Received: by 2002:a17:907:c0c:b0:bf5:2395:8d5b with SMTP id a640c23a62f3a-c097d1b48bemr797372466b.47.1782133647254;
-        Mon, 22 Jun 2026 06:07:27 -0700 (PDT)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c610e4192sm357326366b.44.2026.06.22.06.07.25
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 06:07:26 -0700 (PDT)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-697764213d6so3873724a12.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 06:07:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8WYyip4ErUhRjVCG5EKE49NsUjDG7uQXx8S5aY7K31Qv4fSBUFCRnDSotCFzj0OCNyR/9k70Zo9+kf@vger.kernel.org
-X-Received: by 2002:a05:6402:5386:b0:691:b158:b416 with SMTP id
- 4fb4d7f45d1cf-696dde5eb11mr6568890a12.6.1782133645683; Mon, 22 Jun 2026
- 06:07:25 -0700 (PDT)
+	s=arc-20240116; t=1782133953; c=relaxed/simple;
+	bh=ZzsheSfI80KF001phM/l6Q6/kuFBmhuyr2vvThi6qSE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LPSWfUxLkS8hy3vYj0mEU8yVHAV0vE8eTaKuRcfjZ88LAhoicUbslL+WqNpbKA1lYUQQ3O4jL59NF9vVXrE0a2mNsKCmkY2+cNSI86x1ZPeMFPMJALiZdkg03HU9/xoRGJIlU5N/wGkcvZuQi21ody+fqQqLD7+yyJOwTGmgTv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE1Xg9xv; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE1Xg9xv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5F41F000E9;
+	Mon, 22 Jun 2026 13:12:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782133951;
+	bh=cNdjL00WBqqYfozOsasxypzA3JammtyHrJgX4pryvkQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TE1Xg9xv0dMhSVDV5EGq5eKodXJMYui/TMChcbqljfUPdkceLsZtHN6K+Uy5lz6oN
+	 XV0PADg1y3LvGChpVWDNFSTtWWzamFznR92drIVfrEgXfi3MpEmCf9xv20yM5NizZ1
+	 g4U4MQ9YSV+Wrz17Li4BGRcxeeHtVK2H8lOnrzlhniSq/luzXn2VRMLRS/OMnP/ZkR
+	 0J6YjaNvUS4tRewTPiHJZ7kRDgkHEYrimS6S/FAZAczQIxAa3ExY8khWQ0tdX3Wxkg
+	 hDa43bZZJccGs/ETsTtxqBKm5VLK+NqpD4VqdSRQ3keP+s0CVVpNWm6fUIQoxxLltR
+	 rIPwzvfusfodw==
+Message-ID: <30e02780-52c7-4a71-9d4f-4b7a20494161@kernel.org>
+Date: Mon, 22 Jun 2026 15:12:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260618181949.3036280-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260618181949.3036280-2-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260618183334.F10DD1F000E9@smtp.kernel.org>
-In-Reply-To: <20260618183334.F10DD1F000E9@smtp.kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 22 Jun 2026 15:07:11 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUKuzYPm-3XyMUZCM6K+GpQPE=JgDJdQiaPtwyYR7cYWw@mail.gmail.com>
-X-Gm-Features: AVVi8CelaUC9eVEsVaVP0hR5s-RRU3sKR6olPCsBX6FF2PRrYumOZ-b82ZBXojk
-Message-ID: <CAMuHMdUKuzYPm-3XyMUZCM6K+GpQPE=JgDJdQiaPtwyYR7cYWw@mail.gmail.com>
-Subject: Re: [PATCH v4 1/5] clk: renesas: rzv2h-cpg: Use per-SoC PLL reference
- frequency for calculations
-To: sashiko-reviews@lists.linux.dev
-Cc: Prabhakar <prabhakar.csengg@gmail.com>, conor+dt@kernel.org, 
-	wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/9] dt-bindings: nvmem: imx-ocotp: Add support for
+ secure-enclave
+To: Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Frieder Schrempf <frieder@fris.de>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-0-cb7f3698c3e6@kontron.de>
+ <20260616-upstreaming-next-20260609-imx-ocotp-ele-v1-1-cb7f3698c3e6@kontron.de>
+ <20260617-prodigious-private-inchworm-beae1e@quoll>
+ <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <085262ba-32e5-4011-8df3-5a677575b2db@kontron.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 19 Jun 2026 at 14:11, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Silent 32-bit unsigned integer overflow and zero-extension corru=
-pts PLL calculations when 'p.k' is negative on 32-bit architectures.
-> --
->
-> commit 68e2983ee9a6e8d870b293872442cdc2bc7b3e74
-> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> clk: renesas: rzv2h-cpg: Use per-SoC PLL reference frequency for calculat=
-ions
->
-> Introduce a per-SoC PLL reference input frequency parameter to avoid
-> relying on a hardcoded 24MHz constant during PLL configuration math.
->
-> > diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2=
-h-cpg.c
-> > index e271c04cee34f..fff89f2bdc0b2 100644
-> > --- a/drivers/clk/renesas/rzv2h-cpg.c
-> > +++ b/drivers/clk/renesas/rzv2h-cpg.c
->
-> [ ... ]
->
-> > @@ -335,9 +335,9 @@ bool rzv2h_get_pll_pars(const struct rzv2h_pll_limi=
-ts *limits,
-> >                                       continue;
-> >
-> >                               /* PLL_M component of (output * 65536 * P=
-LL_P) */
-> > -                             output =3D mul_u32_u32(p.m * 65536, RZ_V2=
-H_OSC_CLK_IN_MEGA);
-> > +                             output =3D mul_u32_u32(p.m * 65536, input=
-_fref);
-> >                               /* PLL_K component of (output * 65536 * P=
-LL_P) */
-> > -                             output +=3D p.k * RZ_V2H_OSC_CLK_IN_MEGA;
-> > +                             output +=3D p.k * input_fref;
-> [Severity: High]
-> This is a pre-existing issue, but does this multiplication safely handle
-> negative values of p.k on 32-bit architectures?
->
-> Since p.k is a signed 16-bit integer (with limits->k.min allowed to be -3=
-2768)
-> and input_fref is a 32-bit unsigned long, C promotion rules on 32-bit bui=
-lds
-> will convert p.k to a 32-bit unsigned integer before the multiplication.
->
-> If p.k is negative, the resulting 32-bit unsigned modulo value will be
-> zero-extended when added to the 64-bit output variable. This would incorr=
-ectly
-> add over 4 billion to the output frequency rather than subtracting the
-> intended fraction, which could severely break the PLL parameter search.
+On 17/06/2026 13:36, Frieder Schrempf wrote:
+> On 17.06.26 12:49, Krzysztof Kozlowski wrote:
+>> On Tue, Jun 16, 2026 at 01:52:16PM +0200, Frieder Schrempf wrote:
+>>> From: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>>
+>>> Some SoCs like the i.MX9 family allow full access to the fuses only
+>>> through the secure enclave firmware API. Add a property to reference
+>>> the secure enclave node and let the driver use the API.
+>>>
+>>> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+>>> ---
+>>>  Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml | 4 ++++
+>>>  1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>> index a8076d0e2737..14a6429f4a4c 100644
+>>> --- a/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>> +++ b/Documentation/devicetree/bindings/nvmem/imx-ocotp.yaml
+>>> @@ -53,6 +53,10 @@ properties:
+>>>    reg:
+>>>      maxItems: 1
+>>>  
+>>> +  secure-enclave:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description: A phandle to the secure enclave node
+>>
+>> Two things here:
+>> 1. Here you describe what for is that phandle, how it is used by the
+>> hardware. Currently the description repeats the property name and type,
+>> so not much useful.
+> 
+> Ok, agree.
+> 
+>>
+>> 2. If you access OTP via firmware, then this is completely different
+>> interface than MMIO, thus:
+>> A. reg is not appropriate
+>> B. Device is very different thus it has different compatible and I even
+>> claim should be in different binding. Devices having completely
+>> different SW interface should not be in the same binding, at least
+>> usually.
+>>
+>> If any of above is not accurate, then your commit msg should answer why
+>> and give some background.
+> 
+> Thanks for the feedback!
+> 
+> The driver currently uses the limited MMIO (FSB) interface to access the
+> OTPs. The intention is to support the firmware interface alongside the
+> MMIO interface so the driver can pick the interface that is available
+> (firmware might not be loaded) and fallback to MMIO.
+> 
+> Following your argument would mean a driver deciding by itself which
+> interface to use at runtime is not something we want to have in general,
+> right?
 
-Good point!
-Although this driver is only used on 64-bit platforms, the code might
-still be used as an example, and copied for use on a 32-bit platform.
+No, the property fits DT, but above information should be in commit msg.
+If this SoC has indeed both interfaces - MMIO and firmware calls - then
+everything is in general fine. I assumed that is not the case and MMIO
+is not really working.
 
-> Could p.k be cast to s64 before the multiplication to prevent this unsign=
-ed
-> overflow and ensure proper sign-extension into the 64-bit output?
->
-> >                               /* Make it in mHz */
-> >                               output *=3D MILLI;
-> >                               output =3D DIV_U64_ROUND_CLOSEST(output, =
-65536 * p.p * divider);
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260618181949.30=
-36280-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
+What was confusing is that it feels like you are changing existing
+interface, but why wasn't all this documented in the beginning? There is
+imx9 in this binding already, so was it working? Was it not working at
+all? Commit msg must clarify that.
 
-Gr{oetje,eeting}s,
+> 
+> In turn this would mean we need two drivers, or at least two
+> compatibles/bindings for something that is effectively the same hardware.
 
-                        Geert
+Driver design is orthogonal choice here.
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+It can reside in separate binding, if MMIO is still valid, but till
+everything is not yet too complex can be also this binding file.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+If it stays in this binding, then you need to restrict properties per
+variant, so add if:then: block which will disallow the phandle for other
+variants.
+Best regards,
+Krzysztof
