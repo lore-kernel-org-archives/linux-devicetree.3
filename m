@@ -1,72 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6001B3B47F3;
-	Mon, 22 Jun 2026 13:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBA4357D0E;
+	Mon, 22 Jun 2026 13:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782136571; cv=none; b=NfwNr+AQb+XKHBAubLTkedNzf+hOtdFGCNfZy6DKmWlgRKW5eiZYjzSeWASxtwbHMmcrWc+uRgv0zWM2AE3krNYfTuWKo6+KfaYlMoywR+u+W00Wf99Ejy5T91WcK/TMu3wOkyEX73a8gT+H5dOF67F1YmI7r6exNNreCY0ecg4=
+	t=1782136583; cv=none; b=NXDIaGfVfDV2ShgRmCN8SawrEmhD98prIEz/6ZvmdN22iq0oTn7yy99Z+Zqxk9oCEDynepRVTzbyLy4eaaiSL4YCpHbcAWUUJ0qzsNxDztB8yVrVrHwy6aXmEBiELqKo2ey+Z/T/88Gl0dmgS2Rp+R2QCX8a84bvNJgsZyybwks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782136571; c=relaxed/simple;
-	bh=iikRMKXAlVaPR/0pHuWi9d4G9BZaBSLWWvNs5OXMjGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vvb8n6RVaBfV2uis+GwTkHS5leySx3zoaugGRLOPKQe2kXlOPcFrUJDkOJr6oHUhl15zlDcHfmb9+JO/tJxN+tp5+hK7r517r9Fm1EVQbbX7y2NESl7LxljIXivbR5a2TrHTFWOBlFY4CmCHmQ5SaUSBl/Dmf0D0sEmQEOE3J9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+LAmCWV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782136583; c=relaxed/simple;
+	bh=VLGNUOJWgetLw2CTOTASzxRBJpVRnxen9R190hFjPas=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NGT38AsmvWG48tBA2xO4AFfcmXX2igHidiEf2nyna5n/Psg7JiN+4cLiyQpAsdoqkkq5K8TsE3abxQnHdu06UoZ8ghrIXlGDFB4kr0CpvSfwTyjzBmtb5SDQLzLH5pNcnY9K8aEy8an6NhZzYn+rbtiD2CKhDLn8K/0nvUDha90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xcccWhVR; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+LAmCWV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7381F000E9;
-	Mon, 22 Jun 2026 13:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782136570;
-	bh=oKPEl/5kCiDiYCUDWLMa1pIvO9b3D4oGCZaPnidyXKo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b+LAmCWV+592EqfUvI8S3kLUHg9HmzY/5nd38PSLPZy68lVpYn8Tqa9rSkF5PJIa7
-	 iMdB+TwdQz6WCFyqrdQ1cFku2w4StL7iLRrwGi2uJr8QyH4txZcQGt4v9bLHk4X+dO
-	 PypWxzSgKgCCmZS+lfIRaDRAU5vreboCRuHaH0wOZ9U6GAmxJsJXFE/SWx3x6ya8oI
-	 qIcaAbEBreWWhJMwHyr4GTGA2/c0FtKgHP+4mkgGlCznEx8V4n6iHjCzC88HkUfxnh
-	 YaKHziOspNCFoAsvLjOP32vkj5E79qRuKUBAs4QUpR0EOAhd412QNTTKAkxu3M5km7
-	 ilEnkym8mdbRw==
-Date: Mon, 22 Jun 2026 15:56:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
-	Imran Shaik <imran.shaik@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/5] dt-bindings: clock: qcom: Add Maili TCSR clock
- controller
-Message-ID: <20260622-vivacious-camouflaged-loon-ed6fd2@quoll>
-References: <20260618-maili_initial_clock-v1-0-d6ede0352113@oss.qualcomm.com>
- <20260618-maili_initial_clock-v1-2-d6ede0352113@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xcccWhVR"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4gkV9G3Dn8z9tsN;
+	Mon, 22 Jun 2026 15:56:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1782136578;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V10NUk/gmPuBAXU0YzRkHmie0gZ9BDAPSeyjEgvzMHg=;
+	b=xcccWhVRSqDJHc/6NDRssnzaOOnGncLgvpUTUmdX2/FF2bKqUFl5lyKlsqIoZOeBYGlh5o
+	OVwPiUc/yIjaMqkESFLCFicMXXxgb0S8PmqfchDuCkp9UJS8I33pmRnTqGVNe93MfeFp4W
+	maVbfu0iR049vBzocLiZcujqbZ7XXoZ3Vu8LW0FbGfPODawn2FgAyIYMJ0iXnOm+AAB5GR
+	aRickCq0EjdcikS9ABqqfDm1xVBn8Tspn6/SUiryd9LxztdC0PJDohwXd3VspxDwEBM4XV
+	xalM/P3L6KNuvy9HPQh3cEeSiljnhM38QSVfBf7x5knmYsoJwDiAbu67VIUvSw==
+Message-ID: <8cb1c3cb-3d8f-4e76-99e9-ad78ee149556@mailbox.org>
+Date: Mon, 22 Jun 2026 15:04:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260618-maili_initial_clock-v1-2-d6ede0352113@oss.qualcomm.com>
+Subject: Re: [PATCH 1/9] arm64: dts: renesas: r8a774a1: Add soc: label to soc
+ node
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260621025052.406507-1-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAMuHMdUEPR0xWXRwLjBt5sF7i4HxcDLHCQGmc=gGvFmHRDv-Jw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: dacb6e1149af34e4ecb
+X-MBO-RS-META: t553dx187nxeb4i3g8oa88rprwqknbpr
 
-On Thu, Jun 18, 2026 at 10:51:17PM +0530, Taniya Das wrote:
-> Add bindings documentation for TCSR clock controller on the
-> Qualcomm Maili SoC.
+On 6/22/26 12:35 PM, Geert Uytterhoeven wrote:
+
+Hello Geert,
+
+> On Sun, 21 Jun 2026 at 04:51, Marek Vasut
+> <marek.vasut+renesas@mailbox.org> wrote:
+>> Add soc: label to the /soc {} node to align the DT with r8a77951.dtsi
+>> which already has that soc: label. The soc: label is useful in U-Boot
+>> where it is used in U-Boot extras DT fragments.
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
-> Maili is a derivative of the Hawi SoC and the tcsr clock controller
-> is identical to that of Hawi. Therefore Maili uses the fallback
-> compatible to reuse the Hawi tcsrcc driver.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,sm8550-tcsr.yaml           | 34 +++++++++++++---------
->  1 file changed, 20 insertions(+), 14 deletions(-)
+> For the whole series:
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> i.e. will queue in renesas-devel for v7.3, squashed into a single
+> commit. Unfortunately there is no cover letter, so I will have to add
+> all nine Link-tags.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Is that why cover letter helps you ?
 
+If so, I will start generating ones ?
+
+Thank you for your help !
+
+-- 
 Best regards,
-Krzysztof
-
+Marek Vasut
