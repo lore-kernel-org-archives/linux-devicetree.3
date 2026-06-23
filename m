@@ -1,125 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996D83BA253;
-	Tue, 23 Jun 2026 07:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0696A3C5DC5;
+	Tue, 23 Jun 2026 07:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782200798; cv=none; b=Fxu60nyPxPQpAayQsZ0lDDV7FDze7v+GfH44vqEdi4hrQpfBoqPSg5PxAvbTBVwRpYpsemfalO8Cd2iY/bx7uqqGOhszDOGL4lCbzt+ibRHzII5ZU4Il3OOEcwF8Jz2DlL3ZIB7J8QLwqRhIXT0SBc0b/iyMx5bXkriAA45Br1c=
+	t=1782201322; cv=none; b=BSN/rXK8/ZuRgxCXv+4biOF/jqfzgeJ46/w1yW9ObxDTPDDDev2NLfo8QsJCKu9xupiodZ2fgFjR8ky8A98hY7G22hg7EVL41Eebxql56FKlhwtdbQ5wwxOVCUiBKHX2G4kQz2PAcjG3FXoMy/UYVNfJb8twjnOkVUGc0Iz4/d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782200798; c=relaxed/simple;
-	bh=MtkJMGS1V/ABDkRi1NZ4hB+OVr3I/EfiQEnC20L2zvo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jLeW34fYxd+faZp0fz4AQov9uyzMnzYzwO9eY3ePLkfSwnuvV5gCmXyrNcFwYcmGCPJszevTPi3SUk/0XqQ3xzO5kJG1156PnZoS2t3mEgRe2LH8pp3hLS5/iP8lLgqFgutaktEpoy3BW4+vqOV+vc9MKjRaHj6VfjRXDEQ30AM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4QcPHEX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782201322; c=relaxed/simple;
+	bh=uuDiLL3rWdYC9eTaYQ267+USP5fq+tG1tEtS4TluUqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=slx+C3fXYzBUbQSIX1IQUbg2e1llclgBEjFUGsgtXQ9DaudLnUDpnyG70KXGkc1Pr3eVLMAWtpJ/OsnNMwi6di2O0tJ2v+4+9yj4iTWL/lqih75WzCUHs6eFrt4fKMxoriYDjdrmK/fGLGDbCoQWaOSQrvyS7ERKfKvGmh4PVJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRgdPpnd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4QcPHEX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E20E1F000E9;
-	Tue, 23 Jun 2026 07:46:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRgdPpnd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E6B1F000E9;
+	Tue, 23 Jun 2026 07:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782200797;
-	bh=MRyhS8fxs6vz3A8AXUw4m49oRLrHCT/AKc08+e5WMio=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D4QcPHEXOwJx8xi7vk/31AISKrGkiO0QHpPm0w6nu5o0zktetlUa0s+9HDPgv5kvY
-	 Y4CyOx8IX74S7Wua/sVOtDuskuYKJdgDJdJhSH4ToMxWjEghR8GNRQbly9BvPaCB5l
-	 z88Wwd+VuFTZcvdE5R+/HWofpe4ECV3xoS28swBSOuZ2yQ20eeGx18bkQZljI8CL6d
-	 qlNE8+AdCW41bol8s//PvbsTyw77/29l2+UQySMNiTYhfoUHPqem4ijz1o4n98sL7A
-	 N3BbUb0I+e7en4YEk5FZgQxGI7/2HlhLB+nz68tjvnpggzSaLRSGtcuDN1OKWA73l/
-	 uej7AvcN4VRyA==
-Message-ID: <68ec1160-7d9c-4a44-83c4-38549fefc728@kernel.org>
-Date: Tue, 23 Jun 2026 09:46:29 +0200
+	s=k20260515; t=1782201321;
+	bh=uuDiLL3rWdYC9eTaYQ267+USP5fq+tG1tEtS4TluUqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aRgdPpndYJzf46s8QpLYBy5AOGXx9hwsclV7j3ShiFtDg8SPMVkLcSXHceu7gVA12
+	 7dcY5tzY4mM797HofjCHmJrl0b8gFTq7+NoleBUPrQeuX72s54fnsA/tcYMu9HUe4N
+	 NXJ7VRy+7sJ1LrRqZVprFJ/ix6Vv4xs0lvwiAjsvQfFB9oregY8H+nG/i5/Yr8AHX1
+	 aNjM6zMbCLBT5j3Zp7PU/fxlDqCc5vD//EybmnOnxdnVsMk6A1F40PHGYbS2t1L8iF
+	 zVC9tEfK0BcB49o/8Y+/yd7nFzE3DNDbt9c6Z71Yuo1uRE0VKinOMKaPbAja4Le9fl
+	 mIH3pLZdGjg4g==
+Date: Tue, 23 Jun 2026 09:55:18 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Amit Barzilai <amit.barzilai22@gmail.com>
+Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com, 
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andy@kernel.org, gregkh@linuxfoundation.org, 
+	deller@gmx.de, azuddinadam@gmail.com, chintanlike@gmail.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev
+Subject: Re: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
+Message-ID: <20260623-silent-dramatic-crayfish-970cdd@houat>
+References: <20260622152506.78627-1-amit.barzilai22@gmail.com>
+ <20260622152506.78627-5-amit.barzilai22@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: qcom: install DT overlays via dtbs_install
-To: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>, andersson@kernel.org
-Cc: vudupa@qti.qualcomm.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
- kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
- linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
- lminier@qti.qualcomm.com
-References: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
- <20260622055226.4085891-1-vishwas.udupa@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260622055226.4085891-1-vishwas.udupa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 22/06/2026 07:52, Vishwas Udupa wrote:
-> Overlay binaries (.dtbo) are currently only built implicitly as
-> dependencies of composite firmware images and are therefore absent from the
-> kernel install output.
-> 
-> Even when final DTBs are produced at build time, some distributions rely on
-> standalone DTBOs for runtime selection and application by bootloaders or
-> firmware. Without explicit install targets, DTBOs are not picked up by the
-> standard dtbs_install flow and therefore cannot be packaged alongside DTBs.
-> 
-> Add explicit dtb-$(CONFIG_ARCH_QCOM) entries for DT overlays defined in
-> this Makefile so they are installed via dtbs_install, matching existing DTB
-> install behaviour, while excluding EL2 DTBOs as they are not intended for
-> independent use and are only meaningful in conjunction with their base DTBs.
-> 
-> Signed-off-by: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Address review feedback from sashiko on commit message
-> - Link to v2: https://lore.kernel.org/all/20260619180951.325272-1-vishwas.udupa@oss.qualcomm.com/
-
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="gw7ljox4iins6cyc"
+Content-Disposition: inline
+In-Reply-To: <20260622152506.78627-5-amit.barzilai22@gmail.com>
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+--gw7ljox4iins6cyc
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+Hi,
+
+On Mon, Jun 22, 2026 at 06:25:06PM +0300, Amit Barzilai wrote:
+> The SSD1351 support was added to the ssd130x DRM driver. To avoid
+> confusion and irrelevant updates, the staging fb_ssd1351 driver is
+> removed.
+>=20
+> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
+
+fbtft uses a different dt binding iirc, and has a different uABI, so we
+should probably keep it around.
+
+Maxime
+
+--gw7ljox4iins6cyc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajo74QAKCRAnX84Zoj2+
+dnmXAX9P+PJBYkVuU9e3AolV5ij1GbfkoFUpN0wN60OCuslj4w/fGr3BYEMXqoYD
+b41D4yEBgLBDEfa8uCc5AlDq4yYn4UgEjNwttY0JaZRx4btU/jCkbEOf54AUNVMb
+ZqzRxMu2+A==
+=K+pu
+-----END PGP SIGNATURE-----
+
+--gw7ljox4iins6cyc--
