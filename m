@@ -1,410 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AED3AC0D4;
-	Tue, 23 Jun 2026 06:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8A43290A6
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782194880; cv=none; b=bAs0ZKWijTmw4nkV5Vz6d1HHFIRhMgD8rOcGQAi/okht7pVDgPz0vO6ahln58NxZPrEpJPW4KYAYp2YBcdXk8413S8EvBOb7G2RsymYpI9FTDWvD4DvfLBAax8n9ORzDFCbUzrl6Doc9KL/tUiAzdFbMEnGXIYZ1DiDqsg9bSQ8=
+	t=1782195299; cv=none; b=rblE5u8CowG/cgxwreKIGq63x2MxURec1P0+ngjFjhbc/oAEqn1v0RiUhEOwv+g8u8xxbLpdtNPiniCFUlTfrQ0xz8JheXJy/ZvG0htWto8mDJQjkYeElpZJQl99WEmx3tHC9lWOY82Aics6cP+C8QrEP1TGEOG7q7M6x8+mbCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782194880; c=relaxed/simple;
-	bh=WEz718Emib+Wwmernjiq1U+vsQeWIMiW+OmLIuiLKxE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ryRy/T1GKlyyiA/jdob4rb2pVCZw0TEFjB8lEx8/P8ZMEI2kyydcci0Wl2Hneb6d2MeRxzaEdk6xHtpCF1B4vxRJK+x+XGTeulcps0JUy1CQSrzK6YnJnfdcuzXRud3MrOcMO2Eahx+G8mWjLEats1mJ3nNj7x2AsvcSJasxYw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEeMD3gO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782195299; c=relaxed/simple;
+	bh=MyO9vSxYmW96gkicKMfQpYP2sU8NYxAm2f3g9BjPzFQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=n/kiN8Vuhjm15y27ybDEdbY9ScCCukdF5j/bAootP720mFnw84f2uLqtlpdwtyFGCSUQ4vV3dS+FlffkeMosooQS9eq/S1UzElC4ddDSRo2PSRJelv4rHzw7c9r4vgReTObUIz8AVRyxPjFW3f1MlBXrwgxT3TLKMbHodIggs8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BdHGanCq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hn/juwvn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEeMD3gO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB311F000E9;
-	Tue, 23 Jun 2026 06:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782194872;
-	bh=YJa32nfU1RKJGeMJgs9TtYByggswvSMW7Ubl1R//gbw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WEeMD3gOv6m6JKHv7jp0+npiOjorfUqeK0B7EJdS5IAn+V4idwP2C7/yuP4fgmT9a
-	 Q5dniErkoZ9TLlYeDoj6mzngRiIv+FyfY/xUZCzVv6BLoowsg4c3BsmSYMvgyfmLqI
-	 yLOI/UeumWEhiwcCnX/ah5cIEV+3Ed342Lu52DAFias84jloTvQau8NSef/E3Lkzw/
-	 7g0ziGKJ+ia1RLIKbI7xl20altEDOpoi4FZAL7ctOo2qzp1i2Esd5vS62gvCvWwW5l
-	 Pe+bI4Z89gpawp7YkORsY3CEk3+Wwciueb3gwF8B+m1KPQ3NLs+U9ze70Xad7NK4f5
-	 78cPoFtYsD5vg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123
- and FD5125
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Selvamani Rajagopal via B4 Relay" <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 06:07:50 +0000
-Message-Id: <20260623060751.4CB311F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BdHGanCq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hn/juwvn"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N0hcdI2270838
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:14:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	SRmFezgGdNXaD4cxRDkq5/2uzdaGtG1vf2sMTlaxZt4=; b=BdHGanCq/fvjWyLx
+	lO6xyNjBVc9KBvnM97L9TUbDYCAPOOL0DDuBny+lP08yJS19RkAtX583JoZPDe4n
+	2hLR7qPVS7Vw8tW7ebDheHxnY18S9pvPsI/7VK2V76GOJHSQk9YHBEf69/x94lbL
+	KxBU8ewuJzxi/dNl9trrmdjr84XyAYwsi1fJqT7eRUneFExZGw6OHjAnluDkZyhV
+	/Jv+dX8ffzdhNuIgKUsXr4lcu9Z+Wa6Poo0CP1FsIN0jp3qaQ4GY5U4WAFxeWgR6
+	H8hRmzyPn0Avk/XPXtwX918jSIpo7BjBdOFsiYxMFBVnIIf5NcJ1nhg7rsP/zrGY
+	P05+fg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey2yjbw0c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:14:57 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c88fc985a65so3294807a12.2
+        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 23:14:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782195297; x=1782800097; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SRmFezgGdNXaD4cxRDkq5/2uzdaGtG1vf2sMTlaxZt4=;
+        b=Hn/juwvnhaXiYHtO0V16zDnM3+QxkPzD/vRX9PYQm78gSz2D5SvXz6df/ZFFW2eMmQ
+         3bHYfOXsF4q7Vh0DRW6hkBRISuXgwqvUIoTpDVBelnZLdmo5NVbcD4ODdMu4CFjGFqoW
+         jMO46EKUa5SgEvI8FMrt6PC+WD2eECfMIGKbEdr2xf1s2GOX70uyJw9y08AJPSUKycuy
+         NTPZYwWj/x2nlua7SK7Tfc7S6cGuB2NUG2qmbh2tKccvDTKVcJuvtB+oXJcXHGxmGmQM
+         W20e9RdcU61D49DFd6ZTmpy54NSwM5HwDxJTm89AmI2YxslzTMSHp9ggTH4/dZf552Mx
+         BnyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782195297; x=1782800097;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SRmFezgGdNXaD4cxRDkq5/2uzdaGtG1vf2sMTlaxZt4=;
+        b=b1CVyMkSpJeenFnRYzD60rcukWJYR/UpExwI6H10kk1TEpP9KtaYi+lmMt6jEuCnAJ
+         70TNKYWuCDORkr0gDzvqv/tDOP37NLLgIp+vVWbC5LS4I3+qRrCW3r6zHlUtIZHC1wJ/
+         ZfxV/hW+EACLeKOyWBHl+ur8aUSQSeuH92OCxdx6knpT2nePAGdKkTyguYVUObEkIhYi
+         cGbrZDzy8ZjZJH0kIG+Wd80kIoAUpUCGqVOgaq+co1WZuhzVaCPzmyLUYjEMFuQmZZaN
+         7RMeY0LpKvLucaCz2N2biq3KOsCv3PasEKCBlPFIvJh94mnNUcdrQrbP2AnUsg3Fnw3Y
+         sa9A==
+X-Forwarded-Encrypted: i=1; AFNElJ9qLyMg4eQ41NtdiRV2sxA0rjJgGfWcFw8ogxHB+pJDmfwmVQH4PNX+PnGBhDmghKIkU5H7aM3Mbym4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxFhepG/Bal2nDlsmGo2YgbV94sIh7uOxZ9kgmiyuEbK4k+wxP/
+	hxzEd5vv16nYLza3hmcv4WNtoalqv6CM54QpLzdHkB3fEIsxKl7J0s3HIyY49e1jwZntgtmnGO4
+	Qxd0vYnuJhAxD9R1JnEoxADkjKq08VNlNUvFWcHOKYcm1oi5LGU/7r8yuxsLx0hMo
+X-Gm-Gg: AfdE7cmMgxGrAUvXEFuDr4w1wJu2qy4lro0ACDmcvKKaIVvUh6bvrUjUaw3xJoGE+A1
+	+7oeQ9uwh/GKQt80X7I/T6Q7YrvYgEh9B9w3+euS71tpFem3A59GNLvtLoM9QoQ4u5n0IFUH4aV
+	eHZy05ybJwl9qiFy55P8GoXIMxVhJ8fgngsq+WnRdEjellI1XJXLujc4zCaX4OG5EntaSfuS+Ng
+	S7tjhl1cxDpMXODZoAIkWUqteu2O/2AOZA+w8IjCbEIK09GjZRx1Lq8814LSrjqTxEoYos/umQT
+	/xyGrGJDN8Xj8fJvoeX+0k9KXDM7Bxpzp81rsDVJAz9DoLzz0WbtMpqoL8ScRCF5+BEj9cV5t5e
+	By+ZhEB0Hsdw3m1WdPb48+D3aRbVbfFcuMLITng==
+X-Received: by 2002:a05:6300:14d:b0:3b9:545d:bff3 with SMTP id adf61e73a8af0-3bd1904cf62mr1456530637.14.1782195296934;
+        Mon, 22 Jun 2026 23:14:56 -0700 (PDT)
+X-Received: by 2002:a05:6300:14d:b0:3b9:545d:bff3 with SMTP id adf61e73a8af0-3bd1904cf62mr1456492637.14.1782195296513;
+        Mon, 22 Jun 2026 23:14:56 -0700 (PDT)
+Received: from [10.218.5.114] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c8bc2c8f0a7sm9216353a12.7.2026.06.22.23.14.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 22 Jun 2026 23:14:55 -0700 (PDT)
+Message-ID: <d35fb519-ea1b-426c-be97-d48201eb3bba@oss.qualcomm.com>
+Date: Tue, 23 Jun 2026 11:44:35 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/13] clk: qcom: gcc-qcm2290: Keep the critical clocks
+ always-on from probe
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Brian Masney <bmasney@redhat.com>,
+        Ajit Pandey
+ <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260604-shikra-dispcc-gpucc-v4-0-8204f1029311@oss.qualcomm.com>
+ <20260604-shikra-dispcc-gpucc-v4-1-8204f1029311@oss.qualcomm.com>
+ <w2y2wz3cbifnko3td3ovxfom26lll3vl5qgulksa7qnuvzukpf@pqlrh23sljsz>
+ <f6264995-a6f6-498f-9557-723c39becf1a@oss.qualcomm.com>
+ <CAO9ioeUtpSoorLUHXXLEjS+N_AWUtdX2ZD0X+Wss6O0+gwq55g@mail.gmail.com>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <CAO9ioeUtpSoorLUHXXLEjS+N_AWUtdX2ZD0X+Wss6O0+gwq55g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: lEr5ybkE4Vd2rJ6jNm8GMyvfwkouS8g0
+X-Proofpoint-GUID: lEr5ybkE4Vd2rJ6jNm8GMyvfwkouS8g0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA0OCBTYWx0ZWRfX2FJMj/TD33pf
+ o8U3IqN+3jhECcgfE8fcaKnX6kmM5iTAGlhXPgpEmVFzh446Vh8SK6qeEC9kt1L+QUgIwBPD42w
+ Cmg4Qg0KJ6R+xGXu2jO79dT+HKgXkJ0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA0OCBTYWx0ZWRfX9xyn4k878hRp
+ GhedEPLyN95rQlFKjYxTtR2R9fOTFFyFEcBfnBx9X+5tIXRLddUUX18WDoUfLkc3er7R8kXgixH
+ 8J1d+cpsZi/fULvOTec6bHUrwk1FFViqDf2XPTHJ/KvE2aj4/NL1rJJCnttAEIxgnsRlyahLtgn
+ mnp/Vof9v2sMsXMTCFvH7L8p+WK/rrWJufGFAJoMHO3ATa5X+LqRYSi9QjOP4yGvb3qS6OvEMrf
+ VkoHkfLiEc8ih8msfOAe639qc7JqdF4l/8PNcrOXLm82N9HAJmC75SU4XJb855HeJJQDpPTL70Y
+ 6/sk6p5beBvRJKI5o0PY405cTnG9yiIUg91IFMf1DuNbkgvV62pd8Om/SRJNu0ZcyDPE3UO6Khs
+ fvA6XKIllRtwLcvvs4ZL3QEi4j0pe2OO4GvN7LykSJlXWIPP3mFuMCsqWtCbfj9/va2ApChNUA/
+ b9Dai9bz+MNOUOxNHUQ==
+X-Authority-Analysis: v=2.4 cv=YLSvDxGx c=1 sm=1 tr=0 ts=6a3a2461 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=Z54PLgYRQ6qQMJT4v0UA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_01,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
+ adultscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230048
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Directly exposing PMBUS_PAGE and paged PMBus registers via custom =
-lockless sysfs attributes bypasses PMBus core locking and page caching, cau=
-sing race conditions and hardware state corruption.
-- [High] Incorrect mathematical conversion of READ_VOUT to AMD 6.25mV VIDs =
-causes voltage read failures > 1.55V and applies dangerously incorrect volt=
-ages on writes.
-- [High] The `svr_go` sysfs attribute ignores its mapped register index, al=
-lowing userspace to execute arbitrary PMBus/I2C Send Byte commands.
-- [High] The I2C block read fallback in `fd5121_read_block_data` corrupts t=
-he payload by reading one byte too few and shifting uninitialized memory in=
-to the result.
-- [High] The I2C block write fallback in `fd5121_write_block_data` omits th=
-e required PMBus length byte, corrupting write transactions.
-- [Medium] Attempting to read 164/165 bytes for OTP/RAM using standard SMBu=
-s/I2C block read functions results in silent truncation to 32 bytes.
-- [Medium] `fd5121_word_store` parses user input as a signed 16-bit integer=
-, preventing valid unsigned PMBus values from being written.
-- [Medium] The custom `clear_faults` sysfs attribute sends an invalid data =
-payload for a standard PMBus Send Byte command.
-- [Medium] The driver violates the hwmon subsystem ABI by exposing over 80 =
-standard PMBus registers as custom raw sysfs attributes.
-- [Medium] `fd5121_probe` enforces an overly restrictive `I2C_FUNC_I2C` che=
-ck, breaking compatibility with standard SMBus controllers.
---
 
-commit 1e218fd27c0a9b6bb8fade016af8d29cbdb6daa5
-Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-hwmon: (pmbus/fd5121): Add support FD5121, FD5123 and FD5125
-   =20
-FD5121 is a dual-rail, multi-phase, digital controller that offers
-full telemtry options including input/output voltage, current as
-well as fault handling and identifications.
-   =20
-These controllers are compliant with PMBus specification.
+On 22-06-2026 08:42 pm, Dmitry Baryshkov wrote:
+> On Sun, 21 Jun 2026 at 16:28, Imran Shaik <imran.shaik@oss.qualcomm.com> wrote:
+>>
+>>
+>>
+>> On 06-06-2026 04:54 pm, Dmitry Baryshkov wrote:
+>>> On Thu, Jun 04, 2026 at 10:56:07AM +0530, Imran Shaik wrote:
+>>>> Some GCC branch clocks are required to be kept always-on due to the
+>>>> hardware requirements. Drop the modelling of those always-on QCM2290 GCC
+>>>> clocks and use the latest .clk_cbcr convention to keep them enabled from
+>>>> probe.
+>>>
+>>> You got the feedback, but it got ignored. There is no explanation about
+>>> gcc_gpu_iref_clk and several other clocks becoming always on.
+>>>
+>>
+>> Apologies for the late reply.
+>>
+>> I have updated generically that few clocks are required to be kept ON
+>> due to the hardware requirements. For gcc_gpu_iref_clk clock the
+>> Power-On-Reset value is default ON, and such clocks are kept ON from
+>> probe. As Agatti is working functionally, I will keep this clock
+>> modelling same as before.
+>>
+>> And I will update commit text that the GCC video ahb/xo clocks are
+>> required to be kept ON similar to other camera/disp ahb/xo clocks.
+> 
+> Why? What is _wrong_ with thow they are modelled now?
+> 
 
-> diff --git a/drivers/hwmon/pmbus/fd5121.c b/drivers/hwmon/pmbus/fd5121.c
-> new file mode 100644
-> index 0000000000000..e68c6d6cabbd9
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/fd5121.c
+Usually this is required for the register access, hence we mark them 
+critical and keep them ON. As it is working on Agatti with the 
+modelling, will keep them as is for now.
 
-[ ... ]
-
-> +static s32 fd5121_read_block_data(const struct i2c_client *client,
-> +				  u8 cmd_code, u8 len, u8 *pbuf)
-> +{
-> +	s32 ret =3D 0;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
-> +
-> +		/* Payload length is in the first byte. */
-> +		ret =3D i2c_smbus_read_i2c_block_data(client, cmd_code,
-> +						    len, pbuf);
-> +		if (ret < 0)
-> +			return ret;
-> +		ret =3D pbuf[0];
-> +		if (ret > len)
-> +			ret =3D len;
-> +		for (int idx =3D 0; idx < ret; idx++)
-> +			pbuf[idx] =3D pbuf[idx + 1];
-> +		return ret;
-
-[Severity: High]
-Does this fallback logic corrupt the payload by reading one byte too few?
-
-Since the device replies with an SMBus block read format (a length byte
-followed by the payload), requesting exactly len bytes retrieves the length
-byte and only len - 1 data bytes.
-
-This means the last byte of the payload is dropped, and the subsequent
-left-shift copies a trailing uninitialized byte into the final payload
-position. Should it request len + 1 bytes instead?
-
-[ ... ]
-
-> +static ssize_t fd5121_send_byte_store(struct device *dev,
-> +				      struct device_attribute *da,
-> +				      const char *buf, size_t count)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev->parent);
-> +	u8 val =3D 0;
-> +	int ret;
-> +
-> +	ret =3D kstrtou8(buf, 10, &val);
-> +	if (ret < 0)
-> +		return ret;
-> +	ret =3D i2c_smbus_write_byte(client, val);
-
-[Severity: High]
-Does this allow userspace command injection?
-
-This attribute is mapped to PMBUS_REG_MFR_SVR_GO, but it parses the
-user-provided string into val and directly sends that as the SMBus command
-code, completely ignoring attr->index. This allows any arbitrary command
-code to be broadcast instead of SVR_GO.
-
-[ ... ]
-
-> +static ssize_t fd5121_byte_store(struct device *dev,
-> +				 struct device_attribute *da,
-> +				 const char *buf, size_t count)
-> +{
-> +	struct sensor_device_attribute *attr =3D to_sensor_dev_attr(da);
-> +	struct i2c_client *client =3D to_i2c_client(dev->parent);
-> +	u8 reg =3D attr->index;
-> +	int ret =3D 0;
-> +	u8 val =3D 0;
-> +
-> +	switch (reg) {
-> +	case PMBUS_REG_MFR_CONFIG_ACTIVATE:
-> +		ret =3D fd5121_config_activate(client);
-> +		if (ret < 0)
-> +			return ret;
-> +		return count;
-> +	default:
-> +		ret =3D kstrtou8(buf, 10, &val);
-> +		if (ret < 0)
-> +			return ret;
-> +		break;
-> +	}
-> +	if (reg =3D=3D PMBUS_PAGE && ((val !=3D 0 && val !=3D 1 &&
-> +	    val !=3D GENMASK(7, 0))))
-> +		return -EINVAL;
-> +	ret =3D i2c_smbus_write_byte_data(client, reg, val);
-
-[Severity: High]
-Can writing to the PMBUS_PAGE attribute directly corrupt the PMBus core's
-page tracking?
-
-By modifying the physical hardware's page using raw i2c_smbus_write_byte_da=
-ta
-instead of the PMBus core accessors, the core's cached data->currpage
-becomes out of sync. Subsequent accesses by the PMBus core could execute
-on the wrong hardware rail.
-
-[Severity: Medium]
-Additionally, if this is used to send PMBUS_CLEAR_FAULTS, does it violate
-the PMBus specification?
-
-CLEAR_FAULTS is strictly a Send Byte command with no data payload, but
-i2c_smbus_write_byte_data() transmits an extra data byte.
-
-[ ... ]
-
-> +static ssize_t fd5121_word_store(struct device *dev,
-> +				 struct device_attribute *da,
-> +				 const char *buf, size_t count)
-> +{
-> +	struct sensor_device_attribute *attr =3D to_sensor_dev_attr(da);
-> +	struct i2c_client *client =3D to_i2c_client(dev->parent);
-> +	u8 reg =3D attr->index;
-> +	s16 val =3D 0;
-> +	int ret =3D 0;
-> +
-> +	switch (reg) {
-> +	case PMBUS_REG_MFR_PWD_PROGRAM_RAM:
-> +		val =3D 0xC93F;
-> +		break;
-> +	default:
-> +		ret =3D kstrtos16(buf, 10, &val);
-
-[Severity: Medium]
-Does using kstrtos16() prevent configuring valid unsigned PMBus word values?
-
-PMBus word registers represent 16-bit unsigned integers, but parsing
-them as a signed s16 causes any valid input between 32768 and 65535 to
-be rejected with an -ERANGE error.
-
-[ ... ]
-
-> +static ssize_t fd5121_word_show(struct device *dev,
-> +				struct device_attribute *da, char *buf)
-> +{
-> +	struct sensor_device_attribute *attr =3D to_sensor_dev_attr(da);
-> +	struct i2c_client *client =3D to_i2c_client(dev->parent);
-> +	u8 data[I2C_SMBUS_BLOCK_MAX] =3D { 0 };
-> +	u8 reg =3D attr->index;
-> +	s32 ret =3D 0;
-> +
-> +	if (fd5121_blk_rd_reg(reg)) {
-> +		ret =3D fd5121_read_block_data(client, reg, 2, data);
-> +		if (ret >=3D 0)
-> +			ret =3D get_unaligned_le16(data);
-> +	} else
-> +		ret =3D i2c_smbus_read_word_data(client, reg);
-
-[Severity: High]
-Does this direct sysfs read lead to a race condition with the PMBus core?
-
-Since these paged registers are read directly via i2c_smbus_read_word_data
-without acquiring data->update_lock or ensuring the correct page is active,
-concurrent PMBus operations could cause this to read from the wrong rail.
-
-[ ... ]
-
-> +static s32 fd5121_write_block_data(const struct i2c_client *client,
-> +				   u8 cmd_code, u8 len, u8 *pbuf)
-> +{
-> +	s32 ret =3D 0;
-> +
-> +	if (!i2c_check_functionality(client->adapter,
-> +				     I2C_FUNC_SMBUS_WRITE_BLOCK_DATA))
-> +		ret =3D i2c_smbus_write_i2c_block_data(client, cmd_code,
-> +						     len, pbuf);
-
-[Severity: High]
-Does this I2C block write fallback omit the mandatory PMBus length byte?
-
-Unlike the SMBus equivalent, the I2C block write API does not prepend
-a length byte on the wire. Without this length byte, the hardware will
-misinterpret the first data byte (pbuf[0]) as the length, corrupting
-the data payload.
-
-[ ... ]
-
-> +static ssize_t fd5121_block_show(struct device *dev,
-> +				 struct device_attribute *da, char *buf)
-> +{
-> +	struct i2c_client *client =3D to_i2c_client(dev->parent);
-> +	struct sensor_device_attribute *attr =3D to_sensor_dev_attr(da);
-> +	u8 buffer[I2C_SMBUS_BLOCK_MAX] =3D { 0 };
-> +	u8 reg =3D attr->index;
-> +	int printed =3D 0;
-> +	s32 ret =3D 0;
-> +	u8 len =3D 0;
-> +	int i =3D 0;
-> +
-> +	if (reg =3D=3D PMBUS_REG_MFR_FAULTY_SPS) {
-> +		int to_print =3D 0;
-> +
-> +		len =3D 7;
-> +		ret =3D fd5121_read_block_data(client, reg, len, buffer);
-> +		if (ret < 0)
-> +			return ret;
-> +		printed =3D 0;
-> +		to_print =3D (ret < len) ? ret : len;
-> +		for (i =3D 0; i < to_print; i++)
-> +			printed +=3D scnprintf(buf + printed,
-> +					     PAGE_SIZE - printed,
-> +					     "%02x", buffer[i]);
-> +		printed +=3D scnprintf(buf + printed,
-> +				     PAGE_SIZE - printed, "\n");
-> +		return printed;
-> +	} else if (reg =3D=3D PMBUS_REG_BBR_RAM ||
-> +		   reg =3D=3D PMBUS_REG_BBR_OTP) {
-> +		u32 len =3D (reg =3D=3D PMBUS_REG_BBR_OTP) ? 165 : 164;
-> +
-> +		/* Extra byte may be needed in case we need to store
-> +		 * the length of the data
-> +		 */
-> +		u8 *tmp_in =3D kcalloc(len+1, sizeof(u8), GFP_KERNEL);
-> +
-> +		if (tmp_in =3D=3D NULL)
-> +			return -ENOMEM;
-> +		ret =3D fd5121_read_block_data(client, reg, len, tmp_in);
-
-[Severity: Medium]
-Will this operation silently truncate the read to 32 bytes?
-
-The requested lengths are 164 and 165, but the underlying I2C/SMBus
-block read functions (i2c_smbus_read_block_data and its I2C fallback)
-are strictly capped at I2C_SMBUS_BLOCK_MAX (32 bytes).
-
-[ ... ]
-
-> +static struct attribute *fd5121_paged_attrs[] =3D {
-> +	&sensor_dev_attr_operation.dev_attr.attr,
-> +	&sensor_dev_attr_vout_raw.dev_attr.attr,
-> +	&sensor_dev_attr_on_off_config.dev_attr.attr,
-> +	&sensor_dev_attr_clear_faults.dev_attr.attr,
-> +	&sensor_dev_attr_write_protect.dev_attr.attr,
-> +	&sensor_dev_attr_smbalert_mask.dev_attr.attr,
-> +	&sensor_dev_attr_vout_mode.dev_attr.attr,
-> +	&sensor_dev_attr_vout_command.dev_attr.attr,
-
-[Severity: Medium]
-Is it intentional to expose standard PMBus registers as raw custom sysfs
-files here?
-
-Defining over 80 standard PMBus commands (like vout_command, operation,
-clear_faults) as custom attributes bypasses the standardized hwmon ABI
-(e.g., in1_input). The PMBus core framework automatically translates
-these standard features into the required ABI format.
-
-[ ... ]
-
-> +static int fd5121_read_word_data(struct i2c_client *client, int page,
-> +				 int phase, int reg)
-> +{
-> +	int ret;
-> +
-> +	ret =3D fd5121_valid_reg(client, reg);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D pmbus_read_word_data(client, page, phase, reg);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Chip reports VOUT_MODE as vid. But gives raw value 1mV per bit.
-> +	 * So, encode the READ_VOUT value so that it gets decoded and
-> +	 * reported correctly.
-> +	 */
-> +	if (reg =3D=3D PMBUS_READ_VOUT)
-> +		ret =3D DIV_ROUND_CLOSEST(155000 - ret * 100, 625);
-> +	return ret;
-> +}
-
-[Severity: High]
-Does this calculation fail for voltages above 1.55V?
-
-Since the raw VOUT is 1mV per bit, if ret is greater than 1550, the
-numerator (155000 - ret * 100) evaluates to a negative number. The PMBus
-core will interpret this negative value as an error code (e.g., -72),
-causing sysfs reads to fail.
-
-> +static int fd5121_write_word_data(struct i2c_client *client, int page,
-> +				    int reg, u16 word)
-> +{
-> +	int ret;
-> +
-> +	ret =3D fd5121_valid_reg(client, reg);
-> +	if (ret < 0)
-> +		return ret;
-> +	ret =3D pmbus_write_word_data(client, page, reg, word);
-> +	return ret;
-> +}
-
-[Severity: High]
-Is there a missing reverse translation for PMBUS_VOUT_COMMAND?
-
-Because info->vrm_version[idx] =3D amd625mv is declared, the PMBus core
-translates requested voltages into AMD VIDs and sends them here. Without
-an inverse translation to the hardware's native 1mV/bit format, a VID
-like 88 would be written directly, severely undervolting the hardware
-to 88mV.
-
-[ ... ]
-
-> +static int fd5121_probe(struct i2c_client *client)
-> +{
-> +	struct pmbus_driver_info *info;
-> +	struct fd5121_data *pdata;
-> +	u32 id;
-> +
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> +		return -EOPNOTSUPP;
-
-[Severity: Medium]
-Does this unconditionally break compatibility with pure SMBus controllers?
-
-Many standard PC and server host controllers only support SMBus operations
-and do not set the I2C_FUNC_I2C flag. Since the driver heavily utilizes
-SMBus commands, checking for full I2C functionality might prevent the driver
-from probing on common hardware.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-support-fd=
-5121-from-onsemi-v1-0-b31767689c65@onsemi.com?part=3D3
+Thanks,
+Imran
