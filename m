@@ -1,208 +1,143 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B3F3D16E4
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 10:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7406C3D1ABD;
+	Tue, 23 Jun 2026 11:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782212394; cv=none; b=Zg17fC8UdEHDVZgKHaOCKCPpdH7HzobEPruRboznkr9PHfgVNMLJolZRNn0FaHfKSyAz0ZRBFSbU4HBd4gvXbJMQc4CIkf8lY2Ga6C4Jx8vG2pTl3BSrru4ByQbqFKJVkI0oJdOfGlYzDizlBrNQJF66Q6Blbu+L5Yhprul3kdg=
+	t=1782212403; cv=none; b=JEoyaWf+Y5s1k9Nawl+PGWKzyZjuFPcZZKH/PVURPYMp206hYZJUVg8Tmshl81QmpCM+RXPu8jIlEKZUSlQsFhH2eTQpUmddDNJfDTntFRWx/Gq/cpl+rDqUr1M/5dFVH/z58wrjoTltkZGxj+MlNNSlP3T07Q+ZL6Q7LH9SS08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782212394; c=relaxed/simple;
-	bh=1g3yVFwvi3QLJf+kLTELRhLDnDw+SCQq8UtKU9T4u5s=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=X8q5sDoftu1aFGrHbMGELAfVbptDBt4MqektwbFb8zg5UNLCtPcohppNh0/iqOX8REvM/n1ybwelwQojfiR1BJPosUhYtVfMmuboSLDlJyk5Qy8LwEnNfY3jyWkYdhZMYXOaMPskmdj3+q0psmIgDwYng0koT4WMbojx2cRN8R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=HYa5Rqwl; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1782212403; c=relaxed/simple;
+	bh=yHO/2t0Hb5A0w4vjeAuH+yDbJ1lP178mmCNx5z6M//k=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lSDa2yn3Cqcn0P8BEpHZxwNs7QAbt4P12Aj4sW25w4UJAz1tkb3ALHLckqgo+8FmIAIFkN7Zd+d0vSKufZG148IrGhsoVXSlLEwoGUntCmKCp+JyHyPsGxeMGMlxIgNTjHlRnb1ou3zwNI4mCV//Cxi86PJWEEguMLS/tlsJMO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=mCz6XYSQ; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="HYa5Rqwl"
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="mCz6XYSQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1782212402; x=1813748402;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yHO/2t0Hb5A0w4vjeAuH+yDbJ1lP178mmCNx5z6M//k=;
+  b=mCz6XYSQB6qwVTm5zRj6e+rpspOwDbGqD32lUZKTnO5POsZqEY84+xze
+   JHQTgbkqWUNhAb3EqADTAWXVXUGwBAFmBtR3TtGPC+X/ilmJQDoqbxRbK
+   cSlSvMocUG3VM3jVm8cXVqjzsb7t15iJLtTXOukLrbTlxM/Drg2MBgU3Q
+   sJ0wUbKwsv7oAR4jVnD3FyxlKlbbRIXyjeqk66d1/CS4XJIqzUJyAuMQI
+   Rga36bRJ4MkpYsJxp9doPvDaowQqzpUGt5lIi9vPaaNWcaoGS3FuDyKI8
+   swVEGQH2SbmYe5lDo1x2QUE7vEsdaCBOivZUybSomYtzdWzniPZJl4AeE
+   g==;
+X-CSE-ConnectionGUID: Y3LtMIYZREylgqcL4yz3eg==
+X-CSE-MsgGUID: vSMo/dVLT82Qe5W0Vpni4w==
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; 
+   d="scan'208";a="59540448"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 23 Jun 2026 03:59:56 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 23 Jun 2026 03:59:55 -0700
+Received: from che-ll-i67070.microchip.com (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 23 Jun 2026 03:59:49 -0700
+From: Varshini Rajendran <varshini.rajendran@microchip.com>
+To: <ehristev@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+	<srini@kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <varshini.rajendran@microchip.com>
+Subject: [PATCH v2 00/12] Add thermal management support for sama7d65
+Date: Tue, 23 Jun 2026 16:29:32 +0530
+Message-ID: <20260623105944.128840-1-varshini.rajendran@microchip.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
-	s=key1; t=1782212387;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bgNiBBf4cu32q0ZEEYeIX25WTZd4hvVr+vxDhDI/sgY=;
-	b=HYa5RqwlJ97bZG6XkmSoo1V2BG9Sl5u3bd9B979ewpsl0t7WfPVOgbblAc9tppbn8W81IF
-	ws3PmW4qlw5MDLAaSsT47fneTsbFfeWdM8GpbxLKDEUR6iXpzuncovQpZn0HOawytQ96OD
-	smvR8ur1LVCWoZE+c0ZuUfVD2pkaUnCCWPs7pzuhq/5/5hIC2xO+eLdMjL+o4inKUWrf0y
-	W+AZTc3j/AMmNkGi2FLd4uqNB1W+jtKIEu7TvC3PY8+CQrtAMWd8JGLPV1y7B5wvqlBAD3
-	Eotg7rAGQ5w54BsUVGBXghHV7esKFYng9FeAy4MqfP53ZogSiISQPVJJ4MoVQg==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 23 Jun 2026 12:59:42 +0200
-Message-Id: <DJGDK9WA46IK.AH6NJASRAR0J@cknow-tech.com>
-Cc: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>,
- <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- "Ricardo Pardini" <ricardo@pardini.net>
-Subject: Re: [PATCH v3 4/4] clk: rockchip: rk3588: add GATE_GRF clocks for
- I2S MCLK output to IO
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Daniele Briguglio" <hello@superkali.me>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-References: <20260320-rk3588-mclk-gate-grf-v3-0-980338eacd2c@superkali.me>
- <20260320-rk3588-mclk-gate-grf-v3-4-980338eacd2c@superkali.me>
-In-Reply-To: <20260320-rk3588-mclk-gate-grf-v3-4-980338eacd2c@superkali.me>
-X-Migadu-Flow: FLOW_OUT
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi,
+Apologies for the significant delay in following up this series.
+Thank you for your patience and the earlier reviews.
+This v2 reworks the series based on the feedback received on v1.
 
-On Fri Mar 20, 2026 at 11:34 AM CET, Daniele Briguglio wrote:
-> The I2S MCLK outputs on RK3588 are gated by bits in the SYS_GRF
-> register SOC_CON6 (offset 0x318). These gates control whether the
-> internal CRU MCLK signals reach the external IO pins connected to
-> audio codecs.
->
-> The kernel should explicitly manage these gates so that audio
-> functionality does not depend on bootloader register state. This is
-> analogous to what was done for RK3576 SAI MCLK outputs [1].
->
-> Register the SYS_GRF as an auxiliary GRF with grf_type_sys in the
-> early clock init, and add GATE_GRF entries for all four I2S MCLK
-> output gates:
->
->   - I2S0_8CH_MCLKOUT_TO_IO (bit 0)
->   - I2S1_8CH_MCLKOUT_TO_IO (bit 1)
->   - I2S2_2CH_MCLKOUT_TO_IO (bit 2)
->   - I2S3_2CH_MCLKOUT_TO_IO (bit 7)
->
-> Board DTS files that need MCLK on an IO pin can reference these
-> clocks, e.g.:
->
->     clocks =3D <&cru I2S0_8CH_MCLKOUT_TO_IO>;
->
-> Tested on the Youyeetoo YY3588 (RK3588) with an ES8388 codec on I2S0.
+The thermal management system of sama7d65 includes:
 
-Doesn't this break audio on a lot of RK3588 based boards?
-I have a kernel with this patch set and since then analog audio on my NanoP=
-C-T6
-LTS and my WIP NanoPC-T6 Plus stopped working.
-Until I did s/I2S0_8CH_MCLKOUT/I2S0_8CH_MCLKOUT_TO_IO/ in my dts[i] files.
+- Temperature sensor as a part of ADC channel
+- Temperature calibration data retrieved from the OTP memory for
+  improved accuracy of the readings
+- DVFS implementation
+- Thermal system with DVFS as cooling cell.
 
-And I wouldn't be surprised if the same thing applies to other RK3588 based
-boards? The same dtb file with a 7.1 kernel, without this patch set, works.
+This patch series adds support for the following:
 
-Cheers,
-  Diederik
+- Tag-based packet lookup for the NVMEM OTPC driver while preserving
+  backward compatibility with existing ID-based access
+- Temperature calibration layout handling in the ADC driver to support
+  different SoC-specific calibration data formats
+- ADC driver adaptation for sama7d65
+- DT nodes for OTP, ADC, temperature sensor, and thermal zones for
+  sama7d65
 
-> [1] https://lore.kernel.org/r/20250305-rk3576-sai-v1-2-64e6cf863e9a@colla=
-bora.com/
->
-> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> Tested-by: Ricardo Pardini <ricardo@pardini.net>
-> Signed-off-by: Daniele Briguglio <hello@superkali.me>
-> ---
->  drivers/clk/rockchip/clk-rk3588.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->
-> diff --git a/drivers/clk/rockchip/clk-rk3588.c b/drivers/clk/rockchip/clk=
--rk3588.c
-> index 1694223f4f84..2cc85fb5b2cc 100644
-> --- a/drivers/clk/rockchip/clk-rk3588.c
-> +++ b/drivers/clk/rockchip/clk-rk3588.c
-> @@ -5,11 +5,14 @@
->   */
-> =20
->  #include <linux/clk-provider.h>
-> +#include <linux/mfd/syscon.h>
->  #include <linux/of.h>
-> +#include <linux/slab.h>
->  #include <linux/of_address.h>
->  #include <linux/platform_device.h>
->  #include <linux/syscore_ops.h>
->  #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-> +#include <soc/rockchip/rk3588_grf.h>
->  #include "clk.h"
-> =20
->  #define RK3588_GRF_SOC_STATUS0		0x600
-> @@ -892,6 +895,8 @@ static struct rockchip_clk_branch rk3588_early_clk_br=
-anches[] __initdata =3D {
->  			RK3588_CLKGATE_CON(8), 0, GFLAGS),
->  	MUX(I2S2_2CH_MCLKOUT, "i2s2_2ch_mclkout", i2s2_2ch_mclkout_p, CLK_SET_R=
-ATE_PARENT,
->  			RK3588_CLKSEL_CON(30), 2, 1, MFLAGS),
-> +	GATE_GRF(I2S2_2CH_MCLKOUT_TO_IO, "i2s2_2ch_mclkout_to_io", "i2s2_2ch_mc=
-lkout",
-> +			0, RK3588_SYSGRF_SOC_CON6, 2, GFLAGS, grf_type_sys),
-> =20
->  	COMPOSITE(CLK_I2S3_2CH_SRC, "clk_i2s3_2ch_src", gpll_aupll_p, 0,
->  			RK3588_CLKSEL_CON(30), 8, 1, MFLAGS, 3, 5, DFLAGS,
-> @@ -907,6 +912,8 @@ static struct rockchip_clk_branch rk3588_early_clk_br=
-anches[] __initdata =3D {
->  			RK3588_CLKGATE_CON(8), 4, GFLAGS),
->  	MUX(I2S3_2CH_MCLKOUT, "i2s3_2ch_mclkout", i2s3_2ch_mclkout_p, CLK_SET_R=
-ATE_PARENT,
->  			RK3588_CLKSEL_CON(32), 2, 1, MFLAGS),
-> +	GATE_GRF(I2S3_2CH_MCLKOUT_TO_IO, "i2s3_2ch_mclkout_to_io", "i2s3_2ch_mc=
-lkout",
-> +			0, RK3588_SYSGRF_SOC_CON6, 7, GFLAGS, grf_type_sys),
->  	GATE(PCLK_ACDCDIG, "pclk_acdcdig", "pclk_audio_root", 0,
->  			RK3588_CLKGATE_CON(7), 11, GFLAGS),
->  	GATE(HCLK_I2S0_8CH, "hclk_i2s0_8ch", "hclk_audio_root", 0,
-> @@ -935,6 +942,8 @@ static struct rockchip_clk_branch rk3588_early_clk_br=
-anches[] __initdata =3D {
->  			RK3588_CLKGATE_CON(7), 10, GFLAGS),
->  	MUX(I2S0_8CH_MCLKOUT, "i2s0_8ch_mclkout", i2s0_8ch_mclkout_p, CLK_SET_R=
-ATE_PARENT,
->  			RK3588_CLKSEL_CON(28), 2, 2, MFLAGS),
-> +	GATE_GRF(I2S0_8CH_MCLKOUT_TO_IO, "i2s0_8ch_mclkout_to_io", "i2s0_8ch_mc=
-lkout",
-> +			0, RK3588_SYSGRF_SOC_CON6, 0, GFLAGS, grf_type_sys),
-> =20
->  	GATE(HCLK_PDM1, "hclk_pdm1", "hclk_audio_root", 0,
->  			RK3588_CLKGATE_CON(9), 6, GFLAGS),
-> @@ -2220,6 +2229,8 @@ static struct rockchip_clk_branch rk3588_early_clk_=
-branches[] __initdata =3D {
->  			RK3588_PMU_CLKGATE_CON(2), 13, GFLAGS),
->  	MUX(I2S1_8CH_MCLKOUT, "i2s1_8ch_mclkout", i2s1_8ch_mclkout_p, CLK_SET_R=
-ATE_PARENT,
->  			RK3588_PMU_CLKSEL_CON(9), 2, 2, MFLAGS),
-> +	GATE_GRF(I2S1_8CH_MCLKOUT_TO_IO, "i2s1_8ch_mclkout_to_io", "i2s1_8ch_mc=
-lkout",
-> +			0, RK3588_SYSGRF_SOC_CON6, 1, GFLAGS, grf_type_sys),
->  	GATE(PCLK_PMU1, "pclk_pmu1", "pclk_pmu0_root", CLK_IS_CRITICAL,
->  			RK3588_PMU_CLKGATE_CON(1), 0, GFLAGS),
->  	GATE(CLK_DDR_FAIL_SAFE, "clk_ddr_fail_safe", "clk_pmu0", CLK_IGNORE_UNU=
-SED,
-> @@ -2439,6 +2450,8 @@ static struct rockchip_clk_branch rk3588_clk_branch=
-es[] =3D {
->  static void __init rk3588_clk_early_init(struct device_node *np)
->  {
->  	struct rockchip_clk_provider *ctx;
-> +	struct rockchip_aux_grf *sys_grf_e;
-> +	struct regmap *sys_grf;
->  	unsigned long clk_nr_clks, max_clk_id1, max_clk_id2;
->  	void __iomem *reg_base;
-> =20
-> @@ -2479,6 +2492,17 @@ static void __init rk3588_clk_early_init(struct de=
-vice_node *np)
->  			&rk3588_cpub1clk_data, rk3588_cpub1clk_rates,
->  			ARRAY_SIZE(rk3588_cpub1clk_rates));
-> =20
-> +	/* Register SYS_GRF for I2S MCLK output to IO gate clocks */
-> +	sys_grf =3D syscon_regmap_lookup_by_compatible("rockchip,rk3588-sys-grf=
-");
-> +	if (!IS_ERR(sys_grf)) {
-> +		sys_grf_e =3D kzalloc_obj(*sys_grf_e);
-> +		if (sys_grf_e) {
-> +			sys_grf_e->grf =3D sys_grf;
-> +			sys_grf_e->type =3D grf_type_sys;
-> +			hash_add(ctx->aux_grf_table, &sys_grf_e->node, grf_type_sys);
-> +		}
-> +	}
-> +
->  	rockchip_clk_register_branches(ctx, rk3588_early_clk_branches,
->  				       ARRAY_SIZE(rk3588_early_clk_branches));
-> =20
+Changes in v2:
+    - Preserved backward compatibility with ID-based packet lookup to
+      avoid breaking existing users
+    - Removed sama7g5 DTS changes (not needed with backward compatible
+      driver - will be sent later to update to the new access method)
+    - Preserved the packet data structure returned not to break the
+      consumers
+    - Reworked ADC driver to use a calibration layout structure instead of
+      hardcoded indexes, for scalability
+    - Fixed kernel-doc Return section
+    - Removed stray blank line in mchp_otpc_read()
+    - Removed unnecessary UL suffix in writel_relaxed()
+    - Dropped unused packet types
+    - Fixed stray spaces before exclamation marks in error messages
+    - Added ASCII representation to TAG macro definition
+    - Removed odd MAX enum with trailing comma and refactored
+    - Moved DTS patches to the end of series
+    - Used cleanup.h helpers for NVMEM data buffer handling in ADC driver
+    - Combined multiple v1 patches into logical units
+    - Used correct subject prefixes for dt-bindings patches
+    - Used fixed-layout NVMEM syntax for sama7d65 DTS and binding
+      instead of deprecated syntax
+    - Added cpu-supply linkage for proper DVFS voltage scaling
+    - Updated stale stride=4 comment in dt-bindings header
+
+Link to v1: https://lore.kernel.org/linux-arm-kernel/20250804100219.63325-1-varshini.rajendran@microchip.com/
+
+
+Varshini Rajendran (12):
+  dt-bindings: iio: adc: at91-sama5d2: document sama7d65
+  iio: adc: at91-sama5d2_adc: rework temp calibration layout handling
+  iio: adc: at91-sama5d2_adc: adapt the driver for sama7d65
+  dt-bindings: nvmem: microchip,sama7g5-otpc: add sama7d65 and dt node
+    example
+  nvmem: microchip-otpc: add tag-based packet lookup
+  ARM: dts: microchip: sama7d65: add cpu opps
+  ARM: dts: microchip: sama7d65: Add ADC node
+  ARM: dts: microchip: sama7d65_curiosity: Enable ADC, DVFS
+  ARM: dts: microchip: sama7d65: add otpc node
+  ARM: dts: microchip: sama7d65: add cells for temperature calibration
+  ARM: dts: microchip: sama7d65: add temperature sensor
+  ARM: dts: microchip: sama7d65: add thermal zones node
+
+ .../bindings/iio/adc/atmel,sama5d2-adc.yaml   |   1 +
+ .../nvmem/microchip,sama7g5-otpc.yaml         |  28 +++-
+ .../dts/microchip/at91-sama7d65_curiosity.dts |  27 ++++
+ arch/arm/boot/dts/microchip/sama7d65.dtsi     | 132 ++++++++++++++++
+ drivers/iio/adc/at91-sama5d2_adc.c            | 116 ++++++++++----
+ drivers/nvmem/microchip-otpc.c                | 142 ++++++++++++++++--
+ .../nvmem/microchip,sama7g5-otpc.h            |   4 +-
+ 7 files changed, 409 insertions(+), 41 deletions(-)
+
+-- 
+2.34.1
 
