@@ -1,350 +1,190 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F081394792;
-	Tue, 23 Jun 2026 09:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDD7394792
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782207459; cv=none; b=iU0Obesz3HibO7pVz3Yp3gWchbpsgcjOPykQJDBVhv4sYduJF5l2Djg5NrqI16OpxVtb5puk5WNczqd9+5vyfooQs2RRFoOT3hI7+XlUX+UE497qxX35M2RnyWBMHqXy6UcnuEOWecMkoe21GFu4gJZkwT49hO6gSnfdn0lNLb0=
+	t=1782207474; cv=none; b=fMq67kNhljYlPl4Xdp6Lpw7qNTKjSScb7Ue9fEJEbsYmhAVw9iCOO4sWwMP8CrfFTpTOwt7QZThSJtOPugeP5ne/Je1F7yZf3Gg2D+j0/X45z/Tucla+usNn3zp/xYKoRRD58yZqnCxWJm0JJb3RSwcl7DAZs/Id55nnwDfCcuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782207459; c=relaxed/simple;
-	bh=JksADWb34Msa6pz390S5qh5F2TMVd8PTqSrktgyXJvQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mZA7ClkJGczfvQowG9ec0c+UoZ+Sv6uPouMj/Use0AjuVKyqdWXKDAWPwOm39oS5JKBRxXX5/ErcAxadRGmS0vCytLwHUpsJG7NeAnolBDKVj+JkErwSZZZRxqlIJBD8dJ3Uiq2UgIR/fcP/yQ/zEEsu9myoxZV+zY2Ne7nkc/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fWbK/2Se; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782207474; c=relaxed/simple;
+	bh=2wVq63q5P0hf32yJ9O1fniufU7zytoJEohnw2ghclDc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P+S1RyJqtDVDd3eSzhQQmWS0s/c33ihBsi/c3BWWhoGWcrDLVgio78reNZws8iiqSTDy+xt1hUNcQN9rt9O9OPaSrLoMmMQuXFBX1lAaWbm2ngNUEb3EDzP0+8425l84iOUgWHLOjScVqejVLo7JmDRZ/SVa+hN4D/j+m+a1FDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PUKWMtJq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fneRlcVp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fWbK/2Se"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782207458; x=1813743458;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JksADWb34Msa6pz390S5qh5F2TMVd8PTqSrktgyXJvQ=;
-  b=fWbK/2SenuwJCpmAHaKcLOdObaZdQM47lDvELZEBvP2aIpD5lfklnOE9
-   3J+d9FyKs+kEKeSKMKTTDL72s1iCjEqkWBUK/837xDBPruaFym97wzoBd
-   NWn8Y/fyvU09WbxUdVhZnWWroQgMMLLp/8GOYDctqG8DZdU/RDOG+JLsa
-   hHnBs3fFwBtU68N8XPjtc7vt9yVTcXWyeHboTm9cOJQ7jEP/VZ2QSql5x
-   7bFY2FlkdA4NhLT1CFEO1R0THYhdSNsGCoD/uJAKaI3cpXnHwt5JhHszL
-   qeog7LMjT6JVbr2VkDDyoBS9aSKhqGe04WLP1n6xLyEIO/PcIFhWuRa+5
-   w==;
-X-CSE-ConnectionGUID: M0LUMtoPRRSGb37B2LyH7Q==
-X-CSE-MsgGUID: TEmZjMe5RGWX6XrOn7zzxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="93601374"
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; 
-   d="scan'208";a="93601374"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 02:37:38 -0700
-X-CSE-ConnectionGUID: NYS6AyGOQLat9wdWX+4nDg==
-X-CSE-MsgGUID: 4Ud/jYYTQ4KM1DK9TFbu3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; 
-   d="scan'208";a="251405333"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 02:37:33 -0700
-Date: Tue, 23 Jun 2026 12:37:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>
-Cc: javierm@redhat.com, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, andy@kernel.org, gregkh@linuxfoundation.org,
-	deller@gmx.de, azuddinadam@gmail.com, chintanlike@gmail.com,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v2 3/4] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Message-ID: <ajpT24VIdrZdEzel@ashevche-desk.local>
-References: <20260622152506.78627-1-amit.barzilai22@gmail.com>
- <20260622152506.78627-4-amit.barzilai22@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PUKWMtJq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fneRlcVp"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N6d9cn3376170
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:37:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bwtP61IdAgBU22DmFB1IdTuyyl9/rAce+FGuyNSJ3Fk=; b=PUKWMtJqbTB13do1
+	1kuM0dIsQrTO8MZuuAODDNZssgXsyorwE33rwgH8lX5G3WrlZFXlWtnP8Dmz2X5D
+	TK7sGvUSHHj+710p11cYyCH200Ei+JTNQj2yzccO57X/9njZ9iqu0d22af+9zrCF
+	OV7DGEXPnM5yR0RapB1jxozVWkDtVcwl2zt/6SxYccaBjcDeWIKqQbkXqNaVLB1i
+	IlmDHbpIekraiDTXmBy08vugiaLVr0To/IJsZGzqLj/RpmYuN74js7if7fxGvy6x
+	TI1TIcqc/PKZJHq3OcwpxgY8mCUpwAUdqepEezehIB+2DbuLJ3aEPbM2RlmtsoCc
+	AnPTiw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey5yec0nu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:37:51 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-517647fbff1so17025271cf.2
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 02:37:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782207471; x=1782812271; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bwtP61IdAgBU22DmFB1IdTuyyl9/rAce+FGuyNSJ3Fk=;
+        b=fneRlcVpqrx5sykIJ6tIknatL6BvgzAtlQ9FaY6euEpULlmEx6jO6nJ2hjT6ZFEOu4
+         aGmIQ7ynppR2wgGPq4Rglp1pYrBpfzarRz/6+orTl+EUZldgZ7NjtBqvDx43Witl472t
+         1Ek5U4uDPOfu2fC0y8NMvk7ugV917Eet+H/Sm39+jKbYc7npc3pgnCo/vuEF2pO/V5z2
+         jNgV2l1Eda4XHKAxxdP+wfXkE40kcV7kOExY47PqU+/F1tZgVbrLdgO6E2Wz7ObNg1kL
+         AKfqTWGlkRU/Jr5czwrTbpTtsa94khWXbLyVxRhR3Ugmvj2zOn5D0JSsYH9oInoV3lH8
+         wQUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782207471; x=1782812271;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bwtP61IdAgBU22DmFB1IdTuyyl9/rAce+FGuyNSJ3Fk=;
+        b=L3gihzmrchg5YOBpoLD4H80oJYBt8Y6u5J0NtkBmbWvPhpbfBXGrIoDRgJByNowxS4
+         m54pSDnDQwXiUF2n1ndPSSvSSSuDecwtegxEsT4AZPzOqIOIvuLJMImhI7TXlU9Ego0d
+         QU49WkhDxWHBeH/0TmwJKzlIi8Et5ahTo8z6ITZiUX0HRp46vwF2EY527ALQrsLi2hzR
+         yxCAV+FRO1WgCgnTluWna0Ovm+rXJ/4k2LnDUUpxHDuPJKwH5XO7m3a7PezV8BlKBnMp
+         EDmhpRjyL2/9gKvwAgt27i5/xYB+L4StXlHIu1f0qyRqph0tmLzwt6jJLBhIM5wi+OV+
+         UiEg==
+X-Forwarded-Encrypted: i=1; AFNElJ+4x8v+HWJ3gT68D37KtaBiqtFngtINB82MTDYaFNBXjcomNcWluDfz+ANWvESKVMlxp02idYBO0Pk9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoSP8dL563DJPm5iIyDHOYt6a2GEA3RcRec+TqBvdAO17EbSWb
+	HWlxQ6vUzMrzIX71xmsojCXh9/LpYULKijs7+/nPN/AXaA7mQscXGN+D0yf6APp+JgiyH0a79wm
+	FmSkiO6b5Q4kzVDBVwp8EGPtFU3/pzUuVeiyp/ZsLoFZjt434i6FB1Vh4Mjq5fe2q
+X-Gm-Gg: AfdE7cnIYWJhQmrFxGfxXnVs+2290dnuJxefbcULFW5jXQrOy9QX9MDUgP4djAfhEUl
+	ZzzVYMfbBPq2geT6lNJJgnlhYs+QsnKcZhQ9PadJB23iryKqaH9BS+uU+jdITtrJ3cAijpyX41b
+	FJogeJAiLfbC5qbDWjMe1EzL6uIq26n+EedWHRT1OWK9yq9QuqPGWbPTgsWqxOL8b85QDDNWtI/
+	cI/udsQ8lOZSUVsusa3soRRyCwtsCs5KNJFbaHDjOM89IleeCEKrqjaYKn59xxavaU2xbWXetoy
+	x/Mm865r0J0VreX0aaZQiFT0+HA45hVqrVGhg88yaFfMbPbSIjgY8qMAgaeUSu8z/Wq9mxppShQ
+	U1p9Nl/CEkPWVCjYaLaV2MYoRe4nU0CdzhJQ=
+X-Received: by 2002:ac8:5d56:0:b0:509:39b5:a977 with SMTP id d75a77b69052e-51a4f4c3867mr43266671cf.5.1782207471038;
+        Tue, 23 Jun 2026 02:37:51 -0700 (PDT)
+X-Received: by 2002:ac8:5d56:0:b0:509:39b5:a977 with SMTP id d75a77b69052e-51a4f4c3867mr43266391cf.5.1782207470362;
+        Tue, 23 Jun 2026 02:37:50 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6977be31c73sm4549155a12.17.2026.06.23.02.37.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 02:37:49 -0700 (PDT)
+Message-ID: <806046b2-20ed-437e-a7e6-b3c0699f5a2d@oss.qualcomm.com>
+Date: Tue, 23 Jun 2026 11:37:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622152506.78627-4-amit.barzilai22@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] arm64: dts: qcom: sm8450: Add IPA support
+To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Alex Elder <elder@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+ <20260622-sm8450-ipa-v1-1-532f0299f96e@proton.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260622-sm8450-ipa-v1-1-532f0299f96e@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: WxVn-sLmFJ2U3WMH0wItE9vpzcFz3_Xf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA3NyBTYWx0ZWRfX6oUl03Oux+Se
+ AO/yH6zNmH/4j2+9WwtFfbNdx/p0jlZlpWJEh6TBAaDHc+/VFiuwBhsMgb8YF3T8tPDoxOLqrNV
+ 7czyhRaMQC10A+1pRgW877xOPNLPQx8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA3NyBTYWx0ZWRfXwtohZjoljuMy
+ TRLFnpCa9kZjsVbTBeC0hGZ80LGos6U7YdPPNpvKphk6zag+UQwfyjl0t9y35AtZbDY+Hewkk2P
+ D3QokEzoTIY6s5wv8xDL5KR2X1T1A86+xB5RZjtEWJsHUsoLUpSydu8NnWZXz86Mcpqjnb1o9gw
+ kRxeUU+11eYwI53VKUKrBgQC3+jRD7OXmZZpp0hRfmbtRx5bOgYkcnsAULENlCJiQcEpJJJIkfb
+ 9mT1w15WWzXfd6O++lT/wDgpwfVaYK+qM3VhK7vgPfFFWtxqvPuczNMChpUAvzWUHFbm7dn4H/B
+ /kJ6+V7Op1ImmgnEb6eKeWZLSB523Vr3KEsyoJuJYd9C4hehUFg1USaRFioslFWl2gKgh7Wpk2L
+ I1rj72Yyp4rhODNIqGBGT1kfE1VOuIVfE4gPlSvx0tGJ380dXwjztMDE19wKaEhrWOiAypG3cT/
+ 2omCUSweCOQjYpGDKJQ==
+X-Proofpoint-GUID: WxVn-sLmFJ2U3WMH0wItE9vpzcFz3_Xf
+X-Authority-Analysis: v=2.4 cv=YpI/gYYX c=1 sm=1 tr=0 ts=6a3a53ef cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=brZ7cBQDmfkCTKpPTsIA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_02,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 spamscore=0 phishscore=0 priorityscore=1501
+ malwarescore=0 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230077
 
-On Mon, Jun 22, 2026 at 06:25:05PM +0300, Amit Barzilai wrote:
-> The Solomon SSD1351 is a 128x128 RGB color OLED controller. It shares
-> the SSD133X data path: a column/row addressing window followed by a bulk
-> RGB565 pixel write. Add it as a new SSD135X_FAMILY rather than a separate
-> driver, reusing the SSD133X plane, CRTC and blit/clear helpers.
+On 6/23/26 3:44 AM, Esteban Urrutia via B4 Relay wrote:
+> From: Esteban Urrutia <esteuwu@proton.me>
 > 
-> The only data-path difference is that the SSD1351 requires an explicit
-> Write RAM command (0x5c) after the address window is programmed, before
-> pixel data is accepted, whereas the SSD133X enters data mode implicitly.
-> This is emitted from a shared ssd133x_write_pixels() helper so both the
-> damage-update and clear-screen paths cover it.
+> Add support for IPA in DT while expanding the IMEM region just enough to
+> accommodate the modem tables used by IPA.
+> As reference, SM8450 uses IPA v5.1.
 > 
-> The SSD1351 also needs its own init sequence (ssd135x_init), dispatched
-> via ssd135x_encoder_atomic_enable, and a longer post-reset settle delay.
-> The re-map byte is fixed at 0 degrees, 65k color, COM split, BGR
-> sub-pixel order; rotation is not supported.
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+> ---
+
+[...]
+
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi | 55 ++++++++++++++++++++++++++++++++----
+>  1 file changed, 50 insertions(+), 5 deletions(-)
 > 
-> The SSD1351 is SPI-only, so only the SPI transport match tables gain an
-> entry; no new config symbol is needed.
-
-...
-
-> const struct ssd130x_deviceinfo ssd130x_variants[] = {
-
->  		.default_height = 64,
->  		.format_rgb565 = 1,
->  		.family_id = SSD133X_FAMILY,
-> +	},
-> +	/* ssd135x family */
-> +	[SSD1351_ID] = {
-> +		.default_width = 128,
-> +		.default_height = 128,
-> +		.format_rgb565 = 1,
-> +		.family_id = SSD135X_FAMILY,
->  	}
-
-While it's not a problem _in this case_, the rule of thumb is always to have a
-trailing comma for non-terminator entry.
-
-...
-
->  /*
->   * Helper to write data (SSD13XX_DATA) to the device.
->   */
-> -static int ssd130x_write_data(struct ssd130x_device *ssd130x, u8 *values, int count)
-> +static int ssd130x_write_data(struct ssd130x_device *ssd130x, const u8 *values, int count)
->  {
->  	return regmap_bulk_write(ssd130x->regmap, SSD13XX_DATA, values, count);
->  }
-
-Stray change. If needed, either explain in the commit message or create
-a separate patch (depending on the dependencies).
-
-...
-
->  	unsigned int i;
->  	int ret;
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> index 56cb6e959e4e..c904720008fa 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -2639,6 +2639,47 @@ adreno_smmu: iommu@3da0000 {
+>  			dma-coherent;
+>  		};
 >  
-> +	/*
-> +	 * The SSD135X family latches command parameters with D/C# HIGH (i.e.
-> +	 * clocked in as data), unlike the other families where the opcode and
-> +	 * all of its parameters are sent as commands (D/C# LOW). Send the
-> +	 * opcode as a command and any following parameter bytes as data.
-> +	 */
-> +	if (ssd130x->device_info->family_id == SSD135X_FAMILY) {
-> +		if (len == 0)
-> +			return 0;
-> +		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
-> +		if (ret || len == 1)
-> +			return ret;
+> +		ipa: ipa@3f40000 {
+> +			compatible = "qcom,sm8450-ipa";
 > +
-> +		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
-> +	}
+> +			iommus = <&apps_smmu 0x5c0 0x0>,
+> +				 <&apps_smmu 0x5c2 0x0>;
+> +			reg = <0 0x3f40000 0 0x10000>,
+> +			      <0 0x3f50000 0 0x5000>,
 
->  	for (i = 0; i < len; i++) {
+size = 0xb0000 for the RAM and uC regions that the driver seems
+to poke at (at a glance anyway..)
 
-This loop seems for the len, so it will be the same for both devices as far as
-I can see the context. I can't find this piece in the original driver, perhaps
-it's some dependency?
+[...]
 
->  		ret = regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[i]);
->  		if (ret)
+>  		usb_1_hsphy: phy@88e3000 {
+>  			compatible = "qcom,sm8450-usb-hs-phy",
+>  				     "qcom,usb-snps-hs-7nm-phy";
+> @@ -4970,17 +5011,21 @@ cti@13900000 {
+>  			clock-names = "apb_pclk";
+>  		};
+>  
+> -		sram@146aa000 {
+> +		sram@146a8000 {
+>  			compatible = "qcom,sm8450-imem", "syscon", "simple-mfd";
+> -			reg = <0 0x146aa000 0 0x1000>;
+> -			ranges = <0 0 0x146aa000 0x1000>;
+> +			reg = <0 0x146a8000 0 0x3000>;
 
-...
+base=0x1468_0000
+size=0x40_000
 
-> +/*
-> + * Variadic wrapper around ssd130x_write_cmds(). The first variadic argument is
-> + * the command opcode and the following ones are its options/parameters.
-> + */
-> +static int ssd130x_write_cmd(struct ssd130x_device *ssd130x, int count,
-> +			     /* u8 cmd, u8 option, ... */...)
-> +{
-> +	u8 buf[8];
-> +	va_list ap;
-> +	int i;
-> +
-> +	if (count > ARRAY_SIZE(buf))
-> +		return -EINVAL;
-> +
-> +	va_start(ap, count);
-
-> +	for (i = 0; i < count; i++)
-
-Can be
-
-	for (int i = 0; i < count; i++)
-
-> +		buf[i] = va_arg(ap, int);
-> +	va_end(ap);
-> +
-> +	return ssd130x_write_cmds(ssd130x, buf, count);
-> +}
-
-...
-
-> +static int ssd135x_init(struct ssd130x_device *ssd130x)
-> +{
-> +	/*
-> +	 * Horizontal address increment, COM split, reversed COM scan direction,
-> +	 * BGR sub-pixel order and 65k (RGB565) color depth. Rotation is not
-> +	 * supported, so the remap byte is fixed.
-> +	 */
-> +	u8 remap = SSD135X_SET_REMAP_65K | SSD135X_SET_REMAP_COM_SPLIT |
-> +		   SSD135X_SET_REMAP_COLOR_BGR | SSD135X_SET_REMAP_COM_SCAN;
-
-> +	const u8 cmds[] = {
-
-Why not static?
-
-> +		2, SSD135X_SET_COMMAND_LOCK, 0x12,
-> +		2, SSD135X_SET_COMMAND_LOCK, 0xb1,
-> +		1, SSD13XX_DISPLAY_OFF,
-> +		2, SSD135X_SET_CLOCK_FREQ, 0xf1,
-> +		2, SSD135X_SET_MUX_RATIO, ssd130x->height - 1,
-> +		3, SSD135X_SET_COL_RANGE, 0x00, ssd130x->width - 1,
-> +		3, SSD135X_SET_ROW_RANGE, 0x00, ssd130x->height - 1,
-> +		2, SSD135X_SET_DISPLAY_START, 0x00,
-> +		2, SSD135X_SET_DISPLAY_OFFSET, 0x00,
-> +		2, SSD135X_SET_GPIO, 0x00,
-> +		2, SSD135X_SET_FUNCTION, 0x01,
-> +		2, SSD135X_SET_PHASE_LENGTH, 0x32,
-> +		4, SSD135X_SET_VSL, 0xa0, 0xb5, 0x55,
-> +		2, SSD135X_SET_PRECHARGE, 0x17,
-> +		2, SSD135X_SET_VCOMH_VOLTAGE, 0x05,
-> +		4, SSD135X_SET_CONTRAST, 0xc8, 0x80, 0xc8,
-> +		2, SSD135X_SET_CONTRAST_MASTER, 0x0f,
-> +		2, SSD135X_SET_PRECHARGE2, 0x01,
-> +		1, SSD135X_SET_DISPLAY_NORMAL,
-> +		2, SSD13XX_SET_SEG_REMAP, remap,
-
-> +		0,
-
-No trailing comma for the terminator entry.
-
-> +	};
-> +
-> +	/*
-> +	 * ssd130x_power_on() issues a short reset pulse, but the SSD1351 is not
-> +	 * ready to accept commands immediately afterwards. Give the controller
-> +	 * time to settle before sending the init sequence.
-> +	 */
-
-Any reference to the datasheet?
-
-> +	msleep(120);
-> +
-> +	return ssd130x_run_cmd_seq(ssd130x, cmds);
-> +}
-
-...
-
-> +/*
-> + * Write a run of pixel data to the controller's display RAM. The SSD135X
-> + * family requires an explicit Write RAM command once the address window has
-> + * been set, before any pixel data is accepted; the SSD133X family enters data
-> + * mode implicitly after the column/row range is programmed.
-> + */
-> +static int ssd133x_write_pixels(struct ssd130x_device *ssd130x,
-> +				u8 *data_array, unsigned int count)
-> +{
-> +	if (ssd130x->device_info->family_id == SSD135X_FAMILY) {
-
-> +		int ret = ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
-> +
-> +		if (ret < 0)
-> +			return ret;
-
-This style is discouraged as it's harder to maintain. Better to split
-assignment and definition
-
-		int ret;
-
-		ret = ssd130x_write_cmd(ssd130x, 1, SSD135X_WRITE_RAM);
-		if (ret < 0)
-			return ret;
-
-> +	}
-> +
-> +	return ssd130x_write_data(ssd130x, data_array, count);
-> +}
-
-...
-
-> static const struct drm_plane_helper_funcs ssd130x_primary_plane_helper_funcs[]
-
->  		.atomic_check = ssd133x_primary_plane_atomic_check,
->  		.atomic_update = ssd133x_primary_plane_atomic_update,
->  		.atomic_disable = ssd133x_primary_plane_atomic_disable,
-> +	},
-> +	[SSD135X_FAMILY] = {
-> +		DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-> +		.atomic_check = ssd133x_primary_plane_atomic_check,
-> +		.atomic_update = ssd133x_primary_plane_atomic_update,
-> +		.atomic_disable = ssd133x_primary_plane_atomic_disable,
->  	}
-
-As per another similar case.
-
->  };
-
-...
-
-> static const struct drm_encoder_helper_funcs ssd130x_encoder_helper_funcs[] = {
-
->  	[SSD133X_FAMILY] = {
->  		.atomic_enable = ssd133x_encoder_atomic_enable,
->  		.atomic_disable = ssd130x_encoder_atomic_disable,
-> +	},
-> +	[SSD135X_FAMILY] = {
-> +		.atomic_enable = ssd135x_encoder_atomic_enable,
-> +		.atomic_disable = ssd130x_encoder_atomic_disable,
->  	}
->  };
-
-Ditto.
-
-...
-
-
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.h b/drivers/gpu/drm/solomon/ssd130x.h
-> index b0b487c06e04..da89d4455270 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.h
-> +++ b/drivers/gpu/drm/solomon/ssd130x.h
-> @@ -26,7 +26,8 @@
->  enum ssd130x_family_ids {
->  	SSD130X_FAMILY,
->  	SSD132X_FAMILY,
-> -	SSD133X_FAMILY
-> +	SSD133X_FAMILY,
-> +	SSD135X_FAMILY
-
-Ditto, and this is exactly the whole point why non-terminator entries should
-have a trailing comma.
-
->  };
-
-...
-
->  enum ssd130x_variants {
-
->  	SSD1327_ID,
->  	/* ssd133x family */
->  	SSD1331_ID,
-> +	/* ssd135x family */
-> +	SSD1351_ID,
->  	NR_SSD130X_VARIANTS
-
-See the difference? Here is terminator, which is clear. The above cases are
-not.
-
->  };
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
