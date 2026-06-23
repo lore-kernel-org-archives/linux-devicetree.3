@@ -1,171 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35CA3090E8;
-	Tue, 23 Jun 2026 15:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D984283FDD
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782230208; cv=none; b=lBTwLouxgdn9V42C1rmBZkFaH0yMe737UQdFw3DUBCtmU7uF3WsBzeszeWwG4YNT/h4aiEfGp1aKTKupCPGVz0zJP+cb6LxoELvSL2tkcRWg101iy+C7z5COSaRb0H+rtoRVkf6HJZIJBMlZrQeGhgYF7929gsVK4EbXm6gkS0g=
+	t=1782230222; cv=none; b=n7MSmqH6HHnxJCxDo6MX/8Tc9aLITm/uUMLrAMjw+OAnUGJKNS1N3dE84Bdi/mH+J9LNxMvLmocdH/glL7K5IdQ6ctp4vB/7wLPadZ3UzX1UgRfRZef0nec7SDNWAw+lcTO8hGCh3mJ6od+pPVXECvnDvqcu+OZLY1p5dXiuSHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782230208; c=relaxed/simple;
-	bh=MOPMmBvmvgH/fPeu1s8s0Wbs9rYPlq8jdiHdrLvfqdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nShBpzTi/rgpAQ9KlV6adHiSGAWDmOO4TgxeZ+XUotewN3hi5VX3BAS3Po27DlTMGow/SiYd4Rq7xRxvPtpd9Pbc3G8CjJ5G6qD5Dh+KB4futJwYSbfkOpVkPRQQe+gMgcuX6hHB5xQO88mfNan4hvy0xqPY2u54Xz9UNfY8Qvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QsYuTChn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782230222; c=relaxed/simple;
+	bh=X8I3A+Gd5xbVF3keweqv65QN4tX5Z5eydFbTsRT6B/w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ShyfznSzXmM4NV31v1Tfi5r8Xilt4cdDGUMNUvSurkQYMsYnK/tSYQlKfxrIUH9NnW49j8zKqT9x7YTnWS2+yyzN1abnjeQwItuC7+BdexdxVOQIg3lHB8XiDpmm/fgwrZM/6v9hgNUWRZXkX2EvZvR5J2DPJsRnsq3wTOcWF7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=0K4HBwyg; arc=none smtp.client-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QsYuTChn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210321F000E9;
-	Tue, 23 Jun 2026 15:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782230207;
-	bh=nLEYLjeqn7OPYoPLTEzHxuJ3J+jRv39rXz92UC3ebe0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QsYuTChn82Ii6KiDakW1WTeR12iY9RX74Ck3wCkkhUKTbwKgxy7+VxrJx0PJmPdqF
-	 FfvuoLWVXeBAdAcc7OzCZIUXhikibBRphzt5JrwBegtP9hl8iymvrWx6+iUxLTtSXI
-	 KnqliXVBVzUVr2Z0+yXhlNSChuBtyBrTroyZtUJpuRNBoq+z87umGQ2REuFLq4IJNk
-	 wufpWj+h+YSHuHjs/nxHZIB9ownHaEoq7xkgJiEWa7gsu990FXm2BMKlCxqJDq4JYN
-	 /CAJBm6xYwsL3NVoNOzAKD6uFaWmTzCdonc9xtA1xrK8c8oNU4PnrU8Mt6PNlJluVR
-	 gN/hzIgaET5Tg==
-Date: Tue, 23 Jun 2026 16:56:35 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v4 11/12] iio: dac: ad5686: add triggered buffer support
-Message-ID: <20260623165635.5997d049@jic23-huawei>
-In-Reply-To: <20260623-ad5686-new-features-v4-11-28962a57db0f@analog.com>
-References: <20260623-ad5686-new-features-v4-0-28962a57db0f@analog.com>
-	<20260623-ad5686-new-features-v4-11-28962a57db0f@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="0K4HBwyg"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-8de7bfa31d5so1023566d6.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 08:57:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1782230219; x=1782835019; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TPDfmVIzr517SVNMJCXJaTtxqPgE7ofDG9u4XZ/jZQY=;
+        b=0K4HBwygbFedkgdPSmoLqaNhzqsbOKlp7HQymWdAKH3wJOe/u9WFiVk4k+SziIIlAF
+         5BKnU9NScrwfKXKyipp/j2yKRdLuQGjwPax9x+js2+RHVTmuGyyGcJjzwm/Bke2orBtk
+         74DzaALUeQzM9JCud+CAWBVI9PqOeZwzL4qrsnEswM7ik0JgOaNE/v6OBy+l5CBqI0yf
+         +EL1bi2tE5YoUoSsf4NeD/Zo6DhMrm47XwN8wU40M14IH1r8hpV4gfzJTBKIWXXx9RGU
+         /PFUbsV0Ifhnb4emweHU3R/xL/AdXgJrICxv7vbgLuOCMKA8WR8gxmygcSVIxs7r7ZzN
+         v7+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782230219; x=1782835019;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TPDfmVIzr517SVNMJCXJaTtxqPgE7ofDG9u4XZ/jZQY=;
+        b=SvfYjKDCK1s3Nd+oXMAv4r1SOOMOHpCqq9VAas5SHgMYkakh81i6GskVYMsW2BXhie
+         EiMZmm9NIiNxMVSwrFdYWc6N/xIqqJsvmoWjGkCjszTz11Rr4GlHF23JC/Uw/Tbgsud7
+         3d/9Nxr9GgDEqTMzgmDAK68kqmxldbvw1prEu0pJQc34xhU8TfhFREsIPW7x9stAEZSw
+         irXNqrerRhhqFCP20tIrfoXfLAvKNJTESuD7VLtqnVMY+LOBPtc7QRNZ6a8Xct2aSWyL
+         ZiBsnu0rIk3Pz/LTo1mDuNR7oQWTZ1N5Vz63DorglXoiD1Qqu5kV1CDYNhNIIf0ZC5XX
+         lprA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp9xGSwWmDFW0Y3wUBv1d7URE4zT2NhVr+vBq732+3H+uuk3NLfBg93tqNfNpYcOjIfeNArygrjEC5r@vger.kernel.org
+X-Gm-Message-State: AOJu0YzB/jzJfqTShm4sxAiwlYoNpXaSsD+Ule2VKmsRR7VweWV7+oFW
+	TBoDD0n5fHzSSf49kO3j+Lm9F0ohYhlHWfjZS1dk9cHZeTbBqNieyZZcMXK2q7eqofM=
+X-Gm-Gg: AfdE7cm2BQPQaoXZTR56lH8QLFbOJ1hrO15qSW6uxGaecpAd56a3FtqKbji3AHPOf7J
+	awYULFtupsVmX8E+kyBdDtrDNBLMrQ0aBBJ1chlMSBdJtFg7/HKJCh37GB4DPWLliedGTyPLAJU
+	SWRm9dusdpKO3McyHU0E8HwguEh67P9irr6nn11xE+EMdSc8ysvUcXA6VvzA/BDt8ZfL8Zrztmb
+	k/wuhavMshKO7ez4BFirxM29axmxJmsmLw33UKbn5JjqmgHVrJeVA4Hg9eAYbsJCC9t/z4ImDIi
+	OFWSNSnsySktuEUl2UDG20iakM7UUiLqcB+zGdjSZwZ7xGiPz1TmRmZn51teapz6nwOVcaK6MGf
+	h7Fxbbxc2XGrTFKFKi7ew5MYylLSLUh6Vtu50ugmQ3OdKDwfVvZliZkcgLZfpp6PUHo7vizEVHx
+	47c87GHbdDGE7NKQ==
+X-Received: by 2002:a05:6214:4344:b0:8ce:cad9:479a with SMTP id 6a1803df08f44-8e4341be39amr51848766d6.15.1782230219270;
+        Tue, 23 Jun 2026 08:56:59 -0700 (PDT)
+Received: from [172.22.22.234] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df7f603b6dsm143054006d6.15.2026.06.23.08.56.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 08:56:58 -0700 (PDT)
+Message-ID: <959db395-ae71-4a50-bd46-ac5add545a52@riscstar.com>
+Date: Tue, 23 Jun 2026 10:56:56 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] SM8450 IPA support
+To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alex Elder <elder@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 23 Jun 2026 11:55:51 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
-
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 6/22/26 8:44 PM, Esteban Urrutia via B4 Relay wrote:
+> This series adds support for the IPA subsystem found in the SM8450 SoC.
+> While IPA v5.0 is very similar to IPA v5.1 (heck, it even managed to
+> properly get the modem up and running), it wasn't perfect, since the
+> modem would sometimes hang when rebooting or powering the AP off.
+> After a thorough investigation, I managed to create the proper data file
+> required for IPA v5.1.
 > 
-> Implement trigger handler by leveraging the LDAC gpio to update all DAC
-> channels at once when it is available. Also, the multiple channel writes
-> can be flushed at once with the sync() operation.
+> Regards,
+> Esteban
+
+I assume you have implemented this based on what you found in
+some downstream code.  And if so, could you please indicate
+where to find that (so I can do some cross-referencing myself).
+I no longer have access to any Qualcomm internal documentation.
+
+Thanks.
+
+					-Alex
+
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+> ---
+> Esteban Urrutia (3):
+>        arm64: dts: qcom: sm8450: Add IPA support
+>        dt-bindings: net: qcom,ipa: Add SM8450 compatible string
+>        net: ipa: Add IPA v5.1 data
 > 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Hi Rodrigo
-
-A follow up on the rework you did for this version,
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> index db175e77b0b7..4dc681eb077d 100644
-> --- a/drivers/iio/dac/ad5686.c
-> +++ b/drivers/iio/dac/ad5686.c
-
-> @@ -467,6 +472,60 @@ const struct ad5686_chip_info ad5679r_chip_info = {
->  };
->  EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
->  
-> +static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct iio_buffer *buffer = indio_dev->buffer;
-> +	struct ad5686_state *st = iio_priv(indio_dev);
-> +	u16 val[AD5686_MAX_CHANNELS] = { };
-> +	unsigned int scan_count, ch, i;
-> +	bool async_update;
-> +	int ret;
-> +	u8 cmd;
-> +
-> +	ret = iio_pop_from_buffer(buffer, val);
-> +	if (ret) {
-> +		iio_trigger_notify_done(indio_dev->trig);
-
-I think I'd prefer a wrapper to this if we are going to always say
-it is IRQ_HANDLED (which is reasonable here I think)
-Something like the following (unfortunately I only just read the
-previous version thread so didn't head off the approach you have here.
-
-
-static void do_ad5686_trigger_handler(struct iio_dev *indio_dev)
-{
-	struct iio_buffer *buffer = indio_dev->buffer;
-	struct ad5686_state *st = iio_priv(indio_dev);
-	u16 val[AD5686_MAX_CHANNELS] = { };
-	int ret;
-
-	ret = iio_pop_from_buffer(buffer, val);
-	if (ret) {
-		iio_trigger_notify_done(indio_dev->trig);
-
-	guard(mutex)(&st->lock);
-
-	guts of current function
-}
-
-static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-{
-	struct iio_poll_func *pf = p;
-	struct iio_dev *indio_dev = pf->indio_dev;
-
-	do_ad5686_trigger_handler(indio_dev);
-	iio_trigger_notify_done(indio_dev->trig);
-	return IRQ_HANDLED;
-}
-
-
-
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	scan_count = bitmap_weight(indio_dev->active_scan_mask,
-> +				   iio_get_masklength(indio_dev));
-> +	async_update = st->ldac_gpio && scan_count > 1;
-> +	if (async_update) {
-> +		/* use LDAC to update all channels simultaneously */
-> +		cmd = AD5686_CMD_WRITE_INPUT_N;
-> +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
-> +	} else {
-> +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
-> +	}
-> +
-> +	i = 0;
-> +	iio_for_each_active_channel(indio_dev, ch) {
-> +		ret = st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]);
-> +		if (ret)
-> +			break;
-> +	}
-> +
-> +	/*
-> +	 * If sync() is available, it is called here regardless of write
-> +	 * failure to allow bus implementation to reset. In that case, partial
-> +	 * writes are unlikely as the write operations would just queue up
-> +	 * the transfers.
-> +	 */
-> +	if (st->ops->sync)
-> +		st->ops->sync(st);
-> +
-> +	if (async_update)
-> +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
-> +
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +	return IRQ_HANDLED;
-> +}
+>   .../devicetree/bindings/net/qcom,ipa.yaml          |   1 +
+>   arch/arm64/boot/dts/qcom/sm8450.dtsi               |  55 ++-
+>   drivers/net/ipa/Makefile                           |   2 +-
+>   drivers/net/ipa/data/ipa_data-v5.1.c               | 477 +++++++++++++++++++++
+>   drivers/net/ipa/gsi_reg.c                          |   1 +
+>   drivers/net/ipa/ipa_data.h                         |   1 +
+>   drivers/net/ipa/ipa_main.c                         |   4 +
+>   drivers/net/ipa/ipa_reg.c                          |   1 +
+>   8 files changed, 536 insertions(+), 6 deletions(-)
+> ---
+> base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
+> change-id: 20260622-sm8450-ipa-5da81f67eb65
+> 
+> Best regards,
+> --
+> Esteban Urrutia <esteuwu@proton.me>
+> 
+> 
 
