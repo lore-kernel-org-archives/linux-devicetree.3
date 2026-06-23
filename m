@@ -1,116 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71DF390CBA;
-	Tue, 23 Jun 2026 19:40:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A3761FFE
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 19:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782243641; cv=none; b=OFBBZyq18QaI20QqHLkirCCD7XSgtO1Kml2a/RVN7FASPqmxnrr1Es1wNO7gJe76/eq3llIQW37zn2uCEnXTP3hS8t25ipnaZymYZfmmi9mGIIgXc4ryff6E2NKbXbeDf02ZVIRKOmaf1q0afl4oQMvfO/xF1xpsxQK9mTPrtmo=
+	t=1782244163; cv=none; b=HYIYfv/PzyLIsIGTThv5z9f55rZyv5gagmZAOv2dIhHCBN7TkOtON3FqeaOm3JCc5k3qupSYPTA1qTXhVFEU1f5ty/oIbB9La6ZvdUrz5/MI5utwoZQKKuJKXAFlnuAFTVtygecx3eRq7iaMRNeO2mMC5oBcy19TUO0T0yaCOtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782243641; c=relaxed/simple;
-	bh=Ftp4hGYQdUsQfOVlCYxq2IfTSvVjZdn/meAYku+9QdU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cArR1DwxQHYaS01dg6bZBdmYkklAJAx2WgSriLipl8YYpQz8LUE40aQjanSb0XADEjSfEEC6cD5JKbGEB2MfaRBZqoLgizem2rT5B4oL7Udyhr5bqMlg5qEJ+eendoDjEWGME+qZLyfRWrQqsC1khPNQtHP7gTCX4lJGxzpYhnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N3whJ5ts; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782244163; c=relaxed/simple;
+	bh=fqv+L8lo30inwOd4Y63isNwYuTnbTan3sOLhR6psEuU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OiKOizfu4yCDEZmyL08jmzygMKji5navLDGjkHExDpzwUIxoKlr2QQ2WeWIu0FAP9fRnFk8ki62Rj2swFCF7bl+dVuPiW6eCO98x6g7HcIV1vIVrmmdfR+HLYSrCmOyijdP7z6S0Y8oO9NrCTkvu/XB39SkzSHdYtvMgYjiWaXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nf8r1Zyz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N3whJ5ts"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782243641; x=1813779641;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Ftp4hGYQdUsQfOVlCYxq2IfTSvVjZdn/meAYku+9QdU=;
-  b=N3whJ5tsli2T+4xYQZx51Tm+3XKttp22r0jiM/m93P7cgd2j4r7g//0V
-   Z34zsIsYoCqPb4ZmBuAokcSDv105EIMyV0cPkSwLOgmsKvj328HIN1h0E
-   jgwMd7WffL4rP9gQEr46eO/TdkgsbyWU7APOt2HzUDieFF/d+Bf1adO3F
-   nFnLqzBecBSij9g1n9orSEMxZU1nIRmcJ6ipCT1psiOJAnbM8/baYQ4f8
-   YEshWlQIvA9r8g44Q+9Eqz6BbNP3v1ZMFlg+71tB6bm8vXgjL92zLiwm4
-   z8QjBZrwagD44b/36XnPPeNvJByuDYmJWDX43mE0TaCD2jkMJaBW8m3SE
-   A==;
-X-CSE-ConnectionGUID: caMSxjDaSP2Y6NdhjOLA1A==
-X-CSE-MsgGUID: IKHo/cNIQ1ObbngnXWiC0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="86834146"
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
-   d="scan'208";a="86834146"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 12:40:40 -0700
-X-CSE-ConnectionGUID: xAfCMTqnQSOcr5aCmn0TRw==
-X-CSE-MsgGUID: 9VSOFY/mQYiufou+p97JqA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
-   d="scan'208";a="273300251"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 12:40:37 -0700
-Date: Tue, 23 Jun 2026 22:40:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Lukas Metz <lukas.metz@gmx.net>, Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add driver for DAC8163:
-Message-ID: <ajrhM7ka4NeH9rnF@ashevche-desk.local>
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
- <ajrR1jlkggGq_rrj@ashevche-desk.local>
- <9176e97e-c92c-4d9a-a0b3-da2e7983d9e1@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nf8r1Zyz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4BD1F000E9;
+	Tue, 23 Jun 2026 19:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782244162;
+	bh=Ja5q2fZKG3v7RFMZdWsvuqRkGzU83kSeBhA8tTduTvU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nf8r1ZyzR8a96W1ECLiC8OFvtA9C7n/wi23dyb5/qB2gz3uyuXhxGIMZLzVdJdtr1
+	 nrNYR4+bKSLunMKzAEFu9Lqr7BjVpDCAu7ggkvZrJizqkriF6fHY/ZR9r/D2cQ2qtj
+	 GlhcxG5CFsJV8Met+N8YaUlNkizhq0nZqCzvJOxcwOTqbF/PRsh+0w3PPKI6RSkMza
+	 /TJ2N2oxytZbYye5EhBuRixKCEMhVRuc8xDJje0YZMAi/eRM7UBqfjxoF3v5g7t9Ut
+	 9H76mBekept6+w18fE12+t1i/SeXCKvMwbvIfnFom+Z6Xr3dqZnU1TIoek3RuakAEv
+	 38zHPFtwtFOFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 03/10] drm/bridge: synopsys: dw-dp: Add follow-up
+ bridge support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-3-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-3-dc61e6352508@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 19:49:21 +0000
+Message-Id: <20260623194922.4F4BD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9176e97e-c92c-4d9a-a0b3-da2e7983d9e1@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jun 23, 2026 at 01:50:27PM -0500, David Lechner wrote:
-> On 6/23/26 1:35 PM, Andy Shevchenko wrote:
-> > On Tue, Jun 23, 2026 at 06:07:26PM +0200, Lukas Metz wrote:
-> >> This series adds an IIO driver for the Texas Instruments DAC7562, DAC7563,
-> >> DAC8162, DAC8163, DAC8562, and DAC8563 dual-channel voltage-output DACs.
-> >>
-> >> These devices are pin-compatible 12-, 14-, and 16-bit variants sharing the
-> >> same 24-bit SPI command interface. Each device provides two independently
-> >> addressable output channels and includes a 2.5 V, 4 ppm/°C internal
-> >> reference that can be enabled via device tree, or an external reference
-> >> supplied through a regulator. The register and command structure differs
-> >> from already existing drivers which makes adding a new driver a
-> >> reasonable choice in my opinion.
-> >>
-> >> The driver supports:
-> >>  - All six device variants via a shared chip info table
-> >>  - DAC updates in synchronous mode
-> >>  - Configurable internal or external voltage reference
-> >>  - Optional LDAC GPIO which has to be asserted permanently when using
-> >>    synchronous updates.
-> >>  - IIO_CHAN_INFO_RAW and IIO_CHAN_INFO_SCALE attributes per channel
-> >>
-> >> Datasheet (DAC8163):
-> >>   https://www.ti.com/lit/gpn/dac8163
-> > 
-> > Why do we need a brand new driver? Do we have an existing one that may be
-> > expanded to support this HW? (Note, not all existing drivers are under IIO
-> > folder, some of them might be found in hwmon, input, or drivers/misc.)
-> 
-> I thought the statement above is clear that there are not any compatible
-> drivers already. And I would not expect a DAC to have a driver in hwmon
-> or input since it is an output device.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Ah, my bad, I haven't read carefully. Fair point, I see the answer is already
-here.
+New issues:
+- [High] Memory leak of the follow-up bridge reference count.
+- [High] Unconditional probe failure causing DT backward compatibility brea=
+kage.
 
-> >> The driver was tested with a DAC8163 on a custom STM32MP157F board with
-> >> external reference enabled.
+Pre-existing issues:
+- [High] Missing completion reinitialization causes race conditions with st=
+ale completion states during AUX transfers.
+- [High] Premature registration and exposure of the DP AUX channel to users=
+pace before hardware and IRQ initialization.
+--
 
--- 
-With Best Regards,
-Andy Shevchenko
+commit ceef3e5c9dcfb09773dad5a727e1e2147c87f8e5
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
+drm/bridge: synopsys: dw-dp: Add follow-up bridge support
 
+Add support to use USB-C connectors with the DP altmode helper code on
+devicetree based platforms. To get this working there must be a DRM bridge
+chain from the DisplayPort controller to the USB-C connector.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index ac7779e42bb24..98cff435dfb87 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1970,7 +1970,7 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct=
+ drm_encoder *encoder,
+>  {
+>  	struct platform_device *pdev =3D to_platform_device(dev);
+>  	struct dw_dp *dp;
+> -	struct drm_bridge *bridge;
+> +	struct drm_bridge *bridge, *next_bridge;
+>  	void __iomem *res;
+>  	int ret;
+> =20
+> @@ -2064,6 +2064,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struc=
+t drm_encoder *encoder,
+>  		goto unregister_aux;
+>  	}
+> =20
+> +	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
+> +	if (IS_ERR(next_bridge)) {
+
+[Severity: High]
+Can this unconditional check break device tree backward compatibility?
+
+By making the absence of a follow-up bridge a fatal error instead of an
+optional configuration, this appears to cause the display driver to
+completely fail to probe on existing platforms that do not define a downstr=
+eam
+bridge endpoint in their device tree.
+
+> +		ret =3D PTR_ERR(next_bridge);
+> +		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
+> +		goto unregister_aux;
+> +	}
+> +
+> +	ret =3D drm_bridge_attach(encoder, next_bridge, bridge,
+> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+
+[Severity: High]
+Does this code leak the next_bridge reference?
+
+Calling of_drm_get_bridge_by_endpoint() increments the reference count of t=
+he
+returned bridge, but there doesn't seem to be a corresponding drm_bridge_pu=
+t()
+on either the success or error paths to release it.
+
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
+> +		goto unregister_aux;
+> +	}
+> +
+>  	dw_dp_init_hw(dp);
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but does registering the AUX channel early
+expose uninitialized hardware to userspace?
+
+Looking earlier in dw_dp_bind():
+
+	ret =3D drm_dp_aux_register(&dp->aux);
+	if (ret) {
+		dev_err_probe(dev, ret, "Aux register failed\n");
+		return ERR_PTR(ret);
+	}
+
+And then later:
+
+	dw_dp_init_hw(dp);
+
+	ret =3D phy_init(dp->phy);
+
+If a userspace process opens the AUX character device and initiates a
+transaction before dw_dp_init_hw() and the IRQ setup are called, the hardwa=
+re
+may enter an invalid state and miss completion interrupts.
+
+>  	ret =3D phy_init(dp->phy);
+
+[Severity: High]
+This is a pre-existing issue, but can the lack of completion reinitializati=
+on
+cause race conditions?
+
+Looking at dw_dp_aux_transfer() in the same file:
+
+	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
+
+	status =3D wait_for_completion_timeout(&dp->complete, timeout);
+
+If a previous AUX transfer timed out but the hardware eventually triggered a
+late interrupt, the completion object will remain in a done state. The next
+AUX transfer will see this stale state, causing wait_for_completion_timeout=
+()
+to return immediately before the new transfer has actually completed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
+w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D3
