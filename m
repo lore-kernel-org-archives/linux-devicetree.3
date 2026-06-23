@@ -1,159 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C69739769D
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:11:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E01635675B
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782245497; cv=none; b=KkkTnojUfX5Pex96bAeOdFMB6LnqS5pN+tcmCMtdslsjcutBBdj76PjDKigclJPpCTV0hnzrQzK6BOyO5yn/+lGoqRTH/2quKiaBNKLTcCTRvemI8RRTdOO0spheGIfLc/Alvlz1m7RMryo2ZJFwlAsU3NiKiPb8KcwH02Tz/hg=
+	t=1782246014; cv=none; b=G0rSMq62HGQ77HBOKDNBhsDyi4UnPLMxEaCIFmbG82HzeUmuyItSfjkXNWNVjUPqOySiW2Y75dii1GEernlGKrZYT3EbxDlOAZBzRiEK4vLy2CjH/usdumtqq0O1sQmhlcGgyNpTCkjMr7DrFMgOtuuZ3kB1Q8NTYjFzDZg6awo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782245497; c=relaxed/simple;
-	bh=k2e7PzmT2hrGRQdgOKTY4mg+Pi3LGo9rRT7mPuNSOMM=;
+	s=arc-20240116; t=1782246014; c=relaxed/simple;
+	bh=10rKWVzxUxu7Eti8Mv+mfsGDCNtNwBua2GkpT+mME4c=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uleOv1Tjqobz2fQ3bfTpOJvVoEtoO2Ke0vML8o8e9Ae8fT1KdsIcupkZg6FDtYe7jqgUYC9U2MOeypfelVYF+oNEkaMqqiM5bFmfy/s+WohgpbO3+zESHhqSCyKCRTF3rPoihfIVpkXhy9j6HyBrXzakmnMZV0XWpeDEDvVOR78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IRGy6bG3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SPE3dl4lzQ/w8cDi3CN7Uig8XuUW2k1j/Pm3m0+zxqCq+NeufHOCSSs+AaE9ZRwhmVS00E9fom38kqqCvO6BqQYnhcCfTzzviSWCqzw11b1ELMRP8+lNPJFr7o/pKm2A+87gmu9u5H17tHNBXkHHCtiyjn+SOlz4ME+qRGSSCxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BYhtzW5p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IRGy6bG3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BF61F00ACA;
-	Tue, 23 Jun 2026 20:11:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BYhtzW5p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29821F000E9;
+	Tue, 23 Jun 2026 20:20:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782245496;
-	bh=E4OQBvD/43yxCYHKK6cL5tCtMdhI9W+U0R4DGTGo988=;
+	s=k20260515; t=1782246013;
+	bh=jws91bIyFlHJHOovsdMRA1onCqoErwopEmxsbYLwuFg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IRGy6bG3m9Px4v20b7iKO8eq+tdgUTXzQSGHGL/ZCR2FRg+/iDdfOnVVXHN14FXZy
-	 CqtrQ6prE0S1Y+vbaoKcMw90RlZOj5JdRgSR3NtuF+hwiLSc8QlxTF42L6G2oUkUe0
-	 F7b9B3R1b9s7l2LwVI+dhhKyYI52JBDNwWt/20jxeYmCBWReggrw6WyCXhbZeNv75m
-	 VfmASingrlCV+g6Ym5p54gbY6jZlxsq2QqNrvF71AbLHJFAcjt0IHaqDoT7t510LwG
-	 To4sWDL3uBiraYF2ZrmLFKYGfzl7ZGDX1PXVsaKuCoGMq0lNAp/u31euXAZgbS6Kt3
-	 TpZyGJfGmFC9g==
+	b=BYhtzW5plbtIhr4M7HOEVl3DtjzLWmwWroV/Xzlp6+G2QVNWcQECie6FPsaXgxJh7
+	 J9RmTFFRqVK6Bw2Sz1y2I25QDT+G7+ckAOB066CzQgv9upi0dzALuUNH5FFXlbLR+L
+	 FbFxcsBrk9XlPN5OsoEGDjet4tunGn8ziRIpAPm/vS1hkh6/ToVeW7Vy4S7rXvJit9
+	 Bh3CpXoaoSW7kdn372F4kbiUBSGthc4qGhHUauQZlmudcRn7Ds0/IvOzg5unAtM2Fy
+	 0WaOHVqkguZbAdYy558Hc4EZ9qLkGVe8K51Fe+i/7YDmRWyii4mv5174NM4sAFid/1
+	 taZYHW5GjQeuQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/10] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
+Subject: Re: [PATCH v3 06/10] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-5-dc61e6352508@collabora.com>
-References: <20260612-synopsys-dw-dp-improvements-v3-5-dc61e6352508@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-6-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-6-dc61e6352508@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:11:35 +0000
-Message-Id: <20260623201136.15BF61F00ACA@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 20:20:12 +0000
+Message-Id: <20260623202012.D29821F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Reference leak of the downstream bridge in `dw_dp_bind()` on both =
-success and error paths.
-- [High] The driver incorrectly treats the absence of a downstream bridge a=
-s a fatal error, breaking backward compatibility.
-
-Pre-existing issues:
-- [High] Missing `cancel_work_sync()` for `dp->hpd_work` during unbind lead=
-s to a Use-After-Free.
+- [High] Using IS_ERR() to validate the return value of platform_get_mem_or=
+_io() fails to catch NULL, leading to a kernel crash when the resource is m=
+issing.
+- [Medium] The `dp_dp_rockchip_get_vo_grf` function fails to implement the =
+documented fallback to read the `vo-grf` phandle from the DisplayPort devic=
+e node.
 --
 
-commit 121b9fc711d52bcdbd8b50a6dc50a5308864d167
+commit 2739e6354d59ce0c07c5ba0c2a12b2779e399b4a
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+drm/rockchip: dw_dp: Implement out-of-band HPD handling
 
-drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
+Implement out-of-band hotplug handling to receive external hotplug
+information from the USB-C state machine. This properly detects if a cable
+is plugged in for adapters.
 
-Add support for USB-C DP AltMode out-of-band hotplug handling. The
-handling itself is implemented in the platform specific driver as the
-registers to force HPD state are not part of the Designware DisplayPort
-IP itself. Instead the platform integration might provide the necessary
-functionality to mux the HPD signal.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 98cff435dfb87..7fa38145e35ce 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index 35598ab9fe84a..9c53f1d2c29ab 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 [ ... ]
-
-> @@ -2078,6 +2107,13 @@ struct dw_dp *dw_dp_bind(struct device *dev, struc=
-t drm_encoder *encoder,
->  		goto unregister_aux;
->  	}
-
-[Severity: High]
-Does dw_dp_bind() leak the reference to the downstream bridge?
-
-of_drm_get_bridge_by_endpoint() returns a bridge pointer with an incremente=
-d=20
-reference count, which is stored in next_bridge:
-
-	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-	if (IS_ERR(next_bridge)) {
-		ret =3D PTR_ERR(next_bridge);
-        ...
-
-The reference is not dropped after drm_bridge_attach() succeeds, nor is it=
-=20
-dropped on the error path before jumping to unregister_aux. Could this leak=
-=20
-the reference on both success and error paths, preventing the downstream=20
-bridge from cleanly unloading?
-
-
-[Severity: High]
-Should the absence of a downstream bridge be treated as a fatal error?
-
-If the device tree defines the DP controller as the end of the display chain
-(i.e., no endpoint 1 is defined), of_drm_get_bridge_by_endpoint() returns
--ENODEV. The code unconditionally aborts initialization here instead of=20
-gracefully ignoring it:
-
-	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-	if (IS_ERR(next_bridge)) {
-		ret =3D PTR_ERR(next_bridge);
-		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
-		goto unregister_aux;
-	}
-
-Could this break backward compatibility and cause the driver to fail to pro=
-be=20
-on boards that do not define a downstream bridge?
-
+> @@ -72,14 +117,49 @@ static const struct drm_encoder_helper_funcs dw_dp_e=
+ncoder_helper_funcs =3D {
+>  	.atomic_check		=3D dw_dp_encoder_atomic_check,
+>  };
 > =20
-> +	if (dw_dp_is_routed_to_usb_c(encoder)) {
-> +		dev_dbg(dev, "USB-C mode\n");
+> +static struct regmap *dp_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
+p)
+> +{
+> +	struct device_node *np =3D dev_of_node(dp->dev);
+> +	struct of_phandle_args args;
+> +	struct regmap *regmap;
+> +	int ret;
 > +
-> +		if (dp->plat_data.hpd_sw_sel)
-> +			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
+> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
+> +	if (ret)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	/*
+> +	 * Limit this workaround to RK3576 and RK3588, new platforms should
+> +	 * add a VO GRF phandle in the DisplayPort DT node.
+> +	 */
+> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
+> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
+> +		regmap =3D ERR_PTR(-ENODEV);
+> +		goto out_put_node;
 > +	}
 > +
->  	dw_dp_init_hw(dp);
+> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
 
+[Severity: Medium]
+Does this function actually implement the forward-compatibility behavior
+described in the comment?
+
+If a new platform follows the advice and adds a VO GRF phandle directly to
+the DisplayPort DT node (dropping the "phys" property), it looks like the
+unconditional of_parse_phandle_with_args() check for "phys" will fail and
+return ERR_PTR(-ENODEV) early.
+
+Should there be a primary lookup path for "rockchip,vo-grf" on the DP node
+itself before falling back to this PHY workaround?
+
+> +
+> +out_put_node:
+> +	of_node_put(args.np);
+> +	return regmap;
+> +}
+> +
+>  static int dw_dp_rockchip_bind(struct device *dev, struct device *master=
+, void *data)
+>  {
+> -	const struct dw_dp_plat_data *plat_data;
+> +	const struct rockchip_dw_dp_plat_data *plat_data_const;
+> +	struct platform_device *pdev =3D to_platform_device(dev);
+> +	struct dw_dp_plat_data *plat_data;
+>  	struct drm_device *drm_dev =3D data;
+>  	struct rockchip_dw_dp *dp;
+>  	struct drm_encoder *encoder;
+>  	struct drm_connector *connector;
+> -	int ret;
+> +	struct resource *res;
+> +	int ret, id;
+> +
+> +	plat_data =3D drmm_kzalloc(drm_dev, sizeof(*plat_data), GFP_KERNEL);
+> +	if (!plat_data)
+> +		return -ENOMEM;
 [ ... ]
+> +	dp->pdata =3D plat_data_const;
+> +
+> +	res =3D platform_get_mem_or_io(pdev, 0);
+> +	if (IS_ERR(res))
+> +		return PTR_ERR(res);
+> +
+> +	/* find the DisplayPort ID from the io address */
+> +	dp->id =3D -ENODEV;
+> +	for (id =3D 0; id < plat_data_const->num_ctrls; id++) {
+> +		if (res->start =3D=3D plat_data_const->ctrl_ids[id]) {
+> +			dp->id =3D id;
+> +			break;
+> +		}
+> +	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_unbind() leave=20
-pending work scheduled?
+Can this code cause a NULL pointer dereference if the resource is missing
+from the device tree?
 
-During bind, the driver initializes dp->hpd_work and schedules it in the=20
-interrupt handler dw_dp_handle_hpd_event(). However, dw_dp_unbind() does no=
-t=20
-cancel it:
+Looking at platform_get_mem_or_io(), it returns NULL when the resource is
+not found, rather than an ERR_PTR. Because IS_ERR(NULL) evaluates to false,
+the check "if (IS_ERR(res))" would let a NULL pointer slip through. This
+NULL pointer would then be dereferenced when accessing res->start in the
+loop.
 
-void dw_dp_unbind(struct dw_dp *dp)
-{
-	drm_dp_aux_unregister(&dp->aux);
-}
-
-Because the dp context is allocated with devm_drm_bridge_alloc(), it is=20
-automatically freed shortly after unbind returns. If the scheduled work=20
-executes after dp is freed, could it cause a use-after-free in=20
-dw_dp_hpd_work()?
-
-Should cancel_work_sync(&dp->hpd_work) be added to dw_dp_unbind()?
+Should this be updated to check "if (!res)" instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
-w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D5
+w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D6
