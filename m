@@ -1,79 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2295C8EB;
-	Tue, 23 Jun 2026 21:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87301359A66
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 21:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782250315; cv=none; b=aWss9CrAEe4W1no0Yeb9YqR35pMDXlF3d3/WMgfAH6dB1zSk8igxfh+74dUodPsznNy6AZFe3AlhoqwSPl8IglJ07D9OqWJuR9auBLjKZSNN702PeFtsos829PjxzQdXfJMWqNDZddTA4Xb+3YG9ljPh/zZKNi/XB7ugvEzSZUI=
+	t=1782250517; cv=none; b=a4EfMAvG/RbdBaMnx2TvLi51uLy84kW6VSjXqhDB8+tWu9vWM2np15Rinm8qRdWu+bMn0QTWaOe18lsOjP7Bt4mgNk6SLndE7CzQlVGsXEBXZvLzRWRPXftfukdIbIWS8IBgRwHXwUP/3usalzVgsoiNoVW4mfTBiYiSqZCJI/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782250315; c=relaxed/simple;
-	bh=cf0oS5S/91R9fvs2GKviyAfHVEuZAezatD/Tez9Z0HI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C+LWB92pN4BRL+/0SNxY/hLoaCQlXdp8bydUMDzeQnvZ3q8WUdrYiT/Rj6Vk6Sfw3nfhw4InEL3svr+JDdY4+DSlizESvP+vpPdhJgh/qNwNl87HRPakr50XKfXbrdN0xrL9IPj3B4koR6w8hZE4AgaI/0KxdLm2FSEItys3EGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Az6deyot; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782250517; c=relaxed/simple;
+	bh=aUOlwUMmvUxeWUajWHyxa6VY5afRmReJOBvfaFefO1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SRBK+6QSHufIvxqFZJXlJU/EwhZ+vAlQspTR7Jgj/4tVV2XfFGPLwmsNdpq0LAFQx9Gn/JOL2Yqny07p8KFq83QLYRbZT38OhphyTFunc78go3j0chn3/h5b6NbgR+UU7+MPd7Ojlenfl51Vev2yNwvbF86hwLltD7RLe+wux9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kxXQe4kh; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Az6deyot"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782250315; x=1813786315;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cf0oS5S/91R9fvs2GKviyAfHVEuZAezatD/Tez9Z0HI=;
-  b=Az6deyotcAdZi7T9S5Atkt0j0ztGM8nwdEnnDPV/rJw2cyqsrsOw3i0f
-   3QeG4hyitdihpHVmfkrH+aU1OltM9ajP1Nlct6rXjoriOgPSWd2ZLpAsE
-   dIcVo7P7q5Qu0BBZDyAAE+gro+sWpyUF+yuFtXNAvFrRBEAmst8Hsjr5M
-   AhogS/e/AbVIhJF/Fyj0bQXS9MLw0rDoQZaqmYJSyRKuEoZ3KVtUHOQt3
-   2nmAjYLj9w0BwAMKz0CcrWBDt5t8jhHOaY1KvUHxImI+Q5RflD52+fC0+
-   fIxVUgABULAMx8iHj/TH+OIr5yQaznnmicE1mI/nv3MZ+vRUuyWsvQrPa
-   A==;
-X-CSE-ConnectionGUID: ExgV4uJrQFqXEMeZZfnEoA==
-X-CSE-MsgGUID: i6cDnRGZQb2J6tq5AsysoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="93366532"
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
-   d="scan'208";a="93366532"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 14:31:54 -0700
-X-CSE-ConnectionGUID: Bs5y3FkPQV6eV0KYWZBwaQ==
-X-CSE-MsgGUID: YIBK4drXQQSWVGXIT0+ZIA==
-X-ExtLoop1: 1
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 14:31:51 -0700
-Date: Wed, 24 Jun 2026 00:31:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Siratul Islam <siratul.islam@linux.dev>
-Cc: jic23@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
-	andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: magnetometer: add driver for QST QMC5883L
- Sensor
-Message-ID: <ajr7RUNUPZSsBjAs@ashevche-desk.local>
-References: <20260619104524.10172-1-siratul.islam@linux.dev>
- <20260619104524.10172-4-siratul.islam@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kxXQe4kh"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-46255b269c2so249692f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782250515; x=1782855315; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=npX1zE3oC8B9i4AqwB/UnRyXW+2tBx9spPlY9cjsius=;
+        b=kxXQe4khNHhsZuZYLfHoNMuyD8he9Pm5qCSWmoJ37d2BOJ32e71EOoxMNQuH47+LDC
+         P4lRRdy3QI4G1GaR4tAB0D0nDqjEjbibO1byHCiVUKUeHTnESuoWwQMdjd5/TGfq90qn
+         0AV85RuUi2n1S6BxmjzeKuFkaiXnOOBzos5QGY5NDhTxzQmC5pS943OvZCliAnbExjlF
+         2fru3vIAsOIMKXeE1luxuISphiWOerwU0mkhZ+7e2Drcbow7eEN/I9BIxk5I7cunfBex
+         lfDvESZ0ZX1NfPozqDPQLIfrkzK1pjPdE1rXiIVP74K4XKyAk6oyMBYUEdsmuwG3x4FV
+         geOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782250515; x=1782855315;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=npX1zE3oC8B9i4AqwB/UnRyXW+2tBx9spPlY9cjsius=;
+        b=L67VeAqO+gMS5QuDzMUhkmu8UvK2W3AiUeT6VgoEKlPer5uwG2OXKwTqjAJBlVVH+x
+         pmIJQ9HWMMiSXq5BRCDGKshv0oUIoTk5y0nGDVde5mknyMlyr/Ccpv4MP916j8pqkwxc
+         am/6hC6JqmjZcv8BEM2X9M3Ciuhx2SFwEQFWfc8hRzvhqN7QVSfwAsG92P+1/dimRQp9
+         33eOaFfLfa4gikUj/Q1GKp828AX5dupndC8iCiLuOEImP8EbNlTjAe50yapuIGEpMSeZ
+         tRzcqfuKiEvtR4Bqp3RE6lOu2jynmaTgJVpLnZr0EOI4vdfClMorSDUCwNwfVNGcFpmi
+         BGHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/qqbXOLrWktihDnd9nXefr5OoxrYUGXX1DpwfFmpzHP7eFDLj9Mh+TpBZhheRn0Y1ucihqvqiBpWMz@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMl624s/+WHbV/kaUMvqg8023/rO8tigCoDf+sWTjjUqVPCEWS
+	ttHw07pD0PRKA79mN9HmL5WIM5uoUGKf41DT/w1xIWU4bjh0xwwBdpBD
+X-Gm-Gg: AfdE7ckoL1j1pr/ECv8jw7MGbQ2I+DwfdQDMrlr6TR+CuP6OXcoqNHAiG+oPRAiGNgh
+	eTrcRMFsvY5yDGxX28PJYupHw3I6vYqeWg/Wwp9FhEEnFjaxee+K117mo0W4DZLAeyPtRRAA8pO
+	/4+90kcXjtvrxEX87tkI7vEEk81JjYuwBIeQS5Huesl7ot8F2LuTX4KWC92p0EssOPKTI+KZEin
+	4urWmgmfmPpZd96wyKgpsSPHKjyD9o6lUcwmukOh7uc25Eia5+aqLUi+CGzTt+CYPsHKm/0BZNT
+	tnjdpYI0R7+UaURxdUKVVhMOKA61jJqcWIVdZx0C4P9jM6OiE2vyNAYYOOIBIurwKROVSJ08cUl
+	4jCwIvT7iW0m4qVwJDxv4N8Cb+qntFShuanu8jYB/8eFlQRHLo83RsqmvJTDYqvsvRTSDQwflvf
+	01dFSnipCbuh3XNpstbbgXfSXWGGLRfcZ3cjIe2w==
+X-Received: by 2002:a05:600d:10b:b0:490:b642:ce31 with SMTP id 5b1f17b1804b1-49260840c5amr3352535e9.2.1782250514831;
+        Tue, 23 Jun 2026 14:35:14 -0700 (PDT)
+Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c221d93d8sm1059435f8f.23.2026.06.23.14.35.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 14:35:13 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: markus.elfring@web.de
+Cc: airlied@gmail.com,
+	amit.barzilai22@gmail.com,
+	andy@kernel.org,
+	azuddinadam@gmail.com,
+	chintanlike@gmail.com,
+	conor+dt@kernel.org,
+	deller@gmx.de,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	javierm@redhat.com,
+	krzk+dt@kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2 3/4] drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+Date: Wed, 24 Jun 2026 00:34:47 +0300
+Message-ID: <20260623213447.30196-1-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <16a86f3d-caf0-46d0-97a4-c9585bdaa06c@web.de>
+References: <16a86f3d-caf0-46d0-97a4-c9585bdaa06c@web.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619104524.10172-4-siratul.islam@linux.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 19, 2026 at 04:45:06PM +0600, Siratul Islam wrote:
-> Add driver for the QST QMC5883L 3-Axis Magnetic Sensor
-> connected via i2c.
+Markus Elfring <Markus.Elfring@web.de> writes:
 
-LGTM now,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>> +++ b/drivers/gpu/drm/solomon/ssd130x.c
+>> @@ -146,6 +146,33 @@
+>>  #define SSD133X_COLOR_DEPTH_256			0x0
+>>  #define SSD133X_COLOR_DEPTH_65K			0x1
+>>  
+>> +/* ssd135x commands */
+>> +#define SSD135X_SET_COL_RANGE			0x15
+>> +#define SSD135X_WRITE_RAM			0x5c
+>> +#define SSD135X_SET_ROW_RANGE			0x75
+> [...]
+>
+> How do you think about to use an enumeration for such data?
+> https://en.wikipedia.org/wiki/Enumerated_type#C_and_syntactically_similar_languages
+
+Thank you for the suggestion.
+
+I used #define to stay consistent with the rest of ssd130x.c, where the
+command constants for the other families are all defined the same way.
+In my opinion an enum could be a readable solution for these values, but I
+don't think the switch should be included in this series.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Thanks,
 
+Amit
 
