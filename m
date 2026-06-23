@@ -1,63 +1,63 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C9E3AD510
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37153AD51A
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782247728; cv=none; b=scKd1udXOWXk454qiJaP8c0tTWeQ2c8a0OPe0uMSK6IKqyv/z+TjCxoqceJtnkPQHcjukEq/ntbRjCzaKiYqqCJmPpR1RQtvxczo5t8LraCnUinbID0kioAF2PdeALCpE7Jq6eG6BnESkEkWC6BqMmHb0tYDq7DVyximAsHsJcY=
+	t=1782247730; cv=none; b=uIMy8FkXT3RfFVkdYrxMNlAqyLl+IBDM6rOE6bik3uAu8vNAsh6ep8qXn3fH/ErScl32fmIWLrb6fVV5DdrxTe3K3UImvvEi5uWIp4jV3mvMXJ1MoK9ZFmOA8pMmUAEcMjwYyUrGo5AvhdnPOxtPDgx98u0qL9cu2LjmbFO999Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782247728; c=relaxed/simple;
-	bh=c/ZEvKrH8NyUFFYM1KdAFACpOhsENfDRqpjWjQ8d+Q0=;
+	s=arc-20240116; t=1782247730; c=relaxed/simple;
+	bh=imH5HQRFwuaZyrrTMfswXOP+C744Ym8WUzXtL2cxVSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l0zx+AmbxIYSv4cpKZXnSt/yA0NqovEEISRL434A3TQcV4e3rTVYzRpCfcUjYKAgQ+r4hC9VS7OKZxo+9q8ix+zcm9iVOrXxZSthr0wfVM2hYzYd7U3+iwLbv6dS6AF/p07cQaoShffIYl566N4k60Iwb8U0mM0pzrh8TREb81E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z+wHy1vw; arc=none smtp.client-ip=209.85.221.49
+	 MIME-Version; b=e0P48ZUdMxeSlTFOAZs6E0vgmBUMUp7UerLEvkJBdcxCvhnfujwToqQyuufhjUW6RoSWUNWmwnDHJqZ/YhH81qHPIuLsG+Z2kzRk9QM0rwc8h2WNA2UrKvKHJDSWQoUONRo3RXedfn9hLoEFY0I9wDvTF8iLfOjR6zW0kDxIkkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TVUHq0Bl; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z+wHy1vw"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4629051c946so204022f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:48:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TVUHq0Bl"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4645995069bso226239f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:48:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782247722; x=1782852522; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782247724; x=1782852524; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wchiVNh3rpBI2XZC92te0JGKBDBHe7YjoYm2rNU3USE=;
-        b=Z+wHy1vwPxEkHwF4dpklQG5j50PtvQkDa8t6G9fC9qyTPPVvFvLSAfTlvU7En2Ci9I
-         eIFic7f6XXerGiILiDp2bBTu1+5R1W+w4muIsABGXitA40g9eR5VPFiZMR0DTUn99qmx
-         xGzSGLp4aqycRPyLNWtB5WhKxhDSGwhPKjqiis5hpxr8G1LvuHo/ocSh8C3juoOD4CgL
-         RoIWoyH1ZVx1PGyv2G/xwZBrjl1GFCjiXvOZ59vZTTqqGdpAI9VtAqrnEnpRFzIZnrSG
-         PcldnJiQUX1krOapKlBKExIFc6OV9c+2Kg2iWIvucA6z5GFqHnJOpJnyYO+/tdiT62/7
-         VzqQ==
+        bh=gpwmh+JDDGegnFSzMspybYCunWyCARRw7ITPQqgM/JQ=;
+        b=TVUHq0BlCGoH0KKcxxS8NHFNSY2hg0obOYKso/Ou+b8KO3r5Xuc958ssYIsBO8L5nR
+         v8Z4eKxWBkzKWWaQsJHanrDfibRs/uwdouiIbh+M8E1rPbi1sudSEhEpEa71m3WS4eP5
+         2Xh++a4pz71sDFF9tatpUvyrXnZV9qPrgrSnApv4u40TKqrZzdAj2p+X3fF21oi//yEu
+         J6Ee5OlYb8j6be/R9ilydhvBtPsPSAIkWIFIVYaq4TTI9U3tT3ogbBfA8L7WV3GJyRvi
+         cZGXv4S0z1N7AkC2wSF+9qBuy7OFd++j7Zpc45LZXAPTNxHEScAHDXbed9SxvIkFZfxv
+         QnFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782247722; x=1782852522;
+        d=1e100.net; s=20251104; t=1782247724; x=1782852524;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=wchiVNh3rpBI2XZC92te0JGKBDBHe7YjoYm2rNU3USE=;
-        b=pOMp4KK6eWx+z4pLwaEKB23zTQXrWy7N/6zwOq274HKGMk8FKXiBSQOFMAhfCq5XWB
-         aDiqFFLTNLSeaEehzIUxVWBUwZYWTCEWKpsyC1NLb4YcuZsee7SVNbKWEwGQ/Py73owR
-         CsRv24C8uFaYkDm69GtHd0qJFNvM3Fjyp/9RCuo0YyYW6A8z/CXx4P9yT2JIXarHUYkR
-         RrD/Gzq0O1+B70gztrWTEqt5iEu/O+Rlo6pKPkRTvAoW++TCO85IK452azpQ5lWI/nKH
-         o6vO7fLbPWyHNPR0iwS8vU5LswulN7COO2P5kKpP299E638BHlh2CaE+W0Z6RuUYY64J
-         zBSQ==
-X-Forwarded-Encrypted: i=1; AHgh+RonXd7LJA5CWWph1gmbedOUMe9CmaitMjS6yCRLtJ/Q/0tWQ770FVdcrPjHQjvjP5eiX0G8+V/YRMX5@vger.kernel.org
-X-Gm-Message-State: AOJu0YywDbB+9p18weS380f3qPAfBskjQB5DtFe1e4ZJiU694DGcBvfD
-	MfnyVuvLYAsYO8mht9fLcuy7OFlc07UyB48co4V9LByThofWSEMrs5iw
-X-Gm-Gg: AfdE7cnWfXZSxjWvsJPVSi95B2W9UxLk4u8fWByYKqfKKma4jj9yDi7uTZB1bTvrEiO
-	M44yhAAgbjoT65R3lqE2rL4hLNjxG5ZDR4CBr6H0fvDPpK6Lw4h/qNQhb3Ona0SgYtzqTcFLjk5
-	//4ObKa6RkiOp3mEkPCUCI5l+Ix4UG9zPgrTpyWffnLxUJ2dNiNq5eYZLV+/t6z+bPPKWsHJFvG
-	1Mr0fxESSq7BwuvqI2/7XsqMgFihk3aWAX+yM/N3cmd7AS2tm8YIq5/FeGnE6VKO8y+rKC62gfP
-	PWhOnUW4XJ7BhbkP96Q7LlCUFYpHj4duN5kyhd40mJ8HlGVurS0chVMVpxP3XKgVGMVZCt/hslk
-	dJGNdm3IEQ7sdeng0tatPC5/E/0hfN+qHQsgdNohXkCk1easMRDQeFNjUm362hPPmAhitWvOf8H
-	wRuBHt8rjNqGFEH7RsHIU9ShgayX4+SCWyxB6p4dwEZw==
-X-Received: by 2002:a05:6000:4284:b0:464:fff6:489a with SMTP id ffacd0b85a97d-46a7e9f3eacmr9075904f8f.6.1782247721730;
-        Tue, 23 Jun 2026 13:48:41 -0700 (PDT)
+        bh=gpwmh+JDDGegnFSzMspybYCunWyCARRw7ITPQqgM/JQ=;
+        b=Npq1L7ZG4sJ71eEZtKCRKcvHD6fNvESKityqZHiMW4JWkaIyWLJ/mh0/2DbS+5pSBK
+         I6jLreD0YMB1WTxSZmcR7s10NoS5yJA12N1OUPFKrq3Do6uDPQnVrVsJ8vFHpe8eTHhD
+         3w8S9mzDTDzx711h80nKkytzULFJVvp58WS45SZBu3LCOdRqC/7oADbPgiOpV5z5JIn8
+         m2RQaOdHzn1CCOraoVo9LOLmj+w3oelOeC3BsU2EEhoAmQbbPQsm8WWW/7keSekP5oyl
+         X2cNzQtTsfrZ9W7M6q1SjjihkaCWlrnPG8snjOgggml50Io2NDIg3JFCd4uuM/lM/gnl
+         Cong==
+X-Forwarded-Encrypted: i=1; AHgh+Rp21C1qqxp59MTwAERRudqHeOpH0ppJLYH+aHKEJoc61vA7Qcti8UtjjLK2Pi0+FQmJ9Re+MDRzXvCF@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIh+eOgwbC2BTsLe64wNWP/acdOftjGd7oBW+AUT9yHSG2Snft
+	m4p72rbfxe+87BgDwhn1kXrqdE42fN45Um7VRqwDc0c/WWuG0ZiEIaeO
+X-Gm-Gg: AfdE7ckVQHZ74TY3Bg5xrmvX/ZQdkKk3rj06okO+hcqGIc3nX9OR+GzDIU4tF4/oqBk
+	liS4qkimiUmZ+/JuH5xhNkKHVlpdzMlEgbO3TXejoppK5RCwFeTuntSHkj/XeMpsq56dUh3Ywnt
+	ijxX4KYLQVuc9mbsFM5AJbKJ68VleflYPCZeE8kWdCx+8e48zNDK41JwNuMfahErQQHIgVUaf6n
+	XxhnOP22jsbkuqWrZfyl+PJMEqZ4ENQmSvV2cuhqn+aX8DsGJGaOIqmQir/k+o430Fv6NKZFQDe
+	d6NN9IqElgajxVPu7vag4XdbuKy/rqkNaP8XPkSWdKj7oo5dOr1jxOuF++vzI40PPf5n/7MKjb/
+	DA+FRqhNdhuBHWrxnHWGyaSiVTntCcgxOmXK1eUfGhgu4C0sAzR9QpQ77/Ni3mn0WjxliNx6n33
+	ixgWIx+SCh3eBg9vPrc/I8VgmC3CFckn2xhLAG8Eoq0A==
+X-Received: by 2002:a05:6000:2203:b0:452:273:5cd6 with SMTP id ffacd0b85a97d-46c04a33d97mr899375f8f.1.1782247724061;
+        Tue, 23 Jun 2026 13:48:44 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:1210:8642:2b00:82ee:73ff:feb8:99e3])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1e840f80sm351996f8f.6.2026.06.23.13.48.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1e840f80sm351996f8f.6.2026.06.23.13.48.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 13:48:40 -0700 (PDT)
+        Tue, 23 Jun 2026 13:48:43 -0700 (PDT)
 From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 To: linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev
@@ -82,9 +82,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-input@vger.kernel.org
-Subject: [PATCH v5 4/6] dt-bindings: input: sun4i-lradc-keys: Add A100/A133 compatible
-Date: Tue, 23 Jun 2026 22:48:16 +0200
-Message-ID: <20260623204824.691832-5-alexander.sverdlin@gmail.com>
+Subject: [PATCH v5 6/6] arm64: dts: allwinner: A133: add support for Baijie Helper A133 board
+Date: Tue, 23 Jun 2026 22:48:18 +0200
+Message-ID: <20260623204824.691832-7-alexander.sverdlin@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260623204824.691832-1-alexander.sverdlin@gmail.com>
 References: <20260623204824.691832-1-alexander.sverdlin@gmail.com>
@@ -96,33 +96,433 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Allwinner A100/A133 SoCs have an LRADC which is compatible with the
-versions in existing SoCs. Add a compatible string for A100, with the R329
-fallback.
+Baijie Helper A133 board is a development board around Baijie A133 Core
+SBC. Features:
 
+- 1/2/4GiB LPDDR4 DRAM
+- 8/16/32GiB eMMC
+- AXP707 PMIC
+- USB-C OTG port in peripheral mode (via onboard hub)
+- 2 USB 2.0 ports
+- MicroSD slot and on-board eMMC module
+- Gigabit Ethernet
+- Bluetooth
+- WiFi
+
+Add initial support for both the Helper and Core boards, including UART,
+PMU, eMMC, USB, Ethernet, LRADC-connected buttons.
+
+UART1 can only be used for Bluetooth module, but BT-WiFi combo Allwinner
+AW869A chip has no mainline driver currently.
+
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 ---
 Changelog:
 v5:
 - no changes
 v4:
-- new patch
+- renamed "sun50i-a133-baijie-helper.dtb" -> "sun50i-a133-helperboard.dtb"
+- added "model" property into root of sun50i-a133-helperboard-core.dtsi
+- added "cap-mmc-highspeed" and "max-frequency" into &mmc2
+- added "x-powers,drive-vbus-en" and "*-supply" into &axp803
+- dropped all "regulator-enable-ramp-delay" properties
+- replaced &reg_dcdc3 with a "polyphased" comment
+- exact DRAM voltage in &reg_dcdc5
+- disabled &reg_dcdc6 to avoid "[   31.710641] dcdc6: disabling"
+- added &reg_vdd5v "root" regulator
+- added "disable-wp" into &mmc0
+- commented &usb_otg
+- assigned usb1_vbus-supply in &usbphy
+v3:
+- added my copyrights into the newly introduced DTs
+- all DT nodes sorted alphabetically
+- all always-on regulators commented/propetly named
+- all regulators got proper voltages (not default ranges)
+- ADC-sensed buttons K1..K5 added
+- re-labelled "eth_phy" -> "rgmii_phy"
+- usbphy 0 switched from host into peripheral mode (downstream from an
+  onboard hub)
+- typo sun50i-a133-baije-core.dtsi -> sun50i-a133-baijie-core.dtsi
+v2:
+- introduced baijie,helper-a133-core compatible for the Core (SoM) board
 
- .../bindings/input/allwinner,sun4i-a10-lradc-keys.yaml           | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+ .../sun50i-a133-helperboard-core.dtsi         | 197 ++++++++++++++++++
+ .../dts/allwinner/sun50i-a133-helperboard.dts | 148 +++++++++++++
+ 3 files changed, 346 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard-core.dtsi
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard.dts
 
-diff --git a/Documentation/devicetree/bindings/input/allwinner,sun4i-a10-lradc-keys.yaml b/Documentation/devicetree/bindings/input/allwinner,sun4i-a10-lradc-keys.yaml
-index 6bdb8040be65..524c8b51f53f 100644
---- a/Documentation/devicetree/bindings/input/allwinner,sun4i-a10-lradc-keys.yaml
-+++ b/Documentation/devicetree/bindings/input/allwinner,sun4i-a10-lradc-keys.yaml
-@@ -23,6 +23,7 @@ properties:
-       - const: allwinner,sun50i-r329-lradc
-       - items:
-           - enum:
-+              - allwinner,sun50i-a100-lradc
-               - allwinner,sun50i-h616-lradc
-               - allwinner,sun20i-d1-lradc
-           - const: allwinner,sun50i-r329-lradc
+diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+index 53e6b701e7d3..aa21f58a4be1 100644
+--- a/arch/arm64/boot/dts/allwinner/Makefile
++++ b/arch/arm64/boot/dts/allwinner/Makefile
+@@ -24,6 +24,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-sopine-baseboard.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-teres-i.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h64-remix-mini-pc.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a100-allwinner-perf1.dtb
++dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-helperboard.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a133-liontron-h-a133l.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-bananapi-m2-plus.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h5-bananapi-m2-plus-v1.2.dtb
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard-core.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard-core.dtsi
+new file mode 100644
+index 000000000000..545972d2324a
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard-core.dtsi
+@@ -0,0 +1,197 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2025 Arm Ltd.
++ * Copyright (c) 2026 Alexander Sverdlin <alexander.sverdlin@gmail.com>
++ */
++
++/dts-v1/;
++
++#include "sun50i-a100.dtsi"
++#include "sun50i-a100-cpu-opp.dtsi"
++
++/{
++	model = "Baijie A133 HelperBoard Core";
++	compatible = "baijie,helperboard-a133-core",
++		     "allwinner,sun50i-a100";
++
++	aliases {
++		serial1 = &uart1;	/* BT module */
++	};
++};
++
++&cpu0 {
++	cpu-supply = <&reg_dcdc2>;
++};
++
++&lradc {
++	vref-supply = <&reg_aldo1>;
++};
++
++&mmc2 {
++	vmmc-supply = <&reg_dcdc1>;
++	vqmmc-supply = <&reg_eldo1>;
++	cap-mmc-highspeed;
++	cap-mmc-hw-reset;
++	max-frequency = <100000000>;
++	non-removable;
++	bus-width = <8>;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	status = "okay";
++};
++
++&pio {
++	vcc-pb-supply = <&reg_dcdc1>;
++	vcc-pc-supply = <&reg_eldo1>;
++	vcc-pd-supply = <&reg_dcdc1>;
++	vcc-pe-supply = <&reg_dldo2>;
++	vcc-pf-supply = <&reg_dcdc1>;
++	vcc-pg-supply = <&reg_dldo1>;
++	vcc-ph-supply = <&reg_dcdc1>;
++	/*
++	 * PL0/PL1 are the I2C connection to PMIC, but it would create a
++	 * circular dependency:
++	 * vcc-pl-supply = <&reg_aldo3>;
++	 */
++};
++
++&r_i2c0 {
++	status = "okay";
++
++	axp803: pmic@34 {
++		compatible = "x-powers,axp803";
++		reg = <0x34>;
++		interrupt-parent = <&r_intc>;
++		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++		x-powers,drive-vbus-en;		/* set N_VBUSEN as output pin */
++		aldoin-supply = <&reg_vdd5v>;
++		dldoin-supply = <&reg_vdd5v>;
++		eldoin-supply = <&reg_vdd5v>;
++		fldoin-supply = <&reg_dcdc5>;
++		vin1-supply = <&reg_vdd5v>;
++		vin2-supply = <&reg_vdd5v>;
++		vin3-supply = <&reg_vdd5v>;
++		vin4-supply = <&reg_vdd5v>;
++		vin5-supply = <&reg_vdd5v>;
++		vin6-supply = <&reg_vdd5v>;
++		drivevbus-supply = <&reg_vdd5v>;
++	};
++};
++
++#include "axp803.dtsi"
++
++&ac_power_supply {
++	status = "okay";
++};
++
++&reg_aldo1 {
++	/* PLL + LRADC analog reference */
++	regulator-always-on;
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pll";
++};
++
++&reg_aldo2 {
++	/* LPDDR */
++	regulator-always-on;
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vdd18-lpddr";
++};
++
++&reg_aldo3 {
++	/*
++	 * Port L, but linking it to &pio node would create a circular
++	 * dependency because of PL0/PL1 I2C connection to PMIC
++	 */
++	regulator-always-on;
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pl";
++};
++
++&reg_dcdc1 {
++	/* Besides Port D it also powers analog part of USB IP and SoC I/O */
++	regulator-always-on;
++	regulator-min-microvolt = <3300000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-name = "vcc-3v3";
++};
++
++&reg_dcdc2 {
++	regulator-always-on;
++	regulator-min-microvolt = <810000>;
++	regulator-max-microvolt = <1200000>;
++	regulator-name = "vdd-cpu";
++};
++
++/* DCDC3 is polyphased with DCDC2 */
++
++&reg_dcdc4 {
++	/* Digital part of USB IP, "System" SoC power rail */
++	regulator-always-on;
++	regulator-min-microvolt = <950000>;
++	regulator-max-microvolt = <950000>;
++	regulator-name = "vdd-sys";
++};
++
++&reg_dcdc5 {
++	regulator-always-on;
++	regulator-min-microvolt = <1100000>;
++	regulator-max-microvolt = <1100000>;
++	regulator-name = "vcc-dram";
++};
++
++/* DCDC6 unused */
++&reg_dcdc6 {
++	status = "disabled";
++};
++
++&reg_dldo1 {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pg";
++};
++
++&reg_dldo2 {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pe";
++};
++
++&reg_dldo3 {
++	regulator-min-microvolt = <2800000>;
++	regulator-max-microvolt = <2800000>;
++	regulator-name = "avdd-csi";
++};
++
++&reg_dldo4 {
++	regulator-min-microvolt = <2800000>;
++	regulator-max-microvolt = <2800000>;
++	regulator-name = "afvcc-csi";
++};
++
++&reg_eldo1 {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pc";
++};
++
++&reg_eldo2 {
++	regulator-min-microvolt = <1200000>;
++	regulator-max-microvolt = <1200000>;
++	regulator-name = "dvdd-csi";
++};
++
++/* ELDO3 unused */
++
++&reg_fldo1 {
++	/* CPUS power rail */
++	regulator-always-on;
++	regulator-min-microvolt = <900000>;
++	regulator-max-microvolt = <900000>;
++	regulator-name = "vdd-cpus";
++};
++
++/* reg_drivevbus unused */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard.dts b/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard.dts
+new file mode 100644
+index 000000000000..694c0cacf906
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a133-helperboard.dts
+@@ -0,0 +1,148 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2025 Arm Ltd.
++ * Copyright (c) 2026 Alexander Sverdlin <alexander.sverdlin@gmail.com>
++ */
++
++/dts-v1/;
++
++#include "sun50i-a133-helperboard-core.dtsi"
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/linux-event-codes.h>
++#include <dt-bindings/leds/common.h>
++
++/{
++	model = "Baijie HelperBoard A133";
++	compatible = "baijie,helperboard-a133",
++		     "baijie,helperboard-a133-core",
++		     "allwinner,sun50i-a100";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led {
++			function = LED_FUNCTION_INDICATOR;
++			color = <LED_COLOR_ID_GREEN>;
++			gpios = <&pio 7 13 GPIO_ACTIVE_LOW>;	/* PH13 */
++		};
++	};
++
++	reg_vdd5v: vdd5v {
++		/* board wide 5V supply from a 12V->5V regulator */
++		compatible = "regulator-fixed";
++		regulator-name = "vdd-5v";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++};
++
++&ehci1 {
++	status = "okay";
++};
++
++&emac0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&rgmii0_pins>;
++	phy-handle = <&rgmii_phy>;
++	phy-mode = "rgmii-id";
++	allwinner,rx-delay-ps = <200>;
++	allwinner,tx-delay-ps = <200>;
++	status = "okay";
++};
++
++&lradc {
++	wakeup-source;
++	status = "okay";
++
++	button-115 {
++		label = "K1";
++		linux,code = <KEY_1>;
++		channel = <0>;
++		voltage = <114607>;
++	};
++
++	button-235 {
++		label = "K2";
++		linux,code = <KEY_2>;
++		channel = <0>;
++		voltage = <234783>;
++	};
++
++	button-360 {
++		label = "K3";
++		linux,code = <KEY_3>;
++		channel = <0>;
++		voltage = <360000>;
++	};
++
++	button-476 {
++		label = "K4";
++		linux,code = <KEY_4>;
++		channel = <0>;
++		voltage = <476471>;
++	};
++
++	button-592 {
++		label = "K5";
++		linux,code = <KEY_5>;
++		channel = <0>;
++		voltage = <591946>;
++	};
++};
++
++&mdio0 {
++	reset-gpios = <&pio 7 11 GPIO_ACTIVE_LOW>;	/* PH11 */
++	reset-delay-us = <10000>;
++	reset-post-delay-us = <150000>;
++
++	rgmii_phy: ethernet-phy@1 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <1>;
++	};
++};
++
++&mmc0 {
++	vmmc-supply = <&reg_dcdc1>;
++	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
++	bus-width = <4>;
++	disable-wp;
++	status = "okay";
++};
++
++&ohci1 {
++	status = "okay";
++};
++
++&rgmii0_pins {
++	drive-strength = <30>;
++};
++
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0_pb_pins>;
++	status = "okay";
++};
++
++&usb_otg {
++	/*
++	 * Connected to a downstream port of an onboard hub, therefore only
++	 * "peripheral" mode will work here.
++	 */
++	dr_mode = "peripheral";
++	status = "okay";
++};
++
++&usbphy {
++	usb1_vbus-supply = <&reg_vdd5v>;
++	status = "okay";
++};
 -- 
 2.54.0
 
