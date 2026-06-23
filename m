@@ -1,161 +1,158 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11021140.outbound.protection.outlook.com [52.101.62.140])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8852848BE;
-	Tue, 23 Jun 2026 08:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782202663; cv=fail; b=VzegdAeMhgvN3nN4Qqq7Y+nZCxEmyhL86f7DwCQGMubEa1tUzW2Yc8tZSv5nmXgOeJb1kL2hZdIgL9TRbc7328x3YtiZFv+LhLgVshdGMErLPXmmqUDAVQls6V0KCoKBJYmUjTrWEWzEkMD1RImmKPVHKspTHvCGO9ld1E70wQo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782202663; c=relaxed/simple;
-	bh=m4OdpgHKjr2+U2QLNa25an3x6fCUodgLmNQd4Jvm6zg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=HcnV6z9m8/a4HHkdFJYoGS1WIVXUx0S9syQ7h0/upFTgHrPf9//yLteYYX/nr9af8xjFNgl1ta0YtWYq1Wzhkbi//+ReBPhMZAebSZZlnZMOubUmAJateL1DceageseKYtebwvm4AcwAG+RO1iPr4L76Qd+lJg10qGDiSEGoR2w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=LKbiZaiE; arc=fail smtp.client-ip=52.101.62.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE84D3CCFC2;
+	Tue, 23 Jun 2026 08:17:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782202666; cv=none; b=pHGtPRQxRh+YW3U6AxykKReaVMUo4AmvbaBaqckql8rQAogo2aKrFixGCRlY91mWzfDLDbXJwRUZbyt7Qw8nUIMqIlrZ7rg7/O/CGHKGY7qFYO0JEaCADgP0Bok9rmI1aILn5X2z58cwEadGOLVqd9XDDShcowd7oPS0Z4LQ/6A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782202666; c=relaxed/simple;
+	bh=g6VHC3WqxI7yz/J+dPACO/qHVEth/epIVlobOssOjQQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NToi8CX2vt+AqXuO0/ZsqgobFoJG4lOk1Z5mLyK8VL4TeDKd1toMxZZDC7jDp7i33yTamPtejrGSl0oFx14no3PqNBCOtRtgt+4lelekhfkozxh7rsHvvQBFYaTJi0nrff2blUNZ+famP+av6ZFg2QCJO1kP0oVrF62yJuBV5c4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uUx4vs01; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="LKbiZaiE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FcxRz1Ellbi0MeJMMH6sCqwcmiks2Jbm24Oy9g3581kO3+jhoY4wCcMOIew3685uiCqOBm6R8O/q17jLVomQyWDngLbhAZHnhbLT7slJL659grgwvHb6A2Mh5f2yXK7fsKlfA2AA8YEzPesrLeaFsWfkYCZ507JGxvNGDYfJgasBMPQ0LklCMrhQulTMh/3IzxoJlar7RuGFd7lzfqnkczECejZVyy0b5g2BE3TKE/LCwoFxYWAmf/w8t9JN1aXhm7QqCwCYs9zdsAbBL+cKtdr9FaFdRpk3UE4bt5WH/ffRQtJ69su7NQQHzd/y7aDnRreSTGaMrWNbdlhDfGyYog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GQG1lp306/0c9uyISHRaXk+Qq5bVAunFpW3K/fWTDbg=;
- b=MRIJTtSjQxhuvzYL4TvutYUBBqxp4IkoEm4iab50LxmAQNh2RNimuI0XP+tEfaQUSFN7b/4ZhxvFFrmCrLAWREhxZ5EBt3vU9FsV63deJFXVP3nuSzC2cAsf1PsAcnjmzF5YXhbvo2YLzRqfIF1t64RUy1S7IlKQQgYgmna7sjU7erCi3iL5AHQHOk1wrHU18qg0R/XmLSDE1+NtQfaHrjCS+qmYr72UvaimD7HJscwYEMro29Jxt83lL/BZ+2lNa4maMoOtipHyWwTSM6XiBFgPUe4EvyGm0kPs/ifANTl+Ki4+FuvGzv2HKlv9EVtBkPSa9pKq+WMHCU8wMU4fYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GQG1lp306/0c9uyISHRaXk+Qq5bVAunFpW3K/fWTDbg=;
- b=LKbiZaiE0QH6Pj5yz2mJ3VZXKekT/01xN/e/HT7m+Cchx8WTyCw8KcLJPlOxQgUIeevFG8P8gMYM7QFHJ+QSRs8eA3PiMGS/XtvIgCeRa5hMnoKvvcLpSxFzh915AY4XaaVdJoxvDu3L7I3k09XovvzU3qwmEmuVxBxje1VBLVJcUN0zKcSR5T03AK7tp+yIsThaRk++5cMud3/llesM0/CTlIZuMoIGph4bfe8gbFBLwgzbloItdA6zJFoEocqUS516qG2j7OuNACYbxt+9J+VkGQsdLLU1oQmJjDIJE9e5w/korEAZQRmpbjAF7qHTuvWG53WU30wC5qEeDYmOfA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- IA0PPFDC97AC94B.namprd18.prod.outlook.com (2603:10b6:20f:fc04::c44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Tue, 23 Jun
- 2026 08:17:39 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0113.015; Tue, 23 Jun 2026
- 08:17:39 +0000
-Message-ID: <91ee0368-1331-4d8e-90e2-f4e43139174e@axiado.com>
-Date: Tue, 23 Jun 2026 10:17:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
-Content-Language: en-GB
-To: Krzysztof Kozlowski <krzk@kernel.org>, Akhila Kavi <akavi@axiado.com>,
- Prasad Bolisetty <pbolisetty@axiado.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
- <20260618-axiado-ax3000-pwm-v1-1-c9797a909414@axiado.com>
- <c4f3875c-4f39-44bf-857f-10c50a2ca6f4@kernel.org>
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <c4f3875c-4f39-44bf-857f-10c50a2ca6f4@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P250CA0010.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5df::7) To DM4PR18MB4144.namprd18.prod.outlook.com
- (2603:10b6:5:38b::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uUx4vs01"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 95930C2BCC9;
+	Tue, 23 Jun 2026 08:17:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782202665;
+	bh=g6VHC3WqxI7yz/J+dPACO/qHVEth/epIVlobOssOjQQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=uUx4vs015+Hs9ZnnAU60i+Ea5dcRs3oaM5ud5C4ul454DFm8vTe5leKDOao7WSs6L
+	 rCRXpUi/FQ2TrWYYoFJy4TSkUAAvB8SN++i3lAsL6bQPJCZ8gWgboTN0bVWT0xTNpq
+	 J8daQ6+R5jOeRieXskBPuVpHSLMcDZdvKaMBASxCINUGeNfgqBpkEsZEKSDuViguVs
+	 rinycrBSQBAIcA64vpcMCuTIp3Paw8O7MUVS6YmOS7HrhEBzYr9BSbmM+bYuZe9Qpz
+	 ZdmAG3bfzLSuqp/FGfno4AkgJepSUzl59ngs5EL3TvCnG96ihG725Do7Yp+3pwUJIj
+	 WPrv1fpm0USVg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AAF7CDB471;
+	Tue, 23 Jun 2026 08:17:45 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH v4 0/4] AUXADC driver for the MediaTek mt6323 PMIC
+Date: Tue, 23 Jun 2026 11:16:12 +0300
+Message-Id: <20260623-mt6323-adc-v4-0-299680ad3194@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|IA0PPFDC97AC94B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7aa16df7-830b-4cef-a9b4-08ded0ffe39a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|22082099003|18002099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	UMBfnvZHxS7E3Fxo+W5+OtXqAQhOxD/ONrw5XlkSEp7xSXOl7/uA4Nu3jRepl71AmTki20fsWKTuybKnrjXlt+GNNOl9fVEThDjggWEZpGsAZAs91L/LG0so+4WIOZltagHHmhYmNkoDS8Ud42neP7Crp7T3+nJZVxjj8Xx56VZcAxnd2VrJT7VelPEXGK+L3/dMhGrm9/wAGYlWrRcTAhuKT2guAqg+tEm5EswxHhGNV+eTFUSp5kg4a9lIUDvLKeFXcZrn5TRKAVVcwxGr3R/SlXniqbywZlpEmXJ3CbVox3lPP8DjS97CwmTUxUVZi1GUavEfBH6PbgkOXohGfIQrAqUFK96zQZyJteHE9Ehsh8AsIYlADWM7WGO+sS1dOFxzZxrYcQdG/6hfpwI65zCryCgLQI1RwpHkUAxX3+/hpGhPyp4GBSRG8enl+qmW2IvFrVMw0NahPVmvHpNhCe1aAoPz+/dYWMYJgYZ/UshRBOilj6cxZkJ+vyBYxPbl4I3fkRra6a2nuMuB6XxdmV33xGAdx0Cbp6EwDg1eematLAMGGiTw3+S8UJmvyDGxNefMjL+dlnj8Ere2uHuu1QDGf6RCQUOgWEYUKvdxgtY95aj8l2PKbJozvg+eLu7UkU7TQoeIhbH7m7N8mlRfQJ+bEiPd8G0FKP/CDJU7Uvc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(22082099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWZ3TEl1bTEvL1gxamx6RHRIRjN5T1EzblBrOFBZREZkQjlEeEdNUjFxVFhH?=
- =?utf-8?B?OVR3T0ljK2ZvRk1ybnFNc0V2TWhKa2NvaytOMXdlQmxwUEVuZThaaGNmaGpZ?=
- =?utf-8?B?TnBnNVpOTVVUNC95YzVUemZaMzM1cUhXS1RjQWZocmdha095WkpCVXI3ejZo?=
- =?utf-8?B?a0ZlbEhDV3FVMVNwUyt2ZkxnVkFCNFBxdUxmMVl1Tm1ObUFmcFpxMzQ1MUZQ?=
- =?utf-8?B?VVFVUHhqUW00Sk5MUEs3WEhjN1RmRVZFTFZIUThzZzNpbEd2THNQN1JseXda?=
- =?utf-8?B?NkxiazBYL0RNODkrWi9HMHk0d1ErdnpHNXZaRm9sWEtLZkFzUkpiUDM3L0NH?=
- =?utf-8?B?L3F6eklKMkhqVWMwZHVLTFlvN1A0SkZ2R0FoZWtCZGFRZ24xcGlPb0J5UzIr?=
- =?utf-8?B?R2MzejJzYXZTQkpCTm1wRXdSck92MlIyWXBZY29zYk9MM1FEdHU1Z28vZTRl?=
- =?utf-8?B?ZEhuM2dFNkFHbXNwWmpXQ2UvaFQ5eHZZOHpPaDVKeEJnWTdJNnZqVFFnSU1U?=
- =?utf-8?B?VWE1enB1OStLODgyLzRMRHZ5bEgrRVgxNTRIQWJPZXVxOUNvZFp6TnhBZDM2?=
- =?utf-8?B?ZitIditVSzZFNWN4bzhic0s2UEVMOWpaOXhkZkRxQktsOWprWjFRYUgzWFNE?=
- =?utf-8?B?TVNGUnFCc25VL0VEVWY3UXR1NU9TOWNuR2VDZy9LZVYyc21PZGFNUEdpNGwz?=
- =?utf-8?B?QTZsZ3BOQkdmMmFYcFR0eGJOVVVyZGtFSE9TRGpDZFRPNG10djgrN3pOUHVX?=
- =?utf-8?B?RTFwa0U5Q083OHpIQi9TR2dYdGJ3dGNQdER5MlFnVlRFTjBFdXN5cG81eVNt?=
- =?utf-8?B?VU50K1FvK21jK3M0dFEvbEJXZkVxZldBQjgzalRsdEtSQ0h2aWxVZmlVWml0?=
- =?utf-8?B?OVJJVFpZZ0lLcEQ4SE1SSXhpNGVsbXVKaHl3V09HTHhqY0M5UXY0aU42UzBm?=
- =?utf-8?B?MEJBZzJGT0h5VVhEaGhzSGIvR2dGTzJVZ1VJZjhUUWFmR09Rb1NTcTRPdzdD?=
- =?utf-8?B?d3djWWp2ZFhJdmxjYVlCRHlDL3ZBdllyOCtBNU1rRFo0ZG01T0V0QU9Wais5?=
- =?utf-8?B?bFR1ejhBYlgvTENZbW9oME4rMFcyL29ZR3VTai96dkhoMnAwTW9UMEl2NzNS?=
- =?utf-8?B?MXh1RDB3TGVETEJQU3RIc3lBUDdaMWJ6MGJ0Y3B1SkFsNGpXczR0cWpIenNY?=
- =?utf-8?B?Y1U2TldobUZnRHo2NlpReC9MUno0NXhleEhxMGo4dDh0bDk5Q2x5MVhvTVpQ?=
- =?utf-8?B?SXovVWd2UU5YbTNZbTFQNUpQZWtDUTdPQ2hJamFaY0R0SWZjWUNYNmdBMnda?=
- =?utf-8?B?ejlKc2lYTStLejFXZndVd3crZ1gyTk12TEhWUW52ekg4MFMvaURKREo2WnlK?=
- =?utf-8?B?ZzNJYkFQaVJ1YmFQeXliZFdQVGE3VEtZQ0t5ckI5eUFpTFIwRWUzbWtHWmF6?=
- =?utf-8?B?MlRHam11RFBHSDdsOUVhaXF6ek9kUm15MzF5Q3UwVUNGNktlbTcxdHdTbkpu?=
- =?utf-8?B?bFUwZ2JyQUIxTnp0dTdWTVpYNTBNTlFkUjdmZnJNUDMybzNENmxvTXRlK0tG?=
- =?utf-8?B?bmpKbUVqc3QzWU83NDIrR09FbThhQmRqMjZSVU8ybUQwTWtPV1JnUXVoUDF1?=
- =?utf-8?B?Y0NpVG5iZmR1NTd0UEo1M21RZ2lYSGNsVjZVSHV5VkNVajZYN0pxbjYrdnFp?=
- =?utf-8?B?c3kxTmxuRHRIVEx4ZFlhVnRrK3pnTVpVeURPQ3FCTFpNSGlwclVXUTY2ekRL?=
- =?utf-8?B?YnNOWFR0WnAyT3cyRVZuNW1WdkJ2dFFLNDFHWGNwSWFlVXRQYnF5WGl2YitL?=
- =?utf-8?B?cnlocWtUMktybUNpcnF0bmNMUWxLU2k2VFo5SDE4NmREQVRuSWhVQ01Menpj?=
- =?utf-8?B?QTlZQloraDdRZzFHVFNtRzBvMzlOQkh5d2ZWV0xSMlVyVENwZk5UaHlOeGlv?=
- =?utf-8?B?V1JNV0ltL3BSOHk0SU5aT1l1SDZPeUxEc1pBZUlRem0vcWVEb3Bqam55WUhn?=
- =?utf-8?B?Y1RXY0ZEQTQ0Ri9mM0RGSlRXWjFzOVpjYmUzWWpRS3FQZXRob3IycFVsTW5E?=
- =?utf-8?B?TlkxQ2VwTGx3T01qaGEweG5SdGR1U0xsd3lHbVpDU3FKS0tScGxJRHFWblpE?=
- =?utf-8?B?VmcxM3M5K3pldjU5VWQ2eTVFalNHSUgxTnRjS0ZDZGUrWTZSci9LeVZrNjA1?=
- =?utf-8?B?YzdFQjFPWlNXNjNTeGZKVUxTalBaSkpoMmRNdlcxY0tkbVJLay90UXoxNmR5?=
- =?utf-8?B?OWRjUGo4WDgwM0s1aVcyWE1iYU1xR29XckZaOEFKbmoyTlRpWm1MWStzRFJj?=
- =?utf-8?B?VWNqbWQvK2lSSE5JK2U2R3VBMGhpUW03QUNDSTVwN1lWVlZCSmRmZz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aa16df7-830b-4cef-a9b4-08ded0ffe39a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 08:17:38.9293
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6BQQfui7dNy+sj6SaTRKgWvbkaSvM/evWLQA/l+GfEMqUlkO/SmF7axlas2qng3YCySxrc+cosdqUasJdo6ybQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFDC97AC94B
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NQW7CMBCF4asgr3Flz9SOw4p7VCycyQSMSBzZa
+ USFcvc6sAlql0+a75+HyJwCZ3HYPUTiOeQQhzI+9ztBFz+cWYa2bAEKrDJgZD9ZBJS+JYkNd8R
+ oqelAFDAm7sL9Gfs6vXb+bq5M01pYLy4hTzH9PL/Ner17ha2CbXjWUknrmCqsjHLMxzHFKQ69D
+ 7cPir1Y6zNsff3moXjva/QAqOqu/tfjxmv75rF4TVCRcU470/7xy7L8AnQFGWs7AQAA
+X-Change-ID: 20260525-mt6323-adc-3befce36cbf2
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782202663; l=3817;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=g6VHC3WqxI7yz/J+dPACO/qHVEth/epIVlobOssOjQQ=;
+ b=yxMOlMc6lDlL8G0eIa+T8e+wDTogxwJUjvNOUlKJ+A+V6mrMt0ne3MrIfJbF5nlPaOy1S9Weo
+ vlpAAWZVi4DArysZ136nZv4xwZqrkiNl4A9o4maPvPtBDzIDuc2h9Fv
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
+This series adds support for the 15-bit AUXADC hardware block found on
+the MediaTek mt6323 PMIC.
 
-On 6/22/2026 2:50 PM, Krzysztof Kozlowski wrote:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
->
->
-> On 18/06/2026 14:26, Petar Stepanovic wrote:
->> +
->> +description:
->> +  The Axiado PWM controller found on AX3000 and AX3005 SoCs.
->> +
->> +allOf:
->> +  - $ref: pwm.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    const: axiado,ax3000-pwm
-> Description mentions AX3005, but there is no ax3005 compatible here.
-> This is confusing.
+The previous version of the series for all AUXADC, EFUSE and thermal
+drivers was split after Krzysztof's comment [1].
 
-Thank you for the review.
-I will address all your comments in the next version.
+Tested on the MediaTek mt6572 and mt8163 SoCs (Ben), both paired with a
+mt6323.
 
-Regards,
-Petar
+[1]: https://lore.kernel.org/linux-mediatek/20260504-mt6323-v1-0-799b58b355ff@protonmail.com/T/#med30fad67a090be35f549231336b2dec295233f6
+
+Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Changes in v4:
+- dt-bindings: Drop separate driver mention from the commit message (Conor)
+- AUXADC driver: Break one more time 'regmap_read_poll_timeout' on logical boundaries (Andy)
+- Link to v3: https://patch.msgid.link/20260616-mt6323-adc-v3-0-1c27c588185d@protonmail.com
+
+Changes in v3:
+- AUXADC driver:
+    - Add comment for channels table about voltage and channel IDs (Jonathan)
+    - Add comment for mutex in the 'mt6323_auxadc' struct (Jonathan)
+    - Break 'regmap_read_poll_timeout' on logical boundaries (Andy)
+    - Switch to 'guard' from 'scoped_guard' (Andy)
+- Link to v2: https://patch.msgid.link/20260609-mt6323-adc-v2-0-aa93a22309f9@protonmail.com
+
+Changes in v2:
+- AUXADC driver:
+    - Drop channel type from the MTK_PMIC_IIO_CHAN macro (Nuno)
+    - Drop kerneldoc for the mt6323_auxadc struct (Nuno)
+    - Add channel release to save power (Sashiko, Jonathan)
+    - Drop 'reg' variable in the mt6323_auxadc_read (Jonathan)
+    - Sort variables in the mt6323_auxadc_probe (Jonathan)
+- Maintainers:
+    - Drop linux-mediatek list (Andy)
+    - Split between dt-bindings and driver to avoid missing file (Nuno)
+- Link to v1: https://patch.msgid.link/20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com
+
+Changes after split:
+- dt-bindings: Change 'MT63xx' to 'MT6350 series and similar' (Jonathan)
+- AUXADC driver:
+    - Add missing headers (Andy)
+    - Fix AUXADC_TRIM_CH* values (Andy)
+    - Rename masks to include their register name (Jonathan)
+    - Fix formatting (Andy, Jonathan)
+    - Replace channel address with actual register value (Jonathan), align the table
+    - Replace IIO_TEMP with IIO_VOLTAGE, since the actual output is still mV, not mC
+    - Rename constants to match their registers (Jonathan)
+    - Remove 'if/else if/else' in the mt6323_auxadc_read_raw (Andy)
+    - Add comments for fsleep, ADC range and resolution (Andy, Jonathan)
+    - Remove useless error messages (Andy)
+- Maintainers:
+    - Explicitly include mt6323 in the name (Jonathan)
+    - Squash with AUXADC driver commit (Krzysztof)
+    - Set status back to 'Maintained'
+- Link to a previous series: https://patch.msgid.link/20260512-mt6323-v2-0-3efcba579e88@protonmail.com
+
+---
+Roman Vivchar (4):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6323 PMIC AUXADC
+      iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC driver
+      mfd: mt6397-core: add mt6323 AUXADC support
+      ARM: dts: mediatek: mt6323: add AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   3 +-
+ MAINTAINERS                                        |   7 +
+ arch/arm/boot/dts/mediatek/mt6323.dtsi             |   5 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6323-auxadc.c                    | 314 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6323-auxadc.h   |  24 ++
+ 8 files changed, 367 insertions(+), 1 deletion(-)
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260525-mt6323-adc-3befce36cbf2
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
 
