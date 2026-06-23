@@ -1,156 +1,119 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CE3361DBA
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 19:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D0F38B142;
+	Tue, 23 Jun 2026 19:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782242554; cv=none; b=q97DfTw92OWf/Sps54EZ+9EsyhEJV07rGH3avtdVAGOrlxpiOKV3/4Zj/DwzKoFu3r2MxKiQ36AqCCwreetEHSBdUOWvUSmliJjqBEmhrETlSXulKmS89g2JEu9wCAxIIzMI6wd/6lU7li79dxJUyvkLp/vYAhbd16wzK4pW+F0=
+	t=1782242624; cv=none; b=lMrHSb0na2xm3P46w4gFHGkpUMDpDgsvpBGKn7EVMQnvMvE6lGvHzAoSycUi3zgKBRFLPO30rc6vR4q9/qf1h69sC8fX1iC9XblEiI3TkfvLVSx7sWkfkcLctreauhZfBqsKvrbgIEVHToq2RLbXfpfcG2OiiT2kCQYb9hU8fuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782242554; c=relaxed/simple;
-	bh=gjgrsDd/ebzWh6tkakuHrLUHkTjwUYhdEmKlxZWsS1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H+aQHZb0hm/g5LvFVSMfuDDCHOxDEYOGWm43ZClSYS6t/osGZe46lUeW9u4ZpxYaDUUV10T77hiT39geMt9HfgUbS5076h+vIrL519ig3zxbV7Su4Yb98Hd083EW37d3tG+Iz2tAp2+SBUdxa/sXZgC9FNsIvwD14VWvlFqfEfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EqtwPlXP; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782242624; c=relaxed/simple;
+	bh=O7DR9ILkd2nJoHBh2TQnDbYT3Y7Ne14/dVuQzQqfa9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fdlo3GaTifF/lhesZvYzgEMoxkN7MG8lljtf7FHw6nQednR8JfRW7xy0kndH1SJW08xQFj/H2KBuqwpAt6TRM4TWDwyPJv47yHJ4Fb/SAspC28z2YtW9lrEaNqjZBp/xMyadO+s8fYWSIv2tgi7Z5PXb0XLgoSAU3RXnAy11ck4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WShvWu8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EqtwPlXP"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4923139e940so1580435e9.3
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:22:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782242550; x=1782847350; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9qRZ8hq7NweVMrKwvoIG6kF3ia46DL3ufdBurnwbak0=;
-        b=EqtwPlXPZKtr5HCE+LS7ehOYqgFfuQmx68ZTv0iWX00f/f9sCPjj7oKEGSNnA/ZlNT
-         zOGCjFC/Q2TKB8GC2tlYMKEii1LaAI7v048PrtSLC3pgzYsk82kh5//rj9PkYN1To8BT
-         KsSJLTVOs019MPmgGkhlsdSRj6Ftva+x04VpH9pHZ375umR9z3yEYtcG213mrABKXhJg
-         xn20p4ikZgerZPV1dz/ZjuGgXTKKziscB34OxZm9XJ/WO9MbSD4OZaabkE3pBW5o0QbV
-         3JYlcmzAZtdzthd/3LeDfkLczhkKy7rATRVVV1eWKvCLiOJKXkXIj+bFCs73o9zV6Xgl
-         YTog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782242550; x=1782847350;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9qRZ8hq7NweVMrKwvoIG6kF3ia46DL3ufdBurnwbak0=;
-        b=dGyWtIeIllz05tcL4X3nh/uo0EPjnvgB+Cob64atbxEi4Dy6YFAKL61R7sBKOvTpKm
-         6ABeXHEaSwBBjWYsN4+IiznVtqvqZ5bU8fKyCOL/hNGxqeq5XH7kAFZU/Mlmb8wK93CM
-         8dzm/WQnmO7UOWR8rVluzJmm1LpP2Da1CSaEpgj3TEbLxXsY88flMQ5gC3pSMPYg+Qsc
-         ymErpQC4Ou5lbvrS65RxbkU+KAlw3URpfWkuG0vsMz4Ir2+QnixPngosixTyYkLjgc+q
-         nfm4Pno0imfuCSqlEH43+ZFSTN6LH9/Mu/bZQJ5jyDXE0t537AD1jk2fcXUQiUJeztOB
-         KQeQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/f4j8UGi5nRnlWfi4JuSE6B+brCK5pauJEUFBgBazTHepZjBQTJ6C8sG8vOZZiUyK+xraIVwDWjlvL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyr2VI76jqSxcqT1tZ19VBLajhs85fbNqTd0ac8X4sgPrPaGPYy
-	YGOh+cearMr0Oym8fUiB+CDpmd8ZciLu/KURBddESKQHQJeUJJdpwPXz
-X-Gm-Gg: AfdE7cmrP1/K+FCvAKeIfsDfhLvJxZyJxUk+al5GMOK2ehTYbU4dMMtzBW+XDh/PqgW
-	b0RcSaU6hxWYST4GiJ6Yg5kI0nmvu4mMksEL3HbprPf5dgkhnR7B4X0n3duP6XiAaKtVlvN40Nn
-	WB4dsEmKKNjNEG4yuTnflS+OOdG5SFwH4iAw1fprAEtzWm88vHRR5znL34wbsg/xrdU2C/TCZAs
-	OfxMJUJWsc9js+J7gRAbcQHqRUqy1vRXrELrU4cNqbtV1fx5LUCN/Tv+tRf+Y4LcUdtXKCKEzYt
-	IuufZ8HonCN3AfvIkxB3wA1iQMd7/JbmATy0XXcKpgGm4Kc/qSKLqYxV32C+cRsyqBluvUBLSny
-	AzG2rV6fEDWtV5zxagcsujV6vnNXjieeTff1tmciwXiXYJm4Om9mganCRnbm/NXmEa9R1CQpvo1
-	/d0fudE4jq5i5OTNKMbE0VpT/BcidMtDFesybTvQ1rOcZ67fq1enhbnrBQaNCkDl2I11UTyp4q
-X-Received: by 2002:a05:600c:6812:b0:490:5466:8591 with SMTP id 5b1f17b1804b1-4925b353633mr62488105e9.12.1782242550328;
-        Tue, 23 Jun 2026 12:22:30 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.86.252])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49249238bfbsm335967985e9.5.2026.06.23.12.22.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 12:22:29 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re:[PATCH 1/2] dt-bindings: hwmon: chipcap2: Add label property
-Date: Tue, 23 Jun 2026 22:22:17 +0300
-Message-ID: <20260623192217.4804-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b6d34af3-0c4a-4870-a240-f7873621d2ce@roeck-us.net>
-References: <b6d34af3-0c4a-4870-a240-f7873621d2ce@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WShvWu8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1B61F000E9;
+	Tue, 23 Jun 2026 19:23:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782242623;
+	bh=/eUnBmyw2rFOllRrbRo6eVqfdlq5TkvvC1+VM9YXfiw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WShvWu8FV9VtCbeNSuU3WtBZKK/Ri3PUigE77CXwQuUY0D3+bwB26QgV+gnHoITwV
+	 n7K3XMkwYI71pqkqNpj5mv+02apbsy8aGitAfGB/8T6XQwE59w+PMP5dZATy+g+Jlm
+	 B/cc5C+aRK4aBueXfjtAwsozb3Zrck8Af0uYhTAGnByUGn5cKojNNwdfyfy5Vbrm3f
+	 bswxYtvL5qtpB6dnfEtg6WIg8UVvlym6aANEoHU4dVfxM0xPMpRoZN24DmZcAn8t8B
+	 Oyp5fWMyGs/lLSnBAl6UrDe4TZFjYO27HxPVf9dlk2X23M0+NkDrVnemc5xWBNhdZs
+	 AfRFMm5ZD/Sdg==
+Date: Tue, 23 Jun 2026 20:23:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Herman van Hazendonk <github.com@herrie.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
+ Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Denis Ciocca
+ <denis.ciocca@gmail.com>, Lars-Peter Clausen <lars@metafoo.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Denis Ciocca <denis.ciocca@st.com>, Linus Walleij
+ <linusw@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] iio: common: st_sensors: honour channel
+ endianness in read_axis_data
+Message-ID: <20260623202334.2217b1d4@jic23-huawei>
+In-Reply-To: <ajJwzsIMxX3Ew1x_@ashevche-desk.local>
+References: <20260616-submit-iio-lsm303dlh-magn-fixes-v2-0-063edcf74e60@herrie.org>
+	<20260616-submit-iio-lsm303dlh-magn-fixes-v2-1-063edcf74e60@herrie.org>
+	<ajJwzsIMxX3Ew1x_@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On 6/23/26 9:58 PM CET, Guenter Roeck wrote:
->On 6/23/26 11:16, Flaviu Nistor wrote:
->> On Mon Jun 22, 2026 at 7:29 PM CEST, Javier Carrasco wrote:
->>> On Mon Jun 22, 2026 at 2:21 PM CEST, Flaviu Nistor wrote:
->>>> Add support for an optional label property similar to other hwmon devices
->>>> This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
->>>> distinct names to each instance.
->>>>
->>>> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
->>>> ---
->>>>   .../devicetree/bindings/hwmon/amphenol,chipcap2.yaml         | 5 +++++
->>>>   1 file changed, 5 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.ya=
->>> ml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->>>> index 17351fdbefce..f00b5a4b14dd 100644
->>>> --- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->>>> +++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->>>> @@ -33,6 +33,10 @@ properties:
->>>>     reg:
->>>>       maxItems: 1
->>>>
->>>> +  label:
->>>> +    description:
->>>> +      A descriptive name for this channel, like "ambient" or "psu".
->>>> +
->>>>     interrupts:
->>>>       items:
->>>>         - description: measurement ready indicator
->>>> @@ -72,6 +76,7 @@ examples:
->>>>                            <5 IRQ_TYPE_EDGE_RISING>,
->>>>                            <6 IRQ_TYPE_EDGE_RISING>;
->>>>               interrupt-names =3D "ready", "low", "high";
->>>> +            label =3D "somelabel";
->>>>               vdd-supply =3D <&reg_vdd>;
->>>>           };
->>>       };
->>>
->>> Hello Falviu, thank you for your patch.
->>>
->>
->> Hello Javier, thanks for your reply.
->>
->>> Should we not add a reference to hwmon-common.yaml (with
->>> unevelautedProperties instead of additionalProperties), as label is
->>> defined there? I believe that Krzysztof Kozlowski did something similar
->>> for the shunt-resistor-micro-ohms property. Could we follow suit here?
->>>
->>
->> This is a good question and I am happy you asked. I also thought a lot
->> about this and the reason I decided to go for this approach is that by using
->> $ref: hwmon-common.yaml#, I would have to change additionalProperties: false
->> to unevaluatedProperties: false, which will evaluate in case it is used, also
->> shunt-resistor-micro-ohms property which does not apply to this sensor. At
->> least this is my understanding, but of course I can be wrong (I see lm75 binding
->> also uses $ref: hwmon-common.yaml# but shunt-resistor-micro-ohms does not apply).
->>
->
->Where does the idea come from that shunt-resistor-micro-ohms would be mandatory ?
->That would make hwmon-common.yaml unusable for most chips.
+On Wed, 17 Jun 2026 13:02:54 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-I think this is a misunderstanding since I never had the intention to imply that
-shunt-resistor-micro-ohms would be mandatory, but rather I observed that if I used
-$ref: hwmon-common.yaml#, property shunt-resistor-micro-ohms can be added (no need to,
-but still possible) in the example section and the dt_binding_check will pass.
-Since hwmon-common.yaml is already there I will change the binding in a v2 and use it.
+> On Tue, Jun 16, 2026 at 03:02:04PM +0200, Herman van Hazendonk wrote:
+> > st_sensors_read_axis_data() unconditionally decoded multi-byte
+> > results with get_unaligned_le16() / get_unaligned_le24() regardless
+> > of the channel's declared scan_type.endianness.
+> >=20
+> > For every ST sensor that has used this helper since it was introduced
+> > this happened to be fine because the ST IMU/accel/gyro/pressure
+> > families publish their data registers as little-endian and the
+> > channel specs in those drivers declare IIO_LE accordingly.
+> >=20
+> > The LSM303DLH magnetometer however publishes its X/Y/Z output as a
+> > pair of big-endian bytes (the H register sits at the lower address,
+> > 0x03/0x05/0x07, and the L register immediately after), and its
+> > channel specs in st_magn_core.c correctly declare IIO_BE -- but
+> > read_axis_data() ignored that and decoded as little-endian, swapping
+> > the high and low bytes of every magnetometer sample. The LSM303DLHC
+> > and LSM303DLM share the same st_magn_16bit_channels (IIO_BE) and
+> > were therefore byte-swapped by the same bug; users of those parts
+> > will see different in_magn_*_raw values after this fix lands.
+> >=20
+> > The bug is most visible on a stationary chip: in earth's field the
+> > true X reading is small and the high byte sits at 0x00, so swapping
+> > the bytes pins sysfs X at exactly the low byte's pattern (e.g. 0x00F0
+> > =3D 240). Y and Z still appear "to vary" because their magnitudes are
+> > larger and the noise in the low byte produces big swings in the
+> > swapped high byte:
+> >=20
+> >   before (LSM303DLH flat, sysfs in_magn_*_raw):
+> >       X=3D240 (stuck), Y=3D 12032..23296, Z=3D-16128..-9728
+> >=20
+> >   after (direct i2c-dev big-endian decode, same chip same orientation):
+> >       X=E2=89=88-4096, Y=E2=89=88210, Z=E2=89=8880     (sensible values=
+ reflecting earth's
+> >                                 ambient field at low gauss range)
+> >=20
+> > Fix read_axis_data() to dispatch on ch->scan_type.endianness and
+> > call get_unaligned_be16() / get_unaligned_be24() when the channel
+> > declares IIO_BE. Existing IIO_LE consumers (st_accel, st_gyro,
+> > st_pressure, st_lsm6dsx and others) are unaffected because their
+> > channel specs already declare IIO_LE and the LE path is unchanged.
+> >=20
+> > While restructuring the branches, replace the previously implicit
+> > silent-success-with-uninitialised-*data fall-through for
+> > byte_for_channel outside 1..3 with an explicit return -EINVAL. No
+> > in-tree ST sensor publishes such a channel, but the new behaviour
+> > is strictly safer than handing userspace garbage. =20
+>=20
+> Sounds like inevitable change in ABI, but worth doing it.
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Applied to the fixes-togreg branch of iio.git. I'll wait until after
+rc1 to send a pull request though (and rebase on rc1 in the meantime).
+The other patches may have to wait, I haven't checked yet!
 
-Best regards,
-Flaviu
+Jonathan
+
+>=20
+
