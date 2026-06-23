@@ -1,142 +1,198 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011025.outbound.protection.outlook.com [52.101.70.25])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C41371D16;
-	Tue, 23 Jun 2026 06:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782195526; cv=fail; b=MWVfM1BjAm2zwMmkoin02HN5tZb1WKp4A+tO67Ca6/aWIEL2RpFmmfD9spNz/WcRaVqrYHO6W+Lj8qZRc25a79Drn+FKHJhjqPRYoabNBr7khfTt9pl9+NHEyOz0f5PILIK2QiMWGVgfusVXABHd0XJp+WcKvm1/4dYytrt6PQI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782195526; c=relaxed/simple;
-	bh=dPzyIQ0+hP3LVyXIF/McueTe4GVzbchxBjBVOeR1s3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=fPdNqp/dOeorYzXMnbe0qQM9A4vlLiP9/9Z9zvfCe048BBOM/1xS7iBprpunM76LnKsS1BfPuHByj0emlQj1LAGKW66GgAerHkV07rbk3Vt3fJKpvdzS+mU56RPUDWTLXMlxiRyBBF5CpcRn6HXX6w/ngpJncLcZZlH918GyeJs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Hm4xDo0t; arc=fail smtp.client-ip=52.101.70.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9609B340286;
+	Tue, 23 Jun 2026 06:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782196400; cv=none; b=AoBGpUrHbuSY+eBrKAYWL4fpvWrnjSVnTUvQMpK+bo6jewaWjYXaPLbr4R10xnWqU+m0T2VJC/THB9uBgRjeB7Qkm+yRbpoSfjRjFruyD56QjhaZDZkfPTJCFroTRf1MhB4vpGxt8w0T0PpliBWT2LtGIk7sAJxB2Cg3ch31by8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782196400; c=relaxed/simple;
+	bh=SSIK/QSN70pASprkaQr4jQcJ+Bv0/9w1QjB1iMjXw2c=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=tZ0LRvzaOKVA9ShpF8TI0VUzr8SrZq7FMB1ECXDfLB8GBTlUVuDZssdanmWZuCU/BV/C56Ce7m14bNxspldxbVcVMgggaBmlzHQMzPAViXj/9eDUoSFLTQv/dkGKlGEh4UY2IxxP4hntJoyVuLuuRosBWr4Gpomn2aexPfam3eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=mrLpyu1s; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Hm4xDo0t"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X4mt4PFVGibB/iQ3n9aUZosnpVi4Z8ZStQjiC2KjZKiwQg3LTPJz0098StbEr6c5tuh2sVy7LK+WyRJDSe+MSMwO5ZN1vQO8cgtGvPYw58h9ROnXfi9DNL1K2Y54hh23c6HKMtnX5hklydTjmezUY2BTokeFPAzF6dnolebkhgc6LMkse3I2CS+Rp2H8GmYms5n5i9QmLjll3QzeAeXoNYXLp3qlaqyhjH30eLc50FCEy3bk9CsE0YuP9n+HsTW2vf/eNQ8z771x6HGRYU3uV7mQXwYbyMtQrfk/auit6dAKKBMZZEcjtXOuTlCemybNqKJXAL2Ok8uVioQ1kxK9Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rMLErjs1o4nvE2S59GnJKu3s0AoeCqC8vyrzrdvpXH0=;
- b=KQE9f8800tsxvJuTN+FVHy7PIA1rdj2bPnUrvr4o52MKrl3azr/JsMC4ifFN1QwAWk4B+3g/70eoZ+uAcU90cvcpf6Mdh5nmmOMAh6DdOH5FKbdIo/HZQZyvvcqN2uuIIglU2M+yWBneXd/wZ5GsqnRXDREs2mWMrqEDn70kAJsjNcZmpnPqF5bhT6q9kPBk03KyQMAcmxPHmvefMplGQOn/QYlxUgsoK9VO4AWnPnGtMeJl+eb5r4glT9DmJ1owFamZX/R6JMA/wwlKGaZLyd1tWDthwVD/+cmmbZughf5JQwWKTD4Gwh+Y9SMTKtWrBSx1bwjkFro+kGCy4UTlPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rMLErjs1o4nvE2S59GnJKu3s0AoeCqC8vyrzrdvpXH0=;
- b=Hm4xDo0tRRq84OGXCzLCdx1v2FP55YzZ3pnT1luJLZtMDflKXNuBP2RPR7/YVva/mcrX4H6MBFWw9eLqk8KlrxmexuwyBcvNHPpNZMsEgHg1Fsqwiocd1BERygTpFF/WPB4dh8X1c2hNw9zhb8ehpRN3zoDlcT/DEEWS695LlOTb9ZJiMAyd+7obJ1iu0GEDo8Mrun1DZjl3y69uhdheVgiH2cTKtDmgc5rkbQR62NJNbPu1FrHUyvHjK77KaZj7/Z6d93bhrJgBsw3vOQ7ZNB2jUCBT65zE9kzvzkpm7C87XDLLYrDBDCfV8TNP8IYcb/2Vf8JQfGB72r53kVt9jA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DU0PR04MB9300.eurprd04.prod.outlook.com (2603:10a6:10:357::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 06:18:35 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%3]) with mapi id 15.21.0139.009; Tue, 23 Jun 2026
- 06:18:35 +0000
-Date: Tue, 23 Jun 2026 14:21:54 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: add alias
- for lpuart5
-Message-ID: <ajomAoUrhUyJ349X@shlinux89>
-References: <20260622093507.44132-1-francesco@dolcini.it>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622093507.44132-1-francesco@dolcini.it>
-X-ClientProxiedBy: JH0PR06CA0002.apcprd06.prod.outlook.com
- (2603:1096:990:77::19) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="mrLpyu1s"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N2pGCT990383;
+	Tue, 23 Jun 2026 02:33:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=LLbfAV4Pin7Dn/7Lr1IuHPCgb8j
+	MJe2JB6QBYtz6ct4=; b=mrLpyu1sN4I6JZ+MlDHPfjjyjt9/HAB0g7wvcoB2Va8
+	dclNY216wpqOYwnHE9p61TtYUsRynUJNmLCpZOmP7Q8+6yHdfd+Yxr6TgijtwB8E
+	8K6yFa94hTU19PWOSOzFwqF+mJII/9xxVXgMwM+CEVwJrwLTraHat9UHjr/MTKwt
+	Ctxaiyud7ZB/LK1ygMe7f4ibd9YfsA8tavTUHAq4oV0YzhrRTfDoEQdYz1mbWHRA
+	XX2EhQX6lczFnPZqx+2nhiyVLqVLXMOGzZJkaZ21kNooUsxxxSxVvpWT/da//Ymt
+	WHIPzJ+Ttpwl5Utmh2+1ANOO1z9+BTJuf+cHH3NP92A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4eyhqr0y9k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 23 Jun 2026 02:33:02 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 65N6X18q003598
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 23 Jun 2026 02:33:01 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 23 Jun
+ 2026 02:33:01 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 23 Jun 2026 02:33:01 -0400
+Received: from HYB-VFz9h4bIQxi.ad.analog.com (HYB-VFz9h4bIQxi.ad.analog.com [10.118.4.27])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 65N6WlDJ023894;
+	Tue, 23 Jun 2026 02:32:49 -0400
+From: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+Subject: [PATCH v6 0/2] Add support for LTC3208 multi-display driver
+Date: Tue, 23 Jun 2026 14:32:28 +0800
+Message-ID: <20260623-upstream-ltc3208-v6-0-fc6bd9749166@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DU0PR04MB9300:EE_
-X-MS-Office365-Filtering-Correlation-Id: e748dbce-852d-45cf-c36f-08ded0ef4193
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
- vd48/Q/vl60v4Q6D9VF4KvWLz8g/fCHd4KEGaagf2SAc5V/DoTfubMo54wdHAlIW/f/vBIhGHMyO8lhAUaQ10qBTfH5YU+zUX79ri56z7lMRX6V0Lfqbd4OEjwDpv40Sh+k+S3GtlDWIAnvO/axdRtvkOnshN5XCIp6ETgZBnhGrZ4H2oPc15jWwlk5aZQoslJVsxjQkErdCWx/cvfSI6OdpxuM2UvXUA57ZrEwv45LBD0JWvbxtDjt+T0+ztygAokcx5DhcWcur3a2hfc1MnRFkRnc65OhCgxiDUoZUdZmGpAoGsvY1vWX/jzqg3rzcSKiZoVMCd3n1alDPTMmj7OWBcpujKFg2Jt2Mx5oFta8ucV8lgwKQv6YJiOamBBj2CykI/N6HpxidPJWFqRcSQbHylreHuiQagRPeX7Apvgbw8iGi+PIStHkV9BuGh1gYxcZZGYjiI3lxXDdPyNsfU+4YlxCOA0eNBNXcUaLIJqieMhQTApqfEbZrppP1CDWeKuvPqZVSkpp/kzyyoVhBugeqRdv0Jvc/unBlUFn+1E+MakvbCnJHyOcn3CoRUuxx0B/qHkczyreUPO9BmYwYMHisk9W17NirzeeKimy9PDSDmIkPFTZs2UgyhdbugOCtiBVRjBsROlf/H/TnhA3A97pQhrtLreUd6bo02VHaBUI=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?7+77A81GPmX6YC9+eUOk9Lci50ocmjyDO91b5+P50WbN8H+Mtv6MoBNcREbG?=
- =?us-ascii?Q?izNGOSFL7J4zU1Sd5inumsKFkOOeVnG063yrSq3qFDS2p6Dv558wCte+2oYt?=
- =?us-ascii?Q?N39IF6LLyP7SMxZayVkVPDy3mdBQQA+nBgYChwbZOi9o1EaWsc35e4RzgfKp?=
- =?us-ascii?Q?6tycAueWyXQZ8GuD4mIRs+FtVwKiHCIFEG5yThFG4K9XAWCUJiNnPeMyDJyT?=
- =?us-ascii?Q?6GnDIT/AcsI5O8Zjh36GaDrrMElh+cjy/80I6OmLz9caXK8UwYbUNl0FAbLU?=
- =?us-ascii?Q?PoiPZFi/g+tGNsK5HOCq6QNA/iTx9aDaTMvUhKoiVmCb+sa+4pFwGXD/mxqO?=
- =?us-ascii?Q?JkOGodiDyck8eTf7z+RAr4Ghx2R11dPQd/Blv3YOXMKfeoqHOylTuraxzyKB?=
- =?us-ascii?Q?xenZ/4ouJOpr2Rz/+vdXRTFcJoP66JJeWFjL13gNfsc6+AJ4hooUHDH/REhJ?=
- =?us-ascii?Q?lEZieUwA8oWP1FxV32eHP2W/EGnSNIhAC7zjf8uTZAG+Xkfseg/Fg4mSF5wC?=
- =?us-ascii?Q?j6MKtGlbDsRchtZjB9z5RYxFQibpNd+4pJZTWDcqxrrLaR0eFq/2ouuaVa4S?=
- =?us-ascii?Q?VlhCyWfyhi+dMnF0sRmswrZlOOGrAycuSBQvD4hNRrQ/zxdUa8fPN/gND7tG?=
- =?us-ascii?Q?S1q/xeKaEZo3doKxuJMyL06I0c1/iniRh3jNs4ckBbuZCKT/NZx4ySNL3kZl?=
- =?us-ascii?Q?IhiFm0u5b3ZGyVtDQNYDmdWUIEhAIVSo12+R2AOS4bISi83oNf/3idSTu3ck?=
- =?us-ascii?Q?tzjj4o25QcQA9Cw09fBJ4DhMN/bn5P6VtuMlI5aZxjjtJcV6ODqn/TbiJRXI?=
- =?us-ascii?Q?ozrexNxBTsJuU/7ZtRhgIb8vpcABAgrlAMR/LM41S/E3hZhW2nzzpjMJMvz2?=
- =?us-ascii?Q?kbuef6+R2De/MqiLRqAADo8phn4qpFZ3L9775sFQhoENMayBClamWnZv3rKv?=
- =?us-ascii?Q?mma4eafJIxSOlm5KXkdlHsd9uZlIltb/+xn/57ekWIk+n5YUamdSA/mbbfpQ?=
- =?us-ascii?Q?KMRNnyEAHweMGl+TMSIURHgycBsKi+QiVerK+2yn+QKCVS/J+NDPV/bcVlTf?=
- =?us-ascii?Q?7h5zwG3FcydObHwLMJOKKREjCq3EIQIsBLQl6A45gjjvlv7TJ4KdVc78v2lC?=
- =?us-ascii?Q?YkLbYqj9+vk8/35OPwuG9aD2CiQt03nFfOy0tfAjiMaqOdMjdmdXDsyFuajN?=
- =?us-ascii?Q?zgItKW+sVHS8YEf+RETLK63Kc+jXbReovLPpEUk+cPPfwVRtZXPyMNfoq6MR?=
- =?us-ascii?Q?iDqW5gtoHGJUzFQuRDEFIrk0GdM+WiicgC5wLF5FAtRyTchLU3x6N9tsMlnN?=
- =?us-ascii?Q?HFZ8taLwlbadBc4LDF006lmcE0sN0yfEQBVRwL61v3hc4t0MaYDUs224OsaN?=
- =?us-ascii?Q?2QUs6CZLm40yvwBHqCBp+xss/460ldImAKS/2jZy3bLlylLSQOtXGyKVyvQ2?=
- =?us-ascii?Q?nIGaaqAuxtUq6GfY5+GgGVIlvPt4e7o5IWUyZQmD7ahGrhJOnQ7fl00w6ahP?=
- =?us-ascii?Q?rIUGCm7RiHh3xpp97ZClEqIq3L9PbZ8th5fJ+Km23bPo1c7vAzNo7jw7wK2s?=
- =?us-ascii?Q?JAfzNqCKWI1lMh1dpGsZVySyEiVI1Bo2hli+glvPJF5hGWBT8APha1E8NPQ7?=
- =?us-ascii?Q?YHEUMw4wwvbXhiC20FfgGyW9HWwIrX55k9GlYVqANGsRI6WnAQOEwMIHinjk?=
- =?us-ascii?Q?CAGEQzr/xaHURkOsFgPSsWvWI8aYyRSifkPHgOlxv/s+cg8P2/vUuekNLdi4?=
- =?us-ascii?Q?aSN8lMOG8lABdHBxO6ZPERlXObAtVuwRo89c2ourGxFeBLZxnsas?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e748dbce-852d-45cf-c36f-08ded0ef4193
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 06:18:35.0371
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F/dBEMUH7ZcnL/iMbrm5g7k3RnNzvcotdan9GfGWhS6z+cLcaKTi+i5l8ZgIpE1C31/8VIbvbD3J9nkVfeMnU+H+wsor+Iln6d5ccsXorEdzwzSq6DcjEuINuOjx8URL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9300
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHwoOmoC/33QS27DIBAG4KtErEs1AxhDV71H1QWGIUFK7Ahcq
+ 1XkuxeySSpbFasfab553FihnKiwt8ONZVpSSdNYg345MH9y45F4CjUzAUKDRMO/rmXO5C78PHs
+ pwPDee2O1GaK2xGrZNVNM33fy47PmUyrzlH/uHRZsv/9gC3LggF3EiGRBd+9udOfp+OqnC2vaI
+ p4EoXcEUQUZBm+tGDRYsxHkQ1CwJ8gq9BEGDAKIercR1JOAe4JqMxijKEhSNm636B6CRrsjdO0
+ OfRfQgG7vj7Cu6y/c9h3suQEAAA==
+X-Change-ID: 20260318-upstream-ltc3208-7cc8968bf69e
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-leds@vger.kernel.org>,
+        <devicetree@vger.kernel.org>,
+        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,
+        Jan Carlo Roleda
+	<jancarlo.roleda@analog.com>,
+        Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782196367; l=3616;
+ i=jancarlo.roleda@analog.com; s=20260317; h=from:subject:message-id;
+ bh=SSIK/QSN70pASprkaQr4jQcJ+Bv0/9w1QjB1iMjXw2c=;
+ b=NqOUHbUK3HcPEOEKPXpiyM18L6HOu+N3MU25kWtDzPocig2d+AL0pltFJ22BlJ9qVJD8BlQ2j
+ 2g59JIzX3JeCl6te5IQ2ikLH8Tp5zkFJWT2hoDHSa1qsMPt8gXRVAvD
+X-Developer-Key: i=jancarlo.roleda@analog.com; a=ed25519;
+ pk=zPMh+eO6/Mj6tqaie75BLiTLQvE3f9pck0UejKLmLMc=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA1MCBTYWx0ZWRfX1e/KctIusV7y
+ ybZrCqP3b9qGZGTxs7sx5kH8MrzUCQB69KuIHPlla/hQ99owzcqC4gg7yZNAwdbI3EO8J6CZgDp
+ 0SwS4TQfbxTPgBfleXVMIBLtVRhrjCNTh2dZYkNZ3MI28U9kMnWkteiZENqvUh/0Ceidj6WrX5V
+ xrYRPH8dTykE5ZS0QCiWnTn9g+tisKFC2kOK4wGiK2rgh82Efc+A6yaAvggRBtobEehgiZt3jgd
+ ERL3y+OvykMeij8yQXMaxoguYs8XMZlU6ln4bZnV5Muc0XhWZtFvbx+BkHMErevFBlLAdnB1A9Y
+ dWFlL+EVM0Jyc1XZOiB05WczC1gRPYkt/l+dgOOON1HowYE1ZDSAUj/a6QXq/DbD85494ldbxwt
+ NuG5y2n2mVAS7g0oqi574EMKGKvRmLvYBlViXnyN/2oL4x22U0PS3b8l/k7EYHMPivNRFm7TDGT
+ G3y5tt4g9HbjeMl7WLQ==
+X-Proofpoint-ORIG-GUID: QjB3e5t0iBKpcKag0OzSoNgA-kl8iYrD
+X-Proofpoint-GUID: QjB3e5t0iBKpcKag0OzSoNgA-kl8iYrD
+X-Authority-Analysis: v=2.4 cv=J5yaKgnS c=1 sm=1 tr=0 ts=6a3a289e cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8
+ a=gAnH3GRIAAAA:8 a=itDfUeudex1bMM3OCFYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA1MCBTYWx0ZWRfX7nipKul3WXnt
+ SdhgK4jkISb+jd14bKKFYv9wcH+vomxZuDT25C9vaRsZ5X37jhULT7ZEcpo5XJK3KnvmxjWyXBq
+ noty9zoTjya2OgkAHn1pTM3ty/JZfPbU1x65WTbUfAORhGYhHeuK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_01,2026-06-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230050
 
-On Mon, Jun 22, 2026 at 11:35:06AM +0200, Francesco Dolcini wrote:
->From: Francesco Dolcini <francesco.dolcini@toradex.com>
->
->Add alias for lpuart5 so the UART gets a stable line number.
->Without this alias, the lpuart driver fails:
->
->  fsl-lpuart 42590000.serial: failed to get alias id, errno -19
->
->This prevents the Bluetooth controller connected to this UART from
->working.
->
->Fixes: 104a391bb6ff ("arm64: dts: freescale: imx95-toradex-smarc: Enable bluetooth on lpuart5")
->Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+The LTC3208 is a multi-display LED driver, using a high-efficiency, low
+noise charge pump to provide power to 5 channels (MAIN, SUB, RGB, CAM,
+AUX). Current for each LED is controlled by the I2C serial interface.
+Four AUX current sources can be independently assigned via the I2C port
+to the CAM, SUB, MAIN, or AUX DAC controlled displays
 
-Acked-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+---
+Changes in v6:
+- Fixed code conventions (spaces in brackets, awkward line breaks)
+- Removed unused `i2c_set_clientdata` from probe function
+- Added guard for potential errors in AUX channel configurations
+- Added guards to prevent duplicate LED registrations to the same ID
+- Corrected `dev_err_probe` return values
+- Link to v5: https://lore.kernel.org/r/20260619-upstream-ltc3208-v5-0-075d18060606@analog.com
+
+Changes in v5:
+- Fixed MAINTAINERS commit ordering
+- removed i2c_client from ltc3208_dev
+- renamed ltc3208_dev struct to ltc3208
+- refactored brightness_set function to use regmap_field
+- updated leds attribute to use constant size array
+- updated regmap_config to use REGCACHE_FLAT_S cache type
+- added max_register to regmap_config
+- renamed variables in probe function
+- renamed map to regmap for regmap instances
+- moved AUX channel configuration inline to probe
+- Link to v4: https://lore.kernel.org/r/20260416-upstream-ltc3208-v4-0-3884ed3e49f5@analog.com
+
+Changes in v4:
+- Reordered commit order to match dependency order
+- Updated Kconfig to be more descriptive of device
+- Added led@0-7 with more complete example properties (function and
+  color)
+- Driver changes:
+-- Removed unnecessary include headers
+-- Formatted macros
+-- Created helper `write_current_level` functions for LED current
+  configuration, using `regmap_update_bits()`
+-- Adjusted awkward tabbing issues
+-- Updated variable names in probe to be more descriptive
+-- Updated inline comment capitalization
+-- Initialized `i` within the for loop in AUX configuration in probe
+-- Refactored `update_aux_dac` function to use array pointer
+-- Fixed error messages in probe 
+- Link to v3: https://lore.kernel.org/r/20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com
+
+Changes in v3:
+- Edited device bindings descriptions
+-- removed full stop in title
+-- replaced quotes with double quotes for consistency
+-- removed <dt-bindings/gpio/gpio.h> from example
+-- removed led1-7 in example for brevity
+- squashed maintainers commit to driver commit
+- Link to v2: https://lore.kernel.org/r/20260326-upstream-ltc3208-v2-0-3dbc992b6098@analog.com
+
+Changes in v2:
+- Addressed DTSchema bot warnings and errors
+-- removed extra blank lines
+-- fixed $id to match current naming
+- Addressed Kernel test warnings
+-- fixed bounds for aux channel configurations
+- Link to v0: https://lore.kernel.org/r/20260318-upstream-ltc3208-v1-0-015f1f1e9065@analog.com
+
+---
+Jan Carlo Roleda (2):
+      dt-bindings: leds: Document LTC3208 Multidisplay LED Driver
+      leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+
+ .../devicetree/bindings/leds/adi,ltc3208.yaml      | 181 +++++++++++++++
+ MAINTAINERS                                        |   8 +
+ drivers/leds/Kconfig                               |  12 +
+ drivers/leds/Makefile                              |   1 +
+ drivers/leds/leds-ltc3208.c                        | 244 +++++++++++++++++++++
+ 5 files changed, 446 insertions(+)
+---
+base-commit: d43f1d792902ba0a53fd311bff2cf96095c7606d
+change-id: 20260318-upstream-ltc3208-7cc8968bf69e
+
+Best regards,
+-- 
+Jan Carlo Roleda <jancarlo.roleda@analog.com>
+
