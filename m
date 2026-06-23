@@ -1,158 +1,83 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F389421257E
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 18:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D2E21257E;
+	Tue, 23 Jun 2026 18:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782238602; cv=none; b=swcxECjDSneupX9AIoeQrAR/SqELd3Sv/c/Fmn5JbAQKRmIiEsMReQthm/KuhPv43529rIVh7pUYrsYF7DHX0HP1T2GTvt+6xKo2laT6sJigDbWtN9IBD+Yod5hSU7zFZw/FzYP2Ee/oL0e8uUwUbYyyhwn23cqgHi67TdZQvBA=
+	t=1782238951; cv=none; b=lEfXSlhG+MDFaTdiVCBQKyTyw9udhSsRV0p0rvPuSMcYLgZ0sV06FNac2QdC41POy7qFSzJhGhIyiw8ti+DYqpDhrz921ckWEPD10dcMlQ/1U2VdKYGPZAYBgkEa1B0YecMleaKYHUHucbvB5VfhsBiH/i64m3UOWeWK8rVwU0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782238602; c=relaxed/simple;
-	bh=v/Jq4x0ikLZAY+sHdmkdAGe7Bx11aQjbFFTuibl2AI0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jjHTK2hDBvCCWtzJ1UvBIJcSSS0WPzHiUROWMVRJDwiuYrp7adFXE44A0IRWsA2S57IVt+SqVC3rw44TVI2n5gEH0VDCuNhe6gkN4G6CVazG93D3z2gnK8p06/94G+/s/qb0aIL/zticUoROro9xxOYPiJlLAolb2Dc+bPYN/U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jme5FcVy; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782238951; c=relaxed/simple;
+	bh=rJMSYYrCaMpJacpqs3ZlWI5z9WqednwOmECXbXYYrQw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fyolv6rkbeHPzWhcIIZdbcb0e6OQl6Nva4oZZdiJoyAegrPwuiL0x+ZBXs6ipLzgXKweb9my1lO1EtDrC9GzRJ3qOlOkDLFn3OqS++v6WsFy9DwiNvH8E/6uGUAQJTvTnGxo0adtEsroXEzXEZ9hWWRxpIFk4kkONXCdC8AwsQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QHwXJtqv; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jme5FcVy"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-46019edc13dso121246f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:16:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782238598; x=1782843398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hp0RP7mlwmSy+hW/y528ewOP23RYH5LVdeU7dyCxrV0=;
-        b=Jme5FcVyZF6oWSwNaRx3F8qjTqms6v8jOKHEdxBgcFjVZMWaaYCqb0QZbNBlk0e5tI
-         qxiz83JYkH477dxLKgLqudS8J1rlDNs/Bkb8pgTCWHBz86Jx+K/cBAKU2qZuplAN0IBK
-         sUXLD5u9Mp/6C8ZLn5KPpBZpkWI/fzrPq3RfNEq6C6JT9R/VozG19rqfshMohcCVxswQ
-         cPvqTsTIRPvN0MHhKOv7KV0FBMIM7uBYLQFGc3t9VWKvgqESQ7C0ykKfDHdxnmPpIj5w
-         3Q3IXmY8WmTn8Ll0jq++m0dIE4HiaKb5G+DYWPvwMEiAwjTkvHp0z47VpOkOc9DQVD4n
-         cajw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782238598; x=1782843398;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hp0RP7mlwmSy+hW/y528ewOP23RYH5LVdeU7dyCxrV0=;
-        b=L5PGqk8N7pMXXBDsBZTaCZQNH9GdPxyycgGNL34PeZ5kdhuo484DP5iEgKXY6NDkI5
-         0sm95yARjbcx4jidY8UhwKltb4mToEufrLeMF0gszaifGP9P3uMosRraWHJ5fP5U0/E9
-         IJfh5+UWJpEFEFlXKnBBf9kD+DEa+rFHCSyFFWbj+9S/K+/1tO5+LyxY2kgNz1WpDQS9
-         mszbG+MzTMBp4e+t+tsiLL9TJerx0nXC9BWer/DGGnks8YHzEPFrGwOSZeAS+1CYaDPR
-         EZf+eJjh9CoPh/JKL2GHwrAyW20csrL58vd92X3t6rAHou2JY5SMRtF1yEaKWWObYnj5
-         iFSA==
-X-Forwarded-Encrypted: i=1; AHgh+Ror0rCLPoRHA6bi9mThemhtIDZjzOQ49luz4W+IjJMY7HLUcvYDMlUxJSlaBt/w8JWqEL5yinpla+w5@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcNclZHKSJJp+qYRTonSAtEyWXX7pidqdTlLyOdJt9h9AZi5Rs
-	1KcTN2YNnYKJoUqTH9y/FnYsEeVDVb0fdA5bK1pSkVoKLcA0eslLlRb2
-X-Gm-Gg: AfdE7cli6kYwdrYoi36fiWMilk84rxY8c0CDDhy4iusUNDQOJ2w65lQQYHALn9tGo37
-	77jPqc51FsG/V6OTseBmPKJnCESIS5IhcfXW86vUJNiuC8caT62MIenmuFRYt9TuLfbozmQSsbB
-	dUuP0TKtDyOttD7AW2uQI6xxYINOVv9kFAGF2+sXuZpydFUngy/DU8vImEZj/G2M7HvaGOFiFqr
-	1Et0xHS7ahbRVpoJFWP7ce9jziNR4Dz4RfJUWx3UUDZR8uob6oLUSKU/O+4ml2Hlp5D3x1jVrI5
-	/kK9T1Atk9wejvEiC0OUFRdK18m3STw4cDTwZMEHFo8g23N3rnVynYWqnIoq9m5m7VvlIQoAUrn
-	0yBEmoXynfWcIAeM/tySB56+EtZhNheBxJNcz/VgX6z2j1y+O2E9rSNJAMQa3eDRz8xoiNoLe0H
-	bFNQehQpzXccOBmRzOipo01CAhO/CHVjq9BUWPq7/bT94T5zlMFUWM39leQk9srN6eUxLv5YIF
-X-Received: by 2002:a05:6000:2004:b0:45e:dacb:8885 with SMTP id ffacd0b85a97d-46adb0b697emr6229006f8f.35.1782238598308;
-        Tue, 23 Jun 2026 11:16:38 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.86.252])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46666c57b8asm38433933f8f.26.2026.06.23.11.16.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 11:16:37 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re:[PATCH 1/2] dt-bindings: hwmon: chipcap2: Add label property
-Date: Tue, 23 Jun 2026 21:16:25 +0300
-Message-ID: <20260623181625.5697-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DJFPYCV2FXW7.1BFG9DURPZRCC@gmail.com>
-References: <DJFPYCV2FXW7.1BFG9DURPZRCC@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QHwXJtqv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1782238950; x=1813774950;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rJMSYYrCaMpJacpqs3ZlWI5z9WqednwOmECXbXYYrQw=;
+  b=QHwXJtqvQa/YXi9SdBYYGRdHLqHvhAzSj/+v1gpiDNlmHTkPFeKNhrzQ
+   cejRuAq7DudsnqPV7Bxnlh7Ak+RnGutt4Z3LNybbO/OYtdSN2CgGYOTq8
+   3TBrOYJLgSqkUpqyxDb8y2rg203E947oCx/VeOsKlH2IjJmtOEHaCz311
+   jAuWgKeBoHXpaXEPj686VnIXryExUxX55g3OSWiAZkXsVsqpMdphy4FCA
+   HaKBDlE88rSu0iNoQL09CA9XayWGlVIkWAlkrZ53RiP5TlYDAHoO+waQM
+   M6m0MQumgY4gG7KzxQV9Kzl0jOj0IixUbaj/oScyXqWCfR/gSwQeED7WX
+   Q==;
+X-CSE-ConnectionGUID: CG4ZDeEIS4+FEnBh8yuMCQ==
+X-CSE-MsgGUID: XGP5lIb3T76N5xem2V//KQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="93352941"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
+   d="scan'208";a="93352941"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 11:22:29 -0700
+X-CSE-ConnectionGUID: HSSgHo1OSDS2vf9tHpx5KQ==
+X-CSE-MsgGUID: MnJibf1HS9mcTXJZCy+dyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
+   d="scan'208";a="273657308"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 11:22:25 -0700
+Date: Tue, 23 Jun 2026 21:22:23 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Varshini Rajendran <varshini.rajendran@microchip.com>
+Cc: ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev, srini@kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 03/12] iio: adc: at91-sama5d2_adc: adapt the driver
+ for sama7d65
+Message-ID: <ajrO3-buCfS0vx1L@ashevche-desk.local>
+References: <20260623105944.128840-1-varshini.rajendran@microchip.com>
+ <20260623105944.128840-4-varshini.rajendran@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623105944.128840-4-varshini.rajendran@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon Jun 22, 2026 at 7:29 PM CEST, Javier Carrasco wrote:
->On Mon Jun 22, 2026 at 2:21 PM CEST, Flaviu Nistor wrote:
->> Add support for an optional label property similar to other hwmon devices
->> This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
->> distinct names to each instance.
->>
->> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
->> ---
->>  .../devicetree/bindings/hwmon/amphenol,chipcap2.yaml         | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.ya=
->ml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->> index 17351fdbefce..f00b5a4b14dd 100644
->> --- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->> +++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
->> @@ -33,6 +33,10 @@ properties:
->>    reg:
->>      maxItems: 1
->>
->> +  label:
->> +    description:
->> +      A descriptive name for this channel, like "ambient" or "psu".
->> +
->>    interrupts:
->>      items:
->>        - description: measurement ready indicator
->> @@ -72,6 +76,7 @@ examples:
->>                           <5 IRQ_TYPE_EDGE_RISING>,
->>                           <6 IRQ_TYPE_EDGE_RISING>;
->>              interrupt-names =3D "ready", "low", "high";
->> +            label =3D "somelabel";
->>              vdd-supply =3D <&reg_vdd>;
->>          };
->      };
->
->Hello Falviu, thank you for your patch.
->
+On Tue, Jun 23, 2026 at 04:29:35PM +0530, Varshini Rajendran wrote:
+> Add support for sama7d65 ADC. The differences are highlighted with the
+> compatible. The calibration data layout is the main difference.
 
-Hello Javier, thanks for your reply.
+Do you need to update a Kconfig help text?
 
->Should we not add a reference to hwmon-common.yaml (with
->unevelautedProperties instead of additionalProperties), as label is
->defined there? I believe that Krzysztof Kozlowski did something similar
->for the shunt-resistor-micro-ohms property. Could we follow suit here?
->
+-- 
+With Best Regards,
+Andy Shevchenko
 
-This is a good question and I am happy you asked. I also thought a lot
-about this and the reason I decided to go for this approach is that by using
-$ref: hwmon-common.yaml#, I would have to change additionalProperties: false
-to unevaluatedProperties: false, which will evaluate in case it is used, also
-shunt-resistor-micro-ohms property which does not apply to this sensor. At
-least this is my understanding, but of course I can be wrong (I see lm75 binding
-also uses $ref: hwmon-common.yaml# but shunt-resistor-micro-ohms does not apply). 
 
->I am also not a big fan of a name like "somelabel", and a more
->meaningful name from a "real" example would look better. I know that
->some examples have already used "somelabel" as an example, but others
->have used more meaningful names too.
->
-
-I will have to send a v2 since for the label property description I used
-"channel" instead of "sensor" (detected by Sashiko AI review), so I can
-use in the example section a more meaningful name like "Room" if no other
-suggestion.
-
->Best regards,
->Javier Carrasco
-
-Best regards,
-Flaviu Nistor
