@@ -1,139 +1,209 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A1B31E84E
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCE536E498
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:41:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782225613; cv=none; b=owf/W6nKGt4vyhgKdpBz3maLWarrnwW5ZXZbotBFtSZ/aThvyFU9IefFGPoVjdjVK5GZessK3CWs9XBpowRV3KPlRk2rDwO9d4FHBfYhJtA6XCuXmwD4JA9eA1AQqYG+XBFwiptCau0mcbcQ4jZ9rYvj/o4ekYg4KwgRqgh9+0o=
+	t=1782225669; cv=none; b=Mq4vWaMnpSu36Uf/pUx1Hz9ZF3r1/YYFKA/xN5orP57zS4gm81dsQOMgumcPj0UpbzY3f2W87jNQHUTBVFnXIgv9cNA/qVwkEX/5jAi04u3O7hNxgLcKYz4kwTEMX6vvkvJvDzaO9oiFc54bJd9vLu0x0Mx9cWyLdzu7APQeQsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782225613; c=relaxed/simple;
-	bh=ZRH1v71bw4sc5x5WP/NhswuEJeOoOH1TapywiKu8AbQ=;
+	s=arc-20240116; t=1782225669; c=relaxed/simple;
+	bh=ot+rgetzXq684FzVBaK1r/RgJmRb/M6PiNXRbTC32Fk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oSvbO/VLd9sLho+96vBZy/BCp2d91vESniTQZo18VVry2TgjCvfQWI3aDFQho7C/dOGMJQzPAqWyJ75NH98uzKv7I+SCql2Grnis/R+/Cwd2fHRkuUefqJuuK4czAcV+CEKEJtLkBLKtHsO11x0UTczTx9nfJpzxKAr5szl3lCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EObWDw4q; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YBlfrBurAoTcajfSTfKuyQSYvEuzqTO/pzAbBKMOI+W+NF44jOAKwoR3mNRzPofbTGroiUEFdBS+yTdRiLtk2lNfxHeG14uDq1DNtWeCVYCPzoy6IqFYox0e43snskd5KkBCihCbujSolo9bmlIWMInNHpFJGgeoYntCePf3OPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOGXrcif; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EObWDw4q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B971F000E9;
-	Tue, 23 Jun 2026 14:40:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOGXrcif"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9AB1F000E9;
+	Tue, 23 Jun 2026 14:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782225612;
-	bh=dfYWoy5I5yx/jXQPEARaq1u2FfBILHthfWDQJb6cpoY=;
+	s=k20260515; t=1782225668;
+	bh=TwspvrhMQ+i9XC4JO30r2c8aaXBT7KqexIDIRkqhJg0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EObWDw4qAE+uUduJE0tPSvbqx0UmqoKxcmyZE/pDnlYgopGB4U1KpHt9g8Jz3lPM0
-	 +PpxxYukPE7rWGgNjqBd2izPN2jbFDXlpzQw06f/AiVzYLbWIxqpC0Sfyx/zHZ5x4o
-	 gBjcAlJFckvwJMyo+Gj9/GT6mNyWksIOKcGrRrjJOqi25vlIl0OcfPdzoo8gDorw7A
-	 /His8pIz9SEday68v29NQhJovOuFvQQlQgD4roF0npEbc4n5ZkBYSeNS1IuT1dyhX4
-	 GzaP5WsI2Uuk8EtC4PYzrJnwBJznyud8lnlUiUvxQNoNltcaARdUBUY4Z3tFEvD5xK
-	 O08fRb+y4/vQQ==
+	b=lOGXrcif5A8/i2Gk2cLpwQWog9fMwGui9C8CBl1ovxL0GiXyMOipmfIvaqBaIT0az
+	 Kj4EJ1ZxKAwuDscg25dmMznIO1VvMPhhluE8CxHYLxCUwgtmjheWoshU/vzohJBZ67
+	 K7SmNkV4xRO959wAlABFuC596xVilUVOqV4+8mZYgJQV7ljh6Ym+BcnwBOuFpETWl8
+	 B3LRhLT+zwlQ6RBHvMcfH/WbdxuluxzbBON6cgqjMByHYSmgaXEeA6qVmorHqG48Vv
+	 D/MV36uIzF9vr0Wi3obI8cjo05TW4beLKIevAU11nwnOA1ImguhLx1g9mgmW8bVM1E
+	 A9nnv+lF64GTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/7] soc: aspeed: add host-side PCIe BMC device
- driver
+Subject: Re: [PATCH v3 4/7] serial: 8250_aspeed_vuart: add VUART over PCI
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <8746971524bf4186c9a393dab637ad4e27ce4563.1782224059.git.gregoire.layet@9elements.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <c3e1136d3565216c254db138e29299c2a3c6499f.1782224059.git.gregoire.layet@9elements.com>
 References: <cover.1782224059.git.gregoire.layet@9elements.com>
- <8746971524bf4186c9a393dab637ad4e27ce4563.1782224059.git.gregoire.layet@9elements.com>
+ <c3e1136d3565216c254db138e29299c2a3c6499f.1782224059.git.gregoire.layet@9elements.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 14:40:11 +0000
-Message-Id: <20260623144011.E6B971F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 14:41:07 +0000
+Message-Id: <20260623144108.1E9AB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] Modifying a shared static global array on IRQ allocation fallback =
-permanently corrupts the driver state for all subsequent devices and create=
-s a data race.
-- [High] The driver mishandles `pci_alloc_irq_vectors()` return values, lea=
-ding to silent probe successes with invalid IRQs or out-of-bounds vector ac=
-cesses that trigger kernel warnings.
-- [Medium] Truncation of a 64-bit PCI physical address due to storing it in=
- an `unsigned long` on 32-bit architectures.
+
+New issues:
+- [High] The newly added error path directly returns on failure, bypassing =
+sysfs cleanup and leaving the hardware enabled and port registered.
+- [Medium] Brittle lookup of the SCU syscon regmap by parsing the "clocks" =
+property.
+- [Medium] Setting untested and reserved bits in SCU registers.
+
+Pre-existing issues:
+- [High] Preexisting error paths fail to unregister the 8250 serial port an=
+d delete the timer on probe failure, leading to a Use-After-Free.
+- [High] Unprotected Read-Modify-Write operations on shared hardware regist=
+ers.
+- [High] Sysfs files and TTY port are exposed to userspace before driver da=
+ta is initialized.
 --
 
-commit 64de7243e0e8e8cd9ac72d04be5ef937e8143347
+commit 277ed031956064f236c5536027c1f37b4a76d71d
 Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
 
-soc: aspeed: add host-side PCIe BMC device driver
+    serial: 8250_aspeed_vuart: add VUART over PCI
 
-Add support for VUART over PCIe between BMC and host.
-This configures the PCIe and sets up two 8250 compatible VUART ports.
+This commit adds support for VUART over PCI on the AST2600 platform. It
+configures the BMC PCI device enables, sets the PCI class code to MFD, and
+configures MSI interrupts based on the silicon revision.
 
-> diff --git a/drivers/soc/aspeed/aspeed-host-bmc-dev.c b/drivers/soc/aspee=
-d/aspeed-host-bmc-dev.c
-> new file mode 100644
-> index 0000000000000..3160b6aedb5b6
-> --- /dev/null
-> +++ b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
+> diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/se=
+rial/8250/8250_aspeed_vuart.c
+> index 6afa2f4057e1b..e204e26fa173b 100644
+> --- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
+> +++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
 [ ... ]
-> +static int vuart_msi_index[2] =3D { 16, 17 };
-> +static int vuart_port_addr[2] =3D {0x3f8, 0x2f8};
+> @@ -412,6 +433,62 @@ static int aspeed_vuart_map_irq_polarity(u32 dt)
+> +static int aspeed_ast2600_vuart_over_pci_set_enabled(struct platform_dev=
+ice *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	u32 silicon_revision_id;
+> +	struct regmap *scu;
+> +	int rc;
 > +
-> +struct aspeed_pci_bmc_dev {
-> +	struct device *dev;
-> +	kernel_ulong_t driver_data;
-> +	int id;
+> +	u32 pcie_config_ctl =3D SCU_PCIE_CONF_BMC_DEV_EN_IRQ |
+> +						SCU_PCIE_CONF_BMC_DEV_EN_MMIO |
+> +						SCU_PCIE_CONF_BMC_DEV_EN_MSI |
+> +						SCU_PCIE_CONF_BMC_DEV_EN_PCIE_BUS_MASTER |
+> +						SCU_PCIE_CONF_BMC_DEV_EN_E2L |
+> +						SCU_PCIE_CONF_BMC_DEV_EN_LPC_DECODE |
+> +						SCU_PCIE_CONF_BMC_DEV_EN;
 > +
-> +	unsigned long message_bar_base;
+> +	scu =3D syscon_regmap_lookup_by_phandle(dev->of_node, "clocks");
+> +	if (IS_ERR(scu)) {
 
 [Severity: Medium]
-Does storing the BAR address in an unsigned long truncate 64-bit physical
-addresses on 32-bit architectures with PAE/LPAE?
+Will this break if any clock multiplexer or intermediate clock controller is
+inserted between the SCU and the VUART?
 
-pci_resource_start() returns a resource_size_t, which could be 64-bit,
-potentially leading to incorrect I/O memory mapping here.
+This code uses syscon_regmap_lookup_by_phandle() to fetch the SCU regmap by
+parsing the "clocks" property. While this may happen to work if the SCU is
+the direct clock provider, does this conflate the clock provider bindings
+with syscon mappings?
 
+> +		dev_err(&pdev->dev, "failed to find SCU regmap\n");
+> +		return PTR_ERR(scu);
+> +	}
+[ ... ]
+> +	if (silicon_revision_id =3D=3D AST2600A3_REVISION_ID)
+> +		rc =3D regmap_update_bits(scu, ASPEED_SCUC24,
+> +				   ASPEED_SCUC24_PCIDEV1_INTX_MSI_HOST2BMC_EN | ASPEED_SCUC24_MSI_RO=
+UTING_MASK,
+> +				   ASPEED_SCUC24_PCIDEV1_INTX_MSI_HOST2BMC_EN | ASPEED_SCUC24_MSI_RO=
+UTING_PCIe2LPC_PCIDEV1);
+> +	else
+> +		rc =3D regmap_update_bits(scu, ASPEED_SCUC24,
+> +					/* The bit 14 is reserved in the Datasheet, so we can't say what it=
+ does. This revision has not been tested */
+> +				   ASPEED_SCUC24_PCIDEV1_INTX_MSI_SCU560_EN | BIT(14) | ASPEED_SCUC2=
+4_MSI_ROUTING_MASK,
+
+[Severity: Medium]
+Is it safe to write BIT(14) into ASPEED_SCUC24 when it is undocumented and
+reserved?
+
+The comment indicates the bit's purpose is unknown and this revision is
+untested. Can setting this undocumented, reserved bit trigger unpredictable
+hardware behavior on other silicon revisions?
+
+> +				   ASPEED_SCUC24_PCIDEV1_INTX_MSI_SCU560_EN | BIT(14) | ASPEED_SCUC2=
+4_MSI_ROUTING_PCIe2LPC_PCIDEV1);
+> +	if (rc) {
+> +		dev_err(dev, "could not set PCI device 1 MSI interrupt routing\n");
+> +		return -EIO;
+> +	}
 > +
-> +	struct uart_8250_port uart[2];
-> +	int uart_line[2];
-> +
-> +	int *msi_idx_table;
-> +};
-> +
-> +static void aspeed_pci_setup_irq_resource(struct pci_dev *pdev)
-> +{
-> +	struct aspeed_pci_bmc_dev *pci_bmc_dev =3D pci_get_drvdata(pdev);
-> +
-> +	pci_bmc_dev->msi_idx_table =3D vuart_msi_index;
-> +
-> +	if (pci_alloc_irq_vectors(pdev, 1, BMC_MULTI_MSI, PCI_IRQ_INTX | PCI_IR=
-Q_MSI) <=3D 1)
-
-[Severity: High]
-Can this condition mishandle partial allocations and negative error codes?
-
-If pci_alloc_irq_vectors() partially succeeds and returns a value between
-2 and 16, the <=3D 1 check evaluates to false. This leaves the indices at 16
-and 17, but pci_irq_vector() will later trigger a WARN_ON_ONCE out-of-bounds
-check in the PCI core when it tries to access index 16.
-
-Additionally, if it fails entirely and returns a negative error, the check
-passes, but the probe doesn't abort. Does this result in silently registeri=
-ng
-the 8250 UART with an invalid IRQ?
-
-> +		/* If pci_alloc fail, set all msi index to the first vector */
-> +		memset(pci_bmc_dev->msi_idx_table, 0, sizeof(vuart_msi_index));
-
-[Severity: High]
-Does this memset corrupt the driver state for all subsequent instances?
-
-Because pci_bmc_dev->msi_idx_table points directly to the static global arr=
-ay
-vuart_msi_index, writing zeroes here permanently overwrites the shared arra=
-y.
-
-If multiple ASPEED PCI devices are probed, or if the device is probed again
-later, will the indices be permanently stuck at 0?
-
+> +	return 0;
 > +}
+[ ... ]
+> @@ -540,6 +617,15 @@ static int aspeed_vuart_probe(struct platform_device=
+ *pdev)
+>  	aspeed_vuart_set_host_tx_discard(vuart, true);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can concurrent access
+clobber register modifications?
+
+Functions like aspeed_vuart_set_host_tx_discard() and
+aspeed_vuart_set_sirq_polarity() perform read-modify-write operations on
+ASPEED_VUART_GCRA. Does a concurrent sysfs write and TTY port open/close
+cause a race condition here, since these are invoked from contexts with
+different locks (or no locks)?
+
+>  	platform_set_drvdata(pdev, vuart);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the delay in calling
+platform_set_drvdata() expose userspace to a null pointer dereference?
+
+In aspeed_vuart_probe(), sysfs_create_group() is called very early.
+If a concurrent userspace process reads the sysfs files, invoking
+lpc_address_show() before platform_set_drvdata() is called here, it will
+retrieve a null pointer and immediately dereference it.
+
+> =20
+> +	if (of_device_is_compatible(dev->of_node, "aspeed,ast2600-vuart") &&
+> +		of_property_read_bool(dev->of_node, "aspeed,vuart-over-pci")) {
+> +		rc =3D aspeed_ast2600_vuart_over_pci_set_enabled(pdev);
+> +		if (rc) {
+> +			dev_err(dev, "could not enable VUART over PCI\n");
+> +			return rc;
+
+[Severity: High]
+Does this direct return bypass necessary cleanup logic and leave the
+hardware enabled?
+
+By returning rc directly instead of jumping to a cleanup label, the sysfs
+group aspeed_vuart_attr_group is leaked. Furthermore, does this bypass
+unregistering the 8250 port and leave the VUART active despite probe
+failure, since aspeed_vuart_set_enabled(vuart, true) was called earlier?
+
+> +		}
+> +	}
+> +
+>  	return 0;
+> =20
+>  err_sysfs_remove:
+>  	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
+>  	return rc;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this error path lead
+to a use-after-free?
+
+The err_sysfs_remove block cleans up sysfs attributes but entirely omits
+calling serial8250_unregister_port() and timer_delete_sync(). Because the
+driver uses devres, the vuart structure will be freed upon probe failure.
+Since the port remains actively registered, any subsequent access to the
+port via TTY operations will dereference this freed memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1782224059.gi=
-t.gregoire.layet@9elements.com?part=3D5
+t.gregoire.layet@9elements.com?part=3D4
