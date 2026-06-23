@@ -1,78 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fr5000-r.dnsiaas.com (fr5000-r.dnsiaas.com [92.42.104.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10F337F8DA
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15285380FF3;
+	Tue, 23 Jun 2026 14:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.42.104.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782223375; cv=none; b=TIouvLyGaYlE61zbqVrS/6OgCaRQCeLCz7pZS9JsH0MuxgGEhqYWKgx/7Zso0Iw2lBqlW+UXmQyMZbP8+eya0amlENfqmVxL/H5Nt6c5giKLrPu1GsZf1zqWoWuHXyLiI1Bv+dnD9HbngcLXl2KWOMY2XJDEoyAsXzRN5peeuik=
+	t=1782223805; cv=none; b=DSmfoomTlFAVqCQ+zb/ntGf/31dalVLF/p6QDKKaugsUptdnGXFzHkLviNn4AedTmVUQqg+pKwQgAVNJ+Gj26CHhD6yVfY67JfflvPBazDYezyLHsmlOf2B92ZXVprU7b1NpG83obqaDxyCMGVgEvW/NbSis4sZh89qqeD5ip3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782223375; c=relaxed/simple;
-	bh=jh+uEuTwkH3T/NSqPTTmd+f9/dlDEQ6DOmOfFVq2m1s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Dr4GbAlsBkcLXaAXq7Tsv2HtwmeXstm4CND4ANguozWAfmPsXl/cdIrfJvLECJ9jrqdwdNnJVJ1fdFPePLsbNUYLetXTAgHgAUhmA5OitW122Y0FD9Ia3CzAmgwZR6ntTZZaQK4Iv9KJykICeMEx7N8ySiiUxJt4dWwDREuxPQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeKDgpca; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782223805; c=relaxed/simple;
+	bh=QzZ/eVkAfrxKfCLuLelvePEFPRb5OS3MmMKbZz3YN1o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lJYnXapGxTosEiGvTqvYuDL8W5gtp0N5chdpsAJe/l+M4FPpKGAVO3PwBp+ePBEXQ3doBfT61awLkHWA0JfoR2GKDdd831R8DJW0hLKfyBv5I5HU8WhXaoVVaxBSCDAaek212aUBV0qxrZb3PeR9/X7lZoFzZMn0+HoLATamCMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me; spf=pass smtp.mailfrom=superkali.me; dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b=lB1sH8Fg; arc=none smtp.client-ip=92.42.104.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=superkali.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=superkali.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeKDgpca"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FBB1F00ADF
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:02:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782223372;
-	bh=1gJqQGyMHBR85BVsKfivTVP/l6UvFz79Emx0q7bw7R8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CeKDgpcaWy8GnBxz8C/3kDDRctthG4xFG0iAzgOejG7LM7TjaxVDiGHKX99//jBlP
-	 Sxk7K5tlH2fzz4h2k2TrGPAVc55LD+pSgbE4QyT984yKvehjaHyCDSl+1u3Vsz7y04
-	 tw56RpbPWkAZuKtsTJK+7wQFuwGRlV3uVcqRfj1+byRN/owfaKVXds4u1IahiO82zQ
-	 QAV4y3DF8uk7FxLdF04i9wFBc7DYYMM689U3oal7/BvYGrmkNwoK2MGs6w9fMoYykL
-	 YdaC/HX+OmPUjia3AH6Pc71Cib5RZisiD6CKJByiq96R/kOH2RvdAgveoOkCzRaS0k
-	 4vnPXGShSRkaw==
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-697564cb69eso7581596a12.0
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:02:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9a4t349N4ufoc/3exe4sa6r4oeuylOEq4BxKoB6+0Odc1KEauJnRIAavk4SviUeQvf6qIHEP7x3E5u@vger.kernel.org
-X-Gm-Message-State: AOJu0YztS5JEplybkDMpi55q5+UeTc7YsdLYYj/3qnr3SSB4WXEV8XR7
-	XodLBklmxbX7+nAF2f8iSWw6UZ7CKWWnle3cUlhVJKiAJfNpWmq8N85ZfO1sLZ5V7HoZgBHpnoQ
-	L6EeuuSQobQyApfB86TvjyM5bZ02Ptg==
-X-Received: by 2002:a17:907:980a:b0:bd4:6c96:f87b with SMTP id
- a640c23a62f3a-c097c6c1a5bmr1194059466b.28.1782223370908; Tue, 23 Jun 2026
- 07:02:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=superkali.me header.i=@superkali.me header.b="lB1sH8Fg"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=superkali.me; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=QzZ/eVkAfrxKfCLuLelvePEFPRb5OS3MmMKbZz3YN1o=; b=lB1sH8Fg4D035v/eEGjsmD/nds
+	1qjTMd1aOWqyYCSUoOuu5NowhENS5PNqJPPWFrt1J8WfM+rUzw3OOA5Zay9XD912Bmy7qKh4jRPzT
+	iYEiKZNTrRjQnajOwDdSd0ToNDN7tB3jf78OOV3cSmWEpLtkbMErlT5Xt2Q3N+c9m8AueJkGhlHCZ
+	jAxfZWU0/iDNXR/lj97U1DXYcpwTfYk3ttdJuKAu50qoUS+oYYsZiGAn3ajjV3KbPDFVucZrXNcUh
+	VwQFbJ/BNH4F7nwtO8m45QajKORSqAQeT+BeMa6bJ63ntnD04XjnzAvRQW3GrP7npeJKTaKEb5oz/
+	lZ1xcw/Q==;
+Received: from [81.57.40.39] (port=50640 helo=superkali.me)
+	by fr5000-r.dnsiaas.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.4)
+	(envelope-from <hello@superkali.me>)
+	id 1wc1pD-0000000AngH-03t6;
+	Tue, 23 Jun 2026 16:10:00 +0200
+From: Daniele Briguglio <hello@superkali.me>
+To: Diederik de Haas <diederik@cknow-tech.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ricardo Pardini <ricardo@pardini.net>
+Subject: Re: [PATCH v4 5/5] clk: rockchip: rk3588: add GATE_GRF clocks for I2S MCLK output to IO
+Date: Tue, 23 Jun 2026 16:09:58 +0200
+Message-ID: <20260623140958.4181297-1-hello@superkali.me>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <DJGH34DVKL0W.3T6UB4G4WYYUJ@cknow-tech.com>
+References: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me> <20260419-rk3588-mclk-gate-grf-v4-5-513a42dd1dcc@superkali.me> <DJGDSS875DDO.22TYPVYK5X8KZ@cknow-tech.com> <2100447.PIDvDuAF1L@diego> <20260623123316.4111002-1-hello@superkali.me> <DJGG8DEAKSPK.1GJ8FARAHXPXM@cknow-tech.com> <20260623132351.4144457-1-hello@superkali.me> <DJGH34DVKL0W.3T6UB4G4WYYUJ@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260331102303.33181-1-akhilrajeev@nvidia.com> <20260331102303.33181-3-akhilrajeev@nvidia.com>
-In-Reply-To: <20260331102303.33181-3-akhilrajeev@nvidia.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 23 Jun 2026 09:02:39 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+bbYZnE=Asv=2VnvTpSsLfKtdpcLvfPzn85hyiyp85cA@mail.gmail.com>
-X-Gm-Features: AVVi8Ccz5pQCOoAn6KUfbBzvG9H4BnCCBdmvpJiCWRoaKDN4ysBpqyCY7xc7-v4
-Message-ID: <CAL_Jsq+bbYZnE=Asv=2VnvTpSsLfKtdpcLvfPzn85hyiyp85cA@mail.gmail.com>
-Subject: Re: [PATCH v6 02/10] arm64: tegra: Remove fallback compatible for GPCDMA
-To: Akhil R <akhilrajeev@nvidia.com>, Thierry Reding <thierry.reding@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, dmaengine@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - fr5000-r.dnsiaas.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - superkali.me
+X-Get-Message-Sender-Via: fr5000-r.dnsiaas.com: authenticated_id: hello@superkali.me
+X-Authenticated-Sender: fr5000-r.dnsiaas.com: hello@superkali.me
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Tue, Mar 31, 2026 at 5:24=E2=80=AFAM Akhil R <akhilrajeev@nvidia.com> wr=
-ote:
->
-> Remove the fallback compatible string "nvidia,tegra186-gpcdma" for GPCDMA
-> in Tegra264. Tegra186 compatible cannot work on Tegra264 because of the
-> register offset changes and absence of the reset property.
->
-> Fixes: 65ef237e4810 ("arm64: tegra: Add Tegra264 support")
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra264.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Diederik,
 
-Thierry, Are you going to apply this? The binding change has been
-picked up and now there's a warning.
+> My suspicion that more RK3588 based boards would be broken is because NONE use
+> I2S0_8CH_MCLKOUT_TO_IO; they all use I2S0_8CH_MCLKOUT.
 
-Rob
+These bits reset to open (SYS_GRF_SOC_CON6 = 0x4600, i2sN_mclk_ioe_ clear,
+1'b0 = "Output enable"), so a board doesn't need to reference the gate to
+get MCLK. They're RW, so firmware can go either way, but your 0x600 has
+them clear, which is why audio works today.
+
+The series made the gate a managed clock, so with no consumer
+clk_disable_unused disables it at boot. CLK_IGNORE_UNUSED leaves an
+already-open gate alone, so nothing changes for those boards. Only the ones
+that come up disabled, like the YY3588 and Ricardo's R58X-Pro, need _TO_IO
+for the kernel to turn it back on.
+
+> So IIUC that means I'd be testing both variants.
+
+Right, that covers both: the mux path and the consumer path. Looking
+forward to the results.
+
+Best regards,
+Daniele
