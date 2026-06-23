@@ -1,472 +1,210 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45050314D0D
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 18:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD6B30C608
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 18:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782241042; cv=none; b=d8AL3CKj6kmqe1x3YnRVEUPfHDyaxxFJdtUe4Us+JE8r+0HzpLVRF4+yDcexOX81xEOz5+grRVJ9dQFTI+FtGhtgPkrCONJILDHtAmMwhQoK4RxxP5Yv58UfEXin5J/f4qrA7p8hOOlR+7qiRJ6zl/yMFoL63ISl9djZTLF/akE=
+	t=1782241108; cv=none; b=S10IquLFxb63tuNanH6d1P+uB1Cb38bsMO+KUQMvxXYNNR6NZnQZ6k8aE2gmyOIcQxw1hFM31GNQTCF7bZF6M6GrINn6ZMUBid9PbdAL2M8DQKfH4izMUUxpRqmbcHP2g4Ftrq1APE+2NfuphrN5E69IYvehIsY66vAd0OnFeIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782241042; c=relaxed/simple;
-	bh=GhsNWso5/4BP8XEaHdLw/VTXsVaZ5riTiZiXGuC2YYg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n2YGrte6erydldsVmxS+gKHyqYrBf4rkwkvMSow153n9o+ug9lxaTkYjK2TIMlk6tf1dB852lNxRszh1WqIzEmbMijrishooWa9yZRy9uGfDyBXaLkMstwDfpLeYWKzK0ZXfvBgtjaOa6/TeHUFye4f3FD7mW1gEFeUWOQE/EXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wS5Z5POF; arc=none smtp.client-ip=95.215.58.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782241108; c=relaxed/simple;
+	bh=LzJiggBHLjBj6N/HSTkbqtRCMo0V90Y4rJTAT0j39is=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cSRDjReWhEABX4tFW1p4mWe6QfOfnw1DTOSlRNmgCa0plG0fnckDUOOz6/9A+ISflltLPUu9G+1kXEqWTx7T9wgc2fLQ4G5C1VKmmTtiG1N1ZzT7JQ9bti7nTQJ7Ggh6xMpvFiTj7BFsPX2F7Qdqmlr/YOhKhg3QHG1igdJPetY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXE6iT4x; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wS5Z5POF"
-Message-ID: <36ffe80feb5a521c28b1a6d10bf1338dc39ddef1.camel@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782241028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l4qURfEOSLz+hRvUsnxUJ4NxQFo0HE18d/70dD5NeZ4=;
-	b=wS5Z5POFFtcJ4fga247nhIxCkhYrhxMfSMNCj4UQRltpX4UgB2oKll5zRTCfk+6oMpXD5l
-	6sqd0qMVc4idLRmGyaXTsvPIuXyD17X8bFn6QyTVfeE+LnY7xfr2wPm6j+m9IJ9plNanEN
-	svaQmtTnNbQylxa12GeZ2dfqEK8/qt0=
-Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Siratul Islam <siratul.islam@linux.dev>
-To: lukas.metz@gmx.net
-Cc: andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	dlechner@baylibre.com, jic23@kernel.org, krzk+dt@kernel.org, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- nuno.sa@analog.com, 	robh@kernel.org
-Date: Wed, 24 Jun 2026 00:56:15 +0600
-In-Reply-To: <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
-	 <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
-X-Priority: 1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXE6iT4x"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1363fe80fe8so446864c88.0
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782241107; x=1782845907; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=4lMK+ZpWDYrVOdz5BQ8dYsd2bSHJ/5zrZM2ImjIhIf4=;
+        b=HXE6iT4xnXuDuPkrgN8dkz8gsK6nlu4bpB556gOOq8hHq3p/lnnZKLZ+PXMgnpT75k
+         XyIPsBtcB61h8JNrbwLvEyIWB/keX8mAdjZRC+H+i8xFz9QGNpVgj4Q81WsON2pnCdoP
+         kt1RGMXLumuZP6EhDa/1YjAU2l1tIksO/aL6t1/8DlleJP92+1Pg8vXIRCn0jiY3DYfc
+         P8X3R6VhAai/V4VW2U6mPfug0DQFVV960g7tn24Quxh+YCddPfB5jeUlAdjZ2nRtNEO/
+         ARLrxW4YXLHkbWBIBggnRakuiHX3kugsPYrS1/heKNEv1Zm+bDEt6xfdBlJiieBAgd6l
+         EuYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782241107; x=1782845907;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4lMK+ZpWDYrVOdz5BQ8dYsd2bSHJ/5zrZM2ImjIhIf4=;
+        b=NokLOV2msZPysIlqZySEzaviV0uRIfhQugcyZgZ0fjyB6vhg3vVOjaIwiu3mKtb0YY
+         PMANhUinTlPbdb4PFZwGNjJdEDFnQHkTso5E0QefDWf+/uk4p2FtxbNo50ZGRTlr87Rr
+         IJZQApj2Ip5pCWGNsJ37+pWxZzRzSWmviaBETE2JqgUA42uKcFdQt3jk0RyVS2m2RNd9
+         nerIu4hGNGuE8vQKtBgwXYm8t0R3r5wrYn+2o5yu18J42XxPaY95cFIwG7A14yup+RjH
+         Adm2Nw1yCiYdP2+QbM49N3zhF4Rfwql2dLpBs0BFIBD7YV66w2PaUzl2/uoMVAQXaQwU
+         fITg==
+X-Forwarded-Encrypted: i=1; AFNElJ+zKLOkQBfKnNWgaYS86qob7R9GZLB/oOYq5kujOgYTZkuhmxayqlX3ga1x/xm0OG+V+8Z+o64QpiJK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwI9MvhF73oWvkkWQ8Yfyd6FdBtK18OaaX/LfDG8yxcTNNBI30
+	Edb5TRXoN2Kae5jhzzJInEZRGF2CB70jcBax+dTBX8D/0i9caPgDdY3M
+X-Gm-Gg: AfdE7clny7kWhMk+Nqoism6gTzyVLRlfqBRStst9Aau0DTiwEewXwl1ZOoEvD0B3Ry3
+	Juc7KM3MGgF0p5VeQ8ZhLd0sKFBuNvQ40Am2MId4ElgwJtxiVYzTNnmKYDXe59Kpw8rUTgMOq0i
+	GNFPGwejp+6pKHptBkGbLm80F/PoE6Ogk7F3VsSETHaVwhgeGpaSVZ62zRP2eb3w9qvGbxMkG4+
+	OmDxaQh6kx/0f+1eOVxfBmg6QdE0ahQNGcRAFgeaM6iajBil2aEMTqD0wtmp7P+p4jxYqHiNq2H
+	wUo8othZOR++j/8+uLB79ITwLjRkb9U7jsjAf+vOe/YSd2p959jB/3yHXj/Lx6XoKtTb/qbnq3d
+	H6k06xl0kRADQDUZ93GaJEznvLaofY0VyYaCv91ozakVP6TG1bYoaCo/BK58Bo3WuZliD2XDCeJ
+	KLM/ApQNTH7SvV0OksBct5qfzZ39MQnLPUiGNTonDmty/d+mkT5vcZxvAin2xMeA==
+X-Received: by 2002:a05:7022:629a:b0:138:2239:be with SMTP id a92af1059eb24-139d0bfe146mr3074c88.8.1782241106419;
+        Tue, 23 Jun 2026 11:58:26 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139add81933sm14355280c88.14.2026.06.23.11.58.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 11:58:25 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b6d34af3-0c4a-4870-a240-f7873621d2ce@roeck-us.net>
+Date: Tue, 23 Jun 2026 11:58:24 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: chipcap2: Add label property
+To: Flaviu Nistor <flaviu.nistor@gmail.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <DJFPYCV2FXW7.1BFG9DURPZRCC@gmail.com>
+ <20260623181625.5697-1-flaviu.nistor@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260623181625.5697-1-flaviu.nistor@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-06-23 at 18:07 +0200, Lukas Metz wrote:
-> The DAC756x, DAC816x, and DAC856x devices are low-power, voltage-output,
-> dual-channel, 12-, 14-, and 16-bit digital-to-analog converters (DACs),
-> respectively. These devices include a 2.5-V, 4-ppm/=C2=B0C internal
-> reference, giving a full-scale output voltage range of 2.5 V or 5 V.
->=20
-> Signed-off-by: Lukas Metz <lukas.metz@gmx.net>
-> ---
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
-> =C2=A0drivers/iio/dac/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 ++
-> =C2=A0drivers/iio/dac/Makefile=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/iio/dac/ti-dac8163.c | 339 ++++++++++++++++++++++++++++++++=
-+++++++++++
-> =C2=A04 files changed, 356 insertions(+)
-Hi! I took a quick look, and probably missed a lot of stuff. But here are m=
-y thoughts.
-> diff --git a/MAINTAINERS b/MAINTAINERS
-...
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * DACxx6x IIO driver (SPI)
-> + */
-A link to the datasheet here would be nice.
-> +
-> +#include <linux/module.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/of.h>
-> +#include <linux/err.h>
-> +#include <linux/slab.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/units.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/printk.h>
-> +#include <linux/bitfield.h>
-Sort the includes alphabetically. And include what you use. "mod_devicetabl=
-e.h" is missing for example.
-While at it, separate the core headers from "<linux/iio/iio.h>". add ir in =
-a sepatate line.
-> +
-> +#define COMMAND_MASK GENMASK(6, 3)
-> +#define ADDRESS_MASK GENMASK(2, 0)
-> +
-> +#define COMMAND_SET(x, y) (FIELD_PREP(COMMAND_MASK, (x)) | \
-> +							FIELD_PREP(ADDRESS_MASK, (y)))
-I'd align the FIELD_PREPs to make it look better. It may also fit in a sing=
-le line.
-> +
-> +#define CMD_WRITE_INPUT_REG	0x0
-> +#define CMD_UPDATE_DAC	0x1
-> +#define CMD_WRITE_UPDATE_ALL	0x2
-> +#define CMD_WRITE_UPDATE	0x3
-> +#define CMD_SET_PWR_MODE		0x4
-> +#define CMD_SOFT_RST			0x5
-> +
-> +#define CMD_LDAC_MODE		0x6
-> +#define LDAC_MODE_CHANNEL_A_MASK BIT(0)
-> +#define LDAC_MODE_CHANNEL_B_MASK BIT(1)
-> +
-> +#define CMD_SEL_REFERENCE	0x7
-> +#define VOLTAGE_REFERENCE_MASK BIT(0)
-> +
-Group the CMD values together, also all these values would look better alig=
-ned.
-> +enum dacxx6x_ldac_modes {
-> +	LDAC_MODE_ACTIVE =3D 0,
-> +	LDAC_MODE_INACTIVE =3D 1
-> +};
-A trailing comma would be nice.
-> +
-> +enum dacxx6x_voltage_reference {
-> +	VOLTAGE_REFERENCE_EXTERNAL =3D 0,
-> +	VOLTAGE_REFERENCE_INTERNAL =3D 1
-> +};
-Same here
-> +
-> +enum dacxx6x_supported_device_ids {
-> +	ID_DAC7562,
-> +	ID_DAC7563,
-> +	ID_DAC8162,
-> +	ID_DAC8163,
-> +	ID_DAC8562,
-> +	ID_DAC8563
-> +};
-> +
-Here too.
->=20
-> +struct dacxx6x_state {
-Since the filename is dac8163.c, how about naming the functions/structs/oth=
-er symbols that as well instead of dacxx6x?
-> +	struct spi_device *spi;
-> +
-How about use regmap?
-> +	struct regulator *vref;
-> +	struct gpio_desc *loaddacs;
-> +
-> +	bool internal_ref;
-> +	int vref_uv;
-> +
-> +	unsigned int cached[2];
-> +
-> +	/*
-> +	 * Lock to protect the state of the device from potential concurrent
-> +	 * write accesses from userspace.
-> +	 */
-> +	struct mutex lock;
-> +};
-> +
-> +struct dacxx6x_chip_info {
-> +	const char *name;
-> +	const struct iio_chan_spec channels[2];
-> +};
-> +
-> +#define DACXX6X_CHAN(id, resolution)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +	{=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +		.type =3D IIO_VOLTAGE, .channel =3D (id), .output =3D 1,=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +		.indexed =3D 1, .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW), \
-> +		.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
-> +		.scan_type =3D { .realbits =3D (resolution),=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .shift =3D 16 - (resolution) },=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> +	}
-> +
-> +static const struct dacxx6x_chip_info dacxx6x_chip_info_table[6] =3D {
-> +	[ID_DAC7562] =3D {
-> +		.name =3D "dac7562",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 12),
-> +			DACXX6X_CHAN(1, 12),
-> +		}
-> +	},
-> +	[ID_DAC7563] =3D {
-> +		.name =3D "dac7563",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 12),
-> +			DACXX6X_CHAN(1, 12),
-> +		}
-> +	},
-> +	[ID_DAC8162] =3D {
-> +		.name =3D "dac8162",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 14),
-> +			DACXX6X_CHAN(1, 14),
-> +		}
-> +	},
-> +	[ID_DAC8163] =3D {
-> +		.name =3D "dac8163",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 14),
-> +			DACXX6X_CHAN(1, 14),
-> +		}
-> +	},
-> +	[ID_DAC8562] =3D {
-> +		.name =3D "dac8562",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 16),
-> +			DACXX6X_CHAN(1, 16),
-> +		}
-> +	},
-> +	[ID_DAC8563] =3D {
-> +		.name =3D "dac8563",
-> +		.channels =3D {
-> +			DACXX6X_CHAN(0, 16),
-> +			DACXX6X_CHAN(1, 16),
-> +		}
-> +	},
-> +};
-> +
-> +static int dacxx6x_read_raw(struct iio_dev *indio_dev,
-> +			=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan, int *val,
-> +			=C2=A0=C2=A0=C2=A0 int *val2, long mask)
-> +{
-> +	struct dacxx6x_state *st;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		st =3D iio_priv(indio_dev);
-Could this be assigned  before the switch?
-> +		mutex_lock(&st->lock);
-> +		*val =3D st->cached[chan->channel];
-> +		mutex_unlock(&st->lock);
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		st =3D iio_priv(indio_dev);
-> +		*val =3D st->vref_uv / MILLI; /* vref in mV */
-> +		*val2 =3D chan->scan_type.realbits;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int dacxx6x_write_reg(struct dacxx6x_state *st, int reg, int addr=
-,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int val)
-> +{
-> +	u8 tx[3];
-> +
-> +	tx[0] =3D COMMAND_SET(reg, addr);
-> +	tx[1] =3D (val >> 8) & 0xff;
-How about put_unaligned_be16?
->=20
-> +	tx[2] =3D val & 0xff;
-> +
-> +	return spi_write(st->spi, tx, sizeof(tx));
-> +}
-> +
-> +static int dacxx6x_write_raw(struct iio_dev *indio_dev,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 struct iio_chan_spec const *chan, int val,
-> +			=C2=A0=C2=A0=C2=A0=C2=A0 int val2, long mask)
-> +{
-> +	struct dacxx6x_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &st->spi->dev;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		dev_dbg(dev, "%s: val=3D%d val2=3D%d\n", __func__, val, val2);
-> +		if (val2 !=3D 0)
-> +			return -EINVAL;
-> +
-> +		if (val < 0 || val >=3D BIT(chan->scan_type.realbits))
-> +			return -EINVAL;
-> +
-> +		mutex_lock(&st->lock);
-> +		int ret =3D dacxx6x_write_reg(st, CMD_WRITE_UPDATE, chan->channel,
-> +					=C2=A0=C2=A0=C2=A0 (unsigned int)val
-> +						=C2=A0=C2=A0=C2=A0 << chan->scan_type.shift);
-This case should be enclosed { }. Also, Use guard() from "cleanup.h" instea=
-d of manual mutex lock/unlock. Here and in
-other places.
-> +
-> +		if (!ret)
-> +			st->cached[chan->channel] =3D val;
-> +		mutex_unlock(&st->lock);
-> +		return ret;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct iio_info dacxx6x_iio_info =3D {
-> +	.write_raw =3D dacxx6x_write_raw,
-> +	.read_raw =3D dacxx6x_read_raw
-Trailing comma here
-> +};
-> +
-> +static int dacxx6x_probe(struct spi_device *spi)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct dacxx6x_state *st;
-> +	const struct dacxx6x_chip_info *info;
-> +	int ret;
-Sort these in a reverse christmas tree order.
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&spi->dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	st =3D iio_priv(indio_dev);
-> +	st->spi =3D spi;
-> +	spi_set_drvdata(spi, indio_dev);
-> +
-> +	st->loaddacs =3D devm_gpiod_get_optional(&spi->dev, "ti,loaddacs",
-> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GPIOD_OUT_LOW);
-Vendor prefixes are not needed here.
-> +	if (IS_ERR(st->loaddacs))
-> +		return PTR_ERR(st->loaddacs);
-> +
-> +	st->internal_ref =3D
-> +		device_property_read_bool(&spi->dev, "ti,internal-ref");
-> +
-> +	if (!st->internal_ref) {
-> +		st->vref =3D devm_regulator_get(&spi->dev, "vref");
-> +		if (IS_ERR(st->vref))
-> +			return PTR_ERR(st->vref);
-Maybe use return dev_err_probe?
-> +
-> +		ret =3D regulator_enable(st->vref);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	mutex_init(&st->lock);
-use devm_mutex_init.
-> +
-> +	if (st->internal_ref) {
-> +		st->vref_uv =3D 2500000; /* 2.5V internal reference */
-A note on where this value came from or why this was chosen, or a reference=
- to datasheet would be better.
-> +	} else {
-> +		st->vref_uv =3D regulator_get_voltage(st->vref);
-> +		if (st->vref_uv < 0) {
-> +			ret =3D st->vref_uv;
-> +			goto err;
-> +		}
-> +	}
-> +
-You have a CMD_SOFT_RST defined but not used. Should this be used to reset =
-before doing any configuration?
-> +	gpiod_set_value(st->loaddacs, 0);
-> +
-> +	ret =3D dacxx6x_write_reg(st, CMD_LDAC_MODE, 0,
-> +				FIELD_PREP(LDAC_MODE_CHANNEL_A_MASK, LDAC_MODE_INACTIVE) |
-> +				FIELD_PREP(LDAC_MODE_CHANNEL_B_MASK, LDAC_MODE_INACTIVE));
-> +
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	ret =3D dacxx6x_write_reg(st, CMD_SEL_REFERENCE, 0,
-> +				FIELD_PREP(VOLTAGE_REFERENCE_MASK, st->internal_ref));
-> +
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	info =3D spi_get_device_match_data(spi);
-> +
-> +	indio_dev->name =3D info->name;
-> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> +	indio_dev->info =3D &dacxx6x_iio_info;
-> +	indio_dev->channels =3D info->channels;
-> +	indio_dev->num_channels =3D 2;
-use ARRAY_SIZE(info->channels) and include linux/array_size.h
-> +
-> +	ret =3D iio_device_register(indio_dev);
-Use devm_iio_device_register
-> +	if (ret)
-> +		goto err;
-> +
-> +	return 0;
-> +
-> +err:
-> +	if (!st->internal_ref)
-> +		regulator_disable(st->vref);
-> +	mutex_destroy(&st->lock);
-> +	return ret;
-> +}
-> +
-> +static void dacxx6x_remove(struct spi_device *spi)
-> +{
-> +	struct iio_dev *indio_dev =3D spi_get_drvdata(spi);
-> +	struct dacxx6x_state *st =3D iio_priv(indio_dev);
-> +
-> +	iio_device_unregister(indio_dev);
-Using devm would help here too. No need to unregister manually
-> +	mutex_destroy(&st->lock);
-> +	if (!st->internal_ref)
-> +		regulator_disable(st->vref);
-> +}
-> +
-> +#define DACXX6X_COMPATIBLE(of_compatible, id)=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> +	{=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> +		.compatible =3D of_compatible,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
-> +		.data =3D &dacxx6x_chip_info_table[id] \
-> +	}
-> +
-> +static const struct of_device_id dacxx6x_of_match[] =3D {
-> +	DACXX6X_COMPATIBLE("ti,dac7562", ID_DAC7562),
-> +	DACXX6X_COMPATIBLE("ti,dac7563", ID_DAC7563),
-> +	DACXX6X_COMPATIBLE("ti,dac8162", ID_DAC8162),
-> +	DACXX6X_COMPATIBLE("ti,dac8163", ID_DAC8163),
-> +	DACXX6X_COMPATIBLE("ti,dac8562", ID_DAC8562),
-> +	DACXX6X_COMPATIBLE("ti,dac8563", ID_DAC8563),
-> +	{}
-{} should have a space "{ }"
-> +};
-> +MODULE_DEVICE_TABLE(of, dacxx6x_of_match);
-> +
-> +static const struct spi_device_id dacxx6x_id_table[] =3D {
-> +	{ "dac7562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7562] },
-> +	{ "dac7563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC7563] },
-> +	{ "dac8162", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8162] },
-> +	{ "dac8163", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8163] },
-> +	{ "dac8562", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8562] },
-> +	{ "dac8563", (kernel_ulong_t)&dacxx6x_chip_info_table[ID_DAC8563] },
-> +	{}
-Same here
-> +};
-> +
-> +MODULE_DEVICE_TABLE(spi, dacxx6x_id_table);
-> +
-> +static struct spi_driver dacxx6x_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "ti-dacxx6x",
-Name doesn't need vendor prefix.
-> +		.of_match_table =3D dacxx6x_of_match,
-> +	},
-> +	.probe =3D dacxx6x_probe,
-> +	.remove =3D dacxx6x_remove,
-> +	.id_table =3D dacxx6x_id_table,
-> +};
-> +
-No space here.=20
-> +module_spi_driver(dacxx6x_driver);
-> +
-> +MODULE_AUTHOR("Lukas Metz <lukas.metz@gmx.net>");
-> +MODULE_DESCRIPTION("Texas Instruments 12/14/16-bit 2-channel DAC driver"=
-);
-> +MODULE_LICENSE("GPL");
+On 6/23/26 11:16, Flaviu Nistor wrote:
+> On Mon Jun 22, 2026 at 7:29 PM CEST, Javier Carrasco wrote:
+>> On Mon Jun 22, 2026 at 2:21 PM CEST, Flaviu Nistor wrote:
+>>> Add support for an optional label property similar to other hwmon devices
+>>> This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
+>>> distinct names to each instance.
+>>>
+>>> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+>>> ---
+>>>   .../devicetree/bindings/hwmon/amphenol,chipcap2.yaml         | 5 +++++
+>>>   1 file changed, 5 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.ya=
+>> ml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+>>> index 17351fdbefce..f00b5a4b14dd 100644
+>>> --- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+>>> +++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
+>>> @@ -33,6 +33,10 @@ properties:
+>>>     reg:
+>>>       maxItems: 1
+>>>
+>>> +  label:
+>>> +    description:
+>>> +      A descriptive name for this channel, like "ambient" or "psu".
+>>> +
+>>>     interrupts:
+>>>       items:
+>>>         - description: measurement ready indicator
+>>> @@ -72,6 +76,7 @@ examples:
+>>>                            <5 IRQ_TYPE_EDGE_RISING>,
+>>>                            <6 IRQ_TYPE_EDGE_RISING>;
+>>>               interrupt-names =3D "ready", "low", "high";
+>>> +            label =3D "somelabel";
+>>>               vdd-supply =3D <&reg_vdd>;
+>>>           };
+>>       };
+>>
+>> Hello Falviu, thank you for your patch.
+>>
+> 
+> Hello Javier, thanks for your reply.
+> 
+>> Should we not add a reference to hwmon-common.yaml (with
+>> unevelautedProperties instead of additionalProperties), as label is
+>> defined there? I believe that Krzysztof Kozlowski did something similar
+>> for the shunt-resistor-micro-ohms property. Could we follow suit here?
+>>
+> 
+> This is a good question and I am happy you asked. I also thought a lot
+> about this and the reason I decided to go for this approach is that by using
+> $ref: hwmon-common.yaml#, I would have to change additionalProperties: false
+> to unevaluatedProperties: false, which will evaluate in case it is used, also
+> shunt-resistor-micro-ohms property which does not apply to this sensor. At
+> least this is my understanding, but of course I can be wrong (I see lm75 binding
+> also uses $ref: hwmon-common.yaml# but shunt-resistor-micro-ohms does not apply).
+> 
 
-Thanks
-Sirat
+Where does the idea come from that shunt-resistor-micro-ohms would be mandatory ?
+That would make hwmon-common.yaml unusable for most chips.
+
+Guenter
+
+>> I am also not a big fan of a name like "somelabel", and a more
+>> meaningful name from a "real" example would look better. I know that
+>> some examples have already used "somelabel" as an example, but others
+>> have used more meaningful names too.
+>>
+> 
+> I will have to send a v2 since for the label property description I used
+> "channel" instead of "sensor" (detected by Sashiko AI review), so I can
+> use in the example section a more meaningful name like "Room" if no other
+> suggestion.
+> 
+>> Best regards,
+>> Javier Carrasco
+> 
+> Best regards,
+> Flaviu Nistor
+> 
+
