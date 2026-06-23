@@ -1,149 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425DD3A48D9
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B4F3955EC
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782246792; cv=none; b=LyRwBkbaOh5z+OV69c3PVmP/mg9D1+LwZmqDYu1Zp4o18/T0BETvSESKUBB0/lLnUKiFhkoFr3K5u0tqoFpccfrXVDwsECb1Wkf7fkipOa5GOEI5ANtOeI+qlGULkF8KHAXMABRX/oQE/cFrf7cdx5eSgzGzfjVaTv7mJHefT2g=
+	t=1782247036; cv=none; b=c0HT4seTbuBJL69nr7w3bp1PPItFV1xYngzk/fxPiF0NktN/Z6hLv4iw1pCVUO9GmctuIBB2HP1mSm9ENRSepPfQsuKRqc4Y4IMZfrqoMGg8V5TdeCVpQ+0dpemiejCR40WyCDzMrQ8hte13RF7OapP2HmELDwDZLDW4mHkkTTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782246792; c=relaxed/simple;
-	bh=gy9NDIlq+O2lXbakvWdh/tzq3nsg72CvKEQQb68ald4=;
+	s=arc-20240116; t=1782247036; c=relaxed/simple;
+	bh=s9olxSfOOO2WJGRrZPv/MUrnjPWCYK2+cioNICcdRno=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ANErgSDI4X0N0OEGlmCNQb8lSUCKSxXvw+ODKyPfBl/9kxMkjwvQ20rwqzS0n/9/EttVcAR/pXKhGxQrla6BIam7VhFm2RuKA7GDtx5micql85VTzoK8VlAu8tIsphxoSoaS5B5V9Iy879RJq3/CoZK3tKNNB1IAeWMzixG/ZTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BeqZUh50; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XbXmxfPWC56iKVUFRb7ASZbMq/KyqcoBn63dbjZxyAifqI/sHtTZYcQO/LLeO2SyRF5o1t8MBgHOLKU0l7YOuJP6ihxyrFLPtddicNbJ4VmWh8jK4CriyDLxs749OkxaMvGA/BQWZYiYJnHfEnJo57l7TIL9DxATGp4ipDXN+9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI5FM0sp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BeqZUh50"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8C81F000E9;
-	Tue, 23 Jun 2026 20:33:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI5FM0sp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD151F000E9;
+	Tue, 23 Jun 2026 20:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782246790;
-	bh=TLk0sCP9g8Hb5W2660tfp4hE/wMoOUvU5+RyvkNByD8=;
+	s=k20260515; t=1782247035;
+	bh=Li6xbg/V83Rks1Bkfq2CEL6SwT7EnyIuPl2BL5bWe2E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BeqZUh50QfKXwW3gumbF3bCW3vnUf3X9/9get8ppLhKcZdaBVPwkYRIQPr+cuWAwB
-	 hwMApar/siqJU/dTc7Inzoo7NWy3Bfyxjr92prvEvDdh+Io583LFDIugtyt7YOwmZv
-	 FAjsZw5lih8hvOKTNXRxAto+FMVVodzyUItqSdcyGh3hVCmNJsZO23lgDl9vwVOiKZ
-	 4arM1dW/i3bwHVhWmhMA7noIzCGBYLGR/HL5oVgr9GuT7BUpk0LKSVY/RbXW+TA8R4
-	 hneJpiGEd5eVnAm0vAgcMKJ4KFW47ifL1vYQOCSwGzgQVz16yPp2pLk33wfTADYY1P
-	 uvSp2Xi343iGA==
+	b=gI5FM0spp6rSlaoycupWq3QEUVYtoXpqPSPnD3b1bqtTyiHFlYVPAxyhFJ2f4S4/s
+	 XkTChjVAE2uIAUmFFBK7tg+LJINdd08TCAAkuGzRvS6DfXbfOtpaUXMZrk38DcbAjZ
+	 iHNk4kbGCkdWkRPKLZjxF+VDkVIOD87JCbHbC/nXbhmH1t+KBHZt/Rglh401UEpTNO
+	 gt3X2z3/UEEtXIbYIpoeWK5+19zLBPqsw245SST4NQ8CUU5tTgqtqPT63KxHDELiNH
+	 BxI+3foQzcyxhKvcv+B3DlmzzoEU/a+b/eWpiwYFy5lw9wo5xMUuyqwXZ3sEteNy0V
+	 l0PEwwKVln3tQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/9] drm/rockchip: vop2: Avoid DCLK source switch for
- 10-bit YUV422 output
+Subject: Re: [PATCH v5 6/7] arm64: dts: renesas: sparrow-hawk: Enable
+ DisplayPort by adding DSC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260617-dw-hdmi-qp-yuv-v1-3-a665cfd06d7d@collabora.com>
-References: <20260617-dw-hdmi-qp-yuv-v1-0-a665cfd06d7d@collabora.com>
- <20260617-dw-hdmi-qp-yuv-v1-3-a665cfd06d7d@collabora.com>
+To: "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260615-rcar-du-dsc-v5-6-aed1a28610e4@ideasonboard.com>
+References: <20260615-rcar-du-dsc-v5-6-aed1a28610e4@ideasonboard.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 20:33:10 +0000
-Message-Id: <20260623203310.9F8C81F000E9@smtp.kernel.org>
+Date: Tue, 23 Jun 2026 20:37:14 +0000
+Message-Id: <20260623203714.BBD151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Division by zero in max_dclk calculation due to uninitialized outp=
-ut_bpc.
-- [High] Integer overflow in max_dclk calculation on 32-bit architectures.
-- [High] Atomic context violation due to calling sleeping functions.
+- [High] The rcar_dsc driver ignores the `resets` property from the DT bind=
+ing, failing to deassert the DSC hardware module's reset state.
 --
 
-commit cdb8cbbc3fd201db3157d6704b3856b8565e10e2
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+commit a8616c71b764dc9fa4ae244e47795371e7fead44
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-drm/rockchip: vop2: Avoid DCLK source switch for 10-bit YUV422 output
-   =20
-The commit modifies the DCLK source decision logic for HDMI output in VOP2.
-It prevents unnecessary switching of the DCLK source to the system CRU for
-10-bit YUV422 output by forcing the bandwidth check to 8 bpc.
+drm/rcar-du: dsc: Add rudimentary Renesas R-Car V4H DSC driver
 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/d=
-rm/rockchip/rockchip_drm_vop2.c
-> index 2833fb49ad81a..17d21e08ad977 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -1922,8 +1922,17 @@ static void vop2_crtc_atomic_enable(struct drm_crt=
-c *crtc,
+This commit introduces a rudimentary DSC bridge driver for the Renesas R-Car
+V4H SoC. The driver functions as a pass-through to enable the DSI1 pipeline
+and performs VESA DSC encoding.
 
-[Severity: High]
-This is a pre-existing issue, but does this function violate atomic context
-rules?
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c b/drivers/gpu/drm=
+/renesas/rcar-du/rcar_dsc.c
+> new file mode 100644
+> index 0000000000000..362e683289d69
+> --- /dev/null
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_dsc.c
 
-According to the DRM subsystem guidelines, CRTC atomic enable callbacks exe=
-cute
-in atomic context where sleeping is forbidden. However, vop2_crtc_atomic_en=
-able()
-acquires a mutex via vop2_lock() and later calls clk_prepare_enable(), both=
- of
-which can sleep.
+[ ... ]
 
-Can this cause scheduling while atomic warnings or deadlocks during atomic
-commits?
-
->  	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
->  	 */
->  	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
-> -		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
-8,
-> -							       vcstate->output_bpc);
-> +		/*
-> +		 * YUV422 always transmits two 12-bit components per clock
-> +		 * cycle, regardless of the color depth, which from a rate
-> +		 * perspective is equivalent to three 8-bit RGB components.
-> +		 * Force 8 bpc here so the bandwidth check reflects the actual
-> +		 * TMDS rate and avoids an unnecessary DCLK source switch.
-> +		 */
-> +		unsigned int bpc =3D vcstate->output_mode =3D=3D ROCKCHIP_OUT_MODE_YUV=
-422 ?
-> +					8 : vcstate->output_bpc;
-> +		unsigned long max_dclk =3D DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * =
-8, bpc);
+> +static int rcar_dsc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct rcar_dsc *dsc;
+> +	int ret;
+> +
+> +	dsc =3D devm_drm_bridge_alloc(dev, struct rcar_dsc, bridge,
+> +				    &rcar_dsc_bridge_ops);
+> +	if (IS_ERR(dsc))
+> +		return PTR_ERR(dsc);
+> +
+> +	platform_set_drvdata(pdev, dsc);
+> +
+> +	dsc->dev =3D &pdev->dev;
+> +
+> +	dsc->bridge.next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node,
+> +								1, 0);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but can bpc be 0 here and cause a
-division by zero?
+Does this driver fail to retrieve and deassert the DSC module's hardware re=
+set
+state?
 
-If the VOP2 driver is used with a non-HDMI output like DSI or LVDS on a boa=
-rd
-that also has an HDMI PHY, vop2->pll_hdmiphy0 or vop2->pll_hdmiphy1 will be
-non-NULL. Since DSI/LVDS encoders do not set vcstate->output_bpc, it defaul=
-ts
-to 0.
+If the reset control isn't retrieved and deasserted, the DSC hardware module
+will remain in a reset state, breaking the display pipeline functionality. =
+It
+might coincidentally work if the bootloader has already deasserted the rese=
+t,
+but could fail on suspend/resume or when the bootloader does not initialize
+the display.
 
-This would lead to DIV_ROUND_CLOSEST_ULL(..., 0) before the loop checks if
-the endpoint is HDMI.
+Should the driver use devm_reset_control_get_exclusive() here and deassert
+the reset state during probe?
 
-[Severity: High]
-This is also a pre-existing issue, but does VOP2_MAX_DCLK_RATE * 8 overflow=
- on
-32-bit architectures?
-
-VOP2_MAX_DCLK_RATE is defined as 600000000UL. On architectures where
-unsigned long is 32 bits, 600000000UL * 8 equals 4,800,000,000, which excee=
-ds
-ULONG_MAX.
-
-This truncates to 505,032,704 before being promoted to unsigned long long i=
-nside
-DIV_ROUND_CLOSEST_ULL, improperly forcing higher resolutions to fall back t=
-o the
-system CRU.
-
-Should this be cast to a 64-bit type first, such as VOP2_MAX_DCLK_RATE * 8U=
-LL?
-
->  		if (clock <=3D max_dclk) {
->  			drm_for_each_encoder_mask(encoder, crtc->dev, crtc_state->encoder_mas=
-k) {
->  				struct rockchip_encoder *rkencoder =3D to_rockchip_encoder(encoder);
+> +	if (IS_ERR(dsc->bridge.next_bridge))
+> +		return PTR_ERR(dsc->bridge.next_bridge);
+> +
+> +	dsc->bridge.of_node =3D dev->of_node;
+> +
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	ret =3D devm_drm_bridge_add(dev, &dsc->bridge);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260617-dw-hdmi-qp=
--yuv-v1-0-a665cfd06d7d@collabora.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260615-rcar-du-ds=
+c-v5-0-aed1a28610e4@ideasonboard.com?part=3D6
