@@ -1,196 +1,142 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D0F37BE7C
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05413A7F45
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782214088; cv=none; b=jW+OZxp99aaBIj8XjsvAoJFvVqkAJhiHDWqkmf8x2qjab3EUhumoqnQlYHOOXnoE0gt6PpvH3C2Itur5/uro9cDovKOJBWm27GB/GjcgSEn9kVTFM/rw9P9/I9uBOLAj1okFoFgpd9l1luixbJnt5n3kosjPn3XQKabvvMU6Owg=
+	t=1782214104; cv=none; b=C2FsFf0f+a+WnSuwvlgpKGyQdIrEnpSAvXVaSk/XL1/N/cqGw4mI6FJ4e+nsjYygW3GTgqckPGq3NepcwJ9feuv3MRsx39Z9gU8ZAxc0eqj2xxkmPw5gN4rxHn0GkpYW4v2Vsl/nRHKog7upntzBVoTmTXu/2Gi3URpYfihmwCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782214088; c=relaxed/simple;
-	bh=0JW0N3Q4UlyE0reK4VigsjGA+015U3nhEVQ43DeE6tQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kxWm6EUGU4rUiwScXyQksAqzOG2UGtpaqHJE4HZP7mh5JsNHBpI/Wxys8ZpUbKMN7IaM+lcU9gFFGr9pqcoiarUydCEry/x7LCuwTQv13x/f3OokFY5btmATzuUu1665JghK4hNNhqNkAn16OFb9uhbbFQb8Y4ih9UE0ttLKuJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CbMpPu4W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f5cqbli+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782214104; c=relaxed/simple;
+	bh=Hh/LRAxeEQIMUMuvMagzkxbkxylrS/4NwsNs6dpo6hU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FlHr16fr5bjd0ZScGpd1Plr/HJpi9xcoAVe3USgYdmys8Rz82NEgLEK8Sk2YAr9D89k44fGggCG0/6MtMT59ys7MVVWHYn6ZYhUK0Gv878PrR2Un6KihwK8DMqbm9HcIOS4qyTs4pFcjvDyIMNRuvNrDDYrSCWDuhAdILzdTaoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cVmp/729; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CbMpPu4W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f5cqbli+"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NAsLJM4134475
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:28:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=5VWldt/+uc2oUyaeqdyF9lfgKwjuBPX1Pj+
-	C0OR0h08=; b=CbMpPu4W0H/XVEcKz9EIVW0RTzWydISDlBHWgYvB8of4e/WBecH
-	uRSIblKddWiqdvBymM19raBEJeCp9nbKorcUPcI0bLOF3HOsp4Qw7u+bkIKPLWr4
-	4qWDIwWSpxlxy4RltVFVWmEUMRv2Sp2XN61W6y3tsIp6gDFBbu0fQ/C4ilKJepp7
-	7VFfLU1D1gmiamfeKmlTJppqxp8oCuAMu6Q19wsGc1hjo3mTlK8/kWk7F/SjhbbX
-	v/9mdyg2n19psibdBRkH3OaiXkHo5WmPjL8VLjmRwVGVHTPoNAby+E/bBQ6P39xq
-	P6QSQn1MdhUe8xDL1BgGiG95DuCehkJMsEQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eyqe68hp2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:28:05 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-91598ab3a1aso685891585a.3
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 04:28:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782214085; x=1782818885; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=5VWldt/+uc2oUyaeqdyF9lfgKwjuBPX1Pj+C0OR0h08=;
-        b=f5cqbli+xeLOD+bnwBDvtrhIFplblLQbeJmaP0u6uZtpNruFCRRAdl2ODqXJMu9brO
-         6ohnzbDXQJ8Mf26D9NGNKcr7o0Ml/deyFuKnXdDu1j87helMk4MEikI0wZN0+1UKagFt
-         VZw0/PtiFlxZhb1mEXO2F4EUpDWP8kD0JQU5X5F6KjoVZPE0IdX/hbTQ/uKn20pL9YRO
-         hf33J/8vIFhbUZMhynhCYCywVV6yvPVDJCDFORPSG5HkoCrEPCvmO2tqSF1RTlKee82l
-         xpi/LnrBo/Yr59LRo+vORu4mcEAfE33wuXQMNdqcNz6gD6qddJBFggY0vnQ3MCL79wIA
-         PxSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782214085; x=1782818885;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5VWldt/+uc2oUyaeqdyF9lfgKwjuBPX1Pj+C0OR0h08=;
-        b=RfyDrD1/sqNkvcILglXHIlL+ESM+4OHkIrxfkBuB9glPKAR6WGoahbdGqvU/wPcM1l
-         p7f4d1sqNNIZijsI4AMG6+UGw0caE2NDTQAJspQBiQOPqZcGoG1xpyKepRWZ6M2SDPNP
-         j/apE1INxJ+lnRZC0mnuV0CtBlvu6DAeBjHc3blyl0lMY+Y22Nyt09Cz70+hiPYmVXO3
-         9rT0iC7DOwnsQEYIGBaGdtS/L/POyq97K2yGfcdJolRPUdUQJi1cYOeKW/uFmAEGL/2z
-         7Dv3y0s5YJ63wop6iSlwgsSbenJxrBn6VDV64N+fohdjbls3OBgnTX92oSogrBYr+Tdy
-         NFiA==
-X-Forwarded-Encrypted: i=1; AFNElJ+A3Tfct4uHPqm8xuvYTcRhntOHs5bXGJDcnNtsyBbgwgDO9oevDeyp8CCUU3b/rCftltUTG69iEtXD@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEhPe9fLA8InKLMhyPy8BEdIC32wxIZR3w1LcrHXg9Y2BYvrHC
-	LmTT4n8WclejhAj1T3aoKRq1259fJSKEWgvP9mlXzBM+T5vNN9WBlA9sZBTP8HiGUHln0AuOGxk
-	a++kbjgspbYz4klQBCuCM5AJoNMxa0alDJyZ6o9aMMltCyHRbOFjfsXaBrc9P6zhW
-X-Gm-Gg: AfdE7cl54rvW8c32qe8BEfozw+u68uTmQ0fHweNJrhZmV4gACVLNvIrlmeXzUcc/GXs
-	kkG6Enee8veXlVY/KCpoTY5NNIuyzZc0ZbEVSmxQAr40n7TVcqdYBC+2L6MHuLxcQIkUmJKhnko
-	A1r9TF+88AoYMHINcDg1rtQ1dz6wNei0hX3bWinUpWc4dqP+xkAWCo+kHo/lQ1wSkgiDtI5BmfW
-	CS8X7XQLkVzXVN6NzqRodfd1pqw2WyWZDaECnfYZym37X+fMDW5qylMzawRrRmJnJ4EHoCqpcE8
-	R9Qr2pyHpP2n/xBx3sSCi1ILqH2YP1QzBdy7GlBzAdmNFLzpwFkcbUKC6C4bgTrUA37MkLzsotq
-	d5XaGrWaHu5BLqUB5/DEnAVqkZHg=
-X-Received: by 2002:a05:620a:6483:b0:915:6437:bc41 with SMTP id af79cd13be357-92645da02ccmr449478285a.15.1782214085054;
-        Tue, 23 Jun 2026 04:28:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:6483:b0:915:6437:bc41 with SMTP id af79cd13be357-92645da02ccmr449472985a.15.1782214084590;
-        Tue, 23 Jun 2026 04:28:04 -0700 (PDT)
-Received: from quoll ([178.197.218.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4923fc47720sm631624255e9.0.2026.06.23.04.28.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 04:28:03 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: eliza: Fix disp_cc_mdss_mdp_clk_src RCG stall on Eliza EVK
-Date: Tue, 23 Jun 2026 13:27:56 +0200
-Message-ID: <20260623112755.317180-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVmp/729"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA781F000E9;
+	Tue, 23 Jun 2026 11:28:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782214103;
+	bh=cRb5IXoCmrNe++7Hxpet5EZShce18Oi1bkBceawwAqM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cVmp/729TdsnIE8yOrM5IGKZSO/92zygvVZ3C36A3MkovelcFrv1+lLCzmSW/bZHU
+	 rnDnrk//qA7TjiSUlL4SjS9Xs06IRaeQjdc8eCaD4a0MadGNtQkogeopFmrMlQMEWI
+	 wXtazgmWio5elRjpFZmZxiSHQ/WHJrpfSXHmDiEMqLuDDPCUNm2a9rRppKo44ZiYUn
+	 YML89rW5VafK6bi+3igSj4TYS6SpcxwJXFvSJYFWtY0auG3Hy6Mrzs/46snetW5PBT
+	 phmcbFCiq2xTbVGQDOl+0WU6BVGoGfrTN3qEq38F0SpAZxY5wZnSDvAGGP19Nksu6C
+	 4bGtb0AwZ0ZwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/12] iio: adc: at91-sama5d2_adc: adapt the driver
+ for sama7d65
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260623105944.128840-4-varshini.rajendran@microchip.com>
+References: <20260623105944.128840-1-varshini.rajendran@microchip.com>
+ <20260623105944.128840-4-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 11:28:22 +0000
+Message-Id: <20260623112823.3AA781F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2259; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=0JW0N3Q4UlyE0reK4VigsjGA+015U3nhEVQ43DeE6tQ=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqOm27YWxVYhku4jfQi1KWy5rqh3uMm/wNgDCK0
- tMZ1BWehsSJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCajptuwAKCRDBN2bmhouD
- 1/hbD/0Ts1iY5FRnzexs+6q38qgX4iwn5lNzupoulP16MTKbuvl1DXyqG240NPgdqW6CHQZIhO1
- hFVbDoTMJrN54s+qXqW/Snjv7WiGs9LoS5Pg54hHF3ygLbDqRhmNff9lJvXGHQLkZKuXIUBgAZb
- tLZ9on0BGCVIKFpWGW2LeLmprva6sXRuXMGURA2OSf5LSHG/T37F90koJBy0FoAy8Gsgk/0yBmw
- ijspbpSdCLkRrdwBAE7z3C6LVJl+nEJLYa9tM8HYcnFZLX4c7sslOdRw5t8vIUEaHk3c9sRkT1R
- EYFELN/m6S48xJzflYqlDbeHYQZAGC7ylLpVGy/UjwyIaPUwN3MlCqlyXu2n+MqA/C/+E07V5FG
- 1Os8g/It4F7Si0FKEdIaXcd7XBkrE9cgqPlwmkWrpF6BTOJrhNaiOpZp54jvVRRvKTGHXnuS+h6
- zDWcWseBRueDVn4ZJl3gJs92/y34JwOAbxN7YVVXDAunmukIToOyVmDzw1ocqJ6Qe7jO82ePfrV
- m7CzbuDRL4yUrcnAKwKnj/DMX3LctUcLjDDvSQ8PeM5jyU605tN+u2MrWDxXf2GEambUOP/pJoQ
- IKk12kFIw0s5Umliv13H4w3j7pYVJz3gjWcG1ObNEIFv6b0vVLORuIl8GpitybJ8L6y/PMnTQoK LzDyiZVae4hk8ZQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 4IHpE_RlAT1esrJ51dVUro7O1AecNxeS
-X-Proofpoint-ORIG-GUID: 4IHpE_RlAT1esrJ51dVUro7O1AecNxeS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA5MyBTYWx0ZWRfX8EZ3yR17iKhr
- BYhREMkZ4X02LKXTO6bD/gqRqnfYHV9J61uH5vETJuwV1buBWJAlzy20WntR2s3DkROgqo0MMbS
- JoiYEuVf6iwEdmegw3l/AiPle2TaLpo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA5MyBTYWx0ZWRfX9zhij4ESSFkx
- 8Lgrlt8oYzYKd+ACO25yuJi4/TJB0UE/EWilJ1+QxKw+Ay8lteCu7RsfGl9/3rkn71PW0NTPQIU
- Pk9jrnL5Jpt2ZJ/giqH2x2T2SR+J0vohcMWMh3YsqQjih9VthLofF9k3n/4Lmzk5Z9bPwuynysj
- Xb9oZrnxWwS3YHm6+fpDWLhd7n77X8VL6MBzGfPDvpt3ZQX+vUYHHn4XUrWV6qmp1G9jonW4l5I
- 0iQEizkAB7XArBXSV8nhWVitE7wuqhovb1aa+Xb9ZWaDrCluJDlUQxToDyxegHt13uxKFNv5W/C
- VyRpcbI6lXdrSIUP/4fvupftZM/ij1hqRE+RQwP8XwQ1NVB32Onmo+0WS9xNOTJtXNW6E48ZFNT
- i4Aqh1DP+8FT8mpgdzmRPYN6ChIzs2zt6A7t3wPo901Hnh4Njw0DctV60vA5gJmSJ2yTiW3epaf
- 2gLTe7PfkV427xIQDKA==
-X-Authority-Analysis: v=2.4 cv=OeKoyBTY c=1 sm=1 tr=0 ts=6a3a6dc5 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=qMZSjPy+XpteAuilWfML4g==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=EhBrT-q2SLtfKhaW8CsA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_02,2026-06-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 spamscore=0 malwarescore=0 adultscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606230093
 
-Eliza EVK (eliza-cqs-evk.dts) does not have display enabled, however its
-Display Clock Controller is enabled and references parent clocks from
-DSI PHYs.  Devices which in base DTSI do not have all required resources
-available (e.g. because they are simply disabled), should not be enabled
-in the first place.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Having DISPCC enabled without DSI PHYs causes clock reparenting issues
-and warning on Eliza EVK:
+Pre-existing issues:
+- [High] Uninitialized touch channel indices incorrectly configure regular =
+channel 0 as a touchscreen channel, breaking IIO buffered reads.
+- [High] Temperature channel scan_index (31) exceeds the defined max_index =
+(25), breaking IIO bitmap validations and hardware triggers.
+--
 
-  disp_cc_mdss_mdp_clk_src: rcg didn't update its configuration.
-  WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+0xd4/0xe4, CPU#1: udevd/273
-  ...
-    update_config (drivers/clk/qcom/clk-rcg2.c:136 (discriminator 2)) (P)
-    clk_rcg2_shared_disable (drivers/clk/qcom/clk-rcg2.c:1471)
-    clk_rcg2_shared_init (drivers/clk/qcom/clk-rcg2.c:1540)
-    __clk_register (drivers/clk/clk.c:3959 drivers/clk/clk.c:4368)
-    devm_clk_hw_register (drivers/clk/clk.c:4448 (discriminator 1) drivers/clk/clk.c:4672 (discriminator 1))
-    devm_clk_register_regmap (drivers/clk/qcom/clk-regmap.c:104)
-    qcom_cc_really_probe (drivers/clk/qcom/common.c:418)
-    qcom_cc_probe (drivers/clk/qcom/common.c:445)
-    disp_cc_eliza_probe (dispcc-eliza.c:?) dispcc_eliza
-    platform_probe (drivers/base/platform.c:1432)
+commit 2d567bf99b76168b7ea132082c84ddd5029c1706
+Author: Varshini Rajendran <varshini.rajendran@microchip.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-mtp.dts | 4 ++++
- arch/arm64/boot/dts/qcom/eliza.dtsi    | 1 +
- 2 files changed, 5 insertions(+)
+iio: adc: at91-sama5d2_adc: adapt the driver for sama7d65
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-index 7b42e37e5bf8..28063e952f69 100644
---- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-@@ -425,6 +425,10 @@ vreg_l7k: ldo7 {
- 	};
- };
- 
-+&dispcc {
-+	status = "okay";
-+};
-+
- &gpi_dma1 {
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index aa72d5f042a7..5b62272e242f 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -3220,6 +3220,7 @@ dispcc: clock-controller@af00000 {
- 			#clock-cells = <1>;
- 			#reset-cells = <1>;
- 			#power-domain-cells = <1>;
-+			status = "disabled";
- 		};
- 
- 		videocc: clock-controller@aaf0000 {
--- 
-2.53.0
+Add support for sama7d65 ADC. The differences are highlighted with the
+compatible. The calibration data layout is the main difference.
 
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
+ma5d2_adc.c
+> index b569d175f4c3d..237d339f342a1 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
+[ ... ]
+> @@ -768,6 +778,24 @@ static const struct at91_adc_platform sama7g5_platfo=
+rm =3D {
+>  	.temp_calib_layout =3D &sama7g5_temp_calib,
+>  };
+> =20
+> +static const struct at91_adc_platform sama7d65_platform =3D {
+> +	.layout =3D &sama7g5_layout,
+> +	.adc_channels =3D &at91_sama7g5_adc_channels,
+> +	.nr_channels =3D AT91_SAMA7G5_SINGLE_CHAN_CNT +
+> +		       AT91_SAMA7G5_DIFF_CHAN_CNT +
+> +		       AT91_SAMA7G5_TEMP_CHAN_CNT,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but inherited from the SAMA7G5
+implementation. Does omitting the touch channel indices cause an issue for
+channel 0?
+
+By omitting touch_chan_x and similar fields, they default to 0. Later,
+during probe, this zero-initialized value is used:
+
+at91_adc_probe() {
+    ...
+    bitmap_set(&st->touch_st.channels_bitmask,
+               st->soc_info.platform->touch_chan_x, 1);
+    ...
+}
+
+Will this cause the driver to incorrectly set bit 0 in the touchscreen
+bitmask, diverting regular channel 0 captures into the touchscreen logic
+and breaking IIO buffered reads for that channel?
+
+> +	.max_channels =3D ARRAY_SIZE(at91_sama7g5_adc_channels),
+> +	.max_index =3D AT91_SAMA7G5_MAX_CHAN_IDX,
+
+[Severity: High]
+This is also a pre-existing issue inherited from the SAMA7G5 implementation,
+but does this max_index configuration conflict with the temperature channel?
+
+The max_index is configured to 25 (AT91_SAMA7G5_MAX_CHAN_IDX), but the
+temperature channel has a scan_index of 31. This mismatch appears to break
+IIO bitmap validations and hardware triggers.
+
+For instance, in the hardware enablement path:
+
+at91_adc_active_scan_mask_to_reg() {
+    ...
+    for_each_set_bit(bit, indio_dev->active_scan_mask,
+                     indio_dev->num_channels) {
+    ...
+    return mask & GENMASK(st->soc_info.platform->nr_channels, 0);
+}
+
+This applies a 26-bit mask, which permanently ignores the temperature chann=
+el
+at index 31. Does this structurally break the temperature channel for IIO
+buffered reads by causing the core to expect data that the driver never
+fetches?
+
+> +	.hw_trig_cnt =3D AT91_SAMA7G5_HW_TRIG_CNT,
+> +	.osr_mask =3D GENMASK(18, 16),
+> +	.oversampling_avail =3D { 1, 4, 16, 64, 256, },
+> +	.oversampling_avail_no =3D 5,
+> +	.chan_realbits =3D 16,
+> +	.temp_sensor =3D true,
+> +	.temp_chan =3D AT91_SAMA7G5_ADC_TEMP_CHANNEL,
+> +	.temp_calib_layout =3D &sama7d65_temp_calib,
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623105944.1288=
+40-1-varshini.rajendran@microchip.com?part=3D3
