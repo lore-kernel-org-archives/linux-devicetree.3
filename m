@@ -1,64 +1,65 @@
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com [209.85.221.67])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C0838D3F4
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F64385D99
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782224998; cv=none; b=qMIWHSRhrxDTkNGC+hPmuQ+MDQgTjrhAjqIfIu1IJmhUYHIdBTG8UBAeDAt/dvvgO4TObhsqFqjue3hXl1ZtMyKw2t47vznA0Gg3EXEhDpoLf+56yPguF7m+gm9aDXpB6NyRUIg/w/qtv8nKS7CMCgdnPpiV76bV3lR1sK1SP0k=
+	t=1782225001; cv=none; b=AnGPb8LFmG0RvkyFjql2H/wNfn35x4vIK2D1EIe5NQzMlUD/tx2BQIJOv+X/tc7Ey/tU9A0L35Wdcp2MbZdpqzazjCHMjAOVRLhafomivXuOTzh/X928qs0zoEG9ivmLoGPnCQlYi9mD8ot3/YDjP3d44Jm6ydLdN31b/ltfHfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782224998; c=relaxed/simple;
-	bh=ClRTXFBwIBwnvAlDoFKopCEaejgk+0ezfkPZbcLbTyI=;
+	s=arc-20240116; t=1782225001; c=relaxed/simple;
+	bh=v1FBGkXnHfQv5BSJ1xkMgDQFKe1pyB8IwLLqyphSqLg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qrgNBRJAGWAGSyRMEvvD9SQsvBznN9X5sQhJGUTrJnU6lnqsQM3n+yOvFZ7Nhz8VjjbRoHhLFmxz+ePbzmzdwJ0en9iPGPOKYQjTTJvirajRlwZNreId6On8Z90JIE9go34Qbgx5w3GR6zqt4Fc9ygfXv1tb2Fi/2mur8orJHfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=A8Zdegx9; arc=none smtp.client-ip=209.85.221.67
+	 MIME-Version:Content-Type; b=bLX37kDpJvwQLT0rB8CJ7ir04WQ/n28e3sSAXSKVSnbBVSuFzsjB+D7z1/+h/Hbj4ZVsF/OxoH+SSJKuYVW1+bQlqTf9Thk/JBGwT9oo+bDkVDeOa7ULX6rKC3NIvzWbwv5wQeheEXBuP0otMt2Pyz6FeL/+tfF9f3wfBHOx2zM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=HyifI0+5; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="A8Zdegx9"
-Received: by mail-wr1-f67.google.com with SMTP id ffacd0b85a97d-462ebd5d37dso5524416f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:29:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="HyifI0+5"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso39574615e9.2
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:30:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1782224995; x=1782829795; darn=vger.kernel.org;
+        d=9elements.com; s=google; t=1782224999; x=1782829799; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FzFl26ddi0jEQXsVe9q4+m4rXNgAUesMeoLcq3/Soy8=;
-        b=A8Zdegx9MZ2djBYNTYg2UNkyLgS3Fg3qFZoiJ/8fF7euJ+F48pMH/M35qXa3OU0I7z
-         3PXOtSUMwzIeS2YIVXtzWrimadcMrvRXrK+4A4F8eIR1fNH5RfYuh46+20+XXTy0cWj7
-         WZboUOcrf45tS5s8fIS+TGR137sasE1CqC8zF+mmE/oSGYHkdqxqFTJRocFxUUDe0qhi
-         n6Zv+I8YEGXqMoS9wpZbiK/ZCXW5kjevvoGLybEDlrf8iAxlFDCXcHQ7go9RWbXN414M
-         Kf+W2Dmra3WaVWQ3WuQnmv2C4q1JjkDAoxFE6H0HisApmf+yrRbKOEZ0x2gBGL+Qdu2+
-         0lxQ==
+        bh=w0YQhBtC/ubH1Q0Mrdh/TGxhsAQ0oS6iny3Z+QMvfNE=;
+        b=HyifI0+5YDrk5TbehOn5L3QaO+Z0Fq9tyJJiRGYOJ9Y+VTwTtxEJt8TYDPIj34M6qZ
+         UzAUq3c3t8M9/UFbhTcXi/VF0jUnImkW0cc1yramX7cAfd4EduBQM8U0LbkAcKJP8+iH
+         MQDePovMVdk2tmHVSs5GlL3b4AXTyeu/RLcLGH0BAPMG/I1oNNwnCbFfSqhWQTcjrnXx
+         iLIeIfv5XWNyEhej1wT7JSmDV00gOPV5OjDHweYQObDvuFMXW5nj93lAl4E2z6UXQCCf
+         IP24L2U4XehpF0rDs9OYUx73OvgRfs6SLJivecnF1CkorBKjZK2REFtlS3098H7xh2NQ
+         Qrwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782224995; x=1782829795;
+        d=1e100.net; s=20251104; t=1782224999; x=1782829799;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FzFl26ddi0jEQXsVe9q4+m4rXNgAUesMeoLcq3/Soy8=;
-        b=TGv4Ecr0XC3wldT4ChoyEk9JgtQBONWaVH4IkG8ygyMv1uZ/OrohSju+fHx7WMDsMl
-         zjCabfGXnqggyYiSigy76zm3Il7uJC6OFXbC8eQ7wxx2ATl35JjTJf+gH/6NcIqE+1K9
-         FIWBHzXXpDBOQVfj9epxXdgN7Jd7c6vaH5SOH9Tndz6bYnkLM8kj8XpFIZyvnSy/pbIs
-         CgOfTMuoy2e3UJWjK9Spkms20HbVkedWSkHNCo5y4O0o/v6sDLfShK5almmy1gazxH0J
-         IUBOsaMdzcK9p2lXdogT1QwUulsL7b6THH9JKz/59Dlx/QaM1DOHDDmI9bAGwpdnhaUs
-         Uu4w==
-X-Forwarded-Encrypted: i=1; AFNElJ+1kG+v3aL5m89TUVoDQyOFwxKgPCmcDNGW1Uq1a4+ffQAXD2xB5XWhlL2gTAjaqDe5prKJjUUhJLDD@vger.kernel.org
-X-Gm-Message-State: AOJu0YyeAPMbdBuEE8cEQsKGUxHpLLZx/Fz1d3Umla1HYsjNqbD0Lewh
-	OSbq3YKv318xhDZBz19BoTZfFrnuFKwIR2rSyCnWGJKYwuBmpEwzETK2q84BHI+lLeg=
-X-Gm-Gg: AfdE7cnxacgfjLIcZFg6J0rbY5ZsIrYzIYBcApc+LmoRN9WHGQNBV0p6qD5NCHIJmFv
-	Qvxfz6HCz7Ziuk5kHkaD8pGQ1i0aXZj6wUOyA390KWtL3FEDB5IEuxBlsbBEkQdaYcawOo4jJMY
-	7zTIZl5GwDUEKxWVZBSp+e26ldsELt1vf6+0A1oHp1J/wEHOa8ySjHTqC0r5PdqAVOvQKdXeZjD
-	TyDM5p/CmL/zskJnYCcPBG6TY/dHCfri+t5Ju8mnurY4hYg7EcPq77ANkg7CKAlASE3yRqca+Jd
-	V3gyDMC6ff8yaRb4zeM4gZ0UgIyorDEgSHms+hps+8WeOsX8ZLUwuIQS5oCUqjKgqyjlpxsAblz
-	NbezSP3W4f3nVNLajJQaW2+q77s/fhIqs7EntRFZHZZKyjZ/mUQY47M1EedQGqgwubZP6IqMr2W
-	+vAH+j0Dn+AY+JZe5n6Ge8qx2QMAmu6K6YIUkjnjDJWgUHtCY0SMQOKOOLM1/yHTI5t/LIc37/1
-	Ta1r538nG2Nj4AmBihDVVldPmyb
-X-Received: by 2002:a05:600c:698c:b0:492:4c9e:c95d with SMTP id 5b1f17b1804b1-4925b3b21e1mr48666485e9.18.1782224995461;
-        Tue, 23 Jun 2026 07:29:55 -0700 (PDT)
+        bh=w0YQhBtC/ubH1Q0Mrdh/TGxhsAQ0oS6iny3Z+QMvfNE=;
+        b=O+wbNTjZ5vmo7nnQX2GnNIWOjGeyulLvf9O7GCNb2vQixOp7NpfcN4ke7Skd4lrWPf
+         u/7DYZ5rUHQGyhQgoSlbPBdNWK18A/W1IXPF4G33oebBqapq930aOzPihNVY9lC6WlOZ
+         OHIXw71xOYUC8ti9OU+DLspa8g7EMYS3deVHmt8l50jLxkDDhdutpy3tD/wsu9uwsq3B
+         NmP95P1uL9b9E7+izDxM1rHjPM68jQMtjZHVNBNcSQGKEbi0IsZX0x07zbIhWfrHDkux
+         +sU9ZRdIgikK/64BSRcEf/0drEkeoYi8JQ22MJjfALLDKJD8ceudDeUfNO3vTQjT8lnl
+         xvgg==
+X-Forwarded-Encrypted: i=1; AFNElJ87sqhdKsnN5JL0olSq4YN74mthA7dYQy/mkoyH+pGmpWMdrgnO9S+LsJeg3/5ePUM8O+e8NJtj38r+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwownpXM/WARQBEFYtsKvUeknmS9U6IWToseTZtWX0mSDAvn9Qv
+	KjX64R/hIq+FfQwHmko5CKk20mnpcvyq7Z3rbMyoGkagdCFrKbcncrwsHVs9fvCJf/GFrktck/y
+	l83y37f4=
+X-Gm-Gg: AfdE7clovhFqY3QLzUcrs/a3/O5uo+xYWAOgZkMls49UqnjzfePtitvgdXM0vZgNprm
+	330Rlxeor1UbLrz2mIktWzPcs0sypyU1SdplNDB4OZwHztV/20P2Ssp80SqpRm5+CquIK4OinVA
+	xYL7CvRSL3b+OIalHBrD99oe+FR4joUhmXZd8F4MlLE9pOMIn8qN137PNRQh9ro8JQj3iu+7Up5
+	I2eqcz7q/YenZeHf7g5ZFtQXHpshXS101aq8gwd+ADkBs+1gd8PivmyVhBtl5P1iAiBBoiHJjKf
+	AA2OMtmzag2EjUkjr1SXyIANFWY047/+xIJJLRJ4i6kSkW9+E+ug6ec/SLIkiYxzhIBGwO4SLQR
+	GSRNnHUOI/CcpBUCSDfM95FeCsns93f+XV3ndn8oqFcE7A6MI69O0uDQKMNUIIp62r3JtAtnRBM
+	GujLPJws0u40M8yCENiSBoqpjwYzRGhcgKnjRmTK1yuixkOXSia86vTD+6jUixQXfMGzCATQkkF
+	c8gkRfOSOhwEZXgmwJhLLWHRq08
+X-Received: by 2002:a05:600c:4886:b0:490:d354:d15b with SMTP id 5b1f17b1804b1-49240e9545amr189390855e9.29.1782224998752;
+        Tue, 23 Jun 2026 07:29:58 -0700 (PDT)
 Received: from gregwork.sec.9e.network ([188.111.3.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240efc160sm362507805e9.2.2026.06.23.07.29.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240efc160sm362507805e9.2.2026.06.23.07.29.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 07:29:55 -0700 (PDT)
+        Tue, 23 Jun 2026 07:29:58 -0700 (PDT)
 From: =?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
 To: joel@jms.id.au,
 	andrew@codeconstruct.com.au,
@@ -79,9 +80,9 @@ Cc: andrew@lunn.ch,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
-Subject: [PATCH v3 5/7] soc: aspeed: add host-side PCIe BMC device driver
-Date: Tue, 23 Jun 2026 14:25:43 +0000
-Message-ID: <8746971524bf4186c9a393dab637ad4e27ce4563.1782224059.git.gregoire.layet@9elements.com>
+Subject: [PATCH v3 6/7] ARM: dts: aspeed: g6: Change vuart compatible string for ast2600
+Date: Tue, 23 Jun 2026 14:25:44 +0000
+Message-ID: <30aedaa9ffd5ba2d763d8802a07b77ef2d5bfcf0.1782224060.git.gregoire.layet@9elements.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782224059.git.gregoire.layet@9elements.com>
 References: <cover.1782224059.git.gregoire.layet@9elements.com>
@@ -94,249 +95,55 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add support for VUART over PCIe between BMC and host.
-This add host side driver.
-This only support the AST2600.
+Use the ast2600 compatible string.
+This makes it more precise and enables specific ast2600 properties.
+Still use the ast2500 compatible string as a fallback.
 
-Taken from ASPEED 6.18 Kernel SDK and trimmed down.
-
-The host can't detect the VUART adresses, they are forced
-at 0x3f8 and 0x2f8, similar from the initial ASPEED driver.
-
-The MSI vector index has been changed for the VUART2 from 15 to 17.
-The index 15 used in the initial driver was not working.
-
-Data path in both direction is tested on both VUART.
-
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-Signed-off-by: aspeedyh <yh_chung@aspeedtech.com>
 Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
-Tested-by: Grégoire Layet <gregoire.layet@9elements.com>
 ---
- drivers/soc/aspeed/Kconfig               |   8 +
- drivers/soc/aspeed/Makefile              |   1 +
- drivers/soc/aspeed/aspeed-host-bmc-dev.c | 183 +++++++++++++++++++++++
- 3 files changed, 192 insertions(+)
- create mode 100644 drivers/soc/aspeed/aspeed-host-bmc-dev.c
+ arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-index 63a656449a1a..ebd023b10701 100644
---- a/drivers/soc/aspeed/Kconfig
-+++ b/drivers/soc/aspeed/Kconfig
-@@ -4,6 +4,14 @@ if ARCH_ASPEED || COMPILE_TEST
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+index 56bb3b0444f7..7c02633f2bd6 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+@@ -707,7 +707,7 @@ emmc: sdhci@1e750100 {
+ 			};
  
- menu "ASPEED SoC drivers"
+ 			vuart1: serial@1e787000 {
+-				compatible = "aspeed,ast2500-vuart";
++				compatible = "aspeed,ast2600-vuart", "aspeed,ast2500-vuart";
+ 				reg = <0x1e787000 0x40>;
+ 				reg-shift = <2>;
+ 				interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
+@@ -717,7 +717,7 @@ vuart1: serial@1e787000 {
+ 			};
  
-+config ASPEED_HOST_BMC_DEV
-+	tristate "ASPEED Host BMC Device"
-+	depends on PCI
-+	depends on SERIAL_8250
-+	help
-+	  Enable support for the ASPEED AST2600 BMC Device on the Host.
-+	  This configure the PCIe and setup two 8250 compatible VUART ports.
-+
- config ASPEED_LPC_CTRL
- 	tristate "ASPEED LPC firmware cycle control"
- 	select REGMAP
-diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-index b35d74592964..c515e163eab7 100644
---- a/drivers/soc/aspeed/Makefile
-+++ b/drivers/soc/aspeed/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_ASPEED_HOST_BMC_DEV)	+= aspeed-host-bmc-dev.o
- obj-$(CONFIG_ASPEED_LPC_CTRL)		+= aspeed-lpc-ctrl.o
- obj-$(CONFIG_ASPEED_LPC_SNOOP)		+= aspeed-lpc-snoop.o
- obj-$(CONFIG_ASPEED_UART_ROUTING)	+= aspeed-uart-routing.o
-diff --git a/drivers/soc/aspeed/aspeed-host-bmc-dev.c b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
-new file mode 100644
-index 000000000000..3160b6aedb5b
---- /dev/null
-+++ b/drivers/soc/aspeed/aspeed-host-bmc-dev.c
-@@ -0,0 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright (C) ASPEED Technology Inc.
-+
-+#include <linux/init.h>
-+#include <linux/version.h>
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/errno.h>
-+#include <linux/pci.h>
-+#include <linux/serial_core.h>
-+#include <linux/serial_8250.h>
-+
-+#define BMC_MULTI_MSI	32
-+#define PCI_BMC_DEVICE_ID 0x2402
-+
-+#define DRIVER_NAME "aspeed-host-bmc-dev"
-+
-+enum aspeed_platform_id {
-+	ASPEED,
-+};
-+
-+static int vuart_msi_index[2] = { 16, 17 };
-+static int vuart_port_addr[2] = {0x3f8, 0x2f8};
-+
-+struct aspeed_pci_bmc_dev {
-+	struct device *dev;
-+	kernel_ulong_t driver_data;
-+	int id;
-+
-+	unsigned long message_bar_base;
-+
-+	struct uart_8250_port uart[2];
-+	int uart_line[2];
-+
-+	int *msi_idx_table;
-+};
-+
-+static void aspeed_pci_setup_irq_resource(struct pci_dev *pdev)
-+{
-+	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
-+
-+	pci_bmc_dev->msi_idx_table = vuart_msi_index;
-+
-+	if (pci_alloc_irq_vectors(pdev, 1, BMC_MULTI_MSI, PCI_IRQ_INTX | PCI_IRQ_MSI) <= 1)
-+		/* If pci_alloc fail, set all msi index to the first vector */
-+		memset(pci_bmc_dev->msi_idx_table, 0, sizeof(vuart_msi_index));
-+}
-+
-+static int aspeed_pci_bmc_device_setup_vuart(struct pci_dev *pdev, int idx)
-+{
-+	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
-+	struct device *dev = &pdev->dev;
-+	struct uart_8250_port *uart = &pci_bmc_dev->uart[idx];
-+	u16 vuart_ioport;
-+	int ret;
-+
-+	/* Assign the line to non-exist device before everything is setup */
-+	pci_bmc_dev->uart_line[idx] = -ENOENT;
-+
-+	vuart_ioport = vuart_port_addr[idx];
-+	/* ASPEED BMC device shift adresses by 2 to the left */
-+	vuart_ioport = vuart_ioport << 2;
-+
-+	uart->port.flags = UPF_SKIP_TEST | UPF_BOOT_AUTOCONF | UPF_SHARE_IRQ;
-+	uart->port.uartclk = 115200 * 16;
-+	uart->port.irq = pci_irq_vector(pdev, pci_bmc_dev->msi_idx_table[idx]);
-+	uart->port.dev = dev;
-+	uart->port.iotype = UPIO_MEM32;
-+	uart->port.iobase = 0;
-+	uart->port.mapbase = pci_bmc_dev->message_bar_base + vuart_ioport;
-+	uart->port.membase = 0;
-+	uart->port.type = PORT_16550A;
-+	uart->port.flags |= (UPF_IOREMAP | UPF_FIXED_PORT | UPF_FIXED_TYPE);
-+	uart->port.regshift = 2;
-+
-+	ret = serial8250_register_8250_port(&pci_bmc_dev->uart[idx]);
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "Can't setup PCIe VUART%d\n", idx);
-+		return ret;
-+	}
-+
-+	pci_bmc_dev->uart_line[idx] = ret;
-+
-+	return 0;
-+}
-+
-+static void aspeed_pci_host_bmc_device_release_vuart(struct pci_dev *pdev, int idx)
-+{
-+	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
-+
-+	if (pci_bmc_dev->uart_line[idx] >= 0)
-+		serial8250_unregister_port(pci_bmc_dev->uart_line[idx]);
-+}
-+
-+static int aspeed_pci_host_setup(struct pci_dev *pdev)
-+{
-+	struct aspeed_pci_bmc_dev *pci_bmc_dev = pci_get_drvdata(pdev);
-+	int rc = 0;
-+
-+	pci_bmc_dev->message_bar_base = pci_resource_start(pdev, 1);
-+
-+	if (pdev->revision == 0x27) {
-+		pr_err("AST2700 detected but not supported");
-+		return -ENODEV;
-+	}
-+
-+	rc = aspeed_pci_bmc_device_setup_vuart(pdev, 0);
-+	if (rc)
-+		return rc;
-+
-+	rc = aspeed_pci_bmc_device_setup_vuart(pdev, 1);
-+	if (rc)
-+		goto out_freeVUART1;
-+
-+	return 0;
-+
-+out_freeVUART1:
-+	aspeed_pci_host_bmc_device_release_vuart(pdev, 0);
-+
-+	return rc;
-+}
-+
-+static int aspeed_pci_host_bmc_device_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
-+{
-+	struct aspeed_pci_bmc_dev *pci_bmc_dev;
-+	int rc = 0;
-+
-+	pci_bmc_dev = devm_kzalloc(&pdev->dev, sizeof(*pci_bmc_dev), GFP_KERNEL);
-+	if (!pci_bmc_dev)
-+		return -ENOMEM;
-+
-+	rc = pci_enable_device(pdev);
-+	if (rc) {
-+		dev_err(&pdev->dev, "pci_enable_device() returned error %d\n", rc);
-+		return rc;
-+	}
-+
-+	pci_set_master(pdev);
-+	pci_set_drvdata(pdev, pci_bmc_dev);
-+
-+	aspeed_pci_setup_irq_resource(pdev);
-+
-+	/* Setup BMC PCI device */
-+	rc = aspeed_pci_host_setup(pdev);
-+	if (rc) {
-+		dev_err(&pdev->dev, "ASPEED PCIe Host device returned error %d\n", rc);
-+		pci_free_irq_vectors(pdev);
-+		pci_disable_device(pdev);
-+		return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+static void aspeed_pci_host_bmc_device_remove(struct pci_dev *pdev)
-+{
-+	aspeed_pci_host_bmc_device_release_vuart(pdev, 0);
-+	aspeed_pci_host_bmc_device_release_vuart(pdev, 1);
-+
-+	pci_free_irq_vectors(pdev);
-+	pci_disable_device(pdev);
-+}
-+
-+static struct pci_device_id aspeed_host_bmc_dev_pci_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_ASPEED, PCI_BMC_DEVICE_ID), .class = 0xFF0000, .class_mask = 0xFFFF00,
-+	  .driver_data = ASPEED },
-+	{ 0 }
-+};
-+
-+MODULE_DEVICE_TABLE(pci, aspeed_host_bmc_dev_pci_ids);
-+
-+static struct pci_driver aspeed_host_bmc_dev_driver = {
-+	.name		= DRIVER_NAME,
-+	.id_table	= aspeed_host_bmc_dev_pci_ids,
-+	.probe		= aspeed_pci_host_bmc_device_probe,
-+	.remove		= aspeed_pci_host_bmc_device_remove,
-+};
-+
-+module_driver(aspeed_host_bmc_dev_driver, pci_register_driver, pci_unregister_driver);
-+
-+MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
-+MODULE_DESCRIPTION("ASPEED Host BMC DEVICE Driver");
-+MODULE_LICENSE("GPL");
+ 			vuart3: serial@1e787800 {
+-				compatible = "aspeed,ast2500-vuart";
++				compatible = "aspeed,ast2600-vuart", "aspeed,ast2500-vuart";
+ 				reg = <0x1e787800 0x40>;
+ 				reg-shift = <2>;
+ 				interrupts = <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH>;
+@@ -727,7 +727,7 @@ vuart3: serial@1e787800 {
+ 			};
+ 
+ 			vuart2: serial@1e788000 {
+-				compatible = "aspeed,ast2500-vuart";
++				compatible = "aspeed,ast2600-vuart", "aspeed,ast2500-vuart";
+ 				reg = <0x1e788000 0x40>;
+ 				reg-shift = <2>;
+ 				interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+@@ -737,7 +737,7 @@ vuart2: serial@1e788000 {
+ 			};
+ 
+ 			vuart4: serial@1e788800 {
+-				compatible = "aspeed,ast2500-vuart";
++				compatible = "aspeed,ast2600-vuart", "aspeed,ast2500-vuart";
+ 				reg = <0x1e788800 0x40>;
+ 				reg-shift = <2>;
+ 				interrupts = <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>;
 -- 
 2.54.0
 
