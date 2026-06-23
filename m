@@ -1,160 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452DC36167F
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 01:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED30364059;
+	Tue, 23 Jun 2026 01:31:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782178130; cv=none; b=MBuUzhLDfDuH7U1Uv3p3akYAhQExPO1rNzAlMHAjU0jIE1yraNca+3F5aHhC/Qfu4C7EJOURi8r3oq2xBk/7qMzi1Do+EjyEreA1nDEMB6l3S6wAx3tYBlF4tLzLS9cShqsnMNXopJvwUjlykgehHr+kdNoenHDf+6hgnJL7zq0=
+	t=1782178314; cv=none; b=PLiUZ99rcJgIu5skMCJBXTLQvhPzvSxgslZGdLDjysayKcdgfme2XBzk0r3G2dMQXKquIgF3VT1jvrhCNO03U5JAkxEMe8qXSwnhC8e80hR0n8txeT6ckZ3mh+oPP37tTQRkxH9q/zjPrCH4l1t1vVCDu+wB1AiJGEQX8+nSSs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782178130; c=relaxed/simple;
-	bh=G34xkw6YkBQnMObMW0iguU0UCmLOLrcH8bahurzkB2U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RSVTZj9b+sme6YwDBTP39dezrs74mSBaLnJ+LBzLwpvMFWhVobobw6VEaEQcO3kXSLxJz9aM0QZftylJE7cS+phFZUAsc0PIMzzaGwqiyy5RfsgPPBnKSqIfGO9tfdwiCMm/ljEgTT6cKebtnT+YdqE8Ts/hhf7Vqe8O4382kiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4mCbfuX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782178314; c=relaxed/simple;
+	bh=zq7JsRKoRzzZjm4p8+rNUNQqoMzO8lezbdVCX2l2LI8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HnvAI0uUBU9SFjnLP3ILrm2NqTke3rKpLqmeygBT5vzRPn1JDCvDZHln49z6pujhmig7hz5wm9+LC+DFYQpjkGtHkP7mm9Xy/B12cP7B0hC6ZzUbops/DbQHArmgOKIxE6hIgBzxUh7yTtDyuJlAsgHYe7B050mNuygVD5swe4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYXvoyYE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4mCbfuX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA8D1F000E9;
-	Tue, 23 Jun 2026 01:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYXvoyYE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4647D1F000E9;
+	Tue, 23 Jun 2026 01:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782178128;
-	bh=w0GBiJEPA78gXqw4SRu2i2+EUd0e7Fk6ub42Fa+KXiM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b4mCbfuX4+yXzrOEToRoWDKrJn5RLkVK7+cC+mL8fJlNSlOO21g6mQ+HaumNFmDzl
-	 SjMEIwJhHaV/strCumFWgczSmDWQODKw/MFGGL+W9E7zmkxuNVXJxkh23fnYp2sig3
-	 bJx+LGTVCU1tC5wWSQnpK3g2GAYyUPIwq2SjJXPiWDdC3alFOGRYGFJweJXj17Rixx
-	 EoDeK4wWDEBQ8M397aPuZ2JdUNhFb9NrNRe/TVs9U1hmcMftMPBBun21LOnUHJ6UKT
-	 /9BTt/P5MbMsl7IqC7xIZRNqK5nvkVJ75IYw9dmC1+nGkxNW+rq8tV0K8jJHgi78Kz
-	 /9XLBGr5X0orQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v33 4/5] i2c: ast2600: Add controller driver for AST2600
- new register set
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260623-upstream_i2c-v33-4-6d5338fc56ed@aspeedtech.com>
-References: <20260623-upstream_i2c-v33-0-6d5338fc56ed@aspeedtech.com>
- <20260623-upstream_i2c-v33-4-6d5338fc56ed@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 01:28:48 +0000
-Message-Id: <20260623012848.6BA8D1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782178312;
+	bh=h6yFckcJyLsAb4MziT9rjVKzTEs01eLC6uTCYrCbNYg=;
+	h=From:Subject:Date:To:Cc;
+	b=aYXvoyYEOSHZDfJoYmdIY0yHBCwJDbq/UWHM59+CiJXV+k4CvA7BgXPZqy/d2/5iO
+	 wMOw/9M1aTln+bRGN+wXoiXwGV04+mqApQGAJYdlqrGWjkqM2bQ47V8PDgI7eZtrNR
+	 SH2qCDKrcNcVUfqPSikg4KCVjf0voHsLkBnoqH8SgmMjsI8pOe7VNXkpeOwiL43pRm
+	 5673Mq8cbxOimmtODjiU6OomcLokJNOhimXSzSsPh6ZxIDZay95CgRhvJOSi7f7Woa
+	 TWCEiqHIvKZg2/UPdJ26wvjolKOh8jNc0G44M/R6FKi9eiWj11F/jxUSl7XjynQzdW
+	 F41Ug1y2fVeLA==
+From: Bjorn Andersson <andersson@kernel.org>
+Subject: [PATCH 0/3] arm64: dts: qcom: Introduce Asus Zenbook A14
+ (UX3407NA)
+Date: Tue, 23 Jun 2026 01:31:48 +0000
+Message-Id: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAATiOWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyNj3arUvKT8/GzdlJJi3SQzSwNDSzNzQyMzMyWgjoKi1LTMCrBp0bE
+ QfnFpUlZqcgnICKXaWgA9jpBNbwAAAA==
+X-Change-ID: 20260623-zenbook-dts-b69019671266
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782178312; l=1147;
+ i=bjorn.andersson@oss.qualcomm.com; s=20260623; h=from:subject:message-id;
+ bh=zq7JsRKoRzzZjm4p8+rNUNQqoMzO8lezbdVCX2l2LI8=;
+ b=YgkKh1HsVxMMPhCUB9LXOIuMTtXp1FOcsMkG/+xs9VXWSPC1gV5Wz07BXN63I1wx31HUK/3RI
+ ox2fyr37g+8BHmOCBcLE6rvSdNUPF7KiSrLPPTReFgRieIms6pz0HNv
+X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=ed25519;
+ pk=NcABXERZwQW1ZuuTca83ns67voH6xv+CB55m7ZJPaRE=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The AST2600_I2CM_BUS_RECOVER_FAIL interrupt is handled in the IS=
-R but never enabled in the Interrupt Enable Register (IER), causing bus rec=
-overy failures to time out.
---
+UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
+Glymur platform.
 
-commit d7e183b301ba820c2bd844ca60f5af7e37834e10
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+In addition to the same dependencies that other Glymur patches on the
+list carries (audio, gpu, remoteproc, etc), this also depends on the eDP
+PHY patches available here:
+https://lore.kernel.org/linux-arm-msm/20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com/
 
-i2c: ast2600: Add controller driver for AST2600 new register set
+Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+---
+Bjorn Andersson (3):
+      dt-bindings: arm: qcom: Add Asus Zenbook A14 (UX3407NA)
+      arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
+      firmware: qcom: scm: Allow QSEECOM on Asus Zenbook A14 (UX3407NA)
 
-This commit adds a new I2C controller driver for the ASPEED AST2600,
-supporting its new register layout. The new capabilities include packet-bas=
-ed
-transfers, dual pool buffer mode, and hardware-assisted bus recovery.
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts  | 1099 ++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ 4 files changed, 1102 insertions(+)
+---
+base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
+change-id: 20260623-zenbook-dts-b69019671266
 
-> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
-t2600.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ast2600.c
+Best regards,
+--  
+Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-[ ... ]
-
-> +static int ast2600_i2c_controller_irq(struct ast2600_i2c_bus *i2c_bus)
-> +{
-> +	u32 sts =3D readl(i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +	u32 ctrl;
-> +
-> +	sts &=3D ~AST2600_I2CM_SMBUS_ALERT;
-> +
-> +	if (sts & AST2600_I2CM_BUS_RECOVER_FAIL) {
-> +		writel(AST2600_I2CM_BUS_RECOVER_FAIL, i2c_bus->reg_base + AST2600_I2CM=
-_ISR);
-> +		ctrl =3D readl(i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		writel(ctrl, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		i2c_bus->cmd_err =3D -EPROTO;
-> +		complete(&i2c_bus->cmd_complete);
-> +		return 1;
-> +	}
-
-[Severity: Medium]
-Since the AST2600_I2CM_BUS_RECOVER_FAIL bit is never enabled in the
-Interrupt Enable Register (IER), will this error handling block ever execut=
-e?
-
-[ ... ]
-
-> +static int ast2600_i2c_controller_xfer(struct i2c_adapter *adap, struct =
-i2c_msg *msgs, int num)
-> +{
-
-[ ... ]
-
-> +	timeout =3D wait_for_completion_timeout(&i2c_bus->cmd_complete, i2c_bus=
-->adap.timeout);
-> +	if (timeout =3D=3D 0) {
-> +		u32 ctrl =3D readl(i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +
-> +		dev_dbg(i2c_bus->dev, "timeout isr[%x], sts[%x]\n",
-> +			readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
-> +			readl(i2c_bus->reg_base + AST2600_I2CC_STS_AND_BUFF));
-> +
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
-> +		synchronize_irq(i2c_bus->irq);
-> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
-> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +
-> +		writel(ctrl & ~AST2600_I2CC_MASTER_EN, i2c_bus->reg_base + AST2600_I2C=
-C_FUN_CTRL);
-> +		writel(ctrl, i2c_bus->reg_base + AST2600_I2CC_FUN_CTRL);
-> +
-> +		WRITE_ONCE(i2c_bus->msgs, NULL);
-> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
-
-[Severity: Medium]
-Should this mask include AST2600_I2CM_BUS_RECOVER_FAIL?
-
-If hardware attempts bus recovery and fails, it sets the BUS_RECOVER_FAIL
-bit in the ISR. However, because it isn't enabled in the IER, the CPU won't
-get the interrupt and will instead wait out the full completion timeout
-in ast2600_i2c_recover_bus() rather than failing immediately.
-
-[ ... ]
-
-> +static int ast2600_i2c_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D devm_request_irq(dev, i2c_bus->irq, ast2600_i2c_bus_irq, 0,
-> +			       dev_name(dev), i2c_bus);
-> +	if (ret < 0) {
-> +		ret =3D dev_err_probe(dev, ret, "Unable to request irq %d\n",
-> +				    i2c_bus->irq);
-> +		goto err;
-> +	}
-> +
-> +	writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-> +	       i2c_bus->reg_base + AST2600_I2CM_IER);
-
-[Severity: Medium]
-Similarly here in ast2600_i2c_probe(), does the initial IER configuration
-need to enable AST2600_I2CM_BUS_RECOVER_FAIL to ensure instant recovery
-failures?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623-upstream_i=
-2c-v33-0-6d5338fc56ed@aspeedtech.com?part=3D4
