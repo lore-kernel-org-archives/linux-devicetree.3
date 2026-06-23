@@ -1,116 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD6729ACDD
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99B520ADF8
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782218545; cv=none; b=VClew4+P+6NK9bmn2U3qIEpMoMazoYyI20AUrvuEZtUIff/dkSKF/YU24GmsGdlDLNNTwQLa2H9/sSPH1mEKG6tFs6igwKUMuf4HmxZZEuC6yJxap76354qW58mwr+9dLHyxvGF0YzLKTduhZU0eBYY+FwcwDRnbny26J/LdvvM=
+	t=1782219199; cv=none; b=Bt1vIoYl9reQW/WWdMb51864jip7aKqZItQI4u74VscZ5xiaN6Vbg62CpDWISGZeAhHW3AlSEF12IBPKG9yXosjN8IkQFgHG/pv07YKgPnfbBHS+GwLTvpCmb6z29W34zAFbH8LzCoszf0G14iRh5yBAJPGu9i0v8qYUSuhq3Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782218545; c=relaxed/simple;
-	bh=DE4qJzgzT2xxCaVMaa9qUgWfWyoz4qxpUpAG6mipaNk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K0dbMYz/U2pnYZScqVfg2zNxU8zp79bKb+Fyx67sJhIqn2hpiD3iZHVCgXBQTDs+jw7wFId+aXvUWHff04Vnh0SGkqoOTvr0w7nF4IPVGEJ7plfUpi3EsCd3LuVVEv3MmJiNx3Cw60PAPKTtkiYRDFGzZojlsY+LqndpzzjJA7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBx+oUQH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782219199; c=relaxed/simple;
+	bh=T/xm1V/QyZCGnE+lplzCYaYTI/gNvoJU8fHAacDtQbg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jOI28dsht398YLUWrl/bNkLgc9XWNodJBnPanwomrQCiz+TsGChUNk8XljM3on+8Rw16MzQuZfmOnX+W5MI2T3yt2k4pL51gMCvRbxU6NF6jFYPWyAKkK8TVAl2x4K6rScqPxyueD09mT4cG17th2E01zww0sovBf+jK8U/MuMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sz3QA82d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBx+oUQH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C621F000E9;
-	Tue, 23 Jun 2026 12:42:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sz3QA82d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7A61F00A3E
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:53:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782218544;
-	bh=+5uDSicQK8v7Nq0njjZYmmL+Hu9T6ZrlSAlsdx95TSY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gBx+oUQHI0Xlt9z0fbQV0nxlii4EwHxSl65L97Ctqv2HjajZF+93jK/n04WlV7em1
-	 rbTF32OwEKK64qYXOruEPLe4fxPD4dA3ZNz9NXJLcihEFzNRx+uyNm3F+jxrUcdIxk
-	 6l3YMJLMn9rpohTf7nbX+5mRp4/o82RoUwgqTErOK9s7l/v5nL3kFxr8cJ0GXLLrWS
-	 g+Jo5ZSibAfUA+Olx6izfszuZHLZtVSJIR05z2q/5GAzMh+L0qGAwLfsmH8O35lvIr
-	 l8n8siUGTUrSn9+Y7+s4DL8ZR8D4kIvyZcYRooMB+iTO4LJ/fwPKXGyAexBJJS2k2b
-	 d/gP2z5J1hqXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/12] ARM: dts: microchip: sama7d65: add cells for
- temperature calibration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260623105944.128840-11-varshini.rajendran@microchip.com>
-References: <20260623105944.128840-1-varshini.rajendran@microchip.com>
- <20260623105944.128840-11-varshini.rajendran@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 12:42:24 +0000
-Message-Id: <20260623124224.A1C621F000E9@smtp.kernel.org>
+	s=k20260515; t=1782219198;
+	bh=T/xm1V/QyZCGnE+lplzCYaYTI/gNvoJU8fHAacDtQbg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Sz3QA82dyoA/AAkkQMZJ355EwGBBGz3GXmV8+0ddlEaYvaVRMN5EWMlCAn8Pg0Exx
+	 n57YXY2CqjwwoCGVfFlh/OylfEJiP7F1D8LmE0SSN3SGwbMccGoFKLmUCDeTv9kMQt
+	 h4Mjq8TBT4GTJePy10yWtQerQWFJfKE5YoKtkKNtvyAYPb0ziDR4kK8XKsjhga74Do
+	 iWeBpkqmRhQtQx0/mquDtlqzYhdKpT7N9yPVj/CS3FWDDQ2O9LTTbHos44i5TLSzd7
+	 c71cPcUYKZrO8tQAfawgJkJYqDGJDLlmRCDjbVSrQHbXIxE20sNy2tvAhJe5X1+urF
+	 ptCDVvy0KQ4qA==
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6974a6e54dbso7514203a12.2
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 05:53:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+vOjuig+Ej96RufU7otG8pqr59H4j84II3aSk4JUks4gZ8CQcdSUHrs3d3s6sbfhfcD9Jj3NhH16EO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqrTKw/c4XvcNZPXtVCr6/NBTRNSEQUF0uZhFk7AS2kBOg+UVQ
+	9ULYdLXjrNr3Yyr+KXxK7B7U+WgnYSXjB8mZhH5FZN/76rGZwbxdHE0bGUm4QdLxZUlZcwNe48i
+	LEHO2ucFem2kNAe/lsZ14CRfk2tAbxQ==
+X-Received: by 2002:a17:906:6a29:b0:bfe:ed74:523 with SMTP id
+ a640c23a62f3a-c098f12eb0emr1081202666b.50.1782219197266; Tue, 23 Jun 2026
+ 05:53:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260621143919.4176646-1-ekffu200098@gmail.com>
+ <20260623014246.GA3897146-robh@kernel.org> <CABFDxMG2ysTYPwJxg8Cq-uWxc+LZzfo_3_S8WwG2wtXMcwo9sg@mail.gmail.com>
+In-Reply-To: <CABFDxMG2ysTYPwJxg8Cq-uWxc+LZzfo_3_S8WwG2wtXMcwo9sg@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 23 Jun 2026 07:53:05 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJ9Aedo1HA7mrb=99eAQPJ2L5G7P9inL5D4AHfqrvuxBw@mail.gmail.com>
+X-Gm-Features: AVVi8CcLcbKYnww-EHfpPi-SIVDIwBgc05B_b0SBWSJ8_F7sYXaCC385wxjgkYA
+Message-ID: <CAL_JsqJ9Aedo1HA7mrb=99eAQPJ2L5G7P9inL5D4AHfqrvuxBw@mail.gmail.com>
+Subject: Re: [PATCH] of_numa: fix return -EINVAL when numa-node-id is not
+ found in last node
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Saravana Kannan <saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Dan Williams <djbw@kernel.org>, David Hildenbrand <david@kernel.org>, devicetree@vger.kernel.org, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, Jun 23, 2026 at 7:08=E2=80=AFAM Sang-Heon Jeon <ekffu200098@gmail.c=
+om> wrote:
+>
+> On Tue, Jun 23, 2026 at 10:42=E2=80=AFAM Rob Herring <robh@kernel.org> wr=
+ote:
+> >
+> > On Sun, Jun 21, 2026 at 11:39:18PM +0900, Sang-Heon Jeon wrote:
+> > > When the numa-node-id property is not found in the last memory node,
+> > > of_property_read_u32() returns -EINVAL, which then becomes the return
+> > > value of of_numa_parse_memory_nodes(), even though earlier memory nod=
+es
+> > > were parsed successfully.
+> > >
+> > > Commit 7e488677a54a ("of, numa: return -EINVAL when no numa-node-id i=
+s
+> > > found") meant -EINVAL to be returned only when the numa-node-id prope=
+rty
+> > > is not found at all, not when it is found in an earlier memory node b=
+ut
+> > > not in the last.
+> > >
+> > > Check whether at least one memory node was parsed successfully, and r=
+eturn
+> > > 0 in that case, -EINVAL otherwise, so the return value of
+> > > of_property_read_u32() for the last memory node no longer corrupts th=
+e
+> > > overall return value.
+> >
+> > IDK, it's arguable that an incomplete DT isn't valid and something we
+> > need to support. Is missing numa-node-id valid or it's just better to
+> > have at least partially
+> > configured NUMA nodes?
+>
+> You're right.
+>
+> Since the first implementation 298535c00a2c ("of, numa: Add NUMA of
+> binding implementation.") skips memory nodes without `numa-node-id`,
+> I only try to fix the error case introduced by 7e488677a54a ("of,
+> numa: return -EINVAL when no numa-node-id is found").
+>
+> IMHO, if changing the logic is acceptable, rejecting DT with an
+> incomplete NUMA configuration also seems reasonable.
+> We already call memblock_validate_numa_coverage() after
+> of_numa_parse_memory_nodes(),
+> so such an incomplete configuration would most likely fail from that
+> validation anyway.
+>
+> So, would it be OK to reject a DT with an incomplete NUMA
+> configuration? If so, I'll make a patch in that direction instead.
 
-Pre-existing issues:
-- [High] The ADC driver fails to propagate `-EPROBE_DEFER` when acquiring t=
-he NVMEM cell, leading to silent loss of the temperature channel and therma=
-l protection.
---
+Reject? As in panic()? No, because why would we make a system that
+boots not boot and a panic at that stage won't be seen because your
+console is not up yet. If you want to add a warning that the NUMA
+information is incomplete, that would be fine.
 
-commit ef1a2c61577cd00a6df4dd81d5825424af16746d
-Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Also, are we sure it's not valid to have some memory associated with a
+numa node and some that is not?
 
-ARM: dts: microchip: sama7d65: add cells for temperature calibration
-
-This commit adds an NVMEM cell to the ADC node for temperature calibration
-data.
-
-> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dt=
-s/microchip/sama7d65.dtsi
-> index 5867fda378b19..c336f863406de 100644
-> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> @@ -323,6 +323,8 @@ adc: adc@e1000000 {
->  			atmel,trigger-edge-type =3D <IRQ_TYPE_EDGE_RISING>;
->  			atmel,startup-time-ms =3D <4>;
->  			#io-channel-cells =3D <1>;
-> +			nvmem-cells =3D <&temperature_calib>;
-> +			nvmem-cell-names =3D "temperature_calib";
-
-[Severity: High]
-This is a pre-existing issue, but will adding these cells expose a probe
-deferral issue in the ADC driver?
-
-In drivers/iio/adc/at91-sama5d2_adc.c:at91_adc_temp_sensor_init(),
-nvmem_cell_get() may return -EPROBE_DEFER:
-
-	temp_calib =3D nvmem_cell_get(dev, "temperature_calib");
-	if (IS_ERR(temp_calib)) {
-		ret =3D PTR_ERR(temp_calib);
-		if (ret !=3D -ENOENT)
-			dev_err(dev, "Failed to get temperature_calib cell!\n");
-		return ret;
-	}
-
-However, in at91_adc_probe(), this returned error appears to be swallowed:
-
-	ret =3D at91_adc_temp_sensor_init(st, &pdev->dev);
-	/* Don't register temperature channel if initialization failed. */
-	if (ret)
-		num_channels =3D st->soc_info.platform->max_channels - 1;
-
-If the NVMEM provider (OTPC) probes after the ADC driver, the ADC driver wi=
-ll
-permanently skip registering the temperature channel instead of deferring
-its probe.
-
-Since the system's thermal zones might rely on this channel for CPU
-temperature monitoring and emergency shutdown, could this lead to a silent
-loss of thermal protection?=20
-
-Would it make sense to update the driver to use dev_err_probe() and properly
-propagate -EPROBE_DEFER before these cells are added?
-
->  			status =3D "disabled";
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623105944.1288=
-40-1-varshini.rajendran@microchip.com?part=3D10
+Rob
