@@ -1,147 +1,222 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021124.outbound.protection.outlook.com [52.101.52.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A537F34252C;
-	Tue, 23 Jun 2026 08:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AD92E2286
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 08:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782203122; cv=fail; b=NA4lZkhKCeY2pJ4Yisej96gswQL6EL4Mp41BJ+qgUOBMj94M+l3Qklxt/DzOTkI8jzxQ98y+aD7vK5WyApRHMzUIc/zuh/mMB7Mj65lW5Fuv1BRZnsdV3hdeKYlFxaSQ441TSXx/p+2P1fkjywQ/O1lcQOmlN5qOeO1ZzuzOK2M=
+	t=1782203380; cv=pass; b=uNriy+WWqqUtE6I8Or/vYQ5nzr+i0z9lgcN6LAuUiG3/ErOCCiq9xHf+3Q09xsqiemVaDfFHpke5lS1Tsp9ZobepCkHnztAAcWPFZT9JdKxLjPFFreNBWu73xeOoGYkJRzIljT4S9WHj5anKCoUs69aqwFTxU5qKfshQygqG8Zs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782203122; c=relaxed/simple;
-	bh=tJprX2iYCDliqCQPdA9RNcvQAOHfdxkdK/ngLLvJ2is=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=UzlVVXpXliwsfbLt8hGdunO4cVZfMVfePB2xvCxzBZ61R1Aq42I4yOrksg1YD/qstPc0E8DUteinHRvnxUzn28kIfjwf3tm+ihWKi3fmndTbAv6mHV8vKtEjy504d23tNX7qT3ZGwmpHhKXE0NodmcEJsMIVxL0MOvSj0SKs97Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=pyj5LzDQ; arc=fail smtp.client-ip=52.101.52.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	s=arc-20240116; t=1782203380; c=relaxed/simple;
+	bh=C+rVe3rgMlyulc0E1pMbdDXcZKdISk0r3L7hAmE6two=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AzuSTeL/o8Io/2VSHFm5+onxFX145Izw0gRIoRqMsDA/INZqf6p9o3hpml+wGXD3v2shpmVDvp245FCoCHRnegWyE9sdOvMaoHiLbSIKBCr538ea7lElJNjSsmDLC5LaG85LbfsOMzUGqLYffW2IskvZclvBRyhCCLWjj3B2fro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NX2jRg9a; arc=pass smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="pyj5LzDQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mZluNfs0+PU0uWxpzRk8ZQu4TykNQMFvyEFMxb/JUWnrPUVUjy0/tCRsD4J1x5STbBjtkoQ3uedl9/QC7ZW8EwK1sXIKIESQsVWa9yfeyu9CTpgsP1YAFRUuzEa/A6vMJtYp5D0coYJiUGK6uPofvWPUiFW6w+96asdjlJJa8TV7ek3RDJIyZ+sCIsSb67Q9Ib+p2m3QUBIq3JXKckbnlq5gd16Ej/YhLFGC0mRNdCxqzU2a4scbvY4t4aiL2hlqu/vDDdRvuu6k497TnCLKuKtrhW3PchZHGnzyLe0yzxqdmqJnYO5zv0IZFIZ1Dbmni1DD7522VAaPjCJscH7M5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tJprX2iYCDliqCQPdA9RNcvQAOHfdxkdK/ngLLvJ2is=;
- b=TNoFqyv0+v0N2gIx6ptU4yPXx8eDLui+AS3vPz6NOTbvLh9DianKn/qq05DdVwVk7ngIfdJuxKxksHoo2m5Diuscj63I4wekBGJXH3dItYhK9vIXUY/H7iddmYj1c40NiTrFeXl+jpvYw3oTBExRKzs7kHVBIfVjEUa2Xv/VzIOtpVf8x9CAaOKYg1lrYVcKDJeo/2rGnlIo7h9SLjW526vhxY1pf0QNZ0W4T+Twu4Wwu66CjX+F1Sv1mHs9Hkk8U7GSjQLhJN9JEAk8Cx7cdlkLnRGj9kyn8Jw0ZJYeYNlEv/33DKew1MP7vmT8wsQOaOVoVv4bLcFQYDHRR8maRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tJprX2iYCDliqCQPdA9RNcvQAOHfdxkdK/ngLLvJ2is=;
- b=pyj5LzDQifKl6XCYMORcail0aDc/D7dQiAkZajgpzGsMazRvLrpEiVeWDCb4mVJVuLsUPaBjuc7rlbXtHjwvbgys9/eXmPjRdSeBr0D3P7rPITLuQGWJ1tmJO3YViRz7gpEi2GiSOhpwiGYcXwW2wQ51Y0+mWYZjdZngD9X6Yf7r2fo/uUpwaJuyZSdsOaF6lwmL45CdjV3+lCG0CZ9LQwGaWiNnw1rhOMXqaOm9zMNwh1HxYYeubNNNIIN3y4x6rJ4MJ1jWsU12qKKNwqIIc90L49kTVyLYdRQgmEAV52ArdostCTfh1R7Wsqoa+HzPzdZF+pf2SnQGrE0eH4NSFA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- IA0PPFDC97AC94B.namprd18.prod.outlook.com (2603:10b6:20f:fc04::c44) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Tue, 23 Jun
- 2026 08:25:19 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0113.015; Tue, 23 Jun 2026
- 08:25:19 +0000
-Message-ID: <b3dbe076-03ba-41d8-a5ce-e65ac739147c@axiado.com>
-Date: Tue, 23 Jun 2026 10:25:14 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] pwm: add Axiado AX3000 PWM driver
-Content-Language: en-GB
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com>
- <20260618-axiado-ax3000-pwm-v1-2-c9797a909414@axiado.com>
- <ajlf4t_tuuX-Eplc@monoceros>
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <ajlf4t_tuuX-Eplc@monoceros>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P250CA0007.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5df::11) To DM4PR18MB4144.namprd18.prod.outlook.com
- (2603:10b6:5:38b::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NX2jRg9a"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-462ebd5d37dso5140958f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 01:29:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782203378; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Vl3y6qkxLjuZN4JCOpZhKUTTgOtWOBaEUs4YX6XW/pxwQ7inGhcw/qv8BGVcque2vu
+         9KKvi/6/FafyXnU5oXo9YN3zCJwptXhnABa6FPVyx2kvTRqir1auj1EzLjncwrg5xUIl
+         yJF3TvgeWo9v8yPjLf44nWvytUvo1J0JNEP6HoOOutaIqT4OdyAxohUUEHSNPhYIsXpI
+         fPPRFWsqk+cagzQGtA0QUOmOa4AxaUx1Ghwvhct44W1R0MahwKUj+xBaTsZXs8WTe0XU
+         E+OI84aoX9Bo9ahExRUgCWl7YqxrLGbRKCXXwhqJlWKT8sPsmyLInT+qhv9iglNrP6kP
+         Pb3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yrBfCI0KWhncSe2793Dm3kx6USZ2APOlz/hUKpRJG0I=;
+        fh=yvK00E5q8nlpFf+we5YXkHNcvtzBBoKyhs7o3ehG2x4=;
+        b=YzA3QaRJizF4xTQzqnWlM9ZyKJ1ea6Y2JoIvPi1vriUmdeUe3P3V5cvUl0XCciLmPj
+         w5LwjnnnGXP2SKLJzakgugYuhYXMD6SXqMFFsYt1NHrn9z4nt74fE9Vt/LU7CkqGvQZ9
+         Gof1QDiSFes3Hhr0vky0CbllGRVs0PCz4l3rGPOZMKw1XidBeH9IdHwu3m+gi9aFiQFO
+         POSwGLc5gDleVANAPfKFYGgSxA0yrR/AOq0GgxKIaBu1tMV5ZPGHthNKXqOFyLW9Y+gy
+         ax6aIK3lhVOGFpmUiZ2j8XanYi8Zz3/IXjfM8/kwPfjj3ZEfkU+eKQxOvkuR/1v327hY
+         VHag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782203378; x=1782808178; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yrBfCI0KWhncSe2793Dm3kx6USZ2APOlz/hUKpRJG0I=;
+        b=NX2jRg9axX9TBTAw0TFksFRyFltIIlBDUJ/R1TUVoX4uRuUzeu9Q4/BLyoI/qTMdcN
+         vwox3hajpR9s+XkRsvFh+x41iBOVOxNaDvXN56lACGbLR5+Lu/9KV/B6HZEyDZ0PgfZE
+         aP7UuTnnJwlRGs2r7bhdNvHreBlUnQcko7ci7nCSWhQsxmN9PJI6IQrN3/7GVeBwF1Rw
+         Nfj0kkqGsoOlwFPrnMM5e7i0bVFcXpn3uOAtT/GdZmV3bjlx3D8xyhbkZwryj9vTNcnL
+         HSVRmMHrRDKuojRluNSssAKJXjqXbPDmQuqzk82BYSqKZRrae4INgRDCxYVDvtfSxdap
+         wJWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782203378; x=1782808178;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=yrBfCI0KWhncSe2793Dm3kx6USZ2APOlz/hUKpRJG0I=;
+        b=XsPrxvvAw6oUK4SRpJa9uhww8OI3ZBNra114FqtrF/xKqcUaQDjbOjy+2/eXTMfARF
+         MJLOCMlYsLFr9MZPAMKCUHTBJ5TqCj9ws4ZqjdP4uOKUQw64AmiHJYbgHv9qH86mhNrD
+         nrpNrzxVYP1iHgkHi16DTy4xR4G0cj6l5cvEG39GRUYZy0FPKXYSuo0bIi/1ydaH4TBU
+         gFLFxlz8Pou5PLNyISHDQPH13uLTSdnC3r8cuzmTLPNk9DmM2OzRIfvnwH2izkXCIyUi
+         StRpfLjtVbUbuvaayFBpSP4064VyVourFvQ4FZ+5GkYFM0X1DmWfC/s6I9zDfjEcNyXB
+         GF5w==
+X-Forwarded-Encrypted: i=1; AHgh+RryWlhzWsXTj7W2v+pztPAqi+4r9d1xbzFNXSP+Zeu3fg02AiLIujPAZtX50s++ibYp3r6W4xKlRnFF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxj+d5J8GBfUJcJIT05YXnYBhID8iuc0n5HT2NX9y8DODKqBbaS
+	33LZ+YODKi8PwghDoGQhROjgPNaSSoo4sAGYYKm9akwNrJ5ynJy98g1nS301fbykQhDGfDqtD2y
+	15EvKdID1VVdwZ5UC3Tx3x9nsmwyEgmk=
+X-Gm-Gg: AfdE7cntZaxR723D6gTXhLCSXX96XmZGU4Xi/vq5VAQwi8O+Tf3IGh+d7hwOXcdLCHF
+	U+E47RnDCw29KlMzpW3dQDKT2z5NHfsAD61Cofh6WQFahZb8F79JtBH7eeZxqh6HqielgC6PDEQ
+	hlrA8GxjUVNNArNp7HZFMuR/08tj19FjmGRRQDjjDfoLzXlvijBtOzoXuhlI4N8IlFehr2Iief+
+	qRfPcip7t5BHUjrMf6whxrKPCYXnGIkxN0nuISJjLj6D4F28M/9z5t3a/N9mboY1rcsf10mijLf
+	b5Z/1CmqFbst0l2PdHhX6ck8LQ/uQl56mygCRjLttTP7FzdrZSP9yxbWaUw=
+X-Received: by 2002:a05:6000:4817:b0:464:c5be:37f4 with SMTP id
+ ffacd0b85a97d-46add279a05mr2659263f8f.29.1782203377562; Tue, 23 Jun 2026
+ 01:29:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|IA0PPFDC97AC94B:EE_
-X-MS-Office365-Filtering-Correlation-Id: ccd1d3d9-bd01-49ca-d15b-08ded100f60c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|22082099003|18002099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	pO7tHU1axgLHyXITLauSRUKTqCvctXs9t8H6PVivJQ+d3AOhqdRNpc8Rigz15vBpercHZx9oS1t1WpvBANpRx7B3PVb6WsuA8VMgeEqTfzDluwKZISExO+RHj3KcuSL2a7rYjMLV1Uc+JOJOHsGxJ/EmConCTg+xt6NFDUovhikFw+y7b0ft19al+PtWuoT+xmDlyMGWpzbxhHq1hrV3rUOrAIyzRn3J2MK0JOrzntOsooi870GvWXFIYwFOxwScu9+jJF9ix5ige31ildSSAZvLKGaH01KRLB3YR3Lh6NeNv7MZOk2etC0+FeNC3tO/3gzigVMec+C26552dOxDPnDpf+hc42Rw2MBD2htc3XKck3tBSPjeNIIgEsdF0jOfJizBX0Yq0Xcf0EwOJPAIUPlBB8qnV63VDb4uAlee1I1NuYmo37O6uGMfiT4iiiv3y7ieBjnYxnoJ1odzK9DHvcSunYX0qcNogtA6hZQ6fqwblnZ2FolsovDI0aE2L9xk4o1XSuTTPNnUhZtpMA7pwa37uoN5wS9rdedd7xsp/nGVBUaevSEeNpqBI708Vr3mfWSpAbrRgpo3zIW3QMqC8ELj0Ib9G1H8D6KIyvAZqyAJHKqcLjYVa0wwMcq1taYg0VOiQkvbprS2NQKmMQEIe0Vb6Caz2gvXz1EyQakmPSw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(22082099003)(18002099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UlFoc1U4RFdieVAzWXA0K0ppbytRN05vV2pRYnp5YUhwRk1PMG5yWXlNMDBO?=
- =?utf-8?B?YmdTeDVPd09sYzUxY21RRWs3a0xkbFpMbTRCckRDQnlnaldna2lySDZrRkdP?=
- =?utf-8?B?V2p5TlN1bXRFTHB2cGYvV1ZaL0pwM2llc0JDVld6MWNLWDhxbWQ5ZE8yWE1o?=
- =?utf-8?B?d1A3V3A5cDRxU2o1c2p5ZlM2WHB4ZHhiMW11V2pZeE1SMVhqTk16aTZ5VGtW?=
- =?utf-8?B?SHg3MTVTbXduMTg1ZUV5ZnlobFVJSWNTWEcyZ1ZiY3BSY2hjaWZERVY0bW1P?=
- =?utf-8?B?anlCcW81YnhPOFp4WlVFRjVtN0FmelhORTNFWWdyazFYNFF1ZTJoaGRHOHNj?=
- =?utf-8?B?RmNMSXkxdFJmMVA2SHpqUjZvNmxDc2loZi9JR2daUHBlL1pmSkFJY05XRE0z?=
- =?utf-8?B?YUlrazd2VFdnRGRseWdjUThDRThoT3pHend1U1ZmWDNxdCt5bDg2aTZSenJH?=
- =?utf-8?B?NjlWUWx5NzlNc3JHa2dtbVJpdEtJektuZUlxdmJMK2Fmd1o4MkxIa2xLVG9p?=
- =?utf-8?B?eWQ2bFdVYXkyNWZiWG1UaUtpSnAwTjFpOVZING5jVmVaTTVlV2h0SVBQQ29y?=
- =?utf-8?B?OW45clhzTWxOWkhqT21KNktSamhaNjJPWVV0OC9QNVcwNllJNUY1M1JoV21D?=
- =?utf-8?B?NndYQS8rQ1pBOC9nMXRiTWdJVG9VOUR5b3NkM3pNZDZ5eS9yaDg2VExRVi9G?=
- =?utf-8?B?cCtiTkNVa3lpb05lZzBhb1N5ckhuUGVpeGNGL2hXVEdKZ1BSdkFyWnpyOUVF?=
- =?utf-8?B?ZStYY1g4Snd6VUtUNHowaFh5M0V4TDJrY20xOWRXUlBEWURJajAzZWVHRmQ1?=
- =?utf-8?B?b2tla0RpSE9FWkxORGlONkdadmJaaHFMcUZWUlJ6UjdjRGVsK3BEU2NDMHJD?=
- =?utf-8?B?T0JjSWNUYXVqWWxGbHFwMnNRMmZReUpjdFRNYWtmbFk4Vm5mVDZOOUR3bXdl?=
- =?utf-8?B?c3VGaEFuTFIzSGxzTndhYTBnVXlkTGxCSnV0OHIwV1E1NlgzWXorYUpwaU05?=
- =?utf-8?B?ZTU1L05iNlFWd2xpNHp0NVNGaWpoa0txVGt1bHRNMStIK2NmVFJ2UGNoTHNl?=
- =?utf-8?B?aytRdU1hWllLaGVlY1VtWWZkZVJWeFMvU0RPTzBQTkhjMnlFWHNtdEdFNkdI?=
- =?utf-8?B?QW5sWVlYMnYvVitWNk0rTjRLQ1F3ck8zSXZTdmwyczNzazJPaEtDVmYzSzFB?=
- =?utf-8?B?Um1MZ1Iwdy9GSjAzUFcrTWVuOFRlYTluMWlLZTRVL1VtSCtVa0NQRStFR0N6?=
- =?utf-8?B?ZHhtMWVRNHdSUzlxeTFqVVk0U2ppSlo3UWFlenN0TFdyK1FBWHJKclFRd0Er?=
- =?utf-8?B?WHI2cUx2cHJPWTg4YlVObUlCSjFjUXRLZ3R1aXh1R3cyZEZqT3oreHluNDBK?=
- =?utf-8?B?RlJsZG4zNk5vT0V5Q1dZQjYvci9VUEZiQll5QTgzT3l2bDNPdm9WcEhvMXRN?=
- =?utf-8?B?UmdCMXVYdythbmY5aFJLdjlLT3RCUGVsUUxTdnhWSHZ5Ynh1eVA2UWRKR0ph?=
- =?utf-8?B?RWJjVDdwQWNPN3hYZHNlOXZCck5ZM3YwU2lLRDViUEJRNy9PMGhpbE9mcWpV?=
- =?utf-8?B?cWR4SThpb2MxakNhL2R6VlpqbUc5QW82Z2NsWGJsdjJNUEJucVExaXlCa3FH?=
- =?utf-8?B?T0NDM0FxUldUbEh5cE9OYlBZSGhzTXlJZHZwNlllOEVMWDBHa2hiM0RtVFI5?=
- =?utf-8?B?ZTUvZVlUaU9ZYXlGVGIwckp4SFRQWDF3UWc2T2xJSm5LeEp2Nkl0VXUySndt?=
- =?utf-8?B?Vk1laFhNangyOVlQcysrQVFSbXZ4dDZZRlkwOE0wUGNhSEZGS0E1akx3UGx0?=
- =?utf-8?B?RU1aOUpQWThJZDFLdVFaM0ZWaWZNSmRUT1MzaUJxUVlwMGdhVWxDZXRxQWtq?=
- =?utf-8?B?enlySkhJay9WdE1tYlJaWGdJTGZualRNWWN6U1JrcWRuS3BxbjZmQXRkL0Uy?=
- =?utf-8?B?RXhIV3hLTWY0c0VoNjE1RHpkVnVCa1Bkd3lNWC9Ba1pVa21nL21sa3g5QlE4?=
- =?utf-8?B?ZUZjM3VEMEd6MEwzcmFNbW5kTXFieDQ5Y3VLandBRWVuVUdSNU9RTi9FUHdr?=
- =?utf-8?B?YXNQT1V2WlNaUHU1RnBUSkFkL3BWOHBDYmFrZFRhTkZwVThUbDMwTllTeEdV?=
- =?utf-8?B?ZWtLSmJCQ0Q0NE92QUEweDJZcGtHdVFsQUNCcWZhdmJFMWxlRCtxR2JkMlR4?=
- =?utf-8?B?L3pHZEsxVzFPQzY2UWxiOUwvc0dIM2xITGVhY3dYREdLZXBRZWE4Qzhvd3ls?=
- =?utf-8?B?YVNBTkRoZHdlVGJ0dE44SGtra1lmOVNRY1J1azN3eUxZRkhRak1ya2hGalBS?=
- =?utf-8?B?RDhqQ09KckJPYk5mWkhDOWhod2d6cXBBQlJQRUdRV1BDZE1HQzcyQT09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccd1d3d9-bd01-49ca-d15b-08ded100f60c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 08:25:19.3780
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IZCIXOQzYisA8iB6Sy8UXQhg9iWBzdA5FcMm80ke1WL7ZCm1S0bvlJyGkz3LYeNKXyZDrlvx1RdYm4OGr4BF8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFDC97AC94B
+References: <20260602195019.1798126-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260602195019.1798126-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <50a908557bb3ce5f14b67396d1e73e70289a583a.camel@pengutronix.de>
+ <CA+V-a8uGho2RMhreDgieOOZTggUALoF0bGyjdEEDvyL_75sAyw@mail.gmail.com>
+ <fuefvecgjdqbnbvpvam4gmewmpmhofllyq2ootwi6cjqhnyoys@edjzqlh6fjw4>
+ <CA+V-a8sRxoR96TRM2V3cFXS5NPiQUVrUJCWwkh7o10cGYPU9_w@mail.gmail.com> <txpkke2xogecipyetascqajgaxamd3ualcuhsibxf75llzcym5@xgcn7efcbmp4>
+In-Reply-To: <txpkke2xogecipyetascqajgaxamd3ualcuhsibxf75llzcym5@xgcn7efcbmp4>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 23 Jun 2026 09:29:11 +0100
+X-Gm-Features: AVVi8Ceuc3mOlVkEu2V82Unm6uncN0y20DQ8eINHTMm2bh1FOOcG0M9fbuSJgo0
+Message-ID: <CA+V-a8tiRc0J74e73qLyLgQOey1GLNoa5VbRgpEN9ZCy7hH-4w@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] PCI: rzg3s-host: Use shared reset controls for
+ power domain resets
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Manivanna,
 
 
-On 6/22/2026 6:29 PM, Uwe Kleine-König wrote:
-> Hello Petar,
+On Tue, Jun 23, 2026 at 7:04=E2=80=AFAM Manivannan Sadhasivam <mani@kernel.=
+org> wrote:
 >
-> Just a very high-level review:
+> On Mon, Jun 22, 2026 at 03:53:57PM +0100, Lad, Prabhakar wrote:
+> > Hi Manivannan,
+> >
+> > On Mon, Jun 22, 2026 at 3:30=E2=80=AFPM Manivannan Sadhasivam <mani@ker=
+nel.org> wrote:
+> > >
+> > > On Fri, Jun 05, 2026 at 12:54:46PM +0100, Lad, Prabhakar wrote:
+> > > > Hi Philipp,
+> > > >
+> > > > Thank you for the review.
+> > > >
+> > > > On Wed, Jun 3, 2026 at 9:16=E2=80=AFAM Philipp Zabel <p.zabel@pengu=
+tronix.de> wrote:
+> > > > >
+> > > > > On Di, 2026-06-02 at 20:50 +0100, Prabhakar wrote:
+> > > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > > >
+> > > > > > Switch to shared reset controls for PCIe power resets to prepar=
+e for
+> > > > > > RZ/V2H(P) support. On this platform, multiple PCIe controllers =
+share
+> > > > > > the same reset line, requiring shared ownership of the reset co=
+ntrol.
+> > > > > >
+> > > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renes=
+as.com>
+> > > > > > Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > > > > Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > > > > ---
+> > > > > > v3->v4:
+> > > > > > - Added RB/TB tags.
+> > > > > >
+> > > > > > v2->v3:
+> > > > > > - No change.
+> > > > > >
+> > > > > > v1->v2:
+> > > > > > - Updated commit message.
+> > > > > > ---
+> > > > > >  drivers/pci/controller/pcie-rzg3s-host.c | 6 +++---
+> > > > > >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > > > > >
+> > > > > > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers=
+/pci/controller/pcie-rzg3s-host.c
+> > > > > > index d86e7516dcc2..a5192e4b58df 100644
+> > > > > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> > > > > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > > > > @@ -1276,9 +1276,9 @@ static int rzg3s_pcie_resets_prepare_and_=
+get(struct rzg3s_pcie_host *host)
+> > > > > >       for (i =3D 0; i < data->num_cfg_resets; i++)
+> > > > > >               host->cfg_resets[i].id =3D data->cfg_resets[i];
+> > > > > >
+> > > > > > -     ret =3D devm_reset_control_bulk_get_exclusive(host->dev,
+> > > > > > -                                                 data->num_pow=
+er_resets,
+> > > > > > -                                                 host->power_r=
+esets);
+> > > > > > +     ret =3D devm_reset_control_bulk_get_shared(host->dev,
+> > > > > > +                                              data->num_power_=
+resets,
+> > > > > > +                                              host->power_rese=
+ts);
+> > > > > >       if (ret)
+> > > > > >               return ret;
+> > > > > >
+> > > > >
+> > > > > I have a few questions about this.
+> > > > >
+> > > > > Can you move rzg3s_pcie_resets_prepare_and_get() and
+> > > > > rzg3s_pcie_power_resets_deassert() up before setting
+> > > > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B in
+> > > > > rzg3s_pcie_probe() without ill effect?
+> > > > >
+> > > > > Can you move rzg3s_pcie_power_resets_deassert() up before setting
+> > > > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B
+> > > > > rzg3s_pcie_resume_noirq()?
+> > > > >
+> > > > > Those would have the same effect as the reset already being deass=
+erted
+> > > > > by the other controller.
+> > > > >
+> > > > Yes to both. I have reordered the sequences as suggested, and it wo=
+rks
+> > > > perfectly without any ill effects.
+> > > >
+> > >
+> > > Are you going to respin the patches incorporating the review comments=
+?
+> > >
+> > If I have not mistaken, no code changes were requested; it was just
+> > that Philipp wanted to ensure the shared reset worked correctly after
+> > shuffling the code around.
+> >
+>
+> Ah, I was mistaken.
+>
+> > I can respin the series if it fails to apply on top of pci/next.
+> >
+>
+> Sure. Please respin once v7.2-rc1 is released.
+>
+Sure, will do.
 
-Thank you for the review.
-I will address all your comments in the next version.
 
-Regards,
-Petar
-
+Cheers,
+Prabhakar
