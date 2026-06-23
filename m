@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED30364059;
-	Tue, 23 Jun 2026 01:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DAD35A39F;
+	Tue, 23 Jun 2026 01:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782178314; cv=none; b=PLiUZ99rcJgIu5skMCJBXTLQvhPzvSxgslZGdLDjysayKcdgfme2XBzk0r3G2dMQXKquIgF3VT1jvrhCNO03U5JAkxEMe8qXSwnhC8e80hR0n8txeT6ckZ3mh+oPP37tTQRkxH9q/zjPrCH4l1t1vVCDu+wB1AiJGEQX8+nSSs0=
+	t=1782178314; cv=none; b=Ca6MjVQemDmsZS1nG8nReHyJK6SfJvTrDU0KqfI1X9P3yN1pl/gHRR87mdjdZkIrp7QQM/8ljLW/qTuFYT1rBD1oYSlgStSNr6XH2UEVA8vfC6cMko5TImHTwBnUOMbjilpjOwoZHyaYk3vYlsRNrf0Xd89nL6spu5IQ41YtHAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782178314; c=relaxed/simple;
-	bh=zq7JsRKoRzzZjm4p8+rNUNQqoMzO8lezbdVCX2l2LI8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HnvAI0uUBU9SFjnLP3ILrm2NqTke3rKpLqmeygBT5vzRPn1JDCvDZHln49z6pujhmig7hz5wm9+LC+DFYQpjkGtHkP7mm9Xy/B12cP7B0hC6ZzUbops/DbQHArmgOKIxE6hIgBzxUh7yTtDyuJlAsgHYe7B050mNuygVD5swe4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYXvoyYE; arc=none smtp.client-ip=100.103.45.18
+	bh=k5OqXyZiKEUtLM5fVn6Rd3BDBTBrtVA5k4ZgVv+nGlE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HFUBO1r5RdFeJ77RtKxCq1twLGNRaPNYfziU9KJh8R0j2JcTAVNA9DWa/aARoXcXXE85YotsJSwgUHniLROYOaKKUZh+kEFHQJfoNbHp4Rl6H7AGHOoao4yR6lpCXS50bQS0wCTGcOBgav/PjLV1xYVNrUVg4xeDSFDDH7osqFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJwfHR7R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYXvoyYE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4647D1F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJwfHR7R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 015841F00A3A;
 	Tue, 23 Jun 2026 01:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782178312;
-	bh=h6yFckcJyLsAb4MziT9rjVKzTEs01eLC6uTCYrCbNYg=;
-	h=From:Subject:Date:To:Cc;
-	b=aYXvoyYEOSHZDfJoYmdIY0yHBCwJDbq/UWHM59+CiJXV+k4CvA7BgXPZqy/d2/5iO
-	 wMOw/9M1aTln+bRGN+wXoiXwGV04+mqApQGAJYdlqrGWjkqM2bQ47V8PDgI7eZtrNR
-	 SH2qCDKrcNcVUfqPSikg4KCVjf0voHsLkBnoqH8SgmMjsI8pOe7VNXkpeOwiL43pRm
-	 5673Mq8cbxOimmtODjiU6OomcLokJNOhimXSzSsPh6ZxIDZay95CgRhvJOSi7f7Woa
-	 TWCEiqHIvKZg2/UPdJ26wvjolKOh8jNc0G44M/R6FKi9eiWj11F/jxUSl7XjynQzdW
-	 F41Ug1y2fVeLA==
+	s=k20260515; t=1782178313;
+	bh=KojvXlqED8tt0P793L+MzG0qf7ldG6y18ZWC4/cLgN4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=RJwfHR7RdDlG09NLo874RxrLASrJpqcdMpzGaqgc3sD7YIv2FCftfIbhmsge+R8X2
+	 LXaSIFdLGSvzjr8AbIc3pk8+VFR3sVg6Cn+a2qbPfkP7MKQANo/wDxV5C6UJ2jDj0l
+	 s3up98GRQJG0RrcV2b+1Poceg7fiQHHIqUHlz1bMZbAq7SRjkGJzusItZktDo1goV9
+	 +MYYeSjZnhRGBlPZ1gfIRRYCSitpTYlO4z0kw6q8/toEi3Q4AEJtqT8hr1nBsdeX5x
+	 8Maaug2S3rhDzSsZ0GR3v7K1YkAh45waV0o38L6MP4paic1wfuzoG6zbX526Jqy3HL
+	 6gvr+/5I7fsCg==
 From: Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH 0/3] arm64: dts: qcom: Introduce Asus Zenbook A14
+Date: Tue, 23 Jun 2026 01:31:49 +0000
+Subject: [PATCH 1/3] dt-bindings: arm: qcom: Add Asus Zenbook A14
  (UX3407NA)
-Date: Tue, 23 Jun 2026 01:31:48 +0000
-Message-Id: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,10 +38,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAATiOWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDMyNj3arUvKT8/GzdlJJi3SQzSwNDSzNzQyMzMyWgjoKi1LTMCrBp0bE
- QfnFpUlZqcgnICKXaWgA9jpBNbwAAAA==
-X-Change-ID: 20260623-zenbook-dts-b69019671266
+Message-Id: <20260623-zenbook-dts-v1-1-3f80f680381d@oss.qualcomm.com>
+References: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
+In-Reply-To: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,39 +49,43 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782178312; l=1147;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782178312; l=981;
  i=bjorn.andersson@oss.qualcomm.com; s=20260623; h=from:subject:message-id;
- bh=zq7JsRKoRzzZjm4p8+rNUNQqoMzO8lezbdVCX2l2LI8=;
- b=YgkKh1HsVxMMPhCUB9LXOIuMTtXp1FOcsMkG/+xs9VXWSPC1gV5Wz07BXN63I1wx31HUK/3RI
- ox2fyr37g+8BHmOCBcLE6rvSdNUPF7KiSrLPPTReFgRieIms6pz0HNv
+ bh=edLANztp8dJP2OLhiYQaz1o1ffdo1ViXA9cKhJyTTaE=;
+ b=l2+6r5gm9B6mMQRzdqFkBrAqGnjk9d7+IYX8EglMq0IQwkHlAxU3L2k6eUINzwvRDAsB9sgfb
+ OSFlUg59nQzBo24Mhibr9OeLX6Db00oANaxkx9z3pwprhB/Km8HJhPT
 X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=ed25519;
  pk=NcABXERZwQW1ZuuTca83ns67voH6xv+CB55m7ZJPaRE=
 
-UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
-Glymur platform.
+From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-In addition to the same dependencies that other Glymur patches on the
-list carries (audio, gpu, remoteproc, etc), this also depends on the eDP
-PHY patches available here:
-https://lore.kernel.org/linux-arm-msm/20260622-glymur-edp-phy-v1-0-814b45089ac9@oss.qualcomm.com/
+UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
+Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, NVMe
+storage, a WUXGA OLED screen, and the other typical Glymur platform
+capabilities.
+
+Add a compatible for this machine.
+
+[1] https://www.asus.com/us/laptops/for-home/zenbook/asus-zenbook-a14-ux3407/techspec/
 
 Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 ---
-Bjorn Andersson (3):
-      dt-bindings: arm: qcom: Add Asus Zenbook A14 (UX3407NA)
-      arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
-      firmware: qcom: scm: Allow QSEECOM on Asus Zenbook A14 (UX3407NA)
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
- arch/arm64/boot/dts/qcom/Makefile                  |    1 +
- .../dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts  | 1099 ++++++++++++++++++++
- drivers/firmware/qcom/qcom_scm.c                   |    1 +
- 4 files changed, 1102 insertions(+)
----
-base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
-change-id: 20260623-zenbook-dts-b69019671266
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 50cc18a6ec5e..1a1cd5b0bf21 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -68,6 +68,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - asus,zenbook-a14-ux3407na
+               - qcom,glymur-crd
+           - const: qcom,glymur
+ 
 
-Best regards,
---  
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+-- 
+2.53.0
 
