@@ -1,403 +1,187 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010004.outbound.protection.outlook.com [52.101.46.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF7136404D;
-	Tue, 23 Jun 2026 11:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782214436; cv=fail; b=XxI4pLau5e4Rh+kqdJU5kZ03qMpq+tINceuC+WgVotGTCPECprfmYqZsGxbcC5XRX+bynvzrKoU4tk2SO6vcGDxc0YxpciM9MKRrEGfvZ1b3cm3xTl/2dHEqfZQedyMdcbt+j3rxpCT7MRtIDEcO6RLXRSWZGZ2j7FAySgbUzr4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782214436; c=relaxed/simple;
-	bh=RjRa8sTixxd5r0SRWxNbMpNkXaNEGYf+UZScOdlNwBg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=OkPZXVx3dKwK2y+YBQrDd/HlSHcQNX8S2CeYDxnVh0xhYrhKfx7gmqfpHNejisXetsvZXPwNSUbD8J0EJDFQhhWOAFQ9OUJBZRZ1b08sAczXmr+jvuxSsS40dqUubYjk3cLrdZ5bQQ6SEsBY/4ZPYxpCxobDffmr538AlnASSmc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=IMAwr9if; arc=fail smtp.client-ip=52.101.46.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA71536729D
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782214624; cv=none; b=d0MQzpos7HA5vMpQosV7i9m6f3A3ovoWAjzUYhrx+Q+6Hbfk76lJS7Zb1GSrjJPSLIUYtrJKnwKhPmYprGGgzs801SnCyjG07UvBTz94zh1NtWXVxoUQK93Xf+u8Eq4C1ESVqhsEsRMO8LI7RN0D1kYgvEornyRvaxUOsF96zSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782214624; c=relaxed/simple;
+	bh=aTuVaf0nYfYAWfdJkxo7EvxAlbxCaffxQrDNMK/QZvw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q2BER96Yd9zAaGVqPVj+vf9/N6cL5DALHQGDfScleQs/DXXex5H/E8KPQUnaO5XCTUiskFnsUh6xh2LBObWYQ6dHH9ISS+4tkjPjOSNeEO63HzuVX245QaKD2GlSyKQUbhAlGSohtC0GppRM8kMk5iajDaD42HHnVbe4YSoHvx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OetdD04s; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fhqI0p0/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="IMAwr9if"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FcvTLByiHJ6X1cYKFIdO0YYaKiCQQ838XAO4HX6UJCzG5emuLqi7wu0v6bKffdMaq4k1kgm24Ij/6otBqSylLwTyRcFsZhv4yo8/nfLpm/m1ITr3iSbSc8Shf4L7+4/hvhUyLVU2yoliFwo23US370ktAyM8pRPqFY9cZWAYr0pe+Pxy9g2BTWGvs3hlJJMtkKsld0nkQ/v9a13RtE09SB3n2ObgdXdu66qGq5Gbm8Fw3rj4bM4dMYBz7qsWitldHolAQLDrzkdKMrkmi0XSbZ9CBR932cYnLMx9k9KffBVIGOSQavzYfqoYzbvr/ad68p3mHo3GNzfhCUbkVHDclA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EmvkwU7QlSsZ6NLkRmPWwMepyxcGjcPWZDSY5u3hJgQ=;
- b=VmAw+nQ+XLlZrogeI18EzLexioBUNrWYxO1ICNv2kPBKFnu9i86xMKWULZKzDTIDPx3n7AXUQ+TNWzAcQgBhADiXt34f5160uKktoyQcCKHmOJqXcL2oH1APt31G5Pqvfn0rDQcJ1Q0zK0dYu3OjLYVwgR5GnIAQW+YNECq54AjuJG0pyoXlwSg/foYg0LobV+ojOcr9P7lyQsp50ZN9Idbmukvn8pHugqoO5Psdyf4FvauJHrJ2ClFdFX77Gtih1Ir+5N/yxR0CD6Jk2Q+cwvdRfuUEJ9ix4zfg1prj+vMmkQnCNHkkP7tXbuLTWnZ3fzfr0NLCIsTpWcYGkHbruw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EmvkwU7QlSsZ6NLkRmPWwMepyxcGjcPWZDSY5u3hJgQ=;
- b=IMAwr9ifi/Pd8OlPIo+g5orC1pIjiDodwYczdvqgzEhUPx3Cg4erA9DH/Q9qljmECw8AF4GdA6D44cVOpHuyWAoF6dKAxKsklSI7KtQT1GvqsPG7Uk/b/WEbuP+d4XaI1Va983L1ei5mbX/LRLB6k88gflZH/dLL5Xo+ZeJC4r0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by SJ1PR12MB6049.namprd12.prod.outlook.com (2603:10b6:a03:48c::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 11:33:52 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
- 11:33:46 +0000
-Message-ID: <bcbd202e-7d43-4f59-9ff3-59b564e4a3f4@amd.com>
-Date: Tue, 23 Jun 2026 12:33:33 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 3/5] iio: adc: versal-sysmon: add I2C driver
-To: jic23@kernel.org, andy@kernel.org
-Cc: dlechner@baylibre.com, nuno.sa@analog.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, conall.ogriofa@amd.com,
- michal.simek@amd.com, linux@roeck-us.net, erimsalih@gmail.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260623014036.3865402-1-salih.erim@amd.com>
- <20260623014036.3865402-4-salih.erim@amd.com>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <20260623014036.3865402-4-salih.erim@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::13) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OetdD04s";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fhqI0p0/"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NBYgCQ113419
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:37:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MXNsvpmExzEXM1J7XKQU25avjaUjuFbYf81y6omDQEg=; b=OetdD04sMT8BXOHl
+	P0ZfY0xGtL2vRhpknWkdpuLX31ixTvC6kpV0E7VQdx0gj/pE8GCrCnomrMVSoU1+
+	L2bCcW3nQ+aUWuIXihofuZXtk6g13KrVR2/2baRhAnB8pdxL1JML37cHNUuDwsL9
+	5MVe6YTHbtX2udMawnrW7aZgXiGhpEAyN2hDgmAJLUOFX6tzvK3dZK2DqvRnWAbA
+	ndKWhmmmPYlyDqb7nmieAixUTjlWqAOE0oPFv8GUUkOsTpEFyBJ6bbgzJ1gvoniI
+	XyL5R7akeITlahYsjQv8hfHbBlRRM23j5kPYYklFHNfS/zERxNBB56rvyaxkX1YF
+	GewvCw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eymnvs9bk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 11:37:01 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-517647fbff1so17285151cf.2
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 04:37:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782214621; x=1782819421; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=MXNsvpmExzEXM1J7XKQU25avjaUjuFbYf81y6omDQEg=;
+        b=fhqI0p0//S0ptLFS9q3SPgjA90L49YS8l2fOw8jC5j8LgGtMLdMKOAWZ6iT7/yZ4pY
+         KqEbAQdVTqCEiKx5pxur0hNuQn25GetIndI9QLHFyaWNmw7eGbVQPHRlnXEjCTPGew5k
+         43ktsIg4f06uv/jCEG04lVn8/BWElrFgvGq0Kst9Wuot33QnqUbGP5QhCHAvSKep+bxA
+         qB+ndilPmKj/600u6wbeZTsLU6dIBb+QmGixrROXRYWyqW8KfvJdFtZSJlhd3FRNccwx
+         3acF8jbosGBQ31sPp7yVY4DYuJWILNuXhWupEfAJ9ulS4euKMbuJY1Vntrf+IxwllmDQ
+         idPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782214621; x=1782819421;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MXNsvpmExzEXM1J7XKQU25avjaUjuFbYf81y6omDQEg=;
+        b=eb80WLI8O7t0NInagVymitXzboKwEV3ZzXhOj3hOOFQg1sIYOA8qj6lMIcPxBMbDjA
+         ExzTBtzV+uxYNc4WSIiR+bE2+U75kv5EKHLfyePEHyFgRczc2ci2jSF0pK4l7t57++nx
+         uq6o1IoWuiYwwlaAjJpe74VVs0C8pKvnwzcOZjsDFaglG7/lf+odQP7E3hm3pn5dBEmH
+         n1FSG3WGI4G9io8ezyzn91p026jta1cLUwq1OXTGD/+mM3MuaCdJ87iWCdo8deQ6w65D
+         8gRB51xlGJoNLeB4qH2JlsvUzywX41N92fL6rGVikRz78Cuu97HOwagxaGVJ2wCMnr6q
+         JpVw==
+X-Forwarded-Encrypted: i=1; AFNElJ96L/2EsyjWB2rc1juBSeQOOuhcqtMnGVlzWbgOctSVvWfj2fhiJU1mzjLLg8e15EnOHaBHuUuLupxV@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAi6/qFyHQ6SGshq+j752fysWKGZR25bFzfhQNA7w09gIc/bLz
+	P3Hgd+MQqV5kJ+yPsHQFOk5cAFkLLXAwIH8jutYdjn1v6PAzAcdHvJQSjgJ25JNR9EI8TO7FBit
+	SbxDfJZ5i/kfnBDVHxpn+X/WIy7K88mmrGKo8cV7vymwOd06lr9CobOR7Wnd1zXe/
+X-Gm-Gg: AfdE7cnxR0vz9EVpoXtER/lOIcl77mTOPSbrKvbh45L5hXrZ+o+/VnzRetWF85jfcmm
+	vI/W/tbvVziWMr+ob8Fe54yZkip75nyN4VcJoFsv8spuvVbQZ47LOa077V8ngrBseAuuqDoNkTr
+	MKR1HmYcGy31wzEV/j8U00RvOJRHGwXRWBfIcBliFazxPqceWwCsjH3Ms5pzjNeFPMDNtuo0L2Y
+	5kM2l+GjT2eez2qa+AfoOuBrpGr0ghiP7EyUq6GOGv8pphZTWllljfA+SaVXqecuFa7tJC44mo4
+	Q3jvYjBgqVx0tYtWgbfXfISP2XRhfM36pH8b3eR3St4apAbLdDFUib0BRFmTRTaCeTCFw/4KaTA
+	CA7k89IosTPr0GNGEK/MMSC/mb2CSgwezqCk=
+X-Received: by 2002:ac8:7d49:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51a4f380d0dmr47487321cf.0.1782214620872;
+        Tue, 23 Jun 2026 04:37:00 -0700 (PDT)
+X-Received: by 2002:ac8:7d49:0:b0:517:5e32:f3ac with SMTP id d75a77b69052e-51a4f380d0dmr47486981cf.0.1782214620409;
+        Tue, 23 Jun 2026 04:37:00 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6977be498e4sm4536670a12.20.2026.06.23.04.36.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 04:36:58 -0700 (PDT)
+Message-ID: <4635a665-f605-4647-810d-c9d83a271a86@oss.qualcomm.com>
+Date: Tue, 23 Jun 2026 13:36:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|SJ1PR12MB6049:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb8afd2a-9103-4e90-0c22-08ded11b4971
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|18002099003|22082099003|56012099006|11063799006|3023799007|6133799003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	0rXhMYHVK2PREnf7RgrzEcnl43C1N02uoTrblitANyKSr6qYhYHiO95cSiVBv0FIEH21p4tpr8YJ+YEGqULOKaXLZqbRx5Mtv/vEG+wcB5v2zZFUInOWupxwa50QVxlBbRmXM2oNEiRJjSex2g4glk8mfvO7WGgHZQu3vV1UfJng7mjwMADNGpUrf8vZUzAHGz186Zut9tcFQNCfDQKrIRUGKQNwKp9DF0NgRpq0bMUdjORLZdEml3QVmLn3ik1oIn1t+4udK7dVCBlidPAaRV3/Cqc2NOu/Iy0JZXaJXIqmB49tAVNDQmDejxTmt5jNca5YixI8KcRDKNXwDrOOesADsaBgHrvCSEtLn5+rcUrvvEEwb745Gqk6TB0INJi8v03bExWqvBAcc7EGj8bO6YJNjy8BQrFxorynT+85lqNXOQredP+ko3G7RHhDQTyRNpwjGXwaKrJHBPxRXd5uTjck8KKICWEijG23cjb7/6+Bj2filOPaIHUF7kiFVWTsBqjkElyYMnqYM2okarIY0I6WI4PvKsehAXzKWDjOY5uFS9V5R088RSY9Dv2LEW444kx5y/9y1s847GqcneLwXzcuBYqfmr2tI17UopRlggK4emGLf6AegOKggWstVnPSw91Qj4nfA6bIDNUrdxkYEnsU9qH8mPF+pAoEwJ0LWZ0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(3023799007)(6133799003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2U2NmluWmNLeHRPeHVkU0tuTUtRYTdTQzlxYmxJZGNXbjNJMWs3QkxMV05I?=
- =?utf-8?B?eURaVWFMV2NrZ3pOZVFTYmNtWFNCZTM2VTNzc25ORzBzVG04anppRk01dWF0?=
- =?utf-8?B?QkNoNjV5MHhyN2tleVdmK2p3ejZwMFdQUzViSWwwSFVhUldrVVpBRCsxWnhp?=
- =?utf-8?B?WVdMdUdKdGRhS1VsWFMzZGtSeUgraTQrYjQ0Y0wxMkk3ZnVXL0xGVVFQMlNO?=
- =?utf-8?B?dkxESERxZ3Y5NlRXMEpNb0grMHR5WTBYdFp1ZzYvODRTVWJYejZKMVc1azNn?=
- =?utf-8?B?T0RVWlJqZFBBYWd6ZUFVOUh5czQ0Qncyc0JCUHBGNmd5RUkrcDM2Zm8rbHRL?=
- =?utf-8?B?THBiUWRNWEJjQ1Z5YkZRSXJGcC9BVnFTL3F5Lyt1THRCRWhCTVNwelNwUDVZ?=
- =?utf-8?B?R3BNdVpIaDUxd2JuZEs5WER2VWd1UFlQZDVMR2tBclR0UVVkWmlLN3ZtblNu?=
- =?utf-8?B?alVnS3ZmR3Y2cmJGdUxmKzVGdmhRYW9FOXNmWnRFZmdDUG9iS1BYRmtqcmo5?=
- =?utf-8?B?K28xQUc3emdBcXRrL3BMZHYvWGpEYTFVUTlheEFTYVdWSGhFaFBaZ1h0UFFk?=
- =?utf-8?B?eGNCeW0xZlFFNU9OclhaMFZKZDhMNDZ3bE1Wa0Q0R1A2UnZISjl3MnQxMCtC?=
- =?utf-8?B?WmowOXorZi9IeG9TMnNRQzBiMEJIZTJwdUF6V0U4c0JCbHMwZ3h3cW5EbDRp?=
- =?utf-8?B?VEZTT2RCd0xWd05FalNmdjZGUHZkc0xYMlpCOWhWeTZmZkVSd001TGtuLzNw?=
- =?utf-8?B?WWQ2N0d3dUU0dlJzVFpoaW8zdmJhOGQxS01uMytUWVFnc1hSWW9DV2s4Nktq?=
- =?utf-8?B?bUcwRkxsVStZenQrbG5FdVJPRjhOWkkxSHE4VFB6ZXQyUWRZTkduajF2Vlhy?=
- =?utf-8?B?ODhDYWx1OGtFSUE2ZkVmK1RuYTY4czNScitpdWE4QU8zaTRNYjB4OWFkYkNS?=
- =?utf-8?B?amdKRjQ5RjljbEFjN0p6YzF3ek5jdUJxSGU1V2RYTVVYWWFlQmUzNXdJek9j?=
- =?utf-8?B?Sy9Hd29LaEtEYksvVnJ3c3pMKzdkeDNmUTIzWE9CRmVzVGZCNGRSZ00zS3M4?=
- =?utf-8?B?SXVETmtMdHlZV2huREpVZmxybFRiNFQyNFdQUzY4RkZoWnFuUHpjNndoNkxX?=
- =?utf-8?B?eHMraWhIR2hnQUp5bjhkVFdtOEdqS2RKTjZpRXg3a0tydU5Hem9WSjFBaHJz?=
- =?utf-8?B?WU9OMFhMaXRmMkZlVVBaMVNRYzd3V1BaTWRkejA3akxheDVLWjVJNUh4MDlz?=
- =?utf-8?B?bHFIeDcyTitmOTFVMVg5UEpsT2dJN213WnBZSlFDMUU0NnlOQTE1blNnSEJJ?=
- =?utf-8?B?d3ArK2lOamJhZzlwQ3pjazY4OEZGaENiRUZra0NRNEJUUzFuUi9sTVRGaCtU?=
- =?utf-8?B?VzRkL2lRWGVDcEZsSHorcGp2aHl5ZElwek9ySTVGS1ZqNUVtd1lZQ1JqcTc3?=
- =?utf-8?B?SnVScXRxblhGR2xKWHVsbkpGb1NZT1N0Q21wL1RieFdtVkRsVFdNTmlkcWtk?=
- =?utf-8?B?U0puaUwwVHpzM1JzS3JLSVRHL0puZzBzNWR1UzZqc1hQK1NVRXhVeDNSaUxK?=
- =?utf-8?B?K041SnNMTGd4dDhaVDR6Q0xkT2xQR3dFbU5xZnpCaXUrZ1ZkMGtLNkdhenhE?=
- =?utf-8?B?dkk3SENPVVhsL3R5QStpZTJ5OFV4NUpqRy9YSTR1VUx6V2IvQlc0SXpBanlN?=
- =?utf-8?B?WnN6RXVvM3RVTTk4cGhlQXFZT1FubDRQR1RSK1hHVmMzeEFua0tZWDRaM3RI?=
- =?utf-8?B?NDRET2NGeWNzanBmRnFtV3hkZVJBRGsvQWxqYzJ1b04rdE1hKzNCZm1OZ0Jt?=
- =?utf-8?B?VEpYdCtoMjBFYlMrRm5xakhOT3ZBKytCUnQxUGVJdGFUb1JRMkhwVnJ2WlQy?=
- =?utf-8?B?eUozTENUeGx2NnNuc0tQVmo0NjFuRUl3Q1V2QkJBeUxDOWJxcncrRmRKUkov?=
- =?utf-8?B?K25IbUJnTVNwVXV6K0YzUlFiNk9xdUJ5MDdIOHRacERETzZkUi9xNU4yLzhO?=
- =?utf-8?B?WGl1VEt3c1JZVHVXUDVRdk5XUU5YYTZXVUROVjRQZHNtUG9BWWNwVEViem5m?=
- =?utf-8?B?dXIyS3pZSWhmOWExeFpwdVZjd3pQYnhON28vUHdiZjV5TzJua1hyZzQ1ZVUr?=
- =?utf-8?B?NkNGWnpCcndnalI1MlJtQ2RGWUsrMlM5azVqbVZoK3V6NlBwMG9pQ0xTWTc4?=
- =?utf-8?B?eWpIa0Q3U2NoOVAyd0R0L0tGckJkbkx0M3psN2g5cVF0eXl1R2NFMnpFVzVM?=
- =?utf-8?B?STgrVC9LYVlUeHhyS3orSEhlVkcwdWhGNGhoYTJXSUQ4aUlidE15blFKTGpF?=
- =?utf-8?Q?YL8O/eVBoUUUY+r9Nd?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb8afd2a-9103-4e90-0c22-08ded11b4971
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 11:33:46.1823
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ikIQ3umywmq4DFskzy/yARaH7ZKXX/PvtLWzMaZaWVwLQRGsHAiKFb24Y+xpGFH7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6049
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] phy: qcom: qmp-combo: Correct pre-emphasis table for
+ QMP v4 DP PHYs
+To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        linux-phy@lists.infradead.org
+References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
+ <20260622-sm8450-qol-v1-7-37e2ee8df9da@proton.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260622-sm8450-qol-v1-7-37e2ee8df9da@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=dOWWXuZb c=1 sm=1 tr=0 ts=6a3a6fdd cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=N-WSo6sfiX0bQk_JYPcA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA5NCBTYWx0ZWRfX2Cvr9M2B66sH
+ EJLllwOwZGjUdK3+0esnYb7+QHvr3pTLC00/IMwAV6RM8sjLxvOelAdCSuRDXZj8abtyoAFToNQ
+ Q15YywDwWleC0LElH+M+1beorMmPMec=
+X-Proofpoint-ORIG-GUID: F8bGlopmeq4ycteCokPNfl9DB8VddrJ8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA5NCBTYWx0ZWRfX2+Mign8YQ0ft
+ t2Pc1Z1q9KNI0zrjOWyM5eWP4LyOJLlpnUAut6ZjRkrtmLrU7AWX0G2jb/cpwLjJgR8XN/+yGw5
+ /vXjOZ++wMY8+ZLq613dqyVTeKnW0f03+I3xI5jvrUsXL2ao+Q9op+GNBPV6dWXM3vv7xyqeiDP
+ X2R6uNwdYrPWAG6cR/SP0cKB+IfJ+a/bDKepYl/wtvZZgCv5ifiFTXvg7zk7/PjUkEtySupeKY2
+ 35a1upNf8coyALeK3QqpI//I5POEidiMhwewSN+nDeJRgoIAtmS3D89vhXCCbgHhvKdCVwnR70Z
+ wLYAWm7Z3MwqBH8RuU3v65ut9/pKsngIlkvf4EC5iYfEYWX87I5vq6viCQVzInyFqubQpX7ByOc
+ k9wYsGzCJTKIob1wdOf/BqAwsCvN01visZ1P15srJALKeaZNs24QFbIxAmcm0uhTEio5GUT1+NP
+ iAEQAIxtZ4YdETIRadQ==
+X-Proofpoint-GUID: F8bGlopmeq4ycteCokPNfl9DB8VddrJ8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_03,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 bulkscore=0 clxscore=1015 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606230094
 
-Addressing Sashiko findings on this patch:
-
-- [High] Non-atomic I2C read transaction releases the bus lock,
-   making it vulnerable to bus interleaving.
-
-   The SysMon I2C interface is typically on a dedicated bus with
-   no other devices. The current implementation works correctly
-   in all tested configurations. Switching to i2c_transfer() with
-   Repeated Start would match the TRM protocol diagram but would
-   require hardware testing on a board with I2C-accessible SysMon.
-   No change for now.
-
-Thanks,
-Salih
-
-On 23/06/2026 02:40, Salih Erim wrote:
-> Add an I2C transport driver for the Versal SysMon block. The SysMon
-> provides an I2C slave interface that allows an external master to
-> read voltage and temperature measurements through the same register
-> map used by the MMIO path.
+On 6/23/26 2:54 AM, Esteban Urrutia via B4 Relay wrote:
+> From: Esteban Urrutia <esteuwu@proton.me>
 > 
-> The I2C command frame is an 8-byte structure containing a 4-byte data
-> payload, a 2-byte register offset, and a 1-byte instruction field.
-> Read operations send the frame with a read instruction, then receive
-> a 4-byte response containing the register value.
+> Comparing sm8350 and sm8450 tables, this seems to be typo.
 > 
-> Events are not supported on the I2C path because there is no
-> interrupt line and the I2C regmap backend cannot be called from
-> atomic context.
-> 
-> Co-developed-by: Conall O'Griofa <conall.ogriofa@amd.com>
-> Signed-off-by: Conall O'Griofa <conall.ogriofa@amd.com>
-> Signed-off-by: Salih Erim <salih.erim@amd.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 > ---
-> Changes in v11:
->    - No code changes
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Changes in v10:
->    - No code changes
-> 
-> Changes in v9:
->    - Add Reviewed-by tag from Andy Shevchenko
->    - Add MODULE_IMPORT_NS("VERSAL_SYSMON") (Andy, from P2 namespace)
-> 
-> Changes in v8:
->    - Add volatile register comment for regmap cache (Andy)
->    - Update devm_versal_sysmon_core_probe call site (Andy, from P2 rename)
-> 
-> Changes in v7:
->    - No code changes
-> 
-> Changes in v6:
->    - Add types.h include (IWYU) (Andy)
->    - Add local struct device *dev, join devm_regmap_init on
->      one line (Andy)
-> 
-> Changes in v5:
->    - Add err.h, mod_devicetable.h includes (IWYU) (Andy)
-> 
-> Changes in v4:
->    - Replace enum with defines for I2C frame offsets (Jonathan)
->    - Use get_unaligned_le32() for read data reassembly (Jonathan)
->    - Use put_unaligned_le32/le16() for write data and register offset
->      packing (Jonathan)
->    - Named initializer in i2c_device_id (Jonathan)
->    - Drop bitfield.h, add unaligned.h (FIELD_GET/FIELD_PREP replaced
->      by unaligned accessors)
-> 
-> Changes in v3:
->    - IWYU: fix includes (Andy)
->    - Enum: assign all values explicitly for HW-mapped fields (Andy)
->    - Remove sysmon_i2c wrapper struct, pass i2c_client directly
->      (Andy)
->    - Use sizeof() for I2C buffer lengths instead of defines (Andy)
->    - Use = { } instead of = { 0 } for initializers (Andy)
->    - Use single compatible xlnx,versal-sysmon (Krzysztof)
->    - Adapt to core_probe interface change: irq moved to core,
->      remove irq parameter from bus driver (Jonathan)
-> 
-> Changes in v2:
->    - New patch (I2C was deferred to Series B in v1)
->    - Uses regmap API with custom I2C read/write callbacks
->    - Shares core module with MMIO driver via sysmon_core_probe()
->    - No event support (I2C has no interrupt line)
->    - Separate VERSAL_SYSMON_I2C Kconfig symbol
->    - Reverse Christmas Tree variable ordering in read/write functions
->   drivers/iio/adc/Kconfig             |  13 +++
->   drivers/iio/adc/Makefile            |   1 +
->   drivers/iio/adc/versal-sysmon-i2c.c | 134 ++++++++++++++++++++++++++++
->   3 files changed, 148 insertions(+)
->   create mode 100644 drivers/iio/adc/versal-sysmon-i2c.c
-> 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index c7f19057484..8f9fc9de74a 100644
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -1963,6 +1963,19 @@ config VERSAL_SYSMON
->   	  To compile this driver as a module, choose M here: the module
->   	  will be called versal-sysmon.
->   
-> +config VERSAL_SYSMON_I2C
-> +	tristate "AMD Versal SysMon I2C driver"
-> +	depends on I2C
-> +	select VERSAL_SYSMON_CORE
-> +	help
-> +	  Say yes here to have support for the AMD/Xilinx Versal System
-> +	  Monitor (SysMon) via I2C interface. This driver enables voltage
-> +	  and temperature monitoring when the Versal chip has SysMon
-> +	  configured with I2C access.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called versal-sysmon-i2c.
-> +
->   config VF610_ADC
->   	tristate "Freescale vf610 ADC driver"
->   	depends on HAS_IOMEM
-> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-> index d7696b1b157..5abb611fe46 100644
-> --- a/drivers/iio/adc/Makefile
-> +++ b/drivers/iio/adc/Makefile
-> @@ -169,6 +169,7 @@ obj-$(CONFIG_TWL4030_MADC) += twl4030-madc.o
->   obj-$(CONFIG_TWL6030_GPADC) += twl6030-gpadc.o
->   obj-$(CONFIG_VERSAL_SYSMON_CORE) += versal-sysmon-core.o
->   obj-$(CONFIG_VERSAL_SYSMON) += versal-sysmon.o
-> +obj-$(CONFIG_VERSAL_SYSMON_I2C) += versal-sysmon-i2c.o
->   obj-$(CONFIG_VF610_ADC) += vf610_adc.o
->   obj-$(CONFIG_VIPERBOARD_ADC) += viperboard_adc.o
->   obj-$(CONFIG_XILINX_AMS) += xilinx-ams.o
-> diff --git a/drivers/iio/adc/versal-sysmon-i2c.c b/drivers/iio/adc/versal-sysmon-i2c.c
-> new file mode 100644
-> index 00000000000..e9a7629159a
-> --- /dev/null
-> +++ b/drivers/iio/adc/versal-sysmon-i2c.c
-> @@ -0,0 +1,134 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * AMD Versal SysMon I2C driver
-> + *
-> + * Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +
-> +#include "versal-sysmon.h"
-> +
-> +#define SYSMON_I2C_INSTR_READ	BIT(2)
-> +#define SYSMON_I2C_INSTR_WRITE	BIT(3)
-> +
-> +/*
-> + * I2C command frame layout (8 bytes):
-> + *   [0..3] data payload (little-endian u32)
-> + *   [4..5] register offset >> 2 (little-endian u16)
-> + *   [6]    instruction (read/write)
-> + *   [7]    reserved
-> + */
-> +#define SYSMON_I2C_DATA_OFS	0
-> +#define SYSMON_I2C_REG_OFS	4
-> +#define SYSMON_I2C_INSTR_OFS	6
-> +
-> +static int sysmon_i2c_reg_read(void *context, unsigned int reg,
-> +			       unsigned int *val)
-> +{
-> +	struct i2c_client *client = context;
-> +	u8 write_buf[8] = { };
-> +	u8 read_buf[4];
-> +	int ret;
-> +
-> +	put_unaligned_le16(reg >> 2, &write_buf[SYSMON_I2C_REG_OFS]);
-> +	write_buf[SYSMON_I2C_INSTR_OFS] = SYSMON_I2C_INSTR_READ;
-> +
-> +	ret = i2c_master_send(client, write_buf, sizeof(write_buf));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(write_buf))
-> +		return -EIO;
-> +
-> +	ret = i2c_master_recv(client, read_buf, sizeof(read_buf));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(read_buf))
-> +		return -EIO;
-> +
-> +	*val = get_unaligned_le32(read_buf);
-> +
-> +	return 0;
-> +}
-> +
-> +static int sysmon_i2c_reg_write(void *context, unsigned int reg,
-> +				unsigned int val)
-> +{
-> +	struct i2c_client *client = context;
-> +	u8 write_buf[8] = { };
-> +	int ret;
-> +
-> +	put_unaligned_le32(val, &write_buf[SYSMON_I2C_DATA_OFS]);
-> +	put_unaligned_le16(reg >> 2, &write_buf[SYSMON_I2C_REG_OFS]);
-> +	write_buf[SYSMON_I2C_INSTR_OFS] = SYSMON_I2C_INSTR_WRITE;
-> +
-> +	ret = i2c_master_send(client, write_buf, sizeof(write_buf));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(write_buf))
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Almost all registers are volatile (live ADC readings, interrupt
-> + * status). The rest are not accessed often enough to benefit from
-> + * caching.
-> + */
-> +static const struct regmap_config sysmon_i2c_regmap_config = {
-> +	.reg_bits = 32,
-> +	.val_bits = 32,
-> +	.reg_stride = SYSMON_REG_STRIDE,
-> +	.max_register = SYSMON_MAX_REG,
-> +	.reg_read = sysmon_i2c_reg_read,
-> +	.reg_write = sysmon_i2c_reg_write,
-> +};
-> +
-> +static int sysmon_i2c_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct regmap *regmap;
-> +
-> +	regmap = devm_regmap_init(dev, NULL, client, &sysmon_i2c_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
-> +
-> +	/* I2C has no IRQ connection; events are not supported */
-> +	return devm_versal_sysmon_core_probe(dev, regmap);
-> +}
-> +
-> +static const struct of_device_id sysmon_i2c_of_match_table[] = {
-> +	{ .compatible = "xlnx,versal-sysmon" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, sysmon_i2c_of_match_table);
-> +
-> +static const struct i2c_device_id sysmon_i2c_id_table[] = {
-> +	{ .name = "versal-sysmon" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, sysmon_i2c_id_table);
-> +
-> +static struct i2c_driver sysmon_i2c_driver = {
-> +	.probe = sysmon_i2c_probe,
-> +	.driver = {
-> +		.name = "versal-sysmon-i2c",
-> +		.of_match_table = sysmon_i2c_of_match_table,
-> +	},
-> +	.id_table = sysmon_i2c_id_table,
-> +};
-> +module_i2c_driver(sysmon_i2c_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("AMD Versal SysMon I2C Driver");
-> +MODULE_IMPORT_NS("VERSAL_SYSMON");
-> +MODULE_AUTHOR("Conall O'Griofa <conall.ogriofa@amd.com>");
-> +MODULE_AUTHOR("Salih Erim <salih.erim@amd.com>");
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 9bd666ac2c49..5b278fd54a16 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -2108,7 +2108,7 @@ static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
+>  static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
+>  	{ 0x00, 0x0d, 0x14, 0x1a },
+>  	{ 0x00, 0x0e, 0x15, 0xff },
+> -	{ 0x00, 0x0d, 0xff, 0xff },
+> +	{ 0x00, 0x0e, 0xff, 0xff },
+>  	{ 0x03, 0xff, 0xff, 0xff }
 
+It seems like 8350/8450 should be using what this driver calls
+v5 tables, with this fixup:
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index cdcfad2e86b1..63a4f2127e3c 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -2134,7 +2134,7 @@ static const u8 qmp_dp_v5_voltage_swing_hbr3_hbr2[4][4] = {
+ };
+ 
+ static const u8 qmp_dp_v5_pre_emphasis_hbr_rbr[4][4] = {
+-       { 0x20, 0x2d, 0x34, 0x3a },
++       { 0x20, 0x2e, 0x35, 0x3b },
+        { 0x20, 0x2e, 0x35, 0xff },
+        { 0x20, 0x2e, 0xff, 0xff },
+        { 0x24, 0xff, 0xff, 0xff }
+
+
++Dmitry please confirm
+
+Konrad
