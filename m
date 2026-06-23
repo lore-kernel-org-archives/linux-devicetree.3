@@ -1,106 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B1C359A91;
-	Tue, 23 Jun 2026 18:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04E03815CA;
+	Tue, 23 Jun 2026 18:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782239709; cv=none; b=mYDrZqZGeXsrPpuiFFlko5TaPZ+mkFr34S2liyfejiz7dtCNey286zPi7E6w2QZ3ZwX/HOXzDgmQf/GIgRtqYIvOo9Bxe3uKB4YWbFcvOvrsj7LUnlJsovUUK1h/LqHcHqx2KbD270TVZWxsohFemIE5kvxbb9xHpOsVTtS24B4=
+	t=1782240098; cv=none; b=Jze5A0kh0D2MnT6YNbh6XiHhoIJWZTh8/CJQdOcYY+JDtggJ2oP7tw2CBn9CwXarAv1CR0Bjs4SLEdTHWMMmP+Sjf0uTdI7Xo0W9xyS16OJa3n+GQesK8gn38DtvY2Jk29gKHibBZJRxREXnmD5QTKGIozDSyDdxvtHJ2ku3GLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782239709; c=relaxed/simple;
-	bh=JqRmlDPodoTazGjRiNnR6sUOZVj10imueJYYI+ABdkk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b/EyHbAHaAsaHAMraXrqeXdUBZHg3NUY+KR3DbIIDBQgZqDJQdaCMShERWA/nqAZbFfGEaRzVAj1kZcTnkNM9uWWhRF/qOFeBzhrWPFNafTkOv/i8QnOuyItvyuakJAfgaSbrqYE4dss4X/JN9bvdJPqfX92VZZMzX6fz87U4hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c4SLDjlK; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782240098; c=relaxed/simple;
+	bh=+v4G0ah8ba4jvcnAMGRfX7axDYfTDxc2GAfdz46STA4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XKhPrF1KfWKrnwf2uIMUXrK2nnOgKVItFo10kFOu25HCG/XarV20EBQ+fSaTbHzoFbiyUZwWxEQvO+CXaW3VvfLZ3z+kWmzP2R+sHmMgaJcbl2jFclxusLy4mITXf5Gb3dXRcaFSN2ni4Jv5P6LOtjnGlTwNSlO/tMiI3t2PAyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MK9u3qz8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c4SLDjlK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782239708; x=1813775708;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=JqRmlDPodoTazGjRiNnR6sUOZVj10imueJYYI+ABdkk=;
-  b=c4SLDjlK5D7l0T6JHBMIf9CUb7Bh2ASdrj3EZXElaVkdSJpN25klRNA3
-   GzbvMQA+xsBq7VeApmHNwIuHf8GKtEyXNF/2pJEvVO80q9xXM2FiGtWtQ
-   L1jL179br8qXYgunZBRDsNWsan/l6XPqAevDYFUm+qAJOBOG97VuWQFgm
-   NJS6rVTNaQR1uCd/DmFLhAF50SUz/u5g/kTwV4KqYjJpvBz07VDHOba/D
-   knBnSAWfpdiO8823T7jabQR7F7/J8ECugYzbR4EkXxUsGHapMcMvHl+8w
-   VGLlG9QSYB+w6KDY0l68RZfI5r+FQwB+8nxEix0UDCiUekRCmQeseWmdI
-   A==;
-X-CSE-ConnectionGUID: Kl49P1sQQ+CnWYZHMVOz6A==
-X-CSE-MsgGUID: VMERCrneSBGcwY27KB51Dg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="93353855"
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
-   d="scan'208";a="93353855"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 11:35:07 -0700
-X-CSE-ConnectionGUID: QaNZbiEeQ96czSQScIzG8w==
-X-CSE-MsgGUID: /KSA2z2bQ0OJmMeVaOLbqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; 
-   d="scan'208";a="273659975"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.7])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Jun 2026 11:35:04 -0700
-Date: Tue, 23 Jun 2026 21:35:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Lukas Metz <lukas.metz@gmx.net>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add driver for DAC8163:
-Message-ID: <ajrR1jlkggGq_rrj@ashevche-desk.local>
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MK9u3qz8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B296C2BCB8;
+	Tue, 23 Jun 2026 18:41:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782240098;
+	bh=+v4G0ah8ba4jvcnAMGRfX7axDYfTDxc2GAfdz46STA4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=MK9u3qz8GYhHiaLZqgtsHKdmsx9ZQcgXfDJuxdaaAT93PnQUxGOYT+CCp7Qqdq6ZS
+	 h2ZCiy2kzB3u2xYQOTbLqR4mgOJuOnDpWXMBcqnehh4/+5bQFFPwiRYc8i74VDB97S
+	 4/rqR7x88MwpXyP488GMgd0SiWXfbCHM0GsAUgClw9912sE8Ci14fMR/t/7KUjEK2S
+	 5/l6d5H6FGv846Evwzc/8RAMHuq19PaU9O6P0wAAIPO4Wg3ZNbeDkpAbBShh2EL3fn
+	 mkr+l41V+6NgXyP7rO3dsfnhqqoJcPA+WEjTYgtXeUeO94yNUgtNCcVopUtZujfYL0
+	 d1HmthPngKDTQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27076CDB470;
+	Tue, 23 Jun 2026 18:41:38 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 23 Jun 2026 20:41:34 +0200
+Subject: [PATCH] dt-bindings: arm: qcom,ids: Add SoC ID for Snapdragon SDA
+ 850
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260623-sda850-v1-1-ddd8e62c85d8@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAF3TOmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMyNj3eKURAtTA12zJNNkw1QTEzMzo2QloOKCotS0zAqwQdGxtbUA8jg
+ +/FgAAAA=
+X-Change-ID: 20260623-sda850-6b5c1e44662c
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1138; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=sCETGokdPT28+RQWD1iS9ITAy/9lm/wifsqVmn6O6ss=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqOtNglR5svPqZW4gfuHTY4j+yRZLGfkXuivIcY
+ OqMuZIlul2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCajrTYAAKCRBgAj/E00kg
+ coo8D/9jwAGMPLcn+7aSyldg+mJnNs57yqMWFs2brYkeTdYstripNqfJcObbclsHI6nD5TJKGBt
+ fil0rSsw4pvSYpj3g/9PEGLgdrNvPNgNrfYxrlRPI4J08K6UIrEGMGHun2XBfbEPK1ngINW2EpR
+ x+evjW3OAZIWhKzIhNFWANbhgZnl6u2dYzNGCmC2JAb+q4VsB99e0fbwCyy5PcI7i1Pr4HWZVd+
+ e9BD3dZSIsVKf5cWd5O0xGXs8FY3V1evXsc8Zdb+Lss7IR0W4gJhUYwTs5pfRnGTVjyZrJVAopC
+ upzDwLEGcmh7F4DcLL/P7inVEH3sO4gMSyeJnRE/QcwOzwLNqeNBJ4bo+FOt+aaMt+6W14Z96E+
+ 8bjdz8VunG4ToBuQ1yzEkFjujoCG7BBo5R3SMr4PM1LQ4wvkIE+mUbNWbCa/dCzC3nvwlOCTuyo
+ mD/a7tbL2mOTUxXm+jQuntzmmf0u2+9xISiAC9CkHvoW7V2nB6qD89yj8FX+deKu87jOmmT9f1f
+ q/ydYUbwB5CgJHx1fhWRd5hEN4+PviZsokq7KXNi9BkRWUScr0YrzRi1B7UgVIm0rfQVqL2HOQQ
+ kmldGrT199P1havmNfwvweaTgxeXew33n1UIMKDKjSpCFplJxnDwaW77DCYctQ4Vu7Ai4H6lTxT
+ 4KPsPtUWbCUKaIw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Tue, Jun 23, 2026 at 06:07:26PM +0200, Lukas Metz wrote:
-> This series adds an IIO driver for the Texas Instruments DAC7562, DAC7563,
-> DAC8162, DAC8163, DAC8562, and DAC8563 dual-channel voltage-output DACs.
-> 
-> These devices are pin-compatible 12-, 14-, and 16-bit variants sharing the
-> same 24-bit SPI command interface. Each device provides two independently
-> addressable output channels and includes a 2.5 V, 4 ppm/°C internal
-> reference that can be enabled via device tree, or an external reference
-> supplied through a regulator. The register and command structure differs
-> from already existing drivers which makes adding a new driver a
-> reasonable choice in my opinion.
-> 
-> The driver supports:
->  - All six device variants via a shared chip info table
->  - DAC updates in synchronous mode
->  - Configurable internal or external voltage reference
->  - Optional LDAC GPIO which has to be asserted permanently when using
->    synchronous updates.
->  - IIO_CHAN_INFO_RAW and IIO_CHAN_INFO_SCALE attributes per channel
-> 
-> Datasheet (DAC8163):
->   https://www.ti.com/lit/gpn/dac8163
+From: David Heidelberg <david@ixit.cz>
 
-Why do we need a brand new driver? Do we have an existing one that may be
-expanded to support this HW? (Note, not all existing drivers are under IIO
-folder, some of them might be found in hwmon, input, or drivers/misc.)
+Add SoC ID for Qualcomm Snapdragon SDA850.
 
-> The driver was tested with a DAC8163 on a custom STM32MP157F board with
-> external reference enabled.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Will be used by Comma three.
+---
+ include/dt-bindings/arm/qcom,ids.h | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/include/dt-bindings/arm/qcom,ids.h b/include/dt-bindings/arm/qcom,ids.h
+index 1af73c0ad41cd..4b3062f57eecd 100644
+--- a/include/dt-bindings/arm/qcom,ids.h
++++ b/include/dt-bindings/arm/qcom,ids.h
+@@ -179,16 +179,17 @@
+ #define QCOM_ID_SDM450			338
+ #define QCOM_ID_SM8150			339
+ #define QCOM_ID_SDA845			341
+ #define QCOM_ID_IPQ8072			342
+ #define QCOM_ID_IPQ8076			343
+ #define QCOM_ID_IPQ8078			344
+ #define QCOM_ID_SDM636			345
+ #define QCOM_ID_SDA636			346
++#define QCOM_ID_SDA850			348
+ #define QCOM_ID_SDM632			349
+ #define QCOM_ID_SDA632			350
+ #define QCOM_ID_SDA450			351
+ #define QCOM_ID_SDM439			353
+ #define QCOM_ID_SDM429			354
+ #define QCOM_ID_SM8250			356
+ #define QCOM_ID_SA8155			362
+ #define QCOM_ID_SDA439			363
+
+---
+base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
+change-id: 20260623-sda850-6b5c1e44662c
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
+David Heidelberg <david@ixit.cz>
 
 
