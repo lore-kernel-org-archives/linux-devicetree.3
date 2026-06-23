@@ -1,191 +1,141 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3B52F5313
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:50:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B017305689
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782229825; cv=none; b=ezltgRzzei5BYsnkMG8bLVbvtWZx7wB2VOVdAi2x1XCjBdwpXsWvTySwsqDKdQWorHjTi+whMeatetD/uEnAe8xCTMIchu6V8uMn43QMZizV820tej5NXRuXtVGEWpCgc15hg6NhY7C79WittI8848p5gUv1qRtB1AXjVhcKZmw=
+	t=1782230162; cv=none; b=Iv8nE9j/p8InIhEH6/LuZ+TsBYLNvAu0sQ4UV/UNdFRB0iV5ecdbPlyDZFq5Whqo2PMc6Y6u96IeUW0YWqw3S0xLVmlrcsDwM3aPypW63LRvzIx8BgakLm/C38zpklHIfesBY3iVowtw1U6XR+ZiPkd0DoEUItEqVn/uAdKvNPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782229825; c=relaxed/simple;
-	bh=q7Jc1YY3GrhcgpyOUs/OqzKf0RPP3KjpisQthhPq/3Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b89jkFUCWJNoNE3Dc47cW0EDrcTLmF4vMvmPHkCl4MdLc0Angb5bEiXjfXcjwfWU3AwqXn06vb89mUH8joG3mk0mftmdhymDKCE7idBMMH1vbdiUMbpkAvxqTonwGmvBKCKbS3P7is5bd7AL5v8mAp/soRPuHvF2iHyP5rIwtro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OD3Wuu9R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PtjLiWUc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782230162; c=relaxed/simple;
+	bh=T0SiTGRObhjsTPu+h1FAf6ljLkbOXP1HNR4jj07g41o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RJGaMoR94jT8m7XLL77LLIyNDb36ogguNc7QdklH359uPxsO7w8LlLRGrW2IoU/RfMXzWGScux2K4YhU9nVUxn52M6FHz4pjftnRCjd3v6hjIyFvdST4Vs1GJubLormitOow1FQ4cLJ0xEVxJy3c/zdG0fBuxLmK6kwxhF5QpB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pl6QRMMb; arc=none smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OD3Wuu9R";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PtjLiWUc"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NC6lx53744787
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:50:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ym3P2gofeeAjlRIrGWhUFZ53iCiesVQBX5oel0MUm0k=; b=OD3Wuu9RehYOeWG5
-	bVAJExNQBqYVK7WKimu8zDrs5acO+dqSR484E7mTf83B8QfCuu++cnDHuiQb137h
-	slxiyjceb0ZgqgSIJQ78vIBLFEpaRHEirTsX/jJONZeLMprlV1U3MfgpuEkHG9KC
-	0RJMz8uYKLADBxv2DRtBC9y44X002FiqsSEWe/kaAyUJLVyH9N0ayIl2WbAf+UXO
-	7OtcvSiU70021CbFo+IAp+kcj6pLAG15QSBPTJ0/Xu/eeBSFGsGy8ght9iGJhKFa
-	6WrpZS81aFmwFl1jqRmxjuoQ7uVLL8T8A8Ohj2otvR9pSDCMUk7aguiw3RBBoKAg
-	Tpx0Ow==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eysv3gyks-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:50:23 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8dd70b510a3so185996d6.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 08:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pl6QRMMb"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5ad583dc41eso4795988e87.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 08:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782229823; x=1782834623; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ym3P2gofeeAjlRIrGWhUFZ53iCiesVQBX5oel0MUm0k=;
-        b=PtjLiWUcap99AMdj0FklGyHJy8koBU6m1ulHOVxQOB1dxlcPU0F3xAttejIiTu3ttr
-         xujSaxB9Jv21Xlxpdm/AzHPC3YcZXIqZgMzvUo82VTteEsAFlZeVL2G8GB9E8VKkBVlt
-         pUnHgr7Inm/GY0FiQLqus7bYYliPc0T4Yzx1hIWQj9qL0D4IJRiuwuezf+ocZH4WBLaz
-         FIgwbYz+Toc1xeWZEey5Xvv1uD7qORJE5xein4Mk5JRMwAjBCGoqjxUzEAnquNuYNm8P
-         bmi/8guy9TlW0Ge005M+2iSmzJL3oYvyGoPk/BCWxAkuXQyloTi9TIfU4UXbkWjPs24X
-         AD5w==
+        d=gmail.com; s=20251104; t=1782230160; x=1782834960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=55KrpsLVrgFVm6uOkBGmtvpWY3NBouDgLEEMArVVBP4=;
+        b=Pl6QRMMbajWc5rT9fyDk6HNtIoimUjVleHOLKMB5gs3yVIszFcWgQNSf1kgKoG6eXr
+         bErZkIMIiStMvd/whBOrCeO1VMqj3+sW06gh5KVSTMzU8LfTkgVNp3HNe8Zl033njdFC
+         QAJ5gGGZzG6/7ueqJCPStegxuPq7aOefGYOZAbZi8uyzFu8nyTPbAwxkmZ1tNNYQQC/+
+         XzxDYaYWaOuDvBlNph6cSedtbnxmmqNe+po7bRLJstzUtWeYHUgiOj1r5NHA4mR+JHIB
+         aP9FBiHcczVghcsbV1/2VFzL7iqm26p98QPCx4quLvgzPELVTZihbcQ2M92vWY80PiS8
+         qWmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782229823; x=1782834623;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ym3P2gofeeAjlRIrGWhUFZ53iCiesVQBX5oel0MUm0k=;
-        b=LP3SpAehdMSLwHuyBr9tfoTw2fojYP2zfWAAtphf8XnkOnN8ieipZVCgFNhC6PZ2F9
-         z5Hdt35bq5eEsUOvLPPl1D4kobW8zEIibxxPtzTB8dIJH9YlGjbcbgsabV9LkUli9adO
-         y7S56dpQ4Tqau8BVYMGtMvO6b4QsLARRj/K19GaFY+v2MEkHV+GJnP8CLQ5icsPoQ8J6
-         1FTNFmP6wiGOKMQgaQKX3ofEQ2tpGWgumX5mQ2E8q3cg5pXXuUInE/AHupAcIPo0J631
-         ay9VoLr0gE/q1NyiN5+N8TolFw3THIuusfbJDNtSGTb01M0eszu6brOKakLXl5Q33NHI
-         L8gw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ohru/96FIZh8GCcl8fpkOUlSkJ/uI0wFaZNDuVIEWGDmllg3u9NQqT2Tlr+zCFdAG0TJZszuDi1FM@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWSqPTaYsziH7C2yZ0NqDTCi8DDaNYPtz7x7NyWHnKU0n6TTRW
-	4pb4NURYKqmV+nVsEO4uW9knLnWacPX+rqPKV9r8+/ZdI8KvBy/wKd1Urn7OsURjSqPUPV+6C18
-	KXxVGT8v1hJW7nUVLSpEgUs8bp3ZUPjx1OxjM66sJvIwyGCkJAFDx/fsyn28+Fmxf
-X-Gm-Gg: AfdE7ckW/sjgCYZABMHc0lZNUDF9iPCAtl3j926vf/w2Pk1b99Ep0b3VmmS45e/Xicj
-	9qjxAzc1S5qp165qNIcP1nrzIYK0iFbVyD+kTUlR1U8TtrHbp0i7b0+TfoQjxTV7V8f8+p6AfRN
-	j66EHH+JHMTXaHLip8uFw4SyH+8AqWEb1t0fUtrkanS0I4pQ1e/eB8sU5ehcDO6LkhWu0tSKgwj
-	eDyF4mj8OR+9pX4VggoWh7VPEeuMJ1GZ2KUQ5NQntitbjbvVjYeDB/iFFPxFGlhzDMoxphmUmXv
-	0qLkkMzwAPxO+yH7TgemTt/rr9M1XkcMVxxN/g/yxbuGd6xF3brkV6z3Fzc4LK5w37In8abDk9j
-	WKDd9ZYUInilXHXOlnlBGG4Vort+mmMCiq4I=
-X-Received: by 2002:ac8:7e8a:0:b0:50b:5286:f756 with SMTP id d75a77b69052e-51a4f4d4c47mr51048401cf.6.1782229822764;
-        Tue, 23 Jun 2026 08:50:22 -0700 (PDT)
-X-Received: by 2002:ac8:7e8a:0:b0:50b:5286:f756 with SMTP id d75a77b69052e-51a4f4d4c47mr51047741cf.6.1782229822025;
-        Tue, 23 Jun 2026 08:50:22 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697ee52f216sm32857a12.3.2026.06.23.08.50.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jun 2026 08:50:21 -0700 (PDT)
-Message-ID: <65873506-1a9a-40ec-ac67-60f61a0b4b4c@oss.qualcomm.com>
-Date: Tue, 23 Jun 2026 17:50:18 +0200
+        d=1e100.net; s=20251104; t=1782230160; x=1782834960;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=55KrpsLVrgFVm6uOkBGmtvpWY3NBouDgLEEMArVVBP4=;
+        b=I10rDIo1bmNkeorTdELIwNeF7ejyvAmzqlCObhV2uc5uV8PD510k1UQa0vahsm+WAE
+         VqKmzBpNCB+N4PFT+uD+dRst4ybeRNC3KxchAE/RvcR2O5FDFAbCeklnYHzF+rzDxgo0
+         3cnBWvDgVPNo9sCK/4/412D5+KRNUxyWPCcZ1BfSuh+NLJ1QNfwNfmu0LAO5ViB9q+h/
+         JmCysRXeiWQwz/NHPhLVUYGub9AoHiOTxat3GNl/0R8boacS7XM+dgYhpY0pGmIjIhBY
+         zlxySTnBQqgX7LqLDI6ZGMVpI18vwA6mDO0pi5OZQ9lncHb/JJDsdgODBCXuxvQOZlGx
+         OurQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8JEM61efwP9VAsEuS5ykP8qdaRmasCi/57CTfnrBvPSg0vKEHO4oHFifbUG6TQZTI1CVAWayBByZXm@vger.kernel.org
+X-Gm-Message-State: AOJu0YxM4kBo2NCKRDxxdA/jT1iJlZUyD2wW7bNNvo7x6jTPqWVin5z5
+	q4GlhKloXJFoMLwp+YZB7L1baH8jRiopPjrf89H+KQgswKU8ggzVpiQR
+X-Gm-Gg: AfdE7ckBWVGm7yvusxnG36XiGttc6zt/nirlVJHqBQiXOBfNMyU/h7H22H5T5f8U9ZT
+	9Au7hJI/pRIiIOJGlAD/BnVlT4dmGVNe2MLy9Omx39wT2S6hoTMG6aeeermImOnxwIv/Ejs1hXO
+	wSCMn9SPp0xhNCOVbolp/2sD/l6X6TDnjx2KWuRes8NeTbyicA8Pt/8zmCIOp6XmF2EhD1BZgd0
+	k8DvjE6znVzI0vo2SZWapq+SKp/rSDJhQurXZhzP/5LpZ383Y3S+B4grlWANfMfEdZ3+RPtulTN
+	fKkQMbsFqQ6uXE5OD6eq1UCG6e5Xozoe4jd9Rn08MQWZiBN+QkYH5P9HuQMkJLdqxufUdRCOF5g
+	1OnkGwu+ACFbsfzmt5HmwNYNEfqD6KiQuLJZe2p/CcKjrKLYJA2whlPThDrB14YA2etQ27w0S5w
+	BZiMHfkcP/i3M7QluRTrZHpIx/wriW014/eF2D3/rG0pqTJw==
+X-Received: by 2002:a05:6512:6c9:b0:5aa:71de:74ca with SMTP id 2adb3069b0e04-5ae3511d20dmr877415e87.28.1782230159378;
+        Tue, 23 Jun 2026 08:55:59 -0700 (PDT)
+Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad6957a6a2sm908946e87.46.2026.06.23.08.55.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 08:55:59 -0700 (PDT)
+From: Md Shofiqul Islam <shofiqtest@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	joshua.crofts1@gmail.com,
+	Md Shofiqul Islam <shofiqtest@gmail.com>
+Subject: [PATCH v2 0/3] iio: health: add MAX86150 ECG and PPG biosensor driver
+Date: Tue, 23 Jun 2026 18:55:53 +0300
+Message-ID: <20260623155556.13701-1-shofiqtest@gmail.com>
+X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20260623140113.12574-1-shofiqtest@gmail.com>
+References: <20260623140113.12574-1-shofiqtest@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] clk: qcom: dispcc-sm8450: Fix mdss clocks
-To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-phy@lists.infradead.org
-References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
- <20260622-sm8450-qol-v1-1-37e2ee8df9da@proton.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260622-sm8450-qol-v1-1-37e2ee8df9da@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDEzMCBTYWx0ZWRfXwPaBtLejWevS
- eLnVfO3Sq2KuyfP8DiMlmLiO+e6dj8IhM/9lRHhr5stGqxxTSX7YH33W/hmwwfcnp0Bc12Y7FrF
- oDkLQXqWlOJVvCtMPjLUQm0QLMQUXJw=
-X-Authority-Analysis: v=2.4 cv=WtAb99fv c=1 sm=1 tr=0 ts=6a3aab3f cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=1aW_qPit1WSy-zhaZFYA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: sF3Iy-P-UIFr9UVTH23UBzWalnBaOpXD
-X-Proofpoint-GUID: sF3Iy-P-UIFr9UVTH23UBzWalnBaOpXD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDEzMCBTYWx0ZWRfX7GGhHGiKW9tf
- gwRhPZfwzIKbsDn+nRTokWtNSJ329KK9/ABzSoR6jKnAlHpoc6mqUeXgBTg95e3zVy1iBliZfxG
- AVdfLx9pe6VRC5SjkLV8v22+y904UWBLLZ18ou6k0A26ipVfuBlo5VZ+1A/f10cdkB3/low5qfW
- ndCVZaqqgrU/DtNoxnBZp5/o3pNJQQ21y24hyXAVKTsgbJvD7e/tyEOldGF4jnJ+WvkJGGO6Bfg
- tJrk3UQHbzBJEzKJgKUp2/h2u/82drcHZ+xTk51SqtDBEhR+A1de0qwfMSVQzIVmYi4wCoRxkFy
- gh+6EYRaOTT5pgRvg2+v9HzmHuxlhoalfiyha3jeJWvYbiKq83m1fNhvKxmRFKy3AK2FtQ1qyxP
- wPaIKP4z3vL+PwPUmYjxH1hBUNQlLOSVn4sXTSO+Wby7no40yKjtsI4Mi6R5uBMbmuogm6e8VXa
- 60BzGUO+5/Uv821mFNQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_03,2026-06-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 adultscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230130
+Content-Transfer-Encoding: 8bit
 
-On 6/23/26 2:54 AM, Esteban Urrutia via B4 Relay wrote:
-> From: Esteban Urrutia <esteuwu@proton.me>
-> 
-> Both of these changes allow the framebuffer to show upon boot and let
-> the mdss driver take over afterwards.
-> Before, none of these actions were possible. Only mdss takeover was
-> possible, but screen had to be turned off first.
-> 
-> OLE configuration may have been a misinterpretation... that's not
-> something that's done on the downstream driver.
-> 
-> Changing disp_cc_mdss_mdp_clk_src from clk_rcg2_shared_ops to
-> clk_rcg2_shared_no_init_park_ops fixes this warning as well:
+The MAX86150 (Maxim/Analog Devices) combines two PPG optical channels
+(Red/IR LED) and one ECG biopotential channel in a single I2C device.
+Data is produced at up to 3200 Hz and buffered in a 32-entry hardware
+FIFO with a configurable almost-full interrupt.
 
-[...]
+This series adds:
+  1. DT binding YAML schema for maxim,max86150
+  2. IIO driver with triggered buffer support
+  3. MAINTAINERS entry
 
->  drivers/clk/qcom/dispcc-sm8450.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/clk/qcom/dispcc-sm8450.c b/drivers/clk/qcom/dispcc-sm8450.c
-> index 2e91332dd92a..b99d3eb5e195 100644
-> --- a/drivers/clk/qcom/dispcc-sm8450.c
-> +++ b/drivers/clk/qcom/dispcc-sm8450.c
-> @@ -614,7 +614,7 @@ static struct clk_rcg2 disp_cc_mdss_mdp_clk_src = {
->  		.parent_data = disp_cc_parent_data_5,
->  		.num_parents = ARRAY_SIZE(disp_cc_parent_data_5),
->  		.flags = CLK_SET_RATE_PARENT,
-> -		.ops = &clk_rcg2_shared_ops,
-> +		.ops = &clk_rcg2_shared_no_init_park_ops,
->  	},
->  };
->  
-> @@ -1824,8 +1824,8 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
->  		disp_cc_pll1.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE];
->  		disp_cc_pll1.clkr.hw.init = &sm8475_disp_cc_pll1_init;
->  
-> -		clk_lucid_ole_pll_configure(&disp_cc_pll0, regmap, &sm8475_disp_cc_pll0_config);
-> -		clk_lucid_ole_pll_configure(&disp_cc_pll1, regmap, &sm8475_disp_cc_pll1_config);
-> +		clk_lucid_evo_pll_configure(&disp_cc_pll0, regmap, &sm8475_disp_cc_pll0_config);
-> +		clk_lucid_evo_pll_configure(&disp_cc_pll1, regmap, &sm8475_disp_cc_pll1_config);
->  	} else {
->  		clk_lucid_evo_pll_configure(&disp_cc_pll0, regmap, &disp_cc_pll0_config);
->  		clk_lucid_evo_pll_configure(&disp_cc_pll1, regmap, &disp_cc_pll1_config);
+Changes in v2 (addressing Sashiko AI review, Joshua Crofts, Krzysztof Kozlowski):
+  - Fix buffer overflow: expand scan buffer to s32 buf[6] to hold
+    3 x s32 channels + 4-byte pad + s64 timestamp (24 bytes total)
+  - Add iio_device_claim_direct() in read_raw to prevent concurrent
+    sysfs reads from corrupting FIFO pointers during buffer capture
+  - Fix FIFO-full detection: read OVF_COUNTER to distinguish a fully
+    saturated FIFO (wr_ptr == rd_ptr after wrap) from an empty one
+  - Fix active_scan_mask handling: pack only active channels at
+    consecutive positions using test_bit(idx, active_scan_mask)
+  - Remove IRQF_ONESHOT from IRQ request (not needed for edge-triggered;
+    iio_trigger_generic_data_rdy_poll is a hard-IRQ handler)
+  - Add set_trigger_state callback to enable/disable A_FULL interrupt
+    only when the IIO buffer is active, preventing the interrupt line
+    from asserting before the handler is registered
+  - Fix endianness: change scan_type.endianness from IIO_LE to IIO_CPU
+    to match native integers written directly into the buffer
+  - Add max86150_powerdown() devm action to disable interrupts and
+    assert SYS_SHDN on driver unload
+  - Add devm_regulator_get_enable() for vdd-supply and leds-supply
+    before any I2C access
+  - Add devm action for iio_trigger_put() to balance the reference
+    count increment from iio_trigger_get()
+  - Split DT binding into a separate first patch (requested by Joshua Crofts)
+  - Add MAINTAINERS entry (requested by Joshua Crofts)
 
-This can also be fixed by migrating to use qcom_cc_driver_data,
-which takes a list of alpha PLLs to be configured, and thenthere's
-a switch-statement in clk-alpha-pll.c that always assigns the 
-correct function
+Known limitations (to be addressed in v3):
+  - IIO_CHAN_INFO_SCALE not yet implemented
+  - Runtime PM (SYS_CTRL SHDN bit) not yet implemented
+  - Not yet tested on physical hardware
 
-Konrad
+Md Shofiqul Islam (3):
+  dt-bindings: iio: health: add maxim,max86150
+  iio: health: add MAX86150 ECG and PPG biosensor driver
+  MAINTAINERS: add entry for MAX86150 IIO health driver
+
+ .../bindings/iio/health/maxim,max86150.yaml   |  67 ++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/health/Kconfig                    |  18 +
+ drivers/iio/health/Makefile                   |   1 +
+ drivers/iio/health/max86150.c                 | 612 ++++++++++++++++++
+ 5 files changed, 705 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/health/maxim,max86150.yaml
+ create mode 100644 drivers/iio/health/max86150.c
+
+-- 
+2.51.1
