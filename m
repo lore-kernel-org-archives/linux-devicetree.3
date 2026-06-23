@@ -1,243 +1,223 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E79C3C4B6A;
-	Tue, 23 Jun 2026 07:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA283C3450;
+	Tue, 23 Jun 2026 07:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782198842; cv=none; b=pKVETvcRM9RFKMorE3oKD0iS9jxn3J8Cyi1JOjPr1G9fxRjNLoB2TcOO+93aJgKfzJYGpquEW/kuAGFacmbKI1cx2me+yfCdvVbAN+Z5usDrFbIPo2Oq1w0iFO3k+xGsXyzabwCyhrnN8/JIeBh4nufqzHgeCtkK+0vZ9wUnPHk=
+	t=1782198865; cv=none; b=RR1Gjeva71pf1uEGAkvXIDUYOnq3jLkoLN7FavEWbUvYHva7joSOX0iYudQqlxvaQoVoqiovGCloYI+cW2S7G4Ic1e+yQ7Jf+iB2UQlgPm1/Tzk4cmsNf4A1TOzqORLUndPD9gQFBXW++GWAGQHl+4vd10jYu2wPmJjRs/KWH6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782198842; c=relaxed/simple;
-	bh=Pg4RawGJjtjFM0wmcYvitHCRS6ojfZSRrV1kfcdMl8E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Oey/GqmEb56E1zfiOUNFUffKFMB95tKEb0lN5XC0l9vkV0NKmIF/DppUqYOCtrXHK47yA0UhmTZbB6ibsXfUDr6KNFHRAJC5KppM9d77ctt6540i9l1JE5O8z4y1yW0CN7vHVdDHLCMcCWcafDZHq9omSgibw5x3rmsxaNogfFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app2 (Coremail) with SMTP id TQJkCgBXa54fMjpqNHotAA--.46367S2;
-	Tue, 23 Jun 2026 15:13:36 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v8 0/3] Update designware pwm driver
-Date: Tue, 23 Jun 2026 15:13:29 +0800
-Message-Id: <20260623071329.2034-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
+	s=arc-20240116; t=1782198865; c=relaxed/simple;
+	bh=8y46Yju15t/1iPyWUiD+fHypEVZTRKbUmfGltB3HmX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OizbVACHNw4ZD+aiPiKq+L4onN8Ff1HFJKIOjGX+11Bie/Wan3Demo0r/EjOEzvuU/iIKwBmDrQWJwMX2Oax3MqLhbB/8cQHh+Arz0BM0ocGHAx4t4bYHF4CPOnCgKL0s7dpGNCBJ8WhSG+OZogULRd8EujNhZf2+TgG4yl4enU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=kqbvVj+L; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="kqbvVj+L"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=sXOBfhLAVLwn3podSYtFoxvOp/Tp82jbXxsxprm1FYY=; b=kqbvVj+LJ8cVuOpaDC1veWCJiX
+	uOgYwPvpWyuyPDFv4+YJbFBwS0jG891C6E3kwpzx8sdGs+VaLL+s6k7PhZdkAogmsGsABVa9K0/20
+	Ut/Dc8nUp2lejzvq4pFyffSvu77bBlVW06LQqOlnrFYf6MwTxRYtFiShPNN6wy5Bma/2HoGZDbNIr
+	BiWNWSohIcej2ukS/q8CA/dLqQ5QCM2yGJnLD4ihOW61/wBC360KWv9rLSYbx3nPDuZ+n7PgdISV1
+	AlkLCHcCdsX/2f+6RLkFm+JXxw/o44W30aULjgnm1ZNxn3UDEW6aZcPZzARaTJh9MEfJJWnc7mFNK
+	SKyrN92Q==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wbvKn-000G3R-1b;
+	Tue, 23 Jun 2026 09:14:13 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wbvKn-000Oj2-1j;
+	Tue, 23 Jun 2026 09:14:12 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Markus Niebel <Markus.Niebel@ew.tq-group.com>, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v5 1/1] arm64: dts: add tqma9596la-mba95xxca
+Date: Tue, 23 Jun 2026 09:14:11 +0200
+Message-ID: <6282261.lOV4Wx5bFT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <ajVN4nbmOW-D_Ec9@SMW015318>
+References:
+ <20260619112434.1121610-1-alexander.stein@ew.tq-group.com>
+ <ajVN4nbmOW-D_Ec9@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TQJkCgBXa54fMjpqNHotAA--.46367S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Wry8Gr4rJrWfKr15AF48Xrb_yoW3ur45pF
-	4xGrW5tr1kXryIqan7W3W8uFyFgayrJFWUKr1rW3W7Zw1YvayUtrWF9F1YvFyqvr1vga45
-	tFyfW3Wava4jyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
-	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmjgxUUUUU=
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
+Content-Type: multipart/signed; boundary="nextPart5113499.31r3eYUQgx";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28039/Mon Jun 22 08:24:57 2026)
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+--nextPart5113499.31r3eYUQgx
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Subject: Re: [PATCH v5 1/1] arm64: dts: add tqma9596la-mba95xxca
+Date: Tue, 23 Jun 2026 09:14:11 +0200
+Message-ID: <6282261.lOV4Wx5bFT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <ajVN4nbmOW-D_Ec9@SMW015318>
+MIME-Version: 1.0
 
-There is already a patch [1] for the DesignWare PWM driver,
-which is posted by Ben and still under review.
-Based on this patch, this series is a continuation of [1]
-to add support for IP versions 2.11a and later, which
-includes support for "Pulse Width Modulation with 0%
-and 100% Duty Cycle".
+Am Freitag, 19. Juni 2026, 16:10:42 CEST schrieb Frank Li:
+> On Fri, Jun 19, 2026 at 01:24:30PM +0200, Alexander Stein wrote:
+> > From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+> >
+> > This adds support for TQMa95xxLA modules, designed to be soldered
+> > on a carrier board. MBa95xxCA is a carrier reference board / starter kit
+> > design.
+> >
+> > There is a common device tree for all variants with e.g. reduced
+> > CPU core / feature count.
+> >
+> > Enable the external accessible PCIe controllers as host,
+> > add clocking and reset GPIO. While at it, add hogs for GPIO
+> > lines from the M.2 slots until M.2 connector driver is available.
+> >
+> > Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> > ---
+> > Changes in v5:
+> > * Limit LPSPI4 max frequency
+> > * Replace PCIe M2 Key-E GPIO hogs with dedicated connector node
+> > * Fix PCIe clock configuration
+> >
+> > Changes in v4:
+> > * Fix LPSPI4 pad muxing and control
+> >
+> > Changes in v3:
+> > * Moved reserved-memory to board-lebel
+> > * Remove VPU reserved memory (unused for now)
+> > * Fix typo in connector comment
+> >
+> > Changes in v2:
+> > * removed useless regulator
+> > * added USB PD source configuration
+> > * Removed unused uart-has-rtscts properties (unused by LPUART)
+> > * Fixed RTS/CTS pullups in pinctrl
+> > * Added thermalzone on module
+> >
+> >  arch/arm64/boot/dts/freescale/Makefile        |   1 +
+> >  .../freescale/imx95-tqma9596la-mba95xxca.dts  | 963 ++++++++++++++++++
+> >  .../boot/dts/freescale/imx95-tqma9596la.dtsi  | 278 +++++
+> >  3 files changed, 1242 insertions(+)
+> >  create mode 100644 arch/arm64/boot/dts/freescale/imx95-tqma9596la-mba9=
+5xxca.dts
+> >  create mode 100644 arch/arm64/boot/dts/freescale/imx95-tqma9596la.dtsi
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/d=
+ts/freescale/Makefile
+> > index 8ddaab127ab9c..43e1dc51b11d7 100644
+> > --- a/arch/arm64/boot/dts/freescale/Makefile
+> > +++ b/arch/arm64/boot/dts/freescale/Makefile
+> > @@ -649,6 +649,7 @@ dtb-$(CONFIG_ARCH_MXC) +=3D imx95-19x19-frdm-pro.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-aquila-clover.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-aquila-dev.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-toradex-smarc-dev.dtb
+> > +dtb-$(CONFIG_ARCH_MXC) +=3D imx95-tqma9596la-mba95xxca.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-tqma9596sa-mb-smarc-2.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-var-dart-sonata.dtb
+> >  dtb-$(CONFIG_ARCH_MXC) +=3D imx95-verdin-nonwifi-dahlia.dtb
+> ...
+> > +
+> > +	ptn5110: usb-typec@50 {
+> > +		compatible =3D "nxp,ptn5110", "tcpci";
+> > +		reg =3D <0x50>;
+> > +		pinctrl-names =3D "default";
+> > +		pinctrl-0 =3D <&pinctrl_typec>;
+> > +		interrupt-parent =3D <&gpio2>;
+> > +		interrupts =3D <28 IRQ_TYPE_LEVEL_LOW>;
+> > +
+> > +		typec_con: connector {
+> > +			compatible =3D "usb-c-connector";
+> > +			label =3D "X9";
+> > +			power-role =3D "source";
+> > +			data-role =3D "dual";
+> > +			source-pdos =3D <PDO_FIXED(5000, 500, PDO_FIXED_USB_COMM)>;
+> > +			self-powered;
+> > +
+> > +			port {
+> > +				typec_con_hs: endpoint {
+> > +					remote-endpoint =3D <&typec_hs>;
+> > +				};
+> > +			};
+> > +		};
+> > +	};
+> > +
+> > +	sensor_mb: temperature-sensor@1e {
+>=20
+> please order by hex address value
 
-Supported chips:
-ESWIN EIC7700 series SoC.
+Ah, thanks for the catch.
 
-Test:
-Tested this patch on the Sifive HiFive Premier P550 (which uses the EIC7700
-SoC).
+> > +		compatible =3D "nxp,se97b", "jedec,jc-42.4-temp";
+> > +		reg =3D <0x1e>;
+> > +	};
+> > +
+> ...
+> > +		m2-keye-dev_bt-wake-hog {
+> > +			gpio-hog;
+> > +			gpios =3D <4 GPIO_ACTIVE_LOW>;
+> > +			input;
+> > +			line-name =3D "M2_KEYE_DEV_BT_WAKE#";
+> > +		};
+>=20
+> Now Key E connector already be upstreamed.
+>=20
+> Documentation/devicetree/bindings/connector/pcie-m2-e-connector.yaml,
+> which already define these gpios.
 
-[1] https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
+Thanks for the hint. But these two wake signals are vendor specific
+pins 40 and 42 on key-e. In this case these are for the default module
+JODY-W3 module.
 
-Updates:
-  Changes in v8:
-  - YAML:
-    - Split the v7 binding into two patches.
-      Patch 1 explains why to add the resets property.
-      Patch 2 adds the eswin compatible string and specified reset.
-  - Driver:
-    - Use mul_u64_u64_div_u64() to safely scale the values and avoid
-      64-bit multiplication overflow in __dwc_pwm_configure_timer()
-      and dwc_pwm_get_state().
-      Add the include for linux/math64.h (Sashiko review of v7).
-    - Keep the current usage of pwm->args.polarity until a better solution
-      is available.
-    - Use pm_runtime_resume_and_get() in dwc_pwm_get_state() instead of
-      pm_runtime_get_sync(), so that register access is skipped if the
-      device fails to resume (Sashiko review of v7).
-    - Replace devm_pwmchip_add() with pwmchip_add() and move it after
-      pm_runtime_enable(), so that the PWM chip is registered only after
-      runtime PM has been fully initialized (Sashiko review of v7).
-    - Remove the reset_assert label and reset_control_assert()
-      (Sashiko review of v7).
-    - Remove the pm_runtime_status_suspended() check and unconditionally
-      use pm_runtime_get_sync() instead (Sashiko review of v7).
-    - Remove  the pwm_en flag, but keep the pm_runtime_put_noidle() call
-      (Sashiko review of v7; see email for explanation)
-    - Use pm_runtime_status_suspended() to check the runtime PM status.
-      If the device is not suspended (i.e., active), call
-      clk_disable_unprepare(). If it is suspended, skip this block
-      (Sashiko review of v7).
-    - Use an explicit pwmchip_remove() as the first step of .remove(),
-      instead of relying on devm_pwmchip_add() to unregister the chip
-      after .remove() returns. This prevents the hardware teardown that
-      follows from racing against a still-registered chip
-      (Sashiko review of v7).
-    - Add a check for dwc->rst before asserting reset in the remove path
-      (Sashiko review of v7).
-    - Drop the return value check from pm_runtime_put_sync()
-      (Sashiko review of v7).
+Thanks and best regards,
+Alexander
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+--nextPart5113499.31r3eYUQgx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-  - Link to v7: https://lore.kernel.org/all/20260605082242.1541-1-dongxuyang@eswincomputing.com/
+-----BEGIN PGP SIGNATURE-----
 
-  Changes in v7:
-  - YAML:
-    - Dropped Conor's Acked-by due to significant schema changes.
-    - Rename patch 1 from "dt-bindings: pwm: dwc: add optional reset" to
-      "dt-bindings: pwm: dwc: Add eswin compatible and resets property".
-    - Update the commit message to explain why the EIC7700 supports only
-      one reset.
-    - Add constraints 'minItems: 1' and 'maxItems: 1' for the 'resets'
-      property of eswin,eic7700-pwm.
-    - Add an example for eswin,eic7700-pwm.
+iQEzBAABCgAdFiEEByESxqszIvkmWRwbaS+g2M0Z/iUFAmo6MkMACgkQaS+g2M0Z
+/iUfDwf/dfqfx6vWvg+eg95x3/68BAFVAkno24HK2jry2c+5CUtsfK7L9wGzymTY
+ZlDGHpZ6VUjgAb2CBnnWa7ZlqadCIGcpEkEIWgIxzw8ACqyeyZdc1S4Fx73ltWGR
+DpXLmvnqVWCHNtOUbUhSeaWL+ZLkYtkZFX5RRilB2jwuKKlw4TUlk9Rykm8rIln6
+VaI9B3LgoF5mGwZmbspj0my+CT/GRX+EbkgbSh0XR53EnsJBf2zT7xedWW/21ojS
+dGPGWQOQyH1LGuF4lYEyFxFGtA3jdyqrod1vj9FR+o/6mLCoTRL7Ox7LusidQot/
+ByET8EIgzKA0t9Nn5mRc9YUZW/d8ww==
+=QyRP
+-----END PGP SIGNATURE-----
 
-  - Link to v6: https://lore.kernel.org/all/20260424094529.1691-1-dongxuyang@eswincomputing.com/
+--nextPart5113499.31r3eYUQgx--
 
-  Changes in v6:
-  - YAML:
-    - Drop properties resets and its items description for eswin,eic7700-pwm.
 
-  - Link to v5: https://lore.kernel.org/all/20260423083644.1168-1-dongxuyang@eswincomputing.com/
-
-  Changes in v5:
-  - YAML:
-    - Add 'eswin,eic7700-pwm' compatible string.
-    - Add the items description for the resets property and set minItems to 1.
-    - Require resets property with exactly 1 reset for eswin,eic7700-pwm compatible.
-  - Driver:
-    - Add support for 'eswin,eic7700-pwm' compatible.
-    - Add structure dwc_pwm_plat_data to manage the API for obtaining resets.
-
-  - Link to v4: https://lore.kernel.org/all/20260415094908.1539-1-dongxuyang@eswincomputing.com/
-
-  Changes in v4:
-  - YAML:
-    - Change maxItems from 1 to 2. As there is a corresponding reset signal
-      for each clock domain, the effective maxItems of the resets property
-      is set to 2.
-    - Update the YAML commit message to describe the hardware.
-  - Driver:
-    - Replace devm_reset_control_get_optional_exclusive() with
-      devm_reset_control_array_get_optional_exclusive(). Since the number
-      of reset signals has increased from one to two, we need to use the
-      array API to acquire them.
-
-  - Link to v3: https://lore.kernel.org/all/20260402091718.1608-1-dongxuyang@eswincomputing.com/
-
-  Changes in v3:
-  - YAML:
-    - Added a clear justification for the optional resets property. It is
-      required to support proper controller initialization when no PWM
-      channel is active at boot time, while allowing the driver to skip
-      reset deassertion if any channel is already enabled.
-  - Driver:
-    - Update the boundary value check of tmp in __dwc_pwm_configure_timer()
-      for DWC_TIM_CTRL_0N100PWM_EN.
-    - Replace 'sizeof(struct dwc_pwm_drvdata)' with
-      'struct_size(data, chips, 1)'.
-    - Drop devm_clk_get_enabled() in favor of devm_clk_get() with explicit
-      clk_prepare_enable() and clk_disable_unprepare() allowing runtime PM
-      to manage clock state.
-    - Replace devm_reset_control_get_optional_exclusive_deasserted() with
-      devm_reset_control_get_optional_exclusive() and issue a full reset via
-      reset_control_reset() only when no PWM channel is active at probe time.
-    - Detect bootloader-enabled PWM channels by reading the enable bit, and
-      initialize runtime PM as active for those channels by calling
-      pm_runtime_set_active() and pm_runtime_get_noresume().
-    - Remove autosuspend as it is not required for this driver.
-    - Use explicit pm_runtime_enable() and pm_runtime_disable() instead of
-      the managed devm_pm_runtime_enable() variant to ensure correct cleanup.
-    - On device removal, recheck the channel enable status. If any channel
-      remains active, call pm_runtime_put_noidle() before disabling clocks
-      via clk_disable_unprepare().
-      Resume device before register access during removal if it is runtime
-      suspended, and re-suspend it afterward.
-    - If device is suspended, resume it before register access during system
-      resume/suspend.
-    - Use pm_ptr() instead of pm_sleep_ptr() for correct PM operation.
-
-  - Link to v2: https://lore.kernel.org/all/20260306093000.2065-1-dongxuyang@eswincomputing.com/
-
-  Changes in v2:
-  - YAML:
-    - Remove eswin,eic7700-pwm.yaml. Use snps,dw-apb-timers-pwm2.yaml.
-      The description in snps,dw-apb-timers-pwm2.yaml is better.
-    - Add the resets property as optional, as defined in the databook.
-    - Remove snps,pwm-full-range-enable as no additional property is needed.
-  - Driver:
-    - Change the file from pwm-dwc-eic7700.c to pwm-dwc-of.c from [1].
-    - Define DWC_TIM_VERSION_ID_2_11A 2.11a as the baseline version.
-    - Enable the 0% and 100% duty cycle mode by setting dwc->feature if
-      the version read from the TIMERS_COMP_VERSION register is later
-      than or equal to DWC_TIM_VERSION_ID_2_11A.
-    - Use the DIV_ROUND_UP_ULL() to calculate width in the .apply and
-      .get_state.
-    - Additionally, Power Management (PM) support has been added to the
-      pwm-dwc-of.c driver.
-    - Drop the headers that are not used.
-    - Use devm_clk_get_enabled() instead of devm_clk_get().
-    - Drop of_match_ptr.
-    - Fix build error with 1ULL << 32.
-      Reported-by: kernel test robot <lkp@intel.com>
-      Closes: https://lore.kernel.org/oe-kbuild-all/202512061720.j31AsgM7-lkp@intel.com/
-
-  - Link to v1: https://lore.kernel.org/all/20251205090411.1388-1-dongxuyang@eswincomputing.com/
-  - Link to v9: https://lore.kernel.org/lkml/20230907161242.67190-1-ben.dooks@codethink.co.uk/
-
-Xuyang Dong (3):
-  dt-bindings: pwm: dwc: Document optional resets property
-  dt-bindings: pwm: dwc: Add eswin compatible
-  pwm: dwc: add of/platform support
-
- .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml |  37 +-
- drivers/pwm/Kconfig                           |  10 +
- drivers/pwm/Makefile                          |   1 +
- drivers/pwm/pwm-dwc-core.c                    | 103 ++++--
- drivers/pwm/pwm-dwc-of.c                      | 346 ++++++++++++++++++
- drivers/pwm/pwm-dwc.h                         |  25 +-
- 6 files changed, 488 insertions(+), 34 deletions(-)
- create mode 100644 drivers/pwm/pwm-dwc-of.c
-
---
-2.34.1
 
