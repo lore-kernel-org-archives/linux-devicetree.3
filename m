@@ -1,245 +1,125 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302533C819E
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996D83BA253;
+	Tue, 23 Jun 2026 07:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782200091; cv=none; b=pWHkU6Ge2tvdLd2sTOQznmD4i+Tn69W3Q7sOSN5cvVgdb2JD8MzK6XZPFeAru01wTd9ohJVNs5GA+mxFUjI8VDP1d80jaDrwp3zb62ig47lnKKGS8F8wpUwOjjyYCxRl7bFG1a6grweqfIxF2imKxMy3l/jVK74EhlvZmaqNBaQ=
+	t=1782200798; cv=none; b=Fxu60nyPxPQpAayQsZ0lDDV7FDze7v+GfH44vqEdi4hrQpfBoqPSg5PxAvbTBVwRpYpsemfalO8Cd2iY/bx7uqqGOhszDOGL4lCbzt+ibRHzII5ZU4Il3OOEcwF8Jz2DlL3ZIB7J8QLwqRhIXT0SBc0b/iyMx5bXkriAA45Br1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782200091; c=relaxed/simple;
-	bh=zMZ130vCFWl7DqmQl6TnnSI/sV8pYfA5UZbrwJxA4ic=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HyuaURljmkGEMYUbtZkFHbYgHyoLVzff2eYvZucvzxAHjX9MnwyY+FZxGEgyTxd7qqocIupAZy2nmsfoLSzVQVBedFl4QWSsOCVmVTE1ZLKWxsrcNQ+bWRrh8fdokdFceYRcUPoy41hAYejRxbIKdI/7yWg5qrSkgUm8WHHJKfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PYyw3NBy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WbVhwiii; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782200798; c=relaxed/simple;
+	bh=MtkJMGS1V/ABDkRi1NZ4hB+OVr3I/EfiQEnC20L2zvo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jLeW34fYxd+faZp0fz4AQov9uyzMnzYzwO9eY3ePLkfSwnuvV5gCmXyrNcFwYcmGCPJszevTPi3SUk/0XqQ3xzO5kJG1156PnZoS2t3mEgRe2LH8pp3hLS5/iP8lLgqFgutaktEpoy3BW4+vqOV+vc9MKjRaHj6VfjRXDEQ30AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4QcPHEX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PYyw3NBy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WbVhwiii"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N6cqB03547311
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:34:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=JbRww8nPhhpxtS+7cOKXGbLWj7BLD9Ao7/a
-	LGJ/o9YU=; b=PYyw3NByQWyZwd0YO6UP2kkGoVrWpbd9yBLS3FhefteT0KFU/2Z
-	gyq627wIc+pquwPTq9y/RG+7r0KGZbptOebUFdcscupODAcQjQ2Sp0qZnIBXwL9h
-	HHTx3KYYzaBtunEmxdF3C9PGTdcCybT3jI9sQOz2jiiiE/vSn3wr2pCcPVAbQTCO
-	nDzUX/CVuyMl9V4xJk7nX8sFk8vS3JMOlCcUNOmlGB9u3pbu/C8vdZMIsyI+/rSC
-	/TcVjZ8nHAyzJKMYLoaxwZGyRADEojspq54qaxTwG+712eyCsiv17DQUq+Lz+GFv
-	ipcySYJtofGxvj+PhmUnNP+3TkEZlnbVyOw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey3ebc12e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:34:41 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9157de5360fso151858485a.0
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 00:34:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782200081; x=1782804881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JbRww8nPhhpxtS+7cOKXGbLWj7BLD9Ao7/aLGJ/o9YU=;
-        b=WbVhwiiiwKp+nuiLJH/L0C6novY3C4ty3yeRTdzyXFQzUpgJmg00TF6pJ1b9qlt1HD
-         V6IuxKaXS3klFvxWQrh0jK8q8uTSeaNTCKI6ppv9sndMD+u7Vmexbk2+Bq/yZABSOaBW
-         X/swv5attGHUzWfwlelyuY6Q/vtt7lbw7GRHY1etuWQafAUiWoXEtGtXvVXBX0qM7jvV
-         JPpNq8qcyO93EbPrdwwCYF65x70rfLLvX0VCPJa2io1EOKG41VAtz69QkH0cGriBpuz+
-         xB2QQ4KPM5QFo17Q+BLcJOetjmhQ6gB0jBbbIzjNoNGnGzIPy30Or9jsEGFKCnme3sMg
-         YYQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782200081; x=1782804881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JbRww8nPhhpxtS+7cOKXGbLWj7BLD9Ao7/aLGJ/o9YU=;
-        b=pOlOrfRSlGaeYlLJVezF1hehzOwIUnsTHK2hpvBknKL3gw04wWW5rNs5WmwG35NQjP
-         ybeTc02YPztMK6ZEmJCiZ9o5vaJ0Om5ZtzfnpJyGBQmS2o/hDxUyCK1ujvVYtfFLxBSP
-         ZWs2BhqVROQEEjqInY8OY+K0rIToL76+Jrf3UHY0eXTtGQH9WURVAO121rf2ajPLAbAy
-         AycJ6SHAzA9Oim7saVoPMYaA9P03XKSFYmgvdJUxvkxxVXyjUxfyo0Zrm3MLn2ZvnpwZ
-         0FjZB1gYyl4Anh/Hp1dGgalpUBDk04a7iWZPU2LNyJiubHFkxbFfutZGCnHPBvVG0mG2
-         j7Mg==
-X-Forwarded-Encrypted: i=1; AFNElJ+1Q1QAR6K7JU64P/u8kPVpkh2pIyk2tw1ujQ+l1b572CeqZZCp2YccdTdgL1Ahdzh7bgy12zk0amHO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyy0wPbjpVpn/Q2dSvcU0fmIRyGX1sAFGnU1Q9i0c+8jVpMaYqp
-	zv4l+QBecpYqQH1q1I/1TMG1wKiesGVNIxk5OcO/Xsi4z4V4j57dlYtZCEUnBmPRvXVzuffguug
-	KbpQYPfUcbXu92HjGqD3+rAe+/JsPrTl4KLLBrzwg/90OzMuMn4Se6cDCrg2IWiW5
-X-Gm-Gg: AfdE7cnXsqphtiOR40KpWa6VKXiwK6fxIwB+g7wAAongTN8G6wgU+AUN7+7mKDZ5Ytl
-	K5DxdALgy9qq06D6H5XoecxLHfSHhSWX1mHJ1uG+bFCwmH3niVsoMuME9Wu5qfihSf6j4NycqH1
-	VWKXK4BXAPIVVEGGrPffrPY9eXth2R/wgsLuz9M9ROm+trQjlCTS4TCAYWfiQH2RF3xJweBZsYt
-	M36Hrq1xVBo8/r2C7HFrZcQLzJ8sutfLNUpIhEa5F2eZWYmAiNNXKOAYpYmrJYURgBHLLzh6T9D
-	pbHzHFFhUmIBMzW8xQ9hUHBGms18ocNmMsBJW0vUyvniiV/q0ZKm3A4AmaTpZzRmCtBXEmQonZb
-	9aeAYmhqsIX4NHq84VStPtO6Cs5Y=
-X-Received: by 2002:a05:620a:4613:b0:915:aa65:6e95 with SMTP id af79cd13be357-926039b55aamr440150585a.44.1782200081001;
-        Tue, 23 Jun 2026 00:34:41 -0700 (PDT)
-X-Received: by 2002:a05:620a:4613:b0:915:aa65:6e95 with SMTP id af79cd13be357-926039b55aamr440148085a.44.1782200080513;
-        Tue, 23 Jun 2026 00:34:40 -0700 (PDT)
-Received: from quoll ([178.197.218.240])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466643f4e3esm31621828f8f.8.2026.06.23.00.34.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 00:34:39 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Luo Jie <jie.luo@oss.qualcomm.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Lei Wei <quic_leiwei@quicinc.com>,
-        Suruchi Agarwal <quic_suruchia@quicinc.com>,
-        Pavithra R <quic_pavir@quicinc.com>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, netdev@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH net] net: ethernet: qualcomm: ppe: Demote from supported and fix maintainer addresses
-Date: Tue, 23 Jun 2026 09:33:08 +0200
-Message-ID: <20260623073307.36483-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4QcPHEX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E20E1F000E9;
+	Tue, 23 Jun 2026 07:46:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782200797;
+	bh=MRyhS8fxs6vz3A8AXUw4m49oRLrHCT/AKc08+e5WMio=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D4QcPHEXOwJx8xi7vk/31AISKrGkiO0QHpPm0w6nu5o0zktetlUa0s+9HDPgv5kvY
+	 Y4CyOx8IX74S7Wua/sVOtDuskuYKJdgDJdJhSH4ToMxWjEghR8GNRQbly9BvPaCB5l
+	 z88Wwd+VuFTZcvdE5R+/HWofpe4ECV3xoS28swBSOuZ2yQ20eeGx18bkQZljI8CL6d
+	 qlNE8+AdCW41bol8s//PvbsTyw77/29l2+UQySMNiTYhfoUHPqem4ijz1o4n98sL7A
+	 N3BbUb0I+e7en4YEk5FZgQxGI7/2HlhLB+nz68tjvnpggzSaLRSGtcuDN1OKWA73l/
+	 uej7AvcN4VRyA==
+Message-ID: <68ec1160-7d9c-4a44-83c4-38549fefc728@kernel.org>
+Date: Tue, 23 Jun 2026 09:46:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4322; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=zMZ130vCFWl7DqmQl6TnnSI/sV8pYfA5UZbrwJxA4ic=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqOjazy+CGgsFoC5bradNDUIXivrQCA/T2/GdGW
- MRx1arzdJeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCajo2swAKCRDBN2bmhouD
- 14WtD/44vRc4VEabogwLpOCsUUaqaJM+sLsM2L0gYyC2whu75RUVBzqqW+HM1X3QE9RstfwvD4j
- UY3DGbOAgfO5U/SVSZIhTUZkmZeIM2V4UD7zbCmBT5lg9WC/FrvUMjE/K7EFY7ax06aapyjPTmU
- bGSCtHrsvOQ2jJ2/j8bWPU+rV+BeQdy1DXXRX/Yq4+OPJdEEmRzVpNdFF/c8Nj9EoubVSfAie/3
- qEBIT8cUqvfQQdE03eC7gd2P4EhYnKXCcYffZ1jCgIEaYAemPxlKn2tYaOE2debWs81WxHI10/A
- 6mfC8ezxoCmwuZl0saQLihlRxJqNZKu6OXtnON0mlYcSwzCWtX++PN9YtRwWBf6Z1UwrlD1DGaj
- M0gxeeGvT6akpvq+RnQhLraKQiifbpEse4hWdYRV9ePxFbbECp3/k/EXC4Yq07X+6ufNkOgupDQ
- 3ebgZDvDXvCUvMnb8F93VUWnsuScr6hCTuMbvOyCqOXqO0iZjvWpajEurc3JhCdQBiLJ7uOGaby
- GajzsKwWfQpor683BocSqycNSj0Y6lN+IeEcF8M7qloE0vUWrLtgCJVzz+cEhkdOu7a6ePiIeXg
- KxpH90opId7Qmtbug+6wjw8uJYOl8Gz5FANvs/XLVRcCvOvwT3Mkot1arUmngQQMpnVz7v1ExFc Irx0cICn6yzOhlg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA1OSBTYWx0ZWRfX61EQ7h+IPzyh
- +mB536CgGczp+asNRX7ImjrflnH1CVzh0mBgja7BCeyXYArGSiQVMTQ9wEZTYL2J106pdIXdtmi
- ZG0gcVH8qKnN03evLoKFGKbScX7ORuY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA1OSBTYWx0ZWRfX/g8oEPpCKW3t
- 049rRTJhwVbPDKCHknZFd6uZmDoQx/l3LAXRmSnBd3jtSz9rfZ9vcYAYG1Y0kOATrvj+VqSk5hf
- wjKcXU4ORDkKw2BBzcd3g2z0VZP5hQzffqQJGhQnVhnn/S5iv7WFHwk3HEb5tPvscPVINyeJkoW
- E9qaWBYGqcHKcgHXify8k/j44bcoJ3BeGv5CvYwBl49CeiSvyNy+JdxQXREgntS/mZjBGJAZsH+
- G/KFxys+6X+VT2PQMlPxlFMUK0mwC/hoG6KMZtBojj6PDPlnZ0pAhfPiWj8JXv78FW6P1wJCdT+
- 5JlH7Ml2BvtwQfvW3iz82gyaJaGKJQ6Ks7lLoWRPgVb1SWon0mThEvv/K3mzwXDzaHQ6Us4PwvK
- spES/AxfCAfF0xxEqPqCgP2uy7mNVnYMeU4yNKg7khfAbJD6yvrsyD+1AjQkd1vdAkKcSwDBf88
- Tsrx8ryGLtoD7IyusPg==
-X-Authority-Analysis: v=2.4 cv=ILIyzAvG c=1 sm=1 tr=0 ts=6a3a3711 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=qMZSjPy+XpteAuilWfML4g==:17
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=P-IC7800AAAA:8 a=6yzhs6WGAAAA:8
- a=dlmhaOwlAAAA:8 a=40pjNWuwAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
- a=7CQSdrXTAAAA:8 a=hD80L64hAAAA:8 a=LpQP-O61AAAA:8 a=pGLkceISAAAA:8
- a=9xbOYk6fAAAA:8 a=gPJu0pBYAAAA:8 a=r_1tXGB3AAAA:8 a=yRDnTAKIR_WafuKkSVIA:9
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=sptkURWiP4Gy88Gu7hUp:22 a=TjNXssC_j7lpFel5tvFf:22
- a=d3PnA9EDa4IxuAV0gXij:22 a=j5F3_G_i7ziBYwdlbqZG:22 a=y4cfut4LVr_MrANMpYTh:22
- a=coQwfJANHVg1YNGTr4By:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=pioyyrs4ZptJ924tMmac:22
- a=qQLkZBVM-NGEvsx9vKov:22 a=AlIIF0cMT2hfDT4axODj:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: -Z2Nk37N9Ug-9DvT2lFY97V991vjTCiw
-X-Proofpoint-ORIG-GUID: -Z2Nk37N9Ug-9DvT2lFY97V991vjTCiw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_02,2026-06-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0
- suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230059
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: qcom: install DT overlays via dtbs_install
+To: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>, andersson@kernel.org
+Cc: vudupa@qti.qualcomm.com, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ kbajaj@qti.qualcomm.com, konradybcio@kernel.org, krzk+dt@kernel.org,
+ linux-arm-msm@vger.kernel.org, robh@kernel.org, snb@qti.qualcomm.com,
+ lminier@qti.qualcomm.com
+References: <20260428123725.3457865-1-vudupa@qti.qualcomm.com>
+ <20260622055226.4085891-1-vishwas.udupa@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260622055226.4085891-1-vishwas.udupa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Emails to the maintainer of Qualcomm PPE Ethernet driver (Luo Jie
-<quic_luoj@quicinc.com>) bounce permanently (full mailbox), because the
-"quicinc.com" addresses were deprecated for public work.  All Qualcomm
-contributors are aware of that and were asked to fix their addresses.
+On 22/06/2026 07:52, Vishwas Udupa wrote:
+> Overlay binaries (.dtbo) are currently only built implicitly as
+> dependencies of composite firmware images and are therefore absent from the
+> kernel install output.
+> 
+> Even when final DTBs are produced at build time, some distributions rely on
+> standalone DTBOs for runtime selection and application by bootloaders or
+> firmware. Without explicit install targets, DTBOs are not picked up by the
+> standard dtbs_install flow and therefore cannot be packaged alongside DTBs.
+> 
+> Add explicit dtb-$(CONFIG_ARCH_QCOM) entries for DT overlays defined in
+> this Makefile so they are installed via dtbs_install, matching existing DTB
+> install behaviour, while excluding EL2 DTBOs as they are not intended for
+> independent use and are only meaningful in conjunction with their base DTBs.
+> 
+> Signed-off-by: Vishwas Udupa <vishwas.udupa@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Address review feedback from sashiko on commit message
+> - Link to v2: https://lore.kernel.org/all/20260619180951.325272-1-vishwas.udupa@oss.qualcomm.com/
 
-Driver is not supported - in terms of how netdev understands supported
-commitment - if maintainer does not care to receive the patches for its
-code, so demote it to "maintained" to reflect true status.
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
-Fix all occurences of Luo Jie email address to preferred and working
-domain.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- .mailmap                                                      | 3 ++-
- .../devicetree/bindings/clock/qcom,ipq9574-cmn-pll.yaml       | 2 +-
- Documentation/devicetree/bindings/clock/qcom,qca8k-nsscc.yaml | 2 +-
- Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml   | 2 +-
- MAINTAINERS                                                   | 4 ++--
- 5 files changed, 7 insertions(+), 6 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/.mailmap b/.mailmap
-index 1f23ea6e8ce1..23eb9a4b04f4 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -530,7 +530,8 @@ Luca Ceresoli <luca.ceresoli@bootlin.com> <luca@lucaceresoli.net>
- Luca Weiss <luca@lucaweiss.eu> <luca@z3ntu.xyz>
- Lucas De Marchi <demarchi@kernel.org> <lucas.demarchi@intel.com>
- Lukasz Luba <lukasz.luba@arm.com> <l.luba@partner.samsung.com>
--Luo Jie <quic_luoj@quicinc.com> <luoj@codeaurora.org>
-+Luo Jie <jie.luo@oss.qualcomm.com> <luoj@codeaurora.org>
-+Luo Jie <jie.luo@oss.qualcomm.com> <quic_luoj@quicinc.com>
- Lance Yang <lance.yang@linux.dev> <ioworker0@gmail.com>
- Lance Yang <lance.yang@linux.dev> <mingzhe.yang@ly.com>
- Maciej W. Rozycki <macro@mips.com> <macro@imgtec.com>
-diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq9574-cmn-pll.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq9574-cmn-pll.yaml
-index b9c3650e5c4c..a4f9af8fa187 100644
---- a/Documentation/devicetree/bindings/clock/qcom,ipq9574-cmn-pll.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,ipq9574-cmn-pll.yaml
-@@ -8,7 +8,7 @@ title: Qualcomm CMN PLL Clock Controller on IPQ SoC
- 
- maintainers:
-   - Bjorn Andersson <andersson@kernel.org>
--  - Luo Jie <quic_luoj@quicinc.com>
-+  - Luo Jie <jie.luo@oss.qualcomm.com>
- 
- description:
-   The CMN (or common) PLL clock controller expects a reference
-diff --git a/Documentation/devicetree/bindings/clock/qcom,qca8k-nsscc.yaml b/Documentation/devicetree/bindings/clock/qcom,qca8k-nsscc.yaml
-index 3da10c364a85..8d7a58609372 100644
---- a/Documentation/devicetree/bindings/clock/qcom,qca8k-nsscc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,qca8k-nsscc.yaml
-@@ -8,7 +8,7 @@ title: Qualcomm NSS Clock & Reset Controller on QCA8386/QCA8084
- 
- maintainers:
-   - Bjorn Andersson <andersson@kernel.org>
--  - Luo Jie <quic_luoj@quicinc.com>
-+  - Luo Jie <jie.luo@oss.qualcomm.com>
- 
- description: |
-   Qualcomm NSS clock control module provides the clocks and resets
-diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-index 753f370b7605..6d0b21a10732 100644
---- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-+++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Qualcomm IPQ packet process engine (PPE)
- 
- maintainers:
--  - Luo Jie <quic_luoj@quicinc.com>
-+  - Luo Jie <jie.luo@oss.qualcomm.com>
-   - Lei Wei <quic_leiwei@quicinc.com>
-   - Suruchi Agarwal <quic_suruchia@quicinc.com>
-   - Pavithra R <quic_pavir@quicinc.com>
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 895a87b571c3..e173828acfe1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22324,9 +22324,9 @@ F:	Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
- F:	drivers/power/supply/qcom_smbx.c
- 
- QUALCOMM PPE DRIVER
--M:	Luo Jie <quic_luoj@quicinc.com>
-+M:	Luo Jie <jie.luo@oss.qualcomm.com>
- L:	netdev@vger.kernel.org
--S:	Supported
-+S:	Maintained
- F:	Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
- F:	Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
- F:	drivers/net/ethernet/qualcomm/ppe/
--- 
-2.53.0
-
+Best regards,
+Krzysztof
