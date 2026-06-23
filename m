@@ -1,159 +1,199 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1D13B8409
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B46C3C661A
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782207764; cv=none; b=Q2fZduZqhzdexhbHFduevhd6vCZeBzdYGLBy0kSRE4qwJrRgNiTJydJsnhh/sdpZSCkt+A7bdrjf7CwQFOIcMlhz35mOnnw0KYjGO5FoGoZMFm8UTxTTf2yydQ52Yb0adcvCqvwDi+HuONduFc9u/g26koyR5jlJfoEdsxDh9r4=
+	t=1782207852; cv=none; b=iM7uGkfNal1vaDPH4pHn+el+4DB6Rt8j6BjX0/uJgKqr2lWxPzSDp0ZQ2+VXJQr1NyVXs2MImz6ZYOyeeZv49YozPxfjYjOSNPpdeJtNBPDFNwwzvXR2hOow3y1vY7A/XgfOdVhuFKFsA4fZa5qCCXzC/r9A26jAtztZkgyzMj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782207764; c=relaxed/simple;
-	bh=2zt4mDfQLCcN7VZdwKtxZoDHgil7aJyHwJKdbeBKs4w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R1rBuSxFvH4OocDhNSXwP+7XwGFuOYiDfVI0QB5LvQuvlcGA5C/pCbXwpZn+EHQbGdpSvjIaW/acit6B1tZ2Q+Vl53CxQHjM7TRYmjBCiN8aBRI4ky74JGVFz7IFJz+Qftz9YOsQuAPJAL+bUCyz/6XLCutuSrHfL594h2/mwd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YB/8UGmo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DchT3qzt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782207852; c=relaxed/simple;
+	bh=lupoMa4bFvOB1DSqMrYrV4IvNEc7frNrCHK5DHmJHJM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=oQtgyhncTbtpcx6Nrn5beaqNf2k9CCrBsTB/jvrAwiJrYQLaSz/0ACJm2AYENgcNGr/M3chRJmhez/ksYd7yHxDqZh4xIHAG6BjXiNz+cGxMJ0iEtjxAjwolzuOd0oYkxeFKKgR2+fvpEnktNhZYkvr9QcxphVpYhvSj1nfiTfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agRrSgAb; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YB/8UGmo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DchT3qzt"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65N8kCZl3354729
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:42:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gso4/eCWqTGK9+zw2V2gKqpch+D4ZfB1l0eAVrB6LD8=; b=YB/8UGmo765MuLo0
-	dXdHA69ayE7MXPDuMXJO5te4qaOteA0rpPktiMkss4WuOYCOqi2vivLey+r3TRaf
-	2jQVDKIeOZxKis0Z1Lm8QyUyb2j4zRT/fZF/8fX4Yvb+vJsGDtwjmsk/94nqqPuA
-	RkmrafsyDgYqPaiFZLco1hdHb6ac6cjZ6CON6aO2OcrrHaKAsGWr7rzdp/wlGlxY
-	ZkRRJCAKnzu0GMf+NQ+8WpAy0ezSv40+rCA7wrD+CQLpyCa7/pfGWpAeXCuhB4/w
-	HoK8j24/Dg7iZn9ddvMBgHF2CxJGQnxmfguyb6lBLHtblo6MPf9V/TM1N8nWCOhi
-	QqXxQA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eypx3894b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 09:42:43 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c6a9bbcc53so56558705ad.2
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 02:42:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agRrSgAb"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4631679f204so395771f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 02:44:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782207763; x=1782812563; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Gso4/eCWqTGK9+zw2V2gKqpch+D4ZfB1l0eAVrB6LD8=;
-        b=DchT3qztJF+AEjzIeTnmKTMvlbgQoQakpBFToLIWgTegvCzSKPD6DHpN3oQfaDXA+b
-         kMGnbvF7rOIVvNbTCD2JAPi7aN/nBfX4LoDx9tHgDI0q+zraLv1E7EtKMcx+4ogWZXHy
-         uigm7lQqVRZ8FJEpY4AuboNza2NuZxVpKGFqpLRAGzx1yVe2oaqCofJk2o3RlIFV5eo0
-         GgsYg8jQfdizqNT7kukHixE/aoxIarQJbnCdfe69ZKQY0mvPfmv2ikR+wiH0UwvIvGSp
-         dBm5GIgr39iYu9czOpdFF34iVtPk6Bvq/QhQynnxzz0xzGHsF53wS/rSEovNaqP1W1Ok
-         awjQ==
+        d=gmail.com; s=20251104; t=1782207850; x=1782812650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gl66SZXL4/eDYxy6oUcc3mXBNouxOkmru/WG4ypnp34=;
+        b=agRrSgAbXxXN5HuDUOL7OyB8OQuRLC0zIEMC7lAuENaMqrtok+IrZ4056U58YMfEJ7
+         FUdV2erSnIV1a4j2Ye1gFBHVoaRfynfbI2RwFvng3cqz4jEDia5LyQb7hT0KfNOUFx4D
+         CaQl7qW428ddRclKWMFi6WxHRB1ap8IGQkyKBxwEFuHvzfKDz2aUR3bWScLItdncF0y9
+         9e+aUqtnAOSHkfLurH+r1+dHWixCRHSBT9e700Rz6KfuqJTjuMoRxq3hdbLPj710QB6F
+         4PFlqZ9Lr179YSlJ1T9j5ugRst/3X9beWRV9Mla7w3zRfT9sEH1s9gbaj7Pac0i18xwk
+         JGyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782207763; x=1782812563;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20251104; t=1782207850; x=1782812650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Gso4/eCWqTGK9+zw2V2gKqpch+D4ZfB1l0eAVrB6LD8=;
-        b=iw6Nt9zfB9uAwwvIdC0t7Zgom+TaJFcvC8mBWRNAQ0D6eN+EoFsq8JB/D6ziC3zyRN
-         P1vaiv4bJFOaTSEPOfbO2JwRhiaXxV53EuJfTFW7O6TcJyQOvrNaoteFr5BAt30NghaV
-         kWBi3YQclC96DhOZTSJrZ+tS+Ta+Y1UMUpdXmqjo1OOTxAEo9jLyDwlYgFGDi5cDHmGr
-         XAlZOb/3VwV5jdDX4XtLyHpHy9xekspmelrgBl67NKkR5HAf9vOJZkNJK4HbqupsDARJ
-         ATQQZhKhXJPNMTYTB09w7vFvHwn10c1DDL4/PNJThuCf2syfDmBaVpaA5FOW2NnTVltz
-         m8HA==
-X-Forwarded-Encrypted: i=1; AHgh+RpKHwgwFTKfmRQAZo65+LFZvXvzxMppXbYXtCvQof89ny1qWfnxgLaCDXJKc8XDlCsfKaoMeNhVh+X6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwrSHShfH3KzyT+HGJyZcBgZnb5pjNogiKSD2KtG2U0SP14mQwj
-	Eqp35WlRL5b5YAx61Vm8gbmFQhQMQvz6fNFEkGHVoA8WcMDfEN7JhyBUURas3bT1Ou760JZ3OqH
-	gdezS65P57UCvWuGZ27+xG7U0UpVWsgnC9WKKEEHLmVHzACki033t1hGXroakF7C2
-X-Gm-Gg: AfdE7ckVyBlUozo0ZFBdJsMRXqVkMuTOI1NdpeOydmM7vOi1evbL46Wi5kC6/2TEvFB
-	3jiy95rLzkIb/EsNe6cwrr93zhg00Y+N3MNKqz/4wCvwt1ZgNaNACe3a90JlpJ2KocMoByRh0xp
-	plaD4C134HVZ30WbnjrKIfjIhwDlpxxQ2FHjiqDi4nbQnCIKeFl1AE9yCk0alQJepbmkO9r1Js9
-	eD5Cz1iBx/lPugWKpkMS2/EowTQ7EDTQ4XHQaZVjqwaVnlY/ApslNTkW6M2gR9MQZSYdan5HWq9
-	ShC+hjJ7PcKsa3hBWf3/1DR8/GxsEqLXzl18BWH+9yc3n8tGovyK9ELl18GwHeXUlPTP7ThgNAE
-	qiOc66KlW0ZVh/bBS7jo35l4qf2kllhqn1Q9LLMPCX5I6n05GWEqc8W/JbZfvYBOYXrAT/1js8e
-	+B
-X-Received: by 2002:a17:903:2ec7:b0:2c0:3400:5c34 with SMTP id d9443c01a7336-2c718c879fbmr191507905ad.3.1782207762709;
-        Tue, 23 Jun 2026 02:42:42 -0700 (PDT)
-X-Received: by 2002:a17:903:2ec7:b0:2c0:3400:5c34 with SMTP id d9443c01a7336-2c718c879fbmr191507745ad.3.1782207762274;
-        Tue, 23 Jun 2026 02:42:42 -0700 (PDT)
-Received: from [10.133.33.169] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c743bfe8aasm97603725ad.68.2026.06.23.02.42.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jun 2026 02:42:41 -0700 (PDT)
-Message-ID: <8b0560ae-af5c-4d54-be02-d186be1d799c@oss.qualcomm.com>
-Date: Tue, 23 Jun 2026 17:42:34 +0800
+        bh=Gl66SZXL4/eDYxy6oUcc3mXBNouxOkmru/WG4ypnp34=;
+        b=nNaU/v8mbGwNGtC62S+J/AAFvFbPoL21CHXkp4yBQy63pYe5YCywAWl/iAzNxPHr6e
+         jlc8wsYqDaj+ZFbE+SxDj7gEdxXy6EufuAxA2d5Hp/HymshZpMbsOZOGcPEC1JJtvgBC
+         ATgy5xcDijmAbITYpNz5ecdaoCO8S+0/jCjQSUnvyJP9gbJEMbMdCWL27gNU+JAI0Mb8
+         SSLCxM+3TCTRsMHi3IyIIr3Dpl5I8FU95nv1xEJgceKC2bVlxgCEx9L5/CGtaAnZnA6B
+         gNG2jO5ZzeQsXtp9RBVrqhu68vDR+/rFXAU1A90WhHzV+/sZync2H7BdpONNi1vWYoB+
+         No0A==
+X-Forwarded-Encrypted: i=1; AHgh+RpQXk1ic807ag9nwrbtvHcbsxXnrEnwKnAfKmWNHccH6UsQxD7G5eEVEQ0puM2Nuv/bDNiKtYKIqVPf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRO3VcJExum7MkOnkudKZvUa5IuZ77MH4dfXbZu8caaT6v7hfh
+	M8NWTgUcblTXIgWJSdunhFzLamR+83wIZco9ELbOP23qXj0GNI9d/NKl
+X-Gm-Gg: AfdE7cmVz99bSEG5BgdEkPLsUNK95iEQobWoEycRIlRn9A69cBDhYC1ZYwejsXDo9eY
+	Jyo4yb8iOIFBcR+PYN+RdAuKFPi1+2C4uAbunJJRta6m7HRf6JqbP9QtpC3Ol3sX+F/BRIkAELh
+	9aifjvRMWaXLN7RHW7gD5EYezEgDMkj23MtfT2JerEkLSTpzmMqxzxdcUy9C+vFjbGr2GK7nWBW
+	bxF+aw+7UbK96y33GLUmdr3hMXE2QdftjCz/6dZg+8rUHZT92tXGzeNdAQTivULKGXNjk3pQhV1
+	ZdbPqqIc7/Dl+oKPVzQqM7ryoQM/9XV77sMQht7lSCxKkt0OLOgkuN1o49gNWSvfuwT4BYuYnP2
+	Lt1eq/diFOcZWdDLLKgOL5IhMxp/viVJ+mvm9KpyGa4kfV3m+YFyPBefaw35csKNiTANOZcDhjv
+	vgddOfGgWuvgy8TvmlzVQaoBANHCpUd0jAZ7Vv107Z02wB9qIw2G+cHA==
+X-Received: by 2002:a05:6000:250a:b0:463:3184:6310 with SMTP id ffacd0b85a97d-46a80f5c67amr4790653f8f.28.1782207849607;
+        Tue, 23 Jun 2026 02:44:09 -0700 (PDT)
+Received: from localhost.localdomain ([82.77.79.113])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-46666c579dfsm34379097f8f.31.2026.06.23.02.44.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 02:44:09 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: daniel.baluta@nxp.com,
+	simona.toaca@nxp.com,
+	goledhruva@gmail.com,
+	m-chawdhry@ti.com,
+	egbostina@gmail.com,
+	Ulf Hansson <ulfh@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: mmc: Convert TI OMAP2420 MMC to DT schema
+Date: Tue, 23 Jun 2026 09:43:35 +0000
+Message-ID: <20260623094336.4172741-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: ethernet: qualcomm: ppe: Demote from supported
- and fix maintainer addresses
-To: Andrew Lunn <andrew@lunn.ch>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Lei Wei <quic_leiwei@quicinc.com>,
-        Suruchi Agarwal <quic_suruchia@quicinc.com>,
-        Pavithra R <quic_pavir@quicinc.com>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, netdev@vger.kernel.org
-References: <20260623073307.36483-2-krzysztof.kozlowski@oss.qualcomm.com>
- <0247dfba-1c14-4fea-aab3-5489a36f35f6@lunn.ch>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <0247dfba-1c14-4fea-aab3-5489a36f35f6@lunn.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=EsfiaycA c=1 sm=1 tr=0 ts=6a3a5513 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=HzQU9uYTMzTt3pVePtwA:9 a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: l_1bDx91oUfo8Te2w9hYWac_6JoOmTWN
-X-Proofpoint-GUID: l_1bDx91oUfo8Te2w9hYWac_6JoOmTWN
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA3OCBTYWx0ZWRfXxDZ2C2x0Bnwp
- 6Su8juNf5pcYqhQATmtbYQcwsJS2s/kdakwF8IBUEpENoaaLPtmYHMUrT9r88K9yG0Cnn8hjOvI
- +oFM+DU9DwlhJGu+iVQDNoNmmcP4Djc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA3OCBTYWx0ZWRfX4kAF44pv9SjJ
- 7a744B7kQvxG5YzJvnIl+q4OPhjx4kZxkhKGPfzLGZ43SxAwqzhcK8owI/a2nA5LJ2ziJpFgsEl
- xyt8inWwytAi5Acz/gVH6MgS5b1NP2yzDJVQw04V25eRvxFUmhFwBbufK5/VHxBKHCE1EHPglwB
- l0z+zGPHExSpJ5tMSFVballNg5/qthqsgggRO8E+rbCwnoajCEXf7SY/kQGJ7n1vorQahsgRA9v
- vsIbAFMJR/noqQD+yQOlm/6Xq7z4H/FHM32xYFzE726hzbLQleFpb+tCgsgIi/WSVlOvs4GGbdq
- KHLcnCRRYRSzfIvoBfBxqBzve2Vt+Y5aNoAIc6MwJrADuhuN5fWkRhOT8pzcs9lDw4gAGROexAe
- XfOUzFUkK1XpmFBlGnUMaAQKyN9s6k2sf8fgU0cOIzc7BHI613+KIfg0vyjgZhGpepldrs5iQZ6
- 0Nijrs89LzR+j35J+Iw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-23_02,2026-06-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0
- suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230078
+Content-Transfer-Encoding: 8bit
 
+Convert the Texas Instruments MMC host controller bindings
+to DT schema.
 
+Note that the OMAP2420 driver will not work with OMAP2430 or later omaps.
+Please see the OMAP HSMMC driver for current OMAPs.
 
-On 6/23/2026 4:10 PM, Andrew Lunn wrote:
->> Driver is not supported - in terms of how netdev understands supported
->> commitment - if maintainer does not care to receive the patches for its
->> code, so demote it to "maintained" to reflect true status.
-> 
-> Maybe "Orphan" would be better, if the listed Maintainer is not doing
-> any Maintainer work?
-> 
-> 	   Andrew	   
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
+ .../bindings/mmc/ti,omap2420-mmc.yaml         | 61 +++++++++++++++++++
+ .../devicetree/bindings/mmc/ti-omap.txt       | 26 --------
+ 2 files changed, 61 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mmc/ti,omap2420-mmc.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mmc/ti-omap.txt
 
-Hello Andrew, Krzysztof,
-I will continue to maintain the listed drivers, so their status can
-remain Supported.
+diff --git a/Documentation/devicetree/bindings/mmc/ti,omap2420-mmc.yaml b/Documentation/devicetree/bindings/mmc/ti,omap2420-mmc.yaml
+new file mode 100644
+index 000000000..31a73c130
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mmc/ti,omap2420-mmc.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mmc/ti,omap2420-mmc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments MMC host controller for OMAP1 and 2420
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description: |
++  The MMC Host Controller on TI OMAP1 and 2420 family provides
++  an interface for MMC, SD, and SDIO types of memory cards.
++
++allOf:
++  - $ref: /schemas/mmc/mmc-controller.yaml#
++
++properties:
++  compatible:
++    const: ti,omap2420-mmc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  ti,hwmods:
++    description: |
++      Name of the hwmod associated to the MMC controller. Must be
++      "msdi<n>" where n is the controller instance starting from 1.
++    $ref: /schemas/types.yaml#/definitions/string-array
++    items:
++      - pattern: "^msdi[0-9]+$"
++
++  dmas:
++    maxItems: 2
++
++  dma-names:
++    items:
++      - const: tx
++      - const: rx
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mmc@4809c000 {
++        compatible = "ti,omap2420-mmc";
++        ti,hwmods = "msdi1";
++        reg = <0x4809c000 0x80>;
++        interrupts = <83>;
++        dmas = <&sdma 61 &sdma 62>;
++        dma-names = "tx", "rx";
++    };
+diff --git a/Documentation/devicetree/bindings/mmc/ti-omap.txt b/Documentation/devicetree/bindings/mmc/ti-omap.txt
+deleted file mode 100644
+index 02fd31cf3..000000000
+--- a/Documentation/devicetree/bindings/mmc/ti-omap.txt
++++ /dev/null
+@@ -1,26 +0,0 @@
+-* TI MMC host controller for OMAP1 and 2420
+-
+-The MMC Host Controller on TI OMAP1 and 2420 family provides
+-an interface for MMC, SD, and SDIO types of memory cards.
+-
+-This file documents differences between the core properties described
+-by mmc.txt and the properties used by the omap mmc driver.
+-
+-Note that this driver will not work with omap2430 or later omaps,
+-please see the omap hsmmc driver for the current omaps.
+-
+-Required properties:
+-- compatible: Must be "ti,omap2420-mmc", for OMAP2420 controllers
+-- ti,hwmods: For 2420, must be "msdi<n>", where n is controller
+-  instance starting 1
+-
+-Examples:
+-
+-	msdi1: mmc@4809c000 {
+-		compatible = "ti,omap2420-mmc";
+-		ti,hwmods = "msdi1";
+-		reg = <0x4809c000 0x80>;
+-		interrupts = <83>;
+-		dmas = <&sdma 61 &sdma 62>;
+-		dma-names = "tx", "rx";
+-	};
+-- 
+2.43.0
+
