@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2678377019;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C627A384CE5;
 	Tue, 23 Jun 2026 00:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782176159; cv=none; b=AL7e+79qAfrgc6MI/4eJ88W7IS1TpYx3yNVIp4L3XKR0E0vumZ2nhlCo2zlHqc5UjSRrH6Lr8j2N5cWjfAi0EXBYiHP1UE1nV6VIBxDspcghiMxaZgWlhr77PhYw3I3WEEgNsLBvcDjt4YaR692bka/HMMzyvAczGG6HTqfKslw=
+	t=1782176159; cv=none; b=jG1zTA78DYD8zyyL1nym0NyOpKu4QgQDtk7iAxnTNqeyJWExEZJDq+YtFljO2vHtQe52dpS4aQMvL91eaS242m/sc17ODhaOOnf3GlX8b8sDMcGk/rPJ9KhD8795jQOfUX5XvquTimt3RFu1EutNN1/QNKSatYcu6TEC+1Vvxaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782176159; c=relaxed/simple;
-	bh=DgffpdNrpO4f30+mY00g4wrghfu/SZlNcAxvkajL6hQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YOxP1jq4fsPjlfapdgS7HmuErV/JcaefglnGaoAL74MZKDHQxN0Hv+MPByKTid501OiK5QkUtAN/cqIFMH/QUGQXjb8VZO4owxu8zXKnyQru9UlkvjFylQA3yiwtbeJ8eGvRW+RKb15ExUTeb1gAG88QpFO3dOQXy0YcG3EzK1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tdNz6JBy; arc=none smtp.client-ip=10.30.226.201
+	bh=jsqvH759yuuhvhDxAQ6gfBb7WpPEVTvTwxN6m/znzWc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RLBE2MhW7sltajdqKE2nOu94pqIAI+Olcm7xf+LVlKfeNGdy+wx1fEccTQJsIJvCwNP6xXru+/ayUhKv3cs26L9qDcprQL37gCZNfAmuVOF1XIvoqBAFz8hO6zKuLzvaFnrcI2QlV9rgziWYapaTABnIfUadyJPaak+wqgxGb94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=krGm2H3m; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tdNz6JBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E364C2BCB4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="krGm2H3m"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6D66AC2BCF6;
 	Tue, 23 Jun 2026 00:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1782176159;
-	bh=DgffpdNrpO4f30+mY00g4wrghfu/SZlNcAxvkajL6hQ=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=tdNz6JBywAaNGfm+M2PVzesvOzRW654JfMTQ4SOuy8RJWBfGcOrwaNeopUUAu+Ec3
-	 oVStOqEZpLgse7ueXvGaMHpQkAEzNB+TmGZ3ISsEfClcO03oQbu/pul9mRqxTS7tMG
-	 9KwzxSTbzd44I4a9omXILXxKA6KB5RR5VGDtgvgWOuO+XmW3flGbdUGBJbom1uQ+NS
-	 3ozoNdbmdA+iUxCrktuuHtjXdlYwXtzRRPu6zNuQy2rGb/MmDH3isQ8ao3gGUYHmXI
-	 s6rkZBozP4R2l9Wpig1CxugJhN2mPEvkzr8rpLzvX7PpsQhfziaGzRNo/NLLclYIaN
-	 mXSOBf1B9gSDA==
+	bh=jsqvH759yuuhvhDxAQ6gfBb7WpPEVTvTwxN6m/znzWc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=krGm2H3mKSLOiRJwutVYMayFaax5O30niEPEOrUVAWnfjEyuEriS8aUj4B1cZwZPp
+	 ZNsP53++12AtIjoWixc5XrK304bCq4i/INxt7yXIdW8FI20guIVAsF5RrclptNwmwq
+	 xaxUrxQ3mfBBJqiXs1+L7eXDJ4vlI0NQDLtVhQRtMcRm9YsYa8hewGRqyzosivsnUe
+	 xriuAORUPdD5CYZ7Si5BiNYIDs336j7aqHlOGfmIqq25pOHP+qx3B/dqTx2gAaAW9U
+	 m33G2wMfaXq+CuNfhEc18W4oBXfx1+R+DKX+Es2i+WaphTRxCM+OULi80EV/KglMa9
+	 RX0f8vKK9Zlow==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22582CDB46B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D63FCDB471;
 	Tue, 23 Jun 2026 00:55:59 +0000 (UTC)
 From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Subject: [PATCH 0/8] SM8450 QoL changes
-Date: Mon, 22 Jun 2026 20:54:21 -0400
-Message-Id: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
+Date: Mon, 22 Jun 2026 20:54:25 -0400
+Subject: [PATCH 4/8] arm64: dts: qcom: sm8450: Add missing PCM_OUT port
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWphhJXEQutwYjfDiIRd1csv
- 8V7FzA6QoY8uMDhQUzz5BGFAdiumloUVHuDkkpLrZTgMYsTKdZ5ELHWJrMyRZM04IPFYUPnNyv
- K37ybHu32HuC+HzkbH81uAAAA
-X-Change-ID: 20260622-sm8450-qol-466b8c07eb5f
+Message-Id: <20260622-sm8450-qol-v1-4-37e2ee8df9da@proton.me>
+References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
+In-Reply-To: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Michael Turquette <mturquette@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
@@ -58,11 +57,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-phy@lists.infradead.org, Esteban Urrutia <esteuwu@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782176157; l=1425;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782176157; l=2081;
  i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=DgffpdNrpO4f30+mY00g4wrghfu/SZlNcAxvkajL6hQ=;
- b=gFLyTHxjNg2I3HnPktYj69R6MvSgxJuhGJ/tYw8SEqkz4RWr8vehEn4T+CkGytzjGdsyULS9v
- BgkbT9flofAAaFaldrhHGib+wDlo8bIoqvJYPnqZcKrJ3mdtsChDkI3
+ bh=OrJOz9UX4k6KmMtNljEzpauAqT9chi789O6PWbCCR9A=;
+ b=8ZrQA/bfSoXVwph2etq7CCG/xh90OvmKglxlcOKnQ6xMzR5oOwV8/Zv7t2tqO7ibSosAfie/H
+ mDD4TCZCCX5BDvldcFOyPud4ZsuuTi2J5BmEn4KNL1vGLDynVxzZTaK
 X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
  pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
 X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
@@ -70,40 +69,54 @@ X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
 X-Original-From: Esteban Urrutia <esteuwu@proton.me>
 Reply-To: esteuwu@proton.me
 
-Hello. This is my first attempt at contributing to the Linux kernel.
+From: Esteban Urrutia <esteuwu@proton.me>
 
-I've been mainlining an SM8475 based device for quite some time now and
-I feel now's the proper time to start submitting patches.
-I'm starting with the smallest part which are mostly modifications
-regarding the current support for the SM8450 SoC.
-
-Regards,
-Esteban
+An error in dmesg shows there is a mismatch between controller and DT
+dout-ports.
+Add PCM_OUT port to fix this.
 
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
-Esteban Urrutia (8):
-      clk: qcom: dispcc-sm8450: Fix mdss clocks
-      arm64: dts: qcom: sm8450: Remove unneeded reserved memory nodes
-      arm64: dts: qcom: sm8450: Modify GPU operating points
-      arm64: dts: qcom: sm8450: Add missing PCM_OUT port
-      iommu/arm-smmu-qcom: Add SM8450 MDSS compatible
-      phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
-      phy: qcom: qmp-combo: Correct pre-emphasis table for QMP v4 DP PHYs
-      arm64: defconfig: Add SM8450 camcc
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
- arch/arm64/boot/dts/qcom/sm8450.dtsi       | 50 ++++++------------------------
- arch/arm64/configs/defconfig               |  1 +
- drivers/clk/qcom/dispcc-sm8450.c           |  6 ++--
- drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c |  1 +
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c  | 33 +-------------------
- 5 files changed, 16 insertions(+), 75 deletions(-)
----
-base-commit: 948efecf22e49aa4bf55bb73ec79a0ddcfd38571
-change-id: 20260622-sm8450-qol-466b8c07eb5f
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 5e331a25e22a..8fc58a02e5c5 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -2914,20 +2914,20 @@ swr1: soundwire@3210000 {
+ 			clock-names = "iface";
+ 			label = "RX";
+ 			qcom,din-ports = <0>;
+-			qcom,dout-ports = <5>;
++			qcom,dout-ports = <6>;
+ 
+ 			pinctrl-0 = <&rx_swr_active>;
+ 			pinctrl-names = "default";
+ 
+-			qcom,ports-sinterval-low =	/bits/ 8 <0x03 0x1f 0x1f 0x07 0x00>;
+-			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x0b 0x01 0x00>;
+-			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x0b 0x00 0x00>;
+-			qcom,ports-hstart =		/bits/ 8 <0xff 0x03 0xff 0xff 0xff>;
+-			qcom,ports-hstop =		/bits/ 8 <0xff 0x06 0xff 0xff 0xff>;
+-			qcom,ports-word-length =	/bits/ 8 <0x01 0x07 0x04 0xff 0xff>;
+-			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0x00 0x01 0xff 0xff>;
+-			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff 0x00>;
+-			qcom,ports-lane-control =	/bits/ 8 <0x01 0x00 0x00 0x00 0x00>;
++			qcom,ports-sinterval =		/bits/ 16 <0x03 0x3f 0x1f 0x07 0x00 0x18f>;
++			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x0b 0x01 0x00 0x00>;
++			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x0b 0x00 0x00 0x00>;
++			qcom,ports-hstart =		/bits/ 8 <0xff 0x03 0xff 0xff 0xff 0x08>;
++			qcom,ports-hstop =		/bits/ 8 <0xff 0x06 0xff 0xff 0xff 0x08>;
++			qcom,ports-word-length =	/bits/ 8 <0x01 0x07 0x04 0xff 0xff 0x0f>;
++			qcom,ports-block-pack-mode =	/bits/ 8 <0xff 0x00 0x01 0xff 0xff 0x00>;
++			qcom,ports-block-group-count =	/bits/ 8 <0xff 0xff 0xff 0xff 0x00 0x00>;
++			qcom,ports-lane-control =	/bits/ 8 <0x01 0x00 0x00 0x00 0x00 0x00>;
+ 
+ 			#address-cells = <2>;
+ 			#size-cells = <0>;
 
-Best regards,
---  
-Esteban Urrutia <esteuwu@proton.me>
+-- 
+2.54.0
 
 
