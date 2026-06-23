@@ -1,121 +1,557 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD4214E2F2
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 01:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C451B29CE9;
+	Tue, 23 Jun 2026 01:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782177040; cv=none; b=tDBeVebcG1qNhbBCYcFdoPSYpW5p64TDXfRd8NF8XrM2Gw0sdfnauQlXWezUv5fxC+2QcRkUAsVVWI8Fa+W5qOxzuDZe1pJORrNXCmyXa4273s6EhuAwF8e9Om2Hcopz+5G+sEej6oLovVm0726RCrzdr+2gzjuzFV7GN0RB2z0=
+	t=1782177366; cv=none; b=b0kMGbKJRr8J12dtKvFFCfcbYZ8BR7IsEtVHh1XeUVbMw2jgpi+e7MF6B7UH4RqRqtnF1wmjKTK0Ww+zUkUxCls4xIb+6N2jldNzkpmDR5YPy4Yr8CcdiDPRodDTWITNg559l+F3L5Vo9GlFJl1SqjNLiQdA9JRQv0V8QhggwB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782177040; c=relaxed/simple;
-	bh=3V4yotkiaVSGP4LmtyVzN2kRvyFR7MRVMsO9vduVqQo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KeUdwunBUixp1Pc1QURmZpEDR9Y7luu0NliXdGOiihOMszKr5syVaZCsybiKzFR/aHn5wpMuQldqDsUTTzFDL/ZzboTEKTE3va/85NOGHHEZOUrvTZM12xX/vc/cv0WidSnK8kVlPHx1DfsId2em0vfViv/AQA3LwKvisiknWj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpNI/RMm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpNI/RMm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFA271F000E9;
-	Tue, 23 Jun 2026 01:10:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782177039;
-	bh=vNEKF36isjpHiu5z6iVdmoo7elpoIamhcgdOHNRJepw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BpNI/RMmuxJwsYoQQfMgmPBhGFxiaDqzN7dSRJLMSBPGCRrZiylZQLKCa/qyZpyiY
-	 1vIpv1TcQSKqUVUfZuZwkQT83EpyKhgEm3MF1Tu/M4mD5Os/FK6H1ekIkCsf1jZj2h
-	 SJ7ciem1YIb8xpxMYJd3nvV6r3I/aGMQ/UvsCctnZ5Z0vxmxzOJyg52TWxfJRBqQx4
-	 n30squBELsJ+fxyy0aoTLn8ACCYHu1NH5CRWfs2U3GKMdeX6cMDw6XhNXyNQlYfEMZ
-	 73o2MNLdGQNNyIRl7dTURJtKgRVBl6r0xVvUYaQTAJtG5dSjDVE8fH0nB9nHrcbB30
-	 K0d8FIblbxO4A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/8] arm64: dts: qcom: sm8450: Modify GPU operating
- points
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esteban Urrutia via B4 Relay" <devnull+esteuwu.proton.me@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260622-sm8450-qol-v1-3-37e2ee8df9da@proton.me>
-References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
- <20260622-sm8450-qol-v1-3-37e2ee8df9da@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 01:10:38 +0000
-Message-Id: <20260623011038.AFA271F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782177366; c=relaxed/simple;
+	bh=s3FnSTZbkJ+byzDu2WzMBMJBDVDtltkIhkKU0rEr9YE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=BA8NQukK01oXYF4IXIgKWa5Ge8b+1N/XeqLacMUL03EAfH+xROpSaIUGq3Myy6BR0SoXbvRvsOvBaYhRafuDSaW4ibIM7rz5k1FkBHFo1aetMJBA/+7HZmZGX6GbTAMEfyolj8MJVxObr1CVkjYuVVIJ52ZeGaEXGOPH3jdFBQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 23 Jun
+ 2026 09:15:54 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 23 Jun 2026 09:15:54 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v33 0/5] Add ASPEED AST2600 I2C controller driver
+Date: Tue, 23 Jun 2026 09:15:49 +0800
+Message-ID: <20260623-upstream_i2c-v33-0-6d5338fc56ed@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAEbeOWoC/3XQzU7DMAwH8FeZcqYodpqm4cR7IITyYbMctlbtm
+ EBT3x13EurWlaNt5Rf7f1EjDYVG9bK7qIHOZSzdUQpjnnYq7cPxk6qSpaFQY6MRTfXVj6eBwuG
+ jYKooZu249c74pORJPxCX76v39i71voynbvi58me0c/tPsveSTCtdea5jzt7WbPg1jD1RPlHaP
+ 6fuoGbvjM1iGO3XRiOGZcqJuWWmdttwNwbWa8OJweCjBUhtwn+M9sYwem20YoCLOZAEY1PcNvx
+ i1PCQhxfDgEsQvLaBYNMwejGsfHtvyGKSR67Zh5yMNXrbgMWQa9YGiBGDCxod1Iy4beCNAbA2c
+ DaahmLwCFk/3jJN0y+EIJ6GjAIAAA==
+X-Change-ID: 20260223-upstream_i2c-ebd07f89739c
+To: <jk@codeconstruct.com.au>, <andriy.shevchenko@linux.intel.com>, Andi Shyti
+	<andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, "Benjamin
+ Herrenschmidt" <benh@kernel.crashing.org>, Rayn Chen
+	<rayn_chen@aspeedtech.com>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>, Ryan Chen
+	<ryan_chen@aspeedtech.com>, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782177354; l=24590;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=s3FnSTZbkJ+byzDu2WzMBMJBDVDtltkIhkKU0rEr9YE=;
+ b=WputO47wYH57fX8S1kyueVIy6uZ558HkN8L6bsxAijpvlKxc/LLxdkiDQBlBI+G+4ifCEJkzU
+ pn6PVaVYJR0BCruCAcxRM6ppeqDjfrq6WsANviGJ03ECQNgDNBtMilh
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Removing the 3 lowest GPU OPPs breaks the 1:1 index mapping betwee=
-n the GPU frequency table and the hardcoded GMU bandwidth table in the Adre=
-no DRM driver, causing severe memory bandwidth starvation at high GPU frequ=
-encies.
---
+This series adds support for the AST2600 I2C controller “new register
+set” implementation.
 
-commit d0ec9d0cbceaf15f2295a4c6a613a8ca7a354eea
-Author: Esteban Urrutia <esteuwu@proton.me>
+The AST2600 I2C controller introduces a revised register layout which
+separates controller and target functionality into distinct register
+blocks, and extends clock divider configuration and packet-based
+transfer support compared to the legacy mixed register layout used on
+earlier ASPEED SoCs.
 
-arm64: dts: qcom: sm8450: Modify GPU operating points
+The current driver implementation for the AST2600 I2C peripheral is
+through the hardware's "compatibility mode", which exposes a register
+set that matches the previous generation hardware (AST2500 and earlier).
 
-This commit removes the 317MHz, 285MHz, and 220MHz GPU operating points from
-the SM8450 device tree, as they do not exist in the downstream device trees.
+Instead, add a driver that works in new-register-set mode, to allow the
+new features, and will provide support for future hardware that will
+not implement compatibility mode.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/q=
-com/sm8450.dtsi
-> index e34e3c05bf74c..5e331a25e22a2 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-> @@ -2495,21 +2495,6 @@ opp-350000000 {
->  					opp-hz =3D /bits/ 64 <350000000>;
->  					opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
->  				};
-> -
-> -				opp-317000000 {
-> -					opp-hz =3D /bits/ 64 <317000000>;
-> -					opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-> -				};
+In order to support the new mode, we need a DT binding change to
+reflect the reference to the global register set. Since the binding
+still represents the same (AST2600 SoC) physical hardware, we continue
+to use the existing compatible string of "aspeed,ast2600-i2c-bus".
 
-[Severity: High]
-Will removing these 3 lowest GPU OPPs break the index mapping between the
-GPU frequency table and the GMU bandwidth table in the Adreno driver?
+However: since we're changing semantics for an existing binding, we
+allow backwards compatibility by selecting on presence/absence of the
+newly-added properties, and fall back to the old driver (ie., in
+compatibility mode) when we detect a DT using the old binding spec.
 
-The Adreno A730 driver doesn't use dynamic bandwidth voting. Instead, it
-sends a hardcoded table of exactly 12 memory bandwidth levels to the GMU
-firmware:
+Specifically:
 
-drivers/gpu/drm/msm/adreno/a6xx_hfi.c:a730_build_bw_table() {
-    ...
-    msg->bw_level_num =3D 12;
-    ...
-}
+- ast2600-i2c-bus nodes that provide the `aspeed,global-regs` property
+  (present in the new binding and absent in the legacy binding) will be
+  successfully probed by the new driver
 
-The GMU firmware applies the bandwidth vote corresponding to the GPU
-performance level index. Previously, with 12 GPU OPPs, the maximum frequency
-mapped to the maximum bandwidth at index 11.
+- ast2600-i2c-bus nodes without `aspeed,global-regs` continue to use the
+  existing driver (in legacy register mode), ensuring that platforms
+  with the current DTBs remain functional
 
-By removing 3 OPPs here, the active OPPs are reduced to 9. Does this mean t=
-he
-maximum frequency of 818MHz will now map to performance index 8 instead?
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Changes in v33:
+- 4/5: Fix missing NAK on the last byte of an intermediate read
+  message: set RX_CMD_LAST on the final chunk of every read message
+  and append STOP_CMD only when it is also the last message of the
+  transfer.
+- Link to v32: https://lore.kernel.org/r/20260611-upstream_i2c-v32-0-b66eba921d01@aspeedtech.com
 
-If so, this would cause the GMU to apply the lower bandwidth vote from inde=
-x 8
-when the GPU is at maximum frequency, severely reducing the available memory
-bandwidth and bottlenecking the GPU under heavy load.
+Changes in v32:
+- 1/5: add MAINTAINERS entry for aspeed,ast2600-i2c.yaml in the same
+  patch that creates the file.
+- 3/5: add if/then conditional schema: when aspeed,global-regs is
+  present, require reg to have at least two items. The new driver
+  unconditionally maps resource index 1 (the buffer SRAM region); a DT
+  with one reg entry and aspeed,global-regs passes schema validation but
+  fails probe. The constraint makes the schema consistent with driver
+  behaviour.
+- 4/5: address follow-on code review issues:
+  - add MAINTAINERS entry for drivers/i2c/busses/i2c-ast2600.c.
+  - fix interrupt storm when msgs is NULL: clear PKT_DONE in the IRQ
+    handler; per the datasheet this auto-clears all associated status
+    bits.
+  - fix out-of-bounds: guard msgs_index against msgs_count before
+    indexing msgs array in ast2600_i2c_controller_packet_irq().
+  - fix use-after-free: WRITE_ONCE() null msgs before complete() in
+    all IRQ completion paths so trailing IRQs bail out immediately.
+  - fix race in timeout path: null msgs before re-enabling IER so a
+    late IRQ cannot access the caller's freed message buffer.
+  - fix 0-length SMBus block read hanging the bus: issue STOP via
+    CONTROLLER_TRIGGER_LAST_STOP, set stop_pending, poll for NORMAL_STOP.
+  - initialise clk_div_reg to I2CCG_DIV_CTRL and global_ctrl to 0
+    to avoid uninitialized values if regmap_read() fails.
+  - guard against clock-frequency = <0> in DT; default to 100 kHz
+    to prevent divide-by-zero in ast2600_i2c_ac_timing_config().
+  - remove AST2600_I2CM_BUS_RECOVER_FAIL from IER writes; bit 15 is
+    Reserved in I2CM10 (IER) and only exists as a status bit in I2CM14.
+- 5/5: address follow-on code review issues:
+  - fix target RX data loss in master-abort path: remove BUFF_CTRL
+    zeroing that discarded pending target RX data stored in bits [29:24].
+  - fix use-after-free in master-abort path: null msgs and re-enable
+    IER before complete(), not after, preventing stale IRQ from touching
+    the newly-installed msgs of the next transfer.
+  - fix shared-buffer corruption on coalesced STOP+SLAVE_MATCH IRQ:
+    restore the SLAVE_PENDING guard on target_active = false. SLAVE_PENDING
+    (bit 29) is set when a new address-match is queued before the previous
+    DMA receive completes; clearing target_active in that case allows the
+    controller to overwrite the shared Tx/Rx buffer.
+  - use READ_ONCE() for all process-context reads of target_active;
+    the IRQ path writes it with WRITE_ONCE() and plain loads allow the
+    compiler to cache a stale value across the IER-disable window.
+- Link to v31: https://lore.kernel.org/r/20260603-upstream_i2c-v31-0-ba7a02714f22@aspeedtech.com
 
-> -
-> -				opp-285000000 {
-> -					opp-hz =3D /bits/ 64 <285000000>;
-> -					opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-> -				};
-> -
-> -				opp-220000000 {
-> -					opp-hz =3D /bits/ 64 <220000000>;
-> -					opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-> -				};
->  			};
->  		};
+Changes in v31:
+- 1/5: clarify in the commit message that the second reg region is
+  optional (minItems: 1), matching the schema change from v30.
+- 2/5: zero-initialise struct i2c_timings so the bus-frequency fallback
+  correctly triggers when clock-frequency is absent in the DT.
+- 4/5: fix zero-length RX: ast2600_i2c_setup_buff_rx() now returns
+  -EINVAL for xfer_len <= 0, propagated through the controller packet
+  IRQ handler to abort the transfer instead of hanging until SW timeout.
+- 4/5: address follow-on code review issues:
+  - Guard controller_packet_irq() against NULL msgs (post-timeout UAF).
+  - Clamp HW-reported xfer_len via ast2600_i2c_clamp_len() in TX_ACK
+    and RX_DONE to prevent out-of-bounds writes on HW length glitches.
+  - Use regmap_update_bits() for I2CG_CTRL to avoid clobbering shared
+    global bits across parallel bus probes (TOCTOU fix).
+  - Fix SMBus block read with recv_len == 0: set controller_xfer_cnt =
+    msg->len to satisfy the "msg done" check without an extra 1-byte RX.
+  - Mirror the controller timeout sequence in recover_bus() timeout path
+    (disable IER, synchronize_irq(), W1C ISR, reset master, restore IER).
+  - Remove unused #include <linux/of_device.h>.
+  - Remove dead adap.algo_data assignment in probe().
+- 5/5: address follow-on target-mode code review issues:
+  - Clear target_active on any STOP (not just STOP without SLAVE_PENDING),
+    fixing a deadlock under coalesced IRQ events.
+  - Enable target IER in reg_target() rather than unconditionally in
+    probe(), matching the disable in unreg_target().
+  - Re-arm HW in SLAVE_PENDING|RX_DONE|WAIT_TX_DMA|STOP ISR case
+    (missing CMD_STS write left bus SCL-stretched until INACTIVE_TO).
+  - Default target ISR case: write TARGET_TRIGGER_CMD instead of
+    silently breaking, preventing bus hang on unhandled states.
+  - W1C-clear ADDR1/2/3_NAK bits in HW in target_irq() to prevent
+    stale NAK bits from bouncing controller transfers with -EBUSY.
+  - unreg_target(): write 0 to ADDR_CTRL instead of masking with
+    ADDR1_MASK, which left ADDR1_ENABLE (BIT(7)) set after unregister.
+- Link to v30: https://lore.kernel.org/r/20260528-upstream_i2c-v30-0-5d4f9adc3530@aspeedtech.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-sm8450-qol=
--v1-0-37e2ee8df9da@proton.me?part=3D3
+Changes in v30:
+- 1/5: aspeed,ast2600-i2c.yaml: keep backward compatibility for
+  existing in-tree AST2600 device trees (Sashiko AI review).
+  - reg: add minItems: 1 so legacy single-reg DTs still validate.
+  - retain bus-frequency as a deprecated property so DTs that still
+    use it are not rejected by unevaluatedProperties: false.
+- 2/5: new patch "i2c: aspeed: Read clock-frequency via
+  i2c_parse_fw_timings()". The legacy i2c-aspeed driver now reads
+  the standard clock-frequency property first and falls back to
+  bus-frequency, avoiding a silent 100 kHz downgrade when a DT
+  follows the updated binding but still binds to the legacy
+  driver (Sashiko AI review).
+- 4/5: address Sashiko AI code review feedback:
+  - Use manual i2c_add_adapter() / i2c_del_adapter() instead of
+    devm_i2c_add_adapter() so the adapter is torn down before the
+    hardware is disabled in remove(); otherwise client .remove()
+    callbacks can fail or hang after FUN_CTRL/IER have been cleared.
+  - synchronize_irq() and clear pending IRQ status on the controller
+    timeout path to avoid the ISR racing with the next transfer and
+    touching freed msgs.
+  - Use clamp_t() for AC TIMING divisor / scl_low / scl_high so
+    extreme clock-frequency values cannot underflow into the unsigned
+    domain and corrupt the AC TIMING register.
+  - Derive the RX buffer offset from buf_size instead of hardcoding
+    0x10, since the dual-pool split is configurable.
+  - Clamp i2c-scl-clk-low-timeout-us to the TTIMEOUT field's 5-bit
+    range (max 31 * 1024us) and emit a dev_warn() instead of letting
+    AST2600_I2CC_TTIMEOUT()'s mask silently truncate larger values.
+  - Return -EBUSY (not -ENOMEM) for every ast2600_i2c_do_start()
+    failure path in the controller packet IRQ handler (NORMAL_STOP,
+    TX_ACK, and RX_DONE branches).
+  - Advertise I2C_AQ_NO_ZERO_LEN_READ via i2c_adapter_quirks so the
+    i2c-core rejects zero-byte reads before they reach the driver.
+    The AST2600 packet engine cannot encode a zero-length RX command
+    and would otherwise stall waiting for an RX_DONE that never
+    arrives.
+- 5/5: address Sashiko AI code review feedback:
+  - Force-stop path (target IRQ aborting an in-flight controller
+    transfer): disable the controller IER and W1C-clear pending ISR
+    before calling complete(), then restore the IER after the
+    wake-up. Without the disable/clear sequence the controller IRQ
+    handler can race with the target abort path and double-complete
+    or touch freed msgs.
+  - unreg_target() teardown ordering: disable the target IER first,
+    then disable SLAVE_EN / clear ADDR_CTRL, synchronize_irq(), W1C
+    pending ISR, and only then NULL i2c_bus->target and clear
+    target_active. The old order left IER enabled while target was
+    being cleared, allowing an in-flight handler to dereference a
+    target pointer the caller had already freed.
+  - reg_target() bring-up ordering: assign i2c_bus->target before
+    enabling SLAVE_EN. Otherwise an IRQ that fires after SLAVE_EN
+    is set but before the pointer is stored finds target == NULL,
+    exits without clearing the ISR, and the unmasked event re-fires
+    as an IRQ storm.
+  - Use writel() instead of writeb() when staging a TX byte into
+    the target buffer. The AST2600 buffer SRAM only supports 32-bit
+    accesses; byte writes are silently dropped (or, on some
+    revisions, raise a bus fault), so a SLAVE_READ_REQUESTED reply
+    never reaches the master.
+  - reg_target() rejects 10-bit client addresses with
+    -EAFNOSUPPORT. AST2600_I2CS_ADDR1 is only a 7-bit field;
+    without the check, the high bits of a 10-bit address overflow
+    into the adjacent ADDR2 field and silently corrupt a second
+    target slot.
+  - Initialise the local `u8 value` to 0 in the target packet IRQ
+    handler. Its address is passed to i2c_slave_event() for events
+    such as I2C_SLAVE_STOP / I2C_SLAVE_READ_REQUESTED; a slave
+    backend that reads the byte before writing would otherwise leak
+    uninitialised kernel stack.
+- Link to v29: https://lore.kernel.org/r/20260415-upstream_i2c-v29-0-317c1a905ae1@aspeedtech.com
+
+Changes in v29:
+- 2/4: remove aspeed,enable-dma properties.
+- 3/4: update commit message remove transfer mode selection.
+- 3/4: remove sysfs file.
+- 3/4: remove define I2C_TARGET_MSG_BUF_SIZE and AST2600_I2C_DMA_SIZE.
+- 3/4: remove buf_index in struct ast2600_i2c_bus.
+- 3/4, 4/4: remove dma/byte mode, use buffer mode only.
+- 4/4: fix race between unreg_target and IRQ handler.
+- 4/4: move i2cs ier enable from ast2600_i2c_init to probe after master ier enable.
+- Link to v28: https://lore.kernel.org/r/20260330-upstream_i2c-v28-0-17bdae39c5cb@aspeedtech.com
+
+Changes in v28:
+- 2/4: update commit message correspond with aspeed,enable-dma.
+- 2/4: remove aspeed,transfer-mode and add aspeed,enable-dma property
+  and description.
+- 2/4: Fix aspeed,enable-dma description to reflect hardware capability
+  rather than software behavior.
+- 3/4: Separate xfer_mode_store into distinct parse and availability-check
+  steps by introducing ast2600_i2c_xfer_mode_check().
+- 3/4: fix tx dma memcpy source point address.
+- 3/4: Use a temporary variable for devm_platform_get_and_ioremap_resource()
+  to avoid storing an ERR_PTR in i2c_bus->buf_base; drop the redundant
+  NULL assignment in the error path since i2c_bus is kzalloc()ed.
+- 3/4: Add ABI documentation file
+  Documentation/ABI/testing/sysfs-driver-ast2600-i2c.
+- 4/4: fix typo condication -> condition.
+- 4/4: fix compile error, when disable CONFIG_I2C_SLAVE.
+- Link to v27: https://lore.kernel.org/r/20260324-upstream_i2c-v27-0-f19b511c8c28@aspeedtech.com
+
+Changes in v27:
+- 1/4 use aspeed,enable-dma instead aspeed,transfer-mode.
+- 2/4 remove aspeed,transfer-mode selection instad aspeed,transfer-mode
+- 2/4 add sysfs for xfer mode.
+- Link to v26: https://lore.kernel.org/r/20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com
+
+Changes in v26:
+- 1/4: binding reworks based on review feedback
+- Link to v25: https://lore.kernel.org/r/20260225-upstream_i2c-v25-0-9f4bdd954f3f@aspeedtech.com
+
+Changes in v25:
+- Use b4 to send series.
+- Rebase on v7.0-rc1.
+- Clarify cover letter and commit logs based on review feedback.
+- Remove the i2c-aspeed-core multiplexer infrastructure and
+  implement driver selection via conditional -ENODEV handling
+  in individual probe() functions.
+- 3/4: incorporate review feedback and refactor new driver
+- Link to v24: https://lore.kernel.org/r/20251118014034.820988-1-ryan_chen@aspeedtech.com
+
+Changes in v24:
+- aspeed,ast2600-i2c.yaml
+ - fix make dt_binding_check blank warning.
+- Link to v23: https://lore.kernel.org/all/20251117025040.3622984-1-ryan_chen@aspeedtech.com/
+
+Changes in v23:
+- update typo patch (1/4) commit message.
+- aspeed,ast2600-i2c.yaml
+ - update reg and description.
+- i2c-ast2600.c controller
+ - replace ast2600_select_i2c_clock to ast2600_i2c_ac_timing_config.
+- i2c-ast2600.c target
+ - I2C_TARGET_MSG_BUF_SIZE 256 to 4096
+ - remove blank line.
+ - refine Master comment description to controller
+- Link to v22: https://lore.kernel.org/all/20251112085649.1903631-1-ryan_chen@aspeedtech.com/
+
+Changes in v22:
+- update patch (1/4) commit message add dts example reason.
+- aspeed,ast2600-i2c.yaml @patch (1/4)
+ - rename ast2600-i2c.yaml to aspeed,ast2600-i2c.yaml.
+ - update reg, clock-frequency description.
+- aspeed,ast2600-i2c.yaml @patch (2/4)
+ - aspeed,transfer-mode, aspeed,transfer-mode add for ast2600.
+- i2c-aspeed-core.c,h @patch (3/4)
+ - add i2c-aspeed-core allow both old and new device trees using the
+   same compatible string "aspeed,ast2600-i2c-bus".
+- Link to v21: https://lore.kernel.org/all/20251027061240.3427875-1-ryan_chen@aspeedtech.com/
+
+Changes in v21:
+- update patch (1/4) commit message
+- i2c-ast2600.c
+ - move rst to local variable in ast2600_i2c_probe().
+- Link to v20: https://lore.kernel.org/all/20251021013548.2375190-1-ryan_chen@aspeedtech.com/
+
+Changes in v20:
+- ast2600-i2c.yaml
+ - fix warning at make dt_binding_check.
+- Link to v19: https://lore.kernel.org/all/20251020013200.1858325-1-ryan_chen@aspeedtech.com/
+
+Changes in v19:
+- Split AST2600 binding into its own YAML file
+ - Removed `aspeed,ast2600-i2c-bus` from `aspeed,i2c.yaml`
+ - Added `aspeed,global-regs` and `aspeed,transfer-mode` to AST2600 binding
+- Link to v18: https://lore.kernel.org/all/20250820051832.3605405-1-ryan_chen@aspeedtech.com/
+
+Changes in v18:
+- refine patch (1/3) commit message (reason for commit not list.)
+- i2c-ast2600.c
+ - remove redundant reset_control_deassert in driver probe.
+ - remove reset_control_assert(i2c_bus->rst) in driver remove.
+- Link to v17: https://lore.kernel.org/all/20250814084156.1650432-1-ryan_chen@aspeedtech.com/
+
+Changes in v17:
+- move i2c new mode register and feature into driver commit message.
+- aspeed,i2c.yaml
+ - remove multi-master properties.
+ - use aspeed,transfer-mode properties for aspeed,enable-byte/enable-dma.
+-i2c-ast2600.c
+ - rename dma_safe_buf to controller_dma_safe_buf.
+ - fix ast2600_i2c_recover_bus return overflow warnings.
+ - add ast2600_i2c_target_packet_buff_irq unhandle case.
+ - add parameter "cmd" in ast2600_i2c_setup_dma_rx,
+   ast2600_i2c_setup_buff_rx, ast2600_i2c_setup_byte_rx
+ - use reset_control_deassert replace
+   devm_reset_control_get_shared_deasserted.
+ - useaspeed,transfer-mode properties for transfer mode setting.
+ - change compatible = "aspeed,ast2600-i2cv2" to "aspeed,ast2600-i2c-bus".
+- Link to v16: https://lore.kernel.org/all/20250224055936.1804279-1-ryan_chen@aspeedtech.com/
+
+Changes in v16:
+- aspeed,i2c.yaml: add aspeed,enable-byte properties for force byte mode.
+- i2c-ast2600.c
+ - change include asm/unaligned.h to linux/unaligned.h.
+ - add reset timeout councter when slave active timeout.
+ - modify issue i2c_recovery_bus before slave re-enable.
+ - add aspeed,enable-byte properties.
+- Link to v15: https://lore.kernel.org/all/20241007035235.2254138-1-ryan_chen@aspeedtech.com/
+
+Changes in v15:
+- i2c-ast2600.c
+ - add include unaligned.h
+ - rename all master -> controller, slave -> target.
+ - keep multi-master to align property.
+ - remove no used element in ast2600_i2c_bus.
+- Link to v14: https://lore.kernel.org/all/20241002070213.1165263-1-ryan_chen@aspeedtech.com/
+
+Changes in v14:
+- aspeed,i2c.yaml
+ - v13 change people reviewed-by tag, v14 fixed to original people tag,
+   modify to Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ - struct ast2600_i2c_bus layout optimal.
+ - ast2600_select_i2c_clock refine.
+ - ast2600_i2c_recover_bus overridden fix.
+ - dma_mapping_error() returned error code shadowed modify.
+ - buffer register in a 4-byte aligned simplified
+ - remove smbus alert
+- Link to v13: https://lore.kernel.org/all/20240819092850.1590758-1-ryan_chen@aspeedtech.com/
+
+Changes in v13:
+ - separate i2c master and slave driver to be two patchs.
+ - modify include header list, add bits.h include. remove of*.h
+ - modify (((x) >> 24) & GENMASK(5, 0)) to (((x) & GENMASK(29, 24)) >> 24)
+ - modify ast2600_select_i2c_clock function implement.
+ - modify ast2600_i2c_recover_bus function u32 claim to
+   u32 state = readl(i2c_bus->reg_base + AST2600_I2CC_STS_AND_BUFF);
+- Link to v12: https://lore.kernel.org/all/20230714074522.23827-1-ryan_chen@aspeedtech.com/
+
+Changes in v12:
+- aspeed,i2c.yaml
+ - add Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+- i2c-ast2600.c
+ - update include by alphabetical order
+ - make just a one TAB and put the last two lines on the single one
+ - remove no used timing_table structre
+ - remove enum explicit assinment
+ - rewritten to avoid this and using loop in ast2600_select_i2c_clock
+ - use GENMASK for most 0xffff
+ - remove too many parentheses
+ - use str_read_write replace read write string
+ - remove redundant blank line after ast2600_i2c_bus_of_table
+ - fix wrong multi-line style of the comment
+ - use macro for i2c standard speeds
+ - remove useless noise dev_info
+- Link to v11: https://lore.kernel.org/all/20230430041712.3247998-1-ryan_chen@aspeedtech.com/
+
+Changes in v11:
+- aspeed,i2c.yaml
+ - no change, the same with v10.
+- i2c-ast2600.c
+ - modify alert_enable from int -> boolean.
+ - modify dbg string recovery -> recover.
+ - remove no need to init 0.
+ - remove new line after break.
+ - remove unneeded empty line.
+ - modify dma_alloc_coherent to dmam_alloc_coherent
+ - modify probe nomem return dev_err_probe
+ - modify i2c_add_adapter to devm_i2c_adapter
+ - modify checkpatch: Alignment should match open parenthesis
+ - modify checkpatch: braces {} should be used on all arms of this statement
+ - modify checkpatch: Unbalanced braces around else statement
+- Link to v10: https://lore.kernel.org/all/20230415012848.1777768-1-ryan_chen@aspeedtech.com/
+
+Changes in v10:
+- aspeed,i2c.yaml
+ - move unevaluatedProperties after allOf.
+ - remove extra one blank line.
+- i2c-ast2600.c
+ - no change, the same with v8.
+- Link to v9: https://lore.kernel.org/all/20230405022825.333246-1-ryan_chen@aspeedtech.com/
+
+Changes in v9:
+- aspeed,i2c.yaml
+ - backoff to v7.
+  - no fix typo in maintainer's name and email. this would be another patch.
+  - no remove address-cells, size-cells, this would be another patch.
+ - use aspeed,enable-dma property instead of aspeed,xfer-mode selection.
+ - fix allOf and else false properties for aspeed,ast2600-i2cv2.
+- i2c-ast2600.c
+ - no change, the same with v8
+- Link to v8: https://lore.kernel.org/all/20230330073259.485606-1-ryan_chen@aspeedtech.com/
+
+Changes in v8:
+- aspeed,i2c.yaml
+ - modify commit message.
+ - Fix typo in maintainer's name and email.
+ - remove address-cells, size-cells.
+- i2c-ast2600.c
+ - move "i2c timeout counter" comment description before property_read.
+ - remove redundant code "return ret" in probe end.
+- Link to v7: https://lore.kernel.org/all/20230327092524.3916389-1-ryan_chen@aspeedtech.com/
+
+Changes in v7:
+- aspeed,i2c.yaml
+ - Update ASPEED I2C maintainers email.
+ - use aspeed,enable-dma property instead of aspeed,xfer-mode selection.
+ - fix allOf and else false properties for aspeed,ast2600-i2cv2.
+- i2c-ast2600.c
+ - remove aspeed,xfer-mode instead of aspeed,enable-dma mode. buffer mode
+   is default.
+ - remove aspeed,timeout instead of i2c-scl-clk-low-timeout-us for
+   timeout setting.
+- Link to v6: https://lore.kernel.org/all/20230226031321.3126756-1-ryan_chen@aspeedtech.com/
+
+Changes in v6:
+- remove aspeed,i2cv2.yaml, merge to aspeed,i2c.yaml -add support for
+  i2cv2 properites.
+- i2c-ast2600.c
+ - fix ast2600_i2c_remove ordering.
+ - remove ast2600_i2c_probe goto labels, and add dev_err_probe -remove
+   redundant deb_dbg debug message.
+ - rename gr_regmap -> global_regs
+- Link to v5: https://lore.kernel.org/all/20230220061745.1973981-1-ryan_chen@aspeedtech.com/
+
+Changes in v5:
+- remove ast2600-i2c-global.yaml, i2c-ast2600-global.c.
+- i2c-ast2600.c
+ - remove legacy clock divide, all go for new clock divide.
+ - remove duplicated read isr.
+ - remove no used driver match
+ - fix probe return for each labels return.
+ - global use mfd driver, driver use phandle to regmap read/write.
+- rename aspeed,i2c-ast2600.yaml to aspeed,i2cv2.yaml -remove bus-frequency.
+- add required aspeed,gr
+- add timeout, byte-mode, buff-mode properites.
+- Link to v4: https://lore.kernel.org/all/20230201103359.1742140-1-ryan_chen@aspeedtech.com/
+
+Changes in v4:
+- fix i2c-ast2600.c driver buffer mode use single buffer conflit in
+  master slave mode both enable.
+- fix kmemleak issue when use dma mode.
+- fix typo aspeed,i2c-ast2600.yaml compatible is "aspeed,ast2600-i2c"
+- fix typo aspeed,i2c-ast2600.ymal to aspeed,i2c-ast2600.yaml
+- Link to v3: https://lore.kernel.org/all/20220516064900.30517-1-ryan_chen@aspeedtech.com/
+
+Changes in v3:
+- fix i2c global clock divide default value.
+- remove i2c slave no used dev_dbg info.
+- Link to v2: https://lore.kernel.org/all/20220413101735.27678-1-ryan_chen@aspeedtech.com/
+
+Changes in v2:
+- add i2c global ymal file commit.
+- rename file name from new to ast2600.
+  aspeed-i2c-new-global.c -> i2c-ast2600-global.c
+  aspeed-i2c-new-global.h -> i2c-ast2600-global.h
+  i2c-new-aspeed.c -> i2c-ast2600.c
+- rename all driver function name to ast2600.
+- Link to v1: https://lore.kernel.org/all/20220323004009.943298-1-ryan_chen@aspeedtech.com/
+
+---
+Ryan Chen (5):
+      dt-bindings: i2c: Split AST2600 binding into a new YAML
+      i2c: aspeed: Read clock-frequency via i2c_parse_fw_timings()
+      dt-bindings: i2c: ast2600-i2c.yaml: Add global-regs properties
+      i2c: ast2600: Add controller driver for AST2600 new register set
+      i2c: ast2600: Add target mode support
+
+ .../bindings/i2c/aspeed,ast2600-i2c.yaml           |   88 ++
+ .../devicetree/bindings/i2c/aspeed,i2c.yaml        |    3 +-
+ MAINTAINERS                                        |    2 +
+ drivers/i2c/busses/Makefile                        |    2 +-
+ drivers/i2c/busses/i2c-aspeed.c                    |   24 +-
+ drivers/i2c/busses/i2c-ast2600.c                   | 1292 ++++++++++++++++++++
+ 6 files changed, 1402 insertions(+), 9 deletions(-)
+---
+base-commit: a293ec25d59dd96309058c70df5a4dd0f889a1e4
+change-id: 20260223-upstream_i2c-ebd07f89739c
+
+Best regards,
+-- 
+Ryan Chen <ryan_chen@aspeedtech.com>
+
