@@ -1,81 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA623659F9
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95843D25C2
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782226352; cv=none; b=NQUhc+qtKQfl7Gc0hRNO4ZKviS5Y5q3Xe2b+7o5zgwxpLvmW/7aeLE+d5UYcye+Kzxd1ip8ExkZEECtVENMhqKQMWa//h1aCYBEOJy/PtW6Bqc8f4VQY35Seq/CigsODELnxic5SvxLt1xA5hqlm2hkKCOMQaj6sGKHEtAF+Ic8=
+	t=1782226353; cv=none; b=Ua9qVziMcYccDaBwWcEAK4HU+s/VIgMJ11GKTkVhdhyUnCAvjBgy3vpXWtYXvYfmiAYfkIndIkJM4iDcCTGe6ZflItjw3IA8wtJEDjrQyqYoOF0dTdty/6xzPKY+k7iZuno6jbOIProDrZ5z3sZJ2+3Pj1fHrHUFydSaORIp67k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782226352; c=relaxed/simple;
-	bh=oEaVrXfrGbUI1OQX0uVAToqqbHcY53ULqqKAGZ/siAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WizJo3gBRL0YUIOhJoFf+/QONzGZ8pebS+152E9x8lJrpkzAis3j2oCCLD9eWBza4IFeVpM762PWrM1/DMqPXldrNfwRB+4FFNHd24NqpgEff/68+GmVGnHt5yCzNovOen4GsIdtx+2YdCaaCrGEb0vw0XcGGk8Qw23BhOp0GVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YN1OOAZy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gzm0dAwT; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1782226353; c=relaxed/simple;
+	bh=uxj9woUUStYpWcJNNk45RBrZFAL9TKwZJYdD4yHBm/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JDN1MFYzMpurmXxau3DIDH+rIcHg8Kdmt5vhOuB4EtzLCMgNUawGAFxhTM4UljNwfzfdTBjhl/rGlgxoH0jg1w5JqYKeD9cJSqLVspykUkNewPJ6jzwRLE8OWdU79pAjtPFZlYCHSHQ1DFTV7JRSYnAQghBfuhvFAtCzlYOxCMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n6vBdKXg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=grf+A23W; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YN1OOAZy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gzm0dAwT"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NDFqqE271083
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:29 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n6vBdKXg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="grf+A23W"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NBZj4G134367
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=t/SHQ6KsrjjXD5Z/C3+Df01F1lTNP24v6t0
-	4p0SPDpU=; b=YN1OOAZyJlFiT40oF+L0fMw4TmPJniQ6D4nch8ouwDmpw/S3KV4
-	eptnLf+yFjrInGg+f/z/HnQsw1BW6vuX7oQJJW6ic6J6WBV4JYNxJodclA+QBOMM
-	dulqAzemD8sALxqN92OaFln6PbKm9nlsx65UnC5rFurWnfss8hQVgGQoMd0XOe8n
-	DagY3FnC1Erc+oLaZiB0ZIbyD9Mj1UFnfX0EX/rsNp2v/fzT6AmaGXiKvV/xFjY2
-	R7i1GhC7YnLgio1/3Ma5BwOrYHRSArYtgvTEGPaNwh93cXEb6E2gtjgyJrfepp9P
-	1O6JYhdrpylfA88KGLaqZUA0u1AwYqTyG9A==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eytvh0f67-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=iKdSrgybcUN
+	V3KAPOhBBYGNc4u6LS0z8F4/c8uw0wqw=; b=n6vBdKXg+4Lsv47+TI+6r7GsnUl
+	Jh/CnKN3kaaGlYRG6683MExMoM19flWseqE7fxOneBEPHd54ndDjEVmm+cTxIiM9
+	2sseQP/b63+f8t8Eqd+D7S4biZUmTpTEkUeEGTUCkrzlhHv/LsZM4DHJUYpnQJKy
+	CJprX6lBayt3nL3v0wBhzigHNU937VmEn2BH0Xdr/GIXKyM6mIvlLWeeZFdL8HnA
+	KXbPwzY4w82+gLQg7ZRMs+SOBd1lVRvEsL8mrWIRv8gf/cb/ypO0uG5vYM9RX+pb
+	KvXYIyuVmP2Ke2jgQGVFnOjBfYiDdDjX3XgCAebVMV0YSGiBRsIllKdE3Mw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eyr3214wj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:28 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-6c4335eef08so6442142137.0
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:52:28 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:52:30 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9159c4b210aso196105185a.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:52:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782226348; x=1782831148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=t/SHQ6KsrjjXD5Z/C3+Df01F1lTNP24v6t04p0SPDpU=;
-        b=gzm0dAwTOQc+3sOXA8qVk5IJEENab8YX0naT7upgXt3i8o/eBTArUvsfFCxJ585Ksm
-         UeGsDv7L3zahvDo0guv+EnbO2gdXzE5+xNA5daGiF2vjBRyxbEp8cHI9EvWWUHaRLnGa
-         oo+P4PaWV5lMLK53J6iHLeDhMfKEbzg/z63AlC5ZGudB6WcVc8kDkEMb4wbZYr94m3oG
-         P+tTZvzUetiC8XeCPkT6zljWVnqKkFj/KeDpwIFbGpx2xVBPXSCR3Iosp7yhGS+cJ/DJ
-         iLTJTBezM9g/wI3R2asP/RUoxZ9ICjstUtAN9lwExFjURJEK2OUSL9jaMpSr+uGrrz1I
-         MeOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782226348; x=1782831148;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1782226350; x=1782831150; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t/SHQ6KsrjjXD5Z/C3+Df01F1lTNP24v6t04p0SPDpU=;
-        b=htlS253fOPg3D1JdCq+Qrpif3aoTjQHcmiPsFqE9hzYEzK7UChSPtq9T6xDqLGQpge
-         iYx4W7+L6B+eVahuMNqv4Cmy6BWjmMvrvqYH0OQK6xPfCF0Gj5AIoLRCu3Eas15r3ZzK
-         0ze/utS35vtjHmv+KQ8rn+4DRe3CjUFdL4ZLkbw8VqbUkvrptTcjbtA41wi/+uEArlu6
-         E81JCK26BwiQDv5P0uVppCmq8g6uRKX5s3FydMdQEy0HBaKnfqe3KaXN4DVFWw+GXm7S
-         Stq6UQB1l/rSNfCcsroMvZbnXXprHo3JthSZqFqt4RQPLqPcajWRJMvQV3d0YEiKwYMs
-         OWYA==
-X-Forwarded-Encrypted: i=1; AFNElJ9npbd0PzdL3VXiPot1kQap4puOFeLKr+/ysI1sFfS62+cMduLgnpkrjfOgvxySifF5rFuMO7fUXtC5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4OYTaGni8GafSUqRv9kZzQmh78UxHm34u/1j/XZ7IHuXiJH2Z
-	FY9ownWU4HXTyqb53UNc9UIOxF2PlDh5ltke2BDSbreiZ8w26I4+hi5rQpBBmp4KDhIxrCymC5f
-	hbfEToi9nqgxnObbuThWzf0uGszXaWFkrGZvp+hhBD1YBE6JHtA1T7R/HUPdZHVxW
-X-Gm-Gg: AfdE7cmOv3HKS7LmoBhQQDIZA/8aVSIeJA5KLgLH5hgrRjP3m3KhhvmVj/t7inOFWiM
-	QGpABsAHAf22fbmxfG4M3yWXqeGQi0Qpa6nKV6+QkVKrqGNzag3tgWt9N4cZ3BPKTWDvOE3kYMT
-	fhd0x6HLmo8NSMWgRTt9BzUgVbm2nXEh0YzkytJO0O1If8Obza+6qHdJS/HndDvVPqUferpMxH3
-	lzXCQ+DKB1y/IJK4HwWOZOhoq3o2GfNrcSimTDzRofKJ4oqtl6UyZ4p3M41GoXRf49+O6/JGb84
-	gYZHKiDgPBGekxuR4Mb8SePJa/P5xNacLRFrVL0mKILnk6UJRVSptUEE+RGmqk8t9AyhYA0+Caa
-	nH/S1jdq/UJvqkv4Q6d+ZlejpqjCBARuR3mwUw5kVtnFTUh2Ti/Gaf0c3cPGEeCLNDrADjb8Oll
-	bc37Wq2nyV6ZKoPYIpmI8TW2QmzQ==
-X-Received: by 2002:a05:6102:c89:b0:729:213f:76ca with SMTP id ada2fe7eead31-72a20215eaamr13204424137.29.1782226348058;
-        Tue, 23 Jun 2026 07:52:28 -0700 (PDT)
-X-Received: by 2002:a05:6102:c89:b0:729:213f:76ca with SMTP id ada2fe7eead31-72a20215eaamr13204386137.29.1782226347491;
-        Tue, 23 Jun 2026 07:52:27 -0700 (PDT)
+        bh=iKdSrgybcUNV3KAPOhBBYGNc4u6LS0z8F4/c8uw0wqw=;
+        b=grf+A23WEK6ZvuGIrKgy/3Rs5zWQ607wter5F89yI2VG2plqO9m/0aifS9pu45MsVQ
+         Rxrp3RtNQh6kKnGZwWK+9NaGV3GVNO6Orni8RbeR6JZEMc3bXdB15BIMU0YvD5cheh6t
+         lDMWP72hFZwZzrCbbTOaU7crqu0dn8Cr3fO4IlhPMMW3xw88E/0G3HB2bZnREdcm7xLZ
+         TIRnZ1P7yDavvuQ4SNtdqrOHYua0yWx4r2hWB6elwsOegSprUxTJtlazP7RMEaU88jfF
+         r+tadru1ThPvqF+/q1T3xDsbbAFAWMDQCRDX9zuF67bGqD0KKJwzz6LBLNN8H0j8y9+j
+         Zvlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782226350; x=1782831150;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=iKdSrgybcUNV3KAPOhBBYGNc4u6LS0z8F4/c8uw0wqw=;
+        b=raCYbpwFcOKDClPLZKhg/Y8g4tD7FDnAPcNVLk/b1zebx5ggVWwcnKaA4uLI6eRvDH
+         YBzbcChanBhGRG2xfnOR2OasCQ07Y/AXZnfrX5n4VBqKIzDllt0ra/ZjegiihHLEE37b
+         DrQB0xqjhr55Tz0VmK1t6BYJMGkuvPYM+fgXLr+01HeMdUNh/uDwOaEHXHmDQjJ/O5LI
+         Hdmnu1Iq1HXKCA2r43+sbDxWc6FrHha1zvkoDSbXZtnfJjVkEKJlL3yE8XiJ+mvYDi/3
+         8oNM3qPPGMr3/ThovHwsEIyZ/E5DP0GKHN76Ir99plegKf2cs/HdXTesbpRSf0YlwTH0
+         Tz2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8GsVp1tTGufAF31Zs0+Q8ILO3r5hxodhcNCM1lfT+rxofDPhF+zusFsJRznrQU2SC5ENb7iwYwMl36@vger.kernel.org
+X-Gm-Message-State: AOJu0YzL9P5/aVkwexLTxLfcABNl0i/4brxO6EJ3EsetxNs5WH8YZXN1
+	XUY9OnkYixyOFGvgVktQlh+D/1RCKjtSa5t2JFuRTouM+FiuE+TDLOIG5LH2utakKGsreLNIof/
+	9nHJijmeGobru00UANf9qTTA1ayT3cGoWgW0kIAXlSqPi9a6hUzKkSudVm4j2RXEr
+X-Gm-Gg: AfdE7ckachp/zGlqKmq4uF+nkTJKY+NypPwMEiljWC5dfm9R5XyCu4J3sMOP7mAGT9e
+	0xuIvAxCQgYLMWIqMQ6/3qLMFWeyj3HMCZQphMYzG8pSOf+hhaYjdgccbIPsrrvqHOqv9sdMOER
+	9dhfkioicWIzbaFyA9NPzxPAJSSZeJfeRH1VGyVOPEKpaCGLpUispwtftR4ao0Xu2JbqWNIDL6I
+	yb5uZiPFbaHTG6nMVwAm+xa3itlp/Mcl2z5mhqD7RP4qA0z7m8ne5lrjIqmca1FB/i09TGV9yV+
+	rgTG587DRDnoAXU5u8moWuxFo2pyFO5qgbvOyhVL4DA+iNyQndXnfp7CCr7xpZcJhe3tD3Ocv7E
+	CkiKSlXbzG8Z08AYI/49JSXb4xdDXLzlWf8pXsBDaiIdCwntkUtG+zV77TCiCi2671DvgnjPUqv
+	2RJmyBflE2epDXMq8nvhHHaSYi3A==
+X-Received: by 2002:a05:620a:4456:b0:91f:27bd:ded3 with SMTP id af79cd13be357-92601f1b354mr617535885a.21.1782226350065;
+        Tue, 23 Jun 2026 07:52:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:4456:b0:91f:27bd:ded3 with SMTP id af79cd13be357-92601f1b354mr617530885a.21.1782226349495;
+        Tue, 23 Jun 2026 07:52:29 -0700 (PDT)
 Received: from shalem (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60aca46csm534042666b.36.2026.06.23.07.52.25
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60aca46csm534042666b.36.2026.06.23.07.52.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 07:52:26 -0700 (PDT)
+        Tue, 23 Jun 2026 07:52:28 -0700 (PDT)
 From: Hans de Goede <johannes.goede@oss.qualcomm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
         Bjorn Andersson <andersson@kernel.org>,
@@ -87,10 +89,12 @@ Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-acpi@vger.kernel.org
-Subject: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
-Date: Tue, 23 Jun 2026 16:52:13 +0200
-Message-ID: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+Subject: [RFC 01/12] ACPI: Introduce DT-ACPI hybrid mode
+Date: Tue, 23 Jun 2026 16:52:14 +0200
+Message-ID: <20260623145225.143218-2-johannes.goede@oss.qualcomm.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+References: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,182 +102,268 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDEyMiBTYWx0ZWRfX4AzliVkMu/ov
- O1qHNLB/2pYwcsjhDtlzhEAHrnPzbGpmN8/tchSRHphsd9fplSR16a9F5VlBARSUV42tekCeRdi
- uligT3sqZLjrfZ1EB0UEQRxtc3cDfVSMBa7j/NzriWv+hDySDnOG/lN/SEHzz28gnsKlohYa5FF
- bwcdVmfZ6y5w5wBlG3wLGqmlV9P+hlMtPSa6nMsyVmwMtvogwAYVkMs2Rgif05LfiZmLN2cc4Vq
- Bi0S1ELj9PMg+XuKv1JxiDHt4CxyzlgEPzPB0fAr5RA1dOh7qjtgcRcU8uBcAMxT1g/OJoHuD91
- qtHMy5OqALeKTwDfjb0N6aeY7sgNPgIvvbYcqdlNQ4i+XZnoXFdKphhIhYggfM/AdKD07nmOx3s
- AC33vlkHBaN+Mf9A0INeGeGbH/3FphzUgbtTpehiqGIHIx1GKae2L48cFI5pZzGgGQ/hV8Bwx6z
- xp5wqBJHN9lCtLZ2m0w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDEyMiBTYWx0ZWRfX6amGyF6JGln5
- HEcgIUvLNQmJos8Ham6DoKp0Ttk1M0OFWuEI3dTgt3pfTbUAmC/lfGcpw5WQnhWadyfz9uKvX8A
- DQQqPJ2cF7tkZAxsxAeblW/zkRkeKe8=
-X-Proofpoint-GUID: wq7RjU30iJ7WxRJQXxTLAAyothpJTzg6
-X-Authority-Analysis: v=2.4 cv=AJDhMgPs c=1 sm=1 tr=0 ts=6a3a9dac cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDEyMiBTYWx0ZWRfX9UauPPjGdlj0
+ YnFpO8XcAhXEleS5EzDYtVCxfbFECUs+otFdg+CABc7PbT6Fc/4T/qUc0BRO3j1XnhfzMHA4RxC
+ jhaMkYKSUczBL/sgGbvX5leC8Nfrg74=
+X-Proofpoint-ORIG-GUID: cvZcF9dxhPRXmvmqj4pbhxeSg9GMW4KT
+X-Authority-Analysis: v=2.4 cv=HrxG3UTS c=1 sm=1 tr=0 ts=6a3a9dae cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=37uFLTumMtzLhuvrZfkA:9 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-ORIG-GUID: wq7RjU30iJ7WxRJQXxTLAAyothpJTzg6
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=SyvYybavyfcVUkjtgKkA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDEyMiBTYWx0ZWRfXwtMP0uKc7rQd
+ jkNMNxZr+iTXKuR7Yj5SiEq2fc2bDaTKOtM4RNo2ss25aeXNS7acLcGzDUs1bHqC2AZ3/TYziBy
+ YiQ+GxNyANW2kUu5eAUf8ezb/Nl12ft4b6VB47pCw+T4WdcMdmqV8sGRoZ6uC3ce8IOBgoaU8a3
+ kGR+AoU0UYdqyCB6r6+jksXAsN20GymFBMvs1YdmWTkcTubAiGiMDhH2SR+yee6jw8K0jsvaXAs
+ QP4hhBwfgHHhm+mg5fgWlsJlSkzRuyGj91HpsuywLlLGEhPRCOSYDT6MCubxkXkXKrfGvcXTS/F
+ wCQ7xA/SgfkkIAOwfO2ajtgfLIxPjmQBZImrw5pchwzS0yeo8XVjtuUYEcKN6AEb1XXXpt0FOOa
+ 65INclvQhWhEUP0a5YAmz23730Yw5MAFAecIA3s8e0JFtrHI93ui7iARLJAAQkr/f3RPtuUOi2b
+ w2Qf1yiuT0e2t6XNWBw==
+X-Proofpoint-GUID: cvZcF9dxhPRXmvmqj4pbhxeSg9GMW4KT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-23_03,2026-06-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 clxscore=1015 phishscore=0
- malwarescore=0 suspectscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 spamscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 bulkscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230122
 
-Hi All,
+ATM on platforms which support DT or ACPI as firmware interfaces ACPI gets
+fully disabled when DT is in use.
 
-Currently as soon as the kernel boots with a populated DT provided then
-the arch/arm64 code sets acpi_disabled=1 and the complete ACPI subsystem
-gets disabled. On WoA Snapdragon laptops where the factory Windows OS
-actually boots using these tables this is not necessarily desirable.
+In some cases it is interesting to at least parse the ACPI tables and
+possibly also use parts of them.
 
-It might still be interesting to at least parse the ACPI tables and make
-the ACPI fwnodes available for device-drivers to use. I call this DT-ACPI
-hybrid mode.
+One specific example of this is Windows on Arm laptops with Qualcomm
+Snapdragon processors where Windows boots using information from the ACPI
+tables but Linux uses a device-tree description of the hardware instead.
 
-This mainly is an experiment for now and possibly a method for accelerating
-the ongoing effort to run Linux on currently available Snapdragon laptops.
+Since Windows is the factory OS, these DT descriptions need to be created
+by hand.
 
-On current laptops Linux cannot boot using ACPI due to some information
-missing from the ACPI tables. People are working on changing this so that
-for future WoA Snapdragon laptops Linux can boot using ACPI only without
-requiring Devicetree.
+Having the ACPI tables available at runtime allows the kernel to use some
+information from these ACPI tables while still using device-tree as its
+main information source.
 
+Having the tables available at runtime can also help with creating and
+improving these DT descriptions.
 
-There are a couple of scenarios where DT-ACPI hybrid mode is useful:
+This patch prepares for a new DT-ACPI hybrid mode controlled by a new
+acpi_dt_hybrid flag. When enabled this makes the kernel booting in DT
+mode still load and parse the ACPI tables, without taking any further
+actions like creating devices.
 
-a) This leads to a populated /sys/firmware/acpi/tables allowing one to run
-acpidump, which is useful to grab info from the ACPI tables when e.g.
-creating a DT for a new laptop model. As a bonus /sys/firmware/acpi/bgrt
-is also populated allowing the boot-splash to show the vendor logo.
+In this case the ACPI subsys will still parse ACPI tables and populate
+/sys/firmware/acpi and /sys/bus/acpi/devices.
 
-b) It might be useful for device-drivers to be able to access ACPI data
-for the device even when running in DT mode. E.g. Srini Kandagatla first
-got me thinking about this because he wants to use the ACPI MIPI SDCA
-tables for audio codec routing when booting Linux on Windows Qualcomm X2
-(Glymur) laptops.
+Note this patch itself is a no-op, since all the arch/*/include/asm/acpi.h
+files define the new acpi_dt_hybrid variable to 0. All the added extra
+"if (acpi_disabled)" checks are in paths which already check for this
+earlier in the code-path. The new checks only come into play when
+acpi_dt_hybrid is set to 1.
 
-c) It is also possible to go truely hybrid and use ACPI to instantiate
-some of the kernel device objects representing the hardware. For example
-the last patch in this RFC series switches to using ACPI instantiation for
-the I2C clients for the keyboard and touchpad on the Snapdragon X1E Lenovo
-ThinkPad T14s gen 6.
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+---
+ arch/arm64/include/asm/acpi.h     | 1 +
+ arch/loongarch/include/asm/acpi.h | 1 +
+ arch/riscv/include/asm/acpi.h     | 3 ++-
+ arch/x86/include/asm/acpi.h       | 1 +
+ drivers/acpi/acpi_apd.c           | 3 +++
+ drivers/acpi/acpi_memhotplug.c    | 3 +++
+ drivers/acpi/acpi_processor.c     | 3 +++
+ drivers/acpi/arm64/init.c         | 2 ++
+ drivers/acpi/bus.c                | 6 +++---
+ drivers/acpi/scan.c               | 4 ++++
+ drivers/acpi/tables.c             | 4 ++--
+ drivers/firmware/efi/efi-bgrt.c   | 2 +-
+ 12 files changed, 26 insertions(+), 7 deletions(-)
 
-d) This may help identify shortcomings in the current ACPI tables which
-need to be fixed to allow future laptop generations to use ACPI only.
-
-
-Upstreaming of these patches (to upstream or not to upstream?).
-
-1. The first couple of patches in this series mainly implement a) + b) from
-above. This seems like something genuinely useful to have; and except for
-missing DT-bindings for hybrid mode this seems mostly ready to go upstream.
-
-2. I see c) as a way to slowly evolve support for current Snapdragon laptops
-to use more and more info from ACPI and get closer to a point where we only
-need a single DT describing the SoC and any info related to laptop model
-specific bits outside of the SoC can be read from the ACPI tables.
-
-As mentioned above work is being done to have Linux boot on future laptop
-generations using ACPI only, so all this applies to currently available
-Snapdragon laptop generations only.
-
-The question is what to do wrt upstreaming patches necessary for c) though
-(patches 7-12) are we going to allow new Devicetree files for not yet
-supported laptop models to partially rely on ACPI?
-
-The current demo ACPI usage in this RFC series just instantiates I2C-HID
-devices from ACPI. More interesting would be to hookup the embedded
-controller (EC) handling in the ACPI tables instead of having to write
-a special EC driver for each laptop model separately. For the EC parts
-I believe that it might be worthwhile to implement c).
-
-This new DT-ACPI hybrid mode works as follows:
-
-1. A new global ACPI subsys flag called acpi_dt_hybrid is introduced which
-can be set to 1 combined with acpi_disabled=1. When this is done, then
-despite acpi_disabled being set the ACPI tables will still get parsed and
-/sys/firmware/acpi (tables) and /sys/bus/acpi/devices (fwnodes) will still
-get populated. No devices will be instantiated, no fwnodes will get
-attached to any other (e.g. PCI, USB) devices and no other actions will
-be taken.
-
-2. Add acpi=hybrid kernel-commandline option to the arch/arm64 code.
-TODO: Add a DT-binding for selecting hybrid mode from Devicetree.
-
-3. drivers/acpi/glue.c changes to support devices with an of_node as
-primary fwnode having a "acpi-path" string property and when present look
-up the ACPI fwnode for that path, e.g. "\\_SB.GIO0", "\\_SB.I2C1" and
-set that fwnode as secondary node.
-
-4. pinctrl-msm changes to map special WoA ACPI table virtual GPIO numbers
-for PDC pins back to regular TLMM GPIO numbers.
-
-5. Tiny drivers/i2c/i2c-core-acpi.c change to make it instantiate ACPI
-described I2C clients under a DT instantiated I2C adapter if that
-adapter has an ACPI secondary fwnode.
-
-With this I can drop the DT description of the ThinkPad T14s gen 6
-keyboard and touchpad and instead have these be instantiated by ACPI,
-as shown in patch 12/12.
-
-Comments, thoughts ?
-
-Regards,
-
-Hans
-
-
-Hans de Goede (12):
-  ACPI: Introduce DT-ACPI hybrid mode
-  arm64: acpi: Cleanup acpi=[on|off|force] handling
-  arm64: acpi: add acpi=hybrid support
-  ACPI: Add helpers for dealing with ACPI fwnode as secondary fwnode
-  ACPI: glue: Implement setting secondary-fwnode for DT-ACPI hybrid mode
-  ACPI: scan: Retry acpi_device_notify() in DT-ACPI hybrid mode
-  ACPI: Make device_match_acpi_handle() also check the secondary fwnode
-  irqchip/gic-v3: Always call acpi_set_irq_model()
-  pinctrl: qcom: Add support for WoA ACPI tables virtual TLMM pin
-    numbers
-  i2c: acpi: Also register ACPI i2c_clients for adapters with a
-    secondary ACPI fwnode
-  i2c: qcom-geni: Fall back to i2c_acpi_find_bus_speed()
-  arm64: dts: qcom: x1e78100-thinkpad-t14s: Move keyb and touchpad to
-    ACPI enumeration
-
- .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   |  61 +-----
- arch/arm64/include/asm/acpi.h                 |   1 +
- arch/arm64/kernel/acpi.c                      |  47 +++--
- arch/loongarch/include/asm/acpi.h             |   1 +
- arch/riscv/include/asm/acpi.h                 |   3 +-
- arch/x86/include/asm/acpi.h                   |   1 +
- drivers/acpi/acpi_apd.c                       |   3 +
- drivers/acpi/acpi_memhotplug.c                |   3 +
- drivers/acpi/acpi_processor.c                 |   3 +
- drivers/acpi/arm64/init.c                     |   2 +
- drivers/acpi/bus.c                            |   6 +-
- drivers/acpi/glue.c                           |  70 ++++++-
- drivers/acpi/property.c                       |  13 ++
- drivers/acpi/scan.c                           |  33 +++
- drivers/acpi/tables.c                         |   4 +-
- drivers/base/core.c                           |   4 +-
- drivers/firmware/efi/efi-bgrt.c               |   2 +-
- drivers/i2c/busses/i2c-qcom-geni.c            |  10 +-
- drivers/i2c/i2c-core-acpi.c                   |   8 +-
- drivers/irqchip/irq-gic-v3.c                  |  29 ++-
- drivers/pinctrl/qcom/Makefile                 |   4 +-
- drivers/pinctrl/qcom/pinctrl-msm-acpi.c       | 196 ++++++++++++++++++
- drivers/pinctrl/qcom/pinctrl-msm.c            |  47 ++++-
- drivers/pinctrl/qcom/pinctrl-msm.h            |  35 ++++
- include/acpi/acpi_bus.h                       |  16 ++
- include/linux/acpi.h                          |  10 +
- 26 files changed, 502 insertions(+), 110 deletions(-)
- create mode 100644 drivers/pinctrl/qcom/pinctrl-msm-acpi.c
-
+diff --git a/arch/arm64/include/asm/acpi.h b/arch/arm64/include/asm/acpi.h
+index 8a54ca6ba602..3116bb872f47 100644
+--- a/arch/arm64/include/asm/acpi.h
++++ b/arch/arm64/include/asm/acpi.h
+@@ -76,6 +76,7 @@ typedef u64 phys_cpuid_t;
+ #define PHYS_CPUID_INVALID INVALID_HWID
+ 
+ #define acpi_strict 1	/* No out-of-spec workarounds on ARM64 */
++#define acpi_dt_hybrid 0	/* No DT-ACPI hybrid mode on ARM64 */
+ extern int acpi_disabled;
+ extern int acpi_noirq;
+ extern int acpi_pci_disabled;
+diff --git a/arch/loongarch/include/asm/acpi.h b/arch/loongarch/include/asm/acpi.h
+index eda9d4d0a493..5f725bba6e87 100644
+--- a/arch/loongarch/include/asm/acpi.h
++++ b/arch/loongarch/include/asm/acpi.h
+@@ -12,6 +12,7 @@
+ #include <asm/suspend.h>
+ 
+ #ifdef CONFIG_ACPI
++#define acpi_dt_hybrid 0	/* No DT-ACPI hybrid mode on loongarch */
+ extern int acpi_strict;
+ extern int acpi_disabled;
+ extern int acpi_pci_disabled;
+diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
+index 26ab37c171bc..b72586fe650e 100644
+--- a/arch/riscv/include/asm/acpi.h
++++ b/arch/riscv/include/asm/acpi.h
+@@ -22,7 +22,8 @@ typedef u64 phys_cpuid_t;
+ void __iomem *acpi_os_ioremap(acpi_physical_address phys, acpi_size size);
+ #define acpi_os_ioremap acpi_os_ioremap
+ 
+-#define acpi_strict 1	/* No out-of-spec workarounds on RISC-V */
++#define acpi_strict 1		/* No out-of-spec workarounds on RISC-V */
++#define acpi_dt_hybrid 0	/* No DT-ACPI hybrid mode on RISC-V */
+ extern int acpi_disabled;
+ extern int acpi_noirq;
+ extern int acpi_pci_disabled;
+diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
+index a03aa6f999d1..ae1d3d588c06 100644
+--- a/arch/x86/include/asm/acpi.h
++++ b/arch/x86/include/asm/acpi.h
+@@ -25,6 +25,7 @@
+ #endif
+ 
+ #ifdef CONFIG_ACPI
++#define acpi_dt_hybrid 0	/* No DT-ACPI hybrid mode on x86 */
+ extern int acpi_lapic;
+ extern int acpi_ioapic;
+ extern int acpi_noirq;
+diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
+index bed0791c17fc..0f9e22046e0a 100644
+--- a/drivers/acpi/acpi_apd.c
++++ b/drivers/acpi/acpi_apd.c
+@@ -263,5 +263,8 @@ static struct acpi_scan_handler apd_handler = {
+ 
+ void __init acpi_apd_init(void)
+ {
++	if (acpi_disabled)
++		return;
++
+ 	acpi_scan_add_handler(&apd_handler);
+ }
+diff --git a/drivers/acpi/acpi_memhotplug.c b/drivers/acpi/acpi_memhotplug.c
+index 1d7dfe4ee9a6..00469a4b8897 100644
+--- a/drivers/acpi/acpi_memhotplug.c
++++ b/drivers/acpi/acpi_memhotplug.c
+@@ -361,6 +361,9 @@ static struct acpi_scan_handler memory_device_handler = {
+ 
+ void __init acpi_memory_hotplug_init(void)
+ {
++	if (acpi_disabled)
++		return;
++
+ 	acpi_scan_add_handler(&memory_device_handler);
+ }
+ 
+diff --git a/drivers/acpi/acpi_processor.c b/drivers/acpi/acpi_processor.c
+index 00775b91bd41..f4ddd5e126e3 100644
+--- a/drivers/acpi/acpi_processor.c
++++ b/drivers/acpi/acpi_processor.c
+@@ -785,6 +785,9 @@ bool acpi_duplicate_processor_id(int proc_id)
+ 
+ void __init acpi_processor_init(void)
+ {
++	if (acpi_disabled)
++		return;
++
+ 	acpi_processor_check_duplicates();
+ 	acpi_scan_add_handler_with_hotplug(&processor_handler, "processor");
+ 	acpi_scan_add_handler(&processor_container_handler);
+diff --git a/drivers/acpi/arm64/init.c b/drivers/acpi/arm64/init.c
+index 7a47d8095a7d..9826c0b35715 100644
+--- a/drivers/acpi/arm64/init.c
++++ b/drivers/acpi/arm64/init.c
+@@ -4,6 +4,8 @@
+ 
+ void __init acpi_arch_init(void)
+ {
++	if (acpi_disabled)
++		return;
+ 	if (IS_ENABLED(CONFIG_ACPI_AGDI))
+ 		acpi_agdi_init();
+ 	if (IS_ENABLED(CONFIG_ACPI_APMT))
+diff --git a/drivers/acpi/bus.c b/drivers/acpi/bus.c
+index 2ec095e2009e..1d5ea66cb99e 100644
+--- a/drivers/acpi/bus.c
++++ b/drivers/acpi/bus.c
+@@ -1290,7 +1290,7 @@ void __init acpi_early_init(void)
+ {
+ 	acpi_status status;
+ 
+-	if (acpi_disabled)
++	if (acpi_disabled && !acpi_dt_hybrid)
+ 		return;
+ 
+ 	pr_info("Core revision %08x\n", ACPI_CA_VERSION);
+@@ -1361,7 +1361,7 @@ void __init acpi_subsystem_init(void)
+ {
+ 	acpi_status status;
+ 
+-	if (acpi_disabled)
++	if (acpi_disabled && !acpi_dt_hybrid)
+ 		return;
+ 
+ 	status = acpi_enable_subsystem(~ACPI_NO_ACPI_ENABLE);
+@@ -1494,7 +1494,7 @@ static int __init acpi_init(void)
+ {
+ 	int result;
+ 
+-	if (acpi_disabled) {
++	if (acpi_disabled && !acpi_dt_hybrid) {
+ 		pr_info("Interpreter disabled.\n");
+ 		return -ENODEV;
+ 	}
+diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+index 530547cda8b2..4836286968e8 100644
+--- a/drivers/acpi/scan.c
++++ b/drivers/acpi/scan.c
+@@ -2253,6 +2253,10 @@ static void acpi_default_enumeration(struct acpi_device *device)
+ 					     ACPI_RECONFIG_DEVICE_ADD, device);
+ 		return;
+ 	}
++
++	if (acpi_dt_hybrid)
++		return;
++
+ 	if (match_string(acpi_system_dev_ids, -1, acpi_device_hid(device)) >= 0) {
+ 		struct acpi_scan_system_dev *sd;
+ 
+diff --git a/drivers/acpi/tables.c b/drivers/acpi/tables.c
+index 4286e4af1092..6aec547c0872 100644
+--- a/drivers/acpi/tables.c
++++ b/drivers/acpi/tables.c
+@@ -247,7 +247,7 @@ int __init_or_acpilib acpi_table_parse_entries_array(
+ 	int count;
+ 	u32 instance = 0;
+ 
+-	if (acpi_disabled)
++	if (acpi_disabled && !acpi_dt_hybrid)
+ 		return -ENODEV;
+ 
+ 	if (!id)
+@@ -330,7 +330,7 @@ int __init acpi_table_parse(char *id, acpi_tbl_table_handler handler)
+ {
+ 	struct acpi_table_header *table = NULL;
+ 
+-	if (acpi_disabled)
++	if (acpi_disabled && !acpi_dt_hybrid)
+ 		return -ENODEV;
+ 
+ 	if (!id || !handler)
+diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
+index 1da451582812..dc69342cdb38 100644
+--- a/drivers/firmware/efi/efi-bgrt.c
++++ b/drivers/firmware/efi/efi-bgrt.c
+@@ -31,7 +31,7 @@ void __init efi_bgrt_init(struct acpi_table_header *table)
+ 	struct acpi_table_bgrt *bgrt = &bgrt_tab;
+ 	int mem_type;
+ 
+-	if (acpi_disabled)
++	if (acpi_disabled && !acpi_dt_hybrid)
+ 		return;
+ 
+ 	if (!efi_enabled(EFI_MEMMAP) && !efi_enabled(EFI_PARAVIRT))
 -- 
 2.54.0
 
