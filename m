@@ -1,251 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15DD6221F39
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 21:00:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BA93955FD
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 21:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782248419; cv=none; b=fx9nlhUhgE1eEOT9X5JGHjbkQsk3G/2m/NMZ7JIUodaEX/3eFv2Xu92LBTBQPVOD6FgOR3CZcIM4bZ0JXrhQfSBljdIs9DhfL4O/yllqizqrlKkLiL+tKfsku8qgLsQsg1W3dq/RvKtFfKK9cVBBDetq1zE7GGUe5OZA0ZXcK4g=
+	t=1782248585; cv=none; b=p1fcMNSCYi/krtBG6H7ccoqvzKWo1pVFvOurCMzVE2nEEHe7RPJL1ZscYVfnnGTfOzw6KEnH7vtZueBTRJbGz2pkvNTx2GQ20v/810GjW6LUy8KEadT4ehJxHog3bUBpp3dobHWUedUxtZ0KNseRKjUb5sqfzX5vc6MYe9ESvtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782248419; c=relaxed/simple;
-	bh=aBkLdRJ1Jbq5NYhmIePyRmfLQ0BtrkvDdqAMSgDO+rc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YrpPI6Dp6cSSuIxznEeyyoJOqdPRDtaRdX90NMqL+aD7yvLpRy1G0J5HmFEIanr4Vd4feRKIZfi/ZC2xXXv7T0CCoxsCve6zGW7KzONXW8Xor4spLE/lsBE4PG/URB/MaxGXNndt/28ifi3qslcy+/E99xNymuY79mazcj0KGEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEPJ5GlY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782248585; c=relaxed/simple;
+	bh=VoXNZuWIpw5aBl9CCnEpa3k+3ai7DI7ZtTILW7TbIM0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=WgHsLS4Wj7PvuevO9OSStFe/ZlcVYA/Ustb1XzD8EW9lWn6Ifkj9xF32LHDi12P68/V3zeS/hvtaDPTlXumIr73Un6baI3tJBj+Mb8XXDpPyWhYN8jouuRS2w6A6Vq7BVoZHRPiDLz/6CWwxEozX4WfEG765tASBWMkZ76liaWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=Fi0fvbF5; arc=none smtp.client-ip=170.10.151.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEPJ5GlY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CC5D1F000E9;
-	Tue, 23 Jun 2026 21:00:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782248417;
-	bh=/Mi0X8us1g4B4LoWrANEf/NdTBfvaTPXFvm8OPbQytk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VEPJ5GlYSmEksuJ8NUSPpJyE1qqAXe9/teD8KIKjzC1C1X8MBOFyheICC8KAUGaMx
-	 OpiQzerqaNHtvTq9XGYYn2DQkBXMJWwoP8d1JoV5r5SwjAGgmPaWpFpWRiM0NtBF8e
-	 Xcm4E7AmLqh99zOWOojmTpw3ex8k+WPANjRj2u/RKc0/1oCCI7eEjtp3t/wvP3bc15
-	 tRpibFyKx5xLztkTdmf9jdgyzuw4OoYdNh1V1BSC8zbXgifNEe0aipsQLdKwsGBddk
-	 zmE0IHPZXMnvMAhZc3GVyksWyzLwMhbsjqAES8OMPUEaIWCTmlNjsf/2LWnle0TTD5
-	 3UXip88i1a9Sw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/10] drm/bridge: synopsys: dw-dp: Add audio support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-10-dc61e6352508@collabora.com>
-References: <20260612-synopsys-dw-dp-improvements-v3-10-dc61e6352508@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 21:00:16 +0000
-Message-Id: <20260623210017.1CC5D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="Fi0fvbF5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1782248583;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VoXNZuWIpw5aBl9CCnEpa3k+3ai7DI7ZtTILW7TbIM0=;
+	b=Fi0fvbF5LWb5qRrA2XFTOhKiyedTWWAQjkuwgn8MBU/TBw7189IZYvqA20l3D/3LIcZEU/
+	O+aGJA6yFObWi8sk3JpjaQ0gEUDjuHqX/upCi8jqA1D7fdeT1c8Irshe2S/Rcyhmq6aQSI
+	PGJy9WkdMwZQgtROqMlJfvoKPmi4C+W6dooJ/J+zcJY7xIFBU8xa+vKr2GYDuiK7kM6zZa
+	rylvA7lCgzNJ635HuFp/K6CAO+9Gbfa63a3xYvSZvh/FLp4KCqhHsMW4fSeSMo8WXNBeOg
+	Vhrnky6GvqySp9cQ2IJTwevCST3Ct72HjF+UmvKjvCEcVQqLcwgKnGazxGl34w==
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010056.outbound.protection.outlook.com [52.101.56.56])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-70-dD3AnzeUPBG0othoSzPYZA-1; Tue,
+ 23 Jun 2026 14:01:41 -0700
+X-MC-Unique: dD3AnzeUPBG0othoSzPYZA-1
+X-Mimecast-MFC-AGG-ID: dD3AnzeUPBG0othoSzPYZA_1782248495
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
+ by IA1PR02MB9591.namprd02.prod.outlook.com (2603:10b6:208:3f8::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Tue, 23 Jun
+ 2026 21:01:33 +0000
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
+ 21:01:32 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Topic: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Index: AQHdAtUG0MJr3kYk70C0stjgUT+1+7ZMZ+AAgAA2+5A=
+Date: Tue, 23 Jun 2026 21:01:32 +0000
+Message-ID: <CYYPR02MB98280DF78A07EADACFD084EE83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
+References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
+ <20260622-support-fd5121-from-onsemi-v1-2-b31767689c65@onsemi.com>
+ <20260623-anybody-gutter-e6ca04f53bdb@spud>
+In-Reply-To: <20260623-anybody-gutter-e6ca04f53bdb@spud>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|IA1PR02MB9591:EE_
+x-ms-office365-filtering-correlation-id: 46fa7d85-cb2f-4962-6d03-08ded16a9ade
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|11063799006|4143699003|56012099006|38070700021|22082099003|18002099003
+x-microsoft-antispam-message-info: vQNyHMVCcxuDHA/24U97Hr8IFuZkALObPo/YtucAyk/A5nWerd51tGyO2w0IEt9uodKScpYvGMReLAo/barr4z6TSPeRx3CdYPCIr+YmF3m1TsmB4mtPj1Qz834Iy85rz2fmxmgc7pl8S6Tqd12PQC14rUFkY8Po/IifG/knYIPuS8wz32pCPlLkQnyJSP0CsYqQvBZWTSHmAwWmK/IQxqNPApK6XuieaaNl2qceZbfm3ewebNOszmRFVXK855zwAQs+7iN51TIejkHxfTBWd7pY5NrAmuYZ7ytx5OhPUzEPYRcZrvTPsGVNbDORjaMy6SkVv6AFwKQl06XMxFgSaBLK7eEEuTDeXV/X1q7G+DelEJawZByJlS1qtZzLk2gZsFh3IR9x1Kgvu2zfc/B+6XKHQ8OwouAdtVT3q9zyfaO2k2UbE39QPY0JLhv5NfJ8paOlLGeTwtNlT4GnqBm0JNtKGLgiHeykOZqRwMqBypPBnHxGPTvW8p73qOaAV/CMSLr8I3/DW2I8iz2paDaVTuD6VC4A9/+q+ZVYlKr21CH/LZJGAqJfeihUhXLUEFEJrM2fHA74EbzIF0NmvVPr+5rXaUo6fCyfPRalOCC2vmt6toeLJduq5CgGObX3Czslhv+lbY0jy0twG8pohIP3YWPT0KBp3qm2cPH9PQh05dyP9ilvwRWnRZM/cZjYlBT9VzZS4ahbc+N52EnPIRiKBXIjJfydaWjMs2fGkns+VGs=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(38070700021)(22082099003)(18002099003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?keJz4OJm+Whv9EJiWAgXeEy11fAg5Kmto7KvAqXo9JOpW6j938ejSqi5Zugi?=
+ =?us-ascii?Q?3cAf74BYw2oZZT47EyS0l9ZM01DsSfZAAH03jIgAalEVw9YIff4kS/gR7B77?=
+ =?us-ascii?Q?ULSsLR9kX6ko8fh/Vcl6WWyu+kgN7YZ+MpFzvHH94hRdBVUe9bvgWZbLfpHw?=
+ =?us-ascii?Q?Q/GvvFcD2nCmZB0Fm0jaxsmA7P93TYt8dip8f32byTa9xaq7dSxAyAWGJaa1?=
+ =?us-ascii?Q?VsFGUt1Xtzxm+dhwWj+BZEmyIhJsMf7yDuMyHR6NS7YQkY4Li/X19bYcJ3h0?=
+ =?us-ascii?Q?5yhYSCPeQLinm7EE2YUpFgqsiVUchX1DLXr7dzWhAT62vLIHq7/c4LhbrT3J?=
+ =?us-ascii?Q?irHhVouEUXbsClMKdqU+BTvCtcKtsrAae20WBgAk89256OETsl625VY5BgTJ?=
+ =?us-ascii?Q?bcQpFpTsa06c+aVBx4EdErczfikbTpZ35YeEsRoq2RwsJTAQXjaB9QNYqBPY?=
+ =?us-ascii?Q?kZ8NRlomOv/MKFHrL/V0t4bq5POLQUvF1KolSfNFAkBvXwyw4tYDQJzTkE+y?=
+ =?us-ascii?Q?bmWAL5ClJxrKfVUs/A1IJCbLEdG5Y9JkQ5ZsRGp1xpqHAjDEO0wW0AX221Um?=
+ =?us-ascii?Q?rtD9yvAHWWjvilxL+ATwfQK2GpbcCCZdeb5CuLq9QFwi4o2+Z1Mfw2QM0inT?=
+ =?us-ascii?Q?QRhI9nr3iMi4o7OGs26NZ2nNmhPExnOb6gMIiGLtHU0Y4Wo8uHSNa8YOrhtH?=
+ =?us-ascii?Q?bHe5oWjDcGGbfJOgwQu/7iJTkXgnq7kOP1Anv2t0nnG9rYPot91cvLcGmFE2?=
+ =?us-ascii?Q?Tw6eXWAPW0ppAuX3mBdkLiK4P4kPnHRHeUUsaQ4tZB1ApKJvHkNT4697IrtM?=
+ =?us-ascii?Q?MkcWf8Rl7eBQHYhikGKv0rgMU3LkznBsZ3e1OeuOk+m/Qx8mO4mLgnmEWhko?=
+ =?us-ascii?Q?3AJy5SITmkvxsummRpht4abZspQyiI0TCFGKazhRr1W+B6TdbPXEp01TaQm5?=
+ =?us-ascii?Q?q2nLooPcqkGKRbbxKjW+RlSN2YYiq+y+KPiSBaNwX1rdwRUb/Xb6y/+WTn8x?=
+ =?us-ascii?Q?pjr6IweM1/+3LScunO/XZFOR8FXDuaRhU0sMSoW6hgWoTOvgMfEWN/BPNBvZ?=
+ =?us-ascii?Q?qQ34XFKInYENedpbMBoLCKLVPJGUZXIPSIodkOljGWIrK924V3PvZWA5XuAx?=
+ =?us-ascii?Q?NcTWoOXenLS/lkaqjxdqjsXaXTOpjYjVm1fLEJ+QqX2izOp+d2zDs9K368g6?=
+ =?us-ascii?Q?GYKtYy/ffz+Y/5E1MgcXr22VthcYeeIzWCF/P6ImUJOjnOFrls6c/4jBGqBU?=
+ =?us-ascii?Q?jEZ4fjMItFpZp5gOEzqjcpMc4suqVJl8APF3ANWCKN1aF7O8/h6OFiIVkCYE?=
+ =?us-ascii?Q?k3ugUEezB79bMk0/aSgHzLhaHWiJAPeDMHqBYmSGFmCKTr3g5bTDox2fbBs4?=
+ =?us-ascii?Q?KyaWB+Cd606sCMMvGFXSiklg5nvtZRT1HHOSUauo1DnzvtE6gYW0Im3ORbsD?=
+ =?us-ascii?Q?hXVhx6RrxBvKZXFWTx3G8xRwpcO1lz/vmD/9Gd25XKoUY6kU3UByFTV4WO5A?=
+ =?us-ascii?Q?xavxN0EkVSw6zBQ6fKtM8kl9HNGh7aKpfF6qv08Dy7l8tSaUMY8qA1qEFCgL?=
+ =?us-ascii?Q?8hVtUZvV269prahNgFMhZP5WmcVFryuY+NNQPr8w8+MVbYuHBqtYsMDtjVb/?=
+ =?us-ascii?Q?LBpb+1RieiLyyDYkrODIiUUKOMTFXYckCxfmk1kkj7SFOzQYi6CRJdsoc7LN?=
+ =?us-ascii?Q?UPbN2h8cXYPn3v8zUtZ+8Jqb2WLOVGs7f3grMauHZbARUC4LCmg48ysQLCmE?=
+ =?us-ascii?Q?LEI7r6uES6BALcisOOwj4O/0QohZkJs=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: ZbSyuPlBbxx7uTbF6YN9wlsa8cy/aWdy6UAsKLJO5D1sy7c9EFTqI3V25KxwG6YL7AVEWuH0u871hMDRVmTxG4f8L9tVN6n/Jli4n54CLns/AIlh29nJqIo+C49VIlbGlAOgoBi/JpTymEgWytNZF+SxyioTr9bShzs3cxwTtB8XJNxIiV7pb4jwccrhGbHF1zO/Ylz4f1TE9JjlgGZ4nWzjrUQ7/vMrv3BsT+FSozBQG4mUgFQICD5oXqb86+Lkh/QbLIR4vFifRRlk9V6Jk3CsrwLIhMMYPTRnIQCUMbtPKfdoyv6og3UeU6NlZYzBmpJfo1T5plkhayvaY/5JNQ==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46fa7d85-cb2f-4962-6d03-08ded16a9ade
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 21:01:32.8082
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RxLa84b3Rir1bnR0cirtlnU6iEE3Nn6s7bzvEfZOGLs+4+J+AVowlkzSMYOR/K/kcZBoc+pBEevSApagzey7hV3exMAjknsXBl9s6+b3zYA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR02MB9591
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: baRswu5cJVsF5nxglXdlHdst-ZxYONy9RkMx1Up8PKo_1782248495
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
 
-New issues:
-- [High] The return value of `pm_runtime_get_sync()` is ignored in `dw_dp_a=
-udio_startup()`, violating PM runtime API contracts and risking hardware ac=
-cess while suspended.
-- [High] Missing error checks on `clk_prepare_enable()` in `dw_dp_audio_pre=
-pare()` lead to hardware access failures and clock reference count underflo=
-ws.
-- [High] SDP register bank slots are permanently leaked because `dw_dp_audi=
-o_unprepare()` does not free them.
-- [Medium] Prematurely updating `dp->audio_interface` before hardware valid=
-ation causes an unbalanced clock disable in the teardown path on error.
-- [Medium] `dw_dp_audio_prepare()` explicitly rejects valid intermediate ch=
-annel counts, breaking multi-channel playback.
+> -----Original Message-----
+> From: Conor Dooley <conor@kernel.org>
+> Subject: Re: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's =
+FD5121
+>=20
+>
+> > +
+> > +title: onsemi's multi-phase digital controllers
+>=20
+> Can someone explain to me what a "digital controller" actually is?
+> Seems very generi and that a word may have been left out, were it not
+> for the fact that this wording is used several times in the patch.
+>=20
 
-Pre-existing issues:
-- [High] Concurrent accesses to the `dp->sdp_reg_bank` bitmap between DRM a=
-nd ALSA threads lack locking, leading to SDP register corruption.
---
+Thanks for reviewing.
 
-commit 91c310c87d4ddad349da89d89896e7fa9319465d
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+According to me, "digital controller" means the controller uses digital cir=
+cuits to implement=20
+the features and functionality. We can remove "digital" and keep only contr=
+oller. It won't make any
+difference for Linux documentation.
 
-drm/bridge: synopsys: dw-dp: Add audio support
+> > +
+> > + enum:
+> > + - onnn,fd5121
+> > + - onnn,fd5123
+> > + - onnn,fd5125
+>=20
+> Your /OF/ match data in your driver suggests that you intended to permit
+> fallback compatibles here?
 
-Implement audio support for the Synopsys DesignWare DisplayPort
-controller.
+Agree. Sorry about the discrepancy. Will fix it.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/brid=
-ge/synopsys/dw-dp.c
-index 7f4f36c614844..f1946f2c945da 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+>=20
+> |+#ifdef CONFIG_OF
+> |+static const struct of_device_id fd5121_of_match[] =3D {
+> |+ { .compatible =3D "onnn,fd5121" },
+> |+ { }
+> |+};
+> |+MODULE_DEVICE_TABLE(of, fd5121_of_match);
+> |+#endif
+>=20
 
-[ ... ]
-
-> +static int dw_dp_audio_startup(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> +
-> +	dev_dbg(dp->dev, "audio startup\n");
-> +	pm_runtime_get_sync(dp->dev);
-
-[Severity: High]
-Does this code need to check the return value of pm_runtime_get_sync()?
-
-If the power domain or clock fails to resume, it returns a negative error
-code. Ignoring this might lead to accessing suspended hardware registers wh=
-en
-ALSA triggers startup.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
-> +				  struct drm_connector *connector)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> +
-> +	/* Disable all audio streams */
-> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN,
-> +			   FIELD_PREP(AUDIO_DATA_IN_EN, 0));
-> +
-> +	if (dp->audio_interface =3D=3D DW_DP_AUDIO_SPDIF)
-> +		clk_disable_unprepare(dp->spdif_clk);
-> +	else if (dp->audio_interface =3D=3D DW_DP_AUDIO_I2S)
-> +		clk_disable_unprepare(dp->i2s_clk);
-> +
-> +	dp->audio_interface =3D DW_DP_AUDIO_UNUSED;
-> +}
-
-[Severity: High]
-Does dw_dp_audio_unprepare() leak SDP register bank slots?
-
-dw_dp_audio_prepare() allocates a new SDP slot by calling dw_dp_send_sdp(),
-which sets a bit in dp->sdp_reg_bank. However, dw_dp_audio_unprepare() never
-clears the allocated bit.
-
-Could this exhaust the register bank slots if userspace starts and stops au=
-dio
-multiple times?
-
-[ ... ]
-
-> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector,
-> +			       struct hdmi_codec_daifmt *daifmt,
-> +			       struct hdmi_codec_params *params)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> +	u8 audio_data_in_en, supported_audio_interfaces;
-> +	u32 cfg1;
-> +	int ret;
-> +
-> +	/*
-> +	 * prepare might be called multiple times, so release the clocks
-> +	 * from previous calls to keep the calls in balance.
-> +	 */
-> +	if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED)
-> +		dw_dp_audio_unprepare(bridge, connector);
-> +
-> +	dp->audio_channels =3D params->cea.channels;
-> +	switch (params->cea.channels) {
-> +	case 1:
-> +	case 2:
-> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12;
-> +		break;
-> +	case 8:
-> +		audio_data_in_en =3D AUDIO_DATA_IN_EN_CHANNEL12 |
-> +				   AUDIO_DATA_IN_EN_CHANNEL34 |
-> +				   AUDIO_DATA_IN_EN_CHANNEL56 |
-> +				   AUDIO_DATA_IN_EN_CHANNEL78;
-> +		break;
-> +	default:
-> +		dev_err(dp->dev, "invalid audio channels %d\n", dp->audio_channels);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Will this explicit rejection break valid multi-channel playback?
-
-The driver sets bridge->hdmi_audio_max_i2s_playback_channels =3D 8 indicati=
-ng
-hardware support, but this switch statement returns -EINVAL for intermediate
-channel counts like 4 or 6. Is it intended to reject valid multi-channel
-audio setups?
-
-> +
-> +	switch (daifmt->fmt) {
-> +	case HDMI_SPDIF:
-> +		dp->audio_interface =3D DW_DP_AUDIO_SPDIF;
-> +		break;
-> +	case HDMI_I2S:
-> +		/*
-> +		 * It is recommended to use SPDIF instead of I2S, since I2S mode requi=
-res
-> +		 * manually inserting PCUV control bits from userspace and this is done
-> +		 * automatically in hardware for SPDIF mode.
-> +		 */
-> +		dp->audio_interface =3D DW_DP_AUDIO_I2S;
-> +		break;
-> +	default:
-> +		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
-> +		return -EINVAL;
-> +	}
-> +
-> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
-> +
-> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
-> +	    supported_audio_interfaces !=3D dp->audio_interface) {
-> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Could this leave dp->audio_interface in a corrupted state on failure?
-
-If an unsupported DAI format is provided, dp->audio_interface is updated pr=
-ior
-to the validation check. If this function then returns -EINVAL, the ALSA co=
-re
-later calls dw_dp_audio_shutdown() -> dw_dp_audio_unprepare(), which acts on
-the corrupted state and attempts to disable a clock that was never enabled.
-
-> +
-> +	clk_prepare_enable(dp->spdif_clk);
-> +	clk_prepare_enable(dp->i2s_clk);
-
-[Severity: High]
-Does this code need to check the return values of clk_prepare_enable()?
-
-If clk_prepare_enable() fails, the driver continues to program hardware
-registers, which could lead to hardware lockups. Furthermore, the teardown
-path unconditionally disables the failed clock, causing reference count
-underflows.
-
-[ ... ]
-
-> +	ret =3D dw_dp_audio_infoframe_send(dp);
-> +	if (ret < 0)
-> +		dev_err(dp->dev, "failed to send audio infoframe\n");
-
-[Severity: High]
-This isn't a bug introduced by this patch, but adding audio support introdu=
-ces
-a concurrent access path that makes a pre-existing race possible.
-
-dw_dp_audio_infoframe_send() calls dw_dp_send_sdp(), which allocates a slot
-using non-atomic test and set:
-
-	nr =3D find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-	if (nr < SDP_REG_BANK_SIZE)
-		set_bit(nr, dp->sdp_reg_bank);
-
-Can ALSA audio preparation running concurrently with DRM display updates le=
-ad
-to slot allocation collisions and SDP hardware register corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
-w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D10
