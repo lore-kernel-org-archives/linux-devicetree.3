@@ -1,148 +1,122 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42A9C340286;
-	Tue, 23 Jun 2026 07:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C8B2D7D59
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782198902; cv=none; b=ccTQArLsT+SIFdTTfgL2gfCTRhnVlTbO7Jz4jVM5K9jaEYMDVk9nawBZyIzlkAG8LB1V9Mr2Tn7PS9ZKhWkkcpW3DpzEjI1wVBZi/rPPqP+TLuQFlKZjZDlJg9THL/EWVmXhHk52/2MpxQ7yU/TRrSfkVu5Lnq1RcwOoZ8DafUc=
+	t=1782198921; cv=none; b=N8oiOoesLtQrDrSd5spx/dDGpwVKEzmFB50e0xkfWBahNlFJkVs5Y8eZ9VCydgATMTFfdy/i3EebEb20UcAflct+aAhPFJchSr+IhE4SojefK+dYwZeDDB9Yxr8muam5ZreN4KT5pX2rSOzStHQYc/VoUbQg+nJFi0fYrA81Li4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782198902; c=relaxed/simple;
-	bh=BG7aJT75SeSudrAVtENnb67kpwtBrgsQnPh0cT54ldg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=d8KPyNbJ1mKXjLWpMhVIdRGIW6CEmD7vvFial8cZwsVF9OceD4/BJnvfyLZaXf+eG6SKmDYgWjhrEcUnJtTwJtcw79q+XETMBRxdOy5glFzpv3teHMESp1rz9kxrZxB3Xk5BLAxkxzVUQ+uLEyz/TaoDCX1qJsf5bLg8laIG0Zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0005152DT.eswin.cn (unknown [10.12.96.41])
-	by app1 (Coremail) with SMTP id TAJkCgA3y29gMjpqAoctAA--.48226S2;
-	Tue, 23 Jun 2026 15:14:41 +0800 (CST)
-From: dongxuyang@eswincomputing.com
-To: ukleinek@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ben-linux@fluff.org,
-	ben.dooks@codethink.co.uk,
-	p.zabel@pengutronix.de,
-	linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ningyu@eswincomputing.com,
-	linmin@eswincomputing.com,
-	xuxiang@eswincomputing.com,
-	wangguosheng@eswincomputing.com,
-	pinkesh.vaghela@einfochips.com,
-	Xuyang Dong <dongxuyang@eswincomputing.com>
-Subject: [PATCH v8 2/3] dt-bindings: pwm: dwc: Add eswin compatible
-Date: Tue, 23 Jun 2026 15:14:38 +0800
-Message-Id: <20260623071438.2147-1-dongxuyang@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20260623071329.2034-1-dongxuyang@eswincomputing.com>
-References: <20260623071329.2034-1-dongxuyang@eswincomputing.com>
+	s=arc-20240116; t=1782198921; c=relaxed/simple;
+	bh=BkIrv3PeQJrIrIyJpIE7lPE0AkoiwGoLxnXFFNdR3Go=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EiNjygliURWNumZnxwptkOnRSpOdIXp8YvaXWXxsNqV09XIl48Ni8y3/q7qGnBJ3FyEm6MWSY8y2wcljkQ7bOfmt8P8RP5rIfZsZMgUFqzp1jb1Aku61NSMkXeqJses0YR8a/vqdHkmL75MSaU4Q6/lHi9sZLe29OCiWNqrZpO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YULqLzxC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YULqLzxC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E3A1F00AC4
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782198920;
+	bh=6+U07TSbyfoGNdA2P/aBkTcdGl+S1M9ab9Yxk/ZPUzI=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=YULqLzxCrdobVNjKQ2ZqvgsdWJB2h6JQAKhLZG6XiWzS3P9MEboRU7kwYwPoF5FsG
+	 tYNvitt9UZhkKMCCn3S9ufSpfjpiNUR6TXdHmzFgCZOFap5rTZsbPOdAcOLlFB+M38
+	 w7/VXBDd9MzHVWvYKaWvHUOSkD47fVrhG4jlDLlObKZYsGcwrY7GIokDfLcfCH7zRI
+	 WEOR9LN5limT2Y0AXUFyScAkkQvSSH8mRmEQXCCXc4pxYlUnmH+Ki0hquGHSHUJbNw
+	 fyNrGMn3aYnkddaaFMUs2R1UUmggx66UyS6WhN2Ei0me22gAoqRTL1QPsUaW3sXz3Q
+	 MriVxbN2dp4zQ==
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39677c80386so57986761fa.3
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 00:15:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8g1AE1m2JoJg7O32VmOwoI1RuLP1SKf8RdDo+mot6+FGXgBWmvAEq+btO6JPXZjq4ybwAwCLR/nNz6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4WAaVY0EuN0fhvMa3uD50gA2BC9Fhj1nrbak2//JOyEws88cd
+	xEx6qeYW2dpz5YJ/v2itZwQAwv5Kmw0h+3lokt3BF+NSa/qeT36ioPZGkdhBJ2UNyM5l02s2O2v
+	KMsOircjE51vqQayo3IWsDspNMQ+D+0LdlF6S2FjKBQ==
+X-Received: by 2002:a05:6512:238c:b0:5ad:2a73:8a0a with SMTP id
+ 2adb3069b0e04-5addc486646mr466863e87.20.1782198919228; Tue, 23 Jun 2026
+ 00:15:19 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 23 Jun 2026 03:15:17 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 23 Jun 2026 03:15:17 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260622181909.GA1250822@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgA3y29gMjpqAoctAA--.48226S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww43uw4fXrW5XF1xJr1kKrg_yoW8uF48pF
-	4furWvqw1fXr17Zws5XF10k3W3Xas5JFW3Kr1xtFWUCa90qF4jqFW3Kr15AFWUZr4xurW3
-	Wa93ur15A3Wj9r7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
-	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
-	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
-	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUHCJQUUUUU=
-X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/
+References: <20260521-shikra_crypto_changse-v1-0-0154cc9cc0de@oss.qualcomm.com>
+ <53b1fa61-9692-42fd-a295-98bbeacbcd9a@oss.qualcomm.com> <20260619164506.GA3223@sol>
+ <CAMRc=MdJJRPBeNtAUr82b4zv7vLjrRQ76Q3bJHQYEigaE2Hqog@mail.gmail.com> <20260622181909.GA1250822@google.com>
+Date: Tue, 23 Jun 2026 03:15:17 -0400
+X-Gmail-Original-Message-ID: <CAMRc=McxsU8h7ZFFRX+MsrufeWZaXzQv_QZpF3zZWTvOQr6A+A@mail.gmail.com>
+X-Gm-Features: AVVi8Cdztrg_PDv4XwvulJ3y8k7gxEzu4r1Z1W6KytPslNOCvABFoRyn5h6EeHI
+Message-ID: <CAMRc=McxsU8h7ZFFRX+MsrufeWZaXzQv_QZpF3zZWTvOQr6A+A@mail.gmail.com>
+Subject: Re: [PATCH 0/5] Shikra: Add DT support for ice, rng and qce
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
+	Harshal Dev <harshal.dev@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org, 
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Xuyang Dong <dongxuyang@eswincomputing.com>
+On Mon, 22 Jun 2026 20:19:09 +0200, Eric Biggers <ebiggers@kernel.org> said:
+> On Mon, Jun 22, 2026 at 04:25:12AM -0400, Bartosz Golaszewski wrote:
+>> On Fri, 19 Jun 2026 18:45:06 +0200, Eric Biggers <ebiggers@kernel.org> said:
+>> > On Fri, Jun 19, 2026 at 02:13:28PM +0530, Kuldeep Singh wrote:
+>> >> On 21-05-2026 18:47, Kuldeep Singh wrote:
+>> >> > This patchseries attempt to enable sdhc-ice, rng and qce on shikra
+>> >> > platform similar to other platforms.
+>> >> >
+>> >> > Previously, the 3 dt-bindigs/DT changes were sent as individual series
+>> >> > and with feedback received, clubbed them together as all belong to same
+>> >> > crypto subsystem.
+>> >> >
+>> >> > Here's link to old patchsets.
+>> >> > QCE: https://lore.kernel.org/lkml/20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com/
+>> >>
+>> >> Hi Eric,
+>> >>
+>> >> As selftests issues for QCE are now fixed[1], so shikra series should be
+>> >> good to proceed? as your concerns[2] are now addressed.
+>> >> I am waiting for merge window to end and will send next rev post that.
+>> >>
+>> >> [1]
+>> >> https://lore.kernel.org/linux-arm-msm/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com/
+>> >> [2] https://lore.kernel.org/lkml/20260522024912.GC5937@quark/
+>> >
+>> > If you think that then it sounds like you need to read what I actually
+>> > said.  The fixes are appreciated but don't change the big picture.
+>> >
+>> > - Eric
+>> >
+>>
+>> Eric,
+>>
+>> I mentioned it in another thread[1]. This series is not adding any new features
+>> to the QCE driver, it describes the hardware. The SoC *does have* this IP and
+>> no matter the state of the support in the kernel, there's nothing wrong in
+>> extending the existing bindings and adding new dts nodes.
+>>
+>> Thanks,
+>> Bartosz
+>
+> It enables the driver on a new platform.  So it very much has a real
+> effect.  It's not just adding a hardware description without a user.
+>
 
-EIC7700 integrates the DesignWare PWM IP described by the generic
-snps,dw-apb-timers-pwm2 binding. On this SoC, the presetn and
-timer_N_resetn inputs are physically tied together to a single reset
-line, so exactly one reset is both required and sufficient, unlike
-the generic binding where up to two independent lines are optional.
+The driver can be disabled by not building it. The hardware description in dts
+must reflect the reality. This is what dt-bindings and devicetree sources do:
+they *describe* the hardware. It's up to the systems integrator to build the
+relevant driver or not.
 
-Add the eswin,eic7700-pwm compatible string and constrain its resets
-property to exactly one entry.
+Let's wait for DT maintainers to respond to v2 once it's out.
 
-Signed-off-by: Xuyang Dong <dongxuyang@eswincomputing.com>
----
- .../bindings/pwm/snps,dw-apb-timers-pwm2.yaml | 32 ++++++++++++++++---
- 1 file changed, 28 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-index 213fdaef25d9..9a9a24ddc61b 100644
---- a/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-+++ b/Documentation/devicetree/bindings/pwm/snps,dw-apb-timers-pwm2.yaml
-@@ -20,12 +20,11 @@ description:
-   instead of having to encode the IP version number in the device tree
-   compatible.
- 
--allOf:
--  - $ref: pwm.yaml#
--
- properties:
-   compatible:
--    const: snps,dw-apb-timers-pwm2
-+    enum:
-+      - snps,dw-apb-timers-pwm2
-+      - eswin,eic7700-pwm
- 
-   reg:
-     maxItems: 1
-@@ -44,6 +43,7 @@ properties:
-       - const: timer
- 
-   resets:
-+    minItems: 1
-     items:
-       - description: Interface bus (presetn) reset
-       - description: PWM timer logic (timer_N_resetn) reset
-@@ -59,6 +59,21 @@ required:
-   - clocks
-   - clock-names
- 
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: eswin,eic7700-pwm
-+    then:
-+      properties:
-+        resets:
-+          maxItems: 1
-+      required:
-+        - resets
-+
- additionalProperties: false
- 
- examples:
-@@ -70,3 +85,12 @@ examples:
-       clocks = <&bus>, <&timer>;
-       clock-names = "bus", "timer";
-     };
-+  - |
-+    pwm@50818000 {
-+      compatible = "eswin,eic7700-pwm";
-+      reg = <0x50818000 0x4000>;
-+      #pwm-cells = <3>;
-+      clocks = <&bus>, <&timer>;
-+      clock-names = "bus", "timer";
-+      resets = <&reset>;
-+    };
--- 
-2.34.1
-
+Bartosz
