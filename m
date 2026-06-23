@@ -1,334 +1,346 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E873D4123;
-	Tue, 23 Jun 2026 10:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339E23D1CB5
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 10:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782212160; cv=none; b=TNCnAl8ONwUc1KJxNrMDB9ynUcggKceNsqlqTe/ENyYzXf2LlZw43PZr6tQEEb0Ap/AOXvBn+b4Crqygoc3nMB2U6k1vZto3dWxlULZBzn2wFc0lnLS8qUrqw2nT1//TPo8ogqtvPdAbQfkvsk0W8Mes9U9sFA8YZOYFCN5dYwM=
+	t=1782212307; cv=none; b=ZoJcmHyrFz7eAOjuUJY4egYw/h2OfRR/cAmZmf6A7L4VfzVJFOSyAHAkJSCN9OnKqmQXNizc/EP7TvmS1osgL18QWv/HnISdh5gkDZkHwQaK3Lv1xepMkfB5twaIZFKn9ZgRyFRQaGywoGEb2p9iN2XctZ73Np7S/bzaNenE2/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782212160; c=relaxed/simple;
-	bh=FMYiWlntRf+4p3ElnlLto5sa6XCSyH75HjPpKORhfP4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KEyWfql7/803kLVzjHUdL4DBUcm0Lo51xh5wSHYbiHx20j0DKgfcALlNS0PTkEBo4QyhB4EEDH9XaGpQ5kkiG/oyOmkpjKzgW+fIChFZ7s447YXQSiGWD1OL9KSm30ZjcaZ7Ig7fBo8wTSlN3sOiqYie9V8h21N0OsR2MIartyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H44SHkqN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782212307; c=relaxed/simple;
+	bh=viENJvrkHODS0xqnYXPoYb6vMAkwgQp3oDG+31aWJyY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YrwGRMkwZvYHilLzKQLTLMLKBssWll34M7S8IHIvREtHcFqcRZ8tgKWpi/hMxjjThR6NfMeXY0s8ylOz5117hgzrJv6wp9Mt46pyw+In/rnZz0swEOo6oM+Kj0SoYvMrPhcCshcupZHe3nk67gefH+9Luy07RVg922+jrcRJ15g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oukTcqS3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JmDwV08v; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H44SHkqN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 79925C4AF13;
-	Tue, 23 Jun 2026 10:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782212160;
-	bh=FMYiWlntRf+4p3ElnlLto5sa6XCSyH75HjPpKORhfP4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=H44SHkqN4EP85rPtz4JIIU0IQAO8XFhmeKY3V6SE7RhKoILFEeTYL4r/PCSxrOXY6
-	 6kqwo7XXW8dNFR5MLNxAZegjtZDX92Pc+ap7pof45le0YhdUDt+RJNLmbZUwvwJSYF
-	 B69VPACgRkx/ko0h24ApKDOZaoki98m/Aj/4Iqo1URPlVqz6d20KB3G/ICsp0Yp+3z
-	 DJnRg+QIFXSc4ZHb8ptnBvMGxC0xk5TpkIpr03/YczJRul0XfOJeY8bFgIW8hHyS0l
-	 4Gpy+/mMlj17lcI4hz3kjkE0me7+ze54ZsPEtP2p56OPvSHvYBtobvACQO/aTbEXWM
-	 VC+azvAytc99Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E06DCDE000;
-	Tue, 23 Jun 2026 10:56:00 +0000 (UTC)
-From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
-Date: Tue, 23 Jun 2026 11:55:52 +0100
-Subject: [PATCH v4 12/12] iio: dac: ad5686: add gain control support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oukTcqS3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JmDwV08v"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NAshA03582677
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 10:58:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7IGsPs/4dWIdsXyUV1XnpGzT9FbpWpNRlWQRo3MGxaM=; b=oukTcqS3QM7MUCNl
+	sMgGs+ysoUnwi1ZgPOb5kvR2rV57D7G0NPLNLu47JmNXmbGu2Pv52HRxrAzIUBth
+	YHQ9MGNVOvWe4S1RKNnYItzQVAFVHqr0PflngTPmaLrcExEHzyTAW55XsMaGb27h
+	1loseMjgiSzSi6gvj/uUR/Y2tpwrqj76NFJHAB5c3o4HyMtLaDMRXQV6Kj6CA2bs
+	7jZY570LhVMkUDanB5oe+FNwroR1TbMgkQu3uC8ZTQWqi6UqgKlA1d7R5dFP83YD
+	+WJGiB2pP07KETbpqM7VC+DmhK0Dq5H21ylKgi3+G8bowXmP+1nn8hB5LFATRrzd
+	zUMBgw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ey729v31h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 10:58:25 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c73aaa3643so31467185ad.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 03:58:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782212305; x=1782817105; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7IGsPs/4dWIdsXyUV1XnpGzT9FbpWpNRlWQRo3MGxaM=;
+        b=JmDwV08vr8qzMSPgAtL6xg25wZmLi9si/+J730XdwTwncHW39c3IL+uMXwjNDc842O
+         j5/0VDW+ONbbVkBAXvxBVdnefAqpnfJZRo9SqDnlLKx3nIl8MibswyKyFnVQI0P8z0fA
+         aXM6tJ0UQDven8ti2c0X/CoxiMjBIGa5Z+8dbN5De1S/eAoWkgJLzXNovic8JKx8/n4B
+         /Zz00GLzaf4oPUs1eP8EgwomU5GlWr3exkgqEXK1PxSL7KwaT7EtdpR6icNKkxH9n7Ir
+         bnf2fyh4qGu++M6+ilA4L6/yh4gFOUB8BSX7WI2OGnArU25RaPb+eqfurZxxTe8UtmDw
+         qQYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782212305; x=1782817105;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7IGsPs/4dWIdsXyUV1XnpGzT9FbpWpNRlWQRo3MGxaM=;
+        b=S8D64indY+sbWlsk1FUI2JJPy9JG6OPHUqpw4RpnGte/YaQsDXEzNlD/nZT7xtXPea
+         nfxoJzZyB4eIkPndBHCuSbkNFULIocw4seqJYGJl4lDwHgoi/WK/xmBzFnmqTadBwFCd
+         poffMKUyJGM5r0TEJarGYoEDynSz2kRFOAKD8KJrGVlO+2mIP9rq2Hy/S7w9wrPD5gS+
+         O1Li4QF6bqcM+2h3t59UPb0T3VKAHKsr7GsAGVbSZq7kC2pUbcXqNZgNEFhcsuBDORNW
+         1Zy7eHeQfUIuNGlpR4tUoOj3R9vDwd/UTcJicWHf/6ljPXxz+iLPCw4kAv8s2KCdydry
+         Cbrw==
+X-Forwarded-Encrypted: i=1; AHgh+RrNkJ+gHLDE8TPZiGiYuBcQ1f8MjIcad0OgblovBY0TNXv2i+TohAlzGCAVyWD1uaY07reUx6B8BNiy@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNrhkLOkBodBqrb9XsNNsAIX/Iv5Gpo3sD5KGTU5XMrToT4hyT
+	FXwbQV9IVHwZzscQhwUSRcUhq4Bb0oOueue5C3dhzJ5tpaThfQ8wraMY2DAP3BODXBcpIGfa8W5
+	myFynpMelplclBNnN5egBuCJ3boP1gibPyFn9pB/9A679R8nmmD8AI5MRxZolmfn5
+X-Gm-Gg: AfdE7cmCsyJd1wuycIvEzcwmdqdGtU4AjLPP5/DFmqs+1PN1TYs7u24tYaF5o+mFmt4
+	LMlapnXApgefhTjAYIPieC8lpyN9o3DdrU3Av4eEOUgTCjIPvdoCoP0C6mJehRUrLdZLVwbBxAU
+	WIKrFnr4PPTTaFxQGO0plal38CbZyweyn5RzO7EijGgtOGkn+y/ZOeQnyUQwK1heWmGUzN8tSkd
+	VPXe7EWgQBjVX3GfoL00e2vQ/1kgNIz1XzgYAFZT1www0aDmpPS/TL9IEzmU8GmHdSvsbouH1fx
+	Us62mVQoFXWMxCfgBtQth2rK53NBKsCyIgH7sLaXjfxcgmRAUroV4ihGU/MM1042MyO9eVrfbNu
+	6nOl+bvR0PWhlX8K1mpg8CWywlPinVQiOy6Uig8Va3flOqg==
+X-Received: by 2002:a17:902:e88b:b0:2c6:ab74:985e with SMTP id d9443c01a7336-2c7c76e9d8fmr27581455ad.25.1782212304731;
+        Tue, 23 Jun 2026 03:58:24 -0700 (PDT)
+X-Received: by 2002:a17:902:e88b:b0:2c6:ab74:985e with SMTP id d9443c01a7336-2c7c76e9d8fmr27581125ad.25.1782212304113;
+        Tue, 23 Jun 2026 03:58:24 -0700 (PDT)
+Received: from [10.92.209.135] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c743bfea46sm101312915ad.69.2026.06.23.03.58.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 03:58:23 -0700 (PDT)
+Message-ID: <298cf2f5-64eb-4430-b264-0d046df14dbf@oss.qualcomm.com>
+Date: Tue, 23 Jun 2026 16:28:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] powercap: qcom: Add SPEL powercap driver
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260620-qcom_spel_driver_upstream-v2-0-a3ee6837c18f@oss.qualcomm.com>
+ <20260620-qcom_spel_driver_upstream-v2-2-a3ee6837c18f@oss.qualcomm.com>
+ <e203221b-5de5-4cc3-b65a-a3545986a954@oss.qualcomm.com>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <e203221b-5de5-4cc3-b65a-a3545986a954@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260623-ad5686-new-features-v4-12-28962a57db0f@analog.com>
-References: <20260623-ad5686-new-features-v4-0-28962a57db0f@analog.com>
-In-Reply-To: <20260623-ad5686-new-features-v4-0-28962a57db0f@analog.com>
-To: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Rodrigo Alencar <rodrigo.alencar@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782212158; l=8874;
- i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
- bh=+nJNDNZ0in3T3bA/lO3EbfAdJrgJ6562WucwwDCya5Y=;
- b=P4l8QakBgWyWTQXohNs08A8+Uv7XEoR5Ldp3xxuurnJOkIid0GyqjTxKCPKg9S1YAcn/HI61U
- Wmpt5dM9OqGDw/jWGxeCJtMHnIuHvltdsaMUTUAjWpgpk6ts32A9B6Z
-X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
- pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
-X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
- with auth_id=561
-X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Reply-To: rodrigo.alencar@analog.com
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDA4OSBTYWx0ZWRfX1ZuWS5L+FO+7
+ PLzVZiAYLP6RqVrJGRcEiSQWzyYatE4456eUZFH4i/qUrxhQ2YStRSABnXTDmz5d0MYji0L2VZ/
+ PmWJPWvO7bgnkacFipzVYQ6GwQDFvGo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDA4OSBTYWx0ZWRfX5z111kMoqw/T
+ mxS/RvTvhl8xJIyQvJt6/tJvVG3N0tcZ8LnTHJlDNxNgkFkTgIX7KnODSTw/IN6RgUsdjv+GHdO
+ KJNnxfuvX7iTFShWeL5nVYSqTF4sRn5rmyGMSjMvVOA4goszq71Yzf6+3b9vEr/JKwNBS/RSbhw
+ ERd9l12AKWPIh+Rl4ukHYpPv0IoF6lyAqqvTg+Mm/72MfD/Sy+uuRLy/V2+Lch3HO5BnErgiS73
+ ieO9GDHDvcjPRVX9x1+JjGWFVo6Oo488OVHhSQp4I7GucK/xASfvMnxbwA+fZDlMrqYpV8EzdKR
+ gUDAQRV7f7lOyN+Jb1Glfit6k7rtiBJ/fgqN8tdK6K9jL7u2vOwPYbotqdfa4PfFZRP/g/0wA+k
+ CRnGsDblC61/IRydl0O3F9jsHXYiXIRk67zNvEASc1FeUuDAr3wdX9o5fkvaJgGjYIhXEP/Qttz
+ UD1UB7wGe+GsW0c7sjA==
+X-Proofpoint-ORIG-GUID: NR639sBJdu75ontTXL95dIzcekm_2KGP
+X-Proofpoint-GUID: NR639sBJdu75ontTXL95dIzcekm_2KGP
+X-Authority-Analysis: v=2.4 cv=eN0jSnp1 c=1 sm=1 tr=0 ts=6a3a66d1 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=eNTHAPU1Su61nugwMeEA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_02,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606230089
 
-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Hi Konrad,
 
-Most of the supported devices rely on a GAIN pin to control a 2x
-multiplier applied to the output voltage. Other devices, e.g. the
-single-channel ones, provides a gain control through a bit field in
-the control register. Some designs might have the GAIN pin hardwired
-to VDD/VLOGIC or GND, which would have no "gain-gpios" device property,
-being able to set "adi,range-double" if it is hardwired to VDD. The
-vref_mv field is moved down in the struct ad5686_state, so that the
-overall size increase is reduced.
 
-Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
----
- drivers/iio/dac/ad5686.c | 122 +++++++++++++++++++++++++++++++++++++++++++++--
- drivers/iio/dac/ad5686.h |  12 ++++-
- 2 files changed, 127 insertions(+), 7 deletions(-)
+On 6/22/2026 4:31 PM, Konrad Dybcio wrote:
+> On 6/19/26 10:39 PM, Manaf Meethalavalappu Pallikunhi wrote:
+>> The Qualcomm SoC Power and Electrical Limits (SPEL) provides hardware
+>> based power monitoring and limiting capabilities for various power
+>> domains including System, SoC, CPU clusters, GPU, and various other
+>> subsystems.
+>>
+>> The driver integrates with the Linux powercap framework, exposing SPEL
+>> capabilities through powercap sysfs interfaces.
+>>
+>> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+>> ---
+> 
+> [...]
+> 
+>> +#include <linux/bitfield.h>
+>> +#include <linux/device.h>
+>> +#include <linux/io.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/module.h>
+>> +#include <linux/mod_devicetable.h>
+>> +#include <linux/mutex.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/powercap.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/types.h>
+> 
+> Please ensure all the includes are necessary
 
-diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-index 4dc681eb077d..bad214b89257 100644
---- a/drivers/iio/dac/ad5686.c
-+++ b/drivers/iio/dac/ad5686.c
-@@ -15,10 +15,13 @@
- #include <linux/export.h>
- #include <linux/gpio/consumer.h>
- #include <linux/kstrtox.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
-+#include <linux/property.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/sysfs.h>
-+#include <linux/units.h>
- #include <linux/wordpart.h>
- 
- #include <linux/iio/buffer.h>
-@@ -41,7 +44,8 @@ static int ad5310_control_sync(struct ad5686_state *st)
- 
- 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
- 			    FIELD_PREP(AD5310_PD_MSK, pd_val & AD5686_PD_MSK) |
--			    FIELD_PREP(AD5310_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
-+			    FIELD_PREP(AD5310_REF_BIT_MSK, st->use_internal_vref ? 0 : 1) |
-+			    FIELD_PREP(AD5310_GAIN_BIT_MSK, st->double_scale ? 1 : 0));
- }
- 
- static int ad5683_control_sync(struct ad5686_state *st)
-@@ -50,7 +54,8 @@ static int ad5683_control_sync(struct ad5686_state *st)
- 
- 	return ad5686_write(st, AD5686_CMD_CONTROL_REG, 0,
- 			    FIELD_PREP(AD5683_PD_MSK, pd_val & AD5686_PD_MSK) |
--			    FIELD_PREP(AD5683_REF_BIT_MSK, st->use_internal_vref ? 0 : 1));
-+			    FIELD_PREP(AD5683_REF_BIT_MSK, st->use_internal_vref ? 0 : 1) |
-+			    FIELD_PREP(AD5683_GAIN_BIT_MSK, st->double_scale ? 1 : 0));
- }
- 
- static inline unsigned int ad5686_pd_mask_shift(const struct iio_chan_spec *chan)
-@@ -193,9 +198,14 @@ static int ad5686_read_raw(struct iio_dev *indio_dev,
- 			GENMASK(chan->scan_type.realbits - 1, 0);
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
--		*val = st->vref_mv;
--		*val2 = chan->scan_type.realbits;
--		return IIO_VAL_FRACTIONAL_LOG2;
-+		if (st->double_scale) {
-+			*val = st->scale_avail[2];
-+			*val2 = st->scale_avail[3];
-+		} else {
-+			*val = st->scale_avail[0];
-+			*val2 = st->scale_avail[1];
-+		}
-+		return IIO_VAL_INT_PLUS_NANO;
- 	}
- 	return -EINVAL;
- }
-@@ -207,6 +217,8 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
- 			    long mask)
- {
- 	struct ad5686_state *st = iio_priv(indio_dev);
-+	bool double_scale;
-+	int ret;
- 
- 	guard(mutex)(&st->lock);
- 
-@@ -217,6 +229,84 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
- 
- 		return ad5686_write(st, AD5686_CMD_WRITE_INPUT_N_UPDATE_N,
- 				    chan->address, val << chan->scan_type.shift);
-+	case IIO_CHAN_INFO_SCALE:
-+		if (val == st->scale_avail[0] && val2 == st->scale_avail[1])
-+			double_scale = false;
-+		else if (val == st->scale_avail[2] && val2 == st->scale_avail[3])
-+			double_scale = true;
-+		else
-+			return -EINVAL;
-+
-+		if (st->double_scale == double_scale)
-+			return 0; /* no change */
-+
-+		st->double_scale = double_scale;
-+		switch (st->chip_info->regmap_type) {
-+		case AD5310_REGMAP:
-+			ret = ad5310_control_sync(st);
-+			break;
-+		case AD5683_REGMAP:
-+			ret = ad5683_control_sync(st);
-+			break;
-+		case AD5686_REGMAP:
-+			if (!st->gain_gpio) {
-+				ret = -EINVAL;
-+				break;
-+			}
-+
-+			ret = gpiod_set_value_cansleep(st->gain_gpio,
-+						       st->double_scale ? 1 : 0);
-+			break;
-+		default:
-+			ret = -EINVAL;
-+		}
-+		if (ret)
-+			st->double_scale = !double_scale; /* revert on failure */
-+		return ret;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5686_write_raw_get_fmt(struct iio_dev *indio_dev,
-+				    struct iio_chan_spec const *chan,
-+				    long mask)
-+{
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int ad5686_read_avail(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     const int **vals, int *type, int *length,
-+			     long mask)
-+{
-+	struct ad5686_state *st = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_SCALE:
-+		*type = IIO_VAL_INT_PLUS_NANO;
-+
-+		if (st->chip_info->regmap_type == AD5686_REGMAP && !st->gain_gpio) {
-+			/*
-+			 * GAIN pin is board-strapped, so only the current
-+			 * scale is available.
-+			 */
-+			*vals = st->double_scale ? &st->scale_avail[2] :
-+						   &st->scale_avail[0];
-+			*length = 2;
-+			return IIO_AVAIL_LIST;
-+		}
-+
-+		*vals = st->scale_avail;
-+		*length = ARRAY_SIZE(st->scale_avail);
-+		return IIO_AVAIL_LIST;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -225,6 +315,8 @@ static int ad5686_write_raw(struct iio_dev *indio_dev,
- static const struct iio_info ad5686_info = {
- 	.read_raw = ad5686_read_raw,
- 	.write_raw = ad5686_write_raw,
-+	.write_raw_get_fmt = ad5686_write_raw_get_fmt,
-+	.read_avail = ad5686_read_avail,
- };
- 
- static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
-@@ -246,6 +338,7 @@ static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
- 		.channel = chan,				\
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
- 		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
-+		.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),\
- 		.address = addr,				\
- 		.scan_index = chan,				\
- 		.scan_type = {					\
-@@ -472,6 +565,15 @@ const struct ad5686_chip_info ad5679r_chip_info = {
- };
- EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
- 
-+static void ad5686_init_scale_avail(struct ad5686_state *st)
-+{
-+	int realbits = st->chip_info->channels[0].scan_type.realbits;
-+	s64 tmp = 2ULL * st->vref_mv * NANO >> realbits;
-+
-+	st->scale_avail[2] = div_s64_rem(tmp, NANO, &st->scale_avail[3]);
-+	st->scale_avail[0] = div_s64_rem(tmp >> 1, NANO, &st->scale_avail[1]);
-+}
-+
- static irqreturn_t ad5686_trigger_handler(int irq, void *p)
- {
- 	struct iio_poll_func *pf = p;
-@@ -585,6 +687,16 @@ int ad5686_probe(struct device *dev,
- 		return dev_err_probe(dev, PTR_ERR(st->ldac_gpio),
- 				     "Failed to get LDAC GPIO\n");
- 
-+	st->double_scale = device_property_read_bool(dev, "adi,range-double");
-+	st->gain_gpio = devm_gpiod_get_optional(dev, "gain",
-+						st->double_scale ? GPIOD_OUT_HIGH :
-+								   GPIOD_OUT_LOW);
-+	if (IS_ERR(st->gain_gpio))
-+		return dev_err_probe(dev, PTR_ERR(st->gain_gpio),
-+				     "Failed to get GAIN GPIO\n");
-+
-+	ad5686_init_scale_avail(st);
-+
- 	/* Initialize masks to all ones */
- 	st->pwr_down_mask = ~0;
- 	st->pwr_down_mode = ~0;
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index cb884334e94a..92012e1be48f 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -39,9 +39,11 @@
- #define AD5686_CMD_CONTROL_REG			0x4
- #define AD5686_CMD_READBACK_ENABLE_V2		0x5
- 
-+#define AD5310_GAIN_BIT_MSK			BIT(7)
- #define AD5310_REF_BIT_MSK			BIT(8)
- #define AD5310_PD_MSK				GENMASK(10, 9)
- 
-+#define AD5683_GAIN_BIT_MSK			BIT(11)
- #define AD5683_REF_BIT_MSK			BIT(12)
- #define AD5683_PD_MSK				GENMASK(14, 13)
- 
-@@ -125,9 +127,12 @@ extern const struct ad5686_chip_info ad5679r_chip_info;
-  * @chip_info:		chip model specific constants, available modes etc
-  * @ops:		bus specific operations
-  * @ldac_gpio:		LDAC pin GPIO descriptor
-- * @vref_mv:		actual reference voltage used
-+ * @gain_gpio:		GAIN pin GPIO descriptor
-  * @pwr_down_mask:	power down mask
-  * @pwr_down_mode:	current power down mode
-+ * @scale_avail:	pre-calculated available scale values
-+ * @vref_mv:		actual reference voltage used
-+ * @double_scale:	flag to indicate the gain multiplier is applied
-  * @use_internal_vref:	set to true if the internal reference voltage is used
-  * @lock:		lock to protect access to state fields, which includes
-  *			the data buffer during regmap ops
-@@ -139,9 +144,12 @@ struct ad5686_state {
- 	const struct ad5686_chip_info	*chip_info;
- 	const struct ad5686_bus_ops	*ops;
- 	struct gpio_desc		*ldac_gpio;
--	unsigned short			vref_mv;
-+	struct gpio_desc		*gain_gpio;
- 	unsigned int			pwr_down_mask;
- 	unsigned int			pwr_down_mode;
-+	int				scale_avail[4];
-+	unsigned short			vref_mv;
-+	bool				double_scale;
- 	bool				use_internal_vref;
- 	struct mutex			lock;
- 	void				*bus_data;
+I already checked it and removed unused headers
 
--- 
-2.43.0
+> 
+>> +
+>> +/* SPEL register bitmasks */
+>> +#define ENERGY_STATUS_MASK		GENMASK(31, 0)
+>> +
+>> +#define POWER_LIMIT_MASK		GENMASK(14, 0)
+>> +#define POWER_LIMIT_ENABLE		BIT(31)
+>> +
+>> +#define TIME_WINDOW_MASK_L		GENMASK(14, 0)
+>> +#define TIME_WINDOW_MASK_H		GENMASK(22, 16)
+> 
+> Is BIT(15) not part of this?
+> 
+> [...]
+> 
+>> +/* Domain configuration */
+>> +static const struct spel_domain_info domain_info[SPEL_DOMAIN_MAX] = {
+>> +	[SPEL_DOMAIN_SYS]	= { "sys", 0x40 },
+>> +	[SPEL_DOMAIN_SOC]	= { "soc", 0x00 },
+>> +	[SPEL_DOMAIN_CL0]	= { "cl0", 0x5c },
+>> +	[SPEL_DOMAIN_CL1]	= { "cl1", 0x60 },
+>> +	[SPEL_DOMAIN_CL2]	= { "cl2", 0x64 },
+>> +	[SPEL_DOMAIN_IGPU]	= { "igpu", 0x08 },
+>> +	[SPEL_DOMAIN_DGPU]	= { "dgpu", 0x44 },
+>> +	[SPEL_DOMAIN_NSP]	= { "nsp", 0x0c },
+>> +	[SPEL_DOMAIN_MMCX]	= { "mmcx", 0x10 },
+>> +	[SPEL_DOMAIN_INFRA]	= { "infra", 0x18 },
+>> +	[SPEL_DOMAIN_DRAM]	= { "dram", 0x1c },
+>> +	[SPEL_DOMAIN_MDM]	= { "mdm", 0x48 },
+>> +	[SPEL_DOMAIN_WLAN]	= { "wlan", 0x4c },
+>> +	[SPEL_DOMAIN_USB1]	= { "usb1", 0x50 },
+>> +	[SPEL_DOMAIN_USB2]	= { "usb2", 0x54 },
+>> +	[SPEL_DOMAIN_USB3]	= { "usb3", 0x58 },
+>> +};
+> 
+> I would expect that the names are going to stay common, but the offsets
 
+Names also can be different here. For example, hawi, It has only subset 
+of these domain and it doesn't have dgpu, it has only "gpu". cpu domain
+names also different there.
+
+> will be different. This array should probably be called
+> glymur_domain_info[]. We may have another LUT just for names of indices
+
+ACK for glymur_domain_info.
+> (i.e. [SPEL_DOMAIN_xxx] = "xxx")
+> 
+>> +
+>> +/**
+>> + * struct spel_constraint_info - Power limit constraint information
+>> + * @limit_offset:	Register offset for power limit value
+>> + * @time_window_offset:	Register offset for time window
+>> + * @supported_mask:	Bit mask in capability register
+>> + * @domain_id:		Domain this constraint applies to
+>> + * @pl_id:		Power limit ID (PL1, PL2, etc.)
+>> + */
+>> +struct spel_constraint_info {
+>> +	u32 limit_offset;
+>> +	u32 time_window_offset;
+>> +	u32 supported_mask;
+>> +	enum spel_domain_type domain_id;
+>> +	int pl_id;
+>> +};
+>> +
+>> +/* Constraint configuration */
+>> +static const struct spel_constraint_info constraints[] = {
+>> +	/* SYS domain constraints */
+>> +	{ 0x10, 0x70, BIT(0), SPEL_DOMAIN_SYS, POWER_LIMIT1 },
+>> +	{ 0x14, 0x74, BIT(1), SPEL_DOMAIN_SYS, POWER_LIMIT2 },
+>> +	{ 0x18, 0x78, BIT(2), SPEL_DOMAIN_SYS, POWER_LIMIT3 },
+>> +	{ 0x1c, 0x7c, BIT(3), SPEL_DOMAIN_SYS, POWER_LIMIT4 },
+>> +	/* SoC domain constraints */
+>> +	{ 0x00, 0x60, BIT(4), SPEL_DOMAIN_SOC, POWER_LIMIT1 },
+>> +	{ 0x04, 0x64, BIT(5), SPEL_DOMAIN_SOC, POWER_LIMIT2 },
+>> +	{ 0x08, 0x68, BIT(6), SPEL_DOMAIN_SOC, POWER_LIMIT3 },
+>> +	{ 0x0c, 0x6c, BIT(7), SPEL_DOMAIN_SOC, POWER_LIMIT4 },
+>> +};
+> 
+> Is this specific to Glymur, or SPEL-wide?
+
+So far, current targets share common spec and offsets for constraints.
+
+> 
+> [...]
+> 
+>> +/**
+>> + * struct spel_system -	SPEL system
+> 
+> odd tab after '-'
+
+ACK
+
+> 
+> [...]
+> 
+>> +	case PL_LIMIT:
+>> +		new_val = spel_unit_xlate(sd, POWER_UNIT, value, 1);
+>> +		if (new_val > FIELD_MAX(POWER_LIMIT_MASK))
+>> +			return -EINVAL;
+>> +		reg_val = (reg_val & ~POWER_LIMIT_MASK) | FIELD_PREP(POWER_LIMIT_MASK, new_val);
+> 
+> FIELD_MODIFY()
+
+ACK
+
+> 
+>> +
+>> +		/*
+>> +		 * Enable/Disable PL based on the value:
+>> +		 * - If value is 0, disable the PL (clear enable bit)
+>> +		 * - If value is non-zero, enable the PL (set enable bit)
+>> +		 */
+>> +		if (new_val == 0)
+>> +			reg_val &= ~POWER_LIMIT_ENABLE;
+>> +		else
+>> +			reg_val |= POWER_LIMIT_ENABLE;
+> 
+> Likewise
+
+ACK
+
+> 
+> 
+>> +
+>> +		writel(reg_val, reg_addr);
+>> +		return 0;
+>> +
+>> +	case PL_TIME_WINDOW:
+>> +		/*
+>> +		 * Encode time window: upper 7 bits to [22:16], lower 15 bits to [14:0]
+>> +		 */
+>> +		new_val = spel_unit_xlate(sd, TIME_UNIT, value, 1);
+>> +		if (new_val > TIME_WINDOW_MAX)
+>> +			return -EINVAL;
+>> +		/* Read-modify-write to preserve other bits */
+>> +		reg_val = (reg_val & ~(TIME_WINDOW_MASK_H | TIME_WINDOW_MASK_L)) |
+>> +			  FIELD_PREP(TIME_WINDOW_MASK_H, new_val >> 15) |
+>> +			  FIELD_PREP(TIME_WINDOW_MASK_L, new_val);
+> 
+> Also here
+
+ACK
+
+> 
+> [...]
+> 
+>> +static void spel_detect_powerlimit(struct spel_domain *sd)
+>> +{
+>> +	struct spel_system *sp = sd->sp;
+>> +	u32 capabilities;
+>> +	int i, j;
+>> +
+>> +	capabilities = readl(sp->config_base + LIMITS_CAPABILITY_OFFSET);
+>> +
+>> +	/*
+>> +	 * Detect power limits from hardware capabilities.
+>> +	 * Start from index 1 (POWER_LIMIT2) since PL1 is always enabled in spel_init_domains().
+>> +	 */
+>> +	for (i = 1; i < ARRAY_SIZE(pl_names); i++) {
+> 
+> int i = POWER_LIMIT2
+> 
+> (yeah, nowadays you can finally declare the iterator inside the loop
+> in the kernel)
+
+ACK for declaring the iterator inside loop, but assigning to 
+POWER_LIMIT2 is removed in this revision based on V1 comment.
+
+Thanks,
+Manaf
+
+> 
+> Konrad
 
