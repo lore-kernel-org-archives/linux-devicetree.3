@@ -1,133 +1,129 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5433939B0
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 19:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58931DED5B
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 19:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782244459; cv=none; b=emosKhu2KfzjbLa5FyxQFgpiCmKzbhAiWVwRrLLZPV/0wxxIG37nLVoL1h2UJ02uIkJ/rBq6fYXSz6H+8y8awBmz7/YGYpSLWuEm7HHKc8iRt+qn14UbnzFlDQnxPt4kZUFxAbCiq791joShd5uWrLKiZgCCfiMr3NGkfQXkJP0=
+	t=1782244696; cv=none; b=PpRL69V9VfkOTzAKYwdoygM9jrJbeAGBI1/Dqr/5wQWou0jPpd7jqH9ysVmvm1tYPA2opSJI1Ji9znTF9ooW9aTXfypJYARDfZwlkMBKypb+wmMfxtMGEz03b/Tmp6XRjZVHPCeu+i2Q/D/Qc5ux9NEs32/lwSaJwBiMyP4CiQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782244459; c=relaxed/simple;
-	bh=kEtYiwGGXfxf9OZgvwT4esSaZCDsxd/HBEXxCtejDdo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r0QiPUs0rxgYaFDHRqd2f+lrHfIYlz9ggE7S8l1kmWo61vCiizcimkDyDqSCFnpIgv3h5hThnmsYgjixZgBsK2bQP4vVvpXhU/NVWF/+Nw7NvNNlAFp1o/9SCDtzpPx9suJztHgLt5oGoCuYtf87Pd3BP63hRPHezmKUIGOco5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LxzfCC+2; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782244696; c=relaxed/simple;
+	bh=aDlwTIbmP0eq4yY/HUqq/7PBE58+pXXAamTk3uEsU+A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d6WlP9q3+dsWczbc9zCSMO8DUqDpsweoTt0RrDp3Bmasy4Xfn/drgF29jxx+p6XkuF4D7Q3n4hfzu/O4sCDSGA8u4kiERL6rrung4fmqlwdJBerwv0FMH2iivo76PCHON9j1hS00kAdRY3mSt7wbOjiXN0ev0/Y6Qz9EmPwqNk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K3xz+rVr; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LxzfCC+2"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e936c2473dso877452a34.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:54:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3xz+rVr"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-13981833e13so290251c88.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 12:58:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782244457; x=1782849257; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=psbJjHxePMcruU5APTrGLttW1uAsloPB1ho5xqlQwMM=;
-        b=LxzfCC+2hNSYGs88bSYlCl0yonuC40HHtpySn7CoiqT7ZQ+TY4JpX5nsKMKpsKgFxe
-         6qDMW9lmoDmjhmfZfP5vW2wDavmzb3dzMHZkDtuVkGmL748m/o6Np26Tj5+Ypk8KGabp
-         BHbROhKFYhpf59olIGOXisNWUjSwcHS2PJ9Sa5so6aoxeI+ESYBlCc1iNfkXfsht5TB9
-         rJ3gUuu3joXteh/oz0nd+SP2kdb0G+HFr61gWMx2fkMXLZLbr0vumo4utJVYjk5VCi65
-         aw+HXokES7pB1MFmToWul7GIf6b/xmInLVKT5WXUMKzPoUvpvmL0k0SzcePlPsP14ruJ
-         dNEg==
+        d=gmail.com; s=20251104; t=1782244693; x=1782849493; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=APSMXL2QA/kOTC2fqsHTZZlYL8XNY6Eh93NOD7Wrt+4=;
+        b=K3xz+rVrmkbsXRDXM+xKZjA4vJfnzoE6dQC5OzGK6psbaeMxMtyUsZHUK4PNtx85fT
+         qV2RoEUzKknQxzUUctJylzfN0ZMqkZBLP+QtaH/PND2Gb4d/B3vQX3STQlWM7Jmnx1sn
+         HcChmmtvCXQg5Kj2gWMjIZOnPT3qfA2hDJVW6z5gUNvBJwcnAKDS0v7tLpffC92PvD8z
+         FSS1WjQDS6YTuMSj+uqYcibfQsMXF6hHj66mMCM8O180qtG83kmDbbj1ONqPKHae9mO6
+         W2h8ANCZO49I4UQGun5hwJLN/acilSQVQm4XZYSvQPFopdWaUpuEui4XrUo0zEqFR8UG
+         GUOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782244457; x=1782849257;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=psbJjHxePMcruU5APTrGLttW1uAsloPB1ho5xqlQwMM=;
-        b=eLU7aqJnkeZ6jM9XpddSQm67nF8zbAgFdRnpq9KxdjGiFvLoHbx1OZGNfpJKJLgjjd
-         ePCmjAIASbOrXbh5yZARzO37q80y+CXAz9IZRAPaFWrnYCw/XYhwZdikqy+Z7uQphxyG
-         NJfTDUb5tukZM66fTGhfeU+i3aQDja+pkGzaDq7LdQRXZIFOjJgQAN3g+QB176FvSWyE
-         +JWaolxFPrqlDZVnhlQPRYPP1UF/xYPQABECBvenxZlULGUFpeF48TyMdkaF/Ltk+obG
-         vCgC3haBAjZD1rv+IwitHteLeK89j75W+KmFMf+Mt4z4FQ/D8Y8vD+dZEB5StsBZus02
-         hdqA==
-X-Forwarded-Encrypted: i=1; AFNElJ/zGksWej9p9Tz+EmvkmNz/U+PmY42MBZbfSFgkIKFAxWp2JPiEup5Xe1HvpFfTm2Hi5rU4IFzHtN29@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsAJi4+2HDAIiXMFIMgIx8+TkJ+MGwUhBuBGafHTD6flDOJkY1
-	xORZSrAk2v670pD0Md8vjbgGfaP4MaFMtLiQoPTXqUGGfayZ8UxUVTjjR8dZesrKZf0=
-X-Gm-Gg: AfdE7clmFfhtMt8BM1T4i8ekxLbQPe1DK743QmQi8ZO3ZycpYlXK9LBcbOMvO4sbx2W
-	wugAqk1cVr3dpaJlQ7TT02tbo3RHOZxDWbeBaNWkCHxM+PDSrAjEcftcdt4SAO+MuGU5ZodH4Gb
-	nmXKqi4y2J1+23nLfDcwrBXtQBfVXgq1g6eswcZJYvBaDJvQvqcVW1EWm0rbjgRt3VX493gnAoS
-	vq/j434kH3JagAHQ4WiCa+M+6OagwOwATJDs82CJ+Rwqnkx6Bvj50JLbF+G/ZMkFAZ/7Yjc1fO4
-	r331Y698Ok2B4CcK7C1et2RlHR3qTO+OQPFGZltgXtW4JOK9oTah+b3dzp3q31dPayveTEfrOqR
-	7xdRN6XYPyS6gR4VKfKNYKKVFiRmZbcbFtnPM2G0KsiuD9F1uSJNhsBZjRuo1YBIvXjvsGei1T0
-	5PPWyxQujN2OiXT6vJP6ia3kl5z1vx7MAUFppwMIvHA1lOVTrs+Fv2NYNil8sPjn8=
-X-Received: by 2002:a05:6808:6f93:b0:48a:c6b6:b76f with SMTP id 5614622812f47-48ee45925eemr3311675b6e.20.1782244456969;
-        Tue, 23 Jun 2026 12:54:16 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:68dc:b788:b3ac:e34e? ([2600:8803:e7e4:500:68dc:b788:b3ac:e34e])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-48ae8b3b1efsm7202725b6e.0.2026.06.23.12.54.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 23 Jun 2026 12:54:16 -0700 (PDT)
-Message-ID: <9f206645-9503-41f6-b33f-9f96b472a1d7@baylibre.com>
-Date: Tue, 23 Jun 2026 14:54:15 -0500
+        d=1e100.net; s=20251104; t=1782244693; x=1782849493;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=APSMXL2QA/kOTC2fqsHTZZlYL8XNY6Eh93NOD7Wrt+4=;
+        b=IJ7pN4ndy3AbqJvXzM8EljDhzg75+7kvQyjtyUycOibs9CM9mi6M8qcaqXCGRmLV6v
+         HvSTdXIEktVl06BzoxeCMY42J2NeEjdEiEdTM3El2mw0iEtXtxM8tC4X9H+4NYFqF4US
+         lCwoSySLqrwyz7EE6xEDJjOKBgewr8aHGwj8ltbDOHcOO765180gMquSQhoDK96LZjfM
+         9E1ifa4FrKbnXmMw51F0MvVIU/ui7ZI8582SXpR07KBcVu4s0gePrdFwONAxo0MJIEee
+         NX2jnBZCwDkrxWfpSTfYyMpc6Zaa8OJAWC68GOLZK8DzvK328cvMVvtDyfXpZsoa71LZ
+         V0cg==
+X-Forwarded-Encrypted: i=1; AFNElJ8MoLfawFg53lCeeXY4edqP1eiKKDB5vO8Wz7Xij2flOd/jI58f+AKvA7XIzMSOX6ttSAL5nJsBKFEZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnYMem0Na5QkDv3k7azmd5GsUmHfvSaLOS95TqHcKr91wzjBw+
+	CEW2vkGJgzF/wHeD3XMpIGxLoRj8Dmbad2YjsahdIqJArnEfWgYN2QSe
+X-Gm-Gg: AfdE7clr1ui8Wx/2ghqJ5o0V19PVedk2RuVlEOzUpicsHZscy2MAFQvpBv50XDpHS+Q
+	81PipJkQENUnMGmkYhrATCnzAnlnUP+uWcO7VEiqQ4RQro4bBRPq0vHvagvF+Cr2Fvd2LZKywYj
+	FA4b4jWNd8Pb+QP/jz58JEQmYGmZIBoadIvHHh7c3scJR2t0q1UBRvnY3L+u9yHgNm+Y2Voz2Rt
+	qrhRcHb8VXN2K8vpK7bZrHMPvcOFzJSKWLr6551cbhHFFd6UirPm+rTMAiIhuzomKMGVUYJwANd
+	Gr5ePZSlGmbKODyb5e4M3SNxZZLtzg7wwmHzRG+hIZ8MHDwD/S8gHIAuht2GSZ/hJ6Ex7EgH0fP
+	rLfVOpf820/bvEuSauaeed5byOyqoTIhajK6CgCi8zRHr6GtPiGsj/lamUU9l9SaeF86nNKTgaH
+	KlBUyWXLwd/bkAwN/uz19/MoAIEov8QK3cc326ItMcElIyJnzrBrVCOA3u+01nSTaEa4DpWSJFz
+	gX9lCi9HBCbnNBngUe0eAwmYwRIwncurV4DbLuIDFo=
+X-Received: by 2002:a05:7022:439d:b0:137:8db3:73a7 with SMTP id a92af1059eb24-139c5dfa968mr3114369c88.31.1782244692728;
+        Tue, 23 Jun 2026 12:58:12 -0700 (PDT)
+Received: from leonardoc-nb (201-68-197-145.dsl.telesp.net.br. [201.68.197.145])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139add85c40sm15730896c88.15.2026.06.23.12.58.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 12:58:12 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: laurent.pinchart@ideasonboard.com,
+	neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	nm@ti.com,
+	vigneshr@ti.com,
+	kristo@kernel.org,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	thierry.reding@gmail.com,
+	sam@ravnborg.org
+Cc: leonardo.costa@toradex.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
+Date: Tue, 23 Jun 2026 16:57:36 -0300
+Message-ID: <20260623195741.495734-1-leoreis.costa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: iio: dac: Add DAC8163
-To: Lukas Metz <lukas.metz@gmx.net>, Jonathan Cameron <jic23@kernel.org>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
- <20260623-dac8163-work-v1-2-5b508158faa0@gmx.net>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260623-dac8163-work-v1-2-5b508158faa0@gmx.net>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 6/23/26 11:07 AM, Lukas Metz wrote:
-> Add device tree binding for the Texas Instruments DAC8163 family
-> including the DAC7562, DAC7563, DAC8162, DAC8163, DAC8562 and DAC8563.
+From: Leonardo Costa <leonardo.costa@toradex.com>
 
-One other thing worth mentioning here as to why none of these are fallback
-compatible (in addition to the resolution bits) is that the xxx2 chips
-and xxx3 chips have a different output state when CLR is asserted.
+This series adds device tree overlays for Toradex Capacitive 
+Touch Display 10.1" LVDS V2 on Verdin AM62.
 
-> 
-> Signed-off-by: Lukas Metz <lukas.metz@gmx.net>
-> ---
->  .../devicetree/bindings/iio/dac/ti,dac8163.yaml    | 75 ++++++++++++++++++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 76 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml b/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml
-> new file mode 100644
-> index 000000000000..bb4bad389323
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml
-> @@ -0,0 +1,75 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/dac/ti,dac8163.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments DAC8163 family of DACs
-> +
-> +description:
-> +  The DAC756x, DAC816x, and DAC856x devices are low-power, voltage-output,
-> +  dual-channel, 12-, 14-, and 16-bit digital-to-analog converters (DACs),
-> +  respectively. These devices include a 2.5-V, 4-ppm/°C internal
-> +  reference, giving a full-scale output voltage range of 2.5 V or 5 V.
-> +
-> +maintainers:
-> +  - Lukas Metz <lukas.metz@gmx.net>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,dac7562
-> +      - ti,dac7563
-> +      - ti,dac8162
-> +      - ti,dac8163
-> +      - ti,dac8562
-> +      - ti,dac8563
-> +
+The display addition covers two interface types:
+
+- Native OLDI (LVDS)
+- DSI-to-LVDS adapter based on the SN65DSI84
+
+The Opto Logic vendor prefix and panel binding for the SCX1001511GGC49 is
+also added.
+
+Leonardo Costa (5):
+  dt-bindings: vendor-prefixes: Add Opto Logic
+  dt-bindings: display: panel-lvds: Add compatible for Opto Logic
+    SCX1001511GGC49
+  arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display
+    10.1" LVDS V2
+  arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with
+    the 10.1" V2 display
+  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display
+    10.1" LVDS
+
+ .../bindings/display/panel/panel-lvds.yaml    |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/ti/Makefile               |  15 ++
+ ...zanine-panel-cap-touch-10inch-lvds-v2.dtso | 109 +++++++++++++
+ ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 143 ++++++++++++++++++
+ ...verdin-panel-cap-touch-10inch-lvds-v2.dtso | 129 ++++++++++++++++
+ 6 files changed, 400 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-panel-cap-touch-10inch-lvds-v2.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso
+
