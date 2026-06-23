@@ -1,83 +1,67 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7583A364028;
-	Tue, 23 Jun 2026 22:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782252033; cv=fail; b=qGCDhjivST8y1VKxnuHzPdQWsU1rJD9D5Y9RqYrUCdzMOp123cz62n7pqP4oCRKNBVgkXEexh48bH9Q9v7CPGBjKa57Io7e0jbtZHYyPuI3tu1cFg1kljxUAtnkBpONE54AXAHQFbv6yFQ8sbCiz138PxCSQEVpbV5eXlgZI2UA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782252033; c=relaxed/simple;
-	bh=okm0hfG6cGOSBr19c9uJuCgKMkxmcZa0y7oH5LfReb0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F2F3C1406
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 22:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782252469; cv=none; b=MK00FN0EAGuAxP5cuOe5LOlTV9ZAyE/b1m3CFUn7ZpIBRAkHts+bPHkSu0DiOpLsOQZUGZnwb0W77OafWYrLh+m7vhT5pHAOQF9uQhMwEn3KIVloZzOJX7JTRx3xx45nvhXlQ3hww66mncxzwRbXjHZPb9OdJbdoVyQrWOitqWk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782252469; c=relaxed/simple;
+	bh=8wo56H4pEkXbzqb7epSlbeO2I6odXNWpyufne8kJGEQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uB/usf1sNF1ZpNH96pMrPMsdbAu63ocfiXHoTJQcmIJe8xLlJ9OlAbq+XUzNGutxIIWJBwlo50C0ZF6Hv8abrQhtC3J8LcQbebXvoSA41pmkFp+eUK0ofQWn6yPymWO3gPZqqrqgXJ/AGXchh0JM86WiGk1gdyC98KTnG/d9FCE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=bvHSr6Sz; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=nRQQWv3S; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	 In-Reply-To:Content-Type; b=AovGhJXUcIyGEuFsYDw0CDLBoLUy4S978xyBEgANfRAQSpzjh8BeonugnHXwodY3waBy+cU/Tq26j64Z0/yfygz4p4dDpIQs1TqXJcIoqw4MM25YvyyWgVYTa7a98GWfChRbWAJVWtooEKGafvxb4/LThWMj2jlW0MnfhqWNXIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FmbrdisX; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="bvHSr6Sz";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="nRQQWv3S"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NG1HZg437816;
-	Tue, 23 Jun 2026 17:00:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=Qwkq96oy80PV/qlNPhg+R9AI9heobfmqIrKSj/xXqRI=; b=
-	bvHSr6SzQUrEBn8EAArONFeK4Pucts0XG6RgRs7SAF2t0rlEeB09a5BHaeBmHzdL
-	z9v2JBjdVfb2qp3fqFSSyWNYnT3rFr71WM+2YPv9ic8btheG9ZJvRQx97WjSiSvc
-	JN9szXgRVLu/wA1fI3Co0dNl5bYKveUH1fve7lECd6ozyi8Vkq+63mLVnwnVwPpm
-	lEw+cHb56QHU6XNz6l4HK13mRWJCfjHVAP4qdy/7AcEF/oPdCDTKLPIoyF1mPZ0i
-	PZ1QMCwG8dOXXgn2sXWDZoyfxnYOUBgBDmOWrWDx7hBTgMGLp2NGDGnXufPbAY+r
-	YlrbPnGy6t6Z3HAUW0KqAA==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11021117.outbound.protection.outlook.com [52.101.62.117])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4ewr8x480r-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 23 Jun 2026 17:00:17 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TpHqMp7OFJ01sZXmnO4gNRk7IvF6OByUC/Oysti+bJYHs8uvIhoKY0aHxHkwMz29Hz52db/iiFVaketo8Y6hN7fXXPyeY5GcCOwOszEbhpyrZlZ0dJwidfInrYjI+eAf3AU30psdCD9INJO00o2O9vBksbXAeEZayhxMlmZBJCGLJiNwP4hql659KhIBMofbIjuFD6zv2Fcq9QU8Vtgo5pNFR7MWX3/rEscSPcFUwSSKRGVAF7m5+4pf8296oz+S0XH6fdpArX9BZi0EjLuDoz5j+qdWC/FZbcZFA3hnnhoTGINIehnAffgf1fh+ZngJf6msQxDNB94cnobOw5/JZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qwkq96oy80PV/qlNPhg+R9AI9heobfmqIrKSj/xXqRI=;
- b=f1pQQq2dSUUjmqoGrCw4R04wOJ1oiMiaYzvhbWJIhx+pvayg69hsWZZEOB4Ku5Wi4/bSIQ7k0UxpdHMSH9ZkuCuFDmnzTAuCLX1/ChEjnqG1jye1L3aYgoorSkp7K4YO+148LSi5su0A7iR25y7xk885cx+CTeuhRNa9P8L0VElTDsEqGEkzcWL4R8G8hEqmZni33n4jaW3+EdJXNDCtzY71tyiflxaEIjjbqmuWZBIOV8plx6CbRnQwMq9xr9Sg1fB+KoD/0W2Ad+a04KGvic1SX4KQ6jcDpuB9KDj2vl2ZBKgtsGEBl5ft3EbeJo7CLx8Xvu2z/E+dP9+uc/rDMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FmbrdisX"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2c0b9328c4aso1908735ad.0
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:07:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qwkq96oy80PV/qlNPhg+R9AI9heobfmqIrKSj/xXqRI=;
- b=nRQQWv3STsVWOA9w+aI5cJxijaWen/XNmoVB+8JD9Ixb2RzVebyT+pdcgUFyvFV50hBHR1eYD191ZdJeuFNYo51Zu4SGr5XF5ineqM2dPCxQi4aewW5rWS5VPk3VzN6m6vFrto82fZvucTtP7d+IDqoLQJbc67WulhS29o9c00E=
-Received: from SJ2P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::9)
- by DSVPR19MB997475.namprd19.prod.outlook.com (2603:10b6:8:3bb::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
- 2026 22:00:14 +0000
-Received: from CO1PEPF000066E7.namprd05.prod.outlook.com
- (2603:10b6:a03:5da:cafe::a9) by SJ2P220CA0012.outlook.office365.com
- (2603:10b6:a03:5da::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.12 via Frontend Transport; Tue,
- 23 Jun 2026 22:00:14 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CO1PEPF000066E7.mail.protection.outlook.com (10.167.249.9) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.10
- via Frontend Transport; Tue, 23 Jun 2026 22:00:13 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 72D92406541;
-	Tue, 23 Jun 2026 22:00:11 +0000 (UTC)
-Received: from [141.131.83.83] (unknown [141.131.83.83])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 44AE5820244;
-	Tue, 23 Jun 2026 22:00:09 +0000 (UTC)
-Message-ID: <91aed877-3749-4abe-98e4-b1ef1bdc1320@opensource.cirrus.com>
-Date: Tue, 23 Jun 2026 17:00:07 -0500
+        d=gmail.com; s=20251104; t=1782252466; x=1782857266; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=TJH84h3fxje2HxcPOH5hZITmcIqryMe5ZpxlwOFFj4w=;
+        b=FmbrdisXgb/27V8RXwI4WtvZ+jIPHYJs0prrYgRI9FyOGGvFSlTlF+CCwcTHwzM1md
+         4zH+JxU1AyJkAYuvCeAZ/cH3l0tmKvWrZX7uJZgMClFTuJgvYzW6CyOaM33oXBEk8bmK
+         Yuwb2Eu26y0asNGi7oif+qwa+J270DEzbXOqNaB6sRL8inMjNicJ0VfwLlBZkM3laDC5
+         fuRoEkaZ60FqX0+cARzs41hIPN39VqbtNAuhzinDqCs+0zc97djX9Ofv0BrnuhTrd/kH
+         EwintNCMRk0l3pSrf3XBSL6Sapk2vauHwMQco5om6IjyTmBEDDdZoaP2saWYb9NBvIiC
+         DFAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782252466; x=1782857266;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=TJH84h3fxje2HxcPOH5hZITmcIqryMe5ZpxlwOFFj4w=;
+        b=NIuaCwX9lciJoFQdWrIkPB3FCHHqoiOV4AB3eYyCPT1aVXDL4MPfzHafuMwl2b+f9A
+         KQ6VksAYPXJgVfwz3CTcNKhHXiNIucAK+LMToM5LrEv/VepUQ/ZpLnCh42rM7oR7zq7i
+         Ho2RZfjSwJ3bbilX8BG8Y1vENHy+0xYaY5wutNEmgTR8kmcNmZ/1e8MbVU4bzb5CpM2L
+         kX03GrzD0gxApcPJnBb64MZ6PCIEbsvKFCMR94Kc8rOWjvMXJnLb2rxOVxnJl9Puxgea
+         DvviGW84D2tXXb0TvpvayglaFxmD7u/N6t8IFK38qIt7nsjyW7gVN+0EVmGCOLt0917Q
+         wZ3g==
+X-Forwarded-Encrypted: i=1; AHgh+RqQdNvM2ZladmP06IsrESLTng9u515rIQsPjCmATeCFPgogcA1gtZQsydhDwqnWXix61UCgzeguR9M6@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlhSVKjDoZYLqjZCqIYc1HvPOK+4D9xSdOWm3giumRdgzQXvaE
+	8OFCc1E0RJ7ueTDjZqpTB6n5HLSSSWh+oPbCgTCICszXJognXkw4sets
+X-Gm-Gg: AfdE7ckCfRvSZ8EQ/aUTSWqIyIbZ7wjAKUJbTvMq6YoA8+bs5Xd3I4BU4alLzACXpxC
+	Z1MOdrxiJuIlbt4US03Xvwm4ba8sH9IfdMc62gY9uJLN/kVEw0iCk3nmO9g+vAjAcd0T55Fk66j
+	TotlNkLwO6MEZhZ1IjkJiVt4vZ9AV6qiPfQ5AmaU11K/13Rl3E8ablFppv3rPGaiAWFnNear/q7
+	Vi2q9Te+b1yUGUzImXG+eYp0ql+yzU2zZKp6Ep0lynQgHpB6MuPJYxIshl3vJuJD6TqUDP7EPLN
+	ywJqEKMZU3zWseUs7GRhJoEqx0SWlP78jlfXMt328U7SFwhn0w6u1X1QYsLtLxs2m8aE7aE8t61
+	qYfR9qi7pWgtpzGPUgDF76ryWvrKkiOvmNiVvvEcIXNe8+UApfMABtG0f4HRgZqLRsIxmLhjqMC
+	Hhpw6C7Iy6ZgUAgNFRF7lNzIXe8+HYSPsCCkyP4ciVYlyMTdKvtMv65RdXbUeBYQ==
+X-Received: by 2002:a17:902:d48b:b0:2c2:27be:39a7 with SMTP id d9443c01a7336-2c742b4bcb6mr169268395ad.29.1782252465558;
+        Tue, 23 Jun 2026 15:07:45 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7443add85sm113683925ad.71.2026.06.23.15.07.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 15:07:44 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <320c44c9-924f-4b7e-a46a-37a72fa7267f@roeck-us.net>
+Date: Tue, 23 Jun 2026 15:07:42 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,112 +69,1155 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] dt-bindings: sound: Convert cirrus,cs35l36 to DT
- schema
-To: David Heidelberg <david@ixit.cz>, David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com,
-        Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz>
- <fceaba7c-2c9e-4f0f-bcca-ea9ac3aa23d0@opensource.cirrus.com>
- <513dd76c-586e-48e3-8542-5f42d35c7929@ixit.cz>
+Subject: Re: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123 and
+ FD5125
+To: Selvamani.Rajagopal@onsemi.com, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
+ <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
 Content-Language: en-US
-From: "Rhodes, David" <drhodes@opensource.cirrus.com>
-In-Reply-To: <513dd76c-586e-48e3-8542-5f42d35c7929@ixit.cz>
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E7:EE_|DSVPR19MB997475:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae27ed56-f1ef-4ed2-7c8a-08ded172cd9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|36860700016|82310400026|61400799027|921020|6133799003|18002099003|16102099003|22082099003|5023799004|11063799006|56012099006|4143699003|4076005;
-X-Microsoft-Antispam-Message-Info:
-	d4XyWfxlpdD8I46iYM/6kaJxsxzwzqld1hip22kpG4ixlK8h4rfSXq8z/vGJzBriXB5GV6+9bYawftL1nX7HC16tf7DDBSZRJkNAMzQ0FRtS+7d3UnBP3W/m7PI83SmYCCvAFO9X00iZIn5oxgm74PQbVTJsc62/0cVKtURKy10qhyJBPLP2QAsgJI5dWwkyLAD4pJJ8wxFNDNTQl/RgwDUUd3ZEeNdC+0vn0T9aqi+NmiGBS/NBfE0I1uDnwAg50E2+KK8H6Usy9W5GgmNAPNG1SihWsjmfSM7ZgVkNNZu5PLdfny917QZjqXHKHcI0Lebn+bOsw7ywLET4jU+Zp7aiFn6+xKbnLg+VvOyHMeTjPoUCyM57UIuPN8MrU3aNXhTYJj0rXSOr+1CqwawKUFvlaRXIwgCSF9iIy5RlVPppmIiGKpt7P7t0oZyvYIAHTwpNb/0FztCw6Dxt63DFTtCqAoY569HnGnk2uXSRRRRsW1k7r/8004Gs8CgxKFRHKMRTHp/ZGxZGjS2XEI6loni1FhhYLg23gIxuqoreWm929fPXAkvMl+sLSOzoqtcbpKptcOu5MLC4Bzei2NBrbOTMCCzpVY/u69skDa3TV9DB7cPHMMp9zgWIrwkYztfI+kUByd9CiIUM2ltMc1JtU4yta8PVAXGBnOy6QyxVDdr9fnjVjVq5goZodFGtIygW8xV8c0twOQb/QoOwSIo03ONSXd9S637Tx4Cd+cjsHinKt5LJMNDWQvHaJs9GNJuuj4MaXFgbIcoRXrEcjTi6/A==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(36860700016)(82310400026)(61400799027)(921020)(6133799003)(18002099003)(16102099003)(22082099003)(5023799004)(11063799006)(56012099006)(4143699003)(4076005);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	brhwL+Pya2Ix2NW74vvSoS45FkC0CM+j1f8dU6b/reIQ14/WtaEuNAFNRT/QkOs9bgER2LsUdCM8kfDtoxP7Mroh1UIiSYUnqrnbN6Om4jEb1MLk+2rRIcVXHMgD/+cJlrELyegIk5toh6cR1bdP9DkLnxz66PkMvmffAH53hcR3sGA3rcaAmBAY+Oj0JJRJmYI7ekQK6QIYPhiF7+e/XVOnnLkOv9IVk0Y9iqsGaUM415zlLXjIAOsJkVqmHOSovLDzrcM9whgDnvBfo6lP2cs+WOXlxiM1gEmxQXOMJwD6vIRICC2xdcOWDOSoKMWB87eSACqwwGs+qQTJ1QnwJAlknuXm38T4jNiTJ/zQQ+f+gkmyOmXNHr1dX0Ltn8aVqONHw62WC7e5+SYAfORKGoEi0N/pV+zkMGadk66WeNVIRruNnRjAZlaluhQfKR5b
-X-Exchange-RoutingPolicyChecked:
-	MEqOLkhuSouBPzwiZz2tk8U1IHgq2igV2iUbPiVgP+YZqm13nhcLlgN+5NkUTo3ksPnT61n3EeytboajJFZcSkFt3wkgH8sltKaptV4dRh+0pV4/gSqM7Ok504vCRN7cewdbsIXB75I/WmoE8Ixq2CF/U32xhx/Eh2tbJyN90Uf4cUm7WrL2C7HvwMStJVNJ5L/dJNPX+zP1rVvenDmZJFkBYY+YfnqdOjCc0O5vQqYXJ9FV/rKD/gXbmwyMd71G2++aAJtRvNOrwWu55WNmKDpbZWWIQ8jZjBfmtELMjNIRl3dw/G/2cIKEOLpxP4rWF0papvnW3fh1ZUuyisz03w==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 22:00:13.6045
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae27ed56-f1ef-4ed2-7c8a-08ded172cd9c
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CO1PEPF000066E7.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR19MB997475
-X-Authority-Analysis: v=2.4 cv=UJ3t2ify c=1 sm=1 tr=0 ts=6a3b01f1 cx=c_pps
- a=0ugTtL2IYW/sDoruYPcCDA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=Gn0007HXtCswuJJ2utcA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDE4MSBTYWx0ZWRfX7eQrazUP68S2
- XkfONhVJWal0QCYbGy94JdPfA58TwbfjAh6XAZBtoFVsg4m4p8TvCh9yl84cFORvt2ae1xg1Kkn
- +VJlaAX2CikfnGm3PYhGzory4FHY/lGzhkACBiKuwkHxm3lfBYVezwOqhpHaIFiAgiTz4cPxazK
- 1SzE4kGx7aXvvPwiU1lIdtMTCzUr/G9i7XMVlE8W961eFCEMUI5f736gIIYvLc4cvjZEq1B6SdL
- 19DG4Pg9fdxW0cnxD9d1NbTBcbJCf/Kh7mw/wBcJIjxx5qqRiHAIXVVjYnE0q8P0Mw6T30xoqtB
- XMK5oFZkbn4A7t5fGz6pj9j8LgmuF1Ix2455rZedrRS3kiUSAZUpvJk0S+7HzR/AmpK5hQuCqPh
- 9kOCGJb9ZXXrIJfwbToCz2lYwVigCIhc4B6YpL3XjkKq1WxmwAGIcjtWqHQToXyqVBt0WOY5fl/
- JxIx2c48uF6Z0TUVyQA==
-X-Proofpoint-ORIG-GUID: 7NycjZHbMwh01bYSHJeeYSsbQI6XnxBp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDE4MSBTYWx0ZWRfX+7B4zV82M97F
- QilL7cHyT+sz1eZtWB8xSjZI2mW3CWJrDAI0EPJru/zKq3P9eiC7COR5hlt70AagDdBLW5xV1n4
- yDakIG9gjS42upxsWUEqkj/HieFtqXc=
-X-Proofpoint-GUID: 7NycjZHbMwh01bYSHJeeYSsbQI6XnxBp
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 7bit
 
-On 6/21/26 7:27 AM, David Heidelberg wrote:
-> On 18/06/2026 23:38, Rhodes, David wrote:
->> On 6/18/26 9:33 AM, David Heidelberg via B4 Relay wrote:
->>> From: David Heidelberg <david@ixit.cz>
->>>
->>> Convert CS35L36 Speaker Amplifier.
->>>
->>> Changes:
->>>   - maintainers email to the generic Cirrus email
->>>   - Both the codec and downstream worked just fine without
->>>     VP-supply provided. Align with datasheet for similar models.
->>>   - add dai-common.yaml to cover for '#sound-dai-cells',
->>>     'sound-name-prefix'
->>>
->>> Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
->>> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
->>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>> ---
->>
->> Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
+On 6/22/26 22:55, Selvamani Rajagopal via B4 Relay wrote:
+> From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 > 
-> Thanks for the review. btw. could you please verify against datasheet, 
-> if the
+> FD5121 is a dual-rail, multi-phase, digital controller that offers
+> full telemtry options including input/output voltage, current as
+> well as fault handling and identifications.
 > 
->   - cirrus,classh-wk-fet-delay is also possible for cs35l36 (l35 has it, 
-> but l36 driver doesn't, thou DT isn't about driver, so checking)
->   - cirrus,weak-fet-disable and cirrus,classh-weak-fet-thld-millivolt 
-> are also not implemented in any driver, but present in DT.
+> These controllers are compliant with PMBus specification.
 > 
-> If hardware is capable and the driver just doesn't have impl. it's fine, 
-> but otherwise I would remove these in v2.
+> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+> ---
+>   MAINTAINERS                  |    8 +
+>   drivers/hwmon/pmbus/Kconfig  |    9 +
+>   drivers/hwmon/pmbus/Makefile |    1 +
+>   drivers/hwmon/pmbus/fd5121.c | 1004 ++++++++++++++++++++++++++++++++++++++++++
+>   4 files changed, 1022 insertions(+)
 > 
-> Thank you
-> David :D
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d95d3ef77773..c0664c33324a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20135,6 +20135,14 @@ L:	linux-mips@vger.kernel.org
+>   S:	Maintained
+>   F:	arch/mips/boot/dts/ralink/omega2p.dts
+>   
+> +ONSEMI HARDWARE MONITOR DRIVER
+> +M:	Selva Rajagopal <selvamani.rajagopal@onsemi.com>
+> +L:	linux-hwmon@vger.kernel.org
+> +S:	Supported
+> +W:	https://www.onsemi.com
+> +F:	Documentation/devicetree/bindings/hwmon/pmbus/onnn,fd5121.yaml
+> +F:	drivers/hwmon/pmbus/fd5121.c
+> +
+>   ONSEMI ETHERNET PHY DRIVERS
+>   M:	Piergiorgio Beruto <piergiorgio.beruto@gmail.com>
+>   L:	netdev@vger.kernel.org
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index c8cda160b5f8..3a06ed83539e 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -179,6 +179,15 @@ config SENSORS_E50SN12051
+>   	  This driver can also be built as a module. If so, the module will
+>   	  be called e50sn12051.
+>   
+> +config SENSORS_FD5121
+> +	tristate "FD5121/FD5123/FD5125 controllers from onsemi"
+> +	help
+> +	  If you say yes here, you get support for onsemi
+> +	  controllers FD5121, FD5123, FD5125.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called fd5121.
+> +
+>   config SENSORS_INA233
+>   	tristate "Texas Instruments INA233 and compatibles"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index ffc05f493213..70f4afb41fe0 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -13,6 +13,7 @@ obj-$(CONFIG_SENSORS_APS_379)	+= aps-379.o
+>   obj-$(CONFIG_SENSORS_BEL_PFE)	+= bel-pfe.o
+>   obj-$(CONFIG_SENSORS_BPA_RS600)	+= bpa-rs600.o
+>   obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) += delta-ahe50dc-fan.o
+> +obj-$(CONFIG_SENSORS_FD5121)	+= fd5121.o
+>   obj-$(CONFIG_SENSORS_FSP_3Y)	+= fsp-3y.o
+>   obj-$(CONFIG_SENSORS_HAC300S)	+= hac300s.o
+>   obj-$(CONFIG_SENSORS_IBM_CFFPS)	+= ibm-cffps.o
+> diff --git a/drivers/hwmon/pmbus/fd5121.c b/drivers/hwmon/pmbus/fd5121.c
+> new file mode 100644
+> index 000000000000..e68c6d6cabbd
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/fd5121.c
+> @@ -0,0 +1,1004 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright 2026 Semiconductor Components Industries, LLC ("onsemi").
+> + */
+> +
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/init.h>
+> +#include <linux/err.h>
+> +#include <linux/slab.h>
+> +#include <linux/delay.h>
+> +#include <linux/i2c.h>
+> +#include <linux/hwmon.h>
+> +#include <linux/hwmon-sysfs.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include "pmbus.h"
+> +
+> +enum chips { chip_fd5121, chip_fd5123, chip_fd5125 };
+> +
+> +#define CTLR_ID_UNKNOWN				0
+> +#define CTLR_ID_FD5121				0xFD5121
+> +#define CTLR_ID_FD5123				0xFD5123
+> +#define CTLR_ID_FD5125				0xFD5125
+> +
+> +#define FD5121_NUM_PAGES			2
+> +
+> +/* Custom PMBUS commands */
+> +#define PMBUS_REG_VOUT_MIN			0x2B
+> +#define PMBUS_REG_POWER_MODE			0x34
+> +#define PMBUS_REG_VIN_ON			0x35
+> +#define PMBUS_REG_VIN_OFF			0x36
+> +#define PMBUS_REG_VIN_UV_FAULT_RESPONSE		0x5A
+> +#define PMBUS_REG_IIN_OC_FAULT_RESPONSE		0x5C
+> +#define PMBUS_REG_TON_DELAY			0x60
+> +#define PMBUS_REG_POUT_OP_FAULT_RESPONSE	0x69
+> +#define PMBUS_REG_READ_VAUX			0x85
+> +
+> +#define PMBUS_REG_IKNEE_SET			0x2D
+> +#define PMBUS_REG_PIN_COUNTER			0x2E
+> +#define PMBUS_REG_VMIN_AWARE			0x2F
+> +#define PMBUS_REG_VAUX_UV_FAULT_LIMIT		0x6C
+> +#define PMBUS_REG_VAUX_OV_FAULT_LIMIT		0x6D
+> +#define PMBUS_REG_VAUX_UV_FAULT_RESPONSE	0x6E
+> +#define PMBUS_REG_VAUX_OV_FAULT_RESPONSE	0x6F
+> +#define PMBUS_REG_VAUX_UV_WARNING		0x75
+> +#define PMBUS_REG_VAUX_OV_WARNING		0x76
+> +#define PMBUS_REG_MFR_FREE_USER_CONFIG_TABLES	0xCF
+> +#define PMBUS_REG_MFR_ADDRESS_TABLE		0xD0
+> +#define PMBUS_REG_MFR_STATUS_ONSEMI		0xD1
+> +#define PMBUS_REG_MFR_UNLOCK			0xD2
+> +#define PMBUS_REG_MFR_FAULTY_SPS		0xD3
+> +#define PMBUS_REG_TLVR_FAULTS			0xD4
+> +#define PMBUS_REG_MFR_USER_STORE_CONFIG_TAB	0xD5
+> +#define PMBUS_REG_MFR_USER_CONFIG_INDEX		0xD6
+> +#define PMBUS_REG_MFR_PWM_DISCONNECTION		0xD7
+> +#define PMBUS_REG_MFR_VR_DISCONNECTION		0xD8
+> +#define PMBUS_REG_MFR_TON_SLEW			0xD9
+> +#define PMBUS_REG_MFR_TOFF_SLEW			0xDA
+> +#define PMBUS_REG_MFR_RAIL_NAME			0xDB
+> +#define PMBUS_REG_MFR_VOUT_DROOP		0xDC
+> +#define PMBUS_REG_MFR_USER_RESTORE_CONFIG_TAB	0xDD
+> +#define PMBUS_REG_MFR_SVR_GO			0xDE
+> +#define PMBUS_REG_MFR_SET_PWD			0xDF
+> +#define PMBUS_REG_MFR_CONFIG_ACTIVATE		0xE0
+> +#define PMBUS_REG_MFR_CONFIG_RECOVER		0xE1
+> +#define PMBUS_REG_MFR_OTP_DUMP			0xE2
+> +#define PMBUS_REG_MFR_BBR_EN			0xE3
+> +#define PMBUS_REG_MFR_DPM_MIN			0xE4
+> +#define PMBUS_REG_MFR_VBOOT			0xE5
+> +#define PMBUS_REG_MFR_PRECLAMP_OFFSET		0xE6
+> +#define PMBUS_REG_MFR_TLVR_DIAGN		0xE7
+> +#define PMBUS_REG_MFR_READ_VSYS			0xE8
+> +#define PMBUS_REG_MFR_SPECIFIC_E9		0xE9
+> +#define PMBUS_REG_MFR_SPECIFIC_EA		0xEA
+> +#define PMBUS_REG_MFR_SS_CBC			0xEB
+> +#define PMBUS_REG_MFR_AMD_STATUS		0xEC
+> +#define PMBUS_REG_MFR_CHECKSUM			0xEE
+> +#define PMBUS_REG_CSE_INDEX			0xF0
+> +#define PMBUS_REG_COUT_MEASURE			0xF1
+> +#define PMBUS_REG_VR_COUT			0xF2
+> +#define PMBUS_REG_BBR_RAM			0xF3
+> +#define PMBUS_REG_BBR_OTP			0xF4
+> +#define PMBUS_REG_READ_PSYS			0xF5
+> +#define PMBUS_REG_POSTCLAMP_OFFSET		0xF6
+> +#define PMBUS_REG_PGOOD_DELAY			0xF7
+> +#define PMBUS_REG_MFR_SPECIFIC_F8		0xF8
+> +#define PMBUS_REG_MFR_SPECIFIC_F9		0xF9
+> +#define PMBUS_REG_MFR_PWD_PROGRAM_RAM		0xFA
+> +#define PMBUS_REG_MFR_PWD_PROGRAM_I2C		0xFB
+> +#define PMBUS_REG_MFR_PWD_ENABLE_OTP_STORE	0xFC
+> +
+> +/* List of recognized commands */
+> +static const u8 cc_list[] = {
+> +	PMBUS_PAGE,
+> +	PMBUS_OPERATION,
+> +	PMBUS_ON_OFF_CONFIG,
+> +	PMBUS_CLEAR_FAULTS,
+> +	PMBUS_WRITE_PROTECT,
+> +	PMBUS_CAPABILITY,
+> +	PMBUS_VOUT_MODE,
+> +	PMBUS_VOUT_COMMAND,
+> +	PMBUS_VOUT_MAX,
+> +	PMBUS_VOUT_MARGIN_HIGH,
+> +	PMBUS_VOUT_MARGIN_LOW,
+> +	PMBUS_VOUT_TRANSITION_RATE,
+> +	PMBUS_REG_VOUT_MIN,
+> +	PMBUS_REG_IKNEE_SET,
+> +	PMBUS_REG_PIN_COUNTER,
+> +	PMBUS_REG_VMIN_AWARE,
+> +	PMBUS_REG_POWER_MODE,
+> +	PMBUS_REG_VIN_ON,
+> +	PMBUS_REG_VIN_OFF,
+> +	PMBUS_VOUT_OV_FAULT_LIMIT,
+> +	PMBUS_VOUT_OV_FAULT_RESPONSE,
+> +	PMBUS_VOUT_UV_FAULT_LIMIT,
+> +	PMBUS_VOUT_UV_FAULT_RESPONSE,
+> +	PMBUS_IOUT_OC_FAULT_LIMIT,
+> +	PMBUS_IOUT_OC_FAULT_RESPONSE,
+> +	PMBUS_IOUT_OC_WARN_LIMIT,
+> +	PMBUS_OT_FAULT_LIMIT,
+> +	PMBUS_OT_FAULT_RESPONSE,
+> +	PMBUS_OT_WARN_LIMIT,
+> +	PMBUS_VIN_OV_FAULT_LIMIT,
+> +	PMBUS_VIN_OV_FAULT_RESPONSE,
+> +	PMBUS_VIN_OV_WARN_LIMIT,
+> +	PMBUS_VIN_UV_WARN_LIMIT,
+> +	PMBUS_VIN_UV_FAULT_LIMIT,
+> +	PMBUS_REG_VIN_UV_FAULT_RESPONSE,
+> +	PMBUS_IIN_OC_FAULT_LIMIT,
+> +	PMBUS_REG_IIN_OC_FAULT_RESPONSE,
+> +	PMBUS_IIN_OC_WARN_LIMIT,
+> +	PMBUS_REG_TON_DELAY,
+> +	PMBUS_POUT_OP_FAULT_LIMIT,
+> +	PMBUS_REG_POUT_OP_FAULT_RESPONSE,
+> +	PMBUS_POUT_OP_WARN_LIMIT,
+> +	PMBUS_PIN_OP_WARN_LIMIT,
+> +	PMBUS_REG_VAUX_UV_FAULT_LIMIT,
+> +	PMBUS_REG_VAUX_OV_FAULT_LIMIT,
+> +	PMBUS_REG_VAUX_UV_FAULT_RESPONSE,
+> +	PMBUS_REG_VAUX_OV_FAULT_RESPONSE,
+> +	PMBUS_REG_VAUX_UV_WARNING,
+> +	PMBUS_REG_VAUX_OV_WARNING,
+> +	PMBUS_STATUS_BYTE,
+> +	PMBUS_STATUS_WORD,
+> +	PMBUS_STATUS_VOUT,
+> +	PMBUS_STATUS_IOUT,
+> +	PMBUS_STATUS_INPUT,
+> +	PMBUS_STATUS_TEMPERATURE,
+> +	PMBUS_STATUS_CML,
+> +	PMBUS_STATUS_OTHER,
+> +	PMBUS_STATUS_MFR_SPECIFIC,
+> +	PMBUS_REG_READ_VAUX,
+> +	PMBUS_READ_VIN,
+> +	PMBUS_READ_IIN,
+> +	PMBUS_READ_VOUT,
+> +	PMBUS_READ_IOUT,
+> +	PMBUS_READ_TEMPERATURE_1,
+> +	PMBUS_READ_POUT,
+> +	PMBUS_READ_PIN,
+> +	PMBUS_REVISION,
+> +	PMBUS_MFR_ID,
+> +	PMBUS_MFR_MODEL,
+> +	PMBUS_MFR_REVISION,
+> +	PMBUS_IC_DEVICE_ID,
+> +	PMBUS_REG_MFR_FREE_USER_CONFIG_TABLES,
+> +	PMBUS_REG_MFR_ADDRESS_TABLE,
+> +	PMBUS_REG_MFR_STATUS_ONSEMI,
+> +	PMBUS_REG_MFR_UNLOCK,
+> +	PMBUS_REG_MFR_FAULTY_SPS,
+> +	PMBUS_REG_TLVR_FAULTS,
+> +	PMBUS_REG_MFR_USER_STORE_CONFIG_TAB,
+> +	PMBUS_REG_MFR_USER_CONFIG_INDEX,
+> +	PMBUS_REG_MFR_PWM_DISCONNECTION,
+> +	PMBUS_REG_MFR_VR_DISCONNECTION,
+> +	PMBUS_REG_MFR_TON_SLEW,
+> +	PMBUS_REG_MFR_TOFF_SLEW,
+> +	PMBUS_REG_MFR_RAIL_NAME,
+> +	PMBUS_REG_MFR_VOUT_DROOP,
+> +	PMBUS_REG_MFR_USER_RESTORE_CONFIG_TAB,
+> +	PMBUS_REG_MFR_SVR_GO,
+> +	PMBUS_REG_MFR_SET_PWD,
+> +	PMBUS_REG_MFR_CONFIG_ACTIVATE,
+> +	PMBUS_REG_MFR_CONFIG_RECOVER,
+> +	PMBUS_REG_MFR_OTP_DUMP,
+> +	PMBUS_REG_MFR_BBR_EN,
+> +	PMBUS_REG_MFR_DPM_MIN,
+> +	PMBUS_REG_MFR_VBOOT,
+> +	PMBUS_REG_MFR_PRECLAMP_OFFSET,
+> +	PMBUS_REG_MFR_TLVR_DIAGN,
+> +	PMBUS_REG_MFR_READ_VSYS,
+> +	PMBUS_REG_MFR_SPECIFIC_E9,
+> +	PMBUS_REG_MFR_SPECIFIC_EA,
+> +	PMBUS_REG_MFR_SS_CBC,
+> +	PMBUS_REG_MFR_AMD_STATUS,
+> +	PMBUS_REG_MFR_CHECKSUM,
+> +	PMBUS_REG_CSE_INDEX,
+> +	PMBUS_REG_COUT_MEASURE,
+> +	PMBUS_REG_VR_COUT,
+> +	PMBUS_REG_BBR_RAM,
+> +	PMBUS_REG_BBR_OTP,
+> +	PMBUS_REG_READ_PSYS,
+> +	PMBUS_REG_POSTCLAMP_OFFSET,
+> +	PMBUS_REG_PGOOD_DELAY,
+> +	PMBUS_REG_MFR_SPECIFIC_F8,
+> +	PMBUS_REG_MFR_SPECIFIC_F9,
+> +	PMBUS_REG_MFR_PWD_PROGRAM_RAM,
+> +	PMBUS_REG_MFR_PWD_PROGRAM_I2C,
+> +	PMBUS_REG_MFR_PWD_ENABLE_OTP_STORE,
+> +};
+> +
+> +/* Following registers expect block read */
+> +static const u8 blk_rd_cc[] = {
+> +	PMBUS_SMBALERT_MASK,
+> +	PMBUS_MFR_DATE,
+> +	PMBUS_IC_DEVICE_REV,
+> +};
+> +
+> +struct fd5121_data {
+> +	struct attribute_group *groups[3];
+> +	struct pmbus_driver_info info;
+> +	struct device *dev;
+> +	u32 id;
+> +};
+> +
+> +static s32 fd5121_read_block_data(const struct i2c_client *client,
+> +				  u8 cmd_code, u8 len, u8 *pbuf)
+> +{
+> +	s32 ret = 0;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_READ_BLOCK_DATA)) {
+> +
+> +		/* Payload length is in the first byte. */
+> +		ret = i2c_smbus_read_i2c_block_data(client, cmd_code,
+> +						    len, pbuf);
+> +		if (ret < 0)
+> +			return ret;
+> +		ret = pbuf[0];
+> +		if (ret > len)
+> +			ret = len;
+> +		for (int idx = 0; idx < ret; idx++)
+> +			pbuf[idx] = pbuf[idx + 1];
+> +		return ret;
+> +	}
+> +	ret = i2c_smbus_read_block_data(client, cmd_code, pbuf);
+> +	if (ret < 0)
+> +		return ret;
+> +	return min_t(s32, ret, len);
+> +}
+> +
+> +/* Command code that expects block read, not word read */
+> +static bool fd5121_blk_rd_reg(u8 cmd_code)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(blk_rd_cc); i++) {
+> +		if (cmd_code == blk_rd_cc[i])
+> +			return true;
+> +	}
+> +	return false;
+> +}
+> +
+> +static ssize_t fd5121_send_byte_store(struct device *dev,
+> +				      struct device_attribute *da,
+> +				      const char *buf, size_t count)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 val = 0;
+> +	int ret;
+> +
+> +	ret = kstrtou8(buf, 10, &val);
+> +	if (ret < 0)
+> +		return ret;
+> +	ret = i2c_smbus_write_byte(client, val);
+> +	if (ret < 0)
+> +		return ret;
+> +	return count;
+> +}
+> +
+> +static int fd5121_config_activate(struct i2c_client *client)
+> +{
+> +	return i2c_smbus_write_byte_data(client,
+> +					 PMBUS_REG_MFR_CONFIG_ACTIVATE, 0xAA);
+> +}
+> +
+> +static ssize_t fd5121_byte_store(struct device *dev,
+> +				 struct device_attribute *da,
+> +				 const char *buf, size_t count)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 reg = attr->index;
+> +	int ret = 0;
+> +	u8 val = 0;
+> +
+> +	switch (reg) {
+> +	case PMBUS_REG_MFR_CONFIG_ACTIVATE:
+> +		ret = fd5121_config_activate(client);
+> +		if (ret < 0)
+> +			return ret;
+> +		return count;
+> +	default:
+> +		ret = kstrtou8(buf, 10, &val);
+> +		if (ret < 0)
+> +			return ret;
+> +		break;
+> +	}
+> +	if (reg == PMBUS_PAGE && ((val != 0 && val != 1 &&
+> +	    val != GENMASK(7, 0))))
+> +		return -EINVAL;
+> +	ret = i2c_smbus_write_byte_data(client, reg, val);
+> +	if (ret < 0)
+> +		return ret;
+> +	return count;
+> +}
+> +
+> +static ssize_t fd5121_byte_show(struct device *dev,
+> +				struct device_attribute *da, char *buf)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 reg = attr->index;
+> +	s32 ret;
+> +
+> +	ret = i2c_smbus_read_byte_data(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +	return scnprintf(buf, PAGE_SIZE, "%d\n", ret & 0xFF);
+> +}
+> +
+> +static ssize_t fd5121_word_store(struct device *dev,
+> +				 struct device_attribute *da,
+> +				 const char *buf, size_t count)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 reg = attr->index;
+> +	s16 val = 0;
+> +	int ret = 0;
+> +
+> +	switch (reg) {
+> +	case PMBUS_REG_MFR_PWD_PROGRAM_RAM:
+> +		val = 0xC93F;
+> +		break;
+> +	default:
+> +		ret = kstrtos16(buf, 10, &val);
+> +		if (ret)
+> +			return ret;
+> +		break;
+> +	}
+> +	ret = i2c_smbus_write_word_data(client, reg, val);
+> +	if (ret < 0)
+> +		return ret;
+> +	return count;
+> +}
+> +
+> +static ssize_t fd5121_word_show(struct device *dev,
+> +				struct device_attribute *da, char *buf)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 data[I2C_SMBUS_BLOCK_MAX] = { 0 };
+> +	u8 reg = attr->index;
+> +	s32 ret = 0;
+> +
+> +	if (fd5121_blk_rd_reg(reg)) {
+> +		ret = fd5121_read_block_data(client, reg, 2, data);
+> +		if (ret >= 0)
+> +			ret = get_unaligned_le16(data);
+> +	} else
+> +		ret = i2c_smbus_read_word_data(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +	return scnprintf(buf, PAGE_SIZE, "%d\n", ret & 0xFFFF);
+> +}
+> +
+> +static s32 fd5121_write_block_data(const struct i2c_client *client,
+> +				   u8 cmd_code, u8 len, u8 *pbuf)
+> +{
+> +	s32 ret = 0;
+> +
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_WRITE_BLOCK_DATA))
+> +		ret = i2c_smbus_write_i2c_block_data(client, cmd_code,
+> +						     len, pbuf);
+> +	else
+> +		ret = i2c_smbus_write_block_data(client, cmd_code,
+> +						 len, pbuf);
+> +	return ret;
+> +}
+> +
+> +static s32 fd5121_read_long(struct i2c_client *client, u8 cmd_code, u32 *pval)
+> +{
+> +	u8 buffer[I2C_SMBUS_BLOCK_MAX] = { 0 };
+> +	s32 ret;
+> +
+> +	ret = fd5121_read_block_data(client, cmd_code, 4, buffer);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret < 4)
+> +		return -EIO;
+> +
+> +	*pval = get_unaligned_le32(buffer);
+> +	return 0;
+> +}
+> +
+> +static ssize_t fd5121_long_store(struct device *dev,
+> +				 struct device_attribute *da,
+> +				 const char *buf, size_t count)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 reg = attr->index;
+> +	u8 buffer[4];
+> +	u32 val = 0;
+> +	int ret = 0;
+> +	u8 len;
+> +
+> +	ret = kstrtou32(buf, 10, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	len = (u8) sizeof(buffer);
+> +	for (u8 i = 0; i < len; i++) {
+> +		buffer[i] = val & 0xFF;
+> +		val >>= 8;
+> +	}
+> +	ret = fd5121_write_block_data(client, reg, len, buffer);
+> +	if (ret < 0)
+> +		return ret;
+> +	return count;
+> +}
+> +
+> +static ssize_t fd5121_long_show(struct device *dev,
+> +				struct device_attribute *da, char *buf)
+> +{
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	u8 reg = attr->index;
+> +	u32 val = 0;
+> +	s32 ret = 0;
+> +
+> +	ret = fd5121_read_long(client, reg, &val);
+> +	if (ret < 0)
+> +		return ret;
+> +	return scnprintf(buf, PAGE_SIZE, "%d\n", val);
+> +}
+> +
+> +static ssize_t fd5121_block_show(struct device *dev,
+> +				 struct device_attribute *da, char *buf)
+> +{
+> +	struct i2c_client *client = to_i2c_client(dev->parent);
+> +	struct sensor_device_attribute *attr = to_sensor_dev_attr(da);
+> +	u8 buffer[I2C_SMBUS_BLOCK_MAX] = { 0 };
+> +	u8 reg = attr->index;
+> +	int printed = 0;
+> +	s32 ret = 0;
+> +	u8 len = 0;
+> +	int i = 0;
+> +
+> +	if (reg == PMBUS_REG_MFR_FAULTY_SPS) {
+> +		int to_print = 0;
+> +
+> +		len = 7;
+> +		ret = fd5121_read_block_data(client, reg, len, buffer);
+> +		if (ret < 0)
+> +			return ret;
+> +		printed = 0;
+> +		to_print = (ret < len) ? ret : len;
+> +		for (i = 0; i < to_print; i++)
+> +			printed += scnprintf(buf + printed,
+> +					     PAGE_SIZE - printed,
+> +					     "%02x", buffer[i]);
+> +		printed += scnprintf(buf + printed,
+> +				     PAGE_SIZE - printed, "\n");
+> +		return printed;
+> +	} else if (reg == PMBUS_REG_BBR_RAM ||
+> +		   reg == PMBUS_REG_BBR_OTP) {
+> +		u32 len = (reg == PMBUS_REG_BBR_OTP) ? 165 : 164;
+> +
+> +		/* Extra byte may be needed in case we need to store
+> +		 * the length of the data
+> +		 */
+> +		u8 *tmp_in = kcalloc(len+1, sizeof(u8), GFP_KERNEL);
+> +
+> +		if (tmp_in == NULL)
+> +			return -ENOMEM;
+> +		ret = fd5121_read_block_data(client, reg, len, tmp_in);
+> +		if (ret < 0) {
+> +			kfree(tmp_in);
+> +			return ret;
+> +		}
+> +
+> +		printed = 0;
+> +		for (i = 0; i < ret; i++)
+> +			printed += scnprintf(buf + printed,
+> +					     PAGE_SIZE - printed, "%02x",
+> +					     tmp_in[i]);
+> +		printed += scnprintf(buf + printed,
+> +				     PAGE_SIZE - printed, "\n");
+> +
+> +		kfree(tmp_in);
+> +		return printed;
+> +	} else
+> +		return -ENODATA;
+> +}
+> +
+> +static SENSOR_DEVICE_ATTR_RW(page, fd5121_byte,
+> +			     PMBUS_PAGE);
+> +static SENSOR_DEVICE_ATTR_RO(vout_raw, fd5121_word,
+> +			     PMBUS_READ_VOUT);
+> +static SENSOR_DEVICE_ATTR_RW(operation, fd5121_byte,
+> +			     PMBUS_OPERATION);
+> +static SENSOR_DEVICE_ATTR_RW(on_off_config, fd5121_byte,
+> +			     PMBUS_ON_OFF_CONFIG);
+> +static SENSOR_DEVICE_ATTR_WO(clear_faults, fd5121_byte,
+> +			     PMBUS_CLEAR_FAULTS);
+> +static SENSOR_DEVICE_ATTR_RW(write_protect, fd5121_byte,
+> +			     PMBUS_WRITE_PROTECT);
+> +static SENSOR_DEVICE_ATTR_RO(capability, fd5121_byte,
+> +			     PMBUS_CAPABILITY);
+> +static SENSOR_DEVICE_ATTR_RW(smbalert_mask, fd5121_word,
+> +			     PMBUS_SMBALERT_MASK);
+> +static SENSOR_DEVICE_ATTR_RO(vout_mode, fd5121_byte,
+> +			     PMBUS_VOUT_MODE);
+> +static SENSOR_DEVICE_ATTR_RW(vout_command, fd5121_word,
+> +			     PMBUS_VOUT_COMMAND);
+> +static SENSOR_DEVICE_ATTR_RW(vout_max, fd5121_word,
+> +			     PMBUS_VOUT_MAX);
+> +static SENSOR_DEVICE_ATTR_RW(vout_margin_high, fd5121_word,
+> +			     PMBUS_VOUT_MARGIN_HIGH);
+> +static SENSOR_DEVICE_ATTR_RW(vout_margin_low, fd5121_word,
+> +			     PMBUS_VOUT_MARGIN_LOW);
+> +static SENSOR_DEVICE_ATTR_RW(vout_transition_rate, fd5121_word,
+> +			     PMBUS_VOUT_TRANSITION_RATE);
+> +static SENSOR_DEVICE_ATTR_RW(vout_min, fd5121_word,
+> +			     PMBUS_REG_VOUT_MIN);
+> +static SENSOR_DEVICE_ATTR_RW(power_mode, fd5121_byte,
+> +			     PMBUS_REG_POWER_MODE);
+> +static SENSOR_DEVICE_ATTR_RW(vin_on, fd5121_word,
+> +			     PMBUS_REG_VIN_ON);
+> +static SENSOR_DEVICE_ATTR_RW(vin_off, fd5121_word,
+> +			     PMBUS_REG_VIN_OFF);
+> +static SENSOR_DEVICE_ATTR_RW(vin_uv_fault_response, fd5121_byte,
+> +			     PMBUS_REG_VIN_UV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(iin_oc_fault_response, fd5121_byte,
+> +			     PMBUS_REG_IIN_OC_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(ton_delay, fd5121_word,
+> +			     PMBUS_REG_TON_DELAY);
+> +static SENSOR_DEVICE_ATTR_RW(pout_op_fault_response, fd5121_byte,
+> +			     PMBUS_REG_POUT_OP_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RO(read_vaux, fd5121_word,
+> +			     PMBUS_REG_READ_VAUX);
+> +static SENSOR_DEVICE_ATTR_RW(iknee_set, fd5121_word,
+> +			     PMBUS_REG_IKNEE_SET);
+> +static SENSOR_DEVICE_ATTR_RW(pin_counter, fd5121_byte,
+> +			     PMBUS_REG_PIN_COUNTER);
+> +static SENSOR_DEVICE_ATTR_RW(vmin_aware, fd5121_word,
+> +			     PMBUS_REG_VMIN_AWARE);
+> +static SENSOR_DEVICE_ATTR_RW(vout_ov_fault_response, fd5121_byte,
+> +			     PMBUS_VOUT_OV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(vout_uv_fault_response, fd5121_byte,
+> +			     PMBUS_VOUT_UV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(iout_oc_fault_response, fd5121_byte,
+> +			     PMBUS_IOUT_OC_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(ot_fault_response, fd5121_byte,
+> +			     PMBUS_OT_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(vin_ov_fault_response, fd5121_byte,
+> +			     PMBUS_VIN_OV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_uv_fault_limit, fd5121_word,
+> +			     PMBUS_REG_VAUX_UV_FAULT_LIMIT);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_ov_fault_limit, fd5121_word,
+> +			     PMBUS_REG_VAUX_OV_FAULT_LIMIT);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_uv_fault_response, fd5121_byte,
+> +			     PMBUS_REG_VAUX_UV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_ov_fault_response, fd5121_byte,
+> +			     PMBUS_REG_VAUX_OV_FAULT_RESPONSE);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_uv_warning, fd5121_word,
+> +			     PMBUS_REG_VAUX_UV_WARNING);
+> +static SENSOR_DEVICE_ATTR_RW(vaux_ov_warning, fd5121_word,
+> +			     PMBUS_REG_VAUX_OV_WARNING);
+> +static SENSOR_DEVICE_ATTR_RO(free_user_config_tables, fd5121_byte,
+> +			     PMBUS_REG_MFR_FREE_USER_CONFIG_TABLES);
+> +static SENSOR_DEVICE_ATTR_RW(address_table, fd5121_byte,
+> +			     PMBUS_REG_MFR_ADDRESS_TABLE);
+> +static SENSOR_DEVICE_ATTR_RW(status_onsemi, fd5121_word,
+> +			     PMBUS_REG_MFR_STATUS_ONSEMI);
+> +static SENSOR_DEVICE_ATTR_RO(status_byte, fd5121_byte,
+> +			     PMBUS_STATUS_BYTE);
+> +static SENSOR_DEVICE_ATTR_RO(status_cml, fd5121_byte,
+> +			     PMBUS_STATUS_CML);
+> +static SENSOR_DEVICE_ATTR_RO(status_other, fd5121_byte,
+> +			     PMBUS_STATUS_OTHER);
+> +static SENSOR_DEVICE_ATTR_RO(status_mfr_specific, fd5121_byte,
+> +			     PMBUS_STATUS_MFR_SPECIFIC);
+> +static SENSOR_DEVICE_ATTR_RO(revision, fd5121_byte,
+> +			     PMBUS_REVISION);
+> +static SENSOR_DEVICE_ATTR_RO(id, fd5121_long,
+> +			     PMBUS_MFR_ID);
+> +static SENSOR_DEVICE_ATTR_RO(model, fd5121_long,
+> +			     PMBUS_MFR_MODEL);
+> +static SENSOR_DEVICE_ATTR_RO(mfr_revision, fd5121_long,
+> +			     PMBUS_MFR_REVISION);
+> +static SENSOR_DEVICE_ATTR_RW(date, fd5121_word,
+> +			     PMBUS_MFR_DATE);
+> +static SENSOR_DEVICE_ATTR_RO(ic_device_id, fd5121_long,
+> +			     PMBUS_IC_DEVICE_ID);
+> +static SENSOR_DEVICE_ATTR_RO(ic_device_rev, fd5121_word,
+> +			     PMBUS_IC_DEVICE_REV);
+> +static SENSOR_DEVICE_ATTR_WO(unlock, fd5121_byte,
+> +			     PMBUS_REG_MFR_UNLOCK);
+> +static SENSOR_DEVICE_ATTR_RO(faulty_sps, fd5121_block,
+> +			     PMBUS_REG_MFR_FAULTY_SPS);
+> +static SENSOR_DEVICE_ATTR_RO(tlvr_faults, fd5121_word,
+> +			     PMBUS_REG_TLVR_FAULTS);
+> +static SENSOR_DEVICE_ATTR_RW(user_store_config_tab, fd5121_byte,
+> +			     PMBUS_REG_MFR_USER_STORE_CONFIG_TAB);
+> +static SENSOR_DEVICE_ATTR_RO(user_config_index, fd5121_byte,
+> +			     PMBUS_REG_MFR_USER_CONFIG_INDEX);
+> +static SENSOR_DEVICE_ATTR_RO(pwm_disconnection, fd5121_word,
+> +			     PMBUS_REG_MFR_PWM_DISCONNECTION);
+> +static SENSOR_DEVICE_ATTR_RO(vr_disconnection, fd5121_byte,
+> +			     PMBUS_REG_MFR_VR_DISCONNECTION);
+> +static SENSOR_DEVICE_ATTR_RW(ton_slew, fd5121_byte,
+> +			     PMBUS_REG_MFR_TON_SLEW);
+> +static SENSOR_DEVICE_ATTR_RW(toff_slew, fd5121_byte,
+> +			     PMBUS_REG_MFR_TOFF_SLEW);
+> +static SENSOR_DEVICE_ATTR_RW(rail_name, fd5121_word,
+> +			     PMBUS_REG_MFR_RAIL_NAME);
+> +static SENSOR_DEVICE_ATTR_RW(vout_droop, fd5121_byte,
+> +			     PMBUS_REG_MFR_VOUT_DROOP);
+> +static SENSOR_DEVICE_ATTR_WO(svr_go, fd5121_send_byte,
+> +			     PMBUS_REG_MFR_SVR_GO);
+> +static SENSOR_DEVICE_ATTR_RW(user_restore_config_tab, fd5121_byte,
+> +			     PMBUS_REG_MFR_USER_RESTORE_CONFIG_TAB);
+> +static SENSOR_DEVICE_ATTR_WO(set_pwd, fd5121_byte,
+> +			     PMBUS_REG_MFR_SET_PWD);
+> +static SENSOR_DEVICE_ATTR_RW(config_activate, fd5121_byte,
+> +			     PMBUS_REG_MFR_CONFIG_ACTIVATE);
+> +static SENSOR_DEVICE_ATTR_RW(config_recover, fd5121_byte,
+> +			     PMBUS_REG_MFR_CONFIG_RECOVER);
+> +static SENSOR_DEVICE_ATTR_RW(otp_dump, fd5121_byte,
+> +			     PMBUS_REG_MFR_OTP_DUMP);
+> +static SENSOR_DEVICE_ATTR_RW(bbr_en, fd5121_byte,
+> +			     PMBUS_REG_MFR_BBR_EN);
+> +static SENSOR_DEVICE_ATTR_RW(dpm_min, fd5121_byte,
+> +			     PMBUS_REG_MFR_DPM_MIN);
+> +static SENSOR_DEVICE_ATTR_RW(vboot, fd5121_word,
+> +			     PMBUS_REG_MFR_VBOOT);
+> +static SENSOR_DEVICE_ATTR_RW(preclamp_offset, fd5121_word,
+> +			     PMBUS_REG_MFR_PRECLAMP_OFFSET);
+> +static SENSOR_DEVICE_ATTR_RW(tlvr_diagn, fd5121_word,
+> +			     PMBUS_REG_MFR_TLVR_DIAGN);
+> +static SENSOR_DEVICE_ATTR_RO(vsys, fd5121_word,
+> +			     PMBUS_REG_MFR_READ_VSYS);
+> +static SENSOR_DEVICE_ATTR_RW(specific_e9, fd5121_word,
+> +			     PMBUS_REG_MFR_SPECIFIC_E9);
+> +static SENSOR_DEVICE_ATTR_RW(specific_ea, fd5121_long,
+> +			     PMBUS_REG_MFR_SPECIFIC_EA);
+> +static SENSOR_DEVICE_ATTR_RO(ss_cbc, fd5121_word,
+> +			     PMBUS_REG_MFR_SS_CBC);
+> +static SENSOR_DEVICE_ATTR_RO(amd_status, fd5121_byte,
+> +			     PMBUS_REG_MFR_AMD_STATUS);
+> +static SENSOR_DEVICE_ATTR_RO(checksum, fd5121_word,
+> +			     PMBUS_REG_MFR_CHECKSUM);
+> +static SENSOR_DEVICE_ATTR_RO(cse_index, fd5121_word,
+> +			     PMBUS_REG_CSE_INDEX);
+> +static SENSOR_DEVICE_ATTR_RW(cout_measure, fd5121_word,
+> +			     PMBUS_REG_COUT_MEASURE);
+> +static SENSOR_DEVICE_ATTR_RO(vr_cout, fd5121_word,
+> +			     PMBUS_REG_VR_COUT);
+> +static SENSOR_DEVICE_ATTR_RO(bbr_ram, fd5121_block,
+> +			     PMBUS_REG_BBR_RAM);
+> +static SENSOR_DEVICE_ATTR_RO(bbr_otp, fd5121_block,
+> +			     PMBUS_REG_BBR_OTP);
+> +static SENSOR_DEVICE_ATTR_RO(psys, fd5121_word,
+> +			     PMBUS_REG_READ_PSYS);
+> +static SENSOR_DEVICE_ATTR_RW(postclamp_offset, fd5121_word,
+> +			     PMBUS_REG_POSTCLAMP_OFFSET);
+> +static SENSOR_DEVICE_ATTR_RW(pgood_delay, fd5121_byte,
+> +			     PMBUS_REG_PGOOD_DELAY);
+> +static SENSOR_DEVICE_ATTR_RW(specific_f8, fd5121_word,
+> +			     PMBUS_REG_MFR_SPECIFIC_F8);
+> +static SENSOR_DEVICE_ATTR_RW(specific_f9, fd5121_long,
+> +			     PMBUS_REG_MFR_SPECIFIC_F9);
+> +static SENSOR_DEVICE_ATTR_RW(pwd_program_ram, fd5121_word,
+> +			     PMBUS_REG_MFR_PWD_PROGRAM_RAM);
+> +static SENSOR_DEVICE_ATTR_RW(pwd_program_i2c, fd5121_word,
+> +			     PMBUS_REG_MFR_PWD_PROGRAM_I2C);
+> +static SENSOR_DEVICE_ATTR_RW(pwd_enable_otp_store, fd5121_word,
+> +			     PMBUS_REG_MFR_PWD_ENABLE_OTP_STORE);
+> +
+> +static struct attribute *fd5121_non_paged_attrs[] = {
+> +	&sensor_dev_attr_page.dev_attr.attr,
+> +	&sensor_dev_attr_capability.dev_attr.attr,
+> +	&sensor_dev_attr_pin_counter.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_uv_fault_limit.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_ov_fault_limit.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_uv_warning.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_ov_warning.dev_attr.attr,
+> +	&sensor_dev_attr_free_user_config_tables.dev_attr.attr,
+> +	&sensor_dev_attr_address_table.dev_attr.attr,
+> +	&sensor_dev_attr_unlock.dev_attr.attr,
+> +	&sensor_dev_attr_faulty_sps.dev_attr.attr,
+> +	&sensor_dev_attr_tlvr_faults.dev_attr.attr,
+> +	&sensor_dev_attr_user_store_config_tab.dev_attr.attr,
+> +	&sensor_dev_attr_user_config_index.dev_attr.attr,
+> +	&sensor_dev_attr_pwm_disconnection.dev_attr.attr,
+> +	&sensor_dev_attr_vr_disconnection.dev_attr.attr,
+> +	&sensor_dev_attr_user_restore_config_tab.dev_attr.attr,
+> +	&sensor_dev_attr_svr_go.dev_attr.attr,
+> +	&sensor_dev_attr_set_pwd.dev_attr.attr,
+> +	&sensor_dev_attr_config_activate.dev_attr.attr,
+> +	&sensor_dev_attr_config_recover.dev_attr.attr,
+> +	&sensor_dev_attr_otp_dump.dev_attr.attr,
+> +	&sensor_dev_attr_bbr_en.dev_attr.attr,
+> +	&sensor_dev_attr_vboot.dev_attr.attr,
+> +	&sensor_dev_attr_vsys.dev_attr.attr,
+> +	&sensor_dev_attr_specific_e9.dev_attr.attr,
+> +	&sensor_dev_attr_specific_ea.dev_attr.attr,
+> +	&sensor_dev_attr_ss_cbc.dev_attr.attr,
+> +	&sensor_dev_attr_checksum.dev_attr.attr,
+> +	&sensor_dev_attr_cse_index.dev_attr.attr,
+> +	&sensor_dev_attr_cout_measure.dev_attr.attr,
+> +	&sensor_dev_attr_vr_cout.dev_attr.attr,
+> +	&sensor_dev_attr_bbr_ram.dev_attr.attr,
+> +	&sensor_dev_attr_bbr_otp.dev_attr.attr,
+> +	&sensor_dev_attr_psys.dev_attr.attr,
+> +	&sensor_dev_attr_specific_f8.dev_attr.attr,
+> +	&sensor_dev_attr_specific_f9.dev_attr.attr,
+> +	&sensor_dev_attr_pwd_program_ram.dev_attr.attr,
+> +	&sensor_dev_attr_pwd_program_i2c.dev_attr.attr,
+> +	&sensor_dev_attr_pwd_enable_otp_store.dev_attr.attr,
+> +	&sensor_dev_attr_revision.dev_attr.attr,
+> +	&sensor_dev_attr_id.dev_attr.attr,
+> +	&sensor_dev_attr_model.dev_attr.attr,
+> +	&sensor_dev_attr_mfr_revision.dev_attr.attr,
+> +	&sensor_dev_attr_date.dev_attr.attr,
+> +	&sensor_dev_attr_ic_device_id.dev_attr.attr,
+> +	&sensor_dev_attr_ic_device_rev.dev_attr.attr,
+> +	NULL
+> +};
+> +
+> +static struct attribute *fd5121_paged_attrs[] = {
+> +	&sensor_dev_attr_operation.dev_attr.attr,
+> +	&sensor_dev_attr_vout_raw.dev_attr.attr,
+> +	&sensor_dev_attr_on_off_config.dev_attr.attr,
+> +	&sensor_dev_attr_clear_faults.dev_attr.attr,
+> +	&sensor_dev_attr_write_protect.dev_attr.attr,
+> +	&sensor_dev_attr_smbalert_mask.dev_attr.attr,
+> +	&sensor_dev_attr_vout_mode.dev_attr.attr,
+> +	&sensor_dev_attr_vout_command.dev_attr.attr,
+> +	&sensor_dev_attr_vout_margin_high.dev_attr.attr,
+> +	&sensor_dev_attr_vout_margin_low.dev_attr.attr,
+> +	&sensor_dev_attr_vout_min.dev_attr.attr,
+> +	&sensor_dev_attr_vin_on.dev_attr.attr,
+> +	&sensor_dev_attr_vin_off.dev_attr.attr,
+> +	&sensor_dev_attr_vout_ov_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_vout_uv_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_iout_oc_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_ot_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_vin_ov_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_status_byte.dev_attr.attr,
+> +	&sensor_dev_attr_iknee_set.dev_attr.attr,
+> +	&sensor_dev_attr_vmin_aware.dev_attr.attr,
+> +	&sensor_dev_attr_power_mode.dev_attr.attr,
+> +	&sensor_dev_attr_vin_uv_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_iin_oc_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_ton_delay.dev_attr.attr,
+> +	&sensor_dev_attr_pout_op_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_uv_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_vaux_ov_fault_response.dev_attr.attr,
+> +	&sensor_dev_attr_status_onsemi.dev_attr.attr,
+> +	&sensor_dev_attr_status_cml.dev_attr.attr,
+> +	&sensor_dev_attr_status_other.dev_attr.attr,
+> +	&sensor_dev_attr_status_mfr_specific.dev_attr.attr,
+> +	&sensor_dev_attr_read_vaux.dev_attr.attr,
+> +	&sensor_dev_attr_ton_slew.dev_attr.attr,
+> +	&sensor_dev_attr_toff_slew.dev_attr.attr,
+> +	&sensor_dev_attr_rail_name.dev_attr.attr,
+> +	&sensor_dev_attr_vout_droop.dev_attr.attr,
+> +	&sensor_dev_attr_dpm_min.dev_attr.attr,
+> +	&sensor_dev_attr_preclamp_offset.dev_attr.attr,
+> +	&sensor_dev_attr_tlvr_diagn.dev_attr.attr,
+> +	&sensor_dev_attr_amd_status.dev_attr.attr,
+> +	&sensor_dev_attr_postclamp_offset.dev_attr.attr,
+> +	&sensor_dev_attr_pgood_delay.dev_attr.attr,
+> +	&sensor_dev_attr_vout_max.dev_attr.attr,
+> +	&sensor_dev_attr_vout_transition_rate.dev_attr.attr,
+> +	NULL
+
+This is a complete no-go. We do not explose raw register data as sysfs
+attributes. You may expose essential register data as debugfs files,
+but only those deemed necessary. The above is just "let's blindly
+expose everything". Most of the above should be programmed in manufacturing
+and not be touched subsequently, much less as writeable attributes.
+Writing bad/unexpected values into many of those attributes can turn
+a board into a brick. It is bad enough that/if this is even possible,
+but exposing it as sysfs attribute would be a terrible idea.
+
+I am not going to review this driver any further at this point.
+
+Guenter
+
+> +};
+> +
+> +static struct attribute_group fd5121_groups[2] = {
+> +	{ .name = "global", .attrs = fd5121_non_paged_attrs },
+> +	{ .name = "paged", .attrs = fd5121_paged_attrs }
+> +};
+> +
+> +/* Regulator descriptors for VOUT rails (VID encoded) */
+> +static struct regulator_desc fd5121_reg_desc[] = {
+> +	PMBUS_REGULATOR_STEP_ONE("vout1", 3001, 1000, 200000),
+> +	PMBUS_REGULATOR_STEP_ONE("vout2", 3001, 1000, 200000),
+> +};
+> +
+> +static int fd5121_valid_reg(struct i2c_client *client, int reg)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(cc_list); i++) {
+> +		if (reg == cc_list[i])
+> +			return 0;
+> +	}
+> +
+> +	if (fd5121_blk_rd_reg(reg))
+> +		return 0;
+> +	return -ENXIO;
+> +}
+> +
+> +static int fd5121_read_word_data(struct i2c_client *client, int page,
+> +				 int phase, int reg)
+> +{
+> +	int ret;
+> +
+> +	ret = fd5121_valid_reg(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = pmbus_read_word_data(client, page, phase, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* Chip reports VOUT_MODE as vid. But gives raw value 1mV per bit.
+> +	 * So, encode the READ_VOUT value so that it gets decoded and
+> +	 * reported correctly.
+> +	 */
+> +	if (reg == PMBUS_READ_VOUT)
+> +		ret = DIV_ROUND_CLOSEST(155000 - ret * 100, 625);
+> +	return ret;
+> +}
+> +
+> +static int fd5121_read_byte_data(struct i2c_client *client, int page, int reg)
+> +{
+> +	int ret;
+> +
+> +	ret = fd5121_valid_reg(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return pmbus_read_byte_data(client, page, reg);
+> +}
+> +
+> +static int fd5121_write_byte_data(struct i2c_client *client, int page,
+> +				  int reg, u8 value)
+> +{
+> +	int ret;
+> +
+> +	ret = fd5121_valid_reg(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +	return pmbus_write_byte_data(client, page, reg, value);
+> +}
+> +
+> +static int fd5121_write_byte(struct i2c_client *client, int page, u8 byte)
+> +{
+> +	return pmbus_write_byte(client, page, byte);
+> +}
+> +
+> +static int fd5121_write_word_data(struct i2c_client *client, int page,
+> +				    int reg, u16 word)
+> +{
+> +	int ret;
+> +
+> +	ret = fd5121_valid_reg(client, reg);
+> +	if (ret < 0)
+> +		return ret;
+> +	ret = pmbus_write_word_data(client, page, reg, word);
+> +	return ret;
+> +}
+> +
+> +static u32 fd5121_get_dev_id(struct i2c_client *client)
+> +{
+> +	u32 dev_id = 0;
+> +	s32 ret = 0;
+> +
+> +	ret = fd5121_read_long(client, PMBUS_IC_DEVICE_ID, &dev_id);
+> +	if (ret < 0)
+> +		return CTLR_ID_UNKNOWN;
+> +
+> +	switch (dev_id) {
+> +	case CTLR_ID_FD5121:
+> +	case CTLR_ID_FD5123:
+> +	case CTLR_ID_FD5125:
+> +		break;
+> +	default:
+> +		if (dev_id != 0)
+> +			dev_err(&client->dev, "Unknown device 0x%x",
+> +				dev_id);
+> +		return CTLR_ID_UNKNOWN;
+> +	}
+> +	return dev_id;
+> +}
+> +
+> +static int fd5121_probe(struct i2c_client *client)
+> +{
+> +	struct pmbus_driver_info *info;
+> +	struct fd5121_data *pdata;
+> +	u32 id;
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return -EOPNOTSUPP;
+> +
+> +	pdata = devm_kzalloc(&client->dev, sizeof(struct fd5121_data),
+> +			     GFP_KERNEL);
+> +	if (pdata == NULL)
+> +		return -ENOMEM;
+> +
+> +	pdata->dev = &client->dev;
+> +	pdata->groups[0] = &fd5121_groups[0];
+> +	pdata->groups[1] = &fd5121_groups[1];
+> +
+> +	id = fd5121_get_dev_id(client);
+> +	if (id == CTLR_ID_UNKNOWN)
+> +		return -ENODEV;
+> +
+> +	pdata->id = id;
+> +
+> +	switch (id) {
+> +	case CTLR_ID_FD5121:
+> +	case CTLR_ID_FD5123:
+> +	case CTLR_ID_FD5125:
+> +		break;
+> +	default:
+> +		dev_err(&client->dev, "Failed to read device ID");
+> +		return -ENODEV;
+> +	}
+> +
+> +	info = &pdata->info;
+> +	info->groups = (const struct attribute_group **)&pdata->groups[0];
+> +	info->write_word_data = fd5121_write_word_data;
+> +	info->write_byte = fd5121_write_byte;
+> +	info->write_byte_data = fd5121_write_byte_data;
+> +	info->read_word_data = fd5121_read_word_data;
+> +	info->read_byte_data = fd5121_read_byte_data;
+> +
+> +	info->pages = FD5121_NUM_PAGES;
+> +	info->format[PSC_VOLTAGE_IN] = linear;
+> +	info->format[PSC_VOLTAGE_OUT] = vid;
+> +
+> +	fd5121_reg_desc[0].id = 0;
+> +	fd5121_reg_desc[1].id = 1;
+> +
+> +	/* Device implements VID coding with 1 mV steps from 0.200 V
+> +	 * up to 3.200 V
+> +	 */
+> +	info->num_regulators = FD5121_NUM_PAGES;
+> +	info->reg_desc = fd5121_reg_desc;
+> +	info->format[PSC_CURRENT_IN] = linear;
+> +	info->format[PSC_CURRENT_OUT] = linear;
+> +	info->format[PSC_POWER] = linear;
+> +	info->format[PSC_TEMPERATURE] = linear;
+> +	for (u8 idx = 0; idx < info->pages; idx++) {
+> +		info->func[idx] = PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT;
+> +		info->func[idx] |= PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT;
+> +		info->func[idx] |= PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP;
+> +		info->func[idx] |= PMBUS_HAVE_PIN | PMBUS_HAVE_POUT;
+> +		info->func[idx] |= PMBUS_HAVE_VIN | PMBUS_HAVE_IIN;
+> +		info->func[idx] |= PMBUS_HAVE_STATUS_INPUT;
+> +		info->vrm_version[idx] = amd625mv;
+> +	}
+> +	return pmbus_do_probe(client, info);
+> +}
+> +
+> +#ifdef CONFIG_OF
+> +static const struct of_device_id fd5121_of_match[] = {
+> +	{ .compatible = "onnn,fd5121" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, fd5121_of_match);
+> +#endif
+> +
+> +static const struct i2c_device_id fd5121_id[] = {
+> +	{ "fd5121", chip_fd5121 },
+> +	{ "fd5123", chip_fd5123 },
+> +	{ "fd5125", chip_fd5125 },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, fd5121_id);
+> +
+> +static struct i2c_driver fd5121_driver = {
+> +	.driver = {
+> +		.name = "fd5121",
+> +		.of_match_table = of_match_ptr(fd5121_of_match),
+> +	},
+> +	.probe = fd5121_probe,
+> +	.id_table = fd5121_id,
+> +};
+> +
+> +module_i2c_driver(fd5121_driver);
+> +
+> +MODULE_AUTHOR("Selva Rajagopal <selvamani.rajagopal@onsemi.com>");
+> +MODULE_DESCRIPTION("PMBus driver for FD5121");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+> +
 > 
 
-Hardware is capable and the driver does not have implementation.
-This would be the register referred to as CS35L36_CLASSH_FET_DRV_CFG.
-
-Thanks,
-David
