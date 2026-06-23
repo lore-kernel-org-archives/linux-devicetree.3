@@ -1,115 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9EC2D7380
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF672D5937
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:05:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782219943; cv=none; b=NMrsJFwaKIUf4RY650P1iJTf6fl1Y1+HzBQvi2V3Pe+QWcY5YEt8K+ZStHD52Fn5bmjF3174ANPOJfkwGF3L9DBmtm4twq2rbvOGWiyjFhh/9ndkWzGiVtfCoCEb6v9rBr8TnwT6/IqMfMxGy6t/5E+uTx35rftSjG9kvUH+Xjw=
+	t=1782219944; cv=none; b=Yyw8lmnDtISyzSaAofc/dnmQAzbLbzvzSWwWQYm3d6CidVFrCd7/N8QBqmayLIyV+N0EQHFFQPPVShWqJLCRmmPzvr0hJEiAe5Dpk+7RcKgGR7R1oZzoWtmzoWfYExopjKFFHiHJSwK2jZsyu3E8fvGAeqHgZqpLZrp6Qn4mem8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782219943; c=relaxed/simple;
-	bh=0fu0mJIifLNhiHu+YZQhT5uwip0KfuxEr4p7POR/ixI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QkanwciOzMA8mXDDCgAMjcEaBOqrVmeP0CzPdzKOzZejSPaGs3kaxOkCctyuyIiPo+n3/6QHeDq2L4ulPnPp85HgL2T7wuo7djKZ/gRvxqsWnTfiuX86a5PDg4gOBS5fH0m73I9Xhu+d9SBB7EjBnNtDfNyS+3K70m31vHGDfRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0VkgAnr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782219944; c=relaxed/simple;
+	bh=JS16SEqqttqvs49aVT3GJzP7J+BJYU63BPbXGc61HCY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=pAVwobqpCb+/Keq7F4ifWsUEsqeB8K2KNgp/RLxuduLyHhMkEQi6fGDlamHclT+xsU4GQP0BgspDLtyjhvfCsJ7R899I6O3G8X0MTTip85CK8aIPIfVb8QHhO2SrXCkQozTude0ML4MHTwIOo5d3kki3cvOAIX5xZ06JuU6K/Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=lfKcgXYP; arc=none smtp.client-ip=95.215.58.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0VkgAnr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571971F00A3A;
-	Tue, 23 Jun 2026 13:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782219939;
-	bh=ze28JD50alvxXZwc/HNL/lGT2C57B5B8UKznsdMKOfg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H0VkgAnrgGvFY38EjpZWeMsQbxY8Lvysw0K3uwPCXeGXKVwhEBWMs3rqjold6blTa
-	 p/GwtNj/Kz9421g4yka/qHXABWdb/SKYw9H0k9nrgtvFCKqHAsjABruMQHbqnlJvA9
-	 MlDMKS2X10VH4SsCl5pT7fOQksJ1Fngd0FE8BIed5qUkxph9vKwwgEYLMOmBRZaE0J
-	 kEKbdne+bfT3DHsTD5W/8NKmPsRIhBGNKS3cqVtXKbtH+sUeOmAbHnPED+DgQo1Il/
-	 Me2Lnt17c3OKWVS1KzdQf4gnuF43FkXv7VValVDEBAVo9WFanm6eac80OeAv+OPkyL
-	 4IAhra/uQd6mg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/12] dt-bindings: iio: dac: ad5696: rework on power
- supplies
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rodrigo Alencar via B4 Relay" <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260623-ad5686-new-features-v4-2-28962a57db0f@analog.com>
-References: <20260623-ad5686-new-features-v4-0-28962a57db0f@analog.com>
- <20260623-ad5686-new-features-v4-2-28962a57db0f@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 13:05:38 +0000
-Message-Id: <20260623130539.571971F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="lfKcgXYP"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1782219929;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qvZLtxCTdmfsl/KnIY8j8wP9YXfnB9dj4Qz35L9iEGk=;
+	b=lfKcgXYP11Ij1m7jRAJceFdxnHCCvXitNhoys7MqLpzeBWipajjIJ+EQnmbNKEghXqw155
+	e4h1XiTRjemhrpX8NXm15y+JgkkqH88slcIoqc7aIlrPdBHidFQSylQIPzxkYwvg8DJXBF
+	QFUfCEPmm3izh2FAd7Mb1iwMejK2eXD7w1GdurYFhjjh4aazDa3JAevcn0vSuoAbk9nIB8
+	HumdTXNDXWuBiGnq69EGjQ3LHR6eTsA1+MnCXeMwlMd4QqUlbz4XpiRYQcuqbzf3IaUBPx
+	u79ZE4J17GzJcK7g48qHJfkEzdkL+0GbxVr8veQPNDHYLxOiWHYblvlRkVK2YQ==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 23 Jun 2026 15:05:13 +0200
+Message-Id: <DJGG8DEAKSPK.1GJ8FARAHXPXM@cknow-tech.com>
+Cc: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>,
+ <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Ricardo Pardini" <ricardo@pardini.net>
+Subject: Re: [PATCH v4 5/5] clk: rockchip: rk3588: add GATE_GRF clocks for
+ I2S MCLK output to IO
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Daniele Briguglio" <hello@superkali.me>, "Heiko Stuebner"
+ <heiko@sntech.de>, "Michael Turquette" <mturquette@baylibre.com>, "Stephen
+ Boyd" <sboyd@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Diederik de Haas" <diederik@cknow-tech.com>
+References: <20260419-rk3588-mclk-gate-grf-v4-0-513a42dd1dcc@superkali.me>
+ <20260419-rk3588-mclk-gate-grf-v4-5-513a42dd1dcc@superkali.me>
+ <DJGDSS875DDO.22TYPVYK5X8KZ@cknow-tech.com> <2100447.PIDvDuAF1L@diego>
+ <20260623123316.4111002-1-hello@superkali.me>
+In-Reply-To: <20260623123316.4111002-1-hello@superkali.me>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Unconditionally requiring new `vdd-supply` and `vlogic-supply` p=
-roperties breaks validation for existing device trees.
-- [Medium] Conditionally requiring `vref-supply` for `adi,ad5696` breaks sc=
-hema validation for legacy device trees that use the deprecated `vcc-supply=
-`.
---
+On Tue Jun 23, 2026 at 2:33 PM CEST, Daniele Briguglio wrote:
+>> can you check if adding CLK_IGNORE_UNUSED changes the situation for you?
+>> What I assume is happening is that when the clocks were not declared the=
+y were
+>> just left running, while now the kernel turns off unused (but defined) c=
+locks.
+>
+> That lines up with what I see. The gates are set-to-disable and reset to
+> open, so before the series the bit just kept whatever the boot firmware
+> left it at.
+>
+> Diederik, the cleanest way to confirm is to read SOC_CON6 before Linux
+> touches it, e.g. md.l 0xfd58c318 at the U-Boot prompt (bit 0 is I2S0). If
+> it comes up clear there, the gate is open, and if audio then breaks once
+> the kernel is up, that points at clk_disable_unused turning it off becaus=
+e
+> nothing references it.
 
-commit 7082ab254ab9eb0509320518d5cb786825dd6cbb
-Author: Rodrigo Alencar <rodrigo.alencar@analog.com>
+NanoPC-T6 LTS
+U-Boot: 2026.04-00003-g723f0da896bc
 
-dt-bindings: iio: dac: ad5696: rework on power supplies
+The 0003 comes from me adding patches for NanoPC-T6 Plus support, but
+otherwise it's plain upstream U-Boot.
 
-This commit updates the AD5696 DAC binding to include vdd-supply,
-vlogic-supply, and vref-supply, while deprecating the misleading vcc-supply.
-It also updates the required property lists and conditionally requires
-vref-supply for specific variants.
+=3D> md.l 0xfd58c318
+fd58c318: 00000600 00000a00 00000000 00000000  ................
+fd58c328: 00000300 00092820 0fd58c338: 00000000 00000000 00000000 00000000 =
+ ................
+fd58c348: 00000000 00000000 00000000 00000000  ................c358: 000000=
+00 00000000 00000000 00000000  ................
+fd58c368: 00000000 00000000 00000008: 00000000 00000000 00001000 00000240  =
+............@...
+fd58c388: 0000003f 0000fefe 00000000 000000000 00000000 00000000 00000000  =
+................
+fd58c3a8: 00000000 00000000 00000000 00000000 00000000 00000000 00000000  .=
+...............
+fd58c3c8: 00000000 00000000 00000000 000000000 00000000 00000000 00000000  =
+................
+fd58c3e8: 00000000 00000000 00000000 00000000  .0000000 00000000 00000000  =
+................
+fd58c408: 00000000 00000000 00000000 00000000  ....
 
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml b/=
-Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> index cc343cdf6085a..e10f8596f9d3f 100644
-> --- a/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5696.yaml
+I'll let interpreting it up to you.
 
-[ ... ]
+> If that turns out to be the case, CLK_IGNORE_UNUSED on the gates is a
+> reasonable way to stop the kernel from closing a gate the firmware alread=
+y
+> left open, for boards that would rather not switch their DTS to _TO_IO.
 
-> @@ -62,8 +75,21 @@ properties:
->  required:
->    - compatible
->    - reg
-> +  - vdd-supply
-> +  - vlogic-supply
+I'm not so sure I agree that CLK_IGNORE_UNUSED is reasonable, but I'll leav=
+e
+judgement up to others. I'll do the test regardless, though.
 
-[Severity: Medium]
-Does unconditionally adding vdd-supply and vlogic-supply to the required
-list break schema validation for existing device trees?
+Cheers,
+  Diederik
 
-Legacy device trees that legitimately omitted these properties will now fail
-schema validation during make dtbs_check.
+> Where a board does reference _TO_IO the consumer holds it open anyway, so
+> that path is unaffected either way.
+>
+> Best regards,
+> Daniele
 
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - adi,ad5693
-> +              - adi,ad5694
-> +              - adi,ad5696
-> +    then:
-> +      required:
-> +        - vref-supply
-
-[Severity: Medium]
-Does conditionally requiring vref-supply for these compatible strings break
-schema validation for legacy device trees that use the deprecated vcc-suppl=
-y?
-
-Since vcc-supply was valid under the previous schema, making vref-supply
-strictly required here will cause validation failures for existing device
-trees. Should the schema allow either vref-supply or the deprecated
-vcc-supply to preserve DT ABI compatibility?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623-ad5686-new=
--features-v4-0-28962a57db0f@analog.com?part=3D2
