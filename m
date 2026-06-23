@@ -1,327 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C3A348C65
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC63435E93B
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782224051; cv=none; b=ba2GAr58V95AGECORH0tRJmAa+tGkM68KGZejPdjzfki5Inzf/U2fOrKgCR+S5134Kc2PtwNpGy59h5yoeblHODKNGwuI+KJJ6RO20ZPT5ot4fDhtbH66Drzw3CPAciapI2403flD0cAhPNoIOXLw/PdWWVwZ+hvbNcIEuH18jQ=
+	t=1782224201; cv=none; b=Cp/hitScvIodwfYh3MI51RcfxnvVMrq0YEYTmKEUT2xC/TPCifurbIVWJPikHzFENmDGycAcGmLlfAv+kskMSyBoyzILNlIKwNcrz9OSCV+6h8D1+UXqIY4j3j/N3ohhrk6I+mlAxZOESkePmpx3xtHzhnO6t+hZ/MKJr3SDp3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782224051; c=relaxed/simple;
-	bh=wtVbK53tJxRGkVfM+p6hAaYu/QyOOGieYrfw8GaA4bw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jj8cHYIu+EmTdDW5v0x60w5Nj+XGgwzj3slCfqjeZiJ5ZpKKchSn8bfFxMuSP231XbJYMQyn9KsZDBSxnhNGcIG4k1UtaiqfkfqCXSpy6Db6XetQ7N6oPxcYxQZnmYd9/OIte6EM8YEZ0fkQp77CeaLraIpjoZTm7u9+yJVI0XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MoDmlFe9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782224201; c=relaxed/simple;
+	bh=tUrRzAy9axz+ACESZYkPXNYcDTB4b3V9V30KZ9JrMWs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dOeGQTxt3h99UJiC/HjGzU7D1YqpNXNFAPZDOs63i087FYXBnVXooJU2SI+16roI46T8a1BrZRLA8vYUhBI23ult9Esef+A5lSzJrkU3Ce2sOko1l590cYKnm0eMEkxXDFQprOn39lF/0cw4sf6/csLE9nin7j5+EX8fkHel0oA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4XbcUyu; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MoDmlFe9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323E81F000E9;
-	Tue, 23 Jun 2026 14:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782224049;
-	bh=H3T/4sMpZtgJsf8hgfjAJDKq6KfUBZszlWA18EKDI58=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MoDmlFe93RZz/8kiuANaC6o5negFcTU7IAXBMv8nz86KrJwVe1RLSdcbqjO06TIpJ
-	 lbF+53uYlExGEe3yI+0fnD+rw1QNYS7bwF8FoafeS19Iiog1WjReFkxA9c139Pbues
-	 Okwcu4a+jsCiU9ejaQBE0egfkyYMgcUOCzRt4s7GzOjoYWCyOkDgWFzk8J19/zZwYa
-	 JwGRQ8FZK5Rgel75sFKqEeiHiSa5hn12Gxks1UaOVU/jnLyNnJ1UEYASvq9y1KJqav
-	 6FsemtdH1RkDJdjs8/HVFgOE9REiK9H6f8+eiap8mbBOaFrTEyXVCOMtu9UW9SkscW
-	 yhPYU10/dBYQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Md Shofiqul Islam" <shofiqtest@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260623140113.12574-2-shofiqtest@gmail.com>
-References: <20260623140113.12574-1-shofiqtest@gmail.com>
- <20260623140113.12574-2-shofiqtest@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 14:14:08 +0000
-Message-Id: <20260623141409.323E81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4XbcUyu"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-36d5fd50d20so3873967a91.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782224200; x=1782829000; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=F5jyDpTw+nbmVl4evKwREMIxAz2iLdO/axx6qTM+O1Q=;
+        b=B4XbcUyutakW4uYHwA9baO3I44hX9qJcZniAhxFN+PVW+iglYNJpbtCeSTmSWstL6z
+         cKYlEK7+k1M3LK2TQ7ZmtL7+R5fbCvhS2gSiBobhMIbYwYJYzZivVfz2dzSFIC8rgNpx
+         sQWJmoo3s6+ZgLGsVX1KOyaUOmEfxivu0uu8yV2px3VuDCrJ8+UpVKGoZptQF46VtZ3z
+         WKuPcGoWV/DkvcyA3y7j8GzOPwzC0HKMiKRgOlfN+dFkNeI2/798Ra9+J//FvTw10tFW
+         V7auUN7GVh9rPARdyGYu6IfopQhcFcfe1kkWiWXq/AFGfggdbA12N02wxEZRL0Lg0FLA
+         Xyew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782224200; x=1782829000;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=F5jyDpTw+nbmVl4evKwREMIxAz2iLdO/axx6qTM+O1Q=;
+        b=GoQUdy9kjebJ0tBjZqtw6g1NLHyy0DDhrpNOlVl0noMMuz7TupsuxPvbnn6bFwUzpz
+         KcHuG3mq4cqB6Z7A3vd2xjVFTzWa2AZE8WsCvIAau8XCPdhwzGVWsa1o+3b554Dpjwbv
+         rH3WYFbwBt5IzXIgoAvtlnNM6H63wIsTV3UneArKoD/gpnNY8HDDHNrElrDIvNSHhTGs
+         3eXpssuxfSk83dCOlWx0WH0o4plBy9FBFhwgBam0jQAoVw9ao8CClGwTuhO9Ur12IURU
+         QMlOPH8vB7rPCLxwppJJc1vqXnc+9e/RLBFilnW6AaTniedQokNqnXOJAZ5bpZKsz5pX
+         aRlQ==
+X-Forwarded-Encrypted: i=1; AHgh+RplXPzFCAta+4QKkds/zApHefid+m04K5piMKA6C5mHT0m+A3ZH5X8OTRYq7TGXNgyVsnsEpZXUdtU4@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyot4n1NOnMuuUpsQgq/pIsT/0BdncMWi6QKyaarq3DIle76+WI
+	o2aBm4Bx3SeTHXxMWnvSm+R+UDnR7hWol43lbbDRpCdIdpic4cLbjikV
+X-Gm-Gg: AfdE7cnikQEZf9/LOeYUZtay6uZZLuqU90D1VtR0y2UTf4e6WO5WJxoXS7BxiNA3JXI
+	jPnmBKe+AlEYi0Y6VUxLtfrq3p7R/SdqTRia+756ZG/4YD/TDnQrUk8W4Vku7Cf3YRUoCrqOhkX
+	z+rPZwOujEG2ZYiC550gAe/v6t7CoHsmuxxsH0sF9v3O+0VwKDLb4ygk4AN+Igav/8dd+kgMzKf
+	w+Jsmzc7ps7nt6cVfGi0mNJIAoLrW5DbmAeC4R1DB+rqa6cwaW1aPIm+ffiwLuEjMXgcdpIlPw8
+	Kb1DY03mxoFYADr1dvPrTx9AJUI8yQw2vOWWBAZEQMZ8DH77MG9+hIWPpXXdgd94N7LA5p9x8iY
+	RS+Q+YPO1WsvGS5/60BMY5sjS/zY0vkEBKOTOaq/BxrwBuZM0KxW4crAIjSg9o4AzKSBkozLRXi
+	3vTVSdDPGYSdaukudybLrkcGonO63UsUvlFek=
+X-Received: by 2002:a17:902:e5d1:b0:2c0:cf44:3b3b with SMTP id d9443c01a7336-2c7c7684655mr32613395ad.24.1782224200074;
+        Tue, 23 Jun 2026 07:16:40 -0700 (PDT)
+Received: from [192.168.0.2] ([49.207.62.136])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7436f6395sm112363965ad.28.2026.06.23.07.16.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 23 Jun 2026 07:16:39 -0700 (PDT)
+Message-ID: <464e09d2-5a8f-42ea-998a-42cf1376a6e7@gmail.com>
+Date: Tue, 23 Jun 2026 19:46:35 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: pwm: st,pwm: convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Pal Singh <ajitpal.singh@st.com>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260618-st-pwm-v2-1-c792d5795ce2@gmail.com>
+ <20260623-electric-adder-of-upgrade-8bdeb4@quoll>
+Content-Language: en-US
+From: Charan Pedumuru <charan.pedumuru@gmail.com>
+In-Reply-To: <20260623-electric-adder-of-upgrade-8bdeb4@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] Buffer overflow during triggered buffer capture.
-- [High] Missing IIO direct mode locking allows concurrent sysfs reads to s=
-ilently corrupt the hardware FIFO state.
-- [High] Calculation of available FIFO samples evaluates to 0 when the FIFO=
- is fully saturated, leading to a permanent capture stall.
-- [High] Buffer data packing ignores `active_scan_mask`, leading to data co=
-rruption when a subset of channels is enabled.
-- [High] Requesting an IRQ with `IRQF_ONESHOT` without a threaded handler c=
-auses unconditional probe failure.
-- [High] Hardware interrupt unconditionally enabled at boot can permanently=
- stall the edge-triggered line.
-- [Medium] UAPI Endianness Mismatch causing data corruption on Big Endian a=
-rchitectures.
-- [Medium] Device is left running at full power and emitting interrupts whe=
-n the driver is unloaded.
-- [Medium] Documented DT regulators `vdd-supply` and `leds-supply` are igno=
-red, causing initialization failure on unpowered platforms.
-- [Medium] Unbalanced `iio_trigger_get()` causes a reference count memory l=
-eak.
---
 
-commit 86527e62ebc7afa90aeb829c2bdf9c041cf99dd9
-Author: Md Shofiqul Islam <shofiqtest@gmail.com>
 
-iio: health: add MAX86150 ECG and PPG biosensor driver
+On 23-06-2026 12:47, Krzysztof Kozlowski wrote:
+> On Thu, Jun 18, 2026 at 12:42:07PM +0000, Charan Pedumuru wrote:
+>> +description:
+>> +  The STiH41x PWM controller supports both PWM output and input capture
+>> +  functionality. It provides multiple PWM output channels for generating
+>> +  variable duty-cycle waveforms, and multiple input capture channels for
+>> +  measuring external signal periods and pulse widths. PWM output channels
+>> +  and input capture channels are configured independently via
+>> +  st,pwm-num-chan and st,capture-num-chan respectively.
+>> +
+>> +allOf:
+>> +  - $ref: pwm.yaml#
+> 
+> Where is this compatible used?
 
-The MAX86150 integrates PPG and ECG channels in a single I2C device. The
-driver exposes three IIO channels and supports hardware-triggered continuous
-low-overhead capture.
+I will remove this allof and redefine the YAML again
 
-> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
-> new file mode 100755
-> index 0000000000000..3cde4af6650b7
-> --- /dev/null
-> +++ b/drivers/iio/health/max86150.c
+> 
+> Best regards,
+> Krzysztof
+> 
 
-[ ... ]
+-- 
+Best Regards,
+Charan.
 
-> +struct max86150_data {
-> +	struct regmap		*regmap;
-> +	struct device		*dev;
-> +	struct iio_trigger	*trig;
-> +	s32  buf[4] __aligned(8);
-> +};
-
-[Severity: High]
-Does this buffer have enough space for the 64-bit timestamp?
-
-With three 32-bit channels (12 bytes) and a 64-bit timestamp needing 8-byte
-alignment, the timestamp would be placed at byte offset 16. However, this
-array is exactly 16 bytes.
-
-Calling iio_push_to_buffers_with_timestamp() in max86150_trigger_handler()
-could write the timestamp past the end of the array.
-
-[ ... ]
-
-> +static const struct iio_chan_spec max86150_channels[] =3D {
-> +	{
-> +		/* PPG Red LED - optical intensity, 19-bit unsigned */
-> +		.type               =3D IIO_INTENSITY,
-> +		.modified           =3D 1,
-> +		.channel2           =3D IIO_MOD_LIGHT_RED,
-> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.scan_index         =3D MAX86150_IDX_PPG_RED,
-> +		.scan_type =3D {
-> +			.sign        =3D 'u',
-> +			.realbits    =3D 19,
-> +			.storagebits =3D 32,
-> +			.endianness  =3D IIO_LE,
-> +		},
-
-[Severity: Medium]
-Since max86150_trigger_handler() places native integers directly into the
-buffer without cpu_to_le32() conversions, will this advertise incorrect
-endianness to userspace on big endian architectures?
-
-[ ... ]
-
-> +static int max86150_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct max86150_data *data =3D iio_priv(indio_dev);
-> +	u32 ppg_red, ppg_ir;
-> +	s32 ecg;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		/*
-> +		 * Single-shot path: clear the FIFO so we know we are reading
-> +		 * a sample that arrived after this call, not stale data.
-> +		 */
-> +		ret =3D regmap_write(data->regmap, MAX86150_REG_FIFO_WR_PTR, 0);
-> +		if (ret)
-> +			return ret;
-> +		ret =3D regmap_write(data->regmap, MAX86150_REG_OVF_COUNTER, 0);
-> +		if (ret)
-> +			return ret;
-> +		ret =3D regmap_write(data->regmap, MAX86150_REG_FIFO_RD_PTR, 0);
-
-[Severity: High]
-Does this path need iio_device_claim_direct_mode() to prevent concurrent
-sysfs reads from silently corrupting the hardware FIFO pointers while a
-continuous triggered buffer capture is active?
-
-[ ... ]
-
-> +static irqreturn_t max86150_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func	*pf   =3D p;
-> +	struct iio_dev		*idev =3D pf->indio_dev;
-> +	struct max86150_data	*data =3D iio_priv(idev);
-> +	unsigned int status, wr_ptr, rd_ptr, available;
-> +	u32 ppg_red, ppg_ir;
-> +	s32 ecg;
-> +	int ret;
-> +
-> +	/*
-> +	 * Reading INT_STATUS1 clears the interrupt.  Do this before touching
-> +	 * the FIFO so the pin is de-asserted while we drain samples.
-> +	 */
-> +	ret =3D regmap_read(data->regmap, MAX86150_REG_INT_STATUS1, &status);
-> +	if (ret)
-> +		goto done;
-> +
-> +	ret =3D regmap_read(data->regmap, MAX86150_REG_FIFO_WR_PTR, &wr_ptr);
-> +	if (ret)
-> +		goto done;
-> +	ret =3D regmap_read(data->regmap, MAX86150_REG_FIFO_RD_PTR, &rd_ptr);
-> +	if (ret)
-> +		goto done;
-> +
-> +	/*
-> +	 * Number of unread samples.  The FIFO is circular with depth 32, so
-> +	 * wrap with (depth - 1) as mask.
-> +	 */
-> +	available =3D (wr_ptr - rd_ptr) & (MAX86150_FIFO_DEPTH - 1);
-
-[Severity: High]
-When the 32-entry FIFO becomes perfectly full and wr_ptr wraps around to
-equal rd_ptr, will this evaluate to 0?
-
-If so, the handler might skip the read loop entirely and leave the FIFO ful=
-l,
-causing the interrupt condition to persist and resulting in an endless
-interrupt loop or a permanent capture stall.
-
-> +
-> +	while (available--) {
-> +		ret =3D max86150_read_one_sample(data, &ppg_red, &ppg_ir, &ecg);
-> +		if (ret)
-> +			break;
-> +
-> +		data->buf[MAX86150_IDX_PPG_RED] =3D ppg_red;
-> +		data->buf[MAX86150_IDX_PPG_IR]  =3D ppg_ir;
-> +		data->buf[MAX86150_IDX_ECG]     =3D ecg;
-
-[Severity: High]
-If userspace enables only a subset of the channels (e.g., only ECG), will
-this static indexing ignore the active_scan_mask?
-
-IIO expects enabled channels to be tightly packed at the start of the buffe=
-r.
-If only ECG is enabled, the IIO core calculates the timestamp offset based =
-on
-a single channel. The static writes here might cause the timestamp to later
-overwrite the channel data, corrupting both the measurement and the
-timestamp.
-
-[ ... ]
-
-> +static int max86150_chip_init(struct max86150_data *data)
-> +{
-> +	int ret;
-> +
-> +	/* Software reset; the bit self-clears within 1 ms */
-> +	ret =3D regmap_write(data->regmap, MAX86150_REG_SYS_CTRL,
-> +			   MAX86150_SYS_RESET);
-
-[ ... ]
-
-> +	/* Enable FIFO almost-full interrupt only */
-> +	return regmap_write(data->regmap, MAX86150_REG_INT_ENABLE1,
-> +			    MAX86150_INT_A_FULL);
-> +}
-
-[Severity: Medium]
-Are there teardown steps needed when the driver is unloaded?
-
-This initialization starts continuous sampling, but no .remove callback or
-devm action seems to be registered to write to MAX86150_SYS_SHDN or disable
-the interrupts, leaving the device fully active on unload.
-
-[Severity: High]
-Could enabling the hardware interrupt here before the IIO buffer is active
-cause the edge-triggered interrupt pin to get permanently stuck?
-
-If the sensor asserts the active-low pin early, the hardirq handler will
-fire but won't read INT_STATUS1 to clear the line (since the threaded handl=
-er
-is only active when the buffer is enabled). The interrupt controller might
-ignore the stuck low line forever, breaking capture once the buffer is
-actually started.
-
-[ ... ]
-
-> +static int max86150_probe(struct i2c_client *client)
-> +{
-> +	struct iio_dev		*indio_dev;
-> +	struct max86150_data	*data;
-> +	unsigned int		 part_id;
-> +	int ret;
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data     =3D iio_priv(indio_dev);
-> +	data->dev =3D &client->dev;
-> +
-> +	data->regmap =3D devm_regmap_init_i2c(client, &max86150_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(&client->dev, PTR_ERR(data->regmap),
-> +				     "Failed to initialise regmap\n");
-
-[Severity: Medium]
-Will this fail to probe on unpowered platforms since the documented
-devicetree regulators vdd-supply and leds-supply are not requested or
-enabled before I2C communication starts?
-
-[ ... ]
-
-> +	if (client->irq > 0) {
-> +		data->trig =3D devm_iio_trigger_alloc(&client->dev,
-> +						    "%s-dev%d",
-> +						    indio_dev->name,
-> +						    iio_device_id(indio_dev));
-> +		if (!data->trig)
-> +			return -ENOMEM;
-> +
-> +		ret =3D devm_request_irq(&client->dev, client->irq,
-> +				       iio_trigger_generic_data_rdy_poll,
-> +				       IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
-> +				       "max86150", data->trig);
-
-[Severity: High]
-Will the irq core reject this request during probe?
-
-The interrupt core requires a threaded handler when IRQF_ONESHOT is used,
-but iio_trigger_generic_data_rdy_poll is passed as the hardirq handler with
-no threaded handler provided.
-
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret,
-> +					     "Cannot request IRQ %d\n",
-> +					     client->irq);
-> +
-> +		iio_trigger_set_drvdata(data->trig, indio_dev);
-> +
-> +		ret =3D devm_iio_trigger_register(&client->dev, data->trig);
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret,
-> +					     "Cannot register trigger\n");
-> +
-> +		indio_dev->trig =3D iio_trigger_get(data->trig);
-> +	}
-
-[Severity: Medium]
-Is there a corresponding iio_trigger_put() needed here? Without it, the
-trigger reference count could be leaked when the device is unbound or if a
-subsequent probe step fails.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623140113.1257=
-4-2-shofiqtest@gmail.com?part=3D1
