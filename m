@@ -1,322 +1,122 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A8F2DA74C
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC152FF66B;
+	Tue, 23 Jun 2026 15:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782228942; cv=none; b=sn8Z12G+ShVb1a4QAiKn89XPlDBKuv3Q+SkHmFRKySH+xF9AwLBJd/CDS7H03jthG+RklO0rMnfSfLx7m45p1zu5JG0xYLSFVDtksMZQOfkwiRxxIwduOqbwJZ21bvQZBiEpBivjTg8C9fd1i17ymJildHJonG36pKGl44iih0k=
+	t=1782229141; cv=none; b=mPg16ZxZ0m5h2Hrz/HrNaLe3MV5sYn2TkCyoV6vTh9jYbiz0mo+KxhSkGGYjh15RK34Y7w06wiE65pw0X+Kq1ETcjL39xBLKZVXDB5aaORGIhiXca7jnv/3GM8r8gLVv4l5Nb7+ZVkjMvOLQKpnmeBdaY9qsVQY8ycK7fJrSqsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782228942; c=relaxed/simple;
-	bh=Mo5yQHzaURvGYHb7CZmhngVSC2hCJb50rxMxvMmHtdU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=S/jQ7PhhcBRRjNWYNfAq3o0bdQD6JDu12WkYElkqv90iC3qRqGke1nhpBGFQI7BiQ9GwBOMmwp+Q4d5YW1Fxh4UJlneAz9jwOn9MpmtlSqE09kiraM9FVFB0PUGN+I4xHw71ZrLeAMM56nmsfbnMCdCzVvBTnfDUlU9UjlwkHlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Th9sr2mR; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1782229141; c=relaxed/simple;
+	bh=lvkWCRdLIQ1oibJNqp8lgEMH7QPhpJ+NFkaWzYRiibc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QocdbhuKmJyHgcY2QzG+sh8n1PVbZA7KAK6c7u3/x7JA+oanzdVPRIfQrF2xzlDo98NXEGpT+XqE1ii4YtTDlEZCydGKa8ZhFSxA8AKfaKcgyFeUKs/96XHl+Hvrmwkwd6ZVdYFkh2l2Y5p1lnhShy12mT9f0h6VV4qZVkV6Y8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hu+NFjiH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Th9sr2mR"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4924593f45dso327375e9.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 08:35:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782228939; x=1782833739; darn=vger.kernel.org;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tv+HFheUg03EfuoN4T+QaHYdh9A1PWG93ECLbXxMf3g=;
-        b=Th9sr2mRNwwdIKBsCMjHWRKy4CD7VG31vQFJrE8XtRne61mbBFNYa/uBkkACiE8aVK
-         XSSsekfyCSxHZZ1GKPVTfCFtDpXWkHH8vpxUD9IXShZDoIQvHpsjaQRJ9xsl+mmOKzTd
-         iMyG4Y3Wlb6h3FBFprYBuAdmzMRYgJHSl8rlQPl6JOFUqQ2faiOIDw8TlBFtVbFbarEC
-         ZNDRL6UwOzYA57SjPYxDmEAeldAnaMQbseeQugL6+ZZxGm+eBJAyXJ2MQZiKYZTt+zTQ
-         2+Z0b3PmR5nYFZXPCPGxYX7iwcT92JwaKe6RQvHdV4XZ2DKwMeg4qBMpvmZ+X3UbFkHj
-         BFgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782228939; x=1782833739;
-        h=mime-version:message-id:date:user-agent:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Tv+HFheUg03EfuoN4T+QaHYdh9A1PWG93ECLbXxMf3g=;
-        b=pwiPZpbi01VGpXiRnqpupJ3t+2oOvGRrPzD0aGoHT3OBYJMI4CnC1PIrH1AOgm8GF0
-         xtwstX575IzTYiLmgWwHBUL7kMjMCWdYrZasKEBi371XjXM9kUEH5X5dOXR0V0S9fxU6
-         f4hKUAc3GQkyt7pKGFswMdNey0pQNpXtp5WAnXhvT+J+chmxM/vgvVRzIkAobZ+Bg5fo
-         HfL4u+2xtds9rnCGP51c4MpDWgOpOvtE3JtQXOQQzpEbEVriG7wEVEbLOrUVPOtaS/hV
-         F3MEkSmc5SJ/NIgqtQlw76x4q3I0DhyUGIsbCeufDA4M97fGnnz4mhwRcPEQyPMj2Yu0
-         T1oQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8UKH+1441mnUZc3ykpvoUwUAopY+XqERQ9Aa7Q/3NXSBF/P60cDxUit/Zklw+nhR2IvPGMeWGk3kgL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnEkVyw557fneo214KGh51glujUayDCbSkhrg7HWn9c7zC18pI
-	WpOWhA9dKuF7aTC2WnLjy3odFP6tusez2WmhaSJiVXFd+B6Cqm1Zn903wUvdgIBYbRk=
-X-Gm-Gg: AfdE7cmtKCAF3APQLZHD3/zm3Z5CG5IoZ3HpeqljprHj1JUgTQS4rRwL4+nxZlHKfXK
-	DwjiBB2AoSIYAbRHzLJSrLjHVQRq7JTXpdr9OcojIx0ILxJPn4tFbVr6ZPZXYdQxqOttc5G75p2
-	OTUEEslswsisiNyrAktTYJkjlIF5dqY2DDCu+OLQgTDv5IQDYMl7pynuK8sDGv+9OPOnW7ArxdF
-	Egs/QBN72ItGo3/NwnAphbhQWA1zpR+4PY6QPeQhWSdLvptxeZNq9i5hLvbUM5nekK89Qg9IB09
-	cPvP5KvJHuyC+co5TWxLBcEdzW8zlhl0cfnWGRU8ZqUqU9CpBIEwVuvxRvctAlQrWOvwZaDrfFs
-	4JU9PCWG+uzol/OEx7Z/SnGOMPtidpObnAUpjcarvLxGqk+p5k9lrASGgXEKtmbh7w3RMpYeaYj
-	bzDxCyt0DSuw==
-X-Received: by 2002:a05:600c:8b18:b0:490:e5c1:b8bf with SMTP id 5b1f17b1804b1-4925b38cfa9mr49681285e9.13.1782228939052;
-        Tue, 23 Jun 2026 08:35:39 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:20f1:5c9:8a6d:48a1])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4923fe7b9e5sm370653045e9.10.2026.06.23.08.35.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 08:35:38 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Enzo Adriano via B4 Relay <devnull+enzo.adriano.code.gmail.com@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,  Ulf
- Hansson <ulfh@kernel.org>,  enzo.adriano.code@gmail.com,
-  devicetree@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
-  linux-sunxi@lists.linux.dev,  linux-kernel@vger.kernel.org,
-  linux-mmc@vger.kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: allwinner: add Allwinner A733 SoC
-In-Reply-To: <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
-	(Enzo Adriano via's message of "Sat, 13 Jun 2026 05:42:15 -0400")
-References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
-	<20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Tue, 23 Jun 2026 17:35:36 +0200
-Message-ID: <1j33ydb77b.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hu+NFjiH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2CE71F000E9;
+	Tue, 23 Jun 2026 15:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782229139;
+	bh=MAHoh/g9U/1RkD0WKUJPkiqxlKeqPzq3Nsm71wRcAWk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hu+NFjiHsXHDRq4qPIibL8pZijGP8VUxxZcgbDH9DXyAuxU4TcKvcRSSUd2zBvBXH
+	 uwj4ELAHzkdgX2BPfMzmbrE/WjT0to9hXKBXjSiAGXSvjhNnAv1LLaoxqDsIx25qxC
+	 jxcF2XeAEurgUnHN1RLGB5RK5tTWQ5M6Q+1zoGnm8hZcgW3bIPT36ZlcxqIqek32OQ
+	 KBkL9I/i2LPEj26YH6WiVPj6vRaYCPv49imk7u2C2LU3LaR7SlVxNdF5K8fS9pzm7p
+	 wg1IoaJKaao3gps4eXVzW0cKwH2rxgI+7mHFcn7CZU15OMqms5b4CP+T3ck1FOM/ET
+	 0lK0AANZw3C3g==
+Message-ID: <e07962a6-2260-4fee-9edd-844fd970081a@kernel.org>
+Date: Tue, 23 Jun 2026 17:38:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] iio: health: add MAX86150 ECG and PPG biosensor
+ driver
+To: Md Shofiqul Islam <shofiqtest@gmail.com>, linux-iio@vger.kernel.org
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260623140113.12574-1-shofiqtest@gmail.com>
+ <20260623140113.12574-2-shofiqtest@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260623140113.12574-2-shofiqtest@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On sam. 13 juin 2026 at 05:42, Enzo Adriano via B4 Relay <devnull+enzo.adriano.code.gmail.com@kernel.org> wrote:
+On 23/06/2026 16:01, Md Shofiqul Islam wrote:
+> The MAX86150 (Maxim/Analog Devices) integrates two PPG optical channels
+> (Red/IR LED) and one ECG biopotential channel in a single I2C device.
+> Data is captured via a 32-entry hardware FIFO with a configurable
+> almost-full interrupt.
+> 
+> The driver exposes three IIO channels:
+>   - in_intensity_red_raw   (PPG Red, 19-bit unsigned)
+>   - in_intensity_ir_raw    (PPG IR, 19-bit unsigned)
+>   - in_voltage0_raw        (ECG, 18-bit signed)
+> 
+> A hardware trigger is registered when an interrupt GPIO is provided in
+> the device tree, enabling the IIO triggered buffer path for continuous
+> low-overhead capture.
+> 
+> FIFO reads use regmap_noinc_read() to burst-read 9 bytes (3 slots x
+> 3 bytes) from the streaming FIFO_DATA register in a single I2C
+> transaction.
+> 
+> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
 
-> From: Enzo Adriano <enzo.adriano.code@gmail.com>
->
-> Add the initial A733 SoC description with CPUs, timers, interrupt
-> controller, clocks, pinctrl, UART0, and MMC0.
->
-> Keep peripherals disabled by default. Board DTS files can enable only the
-> devices that are proven on their hardware.
->
-> Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
-> ---
->  arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi | 198 +++++++++++++++++++++++++
->  1 file changed, 198 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-> new file mode 100644
-> index 000000000000..3721aa9e8573
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
-> @@ -0,0 +1,198 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-> +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/clock/sun60i-a733-ccu.h>
-> +#include <dt-bindings/reset/sun60i-a733-ccu.h>
-> +
-> +/ {
-> +	interrupt-parent = <&gic>;
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +
-> +	cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x000>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu1: cpu@100 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x100>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu2: cpu@200 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x200>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu3: cpu@300 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x300>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu4: cpu@400 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x400>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu5: cpu@500 {
-> +			compatible = "arm,cortex-a55";
-> +			device_type = "cpu";
-> +			reg = <0x500>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <530>;
-> +		};
-> +
-> +		cpu6: cpu@600 {
-> +			compatible = "arm,cortex-a76";
-> +			device_type = "cpu";
-> +			reg = <0x600>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <1024>;
-> +		};
-> +
-> +		cpu7: cpu@700 {
-> +			compatible = "arm,cortex-a76";
-> +			device_type = "cpu";
-> +			reg = <0x700>;
-> +			enable-method = "psci";
-> +			capacity-dmips-mhz = <1024>;
-> +		};
-> +	};
-> +
-> +	osc24M: osc24M-clk {
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-Note A733 supports 19.2MHz, 24MHz and 26MHz xtals apparently.
-The A7S and A7A do have a 26MHz xtal according to the schematics.
-
-While this might be fine in the SoC dtsi, your are missing something in
-your board dts to change the xtal rate, at least.
-
-Also the node and clock name are a bit misleading now.
-
-> +		#clock-cells = <0>;
-> +		compatible = "fixed-clock";
-> +		clock-frequency = <24000000>;
-> +		clock-output-names = "osc24M";
-> +	};
-> +
-> +	osc32k: osc32k-clk {
-> +		#clock-cells = <0>;
-> +		compatible = "fixed-clock";
-> +		clock-frequency = <32768>;
-> +		clock-output-names = "osc32k";
-
-I think this is the ext32k supposed to feed the rtc ccu ...
-
-> +	};
-> +
-> +	iosc: internal-osc-clk {
-> +		#clock-cells = <0>;
-> +		compatible = "fixed-clock";
-> +		clock-frequency = <16000000>;
-> +		clock-output-names = "iosc";
-> +	};
-> +
-> +	psci {
-> +		compatible = "arm,psci-1.0", "arm,psci-0.2";
-> +		method = "smc";
-> +	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		arm,no-tick-in-suspend;
-> +		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH>,
-> +			     <GIC_PPI 14 IRQ_TYPE_LEVEL_HIGH>,
-> +			     <GIC_PPI 11 IRQ_TYPE_LEVEL_HIGH>,
-> +			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH>;
-> +	};
-> +
-> +	soc {
-> +		compatible = "simple-bus";
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges = <0x0 0x0 0x0 0x40000000>;
-> +
-> +		pio: pinctrl@2000000 {
-> +			compatible = "allwinner,sun60i-a733-pinctrl";
-> +			reg = <0x02000000 0x600>;
-> +			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&ccu CLK_APB1>, <&osc24M>, <&osc32k>;
-> +			clock-names = "apb", "hosc", "losc";
-> +			gpio-controller;
-> +			#gpio-cells = <3>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <3>;
-> +
-> +			mmc0_pins: mmc0-pins {
-> +				pins = "PF0", "PF1", "PF2",
-> +				       "PF3", "PF4", "PF5";
-> +				function = "mmc0";
-> +				drive-strength = <30>;
-> +				bias-pull-up;
-> +			};
-> +		};
-> +
-> +		ccu: clock-controller@2002000 {
-> +			compatible = "allwinner,sun60i-a733-ccu";
-> +			reg = <0x02002000 0x2000>;
-> +			clocks = <&osc24M>, <&osc32k>, <&iosc>;
-                                                ^
-... not directly the main CCU.
-
-> +			clock-names = "hosc", "losc", "iosc";
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +		};
-> +
-> +		uart0: serial@2500000 {
-> +			compatible = "snps,dw-apb-uart";
-> +			reg = <0x02500000 0x400>;
-> +			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-> +			reg-shift = <2>;
-> +			reg-io-width = <4>;
-> +			clocks = <&ccu CLK_BUS_UART0>;
-> +			resets = <&ccu RST_BUS_UART0>;
-> +			status = "disabled";
-> +		};
-> +
-> +		gic: interrupt-controller@3400000 {
-> +			compatible = "arm,gic-v3";
-> +			#interrupt-cells = <3>;
-> +			interrupt-controller;
-> +			reg = <0x03400000 0x10000>,
-> +			      <0x03460000 0x100000>;
-> +		};
-> +
-> +		mmc0: mmc@4020000 {
-> +			compatible = "allwinner,sun60i-a733-mmc",
-> +				     "allwinner,sun20i-d1-mmc";
-> +			reg = <0x04020000 0x1000>;
-> +			interrupts = <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
-> +			clock-names = "ahb", "mmc";
-> +			resets = <&ccu RST_BUS_MMC0>;
-> +			reset-names = "ahb";
-> +			pinctrl-names = "default";
-> +			pinctrl-0 = <&mmc0_pins>;
-> +			max-frequency = <200000000>;
-> +			cap-sd-highspeed;
-> +			status = "disabled";
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +		};
-> +	};
-> +};
-
--- 
-Jerome
+Best regards,
+Krzysztof
