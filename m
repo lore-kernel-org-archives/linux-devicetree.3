@@ -1,86 +1,74 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1012837EFF8
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3B434E761
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782223089; cv=none; b=TtaA7Roj0qlw6cqxfloP6m2qHPNpY+VBTw4fiHdtP6uDVaiAfQUr6x0pWefb3v+xTXMDjtPkXBw80eq89O3Z1hdziUjgZH2CSIna6FUoGWzMRWzA4Cl4HrslhNi0A19Yw37FiFbDYcxFwXQ5BiWZA6gH+b0+ZcFT4hVrCOe0eaE=
+	t=1782223281; cv=none; b=s1qjmZiyK8zz8NftPvOYa9A3Dm6ku8w/2RD3zp+0AowRVfU875rq6Ys4hTDfYG3pivvV16DqXKLvHo+bn/71OtFrGOZRkT2uhdFTX1v3OerBzVMvbs5qpi65yq3kWNnw88ZI8TTLn4xTTNJlhmxRAwDhmzuU0Z7fgEf2M7PCA6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782223089; c=relaxed/simple;
-	bh=K0eDSr61tMBeB/CtX6Gq0TUcfZhQn3LMlVfv2m9GtBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a4jh4TF9TY23LeoQsjb82XAsCvLQ+jQ+C+GRR7KorsgkBjEToUw6fJCQ/0tFXugOPS8cGZJxPnn8UpAcpx+AUtSDcn3EwpLNEvY7HWzFfwi0fZ1qtAQDyG56kNKYu6hWyzYWZTbZmNlmkYuJLurY7K6wkEmZV5A/+PHBa7p72Hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SEFTnnxl; arc=none smtp.client-ip=209.85.128.52
+	s=arc-20240116; t=1782223281; c=relaxed/simple;
+	bh=fMVBqccmwp/luWcEuPsDmZ2zWK4sKAf+ovBgWOeG4TU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GssZqlbypBF9J++tVXYsK0IikTMbMUGtw8QBAImw3uLiq5rWtSYr1PJei27jpVOZwtkGwyacay0LJhlJVLeaIlmGfQOuWnG7ude2S56h30aP48FIbgqbfNFECg+8BlTU5D0tUHx537UbB3RaV8Cg5+TFoXOd5djY4+aklCxOJak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gDgH9vCd; arc=none smtp.client-ip=209.85.167.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SEFTnnxl"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490cf3000f0so59154035e9.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:58:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gDgH9vCd"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5ad0abf1f7bso4373647e87.3
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:01:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782223086; x=1782827886; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782223278; x=1782828078; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qm9QBhEQ0YB2AXes3jM+Kp4ITvGr2+JfvL/tfEuQ2tI=;
-        b=SEFTnnxlYa1+ppZzQcRV/VhDPYGDobhxlnhEDfalL2Qfj1yszhbgY6rMz6GD9lYL/U
-         6oAMZJZF+MzbLehm0TexOLai8/7VQypadACQNFvA1N37gBLnsfWimxm7E0PWxjbwmiQa
-         p79sAvGMDtxCkPQq2TR4sB/mpTxEiAcCNllaI1idD5M/FS7yDmKduClqrq3Ni86kwexo
-         h+LRkGHm+KSKtFRiKaeHPZYIt6IunS2UK6xGJK1FtDwZr1KtbCEcgnum1jqL58uZf+Mx
-         7FDTFfjOGeEqOwP+n2CfbN4+ekhO5zoccMtx4hhOo2bVcbTXIYZtSyTRhCXoDBo0PF5w
-         VIuw==
+        bh=WAoG+I0VeboZcfZOa9yLZ2YB71By/3o7AaSCl8pHZgU=;
+        b=gDgH9vCd1kntXUDa0Aq1Zub+XqRkbjlglCZ6rbnDWJbT+nM2VxwZ5lGHgbmef1jc4Y
+         QsSuIagTSF6t4kYBIfqWbZvYJG1hyCKSfh/fPhskaDsMI2MOEwho8SlUWmS8rvl3Gy82
+         r5elEAnZi0/3rUxSHK5LVTJhKxWCqFvx9an+eLSYB1NzuEejwsFbWvLfXx2AHlcjBesj
+         sw6fuSddrGWCbUuX2neHqKkUDzM+vGHoOaiIc0zhceWrb81j+0Y0K6NOBjpykyMnpc6g
+         MrOeWylEaGU5l0Pmmsb5FiKeQGObp9NWLhS9q7f0PmRMby5xjYkvRThpIe1mn3GavpC4
+         Q9QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782223086; x=1782827886;
+        d=1e100.net; s=20251104; t=1782223278; x=1782828078;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qm9QBhEQ0YB2AXes3jM+Kp4ITvGr2+JfvL/tfEuQ2tI=;
-        b=DXrKD0rGSWyf9zlnuxDIjGBKagk2U4X2ubkSPxj9n7q3qaCWjYGiLTFy02p/kuZmnf
-         1N/kaguP0I9nVdu3axubpxhTfOLqLziJJysUQE7Rm0OukkuU6wD6hTa4NBzMuum9EA5e
-         pXihly8CGo5Kkc2G0wEdazDBHq4kLA7iSF1NVb58NYpyHGyi97I7vB/DY/bM622Bg7sm
-         d4O1a1KkmtAZgIVxRJf9nU0aA/RazdAf8aSazPe7HzcgjFPeVs7jmCqNGphWAcfOWJjG
-         Ibz74ZNi8aJbZVcPZqCQFzepVJkRaMt8Lgo3CHc/G2oEZmJFOrMYl2zD9ZNxe4DZQyTv
-         RjNQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8IOZaaXjDVpUm4x1vwWod4Ol9Cnp89fZz2CfLDtcwVueQchVT4pylr1i5N8JSk+czltP1m4eySalXB@vger.kernel.org
-X-Gm-Message-State: AOJu0YxvkVxthJi3GaSai4zvxPR4PL2/ZWw6Y4s0DdzplNTHTg74UuFy
-	5ug5eXmukFyA/LhY0SaURABmhduiI7eB/jxz4vXHFvgDDziw8l6tNCPG
-X-Gm-Gg: AfdE7clkCRsOtETkJVsR5+gVc+Tb5UPk1ePHM+db9LRNDnkbg7tiyr4HrohbF+imzyx
-	hWcp5N2Ey4wF1y+fIi6KkcFV9fQP4ymLHwYOCOrSoLoIZHzrcmX/9ZAvyMcn6YNNrcKb822g1xZ
-	YhckKCodtkoQVCsCu+3JRQ4AdJbKw9aMwCHAz6jaJd8rUWqaCdYmNp1kPBPgvcg/yMfu2gxP6gS
-	B5ndYwxHSZWvyabSw2DzLHWHOmXsu0ng4QY0zpfLnFwJjwIuetTW0ca/YXelQgMLj0jt53yxZVy
-	BmyPOuartioS4DSwIfvTX41aXPtMYxiykSEwXZOUUyus2FbJJBJs4odRZSby22mGSiWrTycGBxB
-	5griDfNskHAN5Cq9UaZ34OCkho3LshA2CAQnIQOgTk72SiCCRRbx82o/hTDWK2oWwympMJwn25S
-	Sz/qA2hA==
-X-Received: by 2002:a05:600c:3110:b0:492:463d:b2af with SMTP id 5b1f17b1804b1-4925b38ca04mr38947105e9.31.1782223086132;
-        Tue, 23 Jun 2026 06:58:06 -0700 (PDT)
-Received: from luca-vm.. ([81.56.18.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-466643f56aasm35145716f8f.6.2026.06.23.06.58.04
+        bh=WAoG+I0VeboZcfZOa9yLZ2YB71By/3o7AaSCl8pHZgU=;
+        b=e0PyQAESXsMtGNSVMrLRDwZ/EPnBn5IDXAdLRGC7t3Lcd6muyXaM8RwMUIFgPjDnje
+         L9A0LaqiPLs/Ifl4WFb19yye/KD1rTAsBAlB2Pv5IycH9mhpjmV06sfjlQA8pQgx6np/
+         Y0W51ZWYq7FJe/IWo97fjOHyV1WU4bHQf8g7xF8HnNKoKWNjJPvWu2UddusoOv0ufG33
+         HUfDNr1Eq681GHA3jwD2H1NAD7D6xJVy5RjjpiKY5mSvnwUMi2337wU+pio8YlY4/Erw
+         PxKWsM+UPY5lD6k2PK0BVTGcrj7dfmllPmA1tllA+Divp9mpKZz1sL+migr86cJ97kj6
+         C37A==
+X-Forwarded-Encrypted: i=1; AFNElJ/CI0HrUTfPjSwg8ui1s2hwe8CCZJtK/ircFrxizhs0IaAy4swyBDXEXBhQDWRSwcEUxfuUqnnB/hQv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyl+/9Td6FbfsQ/lDJ1Xlq10eD81ToxpH5JFDWHsD9cAFPEIfUT
+	TpXvVYxPuHZNV+2zRLzQrFJE6JJKt7AIewK8nhQoCuGcp4GMpp/qij2R
+X-Gm-Gg: AfdE7cn7vZ0hYjS4PjoC/dHIf2rm7/nAcOA9WkX1dZ/noeltrEtQV0SY1Oxy7Z7SO4h
+	EoLgPn7CaXWYA0cOxJ21koPnMngp/Nywq95Eevjx7N79KRyVl5mT3DXrEJRPeltRuI9y1LQnYeQ
+	G3vMneZM3D9wACB5M8Y2b1yibqNTmj5qJUuL1aDcZecbVD2f0NQX/LvgzyJfd8YHNjz2RVT5+io
+	ntkFhgxi9Xx0rlrLNeKFnTzfU9Hc3OxHMzURDuvNwYhxkr538q4AaDbh+rZHjQKCEN4QOyBeYT8
+	CdNifIMhqCUXQWhQR4TMyxjgPuH5PGNTRWR0WM1BGUIxRlmPELH657sozPddShu28UVtWAV0qZb
+	FrFs8gg4vhCB8cyCnwkDPJuLbzGoHNy7LHUiIUE39VyPqet3FfMjVxVcJ1C0iXRjyuLLZ20vkec
+	+7f1dGDbarIM9zMzrqPqMVyxb812Y/tZkASDxT0SfIbQolhijwrFPUyZKO
+X-Received: by 2002:ac2:51c9:0:b0:5ad:4da9:7330 with SMTP id 2adb3069b0e04-5ad576da87cmr6211327e87.11.1782223277734;
+        Tue, 23 Jun 2026 07:01:17 -0700 (PDT)
+Received: from Shofiq.home (87-92-251-137.rev.dnainternet.fi. [87.92.251.137])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad6958216fsm832663e87.70.2026.06.23.07.01.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 06:58:05 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Jitao shi <jitao.shi@mediatek.com>,
-	dri-devel@lists.freedesktop.org,
+        Tue, 23 Jun 2026 07:01:16 -0700 (PDT)
+From: Md Shofiqul Islam <shofiqtest@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: jic23@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] dt-bindings: mediatek: cec: Correct the compatibles for mt7623-mt8167
-Date: Tue, 23 Jun 2026 15:57:53 +0200
-Message-ID: <20260623135757.5111-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Md Shofiqul Islam <shofiqtest@gmail.com>
+Subject: [PATCH 0/1] iio: health: add MAX86150 ECG and PPG biosensor driver
+Date: Tue, 23 Jun 2026 17:01:12 +0300
+Message-ID: <20260623140113.12574-1-shofiqtest@gmail.com>
+X-Mailer: git-send-email 2.51.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,40 +77,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The HDMI CEC driver for both mt7623 and mt8167 is actually the same as
-mt8173-cec and the mt7623n.dtsi board include file already uses mt8173-cec
-compatible as a fallback, but the documentation lists them as separate
-entries. Correct the binding by adding the correct fallback.
+The MAX86150 (Maxim/Analog Devices) combines two PPG optical channels
+(Red/IR LED) and one ECG biopotential channel in a single I2C device.
+Data is produced at up to 3200 Hz and buffered in a 32-entry hardware
+FIFO with a configurable almost-full interrupt.
 
-This change fixes a dtbs_check error.
+This patch adds an IIO driver that exposes three channels:
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
- .../bindings/display/mediatek/mediatek,cec.yaml       | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+  in_intensity_red_raw   -- PPG Red LED, 19-bit unsigned
+  in_intensity_ir_raw    -- PPG IR LED, 19-bit unsigned
+  in_voltage0_raw        -- ECG biopotential, 18-bit signed
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-index 080cf321209e..4d741ba415e8 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,cec.yaml
-@@ -15,10 +15,13 @@ description: |
- 
- properties:
-   compatible:
--    enum:
--      - mediatek,mt7623-cec
--      - mediatek,mt8167-cec
--      - mediatek,mt8173-cec
-+    oneOf:
-+      - const: mediatek,mt8173-cec
-+      - items:
-+        - enum:
-+          - mediatek,mt7623-cec
-+          - mediatek,mt8167-cec
-+        - const: mediatek,mt8173-cec
- 
-   reg:
-     maxItems: 1
+Key implementation choices:
+
+  - regmap_noinc_read() for FIFO access: reads 9 bytes (3 slots x 3
+    bytes) from the streaming FIFO_DATA register in a single I2C
+    burst without address auto-increment.
+
+  - IIO hardware trigger backed by the device interrupt (active-low,
+    FIFO almost-full). When an interrupt GPIO is provided in the device
+    tree, a trigger is registered and wired to the IIO triggered buffer
+    path for continuous low-overhead capture.
+
+  - All resource management uses devm_* APIs.
+
+Known limitations to be addressed in v2:
+  - IIO_CHAN_INFO_SCALE not yet implemented.
+  - Runtime PM (SYS_CTRL SHDN bit) not yet implemented.
+  - Not yet tested on physical hardware.
+
+Md Shofiqul Islam (1):
+  iio: health: add MAX86150 ECG and PPG biosensor driver
+
+ .../bindings/iio/health/maxim,max86150.yaml   |  67 +++
+ drivers/iio/health/Kconfig                    |  23 +
+ drivers/iio/health/Makefile                   |   1 +
+ drivers/iio/health/max86150.c                 | 512 ++++++++++++++++++
+ 4 files changed, 603 insertions(+)
+ create mode 100755 Documentation/devicetree/bindings/iio/health/maxim,max86150.yaml
+ create mode 100755 drivers/iio/health/max86150.c
+
 -- 
-2.43.0
+2.51.1
 
