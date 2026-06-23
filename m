@@ -1,275 +1,281 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CB43371D11;
-	Tue, 23 Jun 2026 22:35:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57283C8EB
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 22:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782254116; cv=none; b=lHwd2H3OzYHcwexhBOOpcu/mdx9660Wfxm2okjoKUZDbXzNHuEhYKGchJA6DTFtVhKErL4CQfg6X7Iu3y5HM7ePNol3j+9EJuqcq1fHSsxJG6sGPs9nIEFE3cJ0vhV13Omyuy7cTT2VAh6cDVHtG7tE323j4qy8yNRzf9aYgP/8=
+	t=1782254871; cv=none; b=UeWNjyRUNQiooIGGCCvDtMgb5vNEAvSHPDzg5BHnFb8hoH2oc/cf5L6beoTIT+ldwe6J4dsA3Q6JrfrhXKssOSQWBEhjTL0H8AI9HeIa6vyacDmreEYTBpcuFFXk6Xx+12Xudv3dQeRyh52QaJ33qCU1nyVL2qIAnDIZU6sFcNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782254116; c=relaxed/simple;
-	bh=SRPt/Z1N9zfS5tVZtHc1Ym/DJpa09C6NIWLnEJarli8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p/qxonJ7W5O8R0pMS+u3td0044Ai2mM1pWRi5PVYvX1bCLfzcoBvevMOggYdOjV2DAtdCbHL/qocuOIKVeMPzVOdqJkQwswlxmkgp+ZuZZ4yHkHttNEVHSsv+nqdOf3Nj4cUdd5i0vOCDci5pGgzRoaSzAXQWUiPs+PwI86Vtmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=G5flbO5J; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1782254871; c=relaxed/simple;
+	bh=K8DthgNvpP8H3W1v9rUrPVBz/IFhRniVZrCwsEvBQJ4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSCCj4kwlQk9YG71dicLhpht2sYKD47vaXx8Sr8MmBS4qSrC2NZNcrqhqLjPHY/RXcK+MxrwnoHkzYov8ihJHY4kUudYIDkaV03h3t7vrQnzXiWzj3u1fCFrxZqCKx1Ith3QNe/h3DGKleoIRp/x2JmvFgAx1dFZduwPzcDTMW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F525Msj2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WPqsOVFl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="G5flbO5J"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B3EC1713;
-	Tue, 23 Jun 2026 15:35:07 -0700 (PDT)
-Received: from [10.43.8.246] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B3D423F632;
-	Tue, 23 Jun 2026 15:35:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782254112; bh=SRPt/Z1N9zfS5tVZtHc1Ym/DJpa09C6NIWLnEJarli8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G5flbO5JtjY2PHGG2ojKGXX8SqI+2MRfa+r6LYez6kIYWrMO5mYm3Z02byPITyVx5
-	 yIv7eGXrRte6UNWeKzB1Oryv66h5vXQEk1IcivwwfWgcjoIuMI/XRYk4euGrcbvraI
-	 pTYpub3JKKI8VTcq9p5Y59S2sQJTxCa6efj4jEfE=
-Message-ID: <138b5b54-7e2a-45fd-9c3f-eb4b4e04d954@arm.com>
-Date: Tue, 23 Jun 2026 23:35:00 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F525Msj2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WPqsOVFl"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65NJwlwG3454687
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 22:47:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=asq7qdr/KrrmzhR4T24h1GJS
+	Iepx/Nw0a3Z1XgC25/M=; b=F525Msj2pgDAEAbRB3jeiUrK4GOoji/yIEmbUf20
+	r4n0faO/Uw10FEsoDdztMyGSxNgHdbOU4Icv/kieCbgfIz4x2uvEBBIa+Eql9RkE
+	ytlzR0IfWeT5Cuav8JC1L+eOOYqIsjCxDhRTTDTCh9BnfFwS3tVp4ErH90HKROZk
+	aUw+ntmeG5w2flb1YayqjEkYLj5hD5cb256gmOQ4aG8GDmJrH/OTHzePl8+Rx/eW
+	XxSBxUN987xUotAcWvpAel6NpgcHKyp+7BLwmEyOONIVOyEN+Iny78J0XXhjnWzS
+	9E+83/SPJGTq4G+T3qFPdy65xQrQWNkC+cyZvnSxzY5grg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eyp1guk1b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 22:47:49 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c5978b108so894552eec.1
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 15:47:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782254869; x=1782859669; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=asq7qdr/KrrmzhR4T24h1GJSIepx/Nw0a3Z1XgC25/M=;
+        b=WPqsOVFlxdzS4keSGvO3oF9EwZpMoV8tYe7Gp/6x7vZ0rt6/u7hnn39MSownLtSlv1
+         rTnIXQUMtI2SyVl6AhzNSt7NOonRS2CF+8/BVu70encn6sB42IDn4EAiMadCvotnrSNy
+         ++RRWusJmBeNapA7H3FAY2q+vdGvOQ7k4zaypWGDLRJ5Onj/e+XwmWoau3c/kuYuCm67
+         y013MudWrCdPbBTx0nmsgo12AsW4O0ZOr4+RK7mKYt/Ww7yDG0I6iXYKeUVMuALSCVXl
+         UhVw/BzJebX9hkNvG+svSfe4u0Re6mguROY1tTDa8ogsOxkKoT1jx3XPX+v73NaMTkZ3
+         /g/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782254869; x=1782859669;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=asq7qdr/KrrmzhR4T24h1GJSIepx/Nw0a3Z1XgC25/M=;
+        b=J5Q8yzxNKwkg/0Ovu8gbIxhJJPu5viPb2q4YG/oB24pkF0qfVMDrOVCHIIZ3CFnSdl
+         sPfj+WhPJJvT7vb86C36CvNDwDF8i3tcxG3as1f/KhANIqO7n6Hdmur87rvdSYEjFbb8
+         ve9VU+awDa8eHWE7XczOigSQkDOrnhz6qHyQS3wUNmubslK/T7KiC6caDbZODGFb2qOD
+         wfHaRNVDRTe8Mi+auj7dlI7jhBaM0qJadPIwYxe3CbWKUQRbFTuieJ7bU7XAid5WDoSf
+         vCGTDzLbkovRuGW6cju8/yBDDiTZsAeTBQdxODovaAv1o1jk5YZ41GFwT4RlfIPR6F7p
+         7W0g==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+hoPof3kEUwzFGGqbEZoGCwjz38ulRXT4CjdqEKuxnlTDSDZOip/+WSGUUGBOq17g4X6S2KE1ABSS@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGr4jwBCnrRp5ys+A19QP9i3Ep7/VEkbNKHsh1nM7hraduK1Wp
+	IZUO3bSTk607i1VLvNYE0YWWSrh7V5FLxHoHByu1HoUxeH6Ywkqwgrm8XH37U2kwofVvOiOdFBx
+	Ye4CX3dBBzExHc8wTogIYJX5ZzyV4YUH+tfH3hHX1/+VcLqdcUgAhRNVp0iL7dXxp
+X-Gm-Gg: AfdE7ckysJiQ0kQ78+CH3x7jUg4Lirlq+tm9bVDKL6DRewojZYNFLL5PEWZ1F4vGOox
+	vsJ+EFl635GlR0vKdJO/XqAcBesJEGEqDXIVsJnMbd2vf8ZL94AurHGVxAUTVAyOXH817UqLxXH
+	dBSWvNm8D83/HnLA4u/CEZl0uTcNsZq/+vV3bds1F29K8h/cUBp1jW7N6hzO1jev0ME+Ml0bfx1
+	J/msOvglPj0v9cx38AT6OG1Z8pFEl27rRWmf2i8av5Ntm5GsEPlrY7W83S3+5ixm0A+Gm+01x22
+	XR9jwRkHbw9LS2NlDLLTLRSoKdEU7VaSx2yjeZfH8a/HRmqDMV/JZEM0hly0Mr4PWMGcd7XbXkz
+	d66OiUpAPz+OwZk6PBqwNc4QqevM1TtXZ7SiX7ae9ZQ5RfyaYw1s5G1wl9gQpWnVo4ic=
+X-Received: by 2002:a05:7300:5bac:b0:30c:25c4:70fb with SMTP id 5a478bee46e88-30c68e33484mr1215358eec.34.1782254868597;
+        Tue, 23 Jun 2026 15:47:48 -0700 (PDT)
+X-Received: by 2002:a05:7300:5bac:b0:30c:25c4:70fb with SMTP id 5a478bee46e88-30c68e33484mr1215333eec.34.1782254867956;
+        Tue, 23 Jun 2026 15:47:47 -0700 (PDT)
+Received: from hu-mattleun-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c1be4b24esm18691660eec.27.2026.06.23.15.47.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 15:47:47 -0700 (PDT)
+Date: Tue, 23 Jun 2026 15:47:45 -0700
+From: Matthew Leung <matthew.leung@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: PCI: qcom: Document the Hawi PCIe
+ Controller
+Message-ID: <ajsNEftGh/dC5JhK@hu-mattleun-lv.qualcomm.com>
+References: <20260618-hawi-pcie-v3-0-f31880bfb3ec@oss.qualcomm.com>
+ <20260618-hawi-pcie-v3-1-f31880bfb3ec@oss.qualcomm.com>
+ <20260622-brainy-observant-crocodile-d57bef@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 5/8] clk: sunxi-ng: a733: Add bus clocks support
-To: Junhui Liu <junhui.liu@pigmoral.tech>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- netdev@vger.kernel.org
-References: <20260310-a733-clk-v1-0-36b4e9b24457@pigmoral.tech>
- <20260310-a733-clk-v1-5-36b4e9b24457@pigmoral.tech>
-Content-Language: en-US
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260310-a733-clk-v1-5-36b4e9b24457@pigmoral.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622-brainy-observant-crocodile-d57bef@quoll>
+X-Proofpoint-ORIG-GUID: VqWrXryOtCkLDGq3fKhwD219VyzvR_vp
+X-Proofpoint-GUID: VqWrXryOtCkLDGq3fKhwD219VyzvR_vp
+X-Authority-Analysis: v=2.4 cv=QJhYgALL c=1 sm=1 tr=0 ts=6a3b0d15 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=BYOc-fOMsGyrnX6sEagA:9
+ a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjIzMDE4NyBTYWx0ZWRfX/yhfCmeaTEs2
+ d0gsl12Z+QGjB18fIg2QF2TAuetUAtApU271JcUSi+tP7iyNJzU+viBkRJHGLtuH82Ix1JHawOe
+ ynqZNUOvbBzIT/7CEqBHaw2RzpBEnWA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjIzMDE4NyBTYWx0ZWRfX980H5RZ9LwL4
+ BDzoNs1l6pMN7hTP1LgMDcIAwaU+l0RvYWqr482TDiIWORmvF49l7WtFAzwU9Jx7ggnJyh4vhGH
+ FcpXMkTC2x72pJjVPHqLf7bE78vmEnzak62R10IGY073Cjf6lzI6+vmNKEUKCFVEZNDBsnchKYd
+ Takx/Ydn4VRgrANHZZcEUw5/UhgA5biyKOa4Hf90gW7XN82wAZ09e7LWVdAsHHG5qaU+WbPiqnW
+ 6BTNNVL/BvzzHLETOWljKwiBslTkN4NmvGOzmiOWAYBgbw2tmbskNpVTYbxU/TU0RS9zAg8uJTN
+ L+Afs17MSHaZ4hE0vwPI11YaxG9SsnfOJLSXiSSjkqA6rnAZDKnXRbYkQeMKp7SH9qyo37EMRNy
+ CX5uJB/iE+m4uw6r1+RpaSk80jRVeeL0Ey4qOTbfdA9xYy4ApNPq5Uivck2fQC36NAQTxAMwoIo
+ ne9VVD4wnrhvEdAdKMQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-23_04,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ lowpriorityscore=0 phishscore=0 malwarescore=0 priorityscore=1501
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606230187
 
-Hi,
-
-On 3/10/26 08:33, Junhui Liu wrote:
-> Add the essential bus clocks in the Allwinner A733 CCU, including AHB,
-> APB0, APB1, APB_UART, NSI, and MBUS. These buses are necessary for many
-> other functional modules. Additionally clocks such as trace, gic and
-> cpu_peri are also added as they fall within the register address range
-> of the bus clocks, even though they are not strictly bus clocks.
+On Mon, Jun 22, 2026 at 12:12:04PM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Jun 18, 2026 at 10:00:32PM +0000, Matthew Leung wrote:
+> > Add a dedicated schema for the PCIe controllers found on the Hawi
+> > platform.
+> > 
+> > Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/pci/qcom,hawi-pcie.yaml    | 202 +++++++++++++++++++++
+> >  1 file changed, 202 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/pci/qcom,hawi-pcie.yaml b/Documentation/devicetree/bindings/pci/qcom,hawi-pcie.yaml
+> > new file mode 100644
+> > index 000000000000..fb3145f89f7f
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/pci/qcom,hawi-pcie.yaml
+> > @@ -0,0 +1,202 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/pci/qcom,hawi-pcie.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Qualcomm Hawi PCI Express Root Complex
+> > +
+> > +maintainers:
+> > +  - Bjorn Andersson <andersson@kernel.org>
+> > +  - Manivannan Sadhasivam <mani@kernel.org>
+> > +
+> > +description:
+> > +  Qualcomm Hawi SoC (and compatible) PCIe root complex controller is based on
+> > +  the Synopsys DesignWare PCIe IP.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: qcom,hawi-pcie
+> > +
+> > +  reg:
+> > +    minItems: 5
+> > +    items:
+> > +      - description: Qualcomm specific registers
+> > +      - description: DesignWare PCIe registers
+> > +      - description: External local bus interface registers
+> > +      - description: ATU address space
+> > +      - description: PCIe configuration space
+> > +      - description: MHI registers
 > 
-> The MBUS clock is marked as critical to ensure the memory bus remains
-> operational at all times. For the NSI and MBUS clocks, the hardware
-> requires an update bit (bit 27) to be set so that the configuration
-> takes effect and the updated parameters can be correctly read back.
+> Why is MHI optional?
+
+The optional properties were carried over from the previous binding
+which this binding was derived from, but I see those need not be the
+case here. Each of the properties are used in both instances.
+
+I will update with making the optional properties required.
+
 > 
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 131 +++++++++++++++++++++++++++++++++
->   1 file changed, 131 insertions(+)
+> > +
+> > +  reg-names:
+> > +    minItems: 5
+> > +    items:
+> > +      - const: parf
+> > +      - const: dbi
+> > +      - const: elbi
+> > +      - const: atu
+> > +      - const: config
+> > +      - const: mhi
+> > +
+> > +  clocks:
+> > +    minItems: 6
+> > +    items:
+> > +      - description: PCIe Auxiliary clock
+> > +      - description: PCIe Configuration clock
+> > +      - description: PCIe Master AXI clock
+> > +      - description: PCIe Slave AXI clock
+> > +      - description: PCIe Slave Q2A AXI clock
+> > +      - description: PCIe Aggre NoC AXI clock
+> > +      - description: PCIe Config NoC AXI clock
 > 
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-> index cf819504c51f..68457813dbbb 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
-> @@ -19,6 +19,7 @@
->   #include "ccu_common.h"
->   
->   #include "ccu_div.h"
-> +#include "ccu_mp.h"
->   #include "ccu_mult.h"
->   #include "ccu_nkmp.h"
->   #include "ccu_nm.h"
-> @@ -65,6 +66,16 @@ static const struct clk_hw *pll_ref_hws[] = {
->   	&pll_ref_clk.common.hw
->   };
->   
-> +/*
-> + * There is a non-software-configurable mux selecting between the DCXO and the
-> + * PLL_REF in hardware, whose output is fed to the sys-24M clock. Although both
-> + * sys-24M and pll-ref are fixed at 24 MHz, define a 1:1 fixed factor clock to
-> + * provide logical separation:
-> + * - pll-ref is dedicated to feeding other PLLs
-> + * - sys-24M serves as reference clock for downstream functional modules
-> + */
-> +static CLK_FIXED_FACTOR_HWS(sys_24M_clk, "sys-24M", pll_ref_hws, 1, 1, 0);
-> +
->   #define SUN60I_A733_PLL_DDR_REG		0x020
->   static struct ccu_nkmp pll_ddr_clk = {
->   	.enable		= BIT(27),
-> @@ -371,6 +382,107 @@ static SUNXI_CCU_M_HWS(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
->   static SUNXI_CCU_M_HWS(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
->   		       SUN60I_A733_PLL_DE_REG, 16, 3, 0);
->   
-> +/**************************************************************************
-> + *                           bus clocks                                   *
-> + **************************************************************************/
-> +
-> +static const struct clk_parent_data ahb_apb_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .fw_name = "losc" },
-> +	{ .fw_name = "iosc" },
-> +	{ .hw = &pll_periph0_600M_clk.hw },
-> +};
-> +
-> +static SUNXI_CCU_M_DATA_WITH_MUX(ahb_clk, "ahb", ahb_apb_parents, 0x500,
-> +				 0, 5,		/* M */
-> +				 24, 2,		/* mux */
-> +				 0);
-> +
-> +static SUNXI_CCU_M_DATA_WITH_MUX(apb0_clk, "apb0", ahb_apb_parents, 0x510,
-> +				 0, 5,		/* M */
-> +				 24, 2,		/* mux */
-> +				 0);
-> +
-> +static SUNXI_CCU_M_DATA_WITH_MUX(apb1_clk, "apb1", ahb_apb_parents, 0x518,
-> +				 0, 5,		/* M */
-> +				 24, 2,		/* mux */
-> +				 0);
-> +
-> +static const struct clk_parent_data apb_uart_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .fw_name = "losc" },
-> +	{ .fw_name = "iosc" },
-> +	{ .hw = &pll_periph0_600M_clk.hw },
-> +	{ .hw = &pll_periph0_480M_clk.common.hw },
-> +};
-> +static SUNXI_CCU_M_DATA_WITH_MUX(apb_uart_clk, "apb-uart", apb_uart_parents, 0x538,
-> +				 0, 5,		/* M */
-> +				 24, 3,		/* mux */
-> +				 0);
-> +
-> +static const struct clk_parent_data trace_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .fw_name = "losc" },
-> +	{ .fw_name = "iosc" },
-> +	{ .hw = &pll_periph0_300M_clk.hw },
-> +	{ .hw = &pll_periph0_400M_clk.hw },
-> +};
-> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(trace_clk, "trace", trace_parents, 0x540,
-> +				 0, 5,		/* M */
-> +				 24, 3,		/* mux */
-> +				 BIT(31),	/* gate */
-> +				 0);
-> +
-> +static const struct clk_parent_data gic_cpu_peri_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .fw_name = "losc" },
-> +	{ .hw = &pll_periph0_600M_clk.hw },
-> +	{ .hw = &pll_periph0_480M_clk.common.hw },
-> +	{ .hw = &pll_periph0_400M_clk.hw },
-> +};
-> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(gic_clk, "gic", gic_cpu_peri_parents, 0x560,
+> Same here - does that mean that once instance does not have this clock?
+> If so, mention this in commit msg.
 
-Do we really want to model the GIC clock? The A523 has one as well, as 
-we don't describe it there. And while the GICv3 binding describes a 
-clock property, the Linux driver completely ignores that.
-So if I see this correctly, this clock would become unused, and would be 
-turned off, killing the GIC? So we would at least need a CLK_IS_CRITICAL 
-flag?
+Same; will make required.
 
-But it's a good reminder to lift this clock to something PLL based, in 
-U-Boot's SPL, because I guess the 24MHz are rather slow.
-
-> +				      0, 5,	/* M */
-> +				      24, 3,	/* mux */
-> +				      BIT(31),	/* gate */
-> +				      0);
-> +
-> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(cpu_peri_clk, "cpu-peri", gic_cpu_peri_parents, 0x568,
-
-What is this clock about? I don't see it referenced by any peripheral in 
-the manual.
-
-> +				      0, 5,	/* M */
-> +				      24, 3,	/* mux */
-> +				      BIT(31),	/* gate */
-> +				      0);
-> +
-> +static const struct clk_parent_data nsi_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .hw = &pll_ddr_clk.common.hw },
-> +	{ .hw = &pll_periph0_800M_clk.common.hw },
-> +	{ .hw = &pll_periph0_600M_clk.hw },
-> +	{ .hw = &pll_periph0_480M_clk.common.hw },
-> +	{ .hw = &pll_de_3x_clk.common.hw },
-> +};
-> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE_FEAT(nsi_clk, "nsi", nsi_parents, 0x580,
-
-Similar question like for the GIC: do we need this in the kernel, and do 
-we need to prevent this from being turned off?
-
-> +					    0, 5,	/* M */
-> +					    0, 0,	/* no P */
-> +					    24, 3,	/* mux */
-> +					    BIT(31),	/* gate */
-> +					    0, CCU_FEATURE_UPDATE_BIT);
-> +
-> +static const struct clk_parent_data mbus_parents[] = {
-> +	{ .hw = &sys_24M_clk.hw },
-> +	{ .hw = &pll_periph1_600M_clk.hw },
-> +	{ .hw = &pll_ddr_clk.common.hw },
-> +	{ .hw = &pll_periph1_480M_clk.common.hw },
-> +	{ .hw = &pll_periph1_400M_clk.hw },
-> +	{ .hw = &pll_npu_clk.common.hw },
-> +};
-> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE_FEAT(mbus_clk, "mbus", mbus_parents, 0x588,
-> +					    0, 5,	/* M */
-> +					    0, 0,	/* no P */
-> +					    24, 3,	/* mux */
-> +					    BIT(31),	/* gate */
-> +					    CLK_IS_CRITICAL,
-> +					    CCU_FEATURE_UPDATE_BIT);
-> +
->   /*
->    * Contains all clocks that are controlled by a hardware register. They
->    * have a (sunxi) .common member, which needs to be initialised by the common
-> @@ -407,11 +519,21 @@ static struct ccu_common *sun60i_a733_ccu_clks[] = {
->   	&pll_de_clk.common,
->   	&pll_de_4x_clk.common,
->   	&pll_de_3x_clk.common,
-> +	&ahb_clk.common,
-> +	&apb0_clk.common,
-> +	&apb1_clk.common,
-> +	&apb_uart_clk.common,
-> +	&trace_clk.common,
-> +	&gic_clk.common,
-> +	&cpu_peri_clk.common,
-> +	&nsi_clk.common,
-> +	&mbus_clk.common,
->   };
->   
->   static struct clk_hw_onecell_data sun60i_a733_hw_clks = {
->   	.hws	= {
->   		[CLK_PLL_REF]		= &pll_ref_clk.common.hw,
-> +		[CLK_SYS_24M]		= &sys_24M_clk.hw,
->   		[CLK_PLL_DDR]		= &pll_ddr_clk.common.hw,
->   		[CLK_PLL_PERIPH0_4X]	= &pll_periph0_4x_clk.common.hw,
->   		[CLK_PLL_PERIPH0_2X]	= &pll_periph0_2x_clk.common.hw,
-> @@ -453,6 +575,15 @@ static struct clk_hw_onecell_data sun60i_a733_hw_clks = {
->   		[CLK_PLL_DE]		= &pll_de_clk.common.hw,
->   		[CLK_PLL_DE_4X]		= &pll_de_4x_clk.common.hw,
->   		[CLK_PLL_DE_3X]		= &pll_de_3x_clk.common.hw,
-> +		[CLK_AHB]		= &ahb_clk.common.hw,
-> +		[CLK_APB0]		= &apb0_clk.common.hw,
-> +		[CLK_APB1]		= &apb1_clk.common.hw,
-> +		[CLK_APB_UART]		= &apb_uart_clk.common.hw,
-> +		[CLK_TRACE]		= &trace_clk.common.hw,
-> +		[CLK_GIC]		= &gic_clk.common.hw,
-> +		[CLK_CPU_PERI]		= &cpu_peri_clk.common.hw,
-> +		[CLK_NSI]		= &nsi_clk.common.hw,
-> +		[CLK_MBUS]		= &mbus_clk.common.hw,
->   	},
->   	.num	= CLK_FANOUT3 + 1,
->   };
 > 
+> > +
+> > +  clock-names:
+> > +    minItems: 6
+> > +    items:
+> > +      - const: aux
+> > +      - const: cfg
+> > +      - const: bus_master
+> > +      - const: bus_slave
+> > +      - const: slave_q2a
+> > +      - const: noc_aggr
+> > +      - const: cnoc_sf_axi
+> > +
+> > +  interrupts:
+> > +    minItems: 8
+> > +    maxItems: 9
+> > +
+> > +  interrupt-names:
+> > +    minItems: 8
+> > +    items:
+> > +      - const: msi0
+> > +      - const: msi1
+> > +      - const: msi2
+> > +      - const: msi3
+> > +      - const: msi4
+> > +      - const: msi5
+> > +      - const: msi6
+> > +      - const: msi7
+> > +      - const: global
+> 
+> Here as well - why is global optional?
 
+Same; will make required.
+
+> 
+> > +
+> > +  resets:
+> > +    minItems: 1
+> 
+> Same here?
+
+Same; will make required.
+
+> 
+> > +    items:
+> > +      - description: PCIe core reset
+> > +      - description: PCIe link down reset
+> > +
+> > +  reset-names:
+> > +    minItems: 1
+> > +    items:
+> > +      - const: pci
+> > +      - const: link_down
+> > +
+> > +required:
+> > +  - power-domains
+> > +  - resets
+> > +  - reset-names
+> > +
+> > +allOf:
+> > +  - $ref: qcom,pcie-common.yaml#
+> 
+> Best regards,
+> Krzysztof
+> 
