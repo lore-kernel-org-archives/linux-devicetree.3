@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC152FF66B;
-	Tue, 23 Jun 2026 15:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559B72DCC1C;
+	Tue, 23 Jun 2026 15:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782229141; cv=none; b=mPg16ZxZ0m5h2Hrz/HrNaLe3MV5sYn2TkCyoV6vTh9jYbiz0mo+KxhSkGGYjh15RK34Y7w06wiE65pw0X+Kq1ETcjL39xBLKZVXDB5aaORGIhiXca7jnv/3GM8r8gLVv4l5Nb7+ZVkjMvOLQKpnmeBdaY9qsVQY8ycK7fJrSqsI=
+	t=1782229206; cv=none; b=Lx5kR/IZYVH02fFt5qfoXc9CjEiY2D466NMxOWSpLACYf+hho2R14BrFCn2EIzUTDpfcir7ongNtxGCJORns8iPtUgBw06vzt4Z8IIRJQfny1eG0g52BiEtzLnfCOVkYgMZR0ZIhB3pyGVAXkzuTLhbIEojJpTrweG2+JZ2tiWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782229141; c=relaxed/simple;
-	bh=lvkWCRdLIQ1oibJNqp8lgEMH7QPhpJ+NFkaWzYRiibc=;
+	s=arc-20240116; t=1782229206; c=relaxed/simple;
+	bh=6cX12bYt5lU2zEEuwgsiF4sysItirmoUNcjgrKhWcFY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QocdbhuKmJyHgcY2QzG+sh8n1PVbZA7KAK6c7u3/x7JA+oanzdVPRIfQrF2xzlDo98NXEGpT+XqE1ii4YtTDlEZCydGKa8ZhFSxA8AKfaKcgyFeUKs/96XHl+Hvrmwkwd6ZVdYFkh2l2Y5p1lnhShy12mT9f0h6VV4qZVkV6Y8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hu+NFjiH; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Rtz7ojALJTIq1ctKFytw3pow6WlWkc6h2Jmz42lvmxkwwTYeeY5DT63auaZqR4x6ircD1T9w6ERPZs9gRVk0YyAHfaMx65qywDC+t3gEgrkZMJ7EbfWOwUvTqtKBHM3rzIN+4G6wNtiZs9JzITHESm/vCisyxkVN8nEGs8jVSus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVMeCBqd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hu+NFjiH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2CE71F000E9;
-	Tue, 23 Jun 2026 15:38:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVMeCBqd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF98B1F000E9;
+	Tue, 23 Jun 2026 15:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782229139;
-	bh=MAHoh/g9U/1RkD0WKUJPkiqxlKeqPzq3Nsm71wRcAWk=;
+	s=k20260515; t=1782229205;
+	bh=BSb0t7HyzHmwhpJzJhNzEHmlkldxYgAG5n8UPrH07Gc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hu+NFjiHsXHDRq4qPIibL8pZijGP8VUxxZcgbDH9DXyAuxU4TcKvcRSSUd2zBvBXH
-	 uwj4ELAHzkdgX2BPfMzmbrE/WjT0to9hXKBXjSiAGXSvjhNnAv1LLaoxqDsIx25qxC
-	 jxcF2XeAEurgUnHN1RLGB5RK5tTWQ5M6Q+1zoGnm8hZcgW3bIPT36ZlcxqIqek32OQ
-	 KBkL9I/i2LPEj26YH6WiVPj6vRaYCPv49imk7u2C2LU3LaR7SlVxNdF5K8fS9pzm7p
-	 wg1IoaJKaao3gps4eXVzW0cKwH2rxgI+7mHFcn7CZU15OMqms5b4CP+T3ck1FOM/ET
-	 0lK0AANZw3C3g==
-Message-ID: <e07962a6-2260-4fee-9edd-844fd970081a@kernel.org>
-Date: Tue, 23 Jun 2026 17:38:53 +0200
+	b=LVMeCBqdk5hwFeHn8/I7u9VR7FqrdpBuOPyb6G0GimM+42U1FN4lVvNlcoLFJ4DWj
+	 UxXN+TE3uazvUnbAaHv/SIHC9NTNWe/fppEioc+tcy61ncLijafOYcyTUz97w9tDBo
+	 51p8ChFpKy8FmtloedEEKFdaB1EAVq2nd+MxYAabmhOVRgFdctNHGnDwUKAaXrxebJ
+	 GpyKoYqHJDuKike+GqeFstm/D3gIafyQatSvKZ1Ppd4xMsdMgDcf3hM+YMNT1JtvQJ
+	 3DN0jr31C9XJMhpqqck0u0ImVd3HdR1OEYE00HaTPtr3/AvCJ8yicgMJXHN++VURE3
+	 IeHRaHSbtw4Pg==
+Message-ID: <350464c2-e4e6-4626-961d-b44f4ed864ea@kernel.org>
+Date: Tue, 23 Jun 2026 17:39:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,13 +35,22 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-To: Md Shofiqul Islam <shofiqtest@gmail.com>, linux-iio@vger.kernel.org
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260623140113.12574-1-shofiqtest@gmail.com>
- <20260623140113.12574-2-shofiqtest@gmail.com>
+Subject: Re: [PATCH 1/8] clk: qcom: dispcc-sm8450: Fix mdss clocks
+To: esteuwu@proton.me, Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org
+References: <20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me>
+ <20260622-sm8450-qol-v1-1-37e2ee8df9da@proton.me>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -87,36 +96,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260623140113.12574-2-shofiqtest@gmail.com>
+In-Reply-To: <20260622-sm8450-qol-v1-1-37e2ee8df9da@proton.me>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/06/2026 16:01, Md Shofiqul Islam wrote:
-> The MAX86150 (Maxim/Analog Devices) integrates two PPG optical channels
-> (Red/IR LED) and one ECG biopotential channel in a single I2C device.
-> Data is captured via a 32-entry hardware FIFO with a configurable
-> almost-full interrupt.
+On 23/06/2026 02:54, Esteban Urrutia via B4 Relay wrote:
+> From: Esteban Urrutia <esteuwu@proton.me>
 > 
-> The driver exposes three IIO channels:
->   - in_intensity_red_raw   (PPG Red, 19-bit unsigned)
->   - in_intensity_ir_raw    (PPG IR, 19-bit unsigned)
->   - in_voltage0_raw        (ECG, 18-bit signed)
+> Both of these changes allow the framebuffer to show upon boot and let
+> the mdss driver take over afterwards.
+> Before, none of these actions were possible. Only mdss takeover was
+> possible, but screen had to be turned off first.
 > 
-> A hardware trigger is registered when an interrupt GPIO is provided in
-> the device tree, enabling the IIO triggered buffer path for continuous
-> low-overhead capture.
+> OLE configuration may have been a misinterpretation... that's not
+> something that's done on the downstream driver.
 > 
-> FIFO reads use regmap_noinc_read() to burst-read 9 bytes (3 slots x
-> 3 bytes) from the streaming FIFO_DATA register in a single I2C
-> transaction.
-> 
-> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+> Changing disp_cc_mdss_mdp_clk_src from clk_rcg2_shared_ops to
+> clk_rcg2_shared_no_init_park_ops fixes this warning as well:
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+
+These should be two separate commits, if I understand correctly.
+
+Please use also Fixes tag.
 
 Best regards,
 Krzysztof
