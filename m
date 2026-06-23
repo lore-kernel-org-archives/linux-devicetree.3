@@ -1,155 +1,178 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C84E1547C0
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB593A4F2F
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 06:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782196872; cv=none; b=JGAypw0Qjot7SGZ18lVog4JsIK/7Fe7dPEdGl0bEip9+zT9yXr3iI0bIaLkPLnw4VMcJZkf1Z4+pzErK/Sod8iBqLgpF/hLJHa9zyUSs5VlUnH58Xh8s7758APPS/3Rti5l18F+XhRikYsCA2nbnoSY9uwXvYxaYecQerriM3j4=
+	t=1782196983; cv=none; b=ng/y4C+DMD4fsgjSfdFnrfAfa18vW5cgB4y1m8v2Ca3puNlkCP+rA3pV1EJUbY15DZ0aIljfTdbjGlTgn6vxvW8bRUZ1jD3ldcKSBjfUQVKFM2MmIVpKOTwGanfcGvipDHO4YPiYDLGM1ND+XfLBC3mkcSPm3oQePgzd5x6ALQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782196872; c=relaxed/simple;
-	bh=Kl6fDb8nMLegJK1M2zOllTyeaPaukBF3EDgG5U3Qj0A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=iRg/N/+pggfhtzd8QQzi3q+qc0S32iFAJgOc67rI+XMkuOtbRwzZwa9OCq5sJskFSOGP82gfZBZhl7KFGsuXxJ6G83eowNhG5rjs76EHlkWAd2XoLSs8fAHF0pJCCitPayS1bnQFuYQ9dnoTy65zt37Wu3y0wvBPQRDLzMbr+PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=HHjJt0Vw; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1782196983; c=relaxed/simple;
+	bh=e6m+6/dBkT+ECkLy9W2lGAKdVGQjpBPi6UYEQLQk7OY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=T7Sop4RvRXGeexOcm1z5W3g/C1bFdQ5ncIusyV/yliaYbHbgEggzjSYiyK2qq0VJ695TCi5WBuIWo9IUO1wlKo9UF04M+HfEWSm862khQY6xWo08zDrPmBKSHel5ZawpDbKhzh8E/fKta3ws5JS0x/v/0K3xF6ZH4vYiwTuY+QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jrMhc74C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="HHjJt0Vw"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-697cd68d7adso2067855a12.1
-        for <devicetree@vger.kernel.org>; Mon, 22 Jun 2026 23:41:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1782196869; x=1782801669; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3zD8Tb/E+kGWpnoDfwo14I4a+o1/b1jYnhYlX9w1IRw=;
-        b=HHjJt0VwHvElmLshy+LSpvb7s/OSqn7bbI/VVZ5Ybk8TWRVCfI1l/uMgUZ++ftNPsX
-         dNds1TUvD+C+srvZEZTAb3cx6LDpag4n0/Fmp7X1FhPFAETTCuwtUE/UXABhNKwbU4vd
-         m1h9c5CBcFvbKG1Qf/jXzwSpO3IXMdDCHVPyJvfLSFpEBN8bBwuNVMWQduDut5J8s7yR
-         IoGeg8zg/HcyFiH4cKpjIGgyI36JoXiL7PHX/rSQ419FYO5dnw22XYWbFMeUhfSL0gZu
-         f+Ha7LVgB0/dgirY3fedSxhJHL0l2pa3yHcQCEDgQFFb+9prtErjCEZM4k7b2UkMS7+a
-         sNLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782196869; x=1782801669;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3zD8Tb/E+kGWpnoDfwo14I4a+o1/b1jYnhYlX9w1IRw=;
-        b=rShA8iciUx6jVSy4P78MuC7+THn0GHjakQvBtsTxZAYVTkMLisA+jgFqaBuScQJObM
-         J1KZDslpC0xyAFFaJOxZcz2IfN01UqOlY//PgsJWUY6foSjhudHGbDMsHxpolWtiBkZb
-         qhlBGFCprD24oIEgxrXgo18Mu5uExlltUzFZaoxVpChfksQwXTSPSAVyaWWRoJ10P+b7
-         Oyf21yhFjKmYsvZIovgke/a+q6gLkRJi8ZHDpbFXsUEc2xkd/8lO8y309ui9W1nEoVaQ
-         0mes+l8TCM/rCR5KjvljjtPX9Ciz0ungSHWppY9vjgXzkuoGKwx5SdTBc286aGBTEu79
-         a9Rg==
-X-Forwarded-Encrypted: i=1; AFNElJ+AlFwV620HbneJsb8Lc+fqCfSB9Ksbes2tKYlVDbyMm9vDOxbjb8pI/cA9JfknSuLp7jHW7jXhUsBr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2tsYPDbNRzU0CCJ09zKu1r2Qb0BHzgLQr+qL+GrVteLTuA8xt
-	Z/s0irWagN7c3krcFIO04IU34+zn3eMegnnIkGnUe1+lJo+ORzlVhm5cGzdDKiyGR4I=
-X-Gm-Gg: AfdE7cnrow2/paMWEZfvqszZy3T1muileyoqjO25hLG56zZbWtXbGrP54+tU8kBcx2U
-	sUWH9D4WCDit9NvvG28UGgZcVgZ3jIzh6GvbJtluBPU5wYGwBuupdx6WwvZpVxPzqwdnYjjgvH+
-	kKw+emDU8OIAho5E4TSGYFqTG0gyBjqADA9LggtNtUm6XRAWVPc9L2hqXyO54InyAQ2O/4L4J/a
-	2+kyxCAKzqJWRFbKYdPBZVFbn8Yb1Zs5RencgbqfeG9vJHhR3GkU44npCjJAA9uDAAY94hr+QIB
-	Y7lNmo1Vg1PvDhRloYZnfR52FuKvsAIPPncbqeMhMTZwI67Xp1bH/PC+33qbWZ8Zw86+RUqdqoF
-	TjTDghE9DSreP9iPIV3onPBi1DFHk/PayZuLzeuPscHPXgDaKW9pWl+f0UsGZXlMgrqJHsx1jQg
-	44ibzshOn4c50qt1YjcNZhpdxU2BXXPzrv5U/43MTA2Gxr/laXY4Cv6lkWbeynmvm8UuLJb8pQs
-	67QKEH30AQzk51Taw59eCW+9g==
-X-Received: by 2002:a17:907:25cd:b0:c00:de33:a74f with SMTP id a640c23a62f3a-c107efc1f86mr63377966b.25.1782196869474;
-        Mon, 22 Jun 2026 23:41:09 -0700 (PDT)
-Received: from localhost (2001-1c00-3b89-c600-71a4-084f-6409-1447.cable.dynamic.v6.ziggo.nl. [2001:1c00:3b89:c600:71a4:84f:6409:1447])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c60ac9406sm462110966b.38.2026.06.22.23.41.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 22 Jun 2026 23:41:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jrMhc74C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDED81F000E9;
+	Tue, 23 Jun 2026 06:43:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782196982;
+	bh=jO/sx0x5wTo47Iqj/6+sDSu/fDK4qzPC5/R1ridwm2A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jrMhc74CqGQrdCNdDUsncUdMfG8S70k97d4pYJaaS0fLX1mUu+EOUgozSxfPEA4C0
+	 9oLEikSomknf82VzNJMJuTGgw2ddlwZv7YFsQ6fFstW6PcXVnbr39njHWgULG8yLT/
+	 fGLKtFYYulEGUY/TaUDxrD4JGUj6sXsscmRI5rECtJahbVWPJeLRWfr22tBQ9wLVNb
+	 N3BOpWqKOABAiiaKOrLxbs7LFOXS0NFbR5+ZpitL1BBsYNjvAzIRUNRyPCVNnBxAEZ
+	 Wd+FKbuAXIOwdIA4K7MuDobCMUmD3OvZEdDngF2QzjqpngWG7ZznitXhHzyfPaG17i
+	 SWV1q/nHuWmGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] leds: ltc3208: Add driver for LTC3208
+ Multidisplay LED Driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jan Carlo Roleda" <jancarlo.roleda@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260623-upstream-ltc3208-v6-2-fc6bd9749166@analog.com>
+References: <20260623-upstream-ltc3208-v6-0-fc6bd9749166@analog.com>
+ <20260623-upstream-ltc3208-v6-2-fc6bd9749166@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 06:43:00 +0000
+Message-Id: <20260623064301.BDED81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 23 Jun 2026 08:41:08 +0200
-Message-Id: <DJG82APM4N9N.82THXPQ5MIE5@fairphone.com>
-Cc: <mchehab@kernel.org>, <bod@kernel.org>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <andersson@kernel.org>,
- <konradybcio@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 1/4] dt-bindings: media: qcom: Add JPEG encoder
- binding
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Atanas Filipov" <atanas.filipov@oss.qualcomm.com>,
- <linux-media@vger.kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
- <20260612194417.1737009-2-atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <20260612194417.1737009-2-atanas.filipov@oss.qualcomm.com>
 
-Hi Atanas,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The regmap configuration lacks `.reg_defaults`, which will cause `=
+regmap_field_write()` to attempt a hardware read for shared registers. This=
+ can fail entirely on write-only I2C devices.
+- [Medium] The driver unconditionally overwrites the CPO (Charge Pump Oscil=
+lator) mode bits in the options register, destroying bootloader state.
+- [Low] Minor code quality defects: format string mismatches, dead code, an=
+d typos.
+--
 
-On Fri Jun 12, 2026 at 9:44 PM CEST, Atanas Filipov wrote:
-> Add device-tree binding for the standalone Qualcomm JPEG encoder
-> hardware block (separate from CAMSS media pipelines).
->
-> Document required resources briefly and scope initial support to
-> currently used compatibles in this series, including SM8250,
-> QCM6490, and SM8550 class platforms.
->
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,jpeg-encoder.yaml     | 142 ++++++++++++++++++
->  1 file changed, 142 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/qcom,jpeg-enc=
-oder.yaml
->
-> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+commit 347e80a37d34f3436d81f8c496280febd37eb8a5
+Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+
+leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+
+Kernel driver implementation for the LTC3208 Multidisplay LED Driver.
+The LTC3208 controls up to 7 distinct LED channels and is configured via I2=
+C.
+
+>     The CAM LED channel is configured as 2 separate CAMHI and CAMLO regis=
+ter
+>     sub-channels, which currnet is selected via the CAMHL pin, or set to
+>     CAMHI register only via setting the S_CAMHILO bit high in register G =
+(0x7).
+
+[Severity: Low]
+This isn't a bug, but there's a typo in the commit message: 'currnet' inste=
+ad
+of 'current'.
+
+> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
 > new file mode 100644
-> index 000000000000..83f19719a869
+> index 0000000000000..3d6bec99e9ea9
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> @@ -0,0 +1,142 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,jpeg-encoder.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm JPEG Encoder
-> +
-> +maintainers:
-> +  - Azam Sadiq Pasha Kapatrala Syed <akapatra@quicinc.com>
-> +  - Hariram Purushothaman <hariramp@quicinc.com>
-> +
-> +description: |
-> +  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualcomm =
-SoCs.
-> +
-> +  The JPEG hardware IP version 4.2.0 is shared across SM8250, QCM6490, S=
-M8550
-> +  and related derivatives.  Platforms based on the SM8550 register layou=
-t and
-> +  interrupt wiring can reuse the qcom,sm8550-jenc fallback compatible, p=
-rovided
-> +  the correct register base address and IOMMU stream IDs are supplied in=
- the
-> +  DTS node.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: qcom,sm8250-jenc
-> +      - items:
-> +          - enum:
-> +              - qcom,qcm6490-jenc
+> +++ b/drivers/leds/leds-ltc3208.c
+> @@ -0,0 +1,244 @@
+[ ... ]
+> +#define LTC3208_REG_F_CAM 0x6 /* CAM (High and Low) current DAC*/
+> +#define LTC3208_REG_G_OPT 0x7 /* Device Options */
+> +#define  LTC3208_OPT_CPO_MASK GENMASK(7, 6)
 
-Any reason why here and in other places you specifically reference
-qcm6490 instead of sc7280 which is what essentially any other compatible
-and files for Kodiak is named after? It makes it sound like this is not
-applicable to SC7280/SM7325 and *specific* to QCM6490 inside the Kodiak
-family.
+[Severity: Low]
+Is this macro needed? It appears to be defined but never used in the driver.
+The same applies to LTC3208_MAX_CPO_OPT defined later.
 
-I supposed qcom,kodiak-jenc could also work but not sure we should
-change up the naming scheme halfway.
+[ ... ]
+> +struct ltc3208_led {
+> +	struct led_classdev cdev;
+> +	struct i2c_client *client;
+> +	struct regmap_field *rfield;
+> +	enum ltc3208_channel channel;
+> +};
+> +
+> +struct ltc3208 {
+> +	struct ltc3208_led leds[LTC3208_NUM_LED_GRPS];
+> +	struct regmap *regmap;
+> +};
 
-Regards
-Luca
+[Severity: Low]
+Is the channel member in struct ltc3208_led used anywhere? It gets assigned
+during probe but doesn't seem to be read later.
+
+Similarly, the regmap pointer in struct ltc3208 appears to only be used
+locally in ltc3208_probe() and isn't needed in the struct.
+
+[ ... ]
+> +static const struct regmap_config ltc3208_regmap_cfg =3D {
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +	.max_register =3D LTC3208_REG_G_OPT,
+> +	.cache_type =3D REGCACHE_FLAT_S,
+> +};
+
+[Severity: High]
+Does this regmap configuration need a .reg_defaults array to seed the cache?
+
+Since .reg_defaults is missing, the cache won't be seeded. Later, when
+ltc3208_led_set_brightness() calls regmap_field_write() for shared registers
+(like LTC3208_REG_A_GRNRED), it will trigger a read-modify-write operation
+that issues an I2C read.
+
+If the hardware is write-only, the read will fail and break LED functionali=
+ty.
+If it supports reads, this still introduces unnecessary I2C read latency on=
+ a
+fast path.
+
+[ ... ]
+> +static int ltc3208_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	reg_val =3D FIELD_PREP(LTC3208_OPT_EN_RGBS, set_sub_control_pin) |
+> +		  FIELD_PREP(LTC3208_OPT_DIS_CAMHILO, disable_camhl_pin) |
+> +		  FIELD_PREP(LTC3208_OPT_DIS_RGBDROP,
+> +			     disable_rgb_aux4_dropout_signal);
+> +
+> +	ret =3D regmap_write(regmap, LTC3208_REG_G_OPT, reg_val);
+
+[Severity: Medium]
+Does this unconditional write wipe out the existing CPO bits (bits 7:6)?
+
+By using regmap_write() here, any initial hardware configuration done by
+the bootloader or hardware defaults (like Charge Pump mode) might be perman=
+ently
+erased. Would regmap_update_bits() be safer here to apply only the
+explicitly configured fields?
+
+[ ... ]
+> +		ret =3D fwnode_property_read_u32(child, "reg", &chan);
+> +		if (ret)
+> +			return dev_err_probe(&client->dev, ret,
+> +					    "Failed to get reg value of LED\n");
+> +		else if (chan >=3D LTC3208_NUM_LED_GRPS)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					     "%d is an invalid LED ID\n", chan);
+
+[Severity: Low]
+Could this dev_err_probe() use %u instead of %d?
+
+The chan variable is an unsigned u32, so %d produces a format string mismat=
+ch.
+
+> +		else if (ddata->leds[chan].client)
+> +			return dev_err_probe(&client->dev, -EINVAL,
+> +					"%d is already registered\n", chan);
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623-upstream-l=
+tc3208-v6-0-fc6bd9749166@analog.com?part=3D2
