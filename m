@@ -1,147 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23983A9636;
-	Tue, 23 Jun 2026 05:59:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F93F306746;
+	Tue, 23 Jun 2026 06:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782194391; cv=none; b=rcEqtDsqPQU3tmaXHwbcJGv3Iqtz+fCUyq/UYb+fOAVuzJvW0PEmYNBnqxNWZyKXFBMuVokrpT3hktB7l9SyOwDseKDBBSE26ijSnaHQ3eRW86HDDswe+mu7rInnF3KqHEJlJGXF22hA/V4HGciKOOii+XMFMA3iOzZ4It02Wx0=
+	t=1782194695; cv=none; b=FBb0yvkEJQJvIDIYfY5h7Yi77IDs8C79cRskG9rHGGiRqn3rxfFqssDuh1pFN/YsLRC6GKvloUPj6ttpvrlrXhmuDlZ2m1ARv4m/XNlpTKhL/GMqB/JiwwLj/BZQ7uX3uzg1sPtTyhcn5czKpgJAy+1lNoAiGh/IJ0VncmuuXa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782194391; c=relaxed/simple;
-	bh=71WNkn5w5AYpdrutHmOeGz1dRyc4Ow6qqbGl1jOcaeE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QSJPKilWosmzJHossLGT6xQteZu8SUtr/dC79TvwRA9Pkb1lc7KPS6gyXCrBWGncPE35o5Dpp+hXdiYbXnNN7gP8P0G4JFnFfN3Eyfl3x9k1m/covZgqOzhImKwBXwjR40g6Nr9TtMgByp+nRkFd1gmXn/1DOWqyXUdLyFxtriU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AsnRcuOS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782194695; c=relaxed/simple;
+	bh=fGs6zTIutUW0qECkrDbevTMOjjIx02kPZ3JtVZXIzBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e6bGRkgzsj2yWSKDZh9regE0oZj/KqVbFJy+chfz+8TLn7M4WNqbfdD5xV+3YJNcM7evxf8FFqIuiA5E5nPTEYUzGvKMbLshHbkgkbuv8vNx3DE4KPp4jngrW8m0dL6Qg4ONueg6cimBze9VA0zywXHWNFNYQIlGzEOvSdud8KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUnsruAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AsnRcuOS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7BF1F000E9;
-	Tue, 23 Jun 2026 05:59:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUnsruAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC5C1F000E9;
+	Tue, 23 Jun 2026 06:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782194389;
-	bh=wwjN/ccaYU511nF1JEwQ9WtxkYJa1rTgn7bbZfDXPuM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AsnRcuOSWyeBDcqVEeUEY44Ht3Xt+f13a+tWPP69S8J6WplYJ7hyC9XA1tfoxWEpY
-	 1w9hhnTf63Bvi1VPjhYyeOeQC6eJakkkYkhJCWjnJUyuvgf2Cj6+7FEQfK7vbPxyXe
-	 2FSdOeoyVnI3AqanfiYdAF3u2rmn+UDsPhGvB97o+YWpkToqsBxFtOHkzQkBX+tjzB
-	 fa/yKrth0pTnk8U7v16vuWVWEgahF9XdN98lXml7mKCmrrchwb0Glbg8ANeokMzAVG
-	 7MzIqN7JSCAbvy82HT6rRBd+flqXkKgeFOYs6bWXJK3K55v9+ZL8Ys9KodwMatfwj1
-	 O42SyPjeu5p5w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] Documentation/hwmon: Add onsemi's FD5121
- controllers' documentation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Selvamani Rajagopal via B4 Relay" <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260622-support-fd5121-from-onsemi-v1-1-b31767689c65@onsemi.com>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-1-b31767689c65@onsemi.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 05:59:48 +0000
-Message-Id: <20260623055949.4B7BF1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782194694;
+	bh=7P6aWzyQ8qict/dJu3CzxuJcqtMPA0MghThn8dibXEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aUnsruAvyoLMArbh/g4mBxzC0FmEOROTkWum6xPDMW4bEqPiEargO13uDS9XyBMiE
+	 QyOFqwK0Xk5aqDvdXzYSFMY4NxMoWqqO+a9CIqwxyeRE0bwcT1zrY1r8UQHtYdg+nW
+	 NrbCMsDLtk1HqmXx8UDAlk7d+dA+hIu2cbNt2X7Rq63oRpO8oieDvg/qU9zlnGc/i3
+	 3wWug6E8m/aHNeef9+H+dWrv7bM1bMCYjF/U1DXFboEAVshR/nD+Mln+dt9/BC8ia3
+	 snAMZAOFStso0+W8K2y+F0LxdWZZROH7cjHw9hM2WaO9vHhXfZQy5FIkuOnXXTGYXE
+	 kqwWrIxMgVfXQ==
+Date: Tue, 23 Jun 2026 08:04:42 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v4 2/4] PCI: rzg3s-host: Use shared reset controls for
+ power domain resets
+Message-ID: <txpkke2xogecipyetascqajgaxamd3ualcuhsibxf75llzcym5@xgcn7efcbmp4>
+References: <20260602195019.1798126-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260602195019.1798126-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <50a908557bb3ce5f14b67396d1e73e70289a583a.camel@pengutronix.de>
+ <CA+V-a8uGho2RMhreDgieOOZTggUALoF0bGyjdEEDvyL_75sAyw@mail.gmail.com>
+ <fuefvecgjdqbnbvpvam4gmewmpmhofllyq2ootwi6cjqhnyoys@edjzqlh6fjw4>
+ <CA+V-a8sRxoR96TRM2V3cFXS5NPiQUVrUJCWwkh7o10cGYPU9_w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+V-a8sRxoR96TRM2V3cFXS5NPiQUVrUJCWwkh7o10cGYPU9_w@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Sysfs attribute descriptions contain mismatched input/output semant=
-ics due to copy-paste errors.
-- [Low] Incomplete sentence missing a trailing period.
---
+On Mon, Jun 22, 2026 at 03:53:57PM +0100, Lad, Prabhakar wrote:
+> Hi Manivannan,
+> 
+> On Mon, Jun 22, 2026 at 3:30 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
+> >
+> > On Fri, Jun 05, 2026 at 12:54:46PM +0100, Lad, Prabhakar wrote:
+> > > Hi Philipp,
+> > >
+> > > Thank you for the review.
+> > >
+> > > On Wed, Jun 3, 2026 at 9:16 AM Philipp Zabel <p.zabel@pengutronix.de> wrote:
+> > > >
+> > > > On Di, 2026-06-02 at 20:50 +0100, Prabhakar wrote:
+> > > > > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > >
+> > > > > Switch to shared reset controls for PCIe power resets to prepare for
+> > > > > RZ/V2H(P) support. On this platform, multiple PCIe controllers share
+> > > > > the same reset line, requiring shared ownership of the reset control.
+> > > > >
+> > > > > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > > > > Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > > > Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> > > > > ---
+> > > > > v3->v4:
+> > > > > - Added RB/TB tags.
+> > > > >
+> > > > > v2->v3:
+> > > > > - No change.
+> > > > >
+> > > > > v1->v2:
+> > > > > - Updated commit message.
+> > > > > ---
+> > > > >  drivers/pci/controller/pcie-rzg3s-host.c | 6 +++---
+> > > > >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > > > index d86e7516dcc2..a5192e4b58df 100644
+> > > > > --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> > > > > +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> > > > > @@ -1276,9 +1276,9 @@ static int rzg3s_pcie_resets_prepare_and_get(struct rzg3s_pcie_host *host)
+> > > > >       for (i = 0; i < data->num_cfg_resets; i++)
+> > > > >               host->cfg_resets[i].id = data->cfg_resets[i];
+> > > > >
+> > > > > -     ret = devm_reset_control_bulk_get_exclusive(host->dev,
+> > > > > -                                                 data->num_power_resets,
+> > > > > -                                                 host->power_resets);
+> > > > > +     ret = devm_reset_control_bulk_get_shared(host->dev,
+> > > > > +                                              data->num_power_resets,
+> > > > > +                                              host->power_resets);
+> > > > >       if (ret)
+> > > > >               return ret;
+> > > > >
+> > > >
+> > > > I have a few questions about this.
+> > > >
+> > > > Can you move rzg3s_pcie_resets_prepare_and_get() and
+> > > > rzg3s_pcie_power_resets_deassert() up before setting
+> > > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B in
+> > > > rzg3s_pcie_probe() without ill effect?
+> > > >
+> > > > Can you move rzg3s_pcie_power_resets_deassert() up before setting
+> > > > RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B
+> > > > rzg3s_pcie_resume_noirq()?
+> > > >
+> > > > Those would have the same effect as the reset already being deasserted
+> > > > by the other controller.
+> > > >
+> > > Yes to both. I have reordered the sequences as suggested, and it works
+> > > perfectly without any ill effects.
+> > >
+> >
+> > Are you going to respin the patches incorporating the review comments?
+> >
+> If I have not mistaken, no code changes were requested; it was just
+> that Philipp wanted to ensure the shared reset worked correctly after
+> shuffling the code around.
+> 
 
-commit 10fc2806e78d641ce1fc7f05d01f0cec8dcccbe0
-Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Ah, I was mistaken.
 
-Documentation/hwmon: Add onsemi's FD5121 controllers' documentation
+> I can respin the series if it fails to apply on top of pci/next.
+> 
 
-This commit documents the hardware monitoring support for FD5121, FD5123,
-and FD5125 devices. It describes the supported telemetry data exposed via
-sysfs, including voltage, current, power, and temperature measurements.
+Sure. Please respin once v7.2-rc1 is released.
 
-> diff --git a/Documentation/hwmon/fd5121.rst b/Documentation/hwmon/fd5121.=
-rst
-> new file mode 100644
-> index 0000000000000..c279db4641e4a
-> --- /dev/null
-> +++ b/Documentation/hwmon/fd5121.rst
+- Mani
 
-[ ... ]
-
-> +Usage Notes
-> +-----------
-> +
-> +This driver does not probe for PMBus devices. You will have
-> +to instantiate devices explicitly.
-> +
-> +Example: the following commands will load the driver for the
-> +controller at address 0x50 on I2C bus #1::
-> +
-> +    # modprobe fd5121
-> +    # echo fd5121 0x50 > /sys/bus/i2c/devices/i2c-1/new_device
-> +
-> +It can also be instantiated by declaring in device tree
-
-[Severity: Low]
-This isn't a bug, but this sentence ends abruptly without a trailing period.
-
-> +Sysfs attributes
-> +----------------
-> +
-> +The following attributes are supported:
-> +
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +curr[1-2]_label		"iin[1-2]"
-> +curr[3-4]_label		"iout[1-2]"
-> +curr[1-2]_input		Measured input current.
-> +curr[3-4]_input		Measured output current.
-> +curr[1-4]_crit_alarm	Output current critical high alarm.
-> +curr[1-4]_max_alarm	Output current high alarm.
-
-[Severity: Low]
-Are the alarm descriptions for curr[1-2] accurate? Since curr[1-2] are labe=
-led
-as input current, should their alarms be described as input current alarms
-instead of output current alarms?
-
-> +
-> +in[1-2]_label		"vin[1-2]"
-> +in[3-4]_label		"vout[1-2]"
-> +in[1-4]_lcrit_alarm	Input voltage critical low alarm.
-> +in[1-4]_crit_alarm	Input voltage critical high alarm.
-
-[Severity: Low]
-Similarly, are the alarm descriptions for in[3-4] correct? They are labeled=
- as
-output voltage, but their alarms are described as input voltage alarms.
-
-> +in[1-2]_max_alarm	Input voltage high alarm.
-> +in[1-2]_input           Measured input voltage.
-> +in[3-4]_input           Measured output voltage.
-> +
-> +power[1-2]_label	"pin[1-2]"
-> +power[3-4]_label	"pout[1-2]"
-> +power[3-4]_crit_alarm	Output power critical high alarm.
-> +power[1-2]_max_alarm	Output power high alarm.
-
-[Severity: Low]
-Should power[1-2]_max_alarm be described as an input power high alarm, given
-that power[1-2] represents input power?
-
-> +power[1-4]_max          Power limit.
-> +power[1-4]_input        Measured input power.
-
-[Severity: Low]
-Does power[3-4]_input actually measure input power? Given that power[3-4] is
-labeled as output power, shouldn't this be described as measured output pow=
-er?
-
-> +power[3-4]_crit         Critical maximum output power.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-support-fd=
-5121-from-onsemi-v1-0-b31767689c65@onsemi.com?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
