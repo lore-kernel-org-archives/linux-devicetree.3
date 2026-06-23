@@ -1,64 +1,64 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1DF385D99
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EE931B131
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 14:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782224985; cv=none; b=c+sPL0T4YUkE+aXdoSqASuJkxZPdUxw7My5p35N+kye5FTFhVkkpntvatazYlPaDd7ywCXkYo+XrkOvswc0OUhekQ4bumTU9JhZQWvOb4+vszjSj99HrCWZghtor45CHg5l84va4kOSKeNwKBAnvDo4Rz5uWd10AJg4nXzBnQFQ=
+	t=1782224990; cv=none; b=XXQJxjPt6sSiTBDk1o41ecfSRIiwxx43/f7tUH/8JczlY+l1vuXl4ptMHhVaGvdcDc+OQNQX8LrjY0a1qFQLBaqZ8ib8V4O9lDr6SThPRJmLZNf5VxBoueqljWruAQXrFVcsRO1ZVclPRKy1RswzZ30vt8LakZjrS0UUZmYy79g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782224985; c=relaxed/simple;
-	bh=gzxVrSlF+oqYC7gNrpUHnkV7T7qb4UmXbSF3WGqTClI=;
+	s=arc-20240116; t=1782224990; c=relaxed/simple;
+	bh=7il5GDO7kTOW6jqS+Mumwj/X/fmS8K5D/UJr7JfEaE8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cu4zP34UEYkI10KPU5YjmeSqIvCixOwDOltcI9EzsziI9IdEHrN96vt5iB7MkMPwB2HVotcnWK9Buzg7tGu4MtuAC5TwgT0rywporFhJ4bqUwvOFPwjUtNs63eWgZRQ+uquAR2R8jMZj/+ymCg7a3VrbgrjJ5sw3nlimrdoSauU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=LnWggPg/; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version:Content-Type; b=opCkV/IsrwMF7oOWA/o64vqs57n9Zx1+OE15zon6zvfdydTEYp9Xb39or2aSQw4tTikASW/jdFQyz0h67bzEtnkhMXfRtvQRdh6hUx/5aggB9577TjQFNjj0aaXNZ68WpE3z2bDUxM1mLFxw7UTRloyMv/ID5XPOvNPnn8d76tM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=ZwId7PxD; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="LnWggPg/"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso39570885e9.2
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:29:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="ZwId7PxD"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49249072f03so18160845e9.0
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1782224982; x=1782829782; darn=vger.kernel.org;
+        d=9elements.com; s=google; t=1782224987; x=1782829787; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=srD079C+hrmcly29x/1Ya3b2fC/C4R7QLaFAjvjgVg8=;
-        b=LnWggPg/uSZ3nqO8n7hSXQ4qVm7rznXHy+IChvWK+X1tXe8bWRe95s6tl1eGwJzmQ6
-         7df8GQtdt0/+P+gGAgBo9DD6/NUJaYhJVlGnYdbW00/zDUJ3hRCIu3NL08G92/zLVZMU
-         68/eXKQelm/sJuR7ol3GuLUztQAT1aVvtDoXNyQ8gtGY9TUvcxEB6Z/V9t2QlHKUYqL+
-         OP4/Z2QU3SLrkp40eVMwlIL7APQG/q/i4noo+RbVxwGPF2s9YU4rISmfOKuGJ4APTXPO
-         I3ugfQaKVOdxYKVdwNb79OQnuk9d1iELURvJfDHft7fptygaNtGlQZOc6uokxOXXL+GJ
-         5MEA==
+        bh=QVmu3f7j9ByFGe5OedcL6Pz7umApHSUq7F28TFt4Y78=;
+        b=ZwId7PxDBkxuNGrZ1/XmPSt0HpIgtIOpc+93qFaFP870b2yn2rArgvwabnZuQhXYzU
+         bcIYYrJpGenfRawIPFfcyRku/JtfjlRoei/2AAEvjKngotAJZfCHn0mAhytA49Wj9PZA
+         +4mz5fwvxMxckLhg8gicfhhxxAPDg0D72IOEwCfJmIj9t/Bx3tcSmR/jI16yHDVtsl7v
+         DVHJvPLV5oXEHdcZBR2YXedeeaEEapkKLaDuRUbcf2T2ayR8xx1XmJCEbYpaw2uGCnkR
+         nGON55TYWMSFBagRz/yptFCfbJ1JyeDnDL7WdnLomNklw0a5Smp6mDu2EDLUd4lqEf5P
+         kPJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782224982; x=1782829782;
+        d=1e100.net; s=20251104; t=1782224987; x=1782829787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=srD079C+hrmcly29x/1Ya3b2fC/C4R7QLaFAjvjgVg8=;
-        b=ZgJuvzGwDEpN2cFCeQfwwFqfbol2kGPexVQQric8M/joo7VWI8j4qX2vohi70MY7wY
-         VRN9VRPY34Re2Slg42N0V/dAlZR5vWQjGXWOI+C517PuycG8Bf26McIB3C4ydT1sYnUv
-         QvbVdKrQAD4dvS2WEwMdFBFQ6+kORB155HK4x+mwIPdlrSgcIcz++uYo1sfMooUbxF46
-         kIkMhzEI5F9WxiIfFbiKdcfZy2EitsfMQsW/S7FGG8kK4G4EbYafTcJPqyq9q6OwhGGe
-         v8xs4kAigCILUZSE/9wL1BSB///Z8rOisL+8/A9zyAMQqKaieksLmTru2ASqFRUaHPa3
-         /b8w==
-X-Forwarded-Encrypted: i=1; AFNElJ8TspOf422/MSMUT83LuizlAu9ubOeeocuxrqctZ8Rtyq6+I9wpZM7uqXbJUB1ZowOngJFrQth/ZEti@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHj0O9bAn10VjhRV09W7v4pEDDogZEJQYfjpDExRYI8dMdsOcc
-	enVmZBI+Y8PT05E/lwSWkvzW0hHZEAx5xHpbzrXzw8OiGTD5PiThnamVWrS9NL+0t/c=
-X-Gm-Gg: AfdE7cl+om3BWS6sKsbGu9t63yDYwSQ/6peprGwhOtpEFuxxMKT1w+2WZ+fUAU02fLj
-	7Y4Q66azpmhbxGeeAK8enmstun9SW1gjHnLYAgBQaqoVpg+6u3ualVkVvE/5xYYsSBMMR1sSH7k
-	Elz54D12GM9Mc4kdfrHj93GajZoOB900QbCvbZ2RymG0fd/V1wzqI1t3R6BPozRrYKmV/b1OPFX
-	HOLRSfBmMPpXIENOZjbazHRTpyE+F9YJ6rAKOy5KCvE5770gOXw+Bl2p6ZBpqIrbfg4xzF44OiF
-	VCmryw7wTSjbpfPk/NQ6g/ZSYrpwB/BYH3v844asr9IRlbLh0l6n/x2dkbgv8rscpLVbrz5sLSP
-	Y0L5ITGM5eaMfspAywcimvHC4t+cl9NGsd4JjnMWasgN01F/ZK2bwHkI+WjrTLimXAIxtUku4G7
-	U8dtbdt0kg5tTbGnsdZKJuYaSne2n0yPrMAh75zPNvqWmM3qc+CchIh/hKl8nZOuXBajzj1nNdV
-	SrSsZmCI9zIpTcg6QylzJRTMTzl
-X-Received: by 2002:a05:600d:10b:b0:492:3237:ddf with SMTP id 5b1f17b1804b1-49240e9544dmr224625985e9.28.1782224982083;
-        Tue, 23 Jun 2026 07:29:42 -0700 (PDT)
+        bh=QVmu3f7j9ByFGe5OedcL6Pz7umApHSUq7F28TFt4Y78=;
+        b=Ff+Q+40furQulbXUnMwzX2xySz9n8+kPjG2e1cKBkjTwL5aqaDFNvl3A0Jk7waJut7
+         3omUy1hkXoJLuEUKfsFRlXCPpvourr3hmUDXLr7Xl3jW01uixZL1ioNAGnx5IrOZyfQL
+         Zd/M819Pc8CCQuxlDSaoTp38quqRaHbW7e1dUo0XIn7qf6Yf39qvRtLk2EVcYs/ysBsk
+         jGqMAaeTAp6zmi38+tlmLAszmUF57rsaWuEy6guNmxVYmxpIC4hOdvpLV+aY7PUuPWzO
+         2sgbMMc4hg6sb1E26zEw/H5vIjsMN4yt+Iw7x4uesRK/yFQqJUvyAqm777/pgQ+LUTKP
+         Tu1w==
+X-Forwarded-Encrypted: i=1; AFNElJ9Df6X7pDUAow6jnDEaild4j+LnIcXbD+N3uE3jo+dS58Zo08Ffah/HgYuqj45mAPGDZh3gjkCKNsPR@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRD27725hOK5VVRl6gcffFujPYlIgrw9H5lhPr6GqUKRid9/cz
+	KKK2B1XDB/946rcwo4ESA5TogLW2YG3bG160OvCEY3sPV9BXRVeY/4fBBlBMV7a4f5w=
+X-Gm-Gg: AfdE7cnkL70UPXZ/oNip0ZvJIdkg+TF/qqu9sPJSHXodR5mb+K4g8DdhvV8xTmjoRof
+	4o9kkOvCNr0uG98/nJQBh3JmqCMrL3aCkkUaZuDoBDC6lSy9+LvkmNq9r7+SYngZR22AiPtuNOp
+	+JhKCJ1LTpkdwuzJvezGJE1NP+CRCDg3n3nW0JPt4z8wNHjqp6bzTyLLcocKEJpTEDeAxPvG6t7
+	ib1T4rNh710mT21RWd+wanCVHZiqkEw15welRcY6zMNJlWnJF2KIZSL4nsoYrGHKKu2Wcr5OQQV
+	xOdeVoHOBv2v9UgscsyHrIhatV3BcfBynB5fzYAsbU/+QQv30hbo514p34G1D0jDsubnbcxA/no
+	LIJ5/N3pEiPXcMto4IGP+Iffv2dnPl8Dcczy4/R70VUm/M0ps7guujrFQ3HZSKatIxy9Oqu/tn7
+	9xk7lXI3TQQz52FNRTAy4wWbIPqYzYkY/blaTrNawItEYv7+ag16DBd7Jh2tPkALqaxrxAJ2MZl
+	618B9XaMEYLxv/P5yamkN+aN6G1
+X-Received: by 2002:a05:600c:8b18:b0:492:46c2:f5b9 with SMTP id 5b1f17b1804b1-4925b389c2dmr48178725e9.3.1782224987165;
+        Tue, 23 Jun 2026 07:29:47 -0700 (PDT)
 Received: from gregwork.sec.9e.network ([188.111.3.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240efc160sm362507805e9.2.2026.06.23.07.29.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49240efc160sm362507805e9.2.2026.06.23.07.29.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 07:29:41 -0700 (PDT)
+        Tue, 23 Jun 2026 07:29:46 -0700 (PDT)
 From: =?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
 To: joel@jms.id.au,
 	andrew@codeconstruct.com.au,
@@ -79,9 +79,9 @@ Cc: andrew@lunn.ch,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Gr=C3=A9goire=20Layet?= <gregoire.layet@9elements.com>
-Subject: [PATCH v3 2/7] dt-bindings: serial: 8250: aspeed: add aspeed,vuart-over-pci bool prop
-Date: Tue, 23 Jun 2026 14:25:40 +0000
-Message-ID: <73b2bd81ce70814612e6d3cb689c3296de742aaf.1782224059.git.gregoire.layet@9elements.com>
+Subject: [PATCH v3 3/7] serial: 8250_aspeed_vuart: add aspeed,ast2600-vuart compatible string
+Date: Tue, 23 Jun 2026 14:25:41 +0000
+Message-ID: <56c378923566ea0be831f58fd7c2f186ab3f5cba.1782224059.git.gregoire.layet@9elements.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782224059.git.gregoire.layet@9elements.com>
 References: <cover.1782224059.git.gregoire.layet@9elements.com>
@@ -94,47 +94,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The ASPEED AST2600 has 2 VUART accessible over PCI.
-This boolean can be set to specify if the VUART is used over PCI.
+Makes the driver compatible with the ast2600-vuart.
+This enables specific configuration for the AST2600.
 
 Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
 ---
- .../devicetree/bindings/serial/8250.yaml          | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/tty/serial/8250/8250_aspeed_vuart.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index 3cbd0f532e15..b03797f4674d 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -26,6 +26,14 @@ allOf:
-           anyOf:
-             - const: aspeed,ast2500-vuart
-             - const: aspeed,ast2600-vuart
-+  - if:
-+      anyOf:
-+        - required:
-+            - aspeed,vuart-over-pci
-+    then:
-+      properties:
-+        compatible:
-+          const: aspeed,ast2600-vuart
-   - if:
-       properties:
-         compatible:
-@@ -312,6 +320,13 @@ properties:
-       polarity (IRQ_TYPE_LEVEL_LOW or IRQ_TYPE_LEVEL_HIGH). Only
-       applicable to aspeed,ast2500-vuart and aspeed,ast2600-vuart.
- 
-+  aspeed,vuart-over-pci:
-+    type: boolean
-+    default: false
-+    description: |
-+      Enable the VUART over the BMC PCI device. Only applicable to
-+      aspeed,ast2600-vuart.
-+
- required:
-   - reg
-   - interrupts
+diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+index 26fc0464f1cc..6afa2f4057e1 100644
+--- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
++++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+@@ -560,6 +560,7 @@ static void aspeed_vuart_remove(struct platform_device *pdev)
+ static const struct of_device_id aspeed_vuart_table[] = {
+ 	{ .compatible = "aspeed,ast2400-vuart" },
+ 	{ .compatible = "aspeed,ast2500-vuart" },
++	{ .compatible = "aspeed,ast2600-vuart" },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, aspeed_vuart_table);
 -- 
 2.54.0
 
