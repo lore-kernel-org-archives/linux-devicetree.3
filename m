@@ -1,257 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5707327C09
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 16:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F477388879
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 17:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782233880; cv=none; b=j4n8LuaXvdHyXQXnHNzGymNXUzMKkd8p99D7+bQHsGBUxKvxWb4HLCxEmVhahZc0TuuEFuQ6x4VXgiyQTA1TJbHpI7Ca4/UCo1VLPYMGOgz4j9geWO1NYtXPMHRXK/nVmRkp50y3VpR50CRkWtT0bi/JrRoUMBKHLRu5agUPLUQ=
+	t=1782234099; cv=none; b=K68/spRa7Pm7NG+YHsynaZDyXXc+m2QHPXD5uJIzC+dc8pbR0J4UDdkd114V4ydsSVzhIXVZHoa6d2fpue7o7/+cCiMmQ4hg1cvYhHXh/VlQs/GINbquQjDVD5kFqH/+/BlwFLh1oJ35XDNQ13BmY8D+1CLkAG/K4EA7t7vqMjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782233880; c=relaxed/simple;
-	bh=9EfJkuQoOllkpySvdKEB8mDxFbd3DflqP/P4x17+ktQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HERxBPa2kSOAKSctE/z3ykluxVQv1ctWmfweqL4G/KqExg64bOS2sb6UvIPc6zCC6YyRIxuU2tSYJRIRPerI0mxtxcd8x/dk0HB4OFXEGp2a81v5zFpGxvSxKNGZQdCrLgZEBQtVPV/26CxSyrZfS2MVL9DAIfWphGsVGjvaF4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GTumqo+B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782234099; c=relaxed/simple;
+	bh=KLp47J3F3ZEmgySRH6ZoydWxIZaG/J2hxWrFEP1eRUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=coxaqVylcbhprsbp01k0o1qHhRHF5TigAVcWdqChLXAV5FI0BDTLE1rFMMciY6wPSBYSMg/TgKTwML5TOofEQmD1rNCN/MBJlJonHIdsOKeiMMmifQrfCFzDeGmzg+6NMhswhEYrYoMgMC7MdSq6VG5nM4PHi3AdkBH1C375yDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=g7qngg+r; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hOnhKRvC; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GTumqo+B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177241F000E9;
-	Tue, 23 Jun 2026 16:57:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782233879;
-	bh=sdrLEzEtRVqoBdKSXzqghFxXbk+mPbpR6TAKb25Hulw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GTumqo+BEuY0ibxAtXBEN1pdoP0eW+laq5M1yMOf9JoVAMcKruFmdSZJcexhIoMau
-	 TzcuSYIzKl9nG0ITRmZaWjpzvt4Z32GJspN+EWM183VpqeaUm20IwKjt8DpTCXfWBm
-	 3uWc7Qp9rDkTgajlEoV3637tTZU87jxm6JTBaPaHtxe+QrAT62u3TyISPnEPnkvykZ
-	 LA41HoSWMf03hb30cVT4MLgP/dVufVK4YSsbhyuVvtdGJEHgJHfVNBKyXeMXUqkMYV
-	 xrkgNhx/3L7XX1K2bdKaFtXkwc3F1msXIwrfMx19zPb4NH/05dsvcdxvEuAM4CkMsa
-	 RB/jSwfZXzLeQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] iio: health: add MAX86150 ECG and PPG biosensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Md Shofiqul Islam" <shofiqtest@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260623164309.16452-3-shofiqtest@gmail.com>
-References: <20260623140113.12574-1-shofiqtest@gmail.com>
- <20260623164309.16452-1-shofiqtest@gmail.com>
- <20260623164309.16452-3-shofiqtest@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 16:57:58 +0000
-Message-Id: <20260623165759.177241F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="g7qngg+r";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hOnhKRvC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1782234097;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZHLmvt/hfcPMjp8rNAR4Lzj4cVVJybJjQGa6DTmnt7A=;
+	b=g7qngg+r6M/rLSfwXT61BNvp/FblDzB2ZQXgQ5zGJ3Dkp7VGWih1OBzRUwkcmPM+FB/o+n
+	NiXiKMCUovkKpDxmSIMJJDlA3l42n4N3AJwloh7FXwPnhal7QxUvDo8uyjXswmZLg0vvrC
+	eO5qC9Ehbo2jjAkOz+yFd51t1LaFmrc=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-468-0B1tf8QDMH6bn4nVx2BcsA-1; Tue, 23 Jun 2026 13:01:36 -0400
+X-MC-Unique: 0B1tf8QDMH6bn4nVx2BcsA-1
+X-Mimecast-MFC-AGG-ID: 0B1tf8QDMH6bn4nVx2BcsA_1782234095
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8dd2138633cso1953436d6.3
+        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 10:01:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1782234095; x=1782838895; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZHLmvt/hfcPMjp8rNAR4Lzj4cVVJybJjQGa6DTmnt7A=;
+        b=hOnhKRvCr7kk7O2JbBoTiGfFNISTeEX5+riyFb7SvTnzwj3cVcUqNRyvflrubpSwmO
+         LDNOjCIzz+1Y78mGQlHcymEwhFnU1rsGMfwT7xIm7fq87cp7MPKTwHywB7Ij+EeNRZIa
+         dq+0GDaEMk2/X0mJwnBGYZoN+j+Dd7ZxSeN9oNLuNDvPIKSLrlZ0LB1GrZU3yPDQzzG8
+         lfg9vu3YOTta25yNDZ27JnE6Guq1wRXJ/P1dLm8Y7p9lP9qhAsI4ztgfTGPn3fhFMm0t
+         IUyhjI+vqqLWT2/KpIf8roSA/rIm4KM/ZqX+MjBUneE41hYojvXCIDMJP+zAuKNU5MjT
+         PISg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782234095; x=1782838895;
+        h=user-agent:in-reply-to:content-disposition:mime-version:references
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ZHLmvt/hfcPMjp8rNAR4Lzj4cVVJybJjQGa6DTmnt7A=;
+        b=b1c4fQufwT5ctAk3GyZ7DRleLHW/v9F9gui7mX7i2qE+XN2gcKFslUe3jcBMNfIi3i
+         /oVvPzP1ZHuOLEfqJlVw4bK430AzBmXBXChanv8kfqVct1gVeg+TQzyaJnWP3hrd15Yc
+         1F5xQrA7FNN+mdXa85NNLEvJAlH5gltDp4r8PyrnF/N2yrq9Hfz6Qh+QsdabYU7ePca9
+         P2y1r0j3lNejh4BcTlFYj9c+1CnGuHRA80zmQsNJAr0pliWPQU57+tIdYyMGjNa+cfRI
+         3PYv2B77I4zqjB2fVht7Xfds2Bvio92TZyxOzXWGPj/aiKjBVQWjXU+tADssKSFSSo+R
+         36xQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqLhSbn5udhKZNPdxftvnH7FgiWIoS67oaAxQjPyPL7Xw15fMwxZ2WcT1QlXqp9vNQHW+c7KkluKh1d@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyy9bVTP/EtW1Lc5W9d83ulFyA/HPm2+6P8g/9/1wSdYTcmEHoF
+	3eXkvX6H0sFvnWHx7JCt2WAZftr7ZaJ96rf9vkB0IxrMVjQyyDl9Hom4ckTtKoSsOx4A2LADQ5D
+	xMxRENLPto4nvXWReUEvYdfbB4yVByNixfwSetqdpeJcAvnuM6xlOfULIYMgsVt8=
+X-Gm-Gg: AfdE7cmTthpJo/K3tI0iiUsz9V6VYtIz85IFvPdsMwNK8tWWQbXcgIpXpNxqhFmJYR8
+	ps8rhNZqT42k9XiIUCGkgG2EHZcIxjtHbWF4jY9H01OweQzj7Horr1GDOPWpjZLceEyaPz6ohdm
+	GMiQSF710b6Lf8IegJmASqf3GLrrUg4htcBU3/DsfchAVoNeKRolnV9/5oDVFfbOHi5e+cqcU36
+	jKlwLG2PWA8sTKnh4k3fCCAfP+Cdr4zv6tVNjZxxyPkVMmYWGbzWZYK+mq/KeUf7DTMF9x7O/KT
+	8/9fQ/0HemiWCjLW8q8+fCXn/8GxCiYljfPW+g/bQafgxD9ZTAzwXVQgHGJkR0m5tgnHg5hT4ab
+	GNRBaq5bYvR+qHe753bZM76aGRREXldpfGKhoQ+BS5+kjuA==
+X-Received: by 2002:ad4:5c6c:0:b0:8de:7e5c:b57f with SMTP id 6a1803df08f44-8de7e5cb63emr362656316d6.4.1782234060165;
+        Tue, 23 Jun 2026 10:01:00 -0700 (PDT)
+X-Received: by 2002:ad4:5c6c:0:b0:8de:7e5c:b57f with SMTP id 6a1803df08f44-8de7e5cb63emr362605556d6.4.1782234033037;
+        Tue, 23 Jun 2026 10:00:33 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8df7f01855bsm146771086d6.9.2026.06.23.10.00.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Jun 2026 10:00:32 -0700 (PDT)
+Date: Tue, 23 Jun 2026 13:00:23 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Alex Helms <alexander.helms.jy@renesas.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH] dt-bindings: clock: renesas,versaclock7: Update
+ maintainer
+Message-ID: <ajq7pziuKDFZqj40@redhat.com>
+References: <20260623162039.153291-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623162039.153291-1-biju.das.jz@bp.renesas.com>
+User-Agent: Mutt/2.3.2 (2026-04-26)
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Probe fails unconditionally when optional regulators are absent.
-- [High] The `fifo_raw` buffer is not cacheline aligned, violating DMA API =
-rules and risking memory corruption.
-- [High] FIFO pointer math cannot distinguish an empty FIFO from an exactly=
- full FIFO, permanently stalling capture.
-- [High] Trigger reference leak on error path if triggered buffer setup fai=
-ls.
-- [High] The biosensor is fully powered on and pulsing its LEDs continuousl=
-y while the driver is bound, causing excessive power drain.
-- [Medium] The driver hardcodes `IRQF_TRIGGER_FALLING`, overriding the devi=
-ce tree interrupt configuration.
-- [Medium] The driver lacks a `validate_trigger` callback, allowing incompa=
-tible external software triggers to corrupt FIFO reads.
-- [Medium] Per-sample timestamps are incorrectly reconstructed backwards fr=
-om the most recent sample, introducing load-dependent jitter.
---
+On Tue, Jun 23, 2026 at 05:20:37PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> Alex's email is bouncing. Update the maintainers list with my contact
+> details to take over the schema maintenance.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> Ref [1]
+> [1] https://lore.kernel.org/all/ajqWevofEJ3fv856@redhat.com/
 
-commit b7b1aa92d36a3970970aa6f40becae60ad1ec8c5
-Author: Md Shofiqul Islam <shofiqtest@gmail.com>
-Subject: iio: health: add MAX86150 ECG and PPG biosensor driver
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-This commit adds an I2C driver for the MAX86150 ECG and PPG biosensor,
-exposing three IIO channels. It includes a hardware FIFO triggered buffer
-path and devm regulator support.
+Thanks for submitting this quickly.
 
-> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
-> --- /dev/null
-> +++ b/drivers/iio/health/max86150.c
-> @@ -113,8 +113,8 @@ struct max86150_data {
->  	struct regmap		*regmap;
->  	struct device		*dev;
->  	struct iio_trigger	*trig;
->  	u32			 sample_period_ns;
->  	u8			 fifo_raw[MAX86150_SAMPLE_BYTES];
->  	s32 buf[6] __aligned(8);
->  };
+Brian
 
-[Severity: High]
-Does this struct layout risk memory corruption during DMA burst reads?
-
-Since data->fifo_raw is passed to regmap_noinc_read(), which may perform DMA
-burst transfers on certain I2C host controllers, it lacks cacheline alignme=
-nt.
-
-If the CPU flushes dirty cache lines encompassing the adjacent buf during t=
-he
-DMA transfer, wouldn't the flush clobber the incoming DMA data? Could we add
-__aligned(IIO_DMA_MINALIGN) to fifo_raw?
-
-[ ... ]
-
-> @@ -286,4 +286,4 @@ static int max86150_read_raw(struct iio_dev *indio_de=
-v,
->  static const struct iio_info max86150_iio_info =3D {
->  	.read_raw =3D max86150_read_raw,
->  };
-
-[Severity: Medium]
-Should max86150_iio_info implement a validate_trigger callback?
-
-This device relies on its hardware FIFO being correctly flushed and configu=
-red
-only when its own hardware trigger is enabled via .set_trigger_state. Witho=
-ut
-a validate_trigger check like iio_validate_own_trigger, userspace could bind
-arbitrary software triggers (like sysfs or hrtimer).
-
-If an external trigger is used, .set_trigger_state is bypassed, the hardware
-interrupt is never enabled, and wouldn't the driver blindly read unaligned,
-duplicated, or stale samples from the continuously running FIFO?
-
-[ ... ]
-
-> @@ -375,6 +375,6 @@ static irqreturn_t max86150_trigger_handler(int irq, =
-void *p)
->  	if (ovf > 0)
->  		n_avail =3D MAX86150_FIFO_DEPTH;
->  	else
->  		n_avail =3D (wr_ptr - rd_ptr) & (MAX86150_FIFO_DEPTH - 1);
-
-[Severity: High]
-Does this logic correctly handle an exactly full FIFO?
-
-If the FIFO reaches exactly 32 samples (completely full) but has not yet
-overflowed (ovf =3D=3D 0), wr_ptr will wrap and equal rd_ptr. This calculat=
-ion
-evaluates to n_avail =3D 0, causing the driver to skip reading any samples.
-
-Because the interrupt is configured as edge-triggered, the line won't assert
-again until the FIFO drops below the almost-full threshold. Will this
-permanently stall the triggered buffer capture?
-
-> @@ -387,4 +387,4 @@ static irqreturn_t max86150_trigger_handler(int irq, =
-void *p)
->  	for (i =3D 0; i < n_avail; i++) {
->  		s64 ts =3D pf->timestamp -
->  			 (s64)(n_avail - 1 - i) * data->sample_period_ns;
-
-[Severity: Medium]
-Are the per-sample timestamps aligned correctly?
-
-iio_pollfunc_store_time() records the interrupt capture time in pf->timesta=
-mp
-when the FIFO hits the almost-full watermark (17 samples). If the threaded
-IRQ handler is delayed by system load, additional samples may accumulate.
-
-This loop assigns pf->timestamp to the newest sample (i =3D n_avail - 1)
-instead of the watermark sample, backdating the rest. Doesn't this variable
-scheduling latency shift all timestamps backwards and corrupt their regular
-spacing?
-
-[ ... ]
-
-> @@ -441,7 +441,7 @@ static int max86150_chip_init(struct max86150_data *d=
-ata)
-> =20
->  	/* PPG: 100 Hz sample rate, 16384 nA ADC full-scale range */
->  	ret =3D regmap_write(data->regmap, MAX86150_REG_PPG_CONFIG1,
->  			   FIELD_PREP(MAX86150_PPG_ADC_RGE,
->  				      MAX86150_PPG_ADC_RGE_16384) |
->  			   FIELD_PREP(MAX86150_PPG_SR,
->  				      MAX86150_PPG_SR_100HZ));
-
-[Severity: High]
-Is the biosensor intentionally left continuously powered on?
-
-Because the driver doesn't implement IIO buffer setup_ops (e.g., preenable
-and postdisable) or Runtime PM, the hardware remains active permanently aft=
-er
-initialization.
-
-Won't the optical LEDs continuously pulse at 100 Hz (drawing ~50 mA) even
-when no userspace process is capturing data?
-
-[ ... ]
-
-> @@ -528,10 +528,10 @@ static int max86150_probe(struct i2c_client *client)
->  	 * DT regulator node.
->  	 */
->  	ret =3D devm_regulator_get_enable_optional(&client->dev, "vdd");
->  	if (ret)
->  		return dev_err_probe(&client->dev, ret,
->  				     "Failed to get/enable vdd supply\n");
-> =20
->  	ret =3D devm_regulator_get_enable_optional(&client->dev, "leds");
->  	if (ret)
->  		return dev_err_probe(&client->dev, ret,
->  				     "Failed to get/enable leds supply\n");
-
-[Severity: High]
-Does the driver fail to probe on valid configurations without regulators?
-
-If a board supplies power via fixed rails and omits the DT regulator nodes,
-devm_regulator_get_enable_optional() correctly returns -ENODEV.
-
-By directly forwarding ret to dev_err_probe() and aborting, doesn't this
-prevent the driver from binding on hardware that intentionally omits these
-optional regulators?
-
-[ ... ]
-
-> @@ -575,6 +575,6 @@ static int max86150_probe(struct i2c_client *client)
->  		ret =3D devm_request_irq(&client->dev, client->irq,
->  				       iio_trigger_generic_data_rdy_poll,
->  				       IRQF_TRIGGER_FALLING,
->  				       "max86150", data->trig);
-
-[Severity: Medium]
-Is it safe to hardcode IRQF_TRIGGER_FALLING here?
-
-Statically setting the IRQF_TRIGGER_FALLING flag overrides any trigger type
-specified by the firmware in the device tree's interrupts property.
-
-Will this break compatibility with board layouts that use an inverter or
-level-shifter on the interrupt line? Should it pass 0 or IRQF_ONESHOT
-instead to allow the core to apply the DT-defined polarity?
-
-[ ... ]
-
-> @@ -602,8 +602,8 @@ static int max86150_probe(struct i2c_client *client)
->  		 * the iio_dev is freed.  No additional devm action needed.
->  		 */
->  		indio_dev->trig =3D iio_trigger_get(data->trig);
->  	}
-> =20
->  	ret =3D devm_iio_triggered_buffer_setup(&client->dev, indio_dev,
->  					      iio_pollfunc_store_time,
->  					      max86150_trigger_handler,
->  					      NULL);
-
-[Severity: High]
-Is there a trigger reference leak if the buffer setup fails?
-
-iio_trigger_get() increments the default trigger's reference count. The IIO
-core only balances this in iio_dev_release() if the INDIO_ALL_TRIGGERED_MOD=
-ES
-mask flag is set in indio_dev->modes.
-
-Since this flag is set inside devm_iio_triggered_buffer_setup(), if the
-buffer setup fails, the flag is never set. Consequently, the devm cleanup p=
-ath
-will skip iio_device_unregister_trigger_consumer(). Doesn't this permanently
-leak the trigger device memory and its module reference?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623164309.1645=
-2-1-shofiqtest@gmail.com?part=3D2
