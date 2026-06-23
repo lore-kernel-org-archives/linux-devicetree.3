@@ -1,111 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D18333B6ED
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 07:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4519F2E7386;
+	Tue, 23 Jun 2026 07:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.97.182.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782199202; cv=none; b=NHtaP7HvBXOfWWvn1XS8heuTT4jUruvnVAM4tFJrjIU5K3VScA0HsBOKEXkX1US273n9dRE3cWtlACuKojA4TpYc6v3NuJijP3NVcIChqrIJmUSaLoZZ0JUUy6NMuRxDjB2wRltcz5zOAQpDmmynlZ3LLZ/Z0jrg0lwjD6oZJy0=
+	t=1782199490; cv=none; b=rqgd1aYLDSG4Esyx6hXfJA7OBMOpoPoIyDS03GLPdkhuDQrzqjVDz5vI0an0SmZSW1wgJ+Hjej7E4mbSyATC+5azlzid48kx2hSx9LCLIUfzu09OH3ADRsMgiNbbi8egrYUpSVRPkJ/ucNhaQ5eBL02HtLU66i9cI4taguwKMVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782199202; c=relaxed/simple;
-	bh=Jv50Kx9GhGw41m3OImTRci3d3sIpvAT9Auwoxe52Bsw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EcOOQyKYKrjrIZzMlrRJeprbwNo5eDJ7Mvf9Q4BAqOWjMpczkBVjQ7qUq5ipX8dT+6xikiI3Lo+8Ja5OJi0ov3td8YefNvU5d8TA1s/+6Ym466NVKCchjEQQ7ov9DoK8ZYQ20igLwKEYsTD9/5zmCYLJMHL4XR11GY/zzAVSNJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltMLI6dq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltMLI6dq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB5E1F000E9;
-	Tue, 23 Jun 2026 07:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782199201;
-	bh=Sq/p59OX6mtZcWts6k4FZREfqlvDZ5gmNchxS8DYlHc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ltMLI6dq/o4urA3T1qd/fS7pkdrKO9/KD2Ior0ldSPRru+5b6B8De7TyTRw0GGbyV
-	 VgSu3Ulhfvk3lzqxRgYyLsCFO4QvoaMptT0z0RSqadiFIwm0Rcq6mqYvgcqAlpYJpK
-	 ejzwEzCkZKpbNgfwaLxm30N9rqIUg+ZdW+PCR3Nu+0R8F88HmspfASuuLt8Fr83Oa6
-	 YLEMTHTIPJntuaOmd3Bac5xgBxledLBQs9xPCVccGk/C7Kv7xIl+3chtzOLUvdwN4S
-	 3185Fd2Orn7j4yZE8uY9NqZ47+mUbGa4KzBxeXUqrEE0bd0MnJlblaBSFJmaJtnkV6
-	 JQO5RPjASxBUw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/4] reset: cix: add sky1 audss auxiliary reset
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260623070805.211019-4-joakim.zhang@cixtech.com>
-References: <20260623070805.211019-1-joakim.zhang@cixtech.com>
- <20260623070805.211019-4-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 23 Jun 2026 07:20:00 +0000
-Message-Id: <20260623072000.DAB5E1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1782199490; c=relaxed/simple;
+	bh=dwOAONM4VSkVjAb5ai7ToI6VLipoy3Y2BDmxfiEC13o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=m4LLbJoPcmAXfkDXUYavmhkeRpIGxr7igsWWVe5iHWsOGwPLOzkhyfBFffKS12ySDSM4Jd6+KW6fsugzfJFDbVUlCwGK5+1KkNNumLzyWyzCibV5c9OqbsZ3xV52dexI0Gy7OwJAIVe7lAiDdjvU3OIddyC9y8WJ71aVwdW4kc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=209.97.182.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from hehuan1$eswincomputing.com ( [10.12.96.103] ) by
+ ajax-webmail-app2 (Coremail) ; Tue, 23 Jun 2026 15:24:31 +0800 (GMT+08:00)
+Date: Tue, 23 Jun 2026 15:24:31 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Huan He" <hehuan1@eswincomputing.com>
+To: "Guenter Roeck" <linux@roeck-us.net>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org,
+	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: Re: [PATCH v7 2/2] hwmon: Add Eswin EIC7700 PVT sensor driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <2d1ae3b5-bc52-4043-9090-a78f30390024@roeck-us.net>
+References: <20260611090639.777-1-hehuan1@eswincomputing.com>
+ <20260611091748.A6EAC1F00898@smtp.kernel.org>
+ <2d1ae3b5-bc52-4043-9090-a78f30390024@roeck-us.net>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <1a34da2b.799b.19ef35dcc08.Coremail.hehuan1@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAnPqGvNDpq9XstAA--.8269W
+X-CM-SenderInfo: 5khk3tzqr6v25zlqu0xpsx3x1qjou0bp/1tbiAQEHCmo5Y6MvMQAA
+	sA
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] `sky1_audss_reset_status()` incorrectly reports the reset state du=
-e to an inverted active-low logic check, violating the reset controller API.
---
-
-commit 432f7b3656f374ab11511fbdd94e2169a520d3bc
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-
-reset: cix: add sky1 audss auxiliary reset driver
-
-This patch adds an auxiliary reset controller driver for the Cix Sky1 AUDSS
-CRU. It registers 16 software reset lines for audio peripherals that are
-controlled through a single register.
-
-> diff --git a/drivers/reset/reset-sky1-audss.c b/drivers/reset/reset-sky1-=
-audss.c
-> new file mode 100644
-> index 0000000000000..20870f37d7d73
-> --- /dev/null
-> +++ b/drivers/reset/reset-sky1-audss.c
-
-[ ... ]
-
-> +static int sky1_audss_reset_set(struct reset_controller_dev *rcdev,
-> +				unsigned long id, bool assert)
-> +{
-> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
-> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
-> +	unsigned int value =3D assert ? 0 : signal->mask;
-> +
-> +	return regmap_update_bits(priv->regmap, signal->offset, signal->mask, v=
-alue);
-> +}
-
-[ ... ]
-
-> +static int sky1_audss_reset_status(struct reset_controller_dev *rcdev,
-> +				   unsigned long id)
-> +{
-> +	struct sky1_audss_reset *priv =3D to_sky1_audss_reset(rcdev);
-> +	const struct sky1_audss_reset_map *signal =3D &priv->map[id];
-> +	unsigned int value;
-> +
-> +	regmap_read(priv->regmap, signal->offset, &value);
-> +	return !!(value & signal->mask);
-
-[Severity: High]
-Since sky1_audss_reset_set() establishes that the hardware uses active-low
-logic by writing 0 when assert is true, does this status function return an
-inverted result?
-
-The reset controller API requires returning a positive value when the line
-is asserted and zero when deasserted. Should the return statement be invert=
-ed
-to !(value & signal->mask) to correctly report the asserted state?
-
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260623070805.2110=
-19-1-joakim.zhang@cixtech.com?part=3D3
+SGkgU2FzaGlrbywgR3VlbnRlciwKClRoYW5rIHlvdSB2ZXJ5IG11Y2ggZm9yIHlvdXIgZGV0YWls
+ZWQgcmV2aWV3LiBXZSBhcHByZWNpYXRlIHRoZSBmZWVkYmFjay4KCj4gCj4gT24gNi8xMS8yNiAw
+MjoxNywgc2FzaGlrby1ib3RAa2VybmVsLm9yZyB3cm90ZToKPiA+IFRoYW5rIHlvdSBmb3IgeW91
+ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDIgcG90ZW50aWFsIGlzc3Vl
+KHMpIHRvIGNvbnNpZGVyOgo+ID4gLSBbSGlnaF0gVGhlIElSUSBpcyByZXF1ZXN0ZWQgYmVmb3Jl
+IHRoZSBQTSBydW50aW1lIGNsZWFudXAgYWN0aW9uIGlzIHJlZ2lzdGVyZWQsIGxlYWRpbmcgdG8g
+YSBwb3NzaWJsZSB1c2UtYWZ0ZXItZGlzYWJsZSBvZiB0aGUgaGFyZHdhcmUgY2xvY2sgaW4gdGhl
+IElTUiBvbiBkcml2ZXIgcmVtb3ZhbC4KPiA+IC0gW01lZGl1bV0gVGhlIGludGVycnVwdCBoYW5k
+bGVyIGBlaWM3NzAwX3B2dF9oYXJkX2lzcmAgZG9lcyBub3QgY2hlY2sgdGhlIGhhcmR3YXJlIGlu
+dGVycnVwdCBzdGF0dXMgYml0IHRvIHZlcmlmeSBpZiB0aGUgZGV2aWNlIGFjdHVhbGx5IGdlbmVy
+YXRlZCB0aGUgaW50ZXJydXB0Lgo+ID4gLS0KPiA+IAo+ID4gY29tbWl0IDBmNGM4YWVmYjgzNzgw
+ZWUwOTY1MjYzOWViMjg0M2YwMWMyYmFmMzgKPiA+IEF1dGhvcjogSHVhbiBIZSA8aGVodWFuMUBl
+c3dpbmNvbXB1dGluZy5jb20+Cj4gPiAKPiA+IGh3bW9uOiBBZGQgRXN3aW4gRUlDNzcwMCBQVlQg
+c2Vuc29yIGRyaXZlcgo+ID4gCj4gPiBBZGQgc3VwcG9ydCBmb3IgRVNXSU4gRUlDNzcwMCBWb2x0
+YWdlIGFuZCBUZW1wZXJhdHVyZSBzZW5zb3IuIFRoZSBkcml2ZXIKPiA+IHN1cHBvcnRzIHRlbXBl
+cmF0dXJlIGFuZCB2b2x0YWdlIG1vbml0b3Jpbmcgd2l0aCBwb2x5bm9taWFsIGNvbnZlcnNpb24s
+Cj4gPiBhbmQgcHJvdmlkZXMgc3lzZnMgaW50ZXJmYWNlIGZvciBzZW5zb3IgZGF0YSBhY2Nlc3Mu
+Cj4gPiAKPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od21vbi9laWM3NzAwLXB2dC5jIGIvZHJp
+dmVycy9od21vbi9laWM3NzAwLXB2dC5jCj4gPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+PiBp
+bmRleCAwMDAwMDAwMDAwMDAwLi4zYjNhZWQ3NGMzOTQxCj4gPj4gLS0tIC9kZXYvbnVsbAo+ID4+
+ICsrKyBiL2RyaXZlcnMvaHdtb24vZWljNzcwMC1wdnQuYwo+ID4gCj4gPiBbIC4uLiBdCj4gPiAK
+PiA+PiArc3RhdGljIGlycXJldHVybl90IGVpYzc3MDBfcHZ0X2hhcmRfaXNyKGludCBpcnEsIHZv
+aWQgKmRhdGEpCj4gPj4gK3sKPiA+PiArCXN0cnVjdCBwdnRfaHdtb24gKnB2dCA9IGRhdGE7Cj4g
+Pj4gKwlpbnQgYWN0aXZlOwo+ID4+ICsJdTMyIHZhbDsKPiA+PiArCj4gPj4gKwlpZiAoSVNfRU5B
+QkxFRChDT05GSUdfUE0pKSB7Cj4gPj4gKwkJYWN0aXZlID0gcG1fcnVudGltZV9nZXRfaWZfYWN0
+aXZlKHB2dC0+ZGV2KTsKPiA+PiArCQlpZiAoYWN0aXZlIDw9IDApCj4gPj4gKwkJCXJldHVybiBJ
+UlFfTk9ORTsKPiA+PiArCX0KPiA+PiArCj4gPj4gKwllaWM3NzAwX3B2dF91cGRhdGUocHZ0LT5y
+ZWdzICsgUFZUX0lOVCwgUFZUX0lOVF9DTFIsIFBWVF9JTlRfQ0xSKTsKPiA+PiArCS8qCj4gPj4g
+KwkgKiBSZWFkIHRoZSBkYXRhLCB1cGRhdGUgdGhlIGNhY2hlIGFuZCBub3RpZnkgYSB3YWl0ZXIg
+b2YgdGhpcyBldmVudC4KPiA+PiArCSAqLwo+ID4+ICsJdmFsID0gcmVhZGwocHZ0LT5yZWdzICsg
+UFZUX0RBVEEpOwo+ID4+ICsJV1JJVEVfT05DRShwdnQtPmRhdGFfY2FjaGUsIEZJRUxEX0dFVChQ
+VlRfREFUQV9PVVQsIHZhbCkpOwo+ID4+ICsJY29tcGxldGUoJnB2dC0+Y29udmVyc2lvbik7Cj4g
+PiAKPiA+IFtTZXZlcml0eTogTWVkaXVtXQo+ID4gRG9lcyB0aGlzIHVuY29uZGl0aW9uYWxseSBw
+cm9jZXNzIHRoZSBpbnRlcnJ1cHQgd2l0aG91dCBjaGVja2luZyBpZiB0aGUgZGV2aWNlCj4gPiBh
+Y3R1YWxseSBnZW5lcmF0ZWQgaXQ/Cj4gPiAKPiA+IElmIGEgc3B1cmlvdXMgaW50ZXJydXB0IG9j
+Y3VycywgdGhlIElTUiB3aWxsIHByZW1hdHVyZWx5IGNsZWFyIHRoZSBpbnRlcnJ1cHQsCj4gPiBy
+ZWFkIHdoYXRldmVyIHN0YWxlIHZhbHVlIGlzIGluIFBWVF9EQVRBLCBhbmQgY2FsbCBjb21wbGV0
+ZSgmcHZ0LT5jb252ZXJzaW9uKS4KPiA+IFRoaXMgd2lsbCBjYXVzZSB0aGUgd2FpdGluZyB0aHJl
+YWQgaW4gZWljNzcwMF9wdnRfcmVhZF9kYXRhKCkgdG8gd2FrZSB1cCBlYXJseQo+ID4gYW5kIHJl
+dHVybiBzdGFsZSBvciBnYXJiYWdlIGRhdGEgdG8gdXNlcnNwYWNlLgo+ID4gCj4gPiBTaG91bGQg
+dGhlIElTUiByZWFkIHRoZSBzdGF0dXMgcmVnaXN0ZXIgYW5kIHJldHVybiBJUlFfTk9ORSBpZiBp
+dHMgZGV2aWNlIGRpZAo+ID4gbm90IGFzc2VydCB0aGUgaW50ZXJydXB0PwoKSSB3aWxsIG1vZGlm
+eSB0aGUgSVNSIHRvIHJlYWQgUFZUX0lOVCBmaXJzdCBhbmQgcmV0dXJuIElSUV9OT05FIHdoZW4K
+UFZUX0lOVF9TVEFUIGlzIG5vdCBzZXQuCgo+ID4gCj4gPiBbIC4uLiBdCj4gPiAKPiA+PiArCXJl
+dCA9IGVpYzc3MDBfcHZ0X3JlcXVlc3RfaXJxKHB2dCk7Cj4gPj4gKwlpZiAocmV0KSB7Cj4gPj4g
+KwkJaWYgKCFJU19FTkFCTEVEKENPTkZJR19QTSkpCj4gPj4gKwkJCWNsa19kaXNhYmxlX3VucHJl
+cGFyZShwdnQtPmNsayk7Cj4gPj4gKwkJcmV0dXJuIHJldDsKPiA+PiArCX0KPiA+PiArCj4gPj4g
+KwlwbV9ydW50aW1lX2VuYWJsZSgmcGRldi0+ZGV2KTsKPiA+PiArCXBtX3J1bnRpbWVfc2V0X2F1
+dG9zdXNwZW5kX2RlbGF5KCZwZGV2LT5kZXYsIDMwMDApOwo+ID4+ICsJcG1fcnVudGltZV91c2Vf
+YXV0b3N1c3BlbmQoJnBkZXYtPmRldik7Cj4gPj4gKwlwbV9ydW50aW1lX2dldF9ub3Jlc3VtZSgm
+cGRldi0+ZGV2KTsKPiA+PiArCj4gPj4gKwlyZXQgPSBkZXZtX2FkZF9hY3Rpb25fb3JfcmVzZXQo
+cHZ0LT5kZXYsIGVpYzc3MDBfcHZ0X2Rpc2FibGVfcG1fcnVudGltZSwKPiA+PiArCQkJCSAgICAg
+ICBwdnQpOwo+ID4gCj4gPiBbU2V2ZXJpdHk6IEhpZ2hdCj4gPiBDYW4gdGhpcyBkZXZyZXMgc2V0
+dXAgbGVhZCB0byBhY2Nlc3NpbmcgdW5jbG9ja2VkIHJlZ2lzdGVycyBkdXJpbmcgZGV2aWNlCj4g
+PiByZW1vdmFsPwo+ID4gCj4gPiBCZWNhdXNlIGRldnJlcyBleGVjdXRlcyB0ZWFyZG93biBjYWxs
+YmFja3MgaW4gcmV2ZXJzZSBvcmRlciBvZiB0aGVpcgo+ID4gcmVnaXN0cmF0aW9uLCBlaWM3NzAw
+X3B2dF9kaXNhYmxlX3BtX3J1bnRpbWUoKSB3aWxsIHJ1biBiZWZvcmUgdGhlIElSUQo+ID4gaXMg
+ZnJlZWQgYnkgZGV2bV9yZXF1ZXN0X3RocmVhZGVkX2lycSgpJ3MgdGVhcmRvd24uCj4gPiAKPiA+
+IER1cmluZyByZW1vdmFsLCBlaWM3NzAwX3B2dF9kaXNhYmxlX3BtX3J1bnRpbWUoKSBkaXNhYmxl
+cyB0aGUgY2xvY2s6Cj4gPiAKPiA+IGVpYzc3MDBfcHZ0X2Rpc2FibGVfcG1fcnVudGltZSgpIHsK
+PiA+ICAgICAgLi4uCj4gPiAgICAgIGlmICghcG1fcnVudGltZV9zdGF0dXNfc3VzcGVuZGVkKHB2
+dC0+ZGV2KSkgewo+ID4gICAgICAgICAgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKHB2dC0+Y2xrKTsK
+PiA+ICAgICAgICAgIHBtX3J1bnRpbWVfc2V0X3N1c3BlbmRlZChwdnQtPmRldik7Cj4gPiAgICAg
+IH0KPiA+IH0KPiA+IAo+ID4gSWYgYW4gaW50ZXJydXB0IGZpcmVzIGNvbmN1cnJlbnRseSBhbmQg
+dGhlIElTUiBleGVjdXRlcyBwYXN0IHRoZQo+ID4gcG1fcnVudGltZV9nZXRfaWZfYWN0aXZlKCkg
+Y2hlY2sgYmVmb3JlIHRoZSBjbG9jayBpcyBkaXNhYmxlZCwgdGhlIElTUgo+ID4gd2lsbCBhdHRl
+bXB0IHRvIGFjY2VzcyBoYXJkd2FyZSByZWdpc3RlcnMgd2hpbGUgdW5jbG9ja2VkLCB3aGljaCBj
+YW4gbGVhZAo+ID4gdG8gYW4gZXh0ZXJuYWwgYWJvcnQgb3Iga2VybmVsIHBhbmljOgo+ID4gCj4g
+PiBlaWM3NzAwX3B2dF9oYXJkX2lzcigpIHsKPiA+ICAgICAgLi4uCj4gPiAgICAgIGVpYzc3MDBf
+cHZ0X3VwZGF0ZShwdnQtPnJlZ3MgKyBQVlRfSU5ULCAuLi4pOwo+ID4gfQo+ID4gCj4gPiBTaG91
+bGQgdGhlIFBNIHJ1bnRpbWUgY2xlYW51cCBhY3Rpb24gYmUgcmVnaXN0ZXJlZCBiZWZvcmUgdGhl
+IElSUSBpcyByZXF1ZXN0ZWQ/Cj4gPiAKCkkgd2lsbCBtb2RpZnkgdGhlIHByb2JlIHNlcXVlbmNl
+IHRvIHJlZ2lzdGVyIHRoZSBQTSBydW50aW1lIGNsZWFudXAgYWN0aW9uCmJlZm9yZSByZXF1ZXN0
+aW5nIHRoZSBJUlEuCgpCZXN0IHJlZ2FyZHMsCkh1YW4gSGUKCj4gCj4gSWYgbm90IHNvbHZlZCwg
+dGhlc2UgcXVlc3Rpb25zIHdpbGwgYXQgbGVhc3QgaGF2ZSB0byBiZSBhbnN3ZXJlZC4KPiAKPiBU
+aGFua3MsCj4gR3VlbnRlcgo+IAo+ID4+ICsJaWYgKHJldCkgewo+ID4+ICsJCXBtX3J1bnRpbWVf
+cHV0X25vaWRsZSgmcGRldi0+ZGV2KTsKPiA+PiArCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRl
+di0+ZGV2LCByZXQsCj4gPj4gKwkJCQkgICAgICJDYW4ndCByZWdpc3RlciBQTSBjbGVhbnVwXG4i
+KTsKPiA+PiArCX0KPiA+IAo=
