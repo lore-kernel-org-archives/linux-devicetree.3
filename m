@@ -1,119 +1,224 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F439EF01
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE2921257E
+	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 20:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782246529; cv=none; b=HiTNn0lxqDQidXDbQEWS4k3nLG/AYRJGebapeebYOUPTyKLRtHpVkFfjcaAej3XSt/tPls95q6h5aZ7Lec2gjyHHN2ohvf5FbDMjY005fHUUxP8C7LOeOGRQ/AU4xBRolHsf8zrb4Zh5fwkztt5cZKUwiSyGDwtq6ptSN9Z+Vio=
+	t=1782246669; cv=none; b=AcpeRIlyujiktaj36sD6juZQuIygkE1x8w38VWcD19NjF/s6C9hbstreTHiaOpOp2bMU/kuQUbEyHTzdU3MPBmAjqisrPwK2cYjApoFX21s+Td+uyFE8VuRguOMX+RChLHdGLM/9tYXqOuQPmtN6rqCF3ZPXS57U8InM5iG2qec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782246529; c=relaxed/simple;
-	bh=t8xcItmxlUvZa4FfZZJt06O8z78xeEb1VcfkqELMyB0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sg9rBJBfcloF/uSaTHeyAXsNmFc7jCkPDWcEk+3amp6klMWgLzAWgM3AbjIL9V9IcNeqtg4aXzGnp3qglUJBBRpioRCoV8dFSxOhTZ5+/N+o1+26tyt1wgFSbJ9LiEnVGcVyoQbQqHw6cQEGFRrhrF++otbP0VmWFfvphCiQOBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzMKrlnC; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782246669; c=relaxed/simple;
+	bh=qsWQyPx45rQ6C/8VKbo7y4igas1QQdR3pMhtJJq3Hac=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qpDeEchcvpwXeq40DYhiXyUFWM53yD8KCYt6TOCgpd3FtIVEaNzRsBUCVFqQxGDjk1a0kgDNH0/iVD2DmgY1PbmdbiLX/EhTMUboURxpcUZLxgCv5FLgrW65V+yzn4k3dywRo92TRZP0hC+JEADdU9jkNFuwgvhN2Ej+43Lop0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIEQ9xIr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzMKrlnC"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4908b92904fso3431165e9.0
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 13:28:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782246527; x=1782851327; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HUvOpAp1AnoH/UC2gSkhKh0euuT0oHxArLADJwiZt64=;
-        b=GzMKrlnCNbDqiN+34vOHhKJBiOI1b86rKRjkiVlf0haZlFOusdIQknG6HIQ8E0y2UE
-         RiVeLRQWrFayEIaPQiQJHLO1IViOBx5cmd5BXARBiloO7xF133aWJLITM7ZTkJd5XEec
-         EL00S0gLbBzdRyK61dr69zzu1aFg6uJlUuozg90UxbWK9NfIu/Dy92HnRfeetxi3FIFO
-         Q+ImbYYTk2sZ3Clknrx7uZPBcBUes1IXI7VGpQTiiom9FnBzj//9t/t+XAjDYgu597Af
-         Vjb8e0mDS5Owg/VYlaDDa9bzdrlqnflfkRtQ5f8sV29yIwgAbW8F7iXEEhoy279E79LU
-         XaBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782246527; x=1782851327;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HUvOpAp1AnoH/UC2gSkhKh0euuT0oHxArLADJwiZt64=;
-        b=P/noeakgcHUdhXoJf8XBSMoNgMdZFZCkHZxA3stSmERD19cS2BeND0FdHSyZ9htJ+7
-         jd8GA8uTCL38t6Fq0hfn5Irp3N33hxahNIHyBhMm4e7sguRvZiPjgpqc2sh9XIbBFu2x
-         JvyTOGsiFRNN9mIKkMGbemDaz4Q91NL1p6eN+7t7LInZJEQOcojmY0P/Ms3GTAwHQLVm
-         FDER2KnIP4d8nIHw7/CkYgm8x4Krw0SfMng3drseuEEIRBU/0EDYw9IJdUqe2K1q9N/w
-         Dd4S9O3sM4uUzf/fR3opBDpUjW2/y42KClzTNvNpxRJP/IESIxsz2E4z7sKZ6f52M8OF
-         uYoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/wuj1omV7ielppCP2xwdRFSeWW2k5lfLltNyJASZG/xKbKz91F4Oy48st0z4/AYNQOdVu/oCt2/Zoe@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyr1LZA6PGNQwMFM7fzxb6LnmBTWC2wz/wVd+qnLvw/CkP88Bhj
-	3cDfIfeJxAXsQcJLHFDK8HaWQ0zf5iIWET8xVTMd45bf+0d8M8lkky8b
-X-Gm-Gg: AfdE7cl750flNBrnbVPFa0GuKpfkLvV0kBWWCWimn6h5vHgIRWpJepr/ACcXRFk3RhN
-	fz4ZT2wLnOfAUdIEnpivpf7jXNSem6M+v0rlrYM2NzUheZGo/KQa15k4IMaCjFDDJ6KYIdzFzvp
-	WTSJs9kkqe/W2RkmlYEHJR6x1xngQvOH8MeKCqmtRGyLF729Tujh0svc392+Ia/bEdf4VKOZttu
-	88IDcYzR1HgydrWRT5bJ8ZWHT6Tg2jq6F4QTT5oXj7efbpqmxcJ1D7vLwhE6dYRvYruHB1UGkfo
-	dM15iENKcQgJa9mSFwB0t+2/66heQXDdZpVtmQe432NLrqLiZsEF1rSiXBXY1W9mshIp1Jc5uRG
-	LYenV5mxgx6aESmpYYA4i4gP9FZ/XGPpx4jRBPpIm1FXy4Dylkfa4Nr5mSKPn4SCxYpHg7JpvgZ
-	hYtq426jIt1xG6QNExMDpuyt5zRd4ziMNqlMqkRA==
-X-Received: by 2002:a05:600c:6308:b0:490:b8c0:d470 with SMTP id 5b1f17b1804b1-4925b37eb4emr62966205e9.19.1782246526525;
-        Tue, 23 Jun 2026 13:28:46 -0700 (PDT)
-Received: from anthony.local ([2a06:c701:49b2:4c00:12ff:e0ff:fea5:3d2e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49249207dabsm570397635e9.0.2026.06.23.13.28.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 13:28:45 -0700 (PDT)
-From: Amit Barzilai <amit.barzilai22@gmail.com>
-To: javierm@redhat.com,
-	andriy.shevchenko@intel.com,
-	mripard@kernel.org
-Cc: airlied@gmail.com,
-	andy@kernel.org,
-	azuddinadam@gmail.com,
-	chintanlike@gmail.com,
-	conor+dt@kernel.org,
-	deller@gmx.de,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	gregkh@linuxfoundation.org,
-	krzk+dt@kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	maarten.lankhorst@linux.intel.com,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2 4/4] staging: fbtft: remove fb_ssd1351 driver
-Date: Tue, 23 Jun 2026 23:28:11 +0300
-Message-ID: <20260623202811.16262-1-amit.barzilai22@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <87ik79iqsz.fsf@ocarina.mail-host-address-is-not-set>
-References: <87ik79iqsz.fsf@ocarina.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIEQ9xIr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E501C1F000E9;
+	Tue, 23 Jun 2026 20:31:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782246668;
+	bh=zLaOMqWS9s4Cwm1aIhcOWT9tvSf9obMJ/rtRgqa9fnU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VIEQ9xIrvFfsTVRGkJIznKOny75dShhJLKC6jejBCFchv5nUu72wxjQXJx4d8xj9N
+	 72oPJ9oW59I2bgalr+8jBdNpFeDMC+996RyUYWrV5Cjm0Ws89Uiup1V67Gdb0IR9c6
+	 PTv8ptF1CB4NeUP1mMURGZHLAQg0HZsXCsO0FvSodj7aAavJd5g17dAgnJkypubreU
+	 3ba22JkHJXMI5R39z0YygNP3L9vWbr2L6cZ/8N+BYD9xoFoW+GJDuaoOE9ApRf5XgL
+	 MpoUvuW6Ng2cGig4HMclaJWoq6kXIx4s7wYA6/6QZscOWgtjTPXMf09ndV6Xv1Fn1n
+	 33XL+PEJQzvVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 07/10] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260612-synopsys-dw-dp-improvements-v3-7-dc61e6352508@collabora.com>
+References: <20260612-synopsys-dw-dp-improvements-v3-7-dc61e6352508@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 23 Jun 2026 20:31:07 +0000
+Message-Id: <20260623203107.E501C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Javier Martinez Canillas <javierm@redhat.com> writes:
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-> Andy Shevchenko <andriy.shevchenko@intel.com> writes:
->
->> On Mon, Jun 22, 2026 at 06:25:06PM +0300, Amit Barzilai wrote:
->>> The SSD1351 support was added to the ssd130x DRM driver. To avoid
->>> confusion and irrelevant updates, the staging fb_ssd1351 driver is
->>> removed.
->>
->> NAK, the fbtft has two drivers in one (SPI + parallel), plus as Maxime said,
->> it has its own binding.
->>
->
-> Yes, I agree that we don't want to delete the fbtft driver.
+New issues:
+- [High] Unchecked return value of clk_prepare_enable() in runtime resume.
+- [High] Unchecked return value of pm_runtime_get_sync() during atomic enab=
+le.
+- [High] Interrupt handler accesses hardware registers while device may be =
+suspended.
 
-I will remove this patch from the next version.
+Pre-existing issues:
+- [High] Memory/refcount leak of the next_bridge acquired via of_drm_get_br=
+idge_by_endpoint().
+- [High] PHY power_count underflow causing permanent PHY failure after earl=
+y return in atomic_enable.
+- [High] Uninitialized stack memory copied to buffer in dw_dp_aux_read_data=
+().
+--
 
-Thank you Javier, Andy and Maxime for the feedback and explanations.
+commit 25b9778935f0029deadc6a4ac4d19728b07017ee
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: drm/bridge: synopsys: dw-dp: Add Runtime PM support
 
--- 
-Thanks,
+The patch adds runtime PM stubs to the Synopsys DesignWare DisplayPort brid=
+ge
+driver and hooks them up to various hardware access paths.
 
-Amit
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 7fa38145e35ce..7f4f36c614844 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
+ *aux,
+>  	if (WARN_ON(msg->size > 16))
+>  		return -E2BIG;
+> =20
+> +	ACQUIRE(pm_runtime_active_auto, pm)(dp->dev);
+> +
 
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential information leak in
+dw_dp_aux_read_data() which is called during these transfers:
+
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_aux_read_data() {
+	...
+	u32 value;
+
+	regmap_read(dp->regmap, DW_DP_AUX_DATA0 + i * 4, &value);
+
+	for (j =3D 0; j < num; j++)
+		buffer[i * 4 + j] =3D value >> (j * 8);
+	...
+}
+
+If regmap_read() fails, the local variable "value" remains uninitialized.
+Could this copy uninitialized kernel stack memory into the buffer, which is
+then returned to userspace via the DRM DP AUX chardev?
+
+>  	switch (msg->request & ~DP_AUX_I2C_MOT) {
+>  	case DP_AUX_NATIVE_WRITE:
+>  	case DP_AUX_I2C_WRITE:
+
+[ ... ]
+
+> @@ -1655,6 +1657,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_b=
+ridge *bridge,
+>  	struct drm_connector_state *conn_state;
+>  	int ret;
+> =20
+> +	pm_runtime_get_sync(dp->dev);
+> +
+
+[Severity: High]
+Does this code need to check the return value of pm_runtime_get_sync()?
+
+If the device fails to resume (for example, if the clocks fail to enable),
+the driver will continue with hardware initialization routines like
+dw_dp_link_enable().  Can this lead to a crash by accessing a suspended
+device?
+
+>  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
+ncoder);
+>  	if (!connector) {
+>  		dev_err(dp->dev, "failed to get connector\n");
+>  		return;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does returning early here cause a
+phy->power_count underflow later?
+
+If we return early because connector is NULL, or if dw_dp_link_enable() fai=
+ls,
+we skip powering on the PHY.  However, because atomic_enable returns void,
+the DRM framework will still consider the bridge enabled and later call
+dw_dp_bridge_atomic_disable(), which unconditionally executes:
+
+	phy_power_off(dp->phy);
+
+Could this drop the PHY's power_count below zero and permanently prevent it
+from powering on during subsequent modesets?
+
+[ ... ]
+
+> @@ -2153,6 +2160,26 @@ void dw_dp_unbind(struct dw_dp *dp)
+>  }
+>  EXPORT_SYMBOL_GPL(dw_dp_unbind);
+> =20
+> +int dw_dp_runtime_suspend(struct dw_dp *dp)
+> +{
+> +	clk_disable_unprepare(dp->aux_clk);
+> +	clk_disable_unprepare(dp->apb_clk);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Is it safe to leave the IRQ enabled while the device is suspended?
+
+If a spurious interrupt or a hot-plug event fires while the device is in
+the RPM_SUSPENDED state, dw_dp_irq() will execute and unconditionally call:
+
+	regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
+
+Since the APB clock is disabled here, might this MMIO read hang the bus
+and cause a kernel panic?
+
+> +EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
+> +
+> +int dw_dp_runtime_resume(struct dw_dp *dp)
+> +{
+> +	clk_prepare_enable(dp->apb_clk);
+> +	clk_prepare_enable(dp->aux_clk);
+> +
+
+[Severity: High]
+Should the return values of clk_prepare_enable() be checked?
+
+If the clocks fail to enable, the function proceeds to call dw_dp_init_hw()
+which accesses hardware registers via regmap.  Could this lead to a bus fau=
+lt?
+
+> +	dw_dp_init_hw(dp);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
+
+
+There is also one additional pre-existing issue in a part of the file not
+modified by this patch:
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential leak in dw_dp_bind(=
+):
+
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bind() {
+	...
+	next_bridge =3D of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
+	if (IS_ERR(next_bridge)) {
+	...
+	ret =3D drm_bridge_attach(encoder, next_bridge, bridge,
+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+	...
+}
+
+Does this code leak the reference count for next_bridge?
+
+of_drm_get_bridge_by_endpoint() returns a bridge with an incremented refcou=
+nt,
+and drm_bridge_attach() takes its own reference.  Should there be a call to
+drm_bridge_put() to drop the initial reference so the next bridge module can
+be unloaded?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260612-synopsys-d=
+w-dp-improvements-v3-0-dc61e6352508@collabora.com?part=3D7
