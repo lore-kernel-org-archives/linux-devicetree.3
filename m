@@ -1,178 +1,161 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408FB3815CB
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 06:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A4231F991
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 06:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782281619; cv=none; b=Rflt0E+zli/xvfBTRew10u3R4/vACkaVNUYFAn5lXyBwD6vHxL90zuoXigdn6UgPhnW2mAZr1K78HWfLNQ0lRwwHNzLBmPiTVX+aF9jS3j2mUvqqLTjFb/zcSXAxDloAyEufRYoIbWWJ5stzzKxbkFyXzqUxyJQ1AyDUpl55W5Y=
+	t=1782281742; cv=none; b=HstLaVtSk+6IQ4rQVp1VIfLUeVUHU7viHR1Zzao73gdv9fIavIP2colGrcA/ME8l/Rj1xUwX+gzkQpyVni/UcV5qBHzaUhjWMlZm59cidXjHkuI+GVUkaTVZV988Vnir8LKZw/18PlV+6MUJ9vBxN2HogOcVGMh2y0choPDBsZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782281619; c=relaxed/simple;
-	bh=j+d4xrnJaVFkzypOS1j/scfN+uggwAM1LR+uNFYvsbI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iGqepDxegQ7vszFA5gRK4ea0iRD405dyOatX6aLropukRgUau5Y5IAXLjGGBG4fRzXjkYcaHwAHI+4hc2O2NlVlZo/YzWqONw9Kwrf5xJVtPtkncIPnMVxpWPVhr5loQ3uCxxinILBuH4M9mlw681lXQAaUxTSxpFn2cTea7dQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qd3FhYL9; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782281742; c=relaxed/simple;
+	bh=99qAr7r7rOHl1yTDeh08+e/IYSa2c6SeLWRYsZkeq98=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cw8HLnHW5YAm6QCvJ93F+6x0Pgu7i1qhdLaZR+XrH8goCGIKNr54qdu/aWeTLqcRI6hzwI9HCfXZzf83ONHcoIcDCkoAHuPpZLgClHDJxv9Ay4aCSwOXzH486rrKTvEsAECaIy9l1UWF5OQkOf6JR9px8396k/hLulFXVris1NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/Bf91+/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qd3FhYL9"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2c6ec0af575so3235505ad.1
-        for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 23:13:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782281617; x=1782886417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jV9/q9Pny0iZFgzb8Zwu+6SPPjjVLms6uiZrPqFj04c=;
-        b=Qd3FhYL945iCYe0TtY66Op8TdPXjti/KrVlvw+FJAYTB3FRmo8adoXet3xVvXfIp/5
-         WWTHtWU8Ij2uDnD3XMq1dm3aq70kcw6CgM7uz2AO9bkK3DzZ/fBDuHRD3yVs995AR91Q
-         w6XU0m9tM9hof+mjMt+4bbnmHa4NX77fJGKWBao8tqJfPxfxn5KKPtLkJApxA15JfgHF
-         ONZSvzKHCUOtUNPqbyATICtNeVsKNCLYbmKfPRNUlXmGMBXz9baxCoCM9NpdxKxMxzkN
-         nbW0FEVrXqrl1DjqmbHYYuekOalIJ0SP5RiuN2cyhhUyof7vkEhlKTKSIJ0RK637DAbo
-         S+sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782281617; x=1782886417;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jV9/q9Pny0iZFgzb8Zwu+6SPPjjVLms6uiZrPqFj04c=;
-        b=OBQxNGTUpiEnP3njZIy3kzocFYmcrHlx4YoUHQRY2Zy62WvP90olBx0WIxxrcMlBsr
-         Nju5weoSfZ2HJtA7fUNi9+qrOgADrXkyIjIwFtEolpLlXBz/N/dxR98zfxmF6ItxLWAd
-         p1rxWqCbdcqv4uPb7FPCwJQL/y+T/mYrWdGli1Sc05++7OiTE1g+l0fGatjiUzQRzV8f
-         ryO18uXp1CIQOeSyTZLIgYcCBfqVr7LiKE7rgiroy1YLjol3zW9SMXL4Mp65/XHOkOIe
-         ycYKQisp3HhKtSLAJaag02eKm3IzBJgs6TFFi9u0TBBfKQuitbUAW2b6I7OoF4bqVCDT
-         t/Bg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrur9Voh1W1bvdwoI9hwyqEE6fmShCQy9LzWXVzUJsNg1JZHc8KOv2DLVrVs/4IuR1Mf3bAMCJU6L1m@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJDeeaQUMT/gl9CFGn5S4PvwULz+ZyXp8aLCNFyaK8OaJUNLe5
-	k/ymteyasrCbyiTzbW1B1NmyznQPz5oDES8aGAB68pdTwhinoP1ah+Nj
-X-Gm-Gg: AfdE7cnDk84xHTix+qaCsUINSQAFamB9AVkuZruHV1TN5c1EmqqtIPXiLol3vmOvnVq
-	567Fq/IcVLPBW5aa313oKRDjhvkgdQ+q2s4OgbbvQwojBJ1gI+sLfrVkr4vNHRnz/AXYzOJHXY4
-	dbzvuNurb4ZvbBwOMIdz8Q2RVO5+lHHf8gwMJpGeOHj9x6wCJC0+sqkvV3+f7hgWdEVmr39WVeu
-	ZJCUS6YdQUSjZWeSc9vP4sEKss1H1awuZYIeXIZ3aihlUGlo6g65aAjAHaA57xdY7uRawvsNIIU
-	aAVDNfYFNoCSpmYrqbZTFjxeQ3UCqB7l8EJwvyvwcQCUkf+hjpu9eSEV6QNkYTz3RuiI2EddrUm
-	x59kNVeUdMAp46GTyvVIi81GLfqKSl4SRrvVxBeEbo2dLlDiCT7HXFipS7kTeF3lvksCvZ1iYFr
-	spWrFPHhSl5a95ZLkax6Vz2gmG4F4kmNk=
-X-Received: by 2002:a17:903:1b2e:b0:2c0:a3dd:4e76 with SMTP id d9443c01a7336-2c7e151c2f3mr23997485ad.28.1782281617419;
-        Tue, 23 Jun 2026 23:13:37 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([103.28.245.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c74469913esm124643625ad.82.2026.06.23.23.13.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Jun 2026 23:13:36 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: tsbogend@alpha.franken.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH] spi: dt-bindings: microchip,pic32mzda-sqi: Convert to DT schema
-Date: Wed, 24 Jun 2026 11:43:29 +0530
-Message-Id: <20260624061329.130468-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/Bf91+/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6DC1F00A3A;
+	Wed, 24 Jun 2026 06:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782281741;
+	bh=nVt+MfBuE29lg5j9k5CdRrS7bv8GkZMC0W72iDzN5Z8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M/Bf91+/4BFB/mMdYnjGb8/N/utxeqL4hTWFg+BnEY3vawZAgeb3d2iLHfqnxHelt
+	 fTE+ZD6cUNEsXpRQRgpnaCseuR5MmMWpbMaIt4z6LNwvYdjzNWm/zAYDzdbAB+tr3s
+	 I1dq41hME93kkii9jJ7exTIY6dBHCouHbk8pWpeXVGQ6Jvu8jg95SuUtoD2LQiBPXX
+	 ZW611PVtRXhSdPdoV8bW3qONzG0/KIakV49LtlLwt+MzWOqaCfFfYnZSbqhhohTCce
+	 eHWKFtmMfPZTuz/Mv+KNBno4Alr9124VbgIGU132FsWp3XboCvD6PqI4G6V2OCZU5h
+	 QYW1fNi6wnXaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: socfpga: agilex72: Add initial
+ device tree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260624055644.7508-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20260624055644.7508-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260624055644.7508-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 06:15:40 +0000
+Message-Id: <20260624061541.2D6DC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Convert Microchip PIC32 Quad SPI controller devicetree binding
-from legacy text format to DT schema.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing VGIC maintenance interrupt breaks KVM virtualization suppo=
+rt.
+- [Medium] Invalid properties in static `reserved-memory` nodes (ATF and se=
+rvice buffers).
+- [Medium] Missing CPU capacity properties for heterogeneous ARMv9 scheduli=
+ng.
+--
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
- .../bindings/spi/microchip,pic32mzda-sqi.yaml | 53 +++++++++++++++++++
- .../devicetree/bindings/spi/sqi-pic32.txt     | 18 -------
- 2 files changed, 53 insertions(+), 18 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
- delete mode 100644 Documentation/devicetree/bindings/spi/sqi-pic32.txt
+commit aab0b211863fe0abf5dfd65b45d11637ecf3a3d5
+Author: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-diff --git a/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
-new file mode 100644
-index 000000000000..39f06b61e894
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/microchip,pic32mzda-sqi.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/microchip,pic32mzda-sqi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PIC32MZDA Quad SPI controller
-+
-+maintainers:
-+  - Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-+
-+allOf:
-+  - $ref: spi-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: microchip,pic32mzda-sqi
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: spi_ck
-+      - const: reg_ck
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/microchip,pic32-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    sqi1: spi@1f8e2000 {
-+        compatible = "microchip,pic32mzda-sqi";
-+        reg = <0x1f8e2000 0x200>;
-+        interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
-+        clock-names = "spi_ck", "reg_ck";
-+    };
-diff --git a/Documentation/devicetree/bindings/spi/sqi-pic32.txt b/Documentation/devicetree/bindings/spi/sqi-pic32.txt
-deleted file mode 100644
-index c82d021bce50..000000000000
---- a/Documentation/devicetree/bindings/spi/sqi-pic32.txt
-+++ /dev/null
-@@ -1,18 +0,0 @@
--Microchip PIC32 Quad SPI controller
-------------------------------------
--Required properties:
--- compatible: Should be "microchip,pic32mzda-sqi".
--- reg: Address and length of SQI controller register space.
--- interrupts: Should contain SQI interrupt.
--- clocks: Should contain phandle of two clocks in sequence, one that drives
--          clock on SPI bus and other that drives SQI controller.
--- clock-names: Should be "spi_ck" and "reg_ck" in order.
--
--Example:
--	sqi1: spi@1f8e2000 {
--		compatible = "microchip,pic32mzda-sqi";
--		reg = <0x1f8e2000 0x200>;
--		clocks = <&rootclk REF2CLK>, <&rootclk PB5CLK>;
--		clock-names = "spi_ck", "reg_ck";
--		interrupts = <169 IRQ_TYPE_LEVEL_HIGH>;
--	};
--- 
-2.34.1
+arm64: dts: socfpga: agilex72: Add initial device tree
 
+This commit introduces the initial device tree support for the Intel
+SoCFPGA Agilex72 platform, including the SoC DTSI and the SoCDK board
+DTS.
+
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi b/arch/arm64=
+/boot/dts/intel/socfpga_agilex72.dtsi
+> new file mode 100644
+> index 0000000000000..2a4ad4130f37e
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi
+> @@ -0,0 +1,128 @@
+[ ... ]
+> +	reserved-memory {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +
+> +		atf_reserved: atf@80000000 {
+> +			compatible =3D "shared-dma-pool";
+> +			reg =3D <0x0 0x80000000 0x0 0x100000>;
+> +			alignment =3D <0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		service_reserved: svcbuffer@80100000 {
+> +			compatible =3D "shared-dma-pool";
+> +			reg =3D <0x0 0x80100000 0x0 0xf00000>;
+> +			alignment =3D <0x1000>;
+> +			no-map;
+> +		};
+> +	};
+
+[Severity: Medium]
+Is it intentional to expose the Arm Trusted Firmware secure memory region
+as a shared DMA pool? The compatible =3D "shared-dma-pool" property here co=
+uld
+expose secure EL3 memory as a Linux DMA pool, which could trigger a fatal
+secure monitor abort if a driver attempts to attach and access it.
+
+Also, both the atf_reserved and service_reserved nodes define a static
+physical address using the reg property, but they also include the alignment
+property. Does this violate the devicetree schema? The reserved-memory.yaml
+schema dictates that alignment is strictly for dynamically placed allocatio=
+ns
+and is mutually exclusive with reg.
+
+[ ... ]
+> +	cpus {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		cpu0: cpu@0 {
+> +			compatible =3D "arm,cortex-a520";
+> +			device_type =3D "cpu";
+> +			enable-method =3D "psci";
+> +			reg =3D <0x0>;
+> +		};
+[ ... ]
+> +		cpu2: cpu@200 {
+> +			compatible =3D "arm,cortex-a720";
+> +			device_type =3D "cpu";
+> +			enable-method =3D "psci";
+> +			reg =3D <0x200>;
+> +		};
+
+[Severity: Medium]
+Since the Agilex72 features a heterogeneous cluster with Cortex-A520
+and Cortex-A720 cores, does this cpus node need capacity-dmips-mhz
+properties?=20
+
+Without these properties or an active OPP table, the Energy Aware Scheduling
+(EAS) subsystem cannot discover the relative compute capacities, and might
+assume all cores are identical. This could cause heavy workloads to be
+scheduled suboptimally on the slower A520 cores.
+
+[ ... ]
+> +	intc: interrupt-controller@7000000 {
+> +		compatible =3D "arm,gic-v3";
+> +		reg =3D <0x0 0x7000000 0x0 0x10000>,
+> +		      <0x0 0x7080000 0x0 0x100000>;
+> +		ranges;
+> +		#interrupt-cells =3D <3>;
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		interrupt-controller;
+
+[Severity: High]
+Is the VGIC maintenance interrupt missing from this node?=20
+
+KVM relies on this interrupt (typically GIC_PPI 9) to populate gic_v3_kvm_i=
+nfo
+during the GICv3 driver initialization in drivers/irqchip/irq-gic-v3.c.
+Without it, the driver skips VGIC setup, which leaves hardware virtualizati=
+on
+support broken on this platform.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624055644.7508=
+-1-muhammad.nazim.amirul.nazle.asmade@altera.com?part=3D2
