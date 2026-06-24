@@ -1,147 +1,218 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [185.100.197.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4C9361667
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 20:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19771A3165;
+	Wed, 24 Jun 2026 20:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782331250; cv=none; b=YcHcrClr2wS98DGszACi4ZHF+JsL23tXWjEWtUi44h/qZA7+BbrqaoKYe0mLkqNAOu6Vv7DGUDmWYAWGBj+V4V+U/LaNK9wn+oCtSuBDyR6ypWpMjsqiJhmRm+JO2i9ee9tgRBGJ0eZxXPPq7JuV4GVIbJAldMN5nrFNDMdPUPo=
+	t=1782331504; cv=none; b=m9PR1I50/xVG/ZhliWU4OA5IF+Ii9vkLBTQ8eUTv4QSIBNLh1Rsc06atPAWaoMbUgL/RX+iRPhCkEDnri9VPEfqQPpwTcZbdLMffU/K9raEDn6EdkVfGaqg/EhebRxzfb6SWCfz9Tg+G6lqpn3UhB9HF+33tQuApBql7kb2k+Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782331250; c=relaxed/simple;
-	bh=FWDkFxX3VbBclJHn0qziHUPLz4S00abKehaSLai0TFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RDyHULJ2ixEB6RitzUzvgPDSAOsqcTHY63EtyhgAhFgYKoJ3vwT8WQk6Xg6nYbraa+/tx1XDy1RaGgZlBvmysPUzkAj0DQjsCoOdUk1aRDhOMRD0UjDr5mh7o80JNIrv1VHUO5DJAyt8qIkJm5MYOhAEv7yEIG0Ixy02is0y2L0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U97RBkx+; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782331504; c=relaxed/simple;
+	bh=TuvVpa9Vvtxo9YlIJLNDD9deFOPwHojQLHTOLxD7xyk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hpjIwE+mOLa6lgh9PsdplZlngFebtPz8EUBxfEFNAw8Hg2UA/hnSIE4zcaeawGM4EU7GcojMgVrki0RRRokBTspKkBB4M58L6SJvsXmed19t0fyP5k8phwy/b6hSMzODRTwHzzIrRYW6zqv4Pzp0zt8tycG7wWX4sKkc0x0dctA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Hm+Wsyis; arc=none smtp.client-ip=185.100.197.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U97RBkx+"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4626fdc829aso1177009f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 13:00:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782331244; x=1782936044; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ou7sRiViO9r41tx6wwdMLvYt+1RgLBADg7cisaocX2c=;
-        b=U97RBkx+tpuF8lLRW/oDBTM/uJs4kw/3Oa/+lEmLbwcgGQiTl7E5lkMCMxM2eSDF5I
-         eFPe7R7tUUxjQFYs/AsibGahH3uTH064SYe8BbUu+mdKql5S4MT2xw8HwrX2HDcbLujh
-         JL8sXaw1VD8UJsFbvb+UVb/aocPabD3uWBzph6QWdAtFee4FcgzJ+W099MzlKkT2bAfC
-         91GgxXaOhorv4HZdRYi+FlGjDUWuEaWLhjJ4qQd+oO/Gwa1t6/pgiqng9JyAp/lssgz4
-         Ed9ri2r/LrQCfT7JsoYwtkXeAOP5W//Z57qv1WhKPnhwGwsorfda8SNESHPT7ciceE+R
-         AVRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782331244; x=1782936044;
-        h=mime-version:references:in-reply-to:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ou7sRiViO9r41tx6wwdMLvYt+1RgLBADg7cisaocX2c=;
-        b=MxRU7bt6TSXcrdFV4b/ersaPcrBtSK3Ii89Bx9RZop+23AZxys+uQ0cZhsS0D7I1aJ
-         IHBGCIYKiUCHDXdxxmoPeZ9ahkjGA96O+Go9cwOw2LSlK4ao2/OX3leizuni3rXjcGAl
-         mOMtlpmzBoB9TwmcUruKcns4BjRY+zVXRDXfSE++ch3cQ3ZClev8SFU4OQ6tJksGvN15
-         ih/1Lk+E53txOWx78xFvZTpc3gkNwtFL5aQLfxomAi+e3j27vW0H3YAai7qoTkdv2a2j
-         dq15AnruJCVe9CqJPQ0FALrcMx9WZI1O7BGyZcNBp8T33MyXf8+REztRYxd30gDMvqe1
-         POKA==
-X-Forwarded-Encrypted: i=1; AFNElJ+Tj2gK5yhCuDYb/kSFmXodbYPWUkMVlBpuoKsd/JMb7ZrdK0QIuWUH9uQIGUqLCYh5NV8UMEfhSm1f@vger.kernel.org
-X-Gm-Message-State: AOJu0YwXe9OF5P3W+vWdluv5x4BDZmQSEJ+mBsNSptUBJ8PM4rmQCAY/
-	8W8ngm3GKR/5p/dwxTVMD8m8vszlq9Ujg5lVs0gp3W9GK0XHrW5dJikQ
-X-Gm-Gg: AfdE7cmhyQ/1bX1X5QGeu06nxBtGXXdiOL2O4NCPDilexXNX9cRgGX2lIJ+0XAaARCa
-	noZEQ1kv6TGzIwTnfK6Ybsjp1WXOaiL5G1WHmWjoz/8AL2mv1pLHqHNds6svz/9BTFhmkbZ2wJF
-	+FDtyw0mMSXfo7MfAjWmUgEdzWdzOstkuyLfxV9zsk16aDTSVI5VnnlUj2ldXodDyIw3lRAqA1c
-	e2LkZ8raTO/OR7UYAIf7NXPfnHj2s0p+QxvDn4e1YSeZFQVBgE1W8EwqYzzturiwCq6ssmVXtYu
-	FHyVNV5Mm5Pxri7Qp5GODENJ1vB8J1k6TamKT7hr53KFFAW0yd+a6NzWyzVKJXWfaA8v3JhRyR6
-	u7gvwcsydvimbHm1PXK5+S6Ib2FLhbjM5N9dVa2Gi957JtHAXrWK5/oVQzTHCzTj91FIBF0Dp0g
-	6hon2iOf/yYjGjmPS0c1FSk1Xc2g==
-X-Received: by 2002:a05:600c:528b:b0:492:58d6:2565 with SMTP id 5b1f17b1804b1-4925b3801c4mr125691855e9.25.1782331244005;
-        Wed, 24 Jun 2026 13:00:44 -0700 (PDT)
-Received: from strix.localnet ([197.250.227.156])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49264011d5fsm17039315e9.1.2026.06.24.13.00.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 13:00:41 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC v4 10/12] reset: zte: Add a zx297520v3 reset driver
-Date: Wed, 24 Jun 2026 23:00:04 +0300
-Message-ID: <7_XKp5ZWTJeJfxJieymOJA@gmail.com>
-In-Reply-To: <90c4f50eb23dec06497d46f9c0f522a6b90a918b.camel@pengutronix.de>
-References:
- <20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com>
- <20260616-zx29clk-v4-10-ca994bd22e9d@gmail.com>
- <90c4f50eb23dec06497d46f9c0f522a6b90a918b.camel@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Hm+Wsyis"
+Received: from [10.0.0.200] (unknown [10.88.125.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 715135341288;
+	Wed, 24 Jun 2026 22:04:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1782331497;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=MaFMm0sZWQl4heqM115ym8R7hWYHovM7AXLI97zFbG8=;
+	b=Hm+WsyisvV2n/XNcf0Pd3nQhBNFaD9hYniiyH6s8764f0b80ZfbSCIbo5/f3atGPj5zECn
+	CQ1hMHVBLwfBAOedFzSiQ3E/B/ABRT8o217yO7pxQFeJ7WZaAyPy361YMhxHDuEk/6eQW7
+	aPB4jmSZsM2gPe8yFolob9bV6m/nW40=
+Message-ID: <f5675ed7-fe1a-4b80-862b-c046d72304e7@ixit.cz>
+Date: Wed, 24 Jun 2026 22:04:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextParthVt_moD_RiKok0jux0DKSA";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
+To: Rob Herring <robh@kernel.org>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, patches@opensource.cirrus.com,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
+ <CAL_JsqLE8Z-LbeF9r=sqRqAoGUcs7R-T4cN+hF3QzjGydHctgQ@mail.gmail.com>
+ <3873b111-36d5-442e-996c-31d05d23c8e8@ixit.cz>
+ <20260624194541.GA672824-robh@kernel.org>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260624194541.GA672824-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---nextParthVt_moD_RiKok0jux0DKSA
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Subject: Re: [PATCH RFC v4 10/12] reset: zte: Add a zx297520v3 reset driver
-Date: Wed, 24 Jun 2026 23:00:04 +0300
-Message-ID: <7_XKp5ZWTJeJfxJieymOJA@gmail.com>
-In-Reply-To: <90c4f50eb23dec06497d46f9c0f522a6b90a918b.camel@pengutronix.de>
-MIME-Version: 1.0
+On 24/06/2026 21:45, Rob Herring wrote:
+> On Wed, Jun 24, 2026 at 08:39:28PM +0200, David Heidelberg wrote:
+>> On 24/06/2026 20:17, Rob Herring wrote:
+>>> On Wed, Jun 24, 2026 at 11:02 AM David Heidelberg via B4 Relay
+>>> <devnull+david.ixit.cz@kernel.org> wrote:
+>>>>
+>>>> From: David Heidelberg <david@ixit.cz>
+>>>>
+>>>> Convert CS35L36 Speaker Amplifier to yaml.
+>>>>
+>>>> Changes:
+>>>>    - maintainers email to the generic Cirrus email
+>>>>    - Both the codec and downstream worked just fine without
+>>>>      VP-supply provided. Align with datasheet for similar models.
+>>>>    - add dai-common.yaml to cover for '#sound-dai-cells',
+>>>>      'sound-name-prefix'
+>>>>
+>>>> Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
+>>>
+>>> If you are going to take stuff I haven't fixed:
+>>>
+>>> Assisted-by: OpenAI:gpt-4
+>>>
+>>> (I don't remember the exact flavor I used)
+>>>
+>>>> Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
+>>>> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>> ---
+>>>> Relevant for Pixel 3 / 3XL / 4.
+>>>> ---
+>>>> Changes in v2:
+>>>> - Rename the commit. (Mark)
+>>>> - Link to v1: https://lore.kernel.org/r/20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz
+>>>> ---
+>>>>    .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 224 +++++++++++++++++++++
+>>>>    .../devicetree/bindings/sound/cs35l36.txt          | 168 ----------------
+>>>>    2 files changed, 224 insertions(+), 168 deletions(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+>>>> new file mode 100644
+>>>> index 0000000000000..af0acaaefb68e
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+>>>> @@ -0,0 +1,224 @@
+>>>> +# SPDX-License-Identifier: GPL-2.0-only
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/cirrus,cs35l36.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Cirrus Logic CS35L36 Speaker Amplifier
+>>>> +
+>>>> +maintainers:
+>>>> +  - patches@opensource.cirrus.com
+>>>> +  - Bjorn Helgaas <bhelgaas@google.com>
+>>>
+>>> Bjorn is not correct. Generally we want a person, not a company list.
+>>
+>> I'm adding back James, can I keep the patches at 2nd place?
+> 
+> Yes.
+> 
+>>>> +      cirrus,vpbr-thld:
+>>>> +        description: Initial VPBR threshold voltage
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-atk-rate:
+>>>> +        description: Attenuation attack step rate
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-atk-vol:
+>>>> +        description: VP brownout prevention step size
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-max-attn:
+>>>> +        description: Maximum attenuation during VP brownout prevention
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-wait:
+>>>> +        description: Delay between brownout clearance and attenuation release
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-rel-rate:
+>>>> +        description: Attenuation release step rate
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      cirrus,vpbr-mute-en:
+>>>> +        description: Mute audio if maximum attenuation reached
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>
+>>> Constraints on any of these?
+>>
+>> Code just applies whatever is thrown at it, maybe David knows more?
+>>
+>> #nodatasheet (but would be lovely to have one)
+> 
+> Unless the driver just takes these values and shoves them straight into
+> a 32-bit register, the driver should give some clue about the size or
+> possible values.
 
-Hi Philipp,
+Okay, that's me being too lazy. Fair enough, I'll fill the constraints :)
 
-Am Donnerstag, 18. Juni 2026, 12:24:26 Ostafrikanische Zeit schrieb Philipp 
-Zabel:
+Thanks
+David
 
-> > +	[ZX297520V3_UART0_RESET]     = { .reg = 0x78,  .mask = BIT(6)  | 
-BIT(7) 
-> > },
-> Is this a single reset line controlled by two bits (do you know what
-> they are)? Or might these actually be two different reset controls that
-> are just always set together?
+> 
+> Rob
 
-I suppose I could expose both bits as separate reset controls in the binding. 
-The lower bit is usually the one that actually resets the device, while the 
-higher one works similarly to PCLK - it disconnects the device from the bus, 
-if asserted. Depending on the device it may or may not leave any residual 
-effect behind after deassert.
-
-The stumbling block is the dwc2 USB driver. It only takes one reset, so I'd 
-have to add another one (or abuse the dwc2-ecc reset) and presumably add a PHY 
-driver for the 3rd reset or add a dwc2-phy reset.
-
-The AMBA bus already takes an array of resets, so the pl011 UARTs are fine 
-either way. For stmmac I need a glue driver for other reasons anyway. the 
-dwc,mmc2 controller on this board seems to have only one reset, so no need to 
-extend the driver here.
-
---nextParthVt_moD_RiKok0jux0DKSA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmo8N0QbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiEogP/R8cmmFdsmQf1KC8sEpC
-FHs5LDtbqZiDlTBbyS30EkcQvlrgJiE+Nw4ooyuaXdp/yAsXGx6+PcJa+ts3U7n9
-zq47YLFyEbK/eIOiZUL11INgY7fvX+rjmIjUycP/e+QDjZWWwnCylBPS49sy527A
-eL8/Rc9Sh2c1YqqqPrdWXEPCYyex16JFem9/dW8rmBJ+wXtHSZpL4Pp0bnnWEFbB
-pmFzhiVb9YI4/+zDV91/utODGohYddgEqjrpdqnFnp4PQ3NKlLL+IJPOVWOk2gxf
-AWsdTFzbH9KqSeQnCxWw28tUhRdv9FNmL0TLNWzwUIssCxS26glrCoeXAP0G9qzd
-08VmDofaWsbFRaDA2JncmPzJmb94sae4luwRCx611c2DfkgQjfT6r9U+jVKMKXIB
-ys7km03W9hFCIv4oSqZDDzRXhD1h5m3CJA/OfqswLDTvNzUyQPCq9ofGg/O0Xr5+
-7hqx5VO2owAQ1LvQfPuRrjzXdrhFF54Tm8zNxCEszhiJZwBQJ+muvqRtg6Om8KDd
-SZ92FKvcPWcKdA1CAra4b9nPJuGviEvaXQpYh+6ja+Nubcfyf2EUIlidSU2EhaVC
-192zUu5x+IC1lfvdMXBulb9LgPz6yi9S+71ytaYp+Mhn4I3X+gn0n/sLGEmL75VU
-VTD9frYuMZXmnW5169uuFcAU
-=/taJ
------END PGP SIGNATURE-----
-
---nextParthVt_moD_RiKok0jux0DKSA--
-
-
+-- 
+David Heidelberg
 
