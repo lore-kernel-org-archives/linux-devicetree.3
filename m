@@ -1,67 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DCE3AA1BD;
-	Wed, 24 Jun 2026 13:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D5A28E0F;
+	Wed, 24 Jun 2026 13:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782306375; cv=none; b=cx0rvQj0oOXuCuHICpdHymbvOzkbSP/Y+XUqXmPKehCKTBmaH5sPX1UFo9EMxg9D85fU4Wt/XXFt/Y2d+EQ3Uvzm3ej0BOOTpTUNPgW+VsTaT1xVPqjG5+WChWefhAZdR7jbFi2F5MGMgdwoWjjKcy7xYfQlpcuPzxeyhVd1lNw=
+	t=1782306620; cv=none; b=N6CNoOZBHf9qvEle/S+oJHi91ljicUb3/IfH25nWylbgF429+dtvdDTQ/4fTzOvM/HTZdqGBD/2s8h4bN4aAatpOHMlah75xG+a1+WIf/26yLj3LlgQe0nsQylFDnSG3D7OJ3FCcRXFDc9tOtXSAkPemKCLl2bCxp0aU+haz5xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782306375; c=relaxed/simple;
-	bh=Hhank47ovUYI7MZRBGRz6apro8rD9yCcxqDNjhX43M0=;
+	s=arc-20240116; t=1782306620; c=relaxed/simple;
+	bh=ZbK6nVA1ysTxa8u/JHp2FMaHKcnkB9wdMeMvpPYsm+0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jt4rAeEyY2DsX6YuVEOENB2Dsq1zCgg260stUlGznYRuhqb/gUFZV1l4CjjTTObnWdqShrAuk2VqjMOj9OXGO3EESlI7rLaCAVl2NhMJNrzfaHuf/1cgyeE3j+mVFeeDc0d895xdXDvhblBlkbscDdt9L6MsjrrY/a94VVgu/oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orDu5HC3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lfA1YPBXdE/+8+SOPSCTAMeKHGlKUGj/f2o/gJbQMO/l3aQ8BS75xoc/xQ0DVFc7wxAyiK8MCG1t0eUEshPnhMl8dhgFBowzKybVgogLIzLKENhRhUjm/b7ahYRvznavUiMwilzmayvWNuItlhEmvVkddltuHzEKycaszxja18o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJmZbtJF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orDu5HC3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97CD71F000E9;
-	Wed, 24 Jun 2026 13:06:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJmZbtJF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA02C1F000E9;
+	Wed, 24 Jun 2026 13:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782306374;
-	bh=n+NuqG/h+06sgb+HCWip0XP/OhMGA85txXcKyLOezUo=;
+	s=k20260515; t=1782306619;
+	bh=gQTOfWdw1qdEOgKqwNzVR7Pe01y3HaMQ9/zsv/ctqT4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=orDu5HC3bU9EZWCMHQgD321fIr6E42JtMvjmw1N1A6NmKImJcvQ8AjOmhXTH+kKC/
-	 SstyHKwGhWcCxZyzisNJFKQfwxhLokdvdUEfPYFQNwq0c0ZoHPUEmbZNk+z/w2DRFy
-	 ZY1iapMbqvJYPqXSlhYSstmhbjJiVuxepW69IDwT+hU3A3P2Htuy7PpAkP71mFfh9k
-	 +n4HgtLO2+sietKLfwpUJlYP94VkPlHAUuDKkwdIvn4tUKwj9j4LpgCtpH1LG0lC/F
-	 +LCVki8ANBR3YyBris84ik6rcLF+JVdVIIAc+SPu5HNCjz+ovI2gmPCSUb3wq2dy7+
-	 K/9g98NrNiSIg==
-Date: Wed, 24 Jun 2026 08:06:13 -0500
+	b=UJmZbtJFiDGZuKk+oxyxHxmOVjjwlf2PrzJBQ0W/VK8/shpCklgAx5ZSiowjXEDNP
+	 lIMFdlglSHIJRenUx0LhvtJuMxW27HGieQKwwZcVkQ0gas6Ug2+RFVq685c6UIjqMd
+	 m+CKpnotDFCJUZRdBS+ABSHFoJ136FK11xwJt0LiKy+2qS8v5Dx7/CvDWtCMbamktE
+	 AHlAMOdMw9BzgIwZ9XGXhQtlt94KIye1QWJ0pxgoj7KQlgow/eBiPPDM5/hyPOeYI7
+	 zA/8OmZczX+lw66yiKAZyPcQ8xA6Hde98vt5CtNRgwL/HDm+WPkkuG4xpXMiqi5v1o
+	 YhX6/RZ9J94KQ==
+Date: Wed, 24 Jun 2026 08:10:18 -0500
 From: Rob Herring <robh@kernel.org>
-To: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Brian Masney <bmasney@redhat.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 1/3] regulator: dt-bindings: Add Unisoc SC2730 PMIC
-Message-ID: <20260624130613.GA4054894-robh@kernel.org>
-References: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
- <20260620-sc2730-regulators-v6-1-bbd2db395231@abscue.de>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: clock: renesas: div6: Use ZT/ZTR trace
+ clock in R-Mobile APE6 example
+Message-ID: <20260624131018.GA4064376-robh@kernel.org>
+References: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260620-sc2730-regulators-v6-1-bbd2db395231@abscue.de>
+In-Reply-To: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
 
-On Sat, Jun 20, 2026 at 10:54:00AM +0200, Otto Pflüger wrote:
-> Add bindings for the regulators found in the Spreadtrum/Unisoc SC2730
-> PMIC, used e.g. with the UMS512 and UMS9230 SoCs.
+On Sat, May 23, 2026 at 09:25:50PM +0200, Marek Vasut wrote:
+> Since commit 2abdc3dcf978 ("dt-bindings: clock: renesas,cpg-clocks:
+> Document ZT/ZTR trace clock on R-Mobile APE6"), the APE6 clock node
+> expects two additional "clock-output-names" entries, "zt" and "ztr".
+> Update the example accordingly.
 > 
-> Signed-off-by: Otto Pflüger <otto.pflueger@abscue.de>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../bindings/regulator/sprd,sc2730-regulator.yaml  | 44 ++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
+> Fixes: 2abdc3dcf978 ("dt-bindings: clock: renesas,cpg-clocks: Document ZT/ZTR trace clock on R-Mobile APE6")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Applied for rc1 to fix the warnings.
+Applied for rc1.
 
 Rob
