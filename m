@@ -1,143 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0193E2C21C4;
-	Wed, 24 Jun 2026 09:52:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01B92EEE60
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 09:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782294724; cv=none; b=c//YkuJgmdEGFYvAMj6PGVDEt7ea3Fy5ZlRGqBspDRZ0YA4x+2g1Z9v7bdrSnwAxFnGQjkByoNsKamuB9WP75CPHJmQkmIIq2xq8dc8M0VjCJ0lqF661tcV9ynjDLf8qRAyt9P1NrI+8lmgLTtxYOZVfsHi535I4mBrufBOBGfA=
+	t=1782294851; cv=none; b=IFoOwhXeI/Em1rK86pGoeEcZ+HtrjoLr7aSwhwCjU13q9VFrg4vxAR9jCYU2Uf7ZL5IvUkSUL811T4UXjx2JHEV+wglJYPmWIhpC5C53Yf7M4Ld2tO1oA6SivMMnhcnEE5GCYPSNcnFFeef7oS7V8bDn9jKcXqEDzAmCrczCLTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782294724; c=relaxed/simple;
-	bh=Hnqrd61XRKDBHuEQQo7M0KBWe8ejNVh4B5unForUkxc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R35M990T9k0fVyzxqoGSsUfwRAELJk1+0zPHlxNTSNcjAe+yDQZFtX/lf7oC4RFa34Nvo0At2EJH/NDNSXK11Q3PcgXqf8VryRcQ13MwrP7MwFOq8EpbrLEomG5YFFla+1Yb/Vk44sGxGEt3hSKznDj4Nks78QV9bLxwmRVLn5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c2R8ubEK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782294851; c=relaxed/simple;
+	bh=eVDRxQPKbs97eeEwtjYWEAAlvqe20ApkrnO+SPDU76U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jkY85/AtJ9WVHCk6mZuDn17x6nvMRZXBcw1ZMlwh2bHZpRHBShqDRErZjomJadD0sySn7Gvo0sRbeUfDy4MCjNm8UhVzqO5B0hcziDxREjsjqsN+9Fu/AkWzBIOtpljsBq5w8+8GoeS0vPAa/rrtQlLt8Um3PEg7Pb1z7+yc4no=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWjBzUMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c2R8ubEK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 492CD1F000E9;
-	Wed, 24 Jun 2026 09:51:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWjBzUMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BA11F000E9;
+	Wed, 24 Jun 2026 09:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782294723;
-	bh=yc/YSibWe61Ujrg0kdHUg62FUgiHHFr7e0Z2LAtnbg0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c2R8ubEKRFBT+GgdTKaiiu2RjXwb+kPLOWqPkg3zzPO2rnlQFSMznoGBPnyRA9Yx4
-	 IJPv0eubKkLsP5TJTyZS/P1WTVPkOvEc4W21TASBSd3i0Wpo9lPLMGhTX1tA592N3O
-	 pTGJn879U7zwEY/QdpsBrFY2VjKMCzSkLwAn2wH1t3K9tfC7hFw9oEMzrt+e0lTJlM
-	 q4B3D9AQuyqtAIkPhm8T9ud09Iu5RHBLEM/r89aTxbyQ7RDRlmuiZdo09Sf5QkG8NO
-	 KS0g/U6diZA5ZA5nbamvlrXWHy0lctR09DrPCSRpPEvIbv9Eq4uP9P6fJ+RxaAAgp4
-	 idRhlK0zdCMUg==
-Message-ID: <77976912-b0b0-4e08-ad9c-5080c4d8adcc@kernel.org>
-Date: Wed, 24 Jun 2026 11:51:55 +0200
+	s=k20260515; t=1782294850;
+	bh=Ip7Ev9/32vnF3Df2OoIg2GeKZgjOZ/J+X10MPgZrNH8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XWjBzUMKL9ovr99Heu+elw3jCXHq6Ck3z13V3oL72GfifpR4/T5pk5gMLub2q8bSJ
+	 5M7NqZElYkSuyGvUerf6aIecprG/IRLQNF/lF+2n7ozM0FaBwwrCaP2bvnOP9zKkP3
+	 JyZSg858SHiD9Xg0ESOcGXkbRgY3onFnoxwpHp+8Hi3ACFnBXz5VMCe6bsbT3FB3Md
+	 syGbRbc3V641ccHsWUK+ixyMTNJjx9twON+8yTvKdBoa27ZXj9Io+rfSjCmvRAxLCO
+	 as10izJwWGkl8fBnLahTArWSAtyHVBoJgvfEWMfXF5UPP+9tys00/NN3VYCLtE6gGy
+	 1h+uVdiASohjA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom,coresight-tnoc: allow
+ arm,primecell-periphid
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260624-fix-tracenoc-probe-issue-v2-1-786520f62f21@oss.qualcomm.com>
+References: <20260624-fix-tracenoc-probe-issue-v2-0-786520f62f21@oss.qualcomm.com>
+ <20260624-fix-tracenoc-probe-issue-v2-1-786520f62f21@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 09:54:09 +0000
+Message-Id: <20260624095410.28BA11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: clock: renesas,versaclock7: Update
- maintainer
-To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Alex Helms <alexander.helms.jy@renesas.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "magnus.damm" <magnus.damm@gmail.com>,
- Brian Masney <bmasney@redhat.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260623162039.153291-1-biju.das.jz@bp.renesas.com>
- <20260624-advanced-pink-dinosaur-ebe720@quoll>
- <TY3PR01MB11346659E1A238C232E29946686ED2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <TY3PR01MB11346659E1A238C232E29946686ED2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 24/06/2026 11:46, Biju Das wrote:
-> Hi Krzysztof Kozlowski,
-> 
->> -----Original Message-----
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->> Sent: 24 June 2026 10:42
->> Subject: Re: [PATCH] dt-bindings: clock: renesas,versaclock7: Update maintainer
->>
->> On Tue, Jun 23, 2026 at 05:20:37PM +0100, Biju wrote:
->>> From: Biju Das <biju.das.jz@bp.renesas.com>
->>>
->>> Alex's email is bouncing. Update the maintainers list with my contact
->>> details to take over the schema maintenance.
->>>
->>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->>> ---
->>> Ref [1]
->>> [1] https://lore.kernel.org/all/ajqWevofEJ3fv856@redhat.com/
->>> ---
->>>  .../devicetree/bindings/clock/renesas,versaclock7.yaml          | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> Please also update MAINTAINERS file.
-> 
-> It is taken care in [1]
-> 
-> [1] https://lore.kernel.org/all/CAMuHMdW0-WsZuuc7PoVNC5DBUoY9dP+ULmGTQ76VWMO_SjpbuQ@mail.gmail.com/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Setting `additionalProperties: true` completely disables strict =
+schema validation for undefined properties, allowing misspelled or undocume=
+nted properties to silently pass.
+--
 
-Just squash them together.
+commit 6e8606766f1fd41047be4a5d6a3178b5f3fd67e9
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-When you fix such issue like wrong email, fix it everywhere, not just
-one-by-one where the maintainers need to poke you to fix in other places
-as well. It is generic rule for bugs as well. The wrong email address is
-the most obvious example here, because it is also extremely easy. Just
-use git grep.
+dt-bindings: arm: qcom,coresight-tnoc: allow arm,primecell-periphid
 
-Best regards,
-Krzysztof
+This commit updates the qcom,coresight-tnoc binding to reference
+primecell.yaml. It changes additionalProperties to true to allow
+the arm,primecell-periphid property along with other common properties.
+
+> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.ya=
+ml b/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+> --- a/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tnoc.yaml
+[ ... ]
+> @@ -78,7 +81,7 @@ required:
+>    - in-ports
+>    - out-ports
+> =20
+> -additionalProperties: false
+> +additionalProperties: true
+
+[Severity: Medium]
+Does setting additionalProperties to true completely disable strict schema
+validation for this node?=20
+
+It looks like this change will cause misspelled properties to silently pass
+during make dt_binding_check. When adding a $ref in an allOf block, should
+unevaluatedProperties: false be used instead? That would allow the inherited
+primecell.yaml properties to pass while still rejecting any undefined or
+typoed properties.
+
+> =20
+>  examples:
+>    - |
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624-fix-tracen=
+oc-probe-issue-v2-0-786520f62f21@oss.qualcomm.com?part=3D1
