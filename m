@@ -1,65 +1,59 @@
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452502EEE71
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202EE3093CB;
+	Wed, 24 Jun 2026 08:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782290840; cv=none; b=MvfZiL0NbyWEIcP4DDO0FYxD/CRJOSdfMlKZQx2+pmy/MObJHxwpk4aDfeFg+ZUk96PmDTIoZ7khbBPKsiwcVd3a+yEKHyTcncRxozTk83FA1dWcWrdeEkgJ/qzA+2mCqbCt4xYFtw+iG70JlbA9/MrNi0110GL3Rtd3R12iNf8=
+	t=1782291255; cv=none; b=elM8vVVaSpgUpPm0W0GLZ8JagCPNHbv6sa6xYlT8UiJRWvjasaqzVqKIBfordfa1u6SHaz7wnE+VCik+BlbMhw+1Rt2ae1br9sYfR16Vjmc9zzXLRWNyQczu4TOAM5IN/x60mOMP72liz+GAjOzjTzJAnUzaHuKolLIWqL/Jimo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782290840; c=relaxed/simple;
-	bh=8DnGaGhGF2q1/a03FB7kpaA8OczPo2IgyWm3JdknUfY=;
+	s=arc-20240116; t=1782291255; c=relaxed/simple;
+	bh=SKWtRqzH79nr1pgUM9FcYZ8OCUU5gOPa8lZy+0tH+gI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ej7bYFP7TSiEcz2rZ2ONy72Swt6ik7bPjouwLuyj2hnve/+9RFT0xCBThutBGBSJy416Wy9pE/QVHpDhtE0x2HyfvYbLUTfurkNYXGOqZHFv3Dt/rs+Ewd3FJ/kD/ICbDGCYCiRQdWTRZxxXdi5ll+WqfqF2ac/Fd+GxRDa5LE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSzkpOcC; arc=none smtp.client-ip=209.85.216.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:To:Cc; b=pKBz3ReS+PgEBBNkAan6O48qHOBl9ADL545ek5UacZn4N87W2tmBH1VmUsOwMTayE2ed2gobZUl0nisIw9TP+bRBr2vROu9+z/CbiU45NURRJJ+M/9J2YR64ztFZBpq+G+PlnPESUMTrPI3hCgcF41vUM7G/EbhsrD9r5v+viMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pRK01PPk; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSzkpOcC"
-Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-36b95eb4bb4so536009a91.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 01:47:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782290838; x=1782895638; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/4o4WYSufJQ01exYcxPhmyweb253Pa1dolXAna3IPCA=;
-        b=PSzkpOcCMv5aZCD3GV+1pnLCPsGvfNYsYQKYDSB7eyvYWO2WH4yLlIH910aOQ8Yxzm
-         LZjW9a4CpJs4afnrzZWUnLJDkVRCENGgRHj76bDYmgyUFjI9FCP1QB1Qe31XvL+UUiXk
-         +GZousNPmQYHnfaVX9QbqQPeuyxMdj9qBXk8XnK4WMqmHfqZpNn/eLE89aJozEKcPgxQ
-         17G6C91leGP8Db7wpnjFqlsCWHkihlzqRnbDStd5kISNaMuv1aLZSwLWdGz3J74f+cah
-         4yfLd282TNmNDAnITjEKkGq5ZD+hBTkOVtukrvJtt/tfz3Mv1xl+6xG1HKq83tTmw3FM
-         x+nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782290838; x=1782895638;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/4o4WYSufJQ01exYcxPhmyweb253Pa1dolXAna3IPCA=;
-        b=RiFzlo8/tRNJEtns+GjigGBX9xYRAwDbBs6JRBfgdUGteTqznkA5fZ5x2ZU0ywhHfo
-         ZB9BX5rMJW/B/1BXBQhnsRvRRNwu6NZd/tffTiPN1DIqKTngU7/Zz1k1TFqOO3n82oM2
-         D7wrGtnRyFteaeYDIBI4u9ZC43qpnypBzQAKyQztR+aBnSgufDKXkM3ILqMneq9+p7Zj
-         bNeeUUzS7vYDG+xFBD/g4ZrbCJ1yVClGMD8LfHTHLDYHBT9snTTvkzJCps7MPB6oVimy
-         Fwx5z1svJbk+gOsFzJRyl/ey450kCFyDOFkWE1hoZG1+obD17GBkcc2dNzqA+k7l90g5
-         RKqg==
-X-Gm-Message-State: AOJu0Yy+EO7yy649QZKHMAcuD6gXtjKBKB6VBVJBIbKvfk/6KJFLzUjn
-	Pm0SpJFbU0uJJvVSLFi0LC9ANz/JCltwMR0aV7WggTF7tse8huBHdCmt
-X-Gm-Gg: AfdE7cm7xcZLihLy7NPz0zqGjz4Ha6CokVrHEi8Qfrv0rclkp255JS98k/ruwt13llR
-	MlbPzc7O0mShAs+VQM0ybE6HcY3mMLhbHVfkuPsvWz9ZRWZaKIC2WTLI8d7W6s+cvt6DiP6OZbR
-	v1TOwmXT92PyiCFhSRgayM8D/KFjAR89eHVeau3ETP6/lXsBPanvLKPtiJY+aVIPmgeqOcI+sGG
-	/J3MABQ5YCGX8EXZuYtiFh4pdwVa5CBHb2oMAulOw+0AMUVPXlRGPiQnl4IwEuYMccmtLxS0gW8
-	Jh2OazvqOuS4jyagt+L6w/djw8CqGjb5WiDcxu0uMS4Iof7taMCWJqhSTETKf0+8GAttEpt7Djz
-	vdlh/RzFWtcZVtVJlvDA8gAZQ4rmZ03q5TaKj+8j3Swkire8kIexqGRMd4OnUYsSblKWB0EnHsz
-	2YEJYdL1X7OhW6U6bYkVvqOWcQ
-X-Received: by 2002:a17:90b:3dc3:b0:36d:f28b:72e0 with SMTP id 98e67ed59e1d1-37de42395bamr2280839a91.12.1782290838541;
-        Wed, 24 Jun 2026 01:47:18 -0700 (PDT)
-Received: from [192.168.1.101] ([218.194.36.79])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.47.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 01:47:17 -0700 (PDT)
-From: Yanan He <grumpycat921013@gmail.com>
-Date: Wed, 24 Jun 2026 16:44:43 +0800
-Subject: [PATCH 6/7] ARM: dts: rockchip: Add RV1126 I2C5
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pRK01PPk"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65O5trPo1892199;
+	Wed, 24 Jun 2026 08:54:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ddqoQL/WthS5AcI4OX1QbxiCEPni751xndyOZzLzB8o=; b=pRK01PPkrsXQwAco
+	R0C6HaHe+pK6QuJ8O7lNSHqLyW7/AbtBwSIvNj0u9oh+tXGbByyDefdapSw5OqH+
+	3ekqtxynoxJyvkHNtfIIhK7nzWq8AHvfWbo+UHy7mpEGtd9Va2ASDih8ZY/YkklY
+	J4svqMHNylD/uQHzLbTdi0jyY/t4WBhc+M0i7Sq+8GIJ5svtBF7M0yNa0BcGRO4X
+	uCHnqBjWRrsQFCYNYOZ7LE41W/2bC66QJXgiWj/F9oM/+QgNyHmeYOzg4pNufnkW
+	iUUYwveP1osxktPiR5F0mior0NBB1k4T1pzb/ffXtw8Vs7hljdRgQt1MLhAtOTIU
+	TKD48A==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f05bf9c75-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 24 Jun 2026 08:54:06 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65O8puaD006948;
+	Wed, 24 Jun 2026 08:54:02 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ewkxk3jss-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65O8pksa006870;
+	Wed, 24 Jun 2026 08:54:02 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com [10.147.248.17])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65O8s2rU009006
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
+Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
+	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 7C6A2631;
+	Wed, 24 Jun 2026 14:24:01 +0530 (+0530)
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Date: Wed, 24 Jun 2026 14:23:51 +0530
+Subject: [PATCH v3 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
+ panel controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,95 +62,153 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-6-5aef608a3f64@gmail.com>
-References: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
-In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- David Wu <david.wu@rock-chips.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- Yanan He <grumpycat921013@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=2080;
- i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=8DnGaGhGF2q1/a03FB7kpaA8OczPo2IgyWm3JdknUfY=;
- b=YrCE91tKnr6J0OxbIju8J9llVy/eKVFyENAfkCGsxf50FuzCPU5lW0+qINNmUO0ziOrxg/4bN
- 2UxDIGsPfkWB7A5GzEjXLLSyplZa5jrmv1yvPfGxXM2WoonVvpq4CIt
-X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
- pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
+Message-Id: <20260624-ili7807s-v3-1-ddf37052a289@oss.qualcomm.com>
+References: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
+In-Reply-To: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
+        rajeevny@qti.qualcomm.com,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782291241; l=2559;
+ i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
+ bh=SKWtRqzH79nr1pgUM9FcYZ8OCUU5gOPa8lZy+0tH+gI=;
+ b=4DzKhQuBTc19hPomxqqzNb1LlB9pk9pXBZ49Wa1Lkk8aTyOKU3UTq0vZyGD6ANMWSm4knhyuJ
+ +Sw0+V5UjFbCHstXSPhJBh21JXifekhmi7uyOPRJyTAW2btw/PRZuTQ
+X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
+ pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=X8Bi7mTe c=1 sm=1 tr=0 ts=6a3b9b2e cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=rNL3eEAJdr9xQ0xVSqAA:9 a=QEXdDO2ut3YA:10
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: GiMWwfSK4OZfYZkHQIvqVog-05VsDseH
+X-Proofpoint-ORIG-GUID: GiMWwfSK4OZfYZkHQIvqVog-05VsDseH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX5It8+cE0PY5X
+ MPKz8Klxlpo96PBXA3xdcHmuTAGrqNq3zeBECupNMk4vSFJpGWNE+Lxl4wyJtlm6E0CiMWHUpbR
+ nIMWSWvPLwiuxItcgckEfDtDj4I0Hog=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX1dhGi4fj0+x6
+ gKLRRbBQeooYeXHETZAByFSP/pdioKk7BYdipkYgw4sUzi3rCQ93e3NVKCbs1AvLW9r8fYv9umv
+ eaI3wHzqISKdzVcDhR7FeElvAjYyXbpBP1VN+HnkY3AZgPHIug9SvMR4Sxr0U08qT1GoNU79W4L
+ Byynd2LkjD7WhUAvaZAtnpB8m+eT/FcHo5I5kQdFkVQsci1xLtOuhp16K9uwdl+hsErPw+HYpe8
+ Tr5/boQJCIA9+rd30yJtdlDEQdh6B1D76LvysgcXFW2PyjZXSwTeh51P3kqJB3FbxdZefe0Pg2t
+ PU7euNbXhhnbQxUkmnDMeAH6ZR9d1k1MIQeu9rA3xnPytrDumMQJnaMFmX4qposG+ea5ss/Yp08
+ 3tzjnddP+MPZMjqlmAql6eueM96KW9HOwW2tRGC3IvCPq10j701CNR/7JWCAsZzO3k6IE/myfv5
+ PH9EDaHNs3Uml1lQ/Fg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_02,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 clxscore=1015 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606240073
 
-The controller is present in the SoC and can be used by boards for
-external peripherals, such as an RTC on the Alientek DLRV1126 carrier
-board.
+ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+The DLC DLC0697 1080x1920 LCD panel is based on this controller.
 
-Signed-off-by: Yanan He <grumpycat921013@gmail.com>
+The panel requires a reset GPIO, I/O voltage supply (vddi), positive
+LCD bias supply (avdd) and negative LCD bias supply (avee). The panel
+operates in video burst mode with four data lanes using RGB888 pixel
+format.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi | 10 ++++++++++
- arch/arm/boot/dts/rockchip/rv1126.dtsi         | 15 +++++++++++++++
- 2 files changed, 25 insertions(+)
+ .../bindings/display/panel/ilitek,ili7807s.yaml    | 71 ++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
 
-diff --git a/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi b/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
-index 35ef6732281f..1d883b80aed4 100644
---- a/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
-@@ -123,6 +123,16 @@ i2c3m2_xfer: i2c3m2-xfer {
- 				<1 RK_PD7 3 &pcfg_pull_none>;
- 		};
- 	};
-+	i2c5 {
-+		/omit-if-no-ref/
-+		i2c5m0_xfer: i2c5m0-xfer {
-+			rockchip,pins =
-+				/* i2c5_scl_m0 */
-+				<2 RK_PA5 7 &pcfg_pull_none_drv_level_0_smt>,
-+				/* i2c5_sda_m0 */
-+				<2 RK_PB3 7 &pcfg_pull_none_drv_level_0_smt>;
-+		};
-+	};
- 	i2s0 {
- 		i2s0m0_lrck_tx: i2s0m0-lrck-tx {
- 			rockchip,pins =
-diff --git a/arch/arm/boot/dts/rockchip/rv1126.dtsi b/arch/arm/boot/dts/rockchip/rv1126.dtsi
-index 5b1ee06dc035..483576de841e 100644
---- a/arch/arm/boot/dts/rockchip/rv1126.dtsi
-+++ b/arch/arm/boot/dts/rockchip/rv1126.dtsi
-@@ -23,6 +23,7 @@ aliases {
- 		i2c0 = &i2c0;
- 		i2c2 = &i2c2;
- 		i2c3 = &i2c3;
-+		i2c5 = &i2c5;
- 		serial0 = &uart0;
- 		serial1 = &uart1;
- 		serial2 = &uart2;
-@@ -400,6 +401,20 @@ i2c3: i2c@ff520000 {
- 		status = "disabled";
- 	};
- 
-+	i2c5: i2c@ff540000 {
-+		compatible = "rockchip,rv1126-i2c", "rockchip,rk3399-i2c";
-+		reg = <0xff540000 0x1000>;
-+		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru CLK_I2C5>, <&cru PCLK_I2C5>;
-+		clock-names = "i2c", "pclk";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&i2c5m0_xfer>;
-+		rockchip,grf = <&pmugrf>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		status = "disabled";
-+	};
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+new file mode 100644
+index 000000000000..ba8c5bbf8ffc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/ilitek,ili7807s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	pwm8: pwm@ff550000 {
- 		compatible = "rockchip,rv1126-pwm", "rockchip,rk3328-pwm";
- 		reg = <0xff550000 0x10>;
++title: Ilitek ILI7807S-based DSI panels
++
++maintainers:
++  - Arpit Saini <arpit.saini@oss.qualcomm.com>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - dlc,dlc0697
++      - const: ilitek,ili7807s
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vddi-supply:
++    description: I/O voltage supply (1.8V)
++
++  avdd-supply:
++    description: Positive LCD bias supply (AVDD), typically +5.5V
++      (range 4.5V to 6.3V)
++
++  avee-supply:
++    description: Negative LCD bias supply (AVEE), typically -5.5V
++      (range -6.3V to -4.5V)
++
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vddi-supply
++  - avdd-supply
++  - avee-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "dlc,dlc0697", "ilitek,ili7807s";
++            reg = <0>;
++
++            reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
++            vddi-supply = <&pm4125_l15>;
++            avdd-supply = <&avdd>;
++            avee-supply = <&avee>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
 
 -- 
-2.54.0
+2.34.1
 
