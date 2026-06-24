@@ -1,208 +1,158 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BB4324B1E
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 22:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB5A3B3BE3
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 22:36:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782339409; cv=none; b=pfjqPigP/qSzGdFRs4TZorRRuAcPCUcoi4akI4OpRq6a6QRJQHCNl0kLSbM+PM7kIspSPfQ8W7VOzoeRzpHjkP6dvH4VDlhiuSpuUkyXtAoJVcdoCdtrIv9U8xBIJTLa0gk1G84raIPZ46ljLNmG+txjr0BpF9qm8BTxtN0/Tsk=
+	t=1782340600; cv=none; b=RNQ9h9btatM8kOIbnEXkmwhyolruEqQS8dGCsAdhJeP5eYASgBCGOohwsO92pSlBZmcxAoO7eml0V0UsH0oUm2YuBFOfVKBLvw3tOTJ4T/p7iFTlwhRYrQ5/9HsKRYthnELOrWWoF6dQDK6vYMaLMpACTN7NnWkrK1Bker1x5Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782339409; c=relaxed/simple;
-	bh=3ZY9NmvCRi89LvyUAPLGxHHPt6f5rWr3GMrM+su+Osc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hyc+DRDJPV/3PiN81dFnP+Qdge2sS0YJ+AmAsjZC2fgJ0LJc7lirtx4dtm1UKaKwKbMya2XlNx8Kz9x01wQIeRuF9uPu8HqDM+TZUdjsIY8Ujt7DFbYWKAXlUw54eE00mebT4KOjdnt0aY2R7tcdqMj5tItF24j8uMonU7aNAdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HezL6rWZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UolSCkNa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782340600; c=relaxed/simple;
+	bh=rgJQZ8PAbd0vkv+8AgmlvytfHtU5yfhiYhlHHWZ55qc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type; b=FqTGzT9lxoWC5NNcU4zhOOa6lqZqE+UvZxQ76K6ta+7hjyFlvNXy9E3LOLGsmvnuDIepKNFBXcZ4p9IxQXNO253NQ7xEi6JB34bQXWD8H3BGNA3xhUHy397iwdwG6vh4hgqqhVKLAhNWA+PTicmS0uW1FEaAy7aF13ePe/Cvt94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=Svcc08H+; arc=none smtp.client-ip=170.10.151.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HezL6rWZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UolSCkNa"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OLr60t167103
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 22:16:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=W9RmnNz+MWuT0a4Pzk3YY3c8
-	e9tUr4RYQGfaW05AlWc=; b=HezL6rWZZYiHalnSnwOELO70gEf8qHv4kQE2mQi8
-	5NP0OupDLTK9p942M6gs25fjZHWx+8ki0cvkyuWukCvzPCCg/e4Lie4S2YzYk3MZ
-	EVlchSfBsu40ieDMsXOrAinuem4uU7tOx470a48HxL57vdHpQHRSA0JVcg+8fZNF
-	7fR0Ef056e/CYgrWSQMmbrhBEk4waMCRS99WF4pFgujJjri2lh5gvy7CXBiDj/x5
-	G4MQ0aV1qPNhGqDysyrHq6D/RcouLKFIRNg0fuNHpqHML4wWkMOpQ+gaKn64LJRt
-	QMA+ciY6d706RvedPfqxbLWW2IJteci0W5l33o5UX9Mv8g==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0j7dsd7d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 22:16:46 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30c62861b3bso407828eec.0
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:16:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782339406; x=1782944206; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=W9RmnNz+MWuT0a4Pzk3YY3c8e9tUr4RYQGfaW05AlWc=;
-        b=UolSCkNagZYlwMwF6HgnvGTY9OCJJplaiKQPeeSpjrlySjq30DaHxu4D0kD1kHeGTR
-         97cVrA1Qx51ZePsinL8HTKzVdPewUAXAnPFD9HaOslA3ibyU9F2Sz+cHbMgWw4hn0pPY
-         NVPgQfRHz8sTvAQ+T1TH2woDm0I3Rmh+ee9xaLjI0hp4/1QxGgtlXmYrUsawXVQXFCL5
-         ZuFdkIttRCM48VqQ4d2y9DvxJpV0alOOcreO95qeHjjP6kHaHWmdPyOgj8YSmkDZkb4T
-         HYlyqKoPn64nEpXHayzA5/cZhZuOJEUICFZDBwnD//IcmfcK3QJq7VbzqRCqyYtNdwX7
-         ZVEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782339406; x=1782944206;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=W9RmnNz+MWuT0a4Pzk3YY3c8e9tUr4RYQGfaW05AlWc=;
-        b=HFUk0dK99ow6DQR8nan7mW+68uDbuZqKlJPp6ByYOcLs7WUyrlVsb7ODN2bRkoOA2i
-         PmmHYJyY+GK7d1onJ1dUcpAK310t5947/fukXcxmCt1daEhAb0bE7qWXPtcxXamR3Smi
-         cW8LNgPcNMto5vUs9M+Bgb4B6Uk5yE/9IYBBJ2L7BZVVwoKkqdJePwhnwLOGqfbfk+wt
-         RR111uBdUG5t6GJdo0yHhvi55IsuNYNVthm85fPUtvlUWg7Dsy+r+zEi9jkPTRPmoNg4
-         +G7mh9pH93D7ckRvij4FSObiHWLkO/yiTBdkoCnwCxMFB5JRjMj/EwK/RZwGdQyf4vRX
-         ldZw==
-X-Forwarded-Encrypted: i=1; AHgh+RooCj7bocO5BiqbTWVqXsOq3GhKRUjxlztFVtdSIyZxV16joEAiioj1p8VqDjbkYeWEwsJ7eneNDJ4u@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQKvOK7A/6vWCMgDuKd/4JsvCDFieEYZZoc+iFlDfOrxyjKVG8
-	J9HUTJ+dhe4Y2YEfQoK6OJLWWSE/PsHzcu9E+rxwIiSG2XHpO+jAZrAweucTAW7KA/pEMNJEeaW
-	WKmawVrJep8yKIopS5pghrNdVqdc4VlDGvZHyPrZayc7gCBCgKvnzNHhI9fLw9a2u
-X-Gm-Gg: AfdE7cnYzEZvkFjllj8urD5g7ruc//GvJfCYkZjD+FW69wOWmnemSEiVc42gUe2PW/t
-	9KQ8EQmHM3GfiMaD16/erN/r0xD8dFuMGoqCr6UvIS2KMMC5GjG0c1QjdPy8lNWzjXrquRDhjOw
-	vmXzMhGmlpl82WnBnydgMlGkDRiCyraQmKbmVrBsBu1iADmNoUqAv3OXrXhVqe04mYcvYBZk78e
-	OF+B/tkXaoTPQEDibjjm4ME66uMvN/lop8uhCgVfs19/v8flSm3DKyv4ASb63GqRMZYWzqnxv5C
-	hsGQmAPSgp45QyKfZun8LXV0e/zePI1mgPcATEj68KtQPtuL8o0lrVI1npl+4BzgTrVAOldMmti
-	i2Cj9ATwB7FCArZ0POxhZGH2l1KeShIetOwmLOFi+
-X-Received: by 2002:a05:7300:1895:b0:30c:5f53:f38b with SMTP id 5a478bee46e88-30c84b86801mr82893eec.9.1782339405632;
-        Wed, 24 Jun 2026 15:16:45 -0700 (PDT)
-X-Received: by 2002:a05:7300:1895:b0:30c:5f53:f38b with SMTP id 5a478bee46e88-30c84b86801mr82863eec.9.1782339405110;
-        Wed, 24 Jun 2026 15:16:45 -0700 (PDT)
-Received: from hu-kamalw-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c4ca208sm1949748eec.3.2026.06.24.15.16.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 15:16:44 -0700 (PDT)
-Date: Thu, 25 Jun 2026 03:46:37 +0530
-From: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Saikiran <bjsaikiran@gmail.com>, broonie@kernel.org,
-        monish.chunara@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
-        nitin.rawat@oss.qualcomm.com,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        lgirdwood@gmail.com, andersson@kernel.org, konrad.dybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
-Message-ID: <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
-References: <20260127190211.14312-1-bjsaikiran@gmail.com>
- <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
- <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="Svcc08H+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1782340593;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6r0s+CJ4U8f53sUVzzTFTFQ/7L3S5IrQSY7l5X44Glg=;
+	b=Svcc08H+EiwCvJSZYcNyYz7cnkqgA4K5gNFCNnCLhnZXFXdczqROVdlcOfLGbeocaliu87
+	v/Zqg/uScjwcePYuReubw5BA8+THSkHNGI66UnfXiUZK3t38wWR85vl+x8OdLJEWMH6rUM
+	pARV8d9WFGvAFzMF2KNLBKraFIioWvxmnP9XgxM0+2KEeH4mlQH6aHrcwva9vfMyzTELqB
+	9d+jrR65Id6sIuAAYwYp6Nny8UQ3jJ0XgkirG10nqmejqdALl3uuC6CoW6cQY4PgipwydQ
+	GVNRqnk4MrfktW+fazhibNq7bbjLV6qAyGlxyBJAJnwN8bhadg3h/z0W+CSIaA==
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012026.outbound.protection.outlook.com [52.101.48.26])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-51-XYtZdcT0NFG7cFQrb2VBiw-1; Wed,
+ 24 Jun 2026 15:36:25 -0700
+X-MC-Unique: XYtZdcT0NFG7cFQrb2VBiw-1
+X-Mimecast-MFC-AGG-ID: XYtZdcT0NFG7cFQrb2VBiw_1782340585
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
+ by SJ0PR02MB8401.namprd02.prod.outlook.com (2603:10b6:a03:3f1::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.12; Wed, 24 Jun
+ 2026 22:36:21 +0000
+Received: from CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
+ ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Wed, 24 Jun 2026
+ 22:36:20 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Topic: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
+ FD5121
+Thread-Index: AQHdAtUG0MJr3kYk70C0stjgUT+1+7ZMZ+AAgAA2+5CAAAYPAIABpgGw
+Date: Wed, 24 Jun 2026 22:36:20 +0000
+Message-ID: <CYYPR02MB9828EECB3F6AFDD2A7BD3E9B83ED2@CYYPR02MB9828.namprd02.prod.outlook.com>
+References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
+ <20260622-support-fd5121-from-onsemi-v1-2-b31767689c65@onsemi.com>
+ <20260623-anybody-gutter-e6ca04f53bdb@spud>
+ <CYYPR02MB98280DF78A07EADACFD084EE83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
+ <20260623-scared-judgingly-7efc1c188670@spud>
+In-Reply-To: <20260623-scared-judgingly-7efc1c188670@spud>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|SJ0PR02MB8401:EE_
+x-ms-office365-filtering-correlation-id: a844558a-ac23-48de-7886-08ded241039b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|38070700021|56012099006|11063799006|4143699003
+x-microsoft-antispam-message-info: 4uckDDwM/KvPmuQ5mmUykZs4NcDcctVakTLqg6NcP4uP8wtCh/U8OBL0DQCY4Sikju/G4lTZKXMW90lLCxryBLmcRNDZhdWhat66SLwhC+DwZ1Fhc5OWHdrnSZU08QUs4It9wn3Z0KtDXHFkwxMu1TIAw7HO5g8JniMVm/fnQY0SH+MO8gr0jPwf34eLTXjZNBQWEKimD9Pw4U1t4keSwDZ0vw/nuyAZJxWLphcHykW0LdqbJxg2IRxiN5Cp/c9KCia2ArRHZr7QQW7aV3pAVlK/qHXTr1YjYpIlpfOgAfW1ZUHdY4rS2KoQQwpUw6ktz2wVPdL/GG/y8zSf2bm9WgAwxBVGd448e0qo6N1sgrKRSNN/bpd7FswEHaexatkgKJjP8AGsyomlAfwBffnukCFyoSgKMpv7iTE45qyWf3EjEG5NDduBSV+QYkPVW9rIiGl/9rwhXQy1dbzp+cHS/Nz26ZfA/SWRUkGgBDBlk2o17CGr0na43Lx1OX5AeRFEJY3vg5VEHAfupKlNSE1DIx/CQ/JKQSBH3GrOLJ9Y45Txg8qSGuQo3WW7t9hjJ9SdaaWeoYFRHRQqieDb4Glqz5eOgAEp2lfYKNJqDd9RkpNZ/DPP26+TBBAb2kxH4vAWe8eMuicbpcW1/fhQRd7ShsJCwPXWXEcsJRJbPyCnbMXtrESWQ+LtZhXTyNcNXu5m06+C0Q9bbG+LWvnENOzhHsAyFLjPUROJjuSUHoDNoC8=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(38070700021)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?JDR48QaphNGHmzVNosCPcHm259jjoEhiZr9DDFQZ+ooDRRscWG51E8r02cZ2?=
+ =?us-ascii?Q?2ZZRd7w9ioXLdiheQS1Nco0yILx8ahBsm++MW+xbI8+KDV9sM9H7O/9RUS4M?=
+ =?us-ascii?Q?7bOLIKPiee9+x4IH5rQqC8Pc/U5ClsyJIOReVQGKvmnXtTJhazgrAQbKU+Re?=
+ =?us-ascii?Q?PxmMoYGXtKDFtLEHAN7dQEahFFuIDiW2l2Qn2P2aIAe649KNBXYK8ct7TnTz?=
+ =?us-ascii?Q?WbulhoQ86Tj0+vkmJlFq4F1vS1BsXgw53iMgdRQPgMn3K/GPWnGfBo/5/sFH?=
+ =?us-ascii?Q?/TJa1ujFdHNYwAKo0CoAW+6GkrxdXAPYZMggRW5jp2WcLGyQIzP44hWmyE0r?=
+ =?us-ascii?Q?eBCR5Y36bF7w5rGOC+jdC/y/kP4br0r9fr0LaEG0Qc/UzcCVxZFiaezFDT7k?=
+ =?us-ascii?Q?nylE5SYyTlO2hY3Z+401ON1/bJbX7Vj2LNMrz5g/Tx7++ZB60BdgJIeXd+hg?=
+ =?us-ascii?Q?RWsWp4i9+RcSIqLqPXTL0zFZwVbZXHUTksiLQ59v7cSFCz+IOIYj3PHjSSSf?=
+ =?us-ascii?Q?KG3WyOA2wgXTbV0jF38YUJdk00Ff3z4kQGLXS4ltEJSwk7XRO+xZFAktMfgK?=
+ =?us-ascii?Q?evhgcv18604iCli52GkQIP5hRz0EuOi8TroxNzwTOONKkbxaVzMcvC0icckH?=
+ =?us-ascii?Q?vedhOzEeHaN/TMC32uoqa73vJ74j0TJ6tUi25I5VCjWGfr9Z777MSPvJxQ6S?=
+ =?us-ascii?Q?4xfb5VHrDnw/HIYF8KDUmBcYnYpgCVofFrru9GXZSofnn8jSeenqTXIhcjVa?=
+ =?us-ascii?Q?o1azapANLG9rcUS/SDiCY+crNNdEQK/BWDl5AAZe2xw46c1yFhqGBcZMIidD?=
+ =?us-ascii?Q?Hub0clTwAs9y1Lnz7lyQhIMPOVhcprT+Ryc77j77czX1QSTzElxugMBpvfip?=
+ =?us-ascii?Q?vYGS8XTyV2WjSzNj0kDt3B311B/Kx8qXj2EIWT9ySEqp8X163IeSL83v8Pl/?=
+ =?us-ascii?Q?1iokHqe3RLJLRhy+AvaTyUDzesVo3wfLA3VXTZ3cP+esA49CXWrxAcyK06x0?=
+ =?us-ascii?Q?PPCnq+j//l7MXS5PTpVGSRSF64BgTPnUANJEJK0RAyRYwN7AG5AHWnoes8o7?=
+ =?us-ascii?Q?tbWXWxqca3SajZY60YLb4G2HiLjIhXQAVXo+Nk8sg8Esao0/rEe0xwFh3cGe?=
+ =?us-ascii?Q?NbsDx9wWZs8B4lWlrRb7KMX6rZXSHu9dfjO5UIdRVFU70mts67N6+WoAqIDc?=
+ =?us-ascii?Q?mG2LXyznAZXgD7Phd/7O7Brdsqw2f86NZqtO90y0WUYevctmPq6aIlbg4Ik6?=
+ =?us-ascii?Q?qIWnW5txM4tzUeMLqyvAh4qMt+LEoAy+/lJqEl1AGAfsb+6Lt/Up5CrMKCq1?=
+ =?us-ascii?Q?DETwH72ftqYk/hvsMcGnJrlhCCX2cvLNl30ZwrH52sIYawmWIWlOp66vBaoZ?=
+ =?us-ascii?Q?28Rms7QitgY+OXgnET1Qs1VoBCNV8/bE+YaV2ZJK+s3FaPr8twMPpYl0OuY+?=
+ =?us-ascii?Q?lr46OBUyo8wJAQbQp5l82ZA7Mk/OIv8fTwG2tfzyCoDID2sV3rwj4zGrk2wS?=
+ =?us-ascii?Q?YS/rRagF68/IWDcKCSHPSWop64uFcm36FI2k+zPuwCUwblFpEVOglztSlgxb?=
+ =?us-ascii?Q?Mxo7bgGah2Qu2XY2rnZ29anPHOfifLy/rUlwNW0cbUtx/3N+mvxS3BfJ3bzh?=
+ =?us-ascii?Q?PR+J8a8+9z58gW4i4rW7H+AafH6znsr4XdiJj1T4NaDdeArb5gN4yXloVrRO?=
+ =?us-ascii?Q?iidV+zWS4ipzqQFVQ1+TIe9mRsHBsHEPu5K6D9l1vcaDlnZ+ad98g3BH+s5l?=
+ =?us-ascii?Q?9A0T43EB3DJsUNnp9UNSaAcpyo1LGQ0=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
-X-Proofpoint-GUID: fC2bH7ZKQ-uSOdi1X9_we-EfRDLzyFfL
-X-Authority-Analysis: v=2.4 cv=NvHhtcdJ c=1 sm=1 tr=0 ts=6a3c574e cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=axg2tsYLhavgZJfYiDEA:9 a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDE4NiBTYWx0ZWRfX6BQ2G2lbu5JP
- pElI05l1Pwsbu9IiagnCOMHocovpTRhoOJIW3HPwfmzm2+Ydp6asnOGct3UKHlGIRv/c3zIfYMM
- y6khDkX0UmxXBi0PzWxuc1BFkUhSUMc=
-X-Proofpoint-ORIG-GUID: fC2bH7ZKQ-uSOdi1X9_we-EfRDLzyFfL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDE4NiBTYWx0ZWRfX1YE1uQYUbIzb
- WecycynntDPFU0q843SHDIrme6Md7S5/oUOU7e/p+BTi2sZhwqMAXOL7Qx4756deB6flkdvTFxH
- UPLYlw2hCkBUTAhTYhLKHEKmHj0Gj9y0dnzqqgdq/bg/uBTXdAsi00/vr1hSUH0nqT49E+sn+qh
- syWnaWwJDDVtI72qJqGWmmvqYbtaUuJBwY3EXc5TvxvlByNpAxB/wTQAG0hRst35u8tRoe6/V3T
- 1ZejipR5mtI0re8B7p1t2TByhET5kxwF9zQ8S3A6x9tBKaLPWGAfqCUtKdXgvFeyOZP/xloTsqC
- k2FXuYMugtrm56gC2pQrXxMFtj9KMFxpbToa6e75uH7zDtVxcDEsDnPmfOG/jLbtRPkMJLt0RCI
- ARASDIom25gRY3+zEylJg4/We2WtPdZvON6tc4CexPb/Fn0ditcq1H1uWPJ7lxkGgnTexXnpGj3
- RXLH7NcPKkajwS5iI9Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_04,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606240186
+X-Exchange-RoutingPolicyChecked: jqFWS0NRsAUtroHs28tuAT32c6WxDs80LbhB06dQ1EECY029NpGD25NwSAKKE3pLl8ws+hOwTg3aBEbdCFh87CiGfXWGNyq7OV9wYEP/yuWCbQZEGqNYrF8FVkAJXDBqMHgbHyxNEcNGZI8yNHCccZ5p9Q9YZcwMjuaA1VjjbXXofkpGxm4YmD6hK+fU0OwQFJVH6Mvr+xZxGk9ZK1bpAHy2fzyPRbtsfyHG5fScasOS8PVwQJWfBucbvpyuCH70Wl23Rm/Jc0RrSpi87pKZ755KFS1ZR46DAOD4q5d7/p6IucUudXpGtgGPq882c/6Hq9+V8n4BEcZu5s3F6j6dSg==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a844558a-ac23-48de-7886-08ded241039b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2026 22:36:20.7990
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: R5Be9VvFo2mh4ajh29Fyoa/YuZjHoLnV7f5JKQSUrzElTG/lmoKKLneVW/2hgerbjvfAaxoYE043lGKh0uws8XtFRHUY5ACH6l9rfPli148=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8401
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: yX-8FpcUcnEomew1J2cM5uesqL-M_Ph7EYqNRCtackA_1782340585
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 16, 2026 at 01:48:50PM +0200, Konrad Dybcio wrote:
-> On 5/15/26 1:16 PM, Kamal Wadhwa wrote:
-> > On Wed, Jan 28, 2026 at 12:32:09AM +0530, Saikiran wrote:
-> >> This series adds support for the standard `regulator-off-on-delay-us`
-> >> property to the Qualcomm RPMh regulator driver and updates the
-> >> corresponding Device Tree bindings.
-> >>
-> >> Motivation:
-> >> On the Lenovo Yoga Slim 7x (Snapdragon X Elite), the camera regulators
-> >> (LDO1, LDO3, LDO7) have large bulk capacitors and rely on passive discharge.
-> >> When these regulators are disabled, the voltage decays very slowly. If
-> >> re-enabled too quickly, the sensor experiences a brownout and fails to
-> >> initialize.
-> >>
-> >> Verification:
-> >> I verified that the core `drivers/regulator/of_regulator.c` does not
-> >> currently parse `regulator-off-on-delay-us` in `of_get_regulation_constraints()`.
-> >> Therefore, the driver must parse this property explicitly and populate
-> >> `rdesc->off_on_delay` so the regulator core can enforce the constraint.
-> >>
-> >> Changes in v3:
-> >> - Added Patch 1/2: Update DT bindings to allow `regulator-off-on-delay-us`
-> >>   for `qcom,rpmh-regulator` (Requested by Mark Brown).
-> >> - Updated Patch 2/2: Refined commit message to explicitly mention the
-> >>   passive discharge and bulk capacitor mechanism on the Yoga Slim 7x
-> >>   (Requested by Mark Brown).
-> >>
-> >> Changes in v2:
-> >> - Moved the motivation/context from the cover letter into the commit
-> >>   message of the driver patch.
-> >>
-> >> Saikiran (2):
-> >>   dt-bindings: regulator: qcom,rpmh: Allow regulator-off-on-delay-us
-> >>   regulator: qcom-rpmh: Add support for regulator-off-on-delay-us
-> > 
-> > Hi Mark, Bjorn, Konrad and all,
-> > 
-> > We have another UFS issue on QCS8300 RB4 EVK, where it seems this patch is
-> > helping.
-> > 
-> > Issue is seen 2/10 reboots and it happens in the UFS probe defer path:
-> > 
-> > 1. UFS probe takes regulator handle for VCC(vreg_l8a) of UFS host controller.
-> > 2. UFS probe enables the regulator
-> > 3. UFS probe defers (due to some other dependency un-related to regulator)
-> > 4. UFS regulator disabled on probe exit
-> > 5. UFS re-attempts probe and re-enables the regulator
-> > 6. UFS init sequence runs -> UFS NOP OUT command failed (no shell) 
-> > 
-> > Issue Log:
-> > 
-> > [    6.583836] ufshcd-qcom 1d84000.ufs: ufshcd_verify_dev_init: NOP OUT failed -11
-> > [    6.592780] ufshcd-qcom 1d84000.ufs: ufshcd_async_scan failed: -11
-> > 
-> > NOTE
-> > - Issue is not seen in first probe attempt, because UFS regulators are left ON
-> >   from bootloader, which gives enough time between rail turn ON and UFS init
-> >   sequence start.  However in issue case, it seems re-probe is happening too
-> >   fast, which causes init sequence to fail and UFS brownouts (similar to camera
-> >   sensor case)
-> > 
-> > - Also, we compared this board with other RBxx EVK boards for UFS rail, it
-> >   seems that this board has more caps on the VCC regulator, as the board is
-> >   designed to have both EMMC and UFS, and we have DT option to pick one of them.
-> > 
-> >   So for EMMC those extra caps were added and they are impacting rampup on VCC.
-> > 
-> > Since this is not entirely a UFS part issue, but a board design constraint, it
-> > seems better if we handle this in the regulator side itself, as adding it in the
-> > UFS driver may not be acceptable from UFS reviewers.
-> > 
-> > Please share your opinion, if this seems to be good reason to accept this patch?
-> 
-> Is that board in production already, or is that something that can be fixed?
+> -----Original Message-----
+> From: Conor Dooley <conor@kernel.org>
+> Subject: Re: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's =
+FD5121
+>=20
+>=20
+> My point is that what's actually being controlled is missing. Maybe it
+> is obvious to you, but it is not to me. Your nodename in your example is
 
-yes, it cannot be fixed in HW, as the board is already in production.
 
-> 
-> Konrad
+You are right. This chip may not be a "controller" in the traditional sense=
+ as it doesn't control anything.=20
+We can change node naming to sensor or regulator so that it aligns with the=
+ convention.
+
+
+> > +      fd5121@50 {
+> which doesn't comply with node naming requirements and I wanted to come
+> up with a suggestion for what it should be.
+> I am assuming that its power or voltage that you're controlling so
+> either it should be hwmon@ or regulator@.
+>=20
+
