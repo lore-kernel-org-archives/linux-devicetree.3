@@ -1,292 +1,304 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013017.outbound.protection.outlook.com [52.101.83.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CE3033CC;
-	Wed, 24 Jun 2026 20:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CBA37472F;
+	Wed, 24 Jun 2026 20:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782331594; cv=fail; b=dVa8ZFH3Xx7/+9ojLh/NB/syHEAFLM+62tXMNkAaRJFMdLg/HzxgHrX9GIyXS5n6XVW0hJDm5waVyLi1+NAOA4z+kENzniHFGi1kaqfm19VUsWUng0fIFj3ABCySlq0ilNtaOEXrYMEAtd2Cv2IZTxll2LwTPZt48wEj7/1ld24=
+	t=1782333524; cv=fail; b=FOrjoqgSRADPtB8LuQ/kNUUaf5FtxW058xk1S5toJgI+Lgzw/cujiCLu9t7oYq5vP6PgmYC5kmC3IFwIXfPEVDecEvrCUzNxgoyyAlxa2daa7h6KP/K/b6nyT3jbzAzRYewrlKNmnJpUnZwarw/C5ylXGyuT/jJ4neH/l/qOAdE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782331594; c=relaxed/simple;
-	bh=XWSIOvzYVocQq9YITVhdCpL5fGPOOo7tt9zrajy5aAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pJ57/H+U0IGdQBjbEQVu5mPC5fgmT6ip1G6YjsIY4M1O2ZLKJ0z7efP6rRVQZCBq5I11Dx30LKuyzEgK3mTtwBkn5MKTUEgpEGqV013gLBeNj5PScGEVVkDxAwOOC71dK/OY7AN0WeVQbl8/RqxjpKqOLLzxWTec8aavBbeSOv8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=O0O66zWS; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=VCFyvw0w; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	s=arc-20240116; t=1782333524; c=relaxed/simple;
+	bh=LxDs34nRK4/bIne8Q5gm49cfE7k7r+Q/Lnr+1VdgzL4=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=sgHawEW60CbcMJ5YtuuWCjDB272701pcI5SE1Jw7VMVXMngvZbqRYOEXDhfUbgxiM+Tm0RbU7ZskMGC9cT/TPWAuK8QaTo5ZciZ1eCa48MuxyGJT9e7dtwPWjXhU1i1ynclATz1Je9/Wp8kASCp+pmyIhqVD7+FpFIDlaayfmiY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qoXLsREQ; arc=fail smtp.client-ip=52.101.83.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="O0O66zWS";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="VCFyvw0w"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OK56v13200009;
-	Wed, 24 Jun 2026 15:06:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=d3DnSFwHi6D/Ck9sY3fcqs0OT5rkhdysuIPiyK4UhfA=; b=
-	O0O66zWSFVpOzVxq8YmVCh/yM1hzI6t/mNO4NbgUXra0jlsP+kVtIcMfaaL4Mr/f
-	iaEMUOt7R2fcZf2mM8AzlYaWvLPKBqRHckt3E4Y1Caeuw/j9W6XKV2k9pi4c0ke5
-	+TH0p3svXbn6SgwO7SphIhzi0g7C30VCBmNhwcWGBBRc2wr9DjvbaKXdZKjI8PW/
-	T/C96gZnQD4ocBOKWvB7jabo2CEnb0LC3I40UaoHGLb0nD2Y6bmldcIiMh/OrLOe
-	V5uBHVHoCoqZzx9Owz4OVPu8gLJ+ptqVLTDHx0xhwOAr6CRYpAoa8dO3aOKB7nzu
-	XP68FcAQoaNv2tiUi3/xXg==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11021086.outbound.protection.outlook.com [52.101.62.86])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4ewr8x5nw6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 24 Jun 2026 15:06:09 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qoXLsREQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KTzTg3M5qzz/dn3YfAsK3+3yFg3Cylzs0BgTk6McRvyXUw8PRudIfIz3tRIizpvjnBQgby8oyltxvOuEM3d1+eKrEPgyiDizZZqCn5AwZy57whB3cesdC3rxfTasEMeDtjvTzy2bDnJDi3dpmH+dr/C2xVYmQOPJG6S3eTkHSbr7SJhFOVMgvyBOFK8PNhJo5zyc0mfOYGS/ko88Ce0wRORCA4ZAfUGTbjGIoc7AdF0isE4g876Dk4y5D+z+oXk2ELT/okPeIzLXaWBxLhjli5TxfbmzF91IUca8JHabGIpO2ELKDiropU91R0pQ+4pPI+GVAyaRJjjKJmpmvoH6AA==
+ b=hly2yXeOUKZ/pLSzVXCpB8fQSsW3r/GS+ZCbBMf2504RuK2UtqwwiniHNYbCAUpq4HQv2ZUZ0bWL3JFBhxphl6K2tSlmbRxyPUTyyX8SmviKv9DvYre8DoRHtuPNZszyxl6UMmRjlNlWifzP4TA70v2M30nMtiCz1XDfYfzlhnjU4FOvAkS7Pf3Y7OCY9dMHf9ilRvzaPuw/xC8c2DJDVrURHqJmG/m6dS4nLXpzs+trEYD48y5kxKP5EknFmtx9gZq0Mw9SbBaGnTk1sy2JZKVQ725J9mhEZIcMvtFy+thbamrNgN29z5/aCU/RMJKJiiKlMgXYguYt2JPiMXjb2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d3DnSFwHi6D/Ck9sY3fcqs0OT5rkhdysuIPiyK4UhfA=;
- b=G+eNdlns/gdns0rZhbOmkwX3dhr3BowOjRasUvgoRpbovUZ0D6utOkftKgDOIYQXe5KKWkJ56KaIWmgjLIspqJ/XBzQDqDOcaaZ9bSOIhvrVehf/d262/TAvLNA36yVbbd3coHoOq6t2FG6iAQZem9l3qxlN30gpYAviSSA+mKrAyM8bZ8uSJmlC3AMHVUCUj6RGbUViZl4awdPu22RKkuDxEwVuL/enisDHlb1Wuvob75rPorJhH5ARqfLptYrzOeiXE9zqI563GOmJNv6BjYSzCZDq4VhORgT2zSZhlfSm0qQyLG8VQwPYb4U+EQPpYDl7XQ9TN8AeuadOrUJOmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ bh=QqSW9t1zPm7TS3HwkWOj73cx1GbU+9BfUbAhP9l77UY=;
+ b=fOTfxLo4VyGO+C22Ep3xt2sliftCzVnzFDcSGBMI6jNkRed68Smt8PmkOycz6pCeGn7OK13DKcKlBLVUr3f9QLflKfiRiNti0Ec7zdY3uC2+E+1lR0BwJNlfr/xtlLR42WV1fmDYKhqHBf6J/ruDAAKfgBo9ZxNPDAu5FTsTTL54vu4TxogmRjz5NhWoLm7Tm7tc4nILvaTCO/gRPIkHLHr8KtiL67rmnAA+eEavlmDEZ77VKhZRxp1lBRf33YHJ3JwqLNXO0XcB9HRMQRFGt18jTv8Oozm5bc+BVbtqQjkz77EBm1YsWSXn+izMPIYRG8glxmj97a9rIbfQZWXHOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d3DnSFwHi6D/Ck9sY3fcqs0OT5rkhdysuIPiyK4UhfA=;
- b=VCFyvw0wefxgEroIfCxCbywaQ4j+ZxD3tfYyZ11IjXrhHTovheA81cNydOtycpOh9DW3zDxaFHVAD99GEZQENrKfu3ckV6iXfE4qN21gMpXEIWdg6TkVfC5mxvXR/QX2KXlxVSb3QzioCNSuAsN0vD3Nox6IrUYVG+pDcfiJXNo=
-Received: from PH7PR17CA0027.namprd17.prod.outlook.com (2603:10b6:510:323::13)
- by DSWPR19MB997312.namprd19.prod.outlook.com (2603:10b6:8:36f::14) with
+ bh=QqSW9t1zPm7TS3HwkWOj73cx1GbU+9BfUbAhP9l77UY=;
+ b=qoXLsREQQsKTGAz5kgieANWa1XH6xaNhxqDZMRH8IOP91NdCqQPRGDurgm0799CS5xp8ROhQBZ7QPZ2YLmPPtKRO1mHaLKFEDYwRxIgrukat/koUJnh4e9B9UGFtH50OmvKlVm4xrgun0RpRGtBWtxoU8J/oYSc/sgB4c4oA3V/55AoZbjM/Fv46UAI5EwDKq28YRoJcveHNjvPEsg4Rl17tuq9YO+n1lE5x9z3Aqh7xt8cHXuUGHyf/n0pdjQ5wzKEzimX91AHapZcJRuWWGX+rBzg7qI9sl24N9c0TDCxZptM57y2UMMH4xAm7Gvb38R01Q4sI6ysMAcVqKcZV7Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB11335.eurprd04.prod.outlook.com (2603:10a6:102:4f6::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
- 2026 20:06:03 +0000
-Received: from SJ1PEPF000023D9.namprd21.prod.outlook.com
- (2603:10b6:510:323:cafe::3d) by PH7PR17CA0027.outlook.office365.com
- (2603:10b6:510:323::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Wed,
- 24 Jun 2026 20:06:03 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SJ1PEPF000023D9.mail.protection.outlook.com (10.167.244.74) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.0
- via Frontend Transport; Wed, 24 Jun 2026 20:06:02 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id DD3C9406541;
-	Wed, 24 Jun 2026 20:06:00 +0000 (UTC)
-Received: from [141.131.157.6] (macMW3KVPQQ2W.ad.cirrus.com [141.131.157.6])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id E176582254D;
-	Wed, 24 Jun 2026 20:05:58 +0000 (UTC)
-Message-ID: <81f4c4cb-8aac-47b7-8f22-f120c6af5140@opensource.cirrus.com>
-Date: Wed, 24 Jun 2026 15:05:57 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Wed, 24 Jun
+ 2026 20:38:38 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 24 Jun 2026
+ 20:38:38 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v6 0/9] media: add new API simple 1to1 subdev register and
+ add imx parallel camera support
+Date: Wed, 24 Jun 2026 16:37:47 -0400
+Message-Id: <20260624-imx8qxp_pcam-v6-0-4b3f45920d2f@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABtAPGoC/13My27CMBCF4VdBXtfI9vgyYdX3qFBl7HHxIpcmV
+ RSE8u41CETw8hzp+69sojHTxA67KxtpzlPuuzLsx46Fs+9+iOdYNlNCGWGV5bld8HcZvofgWx7
+ RSAUIGgKwQoaRUl7uua9j2ec8/fXj5V6f5e19hEC8h2bJBacQImBsGiXkZ7cM+9C37JaZ1Ys6A
+ RVVhUrEE6FJwqaKwpZiRaHQgAaAtDCxpnpDVVNRXaiOKXhNUSV079Q8qRVWuoqaQl3yNiC5dPI
+ buq7rP1VCKAOSAQAA
+X-Change-ID: 20250626-imx8qxp_pcam-d851238343c3
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Frank Li <Frank.Li@nxp.com>, 
+ Martin Kepplinger-Novakovic <martink@posteo.de>, 
+ Rui Miguel Silva <rmfrfs@gmail.com>, Purism Kernel Team <kernel@puri.sm>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, Guoniu Zhou <guoniu.zhou@nxp.com>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Alice Yuan <alice.yuan@nxp.com>, Robert Chiras <robert.chiras@nxp.com>, 
+ Zhipeng Wang <zhipeng.wang_1@nxp.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782333513; l=6184;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=LxDs34nRK4/bIne8Q5gm49cfE7k7r+Q/Lnr+1VdgzL4=;
+ b=Odnm3cg9RW8HXQJjly2o+dXcHmpIlYt8rYVF6/w+RvCQ+E4UO66wqFyEBTiP9lt3PolMK/vZ/
+ 89o9siOmzKyBWG6AE0uUOR9UmWSfjaNw1GPzB+iy93x9WDssCxbGAtH
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH7P220CA0164.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:33b::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
-To: Rob Herring <robh@kernel.org>, David Heidelberg <david@ixit.cz>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, patches@opensource.cirrus.com,
-        Bjorn Helgaas <bhelgaas@google.com>, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org
-References: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
- <CAL_JsqLE8Z-LbeF9r=sqRqAoGUcs7R-T4cN+hF3QzjGydHctgQ@mail.gmail.com>
- <3873b111-36d5-442e-996c-31d05d23c8e8@ixit.cz>
- <20260624194541.GA672824-robh@kernel.org>
-Content-Language: en-US
-From: "Rhodes, David" <drhodes@opensource.cirrus.com>
-In-Reply-To: <20260624194541.GA672824-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D9:EE_|DSWPR19MB997312:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c149a08-5572-41ee-765d-08ded22c0452
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB11335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47ebfb55-4d9d-4c0f-b60c-08ded23091e0
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|82310400026|36860700016|61400799027|376014|23010399003|13003099007|6133799003|18002099003|16102099003|4143699003|22082099003|56012099006|5023799004|11063799006|3023799007;
+ BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|376014|7416014|6133799003|11063799006|56012099006|18002099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	jWDMPGgGVEywhLpWDCURqoXGQzE1jeWwM/jmcxTF0uppZBfLTbEeaADZQSQP5yLoYpz3Ipib5/hOYW6dtG2kZMapdqb772epmmYUITndQLS1J6MxAzgZZvb94BR04p4Hb0B1BkhGvEtyIKIGS6lTkA+Tjt2ZqhtW5ZO0tHirvm0qiFwnXVVXVqAbgCrSFBcCZ0bsHmZsjtRkpHDJnKg/7lF/yDSK+UODYFN9FN5Ho+8BOwG0Q3k4gG6kpMqOC3kaAGuQwErpMbz33WB9JpPzGL4dzNWBXxiGD138nuTtBTsixvpzssZdfHdEw3/AlBfoJKx+d/C5t/gB9hCMT6I9r1cRPDtRB09zdPzphCVlyvOuwkAACkx/bYmUS5leDTU185hQ5js9ShBkJW4wVY/HySF7a/jMDuQznZdL4HjvrncjmXhMaOymuNVQj0mbtLkgYA650Mz7VU8T6MZ/IVmNN91gVqqgqQQYRAtScyJ58+K7X0CTHt/E7i0pZEyguodvAsiDgyA8SARrRzHt6RZqIcepOt6gt+9otNmp5vgMP59Ji9s7DVknojGmBN2h+BcZ/ZqenJUHBxwFdzZeddY9HSlUEaKB3a+b+PTELfx5dnJ7riQ6Xk7UPSemvdCAvAtD
+ Bjx7Nrd+9XhOZ5j1IRLsvb47ZN20zU7YFb5AG5rGHhxU/SBovsY6lKXzt3S7m/q3+W8ejhocETWPMFbZaQ0KvoMFx8n1s4I8ysFKmnufd0euMsPAQq3xT3c7x/1vGfP8D5VMdYN4CVhE1UPPE9KJG9Qn2GAfD1rFCr6txi69sG31olE1RHGV6Im0kb9neqws5yjbaHUuhSXuoqD6VCHxpnw9/TS245CM6lvAiMFgs23At8n9K+oS5sk9TALpM4sKm7wHRw/WoIxg77CWIqDrWBbC42GphDTxPHTqYuQ7UU3o4bju0V01yJT+ACwnBTde083BZ8dE1DU/ton5T88zg0CA6UTn3QJLLoLGjPuAqz/QKB4yD4mqxtAAoSqKfuq3gwyIihkjcoTIuaN0/YemBC1kS7TuE5ggtCKg+oj37DDxXWBTdMXElFyAkMZZCtYbojm3kpwMmlv9w7TFwnJOeckv7Umb59UM3o5iqsyk++UG5KYw8aBO+OVj1vpHCZdtm1ny6ibdlMTxcJBTBA4A8JqJUeINnCNPDObX3WnL5m0J5KD4heH9yKxoHmOLqRz/7Qp+jhVBpidKWRc+dmcTV2JLv8rEXs7nGnWrjXg9+ZTWeS0mt8vXKowF7qX8Xlbq+o6RYm6ntAgsq8v24aqNesNSujbPGqAexDLKatDpieU=
 X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(36860700016)(61400799027)(376014)(23010399003)(13003099007)(6133799003)(18002099003)(16102099003)(4143699003)(22082099003)(56012099006)(5023799004)(11063799006)(3023799007);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(376014)(7416014)(6133799003)(11063799006)(56012099006)(18002099003)(921020);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	bXAQ51WJ6n98mhmYXX3Ay/+FX4NF7HkTXfCH5dwwbXNTAKOJUkZAWpt8IBt7/rvEC0rIgy7ib3OKZK7lc9s0QrHTmRdYLiVz3Z0pDE19/CN72dd30rioG+xwKQyrnLUzCfAWD57oywFXfC8Ga7QbFWKI1ml8+HqESaLiuhQO5Gf5i7xOlZiCz1cZ9aWWH4PVnTVNm2wQwkUQyXUXlS5ttYVKF+8FCW+FjFtFrtvVlOTP23ZaUre6V/6cl0nzBRm2m4Oy9VgyyLMnnNFKqJ05KbJHljncNdsLRQaXw7NG8Aruhb44Db7V0b7hM3SC95dAnPkJmg06KkKsimM8uiMDLaB0BT5XjIjVrUgwGzMoaJkUl7jOg7aBgRZo74KyprRiP0hUmAmHUe7AwEFullwJfzivdFl3Wh5Ucgm4jR7pXtL3ABs7abjXynIILAYCIpMU
-X-Exchange-RoutingPolicyChecked:
-	HMjfiipyQ86IqPuTavr3x0e4qXAxh2PzEgSnIwcYvNc8KI5OZsf/4YCq12PDs40HHfpzJpiawRxhWSVgpw1xhlWC3IM3COdMlBhl0n/h0ECeGo0ELuPtS+u8GlI+6rjwdoHodymeinwWfgYt0yXRQbCgr0emlpK78iP21y8HtOe+ePQ1kcAlAKO5+U9brjFjhzkUrJ7KRYGh+jejXlalNqWQggjVXzmEl6wt0gF96ht0LGHgrLdimPPoXRE/x5Crp3xCssqa7MPUgj8uGG4QBqj5HQFkBxRp4fM3X8ht5KtPQlL1vik/lqOj9ntWb9X3nvTNxPOzkhgO3JFmdwKLxQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 20:06:02.2875
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c149a08-5572-41ee-765d-08ded22c0452
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+ =?utf-8?B?d1dpRjJPU2Q1M0dYRWpuOVIvOGZ0ZW4rT1QwQzgrU2NGeFhjRHJUWHdlQ0Vm?=
+ =?utf-8?B?YmxZdGFtU2dpMGFBcVFtNlM4Kzd2eXJiUVA2cTY0WWhhc1ZZKzFvdStyYnZP?=
+ =?utf-8?B?dmxmbWFCc3l1ZEQ0R1k5MUYzcVFSeGZWRGtVT2kzMVdsSzFaUHRpaUlsbzNm?=
+ =?utf-8?B?WFV2K1BpSmVqUlZKU0JpZ1BGcHJpM1BqdzVkdW5oTlZtaFY3ZFp2cUNjZ1ZF?=
+ =?utf-8?B?WHV6ZmtHTGltTlBaOEp5bDMyK1dFeDJVbXZ4WUZiY1ExTWRIVjdpMzhzNHpT?=
+ =?utf-8?B?SnFQVnVjRVNydlRYUUE5bkZLUzZYTDh0ODJkL1ZrZ1gyZlo1OTdtZXR2YnlS?=
+ =?utf-8?B?R0tsRmpiZHdNc2FKai9XQWZRNnF6aitySGpsOHhvS08rMXFUQklyRFBRZHpj?=
+ =?utf-8?B?ZTNQVjdaTWpiSStuNEVlMjArM2pnNThkQVhHVVpka2JVM3ErdllNcDhxdlBa?=
+ =?utf-8?B?RW5iUHc5a1BiQnRZSytQQlM0V052TUxPK3NYaUROaUNtbmxBSjBuQkdWWVR0?=
+ =?utf-8?B?cmZ3WFZZS3RXZWJXeHY2NkVxVUNhRnJXcUpRbmExdk1TUjJ3S1U5UVRwNVhU?=
+ =?utf-8?B?Q3R3cUdSVEFYRmRZa2NHUktKKy8zK1NLSlJnb0RuNFViYUxSOG1LNkVLbUFY?=
+ =?utf-8?B?SHBwWE9pL2NRbjVlZmpDNm50MXl4SW1FQzRwZDVDcmh4SFlSVjRnQ3B4b0tN?=
+ =?utf-8?B?RjlnK1BZR3ZwcjIybE9Sd0JFdkRUMlI2MGQzMThkVDhwMDEvN2dFWEdSd0ND?=
+ =?utf-8?B?VWlsVGdCK1d2OE1UYk8zYUZHeXhiMnhwNVFIbzB2UTlId1B1KzM5RmFwOXRP?=
+ =?utf-8?B?ejBIbDBjZURMU0R2NXJnMERsVDhRZG9TMmtwMUMzS2dpcVRORzNsTXJyRlNx?=
+ =?utf-8?B?T211NUVrd1h0RTZrZDBkWjRpaXFzbEhsS3Z0Mmh5aURtUXlNTFJFZDBtOHla?=
+ =?utf-8?B?ZjEwYU9mVmZQNldiWUhoZFRSTklDUkxqNTZadGk5aHpKVUZIWVozbU1OdzMx?=
+ =?utf-8?B?T2ZXYnM5TVNZckY5UXJsWm11eVllbGZJSTZ2SzBOQnpzbkdTb2UrN2JRM1Nn?=
+ =?utf-8?B?WXM5SFljMjAwa21EQ1VkMFgyY1RqRFd3SVd0OElNZzZ2c1BqSEdoTnFTa2x6?=
+ =?utf-8?B?MjB4UGJ4SHpENUd6NHBxSTlwb0dFbHUrWTlIR0NicDJPdloySlgyNVlKZmg3?=
+ =?utf-8?B?ZG4zVG8yREFQVGlscG40K3dkRm1nMGZ5eHJvbFFiakxTOU1ZOTNENDFQSmd4?=
+ =?utf-8?B?VW9Gc1NsRlMxTFBIdXUyVW54Mm5QcVFWd0FHNVIyNnRWZVpjYU9RUzhLQWND?=
+ =?utf-8?B?UEt6UlhwRDVtd2JPQmJBUEFJTlF5TkJmRUU0ZnMwMyt2eWJKZVVTb3NJT0NP?=
+ =?utf-8?B?TzZNOEE5aXZOUDJDSk1Cd0VNcGpobkQwNnc4SWEycTlnMGpBV2E5ay8zdXFR?=
+ =?utf-8?B?cGk5emNtTGVWSFhZa1pRN1EvaHZ2MGVrOU9pOTl1VjVOSEo0bjZ4UjY5QVJz?=
+ =?utf-8?B?K29wSUQ2Rm45MFRzS0pyRUE5d1NlZnhXdnU3ZEFNSmN1NUZ3QTlIR1FzL3dv?=
+ =?utf-8?B?bHRTQ29CSWpxUEZ5dnlsZDZvOUxhRXNnenBSU3JUQzhnVUl3SjBscmlET3Yw?=
+ =?utf-8?B?ckZMb2UwNXJxRlY2S3RMUmYwRktVRWtTRUlSV3BRYzk1UXkxYjV4MEU1Wmpk?=
+ =?utf-8?B?eDFpeHVUckY2dnBDOFVyZGtxeFFmVytSM3pTeDFMNmZoRjdvUHhNY2dIaXJa?=
+ =?utf-8?B?Y2tDeFpmVmg3QXJkOXVkMkR2RWpKSTJiTVZMNVpJRzBvdkd4TFBVRG5IbzVP?=
+ =?utf-8?B?UVJHUjdNSWlmelc5Mm1OVnlXVlRLYVJBVUh2RFVzTHBCYUZIeEpvaDhCMHhv?=
+ =?utf-8?B?QWpWbG5jS1hhRnFWYUJLYkZTZHF1Ymo1c29SL3dpTEpTQ0hhZFp2UGtYck85?=
+ =?utf-8?B?bUtnR1ZOK0xuemp6NTBBeDJpYXNMR0tURkRLWENkaURGcTZpNDJ3RkVJVlJW?=
+ =?utf-8?B?RUREdS9vNnhRVktoWVQxY2gxWjJUZFdkNTZLYXoxNC9SSFhoekttVUIwMW03?=
+ =?utf-8?B?d3g5R1NzKy9ibzVxaXduNjRpOXpRZUJyMG1VTEx0SXltcU44R3VEN0RHaVZp?=
+ =?utf-8?B?RUZpNDRsVTdxNlRFb3FodkJ1MGRtRnRjTVZ4bEdDZFBJZnk3WitySWVtZnB3?=
+ =?utf-8?B?dmsrT1M2bEhSSUV4eDZNbEluQW5QdWlic0VXbk9USkpnRktRd0RWTmxtMVVF?=
+ =?utf-8?B?WjdNa0tHd1kyRmoyUVZFUHlVTGdTK216M0l4Rk16Z1RjUVJCQlI5dlYyTUlH?=
+ =?utf-8?B?cHVQWmlGNTRiUXpBMVgvYlgzUmhCL2x6VSszYUtybzg4QzBYYko1TzRDQWx2?=
+ =?utf-8?Q?KRI+UhqfgtQCwUg7HY/kEOMP6XzkSX1B8tfLZ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47ebfb55-4d9d-4c0f-b60c-08ded23091e0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000023D9.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR19MB997312
-X-Authority-Analysis: v=2.4 cv=UJ3t2ify c=1 sm=1 tr=0 ts=6a3c38b1 cx=c_pps
- a=8tnDOA8lvRtpcZOACi+KGg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=VwQbUJbxAAAA:8 a=gEfo2CItAAAA:8 a=w1d2syhTAAAA:8 a=1XWaLZrsAAAA:8
- a=cK7jlWP-69UI-gi1xc4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDE2OCBTYWx0ZWRfX322ahRq295ce
- JbcRaLfGdc/TRHB2sAQJ6rBv/pr2nhjpwwIg8uK+tvvHka9QnRreUCSq5tZfGexMVuQVdmMQaqF
- 5agZIshhFAIr8IQcbFpGlEoNDIlps9A=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDE2OCBTYWx0ZWRfX1i4Yfm3crWuI
- E3IQYTO+2Uz9Jct+kahMslxuJP9L+SXNGL4Xu9uy0I56XIrNwyu2y3R1sr3ISsax/o/Fg4cYLZO
- 8/Dp6OcFGzyuxBty/r1sONexKb2ezRupDq8Ws/sNtl3zTz3MTvXMdrNy2VOFLJBAwOknwTRpWxi
- eqPTla8/0iQdcunXtcwFpINc/qGqkk/KvlnPn/xNtEC3etI8/ZZ83EdO7sQB3bf+fRUIe0gUyqi
- 7ldYyi/yx+kMjSF3iAD/2bWrBrLS6NxvFmlBYJlkikAiWb3sbfS1tboK0F5+UzzAUJTCo2cdrAH
- e0DVX9HRaO4wUmpIwulo1b9Oajw+UGbvhxKLw8G7eOX0dilQNF/ov7vZGjt7ses3hZSIF6rJDAL
- GOiAcLT0jXdPY9TbGpRxus3nQdgzcQ==
-X-Proofpoint-GUID: KIm5mMqbyk0bLMkAoeJEzga-XGRtTaMe
-X-Proofpoint-ORIG-GUID: KIm5mMqbyk0bLMkAoeJEzga-XGRtTaMe
-X-Proofpoint-Spam-Reason: safe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 20:38:38.3056
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ldg4dXGJ7mDOrnl18xDi5jMMqTwVZA9HtOBIEUt7xf6NKM7iDAEEh9NfrWzT5tOq91kNYxjEok1ZiWkMU2lOy1+kCvA0ljiAPHRFxVhlMM8RAGG6OMINSiQAaYcJE4tv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11335
 
-On 6/24/26 2:45 PM, Rob Herring wrote:
-> On Wed, Jun 24, 2026 at 08:39:28PM +0200, David Heidelberg wrote:
->> On 24/06/2026 20:17, Rob Herring wrote:
->>> On Wed, Jun 24, 2026 at 11:02 AM David Heidelberg via B4 Relay
->>> <devnull+david.ixit.cz@kernel.org> wrote:
->>>>
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> Convert CS35L36 Speaker Amplifier to yaml.
->>>>
->>>> Changes:
->>>>    - maintainers email to the generic Cirrus email
->>>>    - Both the codec and downstream worked just fine without
->>>>      VP-supply provided. Align with datasheet for similar models.
->>>>    - add dai-common.yaml to cover for '#sound-dai-cells',
->>>>      'sound-name-prefix'
->>>>
->>>> Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
->>>
->>> If you are going to take stuff I haven't fixed:
->>>
->>> Assisted-by: OpenAI:gpt-4
->>>
->>> (I don't remember the exact flavor I used)
->>>
->>>> Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
->>>> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>> Relevant for Pixel 3 / 3XL / 4.
->>>> ---
->>>> Changes in v2:
->>>> - Rename the commit. (Mark)
->>>> - Link to v1: https://lore.kernel.org/r/20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz
->>>> ---
->>>>    .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 224 +++++++++++++++++++++
->>>>    .../devicetree/bindings/sound/cs35l36.txt          | 168 ----------------
->>>>    2 files changed, 224 insertions(+), 168 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
->>>> new file mode 100644
->>>> index 0000000000000..af0acaaefb68e
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
->>>> @@ -0,0 +1,224 @@
->>>> +# SPDX-License-Identifier: GPL-2.0-only
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/cirrus,cs35l36.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Cirrus Logic CS35L36 Speaker Amplifier
->>>> +
->>>> +maintainers:
->>>> +  - patches@opensource.cirrus.com
->>>> +  - Bjorn Helgaas <bhelgaas@google.com>
->>>
->>> Bjorn is not correct. Generally we want a person, not a company list.
->>
->> I'm adding back James, can I keep the patches at 2nd place?
-> 
-> Yes.
+Base on patches "media: add and use fwnode_graph_for_each_endpoint_scoped()"
+https://lore.kernel.org/imx/20260624200237.GJ851255@killaraus.ideasonboard.com/T/#m7969735b6c236c6b3abc16b9f3f55ec0488dbe89
 
-Please put me down and the patches list as well. James will not respond 
-at that address any longer.
+This patches base on previous' thread "media: imx8qxp: add parallel camera
+support".
 
-> 
->>>> +      cirrus,vpbr-thld:
->>>> +        description: Initial VPBR threshold voltage
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
-minimum: 2
-maximum: 31
+Add new API media_async_register_subdev_1to1() to simple 1to1 subdev
+register.
 
->>>> +
->>>> +      cirrus,vpbr-atk-rate:
->>>> +        description: Attenuation attack step rate
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>> +
-minimum: 0
-maximum: 7
+Many V4L2 subdev drivers implement the same registration and media pads.
+Assumes a 1:1 mapping between firmware endpoints and media pads.
+During registration it parses the firmware graph, creates media pads for
+all endpoints, and registers common asynchronous notifiers for sink
+endpoints. These notifiers automatically create media links when the
+corresponding remote source devices become available.
 
->>>> +      cirrus,vpbr-atk-vol:
->>>> +        description: VP brownout prevention step size
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>> +
-minimum: 0
-maximum: 7
+The set_pad_by_ep() callback allows drivers to determine the media pad
+associated with a firmware endpoint and identify whether the endpoint
+represents a sink pad.
 
->>>> +      cirrus,vpbr-max-attn:
->>>> +        description: Maximum attenuation during VP brownout prevention
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>> +
-minimum: 0
-maximum: 15
-this is just an integer dB value
+By centralizing firmware graph parsing, media pad creation, notifier
+registration, and link creation, this helper reduces duplicated code and
+simplifies error handling in V4L2 sub-device drivers.
 
->>>> +      cirrus,vpbr-wait:
->>>> +        description: Delay between brownout clearance and attenuation release
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>> +enum:
-- 0 # 10ms
-- 1 # 100ms (Default)
-- 2 # 250ms
-- 3 # 500ms
+Add media_async_register_subdev(), a helper to register a V4L2 sub-device
+with the asynchronous sub-device framework.
 
->>>> +      cirrus,vpbr-rel-rate:
->>>> +        description: Attenuation release step rate
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>> +
-minimum: 0
-maximum: 7
+This reduces code duplication and simplifies the implementation of
+simple bridge and converter drivers.
 
->>>> +      cirrus,vpbr-mute-en:
->>>> +        description: Mute audio if maximum attenuation reached
->>>> +        $ref: /schemas/types.yaml#/definitions/uint32
->>>
-minimum: 0
-maximum: 1
+    In subdev driver:
 
->>> Constraints on any of these?
->>
->> Code just applies whatever is thrown at it, maybe David knows more?
->>
->> #nodatasheet (but would be lovely to have one)
-> 
-> Unless the driver just takes these values and shoves them straight into
-> a 32-bit register, the driver should give some clue about the size or
-> possible values.
-> 
-> Rob
-> 
-Got some constraints for you.
+    your_device_probe()
+    {
+            v4l2_subdev_init(sd, &dw_mipi_csi2rx_ops);
+            ...
+            return media_async_register_subdev_1to1(sd);
+    }
 
-Thanks,
-David
+    ...
+    your_device_remove()
+    {
+            media_async_subdev_cleanup(sd);
+    }
+
+This API help reduce over line duplcated code in synopsys/dw-mipi-csi2rx.c.
+And use this API at imx8's parallel CPI driver, which over 90% code now
+hardware related.
+
+And also benefit on going pix format patch
+https://lore.kernel.org/imx/20260525-csi_formatter-v8-0-6b646231224b@oss.nxp.com/
+
+It will also reduce missed media_entity_cleanup() problem at some error path
+https://lore.kernel.org/linux-media/20260614202835.11977-15-birenpandya@gmail.com/
+
+Previous do partial simpilfy at
+https://lore.kernel.org/imx/aaisdJSsFE5-PLx1@lizhi-Precision-Tower-5810/
+
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Michael Riesch <michael.riesch@collabora.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Frank Li <Frank.Li@nxp.com>
+To: Martin Kepplinger-Novakovic <martink@posteo.de>
+To: Rui Miguel Silva <rmfrfs@gmail.com>
+To: Purism Kernel Team <kernel@puri.sm>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: Guoniu Zhou <guoniu.zhou@nxp.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v6:
+- Change API to fix more width user case, assume a media pad have one endpoint
+on dts.
+- other detail change see each patch's change log
+- Link to v5: https://patch.msgid.link/20260617-imx8qxp_pcam-v5-0-7fa6c8e7fba7@nxp.com
+
+Changes in v5:
+- Add media_async_register_subdev_1to1() to simple code.
+- Link to v4: https://lore.kernel.org/r/20250729-imx8qxp_pcam-v4-0-4dfca4ed2f87@nxp.com
+
+Changes in v4:
+- remove imx93 driver support since have not camera sensor module to do test now.
+  Add it later
+- Add new patch
+  media: v4l2-common: Add helper function v4l_get_required_align_by_bpp()
+- See each patche's change log for detail.
+- Link to v3: https://lore.kernel.org/r/20250708-imx8qxp_pcam-v3-0-c8533e405df1@nxp.com
+
+Changes in v3:
+- replace CSI with CPI.
+- detail change see each patch's change logs
+- Link to v2: https://lore.kernel.org/r/20250703-imx8qxp_pcam-v2-0-188be85f06f1@nxp.com
+
+Changes in v2:
+- remove patch media: nxp: isi: add support for UYVY8_2X8 and YUYV8_2X8 bus codes
+  because pcif controller convert 2x8 to 1x16 to match isi's input
+- rename comaptible string to fsl,imx8qxp-pcif
+- See each patches's change log for detail
+- Link to v1: https://lore.kernel.org/r/20250630-imx8qxp_pcam-v1-0-eccd38d99201@nxp.com
+
+---
+Alice Yuan (2):
+      dt-bindings: media: add i.MX parallel CPI support
+      media: nxp: add V4L2 subdev driver for camera parallel interface (CPI)
+
+Frank Li (7):
+      media: mc-entity: Store parsed V4L2 fwnode endpoint in media_pad
+      media: subdev: Add set_pad_by_ep() callback to internal ops
+      media: subdev: Add media_async_register_subdev() helper
+      media: synopsys: Use v4l2_subdev_get_frame_desc_passthrough()
+      media: synopsys: Use media_async_register_subdev() to simplify code
+      arm64: dts: imx8: add camera parallel interface (CPI) node
+      arm64: dts: imx8qxp-mek: add parallel ov5640 camera support
+
+ .../devicetree/bindings/media/fsl,imx93-pcif.yaml  | 126 +++++
+ MAINTAINERS                                        |   2 +
+ arch/arm64/boot/dts/freescale/Makefile             |   3 +
+ arch/arm64/boot/dts/freescale/imx8-ss-img.dtsi     |  13 +
+ .../boot/dts/freescale/imx8qxp-mek-ov5640-cpi.dtso |  83 +++
+ arch/arm64/boot/dts/freescale/imx8qxp-ss-img.dtsi  |  27 +
+ drivers/media/platform/nxp/Kconfig                 |  12 +
+ drivers/media/platform/nxp/Makefile                |   1 +
+ drivers/media/platform/nxp/imx-parallel-cpi.c      | 629 +++++++++++++++++++++
+ drivers/media/platform/synopsys/dw-mipi-csi2rx.c   | 200 ++-----
+ drivers/media/v4l2-core/v4l2-fwnode.c              | 155 +++++
+ include/media/media-entity.h                       |   5 +-
+ include/media/v4l2-async.h                         |  39 ++
+ include/media/v4l2-subdev.h                        |   5 +
+ 14 files changed, 1140 insertions(+), 160 deletions(-)
+---
+base-commit: c425f8be0326d40823cd93cbca633872d099df2a
+change-id: 20250626-imx8qxp_pcam-d851238343c3
+
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
 
