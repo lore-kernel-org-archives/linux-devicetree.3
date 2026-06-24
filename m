@@ -1,122 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D6632EC09F
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 16:07:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A9B2E7F20;
+	Wed, 24 Jun 2026 16:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782317263; cv=none; b=d4LDpxRy0ui9O3evycp8NRpOgqfSCSEejFo61HWCTvSTW3x5E/bGPZ2kNzkqc2ZHUvBZ3+mknMu65pFfleYKecJ9PgJ0xsWYq1092IOC+vvOZl5COeJjJ6ivAfjziE8PQRr6LKzvIFgUfURu46+FU/Iu7OoMSJRJADBZsFLMyPc=
+	t=1782318589; cv=none; b=bA0DtiejeezK957ITcaCoe+CRrN4Mh7Fr62LZJOpYYETiAEBFV5NX+d/LhdKK7iB1bVTW3wS8YxuVzqsCTOkukLtPl0p1+buHw9Yf8hIOIURMh0n/EXTmI5SuW/t3q3idpMNpRq73WWV/CrG/cX93HujQnlbwGmcWAXpqwnjj8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782317263; c=relaxed/simple;
-	bh=J26K/1IIPHZGNBPP4ra14GkgOOM1/Cjag4PAy0dOIG0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TfYV9pNu5nUGSr/Xxs43aVJgRpMuM+oguugHjyWk1O7m/FTZagD8HT00MTSzSRSg/X+ZA1+Q/rWB53YRJ/zEG0XF3ZgMaGE6MjCrB4wmKFITNP1ynhUkqWyOCB8dyE+Tn4hSH7wETalJvaD557mHhtR7C6SvJLeFuFw4gr8nlk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXqwyGgX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782318589; c=relaxed/simple;
+	bh=nB/xcDstYUVPnTa87uG6SAP6OEUqB+fH/Eywg/NIyxs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aDft0lkyF6pHR0ntMRYpzldbiGAFuv6toQK2EXubMCPDQ0jRrFpD/1wm4ihv2N5JEQSd5T0mOwxEqlXnZPZ7GMCtjMEhO8stgskhlcYuMrpiL/4WVi7XXvJCbYhDd0IYgoJR39nsSkaS2N6DFc/s/mJ7GypdPAtm1ZuXwC4cyy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ClMhLgvG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXqwyGgX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0856A1F000E9;
-	Wed, 24 Jun 2026 16:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ClMhLgvG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BCF1F000E9;
+	Wed, 24 Jun 2026 16:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782317262;
-	bh=is3dic8ucDQEiaLxokZfwOndvkHxUxgIc/RiQ1Eg7Qw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iXqwyGgXW0Vu21Ay5x6hieJmKN5grMV0fHZaE/KlsTDbJ3PspFzoeje2tkS55Xmtl
-	 vIzPGboir3ayvpr0KEkFW82p3lPbpbFHdkNqahwSTduX6tu6wpLX1FOUxj3mLnLrAc
-	 bX5XqReCt5WSlRybqTqHdsrFqXTbInxQjFYHsC3Dn7h0dNJ1aq0XBlJO5Lp4HkDDvp
-	 O7n/7p65D5g3soXv+EV8uMJu8fTMVqetE60v2cVr5CBgPbKxA1t7fke4Gg5hTVe3Ff
-	 XWKb7vLlugyHgIkwtsn3OP6EbK4HBtFznAnyNuQ+8Sq8GUJTQu428N+cT5/Wk5wx9P
-	 JB634jCAgTw+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg via B4 Relay" <devnull+david.ixit.cz@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
-References: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 16:07:41 +0000
-Message-Id: <20260624160742.0856A1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782318588;
+	bh=nB/xcDstYUVPnTa87uG6SAP6OEUqB+fH/Eywg/NIyxs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ClMhLgvGviUAT4lTmqBBg5rMovWEhMvRTKDlxuTVmxfsWg9kK4KOko4t1/hlcrHrq
+	 Aoh/QxnzxJO/y5tOgkcgdjXKg0ellnq1CQ4B21wyjWk17VESPdXd8jATAN6PO3I8ld
+	 rkKibTIA9J5BsbAFgXl8K/1ORDvAZBgQ51TvpfvQ1qLq6DWVlG3Usiuk1UGRXTXv8Z
+	 Ypqa7iN5mM/LoAzOADt3lllBzBLrqgRpktn8cEAMnwn4tMlGh3YdZx+fJ9Mi10TNVH
+	 2LjvmOi2XQaTjKsHsKUg9MTemdV27oGTFvQLzsypvPaTHw9H0MjIsmRdMsIFIh7XI0
+	 EQeBRFhKmCZ/w==
+Date: Wed, 24 Jun 2026 17:29:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: clock: ast2700: add PECI clock
+Message-ID: <20260624-disk-lingo-1d9fac0de659@spud>
+References: <20260624-peci_clk-v1-0-ee28b92e22e9@aspeedtech.com>
+ <20260624-peci_clk-v1-1-ee28b92e22e9@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Y2hWsGqtxlYAd0y4"
+Content-Disposition: inline
+In-Reply-To: <20260624-peci_clk-v1-1-ee28b92e22e9@aspeedtech.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Incorrect `$id` path in the YAML schema breaks cross-referencing.
-- [Low] Undefined properties in the dt-schema example cause validation fail=
-ure.
---
 
-commit 637d0c2cb3168267adcc3eaf3f2d6a7d9fd028f5
-Author: David Heidelberg <david@ixit.cz>
-   =20
-ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
+--Y2hWsGqtxlYAd0y4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This commit converts the CS35L36 Speaker Amplifier device tree binding from
-plain text to YAML schema. It also includes the dai-common.yaml schema for
-sound DAI cells and prefix.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml =
-b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
-> new file mode 100644
-> index 0000000000000..af0acaaefb68e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
-> @@ -0,0 +1,224 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/cirrus,cs35l36.yaml#
+--Y2hWsGqtxlYAd0y4
+Content-Type: application/pgp-signature; name=signature.asc
 
-[Severity: Medium]
-Does this $id field break schema cross-referencing? Since this file is loca=
-ted
-in the sound/ subdirectory, shouldn't the path exactly match the file locat=
-ion
-(e.g., http://devicetree.org/schemas/sound/cirrus,cs35l36.yaml#) to allow
-dt_binding_check to resolve references properly?
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajwF9AAKCRB4tDGHoIJi
+0ilsAP96KMQ9XSh+uOlgb/NYGm4S9RbQOnUkbS1MHqeOnixC7wEA9hgVf0iPIwO4
+vNCYTElGLjB+Jf2SMaWGJxn1GP0RKgk=
+=L3x/
+-----END PGP SIGNATURE-----
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - VA-supply
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-
-[ ... ]
-
-> +            cirrus,boost-ind-nanohenry =3D <1000>;
-> +            cirrus,boost-ctl-millivolt =3D <10000>;
-> +            cirrus,boost-peak-milliamp =3D <4500>;
-> +            cirrus,boost-ctl-select =3D <0x00>;
-> +            cirrus,weak-fet-delay =3D <4>;
-> +            cirrus,weak-fet-thld =3D <0x01>;
-
-[Severity: Low]
-Will this example fail validation with dt_binding_check due to the
-unevaluatedProperties: false restriction?=20
-
-The example uses cirrus,weak-fet-delay and cirrus,weak-fet-thld, but the
-schema defined earlier specifies these properties as cirrus,classh-wk-fet-d=
-elay
-and cirrus,classh-weak-fet-thld-millivolt.
-
-Additionally, is <0x01> a valid value for the millivolt threshold enum?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624-dt-cirrus-=
-cs35l36-v2-1-74eccdbd8fe4@ixit.cz?part=3D1
+--Y2hWsGqtxlYAd0y4--
