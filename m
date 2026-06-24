@@ -1,165 +1,175 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD20395D8C
-	for <devicetree@vger.kernel.org>; Tue, 23 Jun 2026 23:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD93123AE62
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 01:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782256380; cv=none; b=WhXsa7MscY0wrKU5oCdvbpdpXSZgnM0AlD8g/jxLT4gDFNPusZfHxUBHGql4fDa8gRo+jEY3uYosb/w7Dwb2eC/xKiSESnOjsDV3RJhhHif+7thOgZgTDxBZiKBZ+kdQbo+C/ZeAonUXzPhpLPxzy5uQJJUCmuJQeKdn3j3uUdc=
+	t=1782265470; cv=none; b=VB4lJyWSYBMIJ+CUUxJtu+tazbu1pj+z+TXe5S4dq2yn2orAMJ9+Uynw45evgyyXdo5A4tj1PjeLLGp9LM2QlsPXVHtNTOBLiBwRR62ABfuTn9XQYuj6Znr0NSJp74gtOBYFmVQvocOnIg5806t2/pCjxyxkZbehxWLMcdO4MmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782256380; c=relaxed/simple;
-	bh=8i3kQwirmdmg0Kcw/kOY2a1all4CmENxf8WKxueAvII=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=dzgyMKOPveos5MEWUbwDnsdUFeMS1cWwaHoKf8ebNtqLTGhR1nSB8JTk6MkiHHs9p8g6q7S9/hSsCMGleJjonjOo+zWgJKCNLOMeB6XKzUo2L8Sngv091fSecd5x6efY+9HDOSLa6oA78vbWDqEzSiy+EO4Xjk4gKg0dmCCug4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=HyTms2xa; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782265470; c=relaxed/simple;
+	bh=bx2Wi1mHULzjWeahiXVHb2U888yWS2HK2ZsSvRSTQDc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rgnqqgBJOtqFL6OrbMksAXF/6sD9g0+ys0AxQdypqumKMAL7IhtQKQAPeJIVgOR3Amc50IG8RBauLs5f2g7ky0CLWFFFNGhXgM32NWokPtEAtcGi6dQTg1yRa1EqVz47hnC1z69IXHePeU+JHfPaDnHUElPvz5z6THdt7VTsBeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLKqgaOs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="HyTms2xa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782256378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8i3kQwirmdmg0Kcw/kOY2a1all4CmENxf8WKxueAvII=;
-	b=HyTms2xaT7gd2tIyfkDW7iGdx7jqDaqwbDaIqQ4g0E0V5LdmoWwhuCxy7I69mYdWMDaj6K
-	py/TuX11s+GY2TCSFBsOdxwZ8iEsX4whRK8g0+D43OduleVR5SWSGe3kHP+Vg7fhYriZLf
-	l9nL/fDYLOW88eY64n/WhxNpwC9sSTilSIV8Tq3B9te2OFKdE8NukvAnvadkmO+ayWLIQm
-	ZqHPj2/t98hM2TrAvAlgNrohVr3qhHZDU6G7XJl9ijKI+fOblVW95SXjxq8Hh6LuA6BMzg
-	7fL9yY/+6eAvfH3b6x1e+sxHdnSPlgn6g2uy40Hal/zUnExZ3P9w1Z0QUxw0Mw==
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-55-n6R0rSwzOZGsu-rbinpILQ-1; Tue,
- 23 Jun 2026 16:12:55 -0700
-X-MC-Unique: n6R0rSwzOZGsu-rbinpILQ-1
-X-Mimecast-MFC-AGG-ID: n6R0rSwzOZGsu-rbinpILQ_1782256374
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by DM6PR02MB6763.namprd02.prod.outlook.com (2603:10b6:5:221::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.19; Tue, 23 Jun
- 2026 23:12:50 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0139.018; Tue, 23 Jun 2026
- 23:12:50 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123 and
- FD5125
-Thread-Topic: [PATCH 3/3] hwmon: (pmbus/fd5121): Add support FD5121, FD5123
- and FD5125
-Thread-Index: AQHdAtUEg1iU98CpwE61O70G8ttbHLZMs8IAgAAPR6A=
-Date: Tue, 23 Jun 2026 23:12:49 +0000
-Message-ID: <CYYPR02MB9828DECA23A26C6ECE4B930483EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-3-b31767689c65@onsemi.com>
- <320c44c9-924f-4b7e-a46a-37a72fa7267f@roeck-us.net>
-In-Reply-To: <320c44c9-924f-4b7e-a46a-37a72fa7267f@roeck-us.net>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|DM6PR02MB6763:EE_
-x-ms-office365-filtering-correlation-id: f728576a-521b-4d48-4d7f-08ded17cf211
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|38070700021|11063799006|4143699003|56012099006|6133799003|18002099003|22082099003|3023799007
-x-microsoft-antispam-message-info: qkfTDeAPkNH/4eKXfZH1CLW9JQuXgOf0LL/x93tWOSRU74X5pyvfGmz55bDTe74avdkqbpw6a3zeqT9UrQJXkIry1ns6QtI3bdcebOy/jmDWlAXtrNsIc06oSRTI16SCwQvvoH9lE466RGp9vEPJogu78cHZ8nTOaIXErCle+b0jf4h1JLzwdZTiQX4mFaEwNgkgO8gRI4Q+ic5KvBm5BhjvNsRdn5ctCre7gF1EPsYfsSlBRWNnPEhFjgHjSWSK/Qouj5ZMb0+TnQWTsbSYthaCNdWY7nh2BBceg78vONMsHe/sAO1ImpBZWteFlO/VzL1PTIGGDiR+1XjDoHYPYeOaKg2tA5HUIqbJIvxV9EVI7S6O/YBgCjpauZDamAGAYynkaUJ9+WWfSIYeXlssckWO9M6A6bKg8jXeVXhQRNQnW9K3dOBM/rKG+Vum/sfbDeMnZ851CIniehMVnqiKaUGAjAhPsYZwHjJrzdnjrNlr5VA6G7Xk4QsWmVEi1GFIN/Wd+Id+pq+9fPQkAMdvxBL1Y+8ynhuMWpaIobADuR2+ofuA5INto+nJkDfaJGf2yQH+s7dCaHF08c5700ZMxZCs8FORY/ummLRbEGja+ZOqbpXWxKrONznm0N037OuciDYToHnvZkSRj+J0ai2YoBCYaDo3pu9wxV7FB3mdq217dMNZSZxZDTxnJj4P8b5zIrDtRmy3zflKuBBpNEdkCJk5b6tIc/sqE+kknGg38cc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(38070700021)(11063799006)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eFRUaGFPUDE0TXFTSkRVOW85bEY2VGVtbU1GYjZCRk1rK040UzhXMEJWL1FP?=
- =?utf-8?B?OWFWTjUrdEVRbXlQalljRzIyVVhoS0hNZ0dBVlBKdFFGYlRNUU5aTjZtb2ds?=
- =?utf-8?B?azBwOXdLSkxuSnlIM0pxZ0Qvb2doQkdGblA5azBCSkU1eVJ5bkFIWVlSYURu?=
- =?utf-8?B?Q25zd05mZUhta1ZCNzVJZWRGbnJKcEtiZzY1cUpGRW5tVWxkUCtOYnAycWZB?=
- =?utf-8?B?czl3Q0FLdlVJZkZOYzB3aHl5SCtWMytFUWhBUHgxUnpqUTlmR2RQd1JZcFhp?=
- =?utf-8?B?dU5RL0twbWJmZmhKK3NSZlp1TmpPczRNcmFkQlBmNnpBREFPMnJtaWsrVDlp?=
- =?utf-8?B?N3pDQnlRVGp5bmg5MThycVpuaDhQYUprUEw5c0hJemFuekdleDJMdzJKOVVT?=
- =?utf-8?B?cWFMaTN5NHRCS25OWVovbnNSSWI3K1BMNGVsOVhTbFNkVTAzS1laRjRxTVQx?=
- =?utf-8?B?UjlkREduQ2JRRWF3YUJYc3A3OEVOL3V2bTB0MU90MHRySkM0VWt6QnZJWjdj?=
- =?utf-8?B?T1FBaHpsMDZvMFB1cy9kcVUrd3M3MWhJU0o4b3BrdkVwUithZGVFNWhDbUFR?=
- =?utf-8?B?RUkrenlJS01JT1dXMFh5M3JTRDUvMTVyTFQzZDBEZzFhdHowVXI0Q0szZURa?=
- =?utf-8?B?ZWNLRzFMaUR1VjJxVjV3elJJU1lVTW9KS0tKRmM3a09NOUs0WU90anJHend0?=
- =?utf-8?B?emF6YXJjdEJqaC8wMUxtVzY3bHgwdmQvaGt5WllNbXBvcnJhQzZVWTlvTWxj?=
- =?utf-8?B?ZTV2b3lSemYrQ1RlaFNkbWRtVXo1c0VlME8zeWxIcTNObzVvV3lma0o3NzZQ?=
- =?utf-8?B?Uzh0bVFwejdqRlFsanNRd0RFZ3pIZDVoVE9qUUlqRTRBUmVyTzg5b0g3ckdL?=
- =?utf-8?B?bFBBdXF1ZEIzNktCNVpsZUpnbjJYYXZtY01mYzFJTDJqek5wWDZvZFJhMVFx?=
- =?utf-8?B?YzBnZnZmditZZ0RJUjlia3oyY2hiUmxVakw3WEwzRi9JRGNzTDk4OEs2Vm1K?=
- =?utf-8?B?bFlDd1hZVE5KaFhiL0lHT2xOZ3pSOVRoSExCRVV5RjNKWElYc2NGTExGOVh1?=
- =?utf-8?B?SGF4M1RreHZWVzZIVVpKdjRXaEhhQVZWdExxQnZITVdkZXc1Z0hSenFWL3Ns?=
- =?utf-8?B?UVVXOXRaZld2TFNhQXNnTFBMby9TUXBocXZsa3llS2VTR0VRVkVva3dROSsv?=
- =?utf-8?B?NXJLa0VsZnFVK2F2WWFZaTlqdENoM2x5cHRQemdqNS94b0NWNnNLZkF4WkdC?=
- =?utf-8?B?NmQrbndMbmlqdTA3RTBvSElacHR1dm4rVjFuelF3UWQ0aUJTSWFWNGdyelJ3?=
- =?utf-8?B?NWVsZnJhY0ZjMnMxd1drVURRZmtYaUVCbHVlZ2FWUHNUU0dQK2MrSjNJMEps?=
- =?utf-8?B?M0sxOCtiYlVsN09sTUh4Y0VpQ3ZCSUFyMkRWUzFPM0hhVHhiSG1WQUFYRlpL?=
- =?utf-8?B?NWtrV3d1NFB5MGFKcVAvaUEwNGN5QUZQVDB4Vlc2WU43MGk2MUpFcWlIUTZX?=
- =?utf-8?B?amo2SFdLMGkvOE1UaXRhYXZNWnlOUDl6QVhMR1llMVZDRTdOSVBpVXMxaGJv?=
- =?utf-8?B?Z1poeGI0TjFGSUh2UTlmWndpRmNTTE5YUUUrWHFTWnZqWE1SbFZML0h5WEhy?=
- =?utf-8?B?VzM1TExYUW4zRVRlNWlSZ2lKWU4veHcvbDBVWlVIaDBHc1lmc0JnSWdZVHV5?=
- =?utf-8?B?S3hQUDJyY1orZWNRSkkwQys4Y2EvL3NFelZROGF4aDFOOUExMnpCK3BLR21V?=
- =?utf-8?B?S1NXRzNlZ2pWakpyd2tOR2lLRFlQcHFRbGlwT3lwNjY1a2tWQXN3VEgyakEw?=
- =?utf-8?B?Nk1UT0s0SWJBNWtTZk5Eem5YTDJRUFovd2p1ZFJ2SDBSV3RDRWIvSGtDSGdS?=
- =?utf-8?B?eE1sU1p2aGsweGo1cTQycXUrbWwyWXdCK1FGQUVja2ppYzBsZkF2bFZzbE1J?=
- =?utf-8?B?NkFXeHhlcTB3emtJWEY0S3dPZ1RJbU4rNWtJOTRtT3B5bzVGa0tDSUc3UUtV?=
- =?utf-8?B?K0gxV0tSL2U0a1k2bklhYjNOejVHR3lkTitlMDhYaTZTbngwdWtSMDRWbmxw?=
- =?utf-8?B?SzAxNHdnTFE2clNVbW13eFpMcUZvRHJoV1pTd010SVFuZnZOajZLdEplMm0r?=
- =?utf-8?B?Y0lSZXdTNCsrNzgyOFRBRncrUHJzWUtQMWFUNHp5TElQU2lDMHpBRVBpYXdC?=
- =?utf-8?B?QzRZWWIwMTF1L09sRnBPLzdXK09iUXB0dGlPV3Z0aXFtall5NFNBcDdvOWVB?=
- =?utf-8?B?WDhoVngxWks5MFE2V2NyREhINm9qSTNTQkpzczFFTkR6MFFzOEVuVHkvKzBH?=
- =?utf-8?B?NmRaQ2RqbGdOVkoya3hRSzJKdHhyN0tScTVsdDhuVjg0TDdGUGlRZStRNk1o?=
- =?utf-8?Q?zN7bxdFdtD1hRHS8=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLKqgaOs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577621F000E9;
+	Wed, 24 Jun 2026 01:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782265469;
+	bh=yJVxbvqVBCfvfwnzMQzrBtjbkBu4BDRsbhkXScNxwbA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nLKqgaOsK900MnX8voGBJD42Q70AdJSfkWr25Bx3anOudXPcixLW8P+wqEQ/fVsSl
+	 CaUet94ihFjTxbMP1qc8CfBM8Xxnw1wWqrt1MMKYK8ihZiSsJwDzm+zBiTOhCYivnH
+	 gIBYNlu10xOeFf30fraXb6Gw3Y0Uee8Ez2HQkBfD0KOF4xkOe4dELMN1A2DjBXzj3F
+	 RjgWFOqvPgKe/QllXei8B3PG1QpVynz/yxMCycQ3CJg9IHkxCGTdqMHjMm8Qblivsc
+	 61iPVTwvOCCrUXiJ8TACbuN1sPF8mksJXVcGpPFth8mDJe3ihwSuRNUHsgmG+Swncp
+	 sN6UwDLdgJZJQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] net: ipa: Add IPA v5.1 data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esteban Urrutia via B4 Relay" <devnull+esteuwu.proton.me@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260622-sm8450-ipa-v1-3-532f0299f96e@proton.me>
+References: <20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me>
+ <20260622-sm8450-ipa-v1-3-532f0299f96e@proton.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 01:44:28 +0000
+Message-Id: <20260624014429.577621F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: KY2Kxy8hokN697Fsty01bfipq4Bw4wrs4TVqNcsLPnSSkAaeyosF7/1SaIxDSh7zWTpV27JElt4OOsXZWeSly+nXkW+4K0xjUNYJJFv7vgLrI++emGEXtW5C8Ajm3GaZP3j6r9QtmRFzI374PEX6gfPHMi22vOjPcvlV6MxE4h9ZtJFc7gUAL9/y/Wcph5K+QWMGBrpb1cq5xJbSyLIfo6A1rE5X47S+BJfSRSgnXJO4L+4q0Pym17dpyqpaTCki785oP8SF+Kg3S3APKj4p13M+NoTMxmccvTI1zbPaxjggDtOTc6wbbQLqoTbUZx4IrXq95da2ZIgeKwSG8CgyIw==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f728576a-521b-4d48-4d7f-08ded17cf211
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jun 2026 23:12:50.0018
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i/TmVf7iz1mu0KZFb4LO3SwuH5jfXlmjUMPL3dMhf6Eprkn2WZmhP886veXntMxkVXT9jIX/YPEjtYLNab4jwfA6Fr0Ljni6D49A0EYxcnI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB6763
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: nWidr2-h4264InUqXHS2eiZb_eVIytT9v-kT95hdzMk_1782256374
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEd1ZW50ZXIgUm9lY2sgPGdy
-b2VjazdAZ21haWwuY29tPiBPbiBCZWhhbGYgT2YgR3VlbnRlciBSb2Vjaw0KPiBTdWJqZWN0OiBS
-ZTogW1BBVENIIDMvM10gaHdtb246IChwbWJ1cy9mZDUxMjEpOiBBZGQgc3VwcG9ydCBGRDUxMjEs
-IEZENTEyMyBhbmQNCj4gRkQ1MTI1DQo+IA0KPiANCj4gPiArICZzZW5zb3JfZGV2X2F0dHJfdm91
-dF90cmFuc2l0aW9uX3JhdGUuZGV2X2F0dHIuYXR0ciwNCj4gPiArIE5VTEwNCj4gDQo+IFRoaXMg
-aXMgYSBjb21wbGV0ZSBuby1nby4gV2UgZG8gbm90IGV4cGxvc2UgcmF3IHJlZ2lzdGVyIGRhdGEg
-YXMgc3lzZnMNCj4gYXR0cmlidXRlcy4gWW91IG1heSBleHBvc2UgZXNzZW50aWFsIHJlZ2lzdGVy
-IGRhdGEgYXMgZGVidWdmcyBmaWxlcywNCj4gYnV0IG9ubHkgdGhvc2UgZGVlbWVkIG5lY2Vzc2Fy
-eS4gVGhlIGFib3ZlIGlzIGp1c3QgImxldCdzIGJsaW5kbHkNCj4gZXhwb3NlIGV2ZXJ5dGhpbmci
-LiBNb3N0IG9mIHRoZSBhYm92ZSBzaG91bGQgYmUgcHJvZ3JhbW1lZCBpbiBtYW51ZmFjdHVyaW5n
-DQo+IGFuZCBub3QgYmUgdG91Y2hlZCBzdWJzZXF1ZW50bHksIG11Y2ggbGVzcyBhcyB3cml0ZWFi
-bGUgYXR0cmlidXRlcy4NCj4gV3JpdGluZyBiYWQvdW5leHBlY3RlZCB2YWx1ZXMgaW50byBtYW55
-IG9mIHRob3NlIGF0dHJpYnV0ZXMgY2FuIHR1cm4NCj4gYSBib2FyZCBpbnRvIGEgYnJpY2suIEl0
-IGlzIGJhZCBlbm91Z2ggdGhhdC9pZiB0aGlzIGlzIGV2ZW4gcG9zc2libGUsDQo+IGJ1dCBleHBv
-c2luZyBpdCBhcyBzeXNmcyBhdHRyaWJ1dGUgd291bGQgYmUgYSB0ZXJyaWJsZSBpZGVhLg0KPiAN
-Cj4gSSBhbSBub3QgZ29pbmcgdG8gcmV2aWV3IHRoaXMgZHJpdmVyIGFueSBmdXJ0aGVyIGF0IHRo
-aXMgcG9pbnQuDQo+IA0KPiBHdWVudGVyDQo+IA0KDQpUaGFua3MgZm9yIHlvdXIgY29tbWVudC4g
-VW5kZXJzdG9vZCBhbmQgYWdyZWUgb24gY29tbWVudCBvbiBleHBvc2luZyBldmVyeXRoaW5nIHdp
-dGhvdXQgZW5mb3JjaW5nIHdoYXQgaXMgYmVpbmcgd3JpdHRlbi9yZWFkLg0KV2Ugd2lsbCBkaXNj
-dXNzIGludGVybmFsbHkgdG8gc2VlIGhvdyB0byBnbyBhYm91dCBpdC4gV2UgbmVlZCBzb21lIGN1
-c3RvbSByZWdpc3RlcnMgZm9yIGN1c3RvbWVycy4gV2Ugd2lsbCBpZGVudGlmeSB0aG9zZSBhbmQg
-DQpleHBvc2UgdW5kZXIgZGVidWdmcywgaWYgbmVlZGVkLg0KDQoNCj4gPg0KDQo=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Driver probe failure on SM8450 due to intentional SMEM size mismat=
+ch.
+- [High] Overlapping IPA local memory regions will cause silent data corrup=
+tion between filter tables and routing statistics.
+- [Medium] The AP_MODEM_RX endpoint is incorrectly assigned to the DST_UL r=
+esource group, causing resource starvation and unused DST_DL resources.
+--
 
+commit 6da897f459f64d1618e077cb44111c9397ad478b
+Author: Esteban Urrutia <esteuwu@proton.me>
+
+net: ipa: Add IPA v5.1 data
+
+Add the required ipa_data-v5.1.c file for IPA v5.1 along with changes
+that declare IPA v5.1 support. This version of IPA is used in both SM8450
+and SM8475 SoCs.
+
+> diff --git a/drivers/net/ipa/data/ipa_data-v5.1.c b/drivers/net/ipa/data/=
+ipa_data-v5.1.c
+> new file mode 100644
+> index 0000000000000..85b21efa1224d
+> --- /dev/null
+> +++ b/drivers/net/ipa/data/ipa_data-v5.1.c
+[ ... ]
+> +	[IPA_ENDPOINT_AP_MODEM_RX] =3D {
+> +		.ee_id		=3D GSI_EE_AP,
+> +		.channel_id	=3D 1,
+> +		.endpoint_id	=3D 23,
+> +		.toward_ipa	=3D false,
+> +		.channel =3D {
+> +			.tre_count	=3D 256,
+> +			.event_count	=3D 256,
+> +			.tlv_count	=3D 9,
+> +		},
+> +		.endpoint =3D {
+> +			.config =3D {
+> +				.resource_group	=3D IPA_RSRC_GROUP_DST_UL,
+
+[Severity: Medium]
+Will assigning this downlink endpoint to the UL resource group cause
+resource starvation?
+
+Since this is the AP_MODEM_RX endpoint, should it be assigned to
+IPA_RSRC_GROUP_DST_DL instead?
+
+Later in the ipa_resource_dst[] configuration, 5 data sectors are allocated
+to IPA_RSRC_GROUP_DST_DL. If no endpoints are assigned to the DL group,
+those sectors will remain unused while AP_MODEM_RX competes with AP_LAN_RX
+for the limited DST_UL resources.
+
+[ ... ]
+> +/* IPA-resident memory region data for an SoC having IPA v5.1 */
+> +static const struct ipa_mem ipa_mem_local_data[] =3D {
+[ ... ]
+> +	{
+> +		.id		=3D IPA_MEM_STATS_TETHERING,
+> +		.offset		=3D 0x2910,
+> +		.size		=3D 0x03c0,
+> +		.canary_count	=3D 0,
+> +	},
+> +	{
+> +		.id		=3D IPA_MEM_AP_V4_FILTER,
+> +		.offset		=3D 0x29b8,
+> +		.size		=3D 0x0188,
+> +		.canary_count	=3D 2,
+> +	},
+> +	{
+> +		.id		=3D IPA_MEM_AP_V6_FILTER,
+> +		.offset		=3D 0x2b40,
+> +		.size		=3D 0x0228,
+> +		.canary_count	=3D 0,
+> +	},
+> +	{
+> +		.id		=3D IPA_MEM_STATS_FILTER_ROUTE,
+> +		.offset		=3D 0x2cd0,
+> +		.size		=3D 0x0ba0,
+> +		.canary_count	=3D 2,
+> +	},
+
+[Severity: High]
+Do these memory region offsets overlap and lead to data corruption?
+
+IPA_MEM_STATS_TETHERING starts at 0x2910 and has a size of 0x03c0, which
+means it extends up to 0x2cd0.
+
+However, IPA_MEM_AP_V4_FILTER begins at 0x29b8, placing it entirely inside
+the tethering region. Similarly, IPA_MEM_AP_V6_FILTER starts at 0x2b40,
+which overlaps both the end of the tethering region and the start of
+IPA_MEM_STATS_FILTER_ROUTE.
+
+Could hardware updates to the routing and filter stats corrupt the AP
+filter tables here?
+
+[ ... ]
+> +/* Memory configuration data for an SoC having IPA v5.1 */
+> +static const struct ipa_mem_data ipa_mem_data =3D {
+> +	.local_count	=3D ARRAY_SIZE(ipa_mem_local_data),
+> +	.local		=3D ipa_mem_local_data,
+> +	.imem_addr	=3D 0x146a8000,
+> +	.imem_size	=3D 0x00002000,
+> +	/*
+> +	 * While this value is 0xb000 on SM8450 and 0x9000 on SM8475,
+> +	 * it has been left set to 0x9000 for compatibility with SM8475
+> +	 */
+> +	.smem_size	=3D 0x00009000,
+
+[Severity: High]
+Will this hardcoded SMEM size cause the driver probe to fail on SM8450?
+
+When the SM8450 bootloader or modem pre-allocates 0xb000 bytes,
+qcom_smem_get() will return that actual size.
+
+Looking at ipa_smem_init() in drivers/net/ipa/ipa_mem.c:
+
+	if (ret && actual !=3D size) {
+		dev_err(dev, "SMEM item has size %zu, expected %zu\n",
+			actual, size);
+		return -EINVAL;
+	}
+
+Because this strictly validates the returned size against
+ipa->mem_data->smem_size, setting this to 0x9000 for SM8475 compatibility
+would cause the size check to fail and abort the driver probe.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260622-sm8450-ipa=
+-v1-0-532f0299f96e@proton.me?part=3D3
