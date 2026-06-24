@@ -1,86 +1,66 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974373D9DD7
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35943D9DD9
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:27:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782314672; cv=none; b=MhkkqUfXERfuzIvVXVFpHNjLQpImO14ooa/nHCEQfvgA/Myc/akP5bIxYmGPm5nbbCNURUAfxxNeJk3yhzBnUwU5JT0g+0SYlY7yBJQwL57A6Y/IjcwR7UiXjCMhNdlJd1dyT3YJn/5cD98hk8OSw62cBVlK4t4kBe5Hu6YpqCU=
+	t=1782314843; cv=none; b=JXuf2T5WyOPrJw09AUVPOzVwFz8BFcrzkEF5t7joIEbn9ClW+gZRcFO5oVyhvHxzi5TpBnT9Z0SZtckrNCvC2XZWNURERo3t3uUU7Si7iJj0Yp4Y2WbUPysS1khpW5Rgorbh4yQeYeqVnvjYOzsKOL0mn/H8pD6xlYR489e6Jm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782314672; c=relaxed/simple;
-	bh=NIFqQ5VLQEybFPbf8kx/MQ9a3MhIR+vN3+q09x1MJnY=;
+	s=arc-20240116; t=1782314843; c=relaxed/simple;
+	bh=zQlht0IsyQB1oNhNfYXgYgQbV1Y7rokfYO480Nk79qY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uFumokU+CiBnB5AEqGzHj9OjMegnRPJpaRlKP9utAbbeTcYhQh5l7XE8XIYSQkkzYLEqMgQRO/GO4lH0JkRvqvOKGEVNj/F7FKlPdfRhaRRc7Ifv+cSzkbK2rKrrKUCXf/hC7omiO5J6pOmd3Pmi4BNZj9ET5joPc8kitdnPouk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fTBfZGje; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aEB/TlsP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=KLEZBsohyrzVCDzIdIpI/zSxhV8x38FaOTuytkfY52NTwybI9jGw73WDhQuUZcbMSHb4qq+ja58z8XdyN06kk7s9V1+/Bb+Lb7SNTBl7SfvnQFq2DAEtlF5pC71KFDnxF7/Z52LwioxgaNH1If3ucI+W+sBqMNghmj2dCgyb9ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=TVI+Qcdp; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fTBfZGje";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aEB/TlsP"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OEfD99564572
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:24:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hjwRC0IlwgSgiL2c9VHAX/AhDHtnXxRe7151xT3/ODw=; b=fTBfZGjeHvyz8W4j
-	WDD6AK+h7jOGUQOaAAdxWSgm5Bfo2somcrA5WOUtzVa4BGUsInTmQtn5NrLivw6w
-	QMZbGX6p+DuqZxOtOQ0XdeJLSlk/cKC2xZOojkZMvKMBihmMG/vCFnQvZqxiD3bt
-	YobFQ0qvkqMddb2cykgo8ZnxoPFJcxI7UCITEd2EdFT2Kez0avO0yX7du2gDRurf
-	uUCPRVUNrIHUq7ZddeHJCIL80zQP48STnmRoG9pl32GMEo+3rEDZcrv1qS/bOajV
-	9a/bCKIouG6/JLOeu/HsJvYpmvfYpXLkMUA5o/aJrdd+l2dSdtg6mK108Lu5jj7n
-	ekeVug==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0aqp9x2n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:24:30 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c7645ac9b1so10798475ad.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:24:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="TVI+Qcdp"
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-447efaebabeso226308fac.2
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:27:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782314669; x=1782919469; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782314840; x=1782919640; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hjwRC0IlwgSgiL2c9VHAX/AhDHtnXxRe7151xT3/ODw=;
-        b=aEB/TlsPdhPPsAH2yUCcI/I8DoOL/BQT31h32bYTMop/ikgpbG71IApi+VrSC+QyQd
-         1Mci5JlvIx2/OBbfAHsyn08RlbF4juuYh+toY7mW1gtvhFofuz1kR1jXEzE5YRuv11n7
-         mCNYmuHaX6BzuvMApxAjRSsVSaex2abljFX3MLP3cZ+I5xfZO80fEOeMKLNNcKBDe9Wq
-         vq9OjiGBqPbL7SATBDZo6cCQW3XoUsZ5LmH3dI5q48uoTrpv4OT23rToZIBDSDH2KaTM
-         c4X6CoQ1f+o5bh0gSKRB2TtuwAt1pikyGzEZyaNeAWUv4HVDfXou4bBwKrAwF5QpF/2E
-         i3WA==
+        bh=Fjq8lD80zO6HiyYMuWH6+pjiwlUb52f+5tf0ovQAwVM=;
+        b=TVI+QcdpMI3gzRx7l3JLLLB5sQGg3piLry+GcCTA5BxoD+KBsB3tPvy4HxUpIHxhqK
+         wSlAcvWsHnGKXG03VwM4A5aFP9xiyo+lB2WtFA6yWUS87wNocMowf3EOtiBHwEHcBHdu
+         U2Ir1u4g1w02xirvTNygo+DjlkTI3RSntD7iIes520e35AS00NKB8jtqaccxMrAm+Y8X
+         gC2OQ+gVV1inlg+5U/bPqKBT9KplfjhNOzBOLXjuW16lJdctd0mBgSppV3/9rbPARJh9
+         H1x4/mi5msywP21t3cglyP/VQjWp+BAVJ4ytVvH+f2VApXP1bAMRz64HIOrf5h/UAlZm
+         iiXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782314669; x=1782919469;
+        d=1e100.net; s=20251104; t=1782314840; x=1782919640;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=hjwRC0IlwgSgiL2c9VHAX/AhDHtnXxRe7151xT3/ODw=;
-        b=KHq9TJ1RzwvkdgfyifbcMY3QaDFf0iDcM4YOsHMhr5SgcsYU8fgYO7+rhJBHwr9iuo
-         i+euzLSyqSif/ape7Uo6Sx1oZI2N6T37TYHlhb+uqZwYCvL8sfkqGQ4Y0P60U4jlyfMW
-         E7nM4ZW0OiDaBnIs+YPzziVN4cT1xXyQkXZX5/IzJrZdEX8rzSb2MuaX6YiOomM8k5ay
-         2/oQr9ZRkfQKWbM7IoflGfupVZYfxeRaxrKzhIjC3vTeyKwO+jKjkgeWG2y48AU6pWij
-         YBjqpbV52XAWPdIagmHYyL3HDRjKrOuUiOq9N/fq89MtIzkgy0h/yhBsLPe4mErgTK5Q
-         zoUQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqstd3eqK+wlFXGc7fYpIaKw3G1Eqcu2hI4VKALVUZnmGW21LpO8mBuzbdp/t0IYBKOg6f9XjYrs8Ev@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRkSQx10HoBvawCDxXOmsfn/fwCpGOvzvo2mlcAawrOgil42zT
-	sYeLZ7knGVp9PlECVNZDpEAv8wxd3AG1dvev4ayUz0+yGkfL+U8el2nzw8nmiZh9mhgGjeuRMMp
-	0R8yYHcSlQYt8n375/m37c27oHVuD1fRAMiOB9gGdF5v5283aYRxNink55WXUbDIN
-X-Gm-Gg: AfdE7ckiOn5zZGW0QhKtvyCB7azmsSah+78sFgXGVoDdnKPacL7DSZS6wZ9cskWchbb
-	7YtOOy2lM/bVMGW7VJr0Uas61YatZGDeKXHuns/jiRkkMDthIP1LL3NWRm6HH6q7OPODYTnRLa1
-	jlx5+GU3hbxYq/clyWPli0Q8Iqdt7nN2lkXvJyr7oI3pgqT2yaZjuxtmLl8080Osp6fHnX+ENe7
-	e3wmK54DNf5qOg+o7wUrZ3elaM0+15prmRFu/7zmXUeU42ncLyFA46iObGu8BtDm99ar7xkQaiH
-	29mZmnuEPgHzmQGKSrLqNGd8nG0Gyw60I/Q3svcNLW8Vg1jXf9f0eW6UO8vVOO13ztSGOKZWCZv
-	rU4/pO8/Ilp2NJRhhXb700w06/NmPSAspxoVtcI55BP9t
-X-Received: by 2002:a17:902:f68f:b0:2c0:c3ac:4ae6 with SMTP id d9443c01a7336-2c7c769409amr78275105ad.19.1782314669401;
-        Wed, 24 Jun 2026 08:24:29 -0700 (PDT)
-X-Received: by 2002:a17:902:f68f:b0:2c0:c3ac:4ae6 with SMTP id d9443c01a7336-2c7c769409amr78274685ad.19.1782314668780;
-        Wed, 24 Jun 2026 08:24:28 -0700 (PDT)
-Received: from [10.204.101.214] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f5ac9285sm774625ad.11.2026.06.24.08.24.24
+        bh=Fjq8lD80zO6HiyYMuWH6+pjiwlUb52f+5tf0ovQAwVM=;
+        b=tCil91iJP5yNxd3YUEGxvuJ6+WPwWsZqq7u8JXYFSp2iYP2ys46rDOSMEp5+D/wQ06
+         0eSxnlgCqnLHcLCDuDHWo10sqXJnLxBonpvfVexIMaymLjTZ4qXV6HM/EjfAxokzja6f
+         io3GXO0DOtg8u8oNKYaN3ulTAiz3HUlTBoUSElmRvqjKzHqVmmTctIFqtZJEzR/+QDH5
+         mj/ig0lh4i03AD0ejsdwrI0hl1z9bzNRBSSbaWTeYAoWwfYZy1i4k0hAGqCTwQEi86gQ
+         wSwYHfHLsKhUBrJbViBc564vVJ2YtmAidbNficVvLG3SNJXGcZtHDbDwvIbQuiAaCxaO
+         W0pA==
+X-Forwarded-Encrypted: i=1; AFNElJ+J4dGyA1qT6gT0C6+tOAzzS+mawmyjZEpoFzlY51VyOfc+rxMtOz4t3JLCifOqFExx9ixIzsuYZLpu@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuknJkCHC1WTU7Rup+HPwbJoUZXCuydQnA51JmvBFxEOI2IlJF
+	POIUuRpy4hSRG4mxkPDTTkugim97g1rFVn02O6H+GQmHbvL+6Tb1tRzvHZKBeijaI3w=
+X-Gm-Gg: AfdE7cnyO6dj83MS8cgnWhxSinxQCrkwsuTCjCcxO9zcw6hM+AWOCDC8NSP9dAFabSr
+	vNSOVcmuAQxgiptlma79567pH48WsnFfsTrjonwNrCkWuIMVfS3UoZ984GbTa7De3QwDR9rTP9b
+	bNYveFxEBDWBAb60hDALT9f9wW8oe+7KSTuTB8pPQpLYsEWAAVeWA1QwhsFMV++M5jpNJeVrdFD
+	XGnpnqY6P0UD08Pq2VLKyhBXNrKQKHjHFrvfcWC51BgeS0ME/Cyhn1oX7a9hHfioW0S7q3dH00/
+	mJfgfGBZWCsTRMEhlriAyjpy3WAD3sh235Shwv/0FudyfNt4V6tzdxUcULPw3n9Kzp2Fr/XGmOW
+	CI+YYnndf4IsCzVd+BoizWnC1Jpq7pLeIwdbluIVJjW2updOhuX1t3XEFTjVe+OGYO2lS/zvpdG
+	CcuIYtvY+eMChxaE+yNRv1OvHWHuslmss9V2gwgNCRmpF1llW9PzGQhkyaCMtMmwA=
+X-Received: by 2002:a05:6871:7991:b0:42c:4c8:4a5a with SMTP id 586e51a60fabf-447dce9b4a5mr2572915fac.28.1782314840687;
+        Wed, 24 Jun 2026 08:27:20 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:68dc:b788:b3ac:e34e? ([2600:8803:e7e4:500:68dc:b788:b3ac:e34e])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4472ec6065esm10933021fac.4.2026.06.24.08.27.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Jun 2026 08:24:28 -0700 (PDT)
-Message-ID: <8e49dffc-f525-494b-9489-8451aea6c7dd@oss.qualcomm.com>
-Date: Wed, 24 Jun 2026 20:54:22 +0530
+        Wed, 24 Jun 2026 08:27:20 -0700 (PDT)
+Message-ID: <afebba8b-ec1e-4b91-a600-f4df0c576219@baylibre.com>
+Date: Wed, 24 Jun 2026 10:27:19 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,71 +68,52 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/16] media: iris: add Gen2 firmware support on the
- Agatti platform
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260616-iris-ar50lt-v5-0-583b42770b6a@oss.qualcomm.com>
- <20260616-iris-ar50lt-v5-14-583b42770b6a@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] iio: dac: dac8163: Add driver for DAC8163
+To: Lukas <lukas.metz@gmx.net>, Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260623-dac8163-work-v1-0-5b508158faa0@gmx.net>
+ <20260623-dac8163-work-v1-1-5b508158faa0@gmx.net>
+ <ajrg62FtXNObGkmc@ashevche-desk.local> <ajvt5J5Cs5cOdTLt@berta-MS-7693>
 Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260616-iris-ar50lt-v5-14-583b42770b6a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <ajvt5J5Cs5cOdTLt@berta-MS-7693>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: GbaohFW7yDr19WuSVzC_z3F4qzC48U0P
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDEyOSBTYWx0ZWRfX9+B6EXf2wphG
- uwNlNCDMGxwFAgCi4NfY1t0D+i0po/KMBCxONgTgTGu1VLwOMB+Txuwv6V5JVbycccQymy4nhf3
- UzZWdhSPAg5anwgX4O4SSKxqrOnFy3OVtCG8hEUL39Te8okAtlOZvNH1ansPX7P6M/KBTmYf30m
- 0nPEYL7lC5ZMyutRY+69Rz4q5bapKfXsU6U6hBkI59XOjdzn+vskrBQ16cYdJY6UZs13fJ/6M8x
- Rq99vyi+lu/LmQdf9izZIsAjUthhN5b/TPNc6HdaboIEOl7ovOVE7TSmO/pTUHS0FvfwYfSq+24
- Gx8J0PdI7qsfFnZJVjjdGwHzbqQTO+F781cN4bIUj605ufnnju2gTmoJVSojD+AL5TPUUWSjktH
- 43wkslvFheNY1s7W50fZ5ezhG798JA==
-X-Authority-Analysis: v=2.4 cv=QLhYgALL c=1 sm=1 tr=0 ts=6a3bf6ae cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=PGH3J_xsYvR7KH8m7zgA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDEyOSBTYWx0ZWRfX+6Q081v0oPyP
- ozIbkjTD/ZxiwGkrRza4TiluYMLCzOzE+2wBcB1hnLoSbWOK2kgm8kjJSGRYqTLXM5UmHJtXXEm
- gx0BddNGMR90qIVb0a0sSB7dbfJTopg=
-X-Proofpoint-GUID: GbaohFW7yDr19WuSVzC_z3F4qzC48U0P
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_03,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- spamscore=0 phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606240129
 
-
-On 6/16/2026 5:34 AM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
+On 6/24/26 9:47 AM, Lukas wrote:
+> Thanks a lot for all the comments.
 > 
-> Agatti platform is using HFI Gen1 firmware, which is considered to be
-> legacy firmware branch. Follow the example of the SC7280 platform and
-> extend the driver with supporting both HFI Gen1 and Gen2 firmwares for
-> this platform. Like HFI Gen1 this firmware doesn't have PIPE property
-> (but unlike Gen1 buffer sizes are calculated on the driver side).
+> On Tue, Jun 23, 2026 at 10:39:23PM +0300, Andy Shevchenko wrote:
 > 
-> Signed-off-by: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 613 +++++++++++++++++++++
->   .../platform/qcom/iris/iris_platform_common.h      |   1 +
->   .../platform/qcom/iris/iris_platform_vpu_ar50lt.c  |  11 +-
->   3 files changed, 623 insertions(+), 2 deletions(-)
+>>> +		dev_dbg(dev, "%s: val=%d val2=%d\n", __func__, val, val2);
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Trimming down the reply is good, but in this case, it would have been
+helpful to leave a bit more context. I usually keep the full function
+in a reply to have enough context if it isn't too long.
+
+>>
+>> No. Is it RFC? PoC? Or production-ready? If not the latter, come when it will
+>> be production-ready.
+>>
+> 
+> I will remove the debug print. I tried my best to make this driver production-ready.
+> I saw that other drivers also have similar debug messages so i didnt
+
+This one jumped out to both of us as odd because of the __func__ and the
+fact that it is in a very common operation (raw write). Usually debug is
+for catching odd things that happen, not normal things.
+
+> remove it after my first tests and thought it is ok to leave it in
+> there. My intention was to try to apply the suggestions and comments i
+> get and send a second revision. Do you think thats the right way?
+
+Yes, you are doing it right. For a new driver like this, it is best
+to wait about a week before submitting the next revision to give ample
+time for review. Your replies so far where you think a suggestion was
+wrong or have asked for clarification are spot on as to what we expect
+for the review process.
+
