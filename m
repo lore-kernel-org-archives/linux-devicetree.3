@@ -1,63 +1,63 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801223AFCFF
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 12:55:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A403AFD07
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 12:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782305701; cv=none; b=oRO8O34053tF/Yhsm7Vjw+RC0sXpcf2Vchh/zBXlw3wpDXxXpXdlf4dKpOOp63KHOsskrOQyvf8fR/79Y+k7BfJhH+eJv1ZcWv6ozB/yLn3xjVAosmVt/vaJzxzL5sA2LwTkSHLa2IFO4aYJATYKSs2fMAI0PHeCShlDx00aTgM=
+	t=1782305707; cv=none; b=nzvAnRtKQXM9i5Rx6k18QXoQ5XKvnwqXe3FSDAhLxcAX9RkhFUzaxtGONXNI0LKdGzKBK9awMPD9Nw1HQoE0q5ZXh5VEqj4Nd4EGLtU06Lx3uW9lF58+L7UZtlT+Awn2ohsPDzErG6GCBBU9AS5P6YCs2o5bVEv0WiqtMxUCPg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782305701; c=relaxed/simple;
-	bh=XUJDd4xUHVWu57IdXVomBU+JbtBGQJowIYaHzRYn3x4=;
+	s=arc-20240116; t=1782305707; c=relaxed/simple;
+	bh=mvbYsq6s7d7W1oouiNX7rgDJWbcpYrxcLw9VH/gGvVU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PxKBflPZ6m3xBDZfyVfDfOcLxcE61BHHQqIdpn1ZeIPQrJhQoZ4U/cS6e9aVPOHskJQdQV8VAopTBaYNB+LKETuDOcrqiLrNuJhbLZo2NShuA1/CvVxc8g05KcLjjITjTEGHD//zFVPvHCMZpmI32ajpTZJ9/Z4PUteHrqfX02Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNVYkUUb; arc=none smtp.client-ip=209.85.216.45
+	 MIME-Version; b=eTtEp5CDfGmuCjfjDCOwjanoHUrBPQ2IQf22K6q5cdT7t8Y0+VsL9Y4iCaPgKM6ZZdBXgMimRbOJP+IRK/ADCqfGF7tHbYAmHXZkOo9kxneZZj7/a1tTE7Xg+8A4166rvkaUDYMxcPDh5T2INg8rzU/Uf4/WRIfB52euWygjTq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7gsLGzi; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNVYkUUb"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-36baeec21dcso567058a91.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 05:55:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7gsLGzi"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-36dac5d5d05so428343a91.2
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 05:55:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782305700; x=1782910500; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782305705; x=1782910505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4jwCfEHJNxVKEsC2iyhku54hBK/Iu9IeFsnGfdfRF2M=;
-        b=oNVYkUUbW9jE00EScZH4QimSEbbLhcZv6nP2Jjaav8wxgAc0ww5LXCpKMq0nleDDNv
-         pKJjkfaVfvZ9AYF/6JlP6/J6RWLJl4Wbi8sRV+dwUwoNqEHNzSCGqH3vI6J0CCfYCMws
-         ASjSlqtM5bG9DZooc13gwb9g2g/5dRQiL8AfvgHKJZHR+pUhsNKRJPAh/QzyN8XSGQmB
-         nq7TQ6tFFiQcAd/D2EpvvBub9gNB6x3gNNPz5DxsgLX3N0gN1faCIapZQquiyu6Wpb8y
-         2DT52pbqtPqfNLdEYxPrrTZJUWEyvLuh9sf5XrWQGxY9+LrBTDvi6W3QxtUOFPeFkHrM
-         vfsA==
+        bh=3pKNoUwm+VouMr3Z4tAY1A3s0+1K7EgEZOm34M+sxQY=;
+        b=s7gsLGziYNmM1sXjYLpcQj6x8qXaq865frHYkg08d35BtliPQztU+V3kPfTyvjmkZD
+         V2kK05sd+UalqPw0HW9aJ+yOekHsHQMAN0Uc0YlkT2bZWt5QpTn4nvux//xbbaK+VSSs
+         T7rd65oFyfF6Ue0Zs4rjqdV4bfxgMzVXtibF1AKG9N7vUkwoCZ8ZxkhM+NGzQYfPHugK
+         R7cqd+wuE6TIlDHTwuozFdvTw23yXMkMsU/F0OK0rzMGIP37v2vBnBo0MOXvALIhIQHi
+         eYa8FC0kwjpan06axJ7x0SXaOHPz1fKqm4Df43QUUQgnRlPEV5sJ5+mVDa5WlAAiZlWC
+         4xSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782305700; x=1782910500;
+        d=1e100.net; s=20251104; t=1782305705; x=1782910505;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4jwCfEHJNxVKEsC2iyhku54hBK/Iu9IeFsnGfdfRF2M=;
-        b=X9FIdlM004Nb9vU4CH+nz654APcTQAlCwlWhH5QDq1eeNeJnFwy83V8ofghbJzsrqK
-         bk2eWE0jIwvYlsQI1m2XRNXbe1GoMNf26mpn1ZTs5x59yV4Xb6TfKcEjRCWvMUy3CEBM
-         1IXkpYM2Ry6CMx/lCw+cWu1ujK++8Pjrk5nbAqRtZpuOltFh6Eqz4Nl3ADwQ+nRHr/N3
-         eUXmd0lQL6lEJxPRed9P9EZ//HzLCiMP8sXy5C4X0BgfS7FiUWQ2/bP1jUqxsgCOuc5/
-         dQI6u5T7N6VTlPFlppRSnqc2HFqWh1d//jBieTFyXifl76nbnEJoZsAj66uVQ/zEtB/a
-         XxCQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp1y0KNRVcJZmewRPpsW/zn0UCeykQwr8zQEPcZTnbcdSnWPf6jlfZPcpZgMlZWPPNNeL7L5uzV5WJj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0xBLeCoyAZiLgGxShYu3phEuBMDnwzMA92OUyCruNkhmUovCC
-	TqJ4+GJiPBlSbwvkCzRbzujA+EtzL9ZhfMQxUy1S8/kM7hH6Eyo+YEGk
-X-Gm-Gg: AfdE7ckUX2u7L4jre3Z0+AvOyQ0JtFl+aBzcZbzkPBEH4N6bql9d7GyV1eZk9LJM3SD
-	x+syozHOw1phDc4gj7eH3xwyvhmy3MJqeWsCSDpN7pIqD3HpBOX7j+WdbX2utAu8Y75XN9A9FeR
-	4V75N6/7pL/ePGyjVAU3Ei1cX9BdVrwk3HfqP/zrwBT9QDNZ28ckiAObFSProMXbDkMJunYi9OH
-	WwQgHbXiDfrWCCdNf4cq5gP6OvTNnx7atfHJdTzRcp6gkzHJzVu949E+4lvGIOGw4iOP++DjIJb
-	ktQ04yV7Qmud3q6oLL9Wh4CSuH9OdVtV4pcMNyfUChZP4OOsERkojlFvPhLFXbI55D0iRXeRtw+
-	CskDnF/e/92WXsCaM7YY2c5BzpVkNnoSaZed0jjw7FHna7rrEgwOC9cft3DZSuVl1qVe4pX+2c3
-	2yTsKFUjXB+SxtujKWB81+3J434GbLOXEyap35cDd/
-X-Received: by 2002:a17:90b:3941:b0:37c:63fc:b2fb with SMTP id 98e67ed59e1d1-37dd0e18a99mr9790100a91.22.1782305699706;
-        Wed, 24 Jun 2026 05:54:59 -0700 (PDT)
+        bh=3pKNoUwm+VouMr3Z4tAY1A3s0+1K7EgEZOm34M+sxQY=;
+        b=m85YLchhelBqHdR52kPWDhHZv95hFG9SfwT/Yr2XoFUwZfexPZVYu1HHgt02TtfoMJ
+         AxE9nMu4BGrKkX6uSJwutJE9zuUOUovo1oYYEdKkwc0woBRZrM5v9jNliXM4bzNEtowb
+         SduEuaOtTFKKQFNAWSwJah3n3EOyMJqL90X5KsIL8felNNrhsxyscaaHskfHX40r33zU
+         81RZc5xTG9U3NeHkRTOmtggakLVcCCIZ1//uRsMihhiS6UWfdw9VGB6PLDlaLWbn/322
+         S3zpW6oG3a2QXefgQKZSiy6dLKdoGXUWLid18uOqxRe+T2IO85UlF/vy5tqktw43LBgV
+         EXFg==
+X-Forwarded-Encrypted: i=1; AHgh+Roc7Ac6X6jMgzcGQrfgA/YWalBv5W/MaE+qGCATSV2YBXo+LIudZZpNL81gPD5z3H9uWCrSY9o8K0/N@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0VKKbocM6KlZRUi7XyvBpq1efs3HbBTOvKKrQZGzbvpO+2A3N
+	tdO5BFmag8wUKXR2lOPcLzv71eqG8PR4Gw+7LqROLsJ4cnBXavuDF/QR
+X-Gm-Gg: AfdE7cl9DIhB4xWL6CbS9NW191dy8Bqz3mqz7zvhesuPhs0mb40rwDXfkmJWtpvTda7
+	QLxSIfVVMvvmhSyV/sXykgmF23se9zw/C6RyfRciRblyIr8Kio8GINvfbHD73EusAKjp2oWPXt4
+	FKp2MefSSjA9h3ynR42XLGfu/34oGDnRvEIQnHPKNlUlzwM9cI+T3wDWNCGK+XP1XchSeDmbfxG
+	2IlrUQYkLItkm0HKzQLUtB9x9Tfpa1lzVVE6B8ydq0igBw4gG3BCwb6ZykS3qaHN87cJNXdkUiO
+	utS6do/xhCF5mVdHTR4fhmmpzwh5M/hcGBrx43GXN1NhcDH+5/KqBjf09uFMpd1+iIIbZ5vq2gj
+	dGF5ouGfu4+zK5z6gc3S39W2AXbs6isN4hAeFxZd1AO3qG9+o3438ADtVkwkGg+ag/aP7Gyj5sb
+	NXFzXX7GgN3QM9ApD5QGqD2YfeqZmM7qChE129/IlgQfmUbAFNMw4=
+X-Received: by 2002:a17:90b:1b4c:b0:36d:70c8:3a1 with SMTP id 98e67ed59e1d1-37de425bbd4mr3513950a91.13.1782305705226;
+        Wed, 24 Jun 2026 05:55:05 -0700 (PDT)
 Received: from localhost.localdomain ([150.107.232.166])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37de3b839acsm2984870a91.11.2026.06.24.05.54.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37de3b839acsm2984870a91.11.2026.06.24.05.55.00
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 24 Jun 2026 05:54:59 -0700 (PDT)
+        Wed, 24 Jun 2026 05:55:04 -0700 (PDT)
 From: Ajit Singh <blfizzyy@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
@@ -70,9 +70,9 @@ Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	linux-kernel@vger.kernel.org,
 	Ajit Singh <blfizzyy@gmail.com>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/3] dt-bindings: vendor-prefixes: Add prefix for Vicharak
-Date: Wed, 24 Jun 2026 18:24:41 +0530
-Message-ID: <20260624125443.18729-2-blfizzyy@gmail.com>
+Subject: [PATCH v5 2/3] dt-bindings: arm: qcom: Add Vicharak Axon Mini
+Date: Wed, 24 Jun 2026 18:24:42 +0530
+Message-ID: <20260624125443.18729-3-blfizzyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260624125443.18729-1-blfizzyy@gmail.com>
 References: <20260624125443.18729-1-blfizzyy@gmail.com>
@@ -84,31 +84,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Vicharak develops computing platforms and manufactures single-board
-computers, including FPGA-integrated SBCs. Add a vendor prefix for
-them.
+The Vicharak Axon Mini is a single-board computer based on the
+Qualcomm QCM6490 platform.
 
-Link: https://vicharak.in/
+Add the top-level compatible string for this board.
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ee7fd3cfe203..1948356337b9 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1767,6 +1767,8 @@ patternProperties:
-     description: VIA Technologies, Inc.
-   "^vialab,.*":
-     description: VIA Labs, Inc.
-+  "^vicharak,.*":
-+    description: Vicharak Computers Pvt. Ltd.
-   "^vicor,.*":
-     description: Vicor Corporation
-   "^videostrong,.*":
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index d48c625d3fc4..6924bfe7b949 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -361,6 +361,7 @@ properties:
+               - radxa,dragon-q6a
+               - shift,otter
+               - thundercomm,rubikpi3
++              - vicharak,axon-mini
+           - const: qcom,qcm6490
+ 
+       - description: Qualcomm Technologies, Inc. Distributed Unit 1000 platform
 -- 
 2.50.1 (Apple Git-155)
 
