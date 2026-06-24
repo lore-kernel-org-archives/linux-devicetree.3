@@ -1,58 +1,58 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9824F30B525;
-	Wed, 24 Jun 2026 08:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B418399036;
+	Wed, 24 Jun 2026 08:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782291255; cv=none; b=SyuBbuQCJFwCwgbWSK1j9RA1AO2jAWZSR41p6C82k714OYmxcFPqBiYRVRAHbbAja1Mq2hbZ/DdlmEUAiJAS1vWQnNpAVrOLX5tifgUH4Mi1MdwoZo1HjW5MVuSKSM8rleuh71bjlxlIkdmz0QxKTtjLLOf9lXZqIt+Ko9lawlY=
+	t=1782291266; cv=none; b=WVWT4Gg3kucXwDsagRl7KkWX8iI/s7OieTeNHtN6WzP1VoD4JCXhbI0gdTZkcJWdkaNbTBez0pq0HzywCSdFAU3PUGsjZslEcAp4txpMfivBL9mNV1LLWPrBPhFtkumAenah3IMsHZtChy6iz/3vopMfvtEfYgGqrI8OloFGJgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782291255; c=relaxed/simple;
-	bh=Fv4t24U4qIyt+txv+AYBAngaBAML14UvjtFFAc3BDf0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E1RQVuFbu5pAwurpixWHX/XJaKxF60vq5yXc/oCeD69mYsDj0uQTtmqfcRI2v5czi55sfPx/Z28aozJ5peIVtYSncF6XRnUWfN24OVC1IgaglvTR3o06Cdu+hrQFZa+7m8XUp5FhwdLwDb//9/m/Tmu/wf45rDD1IoxbBgKBW8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e/AkngrM; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1782291266; c=relaxed/simple;
+	bh=h6CyvuRqGYcB0FWFbhuB3Y4mPe0a5e38mNTG2MLGeoU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hVlDzqdJF1iyN4rSGoTyG4iZ2+wNvPZFWyYqAaz8Nl9w5UHSVF5nTK1YQjCKi/YWeO9CMTbXs0OVjJ0iyHdfAnVfJSBPZScNpTbCB2CBSSq22rpr6Hj8jOmU/sKPGXaV2k2YScizqqVrh/LJhCoIwwz1ZCHNljiaetQpUD80n4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jyuEqLF9; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e/AkngrM"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65O5u6qL1976802;
-	Wed, 24 Jun 2026 08:54:06 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jyuEqLF9"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65O5trZi1972136;
+	Wed, 24 Jun 2026 08:54:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=hJHk5wjhlMQ0wgulFoUtIN
-	frY0/hDHa/js0k3HbsAKw=; b=e/AkngrM2ySBmXH+u2bvlzoXa/KtpmBhm5Dtcq
-	ykVbRmHMjUHoVpThjZZWDh3pD/vq18CI5NaeR8PaDKmo3goFM0qZuq172QCSKJBg
-	Cvs0puqBPDaxn9ISNiEE1SYCtbaO1Pu1JUZSown3efrk411nznziBVAtN4OL7oKi
-	pV47QJRCcgJDw7JcYioJ/ytfhXp13axIjfjHqoqNhMq4WfJGA0o9KKmTMSA7KG+/
-	Ddt0y18o6FFC1kmD5d/ZgL+FVdBPoUmJxF3opQe/kHXWXcow2ZJ0XaCYXXZord66
-	m6LNcegnHdILl1ZQ6J3cVUxoLJsCOzLipAsUz8yf+/eULV4g==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	roGAArzJagt0EeREZxN3Bt69vvVc4LbdRpbe1U4jaRI=; b=jyuEqLF9oKU2Tqd6
+	LPymc0BU9Uq76PNtJEarSxRcc/hpRuzI2MZm7uytVNd2NvSr+FZfOtLWJPZ9J8jk
+	LvWEBAxoNsJrTHD8+oJltFjuA42UtPUWXq4BrzXKjS8dxTJeI0Ni9t4/I+d8zWRP
+	b/G5q9FgW3CQ3oII7apXDDWMOCNVg/8J/jv4Rk5GhWWpnXq9LroRQsmJedY2qHvT
+	jNz5RkDaDboM7b+1gFETf/8o0uUonmnD+1zF4aAiGNgLXHsskXo8YY0Tp8YH5zJF
+	B2hsAhTJ3UZIvPHNXbUinzdCRpB1YYUoOPv9fHo8FLiJHRblRNYTXDhaxcYwKYFu
+	nQrPyg==
 Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f05aq9bev-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f00eva81m-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 24 Jun 2026 08:54:06 +0000 (GMT)
 Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65O8s24F009039;
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 65O8oq6s005843;
 	Wed, 24 Jun 2026 08:54:02 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ewkxk3jsr-1
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4ewkxk3jsv-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
 Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65O8puWD006941;
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 65O8s21I009032;
 	Wed, 24 Jun 2026 08:54:02 GMT
 Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-arpisain-hyd.qualcomm.com [10.147.248.17])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65O8s2qF009009
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 65O8s2Ji009007
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Wed, 24 Jun 2026 08:54:02 +0000 (GMT)
 Received: from hu-arpisain-hyd.qualcomm.com (localhost [127.0.0.1])
-	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 7947B630;
+	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id 7E8EEBC1;
 	Wed, 24 Jun 2026 14:24:01 +0530 (+0530)
 From: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Subject: [PATCH v3 0/2] drm/panel: add support for Ilitek ILI7807S DSI
- panels
-Date: Wed, 24 Jun 2026 14:23:50 +0530
-Message-Id: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
+Date: Wed, 24 Jun 2026 14:23:52 +0530
+Subject: [PATCH v3 2/2] drm/panel: add Ilitek ILI7807S panel driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,11 +61,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB6bO2oC/0WNQQqDMBBFryJZdyRGqrar3qO4SNKxDmiiGSsW8
- e6NltLNwJv/+H8VjIGQxTVZRcCZmLyLkJ8SYVvtngj0iCyUVIUssjNQR2UlS4ZBO+xE9IxmBBO
- 0s+1uOlwm+Ooq3/MhYEPLsXGvI7fEkw/vY3JW+/fXXv3bZwUSTN5Im8mLyaS6eeZ0fOnO+r5P4
- xH1tm0fsk1IesAAAAA=
-X-Change-ID: 20260615-ili7807s-panel
+Message-Id: <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
+References: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
+In-Reply-To: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
         Jessica Zhang <jesszhan0024@gmail.com>,
         Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -78,80 +76,391 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: arpit.saini@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
         dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
-        rajeevny@qti.qualcomm.com,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        rajeevny@qti.qualcomm.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782291241; l=1563;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782291241; l=10343;
  i=arpit.saini@oss.qualcomm.com; h=from:subject:message-id;
- bh=Fv4t24U4qIyt+txv+AYBAngaBAML14UvjtFFAc3BDf0=;
- b=CDKIUPvFA7Ey7flh+uupHMksl5BbSxbgC3GlnhtpBlas/H/xDJbk+oRjICLkMV5jGpqS9o1WE
- WFn9t7ThTy2Cn3D6by0R0rneqARzmDoO2HD5V5p3+1sgxcB5cdhl9LE
+ bh=h6CyvuRqGYcB0FWFbhuB3Y4mPe0a5e38mNTG2MLGeoU=;
+ b=CBmGJmIGdpt9NLipCnx8KZ1KY8CDaZeJQH7Qha0doMuXZN3yRHJ2cIYJcP9kTm5KICvX2vrOC
+ 6WeIb2epglKAU6rUfWHt3eyf+iDz9CovC7D1mUGon4GGp0EUMf1Lfl3
 X-Developer-Key: i=arpit.saini@oss.qualcomm.com; a=ed25519;
  pk=OGOh7FGwrnkILHNlcTTABbBMQxxo319duzbTg0YPDAc=
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX2wLIbM4jCvdY
- K547A6Iz8wvLx6W6lshfnCzVAWv2z7k8MVK/caFm7x9rqZafG1a9Hw9+3Ldrz2GIshhoNDU/n+8
- rdMb22/oN48din4h1hzUW5HiRyfVj3dNuVew5NMegqH2BEoaxKpxwsgRPWNy6wDSrSuUBGy3iJ7
- vSm6P3OIu8tz/XQV8OuWqziJ8o4DHZc8Bjfn5LDCYQhSKfaXplCByGkdvoxEfsg2XyLImmtMPPZ
- sWhvvZg/jfhYZ52Sz/4Ffrv0dQygk4KUZXFLiEJ3ddPnZnbAfaNU+pLvdeJosu+SOuwwLavKWGl
- ZivLaoLRjpKKHfWa000mlgIZnQZxNY9ZpAqW8YxFXkfXNK3AUiD6oivBwaC4xmtyjnE9tDeUCYb
- oyk0TLLUr9QO0heM4EBSafU8DkE4DBpqUoXRpSScMOku7WMw1OyNageTyGGYI1QnuilRrI325eC
- nLBxbj7SfV5sa2N6BCg==
-X-Proofpoint-GUID: 9j_u4p_gl5xroIuQq5jQ1M53vvj12UiI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX/gub8XPq9uNN
- XjpJGEtf4TVFJTMt6sW4CdiTsaT1OgpxRRAG0LzxLZWTnKXFai1R6bTh4zShXPU5TDlVftBgazO
- Ga8YeXWI9yBWxwvCDT+J/2+q+UhlkSk=
-X-Proofpoint-ORIG-GUID: 9j_u4p_gl5xroIuQq5jQ1M53vvj12UiI
-X-Authority-Analysis: v=2.4 cv=UphT8ewB c=1 sm=1 tr=0 ts=6a3b9b2e cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX6WKMXB1I0RYM
+ BOEuvAf/NtE/2JSKk4PF+CO4RHH8sWTz2RPTqezrFEIAVbDdJ/EEn6wjVr9t4fpsvxSvOIjIGuo
+ m8jwr9tdzUsjLLb7BU7ljlu12kim42c=
+X-Authority-Analysis: v=2.4 cv=JbaMa0KV c=1 sm=1 tr=0 ts=6a3b9b2e cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=RCrcYMzkqC15-5_egV8A:9 a=QEXdDO2ut3YA:10
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=PpNqgBxrR9VdnZ8GWKIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA3MyBTYWx0ZWRfX/EwSYfmgQvGv
+ GDDvUtlPuJOY6E3pVVLFfZfouOEXPaF5CbfXcmjsRhnj19TDNOo2pZlo0GCaPvHRazI82Lfytak
+ qMP4LSdMV5Q47V7Gme4KR066kkjhctQ5Vhn97Z6YWY8fVyC4mOugjFOGxnk44MMZm1PkJ8pRRAU
+ 6paliT3STFru+iAdBo77uWglhpeKnmO+znoAo5cpLgWVPuorH7ej6VucjQmvcKvw6AY5qNiwhpK
+ UqDqywiIzeyOja6d6iR2P3oPINq5pEXiXIPQLUGUTU3O/bpJym+Un1B6diuCzqICvb76Zczopo8
+ LNJALU7rMvaYdqnQ3NLdRDGK8uufnB633oyuPwSNckdZ8EqIB8cGMRDSjLT/4bp7mGrKpxOSHm8
+ Ykho6tKH+TgQdD6ZMGJngW9m+M5/Eg==
+X-Proofpoint-ORIG-GUID: g9lTNThBGxsBc_IJRkxDhutAaHkkr4k_
+X-Proofpoint-GUID: g9lTNThBGxsBc_IJRkxDhutAaHkkr4k_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-24_02,2026-06-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 phishscore=0 spamscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606240073
+ bulkscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2606150000 definitions=main-2606240073
 
-Add DT bindings and a DRM panel driver for panels based on the Ilitek
-ILI7807S display controller. The first supported panel is the DLC
-DLC0697 1080x1920@60Hz MIPI DSI panel.
+Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
+panel based on the Ilitek ILI7807S display controller.
 
-Changes in v3:
-- Return devm_mipi_dsi_attach() directly (Neil Armstrong)
-- Link to v2: https://lore.kernel.org/all/20260618-ili7807s-v2-0-b3f0c109b102@oss.qualcomm.com/
+The panel operates in video burst mode with four data lanes using
+RGB888 pixel format.
 
-Changes in v2:
-- Drop MAINTAINERS entry (Dmitry Baryshkov)
-- Use devm_drm_panel_add() instead of drm_panel_add() to avoid
-  manual drm_panel_remove() in the error path (Dmitry Baryshkov)
-- Rework backlight: call drm_panel_of_backlight() first and fall back
-  to creating a DCS backlight device if panel->backlight is still NULL
-  (Dmitry Baryshkov)
-- Remove backlight-en-gpios from the binding (Dmitry Baryshkov)
-- Fix mode_flags LPM not restored on backlight update error path
-- Link to v1 : https://lore.kernel.org/all/20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com/
-
+Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
 ---
-Arpit Saini (2):
-      dt-bindings: display: panel: add Ilitek ILI7807S panel controller
-      drm/panel: add Ilitek ILI7807S panel driver
+ drivers/gpu/drm/panel/Kconfig                 |  12 ++
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 293 ++++++++++++++++++++++++++
+ 3 files changed, 306 insertions(+)
 
- .../bindings/display/panel/ilitek,ili7807s.yaml    |  71 +++++
- drivers/gpu/drm/panel/Kconfig                      |  12 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili7807s.c      | 293 +++++++++++++++++++++
- 4 files changed, 377 insertions(+)
----
-base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
-change-id: 20260615-ili7807s-panel
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7450b27622a2..1cbaac1bf545 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -264,6 +264,18 @@ config DRM_PANEL_HYDIS_HV101HD1
+ 
+ 	  If M is selected the module will be called panel-hydis-hv101hd1
+ 
++config DRM_PANEL_ILITEK_ILI7807S
++	tristate "Ilitek ILI7807S-based panels"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	help
++	  Say Y if you want to enable support for panels based on the
++	  Ilitek ILI7807S display controller, such as the DLC DLC0697
++	  1080x1920 MIPI DSI panel.
++
++	  If M is selected the module will be called panel-ilitek-ili7807s.
++
+ config DRM_PANEL_ILITEK_IL9322
+ 	tristate "Ilitek ILI9322 320x240 QVGA panels"
+ 	depends on OF && SPI
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index c2c5cf817116..c3002b351cb8 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
+ obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
++obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
+ obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+new file mode 100644
+index 000000000000..8ddfab2693ec
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
+@@ -0,0 +1,293 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct panel_desc {
++	const struct drm_display_mode *mode;
++	unsigned int lanes;
++	enum mipi_dsi_pixel_format format;
++	unsigned long mode_flags;
++	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
++};
++
++struct ili7807s {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	const struct panel_desc *desc;
++
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
++};
++
++static const struct regulator_bulk_data ili7807s_supplies[] = {
++	{ .supply = "vddi" },
++	{ .supply = "avdd" },
++	{ .supply = "avee" },
++};
++
++static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
++{
++	return container_of(panel, struct ili7807s, panel);
++}
++
++static void ili7807s_reset(struct ili7807s *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++}
++
++static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 120);
++
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
++	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 120);
++
++	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
++	mipi_dsi_msleep(dsi_ctx, 20);
++}
++
++static int ili7807s_on(struct ili7807s *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	ctx->desc->init(&dsi_ctx);
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	return dsi_ctx.accum_err;
++}
++
++static int ili7807s_off(struct ili7807s *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	return dsi_ctx.accum_err;
++}
++
++static int ili7807s_prepare(struct drm_panel *panel)
++{
++	struct ili7807s *ctx = to_ili7807s(panel);
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	msleep(20);
++
++	ili7807s_reset(ctx);
++
++	ret = ili7807s_on(ctx);
++	if (ret < 0) {
++		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
++		goto err;
++	}
++
++	return 0;
++
++err:
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++
++	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
++	return ret;
++}
++
++static int ili7807s_unprepare(struct drm_panel *panel)
++{
++	struct ili7807s *ctx = to_ili7807s(panel);
++	int ret;
++
++	ret = ili7807s_off(ctx);
++	if (ret < 0)
++		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++
++	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static int ili7807s_get_modes(struct drm_panel *panel,
++			      struct drm_connector *connector)
++{
++	struct ili7807s *ctx = to_ili7807s(panel);
++
++	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
++}
++
++static const struct drm_panel_funcs ili7807s_panel_funcs = {
++	.prepare = ili7807s_prepare,
++	.unprepare = ili7807s_unprepare,
++	.get_modes = ili7807s_get_modes,
++};
++
++static int ili7807s_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return ret;
++}
++
++static const struct backlight_ops ili7807s_bl_ops = {
++	.update_status = ili7807s_bl_update_status,
++};
++
++static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type           = BACKLIGHT_RAW,
++		.brightness     = 0x3fff,
++		.max_brightness = 0x3fff,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &ili7807s_bl_ops, &props);
++}
++
++static const struct drm_display_mode dlc0697_mode = {
++	.clock = 131911,
++
++	.hdisplay    = 1080,
++	.hsync_start = 1080 + 18,
++	.hsync_end   = 1080 + 18 + 2,
++	.htotal      = 1080 + 18 + 2 + 16,
++
++	.vdisplay    = 1920,
++	.vsync_start = 1920 + 26,
++	.vsync_end   = 1920 + 26 + 4,
++	.vtotal      = 1920 + 26 + 4 + 20,
++
++	.width_mm  = 0,
++	.height_mm = 0,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static const struct panel_desc dlc0697_desc = {
++	.mode       = &dlc0697_mode,
++	.lanes      = 4,
++	.format     = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST,
++	.init       = dlc0697_init_sequence,
++};
++
++static int ili7807s_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct panel_desc *desc;
++	struct ili7807s *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct ili7807s, panel,
++				   &ili7807s_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	desc = of_device_get_match_data(dev);
++	ctx->desc = desc;
++
++	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ili7807s_supplies),
++					    ili7807s_supplies, &ctx->supplies);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "failed to get reset gpio\n");
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes      = desc->lanes;
++	dsi->format     = desc->format;
++	dsi->mode_flags = desc->mode_flags;
++
++	ctx->panel.prepare_prev_first = true;
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return ret;
++
++	if (!ctx->panel.backlight) {
++		ctx->panel.backlight = ili7807s_create_backlight(dsi);
++		if (IS_ERR(ctx->panel.backlight))
++			return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++					     "failed to create backlight\n");
++	}
++
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to add panel\n");
++
++	return devm_mipi_dsi_attach(dev, dsi);
++}
++
++static const struct of_device_id ili7807s_of_match[] = {
++	{ .compatible = "dlc,dlc0697", .data = &dlc0697_desc },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ili7807s_of_match);
++
++static struct mipi_dsi_driver ili7807s_dsi_driver = {
++	.probe  = ili7807s_probe,
++	.driver = {
++		.name           = "panel-ilitek-ili7807s",
++		.of_match_table = ili7807s_of_match,
++	},
++};
++module_mipi_dsi_driver(ili7807s_dsi_driver);
++
++MODULE_AUTHOR("Arpit Saini <arpit.saini@oss.qualcomm.com>");
++MODULE_DESCRIPTION("Panel driver for Ilitek ILI7807S LCD DSI panel");
++MODULE_LICENSE("GPL");
 
-Best regards,
 -- 
-Arpit Saini <arpit.saini@oss.qualcomm.com>
+2.34.1
 
