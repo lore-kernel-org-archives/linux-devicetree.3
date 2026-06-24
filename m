@@ -1,124 +1,74 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBE42D0620
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 12:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782305306; cv=pass; b=nsgQ3ax83XZrajgOwF2llZjrqfhvFF9Vb4EkvHYaNLQL8ZIbyEm7M7JctfNr7/vd5QCUb7t510EZVQ2+ztEk+sLU/18ifXjqPVSZnRaw2I27j5JY4Vmw/cp6WTUL6Za7fyiG1HjEQNV0BM88EY3Zkw0KYeyjTHxFULNRg/9YSCo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782305306; c=relaxed/simple;
-	bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=skWKcbdnwhXkvwPAbzO8mUN2522iHYcJEmBf6lTjwiUfCFDKhzic+IGFQhJSZ8EmKDTtCbdqfD1sT8szlHbRtFTgx3WoBCSK474kjdJXURHD4i+W8RnUj8P0bFhvBFYKh2YR5DuU6Cm3wqM4Ui6j4GZheDzcmEeoiIejFMPZI9U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=Xn7nVI8K; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4356199EAD;
+	Wed, 24 Jun 2026 12:53:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782305598; cv=none; b=XyD9qEEvJ85bN1k6yeTOhNc+vXN9tjuXEd20Ktsw2Mgw5LAHIP2Kd3PO58qe6ScqzqwJ28cHpo222HSTrhiHBhASuGFIiwNmXS51hxBltCnScXfKoAL7ATuNnkJMzhxpnHX7N1jwPcEEPpUMEqA2tBzAwKPnmF1K19DlZQG57Kg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782305598; c=relaxed/simple;
+	bh=KahWTfQ6QzHVNxKce8Q1/jzulRXDPsDhkVoGTbwS14I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JsRKLrPk6I5yrEoeOM6hgl8p13BnXHuVftkLc+WHTwJCiONIFrFAEs9dI3uBbvAdADWL9WNNtpElt/DPSnPtwNklrQnA3/hIfUixLlbdam/a7N6VQXBuS+IQYrkjxn69gzb8eVZcB2wzK1NKpOStQTXX2gTSkhRyJfSY2g/U2Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqZe9GhH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="Xn7nVI8K"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4629051c946so703630f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 05:48:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782305303; cv=none;
-        d=google.com; s=arc-20240605;
-        b=JlALe02JhiAXu8EWQfrIIuYYzA8v8/vJ6l1KCQJiFV2R5YWvEgaYTyXZEU91s3dv44
-         zk68Pge1oEoj/22dMPBfwLxs0TXmJBlBTwppEozErd7mtqKd7M9ob66m85aQ4L/smGC5
-         z8KECzSdEzH3c3K4hBvbeUHAG0nnaodYLkuQ5u5zHBs3rL6Yo4dOcqcIerzEz81Q9aGE
-         kkydHX6YBnYL5yXDb3CQjJCHjh9N/+VIC1JTYUzGGiQCTzJi4pFezcrrZHhv92rpFNgR
-         FvcuxGsClZO7JaXiRyzw5OGuUe9hht+RAkIlZTDMLtsIE9mNduJdycpjrLqLZ+f4rAWw
-         9GZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
-        fh=SbDWy4h/wdQKij6nSrg+ALz5qpw0NkWfzgZKZdyPo9c=;
-        b=AZpbIucflRThVq+EOuvfWbp1nIblKHKyBPDGG0zEE9v8n7kUJiBVck4q/wY+ZFha9L
-         J8UtcJVk28hGt87PeyvN5OD7smRRtQjzTatbsbadkSvJG/L7Ty6+/QRn2BMrrpjDjpb4
-         9zdagMDTgnAYtldWU9NmOYe7iJ5Q6U21BnpakqHbSnvJLESFE49brN8lTN0sbLaxb4/C
-         Fngg5xyWXYfZmBRnEi1YTighYcYy/TQyvcbXgnjimdeNDhhDnFbTddaxyD3YW8wyngny
-         cmdk9GeKQn4l+o9CW0/pI4sQVNbOgov91xMv+0waqWDvUnzOIwLzEEIiAWtQ7HwQNJCh
-         evag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1782305303; x=1782910103; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
-        b=Xn7nVI8K3anFLQa+LVH+GlTIy/G2oQWSm1DwdLGwT+wyjUu/rYlUNRI4n1PeiGA0kW
-         aEIMlXnszyC9MMEujuEwkZufTTXYn38xjEyGwpLKHpZDirzGKD7WfSv3I4+AoS5PDo/5
-         495sEMaQ+d1Z5wRBJbZJxWu8zSouO3QhGPxbkl2RbTbr8Hau6uTPOU4V8cHIzQROO4u4
-         e1uumAg3+UPVYQokbAn4mq+hLtDISVN5rsD4rliqQEhuEYk+LApER84PvqHWe28JbvY4
-         k935EnF2fy07yr52X1RFCOQ4/4zFYtm89MX12a6tM5YzJWc5Hy5RNupclIcs5Q5VHURi
-         87/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782305303; x=1782910103;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
-        b=U580WvxWsGhuwQDQ3fpp6S08WOHJNiK6GPnUUDTQo378cFkWLvXsMtTTfaDYKWkqFN
-         1+l/ahsqRhm7pJjrhsILjPjh2H6Qj0oRDCr+5Rtj0E3HgHVXlKL0TVjrUyfKU0N0UZnE
-         Q3ARmjBIgvTRCXo7ERiia6kJVfwn5LFNYmtRiMyMrmlZL3hnOD+7GuctWScHL8L0OWMn
-         sqze3V1TofXc8NVmG1HjpbE+8W7nCzl6fKyRz6xkC7kqlSm1CfovQWePCJS3gM40wumu
-         NjJBzd5iWmJB8Z08KvmP3fMV9vlKl+F8IhPhGtLH0bK9e5XYSl/2Y1RYerR9rkCvkWus
-         j/Vg==
-X-Forwarded-Encrypted: i=1; AHgh+RotKtjtnW5RCRwHxjA9EPFTFuYuIce8W9d7t0YmJJYItDopdfFi4rBfJfXjxt/HTB3lbCWQ5L5U4Q93@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoP5UM7Bnu85H7nk9hXXJvZvUVTAvaHRC8jt0FglL+iq70jpRi
-	sRLdO96eGtyIM8sbDVPvnJo7d9+LTsQLYhHKWLEViOWgxpjbfBDD0mUZvY3Pmo2GQSO8C2GDsh5
-	x81otpuJzTfLYfdv3sNlJhuo3dh0LHsjcNxLqeiMyXQ==
-X-Gm-Gg: AfdE7cl2sTMFqXxYBrK31QnyTEAdNMh3hO6vwZzFoYkaJ7nRgWftHxEVM+nvDI3j3LB
-	z0drHWem8zDYSZ2iJLy355SBdBqJcNNv8EB+dpY66wiqek1ZJgqhVMxC1qa9kzfP97TNnZas5IF
-	xBDrSQBrF0AG1lpyJGe4nS+vV9sbVWC1FSzqWZaiNfN+xfs/1+8dDfEh0bJRfFXv11kYQHjdFiv
-	QlPad3SaMBdzmxtf8C9AixHtAPPF/FCMu1OEJWktayO1divg0RF6SEQdifrTvYJdwlYXhA2/jyS
-	tWjP3bUfbw4yyMus1phRcLYhq4EOrS9etJgexnvoT/Hig8n1gGJ9Xbh7pA==
-X-Received: by 2002:a05:6000:2488:b0:464:c5be:37fe with SMTP id
- ffacd0b85a97d-46d04d45829mr417638f8f.15.1782305303554; Wed, 24 Jun 2026
- 05:48:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqZe9GhH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22B211F000E9;
+	Wed, 24 Jun 2026 12:53:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782305597;
+	bh=HJKPKyjooasBtuw7pvPpV0lDfiXrWt987kFsIu3bzBw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FqZe9GhHzOTTWP54ShlMDrtjxg67FtUO8+DOBweU09ATTsnzg65sr+eaybs1z8tZr
+	 VGCHRpOaqd4kdSw3pNVpRUD2M8HyW/A0FQCcNYdp8C2avSfPntdSGU2igZ2Bj43QZR
+	 DzbTwUm4IkI7jJNbzNuPwerbyVEJ4NS9j3k70OjqVq3dD8Bu7TAqKA/5hNztaLUrkh
+	 fUrZ3at5KyDSTFAEhhSLHkS+mzmtNp1jxvLO5HehPR22q9bp8fWLtMzF3TFc24oREA
+	 kvpaHvQxg/ZRPXIVGOXUi+VXKn/J0IuKxJ6V3Lzu6RiPctu4sp6MftN5mTT0ERUOSq
+	 706522OnAGF8A==
+Date: Wed, 24 Jun 2026 07:53:16 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Guillaume La Roque <glaroque@baylibre.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ronald Claveau <linux-kernel-dev@aliel.fr>,
+	linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: amlogic: Fix missing header in
+ the example
+Message-ID: <20260624125316.GA4032772-robh@kernel.org>
+References: <20260622100231.438435-3-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1782224059.git.gregoire.layet@9elements.com>
- <80d983887dfdfc7e70a6db95f8cb95b7312f3044.1782224059.git.gregoire.layet@9elements.com>
- <20260624-realistic-spiked-parrot-db1d9c@quoll>
-In-Reply-To: <20260624-realistic-spiked-parrot-db1d9c@quoll>
-From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Date: Wed, 24 Jun 2026 14:48:11 +0200
-X-Gm-Features: AVVi8CcfDxQiwuKN4se3SFXuUd_U7WotHtCQRVpspiQz6vxahSkFlSb2JfFBv40
-Message-ID: <CAFi2wKaL8qiv_H2GQ05CaeBDQwGvHdjb+dqmjQrHHzWNK6qrtQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/7] dt-bindings: serial: 8250: aspeed: add compatible
- string for ast2600
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
-	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch, 
-	jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
-	anirudhsriniv@gmail.com, linux-serial@vger.kernel.org, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260622100231.438435-3-krzysztof.kozlowski@oss.qualcomm.com>
 
-Hi Krzysztof,
+On Mon, Jun 22, 2026 at 12:02:32PM +0200, Krzysztof Kozlowski wrote:
+> Usage of defines from headers requires including relevant header,
+> otherwise dt_binding_check fails:
+> 
+>   Lexical error: Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts:59.27-34 Unexpected 'GIC_SPI'
+>   Lexical error: Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts:59.38-57 Unexpected 'IRQ_TYPE_LEVEL_HIGH'
+>   Lexical error: Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts:60.37-45 Unexpected 'CLKID_TS'
+> 
+> Fixes: b1c8ccdbd4e9 ("dt-bindings: thermal: amlogic: Add support for T7")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Fix for current RC - commit already pulled in merge window.
+> 
+> This should be applied fast to fix current RC, thus maybe Rob?
 
-> Do not attach (thread) your patchsets to some other threads (unrelated
-> or older versions). This buries them deep in the mailbox and might
-> interfere with applying entire sets. See also:
-> https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/s=
-ubmitting-patches.rst#L830
+Both applied.
 
-Oh okay sorry I missed this information. Thank's for letting me know !
-
-> This should be oneOf (by convention and actually more accurate meaning).
-
-Acknowledged
-
-> More important, where is documenting of the actual compatible?
-
-Yes, you are right, I missed it. Will be added in v4.
-
-Best regards,
-Gr=C3=A9goire
+Rob
