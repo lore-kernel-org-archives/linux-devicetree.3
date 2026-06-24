@@ -1,253 +1,371 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011018.outbound.protection.outlook.com [52.101.57.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D473C8719;
-	Wed, 24 Jun 2026 14:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782311855; cv=none; b=AIh5YePsTnGrx3oUHMDncvCUiPzZot1RJ402HOcG5G37yM+7w0wlkI9ZkQT/lT3Mq3Azh0tIX3aItIgpq8GR64tT8/8H79rCY3p7bvi97qWeLCZ1ZHqxm5FKhbSrPgWZColRYYdvYUQNgOot7LzaNaZgHYSCahzbbtcN2V5sYLk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782311855; c=relaxed/simple;
-	bh=X5+06UqZzkHrP6XrYqi7IbD4LXgp8YyzW7DWroQ38NU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EMpJfsoETnZi6wprqtqt/FooIWI52jlsgb5EQ2GqLoFwzywV007ABtrZCOSJvyNKCXDEaiOtPgD8y3Ug5FF7fZvunzpXFgPtbaUnvMjft6BLkQp2tS3FQ7cUaH0VawQ2OIGPh6PVBtD7IoDgQM2pXhlpmzkfXso+95Xp7eeEWJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=D4Ovcwk8; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C0B30216D;
+	Wed, 24 Jun 2026 14:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782311968; cv=fail; b=OzSAxE1IqeW69tjEVB6qT1X4VduMqbTpr+kp+18RHnJIzdmnwBgRX8qsswGNmK5rYFjFeQpTHqXwRhjb6UTks+pAvrzn5Yux8nmvJcJwRjRxHaaAKZOsrNbiXN2V6SFfDC1B7QMhtssV8Xzm7LV5cU9lQAopKS6YnHZRrbVo3IY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782311968; c=relaxed/simple;
+	bh=UKf0A3oRjC6z+K1Tdl5NpnbcHtpEP8PyLRZ/ZQINvvs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lkvDDKupRIXswFCtvZ5Y5GfrLCjS6JvnAsuoQrNrX99S55iSNvjYdyGmz8/PWN1ei7sRuBjOUv5ckyzxlBiT8m+7CVC52mq1snrtTIpbrxvYE86DGIbqDq6Yla5CvNuxKZ8b804Cgx6IuA0zE2YSWKZrCkRD8LjkIpizZMdIPBE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=UuZEAPUa; arc=fail smtp.client-ip=52.101.57.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="D4Ovcwk8"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 8C6D05341340;
-	Wed, 24 Jun 2026 16:37:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1782311845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=m4ErC33RfBLiCY2kdeSnjPaFzr/CFyTNYdB6Jj+bpow=;
-	b=D4Ovcwk8Jyqkpx6KcpNfckOx/0BHHRfU/e0Lhao3aZczIkjICR90jBr8AG3hxbhM7Z2fy5
-	ML7H8XGFq1DDRKE0iz5Kyx4f945Sf2zfsyJ3BFjjqWwDSxvwqaNUr1nYACXh2NaK4y7g9D
-	2d9+Oz62YcaJE7M3hYprMcOlCHxBRrA=
-Message-ID: <52b7dd3a-3f6f-474c-8386-4fc2776b185b@ixit.cz>
-Date: Wed, 24 Jun 2026 16:37:25 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="UuZEAPUa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yd13gfipsHH5f6HEWoN0WPo2xg6c/rge04gSZuY1bf/NtYUxaw2vFpTC/JzUxgv4gC0tRIXEHmkkbE6Q6VCFvsume2gTX4rwJaILEb14fpv1+dmcc9XxGzJERUXpWyImP4lCYoq+LIuO3IBkG2Bz5gONYsIgOH+SoQpCiQILWpNaUPDuk1xIoVu00j6f9kuwf9naIUxOpNQWh2zIwLrvH/3/kGZKQNxGcb1NYP4opa8YiFrHRvjtszSw8Xdi3lN+PnezVNC+DJMX+Do/M2hSKLRG0A86gjAcx1I7OSPTld+OJ8hiNsbbXu8UxaF+Cgztg1vUnsdzkK6cat/eK3tH/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eUJet3m/3+4qJRbJ2sY9B5vqkyWjBXzvGlZ7UF5PU7E=;
+ b=RE6eeoJA8uxaJshcrXQFftm4LsW/RtNGIo1SAsBWqAe/K1iZmoON8CRr/os7sSegITagJ2/o/suebsqLOV5acvcxFIYz0T8gz17mU7n5fJhmlKANHYgwjm1Sca8hROLLcD3GxJ4d3jaovjTXtzq93xArhonH9rwzsakhW7Uau4yedilb8q9qrtUUdPUvyHEPhPEVUXioMC7VnXnUNEh4qmpjL4QR9kiGj/KY7r8FNxyH/xswCrF6auRdI3Vtexs7rj+QisG1Uvo8FaAVpFNdKkiLpX8+vYYgbdeuCf+eSZlJ2nM5CkxpQLNyPjb1P2zQX8qJIBoJhH0AwO5JCtWzog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eUJet3m/3+4qJRbJ2sY9B5vqkyWjBXzvGlZ7UF5PU7E=;
+ b=UuZEAPUa6isanDJprPcvMhONAOxprPMncJx8+lo5qJ5bdMeY6CHS+Uv0f8FzAPHrtYizMNXOJIkxO5KizDg3tGIduOqBETml/9bC1v0+LepVH1y1HRPABNF5h9PoMe/PTKq7Zsffeo7F+X2xAdVoCWwMCW3HiuQwschVjgC15Qc=
+Received: from DS7PR03CA0341.namprd03.prod.outlook.com (2603:10b6:8:55::23) by
+ DS7PR12MB5885.namprd12.prod.outlook.com (2603:10b6:8:78::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.13; Wed, 24 Jun 2026 14:39:20 +0000
+Received: from SN1PEPF0002BA4B.namprd03.prod.outlook.com
+ (2603:10b6:8:55:cafe::1f) by DS7PR03CA0341.outlook.office365.com
+ (2603:10b6:8:55::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.14 via Frontend Transport; Wed,
+ 24 Jun 2026 14:39:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4B.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 14:39:20 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
+ 2026 09:38:22 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
+ 2026 09:38:00 -0500
+Received: from xirsalihe40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 24 Jun 2026 09:37:58 -0500
+From: Salih Erim <salih.erim@amd.com>
+To: <jic23@kernel.org>, <andy@kernel.org>
+CC: <dlechner@baylibre.com>, <nuno.sa@analog.com>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <conall.ogriofa@amd.com>,
+	<michal.simek@amd.com>, <sai.krishna.potthuri@amd.com>, <linux@roeck-us.net>,
+	<erimsalih@gmail.com>, <git@amd.com>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Salih Erim
+	<salih.erim@amd.com>, Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: [PATCH v12 3/5] iio: adc: versal-sysmon: add I2C driver
+Date: Wed, 24 Jun 2026 15:37:20 +0100
+Message-ID: <20260624143722.4047649-4-salih.erim@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260624143722.4047649-1-salih.erim@amd.com>
+References: <20260624143722.4047649-1-salih.erim@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
- compatible to include model
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Vincent Huang <vincent.huang@tw.synaptics.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
- <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
- <ahdoBl3qCTyvlYJf@google.com> <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
- <742c7a13-9465-40e8-8990-e679712e9784@ixit.cz> <ajtaUb4YmyZTDLmQ@google.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ajtaUb4YmyZTDLmQ@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4B:EE_|DS7PR12MB5885:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4ac0dce-5b5f-40e4-ae72-08ded1fe6094
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|7416014|1800799024|82310400026|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	J1eN5Bs/O4mCWlV88ar63K7u0lBy1+OdDddRSvpXro3YkFBId6pXBQXb3CgTjuaXyUmPnnQc3YV9X4ygCw3bdXQVwrEECYbQOxgiG8QWuoUQXllqFzTZlXcjfbLN8/5qAimYvKJSdpdzGNDlyZvjqoh3Ys2wpJ6LbQBrcuQTidQ3CqL/M+2wwI+8PjjRealDqpU4Bf6AEFS5VyZpMV3yfRj9Fk8XpR/KizYuEgK9/qw1qJDHS5sOeRnBcY/gFrarORxIL4a9M9z4he55JMpDdS42z8IU6vWY/ugpB/4neTEavUpMGTQG5hfdC//0+fX2QU499wjxeRO+uD6/benYxQ2Imn172b2lT0wWODCfpAtAr4S/qgMx6XsqOGWnoNhKP5p9aOfNOnDoq0Q0eN68+NTHI89qMT+tG1ZtQixMfR+HwEs7eRxsIik7NFuo9MoYx6pMJ9KYT39Fr4NfUEjtOfhYDUwIShONGPhTYP2e6w+r+328vV35nzcxnHh691UNKuFgMOcihl7jUcvYu/M9/3AdMpZxnAmHNkXKXSACh63P8l364shDv0spLaPA4/EErFLSLhXR3BccrFRIyYgZ5OCMU5qijH/4hw182SIIu8tTTXH4Zt2RPmpTNIhgRm0xn1lYM6jmuXCmIFmuEUbEK4qoQBXz9E+/65vsLwayoVItitOMFKbR0wEPCSUMxd4Z2bXFJQ31IHJDdMzxNlS10Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(1800799024)(82310400026)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gvpctEuEs0dVcq1dzTXJiO1l+ASTSBajEKAmxFRxvAnXlXdMHxujmp6LaN84x/VoPPoBdDopENXyU1otqInoZRQwR4T5FS/4nexu6gMdNJ29yXPv3mGs69cvj8qCJ5qZg6SKtzzAYmsCIJGxfGST7j8CNjfXlcx3Hjzx9PycVu5PPsVv24rzIOu3h7GnxdS0/gw/RJ3c/koEVZuG2+2U7Drb3dRsYDZHWcA2tu6+aDZcCTyTuQJ0S97A/o+1rpzlQTaX5bECslp42bK9JS5/2yuDGx9+bzN4eLYZMvLnDixHGTzqCg7Scd8k6Go/ugVst4k8T7D5KDOyzTQM792WKf4JPkrYvP+Uoe2PbafOGQss/g97LmVxROTTPKWtegq0XKkhFuOJp/jLXsN8kXi47IvdlEBjJq+rEn8cxS0UHIfi2OKWnc18iopAfvrt+L07
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 14:39:20.5090
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4ac0dce-5b5f-40e4-ae72-08ded1fe6094
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4B.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5885
 
-On 24/06/2026 06:28, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Sun, Jun 21, 2026 at 07:11:45PM +0200, David Heidelberg wrote:
->> On 28/05/2026 00:13, David Heidelberg wrote:
->>> On 27/05/2026 23:56, Dmitry Torokhov wrote:
->>>> Hi David,
->>>>
->>>> On Sat, May 23, 2026 at 11:45:35AM +0200, David Heidelberg via B4 Relay wrote:
->>>>> From: David Heidelberg <david@ixit.cz>
->>>>>
->>>>> We know the driver is reporting s3706b, introduce the compatible so we
->>>>> can more easily introduce quirks for weird touchscreen replacements in
->>>>> followup series.
->>>>>
->>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>>> ---
->>>>>    arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
->>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>> b/arch/ arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>> index 6b7378cf4d493..148164d456a5a 100644
->>>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>> @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
->>>>>        };
->>>>>    };
->>>>>    &i2c12 {
->>>>>        status = "okay";
->>>>>        clock-frequency = <400000>;
->>>>>        synaptics-rmi4-i2c@20 {
->>>>> -        compatible = "syna,rmi4-i2c";
->>>>> +        compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
->>>>
->>>> So I believe we established that this device (s3706b) does not in fact
->>>> implement rmi4 protocol properly. Why do we have "syna,rmi4-i2c" as a
->>>> fallback? Shouldn't it be just "syna,rmi4-s3706b"?
->>>
->>> The vendor supplies s3706b which does implement the RMI4 properly.
->>>
->>> The 3rd party replacement impersonating original parts may not implement
->>> it properly, but I don't address this issue in this initial submission.
->>>
->>> With this compatible we know which original part is used by the vendor
->>> and installed in the phones, so later we can deduct specific sequences
->>> for the replacement aftermarket parts to keep phone touchscreen working
->>> same as they do on Android without affecting other devices.
->>
->> Hello Dmitry.
->>
->> May I ask what is currently preventing this series from moving forward?
->>
->> The first version was posted in 2023 [1]. I picked it up again in 2025 [2]
->> and am now on the 9th iteration (this patchset). At this point, the series
->> has been under discussion for well over a year, with relatively little
->> feedback and increasingly long gaps between review rounds.
->>
->> The current approach is based on the guidance I have received so far,
->> including suggestions from the device-tree maintainers. When concerns were
->> raised, I tried to address them and rework the series accordingly.
->>
->> What I am struggling with is understanding what specific issue still needs
->> to be resolved before these patches can be accepted. If there are remaining
->> requirements, objections to the approach, or technical concerns that I have
->> not addressed, I would appreciate having them stated explicitly so I can
->> work on them.
->>
->> I also split out the straightforward, self-contained changes in the hope
->> that at least those could progress independently while I continued working
->> on any follow-up requirements. However, even those patches do not appear to
->> be moving forward.
->>
->> Could you please clarify what outcome you would like to see from this
->> series, and what concrete changes would be required to get it accepted?
-> 
-> I am still confused about how you want to differentiate between the full
-> RMI4 support vs the OnePlus flavor. The "syna,rmi4-s3706b", as you
-> mentioned, implements RMI4 protocol properly, so we do not need to
-> actually have it documented neither in binding nor in DTS.
+Add an I2C transport driver for the Versal SysMon block. The SysMon
+provides an I2C slave interface that allows an external master to
+read voltage and temperature measurements through the same register
+map used by the MMIO path.
 
---- part 1 ---
+The I2C command frame is an 8-byte structure containing a 4-byte data
+payload, a 2-byte register offset, and a 1-byte instruction field.
+Read operations send the frame with a read instruction, then receive
+a 4-byte response containing the register value.
 
-This series addresses identification within device-tree. It's normal recommended 
-practice.
+Events are not supported on the I2C path because there is no
+interrupt line and the I2C regmap backend cannot be called from
+atomic context.
 
-If we know, the device ships specific, but **compliant** variant, we just put it 
-as compatible = "more-specific", "less-specific"; in this case 
-"syna,rmi4-s3706b", "syna,rmi4-i2c"
+Co-developed-by: Conall O'Griofa <conall.ogriofa@amd.com>
+Signed-off-by: Conall O'Griofa <conall.ogriofa@amd.com>
+Signed-off-by: Salih Erim <salih.erim@amd.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+---
+Changes in v12:
+  - No code changes
 
-This approach is used everywhere. This has nothing to do with after-market parts.
+Changes in v11:
+  - No code changes
 
---- part 2 (irrelevant for this series) ---
+Changes in v10:
+  - No code changes
 
-> 
-> The issue you have with after-market parts that are not compliant and we
-> need to figure out how to deal with them. Inside the driver I
+Changes in v9:
+  - Add Reviewed-by tag from Andy Shevchenko
+  - Add MODULE_IMPORT_NS("VERSAL_SYSMON") (Andy, from P2 namespace)
 
-As was suggested by device-tree folks, this is the first step, there isn't 
-better one available. If there is, please suggest one, and I'll apply it.
+Changes in v8:
+  - Add volatile register comment for regmap cache (Andy)
+  - Update devm_versal_sysmon_core_probe call site (Andy, from P2 rename)
 
-> essentially need a"incomplete protocol" flag that we can use to
-> implement additional checks or skip known to be not implemented
-> functions/queries. In DT we could introduce something like
-> "oneplus,rmi4-i2c" that is decidedly not compatible with "syna,rmi4-i2c"
-> and neither one should be a fallback for the other.
-> 
-> This of course needs buy-in from DT maintainers.
+Changes in v7:
+  - No code changes
 
-As you can see, this still holds Acked-by and Reviewed-by from the relevant 
-people - Krzysztof and Konrad.
+Changes in v6:
+  - Add types.h include (IWYU) (Andy)
+  - Add local struct device *dev, join devm_regmap_init on
+    one line (Andy)
 
-> 
-> Does this make sense?
+Changes in v5:
+  - Add err.h, mod_devicetable.h includes (IWYU) (Andy)
 
-For the scope we're discussing it doesn't seems so.
+Changes in v4:
+  - Replace enum with defines for I2C frame offsets (Jonathan)
+  - Use get_unaligned_le32() for read data reassembly (Jonathan)
+  - Use put_unaligned_le32/le16() for write data and register offset
+    packing (Jonathan)
+  - Named initializer in i2c_device_id (Jonathan)
+  - Drop bitfield.h, add unaligned.h (FIELD_GET/FIELD_PREP replaced
+    by unaligned accessors)
 
-This discussion should be associated with the last revision of the full series I 
-sent 3 months ago. We're in very unflattering state, where:
+Changes in v3:
+  - IWYU: fix includes (Andy)
+  - Enum: assign all values explicitly for HW-mapped fields (Andy)
+  - Remove sysmon_i2c wrapper struct, pass i2c_client directly
+    (Andy)
+  - Use sizeof() for I2C buffer lengths instead of defines (Andy)
+  - Use = { } instead of = { 0 } for initializers (Andy)
+  - Use single compatible xlnx,versal-sysmon (Krzysztof)
+  - Adapt to core_probe interface change: irq moved to core,
+    remove irq parameter from bus driver (Jonathan)
 
-   2018 - these aftermarket touchscreen worked on Android well enough for people 
-to have working touch (let's say with slightly worse experience then the original).
+Changes in v2:
+  - New patch (I2C was deferred to Series B in v1)
+  - Uses regmap API with custom I2C read/write callbacks
+  - Shares core module with MMIO driver via sysmon_core_probe()
+  - No event support (I2C has no interrupt line)
+  - Separate VERSAL_SYSMON_I2C Kconfig symbol
+  - Reverse Christmas Tree variable ordering in read/write functions
+ drivers/iio/adc/Kconfig             |  13 +++
+ drivers/iio/adc/Makefile            |   1 +
+ drivers/iio/adc/versal-sysmon-i2c.c | 134 ++++++++++++++++++++++++++++
+ 3 files changed, 148 insertions(+)
+ create mode 100644 drivers/iio/adc/versal-sysmon-i2c.c
 
-   2026 in the mainline, we cannot even more forward and report to user-space 
-there is aftermarket non-compliant piece of hardware installed.
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index c7f19057484..8f9fc9de74a 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -1963,6 +1963,19 @@ config VERSAL_SYSMON
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called versal-sysmon.
+ 
++config VERSAL_SYSMON_I2C
++	tristate "AMD Versal SysMon I2C driver"
++	depends on I2C
++	select VERSAL_SYSMON_CORE
++	help
++	  Say yes here to have support for the AMD/Xilinx Versal System
++	  Monitor (SysMon) via I2C interface. This driver enables voltage
++	  and temperature monitoring when the Versal chip has SysMon
++	  configured with I2C access.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called versal-sysmon-i2c.
++
+ config VF610_ADC
+ 	tristate "Freescale vf610 ADC driver"
+ 	depends on HAS_IOMEM
+diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+index d7696b1b157..5abb611fe46 100644
+--- a/drivers/iio/adc/Makefile
++++ b/drivers/iio/adc/Makefile
+@@ -169,6 +169,7 @@ obj-$(CONFIG_TWL4030_MADC) += twl4030-madc.o
+ obj-$(CONFIG_TWL6030_GPADC) += twl6030-gpadc.o
+ obj-$(CONFIG_VERSAL_SYSMON_CORE) += versal-sysmon-core.o
+ obj-$(CONFIG_VERSAL_SYSMON) += versal-sysmon.o
++obj-$(CONFIG_VERSAL_SYSMON_I2C) += versal-sysmon-i2c.o
+ obj-$(CONFIG_VF610_ADC) += vf610_adc.o
+ obj-$(CONFIG_VIPERBOARD_ADC) += viperboard_adc.o
+ obj-$(CONFIG_XILINX_AMS) += xilinx-ams.o
+diff --git a/drivers/iio/adc/versal-sysmon-i2c.c b/drivers/iio/adc/versal-sysmon-i2c.c
+new file mode 100644
+index 00000000000..e9a7629159a
+--- /dev/null
++++ b/drivers/iio/adc/versal-sysmon-i2c.c
+@@ -0,0 +1,134 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * AMD Versal SysMon I2C driver
++ *
++ * Copyright (C) 2023 - 2026, Advanced Micro Devices, Inc.
++ */
++
++#include <linux/bits.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++
++#include "versal-sysmon.h"
++
++#define SYSMON_I2C_INSTR_READ	BIT(2)
++#define SYSMON_I2C_INSTR_WRITE	BIT(3)
++
++/*
++ * I2C command frame layout (8 bytes):
++ *   [0..3] data payload (little-endian u32)
++ *   [4..5] register offset >> 2 (little-endian u16)
++ *   [6]    instruction (read/write)
++ *   [7]    reserved
++ */
++#define SYSMON_I2C_DATA_OFS	0
++#define SYSMON_I2C_REG_OFS	4
++#define SYSMON_I2C_INSTR_OFS	6
++
++static int sysmon_i2c_reg_read(void *context, unsigned int reg,
++			       unsigned int *val)
++{
++	struct i2c_client *client = context;
++	u8 write_buf[8] = { };
++	u8 read_buf[4];
++	int ret;
++
++	put_unaligned_le16(reg >> 2, &write_buf[SYSMON_I2C_REG_OFS]);
++	write_buf[SYSMON_I2C_INSTR_OFS] = SYSMON_I2C_INSTR_READ;
++
++	ret = i2c_master_send(client, write_buf, sizeof(write_buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(write_buf))
++		return -EIO;
++
++	ret = i2c_master_recv(client, read_buf, sizeof(read_buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(read_buf))
++		return -EIO;
++
++	*val = get_unaligned_le32(read_buf);
++
++	return 0;
++}
++
++static int sysmon_i2c_reg_write(void *context, unsigned int reg,
++				unsigned int val)
++{
++	struct i2c_client *client = context;
++	u8 write_buf[8] = { };
++	int ret;
++
++	put_unaligned_le32(val, &write_buf[SYSMON_I2C_DATA_OFS]);
++	put_unaligned_le16(reg >> 2, &write_buf[SYSMON_I2C_REG_OFS]);
++	write_buf[SYSMON_I2C_INSTR_OFS] = SYSMON_I2C_INSTR_WRITE;
++
++	ret = i2c_master_send(client, write_buf, sizeof(write_buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(write_buf))
++		return -EIO;
++
++	return 0;
++}
++
++/*
++ * Almost all registers are volatile (live ADC readings, interrupt
++ * status). The rest are not accessed often enough to benefit from
++ * caching.
++ */
++static const struct regmap_config sysmon_i2c_regmap_config = {
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = SYSMON_REG_STRIDE,
++	.max_register = SYSMON_MAX_REG,
++	.reg_read = sysmon_i2c_reg_read,
++	.reg_write = sysmon_i2c_reg_write,
++};
++
++static int sysmon_i2c_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct regmap *regmap;
++
++	regmap = devm_regmap_init(dev, NULL, client, &sysmon_i2c_regmap_config);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	/* I2C has no IRQ connection; events are not supported */
++	return devm_versal_sysmon_core_probe(dev, regmap);
++}
++
++static const struct of_device_id sysmon_i2c_of_match_table[] = {
++	{ .compatible = "xlnx,versal-sysmon" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, sysmon_i2c_of_match_table);
++
++static const struct i2c_device_id sysmon_i2c_id_table[] = {
++	{ .name = "versal-sysmon" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, sysmon_i2c_id_table);
++
++static struct i2c_driver sysmon_i2c_driver = {
++	.probe = sysmon_i2c_probe,
++	.driver = {
++		.name = "versal-sysmon-i2c",
++		.of_match_table = sysmon_i2c_of_match_table,
++	},
++	.id_table = sysmon_i2c_id_table,
++};
++module_i2c_driver(sysmon_i2c_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("AMD Versal SysMon I2C Driver");
++MODULE_IMPORT_NS("VERSAL_SYSMON");
++MODULE_AUTHOR("Conall O'Griofa <conall.ogriofa@amd.com>");
++MODULE_AUTHOR("Salih Erim <salih.erim@amd.com>");
+-- 
+2.48.1
 
-Actionable steps I suggest after this series lands:
-
-1. don't do any changes, but since we know what 3rd party touchscreen do 
-incorrectly deviating from the standard, REPORT it to the userspace, so USER 
-know, their device (phone/tablet) doesn't have original part.
-
-2. then figure out, IF we can reasonably well workaround it and HOW to do it
-
-These two steps present some progress which could be discussed and could lead us 
-somewhere, what do you think?
-
-David
-
-> 
-> Thanks.
-> 
