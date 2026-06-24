@@ -1,80 +1,80 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE68E272801
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 12:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBE42D0620
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 12:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782305298; cv=pass; b=cvQWIBCb6deJuHg5O8eXgE/SwshpgYHlGojBL3/GVlH34GnCXBq2BmOnVw+jvAQM4oQchKTFK8VJWbXhoaovgjBBTH/gWkhhMPF/KmJ/uSsOwUZ2QHXDGdd51csK5mNknY8rz70+OGZJlzqF7w3xlolJ403IiG0e9CWtu7v3imA=
+	t=1782305306; cv=pass; b=nsgQ3ax83XZrajgOwF2llZjrqfhvFF9Vb4EkvHYaNLQL8ZIbyEm7M7JctfNr7/vd5QCUb7t510EZVQ2+ztEk+sLU/18ifXjqPVSZnRaw2I27j5JY4Vmw/cp6WTUL6Za7fyiG1HjEQNV0BM88EY3Zkw0KYeyjTHxFULNRg/9YSCo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782305298; c=relaxed/simple;
-	bh=Eq5j+mgRZceDcTZasDH7TbWj5H7RHsli0Kha0kPj5L8=;
+	s=arc-20240116; t=1782305306; c=relaxed/simple;
+	bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jQSIseGICzoBj1YJBrJI1WRESw5jx92rJKKC2eXLF2WzrAcRowA7A3hPX5XJAeNoWpNjOd56agZRpZKi03E5dwMh19xyLUOOmN5cwDhYdKR6mQ7wjsUco5nhVbWOIrGJqgbZtkpI+CuncBDGh/7VtI9U/AJpSpxkWfk58kNmnbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=fqnf9DNj; arc=pass smtp.client-ip=209.85.128.54
+	 To:Cc:Content-Type; b=skWKcbdnwhXkvwPAbzO8mUN2522iHYcJEmBf6lTjwiUfCFDKhzic+IGFQhJSZ8EmKDTtCbdqfD1sT8szlHbRtFTgx3WoBCSK474kjdJXURHD4i+W8RnUj8P0bFhvBFYKh2YR5DuU6Cm3wqM4Ui6j4GZheDzcmEeoiIejFMPZI9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=Xn7nVI8K; arc=pass smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="fqnf9DNj"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so7442715e9.0
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 05:48:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782305294; cv=none;
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="Xn7nVI8K"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4629051c946so703630f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 05:48:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782305303; cv=none;
         d=google.com; s=arc-20240605;
-        b=fRzVESrlWwA0fps+Lrjx0abvYvlDk6ksrLOC9RAVoLx14TyyAbdueLxQklU4vO20Aa
-         W2BTdv1L/5TSGTH/Zem0Ro6v22MjiT3SCd8IndHfseqaoIJdvXjIvUx+mfGUzPg03zL0
-         3diJVHBFvT8aTC7fidNeiPal6tz4LCMZe8wRKbPXe95u8WSUjRt5nby9rjalpdNW5QVk
-         bDqxnX8gsorcsx/Qfglzer84ivndBFa7WKso1X43kokcTIinuqQrdbXQhit/8I692qnY
-         SERGbKku2+bubYLKuKMo6GKmqWzYNU7Q3xhNXDa8njJ3/WHvyIVPYUxX2GH2zKi4jsAs
-         JZEA==
+        b=JlALe02JhiAXu8EWQfrIIuYYzA8v8/vJ6l1KCQJiFV2R5YWvEgaYTyXZEU91s3dv44
+         zk68Pge1oEoj/22dMPBfwLxs0TXmJBlBTwppEozErd7mtqKd7M9ob66m85aQ4L/smGC5
+         z8KECzSdEzH3c3K4hBvbeUHAG0nnaodYLkuQ5u5zHBs3rL6Yo4dOcqcIerzEz81Q9aGE
+         kkydHX6YBnYL5yXDb3CQjJCHjh9N/+VIC1JTYUzGGiQCTzJi4pFezcrrZHhv92rpFNgR
+         FvcuxGsClZO7JaXiRyzw5OGuUe9hht+RAkIlZTDMLtsIE9mNduJdycpjrLqLZ+f4rAWw
+         9GZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=3MWM4Rp4reeuC51yhNdvSwjoOhRN6bkNqY5FS9+XPUo=;
-        fh=BDM+GzkB2qdRQsh01yBOMDtu/GbiPw+N3mhU3rpW+BE=;
-        b=NLFxIRBXdPwci0fzn5qlfJbga00BjmcNrDOWieIokYq0NTuFn+Y3hPvTg3Yn6uGQDS
-         6g2ta66eVQtPtIrPp7IVLBoDQcpqZCYkOZlgbhvIbp4fFUPeXbnAvhgbneOmBeAmdK5L
-         svSCeQ45V7Pah+0IOOBtq/a4ElKONqL45kFQPDYoKSZpZBS6EVqgPPT4o7w84N4A1FVN
-         8JGWkFaKCj5Pung1QJ32+4TihiUpfitPnDSuACAbLDilOh1n8oA8TCW6ovEzXWUkZcYS
-         dKXO8shQqTaEQwLm1dHk6/R3Kwx3RXuAHylCmd2O0vFQCnVq4x2/O+YiXaHa9KnP3OpE
-         T/Mw==;
+        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
+        fh=SbDWy4h/wdQKij6nSrg+ALz5qpw0NkWfzgZKZdyPo9c=;
+        b=AZpbIucflRThVq+EOuvfWbp1nIblKHKyBPDGG0zEE9v8n7kUJiBVck4q/wY+ZFha9L
+         J8UtcJVk28hGt87PeyvN5OD7smRRtQjzTatbsbadkSvJG/L7Ty6+/QRn2BMrrpjDjpb4
+         9zdagMDTgnAYtldWU9NmOYe7iJ5Q6U21BnpakqHbSnvJLESFE49brN8lTN0sbLaxb4/C
+         Fngg5xyWXYfZmBRnEi1YTighYcYy/TQyvcbXgnjimdeNDhhDnFbTddaxyD3YW8wyngny
+         cmdk9GeKQn4l+o9CW0/pI4sQVNbOgov91xMv+0waqWDvUnzOIwLzEEIiAWtQ7HwQNJCh
+         evag==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1782305294; x=1782910094; darn=vger.kernel.org;
+        d=9elements.com; s=google; t=1782305303; x=1782910103; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3MWM4Rp4reeuC51yhNdvSwjoOhRN6bkNqY5FS9+XPUo=;
-        b=fqnf9DNjSIG+PyANSfaJ7VvDHz04fWQ2iaVTl6HHaguDnrGx1wftZnISlg1J5SjqBr
-         i2eOaKvDnDBrxvlBaXejSDV14WfltagY+zqG5khJDKD7HUtwgM/b75/EzlF0kyva1KVx
-         +CaNb7dmLRNCzxDhYQxljaFLFZ7QK2sY1fQHDQ3A6YD51F8U1anI5fYLG1fxbqBtGYIf
-         rr1er2iUvBvgl9heXvgTKlHxZs9pGN7bET199aOQoG8Pogspka+f+qT2k+uOING32vM+
-         K3+UMd0rsrjEaggQOWnaci3ePlQMLXfdN+wMsas1iB+OiwmKfxM3YuwTniWbJFT9aB66
-         LBlQ==
+        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
+        b=Xn7nVI8K3anFLQa+LVH+GlTIy/G2oQWSm1DwdLGwT+wyjUu/rYlUNRI4n1PeiGA0kW
+         aEIMlXnszyC9MMEujuEwkZufTTXYn38xjEyGwpLKHpZDirzGKD7WfSv3I4+AoS5PDo/5
+         495sEMaQ+d1Z5wRBJbZJxWu8zSouO3QhGPxbkl2RbTbr8Hau6uTPOU4V8cHIzQROO4u4
+         e1uumAg3+UPVYQokbAn4mq+hLtDISVN5rsD4rliqQEhuEYk+LApER84PvqHWe28JbvY4
+         k935EnF2fy07yr52X1RFCOQ4/4zFYtm89MX12a6tM5YzJWc5Hy5RNupclIcs5Q5VHURi
+         87/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782305294; x=1782910094;
+        d=1e100.net; s=20251104; t=1782305303; x=1782910103;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=3MWM4Rp4reeuC51yhNdvSwjoOhRN6bkNqY5FS9+XPUo=;
-        b=V3T9m+DKy/BOFQCCPUiJ8ZoFb7h0BYZ2JqT5sMMbf/Mn+Cc8GsC4vNd1FIpOL1D98C
-         iCNTZNhnvy0I0iDgEwHFD1m+FVW17CuUNc+vkSCp+HoYeSEfJhSj+okb5dbS0d/Z04rf
-         ZsFlkgJP8bH+H49lOC630kPosyPBoLeiLLTkNPbH297Wfg1Yc6ucdKIFk1+K/YVyBfF6
-         InEMQ1kCOzYO9KeJo0H1cjkn5oH1aJ765MKGiNYmdmgvfx1fekFZxc3rzwutlnDrucRs
-         UQT3hOu+lABpTFchmEsYO2uNOC/mNBv3vEfYzf4SyrHET8P2q/ZR5F5YN4wXUtGIfEZZ
-         M8uQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/6brmQFCDJHsb6rqKvNsOd/pGnjoqENPjBoF6ni57sMAJN9JomCws+8c/UGRgXmrxkg+B8oaPaFpkC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzVC5DPveYYxJ88C8S/58Vx/joButfw5AswLSdgjTywwSlL8CeQ
-	b+/jDJISoWa/q04AQ7ngQAEaLSw+PIa8E/OxzMfynCuqPDjRUdkk76R7IoZ5N0eb7Zd6gDtSX3q
-	P0FuBJ7/0DTXw6yFCpTGR1OafF+Dj4ny/KCKQ1/GYyg==
-X-Gm-Gg: AfdE7ckxgvF/eDbsH0xaPHFK972hmKdupLBjEUZV+AADpAuWcx2bxua8HcyGHhRGWg5
-	flvwEsW5hQFOcgUrkKlA1UCf9Kgl+SehX5XLwI4EAFXeCf6a3Qjmm6NDffeUJLwcSFwTRGNFO8g
-	onvg3Xf9UwqzjNzDXG3eX2Mdyjw09UWgWT4kAPVI3MvXW6bBiFpBxgCVjU3KZRfEyIEhNVTRInv
-	9+aexh8SSCWxenIYBCZme0bHNtqAcZPAf9HhS6lHXddDEcwGZXzybaL+qU7PI4lgT8enyfmog8/
-	aEcv/h4iM2eQH4IwCxtU3Wq18FAAaCXtUGy9SfxzT6G4JQI+S/7831DrYA==
-X-Received: by 2002:a05:600c:699b:b0:492:6113:d4fc with SMTP id
- 5b1f17b1804b1-4926113d5camr38002035e9.17.1782305293997; Wed, 24 Jun 2026
- 05:48:13 -0700 (PDT)
+        bh=e7crjkX7xxDZ9ZyGUXr6JqBDMyWiaXIEE/qm3XJmLi8=;
+        b=U580WvxWsGhuwQDQ3fpp6S08WOHJNiK6GPnUUDTQo378cFkWLvXsMtTTfaDYKWkqFN
+         1+l/ahsqRhm7pJjrhsILjPjh2H6Qj0oRDCr+5Rtj0E3HgHVXlKL0TVjrUyfKU0N0UZnE
+         Q3ARmjBIgvTRCXo7ERiia6kJVfwn5LFNYmtRiMyMrmlZL3hnOD+7GuctWScHL8L0OWMn
+         sqze3V1TofXc8NVmG1HjpbE+8W7nCzl6fKyRz6xkC7kqlSm1CfovQWePCJS3gM40wumu
+         NjJBzd5iWmJB8Z08KvmP3fMV9vlKl+F8IhPhGtLH0bK9e5XYSl/2Y1RYerR9rkCvkWus
+         j/Vg==
+X-Forwarded-Encrypted: i=1; AHgh+RotKtjtnW5RCRwHxjA9EPFTFuYuIce8W9d7t0YmJJYItDopdfFi4rBfJfXjxt/HTB3lbCWQ5L5U4Q93@vger.kernel.org
+X-Gm-Message-State: AOJu0YyoP5UM7Bnu85H7nk9hXXJvZvUVTAvaHRC8jt0FglL+iq70jpRi
+	sRLdO96eGtyIM8sbDVPvnJo7d9+LTsQLYhHKWLEViOWgxpjbfBDD0mUZvY3Pmo2GQSO8C2GDsh5
+	x81otpuJzTfLYfdv3sNlJhuo3dh0LHsjcNxLqeiMyXQ==
+X-Gm-Gg: AfdE7cl2sTMFqXxYBrK31QnyTEAdNMh3hO6vwZzFoYkaJ7nRgWftHxEVM+nvDI3j3LB
+	z0drHWem8zDYSZ2iJLy355SBdBqJcNNv8EB+dpY66wiqek1ZJgqhVMxC1qa9kzfP97TNnZas5IF
+	xBDrSQBrF0AG1lpyJGe4nS+vV9sbVWC1FSzqWZaiNfN+xfs/1+8dDfEh0bJRfFXv11kYQHjdFiv
+	QlPad3SaMBdzmxtf8C9AixHtAPPF/FCMu1OEJWktayO1divg0RF6SEQdifrTvYJdwlYXhA2/jyS
+	tWjP3bUfbw4yyMus1phRcLYhq4EOrS9etJgexnvoT/Hig8n1gGJ9Xbh7pA==
+X-Received: by 2002:a05:6000:2488:b0:464:c5be:37fe with SMTP id
+ ffacd0b85a97d-46d04d45829mr417638f8f.15.1782305303554; Wed, 24 Jun 2026
+ 05:48:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,15 +82,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <cover.1782224059.git.gregoire.layet@9elements.com>
- <73b2bd81ce70814612e6d3cb689c3296de742aaf.1782224059.git.gregoire.layet@9elements.com>
- <20260624-original-vigorous-mayfly-dfceac@quoll>
-In-Reply-To: <20260624-original-vigorous-mayfly-dfceac@quoll>
+ <80d983887dfdfc7e70a6db95f8cb95b7312f3044.1782224059.git.gregoire.layet@9elements.com>
+ <20260624-realistic-spiked-parrot-db1d9c@quoll>
+In-Reply-To: <20260624-realistic-spiked-parrot-db1d9c@quoll>
 From: =?UTF-8?Q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Date: Wed, 24 Jun 2026 14:48:02 +0200
-X-Gm-Features: AVVi8CeO23_9ds8O0yHhJLM3WPWltEB3CF7pRM6viO6egbyN_FuIGSRsMbnIPSw
-Message-ID: <CAFi2wKbKr8FMcJeGWA5e1UZUTh2=LwYNkLEj6exd2as7=AcvVQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/7] dt-bindings: serial: 8250: aspeed: add
- aspeed,vuart-over-pci bool prop
+Date: Wed, 24 Jun 2026 14:48:11 +0200
+X-Gm-Features: AVVi8CcfDxQiwuKN4se3SFXuUd_U7WotHtCQRVpspiQz6vxahSkFlSb2JfFBv40
+Message-ID: <CAFi2wKaL8qiv_H2GQ05CaeBDQwGvHdjb+dqmjQrHHzWNK6qrtQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/7] dt-bindings: serial: 8250: aspeed: add compatible
+ string for ast2600
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
 	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
@@ -104,28 +104,21 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Krzysztof,
 
-> What does that mean? How UART can be accessible over PCI bus?
+> Do not attach (thread) your patchsets to some other threads (unrelated
+> or older versions). This buries them deep in the mailbox and might
+> interfere with applying entire sets. See also:
+> https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/s=
+ubmitting-patches.rst#L830
 
-It's a Virtual UART. Internally, it's two FIFOs accessible via
-8250-compatible register sets on both ends.
-There is 4 Virtuals UARTs on the LPC bus of the AST2600 and 2 of them
-are bridged over the PCI bus.
-So, from the host, you can access the 8250 register set on the PCI bus.
+Oh okay sorry I missed this information. Thank's for letting me know !
 
-> > +  aspeed,vuart-over-pci:
-> > +    type: boolean
-> > +    default: false
->
-> There is no such syntax. Please do not introduce own style. Instead,
-> look at other files how this is done.
-
-Ack. I will remove 'default: false' for the v4.
-
-> > +    description: |
->
-> Do not need '|' unless you need to preserve formatting.
+> This should be oneOf (by convention and actually more accurate meaning).
 
 Acknowledged
+
+> More important, where is documenting of the actual compatible?
+
+Yes, you are right, I missed it. Will be added in v4.
 
 Best regards,
 Gr=C3=A9goire
