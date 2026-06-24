@@ -1,41 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0FE39281B;
-	Wed, 24 Jun 2026 07:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528DA38C2C6;
+	Wed, 24 Jun 2026 07:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782287502; cv=none; b=QmeSN6bdUPlY06MDTyuysb2+QTDNf0CD4RvxbrdX9PGvSvUiavhOPT3PgOBQnMo5NqNHY+LZyGGq6EUGGSWZHfTveQvVMigwi99UQz8Ih6CkzXVIePra7RfKWqnewgwxhADPe3G7qP6o9Tvl6cYzG1noCEUtZSmYts/EISwaukE=
+	t=1782287615; cv=none; b=NHaY5P/eHHPmd1ILGy/wEsKXadupMVgwL1cDcoVbqYakdKBUNSZdHpXmgICHUKC25qLf6aUm630WlCg1LTbND7DS1bVeqJom2L12r6sQBlW1Qt2DKBAzHxLrGKMP5rCtcO+ammgtoYspVs1FNtB4+QDKN4COlMue6IEHPSXjbl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782287502; c=relaxed/simple;
-	bh=DYe7VwFNV9j8vSBxh0sxvNFJ5tm4QCGE7sLXePjo40w=;
+	s=arc-20240116; t=1782287615; c=relaxed/simple;
+	bh=NxhM7haVXzOhrdp2hyw8slzEGeBWdGRIQpJIQYwNGVI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qXFeqqspyt3HVWC5YJOm7QHMpXGMnH/9YqeY7NAacYKuSx+v47UKExanShaaEWPPfyw8XfSz9wnDFP6QN4yR1qAzX1cj35Gxg45sjGKRVSD/UKZb6BhRSXh4o2swfFr01cKRmKI6zyXKmTTXWy0D8rG86eXmMWg54FcQbyRhIko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jluGIgQo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=erK8bLC6ZEbGTAWZ0VHUoXe+DcyPsZAQWMTc5CSyO5zxry1C+zJjhm1B7HDGBxDeP4R2qUpWRnkjIseQiEok8BHei0gXrroDSZwWawTRftUZSml9wQIWhvzki5EBYUAvlYm8uMY0sUQUH1WBeb8EpYbxPhjMpS7U9BlV3bov72I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bKk/bikN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jluGIgQo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49F291F000E9;
-	Wed, 24 Jun 2026 07:51:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bKk/bikN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08691F000E9;
+	Wed, 24 Jun 2026 07:53:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782287501;
-	bh=NSEEVjv1/4kjXV4htQAieMuaFZE2MmtV1l1wYqenhLc=;
+	s=k20260515; t=1782287613;
+	bh=g1ts7TNTeKBHivKT6flBbPP8OJxLx/1C/SeU6xllzAg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jluGIgQojegfwtFhgq8ElqtfozWVNevAYkAS+7eRG+5ceLHulNoFDgbgOEEPKDyhJ
-	 rbm/gwN+vQMLxFYA1EKDHmd394oQelcS9Jaq97jgrREgjDnNN7a9pMacaUm4x2+pmW
-	 64eNX4jO8ucN6Gv3yu7V/rY/iDYJp0UexXaPfmRRPSAmlb35XxBrRona04RJngU6MQ
-	 qZ0zueAe2rc5pEB/JgIcQ8wcNJaPcir9l9ZiQKeZZjB6MK2L29on4OIUo/Gr3XdPAs
-	 xlCj+e6aRRXmKQvlXyY4jOWTWCCG+tB0Mh8wuQRjtiMuOvC4p/p7PfIdPVDWrqY+C1
-	 DPhx5f6suev1Q==
-Date: Wed, 24 Jun 2026 09:51:37 +0200
+	b=bKk/bikNE5B0dfuP3ERP9VWSMWCF9kDgSc4g1WKAmnQT/qon8URxvJVyuCz8vDmzR
+	 hMVsLXwaVh8lpu8CcELHO1hCrTveT49fU2Rhc+4LoEkY/uy2yvDKiZN4oMJXiPp33d
+	 7N9he7qhJZoMvcj1iq8ZaihCw6qqhDCGNzq+EvhnoIiekyW+MBKGJgsUgtmJIZR6s/
+	 6CmIayu05JfPUi4j56WAiChUBZbuN1BSauJ/YIz12PHow9wlTc+Zw4Eo8xASgK34BQ
+	 Z4csZsjVqmom7aUEp7GfMpyJGkEd9npymOZ3HAhAAITFLfnhPNGfxf7jcyQelXlGnN
+	 u4uHWGZ8+qXhQ==
+Date: Wed, 24 Jun 2026 09:53:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
-	m-chawdhry@ti.com, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: mmc: Convert TI OMAP2420 MMC to DT schema
-Message-ID: <20260624-frisky-wakeful-wombat-d1be2d@quoll>
-References: <20260623094336.4172741-1-egbostina@gmail.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/6] dt-bindings: clock: qcom: Document Nord display
+ clock controller
+Message-ID: <20260624-logical-walrus-of-enthusiasm-adfeb6@quoll>
+References: <20260623-nords_mm_v1-v1-0-860c84539804@oss.qualcomm.com>
+ <20260623-nords_mm_v1-v1-3-860c84539804@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,37 +51,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260623094336.4172741-1-egbostina@gmail.com>
+In-Reply-To: <20260623-nords_mm_v1-v1-3-860c84539804@oss.qualcomm.com>
 
-On Tue, Jun 23, 2026 at 09:43:35AM +0000, Eduard Bostina wrote:
-> +  reg:
-> +    maxItems: 1
+On Tue, Jun 23, 2026 at 04:24:06PM +0530, Taniya Das wrote:
+> Add Device Tree binding documentation for the display clock controller
+> on the Qualcomm Nord SoC.
+> 
+> The Nord platform contains two instances of the display clock controller,
+> DISPCC_0 and DISPCC_1. Update the bindings to include compatible strings
+> for both instances.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+
+...
+
+> diff --git a/include/dt-bindings/clock/qcom,nord-dispcc.h b/include/dt-bindings/clock/qcom,nord-dispcc.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..9f6c9979e0f358678f28a992af6083b0ae6c97e1
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/qcom,nord-dispcc.h
+> @@ -0,0 +1,115 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
 > +
-> +  interrupts:
-> +    maxItems: 1
+> +#ifndef _DT_BINDINGS_CLK_QCOM_DISP_CC_NORD_H
+> +#define _DT_BINDINGS_CLK_QCOM_DISP_CC_NORD_H
 > +
-> +  ti,hwmods:
-> +    description: |
-> +      Name of the hwmod associated to the MMC controller. Must be
-> +      "msdi<n>" where n is the controller instance starting from 1.
-> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +/* DISP_CC_0 clocks */
 
-You should not use different type than already used and currently this
-is a string (so also no items below).
-
-> +    items:
-> +      - pattern: "^msdi[0-9]+$"
-
-"^msdi([1-9]|[1-9][0-9]+)$"
-
-> +
-> +  dmas:
-> +    maxItems: 2
-> +
-> +  dma-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
+Where are clocks/resets/power domains for DISP_CC_1?
 
 Best regards,
 Krzysztof
