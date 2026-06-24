@@ -1,299 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A2C3E5599;
-	Wed, 24 Jun 2026 21:07:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F014F3E5577
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782335226; cv=none; b=unOhlxrqBNYaT2nBJUIAmO4/elADgpiBh6rRkZILogE0jx8Bo5Tc5+KjUH0vcTwIvLXLNv+sZOIVr79IXQrrf5TLeXvwApvqd/iVO/BvCqQviKOYUUFRtWa5pUJBvBD+R9KBMtB+WgAntNDohvlt6ntl0Y1Ab1TTd75JowAwS1E=
+	t=1782335330; cv=none; b=dwmlJnhKvQ/gh+Vk79V956QmHW1j4TkM/8f1xpucPNT6idPKVvbbo6KfL9J4v5e1jz7X2l9PumPLdAq4beZAx6prTqxazGyRoOCSEKZSa0RfmRHFgCan8oa/mymiKAFqTqmAc+FG6Q4UJT0hyOQ2FqqP4VsIBFYTVWVmxlm0oLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782335226; c=relaxed/simple;
-	bh=wLX0Qnz/2kv6rYdfPeLH4g6pL75eR414jLfj3ku3FRQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lQgF5jE/RdxPVUMmNwZv+ee2VJmyFJZTo6zmi4qcdskSJK0Kk0Aa/nY3RUhc+Ye209by7fc4JV0OeHUs8qi+ShWBL2PK60bdUv66DWJfP6UCpl+3TYOPdLNjzEi+VMlO5nZTdFs9eU+Ym8V7tdeFd9l9rKTCi0lzzMkJQ2EREmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AFtXsDf6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782335330; c=relaxed/simple;
+	bh=Pjwum7Mu37SGUsunaTWf37R6DFsb2jzx4XAajClW+OQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oQjCDGBb57WgtWtcgbGpjRG4VcE7hsY8CzhA2lPPIxkOcggUEp4DWlw0IC9NfFbV8PNZuJGO4egrI9WkTJ36O/UrMf4aIRzuUubpr/29r3NQQ5Y3NsLTjFRuHKEtGTeql4JP61ma+teb5e8jbZpicZ6TrfZcLMREgcTNvjs/lsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S0sSUk6Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xt/+3sIA; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AFtXsDf6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6440F1F000E9;
-	Wed, 24 Jun 2026 21:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782335223;
-	bh=IFruGrADjEpACkLysI145JskxTSo7XMx9RG+dJJ95Ao=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AFtXsDf6yBtI+CTr9FZu3twiFcIP57cttdMJtmHp5Yr6qLMEMIcJ7e8HwdQe/KZsB
-	 6sdnL/9WQx5u0KLhOxXVz8WJa0D+l2YeHXIRw0ecEZ7LAZcA8J6nl+dzAl9yIMsWg4
-	 vFoniRAUmGmC5de+8lrmEMfN7cAmMH4HbeWZAl59Rrw5a/Qol5QQbMNJz9l+pgt6FW
-	 N78BAlfZYu/uz860B3ge7h3DI9R3WfZfu+vZWq5sIJCzzP6B+a3PgkvCLht0pucM9A
-	 11yOqFOThZQuvGqmKprYKPnq4yLnYv7ZICaS2tTV6G6EOM0SRmgKW8beM0DJeuLdIc
-	 V7IXv/m3hb29Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/9] media: synopsys: Use
- media_async_register_subdev() to simplify code
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Frank.Li@oss.nxp.com
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260624-imx8qxp_pcam-v6-5-4b3f45920d2f@nxp.com>
-References: <20260624-imx8qxp_pcam-v6-0-4b3f45920d2f@nxp.com>
- <20260624-imx8qxp_pcam-v6-5-4b3f45920d2f@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 21:07:02 +0000
-Message-Id: <20260624210703.6440F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S0sSUk6Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xt/+3sIA"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OJitm63827693
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=NF98u5m0GQQqjMpcochC97YunhtCfm5cQBU
+	9SMM1MoA=; b=S0sSUk6ZPVpbTTVHkgCEqN6NrMf86QEsRvckN6CEFqZGTWSY7bE
+	SatDPG1P2jUm4JortNy62OspvSrafgfp3ojHAVsdS3yrf1YHhlNg/37a/J6FVkBW
+	ald8d97dEZg02qXft2Z0Aw+qoCAOSFP23TEndFxtQhCd5AZbPTVcZtbcmVM/+/5l
+	ailHfBe35IQfwLf/KL/JU0kx8iHGfp9oSQ1uUFsJ/7n4QZ2ebanJ3sXwgO29RzlE
+	kDZs8sxRjBYCMXd/HGtJk+WmlujnXxhrvKQswQrIKUXi2GiJZjGnBKe2WetBNmcp
+	nDOoD3d7FPbycoelp7536s7jStneujENitA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0mjbrhkk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:45 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-921634eebdbso176616785a.2
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782335324; x=1782940124; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NF98u5m0GQQqjMpcochC97YunhtCfm5cQBU9SMM1MoA=;
+        b=Xt/+3sIADniznDJADTMCIyylipdPmXItDJA0ivWXmTM709Rz2OZipDKJHoMTSu9vj1
+         v5di1pbaVraQQaWaYzBPV3fjjhlyf9YoghcoP+QVo8RefRQ9jNDf91KGwyQ8ZteJY+BB
+         Ydzvzz7lMtzN228Y8OEQrO3x7iEVKojgIvup2xEOFrz4GwXbZEnuHoQnUBqCS/t82nFG
+         SyTXeLcPvkWL6hC4GWTZnQBEoJvPp+06H2H5PVcX9tFqJEyte7tnoOJmEkj5vtjA9/gV
+         SH77Ehgk4ub3UdJ9F6UyqkWeivugDFu2nC8zaVK65GEnn1ZdVLr9Ts7WF3KAHXul2yhm
+         a3Cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782335324; x=1782940124;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NF98u5m0GQQqjMpcochC97YunhtCfm5cQBU9SMM1MoA=;
+        b=a31Flpma20JGnCTH0KVD7ii+sC8q7lNeqPYXq8lTMbpchPSIurJ7S2wuAuELtlRUwB
+         Oj472bfPSdm343OFyYWLVbd+6fywLjBJLnnrMDLpre4pJlnr5gK5WLB9g/Q5nKIfz/Az
+         Ru1d1SiGLoOYdBhkiV00Nz91ckVLr2AckRAtcHvEOAxYmOP5UVZlZ48g/BjNnl/MvW82
+         ezrDvUfLiZbgrMOOYh+mItpE8PuExSjqlb7OP6+sg9U414n+gC9NeIW2vgwQoPbf4LGH
+         bLoCQwra4xg7TZBpuy3BC42vEDE5jTvTpxR4TBT+EM9+bhaq2ixstUtNUaj7jZZbLHdS
+         uyhA==
+X-Forwarded-Encrypted: i=1; AFNElJ+3WBQainC2h6XHcs45XiAaHB2SjjyYqcHiafqvatQzFIWpmw1f/zu7rgHBgcDvooukg2GLfnKjfq6P@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuW6tjxle8PK8M4ZEl2ighW4dkFxL66LnEDPDglu5FrqUvySz8
+	cp2omqPKc07RM7o7RwbyBWxXnh7Dee71CcHiFrHrTCZqJFnbRwQ1zE67fnatrVw5+PCvcwjEh87
+	HSwO7+X+hfDMccnLKijm3P8NjKD9jw3P5z+TS5DBCEgrqqC09r+cuUggo+FSF81oZ
+X-Gm-Gg: AfdE7ckGp7E5g0KMEnPCdNGKbepplHls7U5Tr1JXCM1Uc2Hc9xCu4dv5tHulcWWdoVq
+	o7ellLJSlboSOnQd1Gi9hXAx67IhPoLaR/TzqZILc4X1D1Z6g3O7k2H4oDUHiFgynuiU7dqRQKD
+	kk/zAlrQ9CAsjHekf39P0ZQ2cqsgKc9i6QfSsyhpSx0iggWB3ZjxSYw03D/2bjXWVs7Py9F0O9k
+	XppttjQehUgNRsBt0CXU+FAJLoNL/nkvVEWKI61yOqNN+KJHa9B9J/wdmVqG655x0LwiUwCbBES
+	nWjRjmPkPnVgE/mE8jG8H8BF3/c6C4lhw9k5m/ifRv6lv+zNSlQnTUuG4zI1NXpMH85t2sj9/wv
+	w5X3ATLr7d661Km9kktH5dXhlp4nl80Hpse4A8HvQ6ytx4g==
+X-Received: by 2002:a05:620a:170e:b0:8cf:c106:faca with SMTP id af79cd13be357-921d29f8690mr3323305385a.36.1782335324224;
+        Wed, 24 Jun 2026 14:08:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:170e:b0:8cf:c106:faca with SMTP id af79cd13be357-921d29f8690mr3323299885a.36.1782335323714;
+        Wed, 24 Jun 2026 14:08:43 -0700 (PDT)
+Received: from juillet.box.freepro.com ([2a05:6e02:1041:c10:91ef:5c1f:e854:38f1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1e840efdsm9455767f8f.5.2026.06.24.14.08.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Jun 2026 14:08:43 -0700 (PDT)
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
+        linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
+Subject: [PATCH v1 0/3] Lenovo ThinkPad T14s EC thermal monitoring and thermal zone integration
+Date: Wed, 24 Jun 2026 23:08:22 +0200
+Message-ID: <20260624210825.264454-1-daniel.lezcano@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDE3NyBTYWx0ZWRfXz+yLNc2UG5RG
+ p5gjbaXpRQiwI6JokUn9Pka/QOVlWzuOOV7zruWIExDxPihK20hnldCGD1lTh/hhu8/k8JYZuY3
+ UzjJzX1q5kWPz1nqt3MTTtBbwZRW2ZU=
+X-Proofpoint-ORIG-GUID: 2F9QOVDA5hmf14_J4IOYYhUVFLU5mbwt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDE3NyBTYWx0ZWRfX1/6GVm7uGWup
+ Mj3PUIa7e2KlPKEun1SNoyUmhzxmFJKR7qoMDMHUET1zgh5Dh86jxsjhPoPLlcWiSFIfRgZWTQu
+ xZLj2vdYzuNztptzJj6P1G+yGfzHmZ1Cc1WzVsZPly9jxYcQCk/adAiWAji2fA+9CMcUjgPjvSm
+ vSfe8253EBB7LmiVYdipXqWGrMDqCXKGYeNx2Ssv4gf/CrE6oZCVGxX+WB9SqnV3O+QqiBLPL/4
+ k12dU4F4YZCSdCyqdfN04ZthIfZu2SWvOM0eL9cYnd1hITSe43VtKYsPjSVwlXH7/k/aOwGPezi
+ 8ZkXweO2dGzKOFqCv9ZPv7cgburn7sf1R+M4r6k080MVHOQzw22LTIb4x1N9z1Dyo1Kw8hz81NT
+ PtVF+SMsiNTwGtuIgNLHueiip6ABLbFhF04/9VKqGSbCNCLGdeap1UB0SPYsW7xTfyGYdYQKieP
+ kxMAkpZxzeTdQuyuC6w==
+X-Proofpoint-GUID: 2F9QOVDA5hmf14_J4IOYYhUVFLU5mbwt
+X-Authority-Analysis: v=2.4 cv=TcSmcxQh c=1 sm=1 tr=0 ts=6a3c475d cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=kbYhDkqKViOJv1L1JOIA:9 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_04,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606240177
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
+Hi,
 
-New issues:
-- [Critical] Critical out-of-bounds heap write in v4l2_async_nf_parse_fwnod=
-e() due to mismatched endpoint counting.
-- [High] Mixed goto-based error handling and __free() cleanup violates subs=
-ystem rules and leaves a dangling pointer.
-- [High] Hardcoded array indexing for pads mismatches the dynamic Device Tr=
-ee enumeration order.
-- [High] Heap out-of-bounds access and routing validation failure on single=
--endpoint Device Trees.
-- [High] Memory leak of `sd->active_state` on subdev registration failure.
-- [High] Unconditional memory leak of `sd->subdev_notifier` during driver r=
-emoval.
-- [High] Leaked async connections and fwnode references on error path.
+This series extends the Lenovo ThinkPad T14s embedded controller driver
+with environmental monitoring capabilities and integrates the exposed
+sensors into the Linux thermal framework.
 
-Pre-existing issues:
-- [High] Lockless traversal of the media entity links list causes a race co=
-ndition.
---
+The EC provides access to several platform temperature sensors covering
+the SoC, keyboard area, bottom cover, charging circuitry, QTM module and
+SSD, as well as fan speed information. These sensors are currently used
+by the firmware for thermal management but are not exposed to Linux.
 
-commit 892732bd4672cbe12751cfc2979a3f508c5cde6d
-Author: Frank Li <Frank.Li@nxp.com>
-Subject: media: synopsys: Use media_async_register_subdev() to simplify code
+The first patch adds hwmon support for the EC temperature sensors and fan
+RPM reporting.
 
-Use the media_async_register_subdev() to simplify the driver.
-Replace the local subdev registration and media pad setup code with
-media_async_register_subdev(). Reduce boilerplate code and aligns the
-driver with the common pattern used by simple subdevices that each media
-pad has one endpoint in fwnode.
+The second patch wires EC thermal notifications into the hwmon event
+framework, allowing userspace to receive alarm notifications when the EC
+reports thermal zone state changes.
 
-> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/m=
-edia/platform/synopsys/dw-mipi-csi2rx.c
-> index f51367409ff46..0fabc89a49b80 100644
-> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
-[ ... ]
-> @@ -360,9 +350,10 @@ dw_mipi_csi2rx_find_format(struct dw_mipi_csi2rx_dev=
-ice *csi2, u32 mbus_code)
-> =20
->  static int dw_mipi_csi2rx_start(struct dw_mipi_csi2rx_device *csi2)
->  {
-> +	struct media_pad *sink_pad =3D &csi2->sd.entity.pads[V4L2_SUBDEV_1TO1_P=
-ADS_SINK];
+The last patch exposes the EC as a thermal sensor provider in the device
+tree and defines thermal zones for the keyboard skin temperature and the
+charging circuitry temperature. This allows the generic thermal
+framework to react to EC-reported temperatures and apply standard Linux
+thermal mitigation policies.
 
-[Severity: High]
-Does this hardcoded index match the dynamic pad allocation from the Device
-Tree?
+With the latest patch, this series fixes thermal issues happening on
+this platform where a kernel compilation leads to a system reboot.
 
-Because v4l2_async_nf_parse_fwnode() populates the pads array strictly in t=
-he
-order endpoints appear in the Device Tree, accessing index
-V4L2_SUBDEV_1TO1_PADS_SINK unconditionally here assumes the sink pad is alw=
-ays
-at index 0.
+Tested on a Lenovo ThinkPad T14s Gen 6 (Snapdragon X Elite).
 
-If a platform's Device Tree lists the source endpoint before the sink
-endpoint, will the driver access the wrong pad and potentially read incorre=
-ct
-hardware parameters (like lane counts)?
+Thanks,
 
-> +	u32 lanes =3D sink_pad->vep.bus.mipi_csi2.num_data_lanes;
->  	struct media_pad *source_pad;
-[ ... ]
-> @@ -549,12 +539,12 @@ static int dw_mipi_csi2rx_enable_streams(struct v4l=
-2_subdev *sd,
->  	u64 mask;
->  	int ret;
-> =20
-> -	sink_pad =3D &sd->entity.pads[DW_MIPI_CSI2RX_PAD_SINK];
-> +	sink_pad =3D &sd->entity.pads[V4L2_SUBDEV_1TO1_PADS_SINK];
->  	remote_pad =3D media_pad_remote_pad_first(sink_pad);
+Daniel
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this lockless list
-traversal race with userspace ioctls?
+Daniel Lezcano (3):
+  drivers/platform: lenovo-t14s-ec: Add hwmon support for temperatures
+    and fan speed
+  platform: arm64: thinkpad-t14s-ec: Wire EC thermal events to hwmon
+  arm64: dts: qcom: x1e78100-t14s: Add thermal zones for keyboard skin
+    and charging sensors
 
-Calling media_pad_remote_pad_first() iterates the media entity links list:
+ .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   |  68 +++++-
+ drivers/platform/arm64/lenovo-thinkpad-t14s.c | 193 +++++++++++++++++-
+ 2 files changed, 255 insertions(+), 6 deletions(-)
 
-drivers/media/mc/mc-entity.c:media_pad_remote_pad_first() {
-    ...
-    for_each_media_entity_data_link(pad->entity, link) {
-    ...
-}
+-- 
+2.53.0
 
-Since v4l2_subdev_enable_streams() does not acquire the global
-mdev->graph_mutex, could this traversal race with userspace ioctls like
-MEDIA_IOC_SETUP_LINK that mutate the graph structure, leading to linked list
-corruption or a use-after-free?
-
->  	remote_sd =3D media_entity_to_v4l2_subdev(remote_pad->entity);
-[ ... ]
-> @@ -649,9 +639,9 @@ static int dw_mipi_csi2rx_init_state(struct v4l2_subd=
-ev *sd,
->  {
->  	struct v4l2_subdev_route routes[] =3D {
->  		{
-> -			.sink_pad =3D DW_MIPI_CSI2RX_PAD_SINK,
-> +			.sink_pad =3D V4L2_SUBDEV_1TO1_PADS_SINK,
->  			.sink_stream =3D 0,
-> -			.source_pad =3D DW_MIPI_CSI2RX_PAD_SRC,
-> +			.source_pad =3D V4L2_SUBDEV_1TO1_PADS_SOURCE,
-
-[Severity: High]
-Could this cause an out-of-bounds heap access if the Device Tree only defin=
-es
-a single endpoint?
-
-When __media_async_register_subdev() dynamically sizes the pads array based
-on ep_count, a Device Tree with only a sink endpoint will result in an array
-of size 1.
-
-Since the driver unconditionally sets up active routes referring to
-V4L2_SUBDEV_1TO1_PADS_SOURCE (index 1), won't this attempt to access pads[1]
-on a size-1 array?
-
->  			.source_stream =3D 0,
->  			.flags =3D V4L2_SUBDEV_ROUTE_FL_ACTIVE,
->  		},
-[ ... ]
-> @@ -764,45 +697,12 @@ static int dw_mipi_csi2rx_register(struct dw_mipi_c=
-si2rx_device *csi2)
->  	snprintf(sd->name, sizeof(sd->name), "dw-mipi-csi2rx %s",
->  		 dev_name(csi2->dev));
-> =20
-> -	pads[DW_MIPI_CSI2RX_PAD_SINK].flags =3D MEDIA_PAD_FL_SINK |
-> -					      MEDIA_PAD_FL_MUST_CONNECT;
-> -	pads[DW_MIPI_CSI2RX_PAD_SRC].flags =3D MEDIA_PAD_FL_SOURCE;
-> -	ret =3D media_entity_pads_init(&sd->entity, DW_MIPI_CSI2RX_PAD_MAX, pad=
-s);
-> +	ret =3D media_async_register_subdev(&csi2->sd);
-
-[Severity: High]
-Does calling media_async_register_subdev() here expose a dangling pointer d=
-ue
-to mixed goto and __free() usage in __media_async_register_subdev()?
-
-In drivers/media/v4l2-core/v4l2-fwnode.c:__media_async_register_subdev(), t=
-he
-pads array is bound to scope-based cleanup and assigned to sd->entity.pads:
-
-    struct media_pad *pads __free(kfree) =3D kzalloc_objs(struct media_pad,
-                                                        ep_count);
-    ...
-    sd->entity.pads =3D pads;
-
-If __v4l2_async_register_subdev() fails, the code jumps to out_unregister:
-
-    out_unregister:
-        v4l2_async_nf_unregister(notifier);
-
-Because the function returns, pads is automatically freed, but sd->entity.p=
-ads
-is not set to NULL. Does this leave a dangling pointer in the subdevice?
-
-[Severity: High]
-Could media_async_register_subdev() leak the active state if registration
-fails?
-
-In __media_async_register_subdev(), v4l2_subdev_init_finalize() dynamically
-allocates sd->active_state. If the subsequent call to
-__v4l2_async_register_subdev() fails:
-
-    ret =3D v4l2_subdev_init_finalize(sd);
-    if (ret)
-        goto out_unregister;
-
-    ret =3D __v4l2_async_register_subdev(sd, module);
-    if (ret < 0)
-        goto out_unregister;
-
-The error path jumps to out_unregister and returns without calling
-v4l2_subdev_cleanup(). Does this bypass freeing the active state?
-
-[Severity: Critical]
-Can this call trigger a heap out-of-bounds write if the Device Tree contains
-disabled or disconnected endpoints?
-
-In __media_async_register_subdev(), the pads array is allocated based on
-ep_count, which only counts available connected endpoints (flags=3D0):
-
-    struct media_pad *pads __free(kfree) =3D kzalloc_objs(struct media_pad,
-                                                        ep_count);
-
-However, v4l2_async_nf_parse_fwnode() iterates over all endpoints without
-filtering:
-
-    fwnode_graph_for_each_endpoint_scoped(dev_fwnode(dev), ep) {
-        ...
-        ret =3D v4l2_fwnode_endpoint_parse(ep, &pad->vep);
-
-If there are disconnected endpoints in the Device Tree, the loop will itera=
-te
-more times than ep_count. Will this increment the pad pointer beyond the
-allocated array and overwrite adjacent memory?
-
-[Severity: High]
-Does media_async_register_subdev() leak async connections and fwnode
-references if an error occurs during endpoint parsing?
-
-In v4l2_async_nf_parse_fwnode(), newly allocated async connections are added
-to the notifier. If an error occurs in a subsequent loop iteration:
-
-    if (IS_ERR(asd))
-        return dev_err_probe(dev, PTR_ERR(asd), "failed to add notifier\n");
-
-The function returns directly. Then in __media_async_register_subdev():
-
-    ret =3D v4l2_async_nf_parse_fwnode(dev, pads, notifier);
-    if (ret < 0)
-        return ret;
-
-This bypasses the out_cleanup label and fails to call v4l2_async_nf_cleanup=
-(),
-which seems to leak everything added to the notifier so far.
-
->  	if (ret)
-> -		goto err_notifier_unregister;
-[ ... ]
-> @@ -993,7 +895,7 @@ static void dw_mipi_csi2rx_remove(struct platform_dev=
-ice *pdev)
->  {
->  	struct dw_mipi_csi2rx_device *csi2 =3D platform_get_drvdata(pdev);
-> =20
-> -	dw_mipi_csi2rx_unregister(csi2);
-> +	media_async_subdev_cleanup(&csi2->sd);
-
-[Severity: High]
-Does media_async_subdev_cleanup() unconditionally leak the subdevice notifi=
-er?
-
-The function __media_async_register_subdev() dynamically allocates the
-notifier and assigns it to sd->subdev_notifier. During teardown here,
-media_async_subdev_cleanup() calls v4l2_async_nf_cleanup() to clean the lis=
-ts:
-
-drivers/media/v4l2-core/v4l2-fwnode.c:media_async_subdev_cleanup() {
-    ...
-    v4l2_async_nf_cleanup(sd->subdev_notifier);
-    ...
-}
-
-However, it does not appear to call kfree(sd->subdev_notifier). Will this
-leak the notifier structure every time the module is unbound or removed?
-
->  	phy_exit(csi2->phy);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624-imx8qxp_pc=
-am-v6-0-4b3f45920d2f@nxp.com?part=3D5
