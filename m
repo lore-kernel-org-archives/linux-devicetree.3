@@ -1,138 +1,362 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E66638A715
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ABB2DB7BD
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782286593; cv=none; b=oly9cXxJ22xy4OYhuvYduoCNp7nauZWDNIDe+Uyh59/v+4nyKlofqUq2ECZSWc/v76K0C2uRQCkVHZK9r15ECmJpUYZWvsSB3mRpive2ljsksmydmZMjPWpmGPwdbTG671gllebaQKv2Uc0dP+R1S9ETT4PtLdOUTS29RZzjqaY=
+	t=1782286597; cv=none; b=qTas4pIn2udTYqZ5EgmG2gJIF6GsWvQM/d9kXghQgUl7/QfmDfZPz/utig23OfNKzhx1QOk3p4xev3s3kswszHeYVbstOaQg3RJC2/qUJUWz5S0VZybedBhd6EjHQzgNcl8EdY8GdDipZ9lOmCpKUA+UuiPhD6xn0BZ1BZIvQcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782286593; c=relaxed/simple;
-	bh=GORlTa1Wgra6WRKUL+MJ+MsIYPj7Gc8sihpxBAOTIMc=;
+	s=arc-20240116; t=1782286597; c=relaxed/simple;
+	bh=tDDoK0gI9NknoyPvkxNP953LYm2NW/AivRP4ykYPyw0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pg5xABZYussAKaAnKeOPws1uGaOYqXgPbEJDx2Vdy5vdB+82XbVKEKzWksexqRNJA3bRxEAeIbsmKVPG9EVgt3Cju3xC+3+EBckiiv4PV+FgbZsHWS7oJOx080+RA3LnYfPDNgO3cwJ3ljqI3yWkS0UcYUJNJZEvpBszLiLPCS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Mn96eHRe; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=YD2NhIVhgHZLuOoNqgAwbTsMKUAbNra6hGcG+zfVD4MBbjlUO2mdKHl1VOZYtmTN8xhtVfS5ctRUf8L+3zq/UfKZxjk06jOk3JfsQLgpPOISXkXkjlm6MM3mw3aDshoRKzvvK2cG5dXBJ0Qq+2TXMuFEPQNhmPGnj8IiLaarwFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D7Ig03zo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F7CrBAzs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Mn96eHRe"
-Message-ID: <85b09fd7-f849-46e5-a04d-1e76524943b8@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782286587;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9T0Fze3KpG06xnYvjmlUmzBODU53xtqtwO9Goa0J3Rc=;
-	b=Mn96eHResPBSCyPsmN5dNm1kiNQkCTSsU33kbZpT8C88/niYY9SZETrVoJxvV+a+zTZQIC
-	+YvG/pf77lfyNVlF2y2HVKLafVkhr5dbK5jEpC043M26er9EcAK98KijzhbYZyI+bDoG/p
-	KKKDAelxFmIFAoDN70FKLxT6PT9CdjE=
-Date: Wed, 24 Jun 2026 00:36:17 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D7Ig03zo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F7CrBAzs"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65O5u8xW2555573
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:36:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	f3VJr2nXkN6JkmoVWffh0E+FdJk5nSbPALZBfnaspT8=; b=D7Ig03zo+nW2WwyQ
+	nZo+YtlgYK5d8LA6r5VPGBjsvGBxbk7lXQnuU6Qho2sFj3YiXEEdnd6gCuqh+Pm2
+	SQkjSp9IP72tUB972qkp2LXng23cIGgjSMo283khawiqr0Ups1Nbe7ieQfPfH4Iw
+	IRS5qBDlpNmXP1Q85jJVAeu701laJowZBdDN2MoeZxwBRg5JP/nxqau3y1n7KZSZ
+	GjVWvIG1iiz3fUPpq7hH+sQ85tpx2BzF8FvYNSvgNYyTkTEjUQR3WjtxVa3SfJ6y
+	sJ8Hns5Y3kTOHpzVQbpHaJTCXSpZRi1K6l6ap1YlJwenpdTTotOhGl/VmTQlAWd6
+	6w3DPg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0996gd83-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:36:31 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8ddad6183f9so16706016d6.3
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 00:36:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782286591; x=1782891391; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=f3VJr2nXkN6JkmoVWffh0E+FdJk5nSbPALZBfnaspT8=;
+        b=F7CrBAzsaz9oBvlBQI2G7WEiIM5tZdZsBpcun8cZGc/F2RpXo6SgYvrQ+YKNJHn8tE
+         kDtYy1X7HKqHBxXli73QRsPEad+LVpsIL44qLTvAYcZQrva25UxCPWqrZwfA1VqOfp1r
+         DvhxMk5u2NwyliKPeUdiIYefTwvh1y53aUyuSvBLvpZLc0kW6+Iz3q0XORim3BMzNM0f
+         cv25rDW2LqxOkHn0Ht4LhfJIxyAnKOitrW8WVgh0LQhzCFvviTmeDcw9nLO3JlTv8qzS
+         opc+vaEd1utVqknjhc64CoFKPu0Gojc4Z7YeI/bCkZteLvRp8eaAVuQ0w8P9LXJlYZRN
+         jvYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782286591; x=1782891391;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=f3VJr2nXkN6JkmoVWffh0E+FdJk5nSbPALZBfnaspT8=;
+        b=SmKe/Et7QNGINATKmqkDg/OHOFJIFLB3RDlFYmV9dKpImfNF38q8g0ua+BK2v7ki5/
+         VBWRfslQ9QZed8xhX8liymdlGQtwRO+EhC+FHTuHkEv30XjCO9KnF4Hw1lwODfe+shso
+         9LCe5L8+6dmPisHszKtmm41afr1D7mrM6zN41e0NXNJ7GL4/cOlGWqia/cu1d6hPX7YN
+         Jgk3ka2svFeV0aJbRwbIESIiL0HNK0ZhdkC2cHJPxiukOEC7LS/ObLDpWV9T/1ouOKmz
+         Up9XbBfzm5ALZEkbC1o7PdZZkyiXZZA1INJwb9VOKo9YS6XKif38UHUVfz++YXkY3Vhb
+         lDFQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8Pu4Vc9Zr2xevsw20l6XTgf2pJ//+H2fyXq9yNZd7OZ1eGL8aN4BMf8NA8m/F1Hcrh+sYXjDVqyWp5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxm6zNL4r/DEyzKUifktEoOG7jC08ReSxtDIqXDhkXaclMyC5FI
+	x0xiSJ7uw4SE8KXxGzAxIYS2KW+8XSqX8TDeLGqEDPEQcvIF15XUcgXKz+tg+WMhuxov3fYuX4r
+	YsO8NClChSQeyRMuhoxNn6PA6uq8dODPFvUfE9fX/cR4hR+VLBNWlf6y4feS7y4Ex
+X-Gm-Gg: AfdE7cnT1uaQx2Tt+GcwYv8Up+5W0YmmdUxn+9p/O6p39XtEaYEFTXDyScEx/dcolk2
+	OIuGRzrekeg+8I8hzYO/gmDdpO+M0NK2tVJpq0o+zba8s+lqgYfayBbctEUJo1hg+t7HpfwWmFa
+	rZ9vk+sniH0SlfX9pF7TD15qyggXT+EmuIbKAT/AsYpFAo3iWojpQrNdcODm8Qyapxu7SYe/cfc
+	oRlLhybsg6QZIImJ3qzvoM/8vHhqSvNJxthjexcTAuAwrKPq47EdyhFUAD4O4slNRwJGHWWdNMG
+	cIHvFYQ2O541H7hZkPjiJF8DNrAac2+RSDluImNlqDPMmkzCSs26fGZdy5cYy57lFn+4/DMKTJ3
+	AjGedOTl50v41kBL6DIMBiIC/Whw7kkNhmDMx6hDn6s9Pmg==
+X-Received: by 2002:a05:620a:29d2:b0:915:c76f:26e0 with SMTP id af79cd13be357-9277e739cffmr377969185a.18.1782286591012;
+        Wed, 24 Jun 2026 00:36:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:29d2:b0:915:c76f:26e0 with SMTP id af79cd13be357-9277e739cffmr377965585a.18.1782286590436;
+        Wed, 24 Jun 2026 00:36:30 -0700 (PDT)
+Received: from [192.168.0.172] ([49.205.250.204])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c0c5ef8acaesm616235666b.27.2026.06.24.00.36.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 24 Jun 2026 00:36:29 -0700 (PDT)
+Message-ID: <72b8e47e-df95-46f4-8c42-91f07a328065@oss.qualcomm.com>
+Date: Wed, 24 Jun 2026 13:06:19 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 07/21] RISC-V: Add Sscfg extension CSR definition
-To: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Cc: James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Ian Rogers <irogers@google.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
- <20260608-counter_delegation-v6-7-285b72ed65a9@meta.com>
- <ajjZkRxoh2F3vUAS@blinky>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/16] media: iris: Add framework support for AR50_LITE
+ video core
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260616-iris-ar50lt-v5-0-583b42770b6a@oss.qualcomm.com>
+ <20260616-iris-ar50lt-v5-9-583b42770b6a@oss.qualcomm.com>
 Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <ajjZkRxoh2F3vUAS@blinky>
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260616-iris-ar50lt-v5-9-583b42770b6a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: mFWkxbN7FibsU_FbuWErmLtEG1RAK03g
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA2MSBTYWx0ZWRfXx9jvfOeLLd3i
+ oTyKKqMAQWu1zSsr12LjfwfFlpw3cir63NXfPPysrrSHaV9sF9vS/NLZlFyuvqjhkvjST7l5bva
+ a/aT2lf0fBphiCGglQxLiqbS4PmdiHc=
+X-Proofpoint-ORIG-GUID: mFWkxbN7FibsU_FbuWErmLtEG1RAK03g
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA2MSBTYWx0ZWRfX62RRULMeUFXI
+ CgBNVWFV7Qrnm0foH/CtOgRL/UHUIrdnh45D+IL0bP5xfxvtJse2zxIHV6aapiRRQP6/wbwm2wd
+ spU9JkLnVR4lXORTyh99QYGqtfZhKtgU1XWU6KfcIu83Y0ZPaEQ4J1AOOrkdkY1VyLMDL+Sk1U9
+ FGxDCwmSJgN5CYgIghpFpmDyt1tpiEZwA/EwdYrbb52JjDfWSHQGhCcv/omREHy6z/q0/LdgosO
+ 0Q2UiT6ywwYQybiAsNq4y/qaLGcDJ6lhla2IBNVIrGNhne0AXvvpuoehtXCvQ79YAnTekypQgR1
+ sGMvlylHyeLWQN6D8B/l4Q3uQZDfq+FewernEYUIuOnqgj1Lj6IbjBuIqlMOxwzLlqHgmYtj9cN
+ T6ett46xWSpl3edF4Gji6AftRHbaxQ==
+X-Authority-Analysis: v=2.4 cv=Tv/WQjXh c=1 sm=1 tr=0 ts=6a3b88ff cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=9U17wRWtyhLDe7ZN7ogbJw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Lu1VWoxmIdvzX4MP_goA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_02,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0
+ malwarescore=0 phishscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2606150000 definitions=main-2606240061
 
 
-On 6/21/26 11:43 PM, Charlie Jenkins wrote:
-> On Mon, Jun 08, 2026 at 11:01:21PM -0700, Atish Patra wrote:
->> From: Kaiwen Xue <kaiwenx@rivosinc.com>
->>
->> This adds the scountinhibit CSR definition and S-mode accessible hpmevent
->> bits defined by smcdeleg/ssccfg. scountinhibit allows S-mode to start/stop
->> counters directly from S-mode without invoking SBI calls to M-mode. It is
->> also used to figure out the counters delegated to S-mode by the M-mode as
->> well.
->>
->> Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
->> Reviewed-by: Clément Léger <cleger@rivosinc.com>
->> ---
->>   arch/riscv/include/asm/csr.h | 26 ++++++++++++++++++++++++++
->>   1 file changed, 26 insertions(+)
->>
->> diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
->> index b4551a6cf7cb..26cb78dee2fd 100644
->> --- a/arch/riscv/include/asm/csr.h
->> +++ b/arch/riscv/include/asm/csr.h
->> @@ -241,6 +241,31 @@
->>   #define SMSTATEEN0_HSENVCFG		(_ULL(1) << SMSTATEEN0_HSENVCFG_SHIFT)
->>   #define SMSTATEEN0_SSTATEEN0_SHIFT	63
->>   #define SMSTATEEN0_SSTATEEN0		(_ULL(1) << SMSTATEEN0_SSTATEEN0_SHIFT)
->> +/* HPMEVENT bits. These are accessible in S-mode via Smcdeleg/Ssccfg */
->> +#ifdef CONFIG_64BIT
->> +#define HPMEVENT_OF			(BIT_ULL(63))
->> +#define HPMEVENT_MINH			(BIT_ULL(62))
->> +#define HPMEVENT_SINH			(BIT_ULL(61))
->> +#define HPMEVENT_UINH			(BIT_ULL(60))
->> +#define HPMEVENT_VSINH			(BIT_ULL(59))
->> +#define HPMEVENT_VUINH			(BIT_ULL(58))
->> +#else
->> +#define HPMEVENTH_OF			(BIT_ULL(31))
->> +#define HPMEVENTH_MINH			(BIT_ULL(30))
->> +#define HPMEVENTH_SINH			(BIT_ULL(29))
->> +#define HPMEVENTH_UINH			(BIT_ULL(28))
->> +#define HPMEVENTH_VSINH			(BIT_ULL(27))
->> +#define HPMEVENTH_VUINH			(BIT_ULL(26))
-> Since these are rv32 bits for a 32-bit register, I think these should be
-> BIT() instead of BIT_ULL()
->
->> +
->> +#define HPMEVENT_OF			(HPMEVENTH_OF << 32)
->> +#define HPMEVENT_MINH			(HPMEVENTH_MINH << 32)
->> +#define HPMEVENT_SINH			(HPMEVENTH_SINH << 32)
->> +#define HPMEVENT_UINH			(HPMEVENTH_UINH << 32)
->> +#define HPMEVENT_VSINH			(HPMEVENTH_VSINH << 32)
->> +#define HPMEVENT_VUINH			(HPMEVENTH_VUINH << 32)
-> These definitions are identical to the rv64 ones, can these be removed
-> and can you move the rv64 definitions to be global?
+On 6/16/2026 5:34 AM, Dmitry Baryshkov wrote:
+> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> 
+> Add power sequence for ar5lt core.
+> Add register handling for ar50lt by hooking up vpu op with ar50lt
+> specific implemtation or resue from earlier generation wherever
+> feasible.
+> 
+> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/Makefile          |   1 +
+>   .../platform/qcom/iris/iris_platform_common.h      |   2 +
+>   drivers/media/platform/qcom/iris/iris_vpu2.c       |  28 +----
+>   drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c | 130 +++++++++++++++++++++
+>   drivers/media/platform/qcom/iris/iris_vpu_common.c |  29 ++++-
+>   drivers/media/platform/qcom/iris/iris_vpu_common.h |   2 +
+>   6 files changed, 164 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+> index 48e415cbc439..f1b204b95694 100644
+> --- a/drivers/media/platform/qcom/iris/Makefile
+> +++ b/drivers/media/platform/qcom/iris/Makefile
+> @@ -26,6 +26,7 @@ qcom-iris-objs += iris_buffer.o \
+>                iris_vpu2.o \
+>                iris_vpu3x.o \
+>                iris_vpu4x.o \
+> +             iris_vpu_ar50lt.o \
+>                iris_vpu_buffer.o \
+>                iris_vpu_common.o \
+>   
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index accc1627defd..6a189489369f 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -74,6 +74,7 @@ enum platform_clk_type {
+>   	IRIS_VPP0_HW_CLK,
+>   	IRIS_VPP1_HW_CLK,
+>   	IRIS_APV_HW_CLK,
+> +	IRIS_THROTTLE_CLK,
 
-Good catch. Will fix this and the above in v8.
+As we extend the common enum for (one off probably) SOC specific 
+entries, should we bring in the changes to migrate this to per block 
+clock data, something which was done here [1] ?
 
-> - Charlie
->
->> +#endif
->> +
->> +#define SISELECT_SSCCFG_BASE		0x40
->>   
->>   /* mseccfg bits */
->>   #define MSECCFG_PMM			ENVCFG_PMM
->> @@ -322,6 +347,7 @@
->>   #define CSR_SCOUNTEREN		0x106
->>   #define CSR_SENVCFG		0x10a
->>   #define CSR_SSTATEEN0		0x10c
->> +#define CSR_SCOUNTINHIBIT	0x120
->>   #define CSR_SSCRATCH		0x140
->>   #define CSR_SEPC		0x141
->>   #define CSR_SCAUSE		0x142
->>
->> -- 
->> 2.53.0-Meta
->>
->>
->> _______________________________________________
->> linux-riscv mailing list
->> linux-riscv@lists.infradead.org
->> http://lists.infradead.org/mailman/listinfo/linux-riscv
+[1] 
+https://lore.kernel.org/linux-media/20260610-glymur-v8-6-1c79b9d51fc0@oss.qualcomm.com/
+
+>   };
+>   
+>   struct platform_clk_data {
+> @@ -315,6 +316,7 @@ struct iris_platform_data {
+>   	u32 tz_cp_config_data_size;
+>   	u32 num_vpp_pipe;
+>   	bool no_aon;
+> +	bool no_rpmh;
+>   	u32 wd_intr_mask;
+>   	u32 icc_ib_multiplier;
+>   	u32 max_session_count;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu2.c b/drivers/media/platform/qcom/iris/iris_vpu2.c
+> index dd2eeae0d9eb..5419a5096b00 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu2.c
+> @@ -12,38 +12,12 @@
+>   
+>   #include "iris_vpu_register_defines.h"
+>   
+> -static u64 iris_vpu2_calc_freq(struct iris_inst *inst, size_t data_size)
+> -{
+> -	struct platform_inst_caps *caps = inst->core->iris_platform_data->inst_caps;
+> -	struct v4l2_format *inp_f = inst->fmt_src;
+> -	u32 mbs_per_second, mbpf, height, width;
+> -	unsigned long vpp_freq, vsp_freq;
+> -	u32 fps = inst->frame_rate;
+> -
+> -	width = max(inp_f->fmt.pix_mp.width, inst->crop.width);
+> -	height = max(inp_f->fmt.pix_mp.height, inst->crop.height);
+> -
+> -	mbpf = NUM_MBS_PER_FRAME(height, width);
+> -	mbs_per_second = mbpf * fps;
+> -
+> -	vpp_freq = mbs_per_second * caps->mb_cycles_vpp;
+> -
+> -	/* 21 / 20 is overhead factor */
+> -	vpp_freq += vpp_freq / 20;
+> -	vsp_freq = mbs_per_second * caps->mb_cycles_vsp;
+> -
+> -	/* 10 / 7 is overhead factor */
+> -	vsp_freq += ((fps * data_size * 8) * 10) / 7;
+> -
+> -	return max(vpp_freq, vsp_freq);
+> -}
+> -
+>   const struct vpu_ops iris_vpu2_ops = {
+>   	.power_off_hw = iris_vpu_power_off_hw,
+>   	.power_on_hw = iris_vpu_power_on_hw,
+>   	.power_off_controller = iris_vpu_power_off_controller,
+>   	.power_on_controller = iris_vpu_power_on_controller,
+> -	.calc_freq = iris_vpu2_calc_freq,
+> +	.calc_freq = iris_vpu2_calculate_frequency,
+>   	.set_hwmode = iris_vpu_set_hwmode,
+>   	.set_preset_registers = iris_vpu_set_preset_registers,
+>   	.interrupt_init = iris_vpu_interrupt_init,
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c b/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c
+> new file mode 100644
+> index 000000000000..e084a5b49f2e
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_ar50lt.c
+> @@ -0,0 +1,130 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/reset.h>
+> +
+> +#include "iris_instance.h"
+> +#include "iris_vpu_common.h"
+> +
+> +#include "iris_vpu_register_defines.h"
+> +
+> +#define WRAPPER_INTR_MASK_A2HVCODEC_BMSK_AR50LT BIT(3)
+> +
+> +#define WRAPPER_VCODEC0_CLOCK_CONFIG_AR50LT		0xb0080
+> +
+> +#define CPU_CS_VCICMD					0xa0020
+> +#define CPU_CS_VCICMD_ARP_OFF			0x1
+> +
+> +static void iris_vpu_ar50lt_set_preset_registers(struct iris_core *core)
+> +{
+> +	writel(0x0, core->reg_base + WRAPPER_VCODEC0_CLOCK_CONFIG_AR50LT);
+> +}
+> +
+> +static void iris_vpu_ar50lt_interrupt_init(struct iris_core *core)
+> +{
+> +	writel(WRAPPER_INTR_MASK_A2HVCODEC_BMSK_AR50LT, core->reg_base + WRAPPER_INTR_MASK);
+> +}
+> +
+> +static void iris_vpu_ar50lt_disable_arp(struct iris_core *core)
+> +{
+> +	writel(CPU_CS_VCICMD_ARP_OFF, core->reg_base + CPU_CS_VCICMD);
+> +}
+> +
+> +static int iris_vpu_ar50lt_power_off_controller(struct iris_core *core)
+> +{
+> +	iris_disable_unprepare_clock(core, IRIS_AHB_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_AXI_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_CTRL_CLK);
+> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_CTRL_POWER_DOMAIN]);
+> +
+> +	return 0;
+> +}
+> +
+> +static void iris_vpu_ar50lt_power_off_hw(struct iris_core *core)
+> +{
+> +	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], false);
+> +	iris_disable_unprepare_clock(core, IRIS_THROTTLE_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
+> +	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
+> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+> +}
+> +
+> +static int iris_vpu_ar50lt_power_on_controller(struct iris_core *core)
+> +{
+> +	int ret;
+> +
+> +	ret = iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_CTRL_POWER_DOMAIN]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_CTRL_CLK);
+> +	if (ret)
+> +		goto err_disable_power;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_AXI_CLK);
+> +	if (ret && ret != -ENOENT)
+> +		goto err_disable_ctrl_clock;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_AHB_CLK);
+> +	if (ret)
+> +		goto err_disable_axi_clock;
+> +
+> +	return 0;
+> +
+> +err_disable_axi_clock:
+> +	iris_disable_unprepare_clock(core, IRIS_AXI_CLK);
+> +err_disable_ctrl_clock:
+> +	iris_disable_unprepare_clock(core, IRIS_CTRL_CLK);
+> +err_disable_power:
+> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_CTRL_POWER_DOMAIN]);
+> +
+> +	return ret;
+> +}
+> +
+> +static int iris_vpu_ar50lt_power_on_hw(struct iris_core *core)
+> +{
+> +	int ret;
+> +
+> +	ret = iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_HW_CLK);
+> +	if (ret)
+> +		goto err_disable_power;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_HW_AHB_CLK);
+> +	if (ret)
+> +		goto err_disable_hw_clock;
+> +
+> +	ret = iris_prepare_enable_clock(core, IRIS_THROTTLE_CLK);
+> +	if (ret)
+> +		goto err_disable_hw_ahb_clock;
+> +
+> +	return 0;
+
+...lot of these per soc specific clock handling would be removed.
+
+Regards,
+Vikash
