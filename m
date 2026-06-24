@@ -1,86 +1,66 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695933D9052
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491313D9DCB
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782313815; cv=none; b=KKw8Lr6usLA/xeQJ71E44sM0yAP9b3DquVSwNFI2JkON3IvsrMKmk/P1+LcrAdLN7BpQxSY4XrV8ZdQW1dTaUkhWqa/iTMmXaaRemBuz09rrphySTLJ64f/EtYO7X6+qcu+/3aseN7PwsYd3e20XaavrQCGlxHldbv6GRpYDQ3k=
+	t=1782314001; cv=none; b=knMj16xOGXbXGWqIAn2Z3ahy+gsLPOc28CjSuYHFxDAGdpnU5RmdeypDjvHWCJoGlnsGa1Hl3FqBEh8+rbtwaGeSZm6Yy/SDbqL0xeET59n9C7QUmbIhlvtuCRMlm/A1qDHoKLAg8E3tpTU3Ky7vmEAI8jEmO0ft7JvXOFtjvdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782313815; c=relaxed/simple;
-	bh=D/S5IuAJPNT644Gs0AW27oQ0aC5JKgWjrTwbcieJiYA=;
+	s=arc-20240116; t=1782314001; c=relaxed/simple;
+	bh=S7HTvQJvi9q3ObEnOv2xXX/hy6wHNAPvkD4FGpz2B8U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DRmjLl0aAywCWj4SMsaHDSrnVQz4iXpyAnNTLFqp5OFEho5+N2hBpnoc+YPOccwRR4Ljk9hkHwf2b/5sanCUBvk2lBcgYAzOTWFdg3v21bFj+ma4UCIgvcpC+Q7AFYqMcq2mnrMdQfz7JcVZz7Sz6tJFBfgE7IEfxR0QDh9zbQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E6C/xDrz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V4VjWRDp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=AfczPVesJ2LtD12D5WljT2QIfDClSS89hoS24ADKWZc0NJLnxCNGG0Mq20XACIWP+RNKrt55CYNoKZyKxg3dnaf0nwT+4gt8Y8TWrH+TelJJQHZKFrf/pHkDZXyNUqRZTd5gFbNyoOkOGk43/8nsOfBQ7c/MEa/W15d4cMVUI0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=U/5Y866A; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E6C/xDrz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V4VjWRDp"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OEfNc23076171
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:10:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CEyzklSSRwOjLFDtorsDC03GX9euxE4wNWuU+QT1/5E=; b=E6C/xDrzzITLjNZS
-	iYA6GYr0nrVi6ROX6YIno6iL8wQyzTqoUJYfrMTLjtOzzkCz/23JaXg7aFf8J28S
-	xEAO4v6OgMMqU3Bm0cAqn5hviuxeW7+N9bhKx4QdfVGvNOZopEf2hTkcQTD3zMxv
-	jSoGrchDn7i0S6akfEPWekvP61ampCfsV8H3DwFYvLxyd6SagxZeM0BclfHL+h/N
-	NspH4jC/Yt7BqByIIOQCPyRddRXQ6N56w++lCECLfCPa5dMTAc8+aG7kkarg7MVj
-	BxwfMFiQAb2r0g2VLnXHNDqb8Yz4q8bP/ffNDpnQnxv2xdFjUNXwym16eLmn7IEK
-	v7aHjw==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0d4517ug-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 15:10:10 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c7ee3952d6so3867505ad.1
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:10:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="U/5Y866A"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7e6b5c374e5so1040734a34.0
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:13:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782313810; x=1782918610; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782313998; x=1782918798; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CEyzklSSRwOjLFDtorsDC03GX9euxE4wNWuU+QT1/5E=;
-        b=V4VjWRDpOilw+HMZemvjN5Z3rwWs6h55q9dzUc3/xpPj2TbkrXsHtFGHJ1aJ4fVF0W
-         1sXQYPbkQRw7kqT+QCaDRKF5LwMIFjDZH8YU0cgC1McrC4Zbnb+7ud60CIC+cvS+avL0
-         1IXgrNy0aiZ6p21pFNuEunRzRtZGWyu/SjlHRU1B1GjTweK0/HQvhqGZMB5ELIz+rPxU
-         tsKYRyFzf2AzaXtND+BjuKm849fh0KeeY9A2JxlFtL/A/5Rz35yEWUsSv44zI/gw19jy
-         5tMXsbIkUmoXWISlDuFmQ4gGn/yckaHrQBl36jZeAsEFg4A2vejVIz6Yra7YG19blKVT
-         OZ8g==
+        bh=HAsvraZ6mLfXZddrVTxKfH+cnaP/AcM6qIT+GUf0HZM=;
+        b=U/5Y866AWO1pTARc3qO/TlN8hRIZ2uffotr8pLtTxATWLKSvnEzSrSM5+eXw2UmRPF
+         c0/LfCHSx0rUIsEY+8qvjXTh/YC/iBBZISXAXxGGWfJaWRNo2oGs0OjeW4oXdGG65GCP
+         yIYKwJpWKJ18OMQuvW7Q8cPaNdUfGlBONDRPKy84A3oaB9jVZWrIvgrhiD4DDcRt7T2x
+         vCGJswsw7jTz7KkZwPcKnXT+Zu8R63mlRIIOkMd0iyddFyW6vQZNtOdffEvUrg6ii43T
+         fanr2wAbfy4iZGfBxf7CVhFP/zDvnRRi/KNmA84lXWu7TihYTOVjnnJFEChwgWY/GvB7
+         D8bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782313810; x=1782918610;
+        d=1e100.net; s=20251104; t=1782313998; x=1782918798;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=CEyzklSSRwOjLFDtorsDC03GX9euxE4wNWuU+QT1/5E=;
-        b=Vx3bBzxQmB1bBV77wOvzaVn2iY51ULPyQEq3/iOlWkOgLif4dLZguz5bJG9X6S22jU
-         9RuDN8D604NRQqhZHSRYNj2+qok02OhE/VQFBY69q8e1N5OuT8p92y1zkIllUTb0l93O
-         SNhzVQV+9a0/ysh9/fuApUJ9rvvC2g+62qKfpFxkpsISGj041yNnrIMLeNyV/vUuzrKr
-         3IfYtNnCqcuZmLNAT4F+QF86bPgc/1Idy+ZBJPRd0sHMvReOHiM2GnaXFdKJP4SjYBBR
-         MNyd1q3wviko1xaMCC+tncvzS8vV0CIF50JzobS8W3zIUeubQdg6wvkiGgug1hs6iw41
-         7w6g==
-X-Forwarded-Encrypted: i=1; AHgh+RqY+yl871NSFyoDDbnFBFGZunI0c9rpGaE9qN55qaI7bz/II0fwBO952hPE3sFYlykYnCPtHAk08loG@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywy4BtgBdVKworcYm5IOZUs4oUp2gkssJMErF8O1ijSyXJFyqmD
-	SwyJweDGdpmF5O9USkw6vxP9imB6N3pp2SuAZeuargDLrb2BKuVFDyqiyp+Bz62L4dDxLoAv0aS
-	J+iFD42IjiG8x/vhqntB1RCYUwhP44aFA29ltey33v0GYozJ3d2HmK1xRHbFqD58l
-X-Gm-Gg: AfdE7ckUknkCB3ENsM7Ith9+MOeR/iQQsgljNo0Py91vifIF5XDNNxQFKIWuEPq9VqR
-	bOiUUXO12zN39/W86G8P2wiX8z/D/8osxrVi8rUYFUZSrDxXIpQTRS9UesJDCfO7gW6Xm9pydiN
-	WALEbeFps8zd04fLZwGN8PaaG/ixW/Xn3SCdFI/MliaTpnW8f3zX1iFpSg/zXPdPNfT7GKcOfjp
-	m1rj2voYdhJyt8iTuzrta4v/zgHrTljWWSz8rdh1oDcxUp6PKHdiM75Sejl1sPY0XTqKtsyctXL
-	2t7ZBO8TfdI3D1A53SFMlgkZA7F3fqKQ34ByozXRrfIEmvnIQRR6wtEODhz2WTIzxksQfcqN33Q
-	QlwBtTjHj4QS64ngAgfduYB1pmns13Z4rPlC1H7tuovBi
-X-Received: by 2002:a17:903:1107:b0:2ba:7881:948d with SMTP id d9443c01a7336-2c7e1412c1fmr37650645ad.1.1782313809917;
-        Wed, 24 Jun 2026 08:10:09 -0700 (PDT)
-X-Received: by 2002:a17:903:1107:b0:2ba:7881:948d with SMTP id d9443c01a7336-2c7e1412c1fmr37650275ad.1.1782313809257;
-        Wed, 24 Jun 2026 08:10:09 -0700 (PDT)
-Received: from [10.204.101.214] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f5ae5ecfsm367535ad.21.2026.06.24.08.10.04
+        bh=HAsvraZ6mLfXZddrVTxKfH+cnaP/AcM6qIT+GUf0HZM=;
+        b=D6jGFHGknalaOOU0dpHEebpVitQMjuQKY2AZj4VZab6RVji8OdL4Pxc2QjQQSITi1x
+         6ywt8IvR1whloSKnwYYisnHHVxkhLGNcXwacDzkMgT3/sehmXTMupRp25NIyFYF2op7a
+         cYn9JcXK1FBZoGSIFcXbq7J4kIohfVFwpUMhTW6fREeJm13gHHFhWDgGBC8FAJJbBTlc
+         39FwKe36syxuZdZ1Oeeibs00hAaBRdYc+2Dgmf+vbRFy37Da4XQ3e+aRlrUcCmnOQ8/R
+         vsc+27LH+bljW8CxKYreBURq7qS5T4HAPu5TxHgTeVLccp9U8BYbUctPa0MyNxnU43KC
+         7csw==
+X-Forwarded-Encrypted: i=1; AFNElJ87ZbleVP5Xxnkm9lNCPPRUGGoOTL/AFB535yaagg5zes8JIP7mNpaNI+HNJw/lnjPiFjeZdAFV+kTW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxNclx45Iw8EJXjGMHMFc16ckITZwd6t+dQY6X9f9fTNJK72Ua
+	PcgDxGTF0v5fS5aiBGYepsiHE2lZk2j4OALiIzexocQkCwuLvvnwPy8NHjAiuG7d63M=
+X-Gm-Gg: AfdE7cnhJArufSEAyJPssDs/aHSfn4maCIT/uAAtIqxAISfco3Gyb8lg/oMg2hpc+jB
+	n24Q83DmMmPZGhZ/+NOPqvqbaWjUE4aLLu6T4p8hIA9QYbg+dC7Wdl8kiVj9sZvPToZRaGL3LxF
+	x4/QBH5+FxIcVZOE/zIjqxxFCLNUjrS+O15jHwZhUoLuhr9r41jY5OY+T0TBsYHa2BZkeSngNWV
+	uRqTFNdBiysq+isyFHrupqLEvqEFRUXrAUCTOCs/wmAcoHQnf1SnD3+E4CCTYLB8xogiEEwMe1y
+	BsyrTyo4phL0UKuj/XVeDPmztfx8PBVX9569pFdA4Cj1J3IzLACy6WfQFykVyENbMMpX/PMTE4g
+	/dCWI0MGDf4Q5UWkF1+n0m7sqo10nlmW88oidYiLX0zIcoKp+pRsFfW4wS5NfjwQWChnGSkHOAr
+	gPDStrjzjzNO+wHwzK3jzoFp7+AulUMSiuzHfOpGfBSUHPoJzSUgQDfE4+fpgcC3k=
+X-Received: by 2002:a05:6830:7003:b0:7e7:24f9:55c8 with SMTP id 46e09a7af769-7e99152425fmr450926a34.5.1782313998318;
+        Wed, 24 Jun 2026 08:13:18 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:68dc:b788:b3ac:e34e? ([2600:8803:e7e4:500:68dc:b788:b3ac:e34e])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e94406d488sm11520762a34.8.2026.06.24.08.13.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 24 Jun 2026 08:10:08 -0700 (PDT)
-Message-ID: <09f6f0bd-6bde-4dbf-9be7-623c17232b16@oss.qualcomm.com>
-Date: Wed, 24 Jun 2026 20:40:02 +0530
+        Wed, 24 Jun 2026 08:13:16 -0700 (PDT)
+Message-ID: <b5677860-8e14-4c90-b26d-32057e93b6fd@baylibre.com>
+Date: Wed, 24 Jun 2026 10:13:15 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,547 +68,80 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/16] media: iris: Introduce buffer size calculations
- for AR50LT
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260616-iris-ar50lt-v5-0-583b42770b6a@oss.qualcomm.com>
- <20260616-iris-ar50lt-v5-13-583b42770b6a@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+To: Janani Sunil <jan.sun97@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>,
+ Conor Dooley <conor@kernel.org>, Janani Sunil <janani.sunil@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Michael Hennerich <Michael.Hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+References: <20260619-obstinate-polo-a230bef97fda@spud>
+ <20260619-bunch-diocese-dd7805cc17ff@spud> <ajU73_TkKrSbqD4f@nsa>
+ <20260619-concierge-doozy-9c161533c369@spud> <ajVlD-j0nIGrRVow@nsa>
+ <20260621153330.79b6600c@jic23-huawei>
+ <5u4dnsgxwcwie45f24cacyzf3dko4srhyyyhcpom6tsvhqtmpc@y7d7gmex6n7k>
+ <ajkMBh-R_7pYaoAn@nsa>
+ <pifhwgj3cp2vc7ia4m6penh52iekzjljrp75y5b7j57vvtooad@32wfqruiqqjl>
+ <ajklksIDLsj0BZul@nsa>
+ <5guhkvoxhkzevjm4b45hhk3772akpnz3givr3gb56x5ywamzyf@oiycreun4y62>
+ <20260623155732.318f34f2@jic23-huawei>
+ <9abc53d0-432f-48fc-9e21-4d9a3c5e129f@gmail.com>
 Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260616-iris-ar50lt-v5-13-583b42770b6a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDEyNyBTYWx0ZWRfX6G/6Sj5T8bRC
- j6mBjbntc/WlFcwjJwyoNaDDgQS25bsvBhZ/bcVUUmu0fOphF6HJ29YfNp4ksN6PlBBZPGErxYi
- M23ZekxcyZzpGQgxc0sJtAZKQugy54g=
-X-Proofpoint-GUID: 7Z8odIHLdXVY5jk8VTZNjjmJ4VjM168N
-X-Authority-Analysis: v=2.4 cv=Ar7eGu9P c=1 sm=1 tr=0 ts=6a3bf352 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=E2Jh6DGDdsfDr_tZIxwA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: 7Z8odIHLdXVY5jk8VTZNjjmJ4VjM168N
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDEyNyBTYWx0ZWRfXzZbiM/I5oKEQ
- ffAVhNFk8Vkh2ebrf9ZXZOGYotKvcxKCg30KTqKyRI5bLs72g/QOJuxDGElanAcndxFOFeU59EN
- OamVPAZqXJcnfLtMb2gv2QRZRZyVkXhYCJtu5Ohg2YtHCg7l9U4va4HXGeT9wq8imaCdIxldC4l
- kMvnCV0fH60oDQWPpnVEUhc8E3gjqsPfoztQ76Uxib8h5wPRaTW0tsnNWjNEA9BVGQRb9ztpnki
- meSKSpq/0FVvlaLckfYXtGW77yccQncZ0M2LhdwrrER+Zal06eTTaGQP7TXsgrWM0PBvWCdxDyO
- 8xAlv5DIcs/wopUWN23HS4K1n8l6oRuMbPE6967IK8r8VfVUeMkqIwZp1hhVT93jKaUwpORpXu0
- k0FBmitC52qDusMAJS0YjuXfs6oxNQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_03,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0
- spamscore=0 suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606240127
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <9abc53d0-432f-48fc-9e21-4d9a3c5e129f@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
-
-On 6/16/2026 5:34 AM, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+>>>>>    
+>>>>>> But yes, I do feel that the whole feature is for aggregation so seeing
+>>>>>> one device with 32 channels is the expectation here? Rather than seeing
+>>>>>> two devices with 16 channels.
+>>>>> Yes, I think aggregation is the whole point there... so that the IIO driver
+>>>>> is multi-device-aware.
+>>>> Which makes me feel that different pins per device might be possible
+>>>> from an HW point of view but does not make much sense. For example, for
+>>>> the buffer example I would expect LDAC to be shared between all the
+>>>> devices.
+>>> That is why I would still suggest the multi-dac node in the middle...
+>>> the parent node can hold shared resources, while the dac children can
+>>> have their own, overriding or inheriting stuff.
+>>>
+>> Before going down that path I'd want confirmation this is something we
+>> actually think anyone will build.
+>>
+>> Jonathan
 > 
-> Introduces AR50LT  buffer size calculation for both encoder and
-> decoder. Reuse the buffer size calculation which are common, while
-> adding the AR50LT specific ones separately.
+> To directly answer your question- we currently do not have a platform that supports multi device topology with independent supplies or reset lines.
+> Given that, I agree to start with the parallel wiring assumption and defer per chip resource variation under there is a solid use case. I will also drop the "adi,resolution" proposal and proceed with "adi,device-addrs" in the AD5529R binding.
+> With all of the above, the proposed binding for the multi-device follow up series would look like:
 > 
-> Signed-off-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 401 +++++++++++++++++++++
->   drivers/media/platform/qcom/iris/iris_vpu_buffer.h |  37 ++
->   2 files changed, 438 insertions(+)
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> index 4a39b8fef52b..ca03d6570513 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> @@ -50,6 +50,32 @@ static u32 hfi_buffer_bin_h264d(u32 frame_width, u32 frame_height, u32 num_vpp_p
->   	return size_h264d_hw_bin_buffer(n_aligned_w, n_aligned_h, num_vpp_pipes);
->   }
->   
-> +static u32 size_h264d_hw_bin_buffer_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 size_yuv, size_bin_hdr, size_bin_res;
-> +
-> +	size_yuv = ((frame_width * frame_height * 3) >> 1);
-> +	if (size_yuv <= 1920 * 1088 * 3 / 2) {
-> +		size_bin_hdr = size_yuv * H264_CABAC_HDR_RATIO_SM_TOT;
-> +		size_bin_res = size_yuv * H264_CABAC_RES_RATIO_SM_TOT;
-> +	} else {
-> +		size_bin_hdr = (size_yuv * 3) / 5;
-> +		size_bin_res = (size_yuv * 3) / 2;
-> +	}
-> +	size_bin_hdr = ALIGN(size_bin_hdr, DMA_ALIGNMENT);
-> +	size_bin_res = ALIGN(size_bin_res, DMA_ALIGNMENT);
-> +
-> +	return size_bin_hdr + size_bin_res;
-> +}
-> +
-> +static u32 hfi_buffer_bin_h264d_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 n_aligned_h = ALIGN(frame_height, 16);
-> +	u32 n_aligned_w = ALIGN(frame_width, 16);
-> +
-> +	return size_h264d_hw_bin_buffer_ar50lt(n_aligned_w, n_aligned_h, num_vpp_pipes);
-> +}
-> +
->   static u32 size_av1d_hw_bin_buffer(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
->   {
->   	u32 size_yuv, size_bin_hdr, size_bin_res;
-> @@ -103,6 +129,21 @@ static u32 hfi_buffer_bin_vp9d(u32 frame_width, u32 frame_height, u32 num_vpp_pi
->   	return _size * num_vpp_pipes;
->   }
->   
-> +static u32 hfi_buffer_bin_vp9d_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 size_yuv, size;
-> +
-> +	size_yuv = ALIGN(frame_width, 16) * ALIGN(frame_height, 16) * 3 / 2;
-> +	size_yuv = ALIGN(size_yuv, DMA_ALIGNMENT);
-> +
-> +	size = ALIGN(((((MAX(size_yuv, VPX_DECODER_FRAME_BIN_BUFFER_SIZE)) * 6) / 5) /
+>     dac@0 {
+>         compatible = "adi,ad5529r-16";
+>         reg = <0>;
+>         adi,device-addrs = <0 1>;
+>         reset-gpios = <&gpio0 87 GPIO_ACTIVE_LOW>;
+>         vdd-supply  = <&vdd_reg>;
+>         hvdd-supply = <&hvdd_reg>;
+> 
+>         channel@0  { reg = <0>;  adi,output-range-microvolt = <0 5000000>; };
+>         channel@16 { reg = <16>; adi,output-range-microvolt = <0 40000000>; };
+>     };
+> 
+> Does this look reasonable to everyone?
+> 
+> Regards,
+> Janani Sunil
+> 
 
-MAX() or max() ?
-
-> +		      num_vpp_pipes), DMA_ALIGNMENT) +
-> +		ALIGN((((MAX(size_yuv, VPX_DECODER_FRAME_BIN_BUFFER_SIZE)) * 4) / num_vpp_pipes),
-> +		      DMA_ALIGNMENT);
-> +
-> +	return size * num_vpp_pipes;
-> +}
-> +
->   static u32 hfi_buffer_bin_h265d(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
->   {
->   	u32 n_aligned_w = ALIGN(frame_width, 16);
-> @@ -111,6 +152,32 @@ static u32 hfi_buffer_bin_h265d(u32 frame_width, u32 frame_height, u32 num_vpp_p
->   	return size_h265d_hw_bin_buffer(n_aligned_w, n_aligned_h, num_vpp_pipes);
->   }
->   
-> +static u32 size_h265d_hw_bin_buffer_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 size_yuv, size_bin_hdr, size_bin_res;
-> +
-> +	size_yuv = ((frame_width * frame_height * 3) >> 1);
-> +	if (size_yuv <= ((BIN_BUFFER_THRESHOLD * 3) >> 1)) {
-> +		size_bin_hdr = size_yuv * H265_CABAC_HDR_RATIO_SM_TOT;
-> +		size_bin_res = size_yuv * H265_CABAC_RES_RATIO_SM_TOT;
-> +	} else {
-> +		size_bin_hdr = (size_yuv * 41) / 50;
-> +		size_bin_res = (size_yuv * 59) / 50;
-> +	}
-> +	size_bin_hdr = ALIGN(size_bin_hdr, DMA_ALIGNMENT);
-> +	size_bin_res = ALIGN(size_bin_res, DMA_ALIGNMENT);
-> +
-> +	return size_bin_hdr + size_bin_res;
-> +}
-> +
-> +static u32 hfi_buffer_bin_h265d_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 n_aligned_w = ALIGN(frame_width, 16);
-> +	u32 n_aligned_h = ALIGN(frame_height, 16);
-> +
-> +	return size_h265d_hw_bin_buffer_ar50lt(n_aligned_w, n_aligned_h, num_vpp_pipes);
-> +}
-> +
->   static u32 hfi_buffer_comv_h264d(u32 frame_width, u32 frame_height, u32 _comv_bufcount)
->   {
->   	u32 frame_height_in_mbs = DIV_ROUND_UP(frame_height, 16);
-> @@ -174,6 +241,14 @@ static u32 size_h264d_bse_cmd_buf(u32 frame_height)
->   		SIZE_H264D_BSE_CMD_PER_BUF;
->   }
->   
-> +static u32 size_h264d_bse_cmd_buf_ar50lt(u32 frame_height)
-> +{
-> +	u32 height = ALIGN(frame_height, 32);
-> +
-> +	return min_t(u32, (DIV_ROUND_UP(height, 16) * 12), H264D_MAX_SLICE) *
-> +		SIZE_H264D_BSE_CMD_PER_BUF;
-> +}
-> +
->   static u32 size_h265d_bse_cmd_buf(u32 frame_width, u32 frame_height)
->   {
->   	u32 _size = ALIGN(((ALIGN(frame_width, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS) *
-> @@ -185,6 +260,18 @@ static u32 size_h265d_bse_cmd_buf(u32 frame_width, u32 frame_height)
->   	return _size;
->   }
->   
-> +static u32 size_h265d_bse_cmd_buf_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	u32 _size = ALIGN(((ALIGN(frame_width, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS) *
-> +			   (ALIGN(frame_height, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS)) *
-> +			    NUM_HW_PIC_BUF, DMA_ALIGNMENT);
-> +
-> +	_size = min_t(u32, _size, H265D_MAX_SLICE_AR50LT + 1);
-> +	_size = 2 * _size * SIZE_H265D_BSE_CMD_PER_BUF;
-> +
-> +	return _size;
-> +}
-> +
->   static u32 hfi_buffer_persist_h265d(u32 rpu_enabled)
->   {
->   	return ALIGN((SIZE_SLIST_BUF_H265 * NUM_SLIST_BUF_H265 +
-> @@ -195,6 +282,13 @@ static u32 hfi_buffer_persist_h265d(u32 rpu_enabled)
->   		     DMA_ALIGNMENT);
->   }
->   
-> +static u32 hfi_buffer_persist_h265d_ar50lt(void)
-> +{
-> +	return ALIGN((SIZE_SLIST_BUF_H265 * NUM_SLIST_BUF_H265 +
-> +		      H265_NUM_TILE * sizeof(u32) + NUM_HW_PIC_BUF * SIZE_SEI_USERDATA),
-> +		     DMA_ALIGNMENT);
-> +}
-> +
->   static inline
->   u32 hfi_iris3_vp9d_comv_size(void)
->   {
-> @@ -212,6 +306,13 @@ static u32 hfi_buffer_persist_vp9d(void)
->   		HDR10_HIST_EXTRADATA_SIZE;
->   }
->   
-> +static u32 hfi_buffer_persist_vp9d_ar50lt(void)
-> +{
-> +	return ALIGN(VP9_NUM_PROBABILITY_TABLE_BUF * VP9_PROB_TABLE_SIZE, DMA_ALIGNMENT) +
-> +		ALIGN(hfi_iris3_vp9d_comv_size(), DMA_ALIGNMENT) +
-> +		ALIGN(MAX_SUPERFRAME_HEADER_LEN, DMA_ALIGNMENT);
-> +}
-> +
->   static u32 size_h264d_vpp_cmd_buf(u32 frame_height)
->   {
->   	u32 size, height = ALIGN(frame_height, 32);
-> @@ -222,6 +323,16 @@ static u32 size_h264d_vpp_cmd_buf(u32 frame_height)
->   	return size > VPP_CMD_MAX_SIZE ? VPP_CMD_MAX_SIZE : size;
->   }
->   
-> +static u32 size_h264d_vpp_cmd_buf_ar50lt(u32 frame_height)
-> +{
-> +	u32 size, height = ALIGN(frame_height, 32);
-> +
-> +	size = min_t(u32, (DIV_ROUND_UP(height, 16) * 12), H264D_MAX_SLICE) *
-> +		SIZE_H264D_VPP_CMD_PER_BUF;
-> +
-> +	return size > VPP_CMD_MAX_SIZE ? VPP_CMD_MAX_SIZE : size;
-> +}
-> +
->   static u32 hfi_buffer_persist_h264d(void)
->   {
->   	return ALIGN(SIZE_SLIST_BUF_H264 * NUM_SLIST_BUF_H264 +
-> @@ -230,6 +341,11 @@ static u32 hfi_buffer_persist_h264d(void)
->   		    DMA_ALIGNMENT);
->   }
->   
-> +static u32 hfi_buffer_persist_h264d_ar50lt(void)
-> +{
-> +	return ALIGN((SIZE_SLIST_BUF_H264 * NUM_SLIST_BUF_H264), DMA_ALIGNMENT);
-> +}
-> +
->   static u32 hfi_buffer_persist_av1d(u32 max_width, u32 max_height, u32 total_ref_count)
->   {
->   	u32 comv_size, size;
-> @@ -255,6 +371,17 @@ static u32 hfi_buffer_non_comv_h264d(u32 frame_width, u32 frame_height, u32 num_
->   	return ALIGN(size, DMA_ALIGNMENT);
->   }
->   
-> +static u32 hfi_buffer_non_comv_h264d_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 size_bse = size_h264d_bse_cmd_buf_ar50lt(frame_height);
-> +	u32 size_vpp = size_h264d_vpp_cmd_buf_ar50lt(frame_height);
-> +	u32 size = ALIGN(size_bse, DMA_ALIGNMENT) +
-> +		ALIGN(size_vpp, DMA_ALIGNMENT) +
-> +		ALIGN(SIZE_HW_PIC(SIZE_H264D_HW_PIC_T), DMA_ALIGNMENT);
-> +
-> +	return ALIGN(size, DMA_ALIGNMENT);
-> +}
-> +
->   static u32 size_h265d_vpp_cmd_buf(u32 frame_width, u32 frame_height)
->   {
->   	u32 _size = ALIGN(((ALIGN(frame_width, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS) *
-> @@ -269,6 +396,20 @@ static u32 size_h265d_vpp_cmd_buf(u32 frame_width, u32 frame_height)
->   	return _size;
->   }
->   
-> +static u32 size_h265d_vpp_cmd_buf_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	u32 _size = ALIGN(((ALIGN(frame_width, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS) *
-> +			   (ALIGN(frame_height, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS)) *
-> +			  NUM_HW_PIC_BUF, DMA_ALIGNMENT);
-> +	_size = min_t(u32, _size, H265D_MAX_SLICE_AR50LT + 1);
-> +	_size = ALIGN(_size, 4);
-> +	_size = 2 * _size * SIZE_H265D_VPP_CMD_PER_BUF_AR50LT;
-> +	if (_size > VPP_CMD_MAX_SIZE)
-> +		_size = VPP_CMD_MAX_SIZE;
-> +
-> +	return _size;
-> +}
-> +
->   static u32 hfi_buffer_non_comv_h265d(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
->   {
->   	u32 _size_bse = size_h265d_bse_cmd_buf(frame_width, frame_height);
-> @@ -285,6 +426,20 @@ static u32 hfi_buffer_non_comv_h265d(u32 frame_width, u32 frame_height, u32 num_
->   	return ALIGN(_size, DMA_ALIGNMENT);
->   }
->   
-> +static u32 hfi_buffer_non_comv_h265d_ar50lt(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	u32 _size_bse = size_h265d_bse_cmd_buf_ar50lt(frame_width, frame_height);
-> +	u32 _size_vpp = size_h265d_vpp_cmd_buf_ar50lt(frame_width, frame_height);
-> +	u32 _size = ALIGN(_size_bse, DMA_ALIGNMENT) +
-> +		ALIGN(_size_vpp, DMA_ALIGNMENT) +
-> +		ALIGN(2 * sizeof(u16) *
-> +		(ALIGN(frame_width, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS) *
-> +		(ALIGN(frame_height, LCU_MAX_SIZE_PELS) / LCU_MIN_SIZE_PELS), DMA_ALIGNMENT) +
-> +		ALIGN(SIZE_HW_PIC(SIZE_H265D_HW_PIC_T), DMA_ALIGNMENT);
-> +
-> +	return ALIGN(_size, DMA_ALIGNMENT);
-> +}
-> +
->   static u32 size_vpss_lb(u32 frame_width, u32 frame_height)
->   {
->   	u32 opb_lb_wr_llb_y_buffer_size, opb_lb_wr_llb_uv_buffer_size;
-> @@ -317,6 +472,13 @@ u32 size_h265d_lb_fe_top_data(u32 frame_width, u32 frame_height)
->   		(ALIGN(frame_width, 64) + 8) * 2;
->   }
->   
-> +static inline
-> +u32 size_h265d_lb_fe_top_data_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	return ALIGN(MAX_FE_NBR_DATA_LUMA_LINE_BUFFER_SIZE *
-> +		(ALIGN(frame_width, 64) + 8), DMA_ALIGNMENT) * 2;
-> +}
-> +
->   static inline
->   u32 size_h265d_lb_fe_top_ctrl(u32 frame_width, u32 frame_height)
->   {
-> @@ -348,6 +510,17 @@ u32 size_h265d_lb_se_left_ctrl(u32 frame_width, u32 frame_height)
->   		MAX_SE_NBR_CTRL_LCU64_LINE_BUFFER_SIZE));
->   }
->   
-> +static inline
-> +u32 size_h265d_lb_se_left_ctrl_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	return max_t(u32, ((frame_height + 16 - 1) / 8) *
-> +		MAX_SE_NBR_CTRL_LCU16_LINE_BUFFER_SIZE_AR50LT,
-> +		max_t(u32, ((frame_height + 32 - 1) / 8) *
-> +		MAX_SE_NBR_CTRL_LCU32_LINE_BUFFER_SIZE_AR50LT,
-> +		((frame_height + 64 - 1) / 8) *
-> +		MAX_SE_NBR_CTRL_LCU64_LINE_BUFFER_SIZE_AR50LT));
-> +}
-> +
->   static inline
->   u32 size_h265d_lb_pe_top_data(u32 frame_width, u32 frame_height)
->   {
-> @@ -355,6 +528,13 @@ u32 size_h265d_lb_pe_top_data(u32 frame_width, u32 frame_height)
->   		(ALIGN(frame_width, LCU_MIN_SIZE_PELS) / LCU_MIN_SIZE_PELS);
->   }
->   
-> +static inline
-> +u32 size_h265d_lb_pe_top_data_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	return MAX_PE_NBR_DATA_LCU64_LINE_BUFFER_SIZE_AR50LT *
-> +		(ALIGN(frame_width, LCU_MIN_SIZE_PELS) / LCU_MIN_SIZE_PELS);
-> +}
-> +
->   static inline
->   u32 size_h265d_lb_vsp_top(u32 frame_width, u32 frame_height)
->   {
-> @@ -404,6 +584,29 @@ u32 hfi_buffer_line_h265d(u32 frame_width, u32 frame_height, bool is_opb, u32 nu
->   	return ALIGN((_size + vpss_lb_size), DMA_ALIGNMENT);
->   }
->   
-> +static inline
-> +u32 hfi_buffer_line_h265d_ar50lt(u32 frame_width, u32 frame_height, bool is_opb, u32 num_vpp_pipes)
-> +{
-> +	u32 size;
-> +
-> +	size = ALIGN(size_h265d_lb_fe_top_data_ar50lt(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_h265d_lb_fe_top_ctrl(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_h265d_lb_fe_left_ctrl(frame_width, frame_height),
-> +		      DMA_ALIGNMENT) * num_vpp_pipes +
-> +		ALIGN(size_h265d_lb_se_left_ctrl_ar50lt(frame_width, frame_height),
-> +		      DMA_ALIGNMENT) * num_vpp_pipes +
-> +		ALIGN(size_h265d_lb_se_top_ctrl(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_h265d_lb_pe_top_data_ar50lt(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_h265d_lb_vsp_top(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_h265d_lb_vsp_left(frame_width, frame_height),
-> +		      DMA_ALIGNMENT) * num_vpp_pipes +
-> +		ALIGN(size_h265d_lb_recon_dma_metadata_wr(frame_width, frame_height),
-> +		      DMA_ALIGNMENT) * 4 +
-> +		ALIGN(size_h265d_qp(frame_width, frame_height), DMA_ALIGNMENT);
-> +
-> +	return ALIGN(size, DMA_ALIGNMENT);
-> +}
-> +
->   static inline
->   u32 size_vpxd_lb_fe_left_ctrl(u32 frame_width, u32 frame_height)
->   {
-> @@ -438,6 +641,17 @@ u32 size_vpxd_lb_se_left_ctrl(u32 frame_width, u32 frame_height)
->   			   MAX_SE_NBR_CTRL_LCU64_LINE_BUFFER_SIZE));
->   }
->   
-> +static inline
-> +u32 size_vpxd_lb_se_left_ctrl_ar50lt(u32 frame_width, u32 frame_height)
-> +{
-> +	return max_t(u32, ((frame_height + 15) >> 4) *
-> +		     MAX_SE_NBR_CTRL_LCU16_LINE_BUFFER_SIZE_AR50LT,
-> +		     max_t(u32, ((frame_height + 31) >> 5) *
-> +			   MAX_SE_NBR_CTRL_LCU32_LINE_BUFFER_SIZE_AR50LT,
-> +			   ((frame_height + 63) >> 6) *
-> +			   MAX_SE_NBR_CTRL_LCU64_LINE_BUFFER_SIZE_AR50LT));
-> +}
-> +
->   static inline
->   u32 size_vpxd_lb_recon_dma_metadata_wr(u32 frame_width, u32 frame_height)
->   {
-> @@ -492,6 +706,19 @@ u32 hfi_iris3_vp9d_lb_size(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
->   		ALIGN(size_vp9d_qp(frame_width, frame_height), DMA_ALIGNMENT);
->   }
->   
-> +static inline
-> +u32 hfi_ar50lt_vp9d_lb_size(u32 frame_width, u32 frame_height, u32 num_vpp_pipes)
-> +{
-> +	return ALIGN(size_vpxd_lb_fe_left_ctrl(frame_width, frame_height), DMA_ALIGNMENT) *
-> +		num_vpp_pipes +
-> +		ALIGN(size_vpxd_lb_se_left_ctrl_ar50lt(frame_width, frame_height), DMA_ALIGNMENT) *
-> +		num_vpp_pipes +
-> +		ALIGN(size_vp9d_lb_vsp_top(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_vpxd_lb_se_top_ctrl(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_vp9d_lb_pe_top_data(frame_width, frame_height), DMA_ALIGNMENT) +
-> +		ALIGN(size_vp9d_lb_fe_top_data(frame_width, frame_height), DMA_ALIGNMENT);
-> +}
-> +
->   static inline
->   u32 hfi_buffer_line_vp9d(u32 frame_width, u32 frame_height, u32 _yuv_bufcount_min, bool is_opb,
->   			 u32 num_vpp_pipes)
-> @@ -507,6 +734,13 @@ u32 hfi_buffer_line_vp9d(u32 frame_width, u32 frame_height, u32 _yuv_bufcount_mi
->   	return _lb_size + vpss_lb_size + 4096;
->   }
->   
-> +static inline
-> +u32 hfi_buffer_line_vp9d_ar50lt(u32 frame_width, u32 frame_height, u32 _yuv_bufcount_min,
-> +				bool is_opb, u32 num_vpp_pipes)
-> +{
-> +	return hfi_ar50lt_vp9d_lb_size(frame_width, frame_height, num_vpp_pipes);
-
-pls keep same name across like "hfi_buffer_line_vp9d_ar50lt" and 
-"hfi_ar50lt_vp9d_lb_size" or combine these 2 apis, as the one just calls 
-the other.
-
-> +}
-> +
->   static u32 hfi_buffer_line_h264d(u32 frame_width, u32 frame_height,
->   				 bool is_opb, u32 num_vpp_pipes)
->   {
-> @@ -529,6 +763,25 @@ static u32 hfi_buffer_line_h264d(u32 frame_width, u32 frame_height,
->   	return ALIGN((size + vpss_lb_size), DMA_ALIGNMENT);
->   }
->   
-> +static u32 hfi_buffer_line_h264d_ar50lt(u32 frame_width, u32 frame_height,
-> +					bool is_opb, u32 num_vpp_pipes)
-> +{
-> +	u32 size;
-> +
-> +	size = ALIGN(size_h264d_lb_fe_top_data_ar50lt(frame_width), DMA_ALIGNMENT) +
-> +		ALIGN(size_h264d_lb_fe_top_ctrl_ar50lt(frame_width), DMA_ALIGNMENT) +
-> +		ALIGN(size_h264d_lb_fe_left_ctrl(frame_height), DMA_ALIGNMENT) * num_vpp_pipes +
-> +		ALIGN(size_h264d_lb_se_top_ctrl_ar50lt(frame_width), DMA_ALIGNMENT) +
-> +		ALIGN(size_h264d_lb_se_left_ctrl_ar50lt(frame_height), DMA_ALIGNMENT) *
-> +		num_vpp_pipes +
-> +		ALIGN(size_h264d_lb_pe_top_data_ar50lt(frame_width), DMA_ALIGNMENT) +
-> +		ALIGN(size_h264d_lb_vsp_top(frame_width), DMA_ALIGNMENT) +
-> +		ALIGN(size_h264d_lb_recon_dma_metadata_wr(frame_height), DMA_ALIGNMENT) * 2 +
-> +		ALIGN(size_h264d_qp(frame_width, frame_height), DMA_ALIGNMENT);
-> +
-> +	return ALIGN(size, DMA_ALIGNMENT);
-> +}
-> +
->   static u32 size_av1d_lb_opb_wr1_nv12_ubwc(u32 frame_width, u32 frame_height)
->   {
->   	u32 size, y_width, y_width_a = 128;
-> @@ -724,6 +977,23 @@ static u32 iris_vpu_dec_bin_size(struct iris_inst *inst)
->   	return 0;
->   }
->   
-> +static u32 iris_vpu_ar50lt_dec_bin_size(struct iris_inst *inst)
-> +{
-> +	u32 num_vpp_pipes = inst->core->iris_platform_data->num_vpp_pipe;
-> +	struct v4l2_format *f = inst->fmt_src;
-> +	u32 height = f->fmt.pix_mp.height;
-> +	u32 width = f->fmt.pix_mp.width;
-> +
-> +	if (inst->codec == V4L2_PIX_FMT_H264)
-> +		return hfi_buffer_bin_h264d_ar50lt(width, height, num_vpp_pipes);
-> +	else if (inst->codec == V4L2_PIX_FMT_HEVC)
-> +		return hfi_buffer_bin_h265d_ar50lt(width, height, num_vpp_pipes);
-> +	else if (inst->codec == V4L2_PIX_FMT_VP9)
-> +		return hfi_buffer_bin_vp9d_ar50lt(width, height, num_vpp_pipes);
-> +
-> +	return 0;
-> +}
-> +
->   static u32 iris_vpu_dec_comv_size(struct iris_inst *inst)
->   {
->   	u32 num_comv = VIDEO_MAX_FRAME;
-> @@ -785,6 +1055,18 @@ static u32 iris_vpu_dec_persist_size(struct iris_inst *inst)
->   	return 0;
->   }
->   
-> +static u32 iris_vpu_ar50lt_dec_persist_size(struct iris_inst *inst)
-> +{
-> +	if (inst->codec == V4L2_PIX_FMT_H264)
-> +		return hfi_buffer_persist_h264d_ar50lt();
-> +	else if (inst->codec == V4L2_PIX_FMT_HEVC)
-> +		return hfi_buffer_persist_h265d_ar50lt();
-> +	else if (inst->codec == V4L2_PIX_FMT_VP9)
-> +		return hfi_buffer_persist_vp9d_ar50lt();
-> +
-> +	return 0;
-> +}
-> +
->   static u32 iris_vpu_dec_dpb_size(struct iris_inst *inst)
->   {
->   	if (iris_split_mode_enabled(inst))
-> @@ -808,6 +1090,21 @@ static u32 iris_vpu_dec_non_comv_size(struct iris_inst *inst)
->   	return 0;
->   }
->   
-> +static u32 iris_vpu_ar50lt_dec_non_comv_size(struct iris_inst *inst)
-> +{
-> +	u32 num_vpp_pipes = inst->core->iris_platform_data->num_vpp_pipe;
-
-neither of below api uses this variable ?
-
-> +	struct v4l2_format *f = inst->fmt_src;
-> +	u32 height = f->fmt.pix_mp.height;
-> +	u32 width = f->fmt.pix_mp.width;
-> +
-> +	if (inst->codec == V4L2_PIX_FMT_H264)
-> +		return hfi_buffer_non_comv_h264d_ar50lt(width, height, num_vpp_pipes);
-> +	else if (inst->codec == V4L2_PIX_FMT_HEVC)
-> +		return hfi_buffer_non_comv_h265d_ar50lt(width, height, num_vpp_pipes);
-> +
-> +	return 0;
-> +}
-> +
->   static u32 iris_vpu_dec_line_size(struct iris_inst *inst)
->   {
->   	u32 num_vpp_pipes = inst->core->iris_platform_data->num_vpp_pipe;
-> @@ -833,6 +1130,29 @@ static u32 iris_vpu_dec_line_size(struct iris_inst *inst)
->   	return 0;
->   }
->   
-Regards,
-Vikash
+LGTM. Seems like the simplest way to handle it and should cover most
+use cases.
