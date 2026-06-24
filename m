@@ -1,44 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC9735E1A1;
-	Wed, 24 Jun 2026 06:49:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51944384CC8;
+	Wed, 24 Jun 2026 06:51:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782283790; cv=none; b=f1N3KVfdXT5+aT5lWP9VrHEc/33o///1QNP9x9k/7QCIkcDuYjB+nFGqDivYIi/1238TV3fmIjP4PUeAJbf4JulpxPQWzqqXltqULDNXbA83n7TnZp9YHTz3PgiSEUndiFxFFv/qx1BekLcC35mLiOAXuCXZEo34fmoHt3BRiu8=
+	t=1782283911; cv=none; b=baYogcdoNXqOqZsx6mWb3qL024v4v0WrVTdT5LH/gVxXFIbcCZE30iiLxtcfvB9NJcaEkBM2uFxAWdvbCTtBNGufeX+mTt22Doa6gmdKVOLNXZRA1CC2GGebDzYcBAqoAQMP+w799SVZGOx7jyFYO23SxcoJSsSEx9BSHX6HXSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782283790; c=relaxed/simple;
-	bh=Jr/tC+wphnO1UrKNhVlddtBRjxmWYhreyvKQdWQWWN8=;
+	s=arc-20240116; t=1782283911; c=relaxed/simple;
+	bh=eWPAhm2DcuU/AGCNUbxhMgdHaJXylETkg/nkqUZxQ60=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AjgvcdZetgcNI6vV8iH5GgubSbuZ9owDJhloynzdG+co0swHL4kyZ4NgGVEU7vesd7th1KgGWiGmM8Mh8XpgMwOkqdPKLtzuVrVL2HLKC2c9QYxM66u7r4JF5mxqfj4IZNI5mIU1duiroxCr8AkxujBMC/7YHzYMoMNL18+pRq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T/NRgVAn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SBJqtEJxWPvKcpIlU5JHEPFyW0tUfi6gAjbhPs8pfvjivH3ZYzgwtxibi4pfGcZmddrWAzkhILhWZ9/Bbmxb4/qLLAPjjZPh1FdKQ11PTiAv8wnHAQNVp0oQ4D3R8q+sUlnv4TONaQsnnhM6wVmTa30nIm4pAfFpmMrN7zAXrss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d89k0TKg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T/NRgVAn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A91D1F000E9;
-	Wed, 24 Jun 2026 06:49:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d89k0TKg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AAA1F000E9;
+	Wed, 24 Jun 2026 06:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782283789;
-	bh=FkRf8oCoME6EAzb6TRQFzhDqGWGObt0np+ROSMUH2RA=;
+	s=k20260515; t=1782283910;
+	bh=jrd+LkEfv5MAEbwJjh86ojQMQ5+oIm/B8nP9VkcnUTk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T/NRgVAnXbQChFzjlIiqk4XdOFWD+atW8L779exuRdU+/PHgkDEfarn1pHoRR6xCj
-	 6is5obfwbAQZVt/pYe+lDZ5++G6l8jxoZTro/NkHhnSpOivJ6D696g1WjOnJ/7rMY4
-	 GJ8APisAdapr8A1nrYenuzXKV8I5QCMyUuIG9q7vT/CIpS9s/0oAc3a9mx+GRB0/I6
-	 FJrN/72yYZxNNTIFwT0/zKbEX9qOAtu5ltZsUXUQOz9cqeaxsJ3vB2SMW79jaKUy30
-	 rAiWmiUM0OhFHjxNnxrcD7oIrcdaeiTx0HnsaqEUOjvAJM7KntJs8R1dEZJy4RQyvG
-	 e2Ns1vhut7uDw==
-Date: Wed, 24 Jun 2026 08:49:45 +0200
+	b=d89k0TKgopbxJmvGycsqeVSY+xGJGzRzXaVBcfXFoJy+9paWh0L8ej6bqzVeeOZGo
+	 MP7yuIprkO+o39oCTqarri6+Re+E1mR9p/qurHPz5oYCknyQf74R5/Senf3gDf6QhN
+	 kZyCSuczjYORClqNgzcMYAIagaSswByNH3mvXclH5rffyDJb6570+hiclLbENVXEuY
+	 yosaRTwrRS/4lGLZVlX4V1TAd+r9T7Afbf/8AjxVmodMOCMZaly76opo0DlzkwIFx2
+	 eDONYgujK7SDbl/jPw+ywTG4k+EPfNtMzj5tQJIKly17fm3YGcsM1/hQFqhZfSBVvJ
+	 g7M1upLooy84g==
+Date: Wed, 24 Jun 2026 08:51:47 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: mturquette@baylibre.com, sboyd@kernel.org, bmasney@redhat.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de, 
-	gary.yang@cixtech.com, cix-kernel-upstream@cixtech.com, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v6 1/4] dt-bindings: soc: cix: add sky1 audss cru
- controller
-Message-ID: <20260624-rampant-ubiquitous-turtle-f7edda@quoll>
-References: <20260623070805.211019-1-joakim.zhang@cixtech.com>
- <20260623070805.211019-2-joakim.zhang@cixtech.com>
+To: Alexander Sverdlin <alexander.sverdlin@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Hans de Goede <hansg@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>, Jun Yan <jerrysteve1101@gmail.com>, 
+	Lukas Schmid <lukas.schmid@netcube.li>, =?utf-8?Q?J=2E_Neusch=C3=A4fer?= <j.ne@posteo.net>, 
+	Eric Biggers <ebiggers@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Luca Weiss <luca@lucaweiss.eu>, Sven Peter <sven@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v5 4/6] dt-bindings: input: sun4i-lradc-keys: Add
+ A100/A133 compatible
+Message-ID: <20260624-awesome-demonic-guppy-d494a7@quoll>
+References: <20260623204824.691832-1-alexander.sverdlin@gmail.com>
+ <20260623204824.691832-5-alexander.sverdlin@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,26 +52,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260623070805.211019-2-joakim.zhang@cixtech.com>
+In-Reply-To: <20260623204824.691832-5-alexander.sverdlin@gmail.com>
 
-On Tue, Jun 23, 2026 at 03:08:02PM +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
+On Tue, Jun 23, 2026 at 10:48:16PM +0200, Alexander Sverdlin wrote:
+> The Allwinner A100/A133 SoCs have an LRADC which is compatible with the
+> versions in existing SoCs. Add a compatible string for A100, with the R329
+> fallback.
 > 
-> The Cix Sky1 Audio Subsystem (AUDSS) Clock and Reset Unit (CRU)
-> groups clock muxing, gating and block-level software reset control
-> in a single register block.
-> 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@gmail.com>
 > ---
->  .../bindings/soc/cix/cix,sky1-audss-cru.yaml  | 92 +++++++++++++++++++
->  .../dt-bindings/clock/cix,sky1-audss-cru.h    | 60 ++++++++++++
->  .../dt-bindings/reset/cix,sky1-audss-cru.h    | 25 +++++
->  3 files changed, 177 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/cix/cix,sky1-audss-cru.yaml
->  create mode 100644 include/dt-bindings/clock/cix,sky1-audss-cru.h
->  create mode 100644 include/dt-bindings/reset/cix,sky1-audss-cru.h
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
