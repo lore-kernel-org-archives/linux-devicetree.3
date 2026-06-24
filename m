@@ -1,218 +1,569 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013031.outbound.protection.outlook.com [52.101.72.31])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA45E2F7F09;
-	Wed, 24 Jun 2026 18:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782324564; cv=fail; b=GhQPNuKsjsSfV9BCuAoq61RjJq2w7GKUimoGy3W7gH9+PQRATC3T2H5o7znBWAT293XiH3cxuoGEzVzxd8RpqLobV3/MvCEc8joqbTzsEVM68AZjWbAWPHpnhsRxz+lQGH1dpsWs7RzZ+oGv08nmhh6kK1lUdJ18vafEW5PDCOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782324564; c=relaxed/simple;
-	bh=2AxRXRt0c3IyOwJ3Zngrjduy50yzbU5wSJDOiv31siI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ebuxOAsRKtt4lUj84NvRNCkR+7ujNPLNdcOzXrCT4nCuKtMyATPAHHoa/NfrYca2qhwk95obJlFhLGLQsqsGsq3BTMTs4p6y8x+wXU5524l32Kd7b2zrvIc/Z+extTqusz/qXE5ghvGDbbiGX/bcKXLJB7vMd0YJNtrRMMhlPaM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qzyZDDSX; arc=fail smtp.client-ip=52.101.72.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2255E2FC00D
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 18:18:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782325093; cv=none; b=EzNZXfBPCZvM8Mwscxvs4w2EJiHD/0ghoQVtCX0jl/2QaL0K8ZRWGMMRrTJzWpSI2Z0w1VI0gAH6+9NMcPZ3GTRYbvTRKdowCrjgaRCPP5DXSSxmEfUr8ho6p3dR1n3zZ4uCaV/eimYWVfjlgnRwCjqhn27cgH+VVIdYuR1zq80=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782325093; c=relaxed/simple;
+	bh=2tFYo7sUz69tyEC4JV0h23Z4QBd8ApkhKFLde9AsEHM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mHMkRS5EKvOX+F3OKJu6iSo1OoJe6IKuI2IE8zyOOHgfOlGBftTY+8YwhbAIurrHKEYWtrRU05YECseb5cYCHvv1eehb+0Rq3+lKj0BbpfWmNbasWL0KqgI5ydht4lw3unK1GRF03GdAPSyoizklncUjNlNf4KAaAnn81hQfU/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WPBNBpoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qzyZDDSX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iRDlt3I/yfiNFkL8L2QoujXbk3tzP1igC//q+g4G7HzqhI/lgf1k9rmNVNLt2zqZ+QphcZLlbMLHP10Qyy32/Ka5fy/hsiClwJIuSgkgAkdQBucqi/eiuJ9dzto22qb8moYgZjXjhO6739H06RZhdlcHKABgQ28LWDgLiC1EfyXQju0EfsXr+zmgmrVGxwspaIzrFcQAJxDyKHKrgjcQUUWyHqom982LCGvs03zk2r0+gELrPDL679CLWKUDU/W5l6BJa4jeVyRp/RYNFn2f6MP5t00Wo0+CuIS5gqwjkbLTN8aQ6l5nItAPeEDxX98AcOjQQrHval1C9utsO902Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L6hD1dsJa8NYYyd/LdUoy6LsgAYHPy0CEAYK5slR0xY=;
- b=iJL7i0uz7WmhZROd0GX3IAQNnv6M7y3ql/YJHHA0A7FKldFLXmrey9MzDokLsyXUx57wBV5YeOF9bgqJgw0nOdkiRyDnck6tznRAQHKSOiBQ9eqlxOIsKN5hJOe8z8t6/XoUfZK7F52X1fa09MZnr6OrG13PZIEizR5KEBE5hTENNTnXDNFekfSskpOsQaABRXKhGA1cTlQLdCLgYN+LkhRf43K6NOj2t+wSln8vPRP29wTgbn0mp76OdSQqJlqSylwuNUhF282iQktr5IuShjHvfHptne3gUGS/5iNmR+nx8+i8IzzKA01TGoVtYf0/a2IGYqVVq9FgB4iP+TX3Jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L6hD1dsJa8NYYyd/LdUoy6LsgAYHPy0CEAYK5slR0xY=;
- b=qzyZDDSXYCKRkCY6ptmvtPM/4+PpXRWzWjBULRpB5J+rKxHKSle0giDbsWLHdmFcXGxhXWYDn7ayPuRtYnktfJBAu4bZJOh0zIsY6WKoyCQNAO4gpVQG7ur7i6JqMsjibk+jtnCLL/aZU+8cQ/4NO/XUYOHIRAgCRBsabuHnlCzwUc9XFqriZEvFK5g51qXkYaCZTBJeqPtSf9/u5H5HTDjNggZ3BrrUQZpm3bM4po+yxuoK/aM3VhJZdJiFStYpC/h3Qe/7QWhu2f2QTrwn6JA5AXsE/dx2evsKqnfPppFrcumFB/28YAlQrBBLOHsrecwgr8+lORSI8ZuFOpDCCA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA2PR04MB10121.eurprd04.prod.outlook.com (2603:10a6:102:408::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Wed, 24 Jun
- 2026 18:09:19 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Wed, 24 Jun 2026
- 18:09:19 +0000
-Date: Wed, 24 Jun 2026 14:09:11 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 08/12] i3c: dw-i3c-master: Add ACPI core clock
- frequency quirk
-Message-ID: <ajwdRyiY5M82BqPv@lizhi-Precision-Tower-5810>
-References: <20260624102153.1770072-1-akhilrajeev@nvidia.com>
- <20260624102153.1770072-9-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260624102153.1770072-9-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: SA1P222CA0070.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:2c1::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WPBNBpoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E9B1F000E9
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 18:18:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782325091;
+	bh=M24mGV6pWHjz+2cn/eRG4drC3Mdggl3Jji418pDleak=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WPBNBpoVjzkZ16Bp565/95/fREi7U4DEiZcheFnyN6cmygl1a2ZYlI23dMqcXSfBW
+	 5zdsFwUaU1jX8zs/5JiHVGM3cqdTcFZgJAlDvqo6RD14injbDVKfCptHcehJGGj1SU
+	 BB232NCmUW2VkygSgDUFKeGopOPdXHI7MvkSnZbIba3wAqZnlKJotFNgyYtRIuVdsm
+	 q1fwPb/H1c6JC8BWcFmvA+3alRwkq0U6UijDvnRrSwD2tKZkKJA4uJjYHJmPKLQaIc
+	 fmdwNAND9+57Qb62ficiQXodAwOGI3QdWbyPnWd4pDZsxRrzvhyRIyNeZSAs0icZ2V
+	 lI1X3f3J+7y3g==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c07fcdd75d3so185442666b.1
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 11:18:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/ckqcUKTgMrZhnPOtbDYOwS1n9zmD+ruzS+qNfvRrmgfK5G/yfJKjg4k5gPhTNfyRiEFT20rn60a0C@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMrB8MpGYYjpEHgOarykWEkB5jCpf5vaHAC0rR/8i3ADhk/HXd
+	2U81einlCIhDPc6khhSFFl+BgV3Iw2yeQ2DaZiipa6uB2BhBnVPOvxy5wTSDg8WJZlCIiRsmQIt
+	oqWX8O6nN0nBrolLNbN/l5/3q3KZVUQ==
+X-Received: by 2002:a17:907:cf93:b0:c10:f00e:d983 with SMTP id
+ a640c23a62f3a-c119d1786b3mr231257366b.13.1782325090353; Wed, 24 Jun 2026
+ 11:18:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA2PR04MB10121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 547fbd86-a18d-4794-7ed7-08ded21bb5cc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|19092799006|7416014|23010399003|366016|22082099003|18002099003|3023799007|11063799006|4143699003|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ykxs9n3ek+KiL3skFvHUXhtJlx/z2gqiD+DBwNv+E6OK5WBZPbHAqACThg3QmPRVUalMXxScC1fHdgY054psL5P4jcgjrwKQj89aSAU/CikWr+6KGSYK1oFX0bhuPX0EqhPV6D2NRV6vRAiv1LsFXSEJOsz0AjsCjE0xl2XxD7iovYMup7ZB77hHNjU1Xw3l0LfX/A8CDH9Pf+OHDbmBI0f2km71hkuoviUMZwCZQdQLKVOHtR9gXIbxJvYWM6oc9IRPAjQ1JUFPCmpdwyW17wCXfzppG87cbipIuqDP9ja+yAGsp4tavZQMRdet0R4T38FW/BtEM72pfenOKfzc0Gt0O6KKhNt1vdKeMTUqiOqokxxqx3iwDZQ9Bd4sQgfXAKhnGfV2w3FtZ65IMQdBNBOvRWC7lslJtKicwYBkJdIiVq8gAB5PujPpCQGFeG95Pys6gqUDGLt9M+dEnpJ34vVfZDa8aMmD+XM5tLGunjIoso4RUlUHKs8JHb6KYaq5tR2zR334gkkX2GIc6jvHy9XLWnnXJJgq/f9VSMQ6oTMc5PwEUodaicU27F3A+1jfzVKJiOwHz6QKDyW/jC+ahIk7mqzmyYKQ1K8WLRGqSmLgVd0cw1BcNjJEGLUlerubNyooAqM9bYw0tz4Tw1qa7nw/zRvKxPpuLzFYRvnzPNY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(7416014)(23010399003)(366016)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0Bd2vqvAG6xIEY1Uk4bOvPHv9pATPOThJvi+6z0BE7UHUgdjIrmYIQoniYd0?=
- =?us-ascii?Q?pcXF5OCKkahMz3eNXo9qCWEfAURpfr6OvTMVPA7yc/XZin3X5213MWGfLw3p?=
- =?us-ascii?Q?YhHRgayu3nMvUIQy4nzY3BWfgtzxuqU6F+r5R/JXQxo7VMlOPerPa8UZAH6B?=
- =?us-ascii?Q?xSuXQQuoXlZvYSFTOfEahR2qjA5oC1IwiTyiw05+jNk4NEgXXHh9SQym8vmR?=
- =?us-ascii?Q?g/eXo0qMavKTuGZ5GhrtLrs7mUIprR/w1NF45Nfwzmh8mXJl3xNQHcg2DEI4?=
- =?us-ascii?Q?ibqlKZA5HlwIYzNIERvaX/pY73nephE3dXKyZt7+ZoaMpCVbrez7eXbXE2MA?=
- =?us-ascii?Q?qpavRIXo0Lmk9OC9eM0ra8GYI+aA1q1cJTaAdGWSVJADHY7X0dfsdUf6+5nb?=
- =?us-ascii?Q?Smzc8ZO9TAql1JS0eJm/jeqAmlyxYBj8MTBJX284v2DffwXLaTmkmlyKiZBZ?=
- =?us-ascii?Q?ZGoJo0vvx0MMw6t6r6iiSpRKXuPeq25wsZUXWXV+4kmdaAJV1aRNVVxJa3A6?=
- =?us-ascii?Q?RXU5GhKuUdOSanLRcXNTKhZOQ5qeC00w6QVYa/q5cdtWbVX1wQZtTfHIUOHJ?=
- =?us-ascii?Q?e37P3Xw/JIyEEYSLFta2vLznSdK1RZ49bGGAFVTLubPSnyATkmivXUVQBbWA?=
- =?us-ascii?Q?QQGkMXvKThA1w2vzhhkdCl7kX/EXWQBQGFsiXeC/0CIZcq78X1w3+pmJXRQQ?=
- =?us-ascii?Q?9wWD7ykrw+9dhY0B8ZVmZ5zEmIvsp6qZzq0G4toSvEOhCrOB8EDjJhwIfD0E?=
- =?us-ascii?Q?5Df+cW1dP4GBrRVAn29sCSCAHy5HsQpkw/+iXjadBxauwPhVZD6iV/Voosf/?=
- =?us-ascii?Q?DHCwsMDqWlIZE5uo99pjyoWNwqnT1zeI0/3S6jSjmOEySVG22DrzHT7RRmul?=
- =?us-ascii?Q?li0ir6VjQBXH4zYCikXH2iLQLJoScDhmyG8zueRrZkSp0wGs/uBKWvcR6zJk?=
- =?us-ascii?Q?gc6QLSts2vAm4Et2kS5XnMz60TEzR33dI//6OVqpeZwpqWNHzLMH6RexK9HT?=
- =?us-ascii?Q?xVuVfmknwQkUASf6akW3VSeT4hL8fXiziz0Er1kOLgiXI38zm5mSUVgDn7W1?=
- =?us-ascii?Q?GZW+th3NvwVxLZ/yOB4Gnu32cv+iSODADA4NGgVg5MA3KSdgGXJ/oLgC+GRs?=
- =?us-ascii?Q?k3ec56pgkLCsY6KWUHbU02kDFZbmMtcao8zuWTA7QRJyc6tudopH9v7APIIr?=
- =?us-ascii?Q?WX7OsL7g2CJ0XaJ3YrMCtgu7u8oCc+Lv/oOtZsq1/cvi508EAu9afEuIAqJ4?=
- =?us-ascii?Q?vYQ/wCmfqzNWODtMldHrVP7xpfejku2Tni45a4QT5VMcvh4m90AJoP/HnJt2?=
- =?us-ascii?Q?TumkPEcTeg3sS5JlSjOm357JeyJGBGQGublQNhzrMGGI00beIWnfqEZaN9re?=
- =?us-ascii?Q?rjqQC9ZG39TaGPosoo2qDMtfRIIMtAJWgbb4buHBNVxLlg7TPv0HbXBqjr+C?=
- =?us-ascii?Q?pBE6QQ7I2wUOrnIFVzQKeWnNna5URSzGN3bMaL6BQNbhII+1DKjSn8ulYFwC?=
- =?us-ascii?Q?/LcDEqUZ5SDqiHJTAVjK/Aa3Z/g6i7ms2VkAsheSQQ1Dh6Z1asmKb0faujhp?=
- =?us-ascii?Q?RQXpP4bZYQZtD/6JDXtAfSYl5/+78w7LySAA9pLlmTpbqH9EIkNf8PvXo8SO?=
- =?us-ascii?Q?XqwUD1AQN37rdYkDoQXihdQws62CbGBG/UrVOttp2xqCP/+pE+/M1XdQPM2d?=
- =?us-ascii?Q?ZvveBm3qWOxEBgRs6B0PqOCqvuVd31sYo1C+pgiIDYCU4eJKrDoVL1Z/XCZZ?=
- =?us-ascii?Q?nZQMQG3OR9dxYOyd5Dy25fxwQamMc647AZJ+kFc89EeRrIVrhxl3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 547fbd86-a18d-4794-7ed7-08ded21bb5cc
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 18:09:19.1660
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ce7ggzC77HsErGi4+1Au04+6ZhIH35B4VkrgYZAoI9Hjiu0KP1nC6c7HyvRhOKIWnnYkOElg278nswazYvfeE9Ts+N5tqsMLSOQaPyrFIMA1HEFryA835nPPGNQ4CbVJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10121
+References: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
+In-Reply-To: <20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 24 Jun 2026 13:17:58 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLE8Z-LbeF9r=sqRqAoGUcs7R-T4cN+hF3QzjGydHctgQ@mail.gmail.com>
+X-Gm-Features: AVVi8CdlGRGaELwS9kUtiW57sgL4OXTN-8dBflIE3Na_-_g9nPaF4j4RxqAx-II
+Message-ID: <CAL_JsqLE8Z-LbeF9r=sqRqAoGUcs7R-T4cN+hF3QzjGydHctgQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
+To: david@ixit.cz
+Cc: David Rhodes <david.rhodes@cirrus.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 24, 2026 at 10:21:02AM +0000, Akhil R wrote:
-> Some ACPI-enumerated devices like Tegra410 do not expose the controller
-> core clock through the clk framework. Unlike device tree, ACPI on Arm does
-> not model clock providers. The hardware is expected to have its clocks
-> enabled by firmware before the OS takes over.
+On Wed, Jun 24, 2026 at 11:02=E2=80=AFAM David Heidelberg via B4 Relay
+<devnull+david.ixit.cz@kernel.org> wrote:
 >
-> Make the core clock optional and allow selected ACPI devices to provide the
-> core clock rate through the "clock-frequency" _DSD property when the core
-> clock is absent.
+> From: David Heidelberg <david@ixit.cz>
 >
-> Signed-off-by: Akhil R <akhilrajeev@nvidia.com>
+> Convert CS35L36 Speaker Amplifier to yaml.
+>
+> Changes:
+>  - maintainers email to the generic Cirrus email
+>  - Both the codec and downstream worked just fine without
+>    VP-supply provided. Align with datasheet for similar models.
+>  - add dai-common.yaml to cover for '#sound-dai-cells',
+>    'sound-name-prefix'
+>
+> Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
+
+If you are going to take stuff I haven't fixed:
+
+Assisted-by: OpenAI:gpt-4
+
+(I don't remember the exact flavor I used)
+
+> Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
+> Relevant for Pixel 3 / 3XL / 4.
+> ---
+> Changes in v2:
+> - Rename the commit. (Mark)
+> - Link to v1: https://lore.kernel.org/r/20260618-dt-cirrus-cs35l36-v1-1-1=
+a43515666ad@ixit.cz
+> ---
+>  .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 224 +++++++++++++++=
+++++++
+>  .../devicetree/bindings/sound/cs35l36.txt          | 168 ---------------=
+-
+>  2 files changed, 224 insertions(+), 168 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml =
+b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+> new file mode 100644
+> index 0000000000000..af0acaaefb68e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+> @@ -0,0 +1,224 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/cirrus,cs35l36.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Cirrus Logic CS35L36 Speaker Amplifier
+> +
+> +maintainers:
+> +  - patches@opensource.cirrus.com
+> +  - Bjorn Helgaas <bhelgaas@google.com>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Bjorn is not correct. Generally we want a person, not a company list.
 
->  drivers/i3c/master/dw-i3c-master.c | 27 ++++++++++++++++++++++++---
->  1 file changed, 24 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> index 29030fd9594a..8e40d178d500 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -242,6 +242,7 @@
->  /* List of quirks */
->  #define AMD_I3C_OD_PP_TIMING		BIT(1)
->  #define DW_I3C_DISABLE_RUNTIME_PM_QUIRK	BIT(2)
-> +#define DW_I3C_ACPI_SKIP_CLK_RST	BIT(3)
->
->  struct dw_i3c_cmd {
->  	u32 cmd_lo;
-> @@ -556,13 +557,33 @@ static void dw_i3c_master_set_intr_regs(struct dw_i3c_master *master)
->  	writel(IBI_REQ_REJECT_ALL, master->regs + IBI_MR_REQ_REJECT);
->  }
->
-> +static unsigned long dw_i3c_master_get_core_rate(struct dw_i3c_master *master)
-> +{
-> +	unsigned int core_rate_prop;
 > +
-> +	if (master->core_clk)
-> +		return clk_get_rate(master->core_clk);
+> +description: |
+
+Don't need '|'.
+
+> +  CS35L36 is a boosted mono Class D amplifier
 > +
-> +	if (!(master->quirks & DW_I3C_ACPI_SKIP_CLK_RST))
-> +		dev_err(master->dev, "missing core clock\n");
-> +		return 0;
-> +	}
+> +allOf:
+> +  - $ref: /schemas/sound/dai-common.yaml#
 > +
-> +	if (device_property_read_u32(master->dev, "clock-frequency", &core_rate_prop)) {
-> +		dev_err(master->dev, "missing clock-frequency property\n");
-> +		return 0;
-> +	}
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - cirrus,cs35l36
 > +
-> +	return core_rate_prop;
-> +}
+> +  reg:
+> +    maxItems: 1
 > +
->  static int dw_i3c_clk_cfg(struct dw_i3c_master *master)
->  {
->  	unsigned long core_rate, core_period;
->  	u32 scl_timing;
->  	u8 hcnt, lcnt;
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  VA-supply:
+> +    description: Voltage regulator of analog internal section
+> +
+> +  VP-supply:
+> +    description: Voltage regulator of boost converter
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +
+> +  cirrus,boost-ctl-millivolt:
+> +    description: Boost converter output voltage in millivolts (step 50)
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 2550
+> +    maximum: 12000
+> +
+> +  cirrus,boost-peak-milliamp:
+> +    description: Boost-converter peak current limit in mA (step 50)
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 4500
+> +    minimum: 1600
+> +    maximum: 4500
+> +
+> +  cirrus,boost-ind-nanohenry:
+> +    description: Initial inductor estimation reference value in nanohenr=
+y (1000=3D1=CE=BCH, 1200=3D1.2=CE=BCH)
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 1000
+> +
+> +  cirrus,multi-amp-mode:
+> +    description: Hi-Z ASP port when more than one amplifier in system.
+> +    type: boolean
+> +
+> +  cirrus,boost-ctl-select:
+> +    description: Boost converter control source selection
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 0x01
+> +    enum:
+> +      - 0x00 # Control Port
+> +      - 0x01 # Class
+> +      - 0x10 # Sync
+> +
+> +  cirrus,amp-pcm-inv:
+> +    description: Invert incoming PCM data when true.
+> +    type: boolean
+> +
+> +  cirrus,imon-pol-inv:
+> +    description: Invert polarity of outbound IMON feedback when true.
+> +    type: boolean
+> +
+> +  cirrus,vmon-pol-inv:
+> +    description: Invert polarity of outbound VMON feedback when true.
+> +    type: boolean
+> +
+> +  cirrus,dcm-mode-enable:
+> +    description: Enable boost converter automatic Discontinuous Conducti=
+on Mode.
+> +    type: boolean
+> +
+> +  cirrus,weak-fet-disable:
+> +    description: Reduce output driver strength in Weak-FET Drive Mode wh=
+en true.
+> +    type: boolean
+> +
+> +  cirrus,classh-wk-fet-delay:
+> +    description: Weak-FET entry delay in ms
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 100
+
+How? Range is 0-7.
+
+> +    enum:
+> +      - 0 # 0
+> +      - 1 # 5
+> +      - 2 # 10
+> +      - 3 # 50
+> +      - 4 # 100
+> +      - 5 # 200
+> +      - 6 # 500
+> +      - 7 # 1000
+> +
+> +  cirrus,classh-weak-fet-thld-millivolt:
+> +    description: Weak-FET drive threshold in mV
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 65=
+0, 700]
+> +
+> +  cirrus,temp-warn-threshold:
+> +    description: Overtemperature warning threshold
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 2
+> +    enum:
+> +      - 0 # 105=C2=B0C
+> +      - 1 # 115=C2=B0C
+> +      - 2 # 125=C2=B0C
+> +      - 3 # 135=C2=B0C
+> +
+> +  cirrus,irq-drive-select:
+> +    description: Interrupt output driver type
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 1
+> +    enum:
+> +      - 0 # open-drain
+> +      - 1 # push-pull
+> +
+> +  cirrus,irq-gpio-select:
+> +    description: Programmable IRQ pin selection
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum:
+> +      - 0 # PDM_DATA/SWIRE_SD/INT
+> +      - 1 # GPIO
+> +
+> +  cirrus,vpbr-config:
+> +    description: Brownout prevention configuration sub-node
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      cirrus,vpbr-en:
+> +        description: VBST brownout prevention enable
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        default: 0
+> +        enum:
+> +          - 0 # disabled
+> +          - 1 # enabled
+> +
+> +      cirrus,vpbr-thld:
+> +        description: Initial VPBR threshold voltage
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-atk-rate:
+> +        description: Attenuation attack step rate
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-atk-vol:
+> +        description: VP brownout prevention step size
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-max-attn:
+> +        description: Maximum attenuation during VP brownout prevention
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-wait:
+> +        description: Delay between brownout clearance and attenuation re=
+lease
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-rel-rate:
+> +        description: Attenuation release step rate
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +      cirrus,vpbr-mute-en:
+> +        description: Mute audio if maximum attenuation reached
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+
+Constraints on any of these?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - VA-supply
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        codec@40 {
+> +            compatible =3D "cirrus,cs35l36";
+> +            reg =3D <0x40>;
+> +            VA-supply =3D <&dummy_vreg>;
+> +            VP-supply =3D <&dummy_vreg>;
+> +            reset-gpios =3D <&gpio0 54 GPIO_ACTIVE_HIGH>;
+> +            interrupts =3D <3 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +            cirrus,boost-ind-nanohenry =3D <1000>;
+> +            cirrus,boost-ctl-millivolt =3D <10000>;
+> +            cirrus,boost-peak-milliamp =3D <4500>;
+> +            cirrus,boost-ctl-select =3D <0x00>;
+> +            cirrus,weak-fet-delay =3D <4>;
+> +            cirrus,weak-fet-thld =3D <0x01>;
+> +            cirrus,temp-warn-threshold =3D <1>;
+> +            cirrus,multi-amp-mode;
+> +            cirrus,irq-drive-select =3D <1>;
+> +            cirrus,irq-gpio-select =3D <0x01>;
+> +
+> +            cirrus,vpbr-config {
+> +                cirrus,vpbr-en =3D <0>;
+> +                cirrus,vpbr-thld =3D <0x05>;
+> +                cirrus,vpbr-atk-rate =3D <0x02>;
+> +                cirrus,vpbr-atk-vol =3D <0x01>;
+> +                cirrus,vpbr-max-attn =3D <0x09>;
+> +                cirrus,vpbr-wait =3D <0x01>;
+> +                cirrus,vpbr-rel-rate =3D <0x05>;
+> +                cirrus,vpbr-mute-en =3D <0x00>;
+> +            };
+> +        };
+> +    };
+> +...
+> diff --git a/Documentation/devicetree/bindings/sound/cs35l36.txt b/Docume=
+ntation/devicetree/bindings/sound/cs35l36.txt
+> deleted file mode 100644
+> index d34117b8558e5..0000000000000
+> --- a/Documentation/devicetree/bindings/sound/cs35l36.txt
+> +++ /dev/null
+> @@ -1,168 +0,0 @@
+> -CS35L36 Speaker Amplifier
+> -
+> -Required properties:
+> -
+> -  - compatible : "cirrus,cs35l36"
+> -
+> -  - reg : the I2C address of the device for I2C
+> -
+> -  - VA-supply, VP-supply : power supplies for the device,
+> -  as covered in
+> -  Documentation/devicetree/bindings/regulator/regulator.txt.
+> -
+> -  - cirrus,boost-ctl-millivolt : Boost Voltage Value.  Configures the bo=
+ost
+> -  converter's output voltage in mV. The range is from 2550mV to 12000mV =
+with
+> -  increments of 50mV.
+> -  (Default) VP
+> -
+> -  - cirrus,boost-peak-milliamp : Boost-converter peak current limit in m=
+A.
+> -  Configures the peak current by monitoring the current through the boos=
+t FET.
+> -  Range starts at 1600mA and goes to a maximum of 4500mA with increments=
+ of
+> -  50mA.
+> -  (Default) 4.50 Amps
+> -
+> -  - cirrus,boost-ind-nanohenry : Inductor estimation LBST reference valu=
+e.
+> -  Seeds the digital boost converter's inductor estimation block with the=
+ initial
+> -  inductance value to reference.
+> -
+> -  1000 =3D 1uH (Default)
+> -  1200 =3D 1.2uH
+> -
+> -Optional properties:
+> -  - cirrus,multi-amp-mode : Boolean to determine if there are more than
+> -  one amplifier in the system. If more than one it is best to Hi-Z the A=
+SP
+> -  port to prevent bus contention on the output signal
+> -
+> -  - cirrus,boost-ctl-select : Boost converter control source selection.
+> -  Selects the source of the BST_CTL target VBST voltage for the boost
+> -  converter to generate.
+> -  0x00 - Control Port Value
+> -  0x01 - Class H Tracking (Default)
+> -  0x10 - MultiDevice Sync Value
+> -
+> -  - cirrus,amp-pcm-inv : Boolean to determine Amplifier will invert inco=
+ming
+> -  PCM data
+> -
+> -  - cirrus,imon-pol-inv : Boolean to determine Amplifier will invert the
+> -  polarity of outbound IMON feedback data
+> -
+> -  - cirrus,vmon-pol-inv : Boolean to determine Amplifier will invert the
+> -  polarity of outbound VMON feedback data
+> -
+> -  - cirrus,dcm-mode-enable : Boost converter automatic DCM Mode enable.
+> -  This enables the digital boost converter to operate in a low power
+> -  (Discontinuous Conduction) mode during low loading conditions.
+> -
+> -  - cirrus,weak-fet-disable : Boolean : The strength of the output drive=
+rs is
+> -  reduced when operating in a Weak-FET Drive Mode and must not be used t=
+o drive
+> -  a large load.
+> -
+> -  - cirrus,classh-wk-fet-delay :  Weak-FET entry delay. Controls the del=
+ay
+> -  (in ms) before the Class H algorithm switches to the weak-FET voltage
+> -  (after the audio falls and remains below the value specified in WKFET_=
+AMP_THLD).
+> -
+> -  0 =3D 0ms
+> -  1 =3D 5ms
+> -  2 =3D 10ms
+> -  3 =3D 50ms
+> -  4 =3D 100ms (Default)
+> -  5 =3D 200ms
+> -  6 =3D 500ms
+> -  7 =3D 1000ms
+> -
+> -  - cirrus,classh-weak-fet-thld-millivolt : Weak-FET amplifier drive thr=
+eshold.
+> -  Configures the signal threshold at which the PWM output stage enters
+> -  weak-FET operation. The range is 50mV to 700mV in 50mV increments.
+> -
+> -  - cirrus,temp-warn-threshold :  Amplifier overtemperature warning thre=
+shold.
+> -  Configures the threshold at which the overtemperature warning conditio=
+n occurs.
+> -  When the threshold is met, the overtemperature warning attenuation is =
+applied
+> -  and the TEMP_WARN_EINT interrupt status bit is set.
+> -  If TEMP_WARN_MASK =3D 0, INTb is asserted.
+> -
+> -  0 =3D 105C
+> -  1 =3D 115C
+> -  2 =3D 125C (Default)
+> -  3 =3D 135C
+> -
+> -  - cirrus,irq-drive-select : Selects the driver type of the selected in=
+terrupt
+> -  output.
+> -
+> -  0 =3D Open-drain
+> -  1 =3D Push-pull (Default)
+> -
+> -  - cirrus,irq-gpio-select : Selects the pin to serve as the programmabl=
+e
+> -  interrupt output.
+> -
+> -  0 =3D PDM_DATA / SWIRE_SD / INT (Default)
+> -  1 =3D GPIO
+> -
+> -Optional properties for the "cirrus,vpbr-config" Sub-node
+> -
+> -  - cirrus,vpbr-en : VBST brownout prevention enable. Configures whether=
+ the
+> -  VBST brownout prevention algorithm is enabled or disabled.
+> -
+> -  0 =3D VBST brownout prevention disabled (default)
+> -  1 =3D VBST brownout prevention enabled
+> -
+> -  See Section 7.31.1 VPBR Config for configuration options & further det=
+ails
+> -
+> -  - cirrus,vpbr-thld : Initial VPBR threshold. Configures the VP brownou=
+t
+> -  threshold voltage
+> -
+> -  - cirrus,cirrus,vpbr-atk-rate : Attenuation attack step rate. Configur=
+es the
+> -  amount delay between consecutive volume attenuation steps when a brown=
+out
+> -  condition is present and the VP brownout condition is in an attacking =
+state.
+> -
+> -  - cirrus,vpbr-atk-vol : VP brownout prevention step size. Configures t=
+he VP
+> -  brownout prevention attacking attenuation step size when operating in =
+either
+> -  digital volume or analog gain modes.
+> -
+> -  - cirrus,vpbr-max-attn : Maximum attenuation that the VP brownout prev=
+ention
+> -  can apply to the audio signal.
+> -
+> -  - cirrus,vpbr-wait : Configures the delay time between a brownout cond=
+ition
+> -  no longer being present and the VP brownout prevention entering an att=
+enuation
+> -  release state.
+> -
+> -  - cirrus,vpbr-rel-rate : Attenuation release step rate. Configures the=
+ delay
+> -  between consecutive volume attenuation release steps when a brownout c=
+ondition
+> -  is not longer present and the VP brownout is in an attenuation release=
+ state.
+> -
+> -  - cirrus,vpbr-mute-en : During the attack state, if the vpbr-max-attn =
+value
+> -  is reached, the error condition still remains, and this bit is set, th=
+e audio
+> -  is muted.
+> -
+> -Example:
+> -
+> -cs35l36: cs35l36@40 {
+> -       compatible =3D "cirrus,cs35l36";
+> -       reg =3D <0x40>;
+> -       VA-supply =3D <&dummy_vreg>;
+> -       VP-supply =3D <&dummy_vreg>;
+> -       reset-gpios =3D <&gpio0 54 0>;
+> -       interrupt-parent =3D <&gpio8>;
+> -       interrupts =3D <3 IRQ_TYPE_LEVEL_LOW>;
+> -
+> -       cirrus,boost-ind-nanohenry =3D <1000>;
+> -       cirrus,boost-ctl-millivolt =3D <10000>;
+> -       cirrus,boost-peak-milliamp =3D <4500>;
+> -       cirrus,boost-ctl-select =3D <0x00>;
+> -       cirrus,weak-fet-delay =3D <0x04>;
+> -       cirrus,weak-fet-thld =3D <0x01>;
+> -       cirrus,temp-warn-threshold =3D <0x01>;
+> -       cirrus,multi-amp-mode;
+> -       cirrus,irq-drive-select =3D <0x01>;
+> -       cirrus,irq-gpio-select =3D <0x01>;
+> -
+> -       cirrus,vpbr-config {
+> -               cirrus,vpbr-en =3D <0x00>;
+> -               cirrus,vpbr-thld =3D <0x05>;
+> -               cirrus,vpbr-atk-rate =3D <0x02>;
+> -               cirrus,vpbr-atk-vol =3D <0x01>;
+> -               cirrus,vpbr-max-attn =3D <0x09>;
+> -               cirrus,vpbr-wait =3D <0x01>;
+> -               cirrus,vpbr-rel-rate =3D <0x05>;
+> -               cirrus,vpbr-mute-en =3D <0x00>;
+> -       };
+> -};
 >
-> -	core_rate = clk_get_rate(master->core_clk);
-> +	core_rate = dw_i3c_master_get_core_rate(master);
->  	if (!core_rate)
->  		return -EINVAL;
+> ---
+> base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+> change-id: 20260618-dt-cirrus-cs35l36-99c466fb13fd
 >
-> @@ -615,7 +636,7 @@ static int dw_i2c_clk_cfg(struct dw_i3c_master *master)
->  	u16 hcnt, lcnt;
->  	u32 scl_timing;
->
-> -	core_rate = clk_get_rate(master->core_clk);
-> +	core_rate = dw_i3c_master_get_core_rate(master);
->  	if (!core_rate)
->  		return -EINVAL;
->
-> @@ -1577,7 +1598,7 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
->  	if (IS_ERR(master->regs))
->  		return PTR_ERR(master->regs);
->
-> -	master->core_clk = devm_clk_get_enabled(&pdev->dev, NULL);
-> +	master->core_clk = devm_clk_get_optional_enabled(&pdev->dev, NULL);
->  	if (IS_ERR(master->core_clk))
->  		return PTR_ERR(master->core_clk);
->
+> Best regards,
 > --
-> 2.43.0
+> David Heidelberg <david@ixit.cz>
+>
+>
 >
