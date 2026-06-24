@@ -1,110 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F19826E71E
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 19:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B9D382393
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 19:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782329060; cv=none; b=Zhy3KMDZBYIZpKHo/idT10+8TgxGXlIKES9+Vut0hZp+gdIzbvV8m0DJ7Oi6LKYsqVYFAV5zG16GUdcwaGE5vbuOFo0knh8Olu2jJm1EoWy4xLi3ouv4QhJasgkaNBeL5L7b8vi/+Vd5uTxuTa2JjOS+JwKHHauemfyEG1nFNLg=
+	t=1782329265; cv=none; b=XKstT/LMkKxl4tGOfry6bMe64eWr+uIOFuJSQc5zENIhieqnY3CN0TMAl8XqUxPJsnk2pXuL62MaT8g+iT7I2THfwzMRk9DHvea4iwIHRRNIu1u4CBmt2zgtunijH3QzgDwnchvjVaFivPaZfpe1SEyckxp2F9JLuDkbmjlta1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782329060; c=relaxed/simple;
-	bh=N4VX/XwHnRu2PyPeElJZEhc8P3H78QMuq9P0BhgpFvg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=irSC0DhHREWOzMMbeWXOaj2pelTI+qFy6fntjdJLWdNQKXC8ppGxcpvvUU2Yi6myVYxw+vRO6t4q7KvHMM11R8Lv/UTgdu4+f4oho3uups2SEhFnnCx7y45ZQGqP82wrAISjwmAqfRLHf1Sv4lUrJi6Glx60eJllAo+BTMI1qmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZTSjA+m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782329265; c=relaxed/simple;
+	bh=9E65z7OGWd2P6qUZoSyq/lFPj2UX4EeAgZgWnF+37+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KX4tJOxdrkgAtDUIy+0jA4a7nTnTHlgkUxKHumEof4bgpBP6Ugn1RqcogZifbkUOWt3HuYM5KXqLZ6w3cjKBtcIXP/9mJGcEdu6Og0BRWW3VY4d6VElg1ucFHvpweN4bnzhnUT5RJ9Q4W6JMc+QTrFYw/rKaSw2pclahs9mlIa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se; dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b=p+HrM0+l; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kwiboo.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.kwiboo.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZTSjA+m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B761F000E9;
-	Wed, 24 Jun 2026 19:24:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782329058;
-	bh=86jIgsS6JGEm8HBYzs1gBNLk/hBWv0xYRFnuPZTSjq8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TZTSjA+mt1YvEkbgPrbZd/W2RTVy5jhDiKpDA7SsZoBQhENqnCFmUQLYOm46d6WAt
-	 rp2cj2UxF+sAV2jBu3wbv2J3sQSu55Kc63RyZYqbduyxgODwWS02f4u80C9tpOfsLM
-	 pM/DUuAJMskkIgaALffhO6sbIBCWqrdXKbr5f7d/j88JfODKWxakjM/8Quq/JCHDB/
-	 PBB4lb/F78oYNeTh4IfX3ZOEPGdseSmL35LJgn5by4oxsFdpJfBMwL11PgwfFJ6Mxb
-	 MVAo2bZW3ZyUtxHKhmVzuyLXQzWWaA2yh12L9lAX5miOwKM2MHvjWAcwjrxTfQZJXg
-	 lGZAb1Nj6x8Aw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 03/19] firmware: qcom: scm: Fix missing
- smp_load_acquire()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260624190830.3131112-4-mukesh.ojha@oss.qualcomm.com>
-References: <20260624190830.3131112-1-mukesh.ojha@oss.qualcomm.com>
- <20260624190830.3131112-4-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 19:24:18 +0000
-Message-Id: <20260624192418.92B761F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kwiboo.se header.i=@kwiboo.se header.b="p+HrM0+l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1782329257; bh=Z99Q29vxpTumNbDlSLV/5spk9aNhNsdFqpygOCzOZY4=;
+ b=p+HrM0+l0GEQWHc+lPTMqwE6E6QulYtJnr+EOhMYjhAki0wdENoGZUVpOjRQO916lQvCcdGs4
+ /Ig+kh8IOM2mt4z7vFWCHS5p6m3EvBreDsGWpqfvEwEmsE+Pnun4eNhGW7hzLNBYIkynC3L+sB2
+ oXw8ayMHDQV/WErC0YtMklJ3G8lZtEoJsIMBxlqWdYZo9FLsyrLUWsC15sBJi+Lf+iqXPp8OY0h
+ QlFcPFaE0L/KOt/kuFfEQMXoxof810+XPybRei2OjWWUByMkKl5+de7xd4zRwl3ZngdK5uTYdZE
+ Uj3Lb+aWYlr9AGa+5Ij0OXymqzRBgk2RD637DEuRX0Hg==
+X-Forward-Email-ID: 6a3c2fa5138f49c481104abd
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.8.32
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jonas Karlman <jonas@kwiboo.se>
+Subject: [PATCH v2 1/2] dt-bindings: usb: Add Rockchip RK3568 compatible for EHCI and OHCI
+Date: Wed, 24 Jun 2026 19:27:24 +0000
+Message-ID: <20260624192726.781864-2-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260624192726.781864-1-jonas@kwiboo.se>
+References: <20260624192726.781864-1-jonas@kwiboo.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+The Rockchip RK3568 EHCI/OHCI controller depends on clk_usbphy1_480m
+being enabled, or the system may freeze when registers are accessed.
 
-Pre-existing issues:
-- [High] The waitqueue interrupt is requested and enabled before the global=
- __scm pointer is published, leading to a potential NULL pointer dereferenc=
-e in the IRQ handler path.
---
+Add Rockchip RK3568 EHCI and OHCI compatibles with a similar four-clock
+constraint as RK3588, also extend the EHCI constraint to include RK3588
+to match similar requirements of RK3588.
 
-commit 181d68fe28239c2e3b0bbf1762f175bcdf577648
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+Existing DTs for RK3568 use the plain generic-ehci/ohci compatible,
+next patch make use of these new compatibles and adds the missing
+clk_usbphy1_480m clock references.
 
-firmware: qcom: scm: Fix missing smp_load_acquire()
+Existing DTs for RK3588 have contained the required four clocks since
+the initial addition of the EHCI/OHCI nodes.
 
-This commit fixes a potential ordering violation in
-qcom_scm_set_download_mode() by using smp_load_acquire() to safely read
-the __scm pointer published by qcom_scm_probe().
+Changes in v2:
+- Include rockchip,rk3588-ehci in the EHCI constraint
+- Make clocks prop required for EHCI and OHCI
+---
+ .../devicetree/bindings/usb/generic-ehci.yaml      | 14 ++++++++++++++
+ .../devicetree/bindings/usb/generic-ohci.yaml      |  7 ++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qco=
-m_scm.c
-> index 9b06a69d3a6d7..c8a84836887f0 100644
-> --- a/drivers/firmware/qcom/qcom_scm.c
-> +++ b/drivers/firmware/qcom/qcom_scm.c
-[ ... ]
-> @@ -2841,7 +2844,7 @@ static int qcom_scm_probe(struct platform_device *p=
-dev)
->  	 * will cause the boot stages to enter download mode, unless
->  	 * disabled below by a clean shutdown/reboot.
->  	 */
-> -	qcom_scm_set_download_mode(download_mode);
-> +	qcom_scm_set_download_mode(scm, download_mode);
+diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+index 55a5aa7d7a54..a39f01e740b1 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
+@@ -52,6 +52,7 @@ properties:
+               - ibm,476gtr-ehci
+               - nxp,lpc1850-ehci
+               - qca,ar7100-ehci
++              - rockchip,rk3568-ehci
+               - rockchip,rk3588-ehci
+               - snps,hsdk-v1.0-ehci
+               - socionext,uniphier-ehci
+@@ -186,6 +187,19 @@ allOf:
+       required:
+         - clocks
+         - clock-names
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3568-ehci
++              - rockchip,rk3588-ehci
++    then:
++      properties:
++        clocks:
++          minItems: 4
++      required:
++        - clocks
+ 
+ unevaluatedProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+index d42f448fa204..19449a6b3033 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+@@ -47,6 +47,7 @@ properties:
+               - hpe,gxp-ohci
+               - ibm,476gtr-ohci
+               - ingenic,jz4740-ohci
++              - rockchip,rk3568-ohci
+               - rockchip,rk3588-ohci
+               - snps,hsdk-v1.0-ohci
+           - const: generic-ohci
+@@ -198,11 +199,15 @@ allOf:
+       properties:
+         compatible:
+           contains:
+-            const: rockchip,rk3588-ohci
++            enum:
++              - rockchip,rk3568-ohci
++              - rockchip,rk3588-ohci
+     then:
+       properties:
+         clocks:
+           minItems: 4
++      required:
++        - clocks
+     else:
+       properties:
+         clocks:
+-- 
+2.54.0
 
-[Severity: High]
-This is a pre-existing issue, but since we are looking at the initialization
-ordering in qcom_scm_probe() in drivers/firmware/qcom/qcom_scm.c, could the
-IRQ registration order cause a NULL pointer dereference?
-
-Earlier in qcom_scm_probe(), the waitqueue interrupt is enabled before the
-global __scm pointer is published:
-
-	ret =3D devm_request_threaded_irq(scm->dev, irq, NULL, qcom_scm_irq_handle=
-r,
-					IRQF_ONESHOT, "qcom-scm", scm);
-	...
-	smp_store_release(&__scm, scm);
-
-If a pending hardware interrupt fires before __scm is published, the IRQ
-handler will execute. The handler calls qcom_scm_waitq_wakeup(), which invo=
-kes
-qcom_scm_get_completion().
-
-Could qcom_scm_get_completion() crash here, since it ignores the valid scm
-context passed via the IRQ data and unconditionally dereferences __scm?
-
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_get_completion() {
-	if (WARN_ON_ONCE(wq_ctx >=3D __scm->wq_cnt))
-		return ERR_PTR(-EINVAL);
-	...
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624190830.3131=
-112-1-mukesh.ojha@oss.qualcomm.com?part=3D3
