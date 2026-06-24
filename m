@@ -1,292 +1,292 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D524676D;
-	Wed, 24 Jun 2026 10:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782297956; cv=none; b=SO5L74aJc2j18EFXHbRlS/c7TuuYdxIOdPXVoNSwUkr5gGKn43fZ/4hzGKG4/+0Lfdt5FFNb7T2ELVAxAiEFvPkwGU7MV8tvzu9W3TI0V2r0F2EFs6AWf4Nt15yQaTbdMHvm2siVT+l0OanZGhvOjC6t0DIJdiEqPKYpwzYV1eo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782297956; c=relaxed/simple;
-	bh=vZVfmvw9xB2HuoyqqYJItu4LS2lP2wWNbBJJpDqkOKw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PaP/FOkpHlZIW7vXt2/WzyVdKCXyewX0oj0u8vz/HAGRTLOhHnb4LEXK6DXox58Xa66HDXmgj+94OPF3Xm5yr/Us5yGNTQC40F7c+xOcztiGYu7YnT85z28U/+5STuOlF6sFZtfYJzi7PE37m2XIvPMaapWHcWLbMNfV1+FENCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T9LRnklb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22620175A87;
+	Wed, 24 Jun 2026 10:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782298032; cv=fail; b=P4QyT8xsFZDa+gjHbThnTqsYuVC+PHGPGn514zWcHUOsdwT4yLz2Mq0hBpmUteMPaXt57kgomdePxGpQJxPCiprBuRY1HO6If0i9BqUqIbOkBQvldEgTLaAW6Z4Gm8Odu3aCzDde0YTnjCfSBmmKSdAwl0KUqHMHAjyy+sxBxrI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782298032; c=relaxed/simple;
+	bh=3L1IC5g4w7v1akb1eyP2nzJDp7vYOJ/4yUivedudxI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=QAijXnAXbvH3WX1UWnPl2WQ9oi8a9ur6XmaD10BVp+41ezWoe3yEC3mPnsiqdl9MEiu4aewZ7Q7iRXlRwGgpu28r7UeFX5jcPt4WBK/9sEoLnitTX+pABqU++XMQovNhWXWidEixsH3fMT4SdXUyAfPeX/vocY4iEqe5WtpHHfM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=KjZAutcz; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=GbfHPCDB; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T9LRnklb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EF71F000E9;
-	Wed, 24 Jun 2026 10:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782297954;
-	bh=jKgs/HAdxm66fJBTL5AbFOaCH3Dsrsjs1Xn5W2bk2uc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T9LRnklbFBzDyZ4eOOjBx+K4b8XigR6393mpFcGCRyqGNm7JOyLOHNXb/E8jAulRl
-	 b7zJd4XLYHlAbaS96to9YylCDUztHUZwOyUOT47y6iyaI6ZUBjReM5UjEPW43qGMdI
-	 osVrlzzrX+By8WTcI6gTornVcSAPDoceAIJt1zzuhvsy5+y63rrFh66xqaA6nnTNZw
-	 KCQ6oQjRiK5ZCAq0H8Q+Li3fJv8vg37alYfn3rJU+yrK/w2TyKY43+t13UmQuiSQ2M
-	 j5IRmjzzdL+ZWRekB+ZeAfGxgF5HrVKKOIbe+sabJvgYXuRkekau0ttFNx2ePB3gKp
-	 n4silM0x/kElw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/12] i3c: master: Add support for devices without
- PID
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akhil R" <akhilrajeev@nvidia.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260624102153.1770072-6-akhilrajeev@nvidia.com>
-References: <20260624102153.1770072-1-akhilrajeev@nvidia.com>
- <20260624102153.1770072-6-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 10:45:54 +0000
-Message-Id: <20260624104554.98EF71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="KjZAutcz";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="GbfHPCDB"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65OAOPVw2534384;
+	Wed, 24 Jun 2026 05:46:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=DG8lm0uaDNsOR8nLc3OMkpjgGGVvWSl6oV34vqncZ
+	mo=; b=KjZAutczDcNz8KHQJMmXxFG7gorjHHnzV60Jxcy4acWIibYYw6y4zoz6A
+	otNko5KE7HFveOjhMgdWqv+1vYeoWBZvhhcryN0yOtDV6FLF7JLVeDOI1L4Ktn03
+	aKFcOdtWDuA4UccFbnv/AMCQrT964ITt+HB7RJZ7WWQW/IQPM7FVVX5N+5EXBBnM
+	jA3rWbWiVWfZOmTy0TMEyLdj4TqrUx48mIAS/aIt5k1wNj8CXQNYm81/ObLOs1KM
+	EVOWmSlUlki+fYHRYxDt3I1MgSaScl6CTjHFomkQN9QhqJ40QIeQvQk2XVo51tuj
+	5E8e9KTYs8RRAodio03VjeiiEMw/w==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010053.outbound.protection.outlook.com [52.101.201.53])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4eypttgb3m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 24 Jun 2026 05:46:49 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N8r6wlVhAN04simQC4aR+sEePx3zQYGR0aqHD7eIpCUEVeqWRbEs9TJaXaKrRrpcd10DtWA184uZnoPAYJwr22sTM3u7pBjPvkQ24+siCZ0n+LcLK3uCP65lNybu/QY7tXCi1tXXBTD7gyGMr+OLSb823sb2+TD4f/xGW4OFSG4gHCMZ95WCEKrzpeL2bsQuDESKCZ3Mt4KkBm2CFdeAd4fqX4mvONasgrUy2lXfRj1OhxYD6OzYHqMlNPVBNVohK0mPksGZIa2/0pfGkIyXh6YpC8XjaKzAVvTM40dHveyqp1ZsdpGdLxS5e0V47C/UfiXDpNQpLw/GPacqh73x0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DG8lm0uaDNsOR8nLc3OMkpjgGGVvWSl6oV34vqncZmo=;
+ b=MsHBcuUraQREXCBvk4A2HO8yf1NpZwOeXo7G1TZmxbsCel3aZUYqEH8LWLV5sU+aiLVCCHg+SKEqEca709PcvjTVeSsGQWxCYuJAt7sE4tIg7+Wc95E9iuPxB+eqhNC7qbO1FV1QU6FLZnf6Ze1918RB0kqtc8KPUD0fA1JFdfKPZimgv5LTBiRKEoWYzFYphpKkXnYHO8NIRKM5eIQ/hfEr3Zf+Faf9RnnifclsDuPDnjCwbokG+ASfw7k+fF39RpJb4mgYkquQPMT/8ZnN1+S66T8Gtoz2J44OT5G09dW06sEBnbkBGpH4ddwp7keJwp+nP1Zr/b4G0vw7eaNvkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DG8lm0uaDNsOR8nLc3OMkpjgGGVvWSl6oV34vqncZmo=;
+ b=GbfHPCDBoDScHTkvGR2rLmBWpcyazwiAwWPxYxb4s0L08QfPq+b+WVxDZdKrhz/hYZDnvJVAuOX0B4Lo5fCoQyNJwC+LCyLR/5PxmalwZEnKY9piNNq66W5ADIISmKDEJJ67l6J2yirNWt2E0zeHWIgPz+H0wNm+juJUAuoyYyQ=
+Received: from SJ0PR03CA0215.namprd03.prod.outlook.com (2603:10b6:a03:39f::10)
+ by CH3PR10MB7139.namprd10.prod.outlook.com (2603:10b6:610:127::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
+ 2026 10:46:44 +0000
+Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::f) by SJ0PR03CA0215.outlook.office365.com
+ (2603:10b6:a03:39f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Wed,
+ 24 Jun 2026 10:46:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 10:46:42 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 24 Jun
+ 2026 05:46:38 -0500
+Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 24 Jun
+ 2026 05:46:38 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Wed, 24 Jun 2026 05:46:38 -0500
+Received: from [172.24.20.59] (ltpw0bk3xf.dhcp.ti.com [172.24.20.59])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 65OAkWET249706;
+	Wed, 24 Jun 2026 05:46:33 -0500
+Message-ID: <cccbb9f7-3903-4a3d-bf53-72752b7561bb@ti.com>
+Date: Wed, 24 Jun 2026 16:16:32 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/15] drm/tidss: Add support for DPIENABLE bit
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee
+ Jones <lee@kernel.org>,
+        Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth
+ Menon <nm@ti.com>,
+        Vignesh Raghavendra <vigneshr@ti.com>,
+        Devarsh Thakkar
+	<devarsht@ti.com>,
+        Louis Chauvet <louis.chauvet@bootlin.com>
+CC: <devicetree@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
+ <20260529-beagley-ai-display-v3-10-7fefdc5d1adf@ideasonboard.com>
+Content-Language: en-US
+From: Swamil Jain <s-jain1@ti.com>
+In-Reply-To: <20260529-beagley-ai-display-v3-10-7fefdc5d1adf@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|CH3PR10MB7139:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf517f4c-801e-41da-952c-08ded1dde125
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|23010399003|22082099003|18002099003|4143699003|56012099006|921020|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	nZmQvog0p4/38HufqpyQP2QEZ6/ovFPW2I0UhTHKZRDA0+fcB4PZK+MePtXO0eNdxnR1t92nLYpL7K+asJ9lAT1qn+Dmr3mEHSXo5hx65nbtyYJqktiPabzzCzC7MSnN+ZCDwfmH2hmocs0waHJZsqsZ8RQ1dImeahNKiPe/kk2XaM0YLzn8MQHO9tPRoLIIT57zmKIbgX1ZX46A40/THhAtdhkfFYtCZTr8nACsACvsW1A2tL7KqJjvW7bQnk1FutKEI2EtN9a5RoPuPzloz9rsrbix/wa8V/Xh6DubNm27iORs2evSlPbmpyxF6APWDr8CloAB1zDI7cGY3OBx0s1noGTPY8W5ReuocTTgI7UKHOdN6nK96vTFAdqslJNbOXMH71wHK5suRxgkZM7KOvhW/iPCrNJZZDiqg9wV17rurIZ4VxStxufGtkcSfLp9vnq0kGTMmgjnSuwUc8Qx8yDSCzyNPQDH6Zqo8BMSOdg+xEs8NrWvV24COXBNCGSqtL9PHKBz7RLbou9bxbPrewu6sDFuxT6JtrKttiVihlSYV/IdM6dL9dE5LzWhpJluCoeMLkggEiXfAA0XhzA14n+rnpSB/elk0TfcnQw7LL8hhw8Kdah63oaUfuRW86/TYx7MSbVLSea63FcZ7pq0mt/iv7npzLymL8gaa29h2g1N21i+BiZWt7oSxod5wpFWUQzIvd5Y3FR+cJ3AohznsC75qnr6Qs+TbdY8z5ADafTRwLmIewT1gbqKOm4gRwxG
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(23010399003)(22082099003)(18002099003)(4143699003)(56012099006)(921020)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mu4F38U1bIDiEdVFNvpPlhd0vf0PsuDBn5rH/WiMULSTRA7CDSWVj8a/Uua/yLFzzCKKbBvVCbgpwa4vjj67JwbH/88GQUGdylODuIWbBrtx8wU9Xy+GYVkSexpDk9r1NZ6mi6QCCfAV2Ar39YmziU3cAeuQt5t0WxOy/kFaCtKRkJInlWhHMkloPqCmrUZ1TG8x/LepOAuN9tclnQfcJCqezaGl1bJz3DWP24FdhMq7Kue88Tn9ZPURXKkVy5hRkQhWJKoAXWeQ6Psby0NDhf3LPGx2iGl3zPWniluUmdqJZiiv8DojbZNo7qqUdngJj6DsuRUAfKS3m3usHK2F1NcEiXtTulvGJTV0XQGZfQ9Q1JTb56oVTNgpeBQP5xBqwReb+7jwK6FeFowDxx8RzQYyu4eAR+EOk4IBKnmcHQVqVMGmiYU8u/48xRyggwLA
+X-Exchange-RoutingPolicyChecked:
+	TQgBWDqTeO596ZlANXXofJ1f81R8+4LYe2BF3hixWEd6lbCIsh1ZUyU67y/KxBs6r0L1gTMDBhHasfgcIaRYgZ3Vw9+sKoRB1pxqNYZUTNUi5Z9qtL2T19Gg2YCNOBC0s9VzS+qLXcGD8RumNwpx3ZII3J4BMDg4CelpKFaTfVTpueW027L1NJg6thjzjgUPmiql7iwu4sDWEPyOpQ9BJdERPMs0J5TyJDrSnlbGI3OJfx978xBavvSSeZ9U0mdrY3vc/Z/Pla831KSAPX/zYYpiEXwAIi5FA1a7IGwOg2i8HKxl1gu/YMldF1F1ILv2Swq20Ss7vJo4k1EiOjBWiQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 10:46:42.7109
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf517f4c-801e-41da-952c-08ded1dde125
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000075EE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7139
+X-Proofpoint-GUID: isP4fprQ3AB5PbNA5758M5lH78s7cuDB
+X-Proofpoint-ORIG-GUID: isP4fprQ3AB5PbNA5758M5lH78s7cuDB
+X-Authority-Analysis: v=2.4 cv=EPo2FVZC c=1 sm=1 tr=0 ts=6a3bb599 cx=c_pps
+ a=0vJwjWeN+wUybMchBBml3A==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=P1BnusSwAAAA:8
+ a=vqHznLqP4jQ7SChzMA0A:9 a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA4OSBTYWx0ZWRfX6MzaILediFoR
+ BLjzOw3MItLwfogSuylt1Fyo2kvvhFjTojZ9stvDIRAdZROC5DSReeVvRHyb0foTFb+uk9AGXeV
+ WpBsn+OPInxL41A+rn5Fz+15Lx+WIzA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA4OSBTYWx0ZWRfXz2PEs9V0whXk
+ YBLF5netB5z3QFR4IuwqGruMTrlvb9mrMGbBmwMQq6FeqETs8kyIMA18ldNQcMp/OAnagWy+Z3o
+ 96sxXLvVe6nH1vNoXv/Ww7lkrUc7J32hCWRUxVFtt78JhsWw9AHW5euEvppowHeANuHcwTyrLZr
+ cnZF/CoHihGRIOVIM8CJDHQcYVV3wT7T/JEspbtzKMARVFkAT96UV1YIn5HorSLvUPWsvgd1Acq
+ kzIIwOQuadL++J0McFTmrZ1yvAYst15EOIIYHvRya9Z0wbvnCvCeE81Bsp79kRVHfE7IH1h78Xq
+ OXvAFIzZd6SuZDnTnzzodxWF8W10YE0qVmK13Gfhioahznb8tVH1lfgPeFxeOuetCDEa9m+cn4S
+ 7z/moeHw1RfguvgmXRTGglJmuPvN3JiTrLy2RqWnkdAzUv9Zu1MtwOKk4oUGgWse7So8fO+csgs
+ AQ4OomVh89PY9QgMI0w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_03,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606240089
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Devices returning a PID of 0 during Dynamic Address Assignment (DA=
-A) bypass duplicate detection, leading to sysfs naming collisions that reli=
-ably trigger a preexisting Use-After-Free.
-- [Medium] The driver incorrectly allows non-SETAASA I3C devices to be defi=
-ned in the device tree with a PID of 0, permanently breaking device matchin=
-g upon Hot-Join re-attachment.
-- [Low] The newly added static address matching logic in `i3c_master_attach=
-_boardinfo()` will never successfully match any device, rendering the `else=
-` branch dead code.
-- [Low] Redundant boolean check for `i3cdev->info.pid` inside the duplicate=
- search loop.
 
-Pre-existing issues:
-- [High] Dangling pointer in `desc->dev` leads to a Use-After-Free and Doub=
-le Free if `device_register()` fails.
-- [High] Calling `device_register()` while holding a read lock on the bus r=
-wsem can lead to a deadlock if the driver's probe function attempts an I3C =
-transfer.
---
+On 29-05-2026 14:15, Tomi Valkeinen wrote:
+> Many (or even all?) K3 SoCs have DSS VP_CONTROL.DPIENABLE bit described
+> in their documentation. This bit controls whether the DPI block is
+> enabled, and is set to 1 by default (i.e. DPI is enabled at HW reset).
+> 
+> However, in almost all SoCs the setting does not actually do anything,
+> and at the moment the bit is not managed by the driver.
+> 
+> The exception is AM62L, which does have DPIENABLE connected, and
+> disabling the DPI block when it is not in use provides power savings.
+> 
+> Let's add a new feature flag for this, 'has_vp_control_dpienable', and
+> implement the support.  Disable DPIENABLE for all videoports at resume
+> time, so that it is 0 by default. Specifically enable and disable it in
+> dispc_vp_enable() and dispc_vp_disable() for DPI output.
+> 
+> Tested-by: Swamil Jain <s-jain1@ti.com>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> ---
 
-commit 76e7c85069f65f75e5476a13e6f4ab2ae705589f
-Author: Akhil R <akhilrajeev@nvidia.com>
+Reviewed-by: Swamil Jain <s-jain1@ti.com>
 
-i3c: master: Add support for devices without PID
-
-Devices using SETAASA for address assignment are not required to have
-a 48-bit PID according to the I3C specification. Allow such devices to
-register and use the static address where PID was required.
-
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 3deae8cdae525..bd0dc76c7ba1e 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-> @@ -1989,8 +1989,17 @@ i3c_master_register_new_i3c_devs(struct i3c_master=
-_controller *master)
->  		desc->dev->dev.type =3D &i3c_device_type;
->  		desc->dev->dev.bus =3D &i3c_bus_type;
->  		desc->dev->dev.release =3D i3c_device_release;
-> -		dev_set_name(&desc->dev->dev, "%d-%llx", master->bus.id,
-> -			     desc->info.pid);
+>   drivers/gpu/drm/tidss/tidss_dispc.c      | 23 +++++++++++++++++++++--
+>   drivers/gpu/drm/tidss/tidss_dispc.h      |  2 ++
+>   drivers/gpu/drm/tidss/tidss_dispc_regs.h |  1 +
+>   3 files changed, 24 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+> index 08342a9a5e8c..1b8d52f10673 100644
+> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
+> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+> @@ -442,6 +442,8 @@ const struct dispc_features dispc_am62l_feats = {
+>   	},
+>   
+>   	.vid_order = {0},
 > +
-> +		/*
-> +		 * For devices without PID (e.g., SETAASA devices), use
-> +		 * static address for naming instead.
-> +		 */
-> +		if (desc->info.pid)
-> +			dev_set_name(&desc->dev->dev, "%d-%llx", master->bus.id,
-> +				     desc->info.pid);
-> +		else
-> +			dev_set_name(&desc->dev->dev, "%d-%02x", master->bus.id,
-> +				     desc->info.static_addr);
-> =20
->  		if (desc->boardinfo)
->  			device_set_node(&desc->dev->dev,
-
-[Severity: High]
-This is a pre-existing issue, but does failing to clear desc->dev when
-device_register() fails lead to a double free and use-after-free later?
-
-Looking at i3c_master_register_new_i3c_devs():
-
-    ret =3D device_register(&desc->dev->dev);
-    if (ret) {
-        dev_err(&master->dev, "Failed to add I3C device (err =3D %d)\n", re=
-t);
-        put_device(&desc->dev->dev);
-    }
-
-If device_register() fails, put_device() is called which frees the i3c_devi=
-ce
-structure, but desc->dev is left dangling. Later, when the master is
-unregistered in i3c_master_unregister_i3c_devs(), the loop checks:
-
-    if (!i3cdev->dev)
-        continue;
-    i3cdev->dev->desc =3D NULL;
-    if (device_is_registered(&i3cdev->dev->dev))
-        device_unregister(&i3cdev->dev->dev);
-    else
-        put_device(&i3cdev->dev->dev);
-
-Since desc->dev is not NULL, this writes to the freed memory and then calls
-put_device() again, resulting in a use-after-free and double free.
-
-[Severity: High]
-This is also a pre-existing issue, but can calling device_register() while
-holding a read lock on the bus rwsem lead to a deadlock?
-
-In i3c_master_reg_work_fn():
-
-    i3c_bus_normaluse_lock(&master->bus);
-    if (!master->shutting_down)
-        i3c_master_register_new_i3c_devs(master);
-
-The device_register() call inside i3c_master_register_new_i3c_devs()
-synchronously triggers the driver's probe function. If the probe attempts an
-I3C transfer, it calls i3c_device_do_priv_xfers(), which recursively reques=
-ts
-the read lock on the bus.
-
-If a concurrent thread, such as a Hot Join, requests a write lock between
-these two read lock attempts, the rwsem blocks the second read lock to prev=
-ent
-writer starvation. The writer blocks waiting for the first read lock to be
-released, which won't happen until device_register() returns, resulting in =
-an
-ABBA deadlock.
-
-[ ... ]
-
-> @@ -2383,8 +2392,18 @@ static void i3c_master_attach_boardinfo(struct i3c=
-_dev_desc *i3cdev)
->  	struct i3c_dev_boardinfo *i3cboardinfo;
-> =20
->  	list_for_each_entry(i3cboardinfo, &master->boardinfo.i3c, node) {
-> -		if (i3cdev->info.pid !=3D i3cboardinfo->pid)
-> -			continue;
-> +		/*
-> +		 * For devices without PID (e.g., SETAASA devices), match by
-> +		 * static address. For devices with PID, match by PID.
-> +		 */
-> +		if (i3cboardinfo->pid) {
-> +			if (i3cdev->info.pid !=3D i3cboardinfo->pid)
-> +				continue;
-> +		} else {
-> +			if (!i3cboardinfo->static_addr ||
-> +			    i3cdev->info.static_addr !=3D i3cboardinfo->static_addr)
-> +				continue;
+> +	.has_vp_control_dpienable = true,
+>   };
+>   
+>   static const u16 *dispc_common_regmap;
+> @@ -1210,6 +1212,11 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
+>   			     (!ipc ? DPI0_CLK_CTRL_DATA_CLK_INVDIS : 0) |
+>   			     (rf ? DPI0_CLK_CTRL_SYNC_CLK_INVDIS : 0));
+>   	}
+> +
+> +	if (dispc->feat->has_vp_control_dpienable &&
+> +	    dispc->vp_data[hw_videoport].dpi_output)
+> +		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 1,
+> +			       DISPC_VP_CONTROL_DPIENABLE_MASK);
+>   }
+>   
+>   void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
+> @@ -1226,6 +1233,11 @@ void dispc_vp_disable(struct dispc_device *dispc, u32 hw_videoport)
+>   
+>   void dispc_vp_unprepare(struct dispc_device *dispc, u32 hw_videoport)
+>   {
+> +	if (dispc->feat->has_vp_control_dpienable &&
+> +	    dispc->vp_data[hw_videoport].dpi_output)
+> +		VP_REG_FLD_MOD(dispc, hw_videoport, DISPC_VP_CONTROL, 0,
+> +			       DISPC_VP_CONTROL_DPIENABLE_MASK);
+> +
+>   	if (dispc->feat->vp_bus_type[hw_videoport] == DISPC_VP_OLDI_AM65X) {
+>   		dispc_vp_write(dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
+>   
+> @@ -2445,10 +2457,17 @@ static void dispc_vp_init(struct dispc_device *dispc)
+>   
+>   	dev_dbg(dispc->dev, "%s()\n", __func__);
+>   
+> -	/* Enable the gamma Shadow bit-field for all VPs*/
+> -	for (i = 0; i < dispc->feat->num_vps; i++)
+> +	for (i = 0; i < dispc->feat->num_vps; i++) {
+> +		/* Enable the gamma Shadow bit-field for all VPs*/
+>   		VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONFIG, 1,
+>   			       DISPC_VP_CONFIG_GAMMAENABLE_MASK);
+> +
+> +		if (dispc->feat->has_vp_control_dpienable) {
+> +			/* Disable DPIENABLE for all VPs */
+> +			VP_REG_FLD_MOD(dispc, i, DISPC_VP_CONTROL, 0,
+> +				       DISPC_VP_CONTROL_DPIENABLE_MASK);
 > +		}
-
-[Severity: Low]
-Will this newly added else block ever successfully match a device?
-
-i3c_master_attach_boardinfo() is called from
-__i3c_master_add_i3c_dev_locked() to handle devices discovered dynamically =
-via
-DAA or Hot-Join. For these devices, the hardware does not provide a static
-address during DAA, so i3cdev->info.static_addr is strictly 0.
-
-Because of this, the condition
-i3cdev->info.static_addr !=3D i3cboardinfo->static_addr
-will evaluate to 0 !=3D non_zero, which is always true. This causes the loop
-to unconditionally continue, making this fallback dead code.
-
-> =20
->  		i3cdev->boardinfo =3D i3cboardinfo;
->  		i3cdev->info.static_addr =3D i3cboardinfo->static_addr;
-> @@ -2398,8 +2417,12 @@ i3c_master_search_i3c_dev_duplicate(struct i3c_dev=
-_desc *refdev)
->  	struct i3c_master_controller *master =3D i3c_dev_get_master(refdev);
->  	struct i3c_dev_desc *i3cdev;
-> =20
-> +	if (!refdev->info.pid)
-> +		return NULL;
-> +
-
-[Severity: High]
-Does returning NULL when PID is 0 allow devices to bypass duplicate detecti=
-on
-and trigger the pre-existing use-after-free bug?
-
-If a dynamically discovered device reports a PID of 0, this check
-unconditionally bypasses duplicate rejection, so the device is repeatedly
-added.
-
-Because static_addr is also 0 for DAA-discovered devices, the new naming
-fallback in i3c_master_register_new_i3c_devs():
-
-    dev_set_name(&desc->dev->dev, "%d-%02x", master->bus.id,
-                 desc->info.static_addr);
-
-will name multiple devices the same (e.g., %d-00). The first instance will
-register successfully, but subsequent ones will fail device_register() due =
-to
-sysfs name collisions. This perfectly triggers the desc->dev use-after-free
-on the error path.
-
->  	i3c_bus_for_each_i3cdev(&master->bus, i3cdev) {
-> -		if (i3cdev !=3D refdev && i3cdev->info.pid =3D=3D refdev->info.pid)
-> +		if (i3cdev !=3D refdev && i3cdev->info.pid &&
-> +		    i3cdev->info.pid =3D=3D refdev->info.pid)
-
-[Severity: Low]
-Is the check for i3cdev->info.pid redundant here?
-
-Since refdev->info.pid was explicitly checked for being non-zero right befo=
-re
-this loop, the equality check i3cdev->info.pid =3D=3D refdev->info.pid alre=
-ady
-guarantees that i3cdev->info.pid is non-zero. The boolean check isn't stric=
-tly
-necessary.
-
->  			return i3cdev;
->  	}
-
-[ ... ]
-
-> @@ -2832,9 +2855,15 @@ i3c_master_add_i3c_boardinfo(struct i3c_master_con=
-troller *master,
-> =20
->  	boardinfo->pid =3D ((u64)reg[1] << 32) | reg[2];
-> =20
-> -	if ((boardinfo->pid & GENMASK_ULL(63, 48)) ||
-> -	    I3C_PID_RND_LOWER_32BITS(boardinfo->pid))
-> -		return -EINVAL;
-> +	/* For SETAASA devices, validate the static address instead of PID */
-> +	if (boardinfo->static_addr_method & I3C_ADDR_METHOD_SETAASA) {
-> +		if (!boardinfo->static_addr)
-> +			return -EINVAL;
-> +	} else {
-> +		if ((boardinfo->pid & GENMASK_ULL(63, 48)) ||
-> +		    I3C_PID_RND_LOWER_32BITS(boardinfo->pid))
-> +			return -EINVAL;
 > +	}
+>   }
+>   
+>   static void dispc_initial_config(struct dispc_device *dispc)
+> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+> index 6f53d554259c..0fbfb86adfbf 100644
+> --- a/drivers/gpu/drm/tidss/tidss_dispc.h
+> +++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+> @@ -92,6 +92,8 @@ struct dispc_features {
+>   	u32 num_vids;
+>   	struct dispc_vid_info vid_info[TIDSS_MAX_PLANES];
+>   	u32 vid_order[TIDSS_MAX_PLANES];
+> +	/* The DSS has VP_CONTROL.DPIENABLE bit */
+> +	bool has_vp_control_dpienable;
+>   };
+>   
+>   extern const struct dispc_features dispc_k2g_feats;
+> diff --git a/drivers/gpu/drm/tidss/tidss_dispc_regs.h b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
+> index 4cdde24d8372..4246c72efdd5 100644
+> --- a/drivers/gpu/drm/tidss/tidss_dispc_regs.h
+> +++ b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
+> @@ -230,6 +230,7 @@ enum dispc_common_regs {
+>   
+>   #define DISPC_VP_CONTROL			0x4
+>   #define DISPC_VP_CONTROL_DATALINES_MASK			GENMASK(10, 8)
+> +#define DISPC_VP_CONTROL_DPIENABLE_MASK			GENMASK(6, 6)
+>   #define DISPC_VP_CONTROL_GOBIT_MASK			GENMASK(5, 5)
+>   #define DISPC_VP_CONTROL_ENABLE_MASK			GENMASK(0, 0)
+>   
+> 
 
-[Severity: Medium]
-Could this logic incorrectly allow non-SETAASA I3C devices in the device tr=
-ee
-to have a PID of 0, permanently breaking device matching upon Hot-Join?
-
-If a device is configured with mipi-i3c-static-method =3D SETDASA, it will =
-reach
-this else block. If its PID is 0, both boardinfo->pid & GENMASK_ULL(63, 48)
-and I3C_PID_RND_LOWER_32BITS(boardinfo->pid) evaluate to 0, which bypasses
-validation, and the device registers with PID 0.
-
-If the device later Hot-Joins, DAA will retrieve its real, non-zero PID. Wh=
-en
-i3c_master_attach_boardinfo() runs, it sees i3cboardinfo->pid =3D=3D 0 and =
-falls
-back to matching by static_addr. Because static_addr is 0 during DAA, it
-fails to match and the device permanently loses its DT properties.
-
-> =20
->  	boardinfo->init_dyn_addr =3D init_dyn_addr;
->  	boardinfo->fwnode =3D fwnode_handle_get(fwnode);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624102153.1770=
-072-1-akhilrajeev@nvidia.com?part=3D5
