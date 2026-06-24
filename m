@@ -1,47 +1,49 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B033E5A33;
-	Wed, 24 Jun 2026 21:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8C73E5A3B
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782335738; cv=none; b=oI/Ozzfg0Pt4Aq+jRCVDILgJ+OdVmBXA29dF4nRai69hw22aVwRRjulC9s1NH0mUvYqfGrTh2dHfVGTIMSmGBefWEQeNn8YvwzV5YTMs+KJq5czhCEJJQBWzB+ZZRRWh5iCPDZ/odTMfcZpKdWNMbG8dOYMSFK+8clKgQv5lyPg=
+	t=1782335799; cv=none; b=Qake1dwGI0C9aUZweEUnJEuHm3pe8PTGjdSHNfVLFMRltGgP1mxMV1boijqRyI/3KYSKEBv8PjSsTX0waVC8ZUdLRDgk5sKNgiwYPgiYl65bpH7/khUO4abX3JCFBH2Dbf/1olDd1LAcSPyJm9caxo37/I5DulSJ6ad6OVrmF8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782335738; c=relaxed/simple;
-	bh=8+Tz2wcICAvnONh9G2yDdK3WLJUQtA4ebKoIfNXDAHw=;
+	s=arc-20240116; t=1782335799; c=relaxed/simple;
+	bh=x2pVzOoZN6Uj+INLu+cBkxwDBPEQFtDR6TwqvAo6vcE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gXwgb74grr12pYVx2m0X79nZjbV7JG+45yog5rvfcG+dFOF4JlnI7kQpjxLF2cXM6lckdzrLgj1n/aUlg8pc3Snz7yQUg6FvbWF0WFfdLV9BxKH2qMiS6LWcwnktm+zdgNTz6eoPg5+X4HrJBXLxva+KC/JTXRw8oxN6HsC1lEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=yB8tYRn+; arc=none smtp.client-ip=185.246.85.4
+	 Content-Type:Content-Disposition:In-Reply-To; b=UTcjN5L2GWfRcVzL10lZ5IpnLzwsXnhZzQgwGAK9eDuk8ZfgmdK6/tL1ysxGfLElUtwB62oC26f3wuMhcg0zaNf4Wwc1sl8fkHQH3pSY9gf4+tS0mnWRdrgRcetf7NUQRZ15EQ+GnlJUGzIfAYQUyIsQqrTbHuXoR2DqbOxY85A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XTaTgVlK; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="yB8tYRn+"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XTaTgVlK"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 064C14E40832;
-	Wed, 24 Jun 2026 21:15:36 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id A40D9C6B3B9;
+	Wed, 24 Jun 2026 21:16:44 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CF8D4601C5;
-	Wed, 24 Jun 2026 21:15:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 49B76106C8468;
-	Wed, 24 Jun 2026 23:15:34 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 884E9601C5;
+	Wed, 24 Jun 2026 21:16:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 79617106C8468;
+	Wed, 24 Jun 2026 23:16:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1782335735; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=fZx+6xjHPRMW3K3siAMWojAagmcwhsm8cdaR644WEFE=;
-	b=yB8tYRn+4MBt/aTA4Y/ErC+7TRlTBW0HGDOybRoJA/BD9JJmNO095Soktwnfo5rOsTsDWs
-	WL48svqI8hTSbIQ4ZageUQedkTSdrTlIgsdYsi+Z3lJWuBRJobwveV6PhqtvDi81uggpxd
-	otGT6yFuNbbQeeSLkQd39Qhb2YpU8MqgW8mOwG/jZpIbxhJghpUxZd/L0fk1t89d/Ii7nV
-	iQDFqPs/ID6eJ0IovYYrwviAYKXW8Fv34IZ2WJhQHleAHIQ7Ovpg5GjLH4pMb3KI1k7hYA
-	pWeTuwBqIVvYGYnvXqczejnHp4wXsase4yD48sShEZfSYsk7Oifvar/833XL3w==
-Date: Wed, 24 Jun 2026 23:15:33 +0200
+	t=1782335795; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=BxRZgMMcXld1GewrTn/+Bpz0RNC0eo+0XsbHRMtaIMw=;
+	b=XTaTgVlKy08X8NDZtKOCQMu0BDALNDA0VYnboGRbodz5KICDzsoe4bn0H5ghMcfYsNHzf7
+	QMT8V300UIJts32vRAKK3n2sFo2SrX3dkNMMy4kNW3ZcWTiYwg455hdjrmmZSwa7RdIiR7
+	Etdi+5yxsda+qPlla29otIKBa2fFVLaxtJTit1ZpM7ILtmyrvF1ka/ptJCXh10z/j2Ee06
+	yXaN2S8hPf4dtbjbq7roFJHxyv/6TVa2zH4at9ce7yyJKx1KCjDwRzQXuSOiYOqfYxVf2B
+	gnr2CF7QMCoYoKGVEZR4R7tZQv4JfCKAtcoichw7aUXYzB2Nyqz2/jyQM2deDw==
+Date: Wed, 24 Jun 2026 23:16:31 +0200
 From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Cc: skhan@linuxfoundation.org, me@brighamcampbell.com,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
-Message-ID: <178233558783.1517260.7052068183567523489.b4-ty@b4>
-References: <20260514173851.25088-1-challauday369@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tommy Huang <tommy_huang@aspeedtech.com>
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org
+Subject: Re: [PATCH 0/2] rtc: aspeed: Add AST2700 RTC support
+Message-ID: <178233558822.1517260.6981271146090179790.b4-ty@b4>
+References: <20260601-ast2700-rtc-v1-0-15d4ca46500a@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,17 +52,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260514173851.25088-1-challauday369@gmail.com>
+In-Reply-To: <20260601-ast2700-rtc-v1-0-15d4ca46500a@aspeedtech.com>
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 14 May 2026 23:03:32 +0530, Udaya Kiran Challa wrote:
-> Convert the Epson RX6110 Real Time Clock devicetree binding
-> from the legacy text format to DT schema.
+On Mon, 01 Jun 2026 17:14:05 +0800, Tommy Huang wrote:
+> This patch series adds support for the ASPEED AST2700 RTC define,
+> includeing dt-binding in the Document and rtc-aspeed.c
 
 Applied, thanks!
 
-[1/1] dt-bindings: rtc: epson,rx6110: Convert to DT Schema
-      https://git.kernel.org/abelloni/c/c7ab7504631d
+[1/2] dt-bindings: rtc: add ASPEED AST2700 compatible
+      https://git.kernel.org/abelloni/c/5e7f746bc106
+[2/2] rtc: aspeed: add AST2700 compatible
+      https://git.kernel.org/abelloni/c/3319cfeeb8c4
 
 Best regards,
 
