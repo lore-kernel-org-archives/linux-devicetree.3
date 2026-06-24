@@ -1,63 +1,63 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C53A3B42E4
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 13:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63823B71BE
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 13:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782309470; cv=none; b=ouyuShNFskoE0tS6eDVF5motiflU1kvHJNf6ZKu8dZSwBpdsXXGzj8fSMQqXCL3N/90xgOn/dWju/QjXLvmErc/VxUxtvlAaR6tRTVxTDwAnUIH8fEzWFkd0PztX12yCve0dPja+5axVN6VVS3b5YrlnFmFVv7ikO1jSCtjGVQU=
+	t=1782309480; cv=none; b=n4ZrXQ6p+ZuFx+8s/8v99V/uQQyjdXfsuIPFM+BP0//d7/b3oph4M8/0CBNmvlCCXIydbaM0fSuAyYwp20XXEQnPrNymo7DWK4zNirbD/KKB8HDyiQHueahaD599EOOaT8cEVCf4uDydD8ZroS3rnlcQ+OlBtPgmNUkuJRlUrPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782309470; c=relaxed/simple;
-	bh=rb+aNnHYdNqy1IYBy9/+KLzknx32nWz+/xZ4/3QurYg=;
+	s=arc-20240116; t=1782309480; c=relaxed/simple;
+	bh=ZqZCkDmY3c0/kditj/CSeHwbumIJp/ak3XkyRMjjrv8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l+GitjB5DxXMkC8SLzlEX+EKaxrGLyZXv4k1Jd2UdgO8nZuCp0pgqaxpJGvJcYZU4zpNsxIIkidmzvsegxbeievVZkUhXxdE53uUi1f0Ziodro2C4nZ2/+ybXEa0lOkZhg0ur7Edk8vrIo2AI1HLCH1HvTbOwkLw8q7bLIfbD+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NIZCsvib; arc=none smtp.client-ip=209.85.221.169
+	 MIME-Version; b=adZXUIk24xFYSTA7zkpRi+xHk3QzPyneRKESOLTz3cv3fhBI62SABK0QL5rouJJqt+WklVEKzfazgZpSagllaQg8E9P1OXwR3a89m/pnqILS3VNYT6tq/jnVI1N8k5W3RK6Ixy4BbJTE3Zj4IoQ0QEqmE2KsjjJDnmj1OCv8NbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ovaxky6f; arc=none smtp.client-ip=209.85.222.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NIZCsvib"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-59e2b96e3d3so794255e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 06:57:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ovaxky6f"
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9666739d3bcso373739241.0
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 06:57:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782309468; x=1782914268; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782309477; x=1782914277; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xh5Slloxf8WGtp7aR0d3xxTsesmRmOMMsUzMEvdtcDI=;
-        b=NIZCsvibgY8eFMchwY0YhjUkHdTLhr/QQgus/AwA94x+l+1+a3+d6a7cCbsa8svLPw
-         Zqj74HdqrCHsSaNZfZ0a+caxmVvZJlJwghtCpRjZeuxMuKgF58N01LRKQwKeBjGCZ3eY
-         5GavNMdb1K0bn9hayJwMrmJYheErIM+QosLDhVHYMSpmHI5okaAIQrCAgj1tyzgZCI0h
-         JPlQCeTZerH9IByJk3j/ZY++ub7MBvoKdb6/F4pg72uGzp/MZ+Gw/2a6aMnfI65K4AdH
-         JQFmrLWMrssKP0haUvUWz87z5Z0S6v4jDrV28enVGIlB9fb0nBjAFOvcKjhW+sNEggMs
-         Qvcw==
+        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
+        b=ovaxky6fUtFpoioJK/Fe30gZdjv2QNfqd89z1ufqps9w0/ONOCpgEkByDn/Ua5z0m8
+         mTZ/Q+jLo7lQBlIKaOcb/6cAVyAILR6gvQFzdLZ+uaGONtYkOO3IhluR2EbKqTC3ik50
+         Ib+YT/TKAXYeUZQUnq6FFonv5fP1x9Zq8Fghtpfclm24YpR4i/HZ3DT4L4HQy3tXLe9F
+         52M9vqSvNzMtfrURNkruh4Du7BLEqIhee/Udki0bFTcgJmYWvMUA9B7Xpe+suIohUs4D
+         dbQHzTTBq2CwGkfYgYhSD4wVAJEyx+OtcvPQoSq81v65tTtlAQxLuNnKjIYeNdzuQ/CD
+         urZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782309468; x=1782914268;
+        d=1e100.net; s=20251104; t=1782309477; x=1782914277;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Xh5Slloxf8WGtp7aR0d3xxTsesmRmOMMsUzMEvdtcDI=;
-        b=PWlAJNeCnyOROsM1WNwAaipHmMsH6gbQYi101PIX06NUrnO12C6HQPaJ+zieqLObwu
-         2MvgkVTcBmyxXmfHSazmAd/SmQJ0Sf6cdHYmaBRip5U2s14g0XofdqCjUqKd0qBjshfW
-         XQFmGqCzijD+/Blq09YplBdnp9D23WNTTcsiVcdhr3TzekmPEaYtg2X3ccxFoKDvlT1K
-         dOcRAFedHnlICxsT2V0kz8sQIgif1iQCmhNntlUkKoa0cVb5Ox7oaCnfyvWqn3KmdQ6g
-         DU5aUdH9Nwb0OkbnP87Ovo84zcQ5JFhlE0LOZR0RivlfVYePrd41Xv0/RDkpQN6zrhx+
-         8sJw==
-X-Forwarded-Encrypted: i=1; AHgh+RpsWriI4HStdllTYzczcnGXyUIsahkYuEglhJvI3ZZhxfE1MGeBJdHJ8fpn8ElImPckd5TSyb4Fl74m@vger.kernel.org
-X-Gm-Message-State: AOJu0YwS3Khs17hsOjVmPhN17lTokSYc1lZuoPsfF7pDP0hDJTLTnITA
-	eqKCf1bx/WJqbmeV+KyI1rDIKimoEnDEB/IeY1/IHaxc5zGNdiZRX1Sk
-X-Gm-Gg: AfdE7cmingLp5e/a2Epia4tbZETLUQerioeam5Mu2oxUviQaI7yZN+Y9ZvJl72Gxpgs
-	x8Z83iCSOcvzq8QXPfZONmjPnfeWvy5zN1HlA4bgA8THMzvx6GOBm3PG5Md9dcpjuZ5JI4f8qgO
-	x0RvqfoNIjvGwHUOScXNkxWBScaB4NpZrtI+V/l7QuDX1uvOIe+9W/aWg7ZnPt/7QTld5Z7rV3g
-	VMNk5LdsUKI0db6I2pchKlW5N7NKdOUoy9uctq7VGhtqaAeBTpz2b/qbb07SIdPnJuc5iiXaQN5
-	oe09hLTq6aW15Uk7HBirSWuJvOUobrYdDahuoACHYuIG1wI0kqZs48T0xVXWeK6Zai2AOmUmXNd
-	4SRLNKkRaSbHdk08a+rqwLbVZGQLzNZMIF3Y5EM+6pmw4VrvjtDXKcZ8dNBtQDYgJkpufUpbrMe
-	ur4QUmoXJJIp9wNO3YCSv4CE82hDkCmRT7YvIC/UhbRktGbg==
-X-Received: by 2002:a05:6102:1611:b0:723:b92:31b6 with SMTP id ada2fe7eead31-73115d8fd1dmr1491466137.27.1782309463680;
-        Wed, 24 Jun 2026 06:57:43 -0700 (PDT)
+        bh=mk86bxlrPWUP+ZTPQQXB6H9xJamJagPahnQQ0p/X5sM=;
+        b=YyriUABpSsNoGTy73OEnWEPSGgJXYQyuD0C3dnYtt5o1ZLnORSMoMJcGVfUaSYQdGf
+         kAc2aQIyTLQCKfUbJ4etNaq5Y9P4xLYqWOAAPGIQzcJYHS0lx7z3E97AVJtvAj+ZYqZ+
+         AfQvy/mM4VWMO11KQ2Sz/ZsQ3j8geXEz/t1E18y03h4c7FAlEf1F1WwEeTLVQzUcpS8e
+         abNTX7kioVCa2e3zP8+9ciHpfLouPggZvuHYGK6XJWd8Bo+YfcskuemkUW43QaSS888l
+         Ihon+g6vBpc/NzjBCoyOLRrCg/GKcbm1+/XVA+ziKSA/EIqG965tdCgkk0I4l4JK8jMY
+         rm6g==
+X-Forwarded-Encrypted: i=1; AHgh+RpiPhY7lF+2vVPT4ATRSKnWf6DNH1sa44aEqXFOF/8jRUtvkG1Nz+dcnFYiTxIL/qhv1FAa2kIlc5Ai@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJzj8NUZeBehpNzJIKO8b7LjtDFkm5P/vul6K/VH0+nu6mRDqn
+	1LKX9W1uGkVRzRnt0FuKUsaHSIiv935uh3Sg22z/Z6PXUvqx81JYni2k
+X-Gm-Gg: AfdE7clpjV+EUNAoks53E0sQJCQbaF252p9/P8Sodiggb0LxTp87dujlOUuNgzj8STa
+	EyJ3ACfK9T1dv5pDIpDAAqgSNma7hYwHeOg0cxhYkuCpnGl6PU0XjqPMRkRPNNrwepFRQVEftQ2
+	izDOfquIn4Pcz590xsgpDk+U1eh8EJg2s+FZYMDe8JxQr1Y0HhFe9+N2dPuSTH0zK4kVyjJqV2v
+	z8iCOvTJTbF6JjQZP+8aw9gkBZnVKriVPpMgrIZuvZA6u33KDBEegIGWmETe+gK7m7MNsdOlmiJ
+	Ul5ZGf43ckNBCzY5jpmA/LCLgc1FiMyc97FxwPWrncPx4zyg4fiN8YXCu+AGlALTg4n6uBjyBPy
+	LVc9V+jnRGAr3pXOjc4NjC8RM+1lY5yFWHzumnh3t4Nz3NpWZCOtw5iQa9cnsF4BIkHBYg0Ed8d
+	PtdIJDNtz8TkoogISnorTGwXNNjYdvaoFcn2s=
+X-Received: by 2002:a05:6102:f09:b0:6c2:e290:cc69 with SMTP id ada2fe7eead31-731157322acmr1460988137.23.1782309476725;
+        Wed, 24 Jun 2026 06:57:56 -0700 (PDT)
 Received: from arch.localdomain ([160.250.247.70])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-72ba2dbc17bsm9805730137.6.2026.06.24.06.57.34
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-72ba2dbc17bsm9805730137.6.2026.06.24.06.57.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 06:57:43 -0700 (PDT)
+        Wed, 24 Jun 2026 06:57:56 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -72,9 +72,9 @@ Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-amlogic@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/4] arm64: dts: amlogic: meson-axg: Add missing nand_rb0 pin to nand_all_pins
-Date: Wed, 24 Jun 2026 21:56:42 +0800
-Message-ID: <20260624135650.727077-3-jerrysteve1101@gmail.com>
+Subject: [PATCH v4 3/4] arm64: dts: amlogic: meson-axg: Disable pcie_phy node by default
+Date: Wed, 24 Jun 2026 21:56:43 +0800
+Message-ID: <20260624135650.727077-4-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260624135650.727077-1-jerrysteve1101@gmail.com>
 References: <20260624135650.727077-1-jerrysteve1101@gmail.com>
@@ -86,31 +86,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The nand_all_pins pinctrl node was missing the nand_rb0 (ready/busy)
-pin description, which is required for NAND controller operation.
+Set the pcie_phy node to "disabled" as it is not used on some boards
+and should be enabled per-board when necessary.
 
-Add it to the pinmux list.
+This change suppresses the deferred probe warning:
 
-Fixes: be18d53c32b2 ("arm64: dts: amlogic: meson-axg: pinctrl node for NAND")
+platform ff644000.phy: deferred probe pending: (reason unknown)
+
+The meson-axg dtsi now disables pcie_phy by default, so enable it
+for the s400 board to support PCIe functionality.
+
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- arch/arm64/boot/dts/amlogic/meson-axg.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/amlogic/meson-axg-s400.dts | 4 ++++
+ arch/arm64/boot/dts/amlogic/meson-axg.dtsi     | 1 +
+ 2 files changed, 5 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
+index 285c6ac1dd61..7ba249cc3d56 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-axg-s400.dts
+@@ -448,6 +448,10 @@ &pcieB {
+ 	status = "okay";
+ };
+ 
++&pcie_phy {
++	status = "okay";
++};
++
+ &pwm_ab {
+ 	status = "okay";
+ 	pinctrl-0 = <&pwm_a_x20_pins>;
 diff --git a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-index 6457667d974e..8ca3ac09b306 100644
+index 8ca3ac09b306..5b8ef98f6d03 100644
 --- a/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
 +++ b/arch/arm64/boot/dts/amlogic/meson-axg.dtsi
-@@ -481,7 +481,8 @@ mux {
- 							 "nand_ale",
- 							 "nand_cle",
- 							 "nand_wen_clk",
--							 "nand_ren_wr";
-+							 "nand_ren_wr",
-+							 "nand_rb0";
- 						function = "nand";
- 						input-enable;
- 						bias-pull-up;
+@@ -328,6 +328,7 @@ pcie_phy: phy@ff644000 {
+ 			phys = <&mipi_pcie_analog_dphy>;
+ 			phy-names = "analog";
+ 			#phy-cells = <0>;
++			status = "disabled";
+ 		};
+ 
+ 		pdm: audio-controller@ff632000 {
 -- 
 2.54.0
 
