@@ -1,65 +1,65 @@
-Received: from mail-pj1-f65.google.com (mail-pj1-f65.google.com [209.85.216.65])
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com [209.85.216.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E7E31E84E
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F29391E7F
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 08:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782290827; cv=none; b=kHIeGZ91UZAnZ6vx+YlHzdv+lrjYxQRzNxjWfpM5hnHjF1ig6pt+hFiWUq669vEPy8YCyKJNMc/XAli//yHiZjBE6PjwTOVHTVHs389bsDQdgMwkozY2TxbC0kwKgz4H1VXmMgchK7o0LTRZAuhtnf4W6TGGOU7BXoRtCexle/M=
+	t=1782290833; cv=none; b=rPdMlab0RGWtUU6HkEHjYlV8au2fGIOJTm+6wgPXSS0wOw65bD+dhppZmvV3UlclCew8N926RyVyBiO+kXWy5XnMe/nGMNHO5BuBW8gmT3+38CRm9ua6Q3wRAJ7pSgG+k9YQWlVycpnZKpbmZVNkF8VThcNZTcs0cXw/aCeRNrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782290827; c=relaxed/simple;
-	bh=hGja04LjVLdEUpRMeYni1ttZeCHW7DBtTY1DVjPxwic=;
+	s=arc-20240116; t=1782290833; c=relaxed/simple;
+	bh=8EosIzzR7UzOFP/v55N37uL3TxX8W4lq/3WtMuwfnjU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oYmBZFmdTkahCfHcnGU8xC3hao9Oo+UKhSTOngLXGNL4EaNTK50AU2PzeXCk8rzw8fMFh8aeqhvZtoiPdXf/H7ecaB9qPhwigyrZ+JbGzAt1AxH64xU3lQ4iSI32cBkKa3cyiTJowl3TQwlDfNQWqQHgqf7PUDy9WVmd3W8LXQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Af+KmiJQ; arc=none smtp.client-ip=209.85.216.65
+	 In-Reply-To:To:Cc; b=KBGO3obfBN3hE3v06QBRL01qFd+M1+VDIZrsivA5j3DEYQ1lh9XmjaNgL/pJPViSbu/jsAEWQw7bNN/t5GrsH5j9hYniZs+++UjLFQ9B0E2m5tFfu37M4eXyq5oEMzXYqJIdHjT0/83rqycN7Z1C3tLTKkQxMgOBPTn5BX0YSsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S6J5a7bb; arc=none smtp.client-ip=209.85.216.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Af+KmiJQ"
-Received: by mail-pj1-f65.google.com with SMTP id 98e67ed59e1d1-36d630c0e35so868665a91.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 01:47:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S6J5a7bb"
+Received: by mail-pj1-f68.google.com with SMTP id 98e67ed59e1d1-37cae11ba85so591174a91.1
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 01:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782290825; x=1782895625; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1782290831; x=1782895631; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ebJKu9jVn6lf143JvVHMNKq41KUqWP0vuZLPZ5+CqQ4=;
-        b=Af+KmiJQSg+i2JixyfI20ezVLnPcSnvc/auuBBiT4mWb5DFT8O3GPeC/t0EHmGjZvj
-         n6C5D2Dh1gYwDtndBKFuwVJm5kPmYfntHyKgAQGL7ENpsD78yLyoDkU1swvsUtvlqbKs
-         t8sE4Zsc995yaRCJUOqZuFv2ZiJhLYcZm+xJy+2hjUgH2LrU7NGodyAO6JEKO5K+w/wc
-         8gUKqLNwPN5tlIurAifT5prxYX+FW+Ppp72MXxaWGdHhisTRs8DUFgKK+46DMiAsueUr
-         KNbvLIMQSvW3u+YBlVNbcGbtAO8+YXsCr/vXleUybZFJOXOViIxNXdx94HfWTSAd0xy5
-         F6lA==
+        bh=LLcfgRgcRG6+Y1GgVHrol+2NxklkD2AbD5mhAFMMnog=;
+        b=S6J5a7bbSNi6mc5Tn6dtd3h+h4hty8pbJMFLfdOfWym+74JG005tWWKfWy25QjRW2i
+         qGM114J8A0iDX42tlPhYyVBsEsALQ9aZz1WBGhNXm/sx5GNfTQkYVm9ZGDXHEcFRuABc
+         ehDj7c91vyZ7pdzm2E/cD3hII7ISeJzG39sLXmuUmiHnw8O8U6ipz6hLa0Rbzj2QA3F+
+         mIMgL/wFS5Q0YQ6zwRJV/00Sj3oaoxiObafT+zue96oS6OxjH7Buf2pwgT6llbaERcZ5
+         u97ohKvJVBr+GgWxUZyte0qhD1yrJu2F9BaWIH2XHxYLcB1WD9GEAVTtTbIEQPL9q+Cv
+         3s0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782290825; x=1782895625;
+        d=1e100.net; s=20251104; t=1782290831; x=1782895631;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=ebJKu9jVn6lf143JvVHMNKq41KUqWP0vuZLPZ5+CqQ4=;
-        b=AF/JwvdCoKxZyfWFs0IVwrxDlq3G3yk6iPwDolo79s0z2eCjhqozO1XS2biO7wd9+W
-         zir5Jshv7lzBQoArhzJ8EfZJRU28T0Z1jWyIqWHMlGTPxDg8uQ2CvgQaDWBvfeyEhh0/
-         o0jh7TrSilP0SkP6ZcTbEqU/AEf2zPZxaCEKCQY6Pd2eIXc+Fjwn3nlVnmrCcKH+8eun
-         sLfQ3ICHl9HXNf4xoTx1jVVZb84JzDImwqbTlnD+j/znIzqL76PYDPWQmn3BPwl/i26O
-         tz2M+KEnSkDIvwVDyXrULa1pAxc6es8MGh0WJLFc6ysmposiG1IDIvHX6iWjhnl+BBPd
-         wxkw==
-X-Gm-Message-State: AOJu0YzFD3/JyCoKYC04aTT7srM8tEkVXGfE3ucUqmsNKI5ChjViJPg5
-	pJpEojf61SsUN5OKU//ua5meCSAPvJhIW2JZefar8OiLE1UR0YqYPQhg
-X-Gm-Gg: AfdE7clkIILKKh/R31drC0JLpEq7e4ja2BD9PEskSa7I7BNey/4tYvW1UeNDnzbv4VB
-	+IXYi3q6zU6WCA3n/HjHsjuTW0TErBedQGPInyniRTG9LcYiHZfAlxHLC+K0HI3Fq/seRo8zmrk
-	wzzAHcekQcyJqzZ6aBWmE3EX3Fi6XkE6MjLsIzHhzxL1RFh8ben21LRq0kcwCCNHri00lv2x/9u
-	BtF1xlu4g2bfgRGMekgQktcbjtS+RHdqD3Oas2x96Kdyt1kA3B84n+s37n70FFHYNu2XBeAmNrA
-	KS/93Se0DC+bXbBQwAQn7xWQ/RIslJ0jbNha/4go97olSeKqQ8qrOV1B++ZtwHQKp8Vf9Trm/Qu
-	EIiLcoVvORi4/maM8gRayejnRdtXCI4Ghmph1iIGGdOhWuno6XZ4QeQ1XuRBkk1XYLXP91PO7gW
-	VCUvMpe+cHKgkD/6MvupwVy8W3CFeFeDRA7JU=
-X-Received: by 2002:a17:90b:3904:b0:36a:f612:e6a3 with SMTP id 98e67ed59e1d1-37de46877cfmr2475296a91.17.1782290824660;
-        Wed, 24 Jun 2026 01:47:04 -0700 (PDT)
+        bh=LLcfgRgcRG6+Y1GgVHrol+2NxklkD2AbD5mhAFMMnog=;
+        b=QemHGQgJCBGDQ4cBwfu+r5uGvjRQ2Mzj0Wv41ZWZ4HCiTKoclPtItLGj5TPkuOHiLP
+         weAezqAawUI7BI57azbilVskoxC8f0sQq+XJakJWBsQLk31zieM2JjF9p9C3f+Drb2p1
+         USDjKjhJGyxDsEvP2DpNXzdaPR9yh1oq8bSzpZ8RrNgRHLSSZ9z1z78KFrxLNwU5BnMJ
+         rySzZzKiDE4z5YmTMUr8MPlGDRc/EviCsM+n7dMtFpBzEgto2RBfKhfSGv0m74+00HHX
+         cJzG7jkHOOftqBjRG/pL3eIcdx9RDbFTPEPmetjAH++v4sS8nP/1lseXnMFe5BszYPsQ
+         Byqw==
+X-Gm-Message-State: AOJu0YxftlDAOgHKiyXXJ+7vM+ZO1H5/ZG00fG9SM/qYEd8MNu0GQS8+
+	k173N1qApxLKaU1A0ACgEpTQZzifi9VVbz17o6e1FwLaOQuho7Kk2HCZ
+X-Gm-Gg: AfdE7cnUVEAOxvMXWU5dP0LN3m+tfKjbnHRfYmgEvTkpUO7IiybQJ9nRixYI7dL+G9e
+	JG3kAHg7F6iEGlAiBlfb4WsqEY44fpGcme4EXYIz344FLP6V2COWB4OCstdLHdR/lt8GDUU7xdM
+	EGfhWrQcGWale/RbtyF4+jEsPxZdfHY5NMLeiyyc9xEPZRZMKQZKTAtKjicqqAqjDyOmKxzRPJ6
+	Rx/FWrBgniRN/HbQDTW/59fJr0MUfcjgQXnZKuAYTJiYuxGiJ2CgDD8YELSRQDt/7Neawr78Mfx
+	4lakDXcoebd0wCfWUfifabYjvPHSfmNeadBviZvRz9nS9dZRCLCRLyt/+Sso5tn0fBWlH3xc1v8
+	vmbqyqH1Om/Qg/0A2Vfzu3tr/psn6y8YNRkhUcbEAY5DRevCIk0GCGrWWLHfR0lnMXFdZE5xOsE
+	t84nR/lVpW81XAvsyU67h1DPpd
+X-Received: by 2002:a17:90b:48d1:b0:36d:8e6f:8d9e with SMTP id 98e67ed59e1d1-37de428c345mr2433707a91.20.1782290831423;
+        Wed, 24 Jun 2026 01:47:11 -0700 (PDT)
 Received: from [192.168.1.101] ([218.194.36.79])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.46.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.47.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 01:47:04 -0700 (PDT)
+        Wed, 24 Jun 2026 01:47:10 -0700 (PDT)
 From: Yanan He <grumpycat921013@gmail.com>
-Date: Wed, 24 Jun 2026 16:44:41 +0800
-Subject: [PATCH 4/7] net: stmmac: dwmac-rk: Enable refout clock for RGMII
+Date: Wed, 24 Jun 2026 16:44:42 +0800
+Subject: [PATCH 5/7] ARM: dts: rockchip: Add RV1126 GMAC refout clock
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,7 +68,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-4-5aef608a3f64@gmail.com>
+Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-5-5aef608a3f64@gmail.com>
 References: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -84,53 +84,40 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
  Yanan He <grumpycat921013@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=1756;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=1157;
  i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=hGja04LjVLdEUpRMeYni1ttZeCHW7DBtTY1DVjPxwic=;
- b=aI+crboHR6Sc2cp1Nzvxr/IYTjV+SylvGPnYmATX+BdMMDrUePA2j4BHkJb8G4YNpQKcqGWmi
- 5Vg6IPb+CuWCLswJq8rvutIrZNwt98EZslHleACcj/eXxIM6e1/OxLq
+ bh=8EosIzzR7UzOFP/v55N37uL3TxX8W4lq/3WtMuwfnjU=;
+ b=r1c6yrCwcpidwG3sbm7w7O+CAbkpEjmxfvytGLFSVdZDGbuxcpNNDG74XoG4SVu6zMjqBnqL6
+ vaYbrNImRDfBTvTqOkFFkTzjjQ6aTtP18tsj4zv/DrAte13JPeV4nRW
 X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
  pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 
-Some Rockchip GMAC integrations use clk_mac_refout as an external PHY
-reference clock even when the MAC is configured for RGMII.
-
-RV1126 boards can route CLK_GMAC_ETHERNET_OUT to the external PHY as a
-25 MHz reference clock. If the driver does not acquire and enable this
-clock in RGMII mode, the common clock framework may disable it as unused
-and the PHY can lose its reference clock.
-
-Enable the refout clock handling for RGMII in addition to RMII.
+This clock can be routed to an external Ethernet PHY as its reference
+clock. Boards using this clock need the clock to be described so the
+dwmac-rk driver can acquire and keep it enabled.
 
 Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/rockchip/rv1126.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 8d7042e68926..f6fdc0c5b475 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1112,7 +1112,8 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
- 	bsp_priv->clk_enabled = false;
- 
- 	bsp_priv->num_clks = ARRAY_SIZE(rk_clocks);
--	if (phy_iface == PHY_INTERFACE_MODE_RMII)
-+	if (phy_iface == PHY_INTERFACE_MODE_RMII ||
-+	    phy_iface == PHY_INTERFACE_MODE_RGMII)
- 		bsp_priv->num_clks += ARRAY_SIZE(rk_rmii_clocks);
- 
- 	bsp_priv->clks = devm_kcalloc(dev, bsp_priv->num_clks,
-@@ -1123,7 +1124,8 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
- 	for (i = 0; i < ARRAY_SIZE(rk_clocks); i++)
- 		bsp_priv->clks[i].id = rk_clocks[i];
- 
--	if (phy_iface == PHY_INTERFACE_MODE_RMII) {
-+	if (phy_iface == PHY_INTERFACE_MODE_RMII ||
-+	    phy_iface == PHY_INTERFACE_MODE_RGMII) {
- 		for (j = 0; j < ARRAY_SIZE(rk_rmii_clocks); j++)
- 			bsp_priv->clks[i++].id = rk_rmii_clocks[j];
- 	}
+diff --git a/arch/arm/boot/dts/rockchip/rv1126.dtsi b/arch/arm/boot/dts/rockchip/rv1126.dtsi
+index d6e8b63daa42..5b1ee06dc035 100644
+--- a/arch/arm/boot/dts/rockchip/rv1126.dtsi
++++ b/arch/arm/boot/dts/rockchip/rv1126.dtsi
+@@ -624,10 +624,11 @@ gmac: ethernet@ffc40000 {
+ 		rockchip,grf = <&grf>;
+ 		clocks = <&cru CLK_GMAC_SRC>, <&cru CLK_GMAC_TX_RX>,
+ 			 <&cru CLK_GMAC_TX_RX>, <&cru CLK_GMAC_REF>,
++			 <&cru CLK_GMAC_ETHERNET_OUT>,
+ 			 <&cru ACLK_GMAC>, <&cru PCLK_GMAC>,
+ 			 <&cru CLK_GMAC_TX_RX>, <&cru CLK_GMAC_PTPREF>;
+ 		clock-names = "stmmaceth", "mac_clk_rx",
+-			      "mac_clk_tx", "clk_mac_ref",
++			      "mac_clk_tx", "clk_mac_ref", "clk_mac_refout",
+ 			      "aclk_mac", "pclk_mac",
+ 			      "clk_mac_speed", "ptp_ref";
+ 		resets = <&cru SRST_GMAC_A>;
 
 -- 
 2.54.0
