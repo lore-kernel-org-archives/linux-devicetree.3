@@ -1,162 +1,228 @@
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FE33839B9
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782284411; cv=none; b=XppCe/guSxXDd+7lw3iQk64HhQbbDgd4ABdZm+umNz1CZU4nweZLhG32eoBe5A2HdRAzyoNXtyZLL35mObVVFstwResVFbnC4QtioXKVmg0Av5jgNU5XEY7g2kh8Md92Y3Bl9zCPuqmpQq9rZE/SzGjtbEy+Tk+CUvdDLujQVu4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782284411; c=relaxed/simple;
-	bh=pffaeaJ4G179rWWPKwwJFVgPNjYO2Ulg7w/Q+yMkdvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fPx1hOL8patB6hQD3UVHnGHmHYbDwqPvJ5noQtK3FNrOa0H1IjX74A+1TJZZNzmA20ndwc9H7llIAE0Doz18MDgNO5rQFrMmryl9sUILqrvtM2LyiOrC97PtH85FPU2m7jTgtZUmum6eLMGY4826ZyVPmlRPws5B6r9SRb8phFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GCjf4y4G; arc=none smtp.client-ip=91.218.175.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1502338642C
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782284420; cv=pass; b=HdaW2S/P6Q9wzaHwWTyjKSjv3vLf+haUJHwoveyNKGYAmMLXRWYJL8MukSY5ZIyqdj+1q8INZJZyA7iPmvQsgYTpT30Cf8IN9ukoqEoiOoSlkDPBIQ+jPnhTwQb/48YUr38oHGyptRyLXLVSfv23mnWttNYA72vTsO9XVj2PnZ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782284420; c=relaxed/simple;
+	bh=oPnXewy+StHDGXwtmPu4kj4a3Pu/agCuE4dOn+nwcWY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SqZ4Tg+OB0q/Z4KLDofcIvcbZ8TQjCzv+qIheuEEe9BnyJtrpgqf9RTZ6UQSq5NU6rlnDurMpkjNniHk0PlnRqwgfjZqms3DjK2Rt2WgxVW87bdyfcXVH4Ptsy1DxgdMa2tsLu6Nm8b+6bE+6t/fsLv35FQu1bO3y6NXpttt6RA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hR6Pnlln; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VpD5rwx0; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GCjf4y4G"
-Message-ID: <c23bec7d-9571-4917-b23b-d6b08c2cc159@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782284407;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GLWIFVQRHB5qd32LJSyZVW2YD4K906tt2u8jGkqFmSQ=;
-	b=GCjf4y4G2cFqF2sb9SzQPMbGZ00TV7Isvch0xHsbC0kXWXnVhyj3D0TmXGNDbN8rAgLJT/
-	ePYuWASdg1NFDZhlEXhW1GeGm8acBTbyUHj7wGiUqix5DPSY+wQ8QWagAXgQFz+O4qCTvm
-	eNdJKVP7KC0FiRkQ+54md/XPjC6QTQ4=
-Date: Wed, 24 Jun 2026 00:00:01 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hR6Pnlln";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VpD5rwx0"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65O5u5C42238228
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:00:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jo+tjDv7dD6J6AfSDYrRcLpY+LDm1i1herlYND0gQWk=; b=hR6Pnlln/3aTUja8
+	to+PzjGWDGeLr0WRnKM0mB7YnxlMZ8PKIsUTckEloS6v1OaVBdYXSOHnd7R9dulg
+	VSYAeqic7CkFAJB8tu/RVbJHXUaaUggiM2GcrGo5IOBaWXutVwRxpCI0lgekX93e
+	QJU2PpQxpCCTTx0MA6gDKOKs846DK5J/gERgNKHkWUUD2CkeYQZkLuazqFdI2XPY
+	z59olEJZvC4liV1eB1O36sGwJ3E4T+vM2uiyoCgTYWoAnGuic1m8i4fjpzHXoUJE
+	RAIOn2ruzi+YVuiMxjh/TvTAOHM9rJzM1aExKfZGqasgB1JlDwxUpviTBvTD1dB+
+	wdDTwQ==
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f004p1wp9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:00:10 +0000 (GMT)
+Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-7dbb5e586c1so18215957b3.3
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 00:00:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782284410; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Jp9c6/16ku7FHNwdylA+B3i4/WzlSaT3JQBNMG381RQCFcg/7443wGbF3frTf/UdKM
+         wSnYkYBH0d/b3RLbxC0VaFrsqHU5HWWnMevQfskwNt8SBKzmn0aHBln8duoFwzuk2KEc
+         oz7OnYxlyk0yLyGP05rsoJ2DJpp+g/QaVk6KxjKvkQEgwFCq5X3OvjiL5N/2kRjG/V4g
+         9Fcqd3VQvjUa5Ccn3q+NIJJO8IzszHNeHmg/Qlf1aoaPLFWfAxwgU1C6AJIEuYuUSziT
+         +LYaH+HnKA1zt4FOolz67o6x+2M8vynM9pElIwNzsYK+eeMTX2fq2cSxG6poZRTK6TmX
+         HYJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jo+tjDv7dD6J6AfSDYrRcLpY+LDm1i1herlYND0gQWk=;
+        fh=qXSDUDHQPQUuf+7JxU2FjBDBR380xBmX3WxNuaeqMfw=;
+        b=Iq48Xoh8uxvZOFNI5HofZnTim7lLuzb9JI7jcgDYCbyjJb9EO0Fi2ht8yYKr2LyIr/
+         QmOj0k7QUGeEjSO8XPUOCXQPvmWMmFNG+UE4ZspMUNKMY2oo+Gao24CoqN4V+0jKYniS
+         M41R7OkGHR+ZJlSbscikrZl0Gk+/cV+auxSF+t86udY6VNtHKP+pgD+J2pnBvrPORlK5
+         yPrOduvhIqQfyeQuKIQLjSHNuS06yTMorUcffwmCoTTLcSQhMA2ovvGdNTTl1jmW/sZA
+         IG9UDr6tOVJ68YLYgHVcPxbrLCXVgntmI2v5vwxibi9JaoR7yzKVAJH5hrRyGVklhgPT
+         e6Bw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782284410; x=1782889210; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jo+tjDv7dD6J6AfSDYrRcLpY+LDm1i1herlYND0gQWk=;
+        b=VpD5rwx0Qws68vuaT+0qsdJhRyrjtBYdiadrI0enkcVftwr1tX65AsuxU21tCN7iHg
+         Jmp1ky0xRBBkF1aTgXBju4OIN1GrGOqTfF5htg0eBe5uEXnkcj98bkeLXUlKuwwO6pU6
+         GI/Aa9qvVP4/QXOsEAducRJqb9DhlFzIuI5wpVvuqNsW9hNr4gXcYW4jjuS7miqrrwaq
+         D5Mk7+3aIec9KpwrgZpwAgmrnVk+zNdTjVj74Ntl5WcAM9Er7RCFt9dZHmD10XbFNgcA
+         dcHv2PumMPl01MmZ83/lvIdAE7fvzwHf21g2jQ9m+5UBg4CrG7+DfxrymHQ+3jb3O5nH
+         4IVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782284410; x=1782889210;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jo+tjDv7dD6J6AfSDYrRcLpY+LDm1i1herlYND0gQWk=;
+        b=A2ydN6sZJ3hS1TLcUFGzjA3IzDzvZdOzoBc5knwMXnnlZIEcf+8egFx+KgaNta/Qx4
+         QwGmJjhdg6FHJygI+oSScU/rcLcQbbUA3p5veBrskpwpz5XAAWHtjnMeAW7U/K1jPJ+n
+         2aSk4oKYEASG1sqYHJW4v6ZCqmuJ+izAuFXqbZ6r4yy2PQYWHD7MKWILuuek1ILxU4Nv
+         jATkRW9YiMJ/V6BHwgnRLtbkXgdeERu2aIpWFNNRaeMbkWop4ox/hvUC4jYkedwEJg7K
+         iwN796D6NiXevHizkDlUeSR2gPdXDgj8Oq4nihc+OBMN3iHcdLMg6qeYIspSoWhz1SRC
+         Eiug==
+X-Forwarded-Encrypted: i=1; AHgh+Ro1dRRRXzY+JZnTNaIDDgV/36ageSMSEy0NAvClHa2X2nbW2ibuUPt5iE9cWfAXAggJ28yMZ+WQJPpw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxpG4ow0JVcpCOYf6+J2ab0Zd7Tmt2yYr3WmOniSGhzUa0sH12V
+	K/3G5b88vX/19Nv2l1nABVAXBdmKwaNR3AVYNg5oyeXW26L2hwV/cmNXY9lpPKkzZclHpmdeeWX
+	sIs1JpSn8djHcAQDq0Ds8YG7zyf/jia70azUBq2y3dv23QxQ2YQKfPJsTCYOlohKFcnmy5F3Y8H
+	HGVL1RfXWNxNkil3SSm9HA76/g/6Ysgq/nTpG8BnI=
+X-Gm-Gg: AfdE7ckcyNaPmd9YPMnQMFCeg+guJDfpsB1610lG1Dwvplxqm+RHXqlmNU2JvYBNU3I
+	SAZynKwlg146v4FqlRGHHFgEt1cLgtbk8jXRI8zmxJFmzCzDLzSw/mHX4JvN0DW4bqDEkAVH70i
+	rpKreML31eaRGfgjJ2osWxnPxW9h8MYiktEYQnYI1SSEIzRtwZvnGTN5XTjUxb6hf0I/7H
+X-Received: by 2002:a05:690c:c455:b0:7ff:83b:72ac with SMTP id 00721157ae682-807f27fbd82mr20880237b3.12.1782284410353;
+        Wed, 24 Jun 2026 00:00:10 -0700 (PDT)
+X-Received: by 2002:a05:690c:c455:b0:7ff:83b:72ac with SMTP id
+ 00721157ae682-807f27fbd82mr20879917b3.12.1782284409886; Wed, 24 Jun 2026
+ 00:00:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 17/21] RISC-V: perf: Add Qemu virt machine events
-To: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Cc: James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Ian Rogers <irogers@google.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260608-counter_delegation-v6-0-285b72ed65a9@meta.com>
- <20260608-counter_delegation-v6-17-285b72ed65a9@meta.com>
- <ajjZ5NljehUXERN1@blinky>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <ajjZ5NljehUXERN1@blinky>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+References: <20260605103739.3557573-1-harendra.gautam@oss.qualcomm.com>
+ <20260605103739.3557573-3-harendra.gautam@oss.qualcomm.com>
+ <3da8b668-1504-450e-bde2-b383d63090a8@oss.qualcomm.com> <CAC-tS8CuhED2dvne=cuTBUcrL93WXPjNB-nDUYHWNtFF9oVVjQ@mail.gmail.com>
+ <7948feb4-9eca-48f2-944e-ec982b6823dd@oss.qualcomm.com>
+In-Reply-To: <7948feb4-9eca-48f2-944e-ec982b6823dd@oss.qualcomm.com>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Wed, 24 Jun 2026 12:29:56 +0530
+X-Gm-Features: AVVi8CcSQz5bnv0X064mFitr8CQPXMcyB5PfpB6F6jJw0iQ1yBkRbyOZPxsG1VY
+Message-ID: <CAC-tS8Af8GNQ1rq2PN6Yr-wG8_D55ddU9t77H4CUEvWfaP=Gkw@mail.gmail.com>
+Subject: Re: [PATCH 2/13] dt-bindings: sound: Add Qualcomm QAIF binding
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDA1NiBTYWx0ZWRfX7j63AaPGs21V
+ nOHTqEv//ukTxQZTGWbjbXqLfmEplptsXJ+B9MpNRzEyrWYvjI6S6lMBvxW4Q8wIEJSZqSKt+dU
+ jCUtFKPi5uxwzzRJpHogMogtUIOYuvM=
+X-Proofpoint-ORIG-GUID: Pz6Biu4v7Rf7Lny30_flfDXAjRIo4mJ4
+X-Proofpoint-GUID: Pz6Biu4v7Rf7Lny30_flfDXAjRIo4mJ4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDA1NiBTYWx0ZWRfX+7OAaOy+qsjy
+ /cIMDrBHfGvU47u+3hTGRWhw9S5wlpFijs+wqNWH4o9IYhY1/CmBZ5+CwZuVRoVKi8uOU/0yH9Y
+ 27EYKYA44aZnNy4SNgarqSYzfsTGRQ9/jOBbHZwR7vxJboE3DOcyxdHvazlHyYwx2JjvdM2J7Gq
+ JSTMK5mRZ5aRvY6kqcipKVLcjP/kgeDCcpuiIJo/KwFIeTjbOB23wAc8oR4hN8NSospPfAHLfKB
+ 34S8PucCYfWhjxMjuYt0PoAvSFz33MzTjQXFF+9srP+YE4oEjwBn+pIPdjkkXITiYiDZAJg/Xmi
+ +5D59PaviiZFurLqnCSpQh3TWQLx+wgleGE57hNa6ullPn+XOsPdVE48xkSjBq7jgHtbEvhkoRW
+ hWMnjpfrkXLgAGuFl22WcoAm1erCGxs+8rIk+OikapNVeZ3e1/i6mS+x472jhkIhyA2QML3Ldi/
+ CgyvaZfW7mB6tk3uAJQ==
+X-Authority-Analysis: v=2.4 cv=Q9TiJY2a c=1 sm=1 tr=0 ts=6a3b807a cx=c_pps
+ a=g1v0Z557R90hA0UpD/5Yag==:117 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=70Ip3T5yH-gdihXWpJwA:9
+ a=QEXdDO2ut3YA:10 a=MFSWADHSvvjO3QEy5MdX:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-24_02,2026-06-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606240056
 
-
-On 6/21/26 11:44 PM, Charlie Jenkins wrote:
-> On Mon, Jun 08, 2026 at 11:01:31PM -0700, Atish Patra wrote:
->> From: Atish Patra <atishp@rivosinc.com>
->>
->> Qemu virt machine supports a very minimal set of legacy perf events.
->> Add them to the vendor table so that users can use them when
->> counter delegation is enabled.
->>
->> Signed-off-by: Atish Patra <atishp@rivosinc.com>
->> ---
->>   arch/riscv/include/asm/vendorid_list.h |  4 ++++
->>   drivers/perf/riscv_pmu_sbi.c           | 36 ++++++++++++++++++++++++++++++++++
->>   2 files changed, 40 insertions(+)
->>
->> diff --git a/arch/riscv/include/asm/vendorid_list.h b/arch/riscv/include/asm/vendorid_list.h
->> index 7f5030ee1fcf..603aa2b21c0b 100644
->> --- a/arch/riscv/include/asm/vendorid_list.h
->> +++ b/arch/riscv/include/asm/vendorid_list.h
->> @@ -11,4 +11,8 @@
->>   #define SIFIVE_VENDOR_ID	0x489
->>   #define THEAD_VENDOR_ID		0x5b7
->>   
->> +#define QEMU_VIRT_VENDOR_ID		0x000
->> +#define QEMU_VIRT_IMPL_ID		0x000
->> +#define QEMU_VIRT_ARCH_ID		0x000
-> Palmer proposed a change to this a while ago to set the archid for qemu
-> as 42 but it looks like it was never merged in qemu, but it was merged
-> into the riscv spec.
+On Tue, Jun 23, 2026 at 9:18=E2=80=AFPM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
 >
-> Here is the spec PR: https://github.com/riscv/riscv-isa-manual/pull/1213
-> Here is the current spec: https://github.com/riscv/riscv-isa-manual/blob/main/marchid.md
-> Here is the QEMU patch: https://lore.kernel.org/all/20240131182430.20174-1-palmer@rivosinc.com/
+> On 6/23/26 2:26 PM, Harendra Gautam wrote:
+> > On Tue, Jun 9, 2026 at 3:27=E2=80=AFPM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 6/5/26 12:37 PM, Harendra Gautam wrote:
+> >>> Add a Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU =
+DAI
+> >>> controller used on the Shikra audio platform.
+> >>>
+> >>> QAIF moves PCM data between system memory and external serial audio
+> >>> interfaces through the AIF path, and between memory and the internal =
+Bolero
+> >>> digital codec through the CIF path. The controller needs a binding so
+> >>> platform Devicetree files can describe its MMIO region, DMA IOMMU str=
+eam,
+> >>> clocks, interrupt, DAI cells and per-interface AIF configuration.
+> >>>
+> >>> Describe the single register region, one EE interrupt, the required G=
+CC
+> >>> LPASS and audio core clocks, the DMA IOMMU mapping, and 'aif-interfac=
+e@N'
+> >>> child nodes used for static PCM, TDM or MI2S configuration.
+> >>>
+> >>> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> >>> ---
+> >>
+> >> [...]
+> >>
+> >>> +  clock-names:
+> >>> +    items:
+> >>> +      - const: lpass_config_clk
+> >>> +      - const: lpass_core_axim_clk
+> >>> +      - const: aud_dma_clk
+> >>> +      - const: aud_dma_mem_clk
+> >>> +      - const: bus_clk
+> >>> +      - const: aif_if0_ebit_clk
+> >>> +      - const: aif_if0_ibit_clk
+> >>> +      - const: aif_if1_ebit_clk
+> >>> +      - const: aif_if1_ibit_clk
+> >>> +      - const: aif_if2_ebit_clk
+> >>> +      - const: aif_if2_ibit_clk
+> >>> +      - const: aif_if3_ebit_clk
+> >>> +      - const: aif_if3_ibit_clk
+> >>> +      - const: ext_mclka_clk
+> >>> +      - const: ext_mclkb_clk
+> >>
+> >> Drop the _clk suffix, we already know they are clocks, as they are
+> >> listed under the clocks property
+> > Okay, will correct.
+> >>
+> >> [...]
+> >>
+> >>> +      qcom,qaif-aif-sync-mode:
+> >>> +        $ref: /schemas/types.yaml#/definitions/uint32
+> >>> +        description:
+> >>> +          Sync mode. Use QAIF_AIF_SYNC_MODE_SHORT (0) for short (pul=
+se)
+> >>> +          sync or QAIF_AIF_SYNC_MODE_LONG (1) for long (level) sync.
+> >>> +      qcom,qaif-aif-sync-src:
+> >>> +        $ref: /schemas/types.yaml#/definitions/uint32
+> >>> +        description:
+> >>> +          Sync source. Use QAIF_AIF_SYNC_SRC_SLAVE (0) for slave mod=
+e
+> >>> +          or QAIF_AIF_SYNC_SRC_MASTER (1) for master mode.
+> >>
+> >> Should these be boolean flags then?
+> > It should not be, the intention is to define explicitly, for better
+> > readability I can rename these flags as EXTERNAL/INTERNAL, Please
+> > suggest.
 >
-> Should we follow up with this/maybe this should be accounted for here as
-> an alternate id?
-
-Ahh yes. I remember that thread now. Thanks for digging this.
-Yes. We should resurrect that patch and use that archid as an alternate ID.
-
-> - Charlie
+> Are all 4 combinations of them being present/absent valid on shikra?
 >
->> +
->>   #endif
->> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
->> index 00b84b28117a..74acac54328e 100644
->> --- a/drivers/perf/riscv_pmu_sbi.c
->> +++ b/drivers/perf/riscv_pmu_sbi.c
->> @@ -26,6 +26,7 @@
->>   #include <asm/sbi.h>
->>   #include <asm/cpufeature.h>
->>   #include <asm/vendor_extensions.h>
->> +#include <asm/vendorid_list.h>
->>   #include <asm/vendor_extensions/andes.h>
->>   #include <asm/hwcap.h>
->>   #include <asm/csr_ind.h>
->> @@ -453,7 +454,42 @@ struct riscv_vendor_pmu_events {
->>   	  .hw_event_map = _hw_event_map, .cache_event_map = _cache_event_map, \
->>   	  .attrs_events = _attrs },
->>   
->> +/* QEMU virt PMU events */
->> +static const struct riscv_pmu_event qemu_virt_hw_event_map[PERF_COUNT_HW_MAX] = {
->> +	PERF_MAP_ALL_UNSUPPORTED,
->> +	[PERF_COUNT_HW_CPU_CYCLES]		= {0x01, 0xFFFFFFF8},
->> +	[PERF_COUNT_HW_INSTRUCTIONS]		= {0x02, 0xFFFFFFF8}
->> +};
->> +
->> +static const struct riscv_pmu_event qemu_virt_cache_event_map[PERF_COUNT_HW_CACHE_MAX]
->> +						[PERF_COUNT_HW_CACHE_OP_MAX]
->> +						[PERF_COUNT_HW_CACHE_RESULT_MAX] = {
->> +	PERF_CACHE_MAP_ALL_UNSUPPORTED,
->> +	[C(DTLB)][C(OP_READ)][C(RESULT_MISS)]	= {0x10019, 0xFFFFFFF8},
->> +	[C(DTLB)][C(OP_WRITE)][C(RESULT_MISS)]	= {0x1001B, 0xFFFFFFF8},
->> +
->> +	[C(ITLB)][C(OP_READ)][C(RESULT_MISS)]	= {0x10021, 0xFFFFFFF8},
->> +};
->> +
->> +RVPMU_EVENT_CMASK_ATTR(cycles, cycles, 0x01, 0xFFFFFFF8);
->> +RVPMU_EVENT_CMASK_ATTR(instructions, instructions, 0x02, 0xFFFFFFF8);
->> +RVPMU_EVENT_CMASK_ATTR(dTLB-load-misses, dTLB_load_miss, 0x10019, 0xFFFFFFF8);
->> +RVPMU_EVENT_CMASK_ATTR(dTLB-store-misses, dTLB_store_miss, 0x1001B, 0xFFFFFFF8);
->> +RVPMU_EVENT_CMASK_ATTR(iTLB-load-misses, iTLB_load_miss, 0x10021, 0xFFFFFFF8);
->> +
->> +static struct attribute *qemu_virt_event_group[] = {
->> +	RVPMU_EVENT_ATTR_PTR(cycles),
->> +	RVPMU_EVENT_ATTR_PTR(instructions),
->> +	RVPMU_EVENT_ATTR_PTR(dTLB_load_miss),
->> +	RVPMU_EVENT_ATTR_PTR(dTLB_store_miss),
->> +	RVPMU_EVENT_ATTR_PTR(iTLB_load_miss),
->> +	NULL,
->> +};
->> +
->>   static struct riscv_vendor_pmu_events pmu_vendor_events_table[] = {
->> +	RISCV_VENDOR_PMU_EVENTS(QEMU_VIRT_VENDOR_ID, QEMU_VIRT_ARCH_ID, QEMU_VIRT_IMPL_ID,
->> +				qemu_virt_hw_event_map, qemu_virt_cache_event_map,
->> +				qemu_virt_event_group)
->>   };
->>   
->>   static const struct riscv_pmu_event *current_pmu_hw_event_map;
->>
->> -- 
->> 2.53.0-Meta
->>
->>
+> Konrad
+Sorry if I did not put details properly, I will be correcting in the
+next patch. sync-src can be external clock or internal clock, where 0
+means external and 1 means internal.
+-Harendra
