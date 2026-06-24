@@ -1,243 +1,559 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9D03E5A10
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493772FB97B;
+	Wed, 24 Jun 2026 21:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782335333; cv=none; b=WJ5uUIVVETl5gTuPih9+KtC+4wCUQjGiWhZAFd24NiPa5sn0lvEDs3q/LojwV43o9bGgAa3SQynA8IIJEua1SEGVid08ruWR6IRWwhkYvly+pl+znbEWYx6y1ccCA3e3HgsvXc3wpwXuRyHOqk/9L6lGytn4BNJ86gPzfsv/3t4=
+	t=1782335409; cv=none; b=FdEkio+uLQmKDiB/g9otQyw2IC8jzPEZHpboqiQT+2/JQHCivipkUdmbvjBEMJXdvz1P5Dt5NiaNhiV+ALJ9Vy+2yW4us4emMZDHCZJgGU0/bPvRT5ON4iM/8Snhh4c6LBMM7+9/AuElyR8Hj1gfo6w9+dKghvtd7+A1XMcSq5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782335333; c=relaxed/simple;
-	bh=WLYdUaTWVpBtZwNr3HlNaZyWKT1SmuJRkQxVpfGW8Zs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VqfN+mC1LKiLeg30aMJbCXoHVzjxIpn3KlKA4lzVWelHgR/xJbhdVTq2i1HYJUakx+0vV3E+EXbAqqrAwXKYciLE7sBaPS3COq57hkYSd0M0AOVLB0AEfdyrIWecuvSoNKPKY98lXCTIIlBcgzX4w5r0vodEB0UmMsFf5gTz6PY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JVursoEo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UuTKB7L5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782335409; c=relaxed/simple;
+	bh=Fypo50ANm+aNH3R/gsFib/zeVklWqjMX2/PZPYE/xOg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=un2ayj34N2zzZboOHEi91hqydRKFo1rKGhzm6wLN3wz2G+2EGoPhs5gJgO1DWCQ573/6CtfaKxFQCAbNtifICYwAl2/YW+b6V/G+fZT7WjqPTuFL7dwOVlIZpwpvETrmXMqGN+M4NQoBnF6lLAsxWkjgS618JuPOktfzEtXjFOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTEpwyB7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JVursoEo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UuTKB7L5"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OJjgNk185047
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=/4mZazLNplc
-	RI7UA2lzg985hqmjiwniHBuU0w4DnhHw=; b=JVursoEorsmNtXPLcrRyPc320K6
-	YuCsFBeCRo5KNYdCnDR/YCHW8JIj9IOQV8ABEkfyHoPYJTN/2mc5yovMBAKQ4twC
-	C/t3s0MVIVaum3yytrsaxYXdxdvJLroIe5h8j8Ie5oaR7Oyv6W0tcGBmsPbxPqsS
-	bh8Il40tqvDFD6WLWGxpwtc8NZO+EI+EVs3PDfDda9fQd5DsPW93P46Nuygob5ce
-	gDFHazQQv8taF2VIkYfXXbYeRMeIrudFxGA7ykzSbWn8CBscWNHXfb5sy33umXLT
-	uqk52F5V3CWS568yEbEwhc9R2C7Vx0cHCR2ZV1GgTW6R7WNcCcMpI0Eebhg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f05ajm92j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:08:49 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-915d1d4fc5aso195941785a.3
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:08:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782335329; x=1782940129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/4mZazLNplcRI7UA2lzg985hqmjiwniHBuU0w4DnhHw=;
-        b=UuTKB7L50nAk3HKd1FcDjK3lchUNdX6eR1/YiC9WeSQyditN3Ylewyzn6pfCkvy7F4
-         nz4JScNLBht1VMMLYnBuCh4YlNWvR9vnyeA3dLhCGAlR76r430HcIN08THpQFonPJUCv
-         0wg7r92zMcwp7YJ8h1foknfMG+OQjqDc6dKQXTaT5qwHgzfWLdPC///Se3iSzvWnbFz/
-         goncHquwbR2+cY4oYP4plL+7hXoVW7QObIf0KaIFo6d6Hl8DMuHL2SIgmsGIgdNWDlYF
-         t9pZL6wjlG/mYy8+UsWcXMeKf2AMBdmKzbXH4P3tLu76rViyvhg0wCh31RrZLL2GQ0/D
-         iO7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782335329; x=1782940129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/4mZazLNplcRI7UA2lzg985hqmjiwniHBuU0w4DnhHw=;
-        b=jojIeTGryi6r067Hw0frgcwJhLG6LwEuj2A/sShNDlYenfdvJWqgLho5Y/rCgkbJ7o
-         WT7XOwlgfUS5SHpiZudeiESumczyfnQO+Mrn++Dc9l/CENL0uP45BeKLL11DAaXx7KGf
-         7yf866DuUPXtJFSSnqNSFfC1SqNH6bFhWSxN8XEiBcD5fMDkclzHXRLhTURcKHHaWZT+
-         6OhzjqrFmwzvpRNopQzdF1KDKRavlWsbCQ9h2PnTsBjvCJ8TTIl6L+HlFNPxG6pFvQ/t
-         oVHE8gyKm3VQhSd+10x6xr3ufsXzfW+oMkSEN+TdE5EYExI/DyTTuf7Bjx1f2p1trJbM
-         3I3w==
-X-Forwarded-Encrypted: i=1; AFNElJ/SuSGGcGD7uygp7Pk4IA5IJCND6JvNF1owfLWpSFBgCisLEjDx+ruWBhfqPh2myX1ijK7w23Si7U+x@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzBrHNpMf31VQQYR0Ue2BBLp5gm8d1CT31zOzNhCzbjEoekziX
-	/GHhpHadOjXlJnDmyTCodTXCWO/5Hqs3MDA6zNaIv/cA22Tahg0+qqAfK4V1193gXGAVy+svqvI
-	Xo0E33AwCSKXmS+pvzHlWjjnb7yfKOGZF8KXVglfsS7KB97lJI/OqD/Trct4dEDDv
-X-Gm-Gg: AfdE7ckdkcLXTMIYsUapzL7qUv0yR7tfa3c97sElBC+UMrQmI/QrfdT0kr1yYhFOW6Y
-	9+vyjZWufvRFd9V6ZYs8j7lPesDdX3+O2GDTmBBOtuXtEWpBLl3nmkLyVJNNqOuG1nrUDKhjsFr
-	z/GKJO55PBqSDM82wwVpFqdDsrXG8EzseQ1w2B6nkbDnfd6Y3BMBjatDnxYJvfglQg36GmRSyE3
-	miNOjIjvnds3v5RwCJE0JPXrfNk+ZDnJ+PWhDqCttkgNEC1kCuBqXdS/rau1//ShdYcdWtS2Ala
-	9RjlVvZo7QNZrX2q/Y+UE+WPlszMY+/WkP4UB12TnzcPfBgOKWhoahW+Eh/6VrVEplFIU9tw7WS
-	UUX8yi1GF+Jo8BPP3U+WEmwiOEvHGVJuIky+B0z8H/1u0hQ==
-X-Received: by 2002:a05:620a:4808:b0:915:aad5:e961 with SMTP id af79cd13be357-92644cf4c21mr1431681685a.19.1782335328448;
-        Wed, 24 Jun 2026 14:08:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:4808:b0:915:aad5:e961 with SMTP id af79cd13be357-92644cf4c21mr1431676085a.19.1782335327986;
-        Wed, 24 Jun 2026 14:08:47 -0700 (PDT)
-Received: from juillet.box.freepro.com ([2a05:6e02:1041:c10:91ef:5c1f:e854:38f1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1e840efdsm9455767f8f.5.2026.06.24.14.08.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 14:08:47 -0700 (PDT)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: sre@kernel.org, hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
-        linux@roeck-us.net, andersson@kernel.org, konradybcio@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: [PATCH v1 3/3] arm64: dts: qcom: x1e78100-t14s: Add thermal zones for keyboard skin and charging sensors
-Date: Wed, 24 Jun 2026 23:08:25 +0200
-Message-ID: <20260624210825.264454-4-daniel.lezcano@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260624210825.264454-1-daniel.lezcano@oss.qualcomm.com>
-References: <20260624210825.264454-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTEpwyB7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B52DCC19425;
+	Wed, 24 Jun 2026 21:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782335408;
+	bh=Fypo50ANm+aNH3R/gsFib/zeVklWqjMX2/PZPYE/xOg=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=kTEpwyB7yz7A28UAZHdccBpGbWNmLWcVO802qFCoNPJ8Cen6ZuOGt1IFi7lgyty4p
+	 XOTK52YR+BAkdTE7r6gIwuGR/vrq+U5yb9RRd17yCJ7hw/AZYdJ02jbMav/31A0Ijm
+	 zcRxUEHjc8n9RiQj3Vc0Cums4RL5kOSgma3uEbXCPg7KUGQspf7iSOd1QdmDknu5lf
+	 kWiTZngcuGmSx14hugMRpPGuXVASHR+/7DfzEMRab3a7TvIsfUhXr0YHyPZJemZ95i
+	 yYiKpn4xE4eEXVpSfcTv8w2bXuCtudhZoC/EdorDrj4UhPDJ+y2SHb5ACANX0poZWL
+	 t+k5q3DVmP4ug==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89D1BCDE000;
+	Wed, 24 Jun 2026 21:10:08 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 24 Jun 2026 23:10:02 +0200
+Subject: [PATCH v3] ASoC: dt-bindings: Convert cirrus,cs35l36 to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDE3NyBTYWx0ZWRfX8AP+EgoelsmR
- DNixA885pg+9NwgxvibvPtHkfp+A62Ak0beKejH2J8vbfS4l1KgJD/qNLxE5jNCCZJ53PBk35T1
- CDx/sk7l6WLTZh/gwRS0Cdnc3MQKwmg=
-X-Proofpoint-GUID: cAq7jh4Uz4EK9osJu41IA2td9QMse93r
-X-Proofpoint-ORIG-GUID: cAq7jh4Uz4EK9osJu41IA2td9QMse93r
-X-Authority-Analysis: v=2.4 cv=DbUnbPtW c=1 sm=1 tr=0 ts=6a3c4761 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=FelO9ux0wxsA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=MYPoBHUstc7QsOuohHEA:9
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDE3NyBTYWx0ZWRfX1Vrb3fDuCAst
- xzonb/6ZfbDxHII2+lgaSowriEH369A4ZvnNO12tc285yRmD5b1XPE3VgyNnFOE27snLM042zyH
- EC0TNeIuu/STXfudCtnfXYNHH7s3q4TxT/YZhtkwYPOBv50Uc55/OlpQz1+HDEpMxuqvJ5y6dah
- zjebjqTDtdDPCLw0C/kYummus5F44dckS/beaCEjFjB0dtLKwKaV+yfDKU6pG1s2OT+H6fHCN96
- Ituev57IBUHd1ovEhv66m2dKE7Qyo3ElAU2IUt1EO7x0vQBVBHFrxoC0V/I1VuyWrFrtX4TTzMi
- Hj7hGsHcx+JULXMTZhP7q5ueVfTq825ncn6W3GupVDEg9S9dv5uWbnk2tu3uIcRLWYwyEysO4LB
- H2AvnM/3lSzqH301InCwmWWn4l0MJ4JbFrlXZKGhHXkN1TH4ysSYjoKyIHhY5JXjq2fXIYZC9Zs
- bPg4sgHjhGQnQuK7hpw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_04,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606240177
+Message-Id: <20260624-dt-cirrus-cs35l36-v3-1-ec451d5a2908@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAKpHPGoC/32Nyw6CMBBFf4XM2hr6YARX/odxAX3IJAZMWxuU8
+ O8WNrowZlbnJufMDMF6sgGOxQzeJgo0DhnkrgDdt8PVMjKZQZQCS+Q1M5Fp8v4RmA6yuklkTaM
+ Vouu4dAayd/fW0bQ1z5fMPYU4+uf2IvF1/VdLnOVrlax4hYitOdFEca9fsLaS+PKF+uWL7B+U1
+ dp0pnZWffxlWd4XzfJA8AAAAA==
+X-Change-ID: 20260618-dt-cirrus-cs35l36-99c466fb13fd
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, patches@opensource.cirrus.com, 
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: David Rhodes <drhodes@opensource.cirrus.com>, 
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Rhodes <David.Rhodes@cirrus.com>, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15730; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=Y/ZBklNW7T0+X23EW+Fe2c86hcaZ7rcIxZUSUFrPyNs=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqPEeubJn+E4akdyRiaaosCWR7g3mkZF85Zvyhh
+ 3l6E2DyDWeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCajxHrgAKCRBgAj/E00kg
+ co+sEACMBfkeTUJ91tbetQdePsB1+UWAtYjcMWAuTcp4j/qWFhLSQJ+HRxCN6Y+F2fseI6RrgEj
+ XXS6YVsVfKu1MalkTVKyK/c317PyUavx2iXmOfGjyojTWJNs+lvooUnar0cc+iAaqmJv4C2/ATV
+ mP95N1T+xbNc34k+R/Y1f0vAyezoKLR52CdqhAXnnC8C89AG+VYJpFDwBtIbZd8c3A8c8wDkRrQ
+ nFmRpbmjtqJ0vno9rgDJuPU0VLRmyPvIb3HfshOwFJDyOV/52iPhRoh7voSScnKy/Mbf2ICinCS
+ 1Y5aftgJbL/ozoqflucQa4wvNBGgimNLcOT0jU338AO2DCeqJTnn0OXmpuKRoQEBmHr0mqoC3gZ
+ a+opwaLfKk2nGM0FU0rCs+vhhX2n+LPN05cTpbdYN0kUd3EONWiIc0D1JRuq9r0GhJUOUYfnoeq
+ NaTK3J1hs5eHwyFT1dJCoztvo5Vf/zn84ZUoH2nIImsnirV8XvVJjfHLgz51vgJt8y5bbCO7DSd
+ cqhbUeflxZMNIf7ZfyKCGZsoOXvGG+pxa1K08P1RRT52ETgpi4isRflyGINiK5r+JdmOMAALoOY
+ nsIGP/8UXgx9VL0FIpiV8fVhR5If2P7GapSbadCqQXbygtN2BwZR5CSQA8LyruVr6q57pE/cvwv
+ 8gAPrQMuoiWtZmA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Add thermal zone descriptions for the keyboard skin temperature and
-battery charging circuitry sensors exposed by the embedded controller.
+From: David Heidelberg <david@ixit.cz>
 
-Expose the EC as a thermal sensor provider and define two thermal zones
-using the temperatures reported by the EC:
+Convert CS35L36 Speaker Amplifier to yaml.
 
-  - a keyboard skin temperature zone with passive and hot trip points,
-  - a charging circuitry temperature zone with multiple passive trip
-    points and CPU frequency mitigation levels.
+Changes:
+ - maintainers email to the generic Cirrus email
+ - Both the codec and downstream worked just fine without
+   VP-supply provided. Align with datasheet for similar models.
+ - add dai-common.yaml to cover for '#sound-dai-cells',
+   'sound-name-prefix'
+ - updated not yet implemented:
+     cirrus,weak-fet-delay -> cirrus,classh-wk-fet-delay-ms
+       (in both definition and example)
+     cirrus,weak-fet-thld -> cirrus,weak-fet-thld-millivolt
+       (only in the example)
+ - added two required properties:
+     cirrus,boost-ctl-millivolt
+     cirrus,boost-peak-milliamp
 
-The charging thermal zone progressively throttles the different CPU
-clusters as the charging circuitry temperature rises and triggers a hot
-condition at the highest trip point.
-
-This provides thermal framework integration for the EC temperature
-sensors and enables platform thermal management through standard thermal
-zone definitions.
-
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Assisted-by: OpenAI:gpt-4
+Reviewed-by: David Rhodes <David.Rhodes@cirrus.com>
+Co-developed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../qcom/x1e78100-lenovo-thinkpad-t14s.dtsi   | 68 ++++++++++++++++++-
- 1 file changed, 67 insertions(+), 1 deletion(-)
+Relevant for Pixel 3 / 3XL / 4.
+---
+Changes in v3:
+- Corrected properties which has been unimplemented and also
+  conflicting between definition and the sample.
+- Removed units from description where units are part of the property
+  name.
+- Added sound into the $id path. (Mark)
+- Readded James and removed Bjorn. (Rob)
+- Made path to dai-common shorter.
+- Added two required properties
+  cirrus,boost-ctl-millivolt and cirrus,boost-peak-milliamp.
+- Use $defs for the cirrus,vpbr-config to prevent matching it against
+  vendor defined properties. The driver is already mainlined with
+  cirrus, vendor part, so we have to keep it compatible.
+- Link to v2: https://lore.kernel.org/r/20260624-dt-cirrus-cs35l36-v2-1-74eccdbd8fe4@ixit.cz
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-index 5d49df41be02..e27533665c8d 100644
---- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
-@@ -979,7 +979,7 @@ &i2c6 {
- 
- 	status = "okay";
- 
--	embedded-controller@28 {
-+	ec: embedded-controller@28 {
- 		compatible = "lenovo,thinkpad-t14s-ec";
- 		reg = <0x28>;
- 
-@@ -988,6 +988,8 @@ embedded-controller@28 {
- 		pinctrl-0 = <&ec_int_n_default>;
- 		pinctrl-names = "default";
- 
-+		#thermal-sensor-cells = <1>;
+Changes in v2:
+- Rename the commit. (Mark)
+- Link to v1: https://lore.kernel.org/r/20260618-dt-cirrus-cs35l36-v1-1-1a43515666ad@ixit.cz
+---
+ .../devicetree/bindings/sound/cirrus,cs35l36.yaml  | 240 +++++++++++++++++++++
+ .../devicetree/bindings/sound/cs35l36.txt          | 168 ---------------
+ 2 files changed, 240 insertions(+), 168 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+new file mode 100644
+index 0000000000000..2a142b32acf50
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/cirrus,cs35l36.yaml
+@@ -0,0 +1,240 @@
++# SPDX-License-Identifier: GPL-2.0-only
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/cirrus,cs35l36.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 		wakeup-source;
- 	};
- };
-@@ -1729,3 +1731,67 @@ &usb_mp_qmpphy1 {
- 
- 	status = "okay";
- };
++title: Cirrus Logic CS35L36 Speaker Amplifier
 +
-+&thermal_zones {
-+	ec-keyboard-thermal {
-+		polling-delay = <5000>;
-+		polling-delay-passive = <1000>;
++maintainers:
++  - David Rhodes <drhodes@opensource.cirrus.com>
++  - patches@opensource.cirrus.com
 +
-+		thermal-sensors = <&ec 1>;
++description:
++  CS35L36 is a boosted mono Class D amplifier
 +
-+		trips {
-+			trip-point0 {
-+				temperature = <55000>;
-+				hysteresis = <2000>;
-+				type = "passive";
-+			};
++allOf:
++  - $ref: dai-common.yaml#
 +
-+			trip-point1 {
-+				temperature = <62000>;
-+				hysteresis = <0>;
-+				type = "hot";
-+			};
-+		};
-+	};
++properties:
++  compatible:
++    enum:
++      - cirrus,cs35l36
 +
-+	ec-charging-thermal {
-+		polling-delay = <5000>;
-+		polling-delay-passive = <2000>;
++  reg:
++    maxItems: 1
 +
-+		thermal-sensors = <&ec 3>;
++  interrupts:
++    maxItems: 1
 +
-+		trips {
-+			psv0: trip-point0 {
-+				temperature = <55000>;
-+				hysteresis = <0>;
-+				type = "passive";
-+			};
++  VA-supply:
++    description: Voltage regulator of analog internal section
 +
-+			alert0: trip-point1 {
-+				temperature = <63000>;
-+				hysteresis = <0>;
-+				type = "hot";
-+			};
-+		};
++  VP-supply:
++    description: Voltage regulator of boost converter
 +
-+		cooling-maps {
-+			map0 {
-+				trip = <&psv0>;
-+				cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+						 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++  reset-gpios:
++    maxItems: 1
 +
-+			};
-+		};
++  cirrus,boost-ctl-millivolt:
++    description: Boost converter output voltage (step 50)
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 2550
++    maximum: 12000
 +
-+	};
-+};
++  cirrus,boost-peak-milliamp:
++    description: Boost-converter peak current limit (step 50)
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 4500
++    minimum: 1600
++    maximum: 4500
++
++  cirrus,boost-ind-nanohenry:
++    description: Initial inductor estimation reference value (1000=1μH, 1200=1.2μH)
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 1000
++
++  cirrus,multi-amp-mode:
++    description: Hi-Z ASP port when more than one amplifier in system
++    type: boolean
++
++  cirrus,boost-ctl-select:
++    description: Boost converter control source selection
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 1
++    enum:
++      - 0 # Control Port
++      - 1 # Class
++      - 2 # Sync
++
++  cirrus,amp-pcm-inv:
++    description: Invert incoming PCM data when true
++    type: boolean
++
++  cirrus,imon-pol-inv:
++    description: Invert polarity of outbound IMON feedback when true
++    type: boolean
++
++  cirrus,vmon-pol-inv:
++    description: Invert polarity of outbound VMON feedback when true
++    type: boolean
++
++  cirrus,dcm-mode-enable:
++    description: Enable boost converter automatic Discontinuous Conduction Mode
++    type: boolean
++
++  cirrus,weak-fet-disable:
++    description: Reduce output driver strength in Weak-FET Drive Mode when true
++    type: boolean
++
++  cirrus,classh-wk-fet-delay-ms:
++    description: Weak-FET entry delay
++    default: 100
++    enum: [0, 5, 10, 50, 100, 200, 500, 1000]
++
++  cirrus,classh-weak-fet-thld-millivolt:
++    description: Weak-FET drive threshold
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700]
++
++  cirrus,temp-warn-threshold:
++    description: Overtemperature warning threshold
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 2
++    enum:
++      - 0 # 105°C
++      - 1 # 115°C
++      - 2 # 125°C
++      - 3 # 135°C
++
++  cirrus,irq-drive-select:
++    description: Interrupt output driver type
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 1
++    enum:
++      - 0 # open-drain
++      - 1 # push-pull
++
++  cirrus,irq-gpio-select:
++    description: Programmable IRQ pin selection
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum:
++      - 0 # PDM_DATA/SWIRE_SD/INT
++      - 1 # GPIO
++
++  cirrus,vpbr-config:
++    $ref: "#/$defs/vpbr-config"
++
++$defs:
++  vpbr-config:
++    description: Brownout prevention configuration sub-node
++    type: object
++    additionalProperties: false
++
++    properties:
++      cirrus,vpbr-en:
++        description: VBST brownout prevention enable
++        $ref: /schemas/types.yaml#/definitions/uint32
++        default: 0
++        enum:
++          - 0 # disabled
++          - 1 # enabled
++
++      cirrus,vpbr-thld:
++        description: Initial VPBR threshold voltage
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 2
++        maximum: 31
++
++      cirrus,vpbr-atk-rate:
++        description: Attenuation attack step rate
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 7
++
++      cirrus,vpbr-atk-vol:
++        description: VP brownout prevention step size
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 7
++
++      cirrus,vpbr-max-attn:
++        description: Maximum attenuation during VP brownout prevention (dB)
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 15
++
++      cirrus,vpbr-wait:
++        description: Delay between brownout clearance and attenuation release (ms)
++        $ref: /schemas/types.yaml#/definitions/uint32
++        default: 1
++        enum:
++          - 0 # 10
++          - 1 # 100
++          - 2 # 250
++          - 3 # 500
++
++      cirrus,vpbr-rel-rate:
++        description: Attenuation release step rate
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 7
++
++      cirrus,vpbr-mute-en:
++        description: Mute audio if maximum attenuation reached
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 0
++        maximum: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - VA-supply
++  - cirrus,boost-ctl-millivolt
++  - cirrus,boost-peak-milliamp
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        codec@40 {
++            compatible = "cirrus,cs35l36";
++            reg = <0x40>;
++            VA-supply = <&dummy_vreg>;
++            VP-supply = <&dummy_vreg>;
++            reset-gpios = <&gpio0 54 GPIO_ACTIVE_HIGH>;
++            interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++
++            cirrus,boost-ind-nanohenry = <1000>;
++            cirrus,boost-ctl-millivolt = <10000>;
++            cirrus,boost-peak-milliamp = <4500>;
++            cirrus,boost-ctl-select = <0>;
++            cirrus,classh-wk-fet-delay-ms = <100>;
++            cirrus,classh-weak-fet-thld-millivolt = <100>;
++            cirrus,temp-warn-threshold = <1>;
++            cirrus,multi-amp-mode;
++            cirrus,irq-drive-select = <1>;
++            cirrus,irq-gpio-select = <1>;
++
++            cirrus,vpbr-config {
++                cirrus,vpbr-en = <0>;
++                cirrus,vpbr-thld = <5>;
++                cirrus,vpbr-atk-rate = <2>;
++                cirrus,vpbr-atk-vol = <1>;
++                cirrus,vpbr-max-attn = <9>;
++                cirrus,vpbr-wait = <1>;
++                cirrus,vpbr-rel-rate = <5>;
++                cirrus,vpbr-mute-en = <0>;
++            };
++        };
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/sound/cs35l36.txt b/Documentation/devicetree/bindings/sound/cs35l36.txt
+deleted file mode 100644
+index d34117b8558e5..0000000000000
+--- a/Documentation/devicetree/bindings/sound/cs35l36.txt
++++ /dev/null
+@@ -1,168 +0,0 @@
+-CS35L36 Speaker Amplifier
+-
+-Required properties:
+-
+-  - compatible : "cirrus,cs35l36"
+-
+-  - reg : the I2C address of the device for I2C
+-
+-  - VA-supply, VP-supply : power supplies for the device,
+-  as covered in
+-  Documentation/devicetree/bindings/regulator/regulator.txt.
+-
+-  - cirrus,boost-ctl-millivolt : Boost Voltage Value.  Configures the boost
+-  converter's output voltage in mV. The range is from 2550mV to 12000mV with
+-  increments of 50mV.
+-  (Default) VP
+-
+-  - cirrus,boost-peak-milliamp : Boost-converter peak current limit in mA.
+-  Configures the peak current by monitoring the current through the boost FET.
+-  Range starts at 1600mA and goes to a maximum of 4500mA with increments of
+-  50mA.
+-  (Default) 4.50 Amps
+-
+-  - cirrus,boost-ind-nanohenry : Inductor estimation LBST reference value.
+-  Seeds the digital boost converter's inductor estimation block with the initial
+-  inductance value to reference.
+-
+-  1000 = 1uH (Default)
+-  1200 = 1.2uH
+-
+-Optional properties:
+-  - cirrus,multi-amp-mode : Boolean to determine if there are more than
+-  one amplifier in the system. If more than one it is best to Hi-Z the ASP
+-  port to prevent bus contention on the output signal
+-
+-  - cirrus,boost-ctl-select : Boost converter control source selection.
+-  Selects the source of the BST_CTL target VBST voltage for the boost
+-  converter to generate.
+-  0x00 - Control Port Value
+-  0x01 - Class H Tracking (Default)
+-  0x10 - MultiDevice Sync Value
+-
+-  - cirrus,amp-pcm-inv : Boolean to determine Amplifier will invert incoming
+-  PCM data
+-
+-  - cirrus,imon-pol-inv : Boolean to determine Amplifier will invert the
+-  polarity of outbound IMON feedback data
+-
+-  - cirrus,vmon-pol-inv : Boolean to determine Amplifier will invert the
+-  polarity of outbound VMON feedback data
+-
+-  - cirrus,dcm-mode-enable : Boost converter automatic DCM Mode enable.
+-  This enables the digital boost converter to operate in a low power
+-  (Discontinuous Conduction) mode during low loading conditions.
+-
+-  - cirrus,weak-fet-disable : Boolean : The strength of the output drivers is
+-  reduced when operating in a Weak-FET Drive Mode and must not be used to drive
+-  a large load.
+-
+-  - cirrus,classh-wk-fet-delay :  Weak-FET entry delay. Controls the delay
+-  (in ms) before the Class H algorithm switches to the weak-FET voltage
+-  (after the audio falls and remains below the value specified in WKFET_AMP_THLD).
+-
+-  0 = 0ms
+-  1 = 5ms
+-  2 = 10ms
+-  3 = 50ms
+-  4 = 100ms (Default)
+-  5 = 200ms
+-  6 = 500ms
+-  7 = 1000ms
+-
+-  - cirrus,classh-weak-fet-thld-millivolt : Weak-FET amplifier drive threshold.
+-  Configures the signal threshold at which the PWM output stage enters
+-  weak-FET operation. The range is 50mV to 700mV in 50mV increments.
+-
+-  - cirrus,temp-warn-threshold :  Amplifier overtemperature warning threshold.
+-  Configures the threshold at which the overtemperature warning condition occurs.
+-  When the threshold is met, the overtemperature warning attenuation is applied
+-  and the TEMP_WARN_EINT interrupt status bit is set.
+-  If TEMP_WARN_MASK = 0, INTb is asserted.
+-
+-  0 = 105C
+-  1 = 115C
+-  2 = 125C (Default)
+-  3 = 135C
+-
+-  - cirrus,irq-drive-select : Selects the driver type of the selected interrupt
+-  output.
+-
+-  0 = Open-drain
+-  1 = Push-pull (Default)
+-
+-  - cirrus,irq-gpio-select : Selects the pin to serve as the programmable
+-  interrupt output.
+-
+-  0 = PDM_DATA / SWIRE_SD / INT (Default)
+-  1 = GPIO
+-
+-Optional properties for the "cirrus,vpbr-config" Sub-node
+-
+-  - cirrus,vpbr-en : VBST brownout prevention enable. Configures whether the
+-  VBST brownout prevention algorithm is enabled or disabled.
+-
+-  0 = VBST brownout prevention disabled (default)
+-  1 = VBST brownout prevention enabled
+-
+-  See Section 7.31.1 VPBR Config for configuration options & further details
+-
+-  - cirrus,vpbr-thld : Initial VPBR threshold. Configures the VP brownout
+-  threshold voltage
+-
+-  - cirrus,cirrus,vpbr-atk-rate : Attenuation attack step rate. Configures the
+-  amount delay between consecutive volume attenuation steps when a brownout
+-  condition is present and the VP brownout condition is in an attacking state.
+-
+-  - cirrus,vpbr-atk-vol : VP brownout prevention step size. Configures the VP
+-  brownout prevention attacking attenuation step size when operating in either
+-  digital volume or analog gain modes.
+-
+-  - cirrus,vpbr-max-attn : Maximum attenuation that the VP brownout prevention
+-  can apply to the audio signal.
+-
+-  - cirrus,vpbr-wait : Configures the delay time between a brownout condition
+-  no longer being present and the VP brownout prevention entering an attenuation
+-  release state.
+-
+-  - cirrus,vpbr-rel-rate : Attenuation release step rate. Configures the delay
+-  between consecutive volume attenuation release steps when a brownout condition
+-  is not longer present and the VP brownout is in an attenuation release state.
+-
+-  - cirrus,vpbr-mute-en : During the attack state, if the vpbr-max-attn value
+-  is reached, the error condition still remains, and this bit is set, the audio
+-  is muted.
+-
+-Example:
+-
+-cs35l36: cs35l36@40 {
+-	compatible = "cirrus,cs35l36";
+-	reg = <0x40>;
+-	VA-supply = <&dummy_vreg>;
+-	VP-supply = <&dummy_vreg>;
+-	reset-gpios = <&gpio0 54 0>;
+-	interrupt-parent = <&gpio8>;
+-	interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
+-
+-	cirrus,boost-ind-nanohenry = <1000>;
+-	cirrus,boost-ctl-millivolt = <10000>;
+-	cirrus,boost-peak-milliamp = <4500>;
+-	cirrus,boost-ctl-select = <0x00>;
+-	cirrus,weak-fet-delay = <0x04>;
+-	cirrus,weak-fet-thld = <0x01>;
+-	cirrus,temp-warn-threshold = <0x01>;
+-	cirrus,multi-amp-mode;
+-	cirrus,irq-drive-select = <0x01>;
+-	cirrus,irq-gpio-select = <0x01>;
+-
+-	cirrus,vpbr-config {
+-		cirrus,vpbr-en = <0x00>;
+-		cirrus,vpbr-thld = <0x05>;
+-		cirrus,vpbr-atk-rate = <0x02>;
+-		cirrus,vpbr-atk-vol = <0x01>;
+-		cirrus,vpbr-max-attn = <0x09>;
+-		cirrus,vpbr-wait = <0x01>;
+-		cirrus,vpbr-rel-rate = <0x05>;
+-		cirrus,vpbr-mute-en = <0x00>;
+-	};
+-};
+
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260618-dt-cirrus-cs35l36-99c466fb13fd
+
+Best regards,
 -- 
-2.53.0
+David Heidelberg <david@ixit.cz>
+
 
