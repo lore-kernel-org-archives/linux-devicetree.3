@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CDE3016F5;
-	Wed, 24 Jun 2026 15:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0FD3A963C;
+	Wed, 24 Jun 2026 15:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782315957; cv=none; b=M0PNMF5GBFUFjBSrsurHk6kCwdM96ZzSXOFGKaYSYyXwzn1GdJgNHTjsNqSPcpEyIkbSwRCtB9/Mmy6Wpj9rpLqOuj4B0WlB1dsM7o2zmlOXnw/EvriJegP3CF2Ovx2hgENw1kg+3vtgMGZhDTETYcYPeGwbWeWh6gdNagmnQQw=
+	t=1782315957; cv=none; b=rwVFAbZ+5R5us0yO8RwSSiSpFCojYMve+enmlGaV64tEqLx4Scz2yZ6YG/4H5tO7RzJlWKENtw4bQhRf6EWIDTEotZ8tb777H3KDvG1uUzu5epPWDfx7fHgB9mSQ/QkriEsIx9jwTWhzciZEvFDiyFAPkuPEo4lW0QufzrXuBZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782315957; c=relaxed/simple;
-	bh=36brmetKtrVC79sVumiN9i3JG3kddwy0+O20pABEssQ=;
+	bh=gq7SZQMCqoWdcgKCYD6222wJceoyTVBlco/WMG2UIaI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GDe9ycsqMwTfQb1jkf6YAw2EUM4JtkglpUj85YwYc2fkkBQy6Q6FZC3k9QAG7WfJViLZN67gT11ibA4v6uKUi2uhiieXm/zVOHgX7ePZ9uqArZ3gdyOJLiWX8tp+deguin6rpmM/feHIgGXVmqrLZPuuS3vxJMuN/ikjdSPt1pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gY1VQqs7; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=n2hZeToHI+d5gl+1IJBdWcsOJ3ajZCiRcC79I98oTE4pFuJ7YGFS4Hen5NNhd2xjULvo8xa7N84DonRlr+2nfeLlNxQENJhrz7xjdObekVuHM+3oJgMOCT44PPD2OSiVdd1ihNFMZsg3XWaUKRIFD9rWeGJPdJG40jlWWa4lHqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTfCzKA8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gY1VQqs7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC51EC2BCB7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTfCzKA8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E2CB5C2BCC9;
 	Wed, 24 Jun 2026 15:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782315956;
-	bh=36brmetKtrVC79sVumiN9i3JG3kddwy0+O20pABEssQ=;
+	s=k20201202; t=1782315957;
+	bh=gq7SZQMCqoWdcgKCYD6222wJceoyTVBlco/WMG2UIaI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gY1VQqs71jWWgmWiq5CNFJh/CXJFDBOKXz0IMNPjlkFgfN3TB5vF4WBm752mLgMYB
-	 dGrFkva8j1DBuoIcHTf480ottQ5HWXlKGOIXnWtLtnpFp4aJSnnWN67tAI748YCJNV
-	 PT3aLIwpLtqr1UNmWd9M+ICYJ8eH4HT2uJpB/+Jn+A05JKMo4KJoyd1dUR7EGVQOQC
-	 PLqBRKgAPQdbAxAWd1WIg3mHUB0ABqpZ70af5zq+44l21MIwMJHxjHkY2NRgprg4kw
-	 7FgVtILTFCvVKmy/r6E+ZDOdthIUdZguYCpXHI8BNzS5GXUsI+m1Bk7HQpOvlKUn9Q
-	 h/3Osrhj5nuow==
+	b=hTfCzKA8p6wQRw2Fy+Io6dWME5BdP0NdDOhFFz8HyJha37eybesuNfVZpGHN8YZNO
+	 A/E92MSe8Diy+wELrAdhAjTCUiu7oQLbPa3Ge/nNzTjGyn35ICpfTltV2Qxkgna3Jc
+	 Gn54fezRt7oYzn0uclrOZz0aZ/MHNYMxePJeCFmpEXVnl4HF73eJKndwxVa9U5y4zm
+	 TnM8WQ54o7ClJF78tCdmiNp7ovnGAYCgY8FHjj3OWWk8LLxHjeEQVW+0C74ei2EorU
+	 z+aZeEqgw6XUcbqmXZ19FMHJ2vOAQsZmD1/h/ldsb2JnETO6PI6oZRCODdON1yfAwM
+	 ejv9dICwWs1mw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B55C8CDE001;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB4AFCDB479;
 	Wed, 24 Jun 2026 15:45:56 +0000 (UTC)
 From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
-Date: Wed, 24 Jun 2026 17:45:53 +0200
-Subject: [PATCH v2 1/2] arm64: dts: mediatek: mt8395-radxa-nio-12l: Drop
- redundant i2c2 drive-strength
+Date: Wed, 24 Jun 2026 17:45:54 +0200
+Subject: [PATCH v2 2/2] arm64: dts: mediatek: mt8395-radxa-nio-12l: Enable
+ i2c3 on 40-pin header
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-nio-12l-add-i2c-40-pin-v2-1-cf3707a6aaf1@pardini.net>
+Message-Id: <20260624-nio-12l-add-i2c-40-pin-v2-2-cf3707a6aaf1@pardini.net>
 References: <20260624-nio-12l-add-i2c-40-pin-v2-0-cf3707a6aaf1@pardini.net>
 In-Reply-To: <20260624-nio-12l-add-i2c-40-pin-v2-0-cf3707a6aaf1@pardini.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,17 +52,17 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ricardo Pardini <ricardo@pardini.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1206;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1402;
  i=ricardo@pardini.net; h=from:subject:message-id;
- bh=m5Cx5Z1IWJ++CWhQ3mc1twTHRBYJFzAA/qKlYFYZhuo=;
- b=owGbwMvMwMFoHWf/eN7xty8ZT6slMWRZ/97sedvCKo+7fEqerwwrv/y/74Kpf9LvCH5jtBLrf
- TlRQ1G2k9GfhYGRg8FSTJFljYQyz7f1r07d8eiYDDOIlQlkirRIAwMQsDDw5SbmlRrpGOmZahvq
- GRrpGOgYM3BxCsBUF1Wz/5UT4fJ//z+5RmDX9y9Lxe6xd7jsqgg74CyyLfDv5ylaiVc7cj7l+17
- s5BHST/nfK7Hnr9/Fxls+F5f5V07unKFkGruGbWqS2aHl+9Z4KQg+dmCo2FdWGHZq0qU5rBKfN3
- rlnym4pWBjHrldYaJWiqTr7VWZtwNuZASpTr3RzmZrKuHkrjHdwezHpg67pj3GF/ezRj181i3EJ
- 3TnQaLl5oLTVTc7n7A/Tn7lzOn2yWtyyfFzMx/yaAT/sLaevWDxg/VvbS0n9/NOKtxux3pt95XZ
- 3+LzD9dG7vQuNam576un5iYWdnG/5v60ekPnhTbnm2TfiQjeeh6qJ/HyQLksz6XWBdOfdCqa2r2
- fXXZNBwA=
+ bh=hIyBf7strNNA+Ox0sJe1DQ4Wou2BwNHnavbyLGWV3fE=;
+ b=owGbwMvMwMFoHWf/eN7xty8ZT6slMWRZ/95csKVZmzf5k99/+4o/Lx9p3fyxT6zsosX7Q2q1S
+ 2Y9ZXCq7GT0Z2Fg5GCwFFNkWSOhzPNt/atTdzw6JsMMYmUCmSIt0sAABCwMfLmJeaVGOkZ6ptqG
+ eoZGOgY6xgxcnAIw1YKL2P/wdlhtu1evdcBOR/yhalTtabllBoV3JepeNbqLtQcxOzW/auBadt8
+ osKLqy/e2w4+3TYqzk/zYK1eaotW4Xug7u3a0tejGzrm6G4Ilmo03KEqLZDyOubOCv/+MRu320B
+ +a6mcr96cr/lVQieMM0PsUes7BprHBY97BT/kPlnqfu/9tB3NMpJjxa9vZSi/yaz13T4zXn2r8d
+ MPWtQuSq3QuzvzCr+V/pXDa4uTigObEs06Pi6dX6K780C6/3rnpX5L7O4E7M9j/vJCfpmb0wuVD
+ Rm/D1OtXBILC6tuzn5oxZm9ZEV0W6NvpxrNOLW1yepk5U17GS7PpVyW/XLnSeL7514VXs+6bJE6
+ vvVn+FQA=
 X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
  fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
 X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
@@ -72,33 +72,51 @@ Reply-To: ricardo@pardini.net
 
 From: Ricardo Pardini <ricardo@pardini.net>
 
-The i2c2_pins node specifies both drive-strength (mA, standard driving)
-and drive-strength-microamp (uA, advanced driving). These are mutually
-exclusive: the generic pinconf parser logs "cannot have multiple drive
-strength properties" at boot, and on MediaTek the advanced driving enable
-bit makes the uA value authoritative, leaving the mA value dead.
-
-Drop the redundant drive-strength, keeping only drive-strength-microamp,
-matching i2c4_pins.
+i2c3 (SDA3/SCL3 on GPIO14/GPIO15) is routed to the 40-pin GPIO header,
+exposed on the blue-colored pins 27 (SCL3) and 28 (SDA3). Enable the
+controller and add the corresponding pin configuration in the pinctrl
+node so users can use external I2C devices.
 
 Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
-Assisted-by: Claude:claude-opus-4-8 # vs Sashiko review of upcoming i2c3
 ---
- arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-index bf91305e8e4a5..589a5f07d5dde 100644
+index 589a5f07d5dde..9b0966c271cb5 100644
 --- a/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
 +++ b/arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts
-@@ -784,7 +784,6 @@ pins-bus {
- 			pinmux = <PINMUX_GPIO12__FUNC_SDA2>,
- 				 <PINMUX_GPIO13__FUNC_SCL2>;
- 			bias-pull-up = <1000>;
--			drive-strength = <6>;
- 			drive-strength-microamp = <1000>;
+@@ -371,6 +371,14 @@ it5205_sbu_mux: endpoint {
+ 	};
+ };
+ 
++/* Exposed on 40-pin header (blue-colored pins 27:SCL3 28:SDA3) */
++&i2c3 {
++	clock-frequency = <400000>;
++	pinctrl-0 = <&i2c3_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++};
++
+ &i2c4 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-0 = <&i2c4_pins>;
+@@ -788,6 +796,15 @@ pins-bus {
  		};
  	};
+ 
++	i2c3_pins: i2c3-pins {
++		pins-bus {
++			pinmux = <PINMUX_GPIO14__FUNC_SDA3>,
++				 <PINMUX_GPIO15__FUNC_SCL3>;
++			bias-pull-up = <1000>;
++			drive-strength-microamp = <1000>;
++		};
++	};
++
+ 	i2c4_pins: i2c4-pins {
+ 		pins-bus {
+ 			pinmux = <PINMUX_GPIO16__FUNC_SDA4>,
 
 -- 
 2.54.0
