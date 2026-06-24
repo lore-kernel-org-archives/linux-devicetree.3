@@ -1,121 +1,107 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56D12BEC23;
-	Wed, 24 Jun 2026 11:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508C22BEC23;
+	Wed, 24 Jun 2026 11:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782301773; cv=none; b=gcdvLGWyzUs1Pum9tdo7UNAQ0CgZO8YWggUyNqHlcCmA5TGLL7bKf1ZcIpZH2lWt559hJQuq5omT2U5xmeIwo3A717kbE0xTN6HbCTuafbILKx0iBn0PzXElfoHJjtw3jV3fz0JGnTfO9TfSeJRCNACtOJPIQmcag14c9mPIIpQ=
+	t=1782301817; cv=none; b=X/kl6DIo/PFb8c/eGbEg731ocPvK95pkvg0sRejCtpzJYs7fF6ItajnZNsdSymaXCNncHescpOC8Lst35umXg5tnEV9aPZXCSWgp2Ji4gvm5h31SMIG8QIh9yglvVClK6jQTEQLmrOwrWQAOgEkBRMg6vxX5ibv62Bf9RMmWAiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782301773; c=relaxed/simple;
-	bh=E/ImSLy7jJaMVOaE3RQWylfqWJnVklT0sXN0c/qXP5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vDAA1QtGIurfnL0DjaeyHohGdtlxkSzPCW0mqFyDp4Nvrgfqnz9zFh+2HySL1SksypxpU2IPYuIBnVXUoTEKnbSTz/9OE7WCFlUdnZVRmdG8h2o1ZDBs2XpymTdJ942EtTyuA+MCXQQxxPGl3qsWJzp2itI8FU/w8Qe9HQFWrNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=u+3l0513; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1782301817; c=relaxed/simple;
+	bh=fbMZ4QvYT+kQt6gI6NXA9zedFtCsJFzMcRgC5qrCLso=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AixIWwjSo1Ys1mB3rbxwnJZr+ccwDo2sr2gW8Cwe0V4TH0gE9UxIiPgdI8GLx7Q5+X32gG91bohbK70Hk2dmj1Z9ESfZobo4bSuU2TFomJdkQM79ybFIVcefE+8rOflpYP79zigEt2UX3ctdq7v5lAns5izv/ZX0dLWbohOz9aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gjw4MGxK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="u+3l0513"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Js+56ANKxPxs/46/PFzp/qZpp2mD0OpgfX8pfIomZwQ=; b=u+3l0513/jiVxcbyjkOiqN809G
-	2FAxCcySH/27vGu51RIwGdzd7RdgsJzIElKLg5bvVdTYm5QR7ZuKjBe569yP2AMIi8NDorLSrXCjl
-	+8EQngoG7F2CYbr6uBNs0PzsaEvGa9M3L/unrNeyXQxmck47zQB5//XBCQVNNSKWassX+h8GXcbom
-	NU74uh7PQGCZvPUQD5k+n1KOp0Aho5ASE8t9dsdQQif1MKnvK5F70scLZSG1ntG+48DX0PbLuGVah
-	7w2yjr982EGHwzmGmO/raYZ8htGjQmOSy4ovTLsfZepdyc6fOdag4SZtfNmsLJd5cYO1RBg8Il9Nr
-	N4iyrrhQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Wu <david.wu@rock-chips.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Yanan He <grumpycat921013@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Yanan He <grumpycat921013@gmail.com>
-Subject: Re: [PATCH 4/7] net: stmmac: dwmac-rk: Enable refout clock for RGMII
-Date: Wed, 24 Jun 2026 13:49:12 +0200
-Message-ID: <4954560.rnE6jSC6OK@diego>
-In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-4-5aef608a3f64@gmail.com>
-References:
- <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
- <20260624-rv1126-alientek-dlrv1126-v1-4-5aef608a3f64@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gjw4MGxK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4361F000E9;
+	Wed, 24 Jun 2026 11:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782301816;
+	bh=/B9zoYFdFwreE2GLFix1qmHXhYR2yHZ9DZjxr6qyk0c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gjw4MGxKweNUXNq09SKKoUISahxd94Gu53s84vBoCfXPRdq/tUbWKx5ME3uRySJkp
+	 97uo/pRyfVZZDAI2s5NmmGRrxNIPFuDLnjopTSK4ZqjA8svDwu2W/HUayISfg3My65
+	 XS4qlNhfaY9I5FCQtFFnZGGcmbzROlJ3XQDNWo/9UUmVxy+frCkyMuOsSY4M3tBTeG
+	 FFST5sFt8JZFfSC9c7sun6Z81kP6VJlNIu8UoZULNaBFetojYy9VdL3Aqyx2lRC9wH
+	 1jDIlwlJ8Mi8KIedLAWVCRMID6oPe04/TzgxKK8neibDRf+OaaDm/VeUO2eR6K7nPC
+	 KdRQXrqAiyDhA==
+Message-ID: <80049d2e-ddc9-44e9-b231-876adcd79823@kernel.org>
+Date: Wed, 24 Jun 2026 13:50:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: arm: qcom,ids: Add SoC ID for Snapdragon SDA
+ 850
+To: David Heidelberg <david@ixit.cz>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260623-sda850-v1-1-ddd8e62c85d8@ixit.cz>
+ <6ddd0652-d18e-4e23-a230-5f5c8a9756f8@kernel.org>
+ <16d91c51-9f1b-48ff-90db-7dd7ef056bc2@ixit.cz>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <16d91c51-9f1b-48ff-90db-7dd7ef056bc2@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-Am Mittwoch, 24. Juni 2026, 10:44:41 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Yanan He:
-> Some Rockchip GMAC integrations use clk_mac_refout as an external PHY
-> reference clock even when the MAC is configured for RGMII.
->=20
-> RV1126 boards can route CLK_GMAC_ETHERNET_OUT to the external PHY as a
-> 25 MHz reference clock. If the driver does not acquire and enable this
-> clock in RGMII mode, the common clock framework may disable it as unused
-> and the PHY can lose its reference clock.
->=20
-> Enable the refout clock handling for RGMII in addition to RMII.
-
-the clock your referencing is not limited to your rv1126 but instead
-present on most (all?) Rockchip SoCs.
-
-And it is an input clock for the phy itself, so should be handled there.
-
-See for example
-    https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
-/arch/arm64/boot/dts/rockchip/rk3588-tiger.dtsi#n313
-as a reference.
-
-
-Heiko
-
-> Signed-off-by: Yanan He <grumpycat921013@gmail.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net=
-/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 8d7042e68926..f6fdc0c5b475 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -1112,7 +1112,8 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_=
-data *plat)
->  	bsp_priv->clk_enabled =3D false;
-> =20
->  	bsp_priv->num_clks =3D ARRAY_SIZE(rk_clocks);
-> -	if (phy_iface =3D=3D PHY_INTERFACE_MODE_RMII)
-> +	if (phy_iface =3D=3D PHY_INTERFACE_MODE_RMII ||
-> +	    phy_iface =3D=3D PHY_INTERFACE_MODE_RGMII)
->  		bsp_priv->num_clks +=3D ARRAY_SIZE(rk_rmii_clocks);
-> =20
->  	bsp_priv->clks =3D devm_kcalloc(dev, bsp_priv->num_clks,
-> @@ -1123,7 +1124,8 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_=
-data *plat)
->  	for (i =3D 0; i < ARRAY_SIZE(rk_clocks); i++)
->  		bsp_priv->clks[i].id =3D rk_clocks[i];
-> =20
-> -	if (phy_iface =3D=3D PHY_INTERFACE_MODE_RMII) {
-> +	if (phy_iface =3D=3D PHY_INTERFACE_MODE_RMII ||
-> +	    phy_iface =3D=3D PHY_INTERFACE_MODE_RGMII) {
->  		for (j =3D 0; j < ARRAY_SIZE(rk_rmii_clocks); j++)
->  			bsp_priv->clks[i++].id =3D rk_rmii_clocks[j];
->  	}
->=20
->=20
-
-
+On 24/06/2026 13:37, David Heidelberg wrote:
+> best I do is close-to-mainline tree,
+> 
+> https://github.com/commaai/vamOS/tree/master/kernel/dts
 
 
+That's not upstream, so we do not need this patch upstream... Just keep
+it out of tree.
+
+Best regards,
+Krzysztof
