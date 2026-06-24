@@ -1,157 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CC73BBFC7;
-	Wed, 24 Jun 2026 14:06:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536DD3BBFC1;
+	Wed, 24 Jun 2026 14:13:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782309972; cv=none; b=SyyRj3/2NPcYwHc42wVy62cR9ZpoC3iBes/xEduCtIOxHcGWTLEIfcQtl9Zx4GvO8Z3oSb1i7AX4AIIgz/6HjCbbEhHLZwxcgCddFWcPJU80L1HehoTLy0XHQ0w20QjEIlRYYyklxgsAtpD5kv9MfwmVZ3Iik5F8N7qBA9fG4gw=
+	t=1782310401; cv=none; b=Rs3w09NN/eHMrJIsXwlyLUbHKNwFmbNAz1dtosQ0Z73velgRhhJVREzrIydGfWO+AMie21nt33JS4yeLPvfxYFGCE7sWZDFKlmh8Og5kKv4DNemgXPl0lZNRhb0L5sVCJqh1a/ib0DIaR2xfuZ8mwpJk7T9+iKExyFq6tKg/f10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782309972; c=relaxed/simple;
-	bh=LOHo4hyXHzhkOW99fMp36glcTg/YUTQUB6+bnisrXIs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j6uxoSNI6ZF2bStiDmLAK4XF23FJ8ZUZlgsjeRGn4+a1EZVwsrpSKbAsfwc6EfZJ3t3Xl+i2KFtlXYX+a4cyb5UTuQw7dilni68kHDfkm15r/9aFWq5wSKqqhoV4wfA1WIWf8b7lCVO77+muzNxNWsLdjK/34ZMWkpMQzjiGZ48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f4gmWHTd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782310401; c=relaxed/simple;
+	bh=1Bgtq4BsQ7hTy1grWuGoQ9yee8XLe7MR7og7NIjsshs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mt7s1SrlF70BnW7mhOjD0pOaKV6XXpFKV46UyP02czEMmKIeaFT4Fx7hLZH1QtV9MSWdEVO74L+yfamDs5EIQiR7+YxWoWPpU6KuK1CfGaBG4TCBtgjdYIt0NactXEPzCfYXPoSyzEu2wE5Hj+NOSqBsKUQhqjbclVCQOztu69E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WXpb/PAs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f4gmWHTd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5011F000E9;
-	Wed, 24 Jun 2026 14:06:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WXpb/PAs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967111F000E9;
+	Wed, 24 Jun 2026 14:13:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782309968;
-	bh=xEQ/uXUYkPvJatSPvG/v00x9l2ff0TNuDxRnhs3nFLo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f4gmWHTdXypzYrpyEr6LTYt7eOimftemwYRjYHPF08kgqrQVJ9W6R0xd+9J4JI+wX
-	 nk57ERMWrNSBiubI0svjxDKOONDidviKxvgI7nfB/LkWbkkJT8SYWS5cZr6ykonxc1
-	 ZWdQn7picTzLIxhmX5IPOLP3lZ4x/RsScZaqa0VyvhHKk2jzmE4GlO3nl2mWfqn4PJ
-	 Z2+nm7bybk1vtIMljZQ7exK275U1IFkmUCqiG67lPRYUIFNv4v2r5tK1Hj+5KEFjxL
-	 VaCLwaQo58QBL5w3/j2p3pG1Wg9hMhoHn3OtS3JLCnUdS9r0+B4GX0IqBRnGcyYDFR
-	 OtB4VCEs2G9KA==
-Message-ID: <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
-Date: Wed, 24 Jun 2026 16:05:57 +0200
+	s=k20260515; t=1782310400;
+	bh=6mBorzsoZa+2A/EZnHT2rnOkQ7W6iA3I45tZLtv8JN8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WXpb/PAsZ0CyC4OTNRXXzCk6GEnfFikMIBL6P35MVYm6mU7gd+oBrD0/7Hd4AcK30
+	 s07t5AwaJnidbaJvI2RFYqAXKT1KyDuqcK2lX82Zhmh0mveq6eUxzBbq8eNAxOtMMr
+	 LemKBMwhOU2l9BQ5ZRJ4ZCweZe45hZhyMr/oGwKs/pBGXArMr/83q6VpYZSBFzwwFP
+	 Noq05xK5Hb8W6zRImzSYVupFtVX/fGLPjgNiUFG1dc01oPfhk7EBSoAG83YQ/dND4v
+	 /QxX57HHjMvhYX96Wi+/QdGbGR8s66L7VDmGr8b52BaKHlgl5X4/4vFnou0Ldlb+Zj
+	 QMGe538Lzkohg==
+Date: Wed, 24 Jun 2026 15:13:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Otto =?iso-8859-1?Q?Pfl=FCger?= <otto.pflueger@abscue.de>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/3] regulator: dt-bindings: Add Unisoc SC2730 PMIC
+Message-ID: <878f8f38-2294-4097-9d08-2aa04bfe773b@sirena.org.uk>
+References: <20260620-sc2730-regulators-v6-0-bbd2db395231@abscue.de>
+ <20260620-sc2730-regulators-v6-1-bbd2db395231@abscue.de>
+ <20260624130613.GA4054894-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Sunyun Yang <syyang@lontium.com>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com
-References: <20260508142500.4922-1-syyang@lontium.com>
- <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8/LbZwSsjzxiTXv4"
+Content-Disposition: inline
+In-Reply-To: <20260624130613.GA4054894-robh@kernel.org>
+X-Cookie: Your password is pitifully obvious.
 
-On 11/05/2026 05:28, Sunyun Yang wrote:
-> <syyang@lontium.com> 于2026年5月8日周五 22:25写道：
->>
->> From: Sunyun Yang <syyang@lontium.com>
->>
->> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
->> mipi dsi and output hdmi, differences in hardware features:
->> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
->> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
->> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
->>
->> Signed-off-by: Sunyun Yang <syyang@lontium.com>
->> ---
->>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
->>  1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->> index 429a06057ae8..e0821a63d9d7 100644
->> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->> @@ -4,19 +4,23 @@
->>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->>  $schema: http://devicetree.org/meta-schemas/core.yaml#
->>
->> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
->> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
->>
->>  maintainers:
->>    - Vinod Koul <vkoul@kernel.org>
->>
->>  description: |
->> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
->> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
->> +  are bridge devices which convert DSI to HDMI
->>
->>  properties:
->>    compatible:
->>      enum:
->>        - lontium,lt9611
->> +      - lontium,lt9611c
->> +      - lontium,lt9611ex
->>        - lontium,lt9611uxc
->> +      - lontium,lt9611uxd
->>
->>    reg:
->>      maxItems: 1
->> --
-> 
-> Gentle ping.
-> Thanks.
 
-Except mess with threading, your patchset does not build, when applied
-on next-20260618.
+--8/LbZwSsjzxiTXv4
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-What is the base of this?
+On Wed, Jun 24, 2026 at 08:06:13AM -0500, Rob Herring wrote:
+> On Sat, Jun 20, 2026 at 10:54:00AM +0200, Otto Pfl=FCger wrote:
+> > Add bindings for the regulators found in the Spreadtrum/Unisoc SC2730
+> > PMIC, used e.g. with the UMS512 and UMS9230 SoCs.
+> >=20
+> > Signed-off-by: Otto Pfl=FCger <otto.pflueger@abscue.de>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > ---
+> >  .../bindings/regulator/sprd,sc2730-regulator.yaml  | 44 ++++++++++++++=
+++++++++
+> >  1 file changed, 44 insertions(+)
 
-Best regards,
-Krzysztof
+> Applied for rc1 to fix the warnings.
+
+Warnings?
+
+--8/LbZwSsjzxiTXv4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmo75foACgkQJNaLcl1U
+h9CQmwf/RNtdWaymgja/0sFA0V4J09vMkN31Ux0AY5EBFK//Iar6369dyGL8XSrQ
+P9nAbv/8lQJarM5XUxqNsCWswrl1W6FBHNbMjgusf0ljYaKOj8b+lwrrjzVPCrnd
+gkoqgwnoK9DiwYe2zu6Z54JLVp8mpChVr00P3hhFakC/X7NgHT445NX/mDM3R9zd
+Cq4QmVuCZ7y770EIoSFfp+N03P32aLqnOFqfvMrNNZN9JPzDNkmtMwv94g3QaE4q
+uMHg7JuUJoO9EMh50wOay1bzxvEI2vQ7+lGdAoATdF0jq2XKO/XNxnEudBdCyvCG
+e3PG+RM0oiDtGAdPJhZP/NufEOk+bg==
+=dqK8
+-----END PGP SIGNATURE-----
+
+--8/LbZwSsjzxiTXv4--
