@@ -1,188 +1,328 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F983C9891
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981993D8104
+	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782312690; cv=none; b=iChov4pWl0dgvs+GkrhiqcSZa5P74VadHk57sxTxDgIhW0taISkYhr+KkeCfpOcJDdU6vSymr+aaJhiDkzEmVX0DKNL2B7Ft9ZHVzlZI1vz8+iDBT3sv7wsaRcbWGdu9xFN4+QX61+AsAu5WfZSaQ6NGYuN1rWZ77ESNT7V6Bl4=
+	t=1782312830; cv=none; b=pZvfYDSweAEfWwBcdGAt36wxRYNMwgsvjl02LpZieKC7PNTufUe+kBmM7G2Em93EvhZlz2oORF3Ir1I8pG5Ho7gz6EwR3748Vc9mLuNMjn1R4SLxmRWclJty6OkQZmdSIiMo5ozGCVqS38QhkT3dLR9KRgtiEbR1zELSNMOEcv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782312690; c=relaxed/simple;
-	bh=uPaHJPX4fBQA/65TQFLuVYTjl+5WzccZWh+8+FnorRg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eLt9L451Sig+XwrzUIH6Osk+CRzfCQB+zicoGWoSzbT+xvqZs9Igj/TUSgVJ1ptjhDZhargKw0xFZTRvvCcfNc6KSjwFvEYLvd7WLD3YAfbJcoM3ltOQzcSunCRJmXzr4Fi/GKAU0pTewPvVKl8tk4L5DTVNXwgVUt5t2bwBhN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B/xXu/Lg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CxPb9lEx; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782312830; c=relaxed/simple;
+	bh=T1ZW3B1oxy+AwPAaJjtBaPp3AJaG0/Vt/SRnSUtaCV0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gGh3JeXYN2kG1zjjtx6Vzkq7hIhDhekXRL/TTbsQpSyqX/IZ/ri8b4z2jw1iT1Kq1LGHx7rsHpqzoQN3jLj3rxYzuiv6gMEsHBvGlU0YOgxy31sPJq3ukH1WrgQi9xK7ewsyTWJTgM6h2G51xZ8/VPx2eQrfh3L8wkQMJVP1Ji8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZdKC6d6C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B/xXu/Lg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CxPb9lEx"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65OEfOIi3076226
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:51:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	u8XivURppudXZz+Z+GoxZig9m3FBNIfHMcPRM9Xb4h0=; b=B/xXu/LgiVbB7mgR
-	d5vYXO5JYtoToD4jXeNqzL68W0cQUznt1nL2Y0xOFpgBlIi5OT+3lXKtNxs/qn6U
-	4OOrbI7WWzKZ76CMeCr0/hZ+BJz1Wi9QCg6b26pAkgFyRpNHXaNApMeAezw5Jh85
-	e5j9e5BEbrnSM7J73ds5+6/6JHcZND3CIBC3NZhDiDZtnUT8lYT4pRRdGAf7B0KF
-	t0XBTs8zeL0hTW1fPJANYmrX7H/OgM2lCI6FNwbRVwu0yCsxXmyKOJxVo1q/VDwz
-	Rm+6yVLGXHGFjIb7jR+BPOhUy/V/xS1XuZ0dB7zj4blHOz/iE0OisptzQ0pRm1Tk
-	uuLjag==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0d45158d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 14:51:28 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84540760dc9so1672190b3a.0
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 07:51:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782312688; x=1782917488; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=u8XivURppudXZz+Z+GoxZig9m3FBNIfHMcPRM9Xb4h0=;
-        b=CxPb9lExJX1dIo69aRbYkyGI2YiplYW1aJn1gnyW+C16z87VRmCS0Z1f660xTqNW6g
-         oEZnEBy6SrCxkXt9ymhLJZGZrZfUFt1lYj6bOM5HoFY07v8ow/x/qjq05JLUqET5I6Qt
-         jKdT6YGUngUknUIR++9Rh7RrLcH+ud1eedhvmQeykq+dLJrwPe2OwEN/gJ8m7sg/eMdW
-         uVhbr0SXNYb5QHhuYsH2uZD1aV6AnALEqRFAAuqYwAeoYROBX26PvrChMRJ/wGWtEZf9
-         pomrLpKdug6+4uNHb/IIn4pn3mFiNHYYej8gnAr6dPBRtxqWb4P07qbb8bhxhJ1RPaD9
-         vYAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782312688; x=1782917488;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=u8XivURppudXZz+Z+GoxZig9m3FBNIfHMcPRM9Xb4h0=;
-        b=Sb0Pv/ZRCQdDPIYoqIFPZO+/+V8DO52JHkWU8BFI0d6P6z/heH9qlSo0L8XUDXXzzZ
-         Wy3tLwuacWJUR5WUEhChU9i5E3G8Tf0ueuHymm/KGwwcKr1+3VRzWQe1gEBu1JAoor09
-         CbBRtRL8Ul9ARdLoAifLWX5R7ROvDbgBI+JI/+qiXpn2AMRXduH3PljybsDv1wl0ItFc
-         AtY8ShwZLM6aQ2E2EpRGTnGZQhufGvO71lbUX+fUMG2tr98Ubhwfn3X9BxBYV8x1cubM
-         1+4mq040dVkUV9xlfyk5t2OK+3oQOEieRooE5aFzHIYYv3HYuXmJtpMgedzkJtUyWqto
-         JkTA==
-X-Forwarded-Encrypted: i=1; AFNElJ8WgofmUcqJKAMS80gNTJOlLI/Sv1uHj3RYw9wZX34x8qPoXCsfKXMMBgHyqVrajG8hjXgzPNuwluBe@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzk3KySdrlxlbimT1KpMTc1rcWzlXruvhF1NbosIr/NwP8B+TxE
-	YVYKxMyI8L1tK08FaBgeg0eKeSHv/F7PiePTaazBhdoUH7CmRm4/0xvIXh8jxiCs9aAy7UBj3TF
-	8ZLXsMj6d/OqHwEO/fKv54veBFgBwMXbTb+twfX09ThiyMg2QPJXNINJjbU0PLnvg
-X-Gm-Gg: AfdE7cl7SdG3lHJ412rXsCVVxWH9aangdjM+KgFT1a8/j0cTiPRZ1ykluRBbcwjnH/X
-	9MqPZVbNYRz7WS+NvH2Fa0Yo++oUUr1SAf9ewntzPBvbFhaGw218bONbFEcol6jIsrP8YubWSMO
-	adhaR8y1TomYkKpblAZgM5XWZxSOO1EleDaP/gPlTMLK4A/JJvwzeFiFtI1tbAJAKLP/mONaXNv
-	ukqYm3aXxCWXc4xkb8mHlBQ1e2lDhfDJLBbZ6KdHs9olJ2M4wF29oZCJQOWedouDrrMsmyDph+3
-	3MU8flwWRF2iEQC+AsFGL5FW4N6cRCh8Sazw40kKZSttobVGrNl2s+W3wBle/jTE5TSwOkz070o
-	dkkvX4536nJYyJDSF3IOcwhGgoizr9kWdPLD6t2NJFQ==
-X-Received: by 2002:a05:6a00:b46:b0:835:388c:9764 with SMTP id d2e1a72fcca58-845952d9857mr9047632b3a.37.1782312688170;
-        Wed, 24 Jun 2026 07:51:28 -0700 (PDT)
-X-Received: by 2002:a05:6a00:b46:b0:835:388c:9764 with SMTP id d2e1a72fcca58-845952d9857mr9047578b3a.37.1782312687461;
-        Wed, 24 Jun 2026 07:51:27 -0700 (PDT)
-Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-845a3fcc839sm2643271b3a.10.2026.06.24.07.51.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 07:51:27 -0700 (PDT)
-From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Date: Wed, 24 Jun 2026 20:20:31 +0530
-Subject: [PATCH v5 3/3] arm64: dts: qcom: glymur: Add camera clock
- controller support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdKC6d6C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2228E1F000E9;
+	Wed, 24 Jun 2026 14:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782312829;
+	bh=jWLqbMwKtMfUe+KzGq0Dc3FNKvHou5VdD/w32z3hjjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZdKC6d6C4Jo//4vFDPLqFyEOi2BVjMbctZ7zv9St1F9llK/GY69cRnnwSoOPvO9cV
+	 RKwT802LXhxbd/r/lNZcQ4EKEFPcmn31CpV2dWEEZ8yRoZD5vsx2ydzOzVrBwtOniV
+	 y62AHYzDUDFUYbLnuai9cTo4RXXVQsahL5sIDtHvu/npbc06cUdfWqe13JaNmciq+c
+	 HrnpThjQEmaIpklEEOfJgpMOPopREcnS7PEcGvjiMWw1+WQeJB8JJNssG57W308xEC
+	 VYIsKf+yxaLIGobZrDwavIyTsScv0EPZi2HV8KsDlA4qE1Kpdsi1atI0lNfbbxFo3Y
+	 Fc0x4Lan0r2Mw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Salih Erim" <salih.erim@amd.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260624143722.4047649-5-salih.erim@amd.com>
+References: <20260624143722.4047649-1-salih.erim@amd.com>
+ <20260624143722.4047649-5-salih.erim@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 24 Jun 2026 14:53:48 +0000
+Message-Id: <20260624145349.2228E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260624-glymur_camcc-v5-3-a321df74b1a1@oss.qualcomm.com>
-References: <20260624-glymur_camcc-v5-0-a321df74b1a1@oss.qualcomm.com>
-In-Reply-To: <20260624-glymur_camcc-v5-0-a321df74b1a1@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-X-Mailer: b4 0.14.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI0MDEyNCBTYWx0ZWRfX0NJJ6s9WC6P3
- zHAOnbQmR2YKncKkmck2chg2V9UOpDLyzCs6hZtWeHSEKA77qikdM32clRvlDIkcfNNH0KaAjTp
- PbkPMQSIhALm3k/El5mFp5k+KwINpvI73caP8aVfUWJcbKzZ0N39kyKb4lJLNtCEp5NfCq0+nQQ
- 2rckMhzeC/K3hOqmaJh83rvbKuHLX2VXh/qrxFN7x5nWhktMUtEWSkMEtrNWXMSh69XyUyEomG6
- z9UVSnzhBApMUg2WrnrCEAqlmRiOKtvtDVIgYO0fkE/HV4RvYhPz/emtgfct5fespjFqBWSxLph
- DzXQTZFP5H7itatwGW4Q47IyY96sIGeLpidBSnBoKNqtTsqPCa5k/p6ThSKFAW8LhGEzno2ZEAh
- 4HS4Ryf0MV9lrGpXfZygmVf0jm8q5JpCPi7vSMXQb7/zgWli77BT9MVxoo540vZg8HZDpXmFFgS
- SUoS7Ia8DJB1jFQbfgg==
-X-Proofpoint-GUID: ZE5fXwN5zmGzL54KN7hORUmSAnRtYRId
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI0MDEyNCBTYWx0ZWRfX9K8sjoJt0dV5
- lFEJN9rpE+laE024Ce2gQhMaGgmDTHubkGI2Qg4/JHoowmLSo3X//+UGzIaFpflHXZYZ7ahOhUH
- qQ7DSVpOsT+KHbWk2Dqut8jQicN1hVU=
-X-Authority-Analysis: v=2.4 cv=Ar7eGu9P c=1 sm=1 tr=0 ts=6a3beef0 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=butnsgrUGOw-u3YEFNkA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: ZE5fXwN5zmGzL54KN7hORUmSAnRtYRId
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-24_03,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- malwarescore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606240124
 
-Add support for camera clock controller for camera clients to
-be able to request for camera clocks on Glymur SoC's.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Supply voltage threshold events permanently disable themselves in =
+hardware upon triggering.
+- [High] Unmask worker silently drops voltage alarms.
+- [High] Use-After-Free due to delayed work scheduling after cancellation d=
+uring unbind.
+- [High] Race condition in interrupt configuration re-enables masked alarms.
+- [High] Hard IRQ handler triggers sleep-in-atomic panic on I2C devices.
+- [Medium] Data corruption when setting negative temperature thresholds.
+- [Medium] Integer underflow in lower threshold calculation breaks hardware=
+ alarms.
+--
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+commit 5011ca744b3ab433f6a307686494ec49213c41b4
+Author: Salih Erim <salih.erim@amd.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index 20b49af7298e9549d126aa50a0dc7a90943a3249..eb5cdb588e9aeea4275a0ba8e94d77dd608ec6e6 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
- 
-+#include <dt-bindings/clock/qcom,glymur-camcc.h>
- #include <dt-bindings/clock/qcom,glymur-dispcc.h>
- #include <dt-bindings/clock/qcom,glymur-gcc.h>
- #include <dt-bindings/clock/qcom,glymur-gpucc.h>
-@@ -4362,6 +4363,22 @@ usb_mp: usb@a400000 {
- 			status = "disabled";
- 		};
- 
-+		camcc: clock-controller@ade0000 {
-+			compatible = "qcom,glymur-camcc";
-+			reg = <0x0 0x0ade0000 0x0 0x20000>;
-+			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
-+				 <&rpmhcc RPMH_CXO_CLK>,
-+				 <&rpmhcc RPMH_CXO_CLK_A>,
-+				 <&sleep_clk>;
-+			power-domains = <&rpmhpd RPMHPD_MXC>,
-+					<&rpmhpd RPMHPD_MMCX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		mdss: display-subsystem@ae00000 {
- 			compatible = "qcom,glymur-mdss";
- 			reg = <0x0 0x0ae00000 0x0 0x1000>;
+iio: adc: versal-sysmon: add threshold event support
 
--- 
-2.34.1
+Add threshold event support for temperature and supply voltage channels,
+introducing hysteresis mode for temperature and window mode for supply alar=
+ms.
 
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
+l-sysmon-core.c
+> index 03a745d3fb4f3..8f2c502d9cb6d 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
+[ ... ]
+> @@ -52,6 +102,16 @@ static const struct iio_chan_spec temp_channels[] =3D=
+ {
+>  	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
+>  };
+> =20
+> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
+> +{
+> +	*val =3D (raw_data * MILLIDEGREE_PER_DEGREE) >> SYSMON_FRACTIONAL_SHIFT;
+> +}
+> +
+> +static void sysmon_millicelsius_to_q8p7(u32 *raw_data, int val)
+> +{
+> +	*raw_data =3D (val << SYSMON_FRACTIONAL_SHIFT) / MILLIDEGREE_PER_DEGREE;
+> +}
+
+[Severity: Medium]
+When a negative threshold (e.g., -256000 mC) is converted to Q8.7 format in
+sysmon_millicelsius_to_q8p7(), will it produce a negative 32-bit integer due
+to sign extension?
+
+If this negative value is subsequently written directly to the 32-bit
+hardware registers without masking, could it overwrite the upper 16 bits wi=
+th
+1s and corrupt the hardware register state?
+
+[ ... ]
+> +static int sysmon_write_event_config(struct iio_dev *indio_dev,
+> +				     const struct iio_chan_spec *chan,
+> +				     enum iio_event_type type,
+> +				     enum iio_event_direction dir,
+> +				     bool state)
+> +{
+[ ... ]
+> +	case IIO_TEMP:
+> +		if (state) {
+> +			ret =3D regmap_write(sysmon->regmap, SYSMON_IER, mask);
+> +			if (ret)
+> +				return ret;
+> +
+> +			scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +				sysmon->temp_mask &=3D ~mask;
+> +		} else {
+> +			ret =3D regmap_write(sysmon->regmap, SYSMON_IDR, mask);
+> +			if (ret)
+> +				return ret;
+> +
+> +			scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +				sysmon->temp_mask |=3D mask;
+> +		}
+> +		return 0;
+
+[Severity: High]
+Because the hardware interrupt is disabled via SYSMON_IDR outside the
+sysmon->irq_lock, can a race condition occur with the unmask worker?
+
+If the worker runs concurrently, holds the lock, and calculates the enable
+mask using the old state, might it write to SYSMON_IER and override this
+disable command, resulting in unexpected interrupts?
+
+[ ... ]
+> +static int sysmon_update_temp_lower(struct sysmon *sysmon)
+> +{
+> +	unsigned int upper_reg;
+> +	int upper_mc, lower_mc;
+> +	u32 raw_val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(sysmon->regmap, SYSMON_TEMP_TH_UP, &upper_reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
+> +	lower_mc =3D clamp(upper_mc - sysmon->temp_hysteresis, -256000, 255992);
+
+[Severity: Medium]
+Since sysmon->temp_hysteresis can accept any positive value up to INT_MAX,
+will subtracting a large hysteresis from a negative upper threshold
+mathematically underflow a 32-bit signed integer?=20
+
+If an underflow occurs here, wrapping to a positive value, will clamp() then
+incorrectly set the lower re-arm threshold higher than the upper threshold
+and break the hardware alarm logic?
+
+> +	sysmon_millicelsius_to_q8p7(&raw_val, lower_mc);
+> +
+> +	return regmap_write(sysmon->regmap, SYSMON_TEMP_TH_LOW, raw_val);
+> +}
+[ ... ]
+> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
+> +				    const struct iio_chan_spec *chan,
+> +				    enum iio_event_type type,
+> +				    enum iio_event_direction dir,
+> +				    enum iio_event_info info,
+> +				    int val, int val2)
+> +{
+[ ... ]
+> +	case IIO_TEMP:
+> +		switch (info) {
+> +		case IIO_EV_INFO_VALUE:
+> +			/* Q8.7 signed range: -256000 to +255992 mC */
+> +			if (val < -256000 || val > 255992)
+> +				return -EINVAL;
+> +
+> +			sysmon_millicelsius_to_q8p7(&raw_val, val);
+> +
+> +			ret =3D regmap_write(sysmon->regmap, SYSMON_TEMP_TH_UP, raw_val);
+> +			if (ret)
+> +				return ret;
+> +
+> +			/* Recompute lower =3D upper - hysteresis */
+> +			return sysmon_update_temp_lower(sysmon);
+> +
+> +		case IIO_EV_INFO_HYSTERESIS:
+> +			if (val < 0)
+> +				return -EINVAL;
+> +
+> +			sysmon->temp_hysteresis =3D val;
+> +
+> +			return sysmon_update_temp_lower(sysmon);
+
+[ ... ]
+> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
+> +{
+[ ... ]
+> +	case SYSMON_BIT_ALARM0:
+> +	case SYSMON_BIT_ALARM1:
+> +	case SYSMON_BIT_ALARM2:
+> +	case SYSMON_BIT_ALARM3:
+> +	case SYSMON_BIT_ALARM4:
+> +		ret =3D regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		alarm_flag_reg =3D reg_val;
+> +
+> +		for_each_set_bit(bit, &alarm_flag_reg, SYSMON_ALARM_BITS_PER_REG) {
+> +			address =3D bit + SYSMON_ALARM_BITS_PER_REG * event;
+> +			sysmon_push_event(indio_dev, address);
+> +			ret =3D regmap_clear_bits(sysmon->regmap, alarm_reg_offset, BIT(bit));
+
+[Severity: High]
+The IRQ handler clears the administrative alarm configuration bit in hardwa=
+re
+when a voltage alarm triggers. Does the driver ever re-arm supply alarms li=
+ke
+it does for temperature alarms in the delayed worker?=20
+
+If not, will a single threshold event permanently disable the supply alarm =
+in
+hardware?
+
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		return regmap_write(sysmon->regmap, alarm_flag_offset, alarm_flag_reg);
+[ ... ]
+> +static void sysmon_unmask_worker(struct work_struct *work)
+> +{
+> +	struct sysmon *sysmon =3D
+> +		container_of(work, struct sysmon, sysmon_unmask_work.work);
+> +	unsigned int isr;
+> +
+> +	/*
+> +	 * If the ISR read fails, skip processing to avoid acting
+> +	 * on undefined data.
+> +	 */
+> +	scoped_guard(spinlock_irq, &sysmon->irq_lock) {
+> +		if (regmap_read(sysmon->regmap, SYSMON_ISR, &isr))
+> +			break;
+> +		regmap_write(sysmon->regmap, SYSMON_ISR, isr);
+> +		sysmon_unmask_temp(sysmon, isr);
+> +	}
+
+[Severity: High]
+Since SYSMON_ISR is a write-1-to-clear register, does writing the entire ISR
+back clear all pending interrupts, including any newly asserted voltage ala=
+rms?
+
+Because the worker only calls sysmon_unmask_temp() and ignores the voltage
+alarm bits, will this silently drop any voltage alarms that fired during the
+worker's execution?
+
+> +
+> +	if (sysmon->masked_temp)
+> +		schedule_delayed_work(&sysmon->sysmon_unmask_work,
+> +				      msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
+> +	else
+> +		regmap_write(sysmon->regmap, SYSMON_STATUS_RESET, 1);
+> +}
+> +
+> +static irqreturn_t sysmon_iio_irq(int irq, void *data)
+> +{
+> +	struct iio_dev *indio_dev =3D data;
+> +	struct sysmon *sysmon =3D iio_priv(indio_dev);
+> +	unsigned int isr, imr;
+> +
+> +	guard(spinlock)(&sysmon->irq_lock);
+> +
+> +	if (regmap_read(sysmon->regmap, SYSMON_ISR, &isr) ||
+> +	    regmap_read(sysmon->regmap, SYSMON_IMR, &imr))
+> +		return IRQ_NONE;
+
+[Severity: High]
+If the device is instantiated on an I2C bus and the device tree provides an
+interrupts property, will this hardirq handler trigger a scheduling while
+atomic panic?
+
+The handler acquires a spinlock and calls regmap_read(), which would sleep
+when using the I2C bus's mutex-based locking. Should the driver verify if t=
+he
+regmap is suitable for atomic context before requesting the IRQ?
+
+[ ... ]
+> +static void sysmon_disable_interrupts(void *data)
+> +{
+> +	struct sysmon *sysmon =3D data;
+> +
+> +	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
+> +
+> +	scoped_guard(spinlock_irq, &sysmon->irq_lock)
+> +		sysmon->masked_temp =3D 0;
+> +
+> +	cancel_delayed_work_sync(&sysmon->sysmon_unmask_work);
+> +}
+> +
+> +static int sysmon_init_interrupt(struct sysmon *sysmon,
+> +				 struct device *dev,
+> +				 struct iio_dev *indio_dev,
+> +				 int irq)
+> +{
+[ ... ]
+> +	ret =3D devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", ind=
+io_dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_add_action_or_reset(dev, sysmon_disable_interrupts, sysmon);
+> +}
+
+[Severity: High]
+During unbind, sysmon_disable_interrupts() cancels the delayed work before
+the IRQ handler is freed. If an interrupt fires after
+cancel_delayed_work_sync() returns, will the still-active sysmon_iio_irq()
+handler reschedule the delayed work?
+
+Could this cause a use-after-free when the sysmon structure is freed shortly
+after, allowing the delayed work to execute 500ms later on freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624143722.4047=
+649-1-salih.erim@amd.com?part=3D4
