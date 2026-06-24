@@ -1,161 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010014.outbound.protection.outlook.com [52.101.201.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A4231F991
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 06:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782281742; cv=none; b=HstLaVtSk+6IQ4rQVp1VIfLUeVUHU7viHR1Zzao73gdv9fIavIP2colGrcA/ME8l/Rj1xUwX+gzkQpyVni/UcV5qBHzaUhjWMlZm59cidXjHkuI+GVUkaTVZV988Vnir8LKZw/18PlV+6MUJ9vBxN2HogOcVGMh2y0choPDBsZ0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782281742; c=relaxed/simple;
-	bh=99qAr7r7rOHl1yTDeh08+e/IYSa2c6SeLWRYsZkeq98=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cw8HLnHW5YAm6QCvJ93F+6x0Pgu7i1qhdLaZR+XrH8goCGIKNr54qdu/aWeTLqcRI6hzwI9HCfXZzf83ONHcoIcDCkoAHuPpZLgClHDJxv9Ay4aCSwOXzH486rrKTvEsAECaIy9l1UWF5OQkOf6JR9px8396k/hLulFXVris1NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/Bf91+/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C2A305677;
+	Wed, 24 Jun 2026 06:22:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782282128; cv=fail; b=SLhcRWf7etXu7qK3frRfA+WLGGCdVPM49E2/HBw12E5+5QVkYwsFcuvu53MnR3vGdJdw8TVpXy4HzGP7MDXmYYrcoFR/VXBv3dJM7DV0tNRSktYdLtE49nKdVqrYHQgkeR0q8eqVJ+tfFv80CaCXxF9bRvscp5Hh7QXGTlybfb8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782282128; c=relaxed/simple;
+	bh=37UIHw8fBM9bjnefmJ27qnFn47ajA6fqlcpa1hwNd+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=jxkFTK65XfZ6U3SVZuM2sEJhKD8eNo7T5eY6r57uTYT0wUh9udPqL5kWzRrR2QXIJ4CtKyq88KYF/UYvT+2+StLT9vyKfNOZM3ht2ra9f/nSx8ucb3m3cm7eRBphlf3gb1ta9YBWuyAccKH+4iRCuUti5W9QlhVZ1taYrQJim0s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=TZy5myCm; arc=fail smtp.client-ip=52.101.201.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/Bf91+/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6DC1F00A3A;
-	Wed, 24 Jun 2026 06:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782281741;
-	bh=nVt+MfBuE29lg5j9k5CdRrS7bv8GkZMC0W72iDzN5Z8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/Bf91+/4BFB/mMdYnjGb8/N/utxeqL4hTWFg+BnEY3vawZAgeb3d2iLHfqnxHelt
-	 fTE+ZD6cUNEsXpRQRgpnaCseuR5MmMWpbMaIt4z6LNwvYdjzNWm/zAYDzdbAB+tr3s
-	 I1dq41hME93kkii9jJ7exTIY6dBHCouHbk8pWpeXVGQ6Jvu8jg95SuUtoD2LQiBPXX
-	 ZW611PVtRXhSdPdoV8bW3qONzG0/KIakV49LtlLwt+MzWOqaCfFfYnZSbqhhohTCce
-	 eHWKFtmMfPZTuz/Mv+KNBno4Alr9124VbgIGU132FsWp3XboCvD6PqI4G6V2OCZU5h
-	 QYW1fNi6wnXaA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: socfpga: agilex72: Add initial
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260624055644.7508-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20260624055644.7508-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260624055644.7508-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 06:15:40 +0000
-Message-Id: <20260624061541.2D6DC1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="TZy5myCm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ak1/5VU7fHdRl/F794+GvxF97uR2ZTR+e+Q2eGsPiv9QHLRyH9hAhBfCnhkRxZHGXGy3JF31fs2ieE9BX/uZBFwBvqIyJpGMUkOjq6bfQS5J5jQcJO/Gbnc5vN42MQFTQCjochPMaZNmexUMdVZYfJGI4KxN8QyPbbh7Lv3YApLCrKGAb6kCpbDlBwXyP5Ee/igAoT9alPKAy5fEwkxyPKUthebRh6ND69is3o/n2qMA150xMoR8OY9XeixHTtDHVWddtiV9nwHTONyqozGyeKbKwxZO2TqGe+HJckQiq13y4nTveLjNM07zImf8lhjLUUv8w5Hbu6IO2d0YPkyjDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N+HSkGCzjQd5XCfnao9800hzO0Cnt3JAEK22ELGn8xA=;
+ b=cVhodL8XQwbKOLCv88r6fsnFHD8nXrRDKiWRSiOVO/M97KaVC38fRMbJs1TwE313BqtFNXp8jxCvrysNqn5twDDI9rixXxjJHRb9D+rYrIJxkrAtH1gXSIfmEvGJ5w2sC0X1bNS3f+Y8KUY7UTvNQBYm61G6bNA8HY+bne7OprzY8WPCc073GIvhe7xRcQB5oxw0Abz3yk6B0HbV7gWqkFR3qcM7GepuQKZY58w33pYSKU87oF2wspqmGg7LhnqCSVcUXzTtV9oxLm7av6+qIHY2LXy5/bbjcnQTLdf2bJ/BV2gEzJuThrYqdWsZfS9URpPII6zdbYyrU3zhsO6Bzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N+HSkGCzjQd5XCfnao9800hzO0Cnt3JAEK22ELGn8xA=;
+ b=TZy5myCmhLEzfhk2wEogNJpyZcw491JmT4jsXcICg/75egQ66DtnpthCdnWkgiBpg5CNj8/smC26Yb5ZUUXS8yTZY7oW6NY5ruL+EkkFBGVIqNZ3QXvEjGzLA/6H8RwYBmcYrN/wlvyj4gjS5lHn45AQrnoXpJGzYLafdlsklwsEScb0r/MIGqqbe+BoSI2fUAeI8NN8AENXi3pshte5S7B528F5fYE3Pg6MgsoVw2cWq4Zan3YDWalC5Op7Jd6C8WP+b8jAXeCdjkTCCkSsZy3EdR4li02r0yAuWDhBhVNaY30vE1ljjIHZUyHaqvyPQTOnJ4U2FaDVYg38J7I3tA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by SA1PR03MB6593.namprd03.prod.outlook.com (2603:10b6:806:1c8::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Wed, 24 Jun
+ 2026 06:22:04 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0139.018; Wed, 24 Jun 2026
+ 06:22:04 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: dinguyen@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] arm64: dts: socfpga: Enable SMMU and add DMA coherency for XGMAC
+Date: Tue, 23 Jun 2026 23:22:01 -0700
+Message-ID: <20260624062203.12221-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR05CA0115.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::30) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|SA1PR03MB6593:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2445646a-8ab2-4072-bdfa-08ded1b8e8f4
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|18002099003|55112099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	GTmTBUMliA6GqOIDinOcUyaotTmneFoDOZ/Y3DBzF6Z7rOixmV9kh04WXxbvASBUYUUfuetkAx1uCwoh5PA2zljN37ToT49SBv9M5Gvs9tCgFA6mF1Iz+GW6Fgrq+RM9EhkNACeqJLZHcbqVreSO1+eio3uNEpmXktseB+fMKbX7L6txacErQ+xawCl/HnUD9xZJUbxcIanH8/x8NRhLQEzUI1Jx4Y9/v/UnDznAuDGNk3kWsWhjHL4Wm1A6XdEz+O47ny6Zq6tm4TBHqXRo0HMKWr0USWGa9U+ACqeYZ5HT/VkoAWaxE55nWMku8gJrHu0U9jLEQ6vxg+i9+XE3JSwT9uNzuXqFZ49I5Tw8r4163eSgLLN8a2EIc6axc+YdZkqe4s2efagzI6t05AjCrRFIRCkyeELQjVwaGg1d0xPyYWMi+5MmFMrVlU24nJWVNI4HB5VrVk6bAor3hGejBpQw39RGlvMSwSwEUg3P6XQ3w0vAestjdy5ZTzEhMoLi3tzeEb8TGkiZtd31XZR4MhB4tlOqBwrD/W942n9tyJcfyoICcyDnbJBMoK9f1wVcAzQHEpuOie+8eCIE2rdBOd5dQJrQ1Io4nKa8FNZFVgJ0OvCgSJ5CZtGdPrfVhlzEAz7HFZTPwkaNYYT0kTFF9cSRCwOw+37Pa1lVwGvLftg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(55112099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dQB33tNTDsHaQE6iT9NshYygSLXwSUnN4IhExyM2Guu5Ku9x2BwCIZ6IXhp2?=
+ =?us-ascii?Q?4mFa+9QtecvzQQvzy+ZxC/VQR3GXyWZ4qzKX/pgVKGKWg3z8GhNrjJIG78mj?=
+ =?us-ascii?Q?ufdd7ZDitnKVyP0zmIXXODK2fSlMRrxX0vlOYA9s3Ctn1HRV4XNovO7UyoXt?=
+ =?us-ascii?Q?1AeyDo9tVllNOrIjIYmPstUSZMtdFkq11I940HmKrp6fR1Y9A4c3zUjSXoWT?=
+ =?us-ascii?Q?wVXimvBxCUDYjHPKitVdHmui8DpYYPEOBCH7rgNA1C3PXpkVi8DdUuIapjvK?=
+ =?us-ascii?Q?BLWRYwoQ0kzk4urXeLsibGFaK6SRShVHgq4hoHqQECBOuayAxg1ULCSeNmJp?=
+ =?us-ascii?Q?amjRYKWQmPSAAcf7rZv4UFyeFvLB/aLFEhoRZpuaqgqu1wei5SxkpnTiV/ow?=
+ =?us-ascii?Q?Tv8ETb7BGzB04ECABsJQSpjwd2mDrh5CH1hJHm16W5Bk+KRjB5CBwGwaeHvm?=
+ =?us-ascii?Q?L6iG0zwI3JbJgUCx+sQuqar/e6Y7/L6Hy39LqRT+nDtKssK5wkT0bpBpU8Ty?=
+ =?us-ascii?Q?8WuFzbyJkujkplEf0Cj1uNPyNPYYBbOlHwXAlsCcHZS/vsTgeKjIwLmZT0BC?=
+ =?us-ascii?Q?0IOcsNPkb/ihr2GEQ4FvNefKlKUjnl/XrMg85aiJxG2UsNPr0FTQh0bRSgag?=
+ =?us-ascii?Q?kIfTTzhZLNrOGYlFgo0VmDR8j5H19buCntOmaFeT8kp9vh5Ieizmkfk4ey0h?=
+ =?us-ascii?Q?Z8pAuFIh5gOxdp2LCY1y8xj58zP3qo47vniH9fNbB9bVcs+PlFfJUmC3VdZn?=
+ =?us-ascii?Q?7eK9GUz5l+kK7KbByPZ6ftLBSRn4pc/DhEzDd+FIgFFaYuv+KsteIlYVWOMN?=
+ =?us-ascii?Q?HtPRqAf8+CgpyXmrRI/nD3G6cdr6tuDwj013RHfDB+M/q/EXemBk6CPqESmN?=
+ =?us-ascii?Q?XPbLWRr4IC2q5buqMm51MlldbpmSyzENmjlj4eI5Gl5iY4atqLY1C6ozad7C?=
+ =?us-ascii?Q?mLFXOcVrFsp+Dlf1pseeNomjlpW6GkvIGSkA7ZlrzuSZSKpeKCbuDdW9KUyd?=
+ =?us-ascii?Q?TX9CBXC4zidJ7HB0KzyuzjlkgZMdVaEcpeVrQ67NLUcJYUXBNfvkMkpEs43Y?=
+ =?us-ascii?Q?FzNsUMiwjxtOlL823sO+0meUJMHJle7pkLvMwWGaCwqSjhvoFtt+R7nVTE1v?=
+ =?us-ascii?Q?juC8YScr4qOxYqEh8E9Y451S3fOQwzOyd7kS1TTq5nt+Tl0kev5oiQ4htyBf?=
+ =?us-ascii?Q?Z1SYHXWO1oXwWMelyFZwOhFIV6FZzVj1a5przlaMlIrkak0zyS9mU9bAF0U1?=
+ =?us-ascii?Q?ZAe1FmHUbE9a4o4S6PQR+yyPQNetvnkUAeAdfx4sZvo/T8FQJ6iDnI8iZ4+l?=
+ =?us-ascii?Q?AcW/HQo0svMtAR/05UQP1kSfg3vQHI7X6BfWWvfxFZRKyJ92od6ED6hhdJoV?=
+ =?us-ascii?Q?tUlLu+6HleTn33PuVIOADnZUwj7j8354yGf2tJ4bTi9+IL+3oVrTQyDeC+As?=
+ =?us-ascii?Q?JS4x0sInVwpjLN5S7CgYqh2YVGX/CjU9GZIRvm9dOpDktVaxUXLv8hxgoAPe?=
+ =?us-ascii?Q?QXZZLgoDiW9Z9a6fXhNVylMD5XcMYH2lvFIuHgpimllnZCEBf0TLpCFjq6ao?=
+ =?us-ascii?Q?TbXD4C9qwf9Ko5VO2QNkJ2WTMedLcpc3whJ2sKTW/hYup3QYZ63QJbNB1+k0?=
+ =?us-ascii?Q?Yywd4YbP47PqVvUBDo4pls5vx1aXhBS3KeQ3yE3sUUs5ljfzLr9/RtAbglW1?=
+ =?us-ascii?Q?h5HmoZqMxtNb9q8gll+hHtBUMUkgG331fXA0xpUQDKTWQ++LFfCHfbYZPv6j?=
+ =?us-ascii?Q?pAikru9cvDyIi+dALbowWxM9HRQ5huxol0fQXVKsA2LeIYmHlS3bmvF6lY7z?=
+X-MS-Exchange-AntiSpam-MessageData-1: g9Yzxbj3i3k0+g==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2445646a-8ab2-4072-bdfa-08ded1b8e8f4
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 06:22:04.7160
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DAMjPbX4CQO32+zRNYk6Dtc+jS/q/grJHJe6ws87HyZde9oYkMawal0K00s+Fq3NwVwumVq8F5krs+ZfQeJjHGWwASYfaRqY4crj9wIj1T9iqSOmT2sw6xa0Pt035xdmna+ZS/AF8f9w6AVnH0rZrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6593
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing VGIC maintenance interrupt breaks KVM virtualization suppo=
-rt.
-- [Medium] Invalid properties in static `reserved-memory` nodes (ATF and se=
-rvice buffers).
-- [Medium] Missing CPU capacity properties for heterogeneous ARMv9 scheduli=
-ng.
---
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-commit aab0b211863fe0abf5dfd65b45d11637ecf3a3d5
-Author: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+This series enables the SMMU and adds DMA coherency support for the
+XGMAC nodes across the affected board device trees.
 
-arm64: dts: socfpga: agilex72: Add initial device tree
+Patch 1 enables the SMMU for the SoCFPGA board device trees where it
+was missing. The SoC uses a different memory-mapped base address for
+its peripherals, which requires the SMMU to be active so that the
+Secure Device Manager (SDM) can correctly access those regions through
+address translation.
 
-This commit introduces the initial device tree support for the Intel
-SoCFPGA Agilex72 platform, including the SoC DTSI and the SoCDK board
-DTS.
+Patch 2 adds the dma-coherent property to the XGMAC nodes. The SMMU
+is enabled and transactions going through it are cache coherent.
+Adding dma-coherent prevents redundant cache flush/invalidate
+operations and potential stale data issues.
 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi b/arch/arm64=
-/boot/dts/intel/socfpga_agilex72.dtsi
-> new file mode 100644
-> index 0000000000000..2a4ad4130f37e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi
-> @@ -0,0 +1,128 @@
-[ ... ]
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
-> +
-> +		atf_reserved: atf@80000000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x80000000 0x0 0x100000>;
-> +			alignment =3D <0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		service_reserved: svcbuffer@80100000 {
-> +			compatible =3D "shared-dma-pool";
-> +			reg =3D <0x0 0x80100000 0x0 0xf00000>;
-> +			alignment =3D <0x1000>;
-> +			no-map;
-> +		};
-> +	};
+Changes in v4:
+- Remove status = "disabled" instead of setting status = "okay", as nodes
+  without a status property are enabled by default
 
-[Severity: Medium]
-Is it intentional to expose the Arm Trusted Firmware secure memory region
-as a shared DMA pool? The compatible =3D "shared-dma-pool" property here co=
-uld
-expose secure EL3 memory as a Linux DMA pool, which could trigger a fatal
-secure monitor abort if a driver attempts to attach and access it.
+Changes in v3:
+- Fix commit header to follow subsystem naming convention (patches 1 and 2)
+- Remove commit body line that restated the subject
+- Clarify which file had the SMMU disabled
 
-Also, both the atf_reserved and service_reserved nodes define a static
-physical address using the reg property, but they also include the alignment
-property. Does this violate the devicetree schema? The reserved-memory.yaml
-schema dictates that alignment is strictly for dynamically placed allocatio=
-ns
-and is mutually exclusive with reg.
+Changes in v2:
+- Move SMMU enable into the base DTSI file instead of individual DTS files
+- Move dma-coherent property into the base DTSI file instead of individual DTS files
+- Improve commit messages and cover letter descriptions with more context on why the changes are needed
 
-[ ... ]
-> +	cpus {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible =3D "arm,cortex-a520";
-> +			device_type =3D "cpu";
-> +			enable-method =3D "psci";
-> +			reg =3D <0x0>;
-> +		};
-[ ... ]
-> +		cpu2: cpu@200 {
-> +			compatible =3D "arm,cortex-a720";
-> +			device_type =3D "cpu";
-> +			enable-method =3D "psci";
-> +			reg =3D <0x200>;
-> +		};
+Nazim Amirul (2):
+  arm64: dts: socfpga: agilex5: Enable the SMMU
+  arm64: dts: socfpga: agilex5: Add dma-coherent to XGMAC nodes
 
-[Severity: Medium]
-Since the Agilex72 features a heterogeneous cluster with Cortex-A520
-and Cortex-A720 cores, does this cpus node need capacity-dmips-mhz
-properties?=20
+ arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Without these properties or an active OPP table, the Energy Aware Scheduling
-(EAS) subsystem cannot discover the relative compute capacities, and might
-assume all cores are identical. This could cause heavy workloads to be
-scheduled suboptimally on the slower A520 cores.
+-- 
+2.43.7
 
-[ ... ]
-> +	intc: interrupt-controller@7000000 {
-> +		compatible =3D "arm,gic-v3";
-> +		reg =3D <0x0 0x7000000 0x0 0x10000>,
-> +		      <0x0 0x7080000 0x0 0x100000>;
-> +		ranges;
-> +		#interrupt-cells =3D <3>;
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		interrupt-controller;
-
-[Severity: High]
-Is the VGIC maintenance interrupt missing from this node?=20
-
-KVM relies on this interrupt (typically GIC_PPI 9) to populate gic_v3_kvm_i=
-nfo
-during the GICv3 driver initialization in drivers/irqchip/irq-gic-v3.c.
-Without it, the driver skips VGIC setup, which leaves hardware virtualizati=
-on
-support broken on this platform.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624055644.7508=
--1-muhammad.nazim.amirul.nazle.asmade@altera.com?part=3D2
