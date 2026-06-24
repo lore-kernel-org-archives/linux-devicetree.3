@@ -1,114 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88F83932FF
-	for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 09:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DD73A7F55;
+	Wed, 24 Jun 2026 09:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782291891; cv=none; b=ZJO22M6o6Q2jW4d+kbz785RIdF0Q5Og/zjDvK0tOJDPuHIgP2Y8yw8oOZa28wbXtNKqtCqtMzSgxF6VHrXZRNGB+U8b6XSMvjN6ggvE+KK3WH62C0stJBK8qXqfH+67q66fXj8B2w+i87vQ3oApeS1mf9hmuBs5rH/QoOJIsdT8=
+	t=1782293081; cv=none; b=OWbV9j+baA6OL2x7EpxD83eAdo+YVsqtDxT0GcQ5HrlV0avIUaemkxk8LREPB1vsCboEnEb91qDsEgXdUIw7oBXRA4kSFKML8SGKXNPxxiYbg0kH69wDcBmDcEutpvDNgq+Dy9Qi6X4z/DFj6yolJMRpeRnT+a+xiCXYAP7WbiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782291891; c=relaxed/simple;
-	bh=3IBXieE6nSiPVvEaUlYCgUt5JohOj0H1wDEnxWROQTQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lmMpM0Lo5yE7oZZoW5Stn/XBW8+EL3Gfiz6h12juzcpd8/eVrUtg33wYiBBy+DDFSHeV+imW7r38yyUO0XqPXxfFs4lQ4pYES4oqe3FAfYhukMCbgfKGLcpHVwUMY2eB3gaChfA/atMySnnlmL83vJB5RD3MOXwY/U8FoaEBb3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdsFFTp/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782293081; c=relaxed/simple;
+	bh=MFjA3WhzCrsuNv2nkLYU79xT7ULqQWyScaQQ04uE/IA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pn0ypKl+beJUPOqSiGCiyO5lMFSDE20rPgjjX7GCqWFRRDGRQgUsE2ymBIaysrhXuUxHBBpanj/rhqkwWd9yksO+CIeA93Ik8Kb3kLQ7IXAy5CVWc0aUe936uOHoJaUZ8DMxwzDk0hHkRF7KL0XE6HUGrNji91Zz4ptAQSYg9JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=zJqFV6vL; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdsFFTp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423F21F000E9;
-	Wed, 24 Jun 2026 09:04:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782291890;
-	bh=ltcEPjzV94rgUWdiJZzsLfZop8HCYB8ZSPfZjlC2Fa4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UdsFFTp/DWKDvZzGBG6yqQcjqwWjAxobDbHaxgj2Rz/X1cMOfN1SvSFL/O5aaWTEi
-	 S15my4JwYmGURLVkICszZ3YOGXdd4X+pYBvoW2Gm9M3sh3P0ZB2Muwp2OhMnNdNvDi
-	 gWZY8MwPHlp66KjdaOlhSVHxjofT1ZCo6nDMW5/3Pbsd14KkwPQscwE9Bp9YqpwOgf
-	 3ALk+ty8Vvb1a5jnYPq3CwtxT6V9AIMmdLty37VaQq4ilqII9Nhqiamwo+Dhjot6Gl
-	 8AWHOoitSCo+3VMGH2QncyBUlHEXvHFp7525/TlBa/eRCA+cDnh0/lRRGCnlAJFwYE
-	 I2SCOwOhWTxOQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] drm/panel: add Ilitek ILI7807S panel driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arpit Saini" <arpit.saini@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
-References: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
- <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 09:04:49 +0000
-Message-Id: <20260624090450.423F21F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="zJqFV6vL"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id ABE3220078;
+	Wed, 24 Jun 2026 11:24:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1782293066;
+	bh=pmBkesNmuLNvUJn5rrwSRud7R4UXCLNjjmtNsb00ATk=; h=From:To:Subject;
+	b=zJqFV6vLGI/4MsUw1JuuF4VfY0/aHTgm4za771PD3OyLAKzSgRzGvVU2RNdTj8sP+
+	 8uaVnVdzFPvCezbAT5qoztkC+sL0fFwOtiAcNUgr52XroELvyObJd8dAIHpUVbRJVE
+	 kowxnSJ2rZ3lawvQdt44T2ggJsI65W6QSSf92GTji6GK9bdLtnt9aYwzebIVu3XmZc
+	 l0r9YpmxixJw38js4ET5+rRA4EvvonMPnlwBTdMXmf4L3JOkVDc+jFjukeV9PBQsHj
+	 w+QevUTrn7Avtb5kV8OCem2WNOVbdGitwRlQYgKpaxTeRv8bqMB7No018XI3K+O0Pp
+	 D1kV7z4BCdebg==
+Date: Wed, 24 Jun 2026 11:24:20 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Leonardo Costa <leoreis.costa@gmail.com>
+Cc: laurent.pinchart@ideasonboard.com, neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com,
+	sam@ravnborg.org, leonardo.costa@toradex.com,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add Toradex
+ Capacitive Touch Display 10.1" LVDS
+Message-ID: <20260624092420.GA10665@francesco-nb>
+References: <20260623195741.495734-1-leoreis.costa@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect and non-atomic modification of `dsi->mode_flags` permane=
-ntly enables Low Power Mode and introduces a data race.
-- [High] Backlight `update_status` sends DSI commands without verifying tha=
-t the panel is powered on, risking DSI host timeouts.
---
+On Tue, Jun 23, 2026 at 04:57:36PM -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
+> 
+> This series adds device tree overlays for Toradex Capacitive 
+> Touch Display 10.1" LVDS V2 on Verdin AM62.
+> 
+> The display addition covers two interface types:
+> 
+> - Native OLDI (LVDS)
+> - DSI-to-LVDS adapter based on the SN65DSI84
+> 
+> The Opto Logic vendor prefix and panel binding for the SCX1001511GGC49 is
+> also added.
 
-commit 2f966f15c21adb82ce5699cdffad22cac6628b98
-Author: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-drm/panel: add Ilitek ILI7807S panel driver
-   =20
-Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
-panel based on the Ilitek ILI7807S display controller.
-
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili7807s.c
-> new file mode 100644
-> index 0000000000000..8ddfab2693ec8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-
-[ ... ]
-
-> +static int ili7807s_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-
-[Severity: High]
-Does this code send DSI commands without verifying if the panel is powered =
-on?
-
-If the panel regulators are disabled and reset is asserted via
-ili7807s_unprepare(), attempting to communicate with it here during a sysfs
-backlight update could result in DSI host bus timeouts or hardware lockups.
-
-Should there be a check against a power state tracking flag before
-sending the DCS command?
-
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-
-[Severity: High]
-Does unconditionally setting MIPI_DSI_MODE_LPM here permanently alter the
-panel's base operating state?
-
-Since the mode_flags are modified without synchronization with DRM modeset
-paths (like ili7807s_on() and ili7807s_off()), could this create a data
-race?
-
-Also, the logic clears the flag before the transaction and unconditionally
-sets it afterwards, leaving Low Power Mode permanently enabled for
-subsequent DSI transmissions.
-
-> +
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260624-ili7807s-v=
-3-0-ddf37052a289@oss.qualcomm.com?part=3D2
