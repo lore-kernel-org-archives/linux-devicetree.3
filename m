@@ -1,189 +1,265 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2431AA797
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 16:17:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F1E35BDA4;
+	Thu, 25 Jun 2026 16:19:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782404227; cv=none; b=o9CBPj7mUtE+X2RStkx9v6OQ6kU3rx81hMy+LgSKOfVymv/vOh/kBkbvLQBW5fQgG979sVploInf8TUTzhhAJOLR7jHv6Kmf5sG0q44l/5B5O/g1jhJDApL1GAvRfblQvq5UBVoT7n9xJZ0LN39iA/Nx2A9rhhwG/pvQTjtKExs=
+	t=1782404379; cv=none; b=CNUMgTsJMp82y2L1ouUhUcWujLJzbYhfg/oNn86hk6TKHknyW952PPp0tjUK3lbiI+AW5wWcxU7pnHdRY8G36ew9zOz8CgmidEpSpAuKr6xTLMxkWEjUtB96bTbPHOWuBT4rWcYJNH1EOdHVlPc3/XaT+7wpfWLMB9ZWtrzqf6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782404227; c=relaxed/simple;
-	bh=rCW7cZhJReqwEYxK4wJYCEc4cm67YJxJ4EXDlg94ls8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SCvOf6ysbOvgBLBmb+3qMARa/VG0JBKMn9fI9KYxJs++nVS7OunpfKJ1c5sTxx5tE5NUo+6dndDib9v3Dn5vslsRaz97kdeBJ4DcetIfr+IhBuLQRvAUdIHoJP4iZ0PILzGNMzYpn5p78Xeu0odP0f1aHGNwrIMOnDfK/Ase9Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcwZosO9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782404379; c=relaxed/simple;
+	bh=qG1LzwDqL57cV5rkC2sruMzkCxUQSr9mlL1EhPq5ZRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HHvDI7njengArvdy0rCqKd3QLwE17Hn6uwOjzBOXVentZ2C1E0kmVKaWJQTRl0EFTyPD9fcKXxwrhW8PZPaLENJ8BU9uPulhemCU1botLkKSesVPYbzLWA5A5/kiOdxSce3UyD41fLauubuFE+spJhH1ODeZH6/wddkJyDHxUjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtWTdtpB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcwZosO9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1436B1F000E9;
-	Thu, 25 Jun 2026 16:17:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtWTdtpB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC171F000E9;
+	Thu, 25 Jun 2026 16:19:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782404226;
-	bh=JYaBrgg5R86cV/a7zRuKKZSNmILFwlIFAeYeP9cT2nM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gcwZosO9pawf6jNnAcZIGe5fGFCEuaxHLgapBA8v4PgU1gfnZwqlN3oMwqoOgabgR
-	 GIPqd0TcSg1Gw2mbidIfHdD4NT6ycO9+l2J70YJomZ9N/N6r2yCDvEueDKyRJqxz0O
-	 Z0St2Rid95DFnxRTmyeN99RYsvDDdo1vSG/POo8g2LLN6DTI6ytnpIrdWCZLoNNUKi
-	 aK+xPzayu3PbnwC3jz+Qz5MuZT+2Wc/vdeIk53iayPr/XaGTdt5GRSZEzLAAh/hnUq
-	 rVmMbAWXsiOvc5TQXHbicyJvjMyKYMx0mEWFxupZ0h/6OV9TOdk1u6nOv7lrYt6z7W
-	 DeyHSbKafTxnQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: ti: Add support for the phyCORE-AM67x
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nathan Morrisson" <nmorrisson@phytec.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260625160214.4001298-2-nmorrisson@phytec.com>
-References: <20260625160214.4001298-1-nmorrisson@phytec.com>
- <20260625160214.4001298-2-nmorrisson@phytec.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 16:17:05 +0000
-Message-Id: <20260625161706.1436B1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782404377;
+	bh=7YcMVVY3Ngo1QA2QA4VNeE39obuNmOZ0bZLp0deFa4Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GtWTdtpBtJaqqhntdx94UBquSGkQICKW/35LtX6FCenrEFQOyrhP84qGQESOlDQMt
+	 Z9LIvY5aXOX6SoaXq+xSAzSJD5sFsuPQEa1y6fVPdQJSFUMo7/orxM5U2/YWwXt6M9
+	 CpCNjZIw8p27gyJJtmV+DODPhEK+LlamOOUcQIT5Xtp4bjswlX3r7gYwJAnmM9ud/B
+	 4zUYWLNSXP2DM4cGiVm89nf7zweBbJS1rksQ1qj9fTKrAKhZ0SUb/3yUqGQKeQPrle
+	 tiMGmj9jRNQbb7eqYg+G/2mRp2ndZM6+jqbLXLHxlRvW3NweSnGfDA1sJZDs+YnhYq
+	 syY9nXn1Ozf9A==
+Date: Thu, 25 Jun 2026 17:19:28 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Drew Fustini <fustini@kernel.org>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 7/8] dt-bindings: riscv: Add generic CBQRI controller
+ binding
+Message-ID: <20260625-cupbearer-failing-9ce0abf97b93@spud>
+References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
+ <20260624-dfustini-atl-sc-cbqri-dt-v2-7-2f8049fd902b@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iqz6WzvFJ9B9C8aq"
+Content-Disposition: inline
+In-Reply-To: <20260624-dfustini-atl-sc-cbqri-dt-v2-7-2f8049fd902b@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The PCF8574 GPIO expanders specify `IRQ_TYPE_LEVEL_LOW`, which is =
-unsupported by the K3 GPIO controller and will cause probe failure.
-- [Medium] The `reset-gpios` for `pcie0_rc` is specified as `GPIO_ACTIVE_HI=
-GH`, which inverses the standard PCIe PERST# active-low logic.
-- [Medium] Mismatch between `mcasp1` serializer configuration and its pin m=
-ultiplexing: AXR2 is configured for RX but is not pinned out.
-- [Medium] Button 'key-menu' connected to PCF8574 uses GPIO_ACTIVE_HIGH, ca=
-using inverted logic.
-- [Low] Typo in the micbias voltage property for the `tlv320aic3110` audio =
-codec.
---
 
-commit 736b51d7a471b4b2aa4f1281a1e87be6e988051c
-Author: Nathan Morrisson <nmorrisson@phytec.com>
+--iqz6WzvFJ9B9C8aq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: ti: Add support for the phyCORE-AM67x
-
-Add support for the PHYTEC phyCORE-AM67x SoM and the corresponding
-phyBOARD-Rigel carrier board. The phyCORE-AM67x SoM uses the TI AM67x SoC
-and can come with different sizes and models of DDR, eMMC, and SPI NOR
-Flash.
-
-Link: https://www.phytec.com/product/phycore-am67x/
-Link: https://www.phytec.com/product/phyboard-am67x-development-kit/
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am6754-phyboard-rigel.dts b/arch/a=
-rm64/boot/dts/ti/k3-am6754-phyboard-rigel.dts
+On Wed, Jun 24, 2026 at 06:38:35PM -0700, Drew Fustini wrote:
+> Document the generic compatibles for capacity and bandwidth controllers
+> that implement the RISC-V CBQRI specification. The binding also
+> describes the common riscv,cbqri-rcid and riscv,cbqri-mcid properties,
+> and the optional riscv,cbqri-cache phandle that links a capacity
+> controller to the cache whose capacity it allocates.
+>=20
+> Assisted-by: Claude:claude-opus-4-8
+> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 98 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b/D=
+ocumentation/devicetree/bindings/riscv/riscv,cbqri.yaml
 > new file mode 100644
-> index 0000000000000..7853d4f5d3b95
+> index 0000000000000000000000000000000000000000..5d6be645381780e187b39e60c=
+3bb487fdf2cfb69
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am6754-phyboard-rigel.dts
-[ ... ]
-> +	keys {
-> +		compatible =3D "gpio-keys";
-> +		autorepeat;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&gpio_keys_pins_default>;
-[ ... ]
-> +		key-menu {
-> +			label =3D "menu";
-> +			linux,code =3D <KEY_MENU>;
-> +			gpios =3D <&gpio_exp1 4 GPIO_ACTIVE_HIGH>;
+> +++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+> @@ -0,0 +1,97 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/riscv/riscv,cbqri.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: RISC-V Capacity and Bandwidth QoS Register Interface (CBQRI) cont=
+roller
+> +
+> +description: |
+> +  The RISC-V CBQRI specification defines capacity-controller and
+> +  bandwidth-controller register blocks that allocate cache capacity and =
+memory
+> +  bandwidth to resource-control IDs (RCIDs) and monitor usage per
+> +  monitoring-counter ID (MCID):
+> +  https://github.com/riscv-non-isa/riscv-cbqri/blob/main/riscv-cbqri.pdf
+> +
+> +  Allocation and monitoring share one register block, and a controller m=
+ay
+> +  implement either or both. A driver discovers which at runtime from the
+> +  capabilities register, so the compatible names only the controller typ=
+e. It
+> +  does not distinguish allocation-only, monitoring-only or combined
+> +  controllers, and no property declares monitoring support.
+> +
+> +maintainers:
+> +  - Drew Fustini <fustini@kernel.org>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - description: Tenstorrent Ascalon Shared Cache
+> +            const: tenstorrent,ascalon-sc-cbqri
+> +          - const: riscv,cbqri-capacity-controller
+> +      - enum:
+> +          - riscv,cbqri-capacity-controller
+> +          - riscv,cbqri-bandwidth-controller
 
-[Severity: Medium]
-Does this configuration cause the button to register as permanently pressed?
+Please modify this, as has been done for other riscv spec related
+bindings, to let people get away without using device-specific
+compatibles.
 
-The key-menu button is connected to gpio_exp1, which is a PCF8574 expander.=
-=20
-These pins have internal weak pull-ups, meaning their default resting state=
-=20
-is HIGH, and buttons typically pull them to GND (LOW). Specifying=20
-GPIO_ACTIVE_HIGH inverses the logical state unless a strong external=20
-pull-down resistor is present.
+In this case, you can just delete the first entry from this enum, since
+it already has a user and only have to implement this feedback for the
+second entry.
 
-> +		};
-> +	};
-[ ... ]
-> +&main_pmx0 {
-[ ... ]
-> +	main_mcasp1_pins_default: main-mcasp1-default-pins {
-> +		pinctrl-single,pins =3D <
-> +			J722S_IOPAD(0x0090, PIN_INPUT, 2)	/* (P27) GPMC0_BE0n_CLE.MCASP1_ACLK=
-X */
-> +			J722S_IOPAD(0x0098, PIN_INPUT, 2)	/* (V21) GPMC0_WAIT0.MCASP1_AFSX */
-> +			J722S_IOPAD(0x008c, PIN_OUTPUT, 2)	/* (N23) GPMC0_WEn.MCASP1_AXR0 */
-> +		>;
-> +	};
+pw-bot: changes-requested
 
-[Severity: Medium]
-Will audio capture on the mcasp1 interface fail here because the data pin
-is not connected?
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      The CBQRI controller register block.
+> +
+> +  riscv,cbqri-rcid:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The maximum number of RCIDs the controller supports. RCIDs are the
+> +      resource-control IDs that allocation operations target.
+> +
+> +  riscv,cbqri-mcid:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description:
+> +      The maximum number of MCIDs the controller supports. MCIDs are the
+> +      monitoring-counter IDs that usage-monitoring operations target. Pr=
+esent
+> +      on controllers that implement monitoring.
+> +
+> +  riscv,cbqri-cache:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the cache node whose capacity this controller allocates.
+> +      Applies to capacity controllers that back a CPU cache. The cache l=
+evel
+> +      and the harts sharing it are taken from that node's cache topology.
 
-The mcasp1 node below configures serial-dir index 2 to RX, enabling
-MCASP1_AXR2. However, the corresponding pin configuration for MCASP1_AXR2
-is missing from main_mcasp1_pins_default. The pin remains in its default
-state, meaning the controller receives no data.
+Architecturally, is it impossible for a capacity controller to control
+more than one cache?
 
-[ ... ]
-> +&main_i2c1 {
-[ ... ]
-> +	audio_codec: audio-codec@18 {
-> +		compatible =3D "ti,tlv320aic3110";
-> +		reg =3D <0x18>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&audio_ext_refclk1_pins_default>;
-> +		#sound-dai-cells =3D <0>;
-> +		ai3xx-micbias-vg =3D <2>;
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: tenstorrent,ascalon-sc-cbqri
+> +    then:
+> +      required:
+> +        - riscv,cbqri-rcid
+> +        - riscv,cbqri-cache
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    l2_cache: l2-cache {
+> +        compatible =3D "cache";
+> +        cache-level =3D <2>;
+> +        cache-unified;
+> +        cache-size =3D <0xc00000>;
+> +        cache-sets =3D <512>;
+> +        cache-block-size =3D <64>;
+> +    };
+> +
+> +    cache-controller@a21a00c0 {
+> +        compatible =3D "tenstorrent,ascalon-sc-cbqri",
+> +                     "riscv,cbqri-capacity-controller";
 
-[Severity: Low]
-Is there a typo in the micbias voltage property name?
+Is this or is this not a cache controller?
+The compatible and fact that the property points to an actual cache
+controller suggests that this is not.
 
-The ti,tlv320aic3110 codec driver expects the property ai31xx-micbias-vg.
-Using ai3xx-micbias-vg causes the driver to ignore this configuration and
-fall back to the default 2.0V bias, which could cause incorrect microphone
-gain or distortion.
+Cheers,
+Conor.
 
-> +		reset-gpios =3D <&gpio_exp1 7 GPIO_ACTIVE_LOW>;
-[ ... ]
-> +	gpio_exp0: gpio@20 {
-> +		compatible =3D "nxp,pcf8574";
-> +		reg =3D <0x20>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&gpio_exp0_int_pins_default>;
-> +		interrupt-parent =3D <&main_gpio0>;
-> +		interrupts =3D <21 IRQ_TYPE_LEVEL_LOW>;
+> +        reg =3D <0xa21a00c0 0xf40>;
+> +        riscv,cbqri-rcid =3D <16>;
+> +        riscv,cbqri-cache =3D <&l2_cache>;
+> +    };
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9e1092165046c773771b055869030bc1bdb64b16..64a95a4d795a57033d3f36200=
+d98cfb4a013ab94 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23298,6 +23298,7 @@ M:	Drew Fustini <fustini@kernel.org>
+>  R:	yunhui cui <cuiyunhui@bytedance.com>
+>  L:	linux-riscv@lists.infradead.org
+>  S:	Supported
+> +F:	Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
+>  F:	arch/riscv/include/asm/qos.h
+>  F:	arch/riscv/include/asm/resctrl.h
+>  F:	arch/riscv/kernel/qos.c
+>=20
+> --=20
+> 2.34.1
+>=20
 
-[Severity: High]
-Will this expander fail to probe due to an unsupported interrupt type?
+--iqz6WzvFJ9B9C8aq
+Content-Type: application/pgp-signature; name=signature.asc
 
-The K3 GPIO controller driver (gpio-davinci.c) strictly supports only
-edge-triggered interrupts and returns -EINVAL for level types in its
-irq_set_type callback. This would prevent the expanders and all attached
-devices from probing.
+-----BEGIN PGP SIGNATURE-----
 
-> +		gpio-line-names =3D "CSI3_STROBE", "CSI3_TRIGGER",
-[ ... ]
-> +&pcie0_rc {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&main_pcie_pins_default>;
-> +	num-lanes =3D <1>;
-> +	phys =3D <&serdes1_pcie_link>;
-> +	phy-names =3D "pcie-phy";
-> +	reset-gpios =3D <&main_gpio0 31 GPIO_ACTIVE_HIGH>;
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1VEAAKCRB4tDGHoIJi
+0lXeAP4nYfY2HRKImG27gD+aSFjrJ2tV6sAdxhmJWyh1+AnCrAEAk6PNQ5SjX5nW
+VK2mq7VQ+4K/2o7w6hvbd2oKNvn30ww=
+=ZHZW
+-----END PGP SIGNATURE-----
 
-[Severity: Medium]
-Could this cause the PCIe endpoint to fail enumeration by keeping the
-reset line asserted?
-
-The standard PCIe PERST# signal is active-low. Specifying GPIO_ACTIVE_HIGH
-causes the host controller to invert this logic, driving the line high when
-it intends to assert reset, and low when it releases it. Unless the board
-has a physical inverter on this line, the endpoint will remain in reset.
-
-> +	status =3D "okay";
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625160214.4001=
-298-1-nmorrisson@phytec.com?part=3D2
+--iqz6WzvFJ9B9C8aq--
