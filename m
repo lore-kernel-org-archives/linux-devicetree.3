@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A079381B0D
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4083C38423D
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782377061; cv=none; b=gtzdWFObZcNO0WCtWzk6ybMhXEbJDzE3CFVdSzWvQMJzDU+BYMsmr2HOEvRs74nlrJyBBCi0ifmLU0LVNKRo9Dk8DT+NO+c4bWGasOLLCYvZh8E494MN7TAs1uZiBSI/cDGYG3WueaTP6PByZha5gCvTez3w2phu4dvPDltvPio=
+	t=1782377234; cv=none; b=fHPbrKYWqNTUInRUA4HqckWIKXk29Kos8UjXBl8kj74ODV9QD+e+2YwdMZwCRdEVaWvkBeey2xOSIdnTlP0BxvGf/eIfT++vv0woQ0tZWD7wHCH3MeJz1fjlY216Lox4M8vV/FegmHud4JvYmwsrK1Nbghw4avqPfoI9JjSxD8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782377061; c=relaxed/simple;
-	bh=7eg0kdEPuCmjJDnFXk124Q9nn/0D+ctFDpFo7bCDmrI=;
+	s=arc-20240116; t=1782377234; c=relaxed/simple;
+	bh=YfRm1dMc4bpEJ3h6zXF9W+esguXRxP5DncHgBWv5vVM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HAwHuiCstgu6pAcdy8t/hNlXom1igB5KXyCK6gu3XrJ+oIdC3kFAiuf2qd9O+IR969DGzAJdsHj1T6JlDfkwRjbRC2wEH8pYlBgCxPSm3QVyI54VzYtDc0WIhF4bXEoLo5v8G7YXxuuy7C5G55bqAoA372PclfPdrtykD28lvI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L2uRnliV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=isduX9wZ; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=nua5oK8bz5auJmc6bjFNJFukJ65mBKnd5yf0aWsYoIQb9VgzQEoz8VnwhuZxpjVXCTfjFE4C46id7N6ooKCvuShnyA7tj33QfvFWU0/Xtbji6HSWDN8XZcl2dQwtkL4d7r8kURmUHEzLbJjq+pwZuxS4DuzUP1TJP5Dq6yCPtDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BfX/MfuP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cmGsEimM; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L2uRnliV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="isduX9wZ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P3eLPG904900
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:44:19 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BfX/MfuP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cmGsEimM"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P3e1Y5639919
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:47:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QODe9BtwCwyVTZaeScSNIr/mu9BsGdO2HvYWlim1hPs=; b=L2uRnliV82mooo7h
-	2k6+ekR3mQL3OAZuan726AC7yRiLCQfn24Spz/22SIHsoUqy1zV4tlm9QTtbi0sc
-	lpSiP3LgyxGf0FgpAcrtpdGdP6vhjvYpRWqNQX1QRpX9tH7k3ZXvC+9ts5RhKs7m
-	eu7RGRseIRvxrB6t8Aoxzb/kYm4nSJ+z3JrgHIHxcJrF/7DAZZx/EpXFEa03n0N9
-	syEM6fmTHHVCN9knwDqp+JEZj/OlqoSi4jaevmufAZ6KK4mM0xwoWH6UoDNaopWV
-	ERi/MP605MJpWinslDW0JKAZeNMT0l4UN5/6IwbtyTPBkgZOJpPz309tn7EwQvw+
-	3Czl7w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0j7dueta-1
+	MIZ+Uqqvmj3NIegJ7KZAdRkOcTSWSNArKesrmTVP7Cg=; b=BfX/MfuPWOPJJyxT
+	YOTO6nsCRHX+zeMD6KtqzRyVyGCRUJ4TQKzNQrLPCmnLBHUuht8vCtHHpc4L0rpU
+	vf1QKuwZWrxLyzixIewYgd2CP5b3mtrE3qreJKbhQBi07drl0je6K/U4TjL58bNv
+	j5lrRbL7sAZIDKO+NGENnCBeMS23PkAjP724b1jyX4imrgP0JaWK/+hmJwO/0NUu
+	YyCBgFCWp+BVEdOaWC/6ff+JZIoslZ/GB9xTv3exeirjLWB6ak+/IIz2gpZt64ad
+	KPjiBmwcIRkO2lDOkaBCSE4Q7NGEUrilla5eOvUhRIRZ1+6NrdWrx6P11VMnxjRK
+	Fs+m7w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0mjbtten-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:44:18 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-920d6f3c2b8so15627885a.0
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 01:44:18 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:47:11 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92585d4237dso22037785a.3
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 01:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782377058; x=1782981858; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1782377231; x=1782982031; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QODe9BtwCwyVTZaeScSNIr/mu9BsGdO2HvYWlim1hPs=;
-        b=isduX9wZYBwxxTdJ0d9dmOSTYnRCC9msjUX2cie8b1YaY9jlNCrUz7cIErgA4T4x7j
-         BMBpEe3uN5QjFWex9LfbtlpUHNgsC61rVGWOU8NBqKgcz4Z3oVoCt8XkR7/HeKtBfhrE
-         KyrY5iUm0qRJNH/4MdD2P47pFyDAOzmBcee1VSDYZhyzt9boYbEBFlQZCcOHrmImUIPi
-         sP8Df0yrSHrFJt2LJlyvB/dRtG7poLiprQ1aB4oIbSTqC1VJ9j4seL5Pton7rPo5COSd
-         DgJ1ikYydaX4kcLunlsyEaKWECz3pPRnRgeCFHoqT5KzMZJbr8WmEy1EXPpS3sCdiFDu
-         yD1Q==
+        bh=MIZ+Uqqvmj3NIegJ7KZAdRkOcTSWSNArKesrmTVP7Cg=;
+        b=cmGsEimMg2zEtJCJGi+AU25XV/SqD5NYI2nc6HQ8TKrdC4BO7rC6XI8DZNht3CVZZZ
+         JNVaIgcaf/8li0rCojQBllZq0V06PjoqCopuF0l8tvY8SB7hWxqpnngMkET9ImiJbWOf
+         7BnGAl+YJDeGmWGyuoV2tcC71HY2zo6cMGF43/D5gD58NtKjf/yczz6wFoxZ1Xng5E2U
+         16SUKP2qXhnxJtPSRofuekkmqFl7Ag3m2JTZhiPS4bvxB3nlzkQc1o8ZVWdbamfgX1uF
+         kfSrxG1iGxvr8E0S1pIOUOvPX0uKO1+E1N48XxZ3dqMqiBUUNm5p316iIOMC9DSGm1aE
+         kyJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782377058; x=1782981858;
+        d=1e100.net; s=20251104; t=1782377231; x=1782982031;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QODe9BtwCwyVTZaeScSNIr/mu9BsGdO2HvYWlim1hPs=;
-        b=U8Ap0sZRJCrtuCxtW9HHh0czvaXwueUt40t5L9ilEqBvy51XTqzQUcQfqNSqTAGi/7
-         KPXxt7YToZPdFTEuyGDiyvfMzJWELiQ54vFraqeAhhTOUw0usVgyk4+sP9tFc9petHiX
-         Bf212cmC3Fca95sAiLwNoMfyVl2kDOY8Ws6YcC9w5Bumh2f4N1cfOQ8O2mlswkREOUr4
-         lWWwl1NDd0mcu6mQjKTHVyRQz4uULsEmDHRC+m3tV/vMjlhzEMePyLUMkDHugWzxfbgm
-         pSl3TcVXrOKs5VmiMwuCmEpcfhVwVnc7d/3PaJ/tFglIhJIVQhMAk7xi5tuunAmCnyOy
-         VHmQ==
-X-Forwarded-Encrypted: i=1; AFNElJ93MDq1n5K6JGaZavojhFT2//NDmh2hUktHN+xiXH7lL4BgXy4kKS8uw+sllXLsUMAmxapQtB+FZDIB@vger.kernel.org
-X-Gm-Message-State: AOJu0YydOpV+xPJc+wULMVU/hYGoeDiqnM+9SpBprtvIrzILHlIqSOg8
-	ewDS8sFNPDSKMDVqa0X+3qLMhH047AeT9I/6M+nai9715XzWfJH1QOoWk9X0IIiQA3huIGoriQC
-	i7wmCZA2NKZQgDPF6kY0QK1VXdi0cHK2Zcngrh5hAcCUSgh9Cxgay2sHcdxvMR0xm
-X-Gm-Gg: AfdE7cmTPW/aAVZsDOffDD3s/1mlHEP145f5toEwriYPUbgaxxtc/kOz42DUofpipKU
-	a2K8LQkxlaB8qGHVurFNBmPAX0oL/jVSwG9oENcL+foYAGZiEQR1j+iAQ2BnYBnKnk20NwyMHsE
-	k9Cyh74ZXDNRZ+NC91MGkl3ZeXeiFUTQmxh4Jx4LTHZqixbcOAXCbaIFyGQXYSpkzbUX9aZ2HtD
-	AmlM9wt1T3E0e/8gGM1gC/JJtAME29hTpkneWRy0VzJ+XY3208C7+QDJpkX0xnqLjaCywamknQd
-	gHDy5f3dHt2JhEeFRkaAbAvPHNiv0YJ2nPpmXTB5EM2wrkIUp+a9UgOMOyLd9X1RFRq2K5xCzTJ
-	7CUUzXoi1rHFZCRiVre3eclMMwpkGuVbf0zU=
-X-Received: by 2002:a05:620a:29d3:b0:915:54b2:582d with SMTP id af79cd13be357-9293e3c784cmr129979685a.8.1782377058143;
-        Thu, 25 Jun 2026 01:44:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:29d3:b0:915:54b2:582d with SMTP id af79cd13be357-9293e3c784cmr129976985a.8.1782377057605;
-        Thu, 25 Jun 2026 01:44:17 -0700 (PDT)
+        bh=MIZ+Uqqvmj3NIegJ7KZAdRkOcTSWSNArKesrmTVP7Cg=;
+        b=Xsn9W8ewfMV7zgFqf/2EOopDmgNGgmk1f3B/tWw9VsklY3YBZ+jq/T3co825DY67fR
+         U/Dk2wmQIvZgb2wFwaxXKCSly1XxCTm4B6bwr9cLZi+5q5ZeGQ46Hs7K9L+RbMiLYAE3
+         pWHGeEBwlDJw6WSVx2qYv161n2ZJVh7N5vzxrHZlv1/CLbY9dhjdhmUeBKIe5t9uGclF
+         U3zLkGkMnP2C5LXP3GyFtFCJP1rq2l5kRFg8tRBfPcQLDA+LmdQkB061BrS81kurgtto
+         l38mmOsVIEA1J39Sh2nSFfqkZSO622FCMm89YvhH64xgVq5bnlBisLd3tagDfxyX7445
+         Wvqg==
+X-Forwarded-Encrypted: i=1; AFNElJ9yjUzeTKX3nb+xiv9qqh33Z9PTTVhi4WEJzsMNiNe5bhB7Qp/13fT0gomIjEWXnhcs+3ckNemnCHMI@vger.kernel.org
+X-Gm-Message-State: AOJu0YwT8hk8mx4WQqdy4Fj4poiLD7ynRiW2NKG2BqFhNFVftifFZfnt
+	vUPX2RVKXRW/UOJCeD7zoNIZjBXy47fHgrnOS1PceOYZbzF6MxO1F0QYZDjPUUnA/OyE+Dwzpit
+	MkaPM/DCSGOLgb7/XjAR9LM22RsjTCHNkbHHe2l8XV53ZNvR881O/JNSV0YSE4HB9
+X-Gm-Gg: AfdE7cmNXRc+sO7y2Dzik3YphqkT8YGVUN61DFDxUnsUvyqiqjZXFzyEvF8g1w1yOp8
+	QMNCO2NTng9pbbvofT6gWv9/xqavvNPojeE+w6jjXISDWUe1e5lab7hmbo5iH8GqjINDgfwWMDE
+	cOG71wvaNUWS2OXHJgCUySueTa0FTqmAMa5ak2X9Cqf+gvwBUprTgkrYVaVoR/3iZ+vi908LptX
+	uWYGZl1zvOu3+XrqPKHRE8Ckfs1ZO/InzVcPICH4ewDVqdWq8KIvAQ6xjOlkR68mcRdCNkR6mD1
+	D9W+8N0t6EncpKconEW1nq/no+AKYY0Jxm3JJGyXkW/R+gSEisDDA4Hs0uoVfX29DxrPt5C9CbN
+	+N93C4yjr5d2DrGtmLoOpzdbEKfdl9wBg24E=
+X-Received: by 2002:a05:622a:1451:b0:517:6d82:9d7b with SMTP id d75a77b69052e-51a7279ef50mr12133411cf.4.1782377230964;
+        Thu, 25 Jun 2026 01:47:10 -0700 (PDT)
+X-Received: by 2002:a05:622a:1451:b0:517:6d82:9d7b with SMTP id d75a77b69052e-51a7279ef50mr12133051cf.4.1782377230257;
+        Thu, 25 Jun 2026 01:47:10 -0700 (PDT)
 Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe05c22sm132561866b.39.2026.06.25.01.44.14
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe05f9csm132345966b.31.2026.06.25.01.47.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 01:44:16 -0700 (PDT)
-Message-ID: <77a5213d-6be7-4a86-81ad-3509a499ad12@oss.qualcomm.com>
-Date: Thu, 25 Jun 2026 10:44:14 +0200
+        Thu, 25 Jun 2026 01:47:09 -0700 (PDT)
+Message-ID: <4f0878a0-2ab1-490d-b251-c6d68c4ee241@oss.qualcomm.com>
+Date: Thu, 25 Jun 2026 10:47:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,127 +89,175 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/13] arm64: dts: qcom: shikra: Add support for
- DISPCC/GPUCC nodes
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v2 2/6] iommu/arm-smmu: Add interconnect bandwidth voting
+ support
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley
  <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Brian Masney <bmasney@redhat.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260604-shikra-dispcc-gpucc-v4-0-8204f1029311@oss.qualcomm.com>
- <20260604-shikra-dispcc-gpucc-v4-13-8204f1029311@oss.qualcomm.com>
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20260526-smmu_interconnect_addition-v2-0-2a6d8ca30d63@oss.qualcomm.com>
+ <20260526-smmu_interconnect_addition-v2-2-2a6d8ca30d63@oss.qualcomm.com>
+ <7xfxlxfqjcqdzl6gckaoyy2ioefglc7bgi66yv5khrbl6fi2zc@ivtiukdaj4jv>
+ <d25f24ca-5bb3-4276-ac8f-8340e8fb4ce8@oss.qualcomm.com>
+ <sdm7sqiokmsgczeat2mxch42ois5rwabav6c5fm7abct2xoepf@j3kraqrjvpoc>
+ <ea345832-711d-4e32-af0f-bc74d8646aef@oss.qualcomm.com>
+ <299d54c5-fb93-47ee-9495-fbf48a3204fd@oss.qualcomm.com>
+ <aaf4daee-4886-4214-a761-80545d2565ee@oss.qualcomm.com>
 Content-Language: en-US
 From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260604-shikra-dispcc-gpucc-v4-13-8204f1029311@oss.qualcomm.com>
+In-Reply-To: <aaf4daee-4886-4214-a761-80545d2565ee@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: td1dF2d_pfshvYzlg6E2ud1PsiGm4I3O
-X-Authority-Analysis: v=2.4 cv=NvHhtcdJ c=1 sm=1 tr=0 ts=6a3cea62 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA3NCBTYWx0ZWRfX/QLgynoGf9C5
+ 6nAlJuuM42lsijkjYPtmLEJKD4vDP6v6hJoUZQM5UnMRi/JQ0qmXkcX0j1lfO5sHkLs4ZLJny20
+ p8xIX2IB2r3/SC1t+JsH1i7aBtcEhps=
+X-Proofpoint-ORIG-GUID: bQRlw9LEFCRphEcB7H13hL-vmIfFbGdO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA3NCBTYWx0ZWRfX5xH0WTihp1Lp
+ HiAXXrP2AjnOH3UPX/k14+T8m6spgOgO0kjbBKXnrFunsGsgamSBbxpfhs4nr+pMylSPpA3TSvo
+ 5Cg525+9WOo2S6p20hyGDJPQ02FlCW4rrCZBgHfwr2ywyHRQssJ0aMm1VBukltFWNkh7vQHMWgU
+ RgjIIrOjehSCfS8J63bk3A2SJ6ljUpCNlJuNGoTJgepwHngDtFr1Rw/VODyKQ77Z0Xq8YvjWTgG
+ hi60PBADSnykMuwhw2QMDJxc/u5oGEH+K+9naiyBUatspXIhx/1jIrzpabfJuPR/KXuFNv7bKrU
+ hhqi1HXhdYaLI7p1Y6eEnzcrTC+s/c+3gRaIiKcMQED90Poro+J31kM7cDWoHXgE3/UZIrhhXSm
+ yG6cagkk9LqFLjvgAmSdksGcR8oobKlnaVh6toPl1v8DVXbTKLV8Dp011p06VdFP1fUpOO5TdYZ
+ Bir+KQbvP7LPvj7C4+A==
+X-Proofpoint-GUID: bQRlw9LEFCRphEcB7H13hL-vmIfFbGdO
+X-Authority-Analysis: v=2.4 cv=TcSmcxQh c=1 sm=1 tr=0 ts=6a3ceb10 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=9L-xRQyfrTjc-s41Cp8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA3NCBTYWx0ZWRfX7/F1PeuO725A
- 4Tf99bHaRUPUxe7QWlj6ZNuKvwT7GR1/h0Hcavh0unS1N4EPn1ZlLf5/OwHD14CQ1tEpniJusRM
- jFRWeP7LOfHyXJxB/m5QU6wY2X0q588=
-X-Proofpoint-ORIG-GUID: td1dF2d_pfshvYzlg6E2ud1PsiGm4I3O
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA3NCBTYWx0ZWRfX2tq9EB74Of3M
- 0yp+SytKY3eNXdMwMbuvozHcdlIQ7ONzy2aUvz4ZD6Ma6COHatIb1HryGHmE4slAHTxilk8loxb
- KdkrkZ2jgdNCUicZhClHvqWzZN1waYMT9MHUuWm4iGOzAgj9Cfa/75YMcPv0WgaICWTLbY9qvdY
- 1qBmbSzvLn+PAO+g164w0eGzBjKTKNwUTdjP9mK9QiMRnosiXyVkwFgOf7yM/mOARs/9no/qsN0
- cay7DQboPfNT91Bj663m0tKpc2Hl03vihBRJy9YxJP/wyjBKoHAuAAL0MAC/h36HMPAwp+O/gEC
- k8auLsVGcSLXOSFIXtqceHbWN1bnksQBPmFqVdfpMsfK6sdmiZ4GzTorIo8MzU3BiudPF7dsvbE
- Mthi2Vw11PAgvmM+qQ0K/Su9Yp4xAlflo5LqPYuDFl+7tMAw4m0+QIwdssUi7z9NHLOG/++ZMgp
- ysKU+ic7KS904QayIZg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TtB6gFZ535HFW_zVIisA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250074
+ lowpriorityscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2606250074
 
-On 6/4/26 7:26 AM, Imran Shaik wrote:
-> Add support for Display clock controller and GPU clock controller nodes
-> on Qualcomm Shikra SoCs.
+On 6/19/26 12:54 PM, Bibek Kumar Patro wrote:
 > 
-> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 41 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index a4334d99c1f35ee851ca8266ec37d4a200a07ee5..1ccb0f1419aaa34d32f3c3eaabdb8727a497b501 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -3,6 +3,8 @@
->   * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->   */
->  
-> +#include <dt-bindings/clock/qcom,dispcc-qcm2290.h>
-> +#include <dt-bindings/clock/qcom,qcm2290-gpucc.h>
->  #include <dt-bindings/clock/qcom,rpmcc.h>
->  #include <dt-bindings/clock/qcom,shikra-gcc.h>
->  #include <dt-bindings/interconnect/qcom,icc.h>
-> @@ -640,6 +642,45 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
->  			};
->  		};
->  
-> +		gpucc: clock-controller@5990000 {
-> +			compatible = "qcom,shikra-gpucc";
-> +			reg = <0x0 0x05990000 0x0 0x9000>;
-> +			clocks = <&gcc GCC_GPU_CFG_AHB_CLK>,
-> +				 <&rpmcc RPM_SMD_XO_CLK_SRC>,
-> +				 <&gcc GCC_GPU_GPLL0_CLK_SRC>,
-> +				 <&gcc GCC_GPU_GPLL0_DIV_CLK_SRC>;
-> +			power-domains = <&rpmpd RPMPD_VDDCX>;
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +			#power-domain-cells = <1>;
-> +		};
-> +
-> +		dispcc: clock-controller@5f00000 {
-> +			compatible = "qcom,shikra-dispcc", "qcom,qcm2290-dispcc";
-> +			reg = <0x0 0x05f00000 0x0 0x20000>;
-> +			clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
-> +				 <&rpmcc RPM_SMD_XO_A_CLK_SRC>,
-> +				 <&gcc GCC_DISP_GPLL0_CLK_SRC>,
-> +				 <&gcc GCC_DISP_GPLL0_DIV_CLK_SRC>,
-> +				 <0>,
-> +				 <0>,
-> +				 <0>,
-> +				 <0>,
-> +				 <&sleep_clk>;
-> +			clock-names = "bi_tcxo",
-> +				      "bi_tcxo_ao",
+> On 6/18/2026 2:58 PM, Konrad Dybcio wrote:
+>> On 6/17/26 4:26 PM, Bibek Kumar Patro wrote:
+>>>
+>>>
+>>> On 6/16/2026 5:51 AM, Dmitry Baryshkov wrote:
+>>>> On Mon, Jun 15, 2026 at 06:36:51PM +0530, Bibek Kumar Patro wrote:
+>>>>>
+>>>>>
+>>>>> On 6/8/2026 7:25 PM, Dmitry Baryshkov wrote:
+>>>>>> On Tue, May 26, 2026 at 08:12:03PM +0530, Bibek Kumar Patro wrote:
+>>>>>>> On some SoCs the SMMU registers require an active interconnect
+>>>>>>> bandwidth vote to be accessible. While other clients typically
+>>>>>>> satisfy this requirement implicitly, certain corner cases (e.g.
+>>>>>>> during sleep/wakeup transitions) can leave the SMMU without a
+>>>>>>> vote, causing intermittent register access failures.
+>>>>>>>
+>>>>>>> Add support for an optional interconnect path to the arm-smmu
+>>>>>>> driver and vote for bandwidth while the SMMU is active. The path
+>>>>>>> is acquired from DT if present and ignored otherwise.
+>>>>>>>
+>>>>>>> The bandwidth vote is enabled before accessing SMMU registers
+>>>>>>> during probe and runtime resume, and released during runtime
+>>>>>>> suspend and on error paths.
+>>>>>>>
+>>>>>>> Generally, from an architectural perspective, GEM_NOC and DDR are
+>>>>>>> expected to have an active vote whenever the adreno_smmu block is
+>>>>>>> powered on. In most common use cases, this requirement is implicitly
+>>>>>>> satisfied because other GPU-related clients (for example, the GMU
+>>>>>>> device) already hold a GEM_NOC vote when adreno_smmu is enabled.
+>>>>>>>
+>>>>>>> However, there are certain corner cases, such as during sleep/wakeup
+>>>>>>> transitions, where the GEM_NOC vote can be removed before adreno_smmu
+>>>>>>> is powered down. If adreno_smmu is then accessed while the interconnect
+>>>>>>> vote is missing, it can lead to the observed failures. Because of the
+>>>>>>> precise ordering involved, this scenario is difficult to reproduce
+>>>>>>> consistently.
+>>>>>>> (also GDSC is involved in adreno usecases can have an independent vote)
+>>>>>>>
+>>>>>>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>     drivers/iommu/arm/arm-smmu/arm-smmu.c | 57 +++++++++++++++++++++++++++++++++--
+>>>>>>>     drivers/iommu/arm/arm-smmu/arm-smmu.h |  2 ++
+>>>>>>>     2 files changed, 57 insertions(+), 2 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>>>>>>> index 0bd21d206eb3e75c3b9fb1364cdc92e82c5aa499..07c7e44ec6a5bd1488f00f87d859a20495e46601 100644
+>>>>>>> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>>>>>>> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+>>>>>>> @@ -53,6 +53,11 @@
+>>>>>>>     #define MSI_IOVA_BASE            0x8000000
+>>>>>>>     #define MSI_IOVA_LENGTH            0x100000
+>>>>>>> +/* Interconnect bandwidth vote values for the SMMU register access path */
+>>>>>>> +#define ARM_SMMU_ICC_AVG_BW        0
+>>>>>>> +#define ARM_SMMU_ICC_PEAK_BW_HIGH    1000
+>>>>>>
+>>>>>> totally random numbers, which might be different for non-Qualcomm platform.
+>>>>>>
+>>>>>
+>>>>> Ideally, any non-zero value would be enough to keep the path active.
+>>>>
+>>>> This is true for Qualcomm devices. However, you are adding this to a
+>>>> generic code.
+>>>>
+>>>>> Here 1 Would be enough to keep the path active, but might be too small to
+>>>>> reliably keep the bus active.
+>>>>> Other is UINT_MAX, which will reliably keep the bus active but might cause a
+>>>>> power penalty.
+>>>>>
+>>>>> #define ARM_SMMU_ICC_PEAK_BW_HIGH    UINT_MAX
+>>>>>
+>>>>> seems to be suitable here to reliably keep the bus active by BCM
+>>>>> for both Qualcomm and non-Qualcomm platforms (with some power penalty).
+>>>>>
+>>>>> LMK, if you feel otherwise.
+>>>>
+>>>> Shift it to the qcom instance or provide platform-specific values? (My
+>>>> preference would be towards the first solution).
+>>>>
+>>>
+>>>
+>>> To support platform-specific values, we may need to introduce a LUT-based approach in the driver. (Bandwidth voting values cannot be placed in device-tree property IIRC ?)
+>>>
+>>> Currently, all Qualcomm platforms use 0x1000 for SMMU ICC voting. I
+>>
+>> (you used decimal 1000)
+>>
+> 
+> It's my bad, i meant 1000 only
+> (I'll check on the icc_bw calculation to get clarity on the values)
+> 
+>>> can evaluate if this could be moved to a Qualcomm-specific
+>>> implementation.
+>>
+>> Add a vendor hook to arm_smmu_runtime_suspend/resume and handle it within
+>> the QC driver
+>>
+> 
+> Just curious, wouldn't this apply for all the arm-smmu users in addition to Qualcomm devices as i mentioned here [1].
+> Vendor hook would make it Qualcomm specific.
 
-Is the AO clock going to be any useful? Taniya recently dropped it
-from some other submission after assessing it wasn't
-
-> +				      "gcc_disp_gpll0_clk_src",
-> +				      "gcc_disp_gpll0_div_clk_src",
-> +				      "dsi0_phy_pll_out_byteclk",
-> +				      "dsi0_phy_pll_out_dsiclk",
-> +				      "dsi1_phy_pll_out_byteclk",
-> +				      "dsi1_phy_pll_out_dsiclk",
-> +				      "sleep_clk";
-> +			#clock-cells = <1>;
-> +			#reset-cells = <1>;
-> +			#power-domain-cells = <1>;
-
-DISP_CC also needs to source power from somewhere!
+You're proposing to use a Qualcomm-specific bandwidth value so that
+fits
 
 Konrad
+
+> 
+> [1]: https://lore.kernel.org/all/984ff9c7-3eef-463c-a330-bf7acd063667@oss.qualcomm.com/
+> 
+> Thanks & regards,
+> Bibek
+> 
+>> Konrad
+> 
