@@ -1,159 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD7037269C
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:12:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A1937C900
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782425547; cv=none; b=KtgHd1VnXUmgJOlEUB85dNY+boBXuPBcY5Z/lbh47wfrJ8AVv04wCwQVnKNiKZWIprx/gFPYCEJZQH/xX0yFp+j292jFDCMRQf4IjtHnm5esFsymDCGG/I+f6Qcxq/9SJlcz4Y5Ou4zSVyoKFXfkse1y1tcVkuJIotfICLbuRBk=
+	t=1782425849; cv=none; b=jDDCjNtncPzkLplaOlnBRewVMZXQQinv7GEtQKCmhkKirDMOE7IEIoyIEOycU//Z/bVZV6jtZJWKPUf6wmGZ2+ZcL3wPCe+PXMbLh4EwoSQ9n2jYr8ZJxy0v7Szx+cdIs3yzequ1KkPRlizsZLRzTat+e2+CJHoD4CdbTorWJJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782425547; c=relaxed/simple;
-	bh=loDGdbz0XuoLPROkwZd5g1uMeONWm3Yw3JQhyUrz+CM=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tTmVPEUvwfYvJlz6l7jB9++8Pu7R96z6cjJKgnu+9cooU18MUlyMrrhXhf27j2SwEFs4zvyhtQLcc8wxthHEE6MTMHXG5Aa3i1G5/h9LR819krbd4KI5hdrmr5dfpw+GW6mBT6t8KHMyIP+p5flGtA53iBX5WUflsvE05vQaTwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUUJU3h5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782425849; c=relaxed/simple;
+	bh=I1cXCOm745RXm5RvaDuUdNXcHFBmJV3+a5GoFtpPT64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZOJX40LUDf6k2tCMQlONtvhrduHq5NW384tRl9W7bhzc/gwGXuFKaraCqhUCr+yo80qwTn1SXnL3R5lDxV/h74k8XqMRLBdh9vNs9whOoaH+BWLJzU8CtoE8Snf+YKYzW7znz9ZvSMxW9jqyvoZnVhDMgiVPzCqvMFqnypwTObE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IQjv/q6+; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUUJU3h5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF081F000E9;
-	Thu, 25 Jun 2026 22:12:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782425545;
-	bh=jnSwEP8Q3FRjK+os5Pzm2lQJo0TgN9vE3KsKW/16pco=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=YUUJU3h5H51UwKrLsQyPg4hBnvTV0ekt3kHrFFC4t0tSiIaYGuYBl2+aqNo0V65Qk
-	 IoTolUMg1qBpGpuJE1ulZBoILsHJa9UMZ0IAXaSLh2A38EgDC1It1St8jM0oNhdPtM
-	 RFb76PJdifMmFfQMsX3yxHem1kSrVk1CqL11oD4PIWJso/kZTAKA+OAF8wlA9dCFhT
-	 2Wt3YCPt4IFqNcafmrUbGNOpYWF3J2K02601B2fDwB6oyvNpFt+VWMUbtVrNLxyvi8
-	 hMDas4BvImWCK2Ethb1YWKpNn2/ScS8xYXkl1GtDVbokq3hiFT+EyvP/PY8mmoDySr
-	 kzxzk7o8nBzTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/8] dt-bindings: iio: adc: add ti,ads122c14
-Reply-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 22:12:25 +0000
-Message-Id: <20260625221225.AAF081F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IQjv/q6+"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4923fb1f095so3204145e9.1
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 15:17:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782425846; x=1783030646; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=k+3GoXf2mrfA1KP6AU6rLpBytQHse5+WqLmVOpgycR4=;
+        b=IQjv/q6+cojMJE/yhxKTyVcvV93ZMis9dlZnEhA6/LoC2VDkWG0ep65QfyfbesVY2D
+         bf4bHOa0IIWUCD3ELozuhDHKqMtv4+afGNAH/FtyVonBA92mPuEf44PcB2HczpgUyITx
+         CgrO8yO36NX0Ca/0SfeDEPbjvBfICOO/ZdJWduDTAeaYGxCBnl6+x282fQSCT/8azcZr
+         JLZf6cei5Djr+O/CWi91js1lVLAvUfBy9ffDIoeB8i2VuwvLvsIsDw1ZFAdj5AuOSz95
+         5UCS+qSnPXl1GImqtCw/ePNbkf9EO/4MZDmr/IbKNWH223UgOmuqBXLEDyROZAdhIPIM
+         ih3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782425846; x=1783030646;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=k+3GoXf2mrfA1KP6AU6rLpBytQHse5+WqLmVOpgycR4=;
+        b=tDe8AwpWxoxXw39tzHjNxH2vpcgr9OF6kLD9+Ls8T/jUos6ov7voYhUV1u1YAHklL0
+         xfZItOaX92FervOa4y0YE72/4D4LFjWxMyCutHj9bnyoY+aBiK0alPXyXxSQb4N02ods
+         rNpdbkMG6VHgG6uW+l5sIpKdUUH8TbbgNzZU4UOozW1HVMs7++q5riUIGqDRjLJdvD8r
+         rhmwV8KdtsGRxnZPAU3p5QccpjeUFaZSIDDxkfOu5r4DS0JE/AD2LGtb0sWmUHTiOYrU
+         mExWShwytzsEDmZsKdk5Ik6qrEZ3MtFFgH/4LFn2lA8PZl4Q+nPW2YkLSXOTN8FGPFYR
+         hJYw==
+X-Forwarded-Encrypted: i=1; AFNElJ8eA1pW9EUubIo79rIt7Ffy7+0dG91hnJ+zTVNJ9wladnd0MhdGEH77VvRmXcODpnnm7lCYMM/qAS9N@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywzd+p0B0XiRQ7HsJWs7o6+h1fW3uWxGfm5m0YqZI/+6IwvxYSD
+	cq73HKGDoXiHVWJqXv/j4gBi4g6xHFBr7nO39MT1XlP5V0ywOSwugJuH
+X-Gm-Gg: AfdE7cmXTdoU5bbBgX6RGEsXn6Zq3+PY4CtYXWf951xVDgdN6Lp6V7okZXCOQpuFk92
+	50bu6tY9jpPDzuuUnDAdyVWzoL9A+ncHs+FaEJ0qoHLBI54OUXCKQ6PiYZoW0bTaWT5NKYJJlP3
+	W3f4K8l+Lv1EldeQbUqICdEbMiLxl2DRTkt1hseMt8xv6kQ/dxAeSdh/eC/XR5t9Kub8VqKyiSs
+	HDHtcG+JMvWsQi4iq7Qr+fsFNwpWvd+cZUxUjUAjkM9wr8YdaSQZesWIjvvQsSn2GMuyaNQrBV3
+	nDaIKRjwKy23r0kXEcj1Mq8R/MC9OJiwUbRcsr9/4BXaxsZtKC5m1wSaRohGl1xHWnyAaI5kL2U
+	EIniaZKcixRjbQvpLRNKPsR8HnPCeiDV5KIwfFpA9nnFedlKKOy+5oac6r6EzInFY6/Qu0yAKi0
+	juGR7ih4Zxl8M0JFs0KoKp00/MOgKRQnFaZMrLzu6rr9jHi88KZwwDL/bVE+2DVk3Reeo3O3BIu
+	3P43qtd
+X-Received: by 2002:a05:600c:3549:b0:492:4363:e7eb with SMTP id 5b1f17b1804b1-492668acc8cmr62424645e9.32.1782425845982;
+        Thu, 25 Jun 2026 15:17:25 -0700 (PDT)
+Received: from [10.128.11.131] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269071e49sm27961115e9.10.2026.06.25.15.17.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 15:17:23 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <4a35af81-8dc5-4c13-93cc-52585f84372b@gmail.com>
+Date: Thu, 25 Jun 2026 23:17:21 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 4/5] gpio: rpmsg: add generic rpmsg GPIO driver
+To: Shenwei Wang <shenwei.wang@oss.nxp.com>, Linus Walleij
+ <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, devicetree@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com,
+ Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, b-padhi@ti.com,
+ Andrew Lunn <andrew@lunn.ch>, Bartosz Golaszewski <brgl@bgdev.pl>
+References: <20260625155432.815185-1-shenwei.wang@oss.nxp.com>
+ <20260625155432.815185-5-shenwei.wang@oss.nxp.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260625155432.815185-5-shenwei.wang@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The pattern property regex for channel nodes `^channel@[0-7a-f]$` =
-omits digits 8 and 9, rejecting valid node addresses.
-- [High] The `burn-out-current-nanoamp` property applies an `enum` constrai=
-nt directly to an array, which will fail DT validation.
-- [Medium] The commit message explicitly claims to reuse the custom 'ti,vre=
-f-source' property, but the code actually implements the standard 'referenc=
-e-sources' property instead.
-- [Medium] The JSON schema reference `$ref: adc.yaml` is missing the `#` fr=
-agment or the absolute path.
-- [Medium] The `reference-sources` property lacks a `maxItems` constraint a=
-nd leaves subsequent elements unvalidated.
-- [Low] Strict index ordering in `interrupts` clashes with unordered `inter=
-rupt-names`, causing invalid semantics if only one interrupt is used.
---
+Hi Shenwei,
 
-commit de052c7080b8c89f1a3c4b730b190d119eacb414
-Author: David Lechner (TI) <dlechner@baylibre.com>
-
-dt-bindings: iio: adc: add ti,ads122c14
-
-Add new bindings for ti,ads122c14 and similar devices primarily intended for
-use with temperature sensors. These bindings introduce channel-specific
-properties to handle per-measurement reference voltage and current output
-requirements.
-
-> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
-> have preferred an enum of strings).
-
-[Severity: Medium]
-The commit message explicitly states it reuses the 'ti,vref-source' propert=
-y,
-but the schema actually implements the standard 'reference-sources' property
-instead. Should the commit message be updated to match the implementation?
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml =
-b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-> new file mode 100644
-> index 0000000000000..59ee4d652a087
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
-
-[ ... ]
-
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: FAULT interrupt (GPIO2 pin)
-> +      - description: DRDY interrupt (GPIO3 pin)
+On 6/25/26 16:54, Shenwei Wang wrote:
+> +config GPIO_RPMSG
+> +	tristate "Generic RPMSG GPIO support"
+> +	depends on OF && REMOTEPROC
+> +	select GPIOLIB_IRQCHIP
+> +	default REMOTEPROC
+> +	help
+> +	  Say yes here to support the generic GPIO functions over the RPMSG
+> +	  bus. Currently supported devices: i.MX7ULP, i.MX8ULP, i.MX8x, and
+> +	  i.MX9x.
 > +
-> +  interrupt-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      enum: [fault, drdy]
+> +	  If unsure, say N.
 
-[Severity: Low]
-If a device tree specifies only the DRDY interrupt at index 0, does the str=
-ict
-ordering in the interrupts list (which expects FAULT at index 0) clash with
-the unordered interrupt-names definition?
+You've got GPIO_RPMSG defaulting to REMOTEPROC, which is also a
+dependency, so it's effectively the same as using 'default y'.
 
-[ ... ]
+But then you've got "If unsure, say N" in the help text. Usually this is
+used when the default is N.
 
-> +patternProperties:
-> +  ^channel@[0-7a-f]$:
-> +    $ref: adc.yaml
-
-[Severity: Medium]
-Does the JSON schema reference here need a '#' fragment or an absolute path
-to ensure it resolves properly across all tooling versions during validatio=
-n?
-
-[Severity: High]
-Does the regex pattern ^channel@[0-7a-f]$ omit digits 8 and 9? The reg
-property below has a maximum of 15, so a device tree legitimately using
-channel@8 or channel@9 would fail schema validation.
-
-> +
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        items:
-> +          - maximum: 15 # arbitrary limit, channel@ can be any combinati=
-on of AIN0-AIN7
-
-[ ... ]
-
-> +      burn-out-current-nanoamp:
-> +        enum: [200, 1000, 10000]
-
-[Severity: High]
-Because device tree properties are parsed as arrays, will applying an enum
-constraint directly to the property without using the 'items' keyword cause
-dt_binding_check to always fail?
-
-> +
-> +      reference-sources:
-> +        items:
-> +          - enum: [internal-2.5v, internal-1.25v, external, avdd]
-> +            default: internal-2.5v
-
-[Severity: Medium]
-Is a maxItems constraint needed for this array? Without it, JSON Schema only
-applies the list validation to the first element, meaning additional items
-in the array might silently pass without being checked.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-iio-adc-ti=
--ads122c14-v2-0-ceb9b0b561cb@baylibre.com?part=3D5
+- Julian Braha
