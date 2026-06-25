@@ -1,62 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDA12D97BA;
-	Thu, 25 Jun 2026 08:31:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAF9326927;
+	Thu, 25 Jun 2026 08:34:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782376280; cv=none; b=Z/Z2O6vseNUIuHAMk1UNbFysmkQ4NPq5203zl2CcD1k1676XiICxH0HZ61pAPonzOpxaO4znF+4g1K7HvqczpNoPUznzB0S7fILSBRkL1L4vpaXkLl9xvmQNHMHXiRwfLEk2C3llYYj8ni9jiIJBUoU0rsgLjYJnliYgZblT6Jg=
+	t=1782376463; cv=none; b=KqSi8Xr9EOZpsY3w02zLyck8Rae1TIVVQFCaswH3sTA3Gi+rwn7GY9GqaANoJNQjUEoLUT+lR6HpT1BiTEflv2xZRd8pRv0bvHrO8uc4ShwbRUU/M0UWTiuxfh4YmyD4FpygDV/Xqg1/ov4+Yj5xX6q0W2SxvI7tDlafwf2171Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782376280; c=relaxed/simple;
-	bh=TTMlmIAYYHhiIV5FH8zWh9b/3lHF/mx58P0IgJj6BhU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Hf4U6+wFF0z6idLtsZiTgGdBuA8UKrI622AceDjLyV+CPOoidtKmFi0FKNXGX5y4SDj4toe08693daXlYDk9TJ/kvC82FrKP8Kp1Qrv3xx/tKqEuNyseeVjjHvaLw2p8zylZJNwlbPiFUMaLawanKg4NTvScXVY6ddTKmYaM5Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CMigrpl+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782376463; c=relaxed/simple;
+	bh=jkHuq+aWcDX/8nA6BwwAfyDf2vD4pL0yEgIxFBKGs4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BHMpVWxyaZ5GyqCHG0yzeptA1fiVGirMcyzYDV4MAlXpvk+I2U7I+ZHjwvwhcL55ktqEfYiGrFdcXgxOBQFbtpNZu8DWjNR2nHmn9E3CkcjKK8H3jzBEab41910wBNny5Z04shNJU2AwitIkGkl+h3ZHG5gpD4l0Jj4gt3luD/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mIpmk87a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CMigrpl+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF221F000E9;
-	Thu, 25 Jun 2026 08:31:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mIpmk87a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9D11F000E9;
+	Thu, 25 Jun 2026 08:34:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782376279;
-	bh=TTMlmIAYYHhiIV5FH8zWh9b/3lHF/mx58P0IgJj6BhU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CMigrpl+3wHZ9sR/9gkDDKDEeaWa3xMVMlLK2Ai3fnxVtRoMRn8NtVsFa2ZnCxqz1
-	 jUWXugwpZR3kIf70guW3C7ieW5xlRc+SV8fgstdVAnFTL4Nqu3Vzt0PAZH3NsVOoIF
-	 7K3CUSYqi/vA3zv6jCq2mJnSw0EVnnVs08eu14ajagf7TR3Aj1Scfo/m1J3NrppIhZ
-	 0QRD5Gi00L/qxATwvizIRTEI1g5ypU7ThrrrPL2QupOFU4IPhfeGY1pnHp9b5oSJAX
-	 cZ+d0aF5mzspFpXd+qJGPgeH7C5dXsD+ZhBbPR6tlmZmEdW8heLosUXXxn28yWJ57A
-	 fLfH942SfRjaQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 6/7] power: supply: Add driver for ASUS Transformer
- battery
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-leds@vger.kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260625081529.22447-7-clamor95@gmail.com>
-References: <20260625081529.22447-1-clamor95@gmail.com>
- <20260625081529.22447-7-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 08:31:18 +0000
-Message-Id: <20260625083118.DFF221F000E9@smtp.kernel.org>
+	s=k20260515; t=1782376462;
+	bh=jkHuq+aWcDX/8nA6BwwAfyDf2vD4pL0yEgIxFBKGs4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mIpmk87a1O17ZA9QaCQ4gygtPORIjx/LUMWppLF46QEB/E92hIl9n9YoMQAGkiQTO
+	 MSIanUm5GcOG6+cjVln91x43uf38AWaelLpXm08dCRypqsY5rMywlzaM0VwL4H78aY
+	 rM5KwlB20YNllXLWoipxxXxaQQrDxkMqLxwSV63yDebROFUmPdFcrXvl5dR7p2Vgsn
+	 ugmrsEqOhmTBY9C+rrv71jgzJIE5EcOHbYyEGyEntlrVQVlMSDvrZSzODg1nZnggNq
+	 V6h9jbfWjIixxbc1103eQtnD1i1LXUjfXh6lfa2j4nVSn9Fg8APyDsPRAiLf1o0a6u
+	 d21pPb44bSRoQ==
+Date: Thu, 25 Jun 2026 10:34:18 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: display: tegra: Make non-vm registers
+ optional
+Message-ID: <20260625-hospitable-antelope-of-diversity-f3456d@quoll>
+References: <20260622-host1x-nohv-v1-0-65bc682a617f@nvidia.com>
+ <20260622-host1x-nohv-v1-1-65bc682a617f@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260622-host1x-nohv-v1-1-65bc682a617f@nvidia.com>
 
-> From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
->=20
-> Driver implements one battery cell per EC controller and supports reading
-> of battery status for ASUS Transformer's pad and mobile dock.
->=20
-> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+On Mon, Jun 22, 2026 at 05:22:50PM +0900, Mikko Perttunen wrote:
+> Host1x can be used without accessing the hypervisor or common
+> registers. Adjust the bindings to make them optional.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+You still have these registers in the hardware, so it is not optional,
+not flexible. IOW, DTS represents the view of real hardware for the
+software, and that hardware still has this address space regardless if
+OS should use it or not.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625081529.2244=
-7-1-clamor95@gmail.com?part=3D6
+Otherwise you need to provide better background here.
+
+Best regards,
+Krzysztof
 
