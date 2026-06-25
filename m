@@ -1,148 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023082.outbound.protection.outlook.com [52.101.72.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DFB37C918;
-	Thu, 25 Jun 2026 16:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782403234; cv=none; b=lU9pSnGOivAQHzcxJD3orj9s7pMz2vQAvZfLHeReECSbGt6436L11dJ5neBMpP7UxGtx7HEvhPVRQPmyv2Kn8W+hIxl5Hx+8Rg0LyuLq2uiHZqGtrmgLCrkLfACEGgQOkKRlXpiuht+eAVrr6M96NOf1l3s84WUnOkBUJWM8SII=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782403234; c=relaxed/simple;
-	bh=lX9jmqEcAPhUFJ+NWeKitWgG6t+ViDMhClqAYMxj1pY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sI7VjOmAHpVhVsLVFxYo+oEMYkGyogIBkiil3Jv8vgIWtr2QwTMtPzaUj+hWPB/ZNKSKCpG9W5AmsNIUm2n3GRk9NFd1ss44q3h8vL85xf7b58obwVxuD7lda4F1zS0aPvDzo3md2Nitq8s9PQn/KZ5tL3tA7QsYGO9OzTA+WCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4cf7zKs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C01E3B47D9;
+	Thu, 25 Jun 2026 16:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.82
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782403359; cv=fail; b=G8Abyt+nVOJaqgxnS35McE8QkkZPr6oCeOciw6x7/hu3bAApXMmDtkm1alDf4ksXQEu69pBBXxHLtO649hdBiEEt00TKq2wtof6l4hpoQofXzc2D6P/n+HcxO2N8zROh88/q9WMEI7Bje/JhftF2a4nJ0LF+geVOiq0A/i2pXXM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782403359; c=relaxed/simple;
+	bh=sSxpvKq+GaHiX4aMAXr3NvWpkjRflQ6PqofnvEiV6dw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jicv9lwCMhznc/mptj/bOZDLqi25/Zh6lyPRvRWYodnjrFnmxQEo9HrrVMBw9JjLC79ojftjaI6UWF9vVWJZhMrypHfMMtIGhcCJR+uqfu7cEKrwybUO6DJmCjFyX2BBq3rNwwe8tm39uChEjhFbSgwd+lIj2VQSBLQYCBp7aTE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phytec.com; spf=pass smtp.mailfrom=phytec.com; dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b=EV2r+1vN; arc=fail smtp.client-ip=52.101.72.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=phytec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4cf7zKs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99E8B1F000E9;
-	Thu, 25 Jun 2026 16:00:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782403230;
-	bh=hdFiQo9zgZ8hojf5cEoI/wKiDQNM6T4g1BqlyxdyxBM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L4cf7zKsoswdZbswVOo6Qngv9JRoVASr/7v7nyAhXv0GhbQAEvNTBBFqzu6oPrC8e
-	 l4q86xxSNy3PKuEX1iJdYwApgIG+GJaRTiBY/SaDP56GxQTeWVtPtv9Fp7Q4Rhppvq
-	 s30LAmCC6Hf9hKSO8N/erRMOI5RZDbwmlfnEKV/b9AyWuylfVFcy+WlI23IZ5ZfUKv
-	 N8i7MCW69SS7hwe2cSey/JJoG8InkAiljv4/LQwCZSvDprBpBhyuJ0LWtDk+G7oxQx
-	 wN0SaXyQHUrT1IAgYg43R/LbA2IPQ89GaP/kfRVSbaZTNa/aGMHGU3G0YwSPDgtQ9l
-	 2Qk1JE+GapOCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
- subnode support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shenwei Wang" <shenwei.wang@oss.nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260625155432.815185-3-shenwei.wang@oss.nxp.com>
-References: <20260625155432.815185-1-shenwei.wang@oss.nxp.com>
- <20260625155432.815185-3-shenwei.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 16:00:28 +0000
-Message-Id: <20260625160029.99E8B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b="EV2r+1vN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UNz+YsIFyznw8nJGibymu44GI5hawdrCKoBJx19aCIuuhC9sE9ll8dMfMOmt+DvgpXj0krvrcdZTwzDJ+5qdArdGCPTDOhpI/SD0/6eij1xxI2kjF6kBlfAtwTL+YgW/z956/vHPsC8tu2R98G/j/GqVVMmuRNIBISaIVGbn/TfNZi3drtkmnw1eUyvDqyiX8RymimhRKCwOmyBhUiBJixru7fAZVGedfZb5j23M2OwdCeCZF2zoHgSbeaYhzxai3uZsQa267v1s0CMLndTsQDqkiBRnAPovxeA7Pc1CVH66nXG4UTm727DKE8hjVzcj3jyd6HElAdK/WJWYfZrE4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2bd08AtIgkUm/Mk9LWGUz7CCxct3jbbB2dUSxhJjf9A=;
+ b=eti1lc3snrhIDSyNkFpGrX6BkTw16bslirOfUF0dsTndwmhVkA6nGE1FpRgwnWEDajqqlDSTYN+ovHomnE1NC/aaFNPOiw4rLqgrizZhNVKIPr8KsmVXkAuC/AGdDPaVPlrGVwFZwELAuCM67pa6X8sxZQO3WbmrdzA5mjsVtNheLiGT7g3KdIfJsSVpk2oYnb0GkHAsWvxrIbexcwTp7tsLtYX0rr+0nN77jdf6n+firynWmcs/EHGt0TblFWwzuEcOGVDB+d07w1OGMTFBnS1+cEI+ak8b/LS0Xh1uQ1AjOQeDMV98xWOMw+Rg5j+ldf46Sg77YCLqXX70Rjzj0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 91.26.50.189) smtp.rcpttodomain=ti.com smtp.mailfrom=phytec.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=phytec.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2bd08AtIgkUm/Mk9LWGUz7CCxct3jbbB2dUSxhJjf9A=;
+ b=EV2r+1vNlYZttUjOOYJX9kuhv2ri7+Qw8f+UekT2GF+rv/N7KCZbgqAuS4TFavCk5dGzlw0T8qhAl7zQL7935H1rBlWFS4Gswurnql31g7tU9q69tAs2ogMIl+xAMJ6CbKyKqasL+FRS7XtYhqC+eDBd6RdlXdzIyWnKCdx4jXMIoC0MCY6ujmh0AhymQYl7g5lMU+62XpLhIjb/qhBdbD/8bBhScg6JKvuObbEOWxMEiL1lKUT+zJLvfIDoFV66G89b15rvry56SZSzxEyhjzohO0XlqWLcg9Y/WB+lV7lhpLdkYptEbqsVZDzA7yYAGZVZTzTDaIwiDbfxBWR6jQ==
+Received: from CWLP123CA0200.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19c::11)
+ by VI0P195MB3250.EURP195.PROD.OUTLOOK.COM (2603:10a6:800:31e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.15; Thu, 25 Jun
+ 2026 16:02:32 +0000
+Received: from AM4PEPF00027A6A.eurprd04.prod.outlook.com
+ (2603:10a6:400:19c:cafe::3a) by CWLP123CA0200.outlook.office365.com
+ (2603:10a6:400:19c::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
+ 25 Jun 2026 16:02:31 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 91.26.50.189)
+ smtp.mailfrom=phytec.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=phytec.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ phytec.com discourages use of 91.26.50.189 as permitted sender)
+Received: from Postix.phytec.de (91.26.50.189) by
+ AM4PEPF00027A6A.mail.protection.outlook.com (10.167.16.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 16:02:30 +0000
+Received: from phytec.com (172.25.39.17) by Postix.phytec.de (172.25.0.11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 25 Jun
+ 2026 18:02:28 +0200
+From: Nathan Morrisson <nmorrisson@phytec.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <upstream@lists.phytec.de>
+Subject: [PATCH 1/2] dt-bindings: arm: ti: Add bindings for PHYTEC AM67x based hardware
+Date: Thu, 25 Jun 2026 09:02:13 -0700
+Message-ID: <20260625160214.4001298-1-nmorrisson@phytec.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: Postix.phytec.de (172.25.0.11) To Postix.phytec.de
+ (172.25.0.11)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00027A6A:EE_|VI0P195MB3250:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8c82820-c8b7-429e-41c0-08ded2d32974
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	cWCGT99rR0uAByS1QUvijz2UbkW8Twz+1lK/71ZjBOg1ebap703cssQPwwXjgvjlK62ZvTHfYF4X76o0vMrGxGKHmPW4e9BhGzwHwVGphVvysHOj4hEmEsedaXazUx5laGIZ8pz6K6kR7PACyRcVUGFgB7LmwkRYm7bwuyKosYbqRg7MPO1ITV8ovyiNREkOo/aXbVqv6Kqtt5ZcOefjQRl4qt/veZlZYSyliaELcoMOVwRIPC6K6zDbWVvb6EMeDUi+8toTzLsAV+gC+THYnGs1hYyR4ldYGdCeF1c9BNiytUi35DUMkD6KhEbyQ0kv+r8Y1rSUPaBMt5ARdmhEFhZILHw++EhFdIDyDBIjh4+PA9B1nSOxZoDuZbAmXtm1QFS4XlLL3Ohy3o078uB2q6Ntdtr7dvU3ScntJr4B7/QHDX289r2KZH7GvMakE4MFAsYO6N9Sz0QvXY7IE+N0lbb5bx0QG7OlKb4fZhnJpbg/YhdEhOqyZKDwtOxFY9ItvPj7S0aRjhouE6XiPt7Sn6RNo1+D3pDj+hdWN0YCOaKfL/SOuhFvVNZ+j1aYshj+sc8jp2hN+hQ5WPZCDylr11pElhmyjKN/4j00iP0inB3QGNHItC8nBBzZHralaKq8Cq5v7moTjt+9qN2Ch/rXZUmdfNO3qm9uAdcpDa5lhLycMw1vpIfkfnHzWps1tXofCW26rMgN9jPE3SoRNG5mvQ==
+X-Forefront-Antispam-Report:
+	CIP:91.26.50.189;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:Postix.phytec.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TjNl4frUFBqW7g2/CYNgCvWtTRrlm2476Toxum2AbsIQszTJeHlBVVL/GoFEzbWEmY8vZJs+OqZQrUhwZNzAktEdhnRAcOE1vXqEMX8VI+CbcdgniScP1qnPnkK0qR54Oy09Fq5JLtxyPAqihgReny7UiyEPoEv+TjbR+V1g3TKqYTX/wYGyKbnwgm9q36XWdltgI87sjQYtSfCdI0bwrmr/SlrTpwPhAZt7qBPN2ZJRgCzS7xtTfFxIh4XNkzdaK9nDOvrHTVUBUqpY5dHXGGoqmRrpDnHf5qWdopKhHlrNbDUfkEjI5dLjgyyIBX3a3e7CjIdm4NbyDG3RYxjV2amXQzXD+K0swQRrlAL1fQOrcvOtqD06pUKmczu+lA+lRmJItZsjufWacW6LPjJdD+diZs83/wqIoIx6Xz//DOrhhyEXI7tq4IdAYts+Z9qT
+X-OriginatorOrg: phytec.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 16:02:30.8156
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8c82820-c8b7-429e-41c0-08ded2d32974
+X-MS-Exchange-CrossTenant-Id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e609157c-80e2-446d-9be3-9c99c2399d29;Ip=[91.26.50.189];Helo=[Postix.phytec.de]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00027A6A.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P195MB3250
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The `gpio-rpmsg.yaml` binding adds GPIO and interrupt controller=
- provider capabilities but fails to list `gpio-controller` and `interrupt-c=
-ontroller` in its `required` properties array.
-- [Medium] The `rpmsg` node schema hardcodes `rpmsg-io` as the only allowed=
- subnode, contradicting the commit message's description of flexible channe=
-l names.
-- [Low] The `patternProperties` regex used for matching GPIO subnodes in `f=
-sl,imx-rproc.yaml` is missing a start-of-string anchor (`^`).
---
+Add device tree bindings for the AM67x based phyCORE-AM67x SoM and
+phyBOARD-Rigel.
 
-commit e02180a974397446bfafe8bc43641010b7365078
-Author: Shenwei Wang <shenwei.wang@nxp.com>
+Signed-off-by: Nathan Morrisson <nmorrisson@phytec.com>
+---
+ Documentation/devicetree/bindings/arm/ti/k3.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-dt-bindings: remoteproc: imx_rproc: Add "rpmsg" subnode support
+diff --git a/Documentation/devicetree/bindings/arm/ti/k3.yaml b/Documentation/devicetree/bindings/arm/ti/k3.yaml
+index 69b5441cbf1a..2dbe461f4520 100644
+--- a/Documentation/devicetree/bindings/arm/ti/k3.yaml
++++ b/Documentation/devicetree/bindings/arm/ti/k3.yaml
+@@ -222,6 +222,13 @@ properties:
+               - ti,j722s-evm
+           - const: ti,j722s
+ 
++      - description: K3 AM67 SoC PHYTEC phyBOARD-Rigel
++        items:
++          - enum:
++	      - phytec,am6754-phyboard-rigel
++          - const: phytec,am67-phycore-som
++          - const: ti,j722s
++
+       - description: K3 J742S2 SoC
+         items:
+           - enum:
+-- 
+2.43.0
 
-This commit adds device tree binding support for RPMSG GPIO controllers
-exposed by a remote processor. It introduces a generic RPMSG GPIO controller
-schema and updates the fsl,imx-rproc binding to support a new rpmsg subnode
-container for these channels.
-
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml b/Doc=
-umentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
-> new file mode 100644
-> index 0000000000000..6c78b6850321c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
-[ ... ]
-> +  "#interrupt-cells":
-> +    const: 2
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#gpio-cells"
-> +  - "#interrupt-cells"
-
-[Severity: Medium]
-Should gpio-controller and interrupt-controller be included in this required
-list? The binding adds GPIO and interrupt controller provider capabilities,
-so omitting them might allow incomplete device tree nodes to pass validatio=
-n.
-
-> +
-> +allOf:
-> +  - $ref: /schemas/gpio/gpio.yaml#
-> +
-> +unevaluatedProperties: false
-> diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.y=
-aml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-> index ce8ec0119469c..aea33205a881a 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-[ ... ]
-> @@ -85,6 +85,34 @@ properties:
->        This property is to specify the resource id of the remote processo=
-r in SoC
->        which supports SCFW
-> =20
-> +  rpmsg:
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      Represents the RPMSG bus between Linux and the remote system. Cont=
-ains
-> +      a group of RPMSG channel devices running on the bus.
-> +
-> +    properties:
-> +      rpmsg-io:
-> +        type: object
-> +        additionalProperties: false
-
-[Severity: Medium]
-The commit message states "The name of each subnode corresponds to the
-channel name as defined by the remote processor".
-
-Does hardcoding rpmsg-io as a property and setting additionalProperties to
-false unintentionally restrict the schema from allowing flexible channel
-names?
-
-> +        properties:
-> +          '#address-cells':
-> +            const: 1
-> +
-> +          '#size-cells':
-> +            const: 0
-> +
-> +        patternProperties:
-> +          "gpio@[0-9a-f]+$":
-> +            type: object
-> +            $ref: /schemas/gpio/gpio-rpmsg.yaml#
-> +            unevaluatedProperties: false
-
-[Severity: Low]
-Does this regex need a start-of-string anchor (^)? Without it, could this
-unintentionally match any node name that ends in gpio@[0-9a-f]+?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625155432.8151=
-85-1-shenwei.wang@oss.nxp.com?part=3D2
