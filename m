@@ -1,124 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A47C3E44FC;
-	Thu, 25 Jun 2026 12:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7583E451A
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 12:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782392094; cv=none; b=QalINVfkMdn16Rkg39sVOYAK2yJdGz8UMeNkJhGz2lkBmzkF342nuT4mDE8smhPKNWjB9gA3otw2GLVyWv9/dHAdmuHXYYsIFhFHj3hBcdiVApAYg66lRVIpciyANahfiQIZW/4E18h8zkcjVgAf7EFrK/oS0aCe/bnETwanB4A=
+	t=1782392133; cv=none; b=DeGLumUkMtIDg4t2AWTR0YJDBSk0OAns6fofrNx5xzdEtjfBcJNraalBHcSgNgz9xIcI+COGdgCUqTtpwI+NaDY3UdJaj+A5vHVpFw222XU/netZ9Z4YByW/egBUfYrizPz5m0BtM9QDdnKuRq9natWPrEO7gikzu76YlHqJGc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782392094; c=relaxed/simple;
-	bh=kz89tyTDiSoNmirF9u7A7+d3Cu4+hlcQhqvTojZ9W5w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eRiFdtsPHQ6bhY6hpEBuYOnM5O2qtzPQYBUIaNMHlQV/uazQlB90fbvz6aVu3fiMTJH90lCgxIdfyaqDlMbqjO1bZHpwHTsdyQfJZFga4toRKILdRXv+xmOasjarvk/TmTWF23gUeeST0WEZ7RrTqo5yItTtD0JS74+4knPOwYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpAq7m4+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782392133; c=relaxed/simple;
+	bh=fhm+aixP5ECDzq8HdzVVNjUbNQs1gCCo767CoYMygZ0=;
+	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:Content-Type; b=QWghIFkmY3uzBTCYf31dVxxs3Y7PmBYRp53VtSF9FTAvB2i2FGPrAokNG1V/onljbWkxHRN1x3z27nO4z+5VmyqzvUgBsbeHK3yanvYY5ZHK5xbAOUQhX/KyS26CAGZiGlJgm2LjYv37AfnpNuFK95pLLfd0DpwzydlSsB6XtnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nfOdw0ec; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpAq7m4+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4AE1F00A3A;
-	Thu, 25 Jun 2026 12:54:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782392093;
-	bh=C8t5+lGRlrzToqOeSgrxbTw2NaFhqhYI+fQbtcvk/Og=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BpAq7m4+fswodKhLqDVmO1WZZMn52tutfYsGlU8bY0CIWx52+jGFaljPkXDeqrpNi
-	 MU31ClXwhk+T5kKsttqG+u5fXJ/8wScR8bnAH2SrWu2IXmK3xBDA6iRemimS/3nFbl
-	 QpXh1NMgY2SmckecIUc5xMUfsjop/Bw61s9ZE/V3gK7oir+PIgePYrWrWxZ3xP+Pe9
-	 yxjn+zx+m99nBk3BNCO2LDjhQYnoJOKJRwFBqIk6WUpdBMywZtFg2WZTP7JX+Feheh
-	 5zxOmuxI8f1WzQXpYwrA23AqsNEN1mV/kBCPZFjZRYnIqXWM4ZcjfB0Ytw3g1gldkA
-	 tS56x3wJ/DnrQ==
-Message-ID: <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
-Date: Thu, 25 Jun 2026 14:54:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nfOdw0ec"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-30c52f96f60so4204343eec.1
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 05:55:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782392131; x=1782996931; darn=vger.kernel.org;
+        h=mime-version:subject:message-id:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=89Ic5OiQ2TxKlY6JX2s9PoYvegkXRGC8cRDRdVhrKkc=;
+        b=nfOdw0ecCLsd/mkwITN2pYvc8YGb1h4TjaZFM6HoiQVbK8CNILZNKzaTWhYyhNzlU7
+         QoYrIv/ovNVG6ZzXz9GMSMxzIA8318pEhgffBHWNXnOGKYtQPvtarTap/wlVbRu6Y/da
+         Lx9JV+OdCAL794UaapRUiMcXXXcIKJww5DdzypsWCOBaf3ik9siE4ZYJH/YN8gP21P/m
+         3AwYvTl1COrd7o+IW7QBHbku/CVu6iZqo2/PA8nNsZ6nW3p+wEGWvpQkYXoiBn+K/br0
+         AaV3EXtLzgvHD9VZI1OhQ1yzZpJYgdSaZ3idJf1Ug0eEuAP1eADkyOBW4afCFEqaQinG
+         0wBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782392131; x=1782996931;
+        h=mime-version:subject:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=89Ic5OiQ2TxKlY6JX2s9PoYvegkXRGC8cRDRdVhrKkc=;
+        b=Smm7onnWuoWd6FeTVoN+4BUOUwUOYFQi4Wkmi223IeXxBZZNGrFh4WEjnVHCCgLkf/
+         rnGDbBBZbX0YDQVMbDr/eWKP5PPPXsJsemMezuPuhkYJpMEAk9FwoE1geNrZr13sJD2C
+         zq8X7u/19rK2YPhYGgnyed9QqG2mjJu8WKuxQC0/kZdFuEmRIka1krKHfUgrQ+sZSERX
+         4tSwLIJLevtoImrQtfsHaogaIN2zVpx+OabhPuQL8jVzRjlKjRXPWLrjmCdmDFw2wFAS
+         yKlU85HIFeZWpu+hWFRdkDnqC+Ztptp6r0ak101sqYSz2+Ai9Y30eu6hauEHo9Zu7XOZ
+         TGrw==
+X-Forwarded-Encrypted: i=1; AHgh+RrYjp2TlKOx7cb5z+k+aMz3CrSk9rsagFAj2ZjK3JmxvN4Vgwkg5w85+HrMwq1XualrFRh1J2Nc+ki0@vger.kernel.org
+X-Gm-Message-State: AOJu0YweG/MCfZITM9h4jzr34I2CroaWAlmKMDbJ4r/AGzwnkmG50UI1
+	wQNlXUpzVhCyb8fK7AI2S4AxK1d+Yr6FCdn9dhegbg49TJyk0Fi1VtJ8
+X-Gm-Gg: AfdE7clw2MxJ927pShkl/ErCc9KOHBSASUPtce0kER7d3yw6uKiTkYACTeU4LCXFPZs
+	Jyo5bwrztIMpAcjVzjPr9tDF0WHnrNkXUmWoca2yNEzbqNn693upzEU9gWiyA68UhVGq4mkRvNt
+	su2VekorqyEF7RWtzO8Hm0LKAkGCbrUopIzCpYAitAm3F30VbH64BPPosojo+kyyUd2TmTKawvI
+	I7B8R3fUHmkEFoj1/CG+pBjTQcP2PzMMfzQeghfICGprv5T9h6xCkpDVUhmooJL32cIqIC364qJ
+	gwKrcwx2Nf5ptZ44V4wWSSAL9S2NJW81k9ownqM4o67Kcd1iBsGLEphX9pLtegFVbIgU2PG2aJ9
+	QFp2Vki84BA9/XOdOIWAagdX79hZI1vYAYcMALhTZTulHCxUOK8Zcv6rvLR2asIwRHsItqxfpOA
+	LDhNbMvk+4W4QsR48dZVI=
+X-Received: by 2002:a05:7301:600a:b0:305:56a:c38f with SMTP id 5a478bee46e88-30c84d8c4e8mr2777422eec.26.1782392131106;
+        Thu, 25 Jun 2026 05:55:31 -0700 (PDT)
+Received: from [127.0.0.1] ([177.174.222.21])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7ca87caasm8136463eec.27.2026.06.25.05.55.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 05:55:30 -0700 (PDT)
+Date: Thu, 25 Jun 2026 09:55:22 -0300
+From: Wagner Popov dos Santos <wpopov@gmail.com>
+To: AaroKoskinenaaro.koskinen@iki.fi
+Cc: AndreasKemnadeandreas@kemnade.info, KevinHilmankhilman@baylibre.com,
+	RogerQuadrosrogerq@kernel.org, TonyLindgrentony@atomide.com,
+	RobHerringrobh@kernel.org, KrzysztofKozlowskikrzk+dt@kernel.org,
+	ConorDooleyconor+dt@kernel.org, linux-omap@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <fec5175f-8533-494e-af5b-1abe26f6d83b@gmail.com>
+Subject: [PATCH] ARM: dts: am33xx: avoid invalid OCP device-link for timers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260508134009.4582-3-syyang@lontium.com>
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_19_261743831.1782392122149"
+X-Correlation-ID: <fec5175f-8533-494e-af5b-1abe26f6d83b@gmail.com>
+
+------=_Part_19_261743831.1782392122149
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/05/2026 15:40, syyang@lontium.com wrote:
-> +
-> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> +{
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +	msleep(20);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +	msleep(20);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
 
-This is just plain wrong. Why do you assert, then de-assert and then
-finally assert AGAIN the reset leaving the device in powerdown stage?
+------=_Part_19_261743831.1782392122149
+Content-Type: text/x-diff; charset=us-ascii; 
+	name*0=0001-ARM-dts-am33xx-avoid-invalid-OCP-device-link-for-tim.pa; 
+	name*1=tch
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; 
+	filename*0=0001-ARM-dts-am33xx-avoid-invalid-OCP-device-link-for-tim.pa; 
+	filename*1=tch
 
-> +	msleep(400);
-> +
-> +	dev_dbg(lt9611c->dev, "lt9611c reset");
+From 6d482ff72d1a11a5851602717a48eb3e059946d4 Mon Sep 17 00:00:00 2001
+From: Wagner Popov dos Santos <wpopov@gmail.com>
+Date: Wed, 24 Jun 2026 13:28:02 -0300
+Subject: [PATCH] ARM: dts: am33xx: avoid invalid OCP device-link for timers
 
-Drop such debug statements. This is some downstream, semi-useless code.
-You are not supposed to add debug to every call.
+This patch fixes boot-time fw_devlink errors on AM335x/UCC3 caused
+by invalid device-link creation attempts involving timer1/timer2
+and supplier ocp.
+
+Observed kernel log messages:
+
+  ti-sysc 44e31000.target-module: Failed to create device link (0x180)
+  with supplier ocp for
+  /ocp/interconnect@44c00000/segment@200000/target-module@31000/timer@0
+
+  ti-sysc 48040000.target-module: Failed to create device link (0x180)
+  with supplier ocp for
+  /ocp/interconnect@48000000/segment@0/target-module@40000/timer@0
+
+The change updates dependency handling for timer1 and timer2 so the
+kernel no longer attempts this invalid link-creation path during
+initialization of supplier ocp.
+
+Impact:
+
+- Removes the two ti-sysc/fw_devlink error messages at boot
+- Preserves current timer and clock assignment behavior
+- No functional regression observed in boot and timer operation tests
+
+Signed-off-by: Wagner Popov dos Santos <wpopov@gmail.com>
+---
+ arch/arm/boot/dts/ti/omap/am33xx.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm/boot/dts/ti/omap/am33xx.dtsi b/arch/arm/boot/dts/ti/omap/am33xx.dtsi
+index ca3e7f5d7d0d..760598d5ae1c 100644
+--- a/arch/arm/boot/dts/ti/omap/am33xx.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am33xx.dtsi
+@@ -708,6 +708,7 @@ &timer1_target {
+ 	timer@0 {
+ 		assigned-clocks = <&timer1_fck>;
+ 		assigned-clock-parents = <&sys_clkin_ck>;
++		post-init-providers = <&ocp>;
+ 	};
+ };
+ 
+@@ -721,5 +722,6 @@ &timer2_target {
+ 	timer@0 {
+ 		assigned-clocks = <&timer2_fck>;
+ 		assigned-clock-parents = <&sys_clkin_ck>;
++		post-init-providers = <&ocp>;
+ 	};
+ };
+-- 
+2.43.0
 
 
-Best regards,
-Krzysztof
+------=_Part_19_261743831.1782392122149--
