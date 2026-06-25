@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18231684B0;
-	Thu, 25 Jun 2026 16:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 567703A7F41;
+	Thu, 25 Jun 2026 16:34:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782405274; cv=none; b=S1tM83PEEsNnx/GcPRi3eq/sWVWgYYXCo4SF0vlqy+JLqdEptqx2Oj4igBrInvxhgQWWNEmsgx+K1Jeb9KH5DMuE/j3ReCTFZ86QHnnlgv5KSCi4+gr/bDOR9m5yxIXfPFV1LFgXe8MQc9Ih48k+Tnvk1OeAbS4HG1Ibar/tCV4=
+	t=1782405299; cv=none; b=HaVQzqi7S/hOI11LA5OL54uFrGPQTIZdW8l1zrykw9r6RjvNUzvScjwO07gplQ5+vqjpM/z4Gwxj0MU2jAhX3j9oRxajqcFPd94I4mo/ph6cZ71aexTSN6jaQ7norz8HFtBrLCYf2Bu33Olk4pCkVJrgxgSFERg9n17quB3xrRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782405274; c=relaxed/simple;
-	bh=4G/LNNM3b1qOUplHc09UGSAyOeAo6risik2UZldc5cM=;
+	s=arc-20240116; t=1782405299; c=relaxed/simple;
+	bh=Pr3pDYbeloS9ZBEUPJo6GMR5fF0kPmCcEgRGN23WLJI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ck7GLBPrXtJf0P5LrdmQwq+w9Jf7Nxj22FFUevPblJTeqG2WJwcSVJjzSeCQZ5bk0UozAUbZvzTg0TjCqE8LV5gLkXccCN23Q8eZ5HZ0nRA0feT0AWp8W7Zyp0p/xvQd4muJGRwnQ9FbqfMqghJabplufHB0O1Ey4Px2PUX6esA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqM+geLq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EsYxLQ6f2ZZD6yMpUvCy8ge71L1zlE0kS6xIolekDDVnc5QOMzgM83H0tdGa45DNSIfFMSZaVs1iQFzciY+QVYMY0KACL0tWMmFld/7WJmUBa7FSKG7eKZnjcg938eUat8DboX2xudgMWE7rUiqO0fPb5AKlScFBgadQ77K3dR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/IlxFk4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqM+geLq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7DC1F000E9;
-	Thu, 25 Jun 2026 16:34:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/IlxFk4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4994D1F000E9;
+	Thu, 25 Jun 2026 16:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782405273;
-	bh=4G/LNNM3b1qOUplHc09UGSAyOeAo6risik2UZldc5cM=;
+	s=k20260515; t=1782405298;
+	bh=Pr3pDYbeloS9ZBEUPJo6GMR5fF0kPmCcEgRGN23WLJI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hqM+geLqLtKDwoPOmnGlO2HR7UprnhmjwnNic+QGVqzdjMYYukmI7R9J3ZlbCZHp7
-	 jRT/oKg0HSN59NQxPPvSj5FjNTjI9kXZAky9dTz9GivTeu+g6dn4BHdlgAvCMqZHpO
-	 xz3babkj8FJhZ1Zy0jneHq1qubU9o2ZROWVeuyp6FfMMn4L9sFkdeIcpNG55Gx+W2n
-	 H+Z2PaCnl5iBcEG9Iq9LqehHdJjKOVGcwBu6dMesbUWAtcX2dEJ0J+8pd+Bn/MvXTQ
-	 Xy1FkfPRszFXjTcywC06S7EZ1vCUtlqRJSgOLJOUqvRf22SXFpSWe1b+ZP7V4jKblL
-	 xOQYjrptDfBvw==
-Date: Thu, 25 Jun 2026 17:34:28 +0100
+	b=A/IlxFk4NmEMjtJt4FMt46/qYZbCtXBoRhVBzQykp2wfaN5hSRGZM8N2f88bs8Cby
+	 exK1ViB1prA6qpwPotUn+6q6t74AXxmmc86Glj3LzTbzukSZjUNQhDxAL8DIJyGTGP
+	 +ALAP/GNOIDcjSgDsKuuzedwfoWI1OonChmqXaWfUPgAjaosKAazcEOp2ZisFFA1LH
+	 XyDVmAPqzbU1BnozhWqpRflqGp3UtnHyvv0JfZ9Wv5p3QaQC/pyI6rnT9UnrN+dryn
+	 3WBNQUiKjkOgAPa4ttOXWTD9fCWG9ag2TU8DLp+FdJ+lKhhabQtYNYyZjBU2jJndiu
+	 K4Oh+E5lOGSfQ==
+Date: Thu, 25 Jun 2026 17:34:54 +0100
 From: Conor Dooley <conor@kernel.org>
-To: hehuan1@eswincomputing.com
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, p.zabel@pengutronix.de,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ningyu@eswincomputing.com,
-	linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com,
-	luyulin@eswincomputing.com, dongxuyang@eswincomputing.com
-Subject: Re: [PATCH v8 1/2] dt-bindings: hwmon: Add Eswin EIC7700 PVT sensor
-Message-ID: <20260625-koala-dedicator-96bd3057cf48@spud>
-References: <20260625061049.1614-1-hehuan1@eswincomputing.com>
- <20260625061147.1631-1-hehuan1@eswincomputing.com>
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: tsbogend@alpha.franken.de, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] spi: dt-bindings: microchip,pic32mzda-sqi: Convert to
+ DT schema
+Message-ID: <20260625-omen-stark-6bb827ebcc43@spud>
+References: <20260625060903.14661-1-challauday369@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,27 +44,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3lS29/ShfriVpN9k"
+	protocol="application/pgp-signature"; boundary="UbhGQTDbkok7ej+s"
 Content-Disposition: inline
-In-Reply-To: <20260625061147.1631-1-hehuan1@eswincomputing.com>
+In-Reply-To: <20260625060903.14661-1-challauday369@gmail.com>
 
 
---3lS29/ShfriVpN9k
+--UbhGQTDbkok7ej+s
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---3lS29/ShfriVpN9k
+--UbhGQTDbkok7ej+s
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1YlAAKCRB4tDGHoIJi
-0uV2AQDAPqTMDCyZZXKg5nEtT4hV/Ay+5GSNwwpMf3sXlpRKrAD+OZ1q0Rf1kP/G
-LIHn6CDZjB3hAcU0yy5MmB7afhU+LQk=
-=t2nx
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1YrgAKCRB4tDGHoIJi
+0mr7AQCuu1XoRIyvP+GyycPJ+B0Lv30+TxbFb/gGoWssyNlGWgD/SgDDxVZ6gY7b
+Uen8sdjB5kRYyOUidhYy8j51WYJddQU=
+=QuXN
 -----END PGP SIGNATURE-----
 
---3lS29/ShfriVpN9k--
+--UbhGQTDbkok7ej+s--
