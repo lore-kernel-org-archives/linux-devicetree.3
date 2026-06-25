@@ -1,67 +1,66 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A75373BE7
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B474A387345
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782379755; cv=none; b=ik+HN6vDEetc6K2wcCGBQS1AhoMGz2cYxrzRw5b7e4k95CiNwNAy70uAANknb/t3zkD0hQkl7Z9PFlhd21JkPgbUHb6Hj+QhPla8sTWpQzouB+5eMXYywaOCV3mjCh7sMySoAxcFMxq0LENIxUr7iXiaJJlVSZlOq5YKwsOp4ZY=
+	t=1782379755; cv=none; b=IB0HxqXRxgy0WIZ5QcAXqgK3CY+pX9XjBfZwVjlYXb7kTuA4PqSOyPapJthwaTO3KCPquNd/sfS36lIGkRMbHc9w6hnx4SYAXOJPBd9Yrh1Fyetojah4ssUObG41Wc/RCe6oj2LRRDB7QFgWvb7FOLTbQ7q/xcpAxUaGmYIDABE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782379755; c=relaxed/simple;
-	bh=Zq5948yoVNWLdfl4Pn1AIZbbP3FPXFuxs6toZA6iUAM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OLJUMOb6X3GwbXa6IBchWRr6tjqA1PSrU569T3gV/aBCPUSI5VRFVkiJe7+5BtninIoHffFts+jX7FiqiU6r3DVKzXTkpGx2gQlf/23wXW6i8JvE6YgueKNY1XnQwZcAFVX7J69ireWw1Cy4baGn4yJK5dszSd0xohLR6I3Khn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hVxOgXTt; arc=none smtp.client-ip=209.85.221.46
+	bh=JZ6x+4HXQCf0qklTwQbSEog/fEcbxqfwTfTEQH/gfao=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lFfNUdsBcwWcSkJEDSn0331VX4tBLZE+b9vEYP11gw3Io/UVbCap/Owprpj0z+lshUsU6om5i50ElRpooyVRfVt6f5lhKfZr2B4D8vzwuw3e1kX6syMgOEe1A0RnB/dSAFtoGn2lcC3/wdAGopyRGOSU8GRoHSijtaFYtYzv8lY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uNft3tnY; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hVxOgXTt"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-46dcb6e55c6so418322f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 02:29:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uNft3tnY"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4923fb1f095so19958265e9.1
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 02:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782379752; x=1782984552; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hvOvrszp2Uvv8rX7bLK7ODaTkPYIPo5Pf15awE1QSpg=;
-        b=hVxOgXTtXhd12xIaYg4oFrgunB8h2L6zn4wTLVmqDgl12jFZGG8GAAwOI9TfJmP4fY
-         QiZGQccsxqp2JBO2lsgx8g7qdxWpG7tYbzguIBLT9f4owGIHESdg47y8qLVDoMexV7UP
-         a99Y05x1lLWYFGn+b8qLrTUElR9aSSvprNoRK+H/2cYj8tlhxTB7bjfqJVOCHq7CJvxB
-         Nmi0R3e/V+0RJXr8gqgMnP5bDw1vdNToxgVT1Z3cesDfeI8iWoBPawHIxYs/b+9Dkv3K
-         dXBK2CLHAN36CcNyoPNxyE8JNj3fyPFI3b7j7M/KhJEWFX4DhEHx8QoeMbm5Czc4U9FT
-         ftKw==
+        d=linaro.org; s=google; t=1782379751; x=1782984551; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1qmqlBS+NOvUVwDO1d/d5gRMpOTlf6GDJuFG270RH6Y=;
+        b=uNft3tnYw3aY47amy7tKi4aTTGB/Y8XazZ4w3BpCxLgScriZAk35TlzkOqXh2FR+aT
+         wvx8/BJaYD5BNxDHTA9g3y+VZg5vEmkOfyZcB6Hgt074RQIz64j4ZTYEkmBCwyw4/0dM
+         7Zbb9G4aTH6/H6dZt258q608/OI5H3XdnlAYBjU/7D5D1kDKlQCfPjnghPy/Yh2VXhMj
+         IS9BSpsIn2Sh0Yv82NjqYYzillwVXJe90EObqUEFeCAOj30h67t+revsZ9czI4w8wJQs
+         J8c57W29vVTCKUnCrVcnNRBgMo391xEEdjRkkU+bIxs7fnmv2l71qPhwoDnYisJWp4J+
+         B4ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782379752; x=1782984552;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hvOvrszp2Uvv8rX7bLK7ODaTkPYIPo5Pf15awE1QSpg=;
-        b=ajAUKGaM+sQEX5Y0Al1crxZkShOZANV8imqIqJDjO+7zRX0sXVIRoohnoRWUt3sZ7L
-         q4QBRVHoyqd2cLzfl8Dy1oyfECb3IM6CUZ2Gxx6Qa8G/RouVW1wNhKS9KFfVv5kS+jav
-         mqEcQOFIsKF1Qq9/HtpZ7QNXSIdLVA0Cefeqe39ATlO31F8XKAMgQcTasefCotnApU6B
-         7qPoZzx5iU90N8dwbFYSV3bR/gYHslK5fOaM2eQZK6VzuUbISnhIlkMpbNbDk6iow93g
-         9aRxpTD/WLZnmjQv9vwZ59w/EAoUbvgcus6cjdzWNOinMOC9u1NEV99752OQQwZv5mRZ
-         zGuA==
-X-Forwarded-Encrypted: i=1; AFNElJ9RYV6ZEsYQwJujs7MLE+KBvOR3OY1BVDQmWYCchXWRAeoa4RMfhBa8Cxe/cIt/cxBEoPrtixJ7Tm6r@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZ1f0k4Dz5Wcf+KtAnr/DHLlAL3O+y/yrHkHMofrxhbDUScgo5
-	RaM0hBq8//75DPZc1NRK3cMJvHlOyBlGgHfeRRbi3y6bG8MmP1kYArJOZJAAZVqWsuk=
-X-Gm-Gg: AfdE7ck7uIMGymXjEoHSeMafbDXHwa+BWBg6EPdnr6YEcMQJJdWFc8qr7MwjwxsudBB
-	DRcA76bWZMWxCLFEWq62w1tU3oHQaE4lLLFALvonGGBaDXGoT6/FAV73iVovRft8v06JYzzkVy+
-	KQP8W54030fXtku1QZKk/wmTBiqmGLYEYLv0iRGTp/GTyPsChZETd7W3Jwb/TDGI03P2T0cvjGe
-	1nm60boREqXrgHoiZiATHMpCjvxVgA48yO/vYYXc1H6ek8dPYNslIfTEjjAsm3PBzRD0NN647md
-	NgDasfpGO11mirL3IuqcGBKIQbnjSpgWY0bhGVMkOkZKiPk6PAdCqc8oO0vj3i063Oa8f7AK+lP
-	REVWsO3auZb9df42NF5lebBVIJEv3h0g1ZC39Zu/DZ98K2X7ZR4ijI/lqy1o1e81BDMLu7FAidy
-	l1nQPrF+eDAXQCEiw3T3tA3LuFsAIfLhvEA8xrwDyuv5g0
-X-Received: by 2002:a05:600c:3e19:b0:492:4c5d:4db3 with SMTP id 5b1f17b1804b1-492668322camr22201945e9.5.1782379752224;
-        Thu, 25 Jun 2026 02:29:12 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926544dfaesm33846195e9.2.2026.06.25.02.29.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20251104; t=1782379751; x=1782984551;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1qmqlBS+NOvUVwDO1d/d5gRMpOTlf6GDJuFG270RH6Y=;
+        b=ZIq1tA8L5iGWuqt6WKH8PUOps6LziuNoouuN5LC0fTxgw5Z50cYAWEEiL/QfNtEYB2
+         ezY2mec3LVQWadgqgrcFacdar9U9BUgbu17n71kKCNqxcou7CJXFKHEN8I8i1ajjYYKP
+         fZ2KCMvlFuHVe58H5umcLPQRa4lYdMNJ/w79sco16yID2BpeszDaH3OMAbS/gk2sJ8wX
+         f91CGDpp+05maC9AS40YJ6RONRqgCVKBSBcRYEGJYWA2dyMuVWvqmdATW7LZbzfX0MWY
+         /PYStQYKWmnJX1gNUpwJQ9SQEPfTJWMGddmBLsdhHcEUIReflpR2vpnXBlfrZYzMAflF
+         DEnA==
+X-Forwarded-Encrypted: i=1; AFNElJ+yMa9jec4kU7DCbJuzf/kpI3ApziJSwhpzeyhO4y+PwMeu2pddzwtGgD+SIK1IOo3VK/ELOqVCuqWK@vger.kernel.org
+X-Gm-Message-State: AOJu0YzcjQbk/3TduCiDosB/kJwQdM3WpHyftRhwrv6CzTnDmpolXgZb
+	uVif+k/I37RTQayzOuQvlnvYHimHj0c5EAghsu+9icMO70hNWPnwQ9mNKdiaTo1W0/k=
+X-Gm-Gg: AfdE7clmvTwvBOjoBBLAJBGDkWWHJVpGjsUD/8lQTWJJntYA4lPGNOtUgt4hdXaICz3
+	moR037KHnizOCAzRvac7jIiHftAz/xBJNik2tNu17MMU4OuCZMgo0O/0V6IOSQXLrYEltOm+zgT
+	cLjBGOTYwDN0BOoAADZzLyZJGEN9FoXUNyZLw9PIbZoA/d89X8hUt3j9fq2ZVDutEDM9Bk26Xji
+	WHEX91XrNGVAqyATBoK6zPKthKkfNG2sneKhTY4Hrw5PNRo+2xDufLmXUSkFSZWHNna6GMw4/8W
+	ttuLCSuIEQZvmSgA3OEhF4BB5meammo4xg7hFLeiRSPBe4fDXHF8H7w11DnDi3yC0q9Ux20RmtQ
+	qDLidRK5dkJC6qg1zOgaJ15tpsqRC/4bStyh1ttkUAG3mECvGzer6h1PDIYc4gwUjkENQX223UN
+	8YI6VWqJqjVbkGMoUuQygm99jrldspJTy1QA==
+X-Received: by 2002:a05:600c:e557:20b0:490:a1dc:e542 with SMTP id 5b1f17b1804b1-49266862d71mr14954775e9.6.1782379751095;
         Thu, 25 Jun 2026 02:29:11 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926544dfaesm33846195e9.2.2026.06.25.02.29.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 02:29:10 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 25 Jun 2026 11:29:07 +0200
-Subject: [PATCH v8 1/2] dt-bindings: display: panel: document the Renesas
- R63419 based dual-DSI video mode Display Panels
+Subject: [PATCH v8 0/2] drm: panel: support the R63419 based dual-DSI video
+ mode Display Panels
+Date: Thu, 25 Jun 2026 11:29:06 +0200
+Message-Id: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,9 +69,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-1-8570e692143e@linaro.org>
-References: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
-In-Reply-To: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAOL0PGoC/5XQS27DIBAG4KtErEsFw8Omq96j6gLDkNCHscC1G
+ kW+e3G6iCtn4SI2I818/2gupGCOWMjT4UIyTrHE1NeifTgQd7L9EWn0tSbAQDMJLR3TEB0tn61
+ WjNqz7THRIbl3HGkBmrWQ3FBsQOoGwXcskEoNGUP8vsa8vP7W5at7Qzcu9tJximVM+XzdY+JL3
+ z8jJ04ZNS3HTtn6FX/+iL3N6THlI1kyJ1ipgu1UYVG5dZxJJTxzG1XcVMXkTlUsatDcBZAWu7B
+ R5UqtA/tUWdWuNWBsUGjuXECtVOA7VVVV71XDGBgjDNuoeq3CTlVXlWv09Vlzb9fmplZ3p9pcL
+ yA77W0rwYg/6jzPP1dCtSPvAgAA
+X-Change-ID: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -86,139 +89,93 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Doug Anderson <dianders@chromium.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
- Conor Dooley <conor.dooley@microchip.com>
+ Conor Dooley <conor.dooley@microchip.com>, KancyJoe <kancy2333@outlook.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2928;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3109;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=Zq5948yoVNWLdfl4Pn1AIZbbP3FPXFuxs6toZA6iUAM=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqPPTkTeZqdgZmxqYH3uVuo1O4jxHMWl2Fsf2K52mL
- XcPjZkCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajz05AAKCRB33NvayMhJ0QZfEA
- DFwB+HpIp6G4Bo8rIlaXtFhEUrw2RIvmGm1WEliAXEYdOR6GgqRM/qhUGTUv91gUYufnqxOY+rV7TH
- VyiF0WTPqIAmZtkif6FpcWibzJpPNXDgTfkzONXv7L+qGrieHM3b/6tCDdVftMGj7Tn+VK1spfoPu5
- 3dEGHeCQYoS0vss1uqyAAEVWGjKO4gpZXk/YFLmDguZD1aTIFPfcikuGpSmYPpp2a8bQv4FcjeCp1R
- i9zgixfJn4DJ0OEzA/gQZCSPhpWyFr5V3/SDdzfQJQvcz4rpAHlNJ69/7X3eL85WtuUXHuXF6uT1Y2
- 1yKKC9X7v8ayyYkAOVpomABJ3ppZ55wbVlt/ExODC/n2gFLiKLuI8CXXU8K5LVurIqSCnmW7946IS0
- FwwinWnDJE2h4Q9Rq/FQF+Lw9egomlnrCGsUHGsO4icQTaJsAIn/XM27c06MK4xp/wT5FrkowV4ahu
- 3TXlGQNHqo77Gsow+a0od3GfwYtyQeujXv4cEi3AgBeokDEV8WE3P+uODPLgUy/ULNxhu1TMdYXivP
- oQ5/e4bmv3ljFwB0HJw8p4XaSBRFo6Ce8plzbBMWL4WYMIdYmRyPqvbfdNPurJRQ/joLd7ygkXwqmQ
- kYDgNbQ+c3+Rg01Dv2oMlJiLh+tKlNQLzKCmE3NQ02cyXatj2vAkSNp5sTrw==
+ bh=JZ6x+4HXQCf0qklTwQbSEog/fEcbxqfwTfTEQH/gfao=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqPPTkU0lwl9mndInTTxFKj3+RDBDu6m+62iBo+2Vt
+ hlUQGriJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCajz05AAKCRB33NvayMhJ0d+KEA
+ DNc7WttevYyJv35sE13rnt1FLMVAaXNcwOD6iRizL406fRZlqAw/PMLkxO1cNCzpqbE5zDQ2B+MAiB
+ D2c5fT8KFdlfX2F6djJ9lu7UooNnfu+PFHlavPwdowmB8sk+q/LNOHg7QsInGdfdWBkUsyXVaqEBkU
+ 98qC1EZybMaQSxiqL7F5fmhuMt9GOO1vbtK87qQ8D/5PL3qyEswP2gaBHYbo+bvfw/68Rer8erU5qf
+ b/E27zRNAmdYOkmXgaq13OJ+gb5n3/rqOtNMvYNtN6xKoxsrBCpdK7jh4ENvj/fu86NehhUKLfl12P
+ TMkPBAjGmtxF7FTJwRwfTPYXY0wi95w1ONgtLrYAF9JYi7H7/KUTxsibp3Q1Sdm2ZjfbcKjkDCxZQi
+ E0jdsQIjFRM0PoPobzpPUbOgA/C9s67nBBwo2IMdcFgNx6782jXkBfnro/6iRA/CgCaQsCYIQCy2bU
+ zY0EWYTykKCiQ9OYB0BD1qkD8tZ9KydQGHyZs/ag0DPTKxZbkQ3TuEp3ixXA3NOB/dLI6XiQ0S+pRa
+ q0F4LG1aLGvtS62uC1gDhqR8Z+FV8GoNbd3gNTkB9ppsPUHbv14NTwibSxcbtpsHEEN75ZvWgSVcl7
+ y9SpnMGYL0AkSZOWZViH4j/PkSavgA2UJYlNBDrleAp5AYz8Co2CUUWYSk+A==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Document the Renesas R63419 based dual-DSI video mode Display Panels found
-in the Ayaneo gaming handled devices.
+Add support for the Renesas 63419 based dual-DSI video mode
+Display Panels found in the Ayaneo gaming handled devices.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- .../bindings/display/panel/renesas,r63419.yaml     | 98 ++++++++++++++++++++++
- 1 file changed, 98 insertions(+)
+Changes in v8:
+- Use mipi_dsi_dual instead of helper
+- Revert to recommended prepare sequence from DDIC spec
+- Disable VCC after gpio up
+- Remove drm_connector_set_panel_orientation
+- Use 2 params strscpy and make sure mipi_dsi_device_info is cleared
+- Link to v7: https://patch.msgid.link/20260605-topic-sm8650-ayaneo-pocket-s2-r63419-v7-0-b84b6da84293@linaro.org
 
-diff --git a/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
-new file mode 100644
-index 000000000000..adfdd2c300a3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/renesas,r63419.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/renesas,r63419.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Renesas R63419 based dual-DSI video mode Display Panel
-+
-+maintainers:
-+  - Neil Armstrong <neil.armstrong@linaro.org>
-+
-+description:
-+  The Renesas R63419 is a generic DDIC used to control dual-DSI LCD panels.
-+
-+allOf:
-+  - $ref: panel-common-dual.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - ayaneo,wt0600-2k
-+          - ayaneo,wt0630-2k
-+      - const: renesas,r63419
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+  vddio-supply: true
-+  vsp-supply: true
-+  vsn-supply: true
-+  vci-supply: true
-+
-+  backlight: true
-+  reset-gpios: true
-+  rotation: true
-+  ports: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - vddio-supply
-+  - vsp-supply
-+  - vsn-supply
-+  - vci-supply
-+  - backlight
-+  - reset-gpios
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "ayaneo,wt0600-2k", "renesas,r63419";
-+            reg = <0>;
-+
-+            reset-gpios = <&gpio 176 GPIO_ACTIVE_LOW>;
-+
-+            vdd-supply = <&vdd_3v0_lcd>;
-+            vddio-supply = <&vdd_1v8_io>;
-+            vsn-supply = <&vdd_5v0_neg>;
-+            vsp-supply = <&vdd_5v0_pos>;
-+            vci-supply = <&vdd_3v0_vci>;
-+
-+            backlight = <&backlight>;
-+
-+            rotation = <90>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    panel_in0: endpoint {
-+                        remote-endpoint = <&dsi0_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    panel_in1: endpoint {
-+                        remote-endpoint = <&dsi1_out>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
+Changes in v7:
+- Reverse "on" command order
+- Rebase on drm-misc-next
+- Link to v6: https://patch.msgid.link/20260522-topic-sm8650-ayaneo-pocket-s2-r63419-v6-0-16edddda9951@linaro.org
 
--- 
-2.34.1
+Changes in v6:
+- Get new dt bindings review from Conor
+- Properly init dsi_ctx
+- Link to v5: https://patch.msgid.link/20260521-topic-sm8650-ayaneo-pocket-s2-r63419-v5-0-dd5700299390@linaro.org
+
+Changes in v5:
+- Import panel-common-dual.yaml in bindings
+- Set reg as required
+- fix bindings example typo
+- Add helper to switch link in order to use single dsi_ctx to properly handle errors
+- Disable vdd supplies if vcc supplied fail to enable
+- Precise the power off sequence is recommended by the vendor spec
+- Drop passing of node to second dsi to avoid re-probing the driver twice
+- Link to v4: https://patch.msgid.link/20260519-topic-sm8650-ayaneo-pocket-s2-r63419-v4-0-b8929af5e951@linaro.org
+
+Changes in v4:
+- Moved height/width in the drm_mode, duplicated modes to use drm_connector_helper_get_modes_fixed
+- Create dsi_info on the stack with proper OF node and name passed
+- Switched to devm_drm_panel_add/devm_mipi_dsi_attach & dropped remove
+- Link to v3: https://patch.msgid.link/20260504-topic-sm8650-ayaneo-pocket-s2-r63419-v3-0-9f61cf24aebf@linaro.org
+
+Changes in v3:
+- Added DDIC compatible as fallback
+- Added rotation in bindings example
+- Fixed bindings subject
+- Added second MODULE_AUTHOR entry and re-ordered signed-off-by order
+- Link to v2: https://patch.msgid.link/20260430-topic-sm8650-ayaneo-pocket-s2-r63419-v2-0-91ac10453d0c@linaro.org
+
+Changes in v2:
+- Add missing rotation property into bindings
+- Fix commit message & subject typos
+- Link to v1: https://patch.msgid.link/20260428-topic-sm8650-ayaneo-pocket-s2-r63419-v1-0-981eb5ab5a51@linaro.org
+
+---
+KancyJoe (1):
+      drm: panel: add support for the Renesas R63419 based dual-DSI video mode Display Panels
+
+Neil Armstrong (1):
+      dt-bindings: display: panel: document the Renesas R63419 based dual-DSI video mode Display Panels
+
+ .../bindings/display/panel/renesas,r63419.yaml     |  98 ++++++
+ drivers/gpu/drm/panel/Kconfig                      |  12 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-renesas-r63419.c       | 350 +++++++++++++++++++++
+ 4 files changed, 461 insertions(+)
+---
+base-commit: cdeb2ccd993ed8647adbbda2c3b103aa717fd6f7
+change-id: 20260428-topic-sm8650-ayaneo-pocket-s2-r63419-e72467e2db0f
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
