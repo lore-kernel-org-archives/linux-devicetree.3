@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8F92F8EB5;
-	Thu, 25 Jun 2026 07:22:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D272F3600;
+	Thu, 25 Jun 2026 07:22:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782372126; cv=none; b=jPtNcdqhyTyvIL8pYxhH6PtGVEzqDgptz3aWIdC42o7hWyZmj+lGs7lDelbKBZIV4GzKhjCHAMZCyuWXy2WOb8EJjLWuJ5Gu073EFuzeFSMDHQtW0CCeHKCmaBQ0W26PbaHYPqO6iCeEhbAXXIKRDaGJWbGspCNMpXKJt7DJMVc=
+	t=1782372161; cv=none; b=aEzWTjd0FXB9V0+pGcqIb9SIKHctKlTP/kJXLdnLnETLFGCQgGIY9Hx5QJSrBNFzI+IQelijwtTw5+S8nUmSr0M++Lt27KD9fhYrEGYj1IQM1RwOWKsp7hH7hrWY0GjpKzAUayBX+zO0EKFrdhtwW5lXF29qU0O7elAKB59Scvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782372126; c=relaxed/simple;
-	bh=6DT46PpihlAbr2sz3jxZTbqZaGztT7B2k3gM79yp31E=;
+	s=arc-20240116; t=1782372161; c=relaxed/simple;
+	bh=NDh150DZaI53RIoAxJJmzoNVhrBuE0NO6VSeFBxWC64=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NqBU8D0gAYi6iUX51Nis7HP38IrpP3IZGhrmzV7huhgPcK888GFRrqfDhv9iBi1+7bH0OanODeKT8vcVS+bd2MvcOx6/q5Qop/Kly00btue3vCd1kUMEGKQprmx5z56XCKt2/L7C7W0TM/AXR2X0UXJg1HB1gna+H/qXBODU+/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxN8kbbp; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=UG7vxyBlWyo/1gO7cAUlZC5sw+plBB1sycnmFphkjdDxc4vgsHSNKJla0qMQnSm2KTQXVP2EyyJzSThXrK9UajRL6Q0LPrONzYrMVwFsGGKUGFWi8zJ0O4gJvd1bYmiSt+5ETgFHK75JGzQ+SoMUhti08NDcMh0s/drTXS6m1ZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VosHVnj6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxN8kbbp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 849C91F000E9;
-	Thu, 25 Jun 2026 07:21:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VosHVnj6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25571F00A3A;
+	Thu, 25 Jun 2026 07:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782372125;
-	bh=4UhTcXpPkZ3XHz7roCKeMEghqzpysHMo5igEDiexgo0=;
+	s=k20260515; t=1782372160;
+	bh=Qi8cOX/uGQLwsDsxvrPegPKHo+8oUktjnmAh1YkbX60=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hxN8kbbp3Ttd+l1fTOt5/yW5Q/7K+JHZg28efjahiVnlZ1TNHQpfDoequPT4YP1ky
-	 v6JqxhHjObOIPt0Gk+ojQ8uJYKRu87DSxCOLTOOFCJ248X5gzAw1qx1k2uK6JnUfyf
-	 VzKdfXtitf1TobZYY6V/doKFA2U8yth96O+osj82jHIsV91i9Nds4mBgJg2T2iQRFX
-	 T0k3w8I9+x14S5fwlbyuFRqXqMJUrepBk8JtMZJeq8Z7VT4+flUIMs+TpF52vxYPCu
-	 rs6z3Qah1yE8EDGABfWMF10A0eNLkT75jRRXOvmWlpmYybqLMO0/ipZNUcRdVW4rCL
-	 DRxCeFrUJx3YA==
-Message-ID: <67aed58a-46f6-4a7b-b8e3-428ec8a69444@kernel.org>
-Date: Thu, 25 Jun 2026 09:21:55 +0200
+	b=VosHVnj64grmEF3TFvQMxRrzgsrdnOfP6Ag7qlw8vSy+XV7zwDrJhiIuWyFQMTa0Q
+	 6524WQTQP82Q5mq5UD/8w30Fmm75wvHxmJCkvdg9bJu/TW/xbdG3lmsLeU9grbN0NA
+	 60giUOEkAfcSuHm16m1MSncfgxNaO2jaSa0u38Ba7JFL+hf0BZF+g7KblA+fXj7trm
+	 01rTpMx0W//Gku3LsGyUVoCL8heh5iuDoxyLmPjHm1HC/swFtHXuyRP1iLIGawmVLX
+	 Xi0e4GWJp53asNS4V78QZsPnUpUtJNOEV9M1afzr33GY+inwf6jqJG7CWstq/mhO+D
+	 TSxgS7toozsKg==
+Message-ID: <8398e353-96ae-4f5d-989d-9d3fea9cfd9c@kernel.org>
+Date: Thu, 25 Jun 2026 09:22:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,27 +35,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: adm1275: ROHM BD12780 hot-swap
- controller
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>,
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 0/4] input: misc: Add an initial driver for haptics inside
+ Qcom PMIH010x PMIC
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Wensheng Wang <wenswang@yeah.net>,
- Ashish Yadav <ashish.yadav@infineon.com>,
- Kim Seer Paller <kimseer.paller@analog.com>,
- Cedric Encarnacion <cedricjustine.encarnacion@analog.com>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- Yuxi Wang <Yuxi.Wang@monolithicpower.com>,
- Charles Hsu <hsu.yungteng@gmail.com>, ChiShih Tsai <tomtsai764@gmail.com>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-References: <cover.1781591132.git.mazziesaccount@gmail.com>
- <d63c4df5e9df845bc4f94b4abdcd068a23929974.1781591132.git.mazziesaccount@gmail.com>
- <20260617-uptight-sexy-hippo-f4bc62@quoll>
- <bd9419aa-1a21-4ca2-990b-ad1bebf5c9c8@gmail.com>
+ <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ David Collins <david.collins@oss.qualcomm.com>,
+ Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com>
+ <20260617-spry-greedy-chital-1276e0@quoll>
+ <be2b54a5-ce9d-49a2-80e1-60da874350d9@oss.qualcomm.com>
+ <4ba2eeed-71f8-4799-b261-e4e2c268043e@kernel.org>
+ <36043887-6bbd-4b2d-941c-bf222786b80d@oss.qualcomm.com>
+ <91cc96b0-d25f-436d-a0c7-fec39bf72393@kernel.org>
+ <9175804c-956d-41eb-9995-05a7b3bf3fcc@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -101,38 +101,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <bd9419aa-1a21-4ca2-990b-ad1bebf5c9c8@gmail.com>
+In-Reply-To: <9175804c-956d-41eb-9995-05a7b3bf3fcc@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25/06/2026 09:05, Matti Vaittinen wrote:
->>> +            - adi,adm1075
->>> +            - adi,adm1272
->>> +            - adi,adm1273
->>> +            - adi,adm1275
->>> +            - adi,adm1276
->>> +            - adi,adm1278
->>> +            - adi,adm1281
->>> +            - adi,adm1293
->>> +            - adi,adm1294
->>> +            - rohm,bd12780
->>> +            - silergy,mc09c
->>> +
->>> +# Require BD12780 as a fall-back for BD12780A.
+On 25/06/2026 09:09, Fenglin Wu wrote:
 >>
->> No need for the comment, schema is quite explicit.
+>> That is not what I meant and you did not follow maintainer process. And
+>> why did you ignore second binding? Identify how many separate
+>> maintainers are here and act like them. I looked again at your patchset
+>> and I am sure about that - patchset is unmergeable by Lee.
 > 
-> Eh... I know it is explicit for one who fluently reads yaml. Not all of 
-> us do that :| (See my reply to the previous comment...) I am not sure 
-> the comment hurts - while I am sure it helps occasional binding reader 
-> like me. Can you please reconsider keeping the comment?
+> I see. So I should mention below sentence at the beginning of the cover 
+> letter, is that right?
+> 
+> Dependencies:
+> 
+>   - [patch 2/4] depends on [patch 1/4] and they should be applied together.
+> 
 
-This one does not, but if people take the existing code as a starting
-point or even as an example in arguments ("he did like that, so I am
-allowed as well"), it gets multiplied and we have more bindings with
-redundant data.
-
-That's said, if you insist then fine with me, keep it.
+Yes.
 
 Best regards,
 Krzysztof
