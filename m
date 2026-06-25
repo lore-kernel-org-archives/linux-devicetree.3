@@ -1,580 +1,131 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3CC7031AAAA;
-	Thu, 25 Jun 2026 13:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B09348C7C;
+	Thu, 25 Jun 2026 13:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782395623; cv=none; b=ZVuS8fxURHIZA1+5n7IYgoTFRxasO6vF7Ie8MAuXEYl/tLUuik4IQbU1tSCDku8a3+3oMBv8ASPI4/bqeP8GV4eB/YzZEYX1xIGwZP/EvAIzhA3pSm+14S2mVqiHXTNvmYy1P6UaL6Oj+mQho+IfZ3cQOGqv/0FtcaDxJu4V8Ds=
+	t=1782395641; cv=none; b=b3iAQX5MLVb5U/1AI/7vIexuce+Vm6CESGcgDQzF+s6JaCZoIQS+RhZIhxpW9HXuSE8cZ85/0E8QsAr3rb/Ksn0jMDfgTdI6t5O57xhInbzxXAcPeYA+ty1k+oqmaXkXridRwjmpc09g27/QDiurVznAbsTEa/Cj1FuiWhiuKlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782395623; c=relaxed/simple;
-	bh=0T8HEEzPv+gUEW5s2qzSLuWTsnHb5dkZyaIvFCWyMXo=;
+	s=arc-20240116; t=1782395641; c=relaxed/simple;
+	bh=363iuzJQMvoG81zafgW5tPh2WH0g+VfBG1LDjNBe6H4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I4gbnmPhoHmAHhytzUzkaSKAEKX/HtUzc9HkOE+cUKr8calQJ55+67wfY6aMgr1P/eb2V0edk4m37ThZOZ3Z4tQ/8Vxo4a97P9p6abx8zMVpcxoMsz+Hq8iZqT0VhudkqGs2qV39aKLWYSG3fo/gOmP4nnR0O5lWl5W2EMqY0MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q1CSj4hF; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=rUFMm/Pxb0g56WUqJUrtr5BOteG5hqodRFAjHKcOQ9VBVjWQzMJBvoAHOUck4RRlkyJZMZKKc9HDXVHhJML7KpxJbV6l553+UutX4VSz/lEXnhxGW9cO/UxxE49+f78kP33hNIgk1Xr+ZZLv80Xy1QZnzvA275VFRUXcxOiNsBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifLvwWaf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q1CSj4hF"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A728F165C;
-	Thu, 25 Jun 2026 06:53:35 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9A1613F632;
-	Thu, 25 Jun 2026 06:53:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782395620; bh=0T8HEEzPv+gUEW5s2qzSLuWTsnHb5dkZyaIvFCWyMXo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Q1CSj4hFSq7JHrFz+hoJICKSlnsaWN1cT0Jnh5o0RsFvU9Wmej6xuj7AiXF2KLYRB
-	 BnqXUFLWXGYaHJSopJBx2QCZY9mQlgM7gZwwy9SEzdlEuFM2m/KcMzLR0PvDKsO3M4
-	 IrX9Vrb/azfIsq9+PjPZRjbqikqaMbWB0Tbp44pU=
-Message-ID: <6b15d3fc-4b4e-4c6c-a96d-5817d7114d02@arm.com>
-Date: Thu, 25 Jun 2026 14:53:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifLvwWaf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D364B1F000E9;
+	Thu, 25 Jun 2026 13:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782395640;
+	bh=lr++yH5nzO4NcQEds6oDKUg85yVdomYeFQUiJZT0KSs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ifLvwWaffrg92TTDqJb44pRKamsJngXxCaP4xvRVkYBuL3iniXbmUTgivRvAkGQgZ
+	 7hej75PoGb8M8GeL0bLTVc4fpZcwRww39DlANONTJp+w8u1w17kWkXJfXhL82DnNZe
+	 9osywewRVqoEqoo5GnxZ+Lv4F++W5dBK4y0z4uL66SrX/7iAcJ6GE8JL5c/qAJUAor
+	 3jALkrJi9Mr7xCUo2qyo3qRWWZ2ii3cwbcLW5y0U9rOJVDLBF6tenU694JKCxCjnR3
+	 1wxq5eld+OnqmJPTRZi4gn/bJMj6DgyKLfvPHTBcRLaeFkLZ/H1SZ5EqMYPbD1vQNL
+	 q+FL4yKNQHLYg==
+Message-ID: <c9006b67-aa43-41d3-8b13-f20dd2e544c6@kernel.org>
+Date: Thu, 25 Jun 2026 15:53:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Thunderbird Daily
-Subject: Re: [PATCH v4 1/3] perf: marvell: Add MPAM partid filtering to CN10K
- TAD PMU
-To: Geetha sowjanya <gakula@marvell.com>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Cc: mark.rutland@arm.com, will@kernel.org, krzk+dt@kernel.org,
- james.morse@arm.com
-References: <20260618153610.13649-1-gakula@marvell.com>
- <20260618153610.13649-2-gakula@marvell.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] This series adds support for the Qualcomm JPEG
+ V4L2 mem2mem encoder.
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ linux-media@vger.kernel.org
+Cc: mchehab@kernel.org, bod@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260612194417.1737009-1-atanas.filipov@oss.qualcomm.com>
+ <364a79bf-e424-4237-ab13-18e38299ecec@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260618153610.13649-2-gakula@marvell.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <364a79bf-e424-4237-ab13-18e38299ecec@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Geetha,
-
-+CC James
-
-On 6/18/26 16:36, Geetha sowjanya wrote:
-> From: Tanmay Jagdale <tanmay@marvell.com>
+On 25/06/2026 15:43, Atanas Filipov wrote:
+> On 6/12/2026 10:44 PM, Atanas Filipov wrote:
+>>   19 files changed, 5067 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/Kconfig
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/Makefile
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_defs.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.c
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_hdr.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_ops.c
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_ops.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_res.c
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_res.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+>>   create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.h
+>>
+>>
+>> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
 > 
-> The TAD PMU exposes counters that can be filtered by MPAM partition id
-> for a subset of allocation and hit events.
+> Hi all,
 > 
-> Add a 9-bit partid format attribute (config1) and route counter programming
-> through variant-specific ops so CN10K keeps MPAM-capable programming while
-> Odyssey keeps the reduced event set without advertising partid in sysfs.
+> Thank you for the review. v2 has been sent and addresses all comments:
 > 
-> Probe no longer mutates the platform_device MMIO resource (walk a local
-> map_start), rejects tad-cnt / page sizes of zero, validates the memory
-> window against tad-cnt, and registers the perf PMU before hotplug with
-> correct unwind.
+> https://lore.kernel.org/linux-media/20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com/T/#t
 > 
-> Example:
->   perf stat -e tad/tad_alloc_any,partid=0x12,partid_en=1/ -- <program>
 
-Where is the user expected to get the PARTID from? The MPAM driver
-considers the PARTID as an internal only value.
+Problem is that is not true. You did not address all comments. You did
+not reply to them and you did not implement them. I just checked FIRST
+comment and stopped there.
 
-resctrl does support a 'debug' mount option which will show the CLOSID
-associated with a control group. Whilst the CLOSID is often the PARTID,
-it is really a set of PARTIDs. When the cdp mount option is used, CLOSID
-maps to 2 PARTIDs and if we use PARTID narrowing to give us more
-monitors, as in proposed in [1], then the set of PARTIDs may be bigger.
-Furthermore, if the PARTID narrowing scheme is made dynamic the size of
-the PARTID set may change when control or monitoring groups are created
-or deleted.
-
-It seems that a way to map from a resctrl control group to the set of
-PARTIDs is required and a mechanism to tie this to lifetime of the
-resctrl mount.
-
-Perhaps some helpers along the lines of:
-
-int resctrl_mount_generation(void)
-int mpam_rdtgrp_to_partid_is_static(int mount_gen)
-int resctrl_rdtgrp_generation(char *name)
-int mpam_rdtgrp_to_partid_count(char *name, int rdt_gen)
-int mpam_rdtgrp_to_partid_array(char *name, int rdt_gen, int* partids)
-
-The rdtgrp generation is to an attempt to avoid having to use a debug
-interface in anger and cope with renaming of control groups in resctrl.
-This does seem a bit unwieldly so hopefully there is better way to do this.
-
-Sorry to throw a spanner in the works.
-
-Thanks,
-
-Ben
-
-> 
-> Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-> Signed-off-by: Geetha sowjanya <gakula@marvell.com>
-> ---
-> 
-> Changelog (since v3)
-> --------------------
-> - Restore cpuhp_state_add_instance_nocalls before perf_pmu_register in probe
->   so users cannot attach events before the hotplug instance exists; unwind
->   removes the hotplug instance if perf registration fails.
-> - Add perf_ready: tad_pmu_offline_cpu skips perf_pmu_migrate_context until after
->   successful perf_pmu_register, so a CPU offline between hotplug add and perf
->   register does not touch perf core state for an unregistered PMU.
-> 
-> Changelog (since v2)
-> --------------------
-> - Validate the eventId using an appropriate mask to ensure
->   it is restricted to 8 bits.
-> 
-> Changelog (since v1)
-> --------------------
-> - Fix config1 filter enable to use bit 9 consistently with the PMU format
->   string (partid_en) and reject reserved bits with GENMASK(9, 0).
-> - Register perf_pmu_register before cpuhp_state_add_instance_nocalls and
->   unregister on hotplug failure.
-> 
->  drivers/perf/marvell_cn10k_tad_pmu.c | 220 +++++++++++++++++++++------
->  1 file changed, 171 insertions(+), 49 deletions(-)
-> 
-> diff --git a/drivers/perf/marvell_cn10k_tad_pmu.c b/drivers/perf/marvell_cn10k_tad_pmu.c
-> index 51ccb0befa05..340be3776fe7 100644
-> --- a/drivers/perf/marvell_cn10k_tad_pmu.c
-> +++ b/drivers/perf/marvell_cn10k_tad_pmu.c
-> @@ -7,6 +7,8 @@
->  #define pr_fmt(fmt) "tad_pmu: " fmt
->  
->  #include <linux/io.h>
-> +#include <linux/bits.h>
-> +#include <linux/compiler.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/cpuhotplug.h>
-> @@ -14,12 +16,20 @@
->  #include <linux/platform_device.h>
->  #include <linux/acpi.h>
->  
-> -#define TAD_PFC_OFFSET		0x800
-> -#define TAD_PFC(counter)	(TAD_PFC_OFFSET | (counter << 3))
->  #define TAD_PRF_OFFSET		0x900
-> -#define TAD_PRF(counter)	(TAD_PRF_OFFSET | (counter << 3))
-> +#define TAD_PFC_OFFSET		0x800
-> +#define TAD_PFC(base, counter)	((base) | ((u64)(counter) << 3))
-> +#define TAD_PRF(base, counter)	((base) | ((u64)(counter) << 3))
->  #define TAD_PRF_CNTSEL_MASK	0xFF
-> +#define TAD_PRF_MATCH_PARTID	BIT(8)
-> +#define TAD_PRF_PARTID_NS	BIT(10)
-> +/*
-> + * config1: bits 0..8 MPAM partition id (including 0); bit 9 requests
-> + * filtering for MPAM-capable events. All-zero config1 means no filter.
-> + */
-> +#define TAD_PARTID_FILTER_EN	BIT(9)
->  #define TAD_MAX_COUNTERS	8
-> +#define TAD_EVENT_SEL_MASK	GENMASK(7, 0)
->  
->  #define to_tad_pmu(p) (container_of(p, struct tad_pmu, pmu))
->  
-> @@ -27,30 +37,94 @@ struct tad_region {
->  	void __iomem	*base;
->  };
->  
-> +enum mrvl_tad_pmu_version {
-> +	TAD_PMU_V1 = 1,
-> +	TAD_PMU_V2,
-> +};
-> +
-> +struct tad_pmu_data {
-> +	int id;
-> +	u64 tad_prf_offset;
-> +	u64 tad_pfc_offset;
-> +};
-> +
->  struct tad_pmu {
->  	struct pmu pmu;
->  	struct tad_region *regions;
->  	u32 region_cnt;
->  	unsigned int cpu;
-> +	/* Set after successful perf_pmu_register(); gates offline migration. */
-> +	bool perf_ready;
-> +	const struct tad_pmu_ops *ops;
-> +	const struct tad_pmu_data *pdata;
->  	struct hlist_node node;
->  	struct perf_event *events[TAD_MAX_COUNTERS];
->  	DECLARE_BITMAP(counters_map, TAD_MAX_COUNTERS);
->  };
->  
-> -enum mrvl_tad_pmu_version {
-> -	TAD_PMU_V1 = 1,
-> -	TAD_PMU_V2,
-> -};
-> -
-> -struct tad_pmu_data {
-> -	int id;
-> +struct tad_pmu_ops {
-> +	void (*start_counter)(struct tad_pmu *pmu, struct perf_event *event);
->  };
->  
->  static int tad_pmu_cpuhp_state;
->  
-> +static void tad_pmu_start_counter(struct tad_pmu *pmu,
-> +				  struct perf_event *event)
-> +{
-> +	const struct tad_pmu_data *pdata = pmu->pdata;
-> +	struct hw_perf_event *hwc = &event->hw;
-> +	u32 event_idx = (u32)(event->attr.config & TAD_EVENT_SEL_MASK);
-> +	u32 counter_idx = hwc->idx;
-> +	u64 partid_filter = 0;
-> +	u64 reg_val;
-> +	u64 cfg1 = event->attr.config1;
-> +	bool use_mpam = cfg1 & TAD_PARTID_FILTER_EN;
-> +	u32 partid = (u32)(cfg1 & GENMASK(8, 0));
-> +	int i;
-> +
-> +	for (i = 0; i < pmu->region_cnt; i++)
-> +		writeq_relaxed(0, pmu->regions[i].base +
-> +			       TAD_PFC(pdata->tad_pfc_offset, counter_idx));
-> +
-> +	if (use_mpam && event_idx > 0x19 && event_idx < 0x21) {
-> +		partid_filter = TAD_PRF_MATCH_PARTID | TAD_PRF_PARTID_NS |
-> +				((u64)partid << 11);
-> +	}
-> +
-> +
-> +	for (i = 0; i < pmu->region_cnt; i++) {
-> +		reg_val = event_idx & 0xFF;
-> +		reg_val |= partid_filter;
-> +		writeq_relaxed(reg_val, pmu->regions[i].base +
-> +			       TAD_PRF(pdata->tad_prf_offset, counter_idx));
-> +	}
-> +}
-> +
-> +static void tad_pmu_v2_start_counter(struct tad_pmu *pmu,
-> +				     struct perf_event *event)
-> +{
-> +	const struct tad_pmu_data *pdata = pmu->pdata;
-> +	struct hw_perf_event *hwc = &event->hw;
-> +	u32 event_idx = (u32)(event->attr.config & TAD_EVENT_SEL_MASK);
-> +	u32 counter_idx = hwc->idx;
-> +	u64 reg_val;
-> +	int i;
-> +
-> +	for (i = 0; i < pmu->region_cnt; i++)
-> +		writeq_relaxed(0, pmu->regions[i].base +
-> +			       TAD_PFC(pdata->tad_pfc_offset, counter_idx));
-> +
-> +	for (i = 0; i < pmu->region_cnt; i++) {
-> +		reg_val = event_idx & 0xFF;
-> +		writeq_relaxed(reg_val, pmu->regions[i].base +
-> +			       TAD_PRF(pdata->tad_prf_offset, counter_idx));
-> +	}
-> +}
-> +
->  static void tad_pmu_event_counter_read(struct perf_event *event)
->  {
->  	struct tad_pmu *tad_pmu = to_tad_pmu(event->pmu);
-> +	const struct tad_pmu_data *pdata = tad_pmu->pdata;
->  	struct hw_perf_event *hwc = &event->hw;
->  	u32 counter_idx = hwc->idx;
->  	u64 prev, new;
-> @@ -60,7 +134,7 @@ static void tad_pmu_event_counter_read(struct perf_event *event)
->  		prev = local64_read(&hwc->prev_count);
->  		for (i = 0, new = 0; i < tad_pmu->region_cnt; i++)
->  			new += readq(tad_pmu->regions[i].base +
-> -				     TAD_PFC(counter_idx));
-> +				     TAD_PFC(pdata->tad_pfc_offset, counter_idx));
->  	} while (local64_cmpxchg(&hwc->prev_count, prev, new) != prev);
->  
->  	local64_add(new - prev, &event->count);
-> @@ -69,16 +143,14 @@ static void tad_pmu_event_counter_read(struct perf_event *event)
->  static void tad_pmu_event_counter_stop(struct perf_event *event, int flags)
->  {
->  	struct tad_pmu *tad_pmu = to_tad_pmu(event->pmu);
-> +	const struct tad_pmu_data *pdata = tad_pmu->pdata;
->  	struct hw_perf_event *hwc = &event->hw;
->  	u32 counter_idx = hwc->idx;
->  	int i;
->  
-> -	/* TAD()_PFC() stop counting on the write
-> -	 * which sets TAD()_PRF()[CNTSEL] == 0
-> -	 */
->  	for (i = 0; i < tad_pmu->region_cnt; i++) {
->  		writeq_relaxed(0, tad_pmu->regions[i].base +
-> -			       TAD_PRF(counter_idx));
-> +			       TAD_PRF(pdata->tad_prf_offset, counter_idx));
->  	}
->  
->  	tad_pmu_event_counter_read(event);
-> @@ -89,26 +161,10 @@ static void tad_pmu_event_counter_start(struct perf_event *event, int flags)
->  {
->  	struct tad_pmu *tad_pmu = to_tad_pmu(event->pmu);
->  	struct hw_perf_event *hwc = &event->hw;
-> -	u32 event_idx = event->attr.config;
-> -	u32 counter_idx = hwc->idx;
-> -	u64 reg_val;
-> -	int i;
->  
->  	hwc->state = 0;
->  
-> -	/* Typically TAD_PFC() are zeroed to start counting */
-> -	for (i = 0; i < tad_pmu->region_cnt; i++)
-> -		writeq_relaxed(0, tad_pmu->regions[i].base +
-> -			       TAD_PFC(counter_idx));
-> -
-> -	/* TAD()_PFC() start counting on the write
-> -	 * which sets TAD()_PRF()[CNTSEL] != 0
-> -	 */
-> -	for (i = 0; i < tad_pmu->region_cnt; i++) {
-> -		reg_val = event_idx & 0xFF;
-> -		writeq_relaxed(reg_val,	tad_pmu->regions[i].base +
-> -			       TAD_PRF(counter_idx));
-> -	}
-> +	tad_pmu->ops->start_counter(tad_pmu, event);
->  }
->  
->  static void tad_pmu_event_counter_del(struct perf_event *event, int flags)
-> @@ -128,7 +184,6 @@ static int tad_pmu_event_counter_add(struct perf_event *event, int flags)
->  	struct hw_perf_event *hwc = &event->hw;
->  	int idx;
->  
-> -	/* Get a free counter for this event */
->  	idx = find_first_zero_bit(tad_pmu->counters_map, TAD_MAX_COUNTERS);
->  	if (idx == TAD_MAX_COUNTERS)
->  		return -EAGAIN;
-> @@ -148,6 +203,9 @@ static int tad_pmu_event_counter_add(struct perf_event *event, int flags)
->  static int tad_pmu_event_init(struct perf_event *event)
->  {
->  	struct tad_pmu *tad_pmu = to_tad_pmu(event->pmu);
-> +	const struct tad_pmu_data *pdata = tad_pmu->pdata;
-> +	u32 event_idx = (u32)(event->attr.config & TAD_EVENT_SEL_MASK);
-> +	u64 cfg1 = event->attr.config1;
->  
->  	if (event->attr.type != event->pmu->type)
->  		return -ENOENT;
-> @@ -158,6 +216,23 @@ static int tad_pmu_event_init(struct perf_event *event)
->  	if (event->state != PERF_EVENT_STATE_OFF)
->  		return -EINVAL;
->  
-> +	if (event->attr.config & ~TAD_EVENT_SEL_MASK)
-> +		return -EINVAL;
-> +
-> +	if (pdata->id == TAD_PMU_V2) {
-> +		if (cfg1)
-> +			return -EINVAL;
-> +	} else {
-> +		if ((cfg1 & GENMASK(8, 0)) && !(cfg1 & TAD_PARTID_FILTER_EN))
-> +			return -EINVAL;
-> +		if (cfg1 & TAD_PARTID_FILTER_EN) {
-> +			if (event_idx <= 0x19 || event_idx >= 0x21)
-> +				return -EINVAL;
-> +		}
-> +		if (cfg1 & ~GENMASK(9, 0))
-> +			return -EINVAL;
-> +	}
-> +
->  	event->cpu = tad_pmu->cpu;
->  	event->hw.idx = -1;
->  	event->hw.config_base = event->attr.config;
-> @@ -232,7 +307,7 @@ static struct attribute *ody_tad_pmu_event_attrs[] = {
->  	TAD_PMU_EVENT_ATTR(tad_hit_ltg, 0x1e),
->  	TAD_PMU_EVENT_ATTR(tad_hit_any, 0x1f),
->  	TAD_PMU_EVENT_ATTR(tad_tag_rd, 0x20),
-> -	TAD_PMU_EVENT_ATTR(tad_tot_cycle, 0xFF),
-> +	TAD_PMU_EVENT_ATTR(tad_tot_cycle, 0xff),
->  	NULL
->  };
->  
-> @@ -242,9 +317,13 @@ static const struct attribute_group ody_tad_pmu_events_attr_group = {
->  };
->  
->  PMU_FORMAT_ATTR(event, "config:0-7");
-> +PMU_FORMAT_ATTR(partid, "config1:0-8");
-> +PMU_FORMAT_ATTR(partid_en, "config1:9-9");
->  
->  static struct attribute *tad_pmu_format_attrs[] = {
->  	&format_attr_event.attr,
-> +	&format_attr_partid.attr,
-> +	&format_attr_partid_en.attr,
->  	NULL
->  };
->  
-> @@ -253,6 +332,16 @@ static struct attribute_group tad_pmu_format_attr_group = {
->  	.attrs = tad_pmu_format_attrs,
->  };
->  
-> +static struct attribute *ody_tad_pmu_format_attrs[] = {
-> +	&format_attr_event.attr,
-> +	NULL
-> +};
-> +
-> +static struct attribute_group ody_tad_pmu_format_attr_group = {
-> +	.name = "format",
-> +	.attrs = ody_tad_pmu_format_attrs,
-> +};
-> +
->  static ssize_t tad_pmu_cpumask_show(struct device *dev,
->  				struct device_attribute *attr, char *buf)
->  {
-> @@ -281,16 +370,25 @@ static const struct attribute_group *tad_pmu_attr_groups[] = {
->  
->  static const struct attribute_group *ody_tad_pmu_attr_groups[] = {
->  	&ody_tad_pmu_events_attr_group,
-> -	&tad_pmu_format_attr_group,
-> +	&ody_tad_pmu_format_attr_group,
->  	&tad_pmu_cpumask_attr_group,
->  	NULL
->  };
->  
-> +static const struct tad_pmu_ops tad_pmu_ops = {
-> +	.start_counter = tad_pmu_start_counter,
-> +};
-> +
-> +static const struct tad_pmu_ops tad_pmu_v2_ops = {
-> +	.start_counter = tad_pmu_v2_start_counter,
-> +};
-> +
->  static int tad_pmu_probe(struct platform_device *pdev)
->  {
->  	const struct tad_pmu_data *dev_data;
->  	struct device *dev = &pdev->dev;
->  	struct tad_region *regions;
-> +	resource_size_t map_start;
->  	struct tad_pmu *tad_pmu;
->  	struct resource *res;
->  	u32 tad_pmu_page_size;
-> @@ -298,7 +396,6 @@ static int tad_pmu_probe(struct platform_device *pdev)
->  	u32 tad_cnt;
->  	int version;
->  	int i, ret;
-> -	char *name;
->  
->  	tad_pmu = devm_kzalloc(&pdev->dev, sizeof(*tad_pmu), GFP_KERNEL);
->  	if (!tad_pmu)
-> @@ -312,6 +409,7 @@ static int tad_pmu_probe(struct platform_device *pdev)
->  		return -ENODEV;
->  	}
->  	version = dev_data->id;
-> +	tad_pmu->pdata = dev_data;
->  
->  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->  	if (!res) {
-> @@ -338,22 +436,31 @@ static int tad_pmu_probe(struct platform_device *pdev)
->  		dev_err(&pdev->dev, "Can't find tad-cnt property\n");
->  		return ret;
->  	}
-> +	if (!tad_cnt || !tad_page_size || !tad_pmu_page_size) {
-> +		dev_err(&pdev->dev, "Invalid tad-cnt or page size\n");
-> +		return -EINVAL;
-> +	}
->  
->  	regions = devm_kcalloc(&pdev->dev, tad_cnt,
->  			       sizeof(*regions), GFP_KERNEL);
->  	if (!regions)
->  		return -ENOMEM;
->  
-> -	/* ioremap the distributed TAD pmu regions */
-> -	for (i = 0; i < tad_cnt && res->start < res->end; i++) {
-> -		regions[i].base = devm_ioremap(&pdev->dev,
-> -					       res->start,
-> +	map_start = res->start;
-> +	for (i = 0; i < tad_cnt; i++) {
-> +		if (map_start > res->end ||
-> +		    tad_pmu_page_size > (resource_size_t)(res->end - map_start + 1)) {
-> +			dev_err(&pdev->dev, "TAD PMU mem window too small for tad-cnt=%u\n",
-> +				tad_cnt);
-> +			return -EINVAL;
-> +		}
-> +		regions[i].base = devm_ioremap(&pdev->dev, map_start,
->  					       tad_pmu_page_size);
->  		if (!regions[i].base) {
->  			dev_err(&pdev->dev, "TAD%d ioremap fail\n", i);
->  			return -ENOMEM;
->  		}
-> -		res->start += tad_page_size;
-> +		map_start += tad_page_size;
->  	}
->  
->  	tad_pmu->regions = regions;
-> @@ -374,14 +481,16 @@ static int tad_pmu_probe(struct platform_device *pdev)
->  		.read		= tad_pmu_event_counter_read,
->  	};
->  
-> -	if (version == TAD_PMU_V1)
-> +	if (version == TAD_PMU_V1) {
->  		tad_pmu->pmu.attr_groups = tad_pmu_attr_groups;
-> -	else
-> +		tad_pmu->ops		 = &tad_pmu_ops;
-> +	} else {
->  		tad_pmu->pmu.attr_groups = ody_tad_pmu_attr_groups;
-> +		tad_pmu->ops		 = &tad_pmu_v2_ops;
-> +	}
->  
->  	tad_pmu->cpu = raw_smp_processor_id();
->  
-> -	/* Register pmu instance for cpu hotplug */
->  	ret = cpuhp_state_add_instance_nocalls(tad_pmu_cpuhp_state,
->  					       &tad_pmu->node);
->  	if (ret) {
-> @@ -389,19 +498,24 @@ static int tad_pmu_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->  
-> -	name = "tad";
-> -	ret = perf_pmu_register(&tad_pmu->pmu, name, -1);
-> -	if (ret)
-> +	ret = perf_pmu_register(&tad_pmu->pmu, "tad", -1);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Error %d registering perf PMU\n", ret);
->  		cpuhp_state_remove_instance_nocalls(tad_pmu_cpuhp_state,
->  						    &tad_pmu->node);
-> +		return ret;
-> +	}
->  
-> -	return ret;
-> +	WRITE_ONCE(tad_pmu->perf_ready, true);
-> +
-> +	return 0;
->  }
->  
->  static void tad_pmu_remove(struct platform_device *pdev)
->  {
->  	struct tad_pmu *pmu = platform_get_drvdata(pdev);
->  
-> +	WRITE_ONCE(pmu->perf_ready, false);
->  	cpuhp_state_remove_instance_nocalls(tad_pmu_cpuhp_state,
->  						&pmu->node);
->  	perf_pmu_unregister(&pmu->pmu);
-> @@ -410,12 +524,17 @@ static void tad_pmu_remove(struct platform_device *pdev)
->  #if defined(CONFIG_OF) || defined(CONFIG_ACPI)
->  static const struct tad_pmu_data tad_pmu_data = {
->  	.id   = TAD_PMU_V1,
-> +	.tad_prf_offset = TAD_PRF_OFFSET,
-> +	.tad_pfc_offset = TAD_PFC_OFFSET,
->  };
-> +
->  #endif
->  
->  #ifdef CONFIG_ACPI
->  static const struct tad_pmu_data tad_pmu_v2_data = {
->  	.id   = TAD_PMU_V2,
-> +	.tad_prf_offset = TAD_PRF_OFFSET,
-> +	.tad_pfc_offset = TAD_PFC_OFFSET,
->  };
->  #endif
->  
-> @@ -451,6 +570,9 @@ static int tad_pmu_offline_cpu(unsigned int cpu, struct hlist_node *node)
->  	struct tad_pmu *pmu = hlist_entry_safe(node, struct tad_pmu, node);
->  	unsigned int target;
->  
-> +	if (!READ_ONCE(pmu->perf_ready))
-> +		return 0;
-> +
->  	if (cpu != pmu->cpu)
->  		return 0;
->  
-> @@ -491,6 +613,6 @@ static void __exit tad_pmu_exit(void)
->  module_init(tad_pmu_init);
->  module_exit(tad_pmu_exit);
->  
-> -MODULE_DESCRIPTION("Marvell CN10K LLC-TAD Perf driver");
-> +MODULE_DESCRIPTION("Marvell CN10K LLC-TAD perf driver");
->  MODULE_AUTHOR("Bhaskara Budiredla <bbudiredla@marvell.com>");
->  MODULE_LICENSE("GPL v2");
-
+Best regards,
+Krzysztof
