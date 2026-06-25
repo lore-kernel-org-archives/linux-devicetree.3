@@ -1,149 +1,178 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7583E451A
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 12:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E7F1339B1;
+	Thu, 25 Jun 2026 13:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782392133; cv=none; b=DeGLumUkMtIDg4t2AWTR0YJDBSk0OAns6fofrNx5xzdEtjfBcJNraalBHcSgNgz9xIcI+COGdgCUqTtpwI+NaDY3UdJaj+A5vHVpFw222XU/netZ9Z4YByW/egBUfYrizPz5m0BtM9QDdnKuRq9natWPrEO7gikzu76YlHqJGc8=
+	t=1782392407; cv=none; b=tOenE6q2yG9/a/O62ANlaqoC+TPYHq6kyKjpckdau4FHZKFq8I2jXQkpk8z6mmW9JeNcHGT1hczzBroa6RPA1WzmiOt9yo35rfM0Nql+8tDa0zVDMujdDv717ryX8g+kwRPCoeCFR8hmfrp5wnpIF6etYyKSZ0jV2ciS9VVWSdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782392133; c=relaxed/simple;
-	bh=fhm+aixP5ECDzq8HdzVVNjUbNQs1gCCo767CoYMygZ0=;
-	h=Date:From:To:Cc:Message-ID:Subject:MIME-Version:Content-Type; b=QWghIFkmY3uzBTCYf31dVxxs3Y7PmBYRp53VtSF9FTAvB2i2FGPrAokNG1V/onljbWkxHRN1x3z27nO4z+5VmyqzvUgBsbeHK3yanvYY5ZHK5xbAOUQhX/KyS26CAGZiGlJgm2LjYv37AfnpNuFK95pLLfd0DpwzydlSsB6XtnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nfOdw0ec; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782392407; c=relaxed/simple;
+	bh=jfg5HQgrG45mIR004Dp8X0wLse20AI+pzL171TW+CW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pPw83kVtrOubthvBllMajo9S16dwUOtcYNUtf8NCkSDs202OKSQKoUTA+9GAgBNu/HrbLdy6hA4Wgg68xKmvDA5Do34Sbub4lMTU7qs454ycXccxggayrpXO9jdfYWXI8OoRk7vI7D8wmqyLX5hp8VFTU8WTVUGUNt8bNyZFgdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O19z30Wp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nfOdw0ec"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-30c52f96f60so4204343eec.1
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 05:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782392131; x=1782996931; darn=vger.kernel.org;
-        h=mime-version:subject:message-id:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=89Ic5OiQ2TxKlY6JX2s9PoYvegkXRGC8cRDRdVhrKkc=;
-        b=nfOdw0ecCLsd/mkwITN2pYvc8YGb1h4TjaZFM6HoiQVbK8CNILZNKzaTWhYyhNzlU7
-         QoYrIv/ovNVG6ZzXz9GMSMxzIA8318pEhgffBHWNXnOGKYtQPvtarTap/wlVbRu6Y/da
-         Lx9JV+OdCAL794UaapRUiMcXXXcIKJww5DdzypsWCOBaf3ik9siE4ZYJH/YN8gP21P/m
-         3AwYvTl1COrd7o+IW7QBHbku/CVu6iZqo2/PA8nNsZ6nW3p+wEGWvpQkYXoiBn+K/br0
-         AaV3EXtLzgvHD9VZI1OhQ1yzZpJYgdSaZ3idJf1Ug0eEuAP1eADkyOBW4afCFEqaQinG
-         0wBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782392131; x=1782996931;
-        h=mime-version:subject:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=89Ic5OiQ2TxKlY6JX2s9PoYvegkXRGC8cRDRdVhrKkc=;
-        b=Smm7onnWuoWd6FeTVoN+4BUOUwUOYFQi4Wkmi223IeXxBZZNGrFh4WEjnVHCCgLkf/
-         rnGDbBBZbX0YDQVMbDr/eWKP5PPPXsJsemMezuPuhkYJpMEAk9FwoE1geNrZr13sJD2C
-         zq8X7u/19rK2YPhYGgnyed9QqG2mjJu8WKuxQC0/kZdFuEmRIka1krKHfUgrQ+sZSERX
-         4tSwLIJLevtoImrQtfsHaogaIN2zVpx+OabhPuQL8jVzRjlKjRXPWLrjmCdmDFw2wFAS
-         yKlU85HIFeZWpu+hWFRdkDnqC+Ztptp6r0ak101sqYSz2+Ai9Y30eu6hauEHo9Zu7XOZ
-         TGrw==
-X-Forwarded-Encrypted: i=1; AHgh+RrYjp2TlKOx7cb5z+k+aMz3CrSk9rsagFAj2ZjK3JmxvN4Vgwkg5w85+HrMwq1XualrFRh1J2Nc+ki0@vger.kernel.org
-X-Gm-Message-State: AOJu0YweG/MCfZITM9h4jzr34I2CroaWAlmKMDbJ4r/AGzwnkmG50UI1
-	wQNlXUpzVhCyb8fK7AI2S4AxK1d+Yr6FCdn9dhegbg49TJyk0Fi1VtJ8
-X-Gm-Gg: AfdE7clw2MxJ927pShkl/ErCc9KOHBSASUPtce0kER7d3yw6uKiTkYACTeU4LCXFPZs
-	Jyo5bwrztIMpAcjVzjPr9tDF0WHnrNkXUmWoca2yNEzbqNn693upzEU9gWiyA68UhVGq4mkRvNt
-	su2VekorqyEF7RWtzO8Hm0LKAkGCbrUopIzCpYAitAm3F30VbH64BPPosojo+kyyUd2TmTKawvI
-	I7B8R3fUHmkEFoj1/CG+pBjTQcP2PzMMfzQeghfICGprv5T9h6xCkpDVUhmooJL32cIqIC364qJ
-	gwKrcwx2Nf5ptZ44V4wWSSAL9S2NJW81k9ownqM4o67Kcd1iBsGLEphX9pLtegFVbIgU2PG2aJ9
-	QFp2Vki84BA9/XOdOIWAagdX79hZI1vYAYcMALhTZTulHCxUOK8Zcv6rvLR2asIwRHsItqxfpOA
-	LDhNbMvk+4W4QsR48dZVI=
-X-Received: by 2002:a05:7301:600a:b0:305:56a:c38f with SMTP id 5a478bee46e88-30c84d8c4e8mr2777422eec.26.1782392131106;
-        Thu, 25 Jun 2026 05:55:31 -0700 (PDT)
-Received: from [127.0.0.1] ([177.174.222.21])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7ca87caasm8136463eec.27.2026.06.25.05.55.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 05:55:30 -0700 (PDT)
-Date: Thu, 25 Jun 2026 09:55:22 -0300
-From: Wagner Popov dos Santos <wpopov@gmail.com>
-To: AaroKoskinenaaro.koskinen@iki.fi
-Cc: AndreasKemnadeandreas@kemnade.info, KevinHilmankhilman@baylibre.com,
-	RogerQuadrosrogerq@kernel.org, TonyLindgrentony@atomide.com,
-	RobHerringrobh@kernel.org, KrzysztofKozlowskikrzk+dt@kernel.org,
-	ConorDooleyconor+dt@kernel.org, linux-omap@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <fec5175f-8533-494e-af5b-1abe26f6d83b@gmail.com>
-Subject: [PATCH] ARM: dts: am33xx: avoid invalid OCP device-link for timers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O19z30Wp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B761F00A3D;
+	Thu, 25 Jun 2026 12:59:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782392405;
+	bh=gSBd4Rw1MdowAEeCt5ovJ/JxAGFvVF8arYEar3Fhowg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O19z30WpGvU+89hX4CfQxdmKYMDvqCEYCYumDzxUJZmD5B2L55eLCKm6CKdpNZFpP
+	 MfF/aQaHQOKx5iT0LKmC67A6xCAoHK/1303FLJvpZm8vZWh224+10JHaLviIGwKV3O
+	 lbG8ARmAnOsuVFp0SxCfMoh6/14UBsZz3Xh98kuCxDkvFbLe3aRkbTH/4C5C3xNGLx
+	 XZyt50LbWiA3mqnTZP90JvTEBCQQAAlK1A0lW6O3tQ9PYMhIpj53gF2QG3C67DnbvW
+	 Xpa2duuyBeCv4Z4nfekW8I0VbNfvO6FWmo1x+fzqU5EHh7ScxXsM/XTCIMRjsUp0rs
+	 jknFvfbjb1e6g==
+Message-ID: <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
+Date: Thu, 25 Jun 2026 14:59:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; 
-	boundary="----=_Part_19_261743831.1782392122149"
-X-Correlation-ID: <fec5175f-8533-494e-af5b-1abe26f6d83b@gmail.com>
-
-------=_Part_19_261743831.1782392122149
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+To: Sunyun Yang <syyang@lontium.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
+ tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+References: <20260508142500.4922-1-syyang@lontium.com>
+ <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+ <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
+ <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
+ <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On 25/06/2026 04:01, Sunyun Yang wrote:
+> Sunyun Yang <syyang@lontium.com> 于2026年6月25日周四 08:52写道：
+>>
+>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月24日周三 22:05写道：
+>>>
+>>> On 11/05/2026 05:28, Sunyun Yang wrote:
+>>>> <syyang@lontium.com> 于2026年5月8日周五 22:25写道：
+>>>>>
+>>>>> From: Sunyun Yang <syyang@lontium.com>
+>>>>>
+>>>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+>>>>> mipi dsi and output hdmi, differences in hardware features:
+>>>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+>>>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+>>>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+>>>>>
+>>>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+>>>>> ---
+>>>>>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
+>>>>>  1 file changed, 6 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> index 429a06057ae8..e0821a63d9d7 100644
+>>>>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+>>>>> @@ -4,19 +4,23 @@
+>>>>>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
+>>>>>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>>
+>>>>> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
+>>>>> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+>>>>>
+>>>>>  maintainers:
+>>>>>    - Vinod Koul <vkoul@kernel.org>
+>>>>>
+>>>>>  description: |
+>>>>> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
+>>>>> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
+>>>>> +  are bridge devices which convert DSI to HDMI
+>>>>>
+>>>>>  properties:
+>>>>>    compatible:
+>>>>>      enum:
+>>>>>        - lontium,lt9611
+>>>>> +      - lontium,lt9611c
+>>>>> +      - lontium,lt9611ex
+>>>>>        - lontium,lt9611uxc
+>>>>> +      - lontium,lt9611uxd
+>>>>>
+>>>>>    reg:
+>>>>>      maxItems: 1
+>>>>> --
+>>>>
+>>>> Gentle ping.
+>>>> Thanks.
+>>>
+>>> Except mess with threading, your patchset does not build, when applied
+>>> on next-20260618.
+>>>
+>>> What is the base of this?
+>>>
+>>
+>> Thanks for testing my patchset on next-20260618.
+>>
+>> The base of this series is v7.0.
+>>
+> Krzysztof,   Is Sashiko AI review required before merging a patch now?
 
-------=_Part_19_261743831.1782392122149
-Content-Type: text/x-diff; charset=us-ascii; 
-	name*0=0001-ARM-dts-am33xx-avoid-invalid-OCP-device-link-for-tim.pa; 
-	name*1=tch
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment; 
-	filename*0=0001-ARM-dts-am33xx-avoid-invalid-OCP-device-link-for-tim.pa; 
-	filename*1=tch
+Fixing obvious bugs in your code is required before merging.
 
-From 6d482ff72d1a11a5851602717a48eb3e059946d4 Mon Sep 17 00:00:00 2001
-From: Wagner Popov dos Santos <wpopov@gmail.com>
-Date: Wed, 24 Jun 2026 13:28:02 -0300
-Subject: [PATCH] ARM: dts: am33xx: avoid invalid OCP device-link for timers
+But even without bugs, this cannot be merged - does not apply. And you
+sending the same three different times does not help, because now there
+is complete mess in reviews.
 
-This patch fixes boot-time fw_devlink errors on AM335x/UCC3 caused
-by invalid device-link creation attempts involving timer1/timer2
-and supplier ocp.
-
-Observed kernel log messages:
-
-  ti-sysc 44e31000.target-module: Failed to create device link (0x180)
-  with supplier ocp for
-  /ocp/interconnect@44c00000/segment@200000/target-module@31000/timer@0
-
-  ti-sysc 48040000.target-module: Failed to create device link (0x180)
-  with supplier ocp for
-  /ocp/interconnect@48000000/segment@0/target-module@40000/timer@0
-
-The change updates dependency handling for timer1 and timer2 so the
-kernel no longer attempts this invalid link-creation path during
-initialization of supplier ocp.
-
-Impact:
-
-- Removes the two ti-sysc/fw_devlink error messages at boot
-- Preserves current timer and clock assignment behavior
-- No functional regression observed in boot and timer operation tests
-
-Signed-off-by: Wagner Popov dos Santos <wpopov@gmail.com>
----
- arch/arm/boot/dts/ti/omap/am33xx.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm/boot/dts/ti/omap/am33xx.dtsi b/arch/arm/boot/dts/ti/omap/am33xx.dtsi
-index ca3e7f5d7d0d..760598d5ae1c 100644
---- a/arch/arm/boot/dts/ti/omap/am33xx.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am33xx.dtsi
-@@ -708,6 +708,7 @@ &timer1_target {
- 	timer@0 {
- 		assigned-clocks = <&timer1_fck>;
- 		assigned-clock-parents = <&sys_clkin_ck>;
-+		post-init-providers = <&ocp>;
- 	};
- };
- 
-@@ -721,5 +722,6 @@ &timer2_target {
- 	timer@0 {
- 		assigned-clocks = <&timer2_fck>;
- 		assigned-clock-parents = <&sys_clkin_ck>;
-+		post-init-providers = <&ocp>;
- 	};
- };
--- 
-2.43.0
-
-
-------=_Part_19_261743831.1782392122149--
+Best regards,
+Krzysztof
