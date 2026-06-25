@@ -1,105 +1,116 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C039989B
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C9F39902D;
+	Thu, 25 Jun 2026 10:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782385042; cv=none; b=YghoTR04WXCu5i2RTwYDcvvjzZ6uiv4JAm5fiQyGcylrDCAyA69HBb/cQRnsGE4J1c1yep1AQgme068XD30+RR/MSfemyEezgRxorcSnxtW9lpGBU6GEdWamCNklT3L9NQK+WrlL8yebzPS+LFtGKwr2g6eh13VOqOW1oOXSeEc=
+	t=1782385120; cv=none; b=V+ofd251eP/9JTaXFmt+TC/H3gK27xuTmjVppTMIprUrt8kBqimLy0bI4QHk4r6LzhuHrISp3pfLhOgW6xlF1GS6i1GPFyOOQl+Bpq2rv5EaZkL2Fqu89JwG+G5M7ST3fSyCUaSmQjEfrNNPDwNeaMYfEPM4/Z58fHdoPp+uyHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782385042; c=relaxed/simple;
-	bh=++FVkwILNKlbScjNFeM9SANlKaAyvEa5jrh63t4yOmU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lkOXUHtm1gFEy9HOfgu7LqDQXcjKhLJwlw7yMCxMt5SDHd1ewQkwzOfTsBMGSjUi2MoNNs992ksWcjdlQ/5tLWFp4Gsidrzc+gBYdbelZ50b+D7cD6PecvAjibK7CAuL4YPcXr5t813W+5Ns2/u4Jyrwn3wTzNygSVtXv0bJXwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWW9xqBj; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782385120; c=relaxed/simple;
+	bh=KwW7qyjgnxA70oz0aACby5DwbwCNuJlA4xR+bm64lZs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I7+1bi+rrwdaMw++qygdWKaZ1gJLriwLRQdPZ4EWcRxxPZv7+HZcT9uWB6jH/adYKIAFq1CKOzFEwLK4BSplhHyhDohcyGPsuYTfCRFgsBfrybN0R2BAxylQ5yuOVMYy7TB1FTgQmFkGKx6YkbMrjBE07QVWnCHlYPm+GmlwtZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3TEOPYI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWW9xqBj"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49249707788so11049755e9.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 03:57:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782385040; x=1782989840; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date:message-id:reply-to;
-        bh=BqRv2LvLiTwMDijxQ6la05Or7ANrVdBQUl8AHj2I31g=;
-        b=JWW9xqBjlikzFGp87zH4wigoNrFkQSlDKv9FZbZwd/gcQ/ixWhfyOnmZxWXfjA71FK
-         +UpqdNYcjrU23YfaIPEW0hZ/H8vAy/D4XARYppdFefXfPFfWFMXTwcAyNzoUm++Zfzi3
-         4cWtPzZg7CIfbeThPjFDcyXIm6qCvR2vT36LJHeEN3lsW+X/2VZlLelczpY/lZStNno4
-         rdQQfLlDmgiA/hSMN5RVX7nC0puQ+XTAGZQz445SGd9bbMzUMHjZ7lDShDxes5fcwPZF
-         UpOggCEf0nqHGA0ffD5OiZjwiA/ogLxjwlbeqLs1Xt5I6+5UQQjCJkajzud5CDx7ibze
-         ILxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782385040; x=1782989840;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BqRv2LvLiTwMDijxQ6la05Or7ANrVdBQUl8AHj2I31g=;
-        b=DR2v9vqOfHd/ORlp9G6hx4Cxe+PQwrkiWeZTIBdu7TkHqBw2gLppownQepgU6f/Moi
-         bpvoC+JNo5lFW+zOvwb5QOaZDoof3L984hbKqcO+N9CJ8R2Uo0qpdb0HGRPxupSblhGY
-         dkN0qf3Gu121urwk2/ChadeCHcvIasqaqL2l/SK123vSc5Yz+QR6ldVIv0n3+0XHJq6b
-         PDBKwxzXBef/grpa6XnlQzrJIxgHKOOjJLq6ZDG0Dwc9VJ4YkGaU15RGjdexjk2+dL9s
-         A+kZsEYJh7ptexMSuFznRx/TU8wfEoUq4KcBbPLtbrPlJP4vv+lWE+NhBBpdah5tMoDG
-         F6ZA==
-X-Forwarded-Encrypted: i=1; AHgh+RpVQFHzYzD4Tf9MHk9G3MZcmCK60o4eCNN6vNl667B017YBTEBYnnf1G3BhNUgRkmipIkTTP3M4xQDE@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOaDEcSakytWDG2W92fclrNdyNFTnNwBu13kjI6hghKnuP4z/1
-	SSrThtsBSObyKY95qw3lDHaSXCr4DELgVm3Sgnew18n6S+dXnJivJL9G
-X-Gm-Gg: AfdE7cm9FZ2kPdtgqX25aXktSJRBgF6XQdf8mImuvCao+ABWKfkKw4eA/DHYEJaD3Y6
-	ym1VROI7aWnU056VEt4dNPA+WjopMTM/gNEX3dLIFC1uJ7JyYztYrP5RAvycwIrhvZ7WBRWswZ+
-	Ht6c20BzEtQUE1CaX+ug/8LfKo9qKza2T2Cs5kA9WSwmgsAPC+hlSSFwQ0yoImg68KrSmcnN/J/
-	eHbM5Ui/tmxdN1f0vGD/1hsquANS0jeuKI1bsQ0H3fpCou0GzrQQih7d4SNgvt7rqVtqDm0awEJ
-	M8AE3JDt90Byvxkcb25tNaF88bU+IsyCMxhEvaO4cZD8ejSVD67m5tTf5VzqQF6z9bFm4wuT7MA
-	/wfCxYO9aUgR17g/Fbtuua9FjoBvwMRGMW4uSHQ1em2Z15e4CjgivOEuwZAjq2QrxVJ4l2TTjlR
-	b1YguLl1gJ5Nnt7X9WTK2+Kfq7f6xQuElGJHQrtkvhe7xojr0YqNo/oh6M8UqHW7+aWFOtty3Ca
-	WbwO7ZX
-X-Received: by 2002:a05:600c:5488:b0:490:ea8a:32d0 with SMTP id 5b1f17b1804b1-4926689644emr25100555e9.20.1782385039551;
-        Thu, 25 Jun 2026 03:57:19 -0700 (PDT)
-Received: from [10.128.11.131] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926401a2e7sm91474245e9.3.2026.06.25.03.57.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 03:57:19 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <f725da33-3ce0-455a-ba43-e23b8ec5d223@gmail.com>
-Date: Thu, 25 Jun 2026 11:57:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3TEOPYI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ADA21F000E9;
+	Thu, 25 Jun 2026 10:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782385119;
+	bh=pMXF+NVKTFFxwr9GwGi5i1hUtipTiGvNWUzd91eHN4M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=k3TEOPYIDeRb/dRHX22w48vl7H0eKsTXCYREKNIoSRM0DSZailPMVLCHlYc8CRj/9
+	 xpZZ2NKi7g4VR37BxD6tbWaj/EK4k89hNu1ZhH26fdy9P8f29ShnkN+IBUgK+N3q48
+	 OPNC3qHQMRvuPxFWp3l+dtvDYEfgN+7ep8DTLAzUnVcwprWGkh1jmvbF0mM5nFSeBk
+	 QGYshyA588f2L060+YXKyq2YCrpp9OxEm5Ve7kYuF4S1Mv3C6sQRXRQvFADUPmyOFu
+	 RtWdXLghjqB0fkwS2vAiHNv0kzkoS+YhZo7vV/y/hCThfAxH2v5NOLAoxNPjoZ4Qx8
+	 u8sQwhhiQJ1Ag==
+Date: Thu, 25 Jun 2026 11:58:26 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux@analog.com, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Morton
+ <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky
+ <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v16 04/14] lib: kstrtox: add initial value to
+ _parse_integer_limit()
+Message-ID: <20260625115826.3c0f2052@jic23-huawei>
+In-Reply-To: <ssrckqgv3rqpfgxwpx4ca3m5m2mp3frxs6sd673chvsorhsjiq@63t3eosivg3a>
+References: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
+	<20260604-adf41513-iio-driver-v16-4-1a7d09143bc2@analog.com>
+	<rvx36i2ydmwhbbkdgbvh26uqchyoptzuu7tleuyarqn2skzkxz@owzwp62mzkdo>
+	<20260614210044.19dfc8df@jic23-huawei>
+	<20260624155414.61755e9a@jic23-huawei>
+	<ssrckqgv3rqpfgxwpx4ca3m5m2mp3frxs6sd673chvsorhsjiq@63t3eosivg3a>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] edac: xilinx: Add EDAC support for Versal XilSem
-To: Rama devi Veggalam <rama.devi.veggalam@amd.com>, bp@alien8.de,
- tony.luck@intel.com, michal.simek@amd.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
- devicetree@vger.kernel.org, james.morse@arm.com, mchehab@kernel.org,
- rric@kernel.org, git@amd.com
-References: <20260624212545.2850787-1-rama.devi.veggalam@amd.com>
- <20260624212545.2850787-5-rama.devi.veggalam@amd.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260624212545.2850787-5-rama.devi.veggalam@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Rama,
+On Thu, 25 Jun 2026 08:30:07 +0100
+Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
 
-On 6/24/26 22:25, Rama devi Veggalam wrote:
->  config EDAC_VERSAL
-> -	tristate "Xilinx Versal DDR Memory Controller"
-> +	tristate "Xilinx Versal DDR Memory Controller and XilSEM"
->  	depends on ARCH_ZYNQMP || COMPILE_TEST
->  	help
->  	  Support for error detection and correction on the Xilinx Versal DDR
-> -	  memory controller.
-> +	  memory controller and configuration memory of the programmable logic (PL) fabric. Support detection of errors in Network on Chip (NoC) peripheral interconnect (NPI) Registers.
+> On 24/06/26 15:54, Jonathan Cameron wrote:
+> > On Sun, 14 Jun 2026 21:00:44 +0100
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> >   
+> > > On Thu, 4 Jun 2026 11:09:33 +0100
+> > > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> > >   
+> > > > On 26/06/04 10:58AM, Rodrigo Alencar via B4 Relay wrote:    
+> > > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > > 
+> > > > > Add init parameter to _parse_integer_limit() that defines an initial
+> > > > > value for the accumulated result when parsing an 64-bit integer. The
+> > > > > new function prototype is adjusted so that the _parse_integer() macros
+> > > > > stay consistent allowing for one more argument, which defaults to 0.      
+> > > > 
+> > > > ...
+> > > >     
+> > > > >  noinline
+> > > > >  unsigned int _parse_integer_limit(const char *s, unsigned int base, unsigned long long *p,
+> > > > > -				  size_t max_chars)
+> > > > > +				  size_t max_chars, unsigned long long init)
+> > > > >  {
+> > > > >  	unsigned long long res;
+> > > > >  	unsigned int rv;
+> > > > >  
+> > > > > -	res = 0;
+> > > > > +	res = init;      
+> > > > 
+> > > > This might generate conflict, as the code around have changed in linux-next.
+> > > > It is an easy fix though.
+> > > >     
+> > > Thanks for the heads up. Hopefully that will all fall out when I rebase testing
+> > > on rc1 once that is out.  
+> > I've done a mid merge cycle rebase as the char-misc branches have merged.
+> > So this should be resolve on my testing branch now.  
+> 
+> https://lore.kernel.org/oe-kbuild-all/202606250230.etPGuolf-lkp@intel.com/
+> 
+> Apparently, the documentation header now includes parameter descriptions.
+> The new one is missing.
 
-This line of kconfig 'help' is far too long. See
-Documentation/process/coding-style.rst
-and
-Documentation/kbuild/kconfig-language.rst
+I'm snowed under for next few days so if you have time to spin me a fixup patch
+that I can just apply that would be great.
 
-- Julian Braha
+If not I'll get to it next week probably.
+
+Jonathan
+
+>  
+
