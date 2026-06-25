@@ -1,206 +1,233 @@
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009123C2BA4;
-	Thu, 25 Jun 2026 10:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.242
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DC93CF034
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782382081; cv=none; b=KQnyaAJ1UGzxe2eBf1K7hkPy3NlG8Ahd8HRWa9ZoH14Y7GBzm0PYEDVjqlAEhRRacMypmGjreQXKVTVwB0FGZZNwwPsyBCEwyTuNYlP6M8gDGvGxN9fdT07n1y6D/iavhpKt0x7bVh5uRYCHfuro0k8ZibBLP3YAxkzzZ/Qfa2w=
+	t=1782382213; cv=none; b=sY94oPhK8xcS+JG8B/WhQwSDNlt7zDDbxl7MywtMg7TZs5GHEtIey4LdYk9AaLDx5Uu0ZDssFHQiXnaZkmPZFEs9yPDon3dXv5q5Cc02+TSyV99xoVeWBHzac7zYmZ5v8RkNS8bH/rkhGs+VQL/tFB8tw6RH+OT2ElFncghxAks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782382081; c=relaxed/simple;
-	bh=/x5vPcVbEDVbWpYceq7G6YXF7LV0p0ay9Am6DsuMiC0=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fgpuJ/1Bgl/U/ZQCUXndCLnu9t45I1Pl0gwbneCGohosIOQYqq73Dyo5b5YYIUtfxSfYWobEcBKRloJSotwhfLaUNCvos+D9srQCLcH3ftcZHlESlvW33oXHBMLYsHXWxbSFaY7zFoaSGlRG2gcEtm7QBzh+WmLmPTqL8sCXXPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QxKVpGoq; arc=none smtp.client-ip=203.205.221.242
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1782382213; c=relaxed/simple;
+	bh=svDYbFHjV97/EnoKe+l7QDTU4sC7l9FlvzAk02DETtk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jMl/qbVjiB+Y1yTZflY5PdXJVyCjRSKSAv1T2E9nrWzMITfuYLP74xbY8soCTagqTEs5CX9GFtQkiE1nITHRHiALh0NsxD5+EhCMD7Dz1ulvgdjxFjp+Vb1pbKFGtf0ohT54bfMo7gM1AGs+qdbAeBLqELWOW2GeDYs6ZOaJnRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMtrQzbI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QxKVpGoq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782382069; bh=gKmR1ktISnS+36u8TJ0Y/fYeX66Qs8qM6rnS5f30X7A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QxKVpGoqeU+uDjkHrNq9XAZnaYD3FA5GeUWV7WIWIoO2mPHnSD0XRQtcPqKZfyO8s
-	 LRNNeoXt82Py3WH9kVFbrOMB7XQENJStgHJc6C/2XCj6FAKN7aQ5l6EQNKkX0BIV6t
-	 59LLQDIpVqFu+mXweK5wfThk1F100/3VwAn5uNWQ=
-Received: from 8qyomHQF3vPjMe ([210.21.239.182])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 1EF3BA36; Thu, 25 Jun 2026 18:07:47 +0800
-X-QQ-mid: xmsmtpt1782382067t739exsp5
-Message-ID: <tencent_FDB3230286DF272D5C2BD1292C7DA434D108@qq.com>
-X-QQ-XMAILINFO: MLINc68tus9/RN3Od0qsMGn0DRCFxLqt4u1ebLWztbj+a1P+N/ONJNlkYeFOy4
-	 +wgTuuipPlGFBmmMsiqFweXLC8j2hSWa+DpRuEQmx863xjR/UNUxxQNlErMbJ5K7V/yNSQerQ0vc
-	 lRGnnbryDr54e09MqzGH4iI8ckL2BWnzHZqODdwgIL45nrJugTZUoeiHyreFIzOuS+KlKRylb7Gm
-	 6eSHOYyWLf+tEL43cXWHpp3VonsOjqq1Xsm+Q85pFxK+dycm4E2qpblxa0hcK91eoO8oUkV94ze+
-	 zM5XHlMKvRvSYmBla5temHgKY65iyf+4jgSTGFXKuTnj43Ex7YTMHM5DxKlZLMid6Oj0Jpkqv8cs
-	 jbj7NMDBCyd6EkhABlpJb/NgZYtpC/XeM31dn+ZwNokSRDYCd4vlvfQqiuSsD4cSOpP3Rk/ZwU7M
-	 Wv3Yvnf5TcjDCzI3iqx0oB30wtxPK34Z00+oD4chNIjR9AaLypKNlq6T4BwwR0LDm3xWSchnfbyw
-	 WFYUFb/G0gCOIY+yNHuObuJH1vavqaF5BWgU64XMPNxLvsjNtE7rCRw9IPKfCF2tBmVhibg3pikN
-	 p+OnqrM9nz1hCZmSjc4nyClzmO6vbtumpn+uiZIDVFf4xYE+oJmy7gtfusZObWpDtoWAl++3vkIJ
-	 GfxoGR6EkW6sSR8ZHG9Be5jAOs2vZeUFAl/oZ1chKkMQ8tOeFrQRaNtH0X06fcKgDmuDfRW0/rFP
-	 d0PzlJyjFiCyzv7qVwwoRLMKwLQNdJBxZQFh/FFspYR9nwMM2aSpy6jZEKy63tch8xUmGTcKC2H/
-	 PnVcUJpY7n4cPl4HgcaN9hdqkHjFxTe+8BcS3posdnTmcn26lnGURc6tApNcvxV4AYHSw56YcjAl
-	 +zuLNydN/M3LRg0AHNLTyFHC87z+qWLTzoy4/KAMSpoE5NtJX0XE+oPrNoin1QveZCC5QofZmK7A
-	 lQRqUPGbO7LdPloSO9Lh6xHLMACM1hzUaLRMATrR3W/Wbss8Ldc8SEmgKWYdGdL58PhXJO7OTe7y
-	 4En7GGLeUlqPnNZ0mSNPqeYrkmEjBd0Zak/AnYgNyaZWMnZCNjgMCZZn2q/RVwIPLtitygx5uIHH
-	 8fDjh9QS9sY9BKC8MNO/WBTCH9lA==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Xin Xu <xxsemail@qq.com>
-To: konrad.dybcio@oss.qualcomm.com
-Cc: andersson@kernel.org,
-	devicetree@vger.kernel.org,
-	konradybcio@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xxsemail@qq.com
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: sm8250-xiaomi-elish: Add pm8008 PMIC
-Date: Thu, 25 Jun 2026 18:07:44 +0800
-X-OQ-MSGID: <20260625100747.9014-1-xxsemail@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <891015c8-68df-4654-b1e7-94d73e74267c@oss.qualcomm.com>
-References: <891015c8-68df-4654-b1e7-94d73e74267c@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMtrQzbI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033F71F000E9;
+	Thu, 25 Jun 2026 10:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782382212;
+	bh=4MRAHh21H8DfvwwLaBsyi3XjaNDgJsP578LKwktU75Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JMtrQzbIv6B26X6avW+jtyuBHPv1GOfqnNu3b5Y0nrl4QJOHsqyOHumdjSabZUiRK
+	 njDodaz8R/mm80XS7IXZ6ewu8b7ha7PbYk/DYgapUJXm/n41s+H4zEjWVNK8k/l3a7
+	 gm9geCE3H6C+04b3m/7/tXnbZYc8Ew3XqE+OpfPLeve5qALaoLZ8fw0UyQYg19jfwN
+	 AoHkOKQj40iKFrffhaZ4v8GzjUGHk5E6tgtbLvxYXRWfKgvSlytSNfJ6dcLgVyBjYw
+	 MoPRt7OX01K4E0jcp8Nr8DwtY1is+pv9u7PLnPUZhCuny+FmAYiDKChDI7iW9wSkU9
+	 ZqGWrjkj2r3cw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/7] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260625094449.708386-6-a0987203069@gmail.com>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-6-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 10:10:11 +0000
+Message-Id: <20260625101012.033F71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-06-24 at 13:00 +0200, Konrad Dybcio wrote:
-> On 6/22/26 8:07 PM, Xin Xu wrote:
-> > On Mon, 2026-06-22 at 13:40 +0200, Konrad Dybcio wrote:
-> > > On 6/19/26 6:07 PM, Xin Xu wrote:
-> > > > Add the pm8008 PMIC node on i2c15 with seven LDOs,
-> > > > using GPIO84 as interrupt and GPIO76 as reset.
-> > > > 
-> > > > Signed-off-by: Xin Xu <xxsemail@qq.com>
-> > > > ---
-> 
-> [...]
-> 
-> > > > +	pm8008_default: pm8008-default-state {
-> > > > +		int-pins {
-> > > > +			pins = "gpio84";
-> > > > +			function = "gpio";
-> > > > +			bias-disable;
-> > > > +			drive-strength = <2>;
-> > > > +			input-enable;
-> > > > +		};
-> > > > +
-> > > > +		reset-pins {
-> > > > +			pins = "gpio76";
-> > > > +			function = "gpio";
-> > > > +			bias-pull-up;
-> > > > +			drive-strength = <2>;
-> > > > +			output-high;
-> > > 
-> > > Drop output-high, the driver will take care of setting the output
-> > > state
-> > > 
-> > > Konrad
-> > 
-> > Thank you for your review!
-> > 
-> > I will fix the coding style issues (blank line before status,
-> > interrupts-extended, property order, and dropping output-high)
-> > in the next version.
-> > 
-> > I have verified all LDO voltages against the downstream device
-> > tree:
-> > https://github.com/MiCode/kernel_devicetree/tree/elish-r-oss/
-> > The definitions can be found around lines 209–244 in
-> > qcom/elish-sm8250-camera-board.dtsi
-> 
-> Thanks. It's best if you grab the DTB from a running device (which
-> has all the overlays applied etc.), which you can grab from
-> /sys/firmware/fdt
-> 
-> You can then pass that to DTC directly
-> 
-> Konrad
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-For additional verification, I have extracted the device tree from
-/sys/firmware/fdt on a running device. The voltage values match the
-ones in my patch exactly. Below is the relevant pm8008 regulator
-portion:
+New issues:
+- [High] The DC8000 panel enable, CRTC begin, and CRTC flush operations use=
+ incorrect registers and bits, directly contradicting the commit message an=
+d breaking hardware functionality.
+- [Medium] The hw_irqs variable is passed to regmap_read() uninitialized an=
+d used without checking for read failures.
 
-qcom,pm8008-regulator {
-	compatible = "qcom,pm8008-regulator";
-	pm8008_en-supply = <0x708>;
-	qcom,enable-ocp-broadcast;
-	vdd_l1_l2-supply = <0xad>;
-	vdd_l3_l4-supply = <0x2cf>;
-	phandle = <0x7e6>;
+Pre-existing issues:
+- [High] The DC8200 primary plane disable function erroneously sets the ena=
+ble bit instead of clearing it, keeping the plane active.
+- [High] The IRQ handler unconditionally dereferences dc->drm_dev, but the =
+interrupt is enabled before dc->drm_dev is allocated and remains active aft=
+er it is freed.
+--
 
-	qcom,pm8008-l1@4000 {
-		reg = <0x4000>;
-		regulator-name = "pm8008_l1";
-		regulator-min-microvolt = <0x124f80>; /* 1200000 */
-		regulator-max-microvolt = <0x124f80>; /* 1200000 */
-		qcom,min-dropout-voltage = <0x186a0>; /* 100000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x71c>;
-	};
+commit a518460571afb18a0b4ff8e14af894a66907ebde
+Author: Joey Lu <a0987203069@gmail.com>
 
-	qcom,pm8008-l2@4100 {
-		reg = <0x4100>;
-		regulator-name = "pm8008_l2";
-		regulator-min-microvolt = <0x124f80>; /* 1200000 */
-		regulator-max-microvolt = <0x124f80>; /* 1200000 */
-		qcom,min-dropout-voltage = <0x186a0>; /* 100000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x713>;
-	};
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
 
-	qcom,pm8008-l3@4200 {
-		reg = <0x4200>;
-		regulator-name = "pm8008_l3";
-		regulator-min-microvolt = <0x2ab980>; /* 2800000 */
-		regulator-max-microvolt = <0x2ab980>; /* 2800000 */
-		qcom,min-dropout-voltage = <0x30d40>; /* 200000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x714>;
-	};
+The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
+controller (DC8000 generation) whose register layout differs from
+the DC8200 in several important ways:
 
-	qcom,pm8008-l4@4300 {
-		reg = <0x4300>;
-		regulator-name = "pm8008_l4";
-		regulator-min-microvolt = <0x2ab980>; /* 2800000 */
-		regulator-max-microvolt = <0x2ab980>; /* 2800000 */
-		qcom,min-dropout-voltage = <0x30d40>; /* 200000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x70e>;
-	};
+> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit 0)
+>    and reset (bit 4) bits in FB_CONFIG instead of the DC8200 staging
+>    registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
+>    FB_BLEND_CONFIG, PANEL_CONFIG_EX).
+>
+> 2. No PANEL_START register: panel output starts when
+>    PANEL_CONFIG.RUNNING is set; there is no multi-display sync start
+>    register.
 
-	qcom,pm8008-l5@4400 {
-		reg = <0x4400>;
-		regulator-name = "pm8008_l5";
-		regulator-min-microvolt = <0x2ab980>; /* 2800000 */
-		regulator-max-microvolt = <0x2ab980>; /* 2800000 */
-		qcom,min-dropout-voltage = <0x493e0>; /* 300000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x71b>;
-	};
+[Severity: High]
+Do the functions implemented in this patch use the correct registers and bi=
+ts
+as described in the commit message?
 
-	qcom,pm8008-l6@4400 {
-		reg = <0x4500>;
-		regulator-name = "pm8008_l6";
-		regulator-min-microvolt = <0x1b7740>; /* 1800000 */
-		regulator-max-microvolt = <0x1b7740>; /* 1800000 */
-		qcom,min-dropout-voltage = <0x493e0>; /* 300000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x7e7>;
-	};
+In vs_dc8000_panel_enable_ex(), the code sets a reset bit
+(VSDC_FB_CONFIG_RESET) in VSDC_FB_CONFIG instead of writing to PANEL_CONFIG.
 
-	qcom,pm8008-l7@4400 {
-		reg = <0x4600>;
-		regulator-name = "pm8008_l7";
-		regulator-min-microvolt = <0x2ab980>; /* 2800000 */
-		regulator-max-microvolt = <0x2c4020>; /* 2900000 */
-		qcom,min-dropout-voltage = <0x493e0>; /* 300000 */
-		qcom,hpm-min-load = <0x00>;
-		phandle = <0x712>;
-	};
-};
+Additionally, vs_dc8000_crtc_begin() and vs_dc8000_crtc_flush() use an
+unmentioned VALID bit (VSDC_FB_CONFIG_VALID), and clear it after updates
+complete, which seems to invert normal latch semantics.
 
+Could this mismatch prevent the display panel from enabling properly?
+
+> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
+>    DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
+>    TOP_IRQ_EN (0x0014).
+>
+> 4. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
+>    divider) clocks; no axi or ahb clocks required.
+>
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+
+> diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/veris=
+ilicon/Makefile
+> index 9d4cd16452fa1..d2fd8e4dff242 100644
+> --- a/drivers/gpu/drm/verisilicon/Makefile
+> +++ b/drivers/gpu/drm/verisilicon/Makefile
+> @@ -1,6 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> =20
+> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dr=
+m.o vs_hwdb.o \
+> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dc=
+8000.o vs_drm.o vs_hwdb.o \
+
+[Severity: High]
+This is a pre-existing issue, but while reviewing the driver files included
+here, I noticed a potential problem in
+vs_dc8200.c:vs_dc8200_primary_plane_disable_ex().
+
+The function appears to call regmap_set_bits() on VSDC_FB_CONFIG_EX_FB_EN
+instead of regmap_clear_bits():
+
+vs_dc8200.c:vs_dc8200_primary_plane_disable_ex() {
+        ...
+        regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+                        VSDC_FB_CONFIG_EX_FB_EN);
+        ...
+}
+
+Does this erroneously keep the primary plane active when the DRM framework
+expects it to be turned off, potentially breaking power management?
+
+>  	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
+> =20
+>  obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
+licon/vs_dc.c
+> index fd1f5fe67a68b..9499fffbca58e 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
+> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
+>  		 dc->identity.revision, dc->identity.customer_id);
+> =20
+> -	dc->funcs =3D &vs_dc8200_funcs;
+> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
+> +		dc->funcs =3D &vs_dc8200_funcs;
+> +	else
+> +		dc->funcs =3D &vs_dc8000_funcs;
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential lifecycle regression
+in vs_dc_probe() just below this block.
+
+The function calls devm_request_irq() to register vs_dc_irq_handler() before
+calling vs_drm_initialize(), which is responsible for allocating and assign=
+ing
+dc->drm_dev.
+
+If an interrupt fires during this window, for example if the bootloader left
+VSYNC interrupts enabled, the handler is invoked:
+
+vs_drm.c:vs_drm_handle_irq() {
+        ...
+        if (dc->drm_dev->crtcs[i])
+                drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+        ...
+}
+
+Will this unconditionally dereference dc->drm_dev and cause a NULL pointer
+dereference before vs_drm_initialize() has completed?
+
+> =20
+>  	if (port_count > dc->identity.display_count) {
+>  		dev_err(dev, "too many downstream ports than HW capability\n");
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..fbe0fa516cac9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,86 @@
+
+[ ... ]
+
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+
+[Severity: Medium]
+Is it safe to use hw_irqs here if regmap_read() fails?
+
+If regmap_read() returns an error code, hw_irqs will remain uninitialized
+stack memory.
+
+The function then proceeds to bitwise-AND this uninitialized value to
+determine which VSYNC interrupts fired:
+
+        for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+                if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+                        unified |=3D VSDC_IRQ_VSYNC(i);
+        }
+
+Could this result in spurious VSYNC events being dispatched to the DRM core=
+ if
+a read failure occurs?
+
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	return unified;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
+86-1-a0987203069@gmail.com?part=3D5
