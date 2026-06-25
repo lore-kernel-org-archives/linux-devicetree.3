@@ -1,97 +1,156 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDA937472F
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CA91C3318
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782380472; cv=none; b=ZB3WWO41Vy7MFwp2/3HjEP5kNXZDR8qC95vcvQY35eO6pKLPLTHVpzmUl7T5Uw++IuqZiKP7xJJHhiOLFX5v5XIrj3v8iTUnZhqoNLMCu5uiptKmFbplr/yLsZvYAPifqiiWMZATM/7Ya2XRDT08zhwuAfGK0hHf1lbb476gqDg=
+	t=1782380578; cv=none; b=AdGgKOfoWBp8fG0mkFaFb5h/ZlL1xLpsu9akWBin39a/Y/YvwRag9r32FT0op1H1cpAI9SQtb66mXDF5t1beYcZB5ipYdE4Nw9rbdwAmM5EVxjy7lxxo3+wVC7v336Jk8ITe+7QWj5u2Ajf1lwUu70LqKTl4u6fnm6kJkpN+MRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782380472; c=relaxed/simple;
-	bh=01TQELyIGZMIZ6ifnSQh3g6j84rp/OerX7AwLUwHD48=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eLAi0SZAdClziWMI7pMBLOkOt4UqVmBXMIU/1o0pMbmWfh5QvtOIAd+D/TZivUdzuruGPY26o+B6UmsGsH5NtMes9ERYUW1BgAQzTeJMG6CxbdAAqNgJQUMYOl9U0jpsXbgJj2N9lCzXAzYR6r6XKlf8exrEfeC41CL2QFKSmOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BUR+hdqC; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1782380578; c=relaxed/simple;
+	bh=AH2C25HdothtoWG3bHnwvISTABuQM4xCnKMaASU+fIg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FSoW7s9Ks3jeTBE0N+zSD1LDOLu8DNqx9sG9JxTNuaGBy2/+trcsoIhRk0F6IN65XdjqmwVaJQKvuy5AFAMeD/OHNj2p+5UICiM3r0WQz1BJhWcXweUD4KRrbPSpZAi+5NNFFaY+8n8U6h4pqoatZCsLYOPK+qZPhiVZ++40o3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IoniiuU/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BUR+hdqC"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-30bc806fcf8so2506348eec.1
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 02:41:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1782380464; x=1782985264; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=l7XIr/SVC6sMz8goU/VKpbT2rVvzknx033F8HOJiudg=;
-        b=BUR+hdqCEOoYDsP7lA3If8EGuaOQJIg4hpeBN+Npwpma3VLFUs/vPNcl8UI/51RKmi
-         /vDg5S4jFd2ThLPaKLWzchNVuvmTVCjNGNfv51VGMDkTfUlP6kDQC9xgbSq7hru4fxzf
-         50hFWhfz84tnktQPAGO7h3dTkwnErBFdnC16Q9yPFmpJiFZb877g9tsXXTi7kEoiQK8a
-         O9CjzTFD16NoS9tUZjvbz0mmdmOcAoPrXIALVXjgJv5THAN7z0gSVDv80f5iIlI9aVwx
-         G6bYPo0oUGCtW0a+K+5edsu0Z3pqE8RK6ZXY5ueNIxjt7xG1sVohtfby/ctVLR0gcsqe
-         p7Zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782380464; x=1782985264;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l7XIr/SVC6sMz8goU/VKpbT2rVvzknx033F8HOJiudg=;
-        b=Nkses4o4uUQzcA/Kx/UOL5OttwgGQl97xB7S89mMjBzHz0kRP/U6vyRFnfOM2ukzSC
-         SmR3QcuofmLRmnosB0BOg1gqexGaL9qL6GKm4/bNtnrbxMcrHvJKzRk4GdzTC10B39AA
-         ENJtcyGs0e0RhuUpCrvS5lmKMUC1XfOCOaAEg/90sx6mwwZBv54uCGJcZfPoNW/ZkvXY
-         AoU1I84eEOAogXL2hRAeYUGGELJvL630XrGFrAqjQxqLA84O65/P93+wG271hYt7vmUi
-         +ros3Z4ZSltqBQFZUw1IExhYsaLpl7pz3Ao/h1ud0RYyp/05eD0lVMaFnZ00cQjhYuKT
-         kuJg==
-X-Forwarded-Encrypted: i=1; AHgh+RrD5Ktepr9SYDBs6x1ngbGyCdyEt5Ok09/e3BXkLqpS9hvWAv7NQL9EDHDf2hYHIvz49QArh+i73PZm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyc3IqpGNDNMynyARbqtJaAiQo4/X7LsDc7ZzdCV98W1/SR90pA
-	DizFSbLYo4dFkNgQMYGclqO2M0oaqeYmRvx2+tTSFTtou423tEviZY5tl8Bcb5nOC08=
-X-Gm-Gg: AfdE7cltg4YFVS18HWxDXcVqG97h90mI69FbiR2tDj4DDpGuvyRndKY6Ma8arIjeVkR
-	2I4jrqKbQ/65o1xO12IEuwPWsqWLej6XB4hI/Gu4j6PipGeqQnsfziELCVritoR0QQmV/ThQ1kE
-	rVqvqEFMM8NxvF0T39gD1zrdTEFHAbVwCHmBZQjJdty6lat/EP3DB/8i2bR0lX1oQO1LOW6UCvy
-	ePMxIV3V4xY41UC+urYs1cdvxPlM0ZHCzxrxzb5sHRUg40Ajh1+XK1zbMk7XzATn4mS62vt669x
-	OS9Rv4eJS/R7UPMg/aDv7ZKKH8oXCRHPNxTCjbNB8yv9m0KEYioYyGFyVM2vjtFAgxA+HP89Muw
-	cbqJrmkzCR53RpJcTwamuAaEuVRXSKDuDtUGqTjbXACi+isJYme08m/DLfMW3WtU+AZt1+1P8nb
-	CtUDI3VFi5HuAL
-X-Received: by 2002:a05:7301:9f01:b0:2ea:b85c:153d with SMTP id 5a478bee46e88-30c84d435f3mr1984449eec.27.1782380463873;
-        Thu, 25 Jun 2026 02:41:03 -0700 (PDT)
-Received: from localhost ([122.172.82.94])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c52eed6sm6731893eec.9.2026.06.25.02.41.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 02:41:03 -0700 (PDT)
-Date: Thu, 25 Jun 2026 15:11:00 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Viresh Kumar <vireshk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ARM: dts: st: spear13xx: Drop unused/incorrect usbh0_id
- and usbh1_id
-Message-ID: <eckh7zm6qgtnlo6itbq6w5s5hvss2b6pbp23lyoaqpfzixghvb@skswhqwiwoy7>
-References: <20260625091355.107054-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IoniiuU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387981F000E9;
+	Thu, 25 Jun 2026 09:42:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782380576;
+	bh=zfMsCknnq/TurMLwW2vBaRAzkOpT493eWxYZHZP8Zxs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IoniiuU/Hvc8ISCoEs2SCXWKRQJGD2hd5JmpGlgNU7D/Q68o/6rsWbEzSL888wB2o
+	 B2nKMKjNYaFdyX3pVX05PEB3u1MFw0AbrIQB+leX/gLIDO8gNvQI72a+bm7hNNxzv+
+	 U7GwhxoGyoOWT5c/yS7WtRD7xDUU/jd+qxzW0iQ5LMWgmvDHUPMgN2Rp6zqEWJY+R4
+	 GaVHxbjCilgWmmbkKyQpuyrtXbblpW3ieZOpnmOTzaml2kOhtwSHz/xjgQqZONCMz1
+	 1KXoTW0sqKby95e8fFqfmgWSn9082lKhfGv2bEcFd+EeXeMBts+jWednv7NF50Uzik
+	 JoWczTP5PDXzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] drm: panel: add support for the Renesas R63419
+ based dual-DSI video mode Display Panels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-2-8570e692143e@linaro.org>
+References: <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org>
+ <20260625-topic-sm8650-ayaneo-pocket-s2-r63419-v8-2-8570e692143e@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 09:42:55 +0000
+Message-Id: <20260625094256.387981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625091355.107054-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On 25-06-26, 11:13, Krzysztof Kozlowski wrote:
-> "usbh0_id" and "usbh1_id" properties were never documented and never
-> used by Linux drivers, thus should be safe to drop to fix dtbs_check
-> warnings like:
-> 
->   st/spear1310-evb.dtb: usb@e4800000 (st,spear600-ehci): Unevaluated properties are not allowed ('usbh0_id' was unexpected)
->   st/spear1310-evb.dtb: usb@e5800000 (st,spear600-ehci): Unevaluated properties are not allowed ('usbh1_id' was unexpected)
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  arch/arm/boot/dts/st/spear13xx.dtsi | 4 ----
->  1 file changed, 4 deletions(-)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Asymmetric panel callbacks for DCS commands (display on/off) cause=
+s state mismatch and permanent blanking.
+- [High] The panel initialization sequence sends the `set_display_on` comma=
+nd before the `exit_sleep_mode` command.
+- [High] Missing device link between the panel and the secondary DSI host l=
+eads to Use-After-Free and Double-Free.
+--
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
+commit bd7c7e227b10119b2ca8cfde561c22808d05f4f2
+Author: KancyJoe <kancy2333@outlook.com>
+drm: panel: add support for the Renesas R63419 based dual-DSI video mode Di=
+splay Panels
 
--- 
-viresh
+This commit implements support for the Renesas 63419 based dual-DSI video
+mode Display Panels used in the Ayaneo handheld gaming devices.
+
+> diff --git a/drivers/gpu/drm/panel/panel-renesas-r63419.c b/drivers/gpu/d=
+rm/panel/panel-renesas-r63419.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-renesas-r63419.c
+[ ... ]
+> +static int renesas_r63419_on(struct renesas_r63419_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
+> +
+> +	/*
+> +	 * Panel registers are loaded from DDIC Non Volatile Memory
+> +	 *
+> +	 * The DDIC expects this sequence to get out of sleep and enable display
+> +	 */
+> +
+> +	mipi_dsi_dual(mipi_dsi_dcs_set_display_on_multi,
+> +		      &dsi_ctx, ctx->dsi[0], ctx->dsi[1]);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +
+> +	mipi_dsi_dual(mipi_dsi_dcs_exit_sleep_mode_multi,
+> +		      &dsi_ctx, ctx->dsi[0], ctx->dsi[1]);
+
+[Severity: High]
+Are these MIPI DCS commands sent in the correct order?=20
+
+According to the standard, a display must exit sleep mode and wait for
+internal initialization before processing the set_display_on command.
+Sending set_display_on first might cause the sleeping DDIC to ignore it.
+
+> +	mipi_dsi_msleep(&dsi_ctx, 150);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+[ ... ]
+> +static int renesas_r63419_disable(struct drm_panel *panel)
+> +{
+> +	struct renesas_r63419_panel *ctx =3D to_renesas_r63419_panel(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { 0 };
+> +
+> +	mipi_dsi_dual(mipi_dsi_dcs_set_display_off_multi,
+> +		      &dsi_ctx, ctx->dsi[0], ctx->dsi[1]);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +
+> +	mipi_dsi_dual(mipi_dsi_dcs_enter_sleep_mode_multi,
+> +		      &dsi_ctx, ctx->dsi[0], ctx->dsi[1]);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static const struct drm_panel_funcs renesas_r63419_panel_funcs =3D {
+> +	.disable =3D renesas_r63419_disable,
+> +	.prepare =3D renesas_r63419_prepare,
+> +	.unprepare =3D renesas_r63419_unprepare,
+
+[Severity: High]
+Should there be an enable callback to match the disable callback?
+
+If the display pipeline is disabled and re-enabled during DPMS transitions,
+the bridge framework cycles disable and enable. Since the panel receives
+set_display_off and enter_sleep_mode during disable, but the enable
+callback is missing, won't the panel remain permanently asleep when waking
+up?
+
+> +	.get_modes =3D renesas_r63419_get_modes,
+> +	.get_orientation =3D renesas_r63419_get_orientation,
+> +};
+[ ... ]
+> +static int renesas_r63419_probe(struct mipi_dsi_device *dsi)
+> +{
+[ ... ]
+> +	/* Register the second DSI device */
+> +	ctx->dsi[1] =3D devm_mipi_dsi_device_register_full(dev, dsi1_host, &inf=
+o);
+> +	if (IS_ERR(ctx->dsi[1]))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->dsi[1]),
+> +				     "Failed to register second DSI device\n");
+
+[Severity: High]
+Does the secondary DSI device registration require a device link to protect
+its lifetime?
+
+If the secondary host is unbound via sysfs, the DSI core unregisters all
+child devices, freeing this pointer. Without a device link to force the
+panel to unbind first, could devm teardown or subsequent panel accesses
+lead to a use-after-free or double-free?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-topic-sm86=
+50-ayaneo-pocket-s2-r63419-v8-0-8570e692143e@linaro.org?part=3D2
