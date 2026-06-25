@@ -1,171 +1,140 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from out198-10.us.a.mail.aliyun.com (out198-10.us.a.mail.aliyun.com [47.90.198.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA7621A434
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 00:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A236778F26
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 00:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782347830; cv=none; b=nHEKgl2WQHtzeH5JmNlkFk0cEdIEn2x1SqQjjHq3o7WaufdBH8WnffM8y/OHoqXpK0jZA0gk/jh1FL93khc2QrtRCxewqWhBJuHnyrXJlcoUq2tW5wj1UfCCkYtKQs9DwRkJFEPvZ/ebKhXCyxVzmGeCgTm1EyCQmaBIuS+bxFk=
+	t=1782348762; cv=none; b=uHmwFhy8JXAkDICQX3WQu6fNUYJ0+laAOGQnylMEcreIzcEGBwt2wf+5+SXfEfNDp5nkgLYZ8Q0pY3/ga1dUSfFRbk88vI5Y55TNAm1HU88M0hPkR76qP52CFPlOdVIthwwDi9A7fbCn7pSgb1/nd/DgVyFJu1U5HXhyz3sxq9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782347830; c=relaxed/simple;
-	bh=Ah3BK4c9COLZAJctBL1RfvkLf+/iMlAsnF8C0qtruuo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=ERKIb2STiw98sHt+IThe2O4M/sJb6Xpf9kOtp4V/XCaUZtGD0EmEpUv4HNLu/hTus6bq/cKsPbpC+il95zuo+fGFXuIhvE32nkk4c4qJjgYs3dhanOPWqMqPHM//i4cqIisM9RCynSF9T9Peh3CyJm0jmSmkN5iWTX4XoBUdQQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=Dz99CXWb; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782348762; c=relaxed/simple;
+	bh=iHInnlsicP1XnaaxQZu4XOxYgdOxE5qlx5UG1P98G9E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NhgdXicRbyrUa0qlKOTPkrAtLlQe1f0651zcrC89KpHmy2VIhSjy+QebNnfamXctYuZYxPfnBsuqOb1IWwnakgE+Ar/6y56BCqmQpFsoNhPBoTpBWdkrnu62/NgwEvOVT82F3/CCtUO/jQ/uqkFwsDeIFH7dDZZ8CqIlmLLiWFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=gGd6GMTV; arc=none smtp.client-ip=47.90.198.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="Dz99CXWb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782347820;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ah3BK4c9COLZAJctBL1RfvkLf+/iMlAsnF8C0qtruuo=;
-	b=Dz99CXWbGJALOGKVIa0V4aDd4HhEJii+OdNPIMNDB/5Z3MC6fkziaWFk60UShZtKKInPZC
-	WRgx+W11Fqio3uUtvfikdb2BjAHCC8o/NfXk43iVYdACXzkrOcKLSVaBu2E4nheurhyRbY
-	b1frp8zLEc4QPwFBbiLPk1cwGt1azEAEvq3KWpQ7eDu4T39fltjpKwjqiU5pxQM5vuTDUv
-	IGbzYSZ8F63IvSAh8qM+I9IzbbLjdukg+fTOywBPH8YNcB1djiEA2ewUVfMDBy9bT+Yl5N
-	hIfG5qQ2wJuqm+v7i0ZnCW9x+DDSLXai3HS+KsJMAUJp4oggYpnArsQ1IfbVHw==
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010030.outbound.protection.outlook.com [52.101.56.30])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-71-efqtSu84P1a70JbMeIzeDw-2; Wed,
- 24 Jun 2026 17:35:33 -0700
-X-MC-Unique: efqtSu84P1a70JbMeIzeDw-2
-X-Mimecast-MFC-AGG-ID: efqtSu84P1a70JbMeIzeDw_1782347732
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by IA1PR02MB9110.namprd02.prod.outlook.com (2603:10b6:208:42e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Thu, 25 Jun
- 2026 00:35:29 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Thu, 25 Jun 2026
- 00:35:28 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Guenter Roeck <linux@roeck-us.net>, Conor Dooley <conor@kernel.org>
-CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, "linux-hwmon@vger.kernel.org"
-	<linux-hwmon@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
- FD5121
-Thread-Topic: [PATCH 2/3] dt-bindings: hwmon: pmbus: Support for onsemi's
- FD5121
-Thread-Index: AQHdAtUG0MJr3kYk70C0stjgUT+1+7ZMZ+AAgAA2+5CAAAYPAIABpgGwgAALPACAABXNEA==
-Date: Thu, 25 Jun 2026 00:35:28 +0000
-Message-ID: <CYYPR02MB982898B8E8EC0513EF55D44083EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260622-support-fd5121-from-onsemi-v1-0-b31767689c65@onsemi.com>
- <20260622-support-fd5121-from-onsemi-v1-2-b31767689c65@onsemi.com>
- <20260623-anybody-gutter-e6ca04f53bdb@spud>
- <CYYPR02MB98280DF78A07EADACFD084EE83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <20260623-scared-judgingly-7efc1c188670@spud>
- <CYYPR02MB9828EECB3F6AFDD2A7BD3E9B83ED2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <eed3e19b-8cc7-4aef-b058-b2242c94c940@roeck-us.net>
-In-Reply-To: <eed3e19b-8cc7-4aef-b058-b2242c94c940@roeck-us.net>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|IA1PR02MB9110:EE_
-x-ms-office365-filtering-correlation-id: 6fab0a73-cfb6-423a-7246-08ded251a7b3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|38070700021|22082099003|56012099006|11063799006|18002099003|4143699003|5023799004
-x-microsoft-antispam-message-info: yhqt8sHRoAEUgJ5ZoPEmtQWGQO2w097ADqlyWQP4DyBaN4EUgOdZwas7/XFQTTeAIWL6/Yw24JrEWoSL4ZatS/ontJlhR+Dg93Bc66z7cJnG50B5nHmPWKUJccMzz7lz6zRTOpUDkutkuQZ+4+CR/IbkGutYqE8EIIpDGfcAaNSUnaaMtM+vhmo3EkrUU+oh+8LDf0eFMYQGM9r9DvBNhBK+SQNZqgW4qMYSHSxJClioqDqGZljFuPMDI54q8plB0EK4PGOJKqo0IoGPQOAj0xC8zGKl10vjBEsGKTMsj0GXOojqbJJzWaGMki6dAb+jK6k6YfNHPGau8E/Dq2vIkV+rrXQ2VL1k0+olwFTFogh4z6D8L2uqjPXhz7+4k8K7Sxp7AC8QKaHolMuNl7dmdx0zE/8CzgckF/UBSfiYE50N3lxh7qrQazn1t6B+Lx6IpAQhgnqGp8CzAAJUF0ucT/Aul6HioMnkO6dEhNIjZxs+n5QO4fzB/YbbY7SeN+lfwr9/Ggc3wCVyYK4wUr400ovG26/O9b5+tWd4auD9e8UpA/iUiLdYpnRWaMEf6PMVb27waDMm3KgnR1aJSNSWu02kmpyiU/6NZfkLuFt1EzT5yjkeCKVR3XKY15xtKPGL9sjalkWT5lg1mpzBw/Ecbjf25w/POX4QnNzHoUu/pfz5CVHlOvfgguHEguaUbuDfDxJTmRs3U5jophpmBxZFpb9ZMOIUSiVxDkPy10fLB5Q=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(38070700021)(22082099003)(56012099006)(11063799006)(18002099003)(4143699003)(5023799004);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?elRiTkx2R0xEOUl2SGZNWmhHTmRhb29QcGJMVm9pWFNBclBKRlFwN05IYmo4?=
- =?utf-8?B?dDVWejJXdWxPUFlpQittS0lGakc5YURjcll1eWFZSmY5K2RqWEZpMDNmelFQ?=
- =?utf-8?B?U2lVcWk3VERBcFo0L1oxOXZmb2tyYzIyVmJxOEYycFphNTdmeUhJZk9aMGxx?=
- =?utf-8?B?S0lNSU8xZkFmSDZ1UWk1WmJ4cEE5V1ZEWndmb2dLZisxUDMrekxncjNUZTcy?=
- =?utf-8?B?ZXZrcTJzQ29vVkdpL2ZnNjRnTkxsMmNPKzJhaVVGQ29HWGV6ZnFwQk4xRUkx?=
- =?utf-8?B?Y1d1TTRrRlB0N2VLWUVYVUdCQ212b0dib0Rmc252VExQLytJZ2NiZU5QVEFq?=
- =?utf-8?B?REk5d0xsM0pzako1QWNheWFhTzJjRkxtM0xJeTVhM1VNY2RqVlIrUDRjeUM4?=
- =?utf-8?B?UDFoUnZmeldENnYxQjN6a041Rkt6di9KL09IT0Z6MkhubkE0Z2J0U3hHa2JI?=
- =?utf-8?B?K2VqTzVIZXBLelJxdXZTc3UrOXRaL2g0K3JUYmdPeDZ0Z1VyanhuWmVEOU9N?=
- =?utf-8?B?V1ZzNVlTZ1k3cTJ2YmNrYzlRa20vMHcrOEprbHdaZWUxcUhqNlhHTERicEVq?=
- =?utf-8?B?TFlwZWc3RjZldUcyTG9NM3k4dkRic1B4TS9RckI2TSt0VHNpREE0RHViV0pG?=
- =?utf-8?B?L01pdS8vYWxoaW1jc0lDbTV5RGt3M04vZlBZV1R1SHFlRmZJOHBnQTdXY1Jh?=
- =?utf-8?B?eTZhTHdudEEybjZUZVJGNmJPckEraFUrL2VYekJoNThmVERrR2FXaWdlRFFz?=
- =?utf-8?B?bDV0NldpZCsxQWVXWm05Z0kvaFc3UTNjcnRKT2NlNnp4SHh2bEg4YVFzS29W?=
- =?utf-8?B?MS9OVjg0RklXTTR1a0h3OVp1NnRLNEI0VWxsZ3JjV3BjZ0EzOEJjVXJ2ZUJB?=
- =?utf-8?B?NTB3SnBma1dKenZPcVVaQU13NkoveloxZU94MkdXVkZCbnJYeTU2d3k3Y3Ex?=
- =?utf-8?B?T3MzaXlYd0hmelVxM3QvTjNzRnBVVGE1aEhSYk80QjAyeDRLSHBWVk9IcUM4?=
- =?utf-8?B?UWt5a2NlbU9IZVdLMUZHaE5NMjJxVmJwUll4cnFZdzFwTE9nY1ZSRUp5UjBU?=
- =?utf-8?B?V1A0L2EvSWc3c3l3NDdlM2JkUDMrV3NIQlk0K1BmVzVDa3M0VHNMVXNTejJp?=
- =?utf-8?B?YkFYVXIxVEExOGhGdVlHVTE2UzU3SnNZTEJVaDlrTXE2OGRnRGp4WWRCWGJU?=
- =?utf-8?B?QkpIbEUrUW80Y0s3RUVCN0pYR1BCM3ZRQVNJSWVQbWQyQ0x6MDlTV1dLZCtN?=
- =?utf-8?B?YXBjWDc4U1NrOHZTQjNyUjRmRzh1aWt1eFUzREorbEZtM1lsblZ2eURla09F?=
- =?utf-8?B?S005bUtqTHJHUTJxbk9HTEZtQkRqRXhsK3JuN0wrZVpucTc2dncvRkpEa01F?=
- =?utf-8?B?K0lyZ1hMTHRaTUFSVVdSYVNPV1F0dWZiNUc3eGc1WGFMdXE3c0Q0cHFMMVgy?=
- =?utf-8?B?YnZWemN3ZGExSTZOK1FnOE5IUktObTdkQmtJblFDN1Ewd05hVVNMbExtT01T?=
- =?utf-8?B?c2tLYW9ZdWh5djV0SHdrSkRHcHRncXg3cTdpU3NnT0w5Vm41UFJOR04veENm?=
- =?utf-8?B?U0tmc1RlbTJyWlg5czk4K0JDVE9IaUdIb0U0aTNFaDY4REVUeWRZTE56UmJs?=
- =?utf-8?B?RDFyeDNDeGY4NFQrYTRQaHk2RC9TTHRpYk0wVzU2ZlNNYlhoZXNUQzRlK1lS?=
- =?utf-8?B?NGF5YXFPYUovL1grdWdJVjROdXR2VDVINmtWZTJKdVlFMW1sL0xkcmRDVTB4?=
- =?utf-8?B?U1o4aFoydUttRVBneUFveFRMVWJieUp2MUwrWXZtMWErb1JVR1RKRHM4M0Fh?=
- =?utf-8?B?KzluUmp6R3ZFOFAvdEZKRnlvMVBjVXplUG56SUphMWJ2N3gyRTNraGdjVmdK?=
- =?utf-8?B?LzNGMHlyekp4TTdhM0R3RWZPQXBoWFFnTExQMnF4ZE93TzlJK2R1UnAwaHQ5?=
- =?utf-8?B?c1k2Um5MZDZ2RDEyeXZOQk82RWNhRW9CRjZXK2NnRVVOR2txOWY1Wk1NVDJq?=
- =?utf-8?B?RkQzRjNuUm1TVVkvMnpQd3IrelZWRFFZUUdUb3hDWW9nT2YzSnVsOHJGMm9t?=
- =?utf-8?B?TUFFT0pGbDZGMTc1bko1bytweTBnTGQxbEpSQmhlSFI5eFFURkltS3ZMM05U?=
- =?utf-8?B?cU5QU3hrS2ZhbWxnUWxYRTlZSkkxeTJ5QXdrTzh1U1pGSms1ZTcvVytiV3FD?=
- =?utf-8?B?SUtPZFoyUlljM2JWZDR5UFJLbHpoa3FrVXpJL1ZJMjQyNmlhSHNQODJUNFNH?=
- =?utf-8?B?dTJpNEZYdDVMQ2FBWHdmenBkd2lUMnZpcm05SmFLeGFBVUZybmdFc2lZWGRs?=
- =?utf-8?B?YUh5c0dkV1F3OFNXRXVLZkVHZ2J0cVg2aHREbm95VGhiOGxpdGY3Rkozdlhl?=
- =?utf-8?Q?QE3gxZoGuZLMDc7A=3D?=
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="gGd6GMTV"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1782348742; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+	bh=TZqNTnIu549tTIomgYazqeUAShfsBdkEd7y+/MMJhI0=;
+	b=gGd6GMTVQWxHjF50+cI8iBdLimajYxzsYFSalby/eDe5CL9ljLNkODrc+tzoOIBPD+cjVjQruYOKv9OtZPN7JF37eDmh7okDnCZ4yDYwrWCduXzGJyaNshx2spcegkzpHa9ejeJxg+4gqNF8QcZjUG+pAvR7uFxi8C5H32vuVs0jP9hcCqUP8tTgCvpbwbgqD7QJNHv3+UEDAhekrGtbDD5KXamSvS9FRsHt1wIEO25ZhLkkO5uIG1idnzByx1wVpA9zPMZNY5kOjiJ8xsXwD3xvs7+nAvyWC3r7yWR419EdDDuNg1SuBT0pwPpJLAIAIVTCKkEcCz9Oo5W4zDWYUQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.255127|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0610697-0.0193207-0.91961;FP=13348953743449387992|12|1|9|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.i4nhy7Y_1782348739;
+Received: from mail-ot1-f47.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.i4nhy7Y_1782348739 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 25 Jun 2026 08:52:20 +0800
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e6da33a561so1041911a34.3
+        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 17:52:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ98GlplNuzVacGAksL64U693mNRdsFjPOrdZcH/Udq7GdrHj+9P0skWvn3BRgLilK9BpfEEPZkwbK6z@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/+6s7Cf8WSvgU9g1RJ/nRYSYfWc3D1HwF3HM1eVv8ZuIU5LVQ
+	XBFeY/E3pDx5q1bH2/ff+WT1D5gqSaLHww7pu5mVpaii/0fuyfzH/PzmuHPDC0UBHCA3XhIX3CC
+	BPDPnrNqh5KsEHcRa73mbOnfPq4RzHfw=
+X-Received: by 2002:a05:6808:c3cb:b0:48a:a718:1f56 with SMTP id
+ 5614622812f47-4921595161cmr484323b6e.9.1782348738618; Wed, 24 Jun 2026
+ 17:52:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FHxa7hPD/6SyV828Kiod0KEtVaQuOU1wroKIgBGd6pJk1hebxuh1VjJpltRs+47fMvMxa7JE3Qmf4nFg/SjokUsKA+/HYd9ePJywQG0aBgzzJ837enGhJifTquykqP6BTrv18tOXltuQurlFp73wDcaTemshfRg9lKw31sW31YdkNb+eX1fe2fe12jE3c5A3oj+SZgNOMP2mRITqP/1650reedhFTGz9xjPZqGSz3suqJwQRZYkt3aYsXisD5SBwgRNMPz+h3sbKzD0i89PNGnaMb2L/u9jiP5yyZk5NNe07/5FC10VbUgAJQ046rKnIJY4tZ1fU9jZvMHAabYaBFg==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fab0a73-cfb6-423a-7246-08ded251a7b3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2026 00:35:28.0517
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: S5F4SRFFiiZa35HEiI8I+UYGLjJy0EziREpjpvYl/tpqtpD1T8sZ10egq85U6GxLRdYFCSOwmQnaLDSGQG5Dx0pSeFPvBAjlLWnLSJrZrN4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR02MB9110
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3DGnJ-GY15cQfEODkY8wMU9RD7ALE2Sb5UIzZ7jWCVs_1782347732
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+References: <20260508142500.4922-1-syyang@lontium.com> <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
+ <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
+In-Reply-To: <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Thu, 25 Jun 2026 08:52:05 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
+X-Gm-Features: AVVi8CfE-A5p_Q7IR6jyWv_M8aKD8qGz_1Y5TCkwp3XWzUgtW9ua0QWOzc8_JDM
+Message-ID: <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
+Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
+	rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+	xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBHdWVudGVyIFJvZWNrIDxncm9l
-Y2s3QGdtYWlsLmNvbT4gT24gQmVoYWxmIE9mIEd1ZW50ZXIgUm9lY2sNCj4gU3ViamVjdDogUmU6
-IFtQQVRDSCAyLzNdIGR0LWJpbmRpbmdzOiBod21vbjogcG1idXM6IFN1cHBvcnQgZm9yIG9uc2Vt
-aSdzIEZENTEyMQ0KPiANCj4gDQo+IE9uZSBvZiB0aGUgcHJvYmxlbXMgaGVyZSBpcyB0aGF0IHRo
-ZSBjaGlwIGRhdGFzaGVldCBpcyBub3QgcHVibGljLA0KDQpBZ3JlZSBvbiBib3RoIHBvaW50cy4g
-Tm8gZGF0YXNoZWV0cyBvbiBvdXIgd2Vic2l0ZS4gQW5kIGNoaXBzIG5vdCBhdmFpbGFibGUgdGhy
-b3VnaCBkaXN0cmlidXRvcnMuIExpdHRsZQ0KZWFybHkgaW4gdGhlIHByb2Nlc3MuIEkgYW0gd29y
-a2luZyB3aXRoIG91ciBwcm9kdWN0IHRlYW0gdG8gc2VlIGhvdyB0byBtb3ZlIGZvcndhcmQuIFNv
-LCB0aGVyZSB3aWxsIGJlIHNvbWUgDQpkZWxheSBpbiBnaXZpbmcgbmV4dCBwYXRjaC4gVGhhbmtz
-IGZvciB5b3VyIGZlZWRiYWNrLiBJIGhhdmUgYWxsIHRoZSBpbmZvcm1hdGlvbiB0byBzZW5kIGEg
-Y2xlYW5lciwgaG9wZWZ1bGx5IA0KYWNjZXB0YWJsZSBwYXRjaCwgDQoNCj4gc28gd2UgY2FuIG5v
-dCB2ZXJpZnkgd2hhdCB0aGlzIGFjdHVhbGx5IGlzLiBUaGUgb25seSBhdmFpbGFibGUNCj4gcHVi
-bGljIGRvY3VtZW50IGFwcGVhcnMgdG8gYmUgdGhlICJvbnNlbWkgRkQ1MTJ4IEF4IERpZ2l0YWwg
-Q29udHJvbGxlcg0KPiBVc2VyIE1hbnVhbCIgd2hpY2ggZGVzY3JpYmVzIHRoZSBjaGlwIGFzIGZv
-bGxvd3MuDQo+IA0KPiAiVGhlIEZENTEyeCBEaWdpdGFsIENvbnRyb2xsZXIgaXMgYSBwcm9ncmFt
-bWFibGUgZGV2aWNlIGRlc2lnbmVkDQo+IGZvciBtYWNoaW5lIHZlbmRvcnMgdG8gY29uZmlndXJl
-IHRoZWlyIGVxdWlwbWVudCBhdCB0aGUgZmFjdG9yeS4iDQo+IA0KPiBUaGF0IHJlYWxseSBkb2Vz
-IG5vdCBleHBsYWluIGFueXRoaW5nIGF0IGFsbCwgYW5kIGFjdHVhbGx5IGxvb2tzIGxpa2UNCj4g
-YW4gQUkgZ2VuZXJhdGVkIHN1bW1hcnkgd2l0aCB0aGUgQUkgbm90IHVuZGVyc3RhbmRpbmcgd2hh
-dCBpdCBpcyB0YWxraW5nDQo+IGFib3V0LiBBY2NvcmRpbmcgdG8gdGhlIG9uc2VtaSB3ZWIgcGFn
-ZSwgdGhlIGNoaXAgZG9lcyBub3QgZXhpc3QsDQo+IGFuZCBpdCBhcHBlYXJzIHRoYXQgaXQgaXMg
-bm90IGF2YWlsYWJsZSB0byBidXkgZnJvbSBhbnkgZGlzdHJpYnV0b3JzDQo+IGVpdGhlci4NCj4g
-DQo+IEd1ZW50ZXINCj4gDQoNCg==
+Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8824=E6=
+=97=A5=E5=91=A8=E4=B8=89 22:05=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On 11/05/2026 05:28, Sunyun Yang wrote:
+> > <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=91=
+=A8=E4=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> From: Sunyun Yang <syyang@lontium.com>
+> >>
+> >> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual po=
+rt
+> >> mipi dsi and output hdmi, differences in hardware features:
+> >> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> >> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> >> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> >>
+> >> Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> >> ---
+> >>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++-=
+-
+> >>  1 file changed, 6 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,=
+lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt96=
+11.yaml
+> >> index 429a06057ae8..e0821a63d9d7 100644
+> >> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
+yaml
+> >> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
+yaml
+> >> @@ -4,19 +4,23 @@
+> >>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml=
+#
+> >>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>
+> >> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
+> >> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
+> >>
+> >>  maintainers:
+> >>    - Vinod Koul <vkoul@kernel.org>
+> >>
+> >>  description: |
+> >> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HD=
+MI
+> >> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and L=
+T9611UXD
+> >> +  are bridge devices which convert DSI to HDMI
+> >>
+> >>  properties:
+> >>    compatible:
+> >>      enum:
+> >>        - lontium,lt9611
+> >> +      - lontium,lt9611c
+> >> +      - lontium,lt9611ex
+> >>        - lontium,lt9611uxc
+> >> +      - lontium,lt9611uxd
+> >>
+> >>    reg:
+> >>      maxItems: 1
+> >> --
+> >
+> > Gentle ping.
+> > Thanks.
+>
+> Except mess with threading, your patchset does not build, when applied
+> on next-20260618.
+>
+> What is the base of this?
+>
 
+Thanks for testing my patchset on next-20260618.
+
+The base of this series is v7.0.
+
+> Best regards,
+> Krzysztof
