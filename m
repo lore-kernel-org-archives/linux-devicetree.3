@@ -1,189 +1,153 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0117A348477
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 14:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7393033F5;
+	Thu, 25 Jun 2026 14:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782396243; cv=none; b=txNVgYWlbvd5Z0lriCZ2Z0KJDdVaydrZArMQdt3vE0EO5LTrjqfwCCMTbHY67Kgl7c4ljq4cBLUr6H/K0tH668RcPutOAgHaJzD8TgKdbn5Jqt/KzSsz2QFhFg9+geFUCugS2SzDykks061SaZCO8CPfJdGl2Ss0axL6cIYuEvQ=
+	t=1782396631; cv=none; b=nnNeG56L53zcsgyTQA8uC2rCoG/UA//QzUh1qJLuEXk/H7oxmQYf7vaMONw3R8jCRLEPZKVPZUuv+2M0Ev4svrju0mlXRouo6XregYIq1Bd2jNg56PvE6TCcQo/9OfkNT67+5RgZnGSAIL4eeyAn2NfEe/GbNCJLXGNBm7hV9HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782396243; c=relaxed/simple;
-	bh=02smTb6fZgfg9URvseMu8KamWiY9JYyKfTM6E7OMgUE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BRH3TQY9ClHyN1kI30kEDVMB3yHvH2rMbx/19dln+xO/mWltV1MuwsjcOeTihheAnja38QAWbQEtiMo61jcoQY0c6hN9gsHW3tLvVWfW1XnAPKuz9ixTlcVjcxg90t1emY/2ZoiWwQBNzQHZNSZ53NZe/8S8pQKzE1DUnMEsyTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YN+cOeXn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QY+5fWFo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782396631; c=relaxed/simple;
+	bh=D6SplHxUa3QnaLv8HkHyckjDvA/Fprxyfd+YMfQx7G8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EpYCjUIWjjNUWSOXd2Ux+nJJ6R/ou/hkQUGddnLjevnHuiUv2mIXXp8Vf63G2GNxEnQF1JaVx9MSfCIZH367ISAZTu1Kwptua2TeFyzSvYv5jYHlIlqEVnh0/5oPba+2T2+y8mDT2El4siOfR5wpzFkauu/z6VE9l0JgXBrPSYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ubJVFQTV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YN+cOeXn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QY+5fWFo"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P9ju491723259
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 14:04:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PPPUb6wNGYobJTWRleQaNEMOvAdQK5WbWVrze9AWYus=; b=YN+cOeXnnU5YeHl7
-	yWBeo181jiyYqiq+bO3YBLSU/i0jQmbG99HndiWzVRYpzVOqQDZOk+Uq9DjW10I9
-	UhRHIiXgPv522YDByVNQvy3cMzs0699FVQyxRbKu2dul3FFx0x27een/5p8MxXel
-	vDQAo37ooTp34PwWu17H8ZqhYRrO/pARV+dUh4m1tbkFY/HQO+dBNMpf5AFtiXxC
-	oPsxIUDRlDlpnc/dBvlhO+BKTU2dXeLdQAbg99vM4AVX0AkvPPxNZB2xWlBZFg/0
-	QIjcmYNArTTxmsYgB0XWv+/H4BmDkNV/9Y9HOBBym+IJco8GqAyiIHNExUfQjiOC
-	5tc6yg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0j7dvkva-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 14:04:00 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c6bbd0afffso34473365ad.0
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 07:04:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782396240; x=1783001040; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PPPUb6wNGYobJTWRleQaNEMOvAdQK5WbWVrze9AWYus=;
-        b=QY+5fWFoK5TfiwN2jdLO1SGw9roQSXAsATcNvZj+SQNAFVL0vhMgSUqO/HoqEHNs/H
-         Li1Iq4tht/TCPXDNwIcTmNw4LRba12wObOjOw0Thl3BbOl5knKyMiCY75EJiOTvqjAyu
-         i35Btu2Cvesy5leqjDMui+R0AIqfpg29xR8gYkfQlbC0sR7D1xC7t7tW2N5Sb6qzzDEk
-         zdDuj/WumC9eopJRN6wj5cAHN8j4Frsn614TkBBrILU3WkP7OSJvtYeb2UbR6dnko6+c
-         jiiO1iQR8sh08c53ebp2dtQcZG9z9cvoL8nACq4Z6t/E6XcBuMlxyyhM82a0/1qdCgWD
-         3Xrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782396240; x=1783001040;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PPPUb6wNGYobJTWRleQaNEMOvAdQK5WbWVrze9AWYus=;
-        b=FnN0t1VeSdLqD0kVac5+noqkMfHJ45/F4iaf1wL0UIf/M4lTvngtbur+2oPT6okHU6
-         6dro57WdqYwdC5MPrs/7FBYZrjl8HggYEt5DRXNwb5/DY1pgsX+Wy+2upT9BqJgdeae5
-         b1LdybMPrJ+3wUuhdww9AY2zwPckt7TqPxT8clqK9Pv+/TdbQusQG6FSAtIj8h2UBWIY
-         D7Xzj4hL+qB+tMf0OXkKzln0J7yXB0tu9WhqTnUqCczxRWGzpdrCmlDiv5gzgf0iizeG
-         BBlVGdaMHAwVC2W7R+dWMquIPyDFPyvDonI899p9Gpu50P1G3K5ju9iMWIYwr7W18GUz
-         /pNA==
-X-Forwarded-Encrypted: i=1; AHgh+RrG+0sZmykpr5NPaBXoT3zrrj/h+nx4Zl0dS/yIy5EZQTfdN0W/Dc0TmeFLxm7xMe+UhN9UoEC74Pjg@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAZTQWo+wd9BcpagsZ7rpYZk5JjQSiwdY714u4MrlWsfLfYQU/
-	xWVT3qISP8l9q+ImOUM4OujVz3evStdahf21KPAtNr8W3X5n8cxtk+KnQ0qUE2osVU4nYFfzMSH
-	MrisOX69oaOC1+vxrcGn9HzDslv3c8uZQ7NZadEHuxMyha+fA+6vFdKrRml3uhBir
-X-Gm-Gg: AfdE7clZfIvg6Qr6CMW+1WhrtG2tv4iUX3yuJ6IM1ZQhPeJEPTlCPFo4kGvGGu5SoZk
-	xXoAiNLvbUIvSlzU6Gh2ckMrsI0tSvsnVj4deztUE1tcVCMQfUOBPEbfow8YA3z5T3BhBydbs6O
-	yXieHwg7ANrG51XHysZqswmguEGQjtqw4+Xttrlu3U+5D/Z3lnxUf5dUxiUAdGjaVykpPNkEm5W
-	C/bRYvWOHjj9HQPrjDW0+jOAIDSIEYT5US8FPGba8tBYsdNQN+iOM3trkKkQiTrlA4gQBhWrxNo
-	P1oUgqXFfdQrEtJ2Px9SI5M/4zKlndiVRHwF9gP127Dx7wmXKdrE7YYa+MehhqGJgcif/cJyQ3S
-	Zcr8up34P4udwtHQSMbXIaZXI0axwzAHEQwcwfUEQ2y0=
-X-Received: by 2002:a17:902:ce82:b0:2c6:cf81:74a8 with SMTP id d9443c01a7336-2c7fc8ab639mr29959685ad.30.1782396239694;
-        Thu, 25 Jun 2026 07:03:59 -0700 (PDT)
-X-Received: by 2002:a17:902:ce82:b0:2c6:cf81:74a8 with SMTP id d9443c01a7336-2c7fc8ab639mr29958985ad.30.1782396239136;
-        Thu, 25 Jun 2026 07:03:59 -0700 (PDT)
-Received: from [192.168.1.73] ([92.247.57.178])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbba862asm208137866b.9.2026.06.25.07.03.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 07:03:56 -0700 (PDT)
-Message-ID: <560888a5-fc36-4495-b8c3-66edc3f126f2@oss.qualcomm.com>
-Date: Thu, 25 Jun 2026 17:03:54 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ubJVFQTV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DFD19C2BCB3;
+	Thu, 25 Jun 2026 14:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1782396631;
+	bh=D6SplHxUa3QnaLv8HkHyckjDvA/Fprxyfd+YMfQx7G8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=ubJVFQTV+/Y0T9PjEfy0BIHmEqqIZ5iLhuPzgkeMBStfEWlJB970ldJ7/RumWT8hI
+	 zNxpj6Zj20HuZiXZ0SMVJa6B0eG+ZlOKhOEofnmlnntB09dgIbWChXVpJFOx4XvSBD
+	 224CQRtOsHY4d3HDnf6KWfomftv+4ZZx2sx37y5WNlN3MCY8VVDeCjwF+LThs2MjkB
+	 Uwq1qFwSuw5cL0umlvYHmIIWPsH3Fx09cgR5Ld8xz10IQ6l6MF7PFK5UCQNiwPnJKy
+	 TZSN/9+D7vLIPiq5zcxQIMhyrayx6JagYhZpKPZ+JBTGaC2kVtOp7mcisE1TILXtms
+	 HCt9LiTQV99Yg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8ECDCDE001;
+	Thu, 25 Jun 2026 14:10:30 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Subject: [PATCH 0/6] Add support for IPQ5018 Bluetooth
+Date: Thu, 25 Jun 2026 18:10:04 +0400
+Message-Id: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
-To: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org
-Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260625133828.3221781-1-atanas.filipov@oss.qualcomm.com>
- <20260625133828.3221781-2-atanas.filipov@oss.qualcomm.com>
- <e65358b0-b978-4672-9691-705897bcf209@kernel.org>
-Content-Language: en-US
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-In-Reply-To: <e65358b0-b978-4672-9691-705897bcf209@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: prEyef2ukCyO4oaZNP7FRUQWsrbp1vqB
-X-Authority-Analysis: v=2.4 cv=NvHhtcdJ c=1 sm=1 tr=0 ts=6a3d3550 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=TRDuFWLCCM6zB3E9pkUA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDEyMSBTYWx0ZWRfXzmKvVpyhSL6v
- d8qZmFXH0R1rsrVswxwcVJFdqNvL2Ec4qU7SZLLc2SEYCDNbMJ4RlJoVhRktjNiWdWI378BPK89
- 2EamejT8TqEERq8CN7iCyVgHG+iVAIY=
-X-Proofpoint-ORIG-GUID: prEyef2ukCyO4oaZNP7FRUQWsrbp1vqB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDEyMSBTYWx0ZWRfX8dtR+kudeLyY
- sm6WtbZxQr4nb5HQ+aJn3GpbBIf7MQuPnRTzY/chGkkoGBJVKWus9+Xs7DpVrUytFazu6GuV1rj
- /CEg7uG+JBjLxYhxmRMSw6ECJ3e+AwndxRGDc1eojFz5oMgJDAZtOy9JsWw3T37fYfBmoZSeLfN
- dVYvcH9vD5NmskW3ONhlL2cZCUgwsbY/Ti912hkzdjsRFEKww0EHJ3pvJbr89IlrWECt1mA0Nc4
- QJmpUOQs/g2W89xggGNlrn0md78CaPoyFrOwCaE2uXS7aEdLa+u8o+nqOG+4cGQ/KZuCgaT9FQY
- oeLTc3HBfpyWuYnM7KZqpH5lZGD9cLMQJDI+PRTOsWRtAQC6wA3kuly/VOJlO/DbncZBy9ythmy
- zRISvLlHOrX3BhxuV85Z6Yps+y6bZ9/g9it+We1bgcXi83gWUTh77UxRAeJcOymUickNWRYPQZK
- e8HYor/ugfCoFM13coA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250121
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBREr1Ky9kuammiLiPeQLpL0R4NN0+a3R
+ RDvbrSbgTcwb96MMHkk1hRvlnD15OOQodwVzD70cEfwXWYmuFBcCQl+nCQvT2D6BecY5wdw5Zx
+ Stu6OsmJ5NyZ0/vV33tqNE05LVs9byQIS6b+6Kc6buRTZGO0TNMGwBgywSuBQS+Sm4s65ml8j0
+ X5adG9jCPscl9+b0YTwa/zcFIeu1KYSB2fNkbWfzxfm+j9+3wAAAA==
+X-Change-ID: 20260625-ipq5018-bluetooth-06ff66c9d753
+To: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, 
+ Rocky Liao <quic_rjliao@quicinc.com>, 
+ Saravana Kannan <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+ George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782396628; l=3321;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=D6SplHxUa3QnaLv8HkHyckjDvA/Fprxyfd+YMfQx7G8=;
+ b=6MKZWbfvyN9Pd5FoUIlXKVCW9PgXMLB8ekM5lOyqEenPO3HzLmd7aZqmcGLCiB4/V1w9BQ4rO
+ W7+WbfMcF11AMEj2N5zJ0b/Tu+DnFmNpy3aZ9Tv7SmbNEM6abwmYVk2
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-On 6/25/2026 4:55 PM, Krzysztof Kozlowski wrote:
-> On 25/06/2026 15:38, Atanas Filipov wrote:
->> Add device-tree binding for the Qualcomm JPEG encoder hardware block
->> present in SM8250 (Kona) SoCs.
->>
->> The JPEG encoder is a standalone hardware IP within the camera subsystem
->> that performs JPEG compression in memory-to-memory fashion.  It is
->> separate from the CAMSS ISP pipeline and has its own register space,
->> interrupt, clocks, power domain, IOMMU streams, and interconnect paths.
->>
->> Properties documented:
->> - compatible: qcom,sm8250-jenc
->> - reg / reg-names: single MMIO region named "jpeg"
->> - interrupts: single edge-triggered interrupt
->> - clocks / clock-names: Common clocks and JPEG core clock
->> - power-domains: TITAN_TOP_GDSC common domain
->> - iommus: two SMMU stream IDs for JPEG pixel and JPEG DMA processing
->> - interconnects / interconnect-names
->> - OPP table mapping performance levels to clock frequencies
-> 
-> Drop, since when commits have such text? Why are you describing diff?
-> 
-> 
->>
->> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->> ---
->>   .../bindings/media/qcom,jpeg-encoder.yaml     | 135 ++++++++++++++++++
->>   1 file changed, 135 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
->> new file mode 100644
->> index 000000000000..ab8d8951d21f
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/qcom,jpeg-encoder.yaml
-> 
-> Nothing improved.
-> 
-> You actually ignored all the comments from me and at least one more
-> comment from other emails provided to you.
-> 
-> This is not acceptable.
-> 
-> NAK
-> 
-> 
-> Best regards,
-> Krzysztof
+Hello,
 
-Hi Krzysztof,
+This patch series introduces Bluetooth support for IPQ5018.
 
-You are right, I apologize. I missed several comments.
+Bluetooth firmware on the IPQ5018 platform runs on the M0 co-processor.
+The firmware is loaded by the host into a dedicated reserved memory
+carveout and authenticated by TrustZone. A Secure Channel Manager (SCM)
+call safely brings the peripheral core out of reset.
 
-I will address them properly in v3.
+A shared memory ring buffer topology handles runtime data frame
+transport between the host APSS and the M0 core. An outgoing APCS IPC
+bit and an incoming GIC interrupt handle host/guest signaling.
 
-Regards,
-Atanas
+This series has been tested and verified on various IPQ5018 router
+boards utilizing firmware extracted from GPL distributions, using both
+mdt and mbn file formats.
+
+[   14.781511] Bluetooth: hci0: QCA Product ID   :0x00000016
+[   14.781583] Bluetooth: hci0: QCA SOC Version  :0x20180100
+[   14.785926] Bluetooth: hci0: QCA ROM Version  :0x00000100
+[   14.791546] Bluetooth: hci0: QCA Patch Version:0x00003ded
+[   14.796698] Bluetooth: hci0: QCA controller version 0x01000100
+[   14.802217] Bluetooth: hci0: QCA Downloading qca/mpnv10.bin
+[   16.393850] Bluetooth: hci0: QCA Build Info: BTFW.MAPLE.1.0.0-00102-MPL_ROM_PATCHZ-1
+
+Best regards,
+George Moussalem
+
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+George Moussalem (6):
+      dt-bindings: remoteproc: document M0 Bluetooth Subsystem secure PIL
+      remoteproc: qcom: Add M0 BTSS secure PIL driver
+      Bluetooth: btqca: Add IPQ5018 support
+      dt-bindings: net: bluetooth: Document Qualcomm IPQ5018 Bluetooth controller
+      Bluetooth: Introduce Qualcomm IPQ5018 IPC based HCI driver
+      arm64: dts: qcom: ipq5018: add nodes required for Bluetooth support
+
+ .../bindings/net/bluetooth/qcom,ipq5018-bt.yaml    |  63 ++
+ .../bindings/remoteproc/qcom,m0-btss-pil.yaml      |  72 ++
+ arch/arm64/boot/dts/qcom/ipq5018.dtsi              |  34 +-
+ drivers/bluetooth/Kconfig                          |  11 +
+ drivers/bluetooth/Makefile                         |   1 +
+ drivers/bluetooth/btqca.c                          |  16 +
+ drivers/bluetooth/btqca.h                          |   3 +
+ drivers/bluetooth/btqcomipc.c                      | 939 +++++++++++++++++++++
+ drivers/remoteproc/Kconfig                         |  12 +
+ drivers/remoteproc/Makefile                        |   1 +
+ drivers/remoteproc/qcom_m0_btss_pil.c              | 261 ++++++
+ 11 files changed, 1412 insertions(+), 1 deletion(-)
+---
+base-commit: 4d1ab324fcb7d20df5a071edb0304461846fdc12
+change-id: 20260625-ipq5018-bluetooth-06ff66c9d753
+prerequisite-message-id: <20260612-block-as-nvmem-v5-0-95e0b30fff90@oss.qualcomm.com>
+prerequisite-patch-id: 6ce8686c1683f468d86b4502f5ec9d19c392a382
+prerequisite-patch-id: e362f7fcbacff716b7ef720e6780786a7d88c013
+prerequisite-patch-id: 9168930e40551e842c8171d5433a6f39ad4b78a4
+prerequisite-patch-id: 64fecfbd1e085d7d2ab0ae23295ca34ec8e14c5e
+prerequisite-patch-id: 566804aaa690ee9aa285d0fd75fd16d94fbadebf
+prerequisite-patch-id: dc18bec338f54b3051f4523f9d1d3c0566a20ccd
+prerequisite-patch-id: b6b3eb46429936ab49423d295433daf47981db0f
+prerequisite-patch-id: 75caa99e3bbcdf41b6462b9f5f703bea1d4a65fa
+prerequisite-patch-id: 35e9968f482f78ca233eb0306d9c5fdbff093175
+
+Best regards,
+-- 
+George Moussalem <george.moussalem@outlook.com>
+
+
