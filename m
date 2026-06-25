@@ -1,174 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B99338C40C
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E8A35201B
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782384425; cv=none; b=tXCNhWggvqzWGyRIPwjoB9gEl/NWt5+gfpxnUvBq08puj6cdxZLDNUtynnLNlTcGKHZ5P4dEAnKcJTmK6W/iGP4jjb4PRytmyuKGZ2qRpaWpddZGw4ZA7UdYHLPjRk6IFuEIbFzqSXf6/HTNQjtzJxWZqUjsBBgqOP0LywGLTvA=
+	t=1782384483; cv=none; b=hIyc6SOnHf9aJElcai3RPKN8pwZqzB8U43pUNgzyftimOC6xMWsC/XlV+1YevK/bIJ2BiWtjLHb5D1Vrz9lMpcw1FvquNpv38x+wCBTXtw7V39wtoUAg1Cwc75BlKwAI9BQ/DwvgW1In7SKuyiD6k9TGSPyEbP7GFeVZRulKuwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782384425; c=relaxed/simple;
-	bh=CUIELfXlwJTfTZB2/mLXR2/oqYjuzytsMwJ/vjvrA64=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kSpbDbxNoHIdHKxhnxD93xeR2AiVeaXCyo36msOzvkTlGxBoAkcrBjaxPy31TpgHTRi6t+AzqHTY7h13q8IeKnILQvzTuN+aNa9GfB2wlzqPgiXM/HV0GDQogPrMFy04Yc5SDmuLoDikRCRfHmJkFNJAIGJDjVPXnsPl68f6beo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fk548a1p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LDtIGbwQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782384483; c=relaxed/simple;
+	bh=eNnisl9qtnyVoa9BbRoub00ZqcY/iztZW2x9ofj5vdk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PUi2yFPlvf4Y2ADwgsZEsi3w9gFEu/55ioRwmMLXa+p/pKGhuTR2qWfRdilMK8okqdF8PFSNgvcCgO8jQXY77gsUXFV4WZs+fEmn0a4FLKT2JYh19kJFB3NhO5WHc4jVsEhZmS5SpvPJiDNvQtXeg0AkHDkrqXe413ooa9W8ugg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aqepoqgq; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fk548a1p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LDtIGbwQ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P9jwnb1723600
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:47:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	amQLXC3mPMBsoTlzFWETG088elIkyj3mulEteTG2VJY=; b=fk548a1p1uV29Ju7
-	HiKgi7JjavYI3l9tEWsM+32xETGNOwmd//wdEPeROdcxi6tpSdOEAv8TP6glRzz+
-	xfmZHlrscoW5mL9oxQRYsike4DhOAPMem9lm5w5Eyz+oW1ctlSw16up6NcpaIbCb
-	FEvS/jZpXjTcKbtCj+dvb7xJghvocdP4oGIn25Nq4F8rRLx6qGLrOVnGcXGva0nq
-	T7cjiaTDvb1En44a5eK4bvu/UowrQFHX548z9h/irPuFBf7WpSoubFOnPa2ZoGon
-	ekwc8Mm+PyCOSfysnCrFebyCxchHlGsNecJy0TEwkdZ4ftZXz0RG3a2IkEEqSDht
-	fn7ZVw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0j7duwmr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:47:02 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c6a3ece0d8so15211625ad.3
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 03:47:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aqepoqgq"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-491609cdd8fso13127115e9.2
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 03:48:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782384421; x=1782989221; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=amQLXC3mPMBsoTlzFWETG088elIkyj3mulEteTG2VJY=;
-        b=LDtIGbwQm3BeEOXMGiWyrlMMKZObhhAU8jeFjVL9bsZjUdUQu6Nf4srDSqP9oPMWZ5
-         VaBidNS9Q6n4FelGRLESTQdAiF0FdhFwAnmIkHFzsIgCXyZHsq58yBzrCpj6+ojZ6+uY
-         lJ4MbzR8JTXCY3z2jL6fOLUJs5tsFu4ilCYwZ0eezaB5n+kjkCCIFhMVWu5LwXVHLf8b
-         ZhlG6q/Gp1zA5YoArpbnZDuZWDTS3G391jo53DV2zlsp4cwr2qrZ4lBsZAIHz4vry4zR
-         E6XaGVdq9alAFQqCEy+nYaJhFuosElU7N/QT3MIesAbZiIMrnCBcvScRQTTMruZZK/f6
-         jcWQ==
+        d=gmail.com; s=20251104; t=1782384480; x=1782989280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=vd1pAolJ32WGUV5hqmP6vxrovN7AtVmD6Ko3jeyWjvE=;
+        b=AqepoqgqOnZbkMrgSTxsgdIIBdlq1ZLzX3zklC8IGQEhX+UeVWlixm1ATnudyfznLJ
+         825/Qf837PEVjo+amQ80YzRxRe+EyoRpSEdqd8k0JM052tn5pZlsYnofztyhJwOGVK9E
+         vfDT8UvQZw+Spjp0s5b10rthlfo0azDffbkSyCkYV86+h2uzz0P9azeH0yk6/GouOd2N
+         iFhVJHsiVOStLrNzD3AT8jdWpi7O8tPoXdCNG0ptL1XQzI73gjaEELtdze//gs0xNSfU
+         ycckfVAWW5nH/xIeFdKf3uuypDjBTOyWoD6cH3SzNWe0Dce+mW5Y9435oJNf+WgBCqbP
+         H2kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782384421; x=1782989221;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=amQLXC3mPMBsoTlzFWETG088elIkyj3mulEteTG2VJY=;
-        b=kg1cwvcy9/W+c0PqYiy0iBsLVG3gc5P1ISybDTY1BlaIKslSEb3qLnro6sZ6Bhvr4a
-         3K9zDRACHWGnU6tZmUTY4anTG1mWfq7We1S6Y8L8qOdcVMSGf2aln4awESAfQyYz2wY4
-         fMJBCBg15LUaR0saQCZu8bvomnwyd3Ts03GEOlzfScWrB7rR43O+LAKGLAxfPJjKwbtl
-         BXnhyWRbJ1F+SNxso4usJh0nAnkk4CCzWxqQEDT3leDdfcsoIX4XSgH+A5x1DO1GNwLd
-         PET8vj8krIFNNd7Wg1rnJUb+mDF2X6Fs29F3UNul2NBbgNWzoGZCjHoa9DJa/VasnXBp
-         lbcw==
-X-Forwarded-Encrypted: i=1; AHgh+RqgpKeAkdvwhsDhpSjMTf7Y6jfCbAW/jFSYHSSXeuQDlR+QbC4ilcaDGyK3dlWJDHdyq2euk90nDUgy@vger.kernel.org
-X-Gm-Message-State: AOJu0YwvaZSdMO/52QuehywnqRatGNv8p7jSRES8IQEO1ZsNwEVKcjan
-	2NSC0VTyay44S83V+0d6iVacQdbuUSaPv+cQCbHS5weIfaOqt1v3B+mgd/edqP3dZIgD5iKj4dX
-	WO7g6wMmuw38hIIdCSG4JeaARoc0kVdaaUks+Dg2Pp66sVqe1xHudl+l7UJ6edmMX
-X-Gm-Gg: AfdE7cmJ2IQwiLI2TSwncA7UXtzTiorM3lBQTi6Lw8rEHhxAJPIGEy0XACZiqI98kMU
-	lObe7vW7tzLAHUeBXajuO8hm8yVYNgUEQmcZB5Jry7pvzL1Vkwm25RKGg//jpVROSX9C3QXBhVe
-	Ra4pl6SYFLj1EGWoBaA/aUBc4MM1Ohe+B1YaICG08i9LlpZIZyqYfh69Tyc8vFdrDU30rjahk5d
-	iL/s79kxu/aDqrz7FtamjM8X3cwjqJxwMkRnBigVbQKUZ7oxGi4avNGDsLJAauRkgfBubUnBLVz
-	iUXbeg44HB8otoCWZqp2LfOiu+XjkVUwkuq1L98xUTBh1mY7gRtUxTK7zEVssZZAGqEJPekL1SQ
-	viJM5mYZC/cijCJv9YxloL4FQy1+l221Iu7pCSU+xXUw+mycq8rgoeZ5ozoUSUL8+l0BT5Tcj1A
-	==
-X-Received: by 2002:a17:903:1a08:b0:2c7:f7bc:633e with SMTP id d9443c01a7336-2c7fc743afbmr21143065ad.13.1782384421144;
-        Thu, 25 Jun 2026 03:47:01 -0700 (PDT)
-X-Received: by 2002:a17:903:1a08:b0:2c7:f7bc:633e with SMTP id d9443c01a7336-2c7fc743afbmr21142825ad.13.1782384420687;
-        Thu, 25 Jun 2026 03:47:00 -0700 (PDT)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f63d58e9sm17114035ad.60.2026.06.25.03.46.55
+        d=1e100.net; s=20251104; t=1782384480; x=1782989280;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vd1pAolJ32WGUV5hqmP6vxrovN7AtVmD6Ko3jeyWjvE=;
+        b=pGkueZWv9zN6/5jO6dkfDVY0YmDI7NGoWn2fWMfdBaARDn26D3FvCvwd2HbiU6MlJK
+         5a+wBkaQiLlte/RA3zzXm0gn1hLo3p9hctoDFnMYlEb9vfJgh+iZjCzAJZOMpXLwZrfA
+         OP0BAiU7dGDd3E0MsJdoYFzhao62vS+/9uSNLR+drRl4XfygDh5mRRrdLPYMzjlhbomj
+         vDji5TbsiniLZnWv/r+Lb3DdZBwFNZTlTNQjIQtm/wMDmiEkUxerYMCPQwYS1CSTMR03
+         1JxeaEZfbEj5E6MPe5X9GYAeN53z/RKJ+qP4ZSZ+zyZFQ5FEcrEU8XQ2pKYwlkC+2WB5
+         3tLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9pEjlLJzEFdDwZd4mpZFEt4egUGCcgkTbNun8dCMBAONX2wwnF4Duc+9kn3OiEmZjnLcgkuvIeuxLL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrRg2K0U9pNqiewuXH0IHp9CmPYuUdqeVpXtDqOYYpZymDBAa/
+	RVYT2xaFPB7hKHtZ3iwf9MHOgApaBkqQJ1EC940cuvH33zfkQ5LF4vGs
+X-Gm-Gg: AfdE7cnwwkfITUlGo2Uk9M6Fem9GQWYciwuW2s01VG7KPPrljkmX/UH5GIOxq5dB0ja
+	NZxoKfomS8PCknn8SWzKsAye0WU87kpxEdLLtZLdg1H3m2Iq6BXQXKcG3WGrTNsca1GsF5Q6srA
+	TvJ6s0v7WHojG9Dhoy9+4uVQJD7FGo87k4WPNsFgJz+Z1tCakR4j249cwT0U4q62FHoCn2rED/C
+	WyeAHpJE/524Zhhv88MqweYjnaJfIx646VlhnkvAjAEkOQxtwQwwG5kxScBRgNh4Cn0vUxT+cge
+	kmEeyeius6VHb3hNPdS6TCNvx78SxaYGWIwOwIrx/mUWzs8JEOMIoaQpH7jOqD05pEymvwE2O5c
+	vAX5NOZ3M7zk1OGK2mE3dk1fMzIZ8WRDC9gkVy0mrsHFEb26l6uqguhc9QGUZIAd7Sw/5HZYhAF
+	GE2tnkOA==
+X-Received: by 2002:a05:600c:b96:b0:492:6447:7a7f with SMTP id 5b1f17b1804b1-4926686b3f3mr25232275e9.6.1782384480165;
+        Thu, 25 Jun 2026 03:48:00 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1ee01c6csm15254989f8f.14.2026.06.25.03.47.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 03:47:00 -0700 (PDT)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Thu, 25 Jun 2026 18:45:57 +0800
-Subject: [PATCH v19 7/7] arm64: dts: qcom: lemans: add interrupts to CTCU
- device
+        Thu, 25 Jun 2026 03:47:59 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Sean Wang <sean.wang@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [RFC PATCH 0/3] pinctrl: mediatek: mt8516-mt8167: Convert to Paris driver
+Date: Thu, 25 Jun 2026 12:46:29 +0200
+Message-ID: <20260625104742.113803-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-enable-byte-cntr-for-ctcu-v19-7-8fbbf22e8381@oss.qualcomm.com>
-References: <20260625-enable-byte-cntr-for-ctcu-v19-0-8fbbf22e8381@oss.qualcomm.com>
-In-Reply-To: <20260625-enable-byte-cntr-for-ctcu-v19-0-8fbbf22e8381@oss.qualcomm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
-        James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Jie Gan <jie.gan@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Mao Jinlong <jinlong.mao@oss.qualcomm.com>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782384373; l=769;
- i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=CUIELfXlwJTfTZB2/mLXR2/oqYjuzytsMwJ/vjvrA64=;
- b=peF9+aYTtaL21BpUX6WUviTZt97HLGhKOLkRbA+DSbfmcO8COqsEDQ4DiHiwh/Fa3HzjlN0UH
- tXcMvfWfVCTCJC5ldseja94DiRiDIVDztU6S8YZ+EiWMXc1yjECxhxT
-X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-GUID: 12ZYFhehFCJXiVInMQcFc5eNgI2OngeR
-X-Authority-Analysis: v=2.4 cv=NvHhtcdJ c=1 sm=1 tr=0 ts=6a3d0726 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=gBkj9RZkAcI1HbXH1KoA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA5MiBTYWx0ZWRfX1tRdWI/lonQ/
- KWWsylOKMHhab0zsn4PH3s8TQ62MP0D4A0+xwrnRhDmJRpN2HJP1nO3s0lTOy9sojiazKBMDtv2
- D3AeKT7sQZ1pCzNXUvF8p3woz6nzG7U=
-X-Proofpoint-ORIG-GUID: 12ZYFhehFCJXiVInMQcFc5eNgI2OngeR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA5MiBTYWx0ZWRfX8bN+0RaPONa9
- XsUaPYcR9pwRBrGGEzrv5d4rTHWp7RDptrvZxV5NOR7s7aJoMzxIS4O75xMhGlLzXywUqmWSd8e
- W5C3Q0Y2rD/eQ8X5rwLaH8hCXc6vu5ftejQa+LpWeiLwfCX0mKGcmqbOpVNUPeDr8iys5N2ZGFC
- uRQEvUGljepQWQ9L8x7Sy+vCdHf7H2TyLqCR/Evw3PfueLeXrBfg1c5kRMHNGJFhtLIgyFBG7vk
- 2w77g560DXur5W9/+lAgNV6Nsjn23Jgzzi3l3vwDtvj48fqlye3x7BUjIFhFmcEiVyM2ohGOWys
- mipzLpBmKYoJBn8NcGyFeDQbOob/YuaoJ3mW2U98CgrQekLjfDG/lXEXc7bA8Lmyw3cdK31ELN8
- G2RpwIFh1rla8QUJuTqDXO9DaLVUSQdROsDqT1KvypXN+2Y3HNX+ewXeRpmigrlytKTTgeU8fF+
- IFYGUkf8JDzT3fUXw4g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0
- phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250092
+Content-Transfer-Encoding: 8bit
 
-Add interrupts to enable byte-cntr function for TMC ETR devices.
+The pinctrl registers of the mt8516 and mt8167 SoCs follow the layout of
+the Paris platform, but their pinctrl driver is currently modeled on
+the mt65xx legacy driver. As suggested in [1], it is possible to migrate
+them to the Paris driver.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/lemans.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
+In the process it is also possible to completely drop one of the two
+drivers as their register layout is identical, they only differ in some
+pin functions (mt8167 is basically mt8516 with added display blocks).
 
-diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
-index 353a6e6fd3ac..2b4debc39db0 100644
---- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-+++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-@@ -3150,6 +3150,9 @@ ctcu@4001000 {
- 			clocks = <&aoss_qmp>;
- 			clock-names = "apb";
- 
-+			interrupts = <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 262 IRQ_TYPE_EDGE_RISING>;
-+
- 			in-ports {
- 				#address-cells = <1>;
- 				#size-cells = <0>;
+The Paris driver allows specifying two base registers, gpio and eint;
+this way it's no longer necessary to have a syscfg node in the device
+tree, referenced as a phandle in the pinctrl node. This also fixes the
+following long standing dtbs_check errors:
 
+mt8167-pumpkin.dtb: syscfg-pctl@10005000 (syscon): compatible: ['syscon']
+  is too short
+mt8516-pumpkin.dtb: syscfg-pctl@10005000 (syscon): compatible: ['syscon']
+  is too short
+
+The new driver has been checked against the SoC data sheet and adds the
+capability to control pin driving strength and R1R0 pullup-pulldown
+resistors.
+
+This series is sent as a RFC since the changes could theoretically impact
+existing devices. I am pretty sure that no device ever used upstream
+drivers though, not even the Pumpkin board that's present in Linux
+sources since this board lacks the associated mt6392 PMIC driver that
+is required for regulator management. If for compatibility reasons it is
+deemed better to keep both drivers in the kernel I would welcome any
+suggestion on how to name the new driver, and how to adjust the two
+bindings for coexistence.
+
+These changes have been tested on the Xiaomi Mi Smart Clock X04G and on
+the Lenovo Smart Clock 2 CD-24502F.
+
+[1] https://lore.kernel.org/linux-mediatek/296b000c-5970-4668-bd42-b99ca78d598f@collabora.com/
+
+Luca Leonardo Scorcia (3):
+  dt-bindings: pinctrl: mt8516/mt8167: Move compatibles from mt66xx to
+    mt6795
+  pinctrl: mediatek: mt8516/mt8167: Migrate driver to pinctrl-paris
+    platform
+  arm64: dts: mt8516/mt8167: Update pinctrl nodes for the new paris
+    driver
+
+ .../pinctrl/mediatek,mt65xx-pinctrl.yaml      |   2 -
+ .../pinctrl/mediatek,mt6795-pinctrl.yaml      |   5 +-
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  15 +-
+ arch/arm64/boot/dts/mediatek/mt8516.dtsi      |  12 +-
+ drivers/pinctrl/mediatek/Kconfig              |  11 +-
+ drivers/pinctrl/mediatek/Makefile             |   1 -
+ drivers/pinctrl/mediatek/pinctrl-mt8167.c     | 345 --------
+ drivers/pinctrl/mediatek/pinctrl-mt8516.c     | 770 +++++++++++-------
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt8167.h | 562 +++++++------
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt8516.h | 512 ++++++------
+ 10 files changed, 1018 insertions(+), 1217 deletions(-)
+ delete mode 100644 drivers/pinctrl/mediatek/pinctrl-mt8167.c
+
+
+base-commit: 4e5dfb7c84012007c3c7061126491bbc92d71bf1
 -- 
-2.34.1
+2.43.0
 
