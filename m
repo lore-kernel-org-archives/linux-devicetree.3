@@ -1,199 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0CA3CA481
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:00:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42885230BD9
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782381618; cv=none; b=Q3gv2d+nSI/JRepPb5kFOvaFdye8PFWy8Aa95bNJlvkarJH7fSUA9z7Bw0SDJDfJKEeosFA64yYlV7shTHwC1RxHZzAILRt2wdpS9r3qOwToFl31p3YDPhMyt+tRzm0YLyM8ZMoRFYGctgN7/e13oBtoceFQtNQqz5H52cldusQ=
+	t=1782381667; cv=none; b=XC0KzGTHL+LiEmXtV0wCznCOLKg58FhTLmE5ugF0CVOOhKW6NfmrLiJoEbEd3UElBpmJ/bYFllMv4EOaRXTj9jAekhoPAuEeKcpyuq00DHmjvbV+f3c0FD05+gl2hN/xYyhJIBhlm008zXYFtMxOhxg+rPcQrusUEteptdEVMwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782381618; c=relaxed/simple;
-	bh=8he1Im1RadbnhNRuQ2ybujsQ6HSMY24e3dFgLpXEmeo=;
+	s=arc-20240116; t=1782381667; c=relaxed/simple;
+	bh=THAmlVjiTPf5hMbB2NGZ37K80OW6NMDPh21TtUlOgY8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p31kH45n8we6ts8k2i0GNZUNd0SSP4hslesLMvmjUeYm0dTpgE9NS/3dQlEjx1wF8bFDI3qvmL2KHR1b847LBA6Xaotl6cbBK5tCZxIXYJNeK1r/BBuRxQ+InUtKLlco48K5ENwK5j1spWNssMyfHLtoATzZxJfkZYNJumO9P0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nziqe2Au; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=L0ojUM0zHpeLgbyg6hGHtwwQFw26p2pvIlNp9yIUtEkP4kg+e/zNZVx9udsz+TQPk3sJtk2RE/F+/SyjiGlvLfi+UWHgC3TaMHF4WVQwMqPgOUSw2voc2JnF3eFA0Z9gMLUf3R1STAoscnr4oBbeM0JFxJHl8pX8HctyYA81j5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qi/n/BWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nziqe2Au"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18E841F000E9;
-	Thu, 25 Jun 2026 10:00:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qi/n/BWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4553F1F000E9;
+	Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782381616;
-	bh=wgqrg+pDY8DEBKTtztJHqt8nN41A0NzbpJrZQtNh23M=;
+	s=k20260515; t=1782381665;
+	bh=EsE76Z4xRSFuaUsnBBypJxmuqqG+w7zMjPB5P48Qr30=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nziqe2AuiEBUkSnQhMkpnNj6s5AqqNR1v9fFMz91GVm6bZDAaY3QJEGGVQ6k9jE2+
-	 AQoZsXDQj4uxaeCiVP2pB/WBDIzjbaBOAHyoG8QilOG8fVeFr/5Upun9c1lumHCsAG
-	 +1wTM3biXuks49oqxGrzSo6bIoM+0aHpw5Ec/xq9AMLlZNemuKcMpxQnpxLR6jZF6j
-	 +JqFp5qI0S+otyvEGlrN2dmoStTwwOYsF3LtzYBQLesvEaW4Ws045D44HgQF+rhzYU
-	 2lR+8KBaqc4+8Hv4K73o0+j/dIjK+LHBmSXvwk8THuGCpkPuhFvDz917flmV/iJWmB
-	 2zCmrd2MzkZTg==
+	b=Qi/n/BWTuFVm8wnsXRkvBBwNjqwtUdYjgx9lz4U+3x6qbzmGu5ug8F7gBgXirTkyq
+	 JTquM+ALNCoO+35pq3rBrC+i97FWSKQM8OWLblC+6ishhCeYD6QgBbM1VNjubMew5/
+	 jTfRnf3WaFnn5U8iKlaKmTGJhmXr1TvXq1YW5mGJOzUjp7elGW6aQteafaAXSL0LmS
+	 ijcx1MOEUpFpewf2AyG2uZF3FOLFD1n5lMDIcbB4cR8hT7yQ0cyQY3e7CjTpNfxB2V
+	 TcDV4KgRkqTJvBpenuV/OaL7z41mka8ROuo0f3iDi2L5OwwQaezOkYRIStK99p5vE5
+	 3PLKKk2agZOQg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/7] drm/verisilicon: introduce per-variant hardware
- ops table
+Subject: Re: [PATCH v5 4/7] drm/verisilicon: make axi and ahb clocks
+ optional
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260625094449.708386-4-a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260625094449.708386-5-a0987203069@gmail.com>
 References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-4-a0987203069@gmail.com>
+ <20260625094449.708386-5-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:00:15 +0000
-Message-Id: <20260625100016.18E841F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 10:01:04 +0000
+Message-Id: <20260625100105.4553F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] CRTC disable hardware operation is called after disabling the pixe=
-l clock.
-- [High] The register clearing sequence in `vs_dc8200_panel_disable_ex` is =
-inverted compared to the original code, clearing the configuration bit befo=
-re stopping the panel.
-- [Medium] Unknown hardware interrupts are silently filtered out by the irq=
-_ack abstraction, rendering the unknown interrupt diagnostic warning unreac=
-hable.
-
 Pre-existing issues:
-- [High] Primary plane disable function incorrectly sets the enable bit rat=
-her than clearing it.
-- [High] The driver requests its IRQ line before it fully initializes its i=
-nternal state, creating a race condition that can lead to a NULL pointer de=
-reference.
-- [High] `vs_dc_irq_handler` unconditionally returns `IRQ_HANDLED` regardle=
-ss of whether any interrupt bits were set.
+- [High] Possible NULL pointer dereference in the IRQ handler if an interru=
+pt triggers before DRM initialization completes.
 --
 
-commit d0e2c6765378754f6b5239526ba6f62ca9de0dd3
+commit 2cd6077ab2fb5ed065ee2cef55004b713c80f827
 Author: Joey Lu <a0987203069@gmail.com>
 
-drm/verisilicon: introduce per-variant hardware ops table
+drm/verisilicon: make axi and ahb clocks optional
 
-The DC8200 and DCUltraLite share a broadly similar register layout but diff=
-er
-in how the bridge, CRTC, primary plane and IRQ paths are driven. This commit
-introduces a vs_dc_funcs vtable so each variant can supply its own
-implementation without scattering conditionals across multiple files.
+The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller whose
+AXI and AHB bus clocks share a single gate enable bit with the display
+core clock, so the clock driver does not expose them separately. This
+patch makes the axi and ahb clocks optional in the probe.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
-silicon/vs_crtc.c
-> index 0b8a35d09cd2e..1c4aac7086694 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
-[ ... ]
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc *crt=
-c,
->  	drm_crtc_vblank_off(crtc);
-> =20
->  	clk_disable_unprepare(dc->pix_clk[output]);
-> +
-> +	if (dc->funcs->crtc_disable_ex)
-> +		dc->funcs->crtc_disable_ex(dc, output);
->  }
-
-[Severity: High]
-Is it safe to access hardware registers via crtc_disable_ex() after the pix=
-el
-clock has been gated? The teardown order should typically reverse the
-initialization order, meaning the hook must be invoked before gating the cl=
-ock.
-
-[ ... ]
 > diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
 licon/vs_dc.c
-> index dad9967bc10b8..9729b693d360e 100644
+> index 9729b693d360e..fd1f5fe67a68b 100644
 > --- a/drivers/gpu/drm/verisilicon/vs_dc.c
 > +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -33,7 +31,7 @@ static irqreturn_t vs_dc_irq_handler(int irq, void *pri=
-vate)
->  	struct vs_dc *dc =3D private;
->  	u32 irqs;
+[ ... ]
+> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
+>  		return PTR_ERR(dc->core_clk);
+>  	}
 > =20
-> -	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &irqs);
-> +	irqs =3D dc->funcs->irq_ack(dc);
-> =20
->  	vs_drm_handle_irq(dc, irqs);
-> =20
->  	return IRQ_HANDLED;
+> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
+> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
+>  	if (IS_ERR(dc->axi_clk)) {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does unconditionally returni=
-ng
-IRQ_HANDLED prevent the kernel from detecting and disabling a stuck shared
-interrupt line? If the handler processes no interrupts, shouldn't it return
-IRQ_NONE?
+This is a pre-existing issue, but is it possible for an interrupt to trigger
+a NULL pointer dereference during probe if the bootloader left the display
+active?
 
-[Severity: High]
-This is another pre-existing issue, but in vs_dc_probe(), the IRQ is
-requested before vs_drm_initialize() is called. Can the IRQ handler fire
-before dc->drm_dev is allocated, resulting in a NULL pointer dereference
-when vs_drm_handle_irq() executes?
+Looking further down in vs_dc_probe(), the IRQ handler is registered before
+vs_drm_initialize() is called:
 
-[ ... ]
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8200.c
-> new file mode 100644
-> index 0000000000000..17378f4ef96d1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
-[ ... ]
-> +static void vs_dc8200_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
-tput)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_CONFIG(output),
-> +			  VSDC_DISP_PANEL_CONFIG_RUNNING);
-> +	regmap_clear_bits(dc->regs, VSDC_DISP_PANEL_START,
-> +			  VSDC_DISP_PANEL_START_MULTI_DISP_SYNC |
-> +			  VSDC_DISP_PANEL_START_RUNNING(output));
+	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
+			       dev_name(dev), dc);
+	if (ret) {
+		dev_err(dev, "can't request irq\n");
+		goto err_rst_assert;
+	}
 
-[Severity: High]
-Does reversing the clear order of the configuration and start registers risk
-hardware underflows or state desynchronization? In the original
-vs_bridge_atomic_disable() implementation, the panel was shut down by first
-clearing VSDC_DISP_PANEL_START_RUNNING and then clearing
-VSDC_DISP_PANEL_CONFIG_RUNNING.
+	dev_set_drvdata(dev, dc);
 
-[ ... ]
-> +static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc, unsigne=
-d int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-> +			VSDC_FB_CONFIG_EX_FB_EN);
-> +
-> +	vs_dc8200_plane_commit(dc, output);
-> +}
+	ret =3D vs_drm_initialize(dc, pdev);
 
-[Severity: High]
-This is a pre-existing issue carried over from the original code, but does
-the primary plane disable sequence leave the plane enabled by using
-regmap_set_bits() instead of clearing the VSDC_FB_CONFIG_EX_FB_EN bit?
+If a pending interrupt (such as VSYNC) fires immediately after
+devm_request_irq() is called, vs_dc_irq_handler() will be triggered and will
+eventually call vs_drm_handle_irq().
 
-[ ... ]
-> +static u32 vs_dc8200_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 hw_irqs, unified =3D 0;
-> +	unsigned int i;
-> +
-> +	regmap_read(dc->regs, VSDC_TOP_IRQ_ACK, &hw_irqs);
-> +
-> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-> +		if (hw_irqs & VSDC_TOP_IRQ_VSYNC(i))
-> +			unified |=3D VSDC_IRQ_VSYNC(i);
-> +	}
-> +
-> +	return unified;
-> +}
+Looking at vs_drm_handle_irq() in vs_drm.c, it unconditionally dereferences
+the drm_dev pointer:
 
-[Severity: Medium]
-Does this filter out unknown hardware interrupts, making the diagnostic
-warning in vs_drm_handle_irq() unreachable? By only passing through known
-VSDC_IRQ_VSYNC bits, any unmapped hardware interrupt bits are silently
-discarded.
+	if (dc->drm_dev->crtcs[i])
+		drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
+
+Since vs_drm_initialize() hasn't allocated or assigned dc->drm_dev yet,
+could this cause a kernel panic during boot on platforms where the bootload=
+er
+leaves interrupts enabled?
+
+Would it be safer to request the IRQ after the DRM device is fully
+initialized, or to mask interrupts in the hardware before registering the
+handler?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
-86-1-a0987203069@gmail.com?part=3D3
+86-1-a0987203069@gmail.com?part=3D4
