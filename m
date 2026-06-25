@@ -1,233 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012039.outbound.protection.outlook.com [52.101.66.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DC93CF034
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782382213; cv=none; b=sY94oPhK8xcS+JG8B/WhQwSDNlt7zDDbxl7MywtMg7TZs5GHEtIey4LdYk9AaLDx5Uu0ZDssFHQiXnaZkmPZFEs9yPDon3dXv5q5Cc02+TSyV99xoVeWBHzac7zYmZ5v8RkNS8bH/rkhGs+VQL/tFB8tw6RH+OT2ElFncghxAks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782382213; c=relaxed/simple;
-	bh=svDYbFHjV97/EnoKe+l7QDTU4sC7l9FlvzAk02DETtk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jMl/qbVjiB+Y1yTZflY5PdXJVyCjRSKSAv1T2E9nrWzMITfuYLP74xbY8soCTagqTEs5CX9GFtQkiE1nITHRHiALh0NsxD5+EhCMD7Dz1ulvgdjxFjp+Vb1pbKFGtf0ohT54bfMo7gM1AGs+qdbAeBLqELWOW2GeDYs6ZOaJnRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMtrQzbI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6703C2BA4;
+	Thu, 25 Jun 2026 10:10:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.39
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782382235; cv=fail; b=i/0r5Wli/4SUqg0ipohgju6dzsT2sexzMIz8xB3PdA9NPxYf5NR/LS7SVgWgVGy+UbOQbOXlxMdzSfXaSK9uRar+tU/OGXwct2XOvZvPXiJ6zfyED4c2CQdo5dK46RlbFCbnazkvulQUSygt8DdnB3Dw9c3q4TSVbC8ZoLbEn3Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782382235; c=relaxed/simple;
+	bh=FenElR1qJku4lS4zaVgb7gqhVLKGncthBpWdW4Aa4/M=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Be7wegAaNY29UDN5sMF9MIzlHok1PW0ABy6o5Qnbm2drzBC+0qAyGEuZsmXo+03ygYEFGTLX/M7LPsSg8cJ4iX2H8w9u44OuRwG9IJOALrv8bGOqzlBDnFRLFGM+mp1K58nhj7lLMpYkU8NDxSNBsnUyGShwy+6/4yvCYT2MBKs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=CYvr5D4x; arc=fail smtp.client-ip=52.101.66.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMtrQzbI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033F71F000E9;
-	Thu, 25 Jun 2026 10:10:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782382212;
-	bh=4MRAHh21H8DfvwwLaBsyi3XjaNDgJsP578LKwktU75Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JMtrQzbIv6B26X6avW+jtyuBHPv1GOfqnNu3b5Y0nrl4QJOHsqyOHumdjSabZUiRK
-	 njDodaz8R/mm80XS7IXZ6ewu8b7ha7PbYk/DYgapUJXm/n41s+H4zEjWVNK8k/l3a7
-	 gm9geCE3H6C+04b3m/7/tXnbZYc8Ew3XqE+OpfPLeve5qALaoLZ8fw0UyQYg19jfwN
-	 AoHkOKQj40iKFrffhaZ4v8GzjUGHk5E6tgtbLvxYXRWfKgvSlytSNfJ6dcLgVyBjYw
-	 MoPRt7OX01K4E0jcp8Nr8DwtY1is+pv9u7PLnPUZhCuny+FmAYiDKChDI7iW9wSkU9
-	 ZqGWrjkj2r3cw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/7] drm/verisilicon: add DC8000 (DCUltraLite)
- display controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625094449.708386-6-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-6-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:10:11 +0000
-Message-Id: <20260625101012.033F71F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="CYvr5D4x"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JOlFvLSyEL0c+j2Qggj/ERzPZ2wy31yVDhGyvG9PJiwk2Q4v27ATQ+Mpzv+wbQomopgldm2T3U8hVQ9oOzgFiTKixdwuSNv3GIrBgc9oQCHTjwP7afiso5UWuwhS3LrhvjYcxK0qg8hY+fp7D3mIsDfgI2/1sQyQoiq+cOLOXDN/x+CT+V+lrtjDD6OZTqv1P6lElRbMri0WVdeOpYwr3un5ZbhlTZtf9A6J6vp82DtzW4jndCXn/n4apT6WGPQ+q3wzrQluIUNzQqAxWCbHaYfhlSsyxBeIZ4RswBOSmGIRFcugSiG52LHRWIr8j52bl9uVV/KsuEUlJfG/xZ7fJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iWGqj4vT8ecMuJ+T1Xz5B7ql1db9rkyBG4Zx7GNh5Ak=;
+ b=s9qiD3mMvn3iTsGQqk1TRTfd0t5r8ugHHYntyW570emVPhrTjdblvCqo6X9QCEn7fsYozCBvcbbi8r2uE2yVzW3tLX+0FO/z5mthNCj2KRPVEL9Cgzjnq2wb4TCGNCrWa73GQ/IybSDCGPr7h7Y0i9RyeYCnQaIM3H6k4DfX4RyjPw6koz2Mtauzk3rAsmUUAAom2xFsnwqI78hj0fBxuEIFtiRyA7WzA4Ygx4SiC6S87tlEtyNX7abGFKIEpRLX68zPFlrRNLZ/lgNzPhRdQETCE+IqBNqHrshmgVcvi97LQQB8IVVUPxTHMhcr8YbaPcckFtlRdEB9KvFVo9P+4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iWGqj4vT8ecMuJ+T1Xz5B7ql1db9rkyBG4Zx7GNh5Ak=;
+ b=CYvr5D4xwurL7veXcMZ4arD0RUbU5oFSm3O+AvfXrtrT9h4Cfqw61OxSVmZKyXEd9hV4yiYjtZNL9Dc6Pb9oTeqhAqDG0w03263YzoL/1b3/6LFvDsCeUyz4Ip6Tbs45rQGZd35Fumv+6vw6sqcPMWbKjhkI3PVwoI84LD7OVDe6xpqf7l/NNTklQsa7qFOQWDvwPIbavubR349dM66mSSvTRm9Q3j+4/RJMdOCag7AibTGM+mo2sEFCZIkBymbJxlgP2D+0Vi5BtzLYb6AKQX9AguUzeXxFWMyNJ+hWQW2mFYCi/DE64LTDfbQ3nyuj7jscaCIBlhwQrzH074t3LA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
+ by PAWPR04MB9814.eurprd04.prod.outlook.com (2603:10a6:102:37f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 10:10:30 +0000
+Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
+ ([fe80::fc6e:ca22:f065:def4%6]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
+ 10:10:30 +0000
+Message-ID: <e013d998-6294-468b-8383-27f385dc426a@oss.nxp.com>
+Date: Thu, 25 Jun 2026 13:13:52 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: imx8mp-ab2: Enable MU2 for DSP communication
+To: shengjiu.wang@oss.nxp.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260625054709.301209-1-shengjiu.wang@oss.nxp.com>
+Content-Language: en-US
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+In-Reply-To: <20260625054709.301209-1-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0073.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ce::13) To GVXPR04MB12316.eurprd04.prod.outlook.com
+ (2603:10a6:150:2c6::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|PAWPR04MB9814:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8379851-b320-4851-68eb-08ded2a1fc56
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|23010399003|376014|7416014|921020|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	vgbNa/5u2xFAGm2kCmE0nuZGz5bw0qBAJh4iAbz2VO8vIaWHTPSlB9KwgqcJEVEdmo5TN5OdF/MEMzezYn3ER184PGOGc24ZCxOBw+TiS+vUg09P6oGGsmDdDWscnfLFTsKfcemyFW5k28U/NQT+coTa5erdVAPPGtX1OHluhKkuuvAchWI/0CzH4oRWZkQo5+4mJOdII3JX8dxDZTuNqamk4gjH7/iKpGvK+nYcwWcgk9XVVN+HjAPPj6gKpXB7lXKvNmebpGf0HpKiWZOQhCAfppLWGC+o8K/NqLemuiCZpDzqzbp827ibaccRycdEBI8GHCv+DbUaao4Q+Psn51eV5YaZjSHDWYYkMURgFy/Gce4RYrFQxOkb1USO0+bJa3hGxBoYRpyhk7mTBb0cpHO6u9BNdrBuvJlSDE5bLMAkBhu7PVuLrv8kDkPHpSjwrYODYIo0ImUIdDBuBtbXo9MwQwQHPS26aRzzjDxVw+JdwNeZHTfGYvW4j7NwiVK5ctj6Svxm/EFAi308karxT553umzknA04ViljI/V3kQ3FN1YD+uWzuHZWA1RKy/PCZ+idS1L0ZYVoQ+MGqa2OZV3UA3ydPLb8UcGNLPQVFdIdBeHEnLMZjdlxs6xuzuCRUzHzD8ZBeS1T7og1yCZVkEbQ+K/RhYWHZXUIVcCHW4akg7jRDsi1rcAXdZnTXlu08t7eOrywrmZbd97TX2HnRA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(23010399003)(376014)(7416014)(921020)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VG1QcnQzZUthVWJzZWYxMkNranpFb1YzT3J0WFltZ201YTVNUENXZ0xFd3ZK?=
+ =?utf-8?B?ajQzaXF3SU1oaUt1V09kdmlkamFDdk5MREowTThhYy90ZzBsNUp2Mm5tS2dX?=
+ =?utf-8?B?SWpuQnpVc0JoZ2NrU0FZSEZHdGtpYW5QMXdpcDAyeWZXUi82SHVpUWJOdzdT?=
+ =?utf-8?B?VEwxVmVXU3ZWTWtXYURkcjJUMmY0WUFTblkwYVdjV1RIY2crZVcyb21ibkh3?=
+ =?utf-8?B?NVNJUnd2Q2xhby9GSW5PMW1GV3pTdlltNHJxUEFmdE1iSDJuOFB6bHA3dHYx?=
+ =?utf-8?B?S2tNM2FzNC80TFZCMXhLdU9QYmtPQUJOS0x6ajRoeWcyUDk4a2w5VGtNOEZI?=
+ =?utf-8?B?WVkxQmVwUC9PbFhYYXhNNGN1cEthOUFkYjZKbVNERE53ZmtVOUc0TjVnTmV2?=
+ =?utf-8?B?UVFuQTlWQ3FsUS8rQzhZd1JvMlVIRGJ4VTNGVEdYdk1FVWJFbHl0L21NM2pH?=
+ =?utf-8?B?WXhlOTBJenVoS3VwRHAwbFdsVUlhVVhTcnM0VXNHZ2hDVzB3b0pudUcrbEVG?=
+ =?utf-8?B?cE9LbUEySkE5V2orbUhTdWdWd1p3N2hBSjNxTnlZOTJzSHZLL2JWdUFubEhx?=
+ =?utf-8?B?YXBJU001aDh6L2x1bHc2Y3RjUDFHNWd5TVZXM3RxeGNaK3gwV2I2MlV5b2E5?=
+ =?utf-8?B?OFNibGw4SnVpSEhxNnZLbXFuK1oycWdPbXJZWXpCczhLc3JYcWl4RTQ2RnND?=
+ =?utf-8?B?QUJrQ0F1UFZzSEd5Mm5raGZjY1Bia3YzMjFpRHZBSnkrQVJMMTdHOGpxV3Nq?=
+ =?utf-8?B?ckEvUDV3OFA4MCtkejVTTGFGMzRvMTNqNEw0K05MemJ2ZjcyU1pjaFNSTjlC?=
+ =?utf-8?B?THBPbmUyK2dSeDU3MEJSblBna0VSelBGT1pQZGRNbjFYTXJjWExhNXlEbHVG?=
+ =?utf-8?B?ODAyZGdyUExRUlNHbHF2QzhKeW9vOXI0OHZHNU5oSWlmancvVTl1YnNsYkR2?=
+ =?utf-8?B?YXNVQTY2czk4NGwrNTN6TVQ2OUN4MkNoT2pNbmExcEtsZVlMajkxWHlnUXFx?=
+ =?utf-8?B?RWd4TXo5M3RGNGhPWUxzR3EzSnl4TithRUJnL1c1TlhHWE5kRkVFWmhpVjVT?=
+ =?utf-8?B?bndyemJPcXU5d001MDZveGFiZTBVZ3hSWFVsNUUxRk0zaWV6MGprSkJpaHYr?=
+ =?utf-8?B?djAxWFFtT1BidGJ5M05aRG1qdC80ME9qRWRHL0ozeSt4NnV1bVk2dzB3bVoz?=
+ =?utf-8?B?enB6UHZMdklCZGN1cjZHYkw3OGZnNmVPZkIvRXBxMTM2dTVoRC8vKzZ5OWh0?=
+ =?utf-8?B?bFJURUd1ZksxWkR4N2dLREcyQzMxYks4ek5vdVk5blkwNGxuVytOcTZjKzhJ?=
+ =?utf-8?B?WSt2K0F5WkxiMDlhSVRzK21QZTJnSE1BbHAwdkhBVm1qM3lYWHJpb3pqN25S?=
+ =?utf-8?B?NTFrWmFXM2ROMUtQMGo2RVVYZmtjQVdpeTcxWFlZQkFoaGh4TkgxeTRtblNS?=
+ =?utf-8?B?Q0o4cW05Ujl4aWlSZmVFUkpSWFlGMUFHQjdOaDhaTWRBMEVCRFpmSnY2S2hO?=
+ =?utf-8?B?RE1LL2s0R0syak5qcDlPb1BXL2dqMW84V3EvOXk5a0wvNFYvUS94SjhvZmFG?=
+ =?utf-8?B?a2U3NEI3WmVJdlNoWW1OWU1FSGx2K3NJaE8vM0I4bXJpRTRKT2FsekZERkk1?=
+ =?utf-8?B?TG5EckUrNXZDdFRpeTFVRDQ4cVJWSFVLeGNnb2s0UUo2d2dDM2JWYkl1VE51?=
+ =?utf-8?B?NDArRktJQUhpUTFIWGJUT24xU1JVWXFWd1QyZmZ3SytVbjdnQ0lQY2R2aGJW?=
+ =?utf-8?B?UjBVVEErc1FxOXROVTNhZDVGTCs4Zlc1a2tHRllWb0JobUxqbkRBMHpvMndy?=
+ =?utf-8?B?c0ZhYk53aFU4OFNZamxnTGVyVG9OaStYTUR5bXVUOU5GamNnbzdBNFpuRTAz?=
+ =?utf-8?B?dXdHVjJTdlJ0WkRvY24yWkRZTWJkTDFISzUzRmdFNWs5K0t3MENwTzVocUww?=
+ =?utf-8?B?bHp1aU1RcWQ4akdOZGs0NHhmdzFodDE0M1h5dDlQVzM0UTdMUUVmaFRkMlpq?=
+ =?utf-8?B?MllidGQ3LzE2L2kzakJMNEZ0ajdRemZjSDIrNktmUGRINldxV1FsSmIvbEFn?=
+ =?utf-8?B?M3VoZjhzQmJXY2JaLzZJSVQrTENtdzVCWDBhWXZ5cG9Sb2hxTk1qdG5USHg2?=
+ =?utf-8?B?MDRLT2lveXBUS2gzWElNSlRESk5aa1gyL084T08zYmo3L1dZV0duQ2JMTjhM?=
+ =?utf-8?B?RGNIVHV0VUJnUWhwbllRdUw0dlpvOHR2bEVLSHdOL3Jvc3QzVEFybk1JV2FM?=
+ =?utf-8?B?QWFWd21Nbk9yblNOdlJRemFsOG9EcVJPUmI2dzF5cVhOamg4VVFHa0w2dkZM?=
+ =?utf-8?B?N0JEd1BsSEpyUmlrdlI3TGZpdURyMDZFTEo0L0JyUkNyNkJYZXh3UT09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8379851-b320-4851-68eb-08ded2a1fc56
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 10:10:30.1101
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k0u0B9ycZC6Kx7ENaIj8Vraa4zvluwiYzjwwldKVh2HVWPWZcVVC/Rd/fdA6fsbrXk/Ad6T8Wan8dRLl5E/uSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9814
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On 6/25/26 08:47, shengjiu.wang@oss.nxp.com wrote:
+> [You don't often get email from shengjiu.wang@oss.nxp.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> 
+> Enable the MU2 (Message Unit 2) node on the i.MX8MP Audio Board v2.
+> MU2 is required for inter-processor communication between the
+> application CPU and the HiFi4 DSP, allowing DSP firmware to exchange
+> control and status messages with the Linux host.
+> 
+> Without this change, the DSP driver cannot establish the message
+> channel and DSP audio processing is non-functional.
+> 
+> Fixes: bf68c18150efc ("arm64: dts: imx8mp-ab2: add support for NXP i.MX8MP audio board (version 2)")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-New issues:
-- [High] The DC8000 panel enable, CRTC begin, and CRTC flush operations use=
- incorrect registers and bits, directly contradicting the commit message an=
-d breaking hardware functionality.
-- [Medium] The hw_irqs variable is passed to regmap_read() uninitialized an=
-d used without checking for read failures.
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 
-Pre-existing issues:
-- [High] The DC8200 primary plane disable function erroneously sets the ena=
-ble bit instead of clearing it, keeping the plane active.
-- [High] The IRQ handler unconditionally dereferences dc->drm_dev, but the =
-interrupt is enabled before dc->drm_dev is allocated and remains active aft=
-er it is freed.
---
 
-commit a518460571afb18a0b4ff8e14af894a66907ebde
-Author: Joey Lu <a0987203069@gmail.com>
-
-drm/verisilicon: add DC8000 (DCUltraLite) display controller support
-
-The Nuvoton MA35D1 SoC integrates a Verisilicon DCUltraLite display
-controller (DC8000 generation) whose register layout differs from
-the DC8200 in several important ways:
-
-> 1. No CONFIG_EX commit path: framebuffer updates use the enable (bit 0)
->    and reset (bit 4) bits in FB_CONFIG instead of the DC8200 staging
->    registers (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT,
->    FB_BLEND_CONFIG, PANEL_CONFIG_EX).
->
-> 2. No PANEL_START register: panel output starts when
->    PANEL_CONFIG.RUNNING is set; there is no multi-display sync start
->    register.
-
-[Severity: High]
-Do the functions implemented in this patch use the correct registers and bi=
-ts
-as described in the commit message?
-
-In vs_dc8000_panel_enable_ex(), the code sets a reset bit
-(VSDC_FB_CONFIG_RESET) in VSDC_FB_CONFIG instead of writing to PANEL_CONFIG.
-
-Additionally, vs_dc8000_crtc_begin() and vs_dc8000_crtc_flush() use an
-unmentioned VALID bit (VSDC_FB_CONFIG_VALID), and clear it after updates
-complete, which seems to invert normal latch semantics.
-
-Could this mismatch prevent the display panel from enabling properly?
-
-> 3. Different IRQ registers: DCUltraLite uses DISP_IRQ_STA (0x147C) /
->    DISP_IRQ_EN (0x1480) versus DC8200's TOP_IRQ_ACK (0x0010) /
->    TOP_IRQ_EN (0x0014).
->
-> 4. Simpler clock topology: only 'core' (bus gate) and 'pix0' (pixel
->    divider) clocks; no axi or ahb clocks required.
->
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-
-> diff --git a/drivers/gpu/drm/verisilicon/Makefile b/drivers/gpu/drm/veris=
-ilicon/Makefile
-> index 9d4cd16452fa1..d2fd8e4dff242 100644
-> --- a/drivers/gpu/drm/verisilicon/Makefile
-> +++ b/drivers/gpu/drm/verisilicon/Makefile
-> @@ -1,6 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> =20
-> -verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dr=
-m.o vs_hwdb.o \
-> +verisilicon-dc-objs :=3D vs_bridge.o vs_crtc.o vs_dc.o vs_dc8200.o vs_dc=
-8000.o vs_drm.o vs_hwdb.o \
-
-[Severity: High]
-This is a pre-existing issue, but while reviewing the driver files included
-here, I noticed a potential problem in
-vs_dc8200.c:vs_dc8200_primary_plane_disable_ex().
-
-The function appears to call regmap_set_bits() on VSDC_FB_CONFIG_EX_FB_EN
-instead of regmap_clear_bits():
-
-vs_dc8200.c:vs_dc8200_primary_plane_disable_ex() {
-        ...
-        regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
-                        VSDC_FB_CONFIG_EX_FB_EN);
-        ...
-}
-
-Does this erroneously keep the primary plane active when the DRM framework
-expects it to be turned off, potentially breaking power management?
-
->  	vs_plane.o vs_primary_plane.o vs_cursor_plane.o
-> =20
->  obj-$(CONFIG_DRM_VERISILICON_DC) +=3D verisilicon-dc.o
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index fd1f5fe67a68b..9499fffbca58e 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-> @@ -134,7 +134,10 @@ static int vs_dc_probe(struct platform_device *pdev)
->  	dev_info(dev, "Found DC%x rev %x customer %x\n", dc->identity.model,
->  		 dc->identity.revision, dc->identity.customer_id);
-> =20
-> -	dc->funcs =3D &vs_dc8200_funcs;
-> +	if (dc->identity.generation =3D=3D VSDC_GEN_DC8200)
-> +		dc->funcs =3D &vs_dc8200_funcs;
-> +	else
-> +		dc->funcs =3D &vs_dc8000_funcs;
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential lifecycle regression
-in vs_dc_probe() just below this block.
-
-The function calls devm_request_irq() to register vs_dc_irq_handler() before
-calling vs_drm_initialize(), which is responsible for allocating and assign=
-ing
-dc->drm_dev.
-
-If an interrupt fires during this window, for example if the bootloader left
-VSYNC interrupts enabled, the handler is invoked:
-
-vs_drm.c:vs_drm_handle_irq() {
-        ...
-        if (dc->drm_dev->crtcs[i])
-                drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
-        ...
-}
-
-Will this unconditionally dereference dc->drm_dev and cause a NULL pointer
-dereference before vs_drm_initialize() has completed?
-
-> =20
->  	if (port_count > dc->identity.display_count) {
->  		dev_err(dev, "too many downstream ports than HW capability\n");
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8000.c
-> new file mode 100644
-> index 0000000000000..fbe0fa516cac9
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> @@ -0,0 +1,86 @@
-
-[ ... ]
-
-> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 hw_irqs, unified =3D 0;
-> +	unsigned int i;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
-
-[Severity: Medium]
-Is it safe to use hw_irqs here if regmap_read() fails?
-
-If regmap_read() returns an error code, hw_irqs will remain uninitialized
-stack memory.
-
-The function then proceeds to bitwise-AND this uninitialized value to
-determine which VSYNC interrupts fired:
-
-        for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-                if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
-                        unified |=3D VSDC_IRQ_VSYNC(i);
-        }
-
-Could this result in spurious VSYNC events being dispatched to the DRM core=
- if
-a read failure occurs?
-
-> +
-> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
-> +			unified |=3D VSDC_IRQ_VSYNC(i);
-> +	}
-> +
-> +	return unified;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
-86-1-a0987203069@gmail.com?part=3D5
