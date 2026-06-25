@@ -1,208 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF72340260
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD7037269C
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782425481; cv=none; b=RcUqKhUzivdASfTWvyeSUKBnBKyeLrJMJyF2d7i0kBsQ/JlM8dXdt9JTWdiZ9m6FL9CuK9cPEXZYHXBEKl8aPgJD8MRYYpri7gZnYNIqUq9zoIJTu7K63UoxyuIatsrfRS41nbzsOAqalg3DqbGiC8SJiD4gTWBYMbwY8n6AC/o=
+	t=1782425547; cv=none; b=KtgHd1VnXUmgJOlEUB85dNY+boBXuPBcY5Z/lbh47wfrJ8AVv04wCwQVnKNiKZWIprx/gFPYCEJZQH/xX0yFp+j292jFDCMRQf4IjtHnm5esFsymDCGG/I+f6Qcxq/9SJlcz4Y5Ou4zSVyoKFXfkse1y1tcVkuJIotfICLbuRBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782425481; c=relaxed/simple;
-	bh=14bINzOIHO2mDDKjnHwfqk2JKSeYXO/6/sjz1MVxb7k=;
+	s=arc-20240116; t=1782425547; c=relaxed/simple;
+	bh=loDGdbz0XuoLPROkwZd5g1uMeONWm3Yw3JQhyUrz+CM=;
 	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Kvhq4+ilAt0yJz3JLs4iggUVjFthh+mWtjZzOUUXbWDbtimEvyG1bBDbVCmwytzazeS0U7cRBNPNrgyAd+0JKnKXhpMB7Mo0tm5VgNmeAAuLFaLWu8fa2rZe5H1La0n63nNgm3UIz5IYqpvYeK1n5Uy8+oW1YvzZPcYbszcRBv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fliaplOZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tTmVPEUvwfYvJlz6l7jB9++8Pu7R96z6cjJKgnu+9cooU18MUlyMrrhXhf27j2SwEFs4zvyhtQLcc8wxthHEE6MTMHXG5Aa3i1G5/h9LR819krbd4KI5hdrmr5dfpw+GW6mBT6t8KHMyIP+p5flGtA53iBX5WUflsvE05vQaTwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YUUJU3h5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fliaplOZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F551F000E9;
-	Thu, 25 Jun 2026 22:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YUUJU3h5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF081F000E9;
+	Thu, 25 Jun 2026 22:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782425479;
-	bh=WLHLO0KdVrW9/2JY+adKZHxXr1QE3bj8AyOYwppkdMg=;
+	s=k20260515; t=1782425545;
+	bh=jnSwEP8Q3FRjK+os5Pzm2lQJo0TgN9vE3KsKW/16pco=;
 	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=fliaplOZZWme6/PlGwUODkJJ0SoMVOvA0HLRnzBwOZ1j0vXe/ld/KyL9M/A5UwWZ+
-	 YwAD2YtWacCHrlXCf2rr8Nr0WPivyLFHn7GDn7pVf7qi189CXzq24iqSFgaDpWBgcC
-	 d+QnTv/dfmODy02YAwAXwI0s+yjViAULQ0jhcxGrHzXuWMxdiN6aPw03DEqbj1G7lN
-	 99GWxc3h0JqTJ+l9R3DYaIHqDI3WKZLuxCaSOUSFlzFSWCSVLGmkep6WeGoklRy4IN
-	 WCHYaNfmmJNvALtyvs5B+IrnkT3Cq8TgwlVGTX/7TuZ2US9Sousrkh9T8jJ4FCMtCo
-	 HjzDfqvbgYzTg==
+	b=YUUJU3h5H51UwKrLsQyPg4hBnvTV0ekt3kHrFFC4t0tSiIaYGuYBl2+aqNo0V65Qk
+	 IoTolUMg1qBpGpuJE1ulZBoILsHJa9UMZ0IAXaSLh2A38EgDC1It1St8jM0oNhdPtM
+	 RFb76PJdifMmFfQMsX3yxHem1kSrVk1CqL11oD4PIWJso/kZTAKA+OAF8wlA9dCFhT
+	 2Wt3YCPt4IFqNcafmrUbGNOpYWF3J2K02601B2fDwB6oyvNpFt+VWMUbtVrNLxyvi8
+	 hMDas4BvImWCK2Ethb1YWKpNn2/ScS8xYXkl1GtDVbokq3hiFT+EyvP/PY8mmoDySr
+	 kzxzk7o8nBzTQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/8] iio: adc: ti-ads112c14: add measurement channel
- support
+Subject: Re: [PATCH v2 5/8] dt-bindings: iio: adc: add ti,ads122c14
 Reply-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-8-ceb9b0b561cb@baylibre.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
 References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-8-ceb9b0b561cb@baylibre.com>
+ <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 22:11:18 +0000
-Message-Id: <20260625221119.65F551F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 22:12:25 +0000
+Message-Id: <20260625221225.AAF081F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The parsed burnout current configuration (`measurement->burnout`=
-) is never applied to the hardware.
-- [Medium] Directly checking `fwnode_find_reference` for `avdd-supply` bypa=
-sses the regulator framework's dummy fallback, causing probe to fail if the=
- supply is omitted from the devicetree.
-- [Medium] Calculation of `ext_ref_uV` can underflow, leading to garbage sc=
-aling values and bypassing validation checks.
-
-Pre-existing issues:
-- [High] Short reads from `i2c_smbus_read_i2c_block_data()` are not correct=
-ly identified as errors, exposing uninitialized kernel stack memory to user=
-space.
+- [High] The pattern property regex for channel nodes `^channel@[0-7a-f]$` =
+omits digits 8 and 9, rejecting valid node addresses.
+- [High] The `burn-out-current-nanoamp` property applies an `enum` constrai=
+nt directly to an array, which will fail DT validation.
+- [Medium] The commit message explicitly claims to reuse the custom 'ti,vre=
+f-source' property, but the code actually implements the standard 'referenc=
+e-sources' property instead.
+- [Medium] The JSON schema reference `$ref: adc.yaml` is missing the `#` fr=
+agment or the absolute path.
+- [Medium] The `reference-sources` property lacks a `maxItems` constraint a=
+nd leaves subsequent elements unvalidated.
+- [Low] Strict index ordering in `interrupts` clashes with unordered `inter=
+rupt-names`, causing invalid semantics if only one interrupt is used.
 --
 
-commit 61a17369383e7866b0adf6d21770ae99f4aca379
+commit de052c7080b8c89f1a3c4b730b190d119eacb414
 Author: David Lechner (TI) <dlechner@baylibre.com>
 
-iio: adc: ti-ads112c14: add measurement channel support
-   =20
-Add support for parsing devicetree properties for measurement channels
-and doing direct reads on these.
-   =20
-Channels are created dynamically since the number of possibilities is
-unreasonably large.
+dt-bindings: iio: adc: add ti,ads122c14
 
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
-4.c
-> --- a/drivers/iio/adc/ti-ads112c14.c
-> +++ b/drivers/iio/adc/ti-ads112c14.c
-> @@ -308,106 +463,6 @@ static int ads112c14_prepare_measurement_channel(st=
-ruct ads112c14_data *data,
->  						 const struct iio_chan_spec *chan)
->  {
->  	struct ads112c14_measurement *measurement =3D &data->measurements[chan-=
->scan_index];
->  	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
->  	int ret;
-> =20
+Add new bindings for ti,ads122c14 and similar devices primarily intended for
+use with temperature sensors. These bindings introduce channel-specific
+properties to handle per-measurement reference voltage and current output
+requirements.
 
-[ ... ]
-
->  	ret =3D regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
->  				 ADS112C14_DATA_RATE_CFG_GC_EN,
->  				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
->  					    measurement->global_chop));
->  	if (ret)
->  		return ret;
+> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
+> have preferred an enum of strings).
 
 [Severity: Medium]
-Is the burnout configuration supposed to be applied to the hardware here?
+The commit message explicitly states it reuses the 'ti,vref-source' propert=
+y,
+but the schema actually implements the standard 'reference-sources' property
+instead. Should the commit message be updated to match the implementation?
 
-The parsed burn-out-current-nanoamp is saved to measurement->burnout in
-ads112c14_parse_channels(), but this function does not appear to write it
-to the ADS112C14_REG_DEVICE_CFG register. This might cause the feature to
-be silently ignored even when configured in the devicetree.
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml =
+b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
+> new file mode 100644
+> index 0000000000000..59ee4d652a087
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
 
 [ ... ]
 
-> @@ -494,7 +670,6 @@ static int ads112c14_read_raw(struct iio_dev *indio_d=
-ev,
->  	case IIO_CHAN_INFO_RAW: {
->  		u8 buf[3];
->  		int ret;
-> =20
->  		if (!iio_device_claim_direct(indio_dev))
->  			return -EBUSY;
-> =20
->  		ret =3D ads112c14_single_conversion(data, chan, buf);
->  		iio_device_release_direct(indio_dev);
->  		if (ret < 0)
->  			return ret;
-> =20
->  		switch (data->chip_info->resolution_bits) {
->  		case 16:
->  			*val =3D get_unaligned_be16(buf);
+> +  interrupts:
+> +    minItems: 1
+> +    items:
+> +      - description: FAULT interrupt (GPIO2 pin)
+> +      - description: DRDY interrupt (GPIO3 pin)
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      enum: [fault, drdy]
+
+[Severity: Low]
+If a device tree specifies only the DRDY interrupt at index 0, does the str=
+ict
+ordering in the interrupts list (which expects FAULT at index 0) clash with
+the unordered interrupt-names definition?
+
+[ ... ]
+
+> +patternProperties:
+> +  ^channel@[0-7a-f]$:
+> +    $ref: adc.yaml
+
+[Severity: Medium]
+Does the JSON schema reference here need a '#' fragment or an absolute path
+to ensure it resolves properly across all tooling versions during validatio=
+n?
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this adequately handle
-short reads?
+Does the regex pattern ^channel@[0-7a-f]$ omit digits 8 and 9? The reg
+property below has a maximum of 15, so a device tree legitimately using
+channel@8 or channel@9 would fail schema validation.
 
-The i2c_smbus_read_i2c_block_data() function called by
-ads112c14_single_conversion() returns the positive number of bytes read on
-success. If a short read occurs, ret will be positive and bypass the
-ret < 0 check.=20
-
-Could this proceed to process a partially uninitialized buf array and expose
-kernel stack memory to userspace?
+> +
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        items:
+> +          - maximum: 15 # arbitrary limit, channel@ can be any combinati=
+on of AIN0-AIN7
 
 [ ... ]
 
-> @@ -1021,76 +1142,6 @@ static int ads112c14_probe(struct i2c_client *clie=
-nt)
->  	if (device_property_present(dev, "refp-supply")) {
->  		ret =3D devm_regulator_get_enable_read_voltage(dev, "refp");
->  		if (ret < 0)
->  			return dev_err_probe(dev, ret, "failed to get refp voltage\n");
-> =20
->  		refp_uV =3D ret;
-> =20
->  		struct fwnode_handle *refp_fwnode __free(fwnode_handle) =3D
->  			fwnode_find_reference(dev->fwnode, "refp-supply", 0);
->  		if (IS_ERR(refp_fwnode))
->  			return dev_err_probe(dev, PTR_ERR(refp_fwnode),
->  					     "failed to get refp fwnode\n");
-> =20
->  		struct fwnode_handle *avdd_fwnode __free(fwnode_handle) =3D
->  			fwnode_find_reference(dev->fwnode, "avdd-supply", 0);
->  		if (IS_ERR(avdd_fwnode))
->  			return dev_err_probe(dev, PTR_ERR(avdd_fwnode),
->  					     "failed to get avdd fwnode\n");
+> +      burn-out-current-nanoamp:
+> +        enum: [200, 1000, 10000]
+
+[Severity: High]
+Because device tree properties are parsed as arrays, will applying an enum
+constraint directly to the property without using the 'items' keyword cause
+dt_binding_check to always fail?
+
+> +
+> +      reference-sources:
+> +        items:
+> +          - enum: [internal-2.5v, internal-1.25v, external, avdd]
+> +            default: internal-2.5v
 
 [Severity: Medium]
-Will this rigidly fail the probe if the avdd-supply is absent?
+Is a maxItems constraint needed for this array? Without it, JSON Schema only
+applies the list validation to the first element, meaning additional items
+in the array might silently pass without being checked.
 
-By directly using fwnode_find_reference(), it seems we bypass the regulator
-framework's dummy fallback. If the devicetree omits avdd-supply, this
-appears to return -ENOENT and fail unconditionally rather than treating
-the missing reference as simply not matching refp_fwnode.
-
-> =20
->  		/* REFP buffer should not be enabled when connected to AVDD */
->  		data->refp_is_avdd =3D refp_fwnode =3D=3D avdd_fwnode;
->  	}
-> =20
->  	if (device_property_present(dev, "refn-supply")) {
->  		ret =3D devm_regulator_get_enable_read_voltage(dev, "refn");
->  		if (ret < 0)
->  			return dev_err_probe(dev, ret, "failed to get refn voltage\n");
-> =20
->  		refn_uV =3D ret;
->  	} else {
->  		data->refn_is_gnd =3D true;
->  	}
-> =20
->  	data->ext_ref_uV =3D refp_uV - refn_uV;
-> =20
->  	if (data->ext_ref_uV && data->ext_ref_ohms)
->  		return dev_err_probe(dev, -EINVAL,
->  				     "ti,refp-refn-resistor-ohms property should not be present when=
- refp-supply or refn-supply is present\n");
-> =20
->  	if (need_ext_ref && !data->ext_ref_uV && !data->ext_ref_ohms)
->  		return dev_err_probe(dev, -EINVAL,
->  				     "external reference measurements require either refp-supply or =
-ti,refp-refn-resistor-ohms property\n");
-
-[Severity: Medium]
-Can this subtraction underflow if refp-supply is missing but refn-supply is
-present?
-
-If refp_uV is 0 and refn_uV is greater than 0, subtracting them as unsigned
-32-bit integers will wrap to a large positive number. This seems like it
-would bypass the subsequent !data->ext_ref_uV validation check and lead to
-incorrect values when computing full_scale in ads112c14_populate_tables().
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-iio-adc-ti=
--ads122c14-v2-0-ceb9b0b561cb@baylibre.com?part=3D8
+-ads122c14-v2-0-ceb9b0b561cb@baylibre.com?part=3D5
