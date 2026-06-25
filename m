@@ -1,163 +1,124 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A5E3AA4EB;
-	Thu, 25 Jun 2026 12:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782391338; cv=fail; b=GZE8u3f7KpVKyiYoafHccF9BKSPkIbEwQEwuJDn7LqzU20Q2TlpOsXWPbGhXnh535I2EeXiUQGGISsT6AEALtVJig2t32ENr5ym4YJAFQPSZ94bm9uttR2Ip8mLPheIUccVkA1tF9Gu9ia6qXtFwyZiPpXBF+mvTmJ9zJ5kFkeM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782391338; c=relaxed/simple;
-	bh=5shSVQPMcfAF3niXMm1sytWfPT4tMExSx9YeOcFEBNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=JT55IicDYfSd/dUK5rtbR65tGVOLgG6n5HgrP4Q+Bq37jIbNbKziT088pRBiNopYCsYAM03ZSQU659jLsPjJ5ZpZTEX99XW9HrmclkbkgB2QcTJXYqg0lnbVjjw3gDj/WL0bRika1JF/nqebKVClOeHXfPBKX8Kx14hM/jBKHv8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=VFFxe2Xw; arc=fail smtp.client-ip=52.101.65.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A47C3E44FC;
+	Thu, 25 Jun 2026 12:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782392094; cv=none; b=QalINVfkMdn16Rkg39sVOYAK2yJdGz8UMeNkJhGz2lkBmzkF342nuT4mDE8smhPKNWjB9gA3otw2GLVyWv9/dHAdmuHXYYsIFhFHj3hBcdiVApAYg66lRVIpciyANahfiQIZW/4E18h8zkcjVgAf7EFrK/oS0aCe/bnETwanB4A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782392094; c=relaxed/simple;
+	bh=kz89tyTDiSoNmirF9u7A7+d3Cu4+hlcQhqvTojZ9W5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eRiFdtsPHQ6bhY6hpEBuYOnM5O2qtzPQYBUIaNMHlQV/uazQlB90fbvz6aVu3fiMTJH90lCgxIdfyaqDlMbqjO1bZHpwHTsdyQfJZFga4toRKILdRXv+xmOasjarvk/TmTWF23gUeeST0WEZ7RrTqo5yItTtD0JS74+4knPOwYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpAq7m4+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="VFFxe2Xw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+U8nGhzblcKlfcPvKcvxoxTBqfJLs7pS5b0hRVPNpCfe3KkUQeGnjlalkHPRJ8xUJuubkEE0xxnD+ZbNl6B9Bwh8431tHEH43lRZZmiIckSoQVwL7P2nyI78no3KPaIBtHWjD3dn2TgJzqGkjlbwOT0ujRFAtF7DSPXxIs0nXV+Qe9bAgkxCu+Po2DpG8F07tV7KhXfen/Y0FFLXLr0sZCInko1pEs5azeSdXQRi5llyUb5o9bpLvOhI/fK9DK9alntuGhYUAmy3jf/M6WKcKSDNobnGW7IDzR+DOxfsOU3/V/pqx3LK/DPp3/XzgkpVzbx7sImfpHQZ52QbNCk6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ahWBdz9EY9bJ17Maw5hAKopAQGUFu3hIhmFjD9gNO6c=;
- b=CIybv6IrVa53GZbDi5PT8j+6ouKLUCCq4RLZw2UyA6xbBnovFZWNdKwoDe6FsiqI/c4FqzkauG1VwSPexDyxouRUpLdFVb85G2fXSwy1eynY5lvVVx2pYo/xX/lAGUdU6koSlAZ4cDMvYVafLpZIxmXJmSZbkTIlyHPK2uUVcpMP4pMf+VswMNiNYMZxWBOkt4+/FZfUAzUAALiarEGTWCcIWnDMYrYDI4vPPuKQf33gYtjKHBm7Z9YQsV5/5g3lSjtLzpkBSQITSmzp9B+UlUWaERzJKyY8Szq7qy2yIxkTORMNJ6yweKtPgUjL5w5P6FamKtC8Bhsmpd/R3yg3/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ahWBdz9EY9bJ17Maw5hAKopAQGUFu3hIhmFjD9gNO6c=;
- b=VFFxe2XwCS/1iFY5Em6Utqh9QPpqb1eKFek5OqWvtgqZBeK1IJOGeAv7fD4PwTd2E9mLZWUUALcL3jvPDLfqGDfS3jlzexhHibEGEZqO6suKMHjKPWwMm7oa7h98Sds5ku9okZ0H5xlv8rIUNOv0UT2/INgtQ5matE3X1RALNzJvt0sqY33MeOqUt3p4SdbAa64tAFqtgPAyiSlrLHTtxfW71Ykw70/CcH78H3U7sLSKkBGvCTdDE4EyCQR2iAB7LE/yUG4rBsWcKlcOrxW1Uui2ISlLlm4z7j5UaVte/kIP/rlLrefhJkhSiaccsisnAunRh8qMe7dJEpYngHOIzg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10023.eurprd04.prod.outlook.com (2603:10a6:150:118::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Thu, 25 Jun
- 2026 12:42:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Thu, 25 Jun 2026
- 12:42:14 +0000
-Date: Thu, 25 Jun 2026 07:42:03 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Akhil R <akhilrajeev@nvidia.com>
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-i3c@lists.infradead.org,
-	robh@kernel.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v5 04/12] i3c: master: Add support for devices using
- SETAASA
-Message-ID: <aj0iG5xplWPWc6m_@SMW015318>
-References: <ajwamrU8ehBINzxq@lizhi-Precision-Tower-5810>
- <20260625093815.1794492-1-akhilrajeev@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625093815.1794492-1-akhilrajeev@nvidia.com>
-X-ClientProxiedBy: PH7PR13CA0022.namprd13.prod.outlook.com
- (2603:10b6:510:174::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpAq7m4+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4AE1F00A3A;
+	Thu, 25 Jun 2026 12:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782392093;
+	bh=C8t5+lGRlrzToqOeSgrxbTw2NaFhqhYI+fQbtcvk/Og=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BpAq7m4+fswodKhLqDVmO1WZZMn52tutfYsGlU8bY0CIWx52+jGFaljPkXDeqrpNi
+	 MU31ClXwhk+T5kKsttqG+u5fXJ/8wScR8bnAH2SrWu2IXmK3xBDA6iRemimS/3nFbl
+	 QpXh1NMgY2SmckecIUc5xMUfsjop/Bw61s9ZE/V3gK7oir+PIgePYrWrWxZ3xP+Pe9
+	 yxjn+zx+m99nBk3BNCO2LDjhQYnoJOKJRwFBqIk6WUpdBMywZtFg2WZTP7JX+Feheh
+	 5zxOmuxI8f1WzQXpYwrA23AqsNEN1mV/kBCPZFjZRYnIqXWM4ZcjfB0Ytw3g1gldkA
+	 tS56x3wJ/DnrQ==
+Message-ID: <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
+Date: Thu, 25 Jun 2026 14:54:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10023:EE_
-X-MS-Office365-Filtering-Correlation-Id: ecd36fc1-0bde-430a-06cf-08ded2b72e9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|19092799006|366016|56012099006|3023799007|6133799003|18002099003|22082099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	ekZHme70r8cGLoG3VCdIc3bEc64j0j7LnY9wQgF7LdGPrZAGB7b03VVhTjwlu10fIGiy6o0vqNMOJWIczmo6m/cbWz35/EtrUd5IkN6+cZrSiEkvjiGZJrq68TdPJyEDLaTiKlM9/+ltwFdW5TB2eu7USQJ9rfEvrGdlZ5wmj5w5Qbf/sD5rYQdmk/0baIeagfiJX35WYHGLZCa3XnqSk62rKMGvlCqkV07t/JQI7bFBodjElSqaW2dZSxJr07jo3KfPvWHSxmWGw03Pwm/FTPHd+lXQfRG1j4day6SETmosbGuuE4AXdwU0GR+0emmTh0S9l/fBU8zW7FKDT1lbOmZqjjIgnXOHyxRyhoC06sbTRsSR4Fpmv5zYrX+YdOJjpPyD+E4lJsb6GjBvvrXEFQMFVZOq6t3cByzRxwNQl75KhyLwMPSEPwC0X6ssokGSHOdGaTWAgcn8vKskX4cDOlpEZBkmvscWpu0gETkiUhNgPKIeanq5sddQVGuwk9rbiySRIkRVFn/seiO210dWHmlUTW2gR5dql3DdJysYRA4KATO/wFT6DAE5j6uVaxrNeGoHFl4cIXUOBhh/INTIQZbDhIpw5XIIxQnWaQTz/OqgUk5rWEXhYFo5Kt3yMVVdwPn/uN5ZeFHMkJTZiYh/fNHRIpHuB1AP5s4N8i3rvao=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(19092799006)(366016)(56012099006)(3023799007)(6133799003)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2FA/K6rf1syld16wsdHGJ7HsWBBqze4/IFSB78BRsgMe+qxsANDQmEwfotvF?=
- =?us-ascii?Q?bc0KuzrB2KMPRr5hnOKrIrdWuBfjFblDXjq7OustE7euVdz7haslvuRhJ9t3?=
- =?us-ascii?Q?nKsR2A1E/oMCR4xvktqP9aSipa4dJwSMuUjS/1j8n6dR6B8VaGN5baocS3Kk?=
- =?us-ascii?Q?HHgDfr37tdFK2SEWNkuVDiKaXb1vgFGcDBKLPj1R+I7rWjqulo6Id+0kj1BJ?=
- =?us-ascii?Q?1SMHDbE9ILo7+3M5Z8iO8ZugSEvgxUHZnh3jatmw3iVkM6Lr3VHs0HICYP4A?=
- =?us-ascii?Q?ixrOd6SdcNKcZcD1C3EEVJGWR7Aqm9cB8WyDlfUJILuAFo6cb65HNbW9Y8my?=
- =?us-ascii?Q?Z+e88st4YYLxEGhX5bzPP4FkiZ4VyybxlnfI+PB9S03CfL0GgrNi8qMAuZNa?=
- =?us-ascii?Q?tOEUF+nNbnyndIM3+xnZcMbdAXjxB6dWhmOUbnF1OpT69+der7jkESqKg7a9?=
- =?us-ascii?Q?/iquWierTFRQnuwYV5rrO+E//Nq4fh12MmQ5LgCDpNIJS4OfsxsHrvzF/4Hd?=
- =?us-ascii?Q?4O4eCDQPa+3aLXswgrC7sQZuzuJe9eWMLPgF1jruisuRb11aIALTSI7D8faz?=
- =?us-ascii?Q?G2KBbHoISyr+kHxVDEab7cWjRThktnhFbER59ITRzhiyt1QYwGwnNXIZALCe?=
- =?us-ascii?Q?HsE9X1Z40ou0AMxm3Uk5mwlCSbqlYG+YDMkWaXOOyieFuhhub3rxE/oS5LNh?=
- =?us-ascii?Q?R/O1e6L96TVrXmZPrd9UZfoKBIQ+r8K33K4+s1M4XvqhFO8zfDa6h6jgvAH3?=
- =?us-ascii?Q?4MshgtimVQBKng9HNcRgXiFFdTLwuLF9duSQAdRsiUBfQYDFo+nCYiFWh1Qv?=
- =?us-ascii?Q?wR/BRDrFkivzaW4rUAp00uPN5hZ8IqQ/a6Pnb7o3DoQuSgHJkVzX+KnIFUfp?=
- =?us-ascii?Q?8l//IuzJzioGziyYNR6Rv+oJT+5iDeOO0rKINsqbGPdw9Qyn/qOp2ulxf73H?=
- =?us-ascii?Q?bueC9ou07kmilWrjog9tBSDjdA0rspTDbBs9E4ZtxkIk+GrApsTLbmwk/3JT?=
- =?us-ascii?Q?zc2oDFczMrCxUJXyPMsk98z24GXcghqcefYBwQQsHsrUArbdJDF8zGucM5LK?=
- =?us-ascii?Q?X/E1xU7Daw3+QWlPUY5jCALn3wDWv3yNf6l9dWtG8BOnAaUk0Mq8wO60Ks9a?=
- =?us-ascii?Q?A3niQa47YU5mn6asrrGiH8smMnUDJrCcMQNBLb/eBhou1J37ewjwOwctfkH9?=
- =?us-ascii?Q?6IbE+Bn2l5MqH/U0V8ZGQc9sx92T2ZcXKMM8/4kuK2ja21UhST81UmEoYoRS?=
- =?us-ascii?Q?eP6xhc7YkkxQLYR7S/SQp0VXPe/bqKEhl+L2t+TkvNAAhkZ2A6meyvraP2jt?=
- =?us-ascii?Q?II/EvFLgI8Bcbgyy/zrwh3zMCe8S79qaMfyETJcJSHzAWfACHSfkB8sAcaT+?=
- =?us-ascii?Q?nncq3w+1ml37h+nM+0mrXvBe2t8ivWYSTP/FT5rGbzSfFdOrxE23tSedXPCr?=
- =?us-ascii?Q?DOpLOuPWrj/G9PV4ZaGeXYd2FYIIPWrh+YduiDdyjB/moOUvGBHmkoPvGqHZ?=
- =?us-ascii?Q?ufA3JubYcGWflzUT0oVwtzO+H7jghoMlIje4HbvxDb56iANxW9OT/gsQ5qTJ?=
- =?us-ascii?Q?CZmJyPV3hmnK9iZlP4VWUOqk3uXi5keyefq18PLRZVp2y+XRuOFeWKXhsABm?=
- =?us-ascii?Q?koIhLpTl5jah9QMOJGKxHSPt5wi1qnQcuhgIN++a/AOrx1aBT4G3XZO5w68/?=
- =?us-ascii?Q?K6jUCy7v0/Uq2KCDRTP2LnIp8vvt0kg84jwnwmuLP2hEhiwJ3CuOmBQ+j1wO?=
- =?us-ascii?Q?ZxSpGNBse98SvEzRDRkOCBElpxi+ePz+0HMZuk2alHkrSmrZqa4Y?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ecd36fc1-0bde-430a-06cf-08ded2b72e9f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 12:42:13.9666
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gjEAPxTMfF6fxhRN01dVnfx1d1cWaNzfK7h5ByqlqFlZYVbWBvypCZKQa4J4p6R4rBZP8qtlZiXcPioiwBATYHD4wEnfEgvd3rRm2ODgw2KbZsBLuyX9U8NXf8ljw/26
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10023
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+References: <20260508134009.4582-1-syyang@lontium.com>
+ <20260508134009.4582-3-syyang@lontium.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260508134009.4582-3-syyang@lontium.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 25, 2026 at 09:38:15AM +0000, Akhil R wrote:
-> On Wed, 24 Jun 2026 13:57:46 -0400, Frank Li wrote:
-> ...
-> ...
-> >> [Severity: High]
-> >> Is it possible that sending the SETAASA broadcast before direct SETDASA
-> >> assignments breaks initialization for devices that natively support SETAASA
-> >> but are configured for SETDASA?
-> >>
-> >> According to the I3C specification, any device on the bus natively supporting
-> >> SETAASA will respond to this broadcast by adopting its static address as its
-> >> dynamic address.
-> >>
-> >> After this broadcast, the driver iterates through devices and attempts to
-> >> assign custom dynamic addresses via direct SETDASA commands:
-> >>
-> >> drivers/i3c/master.c:i3c_master_early_i3c_dev_add() {
-> >>     ...
-> >> 	ret = i3c_master_setdasa_locked(master, i3cdev->info.static_addr,
-> >> 					i3cdev->boardinfo->init_dyn_addr);
-> >>     ...
-> >> }
-> >>
-> >> Since the target device already adopted its dynamic address during the
-> >> SETAASA broadcast, it is no longer in the unassigned state and will NACK
-> >> the subsequent SETDASA command.
-> >
-> > Look like correct, but I am not sure if target will NACK SETDASA. Or should
-> > use SETNEWDA for SETAASA method.
->
-> Yes, this looks valid for mixed device buses. I can move
-> i3c_master_setaasa_locked() after the SETDASA handling and before
-> i3c_master_do_daa() in the same function, so SETDASA-assigned devices will
-> ignore the later SETAASA broadcast. Does that sound good to you?
+On 08/05/2026 15:40, syyang@lontium.com wrote:
+> +
+> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> +{
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> +	msleep(20);
+> +
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> +	msleep(20);
+> +
+> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
 
-yes, try it to follow spec.
+This is just plain wrong. Why do you assert, then de-assert and then
+finally assert AGAIN the reset leaving the device in powerdown stage?
 
-Frank
->
-> Best Regards,
-> Akhil
+> +	msleep(400);
+> +
+> +	dev_dbg(lt9611c->dev, "lt9611c reset");
+
+Drop such debug statements. This is some downstream, semi-useless code.
+You are not supposed to add debug to every call.
+
+
+Best regards,
+Krzysztof
