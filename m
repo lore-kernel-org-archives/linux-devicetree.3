@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6DE3EFD15;
-	Thu, 25 Jun 2026 17:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A70A3EF670;
+	Thu, 25 Jun 2026 17:39:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782409190; cv=none; b=ZAYhxem9Ykod0b4udA2U5xDyWDpiRO4diOsJJnFm1RVMvw+cPtSxwiBDMUDM4zQS0+QuVmQ4Q4ASe9ki7nDXF0UXgt7BVXnT+YMW+SU6khu4gNW+DK0YCt5Pze7+Swk1E/uPcaUPC1SqBqgmljqKTe6KyBXAl9o6csUqE6HPwXc=
+	t=1782409190; cv=none; b=T0IDFoBFfLij1VZlLzs1jBUP0YacvvQ80KUNsVSVvNdhikwfNv2ZlKWb0fKO25dDFZbs5pQTBk5QB406Uixe73SQqMXscQIkmIjmHl/gfgjT/5ybw6L8XbEJbdlEjupy8Sf1AEsvFGDaA5eMWy7hmkKYOdb6hZ+mDjQk2G1of3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782409190; c=relaxed/simple;
-	bh=yCiw8z2UZvWRq9t6m2DjxSjwEpiHMLoGQwvUavl25U0=;
+	bh=BKK0WOp1c+S2G4HJEwDSlIDRpU5wJfnkasC5i07zsD4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LthbBx3gUYNSqp9Qw6zvEz8kOYv6nRgveQVno4RI0V9XKGD61sR5Rhc+oWdBkGoZGP+EhKwGGJ+8RbaL1Bk67Ow6hvZKRy8SVcr2YIvG2BoGsn+pZiUa1ne+6B3Vkkgrtytjq7QikAWPBcdYWRFdp4XWSYAenYJ1MDMv1+xQZWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Mv0eJlcp; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Hyz7iFlQSV9r+SUrF1Pvd1VlnsvIoMSvPC/HK0zsUz8WmxEdG76pQUj/fJZ2y6jlolihD7yRkSN4yrA4zEplKv+yTNr+gSy2vWLe7BudSzN6Cs/xQeiVeh9ADBBL0y1k9dZikiFeucGGUpVqlxZfjwSPDeVWzT6Eb3OqIW+ak0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=A6rRNuxi; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Mv0eJlcp"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="A6rRNuxi"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1782409181;
-	bh=yCiw8z2UZvWRq9t6m2DjxSjwEpiHMLoGQwvUavl25U0=;
+	bh=BKK0WOp1c+S2G4HJEwDSlIDRpU5wJfnkasC5i07zsD4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Mv0eJlcp5oMIUruB6ek22DodS+kYVJixkO19OnxGBEwRD3qBTvCu05q8cbzNB2WXD
-	 ZpPXfNlNfunXIj6+fanb3JyuDiEeiWA3C+BC1VhbfEjIgAsRgw9d8SeXD8PnFTsOHf
-	 j/+dcNpCBW7LfXIxAEDdL3WlXES2pkWXykbLC2Xpr8zGZiN5Nije6G829eXd9dhFlq
-	 Cf3SiIltdL5sS+myynH3+Uyi6KjTkTYFNUb3Q8XM8pO3pKcYlC70DwB+bcwjhr/7j2
-	 m63xdu/lrShqMbmCr8kfMgQUK6UVSz2E6iNnbSIrwbyHryTROKbauphwvl0mdfGIuR
-	 L6MWk/cNhVmkg==
+	b=A6rRNuxictVazFQYw5Rv1pKhe8X37t12JVXwjBvsH7kEkmSOKu7AcXArDq3g+fjds
+	 0wEikdAhAFviBThfrrUaUhiNNwzw/wUcMX3MbfHO2MOlvbHVO6mu68AhfDg1ujBDX/
+	 95FiJbg4J9ZXWrtmLCmlttP6XlJq0hJczz6bHXAc+8P2EM9bFZE1jBb3H9/TsXTYXq
+	 g14mkeusSNMsCgi0aA9iW15saEuD4QBfT8gy0z9TCmoWhdd3R3Zu23mliGSTs7SUqP
+	 BxBQwblCPNeA6SRUvdxdzD0vQmay/9xx07kBIkWRNsF5unrDv7cLHHns8wwILxOith
+	 mnurrL5O8rxgg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 39BA217E15C4;
-	Thu, 25 Jun 2026 19:39:41 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E88E417E155B;
+	Thu, 25 Jun 2026 19:39:40 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1D76A48006A; Thu, 25 Jun 2026 19:39:40 +0200 (CEST)
+	id 0F46C480052; Thu, 25 Jun 2026 19:39:40 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 25 Jun 2026 19:39:52 +0200
-Subject: [PATCH v7 25/27] phy: rockchip: usbdp: Hold mutex in DP PHY
- configure
+Date: Thu, 25 Jun 2026 19:39:42 +0200
+Subject: [PATCH v7 15/27] phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-rockchip-usbdp-cleanup-v7-25-38eb3cf654fd@collabora.com>
+Message-Id: <20260625-rockchip-usbdp-cleanup-v7-15-38eb3cf654fd@collabora.com>
 References: <20260625-rockchip-usbdp-cleanup-v7-0-38eb3cf654fd@collabora.com>
 In-Reply-To: <20260625-rockchip-usbdp-cleanup-v7-0-38eb3cf654fd@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -61,58 +60,66 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  devicetree@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1341;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1546;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=yCiw8z2UZvWRq9t6m2DjxSjwEpiHMLoGQwvUavl25U0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo9Z9ve13T9kS1Y1cp+2SyUK0AKoRggdPYXM
- aO9LllARPBLtYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPWfbAAoJENju1/PI
- O/qaJNEP/016qdNdDOzwbpj1GGmCDiNIYR9GTMTmljYGfKbPEct6tGF34nRNOA5CFhdhEoEdfK5
- m80x+CfCgpquYWm9Lmg+C7USEoLVfxAiwx70eOkksqllaAqCadBSe6fjow9PihdevhnguPtgY7O
- nSJ5rEl4wxgN1XUWezzEVK3kggefE4H2eyMh4Zk62TExL1+uTglWumNAi4/7dGBJBWRljJsZ/9T
- fdTanzypeuPp4uhdAyaiVHMIyPXB/0KJK+uuRcpKIHUnAm/USojOHs2fobsBRHgQxD7A5CkH1m8
- QhdA9t3KHmi7tUufD/L/gO1zLnesctgxBlHkCwDmurxXOAY2qASQQRlAz7DEXk1amVO+hpbSXsI
- GfvjRoV1R8N7d7mwN9odoEf/CuTSt97t9dgxF/SzJb/TYlJjcmpjJInYVVPIxq88g0UgyQz4zRS
- yJXqQuzxT2FT04NISKa1XY8THjNF33qFAkj6bJe7Db/W3t2MFqoGlVPRTI73ZMRc0SEPOolztLR
- gbxIa9xXak8xocz2nLNpvGtbBr0ftqqaWoPLPoVJwQ0Q0DmbX6Etn1yoTqImhSbjg5cmFkNdZw0
- eCD/jAO9scbcWXzAvrNRxYDuldVMk/hFZeFSSj3KEM0AU0yTlxA2FG7LFICQsNQqI+debtIU7Tt
- Yyg36/0KzivHoScmIcPMrZQ==
+ bh=BKK0WOp1c+S2G4HJEwDSlIDRpU5wJfnkasC5i07zsD4=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo9Z9t9AGXQpTRfpaMuCI49nw3XYJxHCsuz2
+ XPal/NGKv4jm4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPWfbAAoJENju1/PI
+ O/qaU5UP/2SVikDFbqwZ+2af+dQucPhZeosARHSOhCUB+rHosxc/r5VM0yidQ5vbYLnNYELpMZa
+ gWJQTG1TedYeL8VPDW/PEI1rUsdOBYYpQYX8tZxttrzLlJ3mHNwXOI+CdPR0XikaVsK88qwznda
+ nBtUgdWDapVp2YN9jfJz/GDN517yZ/zgEeWV1lBF+IPImH0YR2cNpimq+WdSaTfwC5vIbe4sgbG
+ iW82OZsW/QfCHQALypsentHARXfSyjQKyOlmSzl3nqJVegB5KcxbFgRWg9trf7aXLAem18QXeDZ
+ xKceloprnmzSXaR+3OROg3Uo0lyEbIUd8U+JD0V/qTrR5kUuL2YYdJyyjFSvTStNmU4Om0saLG9
+ SigHkeVOOrzoPvBrrYHHMbKKtdycZkXzXm57G6siNBwtAXuLGSY82AN3HuZ6YtujgBHfqLldN/C
+ /CMKW5q+KdbSXeXXz0GewI3BIczkcVacjDYpTNiCrJ7KwNukCsijc7TJFwcJ4Lq4IAkda/X7sWj
+ 0Zo/37TikuMNAh99UaaYoxA7EeZBFJDx1ceMifW17h5+WMHs1ViV0gMnRLcIhJfWajl0qEMAEl4
+ 0it/TUTYzmleJoMl6QoMHcF/AqGgGeMSBi8JkQkQfAHfwpNqlhUhf926L7qtBe/w0WHfMNZ9wMg
+ LXC3M0XJBzP3U9faGQNcjIA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-rk_udphy_dp_phy_configure() accesses some variables from the struct
-rk_udphy, which are updated independently from the USB-C framework.
+Cleanup code by replacing open-coded version of FIELD_PREP_WM16_CONST
+with the existing helper macro.
 
-The USB-C mux/orientation switch functions already hold a mutex to
-ensure mutual exclusive access to the struct rk_udphy states, so
-simply hold the same one in the DP PHY configuration function.
-
-Reproducing problems due to this on real hardware would be really hard,
-but could be possible when quickly re-connecting the USB-C connector.
-
-Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-phy/20260612164627.23D391F000E9@smtp.kernel.org/
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 182141837596..fc788f2bf5fb 100644
+index 6ec9ab9d1e64..1bae8172d1fe 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -1189,6 +1189,8 @@ static int rk_udphy_dp_phy_configure(struct phy *phy,
- 	u32 i, val, lane;
- 	int ret;
+@@ -12,6 +12,7 @@
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/gpio.h>
++#include <linux/hw_bitfield.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+@@ -75,7 +76,6 @@
+ #define TRSV_LN2_MON_RX_CDR_DONE_OFFSET		0x1b84	/* trsv_reg06E1 */
+ #define TRSV_LN2_MON_RX_CDR_LOCK_DONE		BIT(0)
  
-+	guard(mutex)(&udphy->mutex);
-+
- 	if (dp->set_rate) {
- 		ret = rk_udphy_dp_phy_verify_link_rate(udphy, dp);
- 		if (ret)
+-#define BIT_WRITEABLE_SHIFT			16
+ #define PHY_AUX_DP_DATA_POL_NORMAL		0
+ #define PHY_AUX_DP_DATA_POL_INVERT		1
+ #define PHY_LANE_MUX_USB			0
+@@ -104,8 +104,8 @@ struct rk_udphy_grf_reg {
+ #define _RK_UDPHY_GEN_GRF_REG(offset, mask, disable, enable) \
+ {\
+ 	offset, \
+-	FIELD_PREP_CONST(mask, disable) | (mask << BIT_WRITEABLE_SHIFT), \
+-	FIELD_PREP_CONST(mask, enable) | (mask << BIT_WRITEABLE_SHIFT), \
++	FIELD_PREP_WM16_CONST(mask, disable), \
++	FIELD_PREP_WM16_CONST(mask, enable), \
+ }
+ 
+ #define RK_UDPHY_GEN_GRF_REG(offset, bitend, bitstart, disable, enable) \
 
 -- 
 2.53.0
