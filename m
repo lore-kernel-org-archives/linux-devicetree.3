@@ -1,116 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2300D1C84DC;
-	Thu, 25 Jun 2026 06:23:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87871D47AC;
+	Thu, 25 Jun 2026 06:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782368640; cv=none; b=lZGVlg2NCPp1WO6NwmcyFYKYKmFJql6vXEBVGiHxK4yXK5ViR/GrZAg44wkYfSrxRE6ChBwXekAdSD8UG8cs3sjcIbGhXnU67aDivrKXCLpzEyHw4qI2mi0FLeJ066n04w8HUguEhBKdkT4PNiE5jv7yE5Rb4YfTDJ4pQvIjKDw=
+	t=1782368933; cv=none; b=QvvDSxRvN/c09Mu918nM1aYQInOTwtL318F6XLd4ompGDifk1xjOe3GtXXW26X8DlsWIGTEPwKL3dNdwlnqjzpwtJNgiimUFF7WKSaorNLcWpPbbdVgoe6X2tQc06cGRJlhU5lPxgpDLcSUgpCTbtmL2PBWTgeiKQcjoyDMxt4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782368640; c=relaxed/simple;
-	bh=+jQUAu2cNB8TctfriC4zkoUJ1yELZVfPO4hA1oqUJWs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BrmskHmh5scnd1ZvDDuK4XHxoqPljDw55vQAlS2zmx5BBknqc+ZRA3FbGUbhMhkeSuYc3WbhqZ3piwgMRzWdvtG7hKIoVLLXF8IQzReUWMJLQeNULv2grr4ItrWl/VuiSLXZErGpIbEcXp5zrcJF50DBlCUvA4oU25fUp8sCMSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FypkqN5t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782368933; c=relaxed/simple;
+	bh=ackho+X1RsxpSynpbvJ6wawHVFxc7e5qW2lb+VFrdzA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eImzx5BL8F4qpXCLvIR4qAFTadMH7JKoC3OipMWKZ8Bre/dNyhVYph1ysJ4M3IJF/POLEjx+THZumK8voHWWy5rh35spVvfxYTRfKS4ol8za5tgT+SspVmWgKS1YalSFMaOTG8Tur9z7sqjoZiwW9I30DokwUanaG5K0QnlxQLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fg6BC8co; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FypkqN5t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677161F000E9;
-	Thu, 25 Jun 2026 06:23:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fg6BC8co"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCC5D1F000E9;
+	Thu, 25 Jun 2026 06:28:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782368638;
-	bh=/I3N7mH9T+gMWfBpfAhhrUU1yb4W5vV6Udh9IzOWy5k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FypkqN5ta1C5/7BbOgj0wwetzNEtM1pXPz/MrRLWzB5vUQBrUhAXSD/6yD2nFHtRK
-	 eYNxwYlDUQle1iY2MulOarZWt66S/8BVrtDmpvHqYJvfIWgkq2+tOhhAejfnlY6SvI
-	 rThFFtwm6sRLxEsBG4VLKCqPsR+4np1Cu+29Fe3+splc6qheVsFW5W17WmvUCAatFs
-	 MhpVsQfC53DIIeMu6cRXvS79+YKI1ZQWoWhJ3o/+UNZhSu0dIbadnZfFMZSTP0GdYI
-	 jAQTihUMMFSIqOBUhvBHb+lbPPAmE18aa6l594G/taorgSmlVfktLxZuIcp9AK9u7j
-	 F+rcMmkS61TOg==
-Message-ID: <5a5fc753-977a-4e21-984c-9b4a09d002b5@kernel.org>
-Date: Thu, 25 Jun 2026 08:23:49 +0200
+	s=k20260515; t=1782368932;
+	bh=p7HNIXy0yS9fIOHY7kjeZItIikOpAOo6Lfo/NHE/T5U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fg6BC8coU5E95/Mh5DqDAWknpZO2AklIJPThPdg82BRVS8KGklSx7NDtxtQAvl87f
+	 G23Fok8UmFnoFuTcL11Esui6YeMmkw2yCfigJbDMjM5pkLpRS+4W3akzi8JV9qP6ve
+	 ue26x8VpOzvns1dNWkFW6uT6sw/IAZ75fhzLjifvVehpeosjy60F40p9l/T+xaw+ir
+	 5xJt4KcULI4kiFio0pkV3eYbzfky6dsnxtOugwx3DXN9b2f6cnxokHnbgL5DAGZJrm
+	 xrAy/8g6QeJoCPhx63RnOMfhQ6ordHCgNZW2JjoClkZNER1SJvwh33+6Yc2UgdlIPM
+	 ez4R5H+CCwpvQ==
+Date: Thu, 25 Jun 2026 08:28:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: Conor Dooley <conor@kernel.org>, 
+	"mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@xs4all.nl" <hverkuil@xs4all.nl>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "shawnguo@kernel.org" <shawnguo@kernel.org>, 
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-imx@nxp.com" <linux-imx@nxp.com>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "jackson.lee" <jackson.lee@chipsnmedia.com>, 
+	"lafley.kim" <lafley.kim@chipsnmedia.com>, "marek.vasut@mailbox.org" <marek.vasut@mailbox.org>
+Subject: Re: [PATCH v6 2/9] dt-bindings: media: nxp: Add Wave6 video codec
+ device
+Message-ID: <20260625-artificial-coot-of-climate-efbecd@quoll>
+References: <20260624072043.238-1-nas.chung@chipsnmedia.com>
+ <20260624072043.238-3-nas.chung@chipsnmedia.com>
+ <20260624-junkyard-sensuous-fcd43189b593@spud>
+ <SL2P216MB2441BB9DC91CCBE494F2B45BFBEC2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: input: Add Qualcomm SPMI PMIC haptics
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
- Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
- Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260624-qcom-spmi-haptics-v2-0-b9118e60f3e3@oss.qualcomm.com>
- <20260624-qcom-spmi-haptics-v2-1-b9118e60f3e3@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260624-qcom-spmi-haptics-v2-1-b9118e60f3e3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <SL2P216MB2441BB9DC91CCBE494F2B45BFBEC2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
 
-On 25/06/2026 04:00, Fenglin Wu wrote:
-> Add binding document for the haptics module inside Qualcomm PMIC
-> PMIH0108.
+On Thu, Jun 25, 2026 at 01:43:33AM +0000, Nas Chung wrote:
+> >> +  sram:
+> >> +    $ref: /schemas/types.yaml#/definitions/phandle
+> >> +    description:
+> >> +      phandle to the SRAM node used to store reference data, reducing DMA
+> >> +      memory bandwidth.
+> >> +
+> >> +  iommus:
+> >> +    maxItems: 1
+> >> +
+> >> +  "#cooling-cells":
+> >> +    const: 2
+> >> +
+> >> +  "#address-cells":
+> >> +    const: 2
+> >> +
+> >> +  "#size-cells":
+> >> +    const: 2
+> >> +
+> >> +  ranges: true
+> >> +
+> >> +patternProperties:
+> >> +  "^interface@[0-9a-f]+$":
+> >
+> >I have to wonder if this interface business is required at all.
+> >Why can this not go into the parent, with each region fetchable via
+> >reg-names, interrupt-names and iommu-names?
 > 
-> Assisted-by: Claude:claude-4-6-sonnet
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->  .../bindings/input/qcom,spmi-haptics.yaml          | 132 +++++++++++++++++++++
->  1 file changed, 132 insertions(+)
+> Thanks for your feedback.
+> 
+> I did try the flat model, but the blocker is the IOMMU.
+> 
+> The control region and four interface regions are independent DMA requesters
+> with distinct stream IDs, and each interface can be assigned to a different VM,
+> driving the video core with its own isolated memory.
+> 
+> If all stream IDs are listed under the parent's iommus, they bind to a
+> single device and share one domain, so the isolation is lost.
+> This is the main reason I added the interface nodes.
 
+Feels similar to issue Qualcomm has. I rejected such subnodes and
+Qualcomm came with a solution in DMA IOMMU code, but that solution was
+rejected by DMA folks:
+https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
 
-You did not test this before sending, therefore this fits in to AI slop
-category. I do not accept AI slop to be sent to mailing list.
+I don't have proper arguments to convince DMA folks, thus I agree for
+Qualcomm for the subnodes. It should be fine here as well, in such case.
 
 Best regards,
 Krzysztof
+
