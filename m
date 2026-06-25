@@ -1,183 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A86B30C345
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 18:12:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F9E30216D;
+	Thu, 25 Jun 2026 18:17:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782411166; cv=none; b=cZo0HGWRylWvT929H4peNjS5huJHYZl0JFoxJBoEH9av1sPDMeijGMVR714BSHt/i7gqyE882n6I6RhxAYFChGHN1fJhYjBvBo/HasKYqTnVpLG6xLNPR9eUXSk5zGn7VLq+20Ake1T+vMeHKI2En8Wqo7z9XISL/pGsjYrB+nc=
+	t=1782411449; cv=none; b=YXnx/caZJZexu8wYEK2xoGPXtN5IOMQwOhG0AEtIPX10MCgciv4EFG2u5jWH+5lgA/F1I/Fe337JYA/jLxrbH+rrCz8n1btOZSRLH40TrDj+ynXjQ9K6xO1vdoTpz96hCQvsxsHSpCzRxD+SOlyW+lnakenWufeXLI0usoo1tXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782411166; c=relaxed/simple;
-	bh=XYNRYYneIOze7VO2TZ6DkbB2bB+6Rv2RayjOk4Zi6us=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G7JeUVpLlrMfC2BCsKxj+Tph+HvLDdrwzsYWyUsiEsXnnU38vAaJnJECznWdYQcO5tqJfJmA6zw9DbiU4l+/Lhg9xpO67ja3g/aBy7gZ+ev68pQxKDv0hGVLU7GAOdIXDMMuI1iH/qBv41eBcROoc3aMwXldWHMv5j77yFBxRgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+s+1Kjw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782411449; c=relaxed/simple;
+	bh=s6mEgn6hx3YYtG/JOj5EMTIBHv8Bw1q4wB55mfRavqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IDG4cIrAVtBekV2PlXVAZFwtf9is4GP/Xb6aff2AmlYqts2Uy/NehacMSmdmZSxWYXJgotYfCy6jstDf687MLfDR2OfJ5Vh19yFBAM+Cj2KsTfQ3j6Q2ocJmw/w8Pot8jZ7LB2biLj2tEzsaRL60RMe1xe8a0VpqTRxUbqnEnak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbAoazxd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+s+1Kjw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0E81F00A3A;
-	Thu, 25 Jun 2026 18:12:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbAoazxd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCEC31F000E9;
+	Thu, 25 Jun 2026 18:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782411164;
-	bh=2RncQXwqznbhHie3Ilv2VL9/L076OrAzGH/nhSvBvr4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g+s+1KjweIhWVkk2zwPdcwali+AKhnshLhtPfX4lKUxr7Rm4fczlSUrF+3xor2VmL
-	 8ynuieaJhOufUTN1HcyGJN/tTh0K8NWp+PY0gm6LxxLZ/EuA9dloNr2bVv5GRA8+Gz
-	 BMbM9fj/y/3dYDr/JB76N9BC9UenCPWas+fT8rvozXnlnwtP3ZN89PFfHf9IyCeDTh
-	 VXrgSDIYUQHbfRRPII3JL7wG+CVhUa7ZQ86vdne9IIKxb4onKBGsAvxxJrTne8UitT
-	 mrySyNfby6lGLmyAZstMwaeWD1vfHVgn8Ar7JgdD89ahrWeChZ8F1tOKpVYFruL665
-	 CTe64EkMxnMzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 24/27] phy: rockchip: usbdp: Support going from
- DP-only mode to USB mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: linux-phy@lists.infradead.org, robh@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260625-rockchip-usbdp-cleanup-v7-24-38eb3cf654fd@collabora.com>
-References: <20260625-rockchip-usbdp-cleanup-v7-0-38eb3cf654fd@collabora.com>
- <20260625-rockchip-usbdp-cleanup-v7-24-38eb3cf654fd@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 18:12:43 +0000
-Message-Id: <20260625181244.4B0E81F00A3A@smtp.kernel.org>
+	s=k20260515; t=1782411448;
+	bh=s6mEgn6hx3YYtG/JOj5EMTIBHv8Bw1q4wB55mfRavqg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HbAoazxd5IEBVgCuq1esnBFRb0rxwbOgFtOvpDC22TDW/dA6lIIsKk4y3t9hXfawo
+	 Y4hOuh3r8nIOWOuqSw+CbZKMWBs5SJ/CsC7pbY1gNNGxCyKtV5kIEuwHDYHssbp26s
+	 IrsWno0qqAR/rNoL9kBrLmKqLjHJk5pOYXFKcCGG2g3t88Ou0CywtQgMhE9plnUBCh
+	 gP6vCiJODpDSuD2lwWmqWT3mmyDMWL7+GATbzrLxTjZA0wIOgdXUOc2cXzGGdCLrxM
+	 pmkymEH0gEAyybeSggic3JE2SKJBP6bAANc2cvwSCwxfQYi9fuv4Q3za5usN461aT1
+	 paDsizejtwYTQ==
+Date: Thu, 25 Jun 2026 19:17:23 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, Sean Wang <sean.wang@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [RFC PATCH 1/3] dt-bindings: pinctrl: mt8516/mt8167: Move
+ compatibles from mt66xx to mt6795
+Message-ID: <20260625-unearth-suffering-e2c59d39da0f@spud>
+References: <20260625104742.113803-1-l.scorcia@gmail.com>
+ <20260625104742.113803-2-l.scorcia@gmail.com>
+ <20260625-cameo-siamese-cd78c349519c@spud>
+ <CAORyz2JHj7i6VhKom+tVd8PWBjM=TFhbr8-mOy3GH6eDYu4WPw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e4IrXTl/Pn26GWFM"
+Content-Disposition: inline
+In-Reply-To: <CAORyz2JHj7i6VhKom+tVd8PWBjM=TFhbr8-mOy3GH6eDYu4WPw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-New issues:
-- [High] The `typec_mux_set` early return condition is a tautology, causing=
- the function to always return 0 and ignore all events.
-- [High] The `usb_in_use` flag fails to record the USB controller's intent =
-if `phy_init` is called while a DP-only adapter is plugged in.
-- [High] The fallback USB power-on logic in `rk_udphy_typec_mux_set` will n=
-ever trigger due to mode transition interference from orientation switch ca=
-llbacks.
+--e4IrXTl/Pn26GWFM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] The `UDPHY_MODE_USB` state bit is leaked in `udphy->status` if the=
- USB controller unbinds/exits while the PHY is in DP-only mode.
---
+On Thu, Jun 25, 2026 at 06:47:32PM +0200, Luca Leonardo Scorcia wrote:
+> Hi,
+>=20
+> > I've not done a very through analysis, but this seems like a massive ABI
+> > break.
+> > The change you're trying to make here will mean that new kernels will
+> > not work with older devicetrees AFAICT.
+>=20
+> Correct, that's the reason I sent it as an RFC (I mentioned this in
+> the cover letter). I am new to kernel work and I'm not sure how to
+> deal with this change. On one hand I am almost certain now that the
+> upstream driver has never been used in actual devices, since the older
+> code was only partially merged and also, as Sashiko correctly pointed
+> out in [1], it had serious errors when matched against the data sheet:
+>=20
+> Sashiko:
+> > Does this configuration cause a regression in pin multiplexing across t=
+he SoC?
+> > The legacy driver used a 4-bit shift per pin to pack 5 pins per 32-bit
+> > register. By passing 3 as the width here, the framework calculates mode
+> > offsets using 3 bits per pin. This causes pinmux writes to align with
+> > the wrong bits and can overwrite the configurations of adjacent pins.
+>=20
+> Data sheet here clearly shows 3 bits per pin are used to choose the
+> pin function.
+>=20
+> On the other hand I know that breaking the ABI is a big no. But what
+> would be an appropriate solution? Maybe duplicating the driver with a
 
-commit b29d116f72e458e2aa19213a694463c70672b033
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+If you can substantiate a claim that the current setup doesn't actually
+work for these devices (which seems plausible), you can justify changing
+the ABI on that basis.
 
-phy: rockchip: usbdp: Support going from DP-only mode to USB mode
+> different name, something like mediatek,mt8167-pinctrl-v2? Is there
+> another driver I could have a look at to learn how to approach this
+> problem?
 
-When a USB-C adapter mapping all Superspeed lanes to DP is plugged in,
-USB support is disabled in the PHY. This patch tracks USB usage and
-powers on the USB PHY in the Type-C mux set callback to ensure USB
-functionality is restored when switching to a USB-capable adapter.
+Usually when making ABI changes because something was inaccurate (but
+not wrong to the point that it didn't work at all) it's possible to
+support both new and old ABIs at the same time because of new properties
+etc. This is a difficult one because it's using the same properties in
+different ways. A new compatible would definitely be required for a
+genuine fresh start while retaining kernel support for the old mechanism
+in this case.
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index 6f3184011e5f2..1821418375968 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-[ ... ]
-> @@ -1293,7 +1299,13 @@ static int rk_udphy_usb3_phy_init(struct phy *phy)
->  		return 0;
->  	}
-> =20
-> -	return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
-> +	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_USB);
-> +	if (ret)
-> +		return ret;
-> +
-> +	udphy->usb_in_use =3D true;
-> +
-> +	return 0;
->  }
+But as I said, if what's in the kernel right now does not work at all,
+then you can probably just rework in place. Your commit messages will
+have to be very clear about why what you're doing is okay however.
+It'd probably be best to try to detect the old devicetrees (if that's
+even possible, will be tricky unless the devices you're moving are the
+ones that need mediatek,pctl-regmap) and reject probe.
 
-[Severity: High]
-If the USB controller probes and calls rk_udphy_usb3_phy_init() while a
-DP-only adapter is physically connected, udphy->mode will lack
-UDPHY_MODE_USB. The early return right before this will skip setting
-udphy->usb_in_use =3D true.
+> Sashiko also pointed out some other minor issues with the register
+> maps I already fixed locally after confirming with the data sheet, but
+> did not provide clues about how to solve the ABI breakage.
+>=20
+> [1] https://sashiko.dev/#/message/20260625111629.6CD701F000E9%40smtp.kern=
+el.org
+>=20
+> Thank you for your time!
+> --=20
+> Luca Leonardo Scorcia
+> l.scorcia@gmail.com
 
-Will this cause the fallback logic introduced below to fail when later
-switched to a USB-capable adapter?
+--e4IrXTl/Pn26GWFM
+Content-Type: application/pgp-signature; name=signature.asc
 
->  static int rk_udphy_usb3_phy_exit(struct phy *phy)
-> @@ -1302,6 +1314,8 @@ static int rk_udphy_usb3_phy_exit(struct phy *phy)
-> =20
->  	guard(mutex)(&udphy->mutex);
-> =20
-> +	udphy->usb_in_use =3D false;
-> +
->  	/* DP only or high-speed */
->  	if (!(udphy->mode & UDPHY_MODE_USB) || udphy->hs)
->  		return 0;
-> =20
->  	rk_udphy_power_off(udphy, UDPHY_MODE_USB);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-This is a pre-existing issue, but does this early return bypass state
-cleanup if the USB controller unbinds while the PHY is in DP-only mode?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1wsAAKCRB4tDGHoIJi
+0rCoAP4zcExKZkvJe5fjuE8AteJE2DILt37x+38necRJf2oztgEA9VoeHBrOzCjO
+Af8S/cjdnOJ3G3AHEZM3GMutSHIMBwI=
+=PEqZ
+-----END PGP SIGNATURE-----
 
-If udphy->mode lacks UDPHY_MODE_USB, rk_udphy_power_off() is skipped, which
-permanently leaves UDPHY_MODE_USB set in udphy->status and leaks hardware
-clocks and resets.
-
-> @@ -1321,6 +1335,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
-dev *mux,
->  				  struct typec_mux_state *state)
->  {
->  	struct rk_udphy *udphy =3D typec_mux_get_drvdata(mux);
-> +	u8 old_mode;
-> =20
->  	/*
->  	 * Ignore mux events not involving Safe State, USB State or DP AltMode,
->  	 * because the mode field is being reused, e.g. state->mode =3D=3D 4 co=
-uld
->  	 * be either TYPEC_MODE_USB4 or TYPEC_DP_STATE_C.
->  	 */
->  	if (state->mode >=3D TYPEC_STATE_MODAL || !state->alt ||
->  	    state->alt->svid !=3D USB_TYPEC_DP_SID)
->  		return 0;
-
-[Severity: High]
-Is this early return condition a tautology that drops all events?
-
-For Safe and USB states, state->alt is NULL, so !state->alt evaluates to
-true. For DP AltMode states, state->mode >=3D TYPEC_STATE_MODAL evaluates to
-true. Since these use logical OR, the function will always return 0.
-
-> =20
->  	guard(mutex)(&udphy->mutex);
-> =20
-> +	old_mode =3D udphy->mode;
-> +
->  	rk_udphy_set_typec_state(udphy, state->mode);
-> =20
-> +	/*
-> +	 * If the new mode includes USB but the old one didn't (e.g. leaving
-> +	 * DP-only), and the USB PHY was already initialized by the USB
-> +	 * controller, we need to power on the USB side now since no
-> +	 * subsequent phy_init call will come from the controller.
-> +	 */
-> +	if ((udphy->mode & UDPHY_MODE_USB) && !(old_mode & UDPHY_MODE_USB) &&
-> +	    udphy->usb_in_use && !udphy->hs)
-> +		return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
-> +
->  	return 0;
->  }
-
-[Severity: High]
-Will this fallback logic ever execute during a replug?
-
-When swapping a DP-only adapter for a USB-capable one, the orientation swit=
-ch
-callback rk_udphy_orien_sw_set() is typically invoked first. This sets the
-mode to UDPHY_MODE_DP_USB.
-
-By the time rk_udphy_typec_mux_set() is called here, udphy->mode already
-includes UDPHY_MODE_USB, so old_mode will have it as well. As a result,
-!(old_mode & UDPHY_MODE_USB) will evaluate to false and bypass this logic.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-rockchip-u=
-sbdp-cleanup-v7-0-38eb3cf654fd@collabora.com?part=3D24
+--e4IrXTl/Pn26GWFM--
