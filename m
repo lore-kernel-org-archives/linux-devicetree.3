@@ -1,293 +1,116 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013080.outbound.protection.outlook.com [52.103.14.80])
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E8536DA1F;
-	Thu, 25 Jun 2026 14:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782397508; cv=fail; b=Ek2JH4jCmWi43dktpJjyx+mRIbW80YeZRaYU/bSQ2UOI/wFr50PS9vohCgOnfIFmOV7YKaNVgC/LP6IQ1LkN0XXpx6x/3J0i2H+QN5126pGKcvs2EAoVRhLA6RUEexyhKlG0mig103Ay9S0MFUrWBSeL+hFaiSy4ti6sosapS00=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782397508; c=relaxed/simple;
-	bh=QXMjPsbLeLaacEWqZ4530hUF414/zTYYbViKR2WL638=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=XbOYNyj+0CEqubFmP+ciV3gl5CaoNqJ+bjRN4SxPZOYFO4b2p0OMxWgZubOYtZq7hnUs2r4jf2usaVLRTeDIFR834NO2oLTgElDPK3fOXSGUWqn7PARVpxyXyI5XDgXvmmirxJ9dbNUlLmGtnhlaJ1mTiyPKHcc0tSF/I3iBLe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=f9FsrxA8; arc=fail smtp.client-ip=52.103.14.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93990349CE9;
+	Thu, 25 Jun 2026 14:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782397826; cv=none; b=JfFmDg4n3UhXElRvpe1+CKCJuEYp2wP76L962wvC7j6JU7xeq3brWo4jHZONt/fkeMWWA4i3YoALvYlCweZtg3b/0QriOMAW391FxND28RZ/yS+9BMci4T9qBzb/ohmsaDv9ge4XWj5tIxKUum84YAygWVZbupMPCeQxvV42jhw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782397826; c=relaxed/simple;
+	bh=iSZ+AgvC2DWDc+PLE6JDggxMSRLW5Vxm2W02U3jdNjU=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=S4isTcrSYfolwWyKdW8eWoG0vyGpjU/xYXcWtW9jywh93AQpbpT8XeCuk9K0pXtENNV3B7Pbd55y6vG+FDyRc9HH48U4TWJwOG8uAMzDM9bcMsqXlrAtbFyf6at+V+HTDQsnq9YGd16tDpnpcyEPwHN5BgV3dg1ymsRC2QcFS5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=Q+bW08MB; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="f9FsrxA8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ztx/9WQrzyr+G5Bd8QPV5r+D3VUujlwT7m1F0olZ+8cg3vDlYsC4h0tHqsjfJenU4LvWS9dPgelfglrcptA/ar/gr4MwA4VZlY7eye/i1V0m3zzij+0zC9iDqT9173fzAsWV6AflLESAbwFrRwiagvU8I/vay5ngcTQsOveoZE26gLtUbURF2ih0LsbmtmtXxdU508jNXmd0xR/cVM/yj2CY6Fx06pWl3w2vZ0dUYJaBQJe3uFDsytt+54VghwBAbXW4JyQuJ6g00oeuRoQdyQdzJu9PDaWReuMGnZ+t/TZqPC9eXiRwgBwWmdBL5S09awaO82BhHjbNwJSMgi2Z8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g5f9VsYJwLq4AYpPqV2rvGHdoEUUyi99/rKpR3Dw37Y=;
- b=cek61uSJ93+otlWMo5I1t+ldsRLns4beCfUod7ErJ8vXZjN8TLysCRRjg+BU3/F6JRGp/8vcdHV5F3SlDqWaTLN4mrnwjyTMIM72FW/ujaUZb75YW3SGqZoIXJmcCtpm9C2cAhCLEPclQmHdL3rDiS9a0libSWFJ0kd9G9I2AJZopsGXsfUujPc7RfRO4m0mrBNkQR11X9zoyqWVYPWXyI0/gw/p8wfHfWuZ+/QjxTmmoCIVlEBNI7zdu0yYcwLB1AcUnM8i+nI8pKj5YJjIIEAnZ58eiu4DNtnnUai5Qmfa1ZuSwNOrBNu9czNHBjGPXzAkBU7QwzRETiXi+ptZUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g5f9VsYJwLq4AYpPqV2rvGHdoEUUyi99/rKpR3Dw37Y=;
- b=f9FsrxA8GpiEXy9hRHeSNNccVs6Iv0eoNcunMXs9Lc1P6fVnF43gIegeahd1vJ1KPPqtsLYRaR9Nd7ARgYG6kUQM/jCYn5l0RPgXAydBtLgfr6WSwSef9isEpdDJxM7Xn7eB830SvWhbxNLjES685imqGdcaHKilJNWf7bzOVgCMwaKG0JpMVqspuCZChRYqwOTFF0E/l//CbW3Q5kxevI1SFx/WGdStJ683bgjQnFxpQyYsyCSmUu0Z54WReX/3eRApdA4CBaCKQBt7UvQ36/gokKxbcRLC2jLDEL2GAfA2tawftvGGSj8okr9H/Dz+h0la8dHnDF7BA4Zh2mE5/g==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by SJ0PR19MB4622.namprd19.prod.outlook.com (2603:10b6:a03:28b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 14:25:03 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0159.007; Thu, 25 Jun 2026
- 14:25:02 +0000
-Message-ID:
- <SN7PR19MB6736656C55BC6DA32A3E75CA9DEC2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Thu, 25 Jun 2026 18:24:48 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] remoteproc: qcom: Add M0 BTSS secure PIL driver
-To: Philipp Zabel <p.zabel@pengutronix.de>, Jens Axboe <axboe@kernel.dk>,
- Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
- Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Saravana Kannan
- <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- netdev@vger.kernel.org, linux-remoteproc@vger.kernel.org
-References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
- <20260625-ipq5018-bluetooth-v1-2-d999be0e04f7@outlook.com>
- <439f76c3fcafdfb91cca426fcae17ef776776eab.camel@pengutronix.de>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <439f76c3fcafdfb91cca426fcae17ef776776eab.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P195CA0034.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:65a::22) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <aab339ca-6b5c-472b-9737-87d41e49e8a4@outlook.com>
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="Q+bW08MB"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P4JFRl405670;
+	Thu, 25 Jun 2026 15:03:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=OcTQy6whelO1gq+B72/7YO9
+	fJ7m0kZ9hwFtZQ6QGIm4=; b=Q+bW08MBvtXvrbd00vATpn9TEahpf0CrWEfhNUr
+	dNNS9wXGSv4JddgmcoD93EHs3IJqiU0/Qba4FU4A6dwdwXapYFvrbeyiDMX/XZhZ
+	sHFEkVqz756pkDmvMrxKIVSvopVpPOpB6cB75Y3HWKr8zOqlJEoyERNm4vOoMkfa
+	JfFyzjiBRJIzDiE38HDVS9JapKFEArWMgWQgIliGEOs6mPBhvpPv9iuFnBHA1Nua
+	RNkM6oI9yd0++7dp0u6sPugW9LVNEJaXCIm4sox1tjtdtmcdHZxhR43g4cyf6hUi
+	8A+OlCDZ/M/hv6YrNvsKE8LZwHWYAfXu6yt80Jp412gVZvQ==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4f0t728jce-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 25 Jun 2026 15:03:46 +0100 (BST)
+Received: from [127.0.1.1] (172.25.4.185) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 25 Jun
+ 2026 15:03:45 +0100
+From: Matt Coster <matt.coster@imgtec.com>
+Subject: [PATCH 0/3] drm/imagination: Maintainer updates
+Date: Thu, 25 Jun 2026 15:03:36 +0100
+Message-ID: <20260625-maintainer-updates-v1-0-35112b2f038e@imgtec.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|SJ0PR19MB4622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12ef7d2f-83b5-4fcb-7ca9-08ded2c58b11
-X-MS-Exchange-SLBlob-MailProps:
-	dx7TrgQSB6cUe9t9Fs5HiQGsDL5YS4Qs2BZu8RFnRVvnmRZ50OLmZvuZddTIKQYBJDJ3dcbD3MjGALgl4piH4lEY7nWQfLnigh26shyJrzR0iaVV0q/zQmEsbLxBgIDkXm/L1wyOMTKpF4jB9lK/Unf5SU4v8/ESc9wgvqTMq0MrxksKbrAQTsTXwdzjINiNXm0UixeQvUY7A0jx2niOf7+HoH4MOdqXKrQhRUf3eZGFIZj35V8cuGwjSwJu0r7baLWc3mS0UrIAoio0GAN/VU/Dl1ajWzzrNzt1SxtV9F5YQB8jyK7yJOxvz/06QOulIsIMkr+NhX9MthJE4CelwFV17hOMH8VOn9lZpayf1DZvj6ZEDkaEHSOIVEJw6bsdrpc96XyCPCRtUn5/xvESko9bdjAiH75lblNu12hhw5gcY/BY63eLQsRfInl7bFo5R57kMuU1meV12GG8oalsj4uRpRFzzehxtwgE2Eb7/RtrOO774ixxsSWmPxziJ0lnvgJ59BVO8MEb8Y1S8jb+eI5NmKQnWUNUcN/7n4Cx/6N+j6/xvkUvDzcJSnGTPbIGYaONdiWM/4J0mkpUPAl8xPjs/KzfK+I7r1BNRKugDkdxx2XZP5pKs83uj5Df1tbX7FqfCk9rAF5Mx4DTZNULrTQ8pIuFIO83XkemQZQRcAMQurIZ0twiA1547/NBhk8LG4J5+eSqiceHopoO2Pw+wPKW96tBakwxBGnks+VWBDhWeLpQF8rnPq4bXYmZ4U6FWju6HWmJ7i4=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|4140399003|15080799012|25010399006|23021999003|37011999003|19110799012|5072599009|8060799015|41001999006|6090799003|24021099003|53005399003|40105399003|41105399003|3412199025|440099028|12091999003;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZjQyTmMzNVBJYW54eHdzekd0Rktoem9kYm5IanIvRHFWZjNuSllVZGp4cVFj?=
- =?utf-8?B?WTZlWDRvRXFOeXZMekNxV2VFd0F3cjBUM3MzQW9zTWUyemM2c3puZzMxTzR1?=
- =?utf-8?B?U0Y3UWZtaGNZMTkzWS9lZmgxVkdaWUpLVlBYYmdDcmltQkdVdThtR2cxbjVH?=
- =?utf-8?B?aVhZcjNrT1MwUVE4TW1Lc0RFa2pRUnVYVnpGdnFSd0hxeXFsZ3JzbDJnNUEr?=
- =?utf-8?B?Skk0SEdFWTJLMEN5OGFOcG8xWVdkVGZ2SEJ1SzA3aVAxMC9nbVN2WDU1Y0pH?=
- =?utf-8?B?TG54VmEzc3htVmdjM1F1QmhxYVJFQjJQMWVaaTVxcjAzVHA4eVowNXNCcm5Y?=
- =?utf-8?B?dWx4UFFXUzladW5GQ1Fzc2ZVbCtPTGExRmpMTHAxNnFXQk1aUFFBOXRiaUZQ?=
- =?utf-8?B?Q1QyeGV3Mmp1ajNUS0k5dUpDWm5QN2pXbDdDSG1OVGl1Sjg2cGhlODVoSFhj?=
- =?utf-8?B?NWs5ZFRlNU1XbkpzSEU1UGdFYUkzY3g0bzU1blVPUjQzaTNycmQzQ3dEckhN?=
- =?utf-8?B?Z2RGS29BdzRmWlVBS2tvdTQ2dWc0SklhditwVVFkME43bEdMUXMwNGxVWnUz?=
- =?utf-8?B?dVR0dEMwM1JNMGZjSmFuMXh2ZjUxMXBHd3ErQldPbWhwdG1VcUJ6cWtSMW4y?=
- =?utf-8?B?UndWTVJKOHdaN2FRZjcyV0ZIdHo3MFlKdmJ1eVpjc2xJdGxHbnh6UjhLbWJi?=
- =?utf-8?B?TlZYODM3eUhTOGxuNytnME9vVTVyYi9EcnBpZmZ2MUdtM1JSdkhzZngwZWV1?=
- =?utf-8?B?RUVrdGFnQTZNbXB5Q015RTdQOWtSU3IvMjRtVlQ1a1JsdVBYMzZibjl0VTBH?=
- =?utf-8?B?bStwMEUrdmRHSTJMcWFCVWxkRjF4cGF6RWNaL2kxai9LdWhWQzNrVnJLS05a?=
- =?utf-8?B?RmlMM1diTE1aYkIyWXpNSVJaMTYyZ09takFwQkdHbGFNT3hSM0h4VmNFalA5?=
- =?utf-8?B?OE9ieGtxaWxHeW5EemwrL29GQmNPYjB3NENkK1gvbG1JUE5CSTBNSE8yU0ph?=
- =?utf-8?B?S2NyLzhEcE8rVWViUU41dnYxeDlLVGNZdXNvRDVUTXlkeHVROW10RGg2eklk?=
- =?utf-8?B?MGpzcWVQcktER2UzQ2U5TFMzTWdxY0ZTb1o2KzZtN3JBSHMrL0JMaUJrTEJF?=
- =?utf-8?B?TWFlaG0valFEbTdZNGZJK2g0WFdlb2RHZFBjYU9sbXJpWlJ5RUJEdHZmVFV4?=
- =?utf-8?B?TlBYVTBVdDZTUndhRmtOVGxSWDcwRitWYnJzUmdZWHdQTlFSR3owWDdnVkl4?=
- =?utf-8?B?ck9ub0phSElodjZSMXM4TS9xVzRHTXNsYTZFYVNFVUp3RFpoUHdGWm1QSlNK?=
- =?utf-8?B?TmpnZENWWjEwa0R5a1ZHM3FoaHZudWo2czZMVU5GMXBTdXNiWjVVUzBDem1a?=
- =?utf-8?B?MDJpYXBLQlJ4V0FydUluNFBNOE9tSFAzVHZBSStYSjcwZWJjN0hjZWpwUllZ?=
- =?utf-8?B?elJMS0hacjgrZXlDQ3Q3bEcxSVQ4YmJqTkYyNGtTQjM0bVVFVEo1TU02MTNO?=
- =?utf-8?Q?BvQPYo=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cnVVd3c3UCt3UUVtdGp6WklMdlowTWhaaDdxdUZiZHdkbGtaSGZMejBPQmU3?=
- =?utf-8?B?UkxkemhUTHEzWnFjU2xNc3Vtcngyc2IzdHJSS0xTSzJlTW9uZm5JU2FwUTJz?=
- =?utf-8?B?dWlHZTAxcjVJbWgxNzF6WFNVKzh3S3MvT2J6RTN3RlFKem4rOFh5ZmZpK2Va?=
- =?utf-8?B?VUs2VSs4OEg3L2VVQW5iRWhlWUNXQ0FQSTMvVEdXem4ycmNpTUI1SmRURWxO?=
- =?utf-8?B?c2ZVb25UY0wreFphb0NVZDlUSm96eDduTEJtQ21vZWl6Z1dQTjd4YVdKdXNo?=
- =?utf-8?B?VkJub2xEbE1SNTlLelNvMVJUeTdRdURiYktjbmRTY2RNdWRrSzhBRWpXMDFq?=
- =?utf-8?B?NmVIODVmR0xTcEdjOUE3Y1YrVVBOcTcwY1ZuNVN2dkhPTFF3MEpHZU5BT3o0?=
- =?utf-8?B?eGx5Z05WQitDZkNkNGNsRHNRS1c4RXBZUmhiUTNnbWtXSDRSZEN0UGNWamp2?=
- =?utf-8?B?MnJqUVJKYWVONHRYK3M2OTlhYXpKcGlDNytjZXZ2VUQzdmlmOVdUVXR6NWdw?=
- =?utf-8?B?SDZ1bVhEWnVoN2gxQzRiTDFXWGxSd2V5dk9zbDkyZUJKbXgyRzFQcHA4bWIv?=
- =?utf-8?B?bHA3c0hFeGN3K0JIZFhOdjBFWTlnRHYyYXRXRzlEZmlUWEFteVBEdVl5N3lx?=
- =?utf-8?B?SjA2VThTUDMreTFqamprcTBpajZYMW9PaTM1UW9IVnF3Rm5xODQza01Yb3Ex?=
- =?utf-8?B?SEw3MXlvK2VnOVU4dlNPaWZDaXJBSXBOTVhJWXllQ3kzWXdFcVNVSjI5cG5a?=
- =?utf-8?B?VmpvbHF1ZUFRVHRCMytvdHhZUXZ3SkdqKzVhS21rYno1SEZYMjV3ZUI0Zkx2?=
- =?utf-8?B?RVRIdmcrTUdSdWlhWFJPcktxK0NLNTRPaWVHd0JnVUVzblpmSm8wSmlGdTkx?=
- =?utf-8?B?bnFkSDZqZEJaZ1M4Q0pMaDluQlBneURRODF5M2RZNDB4SDZzZk92L2pINXQ0?=
- =?utf-8?B?NXlRRzM3NDE5R2hMQTk1VXo3a0NIeXlPU0UyRXU2TkJFalh4WnpvYjlCSTJF?=
- =?utf-8?B?aUN1MC9yTW1NYVhSNENmQkRtcE85QlBCZ3NETGVmOFZiSWxoSmptc25JOGJD?=
- =?utf-8?B?L3FCQXUwWlVzbWRXT1RBdFdYcnJmWTZtODZwb0piZmRHa0YyNENqUXVoNDZM?=
- =?utf-8?B?bGx3bVpnR1l0Q1NYYVpQRmx1NENDcnV4VytyaHRIZCtiVFcyU1o1M3I5QVpI?=
- =?utf-8?B?VVpiWlB4bW1OMkVzZVc3VHFJdzlVMUV4cWk4akZNZDBBZFdCZDc1QUc5UlNC?=
- =?utf-8?B?R0hWNXAvdG1BVzFsbS9wbFZiR3lLK1FkMnVyYURIY2VaWXhsVnM1MitxcXcw?=
- =?utf-8?B?M3ZtdDFoMU5NS3RLLzc4aFdxeGZERW9nRHp1a2RZODVFaUI4eUZIdm5BcHRs?=
- =?utf-8?B?aHZwdXBJU0swRGdMU2lqWU54bTl4bElDS2Z0a0tHYllLL3IxZkxUVlZwcXhx?=
- =?utf-8?B?eStWV1RGRWJBZEs0QVE1UlpoSFVrdGYxVGdURXd1L3lCbHhHZUFtTktQQjI4?=
- =?utf-8?B?OWlPdFhISVFQVWRVcnQxVk1HejdaRGc3OTRMT0VqWFVQc0NxVVZSNmZxd1Qw?=
- =?utf-8?B?Z1VOZWY2ZE5ISVpvUkRrS1QvVXN3T08vZk5SZ3RPWXFPamduNEVvaWIySmhh?=
- =?utf-8?B?U2lRWWJFNnBSUEhVOWdsUEdnTXEyTW1abXB5K1UxeEVXQlp3YnM1eUJXOXdD?=
- =?utf-8?B?MjUvOUUrSG0rRjZBNU1tc1lKUXRNc0tMVDYzYUV1cmdJRExaTnVLdUpka0Q3?=
- =?utf-8?B?TXRtbHNCTjVCekM2MzBRTnNCTkhVY29mR1dCMVNsMzd5ZTJlQVZtTFczUEVi?=
- =?utf-8?B?YmpuSkFQRzdiYm1TMGM3OS8xUFcwZ1RHZThqVWZVV0FsQkVIdFhoNUNLdGgv?=
- =?utf-8?B?OGc4M3R6emlIN1c5dWZsVStpdlVMQWVkNXIySStLV0l2aFE9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12ef7d2f-83b5-4fcb-7ca9-08ded2c58b11
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 14:25:02.2196
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR19MB4622
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADg1PWoC/yXMQQ5AMBCF4avIrDWhUcFVxKJqMBIlnVYk4u6Kx
+ Vt8i/dfwOgIGZrkAocHMW02Ik8TMLO2EwoaokFmssxKWYhVk/Vx6ETYB+2RRT+avKqlKpRSEI+
+ 7w5HOL9p2vzn0Cxr/luC+H65h4+V2AAAA
+X-Change-ID: 20260624-maintainer-updates-bfc189254555
+To: <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Frank Binns <frank.binns@imgtec.com>,
+        "Brajesh
+ Gupta" <brajesh.gupta@imgtec.com>,
+        Alexandru Dadu
+	<alexandru.dadu@imgtec.com>,
+        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        Matt Coster <matt.coster@imgtec.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=matt.coster@imgtec.com;
+ h=from:subject:message-id; bh=iSZ+AgvC2DWDc+PLE6JDggxMSRLW5Vxm2W02U3jdNjU=;
+ b=owGbwMvMwCVWuUfy8817WRsYT6slMWTZmtq/+x1yWuzsDnO5BPYgg4UVp/917TAqDA4VsNSYd
+ cNxb9+kjlIWBjEuBlkxRZYdKyxXqP1R05K48asYZg4rE8gQBi5OAZjIKS1GhqO6hZLuLsVCVt3r
+ W2MnNi+092h9lruc/4xixc7Aa4fd3BgZpmzdVXFvB7dk7eHnHhyZu54cPz7p624xw88NnDcypCO
+ MmAA=
+X-Developer-Key: i=matt.coster@imgtec.com; a=openpgp;
+ fpr=05A40CFCE7269D61D97100A1747F0A9036F90DFA
+X-Proofpoint-ORIG-GUID: _Waomku9iG-GnkieZfxTcdMeDC2gyrxW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDEyMCBTYWx0ZWRfX3aI0ywAgxuju
+ uqLSW1R2Gd68sSM9vw8Hfo2MTmhVKg/9tN5sqajXqsmmAgNlax+WoNYKcpM/Y/TyUG52fphw+tc
+ AxLEVAmZUlDReqUx6b9trfLpzzjVijA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDEyMCBTYWx0ZWRfXyZW552nZ5rpp
+ cDHIF0v04YcuS45MDbOJ0yCUqyMmZ0WGFWVKMIQStFoTvs8EsQyCoJy3RH8CxowuCj0tG1n010G
+ XYD+r3ZImhtemKQwG3b0aw5KP4bIT3lPz3/p+gfmvJReVlM0BakYzTdqR+PkkraWS8U8aOmpaC5
+ TFkO+D8763tscH8jfmIJ+borzq3zWVViGSeIK3Vfao3OvZhPWO7zomzCNxnHd1GEiz13kKTFRWF
+ oQ2ABCbD4k3YdQlMqwFvcwaFFJF5gfWjszzOqxg7h0HhuDRPQe3a7l/KET5ehWQ5c227OISWdQz
+ f6PBCLGCynE6p591h+tlWoc+aRe4i2gGZniXyr4opB6lJZAmpmcwcBm+1s6a2XKsdCE8NxVdsck
+ xYo5hSlvW5DqJG23qwBVXp/Zo++78LT1sPH4tHOmgEkzW4er3T7EzTvNw5Em/iyq+9UUePkUzRW
+ r+cFT4ZXf+PXA4R2eFg==
+X-Authority-Analysis: v=2.4 cv=ee0NubEH c=1 sm=1 tr=0 ts=6a3d3542 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=e416AD1ZbSsA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=C7lNtc9udWNi9DOn6YEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: _Waomku9iG-GnkieZfxTcdMeDC2gyrxW
 
-Thanks, that was quick!
+We've got some new people stepping up to help out with maintainership of
+the imagination driver, so let's take this opportunity to unify the
+maintainer list where it appears across multiple files.
 
-On 6/25/26 18:18, Philipp Zabel wrote:
-> On Do, 2026-06-25 at 18:10 +0400, George Moussalem via B4 Relay wrote:
->> From: George Moussalem <george.moussalem@outlook.com>
->>
->> Add support to bring up the M0 core of the bluetooth subsystem found in
->> the IPQ5018 SoC.
->>
->> The signed firmware loaded is authenticated by TrustZone. If successful,
->> the M0 core boots the firmware and the peripheral is taken out of reset
->> using a Secure Channel Manager call to TrustZone.
->>
->> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->> ---
->>  drivers/remoteproc/Kconfig            |  12 ++
->>  drivers/remoteproc/Makefile           |   1 +
->>  drivers/remoteproc/qcom_m0_btss_pil.c | 261 ++++++++++++++++++++++++++++++++++
->>  3 files changed, 274 insertions(+)
->>
-> [...]
->> diff --git a/drivers/remoteproc/qcom_m0_btss_pil.c b/drivers/remoteproc/qcom_m0_btss_pil.c
->> new file mode 100644
->> index 000000000000..7168e270e4d4
->> --- /dev/null
->> +++ b/drivers/remoteproc/qcom_m0_btss_pil.c
->> @@ -0,0 +1,261 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) 2026 The Linux Foundation. All rights reserved.
->> + */
->> +
->> +#include <linux/clk.h>
->> +#include <linux/delay.h>
->> +#include <linux/elf.h>
->> +#include <linux/firmware/qcom/qcom_scm.h>
->> +#include <linux/io.h>
->> +#include <linux/kernel.h>
->> +#include <linux/of_reserved_mem.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/reset.h>
->> +#include <linux/soc/qcom/mdt_loader.h>
->> +
->> +#include "qcom_common.h"
->> +
->> +#define BTSS_PAS_ID	0xc
->> +
->> +struct m0_btss {
->> +	struct device *dev;
->> +	phys_addr_t mem_phys;
->> +	phys_addr_t mem_reloc;
->> +	void __iomem *mem_region;
->> +	size_t mem_size;
->> +	struct reset_control *btss_reset;
-> 
-> Why is this stored here? It doesn't seem to be used.
+There are also some new resources (mailing list, patchwork, IRC) that
+didn't previously exist and had not yet been added, so let's do that now
+as well.
 
-will remove it and use devm_reset_control_get_exclusive_deasserted as
-suggested below.
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+---
+Matt Coster (3):
+      MAINTAINERS: Update imagination details
+      MAINTAINERS: Update imagination maintainers
+      dt-bindings: gpu: img,powervr-*: Add maintainer entries
 
-> 
-> [...]
->> +static int m0_btss_pil_probe(struct platform_device *pdev)
->> +{
->> +	// struct reset_control *btss_reset;
-> 
-> It looks like this shouldn't be commented out.
-> 
->> +	struct device *dev = &pdev->dev;
->> +	const char *fw_name = NULL;
->> +	struct m0_btss *desc;
->> +	struct clk *lpo_clk;
->> +	struct rproc *rproc;
->> +	int ret;
->> +
->> +	ret = of_property_read_string(dev->of_node, "firmware-name",
->> +				      &fw_name);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	rproc = devm_rproc_alloc(dev, "m0btss", &m0_btss_ops,
->> +				 fw_name, sizeof(*desc));
->> +	if (!rproc) {
->> +		dev_err(dev, "failed to allocate rproc\n");
->> +		return -ENOMEM;
->> +	}
->> +
->> +	desc = rproc->priv;
->> +	desc->dev = dev;
->> +
->> +	ret = m0_btss_alloc_memory_region(desc);
->> +	if (ret)
->> +		return ret;
->> +
->> +	lpo_clk = devm_clk_get_enabled(dev, "btss_lpo_clk");
->> +	if (IS_ERR(lpo_clk))
->> +		return dev_err_probe(dev, PTR_ERR(lpo_clk),
->> +				     "Failed to get lpo clock\n");
->> +
->> +	desc->btss_reset = devm_reset_control_get(dev, "btss_reset");
-> 
-> Please use devm_reset_control_get_exclusive() directly.
-> 
->> +	if (IS_ERR_OR_NULL(desc->btss_reset))
->> +		return dev_err_probe(dev, PTR_ERR(desc->btss_reset),
->> +				     "unable to acquire btss_reset\n");
->> +
->> +	ret = reset_control_deassert(desc->btss_reset);
->> +	if (ret)
->> +		return dev_err_probe(rproc->dev.parent, ret,
->> +				     "Failed to deassert reset\n");
-> 
-> Shouldn't this be asserted on remove? Otherwise after an unbind/bind
-> cycle probe will enable the clock with reset already deasserted.
-> That may or may not be problematic.
-> 
-> Consider using devm_reset_control_get_exclusive_deasserted().
-> 
-> 
-> regards
-> Philipp
-
-Regards,
-George
+ Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml |  4 +++-
+ Documentation/devicetree/bindings/gpu/img,powervr-sgx.yaml   |  4 +++-
+ MAINTAINERS                                                  | 10 +++++++---
+ 3 files changed, 13 insertions(+), 5 deletions(-)
+---
+base-commit: 60b5fa6edfef867322fce7c8306e5c4b46211be7
+change-id: 20260624-maintainer-updates-bfc189254555
 
