@@ -1,271 +1,215 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2F82EDD70
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 04:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3566D2EC57C;
+	Thu, 25 Jun 2026 05:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782363205; cv=none; b=cD7mOkXj/JK1NpCcS6eZy5ehCClzzkHbWkbw9obgYwM+G+40XtdyReorOEw96YiKTa1VQyStafgMs01t5qMCVGZdpWaARxZlNlxUlHWdWexAuqL9kaEmHDj42u8z+2FZs4617QiyOqXNfSzvyuaTg3AKKDrDZGP1Jv5MCW61b1o=
+	t=1782364499; cv=none; b=WlU3FuB1XlwidO2eTL1G2JQuickMLV4W2i2z1GmfTX1EX9BW+iLMxAQKDplrf5FqId/A7SBIiATE4cZ35akiF+S41eYZhcWQpJ83cLFp5Aq3yxwjUMndD1YK1yWBGFiK0dqfdcVNqF8KdDb+uPbbM7bIh+1RsIR2jMLoUH5I7g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782363205; c=relaxed/simple;
-	bh=+r5MShm5dJNFAt/vj3a1tzfA5ffFPEd9Xvw2aKOngkQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L3Xfy30AiAEvBUtBmAs6XMvdjKTPhD4z2Y88aHkP7TmVicCDJogXnQo4rXJhVoo9RXkfFMyJSDiyvAPgorhaO17cf/wWKAZ/LS4VXk+x9sVF/h/GUoBdZNkVcot46tw946C5ZOTniV449HAfupo0b+MU/B6H/A6B4leKg/BEOAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a530rYii; arc=none smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782364499; c=relaxed/simple;
+	bh=FCAeukJ8RzLyq5Vj+dqHzRjEQyC/Qev+o4x6kcL55HY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DCTFO/PPLhwVii4yUxwbsI5ZrFLVAtlyA75Wqj+5F23mWQyvileN4lMHSSDumV0csXi3yBrFzv1IsHFoNjVpqCP8XTX8niwgyS0VYrYrHUOiFkC15NG5CkgX7BU+4WzIKjMLzz0Jfo/HSUa5uMaSiYmwAp4JEI3bndmIULjtlPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=TPykId9t; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a530rYii"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-30bf854d5feso4442959eec.0
-        for <devicetree@vger.kernel.org>; Wed, 24 Jun 2026 21:53:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782363203; x=1782968003; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0tA1o79GF2y+eTYK/pnc5wl3lBb1SmYdnnZxK1L8M8Y=;
-        b=a530rYiiunNyRg54L4rLhtnM3O1N0ers/nQHIZSEkoQOOoSukxFbXIcK5VHxaQC4up
-         LJJ7JMIObMlVHtuczu+jKChhmqH6V+DpPz+gGM4VfdXNS+/KWCsCD3h0IAEKndOkmbTI
-         Ubi2bZCctdLLjG/9l3c4dxcrtFRvx18O+TLdrqDETqAO0A1xdjnEPIkwCIBY+eh8+rfx
-         gDrTspojTKizqtWSV/uxPZUA8FZM35sSyhl4GJNzBC+L2IBH5gsShlvr68nBjqWmo3P6
-         i1BR81JYpX90UH8hxrmEVUVpB+f50be0ag/0IaMj+P9DiVtdjb22VVshaFxxl8YCF8C7
-         Bn0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782363203; x=1782968003;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0tA1o79GF2y+eTYK/pnc5wl3lBb1SmYdnnZxK1L8M8Y=;
-        b=gqAIYuJ5Dgo5MgSOqJhSYPo/kUZSCyZl7887q01ZaOwI/EXUOuY4Bw/18of/+/83rx
-         D/XTWCU73XU2y4/BwNaDjDjtLj1sSErcFrkJ1yvsg1tGdCeXdpEMQn3BYL6AqQM9coa1
-         F8/rh5WMd70Zn37IwK8dT8XJAquKV4RFfNEPzpToLHtm1OoajrGx1ND9o6m4PmWdNJ98
-         as3MSGCnBR5cwbkbg1pB5Hzm7yZ9OCIdo/ipOt7DIGausfux+U470IYOvgKirAxNg9sb
-         PkkCjzqPuriqIGCuBdRZL7ZOsCa2m1m3Zu2FFVDKQtfjXut1VDmbDkz9f53K0d/w887J
-         Qi2w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr702XXBqUSaVY5E3nq9ZY3fxD8wCplakc5vwqhJFLNmCQp0lCy4itb5dOWgORlN8pdoiBa888sW8lP@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOFuKjCJql13eAbqWpl6tIH6aJNyDNW3tF0Z4awJ7ayv2u5Fa2
-	ymuLXreeB0JvjXnruw4FaP65NU7h+t7wbIe/JHibuebL2woPpTvpilUT
-X-Gm-Gg: AfdE7cn7hmNdOOlmm1GDmnbvBNroPlTRIwTGC02yxkP33JwW/ons9yp6WsS59X9ZhcL
-	tzPYt9JwOCfrlze1L+l+9kBjjFPIVmZIZ5d2iNGnKH3WA/47/hJYoj37/hrSFilyC9DCukPntvR
-	jcVYGRscweONNx45Aj8go0zoSVIvkyiw4OOGE+H4CIFkSBAOeA1rrAoYeJhp+ki30U/b1ngC27x
-	noEgeeKyowlP6iT/VAaD4YNHFlaR5JdjkrzO1W2bs1F4U9+XJdiE8PLFCdzf88/RCrxG4EV+LnH
-	qt20qukoS7BCkHweqjZhFwgXBYh2Wz4Pa5aXp7d9vC/jWZoa8/tvEglxlem+I6/oKRl1uL6CLxr
-	Roba5H1X0jELp13DXTStdzdcrFMsCEojPFuEHiQYyni7ZXji7cEg0BA1aLsyTwipKmgJSbVq5yd
-	P5esD6KJT8eNa6Ix8MQ8i2wln+14/hZJvI3onvs76xsuOu4yHY6vXiPw==
-X-Received: by 2002:a05:7301:e04:b0:2ed:e15:c923 with SMTP id 5a478bee46e88-30c84e974dcmr1116849eec.31.1782363202622;
-        Wed, 24 Jun 2026 21:53:22 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:c782:a4ca:fcbd:6ba7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c4c9dafsm5191149eec.1.2026.06.24.21.53.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Jun 2026 21:53:21 -0700 (PDT)
-Date: Wed, 24 Jun 2026 21:53:05 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
-	Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, Vincent Huang <vincent.huang@tw.synaptics.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
- compatible to include model
-Message-ID: <ajxakXFuKAkhdZLN@google.com>
-References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
- <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
- <ahdoBl3qCTyvlYJf@google.com>
- <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
- <742c7a13-9465-40e8-8990-e679712e9784@ixit.cz>
- <ajtaUb4YmyZTDLmQ@google.com>
- <52b7dd3a-3f6f-474c-8386-4fc2776b185b@ixit.cz>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="TPykId9t"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=xBI/2YDcHNtE+QcZY8pKqHohUJo6d3H7lbIGpWyQnYA=; b=TPykId9tmRhwUUOAMGOJ3Eg1Wn
+	IyvzitS/1DW24MYRHtuhCKnh9MgVv+wLrDnQId3e5HnTU4YkiFF9u7WjPBxKsROSL52oN6NZFAB0S
+	wOLjdW5SiO2Hcxz5AsoG+VdwIzbyE3Z+1qRkKBXIQcwmAqqoZk18BWU3a3H+YPQQIjUoVmPvT9LHX
+	BsJePCoFvpoE4b+NxAXiqqleVqwHCk4w7EVAiH6IhrTbPqTvyCQGjzlGCaSiahq/HQxvLnJWNeYWW
+	i6ycpuZqC/cSLcSIVPQWBmd7OVQQtMcZpWJoiPx2qIiOcrDKWBFOsdPuXRF18OVb1bXo7y6MrjpDX
+	DtGKYgrw==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wccQP-0001e6-2Q;
+	Thu, 25 Jun 2026 07:14:53 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wccQP-0002rW-2w;
+	Thu, 25 Jun 2026 07:14:53 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Paul Gerber <paul.gerber@tq-group.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com,
+	linux-renesas-soc@vger.kernel.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: [PATCH v6 3/4] arm64: dts: freescale: add LVDS overlays for TQMa8MPxS
+Date: Thu, 25 Jun 2026 07:14:46 +0200
+Message-ID: <20260625051449.2560197-3-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260625051449.2560197-1-alexander.stein@ew.tq-group.com>
+References: <20260625051449.2560197-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <52b7dd3a-3f6f-474c-8386-4fc2776b185b@ixit.cz>
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28041/Wed Jun 24 08:24:54 2026)
 
-On Wed, Jun 24, 2026 at 04:37:25PM +0200, David Heidelberg wrote:
-> On 24/06/2026 06:28, Dmitry Torokhov wrote:
-> > Hi David,
-> > 
-> > On Sun, Jun 21, 2026 at 07:11:45PM +0200, David Heidelberg wrote:
-> > > On 28/05/2026 00:13, David Heidelberg wrote:
-> > > > On 27/05/2026 23:56, Dmitry Torokhov wrote:
-> > > > > Hi David,
-> > > > > 
-> > > > > On Sat, May 23, 2026 at 11:45:35AM +0200, David Heidelberg via B4 Relay wrote:
-> > > > > > From: David Heidelberg <david@ixit.cz>
-> > > > > > 
-> > > > > > We know the driver is reporting s3706b, introduce the compatible so we
-> > > > > > can more easily introduce quirks for weird touchscreen replacements in
-> > > > > > followup series.
-> > > > > > 
-> > > > > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > > > > > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > > > > > ---
-> > > > > >    arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
-> > > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
-> > > > > > 
-> > > > > > diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> > > > > > b/arch/ arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> > > > > > index 6b7378cf4d493..148164d456a5a 100644
-> > > > > > --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> > > > > > +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> > > > > > @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
-> > > > > >        };
-> > > > > >    };
-> > > > > >    &i2c12 {
-> > > > > >        status = "okay";
-> > > > > >        clock-frequency = <400000>;
-> > > > > >        synaptics-rmi4-i2c@20 {
-> > > > > > -        compatible = "syna,rmi4-i2c";
-> > > > > > +        compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
-> > > > > 
-> > > > > So I believe we established that this device (s3706b) does not in fact
-> > > > > implement rmi4 protocol properly. Why do we have "syna,rmi4-i2c" as a
-> > > > > fallback? Shouldn't it be just "syna,rmi4-s3706b"?
-> > > > 
-> > > > The vendor supplies s3706b which does implement the RMI4 properly.
-> > > > 
-> > > > The 3rd party replacement impersonating original parts may not implement
-> > > > it properly, but I don't address this issue in this initial submission.
-> > > > 
-> > > > With this compatible we know which original part is used by the vendor
-> > > > and installed in the phones, so later we can deduct specific sequences
-> > > > for the replacement aftermarket parts to keep phone touchscreen working
-> > > > same as they do on Android without affecting other devices.
-> > > 
-> > > Hello Dmitry.
-> > > 
-> > > May I ask what is currently preventing this series from moving forward?
-> > > 
-> > > The first version was posted in 2023 [1]. I picked it up again in 2025 [2]
-> > > and am now on the 9th iteration (this patchset). At this point, the series
-> > > has been under discussion for well over a year, with relatively little
-> > > feedback and increasingly long gaps between review rounds.
-> > > 
-> > > The current approach is based on the guidance I have received so far,
-> > > including suggestions from the device-tree maintainers. When concerns were
-> > > raised, I tried to address them and rework the series accordingly.
-> > > 
-> > > What I am struggling with is understanding what specific issue still needs
-> > > to be resolved before these patches can be accepted. If there are remaining
-> > > requirements, objections to the approach, or technical concerns that I have
-> > > not addressed, I would appreciate having them stated explicitly so I can
-> > > work on them.
-> > > 
-> > > I also split out the straightforward, self-contained changes in the hope
-> > > that at least those could progress independently while I continued working
-> > > on any follow-up requirements. However, even those patches do not appear to
-> > > be moving forward.
-> > > 
-> > > Could you please clarify what outcome you would like to see from this
-> > > series, and what concrete changes would be required to get it accepted?
-> > 
-> > I am still confused about how you want to differentiate between the full
-> > RMI4 support vs the OnePlus flavor. The "syna,rmi4-s3706b", as you
-> > mentioned, implements RMI4 protocol properly, so we do not need to
-> > actually have it documented neither in binding nor in DTS.
-> 
-> --- part 1 ---
-> 
-> This series addresses identification within device-tree. It's normal
-> recommended practice.
-> 
-> If we know, the device ships specific, but **compliant** variant, we just
-> put it as compatible = "more-specific", "less-specific"; in this case
-> "syna,rmi4-s3706b", "syna,rmi4-i2c"
-> 
-> This approach is used everywhere. This has nothing to do with after-market parts.
+From: Paul Gerber <paul.gerber@tq-group.com>
 
-We do this in many cases, sometimes when a part has different timings or
-maybe additional functionality compared to the base model.
+This adds overlays for the supported LVDS display tianma tm070jvhg33
+for both LVDS channels.
 
-How does this new compatible for controller that fully implements RMI4
-protocol help here? 
+The display timings have to be specified explicitly. Using the typical
+pixel clock, the LDB clock can not be configured as the 7-fold of that.
+By setting pixel clock to 74.25 MHz, LDB can be configured to exactly
+519.75 MHz.
 
-> 
-> --- part 2 (irrelevant for this series) ---
-> 
-> > 
-> > The issue you have with after-market parts that are not compliant and we
-> > need to figure out how to deal with them. Inside the driver I
-> 
-> As was suggested by device-tree folks, this is the first step, there isn't
-> better one available. If there is, please suggest one, and I'll apply it.
+Signed-off-by: Paul Gerber <paul.gerber@tq-group.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+Changes in v6:
+* None
 
-Was it clearly communicated to DT folks that the compatible you are
-adding is fully compatible with the base "syna,rmi4-i2c" but other ones
-will not be compatible?
+ arch/arm64/boot/dts/freescale/Makefile        |  5 +++
+ ...qma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso | 43 +++++++++++++++++++
+ ...qma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso | 43 +++++++++++++++++++
+ 3 files changed, 91 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
 
-> 
-> > essentially need a"incomplete protocol" flag that we can use to
-> > implement additional checks or skip known to be not implemented
-> > functions/queries. In DT we could introduce something like
-> > "oneplus,rmi4-i2c" that is decidedly not compatible with "syna,rmi4-i2c"
-> > and neither one should be a fallback for the other.
-> > 
-> > This of course needs buy-in from DT maintainers.
-> 
-> As you can see, this still holds Acked-by and Reviewed-by from the relevant
-> people - Krzysztof and Konrad.
-
-I see that but the commit does not explain how exactly you are planning
-to deal with knockoffs.
-
-> 
-> > 
-> > Does this make sense?
-> 
-> For the scope we're discussing it doesn't seems so.
-> 
-> This discussion should be associated with the last revision of the full
-> series I sent 3 months ago. We're in very unflattering state, where:
-> 
->   2018 - these aftermarket touchscreen worked on Android well enough for
-> people to have working touch (let's say with slightly worse experience then
-> the original).
-> 
->   2026 in the mainline, we cannot even more forward and report to user-space
-> there is aftermarket non-compliant piece of hardware installed.
-> 
-> Actionable steps I suggest after this series lands:
-> 
-> 1. don't do any changes, but since we know what 3rd party touchscreen do
-> incorrectly deviating from the standard, REPORT it to the userspace, so USER
-> know, their device (phone/tablet) doesn't have original part.
-> 
-> 2. then figure out, IF we can reasonably well workaround it and HOW to do it
-> 
-> These two steps present some progress which could be discussed and could
-> lead us somewhere, what do you think?
-
-So since we know that these devices can come with controllers that do
-not implement RMI4 fully, can we:
-
-1. Establish a new compatible that is separate from syna,rmi4-i2c? As I
-mentioned, it could be oneplus,rmi4-i2c or event a concrete controller
-vendor,id combo. The point that it should be completely separate from
-the current compatible and not use the current compatible as a fallback.
-
-2. Make modifications to RMI4 implementation to handle these controllers
-in a reasonable manner, but not mess up the full RMI4 support
-
-3. Update DTS for the affected headsets to switch them to this new
-implementation.2. Make modifications to RMI4 implementation to handle
-these controllers in a reasonable manner, but not mess up the full RMI4
-support
-
-3. Update DTS for the affected headsets to switch them to this new
-implementation.
-
-Thanks.
-
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index acb73cde76f16..2f4568e7105f4 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -498,6 +498,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvhg33.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314-lvds-tm070jvhg33-imx219.dtb
+ 
++imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33-dtbs += imx8mp-tqma8mpqs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtbo
++imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33-dtbs += imx8mp-tqma8mpqs-mb-smarc-2.dtb imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtb
++
+ dtb-$(CONFIG_ARCH_MXC) += imx8mq-evk.dtb
+ imx8mq-evk-pcie1-ep-dtbs += imx8mq-evk.dtb imx-pcie1-ep.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mq-evk-pcie1-ep.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
+new file mode 100644
+index 0000000000000..2cf1de8c05b49
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
++/*
++ * Copyright (c) 2025-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
++ * D-82229 Seefeld, Germany.
++ * Author: Paul Gerber
++ */
++
++/dts-v1/;
++/plugin/;
++
++&backlight_lvds0 {
++	status = "okay";
++};
++
++&panel_lvds0{
++	compatible = "tianma,tm070jvhg33";
++	status = "okay";
++
++	panel-timing {
++		clock-frequency = <74250000>;
++		hactive = <1280>;
++		vactive = <800>;
++		hfront-porch = <64>;
++		hback-porch = <5>;
++		hsync-len = <1>;
++		vfront-porch = <40>;
++		vback-porch = <2>;
++		vsync-len = <1>;
++		de-active = <1>;
++	};
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	status = "okay";
++};
++
++&pwm3 {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
+new file mode 100644
+index 0000000000000..cbad0cfab2925
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
+@@ -0,0 +1,43 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
++/*
++ * Copyright (c) 2025-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
++ * D-82229 Seefeld, Germany.
++ * Author: Paul Gerber
++ */
++
++/dts-v1/;
++/plugin/;
++
++&backlight_lvds1 {
++	status = "okay";
++};
++
++&panel_lvds1{
++	compatible = "tianma,tm070jvhg33";
++	status = "okay";
++
++	panel-timing {
++		clock-frequency = <74250000>;
++		hactive = <1280>;
++		vactive = <800>;
++		hfront-porch = <64>;
++		hback-porch = <5>;
++		hsync-len = <1>;
++		vfront-porch = <40>;
++		vback-porch = <2>;
++		vsync-len = <1>;
++		de-active = <1>;
++	};
++};
++
++&lcdif2 {
++	status = "okay";
++};
++
++&lvds_bridge {
++	status = "okay";
++};
++
++&pwm2 {
++	status = "okay";
++};
 -- 
-Dmitry
+2.54.0
+
