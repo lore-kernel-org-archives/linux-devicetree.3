@@ -1,118 +1,140 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7D23909A8
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3162A305676
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782380723; cv=none; b=gUvx6u6BxUGRgZWOmiNoQppRnXXmzhcLEXVIMQ+Wk2LGF1eelsEueFJLuTxCWN8CjBpMIHFJ45E4g/jT2rDVeBcUx/rhOBa62NzqVcAniwjpQJN/34an8Rv3ZBg10e4lNTrQUDZK7pXBk+dlwrRlz6M81XXmW/6R01XZNX437xU=
+	t=1782381262; cv=none; b=X8XhWwH82kd+tpVTA9AsptXvpIcr+cmHE3nOI7auglkaPZe15tHclk9c615uOoJII8uvxj8sFnpMnEsESbrxYHUM8YspP+UoJnht4kb+LmDonBKx91HZ0zP3djkEzdczJ5a7I3Yx9Gt1ZDX+3ZnSfmo1K3OFTYxKmAwDVzd01Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782380723; c=relaxed/simple;
-	bh=ydDdUCm7QCGwGoCCLZJ8KIgrvcDgIujnhhPSUHN8+S4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iwqb4x5Wfqakae/alcERzNE2Qs5NIYws87032Ly8xSfcKBelI0NNY7eZnsjfrId9fBcwiIAjDtnEtZG1rYfAoBAAIBnHs/z8HXP2t9hVrImZt4Ymx1vOr009KP9fQ3OeUdeXDGORZJXi9e5CtVFKJlKt7oRvrFLcHh5DsNUhyCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sHfxQLPB; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782381262; c=relaxed/simple;
+	bh=78ciB6jQmJUH/2Ju1dGkYe1bxuNDm79aXlwglFZzcMY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NrnGmwF9GQidMo8DbR2utXon1lv7yjtRvdmCayuo+CzEDvm0XBlDUm3a9tQOHQdFIGKY7kStN0AgMgTUAO4ZItPgtGhQDg7gIwHIqppNchy1EBQHNnPMbPhf5IPDPtz1aE+8hDRbNfSwtSsO78+UBk/KZkXq2Va9SIM4OcyJ8Fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgYbUlMD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sHfxQLPB"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-37d4ab2e7c5so1801510a91.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 02:45:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782380722; x=1782985522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=58+0tcE1xtERmBsdwhzofL6yvn0GjZ9wff4i+1M3Fr4=;
-        b=sHfxQLPBo/FsrPIzqA+yyIXOxKJ4SVylhbirOklEYnXzFDw1YJyjTGuqLtX/bMXuJF
-         Sv2gOfpbsnOKlkzXta6iRDgqvDrwcN7e5Hzm8C8bZ1S+2ZqYZHi/7E3FsfdXYh5hAsv5
-         ExN65jlGHM5+ej0bVKIeRogRSeWft+7wHYRo6DkGupJ144zfy4lRcQh5JMmKO3KNSIUA
-         CgWpx1jrwzfI+TRL4T4PDuMlSXw9tPxwmOYuCfJ5LyQWYJ4e/xspj3/W0zPs15HWdKL9
-         seR30IS7OIIfVdJE9oHuNXgdOUTynZgjOYqIcK7qBmReLmG9P1DA3aeIfCjZFi8gp/pV
-         Vnhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782380722; x=1782985522;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=58+0tcE1xtERmBsdwhzofL6yvn0GjZ9wff4i+1M3Fr4=;
-        b=D7BwseiE800yxUoVVuhlIH9VmYWh72a8UKOTigj1tEMVDX1molDWAoQc9hhOizPxHg
-         z3eo39LHWSaEy7edl7FbbyhPUyGuJs+MnnnyPB440quD4ylUrVZXawtfioJeqPPXJxwb
-         9UAWs6pMfgL2NGbBMhE4BL+o/N1qQBlvb1TJGXv5sbbNqM5A9UrRLginkYnlSI5eEYRR
-         xs6g5y5eKbZ7dAv/AHA4vnWjt2ihaWIBqkHKQmp4kXuoHFGrNYT4iKAYXuNiItkHPG7Y
-         9H3un1fmEVkPVzgMJP+8sqZR5xvsRZWw05XN2uvGo/Ynmg4N82Y5t1fuwR5p5Ver5mgP
-         PHDg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqyec+Mjlhw0eTyfZZ0Mg8qJGMgF+WfiIXSL/KrzgIOzhQWGvNf0cWo7DLuaJi8LRKZkmyjReEm9yz4@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFKf+kVMBSz3FoDz/69sQqPe9wmK+iWBZvGDeacaEq3n1uQsH4
-	OlN+8Q7qUz+wOqDo4YFVL2hMuxGGTTfrexjX74tcvssA5GWZ7x9oIWW3
-X-Gm-Gg: AfdE7cnMQWP3Y0I8SuAA0agUPXCmYhDTBpLtM9jdFDfZueipHG6JY0pxxJ1bqrC184e
-	6QqiSm6ZaBEN/nqXWuP6pxTKoB1fz/I0GpKnfZ8xYJsw4SalxjZQzK61fXunu982Tb0o4tqWJGB
-	1EKR9mM9vP9+1Ei3lRFskj0mEcWS4OAyLTt/UJCgOQkmYH3+FdTRcOj/AHSKOpuIiFN4BUeclk9
-	9qFSK3zXdq8petMvBSrGgnJSLZIWt0DTXHGcRiv4A80q4J+WW1f/qYatyJVyFK3PGevQERYQHri
-	XsNdePRCySNqtKY8EmAKkmF0+UtEEODHA3pdKZz2rYejI1r+/jYd4fm2eXtTX4svhlYbfckC1PQ
-	s+P95/tZ+JQsW5cbmKRUnMJsaKX8mUW2zkeb575MqK9Cnfoivx3fI3LuI6txQ+glF0UW+OdAjCt
-	XK/ui40ffnrCpWokQyeBOg2ZYlFvayYEBvNfE72vrJRYZPlfDeDOFT6Hqaz7A/c/9qMCmXbC00E
-	Q==
-X-Received: by 2002:a17:902:fc84:b0:2c6:afd8:5704 with SMTP id d9443c01a7336-2c7fc632ba3mr20484605ad.4.1782380722046;
-        Thu, 25 Jun 2026 02:45:22 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c7f5ac8c26sm16614995ad.1.2026.06.25.02.45.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 02:45:21 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: zhengxingda@iscas.ac.cn,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v5 7/7] drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
-Date: Thu, 25 Jun 2026 17:44:49 +0800
-Message-ID: <20260625094449.708386-8-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260625094449.708386-1-a0987203069@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgYbUlMD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F11B1F000E9;
+	Thu, 25 Jun 2026 09:54:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782381260;
+	bh=ZUGqB22cr4y+HR/4KOjZgOtSAA25G6nGzIxdjR8Z7Wc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HgYbUlMDUHQN3PSNCZJ5CjSfe5yBTshPpILRTlcRlvyls9jK/+L+1+8DCIlCRs7sB
+	 SUTms+lN7DluUO3FL503B6P1hHXpXDaJj9imqIX5udzhrsMEOaIzzU4hpmEZctQ9M/
+	 Ayfw9wrovEuvkXN+tu9wIQ8A0NrLYvBa9xQ/Wrg47Ywq1sZOsX+WLxhmC2jXAJ6fC6
+	 WMOl/jV961tmsGA9QeJeZEWY8Ny2s12/bY7kwlG5RlB1RxCn7n8KUQzSvoZN1gjNOb
+	 KnZy1UDC/UYVeMis9iYRIU8th7nDpdYJNyLEh22qRIl+qxPkDFNJiOxqRVfqvKBAyA
+	 xZmgxoWYkSOcA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260625094449.708386-2-a0987203069@gmail.com>
 References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 09:54:18 +0000
+Message-Id: <20260625095419.7F11B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add ARCH_MA35 to the platform dependencies to allow the driver to be
-built for Nuvoton MA35D1.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The Nuvoton MA35D1 conditional schema block logically conflicts wi=
+th top-level constraints, causing validation of valid Nuvoton device trees =
+to unconditionally fail.
+- [Medium] The Nuvoton MA35D1 conditional block fails to restrict the `port=
+s` property to a single output port, contradicting the hardware description.
+--
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
-Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/verisilicon/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 6779aa6e54db7988d8c51ba66d2a7972829a44e6
+Author: Joey Lu <a0987203069@gmail.com>
 
-diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
-index 7cce86ec8603..295d246eb4b4 100644
---- a/drivers/gpu/drm/verisilicon/Kconfig
-+++ b/drivers/gpu/drm/verisilicon/Kconfig
-@@ -2,7 +2,7 @@
- config DRM_VERISILICON_DC
- 	tristate "DRM Support for Verisilicon DC-series display controllers"
- 	depends on DRM && COMMON_CLK
--	depends on RISCV || COMPILE_TEST
-+	depends on RISCV || ARCH_MA35 || COMPILE_TEST
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_CLIENT_SELECTION
- 	select DRM_DISPLAY_HELPER
--- 
-2.43.0
+dt-bindings: display: verisilicon,dc: generalize for single-output variants
 
+This commit adds the Nuvoton MA35D1 DCUltraLite to the verisilicon,dc
+binding. It introduces conditional blocks to express per-variant
+constraints for clocks and resets rather than hard-coding the DC8200
+topology at the top level.
+
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 9dc35ab973f20..1e751f3c7ce83 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+
+[ ... ]
+
+> +allOf:
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nuvoton,ma35d1-dcu
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +          maxItems: 2
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +            - const: pix0
+
+[Severity: High]
+Does this conditional schema conflict with the top-level constraints?
+
+Any device tree node containing the compatible string for the Nuvoton
+variant is evaluated against both the top-level schema and this conditional
+block concurrently.
+
+The top-level definitions strictly enforce a 5-item array and specific
+constant values for clock-names (such as the second item being axi). This
+block attempts to override those with a maximum of 2 items and restricts the
+second item to pix0.
+
+Since a length cannot be both exactly 5 and a maximum of 2, and an element
+cannot be both axi and pix0, this creates an unsatisfiable constraint.
+
+Will this cause validation of valid Nuvoton device trees to unconditionally
+fail?
+
+> +
+> +        resets:
+> +          minItems: 1
+> +          maxItems: 1
+> +
+> +        reset-names:
+> +          items:
+> +            - const: core
+> +
+> +      required:
+> +        - resets
+> +        - reset-names
+
+[Severity: Medium]
+Does this block need to explicitly restrict the ports property to a single
+output port?
+
+The commit message states that the Nuvoton MA35D1 DCUltraLite has a single
+output port. However, because this conditional block does not explicitly
+disallow the second port, it inherits the top-level allowances.
+
+Will malformed device trees incorrectly specifying two output ports for the
+Nuvoton variant silently pass schema validation, bypassing the hardware
+topology checks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
+86-1-a0987203069@gmail.com?part=3D1
