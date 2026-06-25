@@ -1,149 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCD823BD06
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B0B23BD06;
+	Thu, 25 Jun 2026 22:07:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782425232; cv=none; b=KHbQIHLnMyUuvhj3CgGzqcjLqK7zuLRMZMe6dnTKgrS7nUdIOzmttoOEQ0TL50d+BWfA8VPk8ZGUsO55DYB/nIz3+R/YlNlL1fkGhAYkuwV9wJW+1cKLdErjmdn7WRxlHfXAFB8JZJUVim61aYokd1JVbBb+l9MEKn/MIFfpffY=
+	t=1782425244; cv=none; b=fxiBKZ/gNK94ZryUY14I9DFvfn0Tp/1N6iaX3xMHP6m9AFzTTQPkODj2tm3D22oOV+d+yRvN1eXMOvs9yshyPnRQ/X3IE3W/fPRWN6pi58RSElmAfBTnb+Ay8jvcoYA2wjUkmPcTmqnnQWwq7BKbiNTJOubQg5SyQ5XO0XvY5CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782425232; c=relaxed/simple;
-	bh=FKI7Yf+AgJlux4LlX2rKW39GG8Thdkwe1Omvj3O0LMI=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hbhGXUlLOZtYVBpkTqpIC7yz+DJYWt8uxOJxjVTw8gO3UaOMoYiGt7FTu2gHUvtL+XOe0ZFHL6kTqUzlGLXnhPnwutGRNSPKFWDzPEyaaUn5W8W3G+06r+47OdaE9/EzJnHWT2BgB7y+SGUJSmFA4FMzvJ5Gxnr9nn04EH5EB/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9UPFGgT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782425244; c=relaxed/simple;
+	bh=muxrBQywzUXhDRkiTRVvC3lvFvXTqRuMbsIc3X0mGz0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cQ+QNUUWxsDdIMWpTKP6ZbM0yUJ2maUBNKkr3al4jP5Wta08SK7EQO039VpF02TRp3CdTf53CnHocRMC8Bl4PUdpnA0GK+TC/PlImzawE7p0gMXeJjCw2TSQw8gH10a6c4QHetxvwUP789tK6Q22d4EVJUiiaAPOv9juevl4g0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSO3eECH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9UPFGgT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8F21F000E9;
-	Thu, 25 Jun 2026 22:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSO3eECH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1BDD1F000E9;
+	Thu, 25 Jun 2026 22:07:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782425231;
-	bh=1Snr7yK0brIfd7zl+YJYRxYiTErQW1B8TyJS3mVu3FE=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=U9UPFGgTKJnU+Kn/4FZHKH3XypnXqJlyTRtsJHkmd0WLZd6Zy4uaV6PNlU4s1xtEg
-	 ChVphbhzTIpINx/KzKQMVa87u6kQJ62Oq5HBWx+cyOqSo4k9KwSqmbSNA62KsPxxpV
-	 JAgqVtps5sxDgnwZ5gIjZKs/yf7vV1/muREdyrTBsxs+gfHqMuKdWf1kzJKIFkSqkX
-	 HviouZ9btIBB9KRwuj2LIiUYEgvPTzhDYQ/iRl8hWEKBoYWf86nWRCVE2iKRrWNs27
-	 zyxJvpV/vXIgX678Bluv4q3tbUevDccR9mk26zDVU1KXaD+y6eeMATBMTrrLZp5fn8
-	 mG6p1REflqkyQ==
+	s=k20260515; t=1782425243;
+	bh=8/8AmWqNvxsv/3NFZh0J4JdNhuDYYW8+AhcDD55TwHc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PSO3eECHUgMrlAmAcJD+GIS+Jf44CxmL5UU0wk404wpD8V6MdfvqRXsFCrwuW4zvX
+	 6GBphdepe2hMCaaQkUGid4BPFbmv3WNeo+u0NffLyw/Gfa88FqQC192bj0OHy8jYyB
+	 6FKUf6elO0X/4D/5Pkjy5fNqtPw0rbUwS+tHt/Cw2n8VAUKhjGQqMKLnG72i1iMyAE
+	 u88J426x/J55iox3WYR7ui+gtNcfmzHx3uLzOtTn0WxnIMx2piwt8ZtVZ4iMtJNs2/
+	 k9jfrbSg/ym6kJxv44Gj/c3TDnKjzy7fmv4BqmbgdRmQz5TyIB9PGLzBymzg31Fo9H
+	 B2XwoFFlLWdOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/8] iio: adc: add ti-ads112c14 driver
+Subject: Re: [PATCH 1/4] dt-bindings: clock: airoha: Add additional reset
+ for PCIe PERSTOUT
 Reply-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-6-ceb9b0b561cb@baylibre.com>
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-6-ceb9b0b561cb@baylibre.com>
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260625215741.3253212-2-ansuelsmth@gmail.com>
+References: <20260625215741.3253212-1-ansuelsmth@gmail.com>
+ <20260625215741.3253212-2-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 22:07:10 +0000
-Message-Id: <20260625220711.1B8F21F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 22:07:22 +0000
+Message-Id: <20260625220722.E1BDD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Short I2C reads lead to the use of uninitialized stack memory for =
-ADC readings.
-- [High] The driver inadvertently sets the device into Continuous Conversio=
-n mode instead of the intended Single-Shot mode.
+- [High] Data race between direct MMIO and regmap accesses on the SCU_PCIC =
+register.
 --
 
-commit 610f816911f47ce29d3c83f300222d6ab72f8820
-Author: David Lechner (TI) <dlechner@baylibre.com>
+commit 900fc8364d6744e062fdb68cdff6066cb3ba875d
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-iio: adc: add ti-ads112c14 driver
+dt-bindings: clock: airoha: Add additional reset for PCIe PERSTOUT
 
-Add a new driver for the TI ADS112C14/ADS122C14 ADC chips.
+Add additional reset to control PCIe PERSTOUT reset line for each of the 3
+PCIe lines.
 
-This first step is adding a very basic driver that only supports power
-on/reset and reading the system monitor channels.
-
-> diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c1=
-4.c
-> new file mode 100644
-> index 0000000000000..c61d472447325
-> --- /dev/null
-> +++ b/drivers/iio/adc/ti-ads112c14.c
+> diff --git a/include/dt-bindings/reset/airoha,en7581-reset.h b/include/dt=
+-bindings/reset/airoha,en7581-reset.h
+> --- a/include/dt-bindings/reset/airoha,en7581-reset.h
+> +++ b/include/dt-bindings/reset/airoha,en7581-reset.h
 
 [ ... ]
 
-> +static int ads112c14_single_conversion(struct ads112c14_data *data,
-> +				       const struct iio_chan_spec *chan,
-> +				       u8 *buf)
-> +{
-
-[ ... ]
-
-> +	return i2c_smbus_read_i2c_block_data(client, ADS112C14_CMD_RDATA,
-> +					     BITS_TO_BYTES(data->chip_info->resolution_bits),
-> +					     buf);
-> +}
-> +
-> +static int ads112c14_read_raw(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan, int *val,
-> +			      int *val2, long mask)
-> +{
-
-[ ... ]
-
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		u8 buf[3];
-> +		int ret;
-> +
-> +		if (!iio_device_claim_direct(indio_dev))
-> +			return -EBUSY;
-> +
-> +		ret =3D ads112c14_single_conversion(data, chan, buf);
-> +		iio_device_release_direct(indio_dev);
-> +		if (ret < 0)
-> +			return ret;
+> @@ -62,5 +62,9 @@
+>  #define EN7581_CPU_TIMER_RST		50
+>  #define EN7581_PCIE_HB_RST		51
+>  #define EN7581_XPON_MAC_RST		52
+> +/* RST_PCIC */
+> +#define EN7581_PCIC_PERSTOUT0_RST	53
+> +#define EN7581_PCIC_PERSTOUT1_RST	54
+> +#define EN7581_PCIC_PERSTOUT2_RST	55
 
 [Severity: High]
-Does this code handle short I2C reads correctly?
+Will adding these resets expose a data race between the reset controller and
+the PCIe controller during link bring-up?
 
-i2c_smbus_read_i2c_block_data() returns the positive byte count on success.
-If the device returns fewer bytes than requested, ret will be positive but
-less than BITS_TO_BYTES(data->chip_info->resolution_bits).
+When these resets are asserted, en7523_reset_update() in clk-en7523.c
+performs an unlocked direct MMIO read-modify-write on the SCU_PCIC register:
 
-Since ads112c14_read_raw() only checks if (ret < 0), won't a short read
-bypass error handling and cause it to process uninitialized stack memory fr=
-om
-buf, leading to an information leak and corrupted ADC readings?
+drivers/clk/clk-en7523.c:en7523_reset_update() {
+    ...
+    val =3D readl(addr);
+    val &=3D ~BIT(id % RST_NR_PER_BANK);
+    ...
+    writel(val, addr);
+}
 
-> +
-> +		switch (data->chip_info->resolution_bits) {
-> +		case 16:
-> +			*val =3D get_unaligned_be16(buf);
+At the same time, mtk_pcie_en7581_power_up() in pcie-mediatek-gen3.c
+modifies the same SCU_PCIC register using a regmap:
 
-[ ... ]
+drivers/pci/controller/pcie-mediatek-gen3.c:mtk_pcie_en7581_power_up() {
+    ...
+    regmap_update_bits(pcie->scu, SCU_PCIC, SCU_PCIC_PCIE_CTRL,
+                       FIELD_PREP(SCU_PCIC_PCIE_CTRL, BIT(1)));
+}
 
-> +static int ads112c14_probe(struct i2c_client *client)
-> +{
-
-[ ... ]
-
-> +	/* Place in single-shot conversion mode to make ready for raw read. */
-> +	ret =3D regmap_set_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
-> +			      ADS112C14_DEVICE_CFG_CONV_MODE);
-
-[Severity: High]
-Does setting ADS112C14_DEVICE_CFG_CONV_MODE actually put the device into
-continuous conversion mode instead of the intended single-shot mode?
-
-According to the comment, the intention is to use single-shot mode (which is
-typically the default value of 0). Setting the bit to 1 appears to enable
-continuous conversion mode, which could cause hardware race conditions and
-corrupted data when multiplexer settings are changed for new sysfs readings.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name =3D info->name;
+Since the regmap internal lock does not protect against direct MMIO accesses
+from clk-en7523.c, could concurrent operations (like one port triggering a
+reset while another powers up) silently corrupt the SCU_PCIC hardware
+register state and cause PCIe links to fail?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-iio-adc-ti=
--ads122c14-v2-0-ceb9b0b561cb@baylibre.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625215741.3253=
+212-1-ansuelsmth@gmail.com?part=3D1
