@@ -1,203 +1,136 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11023075.outbound.protection.outlook.com [40.93.196.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17A42F7EF8;
-	Thu, 25 Jun 2026 21:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782422515; cv=fail; b=CDI0NthA6CjO0/JNJhkjfYBlNT1bclpwlbtU6v5nJnicG/wCNH0Ooz1YiU/TnJ1KXjG9CznNDs9dbv/pG1vmTuTf9pn2GYWkWLEXpjT8iTDmJCnx5au+r3jq+Nefut62SVOlyko3Ka7YbrFnXHQe+3ItojBPO2p8DJOXwCuSqVI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782422515; c=relaxed/simple;
-	bh=DL6HMDLV9DFFzsJdaV7tADIe5c/NRRqAfeb9JW2PW9c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BJ2IQO3fF6B1WFgVlt9y661K1/1YUgou0yicA25ljjvboojJqb7YDWT0m1jZbmN+eWruFBG1mqmo7gCN/nSLg+ILj0x5Z08s6OKMbuk3gbLXXKeM+ixeVdqY92YQAHWYsb1SxSuMCozgUYM/cdBdGJXOtWzyMwgy6SY4I4N4mVo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=JSNp6c4N; arc=fail smtp.client-ip=40.93.196.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31355373C00
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 21:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782424571; cv=none; b=HmCbvABGdSmIX0gbEBc8Y4a1VlqEyK3/rToX2niUk7l7YH1EnlMsyw5/zXMNCeRDCHUQuAUv88eJ14FyYAWlEzx89Pv9+WvNHXi0ga2tkWYBR437sgtRuASNoYvRk2DwLl8VF4DmKCBAuwoYW2GYPWAMI+cGa09u/9CKyqEpx1E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782424571; c=relaxed/simple;
+	bh=lukM+Wf3ULNqjeyOPZiPJXnxhdqiCx8ZwaqvGu1DSUg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bv4smuV/cgtojlzuyPmbgi4jDQG2rwPM8tePfxXeUyDdiqo309W4tHqh4cK6NwHANbhXCH84/8RXk3uimZUpihMjYZWFqygUKcyowID0ByPZFeLdiykUGZga7a+ijcx/VGdqaUeLLCy9V0W3rWbhd/NAaW254MZoC6ZpsZhm1xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Q8wNSTkD; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="JSNp6c4N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vJeNGuHKmRaW+w6rXdbyke6VcvowXu8xxyA0gKKcDlwXbU9Eyg6RXL3v9exPIDpv8aH+LsOuq0l+aa6OEPgIqfih5CuJm5ncNII4hPoylvmhRP2MNE5JFvfadRBjZU4Hnd7wA2XLuoLM2FO1Tju9Ej/4Hexjf5njPEpYKxJvp27PbMQA8GzKImt5yu3di2zRE5P8Wu2CTH7kclvrGqCarks4ckzjMff8GHrGMb+cir5W1uKgzgJ7eVcmFb5NeuIOAiUyIvvsvIEquCg5sfMEkRMuVkvgPAigFuco4g8brNYISXy2QZvxVN64PZ15LkX+MRTvsV0G9hikAGKsV1zZPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YA51S0pesopoKLwbt6yUIBshppdISFMB8sZGTlRdlEk=;
- b=jriYLPeL+cjGa2MkYe2zAtrv3lyyYdQ3n8LCQ09485aJIhfKieMW1oRSRH2I/DuyRlIIiKliCxn9Wp9HyDxqK4ZL578zbSjALRdYTe5rXW8YK5/ly5m7VumAEd/vHX7DG6ErDFiqAdy/yVsChqepTmGwjIcOsKHodsOa96vg4laO5Dm5mZQZagLsrZQjQWW/dYfAbNgmMB5c08GymJ9KFiGQe4H0mcwMshj6edKvc3hNMQq9HTw0S9vKYIk2kH6DCYT2WnS55z/8BbTsxp4CZVMjWZETT8LEY6F8lydM9bSkscFVOq9tE2uIA8hGegVQYx84eCu3RDn8xy4Lr+kr+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YA51S0pesopoKLwbt6yUIBshppdISFMB8sZGTlRdlEk=;
- b=JSNp6c4NR8WEbxOJLZ48CNvrVy7uPYiGYsAFpraF3JX71Tk7byo5fJOKconUtEIMbxOyE3lfJSTB/KVJ/LfVrp2aMI/Xn2ypj38Q/7SzZwstPQGDdf2vbLaWoT+PdnWbkd4gXydeSXF3ogrf1+htLAQ4hUrjD4Hear1MVGI1y7XeUPG+1t3MEIHuN09eCd/dC2OBLpRJ/fh2UqPJa1UZwbxJlqAM81O1O/gd8e+qpR90i7Ju73LmlgEPumatjxVTqutm7RcJw5SNjTO9xmXM4WO4HVO8xUsedVcRZsPrLL7nsLeez39gl1hshyplfkBO9k/vf7MJ0iEjNCT6jQ5KVg==
-Received: from SA1PR04MB9851.namprd04.prod.outlook.com (2603:10b6:806:4ac::5)
- by DSVPR04MB10174.namprd04.prod.outlook.com (2603:10b6:8:3a6::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
- 2026 21:21:50 +0000
-Received: from SA1PR04MB9851.namprd04.prod.outlook.com
- ([fe80::5f38:dbea:4e4c:9a0f]) by SA1PR04MB9851.namprd04.prod.outlook.com
- ([fe80::5f38:dbea:4e4c:9a0f%6]) with mapi id 15.21.0159.016; Thu, 25 Jun 2026
- 21:21:50 +0000
-From: "Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>
-To: Randy Dunlap <rdunlap@infradead.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	"Ousherovitch, Alex" <aousherovitch@rambus.com>, Conor Dooley
-	<conor+dt@kernel.org>, "David S. Miller" <davem@davemloft.net>, Herbert Xu
-	<herbert@gondor.apana.org.au>, Jonathan Corbet <corbet@lwn.net>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Paul
- Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>, Shuah Khan
-	<shuah@kernel.org>
-CC: Alexandre Ghiti <alex@ghiti.fr>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "Wittenauer, Joel"
-	<Joel.Wittenauer@cryptography.com>, "linux-api@vger.kernel.org"
-	<linux-api@vger.kernel.org>, "linux-crypto@vger.kernel.org"
-	<linux-crypto@vger.kernel.org>, "linux-doc@vger.kernel.org"
-	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
-	<linux-kselftest@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Shuah Khan <skhan@linuxfoundation.org>,
-	SIPSupport <sipsupport@rambus.com>, "Nguyen, Thi" <thin@rambus.com>
-Subject: Re: [PATCH 17/19] Documentation: ioctl: add CMH ioctl documentation
- and register 'J'
-Thread-Topic: [PATCH 17/19] Documentation: ioctl: add CMH ioctl documentation
- and register 'J'
-Thread-Index: AQHdBMjaL7m/gAnGP0iQl0ogSD/mPrZPl3gAgAAv1so=
-Date: Thu, 25 Jun 2026 21:21:50 +0000
-Message-ID:
- <SA1PR04MB985100241C022033C8F4B952C2EC2@SA1PR04MB9851.namprd04.prod.outlook.com>
-References: <20260625173328.1140487-1-skrishnamoorthy@rambus.com>
- <20260625173328.1140487-18-skrishnamoorthy@rambus.com>
- <60a7850d-1527-4517-aae8-cd5cbebcb9b5@infradead.org>
-In-Reply-To: <60a7850d-1527-4517-aae8-cd5cbebcb9b5@infradead.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR04MB9851:EE_|DSVPR04MB10174:EE_
-x-ms-office365-filtering-correlation-id: e00322b9-ffad-44a8-f011-08ded2ffc597
-x-ld-processed: bd0ba799-c2b9-413c-9c56-5d1731c4827c,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|38070700021|921020|11063799006|56012099006|4143699003|22082099003|18002099003|3023799007;
-x-microsoft-antispam-message-info:
- KbUWLw+0+oelTWPHFRMH80sQ7lk0Yki0ui0oEF3gikUdsv/BuUo7T06O4NVp9ds0644UHi4HkljJ/lJX/TG+NyOUEutYwky5rhjN8aNSUALq9mxwUadfH98ivNLIjwsv+S+ER+iqosrQrMK64hKboCpgPxL9+Y7+on+oEveW7EPCrnatmoj+q8EOS+iOu2x6loRUhadNUUg+dA8/pVHrf0TTR4CT8NKigkZfMk4uYxNnaYrzIKGiC9n5SeLKkggNu/HirpCvnD+a1w2/v5MYiFiSf21b0G9IgyUtLG/yNJwGDvaECDLC2YTrlWMJHMkFGRvont6+vbhA1tp6eNVpkf7fkyEDYk6IZ2y/9EOkvTLyThpjg3AnhJ+xQRgqT2o/PLKF3Cl+kOV1PKonQUggYE97Z2bewobTX9iN4R1CtckO7cBH9fvb3i2GLBMNyj/hYG9ZpLB3D7cP3z23/r3k2rtcRHa2NeDpi6Fz5MGBUTxkY3RaC67wvun11rfquOxd06hXOBTjoU5xhiKGfxgxiYhzPya5hKO6TexM2pEf0bm1zNRRHJrIeSTz4S6QMpPLlVu77WuGG+tOFm7VsVmNMhLFcIOWJt/AomYpskBw4q/SW3SLezR2vHgY7Q3zNP6fvYSJTVhCd3QrmRF/UN3qXhdfvaZQzXkb5c5FX8nJNOpIZsF/XDg0FKi9BhsBQeAm29u7zBRQ2UUZgv1f+oboJFOhTCuHZzj7cc2yy0yB86A=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR04MB9851.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(38070700021)(921020)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?DrXJ097McVWHo4nbN3PpbmZYUbb91Bsu3aEd/dJVUI33VtXCDme9WfOAFtez?=
- =?us-ascii?Q?uikt3MPmk4dvoqz2NC1ceAyaKRvLHKAAQwSS155uJE09GQ9pmTLL+ojgDx5K?=
- =?us-ascii?Q?/RgAqYBMxRfaA0H7NVfUw9yr0vGpxiu/DkzsGSEdzWrHRR3UwuFDez+RFOzQ?=
- =?us-ascii?Q?lXh/XtG/5hWFb1PiG5svSY8fojaGCr4i6C89KSPm7g9nt4cdMmz6RujfctTU?=
- =?us-ascii?Q?9qAIKcUy/4CGaP5Gb7kNFhcP0Madkg0Z0PHcZDxNlTZOwVv60Vog5WYPlYse?=
- =?us-ascii?Q?o0vOsAlstMJcErU4zWdVd0T7ai1xPpanolmrWZ9AHjj0Dqm48mMdO5sIWKoM?=
- =?us-ascii?Q?2oEiX+q9zycUxpK+TOQ40kPnxdhIsmhFN8u7QGLf/D+w/9Q6upaf2+2vz2qv?=
- =?us-ascii?Q?jmSga7vEBEMFc4xh8yJbNOpulFplUR0l8bp9YEpMeyZaDZ8r7XbWtvyGzF6h?=
- =?us-ascii?Q?d2bxPWBhdzwoSzT5AHzjvcXcSpFecrk5juMNwZ1tym6+GzmfkCrHDKmi1Iq7?=
- =?us-ascii?Q?yByjy1vjkFctmYxmqCFeQazqnzT+stmyrXTkLqrABRQuXQnwn0EEGLjl5TgF?=
- =?us-ascii?Q?+Mpvv5O4m+culHPjw/i0dJXB+joaO5FyC0+wMDRSKOEhcBR9zXniWaxQFd8q?=
- =?us-ascii?Q?7+r0T5bSE7rvo3bjSVIL9fl0HG++AolEvST/za5yur0eBkCXSlXbPkIl9IAf?=
- =?us-ascii?Q?VoAk1yEq3HIkzmKk3db1STK0FtPgdZIGLKYkGlKOUUtdnWflZHCm8v023k/f?=
- =?us-ascii?Q?OAIekdEIbUXLlOow0FRfLYxDVK93FUa7U0F+I1oexv9ZMUex+JNxq4/5YsSc?=
- =?us-ascii?Q?QQlP60yPCdHhJLRzJ3C+H2EbsSqndITD9gDRfulNzTRJdo3coXRkAxnMqEAd?=
- =?us-ascii?Q?l0Qe70qoENoswcO2TPyt08Sdd88sJ9jyXi5REzj1R4j7E0m/GU4ICPsPZhjs?=
- =?us-ascii?Q?H0DmXUPZv3GwE17+5iOf7L4rDWYxqHlf+YirWSlXw2ccvz+CifxLblBbEJFo?=
- =?us-ascii?Q?GhBWESgohGv4EaZVtUNQGbbZGCkCoJApWXzKNYm7PWD5Vylzguk9JErN2SF6?=
- =?us-ascii?Q?EtMc1fg74xppgwFNdAQGPZvprI/t8+69AatXuG52r8OiCLBtL0ri2WMkBQ8R?=
- =?us-ascii?Q?OqIg3cuTRamCUFXEKqhZVPvTxeMqsSreUYxe6Jc2XU4GmAN1cs+Cpn57ibFb?=
- =?us-ascii?Q?HIoJ35Kbus0PRfqL4wOB4SrQcBiAV/g/Upa3vol9Mur/9R/usweJF96ZdDcc?=
- =?us-ascii?Q?C6DzYPDyFT7uC5xVL3bqpp5i/K4N7Szh01rkg7mjV7jFJsq9wrx26/Uh/Mwj?=
- =?us-ascii?Q?C4p0A0PQE0pYtk2IWvMJIyrT88NFEX1a2nBuUl476dzN9a4Ki9C+St8oNlrl?=
- =?us-ascii?Q?xa9/TSQ18NShkLceoY7ZlkAleyrY6mTyK5fDiuuld9dtAIK5kd3s9RK/qwS3?=
- =?us-ascii?Q?PNAPLutVozzpg+KAo+aADQDsOzesY+G2KFbgQVGQFhSzy2RoH5AfJUZYoS8S?=
- =?us-ascii?Q?NaCz8b44RplLXtW01uVYmaZfur9ELC6CHifgMA/Sv8t+7ElOgxHcXfEzKlvB?=
- =?us-ascii?Q?m3rvIX6Q4x9U+fA03j5dppYYwJbJMn9IMUQLQuPdChFlOYROI2U2yMyQYBg2?=
- =?us-ascii?Q?92tDoVcMzHS8jdzSUTz42t6FojvnOBjV90lCOhkdEiJdw9L7umGQIbsIwmbR?=
- =?us-ascii?Q?U6RLY632++R8BagRzG2sXf6d0WJUbDBuiWVBDHi0fTAAV6Cqx0akIguVBksu?=
- =?us-ascii?Q?LXqUpg80jw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Q8wNSTkD"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7e6d37b7098so329730a34.0
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 14:56:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1782424569; x=1783029369; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PyOiPMSqrkJp0SvXAGsNdlFr3/6yaTMdBW/g1Kb1HrM=;
+        b=Q8wNSTkD7eY3IhECfr7tNk8OSp4qD1Y3fh4h0jxz59NiaAg0H6Hmk6+9kYDlDnortC
+         fZ7Olrd43mWov+PmNOhsHCFq/qxXShLiGvqEU1VRnvFd10KeLK4/pPzW0NbnB+vQDDSz
+         OlCr6Asgix24zQgn3XH/q8dJ9zizqVQsBlJQ+jynWAXuDB7qG9Z/SdO3Mlms+I83AKDc
+         EaeWLPMjvLqZUUeIPnvh13ehQiHfsoPToj4GSB8qkanU6icMzA1/dJDG5wqpWmgeMz17
+         yRn4QzMZ5cNaStom3IHkpgqSr5T+s09wH6Kc4oNzdlqLgKt51rEhZdYQ4f46Fdj8lNCh
+         U5iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782424569; x=1783029369;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PyOiPMSqrkJp0SvXAGsNdlFr3/6yaTMdBW/g1Kb1HrM=;
+        b=cO3DhbJdsDa3lMl5Ki1JLGaT9hXEx/srp9mxBdERKgkoj+2Vxl9H+nFp+TPMlJug4I
+         YGc+XSujfEdzXFevwB5Idz6s3gbgDEaEjNDqSk/uVicWRtu9a+sgRwcH87T6NEVJzXxD
+         BXd+Ge39bt6cNhkvHMmxRbcLfVAWodeHTwv7WundKVMIk4sG7o3yh/SW2RzZSO095WDb
+         /ee06rS6Ly4JxRITdkvvfypgXQGdV3m2HsJwRAtlyLMnS71MPHqeIVX0QF9sLTl0SjEm
+         qyyfGi4l1U9vOjbkqVpTnOyYvOPWC6XBEdjvvWWHdLO6Tiqr2R9+/CsI+ep7lH7i3p5P
+         mN9w==
+X-Forwarded-Encrypted: i=1; AFNElJ888qt5gUAF6b0jGqHK0rolElS+6AhOUqkFNNFRIzSLcJjlJ+ES65mEarrcnaSZ/KVw066y9oxfbodi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgX8r880MGVSPHERYAA+uVjstFRWxyM2xbpzskS2hE9/8AUml7
+	IiYdcApfHotgi41MMiXXwIJSdweK/DL6/cB0bs6O/P7T5FHLInWUfXqf7XNSTQm9Gk32P4d/rrB
+	QPXxt
+X-Gm-Gg: AfdE7cmoHxKKhoPxsKxPQf/szUvfq2xQeBSsvuLSMb2zUFrbHhyU2873j2DWyq27y7p
+	Yuz4sk+Tl0lmkOlVKJAu8dOEJTmN7+Hm96bxV820THrmNF0aqof1dsMRLlkHTaQdNraq0VFLjAN
+	E0RIHQI6EJRahhYCmqv8V+jNtA37DWpR5K0nDDoaBzwALdQVwvyyKsdB3ZA0A8BUdzvyYTsTaFt
+	EImBqKbyY3WeJwlnZjJaC4xE9xL17HlMlIUHNPqSLaiImVx+XoT7RDeUGW7FukXUvR6gMRqQi1E
+	Y9aUY7U8I3hPmG18cF04X59m/5hLO+S3OVYq0Ea6n/tZnfyuHw6gWSbYxWC9+jux0jlUS1/JtuN
+	OvIvwK67iIANcaHjPuXYIRRiuxnXcFmQj+5iFbu5LG2Y510fSIN7xpcYpU1HKOkDpgIKxsyGUfX
+	knbStQa5jjOumqzFulWw==
+X-Received: by 2002:a05:6830:d8d:b0:7e6:e022:4b44 with SMTP id 46e09a7af769-7e99c35cd63mr4393078a34.15.1782424568999;
+        Thu, 25 Jun 2026 14:56:08 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:f1f0:2d9f:2f31:3426])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa5e575csm206058a34.11.2026.06.25.14.56.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 14:56:08 -0700 (PDT)
+From: David Lechner <dlechner@baylibre.com>
+Date: Thu, 25 Jun 2026 16:55:03 -0500
+Subject: [PATCH v2 1/8] dt-bindings: iio: adc: Add reference-sources
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR04MB9851.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e00322b9-ffad-44a8-f011-08ded2ffc597
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2026 21:21:50.6714
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qJrINyB66J0oepJbgqqIgmif1iOa+jy9k9DlZH9+nqyWK63TQnwLI3lI/oOfTLmC7lMxpkv+czHPKf3beGEnDMOFLPYaTS9Wb861l79xi1Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR04MB10174
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260625-iio-adc-ti-ads122c14-v2-1-ceb9b0b561cb@baylibre.com>
+References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
+In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
+ Kurt Borja <kuurtb@gmail.com>, Nguyen Minh Tien <zizuzacker@gmail.com>, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1217; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=wmC3rJ2+hVY+xkwcr3Oj3oblZhpD5wKRDtYOppYjMJk=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqPaPBVwHC9uxAfS3Z9dlUYFpH2YcG8vzKsueZx
+ jLB7NBYd0+JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaj2jwQAKCRDCzCAB/wGP
+ wHauB/9QYJzzP5Uw60OzbEFeRNEc/q/Yt005k2r/vFHeoHV2LEoa/WO+bS7mgOLjusSpLZUAh5R
+ gGPQxZ7xQwNY223kbuPEAk+jjZTaf2XvFNbBw4dmSe1JqnHtLKrqYuQoAVEa4L4eWmM/WJC9d5j
+ T4S3s3oXyP+537D6CYSPsSfC+RPuFOJf0vkVUZmZZsdOrKPnYpjBt7nP1iAh9oK+uK4MYDei5vP
+ 1FLavbpRqeensxKBf3GcRFmX0u2+e8l6VjyTwg9FcmDR/jYEmEmJQOG/l+OF/bhaVizCoIriRE5
+ OwBalPtB8t1qNCaxrY+04aUPrUfMWYujBzpo3N3oqJbe7j7U
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Thanks for catching this, Randy. You're right. cmh_mgmt.rst isn't pulled in=
-to any toctree. We will fix it in v2 by adding cmh_mgmt to the toctree in D=
-ocumentation/userspace-api/ioctl/index.rst (alongside cdrom/hdio).
+From: Kurt Borja <kuurtb@gmail.com>
 
-Krishnan
+Some ADCs have configurable voltage reference sources for each channel.
 
-________________________________________
-From: Randy Dunlap <rdunlap@infradead.org>
-Sent: Thursday, June 25, 2026 11:29 AM
-To: Krishnamoorthy, Saravanakrishnan; Albert Ou; Ousherovitch, Alex; Conor =
-Dooley; David S. Miller; Herbert Xu; Jonathan Corbet; Krzysztof Kozlowski; =
-Palmer Dabbelt; Paul Walmsley; Rob Herring; Shuah Khan
-Cc: Alexandre Ghiti; devicetree@vger.kernel.org; Wittenauer, Joel; linux-ap=
-i@vger.kernel.org; linux-crypto@vger.kernel.org; linux-doc@vger.kernel.org;=
- linux-kernel@vger.kernel.org; linux-kselftest@vger.kernel.org; linux-riscv=
-@lists.infradead.org; Shuah Khan; SIPSupport; Nguyen, Thi
-Subject: Re: [PATCH 17/19] Documentation: ioctl: add CMH ioctl documentatio=
-n and register 'J'
+Signed-off-by: Kurt Borja <kuurtb@gmail.com>
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
+---
+v2 changes (compared to Kurt's RFC v2):
+* Drop maxItems.
+* Drop 2nd paragraph of description.
+* Make reference-sources plural since it is an array.
+---
+ Documentation/devicetree/bindings/iio/adc/adc.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-[Some people who received this message don't often get email from rdunlap@i=
-nfradead.org. Learn why this is important at https://aka.ms/LearnAboutSende=
-rIdentification ]
+diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+index b9bc02b5b07a..12800737d4fb 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
+@@ -73,6 +73,14 @@ properties:
+       device design and can interact with other characteristics such as
+       settling time.
+ 
++  reference-sources:
++    $ref: /schemas/types.yaml#/definitions/string-array
++    minItems: 1
++    description:
++      Indicates the voltage reference source or sources for this channel. Some
++      ADCs usually allow choosing between internal reference sources or a pair
++      of external pins.
++
+ anyOf:
+   - oneOf:
+       - required:
 
-Caution: < External Email >
-
-On 6/25/26 10:33 AM, Saravanakrishnan Krishnamoorthy wrote:
-> From: Alex Ousherovitch <aousherovitch@rambus.com>
->
-> Add Documentation/userspace-api/ioctl/cmh_mgmt.rst documenting the
-> ioctl commands on the /dev/cmh_mgmt misc device for the CRI
-> CryptoManager Hub (CMH) hardware crypto accelerator driver.  Covers
-> key management, KIC key derivation, PKE (RSA, ECDSA, ECDH, EdDSA),
-> PQC (ML-KEM, ML-DSA, SLH-DSA), SM2, EAC, and DRBG.
->
-> Register ioctl magic number 'J' (0x4A) in ioctl-number.rst.  The
-> driver uses ioctls 0x01-0x40.
->
-> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.=
-com>
-> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.co=
-m>
-> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
-> Reviewed-by: Joel Wittenauer <Joel.Wittenauer@cryptography.com>
-> Reviewed-by: Thi Nguyen <thin@rambus.com>
-> ---
->  .../userspace-api/ioctl/cmh_mgmt.rst          | 941 ++++++++++++++++++
->  .../userspace-api/ioctl/ioctl-number.rst      |   1 +
->  2 files changed, 942 insertions(+)
->  create mode 100644 Documentation/userspace-api/ioctl/cmh_mgmt.rst
->
-
-One docs build warning:
-
-Documentation/userspace-api/ioctl/cmh_mgmt.rst: WARNING: document isn't inc=
-luded in any toctree [toc.not_included]
-
-
---
-~Randy
+-- 
+2.43.0
 
