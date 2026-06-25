@@ -1,162 +1,129 @@
-Received: from out28-134.mail.aliyun.com (out28-134.mail.aliyun.com [115.124.28.134])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E81E2D0C63
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 13:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2746B23C516;
+	Thu, 25 Jun 2026 13:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782393686; cv=none; b=TqE2/exwtU4ccqiVVmVFh/GGsBGJpeSA7p7Vo2Ry3x3BIqxWGoTNeuhDDz642ro9fD7gFlEU25ynlj5zpt0YWCImfILCGdEkdHlP2Q5JPDKXhzzA5e3mkvv4/sYdBnrDShPPVdYq4nEUFOVgH/WwfPWjKfoY/tihWyLdwer9A0U=
+	t=1782393854; cv=none; b=rhBHCNeLWWNr5e2hdrnqX8FpcQiRN1c8+ssZeZlpisVIyHs70hJ3Eyj3ogouBtacbE9ovEHCrcEwQ/sxKVmQ9pV+eVlNSy2DYvl9QknwQ/qZuIIqX0EvWbjrW+YdlHuJOjwo3KtC3fkTc35hiAILmJXHdmPKceBZD2th4hWaxAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782393686; c=relaxed/simple;
-	bh=ti/PN8skITuRG8OlztXMT7V18V1YNBXs7Uaa1CesobU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iP29IbaNoplRau9V3Lsklnhp5RDtX6yU9++9QOs6JDaR+cOBkMPVxAuEY/k7NANLTkCZX33XVkxfmHsuupZtgPlqPbEpN2udecOlBsSiYf/xrRG3+bE7tKP3VHKyYU1jrPlGXGEvJFf59hrCtk50zIAdRL7BeeUudJ7jop0MwiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=kpp82dw9; arc=none smtp.client-ip=115.124.28.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1782393854; c=relaxed/simple;
+	bh=102LCPgJjx+JWdv//oxmgth8OWv+HBdntHfiqsGSX4M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DYqeC9Ms98HWSlibpef7WT6OSCOyc1njr+axpt6zXK3OGB0dk3OwjoFQ8WmkAewoNzSjfjXDvy9O4OnvixQguyL66Jq9lbnStM02US5hSTzVhaXcq2TOyZdnkxZMsqC3B5Z344i+fAhckFyf3OHD7MJ+RtucKKRfZYwD7V9dMd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WL9yKn3z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="kpp82dw9"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1782393683; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=wK/ZKOardcwv/Aodd8pEJaJbQNMwYl1VUq+9vFFehTc=;
-	b=kpp82dw9+Pabxn4cz1Ht905fuKXOgCsoyoxg1hANXuXPtR5PEUmyZsisHMqm2GkcpL2chUg5JBfcvcapCHdi0DCKND8cByvCWuWmUIBfx2kCNzydRy0kcqWXxALdTMuwYBWppiAXw0ztMedn0qWQyWrxYjo9nf468TAVLmEK4mLurAJns98Pxn+lpB6gJa3Uci2cbheVvmSAHBQWblGrJYQmJXroM9fyT9FkqNWgwH8LWpRiZ9AxCqgPhv20Vywm8qObf5C7FrhZNm1lXSHJsRGK6EO9Db7f1SXuJHS/Ikp1iMyVeTkREMKOlr5ly1qBdsQChKSrZZoXpm9nGexpXw==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09206045|-1;CH=blue;DM=|OVERLOAD|false|;DS=CONTINUE|ham_regular_dialog|0.0384528-0.0220204-0.939527;FP=18248887180456620888|6|1|5|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.i5gQ.fu_1782393679;
-Received: from mail-ot1-f52.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.i5gQ.fu_1782393679 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 25 Jun 2026 21:21:20 +0800
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7e6cdd78fe6so1151952a34.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 06:21:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ98HRhfU1qnA0LPDq8MroDxYxnP8ADdG77070yZULUtLiLj5uOw8XcU+tBebSF+0YCtxMba1OBc1zCM@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBSdvi2cRCFCFiSXi8w5nKlLsPYVNrPU/FBF0I1MADXSoeV82h
-	QvEal8Rq1Vr780pcT6zx5LeSI6XXzf3PsRLerrBuUs9Dswp3yGOo0AhzPFHhte8dFlcFqcwNtO5
-	txrvBgac6jh8p0VePD5HWIA7S35Mb88I=
-X-Received: by 2002:a05:6808:508b:b0:48c:6ab8:b22f with SMTP id
- 5614622812f47-49218410421mr2874082b6e.33.1782393678366; Thu, 25 Jun 2026
- 06:21:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WL9yKn3z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A684F1F000E9;
+	Thu, 25 Jun 2026 13:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782393852;
+	bh=pNvgr8gg/LWeKLpjg+r/5l2Sh5dtcCecwb692W9q8rA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WL9yKn3zJ6tTsUrVT3wK4X6ZfxvRd7vQMFp643WGVYmgN1a2DMT5nUaYW3/gUFn8K
+	 kwgenfpDXTkf5F+9Fm7p6kyxQ7gGlNOgp2VCSPMo/xsiHM/fQWnad2of1Oha8rF+tk
+	 Grdcq3OUGo/yTG7HSZ3RR3EwNeoful3fb2Cn3nTE4s9PIQN6kpN+jGTdQvRtG431iN
+	 9w0E6G5i/CuHJNoOCgZiXpULC9TUaq0GN21fBUDIzsPYPTSd08myibU2rGxVBo0CVe
+	 Ayr17oL2hnd2g4KNpCThRHU7VUVWXqMmw+yEauuz9qCpbb4b/zKckZ4uYSTybjLWzY
+	 c0MB1A5d6Q7kA==
+Message-ID: <7597d9b3-7e55-4b14-a34a-b24b2436e349@kernel.org>
+Date: Thu, 25 Jun 2026 15:24:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260508142500.4922-1-syyang@lontium.com> <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
- <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org> <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
- <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com> <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
-In-Reply-To: <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Thu, 25 Jun 2026 21:21:06 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNZMwwNrUft=w9o_dB96cOchKoh07jnk3Z2CioJoqhYybw@mail.gmail.com>
-X-Gm-Features: AVVi8CcRLVVCVFUu6dNTXTPJQjRM91gouORofLQ5rIVxZgeiGY6BSZ5XTAxS8O0
-Message-ID: <CAFQXuNZMwwNrUft=w9o_dB96cOchKoh07jnk3Z2CioJoqhYybw@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
-	rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
-	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
-	xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+References: <20260508134009.4582-1-syyang@lontium.com>
+ <20260508134009.4582-3-syyang@lontium.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260508134009.4582-3-syyang@lontium.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 20:59=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 25/06/2026 04:01, Sunyun Yang wrote:
-> > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 08:52=E5=86=99=E9=81=93=EF=BC=9A
-> >>
-> >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
-24=E6=97=A5=E5=91=A8=E4=B8=89 22:05=E5=86=99=E9=81=93=EF=BC=9A
-> >>>
-> >>> On 11/05/2026 05:28, Sunyun Yang wrote:
-> >>>> <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B45=E6=9C=888=E6=97=A5=E5=
-=91=A8=E4=BA=94 22:25=E5=86=99=E9=81=93=EF=BC=9A
-> >>>>>
-> >>>>> From: Sunyun Yang <syyang@lontium.com>
-> >>>>>
-> >>>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual=
- port
-> >>>>> mipi dsi and output hdmi, differences in hardware features:
-> >>>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> >>>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> >>>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> >>>>>
-> >>>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> >>>>> ---
-> >>>>>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++=
-++--
-> >>>>>  1 file changed, 6 insertions(+), 2 deletions(-)
-> >>>>>
-> >>>>> diff --git a/Documentation/devicetree/bindings/display/bridge/lonti=
-um,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,l=
-t9611.yaml
-> >>>>> index 429a06057ae8..e0821a63d9d7 100644
-> >>>>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt96=
-11.yaml
-> >>>>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt96=
-11.yaml
-> >>>>> @@ -4,19 +4,23 @@
-> >>>>>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.y=
-aml#
-> >>>>>  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> >>>>>
-> >>>>> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> >>>>> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-> >>>>>
-> >>>>>  maintainers:
-> >>>>>    - Vinod Koul <vkoul@kernel.org>
-> >>>>>
-> >>>>>  description: |
-> >>>>> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to=
- HDMI
-> >>>>> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX an=
-d LT9611UXD
-> >>>>> +  are bridge devices which convert DSI to HDMI
-> >>>>>
-> >>>>>  properties:
-> >>>>>    compatible:
-> >>>>>      enum:
-> >>>>>        - lontium,lt9611
-> >>>>> +      - lontium,lt9611c
-> >>>>> +      - lontium,lt9611ex
-> >>>>>        - lontium,lt9611uxc
-> >>>>> +      - lontium,lt9611uxd
-> >>>>>
-> >>>>>    reg:
-> >>>>>      maxItems: 1
-> >>>>> --
-> >>>>
-> >>>> Gentle ping.
-> >>>> Thanks.
-> >>>
-> >>> Except mess with threading, your patchset does not build, when applie=
-d
-> >>> on next-20260618.
-> >>>
-> >>> What is the base of this?
-> >>>
-> >>
-> >> Thanks for testing my patchset on next-20260618.
-> >>
-> >> The base of this series is v7.0.
-> >>
-> > Krzysztof,   Is Sashiko AI review required before merging a patch now?
->
-> Fixing obvious bugs in your code is required before merging.
->
-> But even without bugs, this cannot be merged - does not apply. And you
-> sending the same three different times does not help, because now there
-> is complete mess in reviews.
->
-We will modify the driver and the device tree, and test it on next-20260623=
-.
-Additionally, we would like to ask you a question regarding Sashiko
-AI: Is Sashiko AI review required before merging a patch now?
+On 08/05/2026 15:40, syyang@lontium.com wrote:
+> +
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+> +	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+> +	struct lt9611c *lt9611c;
+> +	struct device *dev = &client->dev;
+> +	bool fw_updated = false;
+> +	int ret;
+> +
+> +	crc8_populate_msb(lt9611c_crc8_table, LT9611C_CRC_POLYNOMIAL);
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
+> +
+> +	lt9611c = devm_drm_bridge_alloc(dev, struct lt9611c, bridge, &lt9611c_bridge_funcs);
+> +	if (IS_ERR(lt9611c))
+> +		return dev_err_probe(dev, PTR_ERR(lt9611c), "drm bridge alloc failed.\n");
+> +
+> +	lt9611c->dev = dev;
+> +	lt9611c->client = client;
+> +	lt9611c->chip_type = id->driver_data;
 
-> Best regards,
-> Krzysztof
+Also, NULL pointer exception here. With simple look I found at least two
+easy to reproduce and trigger bugs which makes me questioning how did
+you test it.
+
+
+Best regards,
+Krzysztof
