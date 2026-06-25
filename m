@@ -1,89 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3903ECBDD;
-	Thu, 25 Jun 2026 17:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED19F282F1D
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 17:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782409817; cv=none; b=QER1s0gLsCgp2fXHJr/V6JkFg4zM6g0P/o1M8z4KumkQsyfL7voThtSLzXUBZl62fu11vNA6qOKNHK8yHXjJnwRAviphDMpMy4/s36R5XMw/Q4O4TD7+Gb7AV+zZ8/a43yt97zMGVmmMFmi7UxuwSPy5ojd00F6Il/jbc6rLMs4=
+	t=1782410317; cv=none; b=EdNWFwGV6Hsf0ue5rs2cvvrOk9E1/jT/QUm+3N4DbFCtH05jiPoQ4x4TITWZFohbP/aPSi1s0DeqpoNFQaDQyT9GDaEjozUjrwwrWuE0HaLmAJQ6b8bqYpIPOJynIBHGckU/ABRyJGKfUH4bUQg3z2FMTlexBBRFTyDyNGsHa/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782409817; c=relaxed/simple;
-	bh=D+kt955t7AM1TA307DOmIvmXHBacueSXEI1jmVLOE5g=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=OnPpfGcKB3zamfz8asvsnhDCd4nkizrJ4nv3AXIDD0XbaJb490qF2nEa2XHOoTkYjP4p27JK7qE2JolmDUwUF2nIB61Z4rHTuEyofD0zFCIyweOmkaHyN96gOSBxtkQKHkme4S4F7zNRUqRIufV+EBweCwuAEI86xbKgaiF1ITg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MmJy1Y6+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782410317; c=relaxed/simple;
+	bh=7LOu2OJTm/9L4hHcPIXkIQVSnqzJcGkpzqnAAtGQ9nw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=myQajGQQzwA/WLbjLViZrIbtLT0Qmxof50NGzMyot5e52aSsZm9zacunG0zc0RJFzE2kkRnHe8swZOlfVypvTPNq891O3j4FKnVBFio0c3dHu4JajGK4y3bvXHAGxS5Z9A9SuCcSBthcho0BNYglDVRYAfGj7U+ybeYRBaW/hNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mj4Hf1uW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MmJy1Y6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D851F000E9;
-	Thu, 25 Jun 2026 17:50:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mj4Hf1uW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC26D1F000E9;
+	Thu, 25 Jun 2026 17:58:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782409816;
-	bh=h8OhrhsqQ2Miacsjs8uP266A7aQYd0mZ+To0MUYPgzo=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=MmJy1Y6+0EZEpLyEQTMDhevN9H1VEyVnXlGgShE70KPCi5pPUpkB/ELpllzE/9Pxp
-	 MoH+pWMWGcGL00r6mRdX+lu5rkgJC2m1xPdld9HylVPf9VfkTxBsYOrZjzz07YKXKo
-	 TZjQ0eSYkoTgsY6zrz8VmvUytiDaJTHqWrX5LDXHC4kKoOnRxJdob3uSLOXOsNjfyX
-	 gGygGa7qWR3lfnPI4hd50AohreCZZLGM2at0DII1KVrhnQmibgUUy31GtCjIuM3kJz
-	 cTxO/EIVJtIe92y2VJFsWiUrLN62zf7fY9gKUnGnwo5i7H3eBSycVMta1+qZMH6eIj
-	 2GHDT+msWpWBg==
-Date: Thu, 25 Jun 2026 12:50:15 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1782410315;
+	bh=LFxr+kkazsL5eaKgPpO7yTdT4eGb9hozazGeuujrHdA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Mj4Hf1uWMfCeXBS7WjMGsYsLy6gnKsv0LuRU3fMYjVsxyRcHD9ZNF0T6p5KZ0MXRq
+	 5Su/oBjQiRrqMIGLxlXeFO8haHYYlsoavbq+95jz4n8SvxQcX2Pb7JAHD+/NAYgIsc
+	 8Ryyk0NfeG96FPGXYgnLrZOWNz8ZrL1ba3e5RJESSR7sLZHmgkbqHdEEq3YhiWDlKE
+	 rCIhOVHPbSLUXi5w5qvncktev3vZ1qZb0vTRsemXaJdEPh4rLXYOxdbJjTAhAVLIHd
+	 I8X8MICUrxZtzwpMgPG08S6phivnYWZdN58pG66aCh1zAcMCYJu+nyjPd/7KbI61zX
+	 DRNZYSD0b7OtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 06/27] phy: rockchip: usbdp: Drop seamless DP
+ takeover
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260625-rockchip-usbdp-cleanup-v7-6-38eb3cf654fd@collabora.com>
+References: <20260625-rockchip-usbdp-cleanup-v7-0-38eb3cf654fd@collabora.com>
+ <20260625-rockchip-usbdp-cleanup-v7-6-38eb3cf654fd@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 25 Jun 2026 17:58:33 +0000
+Message-Id: <20260625175834.AC26D1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, upstream@lists.phytec.de, 
- conor+dt@kernel.org, krzk+dt@kernel.org, nm@ti.com, 
- devicetree@vger.kernel.org, kristo@kernel.org, linux-kernel@vger.kernel.org, 
- vigneshr@ti.com
-To: Nathan Morrisson <nmorrisson@phytec.com>
-In-Reply-To: <20260625160214.4001298-1-nmorrisson@phytec.com>
-References: <20260625160214.4001298-1-nmorrisson@phytec.com>
-Message-Id: <178240981517.3450987.4497389495200583534.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: arm: ti: Add bindings for PHYTEC
- AM67x based hardware
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unconditionally disabling the DP PHY during probe can cause a fata=
+l bus stall if the bootloader left the display pipeline active.
+--
 
-On Thu, 25 Jun 2026 09:02:13 -0700, Nathan Morrisson wrote:
-> Add device tree bindings for the AM67x based phyCORE-AM67x SoM and
-> phyBOARD-Rigel.
-> 
-> Signed-off-by: Nathan Morrisson <nmorrisson@phytec.com>
-> ---
->  Documentation/devicetree/bindings/arm/ti/k3.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
+commit c915d0565d2bfe6851ea25d0f7d099f70a22703f
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+phy: rockchip: usbdp: Drop seamless DP takeover
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/arm/ti/k3.yaml:228:1: [error] syntax error: found character '\t' that cannot start any token (syntax)
+This commit removes seamless DP takeover support by unconditionally disabli=
+ng
+the DP PHY during initial status checks. It aims to prevent clock resource
+leaks on module removal since the DRM stack does not yet support seamless
+takeover.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/ti/k3.yaml: ignoring, error parsing file
-./Documentation/devicetree/bindings/arm/ti/k3.yaml: error loading YAML: while scanning for the next token
-found character '\t' that cannot start any token
-  in "./Documentation/devicetree/bindings/arm/ti/k3.yaml", line 228, column 1
-./Documentation/devicetree/bindings/arm/ti/k3.yaml:228:1: found character '\t' that cannot start any token
+Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.=
+kernel.org/
 
-doc reference errors (make refcheckdocs):
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> @@ -939,9 +939,9 @@ static int rk_udphy_get_initial_status(struct rk_udph=
+y *udphy)
+> =20
+>  	regmap_read(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET, &value);
+>  	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_A=
+LL, value))
+> -		udphy->status =3D UDPHY_MODE_DP;
+> -	else
+> -		rk_udphy_disable(udphy);
+> +		dev_dbg(udphy->dev, "Started with DP PHY pre-enabled; seamless takeove=
+r unsupported\n");
+> +
+> +	rk_udphy_disable(udphy);
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260625160214.4001298-1-nmorrisson@phytec.com
+[Severity: High]
+Will this unconditional call to rk_udphy_disable() cause a fatal bus stall
+if the bootloader left the display pipeline active?
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+If the bootloader leaves the DP PHY enabled and streaming for a splash
+screen, the Video Output Processor (VOP) is actively pushing pixels to the
+PHY and depending on its clocks.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+By shutting down the PHY, cutting its clocks, and asserting resets here
+before the VOP is stopped, the VOP could stall the AXI bus when its
+downstream sink abruptly stops. This can lead to an asynchronous external
+abort (SError) or a complete system hang.
 
-pip3 install dtschema --upgrade
+Even without seamless DRM takeover support, should the PHY remain enabled
+until the DRM driver gracefully tears down the display pipeline in the
+correct hardware-mandated order (VOP first, then PHY)?
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> =20
+>  	return 0;
+>  }
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-rockchip-u=
+sbdp-cleanup-v7-0-38eb3cf654fd@collabora.com?part=3D6
