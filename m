@@ -1,185 +1,526 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD4D3E3C69
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 15:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9625C3E8333
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 15:29:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782400935; cv=none; b=G1j0+xVlZihDKFDVdzbkJLw4Jb4ISY4dVKxwtBP1kQl51ZKcFLSfE7iFg5F2gdERsAJouSNznkVh08V2rZpP0GKWQK3sO2eTCPBf26nvYSp1vwDW0z7UZMKjNcoTmHNEgavBW8Ka91yexSMMxVF3sXba7Cu9Ft5eF/WHX+FNmmE=
+	t=1782401342; cv=none; b=KLrb0P6usvBw4XSAdJhcbnmZDNLz9JXWV7jiDJqROjPmtI0DXuNikabcY/onnch8e7SAqkj1nFBnwKtq4Z6C+mBvqu7KzO1jy8VGStd5HpkWNmAs5Fah+URLR0l/q2nTdPdSelHBPe3EuB6IVsfJr8mfIfCe0p6paPOjx4DEeOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782400935; c=relaxed/simple;
-	bh=zgX8wTyuhRWY/epOy/oDCEMIc2fIwHZr/kiZDdN6w0I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=qOjxpB20m/V81WMVBnQNp/Lnz+M5IrNJ1usssQBkMVzkyfJVB23E4VksWT0DePFc4ms/fJNGbWXbtYUMkEL7JtxKvRGsCSs8zI2dICURhk5fyGsIlBJPmJ5DUpzkPVqGzQ8b4UpfolgLPnl/p4qM+dZKeNFGCu054CpL8rsSzYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=iKvQpY7x; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1782401342; c=relaxed/simple;
+	bh=A/M7gP2ggKRXz+cidJVmlL5bJf9us559MomwqlClaU4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=srvgcFoT4puhjWu/G4QZKMipOIroXUGEMRA00a02CFllzoqRcKQyN6bSvC5nbkXGem0+kFHqmoGTB0FlQF5NDtzROYkqmJq0IlYrhUoECK+V9f1oM/wYvp12Viucagm6dNb4cy77SsA+fzx6UpBRZrDcueiXNYAbh16cIq0ZA0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c55PPGRE; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="iKvQpY7x"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1782400928;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zgX8wTyuhRWY/epOy/oDCEMIc2fIwHZr/kiZDdN6w0I=;
-	b=iKvQpY7xekhiJnJX4ZmGuzzYmADQ5pG6QSwvo3t3HxnfEKQFw/E2ni4qMZ49Z0X8jLwqV2
-	kuZpn1s31uLMht0aQlH8MdDSjGAppsdlI5Lf+Z4nWI4viImn/c4jIXvK2AzuM/OJvYXyXY
-	BpdZxdYUIGxZtE/56PzC25UUT1eV/ugKWspWq0xid+BojzNGuK5GBDefpv8PVRON8T2v+z
-	P2B+IRcy1MEmMpAmJG5BZE7ejkGXa2cwqt4HUvpDWylXXORF0aZOQyOjWxxDUV8VO09tWD
-	bN9q7TKgTZkWHwf9r/d3IMe5UyFj0xkPc/dR+3VJEVoW9sqUppICyKWBUx7SyA==
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010008.outbound.protection.outlook.com
- [52.101.193.8]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-60-PKXQPM9MOwi2o9gvL_bgOQ-1; Thu, 25 Jun 2026 08:22:04 -0700
-X-MC-Unique: PKXQPM9MOwi2o9gvL_bgOQ-1
-X-Mimecast-MFC-AGG-ID: PKXQPM9MOwi2o9gvL_bgOQ_1782400920
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com (2603:10b6:930:b8::20)
- by CH3PR02MB9781.namprd02.prod.outlook.com (2603:10b6:610:178::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Thu, 25 Jun
- 2026 15:21:58 +0000
-Received: from CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca]) by CYYPR02MB9828.namprd02.prod.outlook.com
- ([fe80::2767:f7d2:778c:8dca%4]) with mapi id 15.21.0159.012; Thu, 25 Jun 2026
- 15:21:58 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: "Parthiban.Veerasooran@microchip.com"
-	<Parthiban.Veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, Piergiorgio Beruto
-	<Pier.Beruto@onsemi.com>
-CC: "andrew@lunn.ch" <andrew@lunn.ch>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Conor.Dooley@microchip.com"
-	<Conor.Dooley@microchip.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Topic: [PATCH net v5 1/4] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
-Thread-Index: AQHc+e0nFxx0u09WdkC+bo9XNPrS8rZAt0OAgAMGobCABlg+EIABlccAgAAFtTCAA5jlAIAAJzFw
-Date: Thu, 25 Jun 2026 15:21:57 +0000
-Message-ID: <CYYPR02MB982836BC273D09FD3BDE623583EC2@CYYPR02MB9828.namprd02.prod.outlook.com>
-References: <20260611-level-trigger-v5-0-4533a9e85ce2@onsemi.com>
- <20260611-level-trigger-v5-1-4533a9e85ce2@onsemi.com>
- <7c89df6b-32ac-46c8-8400-945879037f2e@microchip.com>
- <CYYPR02MB9828CD98EEEB9B218A940E4483E32@CYYPR02MB9828.namprd02.prod.outlook.com>
- <CYYPR02MB9828A1434E6339A6CFCCA74283EF2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <64f4f30e-a987-4289-b36a-1acc977a6764@microchip.com>
- <CYYPR02MB9828E1167750AEA090EC60CD83EE2@CYYPR02MB9828.namprd02.prod.outlook.com>
- <f127837f-e08f-48e0-a3a9-906e1d61d6bb@microchip.com>
-In-Reply-To: <f127837f-e08f-48e0-a3a9-906e1d61d6bb@microchip.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CYYPR02MB9828:EE_|CH3PR02MB9781:EE_
-x-ms-office365-filtering-correlation-id: e55d7eb3-8a3b-410b-0a18-08ded2cd7f5a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|921020|38070700021|18002099003|22082099003|4143699003|6133799003|11063799006|56012099006
-x-microsoft-antispam-message-info: bAB4Wl8ITfCyclh8N+0qsjVEcMRjmnsz+qc78SouUBt5/FpQwQ9aDD18gcQuzJXCWAUvFOSW6DBva073k6P/xO7XMGH6QWN35G4xNJlkLe74YMDA3OUN261ZoRTqsGSz8nxAaOv6gMXkwa/m2W3H647W/vmuU7AZa86raYEB/a9jc7ecopaX1cd7EWOlXAxfQQV2BkHmjeBZ65Dj4GF3DSwYRfyml7lhtE28JLuORT+FwaBi3hQGxYWrhD4U8GHSC/O3DjcIzQw3le0JeluEbqhRJhTuLougm3E+FE1EGtoakTK0oZ+uqW2rOR7AtYNjFKBp+8Nvp96UDg6AXwSrTPBGX8esjnuGH32CNsHMBxSE09LGXhQFTc+cTpytFkIbH8+f6CT8EcnTO75YK235ZrFmN1qYwNSJ69Mr1bXR5O4/FvEU9OZh4/SqINMn6nM/Muly2MD/aAanZUELSf7YHuUATW2BMjOEfvATWGV3r6IufWszfMzIR0k3Njxw2Jor4WPAaX+04zD+Ops63HUhnKXQ+v/xtlBXrK4dFP2OWzjeEEt98yNmLgKWrf49srKEK2dm5hWFYRaLT9Zw3riZ+G2GtP4wHolWZCQoYlVEd9WA2QtLBeFdH6UQzg1L4bmCAgkUKv/3t6SUqGrNcnd9gx7NRYdY5wg21eSOWO6OKQ8ifR5o68QOKKlHGVod2DzDLwEnZ+qttaBZIZ4jN5PSxJS9r/D2NHu73Rwgur9YGFSKB0PmJJJ8k1DTJ1qZTu54
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CYYPR02MB9828.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(921020)(38070700021)(18002099003)(22082099003)(4143699003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OWhOWTN0Qkp1YjFpRkxzV0xaTFhoZmQydzVRZklob3o1R1J6Zmp2L0Y2UDBu?=
- =?utf-8?B?T1J6UHFCUUM4M1VjQ083QnN3Rjd6YXJyeTZvRmtVSmFoSTc2b0orRlE3alFT?=
- =?utf-8?B?a2prcmVqZW1Fa2lEVWN5SGpEZzFRbVMrRTVpUHhKeWNwSmlHa1JEMTF0TGZw?=
- =?utf-8?B?S2lDM0x2VFJQb0pjbzc0V3NLVmtoNXdVbjd5ZFFmaTJKN0s5OEI5SzVrbndY?=
- =?utf-8?B?VmhBc0hYVFIwenhGUndMWjE4cmVCR0JJT3BGTXVaVmkxcERuSE14V0tSVHFR?=
- =?utf-8?B?VkZrQ2VTcW1URjlERkJmQmtxcDROMzZoTW1kcXArNGZtRGVHK1ZvSWFsMFMx?=
- =?utf-8?B?TUMxcEt3YTNvVStnU2x4M2xGS0w2SENYQjRPMnk3MFc4SHBkTDJReENsL3BD?=
- =?utf-8?B?V1VCWUpTYmppSkxoNVIzQm1YU0YrV2lnQ2hJSm9rM2drUWhIM0IwM3RsaVV5?=
- =?utf-8?B?eUlmMUlXTTd4M3I0MWNyZit1VEFudGtmSzRGOEVqcUROZUk5bzYxM1k4eFpj?=
- =?utf-8?B?bllFRzVBQkk5RGFVU2tTQ1o2TkgvVmRtRWpJNTJMZDloUU5GZnc5bnU0T1cz?=
- =?utf-8?B?SjZLUGdNOHUxU3h2RVBKWVUzcnVtemlWWlJpbVpsck8welc1OUoxd1YvTXFt?=
- =?utf-8?B?NlBkWXBEcFQ1blo1SStqRTJKOGRPSUxMakZxMkhsNnRXOWczemkxbldCays3?=
- =?utf-8?B?K2g3azFsOHZXbGtOek0rZjJuTFI4MWsxaTZ1NFR0cE5RSXZhNDZrUjgxaXhw?=
- =?utf-8?B?REMrYXdBYTM1WnRENXd0dUFBM1NtUkVzMTRmZC81TUllZ3YwT3lNaktVcFYx?=
- =?utf-8?B?SUkzZEdlMTljekF2aDNZbTJFRnhoQlRqRktsU3JrcEdSeExEYjhPRnJWT0Ns?=
- =?utf-8?B?c2dtb05BakdWdEE3QUVEQ2JVbVcwdHh5dTcwWWI1Ym55Szd1eFZrd01qWDJp?=
- =?utf-8?B?cnV2VWpmTks3akNoOHlRbGdjd2V2SU9DYzZscTQzU1dvanJ2azFXMTJkWkYr?=
- =?utf-8?B?MmZHNWp0QjFRUXVLd2lTeEpYN0JhOTF3UTNJOU1iem90NndERlhabGRKMW03?=
- =?utf-8?B?RWNGWGQySjhoS1lmYXlmWndaQUZYVmYyZlk4emJlOFlkVW00V2ZycDFQd0cz?=
- =?utf-8?B?WDlKZ05Ua2pKSGU5Y2dOcnQ3TXFhUU95ZDdsRVp4anQxeHFhUDBhSi9DVzBT?=
- =?utf-8?B?bWRLZlZGSDZZcGczWWI2YUdtNU14SUswVGNLMjlhU002ZEZweUpWT3poaG9F?=
- =?utf-8?B?Zlk1TjNxaUtTRTlHOHhqeW9GU1AxQyswSk9tSCtpQXRtT1JBc2o0cUFmM2o5?=
- =?utf-8?B?Unp3bzdTMnJDa1dlVEFuVWYvdDBGSTlQL0ZBZ2I2R2ExdW5ZSEduVVNOTys2?=
- =?utf-8?B?MWd3QnVveEdKNUZpa2tUSG9oRlRBajZTUjRPZUEzYXlkczhPdlpBaUl4aDlP?=
- =?utf-8?B?c0ZMYk5xTFlaL1gzR3RvcDZkdUFnYVdlKzVXNlljdUZoenMrT1hDdk83SWtS?=
- =?utf-8?B?eDhqNk5hK0RNQ3BtRzhWUVNPY3ZoZWNxNUFUcXZZYkp6KzNwM1NoTk1mMGRC?=
- =?utf-8?B?Y0lxSkw2SFRTcG5ROFcwTmY4Q0lCWEtLN2pGVWc0dFdKL2lCMCtMK1VJOS92?=
- =?utf-8?B?TmlIdHN0RzRJTEtHOUxVNlpNR29hQ2hTSkd5RUdWd1J3R3J0UlNmQjF2Lzkx?=
- =?utf-8?B?bG1HUUkyRlcxY3ZOL3VMbldVRXltVVVRYUhvcTRnMnFLNnMzQ1ZpYTY4STBz?=
- =?utf-8?B?VjY2L2EwbW4xbjkyczJaRXBheFc1ZlBGSEh6bVQ1MTl0ajBtSnJIRVFWQWRJ?=
- =?utf-8?B?WXRjRUgraCtjWlFDRFl5akZUc3pmakREVXlDc29TczhJRjloUitZcEk2YXlo?=
- =?utf-8?B?cUxCYXI0NGpwTEluOXpiY2ptb2RsdWVxeVdQRjFpOVV4aVpoZE9qYXRtTU1T?=
- =?utf-8?B?cFUvZlF4L2ovU0c5dUxkWTFOU242dFpNbXdvRzBteDArdmlHeTlkQnQwdmFZ?=
- =?utf-8?B?TDFsbUJPZXNlQTdYaGJhY21QY1dHRFV4dXA0ditaczIzMCtzcFNYR2p2MFY4?=
- =?utf-8?B?dzJNdXBQS3VzVVhrNkp0OUMxOU5IMHovZXM2VVU3a2RtYTh2RnRZZFVKam1l?=
- =?utf-8?B?SnBYWXpIeVdIZEMyNHdRb1U4MldpemU1bXg5L2dqdkNQTGJqZXlCU2VhdGFo?=
- =?utf-8?B?UTVYclFpZmhPODBDWXNZL2ZETWh0OVhOenZEYjhOVmxzV0NDYWg2TTBkMFVa?=
- =?utf-8?B?UEJCODNScFZ0ZDkvZ0xXQndOeFg5OHFCTnV1MGwweTlQeVJ5TytlcEZkU2VH?=
- =?utf-8?B?azMybTR6a25hOUttS0hDNkNZUDFobmZNeWo2T3lBQTVZSEltTWk0Ym1xMk43?=
- =?utf-8?Q?+cCk9gCuWMvN+2ug=3D?=
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c55PPGRE"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-13810b63a1aso2474539c88.1
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 08:29:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782401340; x=1783006140; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ELJpRRWVEPEyA+tUppkYfBJhu/rFd652LB2QumVysgg=;
+        b=c55PPGRE8dYWI9rYsn1VI5lml1ajpfqYI6xq7f1YHH9J8Uj1i6L/q5/8dRQpRaPS+s
+         uoTrFQhLyV7jWKIGRpk9bXo3rp7ILK2EHdMPgKE3JFOv9hY35ht1xiKVKJNW0rMBb+lF
+         wcZptQMDjcr46jLPf6nit0sVtpoFbcfx4tXpfetJYawGhOtQvqG4MFPqdL4/coU5hvx2
+         fGI166vb9bEGLvnjFIudZGVjmrFQ4ujam9Xgowt7C9Ks5yiUnIICC/uHHMfjc/Lxfc+w
+         p1+7NtLVJ4ZyqnrLPnOEIVTHtA3P9500CrQJNuoJFrUpSlzi8h6aBJuX6kS0knYsIqum
+         8G0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782401340; x=1783006140;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ELJpRRWVEPEyA+tUppkYfBJhu/rFd652LB2QumVysgg=;
+        b=B4VihV4ZaQxKQNlnBIg0IZ6AUo3kBUx0dOGOVpp46ptBBQ0Q4dLmaH8R8OlVCTAVaf
+         c4lgsA81+p93gSmNhyaknZ0Lkh0mVPKcsF6jyuJvyOAjWXjFbmickFWFO3QM6aQAJHDD
+         pwMvv81XiTWGPWKvSN9jrzCrWLS8E8FC/twbCfa67zsyFFMKz9mWeT2LlY2+ifI9nZcD
+         GJhdx6aFCBB1e3jhywPbkiD8eHBuc3DKl4KlW23pWWVNaOqG9aqpFEr2NyZWbkNeFJbW
+         DCsrmP7NxDy7LdTmGd9cORjDBWw6rGkeb2siC5bCgAbweWHwT9E+CYIbpdXP4NW+4468
+         lJ7Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3tbHgGqI26oXgaEngjtgrqnznt7O/kvsWXq8fu5PomnEKm9IP+FuEZU/ZWVLnqdWtkqMes47VyBih@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvVk8u8hVWcxYRCFpWXW+UTaqAgsD9DGI1F4LHBu4JhcJA25ri
+	zlDvcuXhlIG9FfsDh5duEywGeMluk/IGqCYCRzWENiEaW8j8aEn46AXL
+X-Gm-Gg: AfdE7ck+hKhLv+Yt2MTlO7LJ6qx7SiPTrxROJb/EhkfTV+jgUww7ITKGcnwYj3Hoa2+
+	SPua5k9BI+YJe7TJtyUQdGO8m/Ji1OJgiJgE+56JH2GeUfgnZ4SF0bEIBL4uTPY58OmEBvTVZxS
+	zXsdq5QFumBL6m2cyJ905BYCtp7qorFGNrZZS/5lLD2E4fHOr68OZ+JEAOyHM0/RLD+dWYaj+at
+	OBTQ5OFIEKnNFJrUvH1uEJUO9T6hj528Kg/Q4p/mSOL7UhClIWJTjoG4PpTA96uiI//d+oZOflg
+	3I4XTtuKRqzB3aBRMIQ12h45DWBkVViifHnZapvU5GK8ILZyzE/Zb1XfCVI/lUwAxQsTvAWogSc
+	vqCJMJzqOyOWhXjrQLHlpgiILfzueohKy+W+GjLood7y8VDzW2t7SP3LcQ3IxTtO4BMlbNuqBTp
+	hCoLDEvzAqI8/YpVarWXH8SN/6cVFzcFSmXw==
+X-Received: by 2002:a05:693c:2c92:b0:304:cd60:b6a6 with SMTP id 5a478bee46e88-30c84db6bbdmr2836748eec.30.1782401339440;
+        Thu, 25 Jun 2026 08:28:59 -0700 (PDT)
+Received: from Black-Pearl.localdomain ([49.207.56.32])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-30c7cac87dcsm10593005eec.31.2026.06.25.08.28.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 08:28:59 -0700 (PDT)
+From: Charan Pedumuru <charan.pedumuru@gmail.com>
+Date: Thu, 25 Jun 2026 15:28:48 +0000
+Subject: [PATCH v2] ASoC: dt-bindings: sound: nvidia,tegra30-ahub: Convert
+ to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: WVAflkfV5VknQQHOVWp3bPBol9zkd6xu8vg3dj//sfa2GUe0sGNvXqpOQY7D/SbgmQsGcuSgIqh1OgFg6CFx7njz0BJXbcwwqUgO7nlDXDRiuZ7Yn9bU/30G5RKYIh4p8sfKbVMyW11yL0pUZh7Jhf3E1hhXUjJscZTUlaqOM4ZnDXWw2BagWfPsWoG5vvJq4YWXmMuVAdMgnV85N5nAFlGWKHGXGrCIV2ZkQjdoXA8aVlz4RjNDrC5Uq0MuVeFvbVqqkT469pBBCQ0aHG3mb69KTAh7MJ8y1r+F5RS+bx//0A4M82fQS6ioycprD/NIhCuO3l7Q9P10p2Lj5NFYWQ==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR02MB9828.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e55d7eb3-8a3b-410b-0a18-08ded2cd7f5a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2026 15:21:57.9620
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UbUgJ3SKcKPxPNct6Alsvgh/yCW2KcYVa0WcLV62w6hRjx6cGDTEJV5oeEsfwGCHO0zE5xK5GLRWJifXnmxu0oMu//5ZYHHCMCK5s5vyFQE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR02MB9781
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gN3UFpU_LGJsBbdYwszjiJtFcXDeSUrAly0s8ujf2-4_1782400920
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260625-nvidia-ahub-v2-1-eb041c30f1f8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAC9JPWoC/1WNyw6CMBBFf4XM2pp2CtS48j8Mi7aMMEbAtNBoC
+ P8uj5XLk5x77gyRAlOEazZDoMSRh34FPGXgW9s3JLheGVBiKXNE0Seu2QrbTk7U6MlJbdDkOay
+ Ld6AHf/bavTo4Tu5JftwSm9FyHIfw3e+S2ryjXCr9V05KKFE4Q5dCS2V0eWs6y6+zHzqolmX5A
+ RJPV4S4AAAA
+X-Change-ID: 20260422-nvidia-ahub-d2ceb0372744
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Charan Pedumuru <charan.pedumuru@gmail.com>
+X-Mailer: b4 0.15.2
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBQYXJ0aGliYW4uVmVlcmFzb29y
-YW5AbWljcm9jaGlwLmNvbSA8UGFydGhpYmFuLlZlZXJhc29vcmFuQG1pY3JvY2hpcC5jb20+DQo+
-IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbmV0IHY1IDEvNF0gbmV0OiBldGhlcm5ldDogb2FfdGM2OiBJ
-bnRlcnJ1cHQgaXMgYWN0aXZlIGxvdywgbGV2ZWwgdHJpZ2dlcmVkLg0KPiANCj4gDQo+IFdpdGgg
-eW91ciBhYm92ZSBwYXRjaGVzLCBJIGRpZCBhIHF1aWNrIHRlc3QgKFRlc3QgY2FzZSAyKSB3aXRo
-IHR3bw0KPiBNaWNyb2NoaXAgTUFDLVBIWXMgYW5kIGZhY2VkIGEgc2ltaWxhciBpc3N1ZSByZXBv
-cnRlZCBiZWZvcmUuIFNoYXJpbmcNCj4gdGhlIGRtZXNnIGNyYXNoIGxvZyBmb3IgeW91ciByZWZl
-cmVuY2UuDQoNClJvb3QgY2F1c2Ugc2VlbXMgdG8gYmUgc2FtZS4gV2hlbiBvYV90YzZfdXBkYXRl
-X3J4X3NrYiBmdW5jdGlvbiBpcyBjYWxsZWQsIHRjNi0+cnhfc2tiIA0Kc2VlbXMgdG8gYmUgTlVM
-TCwgd2hpY2ggbWF5IG1lYW4sIGNvbnRyb2xsZXIgc2VlbXMgdG8gYmUgbm90IGdldHRpbmcgc3Rh
-cnQNCg0KSSBoYXZlIGEgdGhlb3J5LiBMb29rIGF0IGxpbmUgIzkzMy4gV2UgaGF2ZSB0aGUgZm9s
-bG93aW5nIGNvbW1lbnQuIEkgYW0gc3VyZSB0aGlzIGNvdWxkIGJlIHRydWUNCmZvciB0aGUgY2Fs
-bCB0byBvYV90YzZfcHJjc19yeF9mcmFtZV9lbmQgYXQgbGluZSAjOTI2IG9yIG9hX3RjNl9wcmNz
-X29uZ29pbmdfcnhfZnJhbWUgYXQgbGluZSAjOTUwLg0KICAgICAgICAgICAgICAgLyogQWZ0ZXIg
-cnggYnVmZmVyIG92ZXJmbG93IGVycm9yIHJlY2VpdmVkLCB0aGVyZSBtaWdodCBiZSBhDQogICAg
-ICAgICAgICAgICAgICogcG9zc2liaWxpdHkgb2YgZ2V0dGluZyBhbiBlbmQgdmFsaWQgb2YgYSBw
-cmV2aW91c2x5DQogICAgICAgICAgICAgICAgICogaW5jb21wbGV0ZSByeCBmcmFtZSBhbG9uZyB3
-aXRoIHRoZSBuZXcgcnggZnJhbWUgc3RhcnQgdmFsaWQuDQogICAgICAgICAgICAgICAgICovDQoN
-CkVpdGhlciB3ZSBjaGFuZ2UgdGhlIGZvbGxvd2luZyBsaW5lIGluIHRoZSBmdW5jdGlvbiBvYV90
-YzZfdXBkYXRlX3J4X3NrYg0KICAgIGlmICgodGM2LT5yeF9za2ItPnRhaWwgKyBsZW5ndGgpID4g
-dGM2LT5yeF9za2ItPmVuZCkgew0KdG8NCiAgICAgICAgaWYgKHRjNi0+cnhfc2tiID09IE5VTEwg
-fHwgKHRjNi0+cnhfc2tiLT50YWlsICsgbGVuZ3RoKSA+IHRjNi0+cnhfc2tiLT5lbmQpIHsNCg0K
-T3IgYWRkIGEgY2hlY2sgDQogICBJZiAodGM2LT5yeF9za2IpIGJlZm9yZSBjYWxsaW5nIGFib3Zl
-IG1lbnRpb25lZCB0d28gZnVuY3Rpb25zIGZyb20gdGhlIGNhbGxlZSBmdW5jdGlvbi4NCg0KSSBj
-b3VsZCBkby4gQnV0IEkgaGF2ZSBubyB3YXkgb2YgdmVyaWZ5aW5nIHRoaXMuIEkgYW0gc3VyZSBp
-dCB3aWxsIGZpeCB0aGUgY3Jhc2guIEkgd291bGQgbGlrZSB0byBjb25maXJtDQp3aGV0aGVyIHRy
-YWZmaWMgcmVjb3ZlcnMuDQoNCj4gDQo+IFsgMjg2My4xODIxMDVdIGV0aDE6IFJlY2VpdmUgYnVm
-ZmVyIG92ZXJmbG93IGVycm9yDQo+IFsgMjg2My4xOTk5MDVdIGV0aDE6IFJlY2VpdmUgYnVmZmVy
-IG92ZXJmbG93IGVycm9yDQo+IFsgMjg2Ny42NjkzMTJdIFVuYWJsZSB0byBoYW5kbGUga2VybmVs
-IE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdA0KPiB2aXJ0dWFsIGFkZHJlc3MgMDAwMDAwMDAw
-MDAwMDBiOA0KDQo=
+Convert NVIDIA Tegra Audio Hub (AHUB) binding to DT schema.
+
+Per-SoC differences in reg, reset-names, and dma-names are enforced
+via allOf conditionals.
+
+Add patternProperties for i2s child nodes referencing
+nvidia,tegra30-i2s.yaml, reflecting actual DTSI usage where i2s
+controllers are placed directly under ahub. nvidia,ahub-cif-ids is
+not redeclared here as it is defined in the child i2s schema.
+
+Signed-off-by: Charan Pedumuru <charan.pedumuru@gmail.com>
+---
+Changes in v2:
+- Modify the subject line to match with upstreaming standards and change
+  commit message to exaplin the changes.
+- compatible: collapsed three standalone const entries into an enum,
+  sorted alphanumerically (tegra114 < tegra124 < tegra30)
+- reset-names: moved per-SoC ordered items lists from a top-level oneOf
+  into the allOf if/then blocks; top-level now has only minItems/maxItems
+- dma-names: dropped oneOf, kept single 20-item items list with minItems: 8;
+  per-SoC min/maxItems constraints moved into allOf if/then blocks
+- "#address-cells": replaced $ref: types with enum: [1, 2] at top level;
+  added const: 1 in tegra30 and tegra114 if/then blocks, const: 2 in
+  tegra124 if/then block to match actual dtsi values
+- "#size-cells": same treatment as #address-cells
+- patternProperties i2s child: replaced allOf + $ref wrapper with direct
+  $ref; removed properties/required block (nvidia,ahub-cif-ids belongs in
+  the i2s schema).
+- Link to v1: https://patch.msgid.link/20260613-nvidia-ahub-v1-1-5b7e85301736@gmail.com
+---
+ .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 ------
+ .../bindings/sound/nvidia,tegra30-ahub.yaml        | 297 +++++++++++++++++++++
+ 2 files changed, 297 insertions(+), 88 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
+deleted file mode 100644
+index 0e9a1895d7fb..000000000000
+--- a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.txt
++++ /dev/null
+@@ -1,88 +0,0 @@
+-NVIDIA Tegra30 AHUB (Audio Hub)
+-
+-Required properties:
+-- compatible : For Tegra30, must contain "nvidia,tegra30-ahub".  For Tegra114,
+-  must contain "nvidia,tegra114-ahub".  For Tegra124, must contain
+-  "nvidia,tegra124-ahub".  Otherwise, must contain "nvidia,<chip>-ahub",
+-  plus at least one of the above, where <chip> is tegra132.
+-- reg : Should contain the register physical address and length for each of
+-  the AHUB's register blocks.
+-  - Tegra30 requires 2 entries, for the APBIF and AHUB/AUDIO register blocks.
+-  - Tegra114 requires an additional entry, for the APBIF2 register block.
+-- interrupts : Should contain AHUB interrupt
+-- clocks : Must contain an entry for each entry in clock-names.
+-  See ../clocks/clock-bindings.txt for details.
+-- clock-names : Must include the following entries:
+-  - d_audio
+-  - apbif
+-- resets : Must contain an entry for each entry in reset-names.
+-  See ../reset/reset.txt for details.
+-- reset-names : Must include the following entries:
+-  Tegra30 and later:
+-  - d_audio
+-  - apbif
+-  - i2s0
+-  - i2s1
+-  - i2s2
+-  - i2s3
+-  - i2s4
+-  - dam0
+-  - dam1
+-  - dam2
+-  - spdif
+-  Tegra114 and later additionally require:
+-  - amx
+-  - adx
+-  Tegra124 and later additionally require:
+-  - amx1
+-  - adx1
+-  - afc0
+-  - afc1
+-  - afc2
+-  - afc3
+-  - afc4
+-  - afc5
+-- ranges : The bus address mapping for the configlink register bus.
+-  Can be empty since the mapping is 1:1.
+-- dmas : Must contain an entry for each entry in clock-names.
+-  See ../dma/dma.txt for details.
+-- dma-names : Must include the following entries:
+-  - rx0 .. rx<n>
+-  - tx0 .. tx<n>
+-  ... where n is:
+-  Tegra30: 3
+-  Tegra114, Tegra124: 9
+-- #address-cells : For the configlink bus. Should be <1>;
+-- #size-cells : For the configlink bus. Should be <1>.
+-
+-AHUB client modules need to specify the IDs of their CIFs (Client InterFaces).
+-For RX CIFs, the numbers indicate the register number within AHUB routing
+-register space (APBIF 0..3 RX, I2S 0..5 RX, DAM 0..2 RX 0..1, SPDIF RX 0..1).
+-For TX CIFs, the numbers indicate the bit position within the AHUB routing
+-registers (APBIF 0..3 TX, I2S 0..5 TX, DAM 0..2 TX, SPDIF TX 0..1).
+-
+-Example:
+-
+-ahub@70080000 {
+-	compatible = "nvidia,tegra30-ahub";
+-	reg = <0x70080000 0x200 0x70080200 0x100>;
+-	interrupts = < 0 103 0x04 >;
+-	nvidia,dma-request-selector = <&apbdma 1>;
+-	clocks = <&tegra_car 106>, <&tegra_car 107>;
+-	clock-names = "d_audio", "apbif";
+-	resets = <&tegra_car 106>, <&tegra_car 107>, <&tegra_car 30>,
+-		<&tegra_car 11>, <&tegra_car 18>, <&tegra_car 101>,
+-		<&tegra_car 102>, <&tegra_car 108>, <&tegra_car 109>,
+-		<&tegra_car 110>, <&tegra_car 10>;
+-	reset-names = "d_audio", "apbif", "i2s0", "i2s1", "i2s2",
+-		"i2s3", "i2s4", "dam0", "dam1", "dam2",
+-		"spdif";
+-	dmas = <&apbdma 1>, <&apbdma 1>;
+-	       <&apbdma 2>, <&apbdma 2>;
+-	       <&apbdma 3>, <&apbdma 3>;
+-	       <&apbdma 4>, <&apbdma 4>;
+-	dma-names = "rx0", "tx0", "rx1", "tx1", "rx2", "tx2", "rx3", "tx3";
+-	ranges;
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+new file mode 100644
+index 000000000000..1c3fc7a97465
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/nvidia,tegra30-ahub.yaml
+@@ -0,0 +1,297 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/nvidia,tegra30-ahub.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NVIDIA Tegra Audio Hub (AHUB)
++
++maintainers:
++  - Jonathan Hunter <jonathanh@nvidia.com>
++
++description:
++  The NVIDIA Tegra AHUB (Audio Hub) is an audio interconnect block used to
++  route data between various audio clients such as I2S, DAM, SPDIF, and
++  APBIF. It exposes multiple register regions and supports different
++  configurations depending on the Tegra SoC generation. The AHUB also
++  provides a configlink bus for child audio components, which use CIF
++  (Client Interface) IDs to identify their data paths. The number of DMA
++  channels, reset lines, and additional modules varies across Tegra30,
++  Tegra114, and Tegra124 platforms.
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - nvidia,tegra114-ahub
++          - nvidia,tegra124-ahub
++          - nvidia,tegra30-ahub
++      - items:
++          - const: nvidia,tegra132-ahub
++          - const: nvidia,tegra124-ahub
++
++  reg:
++    minItems: 2
++    maxItems: 3
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Clock for the D_AUDIO domain
++      - description: Clock for the APBIF interface
++
++  clock-names:
++    items:
++      - const: d_audio
++      - const: apbif
++
++  resets:
++    minItems: 11
++    maxItems: 21
++
++  reset-names:
++    minItems: 11
++    maxItems: 21
++
++  dmas:
++    minItems: 8
++    maxItems: 20
++
++  dma-names:
++    minItems: 8
++    items:
++      - const: rx0
++      - const: tx0
++      - const: rx1
++      - const: tx1
++      - const: rx2
++      - const: tx2
++      - const: rx3
++      - const: tx3
++      - const: rx4
++      - const: tx4
++      - const: rx5
++      - const: tx5
++      - const: rx6
++      - const: tx6
++      - const: rx7
++      - const: tx7
++      - const: rx8
++      - const: tx8
++      - const: rx9
++      - const: tx9
++
++  "#address-cells":
++    enum: [1, 2]
++
++  "#size-cells":
++    enum: [1, 2]
++
++  ranges: true
++
++patternProperties:
++  "^i2s@[0-9a-f]+$":
++    $ref: /schemas/sound/nvidia,tegra30-i2s.yaml#
++    unevaluatedProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra30-ahub
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++
++        resets:
++          minItems: 11
++          maxItems: 11
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++
++        dmas:
++          minItems: 8
++          maxItems: 8
++
++        dma-names:
++          minItems: 8
++          maxItems: 8
++
++        "#address-cells":
++          const: 1
++
++        "#size-cells":
++          const: 1
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra114-ahub
++    then:
++      properties:
++        reg:
++          minItems: 3
++          maxItems: 3
++
++        resets:
++          minItems: 13
++          maxItems: 13
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++            - const: amx
++            - const: adx
++
++        dmas:
++          minItems: 20
++          maxItems: 20
++
++        dma-names:
++          minItems: 20
++          maxItems: 20
++
++        "#address-cells":
++          const: 1
++
++        "#size-cells":
++          const: 1
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nvidia,tegra124-ahub
++    then:
++      properties:
++        reg:
++          minItems: 3
++          maxItems: 3
++
++        resets:
++          minItems: 21
++          maxItems: 21
++
++        reset-names:
++          items:
++            - const: d_audio
++            - const: apbif
++            - const: i2s0
++            - const: i2s1
++            - const: i2s2
++            - const: i2s3
++            - const: i2s4
++            - const: dam0
++            - const: dam1
++            - const: dam2
++            - const: spdif
++            - const: amx
++            - const: amx1
++            - const: adx
++            - const: adx1
++            - const: afc0
++            - const: afc1
++            - const: afc2
++            - const: afc3
++            - const: afc4
++            - const: afc5
++
++        dmas:
++          minItems: 20
++          maxItems: 20
++
++        dma-names:
++          minItems: 20
++          maxItems: 20
++
++        "#address-cells":
++          const: 2
++
++        "#size-cells":
++          const: 2
++
++required:
++  - reg
++  - compatible
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - dmas
++  - dma-names
++  - "#address-cells"
++  - "#size-cells"
++  - ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/tegra30-car.h>
++    ahub@70080000 {
++        compatible = "nvidia,tegra30-ahub";
++        reg = <0x70080000 0x200>, <0x70080200 0x100>;
++        interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&tegra_car TEGRA30_CLK_D_AUDIO>,
++                 <&tegra_car TEGRA30_CLK_APBIF>;
++        clock-names = "d_audio", "apbif";
++        resets = <&tegra_car 106>, <&tegra_car 107>,
++                 <&tegra_car 30>, <&tegra_car 11>,
++                 <&tegra_car 18>, <&tegra_car 101>,
++                 <&tegra_car 102>, <&tegra_car 108>,
++                 <&tegra_car 109>, <&tegra_car 110>,
++                 <&tegra_car 10>;
++        reset-names = "d_audio", "apbif",
++                      "i2s0", "i2s1", "i2s2", "i2s3", "i2s4",
++                      "dam0", "dam1", "dam2",
++                      "spdif";
++        dmas = <&apbdma 1>, <&apbdma 1>,
++               <&apbdma 2>, <&apbdma 2>,
++               <&apbdma 3>, <&apbdma 3>,
++               <&apbdma 4>, <&apbdma 4>;
++        dma-names = "rx0", "tx0", "rx1", "tx1",
++                    "rx2", "tx2", "rx3", "tx3";
++        ranges;
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        i2s@70080300 {
++            compatible = "nvidia,tegra30-i2s";
++            reg = <0x70080300 0x100>;
++            nvidia,ahub-cif-ids = <4 4>;
++            clocks = <&tegra_car TEGRA30_CLK_I2S0>;
++            resets = <&tegra_car 30>;
++            reset-names = "i2s";
++        };
++    };
++...
+
+---
+base-commit: db7efce4ae23ad5e42f5f55428f529ff62b86fab
+change-id: 20260422-nvidia-ahub-d2ceb0372744
+
+Best regards,
+--  
+Charan Pedumuru <charan.pedumuru@gmail.com>
 
