@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9B42BE035
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:00:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8353274B2B
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:04:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782385253; cv=none; b=roZthGIk4vx76+S6Agt6Ou9J2Htfp8QMwMCEsPDD27dr0XsFyYTSxvPQfIEuSrj00C3M5qyXJ7rm86geuzAWqlpYeRrp7MflQMeg6j+BYUOOe8vbt9ZvozKLBwYRgwQ10PTz85ohlsPHyPzgKIKDkpkDWa5q35EB/GPIxE919xk=
+	t=1782385484; cv=none; b=KpJvaZjqlnkOKvIkBVKUFiKV0FXJYuEskqE1vdmJGaIKJ9zDjUpv3fylW1vlsKHf1/KL5Tb2YxxLHOf0mSd/3YWETOyBmonPRiRcRWQ+BFpCrCqn3+QrfrKGjxn/fqZhu54zfr5crUaxO8XRcgWnsR0aXp7e5N0bi6XrdvMQ/sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782385253; c=relaxed/simple;
-	bh=qV+vRs+jC6CsUL4gr5HztVL7qh3ikcowt1bSPFB/GCM=;
+	s=arc-20240116; t=1782385484; c=relaxed/simple;
+	bh=zM0SY6NJyRsZHkttFxd+Aavq1EtOG4xaPaz8ktsXShs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JEGCUl3eg7WPwDThE03ezeNG70ktEsVM85/M+dBcOrFTxx9Sb3IrBvoBbRI49qWRSWNMMjrtXuh5HMbzjZcFwRvYhpsf0ObjyvTAfonnweqIS4Puw1aExScpo6j/edJ+4hdfZksNa3HLCXob9onlZTMEX8jy/wIs9DBEApjg74c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzVWJXzn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dupvk3piszuV0TL1GW00Ngl9F8dRlpuTvcTXtuldP17ypGPqAgQmpjfcUkunKiiu1V4nLCFFWtSm91NQMe3m1d59vl8augqBZ8pJ7uP+Mq0Fiv7NuTtZTheTJNHk0vNePn/4P1dQCJp4AI3Kikna+eCG8PjrIIB6lAXzMaM2z74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGnPOq9k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzVWJXzn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADACB1F000E9;
-	Thu, 25 Jun 2026 11:00:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGnPOq9k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BEFD1F000E9;
+	Thu, 25 Jun 2026 11:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782385252;
-	bh=6pkvCbJQG9wgnPpzMYe1gW0IJKCCY8T6gbhyWk2msZQ=;
+	s=k20260515; t=1782385482;
+	bh=NyYhvv/z5ZMYXKy+a8emERwRS0CU9v2hSO2XMuQPSe0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BzVWJXznrrzNfxPW+asKDeZnyxE0wphUF8WwwiQfsVKeabDhkkLjJGMJZVrB6ukkv
-	 4pNcYxcKyPQGuOhtvS+hiP4oX0x4nkJJITa2gABn3uQ8WvkD1C1b9skycQ7og+LFdo
-	 imhcC2POcpJ74ErpR41C8jC0SNX3/IsnfVmAA6EG8811kqedhYiUmCuW5s4MGoWI8L
-	 NuEJrAr1A1+s/QU2WaLkBPqKFDwpco0g6je22LsnUkKw4g4d+sgf34kcyRcz2361Yo
-	 KOwgEBAtUBiVzhhne5+P5wzeJ7JBSYc2SEy4DnKuY5DY1hxcD5ByuDFnI0daIg04nt
-	 Acfj2URz9yswQ==
+	b=KGnPOq9kIKqtEJRm+ojSYKWNhKKtQn0RxBG6oI/Hnqv1yhjdIQPnMuNOJ9lMKx6tO
+	 XLivVJBAYs2Q9Roybr8b4E7hqs8v7l5JewqmFLRE2PIVSgC3090XBNiOkRNFauENOl
+	 EJx84VNJ2YziYKafaj482XFJq0o52cdy8Vf1WlmRx0qxHovQljo29kvNHWmjaafbc1
+	 nzhuJjWQvWheoekYtPCFNnniOK+AM2NiBSFcPDYekTal89R8DM6LW8X00p/CmLaxla
+	 LO0VV0k5wn4I/MUj0gD2RTuLFYvAjRkImOO9sgV2WGYDD3HfI3ydN1Jr9M52Rm7/UL
+	 EEep26adC888w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 3/7] coresight: tmc: introduce tmc_sysfs_ops to wrap
- sysfs read operations
+Subject: Re: [RFC PATCH 1/3] dt-bindings: pinctrl: mt8516/mt8167: Move
+ compatibles from mt66xx to mt6795
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260625-enable-byte-cntr-for-ctcu-v19-3-8fbbf22e8381@oss.qualcomm.com>
-References: <20260625-enable-byte-cntr-for-ctcu-v19-0-8fbbf22e8381@oss.qualcomm.com>
- <20260625-enable-byte-cntr-for-ctcu-v19-3-8fbbf22e8381@oss.qualcomm.com>
+In-Reply-To: <20260625104742.113803-2-l.scorcia@gmail.com>
+References: <20260625104742.113803-1-l.scorcia@gmail.com>
+ <20260625104742.113803-2-l.scorcia@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 11:00:50 +0000
-Message-Id: <20260625110051.ADACB1F000E9@smtp.kernel.org>
+Date: Thu, 25 Jun 2026 11:04:41 +0000
+Message-Id: <20260625110442.2BEFD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,83 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The error handling path in `__tmc_probe()` at the `out:` label unc=
-onditionally accesses `drvdata->csdev` and attempts to register the crash m=
-etadata interface, leading to NULL pointer dereference, error pointer deref=
-erence, or Use-After-Free.
+- [Critical] The patch series permanently breaks Device Tree backward compa=
+tibility (ABI breakage). By moving the mt8167 and mt8516 SoCs to the mt6795=
+ bindings and pinctrl-paris.c driver, the schema now unconditionally requir=
+es `reg-names` and `gpio-ranges` and forbids the legacy `mediatek,pctl-regm=
+ap` layout. Furthermore, the updated driver calls `devm_platform_ioremap_re=
+source_byname(pdev, "base")` and fails with `-EINVAL` if `reg-names` is abs=
+ent. Booting a new kernel with an older, previously valid device tree will =
+fail to probe the pinctrl driver, breaking all GPIO-dependent devices.
 --
 
-commit 0e2c5d1f36c04454695412377951547f5c57c845
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+commit ae4fde26bd3f120a43beccf98009171f05144eee
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-coresight: tmc: introduce tmc_sysfs_ops to wrap sysfs read operations
+dt-bindings: pinctrl: mt8516/mt8167: Move compatibles from mt66xx to mt6795
 
-Introduce tmc_sysfs_ops as a wrapper, wrap sysfs read operations,
-for reading trace data from the TMC buffer.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/h=
-wtracing/coresight/coresight-tmc-core.c
-> index bc7dd676da473..4b40b692be4d8 100644
-> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+Pinctrl settings for MediaTek mt8516-mt8167 SoCs use two reg base
+addresses, one for GPIO and the other for EINT, as it is common in the
+"Paris" pinctrl platform. This commit moves the mediatek,mt8516-pinctrl and
+mediatek,mt8167-pinctrl compatible strings to the mt6795-pinctrl binding.
 
 [ ... ]
 
-> @@ -835,6 +826,7 @@ static int __tmc_probe(struct device *dev, struct res=
-ource *res)
->  		idr_init(&drvdata->idr);
->  		mutex_init(&drvdata->idr_mutex);
->  		dev_list =3D "tmc_etr";
-> +		drvdata->sysfs_ops =3D &etr_sysfs_ops;
->  		INIT_LIST_HEAD(&drvdata->etr_buf_list);
->  		break;
->  	case TMC_CONFIG_TYPE_ETF:
-> @@ -844,6 +836,7 @@ static int __tmc_probe(struct device *dev, struct res=
-ource *res)
->  		desc.subtype.link_subtype =3D CORESIGHT_DEV_SUBTYPE_LINK_FIFO;
->  		desc.ops =3D &tmc_etf_cs_ops;
->  		dev_list =3D "tmc_etf";
-> +		drvdata->sysfs_ops =3D &etb_sysfs_ops;
->  		break;
->  	default:
->  		pr_err("%s: Unsupported TMC config\n", desc.name);
+> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pi=
+nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinc=
+trl.yaml
+> index 9a937f414cc98..c703de72e1d52 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.y=
+aml
+> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.y=
+aml
+> @@ -15,7 +15,10 @@ description:
+> =20
+>  properties:
+>    compatible:
+> -    const: mediatek,mt6795-pinctrl
+> +    enum:
+> +      - mediatek,mt6795-pinctrl
+> +      - mediatek,mt8167-pinctrl
+> +      - mediatek,mt8516-pinctrl
 
-[Severity: High]
-This isn't a bug introduced by this patch, but looking at __tmc_probe(),
-is it safe to unconditionally call the crashdata functions at the out: label
-if probe fails?
+[Severity: Critical]
+Does moving these compatibles to this binding break Device Tree backward
+compatibility?
 
-If an error occurs during probe (for example, coresight_alloc_device_name()
-returns NULL, or coresight_register() returns an ERR_PTR), the code jumps
-to out:
+The schema now unconditionally requires properties like reg-names and
+gpio-ranges, and forbids the legacy mediatek,pctl-regmap layout without an
+allOf: if-then conditional to accommodate older hardware descriptions.
 
-out:
-	if (is_tmc_crashdata_valid(drvdata) &&
-	    !tmc_prepare_crashdata(drvdata))
-		register_crash_dev_interface(drvdata, desc.name);
+Furthermore, the updated driver unconditionally requires the reg-names
+property:
 
-is_tmc_crashdata_valid() then attempts to access drvdata->csdev->dev:
-
-drivers/hwtracing/coresight/coresight-tmc-core.c:is_tmc_crashdata_valid() {
+drivers/pinctrl/mediatek/pinctrl-paris.c:mtk_paris_pinctrl_probe() {
     ...
-	/* Check for valid metadata */
-	if (!mdata->valid) {
-		dev_dbg(&drvdata->csdev->dev,
-			"Data invalid in tmc crash metadata\n");
+		hw->base[i] =3D devm_platform_ioremap_resource_byname(pdev,
+					hw->soc->base_names[i]);
     ...
 }
 
-Will this cause a NULL pointer or ERR_PTR dereference if drvdata->csdev
-hasn't been successfully registered?
+Because older device trees lack the reg-names property, this call returns
+-EINVAL and fails the probe.
 
-Furthermore, if misc_register() fails, coresight_unregister() frees csdev,
-potentially leading to a use-after-free. If register_crash_dev_interface()
-succeeds on an error path, could the driver core subsequently free drvdata
-via devres cleanup, leaving a dangling pointer in the global miscdevice lis=
-t?
+Will booting a new kernel with an older device tree fail to probe the
+pinctrl driver, breaking all GPIO-dependent peripherals?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-enable-byt=
-e-cntr-for-ctcu-v19-0-8fbbf22e8381@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625104742.1138=
+03-1-l.scorcia@gmail.com?part=3D1
