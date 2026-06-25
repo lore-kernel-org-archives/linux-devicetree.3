@@ -1,87 +1,67 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011023.outbound.protection.outlook.com [52.101.70.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1063D7D78
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782387410; cv=none; b=GaHN/zx6uoT/ZlRLOQeucjULdR1G8R11U4ehLyBFVm3IU31ivjDlWpZ+XLHf9vSw1dUP2KTK6QPuwAykxIl/jxWHCYyC4XfDzudDZAcvyFuCMAr5tUmPhMq7M/Y8EHaECqrO6E2Bcb1fMUNZ0SQxJHlVEaJ/IjxPx66JHtHkfes=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782387410; c=relaxed/simple;
-	bh=EKoghlk8RH2zNWov+Ldx9Bakuy2XIl3xFyMtc1/ag+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kqDzNwcb6KC/uRbi+17gWtfkvJLFUQQOwXnYRQxD3lI8SLOwRT8ep6Tnl9JO7710Eu6vVLGwQ7fivIxfKHF9luzVVXEDNPWUwvfCLA0S9ewC2vG/DSYXpIh6+qT8yYNyhkTQIZpbkPik6qIiXA0uTvqGoLKuCVDXPEEeyGG/pSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X2gd777n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WtpATyup; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AEA391827;
+	Thu, 25 Jun 2026 11:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782387717; cv=fail; b=Q7QZ5yzuO7uQLNm+EVH66PRUJmF76sf37AsnXSOkZOSjXqEBQacsTaL+9+MEUGXK5uR/d4wF+taMOhLdEeRKXEye0tt+TsJbRsPOkdSaxn8ndD93mLjuVkwOPVRtocUj4olx1J4Qw36WgbCxiMoPSF73lyaAzw0y7cTjorRELFs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782387717; c=relaxed/simple;
+	bh=IlcOFDVUOKehhdLzVaB/HnRc5o67PSiJ18Ug16CPS8k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Nb31fsKcYah2ptGEZQR9jFJRlmTFfuxjabKymi+eTn5HDHDhr3Z6IgTHw9F1MzH9yf0sKcWFlqfz1oedFv1quDp0euVb8SRvhNNjNTK8sUDV/efQlbARtmF+HviC3DFr5/B6rw841Q3VkzMIaHdWL7dI2lFQBVfcdRFfsay1y60=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=D34pGLpd; arc=fail smtp.client-ip=52.101.70.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X2gd777n";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WtpATyup"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P9k2Pj1398919
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:36:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WVY/1XuYxAJzExKXdHQeGSKvfHtqz93hoztP85UA33I=; b=X2gd777n8egnysoz
-	xelcUMjWxePk5DhDwNcAZk/WsoU7MGigh7XE76wS3sA9ohFY5KTFd6MACOV/mrny
-	iv7u9KBsa2bl1NI/oLOhoOw0Vqp//8tlizfWLCidjcD14MhY5xG+WZcmKx37CzkO
-	yqFt84dhhTY2Wt7JHNOf7VvG+9GU9DjKVGD4GZxDMKQct5Vd7NbGusMzUGY1gqNK
-	2XeEXfcDqf17zhnIb6E4Lf3rcGnOy/cLftKGXq80H/iKbMiukCDyW1KJHFyjm+XC
-	bSIY+sJW7htd6od9SreojJ8QKtHRj7iGCyEMsNSIWERiv+QyjhyA4Zn7bYt0+pwL
-	+UppEw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0uudhwee-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:36:48 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51a07295d67so5955711cf.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 04:36:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782387408; x=1782992208; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WVY/1XuYxAJzExKXdHQeGSKvfHtqz93hoztP85UA33I=;
-        b=WtpATyupeDwKW4nuq5eBTjOvmO5zFM96eME5bohugOJxnHJHYnNf2dign71pS47Lx/
-         NiXU2zPcBwY2cRBh92cn3d1jXTxp/hQCwPaf0+9H2+eLRs0nVqt/a5dEDp5rp6J08c8K
-         ea+LGb+B8o3bitp2xJbai08dFPsYN5pADQMpJPUPyrnq0cliYcSoYAnu2ymTYohT9+UM
-         uaAT4xpyKaojUxLeVAQo5kZOs5jPVoy4Grj2kweVQihcTfdOfhtqz+4YNzGKGVuv0wUN
-         D8GTDhZmqZMFtjdLaHIywAazfBVzF0nhkFk/tK/ORJaOg5+MNuXmS4C6m6Kx/VYgh8gG
-         Pl/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782387408; x=1782992208;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WVY/1XuYxAJzExKXdHQeGSKvfHtqz93hoztP85UA33I=;
-        b=sXcEDpV6liEFr6nrEMNgxyyGPKootXVKC08ENxWJcZr6svy2sEXzL84O9XEs3uJtMr
-         HfXtaJZQbCTP1TQ/g/1qjrMqdJCA4oEgUcwiX09MR7vV2NIs1rd2gXvgMP5IyMERyS5e
-         pefvmCAGspG5XmKetnTpwkn3oDRtzutkBTpI5SkjF3ZV1ko5Tw47EDSj6wGHcN3rTQ+F
-         GyDdC+N/h+sxojS3/kw3tyTyS078ZQZ62NTz8xM0UaizsZvsn4Di6K+9e26wAce2H7mE
-         RzoDw+ooDT6hEMLHIo/tUN/v1VarG8vxjWNrs42Si4cBDLOFFBCXe+g2EiZVnDlK3+ya
-         9rfg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Qr5FeIBIToEqw2hwjCx1CR3y53H8OdGwntl8UvdlW+lMafbDjXPkZnO5KOH6IuWmt51VCJBxzYRc0@vger.kernel.org
-X-Gm-Message-State: AOJu0YzlHyMtE7/k18qUF6CA1s48nNaZqJmha5gtq24jjv1AaAagZG3C
-	dRE/9/qTXO9jH2FBKT0dAM1lfu2ejHnJfKLn2p5O5H+vQpMWhvGuEEOIzcjU3CSYR1kPPWBECrv
-	E9WiWLjrkQ5S9fuJTcfJm0DTsFl4VZdHE+poEm5e4LdTPZ+AU5O36NTcAErBCcrl+
-X-Gm-Gg: AfdE7ckYFMbMSvSvV5ckIZAQ08NfHb2KEBV0MctGnjuAoCFa6MFSCE05fuxZmh0IPfN
-	BWuugdsNqDOIYIgxPTIb5qxOXaX9f707i+8moFhXh9Hj2fXjNN0lDTmZEduoEa+y9zm05xdJESj
-	4bbkf+kQJR4P9ACuN+UVEleLJZ7GWYZ4ATVIyUoXjk+LHJC202i1OPfHmiyliG35hso29RrSUv0
-	aE/KVjkMAbVfKXzAopjZoE9PgdQ9082JTSQg6JZ1ZMeMtSnLzZSgpyG6Zr177F/kt0z2eavFubY
-	FY82biwnps0jnCGdDASvsw8JptnslqT6eZIs3sSsnvvGrBVhiVRPdPGrQ8vKObSdlU4vZ45KH+Z
-	Cz/rwIdR7qVUMMrjWxruv1uYtGrQssieaGJM=
-X-Received: by 2002:ac8:57c5:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-51a72a47ba5mr15818731cf.3.1782387407660;
-        Thu, 25 Jun 2026 04:36:47 -0700 (PDT)
-X-Received: by 2002:ac8:57c5:0:b0:517:6162:daf5 with SMTP id d75a77b69052e-51a72a47ba5mr15818501cf.3.1782387407280;
-        Thu, 25 Jun 2026 04:36:47 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbed6c78sm161489066b.60.2026.06.25.04.36.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 25 Jun 2026 04:36:46 -0700 (PDT)
-Message-ID: <ea233160-505d-496d-a321-dc23e7f69d80@oss.qualcomm.com>
-Date: Thu, 25 Jun 2026 13:36:44 +0200
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="D34pGLpd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t+aGy/lkdg0aZDSnf6fqUZ8d99czAdQUZS9vJz4Y6AvPiz24bo772L6hgILEyWILtUhzPsnXT5W0xDSQru/HQCz30uK7kMnwNr5vqdiIQfj+hBvLPuRisMstYXzG9VJisjDBX6fNWykh6NDiU1HC5OCSH6sE3mLk4nZpO8agkCp6Y3815yfd2mzYA1BsL/D59dpZG4buQ14hzJdPFJBc8j8TT57BjXCTs3KofoG/cofoh8s7xtfFbSWwlY65NDvHiC8cs0Ws7Z+mvU97ieWWEupnwt22Ra66cLS+XYF+h4Y5VWqi69js6RzsNxrlnDR2dbWsOh2zdS7FkB045Lt45w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uklSv63t8JIdZLl86FjXqH1kjfsoZAzkkYSYK28KqQM=;
+ b=lvLAC3K5ADJeQf3VEkrlhGnj3+iPlaLOGZefETgj/eiqUD8YRdOlmofI73XXHY7FiaQsywstVMhIiHOg4ABTtf8pCTRFpOl3fhKMcevphTyNKhUMzmdD87+CBdaI0FRfaCu5neu2wslEt1FozwK6G9zNg6ydEY3XG5CPOOplbCHrxnvZxWRmfj4X8/D8o8OzZkw14JuEML0qv0OjJi5JMClSP24qJjjOvuJYtCAPSWnPCNpkPlckzvF0ypT4DquRClfv9/R6HEKhAVfGXONR6UPP3SjjWi0+nQzNPLDYxDk+Rl76ALcayfisQumzsBNuM4KJbutgyd1U7K3CxBuumQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uklSv63t8JIdZLl86FjXqH1kjfsoZAzkkYSYK28KqQM=;
+ b=D34pGLpdttGzxS0FVBiPd+lgCbmSxKDCY7ls6EOBM8vAufHGd49Er2y73B29JJ+7MbTETRojpJAQNPcJGpmJJHCV0bZaf8I2NuABDSxoF8ke568lfwDdGoNrp0ML5Yj2s9weEAQoK2c0mH9Ui+SeTYne+a0IoORudnXXEZuXKfgzzh+mSbNubqnyAXr/8NiWgDZCRsONkbmlNGGkqnd8yt1ktf7AjZ7fsNJEKMEGl32QmaZrf9eP8Q7BqVmurUoBNQyCkfPhmLnqgV5E6g/rog7ndOPwkmkLVQZqNvWc82jBenjwNFTODOAGXisttOWSW+Av5ONV7RLHVxrnlCoefw==
+Received: from DUZP191CA0063.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4fa::7) by
+ VI0PR10MB8401.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:21c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 11:41:52 +0000
+Received: from DB5PEPF00014B9B.eurprd02.prod.outlook.com
+ (2603:10a6:10:4fa:cafe::ab) by DUZP191CA0063.outlook.office365.com
+ (2603:10a6:10:4fa::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
+ 25 Jun 2026 11:41:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB5PEPF00014B9B.mail.protection.outlook.com (10.167.8.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 11:41:51 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
+ 2026 13:46:31 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
+ 2026 13:41:50 +0200
+Message-ID: <a4354168-50c2-474c-902f-fb11ab1aec9a@foss.st.com>
+Date: Thu, 25 Jun 2026 13:41:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,118 +69,118 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] arm64: dts: qcom: x1e78100-t14s: Add thermal zones
- for keyboard skin and charging sensors
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, sre@kernel.org,
-        hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@roeck-us.net,
-        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: bryan.odonoghue@linaro.org, platform-driver-x86@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260624210825.264454-1-daniel.lezcano@oss.qualcomm.com>
- <20260624210825.264454-4-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260624210825.264454-4-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDA5OSBTYWx0ZWRfX2fSG2GfsSUCc
- GMuIB5VW+YBeQXeZcbJG48At93cYecmlyKmo1Gzs3DGTLdpQN42n0NXZ9kbLBOMCMU+wj2u7UxX
- 3RdtW3lSN6pObUlKo2V5zy8l8BK675E=
-X-Proofpoint-ORIG-GUID: HsXY9jyBev43kSxH_c-Q727ePSr0iCC-
-X-Proofpoint-GUID: HsXY9jyBev43kSxH_c-Q727ePSr0iCC-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDA5OSBTYWx0ZWRfXx1mXmP/CbY+0
- Cic/jlDxAri7CaXYY2UTa8UHr/6B13dXK4xzUzP0OuXaPeCLsbZwJxHvtCRb7lrX2Pt/2l1vWTl
- /dvimKBhrnRN1h0vFRLO1ll8R5ckx8JfAFJDWM13OsHke4lrtlUvLabSzDY/epZQS2OSfMB3Fm5
- /Nj5oyqjTWIcMDCkys0XzKvhyJjRDS1viVquiD6QWCXyACyQlJttkgSmC7RqkIS4eJRUc3y3NXo
- u6MefpHI6fucndJ9zTNYzGnpB1WxFpoefyKrdhpVVTDnA021qee+fc34iy4qT6pIuKrKBVJiSTD
- xxEyU4z1/JNcjgr1K29OBo6Ro2CPjpEEYPqC9UwxqcEAPsr3krtONIsWI1tf8oUhIDDO/wiJj1I
- RqPKBDzf9+LNfQHXdhlhvsgnOfI0rj4+1sFK4Qc3+eOriO2SPx0nC+igFeVD6D3jWUMO2oIJw/s
- vbsrQW7yNSSHNSZIYQw==
-X-Authority-Analysis: v=2.4 cv=HdckiCE8 c=1 sm=1 tr=0 ts=6a3d12d0 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=68P_60IqByrghkTM5uUA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 suspectscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606250099
+Subject: Re: [PATCH 2/5] media: i2c: vd55g1: Remove spurious pad format update
+ on init_state()
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+ <20260428-vd55g4_and_fixes-v1-2-4f745a83b87e@foss.st.com>
+ <ajkAdol1szOK_XPB@zed>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <ajkAdol1szOK_XPB@zed>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9B:EE_|VI0PR10MB8401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30719967-e922-445e-1446-08ded2aebfaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|376014|36860700016|7416014|1800799024|18002099003|22082099003|4143699003|5023799004|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Lh8X7VrU393+RybruZcxTbZSHJJd1+BJnwgciV/fcW7I9eJYFRyrhn6VvPQnS5dHfuba1f5DSyMkilfc/NsENpuxrVskmm87IU5ydG9XCUSi9uyeVzaIyK0/3v2jFgtW6lmh/S5gabAX2qXagOTkY5hct7NDqKD2cE8p7lH6sZaI4GrmLfQMoHoCQUJH+CEMp+dyq2m+Y1gqVta9G5LMWem1djeXMwGG4xbpmClZdghQwaGIqM8jrpSIdLoug6YK0WjO1Oz6ErzVcbv1l8a5zNrfWEhkDwltlieqz2sBFq3uKwUxBL2CuaVDHXQwQMJ1RiYmAM2JHeKRxWd7n5s6W0gnT+dtyIZ7lWIR9Qc924l4YgJHoYQtl+CI35JE+fwaLCfeugfb6Y5dCcKRSn3CvlFbypMhcwCPnjaKpEDWPx4nx7m6uPB43Ibe4IuQvCsirhPE75pxf3G3fADPe1k/ofYGzxNKocwpgQ2vrK8Ek0zj9kj4XyIfvFU/GuHbOwNn79na7YA/08NBr9zAhk9cCZNpMwEpzDK3QemEpXlC0jOr6gc0a0f+XWO+mtCSEC84+RkaIV0r1Iy13EyIjAnItOEu/KAK4bRgPOwDqNv7BZ1hTR1jg6njMmIVgtsLoMLpTkq3Zf3tA8JIRZDcrcqAKjrYM9uAOHGf3itMbShQiPnlG6n0w9FlX7pNT5b8Q5Jx37MP6P1dtMqxyWIZP0l07g==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(7416014)(1800799024)(18002099003)(22082099003)(4143699003)(5023799004)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	zx3fFitofC3febMvELCLloZdVeB84RvA2hjCz54HAVIy8ecGBxm7heuyGl0AF2wjrPKP3mYgKZbUEiCgZd5Ejrwau0SreKEt9ORhMm72HF+32hOSF6KaoMx5/cjY9USUBLGowVIU+4FC9C/efVDP5ACNuFpEcIWTZLdMcISrXTCHxf7hDpwPZFHtQBbaSQZAQRZYuGTSLcZ+XMawXhuyP0Hgbt9QqSqWprI4phDJLeZmCF1H4+tqHaODr2rEEt+6BoSBiGkQsVVsCLIarfuOSwXUO4hJsotm0yAu4+upZd55ud7eDWsjy2N92KrJjjsk4bdCiI5ip7aGsROROkfyB5a4YWe+JEkkzUbbQlciuaKK/xHpLoISndxj0v+QtHNnUwJE1C9/+DOtPp4VDPYKbPIQKleVNaJ6jhq23u4DaBML0K6vVnA+LyyzpOBjL5j0
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:41:51.3800
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30719967-e922-445e-1446-08ded2aebfaa
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B9B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8401
 
-On 6/24/26 11:08 PM, Daniel Lezcano wrote:
-> Add thermal zone descriptions for the keyboard skin temperature and
-> battery charging circuitry sensors exposed by the embedded controller.
+Hi Jacopo,
+
+Le 22/06/2026 à 11:30, Jacopo Mondi a écrit :
+> Hi Benjamin
 > 
-> Expose the EC as a thermal sensor provider and define two thermal zones
-> using the temperatures reported by the EC:
+> On Tue, Apr 28, 2026 at 10:40:56AM +0200, Benjamin Mugnier wrote:
+>> vd55g1_update_pad_fmt() is called in vd55g1_init_state(). But
+>> vd55g1_set_pad_fmt(), called at the end of vd55g1_init_state(), also
+>> calls vd55g1_update_pad_fmt() itself.
+>>
+>> Enhance readability and clear confusion by only preparing the format in
+>> vd55g1_init_state() and let vd55g1_set_pad_fmt() update it instead,
+>> effectively calling it only 1 time instead of 2.
+>>
+>> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
 > 
->   - a keyboard skin temperature zone with passive and hot trip points,
->   - a charging circuitry temperature zone with multiple passive trip
->     points and CPU frequency mitigation levels.
+> Does this qualify as a fix ?
+
+That's a good question, indeed this patch does not correct any 'bug' per
+se. It's more of a code flow error so I think you're correct. I'm fine
+with removing the 'Fixes:' tag.
+
 > 
-> The charging thermal zone progressively throttles the different CPU
-> clusters as the charging circuitry temperature rises and triggers a hot
-> condition at the highest trip point.
+> I think you could maybe squash it with the previous one if you want
+> also this change to be backported as part of a larger fix
 > 
-> This provides thermal framework integration for the EC temperature
-> sensors and enables platform thermal management through standard thermal
-> zone definitions.
+
+I don't know, this patch solves another issue than the previous patch
+does. I'd like to keep it this in the git history if you don't mind.
+
+>>
+>> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 > 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
+> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> 
+> Thanks
+>    j
+> 
+>> ---
+>>  drivers/media/i2c/vd55g1.c | 6 +++---
+>>  1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+>> index 1e9db21322e3..e44174056ace 100644
+>> --- a/drivers/media/i2c/vd55g1.c
+>> +++ b/drivers/media/i2c/vd55g1.c
+>> @@ -1366,9 +1366,9 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>>  		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
+>>  	else
+>>  		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
+>> -	vd55g1_update_pad_fmt(sensor,
+>> -			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
+>> -			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
+>> +	fmt.format.code = vd55g1_get_fmt_code(sensor, code);
+>> +	fmt.format.width = vd55g1_supported_modes[VD55G1_MODE_IDX_DEF].width;
+>> +	fmt.format.height = vd55g1_supported_modes[VD55G1_MODE_IDX_DEF].height;
+>>
+>>  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
+>>  }
+>>
+>> --
+>> 2.43.0
+>>
+>>
 
-[...]
+-- 
+Regards,
+Benjamin
 
-> +	ec-charging-thermal {
-> +		polling-delay = <5000>;
-> +		polling-delay-passive = <2000>;
-> +
-> +		thermal-sensors = <&ec 3>;
-> +
-> +		trips {
-> +			psv0: trip-point0 {
-
-"ec_charging_tripN", please - these labels are file-wide, so it's
-better if they're not overly short
-
-> +				temperature = <55000>;
-> +				hysteresis = <0>;
-> +				type = "passive";
-> +			};
-> +
-> +			alert0: trip-point1 {
-> +				temperature = <63000>;
-> +				hysteresis = <0>;
-> +				type = "hot";
-> +			};
-> +		};
-> +
-> +		cooling-maps {
-> +			map0 {
-> +				trip = <&psv0>;
-> +				cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu8 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu9 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu10 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +						 <&cpu11 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +
-> +			};
-
-Stray \n above, might also possibly want to throttle the GPU.
-I don't know.
-
-Konrad
