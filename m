@@ -1,67 +1,67 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B526374E66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011DD373C00
 	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 21:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782424572; cv=none; b=befElwTClcwWKvUw23Wnj7pwNhFIwUts9lqfNbK3BdcsNYOC3Fyg5isuLz7PPLrzr7ioxJlwJK1SXRJfQm/+UZZptgopJXwzqXbTUZD0dXPhdC6oZgujGtYReZLA7HAMCRlf0qA7RrrCAAbQlx+es7SSgjHpqmLUHzQCrm3kATo=
+	t=1782424573; cv=none; b=AIFITZbu7vv6l1zT3adaf0rqFCdPZSl+qtO8eoOr8hzkzHrM+GfzavqAY1rx6B3GKkIV7NqsGf8IAXpUScCCg0GW5lxPikUQZ+9SdjxCAwtWDdS0IErA68UEZi3nssVQwBWbe1IFAxONfWLo6DuBla7cCO+iqYEiN8egXkghAW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782424572; c=relaxed/simple;
-	bh=oT7d6Nij5xBJ0GhxOmbCXfPhv8G03zGfAYJpoiI7Gpk=;
+	s=arc-20240116; t=1782424573; c=relaxed/simple;
+	bh=TggGjnLxLvD14T0dE0NblmYQWNN9rL+6hvRLSO3FnI4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AXViZlvsCCDwFT7hNbcBIG4kxEe4fqq9+K7FvhecnJfE4msQcS6GA8uU6pNcu03hCy3vp/hFvFcggpam93DTk+HBsWcLfuhlTvxwP1ptKTQkbdwd6uIDyEzT9MGA8qj0sXgRw6U62f2/e16ddZMMjUPm1P7itXuReKB5GX5Iigc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=F291xIRi; arc=none smtp.client-ip=209.85.210.49
+	 In-Reply-To:To:Cc; b=oXulS6m0A+K85kCDLfBMBzES/SoeL9ihP8OtqWJDI/skYh7zEashxw0mfDpFZ9bWI2VM4t5KUqLVER6LSwYZMyEGrA9FNQjUaOOKzgVmqb+Xi7sQwS2LJmJKY0eXuhY0TgPU2XAX91yd2D1OecVmu9M2iFBsGStb/XODGzCkA6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=h3+R8ohF; arc=none smtp.client-ip=209.85.210.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="F291xIRi"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7e6128bd9b3so151568a34.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="h3+R8ohF"
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7e943356247so208513a34.2
         for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 14:56:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782424570; x=1783029370; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1782424571; x=1783029371; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VsHIhdRuiUrZeov8w2Nm806VX3ukPZRV2odhXBkDNHc=;
-        b=F291xIRiLPw3WbQmg9qYGV9E8XW0yOIKjwJGAP5TmowmvU9ugLmeKYzDvadbM0A45j
-         fvU64+t3KpzsTPfBc5pMKCpQ9QhYEF5npyou3hLC36uCF/EqhXd2KNQJmeirDFkQ70Ch
-         QUQ5ZdTkj5kdej5sw1HeifT8XwqVkshynjMdmgb9WQW1lYU1GuCL2VhUbXg056Gaz2Yx
-         13dzCtuu5k7LdBIJQNcNt/IlKoZCmB6aGgL1hI0InMk1JT/yNeLxtjJj0OJUzXhMBc1A
-         PSxvD3wBvmN1yjjmagSuioyQWO9svl3xvSQ05D+IpSJjPZiSQS98IekJ1HQ0D36hZ3O4
-         rT3Q==
+        bh=pFRQSgiksqu8Ptbyiz0jkzAbOI3VqHolla6r9XqaMjo=;
+        b=h3+R8ohFO8aVkaXxcpPhMeB2TBmXyL2RK4rkpwCut2m5Eftog5guZoqwu/24aNF5SL
+         VxTDmvXLQWQtXeMF5lJNeD2lmZAhNHBobH/dICG2D7Mz2KZvqUhXxKaaGK8pyG/ore3n
+         qSHm8yv/g98u7FoZv8b2hZ+01jzK8ASksdCm3CGyMpZRmpsk5cTlwakfpOPDe3ZVj/jO
+         Thz6159/H884L6CreUbrU7tkenVXIIwZY/uFPlY+yLKFCxEAeHZsGO/hw0n5yaJqUDVG
+         Qovn9OwH5/ImCW0RgfSaMgRePqBJaElv/fGstpVVLbo74yKVHjEAn4c4m8bYq9jqY0AD
+         BptQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782424570; x=1783029370;
+        d=1e100.net; s=20251104; t=1782424571; x=1783029371;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=VsHIhdRuiUrZeov8w2Nm806VX3ukPZRV2odhXBkDNHc=;
-        b=B1Wlnrlx+Ce6OUGHB4zyEe38/3ztkrC6DnHsB7EX7k0Y6UpyORuZywkyn3eQ/kPOFu
-         mw1qIuaT1QdxLcFYZZFZn9TLGsM/ewLMm3qGjACgBNjprukwy8eO2AQcOoJf7gKxXLZg
-         prY5UkSJQTjAV9/OD9xgNN/B/I9VkKBiB3qCDNUrGKt5SVQTW/Nr8g96xH6OO5Lu7+lC
-         rRT6RQZfw29+YQttFMvkSpZh36OJDc9dzTNFD3w8eP7c6SH8U8lxaRn6fO68oFDv8F1f
-         71quh7e4Md0wYeFBqrbOduY/tDDMIiGGKA/HR/9b5BKQ7Xz/pbdIiHfp+mZUqBVzBGqo
-         yIsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9pkyuueaCpKgmdvdk2aQedoNDJbXYgDXawR2SHbQDzPPNHLOCSJpiHplrqjq5gITc/xO4xFzxq3X4m@vger.kernel.org
-X-Gm-Message-State: AOJu0YxK2BUGqwMKj2Nu37GcTDqI6R0sK9z+2OHJuAE2fTuMXv4YZ5UQ
-	mJSO773LpdEggJPLIuwsoF+Ff4cr7cecZ/dulN6ucbOn19b7/A/CTK8u21eegXN8b+s=
-X-Gm-Gg: AfdE7clA+QNIg3nRRF/IsDGzQED9oLODhgsHUG9vJGidi2ilQsAqAZ9xmc5RUEwno3E
-	le0mj0levnc/D2y1OSJaq4/GBgFgHFPV2DCS8Xf5DJtd+iAa6IPrMSw4CQO2tJFidRknIbkDyBM
-	hUE4uzpZZRYhtxdF3ZRxsoB3XcVl7GUr1rcr4Wf4ikgQ2TIkmkU0LLcznRCVZQj7sTAjSshLqy/
-	j4um+D6L631rXICdBKC+5NXwisGH3o+/aQgCD+XdtNnDaO7Woj0URmxZ4ZiRgQ0NHtV7lAV+7PY
-	6epMoi0B6lFuuZaSeHPAMonDRAJ0fHpUIbGNR9TTjDzV+qRqyJp5zVO+w+FOoB0b0on/fjeLnoG
-	sQB3niHrVbXONx3Uwjn4nsRn6pPuvOOxzaYGJYJmgS6aS9OqsuSeTHkmiND2zgA9vMlJLLyEy+k
-	Vf5Bz2WuauF/pqQ0jSXQ==
-X-Received: by 2002:a05:6830:8295:b0:7dc:c7aa:22d4 with SMTP id 46e09a7af769-7e99bf3fdfdmr4319532a34.1.1782424570353;
-        Thu, 25 Jun 2026 14:56:10 -0700 (PDT)
+        bh=pFRQSgiksqu8Ptbyiz0jkzAbOI3VqHolla6r9XqaMjo=;
+        b=XQF6p13oJhmKggOLOLJaon7Nnz2HHMCcdgssnzkNytLrQ7kgWoKOUhpbrkHX0bWTQd
+         3gIMJLA9jeW0ygoOqUOfRnv8k+2AGrRF5ZmOMZE07M0cAsk1iMxTSnFuO5fQ+I3vyp7/
+         sa6Fc9vQZiVOI0gU3IdahpB2CEZrtDdDqErRN998qxWeoe1bYcsT2XK1C/spgF+1BtHN
+         UtqEG4g7HO3+ZBnoyC4yXz1JvQzrDgR/2E5I0yHmfBCqd21SkOI4AP5iHcwajgQPTrGj
+         qwHEFmZE/gGoF/q05yhfRQRFRbF4uiVd/GAmZMWcH2f3iQiItPt6TEiwIkVZ4OsG+vAY
+         sTKQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ysUR02zznjo/wGIHiovVXewgEyRur/pRIkr/9eZ7b8HYasLZC8+3RIG9hcDUu99VFK7sSJCQkEpqS@vger.kernel.org
+X-Gm-Message-State: AOJu0YyLwWnZoUJ00Bw9o1s5mV23cQjcS+CvoFhhppsS3jmYnzZsqVsE
+	YxPoP95vKWI4etnjRstQad+3YbvCJSnAfIA+NZZQ1/pVLZxO1R9Fe9pV+Sg2L8hSQ9M=
+X-Gm-Gg: AfdE7ck7QdBdoGc7TderDekiSbHf/MKcaAgMY1Fjt1zwhKRbChz+BdYc2Bi1XD56xb8
+	GQ7b9Phy5p8S3vP5cCQgVOsnyvjTTWwoU5u4+EiuEUZ+gGEtnu/A2Ln0Shoy+8jsqSbvoBd2qY/
+	88t3elAf2oZtPdlST5JefDciN6Il8PFoB40U5JPNJGXnqeJouPbTdpmfzUNW0+3kXmTXYFAtmbe
+	vB6ucAmPc2msauXXFEcIknNXdLezeJ0+Xn61oKWiisPadiT0b2HYPAECfn22WbbROmhShQ+XFZP
+	jC/1datMrRmWm+ceIY6qLSRGoPJr43/XeVRXsww/sRVKeuEGr7oxgIX5238PXtjMpYIVaE3Cj6L
+	VF1BnFKjKGUz+EqeehyqdgTvnYO0L/WZyYSSI7Dc/NPIY8kTsGF+Ls7ThASboA2RiEYuPIXvoxV
+	A64XVjHqsoUMbLrw34wQ==
+X-Received: by 2002:a05:6830:2b07:b0:7dc:d2ad:fb17 with SMTP id 46e09a7af769-7e99c57017bmr3818338a34.20.1782424571038;
+        Thu, 25 Jun 2026 14:56:11 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:f1f0:2d9f:2f31:3426])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa5e575csm206058a34.11.2026.06.25.14.56.09
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa5e575csm206058a34.11.2026.06.25.14.56.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Thu, 25 Jun 2026 14:56:10 -0700 (PDT)
-From: David Lechner <dlechner@baylibre.com>
-Date: Thu, 25 Jun 2026 16:55:05 -0500
-Subject: [PATCH v2 3/8] dt-bindings: iio: adc: Add burn-out current
- properties
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Date: Thu, 25 Jun 2026 16:55:06 -0500
+Subject: [PATCH v2 4/8] dt-bindings: iio: adc: add input-channel-rotation
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-iio-adc-ti-ads122c14-v2-3-ceb9b0b561cb@baylibre.com>
+Message-Id: <20260625-iio-adc-ti-ads122c14-v2-4-ceb9b0b561cb@baylibre.com>
 References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
 In-Reply-To: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -83,49 +83,53 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1148; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=KXYgI9rKSrwXDaiih3yLVG5FeAxJstEB+wScOVS9eEA=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqPaPPx+i+G+uvga2coWlwkMuoYqCJY0yLabfU0
- fTBlhjLzN6JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaj2jzwAKCRDCzCAB/wGP
- wIg/B/9uZ0SQ+KLcG4GRJLXEY5ggN0MPW/UZXZhajU4RMuWtwsCyzVysCRq4IVRp8gZimrF4i9m
- sOIRSk2+E2jlRw7UJzQlRIw1jZqLMLwqjWI0/1Oy9j6X+K+kTOp/94bq4KyvuEeM23HR9urKctg
- 7h+z+ms20MPVSd0waZXOO9S5pxt5CQoKvQWnSzDTQGUwbw/Q1osaScWNEvxwFaIw8Is6zOXn1Ga
- OSqZO8VAxY3CvZ8tHK7a0yICHRWI9+upPWrDhQnhGfYnbkcqck6z+X6ZeJ70Ngf21sA5IyvGRu6
- NjCq/PjD7NZ030P8+bJMQsWp9VhGGLBnceFl4V6nMTF8Lwgq
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1545; i=dlechner@baylibre.com;
+ h=from:subject:message-id; bh=TggGjnLxLvD14T0dE0NblmYQWNN9rL+6hvRLSO3FnI4=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqPaPWCVNA0rxmcXktKM0PGtTn+pdVqtBMYuRlM
+ Udd+W51bJqJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaj2j1gAKCRDCzCAB/wGP
+ wD3gB/9lt0x/nOh6e7AbvkQJq55VfyX/e66L/x606I1yr4sGXxZ+JrfkPu2iY08Z4+vMt5nabyT
+ 2uhkWtVjPX5HZ60Ti8/YL+X9GzP2xBU7x9ACN6+u1Ezx7YyWaF6zxFvOLoWIWtlq1MzmeUtBeCp
+ 2/83dD4Jy/HFDnq4chwnnoKz3ndcrsrBWYZzVigXSuTolcP7x/BiXdgXU52TmadiOFUOz5e9JR+
+ kR6PA9THJQfE+dRVDAoqi3wqti2Q0z2shhp30bNeUU51QnGmN8g4h2yMKuGS8arEsuXvHVHA/wI
+ cEKqsYHJ2/2gbUwJwbYS72Ek8kzuVvAtDGqR1BNuemt/ECk0
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-From: Kurt Borja <kuurtb@gmail.com>
+Add a generic input-channel-rotation property to adc.yaml. This is a
+feature seen frequently in ADCs that are designed to measure resistive
+loads, such as RTDs and strain gauges. Enabling this can reduce offset
+errors by swapping the positive and negative input channels on every
+other conversion. This can have side-effects in timing and filter
+response, so it is not always desirable to enable this feature in some
+applications. Therefore, it is best to make this a property that can be
+enabled or disabled in the device tree.
 
-Some ADCs incorporate burn-out current sources that provide current to
-the channel's input pins for open-circuit or short-circuit detection.
-
-Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
-v2 changes (compared to Kurt's RFC v2):
-* Changed units from microamps to nanoamps to fit known devices.
+v2 changes:
+* New patch.
 ---
- Documentation/devicetree/bindings/iio/adc/adc.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/devicetree/bindings/iio/adc/adc.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/iio/adc/adc.yaml b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-index 860601ec5334..9ec1f447b565 100644
+index 9ec1f447b565..3d52c00922c9 100644
 --- a/Documentation/devicetree/bindings/iio/adc/adc.yaml
 +++ b/Documentation/devicetree/bindings/iio/adc/adc.yaml
-@@ -101,6 +101,12 @@ properties:
-       sources. The index in the array corresponds to the same index in the
-       excitation-channels array.
+@@ -81,6 +81,13 @@ properties:
+       ADCs usually allow choosing between internal reference sources or a pair
+       of external pins.
  
-+  burn-out-current-nanoamp:
-+    maxItems: 1
++  input-channel-rotation:
++    type: boolean
 +    description:
-+      Burn-out current sources provide current to the channel's input pins for
-+      open-circuit or short-circuit detection.
++      If set, the positive and negative input channels are allowed to be swapped
++      on every other conversion to reduce offset errors. This is also referred
++      to as "chop" in some datasheets.
 +
- anyOf:
-   - oneOf:
-       - required:
+   excitation-channels:
+     $ref: /schemas/types.yaml#/definitions/uint32-array
+     description:
 
 -- 
 2.43.0
