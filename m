@@ -1,181 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB03DF01A;
-	Thu, 25 Jun 2026 16:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB573E2751;
+	Thu, 25 Jun 2026 16:22:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782404475; cv=none; b=tdIN7uz+kycEVkSZV2idPR9dtxYx9xt72o79Sh/AhpgkoagVkeDmN0PKQ4He9aluNGhHBzsX6r3BKoLp0THotjJBRzalywgqXEp1Ae2wfSm9MMe3jJDraiLD8SW4l3zYGuJUZfNpaHSjtlTMA1/NP4H+awNEOLo07CZraiNUFL8=
+	t=1782404523; cv=none; b=mlLtzOwNFQNpg1a07rOjR5TWtvUf7uyaI0wsXxaHJ+Cp6qIAD8CqKdQDNJzzedMltslWlXMT4rJEumpoIx6NQRU61JLL77hALxyK0/rCyWTuU5bzYbqnDs5lxWUs371XUUhOVdnckrCocKyqTN3mhghq57VCF1aIYBwxix5S56c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782404475; c=relaxed/simple;
-	bh=l7mCiyBi1SUQPTSuOemoxy28UrtPsJbcpE4owSTu0mg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nqYHzWNMwA7KHN/tSCV6QafKA+OLYnz/473J+OaOhnU6GpPTFpcuOi/Ql68DqE93m+lA3u29ajzynAHpY9tg53wWCl9SzOAhuqxuKrazZX96oOa2r5mmAWmKixwA3QbMNH4VUns35Up7GvpP3iSCSCx6RkYDqe09QX3UgAAotC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERMjWq/s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782404523; c=relaxed/simple;
+	bh=5F4KQo/LXvQMJy9qOTC9S3grc/gHruRxFqZpg6KBf04=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n3XnusCT9MMjptJ4EPj74i5CejMxn6Jdw+EWZN6fVNjttHO76gsw2r1qMcq/PKswaidmlW/flR+oQL0ZsQdXlPgjKuiE39ygEAMopiXwYL68AdTya5NGMn+LXPX2YB8lYpL0/wllgBVSxXZg4ISr51FYj5rkgKaGT/DRfA66VLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPb2stxq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERMjWq/s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417EA1F000E9;
-	Thu, 25 Jun 2026 16:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPb2stxq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41F871F000E9;
+	Thu, 25 Jun 2026 16:22:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782404474;
-	bh=Ht6H7DFitAmtQKB4ICmd1sipRyMUQIeLpqDqtXHkH48=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ERMjWq/s0WFsi7kTuKTYy1E7hXj7Cg+shF8QOnNj1uOa9q8IcbtRviddZ7jmLvqE9
-	 i3R7T40ICvmw/0kQhrpG79Dz0bw4SiwufAVqRMe/nq5IoY7YEH4PfHdWJMaQ7L8jpQ
-	 ni39EBeFCN/5V9nYmRY4nM4dQ5BYdA3VCubGRI6BT/kfoSABBwXHe/AslaBfo/f3GF
-	 YHENxt+JhcJyRwkt3wBu9fDppUE+2FV+wiDWP0T11qkEe3vsdgU8jjHbEd4BIl78sj
-	 4wqJeVPZjYQr0o0KSO6daJSIs6DBy4yY72kN2hV38wLJRogMqVdI5h2z1fYvrNbvND
-	 anlFUwhiEneiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: chipcap2: Add label property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Flaviu Nistor" <flaviu.nistor@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260625160423.17882-1-flaviu.nistor@gmail.com>
-References: <20260625160423.17882-1-flaviu.nistor@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 16:21:13 +0000
-Message-Id: <20260625162114.417EA1F000E9@smtp.kernel.org>
+	s=k20260515; t=1782404522;
+	bh=5F4KQo/LXvQMJy9qOTC9S3grc/gHruRxFqZpg6KBf04=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CPb2stxq2fbb5nyx10ATYrdvRljtwQNBjpQPpbtK+MDdx5+qmjvZi3vjTeKoRNsDf
+	 U5nEbMn4qJKg3LoBsM1BLKS1hLFOrn+QaOM0vf3ESt1y3Rvryi+JK/oTCoJNX0bkVF
+	 hZKGcF5KwypW+/Bs9zKlYxLP4D5e4UYCUQb6t5al4mZ0vMUnUV3Zxb6IScXf2OD1p8
+	 e16imCYj9iYV/76yz312gV9GocAk/EO86j7p+3JiW4i1haku3JoeLoNSkK17yBIoqW
+	 3awiBgZTF/0ee0CcGpUrzr2ZeoU52jpjL9SNdmNEzhzRYGOQwhcM/+JU3zRb/CSYqz
+	 4kKCi2MeX95Sg==
+Date: Thu, 25 Jun 2026 17:21:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Suraj Gupta <suraj.gupta2@amd.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
+	radhey.shyam.pandey@amd.com, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: dma: xlnx,axi-dma: Restore xlnx,flush-fsync
+ as u32
+Message-ID: <20260625-deviator-wobble-61d333ac6f49@spud>
+References: <20260625161016.1249570-1-suraj.gupta2@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xYKvzKvso3jUBxOS"
+Content-Disposition: inline
+In-Reply-To: <20260625161016.1249570-1-suraj.gupta2@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] The threaded interrupt handlers modify alarm state flags without l=
-ocking, creating a race condition with sysfs reads that can result in lost =
-alarm events.
---
+--xYKvzKvso3jUBxOS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-commit 7c977021bab8a6a8bb249ac3b4ad711dbe88c4ff
-Author: Flaviu Nistor <flaviu.nistor@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-dt-bindings: hwmon: chipcap2: Add label property
+--xYKvzKvso3jUBxOS
+Content-Type: application/pgp-signature; name=signature.asc
 
-This commit adds support for an optional label property similar to other
-hwmon devices. This allows assigning distinct names to each CHIPCAP2
-sensor instance on boards with multiple sensors.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.ya=
-ml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-> index 17351fdbefce6..56b0cecfca5fb 100644
-> --- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-> @@ -45,6 +45,8 @@ properties:
->        - const: low
->        - const: high
-> =20
-> +  label: true
-> +
->    vdd-supply:
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1VpgAKCRB4tDGHoIJi
+0hBYAQCNVVgdgCzxxO2gAoULpvUyskuiTrcqKn/RmNfGzVdb9QEA5Ne9VcnFMY3O
+ywb2Y78gEz2yNU+2gRTJlDk/4KUtfg0=
+=4B50
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-While reviewing the hwmon driver code for this hardware, I noticed a
-potential locking issue in the interrupt handling.
-
-> --- a/drivers/hwmon/chipcap2.c
-> +++ b/drivers/hwmon/chipcap2.c
-[ ... ]
-> static irqreturn_t cc2_low_interrupt(int irq, void *data)
-> {
-> 	struct cc2_data *cc2 =3D data;
->=20
-> 	if (cc2->process_irqs) {
-> 		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
-> 				   hwmon_humidity_min_alarm, CC2_CHAN_HUMIDITY);
-> 		cc2->rh_alarm.low_alarm =3D true;
-                ^^^^
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the threaded interrupt
-handler modifies the min alarm flag without acquiring a lock. Could this
-create a race condition where an active alarm gets overwritten?
-
-> 	}
->=20
-> 	return IRQ_HANDLED;
-> }
->=20
-> static irqreturn_t cc2_high_interrupt(int irq, void *data)
-> {
-> 	struct cc2_data *cc2 =3D data;
->=20
-> 	if (cc2->process_irqs) {
-> 		hwmon_notify_event(cc2->hwmon, hwmon_humidity,
-> 				   hwmon_humidity_max_alarm, CC2_CHAN_HUMIDITY);
-> 		cc2->rh_alarm.high_alarm =3D true;
-                ^^^^
-
-[Severity: High]
-This is a pre-existing issue, but the max alarm flag is also modified
-here without locking.
-
-> 	}
->=20
-> 	return IRQ_HANDLED;
-> }
->=20
-> static int cc2_humidity_min_alarm_status(struct cc2_data *data, long *val)
-> {
-> 	long measurement, min_hyst;
-> 	int ret;
->=20
-> 	ret =3D cc2_read_hyst_and_measure(data, CC2_R_ALARM_L_OFF, &min_hyst,
-> 					&measurement);
-> 	if (ret < 0)
-> 		return ret;
->=20
-> 	if (data->rh_alarm.low_alarm) {
-> 		*val =3D (measurement < min_hyst) ? 1 : 0;
-> 		data->rh_alarm.low_alarm =3D *val;
-                ^^^^
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the sysfs read thread
-performs an unprotected read-modify-write on the alarm state flag here.
-
-If a sysfs read of the alarm status evaluates the current measurement
-over the I2C bus, and cc2_low_interrupt() concurrently receives an
-alarm setting low_alarm to true, could the sysfs thread subsequently
-overwrite the active alarm flag with 0 based on stale measurement data?
-
-The hwmon subsystem documentation mentions that hwmon_lock() or custom
-locking should be used to serialize sysfs operations with interrupt
-handling.
-
-> 	} else {
-> 		*val =3D 0;
-> 	}
->=20
-> 	return 0;
-> }
->=20
-> static int cc2_humidity_max_alarm_status(struct cc2_data *data, long *val)
-> {
-> 	long measurement, max_hyst;
-> 	int ret;
->=20
-> 	ret =3D cc2_read_hyst_and_measure(data, CC2_R_ALARM_H_OFF, &max_hyst,
-> 					&measurement);
-> 	if (ret < 0)
-> 		return ret;
->=20
-> 	if (data->rh_alarm.high_alarm) {
-> 		*val =3D (measurement > max_hyst) ? 1 : 0;
-> 		data->rh_alarm.high_alarm =3D *val;
-                ^^^^
-
-[Severity: High]
-This is a pre-existing issue, but the max alarm sysfs read also writes
-back the max alarm flag without locking. Does this present the same risk
-of lost alarm events if cc2_high_interrupt() runs concurrently?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625160423.1788=
-2-1-flaviu.nistor@gmail.com?part=3D1
+--xYKvzKvso3jUBxOS--
