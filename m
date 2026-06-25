@@ -1,61 +1,63 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71A13A1A3B
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 16:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05B73E168B
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 16:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782403509; cv=none; b=l7YAxTxw2M8v409vWm4RkdaSdF3Bk5hxBUEcr8Y45iFNbGi9GYlyaBMDpE+otacXz/ciFwcv99vJyqXnntUdo7CPDnsw3qwssb53YAKRU2ERyIUYDSL/zcphENOisszKWK+IpPMlJ+upEzSVWc38SnSNiwJ6NN0ZHkCtFV6bGEM=
+	t=1782403518; cv=none; b=ol4NqSibYSpBMW29Qy0armr6aV7kcczlmXsDsb/ZvVtt8pgZ/50Vdz0+xzsjWUyuf44CJzvoAK9b2ukw2TUhGm8V+SnDYChvdCkJx1VnIFn9lU4vxzISipBTYE2vC9tDRXHQXjGGv17w8SEmvc7hHfUT7RMcQHPLsklsyokfE7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782403509; c=relaxed/simple;
-	bh=f5C4+Bt5ugEiy2LVyokcq17w8vPsIll+88We6QbmemE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uaMpYMEaCEnJSKiXYzNmX/4ktpiTbeHLriBOgxNgdCjZtN8Ss60axdyZGj0CjCG/VH3TB/iZYCRlBl1v1xIxRQHZp1htmM4JDU9NY3bzbhuCICMm7SQ4q5OQ8COyWl32iOLTV7YQrg+Oa29VscDeY1d8SaxnZ5x6ZQisenF0y4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Irtaw5nb; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1782403518; c=relaxed/simple;
+	bh=P3Fmu2M7yicfX8YegW+8uTR/Xoo2VqnCcOOBa6qBxYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kMVU9vyzI2+yhZuhOOaYoWriEo4OiVoh4F2DEYpDiz307xAarrQZuKU117oMyljRhaA8sVJ/+p19cWJJ5vq00PfOb845PrShwik/CsyFRUCRCTk7VGMFmRR9kd70Va2uKQ+rH2aLewyGT4Nlm4vD7IntwFFhDHO7o8lUhG+CBBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDOZDhT2; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Irtaw5nb"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-46cbe01d4b6so1318133f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:05:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDOZDhT2"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490b9318997so171325e9.2
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 09:05:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782403505; x=1783008305; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=EjKkKqp9fBdZiADoXkPIOzR6TnKUMV6AHpcUuhEviCE=;
-        b=Irtaw5nbN4SvenQo3FpAg3NpzzAkMJtoyybgHtk+XnSgILrcrSaLWXHMKsZ+rtOymu
-         dvn/+Qg6nq5+uKO9/nFeyKJy6s33oYNsCOT3QXTlmZP2LEhi9wQgyzT09LMl7rcaruRN
-         wRTQ15fRMcZg/LrywQpd3gD5qvvmJmXEXCzPdvfk67HI0aYJk5YU8C7sZohRy/C1D5fb
-         zrpn5d4jL7PTToey2mFhdC1+Cn9iIcjzQE1PAy5oMws1f6+kSwjA9A2LpcSXt/Jq/bRk
-         DtaA89mmpslcQPElZmwV+5bKZYGJ5zgE/2jrjBFd0OsrjIbJw0G5LpRau7AjeaPUbDKG
-         iU+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782403505; x=1783008305;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1782403513; x=1783008313; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EjKkKqp9fBdZiADoXkPIOzR6TnKUMV6AHpcUuhEviCE=;
-        b=cH0HtQ2D9u1QpxjsH8iYrOA6T0VA2PTJL0dWKyYxbonvcc2NTes88ZMsTHrZ23PXlG
-         6b9lhPEyifI7vpol4EuSHbrV3Mjr+7iYOVcDLBblDsmlycH9R7wU5FsU2ZqFmWd1abnK
-         7ia4DbCZseaxNTiQDlrpzUMJQC2hHlfapopudK8FBvi2ouFIYVAktCSYZOxqvP5Z6+kX
-         curcdLqpz2avL0shOLh+otiEKgA7+lW1xPESUz0XUmy6HwRC1iUDQ++EYnOL7AwdFVXu
-         HgqctIFEBr4FF4b9PZ60zNhxLL7+CBZ5ZmAuLv9CGgk6DWcq96z1RtRndKZzOmBbHXBZ
-         nEpQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/gPFwXCRc/9SzQvk3lYdb/LZAD2GljfwvxvlfGqZBaiLK+Y1pqv6rAgndC3J5eNruCWiHUc4nVATQC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yztr03TkDUVrWSKZQZHJJJf98Dthb2ifm97gDHFzeJApF0c89No
-	PY5VEEdAPhqFUNcGvicW3nAsnUYqcMc4jZ4XUyeK7yDA69eMrPNIv1T/
-X-Gm-Gg: AfdE7cm1fnglO02ZCYj7tYag07wCU9fI9ePgd06MdrhPSu0tpZnNUVPj9wk68Igt38W
-	cg6Jmd1+dkx9o1gKp87+jaoCrliXaoLlzNAapFS73H8MkX/FKjaCmzhKt+ItLmtHLMoxQ+JDl0d
-	oRbBcP4t232kxpgBvlcR9dm1xwbtoq+D9JDUREnWNJLq32f43r9jq7CTg5ysACPhKnP1U9MqWtz
-	NtgHxR5dhRzJzwpf3i4VXbpVsshF3EQrTppg3n+nMNl5l5io/soatlTg8OOid/WDLpe92AVPriY
-	XIADwetSQl0mikzWs0xvczjoPpoZC3C0ZAe1LXEjYzL9bb3sRfSEcrZf0Fygl1c1PUQUyRvZkxt
-	P6JKjefFYGdORYldniXv/tRBJEjRIEYG9F93e+CB9bJPneN5mxieSFaCNhDdwh31HUik+dO3qqw
-	khsdqoxEB5q0udknwHk6v3P6AomKjeVTR2jWccstHIm6cG2kxFCuvJ0BETfHyMGw==
-X-Received: by 2002:a05:600c:4692:b0:490:4b89:535d with SMTP id 5b1f17b1804b1-492668677ebmr48000945e9.1.1782403504589;
-        Thu, 25 Jun 2026 09:05:04 -0700 (PDT)
+        bh=JWN54lw7/VCj9KUx153JrqSzq8vKsCI/ogPA08qnUmE=;
+        b=qDOZDhT2z7s2cP2F/Ki17zjN8ywlqzv7zqql5VMvdG8Huf+9syzT1zLhMyqGk+3+fN
+         UeBNpalNlkiR4O47kcjxdYmssT5kpuD+owGX4mRjhOsoiXqt7c3PfGpxgojJHTXcVvkH
+         rd6/STA45x/gcN9bsUYze9tI7+eTlqC7CgPZshxIdh2Fcow0DfsPaqDQdgaaN3oUSh7f
+         /VoomYd/VLbOom65KYn9YgHmWga4DQNohX/Bci4TLi0oV8l/qWyia6PHA+5NbKY/Lo6X
+         5AScUahZpoV3bxoU88rGp+LI4Mrtj3OoYnF+a8bqPlZy/zF/7x9G7qg7NZwFkguYDpBJ
+         5HkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782403513; x=1783008313;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JWN54lw7/VCj9KUx153JrqSzq8vKsCI/ogPA08qnUmE=;
+        b=OPRqaRMrcxNcrDj5qzecHthzbAGit9Yt78Xk5Yy3z/sJD3AIAxHEiVNq6pOr+bKVsk
+         oZzDsffDHD+cgfwUF295cmjRgD+DMJOqcfMqiBc7CLo3Ir2JfO1qI4J5+tnIjwM9yBbq
+         QlBn6QFBd/apFykYYI8juAttiwOUG2U5drntxh8rlbePK1LYXo/5Mj1E6z6aRbGQ10wV
+         72DPr0DsgYG+hhAFInHYXt7BeXmURXr8C/5xOCRXv4f6D+Ixgog00XMK7cKDh8Aj+5z8
+         jo2NS3kenMb6AxaNhdVZwZ0HIz4HU9g0JUiXWF3NWI79dbXQlCUj6BeCa9GYKIwfZ/1I
+         F37g==
+X-Forwarded-Encrypted: i=1; AFNElJ8D94ihIJ7Ar2dzglmiOmlrqEhy4hECMRxzYT712t8F8IwA8GtZOLFn6ep1FDlmQ7hQxK3oqJnOV4A0@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVSbxikBD/XmYxG51rrdTXwWvXBLkp6rSGe4vdLsIDRf2EWCbB
+	uO96GYIhlsua6yo9iHuHrvxabS29ZGZiKyOUuSchWv6i4DmFCziSqXDT
+X-Gm-Gg: AfdE7cmiPDevX5LsH+LfkE4ctqonXrF1wnl+BuaopIxPO6qTM+RmXerX+iL/01p5hdH
+	Xqyb61pNySAC44kM1aY4fFtlaSUPa9SNKci26Ji9fPztCiVzegumuQe0M9H0UkWVlIVcuUP0hKu
+	K6yiYgb7QtqgMBQTxccdMIbMd/mcmtuhoWs3MLaLYEIMW19k8MUnkEdqkc4cov5JTSFLM6PRDNL
+	kgcw7rWnQrS5sO+MA9OdHjG6bUTTceyKF4VOGKvk+CiRnPzuF7+YCrX8fyCSlchmb2NQdt10i1f
+	PGA5FQkutwPwlJUtvY9h8+B2qQb+MH+GxbqLk+qt9a6G7BPsLTg74fRF2ujsPyDA+uJOfuW2Gxh
+	H+O20njvQ5S0D/GVz2OU97LMYaOfXPtCOxqyw5+V2f2wKBGJBV8o1YdZYMJvv9XLery5bFINUPy
+	La8O2dWRYLpCXHBpqk7/UP1TqVi5blq893Vtb01VEnAQOktcr8Oih5C1QI67wA7Q==
+X-Received: by 2002:a05:600c:6b70:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-49266893253mr29913545e9.25.1782403512695;
+        Thu, 25 Jun 2026 09:05:12 -0700 (PDT)
 Received: from flaviu-Aspire-E5-572G.. ([5.15.86.252])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926543be74sm52220975e9.1.2026.06.25.09.05.02
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4926543be74sm52220975e9.1.2026.06.25.09.05.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 09:05:03 -0700 (PDT)
+        Thu, 25 Jun 2026 09:05:12 -0700 (PDT)
 From: Flaviu Nistor <flaviu.nistor@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>,
 	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
@@ -69,10 +71,12 @@ Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: hwmon: chipcap2: Add label property
-Date: Thu, 25 Jun 2026 19:04:22 +0300
-Message-ID: <20260625160423.17882-1-flaviu.nistor@gmail.com>
+Subject: [PATCH v2 2/2] hwmon: (chipcap2) Add support for label
+Date: Thu, 25 Jun 2026 19:04:23 +0300
+Message-ID: <20260625160423.17882-2-flaviu.nistor@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260625160423.17882-1-flaviu.nistor@gmail.com>
+References: <20260625160423.17882-1-flaviu.nistor@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,50 +85,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for an optional label property similar to other hwmon devices.
-This allows, in case of boards with multiple CHIPCAP2 sensors, to assign
-distinct names to each instance.
+Add support for label sysfs attribute similar to other hwmon devices.
+This is particularly useful for systems with multiple sensors on the
+same board, where identifying individual sensors is much easier since
+labels can be defined via device tree.
 
 Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
 ---
 Changes in v2:
-- Implement suggestion from Javier Carrasco as proposed by Krzysztof Kozlowski.
+- No change for this patch in the patch series. 
 - Link to v1: https://lore.kernel.org/all/20260622122200.14245-1-flaviu.nistor@gmail.com/
 
- .../devicetree/bindings/hwmon/amphenol,chipcap2.yaml        | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/hwmon/chipcap2.rst |  2 ++
+ drivers/hwmon/chipcap2.c         | 25 +++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-index 17351fdbefce..56b0cecfca5f 100644
---- a/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/amphenol,chipcap2.yaml
-@@ -45,6 +45,8 @@ properties:
-       - const: low
-       - const: high
+diff --git a/Documentation/hwmon/chipcap2.rst b/Documentation/hwmon/chipcap2.rst
+index dc165becc64c..c38d87b91b69 100644
+--- a/Documentation/hwmon/chipcap2.rst
++++ b/Documentation/hwmon/chipcap2.rst
+@@ -70,4 +70,6 @@ humidity1_min_hyst:             RW      humidity low hystersis
+ humidity1_max_hyst:             RW      humidity high hystersis
+ humidity1_min_alarm:            RO      humidity low alarm indicator
+ humidity1_max_alarm:            RO      humidity high alarm indicator
++humidity1_label:                RO      descriptive name for the sensor
++temp1_label:                    RO      descriptive name for the sensor
+ =============================== ======= ========================================
+diff --git a/drivers/hwmon/chipcap2.c b/drivers/hwmon/chipcap2.c
+index 4aecf463180f..086571d556b7 100644
+--- a/drivers/hwmon/chipcap2.c
++++ b/drivers/hwmon/chipcap2.c
+@@ -22,6 +22,8 @@
+ #include <linux/irq.h>
+ #include <linux/module.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/mod_devicetable.h>
++#include <linux/property.h>
  
-+  label: true
+ #define CC2_START_CM			0xA0
+ #define CC2_START_NOM			0x80
+@@ -83,6 +85,7 @@ struct cc2_data {
+ 	struct i2c_client *client;
+ 	struct regulator *regulator;
+ 	const char *name;
++	const char *label;
+ 	int irq_ready;
+ 	int irq_low;
+ 	int irq_high;
+@@ -449,6 +452,8 @@ static umode_t cc2_is_visible(const void *data, enum hwmon_sensor_types type,
+ 		switch (attr) {
+ 		case hwmon_humidity_input:
+ 			return 0444;
++		case hwmon_humidity_label:
++			return cc2->label ? 0444 : 0;
+ 		case hwmon_humidity_min_alarm:
+ 			return cc2->rh_alarm.low_alarm_visible ? 0444 : 0;
+ 		case hwmon_humidity_max_alarm:
+@@ -466,6 +471,8 @@ static umode_t cc2_is_visible(const void *data, enum hwmon_sensor_types type,
+ 		switch (attr) {
+ 		case hwmon_temp_input:
+ 			return 0444;
++		case hwmon_temp_label:
++			return cc2->label ? 0444 : 0;
+ 		default:
+ 			return 0;
+ 		}
+@@ -552,6 +559,16 @@ static int cc2_humidity_max_alarm_status(struct cc2_data *data, long *val)
+ 	return 0;
+ }
+ 
++static int cc2_read_string(struct device *dev, enum hwmon_sensor_types type,
++			   u32 attr, int channel, const char **str)
++{
++	struct cc2_data *data = dev_get_drvdata(dev);
 +
-   vdd-supply:
-     description:
-       Dedicated, controllable supply-regulator to reset the device and
-@@ -55,6 +57,9 @@ required:
-   - reg
-   - vdd-supply
- 
-+allOf:
-+  - $ref: hwmon-common.yaml#
++	*str = data->label;
 +
- additionalProperties: false
++	return 0;
++}
++
+ static int cc2_read(struct device *dev, enum hwmon_sensor_types type, u32 attr,
+ 		    int channel, long *val)
+ {
+@@ -670,8 +687,9 @@ static int cc2_request_alarm_irqs(struct cc2_data *data, struct device *dev)
+ }
  
- examples:
-@@ -72,6 +77,7 @@ examples:
-                          <5 IRQ_TYPE_EDGE_RISING>,
-                          <6 IRQ_TYPE_EDGE_RISING>;
-             interrupt-names = "ready", "low", "high";
-+            label = "Room";
-             vdd-supply = <&reg_vdd>;
-         };
-     };
+ static const struct hwmon_channel_info *cc2_info[] = {
+-	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
+-	HWMON_CHANNEL_INFO(humidity, HWMON_H_INPUT | HWMON_H_MIN | HWMON_H_MAX |
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_LABEL),
++	HWMON_CHANNEL_INFO(humidity, HWMON_H_INPUT | HWMON_H_LABEL |
++			   HWMON_H_MIN | HWMON_H_MAX |
+ 			   HWMON_H_MIN_HYST | HWMON_H_MAX_HYST |
+ 			   HWMON_H_MIN_ALARM | HWMON_H_MAX_ALARM),
+ 	NULL
+@@ -680,6 +698,7 @@ static const struct hwmon_channel_info *cc2_info[] = {
+ static const struct hwmon_ops cc2_hwmon_ops = {
+ 	.is_visible = cc2_is_visible,
+ 	.read = cc2_read,
++	.read_string = cc2_read_string,
+ 	.write = cc2_write,
+ };
+ 
+@@ -710,6 +729,8 @@ static int cc2_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, PTR_ERR(data->regulator),
+ 				     "Failed to get regulator\n");
+ 
++	device_property_read_string(dev, "label", &data->label);
++
+ 	ret = cc2_request_ready_irq(data, dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to request ready irq\n");
 -- 
 2.34.1
 
