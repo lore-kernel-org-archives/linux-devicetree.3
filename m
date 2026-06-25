@@ -1,332 +1,236 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3374F31985D;
-	Thu, 25 Jun 2026 18:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F32D28C5CB;
+	Thu, 25 Jun 2026 19:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782412772; cv=none; b=n1oddiH3+khAb4dMaLsW1WjRvFjpXi7lvE8wXPU787uXlbrQuPrtx4YHnHL7eQ+m3LBq53OKoaI3bbhmzK5RlKaVnavUS/0sbPrAFncqCljF0bPseZNNDtatyNmYJm7J9jSyQ7/qOn8EIR0j0TRXRgDH0ZvKen07MlZugi58YKg=
+	t=1782415315; cv=none; b=aShHOa4UHyocyqWm3JIWnP8mf2HRM/M+JsRRaqS0iH75Zxao0M2+723clwOSJvMwqDzS3kruGF/fWgpFfvqDBHxnglm9gSPezKVSEIg8ao3rRme0x6gcMV08tUxwjXqePgCCV8GEAckI0ww7GDlO+TxgmDXDmqZpVMfAzDhEX4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782412772; c=relaxed/simple;
-	bh=qqQ1QTFPLreVsEKDIgn99NRhuvjslsADb6Lmsi52oXw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lOeK+GnuBx8Y0poG0zSvwcwKIeR/4KE38JhhdQIv42OzmReAopJFPlPRd3Q0i4p/W9Ud1Ai5ewx1Q5bMttgTMf6KfRr9IkQZGqTkoMQhmUP7nnlZ3JVgoVb6fvi2KecZZ2BCQqIck5VeM0B1MmdcqzXBs1wsGrfNZG5PFHprbaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=o0juoW0d; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1782415315; c=relaxed/simple;
+	bh=46jKitwX7kbIwKrfsLYmm0kjbQWe0x+xSMh16IzTMBU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n2kZT4Cw7JjvT57TR+h3j0q+jsf5e8gfiUSA4sH3hQiCD/NvIGq1l8Av6JOuxJLZf7+GrDevne8UW7lxcsDghTZxMons47U5hus2mpRPWWFUaRmXrB8wF3inQm7gVFAGbDSmVClGXYLmCn0yZTmfj+XhKt62tM8ip5h1PJfbU6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SvRe8m86; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="o0juoW0d"
-Received: from [10.0.0.200] (unknown [10.88.125.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 359F053400EF;
-	Thu, 25 Jun 2026 20:39:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1782412756;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=oIdOj3wj6COqptsphiyvYZtGQ5J36Zya8YF5fyFFLvc=;
-	b=o0juoW0d8lCz8DGXg3gxh+G/gATYbpf/MSbfsXmcPJgiV+Mm535bLDgcSJapy4JarqUQOs
-	83aNKlW07eZpFRGNK6rXtnqfUMte1l3fWT42dC/xdmUUGFQtZ2SXrpmhTn1UpW4oT64B9j
-	P4CJgtQJjgA7vBPVHjYU8eS9QnjtNb4=
-Message-ID: <32affded-bae2-46c4-a702-2054fbfe46a8@ixit.cz>
-Date: Thu, 25 Jun 2026 20:39:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SvRe8m86"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82CDF1F00A3A;
+	Thu, 25 Jun 2026 19:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782415314;
+	bh=lV3CoJyooD6jU7hICvd3lIpUOrVSMEvR/t4ecu6q5rs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SvRe8m86TNm1UW3zNJsZrT0BzJSY0+8f0DSj0iVoSoA0jhdiavqtMJHQ8Dki+KsTI
+	 WrHv6iCEUmvtYbffOBUriWLgSmI7Kpf+UWdOSrwAjWiA2g+DdwyvPIdUDUu4/X9ryk
+	 JoJvt7mSZj4cY7d4//iqVOH8IyK/z6hJzgQVWgkpc0xL4541j148qswU82AC8LFUev
+	 qGF8Z3U5vStorIgm1wwd0KxK+qAfpdnwxX+DFe6HwucahLHGkunI2CC1YKnZS31LfP
+	 eLxhOCJ4CBDw3UmY4g8no6iBsXmvsK9pwnKKMEERHBIKhtzOyWgzWybW7i7byo8JmD
+	 Li3NtXZpWJeGg==
+Date: Thu, 25 Jun 2026 12:21:52 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Atish Kumar Patra <atishp@rivosinc.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
+	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Fenghua Yu <fenghua.yu@intel.com>,
+	Gong Shuai <gong.shuai@sanechips.com.cn>,
+	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+	James Morse <james.morse@arm.com>,
+	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Peter Newman <peternewman@google.com>,
+	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Vasudevan Srinivasan <vasu@rivosinc.com>,
+	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 7/8] dt-bindings: riscv: Add generic CBQRI controller
+ binding
+Message-ID: <aj1_0AnIBk8_xoDd@gen8>
+References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
+ <20260624-dfustini-atl-sc-cbqri-dt-v2-7-2f8049fd902b@kernel.org>
+ <20260625-cupbearer-failing-9ce0abf97b93@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
- compatible to include model
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jason A. Donenfeld" <Jason@zx2c4.com>,
- Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
- Vincent Huang <vincent.huang@tw.synaptics.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
- <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
- <ahdoBl3qCTyvlYJf@google.com> <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
- <742c7a13-9465-40e8-8990-e679712e9784@ixit.cz> <ajtaUb4YmyZTDLmQ@google.com>
- <52b7dd3a-3f6f-474c-8386-4fc2776b185b@ixit.cz> <ajxakXFuKAkhdZLN@google.com>
- <f81e4d83-90d9-47c8-aee9-319df3f8b0fb@kernel.org>
- <aj1OhZQjO5nNYlAo@google.com>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <aj1OhZQjO5nNYlAo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="b+lAH89uI5sNQSH1"
+Content-Disposition: inline
+In-Reply-To: <20260625-cupbearer-failing-9ce0abf97b93@spud>
 
-On 25/06/2026 18:57, Dmitry Torokhov wrote:
-> Hi Krzysztof,
-> 
-> On Thu, Jun 25, 2026 at 10:23:54AM +0200, Krzysztof Kozlowski wrote:
->> On 25/06/2026 06:53, Dmitry Torokhov wrote:
->>> On Wed, Jun 24, 2026 at 04:37:25PM +0200, David Heidelberg wrote:
->>>> On 24/06/2026 06:28, Dmitry Torokhov wrote:
->>>>> Hi David,
->>>>>
->>>>> On Sun, Jun 21, 2026 at 07:11:45PM +0200, David Heidelberg wrote:
->>>>>> On 28/05/2026 00:13, David Heidelberg wrote:
->>>>>>> On 27/05/2026 23:56, Dmitry Torokhov wrote:
->>>>>>>> Hi David,
->>>>>>>>
->>>>>>>> On Sat, May 23, 2026 at 11:45:35AM +0200, David Heidelberg via B4 Relay wrote:
->>>>>>>>> From: David Heidelberg <david@ixit.cz>
->>>>>>>>>
->>>>>>>>> We know the driver is reporting s3706b, introduce the compatible so we
->>>>>>>>> can more easily introduce quirks for weird touchscreen replacements in
->>>>>>>>> followup series.
->>>>>>>>>
->>>>>>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>>>>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>>>>>>> ---
->>>>>>>>>     arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
->>>>>>>>>     1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>>>>
->>>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>>>>>> b/arch/ arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>>>>>> index 6b7378cf4d493..148164d456a5a 100644
->>>>>>>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>>>>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
->>>>>>>>> @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
->>>>>>>>>         };
->>>>>>>>>     };
->>>>>>>>>     &i2c12 {
->>>>>>>>>         status = "okay";
->>>>>>>>>         clock-frequency = <400000>;
->>>>>>>>>         synaptics-rmi4-i2c@20 {
->>>>>>>>> -        compatible = "syna,rmi4-i2c";
->>>>>>>>> +        compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
->>>>>>>>
->>>>>>>> So I believe we established that this device (s3706b) does not in fact
->>>>>>>> implement rmi4 protocol properly. Why do we have "syna,rmi4-i2c" as a
->>>>>>>> fallback? Shouldn't it be just "syna,rmi4-s3706b"?
->>>>>>>
->>>>>>> The vendor supplies s3706b which does implement the RMI4 properly.
->>>>>>>
->>>>>>> The 3rd party replacement impersonating original parts may not implement
->>>>>>> it properly, but I don't address this issue in this initial submission.
->>>>>>>
->>>>>>> With this compatible we know which original part is used by the vendor
->>>>>>> and installed in the phones, so later we can deduct specific sequences
->>>>>>> for the replacement aftermarket parts to keep phone touchscreen working
->>>>>>> same as they do on Android without affecting other devices.
->>>>>>
->>>>>> Hello Dmitry.
->>>>>>
->>>>>> May I ask what is currently preventing this series from moving forward?
->>>>>>
->>>>>> The first version was posted in 2023 [1]. I picked it up again in 2025 [2]
->>>>>> and am now on the 9th iteration (this patchset). At this point, the series
->>>>>> has been under discussion for well over a year, with relatively little
->>>>>> feedback and increasingly long gaps between review rounds.
->>>>>>
->>>>>> The current approach is based on the guidance I have received so far,
->>>>>> including suggestions from the device-tree maintainers. When concerns were
->>>>>> raised, I tried to address them and rework the series accordingly.
->>>>>>
->>>>>> What I am struggling with is understanding what specific issue still needs
->>>>>> to be resolved before these patches can be accepted. If there are remaining
->>>>>> requirements, objections to the approach, or technical concerns that I have
->>>>>> not addressed, I would appreciate having them stated explicitly so I can
->>>>>> work on them.
->>>>>>
->>>>>> I also split out the straightforward, self-contained changes in the hope
->>>>>> that at least those could progress independently while I continued working
->>>>>> on any follow-up requirements. However, even those patches do not appear to
->>>>>> be moving forward.
->>>>>>
->>>>>> Could you please clarify what outcome you would like to see from this
->>>>>> series, and what concrete changes would be required to get it accepted?
->>>>>
->>>>> I am still confused about how you want to differentiate between the full
->>>>> RMI4 support vs the OnePlus flavor. The "syna,rmi4-s3706b", as you
->>>>> mentioned, implements RMI4 protocol properly, so we do not need to
->>>>> actually have it documented neither in binding nor in DTS.
->>>>
->>>> --- part 1 ---
->>>>
->>>> This series addresses identification within device-tree. It's normal
->>>> recommended practice.
->>>>
->>>> If we know, the device ships specific, but **compliant** variant, we just
->>>> put it as compatible = "more-specific", "less-specific"; in this case
->>>> "syna,rmi4-s3706b", "syna,rmi4-i2c"
->>>>
->>>> This approach is used everywhere. This has nothing to do with after-market parts.
->>>
->>> We do this in many cases, sometimes when a part has different timings or
->>> maybe additional functionality compared to the base model.
->>
->> Generic expectation is to have always dedicated front compatible for
->> every device. rmi4-i2c is not really specific enough, more like a
->> family, thus a specific device compatible is essential by the DT rules.
-> 
-> Essential in what way? What will break if such compatible is not there?
-> We have lived without it for many years and will continue live happily
-> without it for years to come.
 
-Hi Dmitry, Krzystof,
+--b+lAH89uI5sNQSH1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Device tree should describe the hardware, rmi4-i2c isn't the exact model of 
-hardware used, the real hardware is Synaptics S3706B. Device-tree should, where 
-possible, describe the actual hardware used.
+On Thu, Jun 25, 2026 at 05:19:28PM +0100, Conor Dooley wrote:
+> On Wed, Jun 24, 2026 at 06:38:35PM -0700, Drew Fustini wrote:
+> > Document the generic compatibles for capacity and bandwidth controllers
+> > that implement the RISC-V CBQRI specification. The binding also
+> > describes the common riscv,cbqri-rcid and riscv,cbqri-mcid properties,
+> > and the optional riscv,cbqri-cache phandle that links a capacity
+> > controller to the cache whose capacity it allocates.
+> >=20
+> > Assisted-by: Claude:claude-opus-4-8
+> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
+> > Signed-off-by: Drew Fustini <fustini@kernel.org>
+> > ---
+> >  .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |  1 +
+> >  2 files changed, 98 insertions(+)
 
-> 
-> We keep having this conversation each time there is self-describing
-> protocol that does not require knowledge of a specific part number:
-> i2c-hid, rmi4, spi-hid coming over soon.
+Thanks for the review.
 
-While the protocol doesn't require this knowledge, where is the issue provide 
-the model, at least in the places where we know it?
+[..]
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - description: Tenstorrent Ascalon Shared Cache
+> > +            const: tenstorrent,ascalon-sc-cbqri
+> > +          - const: riscv,cbqri-capacity-controller
+> > +      - enum:
+> > +          - riscv,cbqri-capacity-controller
+> > +          - riscv,cbqri-bandwidth-controller
+>=20
+> Please modify this, as has been done for other riscv spec related
+> bindings, to let people get away without using device-specific
+> compatibles.
+>=20
+> In this case, you can just delete the first entry from this enum, since
+> it already has a user and only have to implement this feedback for the
+> second entry.
 
-Does it making things worse to describe hardware in more detail?
+Would this work?
 
-> 
-> We might need a device-specific compatible if we need to implement
-> particular power on sequence/adjust timings, and that's when it starts
-> making sense to introduce one.
-> 
->>
->> It does not matter if that specific compatible is ever used.
->>
->>>
->>> How does this new compatible for controller that fully implements RMI4
->>> protocol help here?
->>
->> It does not matter. This is a different device, thus it needs
->> front-specific compatible.
-> 
-> Different from what?
-> 
-> $ git grep syna,rmi4 -- arch/ | wc -l
-> 43
-> 
-> Do you have plans to list each and every chip currently covered by
-> syna,rmi4* ?
+properties:
+  compatible:
+    oneOf:
+      - items:
+          - enum:
+              - tenstorrent,ascalon-sc-cbqri # Tenstorrent Ascalon Shared C=
+ache
+          - const: riscv,cbqri-capacity-controller
+      - items:
+          - {}
+          - const: riscv,cbqri-bandwidth-controller
 
-Not really. I would definitely do the chips we know the model and encourage 
-others to identify chips their devices use, so developers know which hardware is 
-present. Each vendor should know which touchscreen model they ship with and 
-provide this information.
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +    description:
+> > +      The CBQRI controller register block.
+> > +
+> > +  riscv,cbqri-rcid:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    description:
+> > +      The maximum number of RCIDs the controller supports. RCIDs are t=
+he
+> > +      resource-control IDs that allocation operations target.
+> > +
+> > +  riscv,cbqri-mcid:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    description:
+> > +      The maximum number of MCIDs the controller supports. MCIDs are t=
+he
+> > +      monitoring-counter IDs that usage-monitoring operations target. =
+Present
+> > +      on controllers that implement monitoring.
+> > +
+> > +  riscv,cbqri-cache:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle to the cache node whose capacity this controller allocat=
+es.
+> > +      Applies to capacity controllers that back a CPU cache. The cache=
+ level
+> > +      and the harts sharing it are taken from that node's cache topolo=
+gy.
+>=20
+> Architecturally, is it impossible for a capacity controller to control
+> more than one cache?
 
-Reading the model from the dmesg at runtime is the least optimal way in my eyes.
+Yes, there is only ever a single logical capacity resource per capacity
+controller. When that resource is a cache, the controller handles that
+one logical cache. The hardware may implement the cache as a collection
+of slices, but that stays opaque to CBQRI. So riscv,cbqri-cache stays a
+single phandle.
 
-> 
->>
->> Also, the commit msg actually did mention how this helps: allowing
->> further quirks (I did not verify that in practice, but explanation is
->> plausible).
-> 
-> Well, the devil is in the details. And that is what I am trying to
-> understand.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: tenstorrent,ascalon-sc-cbqri
+> > +    then:
+> > +      required:
+> > +        - riscv,cbqri-rcid
+> > +        - riscv,cbqri-cache
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    l2_cache: l2-cache {
+> > +        compatible =3D "cache";
+> > +        cache-level =3D <2>;
+> > +        cache-unified;
+> > +        cache-size =3D <0xc00000>;
+> > +        cache-sets =3D <512>;
+> > +        cache-block-size =3D <64>;
+> > +    };
+> > +
+> > +    cache-controller@a21a00c0 {
+> > +        compatible =3D "tenstorrent,ascalon-sc-cbqri",
+> > +                     "riscv,cbqri-capacity-controller";
+>=20
+> Is this or is this not a cache controller?
+> The compatible and fact that the property points to an actual cache
+> controller suggests that this is not.
 
-This detail is irrelevant for this patchset. This patchset makes what 
-device-tree should do - describe the hardware independently on any future 
-patches which may use it in the future.
+Good point. This nodes represents just the QoS interface (CBQRI) and
+should not use that node name. 'qos-controller' seems like it would be
+more appropriate but that has no precedent. What do you think?
 
-> 
->>
->>>
->>>>
->>>> --- part 2 (irrelevant for this series) ---
->>>>
->>>>>
->>>>> The issue you have with after-market parts that are not compliant and we
->>>>> need to figure out how to deal with them. Inside the driver I
->>>>
->>>> As was suggested by device-tree folks, this is the first step, there isn't
->>>> better one available. If there is, please suggest one, and I'll apply it.
->>>
->>> Was it clearly communicated to DT folks that the compatible you are
->>> adding is fully compatible with the base "syna,rmi4-i2c" but other ones
->>> will not be compatible?
->>
->> That was not communicated but also did not have to. You can install in
->> your board whatever you wish, e.g. replacing foo device with bar being
->> something completely different and incompatible. Does not matter really
->> if this is after-market or a person just swapped things.
->>
->> DT does not solve that problem simply, because we describe static
->> hardware configuration.
-> 
-> But the core issue that David is trying to solve is the fact that these
-> headsets do not work well with aftermarket parts with the upstream
-> kernels. It is not a theoretical problem for him, it is something that
-> he's been trying to solve for a while.
+Thanks,
+Drew
 
-As you can see, I'm trying solve different problem here, and that's describing 
-the hardware model.
+--b+lAH89uI5sNQSH1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> However from my POV I need to make sure the changes to the driver do not
-> affect or limit well-behaved devices implementing RMI4 protocol
-> properly.
+-----BEGIN PGP SIGNATURE-----
 
-I think we can agree that defining model of touchscreen used in the device-tree 
-won't affect any hardware you care about.
+iHQEABYKAB0WIQSy8G7QpEpV9aCf6Lbb7CzD2SixDAUCaj1/ywAKCRDb7CzD2Six
+DGfiAP4poOUqbF5mOaPx0hiXS8d1zsio2uUZW1liV4pjTYG1swDxAeAvM8g3fhtc
+FhNvDW6cSShT0vrZvj6Q4u+HrDXNBw==
+=Dw9v
+-----END PGP SIGNATURE-----
 
-I'll be more than happy discuss the after-market parts in relevant patchset 
-submission. These two patches are not introducing anything directly related to 
-after-market parts, more like opposite defining the hardware which is shipped 
-with the phones from manufacturer.
-
-David
-
-[...]
-
+--b+lAH89uI5sNQSH1--
