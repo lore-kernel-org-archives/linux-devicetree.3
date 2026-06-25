@@ -1,178 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012037.outbound.protection.outlook.com [52.101.66.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E7F1339B1;
-	Thu, 25 Jun 2026 13:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782392407; cv=none; b=tOenE6q2yG9/a/O62ANlaqoC+TPYHq6kyKjpckdau4FHZKFq8I2jXQkpk8z6mmW9JeNcHGT1hczzBroa6RPA1WzmiOt9yo35rfM0Nql+8tDa0zVDMujdDv717ryX8g+kwRPCoeCFR8hmfrp5wnpIF6etYyKSZ0jV2ciS9VVWSdY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782392407; c=relaxed/simple;
-	bh=jfg5HQgrG45mIR004Dp8X0wLse20AI+pzL171TW+CW4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pPw83kVtrOubthvBllMajo9S16dwUOtcYNUtf8NCkSDs202OKSQKoUTA+9GAgBNu/HrbLdy6hA4Wgg68xKmvDA5Do34Sbub4lMTU7qs454ycXccxggayrpXO9jdfYWXI8OoRk7vI7D8wmqyLX5hp8VFTU8WTVUGUNt8bNyZFgdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O19z30Wp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15B7292B4B;
+	Thu, 25 Jun 2026 13:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.37
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782393252; cv=fail; b=k0Jl8W5d8nvFpg1v8cPH3Cj4FG9cLzOVdN+Ej8AmByZ7OD09Fn2KJJ2Xegs+RltPzsuoqXzF7P2g6jZ3V5x6Q8ERypjiwmP5cEu7xauJ0D3wjRiN/minW5XU+DArZ1H11X19kvCy/6gxyGIawznWiEX5XnfB8BYbGMD9OC0uugg=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782393252; c=relaxed/simple;
+	bh=Qwd64o9zizXLsl4SavaaUzMFsOJwI28g8R581DFp91Q=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Bcq37IX2/2sikxOVac2WOBcjYDIUBxBRNFhQ0wyCcPs4aA7diVDCOeoIZMIMI50Dea2z+d7a59T0j6atOvnnUE148YwWAQNxzb45zQHjxMQ4dzdpG2cIAV+FIYYxBfAoktujIf3qwinbpxrdLxTAP/06J9Uo5nNLeqmVwNjEOAY=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sPH9gKAQ; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sPH9gKAQ; arc=fail smtp.client-ip=52.101.66.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O19z30Wp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B761F00A3D;
-	Thu, 25 Jun 2026 12:59:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782392405;
-	bh=gSBd4Rw1MdowAEeCt5ovJ/JxAGFvVF8arYEar3Fhowg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O19z30WpGvU+89hX4CfQxdmKYMDvqCEYCYumDzxUJZmD5B2L55eLCKm6CKdpNZFpP
-	 MfF/aQaHQOKx5iT0LKmC67A6xCAoHK/1303FLJvpZm8vZWh224+10JHaLviIGwKV3O
-	 lbG8ARmAnOsuVFp0SxCfMoh6/14UBsZz3Xh98kuCxDkvFbLe3aRkbTH/4C5C3xNGLx
-	 XZyt50LbWiA3mqnTZP90JvTEBCQQAAlK1A0lW6O3tQ9PYMhIpj53gF2QG3C67DnbvW
-	 Xpa2duuyBeCv4Z4nfekW8I0VbNfvO6FWmo1x+fzqU5EHh7ScxXsM/XTCIMRjsUp0rs
-	 jknFvfbjb1e6g==
-Message-ID: <206f2e80-132a-4586-bd27-5983783f97ce@kernel.org>
-Date: Thu, 25 Jun 2026 14:59:55 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sPH9gKAQ";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sPH9gKAQ"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=Crmo5V0l5p9Hv9o9gt2O/thfi/oJWTRXxkwKarmFgoYcJfIiuyS0MwdpWJSJ9ib2zRNz1LG04Fwd/SyWgkyVV+qcd/+ffl8jA9HJx0GEinwiDRGsg8SfPpRnpXQ3rCHQsBLxSmvmXSOTg01Wp6VnkS5cc8uGmoylRGaY1tIPyXUAJ8H9dDwu38t9T8RE97oDrKbFZad0TZFgzS74b8taQ5XJj7d9XO3U3k/At91Mhd8aKx+5cqBPMyVOHZRf737YKFTCHlmbpEwE1m+yb0gECbxkGZRNr9+mE8u++RMGkSJ/kL54DHuab5kMgpOCpa0CeHrMsC6su2x3HfwTLxxHDA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=envSEUffQ2QOpftGK1JNm5jPQy2+D+BWs8Scvl4vT0k=;
+ b=CFwZGnT6meLKeu1CgoAk0NbxwXeMY4y8fhorhZTCbu+AwXpMsKu1zGcTllxNIo2Gtt1+Zyddl1TskeI1Cqn0ajONjVJQX0Lew6zGFQaYFfZ8ukgGMimNnOnUU0O/4SUm8158Fn1l44g32tNGgJC7T12s2fSFBP+j2Fy7ZaM8J/MYkXyOUSyhYPZXR40Aipa3gRtwsR+ttR4bTKypkdzUEZeBomfKLAWFD24OzH4566rxQxRARhw7qpEEUhPdVNdxZhTRvfXs0Hzm/9jtDRArICe7iUwSvKZZdRLfIiuAfakU41cq0PjktTBnFjGrmGjI900xOMeJ8EIG9YXTIerqZg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=envSEUffQ2QOpftGK1JNm5jPQy2+D+BWs8Scvl4vT0k=;
+ b=sPH9gKAQJ2NusglxXWgjnRexqV34BuBTRC5j8z5U4buMui2QP//wrFpW0BYZZGnONX3vUwjLaidN2AOeCBTdruh3w5oPstRFrjoXnOY4l/jiINkebS/SjornHedPKt7E5C4vW4D8KZdCHRlENpxsob0e2GnQYYfHdpF3JK1UyCU=
+Received: from AS4PR09CA0006.eurprd09.prod.outlook.com (2603:10a6:20b:5e0::16)
+ by GVXPR08MB7749.eurprd08.prod.outlook.com (2603:10a6:150:69::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Thu, 25 Jun
+ 2026 13:14:02 +0000
+Received: from AMS0EPF000001B1.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5e0:cafe::4f) by AS4PR09CA0006.outlook.office365.com
+ (2603:10a6:20b:5e0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
+ 25 Jun 2026 13:14:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF000001B1.mail.protection.outlook.com (10.167.16.165) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
+ via Frontend Transport; Thu, 25 Jun 2026 13:14:01 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HDuxKEmnAPsEBYE6RGMAsvhZjPI7a32jOCVToXOSY3SGLc04PaE/UU4+dNxavSEoPhHAxVzhvv/2qRpvcyytmPgwoQ+IpN3xeymyPlA+PVFNiwdnCuyD+3684MgcrQgMw+Tf5+zpGJCKNW2bj2W3iQKB04fn4B4tC0/2J4pBPgVqqv19wS7CD3+Hu8HSXnmdfYnjgvKfcei5BW0BbRfxOcrwHPQUrWLCf9nKnK0hkcgnaciro/OY/xJiMP5wLlzWGk9qrTAV0YKIBqzpr2iLu+MC7eCxMGi0dTP950FgdBjaT99TiS0wCgwGmPi/Tc+epC0aKD7QZdv6O7smL+7QeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=envSEUffQ2QOpftGK1JNm5jPQy2+D+BWs8Scvl4vT0k=;
+ b=vq30EqLTn0YbwJSbeRh9CW6vsNhTLc7rM79lm7jMLiIgasa+QWS0I5qG2Oz5SCV0zGRXZ0IDrxNIbfUtkTAR48cfFptJ8GrApKSehuyInvzPJ9jH84pzKc1OPh12q0KlgKyJW+OLPgW5g0ILkwvsaQFFLhue4WDVxyOPNm9aik+Y9rxIjzgRfLy9XT2npM2m/corQVflOd9ao/BxxdZPYMcuzOy/kWOsh8NmikQqUSq5IOHT+ZkmOsoeTTnx9vmJk1oO+mlgJLfkic1/zoCZ4eaZgcGvF97atriCeAZd5iZxnSDvJaTZLuM5UG0DzqTY852PBoUeH7fhTVtx2hMLaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=envSEUffQ2QOpftGK1JNm5jPQy2+D+BWs8Scvl4vT0k=;
+ b=sPH9gKAQJ2NusglxXWgjnRexqV34BuBTRC5j8z5U4buMui2QP//wrFpW0BYZZGnONX3vUwjLaidN2AOeCBTdruh3w5oPstRFrjoXnOY4l/jiINkebS/SjornHedPKt7E5C4vW4D8KZdCHRlENpxsob0e2GnQYYfHdpF3JK1UyCU=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI0PR08MB11823.eurprd08.prod.outlook.com (2603:10a6:800:324::5)
+ by DU0PR08MB7883.eurprd08.prod.outlook.com (2603:10a6:10:3b1::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
+ 2026 13:12:58 +0000
+Received: from VI0PR08MB11823.eurprd08.prod.outlook.com
+ ([fe80::694c:3790:be1a:8ddd]) by VI0PR08MB11823.eurprd08.prod.outlook.com
+ ([fe80::694c:3790:be1a:8ddd%5]) with mapi id 15.21.0159.014; Thu, 25 Jun 2026
+ 13:12:58 +0000
+Message-ID: <ed31c2bf-a835-4d1f-a701-33851f1ac45e@arm.com>
+Date: Thu, 25 Jun 2026 14:12:56 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 07/10] ACPI: APEI: introduce GHES helper
+To: Julian Braha <julianbraha@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>,
+ Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>,
+ Saket Dumbre <saket.dumbre@intel.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+ Dan Williams <djbw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ acpica-devel@lists.linux.dev, linux-cxl@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-doc@vger.kernel.org, Dmitry.Lamerov@arm.com
+References: <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-0-91f725174aa0@arm.com>
+ <20260617-topics-ahmtib01-ras_ffh_arm_internal_review-v6-7-91f725174aa0@arm.com>
+ <58f7163f-2fce-41e9-bc35-d1d8e6f4a298@gmail.com>
+ <81dd6d0d-427f-49ae-9573-fbe84dc2185a@arm.com>
+ <84dabe49-8405-4213-8b73-433cf736ded9@gmail.com>
+Content-Language: en-GB
+From: Ahmed Tiba <ahmed.tiba@arm.com>
+In-Reply-To: <84dabe49-8405-4213-8b73-433cf736ded9@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0315.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::14) To VI0PR08MB11823.eurprd08.prod.outlook.com
+ (2603:10a6:800:324::5)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: Sunyun Yang <syyang@lontium.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com,
- tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com,
- xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-References: <20260508142500.4922-1-syyang@lontium.com>
- <CAFQXuNYq5QYAXRzcUBnyvVh5ofPBVYONCs1dM6qPgK0BDja5Ow@mail.gmail.com>
- <495f0dc3-b5ee-429e-bc60-78b13bcb42c3@kernel.org>
- <CAFQXuNajWT31q1MccwTDa074_7=6tfaz-FOmP-tx_q83R60QfQ@mail.gmail.com>
- <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAFQXuNbvSQSZayBGcS6L106ic6M9D+xi8CF9=k27fCAn5U8tdg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	VI0PR08MB11823:EE_|DU0PR08MB7883:EE_|AMS0EPF000001B1:EE_|GVXPR08MB7749:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21c74074-b5fa-4895-ebfd-08ded2bba01f
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|921020|4143699003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ mIk4ZuDnB4xqxqOks4ygtso2p+TlvJxE3SAPtBW7XNwnWbPl7+Mhw8TaMLdOPoFbXPtrcJKAxBYpd0DxpW3qs7KEzzXHm/QEXg0SBeXw/vB/BcKlUg7i1J+H7Yce7T0uNKW62WGeP1CYCthyLJgj48sAdPbBB7lkK3OiYx6WBB9ugRGWOtV4sMG0JzpqsVC8j4M0LipZYhKb5uewZkCp/cgj/gVOXqWwCPj4NJXqsqkor4Ob0+AoT31FjZD/DMJgajZDMuodhdt2SjLpSYoPOo0CxAhHVUI/7gka0b7sOBSWkpxKfOfF83HGPmjEUlZGT4ZqDRgpWW0iDMQLE5PLGpKPGy/F1LiTKKppWENMZin1rBeNpP7GwIiVud4eQNgFQBaSiUkZRhXoQUv7c+FSkfGmBvFV6mUfOmBpiVIBJsceVf65DsHYFj3J3F2e7+vc0l/wy4nrCV2YVvFln6f7xGeplBhE4PNiHkS3Kcv3FFtMBqfNpBFbnXdnDadJSIDFXhvhSWHJTPFaOelF+JXeFRv78sE3st/XCebUkK4vR7Jr/2dUz6hTk0OsyYKDjBRhZ61W4G6TkOzk+7CvSoGoNRjQXwt0YXSgYkZDHknJicWJn1joMhRjdOQjH99AXIQ/pvS5Zg27mtP877fd6yCP7ewBEZKqgid4YbQFPr8nSto4j3D0FrgOUQkQgwBUVQnTAqRuZgZasLFs3pjA8wta1g==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR08MB11823.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(921020)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ Bn8k7cddErPVHTpdoec4qT1Zh6wJ22Um/C1s9BtRiLLhgOhZyu1Jn/0GaWy2FW6sIJ5sxB5Suc0UYU5R2EVTZx4NfR5IF3PO3F2F5ssOCYIAkNp0ReJk4rbX0agRHls6GZL4W83a2i+mvm+1ZqSTQ0bLPXgjI9onWR76Xslje9Q2wFR9XURUA/Ex13BjJOBNZrgzgWuRxP4jEBunVEkZ+Pla+RAe7Dv/mp6wGdy56wLzLZ/X3UkVQBAH/Tzd71YE9cBroapIy5bLL1zgz8DLUN9quIkKrsNIicxBaOWRxhAiNT6KXtal4pN4B/0knOgMAVcJORsHb2oln8hc8/QZcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7883
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF000001B1.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	80c206f5-a6c2-44f1-b765-08ded2bb7a1a
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|35042699022|7416014|376014|23010399003|14060799003|36860700016|56012099006|18002099003|22082099003|11063799006|4143699003|921020;
+X-Microsoft-Antispam-Message-Info:
+	h4Fz/XSs073lJRltn8kdslRpCcqxlCSlyvaDDJYhpvzwoQLBnZn+AEptsxPP9SV7oCQqJqHsZ4zkdnt1+oswI+44m83JMJCe4m7CDS+z38NXlNXs2xGr80hQaAWyMN0Szwz1OIoa0xeEUr00lRWkG+V0yPLtzlaG8htwgC1TMVP9jGuc/sXh2uWUyHZs4YKbZg3eu9IGRvdNaGwJjuNERMlvcc/lELidUVnA1cMAyn+8DfNZfkI/dfqtBNQpVTsaDiN6oSafkOLrOpSPtqH6YsNEwvcs5yAa5REZkmosWAgDN3Z3HTSMiZgFmgW8HheHYX0KnEzMRurJf8y8JPhkoxYbANd3HV32oy2sEkcfSIibOj+Vn1DCVWp1KVIyTkZz0Xtzt0uOybVsPLbgu+fPYMzfV27l7Vc66AMPdZyWaR24vx1SXP1jtsIx22H4rZN+OAuSLVDw6WE+CKDLfT/D6KEM0Qj+TWdpgm+5bY9AOrltSOVNGVJeuB11HPgDqEieZd2UKSBxj2yS+Y35UTjANh1govb7hH6jXoD8Q7aeF1r4yFAx1bbNrhMkWcGrmMIUL8mMgywu6S7Gfyx0Q3wkjKNc6p3abKdjUDtlfZ72E49ZOAxIps+Q8Sa3Huu4JfzIv5HjQmkDW4LuU1AT/tztJaw6S+qZ2H6hVe6P+cSsP7F87Cby2LCZ6xif/MSVN9W8vczkWQSReLPd3B0oPf15uJXxxrQCFrAQH29gO1onaQDrQTcKk0m9TB6knOCzM8hu
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(35042699022)(7416014)(376014)(23010399003)(14060799003)(36860700016)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3K8LYtF5+d7sO+0GpQif0Rbr0804upxLB7k/jvXLzPacMx77qvm+rga3DCUmotZPMJ17YywEHpshwunY0hHVc+aXt6vEwNHD/w3JePlFKQwFqN2YqRgtCyvpv3Aq50yc2mHYBVy/VzA8K/GDHmshH9uVkSNsaplsTHnUK+EbkvJPo//441ZcQdcTp3TFCwyfHe3q3zx3lThkYTDM3FRdMjUx7m3W7COP0u1c7SgKuoRFFz9fRlkeyF4aay4KpYoU4X78jw/wR8b6wDdjMPWv9m30yHOl0SCock5hN0HVIvbAZwIyxblL4cCT0hT9O+CS9ZPOYpf05QEAbuiG1EM1lVDKmOw/xMjwDaNQNWBU42RnH0v8w4rTzPA+ilWTQ8yrtcyjCLoiGHv1i2l2sQwtNCSSiQhjSSnXc+oaNQSogpbG1n24HxJmCBIufJB4LzVj
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 13:14:01.9375
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21c74074-b5fa-4895-ebfd-08ded2bba01f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B1.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB7749
 
-On 25/06/2026 04:01, Sunyun Yang wrote:
-> Sunyun Yang <syyang@lontium.com> 于2026年6月25日周四 08:52写道：
->>
->> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月24日周三 22:05写道：
->>>
->>> On 11/05/2026 05:28, Sunyun Yang wrote:
->>>> <syyang@lontium.com> 于2026年5月8日周五 22:25写道：
->>>>>
->>>>> From: Sunyun Yang <syyang@lontium.com>
->>>>>
->>>>> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
->>>>> mipi dsi and output hdmi, differences in hardware features:
->>>>> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
->>>>> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
->>>>> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
->>>>>
->>>>> Signed-off-by: Sunyun Yang <syyang@lontium.com>
->>>>> ---
->>>>>  .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
->>>>>  1 file changed, 6 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->>>>> index 429a06057ae8..e0821a63d9d7 100644
->>>>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->>>>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
->>>>> @@ -4,19 +4,23 @@
->>>>>  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->>>>>  $schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>>
->>>>> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
->>>>> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
->>>>>
->>>>>  maintainers:
->>>>>    - Vinod Koul <vkoul@kernel.org>
->>>>>
->>>>>  description: |
->>>>> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
->>>>> +  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD
->>>>> +  are bridge devices which convert DSI to HDMI
->>>>>
->>>>>  properties:
->>>>>    compatible:
->>>>>      enum:
->>>>>        - lontium,lt9611
->>>>> +      - lontium,lt9611c
->>>>> +      - lontium,lt9611ex
->>>>>        - lontium,lt9611uxc
->>>>> +      - lontium,lt9611uxd
->>>>>
->>>>>    reg:
->>>>>      maxItems: 1
->>>>> --
->>>>
->>>> Gentle ping.
->>>> Thanks.
->>>
->>> Except mess with threading, your patchset does not build, when applied
->>> on next-20260618.
->>>
->>> What is the base of this?
->>>
->>
->> Thanks for testing my patchset on next-20260618.
->>
->> The base of this series is v7.0.
->>
-> Krzysztof,   Is Sashiko AI review required before merging a patch now?
+On 19/06/2026 18:46, Julian Braha wrote:
+> On 6/19/26 16:45, Ahmed Tiba wrote:
+>> GHES_CPER_HELPERS is intended for both the ACPI GHES path and the DT
+>> firmware-first provider, so I do not want to tie it to ACPI.
+> 
+> So what's the plan to fix the build error when ACPI is disabled:
+> https://lore.kernel.org/all/0f131ee4-d335-45d2-b6ae-49c18df1353b@gmail.com/
+> 
+> - Julian Braha
 
-Fixing obvious bugs in your code is required before merging.
+I can fix this by adding a !CONFIG_ACPI fallback for
+arch_apei_report_x86_error() in drivers/firmware/efi/cper-x86.c.
 
-But even without bugs, this cannot be merged - does not apply. And you
-sending the same three different times does not help, because now there
-is complete mess in reviews.
-
-Best regards,
-Krzysztof
+Thanks,
+Ahmed
