@@ -1,120 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42885230BD9
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE5D1DA57;
+	Thu, 25 Jun 2026 10:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782381667; cv=none; b=XC0KzGTHL+LiEmXtV0wCznCOLKg58FhTLmE5ugF0CVOOhKW6NfmrLiJoEbEd3UElBpmJ/bYFllMv4EOaRXTj9jAekhoPAuEeKcpyuq00DHmjvbV+f3c0FD05+gl2hN/xYyhJIBhlm008zXYFtMxOhxg+rPcQrusUEteptdEVMwY=
+	t=1782381834; cv=none; b=h2Q7A7GjPbV2xeJlh5i5VCWNN1TiA2S8yliLcEFbbBAnKDe59v90cGJtxbESXZxwIzu9mUAZXncethOLqcOTKjeH5TrhyHRMUcOg/lRnO0gaLxsMCrmfdNm3UmOZ1uNX6tFYctSOO9kKFP/dB7C91C9xl0FN3ywmwIXutQ/wu5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782381667; c=relaxed/simple;
-	bh=THAmlVjiTPf5hMbB2NGZ37K80OW6NMDPh21TtUlOgY8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L0ojUM0zHpeLgbyg6hGHtwwQFw26p2pvIlNp9yIUtEkP4kg+e/zNZVx9udsz+TQPk3sJtk2RE/F+/SyjiGlvLfi+UWHgC3TaMHF4WVQwMqPgOUSw2voc2JnF3eFA0Z9gMLUf3R1STAoscnr4oBbeM0JFxJHl8pX8HctyYA81j5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qi/n/BWT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782381834; c=relaxed/simple;
+	bh=th+KaCo5ptZs+RHqEyaI/+5bXjVpk6+bxJ8u0JZdqBg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Oy78JaZJD3gfPVCVRU8adjOtfap2mQ6K21JmfxM509LxjeyQP6S2ibsqIrOr9/CUIlGL9DFRJ/3HzXdqq3xgRH/tMvRLeB92CUa/H/V8xe9+OILGv8jAKWd2JLQakwQKOmKICHPplK1lYmildSYUTP9gmf+aGkP2sfQl6YRr98I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=HwmTYMnv; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qi/n/BWT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4553F1F000E9;
-	Thu, 25 Jun 2026 10:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782381665;
-	bh=EsE76Z4xRSFuaUsnBBypJxmuqqG+w7zMjPB5P48Qr30=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qi/n/BWTuFVm8wnsXRkvBBwNjqwtUdYjgx9lz4U+3x6qbzmGu5ug8F7gBgXirTkyq
-	 JTquM+ALNCoO+35pq3rBrC+i97FWSKQM8OWLblC+6ishhCeYD6QgBbM1VNjubMew5/
-	 jTfRnf3WaFnn5U8iKlaKmTGJhmXr1TvXq1YW5mGJOzUjp7elGW6aQteafaAXSL0LmS
-	 ijcx1MOEUpFpewf2AyG2uZF3FOLFD1n5lMDIcbB4cR8hT7yQ0cyQY3e7CjTpNfxB2V
-	 TcDV4KgRkqTJvBpenuV/OaL7z41mka8ROuo0f3iDi2L5OwwQaezOkYRIStK99p5vE5
-	 3PLKKk2agZOQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/7] drm/verisilicon: make axi and ahb clocks
- optional
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260625094449.708386-5-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-5-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:01:04 +0000
-Message-Id: <20260625100105.4553F1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="HwmTYMnv"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 65PA2wbY6717867, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1782381778; bh=th+KaCo5ptZs+RHqEyaI/+5bXjVpk6+bxJ8u0JZdqBg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=HwmTYMnvarTqM6BA40WtvLsClcGtoQ7m0Ktlw24ZOX/0YcNkBAh9ZMqU6x3WjCECa
+	 qBns3fBiKSxgyzdxPGUO2Ms2r2YibnPd7BP/PIh1jHr9LIfUR0OE5veq3n0GFSFtEL
+	 9PFfeUHkAkZ66tSHImhE/VTGZNzru72NUfp09X3MuLvQFRHFsfA3pN9MvzLXaZGp/d
+	 zgnD3fr/t7obxCa8GyqMMcSmla7c38EZMClxT2OA1mrIzNuwg3c2yGQELB0/MYxphX
+	 5CldvLN6LE2hrILEhrqxoiznlWBYq7+lJfTGqfuUrzhQHvFo4ec7LEuguPjru5W3Fi
+	 vhhlBLNWIF1AQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 65PA2wbY6717867
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 25 Jun 2026 18:02:58 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 25 Jun 2026 18:02:59 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
+ 15.02.2562.017; Thu, 25 Jun 2026 18:02:59 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, "mturquette@baylibre.com"
+	<mturquette@baylibre.com>, "sboyd@kernel.org" <sboyd@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
+	"afaerber@suse.com" <afaerber@suse.com>,
+	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+	"bmasney@redhat.com" <bmasney@redhat.com>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+Subject: RE: [PATCH v9 02/12] reset: Add Realtek basic reset support
+Thread-Topic: [PATCH v9 02/12] reset: Add Realtek basic reset support
+Thread-Index: AQHdA8zBAZKfhVb73U+IfwNcnX+KFLZNJaIAgAHmRkA=
+Date: Thu, 25 Jun 2026 10:02:59 +0000
+Message-ID: <e447f0d347b343129064317fcf220ee7@realtek.com>
+References: <20260624112940.3475605-1-eleanor.lin@realtek.com>
+	 <20260624112940.3475605-3-eleanor.lin@realtek.com>
+ <eb03894ae2765a426457238157e474087ea0aaa6.camel@pengutronix.de>
+In-Reply-To: <eb03894ae2765a426457238157e474087ea0aaa6.camel@pengutronix.de>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Possible NULL pointer dereference in the IRQ handler if an interru=
-pt triggers before DRM initialization completes.
---
-
-commit 2cd6077ab2fb5ed065ee2cef55004b713c80f827
-Author: Joey Lu <a0987203069@gmail.com>
-
-drm/verisilicon: make axi and ahb clocks optional
-
-The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller whose
-AXI and AHB bus clocks share a single gate enable bit with the display
-core clock, so the clock driver does not expose them separately. This
-patch makes the axi and ahb clocks optional in the probe.
-
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc.c b/drivers/gpu/drm/verisi=
-licon/vs_dc.c
-> index 9729b693d360e..fd1f5fe67a68b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_dc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc.c
-[ ... ]
-> @@ -90,13 +90,13 @@ static int vs_dc_probe(struct platform_device *pdev)
->  		return PTR_ERR(dc->core_clk);
->  	}
-> =20
-> -	dc->axi_clk =3D devm_clk_get_enabled(dev, "axi");
-> +	dc->axi_clk =3D devm_clk_get_optional_enabled(dev, "axi");
->  	if (IS_ERR(dc->axi_clk)) {
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for an interrupt to trigger
-a NULL pointer dereference during probe if the bootloader left the display
-active?
-
-Looking further down in vs_dc_probe(), the IRQ handler is registered before
-vs_drm_initialize() is called:
-
-	ret =3D devm_request_irq(dev, irq, vs_dc_irq_handler, 0,
-			       dev_name(dev), dc);
-	if (ret) {
-		dev_err(dev, "can't request irq\n");
-		goto err_rst_assert;
-	}
-
-	dev_set_drvdata(dev, dc);
-
-	ret =3D vs_drm_initialize(dc, pdev);
-
-If a pending interrupt (such as VSYNC) fires immediately after
-devm_request_irq() is called, vs_dc_irq_handler() will be triggered and will
-eventually call vs_drm_handle_irq().
-
-Looking at vs_drm_handle_irq() in vs_drm.c, it unconditionally dereferences
-the drm_dev pointer:
-
-	if (dc->drm_dev->crtcs[i])
-		drm_crtc_handle_vblank(&dc->drm_dev->crtcs[i]->base);
-
-Since vs_drm_initialize() hasn't allocated or assigned dc->drm_dev yet,
-could this cause a kernel panic during boot on platforms where the bootload=
-er
-leaves interrupts enabled?
-
-Would it be safer to request the IRQ after the DRM device is fully
-initialized, or to mask interrupts in the hardware before registering the
-handler?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
-86-1-a0987203069@gmail.com?part=3D4
+SGkgUGhpbGlwcCwNCg0KPiBPbiBNaSwgMjAyNi0wNi0yNCBhdCAxOToyOSArMDgwMCwgWXUtQ2h1
+biBMaW4gd3JvdGU6DQo+ID4gU2lnbmVkLW9mZi1ieTogWXUtQ2h1biBMaW4gPGVsZWFub3IubGlu
+QHJlYWx0ZWsuY29tPg0KPiA+IC0tLQ0KPiA+ICtzdGF0aWMgaW50IHJ0a19yZXNldF9kZWFzc2Vy
+dChzdHJ1Y3QgcmVzZXRfY29udHJvbGxlcl9kZXYgKnJjZGV2LA0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIGlkeCkgew0KPiA+ICsgICAgIHN0cnVjdCBydGtf
+cmVzZXRfZGF0YSAqZGF0YSA9IHRvX3J0a19yZXNldF9jb250cm9sbGVyKHJjZGV2KTsNCj4gPiAr
+ICAgICBjb25zdCBzdHJ1Y3QgcnRrX3Jlc2V0X2Rlc2MgKmRlc2M7DQo+ID4gKyAgICAgdTMyIG1h
+c2ssIHZhbDsNCj4gPiArDQo+ID4gKyAgICAgZGVzYyA9IHJ0a19yZXNldF9nZXRfZGVzYyhkYXRh
+LCBpZHgpOw0KPiA+ICsgICAgIG1hc2sgPSBkZXNjLT53cml0ZV9lbiA/ICgweDNVIDw8IGRlc2Mt
+PmJpdCkgOiBCSVQoZGVzYy0+Yml0KTsNCj4gPiArICAgICB2YWwgPSBtYXNrOw0KPiA+ICsNCj4g
+PiArICAgICByZXR1cm4gcmVnbWFwX3VwZGF0ZV9iaXRzKGRhdGEtPnJlZ21hcCwgZGVzYy0+b2Zz
+LCBtYXNrLCB2YWwpOw0KPiANCj4gWW91IGNhbiB1c2UgcmVnbWFwX3NldF9iaXRzKCkgaGVyZS4N
+Cj4gDQoNCkFjay4NCg0KPiA+ICt9DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IHJ0a19yZXNldF9z
+dGF0dXMoc3RydWN0IHJlc2V0X2NvbnRyb2xsZXJfZGV2ICpyY2RldiwNCj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgaWR4KSB7DQo+ID4gKyAgICAgc3RydWN0IHJ0
+a19yZXNldF9kYXRhICpkYXRhID0gdG9fcnRrX3Jlc2V0X2NvbnRyb2xsZXIocmNkZXYpOw0KPiA+
+ICsgICAgIGNvbnN0IHN0cnVjdCBydGtfcmVzZXRfZGVzYyAqZGVzYzsNCj4gPiArICAgICB1MzIg
+dmFsOw0KPiANCj4gICAgICAgICB1bnNpZ25lZCBpbnQgdmFsOw0KPiANCg0KQWNrLg0KDQo+ID4g
+KyAgICAgaW50IHJldDsNCj4gPiArDQo+ID4gKyAgICAgZGVzYyA9IHJ0a19yZXNldF9nZXRfZGVz
+YyhkYXRhLCBpZHgpOw0KPiA+ICsgICAgIHJldCA9IHJlZ21hcF9yZWFkKGRhdGEtPnJlZ21hcCwg
+ZGVzYy0+b2ZzLCAmdmFsKTsNCj4gPiArICAgICBpZiAocmV0KQ0KPiA+ICsgICAgICAgICAgICAg
+cmV0dXJuIHJldDsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuICEoKHZhbCA+PiBkZXNjLT5iaXQp
+ICYgMSk7IH0NCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcmVzZXRfY29udHJvbF9v
+cHMgcnRrX3Jlc2V0X29wcyA9IHsNCj4gPiArICAgICAuYXNzZXJ0ICAgPSBydGtfcmVzZXRfYXNz
+ZXJ0LA0KPiA+ICsgICAgIC5kZWFzc2VydCA9IHJ0a19yZXNldF9kZWFzc2VydCwNCj4gPiArICAg
+ICAuc3RhdHVzICAgPSBydGtfcmVzZXRfc3RhdHVzLA0KPiA+ICt9Ow0KPiA+ICsNCj4gPiArLyog
+VGhlIGNhbGxlciBtdXN0IGluaXRpYWxpemUgZGF0YS0+ZGVzY3MsIGRhdGEtPnJjZGV2Lm5yX3Jl
+c2V0cyBhbmQNCj4gPiArICogZGF0YS0+cmNkZXYub3duZXIgYmVmb3JlIGNhbGxpbmcgcnRrX3Jl
+c2V0X2NvbnRyb2xsZXJfYWRkKCkuDQo+ID4gKyAqLw0KPiA+ICtpbnQgcnRrX3Jlc2V0X2NvbnRy
+b2xsZXJfYWRkKHN0cnVjdCBkZXZpY2UgKmRldiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzdHJ1Y3QgcnRrX3Jlc2V0X2RhdGEgKmRhdGEpIHsNCj4gPiArICAgICBkYXRhLT5yZWdt
+YXAgICAgICAgICAgPSBkZXZfZ2V0X3BsYXRkYXRhKGRldik7DQo+ID4gKyAgICAgZGF0YS0+cmNk
+ZXYub3BzICAgICAgID0gJnJ0a19yZXNldF9vcHM7DQo+ID4gKyAgICAgZGF0YS0+cmNkZXYuZGV2
+ICAgICAgID0gZGV2Ow0KPiA+ICsgICAgIGRhdGEtPnJjZGV2Lm9mX25vZGUgICA9IGRldi0+cGFy
+ZW50LT5vZl9ub2RlOw0KPiANCj4gVGhpcyBzcGxpdCByY2RldiBpbml0aWFsaXphdGlvbiBpcyBt
+b3JlIGhhc3NsZSB0aGFuIGl0IGlzIHdvcnRoLg0KPiBQbGVhc2UganVzdCBleHBvcnQgcnRrX3Jl
+c2V0X29wcyBhbmQgZHVwbGljYXRlIHRoZSByZWdtYXAvb3BzL2Rldi9vZl9ub2RlDQo+IGFzc2ln
+bm1lbnQgaW4gdGhlIHByb2JlIGZ1bmN0aW9ucy4NCj4gDQo+IEFsdGVybmF0aXZlbHksIGNvbnNv
+bGlkYXRlIHRoZSBwcm9iZSBmdW5jdGlvbiBhbmQgZXhwb3J0IGl0IGZyb20gaGVyZS4NCj4gDQoN
+ClRoYW5rcyBmb3IgeW91ciBzdWdnZXN0aW9uLiBJIHdpbGwgZ28gd2l0aCB5b3VyIGZpcnN0IGFw
+cHJvYWNoIGluIHYxMC4NCg0KQmVzdCBSZWdhcmRzLA0KWXUtQ2h1bg0KDQo+IHJlZ2FyZHMNCj4g
+UGhpbGlwcA0K
