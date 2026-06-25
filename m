@@ -1,113 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B573CF97E
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 10:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757723D091F;
+	Thu, 25 Jun 2026 10:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782382930; cv=none; b=kWjYdBkp25IJyuf5lgZdnIVEb+shNLJN6I//rqqGH9O17j7xkIknYabOMfMDi/SV7dGuA/bDOnSCiEKMROqPo1SwoLne9ob2l+Q2cHKBOGgdl6yNV+oUO9yqlBZRLqCJ7O6ovKsjDxSm2dY36AkOjgKMOtM0oqMQhS4byNj7CnU=
+	t=1782382950; cv=none; b=C7YXWuqVQZTIFKrlzUaHIRWvPCkgtf0U+WQccvYF3klbhqjZoJP0Vq9ymFJi6qWx47FDpg0k00fJOMbEvxGXHLNJT8vuQ/uSFCqVjqyNTnIFVwYmL6iacgJNxQ1KpE5syQbjIUYjMlPh+LZ8AneoMY286X/pwyZtQHH/xjKWbmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782382930; c=relaxed/simple;
-	bh=PIU+5szg/8QDj3G+W5iTVNgHfjbui9/ZNOkPdVCaMBI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P6VHPHiUJwtM+7bnzs26dqF+CzE7jkbCEMeC8rQs8UVOFp1cbxu0x2ZFPaW5tlAPx1QMMm5xerBmnWfcPRLV06ixWNusQEPopCiMiQ6H8ooydA8tKrlzW24RT/Y7m9vz9Nf1ioDA92rc2enBH1qlonq4NkRhJNEv6YA0xnU/aw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZES0BhR; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZES0BhR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 777AD1F00A3A;
-	Thu, 25 Jun 2026 10:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782382928;
-	bh=yLJeep5IuhycEZg2kBNl+sQC2H+Q7PjuP10Kajolifo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mZES0BhRVJ/NFHUuTyRSLjFfL5lLOUgMveGEwBV+UFZ+up0UkSjtfAcIje3wk4LCN
-	 FvjNZA1GFX4jNPS5Z7zrRobU0LNUAZ8s+vsG/IopbALvWh3j7hQvdvzEr/TvtAVCdw
-	 mrPfQovHlTYjbLG9SRTpcDrQa7D2uXfMvzuO2eG0OKqJEkHFWZHyngDFQL4TkYRAgd
-	 3rJVoj2JvLn9fweotQDq8qOkzSQ8OdmDaWq+4gY/brOc4wdcQH7mmWRMsoKLaUdSSs
-	 bvTGf8tbx5Rv9XyBxHcXBENV3rFNMzjOPeuMfYYBtiiHuhFmIBpPYY7DTKFgCiVw3x
-	 jXkfqdcV+u9HQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/7] drm/verisilicon: add DCUltraLite chip identity
- to HWDB
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260625094449.708386-7-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-7-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1782382950; c=relaxed/simple;
+	bh=Zgb8jOr/HEc4Ur1Vi859ZvSPUmk+MCKTF/b3Mnfnwwc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZAkeRs6Ymjad3vepwq+eAQSMHpj1H/mbezc7p7rCiTSwcj6FSt8SeV/1rF34aNQTua2sj9hIPGAcDxKsYwQ8o0wS++mozz8zAhYvTxPqtSNDsM7uZVpUf3TRD0MfXoPAGRkYfze4+cymFtGOQcuwn2XxxXZnaSrNH13Ey2yJolA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B42EA2006B1;
+	Thu, 25 Jun 2026 12:22:18 +0200 (CEST)
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wchDu-004Zgc-25;
+	Thu, 25 Jun 2026 12:22:18 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wchDu-000000006AZ-2JJx;
+	Thu, 25 Jun 2026 12:22:18 +0200
+Message-ID: <36c8a3db6038db4973b6cd80c554339f5b71d32c.camel@pengutronix.de>
+Subject: Re: [PATCH v9 04/12] reset: realtek: Add RTD1625-ISO reset
+ controller driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yu-Chun Lin =?UTF-8?Q?=5B=E6=9E=97=E7=A5=90=E5=90=9B=5D?=	
+ <eleanor.lin@realtek.com>, "mturquette@baylibre.com"
+ <mturquette@baylibre.com>,  "sboyd@kernel.org"	 <sboyd@kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"	
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, Edgar
+ Lee =?UTF-8?Q?=5B=E6=9D=8E=E6=89=BF=E8=AB=AD=5D?=	 <cylee12@realtek.com>,
+ "afaerber@suse.com" <afaerber@suse.com>, Jyan Chou
+ =?UTF-8?Q?=5B=E5=91=A8=E8=8A=B7=E5=AE=89=5D?=	 <jyanchou@realtek.com>,
+ "bmasney@redhat.com" <bmasney@redhat.com>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-clk@vger.kernel.org"
+	 <linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	 <linux-arm-kernel@lists.infradead.org>, 
+ "linux-realtek-soc@lists.infradead.org"
+	 <linux-realtek-soc@lists.infradead.org>, James Tai
+ =?UTF-8?Q?=5B=E6=88=B4=E5=BF=97=E5=B3=B0=5D?=
+	 <james.tai@realtek.com>, 
+ =?UTF-8?Q?CY=5FHuang=5B=E9=BB=83=E9=89=A6=E6=99=8F=5D?=
+	 <cy.huang@realtek.com>, Stanley
+ =?UTF-8?Q?Chang=5B=E6=98=8C=E8=82=B2=E5=BE=B7=5D?=
+	 <stanley_chang@realtek.com>
+Date: Thu, 25 Jun 2026 12:22:18 +0200
+In-Reply-To: <f3b747e20110424c8a434cbd271edb87@realtek.com>
+References: <20260624112940.3475605-1-eleanor.lin@realtek.com>
+		 <20260624112940.3475605-5-eleanor.lin@realtek.com>
+	 <9db83aa615f43ff6eac090626b43915fcd593a25.camel@pengutronix.de>
+	 <f3b747e20110424c8a434cbd271edb87@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 Jun 2026 10:22:07 +0000
-Message-Id: <20260625102208.777AD1F00A3A@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The newly added DCUltraLite chip restricts the max cursor size to =
-32x32, but the driver does not configure `drm->mode_config.cursor_width` or=
- `cursor_height`. DRM core defaults to 64x64 when these fields are 0. This =
-incorrectly exposes a `DRM_CAP_CURSOR_WIDTH` of 64 to userspace, causing at=
-omic commits with 64x64 hardware cursors to be rejected with `-EINVAL`, bre=
-aking display compositors.
---
+On Do, 2026-06-25 at 10:05 +0000, Yu-Chun Lin [=E6=9E=97=E7=A5=90=E5=90=9B]=
+ wrote:
+> Hi Philipp,
+>=20
+> > On Mi, 2026-06-24 at 19:29 +0800, Yu-Chun Lin wrote:
+> > > From: Cheng-Yu Lee <cylee12@realtek.com>
+> > >=20
+> > > Add support for the ISO (Isolation) domain reset controller on the
+> > > Realtek
+> > > RTD1625 SoC.
+> > >=20
+> > > The reset controller shares the same register space with the ISO cloc=
+k
+> > > controller. To handle this shared register space, the reset driver is
+> > > implemented as an auxiliary driver. It will be instantiated and probe=
+d
+> > > via the auxiliary bus by the RTD1625-ISO clock controller driver.
+> > >=20
+> > > Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> > > Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > > Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> > > ---
+> > > Changes in v9:
+> > > - Extract reset-related code from the previous clock driver patch
+> > > (formerly patch 9 in v8).
+> > > ---
+> > >  drivers/reset/realtek/Makefile            |  2 +-
+> > >  drivers/reset/realtek/reset-rtd1625-iso.c | 99
+> > > +++++++++++++++++++++++
+> > >  2 files changed, 100 insertions(+), 1 deletion(-)  create mode 10064=
+4
+> > > drivers/reset/realtek/reset-rtd1625-iso.c
+> > >=20
+> > > diff --git a/drivers/reset/realtek/Makefile
+> > > b/drivers/reset/realtek/Makefile index c3f605ffb11c..9007c9d5683b
+> > > 100644
+> > > --- a/drivers/reset/realtek/Makefile
+> > > +++ b/drivers/reset/realtek/Makefile
+> > > @@ -1,3 +1,3 @@
+> > >  # SPDX-License-Identifier: GPL-2.0-only
+> > >  obj-$(CONFIG_RESET_RTK_COMMON) +=3D reset-rtk-common.o
+> > > -obj-$(CONFIG_RESET_RTD1625) +=3D reset-rtd1625-crt.o
+> > > +obj-$(CONFIG_RESET_RTD1625) +=3D reset-rtd1625-crt.o
+> > > +reset-rtd1625-iso.o
+> >=20
+> > Is there any benefit to these two being separate modules?
+> > I suggest you merge them into one: reset-rtd1625.o
+> >=20
+>=20
+> If I merge them into a single 'reset-rtd1625' module,
+> both the 'crt' and 'iso' clock drivers would trigger the probe
+> process for the same reset driver name, which would lead to a
+> duplicate driver registration error.
 
-commit a3c0d8a714c977c54ec25009535f44e9ded7c881
-Author: Joey Lu <a0987203069@gmail.com>
+What do you mean by duplicate driver registration error?
 
-drm/verisilicon: add DCUltraLite chip identity to HWDB
+There would only be one auxiliary_driver, with support for all three
+auxiliary_device_id's.
 
-The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
-model number 0x0 (sic, the model name contains no number either),
-revision 0x5560 and customer ID 0x305.  It has a similar register map
-with DC8000, only one display output and only 32x32 cursor supported.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/veri=
-silicon/vs_hwdb.c
-> index 91524d16f7785..7d630a667a3f0 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-> @@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] =
-=3D {
->  		.max_cursor_size =3D 64,
->  		.formats =3D &vs_formats_no_yuv444,
->  	},
-> +	{
-> +		.model =3D 0x0,		/* DCUltraLite */
-> +		.revision =3D 0x5560,
-> +		.customer_id =3D 0x305,
-> +
-> +		.generation =3D VSDC_GEN_DC8000,
-> +		.display_count =3D 1,
-> +		.max_cursor_size =3D 32,
-
-[Severity: High]
-Does this code expose an incorrect DRM_CAP_CURSOR_WIDTH to userspace?
-
-Looking at vs_mode_config_init() in drivers/gpu/drm/verisilicon/vs_drm.c,
-the driver does not seem to configure drm->mode_config.cursor_width or
-cursor_height:
-
-drivers/gpu/drm/verisilicon/vs_drm.c:vs_mode_config_init() {
-    ...
-    drm->mode_config.helper_private =3D &vs_mode_config_helper_funcs;
-}
-
-When these fields are 0, the DRM core defaults to 64x64. This means userspa=
-ce
-compositors might query the capability, receive 64x64, and attempt to commit
-a 64x64 hardware cursor.
-
-If this new chip restricts the max cursor size to 32x32, will the driver's
-atomic check reject the 64x64 state and break display compositors?
-
-> +		.formats =3D &vs_formats_no_yuv444,
-> +	},
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625094449.7083=
-86-1-a0987203069@gmail.com?part=3D6
+regards
+Philipp
