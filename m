@@ -1,175 +1,166 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83663E0227;
-	Thu, 25 Jun 2026 12:08:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07AF3DDDDB
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 12:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782389329; cv=none; b=IeVoPq+2ELYhVuZE0SzRo8CsdiiDKeC6LFhkbNj3nbuYSESSvzErXJ5TtOUdQzoiUl+ixmWdHQP4Fk+knqOaLuZN3dkyKZ8zz3+4pRKpF709Ry5p4IuUJ+DgFCa40MJMSeXk+KlST9SVfeLX3iPDCVh5eTaFja6JJVedg89+u4g=
+	t=1782389406; cv=none; b=fPzrJIBEP37PGvzfG1p/l9abMB7vNPF7H4EfDHPPMiIQvisA58d7MbvLhX1thgxX0JCMrZniLaORi21G242jsMRWQ53wmH4MoN4DaFG6GSi5mf+XWPn/H5gzEauMwktPgJsvMr0R5NewzujnOlrRIFTP0UjoUewhZWD4nEmFXLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782389329; c=relaxed/simple;
-	bh=+gW/dxCfCvjxVY8J4WXF0u36MFzHCGobvXYeAjIJIjc=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=EO8n6sumQ8MmCNjq8cH61ixUwsT8CIN7DUuNKysr657OzfKA/3tFcw7CRvXWac38mAszl1prx0g2Hg7PtLZMI4vW8Pgr/YqVds3P3YUJX7Uu6xZOEXig6nZZ/OBVYGffTli20UeQNXMokmjlFxr9kTgUiOtcOV4DVK2knJ7OF+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=P06byZLM; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1782389406; c=relaxed/simple;
+	bh=qVSccV+PPFn2ycSFxupGD0ezxiHk4cFL6ejjLet9SOw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UGH8ZkY2nGV5LG9u+jhBKFOk8gYyXWaNagfhjXrACvAS6rOmvjJhnkJHeg6O2o3nsGM+SbyQqtx03ULfLncsNBNNUw7NTGxh7mDcE0lAaqO6gU50RT9YEYUJsf2bQ7M6bgsjP/WWiDBbDGouTyAY0bgx4OSSCRfq0yGG3wkg6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ftHyWL46; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AnQ+31Sk; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="P06byZLM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1782389321; bh=O+yWps40dKKQYC+R6y9Taw7mXjAZhWRj9exqhyPa2Do=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P06byZLMjZrbxqcYNvEJPyNMh8FIXjw8Nn6IZBUw0VmRBnG9yEwTbdK90XnGPpLAD
-	 1XACFIdXEe3Ui4c6RS5jFiQIFgU56j5YP3xWXOIKj5wo3l5TB0mDdSR+CGhhQTMo6h
-	 demE98l3OrMSjlC4dm72oTL2lwUUQ0sDTjOKudYs=
-Received: from 8qyomHQF3vPjMe ([163.125.234.54])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 225AC25A; Thu, 25 Jun 2026 20:08:37 +0800
-X-QQ-mid: xmsmtpt1782389317tecl7r0x2
-Message-ID: <tencent_A89D858754397A68C4C830EA0487CB255A05@qq.com>
-X-QQ-XMAILINFO: MllZffuBkEb5b+CUFQoZPEfMAgkzhLw3bmLO4R3nYLgLoK9bK6NNIUCPjkLqGE
-	 Nwd36d9dwenXn/i0twQW9mb53N8xevaK+avkzq2lQwuo0pztlE5uCcB/nj24JieUEvLDhSZGhQNg
-	 URmJXyiWbcyz/FPFlX3Wz4qrwb6bXi/wtTWlRYwAc4cQm71aF327neBt5usfiHR8yeToOZKQL/Et
-	 XN4T9VVNbmADEC6eMN7dEEYQlMv/6r4DXQZtoGmvPeEvY5YLDwizccNQtwGuPee1AxRRo+5iMDZO
-	 PTgX+Z/jNo2xHRzT4/LmjkC0KtBxe5Oar2wDOgM0mVBl+AYgiAFHhsIfsKTUKwWsCKy83TXMDUQi
-	 867Yl18TVYXakPACitZJ5TmLfnvsXG/3sbRa9kxLv0ehCL1tP8wU5pn7ChlbAQc7Gs29gCmWBmXo
-	 dOWF5Cq1D53aultd+tGNBLoXuTc9JUVRSLcBRWep/CAZ1cnWcYnQPeh3fGtDmpz8egrc14yOsSVV
-	 4ucL6q6QluHUgBrcv/HhpKF/jdienIoKIOlyFbbYROHk8XzSjlNQYCprhYiCRUlcVSwCSH6aEiDa
-	 1qlScg/9d0T4VHbpCaRJUIZq3bueWVOf/LFRIGke3Xd92jtkj2S5ifmW+5pDjJYv+Z0lYPqJLrcs
-	 J2Crcw88vADfxRTO4j7DwSY80JZ3dBAXPFF0WWxB8Qah67aW/HEUfuEHjUnz4vUsuRFNCO2GAPD9
-	 clKoOr0TdVMnWxiCW5ictCVHo2cyzovruGk6ijdpTeEla+/x26jnPVPb6GSMC3IP92TCDRW/07By
-	 NzUd619jJv+EU3NUlwNmE+WPHJ6hy8B1IwrDXJ48ACxVVdmJWF2SGWtvc/KG03KBe6fE295t2foE
-	 mbx6rjUm/ZKyYLHzBMqFchP70qLqlWTFpMi4QlSCL2yB7K9ndElADmkle3QPRNI3uOPBsrEczYDh
-	 qfSNViluM4OrT1mj6zlfOzXKUwBwFCyvAWrSSKv9FMev0mw6Rg+VnMy4mkAFgpRzAZI+n9CglmSJ
-	 WHJqTQUBJdWkmgGDr/q4rOwP04+KVcQSdoX5wjixS+wsb/Bvzn6rE3zVBJSm7NnU9wZlArHU6Dlv
-	 XUrVFDHF92Xxl4R7qP4wm39kv3MHb1nR/PKiJGhFVfZNVCngHI5XtL8Bn7xQ==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Xin Xu <xxsemail@qq.com>
-To: konrad.dybcio@oss.qualcomm.com,
-	andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xin Xu <xxsemail@qq.com>
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8250-xiaomi-elish: Add ov8856 front camera
-Date: Thu, 25 Jun 2026 20:08:14 +0800
-X-OQ-MSGID: <20260625120814.18797-1-xxsemail@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_47473BB31C9142449F8C7C1BE69D9071510A@qq.com>
-References: <tencent_47473BB31C9142449F8C7C1BE69D9071510A@qq.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ftHyWL46";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AnQ+31Sk"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P9juj31723164
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 12:10:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YbxBIHP4GTyNhgGImgrH2ee9ixVAN6uNrqw5mAZsIR4=; b=ftHyWL46+UvCxbEq
+	ODj5vQoIGKmTwGswKZQw7HYJHMFGnmI29QoAaaNMNByr7ovED9q8U8gvH/8KKDvK
+	rlD+0A5t6TpaXTKvp08VgwtY37MsrbGcpvm/0ehsd47pGv20RP8sNpGzltO6Na1q
+	oxFtRmEp6MC2LRl9NWVw0aBd1CXzR+8qcPMWQ3VBqxJklXAOCbPxlvK0PUBnYWvU
+	e004Ej7AwMZrj3Kd898PV73Gh6l8gMKVLuIdbLX0gGqRVDqSWmpIEooQZjIPTzyO
+	Y4BMb8MmNQxxKT4OVV8W9/BsXt98ggICZL0zxuQ41u8ZRBZO1CBH4QbrauYsLPXP
+	jX4jRA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0j7dv6hm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 12:10:04 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51a15cef334so2486041cf.3
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 05:10:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782389404; x=1782994204; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YbxBIHP4GTyNhgGImgrH2ee9ixVAN6uNrqw5mAZsIR4=;
+        b=AnQ+31SkMPyHiymIvFs+8Hk2dGYGGTf767RQJRBmKddiNvEC62j3XN+68zsor8tRx1
+         prGNatf863q/dC4af5FNlvCWFS1LOHBW6Xd2QU/xBX2L7sKFSJW1hfUlecbiSLsHdkXi
+         X6TuecZk/CWnoMjUSysaitrK1idvPM6ZIIHzECKYXNSlVgPn9qIRxNoTFS/0viOLnYgC
+         lui6lRoaw2ZXnt23oiNZ9l1HaNpAOF4kS1PeuGQHO9T+9HcGPYSZa92glebPKrUzIOUd
+         Wjwg96LGw+UW53qhHZZZPbWUy2T+AWVUaBx3brN9PW3VKR4PzcSBssCl+yFbNXrh+5kp
+         /74g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782389404; x=1782994204;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YbxBIHP4GTyNhgGImgrH2ee9ixVAN6uNrqw5mAZsIR4=;
+        b=o76vFB8yvBQYWhi3OQyPy+X7Qt2a+w7wX2awrgD+5YUOGuH7qU1l0tn/+fZu/IwUaO
+         rpmvzTf8AEWlY2cDzBEHWnN4IFYNmE+OZ6O4lQdZl1FyoiJCKJWCd2iPEAqKhknVhKKl
+         3cuFdRTqCEjBvfpWrto4XlYT5w6N3x8/JTSXEtMz+fCYKLPlgo+K1QVpYBSUxeAoHc4z
+         7Vu4Mnws6L87PjC3678JZUQRhN13AwelVxBC0Qzbvvx/VohgEFq0S85Iqhjs9s5qQxaH
+         +a5N0UO8sKYLowV8Tnf0pGv0ygIcw2i+yF2C0YXQXBcq+FZObHtz2497pxFZgw5ges6n
+         9gIg==
+X-Forwarded-Encrypted: i=1; AFNElJ8O5nSqmsFDZHVxDE8j6wGAIjNYODyM3v3okC7xYZkR8NfPWR469GcnqOm+hrd/NqiIlP4JEWSvWy20@vger.kernel.org
+X-Gm-Message-State: AOJu0YyRxw6ApVjBhT7BOUyP5VAbLoGNa2flx1P3ubQsnfbpoJFA9SdS
+	7v9wtif2zRgEa5Yg6SUQBfpGYQkuaA7SZWO/mP0xGXCwlrE17HCUs9ZzJIB1WUkLwxXNKsiDqEC
+	1NA45mUciZdeWcVYNautPOmIfwbnHuX7LBLftg/WZitLdXm7ddBYhvaRyfm/fpXgP
+X-Gm-Gg: AfdE7clF1zjR+f/aDbYwksjcEF7D4hi6IarzI2E6xl0tNOqhZ3So3iHeIaUcddf6odz
+	r9wHDLpMLRkDb78hjiCfMTCyZ1KOf0LpWXuoQTt8fml0+AG5Dz5loJnzHJ/jDL6o+f8NeHEODx9
+	uEa6ovzLAKngUbgkZMmyALCxjbHt5LYmcablvRwFCVhKboQfmOHnIrAvKHBLUiLPQOMmbnEUlnN
+	Sg0ehHKyV27Eh4TA6DLcdlIzHSWHYSxCos7AXAVK/vq8REl/iri6ZxrOPVkbWXB2jF38imtqFUW
+	I9oVo7Lfxzo3JgCc8uOIPt/cULXWe3gUMB2IriSwRUo39rjYI5bXv8N6yDnR3FC7rAiQgTk+PrM
+	A2cXS9cZRgO7MAB7ZQm+wL+LZBoqOAbreaHc=
+X-Received: by 2002:a05:622a:1451:b0:517:6d82:9d7b with SMTP id d75a77b69052e-51a7279ef50mr17703611cf.4.1782389403696;
+        Thu, 25 Jun 2026 05:10:03 -0700 (PDT)
+X-Received: by 2002:a05:622a:1451:b0:517:6d82:9d7b with SMTP id d75a77b69052e-51a7279ef50mr17703141cf.4.1782389403074;
+        Thu, 25 Jun 2026 05:10:03 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe0742fsm166255366b.34.2026.06.25.05.10.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 05:10:02 -0700 (PDT)
+Message-ID: <c462694a-d48e-4e05-99d4-b2ad1036baf3@oss.qualcomm.com>
+Date: Thu, 25 Jun 2026 14:09:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] clk: qcom: gpucc: Add Nord graphics clock controller
+ support
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260623-nords_mm_v1-v1-0-860c84539804@oss.qualcomm.com>
+ <20260623-nords_mm_v1-v1-6-860c84539804@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260623-nords_mm_v1-v1-6-860c84539804@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: UQV5uIZUgwARxn6q2aOMq2laVRAvE4R1
+X-Authority-Analysis: v=2.4 cv=NvHhtcdJ c=1 sm=1 tr=0 ts=6a3d1a9c cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=cQiK_xN199hq2pa4WXYA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDEwNCBTYWx0ZWRfX9Ih5sZfU4+R+
+ N5DLROFxf8ctf4DgEHieVfN3jwOdsw38/IMYiEYf0xc0MRCJJGw+lZpnPCGVCibSa9GbxSomOt+
+ h+udq2S45yL/fNxFb5p02voFhp2s/Io=
+X-Proofpoint-ORIG-GUID: UQV5uIZUgwARxn6q2aOMq2laVRAvE4R1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDEwNCBTYWx0ZWRfXzpYtmJohnw3Q
+ hl8+LSpDTxt30qb52boxT6Pw4ye2zyzNEF3lQRZ7AJ1Y+7WD+LlwPpqtwPGhDD1t1RhpdKdKquC
+ 01EF4VSrSGLvYHOeoY7R+XoRuPZo42k0geYxKLoR7XEW1Uq+xH4M0mLzWm0YBxLb1Wwb/3grCzt
+ 6TABInDxhfdxxEGQFT1ZZGboV0wcHqQAj6MIcCGFio/0N+W1Ea1wmxgcd6nR2sVkXg6vuyTXhwe
+ cDClue1tEx1Zo6vgJ5gVO5qyd9u7wJOSm2CBv5RYHF8EbFlRIqah2rGkiMTkR+7oh0CbUy1U6Gu
+ 0K1gcKopMItQ23gF14tw1fO/qljLCVJUZE7f8kAFG5b7mIQqvJoGUqlz6gXl4BzrHHyBphgtr8/
+ RJYnCf2t2a8dOqHdKDJSzZZrBJsnAw2RjnPZdcKe3t/iagqEeVgSQMKzLp7inG9jStYl7hb3F0l
+ QNDstpjObH36nBP/kMQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0
+ phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250104
 
-Add the ov8856 front camera, connected on CCI1 to CSIPHY4 and
-powered by pm8008 LDOs and other supplies.
+On 6/23/26 12:54 PM, Taniya Das wrote:
+> Add support for the GPU clock controllers (GPUCC) on the Qualcomm
+> Nord platform.
+> 
+> The platform includes two GPU clock controller instances,GPUCC
+> and GPU2CC. Register support for both controllers, which provide
+> clocks required for the graphics subsystem.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/Kconfig       |  11 +
+>  drivers/clk/qcom/Makefile      |   1 +
+>  drivers/clk/qcom/gpu2cc-nord.c | 546 +++++++++++++++++++++++++++++++++++++
+>  drivers/clk/qcom/gpucc-nord.c  | 593 +++++++++++++++++++++++++++++++++++++++++
 
-Signed-off-by: Xin Xu <xxsemail@qq.com>
----
-Changes in v3:
-  - Reorder pinctrl properties in camera_front_active.
-  - Use the new cam_mclk3_default from sm8250.dtsi and remove board-local
-    mclk3 node.
+GPU_2_CC and GPU_CC seem to have a different set of clocks and
+resets. If that's not physically the case, please align the
+lists. Otherwise, please use a separate bindings header for each
+one
 
-Changes in v2:
-  - Fix coding style (property order)
-
- .../dts/qcom/sm8250-xiaomi-elish-common.dtsi  | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-index 05c366eaeff1..19aff83ecf7b 100644
---- a/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi
-@@ -4,6 +4,7 @@
-  */
- 
- #include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/phy/phy.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/usb/pd.h>
-@@ -531,6 +532,61 @@ vreg_l7f_1p8: ldo7 {
- 	};
- };
- 
-+&camss {
-+	status = "okay";
-+
-+	vdda-phy-supply = <&vreg_l5a_0p88>;
-+	vdda-pll-supply = <&vreg_l9a_1p2>;
-+
-+	ports {
-+		port@4 {
-+			csiphy4_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				remote-endpoint = <&ov8856_front_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera_front: camera@10 {
-+		compatible = "ovti,ov8856";
-+		reg = <0x10>;
-+
-+		avdd-supply = <&vreg_l5p>;
-+		dovdd-supply = <&vreg_l1c_1p8>;
-+		dvdd-supply = <&vreg_l1p>;
-+
-+		clocks = <&camcc CAM_CC_MCLK3_CLK>;
-+		clock-names = "xvclk";
-+		assigned-clocks = <&camcc CAM_CC_MCLK3_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		reset-gpios = <&tlmm 109 GPIO_ACTIVE_LOW>;
-+
-+		pinctrl-0 = <&cam_mclk3_default &camera_front_active>;
-+		pinctrl-names = "default";
-+
-+		orientation = <0>; /* Front facing */
-+		rotation = <270>;
-+
-+		port {
-+			ov8856_front_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64
-+					<720000000 360000000>;
-+				remote-endpoint = <&csiphy4_ep>;
-+			};
-+		};
-+	};
-+};
-+
- &cdsp {
- 	firmware-name = "qcom/sm8250/xiaomi/elish/cdsp.mbn";
- 	status = "okay";
-@@ -891,6 +947,13 @@ pm8008_reset_default: pm8008-reset-default-state {
- 		bias-pull-up;
- 	};
- 
-+	camera_front_active: camera-front-active-state {
-+		pins = "gpio109";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	wlan_en_state: wlan-default-state {
- 		pins = "gpio20";
- 		function = "gpio";
--- 
-2.53.0
-
+Konrad
