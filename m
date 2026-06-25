@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4E32459CF;
-	Thu, 25 Jun 2026 16:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6FA1684B0;
+	Thu, 25 Jun 2026 16:33:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782404892; cv=none; b=pd3HFeCkfKEmQJmnccP1SWpKVW3AdG8eBuF8Xi3Fm+gsI5q6iW/cYjsUms4BK+GUdvKlik3QZsMsBeletFUEpm437h+bDZRxOT9SFLzStaiOyix3YC7ChI3FLtp/82cGYZXQittFvH8uJQ5m8kN4T3AIbHu51wmJVyLN5LeLx18=
+	t=1782405224; cv=none; b=DwTgUPWumWMuYS+d/5SYRjdoY/njcFxTsCf3SudjIp0WnTcXbcBIZXwBFEFR6EwiHTWN/3zf4SS/Q3z4smekrYGptwgFLGb1pd0kN4ItayxkDDNlL8ypr7MIFZvdk1UxmxU8kWR6T4fTHIZfTU5JYCnW6C3E12Qgz+HpDHN+MOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782404892; c=relaxed/simple;
-	bh=4VVsx8KixFshX7pWU223Udq4wt39mD1SFHuyrgftX50=;
+	s=arc-20240116; t=1782405224; c=relaxed/simple;
+	bh=qeQbxaCZ4s/NUKwWSGez8Xk9aQAx/mIYQJQbF9Bnz+A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o64GKSN1EC+Qs4jmeN6FQF2M/nnTjPYY1EZQkS0mf8//H/NxDDkH85kbTERUdMkWqIlKTjCawislj2i6jb/eO4m6QjLMsHqqQLZCkIum1q1Sw0KMn6ZW34KMwNaU/AfKXmAq8t9JqK3mL9GZ0FZLleH+RfypgfZdcMQytMwsjbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrnML/WH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=B3bS1k7a8phcAsRTqcCbQlGqP778mEy3E+VdSIN7b0YLccsCX2TCvjnU70k+LEj7qfknQa7985ahmhZCVn3/pLSYb27x0P4L6qUZu7k6LUfUJBhRkkkHD/bl+TOZyuSAkZYqXdH0llEnkUEXRQdRZ550JGKCW1BInYRieh70cvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hn3dEhhe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrnML/WH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC451F000E9;
-	Thu, 25 Jun 2026 16:28:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hn3dEhhe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12F51F000E9;
+	Thu, 25 Jun 2026 16:33:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782404891;
-	bh=WtHTE0ZUOjcMfiVh3eBEYex+oSym3DakLquUDoIGAK0=;
+	s=k20260515; t=1782405222;
+	bh=pF7r8Suuyxl8sdpT4nHSKElQ5U8ikQ1Lgh9G42/RStA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OrnML/WHmTgEM8hECMVUFCXgOabcaUPalCHsOgPbadDyN2KlV0HJNHv1ek7iRlt5a
-	 riZ/irtakiS2NB7d2Pv7N49R4idkhbhKD+VZx8CQqGX21ci6hnAwkK51k5eJOKHzu9
-	 DvTL/S0QoaPEm/TkeEBoBRqEOgtaQPJliJLcKjooMTNjZLVKUGYl6Spt4ncBnpr4/z
-	 VSjNzQ3EnUBZMMXPGCSsrDdteBgpgRYegtOiGjMnny9eqEXuNIrB6VnRxKzJYC+Vv9
-	 f2BskVg3UcU1UO34mgOLs6gmIhp4z8Yh4TDMdmJ1AJARrSHkB3ob1qsFSyFM32/9LP
-	 Pwy0rZN9EkTCQ==
-Date: Thu, 25 Jun 2026 17:28:06 +0100
+	b=hn3dEhhe9wK6t3XUN2k9ekg/GGphBH8ltK7YWwVS/yHZNbG+jVBzSNcWb0I5j0rXv
+	 NfPHB2F+y74Kf3IiTUWbgZQqkb8fUr9rThrg8j75y85wWlITxDWHA3DdUCWdYpU6Ec
+	 HvQd85bR62cl0BnRzBI5GIfm9Uq0ugu0fUh3D7IXl5XZK/kUNfI+7JWSpWGXAcKpDp
+	 Ksd54/0tPLVy89wCo+mmBOOcZjoPgQPQl5f7X7k8CUSmgBR6C4x/+8KEKBHkCnPEtk
+	 JLT+QsAlUAKa9MLIP4G1HjwKKWssuVdLdu9Cvp8Pzs0G/sFAztT9sSMp2H3wxf9pGj
+	 Id2enASFb1aGw==
+Date: Thu, 25 Jun 2026 17:33:37 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, Sean Wang <sean.wang@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [RFC PATCH 1/3] dt-bindings: pinctrl: mt8516/mt8167: Move
- compatibles from mt66xx to mt6795
-Message-ID: <20260625-cameo-siamese-cd78c349519c@spud>
-References: <20260625104742.113803-1-l.scorcia@gmail.com>
- <20260625104742.113803-2-l.scorcia@gmail.com>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+	yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+Message-ID: <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-2-a0987203069@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,88 +48,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lpFCCusrIGXpI9Qc"
+	protocol="application/pgp-signature"; boundary="+TtTxxYr7EzNj57c"
 Content-Disposition: inline
-In-Reply-To: <20260625104742.113803-2-l.scorcia@gmail.com>
+In-Reply-To: <20260625094449.708386-2-a0987203069@gmail.com>
 
 
---lpFCCusrIGXpI9Qc
+--+TtTxxYr7EzNj57c
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 25, 2026 at 12:46:30PM +0200, Luca Leonardo Scorcia wrote:
-> Pinctrl settings for MediaTek mt8516-mt8167 SoCs use two reg base
-> addresses, one for GPIO and the other for EINT, as it is common in the
-> "Paris" pinctrl platform that is described in the MediaTek mt6795 docs.
+On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
+> The verisilicon,dc binding was originally written for the T-Head TH1520
+> SoC carrying a DC8200, and hard-codes five clocks, three resets and two
+> output ports.
 >=20
-> Move the binding compatible for these two SoCs from mt66xx to the mt6796
-> one as a prerequisite for migrating the pinctrl driver to the
-> pinctrl-paris platform.
-
-I've not done a very through analysis, but this seems like a massive ABI
-break.
-The change you're trying to make here will mean that new kernels will
-not work with older devicetrees AFAICT.
-
+> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
+> The DCUltraLite uses only two clocks (core, pix0) and one reset (core),
+> with a single output port.
 >=20
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Use allOf/if blocks to express per-variant constraints rather than
+> hard-coding the DC8200 topology at the top level.  Each compatible's
+> block constrains the clock and reset item counts; the nuvoton block
+> additionally overrides clock-names to the two names it actually uses.
+>=20
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
 > ---
->  .../devicetree/bindings/pinctrl/mediatek,mt65xx-pinctrl.yaml | 2 --
->  .../devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.yaml | 5 ++++-
->  2 files changed, 4 insertions(+), 3 deletions(-)
+>  .../bindings/display/verisilicon,dc.yaml      | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt65xx-pi=
-nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt65xx-pinc=
-trl.yaml
-> index 1468c6f87cfa..0cff2a352b1f 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt65xx-pinctrl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt65xx-pinctrl.y=
-aml
-> @@ -22,9 +22,7 @@ properties:
->        - mediatek,mt7623-pinctrl
->        - mediatek,mt8127-pinctrl
->        - mediatek,mt8135-pinctrl
-> -      - mediatek,mt8167-pinctrl
->        - mediatek,mt8173-pinctrl
-> -      - mediatek,mt8516-pinctrl
+> diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yam=
+l b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> index 9dc35ab973f2..1e751f3c7ce8 100644
+> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+> @@ -17,6 +17,7 @@ properties:
+>      items:
+>        - enum:
+>            - thead,th1520-dc8200
+> +          - nuvoton,ma35d1-dcu
+>        - const: verisilicon,dc # DC IPs have discoverable ID/revision reg=
+isters
 > =20
 >    reg:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pi=
-nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinc=
-trl.yaml
-> index 9a937f414cc9..c703de72e1d5 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.y=
-aml
-> @@ -15,7 +15,10 @@ description:
+> @@ -77,6 +78,62 @@ required:
+>    - clock-names
+>    - ports
 > =20
->  properties:
->    compatible:
-> -    const: mediatek,mt6795-pinctrl
-> +    enum:
-> +      - mediatek,mt6795-pinctrl
-> +      - mediatek,mt8167-pinctrl
-> +      - mediatek,mt8516-pinctrl
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: thead,th1520-dc8200
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 5
+> +          maxItems: 5
+> +
+> +        clock-names:
+> +          minItems: 5
+> +          maxItems: 5
+
+All the maxItems here repeat the maximum constraint and do nothing.
+
+Since you didn't change the minimum constraint at the top level, your
+minItems also do nothing.
+
+> +
+> +        resets:
+> +          minItems: 3
+> +          maxItems: 3
+> +
+> +        reset-names:
+> +          minItems: 3
+> +          maxItems: 3
+> +
+> +      required:
+> +        - resets
+> +        - reset-names
+
+Both conditional sections have this, but the original binding doesn't
+require these for the thead device. This is a functional change
+therefore and shouldn't be in a patch calling itself "generalise for
+single ended variants".
+
+FWIW, adding your new compatible shouldn't really be in a patch with
+that subject either, it really should say "add support for nuvoton
+ma35d1" or something.
+
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: nuvoton,ma35d1-dcu
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+
+Anything that updates the minimum constraint should be done at the top
+level of this schema. The conditional section should then tighten the
+constraint, in this case that means only having maxItems.
+
+> +          maxItems: 2
+> +
+> +        clock-names:
+> +          items:
+> +            - const: core
+> +            - const: pix0
+
+Does this even work when the top level schema thinks clock 2 should be
+called axi?
+
+> +
+> +        resets:
+> +          minItems: 1
+> +          maxItems: 1
+> +
+> +        reset-names:
+> +          items:
+> +            - const: core
+
+This is just maxItems: 1.
+
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +      required:
+> +        - resets
+> +        - reset-names
+> +
+>  additionalProperties: false
 > =20
->    gpio-controller: true
-> =20
+>  examples:
 > --=20
 > 2.43.0
 >=20
 
---lpFCCusrIGXpI9Qc
+--+TtTxxYr7EzNj57c
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1XFgAKCRB4tDGHoIJi
-0jrbAP97wobMnRO7HdyCFDRjLsINUhRhF1pHhFQuAEIeonbG2gEAsdjf82z1L2/O
-CIqr2L2XbnkDV93d6huma3K037t9dQ8=
-=uL4W
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj1YYQAKCRB4tDGHoIJi
+0ou2AP9dpj8bbLX3OZ2Ey8Fy9rGzWYngUkF98tUBkf7J4UsmBQEAp5PDIWO4HZ83
+JVms9+NVKX7pGBsDAler0gcdWCFEbAg=
+=Df/b
 -----END PGP SIGNATURE-----
 
---lpFCCusrIGXpI9Qc--
+--+TtTxxYr7EzNj57c--
