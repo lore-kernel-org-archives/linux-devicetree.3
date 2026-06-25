@@ -1,70 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5708C3BE659;
-	Thu, 25 Jun 2026 07:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1413806D9
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 07:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782372416; cv=none; b=toN7TW88zGffffOXEt2LAl6jWSdaD6SZULHbmFGhQllCfgWa+8EvZ14YGj4j55/J2k9L8Q1s0VV3kD1LJPT4Q2biv4FKqfNUiZMoZPKxkAuDfYzKqHirYXKBoTBQV1uaVm7loYLBjHL7Gt2+134nNwUVsh8CFrQE1jN4Xd6ejcE=
+	t=1782372615; cv=none; b=geFQiN2Szc/O6+6PpPre2qJD6jROX0KprRce//bFssrrufFVyfNBZc6mKlnP6m/xrUCN/14YegKaDgbdIgOXzaPA89/uWDkYZUU0POT10UCNZz7OYy5pbqqO/hI7OyY4xObZj9O8nBBoJeZ/RjNbnXeIgS/N+hnrqXl9ZazwtpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782372416; c=relaxed/simple;
-	bh=/JAMbYV6/MvMS5YmktMrYNIX493b56t4m6w329yYRCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WLm6yPJoIJPRgVjd2XORBieLRHwy4IA7kDQJpBc7P4vkyUfS5+SuweZRtFKT3o1TG4T29lxuyLj8vqs8IR1R9XFcQDexSFCtvhsOMasop27BSbjRSLf/1uXyG2Hlwa4hSCaWMW31hyDhCLVMmm9osxj5EehXXkowozGuQey/BcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ETSqUzsh; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1782372615; c=relaxed/simple;
+	bh=tcB1rds/uzzj4nfKHTALU46dqA5+55+NV76XtXupaQE=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QW5cBLt0xsZ0M1h1ZqP6ERWWdJRm5LLY1SIPvUyVi2ZMFIWgndI8wmixpyc5HzC/Uby/ZygoKaozpZjZtxenMBM7OL2L2O1WyBJx8d0SNfCy8WPldCGH09Uaar7jKpBEtbAICROP287kIvzojqcWNLyMeRyAXzp7OwEQ7QPWBuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DOGKFqeD; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ETSqUzsh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1782372414; x=1813908414;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/JAMbYV6/MvMS5YmktMrYNIX493b56t4m6w329yYRCY=;
-  b=ETSqUzshfU7gxWrTA/fMB0Mb9/V2FTIm617Z1QHjw1jl619AfRwhsR7I
-   yiX1eWs8KH/4tczmlVKt9QKvxq5PKFPC7Q+ju6ZYn40NGBEG3JaALq7Zo
-   uDxfJ7MWmsuZNW/oNidMtUajDn37ZNy0iyFiXJNYq/iku+6l+1IzEkDW/
-   6dwyFO13BHrj8W8q33NSJ0yUm1QIuPbr91K56v5wzT5z1TMcowYlJ++x+
-   6MPAd6CJx5Yx/U2cv3j2hAeINd2SBHjnovgESZ8i/fOY16ZQ93qf6yOff
-   wnWaav8OOfkAK1yW81QVor8lHdc5fTBvACcNry2qmw5OKSn8EjnwBK0lb
-   w==;
-X-CSE-ConnectionGUID: oRmHxVOgTbqe2Zg89uRUMQ==
-X-CSE-MsgGUID: wH3+cA4sThSDi0FjSX2vNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94636021"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="94636021"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 00:26:54 -0700
-X-CSE-ConnectionGUID: 0cBg5HpcQ92wuLGB//QaJw==
-X-CSE-MsgGUID: 7G2IFw+sSgmoVJWfCXXYsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; 
-   d="scan'208";a="249049141"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jun 2026 00:26:49 -0700
-Date: Thu, 25 Jun 2026 10:26:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 07/14] mfd: lm3533: Use dev_groups in struct
- device_driver
-Message-ID: <ajzYN6nrvaiKqP5I@ashevche-desk.local>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-8-clamor95@gmail.com>
- <ajzXidQCd8pe-L5b@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DOGKFqeD"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490cdae130cso10508445e9.0
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 00:30:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782372612; x=1782977412; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PTCS/VbEwbVfOVp9Z3suxyrpmFmcGl/hr2a+SPTASFs=;
+        b=DOGKFqeDZdfgryQh5cqzce+e/VkUFql6nuqLuUM/unH/FHWTJcf2ACw3pXk7U5CBUz
+         zCdtgrLUaryT/egHs4XPqBElXBSqoCDY5XTxxbP/6bdq9UpQuGjNyod72aqwP4I96IQ3
+         9HQOMSXWaSgeD2WsdMdVamZDvGfGZOcK8FL67sYstE/sSIODiKVA+knTnyjEVJzbcM2j
+         n/i2c7LYCO7vwWPCdAnGwSBgB/nJys+B2JLonNOvqPOGrhqdyoA6SOVEeb9W9ZGRO0b0
+         JPG8HBAN8lM/eolUPVEVza+zJI2S+2r14x+Ly0yCL6+Mg26M/aX7noaNTTWm1vwdnB6J
+         6naw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782372612; x=1782977412;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PTCS/VbEwbVfOVp9Z3suxyrpmFmcGl/hr2a+SPTASFs=;
+        b=kh9L9mZQZFvcREh12iotQdgsW2Rs+YH+9wXDskBb8g3xC2jhYpCU9N4y4QRjfXgklN
+         vQxpat8gYAQR+hxkR3U1DTbrcOKs7HDJREQ7Namu4d+7bQx5h/ch3usOyRJtVy2r/7O4
+         Yv3SIVE3i4Ca88c+CfbstZwghJoXPicm9Hl965W2Rd4h0/Fm3w8+zIb5qs2KTkSBIVBk
+         TA6sxuz+Spll4wKd//lT7OihXiS4slg8oZx1w2d0FinqEuGiEAnxRZvKMWFwwJVueJUl
+         6eRT12FpjWAcrMYSwqaa6BebuRUj0b8nOt8VTq/2z340YweSteE4GsAKUtV2FwpNy/ef
+         9NdQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8RnKGkxmMN92qrSXuuGKG4b+DeZGi/xXY6zTw3bbBr8YhtLJTYTtyvYgjKJ+emM8X1FE4n+cXMwgEt@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRNSijc5kVC5dTRmr3rNcx2eIe3fyKZEA95W6oNRM17iZmsXOL
+	M2ly9KpNTGCFFE8wDxLBezjbIXVFjKe8f4kRSHCGvGCYONhdKaI7BFRB
+X-Gm-Gg: AfdE7cnF4ANuqnp9QYv2+KN5uZzuRLcGOpOK+8aeR4h+jWI5b5bfN8zHCEdkLkXn5pA
+	ryswHQcmOjK35SA7MxT2aYbi1PoWu8QttbdpeDuu4BAUIQDr3c/gBkp/bpXBi4SyxYJvFnxa28x
+	CXnRMEL4OIOxykxBmHQC70EXoF5fehCUl8Fwskr1wvuvYa9x21afGw9KPweIFeXrJTLGrjBYq4H
+	rqHhTfYFnL6CDyDJZNpOKXytcjZ8nmRorkwSlKhALct/vk4WM0fFindqwLmAQgO6vq1Y7BYpAmx
+	/uqmhnLvFmF1X6trR7Vm0JN87uI8kIAAMtCB1KrA5halpcdMvgXRpUxlC0PdRhPZcss+5Hwss18
+	mqj6nbBP+9NPmr5yQq0JOiyci85cRr0hZq84rGs3BTqJuaR27d5mJR5DiZwhKsAFineFW3qJC2R
+	eC2sXYPhVCnreOKs+7H9Lvf8Ow+1arSpC5lgQTwlNEbvzzn63YbqPuM9xuU5uxUSfQRVvCt7/Gq
+	6aaSrQ5z7M8UwfIY4Zel7kcxytk
+X-Received: by 2002:a05:600c:4e94:b0:490:c2a2:b1d4 with SMTP id 5b1f17b1804b1-492668933e5mr14101565e9.35.1782372611740;
+        Thu, 25 Jun 2026 00:30:11 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-492660e9f0esm32574495e9.9.2026.06.25.00.30.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 00:30:10 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Thu, 25 Jun 2026 08:30:07 +0100
+To: Jonathan Cameron <jic23@kernel.org>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux@analog.com, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>, 
+	Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v16 04/14] lib: kstrtox: add initial value to
+ _parse_integer_limit()
+Message-ID: <ssrckqgv3rqpfgxwpx4ca3m5m2mp3frxs6sd673chvsorhsjiq@63t3eosivg3a>
+References: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
+ <20260604-adf41513-iio-driver-v16-4-1a7d09143bc2@analog.com>
+ <rvx36i2ydmwhbbkdgbvh26uqchyoptzuu7tleuyarqn2skzkxz@owzwp62mzkdo>
+ <20260614210044.19dfc8df@jic23-huawei>
+ <20260624155414.61755e9a@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,35 +89,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ajzXidQCd8pe-L5b@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260624155414.61755e9a@jic23-huawei>
 
-On Thu, Jun 25, 2026 at 10:24:00AM +0300, Andy Shevchenko wrote:
-> On Wed, Jun 17, 2026 at 11:00:24AM +0300, Svyatoslav Ryhel wrote:
-
-...
-
-> >  	.attrs		= lm3533_attributes
-> >  };
-> >  
-> > +static const struct attribute_group *lm3533_attribute_groups[] = {
-> > +	&lm3533_attribute_group,
-> > +	NULL,
-> > +};
+On 24/06/26 15:54, Jonathan Cameron wrote:
+> On Sun, 14 Jun 2026 21:00:44 +0100
+> Jonathan Cameron <jic23@kernel.org> wrote:
 > 
-> We have ATTRIBUTE_GROUPS() macro.
+> > On Thu, 4 Jun 2026 11:09:33 +0100
+> > Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> > 
+> > > On 26/06/04 10:58AM, Rodrigo Alencar via B4 Relay wrote:  
+> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > 
+> > > > Add init parameter to _parse_integer_limit() that defines an initial
+> > > > value for the accumulated result when parsing an 64-bit integer. The
+> > > > new function prototype is adjusted so that the _parse_integer() macros
+> > > > stay consistent allowing for one more argument, which defaults to 0.    
+> > > 
+> > > ...
+> > >   
+> > > >  noinline
+> > > >  unsigned int _parse_integer_limit(const char *s, unsigned int base, unsigned long long *p,
+> > > > -				  size_t max_chars)
+> > > > +				  size_t max_chars, unsigned long long init)
+> > > >  {
+> > > >  	unsigned long long res;
+> > > >  	unsigned int rv;
+> > > >  
+> > > > -	res = 0;
+> > > > +	res = init;    
+> > > 
+> > > This might generate conflict, as the code around have changed in linux-next.
+> > > It is an easy fix though.
+> > >   
+> > Thanks for the heads up. Hopefully that will all fall out when I rebase testing
+> > on rc1 once that is out.
+> I've done a mid merge cycle rebase as the char-misc branches have merged.
+> So this should be resolve on my testing branch now.
 
-Okay, it uses is_visible, so __ATTRIBUTE_GROUPS() that we can still use.
+https://lore.kernel.org/oe-kbuild-all/202606250230.etPGuolf-lkp@intel.com/
 
-...
-
-> > +++ b/drivers/video/backlight/lm3533_bl.c
-> 
-> Same as per above.
-
+Apparently, the documentation header now includes parameter descriptions.
+The new one is missing.
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
+Kind regards,
 
-
+Rodrigo Alencar
