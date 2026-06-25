@@ -1,67 +1,87 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011033.outbound.protection.outlook.com [52.101.70.33])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3E63DCD94;
-	Thu, 25 Jun 2026 11:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782387721; cv=fail; b=eOEfuqa9qIOoi/hhvCc/BGjeBnrVou8cCTxIlM43eik7Wms5GdotNrY18DdDL+hq21Ev2wtclkWx4ZvBnY/sPRNlKBT1OqyBQWk2x234rL18pwIjcbVv2MrSjlFOtv2LsnlLWIp0IvEWRHkRw90dDgSj6XzKVTK+m9AB8LF/bzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782387721; c=relaxed/simple;
-	bh=2o0ogw+nZrtLEQ2oOrSgEcOxjIrNj1+hDWcpZ57QUhE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BfDpHQxmKzmJ1o1c6y6P1cJ4zPa39+HF0n7ITNTXGwm5b7cysFNE0jdO9YR0Ma+hIhD2lyp/pB6whg6ulzsQ1DhwynksvgLz8vQNAg01qQfebIXcLK0n8Of7qB+Icy9FYrOiMDDI+jDi6QwqVe9NqI0GI/Cut7aaoK0elle3CZM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=RetEWo6l; arc=fail smtp.client-ip=52.101.70.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B83DD501
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782387957; cv=none; b=drh59u+3kILVcrUKsBrKHui87wr91tOmIvT4p9UyO1CLoGPxoFBRoHPU1oZQys7vcI7m73swrZq4N82ZieObbVILLsTRyAC+8r5Q5JHFXzreXrtHr47nlh8TlSq2XKsX8/ob7f4dDOfMZ3jpEcQrL3rgJSVTzD4AmhoDdJQv/os=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782387957; c=relaxed/simple;
+	bh=eDu7KO5wVpXqlpuFQGtibVoKwA9rv9uNhIjqKkHb9+o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l6isTAlBiJC4fJAmjv2gw6r/l1GO793Ok/lOQguTKVsdBV8brYfBsHcrvG65MDDRwm+aLgux7KynZf5nUEWZADaTHSfNncWD0pt8gfbeEppkvf93myxHZcstcym368SwQXbjGt/s/tJ5I0+3iMP/srmcuoxWeSrpi5YUpCQQuC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aKCnrjMK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eFmchs4d; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="RetEWo6l"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YJxe8ZCXn9iG/DAGGG2a1HVLczeMe5bbTIFe2KJrp0I9rWuM9+UXQZkNx+iyIG/lyYSRDHHqABXkJJuTkqgREdFLtcxqdX+VqroefXCA1Npa0Y9oQCfp0ZMoBe2qZA9VNTFdpYT0YN3Lr1TFJ2SkyZIrgMt7Tn2ylhr1CYzBrgj6wgOTsQzt27OI6JvdcJvbb7RbsO8MHZLBU43BJq4Lqj8ol1gB/tJmF1nqjIc16tmcKrZx6wz2iptUy29zwu6max6KLUNR0fm9dJDiK8/lmx8kbBt7YBaNjquD8dU3JcviVp1QNorSkiGKdi3VYUILqtU0pAR3225yffdvASfEIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1ee8LylDR5clcxTSkxhWV1yKQIMRkliircbhPLv5q8I=;
- b=i5H9TyxJkD36+gkahXyIMgdogoBOSkiWR3VFvopJKa2XQobZqO3viFH6kpx+e9XJb6vXBLSy18amaOMgQEHumNCrWlp8P9U18GWyC1uFEei+aTF+7gENe+Vx3qrLapRpjnDwU4s37cEgrX2gtXnlJ3k2RQpUKp56VkHcyf7MQ0DU5nftfpvoPJIXXdd90qhaL4pT7lV8t2XsnCPnzZOKrea328zpaxLEIDe9fThOTnn4DLH0yn3XSwylP/iGxgRw08350icZXrGK50jJIVUGyqFv6vqFK4Nr79UFp8Igjjj1iP33ZDO87jKXr0HgupVR6Q2ntGADCH0wWGyPxzuJ2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ee8LylDR5clcxTSkxhWV1yKQIMRkliircbhPLv5q8I=;
- b=RetEWo6lItrB/cvCKLz3Ow3y+1VjPwYA90ataawPr5jDKznw0N5ifngIv1Kx8vpM16rt+HxqE95nC5aEn3sA07tYZK5X8wrBinn2dArVuBf/ZRt84NEtK7QgE21EQR7ReA34ldkPxjqb8Q7Y7I8dkMAV6LQyccztebFIa6jweK/Y0R9pNj0mHZ4b89FWx2xAbusnbLlDc8XhbDuJksbbMc/ym4MNh44y2ZN0LzclojmLKf4H3FW2nB49HoNt7SUhQVwD7kJCjttiY5Xcej8aJAujk1TOd+Ambkn5IHoGzY9jiHNbgk1ZaBOqoRm+3JR91B0rO64Sa0IxXMTI/yGz0g==
-Received: from DU7P189CA0011.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:552::25)
- by DU4PR10MB9808.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:632::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Thu, 25 Jun
- 2026 11:41:55 +0000
-Received: from DB5PEPF00014B9D.eurprd02.prod.outlook.com
- (2603:10a6:10:552:cafe::99) by DU7P189CA0011.outlook.office365.com
- (2603:10a6:10:552::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.16 via Frontend Transport; Thu,
- 25 Jun 2026 11:41:55 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB5PEPF00014B9D.mail.protection.outlook.com (10.167.8.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.181.6 via Frontend Transport; Thu, 25 Jun 2026 11:41:54 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
- 2026 13:46:35 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 25 Jun
- 2026 13:41:53 +0200
-Message-ID: <68d276f9-e688-4736-a296-f56c5aaa4b77@foss.st.com>
-Date: Thu, 25 Jun 2026 13:41:56 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aKCnrjMK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eFmchs4d"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65P9k1IK1921010
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:45:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4BAcSRl1VLBvY+rm1E0QENVPruUvSrRzM9gP5scU+pQ=; b=aKCnrjMKVZdK5yIX
+	bETBOhO6H1ZDfQzhCKPjHdfCoAFlqLsHSSXBQn8CC6bl0jSB262dKBMcbQMrvwDl
+	jk3lPY4Uufcusa9MPsP6vMSRyDYHRUHz74XUMOFK2pUOIEAg2HYab0B6IRV2SjBm
+	u8hm1JrHB9Pw7W3tMKQ+rOUOmPY9ZmE8n/pLDd6oa1l/XwMjbBo75LB4mymzjsg/
+	pL7rb3l39mN4Tf0qJgJE/tD7iyWs4AkRTiSun0YIkLt08hKm6nod450jDWbwgSjX
+	xSILhatTr3kZA/LHC7DOgshb+asq+zMtsSIk4msLDGfURca5+h4faYr1YhhFi5az
+	Y9cohw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f0ueua0sd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 11:45:55 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51a15cef334so2449211cf.3
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 04:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782387955; x=1782992755; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4BAcSRl1VLBvY+rm1E0QENVPruUvSrRzM9gP5scU+pQ=;
+        b=eFmchs4dDiLN05SAltXK4VnaG6utoEN6wFa5mnhLVzKJEZlhBaHNtJEf5hys6eC95N
+         i1SQRMRmipqMNbCLUiJWmOZ1SUEBFs2tXjauhIbK3s/Lcun45dYiGVedJu5Pgjv+rwKw
+         womgwcHi2NhxC9BRtnTB4TUJsLtx2sO/U6dq4PfcV5PHXFUVy8atKIfFn19T4pHiwjYB
+         2rJBcsEWMtAKWebNf50SwaqwavT9GB+BMdqrp0XdpQ9BqBjTbqMwHal+UoCYlrgG2zUS
+         yUSoJHQK5xe0O463Zt8phsOAyXU6TawC37YSc0icvPaBk8/R4sxdRLWIWdAoyA5nyoXr
+         lkUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782387955; x=1782992755;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4BAcSRl1VLBvY+rm1E0QENVPruUvSrRzM9gP5scU+pQ=;
+        b=M+WmBLyGUfmgwUKEPTHZGyew+ufuXLu365auK0Ge9RCT1Ch3WBvT6IcBXZNs14KIsG
+         AdIcEqsNkd74zhark2UeVkw48yMBR+T2FL2dH0WLaRSkWfCjMD9e12hpsjPY5fm2sg8o
+         TpVhV1LOqPeIJPTZwm4B1cRK52Z+5HYxllGUzZzdhOaDYOCOBKS5XYyR3wVEMNYgfbC4
+         eQpyG3yihK2i0sdWDGjSG3gWT0TffOxqdw+4+kj+mwmtwC4asG0UJGHev9O8WW/IXxAX
+         GX4uqq2LJas4ywiAZ7DHxmaeP7MEuacgMgQUGOhq4037eQ1cwZ1RxTHXxt5bgHsN6miY
+         pgCA==
+X-Forwarded-Encrypted: i=1; AFNElJ9gqBUzPJpTcp1PhcwWereO4d8KDt1NluCEuAIZ2WDu291TPLrITHxCs82GSRS3zoseS5UG8s4O89mg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKthN8Bq6yGDiNkF3Umx/LbK4rEk4LoF1LIUaFuJ4f4i/nUrhS
+	zj5fMuJwn5wxZ9Lpu2xbGie5Vvl09rMlqTXC+tmvpmyytvjn0u3phr+BYyD0AHDn9roARLIX3gt
+	rkLdd1FVVvSUUzPmSAwHTMPVOu+6lQO+cZjfVNI25I3dnL6TD/tixc8BsWRVe3q7U
+X-Gm-Gg: AfdE7cnUZxuDW/NcL7LkvJroa6ahDzSnnp0pWoNiQDHWbewe9jshfIadtSr+mNvMppS
+	LPPShjidAqRAA1sjjYD8+C3XfTdMVE29ym+nAwdD9GJKsc51W8/h6co7S+WApEaMgBG7sAUME7U
+	WUTCjLEnWK2lph7LspcT8ie7CSZWJfwIAW8vUODksLLXrWJJ5BNVkXHepUBJUCEAIkATl+Is8VQ
+	WtaJo/y8MLoEiJsjgp+5GZYi6t8+r8GaBs7kyJWg7JJ7hsV12PGusAspDeOZp4QNhRQK5Nf8ksK
+	oB10aWHcskxR3zSa9PGJ+6ehO6QuXXuKaZPjDD8NOnM6ugSpiKbzQR00w3RYIAobwE5dxNsR6OP
+	i0hcE5JpBj5i6tM8JxwYxqJey94SB2Vmrq5A=
+X-Received: by 2002:a05:622a:58e:b0:517:5af6:77f9 with SMTP id d75a77b69052e-51a7279f2d0mr15663461cf.3.1782387955004;
+        Thu, 25 Jun 2026 04:45:55 -0700 (PDT)
+X-Received: by 2002:a05:622a:58e:b0:517:5af6:77f9 with SMTP id d75a77b69052e-51a7279f2d0mr15663121cf.3.1782387954346;
+        Thu, 25 Jun 2026 04:45:54 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c11fbe6220esm165472966b.45.2026.06.25.04.45.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 25 Jun 2026 04:45:53 -0700 (PDT)
+Message-ID: <2c615e8f-674c-4def-b789-6e9c445a2241@oss.qualcomm.com>
+Date: Thu, 25 Jun 2026 13:45:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,300 +89,90 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] media: i2c: vd55g1: Add support for vd55g4
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
- <20260428-vd55g4_and_fixes-v1-4-4f745a83b87e@foss.st.com>
- <ajkKkSeDNoijIsub@zed>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <ajkKkSeDNoijIsub@zed>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9D:EE_|DU4PR10MB9808:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad973326-af1b-4d0d-f96b-08ded2aec1c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|23010399003|18002099003|22082099003|11063799006|4143699003|5023799004|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	ogFm7IOsl0y9zdZYJQZ1Lu0MsLQgLy8QFEi3M8AgczEW699wpf9/sWvimV2YtX3b+jjK8nYrHZrqbhI9q3thd7GFXiL/4Ohq7Ujz2vnZ4ghB4lMGZS5hatHks3NYvJEf5sqR2L+aixQjowo9wyUms2Px295xy34JKfiHysajHrK+tat5IH0cv1cFGQ7g8P3zcqftUKK2XA1TX+HXyIq4CFrNEA0AFQFCsdaLj1NexyaI2jzTlQ9MCyMxklRK+DtNFBSp/zq7fpYu6efijIWrybD15U3vLSKsbqDt4cpMXyiKY1j3420e1ErG2Ichgbf9nmulsW4MkZvlYq36OX+YDtp1AAdJXUvFM1qLEt0FAWiWjWWSXMwkuHXlN/lFrKmAhW2F0RLblEuoimu5VeeKljtQ6gJmMmGefdm9QmH6GoTT8X+OmCo4/GV+OzIKfoFR0m0pPpDRBwOObrlJ/VHiEN3qIXHzd2yPUeka/xPE5ICWRZQV8CVaHRw86tGuL9+VpsNHiJ3U/8cqrpi0DfL5Li/QzHjVEZXdxLQ/yDMnDsJwlOcrAHdj6C5loC+7HTIPYkQ0j5hh5Asi0q6sCC03ilr7IPp55Ks70s9Q/rSNImpknn5qGTPbuch66bLpvOY5wB/IrgQwpcwH1kb98loYdlC+b4bzJS34NxjuSo+8p7JF7kg4Isg15NArx9FtN+P/esPLCoPKbRje/7qzRDs4OQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(4143699003)(5023799004)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	UN4Lr/2rS4GgUvtuiwpBe4NG+Q6CsZU9jaRQB96GcAv8KsY6ylcmOx/fItO6zSWC3WodMzgEQ+34OcU+HXBkEJXCuWPH2XaKZS9O+MhZzt95duTX0etxYwYppXZkHgDVQSMWNwbSSMF3ptX7ORFQPSb+auz5rvby74PJjxxIU8deCdMv1cwuSos53CFefewK3Ma2trZFsWrqAxK5GCClMecOqrBQB+tyv+gGyzc/9V5lsxOqojV8cE3fpBS4OPr6iKmugLFRQorcbHO9OwNm43SlAP3YE093XEhDpsFbZziL4Cv0+QRUtBAgmWIqWsCenrK2UWRamKC2JRQTgGu60bDdQY/l7jJ4mwJBCMXISgyjYXMPFwZTYPq0dXVJ/TJuQYIv9ORyOr3l8NQNTR+0O4P9uTBUx+5nRtB1vLoT4NuBOku0CLRc8fTOF4K3ZmaG
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 11:41:54.9085
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad973326-af1b-4d0d-f96b-08ded2aec1c4
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B9D.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB9808
+Subject: Re: [PATCH v1 4/8] arm64: dts: qcom: shikra: Add soundwire and macro
+ nodes
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260616201315.2565115-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260616201315.2565115-5-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260616201315.2565115-5-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: QSihY0PsEo3ojv9fe49ZLOFhTBdCoUF0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI1MDEwMCBTYWx0ZWRfX4jg+95+QHE78
+ 7STyHIpkrtkcDs9o52i9fW3GvBu4BtUiTW9K045rjo1kayN00HDQG6XBuOu/Uxw7S/4jfU8YNey
+ DbTjjpJjeNds+vBVuCkeJW3sSFF3F3g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDEwMCBTYWx0ZWRfXxnoRhb5v6UoB
+ Y8fBhOXXHxp3YIREAMkE8lniCZ2uy+OVy+TztVBugflba1118121NDP2ZbwD2sBUOiGskaYWPAp
+ 2jDfW4P+ScTbjKbno2mP1YT/bNjw3R3/PN0BC126sRaBATqrlbTVamR0QF3HQM+e4K3KXkSC6L9
+ 5os1PipyJODOs28o5yGB85XhJsZrCt4CervxMxdsbWhKC3EagTdaPZHZW/78Gt2CO9UVt1FUua7
+ HOEdEiuo0SJb7+iGnqwzjnq+LB9kGitoRkt6pfgVapFPlPcyvFy9xoys8qw1vwp+yShlVId2FLV
+ y2JMqPxprA1U33qayeSlEZs0rzjcSMUrSfzJq5SO/OlUueuhM/dpT+UnZCdGwelMS67KHUCavFX
+ cIPRBXk2GotSV0vDRF9141gY37JQfSGv12nvbXOO0gxOCAY4D5Tligt7OvcaAAl43v9VWd/suOF
+ VEOOzEtztnGiM32opTA==
+X-Authority-Analysis: v=2.4 cv=b/SCJNGx c=1 sm=1 tr=0 ts=6a3d14f3 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=jzc4C1M-m5MPkDtnTmwA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: QSihY0PsEo3ojv9fe49ZLOFhTBdCoUF0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-25_01,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606250100
 
-Hi Jacopo,
+On 6/16/26 10:13 PM, Mohammad Rafi Shaik wrote:
+> Add SoC-level SoundWire masters and LPASS RX/VA macro nodes, along with
+> DMIC and SWR pinctrl states required by the audio data path.
+> 
+> Keep these nodes disabled in shikra.dtsi so board dts files can selectively
+> enable and configure them.
+> 
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
 
-Le 22/06/2026 à 12:16, Jacopo Mondi a écrit :
-> Hi Benjamin
-> 
-> On Tue, Apr 28, 2026 at 10:40:58AM +0200, Benjamin Mugnier wrote:
->> vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
->> RGB. Adapt the driver structure according to this new variant, and add
->> its support.
->>
->> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
->> ---
->>  drivers/media/i2c/vd55g1.c | 110 ++++++++++++++++++++++++++++++---------------
->>  1 file changed, 74 insertions(+), 36 deletions(-)
->>
->> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
->> index 2c962fcb41d2..9f62fc0428a1 100644
->> --- a/drivers/media/i2c/vd55g1.c
->> +++ b/drivers/media/i2c/vd55g1.c
->> @@ -29,11 +29,7 @@
->>
->>  /* Register Map */
->>  #define VD55G1_REG_MODEL_ID				CCI_REG32_LE(0x0000)
->> -#define VD55G1_MODEL_ID_VD55G1				0x53354731 /* Mono */
->> -#define VD55G1_MODEL_ID_VD65G4				0x53354733 /* RGB */
->> -#define VD55G1_REG_REVISION				CCI_REG16_LE(0x0004)
->> -#define VD55G1_REVISION_CCB				0x2020
->> -#define VD55G1_REVISION_BAYER				0x3030
->> +#define VD55G1_REG_COLOR_VERSION			CCI_REG32_LE(0x0670)
->>  #define VD55G1_REG_FWPATCH_REVISION			CCI_REG16_LE(0x0012)
->>  #define VD55G1_REG_FWPATCH_START_ADDR			CCI_REG8(0x2000)
->>  #define VD55G1_REG_SYSTEM_FSM				CCI_REG8(0x001c)
->> @@ -138,8 +134,39 @@
->>  #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
->>  #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
->>
->> -#define VD55G1_MODEL_ID_NAME(id) \
->> -	((id) == VD55G1_MODEL_ID_VD55G1 ? "vd55g1" : "vd65g4")
->> +enum vd55g1_model_id {
->> +	VD55G1_MODEL_ID_2 = 0x53354731,
->> +	VD55G1_MODEL_ID_3 = 0x53354733,
->> +};
->> +
->> +enum vd55g1_color_version {
->> +	VD55G1_COLOR_VERSION_MONO = 0x0,
->> +	VD55G1_COLOR_VERSION_BAYER = 0x1,
-> 
-> nit: you don't need to initialize the enum members here
+Just a couple style nits:
 
-Thank you, will do.
+[...]
 
-> 
->> +};
->> +
->> +struct vd55g1_version {
->> +	char *name;
->> +	enum vd55g1_model_id id;
->> +	enum vd55g1_color_version color;
->> +};
->> +
->> +static const struct vd55g1_version vd55g1_versions[] = {
->> +	{
->> +		.name  = "vd55g1",
->> +		.id    = VD55G1_MODEL_ID_2,
->> +		.color = VD55G1_COLOR_VERSION_MONO,
->> +	},
->> +	{
->> +		.name  = "vd55g4",
->> +		.id    = VD55G1_MODEL_ID_3,
->> +		.color = VD55G1_COLOR_VERSION_MONO,
->> +	},
->> +	{
->> +		.name  = "vd65g4",
->> +		.id    = VD55G1_MODEL_ID_3,
->> +		.color = VD55G1_COLOR_VERSION_BAYER,
->> +	},
->> +};
->>
->>  static const u8 vd55g1_patch_array[] = {
->>  	0x44, 0x03, 0x09, 0x02, 0xe6, 0x01, 0x42, 0x00, 0xea, 0x01, 0x42, 0x00,
->> @@ -535,7 +562,7 @@ struct vd55g1_vblank_limits {
->>
->>  struct vd55g1 {
->>  	struct device *dev;
->> -	unsigned int id;
->> +	const struct vd55g1_version *version;
->>  	struct v4l2_subdev sd;
->>  	struct media_pad pad;
->>  	struct regulator_bulk_data supplies[ARRAY_SIZE(vd55g1_supply_name)];
->> @@ -628,7 +655,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
->>  {
->>  	unsigned int i, j;
->>
->> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
->> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
->>  		return code;
-> 
-> As pointed out in the previous patch, you seem to have 2 mono formats.
-> Is this still ok ?
-> 
->>
->>  	for (i = 0; i < ARRAY_SIZE(vd55g1_mbus_formats_bayer); i++) {
->> @@ -1183,8 +1210,8 @@ static int vd55g1_patch(struct vd55g1 *sensor)
->>  	u64 patch;
->>  	int ret = 0;
->>
->> -	/* vd55g1 needs a patch while vd65g4 does not */
->> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
->> +	/* Version 2 needs a patch while version 3 does not */
->> +	if (sensor->version->id == VD55G1_MODEL_ID_2) {
->>  		vd55g1_write_array(sensor, VD55G1_REG_FWPATCH_START_ADDR,
->>  				   sizeof(vd55g1_patch_array),
->>  				   vd55g1_patch_array, &ret);
-> 
-> You might want to consider renaming vd55g1_patch_array ?
+> +		rxmacro: codec@a040000 {
+> +			compatible = "qcom,shikra-lpass-rx-macro";
+> +			reg = <0x0 0x0a040000 0x0 0x1000>;
+> +
+> +			pinctrl-0 = <&rx_swr_active>;
+> +			pinctrl-names = "default";
 
-It doesn't really patch an array, it writes an array of values into
-continuous i2c registers. Just like before converting to cci_write() I
-used to have a vd55g1_write() function to write a register, I derived a
-vd55g1_write_array() function. Here it happens to be a firmware patch,
-but it could be anything you want ;)
+Let's move this down.. maybe above all the #cells
 
-> 
->> @@ -1256,7 +1283,7 @@ static int vd55g1_enum_mbus_code(struct v4l2_subdev *sd,
->>  	struct vd55g1 *sensor = to_vd55g1(sd);
->>  	u32 base_code;
->>
->> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
->> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER) {
->>  		if (code->index >= ARRAY_SIZE(vd55g1_mbus_formats_mono))
->>  			return -EINVAL;
->>  		base_code = vd55g1_mbus_formats_mono[code->index];
->> @@ -1372,7 +1399,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
->>  	if (ret)
->>  		return ret;
->>
->> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
->> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
->>  		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
->>  	else
->>  		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
->> @@ -1659,38 +1686,48 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
->>  	return ret;
->>  }
->>
->> +static const struct vd55g1_version *
->> +	vd55g1_get_version(enum vd55g1_model_id id,
->> +			   enum vd55g1_color_version color)
-> 
-> Should you indent one tab left ?
-> 
+> +
+> +			clocks = <&audiocorecc AUDIO_CORE_CC_RX_MCLK_CLK>,
+> +				<&audiocorecc AUDIO_CORE_CC_RX_MCLK_2X_CLK>,
 
-checkpatch.pl is fine with both. I can indent left, it looks cleaner.
+Please align all <s
 
->> +{
->> +	unsigned int i;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(vd55g1_versions); i++) {
-> 
-> You can declare i inside the for loop
-> 
+> +				 <&vamacro>;
+> +			clock-names = "mclk",
+> +				      "npl",
+> +				      "fsgen";
+> +
+> +			#clock-cells = <0>;
+> +			clock-output-names = "mclk";
+> +			#sound-dai-cells = <1>;
+> +			status = "disabled";
 
-Yes, thank you.
+Let's keep a \n before 'status', everywhere
 
->> +		if (vd55g1_versions[i].id == id &&
->> +		    vd55g1_versions[i].color == color)
->> +			return &vd55g1_versions[i];
->> +	}
->> +
->> +	return NULL;
->> +}
->> +
->>  static int vd55g1_detect(struct vd55g1 *sensor)
->>  {
->> -	unsigned int dt_id = (uintptr_t)device_get_match_data(sensor->dev);
->> -	u64 rev, id;
->> -	int ret;
->> +	const struct vd55g1_version *dt_version =
->> +		device_get_match_data(sensor->dev);
->> +	const struct vd55g1_version *version;
->> +	u64 color, id;
->> +	int ret = 0;
->>
->> -	ret = vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
->> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
->> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
->>  	if (ret)
->>  		return ret;
->>
->> -	if (id != VD55G1_MODEL_ID_VD55G1 && id != VD55G1_MODEL_ID_VD65G4) {
->> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
->> -			 (u32)id);
->> +	version = vd55g1_get_version(id, color);
->> +	if (!version) {
->> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
->> +			 dt_version->name);
->>  		return -ENODEV;
->>  	}
->> -	if (id != dt_id) {
->> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s) mismatch",
->> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
->> +	if (version->id != dt_version->id ||
->> +	    version->color != dt_version->color) {
->> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definition %s mismatch",
->> +			version->name, dt_version->name);
->>  		return -ENODEV;
->>  	}
->> -	sensor->id = id;
->>
->> -	ret = vd55g1_read(sensor, VD55G1_REG_REVISION, &rev, NULL);
->> -	if (ret)
->> -		return ret;
->> -
->> -	if ((id == VD55G1_MODEL_ID_VD55G1 && rev != VD55G1_REVISION_CCB) &&
->> -	    (id == VD55G1_MODEL_ID_VD65G4 && rev != VD55G1_REVISION_BAYER)) {
->> -		dev_err(sensor->dev, "Unsupported sensor revision 0x%x for sensor %s\n",
->> -			(u16)rev, VD55G1_MODEL_ID_NAME(id));
->> -		return -ENODEV;
->> -	}
->> +	sensor->version = version;
->>
->>  	return 0;
->>  }
->> @@ -2048,8 +2085,9 @@ static void vd55g1_remove(struct i2c_client *client)
->>  }
->>
->>  static const struct of_device_id vd55g1_dt_ids[] = {
->> -	{ .compatible = "st,vd55g1", .data = (void *)VD55G1_MODEL_ID_VD55G1 },
->> -	{ .compatible = "st,vd65g4", .data = (void *)VD55G1_MODEL_ID_VD65G4 },
->> +	{ .compatible = "st,vd55g1", .data = (void *)&vd55g1_versions[0] },
->> +	{ .compatible = "st,vd55g4", .data = (void *)&vd55g1_versions[1] },
->> +	{ .compatible = "st,vd65g4", .data = (void *)&vd55g1_versions[2] },
->>  	{ /* sentinel */ }
->>  };
-> 
-> All minors
-> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> 
-> Thanks
->   j
-> 
->>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
->>
->> --
->> 2.43.0
->>
->>
-
--- 
-Regards,
-Benjamin
-
+Konrad
