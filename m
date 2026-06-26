@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8C73C6A43;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D97E3C73F6;
 	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782452378; cv=none; b=n43LzsRSr1qxeleaoSuSgma+rJEjxFZMnCqgS10zk+Z6jvceiE28wQ1qBH4W/HLDcpQ9peAJ4zcxctN0OduKdoiKdiP+BM04Er8qtDJJtCRGTD8tPenudub1z1vRw1ZAEj9lAWIGEXSnuK8UOImCxdcENZ9zjsJD4UxCso2de7A=
+	t=1782452378; cv=none; b=oWhtGPHs3Q67y7vClpTKqv9cD3UjnEwYDll3CArbCeg3yXb0ak0bVSko03hFtTZ3D7x3aCa7+t5IY3DzgDNNA96MFrtejfmiFwnuo9g2onK9Tiozi+qwsA9vfVtp4Yj/CMncfUfjubhfytkfGaHYt3f0SROAuEtGxCDzs/b42OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782452378; c=relaxed/simple;
-	bh=g+qv6yDnSKfM5Y35nL+/IDMuJ04Lv9xK2LZVXVlDSpQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DpLkWgs7rSNzpWW/ZGD4Ri2TkX/QIi/X8lGNqyDSE6bjm6WIf03I9+R2cu92qeCjbmnCz4VaLDR9bmrYrWRVF3WvdrdoYv9ot559JrGzQgnBui/mQIJTYSszMGH2bhIFIVrlYzcLWNoC9BtrqA+VlxNX+VP9VYBaizLZVSYEJ+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBCXpoyE; arc=none smtp.client-ip=10.30.226.201
+	bh=NcdLhXrPcWFclpxrmSESajR2JcjuoXQBKnYxQjejsnA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lTPoB4LPfbHTLAgd33gvv7uUIu4sEOdC6I4LHlcxrAnUV58WQk/6Vq2SHW+StF2Rc4xgzzt6oZvuQPFa1HmPds3KzJuuOHhB91x9QE1pcYP/ptpiGSJjq0sUX4MolkRzGd19rx4J/q90fp6C+6uMGJKDZCwE5PcwjFOZh0cHy0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoIy7SYy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBCXpoyE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0ACFFC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoIy7SYy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 32941C2BCF5;
 	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1782452378;
-	bh=g+qv6yDnSKfM5Y35nL+/IDMuJ04Lv9xK2LZVXVlDSpQ=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=NBCXpoyEA1cDV2LrF8mxKCyfNXCbPWJINR9N0DnUsb70Bs3ByD1iuL375+SdScgNS
-	 f8xF1I56Tq4tvKDXK/eCFU6gWcEsx4c62+kxKfctlAe3TVBbpEcX6TN6hS4zAZoSJm
-	 zmZrw4n2K7QjQ5zufmgRwQxO4mVzkKsAgjzYoZl9ZRaDCk07o9WUtQXwHghApz3ACV
-	 GvDffGWlCGQraLRQFu24j5omOLP+UtmLmB44WCnzZCuU4wW6Z4Vb/xjUO6wgi085yc
-	 iw7gOnQziRuN/b2F31YmlgZy3IeVSJLjfBx9VMqEDduhEftsIFUrS0Uzcp1/q0nCHb
-	 rsbaZsKjD+vYQ==
+	bh=NcdLhXrPcWFclpxrmSESajR2JcjuoXQBKnYxQjejsnA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=EoIy7SYy7TReY3J5YTlR5jYja/iaG6Mwaa6QZXu1CFAdXb4vEg2TaHbSJ3IBtqBCC
+	 gwaNnvVH85nNf96sHNsNC87t6jp3+uSPna/9TJH++1305eBEdWF4RwNn8YSEA9iZRW
+	 FhDy3SZrDG8ppHtwX2ubS7YxsxEJM4NA1l9fsedEucnh/HxeUPAkBjxdrbGkd5qMxh
+	 XXdvY+MDkLBwPB8ZzHtnZHST2nfCmKPtYSARWpcfGhJpg1k06LzFc15HY6L7ooO7va
+	 PMYU88/QvJ24NixEBzzwzX3FxRWNXXNwnWaKVeoOYnvsJYXKiLnnahs2UEqUwY3EJg
+	 eZJXLP++IWp5g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6659CD4F26;
-	Fri, 26 Jun 2026 05:39:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B29BCD4F26;
+	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v9 0/3] Add Amlogic general DMA
-Date: Fri, 26 Jun 2026 05:39:32 +0000
-Message-Id: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
+Date: Fri, 26 Jun 2026 05:39:35 +0000
+Subject: [PATCH v9 3/3] MAINTAINERS: Add an entry for Amlogic DMA driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,13 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJQQPmoC/23QTU7EMAwF4KuMsqaoduykYcU9EIs0cWci0SlqU
- QUa9e6kI0b9Y/kSfc+Wb2qQPsmgXk431cuYhtRdc3BPJxUu/nqWIsWcFZbIgMCFbz+6cwpFbH1
- hHVkbOUQ0pLL47KVJ3/e2t/ecL2n46vqfe/kI8+ujx2x6RijKQrBywlac8fb17/c5dK2am0Z8a
- FMC2q3GrImRo0YbLcWj1ovGcjdbZ82mqV3DTiLiUdNK72dT1g2ykAESV/+zOS9al7TVnLX3xDo
- CNZH0UZu1dlttsjZak4uo60j1UduVxt1sO29e1Q5EwGGAo64WzQhbXWVdmRAwiCOg3dWmafoFE
- uGPSloCAAA=
-X-Change-ID: 20251215-amlogic-dma-79477d5cd264
+Message-Id: <20260626-amlogic-dma-v9-3-558d672c4a95@amlogic.com>
+References: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
+In-Reply-To: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
 To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
@@ -54,15 +50,13 @@ To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
  Frank Li <Frank.Li@kernel.org>
 Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Frank Li <Frank.Li@nxp.com>
+ linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782452375; l=2825;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782452375; l=791;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=g+qv6yDnSKfM5Y35nL+/IDMuJ04Lv9xK2LZVXVlDSpQ=;
- b=mDnEzc5cmYQ9D1pqlFBAkvAS8wOrutsoF7kY2et9MK1iAJabMWCZVNZIbjhzSpi3V8fp5/MLV
- jKtI/Okrw1uAvN0i5dlShGgHVXY9ex4goTEgkU2w1tnPkjaRGLq1/2K
+ bh=9xq7fFe8x3ZtUEb/et7K+dc4J+CzRRN9hABeSR7Mhcs=;
+ b=jnBSFaFUL3etwpsY/Wr6LF3PZiABq7WhroaraCMNyOV14BGIg8jl7jhw3OfsroNWKdJGehgAK
+ GUqr4CA/iYzAF7n2XRN+Oe3W37jM9/4hgu9K2nXNC847qsaqeUE/oFY
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -70,72 +64,36 @@ X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
 X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 Reply-To: xianwei.zhao@amlogic.com
 
-Add DMA driver and bindigns for the Amlogic SoCs.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+Add Amlogic DMA controller entry to MAINTAINERS to clarify
+the maintainers.
 
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v9:
-- Use each transmission request sg_link mem instead of the loop mem get.
-- Fix some hidden issues which reviewed by ai robot.
-- Link to v8: https://lore.kernel.org/r/20260521-amlogic-dma-v8-0-86cc2ce94142@amlogic.com
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Changes in v8:
-- Use kzalloc instead of kmalloc.
-- Initialize the temporary variable and fix a spelling mistake.
-- Link to v7: https://lore.kernel.org/r/20260324-amlogic-dma-v7-0-f8b91ee192c1@amlogic.com
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3e7b2d9e9c24..b4ef8d3f52cb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1307,6 +1307,13 @@ F:	Documentation/devicetree/bindings/perf/amlogic,g12-ddr-pmu.yaml
+ F:	drivers/perf/amlogic/
+ F:	include/soc/amlogic/
+ 
++AMLOGIC DMA DRIVER
++M:	Xianwei Zhao <xianwei.zhao@amlogic.com>
++L:	linux-amlogic@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
++F:	drivers/dma/amlogic-dma.c
++
+ AMLOGIC ISP DRIVER
+ M:	Keke Li <keke.li@amlogic.com>
+ L:	linux-media@vger.kernel.org
 
-Changes in v7:
-- Take use vchan to support mltiple txns.
-- Link to v6: https://lore.kernel.org/r/20260309-amlogic-dma-v6-0-63349d23bd4b@amlogic.com
-
-Changes in v6:
-- Some minor modifications according to Frank's suggestion.
-- Link to v5: https://lore.kernel.org/r/20260304-amlogic-dma-v5-0-aa453d14fd43@amlogic.com
-
-Changes in v5:
-- Rename head file and rename macro definition.
-- Rename the subject in [2/3] from "dma" to "dmaengine".
-- Link to v4: https://lore.kernel.org/r/20260227-amlogic-dma-v4-0-f25e4614e9b7@amlogic.com
-
-Changes in v4:
-- Support split transfer when data len > MAX_LEN.
-- When a module fails or exits, perform de-initialization.
-- Some other minor modifications.
-- Link to v3: https://lore.kernel.org/r/20260206-amlogic-dma-v3-0-56fb9f59ed22@amlogic.com
-
-Changes in v3:
-- Adjust the format of binding according to Frank's suggestion.
-- Some code format modified according to Frank's suggestion.
-- Support one prep_sg and one submit, drop multi prep_sg and one submit.
-- Keep pre state when resume from pause status.
-- Link to v2: https://lore.kernel.org/r/20260127-amlogic-dma-v2-0-4525d327d74d@amlogic.com
-
-Changes in v2:
-- Introduce what the DMA is used for in the A9 SoC.
-- Some minor modifications were made according to Krzysztof's suggestions.
-- Some modifications were made according to Neil's suggestions.
-- Fix a build error.
-- Link to v1: https://lore.kernel.org/r/20251216-amlogic-dma-v1-0-e289e57e96a7@amlogic.com
-
----
-Xianwei Zhao (3):
-      dt-bindings: dma: Add Amlogic A9 SoC DMA
-      dmaengine: amlogic: Add general DMA driver for A9
-      MAINTAINERS: Add an entry for Amlogic DMA driver
-
- .../devicetree/bindings/dma/amlogic,a9-dma.yaml    |  65 ++
- MAINTAINERS                                        |   7 +
- drivers/dma/Kconfig                                |  10 +
- drivers/dma/Makefile                               |   1 +
- drivers/dma/amlogic-dma.c                          | 708 +++++++++++++++++++++
- include/dt-bindings/dma/amlogic,a9-dma.h           |   8 +
- 6 files changed, 799 insertions(+)
----
-base-commit: 4e01d2f7809240ed63a44889386635921c0627b1
-change-id: 20251215-amlogic-dma-79477d5cd264
-
-Best regards,
 -- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
+2.52.0
 
 
