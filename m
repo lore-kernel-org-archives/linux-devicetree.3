@@ -1,150 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB2526ED46
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 04:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB89C19DF6A
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 04:31:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782447956; cv=none; b=bwsT4wrLoZNFRijycJUREkPI3dGLuRlYBC35/tVUpT+AuY7Kq6pWieTE2WgRjOPxYZwsX+tcpq8Rz5mh4/ATHjxhM1GjytHu++lKN+8yWbyC/kougshPRwcfCI6ncFO5pXA+o4VRLWeOOmru1w3CpYOPvyUSIxZWs1IlDAB0HDQ=
+	t=1782448286; cv=none; b=RDfeyMUva1QZmo2FMOOFOZU331Q9xK6+lD1czGJMbIuXqp/Pin2245OHAV9zwvx6nF5GV5I+6sTbq2SDYl2X5T2zt7HJexRcte/Ix2EGSJnd2067M6fYj46S4Nz0IrFqHEuWFgL/cUIXJGtr4dGHo6ag/748S4dCB3lQdpi8LjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782447956; c=relaxed/simple;
-	bh=+0lS2EMi+0h9VBI8PrlkyfQqBXQ7AVOLeURGL8w6XYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EQqfbZTSlBTdaEBi6/p3DI+hfw0uJZeVbdgd+OQvhbzSiYka0npf+o8XHEAsFQlKGppHATpBpzd70W6powobufBtMf+EnGdkwPMz+yS/Q7WVBuVYW7tM34FE4DcNf2jbm99zM6jm4yroMSsD6tBLF65uciRq5MH7XJE3SNTk/6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qc8/OqhU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782448286; c=relaxed/simple;
+	bh=y2auVWcawMrbOSoghorxkbP/qI7W/N7IIQHScuulCc4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VkMEVUeSUR0upSTCND3iRJfk0krcjCBArUlpNXNr8P0K8D19vhuXDP/wZuCkeTkjM5T8s6M98y7s2XKgX/6fmU8+gXicWk84c6wbQi27LNr5Kkt1O5FF/ZCyncj4SxFzeBnKbHx+6D9JrEjCs5OecGJfcAc/gkp4Bwz4j1yiZ0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdnl2Ke3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qc8/OqhU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3571F00A3A;
-	Fri, 26 Jun 2026 04:25:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdnl2Ke3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4489B1F000E9;
+	Fri, 26 Jun 2026 04:31:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782447955;
-	bh=qBzUdJfd68dmIuSeaZwHcyasI9FppIw8BdvAOxDiPDY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qc8/OqhUBCEghgZsES/PikaoV8UZ5+8+UWYIjvShOEFeQ6UJoUVyrrvn7RAxRCtn/
-	 xaXeHhLB92EQL6XR5wsHMZxFZyPSrmG53MxJxILirD4KN8r2uIOo1GhsjLlu4UO0U5
-	 XoucDMt32VybKQtiK6bhouUvcK/PkgW/tf/ISjXrPrHcDmhzRvdXCMkw7gg9du78wC
-	 b9ccQVopuqL/WbVamlioB5zxITWu/tpHVM/kuh7nLXhVyGARj4z1zRevoc//Hgefv4
-	 2DA06/OYUqlVwxGTYx27wdWfT85aWiro3t+MRHljhn+zgp9jL0kkP9PIEC6bqFEY6D
-	 ESTXaHv9Q33FQ==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dinguyen@kernel.org,
-	devicetree@vger.kernel.org,
-	muhammad.nazim.amirul.nazle.asmade@altera.com
-Subject: [PATCH 2/2] arm64: dts: socfpga: agilex5: update channel interrupts for gmac1 and gmac2
-Date: Thu, 25 Jun 2026 23:25:41 -0500
-Message-ID: <20260626042541.1091774-2-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+	s=k20260515; t=1782448285;
+	bh=lK/IRIbtone83s70qz282fKMVrdG8N+Vysz2/y0ZYiU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hdnl2Ke3UzTHKuX3Kxtl+dSD5GU+L7qKwrVMh8OeRnhHh2QQj/MTXH8+/zlvQTA2B
+	 Gridq8lwy2+4lNUXXaTgM1sG0pEp/LoHCVQXxZ3tRIma+YjqRLRDWKf33aTBS+kMro
+	 q3uLlU68EuPen8yB2OCt0Xs+a5rofFyhW3fyOx53fhfsaUPCiAUATLxJIPMoHNAW3a
+	 q+ExTPxSZTiRq1a9d8XHJMuekJyCwu6iRaL2wEb4Wb9vSmztEAXG5xIu7DN7gbX1QS
+	 y94ynuFVX8iasqovj6+j8uOOQumPQW3h1kNx6o1IVHywHbGvXid+FQ4rSj3axvsW+F
+	 MJfLOYBr9LtxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: net: altr,socfpga-stmmac: add more
+ interrupts for Agilex5
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
 In-Reply-To: <20260626042541.1091774-1-dinguyen@kernel.org>
 References: <20260626042541.1091774-1-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 04:31:24 +0000
+Message-Id: <20260626043125.4489B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Populate the gmac1 and gmac2 interrupt list to support 8 TX/RX queue
-pairs.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removing the top-level constraints for `interrupts` and `interru=
+pt-names` without restoring them in the `else` block allows older variants =
+to incorrectly pass schema validation with up to 17 interrupts.
+--
 
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
----
- .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 72 +++++++++++++++++--
- 1 file changed, 68 insertions(+), 4 deletions(-)
+commit b9bb703e842480b5efde889d362af4d3e53520cb
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-index 2096decb5655..f54767d1526e 100644
---- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-+++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-@@ -702,8 +702,40 @@ gmac1: ethernet@10820000 {
- 			compatible = "altr,socfpga-stmmac-agilex5",
- 				     "snps,dwxgmac-2.10";
- 			reg = <0x10820000 0x3500>;
--			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "macirq";
-+			interrupts = <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 210 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 211 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 212 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 213 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 215 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 216 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 217 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 218 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 221 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq",
-+					  "tx-queue-0",
-+					  "tx-queue-1",
-+					  "tx-queue-2",
-+					  "tx-queue-3",
-+					  "tx-queue-4",
-+					  "tx-queue-5",
-+					  "tx-queue-6",
-+					  "tx-queue-7",
-+					  "rx-queue-0",
-+					  "rx-queue-1",
-+					  "rx-queue-2",
-+					  "rx-queue-3",
-+					  "rx-queue-4",
-+					  "rx-queue-5",
-+					  "rx-queue-6",
-+					  "rx-queue-7";
- 			resets = <&rst EMAC1_RESET>, <&rst EMAC1_OCP_RESET>;
- 			reset-names = "stmmaceth", "ahb";
- 			clocks = <&clkmgr AGILEX5_EMAC1_CLK>,
-@@ -816,8 +848,40 @@ gmac2: ethernet@10830000 {
- 			compatible = "altr,socfpga-stmmac-agilex5",
- 				     "snps,dwxgmac-2.10";
- 			reg = <0x10830000 0x3500>;
--			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "macirq";
-+			interrupts = <GIC_SPI 224 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 225 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 226 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 227 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 228 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 229 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 230 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 231 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 232 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 233 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 234 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 235 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 236 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 237 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 238 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 240 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq",
-+					  "tx-queue-0",
-+					  "tx-queue-1",
-+					  "tx-queue-2",
-+					  "tx-queue-3",
-+					  "tx-queue-4",
-+					  "tx-queue-5",
-+					  "tx-queue-6",
-+					  "tx-queue-7",
-+					  "rx-queue-0",
-+					  "rx-queue-1",
-+					  "rx-queue-2",
-+					  "rx-queue-3",
-+					  "rx-queue-4",
-+					  "rx-queue-5",
-+					  "rx-queue-6",
-+					  "rx-queue-7";
- 			resets = <&rst EMAC2_RESET>, <&rst EMAC2_OCP_RESET>;
- 			reset-names = "stmmaceth", "ahb";
- 			clocks = <&clkmgr AGILEX5_EMAC2_CLK>,
--- 
-2.42.0.411.g813d9a9188
+dt-bindings: net: altr,socfpga-stmmac: add more interrupts for Agilex5
 
+The stmmac hardware on Agilex5 supports 8 TX/RX queue pairs and is
+dma-coherent. This commit updates the schema to handle the hardware
+differences between SoC variants.
+
+> diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.ya=
+ml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> index fc445ad5a1f1a..9bae17688992c 100644
+> --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+[ ... ]
+> @@ -62,12 +62,28 @@ properties:
+>        - const: stmmaceth
+>        - const: ptp_ref
+> =20
+> -  interrupts:
+> -    maxItems: 1
+> -
+>    interrupt-names:
+[ ... ]
+> @@ -149,10 +165,35 @@ required:
+[ ... ]
+>  allOf:
+>    - $ref: snps,dwmac.yaml#
+> =20
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: altr,socfpga-stmmac-agilex5
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 17
+> +          maxItems: 17
+> +
+> +        interrupt-names:
+> +          minItems: 17
+> +          maxItems: 17
+> +
+> +        dma-coherent: true
+> +    else:
+> +      properties:
+> +        interrupts:
+> +          minItems: 1
+
+[Severity: Medium]
+Does this missing maxItems constraint allow older variants to incorrectly p=
+ass
+schema validation with up to 17 interrupts?
+
+Since the top-level maxItems: 1 constraint was removed for interrupts, this
+else block applies to all non-Agilex5 variants but only enforces minItems: =
+1.
+Because there are no top-level restrictions stopping it, device trees for
+older variants (e.g., altr,socfpga-stmmac-a10-s10) could specify multiple
+interrupts and matching interrupt-names without triggering a schema validat=
+ion
+error.
+
+Should maxItems: 1 for interrupts and a matching constraint for
+interrupt-names be added to this else block to enforce the original strict
+hardware constraints for prior generations?
+
+> +
+> +        dma-coherent: false
+> +
+>  unevaluatedProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626042541.1091=
+774-1-dinguyen@kernel.org?part=3D1
