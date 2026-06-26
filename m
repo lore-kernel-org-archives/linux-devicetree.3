@@ -1,119 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA241A38F9;
-	Fri, 26 Jun 2026 07:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCB23DFC67;
+	Fri, 26 Jun 2026 07:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459229; cv=none; b=l0uodbkP4sAvym64r+GMtDOhxJ2qVc19RLg71Ztc10ZRuJhF9oXebV4n3IU2uS+m6sET4410/PoNb3CkzMzQ3IJAkSTlu2rnMotynrCt1EMA47lf3eKDcH7owvijGEdtU5hDfTfwOUQ8xAu4WlGQ7dXQ9YZgmVr37Ptq7yUSJoM=
+	t=1782459312; cv=none; b=pQdJpjCAMURySKWfb/xvLanRGfN7GHDfBmEbQeCXeage8i9VkF9A42Tho61BsFyuD60ALFYsc/Ut2UmpvDbLXFAGwm6MARv8hcFtbgXQj589YAq75xZAcidx3+BKD51q5g9pw+EUJvTF/n7eBStgSh22pAVGXdwt//5f/7p6qxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459229; c=relaxed/simple;
-	bh=lW+p2Cal7Xhq+sstMYvwv6chLXX13iYKFCmZvZLERRk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JeCP3mYDcnIEkkbTf5Op7SmPwdGYfC8IZIRyxtpXk27JsDvBl9r7BC1sFqk3DjmuuoNZlW6ToxhJtCNN/w5ODgYTt+uvZ9wXBu3yeQDuQV40wJ54Bqq2n/PvJiaIgyiII2y3DWOpHLVeS1uMFlH6AAHaYM9mauprys7jX5vsQrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XCdtfPLM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782459312; c=relaxed/simple;
+	bh=9/ZQNCq5gJY87Vlwivg99tckbQQbIWZpKEao6SW3Wus=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l72b8jh5BhNWlkIQA1XLTI+B92uzNRC1gxKVvEIgFXQbyRTbKemzl3LJAEfWTibcqBXDQioZfkACjsmI960FY6BL/+It3UbTkTblETR5dFQcvLOXxMkHuwnBfMu8eMEYo3wBBq0C6AgSDkNpixHh/WSFpHrSDL1UY29ACt/WmOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yoxMlw4U; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MsbnVEMz; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XCdtfPLM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A06981F000E9;
-	Fri, 26 Jun 2026 07:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782459228;
-	bh=QuZMAPYC0lgspTtATGsB7X2yRAXLMjuKJuMfZ8w4xbM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XCdtfPLM4BRuMkhyGTURTXQeL9X6wtCFPbIFJH1lER6I342SOVxwukgfyOGWtKvpX
-	 aW4qvLW2w9VRMkk62jtGDxtYGHfg5vR6KE+/EnfcG2wf2msfWzMGQDTANG+fwuFtex
-	 Oeg2kARBwFJCKOC9U9qYa0nDkBEpVUjFLbNMxTZDKQ+0B04u4iOiEf02S6OVgWS4qL
-	 X8AjktY2OSusmhdhUSJ6z/Lynw0bjiSkfATTGYtMxJm/AcP1/SRo+O44cI2+ONBS8H
-	 3sIgbeOJU4jg2zPVJmSe5FctFozKk6OuALtkGS57AlqOnHR1H/4arlOM05G5SliOfO
-	 082NpQXDrp1Bg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 9/9] hwmon: adm1275: Support ROHM BD12790
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Matti Vaittinen" <matti.vaittinen@linux.dev>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <b209c1b47712b69f17b52cfd7a7a38ed76024ca7.1782458224.git.mazziesaccount@gmail.com>
-References: <cover.1782458224.git.mazziesaccount@gmail.com>
- <b209c1b47712b69f17b52cfd7a7a38ed76024ca7.1782458224.git.mazziesaccount@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 07:33:47 +0000
-Message-Id: <20260626073347.A06981F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yoxMlw4U";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MsbnVEMz"
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1782459309;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W1nXhp9uh5yT71pzm6kmUN3rkr3k2dVlUOP+VY4lLpU=;
+	b=yoxMlw4Uc6+g/Z/qA56yYQU4zmwvgSrC4C0ABFcNvfTPKCd3rBgTDshLxB4mmeIZFNavdn
+	rs3eC6aUbBlisRu045pTI392nRdFpgd+rwy8K/hua7H6h5V10bRuzS7PJd6dlhPRZ7X3Tl
+	CL0Y8DkmSoSzZk4M1I2+fH2HzQm8cQ0DXUe0IIdoWmUje9hEdmC87wBh+OOQqWiVUTzPYC
+	wLiGJ3Jtnr/Ha5mw5c+zCw2YDBj6/5avm1iqBWgi2zXd1Fyj1dzlIq3GeW8cIzakolfPHb
+	lmPvkUcx/z5maX58w0hmGOg8TDp4s4Ssdnh84JyAp2LkDgbIOQ1LYwuenoH8bA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1782459309;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W1nXhp9uh5yT71pzm6kmUN3rkr3k2dVlUOP+VY4lLpU=;
+	b=MsbnVEMzdVCCp+HzzBz7dHAEoCSH7cKLW8aSYsPvOqQ6jrEI/989h2nFDvJYtAyDbTYdka
+	3AsGdKknZmukUtBg==
+Date: Fri, 26 Jun 2026 09:35:05 +0200
+Subject: [PATCH 2/4] dt-bindings: raspberrypi,bcm2835-firmware: Include
+ 'reboot-mode.yaml'
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260626-rpi-tryboot-v1-2-490b1c4c4970@linutronix.de>
+References: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
+In-Reply-To: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
+ Stefan Wahren <wahrenst@gmx.net>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782459308; l=1100;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=9/ZQNCq5gJY87Vlwivg99tckbQQbIWZpKEao6SW3Wus=;
+ b=lBV1L5rIbQd4Ur3y9gSNPOEuOD160vmFYq7f3X+nbyfbIw889R1ezfKZQFu8IVU2p5cnAMMnx
+ r8HCUANasTPABneSf2L9NO+q8borCQih6yctV0EjZCQb6G75qtXyBT1
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The mathematical formula documented in the comment for computing th=
-e power coefficient contradicts the actual mathematically correct implement=
-ation in the code.
---
+The Raspberry Pi firmware allows to set a reboot mode called tryboot
+that allows to try booting from a different partition to allow updating
+of the boot partition. Allow reboot mode properties by referencing the
+reboot-mode schema.
 
-commit 7dff114234776369f1046124af65696c292fcd41
-Author: Matti Vaittinen <mazziesaccount@gmail.com>
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+---
+ .../devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml    | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-hwmon: adm1275: Support ROHM BD12790
+diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+index 983ea80eaec97..30b490e0d9fb3 100644
+--- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
++++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+@@ -133,11 +133,14 @@ properties:
+     required:
+       - compatible
+ 
++allOf:
++  - $ref: /schemas/power/reset/reboot-mode.yaml#
++
+ required:
+   - compatible
+   - mboxes
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 
-This commit adds support for the ROHM BD12790 hot-swap controller to the
-adm1275 driver. It introduces a dedicated coefficient table for the new
-device based on its voltage and current-sense ranges.
+-- 
+2.47.3
 
-> diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
-> index 81c50fab7687b..406b448523769 100644
-> --- a/drivers/hwmon/pmbus/adm1275.c
-> +++ b/drivers/hwmon/pmbus/adm1275.c
-
-[ ... ]
-
-> @@ -136,6 +136,30 @@ static const struct coefficients adm1272_coefficient=
-s[] =3D {
-> =20
->  };
-> =20
-> +/*
-> + * BD12790 coefficients derived from preliminary datasheet, Table 1 (p.1=
-8)
-> + * and the PMBus direct-format relationship X =3D (Y * 10^(-R) - b) / m.
-> + *
-> + * Voltage: V[V] =3D 14.77e-3 * code (60V) / 24.62e-3 * code (100V)
-> + *   -> m =3D 6770, R=3D-2 / m =3D 4062, R=3D-2
-> + * Current: code =3D I[A] * RS * 132802.1 + 2048 (15mV) / * 66401.06 + 2=
-048 (30mV)
-> + *   -> m =3D 1328, b =3D 2048 * 10^(-R) =3D 20480, R=3D-1 / m =3D 664, =
-same b and R
-> + * Power: code =3D k * RS * PIN, k =3D 35119.94 / 17559.97 / 21071.44 / =
-10535.72
-> + *   -> m =3D round(k / 10^(-3-R)), R=3D-2 for 60V/15mV, R=3D-3 for the =
-other three
-
-[Severity: Low]
-This isn't a bug, but does the formula in this comment correctly document
-how the power coefficients are calculated?
-
-If we evaluate m =3D round(k / 10^(-3-R)) for a value of R=3D-2 and k=3D351=
-19.94,
-it yields 351199.4. However, the actual code below correctly implements the
-value as 3512, which implies the formula should use multiplication rather
-than division.
-
-> + * Temperature: code =3D 4.2 * T + 3188 -> m =3D 42, b =3D 3188 * 10 =3D=
- 31880, R=3D-1
-> + */
-> +static const struct coefficients bd12790_coefficients[] =3D {
-> +	[0] =3D { 6770, 0, -2 },		/* voltage, vrange 60V */
-> +	[1] =3D { 4062, 0, -2 },		/* voltage, vrange 100V */
-> +	[2] =3D { 1328, 20480, -1 },	/* current, vsense range 15mV */
-> +	[3] =3D { 664, 20480, -1 },	/* current, vsense range 30mV */
-> +	[4] =3D { 3512, 0, -2 },		/* power, vrange 60V, irange 15mV */
-> +	[5] =3D { 21071, 0, -3 },		/* power, vrange 100V, irange 15mV */
-> +	[6] =3D { 17560, 0, -3 },		/* power, vrange 60V, irange 30mV */
-> +	[7] =3D { 10536, 0, -3 },		/* power, vrange 100V, irange 30mV */
-> +	[8] =3D { 42, 31880, -1 },	/* temperature */
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1782458224.gi=
-t.mazziesaccount@gmail.com?part=3D9
