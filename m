@@ -1,161 +1,299 @@
-Received: from sender-op-o11.zoho.in (sender-op-o11.zoho.in [103.117.158.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECEE3EB0E6
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782467525; cv=pass; b=FEUNBYj3WaMdji1xGD/VPWRInQ1QvmKX7QpOZlw6kwIe9KALuAXIFpSrtBsJm/EX/dIOm2011pXZG/wmz5J0mfuRBxwxXyBgfwCqhCfV38YfVd1C4nYnyExJKpNmVP5yfTubAHQBRgrzqEoUSWTtn8MEQSa/f75T6qighc5X7zI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782467525; c=relaxed/simple;
-	bh=VV1ECIiTGBJeT4pimv/oANtMZNOmdEG0BsS8lZxXOYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hmp/jAttefpgp7sE5u4G7tmQhgmLzY6w2GS++aGRyi1ZmbO4cpXRYHxXRmmBhEnStTl7bgHjzPbPFNUiiT5VFg/Y4krdGigDd98etH3Z4+zTh+ittd8AGVmrWQnT3hkKCIwkRnRju6r6ULUS+ByxYSfwLjppgGyeuc5O3oSj0IA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebhu.com; spf=pass smtp.mailfrom=rebhu.com; dkim=pass (1024-bit key) header.d=rebhu.com header.i=shubham@rebhu.com header.b=rgjH7fgq; arc=pass smtp.client-ip=103.117.158.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebhu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rebhu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD88B3E559A;
+	Fri, 26 Jun 2026 09:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782467586; cv=none; b=ti5czfV7YDi/FVEnfmiiKVJ/alyQzibG/NstXjfxGDs/XFl36TFBmEWlRul1lbV/zALy2gu6fMUfJrnrpZJ2uSqgTqpvfOFvMaUsFjnQijGv2c4tHe6pdcRQqWEBT3s1lOw85L04bGCdGP+TF+Fo/UXr2jVYfkiffb06S9IryCg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782467586; c=relaxed/simple;
+	bh=mF9ZFy0cEoTG34C5BHSciatRZsqsu5lrrtwbbjEkEF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AtGF1B5U/mwzr0uVpLqv6ZARh4rhCAmrU5f3bI712hoiogTwzzDezvsDe+2tmairTUqdLrOnFvICoc21pz4e0UcTuzqfpUr7ox0sLXAfR/pYUHwkEQbVRKpCJcNsWhv3aMhKv2Y3paP3ZCqNDlplNX41Kssow3nyb+ZV/W0qK5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKpzEiAK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rebhu.com header.i=shubham@rebhu.com header.b="rgjH7fgq"
-ARC-Seal: i=1; a=rsa-sha256; t=1782467420; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=RmUS6VC7km4sAsheGaE+ETBO5oS5aEH3fyaG7G5XXqDm6F/nVQXeqA1+ozTMeVgDMeWJLnCpoXpafGaTvClsKckdqSQvPyYAWyPKqg9sALGq5vR5bWvqPRiCrugMYQgX7eqn89vVD4mYbsajEg4UgOFzQ3peVPwGd48hXs7g+PI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1782467420; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=; 
-	b=H0ln0DFzGyDl1PwJVQeaqazdV4RPBFG94KffCC5PSOsSHdNJA3xdkNF86TY1PlzeYO0q9gEsKiu2sXhUPgVWtaHdG2cpZB5GST/zMRVfwnxzNxNpFolNbc2y5RiXfc/tqKr+G3WYG/p7lF8LEEKUsiyKdbCBp/f0CbiXpZ5wz3g=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=rebhu.com;
-	spf=pass  smtp.mailfrom=shubham@rebhu.com;
-	dmarc=pass header.from=<shubham@rebhu.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782467420;
-	s=zmail; d=rebhu.com; i=shubham@rebhu.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=sET9CEszVQFsTQEBjINbwDd749FE6ul7+R4eIg2DXlM=;
-	b=rgjH7fgq2WWXDhMRgQ7nf556xTWh9TOcZXvObvzfQS/RHC/8i47lyXDxJoWnCtlr
-	JcEgRfDQvSj+iRbzKGAVR1BCp3Q/oYfzoZ/zdAzMKHWWprmq+yURG0Aw6G0yTEMkeAZ
-	6AXj2FxvOsFtLsTFwWnWOU6ikQbtdLBdcvC77Jzk=
-Received: by mx.zoho.in with SMTPS id 1782467418005855.6222380842893;
-	Fri, 26 Jun 2026 15:20:18 +0530 (IST)
-From: Shubham <shubham@rebhu.com>
-To: tomi.valkeinen@ideasonboard.com
-Cc: a-bhatia1@ti.com,
-	afd@ti.com,
-	airlied@gmail.com,
-	aradhya.bhatia@linux.dev,
-	conor+dt@kernel.org,
-	devarsht@ti.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	j-choudhary@ti.com,
-	krzk+dt@kernel.org,
-	lee@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	louis.chauvet@bootlin.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	nm@ti.com,
-	robertcnelson@gmail.com,
-	robh@kernel.org,
-	s-jain1@ti.com,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	vigneshr@ti.com
-Subject: Re: [PATCH v3 00/15] drm/tidss: Add BeagleY-AI display support (and some more)
-Date: Fri, 26 Jun 2026 15:19:56 +0530
-Message-ID: <20260626094956.243978-1-shubham@rebhu.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKpzEiAK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1471F000E9;
+	Fri, 26 Jun 2026 09:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782467584;
+	bh=BwhGw1glQpujHGTnmhunMAkIlX1zQ8yXGqHL7ZYe3QM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PKpzEiAK9vUXQoeKThpOlrGvnekM24IDguR+/Qi/Frqsmmm4ssDm3TfVbCET2B4bR
+	 uEhiGnlHT9nV1LsKyMhbdHf1AVwKcPRK0yhqUo5ISXI9mtqGiNZbFqgs0NVWaNSDNp
+	 FvhKixJAqrSXlSWn4349D38RjQgqQtp2acRM7K+TY/dkbzPO0NYDwivVtXgNGcd5OS
+	 1GU2NP6ejneQUMKgQUhYU26aX5MgDIIxL/WTiGSqiaZ5vIwfh43JmJuHTnDeDjUDDZ
+	 ecJRVsIr9Fucye1r7cCDFE7Gu5bB9iJNztMwcTaBSny+C0iDfZdNjJDqZm9O03Fnv/
+	 wgAByXz31nf3w==
+Date: Fri, 26 Jun 2026 11:53:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <20260626-hopping-savvy-seagull-cc9626@houat>
+References: <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+ <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+ <20260626-zippy-affable-hamster-22101d@houat>
+ <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
+ <20260626-flawless-axiomatic-slug-c480c9@houat>
+ <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
+ <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
+ <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
+ <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="muia4nl7v6z733kr"
+Content-Disposition: inline
+In-Reply-To: <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
 
-Hi Tomi,
 
-A big update on the Raspberry Pi Touch Display 2 (5-inch, native ILI9881C
-MIPI-DSI, 720x1280, 2 lanes) bring-up on BeagleY-AI (AM67A/J722S), still on
-Robert's v7.0.x-arm64-k3 tree (7.0.11-arm64-k3-r20): tidss + cdns-dsi +
-cdns-dphy, DSS = ti,am62p-dss (dispc_am625_feats).
+--muia4nl7v6z733kr
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+MIME-Version: 1.0
 
-The earlier "tidss comes up before the DSI bridge is added" problem is
-resolved (cdns-dsi now adds its input bridge in probe, so tidss attaches it),
-and after fixing two more issues the panel is now alive -- but I'm stuck on
-one last step and would value your read.
+On Fri, Jun 26, 2026 at 05:45:08PM +0800, Sunyun Yang wrote:
+> Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
+=97=A5=E5=91=A8=E4=BA=94 17:31=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > On Fri, Jun 26, 2026 at 05:05:38PM +0800, Sunyun Yang wrote:
+> > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
+=E6=97=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > >
+> > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
+26=E6=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
+> > > > >
+> > > > > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
+> > > > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8826=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > >
+> > > > > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
+> > > > > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=
+=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > > >
+> > > > > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
+> > > > > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B4=
+6=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > > > >>
+> > > > > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
+=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > > > > > > > > >>>
+> > > > > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> > > > > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=
+=E5=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=
+=BC=9A
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> > > > > > > > > >>>>>> +
+> > > > > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> > > > > > > > > >>>>>> +{
+> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
+, 1);
+> > > > > > > > > >>>>>> +     msleep(20);
+> > > > > > > > > >>>>>> +
+> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
+, 0);
+> > > > > > > > > >>>>>> +     msleep(20);
+> > > > > > > > > >>>>>> +
+> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
+, 1);
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>>> This is just plain wrong. Why do you assert, then d=
+e-assert and then
+> > > > > > > > > >>>>> finally assert AGAIN the reset leaving the device i=
+n powerdown stage?
+> > > > > > > > > >>>>>
+> > > > > > > > > >>>> I am using software to emulate the hardware RESET bu=
+tton on our EVB.
+> > > > > > > > > >>>> When the hardware RESET button is pressed while our =
+chip is running,
+> > > > > > > > > >>>> the signal level changes from HIGH to LOW and then b=
+ack to HIGH.
+> > > > > > > > > >>>>
+> > > > > > > > > >>>> Of course, we can also use the following:
+> > > > > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> > > > > > > > > >>>> {
+> > > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > > > > > > > > >>>>     msleep(50);
+> > > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > > > > > > > > >>>>     msleep(20);
+> > > > > > > > > >>>> }
+> > > > > > > > > >>>
+> > > > > > > > > >>> Makes no sense either and you just did not get the po=
+int and did not
+> > > > > > > > > >>> answer my question. I asked WHY you leave asserted. A=
+nswer "we emulate"
+> > > > > > > > > >>> is just plain wrong.
+> > > > > > > > > >>>
+> > > > > > > > > >>> So again please answer:
+> > > > > > > > > >>>
+> > > > > > > > > >>> Why do you leave device with reset asserted?
+> > > > > > > > > >>>
+> > > > > > > > > >>
+> > > > > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_=
+HIGH>;
+> > > > > > > > > >>
+> > > > > > > > > >> GPIO_ACTIVE_HIGH:
+> > > > > > > > > >>
+> > > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   --=
+----   reset pin
+> > > > > > > > > >> is Low level : Clear the register configuration in the=
+ chip to stop
+> > > > > > > > > >> the chip from working.
+> > > > > > > > > >>
+> > > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   --=
+----  reset pin
+> > > > > > > > > >> is high level:  The chip resumes operation.
+> > > > > > > > > >>
+> > > > > > > > > >>
+> > > > > > > > > >
+> > > > > > > > > > Our purpose is: pull the level low to clear the registe=
+r configuration
+> > > > > > > > > > in the chip, and then pull it high to allow the MCU ins=
+ide the chip to
+> > > > > > > > > > re=E2=80=91initialize the registers.
+> > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > And you do completely opposite... so that confirms your c=
+ode is just wrong.
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just fo=
+llowing the
+> > > > > > > > rule of this device tree. If I modify the device tree to use
+> > > > > > > > GPIO_ACTIVE_LOW,
+> > > > > > > > and use the following code in my driver, then my driver wou=
+ld be correct.
+> > > > > > > > However, would the existing kernel drivers lontium-lt9611ux=
+c.c and
+> > > > > > > > lontium-lt9611.c be affected?
+> > > > > > >
+> > > > > > > It might, but then it's a DT problem. The GPIO API for driver=
+s always
+> > > > > > > considers the logical state of a GPIO, so if you need to asse=
+rt a
+> > > > > > > signal, you'll always need to set 1. That's what Krzysztof wa=
+s trying to
+> > > > > > > explain.
+> > > > > > >
+> > > > > > > The DT will provide with GPIO_ACTIVE_* how that logical state=
+ translates
+> > > > > > > to a physical GPIO state.
+> > > > > > >
+> > > > > > > If the DT says that this particular GPIO is active-high, then=
+ it means
+> > > > > > > that we need to set the GPIO to 1 to assert reset. Now of cou=
+rse, it
+> > > > > > > might not make sense for the controller itself, but it might =
+for the
+> > > > > > > board if there's a GPIO inverter in the middle for example.
+> > > > > > >
+> > > > > > > Anyway, in the case you're raising, the issue definitely lies=
+ in the DT,
+> > > > > > > and that's what would need to be fixed.
+> > > > > > >
+> > > > > > > I also wouldn't be too concerned about lontium-lt9611.yaml, i=
+t's just an
+> > > > > > > example.
+> > > > > > >
+> > > > > > > Maxime
+> > > > > >
+> > > > > > thanks Maxime, I will modify this code in the next version of t=
+he
+> > > > > > driver, and I hope you can accept these changes.
+> > > > > >
+> > > > > > Maxime:
+> > > > > > I have another question I would like to ask you
+> > > > > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes h=
+as
+> > > > > > opinions that differ from yours, whose advice should I follow?
+> > > > > >
+> > > > > > If I do not adopt sashiko-bot's suggestions, will my patches st=
+ill be
+> > > > > > accepted into the upstream Linux kernel?
+> > > > >
+> > > > > I can't give a blanket answer. It depends on what you ignore exac=
+tly.
+> > > > >
+> > > >
+> > > > Okay, another question: sashiko-bot is an AI bot. Are its review
+> > > > comments optional, or must they be followed?
+> > > >
+> > >
+> > > For example, in my driver, there is a function for upgrading the chip
+> > > firmware. During debugging or production, upgrading the chip firmware
+> > > will acquire a lock, which will block the DRM callback and affect
+> > > display. It will be fine after the upgrade is completed and some
+> > > devices are restarted. As long as there is no subsequent upgrade,
+> > > display can work normally.
+> > >
+> > > From a purely software perspective, the AI bot considered this
+> > > approach unacceptable and proposed synchronizing the pre-upgrade state
+> > > to the DRM framework. From my personal perspective, I think the AI
+> > > bot's suggestion would only make my driver more complex and redundant.
+> > > Do you think I need to adopt the AI bot's suggestion?
+> >
+> > You're right it's wrong, but there's also no reason to allow that
+> > firmware upgrade during the driver lifetime either through a debugfs
+> > file. So you should get rid of the debugfs file and now you won't have
+> > to bother with that comment anymore.
+> >
+> > > In addition, if I follow the AI bot's suggestion, the
+> > > lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
+> > > merged into the upstream Linux kernel would not meet the AI bot's
+> > > requirements.
+> >
+> > Maybe, but it's not relevant either way. These drivers are merged, yours
+> > isn't. Feel free to fix these if you spot any issue though.
+> >
+> > > When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
+> > > sashiko-bot (the AI bot)?
+> >
+> > Again, it depends on the comment. If you feel like one can be ignored,
+> > you should at least argue why.
+> >
+>=20
+> sashiko=E2=80=91bot (AI bot) does not communicate or interact with me.
+> Even if I explain the reasons, the AI bot never replies to me, and it
+> only sends its review comments to me alone.
 
-What is now confirmed working
------------------------------
+Then put it into the cover letter?
 
-  - DSI-1 connector is created, tidss initializes, no probe errors, nothing
-    left in /sys/kernel/debug/devices_deferred.
-  - The panel is ALIVE and initialized: a DCS read of GET_POWER_MODE (0x0A)
-    returns 0x9c (booster on, sleep-out, display-on). So the LP command path
-    over the cdns works and the ILI9881C processed its init sequence.
-  - cdns-dsi looks healthy while a test pattern streams:
-      MCTL_MAIN_STS = 0x0000000F  (PLL_LOCKED + CLK_LANE_RDY + DATA_LANE_RDY 0/1)
-      MCTL_DPHY_ERR = 0x00000000  (no D-PHY errors)
-      VID_MODE_STS  = 0x00000001  (VSG_RUNNING, no error bits)
-      MCTL_LANE_STS -> clock lane in HS
-      VID_MAIN_CTL  = 0x80A0FE00  (RGB888, packed-pixel DT 0x3E)
-      VID_HSIZE2 hact = 2160 (720*3), VID_VSIZE2 vact = 1280
-    cdns-dphy PLL locks (no "Failed to lock PLL").
-  - The DSS is scanning out:
-      modetest -M tidss -s <dsi>@<crtc>:720x1280 -v  ->  steady 60.01 Hz.
+> If I do not make changes according to the AI bot's suggestions, will
+> that affect my driver being merged into the upstream Linux kernel? I
+> would like to know the answer to this question.
 
-(For reference, the two fixes that got the panel this far were: nesting the
-DSS port@1 under the controller's "ports" node in my overlay, and correcting
-the BeagleY-AI MIPI mux OE polarity -- it is active-low, and the data-lane
-mux had been left disabled while i2c still worked through a separate path.)
+I told you twice already.
 
-The problem: cdns data lanes never transmit
--------------------------------------------
+--muia4nl7v6z733kr
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Sampling MCTL_LANE_STS 20000 times while the pattern is actively streaming
-(modetest -v at 60 Hz, from a second session):
+-----BEGIN PGP SIGNATURE-----
 
-  DATA0 states: {'IDLE': 20000}
-  DATA1 states: {'IDLE': 20000}
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5L/QAKCRAnX84Zoj2+
+dqkDAYDnnIkdKdTBNWvR7Q3lZBaQkrzXZ6HovSxKMX1YmTQXRRCsi2Q1uSqSBfWB
+bMWtpewBgPqa6slzgeEqwVTSEh4o0Ey3Pk/rlZy2NNh3UinTcatYIRrWFPmiEZCk
+jo1JJPN2lw==
+=CcaV
+-----END PGP SIGNATURE-----
 
-So the clock lane is in HS and the VSG reports "running", but the data lanes
-are 100% IDLE -- the cdns is in video mode yet never emits pixel packets.
-The DSS VP does not appear to feed the cdns DPI input even though the VP
-timing generator runs at 60 Hz, and the panel (correctly initialized) just
-shows backlight, no image.
-
-What I have ruled out
----------------------
-
-  - Videoport selection: I tried the DSI on DSS port@1 (VP2 = DISPC_VP_DPI)
-    and on DSS port@0 (VP1 = DISPC_VP_INTERNAL). Identical result, data lanes
-    IDLE in both.
-  - tidss correctly treats the cdns as internal: the bridge of_node
-    compatible "ti,j721e-dsi" is in tidss_internal_bridge_compatibles[], so
-    dpi_output is false and it does not touch ti,am625-dss-dpi0-clk-ctrl for
-    this videoport.
-  - Overlay/graph: cdns DSI_OUTPUT_PORT=0 (panel) / DSI_INPUT_PORT=1 (DSS)
-    wired accordingly; panel attaches; no -ENODEV; VID timing is correct.
-
-Questions
----------
-
-  1. On AM67A/J722S, what internally connects a DSS video port's DPI to the
-     cdns-dsi DPI input, and is there a clock/enable/routing step (beyond the
-     DT graph and dpi0-clk-ctrl, which tidss skips for the internal path)
-     required for the DSS to actually feed the cdns?
-  2. Which DSS VP is wired to the internal DSI on this SoC (VP1/INTERNAL vs
-     VP2/DPI), and does the DISPC_VP_INTERNAL path need any handling that the
-     DISPC_VP_DPI path does not get?
-  3. Any reason the cdns VSG would report VSG_RUNNING with the clock lane in
-     HS and both data lanes "ready", yet never drive the data lanes (no pixel
-     packets) while the DSS VP is visibly scanning at 60 Hz?
-
-I'm happy to share the full overlay, dmesg and register dumps, and to test
-patches.
-
-Thanks,
-Shubham
+--muia4nl7v6z733kr--
