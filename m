@@ -1,121 +1,276 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454B0389110
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:31:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC23B2877F7;
+	Fri, 26 Jun 2026 09:31:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782466279; cv=none; b=cMWEBJhY/eEdmZaneMbaVOYqFayumvEOVX4hewv93qQKItQUC3WwqgvSGsmwnR3UO2eYNOXZY6JKR/yLmRcts7MFbaAI3H8qsWEa7LPeSuqZjtUbY7iUreFVaR53HiCBb34WP2HXUMHgQ+pvab2aqV0BdSXwxCazfdaxEzhQtC0=
+	t=1782466285; cv=none; b=iIc6Xh43q1uPFKfsd0EVnEHTw8nn4YVUZDWSeUuHN30f2eUZI/2NRJO6kg5eenBh4wom+HZI61hsVW30Q7C6CdYbshXPbMNZ3AxreBs95KSo5rXidC1QZAfNzgVX9trNMu/cNhM/DZuczWuWqFTCORPjpeLYcKU9K5APY70Ciw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782466279; c=relaxed/simple;
-	bh=rpux6yDT16ic0wS3/2Ry77dxAooCngnSjhcLkmuwQiw=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jDvua74U3Ft4OrUVnyjTI3rp4q2MhMSzqGR9chMoThRvTZkmcxWqrspsZoh1jeOg/kvBwpclVslwQd8w8gWw+G5PDy1/dlugy7xMQ1GJ9d30MtX1p74uBUT9IP3s6z49jARBqa6PudT4txjyP+EHYjGju8SdRgB6eS9p8gOobA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDQuGtnw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782466285; c=relaxed/simple;
+	bh=slMOoDEa4K2repnoLdIHmo9NLnW4bYJlydBZ/smmZvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=edfEyf+e649iBW1JeIHyR3PUbjUy/QanCzn/yCQDi/dXjdVbSLet5ad8/KArYflZ7+Umg0q5Ic6hva2W2Y8ISGQzvHq95i38RITIzQzydsj0TW/vQIzVkIzFVC5XlYoJP84jN7EmXluDvRjXgbGrCRUikQEb0X8WgHWGYxfzck4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UbvqnHBS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDQuGtnw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19C41F000E9
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:31:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UbvqnHBS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2904A1F000E9;
+	Fri, 26 Jun 2026 09:31:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782466276;
-	bh=rpux6yDT16ic0wS3/2Ry77dxAooCngnSjhcLkmuwQiw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=hDQuGtnwR3ps3zQIvEb2J6W6uU1Kwq1lxpQ3sWo2Qf925+HiVIxsJ00GCxCkdZyh5
-	 tYDDuCZyfXWLHAT2QlhOEEuAIDCiUPXlfYQY4ZqfNs6zyr+uroZIyz2rSFXDP7ayZL
-	 34Nm+HlcRO3/rgdb+HUlxwn4QBi+JSvp/DR4PjwGTv246nD2VkPiQFmznv3B+HcJi7
-	 +xCUYXceGxhiTbBwA/FlvknLNoxBaUImfFDknasg0z4J0rglUxJlLXbgetH7YHnN+9
-	 hOrTPCDOt0fEg90jHsFsZOB2qXsE6syH545TxXubpADCTFz2sNkHHzoA7jVEB/KXNo
-	 L87aN7E8srVqA==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ad578c49afso711357e87.3
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:31:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr3SmAf5xuSboQGqr/d65CQjLamL/8PmIypQ/i2KtkzAhwsnSOlVzF3Hqk7uwScQ+WNFYI1zON5zstn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxan/5H9eIioSPUSxVQYKtqHI8Jf66BVMz2rV773aB5o5Y+Y2PQ
-	H8AmSjmQ5xXz8FARLWAGzq8EmmIboiZcrYZgOyGgcgeFxhlcf0ORZCWFRTMMqYRVuVElNCNwJmR
-	0BfICHQ25k/OFooB77ios/yOh7sHPtHct9dSr50sLGw==
-X-Received: by 2002:a05:6512:70:b0:5aa:6f89:9378 with SMTP id
- 2adb3069b0e04-5aea1f4cc51mr1390413e87.33.1782466275655; Fri, 26 Jun 2026
- 02:31:15 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 26 Jun 2026 02:31:13 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 26 Jun 2026 02:31:13 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260624-wakeirq_support-v11-1-120fbfaebe59@oss.qualcomm.com>
+	s=k20260515; t=1782466283;
+	bh=yZMzc2D+59qeL+1CYcFEVOT21y4gLjtR6W19ZGAjHTU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UbvqnHBSUBtQzqFvTMaeYBphmCXLHQQmuOmLuyrKgbgv4bXQkefCHDeEbO/BCYNVZ
+	 G3dDXHU4uaZqhWZwtFibHetZhY3QIjuXxr/leBJVaCyett8n/zFWBt8/29H1UXJX59
+	 116mwL5qRCaILWdKYMIBquN1EBMa2hYCrtZryEdKl++uPHuEo2Z/l5uSQfs+cG1R7s
+	 pxOA585DJA3nNjubnRgg10GeW69Fn/1kvzm1sA2FnT7GSO0hK4jWXoBlpYvCJJXo5/
+	 pABUgfzHKzY1tunbuvneSnBbgvTzxvZpTqPkaHy8hqj8VSJWKqE38zcDyiZQ68d2xC
+	 Ountxkw8KtDPg==
+Date: Fri, 26 Jun 2026 11:31:21 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
+References: <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
+ <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+ <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+ <20260626-zippy-affable-hamster-22101d@houat>
+ <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
+ <20260626-flawless-axiomatic-slug-c480c9@houat>
+ <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
+ <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260624-wakeirq_support-v11-1-120fbfaebe59@oss.qualcomm.com>
-Date: Fri, 26 Jun 2026 02:31:13 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MenARGtsG9EhF7zVgcOeQGAYVRZc906j4tBDHQzzsc0hg@mail.gmail.com>
-X-Gm-Features: AVVi8Cf30tKZqffjS3ZAp3xIi5Kv5KtWMy22eC3tfJBlDmG5o9u1ykXsqyuQesk
-Message-ID: <CAMRc=MenARGtsG9EhF7zVgcOeQGAYVRZc906j4tBDHQzzsc0hg@mail.gmail.com>
-Subject: Re: [PATCH v11] PCI: Add support for PCIe WAKE# interrupt
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	quic_vbadigan@quicinc.com, sherry.sun@nxp.com, driver-core@lists.linux.dev, 
-	devicetree@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Bartosz Golaszewski <brgl@bgdev.pl>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="7a6od7fn56ge3tan"
+Content-Disposition: inline
+In-Reply-To: <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
 
-On Wed, 24 Jun 2026 13:25:49 +0200, Krishna Chaitanya Chundru
-<krishna.chundru@oss.qualcomm.com> said:
-> According to the PCI Express specification (PCIe r7.0, Section 5.3.3.2),
-> two link wakeup mechanisms are defined: Beacon and WAKE#. Beacon is a
-> hardware-only mechanism and is invisible to software (PCIe r7.0,
-> Section 4.2.7.8.1). This change adds support for the WAKE# mechanism
-> in the PCI core.
->
-> According to the PCIe specification, multiple WAKE# signals can exist in
-> a system or each component in the hierarchy could share a single WAKE#
-> signal. In configurations involving a PCIe switch, each downstream port
-> (DSP) of the switch may be connected to a separate WAKE# line, allowing
-> each endpoint to signal WAKE# independently. From figure 5.4 in sec
-> 5.3.3.2, WAKE# can also be terminated at the switch itself. Such topologies
-> are typically not described in Device Tree, therefore it is out of scope
-> for this series.
->
-> To support this, the WAKE# should be described in the device tree node of
-> the endpoint/bridge. If all endpoints share a single WAKE# line, then each
-> endpoint node shall describe the same WAKE# signal or a single WAKE# in
-> the Root Port node.
->
-> In pci_device_add(), PCI framework will search for the WAKE# in device
-> node. Once found, register for the wake IRQ through
-> dev_pm_set_dedicated_wake_irq() associates a wakeup IRQ with a device
-> and requests it, but the PM core keeps the IRQ disabled by default. The
-> IRQ is enabled by the PM core, only when the device is permitted to wake
-> the system, i.e. during system suspend and after runtime suspend, and
-> only when device wakeup is enabled.
->
-> If the same WAKE# GPIO is described in multiple device tree nodes, only the
-> first device that successfully registers the wake IRQ will succeed, while
-> subsequent registrations may fail. This limitation does not affect
-> functional correctness, since WAKE# is only used to bring the link to D0,
-> and endpoint-specific wakeup handling is resolved later through
-> PME detection (PME_EN is set in suspend path by PCI core by default).
->
-> When the wake IRQ fires, the wakeirq handler invokes pm_runtime_resume() to
-> bring the device back to an active power state, such as transitioning from
-> D3cold to D0. Once the device is active and the link is usable, the
-> endpoint may generate a PME, which is then handled by the PCI core through
-> PME polling or the PCIe PME service driver to complete the wakeup of the
-> endpoint.
->
-> WAKE# is added in dts schema and merged based on below links.
->
-> Link: https://lore.kernel.org/all/20250515090517.3506772-1-krishna.chundru@oss.qualcomm.com/
-> Link: https://github.com/devicetree-org/dt-schema/pull/170
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
-> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--7a6od7fn56ge3tan
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+MIME-Version: 1.0
+
+On Fri, Jun 26, 2026 at 05:05:38PM +0800, Sunyun Yang wrote:
+> Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=97=
+=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> >
+> > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
+=E6=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
+> > >
+> > > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
+> > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
+26=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
+> > > > >
+> > > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
+> > > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=
+=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > >
+> > > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
+> > > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > >>
+> > > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=
+=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+> > > > > > > >>>
+> > > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> > > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
+=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > > > > > > >>>>>
+> > > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> > > > > > > >>>>>> +
+> > > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> > > > > > > >>>>>> +{
+> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > > > > > > >>>>>> +     msleep(20);
+> > > > > > > >>>>>> +
+> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > > > > > > >>>>>> +     msleep(20);
+> > > > > > > >>>>>> +
+> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > > > > > > >>>>>
+> > > > > > > >>>>> This is just plain wrong. Why do you assert, then de-as=
+sert and then
+> > > > > > > >>>>> finally assert AGAIN the reset leaving the device in po=
+werdown stage?
+> > > > > > > >>>>>
+> > > > > > > >>>> I am using software to emulate the hardware RESET button=
+ on our EVB.
+> > > > > > > >>>> When the hardware RESET button is pressed while our chip=
+ is running,
+> > > > > > > >>>> the signal level changes from HIGH to LOW and then back =
+to HIGH.
+> > > > > > > >>>>
+> > > > > > > >>>> Of course, we can also use the following:
+> > > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> > > > > > > >>>> {
+> > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > > > > > > >>>>     msleep(50);
+> > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > > > > > > >>>>     msleep(20);
+> > > > > > > >>>> }
+> > > > > > > >>>
+> > > > > > > >>> Makes no sense either and you just did not get the point =
+and did not
+> > > > > > > >>> answer my question. I asked WHY you leave asserted. Answe=
+r "we emulate"
+> > > > > > > >>> is just plain wrong.
+> > > > > > > >>>
+> > > > > > > >>> So again please answer:
+> > > > > > > >>>
+> > > > > > > >>> Why do you leave device with reset asserted?
+> > > > > > > >>>
+> > > > > > > >>
+> > > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH=
+>;
+> > > > > > > >>
+> > > > > > > >> GPIO_ACTIVE_HIGH:
+> > > > > > > >>
+> > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------=
+   reset pin
+> > > > > > > >> is Low level : Clear the register configuration in the chi=
+p to stop
+> > > > > > > >> the chip from working.
+> > > > > > > >>
+> > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------=
+  reset pin
+> > > > > > > >> is high level:  The chip resumes operation.
+> > > > > > > >>
+> > > > > > > >>
+> > > > > > > >
+> > > > > > > > Our purpose is: pull the level low to clear the register co=
+nfiguration
+> > > > > > > > in the chip, and then pull it high to allow the MCU inside =
+the chip to
+> > > > > > > > re=E2=80=91initialize the registers.
+> > > > > > >
+> > > > > > >
+> > > > > > > And you do completely opposite... so that confirms your code =
+is just wrong.
+> > > > > > >
+> > > > > >
+> > > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just follow=
+ing the
+> > > > > > rule of this device tree. If I modify the device tree to use
+> > > > > > GPIO_ACTIVE_LOW,
+> > > > > > and use the following code in my driver, then my driver would b=
+e correct.
+> > > > > > However, would the existing kernel drivers lontium-lt9611uxc.c =
+and
+> > > > > > lontium-lt9611.c be affected?
+> > > > >
+> > > > > It might, but then it's a DT problem. The GPIO API for drivers al=
+ways
+> > > > > considers the logical state of a GPIO, so if you need to assert a
+> > > > > signal, you'll always need to set 1. That's what Krzysztof was tr=
+ying to
+> > > > > explain.
+> > > > >
+> > > > > The DT will provide with GPIO_ACTIVE_* how that logical state tra=
+nslates
+> > > > > to a physical GPIO state.
+> > > > >
+> > > > > If the DT says that this particular GPIO is active-high, then it =
+means
+> > > > > that we need to set the GPIO to 1 to assert reset. Now of course,=
+ it
+> > > > > might not make sense for the controller itself, but it might for =
+the
+> > > > > board if there's a GPIO inverter in the middle for example.
+> > > > >
+> > > > > Anyway, in the case you're raising, the issue definitely lies in =
+the DT,
+> > > > > and that's what would need to be fixed.
+> > > > >
+> > > > > I also wouldn't be too concerned about lontium-lt9611.yaml, it's =
+just an
+> > > > > example.
+> > > > >
+> > > > > Maxime
+> > > >
+> > > > thanks Maxime, I will modify this code in the next version of the
+> > > > driver, and I hope you can accept these changes.
+> > > >
+> > > > Maxime:
+> > > > I have another question I would like to ask you
+> > > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
+> > > > opinions that differ from yours, whose advice should I follow?
+> > > >
+> > > > If I do not adopt sashiko-bot's suggestions, will my patches still =
+be
+> > > > accepted into the upstream Linux kernel?
+> > >
+> > > I can't give a blanket answer. It depends on what you ignore exactly.
+> > >
+> >
+> > Okay, another question: sashiko-bot is an AI bot. Are its review
+> > comments optional, or must they be followed?
+> >
+>=20
+> For example, in my driver, there is a function for upgrading the chip
+> firmware. During debugging or production, upgrading the chip firmware
+> will acquire a lock, which will block the DRM callback and affect
+> display. It will be fine after the upgrade is completed and some
+> devices are restarted. As long as there is no subsequent upgrade,
+> display can work normally.
+>=20
+> From a purely software perspective, the AI bot considered this
+> approach unacceptable and proposed synchronizing the pre-upgrade state
+> to the DRM framework. From my personal perspective, I think the AI
+> bot's suggestion would only make my driver more complex and redundant.
+> Do you think I need to adopt the AI bot's suggestion?
+
+You're right it's wrong, but there's also no reason to allow that
+firmware upgrade during the driver lifetime either through a debugfs
+file. So you should get rid of the debugfs file and now you won't have
+to bother with that comment anymore.
+
+> In addition, if I follow the AI bot's suggestion, the
+> lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
+> merged into the upstream Linux kernel would not meet the AI bot's
+> requirements.
+
+Maybe, but it's not relevant either way. These drivers are merged, yours
+isn't. Feel free to fix these if you spot any issue though.
+
+> When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
+> sashiko-bot (the AI bot)?
+
+Again, it depends on the comment. If you feel like one can be ignored,
+you should at least argue why.
+
+Maxime
+
+--7a6od7fn56ge3tan
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5G6AAKCRAnX84Zoj2+
+dsiuAYC4vMklaH2PYwaa/lq7c74jgXOC+Rrkl+8HU1o3zFK9dUR5BFniXL2YBq/p
+rHx0P7gBgI4IYvo6PZdKvsETVZB5iHXMrETA6DDYdcNzjRJ/7nDhVKV4qcm6zJKa
+TShiXE7YXg==
+=t2bD
+-----END PGP SIGNATURE-----
+
+--7a6od7fn56ge3tan--
