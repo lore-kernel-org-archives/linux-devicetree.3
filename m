@@ -1,138 +1,192 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11022131.outbound.protection.outlook.com [40.93.195.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD74F37C10A
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 17:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782493547; cv=none; b=RGjpOYnBg5AHxVyZdj8DK3RG1VRdwdSA5KGOgLw6OvwsqVXugskEza01VB/GZHzdRGkqelAvttXww0oBuaY+qHkwLhYJPXs4c6wkIargazz8zwR6lpJZG2ZY0OmJrkJ+lY0iiMVmfsuilER97L+TtPrNA0KhtvxJFS6JVUUC6xw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782493547; c=relaxed/simple;
-	bh=XR8MOukhdb4119CLjtzkhC3PmY5hiwGnrBNevd09pJw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EVlTPaAqLc5wsa4uvH7aI8/HbmHaqbWuErv9cUzAsEsWgWeJFCBjTsTWR3QPezbU2gKOFUz7vbma3Wd+RRVvCT2GOwvgsDwrx8tiz1bVXYWPcOHk6xr0EdKqovd1ZtS9yqFm+dMdIhsc/j9mY4ahqsjL8ZMryWu1fG540cD8oW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=McaFOsB3; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E55A2D8370;
+	Fri, 26 Jun 2026 17:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782494162; cv=fail; b=IwjGlNwDzZiPkVHHzwdkGODYtZA7FNfo6vIlTj46fYfbx+0adY6kysjCmENcmVcNNUSDL20RmU1rRI/EpXGoFql5oPI/oPwea1IrF8i2nI2wgp9NYEFX75bVIA0w8KTlUYWJna9u1weocpfwFJ0/ubl5dzycgg+801Ed36pgaE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782494162; c=relaxed/simple;
+	bh=hK4pybsUgkZOLKrhXMsERfUwuxQgQDFVtrE2BIflXV4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hz+Kcgu1aEWxcjWBU0FTj29ktM0GJI4b5/6sajjTDizh+hxjMXeU9ckgEzonj2NFTBJG8W+QfKZtFQD3qT/PGslf0jgiajKm+TEHT1ebZ3zZHRFloA3CpksoJw1+sRsWgBFPyLi8BMA05+1td/taqfvtPgaie/48nzVLYSce2wY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=QSZZIqOS; arc=fail smtp.client-ip=40.93.195.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="McaFOsB3"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4923fb1f095so11841785e9.1
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 10:05:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782493544; x=1783098344; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MJMulB6FHoz3UwRU2js2Yx9wDg7dc99Kfk97uaLSZ70=;
-        b=McaFOsB3pyEjPyeAdIflDv75XopeHatu+YSzKhNHhQtlOkGyx85Ij7KbmajKq2+mjR
-         z/fU2cUtdulbHYDdK6qOP/lJKMcz6E1mu6PFfLU7lwLoqNdXaGx0oVyDv8cZ9l/SqBoO
-         lreN028lCyzALA1YSHSBaXL/z/CjhHtYo4FFmi7ilIMXTh1TywTmcgvpQMq0D3UpDofX
-         zhHA35JJoFLRl9NsUvbdc8LgmWQMVjEIZxHIOQeSRlQz02zZIpx3W/QFcVB36ugeO02v
-         8QnJkBT/Hxmnx3UaG72Zm/hPPP+o/N3ObBvfih8S0m19LQoX64UkcURGJ/AdtmxOaPjd
-         p5sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782493544; x=1783098344;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MJMulB6FHoz3UwRU2js2Yx9wDg7dc99Kfk97uaLSZ70=;
-        b=VBMNmaedT2M0zXKsCiUnV6ffdJqOP2qTzrGwfMpJHi9dzPC4hQNcjO3JWKW1qh1cyM
-         dFYKlPtQV6XEFCl7iOX3u3zWQ3DkEdiB/Oy56AUZ03e1Z/ZgqWlBtP3dvSLPCcdne7sc
-         7iuVaOrGrqUy5ic6Q1pPwDsqG2MK6d2uSOTlU4ef0pfL18XUe7de5H7GMpRiMx9SEVZu
-         PYFotPeih0y0nn+BkekINiT3oEDP/uH4kG5Gk+dzS9VTpEs3tn+4pgUDmEXSU09p20IT
-         ZB4eP0STFR+HrO7aRlF0D1Os6sNAjXmLVfzlj9lqrLlMnskX4NolYc+sDq2MirAaCpsL
-         uoMg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Rx9j4GNEFH30huMNBdtkxHoJWuJtxum81Vc9BoMD7pxNW9IrkmKz6ksYLPK7/FjvXp5JC1R7a7CMC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6Aeh0TqHrmXjfFI9IBPahI2P2UrXRgH52wjkWQqDKXSLIK/eE
-	4cTEdCmumEtpL2Re+qHtNYLuEj840oGWuveR2s4sMZq5XCJv2W6VTiAUrYyatnB6HDA=
-X-Gm-Gg: AfdE7cmbA3+Lqu+whEmFCSvlK6XSLW2EjUfTIsZGmE/DoPOBiiH80KMU3COrAgeYkB/
-	9tvhG3vaQcnzyC5K6QKvdQvHYiGHHTmeNrNaFakay83t3O6lYd5s3XXuHztHKtSuXDGZBN97cG9
-	DgepRvJeIGR7u385pSBm7VwPsjam0Fdj9vKK0sQZIaSA2ghiMIGbzCOzkzMN5oQesYpcQ0haqvC
-	2xNYAbrQwV2IwTNW17YxgIVNtbjeBhj4ELczVHBxGzVpOoNyU93Tgc6+J9B+wRMahmoYjxgRmky
-	eRgXzZF4sfO3I38C/Cjb9hE/mGFRxMbiuYAopsO9I4b4b5LiP8ymun+HdHhv/w2/qX+ZeOG1o4u
-	dq7DMbTfXvPe5U0iBqP+dnxF+4hpkGTr1Eg4Ndsqp+C8V5bhxXvlzSx6MBzULS5LVqgxzynwJlW
-	DQpDLHMmWV+g==
-X-Received: by 2002:a05:600c:3549:b0:492:4363:e7eb with SMTP id 5b1f17b1804b1-492668acc8cmr114223385e9.32.1782493544245;
-        Fri, 26 Jun 2026 10:05:44 -0700 (PDT)
-Received: from localhost ([195.94.150.2])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49269009163sm100940205e9.11.2026.06.26.10.05.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 10:05:43 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Fri, 26 Jun 2026 19:09:08 +0200
-To: Stanimir Varbanov <svarbanov@suse.de>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>, mbrugger@suse.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM
- controller
-Message-ID: <aj6yNJQZaQviXugB@apocalypse>
-References: <cover.1780670224.git.andrea.porta@suse.com>
- <350c2fb454951fd2c9d959f1d94802fea8fa8152.1780670224.git.andrea.porta@suse.com>
- <5b167316-ed50-448c-aa05-6a041a6544d5@suse.de>
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="QSZZIqOS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B51aRV5f1ZE8u0WcDYPa1jXOiQ4+1KAKK15P6AKjgVV92wSYUMCEQ1VaMho9UujxeYbsoBZlhPvf0cUOxK1pJ9LGeCyxzYYD+K3yCl1a9mf3PmMTRbmN8AmNGVPfqo/RIySvj28D5OZexP704hgwF4k1jlXgVSLn38siIWXmpPU+YC4XVfn6s9D27lAcou8RmjtCvgPnuaLgRNfM05rHiIo/fW5tlsZ1R2cISdpoc/0S1G8NhluaclAPCO7E9LtMi5y6YC8uIQtVVqT80eynwLR22GQpqp5712DS3KSZzi1tf2PhSt/yvLRZBDZhbIksoH9xkHd7w5yO+ayDrrTgrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dHk7bdevnza8YDrilNUlP8i9oy/vzflv77OUa0a/1wc=;
+ b=QDTckK7YQH8EMLgzQ3a2LLh/X+b7a0Tbs+mn+fFiHBJsWkGjXXYxf/dwTiWLrQngooR31gCrYnkiNS9zL5xWvRl027sgxYxoFQsEirt+Qsxlq9dN1huYMTi7517EEcR/AqiKm0dgCpiz7Uz7JoHWZ+WkgIDcVjduEvsFPPJwYDRqGIAJBk4jhgFXliBlWPHMOngBrcvrMk3BKm7qdQRA9MVAqDsxCTVVKwCWRa6C9BkdA/Jcb6eU8vfZAZ+QxOeAREpSzI2fv1BcL7CKdFVXuCfUwPQOUxpNEaQeAj66JKH7Xxp3nvq91h74Hc596mCZBQNLgLSULuvdoEOrsviyMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dHk7bdevnza8YDrilNUlP8i9oy/vzflv77OUa0a/1wc=;
+ b=QSZZIqOSL3exA8bpqG7ZuT1WHWM1B7+W7KcVFkGQE5rfvFOYvTYMAfiCr5hW3dRRY26cD8xwz2wfYoUiWrdCuNeNnDoL0r+6E2Cj9mdMWrjV1yuUNRHc72nKHd+UssPeitXMva9WZw/Xcn+7Lci4pjGKzOorElgXmD0BASfT27dE6jyD3ir2zv0b0atNNsXVrzyA68qnbeUVmBqq2tOSqQlVGb0YSP3VQ60/z0rZqnu2BkVzYU0dwK6lrj88/0NFNHPR5gRgOlOkJIT8D5aSQDGom5oxLR9wzgLi2PooMoZC4/SQjTjvAOX03U1LrNOZoLIzhS+gCtNVmrLFSkLvBg==
+Received: from SA1PR04MB9851.namprd04.prod.outlook.com (2603:10b6:806:4ac::5)
+ by SJ2PR04MB8581.namprd04.prod.outlook.com (2603:10b6:a03:4f6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.14; Fri, 26 Jun
+ 2026 17:15:49 +0000
+Received: from SA1PR04MB9851.namprd04.prod.outlook.com
+ ([fe80::5f38:dbea:4e4c:9a0f]) by SA1PR04MB9851.namprd04.prod.outlook.com
+ ([fe80::5f38:dbea:4e4c:9a0f%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 17:15:49 +0000
+From: "Krishnamoorthy, Saravanakrishnan" <skrishnamoorthy@rambus.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Albert Ou <aou@eecs.berkeley.edu>, "Ousherovitch, Alex"
+	<aousherovitch@rambus.com>, Conor Dooley <conor+dt@kernel.org>, "David S.
+ Miller" <davem@davemloft.net>, Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob
+ Herring <robh@kernel.org>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
+	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
+ Khan <skhan@linuxfoundation.org>, SIPSupport <sipsupport@rambus.com>,
+	"Nguyen, Thi" <thin@rambus.com>
+Subject: Re: [PATCH 01/19] dt-bindings: crypto: add Rambus CryptoManager Hub
+Thread-Topic: [PATCH 01/19] dt-bindings: crypto: add Rambus CryptoManager Hub
+Thread-Index: AQHdBMjWbbt+vQeNuk6AgpyYttH26LZQqwqAgABoWTo=
+Date: Fri, 26 Jun 2026 17:15:49 +0000
+Message-ID:
+ <SA1PR04MB98512F483110B601D5B335F8C2EB2@SA1PR04MB9851.namprd04.prod.outlook.com>
+References: <20260625173328.1140487-1-skrishnamoorthy@rambus.com>
+ <20260625173328.1140487-2-skrishnamoorthy@rambus.com>
+ <20260626-radiant-affable-raccoon-f48b9a@quoll>
+In-Reply-To: <20260626-radiant-affable-raccoon-f48b9a@quoll>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR04MB9851:EE_|SJ2PR04MB8581:EE_
+x-ms-office365-filtering-correlation-id: 4811c2a7-23a6-4aba-7685-08ded3a691a3
+x-ld-processed: bd0ba799-c2b9-413c-9c56-5d1731c4827c,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|366016|23010399003|1800799024|376014|3023799007|56012099006|11063799006|4143699003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ sUhTB6H/VVbQDpub1hNTrq67Wn9rHUh07w9xIxGVwOEe+mX9J4kYGiWzyw7cLNC2+avlufJB6xcFz/X8etM3WMwdgbTq5bw0w1+RSx+Str+R7sjc8b76wvoP/6+LWMMovNl8/QKGPmHTfd3sBBT0iMaJUHT189MwGD1myshzGeK+1sPcQPM9qbvvv2yurVAfw3JIz3nkY9H85My74Efa9Fllb9IxxeyAPzV9/14z0jjAF89nIbDSoIVSTLkQPHSEX1+RYsxDZM424hqV5orjRjqqNFho9BsEK4P4Ew6eUY6ErPZN+jf6sdeHugZSUekHip3lVBWaTCTHojLC28voNqUirc5HeVXMX4Eo580f0EUQ7tlkahQY6jcit7txxaJxdRuoKi0dkNNyx1Qzj/menDSUG/AJFBeiU54eSsxpdoq2TQEIfzy9aCV7tIAMKLht2npa451Zx10knRUtMhMc29zCS5oxnKqIvSXiJxxFCR+bqJd/9TDsDwzz2k2OZb26H2DDz8OA5Y/Co57B2P1+0zdhiMK4WaO0I27cuzHQbwVK+SwPmzRtmn1nlQ6l3pAKD+sqJli7u7a0zRT6v4f6oEc9/RfPa2ZzXdtCztcp5kKE4Sji9H917OPozinVPgTOwHQSsIWQUgGLwEj2OwynNep/xSBGxXTGSjGUFeoRhn8cCzeRCgKbQN4W66MH66ujkXxCi/WTM40cf//D72mkLsZ51kRhN9XAab26yWpFRdw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR04MB9851.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(23010399003)(1800799024)(376014)(3023799007)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?DpbhL0m7kSGisyGbDBerOesHbI/8sR+fDZOJ0/y5YTps616nyYj5SKDC8efQ?=
+ =?us-ascii?Q?lvCCNv9/+XqMQ0o/tnebJ87Wzkh2ILyxK3A91l9VWO1FmS9ibJbN0SGEsZr7?=
+ =?us-ascii?Q?jSANsz9Hy6EWibr7FK/1nxJOeuBw5liaSiMWF4ssx5sWiy48PQKhNo7gVfwJ?=
+ =?us-ascii?Q?dClb9luJqWUZAhW53fb+JR1DR/7ksyzBaqo7JtMPsoaIUEE99Pyqn3Bc0eGB?=
+ =?us-ascii?Q?i4LRazSMvS/tELZWTaANX4jKEsn2KgX6XfstMHxUhDkRrvKCl9TOLHOeHpxT?=
+ =?us-ascii?Q?W/hCf0+AAE1ARYAei9oQWnuU1b5mM5e/3q9SOKyLdXo5r1c0i8hon441IMSP?=
+ =?us-ascii?Q?bSr0vPznySq4GxUl3QaZa1v63CNOs5bISwua+LKEjAilVxZC2vE97049MpIQ?=
+ =?us-ascii?Q?Xe55elB1Ep4AEfiPQCANGhlZf1YvxvfC/NufypQgcy52tTUOCJd5swVrhKft?=
+ =?us-ascii?Q?N0INmFMBgnlHfBTdRxpZ0JlNLxbicp15XF1uhAD80pHIzAbRKqmAWHoeR3bx?=
+ =?us-ascii?Q?KWa9xdaxYSsNXMAH49qA2YV8pykNYjUf+tgmdIJGgdHZOFo85oVypru4r6Iq?=
+ =?us-ascii?Q?Lf/rMf/0uwz1LFOfaDA1+Lfi8yBlW6fXodClkKJzcgccQmX7KNy+GS/N9r5j?=
+ =?us-ascii?Q?1ND0x4iPM9XDxvIG6XFVLwGeZxRH5yRJC0CwZAxgtwknH4sSElPlur5h1wUp?=
+ =?us-ascii?Q?+2Nr0NIPgjrOD406forg9nbFUtfJs+Jk0ze3DNg0rik1Wd4HGZj24AaPyMBa?=
+ =?us-ascii?Q?jXPyd/Iptb6YKcPydp5LsYv4CjSxXUJbcElFIs+qtYBpwnRvNHHvSAXK9cqj?=
+ =?us-ascii?Q?Hhm7rGdgdmYN9TV065mqroHt1eAzKnivWVa5pVYQDEcgdGKjskTTQ2p7soVq?=
+ =?us-ascii?Q?XQARstr7zjoCltLXM9RZlReN1f1/N/GHSpWjTjSNhgGoiVreghP3iEoq10RQ?=
+ =?us-ascii?Q?z0AWUdlwukf69DxdoBe//3Qx58W9rIoI+M+uQNDob2+l2weiJLWFspY4Bdd1?=
+ =?us-ascii?Q?ezvjOSuv1MnhqPh1sP1Fr1NVnGPyigYMf4lbdfG7zQsVZVn+nqhOCGhlg6qJ?=
+ =?us-ascii?Q?U9JoF5bfSAl6vm4bChwX6sJNLBlHFu2Ijjm8QHiQsxLydYc/p35S2l8nkwJs?=
+ =?us-ascii?Q?X5RLCJxyzUxl3zCFz5OSFwLg/tYaG5XWryzQIu7s69+lOwY/dUPLaSHoh1Ws?=
+ =?us-ascii?Q?VL9kgFj3XQ493ZexYZ72gORGdleEp7jbYTFLs0O9ZeYKKR/9zWKOrK84+OoH?=
+ =?us-ascii?Q?udqjWSFNr+zJ/bVW1IHD6eGKDhGhxxIdcInIvQ5oZHKJqfTOC4boTbSOvFqz?=
+ =?us-ascii?Q?410jnxl7OTMJi+ENT25+ZMOmx2r3twJbpJJXnyg3krBmOV8Z2SURtrAd/3JE?=
+ =?us-ascii?Q?/MCdNPYg+8mWfVxHzxLvr9WVn9iP0Efoq6/dgHmW0qgNsytqJ3hi37SvGrt/?=
+ =?us-ascii?Q?LZ/rf8wPillYS0JUgaZkrzpHt6GjFKXyp/seuS3pzj42bHl7UzLijaGlZYwR?=
+ =?us-ascii?Q?J2H+goeHAT5eFz0Ir4EziFqLQqC+DkjQY1KVuk4PW+xKl+mgWkKE8U7lpiNu?=
+ =?us-ascii?Q?2P0hpAsdPenum4D13v1xDty5Fk/UdCLWOkdAPpFH1VtYbRZ+4yIXbCXdS8Em?=
+ =?us-ascii?Q?oqd1ASdAVxPKnkWUC0b7MM5J/ESOJ+dnMF7C1SSJeN3W3z/onlmHaYo1lcfK?=
+ =?us-ascii?Q?I5BjuOkSUx7UhkbKb03tSMfSJ8+YFmoNwIednoVsW1vOA/3PJBnsDzkJMaWm?=
+ =?us-ascii?Q?NMX3F2RMyw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5b167316-ed50-448c-aa05-6a041a6544d5@suse.de>
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR04MB9851.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4811c2a7-23a6-4aba-7685-08ded3a691a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2026 17:15:49.4225
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZsQbvMO6uAPO/50tLqHRRziXnNe4d1kGxxFKlhkhDFHWQZW0YBIZ4M8kmt67pI48F59h0J0EsQZscrk3ls6elinqB9WHB6QHYhBNKYcFDZQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR04MB8581
 
-Hi Stan,
+Hi Krzysztof,
+Understood, and apologies. The confidentiality footer was auto-appended by =
+our corporate mail gateway, not something we intended on an open-source sub=
+mission. We've had IT disable it, so it won't be on future mail. We'll rese=
+nd the series as v2 without the disclaimer.
+Sorry for the noise.
 
-On 18:24 Fri 12 Jun     , Stanimir Varbanov wrote:
-> 
-> 
-> On 6/12/26 5:01 PM, Andrea della Porta wrote:
-> > From: Naushir Patuck <naush@raspberrypi.com>
-> > 
-> > Add the devicetree binding documentation for the PWM
-> > controller found in the Raspberry Pi RP1 chipset.
-> > 
-> > Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-> > Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-> > Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> > ---
-> >  .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 54 +++++++++++++++++++
-> >  1 file changed, 54 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-> > new file mode 100644
-> > index 0000000000000..6f8461d0454f7
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-> > @@ -0,0 +1,54 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Raspberry Pi RP1 PWM controller
-> > +
-> > +maintainers:
-> > +  - Naushir Patuck <naush@raspberrypi.com>
-> 
-> Could you add you or me as a maintainer as well. I'm not sure Naushir
-> had agreed to maintain the bindings in mainline.
-> 
+Krishnan (Saravanakrishnan Krishnamoorthy)
 
-Sure, will do.
-Thanks,
+________________________________________
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Sent: Friday, June 26, 2026 3:55 AM
+To: Krishnamoorthy, Saravanakrishnan
+Cc: Albert Ou; Ousherovitch, Alex; Conor Dooley; David S. Miller; Herbert X=
+u; Jonathan Corbet; Krzysztof Kozlowski; Palmer Dabbelt; Paul Walmsley; Rob=
+ Herring; Shuah Khan; Alexandre Ghiti; devicetree@vger.kernel.org; Wittenau=
+er, Joel; linux-api@vger.kernel.org; linux-crypto@vger.kernel.org; linux-do=
+c@vger.kernel.org; linux-kernel@vger.kernel.org; linux-kselftest@vger.kerne=
+l.org; linux-riscv@lists.infradead.org; Shuah Khan; SIPSupport; Nguyen, Thi
+Subject: Re: [PATCH 01/19] dt-bindings: crypto: add Rambus CryptoManager Hu=
+b
 
-Andrea
+[Some people who received this message don't often get email from krzk@kern=
+el.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdent=
+ification ]
 
-> ~Stan
+Caution: < External Email >
+
+On Thu, Jun 25, 2026 at 10:33:09AM -0700, Saravanakrishnan Krishnamoorthy w=
+rote:
+> From: Alex Ousherovitch <aousherovitch@rambus.com>
+>
+> Add device tree binding schema for the CRI CryptoManager Hub (CMH)
+> hardware crypto accelerator.  The binding covers the parent SoC-level
+> node with register region, interrupt, DMA properties, and per-core
+> child nodes identified by compatible string and unit address.
+
+...
+
+>
+> ** This message and any attachments are for the sole use of the intended =
+recipient(s). It may contain information that is confidential and privilege=
+d. If you are not the intended recipient of this message, you are prohibite=
+d from printing, copying, forwarding or saving it. Please delete the messag=
+e and attachments and notify the sender immediately. **
+
+OK, we are done. I am removing your posting from Patchwork.
+
+Best regards,
+Krzysztof
+
