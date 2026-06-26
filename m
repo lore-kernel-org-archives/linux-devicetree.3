@@ -1,107 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9E73E1233
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4508D3E1233
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459799; cv=none; b=lwTQbS+hKP4Spnut+dNVkABC5IuZjN2AwGDTg1sP5Vz6NUxvX9C2OYzgkUfpiaazgpKK2ORw+J1kCzqmdQw3kajaWBdZKRRDbs9wpJt+RgQ2quvtcRm2Eq6pnrqObGKqycfg3ZKvnlaxJtqJuOitHd41rXAW/TRoBEQQAlJY89c=
+	t=1782459816; cv=none; b=Oa8zL75LW9sxg3B14VzRNfroyNnzyQCAl/nYztf11+kOLce1t/vV4QA4stow/p66nNhOR4hLgLDb1paCgUaxw7Zne4GSstDLWbB0/2/UjwkPf5nX9XfcFX/1uQORZS1t9zv9cO86PB+n7c+YXYrldXe3PLU0Uj06cjcePhgwsDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459799; c=relaxed/simple;
-	bh=tmreJTTSXAS3Iu1jqusxPe2nT8YWD6b4b4TCa7X0Pko=;
+	s=arc-20240116; t=1782459816; c=relaxed/simple;
+	bh=IgKmSM8QF28nMPbuhNUW6jkkgHTlGCGRO+9GkOrvnNI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=imejeTi/OrFOEFUj+9VgYYitVg3FVqQ35eSIbL/hCZcLp8AiZxSB+ce+aHOfLAEt100f9hXG5702udNSRbwC/73ueLVVMhik+gWJJ3LYoUOHv76WJnZVgRYmCcAr97RhZqGAl1fQsfSHvGILU4L0vF3OLaRwIYFRCmct48cRduc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwkNbc8f; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EY0i8NzgXwy/IHEa9uB1+sxVqWN/wzm0VWegrgA0mMtAcAcG/YjKXwQmVmvvhSGuHDhgg8pG/9lvEOa4pTvlqjREKbqJKkQ+SHUXv+knScrg2ANYBz0bLBDpHw3mxrBQ62gg1NKTAARvs4UT1yMYYa41Vo6ZJ3xi4682VBu6p7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZL4E/wr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwkNbc8f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16CC91F000E9;
-	Fri, 26 Jun 2026 07:43:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZL4E/wr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6201F000E9;
+	Fri, 26 Jun 2026 07:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782459797;
-	bh=BZikA+Kv7qRc0LnyRjcDrtyySovdKv5Gmd0EGa8Me5c=;
+	s=k20260515; t=1782459814;
+	bh=yjBAGz6Z7JMFntLenGjxPnk87dPiqlf31pTKM2hJe2o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jwkNbc8f+VGPR71HTuf6BeKzn0kFAV3cPQo45HNra1BX2pBG1q+mUbI5mmd+TkMUf
-	 45rRLiZKlZ2EQ66ZElDqdjcNYxITFXoIRqLmFvHiruX0wVlb4oL0qK0N+MZcxrysj4
-	 mji3rXXYGQIUJ34fxxSKDaY21CeH3C+Akhl2QVbJf3oVULKvnph89jSF+VYlxNJx5f
-	 w4j06HuQPtZfn8lFQ1tz+xxEx1/V0wl+rIr22xtRRG5VYD1bLSxKrpc01VY9ocADVr
-	 onRhHlYShPMQBUWFRb6PdcekxA62T3DbrNlQEX41CrIJag8HqzdPO91sbUMCBxlLKa
-	 SKuGMpg1N5ASA==
+	b=WZL4E/wrBTm0zkj81AQUG6qjsMDB8ydtKXpeajEszzBOnfN16fADUd3lIfnRMixxb
+	 dw25a1mv/ilC2QwafcaQqMySMaCzVzdvbnLde8X6PL0+FRj3if2/g1e5o4t1L0486m
+	 d4uOVLLqqkU78z9Ec89rEysQ/BCMl0Y5h8GccwQZk0LdknWwA/IdrxTrg7X88ubJii
+	 vgBuS8Ic4bYjobX3Ts2bcBVVMkGJHcrF3e80/XcUw/5+UdoAq01WAd9VjP5BZZbjLJ
+	 X4mclD4N7lSZTOgyL6XIb3ucvwou+GFaXCDO/+B1B7m2IZg7/e3A89xZXVZtMo/jka
+	 DtvqdVXEkcxbg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: raspberrypi,bcm2835-firmware: Include
- 'reboot-mode.yaml'
+Subject: Re: [PATCH 3/4] firmware: raspberrypi: Add reboot mode support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260626-rpi-tryboot-v1-2-490b1c4c4970@linutronix.de>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260626-rpi-tryboot-v1-3-490b1c4c4970@linutronix.de>
 References: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
- <20260626-rpi-tryboot-v1-2-490b1c4c4970@linutronix.de>
+ <20260626-rpi-tryboot-v1-3-490b1c4c4970@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 07:43:16 +0000
-Message-Id: <20260626074317.16CC91F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 07:43:33 +0000
+Message-Id: <20260626074334.8E6201F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Missing Device Tree Schema Restriction for reboot mode pattern prop=
-erties
+- [High] Mixing managed (devm) and manual API calls for reboot mode registr=
+ation causes a double-free and a use-after-free on device removal.
+- [High] Ignoring the return value of `devm_reboot_mode_register` leads to =
+a NULL pointer dereference or double free if registration fails.
 --
 
-commit d367af481cae3dea3dd1bb270d9e4466fb383031
+commit c4eb702fd9dc0d615bc8a99fbb83befc50f8971f
 Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
+firmware: raspberrypi: Add reboot mode support
 
-This commit updates the Raspberry Pi firmware binding to reference the
-reboot-mode schema. This allows reboot mode properties to be used to set
-reboot modes like tryboot.
+The Raspberry Pi firmware has a tryboot mode where it tries to boot from
+another partition. This patch adds support for this by registering a reboot
+mode driver.
 
-> diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm283=
-5-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm=
-2835-firmware.yaml
-> index 983ea80eaec97..30b490e0d9fb3 100644
-> --- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmw=
-are.yaml
-> +++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmw=
-are.yaml
-> @@ -133,11 +133,14 @@ properties:
->      required:
->        - compatible
+> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
+i.c
+> --- a/drivers/firmware/raspberrypi.c
+> +++ b/drivers/firmware/raspberrypi.c
+> @@ -306,6 +323,12 @@ static int rpi_firmware_probe(struct platform_device=
+ *pdev)
+>  	rpi_register_hwmon_driver(dev, fw);
+>  	rpi_register_clk_driver(dev);
 > =20
-> +allOf:
-> +  - $ref: /schemas/power/reset/reboot-mode.yaml#
-
-[Severity: Low]
-Should this schema restrict the reboot mode pattern properties to a single
-item?
-
-The generic reboot-mode.yaml schema defines ^mode-.*$ as a uint32-array
-without a length restriction. Because this binding doesn't override it with
-maxItems: 1, the device tree schema will accept arrays of arbitrary length,
-for example:
-
-mode-tryboot =3D <1 2>;
-
-Since the reboot-mode.c driver only evaluates a single 32-bit value using
-of_property_read_u32(), this could lead to silent truncation of multi-cell
-properties without any validation errors. Does it make sense to add a
-patternProperties block here to restrict maxItems to 1?
-
+> +	fw->reboot_mode.dev =3D dev;
+> +	fw->reboot_mode.write =3D rpi_firmware_reboot_mode_write;
+> +	ret =3D devm_reboot_mode_register(dev, &fw->reboot_mode);
+> +	if (ret)
+> +		dev_err(dev, "Failed to register reboot mode: %d\n", ret);
 > +
->  required:
->    - compatible
->    - mboxes
+>  	return 0;
+>  }
+
+[Severity: High]
+Should we return the error code here instead of returning 0?
+
+If devm_reboot_mode_register() fails, the probe succeeds but the internal
+list head for the reboot mode might remain uninitialized.=20
+
+Later during device removal, rpi_firmware_remove() calls
+reboot_mode_unregister() unconditionally. This could lead to a null pointer
+dereference when iterating the uninitialized list, or a double free if the
+failure occurred inside the register function and it already freed the
+resources.
+
+[ ... ]
+
+> @@ -323,6 +346,8 @@ static void rpi_firmware_remove(struct platform_devic=
+e *pdev)
+>  {
+>  	struct rpi_firmware *fw =3D platform_get_drvdata(pdev);
 > =20
-> -additionalProperties: false
-> +unevaluatedProperties: false
-> =20
->  examples:
->    - |
+> +	reboot_mode_unregister(&fw->reboot_mode);
+> +
+
+[Severity: High]
+Could this manual unregister cause a double-free and use-after-free?
+
+Since devm_reboot_mode_register() is used in probe, the devres cleanup will
+automatically unregister the reboot mode when the device is removed.
+
+By manually calling reboot_mode_unregister() here:
+1. It frees the strings in the list.
+2. rpi_firmware_put(fw) drops the reference, potentially freeing the fw
+   structure.
+3. The devres cleanup runs devm_reboot_mode_release() upon returning,
+   accessing the freed fw structure and attempting to unregister and free
+   the strings a second time.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rpi-tryboo=
-t-v1-0-490b1c4c4970@linutronix.de?part=3D2
+t-v1-0-490b1c4c4970@linutronix.de?part=3D3
