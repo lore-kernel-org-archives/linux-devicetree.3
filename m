@@ -1,294 +1,267 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012043.outbound.protection.outlook.com [52.101.66.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732F63B71A8
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 18:35:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782498928; cv=none; b=B0g61/XZEVjjn8gYCYhSg+ysb4TIPble0W0WiojIj6ntQsJL02p/I8egd9Hha437goVSHhyRLbAFlrYyCsigrxmQGsR8bwum5y8tMFwTynvsYDwuvhkNJneuIhWHoFewhfYYW6l/ktXE26uRgVTTFSvogwMLkHUbpca2PWNcP/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782498928; c=relaxed/simple;
-	bh=dPfHlgQgWfT+hU6VgO6lR7zUegvTyInzXHbdMXw7UNE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lJRqB0K8qsmpZr9pe/Lj5z7STPRAcC0vKS9D6sCU3l0An5oOdBgxKzlORxFvRZGokCnAe52pwvezI3I3B+GGySaphs2reI0XD8u2GKEoyH7S8tBs/071W7Nlx/8lDfxjcYMLUqxfZjgPa50alsB4IgPNnOLf/ZpkNlAI/KZNKLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OlVR12Dq; arc=none smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC6739099E;
+	Fri, 26 Jun 2026 19:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782502841; cv=fail; b=fYoA0MMDlj8eKMND1TP7w/hRnQ/zibmGn/KA3BHBbxFN36YyjQ2WHEr5fMA2UrdEX6tmdXhOvZV0f+p2+U+IGy/h7UEhz2Y0WfkqpDDcQ72A2INAcw4EIWuswQ0lFL08QBj3SNRIN35MK22XTqhkDNERec69Cn9svRHAT7anFko=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782502841; c=relaxed/simple;
+	bh=fUhf81kXhW9sUcyc1B2dRVdNkj8VYQgiFdzeRcKFtG8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=rMWPzKF5qir/eNvXwlH4NUnP/3dc1sRm7EuPNh9nCaaGYrFeqBbGyNy5rBHeuwJGukaHsPmiqXsLQTTG1avjY1h+4M66VnZvO8DVBn0zdmFOVzLhj1xY1own6JWuLYkADGnjzMzbP2bTaO1aZ2HwprAEzOdJDi1G8yoQu6PpmTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=h2q+fz9Y; arc=fail smtp.client-ip=52.101.66.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OlVR12Dq"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7e6d2f297f4so711838a34.2
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 11:35:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1782498924; x=1783103724; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=J8Kzxi9SsU9PSUvyY7AuuVFjnGlx1l2npBtoEXDb+RU=;
-        b=OlVR12Dql92QYjC5bpaCynMWUJ3W1dy26/XomWvWFRmeLweIdSuyEMR038qhbybbTW
-         zEA5xFmchT+BY2tA/DnO9kiGNMBNfYRokjazhS56UQAgvsWXJ2xAF9F1nb8GTbZ6ZUrO
-         Mi/vT5LnD+2Ms5QK4TOOMR/b2oatrbZGk2mj3GDOciHDivLun7RwKSs0/FmSwOG0oGge
-         q11HxtZi1KackdHccM3JyVZUkTXh/k/qCD+9bmfMnnXoE0zMMZlK5sd9rYlbvWp/M694
-         1jtkTx43e24O2S7THDVLxvbXiaax6qJIHcgr/2yVsFz7RGNwH2eL1Oel+bzfPF6U6n8d
-         KjDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782498924; x=1783103724;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=J8Kzxi9SsU9PSUvyY7AuuVFjnGlx1l2npBtoEXDb+RU=;
-        b=OWPnEEu4enZpzww7CdBNIjaUySOK3oFr9+l7Jazxs3MIV8KUS8TWyeMCDmVdgrzYYH
-         OHIoriqoQxIVst6eY2rNcNu95WmDyyR9jmGPJ1B5P+8+AZmNuu8gqoZJI3evU9LQ9LRx
-         OYMSNpN1g/mQacmCEsVm4+YsbSIvLXZmNauhc6Z/pPrivTD5CC3QGESRfkUSeDybI2Vt
-         puMldf/7PRDqfSVaSnLCwUcwFKjKbfUEWKaNgLlwfFWdpt0EDn634rSal302esN4FRQB
-         zVVGulg+3LIrJTSIq2vvODcUyZiJFeXcjVsNhnFii5OW/Mgmpe8GLBIr5mGzABRGutvm
-         3cTg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Rc39LwLeSIkzKWrF4qQCsgR4K+xIjzvH64U+A/KB0R1f0sysxb8Ex6rTvvU6lNGB/eqHUiYMtEH3C@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSayQXS3WKuI2L09GnEior5Rgyums3HartIRfIe4xLgnoo49zS
-	kjHcyDTa3y76D6LWemejxgYSidJLXxWqyQ/z0yTOQve006I1i8vez9u/K2XFMDuTWew=
-X-Gm-Gg: AfdE7cn3FMxXJdCRvNHUQffE3NAft+ewNvfevmBfzubctzNjxk1pbp4tBsL5+8i39m7
-	S89FPyIiMlO05ZB6wxBVAXrTUCMKmYohlFX96GKKOCUDQ259kO0YYX1PDrQqL+c1PIul8V8KBap
-	/KMgGcMQtySvsgCiytzP+Ywx/aChQ/YvEt0d8YbT0tUCBnWm+p1GtGpjXdIsW7qF7oVwxDZba+2
-	9DQMPTcOYsenR4zm2wjkdNFV1FqaqAD6sxLiJ6CVcxAb5xU74KVdRTc1bDYQSzt8b97mOTwW0QN
-	URdQd52fAyMUBFaOGCTT7yp2SRbEaX7UG02n5fgZFaWUiMuqLz1pa+p1ua6ntB+oV2Z6udRYfQl
-	or1xESLOo3luBlqnFGKGakLQfiYBA7y2nDx/UQe1azO6PExSd1lPN5wxVdE1mzVphbfQ23vGA7S
-	2i+q7GRcvU9GpCCxxgfgfx0t/swdcR4OfM7YuQsFkN6nLu/4NaD5rnG5xVUKn0+ik=
-X-Received: by 2002:a05:6830:2781:b0:7e9:b4d0:53a2 with SMTP id 46e09a7af769-7e9b4d05d30mr1036708a34.27.1782498924389;
-        Fri, 26 Jun 2026 11:35:24 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:f1f0:2d9f:2f31:3426? ([2600:8803:e7e4:500:f1f0:2d9f:2f31:3426])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e9aa7d5b3asm2176015a34.23.2026.06.26.11.35.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jun 2026 11:35:23 -0700 (PDT)
-Message-ID: <82294468-c4cf-4003-93f1-31a113c79979@baylibre.com>
-Date: Fri, 26 Jun 2026 13:35:22 -0500
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="h2q+fz9Y"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pql7mb5D3hVshP82PlTw47cpR7V7Toq03ELPJiizOVgCa/ev2r4xdnfejdZUuDBdY3O3SpJAeL4y20PukQv1Lq0tE0rjyqDiUaw4418o+b5IeYFdwUcb49ViODW+VJzSNXvUSNV0C+a7qFSl1kMrlUEEbqDSnNeQd+Ms9b9x6TLwz27SLU4p/VaDd4hrFVcRHCRn3/efm6aTqhSjI5sz5+KCGw/jfDKGA9750XHkheKJZ6SPtoA1mvz7/AcCK5oCMRLqa/H+nUsjMKk8c4K28ylDhw5Ni9AxiHLD6fu59GIyi5aJVGlWeDVQvIGQmAPXQsvMWRk/5Bo71aZyFihbTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+lVeHLVb8pPiGcn30PFmmXYNt3mrErvy8ituM8h0eYQ=;
+ b=qFTbGApgU8tIiKih3spGRbUeoPRYl/rb30cVHDGetRD3e8kgza5Ortnxe0OwYz+xBXMD3IoLu1Axz+b5EDLRIhoZ6BeWz+xPvEjHfL559awCqgEntfKAWWW8rhiKGViTYDIFZSlJ5+IYZi5WAH+0J5+bLCi9IV7ykMdDz72ky/v3Tj4mfZJ/0Fq2b79TNKGqbMRCD/ik8FhNH7TASqDYujhz4BRhiF/tv15gHx+tlJ8K/gG6BDc34etjV32mJK/6I7M58ZT1ZATP/7m1qTl2UReLT/ZOLzrRqmNWmBDEtjPu3lJF5n6RzIYfiD4dDVYqhG1Qnj+n/x7h0z2iD1l0BA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+lVeHLVb8pPiGcn30PFmmXYNt3mrErvy8ituM8h0eYQ=;
+ b=h2q+fz9YycSBH9uIiAp6jKaIi7EGBaC5r099bKYQK3lLuymMkvsLPYfZGd3xeBC885JuizI5AuM8qFW/WCX2Zhii9esSK8XmuOcIU5Hehwyv4duQa0iuaORqCSOX54yvKNSnOzdvDw7vFtqPHZJ9M9B5O+qaHsyZ0tk4v1HLrfgrZ2kUqlSOUJ0Nvg58vd7cnY03AokcqeFqHP+BtbSvaNaWOBS7UTyxfrnO2nQ/nYrKGRb7vkhZJ4eeUgUky48dAfKOZXKujsGz+TFQ4nTJRdgEC7ajFIc1tkyRF1s+d5JqgFbI62XH8MKF5OIVTJ2vDbV1RDSm/1tokgcEgR1joA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8819.eurprd04.prod.outlook.com (2603:10a6:20b:42e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Fri, 26 Jun
+ 2026 19:40:33 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Fri, 26 Jun 2026
+ 19:40:33 +0000
+Date: Fri, 26 Jun 2026 14:40:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de,
+	festevam@gmail.com, amitkumar.karwar@nxp.com,
+	neeraj.sanjaykale@nxp.com, marcel@holtmann.org,
+	luiz.dentz@gmail.com, hongxing.zhu@nxp.com, l.stach@pengutronix.de,
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	bhelgaas@google.com, brgl@kernel.org, imx@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-pm@vger.kernel.org,
+	sherry.sun@nxp.com
+Subject: Re: [PATCH V3 1/8] PCI: imx6: Add skip_pwrctrl_off flag support
+Message-ID: <aj7VpvRQxhCyPVPg@SMW015318>
+References: <20260626023126.2189931-1-sherry.sun@oss.nxp.com>
+ <20260626023126.2189931-2-sherry.sun@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260626023126.2189931-2-sherry.sun@oss.nxp.com>
+X-ClientProxiedBy: SN7PR04CA0168.namprd04.prod.outlook.com
+ (2603:10b6:806:125::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] dt-bindings: iio: adc: add ti,ads122c14
-To: Conor Dooley <conor@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chris Hall <c-hall@ti.com>,
- Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
- Nguyen Minh Tien <zizuzacker@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260625-iio-adc-ti-ads122c14-v2-0-ceb9b0b561cb@baylibre.com>
- <20260625-iio-adc-ti-ads122c14-v2-5-ceb9b0b561cb@baylibre.com>
- <20260626-rising-legged-dea08bb68bfe@spud>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260626-rising-legged-dea08bb68bfe@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2491e50b-082d-4370-2f75-08ded3bac956
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|7416014|376014|1800799024|366016|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	rJdFVqRh7eEU2sFX8hSrZDUqPalrtOoM/7Ke+ykodmCb1j+kIGEgtkDhkABmCJUzzNrHZra3yjiJ/6J16rdIF28+DS1NMLSSXL/K6wsoB46B8qrV/Y17o2j/PMxEy1Sdr9id6DtqHgWepMvP3YKKMeDgRMZ9Ua2UrSKHUjx2GdGsVSwr7+cX1D4RQ3166xbmiWxlpkMjnsqk53oUNRhxaCqMOIOk3vo9QHgIK3cSULcRJYXeyOZxKEhUKdasM0lPPyzBQHrbOF8sTVNCDB1j9Mk0b2m/3wwkyw9rHNZzLHvVKQW054eDqzlJg/f2my+MFLlrpbVxB59iWS06y1TvbOvZvn2B676y+iJb0lHxd33PUYcYCupQpVImGoERZtu2QXf+uvPNMApJeO19UoVOefpw/mlelE9w1139i+g48xBjNolfwPP6HPxR/QOvhhg8x+qtUec7HJ+RaLQuxFhWUbjbQRy/tvM2uVvLG3ajNxpg4qaRj6BmF1Y3TcWDRX6hrYrRxHdxXqLX7EkK5SPC6La6FQxQrRxK4nwGSv/QJW5hQ53JKOYCSajWY3k3FIKTtRuzbqgP2SwRDUFofwfbYj1QCK3hJ1DyYsDviN10XFljO/BKxh2hKJnfscfieTs9uqLNEGEE9cIdSsNaGjHDZ0v73rY1dKkKrW5M/hSgswc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(376014)(1800799024)(366016)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ArjEU5ry2rhovJpVXNL8VunYpWkgQkSKLVBRCleFplMrdK4PAPp70qk/bQOu?=
+ =?us-ascii?Q?X6ldntxD4qdMCgduGlRdSg/x1VOEoGRHBj9w/0r3nx7p+H8LA+iSF0+00kfd?=
+ =?us-ascii?Q?NPwNjCKWACz0rnjv7EkdNtkrt2PmIosbifr0Ownu72LKMxKga5VwyYSlvUmW?=
+ =?us-ascii?Q?yxaD34eKCCEkgYPsfURjKNTR9j7vBFnxob5xGNBeHgYhUPEV8prLjL6OdN8N?=
+ =?us-ascii?Q?hyTgDxPNcGxnZmu9HpL/opjE4LFFkvtodcev/QOL191UvbfwXZhdmK3ecfDQ?=
+ =?us-ascii?Q?aXZBWJfWSpaakN9yjTVnSOAkfFQFIkcGuU5PlnH3/GWIXQx4ydxcCRZ/GCTh?=
+ =?us-ascii?Q?+8sYMPjiQMSJSXZzQJRKozsJW2Rw9VEIsuDTe8bNO4FM5uuEven3dj9iIDxs?=
+ =?us-ascii?Q?ySfpsIQo8eepCXD2A5F3cJXrRfmRd3aL3F5FOXkpIlfqmZCWo+aWa8rmN4tu?=
+ =?us-ascii?Q?nBS9OXgb3XuPy4zEC6u1ukmImh+B/I1W3pHwHfA4Cy9hMPdO+DKXGDa8Ne7Y?=
+ =?us-ascii?Q?K5w1b+VTeOIivIGboGNWKrbKhN8td44/AWFBQFtz8fhS0iqjtMiYn1hlXiO7?=
+ =?us-ascii?Q?lTfPz6YO16OZhFZLWyLJEZdI28IWRqHED5ifKJGcV6gEsUuVMq6kW9/GQS/I?=
+ =?us-ascii?Q?H5cY3nhzPxvR5x6ro45VG97IY10YQOSsrE163heiZ5kqJDwBbwcb9KbtSeqZ?=
+ =?us-ascii?Q?TNgWSpBIXXefMMWo70o+L826JXt9KdzJiFawSwhr4YA974k3zTgu+d/LBk7j?=
+ =?us-ascii?Q?ZdGo08Dz4x4mat2fMHkbs7sQrQz5ckk9fJFX+c8ueT9aeHobKzBziN/726wz?=
+ =?us-ascii?Q?slIQQ0F/hOHp3BAPM8lenSFab7976bKMooJLwE/GBI0nNqWAZThEYG0605hj?=
+ =?us-ascii?Q?SakXqj0VARXKukGKMYN7QS5Tn6pR/7oFAHXOoTR3AXj21MMGeEBCfNPciakW?=
+ =?us-ascii?Q?UX22/TXC6XzErng3AMmbauxpj2JwO8XTbWxH0xuTsXCPuZN54BhC/PBCOLPB?=
+ =?us-ascii?Q?ELdqBapQYyUj65Ewi3E5HW7KANcBut5A6zasUVv1Ng6LIWp0Jqp701hkaZWN?=
+ =?us-ascii?Q?9npJ7YZUoaLD1g22lc3RoW+mRPFEEb9kj6wf6FdkyRb1l9u9f3tRi0qu7F61?=
+ =?us-ascii?Q?+vOvLqHED0SwSLto38NQhaH7vYPhOMkCJQEI2LQjM7vHylEbcknpXbuZGJHu?=
+ =?us-ascii?Q?ObEfOLzaleRVJeGq/GPQlOGb1F7FHKor3+alJyLCCrbpGewKHBoeYR+BnZF9?=
+ =?us-ascii?Q?HnlBVdkqLyAuLZM0tJmxRwKTLtlS8bVcC11MZZRp705u7dkAkQzUbTijNZcM?=
+ =?us-ascii?Q?Eb7rZNytAI7TTeb2dzZ7ryI7E9XKb6wCOVYYLZPyYCosC64NE2Q57M72e4zw?=
+ =?us-ascii?Q?aocfQ3kxngy+hSUXoDr9vNIoHSR7+t9TwMvRWDllrgyxdpYy5Ye1JfZIOFpb?=
+ =?us-ascii?Q?8zbSC52hW0+cLVdhl9sdN6H69zEPPWPlv3c9W29K4lVLUDDF1VYrjdV5iwaE?=
+ =?us-ascii?Q?6lj1wXdtdWi3l7hVUe+yal7QCEPXc6M5UpG48RPW8OQ6X5oO6tbPHIisWRVP?=
+ =?us-ascii?Q?mP5dAr9K0CJv4sHZU8D7uEjj+s//XMYiHMbjRjyKsYf3T92AJXAUjP6gjVEr?=
+ =?us-ascii?Q?uC9KWNhCa8EFpSeLI5oM7nDNH1YIY6I7zuzuzu02nLPER9L9qTZ2Gkpw9V/Z?=
+ =?us-ascii?Q?7kQAMcNWTZTkN/hM87qqGyLmVKfYzmXo05LAQfpyW1GW0pylvINAsikg3NFN?=
+ =?us-ascii?Q?OkoujPP7DrCWev5jrUZfPweAhQhtvfUGJb9mEfHXZ3mPLqtTLTn3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2491e50b-082d-4370-2f75-08ded3bac956
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 19:40:33.2315
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EKy36P76TYo/mhN2Jrkir9M1flR/MeujEZifdeJkuGaS0Fh/OlNspdMjFB1xQSzo7KZbCmY3e39M+xGsjtiAzXv57+bFP79PuqyoQPu+5i99XduI2uzRVyfShxkGFVmp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8819
 
-On 6/26/26 11:18 AM, Conor Dooley wrote:
-> On Thu, Jun 25, 2026 at 04:55:07PM -0500, David Lechner (TI) wrote:
->> Add new bindings for ti,ads122c14 and similar devices.
->>
->> This is an ADC that is primarily intended for use with temperature
->> sensors. There are a few unusual properties because of this. In
->> particular, the reference voltage source and current output requirements
->> can be different for each measurement, so these are included in the
->> channel bindings.
->>
->> The REFP/REFN reference voltage is usually just connected to a resistor
->> that is being driven by the ADC's current outputs, so there is special
->> property for this case rather than requiring a regulator to be defined
->> to represent that.
->>
->> ti,vref-source is reused from ti,tlv320adcx140.yaml (otherwise might
->> have preferred an enum of strings).
->>
->> Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
->> ---
->>
->> v2 changes:
->> * Added ti, vendor prefix when appropriate.
->> * Others are now standardized properties from adc.yaml.
->> * Moved top-level unevaluatedProperties.
->> * Fixed some issues with the channel@ matching and reg property.
->> * Dropped description on bipolar property.
->> * Renamed currnet-chopping to input-channel-rotation.
->> * Drop header file and use string enum instead for reference-sources.
->> * Added burn-out-current-nanoamp property.
->> * Drop allOf: and just use oneOf: directly.
->> * Fix inconsistent indentation in the examples.
->> ---
->>  .../devicetree/bindings/iio/adc/ti,ads112c14.yaml  | 205 +++++++++++++++++++++
->>  MAINTAINERS                                        |   6 +
->>  2 files changed, 211 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->> new file mode 100644
->> index 000000000000..59ee4d652a08
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c14.yaml
->> @@ -0,0 +1,205 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c14.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Texas Instruments' ADS112C14 and similar ADC chips
->> +
->> +description: |
->> +  Supports the following Texas Instruments' ADC chips:
->> +  - ADS112C14 (16-bit)
->> +  - ADS122C14 (24-bit)
->> +
->> +  https://www.ti.com/lit/ds/symlink/ads122c14.pdf
->> +
->> +  These chips are primarily designed for use with temperature sensors such as
->> +  RTDs and thermocouples. The channel bindings reflect this in that each channel
->> +  represents the conditions required to make a measurement rather than strictly
->> +  just the physical input channels.
->> +
->> +maintainers:
->> +  - David Lechner <dlechner@baylibre.com>
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - ti,ads112c14
->> +      - ti,ads122c14
->> +
->> +  reg:
->> +    items:
->> +      - minimum: 0x40
->> +        maximum: 0x47
->> +
->> +  clocks:
->> +    maxItems: 1
->> +    description: Optional external clock connected to GPIO3 pin.
->> +
->> +  avdd-supply: true
->> +  dvdd-supply: true
->> +
->> +  refp-supply: true
->> +  refn-supply: true
->> +
->> +  ti,refp-refn-resistor-ohms:
->> +    description:
->> +      The resistance of the external resistor between REFP and REFN when using
->> +      resistor bridge driven by current outputs for RTD measurements.
->> +
->> +  interrupts:
->> +    minItems: 1
->> +    items:
->> +      - description: FAULT interrupt (GPIO2 pin)
->> +      - description: DRDY interrupt (GPIO3 pin)
->> +
->> +  interrupt-names:
->> +    minItems: 1
->> +    maxItems: 2
->> +    items:
->> +      enum: [fault, drdy]
->> +
->> +  gpio-controller: true
->> +  '#gpio-cells':
->> +    const: 2
->> +
->> +  '#address-cells':
->> +    const: 1
->> +
->> +  '#size-cells':
->> +    const: 0
->> +
->> +patternProperties:
->> +  ^channel@[0-7a-f]$:
-> 
-> How does this work/what's the intention here?
-> 
-> 0-7 I get, why a-f but not 8 or 9?
+On Fri, Jun 26, 2026 at 10:31:19AM +0800, Sherry Sun (OSS) wrote:
+> From: Sherry Sun <sherry.sun@nxp.com>
+>
+> Use dw_pcie_rp::skip_pwrctrl_off to avoid powering off devices during
+> suspend to preserve wakeup capability of the devices and also not to power
+> on the devices in the init path.
 
-bah, just a typo, not intentional
+Need empty line here.
 
-Should be [0-9a-f] to match maximum: 15 on reg.
+> This allows controller power-off to be skipped when some devices(e.g. M.2
+> cards key E without auxiliary power) required to support PCIe L2 link state
+> and wake-up mechanisms.
+>
+> Move pci_pwrctrl_create_devices() to imx_pcie_probe() so that it is only
+> called once during probe, similar to other regulator_get calls.
+>
+> Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+> ---
+>  drivers/pci/controller/dwc/pci-imx6.c | 43 ++++++++++++++++-----------
+>  1 file changed, 25 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> index 0fa716d1ed75..0685573fee71 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -1382,16 +1382,12 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+>  		}
+>  	}
+>
+> -	ret = pci_pwrctrl_create_devices(dev);
+> -	if (ret) {
+> -		dev_err(dev, "failed to create pwrctrl devices\n");
+> -		goto err_reg_disable;
+> -	}
+> -
 
-> 
->> +    $ref: adc.yaml
->> +
->> +    unevaluatedProperties: false
->> +
->> +    properties:
->> +      reg:
->> +        items:
->> +          - maximum: 15 # arbitrary limit, channel@ can be any combination of AIN0-AIN7
->> +
->> +      single-channel:
->> +        maximum: 7
->> +
->> +      diff-channels:
->> +        items:
->> +          maximum: 7
->> +
->> +      bipolar: true
->> +
->> +      input-channel-rotation: true
->> +
->> +      excitation-channels:
->> +        maxItems: 2
->> +        items:
->> +          maximum: 7
->> +
->> +      excitation-current-nanoamp:
->> +        maxItems: 2
->> +        items:
->> +          enum: [1000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000,
->> +                 90000, 100000, 200000, 300000, 400000, 500000, 600000, 700000,
->> +                 800000, 900000, 1000000]
->> +
->> +      burn-out-current-nanoamp:
->> +        enum: [200, 1000, 10000]
->> +
->> +      reference-sources:
->> +        items:
->> +          - enum: [internal-2.5v, internal-1.25v, external, avdd]
->> +            default: internal-2.5v
->> +
->> +    dependencies:
->> +      excitation-channels: [ excitation-current-nanoamp ]
->> +      excitation-current-nanoamp: [ excitation-channels ]
->> +
->> +    oneOf:
->> +      - required: [ single-channel ]
->> +      - required: [ diff-channels ]
->> +
->> +unevaluatedProperties: false
->> +
->> +required:
->> +  - compatible
-> 
-> reg?
+Please two patch do that. one patch move pci_pwrctrl_create_devices() to
+probe
 
-I thought reg being required by i2c-controller.yaml was already good enough.
+one patch check skip_power_off.
 
-https://github.com/devicetree-org/dt-schema/blob/2203c1720f4ebeebd7f8d10e9dc1812993482fab/dtschema/schemas/i2c/i2c-controller.yaml#L219
+> -	ret = pci_pwrctrl_power_on_devices(dev);
+> -	if (ret) {
+> -		dev_err(dev, "failed to power on pwrctrl devices\n");
+> -		goto err_pwrctrl_destroy;
+> +	if (!pp->skip_pwrctrl_off) {
+> +		ret = pci_pwrctrl_power_on_devices(dev);
+> +		if (ret) {
+> +			dev_err(dev, "failed to power on pwrctrl devices\n");
+> +			goto err_reg_disable;
+> +		}
+>  	}
+>
+>  	ret = imx_pcie_clk_enable(imx_pcie);
+> @@ -1460,10 +1456,8 @@ static int imx_pcie_host_init(struct dw_pcie_rp *pp)
+>  err_clk_disable:
+>  	imx_pcie_clk_disable(imx_pcie);
+>  err_pwrctrl_power_off:
+> -	pci_pwrctrl_power_off_devices(dev);
+> -err_pwrctrl_destroy:
+> -	if (ret != -EPROBE_DEFER)
+> -		pci_pwrctrl_destroy_devices(dev);
+> +	if (!pp->skip_pwrctrl_off)
+> +		pci_pwrctrl_power_off_devices(dev);
+>  err_reg_disable:
+>  	if (imx_pcie->vpcie)
+>  		regulator_disable(imx_pcie->vpcie);
+> @@ -1482,7 +1476,8 @@ static void imx_pcie_host_exit(struct dw_pcie_rp *pp)
+>  	}
+>  	imx_pcie_clk_disable(imx_pcie);
+>
+> -	pci_pwrctrl_power_off_devices(pci->dev);
+> +	if (!pci->pp.skip_pwrctrl_off)
+> +		pci_pwrctrl_power_off_devices(pci->dev);
+>  	if (imx_pcie->vpcie)
+>  		regulator_disable(imx_pcie->vpcie);
+>  }
+> @@ -1954,11 +1949,15 @@ static int imx_pcie_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+>
+> +	ret = pci_pwrctrl_create_devices(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to create pwrctrl devices\n");
+> +
+>  	pci->use_parent_dt_ranges = true;
+>  	if (imx_pcie->drvdata->mode == DW_PCIE_EP_TYPE) {
+>  		ret = imx_add_pcie_ep(imx_pcie, pdev);
+>  		if (ret < 0)
+> -			return ret;
+> +			goto err_pwrctrl_destroy;
+>
+>  		/*
+>  		 * FIXME: Only single Device (EPF) is supported due to the
+> @@ -1973,7 +1972,7 @@ static int imx_pcie_probe(struct platform_device *pdev)
+>  		pci->pp.use_atu_msg = true;
+>  		ret = dw_pcie_host_init(&pci->pp);
+>  		if (ret < 0)
+> -			return ret;
+> +			goto err_pwrctrl_destroy;
+>
+>  		if (pci_msi_enabled()) {
+>  			u8 offset = dw_pcie_find_capability(pci, PCI_CAP_ID_MSI);
+> @@ -1985,16 +1984,24 @@ static int imx_pcie_probe(struct platform_device *pdev)
+>  	}
+>
+>  	return 0;
+> +
+> +err_pwrctrl_destroy:
+> +	if (ret != -EPROBE_DEFER)
+> +		pci_pwrctrl_destroy_devices(dev);
+> +	return ret;
 
-> 
->> +  - avdd-supply
->> +  - dvdd-supply
->> +
->> +dependencies:
->> +  refn-supply: [ refp-supply ]
->> +
->> +oneOf:
->> +  - required: [ refp-supply ]
->> +  - required: [ "ti,refp-refn-resistor-ohms" ]
->> +  - properties:
->> +      refp-supply: false
->> +      refn-supply: false
->> +      ti,refp-refn-resistor-ohms: false
-> 
-> I assume you've tested this to make sure it enforces the behaviour that
-> you want?
+Mani said he will fix DEFER problem soon.
 
+Frank
 
-yes
-
+>  }
+>
+>  static void imx_pcie_shutdown(struct platform_device *pdev)
+>  {
+>  	struct imx_pcie *imx_pcie = platform_get_drvdata(pdev);
+> +	struct dw_pcie *pci = imx_pcie->pci;
+> +	struct dw_pcie_rp *pp = &pci->pp;
+>
+>  	/* bring down link, so bootloader gets clean state in case of reboot */
+>  	imx_pcie_assert_core_reset(imx_pcie);
+>  	imx_pcie_assert_perst(imx_pcie, true);
+> -	pci_pwrctrl_power_off_devices(&pdev->dev);
+> +	if (!pp->skip_pwrctrl_off)
+> +		pci_pwrctrl_power_off_devices(&pdev->dev);
+>  	pci_pwrctrl_destroy_devices(&pdev->dev);
+>  }
+>
+> --
+> 2.50.1
+>
+>
