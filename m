@@ -1,70 +1,90 @@
-Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AF61A3160
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D841E3DDE
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782460174; cv=none; b=i73DTydL3KAELQDhGEnAnsZiFdDdZv1zyGSWSWgfGxyc3J2v8MW/PpmSpPzCQ9RnLvhScG5/87mXWyve9MkA6O9jM9CMfdXnMcEGI+TajseImDxFmbalRTFG1Ki3fP3VuDS95Mhc4TvXmyol5JSJwWkbj4cOeY/GN/Z28hpc4Lg=
+	t=1782460440; cv=none; b=ACwqEU6KN7DUBG5ZxhPWYieYnBOuZ5TThsG/g55m9s1aCm9cY58kpYwpG6gxZ7OjSJLIsSJdOloU19rpN/QP7feRGYPLrk0zYSvD7GWmhpJAISGqMBxWpWjomU3RyOwD7CgsFnuTnyhflHMM9wkqcrprsCxk3ECmPDB81UImtak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782460174; c=relaxed/simple;
-	bh=dvFcYGe6L1idfk9wGMYrduqPaQs0l4aNwLSYhUvK3AQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MQA+jkEtuonXo1Sm4t1QBBwk/9AQeLhWoZRflYWg7gOouNZtaznxmRBpJg7oM/fgLZ99DCHdJc+pd8kdGyg1p5D+b0VvB1jcLToTLgo5MuSvKnXDz5AvTxRMFnJRuvzEm3GQ145Dr5Ov6gjmEhTdBAvtmy/cB9XLcQUmuFi+GEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dkGxPK9Y; arc=none smtp.client-ip=91.218.175.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1782460440; c=relaxed/simple;
+	bh=WigDwDqcemVMDM2D5Qs+YN/uB/ZxsPC/4WwBUxkPL08=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WsUJBPEiDvFXXAxKFMJBYdWvjhgv4aJf3Rlds4Dkyi0F9xC/UT4/LMzMomZNNALK21NUGTrqZ2foNXFP84QpYVTAllyKDFlvMEMmcuUQa9NSbBm+Tb0pEk29tOZcYfxTjI+TAaTUiUpUIlL4GqGJuQAaeWvfM7ZpLxTCzHZzlik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VO9Vr/Sk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dkGxPK9Y"
-Message-ID: <2b620c1d-af40-4813-9df0-b63adb1161b5@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782460170; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7Di4YVjFIZfU5+zAiTbJY2s0en/y+uu5qey0tpETgvQ=;
-	b=dkGxPK9YoXJRxPyNDIjKx9iLBIQYNTsCpeXMyGgXb0b9XB2wV78ochqztm7CbfsAK1GmkJ
-	3vVmKr5xXIod8LEJJZPBspf0sNzRwT3I2i+8wsh9og6gPxRhX6WK/jlG7BFC0bXhGhTuMz
-	+GmR5Wr/t4EJVAGtrBxxUSsrO8Hcfbk=
-Date: Fri, 26 Jun 2026 10:49:25 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VO9Vr/Sk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19D51F00A3A;
+	Fri, 26 Jun 2026 07:53:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782460439;
+	bh=WigDwDqcemVMDM2D5Qs+YN/uB/ZxsPC/4WwBUxkPL08=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VO9Vr/SkSig3sXjAN5VZWGnA4SGkSp7gpKiu4w7qsnCJfPYzXsvdN+6zApdvvSbGp
+	 5gj4vmCO/TUXiMWP35LDX4Cwg5Qov4HZh5QPP65QA+R183mA1YshTbH7jJSV+JMf3K
+	 Pct0MFly+HqAQjS38Q8hJ9WitMm0s19vev2MTxjRYY985J1X7SN0C6RgKeYWadmX+Z
+	 lSqZkMpyixci14GuukBsatPuPQLHwF7DodA5yzvCvQyJGAb3ESiyGArRF3RJpHDF2f
+	 xtmEZcKzR2VFX/YIQXKdqL8SHcSCOJKq91bmP+YHqsu3lqcPV/tsRQwCcEOb9/pWaW
+	 yMW8t3or7jdtg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/2] Documentation: dt: reset: add
+ mediatek,syscon-reset binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: peter.wang@mediatek.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260626074820.2537772-2-peter.wang@mediatek.com>
+References: <20260626074820.2537772-1-peter.wang@mediatek.com>
+ <20260626074820.2537772-2-peter.wang@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 07:53:58 +0000
+Message-Id: <20260626075358.C19D51F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Reply-To: mazziesaccount@gmail.com
-Subject: Re: [PATCH v2 9/9] hwmon: adm1275: Support ROHM BD12790
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-References: <cover.1782458224.git.mazziesaccount@gmail.com>
- <b209c1b47712b69f17b52cfd7a7a38ed76024ca7.1782458224.git.mazziesaccount@gmail.com>
- <20260626073347.A06981F000E9@smtp.kernel.org>
-Content-Language: en-US, en-AU, en-GB, en-BW
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-In-Reply-To: <20260626073347.A06981F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-On 26/06/2026 10:33, sashiko-bot@kernel.org wrote:
-> If we evaluate m = round(k / 10^(-3-R)) for a value of R=-2 and k=35119.94,
-> it yields 351199.4. However, the actual code below correctly implements the
-> value as 3512, which implies the formula should use multiplication rather
-> than division.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The YAML binding schema is missing the mandatory `$id` field.
+--
 
-Gah. I think Sashiko is right. The fixed comment should say:
+commit 010ce9609c338d8282471debb7c3cd606956e201
+Author: Peter Wang <peter.wang@mediatek.com>
 
-m = round(k * 10^(-3-R))
+Documentation: dt: reset: add mediatek,syscon-reset binding
 
--- Matti
+This commit adds Device Tree binding documentation for the MediaTek SYSCON=
+=20
+reset controller. The binding describes a reset controller that is part of=
+=20
+a MediaTek SYSCON MFD block and manages multiple reset lines via the=20
+mediatek,reset-bits property.
 
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+> diff --git a/Documentation/devicetree/bindings/reset/mediatek,syscon-rese=
+t.yaml b/Documentation/devicetree/bindings/reset/mediatek,syscon-reset.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/reset/mediatek,syscon-reset.yaml
+> @@ -0,0 +1,93 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+[Severity: Medium]
+Is the mandatory $id field missing from this schema definition?
+
+Without the $id field, the schema cross-reference system ($ref resolution)
+can break, and dt_binding_check might silently skip validation or report
+misleading errors. Should it be added to the top-level schema header?
+
+> +
+> +title: MediaTek SYSCON Reset Controller
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626074820.2537=
+772-1-peter.wang@mediatek.com?part=3D1
