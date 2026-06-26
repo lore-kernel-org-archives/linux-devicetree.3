@@ -1,225 +1,151 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011030.outbound.protection.outlook.com [52.101.52.30])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86023E8C65;
-	Fri, 26 Jun 2026 10:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782470314; cv=fail; b=janPId94ZlatmWm6eaxsJYDvVW/5mM7bbbHUqmiF2lLdN+PO/xx2QJlcmXSmt3fcHt1nDgiO3tCac/K2OnjFX88c/Zrh+p6qKfytNxDy8L21oL2GvpExibzyQPxGAmHC7Glh8ucOHNySLdAkwB6kC0fP8N21TDEsm25S6lO+kgE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782470314; c=relaxed/simple;
-	bh=tDLAxrieJFT5LpH9JYILFKIDsQH136M1Ho4WcCfZHdA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JO+MScfwAAh/ANnLgk0ARWq13msMNq5lf85aDd4GqMy2NsaJEuyKOGRGnFr7mzkVrXcds5Gx8KQ5TYG2TiDzKC7kuzo9K+7pl+1i6qeZEDd3gWFTF795B2rVjKKaIOQiRmgiFx3YrvFz2tWn5+Kx+cUH64b2Kg8wgAwBgPc0OkQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TFBGRsHe; arc=fail smtp.client-ip=52.101.52.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26E937C935;
+	Fri, 26 Jun 2026 10:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782470880; cv=none; b=sWRwQ2Lm32UCUhpU+juQzB4ieVVshWpU0SdbV8yVjoUtJ4/ydWqfxVzVfjLk+Wbm1+yRyiyeQaheBu88mVwyG7lG+JXBHK4XKtV5vB/1mKKzYBsmlTz5EoZ4c3xz0xbodaZp7ArDAcQc249RdkujobZnSiaTEmNnG0GPOdG2vag=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782470880; c=relaxed/simple;
+	bh=vP2IdaVPbSZOk1XpzpIw7n5ZLCjv5/AMwDD8kEjAC3Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BwUQ1BuHAVwruyRTMzVUYCJcNJbS74/IIL44/5aFhtCBjKfr3TqM9/cFBEp/O0oFjxYVBwvDhkT3AKJoJ3HDeQ12+XqilAKmvxYsnhCokWuamUYqueM20NeDtQ/VvEQSnVcRwge0U3iBlGuMAR+8SHrWgHWquQxFS782G6dAGMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fY082PXT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TFBGRsHe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F1MFBBekHFO3URg1P2jpqkYAXTFz1toxT73UZYRcMqjnv9lr9oKUI/G0bsQ+Jv1kKOimvevOkqbzx7Iq7eCz40O5XPxlgNkagdX09yZ+1yF8g9TF5YULCDYNbqI44kaH3zyFr+hi2COpz0drMjTFUlOVfluQJG4KQY4wKNdMehHd55GgJtdhyH5vyNOaRC4kCqBZYoTdj2OU1hQdIAq10hkAVm5n/9XP+mPaagBKW/nM4pbRxCZcSxDkR/7mPrpb8vG/jrmEYJMrCqdtLc5OfhMy2vpLoIto342nuKhj4iW+prnBMH42/qsL1wXDpa34gHXfzSfBHSvXhOhQLeCPqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=smoZ2ZVSvY3TDyMRCFYy976nHNmTjtXWC8kRX2GZ3tw=;
- b=jsj2d5Ve9t9amh4Y8J8LJ6c2qPyfpyYlBj1T+K47LQMYuVnUKqEmh1gNZw5+k3sNDeXeyI+ugZF6rO4FAP8030rGJ/H7Cccng4zjMEYFj+NONFZhOZ/GvhioDulpkaed0EpoKiu7oYRgvl+Nm3kuucWpbTlRIiJiXIjadf+TAbYeWbVj7yH08yIjRk69jnT014nqKSuUL+7asEGQ1jgZkcNKpP2sczyW+lEjNTA4+Hpmfr1UJ4JSVIDECKAWR7JcVKdXyreY6C7TBN0ly7QRinuL1+arXpX4sm+16ACIx4H2aaUe/Tu1R8hlExA0tyrHMm7ZtnyOUeLguv7B9xGndg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=smoZ2ZVSvY3TDyMRCFYy976nHNmTjtXWC8kRX2GZ3tw=;
- b=TFBGRsHexNh+d5PyUW7OK5pEVJdOpTGe52XwF2641JgSDfamcLWo/K1gQ27EtWtrFriSL5/yV6IpOOIudXAZt05eT8iAkx+A0VUbyTGitb01WJDAC69RLEDLjFJI7QIwgU1FtQIuTPc+F+AhR112YrKwh25qqMZ3CEUUWPJQiy4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
- by DM6PR12MB4370.namprd12.prod.outlook.com (2603:10b6:5:2aa::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Fri, 26 Jun
- 2026 10:38:27 +0000
-Received: from DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
- ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
- 10:38:27 +0000
-Message-ID: <6670dd3d-94b9-4e0b-ab51-91b146265d49@amd.com>
-Date: Fri, 26 Jun 2026 16:08:20 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 3/3] dmaengine: zynqmp_dma: Guard IRQ handler against
- spurious interrupts
-To: sashiko-reviews@lists.linux.dev
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
- dmaengine@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260618071056.2024286-1-nagendra.golla@amd.com>
- <20260618071056.2024286-4-nagendra.golla@amd.com>
- <20260618072615.5D3401F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
-In-Reply-To: <20260618072615.5D3401F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0344.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21f::10) To DS4PR12MB999075.namprd12.prod.outlook.com
- (2603:10b6:8:2fc::20)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fY082PXT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60BC21F000E9;
+	Fri, 26 Jun 2026 10:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782470878;
+	bh=VYo3Ganq+WzA7X6u0ccLN2QJdHrunNuBmjyvihQ9bgU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fY082PXTc0XtaGqK1Hxo1xcbFPGuQTOnC+RsZjw9yja3eyqFAenyPMbvFNEemsn5Z
+	 w4gKJn3LogYURADXofWVfPjE+SzX1pyCBgzJEmkoc8aSozQ2j1SEfTFh8c0E0RhEag
+	 S/NsbXu+SpGb9H7LHESpq2ypWE5GeJHm6mONXHpXrZHfQEyZhUJLyNbCpZiUDfQMWV
+	 BwyueZHKfzhPI/qfKkfCXxm65Cp8zd69hD+Sf71y9NcZQunQzK9BXCDYV+sHXh+BLT
+	 WB+Xtgy1DyNTyNYjapjabA5G06SQ6AzSfqc4IDSCfwhh4mFAet8c1DA7SUgSWrcn/q
+	 taKGxC0Cj0RCw==
+Date: Fri, 26 Jun 2026 12:47:54 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: George Moussalem <george.moussalem@outlook.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
+	Jeff Johnson <jjohnson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: remoteproc: document M0 Bluetooth
+ Subsystem secure PIL
+Message-ID: <20260626-tiny-warm-jerboa-3ba57a@quoll>
+References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
+ <20260625-ipq5018-bluetooth-v1-1-d999be0e04f7@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|DM6PR12MB4370:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23e32788-7f77-4283-2f57-08ded36f0e88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|6133799003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	9zvjDUX652Kyt7ActyGra0CoUksXnZ8zF/eHCHQDfoaxITYwFGotO3sIG29cv9nIYPgqDXy3Vc5rbHXJQ3LtjnE7ZKT6/dln/Z9ofXZCMLmJlmVfmIMWbX93RSitte4+hS/SZAHFXMQBATerbJiXDc10a1QsJy6O7Ti3duE1GHzkYkDUgkfCmCOFitwvU8GxZBnzMk/9e6uTkJW1vDQpsFUisLC+AiB/nRupOyoq5objjvWlqOHN64sK1dx+c8ZD3TqleCpGd+NdDtimJ0gzpdssVB2WkRGKu1S4NHpp14JZOdPMYp+A6fKmIHYOhdY4ZCc5knuRWXF+aTZyUC61vsKk0f1RcyLTB5M9BdZ+4/Eo8UXhqhq6rp0M7sro9RYnzkInxS9hWa5e1enxykfFRzBd9K7uKBLjapqsnaNOND5hzGUt5T0ka1Z/Rng1yD9sJSlZCISr2sS/ZXGVKWFOvmYETChO2Nwh0YTyt/+dGiCCQJEWJMmZ72Pc9wEf9vyybM748+RPWck7gO6aZcY0nDb/ZnX4OweoZCTx6WsPkx+cjTmvTGmq4R5dJZhsFyXZTkRCWARCi+AtWcIr34dwapj1aoYfHEozZHcXE8J0+4mxz6dg2P62NyD1GYVfv1K1DV/abxKcwzBQeTqYyzeYPvj4C9sQt34VwYl9Jh0mat8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWNMY3RIT3hHVHhzakM4cHhaR3V2WFNuSmg0UWJuRnhMMlowYWsva1R6aEJX?=
- =?utf-8?B?bSsxV3lKVHFobWYwYXQ4K1p0WXhPdmFWNDU3WGxDWlNwTGxZRkJuQmZoN3Nv?=
- =?utf-8?B?MmlqNE9LUUErMHNCZ0s5U1A4bUVjMUdZYnZXdE9yZ0VXRDgwQ0R5RmNIN2x6?=
- =?utf-8?B?dC8wR2J4Y3JIMVFwWHNTdFczblF0TURnWDIyaVRMd1JVNlUyK3VmbEx1L2Fm?=
- =?utf-8?B?N0F4b3Z4WTlCYUt4ZnVsaU90S0NiRnU1dTdVN1lUVktJZy9FVmVpUFZNUEZ5?=
- =?utf-8?B?K2x3dWcybGZialZJQ1dlV2V5MGFLazdlUmlHU1RycmlpOHNQeDFjRkMzdjRq?=
- =?utf-8?B?WVcvcTJOSVlhejl0WFRhWWRZNlhVVncrNEsyK251eFlxSEEwSWtFZDY3Mnc0?=
- =?utf-8?B?R244VllFUjNRdFZXdlhIQ29iSTNFTmp6UkVoUjdlY3NYUnVVRFpLbDFaVi9I?=
- =?utf-8?B?bjNWN1VBMUhzUmF0anYvZ2cydUs1bWdkN1gyYjlRMERUM1A2VzJPeERlaDlO?=
- =?utf-8?B?VWZCZjU5N2U5Z0VuZjFLN1BPOEJINHZPYzZRYkxnM2NCZDkraW5hV1dMTVlY?=
- =?utf-8?B?SnhkSUNCZWw4L2NVcHJ1dlNqQVB1UExaQVhiQ016OTVQRmNRZVhpOTQ0aHIz?=
- =?utf-8?B?TjRBUHRLUU5Hdk0yS1pqaS9IcnFnSURWbExKUkhicEl4SUNhTmpNSlJxdXFP?=
- =?utf-8?B?NHQvejZGemhFd2FQdHp2VkszemIrTnVkcytkYzdFUisvcWprR3pwVnZhSlRG?=
- =?utf-8?B?ZlVmZDZoT0tobTNvaGh4MzNCOGZramdkSUVNV093bFovUzZhSVoybEpvWFNL?=
- =?utf-8?B?dUYzQkwwenlOam8rb3dtbFBpZ0JXU2VUcGxVQWliUGlEZk1GTEoyR0JXOHZy?=
- =?utf-8?B?TWNzVE1iTElGMnk0alh2aFRoUFZjRDZUSkxEMjlaNkVOclFuQ2NxSFVDSEhF?=
- =?utf-8?B?UnlGZm5LODhjd0VabkVVRHhKWWRGQ1ZIamtKN2NyMUl3eUNHZDBCclN5eHpS?=
- =?utf-8?B?dG5BR09kakkydkJHZUFmYVlOZWVMbTBVdm9yWlB1OUhsZHlUYnpjY3BKN3Nq?=
- =?utf-8?B?b29uMWx5OGtCQnk0SWxSZHNnZmhzYlNlT3pJTGZLRkkwM2RMM1hXNGR3ckR5?=
- =?utf-8?B?dXBpSnR1NjVteUkya3daWmlJRTk1cm1UYTVjRE1PeXZKeHVqTnZCNnZRTUpD?=
- =?utf-8?B?OS9PME1aYkY3bEVWOXcwbnpwNGpWVktsMWFFMldlcWlPeHFpNmQxL1IwNzJP?=
- =?utf-8?B?aUt2bVc0RFZBdkJFVlBZS0pUMVdMTU1ydThHcFVCUHpDbnUvbzlEV0FaVCt5?=
- =?utf-8?B?UVpYV1ExZi9ja2s3UVY2UW16bGZtWmU1MlhyQzE2WHBhWXJldi9Ybm5LNklQ?=
- =?utf-8?B?VGNTSkJvdkNpV1FOSld4TnF1WkpSZEJKY3dHUnVBeE9sSUZIV3czc2lxRTlh?=
- =?utf-8?B?QVBmeWlrbjdOTVZTUDRBbTkydlZoWVpQWHYvYU16RUcxOGV4S3BHdmFWV0Nr?=
- =?utf-8?B?S2lYZVFVRW9yTE16S3R1Y1NEdzlSR0JwZmlPczYwS0hXdWdRUlZRS2dLMVhL?=
- =?utf-8?B?TVU4cWk1bGp0ZEpZRlNUTmpSUU84emxKWitYellEd05Qc2NWM2U2VFovcDFr?=
- =?utf-8?B?cjFpRSt5d1dDQngzb2Q5STBvSTlUc1lGRmU0UVNvMzJEREZoUm4za1dsNnJR?=
- =?utf-8?B?Ymh6YWlUYTV1cXBubTcyNTZmQWRPemg4cGg4aHBTMHBzWnViK2xjZC8rL25E?=
- =?utf-8?B?QnkySXpaUTJ1bkdPb3NKUStvdlBEd2VWRjVYSmZFQkpmOVZPQk1DQlRlaFNw?=
- =?utf-8?B?V0FxMTZ1NWNMZHZaSlFYbEIweUxKVFNrUU50NjBmZThYZzU5WkoybnhhZlRu?=
- =?utf-8?B?MmpRWjVYc3JpVmV1bmhjQ1RvMTFxY1BORnNlVHVFWGdBNWRVSEMrRGxvODg1?=
- =?utf-8?B?Y1ByU2dWV3RPOGQ3ckpsVTg4ODM1ZWhCRTZQaFVqWVMzeTcwQjZJTjFFZzdn?=
- =?utf-8?B?WUdzbTlhS1NmbzRjSUUrL3FTbSs0cWZzY2RtSzRtMC9yRWxTUXNSZ3J5Q1Fj?=
- =?utf-8?B?VjE5R2E0OXk3aGtEbHJPSkV0ajZuRm9jRnV6aS9iVDhLTlc0d0w4eWVPeDh0?=
- =?utf-8?B?eDRpV2U5cnNIelZZc0FiWkVndG5VMHBrT2F5L0cxb2V1YzJHMFNXNCtaTzNv?=
- =?utf-8?B?UGwxdm44MUxYQkhFbWxobmVzMnMvMWs2dktkZlJQQk8vR21SY1ZvWGthc2lG?=
- =?utf-8?B?OXdXUWlPanJWeDNjc3hKLzYzeVVjUklFbkdBQXdCeThJaXBCWHNuRkdDRFhX?=
- =?utf-8?B?K3hkRXRISVNuNkNFN0VESHJpc05mL3UwZEN3SVpFa0RpQmhZTmJMUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23e32788-7f77-4283-2f57-08ded36f0e88
-X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 10:38:27.4822
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: POHxuVAf/ijoy1685wEMngVvC5YS4ygR3LHtuoy42Owv5qXdW69OwgezsBxuEEXl3wGSDzaWhd37HFKNZpRs7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260625-ipq5018-bluetooth-v1-1-d999be0e04f7@outlook.com>
 
+On Thu, Jun 25, 2026 at 06:10:05PM +0400, George Moussalem wrote:
+> Document the M0 Bluetooth Subsystem remote processor core found in the
+> Qualcomm IPQ5018 SoC. Firmware loaded is authenticated via TrustZone.
+> The firmware running on the M0 core provides bluetooth functionality.
+> 
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  .../bindings/remoteproc/qcom,m0-btss-pil.yaml      | 72 ++++++++++++++++++++++
+>  1 file changed, 72 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,m0-btss-pil.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,m0-btss-pil.yaml
+> new file mode 100644
+> index 000000000000..397bb6815d71
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,m0-btss-pil.yaml
 
+Use compatible as filename.
 
-On 6/18/2026 12:56 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] The interrupt handler drops valid interrupts when CONFIG_PM is disabled.
-> 
-> Pre-existing issues:
-> - [High] Memory and runtime PM reference leaks on error paths in zynqmp_dma_alloc_chan_resources().
-> - [High] Missing synchronize_irq() before tasklet_kill() allows the tasklet to run after channel resources and PM references are freed.
-> --
-> 
-> commit 62db01b8d81ad56c8fb04b0d8f2adecdae634703
-> Author: Golla Nagendra <nagendra.golla@amd.com>
-> 
-> dmaengine: zynqmp_dma: Guard IRQ handler against spurious interrupts
-> 
-> This commit adds a pm_runtime_get_if_active() check in the
-> zynqmp_dma_irq_handler() to safely handle spurious interrupts. It
-> returns IRQ_NONE immediately if the device is not runtime-active,
-> preventing potential synchronous external aborts.
-> 
->> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
->> index a9dfec3c0ca3d..ce9163138be74 100644
->> --- a/drivers/dma/xilinx/zynqmp_dma.c
->> +++ b/drivers/dma/xilinx/zynqmp_dma.c
->> @@ -730,6 +730,9 @@ static irqreturn_t zynqmp_dma_irq_handler(int irq, void *data)
->>   	u32 isr, imr, status;
->>   	irqreturn_t ret = IRQ_NONE;
->>   
->> +	if (pm_runtime_get_if_active(chan->dev) <= 0)
->> +		return IRQ_NONE;
-> 
-> [Severity: High]
-> When CONFIG_PM is disabled, the pm_runtime_get_if_active() inline stub
-> automatically returns -EINVAL. Does this check unconditionally drop valid
-> interrupts in non-PM configurations?
-> 
-> Because -EINVAL is less than or equal to 0, the handler might always return
-> IRQ_NONE. This could potentially lead to an unacknowledged interrupt storm
-> or the kernel permanently disabling the IRQ line.
-> 
-> [ ... ]
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but do the error paths in
-> zynqmp_dma_alloc_chan_resources() leak the runtime PM reference?
-> 
-> drivers/dma/xilinx/zynqmp_dma.c:zynqmp_dma_alloc_chan_resources() {
->      ...
->      chan->sw_desc_pool = kzalloc_objs(*desc, ZYNQMP_DMA_NUM_DESCS);
->      if (!chan->sw_desc_pool)
->          return -ENOMEM;
->      ...
->      if (!chan->desc_pool_v)
->          return -ENOMEM;
->      ...
-> }
-> 
-> If pm_runtime_resume_and_get() is called earlier, returning directly
-> on memory allocation failures without calling pm_runtime_put() will
-> leak the PM reference and previously allocated memory.
-> 
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does zynqmp_dma_synchronize() miss
-> a required IRQ serialization step?
-> 
-> drivers/dma/xilinx/zynqmp_dma.c:zynqmp_dma_synchronize() {
->          struct zynqmp_dma_chan *chan = to_chan(dchan);
-> 
->          tasklet_kill(&chan->tasklet);
-> }
-> 
-> If zynqmp_dma_irq_handler() is executing concurrently and gets preempted
-> just before calling tasklet_schedule(), tasklet_kill() might see no
-> scheduled tasklet and return immediately.
-> 
-> When the IRQ handler resumes and schedules the tasklet, could it execute
-> asynchronously after channel resources and PM references are freed,
-> potentially causing a synchronous external abort?
-> 
-> Would calling synchronize_irq() first resolve this?
+> @@ -0,0 +1,72 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/qcom,m0-btss-pil.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm M0 BTSS Peripheral Image Loader
+> +
+> +maintainers:
+> +  - George Moussalem <george.moussalem@outlook.com>
+> +
+> +description:
+> +  Qualcomm M0 BTSS Peripheral Secure Image Loader loads firmware and powers up
+> +  the M0 BTSS remote processor core on the Qualcomm IPQ5018 SoC.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,ipq5018-btss-pil
+> +
+> +  firmware-name:
+> +    maxItems: 1
+> +    description: Firmware name for the M0 Bluetooth Subsystem core
 
-Hi,
+You can drop description, pretty obvious.
 
-Thanks for catching, agreed and will fix in v3 along with other RCs from 
-the maintainers.
+> +
+> +  clocks:
+> +    items:
+> +      - description: M0 BTSS low power oscillator clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: btss_lpo_clk
 
-Thanks,
-Nagendra>
+Just "lpo"
+
+> +
+> +  memory-region:
+> +    items:
+> +      - description: M0 BTSS reserved memory carveout
+> +
+> +  resets:
+> +    items:
+> +      - description: M0 BTSS reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: btss_reset
+
+Drop names. Using block name as input name is not really useful.
+
+No supplies? no address space? How do you actually trigger remoteproc
+startup?
+
+> +
+> +required:
+> +  - compatible
+> +  - firmware-name
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - memory-region
+> +
+> +additionalProperties: false
+
+Best regards,
+Krzysztof
 
