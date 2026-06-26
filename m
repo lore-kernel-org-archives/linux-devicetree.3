@@ -1,260 +1,149 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C82F3AD510
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 11:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9953E8678;
+	Fri, 26 Jun 2026 12:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782474462; cv=none; b=Vz5om2APHULTXyIUOsC8QpdfMusji61i2tRqH9TM+NPmMXAsh3y54TYtaNNl6rcy9k9J1LpOiiM/+Avz+jtbWpfkpJV50T+ktkC5qTQsaT7ZPhrLNdjXEHS5fzQ6LGIRV58fQYpLOfCI6Q47p8mg6NrsQ4us387fv01H4VPcLq8=
+	t=1782475689; cv=none; b=cxM8AIY56scHC2HxrrorMrJnOkHyM3mF1OmM7ZVgBwRKFieltRmCsI5LMeXfbbikiWej2ZtAn4mrgyb9fSTBGXEJcbNvEl7mbKelajAU0I0jDCCq+7LgJB9ARodz2l+r7v8Ol61RRUtmbBovl+Tpl/RNTS/4cetdD9xccbUYrrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782474462; c=relaxed/simple;
-	bh=R8xvfTZKyRhEDkLTWiheYcQXLuR8+3ZzZdaD71GWZ3Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJFuVIIPKuv23V88u6K9EyKcZfh7xv0uApXbgBuWCYir+9A4cAvb2/ps4xWRysaudb4NhYfrn7ppZmdAYTQ1F0XHDsB+hHMaszs0xchY4mNX8VR8Xf3J0IsFZYC1KCSglXhqcZC1CzYIySWiK2VtfpVYTIMU4v5SWDU8704S3OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=I1mPfg8V; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1782475689; c=relaxed/simple;
+	bh=TY+1ymCIy0OL3hNWFQ2bJgQFUJArnwOKKwXeXghWFkg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qfJWY3D+NfpYdhp60yUXYhzJvTxf53PLW4r5CpkRMsDQnZFK4BjcyI3k4nejdmQRfn1V98zkQWaryYPFBRFSwfVpi+j6snp/+O+7daRbUxMd4zEsJvhUo9K95EWXbKMjKZd28wZT2yX6Q0zBcafEEDQzuDzQezFCbQLqRHC4Jfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ohNctst3; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="I1mPfg8V"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-37d82f3a244so385066a91.2
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 04:47:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1782474460; x=1783079260; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=dioXPMSt1EARQSLrGqQkhe/4CP6WY1S+tXkvTD0rOSY=;
-        b=I1mPfg8VJ1D2xKfhk9ZypPUzUcWIjmiwYApPB+goXSipfLcBZN2ay2rpWpQGsViY7j
-         2TbwJ6xSd3ZOaZEyBb8TDkM/FgJFevTgvcW1METaQW2jS9jWGirs4QvVcyQZxX8wYWL5
-         U+bMwO9RQCX/JWF0wMJWV1AGg3NICl0fcheRP0Ai4cvvNV98NrB7aXMSR23iz27r1nkS
-         snBNMpO14Y8CluhZiR4qqQcPo1XD8B9PHWM8Q2Inf1nmiTjvNk8KbmAR/sMFSBOF+osl
-         z+KW2bjWiHYOBOOSBUUFmASn8iiWSKqIxvZB3UIZ+jJY5MCIAzIuYK03t8l1LaH/dPin
-         p6wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782474460; x=1783079260;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dioXPMSt1EARQSLrGqQkhe/4CP6WY1S+tXkvTD0rOSY=;
-        b=R3LtR4WD7jS6h313RojuAjZDSkj+hKf7xI76Wp4ExCDSRdWCyqrPbbw0lNTLq9h3M7
-         OwqMR5IoADV/5GHfkb8BxTdDGjrfWXHN7kkFoSb93LsK0luVSEslyopo14PWb5+BWiGN
-         x/Wg+Cfufq6zLOTTnLP4T4TEat9tEu7y8WsHVwn42/D8NXYWE0CLzy1QTGpVgnoNW3AZ
-         UvUtNb+BSPJ4iNjqIa4MYj2K70unE+839byXXiEiSy8/VItZiAIH1oZm8ysTV2sdLjuB
-         pgO1OX8/RiHQAAPoTZY55IsMPFL/Go7YxayKjm3ctcVY6vShKQJQMuTOaxOe/J8FDUXk
-         79gw==
-X-Gm-Message-State: AOJu0Yy9VpMSDnVdV4EmLMyKQNU1zhC1Q3ODwIG9zqNV7zXpRF1ME51w
-	FmEAjyeGCIk6BxNSopXFjE1jtxbKVlTdV4YQbiElCxsUVYqBJowjMflXxH+jnnM9sFI=
-X-Gm-Gg: AfdE7ckYcY7t5NViSWLtfXcWSgfnA0AV1YGlCC7QY6VKm4AZPUEADfbxVlBLM0R1U/g
-	i5PQoeVzC0R0g8OIGEJyyrWnV4SyC3eaFQ0r7I1mYsrimAfYU6WdHNPuFpsPCUOHocORkC8+KAw
-	G3N0zDbT9Y5gSMX376rXF7PLcmFAZpm0acDS3DuoPb1WO2kSUK5kpB75Kc7FrzskJiIilgwyW8+
-	9+5VL4bJAY34F2/rHnydOOiSJMTwy0exKSj1RMa1lhKXN8wIpxBrmcTxJ3mLz80pD1r2ex6vD6O
-	q+wgGkXdSrP7QRwv710WTWQWF7lr0LNWwgmF0u6ngJtxIx6iFSLrX0MgMxWKCRhXmkU40L3kMVB
-	e4ETcRZ+Xmr/iQrWaCFUWqyADDRQ+ETVFoWRaI9a6RrYSmPRpqQsjSdxkmer2UNKxu3di29Nfl4
-	ztv2YnrPfILNA=
-X-Received: by 2002:a17:90b:2788:b0:37d:ee77:78ac with SMTP id 98e67ed59e1d1-37f816aeeeemr169488a91.19.1782474460154;
-        Fri, 26 Jun 2026 04:47:40 -0700 (PDT)
-Received: from plin-1878 ([136.226.240.191])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37df3b4bd5bsm3748919a91.13.2026.06.26.04.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 04:47:39 -0700 (PDT)
-Date: Fri, 26 Jun 2026 19:47:31 +0800
-From: Yu-Chien Peter Lin <peter.lin@sifive.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com,
-	dlan@kernel.org, guodong@riscstar.com, dfustini@oss.tenstorrent.com,
-	michal.simek@amd.com, junhui.liu@pigmoral.tech,
-	darshan.prajapati@einfochips.com, akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn, luxu.kernel@bytedance.com,
-	pincheng.plct@isrc.iscas.ac.cn, nick.hu@sifive.com,
-	jim.shu@sifive.com, zong.li@sifive.com, greentime.hu@sifive.com,
-	robin.randhawa@sifive.com, scott@riscstar.com,
-	dave.patel@riscstar.com, raymond.mao@riscstar.com
-Subject: Re: [RFC PATCH 2/3] dt-bindings: riscv: Add Worlds per-hart
- properties
-Message-ID: <aj5m00m4KxRAPAnB@plin-1878>
-References: <20260619105834.1277302-1-peter.lin@sifive.com>
- <20260619105834.1277302-3-peter.lin@sifive.com>
- <20260622-profanity-herbs-1cc1bcf6206f@spud>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ohNctst3"
+Received: from ping.linuxembedded.co.uk (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A7A0DE2C;
+	Fri, 26 Jun 2026 14:07:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782475640;
+	bh=TY+1ymCIy0OL3hNWFQ2bJgQFUJArnwOKKwXeXghWFkg=;
+	h=From:Subject:Date:To:Cc:From;
+	b=ohNctst3EMLEWPJDcYOvDTpN4WWOwqlp+76uVbE2bm6A2xgsAbqwF4EwjrQxlrh2j
+	 zwpFt5ZFrIrYTC+nfkp17JfIE8+lGCsS2mQVms/Y7xsQ4BP8HXTNfHgt1tlhpdPK1R
+	 y5NMU0risbye5JFHZvUxPX1gt2hobdBrz8YNi3Dw=
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Subject: [PATCH v2 0/8] dt-bindings: Orientation defines
+Date: Fri, 26 Jun 2026 13:07:52 +0100
+Message-Id: <20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260622-profanity-herbs-1cc1bcf6206f@spud>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJhrPmoC/x3MTQqAIBBA4avErBMGIfu5SrQwG3OILDQikO7e0
+ PItvlcgU2LKMFQFEt2c+YgSuq7ABRtXUrxIg0Zt0GCntpnjGuyuDnHxspcApdF6h342fdOC0DO
+ R5+ffjtP7fhp1xghmAAAA
+X-Change-ID: 20260608-kbingham-orientation-20afc0fb6957
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+ Matthias Fend <matthias.fend@emfend.at>, 
+ Mikhail Rudenko <mike.rudenko@gmail.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>, 
+ Martin Kepplinger <martin.kepplinger@puri.sm>, 
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+ Tommaso Merciai <tomm.merciai@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux@ew.tq-group.com, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475679; l=3406;
+ i=kieran.bingham@ideasonboard.com; s=20260207; h=from:subject:message-id;
+ bh=TY+1ymCIy0OL3hNWFQ2bJgQFUJArnwOKKwXeXghWFkg=;
+ b=GChpd7SRw8H3NOWttl2n42YKdV+fRjG4b2xqrTjq2JpcgAvXgegIEh82R4+H3z+BsVxd9R7+2
+ 665tA5KbM5ICMI7mhUpFIwKceo94j6XQjGzudqSHRdNXXmXWGeJ8HFS
+X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
+ pk=FVXKN7YuwHc6UtbRUeTMAmranfsQomA+vnilfglWdaY=
 
-Hi Conor,
+Add a new dt-bindings/media/video-interface-devices.h header that
+initially supports the Orientation types and convert existing users
+throughout the code base.
 
-On Mon, Jun 22, 2026 at 06:12:47PM +0100, Conor Dooley wrote:
-> On Fri, Jun 19, 2026 at 06:58:33PM +0800, Yu-Chien Peter Lin wrote:
-> > Add per-hart DT properties for RISC-V Worlds architecture:
-> > riscv,pmwid, riscv,pmwidlist, and riscv,pmlwidlist. These
-> > platform-defined values are primarily used by M-mode firmware
-> > to configure World ID CSRs and restrict WID usage across
-> > privilege levels.
-> > 
-> > Signed-off-by: Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > ---
-> >  .../devicetree/bindings/riscv/cpus.yaml       | 21 +++++
-> >  .../devicetree/bindings/riscv/worlds.yaml     | 77 +++++++++++++++++++
-> >  2 files changed, 98 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/riscv/worlds.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/riscv/cpus.yaml b/Documentation/devicetree/bindings/riscv/cpus.yaml
-> > index 5feeb2203050..4b5778b6d3e7 100644
-> > --- a/Documentation/devicetree/bindings/riscv/cpus.yaml
-> > +++ b/Documentation/devicetree/bindings/riscv/cpus.yaml
-> > @@ -26,6 +26,7 @@ description: |
-> >  allOf:
-> >    - $ref: /schemas/cpu.yaml#
-> >    - $ref: extensions.yaml
-> > +  - $ref: worlds.yaml
-> >    - if:
-> >        not:
-> >          properties:
-> > @@ -120,11 +121,31 @@ properties:
-> >        thead systems where the vector register length is not identical on all harts, or
-> >        the vlenb CSR is not available.
-> >  
-> > +  riscv,pmwid:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description:
-> > +      Platform-defined M-mode World ID (WID) assigned to this hart.
-> > +    minimum: 0
-> > +    maximum: 63
-> > +
-> > +  riscv,pmwidlist:
-> > +    $ref: /schemas/types.yaml#/definitions/uint64
-> > +    description:
-> > +      Platform-defined bitmap of M-mode World IDs (WIDs) that this hart may use.
-> 
-> I don't understand what the difference is between this property and the
-> one before it are.
-> Is this one meant to be used by m-mode software to then select one which
-> will appear in riscv,pmwid?
+v2:
+ - Now expands from the original v1 "dt-bindings: media: Add macros for
+   video interface devices" to update
+   Documentation/devicetree/bindings/media/video-interface-devices.yaml
+   and extend to actually change all users to the new types.
 
-pmwid (single value) is the reset default, while pmwidlist (bitmap)
-defines the allowed set. The root-of-trust M-mode software may select
-an allowed value from the pmwidlist and write it to the mwid CSR.
+---
+Kieran Bingham (8):
+      dt-bindings: media: Add macros for video interface devices
+      media: dt-bindings: video-interface-devices: add video-interface-devices.h references
+      dt-bindings: media: i2c: Utilise video-interface-devices enums
+      ARM: tegra: Convert to new media orientation definitions
+      arm64: dts: freescale: Convert to new media orientation definitions
+      arm64: dts: qcom: Convert to new media orientation definitions
+      arm64: dts: renesas: Convert to new media orientation definitions
+      arm64: dts: rockchip: Convert to new media orientation definitions
 
-> 
-> > +
-> > +  riscv,pmlwidlist:
-> > +    $ref: /schemas/types.yaml#/definitions/uint64
-> > +    description:
-> > +      Platform-defined bitmap of World IDs (WIDs) that S-mode and U-mode may use
-> > +      on this hart.
-> > +
-> >    # RISC-V has multiple properties for cache op block sizes as the sizes
-> >    # differ between individual CBO extensions
-> >    cache-op-block-size: false
-> >    # RISC-V requires 'timebase-frequency' in /cpus, so disallow it here
-> >    timebase-frequency: false
-> 
-> > +  # RISC-V requires 'riscv,nworlds' in /cpus, so disallow it here
-> > +  riscv,nworlds: false
-> 
-> Isn't this pointless? Nothing ever defines riscv,nworlds as a cpu level
-> property so there's no need to disallow it?
-
-Okay, thanks for the catch, will drop this.
+ .../devicetree/bindings/media/i2c/hynix,hi846.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov08d10.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov4689.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5675.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5693.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov64a40.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx111.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx415.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd56g3.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/thine,thp7312.yaml    |  3 ++-
+ .../bindings/media/video-interface-devices.yaml         | 17 +++++++++++------
+ .../dts/nvidia/tegra30-asus-nexus7-grouper-common.dtsi  |  3 ++-
+ .../dts/nvidia/tegra30-asus-transformer-common.dtsi     |  3 ++-
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts            |  4 +++-
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi             |  3 ++-
+ .../imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso          |  3 ++-
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi       |  3 ++-
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts      |  3 ++-
+ .../boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     |  3 ++-
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi      |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso |  3 ++-
+ arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi           |  3 ++-
+ .../dts/rockchip/px30-ringneck-haikou-video-demo.dtso   |  3 ++-
+ arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts   |  5 +++--
+ .../rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso  |  3 ++-
+ .../rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso  |  3 ++-
+ include/dt-bindings/media/video-interface-devices.h     | 13 +++++++++++++
+ 32 files changed, 86 insertions(+), 37 deletions(-)
+---
+base-commit: 30ffa8de54e5cc80d93fd211ca134d1764a7011f
+change-id: 20260608-kbingham-orientation-20afc0fb6957
 
 Best regards,
-Peter Lin
-
-> 
-> >  
-> >    interrupt-controller:
-> >      type: object
-> > diff --git a/Documentation/devicetree/bindings/riscv/worlds.yaml b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> > new file mode 100644
-> > index 000000000000..cc8b3747591e
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/riscv/worlds.yaml
-> > @@ -0,0 +1,77 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/riscv/worlds.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: RISC-V Worlds Extension
-> > +
-> > +maintainers:
-> > +  - Yu-Chien Peter Lin <peter.lin@sifive.com>
-> > +
-> > +description: |
-> > +  The RISC-V Worlds ISA extension, as described in the RISC-V Privileged
-> > +  Specification, adds World ID tagging for context isolation.
-> > +
-> > +  This binding describes the system-wide Worlds configuration for the /cpus node
-> > +  and is used alongside per-hart Worlds-related properties such as riscv,pmwid in
-> > +  the RISC-V CPU binding and Worlds-related ISA extensions enumerated via
-> > +  riscv,isa-extensions.
-> > +
-> > +select:
-> > +  properties:
-> > +    $nodename:
-> > +      pattern: "^cpus$"
-> > +
-> > +properties:
-> > +  riscv,nworlds:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    description: |
-> > +      Number of World IDs (WIDs) supported by the platform. This is a system-wide
-> > +      property that describes the total number of isolation contexts available.
-> > +      Hardware components such as the WorldGuard Checker use this to determine
-> > +      the valid range of WID values.
-> > +    minimum: 2
-> > +    maximum: 64
-> > +
-> > +additionalProperties: true
-> > +
-> > +examples:
-> > +  - |
-> > +    // Example: System with 4 World IDs
-> > +    cpus {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +        timebase-frequency = <1000000>;
-> > +        riscv,nworlds = <4>;
-> > +
-> > +        cpu@0 {
-> > +            device_type = "cpu";
-> > +            reg = <0>;
-> > +            compatible = "sifive,bullet0", "riscv";
-> > +            riscv,isa-base = "rv64i";
-> > +            riscv,isa-extensions = "i", "m", "a", "f", "d", "c";
-> > +            riscv,pmwid = <0>;
-> > +
-> > +            interrupt-controller {
-> > +                #interrupt-cells = <1>;
-> > +                compatible = "riscv,cpu-intc";
-> > +                interrupt-controller;
-> > +            };
-> > +        };
-> > +
-> > +        cpu@1 {
-> > +            device_type = "cpu";
-> > +            reg = <1>;
-> > +            compatible = "sifive,bullet0", "riscv";
-> > +            riscv,isa-base = "rv64i";
-> > +            riscv,isa-extensions = "i", "m", "a", "f", "d", "c";
-> > +            riscv,pmwid = <1>;
-> > +
-> > +            interrupt-controller {
-> > +                #interrupt-cells = <1>;
-> > +                compatible = "riscv,cpu-intc";
-> > +                interrupt-controller;
-> > +            };
-> > +        };
-> > +    };
-> > -- 
-> > 2.43.7
-> > 
-
+-- 
+--
+Kieran
 
