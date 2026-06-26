@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2369BEEA8
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:17:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A443A0E81
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782508659; cv=none; b=HS5iTKj+cNl2gAvo7dwYOeeatUVencxUVL3FxdhA/XKGYQIwWpNZDbtoYqLZ+E0y4IYDVPbQGLJeyB2B8por2XhzqENe4fPnrg5k+zSMHXBuVNIjfXBq117c7arjnCkC9wlc3zkptlFpKnAVz+kFjf71oOYi/3p06g1/1DcSLMA=
+	t=1782508670; cv=none; b=hro0LL8kxD8jziR/6aY2XIPrvKcA6qeNrgMx4vyYYGD8icW6sKoF0vFGdBopV4ghjiFXad9r/M8W+YLowWoQy1FAAJPPKm7VoXUF/dk8kJ6Wrr14BCXgMhYKdbYZ+MPRvT90ljX10uj3UWYcHuBPmhDcwPXHvvkJODlVR6dH+Jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782508659; c=relaxed/simple;
-	bh=2BkA1CjPw/ssQzdQlWbupw16c6HJHc6ZCTkeaJ9qhI8=;
+	s=arc-20240116; t=1782508670; c=relaxed/simple;
+	bh=BTlu3F9lPw0wqV2ccWKUd40pZHNMzoH3KD4mfxaYc2k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z1M7+A6dGkKywiLcOsDMb25QyQDCd1Tsp2DlQPX3J037c1t3P4KN03mkibC9K9eEQgTA7EzQmjWyWDHT/vbC6agwIKKdFVV8JS74muxjxzEAJSOV/sYV1/mZQmxYGwida5DbQrkvPgPUmppiMw/mCJaA0y4pStENnrpLQueeoGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ts9xbBd3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nzACCImyTfvGd7weuOYv+UDwHxIWv+yBMWqNbdsAUfkINMIKo+ew450Wp6Ke7KeWPogzAQ7JmObx8wbYMg0wdQziTakzUJij8Yo5elc+m8W6umqJG6tf7aW8XeLVYgLdQ9P8SZDNnyMzW7zeXuz+wfjLQpYZeVi5lYlxlK7czCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMUW4Ef6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ts9xbBd3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CCC1F000E9;
-	Fri, 26 Jun 2026 21:17:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMUW4Ef6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF691F000E9;
+	Fri, 26 Jun 2026 21:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782508657;
-	bh=K0hiYeRKLlQf/feAsch7WFukT1+Bz6EvirZMzdpt4ao=;
+	s=k20260515; t=1782508668;
+	bh=m0dy4UkM4Vp8svrKYfbkw79OIu4z8Qbu6Ly7oV7dbpo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ts9xbBd3ZPnYRKuuEHvEr0YVGSYL3f1Fx242RS5UaW3PB0dfS4IBYsfQ7UJ5zvFyU
-	 RmT0GP5GDddVdaye08IkGpK0VLJQ131wyVBQi9Kd4KmsKhol0r+Hug4xCmLyeUxjTv
-	 EKa0mzwNN+Q+Ecsej8GuE0mnw0QNXqNJLNwCIPWguTLDTvy9cNMpqjP4jGYnc83fNj
-	 NknRAzmNzlCKvwJ/ZlPmdNUs9ZcZd3gXDRs/VQdArfGl9QZK50JvqMSHJEoMqF5j/h
-	 PzH8SMZNENmXerm+/CjgmLyBpMbJbZbocHZyp0zU2+8I64cBEoIS4/x5+Ttml01XRO
-	 BxIP6aQ30gHbg==
+	b=MMUW4Ef6sL+xomGVarpWj6e0ZiSMekL1pKSC+71R0VsQq7kbAJQvzI+rKutcaQs79
+	 e3UnphhBUlVuowqqgxyT7IrMOfIzUdvHWOCSpCiGpwRUE1dry43UYjSQalP9MzekZF
+	 xBdovrwAQKiO1y+9++U+knUnqm0m+TrrYpcLGe1FZPb7y4KWa1gGTy3baPskr5OitA
+	 S1RnCWZSZco/M6VmYZpgvb94d7Um2UjOZYLwkq9iQijrq0YRfa18JPSGjkmr1jd1JX
+	 7xwuHrHm9q2VmptsxCllW8x1j4c5Vw2mM+pe0b7yjFdoTPiPMc9rexXmvMtQiPY82l
+	 d5gtSkKSddINg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/29] phy: rockchip: usbdp: Limit DP lane count to
- muxed lanes
+Subject: Re: [PATCH v8 24/29] phy: rockchip: usbdp: Support going from
+ DP-only mode to USB mode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-13-47f682987895@collabora.com>
+Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-24-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
- <20260626-rockchip-usbdp-cleanup-v8-13-47f682987895@collabora.com>
+ <20260626-rockchip-usbdp-cleanup-v8-24-47f682987895@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 21:17:36 +0000
-Message-Id: <20260626211737.38CCC1F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 21:17:47 +0000
+Message-Id: <20260626211748.4DF691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,84 +47,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch's fix =
-is incomplete. The lane count validation added to prevent DP configurations=
- from corrupting USB3 PHY state is bypassed during voltage-only updates. If=
- the Type-C state dynamically reduces the available DP lanes, `udphy->dp_la=
-nes` is updated but the cached `udphy->lanes` remains stale. A subsequent v=
-oltage-only update will iterate up to the stale `udphy->lanes` and write DP=
- voltage configurations to the physically reassigned USB3 lanes, corrupting=
- the USB3 PHY state.
+- [High] The logic introduced to restore USB functionality fails on subsequ=
+ent adapter replugs because `udphy->status` permanently retains the `UDPHY_=
+MODE_USB` flag.
 --
 
-commit e11a3cd1b181c4fdc9e18a16f2893d3ae7465cb5
+commit b83098c186ec9041e5338df8dff07f7fa436a60c
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Limit DP lane count to muxed lanes
+phy: rockchip: usbdp: Support going from DP-only mode to USB mode
 
-This commit limits the DisplayPort lane count to 2 if the PHY is
-restricted due to USB3 usage. It aims to prevent USB3 state corruption
-during voltage configuration.
-
-Closes: https://lore.kernel.org/linux-phy/20260612165546.98E1F1F000E9@smtp.=
-kernel.org/
+When a USB-C adapter, which maps all Superspeed lanes to DP is plugged
+in, the USB support is disabled in the PHY. When the adapter is
+unplugged and a different adapter with USB functionality is plugged in
+afterwards, USB functionality is not restored as the USB controller
+keeps the PHY enabled for the entire time.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index 5c38da0dadd22..6de8ac3f91441 100644
+> index 837a4cb3e4b60..4566822d70c4a 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1132,6 +1132,9 @@ static int rk_udphy_dp_phy_verify_link_rate(struct =
-rk_udphy *udphy,
->  static int rk_udphy_dp_phy_verify_lanes(struct rk_udphy *udphy,
->  					struct phy_configure_opts_dp *dp)
->  {
-> +	if (dp->lanes > udphy->dp_lanes)
-> +		return -EINVAL;
-> +
+
+[ ... ]
+
+> @@ -1347,6 +1362,17 @@ static int rk_udphy_typec_mux_set(struct typec_mux=
+_dev *mux,
+> =20
+>  	rk_udphy_set_typec_state(udphy, state->mode);
+> =20
+> +	/*
+> +	 * If the new mode includes USB, but it has not yet been powered
+> +	 * (because the previous mode was DP-only) and the USB PHY was
+> +	 * already initialized by the USB controller, we need to power on
+> +	 * the USB side now since no subsequent phy_init call will come
+> +	 * from the controller.
+> +	 */
+> +	if ((udphy->mode & UDPHY_MODE_USB) && !(udphy->status & UDPHY_MODE_USB)=
+ &&
+> +	    udphy->usb_in_use && !udphy->hs)
+> +		return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is the fix incomplete for
-voltage-only updates?
+Does this logic handle subsequent replugs correctly if a USB device is plug=
+ged
+in first?
 
-If a Type-C event renegotiates the connection and restricts udphy->dp_lanes
-to 2, udphy->lanes could still hold a stale value (like 4).
+Since the USB controller keeps the PHY enabled during hotplug (as noted in =
+the
+commit message), the UDPHY_MODE_USB flag in udphy->status is not cleared.
 
-Looking at rk_udphy_dp_phy_configure(), the lane verification is skipped
-if dp->set_lanes is false:
+If the user then plugs in a DP-only adapter, the PHY is reinitialized for DP
+and physically disables the USB3 port.
 
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
-	...
-	if (dp->set_lanes) {
-		ret =3D rk_udphy_dp_phy_verify_lanes(udphy, dp);
-		if (ret)
-			return ret;
-	}
-	...
-}
+If the user later unplugs the DP-only adapter and plugs in a USB-only adapt=
+er,
+won't !(udphy->status & UDPHY_MODE_USB) evaluate to false because the flag =
+was
+never cleared? It seems this would skip the call to rk_udphy_power_on() and
+leave the USB3 port disabled.
 
-If the driver then issues a phy_configure() with set_lanes=3Dfalse and
-set_voltages=3Dtrue, the voltage loop will iterate using the stale
-udphy->lanes value:
-
-drivers/phy/rockchip/phy-rockchip-usbdp.c:rk_udphy_dp_phy_configure() {
-	...
-	if (dp->set_voltages) {
-		for (i =3D 0; i < udphy->lanes; i++) {
-			lane =3D udphy->dp_lane_sel[i];
-	...
-}
-
-Could this still result in writing DP voltage configurations to reassigned
-USB3 lanes, corrupting the USB3 PHY state?
-
->  	switch (dp->lanes) {
->  	case 1:
->  	case 2:
-[ ... ]
+> +
+>  	return 0;
+>  }
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rockchip-u=
-sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D13
+sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D24
