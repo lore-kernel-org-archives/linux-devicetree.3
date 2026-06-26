@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9441391E57
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:38:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1592EEE91
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:40:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782441530; cv=none; b=LReYL4nlmtPQniuuFL7szOyanAeCb9rp5+2PIQZoHgWvhkuCe0OCvhRs/gJOg4yR751X/sYX6lfWCSO0W8A0eezdT+b4TFcWy9Wr9f1fZQplLXidym3cCP6AV4YrkPbWfVECalAV9xpttYNHyk2bgvKU3rvdmAm+LLDHoWthjlU=
+	t=1782441626; cv=none; b=gYwdVnjjpiy/TmitbSgs1qLFcT/CczueviWr66Wg9IKcrxzwUr7uS/Sse/IqjN6S7Dsute9zzPo7p9efx56wvNur3BqT879p79xFzMv7YEugwmDmjDBeL4aM2pXg1IKoaz6Xwy7m89Gh/CbIwlYInNBMJHjbpbip4T/LOOb5QYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782441530; c=relaxed/simple;
-	bh=SiTorH+LmuWPMqPGZ5h6Y9TZDtPnJjnD4HqwX6cwe9c=;
+	s=arc-20240116; t=1782441626; c=relaxed/simple;
+	bh=+yRAJjWfFWlML44jZ18XJNI9O8J39uZJzRFjL/cFQwk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Djs0DJ79BGj/bigWDoZqYzVikD3xE0KqnzZpDk0Lv0L6Xs+mRxj8gp0GNeOeB+MZF7wz3dRVxQQ0+pXeHL90iesRJS+SVPMGQu1NHjvd4fxAMg5yl/hgceKws0yMRhnClDaQCPoWsJ6gkyTEXaZKc0mR/29mNbTFX28HujZnAv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFUsOUZi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HR8mgnwd+VlnFQuQdWrDZ9sxj5osTpSHmjwStH0RI3qjaEh3c2Z+wPPWEDvp/PjQqDrevs2peamLGgIk6OqvcdvpbKGfEucArneX6mRWGdI8F4z/hsF/Cp/QtTSLyJc7tOJOZSTY1S1TlmAR0Kj7v0HU58huNInZSu3Kg7YGs5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gHMY7Ek1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFUsOUZi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7031F00A3A;
-	Fri, 26 Jun 2026 02:38:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gHMY7Ek1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 207961F000E9;
+	Fri, 26 Jun 2026 02:40:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782441528;
-	bh=3I0jqSkfysfh6Wt0GX18EiluopHqdgatms1GhiyR3fw=;
+	s=k20260515; t=1782441625;
+	bh=/PL9oomt3ZKtbciTTHCiSkVGAAkeKkmkCachkGoxpDA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bFUsOUZiB2cHbVjoaBYzFtOcoJGY6qLT25VY9Tuw4DPPNdZyWXwv+a7VkWiCfq6Rh
-	 yO94UJlxStwXcurRCuA1Nv+jOiYiPzAAPhh1ROd4NHGOobuYjH3yt07VFsptzDIBwM
-	 VVb/ek+ll91VLAhfHBg8XhcpNT1FjCk1Zhx4mAMQE9bF0EMD1cVUK1Reu5h9ovgBqn
-	 VmeAAhFTj993mbZcs7bRTI42oM3hTtoRosu1as2+KhYWXiYI35kELZ1Z6AVyTyi1Bg
-	 8EssQ65ZSUuBH5Tx88ksYb5Mq7AiUZfmj7Br/xK6hkQhvW5wDDweoB+p0N4tnL5gFK
-	 4GfB1Jy+oMvqQ==
+	b=gHMY7Ek1vasACjy+K/WHbLK+WY7whExw4CpEDbQ8VxoqqQBySawaA1QMzOUfdhtwt
+	 NrO+y/pTEL/ntAc5Im52nAo30hEGvGD6C7qYQzvaEqAtt59txGPoUiHCq5wrB9vge7
+	 ktZ6Odq1ScK/+qaDs8QWypJEkFc+6+m6rn5tq2BGFVd7GCLAE0pEeJefMAWq2RJFDv
+	 +qnhS1n4KzICvrcl39K7tyk6je1bL8/VOPXTYbKxmc+DtargMeScjrzTBrJrR+OFM7
+	 +te3ueBts4i8yFeFdXpXayJZWX1sXiYMj8O4lMOgZctrkmuCmp63vYH2uqPZ+vEcRo
+	 oheUzrzS76OTA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 7/9] ASoC: dt-bindings: loongson,ls-audio-card: Add
- ATK-DL2K0300B compatible
+Subject: Re: [PATCH v3 9/9] ASoC: es8328: Add DAPM routes from MIC inputs to
+ Mic Bias
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <71430fcee5951fb7a7d52e2091a87707db85e06c.1782439646.git.zhoubinbin@loongson.cn>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <dcf1f8ae4f1f192a1d63e9fe7044b0218119b5eb.1782439646.git.zhoubinbin@loongson.cn>
 References: <cover.1782439646.git.zhoubinbin@loongson.cn>
- <71430fcee5951fb7a7d52e2091a87707db85e06c.1782439646.git.zhoubinbin@loongson.cn>
+ <dcf1f8ae4f1f192a1d63e9fe7044b0218119b5eb.1782439646.git.zhoubinbin@loongson.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 02:38:48 +0000
-Message-Id: <20260626023848.7F7031F00A3A@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 02:40:24 +0000
+Message-Id: <20260626024025.207961F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,52 +47,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Custom GPIO properties lack a vendor prefix.
+- [Medium] Hardcoding board-specific 'Mic Bias' routes to generic multipurp=
+ose input pins in the codec driver violates DAPM architecture and causes a =
+power regression.
 --
 
-commit ad0ddc0bcb1797ef1e44f8d7b02415a3c55eb74b
+commit 864cdd66179a2d1429284999cab86b202f471e82
 Author: Binbin Zhou <zhoubinbin@loongson.cn>
-ASoC: dt-bindings: loongson,ls-audio-card: Add ATK-DL2K0300B compatible
 
-This commit adds a new compatible string for the ATK-DL2K0300B development=
-=20
-board based on Loongson-2K0300. It also introduces several new GPIO=20
-properties to support hardware features like speaker enable and headphone=20
-detection.
+ASoC: es8328: Add DAPM routes from MIC inputs to Mic Bias
 
-> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-ca=
-rd.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.ya=
-ml
-> --- a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
-> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+This commit adds DAPM routes connecting the ES8328 generic microphone input
+pins (LINPUT1/2, RINPUT1/2) directly to the internal Mic Bias generator.
+This is intended to ensure proper bias voltage is applied when these pins
+are used for microphone recording.
 
+> diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+> index 9838fe42cb6fc..aaa6646ad4c5e 100644
+> --- a/sound/soc/codecs/es8328.c
+> +++ b/sound/soc/codecs/es8328.c
 [ ... ]
-
-> @@ -47,6 +48,18 @@ properties:
->      required:
->        - sound-dai
+> @@ -405,6 +405,11 @@ static const struct snd_soc_dapm_route es8328_dapm_r=
+outes[] =3D {
 > =20
-> +  spkr-en-gpios:
-> +    maxItems: 1
-> +    description: The GPIO that enables the speakers
-> +
-> +  hp-ctl-gpios:
-> +    maxItems: 1
-> +    description: The GPIO that control the headphones
+>  	{ "Mic Bias", NULL, "Mic Bias Gen" },
+> =20
+> +	{ "LINPUT1", NULL, "Mic Bias" },
+> +	{ "RINPUT1", NULL, "Mic Bias" },
+> +	{ "LINPUT2", NULL, "Mic Bias" },
+> +	{ "RINPUT2", NULL, "Mic Bias" },
 
-[Severity: Low]
-This isn't a bug, but should these custom board-specific GPIO properties=20
-include a vendor prefix?=20
+[Severity: Medium]
+Does adding these unconditional routes in the codec driver violate DAPM
+architectural guidelines by hardcoding board-specific external connections?
 
-Since they are unique and non-standard properties, using a prefix like=20
-loongson,spkr-en-gpios and loongson,hp-ctl-gpios would better align with=20
-device tree naming conventions.
+Since LINPUT1/2 and RINPUT1/2 are generic multipurpose analog inputs that
+can be configured as either microphones or line-level inputs, forcing DAPM
+to always power the internal Mic Bias generator when these inputs are active
+could cause a power regression on boards that use them as Line-In.
 
-> +
-> +  hp-det-gpios:
-> +    maxItems: 1
-> +    description: The GPIO that detect headphones are plugged in
+Should this external physical connection between a microphone bias pin and =
+the
+microphone jack be specified in the machine driver's device tree via the
+audio-routing property (for example, "Mic Jack", "Mic Bias") instead of bei=
+ng
+hardcoded globally in the generic codec driver?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1782439646.gi=
-t.zhoubinbin@loongson.cn?part=3D7
+t.zhoubinbin@loongson.cn?part=3D9
