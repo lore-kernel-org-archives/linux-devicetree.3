@@ -1,63 +1,48 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 361DF1EA65;
-	Fri, 26 Jun 2026 15:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D4E37F8DA;
+	Fri, 26 Jun 2026 15:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782488994; cv=none; b=gdEzw3/4qF0yXlRueoWiN7p1SkvSFZe4C79SykrX8Z4v7bYd6C0YWr/7nh/5BJBt9koEWPBaW4TUq5dsO7MyUx24MoJWG1W2dl72ZNmgCrY3wlVRtT8tQ7r9aMGFQ1Y+DpA6WprA7n7DpTGyEBwUcV7Up8cAWbE/Zr1HB8rLU9k=
+	t=1782489167; cv=none; b=HRBHA75ORbptyFZjIHOd9CfGJ1g8NRWewEi8QK0KWwhmkfdwSGXy9xOQiFkfaTyUfcicpdfhcv1VvBaeeBfdUccTDTcrp/KoOIV9l88WpyZ1NqYz2e2Y3Q8ecVaknnlc7FIbg0bW/0U6GQkSZ+rJJbGQ4c4oyVl5LEdtCWwiw0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782488994; c=relaxed/simple;
-	bh=F28JWrIedZ17+DHgzHvusZYYQKCC6LrQb+656X3FJ2Q=;
+	s=arc-20240116; t=1782489167; c=relaxed/simple;
+	bh=PfWCe/NO2GsQU5t7MQ3fXS7r5G1bpAPU1W46089xVOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C+3kikMRfDX5Ga9d9v2ULUXilNf/iUNo2I55yIpPqEoZ8ZNetrCokTbyt5qxy+HAJa5gk3teygXX5522Dt6vvbU/989cAdpybiv+A6ivZ4yRGZHptU10y9DUj9QdkgNc3UgffD6eFxX8/e4isL1mXDx8as8SEF9kPD3gtmhCIJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nec+1E15; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hejqjgIuVKed6UpjrH595JfZYJLz/q0dfoGXeJ9X1rZrzDgs3zH2Usf24iAHbb6F1lTZCvW+XTVi9KKdq8SRIDJTuWG1DN3QP9ZGjLKUQ0raWotCR9TC6POO0E/2WYvyyBX4Wkx380IctK4Uc4tKHvN28kUkce1YUWUJs5PEe64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8rli3Fv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nec+1E15"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E2D681F37;
-	Fri, 26 Jun 2026 08:49:47 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 006D03F632;
-	Fri, 26 Jun 2026 08:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1782488992; bh=F28JWrIedZ17+DHgzHvusZYYQKCC6LrQb+656X3FJ2Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nec+1E15+1aCjiJ5Xk8YbKQ6EFSTYbImiCjfirtzZ8JYBXTo+MP/lt/ETlqmUG5ZT
-	 sdzWJlK4cSG1kHt1aZ/5utQ+UC0ETSNkqPKyCP00E0RGab/4ORX5S39PZHDzgIo03/
-	 FSkAfeJVxFE+bWlkmncC+HOLCLflESK/llmk8250=
-Date: Fri, 26 Jun 2026 16:49:49 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8rli3Fv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D502B1F000E9;
+	Fri, 26 Jun 2026 15:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782489166;
+	bh=Mvy4+9zf8wFjQYHAGd3aAa1rg7mWAsIuMf5ssqpnzEc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I8rli3FvlBOmjl5oI/asHCtRLQAHNB9elXbBsHDUMX2/JPe6BLmr+aHM4T3XjMkua
+	 B8rN26Ng5Le3VJCnlWI6l5Hc1WtgApBDHPa7eJUic4WoIU9oVWUotQOJgjqdQC63Yd
+	 u4N7H6ceAawfbrZHp5sp9iObH/DQrPfK9dwkPUH2Zv4zUrkNFGnhb65iadVTscG2Vu
+	 kuusX6bq4s73YmJxvgO/hHZIyMoZDOkiyH8ReswhUE4IwC2QnI5pYf0lyyMB6y25R3
+	 KWcYlctwK4hQixpM9mPxOiwiB1sGD8na7F8laofqmsvJkEYXIDBua7QCwy9K7ZEGA4
+	 Wyfs8aycy79KQ==
+Date: Fri, 26 Jun 2026 16:52:41 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: kaanapali: fix traceNoC probe
- issue
-Message-ID: <20260626154949.GA1812158@e132581.arm.com>
-References: <f0634a64-1141-4ff9-9033-825e3c75d28d@oss.qualcomm.com>
- <f39ec59f-97c4-4d5f-bf02-560adae312d9@oss.qualcomm.com>
- <471d7a92-3629-4274-a303-8906d3626037@arm.com>
- <25d7d3a1-58e0-4f25-a73a-59a978130c47@oss.qualcomm.com>
- <20260624151610.GC575984@e132581.arm.com>
- <a13fb65c-726b-4c99-b741-29040c4564d0@oss.qualcomm.com>
- <20260625085643.GD575984@e132581.arm.com>
- <065853f5-b11b-4316-814e-202f07acb6ea@oss.qualcomm.com>
- <20260626103015.GE575984@e132581.arm.com>
- <c1ac3ab4-f214-4947-b42f-cbc635be6bbb@oss.qualcomm.com>
+	linux-acpi@vger.kernel.org
+Subject: Re: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
+Message-ID: <20260626-friendly-ammonite-of-holiness-aabefb@sudeepholla>
+References: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,39 +51,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <c1ac3ab4-f214-4947-b42f-cbc635be6bbb@oss.qualcomm.com>
+In-Reply-To: <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
 
-On Fri, Jun 26, 2026 at 08:09:58PM +0800, Jie Gan wrote:
-
-[...]
-
-> I have another proposal: what if we allocate the ATID in trace_noc_id() when
-> the device does not already have a valid ATID?
+On Tue, Jun 23, 2026 at 04:52:13PM +0200, Hans de Goede wrote:
+> Hi All,
 > 
-> Possible scenarios:
+> Currently as soon as the kernel boots with a populated DT provided then
+> the arch/arm64 code sets acpi_disabled=1 and the complete ACPI subsystem
+> gets disabled. On WoA Snapdragon laptops where the factory Windows OS
+> actually boots using these tables this is not necessarily desirable.
 > 
-> If the itnoc device is connected to a TPDM device (which has no ATID),
-> trace_noc_id() will be invoked via coresight_path_assign_trace_id(), and a
-> valid ATID can be allocated for the path.
-> 
-> If the itnoc device is connected to sources other than TPDM, trace_noc_id()
-> will never be invoked, and therefore no ATID will be allocated for the
-> device, saving resources.
 
-TBH, I'm not sure I can make a judgement here, as I don't have enough
-knowledge of the topology. And I'm not sure whether the listed
-connections cover all possible cases.
+I am bit lost reading the very first statement here.
 
-I also found commit 5799dee92dc2:
+Who is populating DT and why ? It seems that is the source of the problem.
 
- | This patch adds platform driver support for the CoreSight Interconnect
- | TNOC, Interconnect TNOC is a CoreSight link that forwards trace data
- | from a subsystem to the Aggregator TNOC. Compared to Aggregator TNOC,
- | it does not have aggregation and ATID functionality.
+If windows can boot with ACPI tables, why is it causing issues for the
+Linux kernel, any specifics?
 
-With your proposal, wouldn't ATID be allocated for the interconnect
-TNOC while being skipped for the Aggregator TNOC? That seems to
-contradict the commit log.
+IOW why is DT populated which creates the problem you are trying to address
+here.
 
-Thanks,
-Leo
+-- 
+Regards,
+Sudeep
