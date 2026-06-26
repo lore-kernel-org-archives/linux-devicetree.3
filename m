@@ -1,299 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023080.outbound.protection.outlook.com [52.101.127.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD88B3E559A;
-	Fri, 26 Jun 2026 09:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782467586; cv=none; b=ti5czfV7YDi/FVEnfmiiKVJ/alyQzibG/NstXjfxGDs/XFl36TFBmEWlRul1lbV/zALy2gu6fMUfJrnrpZJ2uSqgTqpvfOFvMaUsFjnQijGv2c4tHe6pdcRQqWEBT3s1lOw85L04bGCdGP+TF+Fo/UXr2jVYfkiffb06S9IryCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782467586; c=relaxed/simple;
-	bh=mF9ZFy0cEoTG34C5BHSciatRZsqsu5lrrtwbbjEkEF8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AtGF1B5U/mwzr0uVpLqv6ZARh4rhCAmrU5f3bI712hoiogTwzzDezvsDe+2tmairTUqdLrOnFvICoc21pz4e0UcTuzqfpUr7ox0sLXAfR/pYUHwkEQbVRKpCJcNsWhv3aMhKv2Y3paP3ZCqNDlplNX41Kssow3nyb+ZV/W0qK5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKpzEiAK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9113E51DB;
+	Fri, 26 Jun 2026 09:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.80
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782467704; cv=fail; b=LKpvavwZIFpkRy99GUJXpBXFAny/YIUkcqPjMvWklEWoEuvnUYRLN+89ZwwMaes/ZdhC8I2VdoitS96dG2BQ+Anob9F5yj5QWKHuWMQAq5FAfSh2UZ6MyFyN5j5dAbA0LK/CwdS4zNcC1YHhMD2z2oZYXnM/03TsrHRf2b+azhA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782467704; c=relaxed/simple;
+	bh=XhIVvv31h3eeuZXjf7qJ+NUlyfwt7mZVzfiUaHTYOgs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=e0CKqZxKmglknax8vfQxwMRpzjmn6BkwLinEQ1HhOP+1AZ0dN/5SvNP7iWE2CHAKfiKrCl5HooZWCzUjRH2G3UWAw2zIXv9cW6JIBQ4iVFrBaWQDKfQYlOVlQvkSqFzVcwKPcE05Pzjm+Okt3jVqvK6rbbLVteYrMJzP4BN0HiA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=aE+CgJp7; arc=fail smtp.client-ip=52.101.127.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKpzEiAK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1471F000E9;
-	Fri, 26 Jun 2026 09:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782467584;
-	bh=BwhGw1glQpujHGTnmhunMAkIlX1zQ8yXGqHL7ZYe3QM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PKpzEiAK9vUXQoeKThpOlrGvnekM24IDguR+/Qi/Frqsmmm4ssDm3TfVbCET2B4bR
-	 uEhiGnlHT9nV1LsKyMhbdHf1AVwKcPRK0yhqUo5ISXI9mtqGiNZbFqgs0NVWaNSDNp
-	 FvhKixJAqrSXlSWn4349D38RjQgqQtp2acRM7K+TY/dkbzPO0NYDwivVtXgNGcd5OS
-	 1GU2NP6ejneQUMKgQUhYU26aX5MgDIIxL/WTiGSqiaZ5vIwfh43JmJuHTnDeDjUDDZ
-	 ecJRVsIr9Fucye1r7cCDFE7Gu5bB9iJNztMwcTaBSny+C0iDfZdNjJDqZm9O03Fnv/
-	 wgAByXz31nf3w==
-Date: Fri, 26 Jun 2026 11:53:01 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sunyun Yang <syyang@lontium.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
-	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
-	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <20260626-hopping-savvy-seagull-cc9626@houat>
-References: <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
- <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
- <20260626-zippy-affable-hamster-22101d@houat>
- <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
- <20260626-flawless-axiomatic-slug-c480c9@houat>
- <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
- <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
- <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
- <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="aE+CgJp7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G1cxJjW0xEIqwW6vw5r40Mq9tqnq4O8rV+a29PPG3dWK6206LiGPu5oHfBmxZ1kriB1M9qcTSgcu7xtPSGRefwMTnq6zQOYu6vcAefBxsrUP6lRGJ5Ou4f5wGfYAluirIeVbJ1JWLJiwnjygPbOOm9qJER2hTv+z8mabpw/DlZIAU5ODiGLnUbZlrL4rFekiMFYVTdIJGIj28acfSX1kFqi8tUstx1cMtQw/+TcmypQCyM9IflNUn0vLZ0hIDgmS1urHuciw0gKyd7/1XEb+kfqVohTjbam33ymBfk09hv+p5P/dWf7PBgMh0/ajDNo/G0Vj5JD30uqqfqyJu4hbag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S8UY0GsDtWxBlCgpSJ71JSf0RrFCT0ClodR5/8pOMiA=;
+ b=Q63mQ5JnknRg/Z9LfC8PChRu1JEaZcC3Be2lySjV8qNCn/49L1TYFBzXGMHHGwDpne751l9AEF6r3xaC+V3cdH8tL0vmfA8G9rjYTEsezyMjWjiBRJRz8ijjqASp10XmweYk0CkTJKLXRPKRhh3ZOPIZiZBFmZirFKw9IvgJA50PMhHsoB1xsWj93DxCzOsTlC4/Lr5Zo7tdAtXaizykUtotm+kzoOKFQnWGE9b9DqpbCH64se/U2n7idh0BKfgxAFvBIDrPrUrcM8BDBS+I5uKoMni5HWtFiDxgyWQVNShhUom9C5A9reEUx+81nEQ/OoLqCTFBgMNa4fEOyKgX5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S8UY0GsDtWxBlCgpSJ71JSf0RrFCT0ClodR5/8pOMiA=;
+ b=aE+CgJp7ajCgnPGme3FA6K133TMq1+ATFLpJqt6HF9G07FiEdurMb//0CFlM3iUwMBA3Yz5L4LHo8dhSF1HCNaIIhPY98Tzi5BMdg5m6PHqeeDXIw0ORVR9ZVcoNJzn6YmReRX9rM9IazVsguFklgvQDsYTElJqfIVX438oOUUirJPOXBCrgMS1yiR4jPPo3LGY76bAN4kag+t58c0b9j4hOjkwCS+7Y//HXYWA4PBjZi+BDstfjGW5hmHzrwkEKRcsoj/VejVdnfgzpTqSwgAzhiCJhQQXWTejNlYldCNLyzMiy1AkrreDs+JFWKHH3A3CWfT68OQBJhEFJYBMQbw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by OSNPR03MB9540.apcprd03.prod.outlook.com (2603:1096:604:45b::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.6; Fri, 26 Jun
+ 2026 09:54:59 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0181.005; Fri, 26 Jun 2026
+ 09:54:59 +0000
+Message-ID: <89450adb-f8d4-40dd-b895-72a53662b298@amlogic.com>
+Date: Fri, 26 Jun 2026 17:54:55 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] soc: amlogic: clk-measure: add A1 and T7 support
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260421-clkmsr_a1_t7-v3-0-efc00b0f9e6b@amlogic.com>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <20260421-clkmsr_a1_t7-v3-0-efc00b0f9e6b@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SEWP216CA0116.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2b9::10) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="muia4nl7v6z733kr"
-Content-Disposition: inline
-In-Reply-To: <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|OSNPR03MB9540:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d8e6129-8bcb-4092-bdac-08ded368fbbc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ddg5Fims6lM3bbZGipuNCuIHXmobiiJRZNhxCZvLDtOfEOecmuz0meGNkKqzITrJC0JYD5t3jQyr+t/JnfjU1xIHnsxQe0n3THiC7t3pJA64klo5J6e9ygDRAY+NpaWmn4PGZiwapP/gQAxSlRSrURfnXr6i67S6ryA6859G0rgyq5XjsXCaG0/p/C16O1TL95ppd1gah/ujj90dVsJFUWpoy0dBw0txmUzJ4vwHRITLjHQPASI7nSnLwlJgpyVnfTBSTmAmEb8xd6+2fMZuEKt2aaR9uM+uoxNuS+b0340esN/J8QHNUIQC1Wxa8mczbuzV34y65DjwuFbuFlWnHnPJb0sm1/PRLHND+kmt4MO+fQzuspy3k3+hosCnBlLnGYaluPgzYUSH/NvxyG1do3Z/JZAU70/wReN04wVGtzEsjshwfukgcY2ozVWP8d5Y1+RuWFhxUnU4akNE/C17bV8flHIQoUyo6ZCCn+YJlWys0Lx+POydvoO4l3boaHdsdah3s8jWxdo5rrlsi8cjORyEjCukSWLDLkMW5sYbZn2wGAv1pf55SYf75WJ64P0xxiqHDn1jDZ77eJBExUUJ5ERxoefPxLK00D2iE55AcGe36yhMHcDSKtVkZLlWvJ3PFFO66pBeJIyPouxh85/wLsE1f0vXX9kv7vMNK71PLKc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWVnZDVPY3lra1FhYUxteHVwZndoZVBLUjdVNFFObWVTenJYWTV0RjFHTVNW?=
+ =?utf-8?B?Z0E0NGVxa3Rvc1BlUHQ1NzFGUGRBNXFtSEVlVVdGTHhiZ3d5Nis1azlzT3dI?=
+ =?utf-8?B?RURrOUN1U0pNRW0vL01EZEdwdW53dnFUVmNSUXgvbE8wN3RFWWtSRFF4RHZZ?=
+ =?utf-8?B?emdyZ3E3VW5XaTI3dStMZGhFYVEyRVBUa0l1a0FXZi9GOVpaRUd4ODBjaVhK?=
+ =?utf-8?B?bkdieFdvVTQreWJ0TG5SamcxOHYzTUw5aFgyU0xwaHdxTlZTMFl0WEZoYmpr?=
+ =?utf-8?B?NXhTRWRyTVRWY3lpa0JnY3hKcW1xbFRUcWYvWkorU1p1SmVuQ2FHNXpxUTlS?=
+ =?utf-8?B?STRCWTZqeVFXU2llQkRKRkN0SWFOdmd3SVhuZnVDOGpRMWRJaXIrR0QrSUpu?=
+ =?utf-8?B?UTVCZkxSTmh3c1I4MUhkbzdvRXRKOFdrcDBLWDhKSkFwb1JEUThEcGlBQk9i?=
+ =?utf-8?B?YzNTUnlDR1c3V0QxaUM5cXVFWXVqRDdCc0JFb2pXb2tVenZXZWV4NXJUdC9L?=
+ =?utf-8?B?aW94V2VBWGk1S1FlRGpWeTgrb3pMQUY0emg1RzgwZmd4ZzhjbDlIYXJJK1hp?=
+ =?utf-8?B?NDAzZnJJUmswRE4xd2phQ2RvQU45RTNTMnJSWXNNMndGeHdyV0dFN1NtZE5U?=
+ =?utf-8?B?ZDV3ekp0MklwZmxSNzRiTFhnaUovc2xNK1NiN21XczM4RjZIbFNDQzYydEI0?=
+ =?utf-8?B?c3UvbnhYY2Q3V0xIUit5ZElsNElZOEFJUWVFMDE5ZnBQdEJsMEFMMVJRanl2?=
+ =?utf-8?B?RlVna0ozOS96dGdTQmk3WUg5cHBhVjVNQVlKUm16M0Rkd3JsQ3VCM0dQKzVr?=
+ =?utf-8?B?b0pNN0h3UUpqc0J2RU40MGdNZTNzaGh5THJZdFVRTUc4THZDSjBnOCs5aFph?=
+ =?utf-8?B?SisxWUdyem9IaUtlc1EwNGk2YkxrK0dJbi9VVkdxclZZL3BEaVdwUGhNTVNG?=
+ =?utf-8?B?cU9XaFo0K2owS1dDTmptUnRCV3RsalAvZ1hDL25adWNUODh5Z055dkZkandr?=
+ =?utf-8?B?N1orQktoREt3Um1OTGZNT3B4elJCSDMrZy9BS1lVMlgyUTYvUE1IcDJHeXA1?=
+ =?utf-8?B?OUtiOG5peUgzUEJSRmxrRSsxWURxSnkyTWNoNjViSnFwMmloZTMxeXRyYk5P?=
+ =?utf-8?B?aWxKQVkrYnczT2crNnhCRkhUcGY0U0JQb00wSzBlT0NROHBacjYyNGE5ZkFu?=
+ =?utf-8?B?NkNaYnAweDMxSTlKdmFmS3NFOXJhZW5WN1lxaHh1b3lyTHZPOEFhNXlKeWNY?=
+ =?utf-8?B?MzRDZ29HY2VRTm03K3JhMmNuZ1J0cXMzY1pSbHdicjkvQXgvRVpDOGFGWFFy?=
+ =?utf-8?B?bGFLMUswN1FsNU93YzZ2ZDA0NEdjKzBEK0VJZ1FGVjF6a2ppV3FQRWVDWjUv?=
+ =?utf-8?B?Y3RYKzRGczFmMVhIa1JEQVUxNlhjdEhUR2Evc25Db1MzNDZabk10bFNicldO?=
+ =?utf-8?B?cG1TampJR0d0NnpDaTVKUzZ3bStzSWRhcncwL3BvVTE1RGUyNFpKKytxYVpa?=
+ =?utf-8?B?aS9tMEJMQ2ZlendDVVVGWjQyblV1VXRZRjlyd0xYcDE0R2RzallLNEVuV3RG?=
+ =?utf-8?B?YnhoekxDRmFpc3hsNlphNy8xOStGeUo5SUZaT3FDekptZ1hMKzg4RnJiVkp4?=
+ =?utf-8?B?OWpJbUZ6SzhXMVBaVzNTMURDeXNsa0pOTHVCVU80U2tBdWlVWTBGNXhoTkEz?=
+ =?utf-8?B?eU5jamFXSnFiTlNSK3dPbUJBZUVPdTdsQnQyN2grTGFQbnUwWjh1eDVqSkIr?=
+ =?utf-8?B?YUpDbkc2dHYwS2JjRm42VDhXNFZTbFZScXN1aEdXOWxCdm1WbGh6aTZxcFpB?=
+ =?utf-8?B?ekZTdE16d2tTMVFYcGJXN3pZL2hDY3I1T25SSGRzK1NyeDVBQU5oajJMOUpa?=
+ =?utf-8?B?U01hTkZ3N1AycTFSNUtrb0ZXSitvT3I3UEREOXBMY1J4UDBvUGVxYytkNnBP?=
+ =?utf-8?B?dHp2dCt4UXh5YVRaaXd0cUZXM0JraHVkaVFoOVBuRk1YeDZqQ1lUMXBUVVc3?=
+ =?utf-8?B?SEIydUxjaElkYUxPMHNyOWVrZnFxNFpUdm5veXovQ1JDTi9FVGtaQ2l6bzVL?=
+ =?utf-8?B?Qk1NYy9pbmZUbnZXVTZiUmpjeHJVSW5vOUdDWXpXYU54bXZCK28vTVhEYUxU?=
+ =?utf-8?B?Z3dGWEhvSWkrYW5iazY1UXg0S004NVVOY3JKbHF1TE5nNElSNW9QZHlMU1ZY?=
+ =?utf-8?B?YVlNMnpzWTl2RVlrVEh4VmNXWVUzQ3dvR1NMbVZhWGZqSTVkRHRES1VkaVNG?=
+ =?utf-8?B?QU80dTgwVFpGaVFWUUdMQ2hqeE1nd1ZIaENHcHpWeXR4Lzk0ZkdXY09YV2ZU?=
+ =?utf-8?B?TW5Va2p0ZUxtQ1BKcUk0YlZLSEpCeTNRbFUrVGNBai9ZWHRaSTZOdz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8e6129-8bcb-4092-bdac-08ded368fbbc
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 09:54:59.0858
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pxo8NfqsmSuODogAppNU/dHeLJXKfLUcQekpndWIComy7ZbkRClWan0+v+x25X/d/4ypXDIGMu6kowwLvD+NWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR03MB9540
+
+Hi Neil,
 
 
---muia4nl7v6z733kr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-MIME-Version: 1.0
+On 4/21/2026 4:17 PM, Jian Hu via B4 Relay wrote:
+> [ EXTERNAL EMAIL ]
+>
+> This series adds Amlogic clock measurement support for A1 and T7 SoCs,
+> including binding updates, driver additions, and device tree enablement.
 
-On Fri, Jun 26, 2026 at 05:45:08PM +0800, Sunyun Yang wrote:
-> Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
-=97=A5=E5=91=A8=E4=BA=94 17:31=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > On Fri, Jun 26, 2026 at 05:05:38PM +0800, Sunyun Yang wrote:
-> > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
-=E6=97=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
-> > >
-> > > >
-> > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
-26=E6=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > > >
-> > > > > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
-> > > > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8826=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > >
-> > > > > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> > > > > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=
-=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > > >
-> > > > > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > > > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B4=
-6=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > > > >>
-> > > > > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
-=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > > > > > > > > >>>
-> > > > > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > > > > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=
-=E5=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=
-=BC=9A
-> > > > > > > > > >>>>>
-> > > > > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > > > > > > > > >>>>>> +
-> > > > > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > > > >>>>>> +{
-> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
-, 1);
-> > > > > > > > > >>>>>> +     msleep(20);
-> > > > > > > > > >>>>>> +
-> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
-, 0);
-> > > > > > > > > >>>>>> +     msleep(20);
-> > > > > > > > > >>>>>> +
-> > > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio=
-, 1);
-> > > > > > > > > >>>>>
-> > > > > > > > > >>>>> This is just plain wrong. Why do you assert, then d=
-e-assert and then
-> > > > > > > > > >>>>> finally assert AGAIN the reset leaving the device i=
-n powerdown stage?
-> > > > > > > > > >>>>>
-> > > > > > > > > >>>> I am using software to emulate the hardware RESET bu=
-tton on our EVB.
-> > > > > > > > > >>>> When the hardware RESET button is pressed while our =
-chip is running,
-> > > > > > > > > >>>> the signal level changes from HIGH to LOW and then b=
-ack to HIGH.
-> > > > > > > > > >>>>
-> > > > > > > > > >>>> Of course, we can also use the following:
-> > > > > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > > > >>>> {
-> > > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > > > > >>>>     msleep(50);
-> > > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > > > > >>>>     msleep(20);
-> > > > > > > > > >>>> }
-> > > > > > > > > >>>
-> > > > > > > > > >>> Makes no sense either and you just did not get the po=
-int and did not
-> > > > > > > > > >>> answer my question. I asked WHY you leave asserted. A=
-nswer "we emulate"
-> > > > > > > > > >>> is just plain wrong.
-> > > > > > > > > >>>
-> > > > > > > > > >>> So again please answer:
-> > > > > > > > > >>>
-> > > > > > > > > >>> Why do you leave device with reset asserted?
-> > > > > > > > > >>>
-> > > > > > > > > >>
-> > > > > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_=
-HIGH>;
-> > > > > > > > > >>
-> > > > > > > > > >> GPIO_ACTIVE_HIGH:
-> > > > > > > > > >>
-> > > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   --=
-----   reset pin
-> > > > > > > > > >> is Low level : Clear the register configuration in the=
- chip to stop
-> > > > > > > > > >> the chip from working.
-> > > > > > > > > >>
-> > > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   --=
-----  reset pin
-> > > > > > > > > >> is high level:  The chip resumes operation.
-> > > > > > > > > >>
-> > > > > > > > > >>
-> > > > > > > > > >
-> > > > > > > > > > Our purpose is: pull the level low to clear the registe=
-r configuration
-> > > > > > > > > > in the chip, and then pull it high to allow the MCU ins=
-ide the chip to
-> > > > > > > > > > re=E2=80=91initialize the registers.
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > And you do completely opposite... so that confirms your c=
-ode is just wrong.
-> > > > > > > > >
-> > > > > > > >
-> > > > > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just fo=
-llowing the
-> > > > > > > > rule of this device tree. If I modify the device tree to use
-> > > > > > > > GPIO_ACTIVE_LOW,
-> > > > > > > > and use the following code in my driver, then my driver wou=
-ld be correct.
-> > > > > > > > However, would the existing kernel drivers lontium-lt9611ux=
-c.c and
-> > > > > > > > lontium-lt9611.c be affected?
-> > > > > > >
-> > > > > > > It might, but then it's a DT problem. The GPIO API for driver=
-s always
-> > > > > > > considers the logical state of a GPIO, so if you need to asse=
-rt a
-> > > > > > > signal, you'll always need to set 1. That's what Krzysztof wa=
-s trying to
-> > > > > > > explain.
-> > > > > > >
-> > > > > > > The DT will provide with GPIO_ACTIVE_* how that logical state=
- translates
-> > > > > > > to a physical GPIO state.
-> > > > > > >
-> > > > > > > If the DT says that this particular GPIO is active-high, then=
- it means
-> > > > > > > that we need to set the GPIO to 1 to assert reset. Now of cou=
-rse, it
-> > > > > > > might not make sense for the controller itself, but it might =
-for the
-> > > > > > > board if there's a GPIO inverter in the middle for example.
-> > > > > > >
-> > > > > > > Anyway, in the case you're raising, the issue definitely lies=
- in the DT,
-> > > > > > > and that's what would need to be fixed.
-> > > > > > >
-> > > > > > > I also wouldn't be too concerned about lontium-lt9611.yaml, i=
-t's just an
-> > > > > > > example.
-> > > > > > >
-> > > > > > > Maxime
-> > > > > >
-> > > > > > thanks Maxime, I will modify this code in the next version of t=
-he
-> > > > > > driver, and I hope you can accept these changes.
-> > > > > >
-> > > > > > Maxime:
-> > > > > > I have another question I would like to ask you
-> > > > > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes h=
-as
-> > > > > > opinions that differ from yours, whose advice should I follow?
-> > > > > >
-> > > > > > If I do not adopt sashiko-bot's suggestions, will my patches st=
-ill be
-> > > > > > accepted into the upstream Linux kernel?
-> > > > >
-> > > > > I can't give a blanket answer. It depends on what you ignore exac=
-tly.
-> > > > >
-> > > >
-> > > > Okay, another question: sashiko-bot is an AI bot. Are its review
-> > > > comments optional, or must they be followed?
-> > > >
-> > >
-> > > For example, in my driver, there is a function for upgrading the chip
-> > > firmware. During debugging or production, upgrading the chip firmware
-> > > will acquire a lock, which will block the DRM callback and affect
-> > > display. It will be fine after the upgrade is completed and some
-> > > devices are restarted. As long as there is no subsequent upgrade,
-> > > display can work normally.
-> > >
-> > > From a purely software perspective, the AI bot considered this
-> > > approach unacceptable and proposed synchronizing the pre-upgrade state
-> > > to the DRM framework. From my personal perspective, I think the AI
-> > > bot's suggestion would only make my driver more complex and redundant.
-> > > Do you think I need to adopt the AI bot's suggestion?
-> >
-> > You're right it's wrong, but there's also no reason to allow that
-> > firmware upgrade during the driver lifetime either through a debugfs
-> > file. So you should get rid of the debugfs file and now you won't have
-> > to bother with that comment anymore.
-> >
-> > > In addition, if I follow the AI bot's suggestion, the
-> > > lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
-> > > merged into the upstream Linux kernel would not meet the AI bot's
-> > > requirements.
-> >
-> > Maybe, but it's not relevant either way. These drivers are merged, yours
-> > isn't. Feel free to fix these if you spot any issue though.
-> >
-> > > When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
-> > > sashiko-bot (the AI bot)?
-> >
-> > Again, it depends on the comment. If you feel like one can be ignored,
-> > you should at least argue why.
-> >
->=20
-> sashiko=E2=80=91bot (AI bot) does not communicate or interact with me.
-> Even if I explain the reasons, the AI bot never replies to me, and it
-> only sends its review comments to me alone.
 
-Then put it into the cover letter?
+Gentle ping. The patches have received review, could you please take
+another look when you have time?
 
-> If I do not make changes according to the AI bot's suggestions, will
-> that affect my driver being merged into the upstream Linux kernel? I
-> would like to know the answer to this question.
-
-I told you twice already.
-
---muia4nl7v6z733kr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5L/QAKCRAnX84Zoj2+
-dqkDAYDnnIkdKdTBNWvR7Q3lZBaQkrzXZ6HovSxKMX1YmTQXRRCsi2Q1uSqSBfWB
-bMWtpewBgPqa6slzgeEqwVTSEh4o0Ey3Pk/rlZy2NNh3UinTcatYIRrWFPmiEZCk
-jo1JJPN2lw==
-=CcaV
------END PGP SIGNATURE-----
-
---muia4nl7v6z733kr--
+>
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+> Changes in v3:
+> - Place the clock-measure node after pwm_ao_gh node for t7.
+> - Link to v2: https://lore.kernel.org/r/20260415-clkmsr_a1_t7-v2-0-02b6314427e6@amlogic.com
+>
+> Changes in v2:
+> - Add const for a1 and t7 clock measure table.
+> - Use b4 to send this series.
+> - Link to v1: https://lore.kernel.org/all/20260410100329.3167482-1-jian.hu@amlogic.com
+>
+> ---
+> Jian Hu (4):
+>        dt-bindings: soc: amlogic: clk-measure: Add A1 and T7 compatible
+>        soc: amlogic: clk-measure: Add A1 and T7 support
+>        arm64: dts: meson: a1: Add clk measure support
+>        arm64: dts: amlogic: t7: Add clk measure support
+>
+>   .../soc/amlogic/amlogic,meson-gx-clk-measure.yaml  |   2 +
+>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        |   5 +
+>   arch/arm64/boot/dts/amlogic/meson-a1.dtsi          |   5 +
+>   drivers/soc/amlogic/meson-clk-measure.c            | 272 +++++++++++++++++++++
+>   4 files changed, 284 insertions(+)
+> ---
+> base-commit: 401e5c73eedde8225e87bd11c794b8409248ff41
+> change-id: 20260415-clkmsr_a1_t7-9820984d0af1
+>
+> Best regards,
+> --
+> Jian Hu <jian.hu@amlogic.com>
+>
+>
