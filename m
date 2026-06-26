@@ -1,202 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593633F8ED3;
-	Fri, 26 Jun 2026 15:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 361DF1EA65;
+	Fri, 26 Jun 2026 15:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782488710; cv=none; b=t7BdWtI3hlzthPi1msgeLI/LTSEH+AHkWvc1hTINzslkPzaiprEACA8Hn6wzVrgOUVkH4q5mdK06m4x47awVPgs7a4KV3P3QQIPjrwN1HqZc1REvyJg+DTMF9UPmt4GLOCsJv9VH8MC8XOGa+uhQxhHAvoJV7AItp6MVZuwwhVY=
+	t=1782488994; cv=none; b=gdEzw3/4qF0yXlRueoWiN7p1SkvSFZe4C79SykrX8Z4v7bYd6C0YWr/7nh/5BJBt9koEWPBaW4TUq5dsO7MyUx24MoJWG1W2dl72ZNmgCrY3wlVRtT8tQ7r9aMGFQ1Y+DpA6WprA7n7DpTGyEBwUcV7Up8cAWbE/Zr1HB8rLU9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782488710; c=relaxed/simple;
-	bh=KKlH/8SEamUqGyyjWbc5rFZsLVr+VsxGBvdwYg4b4aI=;
+	s=arc-20240116; t=1782488994; c=relaxed/simple;
+	bh=F28JWrIedZ17+DHgzHvusZYYQKCC6LrQb+656X3FJ2Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rOzioBfz9ebY9l50ym53ddQhNjTgT8140u7c4EH5YuNk6FjYgNKZVAzhKdrPQl6z0Nfs26ar6RQojsCWVgfCK7i0Dbk5uALwHBKtWFOkkqm6jA/XR5qBs7U+0BylX6RA2ZmVasEwg9seXVbvx0fE15qIMFQ0iQ/82oeo2mRrCxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y3yjhDRK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=C+3kikMRfDX5Ga9d9v2ULUXilNf/iUNo2I55yIpPqEoZ8ZNetrCokTbyt5qxy+HAJa5gk3teygXX5522Dt6vvbU/989cAdpybiv+A6ivZ4yRGZHptU10y9DUj9QdkgNc3UgffD6eFxX8/e4isL1mXDx8as8SEF9kPD3gtmhCIJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nec+1E15; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y3yjhDRK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2BF1F01561;
-	Fri, 26 Jun 2026 15:44:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782488705;
-	bh=YoE9n7g3JaL94VUoMaa+5nIfgKgOXYELQGwVyrlOQDE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y3yjhDRKri5OqFVXbZ0Pnd8TmyxIp0+JQNaSAASUVkDKRZK3F5aD/cj7Mdk/lyWzj
-	 oeHeNrHk3b9lY6ssLUYcNsr1C4BN1AOrUsuDIno7QiCHl3IjGf7DS0dbuV3/2l2mk+
-	 UtP9/QlRgQLGiCNzbtpjAPN4TeSHLpLMz15UB5UHXey0pHTIrqJS4nb2G+z3zqPW5e
-	 9Crvxz22lYIWw73PxU4qRqzXUz5kygn7vKP88lseWFRZ1TPjU6KSSxHB/37hx6fL2l
-	 ii86j4F/28QrKlTXxLv8tHhilaDvOGDQvbBcOtaF047os8dt+0DfMKKJl7llUwUCQk
-	 7m+eXmrvm2SsA==
-Date: Fri, 26 Jun 2026 16:44:56 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nec+1E15"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E2D681F37;
+	Fri, 26 Jun 2026 08:49:47 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 006D03F632;
+	Fri, 26 Jun 2026 08:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1782488992; bh=F28JWrIedZ17+DHgzHvusZYYQKCC6LrQb+656X3FJ2Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nec+1E15+1aCjiJ5Xk8YbKQ6EFSTYbImiCjfirtzZ8JYBXTo+MP/lt/ETlqmUG5ZT
+	 sdzWJlK4cSG1kHt1aZ/5utQ+UC0ETSNkqPKyCP00E0RGab/4ORX5S39PZHDzgIo03/
+	 FSkAfeJVxFE+bWlkmncC+HOLCLflESK/llmk8250=
+Date: Fri, 26 Jun 2026 16:49:49 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 7/8] dt-bindings: riscv: Add generic CBQRI controller
- binding
-Message-ID: <20260626-immobile-staining-c825a86bd613@spud>
-References: <20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org>
- <20260624-dfustini-atl-sc-cbqri-dt-v2-7-2f8049fd902b@kernel.org>
- <20260625-cupbearer-failing-9ce0abf97b93@spud>
- <aj1_0AnIBk8_xoDd@gen8>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: kaanapali: fix traceNoC probe
+ issue
+Message-ID: <20260626154949.GA1812158@e132581.arm.com>
+References: <f0634a64-1141-4ff9-9033-825e3c75d28d@oss.qualcomm.com>
+ <f39ec59f-97c4-4d5f-bf02-560adae312d9@oss.qualcomm.com>
+ <471d7a92-3629-4274-a303-8906d3626037@arm.com>
+ <25d7d3a1-58e0-4f25-a73a-59a978130c47@oss.qualcomm.com>
+ <20260624151610.GC575984@e132581.arm.com>
+ <a13fb65c-726b-4c99-b741-29040c4564d0@oss.qualcomm.com>
+ <20260625085643.GD575984@e132581.arm.com>
+ <065853f5-b11b-4316-814e-202f07acb6ea@oss.qualcomm.com>
+ <20260626103015.GE575984@e132581.arm.com>
+ <c1ac3ab4-f214-4947-b42f-cbc635be6bbb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/zmDCd3AvwrgXHjE"
-Content-Disposition: inline
-In-Reply-To: <aj1_0AnIBk8_xoDd@gen8>
-
-
---/zmDCd3AvwrgXHjE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <c1ac3ab4-f214-4947-b42f-cbc635be6bbb@oss.qualcomm.com>
 
-On Thu, Jun 25, 2026 at 12:21:52PM -0700, Drew Fustini wrote:
-> On Thu, Jun 25, 2026 at 05:19:28PM +0100, Conor Dooley wrote:
-> > On Wed, Jun 24, 2026 at 06:38:35PM -0700, Drew Fustini wrote:
-> > > Document the generic compatibles for capacity and bandwidth controlle=
-rs
-> > > that implement the RISC-V CBQRI specification. The binding also
-> > > describes the common riscv,cbqri-rcid and riscv,cbqri-mcid properties,
-> > > and the optional riscv,cbqri-cache phandle that links a capacity
-> > > controller to the cache whose capacity it allocates.
-> > >=20
-> > > Assisted-by: Claude:claude-opus-4-8
-> > > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > > ---
-> > >  .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++=
-++++++++++
-> > >  MAINTAINERS                                        |  1 +
-> > >  2 files changed, 98 insertions(+)
->=20
-> Thanks for the review.
->=20
-> [..]
-> > > +properties:
-> > > +  compatible:
-> > > +    oneOf:
-> > > +      - items:
-> > > +          - description: Tenstorrent Ascalon Shared Cache
-> > > +            const: tenstorrent,ascalon-sc-cbqri
-> > > +          - const: riscv,cbqri-capacity-controller
-> > > +      - enum:
-> > > +          - riscv,cbqri-capacity-controller
-> > > +          - riscv,cbqri-bandwidth-controller
-> >=20
-> > Please modify this, as has been done for other riscv spec related
-> > bindings, to let people get away without using device-specific
-> > compatibles.
-> >=20
-> > In this case, you can just delete the first entry from this enum, since
-> > it already has a user and only have to implement this feedback for the
-> > second entry.
->=20
-> Would this work?
->=20
-> properties:
->   compatible:
->     oneOf:
->       - items:
->           - enum:
->               - tenstorrent,ascalon-sc-cbqri # Tenstorrent Ascalon Shared=
- Cache
->           - const: riscv,cbqri-capacity-controller
->       - items:
->           - {}
->           - const: riscv,cbqri-bandwidth-controller
+On Fri, Jun 26, 2026 at 08:09:58PM +0800, Jie Gan wrote:
 
+[...]
 
-Should do, yes. I question the need for a comment though, seems pretty
-evident from the compatible what it is.
+> I have another proposal: what if we allocate the ATID in trace_noc_id() when
+> the device does not already have a valid ATID?
+> 
+> Possible scenarios:
+> 
+> If the itnoc device is connected to a TPDM device (which has no ATID),
+> trace_noc_id() will be invoked via coresight_path_assign_trace_id(), and a
+> valid ATID can be allocated for the path.
+> 
+> If the itnoc device is connected to sources other than TPDM, trace_noc_id()
+> will never be invoked, and therefore no ATID will be allocated for the
+> device, saving resources.
 
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: tenstorrent,ascalon-sc-cbqri
-> > > +    then:
-> > > +      required:
-> > > +        - riscv,cbqri-rcid
-> > > +        - riscv,cbqri-cache
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    l2_cache: l2-cache {
-> > > +        compatible =3D "cache";
-> > > +        cache-level =3D <2>;
-> > > +        cache-unified;
-> > > +        cache-size =3D <0xc00000>;
-> > > +        cache-sets =3D <512>;
-> > > +        cache-block-size =3D <64>;
-> > > +    };
-> > > +
-> > > +    cache-controller@a21a00c0 {
-> > > +        compatible =3D "tenstorrent,ascalon-sc-cbqri",
-> > > +                     "riscv,cbqri-capacity-controller";
-> >=20
-> > Is this or is this not a cache controller?
-> > The compatible and fact that the property points to an actual cache
-> > controller suggests that this is not.
->=20
-> Good point. This nodes represents just the QoS interface (CBQRI) and
-> should not use that node name. 'qos-controller' seems like it would be
-> more appropriate but that has no precedent. What do you think?
+TBH, I'm not sure I can make a judgement here, as I don't have enough
+knowledge of the topology. And I'm not sure whether the listed
+connections cover all possible cases.
 
-Sure.
+I also found commit 5799dee92dc2:
 
+ | This patch adds platform driver support for the CoreSight Interconnect
+ | TNOC, Interconnect TNOC is a CoreSight link that forwards trace data
+ | from a subsystem to the Aggregator TNOC. Compared to Aggregator TNOC,
+ | it does not have aggregation and ATID functionality.
 
---/zmDCd3AvwrgXHjE
-Content-Type: application/pgp-signature; name=signature.asc
+With your proposal, wouldn't ATID be allocated for the interconnect
+TNOC while being skipped for the Aggregator TNOC? That seems to
+contradict the commit log.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj6eeAAKCRB4tDGHoIJi
-0j45AQDa9hIH0IvDEkhDSJ4irWoqKAUinH30Au/Pl3yikbPiWgD8CfQij41pcGKQ
-lnHL1Q1xyI46Q5kOGm2ZVr23WQjr/wo=
-=JJMy
------END PGP SIGNATURE-----
-
---/zmDCd3AvwrgXHjE--
+Thanks,
+Leo
