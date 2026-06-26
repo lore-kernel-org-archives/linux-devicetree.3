@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FCF37D124
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:13:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012573BF660
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:14:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782508425; cv=none; b=jV230/uw7XaCOaV0ghya3XLrziRgcTYQltqCd+ef5RNjBxWeQ2iMSzf6EkOL37FucOtinBdj+tj7p8I8s7NwAFRAXzuq1rkQU9QLvKrGFQLcww77fpe3Mh5sfilLgceCUULoyt/GHHQdr+5zGkZwpWwtfOwcZdBPSCu5aAQTulw=
+	t=1782508487; cv=none; b=Ps2HTXbR/eZe6ut3w1lJrsAZk4Sqd3DAIjqN7sxtiCTVNvmxUE1TxpZyGx9qPNrGfE06e717JmhCAahv1E/DF/8O3VP4U0gPFKBFEcm1oQVcz8EBruBz9riAkVIyoglEn9weH7yTNb2TWkAnVL7KmsJzzitJcT1k4tTMe5vXt+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782508425; c=relaxed/simple;
-	bh=4c8cQnJQqkF8XPX4FsusCOIujGS3If0RsYIrDipVHr8=;
+	s=arc-20240116; t=1782508487; c=relaxed/simple;
+	bh=ey28x3LJxjePfXMA1pE7g6sAY7eOKqf52VHAHV2l2TY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BG4ezN/IXI5e69E92xbDn/qJEiVqvy3nABgoYWuJiGdBIsxXpnSuKM/FqgoJ4jmQreUcR0aNggi46uavFSlrJIjCMExDXDcIfVH8d44TJ684b5HFtqykaxn5TJ/xErkgwpyU2RLfCp9DEa2PE9a/KMehHb+4gKZZ1C0QPHfbCr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GQ1EoEhN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cg1uLE0mHd+VjrIs4cJW44mHoPm1I+WOvkjN7DJxGn2zEYhsHWcj3ZpmbUhhxHuHtNcwOvyv2bNoqfb0297VCrGQ4t89Fm7FW/WoPd1wKSUOXLU3vnSUTxTATjZdz6amRJgYGj/S29M7wVjpdWkMI+MtZ296GVe1Kz6UzSpQN3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKrmGjth; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GQ1EoEhN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960D81F00A3D;
-	Fri, 26 Jun 2026 21:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKrmGjth"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1151F000E9;
+	Fri, 26 Jun 2026 21:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782508424;
-	bh=g9GbCtiqzx1giQMGE7ut17CFSso9a+Jr7vjSmvD4jvc=;
+	s=k20260515; t=1782508485;
+	bh=4+e1r8jT3JogeYU9rX54CBUZqrxvMgDlNyHi9c2oDvQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GQ1EoEhN5nGNAqkSV82exf9DR00iTCMbOAqdd/siLamxkazoTCEm4eAfOM5JhoFe9
-	 S1O5kWwkWEGd4sq4ptb8Fjw5vmJTXpGop5TlnolgZhahdm7SQU1xBm60cooqL66/P5
-	 mN09GmPcrhwsSlEIguRqoxe3RgSwXtzUKhyJ7ypne2G4FQzb41T/83e+W5Yvg0eoVg
-	 NejjatdxuWK4PTxaFGoF7CwnTI6gBbY1AE+FHftey590le+EiC2wWfRFdn8PP82eMY
-	 NyUO/T//kDyUmlf4FEPvHrApqFxGPisdFhqIetmgHN4tZwkOnrpTg2pf/8eDLwJZE6
-	 rp3JAvPr9ClVw==
+	b=VKrmGjthw1uLeVaz1HPGCR+WPOxvJAsNxPC+YScDKfvSwxu248W3kP+IXTOjpk30Y
+	 0hwC+SvRYKaG49pRzzgQPsrreIhBCNXve+0lgjCb1ecobp2CCgkxw1TtRLW2yKAv3Z
+	 pREdaU3MCvn5/HFfu2LgAZrZbIgIXnO5X3DtN/22prH7fJFUDKEFUErlt1Ds3mODDW
+	 O+wJhG8L4IPSilF2z9v8mp3XnYi+SXQlzdSTnYfSoUFYNCtB8HPapYK02GGTnDd19/
+	 7jqE4zbyHkVqAXX55TGD1UBLtBooPWgpag9RoOG8BDdd2ixVpKfUeeVZkiFxG+RRg3
+	 aAEU0IwoI0H1g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 01/29] dt-bindings: phy: rockchip-usbdp: add improved
- ports scheme
+Subject: Re: [PATCH v8 17/29] phy: rockchip: usbdp: Register DP aux bridge
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org
-In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-1-47f682987895@collabora.com>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-17-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
- <20260626-rockchip-usbdp-cleanup-v8-1-47f682987895@collabora.com>
+ <20260626-rockchip-usbdp-cleanup-v8-17-47f682987895@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 21:13:43 +0000
-Message-Id: <20260626211343.960D81F00A3D@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 21:14:44 +0000
+Message-Id: <20260626211445.1D1151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,46 +46,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing mutual exclusion between `port` and `ports` in device tr=
-ee schema
+- [High] drm_aux_bridge_register() is incompatible with the rockchip-usbdp =
+PHY topology, breaking the DP bridge chain when USB and DP ports are split.
 --
 
-commit bef609fa8f96018c59387544e50ed1e5818faa7a
+commit 70d2ba94c5da680bd420eb74b5cffb26d6fad15d
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+phy: rockchip: usbdp: Register DP aux bridge
 
-dt-bindings: phy: rockchip-usbdp: add improved ports scheme
+This patch adds support to register a DRM auxiliary bridge if the DP
+aux channel is connected. This enables DP altmode helper code on
+devicetree based platforms.
 
-This commit introduces a documented port scheme for the Rockchip USBDP PHY,
-modeled after the Qualcomm QMP USB4-USB3-DP PHY controller binding. It adds
-a top-level ports node with specific endpoints for USB, DisplayPort, and
-SBU connections to properly support USB-C DP AltMode.
-
-> diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yam=
-l b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> --- a/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-usbdp.yaml
-> @@ -114,6 +114,29 @@ properties:
->        A port node to link the PHY to a TypeC controller for the purpose =
-of
->        handling orientation switching.
-> =20
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-
-[Severity: Medium]
-Should there be a mutual exclusion constraint between the newly added
-ports property and the pre-existing port property?
-
-If a device tree node defines both a top-level port and a ports node
-simultaneously, it currently passes schema validation. However, standard
-OF graph parsing functions like of_graph_get_next_endpoint() will silently
-ignore the top-level port if a ports node is present, creating a shadowing
-conflict.
-
-Could this be prevented by adding a oneOf mutual exclusion constraint?
-
+> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
+chip/phy-rockchip-usbdp.c
+> index e243d92483e09..a204699619b80 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
 [ ... ]
+> @@ -1505,6 +1507,18 @@ static int rk_udphy_probe(struct platform_device *=
+pdev)
+>  			return ret;
+>  	}
+> =20
+> +	/*
+> +	 * Only register the DRM bridge, if the DP aux channel is connected.
+> +	 * Some boards use the USBDP PHY only for its USB3 capabilities.
+> +	 */
+> +	dp_aux_ep =3D fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 3, 0, 0);
+> +	if (dp_aux_ep) {
+> +		ret =3D drm_aux_bridge_register(dev);
+
+[Severity: High]
+Since the PHY detects the DP connector on port 3, is the call to
+drm_aux_bridge_register() compatible with this topology?
+
+Looking at how the auxiliary bridge driver probes in
+drivers/gpu/drm/bridge/aux-bridge.c, it hardcodes the downstream bridge
+lookup to port 0:
+
+drm_aux_bridge_probe()
+  data->next_bridge =3D devm_drm_of_get_bridge(..., 0, 0);
+
+If port 0 (the USB output) is unconnected or connected to a non-DRM
+component, will devm_drm_of_get_bridge() return an error like -ENODEV?
+This looks like it would cause the aux bridge probe to fail, breaking the
+DP chain and leaving the DP controller waiting indefinitely with
+-EPROBE_DEFER, unless both port 0 and port 3 happen to point to the exact
+same connector node.
+
+> +		fwnode_handle_put(dp_aux_ep);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	udphy->phy_u3 =3D devm_phy_create(dev, dev->of_node, &rk_udphy_usb3_phy=
+_ops);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rockchip-u=
-sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D1
+sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D17
