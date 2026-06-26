@@ -1,120 +1,118 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79772369D64
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 12:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEF23F4DFE;
+	Fri, 26 Jun 2026 12:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782477472; cv=none; b=qKieKEtZ0sL0UQKKvxjsjUxQfs0cOAlQv/aGCXEyqeRC+OCq97W/SUuSIbBg+ZXxZmTz+brsvqDCUqTvNVj+YYtyYnFk+GwQAC5sJ2Ch2cT9noEfZobD0ySkH/vgL/IJdTUpjJPZFsDM3opIbZXVamSiMmj1Kx8p/uxjJCUvii0=
+	t=1782477837; cv=none; b=rRKTozB2sYKqPkc0F3Hwb6ZMWhBYTu/zJ/yftwYYxzmOEzwGPdE/M2+wCXG8H7rPYsgHZh7+ussxPG0bYRjZN2AtsSYfQs12DqVp4PNmQ6ADi7lm+4vHvrvdNFq+hwUWw5kt450KYc58eYGnCATRfNCWpHLLz49ov+2acnNionc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782477472; c=relaxed/simple;
-	bh=L8m+v9Mumd9PBrIoKCr6p8n/MbxpHP4z26Qvy7erVnI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YgeAjet6SSgaZcZAxk7AkKe8ZOgTM/smto3MwIVPBtJ2PXlNAmD8O9K95RDibSxHRu66DoaiHiXCwwXKZEy/nfcU8wYq0QudMD4FkiT2rLYh5fXMZCawtgzWKqDwp9pBTDehn8spWXC4FZMQzM0sd9M2w7d/evqRC87Gk5+B4bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4876d5335b2so563333b6e.1
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:37:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782477470; x=1783082270;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3Qc4TavqegVrav+S2qpl9+8s6wcCSKt3nqOoGSJ8Fvk=;
-        b=hjzNj1byAsKsWSFReNztn3FcNSiKGYOlxFlCaNl+ErVMcc/P5rJel1b//FT8eoVw4P
-         m+hy/P4UjwOcD060ndfos8cENFnoX7b3e1W176DdVvCsT96eo3ufWdXH4v/hwql25RS7
-         0SSNw2opqUi7E8qTkTo8NgEIh68JZqkDzE1CJJuEO+Wb+8BxVbMdU0rw5A6e73uqfDcz
-         YmggpIHKW20+OM16vCYJpJr/h5T500VGmvnloppaZrsFStpWFMsDgYwTdqIYnKld0D8j
-         GOeFPTfIwb2RHppQ/0Fh1tOAraXk3nS63+KIolaZD4v5ONs5wlMGDe5uR0B0hWL8suU5
-         8Q5w==
-X-Forwarded-Encrypted: i=1; AFNElJ93gzT2NR/M39Xl7E6A/LmXWPSDa3EjwXphKn2XRQwrEXSF7mm37NWQ2H66ViJUC0ZX1l9F4x2hXy8R@vger.kernel.org
-X-Gm-Message-State: AOJu0YytDKSpnISzeBjcUlja5JU9OE2ZLyliKX8R8RzBfcAg4hHWuCgp
-	y/Z7yZDqioF0xPObF36w+qlNRXaxyYhM/1dxSuDnkjwzMwg8OsUHEnvB3fVKYo5p
-X-Gm-Gg: AfdE7clECgw4eHx7PPzl/sTBt1GarEfEryS6KXCwUo5/yjLacXLRQdxUS/9w5hqO/J3
-	8yMi70w0K2AKbtLk4XpJ9985pccfnnzg7PL7b+3kC4TMfAGCyKl0ccJ+7uFegWii79Durn7+N/W
-	tEsRs+g3GPU/jTTGrr6WTv54iM/JdWcDaw2zAz/V+OnqLF51X2rHKkqqzeyQN5mcDHreaF6eZts
-	e/to5TT6mgFLqAFKX0oRKoKEgzPKk4dN6wVR7EvMyT2AZKUugyjLOtddZVJBTINu+N+bV6cUbw2
-	La1LRipMh9h12Xw7ewoX7gVxyiK9ZFkN77rOc9sWL5b+EYpCKM72z6fcPtbKtfKQ2ly6hpdrvRR
-	NDbsIbuSW1pbjaNcts+LvIB/P3Laog86I3JVpx5RLF1Re3Mwh01KKJiWWwx4KvUK6chO8jk3Zqf
-	Isop3hLii250kyvQAfJTbZrWj7gOHthr1Drah7xcbseExwL61RWzy2EQ==
-X-Received: by 2002:a05:6808:50a3:b0:485:4815:de29 with SMTP id 5614622812f47-49215249fbdmr6747546b6e.6.1782477470517;
-        Fri, 26 Jun 2026 05:37:50 -0700 (PDT)
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com. [209.85.167.171])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-49352b057dasm1262136b6e.6.2026.06.26.05.37.49
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jun 2026 05:37:50 -0700 (PDT)
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4864a8e80bbso593412b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:37:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8bFmvR1IZfLV7rb5Tzw+JSorhFBYD0ITrGdMKQlJYm2q78aB6OryqbLT6AeEYpcrPQRPWIcAUGPNeO@vger.kernel.org
-X-Received: by 2002:a05:6102:5491:b0:631:4580:6a46 with SMTP id
- ada2fe7eead31-73435b90f5fmr3476500137.17.1782477036873; Fri, 26 Jun 2026
- 05:30:36 -0700 (PDT)
+	s=arc-20240116; t=1782477837; c=relaxed/simple;
+	bh=273UYrDZLPZRLdQE9gl9FKkhwcDVtVsSfuVQnIfzmlo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=MZVKOsteVT+ojrA0MyZvvRWxHH5dGO0BAl7dRg4mBmOMp7148QU/VV5+xkG4/J+Elwri1iAzDMpMNqz1WsR5GVZR1AaKfYnteAvSBQRqpiuIzHZcBhJk1p0130e5+dBO8iVEEQ5bQtf5pmwhbZ4JX1+ynzq7tXp3LR28VFid1pU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=KvdouatO; arc=none smtp.client-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="KvdouatO"
+Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65Q9uKxM3594545;
+	Fri, 26 Jun 2026 13:43:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=5
+	Ogf5Wl3QQZvTKRAy4ITMzPaEdLMo0ILl6iyTX/9sOE=; b=KvdouatOyCB0ThqgN
+	wJ9q0E5EKSWkG9/fWMgq8PyajaaIiYR8A5enh/LbFiVXzgF15kO+cZlrBfT+7A/4
+	OMN/m09GRjDGZO8fzv/ir0G75pCXlw6pug1s4COF5TDrKBsYNO2Cr3tnwUJAg6yx
+	pF76kFHsEywrZJ9+S2cnHvIwyVLbj59njHKUWHZfKLQT/z0z14AzFz2k3o2PNb9Q
+	LxqJ3DdzKZTAcjs5yqzDHHwUtRoMpjbhSXWEA63hxbA6HvTIw9kNtmTz40b34bY1
+	0ww5heO6UK72r7ZrqVbmt422uwWc6PYgXdOQI6rcDRuEeV/+eKsjBt957jRMEbdC
+	5ot2g==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4f1q7w83q0-3
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 26 Jun 2026 13:43:35 +0100 (BST)
+Received: from [127.0.1.1] (172.25.2.144) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 26 Jun
+ 2026 13:43:35 +0100
+From: Matt Coster <matt.coster@imgtec.com>
+Date: Fri, 26 Jun 2026 13:43:11 +0100
+Subject: [PATCH v2 2/3] MAINTAINERS: Update imagination maintainers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com> <20260626-kbingham-orientation-v2-7-47178be927b4@ideasonboard.com>
-In-Reply-To: <20260626-kbingham-orientation-v2-7-47178be927b4@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 26 Jun 2026 14:30:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV+BDLjuhVo5fyHxSEibW8E4opXbaDrgsmTgygXXJoATA@mail.gmail.com>
-X-Gm-Features: AVVi8Cc1rFvCNNORSHDtFmL_tkYQ91oxJ5vGSfmmYwanPmDM2yIyJwQSJ-fX378
-Message-ID: <CAMuHMdV+BDLjuhVo5fyHxSEibW8E4opXbaDrgsmTgygXXJoATA@mail.gmail.com>
-Subject: Re: [PATCH v2 7/8] arm64: dts: renesas: Convert to new media
- orientation definitions
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jacopo Mondi <jacopo@jmondi.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
-	Mikhail Rudenko <mike.rudenko@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, 
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
-	Tommaso Merciai <tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
-	Richard Acayan <mailingradian@gmail.com>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux@ew.tq-group.com, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260626-maintainer-updates-v2-2-e1b3f246c44c@imgtec.com>
+References: <20260626-maintainer-updates-v2-0-e1b3f246c44c@imgtec.com>
+In-Reply-To: <20260626-maintainer-updates-v2-0-e1b3f246c44c@imgtec.com>
+To: <imagination@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: Conor Dooley <conor@kernel.org>, Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti <luigi.santivetti@imgtec.com>,
+        Frank Binns
+	<frank.binns@imgtec.com>,
+        Brajesh Gupta <brajesh.gupta@imgtec.com>,
+        "Alexandru Dadu" <alexandru.dadu@imgtec.com>,
+        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        Matt Coster
+	<matt.coster@imgtec.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=728; i=matt.coster@imgtec.com;
+ h=from:subject:message-id; bh=273UYrDZLPZRLdQE9gl9FKkhwcDVtVsSfuVQnIfzmlo=;
+ b=owGbwMvMwCVWuUfy8817WRsYT6slMWTZFX+12f1s1bWbYgFnX/R9lTZv3H/yh2S76EMWO/ejL
+ eITqmYt6ChlYRDjYpAVU2TZscJyhdofNS2JG7+KYeawMoEMYeDiFICJ5JszMhxRC/Rn158yIcDT
+ RzTC9Y5sS9aD/NbsppxTzwL/z1HxUWZkWNPoHVgmOV2xXPDVPvud6cc/bQthuXm73dD637xFnb+
+ ecAIA
+X-Developer-Key: i=matt.coster@imgtec.com; a=openpgp;
+ fpr=05A40CFCE7269D61D97100A1747F0A9036F90DFA
+X-Authority-Analysis: v=2.4 cv=D9h37PRj c=1 sm=1 tr=0 ts=6a3e73f7 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=dQmqtT5jEasA:10 a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
+ a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=iCmMkxMm0QhFShkxjzEA:9 a=QEXdDO2ut3YA:10
+ a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDEwMyBTYWx0ZWRfXyo02b29RyqFn
+ dflS28wKA1e1qRaxxAGmSIhfZIXm8HtHYIoM6MTSHBsupNMStuRO1hx4vrR2nhUhgJW2CVsjUQW
+ bfIHtseh9HJHSbpfLVqHcCJ17obFyl7nvocfQ6gV62+g7TKzLYDSbcW5u2F/3v3cIJCmoutX8Y1
+ Rc/q3nCVaAHGTor04gE0TMkU7kd1YYFlqWvSyYaWjJbbXU8z2yhUEhFVy28CUDyhDzr8TL0/+qX
+ MDAAto1jV1egZQSdHYdfmCI25eqpFHUlp3fbn8VFQsbG9zjnV/WwSBq00PFYY2zcwZJWxVIPYwr
+ NZ0N4fJlNSn99jOgpMDoFP/M1E7y03yNckedG8KjCdYbwZwu/ThIDpYe2cu1I1Fdb5U1h6slikz
+ VaVmo95yZ/7RWR7Xp1Fkr74eIdgMPiM53JqrAFCcffGTJyGSbviobNdaZ13BlOttjkcgmCFqnjS
+ RZB4LdORbqWWm2PGtvw==
+X-Proofpoint-GUID: sbJBbXXXRH7GcHwv8mXIGAQVLvxJBQsM
+X-Proofpoint-ORIG-GUID: sbJBbXXXRH7GcHwv8mXIGAQVLvxJBQsM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDEwMyBTYWx0ZWRfX13yvxXsKG9we
+ GRBHAfD8IlESq+CKNL4nFCKYApdvy/gScTZvLqzNUZPny81Mn5NAXRgK5+2yWTTAVYXfK+HSi3r
+ LIklUh8ReIxof1rQQtM1+jdj9IJjl08=
 
-On Fri, 26 Jun 2026 at 14:08, Kieran Bingham
-<kieran.bingham@ideasonboard.com> wrote:
-> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
->
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->
-> Update the users throughout the renesas device trees to use the new
-> definitions.
->
-> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+New people are taking up maintainership roles within the team.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+---
+ MAINTAINERS | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Gr{oetje,eeting}s,
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b45e60524762..fe02d1087ab2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12567,8 +12567,9 @@ S:	Orphan
+ F:	drivers/media/rc/img-ir/
+ 
+ IMGTEC POWERVR DRM DRIVER
+-M:	Frank Binns <frank.binns@imgtec.com>
+ M:	Matt Coster <matt.coster@imgtec.com>
++M:	Alessio Belle <alessio.belle@imgtec.com>
++M:	Luigi Santivetti <luigi.santivetti@imgtec.com>
+ L:	imagination@lists.freedesktop.org
+ S:	Supported
+ Q:	https://patchwork.freedesktop.org/project/imagination/list/
 
-                        Geert
+-- 
+2.48.1
 
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
