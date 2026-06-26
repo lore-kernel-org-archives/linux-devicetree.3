@@ -1,279 +1,304 @@
-Received: from out28-108.mail.aliyun.com (out28-108.mail.aliyun.com [115.124.28.108])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010033.outbound.protection.outlook.com [52.101.84.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2ED3BB13D
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782467136; cv=none; b=g+E2Ke+t7FEPy59tUzi1plVS4BJc+WTRJaOhNwALgoUfoo4A8TDvhXE1hHuu0K096YyFsoDsZVa/4mjJVLNxHFs8eFnYNtu3FVtSTjizRfjMRiBh+hSV0JMdaFPmSPxbMVHUCe8fSqEQwpI2gohA2jLT4bZ61unhWl7iVIYyWVU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782467136; c=relaxed/simple;
-	bh=Sz3aXpakQDkn3AgSjQ/TedhrX8z3OuiQgULRFA89f7g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p27S3myzjKWsoamcNp5lHbZ6je4HR6PibJMBdD451JrPuQm2bNjUdhZh3KeqeZSAQGTmhcuKtOkFeYoF34U9RnZRq1+TYZk/DJFhA46WoIDAElY+amsES/2d1cUMWBzmq9914phEmLdAqDJ5aSqqQ5+iLuwU1bCBj7yqL+27FuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=FcVJSeYb; arc=none smtp.client-ip=115.124.28.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC384315F;
+	Fri, 26 Jun 2026 09:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782467343; cv=fail; b=lmxr4RsM0oFt1eXIhiho5Kr9zm6YG/rrSONflrcIZNXvKIRwaNP2CAYx9pV9/Fr4EDA2r/94F+HlGkz6RmSE0lmmlKCfHAGuBB7M/teA9PcU/tTZwl6HKAqKp1TW3gMJCwVKB4t9IC5nykmpkNXXccT6Q6mniY9bQLvoVmDLo7Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782467343; c=relaxed/simple;
+	bh=J/+yxF2USTniOw78IrUVFkiDokD+BqUsvN8dctDszlg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=bKkXGQkwoKd0uePEY/xrhaAlps9AqLP7EU/HhyXy9Kn412dD10WTTr2Zo1JYUQM2Ym+3ICxhvjBD/wJQAAG2WMdP+RWAEFNXMUeKhgU3NY5xgSXlo2a619vaxVwvcpNthgeTp40vu4nzVscAOgAw8aUVHd+EF+U5cH7qQUxig7M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=A/qu/cu4; arc=fail smtp.client-ip=52.101.84.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="FcVJSeYb"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1782467126; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=CG0uZ5A5RTYEzLxzd6lkXQE6XVuOPEvqVTPQNsDi92U=;
-	b=FcVJSeYbHkYjIERLot2eJB4R3pTYAtLBq35QRoTaQoIxi8BVyax+ZD3jFwSg8vCRXI/TAyXU0BwpibZWV+9SWUV9QVGhwh29mkgb7YDG0qqxkoTqWe4XRyBlCByP8UWUAle4PZQixwigos5QmZatTqf2ILMNlG6AGquFyfKfSlXALm+W+T0zJhkPgsIpryV5EpGx1TuoDODDU5nt9wXc2suGOX0rVym0QwUcp985k9FkW2sf+JHRBFqkmLWmhq3IxY7AubWaTZc/6MS69kENGCXqkJ5ivWKXUCcVMWNAHwP7wtOiuvPiaR8ZoLdity8eoQU2i6w9xJlVe15/cmp4gg==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=blue;DM=|OVERLOAD|false|;DS=CONTINUE|ham_system_inform|0.0287316-0.00247526-0.968793;FP=18253458976430204170|3|1|3|0|-1|-1|-1;HT=maildocker-contentspam033037021130;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.i6O.0b3_1782467122;
-Received: from mail-oi1-f181.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.i6O.0b3_1782467122 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 26 Jun 2026 17:45:23 +0800
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4896ae35be9so357350b6e.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:45:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+kFwmL/8zvJqp0ZlXcfaSG+f371omJ+SHrHAoCss8kgAi9BFNXBqQcEGmfuancrY4IawdOog3AcB4X@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywn+XxQGY2Ftvq1RtjMRxRincJqy2JTxianbErjpuQV5jllJzS3
-	qyNXuYMmaM8UJl2G+wikWxYpRwk4HENzKo2TXsqSTYnZSxEof4KvOplE1cTMfHqJu92U1Hf1LzZ
-	AqIwP7jLD7zzyZnqbCS20LevNyzJAMbw=
-X-Received: by 2002:a05:6809:359:10b0:492:542e:c9a8 with SMTP id
- 5614622812f47-492542f0b75mr3339955b6e.39.1782467122106; Fri, 26 Jun 2026
- 02:45:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="A/qu/cu4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d55nDVI3EUC6kQxAmdVBx6msJFx7s51X5ne/gLKY7E0O+BtFDiVkSH875L09ucQSG1RC/VdWcYBZdFiOE/u+c9LLTrAKnb5xOq6l9+jsL0B2x0pmosXXWALbxi58ADCIzVaCxdp9J+QUycRenxFUNOWW5mdbn+9Rw/Sg+8LPXwgXM4fLWrmdB/X0YYR9ULHNyY4Cc8aoWDsMOmqw5HiHhWTr16unZHLrPc5zuZjw8LZ9irPbALWTvOVvbU7E6jnzeX+Z4ZMeDx1MnzApgO1goEt/6ZfA307XDd5ucXDz6MYrDLmPq1D3G2Ac2tt6mdV+SU1oycC1/Ac19B+VKvhxZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i34zMvp1/S9mOO7shYwikYlJaStPlhIUoFlLuaKGtP4=;
+ b=CooLqDPp1lPDYjUJ7b/GwOuTElYKUUMPHtze9sCctuE4yK7nX7tvjYbh/JFEoof0dkvYFFnMqkfKMN+shq8o4aXYwdUzluuhJIlve/WIFCYrZABLUb6cHfLFbzhSsBnnWQ94XKBPF5eNlOIu39NGFQjoNSlihf+NM3NeiqJ3RDRZggmBf/wE738vyoKvDQ+KMKAnEXWLAj5TRcHtnY9YhsS/fNjKw/cjI1y7NN9nA5qXjpzC88u+Bd9uw7aLamWJ/bwvnXY8YGq5z7lqB0p/AdmeZecM8VMqjR6En1p00s/osIarJGwm8f0K8NI/VViJZUezazZR2Tn9xQm7THujRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i34zMvp1/S9mOO7shYwikYlJaStPlhIUoFlLuaKGtP4=;
+ b=A/qu/cu4vsV+0mVA24rcSmLuhN2oqHVJd27OwYV3zXcYhENDT2plWlOzLP84l8ogiWVqMBd35/efIR7C2St/lXjepCX8DHmpMrEzDUpYV/kaQKODFif5qELrz5tkm3eCWq/2IF5ihyXAhXQ4MLoHjSwzFsmMWyqkpwvF6Kc0hcgBWRArpXkXnlwlfTGRzWB37KwCBUkmdKzQai1pIwb8LbcVQOU+dVW8VXp4X07GA56NviJAtL2d4gCte6Osexwjqev2CRkGT8ytWtIs9DHq7Ey/mcWjdahf4LSjwv6eLNXGDQW1jkId3Eray3EtbtRDT5ny24lg8SMg59FSymoLOg==
+Received: from CW1P123CA0024.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:292::15)
+ by AMBPR10MB9320.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:6a9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Fri, 26 Jun
+ 2026 09:48:59 +0000
+Received: from AMS0EPF000001B4.eurprd05.prod.outlook.com
+ (2603:10a6:400:292:cafe::1b) by CW1P123CA0024.outlook.office365.com
+ (2603:10a6:400:292::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.12 via Frontend Transport; Fri, 26
+ Jun 2026 09:48:59 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS0EPF000001B4.mail.protection.outlook.com (10.167.16.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Fri, 26 Jun 2026 09:48:59 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 26 Jun
+ 2026 11:53:12 +0200
+Received: from [10.252.24.187] (10.252.24.187) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 26 Jun
+ 2026 11:48:57 +0200
+Message-ID: <3a08a057-b08b-4dbc-9522-b0e94e48773e@foss.st.com>
+Date: Fri, 26 Jun 2026 11:48:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org> <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
- <20260626-zippy-affable-hamster-22101d@houat> <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
- <20260626-flawless-axiomatic-slug-c480c9@houat> <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
- <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com> <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
-In-Reply-To: <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Fri, 26 Jun 2026 17:45:08 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
-X-Gm-Features: AVVi8Ce2k_tbAS6eWi4Ugrn8WcziFU1FfSkgFbI2qqA9t-k0_fRwCzHphfxoC3w
-Message-ID: <CAFQXuNYOcvaiknrFwmxKQdiuWMOZo7mV_Rv7TrMScO_7Y_p8_Q@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
-	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, 
-	jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
-	xbpeng@lontium.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] media: i2c: vd55g1: Fix media bus code initialization
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+CC: Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
+ <20260428-vd55g4_and_fixes-v1-1-4f745a83b87e@foss.st.com>
+ <ajj90hhNwx7bLkOZ@zed> <f51d5d21-54fb-444a-9ae9-9b60e7a500f1@foss.st.com>
+ <aj4u42ppuHSRqLIn@zed>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <aj4u42ppuHSRqLIn@zed>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001B4:EE_|AMBPR10MB9320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 861ab1db-6c3c-4825-9cc1-08ded368256c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|7416014|56012099006|6133799003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iSxk/vFionaJ+U2kcdIQY3KS/8+J03Y51WFNp4AkCWVmzpdlz/q8rHMzW1D+oSbqoatC5cYAWXXokQmE45sKmYDbcA2eJGGliU2LdtyQqHb2V0OJPaYiRsKwDaHnLJTVL798ydNuQdEtdKfFy47PEmSIVTdfjPLBk1ETlnASOomAhUTpbWonOepdQmZ3FB27HpvB7nm0kaHCsGwluJJHCHLll2GlqxWOW7nf436vK2lwFdizqnB93RK3IaJ1q5UqHlOYy9GSDkmfwoVHHWxqJIJtz81CVf7GhqjqKLZDFDubAKVqSwUKPPAoRoowX2GOpA0ndmWA/LP4Cha6I11jAC/4R+O8f+Qz+GL0i5uV1WHBYvHFiBAbXjW5wpKBhbCkU7Nfz1YUSnWNZhuGjqcTpkFm0KC88flV1970wC2xyR1o1iatlGWWcHJdVp1v2NkaUXflBtuuqG+hhlRVJWMT/hiySz3WKfT6Wujen0X98577WOdesBCsMhPAuYW8W7p+qHa9hOT0k9vCKczz9ZsZ3hir+V414h8ExLIapjK3i1CP2Lt7gVu22hjISCL3IUGrhsV92fCGD4DUPU4baKDMDEy//t/FvA3IqFJkbCCIfCtPRBaNIaUlyK5TLVh/HM5yO9fxkA7wos02V2h6Cobu/g==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(7416014)(56012099006)(6133799003)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/qROFH3JrU3cF+PRAWGawutugc4rjmURxZYdAToJqnrSxoRZfaZC4mSHNeW7MhEMNM4IaM5C9rVkIHRqqw1S/ObTPggscS1/sIGOZuI6+J7hJ7o1ejgsTJymRYgIdF2V0oJR4rJUHVROk5B1GwbUDX8vt+upbkzWW4RRbTiaHxpK+4j5yrhofM7Yf0Pq0e8mEmd1/asBOUYR+ivr/wPBhWs9ALdoGs/mxzCzeir7n1cVfL2STKVCsw6G11XYWPQVLaTW9WaSIVr03+c/z8I4L3vqX+huRqms0n5hmD9yWBFoZgIsdk/4zeAknX/UZHzSEOIXh6hP2w5yIyqiT/WqpT4VzlKF2gyP3ei/Z9uIWP1n00UlqPGJp008hcVulieFmELbiocDGBBxadH/BLq+Dz0B/elUPryVTRNyArXVag953Nmw8fVVTW6k4OvaGCXl
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 09:48:59.0269
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 861ab1db-6c3c-4825-9cc1-08ded368256c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B4.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9320
 
-Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=97=
-=A5=E5=91=A8=E4=BA=94 17:31=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Jun 26, 2026 at 05:05:38PM +0800, Sunyun Yang wrote:
-> > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
-=97=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > >
-> > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
-=E6=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > >
-> > > > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
-> > > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
-=8826=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > >
-> > > > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> > > > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=
-=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > >
-> > > > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=
-=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > > >>
-> > > > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
-=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > > > > > > > >>>
-> > > > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > > > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
-=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > > > > > > > >>>>>
-> > > > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > > > > > > > >>>>>> +
-> > > > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > > >>>>>> +{
-> > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, =
-1);
-> > > > > > > > >>>>>> +     msleep(20);
-> > > > > > > > >>>>>> +
-> > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, =
-0);
-> > > > > > > > >>>>>> +     msleep(20);
-> > > > > > > > >>>>>> +
-> > > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, =
-1);
-> > > > > > > > >>>>>
-> > > > > > > > >>>>> This is just plain wrong. Why do you assert, then de-=
-assert and then
-> > > > > > > > >>>>> finally assert AGAIN the reset leaving the device in =
-powerdown stage?
-> > > > > > > > >>>>>
-> > > > > > > > >>>> I am using software to emulate the hardware RESET butt=
-on on our EVB.
-> > > > > > > > >>>> When the hardware RESET button is pressed while our ch=
-ip is running,
-> > > > > > > > >>>> the signal level changes from HIGH to LOW and then bac=
-k to HIGH.
-> > > > > > > > >>>>
-> > > > > > > > >>>> Of course, we can also use the following:
-> > > > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > > >>>> {
-> > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > > > >>>>     msleep(50);
-> > > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > > > >>>>     msleep(20);
-> > > > > > > > >>>> }
-> > > > > > > > >>>
-> > > > > > > > >>> Makes no sense either and you just did not get the poin=
-t and did not
-> > > > > > > > >>> answer my question. I asked WHY you leave asserted. Ans=
-wer "we emulate"
-> > > > > > > > >>> is just plain wrong.
-> > > > > > > > >>>
-> > > > > > > > >>> So again please answer:
-> > > > > > > > >>>
-> > > > > > > > >>> Why do you leave device with reset asserted?
-> > > > > > > > >>>
-> > > > > > > > >>
-> > > > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HI=
-GH>;
-> > > > > > > > >>
-> > > > > > > > >> GPIO_ACTIVE_HIGH:
-> > > > > > > > >>
-> > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ----=
---   reset pin
-> > > > > > > > >> is Low level : Clear the register configuration in the c=
-hip to stop
-> > > > > > > > >> the chip from working.
-> > > > > > > > >>
-> > > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ----=
---  reset pin
-> > > > > > > > >> is high level:  The chip resumes operation.
-> > > > > > > > >>
-> > > > > > > > >>
-> > > > > > > > >
-> > > > > > > > > Our purpose is: pull the level low to clear the register =
-configuration
-> > > > > > > > > in the chip, and then pull it high to allow the MCU insid=
-e the chip to
-> > > > > > > > > re=E2=80=91initialize the registers.
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > And you do completely opposite... so that confirms your cod=
-e is just wrong.
-> > > > > > > >
-> > > > > > >
-> > > > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just foll=
-owing the
-> > > > > > > rule of this device tree. If I modify the device tree to use
-> > > > > > > GPIO_ACTIVE_LOW,
-> > > > > > > and use the following code in my driver, then my driver would=
- be correct.
-> > > > > > > However, would the existing kernel drivers lontium-lt9611uxc.=
-c and
-> > > > > > > lontium-lt9611.c be affected?
-> > > > > >
-> > > > > > It might, but then it's a DT problem. The GPIO API for drivers =
-always
-> > > > > > considers the logical state of a GPIO, so if you need to assert=
- a
-> > > > > > signal, you'll always need to set 1. That's what Krzysztof was =
-trying to
-> > > > > > explain.
-> > > > > >
-> > > > > > The DT will provide with GPIO_ACTIVE_* how that logical state t=
-ranslates
-> > > > > > to a physical GPIO state.
-> > > > > >
-> > > > > > If the DT says that this particular GPIO is active-high, then i=
-t means
-> > > > > > that we need to set the GPIO to 1 to assert reset. Now of cours=
-e, it
-> > > > > > might not make sense for the controller itself, but it might fo=
-r the
-> > > > > > board if there's a GPIO inverter in the middle for example.
-> > > > > >
-> > > > > > Anyway, in the case you're raising, the issue definitely lies i=
-n the DT,
-> > > > > > and that's what would need to be fixed.
-> > > > > >
-> > > > > > I also wouldn't be too concerned about lontium-lt9611.yaml, it'=
-s just an
-> > > > > > example.
-> > > > > >
-> > > > > > Maxime
-> > > > >
-> > > > > thanks Maxime, I will modify this code in the next version of the
-> > > > > driver, and I hope you can accept these changes.
-> > > > >
-> > > > > Maxime:
-> > > > > I have another question I would like to ask you
-> > > > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
-> > > > > opinions that differ from yours, whose advice should I follow?
-> > > > >
-> > > > > If I do not adopt sashiko-bot's suggestions, will my patches stil=
-l be
-> > > > > accepted into the upstream Linux kernel?
-> > > >
-> > > > I can't give a blanket answer. It depends on what you ignore exactl=
-y.
-> > > >
-> > >
-> > > Okay, another question: sashiko-bot is an AI bot. Are its review
-> > > comments optional, or must they be followed?
-> > >
-> >
-> > For example, in my driver, there is a function for upgrading the chip
-> > firmware. During debugging or production, upgrading the chip firmware
-> > will acquire a lock, which will block the DRM callback and affect
-> > display. It will be fine after the upgrade is completed and some
-> > devices are restarted. As long as there is no subsequent upgrade,
-> > display can work normally.
-> >
-> > From a purely software perspective, the AI bot considered this
-> > approach unacceptable and proposed synchronizing the pre-upgrade state
-> > to the DRM framework. From my personal perspective, I think the AI
-> > bot's suggestion would only make my driver more complex and redundant.
-> > Do you think I need to adopt the AI bot's suggestion?
->
-> You're right it's wrong, but there's also no reason to allow that
-> firmware upgrade during the driver lifetime either through a debugfs
-> file. So you should get rid of the debugfs file and now you won't have
-> to bother with that comment anymore.
->
-> > In addition, if I follow the AI bot's suggestion, the
-> > lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
-> > merged into the upstream Linux kernel would not meet the AI bot's
-> > requirements.
->
-> Maybe, but it's not relevant either way. These drivers are merged, yours
-> isn't. Feel free to fix these if you spot any issue though.
->
-> > When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
-> > sashiko-bot (the AI bot)?
->
-> Again, it depends on the comment. If you feel like one can be ignored,
-> you should at least argue why.
->
+Hi Jacopo,
 
-sashiko=E2=80=91bot (AI bot) does not communicate or interact with me.
-Even if I explain the reasons, the AI bot never replies to me, and it
-only sends its review comments to me alone.
+Le 26/06/2026 à 09:55, Jacopo Mondi a écrit :
+> Hi Benjamin
+> 
+> On Thu, Jun 25, 2026 at 01:41:48PM +0200, Benjamin Mugnier wrote:
+>> Hi Jacopo,
+>>
+>> Thank you for your review.
+>>
+>> Le 22/06/2026 à 11:28, Jacopo Mondi a écrit :
+>>> Hi Benjamin
+>>>
+>>> On Tue, Apr 28, 2026 at 10:40:55AM +0200, Benjamin Mugnier wrote:
+>>>> In the driver initialization, the index of the default media bus code
+>>>> from the supported media bus code array is passed directly to the
+>>>> vd55g1_get_fmt_code() function instead of the proper media bus code.
+>>>>
+>>>> This works correctly as a proper media bus code is set after
+>>>> initialization but could not have been the case. This also resulted in
+>>>> mutliple "Unsupported mbus format" error messages.
+>>>>
+>>>> Retrieve the media bus code from the media bus code array, and pass this
+>>>> media bus code to vd55g1_get_fmt_code() instead of the code index.
+>>>>
+>>>> Rename VD55G1_MBUS_CODE_DEF to VD55G1_MBUS_CODE_IDX_DEF and
+>>>> VD55G1_MODE_DEF to VD55G1_MODE_IDX_DEF while at it to avoid future
+>>>> confusions. Display the guilty error code in warning message.
+>>>>
+>>>> Fixes: e138e7f00042 ("media: i2c: vd55g1: Add support for vd65g4 RGB variant")
+>>>>
+>>> You should cc stable for fixes
+>>>
+>>> Cc: stable@vger.kernel.org
+>>>
+>>
+>> We talked about this very recently and somehow I still forgot.
+>>
+>>>
+>>> The CI should have flagged that, but for some reason it didn't run
+>>> properly on your series
+>>> https://gitlab.freedesktop.org/linux-media/users/patchwork/-/pipelines/1655147
+>>>
+>>>> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+>>>> ---
+>>>>  drivers/media/i2c/vd55g1.c | 17 +++++++++++------
+>>>>  1 file changed, 11 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+>>>> index 78d18c028154..1e9db21322e3 100644
+>>>> --- a/drivers/media/i2c/vd55g1.c
+>>>> +++ b/drivers/media/i2c/vd55g1.c
+>>>> @@ -114,9 +114,9 @@
+>>>>
+>>>>  #define VD55G1_WIDTH					804
+>>>>  #define VD55G1_HEIGHT					704
+>>>> -#define VD55G1_MODE_DEF					0
+>>>> +#define VD55G1_MODE_IDX_DEF				0
+>>>>  #define VD55G1_NB_GPIOS					4
+>>>> -#define VD55G1_MBUS_CODE_DEF				0
+>>>> +#define VD55G1_MBUS_CODE_IDX_DEF			0
+>>>>  #define VD55G1_DGAIN_DEF				256
+>>>>  #define VD55G1_AGAIN_DEF				19
+>>>>  #define VD55G1_EXPO_MAX_TERM				64
+>>>> @@ -634,7 +634,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
+>>>
+>>> Unrelated, but it seems you now have 2 codes for MONO. Does
+>>>
+>>> 	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+>>> 		return code;
+>>>
+>>> need an update ?>
+>>
+>> Not in this patch because it does not add the new MONO sensor, but in
+> 
+> Not in this patch ofc
+> 
+>> 4/5 I separated the model ID from the color code. Example for the vd55g4 :
+>>
+>>   .name  = "vd55g4",
+>>   .id    = VD55G1_MODEL_ID_3,
+>>   .color = VD55G1_COLOR_VERSION_MONO,
+>>
+>> So the patch 4/5 updates the previous 'if' you mentioned to check the
+>> color member instead of the model :
+>>
+>>   if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
+>>
+>> Which IMO is a good way to handle this problematic. Tell me if you're
+>> thinking about something else.
+>>
+> 
+> Yes, I was thinking about the unconditional return of 'code'.
+> 
+> You know have two mono codes, shouldn't you do the same as you do with
+> the bayer ones ?
+> 
 
-If I do not make changes according to the AI bot's suggestions, will
-that affect my driver being merged into the upstream Linux kernel? I
-would like to know the answer to this question.
+Ah, got you. You're correct, I thought it was not possible to pass a
+code that is not supported by the driver by design. I'll add the same
+check for mono codes.
 
+>>>>  				goto adapt_bayer_pattern;
+>>>>  		}
+>>>>  	}
+>>>> -	dev_warn(sensor->dev, "Unsupported mbus format\n");
+>>>> +	dev_warn(sensor->dev, "Unsupported mbus format: 0x%x\n", code);
+>>>>
+>>>>  	return code;
+>>>>
+>>>> @@ -1347,6 +1347,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>>>>  {
+>>>>  	struct vd55g1 *sensor = to_vd55g1(sd);
+>>>>  	struct v4l2_subdev_format fmt = { 0 };
+>>>> +	int code;
+>>>>  	struct v4l2_subdev_route routes[] = {
+>>>>  		{ .flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE }
+>>>>  	};
+>>>> @@ -1361,9 +1362,13 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
+>>>>  	if (ret)
+>>>>  		return ret;
+>>>>
+>>>> -	vd55g1_update_pad_fmt(sensor, &vd55g1_supported_modes[VD55G1_MODE_DEF],
+>>>> -			      vd55g1_get_fmt_code(sensor, VD55G1_MBUS_CODE_DEF),
+>>>> -			      &fmt.format);
+>>>> +	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
+>>>> +		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
+>>>> +	else
+>>>> +		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
+>>>
+>>> Being this a multi-dimensional array, I don't seem much value in
+>>> defining VD55G1_MBUS_CODE_IDX_DEF if this is the only place where it
+>>> is used. What's the meaning of VD55G1_MBUS_CODE_IDX_DEF for
+>>> vd55g1_mbus_formats_bayer ? Does it represent the bitwidth or does it
+>>> represent the bayer pattern ?
+>>
+>> For vd55g1_mbus_formats_bayer, the first dimension of the array is the
+>> bitwidth, and the second one is the bayer pattern.
+>>
+>>>
+>>> I would rather define a
+>>> VD55G1_DEF_MBUS_CODE_MONO       MEDIA_BUS_FMT_Y8_1X8
+>>> VD55G1_DEF_MBUS_CODE_BAYER      MEDIA_BUS_FMT_SRGGB8_1X8
+>>>
+>>> Or maybe do
+>>>
+>>> 		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF]
+>>>                                                 [VD55G1_MBUS_CODE_IDX_DEF];
+>>>
+>>> if easier.
+>>>
+>>> I understand it's a minor, so up to you.
+>>
+>> As you mentioned it's only used here. I won't mind removing
+>> VD55G1_MBUS_CODE_IDX_DEF entirely and do :
+>>
+>>   code = vd55g1_mbus_formats_bayer[0][0];
+>>
+>> Does that sound okay ?
+>>
+> 
+> It does, thanks
+> 
+>>>
+>>>
+>>>
+>>>> +	vd55g1_update_pad_fmt(sensor,
+>>>> +			      &vd55g1_supported_modes[VD55G1_MODE_IDX_DEF],
+>>>> +			      vd55g1_get_fmt_code(sensor, code), &fmt.format);
+>>>>
+>>>>  	return vd55g1_set_pad_fmt(sd, sd_state, &fmt);
+>>>>  }
+>>>>
+>>>> --
+>>>> 2.43.0
+>>>>
+>>>>
+>>
+>> --
+>> Regards,
+>> Benjamin
+>>
 
-> Maxime
+-- 
+Regards,
+Benjamin
+
