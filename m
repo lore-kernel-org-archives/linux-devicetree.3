@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A45C344D92;
-	Fri, 26 Jun 2026 10:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CB13ED3A7;
+	Fri, 26 Jun 2026 10:20:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782469181; cv=none; b=Nwlhjmmpas8qF1P21n3C/VqyajPNO8oJGXJ2+Rot6xR5tOO+RFYUK/qA7iSR7J7KSj0H+mKJkJVIeQvgSln4fL+UmjoLFYplfKpf7G/WBC1QOmQQrY1e1A9SglVggLkgT/cuTTkWp9WpSSSaDLq/YnOBPEjJc6aZ7SXK6AE2N+A=
+	t=1782469230; cv=none; b=oeQ5UIBb/MmplU84hz1YTHzz0kaGUrvV4XCbNk5567usuKp/zTmdqu2SfeHYdILQF7Z8YAG0D1ElFthNURH+csMg6NlpW64pIn/RlEVevczxu4HkowH6eFlkqPpbfa5XstExMBxzPdR/NOj2StDPDRehTDxjvr5I75mHgjh19D8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782469181; c=relaxed/simple;
-	bh=Jbk3HWrGGpdUjoH1UM0aydC5i2DOaANuHsjOX2kLW2A=;
+	s=arc-20240116; t=1782469230; c=relaxed/simple;
+	bh=cA4bqx8KhbMCX1Ji7f0/tsavrsTBEJPeJ/BUQgSCZDs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NYufnniW6cLqctf1A5hGicsmNX5Ln31bKL+tQNWjT1Mi+85LpeVxrnXLbXIcJr7TzAqwRUGVc/oTBuD40I0EDY6/6NfKhzt1TEaLXIphpoDMK0THufV1v+Jtd0UxUgMoVFHdn/JUlk0HfVpodkaOapYSYhrCHuMcvA7ecVTkQJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mRDkviyq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=h4Ww866lJLIsr+xKRF8eke5EbmyJyOU19nPhIDrjOGyDzEc9UvCB6coEHCELK2O/s76VH4DTNzCcY206ICdbOz2fFk2lzm+peJ9x5s8uj3AIaTvBm3zdjEKJ7D1jlT7QS3Ln5hDwWqdsesoBLXTtAjMivEpst6+yc/S5MIAIJ/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GbVd2XT7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mRDkviyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8881A1F000E9;
-	Fri, 26 Jun 2026 10:19:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GbVd2XT7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CC91F000E9;
+	Fri, 26 Jun 2026 10:20:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782469179;
-	bh=F3BjGiEAkth6q6Fx2GBn/GSj1++9jJaZj/fjW/HdRMo=;
+	s=k20260515; t=1782469228;
+	bh=5ulkSddQAHOxiSQk3m9xueItocxgNHAwiG6q2cpaoeE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mRDkviyq4yn7NjXe0RjnMQvLo0EwuDzu2v6DgIL9bAtjQIQ0o0Yt2UvmM+pn7kogf
-	 /YC1KQ9cWeX7VJ3VDz1KlMHpX01RKZE45AW4t9yq/sfuQkEdGFrI/OpE2BMsfRMR4p
-	 C4IHaK1LhldZk7lOvEE0/LdysTYqCfCspAweKunX7P05g7kHvgDkekJcVo6+LH3qex
-	 YcuQPGVn9lZAn6sOGyI5IoaMLj3M02h+vC9PF9xalIHUQwsiGmzwrXbeeugNOt3jfB
-	 pTzIkIxzMMt4E2ZlsD4qS1CNDHk1uOEkZQtVqXQuHU/9xEiDKnfW4T9woWi5WOCNBi
-	 KYnwGUQ04eCMw==
-Date: Fri, 26 Jun 2026 12:19:36 +0200
+	b=GbVd2XT7c2UKSUEXOXOjCQ/vOccTGOK9UdnmcOVj0drOzY622DcjYSh5c0o0T6W2j
+	 PYXRpsVDgvJ+3mKWTG3WQbvB9mjT4ncgwCUoBKeaRxf8BTIFVOpySPIlfzX1sTkZ+9
+	 Lgfb3I/Bp42MsUJyXbHHKtvnE2whf87SGvDol7zS7FEx9QPHIK28Dy9W1RuCSvhYK/
+	 /bPQP2cw4e6X5+lHWUXctTd2PojWL+mQX020NzjYtBB6zr5+mVzxbFOtab70FyN6TM
+	 yzelRHJwpyIAlZDMTh6Q13DMnuAQZ4swxl/CTFV9D0NECzjCIWQ7qmki9muwc0FbfS
+	 WYckOW9r0XO6A==
+Date: Fri, 26 Jun 2026 12:20:24 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: cy_huang@richtek.com
-Cc: Mark Brown <broonie@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Yoon Dong Min <dm.youn@telechips.com>, edward_kim@richtek.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] regulator: dt-bindings: rtq2208: Label
- mtp-sel-high property as deprecated
-Message-ID: <20260626-zebu-of-uncanny-serendipity-a9fc85@quoll>
-References: <cover.1782444299.git.cy_huang@richtek.com>
- <594ebe167b33ca885c040984624e4b5d1382c0e2.1782444299.git.cy_huang@richtek.com>
+To: Jason Pettit <jason.pettit@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Ananthu C V <ananthu.cv@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: arm: qcom: Add HP EliteBook X G2q 14
+ AI
+Message-ID: <20260626-grateful-hopping-dugong-c2fce8@quoll>
+References: <20260625-glymur-send-v2-0-00905324ffbf@oss.qualcomm.com>
+ <20260625-glymur-send-v2-1-00905324ffbf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,18 +49,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <594ebe167b33ca885c040984624e4b5d1382c0e2.1782444299.git.cy_huang@richtek.com>
+In-Reply-To: <20260625-glymur-send-v2-1-00905324ffbf@oss.qualcomm.com>
 
-On Fri, Jun 26, 2026 at 11:38:52AM +0800, cy_huang@richtek.com wrote:
-> From: ChiYuan Huang <cy_huang@richtek.com>
+On Thu, Jun 25, 2026 at 10:47:20PM -0700, Jason Pettit wrote:
+> The HP EliteBook X G2q 14 AI is a Snapdragon X2 Elite (Glymur) laptop.
+> Document its top-level "hp,elitebook-x-g2q" compatible.
 > 
-> Since it can be identified by hardware register, label the unnecessary
-> property 'richtek,mtp-sel-high' as deprecated.
-> 
-> Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
+> Signed-off-by: Jason Pettit <jason.pettit@oss.qualcomm.com>
 > ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
