@@ -1,246 +1,182 @@
-Received: from out28-115.mail.aliyun.com (out28-115.mail.aliyun.com [115.124.28.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4538F3E4C6C
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D923BAD95;
+	Fri, 26 Jun 2026 09:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782464760; cv=none; b=DRpvlf3KirA0vSlZ64Ga6MTwBLdltr9J3/ryVDKnC6Cj4pOoJh6zKhWVSdsmOmkFfJpDu4xMTeZev2tcF9XIsa5cd6RlClgNDqMjE9J6ULsC3/lz9likGHWQy8BpTclIxZtD3eOY9YFdduuYL89nERrjrryfkiQ5IogkDPxJf4g=
+	t=1782464967; cv=none; b=YUgWbpCiHZuob+svkEtczr0BX9hONkAaQObRIrzSO6JmLiD39Bs6MMlhO4I9xFPV0VEoinAhZJf+Go9LP7VLvet66G9FVTPbOP6OSxOTVwzuxHsje1cVGO5axJmR4VJH3mSX49Inf/qO97gv/BQIgtplF9vFLH99YfVodDk3enE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782464760; c=relaxed/simple;
-	bh=ESN3uAsSB9BSNBQ16fdvbe3QKVh4Rb+YO0We1AKw/sE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HQ3KKlOOP/Pn/8lQ+caniziWTI2eHEZTCqUrjY3hvO3GC0xsFfweYKfZs1BNj9GTw/yoirJ0XmCFP6DItlyHT/oOU2sKjVTPpnp9jvaHxLxa6AUzhImplCJMkescyRP6CibvxEj5agkHUA5UPVCKjUAyQ0+mzsgS04SCm1A2j1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=NTR8qU/c; arc=none smtp.client-ip=115.124.28.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="NTR8qU/c"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1782464753; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
-	bh=XMkWZnrnMHOAE3mkxY5ebC2iolTMQWzDtKUvohsFa8w=;
-	b=NTR8qU/cIfOK50l6GTaEwstB5ka/6bn/iev8LT6FFxwTXAFX+xU5fF3SEgN2sXzfOe3NZzG7rGDDdRFyRn7zdMoRnobkXny6C27AS+gE7aXfF9ROIPyfDrlubxhovyRrszi/xIQ9cLC2y/4UmJi5hbTKNV8YWqnIEZ3ImsfDhA8xi6tvwVGd6sqVbAMYuAgT5LlneKOVmu8uGGJIESinPY4ttupOmDom1eIvCgDw1KUWpP1epSYqZiQ74kN4aRLjPjUpKdGo6LkU9YqoZwhr/9aRcozyjSc1WELt+s6izu62XImBa7nRNKOu2zxoM2+AgvtpdbeWLJnLchRjJn0w5Q==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436261|-1;CH=blue;DM=|OVERLOAD|false|;DS=CONTINUE|ham_system_inform|0.0287501-0.000691216-0.970559;FP=18181436566898058530|3|1|4|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.i6GeyzS_1782464750;
-Received: from mail-ot1-f50.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.i6GeyzS_1782464750 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 26 Jun 2026 17:05:51 +0800
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7e6deacafa8so985867a34.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:05:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+0MlVTYtELKpZhbUShlZTcJfNXiTOl6TAq0GvNmyCk0qZgFtg8aIsJXVRagcpZ6kX1vBlT2LMpS/D0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVg7LP9Y/7HUEDQ+skeJ5RzD2t/gnNCjegfZb5GL+DKXT6QgKR
-	JXxTqO7CasB+2a3DHr3pKUqd+PRDDCaNqGFWDkrx33wi/L8xOM/AXCDD3QUn8sEnwmJ7MR+Q7lK
-	TvxBBqKJ9O9jgn8LPkBVehwsha/mm4jQ=
-X-Received: by 2002:a05:6808:e88:b0:491:c51e:189c with SMTP id
- 5614622812f47-491c51e51b0mr5127603b6e.24.1782464750060; Fri, 26 Jun 2026
- 02:05:50 -0700 (PDT)
+	s=arc-20240116; t=1782464967; c=relaxed/simple;
+	bh=5Lv/xycF/BeAYW6b9Q5Dt2xc6YcWsiS5nJX8Z7401wQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UkAvclqzTWiEsiJrj5E81s1GBPryjMydNYR0vaUBkNe8XzRvRg9qMn2KA6wYC5aOZOMTx56ul7b27x0SmeAoyA+sV2pk/N+P3vENFjxd00Wb5t/lcyZNmPJxppb7XLI0RZJeIaZy6wYxbjG3NsVVqX+vrxpk+FBOYJQMA2GXWXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
+	by APP-01 (Coremail) with SMTP id qwCowADnjNW4QT5qNX5fAw--.14227S2;
+	Fri, 26 Jun 2026 17:09:13 +0800 (CST)
+Message-ID: <996c3d442e92e7f908fb3a32973805dd2d2680d7.camel@iscas.ac.cn>
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ 	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 26 Jun 2026 17:09:12 +0800
+In-Reply-To: <20260626-agreement-express-b16c71315f7b@wendy>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+	 <20260625094449.708386-2-a0987203069@gmail.com>
+	 <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+	 <20260626-zit-amuck-e743e58d2e15@wendy>
+	 <84b93c496fabdeee05d2f962a1b764fdbfaacdb7.camel@iscas.ac.cn>
+	 <20260626-agreement-express-b16c71315f7b@wendy>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260508134009.4582-3-syyang@lontium.com> <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org> <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org> <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
- <20260626-zippy-affable-hamster-22101d@houat> <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
- <20260626-flawless-axiomatic-slug-c480c9@houat> <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
-In-Reply-To: <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
-From: Sunyun Yang <syyang@lontium.com>
-Date: Fri, 26 Jun 2026 17:05:38 +0800
-X-Gmail-Original-Message-ID: <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
-X-Gm-Features: AVVi8Cd2loEjLqclxX3eCQWR3hFwiUWskK08RYcxj5EouvmaDGarTUCg5EMDB2w
-Message-ID: <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
-	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
-	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, 
-	jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, 
-	xbpeng@lontium.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-CM-TRANSID:qwCowADnjNW4QT5qNX5fAw--.14227S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXF4DCrWktr1UAr1rKrWfXwb_yoW5Kw1fpF
+	yrJFW5ta4DJr1rXr1kKw18JFyvkw1xJ3WDXr95XFyxAFn0vr10gF12qF909F9rXrs7C3Zr
+	Xr4jqryxZryYyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
+	DU0xZFpf9x07b4oGdUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=97=
-=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
+=E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 09:57 +0100=EF=BC=8CConor Dooley=E5=
+=86=99=E9=81=93=EF=BC=9A
+> On Fri, Jun 26, 2026 at 03:58:14PM +0800, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:22 +0100=EF=BC=8CConor Dooley=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > > On Thu, Jun 25, 2026 at 05:33:37PM +0100, Conor Dooley wrote:
+> > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
+> > > > > +
+> > > > > +=C2=A0 - if:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 const: nuvoton,ma35d1-dcu
+> > > > > +=C2=A0=C2=A0=C2=A0 then:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 2
+> > > >=20
+> > > > Anything that updates the minimum constraint should be done at
+> > > > the
+> > > > top
+> > > > level of this schema. The conditional section should then
+> > > > tighten
+> > > > the
+> > > > constraint, in this case that means only having maxItems.
+> > > >=20
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 2
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - const: core
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - const: pix0
+> > > >=20
+> > > > Does this even work when the top level schema thinks clock 2
+> > > > should
+> > > > be
+> > > > called axi?
+> > >=20
+> > > Additionally here, only have core and pix0 seems like it might be
+> > > an
+> > > oversimplification. I doubt removing the second output port means
+> > > that
+> > > the axi and ahb clocks are no longer needed.
+> > > Is it the case that your device supplies the same clock to core,
+> > > ahb
+> > > and
+> > > axi? If so, then you should fill those clocks in in your
+> > > devicetree
+> > > and
+> > > this can just constrain the number of clocks/clock-names to 4.
+> >=20
+> > The clock controller of that SoC is quite weird -- it has only a
+> > single
+> > gate bit, but controlling 3 clock gates. All core, ahb and axi
+> > clocks
+> > have gates controlled by this single bit, so it's why currently
+> > it's
+> > modelled as only core clock supplied.
+>=20
+> Yeah, then what's in the binding is definitely wrong.
+> Even if the same clock was provided to all clock inputs in the IP,
+> all
+> individual clock should be listed in the devicetree - although it
+> will
+> look a little silly to see clocks =3D <&foo 2>, <&foo 2>, <&foo 2>,
+> <&foo 2>;
+> In this case, 3 clocks controlled by 1 gate bit is an implementation
+> detail
+> of the SoC's clocking hardware, and not relevant to how the dc
+> instance
+> should be described.
+>=20
+> > Well it might be worthful to supply the bus clock before the gate
+> > as
+> > ahb/axi, especially axi, because both the AXI clock and the core
+> > clock
+> > constraints the maximum pixel clock.
+>=20
+> Right. And looking at patch 4/7, and the wording:
+> > The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller
+> > whose
+> > AXI and AHB bus clocks share a single gate enable bit with the
+> > display
+> > core clock, so the clock driver does not expose them separately.
+> > This
+> > patch makes the axi and ahb clocks optional in the probe.
+>=20
+> It sounds like there's probably some issues with how things are
+> modelled
+> clock wise in this device, unless this is not an accurate statement
+> and
+> there's actually one clock provided to all three inputs. If they're
+> distinct clocks, with different rates, only having one exposed has a
+> lot
+> of potential to be problematic!
 
->
-> Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
-=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
-> > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
-=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
-> > > >
-> > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > >
-> > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > >>
-> > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B4=
-6=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > >>>
-> > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=
-=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > >>>>>
-> > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > > > > > >>>>>> +
-> > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > >>>>>> +{
-> > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > >>>>>> +     msleep(20);
-> > > > > > >>>>>> +
-> > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > >>>>>> +     msleep(20);
-> > > > > > >>>>>> +
-> > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > >>>>>
-> > > > > > >>>>> This is just plain wrong. Why do you assert, then de-asse=
-rt and then
-> > > > > > >>>>> finally assert AGAIN the reset leaving the device in powe=
-rdown stage?
-> > > > > > >>>>>
-> > > > > > >>>> I am using software to emulate the hardware RESET button o=
-n our EVB.
-> > > > > > >>>> When the hardware RESET button is pressed while our chip i=
-s running,
-> > > > > > >>>> the signal level changes from HIGH to LOW and then back to=
- HIGH.
-> > > > > > >>>>
-> > > > > > >>>> Of course, we can also use the following:
-> > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > >>>> {
-> > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > >>>>     msleep(50);
-> > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > >>>>     msleep(20);
-> > > > > > >>>> }
-> > > > > > >>>
-> > > > > > >>> Makes no sense either and you just did not get the point an=
-d did not
-> > > > > > >>> answer my question. I asked WHY you leave asserted. Answer =
-"we emulate"
-> > > > > > >>> is just plain wrong.
-> > > > > > >>>
-> > > > > > >>> So again please answer:
-> > > > > > >>>
-> > > > > > >>> Why do you leave device with reset asserted?
-> > > > > > >>>
-> > > > > > >>
-> > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
-> > > > > > >>
-> > > > > > >> GPIO_ACTIVE_HIGH:
-> > > > > > >>
-> > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------  =
- reset pin
-> > > > > > >> is Low level : Clear the register configuration in the chip =
-to stop
-> > > > > > >> the chip from working.
-> > > > > > >>
-> > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  =
-reset pin
-> > > > > > >> is high level:  The chip resumes operation.
-> > > > > > >>
-> > > > > > >>
-> > > > > > >
-> > > > > > > Our purpose is: pull the level low to clear the register conf=
-iguration
-> > > > > > > in the chip, and then pull it high to allow the MCU inside th=
-e chip to
-> > > > > > > re=E2=80=91initialize the registers.
-> > > > > >
-> > > > > >
-> > > > > > And you do completely opposite... so that confirms your code is=
- just wrong.
-> > > > > >
-> > > > >
-> > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just followin=
-g the
-> > > > > rule of this device tree. If I modify the device tree to use
-> > > > > GPIO_ACTIVE_LOW,
-> > > > > and use the following code in my driver, then my driver would be =
-correct.
-> > > > > However, would the existing kernel drivers lontium-lt9611uxc.c an=
-d
-> > > > > lontium-lt9611.c be affected?
-> > > >
-> > > > It might, but then it's a DT problem. The GPIO API for drivers alwa=
-ys
-> > > > considers the logical state of a GPIO, so if you need to assert a
-> > > > signal, you'll always need to set 1. That's what Krzysztof was tryi=
-ng to
-> > > > explain.
-> > > >
-> > > > The DT will provide with GPIO_ACTIVE_* how that logical state trans=
-lates
-> > > > to a physical GPIO state.
-> > > >
-> > > > If the DT says that this particular GPIO is active-high, then it me=
-ans
-> > > > that we need to set the GPIO to 1 to assert reset. Now of course, i=
-t
-> > > > might not make sense for the controller itself, but it might for th=
-e
-> > > > board if there's a GPIO inverter in the middle for example.
-> > > >
-> > > > Anyway, in the case you're raising, the issue definitely lies in th=
-e DT,
-> > > > and that's what would need to be fixed.
-> > > >
-> > > > I also wouldn't be too concerned about lontium-lt9611.yaml, it's ju=
-st an
-> > > > example.
-> > > >
-> > > > Maxime
-> > >
-> > > thanks Maxime, I will modify this code in the next version of the
-> > > driver, and I hope you can accept these changes.
-> > >
-> > > Maxime:
-> > > I have another question I would like to ask you
-> > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
-> > > opinions that differ from yours, whose advice should I follow?
-> > >
-> > > If I do not adopt sashiko-bot's suggestions, will my patches still be
-> > > accepted into the upstream Linux kernel?
-> >
-> > I can't give a blanket answer. It depends on what you ignore exactly.
-> >
->
-> Okay, another question: sashiko-bot is an AI bot. Are its review
-> comments optional, or must they be followed?
->
+Yes, I agree with this, they're different clocks according to the
+manual.
 
-For example, in my driver, there is a function for upgrading the chip
-firmware. During debugging or production, upgrading the chip firmware
-will acquire a lock, which will block the DRM callback and affect
-display. It will be fine after the upgrade is completed and some
-devices are restarted. As long as there is no subsequent upgrade,
-display can work normally.
+I added the clk people to the CC list in a reply of the previous
+revision, but they didn't react yet. I don't know how to represent
+multiple clock gates sharing a single control bit in the clock
+framework...
 
-From a purely software perspective, the AI bot considered this
-approach unacceptable and proposed synchronizing the pre-upgrade state
-to the DRM framework. From my personal perspective, I think the AI
-bot's suggestion would only make my driver more complex and redundant.
-Do you think I need to adopt the AI bot's suggestion?
+Maybe just supplying the ungated AXI/AHB clocks here, and let the core
+clock manage the gate?
 
-In addition, if I follow the AI bot's suggestion, the
-lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
-merged into the upstream Linux kernel would not meet the AI bot's
-requirements.
+Thanks,
+Icenowy
 
-When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
-sashiko-bot (the AI bot)?
-
-
-> > Maxime
