@@ -1,180 +1,105 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023080.outbound.protection.outlook.com [52.101.127.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9113E51DB;
-	Fri, 26 Jun 2026 09:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.80
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782467704; cv=fail; b=LKpvavwZIFpkRy99GUJXpBXFAny/YIUkcqPjMvWklEWoEuvnUYRLN+89ZwwMaes/ZdhC8I2VdoitS96dG2BQ+Anob9F5yj5QWKHuWMQAq5FAfSh2UZ6MyFyN5j5dAbA0LK/CwdS4zNcC1YHhMD2z2oZYXnM/03TsrHRf2b+azhA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782467704; c=relaxed/simple;
-	bh=XhIVvv31h3eeuZXjf7qJ+NUlyfwt7mZVzfiUaHTYOgs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=e0CKqZxKmglknax8vfQxwMRpzjmn6BkwLinEQ1HhOP+1AZ0dN/5SvNP7iWE2CHAKfiKrCl5HooZWCzUjRH2G3UWAw2zIXv9cW6JIBQ4iVFrBaWQDKfQYlOVlQvkSqFzVcwKPcE05Pzjm+Okt3jVqvK6rbbLVteYrMJzP4BN0HiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=aE+CgJp7; arc=fail smtp.client-ip=52.101.127.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2C43E959A;
+	Fri, 26 Jun 2026 10:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782468067; cv=none; b=pVv7GzL9aQpLWFA/39o4Y5++MauTkfFp1G0/j/3fSTHGwKkJ1eVs6AFrZBMzgeTRR+Vmvo2m2rX3xGYg+OR8PZu2FDgVTeWIDyUmBHr9Fjiy0skEq2rhHQTgOAeQQLVtXX0g80U6RnxeP5V34PkRdnBhKWpncPxeqWysvoqNon8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782468067; c=relaxed/simple;
+	bh=VsB0CD1HkS3lq47VJs/Rpbt0mPm7G830RQHJ360GdGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cagp1FBYlix6ywCjFSvxLsHXh0o9jebHXxiYTWws7f0Lz44+WSP3oZCYbJvbB9MroWrBJ+agra8hdWvjpEoEvq6J+1JeYBgUb8KlNmWGTnPa0bOWqAxmDGFV3FLMbpsukugT4Ugb6KMZJ7QoWqdd94RjfNwCJsaDrTWWd4VqKYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DPWoIgmH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="aE+CgJp7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G1cxJjW0xEIqwW6vw5r40Mq9tqnq4O8rV+a29PPG3dWK6206LiGPu5oHfBmxZ1kriB1M9qcTSgcu7xtPSGRefwMTnq6zQOYu6vcAefBxsrUP6lRGJ5Ou4f5wGfYAluirIeVbJ1JWLJiwnjygPbOOm9qJER2hTv+z8mabpw/DlZIAU5ODiGLnUbZlrL4rFekiMFYVTdIJGIj28acfSX1kFqi8tUstx1cMtQw/+TcmypQCyM9IflNUn0vLZ0hIDgmS1urHuciw0gKyd7/1XEb+kfqVohTjbam33ymBfk09hv+p5P/dWf7PBgMh0/ajDNo/G0Vj5JD30uqqfqyJu4hbag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S8UY0GsDtWxBlCgpSJ71JSf0RrFCT0ClodR5/8pOMiA=;
- b=Q63mQ5JnknRg/Z9LfC8PChRu1JEaZcC3Be2lySjV8qNCn/49L1TYFBzXGMHHGwDpne751l9AEF6r3xaC+V3cdH8tL0vmfA8G9rjYTEsezyMjWjiBRJRz8ijjqASp10XmweYk0CkTJKLXRPKRhh3ZOPIZiZBFmZirFKw9IvgJA50PMhHsoB1xsWj93DxCzOsTlC4/Lr5Zo7tdAtXaizykUtotm+kzoOKFQnWGE9b9DqpbCH64se/U2n7idh0BKfgxAFvBIDrPrUrcM8BDBS+I5uKoMni5HWtFiDxgyWQVNShhUom9C5A9reEUx+81nEQ/OoLqCTFBgMNa4fEOyKgX5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S8UY0GsDtWxBlCgpSJ71JSf0RrFCT0ClodR5/8pOMiA=;
- b=aE+CgJp7ajCgnPGme3FA6K133TMq1+ATFLpJqt6HF9G07FiEdurMb//0CFlM3iUwMBA3Yz5L4LHo8dhSF1HCNaIIhPY98Tzi5BMdg5m6PHqeeDXIw0ORVR9ZVcoNJzn6YmReRX9rM9IazVsguFklgvQDsYTElJqfIVX438oOUUirJPOXBCrgMS1yiR4jPPo3LGY76bAN4kag+t58c0b9j4hOjkwCS+7Y//HXYWA4PBjZi+BDstfjGW5hmHzrwkEKRcsoj/VejVdnfgzpTqSwgAzhiCJhQQXWTejNlYldCNLyzMiy1AkrreDs+JFWKHH3A3CWfT68OQBJhEFJYBMQbw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
- by OSNPR03MB9540.apcprd03.prod.outlook.com (2603:1096:604:45b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.6; Fri, 26 Jun
- 2026 09:54:59 +0000
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0181.005; Fri, 26 Jun 2026
- 09:54:59 +0000
-Message-ID: <89450adb-f8d4-40dd-b895-72a53662b298@amlogic.com>
-Date: Fri, 26 Jun 2026 17:54:55 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] soc: amlogic: clk-measure: add A1 and T7 support
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260421-clkmsr_a1_t7-v3-0-efc00b0f9e6b@amlogic.com>
-From: Jian Hu <jian.hu@amlogic.com>
-In-Reply-To: <20260421-clkmsr_a1_t7-v3-0-efc00b0f9e6b@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SEWP216CA0116.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b9::10) To KL1PR03MB7149.apcprd03.prod.outlook.com
- (2603:1096:820:ca::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DPWoIgmH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EE91F000E9;
+	Fri, 26 Jun 2026 10:01:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782468066;
+	bh=8N0bDgWZfE2GABNpHeg8dcQfMiUnvnDma5jLyH/GBD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DPWoIgmHPh83Wzw4VzQmjMyZFZarHK6UMW/Besl4t46R/1wmWc2TZwasByGNcgg9k
+	 j/eJhagACInRHaud00EFb5h22q47Nstj/mdWvqpmznT8uNWC6H41ROq2/ZWFdXPacF
+	 eCvYRz9GpeCU92UFcYxAQXyzwBUrcsQQCs+11O7FCCbVi+ffMvV3GRXjoTf8tP39ri
+	 iRnXNRBRqhQbrXKR+nURUocQ1L3A1HHcLzyf09qDUPmwe+ueOL1fxAczaDp2XdfL73
+	 YxQiBt3SZk+SCtxBHYhFh3RHAraBWpoJtd8JRBa0TmgeiAMyD2VrJ3aQK6RIUbi/5Q
+	 h8o1vjmtb6X8Q==
+Date: Fri, 26 Jun 2026 12:01:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, 
+	Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Keguang Zhang <keguang.zhang@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v3 7/9] ASoC: dt-bindings: loongson,ls-audio-card: Add
+ ATK-DL2K0300B compatible
+Message-ID: <20260626-devout-vulture-of-reading-4fbfad@quoll>
+References: <cover.1782439646.git.zhoubinbin@loongson.cn>
+ <71430fcee5951fb7a7d52e2091a87707db85e06c.1782439646.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|OSNPR03MB9540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d8e6129-8bcb-4092-bdac-08ded368fbbc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|6133799003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ddg5Fims6lM3bbZGipuNCuIHXmobiiJRZNhxCZvLDtOfEOecmuz0meGNkKqzITrJC0JYD5t3jQyr+t/JnfjU1xIHnsxQe0n3THiC7t3pJA64klo5J6e9ygDRAY+NpaWmn4PGZiwapP/gQAxSlRSrURfnXr6i67S6ryA6859G0rgyq5XjsXCaG0/p/C16O1TL95ppd1gah/ujj90dVsJFUWpoy0dBw0txmUzJ4vwHRITLjHQPASI7nSnLwlJgpyVnfTBSTmAmEb8xd6+2fMZuEKt2aaR9uM+uoxNuS+b0340esN/J8QHNUIQC1Wxa8mczbuzV34y65DjwuFbuFlWnHnPJb0sm1/PRLHND+kmt4MO+fQzuspy3k3+hosCnBlLnGYaluPgzYUSH/NvxyG1do3Z/JZAU70/wReN04wVGtzEsjshwfukgcY2ozVWP8d5Y1+RuWFhxUnU4akNE/C17bV8flHIQoUyo6ZCCn+YJlWys0Lx+POydvoO4l3boaHdsdah3s8jWxdo5rrlsi8cjORyEjCukSWLDLkMW5sYbZn2wGAv1pf55SYf75WJ64P0xxiqHDn1jDZ77eJBExUUJ5ERxoefPxLK00D2iE55AcGe36yhMHcDSKtVkZLlWvJ3PFFO66pBeJIyPouxh85/wLsE1f0vXX9kv7vMNK71PLKc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWVnZDVPY3lra1FhYUxteHVwZndoZVBLUjdVNFFObWVTenJYWTV0RjFHTVNW?=
- =?utf-8?B?Z0E0NGVxa3Rvc1BlUHQ1NzFGUGRBNXFtSEVlVVdGTHhiZ3d5Nis1azlzT3dI?=
- =?utf-8?B?RURrOUN1U0pNRW0vL01EZEdwdW53dnFUVmNSUXgvbE8wN3RFWWtSRFF4RHZZ?=
- =?utf-8?B?emdyZ3E3VW5XaTI3dStMZGhFYVEyRVBUa0l1a0FXZi9GOVpaRUd4ODBjaVhK?=
- =?utf-8?B?bkdieFdvVTQreWJ0TG5SamcxOHYzTUw5aFgyU0xwaHdxTlZTMFl0WEZoYmpr?=
- =?utf-8?B?NXhTRWRyTVRWY3lpa0JnY3hKcW1xbFRUcWYvWkorU1p1SmVuQ2FHNXpxUTlS?=
- =?utf-8?B?STRCWTZqeVFXU2llQkRKRkN0SWFOdmd3SVhuZnVDOGpRMWRJaXIrR0QrSUpu?=
- =?utf-8?B?UTVCZkxSTmh3c1I4MUhkbzdvRXRKOFdrcDBLWDhKSkFwb1JEUThEcGlBQk9i?=
- =?utf-8?B?YzNTUnlDR1c3V0QxaUM5cXVFWXVqRDdCc0JFb2pXb2tVenZXZWV4NXJUdC9L?=
- =?utf-8?B?aW94V2VBWGk1S1FlRGpWeTgrb3pMQUY0emg1RzgwZmd4ZzhjbDlIYXJJK1hp?=
- =?utf-8?B?NDAzZnJJUmswRE4xd2phQ2RvQU45RTNTMnJSWXNNMndGeHdyV0dFN1NtZE5U?=
- =?utf-8?B?ZDV3ekp0MklwZmxSNzRiTFhnaUovc2xNK1NiN21XczM4RjZIbFNDQzYydEI0?=
- =?utf-8?B?c3UvbnhYY2Q3V0xIUit5ZElsNElZOEFJUWVFMDE5ZnBQdEJsMEFMMVJRanl2?=
- =?utf-8?B?RlVna0ozOS96dGdTQmk3WUg5cHBhVjVNQVlKUm16M0Rkd3JsQ3VCM0dQKzVr?=
- =?utf-8?B?b0pNN0h3UUpqc0J2RU40MGdNZTNzaGh5THJZdFVRTUc4THZDSjBnOCs5aFph?=
- =?utf-8?B?SisxWUdyem9IaUtlc1EwNGk2YkxrK0dJbi9VVkdxclZZL3BEaVdwUGhNTVNG?=
- =?utf-8?B?cU9XaFo0K2owS1dDTmptUnRCV3RsalAvZ1hDL25adWNUODh5Z055dkZkandr?=
- =?utf-8?B?N1orQktoREt3Um1OTGZNT3B4elJCSDMrZy9BS1lVMlgyUTYvUE1IcDJHeXA1?=
- =?utf-8?B?OUtiOG5peUgzUEJSRmxrRSsxWURxSnkyTWNoNjViSnFwMmloZTMxeXRyYk5P?=
- =?utf-8?B?aWxKQVkrYnczT2crNnhCRkhUcGY0U0JQb00wSzBlT0NROHBacjYyNGE5ZkFu?=
- =?utf-8?B?NkNaYnAweDMxSTlKdmFmS3NFOXJhZW5WN1lxaHh1b3lyTHZPOEFhNXlKeWNY?=
- =?utf-8?B?MzRDZ29HY2VRTm03K3JhMmNuZ1J0cXMzY1pSbHdicjkvQXgvRVpDOGFGWFFy?=
- =?utf-8?B?bGFLMUswN1FsNU93YzZ2ZDA0NEdjKzBEK0VJZ1FGVjF6a2ppV3FQRWVDWjUv?=
- =?utf-8?B?Y3RYKzRGczFmMVhIa1JEQVUxNlhjdEhUR2Evc25Db1MzNDZabk10bFNicldO?=
- =?utf-8?B?cG1TampJR0d0NnpDaTVKUzZ3bStzSWRhcncwL3BvVTE1RGUyNFpKKytxYVpa?=
- =?utf-8?B?aS9tMEJMQ2ZlendDVVVGWjQyblV1VXRZRjlyd0xYcDE0R2RzallLNEVuV3RG?=
- =?utf-8?B?YnhoekxDRmFpc3hsNlphNy8xOStGeUo5SUZaT3FDekptZ1hMKzg4RnJiVkp4?=
- =?utf-8?B?OWpJbUZ6SzhXMVBaVzNTMURDeXNsa0pOTHVCVU80U2tBdWlVWTBGNXhoTkEz?=
- =?utf-8?B?eU5jamFXSnFiTlNSK3dPbUJBZUVPdTdsQnQyN2grTGFQbnUwWjh1eDVqSkIr?=
- =?utf-8?B?YUpDbkc2dHYwS2JjRm42VDhXNFZTbFZScXN1aEdXOWxCdm1WbGh6aTZxcFpB?=
- =?utf-8?B?ekZTdE16d2tTMVFYcGJXN3pZL2hDY3I1T25SSGRzK1NyeDVBQU5oajJMOUpa?=
- =?utf-8?B?U01hTkZ3N1AycTFSNUtrb0ZXSitvT3I3UEREOXBMY1J4UDBvUGVxYytkNnBP?=
- =?utf-8?B?dHp2dCt4UXh5YVRaaXd0cUZXM0JraHVkaVFoOVBuRk1YeDZqQ1lUMXBUVVc3?=
- =?utf-8?B?SEIydUxjaElkYUxPMHNyOWVrZnFxNFpUdm5veXovQ1JDTi9FVGtaQ2l6bzVL?=
- =?utf-8?B?Qk1NYy9pbmZUbnZXVTZiUmpjeHJVSW5vOUdDWXpXYU54bXZCK28vTVhEYUxU?=
- =?utf-8?B?Z3dGWEhvSWkrYW5iazY1UXg0S004NVVOY3JKbHF1TE5nNElSNW9QZHlMU1ZY?=
- =?utf-8?B?YVlNMnpzWTl2RVlrVEh4VmNXWVUzQ3dvR1NMbVZhWGZqSTVkRHRES1VkaVNG?=
- =?utf-8?B?QU80dTgwVFpGaVFWUUdMQ2hqeE1nd1ZIaENHcHpWeXR4Lzk0ZkdXY09YV2ZU?=
- =?utf-8?B?TW5Va2p0ZUxtQ1BKcUk0YlZLSEpCeTNRbFUrVGNBai9ZWHRaSTZOdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d8e6129-8bcb-4092-bdac-08ded368fbbc
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 09:54:59.0858
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Pxo8NfqsmSuODogAppNU/dHeLJXKfLUcQekpndWIComy7ZbkRClWan0+v+x25X/d/4ypXDIGMu6kowwLvD+NWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR03MB9540
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <71430fcee5951fb7a7d52e2091a87707db85e06c.1782439646.git.zhoubinbin@loongson.cn>
 
-Hi Neil,
-
-
-On 4/21/2026 4:17 PM, Jian Hu via B4 Relay wrote:
-> [ EXTERNAL EMAIL ]
->
-> This series adds Amlogic clock measurement support for A1 and T7 SoCs,
-> including binding updates, driver additions, and device tree enablement.
-
-
-Gentle ping. The patches have received review, could you please take
-another look when you have time?
-
->
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+On Fri, Jun 26, 2026 at 10:27:28AM +0800, Binbin Zhou wrote:
+> Add new compatible for the ATK-DL2K0300B development board based on
+> Loongson-2K0300.
+> 
+> Unlike others, this board features GPIO-controlled headphone detection,
+> headphone control, and speaker enable.
+> 
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 > ---
-> Changes in v3:
-> - Place the clock-measure node after pwm_ao_gh node for t7.
-> - Link to v2: https://lore.kernel.org/r/20260415-clkmsr_a1_t7-v2-0-02b6314427e6@amlogic.com
->
-> Changes in v2:
-> - Add const for a1 and t7 clock measure table.
-> - Use b4 to send this series.
-> - Link to v1: https://lore.kernel.org/all/20260410100329.3167482-1-jian.hu@amlogic.com
->
-> ---
-> Jian Hu (4):
->        dt-bindings: soc: amlogic: clk-measure: Add A1 and T7 compatible
->        soc: amlogic: clk-measure: Add A1 and T7 support
->        arm64: dts: meson: a1: Add clk measure support
->        arm64: dts: amlogic: t7: Add clk measure support
->
->   .../soc/amlogic/amlogic,meson-gx-clk-measure.yaml  |   2 +
->   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi        |   5 +
->   arch/arm64/boot/dts/amlogic/meson-a1.dtsi          |   5 +
->   drivers/soc/amlogic/meson-clk-measure.c            | 272 +++++++++++++++++++++
->   4 files changed, 284 insertions(+)
-> ---
-> base-commit: 401e5c73eedde8225e87bd11c794b8409248ff41
-> change-id: 20260415-clkmsr_a1_t7-9820984d0af1
->
-> Best regards,
-> --
-> Jian Hu <jian.hu@amlogic.com>
->
->
+>  .../sound/loongson,ls-audio-card.yaml         | 38 +++++++++++++++++++
+>  1 file changed, 38 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+> index 8c214e5d04b1..dc7f4afbb777 100644
+> --- a/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+> +++ b/Documentation/devicetree/bindings/sound/loongson,ls-audio-card.yaml
+> @@ -23,6 +23,7 @@ properties:
+>      enum:
+>        - loongson,ls-audio-card  # Loongson-2K1000/Loongson-2K2000/LS7A
+>        - loongson,ls2k0300-forever-pi-audio-card # CTCISZ Forever Pi
+> +      - loongson,ls2k0300-dl2k0300b-audio-card # ATK-DL2K0300B
+>  
+>    mclk-fs:
+>      $ref: simple-card.yaml#/definitions/mclk-fs
+> @@ -47,6 +48,18 @@ properties:
+>      required:
+>        - sound-dai
+>  
+> +  spkr-en-gpios:
+> +    maxItems: 1
+> +    description: The GPIO that enables the speakers
+> +
+> +  hp-ctl-gpios:
+> +    maxItems: 1
+> +    description: The GPIO that control the headphones
+> +
+> +  hp-det-gpios:
+> +    maxItems: 1
+> +    description: The GPIO that detect headphones are plugged in
+> +
+
+Add allOf:if:then: block after "required:" block and disallow these
+("...: false") for other variants.
+
+If these stay, because I have doubts. spkr-en-gpios sounds like
+enable-gpios of each speaker, so not suitable here but should go to
+individual speaker codec nodes.
+
+Best regards,
+Krzysztof
+
