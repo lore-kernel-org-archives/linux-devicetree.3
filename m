@@ -1,115 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2BB380FF8
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 11:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F233DA7F2;
+	Fri, 26 Jun 2026 11:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782474128; cv=none; b=oMm4rUJXv9aGg0kB4ubJi8nyjQZ49P8Ic1K73hsCJIUXycYA6UiRdgNOPO+n16BAwi5B4irJuPSvguhdC0HUTCnmP9N1iu5YvfVALWi8wQpE4FAvxLfyOioS6JNpqmMf3uJiQnlVs1fZdGrXhkw8UfRdxJxQK306oCest6MAkoY=
+	t=1782474159; cv=none; b=R9PKjH5bLu0Dkf4QaIEoAUyYZN9MGZ+ysmeXz8/XcUy/IlV1JFfPIRTJhhd+9o7XFL6I/A07gnYtcEpnOb+tuCPg2WNAzW2TQm2Gxo0oUEFhnURKVs9A8hNE+8Hnj+4My7drR7Xq2mKvxG8y5xTnyDb80nxEXctWd4C1V4/y0rU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782474128; c=relaxed/simple;
-	bh=wER8DbTmXlUIcZ6LsN6ezWVJ8DrITHLwmV/Jyler4hw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aUU1hx50UsfcwhaoDWAScdXmgFMRQVM5UPjTocCECPmYI/3SwAwHjkJZptCj/NTA/N/9+xSIJwd1idJhGMb2dlsdepC63tBAvVRq0FHbQf5vUajG7BI+3ZvVKUGpEzC3pYmLR1ky1+pg0ShqUt4fLNYd2Tocx9hGoeaen14SL00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeErF7kk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782474159; c=relaxed/simple;
+	bh=BM4hFHiFsObK0LIS+fIVKgawCpiGQpH+mXX2lBxwRJs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tGRiGt772shb60B6Zk62UMg4rFfVfP3s1TOfA3119CzgF1QLOmfePxxnDgohOuD5uKKOhyJK3caxuC/myKCXGwjn/QlyS9FIdq9jJCzUjXRMg5kysX+mi4ZGkpoBXwhNUvRpHqEYKAvwy/F2AfbL++yCQaotT1zW4J0l6xBoax0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dp3NNdvW; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeErF7kk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81E5F1F00A3D;
-	Fri, 26 Jun 2026 11:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782474126;
-	bh=IQNBozqfCIJqY/l8pA8JU2D9p+iNdeAw0KHzbVgD4E0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UeErF7kko9pu9uoW8v+/l/2nFy9sWZVwkNbzQA/Wjf+x9zE6ZxoPvUbV4pA01Yx56
-	 7jm/zSqQHylRx1MqeYi3H+Gb7FDRWAnhGoTrssOvLYEOJuRatavxgR4O14Bzb2OHpV
-	 27oZUrHV//h2Y6bMpLRyzOTzf1MaODjm5UrcKeCvOAxMxZ7Zhz+Bvn40r3n5tx3Gmk
-	 Y1KeG3nJBoEceqPuOqb4m2oVRC8jBN41NLP6G9rFNbK30NFwpkUNQkzZ0ZswSppH93
-	 7wNaVyGLk8esF+O9eBmYDPP7m3DZUkeHrvKZxxzZ8RiKzKZTCkWxPt6msZzcAAyccu
-	 uC0w8V3Tdbn1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] arm64: dts: qcom: monaco: Add monaco-ac EVK
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Umang Chheda" <umang.chheda@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260626111301.3479559-3-umang.chheda@oss.qualcomm.com>
-References: <20260626111301.3479559-1-umang.chheda@oss.qualcomm.com>
- <20260626111301.3479559-3-umang.chheda@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 11:42:06 +0000
-Message-Id: <20260626114206.81E5F1F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dp3NNdvW"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B5C911E6;
+	Fri, 26 Jun 2026 13:41:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1782474114;
+	bh=BM4hFHiFsObK0LIS+fIVKgawCpiGQpH+mXX2lBxwRJs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dp3NNdvW1pGAEnSKWCxg2578oLJ6i0AisKoebBSSrScvuDG0WEWSdGx/Wj8MHWwOQ
+	 P6WeNBn/2U4LN/5Vbsuc7XrYurGyDkqHrnEFiEQVXDNd0NhxnXHWUl5xdy5YWePj4x
+	 Dd6NfsJJjmNzoUiy3kIbQQrZ08/1qFbUZ7SGcI/E=
+Message-ID: <15d76a14-4deb-4f4e-a14e-2094df75bf75@ideasonboard.com>
+Date: Fri, 26 Jun 2026 14:42:31 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] arm64: ti: Use syscon for the Control Module
+To: Andrew Davis <afd@ti.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Abraham I <kishon@kernel.org>, Roger Quadros <rogerq@kernel.org>,
+ Devarsh Thakkar <devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>
+References: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
+ <29c9bd27-df32-4c56-8df2-987722d02b9a@ti.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <29c9bd27-df32-4c56-8df2-987722d02b9a@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Massive contradiction in I2C GPIO expander configuration (1x TCA=
-9534 vs 7x TCA9538)
-- [Low] Missing pinctrl configuration for the Ethernet PHY reset GPIO
---
+Hi Andrew, Krzysztof,
 
-commit 060d5e44d123b8d9a920b4fe86d7d2ff2f7d1da6
-Author: Umang Chheda <umang.chheda@oss.qualcomm.com>
+On 29/05/2026 01:59, Andrew Davis wrote:
+> On 5/28/26 7:53 AM, Tomi Valkeinen wrote:
+>> I have been trying to get BeagleY-AI display support to upstream:
+>>
+>> 20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
+>>
+>> One difficulty has been the handling of the Control Module region, as
+>> we need access to a single in that region, surrounded by registers for
+>> other subsystems. In my series I made the related node a syscon, thus
+>> allowing versatile access to the registers:
+>>
+>> https://lore.kernel.org/all/20260513-beagley-ai-display- 
+>> v2-14-9e9bcefde6bc@ideasonboard.com/
+>>
+>> However, that's not a correct way to handle it. I realized we already
+>> have ti,j721e-system-controller.yaml binding for older SoCs, which has
+>> syscon but it's not used for the newer TI SoCs. This series takes the
+>> same binding into use for the newer SoCs.
+>>
+> 
+> We moved away from this system-controller thing because it was always
+> a hack to allow us to poke into random control registers from nodes
+> throughout the DT. This was a mess and also caused issues with multiple
+> mappings to the same registers (some sub nodes inside the control space
+> also make their own mappings). If you need access to registers then make
+> a node with those registers in the `reg` property.
+> 
+> The only reason we didn't get rid of `ti,j721e-system-controller.yaml`
+> completely from the older SoCs was we were told it would be an ABI
+> break to correct those DT files. Let's not spread that problem to
+> new SoCs.
+I'm still stuck on this issue.
 
-arm64: dts: qcom: monaco: Add monaco-ac EVK board
+So, to summarize, we have the big control module memory region from 
+which various drivers need "random" registers. In my particular case, 
+the display subsystem (DSS) driver needs to access a single register 
+from the control module, but as the control module contains a lot of 
+registers, there are other similar cases too (I've seen at least one 
+other series, trying to add access to control module registers).
 
-Add initial device tree support for monaco-ac EVK board, based on Qualcomm's
-monaco-ac (QCS8300-AC) variant SoC.
+Taking AM62 SoC as an example, we have this in upstream:
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts b/arch/arm64/boot=
-/dts/qcom/monaco-ac-evk.dts
-> new file mode 100644
-> index 0000000000000..6f3c3ffefe340
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts
-[ ... ]
-> +&i2c15 {
-> +	pinctrl-0 =3D <&qup_i2c15_default>;
-> +	pinctrl-names =3D "default";
-> +
-> +	status =3D "okay";
-> +
-> +	expander0: gpio@38 {
-> +		compatible =3D "ti,tca9538";
-> +		reg =3D <0x38>;
-[ ... ]
-> +	expander6: gpio@3e {
-> +		compatible =3D "ti,tca9538";
-> +		reg =3D <0x3e>;
+https://github.com/torvalds/linux/blob/4edcdefd4083ae04b1a5656f4be6cd83ae919ef4/arch/arm64/boot/dts/ti/k3-am62-main.dtsi#L44
 
-[Severity: Medium]
-Is the commit message description accurate? The commit message mentions a
-single TCA9534 expander providing 8 GPIO lines, but the device tree adds
-seven TCA9538 expanders here.
+"main_conf" (simple-bus) node representing the control module, and nodes 
+under that representing either small things like clocks or, in 
+dss_oldi_io_ctrl case, a syscon.
 
-If the hardware actually only has one expander, won't I2C transfers to the
-others time out and fail, potentially breaking peripherals like USB and
-DisplayPort which route their pins through these extra expanders?
+I'm aware of three options on how to handle this.
 
-[ ... ]
-> +&ethernet0 {
-> +	phy-mode =3D "2500base-x";
-> +	phy-handle =3D <&hsgmii_phy0>;
-[ ... ]
-> +	mdio {
-> +		compatible =3D "snps,dwmac-mdio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		hsgmii_phy0: ethernet-phy@1c {
-> +			compatible =3D "ethernet-phy-id004d.d101";
-> +			reg =3D <0x1c>;
-> +			reset-gpios =3D <&tlmm 31 GPIO_ACTIVE_LOW>;
+1) Adding small syscon nodes under the main_conf, similar to the 
+existing dss_oldi_io_ctrl.
 
-[Severity: Low]
-Does this reset-gpios property need a corresponding pinctrl state to mux the
-pin? If the bootloader leaves tlmm pin 31 in an undefined or alternate
-state, could the Ethernet PHY fail to reset during network initialization?
+I did this in the earlier series: 
+https://lore.kernel.org/all/20260420-beagley-ai-display-v1-3-f628543dfd14%40ideasonboard.com/ 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626111301.3479=
-559-1-umang.chheda@oss.qualcomm.com?part=3D2
+
+2) Making the whole control module a syscon, as I do in this series.
+
+3) Adding the required registers as a new 'reg' block under the dss' DT 
+node.
+
+Both 1) and 2) have been nacked or at least very strongly questioned. 3) 
+doesn't feel right, the register is not a register for the IP but an 
+external SoC integration register.
+
+Is there an option 4)? In your opinion, is one of the above the one 
+clear choice?
+
+  Tomi
+
