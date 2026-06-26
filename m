@@ -1,276 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC23B2877F7;
-	Fri, 26 Jun 2026 09:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9710039934B;
+	Fri, 26 Jun 2026 09:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782466285; cv=none; b=iIc6Xh43q1uPFKfsd0EVnEHTw8nn4YVUZDWSeUuHN30f2eUZI/2NRJO6kg5eenBh4wom+HZI61hsVW30Q7C6CdYbshXPbMNZ3AxreBs95KSo5rXidC1QZAfNzgVX9trNMu/cNhM/DZuczWuWqFTCORPjpeLYcKU9K5APY70Ciw8=
+	t=1782466344; cv=none; b=YJtgNwdrXF+sfK24mXr7szdZrxTtftFUz8Y/HzC8688ABxdTjqwFGeuASp+PcnKFI6xJX+9tLPwUKgIr00TPZKufNNneP/h9I/QH2CtnFSBjleR6VxCOnKgZgDYzj91JOsIJW3ou7xtg/Z/GD2gcpGmI5hKldXTOyW3moDTOGO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782466285; c=relaxed/simple;
-	bh=slMOoDEa4K2repnoLdIHmo9NLnW4bYJlydBZ/smmZvA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=edfEyf+e649iBW1JeIHyR3PUbjUy/QanCzn/yCQDi/dXjdVbSLet5ad8/KArYflZ7+Umg0q5Ic6hva2W2Y8ISGQzvHq95i38RITIzQzydsj0TW/vQIzVkIzFVC5XlYoJP84jN7EmXluDvRjXgbGrCRUikQEb0X8WgHWGYxfzck4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UbvqnHBS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782466344; c=relaxed/simple;
+	bh=ISETJgny0FhUBDWnCRGIvusL7DYxDMg1h3Myi/794yI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D0beWEsLucPB9RkG/KmWaUPedZV6LvBBtbLm5IRAHvqShuCDkHMJLN16PPBEn+M9pBbiAHlrt7s4kNAQK7ZsRVkjR+szgJx8lVoGyyLK4sNNRB0EOggum4eoGKWp1vP9Jr/vqifMMf25PPe5Hjqa8KT9EWLeCUDr565aVRh/ZNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiAFswy0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UbvqnHBS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2904A1F000E9;
-	Fri, 26 Jun 2026 09:31:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiAFswy0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A977A1F000E9;
+	Fri, 26 Jun 2026 09:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782466283;
-	bh=yZMzc2D+59qeL+1CYcFEVOT21y4gLjtR6W19ZGAjHTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UbvqnHBSUBtQzqFvTMaeYBphmCXLHQQmuOmLuyrKgbgv4bXQkefCHDeEbO/BCYNVZ
-	 G3dDXHU4uaZqhWZwtFibHetZhY3QIjuXxr/leBJVaCyett8n/zFWBt8/29H1UXJX59
-	 116mwL5qRCaILWdKYMIBquN1EBMa2hYCrtZryEdKl++uPHuEo2Z/l5uSQfs+cG1R7s
-	 pxOA585DJA3nNjubnRgg10GeW69Fn/1kvzm1sA2FnT7GSO0hK4jWXoBlpYvCJJXo5/
-	 pABUgfzHKzY1tunbuvneSnBbgvTzxvZpTqPkaHy8hqj8VSJWKqE38zcDyiZQ68d2xC
-	 Ountxkw8KtDPg==
-Date: Fri, 26 Jun 2026 11:31:21 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sunyun Yang <syyang@lontium.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
-	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
-	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
-	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <20260626-tungsten-capuchin-of-serendipity-24c0a9@houat>
-References: <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
- <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
- <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
- <20260626-zippy-affable-hamster-22101d@houat>
- <CAFQXuNbN1bW3DVGUtVf7--dW_UhSk4LZdk+v14P=VSbDU4ZzsQ@mail.gmail.com>
- <20260626-flawless-axiomatic-slug-c480c9@houat>
- <CAFQXuNa330ctD3VgAVxDSzovwyy0hwVPTfm6pKzeLZDGeq=_=Q@mail.gmail.com>
- <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
+	s=k20260515; t=1782466343;
+	bh=xuaZxxUxiDkUsheq3lHvaYuGanzSsZ7TpmpR+u1/KAc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XiAFswy0N70ie9A8+dn8NgxpP467+mzDNhDtxFPAxZK/Ru6P7gpLTCLyiEnajyXMz
+	 yEXalNHOzt2UTIS8W5FK3W0yIdgGe1SK0UQQxmbGFfl3w6f14JXUPXRbXVXZqTvnPs
+	 paDT1YJGf9ckDNJRCSeio/w7hEHAGCkYGxmANVNsqnFjUgRU8I1Iw4iLnlgIEw1vhJ
+	 XR+6pG7Vdh7B6RKI6oKob4H48ZDBAR0bXIwGaqvruBhJvebYPtzQKCzjRQPj8YEL1m
+	 l35U0vjIkPr1QetAPBQWVtaSuIMtHkwswolVaUTp/p9HGawpoLIkCu11i2TBD1fLSN
+	 rUX9oezSRcAuA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] PCI: mediatek-gen3: Add 2-lanes mode support for
+ Airoha AN7581
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260626092029.3525264-5-ansuelsmth@gmail.com>
+References: <20260626092029.3525264-1-ansuelsmth@gmail.com>
+ <20260626092029.3525264-5-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 09:32:22 +0000
+Message-Id: <20260626093222.A977A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="7a6od7fn56ge3tan"
-Content-Disposition: inline
-In-Reply-To: <CAFQXuNYh95wTQex9zEUfxGBCsfK72+8eM3Mzm8pC2CFn6bJdGA@mail.gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
---7a6od7fn56ge3tan
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-MIME-Version: 1.0
+New issues:
+- [High] Uninitialized stack variable `num_lanes` leads to unpredictable pr=
+obe failures
 
-On Fri, Jun 26, 2026 at 05:05:38PM +0800, Sunyun Yang wrote:
-> Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=97=
-=A5=E5=91=A8=E4=BA=94 16:40=E5=86=99=E9=81=93=EF=BC=9A
->=20
-> >
-> > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=
-=E6=97=A5=E5=91=A8=E4=BA=94 16:26=E5=86=99=E9=81=93=EF=BC=9A
-> > >
-> > > On Fri, Jun 26, 2026 at 04:13:18PM +0800, Sunyun Yang wrote:
-> > > > Maxime Ripard <mripard@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=88=
-26=E6=97=A5=E5=91=A8=E4=BA=94 15:49=E5=86=99=E9=81=93=EF=BC=9A
-> > > > >
-> > > > > On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
-> > > > > > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=
-=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > >
-> > > > > > > On 25/06/2026 15:40, Sunyun Yang wrote:
-> > > > > > > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=
-=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > >>
-> > > > > > > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=
-=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
-> > > > > > > >>>
-> > > > > > > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
-> > > > > > > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=
-=B9=B46=E6=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=
-=9A
-> > > > > > > >>>>>
-> > > > > > > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
-> > > > > > > >>>>>> +
-> > > > > > > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > >>>>>> +{
-> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > > >>>>>> +     msleep(20);
-> > > > > > > >>>>>> +
-> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > > >>>>>> +     msleep(20);
-> > > > > > > >>>>>> +
-> > > > > > > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > > >>>>>
-> > > > > > > >>>>> This is just plain wrong. Why do you assert, then de-as=
-sert and then
-> > > > > > > >>>>> finally assert AGAIN the reset leaving the device in po=
-werdown stage?
-> > > > > > > >>>>>
-> > > > > > > >>>> I am using software to emulate the hardware RESET button=
- on our EVB.
-> > > > > > > >>>> When the hardware RESET button is pressed while our chip=
- is running,
-> > > > > > > >>>> the signal level changes from HIGH to LOW and then back =
-to HIGH.
-> > > > > > > >>>>
-> > > > > > > >>>> Of course, we can also use the following:
-> > > > > > > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
-> > > > > > > >>>> {
-> > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > > > > > > >>>>     msleep(50);
-> > > > > > > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > > > > > > >>>>     msleep(20);
-> > > > > > > >>>> }
-> > > > > > > >>>
-> > > > > > > >>> Makes no sense either and you just did not get the point =
-and did not
-> > > > > > > >>> answer my question. I asked WHY you leave asserted. Answe=
-r "we emulate"
-> > > > > > > >>> is just plain wrong.
-> > > > > > > >>>
-> > > > > > > >>> So again please answer:
-> > > > > > > >>>
-> > > > > > > >>> Why do you leave device with reset asserted?
-> > > > > > > >>>
-> > > > > > > >>
-> > > > > > > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH=
->;
-> > > > > > > >>
-> > > > > > > >> GPIO_ACTIVE_HIGH:
-> > > > > > > >>
-> > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------=
-   reset pin
-> > > > > > > >> is Low level : Clear the register configuration in the chi=
-p to stop
-> > > > > > > >> the chip from working.
-> > > > > > > >>
-> > > > > > > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------=
-  reset pin
-> > > > > > > >> is high level:  The chip resumes operation.
-> > > > > > > >>
-> > > > > > > >>
-> > > > > > > >
-> > > > > > > > Our purpose is: pull the level low to clear the register co=
-nfiguration
-> > > > > > > > in the chip, and then pull it high to allow the MCU inside =
-the chip to
-> > > > > > > > re=E2=80=91initialize the registers.
-> > > > > > >
-> > > > > > >
-> > > > > > > And you do completely opposite... so that confirms your code =
-is just wrong.
-> > > > > > >
-> > > > > >
-> > > > > > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just follow=
-ing the
-> > > > > > rule of this device tree. If I modify the device tree to use
-> > > > > > GPIO_ACTIVE_LOW,
-> > > > > > and use the following code in my driver, then my driver would b=
-e correct.
-> > > > > > However, would the existing kernel drivers lontium-lt9611uxc.c =
-and
-> > > > > > lontium-lt9611.c be affected?
-> > > > >
-> > > > > It might, but then it's a DT problem. The GPIO API for drivers al=
-ways
-> > > > > considers the logical state of a GPIO, so if you need to assert a
-> > > > > signal, you'll always need to set 1. That's what Krzysztof was tr=
-ying to
-> > > > > explain.
-> > > > >
-> > > > > The DT will provide with GPIO_ACTIVE_* how that logical state tra=
-nslates
-> > > > > to a physical GPIO state.
-> > > > >
-> > > > > If the DT says that this particular GPIO is active-high, then it =
-means
-> > > > > that we need to set the GPIO to 1 to assert reset. Now of course,=
- it
-> > > > > might not make sense for the controller itself, but it might for =
-the
-> > > > > board if there's a GPIO inverter in the middle for example.
-> > > > >
-> > > > > Anyway, in the case you're raising, the issue definitely lies in =
-the DT,
-> > > > > and that's what would need to be fixed.
-> > > > >
-> > > > > I also wouldn't be too concerned about lontium-lt9611.yaml, it's =
-just an
-> > > > > example.
-> > > > >
-> > > > > Maxime
-> > > >
-> > > > thanks Maxime, I will modify this code in the next version of the
-> > > > driver, and I hope you can accept these changes.
-> > > >
-> > > > Maxime:
-> > > > I have another question I would like to ask you
-> > > > regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
-> > > > opinions that differ from yours, whose advice should I follow?
-> > > >
-> > > > If I do not adopt sashiko-bot's suggestions, will my patches still =
-be
-> > > > accepted into the upstream Linux kernel?
-> > >
-> > > I can't give a blanket answer. It depends on what you ignore exactly.
-> > >
-> >
-> > Okay, another question: sashiko-bot is an AI bot. Are its review
-> > comments optional, or must they be followed?
-> >
->=20
-> For example, in my driver, there is a function for upgrading the chip
-> firmware. During debugging or production, upgrading the chip firmware
-> will acquire a lock, which will block the DRM callback and affect
-> display. It will be fine after the upgrade is completed and some
-> devices are restarted. As long as there is no subsequent upgrade,
-> display can work normally.
->=20
-> From a purely software perspective, the AI bot considered this
-> approach unacceptable and proposed synchronizing the pre-upgrade state
-> to the DRM framework. From my personal perspective, I think the AI
-> bot's suggestion would only make my driver more complex and redundant.
-> Do you think I need to adopt the AI bot's suggestion?
+Pre-existing issues:
+- [High] The return value of `pm_runtime_get_sync()` is ignored, which can =
+lead to hardware access on suspended devices.
+--
 
-You're right it's wrong, but there's also no reason to allow that
-firmware upgrade during the driver lifetime either through a debugfs
-file. So you should get rid of the debugfs file and now you won't have
-to bother with that comment anymore.
+commit b24fe645228ac8c1e16f2ba7617e18b13b23173d
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-> In addition, if I follow the AI bot's suggestion, the
-> lontium-lt9611uxc.c and lontium-lt8713sx.c drivers that have been
-> merged into the upstream Linux kernel would not meet the AI bot's
-> requirements.
+PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
 
-Maybe, but it's not relevant either way. These drivers are merged, yours
-isn't. Feel free to fix these if you spot any issue though.
+This commit adds 2-lanes mode support for the Airoha AN7581 SoC by
+configuring the PCIe MUX in the SCU register. It introduces logic to
+parse the secondary PCIe MAC region and handle necessary PERSTOUT resets
+for the newly supported lane configuration.
 
-> When I get a reviewer's Reviewed-by flag, can I ignore the opinion of
-> sashiko-bot (the AI bot)?
+> diff --git a/drivers/pci/controller/pcie-mediatek-gen3.c b/drivers/pci/co=
+ntroller/pcie-mediatek-gen3.c
+> index b0accd8285892..14893cff135a1 100644
+> --- a/drivers/pci/controller/pcie-mediatek-gen3.c
+> +++ b/drivers/pci/controller/pcie-mediatek-gen3.c
 
-Again, it depends on the comment. If you feel like one can be ignored,
-you should at least argue why.
+[ ... ]
 
-Maxime
+> @@ -949,18 +965,38 @@ static int mtk_pcie_parse_port(struct mtk_gen3_pcie=
+ *pcie)
+>  			pcie->num_lanes =3D num_lanes;
+>  	}
+> =20
+> +	/* Map secondary PCIe for 2-lanes mode for EN7581 */
+> +	if (num_lanes =3D=3D 2 && device_is_compatible(dev, "airoha,en7581-pcie=
+")) {
 
---7a6od7fn56ge3tan
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: High]
+If the num-lanes property is missing from the device tree,
+of_property_read_u32() returns an error without modifying the num_lanes out=
+put
+parameter, leaving it uninitialized. If the stack memory happens to contain=
+ 2,
+could this enter the block and fail the probe by returning -EINVAL since the
+sec-pcie-mac resource would be missing in a 1-lane configuration?
 
------BEGIN PGP SIGNATURE-----
+Should this evaluate pcie->num_lanes instead?
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj5G6AAKCRAnX84Zoj2+
-dsiuAYC4vMklaH2PYwaa/lq7c74jgXOC+Rrkl+8HU1o3zFK9dUR5BFniXL2YBq/p
-rHx0P7gBgI4IYvo6PZdKvsETVZB5iHXMrETA6DDYdcNzjRJ/7nDhVKV4qcm6zJKa
-TShiXE7YXg==
-=t2bD
------END PGP SIGNATURE-----
+> +		regs =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "sec-pcie-=
+mac");
+> +		if (!regs)
+> +			return -EINVAL;
+> +		pcie->sec_base =3D devm_ioremap_resource(dev, regs);
 
---7a6od7fn56ge3tan--
+[ ... ]
+
+> @@ -1024,33 +1073,47 @@ static int mtk_pcie_en7581_power_up(struct mtk_ge=
+n3_pcie *pcie)
+>  	pm_runtime_enable(dev);
+>  	pm_runtime_get_sync(dev);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to ignore the return value of
+pm_runtime_get_sync()?
+
+If the runtime PM framework fails to power up or clock the device, accessing
+hardware registers directly afterward might cause a synchronous external ab=
+ort
+and kernel panic on ARM platforms. The same pre-existing behavior is also
+present in the legacy mtk_pcie_power_up() path.
+
+> -	val =3D FIELD_PREP(PCIE_VAL_LN0_DOWNSTREAM, 0x47) |
+> -	      FIELD_PREP(PCIE_VAL_LN1_DOWNSTREAM, 0x47) |
+> -	      FIELD_PREP(PCIE_VAL_LN0_UPSTREAM, 0x41) |
+> -	      FIELD_PREP(PCIE_VAL_LN1_UPSTREAM, 0x41);
+> -	writel_relaxed(val, pcie->base + PCIE_EQ_PRESET_01_REG);
+> -
+> -	val =3D PCIE_K_PHYPARAM_QUERY | PCIE_K_QUERY_TIMEOUT |
+> -	      FIELD_PREP(PCIE_K_PRESET_TO_USE_16G, 0x80) |
+> -	      FIELD_PREP(PCIE_K_PRESET_TO_USE, 0x2) |
+> -	      FIELD_PREP(PCIE_K_FINETUNE_MAX, 0xf);
+> -	writel_relaxed(val, pcie->base + PCIE_PIPE4_PIE8_REG);
+> -
+>  	err =3D clk_bulk_prepare_enable(pcie->num_clks, pcie->clks);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626092029.3525=
+264-1-ansuelsmth@gmail.com?part=3D4
