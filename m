@@ -1,110 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06893F23D7;
-	Fri, 26 Jun 2026 13:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290062F6560
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 14:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782481116; cv=none; b=dET+rhgjFmjgRL+gtyXShE6aQBORfoAnxUzQaYQBXttDjNkmbBN7Q48GEdOje/sHWfCajsCK4U9IspjKm9/+iBBVkC97XpQOACDE864cEFSJElYkRLt9gJxa9rPoP4iwn/xg6dTh/SeEuCVRfVnRL3QeFr1fJuWyYrDSyaNEiDU=
+	t=1782483045; cv=none; b=BlMlVJ+EvNgv+ybu2bqH12VLx/oXDLFS5meQ/c5IcIPYZKLRti6aX7t0312/SmYnhzszPOnO4p+LY02tWNxhuFcNr0nGGATJ5tykqVVyC1QN/4XgDRMImvt+ksLfj44Qxa5jaLySa9vNzb6IYkvqzIxfj2YMY9S5fbkQ5atxC+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782481116; c=relaxed/simple;
-	bh=ygNoSlf2LfIxfSlf2nQQCdhAwsp9v2K16sdxAnS6lUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=EiyJq+q3bhggIStaw0q4qF11f07uij3FKTgcjlFXMeAIWba+xCzWpdjS/PFKcE+xxunCc180zE2sp19Ou99OvRT/OKRMOWgmBcn867SLcrKEvViPYVXzt2N5IrFw+jAndOKP0raAUK7/mQu81OW0w4Q8jz46i4KODpbX9wckLhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WWuD0BH5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782483045; c=relaxed/simple;
+	bh=FEH9bA1UgN5vxUH/MjOs3rbE+cyeAt8gKwPKaRT+8qU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AW3gGSjgO3Ff/Wi0DR1JsD+AXBSVhVa1nR5zOmeXp6l2rdfImH8pBCXJmndKoGRtthW9SdYZ/nR4/BeptE6xGqPYRCW7NR400Tq5xhCR9cpqvRE0ujz6tjvLzZc/OKBiVD+NURPMR0PyTavOAKZT0XRc38q1gd/ltD3HMY1YlB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpbbR/lA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WWuD0BH5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A8D1F000E9;
-	Fri, 26 Jun 2026 13:38:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpbbR/lA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3241F000E9;
+	Fri, 26 Jun 2026 14:10:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782481115;
-	bh=C67f53Dh63EGgDB2fjJoregeFYfRvPyb/AeNtEL4DXg=;
-	h=Date:From:To:Cc:Subject;
-	b=WWuD0BH5DoDCb0nHd4fUaO+ybkSBNQKH5Icjzhn2ffArIiQNCHT3zm+qxMFMk56dD
-	 Fwy5b09qfuXfTl01Cyv90Qw6cnevgsOQPaI2NbdAiXxxFeukwsBdrpIxinszgDkEWh
-	 mQIL10tTSeS+AWGdOgJIXdYGdSO0aniNu/RaGhYUolFl7+gTE7MMb38ZiVGXPCwfpB
-	 Wdp/he2YMI19zEtLOBUnXYGL86g/PXw8TbOhcqIABmXCxiD7152xNrR4MXsmpp88LO
-	 m3llWl+tv60qi5h2b8hG9C+PaNDi8i8Zvr0Fqoj7hoVnBzs5BtTayu6yDU0Ke3eSw+
-	 SR+wCiUIb0XRQ==
-Date: Fri, 26 Jun 2026 08:38:34 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [GIT PULL] Devicetree fixes for v7.2, part 1
-Message-ID: <20260626133834.GA2142045-robh@kernel.org>
+	s=k20260515; t=1782483044;
+	bh=mnXxb50PAv2cBICoXPWXBuB8S6VWBNx29ou/Kq3NQMk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cpbbR/lAr9FGaads4dE/TjrG4McVuw/kxFfZN4gcKKgVaFwLmvkxohfabbCkrtbGJ
+	 4QaApkHyi6LK6DWMhRLGdMNOvkFwhFBp7lNKk6rFeb9Rl3EGdDqf9B9Do7cynIcUVK
+	 zI/16Mc0u9kQLmsFFZEf3Jj51dy78XrSUWnl5Fp2dSAXpnrlGLpWPRFb4laJYcWphG
+	 ryoAH05MmOQkc7PO8Z0q8BzYkFd1eNed2ToNm/AurrcabD26wC4DQugQmABXxOIGfo
+	 6jOxLgkrxaLv5l/4XEbrrjE6YEFldGG0LxYmdttiBgRXJE2lCXm/DuRmHd2iuMcyOU
+	 ePYf8W2z/2q+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/6] Bluetooth: btqca: Add IPQ5018 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "George Moussalem via B4 Relay" <devnull+george.moussalem.outlook.com@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260625-ipq5018-bluetooth-v1-3-d999be0e04f7@outlook.com>
+References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
+ <20260625-ipq5018-bluetooth-v1-3-d999be0e04f7@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 14:10:43 +0000
+Message-Id: <20260626141043.BB3241F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
-Linus,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Please pull DT fixes for 7.2. It's based on your tree as of a few days 
-ago to fix the warnings introduced by amlogic,thermal.yaml changes.
+Pre-existing issues:
+- [High] Out-of-bounds read of tag_id and tag_len via integer underflow in =
+qca_tlv_check_data.
+--
 
-Rob
+commit 513dbc31af180171927da878907af8ede1372fc7
+Author: George Moussalem <george.moussalem@outlook.com>
 
+Bluetooth: btqca: Add IPQ5018 support
 
-The following changes since commit 840ef6c78e6a2f694b578ecb9063241c992aaa9e:
+Add the IPQ5018 SoC type and support for loading its firmware.
 
-  Merge tag 'nfs-for-7.2-1' of git://git.linux-nfs.org/projects/anna/linux-nfs (2026-06-23 18:36:41 -0700)
+> diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
+> --- a/drivers/bluetooth/btqca.c
+> +++ b/drivers/bluetooth/btqca.c
+> @@ -378,6 +378,9 @@ static int qca_tlv_check_data(struct hci_dev *hdev,
+>  		break;
+> =20
+>  	case TLV_TYPE_NVM:
+> +		if (soc_type =3D=3D QCA_IPQ5018)
+> +			break;
+> +
+>  		if (fw_size < sizeof(struct tlv_type_hdr))
+>  			return -EINVAL;
 
-are available in the Git repository at:
+[ ... ]
 
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.2-1
+>  		idx =3D 0;
+>  		data =3D tlv->data;
+>  		while (idx < length - sizeof(struct tlv_type_nvm)) {
+>  			tlv_nvm =3D (struct tlv_type_nvm *)(data + idx);
+>=20
+>  			tag_id =3D le16_to_cpu(tlv_nvm->tag_id);
+>  			tag_len =3D le16_to_cpu(tlv_nvm->tag_len);
 
-for you to fetch changes up to b39a6b2e9d5bd6a3153aed4c7440172b8f6a739e:
+[Severity: High]
+This is a pre-existing issue, but does this loop risk an out-of-bounds read
+if length is less than the size of struct tlv_type_nvm?
 
-  dt-bindings: mfd: khadas,mcu: Drop type reference from "fan-supply" (2026-06-24 08:48:09 -0500)
+Since sizeof(struct tlv_type_nvm) evaluates to an unsigned size_t, a small
+length (like 0 or 1) will cause the subtraction to underflow and wrap around
+to a very large positive value.
 
-----------------------------------------------------------------
-Devicetree fixes for v7.2-rc, part 1:
+This would cause the while loop condition in qca_tlv_check_data() to
+incorrectly evaluate to true. The assignments to tag_id and tag_len would
+then read 4 bytes of memory, which could be out of bounds of the allocated
+firmware buffer if a malformed or truncated TLV_TYPE_NVM file is processed.
 
-- Drop unnecessary type reference from khadas,mcu "fan-supply"
-
-- Fix clocks in Renesas R-Mobile APE6 example
-
-- Add missing Unisoc SC2730 PMIC regulators schema
-
-- Fix Amlogic thermal example
-
-- kernel-doc fix for of_map_id()
-
-- Handle negative index in of_fwnode_get_reference_args()
-
-----------------------------------------------------------------
-Alban Bedel (1):
-      of: property: Fix of_fwnode_get_reference_args() with negative index
-
-Krzysztof Kozlowski (2):
-      dt-bindings: thermal: amlogic: Fix missing header in the example
-      dt-bindings: thermal: amlogic: Correct 'reg' in the example
-
-Marek Vasut (1):
-      dt-bindings: clock: renesas: div6: Use ZT/ZTR trace clock in R-Mobile APE6 example
-
-Otto Pflüger (1):
-      regulator: dt-bindings: Add Unisoc SC2730 PMIC
-
-Rob Herring (Arm) (1):
-      dt-bindings: mfd: khadas,mcu: Drop type reference from "fan-supply"
-
-Vijayanand Jitta (1):
-      of: Fix RST inline emphasis warnings in of_map_id() kernel-doc
-
- .../bindings/clock/renesas,cpg-div6-clock.yaml     |  2 +-
- .../devicetree/bindings/mfd/khadas,mcu.yaml        |  1 -
- .../bindings/regulator/sprd,sc2730-regulator.yaml  | 44 ++++++++++++++++++++++
- .../bindings/thermal/amlogic,thermal.yaml          |  5 ++-
- drivers/of/base.c                                  |  4 +-
- drivers/of/property.c                              |  8 ++++
- 6 files changed, 59 insertions(+), 5 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/regulator/sprd,sc2730-regulator.yaml
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625-ipq5018-bl=
+uetooth-v1-0-d999be0e04f7@outlook.com?part=3D3
