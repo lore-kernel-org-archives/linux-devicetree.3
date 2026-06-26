@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BD93BFE47;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D153BFE4C;
 	Fri, 26 Jun 2026 20:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782507309; cv=none; b=PLHN41j0AmReZbl/bIprI8N3PawWfeFPgUPbCGiRNFSYJUHbN9ym6hyDB+wrxYtgRE/Lqs2cXh0YiZofmGlF7BSpw4CGa5KM4b+24J3d/jKz1Oo676WUUaBvqIhoesoM/awwY2N8y/AZdwqG44/GGSFwFhIGh/iHiwEBE8OxwWg=
+	t=1782507309; cv=none; b=VBYXHjL9Tl55My3h6VXTdAN2mq1jIituSj01MwbS9lojQNWfUdh5pLn2rIu5J2Hf2Iz+82N9pJBiKxEfRrrk5w6DLuLlDYAHRYmwnM7j7r4LaaVYeAJIzXR1U160moyQUNa8FYopLoGfg6ytHCDfxAYtkvyWG8Mj/H2CACpSrJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1782507309; c=relaxed/simple;
-	bh=B/EWcVc3B/o4P4Gg8Orkvfe3e6uQ/US5ZTpIUx0ygOk=;
+	bh=1nHF1vrjaNXH6VxWJ8xbYUrny3B+6HOnTbC9UsQPiUA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e5U5XaSpDCVUZZE50Em4STVndQyR/tBj26amKWMc3B1E6qS8qMrNYatPria6X2wsyp5/HgU3rv+8oE5Aly2sSHXlWPG0TOw2NwztODsX7hmB7CgU6HMiJrdHpgqIsShMj30kPfDvMpKZh6oFN416ixil1459aGjmpGzm/X8zlzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=bD/b+imH; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=CX1ZenVhOMNdhU3vy+shnwGb6FSGcvqRqN7QrsG7cQdB6lF4iriZ52MixALqVrKI24f9ojRa/5b2DAwfhsFwj+Bvs/VzBAksi1g15gxJyw/jhzswKlIgLpINTEp+72Z+umBo9EAPbMgzaf8yoFPA2zj/CukiZWEi6XC46aeULqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kNLaLxuO; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="bD/b+imH"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kNLaLxuO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1782507302;
-	bh=B/EWcVc3B/o4P4Gg8Orkvfe3e6uQ/US5ZTpIUx0ygOk=;
+	bh=1nHF1vrjaNXH6VxWJ8xbYUrny3B+6HOnTbC9UsQPiUA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bD/b+imHu1N6TSLbY+iZR1gvOQuT2n9MfYacxu1BB+7f1BZrQ8pM7v1IPe4Xv9/Or
-	 4dwBH5o/SYF25QGrL5XscdgHIOV/kro8XzHeJdq9dAE95TT8kKY/S9qTSfcFN3/VXd
-	 nWlmXcyh6mmQjJA9Ukzf3KXTw0JE8t1+DsgPaDoauKh0YKLc+7R6E+aM5t27nlCS0K
-	 0nK5NL4r5r/Pc38wGdQnc/LlxDTsskcmQeHRAlXZ6EROvDlE57BSIBeBakzsYKSacs
-	 xXKmCTnsnhTEN0BJYTXpw4POtX+DQbXEw1Vhh6J1ma8UkSBaiOunGBGV55TgQovd9u
-	 Z3f8JiXU0loOg==
+	b=kNLaLxuOFDahf/RD0A7UG+SZrqlNJu9EKRGOAAVZaaFDOZt+byKPdXaxGSqGcpZ4h
+	 SpS5qtqB3h2m1N8tN/yl2LUjsIomJq3Q2BqzQBgrw08rI9i89ZeQ7CurPAd5bTF9bu
+	 QBT9LpEuVwI4wIx0Nxygpu9onus2YPMdaBTxBeqaqXaBdmiMnOe02KbZlOLG4ddBPQ
+	 bD7rtXofqNgbH3XQ5oIq0QFNIFgthViWjNqoX4eUKeJWO6I4s2yrKGnLNbdSiWkpcQ
+	 7DIyTIeA+V6lvVuxknBFG5cwChZTPXsg9xlvlgN6a5k8rdAnidq+4sshYf2kB97e1d
+	 uPMSRIhCZpUwg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA86E17E14E5;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AFD7D17E1270;
 	Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 17033480038; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
+	id 13EBC480031; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 26 Jun 2026 22:55:01 +0200
-Subject: [PATCH v8 08/29] phy: rockchip: usbdp: Keep clocks running on PHY
- re-init
+Date: Fri, 26 Jun 2026 22:54:59 +0200
+Subject: [PATCH v8 06/29] phy: rockchip: usbdp: Drop seamless DP takeover
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-rockchip-usbdp-cleanup-v8-8-47f682987895@collabora.com>
+Message-Id: <20260626-rockchip-usbdp-cleanup-v8-6-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
 In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -61,54 +60,85 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  devicetree@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2693;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=B/EWcVc3B/o4P4Gg8Orkvfe3e6uQ/US5ZTpIUx0ygOk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5yUFyWL2hgWHH48E4rPmWZhX8euEHrYhp
- QiZ9B6GSkSyiYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuclAAoJENju1/PI
- O/qa+3IQAJC86ALYXZglYkqXR5NyZLrEdQQFLd8fSY9B/+bA1dNBJfSur1/G0Z3tA6vXdFMOAcI
- t73ZHk5LkPlSAWRE2fBhPSFSRIe4ypjlab26X7CEpnyIuQFCw5oEnffrGUGdh2PLFZaV4VUckQl
- fsyclV6slNpEqJZ4L5nfGx/ZuM2foUIDyHtgdPthwyHoIctUF7Rjpv5HhkrR9TjPlll0bjLq0HE
- ihZ7IXEjfyTngb6AfIJYPWi53soutEzf4OIImjoe8G2FzI85B2jyKMi875uS111Rq/RdZQx3K5A
- 6+/XofVb0E0awGaXkKQqNYdohklxE4YmG8QlZX0t5kO5Qwercln4MZpW3Fma+hZE7OxADwDPesb
- 8TLLIeMNi01rJipR2yllHwo2keu26dppFAMkc0XKskMGzQTqh9epVjuPYv9pwnHcDTXlE8T0Qsm
- RHle0wjGUgxbq7wQ//LAbpB9oT19lQUR4WS1oEGY884U6W5ang5Qmxs7K3oLlHZkN3Wv9R7KKur
- T5z6zNkMg/HqDzYIdzQdcMe1zZhcRKe99Xte/U73YagWiSm8GmPmMwze12EHJP8ljWwfD8rep91
- ed5eL8QybPQL99JzIm7eG8Y9lQP19k3pXDAiN3CU5hVwLVksEHzuAlVajXSgjaNxkAhjLhF4/d5
- ShA1cK0aW63K49TOFDE4uAQ==
+ bh=1nHF1vrjaNXH6VxWJ8xbYUrny3B+6HOnTbC9UsQPiUA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5yVrcDd9pGLx40GIcnPMFQdfjYzZAJukZ
+ oEs5fq1+0WHRokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuclAAoJENju1/PI
+ O/qakkMQAJsmLpk5yiZKcUP5L+SHN9M/nrx1QT+6PnzKk0T1s7CltqMrycoE81zZw0W/r+Dn7cI
+ wfbCHUHnrJHhWWu3FCROZcmuhdo+eushp9DTctYIeAB1FIY/peYhZLi5GKkN5Od+pYNr4Xhp8si
+ LnklzD2/cXdwPrXu3tIPpY3HiHy0QYwmw47Rbu03P0Y0AM8Uwn9GE6UXCm+d0mkvXQJKx27LyRj
+ 32DgVpmySh7bZRRPMp7FMyC+ztePV8wBwdXaTiWmHxQM/RMDWEoKQEQrVb15747YlvnhnQ4pLrD
+ uQWPeJ1gObDgC0DvlMbYdAzoFXQ3ekYUdVVo6FmPUy6sjF+hS4ODo/E5HU0fTNep+u4JiolvR8w
+ PfbTTFOqxrBVIIJkWqMn2MHqJz0VZd346t738e7Agn4ZLaOj9xClj8C1lw2d37JXXGzSB0qzS+F
+ yxmEvd+WngwPpiVDgf8hZ1lMQ0JUnkzTAiT+CJksif7da3cIZYIg7BAdNA143gMK6lN2uoF8Znr
+ UqRgA4W0mu2DM0sSd5vCelgc+GMoE6MnrmR/3ggIt9TStxwEcIvFa3nItAC3nXFPC2Q4z+U5BGj
+ bn8AxYrGfX0eD3RWVTmQ06m7RmTKEjpKsZHgxU81hYxBzRUZIeQ4WaKuJwXUvVgEzrO8vDN1LCp
+ fljNRnd08BOVT4vvJUt8trw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-When a mode change is required rk_udphy_power_on() disables
-the clocks and then calls rk_udphy_setup(), which then enables
-all the clocks again before continuing with rk_udphy_init().
+Right now the DRM drivers do not support seamless DP takeover and I'm
+I'm not aware of any bootloader implementing this feature either.
 
-Considering that rk_udphy_init() does assert the reset lines,
-re-enabling the clocks is just delaying things. Avoid it by
-directly calling rk_udphy_init().
+In any case this feature would be limited to boards using the USBDP PHY
+for a DP or eDP connection instead of the more commonly USB-C connector.
+With USB-C's DP AltMode a seamless DP takeover requires handing over the
+state of the TCPM state machine from the bootloader to the kernel. This
+in turn requires a huge amount of work to keep the state machine
+implementations synchronized. It's very unlikely we will see somebody
+implementing that in the foreseeable future.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+As the current code is obviously buggy and untested, let's simply drop
+support for seamless DP takeover. It can be re-implemented cleanly once
+somebody adds all missing bits.
+
+Technically the VOP side should be disabled first to avoid data being
+send to an unpowered PHY from the running pipeline. As a workaround this
+force disables HPD. I'm not sure if this would be good enough, but cannot
+test as there is no support in the bootloaders known to me and my test
+boards route USBDP to USB-C connectors.
+
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.kernel.org/
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index b8de0a47a616..7fb7e4669f9d 100644
+index 3fc8222fcaec..f7ff55f03b7c 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -1020,8 +1020,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
- 		if (udphy->mode == UDPHY_MODE_DP)
- 			rk_udphy_u3_port_disable(udphy, true);
+@@ -926,6 +926,7 @@ static int rk_udphy_parse_lane_mux_data(struct rk_udphy *udphy)
  
+ static int rk_udphy_get_initial_status(struct rk_udphy *udphy)
+ {
++	const struct rk_udphy_cfg *cfg = udphy->cfgs;
+ 	int ret;
+ 	u32 value;
+ 
+@@ -938,10 +939,12 @@ static int rk_udphy_get_initial_status(struct rk_udphy *udphy)
+ 	rk_udphy_reset_deassert_all(udphy);
+ 
+ 	regmap_read(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET, &value);
+-	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_ALL, value))
+-		udphy->status = UDPHY_MODE_DP;
+-	else
 -		rk_udphy_disable(udphy);
--		ret = rk_udphy_setup(udphy);
-+		ret = rk_udphy_init(udphy);
- 		if (ret)
- 			return ret;
- 		udphy->mode_change = false;
++	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_ALL, value)) {
++		dev_info(udphy->dev, "Started with DP PHY pre-enabled; seamless takeover unsupported\n");
++		rk_udphy_grfreg_write(udphy->vogrf, &cfg->vogrfcfg[udphy->id].hpd_trigger, false);
++	}
++
++	rk_udphy_disable(udphy);
+ 
+ 	return 0;
+ }
 
 -- 
 2.53.0
