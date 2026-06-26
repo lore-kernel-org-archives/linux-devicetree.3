@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E5A3E3D89;
-	Fri, 26 Jun 2026 08:21:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A451A3EB801;
+	Fri, 26 Jun 2026 08:21:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782462087; cv=none; b=QmMk8zranDV9QIvzJxtdYyMLWWFKXrvxT5oThh+vQUjHNO4RBMtVD4aB70krTN0f3dfwnRYvEOFbdhKD4xxje8FUy/7WhLkz2z/FPqKq7+fP+yQEmMHpvW52SFn/7OwiiXgaswHqjMgYSeO86L91G7j5MMy8z1tbOhMWI4L8Wzc=
+	t=1782462099; cv=none; b=qMje8WhZJyiJJ3GYsgWEca2HjbyVjQVWzTWBkV4NhEBq7mFgC6ukBUMzW9cM5uE7+M5d5UhJOazutI6eG+F59lWDVuz4iMuNnD5YG1PA5EilTMakr50/cwZllknALDx+CcPeCSsEjAwksluKBhmW14EiftJ0EEZ8E5atD9UQhyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782462087; c=relaxed/simple;
-	bh=hRPd+g9ODFZEheZ9pUuMMOA161rtDcsucEGKN32Gs9w=;
+	s=arc-20240116; t=1782462099; c=relaxed/simple;
+	bh=KKfZwsNULbXMXuKQ4L/hsV/GzFEQX4IGUo/kQ+gXwew=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=sgRXPJAtTN2JSKyA3cz5j9cb26bd+1BAEzJkSSKyVbtAYqyJsPinLBAThoaH52QlUe5BHCwdnlAx+1tgMOa0hYjarGMQkrhYYllxYSC+hmwCSeAAfR4Bfnt1XFY4448lFfDXflr87HNQjqBT/soRL63npZYFcPUO13UYQyvpgz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aA/AaODJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Fkt/U7PqFeL6IEiY1SZucqob/TrCjA0ePzfR3XW9SgFHAOABPD16RI+fLOWWZ9Lt51brEVBkmr7iUFI1vJmV8T5osSbLDnt+GjlGA3Z541Kj1ifF4HOs0ANj5sIKp9uvH46owwEBUyhoc5GGGKI9YEoNbqzNg2B8hCYicsLtGts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJM5zP4G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aA/AaODJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0AC1F00A3D;
-	Fri, 26 Jun 2026 08:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJM5zP4G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AA61F000E9;
+	Fri, 26 Jun 2026 08:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782462080;
-	bh=Xf3kAwe5ywIQY//rN3h6sBdlm1lF9rusVsWktLYdFkk=;
+	s=k20260515; t=1782462098;
+	bh=OcfJataYZCIIYP70MrY9Og+F3eHYjF96zIois1cHY+M=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=aA/AaODJC9hNx87l7DWmFqF1ycvUQDGXM6GzZfkNDnaN83wpqMr7NjTKa3W749koe
-	 hwI7hQleW1NVEl2PH70tTqE+TBtvDm8AwRL2dm6Hcj+k9PQxhyaItrC9HsLeyyIqR0
-	 zndpM5dfZUZ+rxd7ac/2X/rhEe3gGN3uSkL1j5ZvFuZKkz4qiMsVS0UdRBcW255bmd
-	 B7KThCYiQMxkacYR+Lx1CIiiqfC6QKOcMNcIWeEeOhqYwGxKSKPiOIfXmLesV17yR2
-	 Odx/7NmU+bJ7ZzRHg/3Xun0PK3w6/xBip2pDM77MGz/xkgB+IWxpgu7gJukMW3wPcN
-	 lLNjFjZn/RKUw==
+	b=BJM5zP4GDATae9/zW4iR8aZvtylByM4rIKA7jgZg+y/9sRqYyzGZs08y0oIdoYlPN
+	 PShzN3N+HxTOX6+SIIJmw115s8z3nZC66sBI//P9lakJTw4xt0FNP6KYT7PxX/VOLQ
+	 0txPPdqzvOoxWmdhSnSlZ5tvaDAcOhUpRfKYXjTe49tJ/WDGrUH4H/X+NloN6tyteA
+	 m0D7MD4OfvNqYnFvbwbuy8OSYy5rzdoxjOpLOnnnzDlW6C9vUVGyo7jT91qMLqjqNR
+	 dx907T+7em6jm0UJQWZDoYTnU4hloDE3pYPx7DtxCXGjDtqvQHIrF9k4O5c+Fd3bfG
+	 AygpfoSrMrQCQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5695239389E8;
-	Fri, 26 Jun 2026 08:21:08 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9396539389E8;
+	Fri, 26 Jun 2026 08:21:26 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -37,51 +37,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v9 0/4] Introduce ASPEED AST27xx BMC SoC
+Subject: Re: [PATCH v1] dt-bindings: soc: microchip: document irqmux on
+ pic64gx
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <178246206701.3816447.15009741745882675380.git-patchwork-notify@kernel.org>
-Date: Fri, 26 Jun 2026 08:21:07 +0000
-References: <20260609-upstream_ast2700-v9-0-f631752f0cb1@aspeedtech.com>
-In-Reply-To: <20260609-upstream_ast2700-v9-0-f631752f0cb1@aspeedtech.com>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
- catalin.marinas@arm.com, will@kernel.org, arnd@arndb.de, krzk@kernel.org,
- alexandre.belloni@bootlin.com, linusw@kernel.org, fustini@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- soc@lists.linux.dev, conor.dooley@microchip.com
+ <178246208525.3816447.14558154449045550945.git-patchwork-notify@kernel.org>
+Date: Fri, 26 Jun 2026 08:21:25 +0000
+References: <20260407-headache-reward-ae93bacdba0e@spud>
+In-Reply-To: <20260407-headache-reward-ae93bacdba0e@spud>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-riscv@lists.infradead.org, conor.dooley@microchip.com,
+ daire.mcnamara@microchip.com, robh@kernel.org, krzk+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
 Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Arnd Bergmann <arnd@arndb.de>:
+This patch was applied to riscv/linux.git (fixes)
+by Conor Dooley <conor.dooley@microchip.com>:
 
-On Tue, 9 Jun 2026 10:47:17 +0800 you wrote:
-> This introduces initial support for the Aspeed AST27xx SoC and the AST2700
-> Evaluation Board (EVB) to the Linux kernel. The AST27xx is the 8th
-> generation Baseboard Management Controller (BMC) SoC from Aspeed,
-> featuring improved performance, enhanced security, and expanded I/O
-> capabilities compared to previous generations.
+On Tue,  7 Apr 2026 16:29:31 +0100 you wrote:
+> From: Conor Dooley <conor.dooley@microchip.com>
 > 
-> AST27xx SOC Family
->  - https://www.aspeedtech.com/server_ast2700/
->  - https://www.aspeedtech.com/server_ast2720/
->  - https://www.aspeedtech.com/server_ast2750/
+> Being practically identical to PolarFire SoC, pic64gx has a irqmux
+> that's entirely compatible with that on mpfs.
+> 
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
 > 
 > [...]
 
 Here is the summary with links:
-  - [v9,1/4] dt-bindings: arm: aspeed: Add AST2700 board compatible
-    https://git.kernel.org/riscv/c/34efd73379ff
-  - [v9,2/4] arm64: Kconfig: Add ASPEED SoC family Kconfig support
-    https://git.kernel.org/riscv/c/df6f379eb4ac
-  - [v9,3/4] arm64: dts: aspeed: Add initial AST27xx SoC device tree
-    https://git.kernel.org/riscv/c/e77bb5dc5759
-  - [v9,4/4] arm64: configs: Update defconfig for AST2700 platform support
-    https://git.kernel.org/riscv/c/512cef2af615
+  - [v1] dt-bindings: soc: microchip: document irqmux on pic64gx
+    https://git.kernel.org/riscv/c/17d9064987ca
 
 You are awesome, thank you!
 -- 
