@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E690719995E
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A103BB9FA
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782508782; cv=none; b=SSTzrY3k0x5tEtTNff3RaWjZrDSNaT8DB7ApMr4sLZyzyrDH090v20MwKW6xw+lXNZab8bBIb/X1fOmupHE44DZdW+Wif+v/sSNnSQP8vexS6k9vUC7oMw8ud5wsnDhcthCFR8tXBEmyIdu4ClZUpNRWfnie+bGsRMnsFYDGxDg=
+	t=1782509066; cv=none; b=uG1Ex+aSeSr4+Nc2t0AA9SWimZ/01KjkTuTcfbAleYq/k/SADNin+d9JHdVIjFUeZ7/NgdP0tG7LCqOqmehKGacsVwk0NlVFFDBMI+Hl6/AG+w6TCGG5pFZXmQihY2oTR9NF8EhKuqFp49wi/pgYQI8pC0mYKlTdV6fnPV89gmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782508782; c=relaxed/simple;
-	bh=G33EXfj+FNCxtxCLc5LyNibGgYb+giEbq8+TP+VLe5g=;
+	s=arc-20240116; t=1782509066; c=relaxed/simple;
+	bh=pRHlm3g4LdZsHzuqUd64BDZ4WMlzOqRPlzGETWGQCY8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oc4U+k0qHXevqQ1qqO6s1QHI8EqnF7BZU7Je/Kh5KjBCbHuXAVntCKEoFyv8SMyKfc3KaraizBfehsbPMJzmu68FcKzc9JvuxFQGr0TpBmOencsUPXshFo3kvMh3juDiEIdkQrltvxirpwuq3fY8a3H5ryiLkoTjVPuAIiSX+aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGHqam8F; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eML3GGRw/+vGB+boqva7zseof50zpTaotuQm+4lOY1Q2KdtW5eEkCANWBDoI4xXwYnhvIEbAVft+sbYveaMNZfM98TuG7K+NFbrM9MIySlcpj+og9DSbDbeqU3REw9nG5uuLiMX8Aj63GCNMcp7y4G5Uq1HZ/sWD9iHs3L+0r3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EObZh9zm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGHqam8F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 414EB1F000E9;
-	Fri, 26 Jun 2026 21:19:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EObZh9zm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C215E1F000E9;
+	Fri, 26 Jun 2026 21:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782508781;
-	bh=/qHtjDulENvWJOViH550S5KqvWhwQPXGZfm2aT/Pk/U=;
+	s=k20260515; t=1782509065;
+	bh=meyCxyyq6wQlMw5UNwqs2YmBFT9UPIYc/BxRbXbjDOU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QGHqam8FjwuseQ6RToCGJVtUQYYDzDxsR/MQXhuLKo1chO4+tLTXAYsHbBoHNoIFn
-	 ST2yR0u2+2pQYHnY9maNsG0icodc0JnHbZpdlNmBIdrMBx9AXbSxQTMRU7LrTtL7ck
-	 LX+e70JuvlgPPv+qlt7fVU191Iu6d3AUkpReiw6InnfxZdjyk0oJJMr8T+EmoirCrI
-	 1dmklckeZHQ16rdklCfoIpHjxmB3Ldvpdfeyp+aCZFviups4oxPBjrhwc5VFLipDCm
-	 YIYQvbMKScJD4QyJDF/AQj0aG9trt/aHtDEt6Dw5t9j9+R6tRb/Pc0oUS9PrK6AZvH
-	 +9MHOQGggtfBg==
+	b=EObZh9zmorohAFFsTgCq4pCuBVadLBbS5O5/h9EE0tEcI2bxJSSCAuz5pDoQht5U/
+	 ZIYSZesGn3GMM5+T1/fiG+bP7mqgFgJCayvYHTVdNVRVr3+nkDMnPT94v5KjAx6GcC
+	 5ZaIUvuZic7WIyxsDtsQgjyy+kJbJboQGI8RaIAiiVJ6y1xGDtzluckW9tm4vUwZVI
+	 K02J0KrwHuRsCyHYSYKOSZY38gw2s8n1wKYZKUDUY8dD2a4VKHWQgQECQZREy9DwEX
+	 qxRInXmg0Dn0SsKMdcMpqDs/oxl5/ul1c7FoGoHVUwifudf/Y1wtEvHgbASTjQ42f/
+	 g9jD3UzU0K8tA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/29] phy: rockchip: usbdp: Support single-lane DP
+Subject: Re: [PATCH v8 28/29] phy: rockchip: usbdp: Avoid xHCI SErrors
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: neil.armstrong@linaro.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-12-47f682987895@collabora.com>
+Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-28-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
- <20260626-rockchip-usbdp-cleanup-v8-12-47f682987895@collabora.com>
+ <20260626-rockchip-usbdp-cleanup-v8-28-47f682987895@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 21:19:40 +0000
-Message-Id: <20260626211941.414EB1F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 21:24:24 +0000
+Message-Id: <20260626212424.C215E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,52 +48,63 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Unclocked PHY register access caused by returning 0 on unsupported=
- mode in `rk_udphy_power_on`.
+- [High] Unconditionally re-enabling the USB3 port during PHY re-initializa=
+tion overrides the High-Speed only (hs) configuration, potentially leading =
+to an SError on subsequent PHY power off.
 --
 
-commit 835e45901918a9b24aa9d7ccd7b8538db264146b
-Author: Zhang Yubing <yubing.zhang@rock-chips.com>
+commit 9d1b08c311cabde1792e9f8ef67ab6b7a5f76005
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Support single-lane DP
+phy: rockchip: usbdp: Avoid xHCI SErrors
 
-Implement support for using just a single DisplayPort line.
+This patch avoids xHCI SErrors by disabling the USB3 port before
+re-initializing it when switching between USB3-only, USB3 + DP and DP-only
+modes.
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
+> index dc166392ba199..7c8b9eaaf3526 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-[ ... ]
-> @@ -1083,18 +1072,17 @@ static int rk_udphy_dp_phy_exit(struct phy *phy)
->  static int rk_udphy_dp_phy_power_on(struct phy *phy)
->  {
-[ ... ]
->  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
->  	if (ret)
->  		goto unlock;
-> =20
-> -	rk_udphy_dplane_enable(udphy, dp_lanes);
-> +	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
-> =20
->  	rk_udphy_dplane_select(udphy);
+> @@ -1033,8 +1033,8 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
+, u8 mode)
+>  			rk_udphy_u3_port_disable(udphy, false);
 
 [Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in how
-we handle the return value of rk_udphy_power_on() here.
+This is a pre-existing issue, but does this unconditionally re-enable the
+USB3 port and override the High-Speed only (hs) configuration?
 
-If the DP controller powers on the DP PHY when DP mode is not currently
-enabled, such as before Type-C negotiation completes or when forced by
-userspace bypassing HPD checks, rk_udphy_power_on() returns 0 for
-unsupported modes.
+If the system is configured with a high-speed only USB device, the PHY
+initialization via rk_udphy_usb3_phy_init() correctly disables the USB3 port
+to safely route the xHCI PIPE clock to the UTMI fallback.
 
-Because the return value is 0, execution proceeds to rk_udphy_dplane_enable=
-()
-and rk_udphy_dplane_select(). Can this cause a kernel crash or SError
-resulting from an MMIO access to unclocked UDPHY_PMA registers?
+When a DisplayPort cable is plugged in, rk_udphy_power_on() is called. Since
+udphy->mode still contains UDPHY_MODE_USB for combo modes, this code
+switches the clock source back to the PHY, overriding the disablement.
 
-Should rk_udphy_power_on() return an error code like -EOPNOTSUPP instead of
-0 when the mode is not supported, so the check here can properly abort?
+When the DP cable is disconnected, rk_udphy_dp_phy_power_off() drops the
+status to UDPHY_MODE_NONE and powers off the PHY. At this point, the active
+xHCI controller runs without a clock, causing an immediate SError on its
+next register access.
+
+Should the re-enable conditions here, and similarly after the PHY
+re-initialization further down in this function, check if high-speed only
+is disabled?
+
+For example:
+if ((udphy->mode & UDPHY_MODE_USB) && !udphy->hs)
+
+>  		udphy->phy_needs_reinit =3D false;
+>  	} else if (udphy->phy_needs_reinit) {
+> -		if (udphy->mode =3D=3D UDPHY_MODE_DP)
+> -			rk_udphy_u3_port_disable(udphy, true);
+> +		rk_udphy_u3_port_disable(udphy, true);
+> +		udelay(10);
+> =20
+>  		ret =3D rk_udphy_init(udphy);
+>  		if (ret)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rockchip-u=
-sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D12
+sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D28
