@@ -1,165 +1,191 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFDD3DB970
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459934; cv=pass; b=BqWm+tMHqWrY9qbIRJtyfks57IJ5YsfvhFfD+nl1KmEepLHaVVxwUTxfzDS9FT8+AzFtNJCeHg9aUsj3T8Q4nQwhvpjdfr5q/MBhvqxm/aJWTB/TaafXyPZAIehf9t1zot3LG8mUvTMck3lGn56q429CSCrGXmSOJO415pTIa2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459934; c=relaxed/simple;
-	bh=ge+ySkSvSTzpeQ1S1iz53f9gihYI4+PsNWb353vU1hk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qqOQPKU+XMFLEZhIps7Hqd8wUBJn/HjfGV9Uk4CUAnFVNdh6Juv0kVylZnGeKrLaVoT//FGth5C2MxV1RsNPo4+Mw7Zk6d+zPe51QWNGyjUx0uUK87bPoVPF96HObjHb+HA7IPK3PmVa+yOCknhjy7eRaDfILQnMYvqUx4msGMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxfAayX7; arc=pass smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B2B1A3160;
+	Fri, 26 Jun 2026 07:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782460162; cv=none; b=qhymfmuS/D+Tv9k556PB7wMg5MQErh7RyomUUGnBzgxrHLrYXnkDHGVCavTbHUL912HZ2QAim8cEirjRpnQUvIFYMcGTqP8HbGDyb3yKx+Z9iiZxreHUskUvk5X6Phpx31rk1tMvT2WM2SEyuLPSz2YtSW/5M70qOn3rilugPvI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782460162; c=relaxed/simple;
+	bh=SJO+ipsUPJU8TOvmaTB5LQ+jrzIiETW1Xa37e2cVmh4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nfe4x4lD0AkyHlBNsh/6ajggfKlmUMlQvIKfeGdbkKb9K22NmUeTLzEaX1zCKGSRFlbEaTgB9h67IKBimRPiJnsEMoV1GGENffafgCH7mqyC+eqszlVJWArKaBOxIyw3JH30GVgaYQd0MeU+wkVs/Y92DTZAe20IyxTdvD+qVU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENrxtksp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxfAayX7"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-30c8b23420bso1149047eec.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 00:45:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1782459932; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bVF8zdqGuxeeBb8yhFe81wKizDeaXdRJKIO6CzvUDJcrmYx9N+aa+jT9ckdmm8hiTD
-         gRN1Sz/ZsRa9RJqYxIi7BGfLd5HJjClxZXFFiJdhR0WdrESEhO7DQBbZ9oy/O4W33j5B
-         LhCumUw0d7iFEWzC40zj8UyXEsJhnk3DGfQ8D7SlAdgFHTlvMnNCPc6KCYcvDw08c1LM
-         RXuMjXSTbP+yIvaP/+0QaJ5AxvWzDQo6CKv1d1nWr3xetaFx3gYpD4/cI6l1Qs51XQyG
-         KmZ4QaaFIJJ/dzzhtAwW2pCj87BXpgRCx5RS6krzp+BAUmdPeaJrerKnklo3r4TV6ZRz
-         fCrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hSE+T8Vd1MLikSGDmSCJ4AKkeGzaDcArm4bG+QIsXTg=;
-        fh=nnlkA3qB+1vEwZ+/3hTjXovKjbS5mAlqJy4r2Lx8Dd8=;
-        b=hfF4prderOetU7ZFVAyOpzl6D7Ja8cb7CZHqp13y945kTUvF46VHNd2E/cn9xXXDRl
-         L/D6BbkVm8bKp5YzyYPQaCzZFkZsuJqo5VEGGB/5w1vGmi4mPNZJ296Z4I1D9tJmkso6
-         dFMIlRz0YiLz0neQ3+v9/UZ6wg+hvTIm41G2M0rNglIoPf3OhdwKugvTfOBaBHsHC659
-         G4dcG7kQbn2OQ4yY4IfxNq31vKAMrvhMQUETTWanNKwqaZxax9XFEWis2hVWvDpfSjM+
-         wy1yfxB9dneicO9vCV36ogAl0RZ3koJq7LaRGEPRJm8czLtpJeXxd/4ys9PNg9J1hEJG
-         3eJQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782459932; x=1783064732; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hSE+T8Vd1MLikSGDmSCJ4AKkeGzaDcArm4bG+QIsXTg=;
-        b=jxfAayX7c7L53/cL2q8lINv/3hCoh0beRvAv3+2rHLLvkUwNCT+IVtzruSc83kCWvv
-         DJNs/2YuCAl7dC3tb4hIHh5/BayzqCvwcG1PLYs/bAB1ndhpXrOCC3UMKb76bLJti3QP
-         CrjUPOS3QDUJSLnDLMfBLMPvy1XwZ9XWu9LnILMRLY0bQ3aRdCATAdgNZYwO+cxSWtgl
-         iHw+rYwaQYV0uHECkHeazUngxT4G3bXPoueAsmejtMt/kQlnJ/f42BWESZPstf01qMRh
-         378FEhUrD0b7/c4iIO9x44svzmqC6BZWTcrUkiu8Rij0xF5RTYtUAzO9oOf4cGEM9BHr
-         xZOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782459932; x=1783064732;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hSE+T8Vd1MLikSGDmSCJ4AKkeGzaDcArm4bG+QIsXTg=;
-        b=DNhhEBiz1CDgF2mzM02v2MG+RfcjXtF1XvG5b35zyDguQY/83OfkcXbaFQrfnuKI6K
-         gv96ThGNeBX5ApdcW9fjPOr+gv7MD1ug2qwPXErm87yJx8GIzXffJdOFYQMhXtKIspVe
-         G+CkrSbD4gRXGRHO/j2n2XP4aG4M5yZC8lB+bi+P+LNSI03oW3I1KNir6txAx5e1kk1Q
-         m/Y4jn5KDm3sgBO0LaLDRfuYPdDa9QlqVFCOgDW85E4Rb7nhyUEe7gIy6kkqoeBhAgmW
-         rz2bNgUhQU3qq5RQLxZyToVpqBNW/hA7NncsA+4XSk8ORgAuGTILJOOr0T2dSh1jB/D6
-         VjSg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqn+MjK8S2MNbwtw8btSj7VhcPoFRuTg0MCQXAWi4CzJuTxNASMGzYETgswkhwMpgoLwFhXHipmb6ry@vger.kernel.org
-X-Gm-Message-State: AOJu0YwbdKjN7DTB2YBi2B198O4nJU+/3lZFJAWSCskvPdGNFUqoVOMQ
-	R08qBZ1PnenC+582cbmUSenb/NpPVOgiY72q3sda2hMTSwmp9pkDRZcKOAHHdd/CA8PlWEmrBEt
-	MUYkReeC8H9xlo2WAvBX1Ct1PEG50z9s=
-X-Gm-Gg: AfdE7cnf5ADtsetALYdi7BVGY8y8tZ10Eg5g16yLMT4oExiTCFXBZNkYnQWbWuurkfB
-	R6HjZyimzeRkZEtNKrhWSVBX5Dz8438MSCvtsRnOUuBoyjxQ8WOQ4AWbfG4p//S3rJpa7kgDExs
-	an4xdDcWug12ApbqsGmPKWrHmzddeixhBY+Zh4K4xQBdKCxnlowcaNt8dmAS9InYN1YywlYIdsp
-	6fhnGQso709C+GMVjeYul6foWU1iWqWGGVQnFXnJ9Ra5YOeJghyZ6KvE84rp59IeB4myi2J87Hb
-	mmZxnMykjf9k0olbuFnz1MTMw0usgQ==
-X-Received: by 2002:a05:7300:d08:b0:304:ccdd:594a with SMTP id
- 5a478bee46e88-30c84d12a7cmr5988818eec.5.1782459931718; Fri, 26 Jun 2026
- 00:45:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENrxtksp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF641F000E9;
+	Fri, 26 Jun 2026 07:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782460160;
+	bh=0Z+lWCSvofkli6OyVNpk9Jgr3cVRVtExR6E73RKGyXA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ENrxtkspaetlYvSL1aVOlUDXkwgZvAC/Ljngw/vxT4HLbRsaShuutYLh4TqJEOBrk
+	 +Vlvk2/iCs3Ep8q899Dn9+YenP2EZTxt2zNGv7XsuMPlWYX6wPL1kUktKO8qY78Xk0
+	 41c+ZUmzZ7wHkhSj197jm78o2B22Jmv6wvamoswHTWlmlrh17KiDLNaCOYKXtGwgcA
+	 WQApsKmMpY3qkVrmKw+lsP1bHAG2OOZJyHSOEEuS9aulLS/W39QCHK8218tfXuMdy6
+	 xhSUHVI+P1DfcIVh8sVcIsF4s221ok4H/C7hHECpc9kim5xl2CtUtU5D4P6hCpGL2g
+	 wuGHkKxZUvHIw==
+Date: Fri, 26 Jun 2026 09:49:18 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andrzej.hajda@intel.com, 
+	neil.armstrong@linaro.org, dmitry.baryshkov@oss.qualcomm.com, 
+	maarten.lankhorst@linux.intel.com, rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, 
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <20260626-zippy-affable-hamster-22101d@houat>
+References: <20260508134009.4582-1-syyang@lontium.com>
+ <20260508134009.4582-3-syyang@lontium.com>
+ <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
+ <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
+ <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
+ <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org>
+ <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260617070528.35006-1-clamor95@gmail.com> <20260617070528.35006-3-clamor95@gmail.com>
- <aj28fvj34b4_VI3k@google.com>
-In-Reply-To: <aj28fvj34b4_VI3k@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 26 Jun 2026 10:45:20 +0300
-X-Gm-Features: AVVi8CccXP_mAYvaQ06OenJXyIA8FoomOKdGLmNiaJ4doTQTPO6HkKiB97iqG30
-Message-ID: <CAPVz0n0Ja0eKrpirtMxK8bkTV0NY-UoKU0c09qLEF-xMWmOzKQ@mail.gmail.com>
-Subject: Re: [PATCH v6 2/2] Input: isa1200 - new driver for Imagis ISA1200
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="gnx6ikseltg43tzx"
+Content-Disposition: inline
+In-Reply-To: <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+
+
+--gnx6ikseltg43tzx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+MIME-Version: 1.0
 
-=D0=BF=D1=82, 26 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 02:4=
-5 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hi Svyatoslav,
->
-> On Wed, Jun 17, 2026 at 10:05:27AM +0300, Svyatoslav Ryhel wrote:
-> > From: Linus Walleij <linusw@kernel.org>
+On Fri, Jun 26, 2026 at 10:15:03AM +0800, Sunyun Yang wrote:
+> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
 > >
-> > The ISA1200 is a haptic feedback unit from Imagis Technology using two
-> > motors for haptic feedback in mobile phones. Used in many mobile device=
-s
-> > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Be=
-am
-> > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> > On 25/06/2026 15:40, Sunyun Yang wrote:
+> > > Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> > >>
+> > >> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
+=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+> > >>>
+> > >>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> > >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
+> > >>>>>
+> > >>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> > >>>>>> +
+> > >>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> > >>>>>> +{
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>>> +     msleep(20);
+> > >>>>>> +
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > >>>>>> +     msleep(20);
+> > >>>>>> +
+> > >>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>>
+> > >>>>> This is just plain wrong. Why do you assert, then de-assert and t=
+hen
+> > >>>>> finally assert AGAIN the reset leaving the device in powerdown st=
+age?
+> > >>>>>
+> > >>>> I am using software to emulate the hardware RESET button on our EV=
+B.
+> > >>>> When the hardware RESET button is pressed while our chip is runnin=
+g,
+> > >>>> the signal level changes from HIGH to LOW and then back to HIGH.
+> > >>>>
+> > >>>> Of course, we can also use the following:
+> > >>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> > >>>> {
+> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> > >>>>     msleep(50);
+> > >>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> > >>>>     msleep(20);
+> > >>>> }
+> > >>>
+> > >>> Makes no sense either and you just did not get the point and did not
+> > >>> answer my question. I asked WHY you leave asserted. Answer "we emul=
+ate"
+> > >>> is just plain wrong.
+> > >>>
+> > >>> So again please answer:
+> > >>>
+> > >>> Why do you leave device with reset asserted?
+> > >>>
+> > >>
+> > >>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
+> > >>
+> > >> GPIO_ACTIVE_HIGH:
+> > >>
+> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset p=
+in
+> > >> is Low level : Clear the register configuration in the chip to stop
+> > >> the chip from working.
+> > >>
+> > >> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pin
+> > >> is high level:  The chip resumes operation.
+> > >>
+> > >>
+> > >
+> > > Our purpose is: pull the level low to clear the register configuration
+> > > in the chip, and then pull it high to allow the MCU inside the chip to
+> > > re=E2=80=91initialize the registers.
 > >
-> > The exact datasheet for the ISA1200 is not available; all data was mode=
-led
-> > based on available downstream kernel sources for various devices and
-> > fragments of information scattered across the internet.
 > >
-> > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
-> > Signed-off-by: Linus Walleij <linusw@kernel.org>
-> > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
->
-> Sashiko convinced me that using mutex_trylock() in the playback work
-> handler will result in dropping requests and that we are safe not taking
-> the lock there at all. Can you please try the following modification?
->
-> diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
-> index c61adc4b605c..fb7f68fa0a2b 100644
-> --- a/drivers/input/misc/isa1200.c
-> +++ b/drivers/input/misc/isa1200.c
-> @@ -253,15 +253,12 @@ static void isa1200_stop(struct isa1200 *isa)
->  static void isa1200_play_work(struct work_struct *work)
->  {
->         struct isa1200 *isa =3D container_of(work, struct isa1200, play_w=
-ork);
-> -       struct input_dev *input =3D isa->input;
-> -
-> -       scoped_guard(mutex_try, &input->mutex) {
-> -               if (!isa->suspended) {
-> -                       if (isa->level)
-> -                               isa1200_start(isa);
-> -                       else
-> -                               isa1200_stop(isa);
-> -               }
-> +
-> +       if (!READ_ONCE(isa->suspended)) {
-> +               if (isa->level)
-> +                       isa1200_start(isa);
-> +               else
-> +                       isa1200_stop(isa);
->         }
->  }
->
->
-> If this works no need to resend, I'll fold on my side.
->
+> > And you do completely opposite... so that confirms your code is just wr=
+ong.
+> >
+>=20
+> The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
+> rule of this device tree. If I modify the device tree to use
+> GPIO_ACTIVE_LOW,
+> and use the following code in my driver, then my driver would be correct.
+> However, would the existing kernel drivers lontium-lt9611uxc.c and
+> lontium-lt9611.c be affected?
 
-It does work fine. Thank you.
+It might, but then it's a DT problem. The GPIO API for drivers always
+considers the logical state of a GPIO, so if you need to assert a
+signal, you'll always need to set 1. That's what Krzysztof was trying to
+explain.
 
-> Thanks.
->
-> --
-> Dmitry
+The DT will provide with GPIO_ACTIVE_* how that logical state translates
+to a physical GPIO state.
+
+If the DT says that this particular GPIO is active-high, then it means
+that we need to set the GPIO to 1 to assert reset. Now of course, it
+might not make sense for the controller itself, but it might for the
+board if there's a GPIO inverter in the middle for example.
+
+Anyway, in the case you're raising, the issue definitely lies in the DT,
+and that's what would need to be fixed.
+
+I also wouldn't be too concerned about lontium-lt9611.yaml, it's just an
+example.
+
+Maxime
+
+--gnx6ikseltg43tzx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj4u/gAKCRAnX84Zoj2+
+dqNLAX9z69D2OFoJUyMGybrjCXf43nZF1Hh6FsJ1C2j70iKcWxXlKrkcrmNAMHse
+58B1vxcBf27xWlsEv8gazvq3QBinLgCk+ZV6tON+aUbvlwgZCSb8KwSH+H/Wk7Ok
+dachx3g9/w==
+=c2Ft
+-----END PGP SIGNATURE-----
+
+--gnx6ikseltg43tzx--
