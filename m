@@ -1,312 +1,155 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8424D2F7EF4;
-	Fri, 26 Jun 2026 07:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1E13E3DBB
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782460736; cv=none; b=R+ckE6MYzGiBCNc1HDn4XZx7Y+VttFwVtcoJUxTMToRcaoE4IpsfFsxvcI6K8u9hjWY99xGji790g4FE46l7mubfN9FiWkyW5MVHg0O8ZTCgafBklA0js8qSZBi+3bmeXgev3qPQic2vI56KLUvpgGrbYgxbds2p1sJn0eBe2qc=
+	t=1782460778; cv=none; b=ly8rBHrVQdOApA6bKFNqRmnmbNZoLafzhPcRdfFldpcGibq5kbr8YGtvs11jBl+K83F2KDz5yB2wi2uW5aOJ3ekwvncMXi0PxLXJoVHRFZwUAaw8/RhghAWMIgkhnyh/lEIYnTTL88PcU5in+hisBfLTUnn6IEhVAdUhBtdO3ww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782460736; c=relaxed/simple;
-	bh=UH14fvN8UKaofZyLqiMZ2A0E9yCSuZbf7bcMkyArlaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SAOarQeZn8pHowXHhlewq/GKmwY7uw2vPo+s3ykaPVTOuwyRp4gUKIDFkGvhdRrzq3bXyu5bvYbRT9pFj4NWaFwoJTeW3r5BT+ZY9k4SDszViKor5Oee1GtlVaecvTFhOUL2es2rOVEH6/Nn9QCTs60qJ1g44+tb9jVx2s5O+1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hEft3WdC; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1782460778; c=relaxed/simple;
+	bh=sYODxyt2foDNZT7s5ipSpvmDlkzEZeJUT7Uw64IOTRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Omcd2IHquN+E33qdK0KDrAqkK/8bwIIauc0Vfc9jAtmMSQ787oqZPcdDf/Z60fOZKMrGUbePBYH+7J5etkuOSxditYWf/7hEaPdkoTTAkqw2mMMXKpkR7CSYgJNubTRif0T+HKGt27jMDoG1Yo/wNBOn2OlPw10RIXL/cyEEwfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QQ3WcdOp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YHKSW/WN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hEft3WdC"
-Received: from ideasonboard.com (net-93-65-100-155.cust.vodafonedsl.it [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B6EB31E7;
-	Fri, 26 Jun 2026 09:58:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1782460691;
-	bh=UH14fvN8UKaofZyLqiMZ2A0E9yCSuZbf7bcMkyArlaA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hEft3WdCRkuYEGff0JiurC0IswICD76B/PxgNUcjZjAgy6Jt2w3RU8CULCuqtPop+
-	 L8Xypo0TT4//jpe+zD8Daw0Pu01DTAyLjwIHQXlDlnKtvUXjTtmQ6mzbqKbUN0rBuD
-	 zbK7tMOUySucOxmiLfeQqPn2v6qtdYa2C+VTJLAg=
-Date: Fri, 26 Jun 2026 09:58:49 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/5] media: i2c: vd55g1: Add support for vd55g4
-Message-ID: <aj4xDDy0UubUzCVx@zed>
-References: <20260428-vd55g4_and_fixes-v1-0-4f745a83b87e@foss.st.com>
- <20260428-vd55g4_and_fixes-v1-4-4f745a83b87e@foss.st.com>
- <ajkKkSeDNoijIsub@zed>
- <68d276f9-e688-4736-a296-f56c5aaa4b77@foss.st.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QQ3WcdOp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YHKSW/WN"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65Q6W6GN511905
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:59:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JL6QkyFsiaToiUkSApRBS0AsrnA+UtA0FCtB5uyugqQ=; b=QQ3WcdOpy8FX1X3C
+	ViS9CcO4FgYSgsCf+1zcQjsWxCxf6MSUyV6p9aGq4i5kW0FdTUFCBgpLq5H8pbAb
+	v5ZtjlFgBJSgcD5cTzkSR2Cqwf7EPJrTOJt1v1sblWWVDdWlDyA8WEa/C44luVbQ
+	VihaGly9is2RSCxRWhwONyTuV1L9z1UX5YWAQDJWroGfertabn5alKfsx4bIcX5g
+	r3icvzCKCyPrkyiZe3G1b0Crw0pYaCUBCyygI5MfMUuUuEkjgJsaK8Tv4KxGmA/0
+	UQdJzxuCVHE+qRAF5RMcMAA6btGmtwDusc6/7lc3jC3obEkIaWJHmoqKSIillsXS
+	Na7hKQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f1fct9djp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:59:35 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9157ae36434so106218585a.0
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 00:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782460775; x=1783065575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JL6QkyFsiaToiUkSApRBS0AsrnA+UtA0FCtB5uyugqQ=;
+        b=YHKSW/WNlMtkn4LUbjgTOhLD+ZGzALz8bqkge5GOrjy2xjdBSXdUesD+rNzgkL+Evv
+         sWfrn4ZjK7M7sXAC/Ya5eHWnD7CxgQ7fG5eZmt1B1xH/VwEXTIcZjjXjh3i9icMYy1qK
+         rsjxl1Pe7vc7gQm7+q05L21RQvwKOpP3tyUo+jXtBUKi6O6nP/NUp/RoHq3bQPnsvHV3
+         txdlm2JRNm4k1eooIiX8GmaJobaCXForBtKiKybV7Ira+p5LmV4wrxy5+FCUf8b/jifa
+         7B4Hxv2KskEhnHbMDLDclP+/ObYufFgcKQ1sU3IPlUxaZlFU8dwVEYnLL8K7oEMlchVb
+         xUTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782460775; x=1783065575;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JL6QkyFsiaToiUkSApRBS0AsrnA+UtA0FCtB5uyugqQ=;
+        b=bpeA4kH7WPYIGX15TDYtcG36fGsR4tg0E3UhXY14cLlul1St+BR4Zsgqbf/y0G27/7
+         LpuuP0TL4b3EiusqtznlKpdgw4VkO4CJzfQ5iic8duz5zwnNP8Xs/QbQqg3MPQ1Gz5UE
+         Vha7+wqts2qiZz4hB49rn5rpaHzMFP6YPchNMwn9bPlqv+zD/ECaiG3/nqsu2uY/CFu0
+         L93RFxYNr5rPV5MrNjMkboJLk+5WXWi1TuJu6ectd/I73quZIxhqTUGMsFTHjR42bpcw
+         Kv7+mg6ytQUFLoLTG9fz4fU/4XQQ1qmASNj4BKOow2rK53RHyB1vjjTBER5JqLu9B/bC
+         vJBQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8hB3G8WD3HbX5mxaqQr6/VqoCOpOpBXmZ8tcTIcanrJigLJzp0mUvRPR66XamV3eaI58p7G76ISBbZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUFq9xYzVdTUPaL1s6iTyWWlb1qNi+/4xwsNL/B6jID0jjIsKB
+	4E7fQuzA1HqdRyzjv+sGUxd+fVzCzs1lN7KDSyceWq9RhrlOWxav2bMi5aeGCvJUTtKxr6cxLgH
+	owHX4aFoG0pTXl+fk4vGcEJ69gcDaiAn6isZbCwiUJWdCNjhoUKfXvjX4QzRkeVm8
+X-Gm-Gg: AfdE7clJrHxBuefIXkwSmXKW9S4h0KyKPD4C64H8ubmPr7sqQaUqdZTI92HTVxwckt3
+	f8fKCjVyny99g15BvRYZu/h9G10CptRSbWWmjnJtkAcYLOtEhJuG1o4nIgfJIBcJjm2HpOvJ+ZV
+	8F+XVxHByUVfg0oIJW3lYSeq8Qn0AP+5u73RlsEtCL/eASN/U7OZnNIXERtX99c/mjRAvFc16f+
+	Hwzrh4ByHhh0SO0AmbXrToYjFEjBMt5pTsGKjhqPjmh2jdMKPj/7Wt5uSX96BO1Wg79P6cEnHJD
+	fI6GJ9FBanE00HNTpmzeQKjl/mBEVuxt8kRe0baFj5R2O0Eyj47a5JTGPbsiWp7VpJAnTuVnShb
+	EQ/IthZPxyGyOWBwoec7rXvvpaRRNoESNJTQBRV4=
+X-Received: by 2002:a05:620a:45a7:b0:8ee:eb50:4f51 with SMTP id af79cd13be357-9293d1b5483mr919784785a.54.1782460775386;
+        Fri, 26 Jun 2026 00:59:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:45a7:b0:8ee:eb50:4f51 with SMTP id af79cd13be357-9293d1b5483mr919780985a.54.1782460774858;
+        Fri, 26 Jun 2026 00:59:34 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:d8a4:9330:ebc2:b0c2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49268fd9e77sm54432355e9.4.2026.06.26.00.59.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 00:59:34 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: linusw@kernel.org, brgl@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, afaerber@suse.com, mwalle@kernel.org,
+        andriy.shevchenko@intel.com, tychang@realtek.com,
+        Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-realtek-soc@lists.infradead.org, cy.huang@realtek.com,
+        stanley_chang@realtek.com, james.tai@realtek.com
+Subject: Re: (subset) [PATCH v4 0/4] gpio: realtek: Add support for Realtek DHC RTD1625
+Date: Fri, 26 Jun 2026 09:59:29 +0200
+Message-ID: <178246069898.6685.11577448681947659397.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260622092335.1166876-1-eleanor.lin@realtek.com>
+References: <20260622092335.1166876-1-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <68d276f9-e688-4736-a296-f56c5aaa4b77@foss.st.com>
+X-Proofpoint-GUID: hfGFKJPD_6r9EU5iqQ3cbw7ekg8KdJHE
+X-Proofpoint-ORIG-GUID: hfGFKJPD_6r9EU5iqQ3cbw7ekg8KdJHE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDA2MiBTYWx0ZWRfXyjCYKC9ek1hI
+ +9jz8hE8bdUQfcSBGEx0amBb32yf7xXXqI3RuzIG+KK1MY9tb76/sJOp/r0kyt/vv4AJTMm6Qwj
+ xkH4sy61lerQbNpgXkUI6qxmdXP7EarUy4tlG8LwNJ8orHn84DczoJsjeDkqgS6X4IpSujP8MYa
+ JFEJbqhguQc3TuEyTJV9+JuEppVtoh0gDGl01WJ+qR0V6OoKugXD+r4hPcdRrB//DZwI6CSG7zE
+ lcMhg82uTL8VH8cbOUb33qCl1+w8AXz+VG9iNiS/xBb/gMLzIjQ4gqJvTlQl73npjhzsKJj6Hrk
+ jSIi1XQjU/d7WEI60OjbfF0phhk1vQBSn67bHRgHnR+TlaJpE4RIlINM2blPk578mc2OKD6t84M
+ NkiBS956XS1sFvRTmLDcISG2NhRpkzSx2EkuwujzN+Zi7GhjZUP/dJf2gprFCgiTdqFCzBiZfJ4
+ umr1mHo+d/zvksTu2ww==
+X-Authority-Analysis: v=2.4 cv=FPkrAeos c=1 sm=1 tr=0 ts=6a3e3168 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=gmxu7H2YFhVDB807_QQA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDA2MiBTYWx0ZWRfX4ZB8ZHdpgACk
+ KhoyuOE09Qb8qzrkqY+yZFR7OrArQQjXpK/wIEncq0QNHwHvvh5CsuIrDKO/4R1z6m400kg9SFA
+ gl/sxfcpaKZqiVcbCP/v56nXCHnnME8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-26_02,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 adultscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606260062
 
-Hi Benjamin
 
-On Thu, Jun 25, 2026 at 01:41:56PM +0200, Benjamin Mugnier wrote:
-> Hi Jacopo,
->
-> Le 22/06/2026 à 12:16, Jacopo Mondi a écrit :
-> > Hi Benjamin
-> >
-> > On Tue, Apr 28, 2026 at 10:40:58AM +0200, Benjamin Mugnier wrote:
-> >> vd55g4 is the same device as vd65g4 but outputs in monochrome instead of
-> >> RGB. Adapt the driver structure according to this new variant, and add
-> >> its support.
-> >>
-> >> Signed-off-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-> >> ---
-> >>  drivers/media/i2c/vd55g1.c | 110 ++++++++++++++++++++++++++++++---------------
-> >>  1 file changed, 74 insertions(+), 36 deletions(-)
-> >>
-> >> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> >> index 2c962fcb41d2..9f62fc0428a1 100644
-> >> --- a/drivers/media/i2c/vd55g1.c
-> >> +++ b/drivers/media/i2c/vd55g1.c
-> >> @@ -29,11 +29,7 @@
-> >>
-> >>  /* Register Map */
-> >>  #define VD55G1_REG_MODEL_ID				CCI_REG32_LE(0x0000)
-> >> -#define VD55G1_MODEL_ID_VD55G1				0x53354731 /* Mono */
-> >> -#define VD55G1_MODEL_ID_VD65G4				0x53354733 /* RGB */
-> >> -#define VD55G1_REG_REVISION				CCI_REG16_LE(0x0004)
-> >> -#define VD55G1_REVISION_CCB				0x2020
-> >> -#define VD55G1_REVISION_BAYER				0x3030
-> >> +#define VD55G1_REG_COLOR_VERSION			CCI_REG32_LE(0x0670)
-> >>  #define VD55G1_REG_FWPATCH_REVISION			CCI_REG16_LE(0x0012)
-> >>  #define VD55G1_REG_FWPATCH_START_ADDR			CCI_REG8(0x2000)
-> >>  #define VD55G1_REG_SYSTEM_FSM				CCI_REG8(0x001c)
-> >> @@ -138,8 +134,39 @@
-> >>  #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
-> >>  #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
-> >>
-> >> -#define VD55G1_MODEL_ID_NAME(id) \
-> >> -	((id) == VD55G1_MODEL_ID_VD55G1 ? "vd55g1" : "vd65g4")
-> >> +enum vd55g1_model_id {
-> >> +	VD55G1_MODEL_ID_2 = 0x53354731,
-> >> +	VD55G1_MODEL_ID_3 = 0x53354733,
-> >> +};
-> >> +
-> >> +enum vd55g1_color_version {
-> >> +	VD55G1_COLOR_VERSION_MONO = 0x0,
-> >> +	VD55G1_COLOR_VERSION_BAYER = 0x1,
-> >
-> > nit: you don't need to initialize the enum members here
->
-> Thank you, will do.
->
-> >
-> >> +};
-> >> +
-> >> +struct vd55g1_version {
-> >> +	char *name;
-> >> +	enum vd55g1_model_id id;
-> >> +	enum vd55g1_color_version color;
-> >> +};
-> >> +
-> >> +static const struct vd55g1_version vd55g1_versions[] = {
-> >> +	{
-> >> +		.name  = "vd55g1",
-> >> +		.id    = VD55G1_MODEL_ID_2,
-> >> +		.color = VD55G1_COLOR_VERSION_MONO,
-> >> +	},
-> >> +	{
-> >> +		.name  = "vd55g4",
-> >> +		.id    = VD55G1_MODEL_ID_3,
-> >> +		.color = VD55G1_COLOR_VERSION_MONO,
-> >> +	},
-> >> +	{
-> >> +		.name  = "vd65g4",
-> >> +		.id    = VD55G1_MODEL_ID_3,
-> >> +		.color = VD55G1_COLOR_VERSION_BAYER,
-> >> +	},
-> >> +};
-> >>
-> >>  static const u8 vd55g1_patch_array[] = {
-> >>  	0x44, 0x03, 0x09, 0x02, 0xe6, 0x01, 0x42, 0x00, 0xea, 0x01, 0x42, 0x00,
-> >> @@ -535,7 +562,7 @@ struct vd55g1_vblank_limits {
-> >>
-> >>  struct vd55g1 {
-> >>  	struct device *dev;
-> >> -	unsigned int id;
-> >> +	const struct vd55g1_version *version;
-> >>  	struct v4l2_subdev sd;
-> >>  	struct media_pad pad;
-> >>  	struct regulator_bulk_data supplies[ARRAY_SIZE(vd55g1_supply_name)];
-> >> @@ -628,7 +655,7 @@ static u32 vd55g1_get_fmt_code(struct vd55g1 *sensor, u32 code)
-> >>  {
-> >>  	unsigned int i, j;
-> >>
-> >> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
-> >> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
-> >>  		return code;
-> >
-> > As pointed out in the previous patch, you seem to have 2 mono formats.
-> > Is this still ok ?
-> >
-> >>
-> >>  	for (i = 0; i < ARRAY_SIZE(vd55g1_mbus_formats_bayer); i++) {
-> >> @@ -1183,8 +1210,8 @@ static int vd55g1_patch(struct vd55g1 *sensor)
-> >>  	u64 patch;
-> >>  	int ret = 0;
-> >>
-> >> -	/* vd55g1 needs a patch while vd65g4 does not */
-> >> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
-> >> +	/* Version 2 needs a patch while version 3 does not */
-> >> +	if (sensor->version->id == VD55G1_MODEL_ID_2) {
-> >>  		vd55g1_write_array(sensor, VD55G1_REG_FWPATCH_START_ADDR,
-> >>  				   sizeof(vd55g1_patch_array),
-> >>  				   vd55g1_patch_array, &ret);
-> >
-> > You might want to consider renaming vd55g1_patch_array ?
->
-> It doesn't really patch an array, it writes an array of values into
+On Mon, 22 Jun 2026 17:23:31 +0800, Yu-Chun Lin wrote:
+> This series adds GPIO support for the Realtek DHC RTD1625 SoC.
+> 
+> Unlike the existing driver (gpio-rtd.c) which uses shared bank registers,
+> the RTD1625 features a per-pin register architecture where each GPIO line
+> is managed by its own dedicated 32-bit control register. This distinct
+> hardware design requires a new, separate driver.
+> 
+> [...]
 
-My only point here was that it has 'vd55g1' in the name.
+Applied, thanks!
 
-> continuous i2c registers. Just like before converting to cci_write() I
-> used to have a vd55g1_write() function to write a register, I derived a
-> vd55g1_write_array() function. Here it happens to be a firmware patch,
-> but it could be anything you want ;)
->
-> >
-> >> @@ -1256,7 +1283,7 @@ static int vd55g1_enum_mbus_code(struct v4l2_subdev *sd,
-> >>  	struct vd55g1 *sensor = to_vd55g1(sd);
-> >>  	u32 base_code;
-> >>
-> >> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1) {
-> >> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER) {
-> >>  		if (code->index >= ARRAY_SIZE(vd55g1_mbus_formats_mono))
-> >>  			return -EINVAL;
-> >>  		base_code = vd55g1_mbus_formats_mono[code->index];
-> >> @@ -1372,7 +1399,7 @@ static int vd55g1_init_state(struct v4l2_subdev *sd,
-> >>  	if (ret)
-> >>  		return ret;
-> >>
-> >> -	if (sensor->id == VD55G1_MODEL_ID_VD55G1)
-> >> +	if (sensor->version->color != VD55G1_COLOR_VERSION_BAYER)
-> >>  		code = vd55g1_mbus_formats_mono[VD55G1_MBUS_CODE_IDX_DEF];
-> >>  	else
-> >>  		code = vd55g1_mbus_formats_bayer[VD55G1_MBUS_CODE_IDX_DEF][0];
-> >> @@ -1659,38 +1686,48 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
-> >>  	return ret;
-> >>  }
-> >>
-> >> +static const struct vd55g1_version *
-> >> +	vd55g1_get_version(enum vd55g1_model_id id,
-> >> +			   enum vd55g1_color_version color)
-> >
-> > Should you indent one tab left ?
-> >
->
-> checkpatch.pl is fine with both. I can indent left, it looks cleaner.
->
-> >> +{
-> >> +	unsigned int i;
-> >> +
-> >> +	for (i = 0; i < ARRAY_SIZE(vd55g1_versions); i++) {
-> >
-> > You can declare i inside the for loop
-> >
->
-> Yes, thank you.
->
-> >> +		if (vd55g1_versions[i].id == id &&
-> >> +		    vd55g1_versions[i].color == color)
-> >> +			return &vd55g1_versions[i];
-> >> +	}
-> >> +
-> >> +	return NULL;
-> >> +}
-> >> +
-> >>  static int vd55g1_detect(struct vd55g1 *sensor)
-> >>  {
-> >> -	unsigned int dt_id = (uintptr_t)device_get_match_data(sensor->dev);
-> >> -	u64 rev, id;
-> >> -	int ret;
-> >> +	const struct vd55g1_version *dt_version =
-> >> +		device_get_match_data(sensor->dev);
-> >> +	const struct vd55g1_version *version;
-> >> +	u64 color, id;
-> >> +	int ret = 0;
-> >>
-> >> -	ret = vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, NULL);
-> >> +	vd55g1_read(sensor, VD55G1_REG_MODEL_ID, &id, &ret);
-> >> +	vd55g1_read(sensor, VD55G1_REG_COLOR_VERSION, &color, &ret);
-> >>  	if (ret)
-> >>  		return ret;
-> >>
-> >> -	if (id != VD55G1_MODEL_ID_VD55G1 && id != VD55G1_MODEL_ID_VD65G4) {
-> >> -		dev_warn(sensor->dev, "Unsupported sensor id 0x%x\n",
-> >> -			 (u32)id);
-> >> +	version = vd55g1_get_version(id, color);
-> >> +	if (!version) {
-> >> +		dev_warn(sensor->dev, "Unsupported sensor version, expected %s\n",
-> >> +			 dt_version->name);
-> >>  		return -ENODEV;
-> >>  	}
-> >> -	if (id != dt_id) {
-> >> -		dev_err(sensor->dev, "Probed sensor %s and device tree definition (%s) mismatch",
-> >> -			VD55G1_MODEL_ID_NAME(id), VD55G1_MODEL_ID_NAME(dt_id));
-> >> +	if (version->id != dt_version->id ||
-> >> +	    version->color != dt_version->color) {
-> >> +		dev_err(sensor->dev, "Probed sensor version %s and device tree definition %s mismatch",
-> >> +			version->name, dt_version->name);
-> >>  		return -ENODEV;
-> >>  	}
-> >> -	sensor->id = id;
-> >>
-> >> -	ret = vd55g1_read(sensor, VD55G1_REG_REVISION, &rev, NULL);
-> >> -	if (ret)
-> >> -		return ret;
-> >> -
-> >> -	if ((id == VD55G1_MODEL_ID_VD55G1 && rev != VD55G1_REVISION_CCB) &&
-> >> -	    (id == VD55G1_MODEL_ID_VD65G4 && rev != VD55G1_REVISION_BAYER)) {
-> >> -		dev_err(sensor->dev, "Unsupported sensor revision 0x%x for sensor %s\n",
-> >> -			(u16)rev, VD55G1_MODEL_ID_NAME(id));
-> >> -		return -ENODEV;
-> >> -	}
-> >> +	sensor->version = version;
-> >>
-> >>  	return 0;
-> >>  }
-> >> @@ -2048,8 +2085,9 @@ static void vd55g1_remove(struct i2c_client *client)
-> >>  }
-> >>
-> >>  static const struct of_device_id vd55g1_dt_ids[] = {
-> >> -	{ .compatible = "st,vd55g1", .data = (void *)VD55G1_MODEL_ID_VD55G1 },
-> >> -	{ .compatible = "st,vd65g4", .data = (void *)VD55G1_MODEL_ID_VD65G4 },
-> >> +	{ .compatible = "st,vd55g1", .data = (void *)&vd55g1_versions[0] },
-> >> +	{ .compatible = "st,vd55g4", .data = (void *)&vd55g1_versions[1] },
-> >> +	{ .compatible = "st,vd65g4", .data = (void *)&vd55g1_versions[2] },
-> >>  	{ /* sentinel */ }
-> >>  };
-> >
-> > All minors
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> >
-> > Thanks
-> >   j
-> >
-> >>  MODULE_DEVICE_TABLE(of, vd55g1_dt_ids);
-> >>
-> >> --
-> >> 2.43.0
-> >>
-> >>
->
-> --
-> Regards,
-> Benjamin
->
+[1/4] dt-bindings: gpio: realtek: Add realtek,rtd1625-gpio
+      https://git.kernel.org/brgl/c/8f32808e1530b2229e07695fb39c54fee910bd4a
+[2/4] gpio: Replace "default y" with "default ARCH_REALTEK" in Kconfig
+      https://git.kernel.org/brgl/c/b5d23fcdb12972c522e96f90ab48be8a0d971b0e
+[3/4] gpio: realtek: Add driver for Realtek DHC RTD1625 SoC
+      https://git.kernel.org/brgl/c/a57e27c43b0315ee86c6896510d69be5257e093e
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
