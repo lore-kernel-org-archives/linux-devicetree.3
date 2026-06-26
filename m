@@ -1,150 +1,105 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8215E3F20ED
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 12:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C16F3F58C4;
+	Fri, 26 Jun 2026 12:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782477889; cv=none; b=HkpTTFGyoY6xosp+dNFFgq76D8enI4SoJKVasfMW4UlJGiny8mFAMrIsL/5XfSPXszQ0W11A9owWqwTFIquVyf0Tj0dwR8vdEzg9GYJLff6DZh+vcabO8IQO3c1VzaFyaA0zf2A3VNkgJ4OJArPyS7m8jNcWJvYllXSHehFNYT0=
+	t=1782478414; cv=none; b=ushTMxfhU1mHI/BfVRu4ktuBs7hJ1fWHKseQVfC5xvvvzwBIcaKaqZMQYwjBHtxXQ8CV6y3ol2CZc41WgWUPWDqmfURzGXilBqM2SQQc1vmQPamNSeCUrhqYate7PoP22nY0s1WukicoeeWik8n1kqUWhMZqz67EqKXaHjOMTvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782477889; c=relaxed/simple;
-	bh=5ocgwha666hb1emqnCLiMPvr9KBVYGafjhTuybSGP6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=losMrgw6T3kFoVFrShF78ppH8/okeSHzcLj7YaQ/9ZW2kxQxmSCVNQnkgJHM0ppShaWmyBZHq7etlJl/WGMlcC+xjgwtIWKGjXkqv9HSkzuL2x12JMwVoQhOHe0mqVctmW61DCRzI+jUeltXSUz7XX2KNuz23zv9AH+HmKI/sKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n45RY/qB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h0LF34Xo; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1782478414; c=relaxed/simple;
+	bh=ylGkz0ljor3cC8CfKfI7ou8Mru2PLeKoLNChukkb/T0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=poJYYhtDlUsLVyRIhxOwDPDdGXn5ELD5GTHqYB0A0M9gY0lohxWMViWjNi0yelpeCC3Syc/kR3Uc1s6Iyn+0Rom/VWRu8vj1OvPxtozZQpxBNWIZYrPQE1SfWbUjpSeLCFozpZSasSn+BBOGtYXBxS/FSt9ekMiq4EIKCskU7do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hY44oIO9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n45RY/qB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h0LF34Xo"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65QAd4bX607858
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 12:44:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P2kWKuth+1KwqzAoiXa5qvD4gDmK5gvceXurKgppeBc=; b=n45RY/qBbEjvRV1c
-	IglFi/8pm4Azjh5+HkDWxwyY4n317qAVrrIpUxAdT+2judBrT5VpxMfyNvYT3jVO
-	2rjVuSj+2daCR0wdpHKvaSJNMaAMwm8n7pR8Q+DMCmVzg2BEXEDLBPib2w1WixWv
-	Oh43/y2B+ylvBQsT5QENCPJ8+FBxla03SHrxKZA7rhPdSgrl55iUON913An1nChu
-	LwrnmA0iSE1mTB2wdAmL1uB+SOeezX/9Sl3/PSOwEmbT0UUkua/s7c6c6kkLB78V
-	afRxErpGlwHgiZMFh9oRoWl30UxJopgkOfiqRYA4z1KUJzCGlKDZYkkoEG9WxvbQ
-	D+xlVQ==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f16ukcpyw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 12:44:47 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9691c46fd36so16058241.3
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:44:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782477887; x=1783082687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=P2kWKuth+1KwqzAoiXa5qvD4gDmK5gvceXurKgppeBc=;
-        b=h0LF34XoZme0ddrlRQCec7ktm4C0gl5t/zXLrtJbq7RFnEMvxkaw2WXewhSHJAClWL
-         YInplm2+pKZd4tq5js+cT+CyVdSXRzgaG4vQ3hvQyfZFKSdYmhy0UyUWQFLdgPqyLR+7
-         GeO0rAH8gEzMQf0069ApdVYmAKwwAc7rOB1ihCi8FJFsM+mQ/84UzjRn0+MlqWzJPBUf
-         qW9JhHFA0S/Z17Kr+IXHWfNXHFMZY77pAgxxMtN1mR5KTKCPTN4LetUX8N3PA7efdkSE
-         v83Yrlwf0Zk01HgbmsTRxcxAyx0gbYDI4zLP0Z35Pk/1btWWsHgj5L7ZUv/DPzigeDpe
-         wg0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782477887; x=1783082687;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P2kWKuth+1KwqzAoiXa5qvD4gDmK5gvceXurKgppeBc=;
-        b=MDgTWDnyJy2Sx0vgblltApgb0egAIwhNeH1LSq+tgb3j6xDwwFDRWLbD94q5q/L63M
-         4m6trU2hzu9UYu4YbjNGpVgvn4BD7bpyLAHku+E4goo1a2OeX+5e8uO8ByMGBWSTeSGg
-         RA0AfAYLhYvWTCaeDrn7ij3o7H0fBE1kvTdhW2Mij+zXuoTnlnks1Zuk29dZsxK4r/MV
-         17SgP/0beigdiqavamveGRtOMZcvTSiCVlpB4+gVQY+U7nap7ZMNoUn6riq/WJ0ep5hD
-         8BM6zTtfFBkrxUh9lBdh1b2xCUJDmuIyvDrEH+HV1BGallmhd317OeQLkHjqjHZ7rguu
-         876Q==
-X-Forwarded-Encrypted: i=1; AHgh+RoP1QyctrGKt0JzDxfrgBN/rmnN/MW5mQnSHPDzbisuw4e5sOFVvtCSk7XDZ9F611AHCDIs2uukSj3L@vger.kernel.org
-X-Gm-Message-State: AOJu0YymJvNVGPivW2phqfrPwWPp4Dye208zA0hCuOOd86wOlq1g7S9K
-	bj5Qx+pxYCafvXmRuM7+FAABknnTXPX9e2lJRflabjjlGZY/VBnY2WYz1xNL2/kaLiSNqwpHTfZ
-	N5FCjfwimehGNGCzJ4bpmXeRhWohZgTSAlZMtdt8c9rlHTUAkyaJtqUBFlUPQxNA8
-X-Gm-Gg: AfdE7ckoCNZBPK1WqB1BYWpgzxoez9PRNqvUw2ZLQozA6U5crt+8m/HUFiOI+4a7flz
-	3SgUhrJv28YkqZNaq0Jh5w0NPBBfvrIsDaMei0aN2YKaSrOdA4gT5I0gzvDYVoZD/Vnjj41CJjJ
-	Yw7xbUtwhJDmDmMYzHYluL2q72nwkorHUp4HachJzoQeVfM2u7se7sbgop6yIPSSvwE78EtuEgX
-	ssq0ia8HpkX1ZK3ODrrw9IZKo8eab7nHyyVU6pM0/MK8jS87oDbo43RJVzIghPeOWZlSdKLZLqi
-	Hj9iZTSgXlK9N9NOX+/ScisfeaJ8nmPaMbdzFFlobFaJHRh4omayYYeahiEctwW/ZURlv0zvJTB
-	j5psJ/q6/xjxrI19/ymRslK3DHeQxtJLFllw=
-X-Received: by 2002:a05:6102:304c:b0:726:c60b:e9d3 with SMTP id ada2fe7eead31-73435c8bb7dmr1118168137.3.1782477886911;
-        Fri, 26 Jun 2026 05:44:46 -0700 (PDT)
-X-Received: by 2002:a05:6102:304c:b0:726:c60b:e9d3 with SMTP id ada2fe7eead31-73435c8bb7dmr1118161137.3.1782477886463;
-        Fri, 26 Jun 2026 05:44:46 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-697f3ae59f1sm2715096a12.8.2026.06.26.05.44.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jun 2026 05:44:44 -0700 (PDT)
-Message-ID: <fa55bf2b-fdc0-48cb-b865-58b7b6de7d6d@oss.qualcomm.com>
-Date: Fri, 26 Jun 2026 14:44:43 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hY44oIO9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD4E1F000E9;
+	Fri, 26 Jun 2026 12:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782478411;
+	bh=inqiLlFzC3EqKHKd6BLqFXojis+b17gbXMWe4FkxZmo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=hY44oIO94vh1PwMC1h0FesTuo705xZn5QvE/zYqD0tTFvNyL8xV900uDNhW8TSq4B
+	 dvtoRtQ7oo5c1gZY+SehF6qxMKQ15SYbYNoN3S7BHfQge8c3DfO44YWkG7ccbJ/W3O
+	 UnoJ5NjddoucUuaY7YNBPn2l3DAGbQ/t2PipCMCGYrx9v8pwdeg4hXB1ggb1qwa8ft
+	 8jJfEyu8Hlnk+Si2MPLYd8AXls78rtFtbArTYgtHByryPElT/iT1UgJf0tHyCxfrZ3
+	 PC3SyLpriS1ysoKcjSWLj6vNBzWwNebUFy+zjtjNeeIwtPf4fK/M5WohlsEWS/1K5i
+	 M7NAc6Yux4xFw==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>, Mark Brown
+ <broonie@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, bjorn.andersson@oss.qualcomm.com,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mukesh.savaliya@oss.qualcomm.com, aniket.randive@oss.qualcomm.com,
+ chandana.chiluveru@oss.qualcomm.com, jyothi.seerapu@oss.qualcomm.com,
+ chiluka.harish@oss.qualcomm.com, Nikunj Kela <quic_nkela@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/4] Enable SPI on SA8255p Qualcomm platforms
+In-Reply-To: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
+References: <20260618-enable-spi-on-sa8255p-v4-0-f5b5067e7e1e@oss.qualcomm.com>
+Date: Fri, 26 Jun 2026 14:53:28 +0200
+Message-ID: <87v7b5foon.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 19/19] arm64: dts: qcom: sdm845: Add minidump SRAM
- config to SCM node
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>
-Cc: cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260624190830.3131112-1-mukesh.ojha@oss.qualcomm.com>
- <20260624190830.3131112-20-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260624190830.3131112-20-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=VuMTxe2n c=1 sm=1 tr=0 ts=6a3e743f cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=eJDSHYLt-8gXCFyzMoYA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-GUID: ikZ3Svbx8fFuTLABSawSf6i8zQ7kyQyP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDEwNCBTYWx0ZWRfX+TxjoiqEhMM+
- e98d+XmEqlwB769rdeIIKnJiGIOaF04rvUY4q2Kcg/VwCbk6M2xKAHcbZUOXkMMf8YPVarX16MC
- OMn0uginTs6m5/bmqSDRD7u4LMSBGA/KlNVmaDukgsZpPFOAUE2C3lQqkl7hdEFAbjTwLRfpBTf
- A44oUZxIMxwdQLZjZPBScrlzLOz0kJ6p4XlzeIud1jSW0AYjEFy24oCwZ9m2uojZSTr8Om3NT2J
- 4r8Rkle+UhAVaOeJ6lU6dC8xfXawaQo8Al6/yqGfB15sQLgeDmaybwcnIOZkXn7xtuiz1shMm+x
- 3N2TR9lz7jn8bs21vc9u/lOIjIxSV5alFVzg1uUv6abptdnlyLJbvlvcvjkUO3TUpW4EEmgRGLW
- pae687OLq9C6QW30WfBEjTFhbnxCuedWAUseEZdRqh91eTPfW9+Uc72U+o51GrS0uLx1tc4dlG2
- 7ZTLx8kuxDIxA1lVzPQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDEwNCBTYWx0ZWRfX3NBoWywP8aFH
- ZCfe66TKsvGQD4pn95kKtc7kJLD0yox8QCISYPqEj9bhmCpnY3O1lg6SlPgyj4yZ802d2HHX+8e
- DFXxvINccoqVLA0vjOPOFuVwdAOXQgU=
-X-Proofpoint-ORIG-GUID: ikZ3Svbx8fFuTLABSawSf6i8zQ7kyQyP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-26_03,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 spamscore=0 malwarescore=0 bulkscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 adultscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606260104
+Content-Type: text/plain
 
-On 6/24/26 9:08 PM, Mukesh Ojha wrote:
-> Point the SCM node at the minidump config slot in the always-on SRAM.
-> Boot firmware reads this word before DDR is initialised on a warm reset
-> to decide where to deliver the minidump.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
+Hi Praveen,
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for the series.
 
-Konrad
+On Thu, Jun 18, 2026 at 14:36, Praveen Talari <praveen.talari@oss.qualcomm.com> wrote:
+
+> The Qualcomm automotive SA8255p SoC relies on firmware to configure
+> platform resources, including clocks, interconnects and TLMM.
+> The driver requests resources operations over SCMI using power
+> and performance protocols.
+>
+> The SCMI power protocol enables or disables resources like clocks,
+> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+> such as resume/suspend, to control power states(on/off).
+>
+> The SCMI performance protocol manages SPI frequency, with each
+> frequency rate represented by a performance level. The driver uses
+> geni_se_set_perf_opp() API to request the desired frequency rate.
+>
+> As part of geni_se_set_perf_opp(), the OPP for the requested frequency
+> is obtained using dev_pm_opp_find_freq_floor() and the performance
+> level is set using dev_pm_opp_set_opp().
+>
+> Praveen Talari (4):
+>   spi: dt-bindings: describe SA8255p
+>   spi: qcom-geni: Use geni_se_resources_init() for resource
+>     initialization
+>   spi: qcom-geni: Use resources helper APIs in runtime PM functions
+>   spi: qcom-geni: Enable SPI on SA8255p Qualcomm platforms
+>
+> .../bindings/spi/qcom,sa8255p-geni-spi.yaml   | 63 ++++++++++++++
+>  drivers/spi/spi-geni-qcom.c                   | 83 ++++++++-----------
+>  2 files changed, 97 insertions(+), 49 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/spi/qcom,sa8255p-geni-spi.yaml
+
+Tested on top of linux-next-20260625 with my Ride SX (SA8775P) board:
+
+/ # uname -a
+Linux (none) 7.1.0-next-20260625+ #3 SMP PREEMPT_RT Fri Jun 26 11:53:34 CEST 2026 aarch64 aarch64 aarch64 GNU/Linux
+
+With spidev_test, we ping the on-board mercury codec and get a valid
+response buffer from the codec (b6 49):
+
+/ # spidev_test -D /dev/spidev16.0 -v
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | FF FF FF FF FF FF 40 00 00 00 00 95 FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF F0 0D  |......@.........................|
+RX | B6 49 00 13 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  |.I..............................|
+
+Tested-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+
