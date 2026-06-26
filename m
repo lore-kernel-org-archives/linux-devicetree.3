@@ -1,137 +1,109 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ci.icloud.com (ci-2007a-snip4-3.eps.apple.com [57.103.88.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1903A1917CD
-	for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 23:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F6C171B1
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 00:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.88.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782431140; cv=none; b=DeFdvQZdr+oJ0zj+GzGw3WTCWUfWthaGlCAorxFsZZjER7ax7MYK79NwZLLL+grEywmOhO6CY7tYmxW1hIMALQR+lkWt26WgafeLbtYo0g5BujHe0Zo0PolzVK41/nw0fEf5GslynyOYkkxz07ukeCiAlWzyLz0vnpR0bWhfwZo=
+	t=1782432523; cv=none; b=MHABQcxrX0q2zBQASECUz/TMkvY6FoSp9eld/YNXcJwr6e65ecWDS34BKV19CnlK5XdNSkb+GMoQOIhihUjzLWanGxuEylp0mGdPgKKPBGJY8wDt61vEfgQNwcw6q2LgdCERb/KL17ba7a4feL87ESqCOf/iTiSZZdL2IXiL18o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782431140; c=relaxed/simple;
-	bh=zho+bds/K3sr8/g+6AtV9BHLkTqIWWluRxW2zUqjJmk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CX9jakpHpERqohgiOirzKk2A0iJchc/PP9wgAjZ4n4qnFiyoS01d/O2rUKlcm23EKi7uOrihDuGHAI3yA8KDat4/YlyqQYXkcpOld113sFeRVmlQaCJeU3j4mJGNsceexnZuODgk+UxlSi9+CDiaT3BQSo+Efrs68TPUTAr68Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HX1UzVmN; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1782432523; c=relaxed/simple;
+	bh=f4R9clzPjiybrAMIl/OswXdNDHBbS2L1z/PcKDFijhQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T2PxiWm/IU4BzPcmWGN13RWlz6smg0u+Us3z7UAg3MaZSZ6k3QjJhPzSppf6JeXSUYuZ8YW4Zkd3ttXWLFRTjQN20wauV5H0DaFn/uIxpcyeeGoDOUTwgyz0gOw/xFqRSScGg5jQ+/yZWwa3tiQ+XU9rTmEggvknzBTDmK/Ddg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=wctcL9Q7; arc=none smtp.client-ip=57.103.88.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HX1UzVmN"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-30c9c8c2697so164585eec.1
-        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 16:45:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782431138; x=1783035938; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=gAeg/0vb+Xz33u79vnkEfiy2hWyqVw1XPl1l+y0c8QQ=;
-        b=HX1UzVmNIETGP/IykGirRUGNjgfm0ctMQ3Mfh3zMmVqAv93lLura1SJmNOZfKYKm0B
-         4FmSN4r9q7HNjcJwY0+bydn/2y96zkO06eVkNHrSuwc/Zpn1Od+sKAJtACnBiIYhL6uZ
-         mN0RTe8ourxGZ8PZogtZFv68CaraMlrmwLFNedPdmowuutM/X+VlE8XeWXvewZ+fSXdi
-         R8x0vEUZ1mWMjFe6tdp5/rtRAylgPraNhXCPmknqu5lm6s0hNv6bTCXRFwDCmvC588ik
-         h1p05z207EBzsAV21ddAbrswgYC0sRoO5bs7R0hT1+/R5kvGHBvBkww948vEz2rxmsdy
-         8yzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782431138; x=1783035938;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gAeg/0vb+Xz33u79vnkEfiy2hWyqVw1XPl1l+y0c8QQ=;
-        b=n0V9CPYWtFr8CJAvG7+SGn95Spn7cXD119Sps/TmDqnNR938tpYjuDowYUfI8yN785
-         Wj4lPmq5KYshxgiJ3a1ZJifWzMYDcxDHCB6ofk+kBHsg0mtdzp0EVzN1wQS+eQlKBlaO
-         tHx4ut3jUsi1SZRoDVoo9d5X8MeialG8vaTNWEmwkrWgG/qgSgTAlRsXY88pCvBsiPve
-         26ylKyZQZzPHfwFGMd9dAiIQfMxqxe3XMQlm9JphoP9p92VejkzUpJ6UaiX8v6tI4X80
-         7TCrG9/b4NVS1pz78MU0ROt/bGInEOmdsV0EgxWjGRyUePBtEXgdgbomf+n/ujS21fz4
-         Ga1w==
-X-Forwarded-Encrypted: i=1; AHgh+RpTIk69rfd4FwwwJmpt9Gl7uxhLR+GXQcv0L+WOWr3K+yrA+KvXlRaTSVKrdz6M+fzqOVMzx6K2I8aJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzkQOV3g3ToAcGGtNV2wBAQG5qTeau43a5ehzprFw6vvumQL/Dz
-	xpDVDZWBH5Xp6e5+fkmzAsz9gcInSzPBztQybiv5AR8FgYdKkOI8DbrE
-X-Gm-Gg: AfdE7cn+CB+4IdqH/Vl3mYdhOPWNqGX7JEKrE8r+w0qJFcs6Xk/RK8tHpArpOQtfDVI
-	ZmJxDqmifNZaqVMFWu/3RI2GVFZiFmKDLSlsMw/1jcSCIN0qqP3oBweYs6NZmJAJmQWDBgfngQ5
-	cSehHUy5DnMXV97Iw0jSLK3E/S+p6t298Lj4O2YpM9D04AQ7TjReoCB7w0Z2ogS7u4xwQ6qDKWO
-	pyfftB1Rrz7it/zebex3KT2W01tKiYghXCJV6KKX8wzNbTB1yYyT/KYaqFel6oRfgvnrZ8frKQE
-	ECHJ6HTOZNm5JHsRziE5nGN/Z4xBzzgnbVKnM3p081NZ/SSazUtmQnw40huUpPMn4fhm0Y1tl4A
-	axhM+BCr69zeteYfVob8ZwxP2my/saWixebbjSetGMna8KIiBupxlHEJqKh4SCm2AUJSvpWst6k
-	uw98lQF3Bwrfdujg97XKB0iNzI6fbitXMTc53T8TeyM2yhaYbNrtgqPQ==
-X-Received: by 2002:a05:7300:760a:b0:30b:f0c6:12c8 with SMTP id 5a478bee46e88-30c84ba31edmr4946004eec.9.1782431138182;
-        Thu, 25 Jun 2026 16:45:38 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:c782:a4ca:fcbd:6ba7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30c7c8afc91sm12621344eec.14.2026.06.25.16.45.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 16:45:37 -0700 (PDT)
-Date: Thu, 25 Jun 2026 16:45:34 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] Input: isa1200 - new driver for Imagis ISA1200
-Message-ID: <aj28fvj34b4_VI3k@google.com>
-References: <20260617070528.35006-1-clamor95@gmail.com>
- <20260617070528.35006-3-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="wctcL9Q7"
+Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPS id 2A491180015E;
+	Fri, 26 Jun 2026 00:08:39 +0000 (UTC)
+X-ICL-RepId: 019f0141-d3c5-7de5-9812-1b3eeda766ae
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWBVBRHV8CCgRHBFsXRgNTRVEZFxFQAVgeVl5aF15NRx9ATWJJAVoZWxxAF0puTVMPDxlaFFwYU0VRH1RYXgRTVg5CCUoFXQFZBEAJSARcAkUDQQhJC10ERgNdTxFdDlIFRl5aFFwYQwJXAnkRUAFYHlZeWhdeUxcfSwBcRVoOWwRHFA==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782432521; x=1785024521; bh=62riOTYrLlfgacm6h7BtxUIAXTixdzk21VOhDGmuiTs=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=wctcL9Q78YFeus/xSU++iBhJ033IW+6wGUJ0SbOOahm1Q6LZWZQsVvt/U04/elZK+vh8ybxnvhMIZUoDyZQps5VblcA/l4wbfjCDZNVlXBsUe9PwD10Aqn3FuTm4drpkYTTDiJYCNt9Zp23uUED0XPZCunW4MEhoGDa5aWgidDoKZg38irBuZSmJB7M5jhXLrs+h1S0rLRuOzOecfVAgyX7xc44ohKGnjtLyP1ARq12k4XVmdSpE4zSo7HZMXmyFM9xrzrT+9dDAwwkmYosz7pSepOUlADWATmpgXR5PYb3fgSa/1MN+hJqmJkOigAqmuXEt0FRQOtjkuBiob/HRvg==
+Received: from bigre.localdomain (unknown [17.57.156.36])
+	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPSA id 3C05A1800463;
+	Fri, 26 Jun 2026 00:08:38 +0000 (UTC)
+From: Vincent Cloutier <vincent.cloutier@icloud.com>
+To: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-imx@nxp.com,
+	kernel@puri.sm,
+	Vincent Cloutier <vincent@cloutier.co>
+Subject: [PATCH RFC 0/4] media: i2c: Add Samsung S5K3L6 and Librem 5 rear camera
+Date: Thu, 25 Jun 2026 20:06:56 -0400
+Message-ID: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260617070528.35006-3-clamor95@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDIwOSBTYWx0ZWRfXzoAVob3LJ6jD
+ EnG0MZyGxZ7CxJ/hh6tPeFu5N7rSuqvrNu9lOqWd9OGNbadBHG1mVkAtBh3pgXai6UMT3BV3WIP
+ lXttj4lhmluntt8LgOpCaOniw+i8W2FFAqz970Cqn2gooehEzIAA3OQa1YwIYUluCid+AYK9S0O
+ 0guCDfnci6RMThBYam6LmzJyPBmMGXJw+QaHH9798g8JxUmB8jFT9xYlQOaAqmSZN4gUrUyJZGP
+ PO4u8iGLppzhIS/REJ9jnlgDRSOrnuc0y0YrjgVw6jDqCwIy5HnelG+5+6MefeS3wowNio6GtCN
+ GD9LByDGKrjMpLnCSe0
+X-Proofpoint-GUID: UhiN7vVFI5x6yZ7pg-UP9OgSjO-L5kvV
+X-Proofpoint-ORIG-GUID: UhiN7vVFI5x6yZ7pg-UP9OgSjO-L5kvV
 
-Hi Svyatoslav,
+From: Vincent Cloutier <vincent@cloutier.co>
 
-On Wed, Jun 17, 2026 at 10:05:27AM +0300, Svyatoslav Ryhel wrote:
-> From: Linus Walleij <linusw@kernel.org>
-> 
-> The ISA1200 is a haptic feedback unit from Imagis Technology using two
-> motors for haptic feedback in mobile phones. Used in many mobile devices
-> c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
-> GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
-> 
-> The exact datasheet for the ISA1200 is not available; all data was modeled
-> based on available downstream kernel sources for various devices and
-> fragments of information scattered across the internet.
-> 
-> Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+This RFC fixes the i.MX8MQ CSI-2 reset path needed by Librem 5 camera
+capture, adds initial upstream support for the Samsung S5K3L6 image
+sensor, and wires it up as the rear camera on the Purism Librem 5.
 
+This is intentionally a rewrite, not a direct forwarding of the Librem 5
+downstream S5K3L6 carry. The downstream history is a long bring-up
+series with debugfs register overrides, debug-frame plumbing, commented-out
+old subdev code, FIXME/TODO scaffolding, and several API-era migrations.
+This RFC collapses the usable production path into a current V4L2 sensor
+driver using CCI regmap, runtime PM, fwnode endpoint validation, and the
+current subdev stream API.
 
-Sashiko convinced me that using mutex_trylock() in the playback work
-handler will result in dropping requests and that we are safe not taking
-the lock there at all. Can you please try the following modification?
+Many thanks to Martin Kepplinger, Dorota Czaplejewicz, and Sebastian
+Krzyszkowiak for the original Librem 5 S5K3L6 driver work and rear-camera
+bring-up. Martin authored the initial downstream driver, and Dorota and
+Sebastian substantially developed the mode tables, controls, power-up
+sequence, and sensor tuning that this rewrite is based on.
 
-diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
-index c61adc4b605c..fb7f68fa0a2b 100644
---- a/drivers/input/misc/isa1200.c
-+++ b/drivers/input/misc/isa1200.c
-@@ -253,15 +253,12 @@ static void isa1200_stop(struct isa1200 *isa)
- static void isa1200_play_work(struct work_struct *work)
- {
- 	struct isa1200 *isa = container_of(work, struct isa1200, play_work);
--	struct input_dev *input = isa->input;
--
--	scoped_guard(mutex_try, &input->mutex) {
--		if (!isa->suspended) {
--			if (isa->level)
--				isa1200_start(isa);
--			else
--				isa1200_stop(isa);
--		}
-+
-+	if (!READ_ONCE(isa->suspended)) {
-+		if (isa->level)
-+			isa1200_start(isa);
-+		else
-+			isa1200_stop(isa);
- 	}
- }
- 
+This series covers:
 
-If this works no need to resend, I'll fold on my side.
+- 25 MHz input clock, matching the Librem 5 downstream configuration
+- two MIPI CSI-2 data lanes
+- RAW8 and RAW10 SGRBG modes at 1052x780, 2104x1560, and 4208x3120
+- exposure, analogue gain, digital gain, blanking, pixel-rate,
+  link-frequency, test-pattern, orientation, and rotation controls
+- Librem 5 DTS integration for the rear sensor and second CSI-2 path
 
-Thanks.
+The rewritten driver and DTS path have now been tested on Librem 5r4
+hardware in a v7.1.1 carry build, with the i.MX8MQ CSI-2 reset fix from this
+series applied.
+
+Patch 1 keeps the i.MX8MQ CSI-2 software reset sequence compatible with
+the Librem 5 camera pipeline by making the post-assert reset release
+SoC-specific. This is included as an RFC prerequisite for the Librem 5
+rear-camera enablement; if preferred, it can be split out and handled as
+a separate media/platform fix.
+
+Vincent Cloutier (4):
+  media: imx8mq-mipi-csi2: Keep i.MX8MQ reset assert-only
+  dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
+  media: i2c: Add Samsung S5K3L6 image sensor driver
+  arm64: dts: imx8mq-librem5: Add rear camera
+
+ .../bindings/media/i2c/samsung,s5k3l6.yaml    | 117 ++
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi |  51 +
+ drivers/media/i2c/Kconfig                         |  10 +
+ drivers/media/i2c/Makefile                        |   1 +
+ drivers/media/i2c/s5k3l6.c                         | 1055 +++++++++++++++++
+ drivers/media/platform/nxp/imx8mq-mipi-csi2.c     |   9 +-
+ 6 files changed, 1241 insertions(+), 2 deletions(-)
 
 -- 
-Dmitry
+2.53.0
