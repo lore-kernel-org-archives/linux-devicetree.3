@@ -1,165 +1,179 @@
-Received: from outbound.ci.icloud.com (ci-2003c-snip4-11.eps.apple.com [57.103.91.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0EC148850
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 00:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD44381AF;
+	Fri, 26 Jun 2026 00:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782432557; cv=none; b=RmgTjm/bhAKEp6/+E/4leGNDaSZ6j9T9Cpb3FGZnbSYC8cegf7V2ys9xmtbCK1xksVYV68qEcLA8Wsb3xHeM4NGzxVUq0zK/6h1dPyYYQBVdVeHP8OpmztLXwQZ2RAAJHP0bYsm86coYCLhd++TnLJ6g6Bnsv/gnEhdGE0ERA+s=
+	t=1782433231; cv=none; b=JrS275epT/H7gxgcPwfBVNr2iFLr3Vw4Qe2IPbxcRX/4ylos3ZTjrUl4Y2ELAulQg9fHVMEiPZ1pAitSIsURtJ8QR4szgEbka3aF8UtpRf0+MUtSzJsak65k4UA/EBFleU8NxvLXNHXzZvczHvNHgck/9y7PaSxFihRVmn9agbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782432557; c=relaxed/simple;
-	bh=pGwrsUgMSkXZxQz72F5yUOXaGG2M8gkrFehdMYYfvWI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B87CGIBXh8SG5m7e+pnGRmkCo5r/0r6eMviqCs1gO9NHZrYwxMS5UjyGKqijhbU5+9PWRYyZIlRS2c26KO20fDAkiGprQn3DdmN4XsL3lHed/YwL0HdYUyvMp59pToDkXDxUoYN0BimY3qte4UE0BFHMoRQuKX0hJWeRDq+RddA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=L69HB4MC; arc=none smtp.client-ip=57.103.91.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1782433231; c=relaxed/simple;
+	bh=v5fr+vIiz8BjFMittK1+SrIQQMBoAxeRJLKkzPV0PTw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QotH84BTWlDLp4CYhYCMFOjFmwXL75Vmk4wqDwpn0WhmjlCy7lGm++ph4+gEINUXWYnsw2JijViDYDgHejqoa9tX3OeBRXK2opFFq6CNaA2Ep1OTBY5pF69ytVLIOSoo8jjDdauVihR74M0GfEX4W32R/Tb5KqGUOFvMYdePZZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qv3z8m6Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="L69HB4MC"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPS id 3FC281800B08;
-	Fri, 26 Jun 2026 00:09:12 +0000 (UTC)
-X-ICL-RepId: 019f0142-54d8-7cc3-9bf6-c6bc3c533f8e
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0UZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwddAEYJSANaBl4cQQhJAlUHWB9FFA5aA1QOXAQXG18CQh9bFUs4Wg5bBEcUFxtcAAlLRglJHQ4EVAddBV0=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1782432555; x=1785024555; bh=WfQwuydOeK6V1CoXII0HfYiJOqqMtVXHj9rKHdfI+eg=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=L69HB4MCg0HDPreoq2LHPf0xAJ+dfR1uzlRAVLK4LD3n8ef6YRgK6apKDl/HPxKNaBZPhUIlO2znat5lGJVqiD9eTqxSTb7joiABBqKvp1aBKoeCgaUVR+CQQibKFbrTanpvEAFpdMTLJ81KTjTLQYVXpFtbvmyp9klnzOnHVrUVBwLVysRN8ksp/J5JiAOfL+aUTIWrGHbkY4u37GmEQnL+rk0jycgZxiDgF+yMDXmFOSWAsSAIfzzzsdMrEtEiZe5J1oS/hXXGnV3yrfvGVoRtgD46H8ZkQdw0ZkbxRoO7DVtTPLMpqLh6Wgtd/sy35YQ/kYIx1NXzZh6CuGBReg==
-Received: from bigre.localdomain (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-10-percent-2 (Postfix) with ESMTPSA id C80A01800297;
-	Fri, 26 Jun 2026 00:09:10 +0000 (UTC)
-From: Vincent Cloutier <vincent.cloutier@icloud.com>
-To: linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-imx@nxp.com,
-	kernel@puri.sm,
-	Vincent Cloutier <vincent@cloutier.co>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	imx@lists.linux.dev
-Subject: [PATCH RFC 4/4] arm64: dts: imx8mq-librem5: Add rear camera
-Date: Thu, 25 Jun 2026 20:07:00 -0400
-Message-ID: <20260626000715.1111803-5-vincent.cloutier@icloud.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
-References: <20260626000715.1111803-1-vincent.cloutier@icloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qv3z8m6Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9AD1F000E9;
+	Fri, 26 Jun 2026 00:20:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782433230;
+	bh=3WD32Qx1GuXwGLFqx6bAoZaoz6zR3H83iCclU4QE6V0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Qv3z8m6YUBjyq5P3l/1CXt5sfi8xu6hxnL/RKiIXI6c/yuogShbpBjva4mDeRo3ef
+	 FpDTXGVkPLknQL/n7sAakriHgZxubnwDLvuXO8zMsKsoe69Kjp4czke1AwKlAsbiox
+	 nO97ysx3m6E1KvJScm307K1cvSBmPpRyKPU3yS1GqgETGWznoFIrVgPLQW4gUTkvOr
+	 zO03Z0rb+SnEM3bA1CfEjGcAGS3pnsWpBruC1nJcDOFSrqpfgTUeeQfbL4mdRAQjs5
+	 AMA7hnndSKqm7EQ0tqQ/Nb8HsPyq/31ke4bR5+A9nBkdZJobqE8+q2R/8J9zOO9aeS
+	 RdbIXdUPLY6ug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] clk: en7523: add support for dedicated PCIe
+ PERSTOUT reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260625215741.3253212-3-ansuelsmth@gmail.com>
+References: <20260625215741.3253212-1-ansuelsmth@gmail.com>
+ <20260625215741.3253212-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 00:20:29 +0000
+Message-Id: <20260626002029.AC9AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 2VvdWmrPWZdVNub0KeMOgqvRQKO-UmiH
-X-Proofpoint-ORIG-GUID: 2VvdWmrPWZdVNub0KeMOgqvRQKO-UmiH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI1MDIwOSBTYWx0ZWRfX30fSeoAsy88h
- z+ommw0lPDcP7hqzDJybEmAMMSjEGEBPrqEdZqjjChFRVijo4CJ+dxakwKlT/Fy9wXUStcHuXRS
- bPqEmHiKavWmrYqIBt5h6ohtJ/ydrjOrp/1aV9nDSXXBEkSvMBnK29zxQ/nivIVPxeYDWCfdit1
- QHiXtCrVlw4n/dGiir537bW2bPpFGcJpY6yhYRYBwo5ADth3jPucnsIndhFiclJ+0olLIh7tvm2
- 9GlW2uXCZlsL8iwpAUwZfT9NJo/Rz7coiv99ZXBZMS6tUWYVsQkv3GpqmT8x5iGuG77ewqqHVBn
- DqCNXzqlD5o7h5zC3V/
 
-From: Vincent Cloutier <vincent@cloutier.co>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Add the Librem 5 rear camera sensor node and enable the second CSI-2
-capture path that receives data from it.
+New issues:
+- [High] Data race between clock enable/disable and reset assert/deassert o=
+n the shared PCIC register (0x88).
+- [Medium] The reset status callback does not account for inverted reset lo=
+gic, reporting incorrect status for PCIC resets.
 
-Describe the Samsung S5K3L6 sensor with the upstream binding property
-names, including reset-gpios and the link frequencies used by the initial
-two-lane RAW8/RAW10 driver modes.
+Pre-existing issues:
+- [High] Missing synchronization in the reset controller allows concurrent =
+reset operations to corrupt shared reset registers.
+- [High] The `en7581_pci_disable` function calls `usleep_range()`, sleeping=
+ in an atomic context.
+--
 
-Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
-Assisted-by: OpenCode:gpt-5.5
----
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 51 +++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+commit 82bdae998b98b49b0cf96f540c945b593f30a899
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index f5d529c5baf3..12d5fb3440c5 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -318,6 +318,10 @@ &csi1 {
- 	status = "okay";
- };
- 
-+&csi2 {
-+	status = "okay";
-+};
-+
- &ddrc {
- 	operating-points-v2 = <&ddrc_opp_table>;
- 	status = "okay";
-@@ -434,6 +438,13 @@ MX8MQ_IOMUXC_ENET_RXC_GPIO1_IO25	0x83
- 		>;
- 	};
- 
-+	pinctrl_csi2: csi2grp {
-+		fsl,pins = <
-+			/* CSI2_NRST */
-+			MX8MQ_IOMUXC_ENET_RD0_GPIO1_IO26	0x83
-+		>;
-+	};
-+
- 	pinctrl_charger_in: chargeringrp {
- 		fsl,pins = <
- 			/* CHRG_INT */
-@@ -1175,6 +1186,31 @@ vcm@c {
- 		vcc-supply = <&reg_csi_1v8>;
- 	};
- 
-+	camera_rear: camera@2d {
-+		compatible = "samsung,s5k3l6";
-+		reg = <0x2d>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_csi2>;
-+		clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		assigned-clocks = <&clk IMX8MQ_CLK_CLKO2>;
-+		assigned-clock-rates = <25000000>;
-+		reset-gpios = <&gpio1 26 GPIO_ACTIVE_LOW>;
-+		vdda-supply = <&reg_vcam_2v8>;
-+		vddd-supply = <&reg_vcam_1v2>;
-+		vddio-supply = <&reg_csi_1v8>;
-+		rotation = <270>;
-+		orientation = <1>;
-+
-+		port {
-+			camera2_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64
-+					<537500000 600000000 625000000>;
-+				remote-endpoint = <&mipi2_sensor_ep>;
-+			};
-+		};
-+	};
-+
- 	bat: fuel-gauge@36 {
- 		compatible = "maxim,max17055";
- 		reg = <0x36>;
-@@ -1226,6 +1262,21 @@ mipi1_sensor_ep: endpoint {
- 	};
- };
- 
-+&mipi_csi2 {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+
-+			mipi2_sensor_ep: endpoint {
-+				remote-endpoint = <&camera2_ep>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
- &mipi_dsi {
- 	#address-cells = <1>;
- 	#size-cells = <0>;
--- 
-2.53.0
+clk: en7523: add support for dedicated PCIe PERSTOUT reset
+
+Add support for resetting the PCIe lines with the PERSTOUT reset. These
+special reset are controlled by the PCIC register and are specific to each
+of the 3 PCIe lines.
+
+Notice that reset logic is inverted for these bit where 0 is assert and 1
+deassert. This is intenrally handled in the reset function.
+
+PCI enable/disable are updated to drop PERSTOUT bits in favor dedicated
+reset handling.
+
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 1ab0e2eca5d32..a33cf2e1b76f8 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
+[ ... ]
+> @@ -650,9 +654,7 @@ static void en7581_pci_disable(struct clk_hw *hw)
+>  	void __iomem *np_base =3D cg->base;
+>  	u32 val, mask;
+> =20
+> -	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1 |
+> -	       REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT2 |
+> -	       REG_PCI_CONTROL_PERSTOUT;
+> +	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
+>  	val =3D readl(np_base + REG_PCI_CONTROL);
+>  	writel(val & ~mask, np_base + REG_PCI_CONTROL);
+>  	usleep_range(1000, 2000);
+
+[Severity: High]
+This is a pre-existing issue, but the Common Clock Framework calls the
+.disable callback with the enable_lock spinlock held and hardware interrupts
+disabled.
+
+Does calling usleep_range() here sleep in an atomic context and lead to a b=
+ug?
+
+[ ... ]
+> @@ -754,14 +756,21 @@ static int en7523_reset_update(struct reset_control=
+ler_dev *rcdev,
+>  			       unsigned long id, bool assert)
+>  {
+>  	struct en_rst_data *rst_data =3D container_of(rcdev, struct en_rst_data=
+, rcdev);
+> -	void __iomem *addr =3D rst_data->base + rst_data->bank_ofs[id / RST_NR_=
+PER_BANK];
+> +	u32 offset =3D rst_data->bank_ofs[id / RST_NR_PER_BANK];
+> +	void __iomem *addr =3D rst_data->base + offset;
+> +	bool inverted =3D false;
+>  	u32 val;
+> =20
+> +	/* For PCIC reset logic is inverted, 0:assert 1:deassert*/
+> +	if (offset =3D=3D REG_NP_SCU_PCIC)
+> +		inverted =3D true;
+
+[Severity: Medium]
+It appears en7523_reset_status() wasn't updated to handle the inverted logi=
+c:
+
+drivers/clk/clk-en7523.c:en7523_reset_status() {
+    ...
+    return !!(readl(addr) & BIT(id % RST_NR_PER_BANK));
+}
+
+Will callers of reset_control_status() receive incorrect status for these
+resets, returning 0 for asserted and 1 for deasserted when querying PCIC
+resets?
+
+> +
+>  	val =3D readl(addr);
+> +	val &=3D ~BIT(id % RST_NR_PER_BANK);
+>  	if (assert)
+> -		val |=3D BIT(id % RST_NR_PER_BANK);
+> +		val |=3D inverted ? 0 : BIT(id % RST_NR_PER_BANK);
+>  	else
+> -		val &=3D ~BIT(id % RST_NR_PER_BANK);
+> +		val |=3D inverted ? BIT(id % RST_NR_PER_BANK) : 0;
+>  	writel(val, addr);
+
+[Severity: High]
+This is a pre-existing issue, but multiple drivers could concurrently probe=
+ or
+change power states, causing their reset operations on the same register ba=
+nk
+to interleave.
+
+Could this lockless read-modify-write operation allow concurrent reset
+operations to corrupt the shared reset registers?
+
+[Severity: High]
+en7581_pci_enable() modifies REG_PCI_CONTROL using a lockless
+read-modify-write:
+
+drivers/clk/clk-en7523.c:en7581_pci_enable() {
+    ...
+	val =3D readl(np_base + REG_PCI_CONTROL);
+	writel(val | mask, np_base + REG_PCI_CONTROL);
+    ...
+}
+
+If REG_NP_SCU_PCIC and REG_PCI_CONTROL point to the same register, a
+concurrent clk_enable() and reset_control_assert() could silently corrupt
+each other's bits since they belong to different lock domains.
+
+Will this read-modify-write race with the clock framework?
+
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625215741.3253=
+212-1-ansuelsmth@gmail.com?part=3D2
