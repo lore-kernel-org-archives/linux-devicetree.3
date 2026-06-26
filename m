@@ -1,60 +1,89 @@
-Received: from mx0b-00823401.pphosted.com (mx0b-00823401.pphosted.com [148.163.152.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D883E5589;
-	Fri, 26 Jun 2026 09:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.152.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339753E8C55
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782465242; cv=none; b=tDq2R7V7Luhh6mUjFKK4EY4vH0DoN6/Ucfkjsm83CtpFjfEsHDRrvYuKMxaY/unCJjW7vBp75e9lYkfHEkKpDcVVZ0hhaKCVxNtHl4NjMn1wqdbjNwuZFqiFwH8bN4A4qGcLGiUwYJnIoLTAKynLfCIM58g05mBqNtW52Qq+JB8=
+	t=1782465648; cv=none; b=CVjC+khHH0NzOM7qaqCLF61YDRBScAhOIGd4fyWoLjiDmWu8w8iom6v4uRhfUeLUis55RwlM3y0JdYh7OIdPO0Y3SmpjIVLJZ8q6kPnYFgdCxxKFYssgFVpFVwnJhrLOQEwEv6tztY68H+btfA7rXXHNdMHGvSbfx5xbRx2l2K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782465242; c=relaxed/simple;
-	bh=bxNP9GLcxinvfRARp2qwsO3ZckSiF8ZaJgRIXeNSUN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kzBsGSQLIQov8bGbWhc5Wv56AzsYEmVNhXe0/7vcWV0E6++cne5x9t4i2xiNtOZlyUhylnEPdDaJI9iE+6ULGwc7/5iZLYG/8hed+0ySJFSs1+qnRuiDlxW5LpA87IgYTRFxOc0Lo9tzEG+zUGdrwdgEYcEfxZgUCfcfyoYKWN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com; spf=pass smtp.mailfrom=lenovo.com; dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b=USNA62VV; arc=none smtp.client-ip=148.163.152.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lenovo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lenovo.com
+	s=arc-20240116; t=1782465648; c=relaxed/simple;
+	bh=FCGrZ4ia9moub3vpndSIDoB0WJ00EU6aXtezVQRRMPc=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=cnGVG8rh/SjMfsQ/XJKIsLdguOVQowH1UC0OWUlk3ZH2+fUNdA8dOEPCYYtzDLP9gukW7fNBibFokKqVvLNthFgYdgovleb89RfXQ2Q8sDqZrKVc/0j/KhMgnuAwQuBVlIQiOumhorWSpsQ8YIVj8+I4Hq6qoTElfco+Ol0Po94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Elypdu4x; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lenovo.com header.i=@lenovo.com header.b="USNA62VV"
-Received: from pps.filterd (m0355090.ppops.net [127.0.0.1])
-	by m0355090.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 65Q6SpX5123795;
-	Fri, 26 Jun 2026 09:13:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=DKIM202306; bh=2M1gkMHxFD
-	9/4Eq1RnCS0DRFUE90xrm0ITDLE8kuKBs=; b=USNA62VVRL7x+UkzzkWIhI41zZ
-	6Er/dC4ippmZg7ooo2AB6O1T+0u68MSYTCiyTEO4Htcmmjdy8OamaJISC9bQoeGd
-	KRKBfc1Aldypc/mYobYjF8shDxbJaNw/2fVPSXowPspwDGu1gT/osBUCVv1De70K
-	KCQilZX6MshMIZkgN9yJj9+y1WEgRVVC1c/WAn2GeD3dZub6Y75uTwtkrli0DVyD
-	dOb2Cb8tOG7ODv4GI5NAEuHQb7DuctY4CHasvmcY5C5IMKch0W3dIVCqPVuoPZ/c
-	M4s+XmZI6ImTyC0r181l7uw/BhgczbFh7yCGTZEruEzgls6DK8q1TwQA5s5g==
-Received: from hkglppfpool4.lenovo.com ([103.30.235.221])
-	by m0355090.ppops.net (PPS) with ESMTPS id 4ex66q4k5j-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 26 Jun 2026 09:13:53 +0000 (GMT)
-Received: from shelppfpol2.lenovo.com (unknown [10.122.146.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hkglppfpool4.lenovo.com (Postfix) with ESMTPS id 4gmqjW39mzzltBP0;
-	Fri, 26 Jun 2026 09:13:51 +0000 (UTC)
-Received: from lenovo.com (unknown [10.119.171.213])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by shelppfpol2.lenovo.com (Postfix) with ESMTPS id 4gmqjV5w4wzl0;
-	Fri, 26 Jun 2026 09:13:50 +0000 (UTC)
-From: Jiqi Li <lijq9@lenovo.com>
-To: linux-tegra@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh+dt@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, jonathanh@nvidia.com, thierry.reding@gmail.com,
-        mpearson-lenovo@squebb.ca, Jiqi Li <lijq9@lenovo.com>
-Subject: [PATCH 1/2] dt-bindings: arm: tegra: Add lenovo,thinkedge-se70 compatible string
-Date: Fri, 26 Jun 2026 17:13:48 +0800
-Message-ID: <20260626091349.570091-2-lijq9@lenovo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260626091349.570091-1-lijq9@lenovo.com>
-References: <20260626091349.570091-1-lijq9@lenovo.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Elypdu4x"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4631679f204so1013008f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:20:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782465642; x=1783070442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z7RIq6wHh9BtCzFgGyY7sK62eHn+d9xSU82SzTr05Co=;
+        b=Elypdu4xi0M8dd2ntH3MR89nYmZoTtHRgc5LGXAlTwR07gD918mQ7nHYC9B9irBq6b
+         HQEgPt+REk2YlKR6IhMmvsCS+ftOD0+ey8ikl7RH50MZHHNZSf0ClUDSmNET75vPfWI8
+         /TY5s1zwrrMZmah8GsXqBP9xAnqJWWTDkPezQo7pgKr//OzkJ3E7bsIeLlcDaGrIfTiY
+         PcLUhP/52jiJv27YJjQPrUhZbXc9xG3Zw40arc3acNExqrQWcCryBqa2PKhKMriS133g
+         Xr9lm2sxdQbe8SWI5fS17wVEc9Bre9viIXgwkzOIbAx75KDD6Gmb03NDCaHHGtyFmBzC
+         DbDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782465642; x=1783070442;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Z7RIq6wHh9BtCzFgGyY7sK62eHn+d9xSU82SzTr05Co=;
+        b=bbbCSlRfLfi95YOYccyxE7SGpff2euS+XS9EJKJtP9EKDcLYRArwhAG3v2FcVBOOix
+         z2WlzuDPWmzY6L7sPa9WpJPhFaQNnzjeef6Erfe9Yl6o8gfi/fssRYgEMLvn5pmTEmAg
+         TC66Fdbswjht3u33bAYX1ryWAgNooq0uZQor+4cxp80wP6qG2P4bb3ltudrzm3oDiSdE
+         GSGVHk/zazcgiqCxJHgsBcDZPcGU7XYVlIqfNuE+hXQ3OgxQDbkm5QoEr6mQzhfM48xC
+         OPpG7/NmJ+KZh+ThXf+ycBb6yPbvgBqD8+LBAYar/vaCdpoPmf0SjFG7H7EXKexaepBl
+         TcUw==
+X-Forwarded-Encrypted: i=1; AHgh+RpgOBr0CqRY1wF957z72xPql6e0puahCZ73GwqRcHrlJbzNN3MAFJUpEvpI6acJUqgsh/j81hI50zBp@vger.kernel.org
+X-Gm-Message-State: AOJu0YxA8CYOGh+HARbHtA+DYLTVMnOu3uF50EJV5RaXvOJ4ezpqTN4v
+	CJDTzZPJm66ezHfRR/IOtE3sgsa89Za97/Iesd5iRW7/XnTAhVKegkUV
+X-Gm-Gg: AfdE7cm1r9ljAVZKEcUXn4hDIOzGk5ClRBbBIypy9if4FcfJK4J4vVSBHjt0DjINoqu
+	SL0Kmm5BbHfurNcF3qs+/NOL5kmN1q4G6LN5ZMq778KK1rqqy1PdbwpDKgYIyWn03MRxgTNYFX9
+	/NM0ttlwfvcuBFurdvdavb8JOcdB3Z8qRGiMhZLs8wca6NttBhUcldjRyhs77UClLj+QKBgbhGB
+	dNH/L8Ju7z7K0CUg4QDL4knIDdzwlR96xpLfT0kCoA2mqmqQ5wICxzJRzCtMbHxIC2tojS1nuDs
+	r4467mCg7Pgra9Z+6CcLni9LkCPF1Y3USG5lVWLXRDIKMg6oSHRPb+HPqa58Z8KAsw1VOvh+BsH
+	8Lyzr+hQelQgmZo16C2QFoNmneJV2+ZBkmrH/aH1e5VrCuYb/AP7Hi6m1nN0IaFXhneLH5O5J45
+	VM5PbOhZZyX36Oekz9IJNBhTcU568dtVOznPFPwmPpDdcq4yj312NsKkzGT6MTU9GWn9mGrLKFu
+	TY276/NcRo5
+X-Received: by 2002:a05:6000:18a9:b0:461:a15a:4160 with SMTP id ffacd0b85a97d-46da8c5fcb6mr10187397f8f.13.1782465642257;
+        Fri, 26 Jun 2026 02:20:42 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-80-183-219-152.pool80183.interbusiness.it. [80.183.219.152])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-46e6167c05fsm9094388f8f.25.2026.06.26.02.20.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 02:20:41 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Jianjun Wang <jianjun.wang@mediatek.com>,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/4] PCI: mediatek-gen3: Add 2-lanes mode support + clock
+Date: Fri, 26 Jun 2026 11:20:24 +0200
+Message-ID: <20260626092029.3525264-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,58 +91,51 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: WpXt4L0Kdpc4ostJoL8XKGBI4d-iENpe
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDA3MyBTYWx0ZWRfX//oyHhQOg45j
- 7XA9EJc/EjBXV7fv0fjyeHYFWT5vieUol9xqSU+FS7hXRHNp+zvr2pmg1bjPbUaha3qxbnqdkMv
- 1yslTtiUwnETJQw7TMjBh+Z7K1DKWvI=
-X-Proofpoint-ORIG-GUID: WpXt4L0Kdpc4ostJoL8XKGBI4d-iENpe
-X-Authority-Analysis: v=2.4 cv=SNFykuvH c=1 sm=1 tr=0 ts=6a3e42d1 cx=c_pps
- a=kYoHdcNGVJUooFJAQZl1vA==:117 a=kYoHdcNGVJUooFJAQZl1vA==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=2RTuljz969oO5usasWGy:22
- a=ZyEuT479hi48zPIlagN0:22 a=8k6WQxmsAAAA:8 a=hW0esKDmPMssBsguHvwA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDA3MyBTYWx0ZWRfXxEf8AVXqjQv+
- eZmv8Gp8XaDeOETFMuMSJOIsjK2Fk97/VhMYsS2tXV0IDhQ1zfl9Nq75LhzLc8rHiUlc81bICiZ
- Za4ypRmLM6Qt3fqr4GZBPWe8c/AGDmGJ4gmib2I7qgzCCL4Gvl24HK9cVQOazdtmPJFTLW9LDtg
- YuMHozckzXXINVl6/XA+L7KTbdGj/pD1Jr0QKyoY4AxGkvvtY21ZtFRLdb9SelV2StsNoKIG6pg
- d141C7pGUIZW0VmkaP05TTCzMolgTo6ZF0XZQdxDKWx7lsE1pkZ9MUSvfo2TuYrmnZDhfONDGN9
- q6wCS3TT0/u/M7Uf9VbxRxYV6Ok69Vf39eo46tS8knN7Whr12xIzw8YToVpW4eweyg+1dRcbpE9
- 36yuuKOVtp+X4QhlOIBXvsOhI4XLqBsxdbDbdiV2BN1/fWjydJfXGMSYcTrdtYSqY++u1VVH9ov
- nyjM9dStba3iaE55iAg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-26_02,2026-06-24_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 phishscore=0 adultscore=0 bulkscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=-20 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606260073
 
-Lenovo ThinkEdge SE70 is a fanless industrial edge gateway carrier
-board based on NVIDIA Tegra194 (Xavier NX) SOM.
-Add the corresponding compatible string for device tree validation.
+This small series introduce support for 2-lanes mode for Airoha AN7581
+SoC. This is needed for correctly functionality of Eagle WiFi Card
+normally attached to this SoC that require a 2-line PCIe card to
+correctly work (and give the proper performance)
 
-Signed-off-by: Jiqi Li <lijq9@lenovo.com>
----
- Documentation/devicetree/bindings/arm/tegra.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+The first 2 patch address a limitation of the PCIe implementation
+where the PERSTOUT reset were indirectly asserted and deasserted
+all at the same time (for all the 3 PCIe card) with PCIe
+enable and disable.
+The 2 patch address this and introduce correct reset to control
+reset line for the relevant PCIe line.
 
-diff --git a/Documentation/devicetree/bindings/arm/tegra.yaml b/Documentation/devicetree/bindings/arm/tegra.yaml
-index 033a63f6c068..1a71b4195114 100644
---- a/Documentation/devicetree/bindings/arm/tegra.yaml
-+++ b/Documentation/devicetree/bindings/arm/tegra.yaml
-@@ -268,6 +268,11 @@ properties:
-         items:
-           - const: nvidia,p3509-0000+p3668-0001
-           - const: nvidia,tegra194
-+      - description: Lenovo ThinkEdge SE70
-+        items:
-+          - const: lenovo,thinkedge-se70
-+          - const: nvidia,p3509-0000+p3668-0001
-+          - const: nvidia,tegra194
-       - items:
-           - const: nvidia,tegra234-vdk
-           - const: nvidia,tegra234
+The last 2 patch add additional logic and support to assert
+and deassert the PERSTOUT and also apply the required configuration
+for 2-lanes mode.
+
+2-lanes mode is implemented in DT by adding the required property
+and by defining the "num-lanes" to 2.
+
+Changes v2:
+- Address typo regs -> reg in Documentation
+- Address typo lan -> lane in Documentation
+- Apply a suggested fix from Airoha for PCIe MUX configuration
+  before PHY init
+- Parse secondary reg in probe
+- Add missing reset_status handling for inverted bits
+- Move SCU to local handling in power_up
+- Add check for max num-lanes for EN7581
+
+Christian Marangi (4):
+  dt-bindings: clock: airoha: Add additional reset for PCIe PERSTOUT
+  clk: en7523: add support for dedicated PCIe PERSTOUT reset
+  dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
+    2-lanes
+  PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
+
+ .../bindings/pci/airoha,en7581-pcie.yaml      | 251 ++++++++++++++++++
+ .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
+ drivers/clk/clk-en7523.c                      |  39 ++-
+ drivers/pci/controller/pcie-mediatek-gen3.c   | 101 +++++--
+ .../dt-bindings/reset/airoha,en7581-reset.h   |   4 +
+ 5 files changed, 370 insertions(+), 102 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-pcie.yaml
+
 -- 
-2.43.0
+2.53.0
 
