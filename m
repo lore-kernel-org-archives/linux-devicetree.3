@@ -1,110 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5331C231830
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A8A2FDC27
 	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 21:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782508585; cv=none; b=I7u/TD/lVe3Cvql7Y5IdlrL1BoaeaBCgky6zok3t14ZG12kcGvp0AkE/Mfp70/q7YXRa30D0vTcR+qziKVqSZdYzubo71lI8x0slNeeV7E/kadLPGVZwJSSFnhacUHcuHE/jyqfP40zb1f2SzPZ4mendN+KqjJlvLIpzAdAsnAM=
+	t=1782508586; cv=none; b=COMYDfIJ8vUcuKNQwqQQfe8L35+ZF/L6r+rxXZmgnZ8NQ9vY8McsPA5ETz/YRuNwuMYoUKjSQTbRgHDbXCwdl/d4krQn1K4IQM8xBwc+0M4KNmZHlzxOD8rNT7kBNKOkkqFoIF0FowyyNRonImGi15lVWZoxZfZhUhh88AMxF0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782508585; c=relaxed/simple;
-	bh=Pjwdfo5mWp8KqcTuUpjZJi6SXxmriNuZRtETo4v1zP4=;
+	s=arc-20240116; t=1782508586; c=relaxed/simple;
+	bh=tE6sgGEYhzw7/8HY52SzKgpzvwewl/C2OKL9riJpAgE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lMt8BAZxt8L7dO+x4uPFYuz92kkCMKLO1H3/OVhIg5uIv/OB2Y1KyDX7avURPIW8RXfhgCHRmeD7XSJSORfUHTmtqqwgi5qHyjR8ZBWPZwEnL2muik4xQb+Fot/E9oPaMVFAjelxQ6rsv+YjTsU6jgqhW+bwm5b+x+qjX4z/up4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1LKzZO6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DKKLu4eBK8XBQ+mTAHkwGpb9oJQhqm6gNQ2joygeLbJYs+cmPnfYpT5LxmD9maDpZtZDpWhXXU6Oj4Vw8P8B5tu0wFkXWzSVE+LG4I7zcxg7h9MuA4Ez4ecB7Z2ddC9rjN3jcMB3D7Ojv4SCGd9jlrM2inA8BN403IfDLDA7MNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NP7SHClv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1LKzZO6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1B61F000E9;
-	Fri, 26 Jun 2026 21:16:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NP7SHClv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B06A1F00A3A;
+	Fri, 26 Jun 2026 21:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782508583;
-	bh=Oz0hQpoVBgE1fWYgGGRu9XbMpIBs/XffulZYwbOOWDw=;
+	s=k20260515; t=1782508584;
+	bh=KmTa9EWFcjjs/UzPD8dR70INSTu++99OmYLpPcfybYM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z1LKzZO6Mqsw9ZDL6kI3de5mxqdLtg3iqiccHISguaTyv+Xxwf9i9RQXLtrVn3rM/
-	 Tms9YQkA9HsErjZUGUDyDaBHqCxaJTkAzxQ8h0D7jdrMUjz3iO9dLyJDi5rHC/UOOW
-	 1mVqsD/SQnxzXau+s6ejjWtD+7NDOS8spGJDiQ5AjzSy6sCL7baMVelqtq46tTCcuc
-	 aY/rnFk02eJBnePsdw4TRApy+8p2nETFTYnKtoxK/YibO3GlcIwxj6HffNZ+3mGTlo
-	 sC66kt8wrViXSM6KwyfmKTcTjuuWoALFaPk9AtVXnduGESYaDAWCXFqwknoW8QTy6G
-	 QHa1K7NQsGV/g==
+	b=NP7SHClvdT3HEvWwt5zxzgx7b0RMNIQKW23poSBlsG3pUj7/6o2Dt7pCpxyHj5kMN
+	 jXDlIz/DsZ3gDs5VFNJB73bMCgkEDGX6eSxiPSaaUX2sQvYOsZ7Sse1br1d475V2n+
+	 IAbnBNceviyUL4Sw3ebnHmMoMqC9QCkPJNQbWDvA9EEkibS4bSL2lbNoL7uxTsU4Qa
+	 za216jPtOOceGg1UwJfZWk9HHTGroQ+cXPalnPhJZDqx47cCX/08yJRpGcNuUMNo4L
+	 Qg6BC3Sv3ZE6wtZcdMjK7Dt4IbY5MY4cL5UGY7PpgBuyB0eYSinR0vrENWXmCGd5VS
+	 HV4EIsCt0W3UA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 03/29] phy: rockchip: usbdp: Do not lose USB3 PHY
- status
+Subject: Re: [PATCH v8 06/29] phy: rockchip: usbdp: Drop seamless DP
+ takeover
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-3-47f682987895@collabora.com>
+Cc: devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-6-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
- <20260626-rockchip-usbdp-cleanup-v8-3-47f682987895@collabora.com>
+ <20260626-rockchip-usbdp-cleanup-v8-6-47f682987895@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Fri, 26 Jun 2026 21:16:23 +0000
-Message-Id: <20260626211623.7A1B61F000E9@smtp.kernel.org>
+Message-Id: <20260626211624.5B06A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] USB3 reverse orientation changes are never programmed into the PHY=
- hardware because `rk_udphy_orien_sw_set` updates the software structs but =
-fails to trigger a hardware re-initialization.
+- [High] Unconditionally disabling the active DP PHY while the upstream dis=
+play controller is still streaming data causes an AXI bus stall and system =
+hang on Rockchip SoCs.
+- [High] Forcing DP HPD to disconnected during probe permanently breaks fix=
+ed eDP/DP displays.
 --
 
-commit 2e0448207186d0a4562665690cfdad4abd051059
+commit 31addd0a9ff6667916e1a40ca73d061ababa8583
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-phy: rockchip: usbdp: Do not lose USB3 PHY status
+phy: rockchip: usbdp: Drop seamless DP takeover
 
-This commit fixes an issue where the PHY status is lost during a DisplayPort
-mode change. It ensures that the tracking information for USB3 is preserved
-so the PHY isn't inadvertently disabled when DP is toggled off.
+This commit drops support for seamless DP takeover from the bootloader. If a
+pre-enabled DP PHY is detected, it logs a warning, forces HPD low, and
+unconditionally disables the PHY.
+
+Link: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.ke=
+rnel.org/
 
 > diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
 chip/phy-rockchip-usbdp.c
-> index a5ffdf7a6e76b..12dfdd470a782 100644
+> index 3fc8222fcaec2..f7ff55f03b7cf 100644
 > --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 > +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> @@ -1008,7 +1008,6 @@ static int rk_udphy_power_on(struct rk_udphy *udphy=
-, u8 mode)
->  			rk_udphy_u3_port_disable(udphy, false);
->  		udphy->mode_change =3D false;
->  	} else if (udphy->mode_change) {
-> -		udphy->status =3D UDPHY_MODE_NONE;
+> @@ -938,10 +939,12 @@ static int rk_udphy_get_initial_status(struct rk_ud=
+phy *udphy)
+>  	rk_udphy_reset_deassert_all(udphy);
+> =20
+>  	regmap_read(udphy->pma_regmap, CMN_LANE_MUX_AND_EN_OFFSET, &value);
+> -	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_A=
+LL, value))
+> -		udphy->status =3D UDPHY_MODE_DP;
+> -	else
+> -		rk_udphy_disable(udphy);
+> +	if (FIELD_GET(CMN_DP_LANE_MUX_ALL, value) && FIELD_GET(CMN_DP_LANE_EN_A=
+LL, value)) {
+> +		dev_info(udphy->dev, "Started with DP PHY pre-enabled; seamless takeov=
+er unsupported\n");
+> +		rk_udphy_grfreg_write(udphy->vogrf, &cfg->vogrfcfg[udphy->id].hpd_trig=
+ger, false);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does keeping the USB mode bit
-in the status flag prevent USB3 reverse orientation changes from being
-programmed into the PHY hardware?
+Will forcing HPD low here permanently break fixed eDP or DP displays?
 
-When a USB-C cable is flipped, the orientation switch handler=20
-rk_udphy_orien_sw_set() updates the software state and requests a re-init:
+While this pulls HPD low to signal a disconnect, fixed eDP/DP boards do not
+use Type-C muxes and will never trigger a re-assertion via Type-C events.
+Since the upstream DP controller driver does not know about the VO GRF
+override, the HPD signal remains permanently forced low, and the display
+will be seen as disconnected by the kernel.
 
-    udphy->phy_needs_reinit =3D true;
-    udphy->flip =3D flipped;
-    rk_udphy_set_typec_default_mapping(udphy);
+> +	}
+> +
+> +	rk_udphy_disable(udphy);
 
-Later, rk_udphy_typec_mux_set() evaluates whether to apply this to the
-hardware. However, it only calls rk_udphy_power_on() if the USB mode is not
-already set in the status flag:
+[Severity: High]
+Could calling rk_udphy_disable() synchronously right after forcing HPD low
+trigger an AXI bus stall?
 
-    if (... && !(udphy->status & UDPHY_MODE_USB) && ...)
-        return rk_udphy_power_on(udphy, UDPHY_MODE_USB);
+If the DP PHY was left enabled by the bootloader, the upstream display
+controller (VOP) might still be actively issuing AXI/AHB transactions to the
+PHY.=20
 
-Since DWC3 keeps the PHY enabled permanently and the status flag retains
-the USB mode, it appears rk_udphy_power_on() is never invoked to apply the
-new lane mapping.
+The HPD state change via GRF is asynchronous, but this disables the PHY clo=
+cks
+immediately on the very next line. Removing the clock from an active AXI sl=
+ave
+often causes the bus to stall indefinitely, resulting in a hard system free=
+ze.
 
-Could this cause the USB3 port to silently fail when plugged in reverse
-orientation, since the hardware is never reconfigured?
-
->  		if (udphy->mode =3D=3D UDPHY_MODE_DP)
->  			rk_udphy_u3_port_disable(udphy, true);
->
+> =20
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rockchip-u=
-sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D3
+sbdp-cleanup-v8-0-47f682987895@collabora.com?part=3D6
