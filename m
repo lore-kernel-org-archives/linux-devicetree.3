@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABE82EA47C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD8B3AD510;
 	Fri, 26 Jun 2026 20:55:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782507305; cv=none; b=n3773dw6cJEu6e3HK1goIeS6VK8JiT1QH/Q+3urMPZpUyhxupaCkGoRO8Y/xnp80ok+oHhZGYa0t1mkR2VVvuQjF616pX3smSf4JdmG2MQ0jhEWiVzBP4/1MqWfauy6BAR8ga9A+fhcYGLSscSQs7T3nr+7wo2Yeat/JA1Fo4Yg=
+	t=1782507306; cv=none; b=EMVm+Gv/GzBY6M09ZAvbSrmyyx8ESIWTII1R3J+eXyN7ceeBWSoLu23PAeFV9xwPP5gMy+/f46A7YMMPW3kxd+gLRiTGOHtjrkyPGxOR8B6Ut1GSZfn/14IYl7SnV3sW8aCEV3lcaaBSCjpIKPkiSpafoCDECz83pROxKhW+jNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782507305; c=relaxed/simple;
-	bh=UrLCAhUpEZcIt6PAQMBwOY8rOy1yJLTsWIfJZe/SqbM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sBuSgO74ZthKrILi4BhDzmgmC+eR8PUpHDKj3S8nX274uKeDIXpLg1v/rQq7AK0r4dC6Brl88+yVDvkM8FSKVgCzfl0iZ1EIxs9kenadGxOTaBOn7qqa/Un6rGkvQXtKyUmV7lJzjUyaSyR9/9P/kGqFZA3OgXBay0HwHBpTw0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=koCZGsl9; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1782507306; c=relaxed/simple;
+	bh=USg1ohYmbXwetA6mCilQyNqt0XA2ZTz/AW7yPMSqQVI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Pp+erkRyqRfvcCfWM+mMBbcHKvEZPa0V5O4veCWG91TruyTnFPGlE6noMmdEAy+k3kMXCHX2uoCQzFji7AF5IU2FEobBuGzNWGd4xTnZ7e+9GhBZN17sJs7+sp8hkJWZI7GvzbWCm9K89UGXstF0/5OeKQFEeeL/Qk3ny/gURvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fjKGfUu/; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="koCZGsl9"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fjKGfUu/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1782507302;
-	bh=UrLCAhUpEZcIt6PAQMBwOY8rOy1yJLTsWIfJZe/SqbM=;
-	h=From:Subject:Date:To:Cc:From;
-	b=koCZGsl9UQbL3B+CTkUkQ3dHqdbNtYVUu71FmDQhLY3KjAVAWu2VmLhckpw0PrEuV
-	 owoaxuEWJ9GtmgmoZOakfbQ/+ZFIyQHuV+RyGrIBNpXFQK/EOHjb/B7+C2wTGB5ns/
-	 WB/6EC/x6BVsXAZ9ccx/Dy1RqkMFSapZv7zqTsq8/CBNFOmis3weIrz6JEHlvmaEga
-	 qegaqGb20OnblXBNEy16eWGGT9teKFl5QcZaIKKA168mdCzZiap2uSOXqJrhjn4iEX
-	 loNdvNcj23cJGDyhUwRDRSpxcFoWPoz3OF9wCTQB3hlfXZaDEYFgBbMJ5+ya4GaYKG
-	 n+KloGFH6ciPg==
+	bh=USg1ohYmbXwetA6mCilQyNqt0XA2ZTz/AW7yPMSqQVI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=fjKGfUu/SgCkMFsLGGOpRa09uW4xKO0KPwoxxOsdMrySTXZhGtoLebulEpBMF0+Rb
+	 cVRh0i4fF2wUcr4IAoU4TgQS3Y6J9l0RxIMJxecTQ7q1kro9oCaQ4hDEmEWmdu5eA7
+	 5vaBfXd47GhALcpISn2u+cZIJHs/Xi7ML/B11aIK5Hq4ijyYenSJhfqUS7rNh8HM5L
+	 1rwXFyF0zCUR7GzBOfjWtHppUtUFIP3fa5QIyCqQaRTW8n0/9tLM/NeHLFigJqqOxU
+	 P3o1mStnn8nFSLCCBoclKcJFe/8fJdETd7a7EZMOahG3rg4/WqiyhI3QQxpsgUfQCT
+	 44QIYbTn82mtQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5D69217E02CB;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5EB2B17E0C88;
 	Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0B93C480027; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
+	id 0DC37480029; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v8 00/29] phy: rockchip: usbdp: Fixes, DP 1-lane support
- and cleanups
-Date: Fri, 26 Jun 2026 22:54:53 +0200
-Message-Id: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
+Date: Fri, 26 Jun 2026 22:54:55 +0200
+Subject: [PATCH v8 02/29] phy: rockchip: usbdp: Update mode_change after
+ error handling
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,13 +47,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB7nPmoC/4XPwU6FMBAF0F956doaOqXT1pX/YVy0ZSqNSAn4i
- OaFf7e8DcSALu8kc27ujU00JprY0+XGRprTlHJfgnm4sNC6/o14akpmUAFWUEk+5vAe2jTw6+S
- bgYeOXH8duPLKNtErFE6y8jyMFNPXHX55LblN02cev+89s1iv/5Kz4BUX6DBaoEZofA6565zPo
- 3sM+YOt7Aw7SpxTUCiPmgKAihbpiJIbJf+gZKEkmUjGOllmH1H1RtVgTqm6UFprhVpQIIAjSm0
- UCjilVKEoBiMrtAZtPKJwT9lTCteB3ouoai+jPByodxSoU0qvlCEvQ0RVx+Y3tSzLD6XQY1uCA
- gAA
-X-Change-ID: 20260203-rockchip-usbdp-cleanup-5b59dfb561a3
+Message-Id: <20260626-rockchip-usbdp-cleanup-v8-2-47f682987895@collabora.com>
+References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
+In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
@@ -66,203 +62,73 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  devicetree@vger.kernel.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>, William Wu <william.wu@rock-chips.com>
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9525;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1789;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=UrLCAhUpEZcIt6PAQMBwOY8rOy1yJLTsWIfJZe/SqbM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5yQNOxEHuc4kH/ZjcPhLkyVyBMdwrKAAa
- UBiG0XlIGtHSYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuckAAoJENju1/PI
- O/qa/3MP/2vfmTo6QkLfveA7oBFmf3eey0eOnXTDJxJRMghE2IofhQeizrG9HWBdawrAzIUCY9X
- KQNYpiAMsiDBRArILF/WCIBhEYS0lguBmf2WX4ZkqkmVyYp5agIr4in0Ff4BsxCMfYQCDD7YVwP
- +/YYURaYx2gNJQaQe92l3kjlA0AAAyHbT23l7Canf2K5wza+RvgALPbmPkIdyojqSgIsyebPd1J
- Cw95ApY0Sk1xJdUPm+ewiN98pZKV07xikMuVgRIpP98Ac/IXYYUS9adHqnP8OZoUVtjz7RzmkTO
- 05ROCgG1EJx0lKqIBff6UYI4/4QIYNrlLnlgScmdRPfiivkB1RE4qQEw8FnNkr2tguEqLMsM8Me
- LcbGuV3bGCVadHSWJESIdjbNryzj0rIehM16b/JxTUnGSx/C59hdhp4Io/ydSNbMJ1ZQXloO4Ru
- cvWjFVahCM79+KNklZ/QCsvrj0ZRsYQpa7n1tz4KvJz15k9Cv7zK0mwYbwIDe84mASiauhkakXJ
- jNhiX4yAmYYpN5VD2WkGMrnVWTiHMwhp3gWynmt4fFqFxMaSfo8/hAE2wQqeIvPbwpvHkYVkuKX
- KQYJGVv0U82/ygauNNaVr+bxJVhg4mBXCRo+e130kWFZGQI2m1bjmlvhqPyLgEj0STxkVGZS/Qj
- 3csKN6UFKC9b9L+tfX+8f/Q==
+ bh=USg1ohYmbXwetA6mCilQyNqt0XA2ZTz/AW7yPMSqQVI=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5yQ0wncuIq0TqEaIQ0cGZ6hiF3QKJvVIq
+ ow3WgHj4ebDaIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuckAAoJENju1/PI
+ O/qavPQQAKACkti70G1jJsqhNOAQ8DrvY2FbnT7ygWto0Uj+7VpmMQCYn2My4kR3kvyZ4WqXvFM
+ Pxju6kJJ7h03GlK9HNx0vF81yIoekaWAN8rju8ffWUN6VZ9fHiAq7VE/jjbPBtqD+Vv5QCyokHl
+ LjUmLGVmKGC+fB4ggvpErEePSnIJ5GCt1ZYvKGp9Q2Tz2TdFxXKtmDNMH735v+2GwWdWUOJBqm2
+ i8L3qVMjcSXtWaRNIZk2QuJ81OUGT/TEaXAC6zyl3UHt0lB6dc3gl2I4jooCUWZrsgMcE/aSPnL
+ WGv8NXIdK+M6z4k8JCIrNUU+KmyJXR1GCAWpNGgPk9+8qSwuC/i8VkHiq83nUWqWW2SuDZeTdWr
+ BzpfviTJuR2ZkFhi7db3tfQkAjA0yz0xQRSmggHCIFJqgnqHYKL1jNhvG4e/yyesCAjBzrPQqNM
+ qEdRrUpM6xXxMJGU9z2HafAIgwqJUtSJwMccwD1KJKUXvdc143AnnbPzpkqrMl1SUuvYZp6Lc/t
+ sKVhzmkWYAeQ609POJAvxmpcnhwjnuCwLegKFdD5o32HrieyC1IgmAIEI/It4D+mdXRv9wsuD7/
+ rYKB6hl114jYSPfMO7I9/8QvkKnpXtHztEtAdZmqJavMAakCHj5P9cyrvsVfWcS2M66kMmaLC3O
+ 9B0dDM+eS8KmdPbWRQwYo8w==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-This series overhauls the Rockchip USBDP driver; apart from a
-a bunch of cleanups and small improvements the main goal is to
-get the driver ready for proper USB-C DP AltMode support. At
-the moment it only contains a semi-working state.
+If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
+tried again. Fix this by only updating the variable after all potential
+errors have been handled.
 
-Once this series has landed, it unblocks enabling proper USB-C
-DP AltMode on the RK3588 and RK3576 platforms incl. runtime PM
-for the Synopsys DesignWare DisplayPort controller.
+Note, that no errors have been seen on real hardware and failures would
+most likely be fatal and require at least a full reboot as the function
+already asserts the PHY reset lines. So this is more of a theoretical
+issue.
 
-Apart from this series, further changes are required on the
-DRM side. There are no compile-time dependencies between the
-DRM side and the PHY side, but the PHY side must be applied
-to avoid SErrors once runtime PM is added to the DisplayPort
-controller driver. Thus it would be really good to land this
-series ASAP as it blocks the DRM side.
-
-Apart from that it also fixes a bunch of issues pointed out by
-Sashiko (mostly harmless), as well as some real problems. Among
-other things it should help drastically with orientation switch
-problems and potential SErrors when a USB-C device is hot-plugged.
-
-With this series applied, I did not notice any SErrors. What I do see is
-cmn ana lcpll lock timeouts after a few replugs, which are permanent
-(i.e. it still happens when re-trying to init the PHY after running into
-the timeout). After a reboot the problem is gone. It seems the dynamic
-USB3 disabling increased the chance a lot to hit this problem. I think
-this is better than the current status where Serrors can appear on hotplug
-due to the re-init. Unfortunately LCPLL is more or less undocumented in
-the TRM, so it is hard to figure out what is going on exactly.
-
-Changes in v8:
-- Link to v7: https://lore.kernel.org/r/20260625-rockchip-usbdp-cleanup-v7-0-38eb3cf654fd@collabora.com
-- Move patch "Limit DP lane count to muxed lanes" after single lane
-  support, which introduces dp_lanes variable to make sure series
-  is bi-sectable (Sashiko)
-- Force disable HPD in "Drop seamless DP takeover" patch and update
-  patch description to mention potential issues with SErrors for
-  bootloaders really keeping the DW-DP on. As mentioned in the new
-  commit message this is untested as I'm not aware of such a
-  bootloader anyways; this also means we need to keep the HPD GRF
-  register defines in the 'Drop DP HPD handling' patch (Sashiko)
-- Fix mode logic in "Properly handle TYPEC_STATE_SAFE and
-  TYPEC_STATE_USB" patch; I blame the heat (Sashiko)
-- Improve "Support going from DP-only mode to USB mode" patch to
-  better handle starting in DP only mode; due to TypeC logic
-  starting delayed this does not really happen, though (Sashiko)
-- Improve "Support going from DP-only mode to USB mode" to avoid
-  checking previous state and instead power on USB state based
-  on previous requested state to avoid effects from the flip
-  callback (Sashiko)
-- Update the debug message patch to include some more info
-- Ad one more patch, which disables USB3 at startup and drops
-  the -EPROBE_DEFER logic
-
-Changes in v7:
-- Link to v6: https://lore.kernel.org/r/20260619-rockchip-usbdp-cleanup-v6-0-3bb1f54b3f35@collabora.com
-- Add new patch handling missing clock-names in DT gracefully (Sashiko)
-- Add new patch handling rk_udphy_reset_deassert_all errors in init check (Sashiko)
-- Add new patch to handle Properly handle TYPEC_STATE_SAFE and TYPEC_STATE_USB (Sashiko)
-- Add new patch to avoid xHCI SErrors
-
-Changes in v6:
-- Link to v5: https://lore.kernel.org/r/20260612-rockchip-usbdp-cleanup-v5-0-efc83069869f@collabora.com
-- Add explicit <linux/string_choices.h> include in last patch (Sashiko)
-- Add new patch moving mode_change update after error handling (Sashiko)
-- Add new patch fixing error masking of devm_clk_bulk_get_all() (Sashiko)
-- Add new patch dropping seamless DP takeover as it is non-functional and buggy (Sashiko) 
-- Add new patch limiting DP lane count to muxed lanes (Sashiko)
-- Add error handling in the patch that keeps clocks running on PHY re-init (Sashiko)
-- Also look for DP being configured to second lane for the flip config
-  in DP single-lane mode, which should at least keep USB working for
-  this super unusual config (Sashiko)
-- Drop useless ret variable in patch introducing guard() for the mutex
-- Add error handling for PHY re-enablement in the patch fixing support for
-  DP-only -> USB mode (Sashiko)
-
-Changes in v5:
-- Link to v4: https://lore.kernel.org/r/20260428-rockchip-usbdp-cleanup-v4-0-7775671ece22@collabora.com
-- Picked up Acked-by from Rob Herring for DT binding
-- Fix typos in commit messages/comments
-- Add Fixes tag to "Do not looe USB3 PHY status" patch
-- Collect Reviewed-by: Neil Armstrong for multiple patches
-- Drop now unused code from "Drop DP HPD handling" patch (Sashiko)
-- Ignore mux events not involving DP AltMode (Sashiko)
-- Add new patch to support going back from DP only mode to USB combo
-  mode; technically this is a fix, but DP mode does not yet work
-  upstream, so it does not matter (Sashiko)
-- Add new patch adding a few debug messages, which are useful
-  to investigate potential hotplug issues in the future
-- Sashiko comments about the DT binding and property usage
-  are wrong as the first port is for the superspeed lanes
-  used for DP and USB, while the last port is just about
-  DP aux. I ignored them.
-- There is a pre-existing bug, that can already be hit with the
-  upstream kernel and that the series doesn't fix properly:
-  Accessing the USB3 controller registers requires the USB PHY
-  running, since it provides a clock. Re-initializing the PHY
-  means there is a race-condition - if the system tries to access
-  the USB3 controller in parallel to the re-init, the system will
-  hang and/or fail with an SError. By keeping the clocks running
-  and only asserting the resets this time is minimized by this
-  series. A proper fix for this will be looked into independently
-  from this series.
-- I used v7.1-rc6 as base, but the driver has no changes since
-  6.18 even in linux-next and there are no pending patches for
-  it on the mailinglist either, so it applies to *any* recent
-  kernel branch.
-
-Changes in v4:
-- Link to v3: https://lore.kernel.org/r/20260313-rockchip-usbdp-cleanup-v3-0-3e8fe89a35b5@collabora.com
-- rebased to v7.1-rc1 (no changes)
-- Update DRM bridge registration patch to avoid registration when DP aux
-  port is not connected to anything, since this results in errors and some
-  boards use USBDP instances for USB3 only.
-- Add patch renaming mode_change into phy_needs_reinit
-- Add patch to re-init PHY on orientation change
-- Add patch to factor out lane_mux_sel setup
-- Add patch to handle mutex via guard functions
-
-Changes in v3:
-- Link to v2: https://lore.kernel.org/r/20260213-rockchip-usbdp-cleanup-v2-0-b67ec225f96e@collabora.com
-- Add patch to register the USBDP PHY as DRM bridge
-- Add patch to describe ports in DT binding (used by the DRM bridge)
-- Add patch to drop HPD handling from the PHY
-
-Changes in v2:
-- Link to v1: https://lore.kernel.org/r/20260203-rockchip-usbdp-cleanup-v1-0-16a6f92ed176@collabora.com
-- Added new patches to fix USB3 SError
-
+Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-Frank Wang (1):
-      phy: rockchip: usbdp: Amend SSC modulation deviation
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Sebastian Reichel (26):
-      dt-bindings: phy: rockchip-usbdp: add improved ports scheme
-      phy: rockchip: usbdp: Update mode_change after error handling
-      phy: rockchip: usbdp: Do not lose USB3 PHY status
-      phy: rockchip: usbdp: Fix devm_clk_bulk_get_all check
-      phy: rockchip: usbdp: Handle missing clock-names DT property gracefully
-      phy: rockchip: usbdp: Drop seamless DP takeover
-      phy: rockchip: usbdp: Handle rk_udphy_reset_deassert_all errors in init check
-      phy: rockchip: usbdp: Keep clocks running on PHY re-init
-      phy: rockchip: usbdp: Add missing mode_change update
-      phy: rockchip: usbdp: Limit DP lane count to muxed lanes
-      phy: rockchip: usbdp: Rename DP lane functions
-      phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
-      phy: rockchip: usbdp: Cleanup DP lane selection function
-      phy: rockchip: usbdp: Register DP aux bridge
-      phy: rockchip: usbdp: Drop DP HPD handling
-      phy: rockchip: usbdp: Rename mode_change to phy_needs_reinit
-      phy: rockchip: usbdp: Re-init the PHY on orientation change
-      phy: rockchip: usbdp: Factor out lane_mux_sel setup
-      phy: rockchip: usbdp: Properly handle TYPEC_STATE_SAFE and TYPEC_STATE_USB
-      phy: rockchip: usbdp: Use guard functions for mutex
-      phy: rockchip: usbdp: Support going from DP-only mode to USB mode
-      phy: rockchip: usbdp: Clear USB status on PHY exit
-      phy: rockchip: usbdp: Hold mutex in DP PHY configure
-      phy: rockchip: usbdp: Add some extra debug messages
-      phy: rockchip: usbdp: Avoid xHCI SErrors
-      phy: rockchip: usbdp: Disable USB3 on probe
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index fba35510d88c..a5ffdf7a6e76 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -1000,15 +1000,14 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
+ 
+ 	if (udphy->status == UDPHY_MODE_NONE) {
+-		udphy->mode_change = false;
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+-	} else if (udphy->mode_change) {
+ 		udphy->mode_change = false;
++	} else if (udphy->mode_change) {
+ 		udphy->status = UDPHY_MODE_NONE;
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+@@ -1017,6 +1016,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 		ret = rk_udphy_setup(udphy);
+ 		if (ret)
+ 			return ret;
++		udphy->mode_change = false;
+ 	}
+ 
+ 	udphy->status |= mode;
 
-William Wu (1):
-      phy: rockchip: usbdp: Fix LFPS detect threshold control
-
-Zhang Yubing (1):
-      phy: rockchip: usbdp: Support single-lane DP
-
- .../bindings/phy/phy-rockchip-usbdp.yaml           |  23 ++
- drivers/phy/rockchip/Kconfig                       |   2 +
- drivers/phy/rockchip/phy-rockchip-usbdp.c          | 427 ++++++++++-----------
- 3 files changed, 231 insertions(+), 221 deletions(-)
----
-base-commit: 4edcdefd4083ae04b1a5656f4be6cd83ae919ef4
-change-id: 20260203-rockchip-usbdp-cleanup-5b59dfb561a3
-
-Best regards,
 -- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+2.53.0
 
