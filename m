@@ -1,120 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4508D3E1233
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362BD3E3C62
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 07:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459816; cv=none; b=Oa8zL75LW9sxg3B14VzRNfroyNnzyQCAl/nYztf11+kOLce1t/vV4QA4stow/p66nNhOR4hLgLDb1paCgUaxw7Zne4GSstDLWbB0/2/UjwkPf5nX9XfcFX/1uQORZS1t9zv9cO86PB+n7c+YXYrldXe3PLU0Uj06cjcePhgwsDQ=
+	t=1782459862; cv=none; b=R6bBz7DO+FPQOXA+KlS8Ds/M76GW9E9mK1G/P+d7/SG9WAgOpOoPBcqPR+JN5GPUdJQK7PES32w85IBcFtgvNIOQ84I2aSNcxWBPGUlaNdjPZKWpxgadbmt+F/vKWSq3xnK7sP2hMrbe21u83lwUS9kFjsCGgkpzdUsngqio/5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459816; c=relaxed/simple;
-	bh=IgKmSM8QF28nMPbuhNUW6jkkgHTlGCGRO+9GkOrvnNI=;
+	s=arc-20240116; t=1782459862; c=relaxed/simple;
+	bh=MrE0YpDWB1rSNlwoSvXlRFBX/3x2/X3wnJR7nMmVLEg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EY0i8NzgXwy/IHEa9uB1+sxVqWN/wzm0VWegrgA0mMtAcAcG/YjKXwQmVmvvhSGuHDhgg8pG/9lvEOa4pTvlqjREKbqJKkQ+SHUXv+knScrg2ANYBz0bLBDpHw3mxrBQ62gg1NKTAARvs4UT1yMYYa41Vo6ZJ3xi4682VBu6p7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WZL4E/wr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lxLHBz/A3k6f9eDInkLQC3NYdD/8UkDe66QuSvZF4Ro5VssQQo3Kadhg5u5NUb6SuGOrNfIYZ4tnWLQiHH4lmC+N2dWY5RpVdNKrrYeDFLv1bmZPMa+Af5ZOq6Wre3/QECcz8H+y7VLY0nR4Gm2kMAHSa2FmGZvcZKoYb7+/nRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntg9w0Na; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WZL4E/wr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6201F000E9;
-	Fri, 26 Jun 2026 07:43:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntg9w0Na"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EA031F00A3A;
+	Fri, 26 Jun 2026 07:44:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782459814;
-	bh=yjBAGz6Z7JMFntLenGjxPnk87dPiqlf31pTKM2hJe2o=;
+	s=k20260515; t=1782459860;
+	bh=HCTIOL64YvumjJBw6F4J2kcfjSDWTEAWZj/K63o+jj0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WZL4E/wrBTm0zkj81AQUG6qjsMDB8ydtKXpeajEszzBOnfN16fADUd3lIfnRMixxb
-	 dw25a1mv/ilC2QwafcaQqMySMaCzVzdvbnLde8X6PL0+FRj3if2/g1e5o4t1L0486m
-	 d4uOVLLqqkU78z9Ec89rEysQ/BCMl0Y5h8GccwQZk0LdknWwA/IdrxTrg7X88ubJii
-	 vgBuS8Ic4bYjobX3Ts2bcBVVMkGJHcrF3e80/XcUw/5+UdoAq01WAd9VjP5BZZbjLJ
-	 X4mclD4N7lSZTOgyL6XIb3ucvwou+GFaXCDO/+B1B7m2IZg7/e3A89xZXVZtMo/jka
-	 DtvqdVXEkcxbg==
+	b=ntg9w0NaahbqZqukaIhhKa9vzBh6do4uHbHnZNaLgBoZNlOKa2JHBE8CHk8bjCk1Y
+	 O9DxWX2f/YMLGVm+IAm3UzI4B3jpabd+ytOtJvBkCFzwks4KG9fsE8Ak7HjMm58t+h
+	 /hD+I/ZSzMaDmqH9T4GdRpnh6L1SNYBqMb4ooGJfEg0V7VLxk1/dd6BOM0D+gLgqrN
+	 l+846EiJeXLpQGCfwBS7MKLFF1qfqbfC3x0VcGcdPoUTLxnhlOz93mmKtRb4ea5bhu
+	 ZEzdNhNuB+WKzRm/NM4sF/vkVykOB7SUMITdu3JprQSU7T4cO1b2e5nxlCHR/bU0WL
+	 PwhO11csG6IGw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] firmware: raspberrypi: Add reboot mode support
+Subject: Re: [PATCH 4/4] arm64: dts: broadcom: bcm2712: Add reboot modes to
+ firmware node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260626-rpi-tryboot-v1-3-490b1c4c4970@linutronix.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260626-rpi-tryboot-v1-4-490b1c4c4970@linutronix.de>
 References: <20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de>
- <20260626-rpi-tryboot-v1-3-490b1c4c4970@linutronix.de>
+ <20260626-rpi-tryboot-v1-4-490b1c4c4970@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 07:43:33 +0000
-Message-Id: <20260626074334.8E6201F000E9@smtp.kernel.org>
+Date: Fri, 26 Jun 2026 07:44:20 +0000
+Message-Id: <20260626074420.8EA031F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Mixing managed (devm) and manual API calls for reboot mode registr=
-ation causes a double-free and a use-after-free on device removal.
-- [High] Ignoring the return value of `devm_reboot_mode_register` leads to =
-a NULL pointer dereference or double free if registration fails.
+
+Pre-existing issues:
+- [Critical] Adding `mode-*` properties activates a dormant Use-After-Free =
+and Double-Free vulnerability in the driver's unbind path.
 --
 
-commit c4eb702fd9dc0d615bc8a99fbb83befc50f8971f
+commit cd92f6ce5b48afd036127289b2412bed6be015fc
 Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-firmware: raspberrypi: Add reboot mode support
+arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
 
-The Raspberry Pi firmware has a tryboot mode where it tries to boot from
-another partition. This patch adds support for this by registering a reboot
-mode driver.
+The raspberry pi firmware driver allows the tryboot reboot mode. Add
+this mode and normal boot mode to the node.
 
-> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
-i.c
-> --- a/drivers/firmware/raspberrypi.c
-> +++ b/drivers/firmware/raspberrypi.c
-> @@ -306,6 +323,12 @@ static int rpi_firmware_probe(struct platform_device=
- *pdev)
->  	rpi_register_hwmon_driver(dev, fw);
->  	rpi_register_clk_driver(dev);
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arc=
+h/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
+> index b7a6bc34ae1ab..67095c7ff770d 100644
+> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
+> @@ -49,6 +49,8 @@ firmware: rpi-firmware {
+>  			compatible =3D "raspberrypi,bcm2835-firmware", "simple-mfd";
 > =20
-> +	fw->reboot_mode.dev =3D dev;
-> +	fw->reboot_mode.write =3D rpi_firmware_reboot_mode_write;
-> +	ret =3D devm_reboot_mode_register(dev, &fw->reboot_mode);
-> +	if (ret)
-> +		dev_err(dev, "Failed to register reboot mode: %d\n", ret);
-> +
->  	return 0;
->  }
+>  			mboxes =3D <&mailbox>;
+> +			mode-normal =3D <0>;
+> +			mode-tryboot =3D <1>;
 
-[Severity: High]
-Should we return the error code here instead of returning 0?
+[Severity: Critical]
+This is a pre-existing issue, but does adding these properties to the
+device tree activate a dormant use-after-free and double-free vulnerability
+in the driver's unbind path?
 
-If devm_reboot_mode_register() fails, the probe succeeds but the internal
-list head for the reboot mode might remain uninitialized.=20
+Looking at drivers/firmware/raspberrypi.c, the driver registers the reboot
+mode using the devm variant during probe, but also manually unregisters it
+during remove:
 
-Later during device removal, rpi_firmware_remove() calls
-reboot_mode_unregister() unconditionally. This could lead to a null pointer
-dereference when iterating the uninitialized list, or a double free if the
-failure occurred inside the register function and it already freed the
-resources.
+drivers/firmware/raspberrypi.c:rpi_firmware_remove() {
+    ...
+    reboot_mode_unregister(&fw->reboot_mode);
+    rpi_firmware_put(fw);
+    ...
+}
 
-[ ... ]
+The call to rpi_firmware_put() drops the reference and frees the fw object.
 
-> @@ -323,6 +346,8 @@ static void rpi_firmware_remove(struct platform_devic=
-e *pdev)
->  {
->  	struct rpi_firmware *fw =3D platform_get_drvdata(pdev);
+Because devm_reboot_mode_register() was used during probe, the devres clean=
+up
+will eventually run devm_reboot_mode_release() which calls
+reboot_mode_unregister() a second time. This passes the now-freed
+fw->reboot_mode pointer.
+
+Furthermore, the list strings are freed during the first unregister call:
+
+drivers/power/reset/reboot-mode.c:reboot_mode_unregister() {
+    ...
+    list_for_each_entry(info, &reboot->head, list)
+        kfree_const(info->mode);
+    ...
+}
+
+Because the list pointers are not cleared and the list elements are preserv=
+ed,
+the second unregister call will iterate over the list again. Since this pat=
+ch
+populates that list by adding mode-normal and mode-tryboot, the second call
+will try to free the already-freed info->mode pointers.
+
+Should the manual reboot_mode_unregister() call be removed from
+rpi_firmware_remove() before adding these device tree properties?
+
 > =20
-> +	reboot_mode_unregister(&fw->reboot_mode);
-> +
-
-[Severity: High]
-Could this manual unregister cause a double-free and use-after-free?
-
-Since devm_reboot_mode_register() is used in probe, the devres cleanup will
-automatically unregister the reboot mode when the device is removed.
-
-By manually calling reboot_mode_unregister() here:
-1. It frees the strings in the list.
-2. rpi_firmware_put(fw) drops the reference, potentially freeing the fw
-   structure.
-3. The devres cleanup runs devm_reboot_mode_release() upon returning,
-   accessing the freed fw structure and attempting to unregister and free
-   the strings a second time.
+>  			firmware_clocks: clocks {
+>  				compatible =3D "raspberrypi,firmware-clocks";
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626-rpi-tryboo=
-t-v1-0-490b1c4c4970@linutronix.de?part=3D3
+t-v1-0-490b1c4c4970@linutronix.de?part=3D4
