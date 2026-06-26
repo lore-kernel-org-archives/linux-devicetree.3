@@ -1,52 +1,52 @@
 Received: from mg.richtek.com (mg.richtek.com [220.130.44.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D8154315F;
-	Fri, 26 Jun 2026 03:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEEA197A7D;
+	Fri, 26 Jun 2026 03:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.130.44.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782445164; cv=none; b=bkAVZYrRDyiBcXtn0pLtDQDtFAlBnEKKWruO+G8M6CTcGQwgFDuI4yLu8a8IApFsurKIgbs2aWMwlBbZxSCiNin3CUMaMgkqiA1wJzzCyoNRVEJt5iilJsZYgKqn7n3gSDRkoT3f6XJcRShyN5axWV1oalkiOgrGhJNaRw/vAt4=
+	t=1782445165; cv=none; b=hAazJvmz89yjPPRJx3tJayGppRalHwuG8FS9vEoO4WTy9MOh4zpsIoSXpGLkYR1NxHw7ZSmnN3IthvqoOnllKvGNzKUhL2AalHVtC7cM//nJaEomxZ4qRcst8VjNw+kSNcqNBNeAoscrsXzEldqKjNuktdnbF46SYe2LmsfALsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782445164; c=relaxed/simple;
-	bh=8cZvrd12OFF3EHntgDCKOyWiw07qr5bu5yuwDuFO1fo=;
+	s=arc-20240116; t=1782445165; c=relaxed/simple;
+	bh=NmYoBIbV7ERtoUiT87I6X55earemA/qx0C2nGktUedU=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fzwz97BsCBTjII4vArjwMbZF8D/AgkrccRkY/6Red/OjE5GLxEATciOuUxbeV7KQOxxQZ0y1i3FerCotp3EoK3Ea46lNTk5sLM1y+MdihyZtwO6ncfVUqMw6BbX6jhRat7s+dluU6IyA4YmzHmrBh1NDIgOnlCejOOdepLs1nIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=richtek.com; spf=pass smtp.mailfrom=richtek.com; dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b=Ys3ogTLT; arc=none smtp.client-ip=220.130.44.152
+	 MIME-Version:Content-Type; b=nEztXwZWguPfmySq7qlVmvSWGrEhO8bjJByta0Up6pdZbvsRRAOhZZFGY4rerqVjS28GUhKIaNiLMKlSpjpLrYT+Rqenyf6ismZJPcqTu0uApPzP8cK518bFkO3fvr6U+egtJb9/PZNV7X0pu65trCeHepCtnL+j/3fXMNmx92Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=richtek.com; spf=pass smtp.mailfrom=richtek.com; dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b=sQWRgODE; arc=none smtp.client-ip=220.130.44.152
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=richtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=richtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b="Ys3ogTLT"
+	dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b="sQWRgODE"
 X-MailGates: (SIP:2,PASS,NONE)(compute_score:DELIVER,40,3)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=richtek.com;
-	s=richtek; t=1782445153;
-	bh=e0kEp6TIKcSkhTWP/hRPj04OaAKFXldHgscnAo7fhdw=; l=1467;
+	s=richtek; t=1782445154;
+	bh=guVY56Ym0wMJd+zQw6+01xzZ9xOFVUwEnSddoFMQdHk=; l=1767;
 	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Ys3ogTLT0Y9eToKHjk1fx28OcshYkL08pBPibIqbuUHD++2ScGglYtpmSytNvkd36
-	 Hs04rNA6aY1tBpHEQ91uuYyY7Be1FcUq1XHARnF2tj7wOAO9HrVhXWjPn8s0pXmjFE
-	 bupiY4mZogqh0ijxyU/VefQbRroqBsPTerAVKSvlJoDGdI64ezPLd1gUwyc4eO72js
-	 gn0WsRzESLrhX+jZIni2NAlOUeD0Wry8aUF0fluqA7FIfbnt1cBLpjrlIV47LKqTzg
-	 iAxk1Nf/a5pjSGMTdjyJL629qzaOhOhKtF6blHGpnTXjxhsDkWB9RrOm2gXpSO/2gJ
-	 dYH/M348+kZeA==
+	b=sQWRgODEz3yfIrmhlfDeu0Sborb5criWwvNKdr3rWyt0Qcv39/PA6wse2XtdEtN5D
+	 O7wuTBZjbrUggdmywbiMvgDaa5bn9p/TtKtWEzwjC8K6O5zc4DhtYhaIXs0h1bqsyy
+	 koSlIkxTXIhPQ6dut5BWQQdVqVUiSdEYIR3Y/JfC05adKzho+5xpaj0mVtNjvznq2T
+	 keQ/LfFEc/5ePneJ3gXr6/pwQrmzYxwF8QkAOUi730tnjA6Vw7Mi/44cbjfs/KPxfH
+	 9YI4wWfqdP/mq+hHpl93Z5yhRdAvCjZZar2avqSdeAIrR/bCG8pXBbfhD3eBwGr1i6
+	 NfLFdTYeint3A==
 Received: from 192.168.10.46
-	by mg.richtek.com with MailGates ESMTPS Server V6.0(1155897:1:AUTH_RELAY)
+	by mg.richtek.com with MailGates ESMTPS Server V6.0(1155906:1:AUTH_RELAY)
 	(envelope-from <cy_huang@richtek.com>)
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256/256); Fri, 26 Jun 2026 11:38:58 +0800 (CST)
 Received: from ex3.rt.l (192.168.10.46) by ex3.rt.l (192.168.10.46) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.26; Fri, 26 Jun
- 2026 11:38:57 +0800
+ 2026 11:38:58 +0800
 Received: from git-send.richtek.com (192.168.10.154) by ex3.rt.l
  (192.168.10.45) with Microsoft SMTP Server id 15.2.1748.26 via Frontend
- Transport; Fri, 26 Jun 2026 11:38:57 +0800
+ Transport; Fri, 26 Jun 2026 11:38:58 +0800
 From: <cy_huang@richtek.com>
 To: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
 CC: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Liam
  Girdwood" <lgirdwood@gmail.com>, ChiYuan Huang <cy_huang@richtek.com>, "Yoon
  Dong Min" <dm.youn@telechips.com>, <edward_kim@richtek.com>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 1/2] regulator: dt-bindings: rtq2208: Label mtp-sel-high property as deprecated
-Date: Fri, 26 Jun 2026 11:38:52 +0800
-Message-ID: <594ebe167b33ca885c040984624e4b5d1382c0e2.1782444299.git.cy_huang@richtek.com>
+Subject: [PATCH v2 2/2] regualtor: rtq2208: Initiate the default MTP_SEL state by hardware register
+Date: Fri, 26 Jun 2026 11:38:53 +0800
+Message-ID: <557e872a87c603a26cf91f0d4448e527afcbbae8.1782444299.git.cy_huang@richtek.com>
 X-Mailer: git-send-email 2.43.5
 In-Reply-To: <cover.1782444299.git.cy_huang@richtek.com>
 References: <cover.1782444299.git.cy_huang@richtek.com>
@@ -61,47 +61,49 @@ Content-Type: text/plain
 
 From: ChiYuan Huang <cy_huang@richtek.com>
 
-Since it can be identified by hardware register, label the unnecessary
-property 'richtek,mtp-sel-high' as deprecated.
+Read the initial MTP_SEL state by hardware register to prevent the wrong
+specified property value from the conflict of hardware pin assignment.
 
 Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
 ---
-v2
-- Following by AI Robot suggestion
-  https://sashiko.dev/#/patchset/cover.1782353659.git.cy_huang@richtek.com?part=1
+ drivers/regulator/rtq2208-regulator.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-  Remove'richtek,mtp-sel-high' from yaml example block
----
- .../devicetree/bindings/regulator/richtek,rtq2208.yaml        | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/regulator/richtek,rtq2208.yaml b/Documentation/devicetree/bindings/regulator/richtek,rtq2208.yaml
-index 022c1f197364..25b0865d4c04 100644
---- a/Documentation/devicetree/bindings/regulator/richtek,rtq2208.yaml
-+++ b/Documentation/devicetree/bindings/regulator/richtek,rtq2208.yaml
-@@ -42,11 +42,14 @@ properties:
+diff --git a/drivers/regulator/rtq2208-regulator.c b/drivers/regulator/rtq2208-regulator.c
+index f669a562f036..7fe082def494 100644
+--- a/drivers/regulator/rtq2208-regulator.c
++++ b/drivers/regulator/rtq2208-regulator.c
+@@ -12,6 +12,7 @@
+ #include <linux/mod_devicetable.h>
  
-   richtek,mtp-sel-high:
-     type: boolean
-+    deprecated: true
-     description:
-       vout register selection based on this boolean value.
-       false - Using DVS0 register setting to adjust vout
-       true - Using DVS1 register setting to adjust vout
+ /* Register */
++#define RTQ2208_REG_FSOUTB_CNTL			0x11
+ #define RTQ2208_REG_GLOBAL_INT1			0x12
+ #define RTQ2208_REG_FLT_RECORDBUCK_CB		0x18
+ #define RTQ2208_REG_GLOBAL_INT1_MASK		0x1D
+@@ -34,6 +35,7 @@
+ #define RTQ2208_REG_HIDDEN1			0xFF
  
-+      The property is now deprecated. Will be identified by RG HW register.
-+
-   regulators:
-     type: object
-     additionalProperties: false
-@@ -100,7 +103,6 @@ examples:
-         compatible = "richtek,rtq2208";
-         reg = <0x10>;
-         interrupts-extended = <&gpio26 0 IRQ_TYPE_LEVEL_LOW>;
--        richtek,mtp-sel-high;
+ /* Mask */
++#define RTQ2208_MTP_SEL_RO_MASK			BIT(7)
+ #define RTQ2208_BUCK_NR_MTP_SEL_MASK		GENMASK(7, 0)
+ #define RTQ2208_BUCK_EN_NR_MTP_SEL0_MASK	BIT(0)
+ #define RTQ2208_BUCK_EN_NR_MTP_SEL1_MASK	BIT(1)
+@@ -465,10 +467,13 @@ static int rtq2208_parse_regulator_dt_data(int n_regulator, const unsigned int *
+ 		struct rtq2208_regulator_desc *rdesc[RTQ2208_LDO_MAX], struct device *dev,
+ 		unsigned int ldo1_fixed, unsigned int ldo2_fixed)
+ {
++	struct regmap *regmap = dev_get_regmap(dev, NULL);
+ 	int mtp_sel, i, idx;
  
-         regulators {
-           buck-a {
+ 	/* get mtp_sel0 or mtp_sel1 */
+-	mtp_sel = device_property_read_bool(dev, "richtek,mtp-sel-high");
++	mtp_sel = regmap_test_bits(regmap, RTQ2208_REG_FSOUTB_CNTL, RTQ2208_MTP_SEL_RO_MASK);
++	if (mtp_sel < 0)
++		return dev_err_probe(dev, mtp_sel, "Failed to init mtp_sel state\n");
+ 
+ 	for (i = 0; i < n_regulator; i++) {
+ 		idx = regulator_idx_table[i];
 -- 
 2.43.0
 
