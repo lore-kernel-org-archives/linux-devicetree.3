@@ -1,109 +1,94 @@
-Received: from mg.richtek.com (mg.richtek.com [220.130.44.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEEA197A7D;
-	Fri, 26 Jun 2026 03:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.130.44.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C154D225775
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 03:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782445165; cv=none; b=hAazJvmz89yjPPRJx3tJayGppRalHwuG8FS9vEoO4WTy9MOh4zpsIoSXpGLkYR1NxHw7ZSmnN3IthvqoOnllKvGNzKUhL2AalHVtC7cM//nJaEomxZ4qRcst8VjNw+kSNcqNBNeAoscrsXzEldqKjNuktdnbF46SYe2LmsfALsM=
+	t=1782445398; cv=none; b=H0bT3rzrIR5594rv1IxK5t/ixELjpxEJFGiMs0F2vt3chXJZ06yjZwrgAjsixN44lG6mnMbfiZL7hc5Bhu0P1Yh8TXvs7y+qWgZsXRhUME0xF2e/fnOzNxjPR7w7Gu5QDPVQAi4w+CyEVj6diJP/rrfxlsroZ03v9X2TjgDO6qU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782445165; c=relaxed/simple;
-	bh=NmYoBIbV7ERtoUiT87I6X55earemA/qx0C2nGktUedU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nEztXwZWguPfmySq7qlVmvSWGrEhO8bjJByta0Up6pdZbvsRRAOhZZFGY4rerqVjS28GUhKIaNiLMKlSpjpLrYT+Rqenyf6ismZJPcqTu0uApPzP8cK518bFkO3fvr6U+egtJb9/PZNV7X0pu65trCeHepCtnL+j/3fXMNmx92Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=richtek.com; spf=pass smtp.mailfrom=richtek.com; dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b=sQWRgODE; arc=none smtp.client-ip=220.130.44.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=richtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=richtek.com
+	s=arc-20240116; t=1782445398; c=relaxed/simple;
+	bh=XfXzYOumHAA0oM13K44N9eLE2yi7Ha5XlIkaF8juPFE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fPjIO6QirYij7Ynok/p6xRKzos4HRGaU8BCQWp1LRi8rBh4ltffdZNzbRbWkOftSg5S75pFkcpQZ/on8BxGDYemL00qLD9zkFt35xn66ZgT5yIPpVOOyBeJa7zRj1Z60NB7J04ejuCrzQnq8pEFf8xEad+al0ClifbcLak7z8R0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wv2yRmVG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=richtek.com header.i=@richtek.com header.b="sQWRgODE"
-X-MailGates: (SIP:2,PASS,NONE)(compute_score:DELIVER,40,3)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=richtek.com;
-	s=richtek; t=1782445154;
-	bh=guVY56Ym0wMJd+zQw6+01xzZ9xOFVUwEnSddoFMQdHk=; l=1767;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=sQWRgODEz3yfIrmhlfDeu0Sborb5criWwvNKdr3rWyt0Qcv39/PA6wse2XtdEtN5D
-	 O7wuTBZjbrUggdmywbiMvgDaa5bn9p/TtKtWEzwjC8K6O5zc4DhtYhaIXs0h1bqsyy
-	 koSlIkxTXIhPQ6dut5BWQQdVqVUiSdEYIR3Y/JfC05adKzho+5xpaj0mVtNjvznq2T
-	 keQ/LfFEc/5ePneJ3gXr6/pwQrmzYxwF8QkAOUi730tnjA6Vw7Mi/44cbjfs/KPxfH
-	 9YI4wWfqdP/mq+hHpl93Z5yhRdAvCjZZar2avqSdeAIrR/bCG8pXBbfhD3eBwGr1i6
-	 NfLFdTYeint3A==
-Received: from 192.168.10.46
-	by mg.richtek.com with MailGates ESMTPS Server V6.0(1155906:1:AUTH_RELAY)
-	(envelope-from <cy_huang@richtek.com>)
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256/256); Fri, 26 Jun 2026 11:38:58 +0800 (CST)
-Received: from ex3.rt.l (192.168.10.46) by ex3.rt.l (192.168.10.46) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.26; Fri, 26 Jun
- 2026 11:38:58 +0800
-Received: from git-send.richtek.com (192.168.10.154) by ex3.rt.l
- (192.168.10.45) with Microsoft SMTP Server id 15.2.1748.26 via Frontend
- Transport; Fri, 26 Jun 2026 11:38:58 +0800
-From: <cy_huang@richtek.com>
-To: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Liam
- Girdwood" <lgirdwood@gmail.com>, ChiYuan Huang <cy_huang@richtek.com>, "Yoon
- Dong Min" <dm.youn@telechips.com>, <edward_kim@richtek.com>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 2/2] regualtor: rtq2208: Initiate the default MTP_SEL state by hardware register
-Date: Fri, 26 Jun 2026 11:38:53 +0800
-Message-ID: <557e872a87c603a26cf91f0d4448e527afcbbae8.1782444299.git.cy_huang@richtek.com>
-X-Mailer: git-send-email 2.43.5
-In-Reply-To: <cover.1782444299.git.cy_huang@richtek.com>
-References: <cover.1782444299.git.cy_huang@richtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wv2yRmVG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250CF1F000E9;
+	Fri, 26 Jun 2026 03:43:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782445397;
+	bh=QvWU6qL7RZ3yfkLWfbSm+tAZxEODLM9S+CaAzvGwDrk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Wv2yRmVGPW4pnfKoOdJUQ5mHf8Twv8aIDu489+wKCsGd0N2SqSHfa2hX/JoffhhQz
+	 ILeafR1r3VI0aN8IUr1cv0EbkFiwmAfCsulRkIT2rzl8h0BjG+L/Db/uw7kv3v7aJe
+	 vEuVuBm2ntraYvXYG/k3AbXY1foxK7GUA++aCB1L1HJZfgkPtHape11DnwCV/wQEMi
+	 xtn/vXAn8eeRyhYl13b4x73b3ESKqxw2O61/RUNsKpkEjgtzszCwoNKCHC4KRQN+0f
+	 V+OVFzI0ICzhZWMcgAfz5Yl5dBI7BcbIk27MDKm+JQnMQwowDanYLLzr1rHtm/hz+K
+	 pQ6cPstsNGeXw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: tegra: Add lenovo,thinkedge-se70
+ compatible string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiqi Li" <lijq9@lenovo.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260626033418.520762-2-lijq9@lenovo.com>
+References: <20260626033418.520762-1-lijq9@lenovo.com>
+ <20260626033418.520762-2-lijq9@lenovo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 03:43:16 +0000
+Message-Id: <20260626034317.250CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-From: ChiYuan Huang <cy_huang@richtek.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The compatible string array for the Lenovo ThinkEdge SE70 omits the=
+ underlying Xavier NX SOM compatible string.
+--
 
-Read the initial MTP_SEL state by hardware register to prevent the wrong
-specified property value from the conflict of hardware pin assignment.
+commit bdfb0a0b8f7c5312dd01ccd7b35c0e589b16d8f5
+Author: Jiqi Li <lijq9@lenovo.com>
 
-Signed-off-by: ChiYuan Huang <cy_huang@richtek.com>
----
- drivers/regulator/rtq2208-regulator.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+dt-bindings: arm: tegra: Add lenovo,thinkedge-se70 compatible string
 
-diff --git a/drivers/regulator/rtq2208-regulator.c b/drivers/regulator/rtq2208-regulator.c
-index f669a562f036..7fe082def494 100644
---- a/drivers/regulator/rtq2208-regulator.c
-+++ b/drivers/regulator/rtq2208-regulator.c
-@@ -12,6 +12,7 @@
- #include <linux/mod_devicetable.h>
- 
- /* Register */
-+#define RTQ2208_REG_FSOUTB_CNTL			0x11
- #define RTQ2208_REG_GLOBAL_INT1			0x12
- #define RTQ2208_REG_FLT_RECORDBUCK_CB		0x18
- #define RTQ2208_REG_GLOBAL_INT1_MASK		0x1D
-@@ -34,6 +35,7 @@
- #define RTQ2208_REG_HIDDEN1			0xFF
- 
- /* Mask */
-+#define RTQ2208_MTP_SEL_RO_MASK			BIT(7)
- #define RTQ2208_BUCK_NR_MTP_SEL_MASK		GENMASK(7, 0)
- #define RTQ2208_BUCK_EN_NR_MTP_SEL0_MASK	BIT(0)
- #define RTQ2208_BUCK_EN_NR_MTP_SEL1_MASK	BIT(1)
-@@ -465,10 +467,13 @@ static int rtq2208_parse_regulator_dt_data(int n_regulator, const unsigned int *
- 		struct rtq2208_regulator_desc *rdesc[RTQ2208_LDO_MAX], struct device *dev,
- 		unsigned int ldo1_fixed, unsigned int ldo2_fixed)
- {
-+	struct regmap *regmap = dev_get_regmap(dev, NULL);
- 	int mtp_sel, i, idx;
- 
- 	/* get mtp_sel0 or mtp_sel1 */
--	mtp_sel = device_property_read_bool(dev, "richtek,mtp-sel-high");
-+	mtp_sel = regmap_test_bits(regmap, RTQ2208_REG_FSOUTB_CNTL, RTQ2208_MTP_SEL_RO_MASK);
-+	if (mtp_sel < 0)
-+		return dev_err_probe(dev, mtp_sel, "Failed to init mtp_sel state\n");
- 
- 	for (i = 0; i < n_regulator; i++) {
- 		idx = regulator_idx_table[i];
--- 
-2.43.0
+This commit adds the compatible string for the Lenovo ThinkEdge SE70 carrier
+board, which is based on the NVIDIA Tegra194 (Xavier NX) SOM, to the ARM
+Tegra device tree bindings schema.
 
+> diff --git a/Documentation/devicetree/bindings/arm/tegra.yaml b/Documenta=
+tion/devicetree/bindings/arm/tegra.yaml
+> index 033a63f6c0687..960c604ef9a3a 100644
+> --- a/Documentation/devicetree/bindings/arm/tegra.yaml
+> +++ b/Documentation/devicetree/bindings/arm/tegra.yaml
+> @@ -268,6 +268,10 @@ properties:
+>          items:
+>            - const: nvidia,p3509-0000+p3668-0001
+>            - const: nvidia,tegra194
+> +      - description: Lenovo ThinkEdge SE70
+> +        items:
+> +          - const: lenovo,thinkedge-se70
+> +          - const: nvidia,tegra194
+
+[Severity: Low]
+Since the Lenovo ThinkEdge SE70 is a carrier board based on the NVIDIA
+Tegra194 (Xavier NX) SOM, should this items list also require the underlying
+SOM compatible string (nvidia,p3668-0001)?
+
+Restricting the array to exactly two elements here implies the corresponding
+device tree will omit the SOM fallback string. Omitting the intermediate SOM
+string prevents the OS from natively identifying the underlying module and
+could cause drivers or quirks targeting the Xavier NX SOM to fail to match
+on this board.
+
+>        - items:
+>            - const: nvidia,tegra234-vdk
+>            - const: nvidia,tegra234
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626033418.5207=
+62-1-lijq9@lenovo.com?part=3D1
