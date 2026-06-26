@@ -1,152 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9862A3FAE1D
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 16:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88993F9F48
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 16:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782491376; cv=none; b=DhS85x2kE9IXAXOGRL6NSVb1JNzUR58Say3ocw9yiJfEQXWIA8SUCrV8V9pussMdDAL9BfwRxjpGyDIEPC7S9TojEaTU94IuwaOR11N+/GKfFSud+4yUaj9/TQpvOgsv9BKcwYuLMomAQKTpvn6UGkC9d+BMITGAffUi3EruS7A=
+	t=1782491385; cv=none; b=AbSQnLzFnSQSbYNEJd+5UqKM+z0BU/dE2i1+1YLifIdJMwJhzbcmntZ2LVDlT1wqNU6b+iyUvSq7ZD/ER7le9EtDQ3HB7mnRx9pqu4dCByrL//ltJ0trG7SaUZ9l6xXQqESo51+T5dlvfezUpiygY0ExNgXDOXsIYzY6pE38Vdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782491376; c=relaxed/simple;
-	bh=NVnDY4gc25ftt42g3Xr863CczjUFB23Nl3ms3pHnF5w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aUMKpDDOIub/5CoXAUzDEWGDhCqPk8xPh8BdYqR1SgkEHsqBoT8JRXywIOvii/NXFxE8BNa9QQje320B1UB6VBdpQetsUUx+TTKae+JwWFt2dFWjH+NVuZph7umtyp+iwz01IIEe/gRnVu+QetJTQ3y0aj8jjqvEwvdJG4PamWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lynv2BJb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782491385; c=relaxed/simple;
+	bh=MIG/8hLmHuma0CNnyl+85e+Hc/AR71sEQWPRNUZdWRw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=U8QOTzB0jM3nM1Ec/fFl/vPyc9Tzn95mELqk6FJ+ARC03pOspR1Bzv37ZpmlAJSMUXgLwxpNGxAy8XCojvxEev4rlYwvfgBzaqq6F3YRlxPAperotvsZ2k4SH8frzXQdc2IoUWzx4Rk//XMesJwEm1BYgcQQw5/rJXRihq7K/P4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rMdekB3o; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lynv2BJb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD321F00A3D;
-	Fri, 26 Jun 2026 16:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782491375;
-	bh=F+JurBC5JmoPZ8SGzqZjX7BQ53Wf3AUpWJtIqX+9iX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lynv2BJbdItJuWfbm+lhlF6fb9cjE3fIIpDYH3EKQ1R74E1NfmX+Yukbl3yjc9Ifs
-	 JiNEGpaipJptp2vnTZP61mDjnTqzgDHRHf+W3CN3umCNmZOsFDc302Q9JLXaHyrW/n
-	 848zNvkK51Dr7IhOG3eOlkSS4sAizPxNLN17GsrZJvG4eRwXHTYvNdiYAzwA+I2uhZ
-	 a14Z5kZ7eRtae5ioMBquuIdfG4VYfCWuCQU8ZAHBd28RdreEI0UcAqG3WytPRodmGS
-	 u0SuSvxyW04gvAwhPRbR5yHlnxBex7fHlD/iLRQGstjXAhh58UqjoFlo4JGgnKpiyx
-	 Z/HPEQUjQh6SQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V15 6/9] iio: imu: inv_icm42607: Add Accelerometer for
- icm42607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260626161230.93069-7-macroalpha82@gmail.com>
-References: <20260626161230.93069-1-macroalpha82@gmail.com>
- <20260626161230.93069-7-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 16:29:34 +0000
-Message-Id: <20260626162935.2FD321F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rMdekB3o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 165E44E40970;
+	Fri, 26 Jun 2026 16:29:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C329360232;
+	Fri, 26 Jun 2026 16:29:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B26C3104C955F;
+	Fri, 26 Jun 2026 18:29:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1782491380; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Q0Ay+Nn4LPYfCIMIxKfuL34eMs2xRlO4A06aFPmJvUY=;
+	b=rMdekB3octyzR3BlwL50+P4o3/w2gjcnOoiNdFe83N1UEw1jIJXEbmDaBSFBRZYQtMl+Nf
+	mhjLkNZvDSHJS6BavFM59GiibovXVO20x1QrvJ+eyw3EUKDc9MiKtvw4oT3eFhjNWH6M+7
+	isNZdGKxDn7W+yvM1xFsdWZLIndEvZaycDDFsuDo0DxFQ0PuHp5RVgXBQOXBkxsQTOGTzw
+	np55BLuu9BYqC63ExvqsmJrQinu2uEQj4UGh259SbTm3eqs19aOSHOfYuOVSpQCLrvLiTi
+	Ls7rxoycSWo5la/Y8tbktKm2dZ2HUiflyl5RVIvOMfloo/Z8oEYt9Qsx76w0Sw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 2/4] drm/dp: Add helper to validate DP lane counts
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com, 
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com, 
+ dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com, 
+ dianders@chromium.org, m.szyprowski@samsung.com, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260604085220.2862986-3-damon.ding@rock-chips.com>
+References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+ <20260604085220.2862986-3-damon.ding@rock-chips.com>
+Date: Fri, 26 Jun 2026 18:29:25 +0200
+Message-Id: <178249136511.1374898.9104900523077961218.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The driver fails to update the cached sensor mode (`st->conf.accel=
-.mode` and `st->conf.gyro.mode`) in `inv_icm42607_set_sensor_conf()`, causi=
-ng active sensors to be inadvertently powered down during subsequent operat=
-ions on other channels.
-- [Low] Comment mismatch regarding reserved values in ODR arrays.
---
+On Thu, 04 Jun 2026 16:52:18 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+> Add a generic helper function drm_dp_lane_count_is_valid() to check
+> if a DisplayPort lane count is valid. According to the DP specification,
+> only 1, 2, or 4 lanes are supported.
+> 
+> This helper avoids duplicating DP lane count validation logic across
+> individual DisplayPort drivers.
+> 
+> [...]
 
-commit 21180a0d12af14de0e8d6f0ad4323cd153c83b4d
-Author: Chris Morgan <macromorgan@hotmail.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-iio: imu: inv_icm42607: Add Accelerometer for icm42607
-   =20
-Add icm42607 accelerometer sensor for icm42607.
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
-iio/imu/inv_icm42607/inv_icm42607_accel.c
-> new file mode 100644
-> index 0000000000000..8ef9fdae1bc84
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-
-[ ... ]
-
-> +static int inv_icm42607_accel_write_scale(struct iio_dev *indio_dev,
-> +					  int val, int val2)
-> +{
-
-[ ... ]
-
-> +	return inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
-> +}
-> +
-> +/* IIO format int + micro , values 0-5 reserved. */
-> +static const int inv_icm42607_accel_odr[][2] =3D {
-> +	[INV_ICM42607_ODR_1600HZ] =3D { 1600, 0 },
-> +	[INV_ICM42607_ODR_800HZ] =3D { 800, 0 },
-
-[Severity: Low]
-This isn't a bug, but the comment states values 0-5 are reserved.
-However, the array defines index 5 (INV_ICM42607_ODR_1600HZ) and the iterat=
-ion
-logic later starts at index 5. Should this say values 0-4 are reserved
-instead?
-
-[ ... ]
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> index 738970ed5c66f..300c583aba81d 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
-
-[ ... ]
-
-> +int inv_icm42607_set_sensor_conf(struct inv_icm42607_state *st,
-> +				 struct inv_icm42607_sensor_conf *conf,
-> +				 enum iio_chan_type chan_type)
-> +{
-> +	struct inv_icm42607_sensor_conf *oldconf;
-> +	bool config0, config1;
-> +	unsigned int val;
-> +	int ret;
-
-[ ... ]
-
-> +	if (config1) {
-> +		if (chan_type =3D=3D IIO_ANGL_VEL) {
-> +			val =3D FIELD_PREP(INV_ICM42607_GYRO_CONFIG1_FILTER_MASK,
-> +					 conf->filter);
-> +			ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_GYRO_CONFIG1,
-> +						 INV_ICM42607_GYRO_CONFIG1_FILTER_MASK, val);
-> +		} else {
-> +			val =3D FIELD_PREP(INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK,
-> +					 conf->filter);
-> +			ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_ACCEL_CONFIG1,
-> +						 INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK, val);
-> +		}
-> +		if (ret)
-> +			return ret;
-> +
-> +		oldconf->filter =3D conf->filter;
-> +	}
-> +
-
-[Severity: High]
-Should conf->mode be saved to oldconf->mode before updating the power
-management state?
-
-Since oldconf->mode is never updated here, the software state permanently
-tracks both sensors as OFF. When reading one sensor, the stale OFF state
-for the other sensor is passed to inv_icm42607_set_pwr_mgmt0(), which
-inadvertently powers it down. This can cause the driver to ping-pong power
-states and incur 45ms delays on alternating reads.
-
-> +	if (chan_type =3D=3D IIO_ANGL_VEL)
-> +		return inv_icm42607_set_pwr_mgmt0(st, conf->mode, st->conf.accel.mode);
-> +
-> +	return inv_icm42607_set_pwr_mgmt0(st, st->conf.gyro.mode, conf->mode);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626161230.9306=
-9-1-macroalpha82@gmail.com?part=3D6
