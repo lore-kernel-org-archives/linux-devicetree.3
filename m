@@ -1,446 +1,213 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27273BF672
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B0478F2B
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782506502; cv=none; b=RUnBgKiQZNNkpLsIB6NSL4kOfUKxp5t9GPfY3zygb4YYIH9NwtCRgb3t86h35e2dwsj+wAvVabN1VY7LqjsQAceUuV196yiZkcZIYFoXNOunKh6gqjf0TwhnzN7ML4cQstZ5iMGkvK5nWQC2asjpnj6lemXb+PfswWHy0a/f/8A=
+	t=1782506984; cv=none; b=kzpkhbkHvzlD5T1VeF+1esFjOEhSoAn6wwOXssealLcTRkjW+WfZzKymKMjUIJBfVM2jij4Iv9ssQVtu4MbI1vL9sP66jvMz6XRLe+VBoabvesM7Kp6ANeU7LblI7FecMe+RphmBZYC3nIgMcV+F/vuDlE0eW8cS8ZE5beJpYaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782506502; c=relaxed/simple;
-	bh=2Ulc0SWF8262TTAGsof0ZzS0ft816yhExp9dW2keXn0=;
+	s=arc-20240116; t=1782506984; c=relaxed/simple;
+	bh=fKeIsblTZ0E23FHRZVpCwRr64HLAxL+Wv28mrFvs1Vc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKTmYFa4uGQSJaNCDtBDZV0/ZPxLX+y1c3+KHOCWmpJo2260QNkbAqa5ncWgIaqfkgAAqv+Cr1wSwYz6KmvfccCCwKwupttSvt6KDPzUtYrZ+kFYRwfFCtlTr5YxE832EzvN+p0lhot1FCgq3WFpaBxr88CcLCPefwdap3H6Z9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xjkds+57; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VwC+Nb8E; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=goG4T9h7nRfAcdDQnQxmHGor4NdTKoMUXI3Zwd1SzS19oOZwXrcMwZqSM51mKZU/+ZWYyU1cUv+b6CGSsNDCPBD0b6IMcu63gIYW5MSohkIS4+vA94D2W5q6MAl1b/GfGfkhVu40ChmW7fcSja6Bz4rBRbW1OGdLnY2EFhL8XdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mmgBY5Ms; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HDGlGqAE; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xjkds+57";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VwC+Nb8E"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65QJ9K9G2176519
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:41:39 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mmgBY5Ms";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HDGlGqAE"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65QJ8X5w2308816
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:49:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1uaGDXBW7Kq2zoKPgn7o7FFe
-	mmz8E/gP79jq5g9mVQc=; b=Xjkds+57Dv5n2+7wLveuOQqMfFuJrIZOpRqz/qhM
-	eHoWOqTwnj+3hWHvxA1thaGFnVYtXyvor2zE0dd/sQ8+abmgcg/5SH4VRJEYeT+L
-	UdwOiw8MfZyRXVBIYBd4aM9+HIhpwfFU8YyTh+fZAIHDbdyBi3N9O7E2V6S7kXZg
-	KaNnf14O8VmBYlRWfXZotB+23q8UB6Jj4OC33y8x7sY7uweeHfWSnsEYUptaAXH+
-	n6Vk8UKy4NF1H673BpD/gnMbmvKwE+OR+oEMnNx7Lq+G87RX7TavqULlmEagm7Zb
-	dfxkLUCRHOd6El0gHdbE7/EdugdJqsxLlzTzYTp5Jok5ZQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f1nggjntx-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2ky5oJQblObHqyE+E/5ZcFxz4/F4Xq5LfboN+e/NPrg=; b=mmgBY5MsyBNarjGq
+	fCkNbaKz90Ha1k+46FNVNXlo1ap1dhf9TJmVaTuMznzEwv6wr8Uu/rbmc26oy0RQ
+	oTkATT0fUsjjOhKWN8wsH1vBu8EHhANjBCLn6d3SUm/OXYoswaw6NPDSg7sWNbk8
+	Aw50wT4mBGPlxuU41Twl3oehLQ9kZsUHVdznR9wRiVnv128HODRg5riSiJwU+H42
+	HGZbAs1V11m6dWJaLoa5qPpuwWghr0oIwJoBwP3pzj54cewSWxchOK93zEVjOUHD
+	1pLmCSxBcvpwIjaWdRmZTrRe+Fl1U1eAZuSQcyfcDhprcktNrG5fXmHigvVLfD5Q
+	oXQuag==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f1tc3hhhu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:41:39 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92af3d5e85aso169044685a.0
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 13:41:39 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:49:42 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8e05aa49693so38034676d6.3
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 13:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1782506499; x=1783111299; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=1uaGDXBW7Kq2zoKPgn7o7FFemmz8E/gP79jq5g9mVQc=;
-        b=VwC+Nb8EEr5+KJ8sEELK9Gs3oYQh4uZ2WnJxfBhbTe3e5BN8d792ri6VkCaKeSIVOb
-         0OGdaMVZqs6tHIRR4yay7wlNCBS+dP4MeR4WI4aHOVohRtT0kEckGgVpsl6HlY55Ueva
-         MGEnn4Dy4yKllpeWLbItihWor2PZ7xxS1sGr9fryFTzkH1tFcSfahpMioeU4iqRZg8ZW
-         k6LOipcMioQRa1tggWUmpIQw1O1JLQhoPVb5d1HFPJU+nzub2aKSxidvhQrIv/ewpqSC
-         uaj02dQsE5xo1zj1oE/P+O+C6V97UcJbhDuW8UeUIdEFejgmKq4syw9TXybxDvIjWWbH
-         hz8w==
+        d=oss.qualcomm.com; s=google; t=1782506981; x=1783111781; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=2ky5oJQblObHqyE+E/5ZcFxz4/F4Xq5LfboN+e/NPrg=;
+        b=HDGlGqAEJWqmsg2cDgTOsbK+LisVdyLOxjLwfBEzYq984Qv+sz8i/P2Lh1ERov1oTz
+         Nf83lGcZnRwKs3ZjRTe8BpKD33CwCsZC2fL2/kvq1LabPtin2yFVY+QfmRwqHZpPIMze
+         txO+LInK3yAzVAZ/+ZHg6XhHNsLvxnv+IfaBMvZSQ9Y8K5Dw5kShEsYiLp0cifOdrH8o
+         LtJ7IUOaltPnvM9xu3oxMOiBHdj7b1Ky+wdXt27K/4nZ7LyiOzTF8QL0JamAQJUWbv8G
+         b3k+vXCAxU2YRPrrEvBVxAbh8rt4VAXZvDWc4cHNqRDZ1ij7OHoKj/L3rAfUfzu1px2d
+         KAjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782506499; x=1783111299;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1uaGDXBW7Kq2zoKPgn7o7FFemmz8E/gP79jq5g9mVQc=;
-        b=RSBGnQhfqiLG4EQMn40x421EZF5IdJnXymmpQMELOvmhpO4MYXZqLM3YkdkNVzO3D5
-         S0Ky4P0QttOvOwqDeEbAHn2B9vvPrHjFvUKzPuXMnZ9vLpZ9K0GLhQ8VPp0IO5myCBez
-         x08CRM/M9uZJOzEN2EQo9CFXAT6RXURVHH8ZD1Z/zcsbG423BWVF0/BXs6bxrgHuOMi5
-         8I0L+zlD1l+c65IMQSDNDd6ivmuJWPmnhnGeXx6EgYxM5yg4IfIMUMGtDK3aXgymkAtV
-         Bkxk0oGo76NDyBIwzgU/5ZGvU7wu8C0CgttRO8qWc8ZRiYbfSSMIeSTwI4eVOWYnmpEb
-         DpaA==
-X-Forwarded-Encrypted: i=1; AFNElJ9yzyR/QzSxISiNsuInz5d6IexAr88wexFmcxwSQeW/xi9haobsXgCCUwQFJEje/CgFBihb8ti2FXNX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZ1fmFOH5OozgUHM8+ZofkvhJCoi2usOnBAwsbRuWVyQPiZca0
-	GbWppN+qR6k94wJ2IUtPe9UEtlsMh/XDP7dzrJC5iFmFru5Lv38oCbpqOCD7DfUKdZvy/Au4/Xy
-	k2fM5PcQCWVsvJyb3O2YkPwsE3rZk77umqa00JNwJhY10EdKDcwLuMdJg20BxX1sH
-X-Gm-Gg: AfdE7cm7VgtWLZUjEuPvvKIg8EoIPQXss2JgP+UKhM+945YGO5JggUhfmy5rcmhbdTR
-	dGicLbfPdDh8vnnlu5B4CX/aZw2uayDaJuqbsIornoEpQ+3JBOk7GF32cUCsLFGwM21c12xh8Lm
-	8xc0115h3+gacb4HsqwmBdjtm5I9Ovy3SzQt4IswZcXRzpXHpu3CYFxu0K5YlJe1l/T9un1+0od
-	pAVh4RtQK8hgLU7PEnmN193bu/3vwoESUsbcjgGNqAwZyA9CjKup/2wQNs7uTtwC//hZ86mlMh7
-	A9HgS3T36iAg5i9QEZPf6m7fCBN5hRtWvKDgXRGT2W3sdGDlHr+hGmBWGaK5rI/p1pULceY2A8T
-	lY+cmtXSNbggCm/qw7fuNz+T5+gOkaU0cjPzQhQ2ceG6HRHDwzQ62LIo1t6uRyMr+MT/utT6V+/
-	Fij7tV8rtKpKU0/Q1m9XLY9ObK
-X-Received: by 2002:a05:620a:44d4:b0:925:eb05:d194 with SMTP id af79cd13be357-9293d4b2daamr1286065285a.57.1782506498915;
-        Fri, 26 Jun 2026 13:41:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:44d4:b0:925:eb05:d194 with SMTP id af79cd13be357-9293d4b2daamr1286057785a.57.1782506498017;
-        Fri, 26 Jun 2026 13:41:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782506981; x=1783111781;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=2ky5oJQblObHqyE+E/5ZcFxz4/F4Xq5LfboN+e/NPrg=;
+        b=ehAI4lSunDv1pZZ+7AZ7GepJlTQ1lFDJTGiNv4jGpyLOAyll8oFsbac/9l2PhLWEJ7
+         4Z0UQtWP6rXZd0QI1H4+O1QGskI4QmN/BPVxVFdmKBjYgsVyczdycK68FfCb7BLvWrzp
+         03Zs94qDSUoQ8rh7juLBZ9JAeIbZ1zmf+HljeuC3PQOV8d5wZdruEl0ymMcw5z9Ysglx
+         /x06qd8ZJ1qbZLaYnRS9Zmf6qwWC6Y/wqDm14krTefb4X9SyaKH7zs0JfQnYMjZceyUE
+         BoMOBNvnXhesO5hhN0XfuOM1ZfjijkSuwEpsluq4UkjvYsiH8OeAXB5IJac8EbPB1Oy1
+         KdcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+PFWXbtshWQvx2f5GwRM/wlERqA6vOe3UoDo2mQU921nE9J3z3AV0pxSxSwcHZJbNTFYIA9kdldvqU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz73xyt5q6zMixOSpb3ipCcihQvasS2+JRDIf0lShDk4C73/R9+
+	d4WJF+wNdv+RT+6ZUGC1AcnolZUnfd4TsJDb+SlWIbq44IcZeqQMzse7aiBh7FnJ7h9NQrZSxR8
+	KzCaUDMlcFq9gGUbR2b1THNnu3UG99S7Hu9TfovhAk/tQFlm3wZkKWnaAB4Cp15c1
+X-Gm-Gg: AfdE7cl3fJ0zSbGHaGEI2Urm/pM6MJXSVPB/cHQMJ+oAeysX8Hj1Y0FPayf3get7Rnr
+	BCD9Pr9Oqgp32QevKWYLKNtNK3yO/1A+o9uxWk2sjky12qsXznvtRcmzAb2EMjy7fwifp2rS+lf
+	DdzpNQk3P7cqRrIEsEvBTolvVIB5qL0gPS+96/swAIJbaZondR0ULZ4NuMJ9fC9IDQBMpRkrGFG
+	MYx/U1qALJLVDfMFQAJTRHygJq52IdkvIJidHacwL9Gu86UNSNvEcN2QA9ZNirR57K8wkFYX1OH
+	yGp9rELh8WBuq+bWRbRuLJaxSuMOAzTJtbxlZYLUkzO591uBs1IKFhP7qdtrS6u8MIb6tFQp+Nv
+	izLvRH5uazhpc+rN8XTrN0m60EwXW0UqBBZOCLj03Ae6y9LHfPMZDgEr/mFgDWZHAK4r499PjoA
+	9VPkhMZtq0b28+G60pt80d3crF
+X-Received: by 2002:a05:620a:a911:b0:929:e498:c102 with SMTP id af79cd13be357-929e498c1b1mr877300385a.14.1782506981550;
+        Fri, 26 Jun 2026 13:49:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:a911:b0:929:e498:c102 with SMTP id af79cd13be357-929e498c1b1mr877296885a.14.1782506981109;
+        Fri, 26 Jun 2026 13:49:41 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3999b1b143fsm52646381fa.39.2026.06.26.13.41.33
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ad6954a617sm3697560e87.2.2026.06.26.13.49.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 26 Jun 2026 13:41:35 -0700 (PDT)
-Date: Fri, 26 Jun 2026 23:41:31 +0300
+        Fri, 26 Jun 2026 13:49:39 -0700 (PDT)
+Date: Fri, 26 Jun 2026 23:49:36 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Doug Anderson <dianders@chromium.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, ayushi.makhija@oss.qualcomm.com,
-        rajeevny@qti.qualcomm.com
-Subject: Re: [PATCH v3 2/2] drm/panel: add Ilitek ILI7807S panel driver
-Message-ID: <5pvhrsikc3spr5jworztun7pjpgnkfihxvqd3dthhn7yeoud56@vcajuuwqplvo>
-References: <20260624-ili7807s-v3-0-ddf37052a289@oss.qualcomm.com>
- <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
+        Conor Dooley <conor+dt@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mahadevan P <mahap@qti.qualcomm.com>, Stephen Boyd <sboyd@kernel.org>
+Subject: Re: [PATCH v2 0/3] arm64: dts: qcom: kodiak: Enable 4-lane DP via
+ QMP Combo PHY
+Message-ID: <xcirlthd4ck2mf7r6corjw3mmd4gx3hbm6wty5grodhr63wxvr@4glvc4vdvpqt>
+References: <20260429-kodiak_v2-v2-0-c3a703cc30eb@oss.qualcomm.com>
+ <ag_QL5DIo7MxsdYU@baldur>
+ <84ed2c32-16d0-4c29-a06a-9242eeb8e86e@oss.qualcomm.com>
+ <CAD=FV=XQH3kng7MV=Jr=HmZQc4TEUCq+V3TsLNChr5vUHUtXAg@mail.gmail.com>
+ <d4641613-dcf0-4437-9aaf-dede83afe04b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260624-ili7807s-v3-2-ddf37052a289@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDE3MCBTYWx0ZWRfX2T4cKOsOwT9J
- Lf9v2G8dAMzgzxu4ie0Zwer0P2XI+1h+UvgUI5tlfC+PUcqIJ8KO9m8bg8inxMtsLLSFfvqy/0g
- 1gbkndrZrVpoJed1GwQRzlli9cGAz6P9yIKCVBnf869B5+whVqVajTYbaPjirQcE0a1Bp5QZbyb
- U7/bRzLUTouYfVIJemfu4AP9L6a1hyL69JMKOaVl4MeULTcka2azYdd4ouGpjnFml/Hxl7VUqJC
- Z9ZTLO2hMgiNil2MdtSXBC0S02L0P59b5pgdQlBeLJnK28fe45WA92f6LwJFzYUa3AcFabDhJZ7
- y1vvYpJbGEFLk8mTjW7O9l129CPWm06j9o9Flq5jltR+Te2kvGiAsppKMUK6bOt6OESq2aCvqFV
- +M5aLKp2KdrcbIHTRrQ7ZTCyMGCnLcaKj/1iV0QzAcbHvGt2KlFFkhr9LPv5L5smbL5CuReslVW
- jZ/0IeczRrqiUuQKmKg==
-X-Authority-Analysis: v=2.4 cv=KNlqylFo c=1 sm=1 tr=0 ts=6a3ee403 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d4641613-dcf0-4437-9aaf-dede83afe04b@oss.qualcomm.com>
+X-Proofpoint-GUID: LFxdl88pPhqkPtGe_3PSekKJZc-rUj0P
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDE3MiBTYWx0ZWRfX+ypZO040wey7
+ 2uHTcCI7mSrwqY/zlt+kGv3rXSIitTmGYaB+FmBa2ab+kjWOis1PPO0/XW32C9g4GliIlGj2p1O
+ FGn1Y24pn6BtTCrGWH53X1CfXvGjZG8=
+X-Proofpoint-ORIG-GUID: LFxdl88pPhqkPtGe_3PSekKJZc-rUj0P
+X-Authority-Analysis: v=2.4 cv=T4m8ifKQ c=1 sm=1 tr=0 ts=6a3ee5e6 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=UkQgNfaBbZvMdpwfnggA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDE3MCBTYWx0ZWRfX+JMzCh8uDqWQ
- q7QSMh4d8yZ2lz4WNOUSNCgXXGrr3OFdTzhnOO3IAfWBgSbwrLjSGEIj2o7I37FWEXVzpI7jlc0
- sM5yAPewsvfmB1sPWEskYlp2UYBhaiU=
-X-Proofpoint-ORIG-GUID: fzoorV-ASpqVaUA125FO-4jMtx9LncJq
-X-Proofpoint-GUID: fzoorV-ASpqVaUA125FO-4jMtx9LncJq
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=qgbJk5cZIR8ycAwPhMgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDE3MiBTYWx0ZWRfX2MBDo/pzKLF7
+ eO+AQMurOYPWBR8eoUgoNWLSf8mgy2o4WPklt8KJpQgwhGn9BWQQv+5GgAk612uYMcxGLwFUE86
+ N1T4cxN3/+RF0lp6mH69VcWw4mp5BOdeo5u0dtYK2TsS4eZ39U32cGNd6Izy3VBKLz4ES0ycs0B
+ S/G6xQEbu7YuJreHm/u+tkFs3pNCUPzTtlNhy2vemH/Im7M9c25qXftuc5BlSg0qHQkIlYxRXg/
+ YeYxW90GJuYTYTz+HbOgCcdbto3mBLAuwhsh1UTdvx2zaU6KBY481kebY56APJyz1HP0kyN9Qih
+ jCM1B16FvlZV0drM5kmTRa0zV/Tmx+stAV5iJwyepOSGvIg+qc9GLKalIGWKgQTYD+QVfMyr+DI
+ XSbBt6Na7uTSgMD87Ta1pakS0dvWgGc/pXpUTQspEAJDktQHTIHpo5+LcQFU1nOQvilFipLxUzo
+ mxMR+80qeMH0gXo5MCQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-26_05,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606260170
+ clxscore=1015 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ spamscore=0 malwarescore=0 priorityscore=1501 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606260172
 
-On Wed, Jun 24, 2026 at 02:23:52PM +0530, Arpit Saini wrote:
-> Add a DRM panel driver for the DLC DLC0697 1080x1920@60Hz MIPI DSI
-> panel based on the Ilitek ILI7807S display controller.
+On Fri, Jun 26, 2026 at 06:02:12PM +0200, Konrad Dybcio wrote:
+> On 6/22/26 12:11 AM, Doug Anderson wrote:
+> > Hi,
+> > 
+> > On Fri, Jun 19, 2026 at 8:34 AM Konrad Dybcio
+> > <konrad.dybcio@oss.qualcomm.com> wrote:
 > 
-> The panel operates in video burst mode with four data lanes using
-> RGB888 pixel format.
+> [...]
 > 
-> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/panel/Kconfig                 |  12 ++
->  drivers/gpu/drm/panel/Makefile                |   1 +
->  drivers/gpu/drm/panel/panel-ilitek-ili7807s.c | 293 ++++++++++++++++++++++++++
->  3 files changed, 306 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index 7450b27622a2..1cbaac1bf545 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -264,6 +264,18 @@ config DRM_PANEL_HYDIS_HV101HD1
+> >>>
+> >>> Are you sure that herobrine has 4 lanes routed on the PCB?
+> >>
+> >> +Doug any chance you still have schematics for that old boy?
+> >>
+> >> Bjorn, perhaps we could switch to a model where we define the max
+> >> capabilities (i.e. 4-lane 8.1 GHz link) in the SoC DTs and only limit
+> >> them as necessary? Not meeting these is borderline a board defect anyway
+> > 
+> > Bleh, I'd forgotten what a pain it was to look at herobrine schematics
+> > with the whole qcard "abstraction".
+> > 
+> > My memory and a quick glance at schematics makes me say that herobrine
+> > only has 2 lanes of DP. The problem is that this SoC really wasn't
+> > designed with a laptop in mind. I seem to remember there only being
+> > one USB 3 port and it is muxed with two of the DP lanes (since the SoC
+> > is designed to drive a single Type-C port). In order to support all of
+> > the ports that a laptop should have, you pretty much need to feed that
+> > one USB 3 port into a USB hub and hardcode the DP to always use two
+> > lanes.
+
+This matches my memory and the abstractions that Stephen has been trying
+to implement.
+
+> > 
+> > The two DP lanes then go to a mux where they can be routed either
+> > towards the left Type C port or the right Type C port.
+> > 
+> > In terms of whether we can support the 8.1 GHz link speed, I remember
+> > much debate during the project, but I don't recall all the details. I
+> > think the discussion was that we were supposed to support the higher
+> > speeds, but we had to disable them because they weren't working. From
+> > my fuzzy memory, it was unclear whether the problem was known to be
+> > hardware or software related. I can try to dig deeper if it's
+> > relevant.
+> 
+> If anyone still has herobrine easily accessible, I guess a smoke test
+> with a high res display and this:
+
+I remember that it was not stable. HBR3 worked in some cases and didn't
+in the other cases. So, I'd rather not touch the old grampa and leave it
+as is.
+
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> index 5c5e4f1dd221..a39e418fdabb 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
+> @@ -464,7 +464,7 @@ &mdss_dp {
 >  
->  	  If M is selected the module will be called panel-hydis-hv101hd1
+>  &mdss_dp_out {
+>         data-lanes = <0 1>;
+> -       link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
+> +       link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+>  };
 >  
-> +config DRM_PANEL_ILITEK_ILI7807S
-> +	tristate "Ilitek ILI7807S-based panels"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	help
-> +	  Say Y if you want to enable support for panels based on the
-> +	  Ilitek ILI7807S display controller, such as the DLC DLC0697
-> +	  1080x1920 MIPI DSI panel.
-> +
-> +	  If M is selected the module will be called panel-ilitek-ili7807s.
-> +
->  config DRM_PANEL_ILITEK_IL9322
->  	tristate "Ilitek ILI9322 320x240 QVGA panels"
->  	depends on OF && SPI
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index c2c5cf817116..c3002b351cb8 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -26,6 +26,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112B) += panel-himax-hx83112b.o
->  obj-$(CONFIG_DRM_PANEL_HIMAX_HX83121A) += panel-himax-hx83121a.o
->  obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
->  obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
-> +obj-$(CONFIG_DRM_PANEL_ILITEK_ILI7807S) += panel-ilitek-ili7807s.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
->  obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-> new file mode 100644
-> index 000000000000..8ddfab2693ec
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7807s.c
-> @@ -0,0 +1,293 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/backlight.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +struct panel_desc {
-> +	const struct drm_display_mode *mode;
-> +	unsigned int lanes;
-> +	enum mipi_dsi_pixel_format format;
-> +	unsigned long mode_flags;
-> +	void (*init)(struct mipi_dsi_multi_context *dsi_ctx);
-> +};
-> +
-> +struct ili7807s {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +	const struct panel_desc *desc;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct gpio_desc *reset_gpio;
-> +};
-> +
-> +static const struct regulator_bulk_data ili7807s_supplies[] = {
-> +	{ .supply = "vddi" },
-> +	{ .supply = "avdd" },
-> +	{ .supply = "avee" },
-> +};
-> +
-> +static inline struct ili7807s *to_ili7807s(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct ili7807s, panel);
-> +}
-> +
-> +static void ili7807s_reset(struct ili7807s *ctx)
-> +{
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +	usleep_range(10000, 11000);
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-> +	usleep_range(10000, 11000);
-
-This looks like the reset being active-low. Please define it as is in
-the DT and use normal (hold = 1, drop = 0) semantics in the driver.
-
-> +}
-> +
-> +static void dlc0697_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-> +{
-> +	mipi_dsi_dcs_soft_reset_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x78, 0x07, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
-
-mipi_dsi_dcs_set_tear_on_multi()
-
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x09, 0x99);
-
-MIPI_DCS_SET_CABC_MIN_BRIGHTNESS
-
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
-
-MIPI_DCS_WRITE_CONTROL_DISPLAY
-
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x01);
-
-MIPI_DCS_WRITE_POWER_SAVE
-
-> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0x3f, 0xff);
-
-mipi_dsi_dcs_set_display_brightness_large_multi(). Also please use
-0x1fff instead of the full brightness.
-
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +}
-> +
-> +static int ili7807s_on(struct ili7807s *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-
-Drop, set it in probe()
-
-> +
-> +	ctx->desc->init(&dsi_ctx);
-> +
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-
-Drop
-
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int ili7807s_off(struct ili7807s *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-
-Drop
-
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +
-> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-
-Drop
-
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int ili7807s_prepare(struct drm_panel *panel)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +	if (ret < 0) {
-> +		dev_err(ctx->panel.dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	msleep(20);
-> +
-> +	ili7807s_reset(ctx);
-> +
-> +	ret = ili7807s_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(ctx->panel.dev, "failed to initialise panel: %d\n", ret);
-> +		goto err;
-> +	}
-> +
-> +	return 0;
-> +
-> +err:
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +
-> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +	return ret;
-> +}
-> +
-> +static int ili7807s_unprepare(struct drm_panel *panel)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +	int ret;
-> +
-> +	ret = ili7807s_off(ctx);
-> +	if (ret < 0)
-> +		dev_err(ctx->panel.dev, "failed to disable panel: %d\n", ret);
-> +
-> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +
-> +	regulator_bulk_disable(ARRAY_SIZE(ili7807s_supplies), ctx->supplies);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ili7807s_get_modes(struct drm_panel *panel,
-> +			      struct drm_connector *connector)
-> +{
-> +	struct ili7807s *ctx = to_ili7807s(panel);
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->mode);
-> +}
-> +
-> +static const struct drm_panel_funcs ili7807s_panel_funcs = {
-> +	.prepare = ili7807s_prepare,
-> +	.unprepare = ili7807s_unprepare,
-> +	.get_modes = ili7807s_get_modes,
-> +};
-> +
-> +static int ili7807s_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
-> +	u16 brightness = backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-> +
-> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-> +
-> +	return ret;
-> +}
-> +
-> +static const struct backlight_ops ili7807s_bl_ops = {
-> +	.update_status = ili7807s_bl_update_status,
-> +};
-> +
-> +static struct backlight_device *ili7807s_create_backlight(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	const struct backlight_properties props = {
-> +		.type           = BACKLIGHT_RAW,
-> +		.brightness     = 0x3fff,
-> +		.max_brightness = 0x3fff,
-> +	};
-> +
-> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-> +					      &ili7807s_bl_ops, &props);
-> +}
-> +
-> +static const struct drm_display_mode dlc0697_mode = {
-> +	.clock = 131911,
-
-= (1080 + 18 + 2 + 16) * (1920 + 26 + 4 + 20) * 60 / 1000
-
-> +
-> +	.hdisplay    = 1080,
-> +	.hsync_start = 1080 + 18,
-> +	.hsync_end   = 1080 + 18 + 2,
-> +	.htotal      = 1080 + 18 + 2 + 16,
-> +
-> +	.vdisplay    = 1920,
-> +	.vsync_start = 1920 + 26,
-> +	.vsync_end   = 1920 + 26 + 4,
-> +	.vtotal      = 1920 + 26 + 4 + 20,
-> +
-> +	.width_mm  = 0,
-> +	.height_mm = 0,
-
-Do you really don't know the dimensions of the panel you are
-contributing?
-
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
+>  /* NVMe drive, enabled on a per-board basis */
+> 
+> would be the quickest way to confirm that. Although we can just leave
+> it as-is if it's problematic.. I think you said there's some folks that
+> still use it a couple years ago
 
 -- 
 With best wishes
