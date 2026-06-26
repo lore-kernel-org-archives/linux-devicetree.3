@@ -1,182 +1,116 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D923BAD95;
-	Fri, 26 Jun 2026 09:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782464967; cv=none; b=YUgWbpCiHZuob+svkEtczr0BX9hONkAaQObRIrzSO6JmLiD39Bs6MMlhO4I9xFPV0VEoinAhZJf+Go9LP7VLvet66G9FVTPbOP6OSxOTVwzuxHsje1cVGO5axJmR4VJH3mSX49Inf/qO97gv/BQIgtplF9vFLH99YfVodDk3enE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782464967; c=relaxed/simple;
-	bh=5Lv/xycF/BeAYW6b9Q5Dt2xc6YcWsiS5nJX8Z7401wQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UkAvclqzTWiEsiJrj5E81s1GBPryjMydNYR0vaUBkNe8XzRvRg9qMn2KA6wYC5aOZOMTx56ul7b27x0SmeAoyA+sV2pk/N+P3vENFjxd00Wb5t/lcyZNmPJxppb7XLI0RZJeIaZy6wYxbjG3NsVVqX+vrxpk+FBOYJQMA2GXWXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
-	by APP-01 (Coremail) with SMTP id qwCowADnjNW4QT5qNX5fAw--.14227S2;
-	Fri, 26 Jun 2026 17:09:13 +0800 (CST)
-Message-ID: <996c3d442e92e7f908fb3a32973805dd2d2680d7.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Conor Dooley <conor.dooley@microchip.com>
-Cc: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- 	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
- yclu4@nuvoton.com, 	dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 26 Jun 2026 17:09:12 +0800
-In-Reply-To: <20260626-agreement-express-b16c71315f7b@wendy>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
-	 <20260625094449.708386-2-a0987203069@gmail.com>
-	 <20260625-bobbing-annotate-d1c4d6874ee2@spud>
-	 <20260626-zit-amuck-e743e58d2e15@wendy>
-	 <84b93c496fabdeee05d2f962a1b764fdbfaacdb7.camel@iscas.ac.cn>
-	 <20260626-agreement-express-b16c71315f7b@wendy>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAFE3E4C98
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782465189; cv=pass; b=VRhYY4QGqwGmnXMq3d6Z+NpmDXVF+IlM+KjNvemabAjN6yrP0dotJLBdXtD33hwq5ONKQHcgcgSEmI866PfiHFutmTBn2sn3P1hVogynLVID2QrQ6kW0FTqakTLYjOYTqxEQ+8uAJ8qdTOSXwMdFaRUx35iX5v/UvbuLlCcpVWE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782465189; c=relaxed/simple;
+	bh=KbbQR1i7C5wmzlWEzAQ1sdnBYsBTwBeB+CufbfTPiYI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rdfzkhqM3d0GC+n2x0eSQiosjdvY9jz3oZ/MC9knwXzJzG32ab+2yvdihLwl/a89lUfKa1WTblilnqB/Gdd4PPap4K1hQSnGeknuYN++mepNGHxgqzuosZyRaDy+ZaCDUkEs402JBb7QkBlLELjhIteh7Lf5JuDaKbGQVA9x6cE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cx0DSStc; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cx0DSStc"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-69531108f25so1311449a12.2
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 02:13:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782465187; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nVXjMoZknfYIiMZ+hWZQHq5smT8fQpqLiHian6bx1d8kJuQxj1sa6BOLUSYx7iopPp
+         /UDU2OR5JzbX6UgVEfnmnKVEqns/NDPv9ouQefOx9X42n4+/1WwN4IWYAhGKnhvp+8+2
+         h1a/8gaVehucvBNRc6OofaNiKSFLXAARIsLz6Vjx0FLYwj+RFDpHVNaMzMf2FccEDsj+
+         5RJdmqsKEOH77UPf6er1ko6+zRK2FSSiT8ub2mrRItGP89/1BodFmNZIoLL4FwH6HrfM
+         CDcRXVyfIem8CxDM2TyjyNKospmmk48M70G316OW3luaMoogQpT4AIyAfm3pHKdBM1N2
+         FyTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=j/wSzbIwWiG92EkgcKi5EYZENCnmwssp7G2yc3jCRsI=;
+        fh=c7kZFWR84XUkYusvfzBrMCB0YJYTSarCUb69wwkAeIE=;
+        b=f1cESCsx5GcdgAbk7uYxIxkXhCDsDIa5QBeKp+whCfKC7SWE5uzYdShrx+tXFI1pLu
+         ZL8XS84d6lutHRQDHlkCnd7WOtHr53PV/xVthLGsOtlJx96/+kLQpFjFLRWrHcnzdhGU
+         QHI1lTLchZrtVMeyLg/MLBeEOxobPLTa5wVmLdKw/XTZe/pIcT0xov91AfyAcl1T+d/J
+         L3xxm6WCLbED8F5GOoBJ71NK2mshyrCzkP6VuRvWaab+asLhDcEhCAmJsP94Q+ONdWjP
+         FjajodWF/psrUYnTgAKIuct42t4wYAHkg4DS7izAUcpmN5kNHSKJpn5JAZ+2upBQWROy
+         7Ylg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782465187; x=1783069987; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=j/wSzbIwWiG92EkgcKi5EYZENCnmwssp7G2yc3jCRsI=;
+        b=Cx0DSStcLxM8pohUvHSL0GNo8GrjeB4FcwQqIPrLRRrb9s0rP9U3UlHCAcYcEZwLAl
+         qOndO8Fhdaxxs4Tfqty/YVodDxXSXakDnDJGbE8XxT9fFzjocJIN7xxBLpFTjIScIjFc
+         Swfz+LF24xZXlciA8qdtXYHTv73R/VJeTWG4e4tGd/lXqVNEioJeLTCF4DeSzacuBos1
+         lq2e0HFLIHdQghgFyYrdrVViwK7SD5wzCp57ThnvLxmELNE6tEA9kPdqIredpZQIKp4P
+         bfeO9q8tdVKtVKd1BEi+EqG8c/vfzvy99fIE7ZonvkJg0qv7Qssy6TRR9TVAHQNNSLB8
+         ei3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782465187; x=1783069987;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j/wSzbIwWiG92EkgcKi5EYZENCnmwssp7G2yc3jCRsI=;
+        b=DzvpHl4sqtn8mHCjf/rrdXX2f+6O8MUpuw4nctsDn3fflYz3OR/5mtgbO0f5F44Ofh
+         LL2TxmZAWFo109w+jX3WCvElJdNHeAWqG0G++V8UsYu/A9wLttRTIdy6AyJ+JaFyjPlV
+         z3ta/jPlIHM455EEarr6EASdWu4e1VBzIlnVYg6VE3OUj+NKm3ZTh2WnmpMQ1HOfhbR4
+         g3pqwqXAvcAEbqqhTte6lxTsoL0SP+9osfVjyti++h6jWaWnjv1VIDKRw6R6YVmIuI8b
+         hPQ/mBitrIr7bC4qKFq6nWYdOPjLHFXqmIuEZokqAhTPMq0qKGPRJ2NGOOslosyD36tU
+         eSVQ==
+X-Forwarded-Encrypted: i=1; AHgh+Roqx0Pc7acmxoMXxcuUZx57xOFadBmTDqlKaxonESTkQEwRs+3qLbOxpcmszr6lZNUMKYyjmK1o7WaR@vger.kernel.org
+X-Gm-Message-State: AOJu0YyN2Ksa2GKAWwWBHvOiLI3ObpazIjDn0PS5Ly40EX7vcZjz0WqD
+	MXCsuVMLoJ/zT3KVaTAmT89FGDY9R/umznRv3pxJhCHPWMWkV3gsKz9F1AuGXNEIkH7J5RbgJN+
+	q4/xNWMksZvrOy5uPRDTdANJJUb6NTso=
+X-Gm-Gg: AfdE7cl2IPXYfgSlLCvWiIWkUQ3vH1+LMmt6s5Zk4caonm3Y7t/1Q3+ydfby0y+IOaT
+	oL4pDKtDIelYpo3Mbm5ctNJBPVyAkRU6s8rbUSTgVwSD9gtxf92Km+Y+w1A3OyL6BFFE16BIgC9
+	QZLIR0LUeeifGUxvVnxF5CgsnQGL/fd4PNBZE0Q78Vg/HH1c/g/TIvn4tzWgOv+Gm3MqFtjSc5c
+	YRO/GxwPxzs5b/+4xM7JE4p5/VscM8S1Mv4FEpOFw1NmLnSwtvr6oVk2X2iXK9OPMoh/wo=
+X-Received: by 2002:a05:6402:190b:b0:697:c0f6:394c with SMTP id
+ 4fb4d7f45d1cf-69810a44a6dmr1504110a12.9.1782465186628; Fri, 26 Jun 2026
+ 02:13:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowADnjNW4QT5qNX5fAw--.14227S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXF4DCrWktr1UAr1rKrWfXwb_yoW5Kw1fpF
-	yrJFW5ta4DJr1rXr1kKw18JFyvkw1xJ3WDXr95XFyxAFn0vr10gF12qF909F9rXrs7C3Zr
-	Xr4jqryxZryYyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07b4oGdUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260625104742.113803-1-l.scorcia@gmail.com> <20260625104742.113803-2-l.scorcia@gmail.com>
+ <20260625-cameo-siamese-cd78c349519c@spud> <CAORyz2JHj7i6VhKom+tVd8PWBjM=TFhbr8-mOy3GH6eDYu4WPw@mail.gmail.com>
+ <20260625-unearth-suffering-e2c59d39da0f@spud>
+In-Reply-To: <20260625-unearth-suffering-e2c59d39da0f@spud>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Fri, 26 Jun 2026 11:12:55 +0200
+X-Gm-Features: AVVi8CdLNvDTFf3GfQHOzooYBWEAR15rw8FIdBZyi6PI5TChocrGHW_idD11qis
+Message-ID: <CAORyz2L5YuBifG-ud7QHPva+_nyL_SyXMVQ5EeC0s52isc5J3w@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/3] dt-bindings: pinctrl: mt8516/mt8167: Move
+ compatibles from mt66xx to mt6795
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, Sean Wang <sean.wang@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-=E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 09:57 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Fri, Jun 26, 2026 at 03:58:14PM +0800, Icenowy Zheng wrote:
-> > =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:22 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > > On Thu, Jun 25, 2026 at 05:33:37PM +0100, Conor Dooley wrote:
-> > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
-> > > > > +
-> > > > > +=C2=A0 - if:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 const: nuvoton,ma35d1-dcu
-> > > > > +=C2=A0=C2=A0=C2=A0 then:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 2
-> > > >=20
-> > > > Anything that updates the minimum constraint should be done at
-> > > > the
-> > > > top
-> > > > level of this schema. The conditional section should then
-> > > > tighten
-> > > > the
-> > > > constraint, in this case that means only having maxItems.
-> > > >=20
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 2
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - const: core
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - const: pix0
-> > > >=20
-> > > > Does this even work when the top level schema thinks clock 2
-> > > > should
-> > > > be
-> > > > called axi?
-> > >=20
-> > > Additionally here, only have core and pix0 seems like it might be
-> > > an
-> > > oversimplification. I doubt removing the second output port means
-> > > that
-> > > the axi and ahb clocks are no longer needed.
-> > > Is it the case that your device supplies the same clock to core,
-> > > ahb
-> > > and
-> > > axi? If so, then you should fill those clocks in in your
-> > > devicetree
-> > > and
-> > > this can just constrain the number of clocks/clock-names to 4.
-> >=20
-> > The clock controller of that SoC is quite weird -- it has only a
-> > single
-> > gate bit, but controlling 3 clock gates. All core, ahb and axi
-> > clocks
-> > have gates controlled by this single bit, so it's why currently
-> > it's
-> > modelled as only core clock supplied.
->=20
-> Yeah, then what's in the binding is definitely wrong.
-> Even if the same clock was provided to all clock inputs in the IP,
-> all
-> individual clock should be listed in the devicetree - although it
-> will
-> look a little silly to see clocks =3D <&foo 2>, <&foo 2>, <&foo 2>,
-> <&foo 2>;
-> In this case, 3 clocks controlled by 1 gate bit is an implementation
-> detail
-> of the SoC's clocking hardware, and not relevant to how the dc
-> instance
-> should be described.
->=20
-> > Well it might be worthful to supply the bus clock before the gate
-> > as
-> > ahb/axi, especially axi, because both the AXI clock and the core
-> > clock
-> > constraints the maximum pixel clock.
->=20
-> Right. And looking at patch 4/7, and the wording:
-> > The Nuvoton MA35D1 SoC integrates a DCUltraLite display controller
-> > whose
-> > AXI and AHB bus clocks share a single gate enable bit with the
-> > display
-> > core clock, so the clock driver does not expose them separately.
-> > This
-> > patch makes the axi and ahb clocks optional in the probe.
->=20
-> It sounds like there's probably some issues with how things are
-> modelled
-> clock wise in this device, unless this is not an accurate statement
-> and
-> there's actually one clock provided to all three inputs. If they're
-> distinct clocks, with different rates, only having one exposed has a
-> lot
-> of potential to be problematic!
+> Usually when making ABI changes because something was inaccurate (but
+> not wrong to the point that it didn't work at all) it's possible to
+> support both new and old ABIs at the same time because of new properties
+> etc. This is a difficult one because it's using the same properties in
+> different ways. A new compatible would definitely be required for a
+> genuine fresh start while retaining kernel support for the old mechanism
+> in this case.
 
-Yes, I agree with this, they're different clocks according to the
-manual.
-
-I added the clk people to the CC list in a reply of the previous
-revision, but they didn't react yet. I don't know how to represent
-multiple clock gates sharing a single control bit in the clock
-framework...
-
-Maybe just supplying the ungated AXI/AHB clocks here, and let the core
-clock manage the gate?
-
-Thanks,
-Icenowy
-
+All things considered, the cleanest solution seems to be adding a new
+compatible, mark the old one as deprecated and also try to fix the old
+driver code. I'll try to do that before submitting again.
+Thank you for your help!
+-- 
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
