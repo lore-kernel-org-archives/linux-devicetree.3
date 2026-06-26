@@ -1,47 +1,50 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1DD3AF647
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 18:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6F73AEF35
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 18:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782497019; cv=none; b=Qu0l4zanZNqp4S6Udg002G9y6nDD7iUk1KwhmiITeIlUoFMiafOI/PKQZyCcrydIRXpZ79mDlTr7QyaCqGk5uAPm6yuJw8czI7CKmmQ00f8WMYKy3Vvr4UfxUOdoGRVw027eEzMI8+10wSl8sBXlaTRKAwm0+HjUVcc9cFaKNms=
+	t=1782497021; cv=none; b=u5/sXLPkCsfMgrO+OvLMNtGjFiqAGCXF3n/xuk8S8HY/UaroTBrFkel2hAa5zj6gt7HjhkDF9g/pK+tlrNwMuUTPoOBJr1Cbe0deVM991C7EnrcaVifp5M/PAc7Jr4Eq88LH6x3KFdQIekZSAfn8GjvZJDmqJP7jDjbrysrGkfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782497019; c=relaxed/simple;
-	bh=s7xBp1H0wGdo8I1sp3eY768OcZzzCKwmFYCT6Bydp9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GVbgHc2Vai8m83lscN10tBiK6nfYmSxyUom/OoJXielCLdR8OxG50ky8M54ZT2oW3klvziarZK8FvxHz798BbSu3TjLq/UhxvpuJraQ40iq/av3vvhzcNe5BWrplnmfEji7aYwG4+pfze+iXB9heG0ypwR0rMlEymmO15o3ln+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=IQDxmxSv; arc=none smtp.client-ip=194.117.254.33
+	s=arc-20240116; t=1782497021; c=relaxed/simple;
+	bh=T/GC3kvtu2kalmJS3SrHpgibUwg/csRFkFAuLDVt5Ug=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kVFM9rEoU+BRrMwSLi4xk2lB3VyG+QgSoxz0cPg/lAMIMob/WD8uAdYNJtkPeDVk+g2QOr9dxeon2qa3cb3orSvfw2ZqIifIZicj6pZunSsLvd/TaEo68QfcD07AEMnNjl8q8xRXhp1QgCAhKUB8jGgrwwz1dmULMIn5ALjE7JI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=TMaAK7tu; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="IQDxmxSv"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="TMaAK7tu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=1Ed4nzYVqoNXEL
-	H6/tZCB843BS+oVV4Ld3xC9fFGB7I=; b=IQDxmxSvH+sAAdgtqyNtXtBS7MvszB
-	SgZyeUicrL2u4t02aA43QcbWS+jRTpA9wdwCezo4mXq9oRynMPGwg4xRold0Gv2x
-	beEoC2f/w17G8OWruVlAEqlBY/ee2V+6NqappZUafZ2lmJzoqlVZBfICgxv5cLA/
-	z0lkKkRcX0tGi+kDYvfiSVDJdiPZhG77J9kZspXCm4atafsIHUVIqiBtKsjjCrho
-	yx6I1BV1BY8QpEpY+m9dw9n5K1HgK+s1rjH55g6tB/pOdClCUN4PiYZpafhHtkRG
-	uptheSAV4TzISkJCAj/HuIS93RhIHqRTHVT0kIvBddzmMmjkPOj6W0uw==
-Received: (qmail 3649196 invoked from network); 26 Jun 2026 20:03:31 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Jun 2026 20:03:31 +0200
-X-UD-Smtp-Session: l3s3148p1@+Swu7StVjMMujnsl
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=3ys9d6VA0EqywJW4o5HfDv6y+4P3wwz2jlIsf4xTpOc=; b=TMaAK7
+	turuWxCIVhf/HZLoInHDRwBUTalhpz0t8/CZsggrdjC7I7/FetSIe+s9T9Q9Qj4w
+	E9T8+MJBo3OZ5RrS7pOKxNtOyJ0xEwdF7e9MzpB32EXcPCW96a8sSBmd4d22/PrQ
+	5p6yJon4FLtS97zIfUWJP6d+XPirHzB0uzrmUdXdrHCjS/fD0jDsEaW0A7W/R/iF
+	vBJKcA/qMGHe7TyDuZdfXVyEbpcdHkA9vuytmPSqIbFo7YSpV+qOWbzA48ZYw7uC
+	gA3v/isgDWnONRT1NF3zhEAAhUZaWhhjUqC/kFBG5x4KA2T3bDB/u2kZV3qLTmUl
+	s1hBImERPlH4tx8w==
+Received: (qmail 3649295 invoked from network); 26 Jun 2026 20:03:33 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 Jun 2026 20:03:33 +0200
+X-UD-Smtp-Session: l3s3148p1@8MNC7StVqMMujnsl
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-renesas-soc@vger.kernel.org
 Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-spi@vger.kernel.org,
-	Magnus Damm <magnus.damm@gmail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
 	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v4 0/4] ARM: dts: renesas: r9a06g032-rzn1d400-eb: Enable SPI and FRAM
-Date: Fri, 26 Jun 2026 20:03:21 +0200
-Message-ID: <20260626180326.9593-1-wsa+renesas@sang-engineering.com>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v4 2/4] spi: dt-bindings: snps,dw-apb-ssi: add 'power-domains' property
+Date: Fri, 26 Jun 2026 20:03:23 +0200
+Message-ID: <20260626180326.9593-3-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260626180326.9593-1-wsa+renesas@sang-engineering.com>
+References: <20260626180326.9593-1-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,27 +53,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Here are the patches to enable the SPI-FRAM with FIFO (no DMA yet, needs
-more work) on the RZ/N1D Extension board.
+This SPI controller likely belongs to a power domain for all the SoCs
+listed. For sure, it belongs to one on the Renesas RZ/N1 SoC, so
+enable the property to be able to describe its power domain in DTs.
 
-Changes since v3 in the individual patches.
+Suggested-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+---
 
-A branch is here:
+Change since v3:
+* reworded commit message to make clear other SoCs likely use a
+  power-domain, too (Krzysztof)
+* change Reported-by to Suggested-by (Krzysztof)
+* add Rev-by (Herve)
 
-git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/n1d/enablement
+ Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-
-Wolfram Sang (4):
-  spi: dt-bindings: snps,dw-apb-ssi: drop superfluous RZ/N1 entry
-  spi: dt-bindings: snps,dw-apb-ssi: add 'power-domains' property
-  ARM: dts: renesas: r9a06g032: Describe SPI controllers
-  ARM: dts: renesas: r9a06g032-rzn1d400-eb: Enable SPI-FRAM
-
- .../bindings/spi/snps,dw-apb-ssi.yaml         |  4 +-
- .../dts/renesas/r9a06g032-rzn1d400-eb.dts     | 25 ++++++
- arch/arm/boot/dts/renesas/r9a06g032.dtsi      | 84 +++++++++++++++++++
- 3 files changed, 112 insertions(+), 1 deletion(-)
-
+diff --git a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
+index e0f249e82fa1..291cbd55862d 100644
+--- a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
++++ b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
+@@ -87,6 +87,9 @@ properties:
+       - const: ssi_clk
+       - const: pclk
+ 
++  power-domains:
++    maxItems: 1
++
+   resets:
+     maxItems: 1
+ 
 -- 
 2.47.3
 
