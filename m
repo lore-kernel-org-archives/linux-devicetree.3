@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC64358D37;
-	Fri, 26 Jun 2026 20:55:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B0E3BFE44;
+	Fri, 26 Jun 2026 20:55:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782507307; cv=none; b=VaW2rA/UpdororSRkXSOkvzcbUe7tTa1YCYZS4pBPQdsLYE/nNJx0tPKIyUTcRxwwm2yKvgxNhxDOL5B+nWSU1QwtqDEyhwVfCQf4+5pIm70bSVmBGL24ROMQehLF9pYIzccU8mnsH0z+cP0tMoj8Y8VivFx8gmRsF5vsPxO5K4=
+	t=1782507308; cv=none; b=ExZj+MqFAiwdYmIJHDALqqvLqVnI2ldaBj9s9srfYGfcLuJo/vSxwlraKg9mFAZiU7qb9nB9mVowLG8ld9o8Clh6v0341rvfZqovgNQ+VkSXKombXNHgOs/0dxc1VIEgcUoR6OW86N0FQqcbKHBt6yRzI/kyHQALj2v9GJ9sJYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782507307; c=relaxed/simple;
-	bh=1p3WFYm3nPwFyjx+ldeJOnj6dqBA+X1XeNTC11p7Zk4=;
+	s=arc-20240116; t=1782507308; c=relaxed/simple;
+	bh=gjt94yB7OMQ1kbenpTWsg4rbaygeNwSXNZrsMwALuYQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SJ79Rw2xxDd0mZNabDwR6sZmCm0dMSuwbomBNf5gJtzqe0zM++cpyAYYcg0dBu4t5RX5YEBSYr6CTxnavIyuoFbP1q0bvCACe7h7NVeWkq1K/ClvvNINdis9AU0UGem2AfCSsNga+sNsjPZ0rjYMTiwMtgl6WRjNo2/v0r+w88A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=VZuKZqjh; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=f/19LvjMERs1/k0a6RwcoZrmpffBx/JUOjMj2qbXuqnNKA0ytTjrl73hemQ8EUrQsJRArleg1Gk1NF7RQOarNjJ3lf3sNt6MINA4N2vZBPcoAFOR+AJkt1Lbuk5ObS+tO8Okkpy4rEZ0acjt4yHij+a+dSLqLCechJVUcZVTQ+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Z1nqiS9N; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="VZuKZqjh"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Z1nqiS9N"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1782507302;
-	bh=1p3WFYm3nPwFyjx+ldeJOnj6dqBA+X1XeNTC11p7Zk4=;
+	bh=gjt94yB7OMQ1kbenpTWsg4rbaygeNwSXNZrsMwALuYQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=VZuKZqjhOL41NXJS7+mvK3jLcBagzwdRffZc5kQR/23F2YzzOX1oodnU6gbWwzlWU
-	 PuptQ5mb+YU0fZ17xMc/5TozVxyE7En9/tROJ9LLS1UgRJGu+YQM4yqUpI7jjtqwx0
-	 M3zx8dQ8jjaJfh7iNkXa0Os+E30p6CGaRaSOGan9iqdTIoRUdtszXQ9Zz+ewtMcg3H
-	 P8lI9lV17fiKkroCXG9/WwIrkehpiV0hjqyjv2emawx7ZbS7Es3w6NkikqaATnmsoq
-	 UPeNAWWIJiZvBqxiqQW94cYDeAYjvvZy3/uAFbvwbyYHWf/YHqLKGNmYdw6KVWSQ8L
-	 fKRrC5ft3iIsg==
+	b=Z1nqiS9NNz/nR3LpPwIZgkouMcgmy08ZzkZodIBkdA0cQ8H8CehtWYDB+1a3igeid
+	 PqXBUWPieqNDFsKskKYDRxH1LUG2jBKnqKUwL6yOtj/gBpSZ8+42nTRspWCni90rVe
+	 edGmbzQrZ3pr4+iG+JCx7DVxWyHqzCgDvcglIbG3RjZtlN6a2Itro7dcAoip9mEk7s
+	 Td5dIjtWAk5j3IWxoptrRrNxJCLR6iAB9ZmwMCWo4HWJ3zHyY2WmXbIA8WTG2zfmd9
+	 Su0zBmFQ8suO8vHnpn8ta4VTEG7T54LSF+Xic0SSHJmg3TQE/WKx4g9JxaXb7aRghI
+	 nU7O+qpY+jDjg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 619E017E10FC;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AE09417E120F;
 	Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 10CB448002F; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
+	id 12560480030; Fri, 26 Jun 2026 22:55:02 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 26 Jun 2026 22:54:57 +0200
-Subject: [PATCH v8 04/29] phy: rockchip: usbdp: Fix devm_clk_bulk_get_all
- check
+Date: Fri, 26 Jun 2026 22:54:58 +0200
+Subject: [PATCH v8 05/29] phy: rockchip: usbdp: Handle missing clock-names
+ DT property gracefully
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-rockchip-usbdp-cleanup-v8-4-47f682987895@collabora.com>
+Message-Id: <20260626-rockchip-usbdp-cleanup-v8-5-47f682987895@collabora.com>
 References: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
 In-Reply-To: <20260626-rockchip-usbdp-cleanup-v8-0-47f682987895@collabora.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -64,60 +64,53 @@ Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1653;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1302;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=1p3WFYm3nPwFyjx+ldeJOnj6dqBA+X1XeNTC11p7Zk4=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5ySEnnXwnLhwf6pGkZ15z8g1ku8DZG7rN
- Wy/PaCZj4EKVIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuckAAoJENju1/PI
- O/qaaYwP/R+sPnWBMhanQqGENnxS93mEur+v+/3r6apGQ0wkHHe0+GjLHuAmy1fHPQYpsinpK+6
- nUqNTOaC0bOrnLHaTBZNJx2POjcJrztmbppFGgAqTSWwd9vHguYK0ZAQjo4rNOHlAcEO++2Q8EL
- VZD+XV+QbRibpgZDhApb3cZh5RCE7Ddi2+EaH7m0sj3oRXXZUh8FCP4UXSLJByOowRmIwo+HOJx
- rR6daYGfUgeWP9kP0vwCe2MGYTMsyPdS0JhPayPvn4Q7uNjtd9osdtFmrD66HmryAIwkQLOPb8z
- AaTcIHaspS/px9+vMMgBXggX5Q5JosoDI2ETg76DtNTPnxEoaTQF1IOruECeJeXKTPH5EFZf12u
- HkHzi6zp7XFBkD600rOI4ALWyvOcHN3XebvN+jKQMh2DOZUtm1ypSFzh2aiD22sxP626FxoJaWq
- Xh1xcjJH23PkNnyekPKtxi2/9Hzab3X7un5tO4KANvLD7rx65p8WDXiaX+UO84vCECuNPAHp1D0
- Ksf0TfSWZwA3Uewl9PKEK0ZsqYaw1RreHYVi5mdZkThWFQlFcwbeBKEa9lQQ72AZbZPAj6rPmgo
- 9VGoDphSiu7qraSR4mXL4nShiPt+yJiP9Id9Hm0myMfcZ+tUN6rqAxX47g5QZHwOKU87jOpHcIc
- lYdqe3vqJCsMjuIlt3Agx2g==
+ bh=gjt94yB7OMQ1kbenpTWsg4rbaygeNwSXNZrsMwALuYQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGo+5yU1EsgQecKJDuUr15t17180rvVP28As2
+ Wm5WXfaRjUfuIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqPuclAAoJENju1/PI
+ O/qaygEP/0l9sC2P8AIfdIIXF4NSBjurLAM+DiCcf3oDgUkta/GtZYMEmedrHn0Z1qOlZUfbEQM
+ AQVpMyZ2T08mRBjMjqRWNvDH0VOKZCvUM1aL4CB2Bwr8yT1f/NzvVKW5U2A7yiZQw5rCX+R3XsF
+ ZNo5bLVv3HUXG0hZE/K8uNiFVilc+UNHoMRBiid83ZATOspAwcHgIYhu5FuRJUXVMcf5IWNNxPN
+ AYXlvhwPYl9ZBzZ5sYiJVbKBifgBh1fvuVCZxvyahimk1MC0JogAMw1470NG74CuMUfMJ8WN8bb
+ 7DLZzOXtITffjn7gym8PAP5Iz9IF32sCvTnq4zn3D71YUzVr6pJC4mUcciLZQ/4KIkcYJxkDEVc
+ 1Mwjxxue2jGFsx60BcxcXiy4LLs6jQ0LwdWe6Pf55hLyxmIifV95m5kTloPpA9Td1TOwu60/aJP
+ CG+Ra0FiMN6K8Hon992FEl5yT6JksLcC1NfNGar6hLr0QLme3pRqQ6EiU4zSCTfW4ocINnVOCpV
+ NYsMYDzeMzIQpoQ0g3ohu95+7C6V3eIEKo0uG1iYx2cuMwTbTy8tfk5CRbkQqXgz60WrYj4vG+T
+ hRytCkPqiA34XpRdGkVhMHthIUv4XZWiTgByeKTDpcvDN7T+nQ42j2TZJAA43MoktNtwRAlYv9L
+ 9+sRkkn+GPiGXmZ0BCMkeSA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-If devm_clk_bulk_get_all() returns -EPROBE_DEFER, it is replaced with
--ENODEV, permanently failing the driver probe instead of allowing it to
-defer. Avoid masking the error code to fix the issue.
+The rk_udphy_clk_init() function would currently try to do a strncmp for
+a NULL pointer, if DT specifies 'clocks' property, but no 'clock-names'
+property. Fix this by making sure the clock has an id string set.
 
-This effectively drops returning -ENODEV in case no clocks are being
-described in DT. This special case will now be handled by the follow-up
-check searching for "refclk" and exit with -EINVAL.
-
-None of this will be hit in practice, since the driver is only used by
-RK3588 and RK3576 - on these platforms the DT is validated to contain
-the clocks and the clock driver is force probed early. Thus there is
-no need to backport this.
+Note that DT binding requires setting clock-names, so this is only a
+problem when booting a non-compliant device tree.
 
 Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-phy/20260612164107.C7DB21F000E9@smtp.kernel.org/
+Closes: https://sashiko.dev/#/message/20260619154349.071321F000E9%40smtp.kernel.org
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/phy/rockchip/phy-rockchip-usbdp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-index 12dfdd470a78..2845a012eafc 100644
+index 2845a012eafc..3fc8222fcaec 100644
 --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
 +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-@@ -427,8 +427,8 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, struct device *dev)
- 	int i;
- 
- 	udphy->num_clks = devm_clk_bulk_get_all(dev, &udphy->clks);
--	if (udphy->num_clks < 1)
--		return -ENODEV;
-+	if (udphy->num_clks < 0)
-+		return udphy->num_clks;
+@@ -432,6 +432,9 @@ static int rk_udphy_clk_init(struct rk_udphy *udphy, struct device *dev)
  
  	/* used for configure phy reference clock frequency */
  	for (i = 0; i < udphy->num_clks; i++) {
++		if (!udphy->clks[i].id)
++			continue;
++
+ 		if (!strncmp(udphy->clks[i].id, "refclk", 6)) {
+ 			udphy->refclk = udphy->clks[i].clk;
+ 			break;
 
 -- 
 2.53.0
