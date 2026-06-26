@@ -1,37 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D782389E13;
-	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9E53C6A38
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782452378; cv=none; b=Apuwe+DPs5GLSpSSPsFFL9S0RpEaty77wG6eUuBHu1JimELeKT699jdwULGYBZy33/FyuavICqb6GtIGjonh1VCbRT93wGoWGzM4UJlxIJif55uw313iiBJnQ/Q+UAGppyy5nsSYPbJgxjOU3uTEVQlaQ9bLGUhwSdm2FKfs0IY=
+	t=1782452848; cv=none; b=hJRjYyUZy0ORHzXyZFsuQQEeukp4Y5CtaSevTJABWMzzClRiD5MMcRzvE03jHqfUG1qlaNCleETZOK/joK2kuP+KjpTvGLCGDHmePjVaC8dHU5OzstOJoV96HOLMY/yfSoNOASwqO+YRICUsevgBZBfmNrui9RgI7SA4I5pJNUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782452378; c=relaxed/simple;
-	bh=iUbnNNDnyvLTkFPD4JLA2Wv2mD2RjH1h9z8LAG1hxhE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jq/+6uZZBrdObDuEO4mW2hZuVZJOwyewvzBFH+RV9jVsdu9UhmJiGSqRuyjQB02W2y0cwdWq7/Aaq7wbbD3M1+iXeEWlLO3QV3iLs7HDb2pD91dBWHAq3NInR/cMi5E3w2DwLzu2Cd8CiMg3yySZ4ULerjVR1PjIi6Kd2X8uPRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Li+ico90; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1782452848; c=relaxed/simple;
+	bh=r18zUcCEtt3q4VZvrJxgIv1cyuMWFYL1BvadhzW/xf4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hpJEE9j3bM+OIbVIm8omY2G1LWa1eVqccPz93bqZCJ0E5QGf1GQrKVsJDfM07VzOBjOiZCWuaT0HZ8ERSB4L7KFdqpseTACYoCo1iUZnOWD32EU3mEVW8kmbA8LGwGvClhVtz8Z49MgQ3KN82B16HkXlVgH79fdbRtfTYJhTJqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eUKipxJ7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JBCbmv5a; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Li+ico90"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 28D88C2BCC9;
-	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1782452378;
-	bh=iUbnNNDnyvLTkFPD4JLA2Wv2mD2RjH1h9z8LAG1hxhE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Li+ico906G/CeXR5F8SzBhUOZQc1ijMlzUFsB/QAxk9W68LGyBHL9Y79wPiyIS0ou
-	 KRhlulRCnXlpUofsjhjsxlpf6sEuRhiMmkg8IaZd+yl5zoKwwgACxpivq4RxIyWBN3
-	 l59DLhREKfRdMRO8moPc5488ndkW2OsCVb3+rfD/KTjG2DYD/ZeJ2E7bkNV15PtkOS
-	 HbD4KeluOPNKdQ+ajtrcCtAFhKXRG4Hf0OO2L1SldRbtZMBWNbQVR22k3oLoU2FCoW
-	 JmbL36hwCVPqfKD6/HOEUdP7cfL95j+WPxdhvljtAY+OTvt6lU8eUJ+eJFfJJtYl/O
-	 /Niz9RA18T9Hw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17050CDE012;
-	Fri, 26 Jun 2026 05:39:38 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Fri, 26 Jun 2026 05:39:34 +0000
-Subject: [PATCH v9 2/3] dmaengine: amlogic: Add general DMA driver for A9
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eUKipxJ7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JBCbmv5a"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65Q2iuRi3982784
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:47:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=L0vlrvagyMguXc/y0gIFf7
+	fDulN127IXK95c6qxEp8c=; b=eUKipxJ7xsy0pa9IUsEcQdNcMU0HlfOq/V5vfy
+	1NPKh6y/ATyazRpCwAma9J+6r4doXTScl7KEXreEx8me3RoubFawSLqqEQeRyOOz
+	ijYt2CzjItfynAzJxmFKULBfjDC0dB9XiFsr0oRt2X9aUjVZ3pyEEKTb/4Ly4euy
+	bRJ87OIPGX08sykeLMQFYwcFrhWzlAM5EffG0Mk6XVo3QMH2qzthFHGs1/b1HVEz
+	ozea2dIjkR7uJhLnce8bPUt3AKkcAzT49ibF+YDh6qH7ejt1ACTocdY2wbwjVJqN
+	XHQwBoPKpP9qK+0dLbFCr8ceY78D4QdwcEmR/xYXaAZIjoOg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f16jgbd77-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 05:47:25 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-80a11e0ffc2so11808967b3.0
+        for <devicetree@vger.kernel.org>; Thu, 25 Jun 2026 22:47:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782452845; x=1783057645; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=L0vlrvagyMguXc/y0gIFf7fDulN127IXK95c6qxEp8c=;
+        b=JBCbmv5aEDPH8dyF3ncTDtIMo6lnu3YZZeXpG8tnhINucslhaS8l1zmrU4uXKsApMS
+         Vqqvj0XRtb6PgHfEj9OrF+uU1bfDmBJHSJsemlyLEp7Akivjl9ba5eGZlEjazBaCRL+5
+         6WVgDCo2+kL1L8eXFhiPTMpVzXesxmiKySz7sHeTYUqCd6IqN2A7fZ4Q82aXqoNGkezd
+         67thaDX9XhfKtU1HikKWD6PbOAFic1DrQvSiyTjBVq6jg7GqQzfcNBpZqFBfeEV3st5C
+         cTtnW7ewwNAc8vwNG1Akcp1jyKK5npCbrIRTZxh8AqBBrviPkmp51Sh1iQ9r4f/rzRcG
+         1ZiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782452845; x=1783057645;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L0vlrvagyMguXc/y0gIFf7fDulN127IXK95c6qxEp8c=;
+        b=mgdQxZiarqefez2MSg+SKcbAmjvBADJERRyxc/7OQFd4pcmhprYiaOubsIXM+y9PkY
+         4pUbn1rnGG7sjhYCsDSiDrP765P36iPK1SZGe48HlL351t0jHF4lrKDx0iKbaBJTveqd
+         5MdeO2ytlgCvZdu8LHG+EfePWgcMtunQm+HVUHFo6wfKgUPltdMKcYbCjQ9btL62a/QI
+         nJenkUt/rLJaQKhCkxQ9TKcgS1YvvyhkLBqFc91XbonL8cmkxxPDAZG5sXYorKnPRFsH
+         mjduDx/0CQE5DJ0EIP8jb5VQYhoXMo7YxzZvZ+FOs0h36X/hZ/GqQW8gMuFUff7JD3Vd
+         7OzA==
+X-Forwarded-Encrypted: i=1; AHgh+RqUvqyiJIWR4jDzz31Ep9zW4xV4Pl6J/ceXSV5tbcfMolEdvvKtGlSmGXkPsOAD+ngl0ORP+VgMp6L8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQ3IpuJ0Ed1gX5aEeSbhlX2VAxn6G5S+IoSrIYIXe26m0OsQVu
+	RKcxb27VdOiTfbbrRmo3pZJ+DS0uX4dSj8Xh4i8pxlhY6Wx1ZNpTBNnw0uIcN4OQv3HOo1lVsM6
+	+1kN1eOPVYM9EGOKyDpbPnqbSPV4/I3QlzqMVFfXeClAMlsn7G0Oqwg0JQu57yjJL
+X-Gm-Gg: AfdE7ckmGKSkUZS4K+PSzfUQbm+56hu4i2DG/cmG+pQW7GfrkVSAcMg6P9mgbUUHu26
+	FPAiTvGE95grT/WbN2bgotPu9dNlMm0xKXYiHm5+LdO5CuKZCCQh8+NLHfvK5sSN2b/ick9rEt9
+	A4R5unTD3p4FA5x13tIBN7U3a9WQ5rCKYMDqF712p/gimmWQJbxn3FYvg2RzwGYMvYjwwCBvpvQ
+	PzJcUpo30PO0PNJmnj3mCszo/M1FyB/7c+DBGwcfTdyULq7sN4SYWfSLUpQb8bWf4+Jl0yEf0FP
+	CF3Z7pK0MjzLZze8+caVNQLU/DRI7DuIy9+H/bTvlU1x6zXlwAhgENciPS76mHGFvAZUhIulQ2E
+	AhTM6+zy3J0enHailoMRoGDHsqyKAY5RmsXE9fs7+x7bphOqFM3VB8XSPlH64SqT6Pm+ZgANg5Y
+	3hEeZD0aq0RlJB1QpwwRVleaKn2kVB4A==
+X-Received: by 2002:a05:690c:e191:20b0:80b:9efe:4a8 with SMTP id 00721157ae682-80b9efe0a3emr8621577b3.6.1782452845210;
+        Thu, 25 Jun 2026 22:47:25 -0700 (PDT)
+X-Received: by 2002:a05:690c:e191:20b0:80b:9efe:4a8 with SMTP id 00721157ae682-80b9efe0a3emr8621447b3.6.1782452844803;
+        Thu, 25 Jun 2026 22:47:24 -0700 (PDT)
+Received: from agents-Mac-mini.local (108-89-202-162.lightspeed.sndgca.sbcglobal.net. [108.89.202.162])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-80259d20d84sm80029787b3.0.2026.06.25.22.47.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Jun 2026 22:47:24 -0700 (PDT)
+From: Jason Pettit <jason.pettit@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] X2 Elite HP EliteBook X G2q support
+Date: Thu, 25 Jun 2026 22:47:19 -0700
+Message-Id: <20260625-glymur-send-v2-0-00905324ffbf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,794 +88,144 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260626-amlogic-dma-v9-2-558d672c4a95@amlogic.com>
-References: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
-In-Reply-To: <20260626-amlogic-dma-v9-0-558d672c4a95@amlogic.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782452375; l=24478;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=z4zsxXWzMnaawJXaxgwvMd3wznLl9AFgTNXsRJcnMCk=;
- b=dDWCIAZJMy9lVZYbFK5SxZ6nY/kCVvu1DA2kDv/1VsJ9xGw+kn/ZO6Ejlon1Bk2ZDhJMzj+nA
- /CGfo0YZXHOBZhN9i4wAsr/CvCwK6BWZqqe1MDkM+I+KnMGkEC2ReOZ
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+X-B4-Tracking: v=1; b=H4sIAGkSPmoC/42S3WojMQyFX2Xw9TpI/p+wLPseS1lkW26mbWbS8
+ SS0lLz7OpMQKNuL3hhk+3w6HOlDVJ4HrmLbfYiZT0MdprEV6kcn0o7GR5ZDbrVQoBw47OXjy/v
+ +OMvKY5aI2mVlNKEC0RSHmcvwttL+PFzreoxPnJYL4vZj5tdja7Ncv4kDLWnXmmw77YqJ0XsDJ
+ TubA4RCzgUbE5sI2veBrPGlrJy7CqxxGiGoZGzWFDWiL9ZggWxyD9E5yJS8/qyigoG4gPJNplA
+ nxGi088YV0hh1dBzZuHhR7blWWoPYdj/XHMw9h7/5IE8oUVJGcJ4CN+zvqdbN65Fe0rTfb9rx6
+ 2uMVRqCtYgbZbVyrm+cOsRhU2l8pvm7GKe0fB4Psk4pNTdegkROPkab+sLpuxgD+j7cK0k3PwU
+ 4ZOtLy4e+JkWqLC83w7LtRn5b5M2VEZcd2A11meb3dcFOuI789g6fdqmlCLIkQyqVlqX/37d4O
+ J/P/wAwBl+1sQIAAA==
+X-Change-ID: 20260619-glymur-send-1136d243a120
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+        Jason Pettit <jason.pettit@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDA0MyBTYWx0ZWRfX1tlgIWpTmWLJ
+ 5UDxSHpeBddg/qUTVXHlm+7NqtlOVjw3k2MVq8WAV+0O6eoCv/kJjTp8TaVOKGmPrHBb4sS+aqE
+ OyR0yK3AE8iasm+vShhd/kOru2fOALLBOEqtdYSKOYRboqpSbzCxzOateygXqMZDDQLobtGgf0z
+ IQdzqGGydDmH2bl1ttwlwfeQLn+xjsVCi1r1Dxv4jnjGPcbUBwJEtzTUhKKCZQO+SsJqDOtsDQJ
+ IxdBIdp4q5vDA9E1LrF8WRRAbsCSYbd1c/ZwliqR7jO1JYgc3pXoPf4alapUySle7x9wlKQVV1b
+ nAUAj3iYAU/lIP/AeOFA/vyIMk9vGJHs2UUY8740xwy3ffOQdyI6xuqDx1tFhhQzQ1niCJYdzhB
+ YwxYwpjp8GxnBatTjbQve0s1f0MUg9fkDuuh+o+d/x7tcB3oz8stgt5q5F8MvsKG/MlxgAsErTw
+ /On5CCnNryMsysniuxw==
+X-Proofpoint-ORIG-GUID: mxj9HRB1-6UGxt-iUvaLHvIsYr0Cd1g9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDA0MyBTYWx0ZWRfX3scZDLejIhid
+ 0MxPzn0Qpfg95Q+6IxhHld0AijkPsBRtdhlKcYtetS3/MYXng2TfsitiBPxUlWyt4bSEnTRilpz
+ y5fMqCn/Aezkl6DtpRpcoqXZ0YAXmTI=
+X-Authority-Analysis: v=2.4 cv=daqwG3Xe c=1 sm=1 tr=0 ts=6a3e126d cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=AgdIAmbgiPN5lz+IpyuXaA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=v_Pz4op7f3T_4hR4KoUA:9 a=QEXdDO2ut3YA:10
+ a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-GUID: mxj9HRB1-6UGxt-iUvaLHvIsYr0Cd1g9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-26_01,2026-06-24_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 impostorscore=0 suspectscore=0
+ bulkscore=0 adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606260043
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+This series adds initial device-tree support for the HP EliteBook X G2q
+14" Next Gen AI PC (product SKU C4JG0AV, board 8E91), a Snapdragon X2
+Elite (Glymur) laptop.
 
-Amlogic A9 SoCs include a general-purpose DMA controller that can be used
-by multiple peripherals, such as I2C PIO and I3C. Each peripheral group
-is associated with a dedicated DMA channel in hardware.
+The board was brought up and validated on real hardware. The electrical
+description (PMIC rails, PHY supplies, the HDMI bridge wiring) was
+verified against the live unit rather than copied from a Glymur CRD.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Working on this laptop with this series applied:
+
+  - Internal eDP panel (samsung,atna33xc20)
+  - 2x USB Type-C with DisplayPort alt-mode and USB
+  - Chassis HDMI output
+  - Chassis USB-A host port
+  - Fingerprint reader
+  - NVMe SSD on PCIe5
+  - Wi-Fi, Bluetooth
+  - Keyboard, touchpad, touchscreen, lid switch
+  - Adreno GPU and GMU (Freedreno GL on Mesa)
+  - Audio playback and capture
+  - Real-time clock
+  - Compute DSP (cDSP)
+
+This patch series builds upon the recent work of Qualcomm engineers to
+enable another Glymur-based laptop.
+
+Like its peer submissions, the camera support is missing today.
+
+This has the same known dependencies as other boards on this
+platform (audio, GPU, SoCCP series).
+
+The GPU device-tree patches come from the partially merged Glymur GPU DT
+v5 series at
+https://lore.kernel.org/all/20260522-glymur-gpu-dt-v5-0-562c406b210c@oss.qualcomm.com/
+
+SCMI on this configuration needs CONFIG_QCOM_CPUCP_MBOX built in (=y).
+
+The bindings patch is independent and can be reviewed/applied on its own.
+The board patch can be reviewed in parallel with the GPU, LPASS and SoCCP
+SoC series. Until those land in the target tree, it will trip the expected
+"Label or path ... not found" dtc error. As with the X2 Elite Lenovo Yoga
+Slim 7x submission, this v1 is expected to trigger some dt-bindings warnings
+that come from the in-flight dependency series, not from the board patch
+itself.
+
+Signed-off-by: Jason Pettit <jason.pettit@oss.qualcomm.com>
 ---
- drivers/dma/Kconfig       |  10 +
- drivers/dma/Makefile      |   1 +
- drivers/dma/amlogic-dma.c | 708 ++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 719 insertions(+)
+Changes in v2:
+- Enable the PMIC RTC (qcom,no-alarm + qcom,uefi-rtc-info)
+- Add the SMB2370 eUSB2 repeaters on usb_0/usb_1
+- Enable the compute DSP (remoteproc_cdsp / fastrpc)
+- Addressed comments from reviewers on v1
+- Link to v1: https://lore.kernel.org/linux-arm-msm/20260620-glymur-send-v1-0-fc4a2cfd107c@oss.qualcomm.com
 
-diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
-index ae6a682c9f76..01f96a8257e5 100644
---- a/drivers/dma/Kconfig
-+++ b/drivers/dma/Kconfig
-@@ -85,6 +85,16 @@ config AMCC_PPC440SPE_ADMA
- 	help
- 	  Enable support for the AMCC PPC440SPe RAID engines.
- 
-+config AMLOGIC_DMA
-+	tristate "Amlogic general DMA support"
-+	depends on ARCH_MESON || COMPILE_TEST
-+	select DMA_ENGINE
-+	select DMA_VIRTUAL_CHANNELS
-+	select REGMAP_MMIO
-+	help
-+	  Enable support for the Amlogic general DMA engines. THis DMA
-+	  controller is used some Amlogic SoCs, such as A9.
-+
- config APPLE_ADMAC
- 	tristate "Apple ADMAC support"
- 	depends on ARCH_APPLE || COMPILE_TEST
-diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
-index 14aa086629d5..f62d12b08e15 100644
---- a/drivers/dma/Makefile
-+++ b/drivers/dma/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_DMATEST) += dmatest.o
- obj-$(CONFIG_ALTERA_MSGDMA) += altera-msgdma.o
- obj-$(CONFIG_AMBA_PL08X) += amba-pl08x.o
- obj-$(CONFIG_AMCC_PPC440SPE_ADMA) += ppc4xx/
-+obj-$(CONFIG_AMLOGIC_DMA) += amlogic-dma.o
- obj-$(CONFIG_APPLE_ADMAC) += apple-admac.o
- obj-$(CONFIG_ARM_DMA350) += arm-dma350.o
- obj-$(CONFIG_AT_HDMAC) += at_hdmac.o
-diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-new file mode 100644
-index 000000000000..bce6932f3a12
---- /dev/null
-+++ b/drivers/dma/amlogic-dma.c
-@@ -0,0 +1,708 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright (C) 2025 Amlogic, Inc. All rights reserved
-+ * Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
-+ */
-+
-+#include <dt-bindings/dma/amlogic,a9-dma.h>
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/device.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/dmaengine.h>
-+#include <linux/interrupt.h>
-+#include <linux/init.h>
-+#include <linux/list.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_dma.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
-+
-+#include "virt-dma.h"
-+
-+#define RCH_REG_BASE		0x0
-+#define WCH_REG_BASE		0x2000
-+/*
-+ * Each rch (read from memory) REG offset  Rch_offset 0x0 each channel total 0x40
-+ * rch addr = DMA_base + Rch_offset+ chan_id * 0x40 + reg_offset
-+ */
-+#define RCH_READY		0x0
-+#define RCH_STATUS		0x4
-+#define RCH_CFG			0x8
-+#define CFG_CLEAR		BIT(25)
-+#define CFG_PAUSE		BIT(26)
-+#define CFG_ENABLE		BIT(27)
-+#define CFG_DONE		BIT(28)
-+#define RCH_ADDR		0xc
-+#define RCH_LEN			0x10
-+#define RCH_RD_LEN		0x14
-+#define RCH_PRT			0x18
-+#define RCH_SYCN_STAT		0x1c
-+#define RCH_ADDR_LOW		0x20
-+#define RCH_ADDR_HIGH		0x24
-+/* if work on 64, it work with RCH_PRT */
-+#define RCH_PTR_HIGH		0x28
-+
-+/*
-+ * Each wch (write to memory) REG offset  Wch_offset 0x2000 each channel total 0x40
-+ * wch addr = DMA_base + Wch_offset+ chan_id * 0x40 + reg_offset
-+ */
-+#define WCH_READY		0x0
-+#define WCH_TOTAL_LEN		0x4
-+#define WCH_CFG			0x8
-+#define WCH_ADDR		0xc
-+#define WCH_LEN			0x10
-+#define WCH_RD_LEN		0x14
-+#define WCH_PRT			0x18
-+#define WCH_CMD_CNT		0x1c
-+#define WCH_ADDR_LOW		0x20
-+#define WCH_ADDR_HIGH		0x24
-+/* if work on 64, it work with RCH_PRT */
-+#define WCH_PTR_HIGH		0x28
-+
-+/* DMA controller reg */
-+#define RCH_INT_MASK		0x1000
-+#define WCH_INT_MASK		0x1004
-+#define CLEAR_W_BATCH		0x1014
-+#define CLEAR_RCH		0x1024
-+#define CLEAR_WCH		0x1028
-+#define RCH_ACTIVE		0x1038
-+#define WCH_ACTIVE		0x103c
-+#define RCH_DONE		0x104c
-+#define WCH_DONE		0x1050
-+#define RCH_ERR			0x1060
-+#define RCH_LEN_ERR		0x1064
-+#define WCH_ERR			0x1068
-+#define DMA_BATCH_END		0x1078
-+#define WCH_EOC_DONE		0x1088
-+#define WDMA_RESP_ERR		0x1098
-+#define UPT_PKT_SYNC		0x10a8
-+#define RCHN_CFG		0x10ac
-+#define WCHN_CFG		0x10b0
-+#define MEM_PD_CFG		0x10b4
-+#define MEM_BUS_CFG		0x10b8
-+#define DMA_GMV_CFG		0x10bc
-+#define DMA_GMR_CFG		0x10c0
-+
-+#define MAX_CHAN_ID		32
-+#define SG_MAX_LEN		GENMASK(26, 0)
-+
-+struct aml_dma_sg_link {
-+#define LINK_LEN		GENMASK(26, 0)
-+#define LINK_IRQ		BIT(27)
-+#define LINK_EOC		BIT(28)
-+#define LINK_LOOP		BIT(29)
-+#define LINK_ERR		BIT(30)
-+#define LINK_OWNER		BIT(31)
-+	u32 ctl;
-+	u32 addr_low;
-+	u32 addr_high;
-+	u32 revered;
-+} __packed;
-+
-+/* 1 page for link 256*16 */
-+#define DMA_MAX_LINK		256
-+/* sizeof(struct aml_dma_sg_link) */
-+#define DMA_LINK_SIZE		16
-+#define DMA_LINK_MAX_SIZE	(DMA_LINK_SIZE * DMA_MAX_LINK)
-+
-+struct aml_dma_desc {
-+	struct virt_dma_desc		vd;
-+	struct aml_dma_sg_link		*sg_link;
-+	struct dma_device		*dma_device;
-+	dma_addr_t			sg_link_phys;
-+	size_t				sg_link_size;
-+	u32				data_len;
-+};
-+
-+struct aml_dma_chan {
-+	struct virt_dma_chan		vchan;
-+	struct aml_dma_dev		*aml_dma;
-+	struct aml_dma_desc		*cur_desc;
-+	enum dma_status			pre_status;
-+	enum dma_status			status;
-+	enum dma_transfer_direction	direction;
-+	int				chan_id;
-+	/* reg_base (direction + chan_id) */
-+	int				reg_offs;
-+	/* When there are multiple consecutive transmission errors, this chanel halt */
-+	int				err_num;
-+};
-+
-+struct aml_dma_dev {
-+	struct dma_device		dma_device;
-+	void __iomem			*base;
-+	struct regmap			*regmap;
-+	struct clk			*clk;
-+	int				irq;
-+	struct platform_device		*pdev;
-+	struct aml_dma_chan		*aml_rch[MAX_CHAN_ID];
-+	struct aml_dma_chan		*aml_wch[MAX_CHAN_ID];
-+	unsigned int			chan_nr;
-+	unsigned int			chan_used;
-+	struct aml_dma_chan		aml_chans[]__counted_by(chan_nr);
-+};
-+
-+static inline struct aml_dma_chan *to_aml_dma_chan(struct dma_chan *chan)
-+{
-+	return container_of(chan, struct aml_dma_chan, vchan.chan);
-+}
-+
-+static inline struct aml_dma_desc *to_aml_dma_desc(struct virt_dma_desc *vd)
-+{
-+	return container_of(vd, struct aml_dma_desc, vd);
-+}
-+
-+static void aml_dma_free_desc(struct virt_dma_desc *vd)
-+{
-+	struct aml_dma_desc *aml_desc = to_aml_dma_desc(vd);
-+
-+	dma_free_coherent(aml_desc->dma_device->dev,
-+			  aml_desc->sg_link_size,
-+			  aml_desc->sg_link,
-+			  aml_desc->sg_link_phys);
-+	kfree(aml_desc);
-+}
-+
-+static int aml_dma_alloc_chan_resources(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+
-+	/* offset is the same RCH_CFG and WCH_CFG */
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+
-+	aml_chan->status = DMA_COMPLETE;
-+	aml_chan->cur_desc = NULL;
-+	aml_chan->err_num = 0;
-+
-+	return 0;
-+}
-+
-+static void aml_dma_free_chan_resources(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct virt_dma_desc *cur_vd = NULL;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+	if (aml_chan->cur_desc)
-+		cur_vd = &aml_chan->cur_desc->vd;
-+	aml_chan->cur_desc = NULL;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+	if (cur_vd)
-+		aml_dma_free_desc(cur_vd);
-+
-+	vchan_free_chan_resources(&aml_chan->vchan);
-+}
-+
-+/* DMA transfer state  update how many data reside it */
-+static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
-+					 dma_cookie_t cookie,
-+					 struct dma_tx_state *txstate)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	struct virt_dma_desc *vd;
-+	u32 residue = 0, done;
-+	unsigned long flags;
-+	enum dma_status ret;
-+
-+	ret = dma_cookie_status(chan, cookie, txstate);
-+	if (ret == DMA_COMPLETE || !txstate)
-+		return ret;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	vd = vchan_find_desc(&aml_chan->vchan, cookie);
-+	if (vd) {
-+		aml_desc = to_aml_dma_desc(vd);
-+		residue = aml_desc->data_len;
-+	} else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie == cookie) {
-+		aml_desc = aml_chan->cur_desc;
-+		regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
-+		residue = aml_desc->data_len - done;
-+	} else {
-+		dev_err(aml_dma->dma_device.dev, "cookie error\n");
-+	}
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	dma_set_residue(txstate, residue);
-+
-+	return ret;
-+}
-+
-+static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
-+		(struct dma_chan *chan, struct scatterlist *sgl,
-+		unsigned int sg_len, enum dma_transfer_direction direction,
-+		unsigned long flags, void *context)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	struct aml_dma_sg_link *sg_link = NULL;
-+	struct scatterlist *sg = NULL;
-+	u64 paddr;
-+	u32 link_count, avail;
-+	u32 i;
-+
-+	if (aml_chan->direction != direction) {
-+		dev_err(aml_dma->dma_device.dev, "direction not support\n");
-+		return NULL;
-+	}
-+
-+	link_count = sg_nents_for_dma(sgl, sg_len, SG_MAX_LEN);
-+	if (link_count == 0)
-+		return NULL;
-+
-+	aml_desc = kzalloc_obj(*aml_desc, GFP_NOWAIT);
-+	if (!aml_desc)
-+		return NULL;
-+	aml_desc->sg_link_size = link_count * sizeof(*sg_link);
-+	aml_desc->sg_link = dma_alloc_coherent(aml_dma->dma_device.dev, aml_desc->sg_link_size,
-+					       &aml_desc->sg_link_phys, GFP_NOWAIT);
-+	if (!aml_desc->sg_link) {
-+		kfree(aml_desc);
-+		return NULL;
-+	}
-+	aml_desc->dma_device = &aml_dma->dma_device;
-+
-+	sg_link = aml_desc->sg_link;
-+	for_each_sg(sgl, sg, sg_len, i) {
-+		avail = sg_dma_len(sg);
-+		paddr = sg->dma_address;
-+		while (avail > SG_MAX_LEN) {
-+			/* set dma address and len to sglink*/
-+			sg_link->addr_low = lower_32_bits(paddr);
-+			sg_link->addr_high = upper_32_bits(paddr);
-+			sg_link->ctl = FIELD_PREP(LINK_LEN, SG_MAX_LEN);
-+			paddr = paddr + SG_MAX_LEN;
-+			avail = avail - SG_MAX_LEN;
-+			sg_link++;
-+		}
-+		/* set dma address and len to sglink*/
-+		sg_link->addr_low = lower_32_bits(paddr);
-+		sg_link->addr_high = upper_32_bits(paddr);
-+		sg_link->ctl = FIELD_PREP(LINK_LEN, avail);
-+
-+		aml_desc->data_len += sg_dma_len(sg);
-+		sg_link++;
-+	}
-+
-+	/* the last sg set eoc flag */
-+	sg_link--;
-+	sg_link->ctl |= LINK_EOC;
-+
-+	return vchan_tx_prep(&aml_chan->vchan, &aml_desc->vd, flags);
-+}
-+
-+static int aml_dma_chan_pause(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	aml_chan->pre_status = aml_chan->status;
-+	aml_chan->status = DMA_PAUSED;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	return 0;
-+}
-+
-+static int aml_dma_chan_resume(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	aml_chan->status = aml_chan->pre_status;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+
-+	return 0;
-+}
-+
-+static int aml_dma_terminate_all(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	int chan_id = aml_chan->chan_id;
-+	struct virt_dma_desc *cur_vd;
-+	unsigned long flags;
-+	LIST_HEAD(head);
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+
-+	if (aml_chan->direction == DMA_MEM_TO_DEV)
-+		regmap_set_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
-+	else if (aml_chan->direction == DMA_DEV_TO_MEM)
-+		regmap_set_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
-+
-+	vchan_get_all_descriptors(&aml_chan->vchan, &head);
-+	cur_vd = &aml_chan->cur_desc->vd;
-+	aml_chan->cur_desc = NULL;
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+	if (cur_vd)
-+		aml_dma_free_desc(cur_vd);
-+
-+	vchan_dma_desc_free_list(&aml_chan->vchan, &head);
-+
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+
-+	return 0;
-+}
-+
-+static void aml_dma_start(struct aml_dma_chan *aml_chan)
-+{
-+	struct virt_dma_desc *vd = vchan_next_desc(&aml_chan->vchan);
-+	struct aml_dma_dev *aml_dma = aml_chan->aml_dma;
-+	struct aml_dma_desc *aml_desc = NULL;
-+	int chan_id = aml_chan->chan_id;
-+
-+	if (aml_chan->status == DMA_ERROR) {
-+		if (aml_chan->err_num > 5) {
-+			dev_err(aml_dma->dma_device.dev, "hw error\n");
-+			return;
-+		}
-+		regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+		regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+		aml_chan->err_num++;
-+		regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUSE);
-+		regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEAR);
-+		aml_chan->status = DMA_COMPLETE;
-+	} else {
-+		aml_chan->err_num = 0;
-+	}
-+
-+	if (!vd)
-+		return;
-+
-+	if (aml_chan->status != DMA_COMPLETE)
-+		return;
-+
-+	list_del(&vd->node);
-+	aml_desc = to_aml_dma_desc(vd);
-+	aml_chan->cur_desc = aml_desc;
-+
-+	if (aml_chan->direction == DMA_MEM_TO_DEV) {
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR,
-+			     lower_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_ADDR_HIGH,
-+			     upper_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_LEN, aml_desc->data_len);
-+		regmap_clear_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
-+		/* for rch (tx) need set cfg 0 to trigger start */
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, 0);
-+	} else if (aml_chan->direction == DMA_DEV_TO_MEM) {
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_ADDR,
-+			     lower_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_ADDR_HIGH,
-+			     upper_32_bits(aml_desc->sg_link_phys));
-+		regmap_write(aml_dma->regmap, aml_chan->reg_offs + WCH_LEN, aml_desc->data_len);
-+		regmap_clear_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
-+	}
-+}
-+
-+static void aml_dma_issue_pending(struct dma_chan *chan)
-+{
-+	struct aml_dma_chan *aml_chan = to_aml_dma_chan(chan);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
-+	if (vchan_issue_pending(&aml_chan->vchan) && !aml_chan->cur_desc)
-+		aml_dma_start(aml_chan);
-+	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
-+}
-+
-+static irqreturn_t aml_dma_interrupt_handler(int irq, void *dev_id)
-+{
-+	struct aml_dma_dev *aml_dma = dev_id;
-+	struct aml_dma_chan *aml_chan;
-+	struct aml_dma_desc *aml_desc;
-+	u32 done, eoc_done, err, err_l, end;
-+	u32 cpl_data;
-+	int i = 0;
-+
-+	/* deal with rch normal complete and error */
-+	regmap_read(aml_dma->regmap, RCH_DONE, &done);
-+	regmap_read(aml_dma->regmap, RCH_ERR, &err);
-+	regmap_read(aml_dma->regmap, RCH_LEN_ERR, &err_l);
-+	err = err | err_l;
-+
-+	done = done | err;
-+
-+	while (done) {
-+		i = ffs(done) - 1;
-+		regmap_write(aml_dma->regmap, CLEAR_RCH, BIT(i));
-+		done &= ~BIT(i);
-+		aml_chan = aml_dma->aml_rch[i];
-+		if (!aml_chan) {
-+			dev_err(aml_dma->dma_device.dev, "idx %d rch not initialized\n", i);
-+			continue;
-+		}
-+		spin_lock(&aml_chan->vchan.lock);
-+		aml_chan->status = (err & BIT(i)) ? DMA_ERROR : DMA_COMPLETE;
-+		aml_desc = aml_chan->cur_desc;
-+		if (!aml_desc) {
-+			spin_unlock(&aml_chan->vchan.lock);
-+			continue;
-+		}
-+		if (aml_chan->status == DMA_ERROR) {
-+			aml_desc->vd.tx_result.result = DMA_TRANS_READ_FAILED;
-+			regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &cpl_data);
-+			aml_desc->vd.tx_result.residue = aml_desc->data_len - cpl_data;
-+		}
-+		vchan_cookie_complete(&aml_desc->vd);
-+		aml_chan->cur_desc = NULL;
-+		aml_dma_start(aml_chan);
-+		spin_unlock(&aml_chan->vchan.lock);
-+	}
-+
-+	/* deal with wch normal complete and error */
-+	regmap_read(aml_dma->regmap, DMA_BATCH_END, &end);
-+	if (end)
-+		regmap_write(aml_dma->regmap, CLEAR_W_BATCH, end);
-+
-+	regmap_read(aml_dma->regmap, WCH_DONE, &done);
-+	regmap_read(aml_dma->regmap, WCH_EOC_DONE, &eoc_done);
-+	done = done | eoc_done;
-+
-+	regmap_read(aml_dma->regmap, WCH_ERR, &err);
-+	regmap_read(aml_dma->regmap, WDMA_RESP_ERR, &err_l);
-+	err = err | err_l;
-+
-+	done = done | err;
-+	i = 0;
-+	while (done) {
-+		i = ffs(done) - 1;
-+		done &= ~BIT(i);
-+		regmap_write(aml_dma->regmap, CLEAR_WCH, BIT(i));
-+		aml_chan = aml_dma->aml_wch[i];
-+		if (!aml_chan) {
-+			dev_err(aml_dma->dma_device.dev, "idx %d wch not initialized\n", i);
-+			continue;
-+		}
-+		spin_lock(&aml_chan->vchan.lock);
-+		aml_chan->status = (err & BIT(i)) ? DMA_ERROR : DMA_COMPLETE;
-+		aml_desc = aml_chan->cur_desc;
-+		if (!aml_desc) {
-+			spin_unlock(&aml_chan->vchan.lock);
-+			continue;
-+		}
-+		if (aml_chan->status == DMA_ERROR) {
-+			aml_desc->vd.tx_result.result = DMA_TRANS_WRITE_FAILED;
-+			regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &cpl_data);
-+			aml_desc->vd.tx_result.residue = aml_desc->data_len - cpl_data;
-+		}
-+		vchan_cookie_complete(&aml_desc->vd);
-+		aml_chan->cur_desc = NULL;
-+		aml_dma_start(aml_chan);
-+		spin_unlock(&aml_chan->vchan.lock);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static struct dma_chan *aml_of_dma_xlate(struct of_phandle_args *dma_spec, struct of_dma *ofdma)
-+{
-+	struct aml_dma_dev *aml_dma = (struct aml_dma_dev *)ofdma->of_dma_data;
-+	struct aml_dma_chan *aml_chan = NULL;
-+	u32 type;
-+	u32 phy_chan_id;
-+
-+	if (dma_spec->args_count != 2)
-+		return NULL;
-+
-+	type = dma_spec->args[0];
-+	phy_chan_id = dma_spec->args[1];
-+
-+	if (phy_chan_id >= MAX_CHAN_ID)
-+		return NULL;
-+
-+	if (type == DMA_TX) {
-+		aml_chan = aml_dma->aml_rch[phy_chan_id];
-+		if (!aml_chan) {
-+			if (aml_dma->chan_used >= aml_dma->chan_nr) {
-+				dev_err(aml_dma->dma_device.dev, "some dma clients err used\n");
-+				return NULL;
-+			}
-+			aml_chan = &aml_dma->aml_chans[aml_dma->chan_used];
-+			aml_dma->chan_used++;
-+			aml_chan->direction = DMA_MEM_TO_DEV;
-+			aml_chan->chan_id = phy_chan_id;
-+			aml_chan->reg_offs = RCH_REG_BASE + 0x40 * aml_chan->chan_id;
-+			aml_dma->aml_rch[phy_chan_id] = aml_chan;
-+		}
-+	} else if (type == DMA_RX) {
-+		aml_chan = aml_dma->aml_wch[phy_chan_id];
-+		if (!aml_chan) {
-+			if (aml_dma->chan_used >= aml_dma->chan_nr) {
-+				dev_err(aml_dma->dma_device.dev, "some dma clients err used\n");
-+				return NULL;
-+			}
-+			aml_chan = &aml_dma->aml_chans[aml_dma->chan_used];
-+			aml_dma->chan_used++;
-+			aml_chan->direction = DMA_DEV_TO_MEM;
-+			aml_chan->chan_id = phy_chan_id;
-+			aml_chan->reg_offs = WCH_REG_BASE + 0x40 * aml_chan->chan_id;
-+			aml_dma->aml_wch[phy_chan_id] = aml_chan;
-+		}
-+	} else {
-+		dev_err(aml_dma->dma_device.dev, "type %d not supported\n", type);
-+		return NULL;
-+	}
-+
-+	return dma_get_slave_channel(&aml_chan->vchan.chan);
-+}
-+
-+static int aml_dma_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct dma_device *dma_dev;
-+	struct aml_dma_dev *aml_dma;
-+	int ret, i, len;
-+	u32 chan_nr;
-+
-+	const struct regmap_config aml_regmap_config = {
-+		.reg_bits = 32,
-+		.val_bits = 32,
-+		.reg_stride = 4,
-+		.max_register = 0x3000,
-+	};
-+
-+	ret = of_property_read_u32(np, "dma-channels", &chan_nr);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to read dma-channels\n");
-+	if (chan_nr > (MAX_CHAN_ID * 2))
-+		return dev_err_probe(&pdev->dev, -EINVAL, "dma-channels unusual\n");
-+
-+	len = sizeof(struct aml_dma_dev) + sizeof(struct aml_dma_chan) * chan_nr;
-+	aml_dma = devm_kzalloc(&pdev->dev, len, GFP_KERNEL);
-+	if (!aml_dma)
-+		return -ENOMEM;
-+
-+	aml_dma->chan_nr = chan_nr;
-+
-+	aml_dma->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(aml_dma->base))
-+		return PTR_ERR(aml_dma->base);
-+
-+	aml_dma->regmap = devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
-+						&aml_regmap_config);
-+	if (IS_ERR_OR_NULL(aml_dma->regmap))
-+		return PTR_ERR(aml_dma->regmap);
-+
-+	aml_dma->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(aml_dma->clk))
-+		return PTR_ERR(aml_dma->clk);
-+
-+	aml_dma->irq = platform_get_irq(pdev, 0);
-+
-+	aml_dma->pdev = pdev;
-+	aml_dma->dma_device.dev = &pdev->dev;
-+
-+	dma_dev = &aml_dma->dma_device;
-+	INIT_LIST_HEAD(&dma_dev->channels);
-+
-+	/* Initialize channel parameters */
-+	for (i = 0; i < chan_nr; i++) {
-+		struct aml_dma_chan *aml_chan = &aml_dma->aml_chans[i];
-+
-+		aml_chan->aml_dma = aml_dma;
-+		aml_chan->vchan.desc_free = aml_dma_free_desc;
-+		vchan_init(&aml_chan->vchan, &aml_dma->dma_device);
-+	}
-+	aml_dma->chan_used = 0;
-+
-+	dma_set_max_seg_size(dma_dev->dev, SG_MAX_LEN);
-+	dma_cap_set(DMA_SLAVE, dma_dev->cap_mask);
-+	dma_dev->device_alloc_chan_resources = aml_dma_alloc_chan_resources;
-+	dma_dev->device_free_chan_resources = aml_dma_free_chan_resources;
-+	dma_dev->device_tx_status = aml_dma_tx_status;
-+	dma_dev->device_prep_slave_sg = aml_dma_prep_slave_sg;
-+	dma_dev->device_pause = aml_dma_chan_pause;
-+	dma_dev->device_resume = aml_dma_chan_resume;
-+	dma_dev->device_terminate_all = aml_dma_terminate_all;
-+	dma_dev->device_issue_pending = aml_dma_issue_pending;
-+	/* PIO 4 bytes and I2C 1 byte */
-+	dma_dev->dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_4_BYTES) | BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
-+	dma_dev->directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
-+	dma_dev->residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
-+
-+	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
-+	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-+
-+	ret = devm_request_irq(&pdev->dev, aml_dma->irq, aml_dma_interrupt_handler,
-+			       0, dev_name(&pdev->dev), aml_dma);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register irq\n");
-+
-+	ret = dmaenginem_async_device_register(dma_dev);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register dmaenginem\n");
-+
-+	ret = of_dma_controller_register(np, aml_of_dma_xlate, aml_dma);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to register xlate\n");
-+
-+	platform_set_drvdata(pdev, aml_dma);
-+
-+	return 0;
-+}
-+
-+static void aml_dma_remove(struct platform_device *pdev)
-+{
-+	struct aml_dma_dev *aml_dma = platform_get_drvdata(pdev);
-+	struct aml_dma_chan *aml_chan = NULL;
-+	int i;
-+
-+	of_dma_controller_free((&pdev->dev)->of_node);
-+
-+	regmap_write(aml_dma->regmap, RCH_INT_MASK, 0xffffffff);
-+	regmap_write(aml_dma->regmap, WCH_INT_MASK, 0xffffffff);
-+
-+	for (i = 0; i < MAX_CHAN_ID; i++) {
-+		aml_chan = aml_dma->aml_rch[i];
-+		if (aml_chan)
-+			tasklet_kill(&aml_chan->vchan.task);
-+		aml_chan = aml_dma->aml_wch[i];
-+		if (aml_chan)
-+			tasklet_kill(&aml_chan->vchan.task);
-+	}
-+}
-+
-+static const struct of_device_id aml_dma_ids[] = {
-+	{ .compatible = "amlogic,a9-dma", },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, aml_dma_ids);
-+
-+static struct platform_driver aml_dma_driver = {
-+	.probe		= aml_dma_probe,
-+	.remove		= aml_dma_remove,
-+	.driver		= {
-+		.name	= "aml-dma",
-+		.of_match_table = aml_dma_ids,
-+	},
-+};
-+
-+module_platform_driver(aml_dma_driver);
-+
-+MODULE_DESCRIPTION("GENERAL DMA driver for Amlogic");
-+MODULE_AUTHOR("Xianwei Zhao <xianwei.zhao@amlogic.com>");
-+MODULE_LICENSE("GPL");
+---
+Jason Pettit (3):
+      dt-bindings: arm: qcom: Add HP EliteBook X G2q 14 AI
+      arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
+      firmware: qcom: scm: Allow QSEECOM on HP EliteBook X G2q 14 AI
 
--- 
-2.52.0
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 1019 ++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ 4 files changed, 1022 insertions(+)
+---
+base-commit: dd60bcf0ad17dd15d6d4d677315c4cf9827445f9
+change-id: 20260619-glymur-send-1136d243a120
+prerequisite-patch-id: 36f4bb7740fd65d808fa6685bce4b03798a547ff
+prerequisite-patch-id: 054631082c45d3ab3117f541f0d4d90b660dac73
+prerequisite-patch-id: af18aef027c45213c11b436746fa31b3b6ebe46b
+prerequisite-message-id: <20260419-glymur_dp-v1-1-ad1067a8e8ae@oss.qualcomm.com>
+prerequisite-patch-id: 7cb9a168c33491bf91ece900a2218aa7b4b68ddd
+prerequisite-message-id: <20260523085511.2532669-1-sibi.sankar@oss.qualcomm.com>
+prerequisite-patch-id: 43e96d8a5063f51e2b5ee75fc8c9e10682e5670c
+prerequisite-patch-id: 2e71d345f84a821d89da2a6064954409fdb1277d
+prerequisite-patch-id: 0b9f5995044bb3d3ffda227ac986b755fa118c63
+prerequisite-message-id: <20260623-knp-soccp-v7-0-1ec7bb5c9fec@oss.qualcomm.com>
+prerequisite-patch-id: 8459bcae98ac156f6576657fe9233badcd385218
+prerequisite-patch-id: b5182f879cdd23c5a0c64bf09b40213b71059b51
+prerequisite-patch-id: c962e3f24c435e91ae563bbba9e396bf277ff0ad
+prerequisite-patch-id: b9cd65895f55e9d76ba28ef8f9aaf6cdefe1b9d3
+prerequisite-patch-id: 6484d1056e30f2027e81eee375d979197754bc12
+prerequisite-patch-id: fa7954f6fd2d27a6f0e805c9643b70e7e201c503
+prerequisite-message-id: <20260403-glymur-soccp-v3-1-f0e8d57f11ba@oss.qualcomm.com>
+prerequisite-patch-id: 48c26c428cbeaa674a615704d1abeb87e4e965c8
 
+Best regards,
+--  
+Jason Pettit <jason.pettit@oss.qualcomm.com>
 
