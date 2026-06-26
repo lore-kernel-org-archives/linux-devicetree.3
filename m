@@ -1,58 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABF7288B8;
-	Fri, 26 Jun 2026 09:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAB63E0088;
+	Fri, 26 Jun 2026 09:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782465998; cv=none; b=laKdE/fjKrPyRw7xoHzswo+qDNxc7Sm/c9WqesfvxUa7DYMMD+EW3C8QrzLZx0nTokzttFui7z2vUwpvmTl9TcmKJfInfOKVUCu3mvrnP2xHBt7qLhcmsPQ7YNfDURl3It0Mv7qgSep5d4kf2rkrX7grDA/MorqhjjgopOmGbOs=
+	t=1782466033; cv=none; b=b0+EzfJWS4/WJB1NVJ+YPd6b/1oLTJX0DWT7qzrPxXC7Qy8L3kfEvkhgBk4rd9xEpzJaEdEmkjWTXhBUpwKmb8DHYxFQiSdVS20tVxpqezswi2jLUC1bm6GMsT/E8TJlH9zgaw0fCh5GIi0DW/OQdvLNbUm16aUTeudbTfroM1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782465998; c=relaxed/simple;
-	bh=iluvErhpoIFWDmAtkJJcnEKhv22pbYqY7UXZYN+JITc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WNBnO6kZhq3gPHZ/ZKcGoOAuGJ/LrytjCyrTMXsUekFvFZZXy0sxv8PrGRWNifk0AT0wSFXtWmTy1qi+73Xw6efjGxzyN1HJ94PTTitdUNz2+Gd8anCE5HmOpLv7ZGsNIpS+Kgb0gM77Q0o6PlE0lDz33wF2ndRFvRVzjSJ2PXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSeVRuco; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782466033; c=relaxed/simple;
+	bh=Wkt3ar6iPUbFcYacgPNJpIHFcNav7UI8z4kHnwZokzk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gk5ldCeWMVo7GyvTC8O4ecKdZW4qFFykD1ISdmK4EErsOW5MLWx8SZkCSEId/m+2Wj/m4OrbMikl8hqtwL61X2oXfMndjbtJiMI0QTB+YIDSxe2iv3ShFIcbiQT/R21N5q254bdSr8vu8S8p9spEJZQ8APn/3bWtTaeLs7+lwkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=0mbsY0zH; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSeVRuco"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2471F00A3A;
-	Fri, 26 Jun 2026 09:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782465997;
-	bh=iluvErhpoIFWDmAtkJJcnEKhv22pbYqY7UXZYN+JITc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OSeVRucoaYbGyouQEmE91f9bj1sgQbVBLcIyfdTp7fVAP3katYubImj4bxOCfoSeP
-	 l5Og+dz7Bey5GoYMvS8vgvHqPOsI0K2+C51hVD0jZNURFYV2RG4KntQYBg/4w9ByF3
-	 r/PBV3RHeBHU0+kjNn/+2zMLFKxbDqoBtIH8S245qbCOXliToterxIOt3m6eRrU/pg
-	 O+QS5Azl00WGkte3qbHzg7YXc0QNC5Y5HKcxHEzuVgZ+vX0aufqMpqDJjaEJvD7SyI
-	 /uW/c/owuuQOuRkeBECCIpt35JRJbA4ehUaG3w/fR2cVatRynLtPg4qso7ZgePoA4Y
-	 LX4x/6BPejF/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: clock: airoha: Add additional reset
- for PCIe PERSTOUT
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260626092029.3525264-2-ansuelsmth@gmail.com>
-References: <20260626092029.3525264-1-ansuelsmth@gmail.com>
- <20260626092029.3525264-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 09:26:36 +0000
-Message-Id: <20260626092636.BA2471F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="0mbsY0zH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1782466033; x=1814002033;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Wkt3ar6iPUbFcYacgPNJpIHFcNav7UI8z4kHnwZokzk=;
+  b=0mbsY0zHT7rt+jWOYfvXxMuNZfQhm+y3gNKKMVd3bbTbYKOYVmiTRPfC
+   lk/zOVBT7DXkd+BSu7u50zYaaDR2LYRDOkbIWeSVHZZfjJxlkoOElV738
+   wsmpEMcP10b6P6wbfsLwVF7XOgpKCoHZxohSF04kKI6PkJX6bHYpgr+Xp
+   akRF6okbmTTZqQPPyDeeEBtAS/PZtp/6CEDnJvzFWTRz/Zx1i8U92dQq0
+   76o66H69AT+DMdwY9AUPK3NHktQnn2R7ev/AJ0ups2pPI97lvU+N1il+c
+   O8+ZboUaUS9L0sT0HSHy3+JUngjlzim7hl56pLlh/ohxGfXSd2uSu8hD7
+   A==;
+X-CSE-ConnectionGUID: YBF2Gm23RaCAopAUoC2ytw==
+X-CSE-MsgGUID: oIg1nReOT0iGvs4oFRTaTw==
+X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
+   d="asc'?scan'208";a="291102737"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 02:27:11 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.43; Fri, 26 Jun 2026 02:27:10 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex03.mchp-main.com (10.10.85.151)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 26 Jun 2026 02:27:07 -0700
+Date: Fri, 26 Jun 2026 10:26:16 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+CC: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>,
+	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<ychuang3@nuvoton.com>, <schung@nuvoton.com>, <yclu4@nuvoton.com>,
+	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
+ for single-output variants
+Message-ID: <20260626-everybody-epilogue-8fb298a54981@wendy>
+References: <20260625094449.708386-1-a0987203069@gmail.com>
+ <20260625094449.708386-2-a0987203069@gmail.com>
+ <20260625-bobbing-annotate-d1c4d6874ee2@spud>
+ <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
+ <20260626-astrology-mural-853d3860e048@wendy>
+ <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="r8rF78kmCgnz4y87"
+Content-Disposition: inline
+In-Reply-To: <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
 
-> Add additional reset to control PCIe PERSTOUT reset line for each of the 3
-> PCIe lines.
+--r8rF78kmCgnz4y87
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jun 26, 2026 at 05:00:35PM +0800, Icenowy Zheng wrote:
+> =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:19 +0100=EF=BC=8CConor Dooley=
+=E5=86=99=E9=81=93=EF=BC=9A
+> > On Fri, Jun 26, 2026 at 01:27:21PM +0800, Icenowy Zheng wrote:
+> > > =E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:33 +0100=EF=BC=8CConor Dool=
+ey=E5=86=99=E9=81=93=EF=BC=9A
+> > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
+> > > > > +allOf:
+> > > > > +=C2=A0 - if:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 const: thead,th1520-dc8200
+> > > > > +=C2=A0=C2=A0=C2=A0 then:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 5
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 5
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 5
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 5
+> > > >=20
+> > > > All the maxItems here repeat the maximum constraint and do
+> > > > nothing.
+> > > >=20
+> > > > Since you didn't change the minimum constraint at the top level,
+> > > > your
+> > > > minItems also do nothing.
+> > > >=20
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 3
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 3
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 3
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 3
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - resets
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - reset-names
+> > > >=20
+> > > > Both conditional sections have this, but the original binding
+> > > > doesn't
+> > > > require these for the thead device. This is a functional change
+> > > > therefore and shouldn't be in a patch calling itself "generalise
+> > > > for
+> > > > single ended variants".
+> > >=20
+> > > Well yes they're required.
+> > >=20
+> > > Should I send a patch adding the `thead,th1520-dc8200` part of the
+> > > schema?
+> >=20
+> > If you mean the code above, no. Adding a conditional section when
+> > there's only that compatible doesn't make sense.
+> >=20
+> > What you could do is just add it at the top level though, which would
+> > also benefit this patch since it'd not have to be conditionally added
+> > for the new nuvoton device.
+> > Just note in your commit message about what the ABI impact of the
+> > change
+> > to required properties is (effectively nothing because it's optional
+> > in
+> > the driver and the only user has the properties).
 >=20
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Okay, I will craft such a patch and send it.
+>=20
+> >=20
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
+ 1
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
+ 1
+> > > > > +
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
+> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 - const: core
+> > > >=20
+> > > > This is just maxItems: 1.
+> > >=20
+> > > Well the implicit rules of DT binding schemas are quite weird...
+> >=20
+> > I don't think it is that strange, as the binding has
+> > =C2=A0 reset-names:
+> > =C2=A0=C2=A0=C2=A0 items:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
+>=20
+> Ah does the list constraint the order of items? If it constrains the
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+It does, yes.
+Alternatively, using an enum permits free ordering.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626092029.3525=
-264-1-ansuelsmth@gmail.com?part=3D1
+> order, it partly breaks the intention of having names; if it does not
+> constrain the order, it needs to be clarified that the required 1 reset
+> is core instead of the other two.
 
+Given the discussion we're having on the clocks, I wonder if this is
+also an oversimplification and the IP has three resets inputs hooked up
+to one output of the reset controller (or 3 outputs controlled by one
+bit..).
+
+--r8rF78kmCgnz4y87
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj5FuAAKCRB4tDGHoIJi
+0sUHAQC+jTasbIiodz+h8pTi1hrZwttHaW1rwv2+JI+IilqgIgD+LU/w2PQybkmB
+IYTfrIxpqApp9H5myhsNrMD3QJIRRgE=
+=OJVD
+-----END PGP SIGNATURE-----
+
+--r8rF78kmCgnz4y87--
