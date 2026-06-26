@@ -1,94 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F66B22370A
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 23:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAB818871F
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 23:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782515143; cv=none; b=mbFgcck8FhM2cpBh13ZH9eJsKlLNNDCwOP2hWkqG8Q6HadlKYqK9pmkNNeeN8SDwUmqMIiJpVN51244J09OG2CnnNf4qmT/eZWByjDAYABEHR1HKyaCa5zuZoFekvaHKxM+sjQ9uEqtUVMxnvzuMMPVLXqxdCUQPJmMRFhdapDg=
+	t=1782517821; cv=none; b=jb1g6BFKx5sx07PtkBTGaL9tQMT8prHO+pMQRVkZ7SCOIZqaPA+QYkMeEp5rDneP35Fns2ZngsTdS0E7Z/+o6gNNOa14OYVg0hTSRnOPcVuB/VmG4IqSYcdVLBwGfY2+qGuU1WwZqe3x20p1D6sKqSyCEAocPEw96ze5Lz8AUiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782515143; c=relaxed/simple;
-	bh=oDgl9kzs0QzRUmOi5UCM5qXTB4zJ4OD45l3B46hOUDk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y3TkCK1pwmUFAb56xdAfnWpQe2VFXXEfHKvB8D8Ogtw0op95Ru2DmlH+ENL2Rlfd8yWkjsOHkBL/QEhSx188gSj7aHjqc1XIyeikSUymLDbZQqTaS3iqUEckey6Z3fjjcWeMtQJLQOreDdkn9baJxNnjMZvFGLKQ1/5k6sNfjwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYxRBYz2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782517821; c=relaxed/simple;
+	bh=tw7O3G18WM+tsEMcajV83sOUmXqD1KkathtWb/FhU0s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XsjnOO+xU0kGUiirJtsaX5Mntq/k8PGtygAFu0VUPKXvdaJ7arpC0/MjgNKVeQiEJmoTkSLmpnYrOAKH7XKlrMUOjAeTZ73Qng5G3io/mxqFV7Az8jaWX4v6rocg6SgAUVX6rUt+xfUxAmRs3E7PXjIc7+9ELGM+ceeMLabdxyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k0BD1A6p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j7XMmVul; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYxRBYz2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394321F01559
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 23:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782515141;
-	bh=CASER/cI9b9IcBcUdv5RWilxLQkJ9A/bPWjit9BYmok=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nYxRBYz2anD9ShSO7oDshQQwChbWmVCxYdnfHnb7G+x2PQRXsCtDBY/C5wQLtSE13
-	 FwdnJsi5Fqa2Y6+NvysaWxqd6DcCjALSXRG4+PX9zB7esE/PPWF0VMr0Kp+708WaWm
-	 N7O2IeV1w0VWvVSKAsqnwQZ4Gn/6klIm7+geKLdX+l+WF9hYcg2GfCRNabW5kYqixZ
-	 sG8fkavFkE34hnnrUkwNf9G26Z+mdMRBLwiA1yykwqjo3B2ecBrAS6AykTlD4iHJ1q
-	 MrElwu+8qgZBQj0FAtfpwsT4kglvPaWgKD/aBbjRgd0tc2fTuyZJPbMFV3fnB6w7+x
-	 DYIa0Th8oKcxA==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39ac9ca9219so11947531fa.2
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 16:05:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqySXl+s4Y4/fpcYqCFWGJ1PwB6DyQdwHocyhy+j1whyrowzkWUESJaSjvFggALyFkueTvbXlPXPmpV@vger.kernel.org
-X-Gm-Message-State: AOJu0YymFegK1cWOc/uZh8m1FTifJWv9+Sff3pvl3HfLtEdq855sVL2i
-	GD/eftu3p/KrMUhglk/oQF0j72INhmiH+d0TwskUmHxuHi3dy7llypezU8KaM0T7Hfaojyk/yeK
-	3yrOkPg+KkzPwGzxuQ4/4iNOEjgNdFgk=
-X-Received: by 2002:a05:6512:2c05:b0:5ae:a9ec:bb38 with SMTP id
- 2adb3069b0e04-5aea9ecbc48mr295117e87.64.1782515139887; Fri, 26 Jun 2026
- 16:05:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k0BD1A6p";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j7XMmVul"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65QMxk5X2210634
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 23:50:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6WrQjAuTZPs9JdyiNNHUaPM2KCW5bh7c6nhy2HX82+o=; b=k0BD1A6pneDG660A
+	MuQ8jHjeCDCmqYUboDEQtY73XNqlUKMEwfgh1AYDFOZrdZ5XhccmPLnCVIah/YzQ
+	vPH3Txxakq3StxhF86rC3HTy9rEFDuXLx1BsAIp8xldC3vbNocIWsjuoxJApV2a2
+	r3ynWntN8Qbn/7b50ihWz7a6Qp/pAreqYQgCkKjl4Bxk3VvYUXIj0p3jaawBd8qk
+	7GvuGnnkIJSwyY6zYBkiHM2PQPbeL7UbGUIrcqnJStU/HHanHffO7voASH19Sy7R
+	AdVwtULgUJmb9/ltcEa66qZTRNSJR3Q5eqRP8N14uqYmo1cKivs/1GXqX5CLGXko
+	MfBYpg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f1t0qt3gj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 23:50:19 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-37fac944af9so134437a91.1
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 16:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1782517819; x=1783122619; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6WrQjAuTZPs9JdyiNNHUaPM2KCW5bh7c6nhy2HX82+o=;
+        b=j7XMmVulIwL2OPrb+OW367Dl1FtF2rZ+/utJgCiWmtn76ydozle86FHa8gD7HNd+ce
+         WVMKuyOKV4U5MiLAydwcKCXdzcBPDSjpol2KdBEK1mYVIyajXZd7lkFCPGGFZiO+Fu3C
+         5Q4H/ZofrAOB+yltVMiTA4eNRw39HHoOFZ5KHooIZmT/m7Cwm9s5MXfhXV/nd6w2H6+g
+         gzzpyDrYXKflKq9YE0cZTJyrF8YfszEggV7sjBYF4KkALp+Dv6ck8Nd4XHoY5MBdJwyk
+         nMCuACAZiuU+9+ZUuk0yGzVu2QHSU6RLMEgQj5S/foQxqvsGIdOxDaAgT2z47U05/uPD
+         pD4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782517819; x=1783122619;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6WrQjAuTZPs9JdyiNNHUaPM2KCW5bh7c6nhy2HX82+o=;
+        b=ByH4iSQc0tlllY102cmx8Jz6cgfn5h9MZza//sm6E22K046kHXg+aG+R/cNb/BbwUq
+         QPEB/wWo3dFhJEVocYD9kt7aFGT1MmtUq+jB1KKZCfB4gs4xdU77EbyLgS+POKixqzHs
+         o+dgkoI221fhWZc/ac+AoNUpbn7oL7ETfRRA9ijKAQikdX8K3xorplGjVTtlmArGP8/8
+         mIplA6EksixIiTWjmP6xMKjRP8u7yir1Foxz7botAfbZ49WoNOK1TT2/Ho0b95dZx5V/
+         8tp3N/uYJIgz+9k3UA23kkKqgmoBTZyt4iV2tOIVB+7MXTTCySnbN2SpD+AxWzlu3vuq
+         HLiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqgD+mrS/IPrcEBGzKpUBB1WQ44fpk1DK1frtr/G+jmiUIbhiI5d2sDUds1g6q7l8a2UlMOxy7bgquN@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZD5TpG0EXrFb2stPgp7OewNKvJ01sqtezkJz4NX3WA8j4/5DM
+	R9iA3gt8YyZ5I1Y5oVrRh5FDeXYGH815nglGjZ5GRsIr/tGa9K6D2yly8NNyYWPR6Z2xnuQC7Mf
+	BsIY8FbPbe0UyZ0gcBb9Aimeho1tmV/zTZmj9hdcLEh8nO2GfFdTycDetMDUGA80Y
+X-Gm-Gg: AfdE7cnir94fTVIxk6XVpi3Qutk2yLBOLcno4EcO18Gi40vxheLPdrI1pEDrNEI/Xn7
+	EaQNhvJivg+iDjc2RO25G72WMZrNZDh6VYEFuuEubBkeWMtpwgLLQEZ2o2Re16VFnZyyPuP2wFI
+	UbzGs3jDv5mRWPwbVKzJoZ7pHzInrVp4+IJFWdld3at/YV4sDsEwGjjNcrc9ZLsbtwNFE3SCbgK
+	DxA4OtN6q9/Azvo0Hbyj+eC8Qgn62rpZtJGhcL6XKYMrkBV58D1dypNlMGkUyREJ0PzzfU8/4WP
+	5crDgnwQasYjC+64w8pfwbMwNJ1xzgtXpFqfggI5lGvrUAjZbrsvM0UtmytuRBaF/o95JzcKfa0
+	Zeqs1wxLxsYwPcW2Fj+ghCBLDhIPyh9z7qOk=
+X-Received: by 2002:a17:90b:53c3:b0:36b:9231:9718 with SMTP id 98e67ed59e1d1-37dfa2c9951mr4623236a91.6.1782517819227;
+        Fri, 26 Jun 2026 16:50:19 -0700 (PDT)
+X-Received: by 2002:a17:90b:53c3:b0:36b:9231:9718 with SMTP id 98e67ed59e1d1-37dfa2c9951mr4623217a91.6.1782517818575;
+        Fri, 26 Jun 2026 16:50:18 -0700 (PDT)
+Received: from [10.231.195.100] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c92b96eccf8sm4246469a12.3.2026.06.26.16.50.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 Jun 2026 16:50:18 -0700 (PDT)
+Message-ID: <85b2bac4-9882-4f35-81e4-1718a52aacc9@oss.qualcomm.com>
+Date: Sat, 27 Jun 2026 07:50:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260626183140.3499179-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20260626183140.3499179-1-Frank.Li@oss.nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 27 Jun 2026 01:05:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLks=LP73virVRs+9pF76R9qv0Ccgq7k7YUbptN4gHt8Lw@mail.gmail.com>
-X-Gm-Features: AVVi8CcD2cFZ0DbaMYH43Hl9zilL9SByXS-2f9JIaqrnE4P2JDWL4l6YJSprn1k
-Message-ID: <CAD++jLks=LP73virVRs+9pF76R9qv0Ccgq7k7YUbptN4gHt8Lw@mail.gmail.com>
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: st,stmpe: document st,stmpe610 compatible
-To: Frank.Li@oss.nxp.com
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, 
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
-	Frank Li <Frank.Li@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] software node: Fix
+ software_node_get_reference_args() with index -1
+To: Alban Bedel <alban.bedel@lht.dlh.de>, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Daniel Scally <djrscally@gmail.com>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>, linux-kernel@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <20260618152035.1600436-1-alban.bedel@lht.dlh.de>
+ <20260618152035.1600436-2-alban.bedel@lht.dlh.de>
+Content-Language: en-US
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+In-Reply-To: <20260618152035.1600436-2-alban.bedel@lht.dlh.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjI2MDE5OSBTYWx0ZWRfXwf1PfMylvLYk
+ ooEZjgD1HxKLYyiXQ93LS6QD66R0JFana1cgCxmNidhu5EKThygbimspKpmzdLRc6k+e/sbWhQ9
+ 1kM4PEdRz6L+diaNTXGhYD6lnJL7bWc=
+X-Proofpoint-GUID: 76rOJ2Rn8EPXwGx2ylrezCqRH0nhkEqu
+X-Authority-Analysis: v=2.4 cv=StqgLvO0 c=1 sm=1 tr=0 ts=6a3f103b cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=eDjjQEo3sodWcWNWpWEA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: 76rOJ2Rn8EPXwGx2ylrezCqRH0nhkEqu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjI2MDE5OSBTYWx0ZWRfXw/v7DmVPTsaN
+ kj1a88CNnhzo/xU/Sgy/loWVituX8N+7+2f+Ejs293AShiPrsSA0GqSQp/+isiUdr/B1p+AheWw
+ 7CZPxYhEll7P9DyeSfdWFG4Y+xFfsvQiwmyStpaSty1Kg+5CT2L0CBn6li9Nf/AklHAc6Fwhc4t
+ NgPLAr1MGE0Z0X3Gzvhmh3zoXVYkb4xLIOXp4USlDmrvG4x3MUz44qLYbGJJXhlQXwjznoBbLb/
+ uY7MCZe+kDh/+aFig6cdM8AFKr52bD8CAiiDGpcbw9vf6GEOPaCbD2NiuzAjzu8qwwrlPGH5Bzt
+ IhtEJ+4lkz3tMkLw0jADjJRYpxrwb1xZIUVMbnknIhy69Ten293CdARtgI4Dg2B6PPSyqB3okx2
+ Bf4oyLl2+yLkYh47z1FeHZo7NDiSITLLsa1jyOIUIGXSF5UVNKQYcOP1rZiKP0C8zeg97QBf7oo
+ xpYofKgFTANfrHBHOYg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-26_06,2026-06-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2606260199
 
-Hi Frank,
+On 6/18/2026 11:20 PM, Alban Bedel wrote:
+> The bounds check for the index passed to
+> software_node_get_reference_args() was failing when passed UINT_MAX,
+> this in turn would lead to an out of bound access in the property
+> array. Fix the bound check to also cover the UINT_MAX case.
+> 
+> Fixes: 31e4e12e0e960 ("software node: Correct a OOB check in software_node_get_reference_args()")
 
-thanks for your patch!
+i think the fix tag may not be right.
 
-On Fri, Jun 26, 2026 at 8:31=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
+for original express before the fix tag: if (index * sizeof(*ref) > prop->length)
 
-> From: Frank Li <Frank.Li@nxp.com>
->
-> The STMPE610 has long been supported by the STMPE I2C MFD driver, but its
-> compatible string was never documented.
->
-> Add the missing st,stmpe610 compatible string to fix below CHECK_DTBS
-> warnings:
->   imx53-m53evk.dtb: /soc/bus@60000000/i2c@63fc4000/touchscreen@41: failed=
- to match any schema with compatible: ['st,stmpe610']
->
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-(...)
+for UINT_MAX, multiplication overflow?
 
->    compatible:
->      enum:
->        - st,stmpe601
-> +      - st,stmpe610
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-devicetree/20260611103904.7CB131F00893@smtp.kernel.org/
+> Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
+> --
+> v2: No changes. Only submit this patch along with the patch that
+>     triggered the Sashiko report, to hopefully avoid another useless
+>     report.
+> ---
+>  drivers/base/swnode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+> index 869228a65cb36..2bc76f01eb77d 100644
+> --- a/drivers/base/swnode.c
+> +++ b/drivers/base/swnode.c
+> @@ -537,7 +537,7 @@ software_node_get_reference_args(const struct fwnode_handle *fwnode,
+>  	if (prop->is_inline)
+>  		return -EINVAL;
+>  
+> -	if ((index + 1) * sizeof(*ref) > prop->length)
+> +	if (index >= prop->length / sizeof(*ref))
+>  		return -ENOENT;
+>  
 
-There is no STMPE601.
+who will use UINT_MAX ?
 
-It's a mis-spelled STMPE610, so please delete the row above and
-edit the committ message accordingly.
+This function is a interface function.  the best fix should check
+input parameter @index and return -EINVAL if it is not expected?
 
-Yours,
-Linus Walleij
+
+
