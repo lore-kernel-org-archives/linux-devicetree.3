@@ -1,111 +1,159 @@
-Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC19F3F88AA
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 14:40:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBA03F8715;
+	Fri, 26 Jun 2026 14:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782484862; cv=none; b=ag8IMmL4G667R3fTTsQ8v9oyUEMwvzoFw0vc179f2dkQPlQszdDxyGkt2rwwhwEtHZSYXj32OoV3xOVMxRgJxAvFTmOoUWxWOnXSZ8wH5pcGDAWlCM8YYAVQUZUMihiuh5rYkeHxsluXSlB50LjY3hsHuk13iX+6xK6urdi8gCY=
+	t=1782485044; cv=none; b=MTLhIqzQnu7Dk9ueaUV3tWgLaI7Ckc5uoh6RMHPvxZqByeihqn+fSlcWxrSPm8GtlIsbdKK48it8/W6HlRsCdAu1h+0aebA6MpB0VloVS2ohUe6y29bLAbzPmfz4C38CVGHesl45cqIIfvpbj+pM/bvE0TNMSUBoloMEYzANt8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782484862; c=relaxed/simple;
-	bh=6l7FWNwrOpVINMRwUfgz2uZH0x6IDs6mXntrNhPogtQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m/HRyPfoxOw/9TQ4IQlLzkBtMEWQn2+k3m6e3ifFRK5igGnm83NCwB3pHvq5AKsBB01sioNZ8YWrTnw016NdRULOD3sYw5hf33KjwR7U6mzhbmUzUuRLfcUu08vtjKhLcZdXenzeILbA7aTNLcwYFOxvKUrwwqhBQSHPT7wrkOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net; spf=pass smtp.mailfrom=0leil.net; dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b=kbfEwjZs; arc=none smtp.client-ip=45.157.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
+	s=arc-20240116; t=1782485044; c=relaxed/simple;
+	bh=t6+19co4wT+sR4HBKB1X6BEjvDKnU+F5CYbIIpRkYHo=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=r2/rFjZjnPK6szMRAhe4hmwHrUkyyyKfsdDMljsuLTNCWXl75ohf+pxG/LMkcCoMIuZp727ZPxi2czeixI1emqcQhB0dqRX7r5XWMZXq3nMyI/97KcR/thkto3lWg32d9GijD/Ezvy1ac7bUfLQ7mpQnWP1YMmpbtF4w2/NCjKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MccSHJSg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=0leil.net header.i=@0leil.net header.b="kbfEwjZs"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4gmyyq3sCRzspR;
-	Fri, 26 Jun 2026 16:40:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1782484851;
-	bh=0HPhwFtkXvquAUDYvZqrHytOvvPkaGYk3vsC80cW3dk=;
-	h=From:Date:Subject:To:Cc:From;
-	b=kbfEwjZs5NrTcHkqTfsl8NYqNIp7n77UhG5v9cIkEvGqsLft0Cy/9flMNyDAEbeCV
-	 ruUSAHxJKTe3Cfs/6aHMrY877vtXzB4++d4g/JN3m4/YvwrxUqb1c1kDUlyUbrF/bl
-	 IpFUGfvdDkqbDQn+7oeavtf2TdN1X49hdfxJSkfvrxI0bEFCrmbznKRGE/BOmuwbOy
-	 aEcECZ4kyL5AovQ9i805jDSu9z0JqoX4Z++YdElO24NLTIv/oSPa7cYOgiKITJKJjt
-	 SIrbR3wtKq97A42IfdwULZdR8sZPbKBDx20zRgOJ4quVoO/dIB2F6abLf5OsqtlLIx
-	 r9Iav44fT9Vsw==
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4gmyyp1m8tz3Fy;
-	Fri, 26 Jun 2026 16:40:50 +0200 (CEST)
-From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Fri, 26 Jun 2026 16:40:38 +0200
-Subject: [PATCH] arm64: dts: rockchip: fix eMMC reset polarity on PX30
- Ringneck
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MccSHJSg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3153E1F000E9;
+	Fri, 26 Jun 2026 14:44:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782485043;
+	bh=B4c6ILvGNvGsDJ3Rcq7xHv7I77cDvZeU88xDp65H8Ow=;
+	h=Date:Subject:From:To:Cc:Reply-To:References:In-Reply-To;
+	b=MccSHJSggSyVFtJWDvS/ObpLXL2icYa2/IsVO79CpZc0H6zOPLa+EAEkDXF7e1wm0
+	 /zIciGcJz4Y2YhQPkNS5gKo83hs/ZWjGjdx/Nszj+nZ3C5wTIlO+hy1DApGDbJGPmw
+	 CRZLBTAU0hKzyWpeWXecxuZXT/K+F/6zQTxsJ14DUpCDlObpkS/jtMB4j0y18nPS/5
+	 LZ1vhKyWWAA3Eo35lpS6y3A/egU1kZe6EA4mOqajgolNH3ja5e4W5E1S5XuqpV1eSs
+	 3jthgWhd/CWju1B2XDqJvEeM2ypCag4NZFVlzl9BJeJ04vuHuq/mAQPfkJvEFn2IEk
+	 CO1pbvT4gdF9g==
+Message-ID: <b5283758-bf75-4906-b821-d6bd7a81e3cd@kernel.org>
+Date: Fri, 26 Jun 2026 15:43:59 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260626-ringneck-emmc-polarity-v1-1-90cefe57b316@cherry.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdukG8kwvorxAKXOqgzSoYEQ3
- t2px+/w/xtkMZUMp2oDk7dmHVOBO1TAtzZFQe2LwZMPFHxA0xST8ANlGBin8dmazis2riGqOXR
- H8lDiyeSqy298vvydX91deP7eYN8/sFCo3HoAAAA=
-X-Change-ID: 20260626-ringneck-emmc-polarity-717003c6b802
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Quentin Schulz <quentin.schulz@theobroma-systems.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Quentin Schulz <quentin.schulz@cherry.de>, stable@vger.kernel.org
-X-Mailer: b4 0.15-dev-47773
-X-Infomaniak-Routing: alpha
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 00/12] RFC: Devicetree-ACPI hybrid mode
+From: Bryan O'Donoghue <bod@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Dmitry Baryshkov
+ <lumag@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-acpi@vger.kernel.org
+Reply-To: Bryan O'Donoghue <bod@kernel.org>
+References: <pskkNka1-QtLVb1tcyyUSjNNeMAWUUOLyvn0XSpq55AyeqXnEjOWDCXF1pWVAufJEya52NTx6ZCXz5dMHcMlyQ==@protonmail.internalid>
+ <20260623145225.143218-1-johannes.goede@oss.qualcomm.com>
+ <asD5eIxx2ppKOwrwsxHV3d3olpLk5MF9C3Upf_lVo_MWzsiSilQZ2obgX-IAL0Zmv_Pxd3d1zyBV2tSH4ramsw==@protonmail.internalid>
+ <04b4f1b0-4d8f-41eb-9b6f-d90b88aec2ff@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <04b4f1b0-4d8f-41eb-9b6f-d90b88aec2ff@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+On 26/06/2026 15:33, Bryan O'Donoghue wrote:
+> On 23/06/2026 15:52, Hans de Goede wrote:
+>> Comments, thoughts ?
+> 
+> Throw out DT and just do this...
+> 
+> One thing I like about this approach TBH is that you don't do the easy
+> thing of presuming to push the hard work into the bootloader - thus
+> creating a dependency on bootloader.
+> 
+> We've had _alot_ of problems doing DT selectivity to get OSes installed
+> on arm64 laptops. You mentioned I2C-HID devices and EC controllers which
+> I agree are a good and obvious targets.
+> 
+> I don't think this can replace a full and complete DT but, then I don't
+> think that should be the objective.
+> 
+> Much like installing cursed OSes like Windows on "normal" laptops or x86
+> machines, you'd expect to boot in ACPI mode have enough of the OS
+> running to install more of the OS - which I think _can_ be a viable
+> objective with an ACPI-DT translator.
+> 
+> Sadly OpenBSD could boot all the way to console on the Qcom laptops
+> where Linux could not - because ACPI support was better there.
+> 
+> And, we have Nvidia laptops coming too, Windows laptops which will parse
+> ACPI tables to boot.
+> 
+> There's almost no upside in having ACPI data and not trying to make
+> maximal use of it, especially if you don't have a DT supplied by
+> antecedent boot stages.
+> 
+> ---
+> bod
+> 
 
-According to the Jedec 5.1 specification, the device is held in reset
-when RST_n is low, therefore the polarity of the line must be that, as
-specified in the Device Tree binding (mmc/mmc-pwrseq-emmc.yaml).
+I'm going to agree with myself some more on the boot story.
 
-Due to the wrong polarity, eMMC devices with RST_n_FUNCTION[162]
-bitfield [1:0] set to 0x1 (the default is 0x0) will be held in reset
-forever.
+If you can boot Linux _at_all_ and dump out ACPI tables from the booted 
+system you are way further along than not being able to boot without a 
+"real" DT.
 
-Cc: stable@vger.kernel.org
-Fixes: c484cf93f61b ("arm64: dts: rockchip: add PX30-µQ7 (Ringneck) SoM with Haikou baseboard")
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Again, bootloaders have had to be educated on how to make that DT 
+selection - a problem that isn't well solved or converged on - and even 
+if such an agreed method were present, exactly 100% useless to you 
+without the DT to go with it.
+
+As a Linux user I don't expect everything to work, especially so on 
+aarch64 but, if I can get to a boot console with a screen and keyboard - 
+I have scope to play in a way I otherwise don't - parsing DSDT from 
+Windows and walking backwards to DT.
+
+DT _should_ be the landing zone of course but, ACPI-DT hybrid to "just 
+boot" seems like an obvious yes to me.
+
 ---
-PX30 Ringneck is affected by the same issue that Cobra and PP-1516 have
-and for which patches[1][2] have already been sent.
-
-Out of the other boards I own, RK3588 Tiger and Jaguar also have an
-inverted polarity but I tried making the eMMC chip care about the reset
-line polarity to no avail, therefore I'm not changing them until we
-figure out a setup in which we can reproduce the issue.
-
-There are a handful of other Rockchip boards with an inverted polarity
-but I don't own any of them so I will not change them either.
-
-[1] https://lore.kernel.org/linux-rockchip/20260609081728.30616-2-jakobunt@gmail.com/
-[2] https://lore.kernel.org/linux-rockchip/20260612-pp1516-emmc-polarity-v1-1-4816c1c909f7@cherry.de/
----
- arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi b/arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi
-index 973b4c5880e24..29794216592d8 100644
---- a/arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/px30-ringneck.dtsi
-@@ -26,7 +26,7 @@ emmc_pwrseq: emmc-pwrseq {
- 		compatible = "mmc-pwrseq-emmc";
- 		pinctrl-0 = <&emmc_reset>;
- 		pinctrl-names = "default";
--		reset-gpios = <&gpio1 RK_PB3 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&gpio1 RK_PB3 GPIO_ACTIVE_LOW>;
- 	};
- 
- 	leds {
-
----
-base-commit: 4edcdefd4083ae04b1a5656f4be6cd83ae919ef4
-change-id: 20260626-ringneck-emmc-polarity-717003c6b802
-
-Best regards,
---  
-Quentin Schulz <quentin.schulz@cherry.de>
-
+bod
