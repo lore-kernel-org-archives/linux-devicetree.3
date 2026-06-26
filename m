@@ -1,220 +1,182 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out198-38.us.a.mail.aliyun.com (out198-38.us.a.mail.aliyun.com [47.90.198.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF37C3E4C87;
-	Fri, 26 Jun 2026 08:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E27C3A9639
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 08:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782461149; cv=none; b=BiWIDCp0J7ekybwdnKSxjbDBL2TOOdXy+dCtTYCn+hh6muqWV+zoHuBI5sS+BRzH9JLSe7M1HdEUoza8CfljSKqy+F5tfPgEts+CzCxQyFMxh+WTPk7iOfVlQUoeTVzu0LpqUDxOpri8IUjKAanJ2UzIZ3UqIuiwzko/l23VNFg=
+	t=1782461448; cv=none; b=H/J24wYx9FMLRF+qSbDL42wY7GUxb8I4+Ajp5xBHyqo6YLSJgvr8uQSaU68W2N1HELZuAiEWCqI5KtiBjofmZ7XAi9Irlw7DBc1gfadR7hlIWtNeZ5ScX/GPBf7ZcgNKuMdCe3wMhYqqHRlbl/m7SyXT0N/ChJJkfQE8rCnda0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782461149; c=relaxed/simple;
-	bh=axrpqY4S42EQQFbPjCKioHB79/a1ddVPSrL7y71SW8U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=anSKX9B9nA0WSyrkK5sV+o/u94z9UP4Mt1dm/2RC6r13SrZkjtZKXvnXlny86sv1orpa1eYI8PNDNY3uDqCGHQiqyVsYVCK94p9lI6w/WguTqmfg+NnqzsNMKj/SHaSeb5zfH0LBio/PWtO+nmQkiovDQqFyGBGCLrQnO3zc4g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.182])
-	by APP-03 (Coremail) with SMTP id rQCowACHerHIMj5qNbDoFQ--.17548S2;
-	Fri, 26 Jun 2026 16:05:29 +0800 (CST)
-Message-ID: <6170afe44cc6b283b95e724730d47097ff965098.camel@iscas.ac.cn>
-Subject: Re: [PATCH v5 0/7] drm/verisilicon: add Nuvoton MA35D1 DCU Lite
- support
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 26 Jun 2026 16:05:28 +0800
-In-Reply-To: <20260625094449.708386-1-a0987203069@gmail.com>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1782461448; c=relaxed/simple;
+	bh=nZvtXtmyrg9U0JE4Hys4l5JldL1Bc4/F8SeH9MWmWlM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fehroHTd/KdI3msM4RQBwpacnrOp5J/GEowQqvHZFmlJlA3zSRbQE4AWX+LR8YgEB4QmhmTaN0KKx5H3SNjps1xWPvdevWdMW7DCJI+ec27TeAyle1jPXiqIq5XvGm/Q2p0TPDc0tyovWwoqwappaoonhjOjjnvHK9TnkqPXTnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=ecaZMlug; arc=none smtp.client-ip=47.90.198.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="ecaZMlug"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1782461428; h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type;
+	bh=HhV3bWO9gIVoUi3jAkMYRQDGZL+blyVm2vY9bmLhsaM=;
+	b=ecaZMlugL34+pZQkBArMDBjLWnrs0gTrfp6C5pD/F/LFvIa3jZMJ9ocmNacHgGlP0ulWV36jKI6tYWgy2xGUxm3edG01BB/vmBybVsdaTvjx6h1tN4a3if6mbLXl4bnd6cxs0Tfj0slvRTCtd7eBIsrQ1T5it3+qTt0YaVtp19ANzhakdTnLWAJgIKYPvpYnP5HtvPoeRZFQYi0rXmixb+pb4dImoLYXUxdFLFr/MaCpKdr9kNBi/qCZ0pU/wL0J0mPxlM+QJO+Cz8D1qBSqNLYgVd59X5JRHHbDKBTsqXDkVELefUS+MI9XpZbumwLOOGq5LA7D5qc7ThsnbgVITQ==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437418|-1;CH=blue;DM=|OVERLOAD|false|;DS=CONTINUE|ham_regular_dialog|0.0255571-0.00402946-0.970414;FP=18253397270903497986|1|1|2|0|-1|-1|-1;HT=maildocker-contentspam033045213054;MF=syyang@lontium.com;NM=1;PH=DS;RN=1;RT=1;SR=0;TI=SMTPD_---.i6H6gXd_1782461107;
+Received: from mail-oi1-f175.google.com(mailfrom:syyang@lontium.com fp:SMTPD_---.i6H6gXd_1782461107 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 26 Jun 2026 16:05:07 +0800
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4863a7dac63so368289b6e.1
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 01:05:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ823jrrPuSlmRewVEqrDHfxBoCndaH+ba/ui2Nvp6FYJVDF4ySjW9piEJSaGzvMJ7o8CWvBp81bm9dh@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHTlz6w7Pn5K//fhzLFqG9Q51w4U5RaEnw2q/+7+ZJvV2LXAyH
+	aJpmMLBXAwmn4dI8WiYRkt1e145j39hqZ7fbqn9mfNoGQPGRrZffhmPcvmTLFT/29VFQck1YGQV
+	6hhrJWoWFStQd66OGm2d2EJ5a01hphIQ=
+X-Received: by 2002:a05:6808:67c8:b0:489:6b4c:d779 with SMTP id
+ 5614622812f47-49217d2713amr5165727b6e.20.1782461106299; Fri, 26 Jun 2026
+ 01:05:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACHerHIMj5qNbDoFQ--.17548S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3XF1fWFyxXw4DWFy5WFyxAFb_yoW7tr48pF
-	WktrW5Jr98Jwsagrs7JFy8Kry5C3WxtayfWrs7JFyUAw45tFy0qr1xWa4Y9a4UXr4xJw12
-	gF4vkrW3uF17Ar7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUquyIDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260508134009.4582-1-syyang@lontium.com> <20260508134009.4582-3-syyang@lontium.com>
+ <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org> <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
+ <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org> <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
+ <CAFQXuNa8bJCpZBkMs_3mtbK_pjVzDdaDaoGk0KDxiG_Pf7txdg@mail.gmail.com>
+ <6371d1d8-cdfb-40fa-84c7-ba3ec4e2ac00@kernel.org> <CAFQXuNZtzBu+WiG8n0BeN47zagQmL-iz_6Af7prk-xHLAeRBwg@mail.gmail.com>
+ <e8001fe1-684d-4de2-bde4-8b0c1ce1dd0d@kernel.org>
+In-Reply-To: <e8001fe1-684d-4de2-bde4-8b0c1ce1dd0d@kernel.org>
+From: Sunyun Yang <syyang@lontium.com>
+Date: Fri, 26 Jun 2026 16:04:54 +0800
+X-Gmail-Original-Message-ID: <CAFQXuNYx1qFkM_iuM6nqfa7HDVW21AeGAJ2QY=dc-gnkJdGSNg@mail.gmail.com>
+X-Gm-Features: AVVi8CdilLO5T98OMihI_-qQERGzIO1j1r0pJRpQqMWJHbfI3o1AP2MIwXAucP0
+Message-ID: <CAFQXuNYx1qFkM_iuM6nqfa7HDVW21AeGAJ2QY=dc-gnkJdGSNg@mail.gmail.com>
+Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
+	dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
+	rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
+	tzimmermann@suse.de, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, xmzhu@lontium.corp-partner.google.com, 
+	xmzhu@lontium.com, rlyu@lontium.com, xbpeng@lontium.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-=E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:44 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
-> This series adds support for the Verisilicon DCUltraLite display
-> controller as integrated in the Nuvoton MA35D1 SoC.
->=20
-> The Verisilicon DC driver and its DT binding were originally written
-> by
-> Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC,
-> which
-> carries a DC8200 IP block.=C2=A0 The present series builds on that
-> foundation
-> with gratitude to Icenowy for the original work.
->=20
-> The DCUltraLite is a different variant in the DC IP family.=C2=A0 While
-> the two
-> IPs share a broadly similar register layout, a number of differences
-> prevent the existing driver from working on the MA35D1 without
-> modification:
->=20
-> =C2=A0 - No CONFIG_EX commit path: the DC8200 staging registers
-> =C2=A0=C2=A0=C2=A0 (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_=
-CONFIG,
-> =C2=A0=C2=A0=C2=A0 PANEL_CONFIG_EX) are absent.=C2=A0 The DCUltraLite use=
-s enable (bit 0)
-> and
-> =C2=A0=C2=A0=C2=A0 reset (bit 4) bits in FB_CONFIG for direct framebuffer=
- updates,
-> and
-> =C2=A0=C2=A0=C2=A0 requires a per-frame VALID bit toggle (FB_CONFIG bit 3=
-) to latch
-> =C2=A0=C2=A0=C2=A0 configuration changes.
->=20
-> =C2=A0 - No PANEL_START register: panel output begins when
-> =C2=A0=C2=A0=C2=A0 PANEL_CONFIG.RUNNING is set; the DC8200 multi-display =
-sync start
-> =C2=A0=C2=A0=C2=A0 register at 0x1CCC does not exist.
->=20
-> =C2=A0 - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
-> =C2=A0=C2=A0=C2=A0 0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TO=
-P_IRQ_EN at
-> =C2=A0=C2=A0=C2=A0 0x0014.
->=20
-> =C2=A0 - Simpler clock topology: two clocks ("core" bus gate and "pix0"
-> pixel
-> =C2=A0=C2=A0=C2=A0 divider); no axi or ahb clocks required.
->=20
-> =C2=A0 - Single display output: no per-output indexing beyond index 0 is
-> =C2=A0=C2=A0=C2=A0 needed.
->=20
-> =C2=A0 - Hardware-discoverable identity: the DCUltraLite exposes chip
-> identity
-> =C2=A0=C2=A0=C2=A0 registers whose model field reads 0x0 (revision 0x5560=
-,
-> =C2=A0=C2=A0=C2=A0 customer_id 0x305), allowing the existing vs_fill_chip=
-_identity()
-> =C2=A0=C2=A0=C2=A0 path to identify the variant purely through register r=
-eads.
->=20
-> Patch 1 generalises the verisilicon,dc DT binding to accommodate the
-> Nuvoton MA35D1 SoC-specific compatible and the variant's two-clock,
-> one-reset, single-port topology.
->=20
-> Patch 2 adds the register-level macros needed by the DC8000 ops.
->=20
-> Patches 3-5 introduce the driver changes in three logical steps: the
-> vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
-> vs_dc8200.c; making axi/ahb clocks optional as a separate atomic
-> change;
-> and the DC8000 ops in vs_dc8000.c.=C2=A0 Patch 6 adds the DCUltraLite HWD=
-B
-> entry that gates hardware recognition once all support is in place.
->=20
-> Patch 7 adds the Kconfig dependency on ARCH_MA35, placed last because
-> it
-> is only meaningful after the HWDB entry is added.
->=20
-> All patches have been tested on Nuvoton MA35D1 hardware.
+Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=8826=E6=
+=97=A5=E5=91=A8=E4=BA=94 15:38=E5=86=99=E9=81=93=EF=BC=9A
 
-I also tested these patches on TH1520, and it seems to show no
-regression.
 
-Thanks,
-Icenowy
+>
+> On 26/06/2026 04:15, Sunyun Yang wrote:
+> > Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=882=
+5=E6=97=A5=E5=91=A8=E5=9B=9B 21:51=E5=86=99=E9=81=93=EF=BC=9A
+> >>
+> >> On 25/06/2026 15:40, Sunyun Yang wrote:
+> >>> Sunyun Yang <syyang@lontium.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=
+=E6=97=A5=E5=91=A8=E5=9B=9B 21:26=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>
+> >>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=9C=
+=8825=E6=97=A5=E5=91=A8=E5=9B=9B 21:17=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>>
+> >>>>> On 25/06/2026 15:14, Sunyun Yang wrote:
+> >>>>>> Krzysztof Kozlowski <krzk@kernel.org> =E4=BA=8E2026=E5=B9=B46=E6=
+=9C=8825=E6=97=A5=E5=91=A8=E5=9B=9B 20:54=E5=86=99=E9=81=93=EF=BC=9A
+> >>>>>>>
+> >>>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
+> >>>>>>>> +
+> >>>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
+> >>>>>>>> +{
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>>> +     msleep(20);
+> >>>>>>>> +
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> >>>>>>>> +     msleep(20);
+> >>>>>>>> +
+> >>>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>>
+> >>>>>>> This is just plain wrong. Why do you assert, then de-assert and t=
+hen
+> >>>>>>> finally assert AGAIN the reset leaving the device in powerdown st=
+age?
+> >>>>>>>
+> >>>>>> I am using software to emulate the hardware RESET button on our EV=
+B.
+> >>>>>> When the hardware RESET button is pressed while our chip is runnin=
+g,
+> >>>>>> the signal level changes from HIGH to LOW and then back to HIGH.
+> >>>>>>
+> >>>>>> Of course, we can also use the following:
+> >>>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
+> >>>>>> {
+> >>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+> >>>>>>     msleep(50);
+> >>>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> >>>>>>     msleep(20);
+> >>>>>> }
+> >>>>>
+> >>>>> Makes no sense either and you just did not get the point and did no=
+t
+> >>>>> answer my question. I asked WHY you leave asserted. Answer "we emul=
+ate"
+> >>>>> is just plain wrong.
+> >>>>>
+> >>>>> So again please answer:
+> >>>>>
+> >>>>> Why do you leave device with reset asserted?
+> >>>>>
+> >>>>
+> >>>>  devicetree:   reset-gpios =3D <&tlmm 128 GPIO_ACTIVE_HIGH>;
+> >>>>
+> >>>> GPIO_ACTIVE_HIGH:
+> >>>>
+> >>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);   ------   reset p=
+in
+> >>>> is Low level : Clear the register configuration in the chip to stop
+> >>>> the chip from working.
+> >>>>
+> >>>> gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);   ------  reset pi=
+n
+> >>>> is high level:  The chip resumes operation.
+> >>>>
+> >>>>
+> >>>
+> >>> Our purpose is: pull the level low to clear the register configuratio=
+n
+> >>> in the chip, and then pull it high to allow the MCU inside the chip t=
+o
+> >>> re=E2=80=91initialize the registers.
+> >>
+> >>
+> >> And you do completely opposite... so that confirms your code is just w=
+rong.
+> >>
+> >
+> > The lontium-lt9611.yaml uses GPIO_ACTIVE_HIGH. I am just following the
+> > rule of this device tree. If I modify the device tree to use
+> > GPIO_ACTIVE_LOW,
+> > and use the following code in my driver, then my driver would be correc=
+t.
+> > However, would the existing kernel drivers lontium-lt9611uxc.c and
+> > lontium-lt9611.c be affected?
+>
+> DT has nothing to do here. 1 is assert, 0 is de-assert. Your code does
+> things opposite to any logic, because you finish function with reset
+> asserted.
+>
 
->=20
-> Changes from v4:
-> =C2=A0 - [dt-bindings] Kept clock and reset item descriptions in the
-> global
-> =C2=A0=C2=A0=C2=A0 clocks:/resets: properties; per-compatible sections on=
-ly
-> constrain
-> =C2=A0=C2=A0=C2=A0 minItems/maxItems and override clock-names items for
-> nuvoton,ma35d1-dcu.
-> =C2=A0 - [dt-bindings] Dropped redundant global minItems/maxItems on
-> clocks:
-> =C2=A0=C2=A0=C2=A0 and clock-names:.
-> =C2=A0 - [dt-bindings] Dropped the extra-space typo fix in port@0
-> description
-> =C2=A0=C2=A0=C2=A0 to keep the patch atomic; left for a separate patch la=
-ter.
-> =C2=A0 - [ops] Renamed crtc_enable/crtc_disable hooks to crtc_enable_ex/
-> =C2=A0=C2=A0=C2=A0 crtc_disable_ex.
-> =C2=A0 - [ops] Added unified IRQ bit definitions; each irq_ack()
-> implementation
-> =C2=A0=C2=A0=C2=A0 now translates hardware-specific bits before returning=
-.
-> =C2=A0 - [clocks] Split the axi/ahb optional-clock change into its own
-> patch
-> =C2=A0=C2=A0=C2=A0 for atomicity.
-> =C2=A0 - [hwdb] Simplified the commit message for patch 6.
-> =C2=A0 - [kconfig] Simplified the commit message for patch 7.
->=20
-> Joey Lu (7):
-> =C2=A0 dt-bindings: display: verisilicon,dc: generalize for single-output
-> =C2=A0=C2=A0=C2=A0 variants
-> =C2=A0 drm/verisilicon: add register-level macros for DC8000
-> =C2=A0 drm/verisilicon: introduce per-variant hardware ops table
-> =C2=A0 drm/verisilicon: make axi and ahb clocks optional
-> =C2=A0 drm/verisilicon: add DC8000 (DCUltraLite) display controller
-> support
-> =C2=A0 drm/verisilicon: add DCUltraLite chip identity to HWDB
-> =C2=A0 drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
->=20
-> =C2=A0.../bindings/display/verisilicon,dc.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 57 +++++++++
-> =C2=A0drivers/gpu/drm/verisilicon/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_bridge.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 20 +--
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 38 +++++-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_crtc_regs.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 13 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 33 +++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8000.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 86 +++++++++++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 115
-> ++++++++++++++++++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 8 ++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 14 +++
-> =C2=A0drivers/gpu/drm/verisilicon/vs_hwdb.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +
-> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 32 +----
-> =C2=A0.../drm/verisilicon/vs_primary_plane_regs.h=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 3 +
-> =C2=A016 files changed, 378 insertions(+), 57 deletions(-)
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
-> =C2=A0create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
+I understand your point, and I will make the changes in the next version.
 
+Additionally, I have another question I would like to ask you
+regarding sashiko-bot@kernel.org. Since sashiko-bot sometimes has
+opinions that differ from yours, whose advice should I follow?
+
+If I do not adopt sashiko-bot's suggestions, will my patches still be
+accepted into the upstream Linux kernel?
+
+>
+> Best regards,
+> Krzysztof
