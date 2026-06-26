@@ -1,74 +1,424 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A3736CDFD;
-	Fri, 26 Jun 2026 10:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8B8384CFF
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 10:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782469898; cv=none; b=IPxlAUQMVymB7e+hBfGpFm9bDUX3dBJVBTQX6Z1xdKn9Y05SL0wyOMKvrgPmwSzypwoPgBgnMYiAQgyt2VClWtVhA87+Vaj5nyWKYssHu8/MO8TQvLYOUA5YnzkXOIGE9fZh+RGWnwjI2wLSFWWqAgEe2/PY7b61ToOyQHaj7Ww=
+	t=1782470220; cv=none; b=Vbg4X+6WjjI9j4qBUERToF71gTXQ9YMjEVAcazTpxrvCRI5tiIhug+EAL2LhHCMtjEeUqpZkZtKEUthcgMGd2aEj1mgySYD1yG7nYGGwhVe0KAbpo5Rg9Z2sRVlYn6wCnLQuPYzCqJNZYsUzkuAIGYAcQC9Ch2KsNtEpRVa64jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782469898; c=relaxed/simple;
-	bh=LUARlZiZ0x4Wd5zKOSyr2PskgH/Q0CBjej8buUc5fLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KZlFB7mIy9onc6JHbXUIiBQ+yY8XXx3xPm2GYmo79dCxnyfLEoHAxJ1x3kPIzWVWBr41uyCj6HtIdRFnJfqfIq3mlsK+l6+KLd1sCWMsTPTwaEnKGxFMG1cIminJQBDx0fT/2yiF33fbdVzvIB1BxNA3F7DX6hSQbkDchOiMDdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4qATcVk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782470220; c=relaxed/simple;
+	bh=UYLMSQIhe6qO0sm3exwD+uQX3V04ifUVR98mAMtFHoc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EcziaKHR5DwPu4TIUzAt3aKer4bxkzGYXIpWwjCvWhPpOuQRjcEa4dOAyXTXwAAaAxRB0/Y1q67I+1lS9t9RS+RtDcokz5o9dpP3/PID30E+J4vNU9/4cMAUWLogMfFAJy3Pm836Bwh7B9RG1vISypDSXlzCfe+y2VvMgS1Zyeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2j3FV8Z; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4qATcVk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27E11F000E9;
-	Fri, 26 Jun 2026 10:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782469892;
-	bh=v3K3K//vvfEflsWY7tm0eval8/Ahb+426O2mAdC2cYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B4qATcVkLg9bMgbDEtao6y08hOZCLycTIm3Au2MFly4irjQfpWmglZLNiYJFnxX47
-	 o2JamQB5odXKpYd6qzJaeSQdFpnUqIwzkxsjNDvOZFZq5vTRm8ioujvWUXHD1G95tl
-	 8nqjFibsjtRiXFySn894Y4lIFW9cHbhPeMApmQAlrOm1Cz/zO9KZNE4RlUcxhrN0yW
-	 5vLDxaR50iX+FTLXUzjRhRXtNfag/wMsfeJZY31cWUBGOWgrXCkL8COxXqHyUaSLBj
-	 WQ4F+WXQOg70YP/vTOCPn5hqyYzW04dvKtuRrNpud8k3+CPZDPNTm8ndiKRdlo87QH
-	 3P2EV6QOSQaPA==
-Date: Fri, 26 Jun 2026 12:31:28 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: arm: qcom: sort compatibles alphabetically
- by base SoC
-Message-ID: <20260626-watchful-tan-lobster-ea717f@quoll>
-References: <20260625-reorg_qcom_binding-v1-1-f2c6501f7401@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2j3FV8Z"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-46066e640easo402913f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 03:36:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782470212; x=1783075012; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=D+LOxUqboNwspW3Z1iwsJeIpREU5uApJLby1JgVSadY=;
+        b=F2j3FV8Zpg7Th038twotiuqJ1ag7ZpI/hjVGwW7cRO0MXKIUMcdcIsPHbCLvc1iZYy
+         Ed6LUa9pMPAaFL2I6k3PPFTMnDZ705zw2nSXxKSKSPHvkKZ7CVZ0STeECFuRza6FI3fS
+         vSjVEqVrwFoZ8h/epXLqKpkHXFnYzoV1LaRYEz0n3gxiotRPjIlbT5jup6PQuY5ug0+d
+         RLo4HSL+gMyl4xJ7/rex8ecPEoHQ5AE7npABnkK4B3sE5y5/MXMdj9laNLDjl88zAeEL
+         5AYCs60fx41Ao6ytq8tOqyFhL2UOFN7xzW+thLTRri0z1DoCNbluYo7ht8J210KG8Thf
+         o89A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782470212; x=1783075012;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=D+LOxUqboNwspW3Z1iwsJeIpREU5uApJLby1JgVSadY=;
+        b=BFKnVqQg10UHDNast4gtJy3I4QOx7RDQdUtXHHgZG/E/Y358ZgU0saFPn9tBE0GefS
+         UKeSh1yPSbeFGBGXOjAaigdboF33FY4FoGmHoMw5E4DFYkAF49jifwWUUYvqJY1OwUUV
+         7tFraojRbBg8PjcSPaoQbHWQFQIXzj5ycIBAihusNYJHBRj5J5qUtyF4V1FNQxFMr+K7
+         L3kCZcAeiZIOPrsP+0N7jzxbVmVxv3NNCHFrQOQWvLEFFulVpD3HYIfeJlDUmKfCOJM6
+         juQnRDJ/dmQbuQ26D7UvC05FMbA4SfjhepUWliInJ4aR+d3S2wbr/x4F770mAv3OFSuH
+         jJIg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpsyp4wLJelVSXRqX4L6AUOvU8Z1z/UIekQK8SR0vIkWvuHOtUsmeUfNZ2yPmFhb51zpkRogAlNdqTT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0kqisk5VtRLCQ5bn2jgyKIPQdOEm+UUuD81v8c4xPiAhnWONv
+	qK1cpdM+G+HeALlJLj6wk0E3iEbVZRS09HgQME9fZIHqeWqxxr1IVVAT
+X-Gm-Gg: AfdE7ckuov8kE5G3/4WX4yVMmynRL3TGS9uXK6WJXSJi94AF2JAMisrnYxy0NTtav9Q
+	zoW8mEyDdI31Hv3lZnmi1UUr1I+GqeljOFlYZmXGZSuyKRUWBuMrwvaIvDgV8LCXiWm8LsQTN72
+	upImly14rY/MNMvpNwHG9JV6HQfobBOreGffiwGEsMh8HiAj0GpSbJr86k3HSkpFwCRnIfhyEMQ
+	IilGO/uhIhCzNxMtUc8BJQe8N2sCJQGWr5DWIpYaqCgHaYTG8e3ugC043LLV+S9wpKNOGE4tNum
+	FQmqFGIWGvI/ZHiLTbbt9Dj/jcSV/zK/HOdoJQPDJJ0RTJCwRjABVwMMYu4gQsjRanJaY+KrpUh
+	oURAkI4EK+0PdiFOyYpHe7uped3HgEzyt+aDHFsd+um+MVx0+vaVX1LA4Lq7+qMs/V8qomiL6ZG
+	wXQwjTCH5uU9kYBa6F7ia3IBx2LPJBqttDQwG1RdxQMKz5OUgbp1WFkoE=
+X-Received: by 2002:a5d:6f11:0:b0:46e:341b:45dd with SMTP id ffacd0b85a97d-46e341b47c7mr8297132f8f.26.1782470211515;
+        Fri, 26 Jun 2026 03:36:51 -0700 (PDT)
+Received: from [192.168.0.40] (a89-182-137-217.net-htp.de. [89.182.137.217])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dd5f9da4fsm15043736f8f.23.2026.06.26.03.36.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 26 Jun 2026 03:36:50 -0700 (PDT)
+Message-ID: <2a69d701-741b-4d65-bdbe-226610bf53b5@gmail.com>
+Date: Fri, 26 Jun 2026 12:36:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260625-reorg_qcom_binding-v1-1-f2c6501f7401@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
+To: Shuwei Wu <shuwei.wu@mailbox.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ devicetree@vger.kernel.org
+References: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
+ <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
+From: Andre Heider <a.heider@gmail.com>
+Content-Language: de-DE
+In-Reply-To: <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 25, 2026 at 04:02:02PM +0530, Kathiravan Thirumoorthy wrote:
-> The compatible entries in qcom.yaml were not in alphabetical order by
-> their base SoC compatible string (the last const: qcom,* in each block),
-> making the file harder to audit and maintain. Sort the entries for
-> better maintenance.
+On 26.06.26 10:10 AM, Shuwei Wu wrote:
+> Add CPU clock properties and OPP tables for the two CPU clusters in the
+> SpacemiT K1 SoC. The OPP entries use voltage ranges because the CPU
+> supply is shared by both clusters.
 > 
-> No functional change; reordering only.
+> Enable CPU DVFS on Banana Pi BPI-F3 by including the OPP tables and
+> wiring the CPU nodes to the CPU regulator supply.
 > 
-> Assisted-by: Claude:claude-sonnet-4-6
-> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
+
+With the musepi-pro dts enablement patch [0] on top, this is
+Tested-by: Andre Heider <a.heider@gmail.com> # k1-musepi-pro
+
+Works as advertised, I get two policies, matching the clusters:
+$ cat /sys/devices/system/cpu/cpufreq/policy0/related_cpus
+0 1 2 3
+$ cat /sys/devices/system/cpu/cpufreq/policy4/related_cpus
+4 5 6 7
+
+Some time after boot:
+$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
+614400 31124
+819000 185
+1000000 158
+1228800 341
+1600000 1148
+$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
+614400 29232
+819000 198
+1000000 212
+1228800 443
+1600000 3428
+
+Creating one single-threaded load increases max freq time_in_state in one policy (4 here):
+$ yes > /dev/null &
+(...after some time)
+$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
+614400 45244
+819000 187
+1000000 169
+1228800 345
+1600000 1148
+$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
+614400 38794
+819000 201
+1000000 226
+1228800 450
+1600000 7580
+
+Creating load for all 8 cores in both:
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+$ yes > /dev/null &
+
+$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
+614400 51371
+819000 190
+1000000 171
+1228800 352
+1600000 4391
+$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
+614400 44121
+819000 203
+1000000 244
+1228800 452
+1600000 11812
+
+Thanks!
+Andre
+
+[0] https://lore.kernel.org/all/20260614122812.2287506-1-a.heider@gmail.com/
+
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 490 ++++++++++++------------
->  1 file changed, 245 insertions(+), 245 deletions(-)
-
-Well, close to churn affecting possible backporting, but OTOH this won't
-get backported ever, so fine:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+> Changes in v4:
+> - Use separate OPP tables for the two CPU clock clusters
+> - Use voltage ranges for the shared CPU supply
+> 
+> Changes in v3:
+> - Use one shared CPU OPP table for all CPUs
+> 
+> Changes in v2:
+> - Add k1-opp.dtsi with OPP tables for both CPU clusters
+> - Assign CPU supplies and include OPP table for Banana Pi BPI-F3
+> ---
+> ---
+>   arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
+>   arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 ++++++++++++++++++++++++
+>   arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
+>   3 files changed, 147 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> index 444c3b1e6f44..487179f7b9b9 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> @@ -4,6 +4,7 @@
+>    */
+>   
+>   #include "k1.dtsi"
+> +#include "k1-opp.dtsi"
+>   #include "k1-pinctrl.dtsi"
+>   
+>   / {
+> @@ -86,6 +87,38 @@ &combo_phy {
+>   	status = "okay";
+>   };
+>   
+> +&cpu_0 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_1 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_2 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_3 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_4 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_5 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_6 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+> +&cpu_7 {
+> +	cpu-supply = <&buck1_0v9>;
+> +};
+> +
+>   &emmc {
+>   	bus-width = <8>;
+>   	mmc-hs400-1_8v;
+> @@ -201,7 +234,7 @@ pmic@41 {
+>   		dldoin2-supply = <&buck5>;
+>   
+>   		regulators {
+> -			buck1 {
+> +			buck1_0v9: buck1 {
+>   				regulator-min-microvolt = <500000>;
+>   				regulator-max-microvolt = <3450000>;
+>   				regulator-ramp-delay = <5000>;
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-opp.dtsi b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
+> new file mode 100644
+> index 000000000000..4cebfcd87485
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
+> @@ -0,0 +1,105 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +
+> +/ {
+> +	cluster0_opp_table: opp-table-cluster0 {
+> +		compatible = "operating-points-v2";
+> +		opp-shared;
+> +
+> +		opp-614400000 {
+> +			opp-hz = /bits/ 64 <614400000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-819000000 {
+> +			opp-hz = /bits/ 64 <819000000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1000000000 {
+> +			opp-hz = /bits/ 64 <1000000000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1228800000 {
+> +			opp-hz = /bits/ 64 <1228800000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1600000000 {
+> +			opp-hz = /bits/ 64 <1600000000>;
+> +			opp-microvolt = <1050000 1050000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +	};
+> +
+> +	cluster1_opp_table: opp-table-cluster1 {
+> +		compatible = "operating-points-v2";
+> +		opp-shared;
+> +
+> +		opp-614400000 {
+> +			opp-hz = /bits/ 64 <614400000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-819000000 {
+> +			opp-hz = /bits/ 64 <819000000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1000000000 {
+> +			opp-hz = /bits/ 64 <1000000000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1228800000 {
+> +			opp-hz = /bits/ 64 <1228800000>;
+> +			opp-microvolt = <950000 950000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +
+> +		opp-1600000000 {
+> +			opp-hz = /bits/ 64 <1600000000>;
+> +			opp-microvolt = <1050000 1050000 1050000>;
+> +			clock-latency-ns = <200000>;
+> +		};
+> +	};
+> +};
+> +
+> +&cpu_0 {
+> +	operating-points-v2 = <&cluster0_opp_table>;
+> +};
+> +
+> +&cpu_1 {
+> +	operating-points-v2 = <&cluster0_opp_table>;
+> +};
+> +
+> +&cpu_2 {
+> +	operating-points-v2 = <&cluster0_opp_table>;
+> +};
+> +
+> +&cpu_3 {
+> +	operating-points-v2 = <&cluster0_opp_table>;
+> +};
+> +
+> +&cpu_4 {
+> +	operating-points-v2 = <&cluster1_opp_table>;
+> +};
+> +
+> +&cpu_5 {
+> +	operating-points-v2 = <&cluster1_opp_table>;
+> +};
+> +
+> +&cpu_6 {
+> +	operating-points-v2 = <&cluster1_opp_table>;
+> +};
+> +
+> +&cpu_7 {
+> +	operating-points-v2 = <&cluster1_opp_table>;
+> +};
+> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> index 529ec68e9c23..bdd109b81730 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+> @@ -54,6 +54,7 @@ cpu_0: cpu@0 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <0>;
+> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -84,6 +85,7 @@ cpu_1: cpu@1 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <1>;
+> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -114,6 +116,7 @@ cpu_2: cpu@2 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <2>;
+> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -144,6 +147,7 @@ cpu_3: cpu@3 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <3>;
+> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -174,6 +178,7 @@ cpu_4: cpu@4 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <4>;
+> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -204,6 +209,7 @@ cpu_5: cpu@5 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <5>;
+> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -234,6 +240,7 @@ cpu_6: cpu@6 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <6>;
+> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> @@ -264,6 +271,7 @@ cpu_7: cpu@7 {
+>   			compatible = "spacemit,x60", "riscv";
+>   			device_type = "cpu";
+>   			reg = <7>;
+> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
+>   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
+>   			riscv,isa-base = "rv64i";
+>   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> 
 
