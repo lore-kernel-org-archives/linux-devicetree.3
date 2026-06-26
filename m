@@ -1,63 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FD32D8767;
-	Fri, 26 Jun 2026 20:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4192EA47C
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 20:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782504081; cv=none; b=qCjO4AykG9HcV8cXZ5Fu5JZ3SmbsIHj1KRL2t/XsKbmDymf26EbFdcxXxvugJzz4FA/z8rHx+LOyDo+WScokwQGYvRBns9mD0I4w+u5+Vi4Zt2HA6hYm4C2/rPSc8ubIG+WPCVILukR/ATEs6fLuzoz8HYUfEIpHSAMAXCL4Ff0=
+	t=1782505250; cv=none; b=C1IWG+0DezQA5MxRqFdx9PMflSnPFrGtZ9Qwogi9for5Td7pG4IY7A9k74D3PTnWVV3FHeasbj18BK+fEcPDbeDsxAL7R5oCtB2DRfRvHREaJXjp5X1ua5/sw/rZQYssta5HnpQw3+gR14sHoNP7oEO8U28eQziIC6Xn2IaqpRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782504081; c=relaxed/simple;
-	bh=YfV+4JEHQut0Tj4bSHZ39cY262mqNHYmFIuAYutra9Q=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=ZV8QWaOKb9auZl08NniBAEDcu71nrFXu2HENXG75wWwSFVIRv0O/g5DD9E1TwW3qDLmJobADOaFRd0iEkiBJpRI8roQ3EsS8OF4N5JxHF2lyNajeYPYLw8Z5jmex7ivSV3fN0Igae9UQ11l/4uMorAaP87se6wQ91VRA9XT+YxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOwZ1/tG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1782505250; c=relaxed/simple;
+	bh=RGavRq2w7Eh/HCoask6CSMiKDWutmt9ky7lRrahkzTw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RpNITeRKrJUWCM2lMzmA1zXtdnPCVMw15bvQhYKaWXbB2vDHHf6TfKmc+cjK0JjePJIvNIIYy24C0Q7T5tPG6GQxoz5LmHog9kTIbLsXrWsrJ3u0wJJFsgO2ESEXot3AIj858RBwlHK+BNcshNde+rV8d4tzf6Q5je3pTQB4wsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l6PQxWT8; arc=none smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOwZ1/tG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F621F000E9;
-	Fri, 26 Jun 2026 20:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782504080;
-	bh=N+gCNHdf9GvZp/8h1OmtunGbBXZTCcFwdChn8s6KM8s=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=UOwZ1/tGgUONkUX5MasgjzqolKK2y2K+ukmtSSDgJvx1fsgwsGBoa8Z9juj+u/CjZ
-	 EGDymylWcSHA0l8YM60N1vet3O4H4NvmQeQLvTZQ+dVW3eaHBoKemzFjuduUC30vrT
-	 g9JEpKTUVJTf0teL25zvdr5q/66oBxRySq/IGJlE6ykCaecV8kdBeK96D6qKu7g4K+
-	 xc5wK1dMVNMtJpmhKU6Xe6A95ewUZNX70SHB+467TbvfhGw9mJ8Z5eI3ur3RoibgFq
-	 Nuf5pyIkBi6DIDOdfGE07ykUrIe3SOhuY8QUfoaWgzjKMAnkZKtY35UE2aVIOEmUMQ
-	 X5/L2itDqWeIQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199193938C5D;
-	Fri, 26 Jun 2026 20:01:08 +0000 (UTC)
-Subject: Re: [GIT PULL] Devicetree fixes for v7.2, part 1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260626133834.GA2142045-robh@kernel.org>
-References: <20260626133834.GA2142045-robh@kernel.org>
-X-PR-Tracked-List-Id: <devicetree.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260626133834.GA2142045-robh@kernel.org>
-X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.2-1
-X-PR-Tracked-Commit-Id: b39a6b2e9d5bd6a3153aed4c7440172b8f6a739e
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: fc91b7d77d78c6381b437b7c96aca6b03f7bbfed
-Message-Id: <178250406667.1075722.584363152520973322.pr-tracker-bot@kernel.org>
-Date: Fri, 26 Jun 2026 20:01:06 +0000
-To: Rob Herring <robh@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l6PQxWT8"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-139eea1aeb0so601874c88.0
+        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 13:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782505248; x=1783110048; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5YzRske6TyAkzZ6v5R+u17HWPV5j9lKO+pa7wB7nPTE=;
+        b=l6PQxWT8dq/nla1UST36v+mSYoFyfxHfa7O/XU9kNIh4rp/NFUgSIRAWdPMmTbie0B
+         VDE7g+gs18roF7ngR4vL6IJudr8/IhmOQdL+UC1AhPPTFdaYcxL6o1mJQLS9DkDjaGYa
+         y15af0YbgwaJgMx5+XpLuDUCgmLl3tDSNjNYaaygR4ioqdNspvZ4+b62A/NR/QlFoQvM
+         OgyfrOFyRTfHmolDa5XcFBteD9Zb7lIWNVlYMGhILVDbt8tPpxhC5OmbhJM3SjFDPuJ0
+         q8CC8rfyPqRspLSzTKSL35pkr5VHCUzUuqFQmTCj9WfSIZloQymC15rzrYkbXskXW+0C
+         XyAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782505248; x=1783110048;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5YzRske6TyAkzZ6v5R+u17HWPV5j9lKO+pa7wB7nPTE=;
+        b=E3C1t4j8kHVSxKkHPRSqZVFY/pPX6ZnZ3MESnX1nivLgp+p6FqrPxq0r7+iF938LV/
+         F6jDXn6TIhYvMOcEQU4Z3XAPhs652B/VSlZMewcKpsVenqSYWWbfduHLLOVrfHAC4PVK
+         7MPmtFZAnCxjeSKniZC7YhRNJSA0GFu46kqWdHc9EArdhIw++SQNoBts+4DwRUQZ9tWE
+         8OnBGJ4GRx9Cxqv5r9QXP8CzV2JXxMj+qhXTmRKv6c1bQoIALpVmdP0JEbrNKnSHHiAn
+         syDgEuoEH7f/i4bYh699hN+QhICn6UpO27P29l39FGe3IrOOM5w+LgtgcqwgF9jksqeU
+         DkFg==
+X-Forwarded-Encrypted: i=1; AFNElJ+bZAAOBiL2zY0Xp0UIqNiWSN3m1WYpfCHY3queRfhShF7TgGYyoBZFcr8595M0k2oNAB8DNL1Xe3NJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyk3h0qAhyYcIIeEC91saYdwh0w8kr26L4NmaxNmxj9fgOy52z1
+	mmPuLk5pm6UNjmQpAaWgxuDPxLOtUqsCaUJ3zy9KEBYDanHjEBHxjGRv
+X-Gm-Gg: AfdE7cn+r9VOSmL67c4qaHOXxA0kuIBK6PUIhz/eDQqMF1qn7UhbTH7ov8i06+5Lc1h
+	XUnAiSHJblY3p0lTLbqTeQSlalZcACgdAzjYmGqFmsYlph6GsFGnTgRTkv/UHX/uQKr/guvYHnf
+	v67Pa/GC3oDlAAIVWpQjE3Gy4bDxvcIpdzlUVY+VBL/3uolqNCls1tjmPPEC1ByruyJ9bxBPeV4
+	tKiU0HykyKii6WV4Isls5pTeHyXuXxcWDiriEnI29xpzdBQaTs1Pa1+CbR9EIxsk9KMR2fK9OXZ
+	c+/xPLxLyrqjvqM/M9DOC8RPHemKjSoRBKOrvb3h5E2XrAdC+sEz4b/H83KpjyljnLWM2KF4F8P
+	vWTwEXNa2OmPsX7t1z3Fs4TpV0HnpfOJTrIZc4TXjPVvV9ZrBHwtOFjHid11OMtYUH4qbYx+IUS
+	2+pVcIpdkFxYxcbRNh2P6hErNsAyowkTlFlsEh/vuHBnemESwGP6edwQ==
+X-Received: by 2002:a05:7022:23a0:b0:137:d08e:e5b1 with SMTP id a92af1059eb24-139dbaba7abmr7015184c88.16.1782505247784;
+        Fri, 26 Jun 2026 13:20:47 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a474:bf4a:4966:8d97])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-139d912197bsm33048756c88.15.2026.06.26.13.20.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 26 Jun 2026 13:20:47 -0700 (PDT)
+Date: Fri, 26 Jun 2026 13:20:44 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] Input: isa1200 - new driver for Imagis ISA1200
+Message-ID: <aj7fASOM-jwLTCQS@google.com>
+References: <20260617070528.35006-1-clamor95@gmail.com>
+ <20260617070528.35006-3-clamor95@gmail.com>
+ <aj28fvj34b4_VI3k@google.com>
+ <CAPVz0n0Ja0eKrpirtMxK8bkTV0NY-UoKU0c09qLEF-xMWmOzKQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n0Ja0eKrpirtMxK8bkTV0NY-UoKU0c09qLEF-xMWmOzKQ@mail.gmail.com>
 
-The pull request you sent on Fri, 26 Jun 2026 08:38:34 -0500:
+On Fri, Jun 26, 2026 at 10:45:20AM +0300, Svyatoslav Ryhel wrote:
+> пт, 26 черв. 2026 р. о 02:45 Dmitry Torokhov <dmitry.torokhov@gmail.com> пише:
+> >
+> > Hi Svyatoslav,
+> >
+> > On Wed, Jun 17, 2026 at 10:05:27AM +0300, Svyatoslav Ryhel wrote:
+> > > From: Linus Walleij <linusw@kernel.org>
+> > >
+> > > The ISA1200 is a haptic feedback unit from Imagis Technology using two
+> > > motors for haptic feedback in mobile phones. Used in many mobile devices
+> > > c. 2012 including Samsung Galxy S Advance GT-I9070 (Janice), Samsung Beam
+> > > GT-I8350 (Gavini), LG Optimus 4X P880 and LG Optimus Vu P895.
+> > >
+> > > The exact datasheet for the ISA1200 is not available; all data was modeled
+> > > based on available downstream kernel sources for various devices and
+> > > fragments of information scattered across the internet.
+> > >
+> > > Tested-by: Linus Walleij <linusw@kernel.org> # GT-I9070 Janice
+> > > Signed-off-by: Linus Walleij <linusw@kernel.org>
+> > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> >
+> >
+> > Sashiko convinced me that using mutex_trylock() in the playback work
+> > handler will result in dropping requests and that we are safe not taking
+> > the lock there at all. Can you please try the following modification?
+> >
+> > diff --git a/drivers/input/misc/isa1200.c b/drivers/input/misc/isa1200.c
+> > index c61adc4b605c..fb7f68fa0a2b 100644
+> > --- a/drivers/input/misc/isa1200.c
+> > +++ b/drivers/input/misc/isa1200.c
+> > @@ -253,15 +253,12 @@ static void isa1200_stop(struct isa1200 *isa)
+> >  static void isa1200_play_work(struct work_struct *work)
+> >  {
+> >         struct isa1200 *isa = container_of(work, struct isa1200, play_work);
+> > -       struct input_dev *input = isa->input;
+> > -
+> > -       scoped_guard(mutex_try, &input->mutex) {
+> > -               if (!isa->suspended) {
+> > -                       if (isa->level)
+> > -                               isa1200_start(isa);
+> > -                       else
+> > -                               isa1200_stop(isa);
+> > -               }
+> > +
+> > +       if (!READ_ONCE(isa->suspended)) {
+> > +               if (isa->level)
+> > +                       isa1200_start(isa);
+> > +               else
+> > +                       isa1200_stop(isa);
+> >         }
+> >  }
+> >
+> >
+> > If this works no need to resend, I'll fold on my side.
+> >
+> 
+> It does work fine. Thank you.
 
-> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.2-1
-
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/fc91b7d77d78c6381b437b7c96aca6b03f7bbfed
-
-Thank you!
+Excelled, thank you. Applied both patches.
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Dmitry
