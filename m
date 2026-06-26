@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E913E3156;
-	Fri, 26 Jun 2026 07:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B1C3E3C68;
+	Fri, 26 Jun 2026 07:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782459650; cv=none; b=SdftYWx+d53Ko3W/2mjXwy4HAMpar4m4RS6Fzk5dScjU1QdZdakS5SbB0izdXOmuIO/NoUDbU90v9/fR5+wXI5bLyffGIv18XOwW8ce7CUSiU1sHTIW+VY1xRQ7VUQuULIFhYKQ8t6iUHHy01A5SRuffhx9EnAsZX24Bm2GUJTM=
+	t=1782459742; cv=none; b=oK4F4zcRe2Y91UkR5I8i07YQ+KWKQvCGP2sUt3Q6B6h+6UCNZLn9SNj6Rj8dG1MqLAzDP6s+FMXp/PajUhPEXBZWb3TDiAk4wk9Cr9HCfcXa4W+m1v88Q3jVIreq/TnhU412QyC247jRZDVzANKEECgBBoP5DHbPWYVLMmajISA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782459650; c=relaxed/simple;
-	bh=GZqXT9Ip/JO+OGFUfsAmg+5Z5295gCYwwiBd6y9iYj0=;
+	s=arc-20240116; t=1782459742; c=relaxed/simple;
+	bh=/9bJzCLXu+XRWRNZvRgGOcrm76MKLAlFsEhJkA0NLp0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XhRE8jdEb3n40ZzpNmREH23jPbdc026JpJr+fg6n/4pTFhaGvwj3uYx6Zcqpu1pksMTsv8nBLWioetdP6+2PDKZiuBXHHW8NdpgxByooLjbOQi+0h8587RkAeBvJt/j3mO0NXmZeVNYyVkxIiJbFUoL5OLPFI+OGk3lLyZOI75M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8DprBuf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=kyhcQ5DZZ2AIg2CT0R4SucdiIPyF7FvQws+U/DpOiHN83UsJNHn24lMKAjD6smBUqqXuxATZoU/c1i1fhmFITT/dlOkGYV9wRKlRsANejMYwYLt6UcpbiG53MOGMoPCVP+4dE1qBkyEWBnVK1YeCp7FvHW3VgnTdjRRiHIBA/AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OoQCFvDp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8DprBuf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7941F000E9;
-	Fri, 26 Jun 2026 07:40:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OoQCFvDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A29E1F000E9;
+	Fri, 26 Jun 2026 07:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782459649;
-	bh=N8XrY+wXxLK2NxQ4BW48R9sEgb+goFZ/Ui0Zz6LHgw0=;
+	s=k20260515; t=1782459741;
+	bh=etYENOeSZId+ruwOU1toe2ZhPkwps93/WrI7AqM4gz8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=l8DprBuf6Iya+bmN6b3AdCa8GMgRBC09SjyD/wZcdFS3TzPLlTlsrIseVwqO2Qw1M
-	 U++7kuXoVfJCjDF5CnHLBj9ypbGqqOevTtZBwQs1q/ybBGg1QmhgP9AeBsv//Cd8Mj
-	 ZDiBrIJb9d86SMlKQAnTdPlTHjZYv/eZHkwH7BWnqUQeUrY9UwDlwq1Izw1WrjWXPI
-	 OQpfRiRS5oNwNuY6y/OSasdaMbBNW64cvtwZHteqH8ileT1TUaMCaC42WxY3eFizwZ
-	 3GjUKcqfkiIp6QghQ1vZg0R/QDymYEAVCWnzNI0YeSdqiQ2CrkycbjsP7F8xWKzkXL
-	 g1X1fA+nTQkiw==
-Message-ID: <440a78ed-2ac9-4926-affd-8697348eb83d@kernel.org>
-Date: Fri, 26 Jun 2026 09:40:40 +0200
+	b=OoQCFvDpvxlup1UMU6B1GZC/J+bKGycENqNE3EFhgcwOCVlerqtANzW4Oa+p6tRKN
+	 QAtDbcwFDFnbbZuo2u63qW0RaCEOg9l3eSbJVKRzfAg1XHGLIrDKru27/766ikyNfO
+	 Zv8J3tg8EtvGLRQU48YfuUy6pv+Htu7ucmkrhCkoDRuCWJo/CP0lj53As4YUlbIbsr
+	 9A89rtFXVSm+TlJRLvM7pZg+OOFR3tnL3gIhNMOQFWHAxfGoqFo9vg4wtcSc0WURtT
+	 4IoCR9TJeoOBzGTpU56kw3ZazeTKGhzugONO6XIpBT6NOSxyFNWLxNxKY+cUZQlJNH
+	 hvy6RnqopDwFQ==
+Message-ID: <001abe91-5b9a-4d8b-a52a-fff1b1558ba4@kernel.org>
+Date: Fri, 26 Jun 2026 09:42:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,26 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-To: Sunyun Yang <syyang@lontium.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- maarten.lankhorst@linux.intel.com, rfoss@kernel.org, mripard@kernel.org,
- Laurent.pinchart@ideasonboard.com, tzimmermann@suse.de, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- xmzhu@lontium.corp-partner.google.com, xmzhu@lontium.com, rlyu@lontium.com,
- xbpeng@lontium.com
-References: <20260508134009.4582-1-syyang@lontium.com>
- <20260508134009.4582-3-syyang@lontium.com>
- <3188f63f-5358-48d7-b934-af20a8f95c6f@kernel.org>
- <CAFQXuNbKBfyeQL3N3P5QY=6BWoD3O6DSbXN-WMA1rRG9vCs3Kg@mail.gmail.com>
- <a0352a42-15db-4c7a-ae73-8a4e1543cd50@kernel.org>
- <CAFQXuNZVE6cZJGwrGKGtWnB-seSJLHFh8zW3jjAs6U4JLZFWng@mail.gmail.com>
- <tpqutwzasfwhraxzymorkiot7uryef4l2n32fyo3i3fp337sak@fugghdkcqfrj>
- <CAFQXuNaOkDADrnUNMWt9JL0R9yAPrSUN1M08Z5CT=J3uXqwhkw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-oneplus: Update
+ compatible to include model
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ Vincent Huang <vincent.huang@tw.synaptics.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-input@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260523-synaptics-rmi4-dt-v2-0-0645122babdc@ixit.cz>
+ <20260523-synaptics-rmi4-dt-v2-2-0645122babdc@ixit.cz>
+ <ahdoBl3qCTyvlYJf@google.com> <1d0e7e31-f808-4347-955a-7246dea208f5@ixit.cz>
+ <742c7a13-9465-40e8-8990-e679712e9784@ixit.cz> <ajtaUb4YmyZTDLmQ@google.com>
+ <52b7dd3a-3f6f-474c-8386-4fc2776b185b@ixit.cz> <ajxakXFuKAkhdZLN@google.com>
+ <f81e4d83-90d9-47c8-aee9-319df3f8b0fb@kernel.org>
+ <aj1OhZQjO5nNYlAo@google.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,74 +100,125 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAFQXuNaOkDADrnUNMWt9JL0R9yAPrSUN1M08Z5CT=J3uXqwhkw@mail.gmail.com>
+In-Reply-To: <aj1OhZQjO5nNYlAo@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26/06/2026 03:55, Sunyun Yang wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年6月25日周四 22:57写道：
->>
->> On Thu, Jun 25, 2026 at 09:26:47PM +0800, Sunyun Yang wrote:
->>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 21:17写道：
->>>>
->>>> On 25/06/2026 15:14, Sunyun Yang wrote:
->>>>> Krzysztof Kozlowski <krzk@kernel.org> 于2026年6月25日周四 20:54写道：
->>>>>>
->>>>>> On 08/05/2026 15:40, syyang@lontium.com wrote:
->>>>>>> +
->>>>>>> +static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>>>> +{
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>> +     msleep(20);
->>>>>>> +
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>>> +     msleep(20);
->>>>>>> +
->>>>>>> +     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>>
->>>>>> This is just plain wrong. Why do you assert, then de-assert and then
->>>>>> finally assert AGAIN the reset leaving the device in powerdown stage?
->>>>>>
->>>>> I am using software to emulate the hardware RESET button on our EVB.
->>>>> When the hardware RESET button is pressed while our chip is running,
->>>>> the signal level changes from HIGH to LOW and then back to HIGH.
+On 25/06/2026 18:57, Dmitry Torokhov wrote:
+> Hi Krzysztof,
+> 
+> On Thu, Jun 25, 2026 at 10:23:54AM +0200, Krzysztof Kozlowski wrote:
+>> On 25/06/2026 06:53, Dmitry Torokhov wrote:
+>>> On Wed, Jun 24, 2026 at 04:37:25PM +0200, David Heidelberg wrote:
+>>>> On 24/06/2026 06:28, Dmitry Torokhov wrote:
+>>>>> Hi David,
 >>>>>
->>>>> Of course, we can also use the following:
->>>>> static void lt9611c_reset(struct lt9611c *lt9611c)
->>>>> {
->>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
->>>>>     msleep(50);
->>>>>     gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
->>>>>     msleep(20);
->>>>> }
+>>>>> On Sun, Jun 21, 2026 at 07:11:45PM +0200, David Heidelberg wrote:
+>>>>>> On 28/05/2026 00:13, David Heidelberg wrote:
+>>>>>>> On 27/05/2026 23:56, Dmitry Torokhov wrote:
+>>>>>>>> Hi David,
+>>>>>>>>
+>>>>>>>> On Sat, May 23, 2026 at 11:45:35AM +0200, David Heidelberg via B4 Relay wrote:
+>>>>>>>>> From: David Heidelberg <david@ixit.cz>
+>>>>>>>>>
+>>>>>>>>> We know the driver is reporting s3706b, introduce the compatible so we
+>>>>>>>>> can more easily introduce quirks for weird touchscreen replacements in
+>>>>>>>>> followup series.
+>>>>>>>>>
+>>>>>>>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>>>>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>>>>>>> ---
+>>>>>>>>>    arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 2 +-
+>>>>>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>>>>>
+>>>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>>>>>>>> b/arch/ arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>>>>>>>> index 6b7378cf4d493..148164d456a5a 100644
+>>>>>>>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>>>>>>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>>>>>>>> @@ -475,17 +475,17 @@ bq27441_fg: bq27441-battery@55 {
+>>>>>>>>>        };
+>>>>>>>>>    };
+>>>>>>>>>    &i2c12 {
+>>>>>>>>>        status = "okay";
+>>>>>>>>>        clock-frequency = <400000>;
+>>>>>>>>>        synaptics-rmi4-i2c@20 {
+>>>>>>>>> -        compatible = "syna,rmi4-i2c";
+>>>>>>>>> +        compatible = "syna,rmi4-s3706b", "syna,rmi4-i2c";
+>>>>>>>>
+>>>>>>>> So I believe we established that this device (s3706b) does not in fact
+>>>>>>>> implement rmi4 protocol properly. Why do we have "syna,rmi4-i2c" as a
+>>>>>>>> fallback? Shouldn't it be just "syna,rmi4-s3706b"?
+>>>>>>>
+>>>>>>> The vendor supplies s3706b which does implement the RMI4 properly.
+>>>>>>>
+>>>>>>> The 3rd party replacement impersonating original parts may not implement
+>>>>>>> it properly, but I don't address this issue in this initial submission.
+>>>>>>>
+>>>>>>> With this compatible we know which original part is used by the vendor
+>>>>>>> and installed in the phones, so later we can deduct specific sequences
+>>>>>>> for the replacement aftermarket parts to keep phone touchscreen working
+>>>>>>> same as they do on Android without affecting other devices.
+>>>>>>
+>>>>>> Hello Dmitry.
+>>>>>>
+>>>>>> May I ask what is currently preventing this series from moving forward?
+>>>>>>
+>>>>>> The first version was posted in 2023 [1]. I picked it up again in 2025 [2]
+>>>>>> and am now on the 9th iteration (this patchset). At this point, the series
+>>>>>> has been under discussion for well over a year, with relatively little
+>>>>>> feedback and increasingly long gaps between review rounds.
+>>>>>>
+>>>>>> The current approach is based on the guidance I have received so far,
+>>>>>> including suggestions from the device-tree maintainers. When concerns were
+>>>>>> raised, I tried to address them and rework the series accordingly.
+>>>>>>
+>>>>>> What I am struggling with is understanding what specific issue still needs
+>>>>>> to be resolved before these patches can be accepted. If there are remaining
+>>>>>> requirements, objections to the approach, or technical concerns that I have
+>>>>>> not addressed, I would appreciate having them stated explicitly so I can
+>>>>>> work on them.
+>>>>>>
+>>>>>> I also split out the straightforward, self-contained changes in the hope
+>>>>>> that at least those could progress independently while I continued working
+>>>>>> on any follow-up requirements. However, even those patches do not appear to
+>>>>>> be moving forward.
+>>>>>>
+>>>>>> Could you please clarify what outcome you would like to see from this
+>>>>>> series, and what concrete changes would be required to get it accepted?
+>>>>>
+>>>>> I am still confused about how you want to differentiate between the full
+>>>>> RMI4 support vs the OnePlus flavor. The "syna,rmi4-s3706b", as you
+>>>>> mentioned, implements RMI4 protocol properly, so we do not need to
+>>>>> actually have it documented neither in binding nor in DTS.
 >>>>
->>>> Makes no sense either and you just did not get the point and did not
->>>> answer my question. I asked WHY you leave asserted. Answer "we emulate"
->>>> is just plain wrong.
+>>>> --- part 1 ---
 >>>>
->>>> So again please answer:
+>>>> This series addresses identification within device-tree. It's normal
+>>>> recommended practice.
 >>>>
->>>> Why do you leave device with reset asserted?
+>>>> If we know, the device ships specific, but **compliant** variant, we just
+>>>> put it as compatible = "more-specific", "less-specific"; in this case
+>>>> "syna,rmi4-s3706b", "syna,rmi4-i2c"
 >>>>
+>>>> This approach is used everywhere. This has nothing to do with after-market parts.
 >>>
->>>  devicetree:   reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>;
+>>> We do this in many cases, sometimes when a part has different timings or
+>>> maybe additional functionality compared to the base model.
 >>
->> It should be GPIO_ACTIVE_LOW, if the pin as active-low.
->>
+>> Generic expectation is to have always dedicated front compatible for
+>> every device. rmi4-i2c is not really specific enough, more like a
+>> family, thus a specific device compatible is essential by the DT rules.
 > 
-> Yes, I understand that.
-> 
-> I used GPIO_ACTIVE_HIGH intentionally, because I did not want to
-> modify the existing reset-gpios = <&tlmm 128 GPIO_ACTIVE_HIGH>
-> property in the lontium-lt9611.yaml device tree file that was
+> Essential in what way? What will break if such compatible is not there?
 
-The example there does not matter. You must write correct driver.
+Essential by the rules we defined for DT and documented in writing-bindings.
 
-That is it.
+> We have lived without it for many years and will continue live happily
+> without it for years to come.
 
-If you cannot bring the arguments why reset must be asserted for the
-normal operation of the device, then this is the end of discussion.
 
+Does not matter if compatible is used or not. The rules are dictating that.
 
 Best regards,
 Krzysztof
