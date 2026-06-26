@@ -1,132 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010005.outbound.protection.outlook.com [52.101.84.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856CC3164A9;
-	Fri, 26 Jun 2026 11:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782472605; cv=none; b=jryBLc/o6C69Y/4w3zmgsifOqAwpHW0C/dFTY/bHFMg57KMCU6QBxPoSC/kvUKW1cwWd6RCQM5azcc0ALRmMVFO3t/2+O4M3h4nUYh1tUohPBTqMDwnf7bFmECg4wQN+O6ULGkSEE4Ho3YBxaS90sfTbn7Ld1CMMqpxn/G1mxuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782472605; c=relaxed/simple;
-	bh=pULAGn7gd9jrBHpRvgi7iMYk6v+UnrkTMVy0gC9jTNk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SD31jP7rk20fUaDDzS+SVNMTqCHNjWueKRtC/x5ZlS66/+9LHYVHCsj58GhnhGRRFwmkGK+uQmQVwPzOs4q9LSKMb5KU5LcqdPiJQ9F73NKeY1Q/gonLi2TXEzsWSZSfKDy3OaPxQgIc92AUFByvERXF6LlFyN5OzHzPBfRp1lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hc+dtlOb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19E53AE189;
+	Fri, 26 Jun 2026 11:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782472632; cv=fail; b=AximvNliIejCNUnf+HGkQHPW1J48z89pLvMnaEwCaHXbv5zn2xwvl2g00aUoRlfUcAJYNHV+8Mtz1tmeL50GsLX7mnobu3XQV2nD/9LVT3bTemtrbuvKi9SpDgUw+8UPvq4tY0bTbbiW/CnCo7OA/WlwNFbd6ucjbaLOEUxjthI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782472632; c=relaxed/simple;
+	bh=Ai+9I4NIPteO59d7xOhmuR+0d8UUpc4GfHuF8HKeo8Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ivlM8+lB5UuRl0zFUju1OisN5dx8OuZSvyT2zwTEM2aRenUYMy/w1s6MJruL0INk9nkiOG93dYfSp0N18QDCmvjAZPfXNym8RcvaC4nlzq4sUXhhIspmaLVS64GzPCCLvRNC1AGPdNmkHrB2LFOLQ7uLp7A54XuK1MHgC2UIdTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=cSk7RQ/n; arc=fail smtp.client-ip=52.101.84.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hc+dtlOb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CACB51F000E9;
-	Fri, 26 Jun 2026 11:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782472604;
-	bh=+pjkC367Ll/gzzPWQk4yEj/jwA/X88/o2EzLb1kHUUU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hc+dtlObmw4fBNFgub/XBvDDJXNpCQzAPPWXVJz2E/6orIM72j7cLM1lK4VyOG58y
-	 EmrdWQG8ywxiR/WlX32oLHNBaoQE8+RIw/DKrhL9C+0UBHQ/R1lWvHFDiZk2bK0l7b
-	 OiKfvy1JKx8neW8R71XN5XBlWoNjVLFLsPG0tk7Zwpwj1zptuxTbEQ5owdJDSFH/f1
-	 XiyIPcm6053bOdFZqEmYk8+Cy7bDs8v2KrkGar1+yo1TdJMQbH/eY53M4b38F4cEzA
-	 WwY7M5DydgLJt4Zp2IxTtknJLHQ8Zvki2QmRmVjP3cLEMXGYrsESPMScfPPUp8y06q
-	 ZZdrA1qC6s36A==
-Message-ID: <4531e20d-13ad-4493-8447-d09b9b91be7f@kernel.org>
-Date: Fri, 26 Jun 2026 13:16:31 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="cSk7RQ/n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Fx0GksYXDOy0LiAuIDq151I5dFaPsorNoznJqo+tPNTr9+Mwkfql2YfA9NvtAQ9wb/XgBtH82T8mU7sPqVK8qfdSCzZRInBK6EcYoLlfhl6qgCNMwA68lNeUubMwoFtv8tKcVK07Iy/Vws9ePUUJMx6GFjxotG2UaMzHk/yBzPrBEBV1z63RKjTuZbYUIf3zFWvfR4zyGHwBTw0BOZZ9NcFRUipaB4fULankIrHfCkDBV5Xe/WvWZBPNFq9/GbxQ7BxVaTjqIlimdlfODJuD6Oqgpd75IO0hf14L4Ek6Ig047almdcZgwksZYS6r708udXfynm6zQw2TmqsonbSmSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DjzML74ejIpR6zLzlBjC6mSv6q/FdQD31kOWB3KqJnQ=;
+ b=Jb94uce2abKb6F43pHbHl44/R1PaybCH6AhdiZjZsqJfJNVVEU+TAP+rzL41bUqOf5uBIaPAkCXX4nD/aEsAbaITWOsbbbsrsXrCiax3t7HvrHPSpd4TpbyfQOeANv3sCJY/zhYrY1kxYlzy5N78HEqViUDpE+4zDp/aANQYBpneck3LQvPEVcwZ86ekZsmpcEZ72MtHOP8AM3PYjZJs2Wka5gIPGaNZYUCShoU8I+tFwIvjMlFJBoS6hmqGRQTI9+jWfl+ElTK65diujUkQagwh3hP2JFJu+TJLpS7TlVXWFhN6NNFc4bbetQ9K6pqzKSQEvYq1lsEVhQlBec2sPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DjzML74ejIpR6zLzlBjC6mSv6q/FdQD31kOWB3KqJnQ=;
+ b=cSk7RQ/nvSM1YiY/BQgKxikTlHh6PzwEKXPk1mZ6aL0mK645EMjShIeKYZO7JsZ+P8j/6VCjTL3r64pmIb68GzvRsJSh+K6zH+nuam5x6h29AFwYHvtkg6LfsZ2in5y5ev1jR03SuZpCpDxFear+V6Y6xf3HsWJH35uf6k13Z67uTphQecFLcirlnICs3/p+5rwwnhU7WYHnsYSBKtmbiy+A8fIXJnlW2Q3y50TCns424H8XqtCBHVQPQ3bBXiG8Y4Bs3uAYnj4300Qjt9ixkELZ90VPhZy5MD/A5WaTaqareXC5z5J9AXbIGGtoFCCpdluB3Wsr6gP9OEGbrjnpTA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
+ by DBBPR04MB8026.eurprd04.prod.outlook.com (2603:10a6:10:1ed::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Fri, 26 Jun
+ 2026 11:17:05 +0000
+Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
+ ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
+ ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 11:17:04 +0000
+Date: Fri, 26 Jun 2026 19:15:42 +0800
+From: Xu Yang <xu.yang_2@oss.nxp.com>
+To: Chaoyi Chen <kernel@airkyi.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Peter Chen <hzpeterchen@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
+	Yubing Zhang <yubing.zhang@rock-chips.com>, Frank Wang <frank.wang@rock-chips.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Amit Sunil Dhamne <amitsd@google.com>, 
+	Dragan Simic <dsimic@manjaro.org>, Johan Jonker <jbx6244@gmail.com>, 
+	Diederik de Haas <didi.debian@cknow.org>, Peter Robinson <pbrobinson@gmail.com>, 
+	Hugh Cole-Baker <sigmaris@gmail.com>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Subject: Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD
+ bridge
+Message-ID: <erx73m2ueuvbzjteadjli6aki5by4pr3hyertkkqqoqwhaa4v3@5cstmshcercx>
+References: <20260304094152.92-1-kernel@airkyi.com>
+ <20260304094152.92-2-kernel@airkyi.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260304094152.92-2-kernel@airkyi.com>
+X-ClientProxiedBy: MA0PR01CA0097.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:af::14) To PAXPR04MB9422.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b4::21)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: remoteproc: document M0 Bluetooth
- Subsystem secure PIL
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Ulf Hansson <ulfh@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Johannes Berg
- <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
- <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Saravana Kannan
- <saravanak@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath10k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
- linux-remoteproc@vger.kernel.org
-References: <20260625-ipq5018-bluetooth-v1-0-d999be0e04f7@outlook.com>
- <20260625-ipq5018-bluetooth-v1-1-d999be0e04f7@outlook.com>
- <20260626-tiny-warm-jerboa-3ba57a@quoll>
- <SN7PR19MB67364ADE8CDD7C31297AE18D9DEB2@SN7PR19MB6736.namprd19.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <SN7PR19MB67364ADE8CDD7C31297AE18D9DEB2@SN7PR19MB6736.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|DBBPR04MB8026:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0a6c04e-9085-4344-f3e8-08ded37473b9
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|376014|7416014|23010399003|366016|1800799024|6133799003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ zUIh3be/D51eNGJ/NsLSKWvUOGlGyI698KD3goEQVj8+ww516sApvZ7ZiO9l6ZBgskjqpXv3z91BsMyAoHzBWsjFAOitR6qKfBSMQfycKE5B3QHPxz3XEgCqBelFIRKAjTY1pLMDz+EXMH3OUdKN19nldtYSZXmcoG+ASjUmHYmdEuWZjJSm4DpQsZIpXexxnRy4QoAZYnu6WcUVJDVEEK9GdG67ORhDt2Ctf6Lm73I5kqk1zKwbiLuXAOxLEJkWiduJQHa8js6sSThhjT9FLbxDWRltWYd9zZMTtQ/UxntX3eGaHioDu8LGMwW5dJUK7TowhESrrLJVBDplyytJDxzCCAaWM5UAMZd/IYRPCUZDG/LNKYdd+dF6iU3imDpzw6Gfi5u22c3tgAJ2fQLngCdCJ1UtCMuCiS8nkt+wF2CX3iy+LYfFGWBJHCUjegXq5/7Bm+Kbnaip98S7z2xFgGR1d1f+GhMd2sWndyNAukL1T6ZPUYfFTuuabnzsLVyMOgsxpcX2/zXWOmj3v8acKskTcE9NL1mq4dXoP3TSEwEENSN0jG7Bdu1w9ukhNlKtP9SO7KWTLlmYcqHaPw/aOx5+oc1AVaRjCjrCe1fPVfTjzUZDs7Bvsn/5uU5VR7V2opfseSnkWGrjCFDw3fK/xPC5dgSOk574LBkHzfazB2c=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?ooeGY7oY34UOvc4nBl1WPcaeKeACkry2olwhNzkFfvQfthS+iHdJ7ZqGfSc9?=
+ =?us-ascii?Q?OKT7s8pvq5NsUA0lbPsHBpKSMZTHWLvO2zraz+8avxNCVeMln4kBmoq2Kqx3?=
+ =?us-ascii?Q?Fc8n4gEgFqx0Mplpa8VtSxVHpGQ0Olqxu+7fXbAE4T/8B+XMYmpsO295B5gH?=
+ =?us-ascii?Q?L2hYDzFZca8XBTMrusK2iiL7TTu+YphyJQSs8rscNbWRliholCnMDQ+TGRHT?=
+ =?us-ascii?Q?DAsRu8lM5p6lUus8a7P6NAwLR5KaMXt+rrXtf/tpD4HRLCdz17phgd+dTDEB?=
+ =?us-ascii?Q?SxXsxkdw1vMEdunMo0RZugNxbby2PqodbyDT0+HubQoR4v4LwHNwTtQ0anOM?=
+ =?us-ascii?Q?X9nN6YdIc/QZceDn79wiaCcAh1Vh4XzDtoJqrpbFP8/L7Z3t6RVHTws3XAzF?=
+ =?us-ascii?Q?zLcw0O9YbZl8VAqknes7NRTZGoHyojLVHqti2m1u3PgcT4zAX7bYyTkWpbTN?=
+ =?us-ascii?Q?H9P8NF/EdUdFsRBrgBqZNjaqsSRRKbUHTppZuVr8DkJIY0yTvM2aJ1mKBdq6?=
+ =?us-ascii?Q?RC6IW9L1eKzHwAgVD9fs2sBtemetLopYr1tnooaMTXeA4v0Cu7haN9og9Kfk?=
+ =?us-ascii?Q?s7tyjDmz2Wp98N+dph7oG7uaoxFJaKaSBAbOEKU8e61GHQUCUjP11F9zK/RS?=
+ =?us-ascii?Q?Tt9d39JUvQ7m8bG2lSmgsSlo/zjL/TUoohc2NUW3mL1kdQ3qx4lSMyjIK/0g?=
+ =?us-ascii?Q?NgQ/qsCyoax4OFnblL0npvMvd/AGB4zSxyuDCOIg5XLZml/pFDPEktHDi0ll?=
+ =?us-ascii?Q?rdoITUmiuPSOWTGdtYp5HQX5hnI0fh09CG07to8Avis88L3GzSYVeSwms6mX?=
+ =?us-ascii?Q?IcjwGijIgsXows8LiLoEru1vDUbw/l8B+UqlYFw6NU/uBjO9ITJjB/wOUPJL?=
+ =?us-ascii?Q?07EAtVktet5zBZZrAIZdGxHs1izN1BrOf1KmEj+JECHznrHJz4BFIOkhCxbi?=
+ =?us-ascii?Q?KawvyAyP+4n1BLruRny6nvO/DYwRVT71fU0EBRByLjYp0YS76anxsCoiGGjM?=
+ =?us-ascii?Q?PtSZnesx6cIKG7JNensUO24VgjS77LiBAD8h6iLtwXvPl5D5aGJpP4Y8GJPl?=
+ =?us-ascii?Q?MOaO2seRTLZIw7QCAZOL5C0lm1vzDBaDhh5qQ9zZhigT3Wolyy1ZsCH9mZ4t?=
+ =?us-ascii?Q?VIDHBr8jvfFYVU6AP0AKXfbJ9FFLdw4x/xaPgqF9hNR5Yu+ZjTSH9DOkVh+l?=
+ =?us-ascii?Q?W+3MLTg4o6jRnANnjx2ARWi4Vk8MT/zesRInbmWbDZMaf66KAsgOHMjAh5/6?=
+ =?us-ascii?Q?Tb4Y9luAulCE8RPQT0+4ZBZ0m72vudQ44ILYfQqrmTmr+WEv1617DNexQH16?=
+ =?us-ascii?Q?3fgzSQqSajDRTwtUkILDD4y9aEIyQ7mgG68ZjUHBR50OS09uSIBOLy59JBNs?=
+ =?us-ascii?Q?VrtQ4emtyi77NedjC3bsAPzGWfjKVm6xgBNW1k5cdDna4N5qhXtEkPpHAQSz?=
+ =?us-ascii?Q?8xDBYG1zRTzRXDCZICQ+cgaZ3fKXCd8FM3ROW91sXfciC56EcqhA9ra4j4Na?=
+ =?us-ascii?Q?jT4DuxkJAvu70N1Ykb3huDGDdwbsP81OCMPjyU4MNVXGSQTs8X4UYlbzOcnE?=
+ =?us-ascii?Q?3gyLDut8GwfNsmL9T9J8XPi8ptYnJx3ClMRtpT6ZP1HXiGPzVS4QR6o0JRG/?=
+ =?us-ascii?Q?jKRgj5digspJm9YjRkv7neeyQ8DZfeiC5HTpb8P/OQAS4xSaj5egP0IsNoj6?=
+ =?us-ascii?Q?bLn3QaaPq6cmbmfsMq17G7ayxNcKgFv3ZJ9FxkkqSYVEee3MOKFFbhvrBA+8?=
+ =?us-ascii?Q?W8UBHr1EhsIhHRBzDRaDDSUuPeSlhW2CzUZjiHP4L4hi4Fg7LnaC?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0a6c04e-9085-4344-f3e8-08ded37473b9
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 11:17:04.8307
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IG396oaH562jMvnEFh7iKacdFcbMY3R6C7lDOmNTFEjKpFgPOdQORlrhM0ONQPr5TSs6AZ6zgRwpNRz0Cpgt3WtGddZMm0C88sd0B6umJ7gxJQdi3Bjmhqzqtxd+BqK9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB8026
 
-On 26/06/2026 12:51, George Moussalem wrote:
->>
->> No supplies? no address space? How do you actually trigger remoteproc
->> startup?
+On Wed, Mar 04, 2026 at 05:41:44PM +0800, Chaoyi Chen wrote:
+> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 > 
-> No supplied and no address space. The core is booted by a
-> qcom_scm_auth_and_reset call to TrustZone which authenticated the
-> firmware, takes it out of reset and boots it.
+> The HPD function of Type-C DP is implemented through
+> drm_connector_oob_hotplug_event(). For embedded DP, it is required
+> that the DRM connector fwnode corresponds to the Type-C port fwnode.
+> 
+> To describe the relationship between the DP controller and the Type-C
+> port device, we usually using drm_bridge to build a bridge chain.
+> 
+> Now several USB-C controller drivers have already implemented the DP
+> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
+> HPD bridge on USB-C connector port device.
+> 
+> But this requires the USB-C controller driver to manually register the
+> HPD bridge. If the driver does not implement this feature, the bridge
+> will not be create.
+> 
+> So this patch implements a generic DP HPD bridge based on
+> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
+> Type-C port device containing the DP svid is registered, it will
+> create an HPD bridge for it without the need for the USB-C controller
+> driver to implement it.
+> 
+> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> ---
+> 
+> (no changes since v14)
+> 
+> Changes in v13:
+> - Only register drm dp hpd bridge for typec port altmode device.
+> 
+> (no changes since v12)
+> 
+> Changes in v11:
+> - Switch to using typec bus notifiers.
+> 
+> (no changes since v10)
+> 
+> Changes in v9:
+> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
+> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
+> - Add more commit comment about problem background.
+> 
+> Changes in v8:
+> - Merge generic DP HPD bridge into one module.
+> ---
+> 
+>  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
+>  drivers/gpu/drm/bridge/Makefile               |  1 +
+>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
+>  3 files changed, 60 insertions(+)
+>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
+> 
+> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+> index a250afd8d662..559487aa09a9 100644
+> --- a/drivers/gpu/drm/bridge/Kconfig
+> +++ b/drivers/gpu/drm/bridge/Kconfig
+> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
+>  	  Simple bridge that terminates the bridge chain and provides HPD
+>  	  support.
+>  
+> +if DRM_AUX_HPD_BRIDGE
+> +config DRM_AUX_HPD_TYPEC_BRIDGE
+> +	tristate
+> +	depends on TYPEC || !TYPEC
+> +	default TYPEC
+> +	help
+> +	  Simple bridge that terminates the bridge chain and provides HPD
+> +	  support. It build bridge on each USB-C connector device node.
+> +endif
+> +
 
-Then commit msg could be improved:
+Should CONFIG_TYPEC_DP_ALTMODE select this one? Otherwise, we need to do it
+manually.
 
-"Firmware loaded is authenticated via TrustZone." ->
-"Firmware is loaded and authenticated via TrustZone."
+$ grep -nr --include=Kconfig "select DRM_AUX_HPD_BRIDGE" .
+./drivers/soc/qcom/Kconfig:118: select DRM_AUX_HPD_BRIDGE
+./drivers/usb/typec/ucsi/Kconfig:88:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+./drivers/usb/typec/ucsi/Kconfig:99:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+./drivers/usb/typec/tcpm/Kconfig:62:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+./drivers/usb/typec/tcpm/Kconfig:85:    select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
 
-
-Best regards,
-Krzysztof
+Thanks,
+Xu Yang
