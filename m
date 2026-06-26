@@ -1,210 +1,146 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAB63E0088;
-	Fri, 26 Jun 2026 09:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BF83E8C6A
+	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 09:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782466033; cv=none; b=b0+EzfJWS4/WJB1NVJ+YPd6b/1oLTJX0DWT7qzrPxXC7Qy8L3kfEvkhgBk4rd9xEpzJaEdEmkjWTXhBUpwKmb8DHYxFQiSdVS20tVxpqezswi2jLUC1bm6GMsT/E8TJlH9zgaw0fCh5GIi0DW/OQdvLNbUm16aUTeudbTfroM1Q=
+	t=1782466084; cv=none; b=kTr5saDj0P3M8o4jj14s3IV7ttbsrFG+xXin1YiKl+x4Ee+07PbIZhLphIaTlNmeJdcnqI4YsfuI2RfNM00BDe15Vtt1mZXi2lNrjes8Bjfef0utPRSvskGDm/7U3665EeaL2vdFewLfxE88/BDZRmDzjbkDGfVZY20MpC/DWSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782466033; c=relaxed/simple;
-	bh=Wkt3ar6iPUbFcYacgPNJpIHFcNav7UI8z4kHnwZokzk=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gk5ldCeWMVo7GyvTC8O4ecKdZW4qFFykD1ISdmK4EErsOW5MLWx8SZkCSEId/m+2Wj/m4OrbMikl8hqtwL61X2oXfMndjbtJiMI0QTB+YIDSxe2iv3ShFIcbiQT/R21N5q254bdSr8vu8S8p9spEJZQ8APn/3bWtTaeLs7+lwkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=0mbsY0zH; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1782466084; c=relaxed/simple;
+	bh=KXPu8qmHMu2rq/AFOMWtWliM/hMJMaSLGUYSlAn2jvY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CQC7MqYDujUtBEShBDI5KwCZGvyjydq2dYwfrh0WPINGj//INfxX8lNhp6RoXebWIunLDhmxY88dFO193bKBJ6O/iCkyWqJQxhxqddo3XsId1G6ABASYvbjHUdNJwGY5xG2aCq/qSpUzx5mHeKCxHw4Sv/HOyODpLQsufEIp084=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bIsi8Ip1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="0mbsY0zH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1782466033; x=1814002033;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Wkt3ar6iPUbFcYacgPNJpIHFcNav7UI8z4kHnwZokzk=;
-  b=0mbsY0zHT7rt+jWOYfvXxMuNZfQhm+y3gNKKMVd3bbTbYKOYVmiTRPfC
-   lk/zOVBT7DXkd+BSu7u50zYaaDR2LYRDOkbIWeSVHZZfjJxlkoOElV738
-   wsmpEMcP10b6P6wbfsLwVF7XOgpKCoHZxohSF04kKI6PkJX6bHYpgr+Xp
-   akRF6okbmTTZqQPPyDeeEBtAS/PZtp/6CEDnJvzFWTRz/Zx1i8U92dQq0
-   76o66H69AT+DMdwY9AUPK3NHktQnn2R7ev/AJ0ups2pPI97lvU+N1il+c
-   O8+ZboUaUS9L0sT0HSHy3+JUngjlzim7hl56pLlh/ohxGfXSd2uSu8hD7
-   A==;
-X-CSE-ConnectionGUID: YBF2Gm23RaCAopAUoC2ytw==
-X-CSE-MsgGUID: oIg1nReOT0iGvs4oFRTaTw==
-X-IronPort-AV: E=Sophos;i="6.24,226,1774335600"; 
-   d="asc'?scan'208";a="291102737"
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Jun 2026 02:27:11 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.43; Fri, 26 Jun 2026 02:27:10 -0700
-Received: from wendy (10.10.85.11) by chn-vm-ex03.mchp-main.com (10.10.85.151)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Fri, 26 Jun 2026 02:27:07 -0700
-Date: Fri, 26 Jun 2026 10:26:16 +0100
-From: Conor Dooley <conor.dooley@microchip.com>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-CC: Conor Dooley <conor@kernel.org>, Joey Lu <a0987203069@gmail.com>,
-	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<ychuang3@nuvoton.com>, <schung@nuvoton.com>, <yclu4@nuvoton.com>,
-	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 1/7] dt-bindings: display: verisilicon,dc: generalize
- for single-output variants
-Message-ID: <20260626-everybody-epilogue-8fb298a54981@wendy>
-References: <20260625094449.708386-1-a0987203069@gmail.com>
- <20260625094449.708386-2-a0987203069@gmail.com>
- <20260625-bobbing-annotate-d1c4d6874ee2@spud>
- <e3fe23ddbc504879bd797bbaa595d3653fa139ff.camel@iscas.ac.cn>
- <20260626-astrology-mural-853d3860e048@wendy>
- <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bIsi8Ip1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6811F000E9;
+	Fri, 26 Jun 2026 09:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782466081;
+	bh=LwKrQOAZxN4qqPf+ADmaOw9TSR8qrLOdjZmbBv3Zs8o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bIsi8Ip1cZf9nIlewSCsHDopt4gCWfrwIl1UEGOcXJ5W8YUCyisoEXEhyaSakSELC
+	 sq8igyJORflQYbF1qv5SUFqVY8fnIo1oJMLwk8hZd5AtoDYlu0+H+l5EnDoIkxOxaU
+	 1WZyurhF1fds+KioXPEcL6SuNabTT1RFkTlZaLW1eQ/JZ1p8if9S2F3G3884HRtSqR
+	 FhXZeHBbqlwzShamXRNppdCuA+AoKK+iJWs35Ceeg6S1DuFkSRd63hi6Xza1I29Y4i
+	 PfGG/JO+UswPyI+W+SQWAY4vuJiPHen7m+4h3mCH16qRr168jSWp5h3ww6hdjp9NNL
+	 A6l99ZXX3bUbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: tegra: Add Lenovo ThinkEdge SE70 carrier
+ board DTS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiqi Li" <lijq9@lenovo.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260626091349.570091-3-lijq9@lenovo.com>
+References: <20260626091349.570091-1-lijq9@lenovo.com>
+ <20260626091349.570091-3-lijq9@lenovo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Jun 2026 09:28:00 +0000
+Message-Id: <20260626092801.3A6811F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="r8rF78kmCgnz4y87"
-Content-Disposition: inline
-In-Reply-To: <c0731801729713d35f97bec40ebc21cef31b72b5.camel@iscas.ac.cn>
 
---r8rF78kmCgnz4y87
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Missing `no-1-8-v` property or 1.8V-capable `vqmmc-supply` for `mm=
+c@3440000` while UHS modes are enabled in the base DTSI.
+- [High] Missing `bus-width` property for the SD card slot (`mmc@3440000`).
+- [Medium] Device tree schema violation for 'fixed-regulators' wrapper and =
+its child node.
+- [Medium] The patch fails to disable the unused SPI peripheral as claimed =
+in the commit message.
+- [Medium] Missing `disable-wp` property in the SD card node (`mmc@3440000`=
+).
+--
 
-On Fri, Jun 26, 2026 at 05:00:35PM +0800, Icenowy Zheng wrote:
-> =E5=9C=A8 2026-06-26=E4=BA=94=E7=9A=84 08:19 +0100=EF=BC=8CConor Dooley=
-=E5=86=99=E9=81=93=EF=BC=9A
-> > On Fri, Jun 26, 2026 at 01:27:21PM +0800, Icenowy Zheng wrote:
-> > > =E5=9C=A8 2026-06-25=E5=9B=9B=E7=9A=84 17:33 +0100=EF=BC=8CConor Dool=
-ey=E5=86=99=E9=81=93=EF=BC=9A
-> > > > On Thu, Jun 25, 2026 at 05:44:43PM +0800, Joey Lu wrote:
-> > > > > +allOf:
-> > > > > +=C2=A0 - if:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 const: thead,th1520-dc8200
-> > > > > +=C2=A0=C2=A0=C2=A0 then:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 5
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 5
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clock-names:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 5
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 5
-> > > >=20
-> > > > All the maxItems here repeat the maximum constraint and do
-> > > > nothing.
-> > > >=20
-> > > > Since you didn't change the minimum constraint at the top level,
-> > > > your
-> > > > minItems also do nothing.
-> > > >=20
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 3
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 3
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 3
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 3
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 required:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - resets
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - reset-names
-> > > >=20
-> > > > Both conditional sections have this, but the original binding
-> > > > doesn't
-> > > > require these for the thead device. This is a functional change
-> > > > therefore and shouldn't be in a patch calling itself "generalise
-> > > > for
-> > > > single ended variants".
-> > >=20
-> > > Well yes they're required.
-> > >=20
-> > > Should I send a patch adding the `thead,th1520-dc8200` part of the
-> > > schema?
-> >=20
-> > If you mean the code above, no. Adding a conditional section when
-> > there's only that compatible doesn't make sense.
-> >=20
-> > What you could do is just add it at the top level though, which would
-> > also benefit this patch since it'd not have to be conditionally added
-> > for the new nuvoton device.
-> > Just note in your commit message about what the ABI impact of the
-> > change
-> > to required properties is (effectively nothing because it's optional
-> > in
-> > the driver and the only user has the properties).
->=20
-> Okay, I will craft such a patch and send it.
->=20
-> >=20
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 resets:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 minItems:=
- 1
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 maxItems:=
- 1
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reset-names:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 - const: core
-> > > >=20
-> > > > This is just maxItems: 1.
-> > >=20
-> > > Well the implicit rules of DT binding schemas are quite weird...
-> >=20
-> > I don't think it is that strange, as the binding has
-> > =C2=A0 reset-names:
-> > =C2=A0=C2=A0=C2=A0 items:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: core
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: axi
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: ahb
->=20
-> Ah does the list constraint the order of items? If it constrains the
+commit d7f4007a1b474f4e8527dff37fcaa0da82f91d42
+Author: Jiqi Li <lijq9@lenovo.com>
 
-It does, yes.
-Alternatively, using an enum permits free ordering.
+arm64: tegra: Add Lenovo ThinkEdge SE70 carrier board DTS
 
-> order, it partly breaks the intention of having names; if it does not
-> constrain the order, it needs to be clarified that the required 1 reset
-> is core instead of the other two.
+ThinkEdge SE70 is a fanless industrial edge gateway built around
+NVIDIA Tegra194 Xavier NX SOM. This patch adds a standalone device
+tree file describing core carrier board peripherals.
 
-Given the discussion we're having on the clocks, I wonder if this is
-also an oversimplification and the IP has three resets inputs hooked up
-to one output of the reset controller (or 3 outputs controlled by one
-bit..).
+> No fan, PWM, tachometer, extra camera/spi peripherals are present
+> on this passively cooled platform, so unused nodes are explicitly
+> disabled following mainline device tree best practices.
 
---r8rF78kmCgnz4y87
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+Does this patch actually disable the extra SPI peripherals as claimed?
 
------BEGIN PGP SIGNATURE-----
+The tegra194-p3509-0000.dtsi explicitly enables the spi@3270000 node, but
+there doesn't appear to be an override to disable it in this file. The
+unpopulated SPI flash driver will probe on boot and waste resources.
 
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaj5FuAAKCRB4tDGHoIJi
-0sUHAQC+jTasbIiodz+h8pTi1hrZwttHaW1rwv2+JI+IilqgIgD+LU/w2PQybkmB
-IYTfrIxpqApp9H5myhsNrMD3QJIRRgE=
-=OJVD
------END PGP SIGNATURE-----
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dt=
+s b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts
+> new file mode 100644
+> index 0000000000000..44a7ae9a05bfb
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/nvidia/tegra194-lenovo-thinkedge-se70.dts
 
---r8rF78kmCgnz4y87--
+[ ... ]
+
+> @@ -14,6 +14,6 @@
+> +	/* Fixed 3.3V regulator for external SD card slot */
+> +	fixed-regulators {
+> +		compatible =3D "simple-bus";
+> +		ap2306gn_3v3_sd: ap2306gn-3v3-sd {
+> +			compatible =3D "regulator-fixed";
+> +			regulator-name =3D "ap2306gn-3v3-sd";
+
+[Severity: Medium]
+Does this fixed-regulators node comply with the device tree schemas?
+
+Using simple-bus requires the #address-cells, #size-cells, and ranges
+properties, which are missing here. Additionally, the ap2306gn-3v3-sd child
+node does not start with the regulator- prefix as required by the
+fixed-regulator.yaml schema.
+
+This seems to contradict the commit message claim that dt_binding_check
+passed without errors.
+
+[ ... ]
+
+> @@ -95,6 +95,6 @@
+> +		/* SDMMC3 for external user SD card slot with dedicated 3.3V power */
+> +		mmc@3440000 {
+> +			vmmc-supply =3D <&ap2306gn_3v3_sd>;
+> +			cd-gpios =3D <&gpio_aon TEGRA194_AON_GPIO(CC, 4) GPIO_ACTIVE_HIGH>;
+> +			status =3D "okay";
+> +		};
+
+[Severity: High]
+Does this configuration need a no-1-8-v property or a 1.8V-capable
+vqmmc-supply?
+
+The tegra194.dtsi enables UHS-I modes for mmc@3440000, which require 1.8V
+signaling. Since this node only defines a fixed 3.3V supply without disabli=
+ng
+1.8V modes, won't the MMC core try to switch the SoC pads to 1.8V signaling
+while the card is powered at 3.3V? This could cause I/O failures and
+hardware overstress.
+
+[Severity: High]
+Should this node specify a bus-width property?
+
+If the bus-width property is omitted, the MMC subsystem defaults to 1-bit
+mode. Since the parent sdmmc3 node in tegra194.dtsi does not specify a
+bus-width, will this SD card operate in a degraded 1-bit mode, artificially
+crippling read and write performance?
+
+[Severity: Medium]
+Could this node be missing a disable-wp property?
+
+If the board leaves the internal WP pin floating and disable-wp is absent,
+could the kernel randomly mount the SD card as read-only?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260626091349.5700=
+91-1-lijq9@lenovo.com?part=3D2
