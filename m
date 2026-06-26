@@ -1,179 +1,368 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011026.outbound.protection.outlook.com [52.101.125.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD44381AF;
-	Fri, 26 Jun 2026 00:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782433231; cv=none; b=JrS275epT/H7gxgcPwfBVNr2iFLr3Vw4Qe2IPbxcRX/4ylos3ZTjrUl4Y2ELAulQg9fHVMEiPZ1pAitSIsURtJ8QR4szgEbka3aF8UtpRf0+MUtSzJsak65k4UA/EBFleU8NxvLXNHXzZvczHvNHgck/9y7PaSxFihRVmn9agbU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782433231; c=relaxed/simple;
-	bh=v5fr+vIiz8BjFMittK1+SrIQQMBoAxeRJLKkzPV0PTw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QotH84BTWlDLp4CYhYCMFOjFmwXL75Vmk4wqDwpn0WhmjlCy7lGm++ph4+gEINUXWYnsw2JijViDYDgHejqoa9tX3OeBRXK2opFFq6CNaA2Ep1OTBY5pF69ytVLIOSoo8jjDdauVihR74M0GfEX4W32R/Tb5KqGUOFvMYdePZZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qv3z8m6Y; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB37A2BE644;
+	Fri, 26 Jun 2026 00:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782435579; cv=fail; b=ievq2ACSTpOX8+ukMhan+iZ2aO6dvdUZ0t2Fpajc4/XrVgC109doswBpYnseWWbB9aTzAyXLPYNxjLNy+zK3AjuiYf3hL0hp9XHPNhZFEgbrESH/RrZT7OddPYenD3D7WRkaE/IB3i3UiiDNoTEysBzL1xbMh2JivE3npirHLV0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782435579; c=relaxed/simple;
+	bh=ZKIA9jYY72/D3ZQ9Jbx69ko/fMfLeXbnRLnvYUZES2c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ZepJD1V+wZZjGLyBmjnSU2ZfHkaipkeQmY2VsoazMGL7hHl7SqJLLuAV64bA6qgL91qfLiNM1bd91gjYeP6l9mvUpmAZi+akG6gjuOGfFp7JJZ6KThQXLSuQjyXG7/WOG7cYLFyPg1j5vkYpPoiMoUeLF4out0EwtntzJN4CFT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=kWuYH2mu; arc=fail smtp.client-ip=52.101.125.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qv3z8m6Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9AD1F000E9;
-	Fri, 26 Jun 2026 00:20:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782433230;
-	bh=3WD32Qx1GuXwGLFqx6bAoZaoz6zR3H83iCclU4QE6V0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qv3z8m6YUBjyq5P3l/1CXt5sfi8xu6hxnL/RKiIXI6c/yuogShbpBjva4mDeRo3ef
-	 FpDTXGVkPLknQL/n7sAakriHgZxubnwDLvuXO8zMsKsoe69Kjp4czke1AwKlAsbiox
-	 nO97ysx3m6E1KvJScm307K1cvSBmPpRyKPU3yS1GqgETGWznoFIrVgPLQW4gUTkvOr
-	 zO03Z0rb+SnEM3bA1CfEjGcAGS3pnsWpBruC1nJcDOFSrqpfgTUeeQfbL4mdRAQjs5
-	 AMA7hnndSKqm7EQ0tqQ/Nb8HsPyq/31ke4bR5+A9nBkdZJobqE8+q2R/8J9zOO9aeS
-	 RdbIXdUPLY6ug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] clk: en7523: add support for dedicated PCIe
- PERSTOUT reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260625215741.3253212-3-ansuelsmth@gmail.com>
-References: <20260625215741.3253212-1-ansuelsmth@gmail.com>
- <20260625215741.3253212-3-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Jun 2026 00:20:29 +0000
-Message-Id: <20260626002029.AC9AD1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="kWuYH2mu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zM90CjWTxw2BzVIlDZSINTrSInJvTd5ZyNd0A4Yywvsl8scl7TyVl2yz/6IhTKBYWVk9aRYHAP5GbWHhrx4xbDwM76gE00gsSyYcIYIx6EIcHa/AiqPYoQC9HbzQ1l9zYV45DCpsJZ26PbqWNpQYJr0twPc5PMkDEJmjJJaTLwMXaMBJ0/j5t26fmDyJdqgwfCeQmfXqBrfw9CBLuIV878NcxavG3qzGHQOQP55GnjtRLV1DFmAcdGY24X7aQjqw2FkKloGnF8BVFjMu9bllC+QAlcb1DkBkqPYiWIW+4VCOiQ09OfDOMowd1rnOotVL1paW20gLkFiQajKNuHXA6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SnKvjL+0DMSuJlLXbOtjbLWY5RwhXgC0eT31JCOmnnU=;
+ b=WoekNNBx6naZk/s8YFbplb+bLEL19Rx/SOLpUGc2e5vK/rQlmzEFOyYGOtD9SxxUnaWz14B1fywQ2vQ9u27WaHnUYkmPJbRqBvtmZLOvsIjPr04PUpxKdcKdANYJb8feQRCYPHH1C98yjnDQNtqp8FBN4J52iIAhvD7yspm8tCMKAOn7ZPmUlwByaJZxkq/Ur/cOsGcVF3PPrM6dGLjrr6ZM7Zt4PBm5F06UoJ1vLsiyKgYcoyCUVZcjTp8AX5oj8fdppgY9Zzkoh1SMFuYkgqlckVk8fHidYe3JXPPIl1B+0B9OGZPwCAD6nGMNvWe60kMRoMpM5RswuMCIHliGfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SnKvjL+0DMSuJlLXbOtjbLWY5RwhXgC0eT31JCOmnnU=;
+ b=kWuYH2muqwuoQ2colvwaN7updic8CmDor+qtqGOUXzub3/dqIZl9cDESm/KNTkJAMCkN2o0amDqrpyg1EyLf3H2X3sYK4mzykjT0Je/Kn0npHjZjUtZBpha02mE9PuEHQzOTfhJ8RPGeDoO7GYXUabuRfLEtx9IRqo7fEwSXW78=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by OS3PR01MB6610.jpnprd01.prod.outlook.com (2603:1096:604:10a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.16; Fri, 26 Jun
+ 2026 00:59:32 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 00:59:32 +0000
+Date: Fri, 26 Jun 2026 02:59:11 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Rob Herring <robh@kernel.org>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+	laurent.pinchart@ideasonboard.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 02/13] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+Message-ID: <aj3O36J4q04nIpNs@tom-desktop>
+References: <cover.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
+ <ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260513222725.GA2069022-robh@kernel.org>
+ <aiqtSWTTa4ZIThrp@tom-desktop>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aiqtSWTTa4ZIThrp@tom-desktop>
+X-ClientProxiedBy: VI1PR0102CA0003.eurprd01.prod.exchangelabs.com
+ (2603:10a6:802::16) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS3PR01MB6610:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32b207a8-bc7d-43d3-172c-08ded31e2ee4
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|52116014|7416014|376014|23010399003|366016|38350700014|13003099007|22082099003|18002099003|3023799007|4143699003|6133799003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info:
+ XpVqyCMjNee4n3BlHcmSndmR2oOcZ8Kf9SZMy2soAj6kC9UJ6giN+CnCg8R3EeF9UyPq8+C4PxiiHy1kALJhHyxFHFzze9Ed2T6+618Mi8uuizpE0txg8YF6AXKmE/arwnzIXhVWglV7cJxRm28o2rjUsXiWmDxjlklvDBIxc+tzTziAVbdb+NUVl4ec3t/7D0Ausvc2K1kVmwdtPFnI10ZN9xzaiLldBQwLjtVLfyeGuqbdglbikX68pCkO5W+lZrcNuGkdRGHGlSOXlDtBZGqymp2sEw4aeICXkSTqe4o8w0BfgzfyUF05aCfHa8YiziD2ZNgquNZzi0xxVik2Yf9SlxG/b3HUVyPFXiggQnVB0WXRnTF290g4lFEX8kuZe0/cPkKqML4vWDYHyqTkuXC5MChDYOdTWmWP0I8OqpHvmnjjR1W8aUQ9eKjFCf/LHIB+anYFIdIa7EBluILxM6i7emczjnWFg2oHUHgz7WdWprH8zMaKwnzmrLEwISwFRRVAGqVvxkkf3VGeMFOXTB04dw/Pkf+bNmfvsMoLgcNEH5YhD9Fg289ELF4I63WD/WtQoYGqk12/H1BUVmVAt5rBqi5lw9Lb8MZ8aVyeoAmYFeMY/vVgantJ3XBxEoeocMd4FRNgm9EqSgbzVET3tcTnfWyLp/4aslVk9AuWTL0HJ/mMfy4Pjfki5sCjIUDqfZRH9ReT3t19T2Tx7QHnubRQqqh2GyMxR+cyYCUC9aU=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(7416014)(376014)(23010399003)(366016)(38350700014)(13003099007)(22082099003)(18002099003)(3023799007)(4143699003)(6133799003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?Vro8yVIWs4/uvomroXluy6Q2Nj/RVUo0woPcaedsLKVwIevx4OutsZROoA0I?=
+ =?us-ascii?Q?62GdJZSO5ME8twEuPZu/S7yJHwRMBgRRu9w5DYtfc2ga7eHBMJf81EBKk86C?=
+ =?us-ascii?Q?R3QR8VPGXxuiTN1PAbOyj5f6GI83btXqchha4F8Ryx8H2ieGZPmXirQezxl4?=
+ =?us-ascii?Q?8x3luplb9aqZYDiGld+msFiL8C0aOvfZhz0emDbsbFjs2AiBwNFSb4+xK9+/?=
+ =?us-ascii?Q?NbZYZw6TXlDszpFynudio8WosrEcEknj0wq7WtQ302VpTReRG/AQjC3Y5emK?=
+ =?us-ascii?Q?Yrqcz86AV2wSIKuND8NHIe99DnGT2TBg2bxHNXRSDZ+65bUXAf8LwVXjU2Pv?=
+ =?us-ascii?Q?sfLj2bOc22FIK1X2CVN1IiCMW3A2XKMl1ebsOEPwm2Ycg14P90oMRvbByOKY?=
+ =?us-ascii?Q?JkvCU2q5uJ/crJAfB3kK7JTUP0Rel3i1c27C7u9mV/kVu26S6wlJYVFZClmE?=
+ =?us-ascii?Q?38B/6JOxMY508/oWIF0py/MQHXEpn+7KJ6mpdTVS1axNQ8YkY+3vzddj7QCm?=
+ =?us-ascii?Q?v/x5X1kFV+jAYZLFqFHryJ9Y5vgKnHH2WjKWZ18lvauq8er7MaxYGyuRX2ac?=
+ =?us-ascii?Q?neIehi6K9DCHXei3q4RfUEUxbrAyCVKC6HNZ3z4OeTI/f3mlCe3OJkWjsl9I?=
+ =?us-ascii?Q?WnF8XSjoroSSJJnQcOfw4UVNSsy+HnIUjUoD5nw4f49lCcZ0yhKYiNeiOOCK?=
+ =?us-ascii?Q?eokm2xsQvfYmDECkph6MYzky1vNVJ1/e6TVJF7gcQAwEnejLhW/YeMszn/oO?=
+ =?us-ascii?Q?+HkXTN0eWx4B3KVhq4MxiAVg11bfqmEp+m0GgMhYOpQPxzGGlc9mDfZM0QDK?=
+ =?us-ascii?Q?Wq4YJiaHDksJJZTBGKC95lMizs0KSRgFpqpBSJFtXu1iQhOVDqckcuPgACGL?=
+ =?us-ascii?Q?Ex4Ft5w0svZdJtjGI3ic4GG/FuHxyHb2u+eVToMYKDcPQLK5WNa6IEY2UEiN?=
+ =?us-ascii?Q?b99+d4bZZK1DliTNWTHbPDfUrDXSsDWTiJSlTn1uIjyp8nRDe758Xybve5TS?=
+ =?us-ascii?Q?aygCBLYZ/H5Mb6mF+Xk7xvGn14B1TDLeq57Wo88R/awXhlTQato0pbQLXQzU?=
+ =?us-ascii?Q?rqMbIo/X/mdlnsS1s+sSLRYeJeoSGjXDxe30rvxfXL8eYrqwdUizmeurTBbF?=
+ =?us-ascii?Q?t0viqLIf8/5Wf4x1Nwuy+IyZAgUS0ISxtMOROByXaIjrd3et7Mbd9vI442X4?=
+ =?us-ascii?Q?fW0t/EiMp/y55gNvJfIBNeId8pJ0S/o/PWoPmLCTZM4pDzmaKqaWHLRcK7/3?=
+ =?us-ascii?Q?nx33IzI4slmW36K8/Rf0nuZHfdpPt4Ph9msrkk1CUKSm/5Irz8+AuwBMZ7Ok?=
+ =?us-ascii?Q?rIAgj4CeX2T/9CkUhkAZblsjbvoZy7lypThXIZALitT0D+dTRBgx65Lj3SfC?=
+ =?us-ascii?Q?W9fVXYV6hxXOs6Zm9aiespZDhItUdXE8oUzOhAYDt/xy6IpBmqm/vkok2Qt7?=
+ =?us-ascii?Q?Rtj/1eAzlrB/5Bwazpvo1v4RnKNCBeWHTYZk7H8W0q19oA6NV8pOkLTTR2Kp?=
+ =?us-ascii?Q?Fneafw+X4UK2Pv6ITKbTu9ULs8mJ+zfU0hikeOvQCnX0iFGBTxEan34QCWv4?=
+ =?us-ascii?Q?8Pxb1A7F8zW5OwKf/Cqh6GwXk+DKJMakAvplAN2PH8VlIEQdNPdaH/m3drMP?=
+ =?us-ascii?Q?PenKqnuyZAGEWYJB4Nz+phNJmRXiNcAbBdaMhtuJLreqJaudsJ99oPMsHqLc?=
+ =?us-ascii?Q?5Hmh2m8FVL3E9R2q9eJDBgqUFcFD3xQz0tB87v8hQ8U/P/YdfZWBNPk4IsSM?=
+ =?us-ascii?Q?+yxKT37ZAKRHtsKrPzeSRnCotpcGcGUo2OPSxfqcWDLtBNz6ITKH?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32b207a8-bc7d-43d3-172c-08ded31e2ee4
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 00:59:32.6390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kY6Y+vj41Lh/TfIrdnLw/Ox6++BWiJt6eXtUKr4+5fCR+weK0YrBbTDpTW5Z6RzuDeVduSJGk287VCbzase3iwnaqPpAit60pJV/H0P4cOxRooLu7zAXEvmZnfsQvFSP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB6610
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Rob,
 
-New issues:
-- [High] Data race between clock enable/disable and reset assert/deassert o=
-n the shared PCIC register (0x88).
-- [Medium] The reset status callback does not account for inverted reset lo=
-gic, reporting incorrect status for PCIC resets.
+On Thu, Jun 11, 2026 at 02:42:49PM +0200, Tommaso Merciai wrote:
+> Hi Rob,
+> Thanks for your review.
+> 
+> On Wed, May 13, 2026 at 05:27:25PM -0500, Rob Herring wrote:
+> > On Thu, May 07, 2026 at 11:21:30AM +0200, Tommaso Merciai wrote:
+> > > The RZ/G3E SoC integrates two LCD controllers (LCDC0 and LCDC1), each
+> > > containing a FCPVD, VSPD, and Display Unit (DU).
+> > > 
+> > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > > 
+> > > Add compatible string 'renesas,r9a09g047-du' and extend the binding to
+> > > support two DU instances: add reg-names ('du0'/'du1'), extend reg,
+> > > interrupts, and resets to maxItems: 2, and extend clocks/clock-names to
+> > > six entries (aclk/pclk/vclk per instance, minItems: 3).
+> > 
+> > Don't write what the diff has. I can read the diff for that.
+> 
+> Ouch, thanks.
+> 
+> > 
+> > > 
+> > > Drop the "Each port shall have a single endpoint." constraint since
+> > > RZ/G3E ports expose multiple endpoints.
+> > > 
+> > > Add a RZ/G3E-specific allOf rule mapping two DU instances to two ports:
+> > > 
+> > >  - port@0 (DU0): endpoint@0 DSI, endpoint@2 LVDS ch0, endpoint@3 LVDS ch1
+> > >  - port@1 (DU1): endpoint@0 DSI, endpoint@1 RGB (DPAD), endpoint@3 LVDS ch1
+> > > 
+> > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > > ---
+> > > v6->v7:
+> > >  - Rebased on top of [1]
+> > >    [1] https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+> > >  - Use single DRM device aggregating both DU instances (1 DU dt node),
+> > >    modelling single port for each DU0, DU1 and multiple endpoints for
+> > >    outputs.
+> > 
+> > That seems like the completely wrong thing to do and you've given no 
+> > reason why you think it is the right choice.
+> 
+> 
+> We had a discussion with Laurent at [1] about this topic.
+> In particular:
+> 
+> DSI ip can select at runtime input data path or DU0 or DU1
+> via DSI_LINK_GPO0R VICH register. This can be done by managing the
+> 2 DUs as single DRM device aggregating both DU instances that will spawn
+> 2 crtcs. In this way at runtime we can select the output for DSI ip
+> via the following commands:
+> 
+> modetest -M rzg2l-du -s 58@55:800x600-56.25@XR24 (DU0 -> DSI)
+> modetest -M rzg2l-du -s 58@56:800x600-56.25@XR24 (DU1 -> DSI)
+> 
+> This can be done using option [B] (single drm device that spawn 2 crtc).
+> 
+> Using option [A] we will have 2 drm devices 1 for DU0 and 1 for DU1
+> that each will spawn a single CRTC and the above feature will be not
+> achievable.
+> 
+> In the end we need a way to have single DRM device that spawn 2 CRTCs.
+> 
+> A) Two device tree nodes rapresenting DU0 and DU1 design [v6]:
+> 
+> du0: display@16460000 {
+> 	compatible = "renesas,r9a09g047-du";
+> 	reg = <0 0x16460000 0 0x10000>;
+> 	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks = <&cpg CPG_MOD 0xed>,
+> 			<&cpg CPG_MOD 0xee>,
+> 			<&cpg CPG_MOD 0xef>;
+> 	clock-names = "aclk", "pclk", "vclk";
+> 	power-domains = <&cpg>;
+> 	resets = <&cpg 0xdc>;
+> 	renesas,vsps = <&vspd0 0>;
+> 	status = "disabled";
+> 
+> 	ports {
+> 		#address-cells = <1>;
+> 		#size-cells = <0>;
+> 
+> 		port@0 {
+> 			reg = <0>;
+> 			du0_out_dsi: endpoint {
+> 			};
+> 		};
+> 
+> 		port@2 {
+> 			reg = <2>;
+> 			du0_out_lvds0: endpoint {
+> 			};
+> 		};
+> 
+> 		port@3 {
+> 			reg = <3>;
+> 			du0_out_lvds1: endpoint {
+> 			};
+> 		};
+> 	};
+> };
+> 
+> du1: display@16490000 {
+> 	compatible = "renesas,r9a09g047-du";
+> 	reg = <0 0x16490000 0 0x10000>;
+> 	interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks = <&cpg CPG_MOD 0x1a8>,
+> 			<&cpg CPG_MOD 0x1a9>,
+> 			<&cpg CPG_MOD 0x1aa>;
+> 	clock-names = "aclk", "pclk", "vclk";
+> 	power-domains = <&cpg>;
+> 	resets = <&cpg 0x11e>;
+> 	renesas,vsps = <&vspd1 0>;
+> 	status = "disabled";
+> 
+> 	ports {
+> 		#address-cells = <1>;
+> 		#size-cells = <0>;
+> 
+> 		port@0 {
+> 			reg = <0>;
+> 			du1_out_dsi: endpoint {
+> 			};
+> 		};
+> 
+> 		port@1 {
+> 			reg = <1>;
+> 			du1_out_rgb: endpoint {
+> 			};
+> 		};
+> 
+> 		port@3 {
+> 			reg = <3>;
+> 			du1_out_lvds1: endpoint {
+> 			};
+> 		};
+> 	};
+> };
+> 
+> ---
+> 
+> B) Single device tree node design aggregating both DU instances [v7]:
+> 
+> du: display@16460000 {
+> 	compatible = "renesas,r9a09g047-du";
+> 	reg = <0 0x16460000 0 0x10000>,
+> 		<0 0x16490000 0 0x10000>;
+> 	reg-names = "du0", "du1";
+> 	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>,
+> 			<GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
+> 	clocks = <&cpg CPG_MOD 0xed>,
+> 			<&cpg CPG_MOD 0xee>,
+> 			<&cpg CPG_MOD 0xef>,
+> 			<&cpg CPG_MOD 0x1a8>,
+> 			<&cpg CPG_MOD 0x1a9>,
+> 			<&cpg CPG_MOD 0x1aa>;
+> 	clock-names = "aclk", "pclk", "vclk",
+> 			"aclk1", "pclk1", "vclk1";
+> 	power-domains = <&cpg>;
+> 	resets = <&cpg 0xdc>, <&cpg 0x11e>;
+> 	reset-names = "resetn", "resetn1";
+> 	renesas,vsps = <&vspd0 0>, <&vspd1 0>;
+> 	status = "disabled";
+> 
+> 	ports {
+> 		#address-cells = <1>;
+> 		#size-cells = <0>;
+> 
+> 		port@0 {
+> 			#address-cells = <1>;
+> 			#size-cells = <0>;
+> 
+> 			reg = <0>;
+> 
+> 			du0_out_dsi: endpoint@0 {
+> 				reg = <0>;
+> 			};
+> 
+> 			du0_out_lvds0: endpoint@2 {
+> 				reg = <2>;
+> 			};
+> 
+> 			du0_out_lvds1: endpoint@3 {
+> 				reg = <3>;
+> 			};
+> 		};
+> 
+> 		port@1 {
+> 			#address-cells = <1>;
+> 			#size-cells = <0>;
+> 
+> 			reg = <1>;
+> 
+> 			du1_out_dsi: endpoint@0 {
+> 				reg = <0>;
+> 			};
+> 
+> 			du1_out_rgb: endpoint@1 {
+> 				reg = <1>;
+> 			};
+> 
+> 			du1_out_lvds1: endpoint@3 {
+> 				reg = <3>;
+> 			};
+> 		};
+> 	};
+> };
+> 
+> ---
 
-Pre-existing issues:
-- [High] Missing synchronization in the reset controller allows concurrent =
-reset operations to corrupt shared reset registers.
-- [High] The `en7581_pci_disable` function calls `usleep_range()`, sleeping=
- in an atomic context.
---
 
-commit 82bdae998b98b49b0cf96f540c945b593f30a899
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Gentle ping on how to proceed on this patch?
 
-clk: en7523: add support for dedicated PCIe PERSTOUT reset
+Kind Regards,
+Tommaso
 
-Add support for resetting the PCIe lines with the PERSTOUT reset. These
-special reset are controlled by the PCIC register and are specific to each
-of the 3 PCIe lines.
-
-Notice that reset logic is inverted for these bit where 0 is assert and 1
-deassert. This is intenrally handled in the reset function.
-
-PCI enable/disable are updated to drop PERSTOUT bits in favor dedicated
-reset handling.
-
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> index 1ab0e2eca5d32..a33cf2e1b76f8 100644
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
-[ ... ]
-> @@ -650,9 +654,7 @@ static void en7581_pci_disable(struct clk_hw *hw)
->  	void __iomem *np_base =3D cg->base;
->  	u32 val, mask;
-> =20
-> -	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1 |
-> -	       REG_PCI_CONTROL_PERSTOUT1 | REG_PCI_CONTROL_PERSTOUT2 |
-> -	       REG_PCI_CONTROL_PERSTOUT;
-> +	mask =3D REG_PCI_CONTROL_REFCLK_EN0 | REG_PCI_CONTROL_REFCLK_EN1;
->  	val =3D readl(np_base + REG_PCI_CONTROL);
->  	writel(val & ~mask, np_base + REG_PCI_CONTROL);
->  	usleep_range(1000, 2000);
-
-[Severity: High]
-This is a pre-existing issue, but the Common Clock Framework calls the
-.disable callback with the enable_lock spinlock held and hardware interrupts
-disabled.
-
-Does calling usleep_range() here sleep in an atomic context and lead to a b=
-ug?
-
-[ ... ]
-> @@ -754,14 +756,21 @@ static int en7523_reset_update(struct reset_control=
-ler_dev *rcdev,
->  			       unsigned long id, bool assert)
->  {
->  	struct en_rst_data *rst_data =3D container_of(rcdev, struct en_rst_data=
-, rcdev);
-> -	void __iomem *addr =3D rst_data->base + rst_data->bank_ofs[id / RST_NR_=
-PER_BANK];
-> +	u32 offset =3D rst_data->bank_ofs[id / RST_NR_PER_BANK];
-> +	void __iomem *addr =3D rst_data->base + offset;
-> +	bool inverted =3D false;
->  	u32 val;
-> =20
-> +	/* For PCIC reset logic is inverted, 0:assert 1:deassert*/
-> +	if (offset =3D=3D REG_NP_SCU_PCIC)
-> +		inverted =3D true;
-
-[Severity: Medium]
-It appears en7523_reset_status() wasn't updated to handle the inverted logi=
-c:
-
-drivers/clk/clk-en7523.c:en7523_reset_status() {
-    ...
-    return !!(readl(addr) & BIT(id % RST_NR_PER_BANK));
-}
-
-Will callers of reset_control_status() receive incorrect status for these
-resets, returning 0 for asserted and 1 for deasserted when querying PCIC
-resets?
-
-> +
->  	val =3D readl(addr);
-> +	val &=3D ~BIT(id % RST_NR_PER_BANK);
->  	if (assert)
-> -		val |=3D BIT(id % RST_NR_PER_BANK);
-> +		val |=3D inverted ? 0 : BIT(id % RST_NR_PER_BANK);
->  	else
-> -		val &=3D ~BIT(id % RST_NR_PER_BANK);
-> +		val |=3D inverted ? BIT(id % RST_NR_PER_BANK) : 0;
->  	writel(val, addr);
-
-[Severity: High]
-This is a pre-existing issue, but multiple drivers could concurrently probe=
- or
-change power states, causing their reset operations on the same register ba=
-nk
-to interleave.
-
-Could this lockless read-modify-write operation allow concurrent reset
-operations to corrupt the shared reset registers?
-
-[Severity: High]
-en7581_pci_enable() modifies REG_PCI_CONTROL using a lockless
-read-modify-write:
-
-drivers/clk/clk-en7523.c:en7581_pci_enable() {
-    ...
-	val =3D readl(np_base + REG_PCI_CONTROL);
-	writel(val | mask, np_base + REG_PCI_CONTROL);
-    ...
-}
-
-If REG_NP_SCU_PCIC and REG_PCI_CONTROL point to the same register, a
-concurrent clk_enable() and reset_control_assert() could silently corrupt
-each other's bits since they belong to different lock domains.
-
-Will this read-modify-write race with the clock framework?
-
-> =20
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260625215741.3253=
-212-1-ansuelsmth@gmail.com?part=3D2
+> 
+> Please Biju, Laurent correct me if I'm missing something.
+> 
+> [1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
+> [v6] https://patchwork.kernel.org/project/linux-renesas-soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
+> [v7] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ff8e401a0667970a42a55420dcb071e34730a923.1778141145.git.tommaso.merciai.xr@bp.renesas.com/
+> 
+> Kind Regards,
+> Tommaso
+> 
+> > 
+> > Rob
