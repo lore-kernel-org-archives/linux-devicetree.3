@@ -1,424 +1,225 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011030.outbound.protection.outlook.com [52.101.52.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8B8384CFF
-	for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 10:36:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1782470220; cv=none; b=Vbg4X+6WjjI9j4qBUERToF71gTXQ9YMjEVAcazTpxrvCRI5tiIhug+EAL2LhHCMtjEeUqpZkZtKEUthcgMGd2aEj1mgySYD1yG7nYGGwhVe0KAbpo5Rg9Z2sRVlYn6wCnLQuPYzCqJNZYsUzkuAIGYAcQC9Ch2KsNtEpRVa64jA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1782470220; c=relaxed/simple;
-	bh=UYLMSQIhe6qO0sm3exwD+uQX3V04ifUVR98mAMtFHoc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EcziaKHR5DwPu4TIUzAt3aKer4bxkzGYXIpWwjCvWhPpOuQRjcEa4dOAyXTXwAAaAxRB0/Y1q67I+1lS9t9RS+RtDcokz5o9dpP3/PID30E+J4vNU9/4cMAUWLogMfFAJy3Pm836Bwh7B9RG1vISypDSXlzCfe+y2VvMgS1Zyeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2j3FV8Z; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86023E8C65;
+	Fri, 26 Jun 2026 10:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1782470314; cv=fail; b=janPId94ZlatmWm6eaxsJYDvVW/5mM7bbbHUqmiF2lLdN+PO/xx2QJlcmXSmt3fcHt1nDgiO3tCac/K2OnjFX88c/Zrh+p6qKfytNxDy8L21oL2GvpExibzyQPxGAmHC7Glh8ucOHNySLdAkwB6kC0fP8N21TDEsm25S6lO+kgE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1782470314; c=relaxed/simple;
+	bh=tDLAxrieJFT5LpH9JYILFKIDsQH136M1Ho4WcCfZHdA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=JO+MScfwAAh/ANnLgk0ARWq13msMNq5lf85aDd4GqMy2NsaJEuyKOGRGnFr7mzkVrXcds5Gx8KQ5TYG2TiDzKC7kuzo9K+7pl+1i6qeZEDd3gWFTF795B2rVjKKaIOQiRmgiFx3YrvFz2tWn5+Kx+cUH64b2Kg8wgAwBgPc0OkQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=TFBGRsHe; arc=fail smtp.client-ip=52.101.52.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2j3FV8Z"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-46066e640easo402913f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 26 Jun 2026 03:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782470212; x=1783075012; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=D+LOxUqboNwspW3Z1iwsJeIpREU5uApJLby1JgVSadY=;
-        b=F2j3FV8Zpg7Th038twotiuqJ1ag7ZpI/hjVGwW7cRO0MXKIUMcdcIsPHbCLvc1iZYy
-         Ed6LUa9pMPAaFL2I6k3PPFTMnDZ705zw2nSXxKSKSPHvkKZ7CVZ0STeECFuRza6FI3fS
-         vSjVEqVrwFoZ8h/epXLqKpkHXFnYzoV1LaRYEz0n3gxiotRPjIlbT5jup6PQuY5ug0+d
-         RLo4HSL+gMyl4xJ7/rex8ecPEoHQ5AE7npABnkK4B3sE5y5/MXMdj9laNLDjl88zAeEL
-         5AYCs60fx41Ao6ytq8tOqyFhL2UOFN7xzW+thLTRri0z1DoCNbluYo7ht8J210KG8Thf
-         o89A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782470212; x=1783075012;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=D+LOxUqboNwspW3Z1iwsJeIpREU5uApJLby1JgVSadY=;
-        b=BFKnVqQg10UHDNast4gtJy3I4QOx7RDQdUtXHHgZG/E/Y358ZgU0saFPn9tBE0GefS
-         UKeSh1yPSbeFGBGXOjAaigdboF33FY4FoGmHoMw5E4DFYkAF49jifwWUUYvqJY1OwUUV
-         7tFraojRbBg8PjcSPaoQbHWQFQIXzj5ycIBAihusNYJHBRj5J5qUtyF4V1FNQxFMr+K7
-         L3kCZcAeiZIOPrsP+0N7jzxbVmVxv3NNCHFrQOQWvLEFFulVpD3HYIfeJlDUmKfCOJM6
-         juQnRDJ/dmQbuQ26D7UvC05FMbA4SfjhepUWliInJ4aR+d3S2wbr/x4F770mAv3OFSuH
-         jJIg==
-X-Forwarded-Encrypted: i=1; AHgh+Rpsyp4wLJelVSXRqX4L6AUOvU8Z1z/UIekQK8SR0vIkWvuHOtUsmeUfNZ2yPmFhb51zpkRogAlNdqTT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz0kqisk5VtRLCQ5bn2jgyKIPQdOEm+UUuD81v8c4xPiAhnWONv
-	qK1cpdM+G+HeALlJLj6wk0E3iEbVZRS09HgQME9fZIHqeWqxxr1IVVAT
-X-Gm-Gg: AfdE7ckuov8kE5G3/4WX4yVMmynRL3TGS9uXK6WJXSJi94AF2JAMisrnYxy0NTtav9Q
-	zoW8mEyDdI31Hv3lZnmi1UUr1I+GqeljOFlYZmXGZSuyKRUWBuMrwvaIvDgV8LCXiWm8LsQTN72
-	upImly14rY/MNMvpNwHG9JV6HQfobBOreGffiwGEsMh8HiAj0GpSbJr86k3HSkpFwCRnIfhyEMQ
-	IilGO/uhIhCzNxMtUc8BJQe8N2sCJQGWr5DWIpYaqCgHaYTG8e3ugC043LLV+S9wpKNOGE4tNum
-	FQmqFGIWGvI/ZHiLTbbt9Dj/jcSV/zK/HOdoJQPDJJ0RTJCwRjABVwMMYu4gQsjRanJaY+KrpUh
-	oURAkI4EK+0PdiFOyYpHe7uped3HgEzyt+aDHFsd+um+MVx0+vaVX1LA4Lq7+qMs/V8qomiL6ZG
-	wXQwjTCH5uU9kYBa6F7ia3IBx2LPJBqttDQwG1RdxQMKz5OUgbp1WFkoE=
-X-Received: by 2002:a5d:6f11:0:b0:46e:341b:45dd with SMTP id ffacd0b85a97d-46e341b47c7mr8297132f8f.26.1782470211515;
-        Fri, 26 Jun 2026 03:36:51 -0700 (PDT)
-Received: from [192.168.0.40] (a89-182-137-217.net-htp.de. [89.182.137.217])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46dd5f9da4fsm15043736f8f.23.2026.06.26.03.36.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 26 Jun 2026 03:36:50 -0700 (PDT)
-Message-ID: <2a69d701-741b-4d65-bdbe-226610bf53b5@gmail.com>
-Date: Fri, 26 Jun 2026 12:36:48 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="TFBGRsHe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F1MFBBekHFO3URg1P2jpqkYAXTFz1toxT73UZYRcMqjnv9lr9oKUI/G0bsQ+Jv1kKOimvevOkqbzx7Iq7eCz40O5XPxlgNkagdX09yZ+1yF8g9TF5YULCDYNbqI44kaH3zyFr+hi2COpz0drMjTFUlOVfluQJG4KQY4wKNdMehHd55GgJtdhyH5vyNOaRC4kCqBZYoTdj2OU1hQdIAq10hkAVm5n/9XP+mPaagBKW/nM4pbRxCZcSxDkR/7mPrpb8vG/jrmEYJMrCqdtLc5OfhMy2vpLoIto342nuKhj4iW+prnBMH42/qsL1wXDpa34gHXfzSfBHSvXhOhQLeCPqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=smoZ2ZVSvY3TDyMRCFYy976nHNmTjtXWC8kRX2GZ3tw=;
+ b=jsj2d5Ve9t9amh4Y8J8LJ6c2qPyfpyYlBj1T+K47LQMYuVnUKqEmh1gNZw5+k3sNDeXeyI+ugZF6rO4FAP8030rGJ/H7Cccng4zjMEYFj+NONFZhOZ/GvhioDulpkaed0EpoKiu7oYRgvl+Nm3kuucWpbTlRIiJiXIjadf+TAbYeWbVj7yH08yIjRk69jnT014nqKSuUL+7asEGQ1jgZkcNKpP2sczyW+lEjNTA4+Hpmfr1UJ4JSVIDECKAWR7JcVKdXyreY6C7TBN0ly7QRinuL1+arXpX4sm+16ACIx4H2aaUe/Tu1R8hlExA0tyrHMm7ZtnyOUeLguv7B9xGndg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=smoZ2ZVSvY3TDyMRCFYy976nHNmTjtXWC8kRX2GZ3tw=;
+ b=TFBGRsHexNh+d5PyUW7OK5pEVJdOpTGe52XwF2641JgSDfamcLWo/K1gQ27EtWtrFriSL5/yV6IpOOIudXAZt05eT8iAkx+A0VUbyTGitb01WJDAC69RLEDLjFJI7QIwgU1FtQIuTPc+F+AhR112YrKwh25qqMZ3CEUUWPJQiy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com (2603:10b6:8:2fc::20)
+ by DM6PR12MB4370.namprd12.prod.outlook.com (2603:10b6:5:2aa::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.13; Fri, 26 Jun
+ 2026 10:38:27 +0000
+Received: from DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f]) by DS4PR12MB999075.namprd12.prod.outlook.com
+ ([fe80::4c9d:851d:3f44:800f%6]) with mapi id 15.21.0159.016; Fri, 26 Jun 2026
+ 10:38:27 +0000
+Message-ID: <6670dd3d-94b9-4e0b-ab51-91b146265d49@amd.com>
+Date: Fri, 26 Jun 2026 16:08:20 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 3/3] dmaengine: zynqmp_dma: Guard IRQ handler against
+ spurious interrupts
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
+ dmaengine@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260618071056.2024286-1-nagendra.golla@amd.com>
+ <20260618071056.2024286-4-nagendra.golla@amd.com>
+ <20260618072615.5D3401F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: "Golla, Nagendra" <Nagendra.Golla@amd.com>
+In-Reply-To: <20260618072615.5D3401F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0344.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21f::10) To DS4PR12MB999075.namprd12.prod.outlook.com
+ (2603:10b6:8:2fc::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] riscv: dts: spacemit: Add cpu scaling for K1 SoC
-To: Shuwei Wu <shuwei.wu@mailbox.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- devicetree@vger.kernel.org
-References: <20260626-shadow-deps-v4-0-bba9831f2f1d@mailbox.org>
- <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
-From: Andre Heider <a.heider@gmail.com>
-Content-Language: de-DE
-In-Reply-To: <20260626-shadow-deps-v4-2-bba9831f2f1d@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB999075:EE_|DM6PR12MB4370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23e32788-7f77-4283-2f57-08ded36f0e88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|22082099003|18002099003|6133799003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	9zvjDUX652Kyt7ActyGra0CoUksXnZ8zF/eHCHQDfoaxITYwFGotO3sIG29cv9nIYPgqDXy3Vc5rbHXJQ3LtjnE7ZKT6/dln/Z9ofXZCMLmJlmVfmIMWbX93RSitte4+hS/SZAHFXMQBATerbJiXDc10a1QsJy6O7Ti3duE1GHzkYkDUgkfCmCOFitwvU8GxZBnzMk/9e6uTkJW1vDQpsFUisLC+AiB/nRupOyoq5objjvWlqOHN64sK1dx+c8ZD3TqleCpGd+NdDtimJ0gzpdssVB2WkRGKu1S4NHpp14JZOdPMYp+A6fKmIHYOhdY4ZCc5knuRWXF+aTZyUC61vsKk0f1RcyLTB5M9BdZ+4/Eo8UXhqhq6rp0M7sro9RYnzkInxS9hWa5e1enxykfFRzBd9K7uKBLjapqsnaNOND5hzGUt5T0ka1Z/Rng1yD9sJSlZCISr2sS/ZXGVKWFOvmYETChO2Nwh0YTyt/+dGiCCQJEWJMmZ72Pc9wEf9vyybM748+RPWck7gO6aZcY0nDb/ZnX4OweoZCTx6WsPkx+cjTmvTGmq4R5dJZhsFyXZTkRCWARCi+AtWcIr34dwapj1aoYfHEozZHcXE8J0+4mxz6dg2P62NyD1GYVfv1K1DV/abxKcwzBQeTqYyzeYPvj4C9sQt34VwYl9Jh0mat8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB999075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(6133799003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWNMY3RIT3hHVHhzakM4cHhaR3V2WFNuSmg0UWJuRnhMMlowYWsva1R6aEJX?=
+ =?utf-8?B?bSsxV3lKVHFobWYwYXQ4K1p0WXhPdmFWNDU3WGxDWlNwTGxZRkJuQmZoN3Nv?=
+ =?utf-8?B?MmlqNE9LUUErMHNCZ0s5U1A4bUVjMUdZYnZXdE9yZ0VXRDgwQ0R5RmNIN2x6?=
+ =?utf-8?B?dC8wR2J4Y3JIMVFwWHNTdFczblF0TURnWDIyaVRMd1JVNlUyK3VmbEx1L2Fm?=
+ =?utf-8?B?N0F4b3Z4WTlCYUt4ZnVsaU90S0NiRnU1dTdVN1lUVktJZy9FVmVpUFZNUEZ5?=
+ =?utf-8?B?K2x3dWcybGZialZJQ1dlV2V5MGFLazdlUmlHU1RycmlpOHNQeDFjRkMzdjRq?=
+ =?utf-8?B?WVcvcTJOSVlhejl0WFRhWWRZNlhVVncrNEsyK251eFlxSEEwSWtFZDY3Mnc0?=
+ =?utf-8?B?R244VllFUjNRdFZXdlhIQ29iSTNFTmp6UkVoUjdlY3NYUnVVRFpLbDFaVi9I?=
+ =?utf-8?B?bjNWN1VBMUhzUmF0anYvZ2cydUs1bWdkN1gyYjlRMERUM1A2VzJPeERlaDlO?=
+ =?utf-8?B?VWZCZjU5N2U5Z0VuZjFLN1BPOEJINHZPYzZRYkxnM2NCZDkraW5hV1dMTVlY?=
+ =?utf-8?B?SnhkSUNCZWw4L2NVcHJ1dlNqQVB1UExaQVhiQ016OTVQRmNRZVhpOTQ0aHIz?=
+ =?utf-8?B?TjRBUHRLUU5Hdk0yS1pqaS9IcnFnSURWbExKUkhicEl4SUNhTmpNSlJxdXFP?=
+ =?utf-8?B?NHQvejZGemhFd2FQdHp2VkszemIrTnVkcytkYzdFUisvcWprR3pwVnZhSlRG?=
+ =?utf-8?B?ZlVmZDZoT0tobTNvaGh4MzNCOGZramdkSUVNV093bFovUzZhSVoybEpvWFNL?=
+ =?utf-8?B?dUYzQkwwenlOam8rb3dtbFBpZ0JXU2VUcGxVQWliUGlEZk1GTEoyR0JXOHZy?=
+ =?utf-8?B?TWNzVE1iTElGMnk0alh2aFRoUFZjRDZUSkxEMjlaNkVOclFuQ2NxSFVDSEhF?=
+ =?utf-8?B?UnlGZm5LODhjd0VabkVVRHhKWWRGQ1ZIamtKN2NyMUl3eUNHZDBCclN5eHpS?=
+ =?utf-8?B?dG5BR09kakkydkJHZUFmYVlOZWVMbTBVdm9yWlB1OUhsZHlUYnpjY3BKN3Nq?=
+ =?utf-8?B?b29uMWx5OGtCQnk0SWxSZHNnZmhzYlNlT3pJTGZLRkkwM2RMM1hXNGR3ckR5?=
+ =?utf-8?B?dXBpSnR1NjVteUkya3daWmlJRTk1cm1UYTVjRE1PeXZKeHVqTnZCNnZRTUpD?=
+ =?utf-8?B?OS9PME1aYkY3bEVWOXcwbnpwNGpWVktsMWFFMldlcWlPeHFpNmQxL1IwNzJP?=
+ =?utf-8?B?aUt2bVc0RFZBdkJFVlBZS0pUMVdMTU1ydThHcFVCUHpDbnUvbzlEV0FaVCt5?=
+ =?utf-8?B?UVpYV1ExZi9ja2s3UVY2UW16bGZtWmU1MlhyQzE2WHBhWXJldi9Ybm5LNklQ?=
+ =?utf-8?B?VGNTSkJvdkNpV1FOSld4TnF1WkpSZEJKY3dHUnVBeE9sSUZIV3czc2lxRTlh?=
+ =?utf-8?B?QVBmeWlrbjdOTVZTUDRBbTkydlZoWVpQWHYvYU16RUcxOGV4S3BHdmFWV0Nr?=
+ =?utf-8?B?S2lYZVFVRW9yTE16S3R1Y1NEdzlSR0JwZmlPczYwS0hXdWdRUlZRS2dLMVhL?=
+ =?utf-8?B?TVU4cWk1bGp0ZEpZRlNUTmpSUU84emxKWitYellEd05Qc2NWM2U2VFovcDFr?=
+ =?utf-8?B?cjFpRSt5d1dDQngzb2Q5STBvSTlUc1lGRmU0UVNvMzJEREZoUm4za1dsNnJR?=
+ =?utf-8?B?Ymh6YWlUYTV1cXBubTcyNTZmQWRPemg4cGg4aHBTMHBzWnViK2xjZC8rL25E?=
+ =?utf-8?B?QnkySXpaUTJ1bkdPb3NKUStvdlBEd2VWRjVYSmZFQkpmOVZPQk1DQlRlaFNw?=
+ =?utf-8?B?V0FxMTZ1NWNMZHZaSlFYbEIweUxKVFNrUU50NjBmZThYZzU5WkoybnhhZlRu?=
+ =?utf-8?B?MmpRWjVYc3JpVmV1bmhjQ1RvMTFxY1BORnNlVHVFWGdBNWRVSEMrRGxvODg1?=
+ =?utf-8?B?Y1ByU2dWV3RPOGQ3ckpsVTg4ODM1ZWhCRTZQaFVqWVMzeTcwQjZJTjFFZzdn?=
+ =?utf-8?B?WUdzbTlhS1NmbzRjSUUrL3FTbSs0cWZzY2RtSzRtMC9yRWxTUXNSZ3J5Q1Fj?=
+ =?utf-8?B?VjE5R2E0OXk3aGtEbHJPSkV0ajZuRm9jRnV6aS9iVDhLTlc0d0w4eWVPeDh0?=
+ =?utf-8?B?eDRpV2U5cnNIelZZc0FiWkVndG5VMHBrT2F5L0cxb2V1YzJHMFNXNCtaTzNv?=
+ =?utf-8?B?UGwxdm44MUxYQkhFbWxobmVzMnMvMWs2dktkZlJQQk8vR21SY1ZvWGthc2lG?=
+ =?utf-8?B?OXdXUWlPanJWeDNjc3hKLzYzeVVjUklFbkdBQXdCeThJaXBCWHNuRkdDRFhX?=
+ =?utf-8?B?K3hkRXRISVNuNkNFN0VESHJpc05mL3UwZEN3SVpFa0RpQmhZTmJMUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23e32788-7f77-4283-2f57-08ded36f0e88
+X-MS-Exchange-CrossTenant-AuthSource: DS4PR12MB999075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jun 2026 10:38:27.4822
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: POHxuVAf/ijoy1685wEMngVvC5YS4ygR3LHtuoy42Owv5qXdW69OwgezsBxuEEXl3wGSDzaWhd37HFKNZpRs7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
 
-On 26.06.26 10:10 AM, Shuwei Wu wrote:
-> Add CPU clock properties and OPP tables for the two CPU clusters in the
-> SpacemiT K1 SoC. The OPP entries use voltage ranges because the CPU
-> supply is shared by both clusters.
+
+
+On 6/18/2026 12:56 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
 > 
-> Enable CPU DVFS on Banana Pi BPI-F3 by including the OPP tables and
-> wiring the CPU nodes to the CPU regulator supply.
+> New issues:
+> - [High] The interrupt handler drops valid interrupts when CONFIG_PM is disabled.
 > 
-> Signed-off-by: Shuwei Wu <shuwei.wu@mailbox.org>
-
-With the musepi-pro dts enablement patch [0] on top, this is
-Tested-by: Andre Heider <a.heider@gmail.com> # k1-musepi-pro
-
-Works as advertised, I get two policies, matching the clusters:
-$ cat /sys/devices/system/cpu/cpufreq/policy0/related_cpus
-0 1 2 3
-$ cat /sys/devices/system/cpu/cpufreq/policy4/related_cpus
-4 5 6 7
-
-Some time after boot:
-$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
-614400 31124
-819000 185
-1000000 158
-1228800 341
-1600000 1148
-$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
-614400 29232
-819000 198
-1000000 212
-1228800 443
-1600000 3428
-
-Creating one single-threaded load increases max freq time_in_state in one policy (4 here):
-$ yes > /dev/null &
-(...after some time)
-$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
-614400 45244
-819000 187
-1000000 169
-1228800 345
-1600000 1148
-$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
-614400 38794
-819000 201
-1000000 226
-1228800 450
-1600000 7580
-
-Creating load for all 8 cores in both:
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-$ yes > /dev/null &
-
-$ cat /sys/devices/system/cpu/cpufreq/policy0/stats/time_in_state
-614400 51371
-819000 190
-1000000 171
-1228800 352
-1600000 4391
-$ cat /sys/devices/system/cpu/cpufreq/policy4/stats/time_in_state
-614400 44121
-819000 203
-1000000 244
-1228800 452
-1600000 11812
-
-Thanks!
-Andre
-
-[0] https://lore.kernel.org/all/20260614122812.2287506-1-a.heider@gmail.com/
-
-> ---
-> Changes in v4:
-> - Use separate OPP tables for the two CPU clock clusters
-> - Use voltage ranges for the shared CPU supply
+> Pre-existing issues:
+> - [High] Memory and runtime PM reference leaks on error paths in zynqmp_dma_alloc_chan_resources().
+> - [High] Missing synchronize_irq() before tasklet_kill() allows the tasklet to run after channel resources and PM references are freed.
+> --
 > 
-> Changes in v3:
-> - Use one shared CPU OPP table for all CPUs
+> commit 62db01b8d81ad56c8fb04b0d8f2adecdae634703
+> Author: Golla Nagendra <nagendra.golla@amd.com>
 > 
-> Changes in v2:
-> - Add k1-opp.dtsi with OPP tables for both CPU clusters
-> - Assign CPU supplies and include OPP table for Banana Pi BPI-F3
-> ---
-> ---
->   arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts |  35 +++++++-
->   arch/riscv/boot/dts/spacemit/k1-opp.dtsi        | 105 ++++++++++++++++++++++++
->   arch/riscv/boot/dts/spacemit/k1.dtsi            |   8 ++
->   3 files changed, 147 insertions(+), 1 deletion(-)
+> dmaengine: zynqmp_dma: Guard IRQ handler against spurious interrupts
 > 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> index 444c3b1e6f44..487179f7b9b9 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> @@ -4,6 +4,7 @@
->    */
->   
->   #include "k1.dtsi"
-> +#include "k1-opp.dtsi"
->   #include "k1-pinctrl.dtsi"
->   
->   / {
-> @@ -86,6 +87,38 @@ &combo_phy {
->   	status = "okay";
->   };
->   
-> +&cpu_0 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_1 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_2 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_3 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_4 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_5 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_6 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
-> +&cpu_7 {
-> +	cpu-supply = <&buck1_0v9>;
-> +};
-> +
->   &emmc {
->   	bus-width = <8>;
->   	mmc-hs400-1_8v;
-> @@ -201,7 +234,7 @@ pmic@41 {
->   		dldoin2-supply = <&buck5>;
->   
->   		regulators {
-> -			buck1 {
-> +			buck1_0v9: buck1 {
->   				regulator-min-microvolt = <500000>;
->   				regulator-max-microvolt = <3450000>;
->   				regulator-ramp-delay = <5000>;
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-opp.dtsi b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
-> new file mode 100644
-> index 000000000000..4cebfcd87485
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k1-opp.dtsi
-> @@ -0,0 +1,105 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +/ {
-> +	cluster0_opp_table: opp-table-cluster0 {
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		opp-614400000 {
-> +			opp-hz = /bits/ 64 <614400000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-819000000 {
-> +			opp-hz = /bits/ 64 <819000000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1000000000 {
-> +			opp-hz = /bits/ 64 <1000000000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1228800000 {
-> +			opp-hz = /bits/ 64 <1228800000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1600000000 {
-> +			opp-hz = /bits/ 64 <1600000000>;
-> +			opp-microvolt = <1050000 1050000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +	};
-> +
-> +	cluster1_opp_table: opp-table-cluster1 {
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		opp-614400000 {
-> +			opp-hz = /bits/ 64 <614400000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-819000000 {
-> +			opp-hz = /bits/ 64 <819000000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1000000000 {
-> +			opp-hz = /bits/ 64 <1000000000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1228800000 {
-> +			opp-hz = /bits/ 64 <1228800000>;
-> +			opp-microvolt = <950000 950000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +
-> +		opp-1600000000 {
-> +			opp-hz = /bits/ 64 <1600000000>;
-> +			opp-microvolt = <1050000 1050000 1050000>;
-> +			clock-latency-ns = <200000>;
-> +		};
-> +	};
-> +};
-> +
-> +&cpu_0 {
-> +	operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_1 {
-> +	operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_2 {
-> +	operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_3 {
-> +	operating-points-v2 = <&cluster0_opp_table>;
-> +};
-> +
-> +&cpu_4 {
-> +	operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_5 {
-> +	operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_6 {
-> +	operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> +
-> +&cpu_7 {
-> +	operating-points-v2 = <&cluster1_opp_table>;
-> +};
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> index 529ec68e9c23..bdd109b81730 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-> @@ -54,6 +54,7 @@ cpu_0: cpu@0 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <0>;
-> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -84,6 +85,7 @@ cpu_1: cpu@1 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <1>;
-> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -114,6 +116,7 @@ cpu_2: cpu@2 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <2>;
-> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -144,6 +147,7 @@ cpu_3: cpu@3 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <3>;
-> +			clocks = <&syscon_apmu CLK_CPU_C0_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -174,6 +178,7 @@ cpu_4: cpu@4 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <4>;
-> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -204,6 +209,7 @@ cpu_5: cpu@5 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <5>;
-> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -234,6 +240,7 @@ cpu_6: cpu@6 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <6>;
-> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
-> @@ -264,6 +271,7 @@ cpu_7: cpu@7 {
->   			compatible = "spacemit,x60", "riscv";
->   			device_type = "cpu";
->   			reg = <7>;
-> +			clocks = <&syscon_apmu CLK_CPU_C1_CORE>;
->   			riscv,isa = "rv64imafdcbv_zicbom_zicbop_zicboz_zicntr_zicond_zicsr_zifencei_zihintpause_zihpm_zfh_zba_zbb_zbc_zbs_zkt_zvfh_zvkt_sscofpmf_sstc_svinval_svnapot_svpbmt";
->   			riscv,isa-base = "rv64i";
->   			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "b", "v", "zicbom",
+> This commit adds a pm_runtime_get_if_active() check in the
+> zynqmp_dma_irq_handler() to safely handle spurious interrupts. It
+> returns IRQ_NONE immediately if the device is not runtime-active,
+> preventing potential synchronous external aborts.
 > 
+>> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+>> index a9dfec3c0ca3d..ce9163138be74 100644
+>> --- a/drivers/dma/xilinx/zynqmp_dma.c
+>> +++ b/drivers/dma/xilinx/zynqmp_dma.c
+>> @@ -730,6 +730,9 @@ static irqreturn_t zynqmp_dma_irq_handler(int irq, void *data)
+>>   	u32 isr, imr, status;
+>>   	irqreturn_t ret = IRQ_NONE;
+>>   
+>> +	if (pm_runtime_get_if_active(chan->dev) <= 0)
+>> +		return IRQ_NONE;
+> 
+> [Severity: High]
+> When CONFIG_PM is disabled, the pm_runtime_get_if_active() inline stub
+> automatically returns -EINVAL. Does this check unconditionally drop valid
+> interrupts in non-PM configurations?
+> 
+> Because -EINVAL is less than or equal to 0, the handler might always return
+> IRQ_NONE. This could potentially lead to an unacknowledged interrupt storm
+> or the kernel permanently disabling the IRQ line.
+> 
+> [ ... ]
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but do the error paths in
+> zynqmp_dma_alloc_chan_resources() leak the runtime PM reference?
+> 
+> drivers/dma/xilinx/zynqmp_dma.c:zynqmp_dma_alloc_chan_resources() {
+>      ...
+>      chan->sw_desc_pool = kzalloc_objs(*desc, ZYNQMP_DMA_NUM_DESCS);
+>      if (!chan->sw_desc_pool)
+>          return -ENOMEM;
+>      ...
+>      if (!chan->desc_pool_v)
+>          return -ENOMEM;
+>      ...
+> }
+> 
+> If pm_runtime_resume_and_get() is called earlier, returning directly
+> on memory allocation failures without calling pm_runtime_put() will
+> leak the PM reference and previously allocated memory.
+> 
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does zynqmp_dma_synchronize() miss
+> a required IRQ serialization step?
+> 
+> drivers/dma/xilinx/zynqmp_dma.c:zynqmp_dma_synchronize() {
+>          struct zynqmp_dma_chan *chan = to_chan(dchan);
+> 
+>          tasklet_kill(&chan->tasklet);
+> }
+> 
+> If zynqmp_dma_irq_handler() is executing concurrently and gets preempted
+> just before calling tasklet_schedule(), tasklet_kill() might see no
+> scheduled tasklet and return immediately.
+> 
+> When the IRQ handler resumes and schedules the tasklet, could it execute
+> asynchronously after channel resources and PM references are freed,
+> potentially causing a synchronous external abort?
+> 
+> Would calling synchronize_irq() first resolve this?
+
+Hi,
+
+Thanks for catching, agreed and will fix in v3 along with other RCs from 
+the maintainers.
+
+Thanks,
+Nagendra>
 
